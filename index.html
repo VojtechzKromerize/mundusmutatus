@@ -2844,6 +2844,7 @@ document.querySelectorAll("[data-conf]").forEach(b=>b.addEventListener("click",(
  renderRodArticle=function(id){_rra(id);autolink(document.querySelector("#article .artmain"),"#rod/"+id)};
  renderPersonArticle=function(id){_rpa(id);autolink(document.querySelector("#article .artmain"),"#osoba/"+id)};}
 autolink(document.querySelector("#letopis dl"),"");
+{const _rd=renderDetail;renderDetail=function(){_rd.apply(this,arguments);const d=document.getElementById("detail");if(st.sel&&!d.classList.contains("empty"))autolink(d,st.city?"":"#rod/"+st.sel)};}
 select("pod");
 route();
 </script>
