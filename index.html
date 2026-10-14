@@ -2002,10 +2002,12 @@ const PEOPLE=[
  {id:"jaroslavlev",n:"Jaroslav Lev z Rožmitálu",r:"rzm",role:"hlava rodu, švagr krále",seat:"Blatná",x:"Zkušený dvořan a diplomat, bratr Johany, manželky Jiřího."},
  {id:"prokop",n:"Prokop z Rabštejna",r:"rab",role:"nejvyšší kancléř",seat:"Rabštejn nad Střelou",x:"Katolický humanista a přítel kardinála Piccolominiho, který vede diplomacii krále."},
  {id:"kostka",n:"Zdeněk Kostka z Postupic",r:"kos",role:"důvěrník krále",seat:"Litomyšl",x:"Nejbližší kališnický spojenec Jiřího."},
+ {id:"vaclavsmi",n:"Václav Smiřický ze Smiřic",r:"smi",role:"z rodu Smiřických",seat:"Smiřice",x:"Příslušník rodu Smiřických ze Smiřic, poznamenaného popravou Jana Smiřického roku 1453."},
  {id:"jindrichsmi",n:"Jindřich ze Smiřic",r:"smi",role:"syn popraveného Jana",seat:"Smiřice",x:"Mladý dědic bohatého rodu. Jeho otec Jan byl roku 1453 popraven pro obvinění ze zrady."},
  {id:"hanus2",n:"Hanuš II. z Kolovrat",r:"kol",role:"pán na Libštejně",seat:"Libštejn",x:"Zapřisáhlý katolík a jeden z předáků katolické šlechty na Plzeňsku."},
  {id:"bohuslavsva",n:"Bohuslav ze Švamberka",r:"sva",role:"pán na Boru a Švamberku",seat:"Bor",x:"Nástupce Hynka Krušiny ze Švamberka."},
  {id:"zajic",n:"Jan Zajíc z Hazmburka",r:"haz",role:"pán na Hazmburku",seat:"Hazmburk",x:"Katolický pán z Podřipska."},
+ {id:"mikulashaz",n:"Mikuláš Zajíc z Hazmburka",r:"haz",role:"pán na Budyni",seat:"Budyně",x:"Příslušník rodu Zajíců z Hazmburka, katolík z Podřipska."},
  {id:"mikulaslob",n:"Mikuláš II. Hasištejnský z Lobkovic",r:"lob",role:"pán na Hasištejně",seat:"Hasištejn",x:"Katolický pán z Kadaňska."},
  {id:"slik",n:"Matyáš Šlik",r:"sli",role:"zástavní pán Lokte",seat:"Loket",x:"Bratr zesnulého kancléře Kašpara Šlika."},
  {id:"janvar",n:"Jan z Vartenberka",r:"var",role:"pán na Děčíně",seat:"Děčín",x:"Usiluje o uprázdněný úřad hornolužického fojta."},
@@ -2744,7 +2746,7 @@ function renderRodArticle(id){
      ${f.nomap?"":`<button type="button" class="gbtn" data-showmap="${id}">Ukázat na mapě</button>`}
    </aside></div>`;
 }
-const PORTR=new Set(["jiri", "viktorin", "johana", "kostka", "jan2roz", "jaroslavlev", "jindrich4", "jindrichlipe", "zdenekst", "tovacovsky", "janper", "vanek"]);
+const PORTR=new Set(["jiri", "viktorin", "johana", "kostka", "jan2roz", "jaroslavlev", "jindrich4", "jindrichlipe", "zdenekst", "tovacovsky", "janper", "vanek", "vaclavsmi", "mikulashaz", "slik", "janvar", "hanus2", "boleslav5", "bohuslavsva", "premysl2", "tas"]);
 const pThumb=(p,cls)=>PORTR.has(p.id)?`<img class="${cls||"pthumb"}" src="art/portrety/${p.id}-m.webp" alt="" loading="lazy">`:"";
 function renderPersonArticle(pid){
   const p=PBY[pid],f=byId[p.r],art=document.getElementById("article");
