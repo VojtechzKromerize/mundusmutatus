@@ -1,10 +1,5 @@
-<!doctype html>
-<html lang="cs">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Rody Čech, Moravy, Slezska, Lužic a sousedních zemí k 3. březnu 1458: mapa držav, vyznání, vazby a spory.">
 <title>Mundus Mutatus</title>
+<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@500;700&family=Alegreya:ital,wght@0,400;0,600;0,700;1,400&family=Alegreya+Sans+SC:wght@500;700&display=swap">
 <style>
@@ -502,15 +497,6 @@ svg#map .seat,svg#map .partymk{cursor:url(art/kurzory/ruka.png) 0 1,pointer !imp
 svg#map.measuring .seat{cursor:url(art/kurzory/kruzidlo.png) 4 2,crosshair !important;cursor:-webkit-image-set(url(art/kurzory/kruzidlo.png) 1x,url(art/kurzory/kruzidlo@2x.png) 2x) 4 2,crosshair !important;cursor:image-set(url(art/kurzory/kruzidlo.png) 1x,url(art/kurzory/kruzidlo@2x.png) 2x) 4 2,crosshair !important}
 </style>
 
-<style>
-html{-webkit-text-size-adjust:100%}
-:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-body{margin:0}
-img{max-width:100%}
-[hidden]{display:none!important}
-</style>
-</head>
-<body>
 <div class="wrap">
 <header class="site">
   <a href="#mapa" class="logo"><h1><img src="art/img/logo.webp" alt="Mundus Mutatus" width="1200" height="391"></h1></a>
@@ -536,7 +522,8 @@ img{max-width:100%}
     <span><img class="legico" src="art/img/vira-mix.webp" alt="">smíšení / kolísající</span>
     <span><img class="legico townleg" src="art/img/mesto.webp" alt="">město (okraj dle vyznání)</span>
     <span><img class="legico townleg n-kat" src="art/img/hrad.webp" alt="">sídlo rodu (soused s tmavým lemem)</span>
-  </div>
+⟦    <span><b style="color:var(--gold)">✦</b> postava doplněná pro kampaň</span>
+⟧  </div>
 
   <div class="search">
     <input type="search" id="q" placeholder="Hledat rod, osobu nebo sídlo…" autocomplete="off" aria-label="Hledat rod, osobu nebo sídlo">
@@ -749,20 +736,20 @@ const FAM=[
  stance:"Katolíci bez výrazné opozice.",
  note:"Severozápadní Čechy u Kadaně."},
 {id:"var",land:"Čechy",name:"Vartenberkové",conf:"mix",
- head:"Jan z Vartenberka na Děčíně; Heník z Vartenberka na Ralsku",
+ head:"✦ Jan z Vartenberka na Děčíně; ✦ Heník z Vartenberka na Ralsku",
  seats:[["Děčín",14.21,50.78],["Ralsko",14.77,50.67]],
  stance:"Kolísají podle výhody.",
  note:"Jan by rád získal uprázdněný úřad hornolužického fojta a potřebuje k tomu královu přízeň. Bratranec Heník z Ralska mezitím přepadá lužické kupce a každou jeho fehdu Šestiměstí připíše celému rodu."},
 {id:"ber",land:"Čechy",name:"Berkové z Dubé",conf:"mix",
- head:"Hynek Berka z Dubé na Tolštejně; ostatní větve samostatně",
+ head:"✦ Hynek Berka z Dubé na Tolštejně; ostatní větve samostatně",
  seats:[["Tolštejn",14.58,50.87],["Jestřebí",14.62,50.62],["Dubá",14.54,50.54]],
  stance:"Větve stojí na různých stranách.",
  note:"Hohnštejn v Míšeňsku už prodali Wettinům. Tolštejn je trnem v oku Šestiměstí: Hynek žije z výpalného na kupcích ze Žitavy a s Vartenberky si v lese nepřekáží."},
 {id:"ryz",land:"Čechy",name:"Švihovští z Rýzmberka",conf:"kat",
- head:"Břetislav Švihovský z Rýzmberka",
+ head:"✦ Břetislav Švihovský z Rýzmberka",
  seats:[["Velhartice",13.39,49.26]],
  stance:"Katolíci bez výrazné opozice; mlčenliví.",
- note:"Velhartice získali po smrti Oldřicha z Hradce (1453)."},
+ note:"Velhartice získali po smrti Oldřicha z Hradce (1453).⟦ V kraji se šeptá, že ve velhartické věži leží část královského pokladu z Karlštejna a že Břetislav ví víc, než říká.⟧"},
 {id:"sli",land:"Čechy",name:"Šlikové",conf:"kat",
  head:"Matyáš Šlik, bratr kancléře Kašpara († 1449)",
  seats:[["Loket",12.75,50.19]],
@@ -795,7 +782,7 @@ const FAM=[
  stance:"Nejvyšší maršálek, který stojí při zvoleném králi.",
  note:"Starobylý rod Ronovců, s Berky z Dubé sdílí erb se zkříženými ostrvemi. Úřad nejvyššího maršálka drží rod dědičně po generace a s ním i vrchní slovo ve věcech rytířské cti a soubojů."},
 {id:"lom",land:"Morava",name:"Páni z Lomnice",conf:"kal",
- head:"Hynek Meziříčský z Lomnice",
+ head:"✦ Hynek Meziříčský z Lomnice",
  seats:[["Velké Meziříčí",16.01,49.36]],
  stance:"Kališníci, stoupenci krále bez výhrad.",
  note:"Hynek je starý veterán husitských polí. Katolickým Němcům z Jihlavy nevěří a rád by je ke králově poslušnosti přivedl mečem."},
@@ -852,7 +839,7 @@ const FAM=[
  stance:"S uznáním krále otálí.",
  note:"Za husitských válek se Žitava a Zhořelec bránily husitům; nyní válčí se severočeskými lapky."},
 {id:"bib",land:"Lužice",name:"Páni z Bibrštejna",conf:"kat",
- head:"Oldřich z Bibrštejna na Frýdlantě",
+ head:"✦ Oldřich z Bibrštejna na Frýdlantě",
  seats:[["Frýdlant",15.08,50.92],["Žary",15.14,51.63],["Beeskow",14.25,52.17]],
  stance:"Katolík spjatý se Šestiměstím, ale potřebuje českého krále.",
  note:"Frýdlant leží v Čechách, Žary v Lužici. Proti braniborským choutkám na Žary a Beeskow může Oldřicha ochránit jen Praha, a tak spolkne i kališnického krále."},
@@ -894,12 +881,12 @@ const FAM=[
  head:"Jan z Lichtenštejna na Mikulově, manžel Perchty z Rožmberka",
  seats:[["Mikulov (Morava)",16.64,48.81],["Valtice",16.75,48.74]],
  stance:"Díky Mikulovu patří i k moravským stavům.",
- note:"Jan sedí obkročmo na hranici: v Mikulově je moravským pánem, ve Vídni rakouským. Od roku 1449 je ženatý s Perchtou, dcerou Oldřicha II. z Rožmberka. Manželství je nešťastné a spor o nevyplacené věno je veřejným tajemstvím."},
+ note:"Jan sedí obkročmo na hranici: v Mikulově je moravským pánem, ve Vídni rakouským. Od roku 1449 je ženatý s Perchtou, dcerou Oldřicha II. z Rožmberka. ⟦Manželství je nešťastné, Lichtenštejnové jí vyčítají nevyplacené věno a Perchta si v dopisech domů stěžuje na ponižování.¦Manželství je nešťastné a spor o nevyplacené věno je veřejným tajemstvím.⟧"},
 {id:"kra",land:"Rakousy",nbr:true,name:"Krajířové z Krajku",conf:"kat",
- head:"Konrád Krajíř z Krajku, starý válečník",
+ head:"✦ Konrád Krajíř z Krajku, starý válečník",
  seats:[["Landštejn",15.23,48.97]],
  stance:"Katolíci z jihočeského pomezí.",
- note:"Landštejn hlídá cestu z Rakous do Čech. Konrád za válek zbohatl na mýtu od všech stran."},
+ note:"Landštejn hlídá cestu z Rakous do Čech. Konrád za válek zbohatl na mýtu od všech stran⟦ a teď na hradě ukrývá uprchlíky z vídeňských bojů o Ladislavovo dědictví. Každý z nich něco ví.¦.⟧"},
 {id:"wit",land:"Bavory",nbr:true,name:"Wittelsbachové",conf:"kat",
  head:"Ludvík IX. Bohatý (Landshut), Albrecht III. (Mnichov), Ota I. (Neumarkt v Horní Falci)",
  seats:[["Landshut",12.15,48.54],["Mnichov",11.58,48.14],["Neumarkt",11.46,49.28]],
@@ -916,7 +903,7 @@ const FAM=[
  stance:"Fojtský rod, zároveň mezi českou šlechtou.",
  note:"Na pomezí Čech a Saska, ve sporu s Wettiny o míšeňské purkrabství."},
 {id:"sch",land:"Sasko",nbr:true,name:"Páni ze Šumburka",conf:"kat",
- head:"Vít ze Šumburka na Glauchau",
+ head:"✦ Vít ze Šumburka na Glauchau",
  seats:[["Glauchau",12.54,50.82],["Waldenburg",12.60,50.87]],
  stance:"Glauchau, Waldenburg a Lichtenstein drží jako léna české koruny.",
  note:"Česká léna dávají Vítovi hlas v Praze i místo u saského dvora. Hraje na obě strany a nevyjasněná hranice mezi Saskem a Korunou mu vyhovuje nejvíc."},
@@ -961,30 +948,30 @@ const FAM=[
  stance:"Léta bojoval s Jiskrou proti Hunyadiům; s novým králem začíná vyjednávat.",
  note:"Kastelán Oravy od roku 1441. Jeho posádka odolala i Jiskrovým obléháním, než se s ním spojil. Teď si chce od Matyáše vymoci Oravu a Liptov."},
 {id:"sgy",land:"Uhry",nbr:true,name:"Hrabata svatojiřská a pezinská",conf:"kat",
- head:"Hrabě Jiří Svatojiřský a Pezinský",
+ head:"✦ Hrabě Jiří Svatojiřský a Pezinský",
  seats:[["Pezinok",17.27,48.29],["Svätý Jur",17.21,48.25]],
  stance:"Pohraniční magnát kousek od Moravy, který čeká, kdo bude silnější.",
- note:"Malokarpatské víno z jeho vinic teče na stoly v Budíně, Vídni i Praze. Jiří udržuje dobré vztahy se všemi třemi dvory."},
+ note:"Malokarpatské víno z jeho vinic teče na stoly v Budíně, Vídni i Praze.⟦ Jiří posílá sudy s dopisy všem třem dvorům najednou a každému tvrdí, že je jeho nejvěrnějším sousedem.¦ Jiří udržuje dobré vztahy se všemi třemi dvory.⟧"},
 {id:"eiz",land:"Rakousy",nbr:true,name:"Eicingerové",conf:"kat",
  head:"Oldřich Eicinger z Eicingu",
  seats:[["Schrattenthal",15.90,48.70]],
  stance:"Jeden z vůdců stavovské vlády po Ladislavově smrti; ve sporu Habsburků drží s císařem.",
  note:"Byl prvním mužem u dvora Ladislava Pohrobka a kdysi spravoval i Znojmo. Albrecht VI. ho má za nepřítele a jde po něm."},
 {id:"puc",land:"Rakousy",nbr:true,name:"Puchheimové",conf:"kat",
- head:"Albero z Puchheimu",
+ head:"✦ Albero z Puchheimu",
  seats:[["Heidenreichstein",15.12,48.87]],
  stance:"Pohraniční rakouská šlechta, loajální především sama sobě.",
- note:"Vodní hrad Heidenreichstein leží pár hodin jízdy od Jindřichova Hradce a Nových Hradů."},
+ note:"Vodní hrad Heidenreichstein leží pár hodin jízdy od Jindřichova Hradce a Nových Hradů.⟦ Po zajetí Oldřicha Eicingera na něm našla útočiště část jeho rodiny a Albero zvažuje, komu ji za jakou cenu vydat.⟧"},
 {id:"mai",land:"Rakousy",nbr:true,name:"Maidburgové z Hardeggu",conf:"kat",
- head:"Michal z Maidburku, hrabě z Hardeggu",
+ head:"✦ Michal z Maidburku, hrabě z Hardeggu",
  seats:[["Hardegg",15.86,48.85]],
  stance:"Sousedé Znojemska na hraniční Dyji.",
  note:"Hrabství Hardegg leží přímo na moravsko-rakouské hranici naproti Vranovu. Michalovi lidé vybírají clo u dyjských brodů a přepadají znojemské vinaře. Katolické Znojmo, které se krále zdráhá uznat, ho přitom potřebuje, aby zjednal pořádek."},
 {id:"sbg",land:"Rakousy",nbr:true,name:"Hrabata ze Schaunberku",conf:"kat",
- head:"Hrabě Bernhard ze Schaunberku",
+ head:"✦ Hrabě Bernhard ze Schaunberku",
  seats:[["Eferding",14.02,48.31]],
  stance:"Nejmocnější hornorakouský rod; Rožmberkům přes Šumavu soused.",
- note:"Schaunberkové úzkostlivě hlídají svou nezávislost na Habsburcích. Bezvládí v Rakousích jim otevírá nové možnosti."},
+ note:"Schaunberkové úzkostlivě hlídají svou nezávislost na Habsburcích.⟦ Bernhard vidí v Albrechtovi VI. příležitost vymanit se z císařovy ruky a nabízí mu Horní Rakousy.¦ Bezvládí v Rakousích jim otevírá nové možnosti.⟧"},
 {id:"pas",land:"Bavory",nbr:true,name:"Biskupství pasovské",conf:"kat",
  head:"Biskup Oldřich z Nussdorfu",
  seats:[["Pasov",13.46,48.57]],
@@ -996,20 +983,20 @@ const FAM=[
  stance:"Duchovní pán Chebska.",
  note:"Do řezenské diecéze patří i Chebsko; biskup je tak duchovním pánem jediného českého území mimo pražskou arcidiecézi."},
 {id:"leu",land:"Bavory",nbr:true,name:"Lankrabata z Leuchtenberka",conf:"kat",
- head:"Lankrabě Ludvík z Leuchtenberka",
+ head:"✦ Lankrabě Ludvík z Leuchtenberka",
  seats:[["Leuchtenberg",12.26,49.60],["Pfreimd",12.18,49.49]],
  stance:"Pohraniční páni naproti Tachovsku a Chebsku.",
- note:"Starý říšský rod, zadlužený a sevřený mezi Wittelsbachy a Českou korunou."},
+ note:"Starý říšský rod, zadlužený a sevřený mezi Wittelsbachy a Českou korunou.⟦ Ludvík tiše nabízí lenní svrchovanost nad svými statky tomu, kdo zaplatí jeho dluhy: Ludvíku Bohatému, Albrechtu Achillovi, nebo novému českému králi.⟧"},
 {id:"mei",land:"Sasko",nbr:true,name:"Biskupství míšeňské",conf:"kat",
  head:"Biskup Kašpar ze Schönbergu",
  seats:[["Stolpen",14.08,51.05]],
  stance:"Diecéze zasahuje do Horní Lužice.",
  note:"Budyšínská kapitula a Šestiměstí spadají pod míšeňského biskupa, který tak má slovo v lužické nechuti ke kališnickému králi."},
 {id:"reu",land:"Sasko",nbr:true,name:"Reussové",conf:"kat",
- head:"Jindřich z Gery (v rodě se všichni muži jmenují Jindřich)",
+ head:"✦ Jindřich z Gery (v rodě se všichni muži jmenují Jindřich)",
  seats:[["Gera",12.08,50.88],["Greiz",12.20,50.66]],
  stance:"Lavírují mezi Wettiny a Českou korunou.",
- note:"Fojtský rod příbuzný pánům z Plavna, s državami ve východním Durynsku. Protože se každý Reuss jmenuje Jindřich, pletou se listiny, dluhy i sliby."},
+ note:"Fojtský rod příbuzný pánům z Plavna, s državami ve východním Durynsku. Protože se každý Reuss jmenuje Jindřich, pletou se listiny, dluhy i sliby⟦, a Jindřich z Gery toho umí obratně využít.¦.⟧"},
 {id:"rmi",land:"Říšská města",nbr:true,city:true,name:"Svobodná říšská města",conf:"kat",
  head:"Městské rady, podřízené přímo císaři",
  seats:[["Norimberk",11.08,49.45],["Řezno",12.10,49.02],["Erfurt",11.03,50.98]],
@@ -1066,7 +1053,7 @@ const REL=[
  {t:"rod",ids:["pod","hun"],x:"Kateřina z Poděbrad je zasnoubena s Matyášem Korvínem jako cena za jeho propuštění z Prahy."},
  {t:"rod",ids:["roz","bvr"],x:"Biskup Jošt II. vratislavský je bratr vladaře Jana II. z Rožmberka a syn Oldřicha II."},
  {t:"rod",ids:["roz","hra"],x:"Oba rody vyšly z Vítkovců a opakovaně se spojovaly sňatky."},
- {t:"rod",ids:["roz","lie"],x:"Perchta z Rožmberka, dcera Oldřicha II., je od roku 1449 manželkou Jana z Lichtenštejna. Nešťastné manželství a spor o věno kalí vztahy obou rodů."},
+ {t:"rod",ids:["roz","lie"],x:"Perchta z Rožmberka, dcera Oldřicha II., je od roku 1449 manželkou Jana z Lichtenštejna. ⟦Spor o věno a její stížné dopisy otcovi a bratrům kalí vztahy obou rodů.¦Nešťastné manželství a spor o věno kalí vztahy obou rodů.⟧"},
  {t:"rod",ids:["lip","ber"],x:"Páni z Lipé a Berkové z Dubé jsou větve starého rodu Ronovců a nesou stejný erb se zkříženými ostrvemi."},
  {t:"spoj",ids:["lip","pod"],x:"Jindřich z Lipé jako nejvyšší maršálek stojí při zvoleném králi."},
  {t:"rod",ids:["bos","bis"],x:"Biskup Tas je synovec Vaňka mladšího, nejstarší syn jeho bratra Beneše Černohorského z Boskovic."},
@@ -1100,10 +1087,15 @@ const REL=[
  {t:"rod",ids:["wit","rez"],x:"Řezenský biskup Ruprecht je syn Oty I. Neumarktského."},
  {t:"spoj",ids:["kom","jis"],x:"Petr Komorovský léta bojoval po boku Jiskry, ale s Matyášem už vyjednává o Oravu a Liptov."},
  {t:"spoj",ids:["mei","ses"],x:"Budyšínská kapitula a lužická města spadají pod míšeňského biskupa."},
- {t:"spor",ids:["mai","mes"],x:"Hardegští přepadají znojemské vinaře; Znojmo potřebuje krále, kterého se zdráhá uznat."},
- {t:"rod",ids:["pla","reu"],x:"Reussové a páni z Plavna jsou větve téhož fojtského rodu."},
- {t:"spor",ids:["puc","kra"],x:"Puchheimové a Krajířové se léta přou o pohraniční lesy a pastviny a každý tvrdí, že jde o zemskou hranici."},
- {t:"rod",ids:["szm","opa"],x:"Markéta ze Šamotul, vdova po Václavovi II. Ratibořském, vládne v Ratiboři za nezletilé děti."},
+⟦ {t:"spoj",ids:["puc","eiz"],x:"Na Heidenreichsteinu se skrývá část rodiny zajatého Eicingera."},
+⟧ {t:"spor",ids:["mai","mes"],x:"Hardegští přepadají znojemské vinaře; Znojmo potřebuje krále, kterého se zdráhá uznat."},
+⟦ {t:"spoj",ids:["sbg","hab"],x:"Bernhard ze Schaunberku nabízí podporu Albrechtovi VI. proti císaři."},
+⟧ {t:"rod",ids:["pla","reu"],x:"Reussové a páni z Plavna jsou větve téhož fojtského rodu."},
+⟦ {t:"spor",ids:["reu","pla"],x:"Jindřich z Gery se tajně sbližuje s Wettiny proti plavenským příbuzným a doufá, že po jejich pádu zdědí jejich práva."},
+⟧ {t:"spor",ids:["puc","kra"],x:"Puchheimové a Krajířové se léta přou o pohraniční lesy a pastviny a každý tvrdí, že jde o zemskou hranici."},
+⟦ {t:"spor",ids:["mai","eiz"],x:"Za Eicingerovým zajetím prý stáli i lidé hraběte z Hardeggu."},
+⟧⟦ {t:"spoj",ids:["sbg","roz"],x:"Bernhard ze Schaunberku hledá spojence i za Šumavou, v Krumlově."},
+⟧ {t:"rod",ids:["szm","opa"],x:"Markéta ze Šamotul, vdova po Václavovi II. Ratibořském, vládne v Ratiboři za nezletilé děti."},
  {t:"spoj",ids:["tec","jag"],x:"Tęczyńští patří k nejbližšímu okolí krále Kazimíra."},
  {t:"spor",ids:["bkr","pod"],x:"Krakovská kapitula, vychovaná kardinálem Oleśnickým, považuje kališnického krále za kacíře."},
  {t:"spor",ids:["rmi","fra"],x:"Norimberk a Albrecht Achilles spolu nedávno válčili (1449–1450) a nedůvěra trvá."},
@@ -2030,17 +2022,17 @@ const PEOPLE=[
  {id:"mikulashaz",n:"Mikuláš Zajíc z Hazmburka",r:"haz",role:"hlava rodu, pán na Budyni",seat:"Budyně",x:"Hlava rodu Zajíců z Hazmburka a katolický pán z Podřipska."},
  {id:"mikulaslob",n:"Mikuláš II. Hasištejnský z Lobkovic",r:"lob",role:"pán na Hasištejně",seat:"Hasištejn",x:"Katolický pán z Kadaňska."},
  {id:"slik",n:"Matyáš Šlik",r:"sli",role:"zástavní pán Lokte",seat:"Loket",x:"Bratr zesnulého kancléře Kašpara Šlika."},
- {id:"janvar",n:"Jan z Vartenberka",r:"var",role:"pán na Děčíně",seat:"Děčín",x:"Usiluje o uprázdněný úřad hornolužického fojta."},
- {id:"henik",n:"Heník z Vartenberka",r:"var",role:"pán na Ralsku",seat:"Ralsko",x:"Bratranec Jana, s lužickým Šestiměstím ve fehdách."},
- {id:"hynekberka",n:"Hynek Berka z Dubé",r:"ber",role:"pán na Tolštejně",seat:"Tolštejn",x:"Postrach žitavských kupců."},
- {id:"bretislav",n:"Břetislav Švihovský z Rýzmberka",r:"ryz",role:"pán na Velharticích",seat:"Velhartice",x:"Mlčenlivý pán Velhartic."},
+ {id:"janvar",n:"✦ Jan z Vartenberka",r:"var",role:"pán na Děčíně",seat:"Děčín",x:"Usiluje o uprázdněný úřad hornolužického fojta."},
+ {id:"henik",n:"✦ Heník z Vartenberka",r:"var",role:"pán na Ralsku",seat:"Ralsko",x:"Bratranec Jana, s lužickým Šestiměstím ve fehdách."},
+ {id:"hynekberka",n:"✦ Hynek Berka z Dubé",r:"ber",role:"pán na Tolštejně",seat:"Tolštejn",x:"Postrach žitavských kupců."},
+ {id:"bretislav",n:"✦ Břetislav Švihovský z Rýzmberka",r:"ryz",role:"pán na Velharticích",seat:"Velhartice",x:"Mlčenlivý pán Velhartic."},
  {id:"janper",n:"Jan II. z Pernštejna",r:"per",role:"pán na Pernštejně",seat:"Pernštejn",x:"Kališník a opora krále na Moravě; otec Viléma."},
  {id:"jindrichlipe",n:"Jindřich z Lipé",r:"lip",role:"nejvyšší maršálek",seat:"Moravský Krumlov",x:"Hlava pánů z Lipé a nejvyšší maršálek Království českého od roku 1451, strážce rytířské cti a řádu soubojů."},
  {id:"tovacovsky",n:"Jan Tovačovský z Cimburka",r:"cim",role:"moravský zemský hejtman",seat:"Tovačov",x:"Horlivý kališník, zemským hejtmanem od roku 1440."},
  {id:"tempelfeld",n:"Mikuláš Tempelfeld",r:"vra",role:"kazatel vratislavský",seat:"Vratislav",x:"Kanovník a kazatel ve Vratislavi. Z kazatelny burcuje měšťany proti „kacířskému“ králi Jiřímu a žádá, aby mu Vratislav nikdy neholdovala."},
  {id:"tas",n:"Tas z Boskovic",r:"bis",role:"zvolený biskup olomoucký",seat:"Kroměříž",x:"Sotva třicetiletý humanista, odchovanec Vídně a Padovy, zvolený roku 1457."},
  {id:"vanek",n:"Vaněk mladší Černohorský z Boskovic",r:"bos",role:"nejvyšší komorník moravského zemského soudu",seat:"Černá Hora",x:"Strýc biskupa Tase a věrný dvořan zesnulého Ladislava Pohrobka."},
- {id:"hynekmez",n:"Hynek Meziříčský z Lomnice",r:"lom",role:"pán na Meziříčí",seat:"Velké Meziříčí",x:"Starý veterán husitských polí."},
+ {id:"hynekmez",n:"✦ Hynek Meziříčský z Lomnice",r:"lom",role:"pán na Meziříčí",seat:"Velké Meziříčí",x:"Starý veterán husitských polí."},
  {id:"boleslav5",n:"Boleslav V. Opolský",r:"opo",role:"kníže opolský",seat:"Opolí",x:"Zvaný Husita; sympatizuje s kalichem a koupil dvě třetiny Opavska."},
  {id:"arnost",n:"Arnošt Opavský",r:"opa",role:"poručník synů Viléma Opavského",seat:"Opava",x:"Prodal dvě třetiny Opavska Boleslavovi Opolskému a Minsterberk Jiřímu."},
  {id:"jan4krn",n:"Jan IV. Krnovský",r:"opa",role:"kníže krnovský",seat:"Krnov",x:"Vládne v Krnově od roku 1452."},
@@ -2051,22 +2043,22 @@ const PEOPLE=[
  {id:"fridrichleg",n:"Fridrich I. Lehnický",r:"leg",role:"nezletilý kníže lehnický",seat:"Lehnice",x:"Asi dvanáctiletý; za něj vládne matka Hedvika."},
  {id:"konrad9",n:"Konrád IX. Černý",r:"ole",role:"kníže olešnický",seat:"Olešnice",x:"Vládne Olešnicku spolu s bratrem Konrádem X. Bílým."},
  {id:"konrad10",n:"Konrád X. Bílý",r:"ole",role:"kníže olešnický",seat:"Olešnice",x:"Spoluvládce svého bratra Konráda IX."},
- {id:"oldrichbib",n:"Oldřich z Bibrštejna",r:"bib",role:"pán na Frýdlantě",seat:"Frýdlant",x:"Katolík spjatý se Šestiměstím, který proti Braniborsku potřebuje českého krále."},
+ {id:"oldrichbib",n:"✦ Oldřich z Bibrštejna",r:"bib",role:"pán na Frýdlantě",seat:"Frýdlant",x:"Katolík spjatý se Šestiměstím, který proti Braniborsku potřebuje českého krále."},
  {id:"fridrich3",n:"Fridrich III. Habsburský",r:"hab",role:"římský císař",seat:"Vídeňské Nové Město",x:"Drží uherskou svatou korunu a přou se s bratrem o rakouské dědictví po Ladislavovi."},
  {id:"albrecht6",n:"Albrecht VI. Habsburský",r:"hab",role:"bratr císaře",seat:"Vídeň",x:"Uchází se o rakouské dědictví po Ladislavovi Pohrobkovi."},
  {id:"eicinger",n:"Oldřich Eicinger z Eicingu",r:"eiz",role:"vůdce dolnorakouských stavů",seat:"Schrattenthal",x:"Byl prvním mužem u dvora Ladislava Pohrobka. Ve sporu Habsburků drží s císařem a Albrecht VI. jde po něm."},
  {id:"janlie",n:"Jan z Lichtenštejna",r:"lie",role:"pán na Mikulově",seat:"Mikulov (Morava)",x:"Moravský i rakouský pán, manžel Perchty z Rožmberka."},
- {id:"krajir",n:"Konrád Krajíř z Krajku",r:"kra",role:"pán na Landštejně",seat:"Landštejn",x:"Starý válečník, který zbohatl na mýtu na česko-rakouské hranici."},
- {id:"albero",n:"Albero z Puchheimu",r:"puc",role:"pán na Heidenreichsteinu",seat:"Heidenreichstein",x:"Rakouský pán z pomezí, loajální především sám sobě."},
- {id:"michalhard",n:"Michal z Maidburku",r:"mai",role:"hrabě z Hardeggu",seat:"Hardegg",x:"Jeho lidé vybírají clo u dyjských brodů."},
- {id:"bernhard",n:"Bernhard ze Schaunberku",r:"sbg",role:"hrabě ze Schaunberku",seat:"Eferding",x:"Hornorakouský magnát, který hlídá svou nezávislost na Habsburcích."},
+ {id:"krajir",n:"✦ Konrád Krajíř z Krajku",r:"kra",role:"pán na Landštejně",seat:"Landštejn",x:"Starý válečník, který zbohatl na mýtu na česko-rakouské hranici."},
+ {id:"albero",n:"✦ Albero z Puchheimu",r:"puc",role:"pán na Heidenreichsteinu",seat:"Heidenreichstein",x:"Rakouský pán z pomezí, loajální především sám sobě."},
+ {id:"michalhard",n:"✦ Michal z Maidburku",r:"mai",role:"hrabě z Hardeggu",seat:"Hardegg",x:"Jeho lidé vybírají clo u dyjských brodů."},
+ {id:"bernhard",n:"✦ Bernhard ze Schaunberku",r:"sbg",role:"hrabě ze Schaunberku",seat:"Eferding",x:"Hornorakouský magnát, který hlídá svou nezávislost na Habsburcích."},
  {id:"matyas",n:"Matyáš Korvín",r:"hun",role:"zvolený uherský král",seat:"Budín",x:"Patnáctiletý syn Jana Hunyadiho, zvolen 24. ledna 1458. Byl v Praze rukojmím Jiřího a je zasnouben s Kateřinou z Poděbrad."},
  {id:"silagyi",n:"Michal Silágyi",r:"hun",role:"regent Uher, strýc Matyáše",seat:"Budín",x:"Vládne za mladého krále."},
  {id:"jiskra",n:"Jan Jiskra z Brandýsa",r:"jis",role:"hejtman Horních Uher",seat:"Zvolen",x:"Český žoldnéřský vůdce, který s bratříky drží hrady a hornická města; Matyášovi nepřátelský."},
  {id:"komorovsky",n:"Petr Komorovský",r:"kom",role:"pán Oravy",seat:"Oravský hrad",x:"Polský šlechtic, kastelán Oravy od roku 1441, který léta bojoval po boku Jiskry."},
  {id:"salanki",n:"Augustin Salánki",r:"esz",role:"biskup rábský",x:"Uherský prelát a biskup v Rábu (Győru). Má Jiřího korunovat, neboť pražský arcibiskupský stolec je prázdný a Rokycanu Řím neuznává; uherští biskupové tak mohou korunovaci dát církevní platnost."},
  {id:"szechy",n:"Dionýz Széchy",r:"esz",role:"arcibiskup ostřihomský a kardinál",seat:"Ostřihom",x:"Primas Uher, jemuž přísluší korunovat uherské krále."},
- {id:"jirisvj",n:"Jiří Svatojiřský a Pezinský",r:"sgy",role:"hrabě",seat:"Pezinok",x:"Pán malokarpatských vinic."},
+ {id:"jirisvj",n:"✦ Jiří Svatojiřský a Pezinský",r:"sgy",role:"hrabě",seat:"Pezinok",x:"Pán malokarpatských vinic."},
  {id:"kazimir",n:"Kazimír IV. Jagellonský",r:"jag",role:"polský král",seat:"Krakov",x:"Manžel Alžběty, sestry Ladislava Pohrobka, přes kterou si dělá nárok na českou korunu. Válčí s Řádem německých rytířů."},
  {id:"strzepinski",n:"Tomasz Strzępiński",r:"bkr",role:"biskup krakovský",seat:"Krakov (Wawel)",x:"Nástupce kardinála Oleśnického na krakovském stolci."},
  {id:"sprowski",n:"Jan Sprowski",r:"gni",role:"arcibiskup hnězdenský, primas Polska",seat:"Hnězdno",x:"Metropolita i pro vratislavskou diecézi."},
@@ -2076,8 +2068,8 @@ const PEOPLE=[
  {id:"fridrich2wet",n:"Fridrich II. Dobrotivý",r:"wet",role:"saský kurfiřt",seat:"Míšeň",x:"Hlava rodu Wettinů."},
  {id:"vilem3",n:"Vilém III. Saský",r:"wet",role:"durynský lantkrabě",seat:"Výmar",x:"Manžel Anny, sestry Ladislava Pohrobka; dělá si nárok na český trůn."},
  {id:"plavno",n:"Jindřich II. z Plavna",r:"pla",role:"purkrabí míšeňský",seat:"Plavno",x:"Vede s Wettiny vleklý spor o míšeňské purkrabství."},
- {id:"jindrichgera",n:"Jindřich z Gery",r:"reu",role:"fojt z Gery",seat:"Gera",x:"Jako všichni muži rodu Reussů nese jméno Jindřich."},
- {id:"vit",n:"Vít ze Šumburka",r:"sch",role:"pán na Glauchau",seat:"Glauchau",x:"Drží svá panství jako léna české koruny."},
+ {id:"jindrichgera",n:"✦ Jindřich z Gery",r:"reu",role:"fojt z Gery",seat:"Gera",x:"Jako všichni muži rodu Reussů nese jméno Jindřich."},
+ {id:"vit",n:"✦ Vít ze Šumburka",r:"sch",role:"pán na Glauchau",seat:"Glauchau",x:"Drží svá panství jako léna české koruny."},
  {id:"kasparmei",n:"Kašpar ze Schönbergu",r:"mei",role:"biskup míšeňský",seat:"Stolpen",x:"Pod jeho diecézi spadají obě Lužice."},
  {id:"fridrich2bra",n:"Fridrich II. Železný",r:"bra",role:"braniborský kurfiřt",seat:"Berlín-Cölln",x:"Drží velkou část Dolní Lužice."},
  {id:"achilles",n:"Albrecht Achilles",r:"fra",role:"markrabě ansbašský a kulmbašský",seat:"Plassenburg",x:"Bratr braniborského kurfiřta, ctižádostivý a válečný soupeř Ludvíka Bohatého i Norimberka."},
@@ -2086,7 +2078,7 @@ const PEOPLE=[
  {id:"ota1",n:"Ota I. Falcký",r:"wit",role:"falckrabě v Neumarktu",seat:"Neumarkt",x:"Pán Horní Falce, otec řezenského biskupa Ruprechta."},
  {id:"ruprecht",n:"Ruprecht Falcký",r:"rez",role:"biskup řezenský",seat:"Řezno",x:"Syn Oty I. Neumarktského; pod jeho diecézi patří i Chebsko."},
  {id:"nussdorf",n:"Oldřich z Nussdorfu",r:"pas",role:"biskup pasovský",seat:"Pasov",x:"Pod jeho diecézi spadají obě Rakousy včetně Vídně."},
- {id:"ludvikleu",n:"Ludvík z Leuchtenberka",r:"leu",role:"lankrabě",seat:"Leuchtenberg",x:"Zadlužený pán Horní Falce."},
+ {id:"ludvikleu",n:"✦ Ludvík z Leuchtenberka",r:"leu",role:"lankrabě",seat:"Leuchtenberg",x:"Zadlužený pán Horní Falce."},
  {id:"kalixt",n:"Kalixt III.",r:"pap",role:"papež",x:"Hlava katolické církve, na kališnického krále hledí s nedůvěrou."},
  {id:"piccolomini",n:"Eneáš Silvius Piccolomini",r:"pap",role:"kardinál",x:"Humanista a znalec českých poměrů, autor spisu o Češích. Roku 1451 navštívil Tábor."}
 ];
@@ -2556,7 +2548,7 @@ function renderArtikule(b,c){
     ties:[["ste","slouží u Zdeňka ze Šternberka"]],   // [id rodu, popis]
     x:"<p>Krátký příběh postavy.</p>"}
 */
-var PARTY=[];
+var PARTY=/*@PARTY@*/[];
 const PARTY_SLOTS=5;
 const PFAITH={kal:"kališník",kat:"katolík",old:"starověrec"};
 const pFaith=c=>c==="old"?`<span class="faith f-old"><img src="art/strom.webp" alt="" aria-hidden="true">starověrec</span>`:(FICON[c]?`<span class="faith f-${c}"><img src="${FICON[c]}" alt="" aria-hidden="true">${PFAITH[c]}</span>`:"");
@@ -2596,15 +2588,10 @@ function renderDruzina(b){
 /* --- KRONIKA TAŽENÍ ---
    Každé sezení = jeden zápis. route = místa, kudy družina prošla (v pořadí), place = kde zápis končí.
    Poslední zápis určuje, kde na mapě stojí praporec družiny. */
-var ZAPISY=[
- {id:"prolog",n:"Prolog",date:"3. března 1458",place:"Praha",route:["Praha"],title:"Den po volbě",
-  text:`<p>Praha je přeplněná. Včera, 2. března, se stavové na Staroměstské radnici shodli na novém králi: stal se jím Jiří z Poděbrad, dosavadní zemský správce a kališník, jemuž katolíci nevěří a Vratislav ho odmítá uznat.</p>
-  <p>Na Staroměstském náměstí se pije na zdraví krále, v Týnském chrámu káže Jan Rokycana a po krčmách se šeptá, kdo z pánů při volbě mlčel. Ladislav Pohrobek leží od listopadu v hrobě, korunovace teprve čeká a celá Koruna – Morava, Slezsko i obě Lužice – sleduje Prahu s nedůvěrou.</p>
-  <p><i>Zde začíná vaše tažení.</i></p>`}
-];
+var ZAPISY=/*@ZAPISY@*/[];
 /* Objevená místa (zobrazí se na mapě ve vrstvě Družina):
    {name:"Zbořená kaple u Berouna", lo:14.07, la:49.96, note:"…", z:"prolog"} */
-var DISC=[];
+var DISC=/*@MISTA@*/[];
 var ZBY=Object.fromEntries(ZAPISY.map(z=>[z.id,z]));
 function renderKronika(b){
   const sub=b==="clanky"?"clanky":b==="letopis"?"letopis":"zapisy";
@@ -2657,7 +2644,7 @@ function drawParty(svg,s,k){
 /* --- AUTOMATICKÉ ODKAZY --- */
 const AL=(()=>{
   const terms=new Map(),esc=s=>s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
-  const add=(t,v)=>{t=t.replace(/^\s*/,"").trim();if(t.length<4||terms.has(t))return;terms.set(t,v)};
+  const add=(t,v)=>{t=t.replace(/^✦\s*/,"").trim();if(t.length<4||terms.has(t))return;terms.set(t,v)};
   const PAL={"Jiří z Poděbrad":["Jiřího z Poděbrad","Jiřímu z Poděbrad","Jiřím z Poděbrad","krále Jiřího","král Jiří","králi Jiřímu"],
     "Jan Rokycana":["Jana Rokycanu","Janem Rokycanou","Rokycana","Rokycanou","Rokycanovi"],
     "Matyáš Korvín":["Matyáše Korvína","Matyášem Korvínem","Matyáši Korvínovi"],
@@ -2669,7 +2656,7 @@ const AL=(()=>{
     "Kazimír IV. Jagellonský":["Kazimír IV.","Kazimíra IV."],
     "Eneáš Silvius Piccolomini":["Piccolomini","Piccolominiho"],
     "Tas z Boskovic":["Tase z Boskovic","Tasem z Boskovic"]};
-  PEOPLE.forEach(p=>{const n=p.n.replace(/^\s*/,"");add(n,{h:"#osoba/"+p.id});(PAL[n]||[]).forEach(a=>add(a,{h:"#osoba/"+p.id}))});
+  PEOPLE.forEach(p=>{const n=p.n.replace(/^✦\s*/,"");add(n,{h:"#osoba/"+p.id});(PAL[n]||[]).forEach(a=>add(a,{h:"#osoba/"+p.id}))});
   const hForms=s=>/ové$/.test(s)?[s,s.slice(0,-3)+"ů",s.slice(0,-3)+"ům",s.slice(0,-3)+"y"]:/ští$/.test(s)?[s,s.slice(0,-3)+"ských",s.slice(0,-3)+"ským"]:/čtí$/.test(s)?[s,s.slice(0,-3)+"ckých",s.slice(0,-3)+"ckým"]:/onci$/.test(s)?[s,s.slice(0,-2)+"ců",s.slice(0,-2)+"cům"]:[];
   FAM.forEach(f=>{add(f.name,{h:"#rod/"+f.id});hForms(SHORT[f.id]||"").forEach(x=>add(x,{h:"#rod/"+f.id}))});
   const CAL={"Praha":["Prahy","Praze","Prahu","Prahou"],"Plzeň":["Plzně","Plzni"],"Kutná Hora":["Kutné Hory","Kutné Hoře","Kutnou Horu"],"Vratislav":["Vratislavi"],"Tábor":["Tábora","Táboře","Táborem"],
@@ -2704,7 +2691,7 @@ function autolink(root,self){
 const GIDX=[];
 (function(){
   FAM.forEach(f=>GIDX.push({k:"Rod",n:f.name,s:f.land,h:"#rod/"+f.id,t:norm(f.name+" "+(SHORT[f.id]||"")+" "+f.head),b:norm(f.note+" "+f.stance)}));
-  PEOPLE.forEach(p=>GIDX.push({k:"Osoba",n:p.n.replace(/^\s*/,""),s:p.role,h:"#osoba/"+p.id,t:norm(p.n+" "+p.role),b:norm(p.x)}));
+  PEOPLE.forEach(p=>GIDX.push({k:"Osoba",n:p.n.replace(/^✦\s*/,""),s:p.role,h:"#osoba/"+p.id,t:norm(p.n+" "+p.role),b:norm(p.x)}));
   const seen=new Set();FAM.forEach(f=>{if(f.nomap)return;f.seats.forEach(sd=>{if(seen.has(sd[0]))return;seen.add(sd[0]);const ci=(typeof CITYINFO!=="undefined"&&CITYINFO[sd[0]])||{};
     GIDX.push({k:f.city?"Město":"Sídlo",n:sd[0],s:f.name,place:[f.id,sd[0]],t:norm(sd[0]),b:norm(ci.n||"")})})});
   DUCHY.forEach(u=>GIDX.push({k:"Země",n:u.name,s:u.s,duchy:u.id,t:norm(u.name+" "+u.s),b:norm(u.note)}));
@@ -2766,7 +2753,7 @@ function renderRodArticle(id){
      <dt>Země</dt><dd>${f.land}</dd>
      ${f.seats.length?`<dt>${f.city?"Města":"Državy"}</dt><dd>${f.seats.map(sd=>maplinkBtn(f,sd)).join(", ")}</dd>`:""}
      ${ppl.length?`<dt>Osoby</dt><dd>${ppl.map(plinkP).join(", ")}</dd>`:""}</dl>
-     ${ppl.some(p=>PORTR.has(p.id))?`<div class="rodppl">${ppl.filter(p=>PORTR.has(p.id)).map(p=>`<a href="#osoba/${p.id}">${pThumb(p)}<span>${p.n.replace(/^\s*/,"")}</span></a>`).join("")}</div>`:""}
+     ${ppl.some(p=>PORTR.has(p.id))?`<div class="rodppl">${ppl.filter(p=>PORTR.has(p.id)).map(p=>`<a href="#osoba/${p.id}">${pThumb(p)}<span>${p.n.replace(/^✦\s*/,"")}</span></a>`).join("")}</div>`:""}
      ${f.nomap?"":`<button type="button" class="gbtn" data-showmap="${id}">Ukázat na mapě</button>`}
    </aside></div>`;
 }
@@ -2848,6 +2835,3 @@ autolink(document.querySelector("#letopis dl"),"");
 select("pod");
 route();
 </script>
-
-</body>
-</html>

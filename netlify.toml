@@ -1,0 +1,5 @@
+# Netlify sestaví hráčskou verzi do public/ a publikuje JEN tuto složku.
+# Zdroj (zdroj/koruna.html) obsahuje tajemství vypravěče – nikdy nesmí být publikován.
+[build]
+  command = "python3 zdroj/build.py"
+  publish = "public"
