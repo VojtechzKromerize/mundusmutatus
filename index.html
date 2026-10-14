@@ -2009,6 +2009,7 @@ const PEOPLE=[
  {id:"viktorin",n:"Viktorin z Poděbrad",r:"pod",role:"nejstarší syn Jiřího",seat:"Kladsko",x:"Asi patnáctiletý dědic, pro něhož otec drží Kladsko a Minsterberk."},
  {id:"katerina",n:"Kateřina z Poděbrad",r:"pod",role:"dcera Jiřího",seat:"Poděbrady",x:"Devítiletá dívka zasnoubená s Matyášem Korvínem jako záruka jeho propuštění z Prahy."},
  {id:"varnsdorf",n:"Hanuš z Varnsdorfu",r:"pod",role:"hejtman Kladska",seat:"Kladsko",x:"Spravuje Kladsko jménem Jiřího od roku 1454."},
+ {id:"chelcicky",n:"Petr Chelčický",r:"mes",role:"laický myslitel a spisovatel",x:"Stařec z jihočeských Chelčic, který odmítá násilí, válku i moc pánů a měst nad křesťany. Jeho spisy, zvláště Síť víry, inspirují bratry, kteří se usadili v Kunvaldu na litickém panství Jiřího."},
  {id:"rokycana",n:"Jan Rokycana",r:"mes",role:"zvolený arcibiskup kališníků",seat:"Praha",x:"Duchovní vůdce kališníků a kazatel v Týnském chrámu. Řím jeho volbu nikdy nepotvrdil."},
  {id:"jan2roz",n:"Jan II. z Rožmberka",r:"roz",role:"vladař rodu, hejtman Svídnicka-Javorska",seat:"Český Krumlov",x:"Hlava nejbohatšího rodu v zemi od roku 1457. Volbu Jiřího přijal, ale ostražitě."},
  {id:"oldrich2",n:"Oldřich II. z Rožmberka",r:"roz",role:"otec vladaře",seat:"Český Krumlov",x:"Stárnoucí vůdce katolické strany a dávný protivník Jiřího ze Strakonické jednoty. Pověstný mistr padělaných listin."},
@@ -2035,6 +2036,7 @@ const PEOPLE=[
  {id:"janper",n:"Jan II. z Pernštejna",r:"per",role:"pán na Pernštejně",seat:"Pernštejn",x:"Kališník a opora krále na Moravě; otec Viléma."},
  {id:"jindrichlipe",n:"Jindřich z Lipé",r:"lip",role:"nejvyšší maršálek",seat:"Moravský Krumlov",x:"Hlava pánů z Lipé a nejvyšší maršálek Království českého od roku 1451, strážce rytířské cti a řádu soubojů."},
  {id:"tovacovsky",n:"Jan Tovačovský z Cimburka",r:"cim",role:"moravský zemský hejtman",seat:"Tovačov",x:"Horlivý kališník, zemským hejtmanem od roku 1440."},
+ {id:"tempelfeld",n:"Mikuláš Tempelfeld",r:"vra",role:"kazatel vratislavský",seat:"Vratislav",x:"Kanovník a kazatel ve Vratislavi. Z kazatelny burcuje měšťany proti „kacířskému“ králi Jiřímu a žádá, aby mu Vratislav nikdy neholdovala."},
  {id:"tas",n:"Tas z Boskovic",r:"bis",role:"zvolený biskup olomoucký",seat:"Kroměříž",x:"Sotva třicetiletý humanista, odchovanec Vídně a Padovy, zvolený roku 1457."},
  {id:"vanek",n:"Vaněk mladší Černohorský z Boskovic",r:"bos",role:"nejvyšší komorník moravského zemského soudu",seat:"Černá Hora",x:"Strýc biskupa Tase a věrný dvořan zesnulého Ladislava Pohrobka."},
  {id:"hynekmez",n:"Hynek Meziříčský z Lomnice",r:"lom",role:"pán na Meziříčí",seat:"Velké Meziříčí",x:"Starý veterán husitských polí."},
@@ -2061,6 +2063,7 @@ const PEOPLE=[
  {id:"silagyi",n:"Michal Silágyi",r:"hun",role:"regent Uher, strýc Matyáše",seat:"Budín",x:"Vládne za mladého krále."},
  {id:"jiskra",n:"Jan Jiskra z Brandýsa",r:"jis",role:"hejtman Horních Uher",seat:"Zvolen",x:"Český žoldnéřský vůdce, který s bratříky drží hrady a hornická města; Matyášovi nepřátelský."},
  {id:"komorovsky",n:"Petr Komorovský",r:"kom",role:"pán Oravy",seat:"Oravský hrad",x:"Polský šlechtic, kastelán Oravy od roku 1441, který léta bojoval po boku Jiskry."},
+ {id:"salanki",n:"Augustin Salánki",r:"esz",role:"biskup rábský",x:"Uherský prelát a biskup v Rábu (Győru). Má Jiřího korunovat, neboť pražský arcibiskupský stolec je prázdný a Rokycanu Řím neuznává; uherští biskupové tak mohou korunovaci dát církevní platnost."},
  {id:"szechy",n:"Dionýz Széchy",r:"esz",role:"arcibiskup ostřihomský a kardinál",seat:"Ostřihom",x:"Primas Uher, jemuž přísluší korunovat uherské krále."},
  {id:"jirisvj",n:"Jiří Svatojiřský a Pezinský",r:"sgy",role:"hrabě",seat:"Pezinok",x:"Pán malokarpatských vinic."},
  {id:"kazimir",n:"Kazimír IV. Jagellonský",r:"jag",role:"polský král",seat:"Krakov",x:"Manžel Alžběty, sestry Ladislava Pohrobka, přes kterou si dělá nárok na českou korunu. Válčí s Řádem německých rytířů."},
@@ -2766,7 +2769,7 @@ function renderRodArticle(id){
      ${f.nomap?"":`<button type="button" class="gbtn" data-showmap="${id}">Ukázat na mapě</button>`}
    </aside></div>`;
 }
-const PORTR=new Set(["jiri", "viktorin", "johana", "kostka", "jan2roz", "jaroslavlev", "jindrich4", "jindrichlipe", "zdenekst", "tovacovsky", "janper", "vanek", "vaclavsmi", "mikulashaz", "slik", "janvar", "hanus2", "boleslav5", "bohuslavsva", "premysl2", "tas"]);
+const PORTR=new Set(["jiri", "viktorin", "johana", "kostka", "jan2roz", "jaroslavlev", "jindrich4", "jindrichlipe", "zdenekst", "tovacovsky", "janper", "vanek", "vaclavsmi", "mikulashaz", "slik", "janvar", "hanus2", "boleslav5", "bohuslavsva", "premysl2", "tas", "jiskra", "salanki", "chelcicky", "rokycana", "tempelfeld"]);
 const pThumb=(p,cls)=>PORTR.has(p.id)?`<img class="${cls||"pthumb"}" src="art/portrety/${p.id}-m.webp" alt="" loading="lazy">`:"";
 function renderPersonArticle(pid){
   const p=PBY[pid],f=byId[p.r],art=document.getElementById("article");
