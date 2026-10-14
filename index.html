@@ -113,7 +113,7 @@ svg#map:active{cursor:grabbing}
 .card .head{font-size:.95rem}
 .card .seats{font-size:.9rem;color:var(--muted)}
 .card .note{font-size:.95rem}
-.card.on{outline:2px solid var(--gold);outline-offset:-1px}
+
 .relcols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
 @media (max-width:860px){.relcols{grid-template-columns:1fr}}
 .relcol{display:flex;flex-direction:column;gap:10px}
@@ -316,6 +316,39 @@ mark{background:color-mix(in srgb,var(--gold) 35%,transparent);color:inherit;pad
 .rtab.pairs td:nth-child(2),.rtab.pairs td:nth-child(4){width:38%;color:var(--muted)}
 .rtab.pairs td:nth-child(3){border-left:2px solid var(--rule)}
 .rtab:not(.narrow):not(.crit):not(.pairs):not(.states) tbody th{width:1%}
+
+/* desky cards v2 */
+.cards{grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px}
+.card{display:grid;grid-template-columns:78px minmax(0,1fr);gap:0 14px;align-items:start;padding:14px 16px;transition:border-color .15s,transform .15s,box-shadow .15s}
+.card:hover{border-color:var(--kal);transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,0,0,.12),inset 0 0 0 3px var(--paper),inset 0 0 0 4px var(--rule)}
+.card .cimg{width:78px;height:90px;display:grid;place-items:center}
+.armcard{width:78px;height:90px;object-fit:contain}
+.cshield{width:50px;height:60px}
+.cbody{display:flex;flex-direction:column;gap:6px;min-width:0}
+.cbody h3{font-family:var(--f-body);font-weight:700;font-size:1.12rem;line-height:1.2;color:var(--ink);text-wrap:balance}
+.card:hover .cbody h3{color:var(--kal)}
+.cmeta .faith{font-size:.76rem}.cmeta .faith img{width:20px;height:20px}
+.card .head{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card .seats{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card .note{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.dtools{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;padding:10px 12px;background:var(--paper);border:1px solid var(--rule)}
+.dtools .controls{display:flex;flex-wrap:wrap;gap:4px}
+.dtools .controls button{font-family:var(--f-label);font-weight:500;font-size:.9rem;letter-spacing:.04em;background:var(--bg);color:var(--ink);border:1px solid var(--rule);padding:4px 10px;border-radius:3px;cursor:pointer;display:inline-flex;align-items:center;gap:4px}
+.dtools .controls button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.dtools .controls button .rico{width:18px;height:18px}
+.dtools input{font:inherit;font-size:.95rem;background:var(--bg);color:var(--ink);border:1px solid var(--rule);border-radius:3px;padding:4px 10px;min-width:220px;flex:1 1 220px}
+.dtools .dview{margin-left:auto}
+.dcount{font-family:var(--f-label);letter-spacing:.05em;color:var(--muted);font-size:.85rem}
+.rtab.dlist tbody th{white-space:normal;min-width:220px}
+.rtab.dlist tbody th a{display:flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none}
+.rtab.dlist tbody th a:hover span{color:var(--kal);text-decoration:underline}
+.armlist{width:38px;height:44px;object-fit:contain;flex:none}
+.rtab.dlist tbody th .shield{width:30px;height:36px;margin:0 4px;flex:none}
+.rtab.dlist tbody tr{cursor:pointer}
+.rtab.dlist td:nth-child(2){white-space:nowrap;color:var(--muted)}
+.rtab.dlist td:nth-child(4){white-space:nowrap}
+.rtab.dlist td:nth-child(3){width:30%}.rtab.dlist td:nth-child(5){width:32%}
+@media (max-width:640px){.dtools .dview{margin-left:0}.card{grid-template-columns:60px minmax(0,1fr)}.card .cimg,.armcard{width:60px;height:70px}}
 /* faith & foe cards */
 .faiths,.foes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
 .fcard,.foe{background:var(--paper);border:1px solid var(--rule);border-top:3px solid var(--rule);padding:14px;display:flex;flex-direction:column;gap:8px}
@@ -523,7 +556,15 @@ img{max-width:100%}
   <article id="article" class="article" hidden></article>
 <section class="sec" id="rody">
   <p class="intro">Panské rody, církevní vrchnosti, údělná knížectví a města, která mají v Koruně politickou váhu. Řazeno podle zemí.</p>
+  <div class="dtools">
+    <div class="controls" role="group" aria-label="Vyznání"><button type="button" data-fconf="all" aria-pressed="true">Vše</button><button type="button" data-fconf="kat" aria-pressed="false" data-fico="kat">Katolíci</button><button type="button" data-fconf="kal" aria-pressed="false" data-fico="kal">Kališníci</button><button type="button" data-fconf="mix" aria-pressed="false" data-fico="mix">Smíšení</button></div>
+    <div class="controls" role="group" aria-label="Země"><button type="button" data-fland="all" aria-pressed="true">Všechny země</button><button type="button" data-fland="Čechy" aria-pressed="false">Čechy</button><button type="button" data-fland="Morava" aria-pressed="false">Morava</button><button type="button" data-fland="Slezsko" aria-pressed="false">Slezsko</button><button type="button" data-fland="Lužice" aria-pressed="false">Lužice</button><button type="button" data-fland="Královská města" aria-pressed="false">Města</button></div>
+    <input type="search" id="dfilt" placeholder="Filtrovat podle jména, sídla…" aria-label="Filtrovat rody" autocomplete="off">
+    <div class="controls dview" role="group" aria-label="Zobrazení"><button type="button" data-dview="cards" aria-pressed="true">Karty</button><button type="button" data-dview="list" aria-pressed="false">Seznam</button></div>
+    <span class="dcount" id="dcount" aria-live="polite"></span>
+  </div>
   <div id="cardlands" class="sec"></div>
+  <div id="desklist" hidden></div>
 </section>
 
 <section class="sec" id="sousede">
@@ -1681,7 +1722,6 @@ function setSel(id,push=true,city=null){
   if(push&&st.sel&&(st.sel!==id||st.city!==city)){HIST.push({id:st.sel,city:st.city});if(HIST.length>30)HIST.shift()}
   st.sel=id; st.city=id?city:null; st.focus=null;
   document.getElementById("famsel").value=st.sel||"";
-  document.querySelectorAll(".card").forEach(c=>c.classList.toggle("on",c.dataset.id===st.sel));
   if(st.sel&&byId[st.sel].nbr&&typeof setTab==="function")setTab(byId[st.sel].land);
   document.getElementById("ringlegend").hidden=!st.rings||!st.sel||!relsFor(st.sel).length;
   drawMap(); renderDetail();
@@ -1694,6 +1734,7 @@ const histName=h=>h.city||byId[h.id].name;
 
 /* cards */
 const fs=document.getElementById("famsel");
+const _nrm=s=>String(s).normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
 function buildCards(container,lands,nbr){
   for(const L of lands){
     const fams=FAM.filter(f=>f.land===L&&!!f.nbr===nbr); if(!fams.length)continue;
@@ -1702,24 +1743,52 @@ function buildCards(container,lands,nbr){
     const grid=document.createElement("div"); grid.className="cards";
     const og=document.createElement("optgroup"); og.label=nbr?`Soused: ${L}`:L;
     for(const f of fams){
-      const c=document.createElement("article"); c.className="card"+(f.nomap?" nomap":""); c.dataset.id=f.id;
-      c.innerHTML=`<div class="top"><h3>${shield(f)}${f.name}</h3>${faith(f.conf)}</div>
+      const c=document.createElement("article"); c.className="card"; c.dataset.id=f.id; c.dataset.fc=f.conf; c.dataset.fl=f.land;
+      c.dataset.txt=_nrm(f.name+" "+f.head+" "+f.seats.map(s=>s[0]).join(" ")+" "+f.stance);
+      c.innerHTML=`<div class="cimg">${ARMS[f.id]?armsImg(f,"armcard"):shield0(f).replace('class="shield"','class="cshield"')}</div>
+        <div class="cbody"><h3>${f.name}</h3><div class="cmeta">${faith(f.conf)}</div>
         <p class="head">${f.head}</p>
         ${f.seats.length?`<p class="seats">${f.seats.map(s=>s[0]).join(" · ")}</p>`:""}
-        <p class="note"><span class="lbl">${nbr?"Ke Koruně:":"K Jiřímu:"}</span> ${f.stance}</p>
-        ${nbr?`<p class="note">${f.note}</p>`:""}`;
-      if(!f.nomap){
-        c.tabIndex=0;
-        const go=()=>navTo("#rod/"+f.id);
-        c.addEventListener("click",go); c.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();go()}});
-        const o=document.createElement("option"); o.value=f.id; o.textContent=f.name; og.appendChild(o);
-      }
+        <p class="note"><span class="lbl">${nbr?"Ke Koruně:":"K Jiřímu:"}</span> ${f.stance}</p></div>`;
+      c.tabIndex=0; c.setAttribute("role","link"); c.setAttribute("aria-label",f.name);
+      {const go=()=>navTo("#rod/"+f.id);
+       c.addEventListener("click",go); c.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();go()}});}
+      if(!f.nomap){const o=document.createElement("option"); o.value=f.id; o.textContent=f.name; og.appendChild(o);}
       grid.appendChild(c);
     }
     sec.appendChild(grid); container.appendChild(sec); if(og.children.length)fs.appendChild(og);
   }
 }
 buildCards(document.getElementById("cardlands"),["Čechy","Morava","Slezsko","Lužice","Královská města"],false);
+/* desky: filters + list view */
+const DF={conf:"all",land:"all",q:"",view:"cards"};
+try{const v=localStorage.getItem("mm-dview");if(v==="list"||v==="cards")DF.view=v}catch(e){}
+function deskList(){
+  const box=document.getElementById("desklist"); if(box.dataset.done)return; box.dataset.done=1;
+  const LANDS_K=["Čechy","Morava","Slezsko","Lužice","Královská města"];
+  const rows=FAM.filter(f=>!f.nbr).sort((a,b)=>LANDS_K.indexOf(a.land)-LANDS_K.indexOf(b.land));
+  box.innerHTML=`<div class="rtw"><table class="rtab dlist"><thead><tr><th scope="col">Rod</th><th scope="col">Země</th><th scope="col">V čele</th><th scope="col">Vyznání</th><th scope="col">K Jiřímu</th></tr></thead><tbody>${
+    rows.map(f=>`<tr data-id="${f.id}" data-fc="${f.conf}" data-fl="${f.land}" data-txt="${_nrm(f.name+" "+(SHORT[f.id]||"")+" "+f.head+" "+f.seats.map(s=>s[0]).join(" ")+" "+f.stance).replace(/"/g,"")}"><th scope="row" data-l="Rod"><a href="#rod/${f.id}">${ARMS[f.id]?armsImg(f,"armlist"):shield0(f)}<span>${f.name}</span></a></th><td data-l="Země">${f.land}</td><td data-l="V čele">${f.head}</td><td data-l="Vyznání">${faith(f.conf)}</td><td data-l="K Jiřímu">${f.stance}</td></tr>`).join("")}</tbody></table></div>`;
+  box.querySelectorAll("tbody tr").forEach(r=>r.addEventListener("click",e=>{if(!e.target.closest("a"))navTo("#rod/"+r.dataset.id)}));
+}
+function deskApply(){
+  const ok=el=>(DF.conf==="all"||el.dataset.fc===DF.conf)&&(DF.land==="all"||el.dataset.fl===DF.land)&&(!DF.q||DF.q.split(/\s+/).every(w=>el.dataset.txt.includes(w)));
+  const list=DF.view==="list"; if(list)deskList();
+  document.getElementById("cardlands").hidden=list; document.getElementById("desklist").hidden=!list;
+  let n=0,tot=0;
+  document.querySelectorAll("#cardlands .card").forEach(c=>{const v=ok(c);c.hidden=!v;tot++;if(v)n++});
+  document.querySelectorAll("#cardlands .land-sec").forEach(s=>{s.hidden=!s.querySelector(".card:not([hidden])")});
+  document.querySelectorAll("#desklist tbody tr").forEach(r=>{r.hidden=!ok(r)});
+  document.getElementById("dcount").textContent=n===tot?`${tot} záznamů`:`Zobrazeno ${n} z ${tot}`;
+  document.querySelectorAll("[data-fconf]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.fconf===DF.conf));
+  document.querySelectorAll("[data-fland]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.fland===DF.land));
+  document.querySelectorAll("[data-dview]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.dview===DF.view));
+}
+document.querySelectorAll("[data-fconf]").forEach(b=>b.addEventListener("click",()=>{DF.conf=b.dataset.fconf;deskApply()}));
+document.querySelectorAll("[data-fland]").forEach(b=>b.addEventListener("click",()=>{DF.land=b.dataset.fland;deskApply()}));
+document.querySelectorAll("[data-dview]").forEach(b=>b.addEventListener("click",()=>{DF.view=b.dataset.dview;try{localStorage.setItem("mm-dview",DF.view)}catch(e){}deskApply()}));
+document.getElementById("dfilt").addEventListener("input",e=>{DF.q=_nrm(e.target.value.trim());deskApply()});
+deskApply();
 const NBR_LANDS=["Braniborsko","Polsko","Uhry","Rakousy","Bavory","Sasko","Říšská města","Řím"];
 buildCards(document.getElementById("nbrlands"),NBR_LANDS,true);
 const tabsEl=document.getElementById("nbrtabs");
