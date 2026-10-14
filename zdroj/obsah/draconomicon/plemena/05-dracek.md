@@ -3,40 +3,30 @@ id: dracek
 nazev: Dráček
 jinak: lidově kaňák
 latin: Draco minor
+pridomek: postrach kurníků
 trida: L
-vzacnost: velmi běžný
-rod: stepní draci
 obrazek: dracek
-kridla: široká prstnatá
-ocas: pruhovaný bičovitý
-stavba: štíhlá
-let: plachtění nad poli, dalekozrakost
-schopnost: —
 ---
-## Krajina a rozšíření
+## Kde přebývá
 
-Pole, pastviny a okraje lesů po celé zemi.
+Na polích, pastvinách a na krajích lesů po celé zemi.
 
-## Potrava a lov
+## Čím se živí a jak loví
 
-Srnci, ovce, zajíci, drůbež. Krouží nad krajinou a střemhlav se vrhá na kořist.
+Loví srnce, ovce, zajíce a drůbež. Krouží nad krajinou a z výšky se střemhlav vrhá na kořist.
 
-## Chování
+## O jeho mravech
 
-Žije v párech; na podzim se rodiny drží pohromadě a na zimu se mladí sdružují do volných hejn. Je zvědavý a drzý, k lidem se přibližuje víc než jiní draci.
+Žije v párech; na podzim drží rodina pohromadě a na zimu se mladí slétají do volných hejn. Jest zvědavý a drzý a k lidem se přibližuje víc nežli jiní draci.
 
-## Zvláštnosti
+## O jeho moci
 
-Dalekozrakost.
+Vidí daleko jako jestřáb.
 
-## Lidé a rok 1458
+## Co o něm lidé vědí
 
-Postrach kurníků. Nejsnáze se ochočí, a tak je prvním drakem drobných rytířů ve Slezsku, Sasku a Polsku. V Čechách se vede spor, zda dračí mír platí i na něj: sedláci ho zabíjejí jako škůdce a soudy váhají.
+Jest postrachem kurníků. Ze všech draků se nejsnáze zkrotí, a proto jest prvním drakem chudých rytířů ve Slezsku, v Sasku i v Polsku. V Čechách se přou, zda mír dračí platí i na něj: sedláci ho zabíjejí jako škůdce a soudy váhají.
 
-## Vzhled
+## Po čem ho poznáš
 
-- **Barvy:** rezavě hnědý, světlé hrdlo, tmavý pruh od oka dozadu.
-- **Hlava:** malá, krátký čenich, bez rohů.
-- **Křídla:** široká, konce roztažené jako prsty, konce prstů tmavé.
-- **Tělo a ocas:** nejmenší jezdecký drak; ocas s příčnými tmavými pruhy.
-- **Poznávací znamení:** pruhovaný ocas a tmavé konce křídel.
+Jest rezavě hnědý se světlým hrdlem a od oka mu běží dozadu tmavý pruh. Hlavu má malou s krátkým čenichem a bez rohů. Křídla má široká, konce jich rozestřené jako prsty a na koncích tmavé. Jest nejmenší drak, na kterém může člověk jezdit, a ocas má přepásaný tmavými pruhy.

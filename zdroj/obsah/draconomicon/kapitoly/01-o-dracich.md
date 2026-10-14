@@ -2,33 +2,36 @@
 id: o-dracich
 title: O dracích
 ---
-## Původ a početnost
+## Předmluva
 
-Draci žili v Evropě už před Závojem, ale jen jako vzácné relikty. Závojem občas něco prošlo, a odtud pocházejí starší pověsti: o Drakovi z Řípu nebo o Wawelském smokovi.
+Ve jménu Božím, amen. Léta od narození Syna Božího tisícího čtyřstého padesátého osmého, v čas, kdy byl na Staroměstské radnici zvolen za krále pan Jiří z Poděbrad, umínil jsem sobě sepsati, co o dracích vím, co jsem slyšel od lidí hodných víry a co jsem sám na své oči viděl. Neb mnoho se o nich mluví po krčmách a mnoho se lže, a kdo ničeho neví, ten se buď bojí příliš, anebo málo.
 
-**Protržení Závoje** roku 1420 četnost draků mnohonásobně zvýšilo. Draci rostou rychle, a tak se jejich populace za necelých čtyřicet let rozrostly o mnoho generací a dnes tlačí na potravu. Proto draci napadají stáda a proto je v Čechách potřeba dračí mír.
+Nechť tedy čtenář ví, že nepíši o drakovi, kterého skolil svatý Jiří, ani o šelmě ze Zjevení, nýbrž o tvorech, kteří létají nad naší zemí dnes, žerou naše ovce a mluví naší řečí.
 
-Plemena-relikty jsou starší, inteligentnější a mají k lidem jiný vztah než „nová“ plemena, která se rozmnožila až po Protržení.
+## O původu draků a jich množství
 
-## Řeč, růst a pouto
+Draci byli v těchto zemích i za starých časů, ale byli řídcí jako vlk bílý a lidé je měli za báji. Odtud jsou ty staré pověsti, jako o drakovi pod horou Říp nebo o smoku, jenž přebýval v jeskyni pod hradem krakovským. Neb zdá se, že skrze onu oponu, kterou učení mistři jmenují Závojem, časem cosi prošlo, ale toliko málo.
 
-**Draci mluví.** Jazyk se učí ještě ve skořápce z hlasů kolem vejce. Mládě se vylíhne a mluví jazykem, který slyšelo. Kdo vejce hlídá a mluví k němu, ovlivní, s kým se drak domluví: dráče z husitského tábora mluví česky a zná žalmy, mládě vylíhnuté v klášteře mluví latinsky.
+Léta pak Páně 1420, v ten čas, kdy se v Čechách pozdvihli bojovníci Boží, byl Závoj protržen. A od té doby se draci množí tak náramně, že kdo by to před čtyřiceti lety pravil, byl by za blázna jmín. Neb rostou rychle a za těch několik desítek let se jich zrodilo mnoho pokolení. Proto již v lesích nestačí zvěři a sahají na stáda, a proto páni čeští ustanovili mír dračí.
 
-Mluví všichni, ale ne stejně dobře. Běžné saně mluví jako bystré dítě, relikty jako učenci. Spor o to, kde končí zvíře a začíná osoba, je jádrem sporu o dračí mír.
+Ale věz, že nejsou všichni draci jednoho stáří. Ti, kteří tu byli před Protržením, jsou staří a moudří a k lidem se mají jinak nežli ti noví, kteří se rozplodili teprve potom.
 
-**Draci rostou velmi rychle.**
+## O řeči draků, o jich rostení a o svazku s jezdcem
 
-- Lehký drak dorůstá plné velikosti zhruba za tři měsíce.
-- Střední drak za půl roku.
-- Těžký drak asi za rok a dožívá se staletí.
+Draci mluví, a to jest věc, nad kterou se cizinci nejvíce diví. Řeči se učí již ve vejci, z hlasů, které kolem něho slyší. Kdo tedy vejce opatruje a k němu mluví, ten způsobí, jakým jazykem drak promluví. Slyšel jsem o dráčeti z tábora bratří, které mluvilo česky a umělo žalmy dříve nežli létat; a mláďata, která se líhnou v klášteřích, mluví latinsky jako kněží.
 
-**Pouto s jezdcem** vzniká při prvním krmení a postrojení. Je lehce magické: nejde o telepatii, ale o empatii a cit pro náladu druhého.
+Nemluví však všichni stejně. Obecná saň mluví jako bystré pacholátko, ale staří draci mluví jako mistři na učení. A o tom se nyní přou páni i preláti, zda drak, jenž mluví, jest hovado, či osoba; a na té otázce visí celý mír dračí.
 
-## Chov a křížení
+Draci rostou podivně rychle. Malý drak doroste za tři měsíce, prostřední za půl léta a veliký za rok; a veliký drak prý žije mnoho set let.
 
-Od Protržení uplynulo jen 38 let, a to je na vyšlechtění nového plemene málo. Drak sice dorůstá za měsíce, ale pohlavně dospívá až za několik let a samice snáší jen pár vajec. Lidé zatím stihli nanejvýš několik generací.
+Mezi drakem a jezdcem se činí svazek, když ho jezdec první nakrmí a první mu vloží postroj. Není to čarování, aby jeden znal myšlenky druhého, ale jezdec cítí, co drak cítí, jako matka cítí dítě.
 
-- **Dračí služby létají na divokých plemenech.** Draky získávají jako vejce nebo mláďata z divokých hnízd. Rozdíly mezi „uherskými“ a „polskými“ draky dělá krajina, ne chov.
-- **Šlechtění je v začátcích.** Několik dvorů páruje vybrané jedince a vede si rodokmeny, ale výsledky jsou zatím nejisté.
-- **Kříženci** vznikají pářením dvou plemen, záměrně v chovech nebo náhodou v divočině. Jsou velmi vzácní, drazí a nevypočitatelní: každý kříženec je trochu jiný a jejich mláďata se štěpí zpět k rodičům. Ustálit z nich novou linii bude trvat generace, které ještě neuběhly.
-- **Domestikace v pravém smyslu** zatím neexistuje. Žádné plemeno se v zajetí spolehlivě nerozmnožuje a první mláďata od ochočených rodičů se líhnou teprve teď.
+## O chovu draků a míšení plemen
+
+Od Protržení neuplynulo více nežli osmatřicet let, a to jest málo na to, aby kdo vychoval plemeno nové. Neb drak sice doroste za několik měsíců, ale k plození dospívá teprve po létech a samice snáší jen málo vajec.
+
+Protože pak všichni draci, kteří slouží pánům, jsou z divokých hnízd, vzatí jako vejce nebo mláďata. A jestliže se praví, že uherští draci jsou jiní nežli polští, nečiní to chov, ale kraj, odkudž pocházejí.
+
+Některé dvory již párují vybrané draky a píší jim rodokmeny jako koním, ale co z toho vzejde, nikdo neví. Rodí se také míšenci ze dvou plemen, někdy z vůle chovatele, někdy v divočině náhodou. Jsou vzácní a drazí a žádný není jako druhý; a jich mláďata se vracejí k jednomu z rodičů.
+
+A konečně věz, že až do dnešního dne se žádný drak v zajetí spolehlivě nerozplodil a první mláďata po zkrocených rodičích se líhnou teprve nyní.

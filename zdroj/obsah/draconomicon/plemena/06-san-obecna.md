@@ -2,40 +2,32 @@
 id: san-obecna
 nazev: Saň obecná
 latin: Draco vulgaris
+pridomek: drak, kterého zná každý sedlák
 trida: L
-vzacnost: běžná
-rod: saně
 obrazek: san-obecna
-kridla: široká prstnatá
-ocas: bičovitý
-stavba: atletická
-let: vytrvalý let
-schopnost: —
 ---
-## Krajina a rozšíření
+## Kde přebývá
 
-Smíšené lesy a pahorkatiny celých Čech a Moravy; nejběžnější drak v zemi.
+V listnatých i jehličnatých lesích a pahorkatinách celých Čech i Moravy. Jest nejobecnější drak v zemi.
 
-## Potrava a lov
+## Čím se živí a jak loví
 
-Jeleni, divočáci, často dobytek a ovce.
+Loví jeleny a divoké svině, ale často i dobytek a ovce.
 
-## Chování
+## O jejích mravech
 
-Samotářka v revíru, který hájí proti jiným saním; pár spolu tráví jaro a vodí mláďata do podzimu. Ráda sedí na vyhlídkových skalách a sleduje krajinu. Mluví jako bystré dítě a s lidmi smlouvá o dobytek.
+Žije o samotě a svůj kraj brání proti jiným saním. Druh s družkou spolu tráví jaro a vodí mláďata až do podzimu. Ráda sedá na skalách, odkud vidí do kraje. Mluví jako bystré pacholátko a s lidmi smlouvá o dobytek.
 
-## Zvláštnosti
+## O její moci
 
-Žádné. Je to výchozí podoba draka, podle které se poměřují ostatní.
+Žádné zvláštní moci nemá. Jest to drak, jak jej Pán Bůh stvořil, a podle ní se měří všichni ostatní.
 
-## Lidé a rok 1458
+## Co o ní lidé vědí
 
-Drak, kterého zná každý sedlák; nejvíc škod na stádech a nejvíc sporů o dračí mír. Zemská pokladna platí za stržený dobytek. Zbojníci a drobní páni ochočují mláďata načerno.
+Zná ji každý sedlák. Ona působí nejvíce škod na stádech a o ni jest nejvíce sporů pro mír dračí. Za stržený dobytek platí zemská pokladnice. Loupežníci a drobní páni krotí její mláďata potajmu.
 
-## Vzhled
+## Po čem ji poznáš
 
-- **Barvy:** olivově hnědá, tmavší hřbet, světle žlutavé břicho, nepravidelné tmavé skvrny.
-- **Hlava:** běžná dračí hlava s krátkými tupými rohy.
-- **Křídla:** široká, konce roztažené jako prsty, hnědé blány.
-- **Tělo a ocas:** atletické tělo, bičovitý ocas.
-- **Krajové formy:** polabská světlejší a rezavější, vysočinská tmavě zelenošedá, moravská výrazně skvrnitá.
+Jest olivově hnědá, na hřbetě tmavší, na břiše světle žlutavá a po těle má nepravidelné tmavé skvrny. Hlavu má, jakou mívají draci, s krátkými tupými rohy. Křídla má široká, konce jich rozestřené jako prsty, a blány hnědé. Ocas má jako bič.
+
+V Polabí bývá světlejší a rezavější, na Vysočině tmavě zelenošedá a na Moravě hojně skvrnitá.

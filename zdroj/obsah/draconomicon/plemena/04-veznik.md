@@ -2,40 +2,30 @@
 id: veznik
 nazev: Věžník
 latin: Draco rupestris
+pridomek: obyvatel skalních měst
 trida: L
-vzacnost: místní, v koloniích
-rod: rorýsi
 obrazek: veznik
-kridla: srpovitá
-ocas: vidlicovitý
-stavba: štíhlá
-let: rychlost a obraty mezi skalami
-schopnost: —
 ---
-## Krajina a rozšíření
+## Kde přebývá
 
-Pískovcová skalní města: Českosaské Švýcarsko, Kokořínsko, Prachovské a Adršpašské skály, Lužické hory.
+V pískovcových skalních městech: v Českosaském Švýcarsku, na Kokořínsku, v Prachovských a Adršpašských skalách a v Lužických horách.
 
-## Potrava a lov
+## Čím se živí a jak loví
 
-Srnci a ovce z pastvin pod skalami; ptáky chytá v letu.
+Loví srnce a ovce na pastvinách pod skalami a ptáky chytá v letu.
 
-## Chování
+## O jeho mravech
 
-Žije v koloniích po stovkách v puklinách skal. Kolonie je hlučná: ráno a večer se ozývá pronikavým sborem, za letu se hejna proplétají mezi věžemi. Páry se drží roky, o mláďata se starají oba rodiče. Na zimu celé kolonie odlétají na jih a na jaře se vracejí do stejných puklin.
+Žije v hejnech po stovkách v puklinách skal, a hejno to jest hlučné: ráno i večer se ozývá pronikavým zpěvem a v letu se proplétá mezi skalními věžemi. Druh s družkou spolu zůstávají po léta a o mláďata se starají oba. Na zimu celá hejna odlétají na jih jako vlaštovky a na jaře se vracejí do týchž puklin.
 
-## Zvláštnosti
+## O jeho moci
 
-Rychlost a obratnost mezi skalami; tah na zimu.
+Jest rychlý a mezi skalami tak obratný, že ho žádný jiný drak nedohoní.
 
-## Lidé a rok 1458
+## Co o něm lidé vědí
 
-Skalní lezci z podhradí vybírají vejce a prodávají je do Saska a Polska; dračí mír na vejce nepamatuje, a tak se o tom vedou spory. Byl by z něj výborný kurýr a zvěd, ale v Čechách skoro nikdo věžníky nechová.
+Skalní lezci z podhradí vybírají jeho vejce a prodávají je do Saska a do Polska. Mír dračí na vejce nepamatuje, a tak se o to vedou spory. Byl by z něho výborný posel i zvěd, ale v Čechách ho skoro nikdo nechová.
 
-## Vzhled
+## Po čem ho poznáš
 
-- **Barvy:** pískově rezavý, krémové hrdlo, tmavě rezavý lem křídel.
-- **Hlava:** malá, krátký čenich, velké tmavé oči, dva drobné rohy.
-- **Křídla:** dlouhá úzká srpovitá, rezavé blány.
-- **Tělo a ocas:** malé štíhlé tělo, hákovité drápy na přichycení ke skále, hluboce vidlicovitý ocas.
-- **Poznávací znamení:** pískovcově rezavá barva a srpovitá křídla.
+Jest rezavý jako pískovec, hrdlo má krémové a lem křídel tmavě rezavý. Hlavu má malou s krátkým čenichem, velikýma tmavýma očima a dvěma drobnými rohy. Křídla má dlouhá, úzká a zahnutá jako srp, tělo malé a štíhlé, drápy hákovité, aby se udržel na skále, a ocas hluboce rozeklaný.

@@ -203,7 +203,10 @@ header.site{display:flex;flex-direction:column;gap:0;border:0;padding:0}
 .drfig{margin:0;line-height:0}.drfig img{width:100%;height:auto;border-radius:3px;border:1px solid var(--rule)}
 .drlatin{font-style:italic;color:var(--muted);font-size:1.1rem;margin-top:-10px}
 .drtext{display:flex;flex-direction:column;gap:.7em}
-.drtext h3{font-family:var(--f-label);font-weight:700;letter-spacing:.06em;font-size:1rem;color:var(--kal);margin:.6em 0 0}
+.drtext h3{font-family:var(--f-disp);font-weight:500;font-size:1.45rem;color:var(--kal);margin:.5em 0 -.2em;line-height:1.15}
+.drtext{font-size:1.06rem;line-height:1.6}
+.drtext>p:first-of-type::first-letter,.drtext h3:first-child+p::first-letter{font-family:var(--f-disp);font-size:2.9em;float:left;line-height:.82;margin:.06em .1em 0 0;color:var(--kal)}
+.drtext p{text-align:justify;hyphens:auto}
 .drcard img{object-position:center}
 .drtext ul{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:5px}
 .drtext li::marker{color:var(--kal)}
@@ -2796,24 +2799,21 @@ function renderDraco(b){
     <a class="atop${isPl?" on":""}" href="#draconomicon/plemena">Plemena</a>
     <ol class="asecs">${DRACI.pl.map(p=>`<li class="drpl"><a href="#draconomicon/${p.id}"${b===p.id?' class="on"':""}>${head(p)?`<img class="drthumb" src="${head(p)}" alt="" loading="lazy">`:""}${p.n}</a></li>`).join("")}</ol></nav>`;
   side.classList.remove("open");{const tg=side.querySelector(".atoggle");tg.addEventListener("click",()=>{const o=side.classList.toggle("open");tg.setAttribute("aria-expanded",o)})}
-  const card=p=>`<a class="drcard" href="#draconomicon/${p.id}">${head(p)?`<img src="${head(p)}" alt="${p.n}" loading="lazy" width="480" height="320">`:""}<span class="dct"><b>${p.n}</b>${p.la?`<i>${p.la}</i>`:""}<small>${DRTR[p.tr]} · ${p.vz}${p.rod?" · rod "+p.rod:""}</small></span></a>`;
+  const card=p=>`<a class="drcard" href="#draconomicon/${p.id}">${head(p)?`<img src="${head(p)}" alt="${p.n}" loading="lazy" width="480" height="320">`:""}<span class="dct"><b>${p.n}</b>${p.la?`<i>${p.la}</i>`:""}${p.pd?`<small>${p.pd}</small>`:""}</span></a>`;
   if(isPl){
     main.innerHTML=`<nav class="crumbs"><a href="#draconomicon">Draconomicon</a> › <b>Plemena</b></nav><h2 class="arttitle">Plemena</h2>
-      <p class="intro">Plemena, s nimiž se lze v zemích Koruny potkat.</p><div class="drgrid">${DRACI.pl.map(card).join("")}</div>`;return}
+      <p class="intro">Zde se popisují plemena dračí, která se v zemích Koruny české nejčastěji potkávají, každé podle toho, kde přebývá, čím se živí, jaké má mravy a po čem se pozná.</p><div class="drgrid">${DRACI.pl.map(card).join("")}</div>`;return}
   if(!cur||cur.k==="kap"){
     main.innerHTML=`<h2 class="arttitle">Draconomicon</h2>
-      <p class="intro">Kniha o dracích Evropy, sepsaná třicet osm let po Protržení Závoje.</p>
+      <p class="drlatin">Liber de draconibus · kniha o dracích, sepsaná léta Páně 1458</p>
       <div class="drtext">${K.h}</div>
       <section class="asec"><h3 class="ash"><a href="#draconomicon/plemena">Plemena</a></h3><div class="drgrid">${DRACI.pl.map(card).join("")}</div></section>`;
     autolink(main.querySelector(".drtext"),"");return}
   const list=DRACI.pl,i=list.indexOf(cur.o),pv=list[i-1],nx=list[i+1],o=cur.o;
   const nav=`<nav class="apn">${pv?`<a href="#draconomicon/${pv.id}" rel="prev"><small>Předchozí</small>${pv.n}</a>`:"<span></span>"}${nx?`<a href="#draconomicon/${nx.id}" rel="next"><small>Další</small>${nx.n}</a>`:"<span></span>"}</nav>`;
-  const P=["Křídla","Ocas","Stavba","Let a smysly","Zvláštní schopnost"];
   main.innerHTML=`<nav class="crumbs"><a href="#draconomicon">Draconomicon</a> › <a href="#draconomicon/plemena">Plemena</a> › <b>${o.n}</b></nav>
-    <h2 class="arttitle">${o.n}</h2>${o.la?`<p class="drlatin">${o.la}${o.j?` · ${o.j}`:""}</p>`:""}
+    <h2 class="arttitle">${o.n}</h2><p class="drlatin">${[o.la,o.j,o.pd].filter(Boolean).join(" · ")}</p>
     ${o.img?`<figure class="drfig"><a href="art/draci/${o.img}.webp" target="_blank" rel="noopener" title="Otevřít v plné velikosti"><img src="art/draci/${o.img}.webp" alt="${o.n}" width="1200" height="800"></a></figure>`:""}
-    <div class="drbadges"><span class="drb tr">${DRTR[o.tr]} drak (${o.tr})</span>${o.vz?`<span class="drb">${o.vz}</span>`:""}${o.rod?`<span class="drb">rod ${o.rod}</span>`:""}</div>
-    <div class="rtw"><table class="rtab drprof"><tbody>${P.map((l,j)=>o.prof[j]?`<tr><th scope="row">${l}</th><td>${o.prof[j]}</td></tr>`:"").join("")}</tbody></table></div>
     <div class="drtext">${o.h}</div>${nav}`;
   autolink(main.querySelector(".drtext"),"");
 }
@@ -3070,7 +3070,7 @@ const GIDX=[];
   DIO.forEach(d=>GIDX.push({k:"Diecéze",n:d.name,s:"církevní správa",dio:d.id,t:norm(d.name),b:norm(d.note)}));
   ARTK.forEach(k=>k.secs.forEach(s=>GIDX.push({k:"Artikule",n:s.t,s:k.t,h:`#artikule/${k.id}/${s.id}`,t:norm(s.t+" "+k.t),b:norm(strip(s.h))})));
   (DRACI.kap||[]).forEach(k=>GIDX.push({k:"Draconomicon",n:k.t,s:"Draconomicon",h:"#draconomicon",t:norm(k.t),b:norm(k.h.replace(/<[^>]+>/g," "))}));
-  (DRACI.pl||[]).forEach(p=>GIDX.push({k:"Draconomicon",n:p.n,s:(p.la||"")+" · "+DRTR[p.tr]+" drak",h:"#draconomicon/"+p.id,t:norm(p.n+" "+p.j+" "+p.la),b:norm(p.h.replace(/<[^>]+>/g," "))}));
+  (DRACI.pl||[]).forEach(p=>GIDX.push({k:"Draconomicon",n:p.n,s:[p.la,p.pd].filter(Boolean).join(" · "),h:"#draconomicon/"+p.id,t:norm(p.n+" "+p.j+" "+p.la),b:norm(p.h.replace(/<[^>]+>/g," "))}));
   SVET.forEach(s=>GIDX.push({k:"Svět",n:s.n,s:s.v,h:"#svet/"+s.id,t:norm(s.n+" "+s.k),b:norm(s.x+" "+s.v+" "+s.s)}));
   PRAHA_PLACES.forEach(p=>GIDX.push({k:"Praha",n:p.name,s:PRAHA_TOWNS.find(x=>x.id===p.t).n,h:"#praha/"+p.n,t:norm(p.name),b:norm(p.d)}));
   GLOSS.forEach(g=>GIDX.push({k:"Pojem",n:g.t,s:g.d.replace(/<[^>]+>/g,"").slice(0,70)+"…",h:"#artikule/pojmy/p-"+g.id,t:norm(g.t+" "+g.f.join(" ")),b:norm(g.d)}));

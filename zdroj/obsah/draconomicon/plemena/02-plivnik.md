@@ -2,40 +2,30 @@
 id: plivnik
 nazev: Plivník
 latin: Draco sulphureus
+pridomek: ohnivý drak Krušných hor
 trida: T
-vzacnost: vzácný
-rod: skalní obři
 obrazek: plivnik
-kridla: široká prstnatá
-ocas: bičovitý
-stavba: mohutná
-let: pomalý těžký let, čich
-schopnost: oheň
 ---
-## Krajina a rozšíření
+## Kde přebývá
 
-Krušné hory od Chebska po Krupku; hnízdí ve velkých přirozených jeskyních a skalních roklích. V Čechách jich žije jen několik.
+V Krušných horách od Chebska až po Krupku. Hnízdí ve velikých jeskyních a skalních roklích, a v celých Čechách jich jest jen několik.
 
-## Potrava a lov
+## Čím se živí a jak loví
 
-Jeleni a divočáci horských lesů, v nouzi dobytek horníků. Polyká kameny s kyzem, které mu v žaludku drtí potravu; uvolněné sirné plyny vypouští a zapaluje.
+Loví jeleny a divoké svině v horských lesích, a když nemá, bere dobytek horníkům. Polyká kamení, v němž jest kyz, a to kamení mu v žaludku drtí potravu. A z toho povstává v něm sirný dým, který z tlamy vypouští a zapaluje, a tak plive oheň.
 
-## Chování
+## O jeho mravech
 
-Přísný samotář s obrovským revírem; samci se střetávají jen v době páření a souboje provází oheň, po kterém zůstávají ohořelé lesy. Samice vodí mládě dva tři roky a učí ho, které kameny polykat. Je mrzutý, mluví hrubě a smlouvá tvrdě.
+Žije přísně o samotě a kraj jeho jest veliký. Samci se potkávají jen v čas páření, a ty souboje provází oheň, po kterém zůstávají ohořelé lesy. Samice vodí mládě dva nebo tři roky a učí je, které kamení polykati. Jest mrzutý, mluví hrubě a smlouvá tvrdě.
 
-## Zvláštnosti
+## O jeho moci
 
-Jediný ohnivý dech v Čechách.
+Jest jediný drak v Čechách, který plive oheň.
 
-## Lidé a rok 1458
+## Co o něm lidé vědí
 
-Soupeř i partner trpaslíků: kyz sbírá z jejich hald a výměnou nechává na pokoji povrchové doly. Saští vévodové by plivníka chtěli za každou cenu; jeho vejce je nejdražší pašované zboží Krušných hor.
+Jest nepřítelem i společníkem trpaslíků: kyz sbírá z jejich hald a za to nechává na pokoji jejich doly. Vévodové saští by plivníka chtěli za každou cenu, a jeho vejce jest nejdražší zboží, které se přes Krušné hory pašuje.
 
-## Vzhled
+## Po čem ho poznáš
 
-- **Barvy:** tmavě šedý s velkými nepravidelnými sirně žlutými skvrnami; hrdlo a břicho žlutavě šedé.
-- **Hlava:** masivní hluboká lebka, krátký čenich, vypouklé čelistní svaly za očima, tlusté kuželovité zuby; bez rohů, jen nízké kostěné hrboly nad očima.
-- **Křídla:** obrovská, široká, konce roztažené jako prsty; tmavě šedé blány.
-- **Tělo a ocas:** mohutná hruď, silné nohy s tupými drápy, dlouhý bičovitý ocas.
-- **Poznávací znamení:** sirně žluté skvrny a těžká lebka.
+Jest tmavě šedý s velikými skvrnami žlutými jako síra, na hrdle a na břiše žlutavě šedý. Hlavu má těžkou a hlubokou, s krátkým čenichem, se svaly vypouklými za očima a se zuby tlustými jako kužely. Rohů nemá, jen nízké kostěné hrboly nad očima. Křídla má převeliká a široká a konce jich se rozestírají jako prsty. Prsa má mohutná, nohy silné s tupými drápy a ocas dlouhý jako bič.

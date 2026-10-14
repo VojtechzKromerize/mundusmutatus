@@ -2,40 +2,32 @@
 id: hromova-san
 nazev: Hromová saň
 latin: Draco procellarius
+pridomek: paní krkonošských hřebenů
 trida: S
-vzacnost: velmi vzácná
-rod: plachtaři
 obrazek: hromova-san
-kridla: dlouhá úzká
-ocas: bičovitý
-stavba: štíhlá
-let: plachtění na hřebenových větrech, cit pro počasí
-schopnost: elektrický výboj při dotyku
 ---
-## Krajina a rozšíření
+## Kde přebývá
 
-Hnízdí na hřebenech Krkonoš, v Obřím dole a na Sněžce; loví nad celým Podkrkonoším, Kladskem a Slezskem. V Čechách jich žije sotva dvacet.
+Hnízdí na hřebenech hor Krkonoš, v Obřím dole a na Sněžce, ale loví daleko, nad celým Podkrkonoším, nad Kladskem i nad Slezskem. Praví se, že v celém království jich není víc nežli dvacet.
 
-## Potrava a lov
+## Čím se živí a jak loví
 
-Jeleni, divočáci, v zimě dobytek z podhůří; menší draky (dráčky, věžníky) chytá ve vzduchu. Kořist sevře zadními drápy, obtočí ocasem a omráčí výbojem, pak ji odnese na hřeben.
+Loví jeleny a divoké svině, v zimě pak dobytek pod horami; a také menší draky, dráčky a věžníky, chytá rovnou ve vzduchu. Kořist sevře zadními drápy, obtočí ocasem a omráčí ránou, jako když hrom uhodí, a potom ji odnese na hřeben.
 
-## Chování
+## O jejích mravech
 
-Samotářka, ale páry drží celý život a hnízdo obnovují rok co rok na stejné skále. Každý pozdní srpen se saně slétají na **hromový sněm** na Sněžce: celé dny plachtí v kruzích nad vrcholem, mladí si hledají partnery a staří si znovu rozdělí revíry. Mezi sebou se dorozumívají slabými výboji, které cítí na dálku. K lidem je chladná, ale ne nepřátelská; mluví málo a pomalu.
+Žije o samotě, ale s druhem svým zůstává do smrti a každý rok obnovuje hnízdo na téže skále. Na konci srpna se saně slétají na **hromový sněm** nad Sněžkou: celé dny krouží nad vrcholem, mladé si hledají druhy a staré si znovu dělí kraj. Mezi sebou se dorozumívají jakýmsi slabým třesením, které cítí na dálku. K lidem je chladná, ale nikoli zlá; mluví málo a pomalu.
 
-## Zvláštnosti
+## O její moci
 
-Elektrické orgány podél břicha, boků a ocasu: slabé výboje k vnímání okolí, silný výboj jen při dotyku, po několika výbojích vyčerpání. Cit pro počasí.
+V jejím těle jest moc jako v hromu. Slabě jí cítí, co se kolem děje, a když kořist sevře, udeří do ní silnou ranou. Ale ta moc není bez konce: po několika ranách jest saň zemdlená. Blesky z nebe však nemetá, jak lidé lhou. Také cítí bouři dříve nežli kterýkoli člověk.
 
-## Lidé a rok 1458
+## Co o ní lidé vědí
 
-Úmluva s horaly a Krakonošem: horalé jim nechávají stržený dobytek a saně hlídají hory před cizími draky.⟦ Hlídají i hnízdo krkonošské dvouocasnice.⟧ Slezští páni se několikrát pokusili ukrást mládě; každý pokus skončil mrtvými lovci a spálenými lany od výboje.
+Horalé mají se sání úmluvu, a praví se, že i s duchem hor, kterého jmenují Krakonošem: nechávají jí stržený dobytek a saně za to hlídají hory před cizími draky.⟦ Hlídají také hnízdo krkonošské dvouocasnice.⟧ Slezští páni se několikrát pokusili ukrást mládě a pokaždé to skončilo mrtvými lovci a provazy spálenými na uhel.
 
-## Vzhled
+## Po čem ji poznáš
 
-- **Barvy:** ocelově šedá s modravým příčným žíháním na hřbetě; od hrudi po špičku ocasu vede po spodní straně úzký světle šedý pruh nad elektrickými orgány.
-- **Hlava:** dlouhá a úzká, tenké čelisti, klidné šedé oči; bez rohů, místo nich za týlem dvě ploché kostěné destičky jako malé štíty, v bouři se zvednou.
-- **Křídla:** extrémně dlouhá a úzká s rovnou přední hranou, rozpětí přes 30 m; ultramarínově modré blány.
-- **Tělo a ocas:** štíhlé tělo, 12 m, z toho víc než polovina připadá na tenký bičovitý ocas.
-- **Poznávací znamení:** nejdelší křídla ze všech plemen, destičky za hlavou, světlý pruh pod tělem.
+Jest ocelově šedá a na hřbetě má modravé žíhání napříč; pod břichem jí od prsou až do konce ocasu běží úzký světlý pruh. Hlavu má dlouhou a úzkou s tenkými čelistmi a klidnýma šedýma očima. Rohů nemá, ale za týlem jí rostou dvě ploché kostěné destičky jako malé štíty, a ty v bouři zdvihá.
+
+Křídla má ze všech draků nejdelší, úzká a s rovnou přední hranou, a rozpětí jich jest na sedmnáct sáhů; blány jsou modré jako ultramarín. Tělo má štíhlé, na sedm sáhů dlouhé, a víc nežli polovici z toho činí tenký ocas jako bič.

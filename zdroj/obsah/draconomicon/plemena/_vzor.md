@@ -1,24 +1,19 @@
 ---
 # VZOR – plemeno v Draconomiconu (zkopírujte např. jako 08-nove-plemeno.md)
+# Text pište jako dobová kniha: hlasem učence roku 1458, bez herních údajů.
 id: nove-plemeno
 nazev: Nové plemeno
 latin: Draco novus
-# trida: L (lehký), S (střední), T (těžký)
+pridomek: krátký přídomek pod jménem
+# trida (L, S, T) se na stránce nezobrazuje, slouží jen pro přehled
 trida: L
-vzacnost: vzácné
-rod: saně
-# obrázek: art/draci/<obrazek>.webp a <obrazek>-m.webp (malý)
+# obrázek: art/draci/<obrazek>.webp, -m.webp (malý) a -h.webp (výřez hlavy)
 obrazek: nove-plemeno
-kridla: široká prstnatá
-ocas: bičovitý
-stavba: atletická
-let: vytrvalý let
-schopnost: —
 ---
-## Krajina a rozšíření
+## Kde přebývá
 
 Text. Tajemství do ⟦závorek⟧.
 
-## Vzhled
+## Po čem ho poznáš
 
-- **Barvy:** …
+Text.
