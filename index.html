@@ -474,6 +474,18 @@ a.pchar:hover{border-color:var(--kal)}
 .rels-g{padding:4px 12px 10px 14px}
 .rels-g li{display:block;padding:6px 0;border-top:1px dashed color-mix(in srgb,var(--rule) 70%,transparent)}
 .rels-g li:first-child{border-top:0}
+
+/* portréty */
+.portr{display:block;line-height:0;border:1px solid var(--rule);box-shadow:0 3px 10px rgba(0,0,0,.18)}
+.portr img{width:100%;height:auto;display:block}
+.pcard.hasp{flex-direction:row;align-items:center;gap:12px}
+.pcard .pct{display:flex;flex-direction:column;gap:2px;min-width:0}
+.pthumb{width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid var(--gold);flex:none}
+.pcard .pct span{font-size:.92rem;color:var(--muted)}
+.pcard .pct small{font-family:var(--f-label);letter-spacing:.04em;color:var(--gold);font-size:.8rem}
+.rodppl{display:flex;flex-wrap:wrap;gap:10px}
+.rodppl a{display:flex;flex-direction:column;align-items:center;gap:4px;width:84px;text-align:center;font-size:.82rem;line-height:1.2;color:var(--ink);text-decoration:none}
+.rodppl a:hover{color:var(--kal)}
 /* vlastní kurzory (jen počítač) */
 html{cursor:url(art/kurzory/brk.png) 2 1,auto;cursor:-webkit-image-set(url(art/kurzory/brk.png) 1x,url(art/kurzory/brk@2x.png) 2x) 2 1,auto;cursor:image-set(url(art/kurzory/brk.png) 1x,url(art/kurzory/brk@2x.png) 2x) 2 1,auto}
 a,button,select,summary,label[for],[role=link],[role=button],.card,.seat,.gnode,.partymk,.discmk,.maplink,.plink,.flink,.rtab.dlist tbody tr,.zcard,.achap,.qk,.pchar{cursor:url(art/kurzory/ruka.png) 0 1,pointer !important;cursor:-webkit-image-set(url(art/kurzory/ruka.png) 1x,url(art/kurzory/ruka@2x.png) 2x) 0 1,pointer !important;cursor:image-set(url(art/kurzory/ruka.png) 1x,url(art/kurzory/ruka@2x.png) 2x) 0 1,pointer !important}
@@ -2727,9 +2739,12 @@ function renderRodArticle(id){
      <dt>Země</dt><dd>${f.land}</dd>
      ${f.seats.length?`<dt>${f.city?"Města":"Državy"}</dt><dd>${f.seats.map(sd=>maplinkBtn(f,sd)).join(", ")}</dd>`:""}
      ${ppl.length?`<dt>Osoby</dt><dd>${ppl.map(plinkP).join(", ")}</dd>`:""}</dl>
+     ${ppl.some(p=>PORTR.has(p.id))?`<div class="rodppl">${ppl.filter(p=>PORTR.has(p.id)).map(p=>`<a href="#osoba/${p.id}">${pThumb(p)}<span>${p.n.replace(/^\s*/,"")}</span></a>`).join("")}</div>`:""}
      ${f.nomap?"":`<button type="button" class="gbtn" data-showmap="${id}">Ukázat na mapě</button>`}
    </aside></div>`;
 }
+const PORTR=new Set(["jiri", "viktorin", "johana", "kostka", "jan2roz", "jaroslavlev", "jindrich4", "jindrichlipe", "zdenekst", "tovacovsky", "janper", "vanek"]);
+const pThumb=(p,cls)=>PORTR.has(p.id)?`<img class="${cls||"pthumb"}" src="art/portrety/${p.id}-m.webp" alt="" loading="lazy">`:"";
 function renderPersonArticle(pid){
   const p=PBY[pid],f=byId[p.r],art=document.getElementById("article");
   const sd=p.seat&&f.seats.find(x=>x[0]===p.seat);
@@ -2742,6 +2757,7 @@ function renderPersonArticle(pid){
      ${kin.length?`<h3>Z téhož rodu či dvora</h3><p>${kin.map(plinkP).join(", ")}</p>`:""}
    </div>
    <aside class="infobox">
+     ${PORTR.has(pid)?`<a class="portr" href="art/portrety/${pid}.webp" target="_blank" rel="noopener" title="Otevřít portrét v plné velikosti"><img src="art/portrety/${pid}.webp" alt="Portrét: ${p.n}" width="600" height="1500"></a>`:""}
      <dl class="kv"><dt>Rod</dt><dd><a href="#rod/${f.id}">${f.name}</a></dd>
      <dt>Postavení</dt><dd>${p.role}</dd>
      ${sd?`<dt>Sídlo</dt><dd>${maplinkBtn(f,sd)}</dd>`:""}
@@ -2751,8 +2767,8 @@ function renderPersonArticle(pid){
 function renderOsoby(){
   const box=document.getElementById("osobylist"); if(box.dataset.done)return; box.dataset.done=1;
   const groups=[["Čechy",f=>!f.nbr&&(f.land==="Čechy"||f.land==="Královská města")],["Morava",f=>!f.nbr&&f.land==="Morava"],["Slezsko",f=>!f.nbr&&f.land==="Slezsko"],["Lužice",f=>!f.nbr&&f.land==="Lužice"],...NBR_LANDS.map(L=>[L,f=>f.nbr&&f.land===L])];
-  box.innerHTML=groups.map(([L,fn])=>{const ps=PEOPLE.filter(p=>fn(byId[p.r]));if(!ps.length)return"";
-    return `<div class="land-sec"><h3 class="landh">${L.toUpperCase()}</h3><div class="pcards">${ps.map(p=>`<a class="pcard" href="#osoba/${p.id}"><b>${p.n}</b><span>${p.role}</span><small>${byId[p.r].name}</small></a>`).join("")}</div></div>`}).join("");
+  box.innerHTML=groups.map(([L,fn])=>{const ps=PEOPLE.filter(p=>fn(byId[p.r])).sort((a,b)=>PORTR.has(b.id)-PORTR.has(a.id));if(!ps.length)return"";
+    return `<div class="land-sec"><h3 class="landh">${L.toUpperCase()}</h3><div class="pcards">${ps.map(p=>`<a class="pcard${PORTR.has(p.id)?" hasp":""}" href="#osoba/${p.id}">${pThumb(p)}<span class="pct"><b>${p.n}</b><span>${p.role}</span><small>${byId[p.r].name}</small></span></a>`).join("")}</div></div>`}).join("");
 }
 function route(){
   const h=decodeURIComponent(location.hash.slice(1))||"mapa";
