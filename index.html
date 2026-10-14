@@ -457,6 +457,23 @@ a.pchar:hover{border-color:var(--kal)}
 .partymk:focus-visible{outline:2px solid var(--gold)}
 .discmk{cursor:pointer}
 
+
+/* vazby jako rozbalovací sekce */
+.relgs{display:flex;flex-direction:column;gap:6px}
+.relg{border:1px solid var(--rule);background:var(--paper);border-left-width:3px}
+.relg.rg-rod{border-left-color:var(--gold)}.relg.rg-spoj{border-left-color:var(--kat)}.relg.rg-spor{border-left-color:var(--kal)}
+.relg>summary{list-style:none;display:flex;align-items:center;gap:10px;padding:6px 10px;font-family:var(--f-label);letter-spacing:.05em}
+.relg>summary::-webkit-details-marker{display:none}
+.relg>summary::after{content:"▸";margin-left:auto;color:var(--muted);transition:transform .15s}
+.relg[open]>summary::after{transform:rotate(90deg)}
+.relg>summary:hover{background:color-mix(in srgb,var(--gold) 10%,var(--paper))}
+.relg>summary:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
+.rgi{width:26px;height:26px;object-fit:contain}
+.relg.rg-rod b{color:var(--gold)}.relg.rg-spoj b{color:var(--kat)}.relg.rg-spor b{color:var(--kal)}
+.rgc{font-weight:700;font-size:.8rem;color:var(--paper);background:var(--muted);border-radius:10px;padding:0 8px;min-width:1.6em;text-align:center}
+.rels-g{padding:4px 12px 10px 14px}
+.rels-g li{display:block;padding:6px 0;border-top:1px dashed color-mix(in srgb,var(--rule) 70%,transparent)}
+.rels-g li:first-child{border-top:0}
 /* vlastní kurzory (jen počítač) */
 html{cursor:url(art/kurzory/brk.png) 2 1,auto;cursor:-webkit-image-set(url(art/kurzory/brk.png) 1x,url(art/kurzory/brk@2x.png) 2x) 2 1,auto;cursor:image-set(url(art/kurzory/brk.png) 1x,url(art/kurzory/brk@2x.png) 2x) 2 1,auto}
 a,button,select,summary,label[for],[role=link],[role=button],.card,.seat,.gnode,.partymk,.discmk,.maplink,.plink,.flink,.rtab.dlist tbody tr,.zcard,.achap,.qk,.pchar{cursor:url(art/kurzory/ruka.png) 0 1,pointer;cursor:-webkit-image-set(url(art/kurzory/ruka.png) 1x,url(art/kurzory/ruka@2x.png) 2x) 0 1,pointer;cursor:image-set(url(art/kurzory/ruka.png) 1x,url(art/kurzory/ruka@2x.png) 2x) 0 1,pointer}
@@ -1095,6 +1112,9 @@ const RTN={rod:"krev",spoj:"spojenci",spor:"spor"};
 const RICON={rod:"art/img/vazba-rod.webp",spoj:"art/img/vazba-spoj.webp",spor:"art/img/vazba-spor.webp"};
 const rtTag=t=>`<img class="rt" src="${RICON[t]}" alt="${RTN[t]}" title="${RTN[t]}">`;
 const rIco=t=>`<img class="rico" src="${RICON[t]}" alt="" aria-hidden="true">`;
+const RGL={rod:"Krev",spoj:"Spojenectví",spor:"Spory"};
+const relGroups=(rels,id)=>`<div class="relgs">${["rod","spoj","spor"].map(k=>{const rs=rels.filter(r=>r.t===k);if(!rs.length)return"";
+  return `<details class="relg rg-${k}"><summary><img class="rgi" src="${RICON[k]}" alt="" aria-hidden="true"><b>${RGL[k]}</b><span class="rgc">${rs.length}</span></summary><ul class="rels rels-g">${rs.map(r=>`<li><span>${relText(r,id)}</span></li>`).join("")}</ul></details>`}).join("")}</div>`;
 const ARMS={"sli":"art/erby/sli.webp","ste":"art/erby/ste.webp","sva":"art/erby/sva.webp","cim":"art/erby/cim.webp","var":"art/erby/var.webp","haz":"art/erby/haz.webp","hra":"art/erby/hra.webp","opa":"art/erby/opa.webp","kos":"art/erby/kos.webp","kol":"art/erby/kol.webp","lip":"art/erby/lip.webp","per":"art/erby/per.webp","opo":"art/erby/opo.webp","pod":"art/erby/pod.webp","roz":"art/erby/roz.webp","rzm":"art/erby/rzm.webp","smi":"art/erby/smi.webp","ber":"art/erby/lip.webp","bos":"art/erby/bos.webp","rab":"art/erby/rab.webp","tes":"art/erby/opo.webp","lom":"art/erby/lom.webp","bib":"art/erby/bib.webp","ole":"art/erby/ole.webp","hlo":"art/erby/ole.webp","leg":"art/erby/ole.webp","ryz":"art/erby/ryz.webp","lob":"art/erby/lob.webp","vra":"art/erby/vra.webp","bis":"art/erby/bis.webp","bvr":"art/erby/bvr.webp"};
 const CARMS={"Brno":"art/erby/mesto-brno.webp","Kutná Hora":"art/erby/mesto-kutna-hora.webp","Plzeň":"art/erby/mesto-plzen.webp","Praha":"art/erby/mesto-praha.webp","Vratislav":"art/erby/vra.webp"};
 const armsImg=(f,cls)=>ARMS[f.id]?`<img class="${cls}" src="${cls==="armbig"?ARMS[f.id].replace("art/erby/","art/erby/velke/"):ARMS[f.id]}" alt="Erb: ${f.name}">`:"";
@@ -1723,7 +1743,7 @@ function renderDetail(){
    <dt>${f.nbr?"Ke Koruně":"K Jiřímu"}</dt><dd>${f.stance}</dd></dl>
    <p>${f.note}</p>
    ${peopleOf(f.id).length?`<span class="lbl">Osoby</span><p>${peopleOf(f.id).map(plinkP).join(", ")}</p>`:""}
-   ${rels.length?`<span class="lbl">Vazby</span><ul class="rels">${rels.map(r=>`<li>${rtTag(r.t)}<span>${relText(r,f.id)}</span></li>`).join("")}</ul>`:""}
+   ${rels.length?`<span class="lbl">Vazby</span>${relGroups(rels,f.id)}`:""}
    <a class="gbtn ghost" href="#rod/${f.id}">Otevřít v zemských deskách</a>`;
   const bb=document.getElementById("backbtn"); if(bb)bb.addEventListener("click",goBack);
 }
@@ -1945,7 +1965,7 @@ function gSelect(id){
   const f=byId[id],rels=relsFor(id);
   box.innerHTML=`<div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h3>${f.name}</h3>${faith(f.conf)}</div>
     <p class="lbl">${f.nbr?"Soused · ":""}${f.land} · ${f.head}</p>
-    <ul class="rels">${rels.map(r=>`<li>${rtTag(r.t)}<span>${relText(r,id)}</span></li>`).join("")}</ul>
+    ${relGroups(rels,id)}
     <div class="btnrow">${f.nomap?"":`<button type="button" class="gbtn" data-showmap="${id}">Ukázat na mapě</button>`}<a class="gbtn ghost" href="#rod/${id}">Zemské desky</a></div>`;
   drawGraph();
 }
@@ -2700,7 +2720,7 @@ function renderRodArticle(id){
      <p class="artlead">${f.head}</p>
      <h3>${f.nbr?"Postoj ke Koruně":"Postoj k Jiřímu"}</h3><p>${f.stance}</p>
      <h3>Zápis kronikáře</h3><p class="kron">${f.note}</p>
-     ${rels.length?`<h3>Vazby</h3><ul class="rels">${rels.map(r=>`<li>${rtTag(r.t)}<span>${relText(r,id)}</span></li>`).join("")}</ul>`:""}
+     ${rels.length?`<h3>Vazby</h3>${relGroups(rels,id)}`:""}
    </div>
    <aside class="infobox">
      <div class="ibshield">${ARMS[f.id]?armsImg(f,"armbig"):shield0(f).replace('class="shield"','class="bigshield"')}</div>
