@@ -214,10 +214,10 @@ def praha(ids, pids):
         for k in ("cislo", "druh", "mesto", "nazev", "poloha"):
             if not p.get(k):
                 fail(f"{w}: chybí '{k}'")
-        if p["druh"] not in ("dvur", "urad", "cirkev", "hospoda"):
-            fail(f"{w}: druh musí být dvur / urad / cirkev / hospoda")
-        if p["mesto"] not in ("hrad", "mala", "stare", "nove", "vys"):
-            fail(f"{w}: město musí být hrad / mala / stare / nove / vys")
+        if p["druh"] not in ("dvur", "urad", "cirkev", "hospoda", "anomalie"):
+            fail(f"{w}: druh musí být dvur / urad / cirkev / hospoda / anomalie")
+        if p["mesto"] not in ("hrad", "mala", "stare", "nove", "vys", "okoli"):
+            fail(f"{w}: město musí být hrad / mala / stare / nove / vys / okoli")
         xy = [num(v, w) for v in p["poloha"].split(",")]
         o = {"n": int(p["cislo"]), "k": p["druh"], "t": p["mesto"], "name": p["nazev"], "c": p.get("vyznani", "")}
         if p.get("rod"):

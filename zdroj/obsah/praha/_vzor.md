@@ -1,9 +1,9 @@
 ---
 # VZOR – místo na plánu Prahy (např. 53-u-zlate-podkovy.md)
 cislo: 53
-# druh: dvur (dvory a domy), urad (obec a úřady), cirkev (církevní stavby), hospoda (hospody a lázně)
+# druh: dvur (dvory a domy), urad (obec a úřady), cirkev (církevní stavby), hospoda (hospody a lázně), anomalie (anomálie a divy)
 druh: hospoda
-# mesto: hrad, mala, stare, nove, vys (Vyšehrad)
+# mesto: hrad, mala, stare, nove, vys (Vyšehrad), okoli (za hradbami)
 mesto: stare
 nazev: U Zlaté podkovy
 # vyznani: kat, kal, mix nebo nevyplňovat
