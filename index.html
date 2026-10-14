@@ -490,6 +490,7 @@ a.pchar:hover{border-color:var(--kal)}
 .dompoly{cursor:pointer}
 .dompoly:hover{filter:brightness(1.12)}
 #domlegend{display:flex;flex-direction:column;gap:4px}
+@media (min-width:821px){.artgrid.pgrid{grid-template-columns:300px minmax(0,1fr)}.artgrid.pgrid>.infobox{order:-1}}
 /* vlastní kurzory (jen počítač) */
 html{cursor:url(art/kurzory/brk.png) 2 1,auto;cursor:-webkit-image-set(url(art/kurzory/brk.png) 1x,url(art/kurzory/brk@2x.png) 2x) 2 1,auto;cursor:image-set(url(art/kurzory/brk.png) 1x,url(art/kurzory/brk@2x.png) 2x) 2 1,auto}
 a,button,select,summary,label[for],[role=link],[role=button],.card,.seat,.gnode,.dompoly,.partymk,.discmk,.maplink,.plink,.flink,.rtab.dlist tbody tr,.zcard,.achap,.qk,.pchar{cursor:url(art/kurzory/ruka.png) 0 1,pointer !important;cursor:-webkit-image-set(url(art/kurzory/ruka.png) 1x,url(art/kurzory/ruka@2x.png) 2x) 0 1,pointer !important;cursor:image-set(url(art/kurzory/ruka.png) 1x,url(art/kurzory/ruka@2x.png) 2x) 0 1,pointer !important}
@@ -2776,7 +2777,7 @@ function renderPersonArticle(pid){
   const sd=p.seat&&f.seats.find(x=>x[0]===p.seat);
   const kin=peopleOf(p.r).filter(q=>q.id!==pid);
   art.innerHTML=`<nav class="crumbs"><a href="#desky">Zemské desky</a> › <a href="#desky/osoby">Osoby</a> › <b>${p.n}</b></nav>
-   <div class="artgrid"><div class="artmain">
+   <div class="artgrid pgrid"><div class="artmain">
      <h2 class="arttitle">${p.n}</h2>
      <p class="artlead">${p.role}</p>
      <p class="kron">${p.x}</p>
