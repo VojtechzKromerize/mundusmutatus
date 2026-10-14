@@ -7,7 +7,7 @@
 :root{
   --bg:#e9dfc6; --paper:#f4ecd8; --ink:#2b2117; --muted:#6c5d47; --rule:#c4b18c;
   --land:#ede2c6; --land2:#e3d3ac; --nbr:#d9caa5; --water:#4f7690; --gold:#9a7226;
-  --kat:#2a4787; --kal:#a3232b; --mix:#8a6516; --city:#3d3124; --hill:#c9b083; --tree:#6f7a4a; --road:#8a5a2b; --logobg:transparent; --logopad:0; --domL:40%; --pstare:#cf9f78; --pnove:#e2c999; --phrad:#bdb1a0;
+  --kat:#2a4787; --kal:#a3232b; --mix:#8a6516; --city:#3d3124; --hill:#c9b083; --tree:#6f7a4a; --road:#8a5a2b; --logobg:transparent; --logopad:0; --domL:40%; --pstare:#cf9f78; --pnove:#e2c999; --phrad:#bdb1a0; --pmala:#cfa9a0;
   --nsa:#9db58a; --nbr2:#363534; --npl:#c48aa6; --nhu:#c4572c; --nat:#fffdf6; --nba:#93b3cf; --nfr:#b49ac2;
   --dpr:#7b3f8c; --dol:#2f7a6f; --dvr:#b0601e; --dmi:#4f7a2a; --dre:#3f69a3; --dkr:#a0466a; --dpa:#6e5233; --dx1:#8a6d1e; --dx2:#2f6f8a; --dx3:#8a2f4f;
   --f-disp:"Grenze Gotisch","UnifrakturMaguntia",Georgia,serif;
@@ -17,11 +17,11 @@
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#1a1611; --paper:#231e17; --ink:#ece1c9; --muted:#a8997d; --rule:#3e3427;
   --land:#2c251c; --land2:#342b20; --nbr:#16130f; --water:#5d82a0; --gold:#d3ad58;
-  --kat:#8ea9e2; --kal:#e2696e; --mix:#d8ab4c; --city:#d5c6a6; --hill:#5c4c36; --tree:#7d8a55; --road:#c98f55; --logobg:#efe3c6; --logopad:10px 14px; --domL:64%; --pstare:#7a5236; --pnove:#6b5a3a; --phrad:#5a5248; --nsa:#4d6340; --nbr2:#5a5753; --npl:#674259; --nhu:#8c3f22; --nat:#8d887e; --nba:#3d556b; --nfr:#55465e; --dpr:#c79ad6; --dol:#74c2b4; --dvr:#e09a5e; --dmi:#9cc46e; --dre:#8fb0dc; --dkr:#db8bab; --dpa:#c6a07a; --dx1:#d4b45a; --dx2:#7cc0dc; --dx3:#dc8aa8; color-scheme:dark}}
+  --kat:#8ea9e2; --kal:#e2696e; --mix:#d8ab4c; --city:#d5c6a6; --hill:#5c4c36; --tree:#7d8a55; --road:#c98f55; --logobg:#efe3c6; --logopad:10px 14px; --domL:64%; --pstare:#7a5236; --pnove:#6b5a3a; --phrad:#5a5248; --pmala:#6e4b47; --nsa:#4d6340; --nbr2:#5a5753; --npl:#674259; --nhu:#8c3f22; --nat:#8d887e; --nba:#3d556b; --nfr:#55465e; --dpr:#c79ad6; --dol:#74c2b4; --dvr:#e09a5e; --dmi:#9cc46e; --dre:#8fb0dc; --dkr:#db8bab; --dpa:#c6a07a; --dx1:#d4b45a; --dx2:#7cc0dc; --dx3:#dc8aa8; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#1a1611; --paper:#231e17; --ink:#ece1c9; --muted:#a8997d; --rule:#3e3427;
   --land:#2c251c; --land2:#342b20; --nbr:#16130f; --water:#5d82a0; --gold:#d3ad58;
-  --kat:#8ea9e2; --kal:#e2696e; --mix:#d8ab4c; --city:#d5c6a6; --hill:#5c4c36; --tree:#7d8a55; --road:#c98f55; --logobg:#efe3c6; --logopad:10px 14px; --domL:64%; --pstare:#7a5236; --pnove:#6b5a3a; --phrad:#5a5248; --nsa:#4d6340; --nbr2:#5a5753; --npl:#674259; --nhu:#8c3f22; --nat:#8d887e; --nba:#3d556b; --nfr:#55465e; --dpr:#c79ad6; --dol:#74c2b4; --dvr:#e09a5e; --dmi:#9cc46e; --dre:#8fb0dc; --dkr:#db8bab; --dpa:#c6a07a; --dx1:#d4b45a; --dx2:#7cc0dc; --dx3:#dc8aa8; color-scheme:dark}
+  --kat:#8ea9e2; --kal:#e2696e; --mix:#d8ab4c; --city:#d5c6a6; --hill:#5c4c36; --tree:#7d8a55; --road:#c98f55; --logobg:#efe3c6; --logopad:10px 14px; --domL:64%; --pstare:#7a5236; --pnove:#6b5a3a; --phrad:#5a5248; --pmala:#6e4b47; --nsa:#4d6340; --nbr2:#5a5753; --npl:#674259; --nhu:#8c3f22; --nat:#8d887e; --nba:#3d556b; --nfr:#55465e; --dpr:#c79ad6; --dol:#74c2b4; --dvr:#e09a5e; --dmi:#9cc46e; --dre:#8fb0dc; --dkr:#db8bab; --dpa:#c6a07a; --dx1:#d4b45a; --dx2:#7cc0dc; --dx3:#dc8aa8; color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.5;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px}
@@ -749,7 +749,7 @@ svg#map.measuring .seat{cursor:url(art/kurzory/kruzidlo.png) 4 2,crosshair !impo
 <div class="mapgrid">
   <div class="mapbox" id="pmapbox">
     <div class="controls" role="group" aria-label="Ovládání plánu"><button type="button" id="preset">Celá Praha</button><button type="button" id="pzin" aria-label="Přiblížit">+</button><button type="button" id="pzout" aria-label="Oddálit">−</button></div>
-    <svg id="pmap" viewBox="0 40 1000 900" role="img" aria-label="Plán Prahy roku 1458 s očíslovanými místy"></svg>
+    <svg id="pmap" viewBox="-20 20 1040 936" role="img" aria-label="Plán Prahy roku 1458 s očíslovanými místy"></svg>
   </div>
   <aside class="detail empty pdet" id="pdetail" aria-live="polite"></aside>
 </div>
@@ -2738,7 +2738,7 @@ const PRAHA_PLACES=[
 ];
 const PRB={}; PRAHA_PLACES.forEach(p=>PRB[p.n]=p);
 let PG=null, pst={sel:null,vb:null};
-const PVB0=[0,40,1000,900];
+const PVB0=[-20,20,1040,936];
 const pcol=c=>c==="kat"?"var(--kat)":c==="kal"?"var(--kal)":c==="mix"?"var(--mix)":"var(--gold)";
 function praInit(){
   if(PG){pDraw();return}
@@ -2747,14 +2747,14 @@ function praInit(){
 }
 function pDraw(){
   const svg=document.getElementById("pmap"),vb=pst.vb||PVB0; svg.setAttribute("viewBox",vb.join(" "));
-  const s=vb[2]/1000; svg.innerHTML=""; const k=Math.max(s,.62);
-  const R={x:-200,y:-200,width:1400,height:1400};
+  const s=vb[2]/PVB0[2]; svg.innerHTML=""; const k=Math.max(s,.5);
+  const R={x:-200,y:-200,width:1440,height:1400};
   const defs=el("defs",{});
   const mkF=(id,freq,scale,oct,seed,extra)=>{const f=el("filter",{id,filterUnits:"userSpaceOnUse",...R});
     f.appendChild(el("feTurbulence",{type:"fractalNoise",baseFrequency:freq,numOctaves:oct,seed,result:"n"}));
     f.appendChild(el("feDisplacementMap",{in:"SourceGraphic",in2:"n",scale,xChannelSelector:"R",yChannelSelector:"G",result:"d"}));
     if(extra)extra(f);defs.appendChild(f)};
-  mkF("pwob",0.05,2.2,2,3);
+  mkF("pwob",0.05,1.6,2,3);
   mkF("pwash",0.03,6,3,5,f=>{f.appendChild(el("feGaussianBlur",{in:"d",stdDeviation:1.4,result:"b"}));
     f.appendChild(el("feTurbulence",{type:"fractalNoise",baseFrequency:0.08,numOctaves:2,seed:11,result:"m"}));
     f.appendChild(el("feColorMatrix",{in:"m",type:"matrix",values:"0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.1 1.35",result:"ma"}));
@@ -2767,77 +2767,87 @@ function pDraw(){
    f2.appendChild(el("feColorMatrix",{in:"n",type:"matrix",values:"0 0 0 0 0.45  0 0 0 0 0.33  0 0 0 0 0.16  0 0 0 -3 1.6"}));defs.appendChild(f2);}
   const rg=el("radialGradient",{id:"pvig",cx:"50%",cy:"50%",r:"72%"});
   rg.appendChild(el("stop",{offset:"58%","stop-color":"var(--rule)","stop-opacity":"0"}));rg.appendChild(el("stop",{offset:"100%","stop-color":"var(--hill)","stop-opacity":".7"}));defs.appendChild(rg);
+  /* vinice: řádky krátkých kolíčků jako na Tomkově plánu */
+  {const pt=el("pattern",{id:"pvine",patternUnits:"userSpaceOnUse",width:16,height:14});
+   pt.appendChild(el("path",{d:"M3,2v5M11,9v5",stroke:"var(--tree)","stroke-width":"1.1","stroke-linecap":"round",opacity:".75"}));defs.appendChild(pt);}
   svg.appendChild(defs);
   const G=a=>{const g=el("g",a||{});svg.appendChild(g);return g};
   const path=p=>p.map(r=>"M"+r.map(q=>q.join(",")).join("L")+"Z").join("");
+  const ring=r=>"M"+r.map(q=>q.join(",")).join("L")+"Z";
   svg.appendChild(el("rect",{...R,fill:"var(--land)"}));
-  /* zeleň: zahrady, vinice a stráně */
-  const gg=G({filter:"url(#pwash)"});
-  PG.green.forEach(p=>gg.appendChild(el("path",{d:path(p),fill:"var(--tree)","fill-opacity":".32","fill-rule":"evenodd"})));
-  /* stromy na zahradách a stráních */
-  {let seed=7;const rnd=()=>{seed=(seed*16807)%2147483647;return seed/2147483647};
-   const inP=(x,y,r)=>{let c=false;for(let i=0,j=r.length-1;i<r.length;j=i++){const[xi,yi]=r[i],[xj,yj]=r[j];if((yi>y)!=(yj>y)&&x<(xj-xi)*(y-yi)/(yj-yi)+xi)c=!c}return c};
-   const walls=[...PG.w_hrad,...PG.w_mala,...PG.w_stare,...PG.w_nove].map(p=>p[0]);
-   let fillD="",inkD="";
-   PG.green.forEach(p=>{const r=p[0],xs=r.map(q=>q[0]),ys=r.map(q=>q[1]);const x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys);
-     const want=Math.min(260,Math.round((x1-x0)*(y1-y0)/900));
-     for(let t=0;t<want*3;t++){const x=x0+(x1-x0)*rnd(),y=y0+(y1-y0)*rnd();if(!inP(x,y,r)||walls.some(w=>inP(x,y,w)))continue;
-       const z=4+rnd()*2.2,cy=y-z*.9;const d=`M${(x-z).toFixed(1)},${cy.toFixed(1)}a${z.toFixed(1)},${z.toFixed(1)} 0 1,1 ${(2*z).toFixed(1)},0a${z.toFixed(1)},${(z*.9).toFixed(1)} 0 1,1 ${(-2*z).toFixed(1)},0Z`;
-       fillD+=d;inkD+=d+`M${x.toFixed(1)},${(cy+z*.85).toFixed(1)}V${(y+z*.6).toFixed(1)}`}});
-   const gt=G({filter:"url(#pwob)"});gt.appendChild(el("path",{d:fillD,fill:"var(--tree)",opacity:".55"}));gt.appendChild(el("path",{d:inkD,fill:"none",stroke:"var(--city)","stroke-width":".6",opacity:".6"}));}
+  /* zahrady, vinice a stráně */
+  {const gg=G({filter:"url(#pwash)"}),gv=G({filter:"url(#pwob)"});
+   PG.garden.forEach(p=>{gg.appendChild(el("path",{d:path(p),fill:"var(--tree)","fill-opacity":".24","fill-rule":"evenodd"}));
+     gv.appendChild(el("path",{d:path(p),fill:"url(#pvine)","fill-rule":"evenodd",stroke:"var(--tree)","stroke-width":".7","stroke-opacity":".45"}))});}
   /* Vltava */
-  const gr=G({filter:"url(#pwash)"});
-  PG.river.forEach(p=>gr.appendChild(el("path",{d:path(p),fill:"var(--water)","fill-opacity":".55"})));
-  const grl=G({filter:"url(#pwob)"});
-  PG.river.forEach(p=>grl.appendChild(el("path",{d:path(p),fill:"none",stroke:"var(--water)","stroke-width":"1.6"})));
-  {let d="";for(let i=0;i<70;i++){const y=60+i*13,x=420+((i*37)%60)-30;const q=PG.river[0][0];const xs=q.filter(v=>Math.abs(v[1]-y)<8).map(v=>v[0]);if(xs.length<2)continue;const a=Math.min(...xs),b=Math.max(...xs);if(b-a<20)continue;const xm=a+(b-a)*(.25+((i*53)%50)/100);d+=`M${(xm-7).toFixed(1)},${y}q3.5,-2.4 7,0t7,0`}
-   grl.appendChild(el("path",{d,fill:"none",stroke:"var(--water)","stroke-width":".8",opacity:".7"}))}
-  /* městské plochy: ulice jako světlé pergamenové pruhy */
-  const gw=G({filter:"url(#pwash)"});
-  [...PG.w_hrad,...PG.w_mala,...PG.w_stare,...PG.w_nove].forEach(p=>gw.appendChild(el("path",{d:path(p),fill:"var(--paper)","fill-opacity":".85"})));
-  /* bloky domů */
-  const gb=G({filter:"url(#pwob)"});
-  const blk=(arr,f)=>arr.forEach(p=>gb.appendChild(el("path",{d:path(p),fill:f,"fill-rule":"evenodd",stroke:"var(--ink)","stroke-width":".7","stroke-opacity":".75"})));
-  blk(PG.nove,"var(--pnove)");blk(PG.stare,"var(--pstare)");blk(PG.hrad,"var(--phrad)");
+  {const gr=G({filter:"url(#pwash)"});PG.river.forEach(p=>gr.appendChild(el("path",{d:path(p),fill:"var(--water)","fill-opacity":".55"})));
+   const gl=G({filter:"url(#pwob)"});PG.river.forEach(p=>gl.appendChild(el("path",{d:path(p),fill:"none",stroke:"var(--water)","stroke-width":"1.6"})));
+   const q=PG.river[0][0];let d="";
+   for(let i=0;i<64;i++){const y=30+i*14.5;const xs=[];
+     for(let a=0,b=q.length-1;a<q.length;b=a++){const[x1,y1]=q[b],[x2,y2]=q[a];if((y1>y)!==(y2>y))xs.push(x1+(y-y1)*(x2-x1)/(y2-y1))}
+     xs.sort((m,n)=>m-n);for(let j=0;j+1<xs.length;j+=2){const w=xs[j+1]-xs[j];if(w<26)continue;const xm=xs[j]+w*(.22+((i*53)%56)/100);d+=`M${(xm-7).toFixed(1)},${y}q3.5,-2.4 7,0t7,0`}}
+   gl.appendChild(el("path",{d,fill:"none",stroke:"var(--water)","stroke-width":".8",opacity:".7"}));
+   if(PG.island){gl.appendChild(el("path",{d:path(PG.island),fill:"var(--land)",stroke:"var(--water)","stroke-width":"1.2"}));
+    gl.appendChild(el("path",{d:path(PG.island),fill:"var(--tree)","fill-opacity":".3"}))}}
+  /* města: ulice jako pergamen uvnitř hradeb, bloky domů v barvě města */
+  const TW=[["w_hc","hc","var(--phrad)"],["w_hrad","hc","var(--phrad)"],["w_ms","ms","var(--pmala)"],["w_nm","nm","var(--pnove)"],["w_sm","sm","var(--pstare)"]];
+  {const gs=G({filter:"url(#pwob)"});TW.forEach(([w])=>(PG[w]||[]).forEach(p=>gs.appendChild(el("path",{d:ring(p[0]),fill:"var(--paper)"}))));
+   const gb=G({filter:"url(#pwob)"});
+   TW.filter(t=>t[0]!=="w_hrad").forEach(([,b,c])=>gb.appendChild(el("path",{d:PG[b].map(path).join(""),fill:c,"fill-rule":"evenodd",stroke:"var(--ink)","stroke-width":".55","stroke-opacity":".6","stroke-linejoin":"round"})));}
   /* hradby s věžemi */
-  const gwl=G({filter:"url(#pwob)"});
-  [...PG.w_hrad,...PG.w_mala,...PG.w_stare,...PG.w_nove].forEach(p=>{const r=p[0],d="M"+r.map(q=>q.join(",")).join("L")+"Z";
-    gwl.appendChild(el("path",{d,fill:"none",stroke:"var(--ink)","stroke-width":(3.4*k).toFixed(2),"stroke-linejoin":"round"}));
-    gwl.appendChild(el("path",{d,fill:"none",stroke:"var(--paper)","stroke-width":(1.4*k).toFixed(2),"stroke-dasharray":`${2.2*k} ${2.6*k}`,"stroke-linejoin":"round"}));
-    let acc=0,td="";for(let i=1;i<=r.length;i++){const a=r[i-1],b=r[i%r.length],L=Math.hypot(b[0]-a[0],b[1]-a[1]);acc+=L;if(acc>64){acc=0;const z=3.2*k;td+=`M${(b[0]-z).toFixed(1)},${(b[1]-z).toFixed(1)}h${2*z}v${2*z}h${-2*z}Z`}}
-    gwl.appendChild(el("path",{d:td,fill:"var(--paper)",stroke:"var(--ink)","stroke-width":(1.2*k).toFixed(2)}))});
+  {const gwl=G({filter:"url(#pwob)"});
+   TW.forEach(([w])=>(PG[w]||[]).forEach(p=>{const r=p[0],d=ring(r);
+    gwl.appendChild(el("path",{d,fill:"none",stroke:"var(--ink)","stroke-width":(2.8*k).toFixed(2),"stroke-linejoin":"round"}));
+    gwl.appendChild(el("path",{d,fill:"none",stroke:"var(--paper)","stroke-width":(1*k).toFixed(2),"stroke-dasharray":`${2*k} ${2.4*k}`,"stroke-linejoin":"round"}));
+    let acc=0,td="";for(let i=1;i<=r.length;i++){const a=r[i-1],b=r[i%r.length];acc+=Math.hypot(b[0]-a[0],b[1]-a[1]);if(acc>58){acc=0;const z=2.8*k;td+=`M${(b[0]-z).toFixed(1)},${(b[1]-z).toFixed(1)}h${2*z}v${2*z}h${-2*z}Z`}}
+    gwl.appendChild(el("path",{d:td,fill:"var(--paper)",stroke:"var(--ink)","stroke-width":(1.1*k).toFixed(2)}))}));}
   /* Kamenný most */
-  {const g=G({filter:"url(#pwob)"});const a=[400,281],b=[507,311];
-   g.appendChild(el("line",{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:"var(--ink)","stroke-width":"7.5","stroke-linecap":"butt"}));
-   g.appendChild(el("line",{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:"var(--paper)","stroke-width":"4.6"}));
-   let d="";for(let i=1;i<9;i++){const t=i/9,x=a[0]+(b[0]-a[0])*t,y=a[1]+(b[1]-a[1])*t;d+=`M${x.toFixed(1)},${(y-3.6).toFixed(1)}l0.8,7.2`}
-   g.appendChild(el("path",{d,stroke:"var(--ink)","stroke-width":".8"}));
-   [a,b].forEach(q=>g.appendChild(el("rect",{x:q[0]-6,y:q[1]-9,width:12,height:14,fill:"var(--paper)",stroke:"var(--ink)","stroke-width":"1.4"})));}
+  {const g=G({filter:"url(#pwob)"});const [a,b]=PG.bridge;
+   g.appendChild(el("line",{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:"var(--ink)","stroke-width":"7","stroke-linecap":"butt"}));
+   g.appendChild(el("line",{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:"var(--paper)","stroke-width":"4.2"}));
+   const L=Math.hypot(b[0]-a[0],b[1]-a[1]),nx=-(b[1]-a[1])/L,ny=(b[0]-a[0])/L;let d="";
+   for(let i=1;i<12;i++){const t=i/12,x=a[0]+(b[0]-a[0])*t,y=a[1]+(b[1]-a[1])*t;d+=`M${(x-nx*3.4).toFixed(1)},${(y-ny*3.4).toFixed(1)}L${(x+nx*3.4).toFixed(1)},${(y+ny*3.4).toFixed(1)}`}
+   g.appendChild(el("path",{d,stroke:"var(--ink)","stroke-width":".7"}));
+   [a,b].forEach(q=>g.appendChild(el("rect",{x:q[0]-5.5,y:q[1]-8,width:11,height:13,fill:"var(--paper)",stroke:"var(--ink)","stroke-width":"1.3"})));}
   /* popisky */
-  const L=(x,y,t,cls,fs,rot)=>svg.appendChild(el("text",{x,y,class:cls,"font-size":(fs*k).toFixed(1),"text-anchor":"middle","stroke-width":(3*k).toFixed(2),...(rot?{transform:`rotate(${rot} ${x} ${y})`}:{})},t));
-  L(290,118,"Pražský hrad","maplbl",22);L(165,236,"Hradčany","maplbl",17);L(312,350,"Malá Strana","maplbl",22);
-  L(650,128,"Staré Město","maplbl",26);L(735,640,"Nové Město","maplbl",28);
-  L(452,690,"Vltava","rivlbl",22,-82);L(470,120,"Vltava","rivlbl",18,-55);L(205,410,"Petřín","rivlbl",17);L(452,268,"Kamenný most","rivlbl",11,16);L(555,205,"Židovské město","rivlbl",11);
-  L(145,60,"Letná","rivlbl",15);
-  /* kartuš */
-  {const x=60,y=600,w=200,h=60,g=G({filter:"url(#pwob)"});
+  const L=(x,y,t,cls,fs,rot,st)=>svg.appendChild(el("text",{x,y,class:cls,"font-size":(fs*k).toFixed(1),"text-anchor":"middle","stroke-width":(3*k).toFixed(2),...(rot?{transform:`rotate(${rot} ${x} ${y})`}:{}),...(st?{style:st}:{})},t));
+  L(286,104,"Pražský hrad","maplbl",21);L(68,236,"Hradčany","maplbl",16);L(300,364,"Malá Strana","maplbl",20);
+  L(700,88,"Staré Město","maplbl",25);L(800,640,"Nové Město","maplbl",28);
+  L(548,150,"Vltava","rivlbl",19,-52);L(476,720,"Vltava","rivlbl",22,-86);
+  L(250,60,"Letná","rivlbl",15);L(215,430,"Petřín","rivlbl",17);L(165,392,"vinice","rivlbl",11);
+  L(461,297,"Kamenný most","rivlbl",9.5,11);L(625,214,"Židovské město","rivlbl",10);
+  L(456,462,"ostrov","rivlbl",8.5,-80);
+  const sq="fill:var(--ink);font-style:italic";
+  L(676,266,"Staroměstský","rivlbl",8,0,sq);L(676,275,"rynk","rivlbl",8,0,sq);
+  L(330,249,"Malostranský rynk","rivlbl",7.5,0,sq);L(177,221,"Hradčanský rynk","rivlbl",8,0,sq);
+  L(748,398,"Koňský trh","rivlbl",11,51,sq);L(648,676,"Dobytčí trh","rivlbl",11,-88,sq);
+  L(745,199,"Dlouhá třída","rivlbl",7.5,-24,sq);L(745,282,"Celetná","rivlbl",7.5,0,sq);
+  L(600,936,"↓ k Vyšehradu","rivlbl",11,0,sq);
+  /* kartuš a větrná růžice */
+  {const x=56,y=560,w=240,h=78,g=G({filter:"url(#pwob)"});
    g.appendChild(el("path",{d:`M${x+10},${y}H${x+w-10}q10,0 10,10v${h-20}q0,10 -10,10H${x+10}q-10,0 -10,-10v${-(h-20)}q0,-10 10,-10Z`,fill:"var(--paper)",stroke:"var(--ink)","stroke-width":"1.4"}));
-   g.appendChild(el("rect",{x:x+12,y:y+6,width:w-24,height:h-12,fill:"none",stroke:"var(--kal)","stroke-width":".9"}));
-   svg.appendChild(el("text",{x:x+w/2,y:y+31,class:"cart","font-size":"26","text-anchor":"middle"},"Praha"));
-   svg.appendChild(el("text",{x:x+w/2,y:y+49,class:"rivlbl","font-size":"12.5","text-anchor":"middle",style:"fill:var(--ink)",stroke:"none"},"čtyři města pražská · 1458"));}
+   g.appendChild(el("rect",{x:x+8,y:y+6,width:w-16,height:h-12,fill:"none",stroke:"var(--kal)","stroke-width":".9"}));
+   svg.appendChild(el("text",{x:x+w/2,y:y+33,class:"cart","font-size":"27","text-anchor":"middle"},"Praha"));
+   svg.appendChild(el("text",{x:x+w/2,y:y+52,class:"rivlbl","font-size":"12","text-anchor":"middle",style:"fill:var(--ink)",stroke:"none"},"čtyři města pražská · 1458"));
+   svg.appendChild(el("text",{x:x+w/2,y:y+67,class:"rivlbl","font-size":"9.5","text-anchor":"middle",style:"fill:var(--ink);opacity:.75",stroke:"none"},"podle Tomkova plánu Prahy roku 1419"));
+   const cx=176,cy=730,gc=G({filter:"url(#pwob)"});
+   gc.appendChild(el("path",{d:`M${cx},${cy-34}L${cx+6},${cy}L${cx},${cy+34}L${cx-6},${cy}ZM${cx-34},${cy}L${cx},${cy-6}L${cx+34},${cy}L${cx},${cy+6}Z`,fill:"var(--paper)",stroke:"var(--ink)","stroke-width":"1.1"}));
+   gc.appendChild(el("path",{d:`M${cx},${cy-34}L${cx+6},${cy}L${cx-6},${cy}Z`,fill:"var(--kal)"}));
+   gc.appendChild(el("circle",{cx,cy,r:14,fill:"none",stroke:"var(--ink)","stroke-width":".8"}));
+   svg.appendChild(el("text",{x:cx,y:cy-40,class:"cart","font-size":"15","text-anchor":"middle"},"S"));}
   /* očíslovaná místa */
   const gm=G({});
-  PRAHA_PLACES.forEach(p=>{const [x,y]=PG.marks[p.n],on=pst.sel===p.n,r=(on?11:8.5)*k;
+  PRAHA_PLACES.forEach(p=>{const [x,y]=PG.marks[p.n],on=pst.sel===p.n,r=(on?10:7.5)*k;
     const g=el("g",{class:"pmk",tabindex:0,role:"button","aria-label":`${p.n}. ${p.name}`});
     g.appendChild(el("title",{},`${p.n}. ${p.name}`));
     if(on)g.appendChild(el("circle",{cx:x,cy:y,r:r+4*k,fill:"none",stroke:"var(--gold)","stroke-width":2.4*k}));
-    g.appendChild(el("circle",{cx:x,cy:y,r,fill:"var(--paper)",stroke:pcol(p.c),"stroke-width":2.2*k}));
-    g.appendChild(el("text",{x,y:y+r*.42,"text-anchor":"middle","font-size":(r*1.15).toFixed(1),class:"pmkn",style:`fill:${pcol(p.c)}`},String(p.n)));
+    g.appendChild(el("circle",{cx:x,cy:y,r,fill:"var(--paper)",stroke:pcol(p.c),"stroke-width":2*k}));
+    g.appendChild(el("text",{x,y:y+r*.42,"text-anchor":"middle","font-size":(r*(p.n>9?1.02:1.15)).toFixed(1),class:"pmkn",style:`fill:${pcol(p.c)}`},String(p.n)));
     const go=e=>{e.stopPropagation();if(pDrag.moved)return;pSel(p.n)};
     g.addEventListener("click",go);g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();pSel(p.n)}});
     gm.appendChild(g)});
   svg.appendChild(el("rect",{...R,filter:"url(#pstain)",opacity:".2","pointer-events":"none"}));
-  svg.appendChild(el("rect",{...R,filter:"url(#ppaper)",opacity:".24","pointer-events":"none"}));
+  svg.appendChild(el("rect",{...R,filter:"url(#ppaper)",opacity:".22","pointer-events":"none"}));
   svg.appendChild(el("rect",{x:vb[0],y:vb[1],width:vb[2],height:vb[3],fill:"url(#pvig)","pointer-events":"none"}));
   const gfr=G({filter:"url(#pwob)","pointer-events":"none"});
   gfr.appendChild(el("rect",{x:vb[0]+4*s,y:vb[1]+4*s,width:vb[2]-8*s,height:vb[3]-8*s,fill:"none",stroke:"var(--ink)","stroke-width":2.2*s}));
