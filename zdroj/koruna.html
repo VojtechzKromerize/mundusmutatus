@@ -516,12 +516,34 @@ a.pchar:hover{border-color:var(--kal)}
 @media (max-width:640px){
   #mapa>.legend{display:none}
   .mapbox>svg#map{order:-1}
-  .kal .kallist li:nth-child(n+3){display:none}
-  .kal .kallist{font-size:.88rem}
 }
+
+/* úvod */
+.hero{text-align:center;padding:14px 10px 4px;display:flex;flex-direction:column;gap:4px;align-items:center}
+.herod{font-family:var(--f-disp);font-size:clamp(1.8rem,5vw,2.8rem);color:var(--kal);line-height:1.1}
+.herop{color:var(--muted)}
+.herop a{color:var(--kal)}
+.uvgrid{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:28px;align-items:start}
+.uvh{font-size:clamp(1.4rem,3.5vw,1.9rem)}
+.uvh2{font-family:var(--f-disp);font-weight:500;font-size:1.35rem;margin-top:8px;color:var(--kal)}
+.uvmore{font-family:var(--f-label);letter-spacing:.05em;color:var(--kal);align-self:flex-start}
+.uvtiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.uvt{display:flex;flex-direction:column;gap:4px;background:var(--paper);border:1px solid var(--rule);box-shadow:inset 0 0 0 3px var(--paper),inset 0 0 0 4px var(--rule);padding:14px 16px;color:var(--ink);text-decoration:none}
+.uvt b{font-family:var(--f-disp);font-weight:500;font-size:1.4rem;color:var(--kal)}
+.uvt span{font-size:.93rem;color:var(--muted)}
+.uvt:hover{border-color:var(--kal)}
+.kalt{font-family:var(--f-disp);font-size:1.5rem;color:var(--kal)}
+#kal1{position:sticky;top:12px}
+#kal1 .kallist{display:flex;flex-direction:column;gap:0}
+#kal1 .kallist li{display:grid;grid-template-columns:92px 1fr auto;column-gap:10px;padding:7px 0;border-top:1px dashed color-mix(in srgb,var(--rule) 70%,transparent)}
+#kal1 .kallist li:first-child{border-top:0}
+#kal1 .kallist .kw{grid-column:2/4;font-size:.86rem}
+#kal1 .kallist .kr{grid-column:3;grid-row:1}
+@media (max-width:860px){#kal1{position:static}}
+@media (max-width:860px){.uvgrid{grid-template-columns:minmax(0,1fr)}}
 /* vlastní kurzory (jen počítač) */
 html{cursor:url(art/kurzory/brk.png) 2 1,auto;cursor:-webkit-image-set(url(art/kurzory/brk.png) 1x,url(art/kurzory/brk@2x.png) 2x) 2 1,auto;cursor:image-set(url(art/kurzory/brk.png) 1x,url(art/kurzory/brk@2x.png) 2x) 2 1,auto}
-a,button,select,summary,label[for],[role=link],[role=button],.card,.seat,.gnode,.dompoly,.partymk,.discmk,.maplink,.plink,.flink,.rtab.dlist tbody tr,.zcard,.achap,.qk,.pchar{cursor:url(art/kurzory/ruka.png) 0 1,pointer !important;cursor:-webkit-image-set(url(art/kurzory/ruka.png) 1x,url(art/kurzory/ruka@2x.png) 2x) 0 1,pointer !important;cursor:image-set(url(art/kurzory/ruka.png) 1x,url(art/kurzory/ruka@2x.png) 2x) 0 1,pointer !important}
+a,button,select,summary,label[for],[role=link],[role=button],.card,.seat,.gnode,.dompoly,.partymk,.discmk,.maplink,.plink,.flink,.rtab.dlist tbody tr,.zcard,.achap,.qk,.pchar,.uvt{cursor:url(art/kurzory/ruka.png) 0 1,pointer !important;cursor:-webkit-image-set(url(art/kurzory/ruka.png) 1x,url(art/kurzory/ruka@2x.png) 2x) 0 1,pointer !important;cursor:image-set(url(art/kurzory/ruka.png) 1x,url(art/kurzory/ruka@2x.png) 2x) 0 1,pointer !important}
 input,textarea,[contenteditable]{cursor:text !important}
 svg#map{cursor:url(art/kurzory/chop.png) 16 16,grab !important;cursor:-webkit-image-set(url(art/kurzory/chop.png) 1x,url(art/kurzory/chop@2x.png) 2x) 16 16,grab !important;cursor:image-set(url(art/kurzory/chop.png) 1x,url(art/kurzory/chop@2x.png) 2x) 16 16,grab !important}
 svg#map:active{cursor:url(art/kurzory/drz.png) 16 16,grabbing !important;cursor:-webkit-image-set(url(art/kurzory/drz.png) 1x,url(art/kurzory/drz@2x.png) 2x) 16 16,grabbing !important;cursor:image-set(url(art/kurzory/drz.png) 1x,url(art/kurzory/drz@2x.png) 2x) 16 16,grabbing !important}
@@ -532,9 +554,10 @@ svg#map.measuring .seat{cursor:url(art/kurzory/kruzidlo.png) 4 2,crosshair !impo
 
 <div class="wrap">
 <header class="site">
-  <a href="#mapa" class="logo"><h1><img src="art/img/logo.webp" alt="Mundus Mutatus" width="1200" height="391"></h1></a>
+  <a href="#uvod" class="logo"><h1><img src="art/img/logo.webp" alt="Mundus Mutatus" width="1200" height="391"></h1></a>
   <p class="secsub" id="secsub">Koruna česká k 3. březnu léta Páně 1458</p>
   <nav class="sitenav" aria-label="Hlavní navigace">
+    <a href="#uvod" data-nav="uvod">Úvod</a>
     <a href="#mapa" data-nav="mapa">Mapa</a>
     <a href="#desky" data-nav="desky">Zemské desky</a>
     <a href="#druzina" data-nav="druzina">Družina</a>
@@ -546,10 +569,26 @@ svg#map.measuring .seat{cursor:url(art/kurzory/kruzidlo.png) 4 2,crosshair !impo
 </header>
 
 <main>
+<div class="view" data-view="uvod" hidden>
+<section class="hero" id="hero"></section>
+<div class="uvgrid">
+  <section class="sec uvev"><h2 class="uvh">Poslední události</h2><div id="uvzap"></div><h3 class="uvh2">Ze světa</h3><dl class="tl" id="uvlet"></dl><a class="uvmore" href="#kronika/letopis">Celý letopis →</a></section>
+  <aside class="kal" id="kal1" aria-label="Kalendárium"></aside>
+</div>
+<section class="sec"><h2 class="uvh">Kam dál</h2>
+  <div class="uvtiles">
+    <a class="uvt" href="#mapa"><b>Mapa</b><span>Koruna a sousedé, državy rodů, cesty, diecéze a země.</span></a>
+    <a class="uvt" href="#desky"><b>Zemské desky</b><span>Rody a osoby, jejich vyznání, vazby a spory.</span></a>
+    <a class="uvt" href="#druzina"><b>Družina</b><span>Hrdinové tažení, jejich Svědomí a původ.</span></a>
+    <a class="uvt" href="#artikule"><b>Artikule</b><span>Pravidla tažení: Víra, Boj, Rány a slovníček pojmů.</span></a>
+    <a class="uvt" href="#kronika"><b>Kronika</b><span>Zápisy ze sezení a letopis světa.</span></a>
+  </div>
+</section>
+</div>
+
 <div class="view" data-view="mapa">
 <section class="sec" id="mapa">
   <p class="lead">Den po volbě Jiřího z Poděbrad na Staroměstské radnici. Ladislav Pohrobek je od listopadu 1457 mrtev a nový král ještě není korunován. Čechy a Morava jsou nábožensky rozdělené, vedlejší země Koruny, Slezsko a obě Lužice, jsou převážně katolické a „kacířského“ krále přijímají neochotně nebo vůbec. Za hranicemi čekají sousedé, z nichž dva si na trůn sami dělají nárok.</p>
-  <div class="kal" id="kal1"></div>
   <div class="legend" aria-label="Legenda">
     <span><img class="legico" src="art/img/vira-kat.webp" alt="">katolíci</span>
     <span><img class="legico" src="art/img/vira-kal.webp" alt="">kališníci (utrakvisté)</span>
@@ -683,7 +722,6 @@ svg#map.measuring .seat{cursor:url(art/kurzory/kruzidlo.png) 4 2,crosshair !impo
 
 <div class="view" data-view="kronika" hidden>
 <nav class="subnav" aria-label="Kronika"><a href="#kronika" data-ksub="zapisy">Zápisy tažení</a><a href="#kronika/clanky" data-ksub="clanky">Články</a><a href="#kronika/letopis" data-ksub="letopis">Letopis</a></nav>
-<div class="kal" id="kal2"></div>
 <section class="sec" id="kzapisy"></section>
 <section class="sec" id="kclanky" hidden>
   <p class="intro">Články o světě po protržení Závoje: o zemích, řádech, pověstech a tajemstvích.</p>
@@ -2735,14 +2773,19 @@ function feasts(y){const E=easter(y);return [
 function renderKal(){
   const last=[...ZAPISY].reverse().find(z=>/^\d{4}-\d{2}-\d{2}$/.test(z.datum||""));
   const [Y,M,D]=(last?last.datum:"1458-03-03").split("-").map(Number), today=jdn(Y,M,D);
-  const up=[...feasts(Y),...feasts(Y+1)].filter(f=>f.j>=today).sort((a,b)=>a.j-b.j).slice(0,5);
+  const up=[...feasts(Y),...feasts(Y+1)].filter(f=>f.j>=today).sort((a,b)=>a.j-b.j).slice(0,8);
   const fd=j=>{const [y,m,d]=fromJdn(j);return `${d}. ${MES[m-1]}`+(y!==Y?` ${y}`:"")};
   const rel=j=>{const n=j-today;return n===0?"dnes":n===1?"zítra":`za ${n} ${n<5?"dny":"dní"}`};
-  const html=`<div class="kalhead"><span class="lbl">Kalendář tažení</span><b>${DNY[(today+1)%7]} ${D}. ${MES[M-1]} léta Páně ${Y}</b>${last?`<a href="#kronika/${last.id}">${last.place}</a>`:""}</div>
+  document.getElementById("hero").innerHTML=`<p class="lbl">Dnes je</p><p class="herod">${DNY[(today+1)%7]} ${D}. ${MES[M-1]} léta Páně ${Y}</p>${last?`<p class="herop">Družina: <button type="button" class="maplink" data-id="${(PLACES.find(p=>p.name===last.place)?FAM.find(f=>f.seats.some(s=>s[0]===last.place)):{id:""}).id}" data-place="${last.place}">${last.place}</button> · poslední zápis: <a href="#kronika/${last.id}">${last.title}</a></p>`:""}`;
+  const zs=[...ZAPISY].reverse().slice(0,3);
+  document.getElementById("uvzap").innerHTML=`<ol class="zlist">${zs.map(z=>`<li><a class="zcard" href="#kronika/${z.id}"><small>${z.n} · ${z.date} · ${z.place}</small><b>${z.title}</b><span>${strip(z.text).replace(/\s+/g," ").slice(0,180)}…</span></a></li>`).join("")}</ol>`;
+  const L=[...document.querySelectorAll("#letopis dt")].slice(-3).reverse();
+  document.getElementById("uvlet").innerHTML=L.map(dt=>`<dt>${dt.textContent}</dt><dd>${dt.nextElementSibling.innerHTML}</dd>`).join("");
+  autolink(document.getElementById("uvlet"),"");
+  const html=`<div class="kalhead"><span class="kalt">Kalendárium</span><span class="lbl">svátky a Hodiny Pravdy</span></div>
    <ul class="kallist">${up.map(f=>`<li class="${f.hp?"hp":f.info?"inf":""}"><span class="kd">${fd(f.j)}</span><span class="kn">${f.n}</span><span class="kw">${f.hp?`<a href="#artikule/pojmy/p-hodina-pravdy">Hodina Pravdy</a>`:f.info?"":`Požehnání 4–6: ${f.w}`}</span><span class="kr">${rel(f.j)}</span></li>`).join("")}</ul>`;
   document.querySelectorAll(".kal").forEach(k=>k.innerHTML=html);
 }
-renderKal();
 /* --- AUTOMATICKÉ ODKAZY --- */
 const AL=(()=>{
   const terms=new Map(),esc=s=>s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
@@ -2836,8 +2879,8 @@ document.addEventListener("click",e=>{const b=e.target.closest("[data-partymap]"
   const z=ZBY[b.dataset.partymap],p=z&&placeBy(z.place);if(p){const [x,y]=P(p.lo,p.la);mapCenter(x,y,300)}});
 
 /* ---------- site navigation: views, house and person articles ---------- */
-const VIEWS=["mapa","desky","druzina","artikule","draconomicon","kronika"];
-const SUBT={mapa:"Koruna česká k 3. březnu léta Páně 1458",desky:"Zemské desky · rody a osoby",artikule:"Artikule tažení",druzina:"Družina · hrdinové tažení",draconomicon:"Draconomicon · kniha o dracích",kronika:"Kronika Vojtěcha z Kroměříže"};
+const VIEWS=["uvod","mapa","desky","druzina","artikule","draconomicon","kronika"];
+const SUBT={uvod:"Kronika Koruny české léta Páně 1458",mapa:"Koruna česká k 3. březnu léta Páně 1458",desky:"Zemské desky · rody a osoby",artikule:"Artikule tažení",druzina:"Družina · hrdinové tažení",draconomicon:"Draconomicon · kniha o dracích",kronika:"Kronika Vojtěcha z Kroměříže"};
 let curView=null;
 function navTo(h){if(location.hash!==h)history.pushState(null,"",h);route()}
 function maplinkBtn(f,sd){return `<button type="button" class="maplink" data-id="${f.id}" data-place="${sd[0]}">${f.city&&CARMS[sd[0]]?`<img class="cmini" src="${CARMS[sd[0]]}" alt="">`:""}${sd[0]}</button>`}
@@ -2889,14 +2932,14 @@ function renderOsoby(){
     return `<div class="land-sec"><h3 class="landh">${L.toUpperCase()}</h3><div class="pcards">${ps.map(p=>`<a class="pcard${PORTR.has(p.id)?" hasp":""}" href="#osoba/${p.id}">${pThumb(p)}<span class="pct"><b>${p.n}</b><span>${p.role}</span><small>${byId[p.r].name}</small></span></a>`).join("")}</div></div>`}).join("");
 }
 function route(){
-  const h=decodeURIComponent(location.hash.slice(1))||"mapa";
+  const h=decodeURIComponent(location.hash.slice(1))||"uvod";
   const [a,b,c]=h.split("/");
-  let view=(a==="rod"||a==="osoba")?"desky":a; if(!VIEWS.includes(view))view="mapa";
+  let view=(a==="rod"||a==="osoba")?"desky":a; if(!VIEWS.includes(view))view="uvod";
   const changed=view!==curView; curView=view;
   document.querySelectorAll(".view").forEach(v=>{v.hidden=v.dataset.view!==view});
   document.querySelectorAll("[data-nav]").forEach(n=>n.classList.toggle("on",n.dataset.nav===view));
   document.getElementById("secsub").textContent=SUBT[view];
-  document.title=view==="mapa"?"Mundus Mutatus":"Mundus Mutatus · "+SUBT[view].split(" · ")[0];
+  document.title=view==="uvod"?"Mundus Mutatus":"Mundus Mutatus · "+SUBT[view].split(" · ")[0];
   if(view==="desky"){
     const art=document.getElementById("article"),subs=["rody","osoby","sousede","vazby"];
     let sub=null;
@@ -2935,6 +2978,7 @@ document.querySelectorAll("[data-conf]").forEach(b=>b.addEventListener("click",(
  renderRodArticle=function(id){_rra(id);autolink(document.querySelector("#article .artmain"),"#rod/"+id)};
  renderPersonArticle=function(id){_rpa(id);autolink(document.querySelector("#article .artmain"),"#osoba/"+id)};}
 autolink(document.querySelector("#letopis dl"),"");
+renderKal();
 {const _rd=renderDetail;renderDetail=function(){_rd.apply(this,arguments);const d=document.getElementById("detail");if(st.sel&&!d.classList.contains("empty"))autolink(d,st.city?"":"#rod/"+st.sel)};}
 select("pod");
 route();
