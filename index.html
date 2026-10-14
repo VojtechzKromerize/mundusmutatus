@@ -456,6 +456,16 @@ a.pchar:hover{border-color:var(--kal)}
 .partymk{cursor:pointer}
 .partymk:focus-visible{outline:2px solid var(--gold)}
 .discmk{cursor:pointer}
+
+/* vlastní kurzory (jen počítač) */
+html{cursor:url(art/kurzory/brk.png) 2 1,auto;cursor:-webkit-image-set(url(art/kurzory/brk.png) 1x,url(art/kurzory/brk@2x.png) 2x) 2 1,auto;cursor:image-set(url(art/kurzory/brk.png) 1x,url(art/kurzory/brk@2x.png) 2x) 2 1,auto}
+a,button,select,summary,label[for],[role=link],[role=button],.card,.seat,.gnode,.partymk,.discmk,.maplink,.plink,.flink,.rtab.dlist tbody tr,.zcard,.achap,.qk,.pchar{cursor:url(art/kurzory/ruka.png) 0 1,pointer;cursor:-webkit-image-set(url(art/kurzory/ruka.png) 1x,url(art/kurzory/ruka@2x.png) 2x) 0 1,pointer;cursor:image-set(url(art/kurzory/ruka.png) 1x,url(art/kurzory/ruka@2x.png) 2x) 0 1,pointer}
+input,textarea,[contenteditable]{cursor:text}
+svg#map{cursor:url(art/kurzory/chop.png) 16 16,grab;cursor:-webkit-image-set(url(art/kurzory/chop.png) 1x,url(art/kurzory/chop@2x.png) 2x) 16 16,grab;cursor:image-set(url(art/kurzory/chop.png) 1x,url(art/kurzory/chop@2x.png) 2x) 16 16,grab}
+svg#map:active{cursor:url(art/kurzory/drz.png) 16 16,grabbing;cursor:-webkit-image-set(url(art/kurzory/drz.png) 1x,url(art/kurzory/drz@2x.png) 2x) 16 16,grabbing;cursor:image-set(url(art/kurzory/drz.png) 1x,url(art/kurzory/drz@2x.png) 2x) 16 16,grabbing}
+svg#map.measuring,svg#map.measuring:active{cursor:url(art/kurzory/kruzidlo.png) 4 2,crosshair;cursor:-webkit-image-set(url(art/kurzory/kruzidlo.png) 1x,url(art/kurzory/kruzidlo@2x.png) 2x) 4 2,crosshair;cursor:image-set(url(art/kurzory/kruzidlo.png) 1x,url(art/kurzory/kruzidlo@2x.png) 2x) 4 2,crosshair}
+svg#map .seat,svg#map .partymk{cursor:url(art/kurzory/ruka.png) 0 1,pointer;cursor:-webkit-image-set(url(art/kurzory/ruka.png) 1x,url(art/kurzory/ruka@2x.png) 2x) 0 1,pointer;cursor:image-set(url(art/kurzory/ruka.png) 1x,url(art/kurzory/ruka@2x.png) 2x) 0 1,pointer}
+svg#map.measuring .seat{cursor:url(art/kurzory/kruzidlo.png) 4 2,crosshair;cursor:-webkit-image-set(url(art/kurzory/kruzidlo.png) 1x,url(art/kurzory/kruzidlo@2x.png) 2x) 4 2,crosshair;cursor:image-set(url(art/kurzory/kruzidlo.png) 1x,url(art/kurzory/kruzidlo@2x.png) 2x) 4 2,crosshair}
 </style>
 
 <style>
@@ -1085,7 +1095,7 @@ const RTN={rod:"krev",spoj:"spojenci",spor:"spor"};
 const RICON={rod:"art/img/vazba-rod.webp",spoj:"art/img/vazba-spoj.webp",spor:"art/img/vazba-spor.webp"};
 const rtTag=t=>`<img class="rt" src="${RICON[t]}" alt="${RTN[t]}" title="${RTN[t]}">`;
 const rIco=t=>`<img class="rico" src="${RICON[t]}" alt="" aria-hidden="true">`;
-const ARMS={"sli":"art/erby/sli.webp","ste":"art/erby/ste.webp","sva":"art/erby/sva.webp","cim":"art/erby/cim.webp","var":"art/erby/var.webp","haz":"art/erby/haz.webp","hra":"art/erby/hra.webp","opa":"art/erby/opa.webp","kos":"art/erby/kos.webp","kol":"art/erby/kol.webp","lip":"art/erby/lip.webp","per":"art/erby/per.webp","opo":"art/erby/opo.webp","pod":"art/erby/pod.webp","roz":"art/erby/roz.webp","rzm":"art/erby/rzm.webp","smi":"art/erby/smi.webp","ber":"art/erby/lip.webp","bos":"art/erby/bos.webp","rab":"art/erby/rab.webp","tes":"art/erby/opo.webp","lom":"art/erby/lom.webp","bib":"art/erby/bib.webp","ole":"art/erby/ole.webp","hlo":"art/erby/ole.webp","leg":"art/erby/ole.webp","ryz":"art/erby/ryz.webp","lob":"art/erby/lob.webp","vra":"art/erby/vra.webp"};
+const ARMS={"sli":"art/erby/sli.webp","ste":"art/erby/ste.webp","sva":"art/erby/sva.webp","cim":"art/erby/cim.webp","var":"art/erby/var.webp","haz":"art/erby/haz.webp","hra":"art/erby/hra.webp","opa":"art/erby/opa.webp","kos":"art/erby/kos.webp","kol":"art/erby/kol.webp","lip":"art/erby/lip.webp","per":"art/erby/per.webp","opo":"art/erby/opo.webp","pod":"art/erby/pod.webp","roz":"art/erby/roz.webp","rzm":"art/erby/rzm.webp","smi":"art/erby/smi.webp","ber":"art/erby/lip.webp","bos":"art/erby/bos.webp","rab":"art/erby/rab.webp","tes":"art/erby/opo.webp","lom":"art/erby/lom.webp","bib":"art/erby/bib.webp","ole":"art/erby/ole.webp","hlo":"art/erby/ole.webp","leg":"art/erby/ole.webp","ryz":"art/erby/ryz.webp","lob":"art/erby/lob.webp","vra":"art/erby/vra.webp","bis":"art/erby/bis.webp","bvr":"art/erby/bvr.webp"};
 const CARMS={"Brno":"art/erby/mesto-brno.webp","Kutná Hora":"art/erby/mesto-kutna-hora.webp","Plzeň":"art/erby/mesto-plzen.webp","Praha":"art/erby/mesto-praha.webp","Vratislav":"art/erby/vra.webp"};
 const armsImg=(f,cls)=>ARMS[f.id]?`<img class="${cls}" src="${ARMS[f.id]}" alt="Erb: ${f.name}">`:"";
 const shield=f=>ARMS[f.id]?armsImg(f,"armsmall"):shield0(f);
@@ -1465,7 +1475,7 @@ function meander(line,amp,seed){const out=[];let sd=seed;const rnd=()=>{sd=(sd*1
 const HIGHLAND_FOREST=new Set([0,1,2,3,4,5,6,7,12,18,19,21,22,26,28,31,35,45,47,49,51,56]);
 function drawMap(){
   const vb=st.vb||VB[st.zoom]; svg.setAttribute("viewBox",vb.join(" "));
-  const s=vb[2]/680, k=Math.max(s,.55); svg.innerHTML="";
+  const s=vb[2]/680, k=Math.max(s,.55); svg.innerHTML=""; svg.classList.toggle("measuring",!!st.measure);
   const R={x:vb[0]-vb[2]*.6,y:vb[1]-vb[3]*.6,width:vb[2]*2.2,height:vb[3]*2.2};
   const defs=el("defs",{});
   const rg=el("radialGradient",{id:"vig",cx:"50%",cy:"50%",r:"72%"});
