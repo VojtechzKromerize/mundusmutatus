@@ -32,7 +32,15 @@ def md(body):
     out = []
     for block in re.split(r"\n\s*\n", body.strip()):
         lines = block.strip().split("\n")
-        if all(l.lstrip().startswith(("- ", "* ")) for l in lines):
+        if all(l.strip().startswith("|") for l in lines):
+            rows = [[c.strip() for c in l.strip().strip("|").split("|")] for l in lines]
+            head, body = (rows[0], rows[2:]) if len(rows) > 1 and all(set(c) <= set("-: ") for c in rows[1]) else (None, rows)
+            t = '<div class="rtw"><table class="rtab">'
+            if head:
+                t += "<thead><tr>" + "".join(f'<th scope="col">{inline(c)}</th>' for c in head) + "</tr></thead>"
+            t += "<tbody>" + "".join("<tr>" + "".join(f"<td>{inline(c)}</td>" for c in r) + "</tr>" for r in body) + "</tbody></table></div>"
+            out.append(t)
+        elif all(l.lstrip().startswith(("- ", "* ")) for l in lines):
             out.append("<ul>" + "".join("<li>" + inline(l.lstrip()[2:]) + "</li>" for l in lines) + "</ul>")
         elif lines[0].startswith("## "):
             out.append("<h3>" + inline(lines[0][3:]) + "</h3>" + ("<p>" + inline(" ".join(lines[1:])) + "</p>" if lines[1:] else ""))
@@ -271,6 +279,31 @@ def svet_mesta():
         out.append([parts[0], lo, la, 1 if len(parts) > 2 and parts[2].lower().startswith("hlav") else 0, parts[3] if len(parts) > 3 else ""])
     return out
 
+
+def draconomicon():
+    kap = []
+    for k in read_dir("draconomicon/kapitoly"):
+        if not k.get("id") or not k.get("title"):
+            fail(f"draconomicon/kapitoly/{k['_file']}: chybí 'id' nebo 'title'")
+        kap.append({"id": k["id"], "t": k["title"], "h": md(k["_body"])})
+    pl = []
+    for p in read_dir("draconomicon/plemena"):
+        w = "draconomicon/plemena/" + p["_file"]
+        for k in ("id", "nazev", "trida"):
+            if not p.get(k):
+                fail(f"{w}: chybí '{k}'")
+        if p["trida"] not in ("L", "S", "T"):
+            fail(f"{w}: třída musí být L, S nebo T")
+        img = p.get("obrazek") or p["id"]
+        if not os.path.exists(os.path.join(ROOT, "art", "draci", img + ".webp")):
+            img = ""
+        pl.append({"id": p["id"], "n": p["nazev"], "j": p.get("jinak", ""), "la": p.get("latin", ""), "tr": p["trida"], "vz": p.get("vzacnost", ""),
+                   "rod": p.get("rod", ""), "img": img, "prof": [p.get(k, "") for k in ("kridla", "ocas", "stavba", "let", "schopnost")], "h": md(p["_body"])})
+    ids = [x["id"] for x in kap + pl]
+    if len(ids) != len(set(ids)):
+        fail("draconomicon: kapitoly a plemena musí mít různá id")
+    return {"kap": kap, "pl": pl}
+
 def portrety():
     d = os.path.join(ROOT, "art", "portrety")
     return sorted(fn[:-7] for fn in os.listdir(d) if fn.endswith("-m.webp")) if os.path.isdir(d) else []
@@ -303,7 +336,7 @@ for key, val in (("ZAPISY", zapisy()), ("PARTY", druzina()), ("MISTA", mista()),
     if tag not in s:
         fail(f"ve zdroji chybí značka {tag}")
     s = s.replace(tag, J(val))
-for key, val in (("SHORT", SHORT), ("ARMS", ARMS)):
+for key, val in (("SHORT", SHORT), ("ARMS", ARMS), ("DRACI", draconomicon())):
     tag = f"/*@{key}@*/{{}}"
     if tag not in s:
         fail(f"ve zdroji chybí značka {tag}")
