@@ -1,4 +1,7 @@
 <title>Mundus Mutatus</title>
+<link rel="icon" type="image/png" sizes="32x32" href="art/img/ikona-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="art/img/ikona-64.png">
+<link rel="apple-touch-icon" href="art/img/ikona-180.png">
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@500;700&family=Alegreya:ital,wght@0,400;0,600;0,700;1,400&family=Alegreya+Sans+SC:wght@500;700&display=swap">
@@ -17,11 +20,11 @@
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#1a1611; --paper:#231e17; --ink:#ece1c9; --muted:#a8997d; --rule:#3e3427;
   --land:#2c251c; --land2:#342b20; --nbr:#16130f; --water:#5d82a0; --gold:#d3ad58;
-  --kat:#8ea9e2; --kal:#e2696e; --mix:#d8ab4c; --city:#d5c6a6; --hill:#5c4c36; --tree:#7d8a55; --road:#c98f55; --logobg:#efe3c6; --logopad:10px 14px; --domL:64%; --pstare:#7a5236; --pnove:#6b5a3a; --phrad:#5a5248; --pmala:#6e4b47; --nsa:#4d6340; --nbr2:#5a5753; --npl:#674259; --nhu:#8c3f22; --nat:#8d887e; --nba:#3d556b; --nfr:#55465e; --dpr:#c79ad6; --dol:#74c2b4; --dvr:#e09a5e; --dmi:#9cc46e; --dre:#8fb0dc; --dkr:#db8bab; --dpa:#c6a07a; --dx1:#d4b45a; --dx2:#7cc0dc; --dx3:#dc8aa8; color-scheme:dark}}
+  --kat:#8ea9e2; --kal:#e2696e; --mix:#d8ab4c; --city:#d5c6a6; --hill:#5c4c36; --tree:#7d8a55; --road:#c98f55; --logobg:#efe3c6; --logopad:10px 14px; --domL:64%; --pstare:#7a5236; --pnove:#6b5a3a; --phrad:#5a5248; --pmala:#6e4b47; --roll1:#2e251b; --roll2:#8f7a55; --nsa:#4d6340; --nbr2:#5a5753; --npl:#674259; --nhu:#8c3f22; --nat:#8d887e; --nba:#3d556b; --nfr:#55465e; --dpr:#c79ad6; --dol:#74c2b4; --dvr:#e09a5e; --dmi:#9cc46e; --dre:#8fb0dc; --dkr:#db8bab; --dpa:#c6a07a; --dx1:#d4b45a; --dx2:#7cc0dc; --dx3:#dc8aa8; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#1a1611; --paper:#231e17; --ink:#ece1c9; --muted:#a8997d; --rule:#3e3427;
   --land:#2c251c; --land2:#342b20; --nbr:#16130f; --water:#5d82a0; --gold:#d3ad58;
-  --kat:#8ea9e2; --kal:#e2696e; --mix:#d8ab4c; --city:#d5c6a6; --hill:#5c4c36; --tree:#7d8a55; --road:#c98f55; --logobg:#efe3c6; --logopad:10px 14px; --domL:64%; --pstare:#7a5236; --pnove:#6b5a3a; --phrad:#5a5248; --pmala:#6e4b47; --nsa:#4d6340; --nbr2:#5a5753; --npl:#674259; --nhu:#8c3f22; --nat:#8d887e; --nba:#3d556b; --nfr:#55465e; --dpr:#c79ad6; --dol:#74c2b4; --dvr:#e09a5e; --dmi:#9cc46e; --dre:#8fb0dc; --dkr:#db8bab; --dpa:#c6a07a; --dx1:#d4b45a; --dx2:#7cc0dc; --dx3:#dc8aa8; color-scheme:dark}
+  --kat:#8ea9e2; --kal:#e2696e; --mix:#d8ab4c; --city:#d5c6a6; --hill:#5c4c36; --tree:#7d8a55; --road:#c98f55; --logobg:#efe3c6; --logopad:10px 14px; --domL:64%; --pstare:#7a5236; --pnove:#6b5a3a; --phrad:#5a5248; --pmala:#6e4b47; --roll1:#2e251b; --roll2:#8f7a55; --nsa:#4d6340; --nbr2:#5a5753; --npl:#674259; --nhu:#8c3f22; --nat:#8d887e; --nba:#3d556b; --nfr:#55465e; --dpr:#c79ad6; --dol:#74c2b4; --dvr:#e09a5e; --dmi:#9cc46e; --dre:#8fb0dc; --dkr:#db8bab; --dpa:#c6a07a; --dx1:#d4b45a; --dx2:#7cc0dc; --dx3:#dc8aa8; color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.5;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px}
@@ -180,9 +183,10 @@ header.site{display:flex;flex-direction:column;gap:0;border:0;padding:0}
 .sitenav a{font-family:var(--f-disp);font-size:1.35rem;color:var(--ink);text-decoration:none;padding:2px 2px;border-bottom:2px solid transparent}
 .sitenav a:hover{color:var(--kal)}
 .sitenav a.on{color:var(--kal);border-bottom-color:var(--kal)}
+.gmtoast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:90;background:var(--ink);color:var(--paper);font-family:var(--f-label);padding:8px 14px;border-radius:4px;box-shadow:0 4px 12px rgba(0,0,0,.3);opacity:0;pointer-events:none;transition:opacity .2s}.gmtoast.on{opacity:1}
 .navdd{position:relative;display:inline-block}
 .navdd .svitek{position:absolute;left:50%;top:100%;transform:translateX(-50%);padding-top:10px;z-index:40;pointer-events:none}
-.svitek .roll{display:block;height:13px;margin:0 -12px;border-radius:7px;border:1px solid var(--ink);background:linear-gradient(var(--hill),var(--paper) 40%,var(--paper) 55%,var(--hill));box-shadow:0 2px 3px rgba(0,0,0,.25);opacity:0;transition:opacity .2s}
+.svitek .roll{display:block;height:13px;margin:0 -12px;border-radius:7px;border:1px solid var(--ink);background:linear-gradient(var(--roll1,var(--hill)),var(--roll2,var(--paper)) 40%,var(--roll2,var(--paper)) 55%,var(--roll1,var(--hill)));box-shadow:0 2px 3px rgba(0,0,0,.25);opacity:0;transition:opacity .2s}
 .svitek .svlist{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:220px;max-height:0;overflow:hidden;padding:0 18px;background:var(--paper);border-left:1px solid var(--rule);border-right:1px solid var(--rule);background-image:linear-gradient(90deg,rgba(0,0,0,.06),transparent 12%,transparent 88%,rgba(0,0,0,.06));transition:max-height .45s ease,padding .45s ease}
 .svitek .svlist a{white-space:nowrap;font-size:1.2rem}
 .navdd:hover .svitek,.navdd:focus-within .svitek,.navdd.open .svitek{pointer-events:auto}
@@ -563,7 +567,9 @@ a.pchar:hover{border-color:var(--kal)}
 .plist button{display:flex;align-items:center;gap:8px;width:100%;text-align:left;background:none;border:0;padding:4px 6px;border-radius:3px;font:inherit;color:var(--ink)}
 .plist button:hover,.plist button.on{background:var(--paper)}
 .plist button.on{outline:1px solid var(--gold)}
-.pnum.sq{border-radius:4px}.pcross{font-size:.8rem;margin:0 -3px 0 -2px}
+.prl{white-space:nowrap;color:var(--ink);text-decoration:underline dotted var(--kal);text-underline-offset:3px}.prl:hover{color:var(--kal)}.prn{display:inline-grid;place-items:center;min-width:1.35em;height:1.35em;margin-right:4px;border-radius:50%;border:1.5px solid currentColor;font-family:var(--f-label);font-size:.72em;font-weight:700;vertical-align:.1em}
+.zpraha{font-size:.95rem}
+.pnum.sq{border-radius:4px}.pfico{width:18px;height:18px;margin-left:auto;flex:none}.pcross{font-size:.8rem;margin:0 -3px 0 -2px}
 #pmapbox>.controls+.controls{margin-top:6px}
 .pnum{flex:none;display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;border:2px solid;background:var(--paper);font-family:var(--f-label);font-weight:700;font-size:.78rem}
 
@@ -762,7 +768,7 @@ svg#map.measuring .seat{cursor:url(art/kurzory/kruzidlo.png) 4 2,crosshair !impo
     <div class="controls" role="group" aria-label="Ovládání plánu"><button type="button" id="preset">Celá Praha</button><button type="button" id="pzin" aria-label="Přiblížit">+</button><button type="button" id="pzout" aria-label="Oddálit">−</button></div>
     <div class="controls" role="group" aria-label="Vyznání"><button type="button" data-pconf="all" aria-pressed="true">Vše</button><button type="button" data-pconf="kat" data-fico="kat" aria-pressed="false">Katolíci</button><button type="button" data-pconf="kal" data-fico="kal" aria-pressed="false">Kališníci</button><button type="button" data-pconf="mix" data-fico="mix" aria-pressed="false">Smíšení</button></div>
     <div class="controls" role="group" aria-label="Druh místa"><button type="button" data-pkind="all" aria-pressed="true">Všechna místa</button><button type="button" data-pkind="dvur" aria-pressed="false">Dvory a domy</button><button type="button" data-pkind="urad" aria-pressed="false">Obec a úřady</button><button type="button" data-pkind="cirkev" aria-pressed="false">Církevní stavby</button><button type="button" data-pkind="hospoda" aria-pressed="false">Hospody a lázně</button></div>
-    <svg id="pmap" viewBox="-20 20 1040 936" role="img" aria-label="Plán Prahy roku 1458 s očíslovanými místy"></svg>
+    <svg id="pmap" viewBox="-40 30 1120 1008" role="img" aria-label="Plán Prahy roku 1458 s očíslovanými místy"></svg>
   </div>
   <aside class="detail empty pdet" id="pdetail" aria-live="polite"></aside>
 </div>
@@ -807,442 +813,8 @@ svg#map.measuring .seat{cursor:url(art/kurzory/kruzidlo.png) 4 2,crosshair !impo
 </div>
 
 <script>
-const FAM=[
-/* ČECHY */
-{id:"pod",land:"Čechy",name:"Páni z Poděbrad (z Kunštátu)",conf:"kal",
- head:"Jiří z Poděbrad, zvolený král; synové Boček, Viktorin, Jindřich starší a Hynek (Jindřich mladší)",
- seats:[["Poděbrady",15.12,50.14],["Litice",16.35,50.10],["Náchod",16.16,50.42],["Kladsko",16.65,50.44],["Minsterberk",17.04,50.60],["Kunštát (Morava)",16.52,49.51]],
- stance:"Královský rod; Jiří je zvolen, ale dosud nekorunován.",
- note:"Moravský původ (Kunštát). Na litickém panství v Kunvaldu vzniká Jednota bratrská. Kladsko koupil roku 1454 od Viléma Krušiny z Lichtenburka a spravuje ho jeho hejtman Hanuš z Varnsdorfu; Minsterberk získal roku 1456 od Arnošta Opavského."},
-{id:"roz",land:"Čechy",name:"Rožmberkové",conf:"kat",
- head:"Jan II. z Rožmberka (vladař rodu od 1457); otec Oldřich II. stále vlivný",
- seats:[["Český Krumlov",14.32,48.81],["Rožmberk",14.37,48.65],["Třeboň",14.77,49.00],["Nové Hrady",14.78,48.79]],
- stance:"Volbu přijali, ale ostražitě.",
- note:"Nejbohatší rod v zemi. Oldřich II. vedl katolickou stranu proti Jiřímu a proslul padělanými listinami. Bratr Jošt II. je biskupem vratislavským. Starší bratr Jindřich IV. († 1457) byl hejtmanem Svídnicka-Javorska a fojtem Horní Lužice; hejtmanství převzal Jan."},
-{id:"ste",land:"Čechy",name:"Šternberkové",conf:"kat",
- head:"Zdeněk Konopišťský ze Šternberka, nejvyšší purkrabí pražský; synové Jaroslav a Jan",
- seats:[["Konopiště",14.66,49.78],["Český Šternberk",14.93,49.81],["Zelená Hora",13.54,49.47],["Šternberk (Morava)",17.30,49.73],["Lukov (Morava)",17.73,49.29]],
- stance:"Volbu podpořil; nejmocnější katolík u dvora.",
- note:"Moravská větev (mj. Albrecht mladší ze Šternberka) drží Šternberk a Lukov."},
-{id:"hra",land:"Čechy",name:"Páni z Hradce",conf:"kat",
- head:"Jindřich IV. z Hradce, mladý dědic po Oldřichovi V. († 1453)",
- seats:[["Jindřichův Hradec",15.00,49.14],["Telč (Morava)",15.45,49.18]],
- stance:"Nepřátelé. Jiří zajal Menharta z Hradce a ten v únoru 1449 zemřel.",
- note:"Vítkovci, spříznění s Rožmberky. Jindřich je pravověrný katolík. Smrtí Oldřicha rod přišel o Velhartice."},
-{id:"rzm",land:"Čechy",name:"Lvové z Rožmitálu",conf:"kat",
- head:"Jaroslav Lev z Rožmitálu; sestra Johana je manželkou Jiřího",
- seats:[["Blatná",13.88,49.43],["Rožmitál",13.86,49.60]],
- stance:"Katolíci věrní králi, jsou to jeho švagři.",
- note:"Jaroslav Lev je zkušený dvořan a diplomat, díky sestře blízký králi."},
-{id:"rab",land:"Čechy",name:"Pluhové z Rabštejna",conf:"kat",
- head:"Prokop z Rabštejna, nejvyšší kancléř",
- seats:[["Rabštejn nad Střelou",13.29,50.04]],
- stance:"Katolík ve službách krále, vede jeho diplomacii.",
- note:"Humanista a přítel kardinála Eneáše Silvia Piccolominiho."},
-{id:"kos",land:"Čechy",name:"Kostkové z Postupic",conf:"kal",
- head:"Zdeněk Kostka z Postupic",
- seats:[["Litomyšl",16.31,49.87],["Postupice",14.78,49.73]],
- stance:"Nejbližší kališnický spojenec a důvěrník krále.",
- note:"Litomyšl je bývalé biskupské město v rukou kališnické šlechty."},
-{id:"smi",land:"Čechy",name:"Smiřičtí ze Smiřic",conf:"kal",
- head:"Václav Smiřický ze Smiřic, nezletilý syn popraveného Jana († 1453); za něj vládne ovdovělá matka",
- seats:[["Smiřice",15.87,50.30],["Houska",14.62,50.49]],
- stance:"Rodová křivda: Jan Smiřický byl popraven v době, kdy zemi spravoval Jiří.",
- note:"Mladý a velmi bohatý rod, který zbohatl na zástavách církevních statků. Dědic Václav je ještě nezletilý a statky za něj spravuje matka-vdova, která se králi uklání a nezapomíná; rod vyrůstá ve stínu otcovy popravy."},
-{id:"kol",land:"Čechy",name:"Kolovratové",conf:"kat",
- head:"Hanuš II. z Kolovrat na Libštejně (otec Hanuš I. † 1450)",
- seats:[["Libštejn",13.65,49.97]],
- stance:"Zapřisáhlí katolíci; otec byl v čele Strakonické jednoty, syn patří k předákům katolické opozice.",
- note:"Opora katolického Plzeňska."},
-{id:"sva",land:"Čechy",name:"Švamberkové",conf:"kat",
- head:"Bohuslav ze Švamberka, nástupce otce Hynka Krušiny",
- seats:[["Švamberk (Krasikov)",13.02,49.88],["Bor",12.78,49.71]],
- stance:"Zdrženliví.",
- note:"Západočeská katolická šlechta s vazbami na Plzeň."},
-{id:"haz",land:"Čechy",name:"Zajícové z Hazmburka",conf:"kat",
- head:"Mikuláš Zajíc z Hazmburka",
- seats:[["Hazmburk",14.02,50.43],["Budyně",14.13,50.40]],
- stance:"Zdrženliví.",
- note:"Severozápadní Čechy, Podřipsko."},
-{id:"lob",land:"Čechy",name:"Hasištejnští z Lobkovic",conf:"kat",
- head:"Mikuláš II. Hasištejnský z Lobkovic",
- seats:[["Hasištejn",13.32,50.43]],
- stance:"Katolíci bez výrazné opozice.",
- note:"Severozápadní Čechy u Kadaně."},
-{id:"var",land:"Čechy",name:"Vartenberkové",conf:"mix",
- head:"✦ Jan z Vartenberka na Děčíně; ✦ Heník z Vartenberka na Ralsku",
- seats:[["Děčín",14.21,50.78],["Ralsko",14.77,50.67]],
- stance:"Kolísají podle výhody.",
- note:"Jan by rád získal uprázdněný úřad hornolužického fojta a potřebuje k tomu královu přízeň. Bratranec Heník z Ralska mezitím přepadá lužické kupce a každou jeho fehdu Šestiměstí připíše celému rodu."},
-{id:"ber",land:"Čechy",name:"Berkové z Dubé",conf:"mix",
- head:"✦ Hynek Berka z Dubé na Tolštejně; ostatní větve samostatně",
- seats:[["Tolštejn",14.58,50.87],["Jestřebí",14.62,50.62],["Dubá",14.54,50.54]],
- stance:"Větve stojí na různých stranách.",
- note:"Hohnštejn v Míšeňsku už prodali Wettinům. Tolštejn je trnem v oku Šestiměstí: Hynek žije z výpalného na kupcích ze Žitavy a s Vartenberky si v lese nepřekáží."},
-{id:"ryz",land:"Čechy",name:"Švihovští z Rýzmberka",conf:"kat",
- head:"✦ Břetislav Švihovský z Rýzmberka",
- seats:[["Velhartice",13.39,49.26]],
- stance:"Katolíci bez výrazné opozice; mlčenliví.",
- note:"Velhartice získali po smrti Oldřicha z Hradce (1453).⟦ V kraji se šeptá, že ve velhartické věži leží část královského pokladu z Karlštejna a že Břetislav ví víc, než říká.⟧"},
-{id:"sli",land:"Čechy",name:"Šlikové",conf:"kat",
- head:"Matyáš Šlik, bratr kancléře Kašpara († 1449)",
- seats:[["Loket",12.75,50.19]],
- stance:"Němečtí katolíci, loajální podle potřeby.",
- note:"Drží zástavou Loketsko; Kašpar Šlik byl kolegou Piccolominiho v císařské kanceláři."},
-/* MORAVA */
-{id:"per",land:"Morava",name:"Páni z Pernštejna",conf:"kal",
- head:"Jan II. z Pernštejna; syn Vilém",
- seats:[["Pernštejn",16.32,49.45]],
- stance:"Opora Jiřího na Moravě.",
- note:"Rod na vzestupu, s državami na Vysočině."},
-{id:"cim",land:"Morava",name:"Páni z Cimburka (Tovačovští)",conf:"kal",
- head:"Jan Tovačovský z Cimburka, moravský zemský hejtman",
- seats:[["Tovačov",17.29,49.43],["Cimburk",17.15,49.09]],
- stance:"Horliví kališníci a opora krále.",
- note:"Jan přestoupil ke kalichu za husitských válek a je zemským hejtmanem od roku 1440. Drží Moravu pohromadě proti zdráhavým katolickým městům."},
-{id:"bis",land:"Morava",name:"Biskupství olomoucké",conf:"kat",
- head:"Tas (Protas) Černohorský z Boskovic, sotva třicetiletý biskup zvolený roku 1457, dosud nevysvěcený",
- seats:[["Kroměříž",17.39,49.30],["Vyškov",17.00,49.28],["Hukvaldy",18.22,49.62]],
- stance:"Smířlivý humanista; s králem chce spolupracovat, pokud to nebude proti víře a církvi.",
- note:"Nastoupil po náhlé smrti biskupa Bohuše ze Zvole (červenec 1457), o níž se šeptá, že šlo o jed. Studoval ve Vídni a v Padově, kde se spřátelil s básníkem Janem Panonským; obdivuje Lorenza Vallu. Od roku 1450 brněnský kanovník. Biskupský hrad Mírov je zastavený. Největší církevní vrchnost na Moravě, s vlastními many."},
-{id:"bos",land:"Morava",name:"Páni z Boskovic",conf:"mix",
- head:"Vaněk mladší Černohorský z Boskovic (asi 68 let), nejvyšší komorník moravského zemského soudu; manželka Johanka z Vlašimi, syn Václav",
- seats:[["Černá Hora",16.58,49.41]],
- stance:"Chladní. Vaněk byl věrným dvořanem Ladislava Pohrobka a s Kunštáty si nejsou nakloněni.",
- note:"Nábožensky smíšený rod: Vaňkův bratr Beneš, moravský podkomoří a otec biskupa Tase, se roku 1451 odřekl kalicha; jiní členové rodu se ke kalichu stále klonějí. Rodový hrad Boskovice nemají v rukou; jeho navrácení je to, co může král Vaňkovi nabídnout. Vaněk bojoval proti Turkům a roku 1454 doprovázel Ladislavovu sestru Alžbětu k sňatku s polským králem."},
-{id:"lip",land:"Morava",name:"Páni z Lipé",conf:"mix",
- head:"Jindřich z Lipé, nejvyšší maršálek Království českého (od 1451)",
- seats:[["Moravský Krumlov",16.31,49.05]],
- stance:"Nejvyšší maršálek, který stojí při zvoleném králi.",
- note:"Starobylý rod Ronovců, s Berky z Dubé sdílí erb se zkříženými ostrvemi. Úřad nejvyššího maršálka drží rod dědičně po generace a s ním i vrchní slovo ve věcech rytířské cti a soubojů."},
-{id:"lom",land:"Morava",name:"Páni z Lomnice",conf:"kal",
- head:"✦ Hynek Meziříčský z Lomnice",
- seats:[["Velké Meziříčí",16.01,49.36]],
- stance:"Kališníci, stoupenci krále bez výhrad.",
- note:"Hynek je starý veterán husitských polí. Katolickým Němcům z Jihlavy nevěří a rád by je ke králově poslušnosti přivedl mečem."},
-/* SLEZSKO */
-{id:"vra",land:"Slezsko",city:true,name:"Město Vratislav",conf:"kat",
- head:"Městská rada; korunní knížectví vratislavské",
- seats:[["Vratislav",17.03,51.11]],
- stance:"Tvrdě odmítá „kacíře“ za krále.",
- note:"Největší město Koruny po Praze. Kazatelé ve městě burcují proti Jiřímu."},
-{id:"bvr",land:"Slezsko",name:"Biskupství vratislavské",conf:"kat",
- head:"Biskup Jošt II. z Rožmberka (od 1456)",
- seats:[["Nisa",17.33,50.47],["Otmuchov",17.17,50.47]],
- stance:"Smířlivý, ale spjatý s katolickou Vratislaví.",
- note:"Spojuje nejmocnější český rod se slezskou katolickou baštou."},
-{id:"opo",land:"Slezsko",name:"Opolští Piastovci",conf:"mix",
- head:"Boleslav V. Opolský zvaný Husita a bratr Mikuláš I.",
- seats:[["Opolí",17.93,50.67],["Horní Hlohov",17.86,50.35]],
- stance:"Boleslav je jediný slezský kníže se sympatiemi ke kalichu.",
- note:"Boleslav zabíral církevní statky a koupil dvě třetiny Opavska."},
-{id:"opa",land:"Slezsko",name:"Opavští Přemyslovci",conf:"kat",
- head:"Nezletilí synové Viléma Opavského pod poručnictvím strýce Arnošta; Jan II. Pobožný (Hlubčice); Jan IV. Krnovský (od 1452); v Ratiboři vládne vdova Markéta ze Šamotul (po Václavovi II., † 1456) za nezletilé děti",
- seats:[["Opava",17.90,49.94],["Hlubčice",17.82,50.20],["Krnov",17.70,50.09],["Ratiboř",18.22,50.09]],
- stance:"Uznávají krále, ale jsou rozdrobení a zadlužení.",
- note:"Poslední potomci Přemyslovců. Arnošt jako poručník prodal dvě třetiny Opavska Boleslavu V. Opolskému; zbylá třetina patří Janovi II."},
-{id:"tes",land:"Slezsko",name:"Těšínští Piastovci",conf:"kat",
- head:"Přemysl II. Těšínský; bratr Vladislav drží polovinu Hlohova",
- seats:[["Těšín",18.63,49.75]],
- stance:"Loajální vazalové.",
- note:"Pomezí s Polskem a Uhrami."},
-{id:"ole",land:"Slezsko",name:"Olešničtí Piastovci",conf:"kat",
- head:"Konrád IX. Černý a Konrád X. Bílý",
- seats:[["Olešnice",17.39,51.21]],
- stance:"Opatrní vazalové.",
- note:"Severovýchodní Slezsko u polské hranice."},
-{id:"hlo",land:"Slezsko",name:"Hlohovsko-žaháňští Piastovci",conf:"kat",
- head:"Baltazar Žaháňský a jeho bratr Jan II.",
- seats:[["Žaháň",15.32,51.62],["Hlohov",16.08,51.66]],
- stance:"Zaměstnáni vlastním sporem.",
- note:"Bratři se zahořkle přou o Žaháň. Polovinu Hlohova drží Vladislav Těšínský."},
-{id:"leg",land:"Slezsko",name:"Lehnicko-břežští Piastovci",conf:"kat",
- head:"Nezletilý Fridrich I. Lehnický (asi 12 let) pod poručnictvím matky Hedviky",
- seats:[["Lehnice",16.16,51.21],["Břeh",17.47,50.86]],
- stance:"Vazalové.",
- note:"Lehnice se ve sporech o dědictví opírala přímo o Korunu."},
-{id:"svi",land:"Slezsko",name:"Svídnicko-javorsko",conf:"kat",
- head:"Korunní knížectví; zemským hejtmanem je od roku 1457 Jan II. z Rožmberka",
- seats:[["Svídnice",16.49,50.84],["Javor",16.19,51.05]],
- stance:"Přímá doména Koruny, spravovaná katolickým Rožmberkem.",
- note:"Bohaté soukenické a hornické kraje pod Krkonošemi."},
-/* LUŽICE */
-{id:"ses",land:"Lužice",city:true,name:"Šestiměstí Horní Lužice",conf:"kat",
- head:"Městský spolek; úřad zemského fojta je od smrti Jindřicha IV. z Rožmberka (1457) neobsazen",
- seats:[["Zhořelec",14.99,51.15],["Budyšín",14.42,51.18],["Žitava",14.81,50.90],["Lubáň",15.29,51.12],["Kamenec",14.09,51.27],["Lobava",14.67,51.10]],
- stance:"S uznáním krále otálí.",
- note:"Za husitských válek se Žitava a Zhořelec bránily husitům; nyní válčí se severočeskými lapky."},
-{id:"bib",land:"Lužice",name:"Páni z Bibrštejna",conf:"kat",
- head:"✦ Oldřich z Bibrštejna na Frýdlantě",
- seats:[["Frýdlant",15.08,50.92],["Žary",15.14,51.63],["Beeskow",14.25,52.17]],
- stance:"Katolík spjatý se Šestiměstím, ale potřebuje českého krále.",
- note:"Frýdlant leží v Čechách, Žary v Lužici. Proti braniborským choutkám na Žary a Beeskow může Oldřicha ochránit jen Praha, a tak spolkne i kališnického krále."},
-/* MĚSTA */
-{id:"mes",land:"Královská města",name:"Královská a věnná města",conf:"mix",city:true,
- head:"Městské rady; Praha je hlavní oporou Jiřího",
- seats:[["Praha",14.42,50.09,"kal"],["Kutná Hora",15.27,49.95,"kal"],["Tábor",14.66,49.41,"kal"],["Hradec Králové",15.83,50.21,"kal"],["Žatec",13.55,50.33,"kal"],["Plzeň",13.38,49.75,"kat"],["České Budějovice",14.47,48.97,"kat"],["Cheb",12.37,50.08,"kat"],["Brno",16.61,49.20,"kat"],["Olomouc",17.25,49.59,"kat"],["Jihlava",15.59,49.40,"kat"],["Znojmo",16.05,48.86,"kat"],
-  ["Litoměřice",14.13,50.53,"kal"],["Louny",13.80,50.36,"kal"],["Slaný",14.09,50.23,"kal"],["Kolín",15.20,50.03,"kal"],["Čáslav",15.38,49.91,"kal"],["Nymburk",15.04,50.19,"kal"],["Chrudim",15.80,49.95,"kal"],["Vysoké Mýto",16.16,49.95,"kal"],["Polička",16.27,49.71,"kal"],["Dvůr Králové",15.81,50.43,"kal"],["Jaroměř",15.92,50.36,"kal"],["Mělník",14.47,50.35,"kal"],["Písek",14.15,49.31,"kal"],["Klatovy",13.29,49.40,"kal"],["Domažlice",12.93,49.44,"kal"],["Sušice",13.52,49.23,"kal"],["Beroun",14.07,49.96,"kal"],["Rakovník",13.73,50.10,"kal"],
-  ["Most",13.64,50.50,"kat"],["Kadaň",13.27,50.38,"kat"],["Ústí nad Labem",14.04,50.66,"kat"],["Uherské Hradiště",17.46,49.07,"kat"],["Uničov",17.12,49.77,"kat"],["Uherský Brod",17.65,49.03,"kat"]],
- stance:"České kališnické město krále nesou; katolická Plzeň a Budějovice váhají a německá moravská města (Jihlava, Brno, Olomouc, Znojmo) se zdráhají.",
- note:"Tábor ztratil samostatnost roku 1452. Cheb je říšské město zastavené české koruně a spravuje se po svém."},
-/* SOUSEDÉ */
-{id:"bra",land:"Braniborsko",nbr:true,name:"Hohenzollernové braniborští",conf:"kat",
- head:"Kurfiřt Fridrich II. Železný",
- seats:[["Berlín-Cölln",13.40,52.52],["Chotěbuz",14.33,51.76],["Picnov",14.41,51.86]],
- stance:"Drží velkou část Dolní Lužice a Koruna ji chce zpět.",
- note:"Chotěbuz a Picnov získal koupí a zástavou od lužických pánů. Lužice je hlavní spor s Prahou."},
-{id:"jag",land:"Polsko",nbr:true,name:"Jagellonci",conf:"kat",
- head:"Král Kazimír IV.; manželka Alžběta, sestra Ladislava Pohrobka",
- seats:[["Krakov",19.94,50.06],["Osvětim",19.23,50.04]],
- stance:"Kazimír si přes manželku dělá nárok na českou korunu.",
- note:"Osvětimské knížectví, dříve slezské léno Koruny, koupil roku 1457. Polsko válčí s Řádem německých rytířů a najímá české žoldnéře."},
-{id:"hun",land:"Uhry",nbr:true,name:"Hunyadiové",conf:"kat",
- head:"Matyáš Korvín, zvolen 24. 1. 1458; za mladého krále vládne strýc Michal Silágyi",
- seats:[["Budín",19.04,47.50]],
- stance:"Matyáš byl v Praze rukojmím Jiřího; propuštěn za slib sňatku s Kateřinou z Poděbrad.",
- note:"Část uherských magnátů a císař Fridrich III. jeho volbu neuznávají."},
-{id:"jis",land:"Uhry",nbr:true,name:"Jan Jiskra z Brandýsa a bratříci",conf:"mix",
- head:"Jan Jiskra z Brandýsa, hejtman Horních Uher",
- seats:[["Zvolen",19.13,48.58],["Kremnice",18.92,48.70]],
- stance:"Čech ve službách zesnulého Ladislava; Matyášovi nepřátelský, zvažuje podporu císaře.",
- note:"S českými žoldnéři drží hrady a hornická města na středním Slovensku. Bratrská vojska jsou směsí husitských veteránů a kořistníků."},
-{id:"hab",land:"Rakousy",nbr:true,name:"Habsburkové",conf:"kat",
- head:"Císař Fridrich III.; bratr Albrecht VI. a bratranec Zikmund Tyrolský",
- seats:[["Vídeňské Nové Město",16.25,47.81],["Vídeň",16.37,48.21]],
- stance:"Císař rozhoduje o lénech a uznání krále v Říši.",
- note:"Po Ladislavově smrti se Habsburkové přou o rakouské dědictví; Vídeň zatím nemá jasného pána."},
-{id:"lie",land:"Rakousy",nbr:true,name:"Páni z Lichtenštejna",conf:"kat",
- head:"Jan z Lichtenštejna na Mikulově, manžel Perchty z Rožmberka",
- seats:[["Mikulov (Morava)",16.64,48.81],["Valtice",16.75,48.74]],
- stance:"Díky Mikulovu patří i k moravským stavům.",
- note:"Jan sedí obkročmo na hranici: v Mikulově je moravským pánem, ve Vídni rakouským. Od roku 1449 je ženatý s Perchtou, dcerou Oldřicha II. z Rožmberka. ⟦Manželství je nešťastné, Lichtenštejnové jí vyčítají nevyplacené věno a Perchta si v dopisech domů stěžuje na ponižování.¦Manželství je nešťastné a spor o nevyplacené věno je veřejným tajemstvím.⟧"},
-{id:"kra",land:"Rakousy",nbr:true,name:"Krajířové z Krajku",conf:"kat",
- head:"✦ Konrád Krajíř z Krajku, starý válečník",
- seats:[["Landštejn",15.23,48.97]],
- stance:"Katolíci z jihočeského pomezí.",
- note:"Landštejn hlídá cestu z Rakous do Čech. Konrád za válek zbohatl na mýtu od všech stran⟦ a teď na hradě ukrývá uprchlíky z vídeňských bojů o Ladislavovo dědictví. Každý z nich něco ví.¦.⟧"},
-{id:"wit",land:"Bavory",nbr:true,name:"Wittelsbachové",conf:"kat",
- head:"Ludvík IX. Bohatý (Landshut), Albrecht III. (Mnichov), Ota I. (Neumarkt v Horní Falci)",
- seats:[["Landshut",12.15,48.54],["Mnichov",11.58,48.14],["Neumarkt",11.46,49.28]],
- stance:"Ludvík Bohatý je nejmocnější soused na západě.",
- note:"Bavorské linie mezi sebou soupeří. V Horní Falci leží někdejší české državy z doby Karla IV."},
-{id:"wet",land:"Sasko",nbr:true,name:"Wettinové",conf:"kat",
- head:"Kurfiřt Fridrich II. Dobrotivý; bratr Vilém III. (Durynsko)",
- seats:[["Míšeň",13.47,51.16],["Drážďany",13.74,51.05],["Výmar",11.33,50.98]],
- stance:"Vilém si přes manželku Annu, sestru Ladislava, dělá nárok na trůn.",
- note:"Hranice v Krušnohoří a léna v severních Čechách jsou mezi Saskem a Korunou nevyjasněné."},
-{id:"pla",land:"Sasko",nbr:true,name:"Páni z Plavna",conf:"kat",
- head:"Jindřich II. z Plavna, purkrabí míšeňský",
- seats:[["Plavno",12.14,50.50]],
- stance:"Fojtský rod, zároveň mezi českou šlechtou.",
- note:"Na pomezí Čech a Saska, ve sporu s Wettiny o míšeňské purkrabství."},
-{id:"sch",land:"Sasko",nbr:true,name:"Páni ze Šumburka",conf:"kat",
- head:"✦ Vít ze Šumburka na Glauchau",
- seats:[["Glauchau",12.54,50.82],["Waldenburg",12.60,50.87]],
- stance:"Glauchau, Waldenburg a Lichtenstein drží jako léna české koruny.",
- note:"Česká léna dávají Vítovi hlas v Praze i místo u saského dvora. Hraje na obě strany a nevyjasněná hranice mezi Saskem a Korunou mu vyhovuje nejvíc."},
-{id:"fra",land:"Braniborsko",nbr:true,name:"Frankští Hohenzollernové",conf:"kat",
- head:"Markrabě Albrecht Achilles (Ansbach a Kulmbach), bratr braniborského kurfiřta",
- seats:[["Plassenburg",11.46,50.11]],
- stance:"Soused Chebska; ctižádostivý a válečný kníže.",
- note:"Soupeří s Ludvíkem Bohatým o vliv ve Francích a Švábsku a hledá spojence proti Wittelsbachům."},
-{id:"zat",land:"Polsko",nbr:true,name:"Zátorští Piastovci",conf:"kat",
- head:"Václav I. Zátorský a jeho bratři",
- seats:[["Zátor",19.44,49.99]],
- stance:"Odnož osvětimských Piastovců, dnes pod polským vlivem.",
- note:"Po prodeji Osvětimska jsou poslední slezskou výspou na polské straně hranice."},
-{id:"bkr",land:"Polsko",nbr:true,name:"Biskupství krakovské",conf:"kat",
- head:"Biskup Tomasz Strzępiński (od 1455)",
- seats:[["Krakov (Wawel)",20.02,50.02]],
- stance:"Dědic protihusitské politiky kardinála Oleśnického.",
- note:"Kardinál Zbigniew Oleśnicki († 1455) byl nejtvrdším odpůrcem kalicha v Polsku. Jeho nástupce je umírněnější, ale krakovská kapitula na kališnického krále hledí s odporem."},
-{id:"tec",land:"Polsko",nbr:true,name:"Tęczyńští (Tenčinští)",conf:"kat",
- head:"Jan z Tęczyna (asi 50 let); bratr Ondřej, starosta rabštejnský",
- seats:[["Tęczyn",19.58,50.10],["Rabsztyn",19.60,50.32]],
- stance:"Mocní malopolští magnáti blízcí královu dvoru.",
- note:"Nejvlivnější rod okolí Krakova. Ondřej je prchlivý muž, který s krakovskými měšťany a řemeslníky nejedná v rukavičkách; jeho syn Spytek se píše z Melštýna, rodu, který kdysi sympatizoval s husity."},
-{id:"szm",land:"Polsko",nbr:true,name:"Šamotulští (Szamotulscy)",conf:"kat",
- head:"Velkopolský panský rod",
- seats:[["Šamotuly",16.58,52.61]],
- stance:"Velkopolští páni s dynastickými vazbami do Slezska.",
- note:"Markéta ze Šamotul, vdova po ratibořském vévodovi Václavovi II., vládne v Ratiboři. Přes ni má rod přímý vliv v Horním Slezsku."},
-{id:"gni",land:"Polsko",nbr:true,name:"Arcibiskupství hnězdenské",conf:"kat",
- head:"Arcibiskup Jan Sprowski, primas Polska",
- seats:[["Hnězdno",17.60,52.53]],
- stance:"Primas Polska; Kazimírův nárok na českou korunu podporuje jen opatrně.",
- note:"Polsko je zabrané válkou s Řádem německých rytířů a na české záležitosti nemá peníze ani vojáky."},
-{id:"esz",land:"Uhry",nbr:true,name:"Arcibiskupství ostřihomské",conf:"kat",
- head:"Arcibiskup a kardinál Dionýz Széchy, primas Uher",
- seats:[["Ostřihom",18.74,47.79]],
- stance:"Korunovace uherských králů je jeho právem.",
- note:"Matyášovu volbu podpořil, ale bez svaté koruny, kterou drží císař Fridrich, ho korunovat nemůže."},
-{id:"kom",land:"Uhry",nbr:true,name:"Petr Komorovský",conf:"kat",
- head:"Petr Komorovský, polský šlechtic a pán Oravy",
- seats:[["Oravský hrad",19.36,49.26]],
- stance:"Léta bojoval s Jiskrou proti Hunyadiům; s novým králem začíná vyjednávat.",
- note:"Kastelán Oravy od roku 1441. Jeho posádka odolala i Jiskrovým obléháním, než se s ním spojil. Teď si chce od Matyáše vymoci Oravu a Liptov."},
-{id:"sgy",land:"Uhry",nbr:true,name:"Hrabata svatojiřská a pezinská",conf:"kat",
- head:"✦ Hrabě Jiří Svatojiřský a Pezinský",
- seats:[["Pezinok",17.27,48.29],["Svätý Jur",17.21,48.25]],
- stance:"Pohraniční magnát kousek od Moravy, který čeká, kdo bude silnější.",
- note:"Malokarpatské víno z jeho vinic teče na stoly v Budíně, Vídni i Praze.⟦ Jiří posílá sudy s dopisy všem třem dvorům najednou a každému tvrdí, že je jeho nejvěrnějším sousedem.¦ Jiří udržuje dobré vztahy se všemi třemi dvory.⟧"},
-{id:"eiz",land:"Rakousy",nbr:true,name:"Eicingerové",conf:"kat",
- head:"Oldřich Eicinger z Eicingu",
- seats:[["Schrattenthal",15.90,48.70]],
- stance:"Jeden z vůdců stavovské vlády po Ladislavově smrti; ve sporu Habsburků drží s císařem.",
- note:"Byl prvním mužem u dvora Ladislava Pohrobka a kdysi spravoval i Znojmo. Albrecht VI. ho má za nepřítele a jde po něm."},
-{id:"puc",land:"Rakousy",nbr:true,name:"Puchheimové",conf:"kat",
- head:"✦ Albero z Puchheimu",
- seats:[["Heidenreichstein",15.12,48.87]],
- stance:"Pohraniční rakouská šlechta, loajální především sama sobě.",
- note:"Vodní hrad Heidenreichstein leží pár hodin jízdy od Jindřichova Hradce a Nových Hradů.⟦ Po zajetí Oldřicha Eicingera na něm našla útočiště část jeho rodiny a Albero zvažuje, komu ji za jakou cenu vydat.⟧"},
-{id:"mai",land:"Rakousy",nbr:true,name:"Maidburgové z Hardeggu",conf:"kat",
- head:"✦ Michal z Maidburku, hrabě z Hardeggu",
- seats:[["Hardegg",15.86,48.85]],
- stance:"Sousedé Znojemska na hraniční Dyji.",
- note:"Hrabství Hardegg leží přímo na moravsko-rakouské hranici naproti Vranovu. Michalovi lidé vybírají clo u dyjských brodů a přepadají znojemské vinaře. Katolické Znojmo, které se krále zdráhá uznat, ho přitom potřebuje, aby zjednal pořádek."},
-{id:"sbg",land:"Rakousy",nbr:true,name:"Hrabata ze Schaunberku",conf:"kat",
- head:"✦ Hrabě Bernhard ze Schaunberku",
- seats:[["Eferding",14.02,48.31]],
- stance:"Nejmocnější hornorakouský rod; Rožmberkům přes Šumavu soused.",
- note:"Schaunberkové úzkostlivě hlídají svou nezávislost na Habsburcích.⟦ Bernhard vidí v Albrechtovi VI. příležitost vymanit se z císařovy ruky a nabízí mu Horní Rakousy.¦ Bezvládí v Rakousích jim otevírá nové možnosti.⟧"},
-{id:"pas",land:"Bavory",nbr:true,name:"Biskupství pasovské",conf:"kat",
- head:"Biskup Oldřich z Nussdorfu",
- seats:[["Pasov",13.46,48.57]],
- stance:"Duchovní soused Šumavy.",
- note:"Pasovská diecéze sahá přes celé Dolní Rakousy, takže biskup má slovo i ve sporu o Ladislavovo dědictví."},
-{id:"rez",land:"Bavory",nbr:true,name:"Biskupství řezenské",conf:"kat",
- head:"Biskup Ruprecht Falcký, syn Oty I. Neumarktského",
- seats:[["Řezno",12.10,49.02]],
- stance:"Duchovní pán Chebska.",
- note:"Do řezenské diecéze patří i Chebsko; biskup je tak duchovním pánem jediného českého území mimo pražskou arcidiecézi."},
-{id:"leu",land:"Bavory",nbr:true,name:"Lankrabata z Leuchtenberka",conf:"kat",
- head:"✦ Lankrabě Ludvík z Leuchtenberka",
- seats:[["Leuchtenberg",12.26,49.60],["Pfreimd",12.18,49.49]],
- stance:"Pohraniční páni naproti Tachovsku a Chebsku.",
- note:"Starý říšský rod, zadlužený a sevřený mezi Wittelsbachy a Českou korunou.⟦ Ludvík tiše nabízí lenní svrchovanost nad svými statky tomu, kdo zaplatí jeho dluhy: Ludvíku Bohatému, Albrechtu Achillovi, nebo novému českému králi.⟧"},
-{id:"mei",land:"Sasko",nbr:true,name:"Biskupství míšeňské",conf:"kat",
- head:"Biskup Kašpar ze Schönbergu",
- seats:[["Stolpen",14.08,51.05]],
- stance:"Diecéze zasahuje do Horní Lužice.",
- note:"Budyšínská kapitula a Šestiměstí spadají pod míšeňského biskupa, který tak má slovo v lužické nechuti ke kališnickému králi."},
-{id:"reu",land:"Sasko",nbr:true,name:"Reussové",conf:"kat",
- head:"✦ Jindřich z Gery (v rodě se všichni muži jmenují Jindřich)",
- seats:[["Gera",12.08,50.88],["Greiz",12.20,50.66]],
- stance:"Lavírují mezi Wettiny a Českou korunou.",
- note:"Fojtský rod příbuzný pánům z Plavna, s državami ve východním Durynsku. Protože se každý Reuss jmenuje Jindřich, pletou se listiny, dluhy i sliby⟦, a Jindřich z Gery toho umí obratně využít.¦.⟧"},
-{id:"rmi",land:"Říšská města",nbr:true,city:true,name:"Svobodná říšská města",conf:"kat",
- head:"Městské rady, podřízené přímo císaři",
- seats:[["Norimberk",11.08,49.45],["Řezno",12.10,49.02],["Erfurt",11.03,50.98]],
- stance:"Přímí poddaní císaře; s Českou korunou je pojí hlavně obchod.",
- note:"Norimberk je největší obchodní město jižního Německa a na konci Norimberské stezky drží brány do Čech. Řezno ovládá obchod na Dunaji a je sídlem biskupa. Erfurt formálně patří mohučskému arcibiskupovi, ale spravuje se sám jako bohatá durynská metropole."},
-{id:"umi",land:"Uhry",nbr:true,city:true,name:"Svobodná královská města Uher",conf:"kat",
- head:"Městské rady; horní města razí uherskou minci",
- seats:[["Prešpurk",17.11,48.15],["Trnava",17.59,48.38],["Banská Štiavnica",18.9,48.45],["Banská Bystrica",19.15,48.74]],
- stance:"Novému králi Matyášovi opatrně věrná.",
- note:"Stříbro a zlato horních měst a měď Banské Bystrice jsou pokladnicí Uher. Města leží v dosahu Jiskrových žoldnéřů, kteří z okolí vybírají výpalné."},
-{id:"mdl",land:"Lužice",city:true,name:"Města Dolní Lužice",conf:"kat",
- head:"Městské rady pod lužickým fojtem v Lubinu",
- seats:[["Lubin (Lübben)",13.90,51.94],["Guben",14.72,51.95],["Luckau",13.72,51.85]],
- stance:"Katolická města, která se ohlížejí spíš po Braniborsku.",
- note:"Lubin je sídlem dolnolužického fojta a stavů; Guben hlídá přechod přes Nisu na cestě k Odře."},
-{id:"cat",land:"Rakousy",nbr:true,city:true,name:"Města Rakous",conf:"kat",
- head:"Zeměpanská města",
- seats:[["Linec",14.29,48.31],["Kremže",15.60,48.41],["Štýr",14.42,48.04]],
- stance:"Ve sporu Habsburků o dědictví se přiklánějí k tomu, kdo zajistí mír na Dunaji.",
- note:"Linec a Kremže žijí z dunajského obchodu a jihočeské soli; Štýr je centrem železářství."},
-{id:"cba",land:"Bavory",nbr:true,city:true,name:"Města Bavorska a Horní Falce",conf:"kat",
- head:"Zeměpanská města Wittelsbachů",
- seats:[["Straubing",12.57,48.88],["Ingolstadt",11.42,48.76],["Amberg",11.86,49.44]],
- stance:"Opora wittelsbašských vévodů.",
- note:"Amberg je železářským srdcem Horní Falce; Straubing a Ingolstadt jsou vévodské rezidence na Dunaji."},
-{id:"csa",land:"Sasko",nbr:true,city:true,name:"Města Saska",conf:"kat",
- head:"Zeměpanská města Wettinů",
- seats:[["Lipsko",12.37,51.34],["Freiberk",13.34,50.92],["Zwickau",12.50,50.72],["Saská Kamenice",12.92,50.83],["Halle",11.97,51.48]],
- stance:"Bohatá obchodní a hornická města, citlivá na vztahy s Čechami.",
- note:"Lipsko leží na křižovatce Vysoké a Říšské cesty a jeho trhy jsou proslulé. Freiberk má nejbohatší stříbrné doly Saska. Halle patří magdeburskému arcibiskupovi a žije ze soli."},
-{id:"cbr",land:"Braniborsko",nbr:true,city:true,name:"Města Braniborska a Magdeburska",conf:"kat",
- head:"Hanzovní a zeměpanská města",
- seats:[["Frankfurt nad Odrou",14.55,52.35],["Braniborsko nad Havolou",12.55,52.41],["Magdeburk",11.63,52.13]],
- stance:"Hanzovní města s vlastním sebevědomím vůči markrabatům.",
- note:"Frankfurt ovládá přechod přes Odru a obchod s Polskem. Magdeburk je sídlem arcibiskupa a vzorem městského práva pro celou střední Evropu."},
-{id:"cpl",land:"Polsko",nbr:true,city:true,name:"Města Polska",conf:"kat",
- head:"Královská města",
- seats:[["Poznaň",16.93,52.41],["Kališ",18.09,51.76],["Věličky (Wieliczka)",20.06,49.98]],
- stance:"Opora krále Kazimíra, zatížená daněmi na válku s Řádem.",
- note:"Poznaň je hlavním městem Velkopolska. Solné doly ve Věličce jsou jedním z největších zdrojů královských příjmů."},
-{id:"chu",land:"Uhry",nbr:true,city:true,name:"Další města Uher",conf:"kat",
- head:"Biskupská a královská města",
- seats:[["Ráb",17.63,47.69],["Nitra",18.08,48.31],["Trenčín",18.04,48.89],["Žilina",18.74,49.22]],
- stance:"Města na cestách mezi Moravou, Polskem a Budínem.",
- note:"Trenčín hlídá Pováží a cestu z Moravy, Žilina průchod k Jablunkovu a Těšínu; Ráb a Nitra jsou biskupská sídla."},
-{id:"pap",land:"Řím",nbr:true,nomap:true,name:"Papežská kurie",conf:"kat",
- head:"Papež Kalixt III.; kardinál Eneáš Silvius Piccolomini zná české poměry",
- seats:[],
- stance:"Na kališnického krále hledí s nedůvěrou.",
- note:"Pražské arcibiskupství je neobsazené. Kališníci uznávají Jana Rokycanu jako zvoleného arcibiskupa, Řím ne."}
-];
-const REL=[
- {t:"rod",ids:["pod","rzm"],x:"Jiří z Poděbrad je ženatý s Johanou z Rožmitálu. Lvové jsou královi švagři, a přitom katolíci."},
- {t:"rod",ids:["pod","hun"],x:"Kateřina z Poděbrad je zasnoubena s Matyášem Korvínem jako cena za jeho propuštění z Prahy."},
- {t:"rod",ids:["roz","bvr"],x:"Biskup Jošt II. vratislavský je bratr vladaře Jana II. z Rožmberka a syn Oldřicha II."},
- {t:"rod",ids:["roz","hra"],x:"Oba rody vyšly z Vítkovců a opakovaně se spojovaly sňatky."},
- {t:"rod",ids:["roz","lie"],x:"Perchta z Rožmberka, dcera Oldřicha II., je od roku 1449 manželkou Jana z Lichtenštejna. ⟦Spor o věno a její stížné dopisy otcovi a bratrům kalí vztahy obou rodů.¦Nešťastné manželství a spor o věno kalí vztahy obou rodů.⟧"},
- {t:"rod",ids:["lip","ber"],x:"Páni z Lipé a Berkové z Dubé jsou větve starého rodu Ronovců a nesou stejný erb se zkříženými ostrvemi."},
- {t:"spoj",ids:["lip","pod"],x:"Jindřich z Lipé jako nejvyšší maršálek stojí při zvoleném králi."},
- {t:"rod",ids:["bos","bis"],x:"Biskup Tas je synovec Vaňka mladšího, nejstarší syn jeho bratra Beneše Černohorského z Boskovic."},
- {t:"spoj",ids:["bos","jag"],x:"Vaněk Černohorský doprovázel roku 1454 Alžbětu, sestru Ladislava Pohrobka, k sňatku s Kazimírem IV.; má na krakovském dvoře známé."},
- {t:"spor",ids:["bos","pod"],x:"Boskovicové a Kunštátové si nejsou nakloněni. Rodový hrad Boskovice není v rukou Boskoviců a jeho vrácení je možná cena za jejich věrnost."},
- {t:"spoj",ids:["bis","opa"],x:"Biskup Tas se za studií ve Vídni spřátelil s Přemkem Opavským."},
- {t:"rod",ids:["jag","hab","wet"],x:"Kazimír IV. a Vilém Saský jsou ženatí se sestrami zesnulého Ladislava Pohrobka, Habsburkami."},
- {t:"spoj",ids:["ste","pod"],x:"Zdeněk ze Šternberka volbu podpořil a jako nejvyšší purkrabí je nejdůležitějším katolíkem u dvora."},
- {t:"spoj",ids:["rab","pod"],x:"Kancléř Prokop z Rabštejna, katolík a přítel kardinála Piccolominiho, je pro Jiřího mostem k Římu."},
- {t:"spoj",ids:["kos","pod"],x:"Zdeněk Kostka z Postupic je nejbližším kališnickým spojencem Jiřího."},
- {t:"spoj",ids:["per","cim","pod"],x:"Pernštejnové a zemský hejtman Jan Tovačovský z Cimburka jsou oporou krále na Moravě."},
- {t:"spoj",ids:["opo","pod"],x:"Boleslav V. Opolský, jediný slezský kníže se sympatiemi ke kalichu."},
- {t:"spoj",ids:["opo","opa"],x:"Boleslav V. koupil od poručníka Arnošta dvě třetiny Opavska, dědictví Vilémových synů."},
- {t:"spoj",ids:["roz","kol","hra","sva"],x:"Strakonická jednota (1449): katolická panská strana proti Jiřímu, stará síť, která nezanikla."},
- {t:"spoj",ids:["roz","svi"],x:"Svídnicko-javorské hejtmanství drží Rožmberkové: Jindřich IV. (1454–1457), nyní Jan II."},
- {t:"spoj",ids:["roz","ses"],x:"Jindřich IV. z Rožmberka byl do smrti (1457) fojtem Horní Lužice; úřad zůstal neobsazen."},
- {t:"spoj",ids:["jis","pod"],x:"Jiskra je Čech a jeho žoldnéři jsou s Čechami úzce svázáni."},
- {t:"spor",ids:["pod","hra"],x:"Jiří zajal Menharta z Hradce při dobytí Prahy (1448). Menhart zemřel v únoru 1449 krátce po propuštění a Jiří musel odrážet řeči o otravě."},
- {t:"spor",ids:["pod","smi"],x:"Jan Smiřický ze Smiřic byl roku 1453 popraven pro obvinění ze zrady."},
- {t:"spor",ids:["pod","roz"],x:"Oldřich II. z Rožmberka vedl katolický odpor proti Jiřímu; dnes ostražité příměří."},
- {t:"spor",ids:["pod","vra"],x:"Vratislav odmítá holdovat kališnickému králi a hledá oporu u papeže."},
- {t:"spor",ids:["pod","bra"],x:"Braniborsko drží Dolní Lužici; Koruna ji žádá zpět."},
- {t:"spor",ids:["pod","mes"],x:"Katolická moravská města, zejména Jihlava, se zdráhají krále uznat."},
- {t:"spor",ids:["pod","jag","wet"],x:"Kazimír IV. a Vilém Saský si přes manželky dělají nárok na český trůn."},
- {t:"spor",ids:["jag","pod"],x:"Prodej Osvětimska Polsku (1457) ukrojil z Koruny kus Slezska."},
- {t:"spor",ids:["hab"],x:"Fridrich III., Albrecht VI. a Zikmund Tyrolský se přou o Ladislavovo rakouské dědictví."},
- {t:"spor",ids:["hun","hab","esz"],x:"Císař Fridrich III. drží uherskou svatou korunu a Matyášovu volbu neuznává; ostřihomský arcibiskup bez ní nemůže korunovat."},
- {t:"rod",ids:["bra","fra"],x:"Kurfiřt Fridrich II. Železný a Albrecht Achilles jsou bratři."},
- {t:"spor",ids:["fra","wit"],x:"Albrecht Achilles a Ludvík Bohatý soupeří o vliv ve Francích a Švábsku."},
- {t:"spoj",ids:["eiz","hab"],x:"Oldřich Eicinger drží ve sporu o dědictví s císařem Fridrichem; Albrecht VI. ho má za nepřítele."},
- {t:"rod",ids:["wit","rez"],x:"Řezenský biskup Ruprecht je syn Oty I. Neumarktského."},
- {t:"spoj",ids:["kom","jis"],x:"Petr Komorovský léta bojoval po boku Jiskry, ale s Matyášem už vyjednává o Oravu a Liptov."},
- {t:"spoj",ids:["mei","ses"],x:"Budyšínská kapitula a lužická města spadají pod míšeňského biskupa."},
-⟦ {t:"spoj",ids:["puc","eiz"],x:"Na Heidenreichsteinu se skrývá část rodiny zajatého Eicingera."},
-⟧ {t:"spor",ids:["mai","mes"],x:"Hardegští přepadají znojemské vinaře; Znojmo potřebuje krále, kterého se zdráhá uznat."},
-⟦ {t:"spoj",ids:["sbg","hab"],x:"Bernhard ze Schaunberku nabízí podporu Albrechtovi VI. proti císaři."},
-⟧ {t:"rod",ids:["pla","reu"],x:"Reussové a páni z Plavna jsou větve téhož fojtského rodu."},
-⟦ {t:"spor",ids:["reu","pla"],x:"Jindřich z Gery se tajně sbližuje s Wettiny proti plavenským příbuzným a doufá, že po jejich pádu zdědí jejich práva."},
-⟧ {t:"spor",ids:["puc","kra"],x:"Puchheimové a Krajířové se léta přou o pohraniční lesy a pastviny a každý tvrdí, že jde o zemskou hranici."},
-⟦ {t:"spor",ids:["mai","eiz"],x:"Za Eicingerovým zajetím prý stáli i lidé hraběte z Hardeggu."},
-⟧⟦ {t:"spoj",ids:["sbg","roz"],x:"Bernhard ze Schaunberku hledá spojence i za Šumavou, v Krumlově."},
-⟧ {t:"rod",ids:["szm","opa"],x:"Markéta ze Šamotul, vdova po Václavovi II. Ratibořském, vládne v Ratiboři za nezletilé děti."},
- {t:"spoj",ids:["tec","jag"],x:"Tęczyńští patří k nejbližšímu okolí krále Kazimíra."},
- {t:"spor",ids:["bkr","pod"],x:"Krakovská kapitula, vychovaná kardinálem Oleśnickým, považuje kališnického krále za kacíře."},
- {t:"spor",ids:["rmi","fra"],x:"Norimberk a Albrecht Achilles spolu nedávno válčili (1449–1450) a nedůvěra trvá."},
- {t:"spoj",ids:["rmi","pod"],x:"Norimberští kupci jsou hlavními obchodními partnery Prahy a Plzně."},
- {t:"spor",ids:["umi","jis"],x:"Jiskrovi žoldnéři ovládají okolí horních měst a vybírají z nich výpalné."},
- {t:"spoj",ids:["jag","zat"],x:"Zátorští Piastovci jsou pod polským vlivem."},
- {t:"spor",ids:["jis","hun"],x:"Jiskra a bratříci drží Horní Uhry mimo Matyášovu moc a k novému králi jsou nepřátelští."},
- {t:"spoj",ids:["jis","hab"],x:"Jiskra zvažuje podpořit císaře Fridricha III. proti Matyášovi."},
- {t:"spor",ids:["ses","var"],x:"Šestiměstí vede fehdy s Vartenberky a dalšími severočeskými pány a ničí jejich hrady."},
- {t:"spor",ids:["hlo"],x:"Baltazar Žaháňský a jeho bratr Jan II. se přou o Žaháň."},
- {t:"spor",ids:["pla","wet"],x:"Jindřich II. z Plavna vede s Wettiny vleklý spor o míšeňské purkrabství a lenní svrchovanost."},
- {t:"spor",ids:["pap","pod"],x:"Řím kompaktáta nikdy nepotvrdil a Rokycanu neuznává; volba kališníka králem budí nedůvěru."}
-];
+const FAM=/*@FAM@*/[];
+const REL=/*@REL@*/[];
 const byId=Object.fromEntries(FAM.map(f=>[f.id,f]));
 const CONFN={kat:"katolíci",kal:"kališníci",mix:"smíšení"};
 const FICON={kat:"art/img/vira-kat.webp",kal:"art/img/vira-kal.webp",mix:"art/img/vira-mix.webp"};
@@ -1259,7 +831,7 @@ const rIco=t=>`<img class="rico" src="${RICON[t]}" alt="" aria-hidden="true">`;
 const RGL={rod:"Krev",spoj:"Spojenectví",spor:"Spory"};
 const relGroups=(rels,id)=>`<div class="relgs">${["rod","spoj","spor"].map(k=>{const rs=rels.filter(r=>r.t===k);if(!rs.length)return"";
   return `<details class="relg rg-${k}"><summary><img class="rgi" src="${RICON[k]}" alt="" aria-hidden="true"><b>${RGL[k]}</b><span class="rgc">${rs.length}</span></summary><ul class="rels rels-g">${rs.map(r=>`<li><span>${relText(r,id)}</span></li>`).join("")}</ul></details>`}).join("")}</div>`;
-const ARMS={"sli":"art/erby/sli.webp","ste":"art/erby/ste.webp","sva":"art/erby/sva.webp","cim":"art/erby/cim.webp","var":"art/erby/var.webp","haz":"art/erby/haz.webp","hra":"art/erby/hra.webp","opa":"art/erby/opa.webp","kos":"art/erby/kos.webp","kol":"art/erby/kol.webp","lip":"art/erby/lip.webp","per":"art/erby/per.webp","opo":"art/erby/opo.webp","pod":"art/erby/pod.webp","roz":"art/erby/roz.webp","rzm":"art/erby/rzm.webp","smi":"art/erby/smi.webp","ber":"art/erby/lip.webp","bos":"art/erby/bos.webp","rab":"art/erby/rab.webp","tes":"art/erby/opo.webp","lom":"art/erby/lom.webp","bib":"art/erby/bib.webp","ole":"art/erby/ole.webp","hlo":"art/erby/ole.webp","leg":"art/erby/ole.webp","ryz":"art/erby/ryz.webp","lob":"art/erby/lob.webp","vra":"art/erby/vra.webp","bis":"art/erby/bis.webp","bvr":"art/erby/bvr.webp"};
+const ARMS=/*@ARMS@*/{};
 const CARMS={"Brno":"art/erby/mesto-brno.webp","Kutná Hora":"art/erby/mesto-kutna-hora.webp","Plzeň":"art/erby/mesto-plzen.webp","Praha":"art/erby/mesto-praha.webp","Vratislav":"art/erby/vra.webp"};
 const armsImg=(f,cls)=>ARMS[f.id]?`<img class="${cls}" src="${cls==="armbig"?ARMS[f.id].replace("art/erby/","art/erby/velke/"):ARMS[f.id]}" alt="Erb: ${f.name}">`:"";
 const shield=f=>ARMS[f.id]?armsImg(f,"armsmall"):shield0(f);
@@ -1897,7 +1469,8 @@ function renderDetail(){
    <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h3 style="font-size:1.35rem">${shield(f)}${f.name}</h3>${faith(f.conf)}</div>
    <dl class="kv"><dt>V čele</dt><dd>${f.head}</dd>
    ${f.seats.length?`<dt>Državy</dt><dd>${f.seats.map(sd=>`<button type="button" class="plink${st.focus===sd[0]?" on":""}" data-place="${sd[0]}" title="Ukázat na mapě">${sd[0]}</button>`).join(", ")}</dd>`:""}
-   <dt>${f.nbr?"Ke Koruně":"K Jiřímu"}</dt><dd>${f.stance}</dd></dl>
+   <dt>${f.nbr?"Ke Koruně":"K Jiřímu"}</dt><dd>${f.stance}</dd>
+   ${PRAHA_PLACES.some(q=>q.r===f.id)?`<dt>V Praze</dt><dd>${prLinks(PRAHA_PLACES.filter(q=>q.r===f.id))}</dd>`:""}</dl>
    <p>${f.note}</p>
    ${peopleOf(f.id).length?`<span class="lbl">Osoby</span><p>${peopleOf(f.id).map(plinkP).join(", ")}</p>`:""}
    ${rels.length?`<span class="lbl">Vazby</span>${relGroups(rels,f.id)}`:""}
@@ -2045,7 +1618,7 @@ qRes.addEventListener("click",e=>{
 document.addEventListener("click",e=>{if(!e.target.closest(".search"))qRes.hidden=true});
 
 /* relationship graph */
-const SHORT={lip:"Páni z Lipé",pod:"Poděbradové",roz:"Rožmberkové",ste:"Šternberkové",hra:"Páni z Hradce",rzm:"Rožmitálové",rab:"Rabštejnové",kos:"Kostkové",smi:"Smiřičtí",kol:"Kolovratové",sva:"Švamberkové",haz:"Hazmburkové",lob:"Lobkovicové",var:"Vartenberkové",ber:"Berkové",ryz:"Švihovští",sli:"Šlikové",per:"Pernštejnové",cim:"Tovačovští",bis:"Biskup olomoucký",bos:"Boskovicové",lom:"Lomničtí",vra:"Vratislav",bvr:"Biskup vratislavský",opo:"Opolští",opa:"Opavští",tes:"Těšínští",ole:"Olešničtí",hlo:"Žaháňští",leg:"Lehničtí",svi:"Svídnicko",ses:"Šestiměstí",bib:"Bibrštejnové",mes:"Král. města",bra:"Hohenzollernové",jag:"Jagellonci",hun:"Hunyadiové",jis:"Jiskra",hab:"Habsburkové",lie:"Lichtenštejnové",kra:"Krajířové",wit:"Wittelsbachové",wet:"Wettinové",pla:"Plavenští",sch:"Šumburkové",fra:"Albrecht Achilles",zat:"Zátorští",bkr:"Biskup krakovský",tec:"Tęczyńští",szm:"Šamotulští",gni:"Arcib. hnězdenský",esz:"Arcib. ostřihomský",kom:"Komorovský",sgy:"Svatojiřští",eiz:"Eicinger",puc:"Puchheimové",mai:"Hardeggové",sbg:"Schaunberkové",pas:"Biskup pasovský",rez:"Biskup řezenský",leu:"Leuchtenberkové",mei:"Biskup míšeňský",reu:"Reussové",pap:"Kurie",rmi:"Říšská města",umi:"Uherská města",mdl:"Dolnolužická města",cat:"Rakouská města",cba:"Bavorská města",csa:"Saská města",cbr:"Braniborská města",cpl:"Polská města",chu:"Uherská města (další)"};
+const SHORT=/*@SHORT@*/{};
 const gsvg=document.getElementById("graph");
 const EDGES=[]; REL.forEach((r,ri)=>{for(let i=1;i<r.ids.length;i++)EDGES.push({a:r.ids[0],b:r.ids[i],t:r.t,ri})});
 const GIDS=[...new Set(EDGES.flatMap(e=>[e.a,e.b]))].filter(id=>byId[id]);
@@ -2130,92 +1703,7 @@ document.querySelectorAll("[data-gt]").forEach(b=>b.addEventListener("click",()=
 document.querySelector("[data-gs]").addEventListener("click",e=>{gst.koruna=!gst.koruna;e.currentTarget.setAttribute("aria-pressed",gst.koruna);drawGraph()});
 drawGraph();
 
-const PEOPLE=[
- {id:"jiri",n:"Jiří z Poděbrad",r:"pod",role:"zvolený český král",seat:"Poděbrady",x:"Moravský pán z Kunštátu a kališník. Od roku 1448 drží Prahu, od roku 1452 je zemským správcem a 2. března 1458 byl zvolen českým králem. Korunovace teprve čeká."},
- {id:"johana",n:"Johana z Rožmitálu",r:"pod",role:"manželka Jiřího",seat:"Poděbrady",x:"Katolička z rodu Lvů z Rožmitálu a druhá manželka Jiřího. Její bratr Jaroslav Lev patří ke králově družině."},
- {id:"viktorin",n:"Viktorin z Poděbrad",r:"pod",role:"nejstarší syn Jiřího",seat:"Kladsko",x:"Patnáctiletý druhorozený syn, pro něhož otec drží Kladsko a Minsterberk."},
- {id:"katerina",n:"Kateřina z Poděbrad",r:"pod",role:"dcera Jiřího",seat:"Poděbrady",x:"Devítiletá dívka zasnoubená s Matyášem Korvínem jako záruka jeho propuštění z Prahy."},
- {id:"varnsdorf",n:"Hanuš z Varnsdorfu",r:"pod",role:"hejtman Kladska",seat:"Kladsko",x:"Spravuje Kladsko jménem Jiřího od roku 1454."},
- {id:"chelcicky",n:"Petr Chelčický",r:"mes",role:"laický myslitel a spisovatel",x:"Stařec z jihočeských Chelčic, který odmítá násilí, válku i moc pánů a měst nad křesťany. Jeho spisy, zvláště Síť víry, inspirují bratry, kteří se usadili v Kunvaldu na litickém panství Jiřího."},
- {id:"rokycana",n:"Jan Rokycana",r:"mes",role:"zvolený arcibiskup kališníků",seat:"Praha",x:"Duchovní vůdce kališníků a kazatel v Týnském chrámu. Řím jeho volbu nikdy nepotvrdil."},
- {id:"jan2roz",n:"Jan II. z Rožmberka",r:"roz",role:"vladař rodu, hejtman Svídnicka-Javorska",seat:"Český Krumlov",x:"Hlava nejbohatšího rodu v zemi od roku 1457. Volbu Jiřího přijal, ale ostražitě."},
- {id:"oldrich2",n:"Oldřich II. z Rožmberka",r:"roz",role:"otec vladaře",seat:"Český Krumlov",x:"Stárnoucí vůdce katolické strany a dávný protivník Jiřího ze Strakonické jednoty. Pověstný mistr padělaných listin."},
- {id:"jost",n:"Jošt II. z Rožmberka",r:"bvr",role:"biskup vratislavský",seat:"Nisa",x:"Syn Oldřicha II. a bratr vladaře Jana, od roku 1456 biskupem ve Vratislavi."},
- {id:"perchta",n:"Perchta z Rožmberka",r:"lie",role:"manželka Jana z Lichtenštejna",seat:"Mikulov (Morava)",x:"Dcera Oldřicha II., od roku 1449 provdaná na Mikulov. Nešťastné manželství a spor o věno jsou veřejným tajemstvím."},
- {id:"zdenekst",n:"Zdeněk Konopišťský ze Šternberka",r:"ste",role:"nejvyšší purkrabí pražský",seat:"Konopiště",x:"Nejmocnější katolík u dvora; volbu Jiřího podpořil. Má syny Jaroslava a Jana."},
- {id:"albrechtst",n:"Albrecht mladší ze Šternberka",r:"ste",role:"pán moravské větve",seat:"Lukov (Morava)",x:"Zastupuje moravskou větev Šternberků na Šternberku a Lukově."},
- {id:"jindrich4",n:"Jindřich IV. z Hradce",r:"hra",role:"pán z Hradce",seat:"Jindřichův Hradec",x:"Mladý a pravověrný katolík, dědic po Oldřichovi V. († 1453). Rod nezapomněl, že Jiří roku 1448 zajal Menharta z Hradce."},
- {id:"jaroslavlev",n:"Jaroslav Lev z Rožmitálu",r:"rzm",role:"hlava rodu, švagr krále",seat:"Blatná",x:"Zkušený dvořan a diplomat, bratr Johany, manželky Jiřího."},
- {id:"prokop",n:"Prokop z Rabštejna",r:"rab",role:"nejvyšší kancléř",seat:"Rabštejn nad Střelou",x:"Katolický humanista a přítel kardinála Piccolominiho, který vede diplomacii krále."},
- {id:"kostka",n:"Zdeněk Kostka z Postupic",r:"kos",role:"důvěrník krále",seat:"Litomyšl",x:"Nejbližší kališnický spojenec Jiřího."},
- {id:"vaclavsmi",n:"Václav Smiřický ze Smiřic",r:"smi",role:"hlava rodu, nezletilý",seat:"Smiřice",x:"Nezletilý dědic bohatého rodu. Jeho otec Jan byl roku 1453 popraven pro obvinění ze zrady; do Václavovy plnoletosti spravuje rodové statky jeho matka."},
- {id:"jindrichsmi",n:"Jindřich ze Smiřic",r:"smi",role:"mladší syn popraveného Jana",seat:"Smiřice",x:"Mladší z dědiců rodu; s bratrem Václavem vyrůstá pod poručnictvím matky."},
- {id:"hanus2",n:"Hanuš II. z Kolovrat",r:"kol",role:"pán na Libštejně",seat:"Libštejn",x:"Zapřisáhlý katolík a jeden z předáků katolické šlechty na Plzeňsku."},
- {id:"bohuslavsva",n:"Bohuslav ze Švamberka",r:"sva",role:"pán na Boru a Švamberku",seat:"Bor",x:"Nástupce Hynka Krušiny ze Švamberka."},
- {id:"zajic",n:"Jan Zajíc z Hazmburka",r:"haz",role:"z rodu Zajíců, pán na Hazmburku",seat:"Hazmburk",x:"Katolický pán z Podřipska, příslušník rodu Zajíců z Hazmburka."},
- {id:"mikulashaz",n:"Mikuláš Zajíc z Hazmburka",r:"haz",role:"hlava rodu, pán na Budyni",seat:"Budyně",x:"Hlava rodu Zajíců z Hazmburka a katolický pán z Podřipska."},
- {id:"mikulaslob",n:"Mikuláš II. Hasištejnský z Lobkovic",r:"lob",role:"pán na Hasištejně",seat:"Hasištejn",x:"Katolický pán z Kadaňska."},
- {id:"slik",n:"Matyáš Šlik",r:"sli",role:"zástavní pán Lokte",seat:"Loket",x:"Bratr zesnulého kancléře Kašpara Šlika."},
- {id:"janvar",n:"✦ Jan z Vartenberka",r:"var",role:"pán na Děčíně",seat:"Děčín",x:"Usiluje o uprázdněný úřad hornolužického fojta."},
- {id:"henik",n:"✦ Heník z Vartenberka",r:"var",role:"pán na Ralsku",seat:"Ralsko",x:"Bratranec Jana, s lužickým Šestiměstím ve fehdách."},
- {id:"hynekberka",n:"✦ Hynek Berka z Dubé",r:"ber",role:"pán na Tolštejně",seat:"Tolštejn",x:"Postrach žitavských kupců."},
- {id:"bretislav",n:"✦ Břetislav Švihovský z Rýzmberka",r:"ryz",role:"pán na Velharticích",seat:"Velhartice",x:"Mlčenlivý pán Velhartic."},
- {id:"janper",n:"Jan II. z Pernštejna",r:"per",role:"pán na Pernštejně",seat:"Pernštejn",x:"Kališník a opora krále na Moravě; otec Viléma."},
- {id:"jindrichlipe",n:"Jindřich z Lipé",r:"lip",role:"nejvyšší maršálek",seat:"Moravský Krumlov",x:"Hlava pánů z Lipé a nejvyšší maršálek Království českého od roku 1451, strážce rytířské cti a řádu soubojů."},
- {id:"tovacovsky",n:"Jan Tovačovský z Cimburka",r:"cim",role:"moravský zemský hejtman",seat:"Tovačov",x:"Horlivý kališník, zemským hejtmanem od roku 1440."},
- {id:"tempelfeld",n:"Mikuláš Tempelfeld",r:"vra",role:"kazatel vratislavský",seat:"Vratislav",x:"Kanovník a kazatel ve Vratislavi. Z kazatelny burcuje měšťany proti „kacířskému“ králi Jiřímu a žádá, aby mu Vratislav nikdy neholdovala."},
- {id:"tas",n:"Tas z Boskovic",r:"bis",role:"zvolený biskup olomoucký",seat:"Kroměříž",x:"Sotva třicetiletý humanista, odchovanec Vídně a Padovy, zvolený roku 1457."},
- {id:"vanek",n:"Vaněk mladší Černohorský z Boskovic",r:"bos",role:"nejvyšší komorník moravského zemského soudu",seat:"Černá Hora",x:"Strýc biskupa Tase a věrný dvořan zesnulého Ladislava Pohrobka."},
- {id:"hynekmez",n:"✦ Hynek Meziříčský z Lomnice",r:"lom",role:"pán na Meziříčí",seat:"Velké Meziříčí",x:"Starý veterán husitských polí."},
- {id:"boleslav5",n:"Boleslav V. Opolský",r:"opo",role:"kníže opolský",seat:"Opolí",x:"Zvaný Husita; sympatizuje s kalichem a koupil dvě třetiny Opavska."},
- {id:"arnost",n:"Arnošt Opavský",r:"opa",role:"poručník synů Viléma Opavského",seat:"Opava",x:"Prodal dvě třetiny Opavska Boleslavovi Opolskému a Minsterberk Jiřímu."},
- {id:"jan4krn",n:"Jan IV. Krnovský",r:"opa",role:"kníže krnovský",seat:"Krnov",x:"Vládne v Krnově od roku 1452."},
- {id:"marketa",n:"Markéta ze Šamotul",r:"opa",role:"vévodkyně-vdova ratibořská",seat:"Ratiboř",x:"Vdova po Václavovi II. Ratibořském, vládne za nezletilé děti."},
- {id:"premysl2",n:"Přemysl II. Těšínský",r:"tes",role:"kníže těšínský",seat:"Těšín",x:"Bratr Vladislava, který drží polovinu Hlohova."},
- {id:"baltazar",n:"Baltazar Žaháňský",r:"hlo",role:"kníže žaháňský",seat:"Žaháň",x:"Se svým bratrem Janem II. se zahořkle přou o Žaháň."},
- {id:"jan2zah",n:"Jan II. Žaháňský",r:"hlo",role:"bratr Baltazara",seat:"Žaháň",x:"Soupeř svého bratra Baltazara o Žaháň."},
- {id:"fridrichleg",n:"Fridrich I. Lehnický",r:"leg",role:"nezletilý kníže lehnický",seat:"Lehnice",x:"Asi dvanáctiletý; za něj vládne matka Hedvika."},
- {id:"konrad9",n:"Konrád IX. Černý",r:"ole",role:"kníže olešnický",seat:"Olešnice",x:"Vládne Olešnicku spolu s bratrem Konrádem X. Bílým."},
- {id:"konrad10",n:"Konrád X. Bílý",r:"ole",role:"kníže olešnický",seat:"Olešnice",x:"Spoluvládce svého bratra Konráda IX."},
- {id:"oldrichbib",n:"✦ Oldřich z Bibrštejna",r:"bib",role:"pán na Frýdlantě",seat:"Frýdlant",x:"Katolík spjatý se Šestiměstím, který proti Braniborsku potřebuje českého krále."},
- {id:"fridrich3",n:"Fridrich III. Habsburský",r:"hab",role:"římský císař",seat:"Vídeňské Nové Město",x:"Drží uherskou svatou korunu a přou se s bratrem o rakouské dědictví po Ladislavovi."},
- {id:"albrecht6",n:"Albrecht VI. Habsburský",r:"hab",role:"bratr císaře",seat:"Vídeň",x:"Uchází se o rakouské dědictví po Ladislavovi Pohrobkovi."},
- {id:"eicinger",n:"Oldřich Eicinger z Eicingu",r:"eiz",role:"vůdce dolnorakouských stavů",seat:"Schrattenthal",x:"Byl prvním mužem u dvora Ladislava Pohrobka. Ve sporu Habsburků drží s císařem a Albrecht VI. jde po něm."},
- {id:"janlie",n:"Jan z Lichtenštejna",r:"lie",role:"pán na Mikulově",seat:"Mikulov (Morava)",x:"Moravský i rakouský pán, manžel Perchty z Rožmberka."},
- {id:"krajir",n:"✦ Konrád Krajíř z Krajku",r:"kra",role:"pán na Landštejně",seat:"Landštejn",x:"Starý válečník, který zbohatl na mýtu na česko-rakouské hranici."},
- {id:"albero",n:"✦ Albero z Puchheimu",r:"puc",role:"pán na Heidenreichsteinu",seat:"Heidenreichstein",x:"Rakouský pán z pomezí, loajální především sám sobě."},
- {id:"michalhard",n:"✦ Michal z Maidburku",r:"mai",role:"hrabě z Hardeggu",seat:"Hardegg",x:"Jeho lidé vybírají clo u dyjských brodů."},
- {id:"bernhard",n:"✦ Bernhard ze Schaunberku",r:"sbg",role:"hrabě ze Schaunberku",seat:"Eferding",x:"Hornorakouský magnát, který hlídá svou nezávislost na Habsburcích."},
- {id:"matyas",n:"Matyáš Korvín",r:"hun",role:"zvolený uherský král",seat:"Budín",x:"Patnáctiletý syn Jana Hunyadiho, zvolen 24. ledna 1458. Byl v Praze rukojmím Jiřího a je zasnouben s Kateřinou z Poděbrad."},
- {id:"silagyi",n:"Michal Silágyi",r:"hun",role:"regent Uher, strýc Matyáše",seat:"Budín",x:"Vládne za mladého krále."},
- {id:"jiskra",n:"Jan Jiskra z Brandýsa",r:"jis",role:"hejtman Horních Uher",seat:"Zvolen",x:"Český žoldnéřský vůdce, který s bratříky drží hrady a hornická města; Matyášovi nepřátelský."},
- {id:"komorovsky",n:"Petr Komorovský",r:"kom",role:"pán Oravy",seat:"Oravský hrad",x:"Polský šlechtic, kastelán Oravy od roku 1441, který léta bojoval po boku Jiskry."},
- {id:"salanki",n:"Augustin Salánki",r:"esz",role:"biskup rábský",x:"Uherský prelát a biskup v Rábu (Győru). Má Jiřího korunovat, neboť pražský arcibiskupský stolec je prázdný a Rokycanu Řím neuznává; uherští biskupové tak mohou korunovaci dát církevní platnost."},
- {id:"szechy",n:"Dionýz Széchy",r:"esz",role:"arcibiskup ostřihomský a kardinál",seat:"Ostřihom",x:"Primas Uher, jemuž přísluší korunovat uherské krále."},
- {id:"jirisvj",n:"✦ Jiří Svatojiřský a Pezinský",r:"sgy",role:"hrabě",seat:"Pezinok",x:"Pán malokarpatských vinic."},
- {id:"kazimir",n:"Kazimír IV. Jagellonský",r:"jag",role:"polský král",seat:"Krakov",x:"Manžel Alžběty, sestry Ladislava Pohrobka, přes kterou si dělá nárok na českou korunu. Válčí s Řádem německých rytířů."},
- {id:"strzepinski",n:"Tomasz Strzępiński",r:"bkr",role:"biskup krakovský",seat:"Krakov (Wawel)",x:"Nástupce kardinála Oleśnického na krakovském stolci."},
- {id:"sprowski",n:"Jan Sprowski",r:"gni",role:"arcibiskup hnězdenský, primas Polska",seat:"Hnězdno",x:"Metropolita i pro vratislavskou diecézi."},
- {id:"jantec",n:"Jan z Tęczyna",r:"tec",role:"malopolský magnát",seat:"Tęczyn",x:"Hlava nejvlivnějšího rodu v okolí Krakova."},
- {id:"ondrejtec",n:"Ondřej Tęczyński",r:"tec",role:"starosta rabštejnský",seat:"Rabsztyn",x:"Prchlivý bratr Jana z Tęczyna."},
- {id:"vaclavzat",n:"Václav I. Zátorský",r:"zat",role:"kníže zátorský",seat:"Zátor",x:"Vládne Zátorsku spolu se svými bratry."},
- {id:"fridrich2wet",n:"Fridrich II. Dobrotivý",r:"wet",role:"saský kurfiřt",seat:"Míšeň",x:"Hlava rodu Wettinů."},
- {id:"vilem3",n:"Vilém III. Saský",r:"wet",role:"durynský lantkrabě",seat:"Výmar",x:"Manžel Anny, sestry Ladislava Pohrobka; dělá si nárok na český trůn."},
- {id:"plavno",n:"Jindřich II. z Plavna",r:"pla",role:"purkrabí míšeňský",seat:"Plavno",x:"Vede s Wettiny vleklý spor o míšeňské purkrabství."},
- {id:"jindrichgera",n:"✦ Jindřich z Gery",r:"reu",role:"fojt z Gery",seat:"Gera",x:"Jako všichni muži rodu Reussů nese jméno Jindřich."},
- {id:"vit",n:"✦ Vít ze Šumburka",r:"sch",role:"pán na Glauchau",seat:"Glauchau",x:"Drží svá panství jako léna české koruny."},
- {id:"kasparmei",n:"Kašpar ze Schönbergu",r:"mei",role:"biskup míšeňský",seat:"Stolpen",x:"Pod jeho diecézi spadají obě Lužice."},
- {id:"fridrich2bra",n:"Fridrich II. Železný",r:"bra",role:"braniborský kurfiřt",seat:"Berlín-Cölln",x:"Drží velkou část Dolní Lužice."},
- {id:"achilles",n:"Albrecht Achilles",r:"fra",role:"markrabě ansbašský a kulmbašský",seat:"Plassenburg",x:"Bratr braniborského kurfiřta, ctižádostivý a válečný soupeř Ludvíka Bohatého i Norimberka."},
- {id:"ludvik9",n:"Ludvík IX. Bohatý",r:"wit",role:"vévoda bavorsko-landshutský",seat:"Landshut",x:"Nejmocnější soused Čech na západě."},
- {id:"albrecht3",n:"Albrecht III. Bavorský",r:"wit",role:"vévoda bavorsko-mnichovský",seat:"Mnichov",x:"Vládne mnichovské linii Wittelsbachů."},
- {id:"ota1",n:"Ota I. Falcký",r:"wit",role:"falckrabě v Neumarktu",seat:"Neumarkt",x:"Pán Horní Falce, otec řezenského biskupa Ruprechta."},
- {id:"ruprecht",n:"Ruprecht Falcký",r:"rez",role:"biskup řezenský",seat:"Řezno",x:"Syn Oty I. Neumarktského; pod jeho diecézi patří i Chebsko."},
- {id:"nussdorf",n:"Oldřich z Nussdorfu",r:"pas",role:"biskup pasovský",seat:"Pasov",x:"Pod jeho diecézi spadají obě Rakousy včetně Vídně."},
- {id:"ludvikleu",n:"✦ Ludvík z Leuchtenberka",r:"leu",role:"lankrabě",seat:"Leuchtenberg",x:"Zadlužený pán Horní Falce."},
- {id:"kalixt",n:"Kalixt III.",r:"pap",role:"papež",x:"Hlava katolické církve, na kališnického krále hledí s nedůvěrou."},
- {id:"piccolomini",n:"Eneáš Silvius Piccolomini",r:"pap",role:"kardinál",x:"Humanista a znalec českých poměrů, autor spisu o Češích. Roku 1451 navštívil Tábor."}
-];
+const PEOPLE=/*@PEOPLE@*/[];
 const PBY=Object.fromEntries(PEOPLE.map(p=>[p.id,p]));
 const peopleOf=id=>PEOPLE.filter(p=>p.r===id);
 const plinkP=p=>`<a class="plinkp" href="#osoba/${p.id}">${p.n}</a>`;
@@ -2710,76 +2198,20 @@ const PRAHA_TOWNS=[
  {id:"hrad",n:"Pražský hrad a Hradčany",d:"Hrad je od husitských bouří napůl opuštěný; král sídlí dole v Králově dvoře. Na hradě zůstala katolická kapitula a úřad nejvyššího purkrabí."},
  {id:"mala",n:"Malá Strana",d:"Menší město pražské pod hradem. Roku 1419 vyhořelo v bojích s královskou posádkou a dodnes je v něm víc zahrad a spálenišť než domů."},
  {id:"stare",n:"Staré Město",d:"Srdce Prahy a kalicha: radnice, Týn, univerzita a domy všech velkých rodů. Tady se 2. března volil král."},
- {id:"nove",n:"Nové Město",d:"Karlovo Nové Město s širokými trhy a ulicemi, nejradikálnější z pražských měst, kde kdysi kázal Jan Želivský."}
+ {id:"nove",n:"Nové Město",d:"Karlovo Nové Město s širokými trhy a ulicemi, nejradikálnější z pražských měst, kde kdysi kázal Jan Želivský."},
+ {id:"vys",n:"Vyšehrad",d:"Kdysi sídlo přemyslovských knížat a korunovační hrad. Roku 1420 ho husité vyplenili a zbořili domy kanovníků, kostely i hradby; přežilo jen Staré purkrabství a rotunda sv. Martina."}
 ];
 /* n = číslo na plánu, k = druh (dvur/urad/cirkev/hospoda), t = město, c = vyznání (kat/kal/mix/""), r = rod, p = osoba */
-const PRAHA_PLACES=[
- {n:1,k:"urad",t:"hrad",name:"Královský palác",c:"",d:"Starý palác českých králů. Od dob Václava IV. v něm panovníci nebydlí a husitské roky jej nechaly zpustnout; v prázdných síních se ozývá jen krok stráže."},
- {n:2,k:"cirkev",t:"hrad",name:"Katedrála sv. Víta",c:"kat",d:"Nedostavěná katedrála s hroby českých králů a ostatky svatého Václava. Katolická svatovítská kapitula odsud spravuje pražskou arcidiecézi, dokud je arcibiskupský stolec prázdný."},
- {n:3,k:"cirkev",t:"hrad",name:"Klášter sv. Jiří",c:"kat",d:"Nejstarší ženský klášter v Čechách, benediktinky pod ochranou sv. Ludmily. Po válkách zchudlý, ale stále hrdý."},
- {n:4,k:"dvur",t:"hrad",name:"Dům arcibiskupů (Hrad)",c:"kat",d:"Arcibiskupský dům u katedrály. Od doby, kdy arcibiskup Konrád z Vechty přijal kalich, v něm žádný pražský arcibiskup nesídlil."},
- {n:5,k:"dvur",t:"hrad",name:"Dům pánů z Rožmberka (Hrad)",c:"kat",r:"roz",d:"Hradní dům Rožmberků, nejbohatšího katolického rodu země; odtud mají páni z Krumlova blízko ke kapitule i k úřadům."},
- {n:6,k:"urad",t:"hrad",name:"Dvůr purkrabí pražského",c:"kat",r:"ste",p:"zdenekst",d:"Sídlo nejvyššího purkrabího, prvního zemského úředníka. Úřad drží Zdeněk Konopišťský ze Šternberka, nejmocnější katolík u dvora."},
- {n:7,k:"cirkev",t:"hrad",name:"Strahovský klášter",c:"kat",d:"Premonstrátský klášter nad Malou Stranou. Roku 1420 jej vyplenili Pražané; z velkého kláštera zbyly opálené zdi a hrstka řeholníků."},
- {n:8,k:"dvur",t:"mala",name:"Dvůr arcibiskupů",c:"kat",d:"Kdysi skvělý malostranský palác pražských arcibiskupů u mostu. Lehl popelem v bojích roku 1419 a dodnes je to spáleniště, kde nocují tuláci – a prý nejen oni."},
- {n:9,k:"dvur",t:"mala",name:"Saský dům",c:"kat",r:"wet",d:"Pražský dům saských vévodů z rodu Wettinů, odkud jejich poslové jednají s českými pány."},
- {n:10,k:"cirkev",t:"mala",name:"Johanité – P. Marie pod řetězem",c:"kat",d:"Komenda řádu johanitů, sídlo velkopřevora. Opevněný klášter střeží malostranské předmostí; johanité jsou katolíci a mají vlastní zbrojnou hotovost."},
- {n:11,k:"dvur",t:"mala",name:"Dům pánů Zajíců",c:"kat",r:"haz",p:"mikulashaz",d:"Pražský dům Zajíců z Hazmburka, katolických pánů z Podřipska."},
- {n:12,k:"dvur",t:"mala",name:"Dům Štopků z Dubé",c:"",d:"Malostranský dům drobného panského rodu z Dubé, vzdálených příbuzných mocných Berků."},
- {n:13,k:"urad",t:"mala",name:"Malostranská radnice",c:"kal",d:"Radnice Menšího Města pražského. Obec, která se po požáru roku 1419 jen pomalu vzpamatovává, stojí při kalichu a při Starém Městě."},
- {n:14,k:"dvur",t:"mala",name:"Dvůr biskupa olomouckého",c:"kat",r:"bis",p:"tas",d:"Pražský dvůr olomouckých biskupů. Když je biskup Tas z Boskovic v Praze, přebývá zde i jeho družina – mezi nimi kronikář Vojtěch z Kroměříže."},
- {n:15,k:"dvur",t:"mala",name:"Dům pánů Michalců",c:"",d:"Dům pánů Michalců z Michalovic, starobylého rodu, jemuž dochází dech i dědici."},
- {n:16,k:"urad",t:"stare",name:"Králův dvůr",c:"",d:"Královské sídlo na Starém Městě. Zde v listopadu 1457 náhle zemřel sedmnáctiletý král Ladislav Pohrobek – a po Praze se dodnes šeptá o jedu."},
- {n:17,k:"cirkev",t:"stare",name:"Týnský chrám",c:"kal",r:"mes",p:"rokycana",d:"Hlavní kostel kališníků před Týnem. Káže v něm Jan Rokycana, zvolený arcibiskup, kterého Řím nikdy nepotvrdil."},
- {n:18,k:"urad",t:"stare",name:"Týn (Ungelt)",c:"",d:"Opevněný kupecký dvůr, kde cizí kupci platí clo a skladují zboží. Tu se dozvíte, co se děje ve Vídni, Norimberku i Krakově."},
- {n:19,k:"dvur",t:"stare",name:"Dvůr markrabí míšeňských",c:"kat",r:"wet",d:"Dům míšeňských markrabat z rodu Wettinů. Sousedé ze Saska tu mají oči i uši."},
- {n:20,k:"urad",t:"stare",name:"Staroměstská radnice",c:"kal",r:"mes",p:"jiri",d:"Radnice s orlojem. Ve zdejší síni se 2. března 1458 shodli stavové na novém králi, Jiřím z Poděbrad."},
- {n:21,k:"urad",t:"stare",name:"Karlova kolej",c:"kal",d:"Kolej Karlovy univerzity. Ze čtyř fakult zbyla jen artistická a vedou ji kališničtí mistři; spory o víru se tu vedou latinsky a s vervou."},
- {n:22,k:"dvur",t:"stare",name:"Dvůr pánů ze Šternberka",c:"kat",r:"ste",d:"Staroměstský dvůr Šternberků, kde se schází katolická šlechta věrná novému králi."},
- {n:23,k:"dvur",t:"stare",name:"Dům pánů z Rožmberka (Dlouhá)",c:"kat",r:"roz",d:"Rožmberský dům v Dlouhé třídě, sídlo rožmberských jednatelů a písařů."},
- {n:24,k:"dvur",t:"stare",name:"Dům pánů z Rožmberka (u sv. Anny)",c:"kat",r:"roz",d:"Druhý pražský dům Rožmberků poblíž kláštera sv. Anny."},
- {n:25,k:"dvur",t:"stare",name:"Dvůr pánů z Lipé",c:"mix",r:"lip",p:"jindrichlipe",d:"Dvůr pánů z Lipé. Jindřich z Lipé, nejvyšší maršálek, odtud dohlíží na zemský pořádek a sněmy."},
- {n:26,k:"dvur",t:"stare",name:"Dvůr pánů z Poděbrad",c:"kal",r:"pod",p:"jiri",d:"Rodový dům pánů z Kunštátu a Poděbrad. Odtud Jiří léta spravoval zemi jako zemský správce; teď sem chodí prosebníci za zvoleným králem."},
- {n:27,k:"urad",t:"stare",name:"Dvůr desk zemských",c:"",d:"Dvůr spjatý se zemskými deskami, do nichž se zapisují šlechtické statky, zápisy a nálezy zemského soudu. Kdo zfalšuje desky, zfalšuje zemi."},
- {n:28,k:"cirkev",t:"stare",name:"Dům inkvizitorů",c:"kat",d:"Dům, v němž kdysi sídlili papežští inkvizitoři. Od husitských let stojí víceméně prázdný a staroměstští se mu raději vyhýbají."},
- {n:29,k:"cirkev",t:"stare",name:"Betlémská kaple",c:"kal",d:"Kaple, kde kázal Mistr Jan Hus. Pro kališníky svaté místo; 6. července, v den Husova upálení, je tu plno."},
- {n:30,k:"dvur",t:"stare",name:"Dvůr pánů z Hradce",c:"kat",r:"hra",d:"Pražský dvůr pánů z Hradce. Jindřich IV. z Hradce nezapomíná, že jeho otec Menhart zemřel krátce poté, co ho Jiří propustil ze zajetí."},
- {n:31,k:"cirkev",t:"stare",name:"Křižovníci s červenou hvězdou",c:"kat",d:"Jediný český rytířský řád u staroměstského předmostí. Křižovníci drží špitál a střeží most; jsou katolíci, ale s městem si nechtějí znepřátelit."},
- {n:32,k:"urad",t:"stare",name:"Židovské město – Stará škola",c:"",d:"Synagoga v pražském Židovském městě. Obec žije pod ochranou krále a za tu ochranu draze platí; po každé změně na trůně se proto napjatě čeká, co nový král přinese."},
- {n:33,k:"cirkev",t:"nove",name:"P. Marie Sněžná",c:"kal",d:"Mohutný nedostavěný chrám karmelitánů. Kázal zde Jan Želivský, který roku 1419 vedl pražskou defenestraci; na radikály se tu dodnes vzpomíná s úctou."},
- {n:34,k:"cirkev",t:"nove",name:"Klášter Na Slovanech (Emauzy)",c:"kal",d:"Benediktinský klášter se slovanskou liturgií – jediný klášter v Čechách, který přijal kalich."},
- {n:35,k:"cirkev",t:"stare",name:"Kostel sv. Mikuláše (Staré Město)",c:"kal",d:"Farní kostel na severní straně rynku. Kališnická fara, kde se káže česky a přijímá pod obojí; zvon odtud svolává Staroměstské k radnici."},
- {n:36,k:"cirkev",t:"stare",name:"Kostel sv. Jiljí",c:"kal",d:"Gotický farní kostel, kde kdysi kázal Jan Milíč z Kroměříže, předchůdce Husův. Dnes kališnická fara, pyšná na svou tradici kazatelů."},
- {n:37,k:"cirkev",t:"stare",name:"Kostel sv. Havla",c:"kal",d:"Farní kostel Havelského Města uprostřed tržiště. Kolem něj se od rána do večera prodává sukno, maso i zelenina a kázání přehlušuje smlouvání."},
- {n:38,k:"cirkev",t:"stare",name:"Klášter sv. Jakuba",c:"kat",d:"Velký minoritský kostel za Týnem. V husitských bouřích byl klášter vypleněn a bratři se vracejí jen pomalu; v rozlehlé lodi se ozývá ozvěna."},
- {n:39,k:"cirkev",t:"stare",name:"Kostel sv. Haštala",c:"kal",d:"Farní kostel v severní části Starého Města, obklopený domy řemeslníků. Kališnická fara."},
- {n:40,k:"cirkev",t:"stare",name:"Kostel sv. Martina ve zdi",c:"kal",d:"Kostelík přimknutý k hradbám Starého Města. Roku 1414 se tu poprvé podávalo laikům pod obojí – kališníci sem chodí skoro jako na pouť."},
- {n:41,k:"cirkev",t:"mala",name:"Kostel sv. Mikuláše (Malá Strana)",c:"kal",d:"Farní kostel uprostřed Malostranského rynku. Malostranští kališníci tu mají faru; okolní domy stále nesou stopy požáru z roku 1419."},
- {n:42,k:"cirkev",t:"mala",name:"Klášter sv. Tomáše",c:"kat",d:"Klášter augustiniánů poustevníků. Roku 1420 jej Pražané vyplenili; bratři se vrátili do opravených zdí a drží se zticha."},
- {n:43,k:"cirkev",t:"nove",name:"Kostel sv. Jindřicha",c:"kal",d:"Farní kostel Jindřišské čtvrti Nového Města. Kališnická fara s velkým hřbitovem a ještě větší farní zahradou."},
- {n:44,k:"cirkev",t:"nove",name:"Kostel sv. Štěpána",c:"kal",d:"Farní kostel horní části Nového Města, kališnický, s rozlehlým hřbitovem na kraji vinic."},
- {n:45,k:"cirkev",t:"nove",name:"Kostel sv. Petra na Poříčí",c:"kal",d:"Starobylý farní kostel na Poříčí, kde kdysi sídlila osada německých kupců. Dnes kališnický a obklopený mlýny a koželuhy."},
- {n:46,k:"hospoda",t:"stare",name:"Pivovar U Medvídků",c:"",d:"Dům na Perštýně, doložený roku 1404. Roku 1433 jej koupil sladovník Mikuláš i s právem vařit pivo a od roku 1438 tu vaří Jakub Starostka; u medvědího znamení se pije pivo uvařené pár kroků od stolu."},
- {n:47,k:"hospoda",t:"stare",name:"Králova lázeň",c:"",d:"Lázeň u řeky pod Starým Městem, nedaleko mlýnů a celnice u mostu. Lazebníci tu pouštějí žilou, holí a stříhají a v páře se probírá všechno, co se ve městě šušká."},
- {n:48,k:"hospoda",t:"mala",name:"Pivovar u sv. Tomáše",c:"",d:"Pivovar augustiniánů u sv. Tomáše, založený roku 1352 za Karla IV. Klášter roku 1420 zpustl, ale várka se nevzdala – zdejší pivo teče až na Hrad."},
- {n:49,k:"hospoda",t:"mala",name:"Dům U Dvou modrých koulí",c:"",d:"Dům v ulici k mostu, který roku 1412 vlastnil sládek. Kdo přejde most z Hradu do Starého Města nebo opačně, má tu poslední příležitost se napít."},
- {n:50,k:"hospoda",t:"nove",name:"Pivovar u Dobytčího trhu",c:"",d:"Pivovar na západní straně Dobytčího trhu, doložený už ve 14. století. V trhové dny tu sedí honáci, řezníci a dráteníci a o rvačku není nouze."},
- {n:51,k:"hospoda",t:"nove",name:"Lázeň pod Půčkou",c:"",d:"Městská lázeň pod Půčkou na Novém Městě, jedna z několika lázní v okolí Dobytčího trhu. Lazebník pustí žilou, oholí a přidá zprávy z celé čtvrti."},
- {n:52,k:"hospoda",t:"nove",name:"Pivovar U Rozvařilů",c:"",d:"Dům s pivovarem na Poříčí, kde se vaří pivo už od roku 1340. Pijí tu formané, kteří vjíždějí Poříčskou branou, a mlynáři od řeky."}
-];
+const PRAHA_PLACES=/*@PRAHA_PLACES@*/[];
 const PRB={}; PRAHA_PLACES.forEach(p=>PRB[p.n]=p);
+const prLinks=ps=>ps.map(q=>`<a class="prl" href="#praha/${q.n}"><span class="prn">${q.n}</span>${q.name}</a>`).join(", ");
 let PG=null, pst={sel:null,vb:null,conf:"all",kind:"all"};
 const PKIND={dvur:"Dvory a domy",urad:"Obec a úřady",cirkev:"Církevní stavby",hospoda:"Hospody a lázně"};
 const pVis=p=>p.n===pst.sel||((pst.conf==="all"||p.c===pst.conf)&&(pst.kind==="all"||p.k===pst.kind));
-const PVB0=[-20,20,1040,936];
+const GMV=/*@GM@*/false;
+const PVB0=[-40,30,1120,1008];
 /* názvy ulic, trhů a bran: [název, x, y, natočení] */
-const PSTREETS=[
- ["Celetná ulice",745,281,0],["Dlouhá třída",747,200,-24],["ulice Kostelná",655,223,-20],["ulice Svatovalentinská",598,250,20],
- ["ulice Platnéřská",568,285,-5],["ulice Nožířská",594,320,-12],["ulice sv. Anny",565,339,-3],["Kurný trh",617,287,0],["Ovocný trh",642,304,0],
- ["Havelský trh",676,352,-50],["ulice k mostu",352,278,15],["Podhradí",280,234,-8],["Na Dláždění",201,253,-10],["Na Pohořelci",55,290,-25],
- ["Na Dláždění",857,276,0],["Senný trh",889,312,-10],["Florenc",917,228,-10],["Na Latráně",825,176,-20],["ulice sv. Jindřicha",804,384,-40],
- ["Pasířská ulice",746,452,-60],["ulice sv. Štěpána",777,486,-80],["Žitná ulice",707,576,3],["Svinský trh",714,632,2],["Na Zderaze",574,622,65],
- ["ulice sv. Kateřiny",733,660,70],["Poříčská brána",962,150,0],["Horská brána",958,297,0],["Koňská brána",870,532,0]];
+const PSTREETS=/*@PSTREETS@*/[];
 const pcol=c=>c==="kat"?"var(--kat)":c==="kal"?"var(--kal)":c==="mix"?"var(--mix)":"var(--gold)";
 function praInit(){
   if(PG){pDraw();return}
@@ -2852,6 +2284,24 @@ function pDraw(){
     gwl.appendChild(el("path",{d,fill:"none",stroke:"var(--paper)","stroke-width":(1*k).toFixed(2),"stroke-dasharray":`${2*k} ${2.4*k}`,"stroke-linejoin":"round"}));
     let acc=0,td="";for(let i=1;i<=r.length;i++){const a=r[i-1],b=r[i%r.length];acc+=Math.hypot(b[0]-a[0],b[1]-a[1]);if(acc>58){acc=0;const z=2.8*k;td+=`M${(b[0]-z).toFixed(1)},${(b[1]-z).toFixed(1)}h${2*z}v${2*z}h${-2*z}Z`}}
     gwl.appendChild(el("path",{d:td,fill:"var(--paper)",stroke:"var(--ink)","stroke-width":(1.1*k).toFixed(2)}))}));}
+  /* Botič */
+  if(PG.botic){const g=G({filter:"url(#pwob)"}),d="M"+PG.botic.map(q=>q.join(",")).join("L");
+   g.appendChild(el("path",{d,fill:"none",stroke:"var(--water)","stroke-width":"3.4","stroke-linecap":"round","stroke-linejoin":"round",opacity:".8"}))}
+  /* Vyšehrad v troskách */
+  if(PG.vys){const g=G({filter:"url(#pwob)"}),d=ring(PG.vys);
+   g.appendChild(el("path",{d,fill:"var(--phrad)","fill-opacity":".5"}));
+   g.appendChild(el("path",{d,fill:"none",stroke:"var(--ink)","stroke-width":(2.6*k).toFixed(2),"stroke-dasharray":`${16*k} ${6*k} ${7*k} ${9*k}`,"stroke-linejoin":"round"}));
+   g.appendChild(el("path",{d:"M598,950l40,-4l1.5,14l-40,4Z",fill:"var(--paper)",stroke:"var(--ink)","stroke-width":".9","stroke-dasharray":"5 3"}));
+   g.appendChild(el("path",{d:"M580,921h18v13h-18Z",fill:"var(--paper)",stroke:"var(--ink)","stroke-width":"1"}));
+   g.appendChild(el("circle",{cx:662,cy:1000,r:5,fill:"var(--paper)",stroke:"var(--ink)","stroke-width":"1"}));
+   let rb="";[[612,985],[630,975],[650,940],[676,960],[590,990],[685,975],[640,1005],[606,915]].forEach(([x,y],i)=>{rb+=`M${x},${y}l2.5,-1.5l2,2l-1,2.2l-3,.3Z`});
+   g.appendChild(el("path",{d:rb,fill:"var(--ink)",opacity:".55"}))}
+  /* Hladová zeď a hradby Strahova */
+  if(PG.hladova){const g=G({filter:"url(#pwob)"}),r=PG.hladova,d="M"+r.map(q=>q.join(",")).join("L");
+   g.appendChild(el("path",{d,fill:"none",stroke:"var(--ink)","stroke-width":(2.4*k).toFixed(2),"stroke-linejoin":"round"}));
+   g.appendChild(el("path",{d,fill:"none",stroke:"var(--paper)","stroke-width":(.9*k).toFixed(2),"stroke-dasharray":`${2*k} ${2.4*k}`}));
+   let acc=0,td="";for(let i=1;i<r.length;i++){const a=r[i-1],b=r[i];acc+=Math.hypot(b[0]-a[0],b[1]-a[1]);if(acc>38){acc=0;const z=2.5*k;td+=`M${(b[0]-z).toFixed(1)},${(b[1]-z).toFixed(1)}h${2*z}v${2*z}h${-2*z}Z`}}
+   g.appendChild(el("path",{d:td,fill:"var(--paper)",stroke:"var(--ink)","stroke-width":(1*k).toFixed(2)}))}
   /* Kamenný most */
   {const g=G({filter:"url(#pwob)"});const [a,b]=PG.bridge;
    g.appendChild(el("line",{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:"var(--ink)","stroke-width":"7","stroke-linecap":"butt"}));
@@ -2872,23 +2322,24 @@ function pDraw(){
   L(676,266,"Staroměstský","rivlbl",8,0,sq);L(676,275,"rynk","rivlbl",8,0,sq);
   L(330,249,"Malostranský rynk","rivlbl",7.5,0,sq);L(177,221,"Hradčanský rynk","rivlbl",8,0,sq);
   L(748,398,"Koňský trh","rivlbl",11,51,sq);L(648,676,"Dobytčí trh","rivlbl",11,-88,sq);
-  L(600,936,"↓ k Vyšehradu","rivlbl",11,0,sq);
+  L(770,985,"Vyšehrad","maplbl",21);L(770,1004,"v troskách od roku 1420","rivlbl",10,0,sq);
+  L(118,428,"Hladová zeď","rivlbl",11,24,sq);L(70,352,"Strahov","rivlbl",12);L(612,872,"Botič","rivlbl",10,-12);
   /* ulice a brány – jen při přiblížení */
   if(s<.66)PSTREETS.forEach(([t,x,y,r])=>L(x,y,t,"rivlbl",10.5,r,"fill:var(--ink);font-style:italic;opacity:.85"));
   /* kartuš a větrná růžice */
-  {const x=56,y=560,w=240,h=66,g=G({filter:"url(#pwob)"});
+  {const x=50,y=640,w=240,h=66,g=G({filter:"url(#pwob)"});
    g.appendChild(el("path",{d:`M${x+10},${y}H${x+w-10}q10,0 10,10v${h-20}q0,10 -10,10H${x+10}q-10,0 -10,-10v${-(h-20)}q0,-10 10,-10Z`,fill:"var(--paper)",stroke:"var(--ink)","stroke-width":"1.4"}));
    g.appendChild(el("rect",{x:x+8,y:y+6,width:w-16,height:h-12,fill:"none",stroke:"var(--kal)","stroke-width":".9"}));
    svg.appendChild(el("text",{x:x+w/2,y:y+33,class:"cart","font-size":"27","text-anchor":"middle"},"Praha"));
    svg.appendChild(el("text",{x:x+w/2,y:y+52,class:"rivlbl","font-size":"12","text-anchor":"middle",style:"fill:var(--ink)",stroke:"none"},"čtyři města pražská · 1458"));
-   const cx=176,cy=730,gc=G({filter:"url(#pwob)"});
+   const cx=170,cy=810,gc=G({filter:"url(#pwob)"});
    gc.appendChild(el("path",{d:`M${cx},${cy-34}L${cx+6},${cy}L${cx},${cy+34}L${cx-6},${cy}ZM${cx-34},${cy}L${cx},${cy-6}L${cx+34},${cy}L${cx},${cy+6}Z`,fill:"var(--paper)",stroke:"var(--ink)","stroke-width":"1.1"}));
    gc.appendChild(el("path",{d:`M${cx},${cy-34}L${cx+6},${cy}L${cx-6},${cy}Z`,fill:"var(--kal)"}));
    gc.appendChild(el("circle",{cx,cy,r:14,fill:"none",stroke:"var(--ink)","stroke-width":".8"}));
    svg.appendChild(el("text",{x:cx,y:cy-40,class:"cart","font-size":"15","text-anchor":"middle"},"S"));}
   /* očíslovaná místa */
   const gm=G({});
-  PRAHA_PLACES.filter(pVis).forEach(p=>{const [x,y]=PG.marks[p.n],on=pst.sel===p.n,r=(on?10:7.5)*k;
+  PRAHA_PLACES.filter(pVis).forEach(p=>{const [x,y]=p.pos,on=pst.sel===p.n,r=(on?10:7.5)*k;
     const g=el("g",{class:"pmk",tabindex:0,role:"button","aria-label":`${p.n}. ${p.name}`});
     g.appendChild(el("title",{},`${p.n}. ${p.name}`));
     if(on)g.appendChild(el("circle",{cx:x,cy:y,r:r+4*k,fill:"none",stroke:"var(--gold)","stroke-width":2.4*k}));
@@ -2914,6 +2365,7 @@ function pDetail(){
    <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h3 style="font-size:1.35rem">${p.name}</h3>${p.c&&FICON[p.c]?faith(p.c):""}</div>
    <p>${p.d}</p>
    ${f||p.p?`<dl class="kv">${f?`<dt>Rod</dt><dd><a href="#rod/${f.id}">${ARMS[f.id]?armsImg(f,"armsmall"):""}${f.name}</a></dd>`:""}${p.p&&PBY[p.p]?`<dt>Osoba</dt><dd><a href="#osoba/${p.p}">${PBY[p.p].n.replace(/^✦\s*/,"")}</a></dd>`:""}</dl>`:""}
+   ${ZAPISY.some(z=>(z.praha||[]).includes(p.n))?`<span class="lbl">V kronice</span><p>${ZAPISY.filter(z=>(z.praha||[]).includes(p.n)).map(z=>`<a href="#kronika/${z.id}">${z.n}: ${z.title}</a>`).join(", ")}</p>`:""}
    <button type="button" class="backbtn" id="pclear">Zpět na přehled</button>`;
   autolink(d.querySelector("p"),f?"#rod/"+f.id:"");
   document.getElementById("pclear").addEventListener("click",()=>pSel(null));
@@ -2922,10 +2374,10 @@ function pFilt(){document.querySelectorAll(".plist button").forEach(b=>{const p=
   document.querySelectorAll(".pgrp").forEach(g=>g.hidden=![...g.querySelectorAll("li")].some(l=>!l.hidden))}
 document.querySelectorAll("[data-pconf]").forEach(b=>b.addEventListener("click",()=>{pst.conf=b.dataset.pconf;document.querySelectorAll("[data-pconf]").forEach(x=>x.setAttribute("aria-pressed",x===b));if(PG){pDraw();pFilt()}}));
 document.querySelectorAll("[data-pkind]").forEach(b=>b.addEventListener("click",()=>{pst.kind=b.dataset.pkind;document.querySelectorAll("[data-pkind]").forEach(x=>x.setAttribute("aria-pressed",x===b));if(PG){pDraw();pFilt()}}));
-function pSel(n,center){pst.sel=n;if(n&&center){const [x,y]=PG.marks[n];const w=420,h=w*.9;pst.vb=[Math.max(-100,Math.min(1100-w,x-w/2)),Math.max(-60,Math.min(1028-h,y-h/2)),w,h]}pDraw();pDetail();
+function pSel(n,center){pst.sel=n;if(n&&center){const [x,y]=PRB[n].pos;const w=420,h=w*.9;pst.vb=[Math.max(-100,Math.min(1100-w,x-w/2)),Math.max(-60,Math.min(1028-h,y-h/2)),w,h]}pDraw();pDetail();
   document.querySelectorAll(".plist button").forEach(b=>b.classList.toggle("on",+b.dataset.pn===n))}
 function pList(){
-  document.getElementById("plist").innerHTML=PRAHA_TOWNS.map(t=>`<section class="pgrp"><h3 class="landh">${t.n.toUpperCase()}</h3><ol class="plist">${PRAHA_PLACES.filter(p=>p.t===t.id).map(p=>`<li><button type="button" data-pn="${p.n}"><span class="pnum${p.k==="hospoda"?" sq":""}" style="border-color:${pcol(p.c)};color:${pcol(p.c)}">${p.n}</span>${p.k==="cirkev"?`<span class="pcross" style="color:${pcol(p.c)}">✝</span>`:""}${p.name}</button></li>`).join("")}</ol></section>`).join("");
+  document.getElementById("plist").innerHTML=PRAHA_TOWNS.map(t=>`<section class="pgrp"><h3 class="landh">${t.n.toUpperCase()}</h3><ol class="plist">${PRAHA_PLACES.filter(p=>p.t===t.id).map(p=>`<li><button type="button" data-pn="${p.n}"><span class="pnum${p.k==="hospoda"?" sq":""}" style="border-color:${pcol(p.c)};color:${pcol(p.c)}">${p.n}</span>${p.k==="cirkev"?`<span class="pcross" style="color:${pcol(p.c)}">✝</span>`:""}${p.name}${FICON[p.c]?`<img class="pfico" src="${FICON[p.c]}" alt="${CONFN[p.c]||""}" title="${CONFN[p.c]||""}">`:""}</button></li>`).join("")}</ol></section>`).join("");
   pFilt();
   document.querySelectorAll(".plist button").forEach(b=>b.addEventListener("click",()=>{pSel(+b.dataset.pn,true);document.getElementById("pmapbox").scrollIntoView({block:"start",behavior:"smooth"})}));
   pDetail();
@@ -3079,8 +2531,9 @@ function renderKronika(b){
   box.innerHTML=`<nav class="crumbs"><a href="#kronika">Zápisy tažení</a> › <b>${z.n}</b></nav>
    <h2 class="arttitle">${z.title}</h2>
    <p class="zmeta"><span>${z.n}</span><span>${z.date}</span><span>${placeLink(z.place)}</span></p>
+   ${(z.praha||[]).some(n=>PRB[n])?`<p class="zpraha"><b>Na plánu Prahy:</b> ${prLinks(z.praha.map(n=>PRB[n]).filter(Boolean))}</p>`:""}
    <div class="ztext">${z.text}</div>
-   <button type="button" class="gbtn" data-partymap="${z.id}">Ukázat cestu na mapě</button>
+   <button type="button" class="gbtn" data-partymap="${z.id}">Ukázat cestu na mapě</button>${z.place==="Praha"||(z.praha||[]).length?` <a class="gbtn ghost" href="#praha${(z.praha||[]).length?"/"+z.praha[0]:""}">Plán Prahy</a>`:""}
    <nav class="apn">${pv?`<a href="#kronika/${pv.id}" rel="prev"><small>Předchozí</small>${pv.title}</a>`:"<span></span>"}${nx?`<a href="#kronika/${nx.id}" rel="next"><small>Další</small>${nx.title}</a>`:"<span></span>"}</nav>`;
   autolink(box.querySelector(".ztext"),"");
 }
@@ -3261,12 +2714,13 @@ function renderRodArticle(id){
      <dl class="kv"><dt>Vyznání</dt><dd>${faith(f.conf)}</dd>
      <dt>Země</dt><dd>${f.land}</dd>
      ${f.seats.length?`<dt>${f.city?"Města":"Državy"}</dt><dd>${f.seats.map(sd=>maplinkBtn(f,sd)).join(", ")}</dd>`:""}
-     ${ppl.length?`<dt>Osoby</dt><dd>${ppl.map(plinkP).join(", ")}</dd>`:""}</dl>
+     ${ppl.length?`<dt>Osoby</dt><dd>${ppl.map(plinkP).join(", ")}</dd>`:""}
+     ${PRAHA_PLACES.some(q=>q.r===id)?`<dt>V Praze</dt><dd>${prLinks(PRAHA_PLACES.filter(q=>q.r===id))}</dd>`:""}</dl>
      ${ppl.some(p=>PORTR.has(p.id))?`<div class="rodppl">${ppl.filter(p=>PORTR.has(p.id)).map(p=>`<a href="#osoba/${p.id}">${pThumb(p)}<span>${p.n.replace(/^✦\s*/,"")}</span></a>`).join("")}</div>`:""}
      ${f.nomap?"":`<button type="button" class="gbtn" data-showmap="${id}">Ukázat na mapě</button>`}
    </aside></div>`;
 }
-const PORTR=new Set(["jiri", "viktorin", "johana", "kostka", "jan2roz", "jaroslavlev", "jindrich4", "jindrichlipe", "zdenekst", "tovacovsky", "janper", "vanek", "vaclavsmi", "mikulashaz", "slik", "janvar", "hanus2", "boleslav5", "bohuslavsva", "premysl2", "tas", "jiskra", "salanki", "chelcicky", "rokycana", "tempelfeld"]);
+const PORTR=new Set(/*@PORTR@*/[]);
 const pThumb=(p,cls)=>PORTR.has(p.id)?`<img class="${cls||"pthumb"}" src="art/portrety/${p.id}-m.webp" alt="" loading="lazy">`:"";
 function renderPersonArticle(pid){
   const p=PBY[pid],f=byId[p.r],art=document.getElementById("article");
@@ -3284,6 +2738,7 @@ function renderPersonArticle(pid){
      <dl class="kv"><dt>Rod</dt><dd><a href="#rod/${f.id}">${f.name}</a></dd>
      <dt>Postavení</dt><dd>${p.role}</dd>
      ${sd?`<dt>Sídlo</dt><dd>${maplinkBtn(f,sd)}</dd>`:""}
+     ${PRAHA_PLACES.some(q=>q.p===pid)?`<dt>V Praze</dt><dd>${prLinks(PRAHA_PLACES.filter(q=>q.p===pid))}</dd>`:""}
      <dt>Vyznání rodu</dt><dd>${faith(f.conf)}</dd></dl>
    </aside></div>`;
 }
@@ -3351,5 +2806,13 @@ autolink(document.querySelector("#letopis dl"),"");
 renderKal();
 {const _rd=renderDetail;renderDetail=function(){_rd.apply(this,arguments);const d=document.getElementById("detail");if(st.sel&&!d.classList.contains("empty"))autolink(d,st.city?"":"#rod/"+st.sel)};}
 select("pod");
+/* vypravěč: Alt + klik do mapy ukáže a zkopíruje souřadnice pro soubory v zdroj/obsah */
+if(GMV){const toast=document.createElement("div");toast.className="gmtoast";toast.setAttribute("role","status");document.body.appendChild(toast);
+ const pick=(sv,fmt)=>sv&&sv.addEventListener("click",e=>{if(!e.altKey)return;e.preventDefault();e.stopPropagation();
+  const pt=sv.createSVGPoint();pt.x=e.clientX;pt.y=e.clientY;const q=pt.matrixTransform(sv.getScreenCTM().inverse());const t=fmt(q.x,q.y);
+  toast.textContent=t;toast.classList.add("on");try{navigator.clipboard.writeText(t).then(()=>{toast.textContent=t+"  · zkopírováno"},()=>{})}catch(_){}
+  clearTimeout(toast._t);toast._t=setTimeout(()=>toast.classList.remove("on"),4000)},true);
+ pick(document.getElementById("map"),(x,y)=>`${(x/72+10.9).toFixed(2)} | ${(52.7-y/112).toFixed(2)}`);
+ pick(document.getElementById("pmap"),(x,y)=>`${Math.round(x)}, ${Math.round(y)}`);}
 route();
 </script>
