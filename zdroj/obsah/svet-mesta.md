@@ -1,0 +1,80 @@
+# Města na mapě Známý svět
+#
+# Každý řádek:  - název | zeměpisná délka, šířka | hlavní (sídlo panovníka) nebo nic | poznámka
+- Lisabon | -9.14, 38.72 | hlavní
+- Sevilla | -5.98, 37.39 |
+- Toledo | -4.02, 39.86 |
+- Granada | -3.60, 37.18 | hlavní
+- Barcelona | 2.17, 41.39 | hlavní
+- Valencie | -0.38, 39.47 |
+- Pamplona | -1.64, 42.81 |
+- Paříž | 2.35, 48.86 | hlavní
+- Lyon | 4.83, 45.76 |
+- Bordeaux | -0.58, 44.84 |
+- Avignon | 4.81, 43.95 | | papežská enkláva
+- Marseille | 5.37, 43.30 |
+- Dijon | 5.04, 47.32 |
+- Bruggy | 3.22, 51.21 |
+- Brusel | 4.35, 50.85 | hlavní
+- Calais | 1.86, 50.95 | | poslední anglická država na pevnině
+- Londýn | -0.12, 51.51 | hlavní
+- York | -1.08, 53.96 |
+- Edinburgh | -3.19, 55.95 | hlavní
+- Dublin | -6.26, 53.35 |
+- Kodaň | 12.57, 55.68 | hlavní
+- Stockholm | 18.07, 59.33 |
+- Bergen | 5.32, 60.39 | | hanzovní kontor
+- Lübeck | 10.69, 53.87 | | hlava Hanzy
+- Kolín nad Rýnem | 6.96, 50.94 |
+- Norimberk | 11.08, 49.45 |
+- Basilej | 7.59, 47.56 |
+- Vídeň | 16.37, 48.21 | hlavní
+- Praha | 14.42, 50.09 | hlavní
+- Vratislav | 17.04, 51.11 |
+- Krakov | 19.94, 50.06 | hlavní
+- Gdaňsk | 18.65, 54.35 |
+- Královec | 20.51, 54.71 | hlavní
+- Riga | 24.10, 56.95 |
+- Vilno | 25.28, 54.69 | hlavní
+- Budín | 19.04, 47.50 | hlavní
+- Bělehrad | 20.46, 44.82 | | uherská pevnost
+- Benátky | 12.33, 45.44 | hlavní
+- Milán | 9.19, 45.46 | hlavní
+- Janov | 8.93, 44.41 | hlavní
+- Florencie | 11.25, 43.77 | hlavní
+- Řím | 12.49, 41.90 | hlavní
+- Neapol | 14.27, 40.85 | hlavní
+- Palermo | 13.36, 38.12 |
+- Dubrovník | 18.09, 42.65 |
+- Smederevo | 20.93, 44.66 |
+- Kruja | 19.79, 41.51 |
+- Târgoviște | 25.46, 44.93 |
+- Suceava | 26.26, 47.65 |
+- Konstantinopol | 28.97, 41.01 | hlavní | osmanská od roku 1453
+- Edirne | 26.55, 41.68 |
+- Bursa | 29.06, 40.19 |
+- Soluň | 22.94, 40.64 |
+- Mistra | 22.37, 37.07 |
+- Kandie | 25.13, 35.34 | | benátská Kréta
+- Rhodos | 28.22, 36.43 |
+- Nikósie | 33.37, 35.17 |
+- Konya | 32.48, 37.87 |
+- Trapezunt | 39.72, 41.00 | hlavní
+- Diyarbakır | 40.23, 37.91 |
+- Tabríz | 46.29, 38.08 | hlavní
+- Tbilisi | 44.79, 41.72 |
+- Bagdád | 44.36, 33.31 |
+- Aleppo | 37.16, 36.20 |
+- Damašek | 36.29, 33.51 |
+- Jeruzalém | 35.23, 31.78 |
+- Alexandrie | 29.92, 31.20 |
+- Káhira | 31.24, 30.04 | hlavní
+- Tunis | 10.18, 36.80 | hlavní
+- Tlemcen | -1.31, 34.88 |
+- Fès | -5.00, 34.03 | hlavní
+- Kyjev | 30.52, 50.45 |
+- Kaffa | 35.38, 45.03 | | janovská kolonie
+- Moskva | 37.62, 55.75 | hlavní
+- Novgorod | 31.27, 58.52 | hlavní
+- Kazaň | 49.12, 55.79 |
+- Saraj | 45.40, 48.60 |

@@ -244,6 +244,33 @@ def ulice():
         out.append([parts[0], x, y, num(parts[2], f"praha-ulice.md, řádek {i}") if len(parts) > 2 and parts[2] else 0])
     return out
 
+
+def svet():
+    geo = json.load(open(os.path.join(ROOT, "art", "svet.json"), encoding="utf-8"))
+    out = []
+    for p in read_dir("svet"):
+        w = "svet/" + p["_file"]
+        for k in ("id", "nazev", "vira"):
+            if not p.get(k):
+                fail(f"{w}: chybí '{k}'")
+        if p["id"] not in geo["states"]:
+            fail(f"{w}: oblast „{p['id']}“ na mapě neexistuje (art/svet.json)")
+        if p["vira"] not in ("kat", "pra", "isl", "mix", "kal"):
+            fail(f"{w}: víra musí být kat / pra / isl / mix / kal")
+        out.append({"id": p["id"], "n": p["nazev"], "k": p.get("kratce") or p["nazev"], "v": p.get("vladce", ""), "s": p.get("sidlo", ""),
+                    "c": p["vira"], "h": ANO(p.get("hlavni", "")), "x": text(p["_body"])})
+    return out
+
+def svet_mesta():
+    out = []
+    for i, line in lines_file("svet-mesta.md"):
+        parts = [x.strip() for x in line.split("|")]
+        if len(parts) < 2:
+            fail(f"svet-mesta.md, řádek {i}: má mít tvar  - název | délka, šířka | hlavní | poznámka")
+        lo, la = [num(v, f"svet-mesta.md, řádek {i}") for v in parts[1].split(",")]
+        out.append([parts[0], lo, la, 1 if len(parts) > 2 and parts[2].lower().startswith("hlav") else 0, parts[3] if len(parts) > 3 else ""])
+    return out
+
 def portrety():
     d = os.path.join(ROOT, "art", "portrety")
     return sorted(fn[:-7] for fn in os.listdir(d) if fn.endswith("-m.webp")) if os.path.isdir(d) else []
@@ -271,7 +298,7 @@ IDS = {f["id"] for f in FAM}
 PEOPLE = osoby(IDS)
 PIDS = {p["id"] for p in PEOPLE}
 for key, val in (("ZAPISY", zapisy()), ("PARTY", druzina()), ("MISTA", mista()), ("FAM", FAM), ("PEOPLE", PEOPLE),
-                 ("REL", vazby(IDS, removed_items)), ("PRAHA_PLACES", praha(IDS, PIDS)), ("PSTREETS", ulice()), ("PORTR", portrety())):
+                 ("REL", vazby(IDS, removed_items)), ("PRAHA_PLACES", praha(IDS, PIDS)), ("PSTREETS", ulice()), ("PORTR", portrety()), ("SVET", svet()), ("SVETMESTA", svet_mesta())):
     tag = f"/*@{key}@*/[]"
     if tag not in s:
         fail(f"ve zdroji chybí značka {tag}")
