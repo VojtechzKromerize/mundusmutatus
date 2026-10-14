@@ -280,9 +280,9 @@ mark{background:color-mix(in srgb,var(--gold) 35%,transparent);color:inherit;pad
 /* tables */
 .rtw{overflow-x:auto;max-width:100%}
 .rtab{border-collapse:collapse;width:100%;background:var(--paper);border:1px solid var(--rule);font-size:.95rem;line-height:1.4}
-.rtab caption{caption-side:top;text-align:left;font-family:var(--f-disp);font-size:1.3rem;padding:4px 0 6px;display:flex;align-items:center;gap:8px}
-.rtab caption img{width:34px;height:34px}
-.rtab caption small{font-family:var(--f-body);font-size:.9rem;color:var(--muted)}
+.rtab caption{caption-side:top;display:table-caption;text-align:left;font-family:var(--f-disp);font-size:1.35rem;padding:4px 0 8px;background:var(--bg)}
+.rtab caption img{width:34px;height:34px;vertical-align:middle;margin-right:8px}
+.rtab caption small{font-family:var(--f-body);font-size:.9rem;color:var(--muted);margin-left:6px}
 .rtab th,.rtab td{padding:7px 10px;text-align:left;vertical-align:top;border-bottom:1px solid var(--rule)}
 .rtab thead th{font-family:var(--f-label);font-weight:700;letter-spacing:.06em;font-size:.82rem;color:var(--muted);background:var(--bg);border-bottom:2px solid var(--rule)}
 .rtab tbody th{font-weight:700;white-space:nowrap}
@@ -294,6 +294,28 @@ mark{background:color-mix(in srgb,var(--gold) 35%,transparent);color:inherit;pad
 .rtab.pairs tbody th{color:var(--kat)}
 .rtab.crit tbody th{color:var(--kal)}
 .rtab.crit td:last-child{color:var(--kal)}
+
+/* tables v2: clearer hierarchy */
+.rtab{font-size:.97rem;line-height:1.45}
+.rtab th,.rtab td{padding:10px 16px}
+.rtab td+td,.rtab th+td{border-left:1px solid color-mix(in srgb,var(--rule) 55%,transparent)}
+.rtab thead th{color:var(--ink);background:color-mix(in srgb,var(--rule) 38%,var(--paper));font-size:.8rem;letter-spacing:.09em;border-bottom:2px solid var(--gold);white-space:nowrap}
+.rtab tbody tr:nth-child(even){background:color-mix(in srgb,var(--bg) 55%,var(--paper))}
+.rtab tbody tr:hover{background:color-mix(in srgb,var(--gold) 9%,var(--paper))}
+.rtab tbody th{font-size:1.02rem}
+.rtab td b:first-child{color:var(--ink)}
+.rtab.states td:nth-child(2){white-space:nowrap}
+.rtab.states td:nth-child(3),.rtab.states td:nth-child(4){width:40%}
+.rtab.states thead th:nth-child(3){color:var(--kat)}.rtab.states thead th:nth-child(4){color:var(--kal)}
+.rtab.states tbody th{font-variant-numeric:tabular-nums}
+.st{display:inline-block;font-family:var(--f-label);font-weight:700;letter-spacing:.05em;font-size:.86rem;padding:2px 10px;border-radius:3px;color:var(--bg);white-space:nowrap}
+.st0{background:var(--ink)}.st1{background:var(--kal)}.st2{background:var(--gold)}.st3{background:var(--kat)}
+.rtab.crit td{width:21%}.rtab.crit tbody th{width:1%}
+.rtab.crit td:last-child{font-weight:700}
+.rtab.crit thead th:last-child{color:var(--kal)}
+.rtab.pairs td:nth-child(2),.rtab.pairs td:nth-child(4){width:38%;color:var(--muted)}
+.rtab.pairs td:nth-child(3){border-left:2px solid var(--rule)}
+.rtab:not(.narrow):not(.crit):not(.pairs):not(.states) tbody th{width:1%}
 /* faith & foe cards */
 .faiths,.foes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
 .fcard,.foe{background:var(--paper);border:1px solid var(--rule);border-top:3px solid var(--rule);padding:14px;display:flex;flex-direction:column;gap:8px}
@@ -345,6 +367,8 @@ mark{background:color-mix(in srgb,var(--gold) 35%,transparent);color:inherit;pad
   .rtab:not(.narrow) th,.rtab:not(.narrow) td{border:0!important;padding:3px 12px}
   .rtab:not(.narrow) tbody th{font-family:var(--f-disp);font-weight:500;font-size:1.2rem;white-space:normal}
   .rtab:not(.narrow) tbody th i{display:inline;margin-left:6px}
+  .rtab:not(.narrow) td,.rtab:not(.narrow) tbody th{width:auto!important;border-left:0!important}
+  .rtab caption{display:block;padding:4px 12px 8px}
   .rtab:not(.narrow) td::before{content:attr(data-l);display:block;font-family:var(--f-label);font-weight:700;font-size:.74rem;letter-spacing:.08em;color:var(--muted)}
   .rtab.pairs td:nth-child(3){border-top:1px dashed var(--rule)!important;margin-top:4px;padding-top:6px}
 }
@@ -2155,10 +2179,10 @@ const ARTK=[
   <p>Obojí může platit současně, takže rozervaná duše přešlapuje na místě. Bez bodů se nic neděje – Svědomí samo od sebe neroste ani neklesá.</p>`},
  {id:"stavy",t:"Stavy svědomí",h:`
   ${tb(["Svědomí","Stav","Bonus","Malus"],[
-   ["0","<b>Zatracený</b>","Výhoda na Intimidation.<br><b><i>Smlouva s ďáblem</i></b> – jednou za Long Rest můžeš změnit výsledek hodu Závoje na Požehnání. Petr zapřel třikrát, co by se mohlo stát?","Feat víry přestává fungovat. Postava získává Feat: Zatracený."],
-   ["1–3","<b>Na scestí</b>","Výhoda na Deception.","<b><i>Neklidné sny</i></b> – v rámci obnovy HP při Long Restu si můžeš obnovit jen polovinu HP."],
-   ["4–7","<b>Na vážkách</b>","—","—"],
-   ["8–10","<b>V milosti</b>","Imunita vůči Frightened. Výhoda na Insight.","Nevýhoda na Deception."]],"","states")}`}
+   ["0","<span class=\"st st0\">Zatracený</span>","Výhoda na Intimidation.<br><b><i>Smlouva s ďáblem</i></b> – jednou za Long Rest můžeš změnit výsledek hodu Závoje na Požehnání. Petr zapřel třikrát, co by se mohlo stát?","Feat víry přestává fungovat. Postava získává Feat: Zatracený."],
+   ["1–3","<span class=\"st st1\">Na scestí</span>","Výhoda na Deception.","<b><i>Neklidné sny</i></b> – v rámci obnovy HP při Long Restu si můžeš obnovit jen polovinu HP."],
+   ["4–7","<span class=\"st st2\">Na vážkách</span>","—","—"],
+   ["8–10","<span class=\"st st3\">V milosti</span>","Imunita vůči Frightened. Výhoda na Insight.","Nevýhoda na Deception."]],"","states")}`}
  ]},
 {id:"vyznani",book:"vira",t:"Vyznání",img:"vyznani.webp",
  sum:"Kališník, katolík, nebo starověrec – a tři stupně featu víry.",
