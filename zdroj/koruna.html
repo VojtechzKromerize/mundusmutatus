@@ -183,11 +183,7 @@ header.site{display:flex;flex-direction:column;gap:0;border:0;padding:0}
 .sitenav a{font-family:var(--f-disp);font-size:1.35rem;color:var(--ink);text-decoration:none;padding:2px 2px;border-bottom:2px solid transparent}
 .sitenav a:hover{color:var(--kal)}
 .sitenav a.on{color:var(--kal);border-bottom-color:var(--kal)}
-#smap{--sea:color-mix(in srgb,var(--water) 16%,var(--paper))}
-.slbl{font-family:var(--f-disp);font-weight:500;fill:var(--ink);paint-order:stroke;stroke:var(--paper);stroke-opacity:.8;stroke-linejoin:round;pointer-events:none}
-.slbl.rub{fill:var(--kal);font-weight:700}
-.sla{font-family:var(--f-body);font-style:italic;fill:var(--water);paint-order:stroke;stroke:var(--sea);stroke-width:2.5px;stroke-linejoin:round}
-.scity{font-family:var(--f-body);font-weight:600}
+.slbl{font-family:var(--f-disp);fill:var(--ink);paint-order:stroke;stroke:var(--paper);stroke-opacity:.85;stroke-linejoin:round;pointer-events:none}
 .spoly{cursor:pointer}.spoly:hover{filter:brightness(1.08)}
 .sbadge{display:inline-block;padding:1px 8px;border-radius:10px;border:1.5px solid var(--c);color:var(--c);font-family:var(--f-label);font-size:.85rem;font-weight:600}
 .sswatch{flex:none;width:16px;height:12px;border:1px solid var(--ink);border-radius:2px}
@@ -2616,7 +2612,7 @@ const SLABPOS={hre:[11.5,52.0],ott:[33.8,38.5],boh:[16.2,50.25],hun:[21.3,46.6],
  ven:[12.2,45.85],pap:[12.6,42.9],nap:[15.6,41.0],mos:[42.0,57.6],nov:[37.5,63.5],kal:[14.5,63.3],lit:[27.5,53.0],hor:[44.5,50.5],eng:[-1.6,52.6],bur:[4.2,50.4],ara:[-0.3,41.0],qqq:[43.6,35.0]};
 /* moře, hory: zeměpisné souřadnice */
 const SSEAS=[["Atlantský oceán",-15,47,0,15],["Severní moře",3.5,56.3,0,11],["Baltské moře",19.2,57.2,-62,10],["Norské moře",1,66,0,12],["Bílé moře",38.5,65.6,0,8.5],
- ["Středozemní moře",17.5,34.6,0,14],["Tyrhénské moře",11.8,40,0,9],["Jaderské moře",15.3,43.1,-42,8.5],["Egejské moře",25.2,38.9,-70,8.5],["Černé moře",35.2,42.6,0,12],
+ ["Středozemní moře",17.5,34.6,0,14],["Tyrhénské moře",11.8,40,0,9],["Jaderské moře",15.3,43.1,-42,8.5],["Egejské moře",25.2,38.9,-70,8.5],["Černé moře",34.5,43.3,0,12],
  ["Azovské moře",36.7,46.1,0,7.5],["Kaspické moře",50.5,43,-75,10],["Biskajský záliv",-5,45.4,0,9],["Iónské moře",18.5,37.8,0,8.5]];
 const SMTS=[["Alpy",[[6.2,44.2],[7.0,45.5],[8.3,46.3],[10.0,46.5],[11.5,47.0],[13.0,47.1],[14.5,47.4],[15.6,47.6]]],["Pyreneje",[[-1.5,43.0],[0.0,42.75],[1.5,42.6],[2.8,42.45]]],
  ["Karpaty",[[17.4,48.8],[19.5,49.3],[21.5,49.3],[23.5,48.6],[24.8,47.7],[25.6,46.8],[25.9,45.7],[24.5,45.4],[23.0,45.3],[22.3,45.0]]],
@@ -2631,10 +2627,6 @@ function svInit(){
   const m=document.getElementById("smap");m.innerHTML='<text x="500" y="386" text-anchor="middle" class="rivlbl" font-size="20">Mapa se načítá…</text>';
   fetch("art/svet.json").then(r=>r.json()).then(d=>{SG=d;sDraw();sList();sDetail()}).catch(()=>{m.innerHTML='<text x="500" y="386" text-anchor="middle" class="rivlbl" font-size="20">Mapu se nepodařilo načíst.</text>'});
 }
-/* středověký portulán: latinská jména moří (česky v bublině) */
-const SSEAS_LA={"Atlantský oceán":"Oceanus Occidentalis","Severní moře":"Mare Germanicum","Baltské moře":"Mare Balticum","Norské moře":"Mare Septentrionale","Bílé moře":"Mare Album",
- "Středozemní moře":"Mare Mediterraneum","Tyrhénské moře":"Mare Tyrrhenum","Jaderské moře":"Mare Adriaticum","Egejské moře":"Mare Aegaeum","Černé moře":"Pontus Euxinus",
- "Azovské moře":"Palus Maeotis","Kaspické moře":"Mare Caspium","Biskajský záliv":"Sinus Aquitanicus","Iónské moře":"Mare Ionium"};
 function sDraw(){
   const svg=document.getElementById("smap"),vb=sst.vb||SVB0;svg.setAttribute("viewBox",vb.join(" "));
   const s=vb[2]/SVB0[2];svg.innerHTML="";const k=Math.max(s,.35);
@@ -2644,143 +2636,82 @@ function sDraw(){
     f.appendChild(el("feTurbulence",{type:"fractalNoise",baseFrequency:freq,numOctaves:oct,seed,result:"n"}));
     f.appendChild(el("feDisplacementMap",{in:"SourceGraphic",in2:"n",scale,xChannelSelector:"R",yChannelSelector:"G",result:"d"}));
     if(extra)extra(f);defs.appendChild(f)};
-  mkF("swob",0.06,1.8,2,4);
-  mkF("swash",0.035,5,3,6,f=>{f.appendChild(el("feGaussianBlur",{in:"d",stdDeviation:1.3,result:"b"}));
-    f.appendChild(el("feTurbulence",{type:"fractalNoise",baseFrequency:0.07,numOctaves:3,seed:12,result:"m"}));
-    f.appendChild(el("feColorMatrix",{in:"m",type:"matrix",values:"0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.4 1.45",result:"ma"}));
+  mkF("swob",0.06,1.6,2,4);
+  mkF("swash",0.035,5,3,6,f=>{f.appendChild(el("feGaussianBlur",{in:"d",stdDeviation:1.2,result:"b"}));
+    f.appendChild(el("feTurbulence",{type:"fractalNoise",baseFrequency:0.09,numOctaves:2,seed:12,result:"m"}));
+    f.appendChild(el("feColorMatrix",{in:"m",type:"matrix",values:"0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.1 1.35",result:"ma"}));
     f.appendChild(el("feComposite",{in:"b",in2:"ma",operator:"in"}))});
   {const f=el("filter",{id:"spaper",filterUnits:"userSpaceOnUse",...R});
    f.appendChild(el("feTurbulence",{type:"fractalNoise",baseFrequency:0.55,numOctaves:3,seed:3,result:"n"}));
    f.appendChild(el("feColorMatrix",{in:"n",type:"matrix",values:"0 0 0 0 0.24  0 0 0 0 0.18  0 0 0 0 0.10  0 0 0 -2.2 1.25"}));defs.appendChild(f);
    const f2=el("filter",{id:"sstain",filterUnits:"userSpaceOnUse",...R});
-   f2.appendChild(el("feTurbulence",{type:"fractalNoise",baseFrequency:0.007,numOctaves:4,seed:23,result:"n"}));
-   f2.appendChild(el("feColorMatrix",{in:"n",type:"matrix",values:"0 0 0 0 0.45  0 0 0 0 0.32  0 0 0 0 0.14  0 0 0 -3 1.65"}));defs.appendChild(f2);}
+   f2.appendChild(el("feTurbulence",{type:"fractalNoise",baseFrequency:0.009,numOctaves:3,seed:23,result:"n"}));
+   f2.appendChild(el("feColorMatrix",{in:"n",type:"matrix",values:"0 0 0 0 0.45  0 0 0 0 0.33  0 0 0 0 0.16  0 0 0 -3 1.6"}));defs.appendChild(f2);}
   const rg=el("radialGradient",{id:"svig",cx:"50%",cy:"50%",r:"72%"});
-  rg.appendChild(el("stop",{offset:"55%","stop-color":"var(--rule)","stop-opacity":"0"}));rg.appendChild(el("stop",{offset:"100%","stop-color":"var(--hill)","stop-opacity":".85"}));defs.appendChild(rg);
+  rg.appendChild(el("stop",{offset:"58%","stop-color":"var(--rule)","stop-opacity":"0"}));rg.appendChild(el("stop",{offset:"100%","stop-color":"var(--hill)","stop-opacity":".7"}));defs.appendChild(rg);
+  {const pt=el("pattern",{id:"swave",patternUnits:"userSpaceOnUse",width:34,height:22});
+   pt.appendChild(el("path",{d:"M3,8q3,-2.6 6,0t6,0M20,18q3,-2.6 6,0t6,0",fill:"none",stroke:"var(--water)","stroke-width":".7",opacity:".55"}));defs.appendChild(pt);}
   svg.appendChild(defs);
   const G=a=>{const g=el("g",a||{});svg.appendChild(g);return g};
   const path=p=>p.map(r=>"M"+r.map(q=>q.join(",")).join("L")+"Z").join("");
-  const landD=SG.land.map(path).join("");
-  /* moře: pergamen s lehkým modrozeleným tónem (portulány nechávaly moře nebarvené) */
-  svg.appendChild(el("rect",{...R,fill:"var(--sea)"}));
-  /* kosodélníkové čáry větrů ze dvou růžic, jako na portulánech */
-  const ROSES=[SP(5.6,39.0),SP(-16,48.5),SP(31.2,43.9)];
-  {const g=G({"pointer-events":"none"});let b="",gr="",rd="";
-   ROSES.forEach(([cx,cy])=>{for(let i=0;i<32;i++){const a=i/32*2*Math.PI,x=cx+Math.cos(a)*1400,y=cy+Math.sin(a)*1400;const d=`M${cx.toFixed(1)},${cy.toFixed(1)}L${x.toFixed(1)},${y.toFixed(1)}`;
-     if(i%4===0)b+=d;else if(i%2===0)gr+=d;else rd+=d}});
-   g.appendChild(el("path",{d:b,stroke:"var(--ink)","stroke-width":(.55*k).toFixed(2),opacity:".35"}));
-   g.appendChild(el("path",{d:gr,stroke:"var(--sisl)","stroke-width":(.45*k).toFixed(2),opacity:".35"}));
-   g.appendChild(el("path",{d:rd,stroke:"var(--kal)","stroke-width":(.45*k).toFixed(2),opacity:".3"}));}
-  /* pobřežní šrafura: soustředné čáry podél břehů */
-  {const g=G({filter:"url(#swob)","pointer-events":"none"});
-   [[13,.18],[8.5,.28],[4.5,.4]].forEach(([w,o])=>{g.appendChild(el("path",{d:landD,fill:"none",stroke:"var(--water)","stroke-width":(w*k).toFixed(2),opacity:o,"stroke-linejoin":"round"}));
-     g.appendChild(el("path",{d:landD,fill:"none",stroke:"var(--sea)","stroke-width":((w-1.1)*k).toFixed(2),"stroke-linejoin":"round"}))});}
-  /* pevnina a mocnosti: akvarelové plochy, hranice tečkovaně */
-  {const gl=G({filter:"url(#swash)"});gl.appendChild(el("path",{d:landD,fill:"var(--land)"}));
-   const gs=G({filter:"url(#swash)"}),gb=G({filter:"url(#swob)","pointer-events":"none"});
-   Object.entries(SG.states).forEach(([id,ps])=>{const S=SVB[id];const fill=sst.faith&&S?SVIRAC[S.c]:`var(--sw${SG.col[id]%10})`;const d=ps.map(path).join("");
-     const p=el("path",{d,fill,"fill-opacity":sst.faith?".45":".62","fill-rule":"evenodd",class:"spoly","data-id":id});
+  /* moře */
+  svg.appendChild(el("rect",{...R,fill:"var(--water)","fill-opacity":".22"}));
+  svg.appendChild(el("rect",{...R,fill:"url(#swave)"}));
+  /* pevnina a mocnosti */
+  {const gl=G({filter:"url(#swash)"});gl.appendChild(el("path",{d:SG.land.map(path).join(""),fill:"var(--land)"}));
+   const gs=G({filter:"url(#swob)"});
+   Object.entries(SG.states).forEach(([id,ps])=>{const S=SVB[id];const fill=sst.faith&&S?SVIRAC[S.c]:`var(--sw${SG.col[id]%10})`;
+     const p=el("path",{d:ps.map(path).join(""),fill,"fill-opacity":sst.faith?".5":"1","fill-rule":"evenodd",stroke:"var(--ink)","stroke-width":(.55*k).toFixed(2),"stroke-opacity":".75","stroke-linejoin":"round",class:"spoly","data-id":id});
      p.appendChild(el("title",{},S?S.n:id));
      p.addEventListener("click",e=>{e.stopPropagation();if(sDrag.moved)return;sSel(id)});
-     gs.appendChild(p);
-     gb.appendChild(el("path",{d,fill:"none",stroke:"var(--kal)","stroke-width":(1.1*k).toFixed(2),"stroke-dasharray":`${.1} ${2.6*k}`,"stroke-linecap":"round",opacity:".8"}))});
-   gb.appendChild(el("path",{d:landD,fill:"none",stroke:"var(--ink)","stroke-width":(1.1*k).toFixed(2),"stroke-linejoin":"round",opacity:".85"}));
-   if(SG.lakes)gb.appendChild(el("path",{d:SG.lakes.map(path).join(""),fill:"var(--sea)",stroke:"var(--ink)","stroke-width":(.5*k).toFixed(2)}));}
+     gs.appendChild(p)});
+   gl.appendChild(el("path",{d:SG.land.map(path).join(""),fill:"none",stroke:"var(--water)","stroke-width":(1.3*k).toFixed(2),opacity:".8"}));
+   if(SG.lakes)gs.appendChild(el("path",{d:SG.lakes.map(path).join(""),fill:"var(--water)","fill-opacity":".3",stroke:"var(--water)","stroke-width":(.5*k).toFixed(2)}));}
   /* hranice Svaté říše římské */
   if(sst.hre&&SG.hre){const g=G({filter:"url(#swob)","pointer-events":"none"});const d=SG.hre.map(path).join("");
-    g.appendChild(el("path",{d,fill:"none",stroke:"var(--gold)","stroke-width":(5*k).toFixed(2),opacity:".28"}));
-    g.appendChild(el("path",{d,fill:"none",stroke:"var(--gold)","stroke-width":(1.6*k).toFixed(2),"stroke-dasharray":`${6*k} ${2.5*k} ${1.5*k} ${2.5*k}`}))}
+    g.appendChild(el("path",{d,fill:"none",stroke:"var(--paper)","stroke-width":(4.2*k).toFixed(2),opacity:".8"}));
+    g.appendChild(el("path",{d,fill:"none",stroke:"var(--gold)","stroke-width":(2.2*k).toFixed(2),"stroke-dasharray":`${7*k} ${4*k}`}))}
   /* vybraná mocnost */
   if(sst.sel&&SG.states[sst.sel]){const g=G({filter:"url(#swob)","pointer-events":"none"});
-    g.appendChild(el("path",{d:SG.states[sst.sel].map(path).join(""),fill:"var(--gold)","fill-opacity":".2",stroke:"var(--gold)","stroke-width":(2.6*k).toFixed(2),"stroke-linejoin":"round"}))}
-  /* řeky a hory: hory jako stínované kopečky */
+    g.appendChild(el("path",{d:SG.states[sst.sel].map(path).join(""),fill:"var(--gold)","fill-opacity":".18",stroke:"var(--gold)","stroke-width":(2.6*k).toFixed(2),"stroke-linejoin":"round"}))}
+  /* řeky a hory */
   if(sst.riv){const g=G({filter:"url(#swob)","pointer-events":"none"});
-    g.appendChild(el("path",{d:SG.rivers.map(r=>"M"+r.p.map(q=>q.join(",")).join("L")).join(""),fill:"none",stroke:"var(--water)","stroke-width":(1.1*k).toFixed(2),"stroke-linecap":"round","stroke-linejoin":"round",opacity:".9"}));
-    let d="",sh="",h="";const z=Math.max(k,.5);SMTS.forEach(([n,ch])=>{for(let i=0;i<ch.length-1;i++){const [a,b]=[SP(...ch[i]),SP(...ch[i+1])],L=Math.hypot(b[0]-a[0],b[1]-a[1]),m=Math.max(1,Math.round(L/(8*z)));
-      for(let j=0;j<m;j++){const t=(j+.5)/m,x=a[0]+(b[0]-a[0])*t,y=a[1]+(b[1]-a[1])*t+((i+j)%2?1.6:-1.6)*z,w=4.6*z,ht=6.2*z;
-        d+=`M${(x-w).toFixed(1)},${y.toFixed(1)}C${(x-w*.6).toFixed(1)},${(y-ht*.7).toFixed(1)} ${(x-w*.3).toFixed(1)},${(y-ht).toFixed(1)} ${x.toFixed(1)},${(y-ht).toFixed(1)}C${(x+w*.3).toFixed(1)},${(y-ht).toFixed(1)} ${(x+w*.6).toFixed(1)},${(y-ht*.7).toFixed(1)} ${(x+w).toFixed(1)},${y.toFixed(1)}Z`;
-        sh+=`M${x.toFixed(1)},${(y-ht).toFixed(1)}C${(x+w*.3).toFixed(1)},${(y-ht).toFixed(1)} ${(x+w*.6).toFixed(1)},${(y-ht*.7).toFixed(1)} ${(x+w).toFixed(1)},${y.toFixed(1)}L${(x+w*.15).toFixed(1)},${y.toFixed(1)}Z`;
-        h+=`M${(x-w*.45).toFixed(1)},${(y-ht*.35).toFixed(1)}l${(w*.25).toFixed(1)},${(-ht*.25).toFixed(1)}`}}});
-    g.appendChild(el("path",{d,fill:"var(--hill)",stroke:"var(--city)","stroke-width":(.6*z).toFixed(2)}));
-    g.appendChild(el("path",{d:sh,fill:"var(--city)",opacity:".35"}));g.appendChild(el("path",{d:h,stroke:"var(--paper)","stroke-width":(.6*z).toFixed(2),opacity:".8"}))}
-  /* růžice větrů: 8 hlavních hrotů, sever liliemi */
-  const rose=(cx,cy,r,main)=>{const g=G({filter:"url(#swob)","pointer-events":"none"});
-    for(let i=0;i<16;i++){const a=i/16*2*Math.PI-Math.PI/2,L=i%2?r*.62:r,wd=i%2?r*.09:r*.14,x=cx+Math.cos(a)*L,y=cy+Math.sin(a)*L,px=-Math.sin(a)*wd,py=Math.cos(a)*wd;
-      const c=i%4===0?"var(--kal)":i%2===0?"var(--sisl)":"var(--gold)";
-      g.appendChild(el("path",{d:`M${cx},${cy}L${(cx+Math.cos(a)*L*.3+px).toFixed(1)},${(cy+Math.sin(a)*L*.3+py).toFixed(1)}L${x.toFixed(1)},${y.toFixed(1)}L${(cx+Math.cos(a)*L*.3-px).toFixed(1)},${(cy+Math.sin(a)*L*.3-py).toFixed(1)}Z`,fill:c,stroke:"var(--ink)","stroke-width":".5"}))}
-    g.appendChild(el("circle",{cx,cy,r:r*.16,fill:"var(--paper)",stroke:"var(--ink)","stroke-width":".7"}));
-    g.appendChild(el("circle",{cx,cy,r:r*1.04,fill:"none",stroke:"var(--ink)","stroke-width":".6",opacity:".7"}));
-    if(main){const y=cy-r*1.08;g.appendChild(el("path",{d:`M${cx},${y-11}C${cx+3},${y-7} ${cx+3},${y-3} ${cx},${y}C${cx-3},${y-3} ${cx-3},${y-7} ${cx},${y-11}ZM${cx},${y-2}C${cx+4},${y-6} ${cx+8},${y-5} ${cx+7},${y-1}C${cx+5},${y-3} ${cx+2},${y-2} ${cx},${y}ZM${cx},${y-2}C${cx-4},${y-6} ${cx-8},${y-5} ${cx-7},${y-1}C${cx-5},${y-3} ${cx-2},${y-2} ${cx},${y}Z`,fill:"var(--gold)",stroke:"var(--ink)","stroke-width":".6"}))}};
-  rose(...ROSES[0],34,true);rose(...ROSES[1],26,true);rose(...ROSES[2],18,false);
-  /* lodě a dračí moře */
-  {const g=G({filter:"url(#swob)","pointer-events":"none"});
-   const ship=(lo,la,sc,flip)=>{const [x,y]=SP(lo,la),f=flip?-1:1,q=v=>v*sc;const t=`translate(${x} ${y}) scale(${f*sc} ${sc})`;const gg=el("g",{transform:t});
-     gg.appendChild(el("path",{d:"M-16,0Q-14,7 0,7Q13,7 17,-1L11,0L-12,0Z",fill:"var(--road)",stroke:"var(--ink)","stroke-width":".8"}));
-     gg.appendChild(el("path",{d:"M-12,0v-3h5v3M10,0v-3h-4v3",fill:"var(--road)",stroke:"var(--ink)","stroke-width":".7"}));
-     gg.appendChild(el("path",{d:"M0,0V-24",stroke:"var(--ink)","stroke-width":"1"}));
-     gg.appendChild(el("path",{d:"M-9,-21Q0,-23 9,-21Q11,-12 9,-4Q0,-6 -9,-4Q-11,-12 -9,-21Z",fill:"var(--paper)",stroke:"var(--ink)","stroke-width":".8"}));
-     gg.appendChild(el("path",{d:"M-2,-17h4v10h-4ZM-5,-13h10v3h-10Z",fill:"var(--kal)"}));
-     gg.appendChild(el("path",{d:"M0,-24l7,2l-7,2Z",fill:"var(--kal)",stroke:"var(--ink)","stroke-width":".4"}));
-     gg.appendChild(el("path",{d:"M-20,9q4,-2 8,0t8,0M6,9q4,-2 8,0t8,0",fill:"none",stroke:"var(--water)","stroke-width":".8"}));g.appendChild(gg)};
-   ship(-12.5,41.5,.9,false);ship(13.2,35.4,.75,true);ship(24.5,35.0,.65,false);ship(2.5,58.5,.7,true);
-   /* drak v západním oceánu */
-   const [dx,dy]=SP(-17.5,55.5);const dg=el("g",{transform:`translate(${dx} ${dy}) scale(1.05)`});
-   dg.appendChild(el("path",{d:"M-34,6C-28,-2 -22,-2 -16,6C-10,14 -4,14 2,6C8,-2 14,-2 18,4",fill:"none",stroke:"var(--sisl)","stroke-width":"6","stroke-linecap":"round"}));
-   dg.appendChild(el("path",{d:"M-34,6C-28,-2 -22,-2 -16,6C-10,14 -4,14 2,6C8,-2 14,-2 18,4",fill:"none",stroke:"var(--ink)","stroke-width":".8","stroke-dasharray":"2 2"}));
-   dg.appendChild(el("path",{d:"M16,6C18,-6 24,-14 30,-12C34,-11 36,-8 34,-5L28,-6C27,-2 24,2 20,6Z",fill:"var(--sisl)",stroke:"var(--ink)","stroke-width":".8"}));
-   dg.appendChild(el("path",{d:"M34,-5l6,1l-6,2M29,-12l1,-6l2,5",fill:"none",stroke:"var(--kal)","stroke-width":"1.1"}));
-   dg.appendChild(el("circle",{cx:30,cy:-9,r:1,fill:"var(--kal)"}));
-   dg.appendChild(el("path",{d:"M-8,-2L-14,-16L-4,-8L-2,-18L2,-6Z",fill:"var(--kal)",stroke:"var(--ink)","stroke-width":".7"}));
-   dg.appendChild(el("path",{d:"M-34,6l-8,-4l2,6Z",fill:"var(--sisl)",stroke:"var(--ink)","stroke-width":".7"}));
-   dg.appendChild(el("path",{d:"M-40,14q5,-3 10,0t10,0t10,0t10,0t10,0t10,0",fill:"none",stroke:"var(--water)","stroke-width":".9"}));
-   g.appendChild(dg);
-   svg.appendChild(el("text",{x:dx,y:dy+30,class:"sla","font-size":"11","text-anchor":"middle"},"Hic sunt dracones"));}
-  /* popisky moří latinsky */
-  const T=(x,y,t,cls,fs,rot,st,ls,tip)=>{const e=el("text",{x,y,class:cls,"font-size":(fs*k).toFixed(1),"text-anchor":"middle","stroke-width":(2.6*k).toFixed(2),...(ls?{"letter-spacing":ls}:{}),...(rot?{transform:`rotate(${rot} ${x} ${y})`}:{}),...(st?{style:st}:{})},t);if(tip)e.appendChild(el("title",{},tip));svg.appendChild(e);return e};
-  SSEAS.forEach(([n,lo,la,r,fs])=>{const [x,y]=SP(lo,la);T(x,y,SSEAS_LA[n]||n,"sla",fs*.95,r,null,".04em",n)});
-  /* popisky mocností: červené rubriky pro velmoci, inkoust pro ostatní */
+    g.appendChild(el("path",{d:SG.rivers.map(r=>"M"+r.p.map(q=>q.join(",")).join("L")).join(""),fill:"none",stroke:"var(--water)","stroke-width":(.9*k).toFixed(2),"stroke-linecap":"round","stroke-linejoin":"round",opacity:".9"}));
+    let d="",h="";SMTS.forEach(([n,ch])=>{for(let i=0;i<ch.length-1;i++){const [a,b]=[SP(...ch[i]),SP(...ch[i+1])],L=Math.hypot(b[0]-a[0],b[1]-a[1]),m=Math.max(1,Math.round(L/(9*Math.max(k,.5))));
+      for(let j=0;j<m;j++){const t=(j+.5)/m,x=a[0]+(b[0]-a[0])*t,y=a[1]+(b[1]-a[1])*t+((i+j)%2?1.5:-1.5)*k,w=4.2*Math.max(k,.5),ht=w;
+        d+=`M${(x-w).toFixed(1)},${y.toFixed(1)}Q${(x-w*.3).toFixed(1)},${(y-ht).toFixed(1)} ${x.toFixed(1)},${(y-ht).toFixed(1)}Q${(x+w*.3).toFixed(1)},${(y-ht).toFixed(1)} ${(x+w).toFixed(1)},${y.toFixed(1)}`;
+        h+=`M${(x+w*.3).toFixed(1)},${(y-ht*.7).toFixed(1)}l${(w*.19).toFixed(1)},${(w*.57).toFixed(1)}M${(x+w*.62).toFixed(1)},${(y-ht*.45).toFixed(1)}l${(w*.17).toFixed(1)},${(w*.43).toFixed(1)}`}}});
+    g.appendChild(el("path",{d,fill:"var(--hill)","fill-opacity":".55",stroke:"var(--city)","stroke-width":".55"}));g.appendChild(el("path",{d:h,stroke:"var(--city)","stroke-width":".45",opacity:".7"}))}
+  /* popisky moří */
+  const T=(x,y,t,cls,fs,rot,st,ls)=>svg.appendChild(el("text",{x,y,class:cls,"font-size":(fs*k).toFixed(1),"text-anchor":"middle","stroke-width":(2.6*k).toFixed(2),...(ls?{"letter-spacing":ls}:{}),...(rot?{transform:`rotate(${rot} ${x} ${y})`}:{}),...(st?{style:st}:{})},t));
+  SSEAS.forEach(([n,lo,la,r,fs])=>{const [x,y]=SP(lo,la);T(x,y,n,"rivlbl",fs,r,"stroke:none",".06em")});
+  /* popisky mocností */
   Object.entries(SG.lab).forEach(([id,[x,y,a]])=>{const S=SVB[id];if(!S)return;if(SLABPOS[id])[x,y]=SP(...SLABPOS[id]);const big=S.h||a>70;if(!big&&s>.62&&a<34)return;
-    const fs=S.h?Math.min(17,Math.max(10,a/6.2)):Math.min(10.5,Math.max(7,a/5.6));
-    T(x,y,S.k||S.n,S.h?"slbl rub":"slbl",fs,0,null,".03em")});
-  /* města: věžičky, hlavní města s hradem a praporcem v barvě země */
-  if(sst.cities){const g=G({filter:"url(#swob)"});const z=Math.max(k,.45);SVETMESTA.forEach(([n,lo,la,cap,note])=>{const [x,y]=SP(lo,la);if(x<vb[0]-20||x>vb[0]+vb[2]+20||y<vb[1]-20||y>vb[1]+vb[3]+20)return;
+    const fs=S.h?Math.min(15,Math.max(8.5,a/7)):Math.min(9,Math.max(6,a/6.5));
+    T(x,y,(S.k||S.n).toUpperCase(),"slbl",fs,0,null,".12em")});
+  /* města */
+  if(sst.cities){const g=G({});SVETMESTA.forEach(([n,lo,la,cap,note])=>{const [x,y]=SP(lo,la);if(x<vb[0]-20||x>vb[0]+vb[2]+20||y<vb[1]-20||y>vb[1]+vb[3]+20)return;
      if(!cap&&s>.62)return;
      const gg=el("g",{class:"smk"});gg.appendChild(el("title",{},n+(note?" – "+note:"")));
-     const q=v=>(v*z).toFixed(1);
-     if(cap){gg.appendChild(el("path",{d:`M${x-5*z},${y+3*z}v${-6*z}h${2*z}v${-2*z}h${1.5*z}v${2*z}h${3*z}v${-2*z}h${1.5*z}v${2*z}h${2*z}v${6*z}Z`,fill:"var(--paper)",stroke:"var(--ink)","stroke-width":q(.7)}));
-       gg.appendChild(el("path",{d:`M${x-1.6*z},${y-3*z}v${-7*z}h${3.2*z}v${7*z}Z`,fill:"var(--paper)",stroke:"var(--ink)","stroke-width":q(.7)}));
-       gg.appendChild(el("path",{d:`M${x-2.2*z},${y-10*z}L${x},${y-13.5*z}L${x+2.2*z},${y-10*z}Z`,fill:"var(--kal)",stroke:"var(--ink)","stroke-width":q(.5)}));
-       gg.appendChild(el("path",{d:`M${x},${y-13.5*z}v${-5*z}l${5*z},${1.4*z}l${-5*z},${1.4*z}`,fill:"var(--gold)",stroke:"var(--ink)","stroke-width":q(.45)}));
-       gg.appendChild(el("path",{d:`M${x-1*z},${y+3*z}v${-2.4*z}a${1*z},${1*z} 0 0 1 ${2*z},0v${2.4*z}Z`,fill:"var(--ink)"}))}
-     else{gg.appendChild(el("path",{d:`M${x-2*z},${y+2*z}v${-5*z}h${4*z}v${5*z}Z`,fill:"var(--paper)",stroke:"var(--ink)","stroke-width":q(.6)}));
-       gg.appendChild(el("path",{d:`M${x-2.6*z},${y-3*z}L${x},${y-6.5*z}L${x+2.6*z},${y-3*z}Z`,fill:"var(--kal)",stroke:"var(--ink)","stroke-width":q(.45)}))}
-     gg.appendChild(el("text",{x:x+(cap?6.2:3.8)*z,y:y+3*z,class:"seatlbl scity","font-size":((cap?10.5:9.2)*z).toFixed(1),"stroke-width":(2.6*z).toFixed(2)},n));g.appendChild(gg)})}
-  /* kartuš jako svitek a měřítko v mílích */
-  {const x=16,y=682,w=214,h=66,g=G({filter:"url(#swob)"});
-   g.appendChild(el("path",{d:`M${x+12},${y}H${x+w-12}C${x+w-4},${y} ${x+w-4},${y+10} ${x+w-12},${y+10}M${x+12},${y}C${x+4},${y} ${x+4},${y+10} ${x+12},${y+10}V${y+h}H${x+w-12}V${y+10}M${x+12},${y+h}C${x+4},${y+h} ${x+4},${y+h-10} ${x+12},${y+h-10}M${x+w-12},${y+h}C${x+w-4},${y+h} ${x+w-4},${y+h+10} ${x+w-12},${y+h+10}H${x+12}`,fill:"var(--paper)",stroke:"var(--ink)","stroke-width":"1.2"}));
-   g.appendChild(el("rect",{x:x+16,y:y+13,width:w-32,height:h-17,fill:"none",stroke:"var(--kal)","stroke-width":".7"}));
-   svg.appendChild(el("text",{x:x+w/2,y:y+34,class:"cart","font-size":"20","text-anchor":"middle"},"Mappa mundi"));
-   svg.appendChild(el("text",{x:x+w/2,y:y+50,class:"sla","font-size":"10.5","text-anchor":"middle",style:"fill:var(--ink)"},"Anno Domini MCCCCLVIII"));
-   svg.appendChild(el("text",{x:x+w/2,y:y+62,class:"sla","font-size":"8.5","text-anchor":"middle",style:"fill:var(--ink);opacity:.75"},"známý svět · mocnosti léta Páně 1458"));
-   /* měřítko: 100 mil (≈ 160 km) */
-   const [a1,b1]=SP(10,36),[a2,b2]=SP(10+160/(111.32*Math.cos(36*Math.PI/180)),36),L=Math.hypot(a2-a1,b2-b1),sx=x+20,sy=y-22;
-   for(let i=0;i<10;i++)g.appendChild(el("rect",{x:sx+i*L/10,y:sy,width:L/10,height:4,fill:i%2?"var(--paper)":"var(--kal)",stroke:"var(--ink)","stroke-width":".5"}));
-   for(let i=0;i<=10;i++)g.appendChild(el("circle",{cx:sx+i*L/10,cy:sy-3,r:.9,fill:"var(--ink)"}));
-   svg.appendChild(el("text",{x:sx+L+6,y:sy+5,class:"sla","font-size":"9.5",style:"fill:var(--ink)"},"C miliaria ≈ 160 km"));}
-  /* stáří pergamenu a vinětace */
-  svg.appendChild(el("rect",{...R,filter:"url(#sstain)",opacity:".28","pointer-events":"none"}));
-  svg.appendChild(el("rect",{...R,filter:"url(#spaper)",opacity:".26","pointer-events":"none"}));
+     if(cap){gg.appendChild(el("circle",{cx:x,cy:y,r:3.3*k,fill:"var(--paper)",stroke:"var(--ink)","stroke-width":1.1*k}));gg.appendChild(el("circle",{cx:x,cy:y,r:1.3*k,fill:"var(--kal)"}))}
+     else gg.appendChild(el("circle",{cx:x,cy:y,r:2*k,fill:"var(--ink)"}));
+     gg.appendChild(el("text",{x:x+4.6*k,y:y+3*k,class:"seatlbl","font-size":((cap?10:9)*Math.max(k,.45)).toFixed(1),"stroke-width":(2.6*k).toFixed(2)},n));g.appendChild(gg)})}
+  /* kartuš a růžice */
+  {const x=14,y=690,w=196,h=62,g=G({filter:"url(#swob)"});
+   g.appendChild(el("path",{d:`M${x+10},${y}H${x+w-10}q10,0 10,10v${h-20}q0,10 -10,10H${x+10}q-10,0 -10,-10v${-(h-20)}q0,-10 10,-10Z`,fill:"var(--paper)",stroke:"var(--ink)","stroke-width":"1.3"}));
+   g.appendChild(el("rect",{x:x+7,y:y+6,width:w-14,height:h-12,fill:"none",stroke:"var(--kal)","stroke-width":".8"}));
+   svg.appendChild(el("text",{x:x+w/2,y:y+30,class:"cart","font-size":"21","text-anchor":"middle"},"Známý svět"));
+   svg.appendChild(el("text",{x:x+w/2,y:y+48,class:"rivlbl","font-size":"10.5","text-anchor":"middle",style:"fill:var(--ink)",stroke:"none"},"mocnosti léta Páně 1458"));
+   const cx=60,cy=620,gc=G({filter:"url(#swob)"});
+   gc.appendChild(el("path",{d:`M${cx},${cy-26}L${cx+5},${cy}L${cx},${cy+26}L${cx-5},${cy}ZM${cx-26},${cy}L${cx},${cy-5}L${cx+26},${cy}L${cx},${cy+5}Z`,fill:"var(--paper)",stroke:"var(--ink)","stroke-width":"1"}));
+   gc.appendChild(el("path",{d:`M${cx},${cy-26}L${cx+5},${cy}L${cx-5},${cy}Z`,fill:"var(--kal)"}));
+   svg.appendChild(el("text",{x:cx,y:cy-31,class:"cart","font-size":"12","text-anchor":"middle"},"S"));}
+  svg.appendChild(el("rect",{...R,filter:"url(#sstain)",opacity:".2","pointer-events":"none"}));
+  svg.appendChild(el("rect",{...R,filter:"url(#spaper)",opacity:".22","pointer-events":"none"}));
   svg.appendChild(el("rect",{x:vb[0],y:vb[1],width:vb[2],height:vb[3],fill:"url(#svig)","pointer-events":"none"}));
-  /* iluminovaný rám: dvojitá linka a pás střídavě červený, modrý a zlatý */
-  {const gfr=G({filter:"url(#swob)","pointer-events":"none"}),o=4*s,bw=7*s,X=vb[0]+o,Y=vb[1]+o,W=vb[2]-2*o,H=vb[3]-2*o;
-   gfr.appendChild(el("rect",{x:X,y:Y,width:W,height:H,fill:"none",stroke:"var(--ink)","stroke-width":1.6*s}));
-   const seg=24*s,cols=["var(--kal)","var(--paper)","var(--kat)","var(--paper)"];let d=["","","",""];
-   const band=(x0,y0,len,horiz)=>{const n=Math.ceil(len/seg);for(let i=0;i<n;i++){const l=Math.min(seg,len-i*seg);d[i%4]+=horiz?`M${x0+i*seg},${y0}h${l}v${bw}h${-l}Z`:`M${x0},${y0+i*seg}h${bw}v${l}h${-bw}Z`}};
-   band(X,Y,W,true);band(X,Y+H-bw,W,true);band(X,Y+bw,H-2*bw,false);band(X+W-bw,Y+bw,H-2*bw,false);
-   d.forEach((dd,i)=>gfr.appendChild(el("path",{d:dd,fill:cols[i],opacity:i%2?".9":".75"})));
-   gfr.appendChild(el("rect",{x:X+bw,y:Y+bw,width:W-2*bw,height:H-2*bw,fill:"none",stroke:"var(--ink)","stroke-width":1*s}));
-   gfr.appendChild(el("rect",{x:X+bw+3*s,y:Y+bw+3*s,width:W-2*bw-6*s,height:H-2*bw-6*s,fill:"none",stroke:"var(--gold)","stroke-width":.8*s}));
-   [[X,Y],[X+W-bw,Y],[X,Y+H-bw],[X+W-bw,Y+H-bw]].forEach(([cx,cy])=>{gfr.appendChild(el("rect",{x:cx,y:cy,width:bw,height:bw,fill:"var(--gold)",stroke:"var(--ink)","stroke-width":.6*s}))});}
+  const gfr=G({filter:"url(#swob)","pointer-events":"none"});
+  gfr.appendChild(el("rect",{x:vb[0]+3*s,y:vb[1]+3*s,width:vb[2]-6*s,height:vb[3]-6*s,fill:"none",stroke:"var(--ink)","stroke-width":2*s}));
+  gfr.appendChild(el("rect",{x:vb[0]+8*s,y:vb[1]+8*s,width:vb[2]-16*s,height:vb[3]-16*s,fill:"none",stroke:"var(--kal)","stroke-width":.9*s}));
   document.getElementById("sfaithleg").hidden=!sst.faith;
 }
 const sBadge=c=>`<span class="sbadge" style="--c:${SVIRAC[c]}">${SVIRA[c]}</span>`;
