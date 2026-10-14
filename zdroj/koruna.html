@@ -7,7 +7,7 @@
 :root{
   --bg:#e9dfc6; --paper:#f4ecd8; --ink:#2b2117; --muted:#6c5d47; --rule:#c4b18c;
   --land:#ede2c6; --land2:#e3d3ac; --nbr:#d9caa5; --water:#4f7690; --gold:#9a7226;
-  --kat:#2a4787; --kal:#a3232b; --mix:#8a6516; --city:#3d3124; --hill:#c9b083; --tree:#6f7a4a; --road:#8a5a2b; --logobg:transparent; --logopad:0; --domL:40%;
+  --kat:#2a4787; --kal:#a3232b; --mix:#8a6516; --city:#3d3124; --hill:#c9b083; --tree:#6f7a4a; --road:#8a5a2b; --logobg:transparent; --logopad:0; --domL:40%; --pstare:#cf9f78; --pnove:#e2c999; --phrad:#bdb1a0;
   --nsa:#9db58a; --nbr2:#363534; --npl:#c48aa6; --nhu:#c4572c; --nat:#fffdf6; --nba:#93b3cf; --nfr:#b49ac2;
   --dpr:#7b3f8c; --dol:#2f7a6f; --dvr:#b0601e; --dmi:#4f7a2a; --dre:#3f69a3; --dkr:#a0466a; --dpa:#6e5233; --dx1:#8a6d1e; --dx2:#2f6f8a; --dx3:#8a2f4f;
   --f-disp:"Grenze Gotisch","UnifrakturMaguntia",Georgia,serif;
@@ -17,11 +17,11 @@
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#1a1611; --paper:#231e17; --ink:#ece1c9; --muted:#a8997d; --rule:#3e3427;
   --land:#2c251c; --land2:#342b20; --nbr:#16130f; --water:#5d82a0; --gold:#d3ad58;
-  --kat:#8ea9e2; --kal:#e2696e; --mix:#d8ab4c; --city:#d5c6a6; --hill:#5c4c36; --tree:#7d8a55; --road:#c98f55; --logobg:#efe3c6; --logopad:10px 14px; --domL:64%; --nsa:#4d6340; --nbr2:#5a5753; --npl:#674259; --nhu:#8c3f22; --nat:#8d887e; --nba:#3d556b; --nfr:#55465e; --dpr:#c79ad6; --dol:#74c2b4; --dvr:#e09a5e; --dmi:#9cc46e; --dre:#8fb0dc; --dkr:#db8bab; --dpa:#c6a07a; --dx1:#d4b45a; --dx2:#7cc0dc; --dx3:#dc8aa8; color-scheme:dark}}
+  --kat:#8ea9e2; --kal:#e2696e; --mix:#d8ab4c; --city:#d5c6a6; --hill:#5c4c36; --tree:#7d8a55; --road:#c98f55; --logobg:#efe3c6; --logopad:10px 14px; --domL:64%; --pstare:#7a5236; --pnove:#6b5a3a; --phrad:#5a5248; --nsa:#4d6340; --nbr2:#5a5753; --npl:#674259; --nhu:#8c3f22; --nat:#8d887e; --nba:#3d556b; --nfr:#55465e; --dpr:#c79ad6; --dol:#74c2b4; --dvr:#e09a5e; --dmi:#9cc46e; --dre:#8fb0dc; --dkr:#db8bab; --dpa:#c6a07a; --dx1:#d4b45a; --dx2:#7cc0dc; --dx3:#dc8aa8; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#1a1611; --paper:#231e17; --ink:#ece1c9; --muted:#a8997d; --rule:#3e3427;
   --land:#2c251c; --land2:#342b20; --nbr:#16130f; --water:#5d82a0; --gold:#d3ad58;
-  --kat:#8ea9e2; --kal:#e2696e; --mix:#d8ab4c; --city:#d5c6a6; --hill:#5c4c36; --tree:#7d8a55; --road:#c98f55; --logobg:#efe3c6; --logopad:10px 14px; --domL:64%; --nsa:#4d6340; --nbr2:#5a5753; --npl:#674259; --nhu:#8c3f22; --nat:#8d887e; --nba:#3d556b; --nfr:#55465e; --dpr:#c79ad6; --dol:#74c2b4; --dvr:#e09a5e; --dmi:#9cc46e; --dre:#8fb0dc; --dkr:#db8bab; --dpa:#c6a07a; --dx1:#d4b45a; --dx2:#7cc0dc; --dx3:#dc8aa8; color-scheme:dark}
+  --kat:#8ea9e2; --kal:#e2696e; --mix:#d8ab4c; --city:#d5c6a6; --hill:#5c4c36; --tree:#7d8a55; --road:#c98f55; --logobg:#efe3c6; --logopad:10px 14px; --domL:64%; --pstare:#7a5236; --pnove:#6b5a3a; --phrad:#5a5248; --nsa:#4d6340; --nbr2:#5a5753; --npl:#674259; --nhu:#8c3f22; --nat:#8d887e; --nba:#3d556b; --nfr:#55465e; --dpr:#c79ad6; --dol:#74c2b4; --dvr:#e09a5e; --dmi:#9cc46e; --dre:#8fb0dc; --dkr:#db8bab; --dpa:#c6a07a; --dx1:#d4b45a; --dx2:#7cc0dc; --dx3:#dc8aa8; color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.5;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px}
@@ -541,9 +541,44 @@ a.pchar:hover{border-color:var(--kal)}
 #kal1 .kallist .kr{grid-column:3;grid-row:1}
 @media (max-width:860px){#kal1{position:static}}
 @media (max-width:860px){.uvgrid{grid-template-columns:minmax(0,1fr)}}
+
+/* Praha */
+.pveduta img{border:1px solid var(--rule);max-height:360px;object-fit:cover;object-position:center 40%}
+#pmap{width:100%;height:auto;display:block;touch-action:none;background:var(--land)}
+.pdet a{color:var(--kal)}
+.pmk{cursor:pointer}.pmk:focus-visible circle{stroke:var(--gold)}
+.pmkn{font-family:var(--f-label);font-weight:700;pointer-events:none}
+.pgrps{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
+.plist{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:2px}
+.plist button{display:flex;align-items:center;gap:8px;width:100%;text-align:left;background:none;border:0;padding:4px 6px;border-radius:3px;font:inherit;color:var(--ink)}
+.plist button:hover,.plist button.on{background:var(--paper)}
+.plist button.on{outline:1px solid var(--gold)}
+.pnum{flex:none;display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;border:2px solid;background:var(--paper);font-family:var(--f-label);font-weight:700;font-size:.78rem}
+
+/* rodokmen */
+.tree{display:flex;flex-direction:column;align-items:center;gap:0;background:var(--paper);border:1px solid var(--rule);padding:16px 14px}
+.tnode{background:var(--bg);border:1px solid var(--rule);border-top:3px solid var(--gold);padding:8px 14px;display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;max-width:100%}
+.tnode.tmain{border-top-color:var(--kal);flex-direction:column;align-items:center;text-align:center}
+.tnode.troot{opacity:.85}
+.tline{width:2px;height:16px;background:var(--rule)}
+.tnm{font-family:var(--f-disp);font-size:1.15rem;line-height:1.1}
+.tmain>.tnm{font-size:1.4rem;color:var(--kal)}
+.tnm a{color:inherit;text-decoration:underline dotted var(--kal);text-underline-offset:3px}
+.tdt{margin-left:4px;font-family:var(--f-label);font-size:.8rem;letter-spacing:.04em;color:var(--muted)}
+.tnote{display:block;width:100%;font-size:.86rem;color:var(--muted);line-height:1.3}
+.tnote a,.trl{color:var(--kal)}
+.trl{font-family:var(--f-label);font-size:.78rem;letter-spacing:.03em;white-space:nowrap}
+.tsp{display:flex;gap:8px;align-items:flex-start;text-align:left;border-top:1px dashed var(--rule);padding-top:6px;margin-top:4px;width:100%}
+.tinf{font-size:1.2rem;color:var(--gold);line-height:1}
+.tport{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)}
+.tkids{list-style:none;margin:0;padding:12px 0 0;border-top:2px solid var(--rule);display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;width:100%}
+.tkid{position:relative;background:var(--bg);border:1px solid var(--rule);padding:8px 10px;display:flex;flex-wrap:wrap;align-items:center;gap:2px 8px}
+.tkid.dead{opacity:.75}
+.tm{font-family:var(--f-label);font-weight:700;font-size:.72rem;color:var(--paper);background:var(--muted);border-radius:8px;padding:0 6px}
+.tsub{list-style:none;margin:4px 0 0;padding:4px 0 0 10px;border-left:2px solid var(--rule);width:100%}
 /* vlastní kurzory (jen počítač) */
 html{cursor:url(art/kurzory/brk.png) 2 1,auto;cursor:-webkit-image-set(url(art/kurzory/brk.png) 1x,url(art/kurzory/brk@2x.png) 2x) 2 1,auto;cursor:image-set(url(art/kurzory/brk.png) 1x,url(art/kurzory/brk@2x.png) 2x) 2 1,auto}
-a,button,select,summary,label[for],[role=link],[role=button],.card,.seat,.gnode,.dompoly,.partymk,.discmk,.maplink,.plink,.flink,.rtab.dlist tbody tr,.zcard,.achap,.qk,.pchar,.uvt{cursor:url(art/kurzory/ruka.png) 0 1,pointer !important;cursor:-webkit-image-set(url(art/kurzory/ruka.png) 1x,url(art/kurzory/ruka@2x.png) 2x) 0 1,pointer !important;cursor:image-set(url(art/kurzory/ruka.png) 1x,url(art/kurzory/ruka@2x.png) 2x) 0 1,pointer !important}
+a,button,select,summary,label[for],[role=link],[role=button],.card,.seat,.gnode,.dompoly,.partymk,.discmk,.maplink,.plink,.flink,.rtab.dlist tbody tr,.zcard,.achap,.qk,.pchar,.uvt,.pmk,.plist button{cursor:url(art/kurzory/ruka.png) 0 1,pointer !important;cursor:-webkit-image-set(url(art/kurzory/ruka.png) 1x,url(art/kurzory/ruka@2x.png) 2x) 0 1,pointer !important;cursor:image-set(url(art/kurzory/ruka.png) 1x,url(art/kurzory/ruka@2x.png) 2x) 0 1,pointer !important}
 input,textarea,[contenteditable]{cursor:text !important}
 svg#map{cursor:url(art/kurzory/chop.png) 16 16,grab !important;cursor:-webkit-image-set(url(art/kurzory/chop.png) 1x,url(art/kurzory/chop@2x.png) 2x) 16 16,grab !important;cursor:image-set(url(art/kurzory/chop.png) 1x,url(art/kurzory/chop@2x.png) 2x) 16 16,grab !important}
 svg#map:active{cursor:url(art/kurzory/drz.png) 16 16,grabbing !important;cursor:-webkit-image-set(url(art/kurzory/drz.png) 1x,url(art/kurzory/drz@2x.png) 2x) 16 16,grabbing !important;cursor:image-set(url(art/kurzory/drz.png) 1x,url(art/kurzory/drz@2x.png) 2x) 16 16,grabbing !important}
@@ -563,6 +598,7 @@ svg#map.measuring .seat{cursor:url(art/kurzory/kruzidlo.png) 4 2,crosshair !impo
     <a href="#druzina" data-nav="druzina">Družina</a>
     <a href="#kronika" data-nav="kronika">Kronika</a>
     <a href="#mapa" data-nav="mapa">Mapa</a>
+    <a href="#praha" data-nav="praha">Praha</a>
     <a href="#desky" data-nav="desky">Zemské desky</a>
     <div class="gsearch" role="search"><input type="search" id="gq" placeholder="Hledat v celé kronice…" aria-label="Hledat na celém webu" autocomplete="off"><ul class="gres" id="gres" hidden></ul></div>
   </nav>
@@ -707,6 +743,19 @@ svg#map.measuring .seat{cursor:url(art/kurzory/kruzidlo.png) 4 2,crosshair !impo
 <div class="alay"><aside class="aside" id="artside"></aside><article class="amain" id="amain"></article></div>
 </div>
 
+<div class="view" data-view="praha" hidden>
+<figure class="rfig pveduta"><img src="art/praha-veduta.webp" alt="Iluminovaný pohled na Prahu: Hrad, Malá Strana, Kamenný most a Staré a Nové Město" loading="lazy" width="1440" height="1091"></figure>
+<p class="intro">Praha léta Páně 1458 jsou vlastně čtyři města: Hrad s Hradčany, Malá Strana, Staré a Nové Město, spojená jediným kamenným mostem. Plán vychází z Tomkova plánu Prahy k roku 1419; čísla označují místa, kde se rozhoduje o osudu království. Barva okraje čísla ukazuje vyznání: <b style="color:var(--kal)">kališnické</b>, <b style="color:var(--kat)">katolické</b>, <b style="color:var(--mix)">smíšené</b>, <b style="color:var(--gold)">ostatní</b>.</p>
+<div class="mapgrid">
+  <div class="mapbox" id="pmapbox">
+    <div class="controls" role="group" aria-label="Ovládání plánu"><button type="button" id="preset">Celá Praha</button><button type="button" id="pzin" aria-label="Přiblížit">+</button><button type="button" id="pzout" aria-label="Oddálit">−</button></div>
+    <svg id="pmap" viewBox="0 40 1000 900" role="img" aria-label="Plán Prahy roku 1458 s očíslovanými místy"></svg>
+  </div>
+  <aside class="detail empty pdet" id="pdetail" aria-live="polite"></aside>
+</div>
+<div id="plist" class="pgrps"></div>
+</div>
+
 <div class="view" data-view="druzina" hidden>
 <section class="sec" id="druzinalist"></section>
 <article class="sec" id="druzinadet" hidden></article>
@@ -748,7 +797,7 @@ svg#map.measuring .seat{cursor:url(art/kurzory/kruzidlo.png) 4 2,crosshair !impo
 const FAM=[
 /* ČECHY */
 {id:"pod",land:"Čechy",name:"Páni z Poděbrad (z Kunštátu)",conf:"kal",
- head:"Jiří z Poděbrad, zvolený král; synové Viktorin, Jindřich starší, Hynek a Jindřich mladší",
+ head:"Jiří z Poděbrad, zvolený král; synové Boček, Viktorin, Jindřich starší a Hynek (Jindřich mladší)",
  seats:[["Poděbrady",15.12,50.14],["Litice",16.35,50.10],["Náchod",16.16,50.42],["Kladsko",16.65,50.44],["Minsterberk",17.04,50.60],["Kunštát (Morava)",16.52,49.51]],
  stance:"Královský rod; Jiří je zvolen, ale dosud nekorunován.",
  note:"Moravský původ (Kunštát). Na litickém panství v Kunvaldu vzniká Jednota bratrská. Kladsko koupil roku 1454 od Viléma Krušiny z Lichtenburka a spravuje ho jeho hejtman Hanuš z Varnsdorfu; Minsterberk získal roku 1456 od Arnošta Opavského."},
@@ -1828,7 +1877,7 @@ function renderDetail(){
     d.innerHTML=`${back}<span class="lbl">${typ} · ${f.nbr?f.land:"země Koruny"}</span>
      <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h3 style="font-size:1.35rem">${townImg(conf,"townico big")}${st.city}</h3>${faith(conf)}</div>
      ${CARMS[st.city]?`<img class="carms" src="${CARMS[st.city]}" alt="Erb města ${st.city}">`:""}<p>${info.n||f.note}</p>
-     <dl class="kv" style="clear:both"><dt>Patří k</dt><dd>${flink(f.id)}</dd></dl>`;
+     ${st.city==="Praha"?`<a class="gbtn ghost" href="#praha">Plán Prahy</a>`:""}<dl class="kv" style="clear:both"><dt>Patří k</dt><dd>${flink(f.id)}</dd></dl>`;
     const bb=document.getElementById("backbtn"); if(bb)bb.addEventListener("click",goBack); return;
   }
   d.innerHTML=`${back}<span class="lbl">${f.nbr?"Soused · ":""}${f.land}</span>
@@ -2071,7 +2120,7 @@ drawGraph();
 const PEOPLE=[
  {id:"jiri",n:"Jiří z Poděbrad",r:"pod",role:"zvolený český král",seat:"Poděbrady",x:"Moravský pán z Kunštátu a kališník. Od roku 1448 drží Prahu, od roku 1452 je zemským správcem a 2. března 1458 byl zvolen českým králem. Korunovace teprve čeká."},
  {id:"johana",n:"Johana z Rožmitálu",r:"pod",role:"manželka Jiřího",seat:"Poděbrady",x:"Katolička z rodu Lvů z Rožmitálu a druhá manželka Jiřího. Její bratr Jaroslav Lev patří ke králově družině."},
- {id:"viktorin",n:"Viktorin z Poděbrad",r:"pod",role:"nejstarší syn Jiřího",seat:"Kladsko",x:"Asi patnáctiletý dědic, pro něhož otec drží Kladsko a Minsterberk."},
+ {id:"viktorin",n:"Viktorin z Poděbrad",r:"pod",role:"nejstarší syn Jiřího",seat:"Kladsko",x:"Patnáctiletý druhorozený syn, pro něhož otec drží Kladsko a Minsterberk."},
  {id:"katerina",n:"Kateřina z Poděbrad",r:"pod",role:"dcera Jiřího",seat:"Poděbrady",x:"Devítiletá dívka zasnoubená s Matyášem Korvínem jako záruka jeho propuštění z Prahy."},
  {id:"varnsdorf",n:"Hanuš z Varnsdorfu",r:"pod",role:"hejtman Kladska",seat:"Kladsko",x:"Spravuje Kladsko jménem Jiřího od roku 1454."},
  {id:"chelcicky",n:"Petr Chelčický",r:"mes",role:"laický myslitel a spisovatel",x:"Stařec z jihočeských Chelčic, který odmítá násilí, válku i moc pánů a měst nad křesťany. Jeho spisy, zvláště Síť víry, inspirují bratry, kteří se usadili v Kunvaldu na litickém panství Jiřího."},
@@ -2643,6 +2692,250 @@ function renderArtikule(b,c){
   return false;
 }
 
+/* ---------- Praha: plán města ---------- */
+const PRAHA_TOWNS=[
+ {id:"hrad",n:"Pražský hrad a Hradčany",d:"Hrad je od husitských bouří napůl opuštěný; král sídlí dole v Králově dvoře. Na hradě zůstala katolická kapitula a úřad nejvyššího purkrabí."},
+ {id:"mala",n:"Malá Strana",d:"Menší město pražské pod hradem. Roku 1419 vyhořelo v bojích s královskou posádkou a dodnes je v něm víc zahrad a spálenišť než domů."},
+ {id:"stare",n:"Staré Město",d:"Srdce Prahy a kalicha: radnice, Týn, univerzita a domy všech velkých rodů. Tady se 2. března volil král."},
+ {id:"nove",n:"Nové Město",d:"Karlovo Nové Město s širokými trhy a ulicemi, nejradikálnější z pražských měst, kde kdysi kázal Jan Želivský."}
+];
+/* n = číslo na plánu, t = město, c = vyznání (kat/kal/mix/""), r = rod, p = osoba */
+const PRAHA_PLACES=[
+ {n:1,t:"hrad",name:"Královský palác",c:"",d:"Starý palác českých králů. Od dob Václava IV. v něm panovníci nebydlí a husitské roky jej nechaly zpustnout; v prázdných síních se ozývá jen krok stráže."},
+ {n:2,t:"hrad",name:"Katedrála sv. Víta",c:"kat",d:"Nedostavěná katedrála s hroby českých králů a ostatky svatého Václava. Katolická svatovítská kapitula odsud spravuje pražskou arcidiecézi, dokud je arcibiskupský stolec prázdný."},
+ {n:3,t:"hrad",name:"Klášter sv. Jiří",c:"kat",d:"Nejstarší ženský klášter v Čechách, benediktinky pod ochranou sv. Ludmily. Po válkách zchudlý, ale stále hrdý."},
+ {n:4,t:"hrad",name:"Dům arcibiskupů (Hrad)",c:"kat",d:"Arcibiskupský dům u katedrály. Od doby, kdy arcibiskup Konrád z Vechty přijal kalich, v něm žádný pražský arcibiskup nesídlil."},
+ {n:5,t:"hrad",name:"Dům pánů z Rožmberka (Hrad)",c:"kat",r:"roz",d:"Hradní dům Rožmberků, nejbohatšího katolického rodu země; odtud mají páni z Krumlova blízko ke kapitule i k úřadům."},
+ {n:6,t:"hrad",name:"Dvůr purkrabí pražského",c:"kat",r:"ste",p:"zdenekst",d:"Sídlo nejvyššího purkrabího, prvního zemského úředníka. Úřad drží Zdeněk Konopišťský ze Šternberka, nejmocnější katolík u dvora."},
+ {n:7,t:"hrad",name:"Strahovský klášter",c:"kat",d:"Premonstrátský klášter nad Malou Stranou. Roku 1420 jej vyplenili Pražané; z velkého kláštera zbyly opálené zdi a hrstka řeholníků."},
+ {n:8,t:"mala",name:"Dvůr arcibiskupů",c:"kat",d:"Kdysi skvělý malostranský palác pražských arcibiskupů u mostu. Lehl popelem v bojích roku 1419 a dodnes je to spáleniště, kde nocují tuláci – a prý nejen oni."},
+ {n:9,t:"mala",name:"Saský dům",c:"kat",r:"wet",d:"Pražský dům saských vévodů z rodu Wettinů, odkud jejich poslové jednají s českými pány."},
+ {n:10,t:"mala",name:"Johanité – P. Marie pod řetězem",c:"kat",d:"Komenda řádu johanitů, sídlo velkopřevora. Opevněný klášter střeží malostranské předmostí; johanité jsou katolíci a mají vlastní zbrojnou hotovost."},
+ {n:11,t:"mala",name:"Dům pánů Zajíců",c:"kat",r:"haz",p:"mikulashaz",d:"Pražský dům Zajíců z Hazmburka, katolických pánů z Podřipska."},
+ {n:12,t:"mala",name:"Dům Štopků z Dubé",c:"",d:"Malostranský dům drobného panského rodu z Dubé, vzdálených příbuzných mocných Berků."},
+ {n:13,t:"mala",name:"Malostranská radnice",c:"kal",d:"Radnice Menšího Města pražského. Obec, která se po požáru roku 1419 jen pomalu vzpamatovává, stojí při kalichu a při Starém Městě."},
+ {n:14,t:"mala",name:"Dvůr biskupa olomouckého",c:"kat",r:"bis",p:"tas",d:"Pražský dvůr olomouckých biskupů. Když je biskup Tas z Boskovic v Praze, přebývá zde i jeho družina – mezi nimi kronikář Vojtěch z Kroměříže."},
+ {n:15,t:"mala",name:"Dům pánů Michalců",c:"",d:"Dům pánů Michalců z Michalovic, starobylého rodu, jemuž dochází dech i dědici."},
+ {n:16,t:"stare",name:"Králův dvůr",c:"",d:"Královské sídlo na Starém Městě. Zde v listopadu 1457 náhle zemřel sedmnáctiletý král Ladislav Pohrobek – a po Praze se dodnes šeptá o jedu."},
+ {n:17,t:"stare",name:"Týnský chrám",c:"kal",r:"mes",p:"rokycana",d:"Hlavní kostel kališníků před Týnem. Káže v něm Jan Rokycana, zvolený arcibiskup, kterého Řím nikdy nepotvrdil."},
+ {n:18,t:"stare",name:"Týn (Ungelt)",c:"",d:"Opevněný kupecký dvůr, kde cizí kupci platí clo a skladují zboží. Tu se dozvíte, co se děje ve Vídni, Norimberku i Krakově."},
+ {n:19,t:"stare",name:"Dvůr markrabí míšeňských",c:"kat",r:"wet",d:"Dům míšeňských markrabat z rodu Wettinů. Sousedé ze Saska tu mají oči i uši."},
+ {n:20,t:"stare",name:"Staroměstská radnice",c:"kal",r:"mes",p:"jiri",d:"Radnice s orlojem. Ve zdejší síni se 2. března 1458 shodli stavové na novém králi, Jiřím z Poděbrad."},
+ {n:21,t:"stare",name:"Karlova kolej",c:"kal",d:"Kolej Karlovy univerzity. Ze čtyř fakult zbyla jen artistická a vedou ji kališničtí mistři; spory o víru se tu vedou latinsky a s vervou."},
+ {n:22,t:"stare",name:"Dvůr pánů ze Šternberka",c:"kat",r:"ste",d:"Staroměstský dvůr Šternberků, kde se schází katolická šlechta věrná novému králi."},
+ {n:23,t:"stare",name:"Dům pánů z Rožmberka (Dlouhá)",c:"kat",r:"roz",d:"Rožmberský dům v Dlouhé třídě, sídlo rožmberských jednatelů a písařů."},
+ {n:24,t:"stare",name:"Dům pánů z Rožmberka (u sv. Anny)",c:"kat",r:"roz",d:"Druhý pražský dům Rožmberků poblíž kláštera sv. Anny."},
+ {n:25,t:"stare",name:"Dvůr pánů z Lipé",c:"mix",r:"lip",p:"jindrichlipe",d:"Dvůr pánů z Lipé. Jindřich z Lipé, nejvyšší maršálek, odtud dohlíží na zemský pořádek a sněmy."},
+ {n:26,t:"stare",name:"Dvůr pánů z Poděbrad",c:"kal",r:"pod",p:"jiri",d:"Rodový dům pánů z Kunštátu a Poděbrad. Odtud Jiří léta spravoval zemi jako zemský správce; teď sem chodí prosebníci za zvoleným králem."},
+ {n:27,t:"stare",name:"Dvůr desk zemských",c:"",d:"Dvůr spjatý se zemskými deskami, do nichž se zapisují šlechtické statky, zápisy a nálezy zemského soudu. Kdo zfalšuje desky, zfalšuje zemi."},
+ {n:28,t:"stare",name:"Dům inkvizitorů",c:"kat",d:"Dům, v němž kdysi sídlili papežští inkvizitoři. Od husitských let stojí víceméně prázdný a staroměstští se mu raději vyhýbají."},
+ {n:29,t:"stare",name:"Betlémská kaple",c:"kal",d:"Kaple, kde kázal Mistr Jan Hus. Pro kališníky svaté místo; 6. července, v den Husova upálení, je tu plno."},
+ {n:30,t:"stare",name:"Dvůr pánů z Hradce",c:"kat",r:"hra",d:"Pražský dvůr pánů z Hradce. Jindřich IV. z Hradce nezapomíná, že jeho otec Menhart zemřel krátce poté, co ho Jiří propustil ze zajetí."},
+ {n:31,t:"stare",name:"Křižovníci s červenou hvězdou",c:"kat",d:"Jediný český rytířský řád u staroměstského předmostí. Křižovníci drží špitál a střeží most; jsou katolíci, ale s městem si nechtějí znepřátelit."},
+ {n:32,t:"stare",name:"Židovské město – Stará škola",c:"",d:"Synagoga v pražském Židovském městě. Obec žije pod ochranou krále a za tu ochranu draze platí; po každé změně na trůně se proto napjatě čeká, co nový král přinese."},
+ {n:33,t:"nove",name:"P. Marie Sněžná",c:"kal",d:"Mohutný nedostavěný chrám karmelitánů. Kázal zde Jan Želivský, který roku 1419 vedl pražskou defenestraci; na radikály se tu dodnes vzpomíná s úctou."},
+ {n:34,t:"nove",name:"Klášter Na Slovanech (Emauzy)",c:"kal",d:"Benediktinský klášter se slovanskou liturgií – jediný klášter v Čechách, který přijal kalich."}
+];
+const PRB={}; PRAHA_PLACES.forEach(p=>PRB[p.n]=p);
+let PG=null, pst={sel:null,vb:null};
+const PVB0=[0,40,1000,900];
+const pcol=c=>c==="kat"?"var(--kat)":c==="kal"?"var(--kal)":c==="mix"?"var(--mix)":"var(--gold)";
+function praInit(){
+  if(PG){pDraw();return}
+  document.getElementById("pmap").innerHTML='<text x="500" y="480" text-anchor="middle" class="rivlbl" font-size="20">Plán se načítá…</text>';
+  fetch("art/praha.json").then(r=>r.json()).then(d=>{PG=d;pDraw();pList()}).catch(()=>{document.getElementById("pmap").innerHTML='<text x="500" y="480" text-anchor="middle" class="rivlbl" font-size="20">Plán se nepodařilo načíst.</text>'});
+}
+function pDraw(){
+  const svg=document.getElementById("pmap"),vb=pst.vb||PVB0; svg.setAttribute("viewBox",vb.join(" "));
+  const s=vb[2]/1000; svg.innerHTML=""; const k=Math.max(s,.62);
+  const R={x:-200,y:-200,width:1400,height:1400};
+  const defs=el("defs",{});
+  const mkF=(id,freq,scale,oct,seed,extra)=>{const f=el("filter",{id,filterUnits:"userSpaceOnUse",...R});
+    f.appendChild(el("feTurbulence",{type:"fractalNoise",baseFrequency:freq,numOctaves:oct,seed,result:"n"}));
+    f.appendChild(el("feDisplacementMap",{in:"SourceGraphic",in2:"n",scale,xChannelSelector:"R",yChannelSelector:"G",result:"d"}));
+    if(extra)extra(f);defs.appendChild(f)};
+  mkF("pwob",0.05,2.2,2,3);
+  mkF("pwash",0.03,6,3,5,f=>{f.appendChild(el("feGaussianBlur",{in:"d",stdDeviation:1.4,result:"b"}));
+    f.appendChild(el("feTurbulence",{type:"fractalNoise",baseFrequency:0.08,numOctaves:2,seed:11,result:"m"}));
+    f.appendChild(el("feColorMatrix",{in:"m",type:"matrix",values:"0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.1 1.35",result:"ma"}));
+    f.appendChild(el("feComposite",{in:"b",in2:"ma",operator:"in"}))});
+  {const f=el("filter",{id:"ppaper",filterUnits:"userSpaceOnUse",...R});
+   f.appendChild(el("feTurbulence",{type:"fractalNoise",baseFrequency:0.5,numOctaves:3,seed:2,result:"n"}));
+   f.appendChild(el("feColorMatrix",{in:"n",type:"matrix",values:"0 0 0 0 0.24  0 0 0 0 0.18  0 0 0 0 0.10  0 0 0 -2.2 1.25"}));defs.appendChild(f);
+   const f2=el("filter",{id:"pstain",filterUnits:"userSpaceOnUse",...R});
+   f2.appendChild(el("feTurbulence",{type:"fractalNoise",baseFrequency:0.008,numOctaves:3,seed:21,result:"n"}));
+   f2.appendChild(el("feColorMatrix",{in:"n",type:"matrix",values:"0 0 0 0 0.45  0 0 0 0 0.33  0 0 0 0 0.16  0 0 0 -3 1.6"}));defs.appendChild(f2);}
+  const rg=el("radialGradient",{id:"pvig",cx:"50%",cy:"50%",r:"72%"});
+  rg.appendChild(el("stop",{offset:"58%","stop-color":"var(--rule)","stop-opacity":"0"}));rg.appendChild(el("stop",{offset:"100%","stop-color":"var(--hill)","stop-opacity":".7"}));defs.appendChild(rg);
+  svg.appendChild(defs);
+  const G=a=>{const g=el("g",a||{});svg.appendChild(g);return g};
+  const path=p=>p.map(r=>"M"+r.map(q=>q.join(",")).join("L")+"Z").join("");
+  svg.appendChild(el("rect",{...R,fill:"var(--land)"}));
+  /* zeleň: zahrady, vinice a stráně */
+  const gg=G({filter:"url(#pwash)"});
+  PG.green.forEach(p=>gg.appendChild(el("path",{d:path(p),fill:"var(--tree)","fill-opacity":".32","fill-rule":"evenodd"})));
+  /* stromy na zahradách a stráních */
+  {let seed=7;const rnd=()=>{seed=(seed*16807)%2147483647;return seed/2147483647};
+   const inP=(x,y,r)=>{let c=false;for(let i=0,j=r.length-1;i<r.length;j=i++){const[xi,yi]=r[i],[xj,yj]=r[j];if((yi>y)!=(yj>y)&&x<(xj-xi)*(y-yi)/(yj-yi)+xi)c=!c}return c};
+   const walls=[...PG.w_hrad,...PG.w_mala,...PG.w_stare,...PG.w_nove].map(p=>p[0]);
+   let fillD="",inkD="";
+   PG.green.forEach(p=>{const r=p[0],xs=r.map(q=>q[0]),ys=r.map(q=>q[1]);const x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys);
+     const want=Math.min(260,Math.round((x1-x0)*(y1-y0)/900));
+     for(let t=0;t<want*3;t++){const x=x0+(x1-x0)*rnd(),y=y0+(y1-y0)*rnd();if(!inP(x,y,r)||walls.some(w=>inP(x,y,w)))continue;
+       const z=4+rnd()*2.2,cy=y-z*.9;const d=`M${(x-z).toFixed(1)},${cy.toFixed(1)}a${z.toFixed(1)},${z.toFixed(1)} 0 1,1 ${(2*z).toFixed(1)},0a${z.toFixed(1)},${(z*.9).toFixed(1)} 0 1,1 ${(-2*z).toFixed(1)},0Z`;
+       fillD+=d;inkD+=d+`M${x.toFixed(1)},${(cy+z*.85).toFixed(1)}V${(y+z*.6).toFixed(1)}`}});
+   const gt=G({filter:"url(#pwob)"});gt.appendChild(el("path",{d:fillD,fill:"var(--tree)",opacity:".55"}));gt.appendChild(el("path",{d:inkD,fill:"none",stroke:"var(--city)","stroke-width":".6",opacity:".6"}));}
+  /* Vltava */
+  const gr=G({filter:"url(#pwash)"});
+  PG.river.forEach(p=>gr.appendChild(el("path",{d:path(p),fill:"var(--water)","fill-opacity":".55"})));
+  const grl=G({filter:"url(#pwob)"});
+  PG.river.forEach(p=>grl.appendChild(el("path",{d:path(p),fill:"none",stroke:"var(--water)","stroke-width":"1.6"})));
+  {let d="";for(let i=0;i<70;i++){const y=60+i*13,x=420+((i*37)%60)-30;const q=PG.river[0][0];const xs=q.filter(v=>Math.abs(v[1]-y)<8).map(v=>v[0]);if(xs.length<2)continue;const a=Math.min(...xs),b=Math.max(...xs);if(b-a<20)continue;const xm=a+(b-a)*(.25+((i*53)%50)/100);d+=`M${(xm-7).toFixed(1)},${y}q3.5,-2.4 7,0t7,0`}
+   grl.appendChild(el("path",{d,fill:"none",stroke:"var(--water)","stroke-width":".8",opacity:".7"}))}
+  /* městské plochy: ulice jako světlé pergamenové pruhy */
+  const gw=G({filter:"url(#pwash)"});
+  [...PG.w_hrad,...PG.w_mala,...PG.w_stare,...PG.w_nove].forEach(p=>gw.appendChild(el("path",{d:path(p),fill:"var(--paper)","fill-opacity":".85"})));
+  /* bloky domů */
+  const gb=G({filter:"url(#pwob)"});
+  const blk=(arr,f)=>arr.forEach(p=>gb.appendChild(el("path",{d:path(p),fill:f,"fill-rule":"evenodd",stroke:"var(--ink)","stroke-width":".7","stroke-opacity":".75"})));
+  blk(PG.nove,"var(--pnove)");blk(PG.stare,"var(--pstare)");blk(PG.hrad,"var(--phrad)");
+  /* hradby s věžemi */
+  const gwl=G({filter:"url(#pwob)"});
+  [...PG.w_hrad,...PG.w_mala,...PG.w_stare,...PG.w_nove].forEach(p=>{const r=p[0],d="M"+r.map(q=>q.join(",")).join("L")+"Z";
+    gwl.appendChild(el("path",{d,fill:"none",stroke:"var(--ink)","stroke-width":(3.4*k).toFixed(2),"stroke-linejoin":"round"}));
+    gwl.appendChild(el("path",{d,fill:"none",stroke:"var(--paper)","stroke-width":(1.4*k).toFixed(2),"stroke-dasharray":`${2.2*k} ${2.6*k}`,"stroke-linejoin":"round"}));
+    let acc=0,td="";for(let i=1;i<=r.length;i++){const a=r[i-1],b=r[i%r.length],L=Math.hypot(b[0]-a[0],b[1]-a[1]);acc+=L;if(acc>64){acc=0;const z=3.2*k;td+=`M${(b[0]-z).toFixed(1)},${(b[1]-z).toFixed(1)}h${2*z}v${2*z}h${-2*z}Z`}}
+    gwl.appendChild(el("path",{d:td,fill:"var(--paper)",stroke:"var(--ink)","stroke-width":(1.2*k).toFixed(2)}))});
+  /* Kamenný most */
+  {const g=G({filter:"url(#pwob)"});const a=[400,281],b=[507,311];
+   g.appendChild(el("line",{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:"var(--ink)","stroke-width":"7.5","stroke-linecap":"butt"}));
+   g.appendChild(el("line",{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:"var(--paper)","stroke-width":"4.6"}));
+   let d="";for(let i=1;i<9;i++){const t=i/9,x=a[0]+(b[0]-a[0])*t,y=a[1]+(b[1]-a[1])*t;d+=`M${x.toFixed(1)},${(y-3.6).toFixed(1)}l0.8,7.2`}
+   g.appendChild(el("path",{d,stroke:"var(--ink)","stroke-width":".8"}));
+   [a,b].forEach(q=>g.appendChild(el("rect",{x:q[0]-6,y:q[1]-9,width:12,height:14,fill:"var(--paper)",stroke:"var(--ink)","stroke-width":"1.4"})));}
+  /* popisky */
+  const L=(x,y,t,cls,fs,rot)=>svg.appendChild(el("text",{x,y,class:cls,"font-size":(fs*k).toFixed(1),"text-anchor":"middle","stroke-width":(3*k).toFixed(2),...(rot?{transform:`rotate(${rot} ${x} ${y})`}:{})},t));
+  L(290,118,"Pražský hrad","maplbl",22);L(165,236,"Hradčany","maplbl",17);L(312,350,"Malá Strana","maplbl",22);
+  L(650,128,"Staré Město","maplbl",26);L(735,640,"Nové Město","maplbl",28);
+  L(452,690,"Vltava","rivlbl",22,-82);L(470,120,"Vltava","rivlbl",18,-55);L(205,410,"Petřín","rivlbl",17);L(452,268,"Kamenný most","rivlbl",11,16);L(555,205,"Židovské město","rivlbl",11);
+  L(145,60,"Letná","rivlbl",15);
+  /* kartuš */
+  {const x=60,y=600,w=200,h=60,g=G({filter:"url(#pwob)"});
+   g.appendChild(el("path",{d:`M${x+10},${y}H${x+w-10}q10,0 10,10v${h-20}q0,10 -10,10H${x+10}q-10,0 -10,-10v${-(h-20)}q0,-10 10,-10Z`,fill:"var(--paper)",stroke:"var(--ink)","stroke-width":"1.4"}));
+   g.appendChild(el("rect",{x:x+12,y:y+6,width:w-24,height:h-12,fill:"none",stroke:"var(--kal)","stroke-width":".9"}));
+   svg.appendChild(el("text",{x:x+w/2,y:y+31,class:"cart","font-size":"26","text-anchor":"middle"},"Praha"));
+   svg.appendChild(el("text",{x:x+w/2,y:y+49,class:"rivlbl","font-size":"12.5","text-anchor":"middle",style:"fill:var(--ink)",stroke:"none"},"čtyři města pražská · 1458"));}
+  /* očíslovaná místa */
+  const gm=G({});
+  PRAHA_PLACES.forEach(p=>{const [x,y]=PG.marks[p.n],on=pst.sel===p.n,r=(on?11:8.5)*k;
+    const g=el("g",{class:"pmk",tabindex:0,role:"button","aria-label":`${p.n}. ${p.name}`});
+    g.appendChild(el("title",{},`${p.n}. ${p.name}`));
+    if(on)g.appendChild(el("circle",{cx:x,cy:y,r:r+4*k,fill:"none",stroke:"var(--gold)","stroke-width":2.4*k}));
+    g.appendChild(el("circle",{cx:x,cy:y,r,fill:"var(--paper)",stroke:pcol(p.c),"stroke-width":2.2*k}));
+    g.appendChild(el("text",{x,y:y+r*.42,"text-anchor":"middle","font-size":(r*1.15).toFixed(1),class:"pmkn",style:`fill:${pcol(p.c)}`},String(p.n)));
+    const go=e=>{e.stopPropagation();if(pDrag.moved)return;pSel(p.n)};
+    g.addEventListener("click",go);g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();pSel(p.n)}});
+    gm.appendChild(g)});
+  svg.appendChild(el("rect",{...R,filter:"url(#pstain)",opacity:".2","pointer-events":"none"}));
+  svg.appendChild(el("rect",{...R,filter:"url(#ppaper)",opacity:".24","pointer-events":"none"}));
+  svg.appendChild(el("rect",{x:vb[0],y:vb[1],width:vb[2],height:vb[3],fill:"url(#pvig)","pointer-events":"none"}));
+  const gfr=G({filter:"url(#pwob)","pointer-events":"none"});
+  gfr.appendChild(el("rect",{x:vb[0]+4*s,y:vb[1]+4*s,width:vb[2]-8*s,height:vb[3]-8*s,fill:"none",stroke:"var(--ink)","stroke-width":2.2*s}));
+  gfr.appendChild(el("rect",{x:vb[0]+9*s,y:vb[1]+9*s,width:vb[2]-18*s,height:vb[3]-18*s,fill:"none",stroke:"var(--kal)","stroke-width":1*s}));
+}
+function pDetail(){
+  const d=document.getElementById("pdetail"),p=PRB[pst.sel];
+  if(!p){d.classList.add("empty");d.innerHTML=`<span class="lbl">Čtyři města pražská</span><p>Vyberte číslo na plánu nebo místo ze seznamu pod ním.</p>${PRAHA_TOWNS.map(t=>`<p><b>${t.n}.</b> ${t.d}</p>`).join("")}`;autolink(d,"");return}
+  d.classList.remove("empty");const t=PRAHA_TOWNS.find(x=>x.id===p.t),f=p.r&&byId[p.r];
+  d.innerHTML=`<span class="lbl">${t.n} · č. ${p.n}</span>
+   <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h3 style="font-size:1.35rem">${p.name}</h3>${p.c&&FICON[p.c]?faith(p.c):""}</div>
+   <p>${p.d}</p>
+   ${f||p.p?`<dl class="kv">${f?`<dt>Rod</dt><dd><a href="#rod/${f.id}">${ARMS[f.id]?armsImg(f,"armsmall"):""}${f.name}</a></dd>`:""}${p.p&&PBY[p.p]?`<dt>Osoba</dt><dd><a href="#osoba/${p.p}">${PBY[p.p].n.replace(/^✦\s*/,"")}</a></dd>`:""}</dl>`:""}
+   <button type="button" class="backbtn" id="pclear">Zpět na přehled</button>`;
+  autolink(d.querySelector("p"),f?"#rod/"+f.id:"");
+  document.getElementById("pclear").addEventListener("click",()=>pSel(null));
+}
+function pSel(n,center){pst.sel=n;if(n&&center){const [x,y]=PG.marks[n];const w=420,h=w*.9;pst.vb=[Math.max(-100,Math.min(1100-w,x-w/2)),Math.max(-60,Math.min(1028-h,y-h/2)),w,h]}pDraw();pDetail();
+  document.querySelectorAll(".plist button").forEach(b=>b.classList.toggle("on",+b.dataset.pn===n))}
+function pList(){
+  document.getElementById("plist").innerHTML=PRAHA_TOWNS.map(t=>`<section class="pgrp"><h3 class="landh">${t.n.toUpperCase()}</h3><ol class="plist">${PRAHA_PLACES.filter(p=>p.t===t.id).map(p=>`<li><button type="button" data-pn="${p.n}"><span class="pnum" style="border-color:${pcol(p.c)};color:${pcol(p.c)}">${p.n}</span>${p.name}</button></li>`).join("")}</ol></section>`).join("");
+  document.querySelectorAll(".plist button").forEach(b=>b.addEventListener("click",()=>{pSel(+b.dataset.pn,true);document.getElementById("pmapbox").scrollIntoView({block:"start",behavior:"smooth"})}));
+  pDetail();
+}
+const pDrag={moved:false};
+(function(){
+  const svg=document.getElementById("pmap");
+  const cur=()=>pst.vb||PVB0;
+  const clamp=v=>{const w=Math.max(160,Math.min(1200,v[2])),h=w*.9;return [Math.max(-150,Math.min(1150-w,v[0])),Math.max(-120,Math.min(1080-h,v[1])),w,h]};
+  const toSvg=(cx,cy)=>{const r=svg.getBoundingClientRect(),v=cur();return [v[0]+(cx-r.left)/r.width*v[2],v[1]+(cy-r.top)/r.height*v[3]]};
+  let raf=0;const redraw=()=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(()=>{svg.setAttribute("viewBox",cur().join(" "));clearTimeout(pDrag.t);pDrag.t=setTimeout(pDraw,120)})};
+  window.pZoom=(f,cx,cy)=>{const v=cur();const [px,py]=cx==null?[v[0]+v[2]/2,v[1]+v[3]/2]:toSvg(cx,cy);const w=v[2]*f,h=w*.9;pst.vb=clamp([px-(px-v[0])*w/v[2],py-(py-v[1])*h/v[3],w,h]);redraw()};
+  svg.addEventListener("wheel",e=>{if(!PG)return;e.preventDefault();pZoom(e.deltaY>0?1.15:1/1.15,e.clientX,e.clientY)},{passive:false});
+  const pts=new Map();let last=null,start=null;
+  svg.addEventListener("pointerdown",e=>{pts.set(e.pointerId,[e.clientX,e.clientY]);start=[e.clientX,e.clientY];pDrag.moved=false;last=null});
+  svg.addEventListener("pointermove",e=>{if(!pts.has(e.pointerId))return;const prev=pts.get(e.pointerId);pts.set(e.pointerId,[e.clientX,e.clientY]);
+    if(pts.size===1){if(Math.hypot(e.clientX-start[0],e.clientY-start[1])>5){pDrag.moved=true;if(!svg.hasPointerCapture(e.pointerId))svg.setPointerCapture(e.pointerId)}
+      if(!pDrag.moved)return;const r=svg.getBoundingClientRect(),v=cur();pst.vb=clamp([v[0]-(e.clientX-prev[0])/r.width*v[2],v[1]-(e.clientY-prev[1])/r.height*v[3],v[2],v[3]]);redraw()}
+    else if(pts.size===2){pDrag.moved=true;const [a,b]=[...pts.values()],d=Math.hypot(a[0]-b[0],a[1]-b[1]);if(last)pZoom(last/d,(a[0]+b[0])/2,(a[1]+b[1])/2);last=d}});
+  const end=e=>{pts.delete(e.pointerId);if(pts.size<2)last=null;setTimeout(()=>{if(!pts.size)pDrag.moved=false},0)};
+  svg.addEventListener("pointerup",end);svg.addEventListener("pointercancel",end);
+  document.getElementById("pzin").addEventListener("click",()=>pZoom(1/1.4));
+  document.getElementById("pzout").addEventListener("click",()=>pZoom(1.4));
+  document.getElementById("preset").addEventListener("click",()=>{pst.vb=null;pDraw()});
+  svg.addEventListener("click",e=>{if(!pDrag.moved&&!e.target.closest(".pmk")&&pst.sel)pSel(null)});
+})();
+
+/* ---------- Rodokmeny klíčových rodů (stav k 3. 3. 1458) ---------- */
+/* p = osoba v zemských deskách, r = rod, d = data, m = z kterého manželství, note = poznámka */
+const TREES={
+ pod:{root:{n:"Viktorin Boček z Kunštátu a Poděbrad",d:"† 1427",note:"husitský pán, otec Jiřího"},
+  main:{p:"jiri",n:"Jiří z Poděbrad",d:"* 1420",sp:[
+    {n:"Kunhuta ze Šternberka",d:"1425–1449",r:"ste",note:"1. manželka (1440), z holické větve Šternberků; dobročinná a oblíbená kališnice"},
+    {p:"johana",n:"Johana z Rožmitálu",r:"rzm",note:"2. manželka (1450), katolička, sestra Jaroslava Lva z Rožmitálu"}]},
+  kids:[
+    {n:"Boček",d:"* 1442",m:1,note:"nejstarší syn"},
+    {p:"viktorin",n:"Viktorin",d:"* 1443",m:1},
+    {n:"Barbora",d:"* 1446",m:1},
+    {n:"Jindřich starší",d:"* 1448",m:1},
+    {p:"katerina",n:"Kateřina",d:"* 1449",m:1,note:"dvojče; zaslíbena Matyáši Korvínovi"},
+    {n:"Zdena (Sidonie)",d:"* 1449",m:1,note:"dvojče Kateřiny"},
+    {n:"Hynek (Jindřich mladší)",d:"* 1452",m:2},
+    {n:"Fridrich",d:"* 1453",m:2},
+    {n:"Ludmila",d:"* 1456",m:2}]},
+ roz:{root:{n:"Jindřich III. z Rožmberka",d:"† 1412",note:"∞ Eliška z Kravař"},
+  main:{p:"oldrich2",n:"Oldřich II. z Rožmberka",d:"* 1403",sp:[{n:"Kateřina z Vartenberka",d:"† 1436",r:"var"}]},
+  kids:[
+    {n:"Jindřich IV.",d:"† 1457",note:"dosavadní vladař rodu, zemřel roku 1457"},
+    {p:"perchta",n:"Perchta",d:"* asi 1429",note:"∞ 1449 Jan z Lichtenštejna",pl:"janlie"},
+    {p:"jost",n:"Jošt II.",d:"* 1430",note:"biskup vratislavský",rl:"bvr"},
+    {p:"jan2roz",n:"Jan II.",d:"* 1434",note:"∞ Anna Hlohovská (z hlohovských Piastovců)",rl:"hlo",kids:[{n:"Jindřich V.",d:"* 1456",note:"dědic rodu, batole"}]},
+    {n:"Anežka"},
+    {n:"Ludmila"}]},
+ ste:{main:{p:"zdenekst",n:"Zdeněk Konopišťský ze Šternberka",d:"* asi 1410",sp:[
+    {n:"Anežka z Janovic",note:"1. manželka"},
+    {n:"Anežka z Hazmburka",r:"haz",note:"2. manželka, z rodu Zajíců z Hazmburka"}]},
+  kids:[{n:"Ladislav"},{n:"Jaroslav"},{n:"Jan"},{n:"Zdeslav"},{n:"Kunka",note:"dcera"}],
+  foot:"Ze stejného rodu, z holické větve, pocházela i Kunhuta ze Šternberka († 1449), první manželka krále Jiřího."}
+};
+function treeHTML(id){
+  const T=TREES[id]; if(!T)return"";
+  const pn=o=>{const P=o.p&&PBY[o.p];const nm=o.n;const img=P&&typeof PORTR!=="undefined"&&PORTR.has(o.p)?`<img class="tport" src="art/portrety/${o.p}-m.webp" alt="" loading="lazy">`:"";
+    return `${img}<span class="tnm">${P?`<a href="#osoba/${o.p}">${nm}</a>`:nm}</span>${o.d?`<span class="tdt">${o.d}</span>`:""}`};
+  const extra=o=>{let s=o.note||"";if(o.pl&&PBY[o.pl])s=s.replace(PBY[o.pl].n.replace(/^✦\s*/,""),`<a href="#osoba/${o.pl}">$&</a>`);
+    if(o.rl&&byId[o.rl])s+=` <a class="trl" href="#rod/${o.rl}">→ ${SHORT[o.rl]||byId[o.rl].name}</a>`;return s?`<span class="tnote">${s}</span>`:""};
+  const sp=o=>`<div class="tsp"><span class="tinf">∞</span><div>${pn(o)}${o.r&&byId[o.r]?` <a class="trl" href="#rod/${o.r}">→ ${SHORT[o.r]||byId[o.r].name}</a>`:""}${extra(o)}</div></div>`;
+  const multi=(T.main.sp||[]).length>1;
+  const kid=k=>`<li class="tkid${k.d&&k.d.startsWith("†")?" dead":""}">${multi&&k.m?`<span class="tm">${k.m}.</span>`:""}${pn(k)}${extra(k)}${k.kids?`<ul class="tsub">${k.kids.map(c=>`<li>${pn(c)}${extra(c)}</li>`).join("")}</ul>`:""}</li>`;
+  return `<div class="tree">
+    ${T.root?`<div class="tnode troot dead">${pn(T.root)}${extra(T.root)}</div><div class="tline"></div>`:""}
+    <div class="tnode tmain">${pn(T.main)}${(T.main.sp||[]).map(sp).join("")}</div>
+    <div class="tline"></div>
+    <ul class="tkids">${T.kids.map(kid).join("")}</ul>
+    ${multi&&T.kids.some(k=>k.m)?`<p class="rsmall">Čísla u dětí označují, z kterého manželství pocházejí.</p>`:""}
+    ${T.foot?`<p class="rsmall">${T.foot}</p>`:""}
+  </div>`;
+}
+
 /* ======== Družina · Kronika tažení · automatické odkazy · hledání ======== */
 
 /* --- DRUŽINA ---
@@ -2814,7 +3107,7 @@ const AL=(()=>{
   const keys=[...terms.keys()].sort((a,b)=>b.length-a.length).map(esc);
   return {terms,re:new RegExp(`(?<![\\p{L}\\p{N}])(${keys.join("|")})(?![\\p{L}\\p{N}])`,"gu")};
 })();
-const AL_SKIP="a,button,h1,h2,h3,h4,.crumbs,dt,label,.faith,.svm,.noal,input,select,summary";
+const AL_SKIP=".tnm,.trl,a,button,h1,h2,h3,h4,.crumbs,dt,label,.faith,.svm,.noal,input,select,summary";
 function autolink(root,self,filter){
   if(!root)return; const used=new Set();
   const tw=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>!n.nodeValue.trim()||n.parentElement.closest(AL_SKIP)?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT});
@@ -2842,6 +3135,7 @@ const GIDX=[];
   DUCHY.forEach(u=>GIDX.push({k:"Země",n:u.name,s:u.s,duchy:u.id,t:norm(u.name+" "+u.s),b:norm(u.note)}));
   DIO.forEach(d=>GIDX.push({k:"Diecéze",n:d.name,s:"církevní správa",dio:d.id,t:norm(d.name),b:norm(d.note)}));
   ARTK.forEach(k=>k.secs.forEach(s=>GIDX.push({k:"Artikule",n:s.t,s:k.t,h:`#artikule/${k.id}/${s.id}`,t:norm(s.t+" "+k.t),b:norm(strip(s.h))})));
+  PRAHA_PLACES.forEach(p=>GIDX.push({k:"Praha",n:p.name,s:PRAHA_TOWNS.find(x=>x.id===p.t).n,h:"#praha/"+p.n,t:norm(p.name),b:norm(p.d)}));
   GLOSS.forEach(g=>GIDX.push({k:"Pojem",n:g.t,s:g.d.replace(/<[^>]+>/g,"").slice(0,70)+"…",h:"#artikule/pojmy/p-"+g.id,t:norm(g.t+" "+g.f.join(" ")),b:norm(g.d)}));
   ZAPISY.forEach(z=>GIDX.push({k:"Kronika",n:z.title,s:z.n+" · "+z.date,h:"#kronika/"+z.id,t:norm(z.title+" "+z.place),b:norm(strip(z.text))}));
   PARTY.forEach(p=>GIDX.push({k:"Družina",n:p.n,s:p.epi||"",h:"#druzina/"+p.id,t:norm(p.n+" "+(p.epi||"")),b:norm(strip(p.x||""))}));
@@ -2878,8 +3172,8 @@ document.addEventListener("click",e=>{const b=e.target.closest("[data-partymap]"
   const z=ZBY[b.dataset.partymap],p=z&&placeBy(z.place);if(p){const [x,y]=P(p.lo,p.la);mapCenter(x,y,300)}});
 
 /* ---------- site navigation: views, house and person articles ---------- */
-const VIEWS=["uvod","mapa","desky","druzina","artikule","draconomicon","kronika"];
-const SUBT={uvod:"Kronika Koruny české léta Páně 1458",mapa:"Koruna česká k 3. březnu léta Páně 1458",desky:"Zemské desky · rody a osoby",artikule:"Artikule tažení",druzina:"Družina · hrdinové tažení",draconomicon:"Draconomicon · kniha o dracích",kronika:"Kronika Vojtěcha z Kroměříže"};
+const VIEWS=["uvod","mapa","praha","desky","druzina","artikule","draconomicon","kronika"];
+const SUBT={praha:"Praha · čtyři města pražská",uvod:"Kronika Koruny české léta Páně 1458",mapa:"Koruna česká k 3. březnu léta Páně 1458",desky:"Zemské desky · rody a osoby",artikule:"Artikule tažení",druzina:"Družina · hrdinové tažení",draconomicon:"Draconomicon · kniha o dracích",kronika:"Kronika Vojtěcha z Kroměříže"};
 let curView=null;
 function navTo(h){if(location.hash!==h)history.pushState(null,"",h);route()}
 function maplinkBtn(f,sd){return `<button type="button" class="maplink" data-id="${f.id}" data-place="${sd[0]}">${f.city&&CARMS[sd[0]]?`<img class="cmini" src="${CARMS[sd[0]]}" alt="">`:""}${sd[0]}</button>`}
@@ -2892,6 +3186,7 @@ function renderRodArticle(id){
      <h3>${f.nbr?"Postoj ke Koruně":"Postoj k Jiřímu"}</h3><p>${f.stance}</p>
      <h3>Zápis kronikáře</h3><p class="kron">${f.note}</p>
      ${rels.length?`<h3>Vazby</h3>${relGroups(rels,id)}`:""}
+     ${TREES[id]?`<h3>Rodokmen</h3>${treeHTML(id)}`:""}
    </div>
    <aside class="infobox">
      <div class="ibshield">${ARMS[f.id]?armsImg(f,"armbig"):shield0(f).replace('class="shield"','class="bigshield"')}</div>
@@ -2951,6 +3246,8 @@ function route(){
   }else if(view==="mapa"){
     if(b&&byId[b]&&st.sel!==b)show(b); else drawMap();
     if(changed)window.scrollTo(0,0);
+  }else if(view==="praha"){
+    praInit(); if(b&&PRB[+b]){const go=()=>{if(PG)pSel(+b,true);else setTimeout(go,120)};go()} else if(changed)window.scrollTo(0,0);
   }else if(view==="druzina"){
     renderDruzina(b); window.scrollTo(0,0);
   }else if(view==="kronika"){
