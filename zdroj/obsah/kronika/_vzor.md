@@ -10,6 +10,8 @@ place: Kutná Hora
 route: Praha, Kolín, Kutná Hora
 # čísla míst na plánu Prahy, kde se zápis odehrává (nepovinné)
 praha: 20, 26
+# číslo místa na plánu Prahy, kde družina na konci zápisu je (praporec na plánu; nepovinné)
+druzina: 16
 title: Stříbro a krev
 ---
 Text zápisu. Odstavce odděluj prázdným řádkem.

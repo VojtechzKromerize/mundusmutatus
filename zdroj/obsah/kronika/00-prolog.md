@@ -6,6 +6,8 @@ date: 3. března 1458
 place: Praha
 route: Praha
 praha: 20, 17
+# kde v Praze družina právě je (číslo místa na plánu)
+druzina: 16
 title: Den po volbě
 ---
 Praha je přeplněná. Včera, 2. března, se stavové na Staroměstské radnici shodli na novém králi: stal se jím Jiří z Poděbrad, dosavadní zemský správce a kališník, jemuž katolíci nevěří a Vratislav ho odmítá uznat.

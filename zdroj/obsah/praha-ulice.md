@@ -1,7 +1,7 @@
 # Názvy ulic, trhů a bran na plánu Prahy (ukazují se po přiblížení)
 #
 # Každý řádek:  - název | x, y | natočení ve stupních
-# Souřadnice zjistíte ve vypravěčské verzi: Alt + klik do plánu.
+# Brány jsou v art/praha.json (gates). Souřadnice zjistíte ve vypravěčské verzi: Alt + klik do plánu.
 
 - Celetná ulice | 745, 281 | 0
 - Dlouhá třída | 747, 200 | -24
@@ -28,8 +28,15 @@
 - Svinský trh | 714, 632 | 2
 - Na Zderaze | 574, 622 | 65
 - ulice sv. Kateřiny | 733, 660 | 70
-- Poříčská brána | 962, 150 | 0
-- Horská brána | 958, 297 | 0
-- Koňská brána | 870, 532 | 0
 - Výtoň | 566, 896 | 0
 - Újezd | 350, 500 | 0
+- Staroměstský rynk | 676, 271 | 0
+- Malostranský rynk | 330, 249 | 0
+- Hradčanský rynk | 177, 221 | 0
+- Kamenný most | 461, 297 | 11
+- Židovské město | 610, 168 | 0
+- ostrov | 456, 462 | -80
+- Čertovka | 417, 400 | -75
+- Kampa | 434, 385 | -75
+- Staroměstské mlýny | 500, 350 | -4
+- Šítkovské mlýny | 495, 572 | -12
