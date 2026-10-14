@@ -1,5 +1,5 @@
 ---
-# VZOR – kapitola Draconomiconu (obecné informace). Řadí se podle názvu souboru.
+# VZOR – text Draconomiconu. Na úvodní stránce se zobrazuje první soubor (01-o-dracich.md); oddíly v něm začínají „## “.
 id: nova-kapitola
 title: Název kapitoly
 ---

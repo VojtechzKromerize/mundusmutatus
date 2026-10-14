@@ -192,7 +192,7 @@ header.site{display:flex;flex-direction:column;gap:0;border:0;padding:0}
 .drgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
 .drcard{display:flex;flex-direction:column;background:var(--paper);border:1px solid var(--rule);border-radius:4px;overflow:hidden;color:var(--ink);text-decoration:none;transition:transform .15s,box-shadow .15s}
 .drcard:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.18)}
-.drcard img{width:100%;aspect-ratio:3/2;object-fit:cover;display:block;border-bottom:1px solid var(--rule)}
+.drcard img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;display:block;border-bottom:1px solid var(--rule)}
 .drcard .dct{padding:8px 12px 10px;display:flex;flex-direction:column;gap:2px}
 .drcard b{font-family:var(--f-disp);font-weight:500;font-size:1.35rem;color:var(--kal);line-height:1.1}
 .drcard i{color:var(--muted);font-size:.9rem}
@@ -204,6 +204,7 @@ header.site{display:flex;flex-direction:column;gap:0;border:0;padding:0}
 .drlatin{font-style:italic;color:var(--muted);font-size:1.1rem;margin-top:-10px}
 .drtext{display:flex;flex-direction:column;gap:.7em}
 .drtext h3{font-family:var(--f-label);font-weight:700;letter-spacing:.06em;font-size:1rem;color:var(--kal);margin:.6em 0 0}
+.drcard img{object-position:center}
 .drtext ul{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:5px}
 .drtext li::marker{color:var(--kal)}
 .drtext .rtab td,.drtext .rtab th{padding:5px 9px;border-bottom:1px solid var(--rule);text-align:left;vertical-align:top}
@@ -2787,31 +2788,33 @@ const DRACI=/*@DRACI@*/{};
 const DRTR={L:"lehký",S:"střední",T:"těžký"};
 const DRBY={};(DRACI.kap||[]).forEach(k=>DRBY[k.id]={k:"kap",o:k});(DRACI.pl||[]).forEach(p=>DRBY[p.id]={k:"pl",o:p});
 function renderDraco(b){
-  const side=document.getElementById("drside"),main=document.getElementById("drmain"),cur=DRBY[b];
-  side.innerHTML=`<button type="button" class="atoggle" aria-expanded="false">☰ Obsah Draconomiconu</button><nav class="atoc" aria-label="Obsah Draconomiconu"><a class="atop${!cur?" on":""}" href="#draconomicon">Draconomicon</a>
-    <div class="abook">O dracích</div><ol>${DRACI.kap.map(k=>`<li><a href="#draconomicon/${k.id}"${b===k.id?' class="on"':""}>${k.t}</a></li>`).join("")}</ol>
-    <div class="abook">Plemena</div><ol>${DRACI.pl.map(p=>`<li class="drpl"><a href="#draconomicon/${p.id}"${b===p.id?' class="on"':""}>${p.img?`<img class="drthumb" src="art/draci/${p.img}-m.webp" alt="" loading="lazy">`:""}${p.n}</a></li>`).join("")}</ol></nav>`;
+  const side=document.getElementById("drside"),main=document.getElementById("drmain"),cur=DRBY[b],isPl=b==="plemena";
+  const K=DRACI.kap[0]||{id:"",t:"O dracích",h:""};
+  const head=p=>p.img?`art/draci/${p.img}-h.webp`:"";
+  side.innerHTML=`<button type="button" class="atoggle" aria-expanded="false">☰ Obsah Draconomiconu</button><nav class="atoc" aria-label="Obsah Draconomiconu">
+    <a class="atop${!cur&&!isPl?" on":""}" href="#draconomicon">${K.t}</a>
+    <a class="atop${isPl?" on":""}" href="#draconomicon/plemena">Plemena</a>
+    <ol class="asecs">${DRACI.pl.map(p=>`<li class="drpl"><a href="#draconomicon/${p.id}"${b===p.id?' class="on"':""}>${head(p)?`<img class="drthumb" src="${head(p)}" alt="" loading="lazy">`:""}${p.n}</a></li>`).join("")}</ol></nav>`;
   side.classList.remove("open");{const tg=side.querySelector(".atoggle");tg.addEventListener("click",()=>{const o=side.classList.toggle("open");tg.setAttribute("aria-expanded",o)})}
-  const card=p=>`<a class="drcard" href="#draconomicon/${p.id}">${p.img?`<img src="art/draci/${p.img}-m.webp" alt="${p.n}" loading="lazy" width="480" height="320">`:""}<span class="dct"><b>${p.n}</b>${p.la?`<i>${p.la}</i>`:""}<small>${DRTR[p.tr]} · ${p.vz}${p.rod?" · rod "+p.rod:""}</small></span></a>`;
-  if(!cur){
+  const card=p=>`<a class="drcard" href="#draconomicon/${p.id}">${head(p)?`<img src="${head(p)}" alt="${p.n}" loading="lazy" width="480" height="320">`:""}<span class="dct"><b>${p.n}</b>${p.la?`<i>${p.la}</i>`:""}<small>${DRTR[p.tr]} · ${p.vz}${p.rod?" · rod "+p.rod:""}</small></span></a>`;
+  if(isPl){
+    main.innerHTML=`<nav class="crumbs"><a href="#draconomicon">Draconomicon</a> › <b>Plemena</b></nav><h2 class="arttitle">Plemena</h2>
+      <p class="intro">Plemena, s nimiž se lze v zemích Koruny potkat.</p><div class="drgrid">${DRACI.pl.map(card).join("")}</div>`;return}
+  if(!cur||cur.k==="kap"){
     main.innerHTML=`<h2 class="arttitle">Draconomicon</h2>
-      <p class="intro">Kniha o dracích Evropy, sepsaná třicet osm let po Protržení Závoje. První díl pojednává o dracích obecně, druhý popisuje plemena, s nimiž se lze v zemích Koruny potkat.</p>
-      <section class="asec"><h3 class="ash">Plemena</h3><div class="drgrid">${DRACI.pl.map(card).join("")}</div></section>
-      <section class="asec"><h3 class="ash">O dracích</h3><ol class="rl">${DRACI.kap.map(k=>`<li><a href="#draconomicon/${k.id}">${k.t}</a></li>`).join("")}</ol></section>`;
-    autolink(main.querySelector(".intro"),"");return}
-  const list=cur.k==="kap"?DRACI.kap:DRACI.pl,i=list.indexOf(cur.o),pv=list[i-1],nx=list[i+1],o=cur.o;
-  const nav=`<nav class="apn">${pv?`<a href="#draconomicon/${pv.id}" rel="prev"><small>Předchozí</small>${pv.t||pv.n}</a>`:"<span></span>"}${nx?`<a href="#draconomicon/${nx.id}" rel="next"><small>Další</small>${nx.t||nx.n}</a>`:"<span></span>"}</nav>`;
-  if(cur.k==="kap"){
-    main.innerHTML=`<nav class="crumbs"><a href="#draconomicon">Draconomicon</a> › O dracích › <b>${o.t}</b></nav><h2 class="arttitle">${o.t}</h2><div class="drtext">${o.h}</div>${nav}`;
-  }else{
-    const P=["Křídla","Ocas","Stavba","Let a smysly","Zvláštní schopnost"];
-    main.innerHTML=`<nav class="crumbs"><a href="#draconomicon">Draconomicon</a> › Plemena › <b>${o.n}</b></nav>
-      <h2 class="arttitle">${o.n}</h2>${o.la?`<p class="drlatin">${o.la}${o.j?` · ${o.j}`:""}</p>`:""}
-      ${o.img?`<figure class="drfig"><a href="art/draci/${o.img}.webp" target="_blank" rel="noopener" title="Otevřít v plné velikosti"><img src="art/draci/${o.img}.webp" alt="${o.n}" width="1200" height="800"></a></figure>`:""}
-      <div class="drbadges"><span class="drb tr">${DRTR[o.tr]} drak (${o.tr})</span>${o.vz?`<span class="drb">${o.vz}</span>`:""}${o.rod?`<span class="drb">rod ${o.rod}</span>`:""}</div>
-      <div class="rtw"><table class="rtab drprof"><tbody>${P.map((l,j)=>o.prof[j]?`<tr><th scope="row">${l}</th><td>${o.prof[j]}</td></tr>`:"").join("")}</tbody></table></div>
-      <div class="drtext">${o.h}</div>${nav}`;
-  }
+      <p class="intro">Kniha o dracích Evropy, sepsaná třicet osm let po Protržení Závoje.</p>
+      <div class="drtext">${K.h}</div>
+      <section class="asec"><h3 class="ash"><a href="#draconomicon/plemena">Plemena</a></h3><div class="drgrid">${DRACI.pl.map(card).join("")}</div></section>`;
+    autolink(main.querySelector(".drtext"),"");return}
+  const list=DRACI.pl,i=list.indexOf(cur.o),pv=list[i-1],nx=list[i+1],o=cur.o;
+  const nav=`<nav class="apn">${pv?`<a href="#draconomicon/${pv.id}" rel="prev"><small>Předchozí</small>${pv.n}</a>`:"<span></span>"}${nx?`<a href="#draconomicon/${nx.id}" rel="next"><small>Další</small>${nx.n}</a>`:"<span></span>"}</nav>`;
+  const P=["Křídla","Ocas","Stavba","Let a smysly","Zvláštní schopnost"];
+  main.innerHTML=`<nav class="crumbs"><a href="#draconomicon">Draconomicon</a> › <a href="#draconomicon/plemena">Plemena</a> › <b>${o.n}</b></nav>
+    <h2 class="arttitle">${o.n}</h2>${o.la?`<p class="drlatin">${o.la}${o.j?` · ${o.j}`:""}</p>`:""}
+    ${o.img?`<figure class="drfig"><a href="art/draci/${o.img}.webp" target="_blank" rel="noopener" title="Otevřít v plné velikosti"><img src="art/draci/${o.img}.webp" alt="${o.n}" width="1200" height="800"></a></figure>`:""}
+    <div class="drbadges"><span class="drb tr">${DRTR[o.tr]} drak (${o.tr})</span>${o.vz?`<span class="drb">${o.vz}</span>`:""}${o.rod?`<span class="drb">rod ${o.rod}</span>`:""}</div>
+    <div class="rtw"><table class="rtab drprof"><tbody>${P.map((l,j)=>o.prof[j]?`<tr><th scope="row">${l}</th><td>${o.prof[j]}</td></tr>`:"").join("")}</tbody></table></div>
+    <div class="drtext">${o.h}</div>${nav}`;
   autolink(main.querySelector(".drtext"),"");
 }
 
@@ -3066,7 +3069,7 @@ const GIDX=[];
   DUCHY.forEach(u=>GIDX.push({k:"Země",n:u.name,s:u.s,duchy:u.id,t:norm(u.name+" "+u.s),b:norm(u.note)}));
   DIO.forEach(d=>GIDX.push({k:"Diecéze",n:d.name,s:"církevní správa",dio:d.id,t:norm(d.name),b:norm(d.note)}));
   ARTK.forEach(k=>k.secs.forEach(s=>GIDX.push({k:"Artikule",n:s.t,s:k.t,h:`#artikule/${k.id}/${s.id}`,t:norm(s.t+" "+k.t),b:norm(strip(s.h))})));
-  (DRACI.kap||[]).forEach(k=>GIDX.push({k:"Draconomicon",n:k.t,s:"O dracích",h:"#draconomicon/"+k.id,t:norm(k.t),b:norm(k.h.replace(/<[^>]+>/g," "))}));
+  (DRACI.kap||[]).forEach(k=>GIDX.push({k:"Draconomicon",n:k.t,s:"Draconomicon",h:"#draconomicon",t:norm(k.t),b:norm(k.h.replace(/<[^>]+>/g," "))}));
   (DRACI.pl||[]).forEach(p=>GIDX.push({k:"Draconomicon",n:p.n,s:(p.la||"")+" · "+DRTR[p.tr]+" drak",h:"#draconomicon/"+p.id,t:norm(p.n+" "+p.j+" "+p.la),b:norm(p.h.replace(/<[^>]+>/g," "))}));
   SVET.forEach(s=>GIDX.push({k:"Svět",n:s.n,s:s.v,h:"#svet/"+s.id,t:norm(s.n+" "+s.k),b:norm(s.x+" "+s.v+" "+s.s)}));
   PRAHA_PLACES.forEach(p=>GIDX.push({k:"Praha",n:p.name,s:PRAHA_TOWNS.find(x=>x.id===p.t).n,h:"#praha/"+p.n,t:norm(p.name),b:norm(p.d)}));

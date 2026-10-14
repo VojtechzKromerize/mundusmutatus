@@ -299,7 +299,7 @@ def draconomicon():
             img = ""
         pl.append({"id": p["id"], "n": p["nazev"], "j": p.get("jinak", ""), "la": p.get("latin", ""), "tr": p["trida"], "vz": p.get("vzacnost", ""),
                    "rod": p.get("rod", ""), "img": img, "prof": [p.get(k, "") for k in ("kridla", "ocas", "stavba", "let", "schopnost")], "h": md(p["_body"])})
-    ids = [x["id"] for x in kap + pl]
+    ids = [x["id"] for x in kap + pl] + ["plemena"]
     if len(ids) != len(set(ids)):
         fail("draconomicon: kapitoly a plemena musí mít různá id")
     return {"kap": kap, "pl": pl}
