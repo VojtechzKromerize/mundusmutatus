@@ -13,7 +13,7 @@ R={
  'nav':{'ESP':L('Navarra')},'gra':{'ESP':L('Granada|Almería|Málaga')},'por':{'ESP':L('Ceuta')},'mar':{'ESP':L('Melilla'),
         'MAR':L('Tanger - Tétouan|Fès - Boulemane|Taza - Al Hoceima - Taounate|Oriental|Gharb - Chrarda - Béni Hssen|Rabat - Salé - Zemmour - Zaer|Meknès - Tafilalet|Grand Casablanca|Chaouia - Ouardigha|Doukkala - Abda|Marrakech - Tensift - Al Haouz|Tadla - Azilal')},
  'bre':{'FRA':L('Finistère|Côtes-d\'Armor|Morbihan|Ille-et-Vilaine|Loire-Atlantique')},
- 'bur':{'FRA':L('Nord|Pas-de-Calais|Côte-d\'Or|Saône-et-Loire|Yonne|Doubs|Jura|Haute-Saône'),'NLD':L('Noord-Holland|Zuid-Holland|Zeeland|Noord-Brabant|Utrecht|Flevoland')},
+ 'bur':{'FRA':L('Somme|Nord|Pas-de-Calais|Côte-d\'Or|Saône-et-Loire|Yonne|Doubs|Jura|Haute-Saône'),'NLD':L('Noord-Holland|Zuid-Holland|Zeeland|Noord-Brabant|Utrecht|Flevoland')},
  'hre':{'BEL':L('Liege'),'FRA':L('Bas-Rhin|Moselle|Meurthe-et-Moselle|Vosges|Meuse'),'ITA':L('Gorizia'),'POL':L('West Pomeranian'),'AUT':L('Salzburg')},
  'pro':{'FRA':L('Bouches-du-Rhône|Var|Alpes-de-Haute-Provence')},'pap':{'FRA':L('Vaucluse'),
         'ITA':L('Roma|Latina|Frosinone|Viterbo|Rieti|Terni|Perugia|Ancona|Macerata|Fermo|Ascoli Piceno|Pesaro e Urbino|Rimini|Forlì-Cesena|Ravenna|Bologna')},
@@ -30,7 +30,7 @@ R={
  'est':{'ITA':L('Ferrara|Modena|Reggio Emilia|Rovigo')},'man':{'ITA':L('Mantova')},
  'nap':{'ITA':L('Napoli|Caserta|Avellino|Benevento|Salerno|L\'Aquila|Teramo|Pescara|Chieti|Campobasso|Isernia|Foggia|Bari|Barletta-Andria Trani|Brindisi|Lecce|Taranto|Matera|Potenza|Cosenza|Catanzaro|Crotene|Vibo Valentia|Reggio Calabria')},
  'boh':{'POL':L('Lower Silesian|Opole|Silesian|Lubusz')},
- 'teu':{'POL':L('Warmian-Masurian'),'RUS':L('Kaliningrad')},
+ 'teu':{'POL':L('Warmian-Masurian'),'RUS':L('Kaliningrad'),'LTU':L('Klaipedos')},
  'lit':{'POL':L('Podlachian'),'RUS':L('Smolensk|Bryansk|Orel|Kursk'),'UKR':L('Volyn|Rivne|Zhytomyr|Kiev|Kiev City|Chernihiv|Cherkasy|Sumy|Poltava|Vinnytsya|Kirovohrad|Mykolayiv|Odessa'),
         'MDA':L('Stîngă Nistrului|Transnistria|Camenca|Grigoriopol')},
  'pol':{'UKR':L('L\'viv|Ternopil\'|Ivano-Frankivs\'k|Khmel\'nyts\'kyy')},
@@ -63,13 +63,15 @@ R={
  'zay':{'DZA':L('Tlemcen|Aïn Témouchent|Oran|Sidi Bel Abbès|Mascara|Mostaganem|Relizane|Chlef|Aïn Defla|Tiaret|Tissemsilt|Saïda|Médéa|Blida|Alger|Tipaza')},
 }
 GBR={'England':'eng','Wales':'eng','Scotland':'sco','Northern Ireland':'irl'}
+GBR_N={'Orkney':'kal','Shetland Islands':'kal'}
 def assign(a3,name,geonunit):
-    if a3=='GBR': return GBR.get(geonunit,'eng')
+    if a3=='GBR': return GBR_N.get(name) or GBR.get(geonunit,'eng')
     for st,m in R.items():
         if a3 in m and name in m[a3]: return 'gen' if st=='gen2' else st
     return DEF.get(a3)
 # ruční úpravy v zeměpisných souřadnicích (lon, lat): stát, polygon – mají přednost
 OVR=[
+ ('eng',[(1.55,50.72),(2.15,50.72),(2.15,51.02),(1.55,51.02)]),                                    # Calais a okolí (Pale of Calais)
  ('boh',[(13.65,51.60),(15.15,51.62),(15.10,51.0),(14.55,50.85),(14.05,50.95),(13.65,51.2)]),      # Horní Lužice (část v Sasku)
  ('boh',[(13.55,52.10),(14.75,52.10),(14.75,51.62),(13.55,51.62)]),                                # Dolní Lužice
  ('hre',[(14.3,52.25),(15.9,52.25),(15.9,53.2),(14.3,53.2)]),                                       # Nová Marka (Braniborsko) – sever Lubušska

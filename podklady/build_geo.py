@@ -16,6 +16,10 @@ for f in raw['features']:
     st=assign(p['adm0_a3'],p['name'],p.get('geonunit'))
     if st in ('mos','nov','kaz','hor') and g.representative_point().x>54: st=None
     if st is None: unk.setdefault(p['adm0_a3'],[]).append(p['name']); st='_none'
+    if p['name']=='Stereá Elláda' and g.geom_type=='MultiPolygon':   # Negroponte (Euboia) je benátská
+        eub=[q for q in g.geoms if q.centroid.x>23.2 and q.centroid.y>38.3 and q.area>0.3]
+        if eub:
+            groups.setdefault('ven',[]).extend(eub); g=unary_union([q for q in g.geoms if q not in eub])
     groups.setdefault(st,[]).append(g)
     if p['adm0_a3'] in HRE_A3 or p['name'] in HRE_N.get(p['adm0_a3'],()):
         if not (p['adm0_a3']=='DEU' and p['name']=='Schleswig-Holstein'): hre.append(g)
