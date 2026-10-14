@@ -486,6 +486,39 @@ a.pchar:hover{border-color:var(--kal)}
 .dompoly:hover{filter:brightness(1.12)}
 #domlegend{display:flex;flex-direction:column;gap:4px}
 @media (min-width:821px){.artgrid.pgrid{grid-template-columns:300px minmax(0,1fr)}.artgrid.pgrid>.infobox{order:-1}}
+
+/* slovníček */
+.gloss{display:grid;grid-template-columns:minmax(150px,220px) 1fr;gap:0;margin:0;border-top:1px solid var(--rule)}
+.gloss dt{font-family:var(--f-disp);font-size:1.25rem;color:var(--kal);padding:10px 12px 10px 0;border-bottom:1px solid var(--rule);scroll-margin-top:12px;transition:background .4s}
+.gloss dd{margin:0;padding:10px 0;border-bottom:1px solid var(--rule)}
+.gloss dt.flash,.gloss dt.flash+dd{background:color-mix(in srgb,var(--gold) 22%,transparent)}
+.gref{font-family:var(--f-label);font-size:.82rem;letter-spacing:.04em;white-space:nowrap;margin-left:4px}
+@media (max-width:640px){.gloss{grid-template-columns:1fr}.gloss dt{border-bottom:0;padding-bottom:0}}
+
+/* kalendář */
+.kal{background:var(--paper);border:1px solid var(--rule);border-left:3px solid var(--gold);padding:10px 14px;display:flex;flex-direction:column;gap:6px}
+.kalhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px}
+.kalhead b{font-family:var(--f-disp);font-weight:500;font-size:1.3rem;color:var(--kal)}
+.kalhead a{font-family:var(--f-label);letter-spacing:.04em;color:var(--muted)}
+.kallist{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:auto auto 1fr auto;gap:2px 14px;font-size:.93rem}
+.kallist li{display:contents}
+.kallist .kd{font-family:var(--f-label);font-weight:700;color:var(--gold);white-space:nowrap}
+.kallist .kn{font-weight:700}
+.kallist .kw{color:var(--muted)}
+.kallist .kr{font-family:var(--f-label);font-size:.82rem;color:var(--muted);text-align:right;white-space:nowrap}
+.kallist li.hp .kn{color:var(--kal)}
+.kallist li.inf .kn{font-weight:400}
+.gref{color:var(--kal)}
+.kal .kw a{color:var(--kal)}
+@media (max-width:640px){.kallist{grid-template-columns:auto 1fr}.kallist .kw,.kallist .kr{grid-column:2}.kallist .kr{text-align:left}}
+
+/* mobil: mapa nad ovládáním, kratší úvod */
+@media (max-width:640px){
+  #mapa>.legend{display:none}
+  .mapbox>svg#map{order:-1}
+  .kal .kallist li:nth-child(n+3){display:none}
+  .kal .kallist{font-size:.88rem}
+}
 /* vlastní kurzory (jen počítač) */
 html{cursor:url(art/kurzory/brk.png) 2 1,auto;cursor:-webkit-image-set(url(art/kurzory/brk.png) 1x,url(art/kurzory/brk@2x.png) 2x) 2 1,auto;cursor:image-set(url(art/kurzory/brk.png) 1x,url(art/kurzory/brk@2x.png) 2x) 2 1,auto}
 a,button,select,summary,label[for],[role=link],[role=button],.card,.seat,.gnode,.dompoly,.partymk,.discmk,.maplink,.plink,.flink,.rtab.dlist tbody tr,.zcard,.achap,.qk,.pchar{cursor:url(art/kurzory/ruka.png) 0 1,pointer !important;cursor:-webkit-image-set(url(art/kurzory/ruka.png) 1x,url(art/kurzory/ruka@2x.png) 2x) 0 1,pointer !important;cursor:image-set(url(art/kurzory/ruka.png) 1x,url(art/kurzory/ruka@2x.png) 2x) 0 1,pointer !important}
@@ -516,6 +549,7 @@ svg#map.measuring .seat{cursor:url(art/kurzory/kruzidlo.png) 4 2,crosshair !impo
 <div class="view" data-view="mapa">
 <section class="sec" id="mapa">
   <p class="lead">Den po volbě Jiřího z Poděbrad na Staroměstské radnici. Ladislav Pohrobek je od listopadu 1457 mrtev a nový král ještě není korunován. Čechy a Morava jsou nábožensky rozdělené, vedlejší země Koruny, Slezsko a obě Lužice, jsou převážně katolické a „kacířského“ krále přijímají neochotně nebo vůbec. Za hranicemi čekají sousedé, z nichž dva si na trůn sami dělají nárok.</p>
+  <div class="kal" id="kal1"></div>
   <div class="legend" aria-label="Legenda">
     <span><img class="legico" src="art/img/vira-kat.webp" alt="">katolíci</span>
     <span><img class="legico" src="art/img/vira-kal.webp" alt="">kališníci (utrakvisté)</span>
@@ -553,7 +587,7 @@ svg#map.measuring .seat{cursor:url(art/kurzory/kruzidlo.png) 4 2,crosshair !impo
         <button type="button" id="lyHolds" aria-pressed="true">Sídla rodů</button>
         <button type="button" id="lyCities" aria-pressed="true">Města</button>
         <button type="button" id="lyRoads" aria-pressed="false">Cesty</button>
-        <button type="button" id="lyDom" aria-pressed="false">Panství rodů</button>
+        <button type="button" id="lyDom" aria-pressed="false" title="Hrubý odhad podle rodových sídel">Panství rodů (odhad)</button>
         <button type="button" id="lyDuchy" aria-pressed="false">Země a knížectví</button>
         <button type="button" id="lyDio" aria-pressed="false">Diecéze</button>
         <button type="button" id="lyParty" aria-pressed="true">Družina</button>
@@ -569,7 +603,7 @@ svg#map.measuring .seat{cursor:url(art/kurzory/kruzidlo.png) 4 2,crosshair !impo
       </div>
       <div id="diolegend" class="diolegend" hidden></div>
       <div id="duchlegend" class="diolegend" hidden></div>
-      <p id="domlegend" class="diolegend" hidden><span class="lbl">Panství rodů</span><span>Schematické rozložení panství kolem rodových sídel. Bílá místa patří králi, církvi, rytířstvu a drobné šlechtě; šrafované plochy jsou městské državy. Kliknutím na panství vyberete rod.</span></p>
+      <p id="domlegend" class="diolegend" hidden><span class="lbl">Panství rodů · hrubý odhad</span><span><b>Nejde o přesnou mapu majetku.</b> Území jsou dopočítaná jen z rodových sídel zapsaných v zemských deskách, takže velké rody (např. Rožmberkové) mohly ve skutečnosti držet mnohem víc. Bílá místa patří králi, církvi, rytířstvu a drobné šlechtě; šrafované plochy jsou městské državy. Kliknutím na panství vyberete rod.</span></p>
       <p class="mapnote">Hranice jsou schematické.</p>
     </div>
     <aside class="detail empty" id="detail" aria-live="polite"></aside>
@@ -649,6 +683,7 @@ svg#map.measuring .seat{cursor:url(art/kurzory/kruzidlo.png) 4 2,crosshair !impo
 
 <div class="view" data-view="kronika" hidden>
 <nav class="subnav" aria-label="Kronika"><a href="#kronika" data-ksub="zapisy">Zápisy tažení</a><a href="#kronika/clanky" data-ksub="clanky">Články</a><a href="#kronika/letopis" data-ksub="letopis">Letopis</a></nav>
+<div class="kal" id="kal2"></div>
 <section class="sec" id="kzapisy"></section>
 <section class="sec" id="kclanky" hidden>
   <p class="intro">Články o světě po protržení Závoje: o zemích, řádech, pověstech a tajemstvích.</p>
@@ -2229,10 +2264,41 @@ const note=(t,h)=>`<div class="rnote"><b>${t}</b> ${h}</div>`;
 const xl=(ch,sec,t)=>`<a href="#artikule/${ch}${sec?"/"+sec:""}">${t}</a>`;
 const Z={P:`<b class="zv zp">Pokušení</b>`,B:`<b class="zv zb">Požehnání</b>`};
 
+/* ---------- Slovníček pojmů ---------- */
+const GLOSS=[
+ {id:"zavoj",t:"Závoj",ch:"zavoj",f:["Závoj","Závoje","Závojem","Závoji"],d:"Hranice mezi naším světem a světem jiným. Od Noci Proměny je protržený a každý čin smrtelníků váží bytosti za ním – křesťan řekne Bůh a ďábel, starověrec duchové míst a předků."},
+ {id:"noc",t:"Noc Proměny",ch:"zavoj",f:["Noc Proměny","Noci Proměny"],d:"Noc roku 1420 v době bitvy na Vítkově, kdy se roztrhl Závoj. Svět odhalil svou pravou podobu: probudila se magie, Staří bohové i draci a někteří lidé se proměnili."},
+ {id:"promenenci",t:"Proměněnci",ch:"vyznani",f:["Proměněnci","Proměněnec","Proměněnců","Proměněncem","Proměněncům"],d:"Lidé, jejichž podobu změnila Noc Proměny. Kališnický feat víry <i>Pravda Páně</i> dokáže rozpoznat, zda je někdo ovlivněn Závojem."},
+ {id:"starobozi",t:"Staří bohové",ch:"vyznani",f:["Staří bohové","Starých bohů","Starých Bohů","Starým bohům","Starého boha","Starými bohy"],d:"Pohanská božstva Slovanů, Bójů a Markomanů, která Noc Proměny znovu probudila. Uctívají je starověrci; jejich přítomnost je cítit na posvátných místech – v hájích, u pramenů a mohyl."},
+ {id:"vyznani",t:"Vyznání",ch:"vyznani",f:[],d:"Víra postavy: <b>kališník</b>, <b>katolík</b>, nebo <b>starověrec</b>. Určuje Ctnosti a Neřesti, svátky i feat víry."},
+ {id:"kostka",t:"Kostka Závoje",ch:"zavoj",f:["kostka Závoje","kostku Závoje","kostce Závoje","kostky Závoje","Kostka Závoje","Kostku Závoje"],d:"K6 házená ke každému testu dovednosti a hodu na útok. 1–2 Pokušení, 3–4 nic, 5–6 Požehnání. Výsledek d20 nemění, jen něco přidává."},
+ {id:"pokuseni",t:"Pokušení",ch:"zavoj",f:["Pokušení"],d:"Výsledek 1–2 na kostce Závoje. Kdo ho přijme, získá bod hříchu; kdo odmítne, čelí komplikaci."},
+ {id:"pozehnani",t:"Požehnání",ch:"zavoj",f:["Požehnání"],d:"Výsledek 5–6 na kostce Závoje: dodatečný příznivý účinek. Na Požehnání se váží i některé šermířské techniky a vlastnosti zbraní."},
+ {id:"hodiny",t:"Hodiny Závoje",ch:"zavoj",f:["Hodiny Závoje","Hodinách Závoje","Hodin Závoje"],d:"Půlnoc, poledne, doba po večerním klekání a slunovraty. Závoj je nejtenčí a Pokušení padá už na 1–3."},
+ {id:"svatek",t:"Svátek",ch:"zavoj",f:[],d:"Den svátku podle vyznání postavy (svatý patron, Hus, vynášení Morany…). Požehnání padá už na 4–6."},
+ {id:"hodina-pravdy",t:"Hodina Pravdy",ch:"zavoj",f:["Hodina Pravdy","Hodině Pravdy","Hodinu Pravdy","Hodiny Pravdy"],d:"Souběh Hodiny Závoje a svátku: Pokušení na 1–3, Požehnání na 4–6, nic neutrálního. Trvá vždy jen hodinu; přirozeně nastává o Filipojakubské a Svatojánské noci a o Půlnoční na Štědrý den."},
+ {id:"ctnosti",t:"Ctnosti a Neřesti",ch:"ctnosti",f:["Ctnosti a Neřesti","Ctnost","Ctnosti","Neřest","Neřesti"],d:"Každá postava má dvě Ctnosti (v čem je silná) a dvě Neřesti (kde ji ďábel nejsnáze svede). Jednání podle nich přináší body hříchu či dobrých skutků i Heroic Inspiration."},
+ {id:"hrich",t:"Všední a smrtelný hřích",ch:"ctnosti",f:["Všední hřích","všední hřích","Smrtelný hřích","smrtelný hřích","bod hříchu","body hříchu"],d:"Všední hřích dává 1 bod hříchu (proti vlastní Ctnosti 2). Smrtelný hřích – vražda bezbranného, zrada, mučení, křivá přísaha – sníží Svědomí okamžitě o 1 (proti Ctnosti o 2)."},
+ {id:"skutek",t:"Dobré skutky",ch:"ctnosti",f:["dobrých skutků","Dobré skutky","velký skutek","Velký skutek"],d:"Jednání podle Ctnosti, které něco stojí, dává bod dobrých skutků. Skutečná oběť nebo riziko života je velký skutek: Svědomí +1 hned."},
+ {id:"svedomi",t:"Svědomí",ch:"svedomi",f:["Svědomí"],d:"Hodnota 0–10 (začíná na 5) a čtyři stavy: Zatracený, Na scestí, Na vážkách, V milosti. Každý stav má výhody i nevýhody."},
+ {id:"zpytovani",t:"Zpytování svědomí",ch:"svedomi",f:["Zpytování svědomí","Zpytování Svědomí"],d:"Na konci sezení hod k10: body hříchu ≥ hod → Svědomí −1; dobré skutky ≥ hod → +1. Obojí může platit zároveň."},
+ {id:"feat",t:"Feat víry",ch:"vyznani",f:["Feat víry","feat víry","featu víry","Featu víry"],d:"Schopnosti vyznání o třech stupních. Ve stavu Zatracený přestávají fungovat."},
+ {id:"vydrz",t:"Výdrž",ch:"serm",f:["Výdrž","Výdrže","Výdrží"],d:"Zdroj válečníků pro šermířské techniky a zápasnické chvaty, obnovuje se dlouhým odpočinkem. Fighter má Výdrž rovnou bonusu zdatnosti, ostatní bojová povolání polovinu."},
+ {id:"techniky",t:"Šermířské techniky a chvaty",ch:"serm",f:["šermířské techniky","šermířských technik","zápasnické chvaty","zápasnických chvatů"],d:"Bojové umění, které učí jen šermířští mistři – každý svou školu a jen toho, koho přijme. Stojí Výdrž a často i Požehnání."},
+ {id:"obetovani",t:"Obětování zbroje",ch:"vyzbroj",f:["obětovat zbroj","Obětování zbroje"],d:"Při kritickém zásahu smí postava obětovat zbroj nebo štít a crit se změní v běžný zásah. Vycpávaná zbroj a štít vydrží 1×, kroužková 2×, plátová a komplexní 3×."},
+ {id:"kriticke",t:"Kritické zranění",ch:"kriticka",f:["kritické zranění","kritická zranění","Kritické zranění","Kritická zranění","kritického zranění"],d:"S každým critem se hází na závažnost (k10) a zasaženou část těla (kostka Závoje). Následky sahají od zvonění v hlavě po useknutou paži."},
+ {id:"znameni",t:"Znamení návratu",ch:"zraneni",f:["Znamení návratu","Znamení Návratu"],d:"Stopa, kterou zanechá každé vzkříšení – neutuchající chlad, opožděný stín, jiná barva očí. Další vzkříšení běžným kouzlem už není možné."},
+ {id:"revenant",t:"Revenant",ch:"zraneni",f:["Revenant"],d:"Zvláštní feat Navrácených, kteří se vrátili ze smrti. Zatím zahalen tajemstvím."},
+ {id:"pacholci",t:"Pacholci a houf",ch:"iniciativa",f:["Pacholci","pacholci","pacholků","houf","houfu","Houf"],d:"Nejslabší protivníci: 1 HP, nehází Závoj. Bojují v houfech s jediným tahem a jediným hodem na útok; když padne polovina nebo velitel, prchají."},
+ {id:"sok",t:"Sok",ch:"iniciativa",f:["Sok"],d:"Protivník s běžnými statistikami, hází Závoj a může znát techniky. Kritický zásah ho porazí; smí poslat pacholka do rány místo sebe."},
+ {id:"zhoubce",t:"Zhoubce",ch:"iniciativa",f:["Zhoubce","Zhoubci"],d:"Úhlavní protivník, který hraje podle stejných pravidel jako hráči. Díky Ďáblovu štěstí často unikne smrti."}
+];
+const GCH={ctnosti:"Ctnosti a hříchy",zavoj:"Závoj",svedomi:"Svědomí",vyznani:"Vyznání",iniciativa:"Iniciativa a protivníci",vyzbroj:"Výzbroj",serm:"Šerm a zápas",zraneni:"Zranění a smrt",kriticka:"Kritická zranění"};
 const ARTB=[
   {id:"vira",t:"Kniha první",n:"Víra",d:"Ctnosti a hříchy, Závoj, Svědomí a Vyznání – co se děje s duší postavy."},
   {id:"boj",t:"Kniha druhá",n:"Boj",d:"Iniciativa a protivníci, zbroj a zbraně, šerm a zápas."},
-  {id:"rany",t:"Kniha třetí",n:"Rány",d:"Zranění, smrt, návrat a kritická zranění."}
+  {id:"rany",t:"Kniha třetí",n:"Rány",d:"Zranění, smrt, návrat a kritická zranění."},
+  {id:"rejstrik",t:"Dodatek",n:"Rejstřík",d:"Slovníček pojmů, které Artikule používají."}
 ];
 const ARTK=[
 /* ======== KNIHA I · VÍRA ======== */
@@ -2470,7 +2536,11 @@ const ARTK=[
    ["Kyselina / Jed","<b>Dávení</b> – bez reakce a bonusové akce","<b>Žíravina</b> – nevýhoda na CON saves","<b>Černá krev</b> – Poisoned","<b>Selhání těla</b>"],
    ["Svatá / Prokletá","<b>Předzvěst Závoje</b> – Pokušení padá na 1–4 při příštím hodu","<b>Předtucha smrti</b> – max. HP −10","<b>Cejch Závoje</b> – Pokušení ti padá na 1–3","<b>Rozervaná duše</b> <i>(nelze vzkřísit běžnými kouzly)</i>"],
    ["Psychická","<b>Zmatení</b> – příští útok míří na náhodný cíl","<b>Pomatení</b> – nevýhoda na WIS saves","<b>Hlasy v hlavě</b> – nevýhoda na INT/WIS skillchecky a Concentration","<b>Šílenství</b>"]],"","crit")}`}
- ]}
+ ]},
+{id:"pojmy",book:"rejstrik",t:"Slovníček pojmů",img:"drak.webp",wide:1,
+ sum:"Závoj, Svědomí, Výdrž, Proměněnci a další pojmy na jednom místě.",
+ intro:`<p>Krátká vysvětlení pojmů, se kterými Artikule i Kronika pracují. Podrobnosti najdete v kapitolách, na které pojmy odkazují.</p>`,
+ secs:[{id:"pojmy-vse",t:"Pojmy od A do Ž",h:`<dl class="gloss">${GLOSS.slice().sort((a,b)=>a.t.localeCompare(b.t,"cs")).map(g=>`<dt id="as-p-${g.id}">${g.t}</dt><dd>${g.d} <a class="gref" href="#artikule/${g.ch}">→ ${GCH[g.ch]}</a></dd>`).join("")}</dl>`}]}
 ];
 const AK=Object.fromEntries(ARTK.map(k=>[k.id,k]));
 /* fulltext index over sections */
@@ -2531,7 +2601,8 @@ function renderArtikule(b,c){
   aq.addEventListener("input",run); if(artQ)run();
   const tg=side.querySelector(".atoggle");tg.addEventListener("click",()=>{const o=side.classList.toggle("open");tg.setAttribute("aria-expanded",o)});
   ar.addEventListener("click",e=>{const a=e.target.closest("a[data-q]");if(a)window._artHi=a.dataset.q});
-  if(k&&c){const el=document.getElementById("as-"+c);if(el){if(window._artHi){hiliteIn(el,window._artHi);window._artHi=null}requestAnimationFrame(()=>el.scrollIntoView({block:"start"}));return true}}
+  if(k&&k.id!=="pojmy")autolink(main,"",v=>v.g&&v.g!==k.id);
+  if(k&&c){const el=document.getElementById("as-"+c);if(el){if(el.tagName==="DT"){el.classList.add("flash");setTimeout(()=>el.classList.remove("flash"),2200)}if(window._artHi){hiliteIn(el,window._artHi);window._artHi=null}requestAnimationFrame(()=>el.scrollIntoView({block:"start"}));return true}}
   return false;
 }
 
@@ -2641,6 +2712,37 @@ function drawParty(svg,s,k){
   svg.appendChild(g);
 }
 
+
+/* ---------- Kalendář tažení (juliánský kalendář) ---------- */
+const MES=["ledna","února","března","dubna","května","června","července","srpna","září","října","listopadu","prosince"];
+const DNY=["neděle","pondělí","úterý","středa","čtvrtek","pátek","sobota"];
+const jdn=(y,m,d)=>{const a=Math.floor((14-m)/12),Y=y+4800-a,M=m+12*a-3;return d+Math.floor((153*M+2)/5)+365*Y+Math.floor(Y/4)-32083};
+const fromJdn=j=>{const c=j+32082,d=Math.floor((4*c+3)/1461),e=c-Math.floor(1461*d/4),m=Math.floor((5*e+2)/153);return [d-4800+Math.floor(m/10),m+3-12*Math.floor(m/10),e-Math.floor((153*m+2)/5)+1]};
+function easter(y){const a=y%4,b=y%7,c=y%19,d=(19*c+15)%30,e=(2*a+4*b-d+34)%7,s=d+e+114;return jdn(y,Math.floor(s/31),s%31+1)}
+function feasts(y){const E=easter(y);return [
+ {j:jdn(y,4,23),n:"sv. Vojtěch",w:"katolíci s patronem sv. Vojtěchem",p:1},
+ {j:jdn(y,4,24),n:"sv. Jiří",w:"katolíci s patronem sv. Jiřím",p:1},
+ {j:jdn(y,7,25),n:"sv. Kryštof",w:"katolíci s patronem sv. Kryštofem",p:1},
+ {j:jdn(y,9,16),n:"sv. Ludmila",w:"katolíci s patronkou sv. Ludmilou",p:1},
+ {j:jdn(y,9,28),n:"sv. Václav",w:"katolíci s patronem sv. Václavem",p:1},
+ {j:jdn(y,7,6),n:"Mistr Jan Hus",w:"kališníci",p:1},
+ {j:E-14,n:"Smrtná neděle – vynášení Morany",w:"starověrci (Morana)",p:1},
+ {j:jdn(y,4,30),n:"Filipojakubská noc",w:"všichni",hp:1},
+ {j:jdn(y,6,23),n:"Svatojánská noc",w:"všichni",hp:1},
+ {j:jdn(y,12,24),n:"Půlnoční na Štědrý den",w:"všichni",hp:1},
+ {j:E,n:"Boží hod velikonoční",w:"",info:1},
+ {j:jdn(y,12,25),n:"Boží hod vánoční",w:"",info:1}]}
+function renderKal(){
+  const last=[...ZAPISY].reverse().find(z=>/^\d{4}-\d{2}-\d{2}$/.test(z.datum||""));
+  const [Y,M,D]=(last?last.datum:"1458-03-03").split("-").map(Number), today=jdn(Y,M,D);
+  const up=[...feasts(Y),...feasts(Y+1)].filter(f=>f.j>=today).sort((a,b)=>a.j-b.j).slice(0,5);
+  const fd=j=>{const [y,m,d]=fromJdn(j);return `${d}. ${MES[m-1]}`+(y!==Y?` ${y}`:"")};
+  const rel=j=>{const n=j-today;return n===0?"dnes":n===1?"zítra":`za ${n} ${n<5?"dny":"dní"}`};
+  const html=`<div class="kalhead"><span class="lbl">Kalendář tažení</span><b>${DNY[(today+1)%7]} ${D}. ${MES[M-1]} léta Páně ${Y}</b>${last?`<a href="#kronika/${last.id}">${last.place}</a>`:""}</div>
+   <ul class="kallist">${up.map(f=>`<li class="${f.hp?"hp":f.info?"inf":""}"><span class="kd">${fd(f.j)}</span><span class="kn">${f.n}</span><span class="kw">${f.hp?`<a href="#artikule/pojmy/p-hodina-pravdy">Hodina Pravdy</a>`:f.info?"":`Požehnání 4–6: ${f.w}`}</span><span class="kr">${rel(f.j)}</span></li>`).join("")}</ul>`;
+  document.querySelectorAll(".kal").forEach(k=>k.innerHTML=html);
+}
+renderKal();
 /* --- AUTOMATICKÉ ODKAZY --- */
 const AL=(()=>{
   const terms=new Map(),esc=s=>s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
@@ -2666,11 +2768,12 @@ const AL=(()=>{
     "Řezno":["Řezna","Řezně"],"Pasov":["Pasova","Pasově"],"Linec":["Lince","Linci"],"Drážďany":["Drážďan","Drážďanech"],"Poznaň":["Poznaně","Poznani"],"Český Krumlov":["Českého Krumlova","Českém Krumlově"],
     "Lehnice":["Lehnici"],"Svídnice":["Svídnici"],"Litice":["Liticích"],"Kunvald":["Kunvaldu"]};
   FAM.forEach(f=>{if(f.nomap)return;f.seats.forEach(sd=>{const base=sd[0].replace(/\s*\(.*\)$/,"");const v={p:sd[0],f:f.id};add(base,v);(CAL[base]||[]).forEach(a=>add(a,v))})});
+  GLOSS.forEach(g=>g.f.forEach(x=>{if(!terms.has(x))terms.set(x,{h:"#artikule/pojmy/p-"+g.id,g:g.ch})}));
   const keys=[...terms.keys()].sort((a,b)=>b.length-a.length).map(esc);
   return {terms,re:new RegExp(`(?<![\\p{L}\\p{N}])(${keys.join("|")})(?![\\p{L}\\p{N}])`,"gu")};
 })();
 const AL_SKIP="a,button,h1,h2,h3,h4,.crumbs,dt,label,.faith,.svm,.noal,input,select,summary";
-function autolink(root,self){
+function autolink(root,self,filter){
   if(!root)return; const used=new Set();
   const tw=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>!n.nodeValue.trim()||n.parentElement.closest(AL_SKIP)?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT});
   const nodes=[];let n;while(n=tw.nextNode())nodes.push(n);
@@ -2678,7 +2781,7 @@ function autolink(root,self){
     const s=node.nodeValue;AL.re.lastIndex=0;let m,last=0;const frag=document.createDocumentFragment();
     while(m=AL.re.exec(s)){
       const v=AL.terms.get(m[1]),key=v&&(v.h||v.p);
-      if(!v||v.h===self||used.has(key))continue; used.add(key);
+      if(!v||v.h===self||used.has(key)||(filter&&!filter(v)))continue; used.add(key);
       frag.append(s.slice(last,m.index));
       let e; if(v.h){e=document.createElement("a");e.href=v.h;e.className="al"}else{e=document.createElement("button");e.type="button";e.className="maplink al";e.dataset.id=v.f;e.dataset.place=v.p}
       e.textContent=m[1];frag.append(e);last=m.index+m[1].length;
@@ -2697,6 +2800,7 @@ const GIDX=[];
   DUCHY.forEach(u=>GIDX.push({k:"Země",n:u.name,s:u.s,duchy:u.id,t:norm(u.name+" "+u.s),b:norm(u.note)}));
   DIO.forEach(d=>GIDX.push({k:"Diecéze",n:d.name,s:"církevní správa",dio:d.id,t:norm(d.name),b:norm(d.note)}));
   ARTK.forEach(k=>k.secs.forEach(s=>GIDX.push({k:"Artikule",n:s.t,s:k.t,h:`#artikule/${k.id}/${s.id}`,t:norm(s.t+" "+k.t),b:norm(strip(s.h))})));
+  GLOSS.forEach(g=>GIDX.push({k:"Pojem",n:g.t,s:g.d.replace(/<[^>]+>/g,"").slice(0,70)+"…",h:"#artikule/pojmy/p-"+g.id,t:norm(g.t+" "+g.f.join(" ")),b:norm(g.d)}));
   ZAPISY.forEach(z=>GIDX.push({k:"Kronika",n:z.title,s:z.n+" · "+z.date,h:"#kronika/"+z.id,t:norm(z.title+" "+z.place),b:norm(strip(z.text))}));
   PARTY.forEach(p=>GIDX.push({k:"Družina",n:p.n,s:p.epi||"",h:"#druzina/"+p.id,t:norm(p.n+" "+(p.epi||"")),b:norm(strip(p.x||""))}));
   document.querySelectorAll("#letopis dt").forEach(dt=>{const dd=dt.nextElementSibling;GIDX.push({k:"Letopis",n:dt.textContent,s:dd.textContent.slice(0,70)+"…",h:"#kronika/letopis",t:norm(dt.textContent),b:norm(dd.textContent)})});
