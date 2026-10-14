@@ -180,6 +180,17 @@ header.site{display:flex;flex-direction:column;gap:0;border:0;padding:0}
 .sitenav a{font-family:var(--f-disp);font-size:1.35rem;color:var(--ink);text-decoration:none;padding:2px 2px;border-bottom:2px solid transparent}
 .sitenav a:hover{color:var(--kal)}
 .sitenav a.on{color:var(--kal);border-bottom-color:var(--kal)}
+.navdd{position:relative;display:inline-block}
+.navdd .svitek{position:absolute;left:50%;top:100%;transform:translateX(-50%);padding-top:10px;z-index:40;pointer-events:none}
+.svitek .roll{display:block;height:13px;margin:0 -12px;border-radius:7px;border:1px solid var(--ink);background:linear-gradient(var(--hill),var(--paper) 40%,var(--paper) 55%,var(--hill));box-shadow:0 2px 3px rgba(0,0,0,.25);opacity:0;transition:opacity .2s}
+.svitek .svlist{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:220px;max-height:0;overflow:hidden;padding:0 18px;background:var(--paper);border-left:1px solid var(--rule);border-right:1px solid var(--rule);background-image:linear-gradient(90deg,rgba(0,0,0,.06),transparent 12%,transparent 88%,rgba(0,0,0,.06));transition:max-height .45s ease,padding .45s ease}
+.svitek .svlist a{white-space:nowrap;font-size:1.2rem}
+.navdd:hover .svitek,.navdd:focus-within .svitek,.navdd.open .svitek{pointer-events:auto}
+.navdd:hover .roll,.navdd:focus-within .roll,.navdd.open .roll{opacity:1}
+.navdd:hover .svlist,.navdd:focus-within .svlist,.navdd.open .svlist{max-height:160px;padding:10px 18px}
+@media (prefers-reduced-motion:reduce){.svitek .svlist,.svitek .roll{transition:none}}
+.sitenav{align-items:baseline}
+@media (max-width:640px){.svitek .svlist{min-width:0;padding:0 12px}.svitek .svlist a{font-size:1.05rem}.navdd:hover .svlist,.navdd:focus-within .svlist,.navdd.open .svlist{padding:8px 12px}.svitek .roll{margin:0 -8px}}
 .sitenav a:focus-visible,.subnav a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 main{display:block}
 .view{display:flex;flex-direction:column;gap:40px;padding-top:24px}
@@ -543,7 +554,6 @@ a.pchar:hover{border-color:var(--kal)}
 @media (max-width:860px){.uvgrid{grid-template-columns:minmax(0,1fr)}}
 
 /* Praha */
-.pveduta img{border:1px solid var(--rule);max-height:360px;object-fit:cover;object-position:center 40%}
 #pmap{width:100%;height:auto;display:block;touch-action:none;background:var(--land)}
 .pdet a{color:var(--kal)}
 .pmk{cursor:pointer}.pmk:focus-visible circle{stroke:var(--gold)}
@@ -599,8 +609,8 @@ svg#map.measuring .seat{cursor:url(art/kurzory/kruzidlo.png) 4 2,crosshair !impo
     <a href="#draconomicon" data-nav="draconomicon">Draconomicon</a>
     <a href="#druzina" data-nav="druzina">Družina</a>
     <a href="#kronika" data-nav="kronika">Kronika</a>
-    <a href="#mapa" data-nav="mapa">Mapa</a>
-    <a href="#praha" data-nav="praha">Praha</a>
+    <div class="navdd" id="navmapy"><a href="#mapa" class="ddtop" data-navgrp="mapa praha" aria-haspopup="true" aria-expanded="false">Mapy</a>
+      <div class="svitek"><span class="roll"></span><div class="svlist"><a href="#mapa" data-nav="mapa">Země Koruny České</a><a href="#praha" data-nav="praha">Praha</a></div><span class="roll"></span></div></div>
     <a href="#desky" data-nav="desky">Zemské desky</a>
     <div class="gsearch" role="search"><input type="search" id="gq" placeholder="Hledat v celé kronice…" aria-label="Hledat na celém webu" autocomplete="off"><ul class="gres" id="gres" hidden></ul></div>
   </nav>
@@ -746,7 +756,6 @@ svg#map.measuring .seat{cursor:url(art/kurzory/kruzidlo.png) 4 2,crosshair !impo
 </div>
 
 <div class="view" data-view="praha" hidden>
-<figure class="rfig pveduta"><img src="art/praha-veduta.webp" alt="Iluminovaný pohled na Prahu: Hrad, Malá Strana, Kamenný most a Staré a Nové Město" loading="lazy" width="1440" height="1091"></figure>
 <p class="intro">Praha léta Páně 1458 jsou vlastně čtyři města: Hrad s Hradčany, Malá Strana, Staré a Nové Město, spojená jediným kamenným mostem. Čísla označují místa, kde se rozhoduje o osudu království – i ta, kde se o něm jen u piva mluví. Barva okraje čísla ukazuje vyznání: <b style="color:var(--kal)">kališnické</b>, <b style="color:var(--kat)">katolické</b>, <b style="color:var(--mix)">smíšené</b>, <b style="color:var(--gold)">ostatní</b>. Kostely nesou křížek, hospody mají hranatý štítek.</p>
 <div class="mapgrid">
   <div class="mapbox" id="pmapbox">
@@ -2750,13 +2759,13 @@ const PRAHA_PLACES=[
  {n:43,k:"cirkev",t:"nove",name:"Kostel sv. Jindřicha",c:"kal",d:"Farní kostel Jindřišské čtvrti Nového Města. Kališnická fara s velkým hřbitovem a ještě větší farní zahradou."},
  {n:44,k:"cirkev",t:"nove",name:"Kostel sv. Štěpána",c:"kal",d:"Farní kostel horní části Nového Města, kališnický, s rozlehlým hřbitovem na kraji vinic."},
  {n:45,k:"cirkev",t:"nove",name:"Kostel sv. Petra na Poříčí",c:"kal",d:"Starobylý farní kostel na Poříčí, kde kdysi sídlila osada německých kupců. Dnes kališnický a obklopený mlýny a koželuhy."},
- {n:46,k:"hospoda",t:"stare",name:"Hostinec U Zlatého jelena",c:"",d:"Hostinec v Celetné, kudy vjíždějí kupci od Horské brány. U stolů se mluví česky i německy a za groš se tu dozvíte, kdo přijel do Prahy a s jakým doprovodem."},
- {n:47,k:"hospoda",t:"stare",name:"Krčma U Tří studní",c:"kal",d:"Krčma za Malým rynkem, kam chodí písaři z radnice a od desk. Pivo je řídké, ale drby hutné."},
- {n:48,k:"hospoda",t:"stare",name:"Vinárna U Slona",c:"kat",d:"Vinárna u Týna, oblíbená mezi cizími kupci z Ungeltu. Nalévá se rakouské i rýnské víno a katolíci tu mluví volněji než jinde ve městě."},
- {n:49,k:"hospoda",t:"stare",name:"Krčma U Tří lilií",c:"kal",d:"Krčma u hradeb na rozhraní Starého a Nového Města. Scházejí se tu novoměstští řemeslníci, kteří dodnes s úctou vzpomínají na Jana Želivského."},
- {n:50,k:"hospoda",t:"mala",name:"Pivovar u sv. Tomáše",c:"",d:"Pivovar augustiniánů u sv. Tomáše vaří od časů Karla IV. Klášter po roce 1420 zpustl, ale várka se nevzdala – zdejší pivo teče až na Hrad."},
- {n:51,k:"hospoda",t:"nove",name:"Pivovar u Dobytčího trhu",c:"kal",d:"Novoměstský pivovar na kraji Dobytčího trhu. V trhové dny tu sedí honáci, řezníci a dráteníci a o rvačku není nouze."},
- {n:52,k:"hospoda",t:"nove",name:"Lázeň pod Půčkou",c:"",d:"Městská lázeň pod Půčkou. Lazebník pustí žílou, oholí a za příplatek přidá zprávy z celé čtvrti; večer se tu hraje v kostky."}
+ {n:46,k:"hospoda",t:"stare",name:"Pivovar U Medvídků",c:"",d:"Dům na Perštýně, doložený roku 1404. Roku 1433 jej koupil sladovník Mikuláš i s právem vařit pivo a od roku 1438 tu vaří Jakub Starostka; u medvědího znamení se pije pivo uvařené pár kroků od stolu."},
+ {n:47,k:"hospoda",t:"stare",name:"Králova lázeň",c:"",d:"Lázeň u řeky pod Starým Městem, nedaleko mlýnů a celnice u mostu. Lazebníci tu pouštějí žilou, holí a stříhají a v páře se probírá všechno, co se ve městě šušká."},
+ {n:48,k:"hospoda",t:"mala",name:"Pivovar u sv. Tomáše",c:"",d:"Pivovar augustiniánů u sv. Tomáše, založený roku 1352 za Karla IV. Klášter roku 1420 zpustl, ale várka se nevzdala – zdejší pivo teče až na Hrad."},
+ {n:49,k:"hospoda",t:"mala",name:"Dům U Dvou modrých koulí",c:"",d:"Dům v ulici k mostu, který roku 1412 vlastnil sládek. Kdo přejde most z Hradu do Starého Města nebo opačně, má tu poslední příležitost se napít."},
+ {n:50,k:"hospoda",t:"nove",name:"Pivovar u Dobytčího trhu",c:"",d:"Pivovar na západní straně Dobytčího trhu, doložený už ve 14. století. V trhové dny tu sedí honáci, řezníci a dráteníci a o rvačku není nouze."},
+ {n:51,k:"hospoda",t:"nove",name:"Lázeň pod Půčkou",c:"",d:"Městská lázeň pod Půčkou na Novém Městě, jedna z několika lázní v okolí Dobytčího trhu. Lazebník pustí žilou, oholí a přidá zprávy z celé čtvrti."},
+ {n:52,k:"hospoda",t:"nove",name:"Pivovar U Rozvařilů",c:"",d:"Dům s pivovarem na Poříčí, kde se vaří pivo už od roku 1340. Pijí tu formané, kteří vjíždějí Poříčskou branou, a mlynáři od řeky."}
 ];
 const PRB={}; PRAHA_PLACES.forEach(p=>PRB[p.n]=p);
 let PG=null, pst={sel:null,vb:null,conf:"all",kind:"all"};
@@ -3284,6 +3293,10 @@ function renderOsoby(){
   box.innerHTML=groups.map(([L,fn])=>{const ps=PEOPLE.filter(p=>fn(byId[p.r])).sort((a,b)=>PORTR.has(b.id)-PORTR.has(a.id));if(!ps.length)return"";
     return `<div class="land-sec"><h3 class="landh">${L.toUpperCase()}</h3><div class="pcards">${ps.map(p=>`<a class="pcard${PORTR.has(p.id)?" hasp":""}" href="#osoba/${p.id}">${pThumb(p)}<span class="pct"><b>${p.n}</b><span>${p.role}</span><small>${byId[p.r].name}</small></span></a>`).join("")}</div></div>`}).join("");
 }
+{const dd=document.getElementById("navmapy"),top=dd.querySelector(".ddtop");
+ top.addEventListener("click",e=>{if(matchMedia("(hover: none)").matches&&!dd.classList.contains("open")){e.preventDefault();dd.classList.add("open");top.setAttribute("aria-expanded","true")}});
+ document.addEventListener("click",e=>{if(!dd.contains(e.target)){dd.classList.remove("open");top.setAttribute("aria-expanded","false")}});
+ dd.addEventListener("mouseenter",()=>top.setAttribute("aria-expanded","true"));dd.addEventListener("mouseleave",()=>top.setAttribute("aria-expanded","false"));}
 function route(){
   const h=decodeURIComponent(location.hash.slice(1))||"uvod";
   const [a,b,c]=h.split("/");
@@ -3291,6 +3304,8 @@ function route(){
   const changed=view!==curView; curView=view;
   document.querySelectorAll(".view").forEach(v=>{v.hidden=v.dataset.view!==view});
   document.querySelectorAll("[data-nav]").forEach(n=>n.classList.toggle("on",n.dataset.nav===view));
+  document.querySelectorAll("[data-navgrp]").forEach(n=>n.classList.toggle("on",n.dataset.navgrp.split(" ").includes(view)));
+  {const dd=document.getElementById("navmapy");dd.classList.remove("open");dd.querySelector(".ddtop").setAttribute("aria-expanded","false")}
   document.getElementById("secsub").textContent=SUBT[view];
   document.title=view==="uvod"?"Mundus Mutatus":"Mundus Mutatus · "+SUBT[view].split(" · ")[0];
   if(view==="desky"){
