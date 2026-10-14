@@ -68,7 +68,7 @@
 - rod | hra, ste | Matkou mladého Jindřicha IV. z Hradce je Kateřina ze Šternberka.
 - rod | roz, hlo | Jan II. z Rožmberka je ženatý s Annou, dcerou Jindřicha IX. Hlohovského; roku 1456 se jim narodil syn Jindřich V.
 - rod | roz, sva | Druhou manželkou Oldřicha II. z Rožmberka je Alžběta ze Švamberka a jeho dcera Ludmila se provdala za Bohuslava ze Švamberka.
-- rod | roz, var | První manželka Oldřicha II., Kateřina z Vartenberka († 1436), je matkou Jana II. i biskupa Jošta.
+- rod | roz, var | Oldřich II. z Rožmberka se oženil s Kateřinou († 1436), dcerou svého poručníka Čeňka z Vartenberka, rytíře Dračího řádu; jejich syny jsou Jan II. a biskup Jošt.
 - rod | kol, ste | Hanuš II. z Kolovrat je ženatý s Kateřinou ze Šternberka.
 - spor | pod, kol | Hanuš z Kolovrat musel Jiřímu vydat hrad Žebrák; náhradou dostal Zbiroh, ale křivdu nezapomněl.
 - spoj | sli, rab | Prokop z Rabštejna začínal v říšské kanceláři, kterou vedl Kašpar Šlik, a tam se seznámil s Piccolominim.
@@ -100,3 +100,4 @@
 - spoj | pap, hun | Legát Carvajal financuje boj proti Turkům a podporuje Matyášovu volbu.
 - spoj | cat, mes | Sůl ze Solné komory jde přes Linec a Freistadt do jižních Čech, hlavně do Budějovic.
 - spor | cbr, bra | Berlín-Cölln se v letech 1447–1448 vzbouřil proti kurfiřtovi a markrabě vzpouru zlomil.
+- spoj | var, pod | Jan z Vartenberka se uchází o hornolužické fojtství a hledá přízeň nového krále.
