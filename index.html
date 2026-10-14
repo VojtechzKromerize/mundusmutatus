@@ -1097,7 +1097,7 @@ const rtTag=t=>`<img class="rt" src="${RICON[t]}" alt="${RTN[t]}" title="${RTN[t
 const rIco=t=>`<img class="rico" src="${RICON[t]}" alt="" aria-hidden="true">`;
 const ARMS={"sli":"art/erby/sli.webp","ste":"art/erby/ste.webp","sva":"art/erby/sva.webp","cim":"art/erby/cim.webp","var":"art/erby/var.webp","haz":"art/erby/haz.webp","hra":"art/erby/hra.webp","opa":"art/erby/opa.webp","kos":"art/erby/kos.webp","kol":"art/erby/kol.webp","lip":"art/erby/lip.webp","per":"art/erby/per.webp","opo":"art/erby/opo.webp","pod":"art/erby/pod.webp","roz":"art/erby/roz.webp","rzm":"art/erby/rzm.webp","smi":"art/erby/smi.webp","ber":"art/erby/lip.webp","bos":"art/erby/bos.webp","rab":"art/erby/rab.webp","tes":"art/erby/opo.webp","lom":"art/erby/lom.webp","bib":"art/erby/bib.webp","ole":"art/erby/ole.webp","hlo":"art/erby/ole.webp","leg":"art/erby/ole.webp","ryz":"art/erby/ryz.webp","lob":"art/erby/lob.webp","vra":"art/erby/vra.webp","bis":"art/erby/bis.webp","bvr":"art/erby/bvr.webp"};
 const CARMS={"Brno":"art/erby/mesto-brno.webp","Kutná Hora":"art/erby/mesto-kutna-hora.webp","Plzeň":"art/erby/mesto-plzen.webp","Praha":"art/erby/mesto-praha.webp","Vratislav":"art/erby/vra.webp"};
-const armsImg=(f,cls)=>ARMS[f.id]?`<img class="${cls}" src="${ARMS[f.id]}" alt="Erb: ${f.name}">`:"";
+const armsImg=(f,cls)=>ARMS[f.id]?`<img class="${cls}" src="${cls==="armbig"?ARMS[f.id].replace("art/erby/","art/erby/velke/"):ARMS[f.id]}" alt="Erb: ${f.name}">`:"";
 const shield=f=>ARMS[f.id]?armsImg(f,"armsmall"):shield0(f);
 const shield0=f=>`<svg class="shield" viewBox="0 0 20 24" aria-hidden="true"><path d="M2 2h16v9c0 6-4 9.5-8 11-4-1.5-8-5-8-11z" fill="var(--${f.conf})" stroke="var(--ink)" stroke-width="1.2"${f.nbr?' stroke-dasharray="2 1.5"':""}/></svg>`;
 
