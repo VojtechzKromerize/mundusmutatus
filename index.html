@@ -557,14 +557,14 @@ img{max-width:100%}
       </div>
       <svg id="map" viewBox="0 0 680 605" role="img" aria-label="Schematická mapa zemí Koruny české a sousedních zemí s vyznačenými sídly rodů"></svg>
       <details class="maplegend"><summary>Legenda mapy</summary><div class="lgrid"><div><img class="townico t-kat" src="art/img/hrad.webp" alt="">sídlo katolického rodu</div><div><img class="townico t-kal" src="art/img/hrad.webp" alt="">sídlo kališnického rodu</div><div><img class="townico t-mix" src="art/img/hrad.webp" alt="">sídlo smíšeného rodu</div><div><img class="townico n-kat" src="art/img/hrad.webp" alt="">sídlo sousedního rodu (tmavší lem)</div><div><img class="townico t-kal" src="art/img/mesto.webp" alt="">kališnické město</div><div><img class="townico t-kat" src="art/img/mesto.webp" alt="">katolické město</div><div><svg viewBox="0 0 30 18" aria-hidden="true"><path d="M3,14Q9,3 15,14M15,14Q21,3 27,14" fill="var(--hill)" stroke="var(--city)"/></svg>pohoří</div><div><svg viewBox="0 0 30 18" aria-hidden="true"><circle cx="10" cy="8" r="3.5" fill="var(--tree)"/><circle cx="20" cy="9" r="3.5" fill="var(--tree)"/></svg>les</div><div><svg viewBox="0 0 30 18" aria-hidden="true"><path d="M2,12Q10,4 16,10T28,6" fill="none" stroke="var(--water)" stroke-width="2"/></svg>řeka</div><div><svg viewBox="0 0 30 18" aria-hidden="true"><line x1="2" y1="9" x2="28" y2="9" stroke="var(--road)" stroke-width="2.2" stroke-dasharray="6 3"/></svg>zemská stezka (vrstva Cesty)</div><div><svg viewBox="0 0 30 18" aria-hidden="true"><line x1="2" y1="9" x2="28" y2="9" stroke="var(--road)" stroke-width="1.1" stroke-dasharray="2.5 2.5"/></svg>vedlejší cesta</div><div><svg viewBox="0 0 30 18" aria-hidden="true"><rect x="3" y="3" width="24" height="12" fill="var(--nsa)" fill-opacity=".4" stroke="var(--city)" stroke-dasharray="3 2"/></svg>sousední země</div><div><svg viewBox="0 0 30 18" aria-hidden="true"><path d="M15,2V16M10,6H20" stroke="var(--dpr)" stroke-width="2.6" stroke-linecap="round"/></svg>sídlo biskupa (vrstva Diecéze)</div><div><svg viewBox="0 0 30 18" aria-hidden="true"><line x1="2" y1="9" x2="28" y2="9" stroke="var(--kal)" stroke-width="2.4" stroke-dasharray="7 3.5"/></svg>měřená trasa</div><div><svg viewBox="0 0 30 18" aria-hidden="true"><circle cx="15" cy="9" r="4" fill="var(--kat)"/><circle cx="15" cy="9" r="7" fill="none" stroke="var(--kal)" stroke-width="1.6"/></svg>vazba vybraného rodu (vrstva Vazby rodu)</div></div><p class="lbl" style="margin-top:6px">Mapu lze přibližovat kolečkem myši nebo dvěma prsty a posouvat tažením myší či dvěma prsty.</p></details>
-      <p id="ringlegend" class="ringlegend" hidden>Kroužky u sídel ukazují vazby vybraného rodu: <span style="color:var(--gold)">◌ krev</span> <span style="color:var(--kat)">○ spojenci</span> <span style="color:var(--kal)">○ spor</span>. Ťuknutím na takové sídlo přejdete na jeho rod.</p>
+      <p id="ringlegend" class="ringlegend" hidden>Kroužky u sídel ukazují vazby vybraného rodu: <span style="color:var(--gold)">◌ krev</span> <span style="color:var(--kat)">○ spojenci</span> <span style="color:var(--kal)">○ spor</span>.</p>
       <div id="travel" class="travel" hidden>
         <div class="trow"><label for="tfrom" class="lbl">Odkud</label><select id="tfrom"></select><label for="tto" class="lbl">Kam</label><select id="tto"></select></div>
-        <div id="tres" class="tres"><p>Ťukněte na mapě na dvě sídla, nebo je vyberte v nabídce.</p></div>
+        <div id="tres" class="tres"><p>Vyberte dvě sídla na mapě nebo v nabídce.</p></div>
       </div>
       <div id="diolegend" class="diolegend" hidden></div>
       <div id="duchlegend" class="diolegend" hidden></div>
-      <p class="mapnote">Ťukněte na sídlo nebo město, nebo vyberte rod; jeho državy se popíšou. Hranice jsou schematické.</p>
+      <p class="mapnote">Hranice jsou schematické.</p>
     </div>
     <aside class="detail empty" id="detail" aria-live="polite"></aside>
   </div>
@@ -611,7 +611,7 @@ img{max-width:100%}
       <button type="button" data-gs="koruna" aria-pressed="false">Jen Koruna</button>
     </div>
     <div class="graphscroll"><svg id="graph" viewBox="0 0 900 640" role="img" aria-label="Graf vazeb mezi rody"></svg></div>
-    <div id="ginfo" class="ginfo"><span class="lbl">Graf vazeb</span><p>Rody jsou rozmístěné přibližně podle polohy svých sídel. Ťukněte na rod a zvýrazní se jeho vazby: <b style="color:var(--gold)" data-rico="rod">krev</b>, <b style="color:var(--kat)" data-rico="spoj">spojenectví</b> a <b style="color:var(--kal)" data-rico="spor">spory</b>.</p></div>
+    <div id="ginfo" class="ginfo"><span class="lbl">Graf vazeb</span><p>Rody jsou rozmístěné přibližně podle polohy svých sídel. Vazby vybraného rodu: <b style="color:var(--gold)" data-rico="rod">krev</b>, <b style="color:var(--kat)" data-rico="spoj">spojenectví</b> a <b style="color:var(--kal)" data-rico="spor">spory</b>.</p></div>
   </div>
   <h3 class="subh">Uvnitř Koruny</h3>
   <div class="relcols" id="relcols"></div>
@@ -620,7 +620,7 @@ img{max-width:100%}
 </section>
 
 <section class="sec" id="osoby">
-  <p class="intro">Muži a ženy, kteří v Koruně a za jejími hranicemi rozhodují o běhu věcí. Ťukněte na jméno pro podrobnosti.</p>
+  <p class="intro">Muži a ženy, kteří v Koruně a za jejími hranicemi rozhodují o běhu věcí.</p>
   <div id="osobylist" class="sec"></div>
 </section>
 </div>
@@ -664,7 +664,6 @@ img{max-width:100%}
 
 </div>
 </main>
-<p class="foot">Hlavy rodů a državy jsou zjednodušené k orientaci hráčů: uvádím hlavní sídla, ne úplné panství, a u rozvětvených rodů (Berkové, Vartenberkové, slezští Piastovci) jen celek. Hranice zemí vycházejí ze skutečných hranic (Natural Earth) upravených na stav roku 1458: Kladsko patří k Čechám, Valticko a Vitorazsko k Rakousům, Opavsko a Jesenicko ke Slezsku, Innviertel k Bavorsku a Burgenland k Uhrám. Hranice diecézí v cizině jsou schematické.</p>
 </div>
 
 <script>
@@ -2100,7 +2099,7 @@ function updateRoute(){st.route=(st.ta&&st.tb)?computeRoute(st.ta,st.tb):null}
 function renderTravel(){
   const r=document.getElementById("tres");
   tFrom.value=st.ta?st.ta.name:""; tTo.value=st.tb?st.tb.name:"";
-  if(!st.ta||!st.tb||!st.route){r.innerHTML=`<p>${st.ta?`Odkud: <b>${st.ta.name}</b>. Teď ťukněte na cíl.`:"Ťukněte na mapě na dvě sídla, nebo je vyberte v nabídce."}</p>`;return}
+  if(!st.ta||!st.tb||!st.route){r.innerHTML=`<p>${st.ta?`Odkud: <b>${st.ta.name}</b>. Vyberte cíl.`:"Vyberte dvě sídla na mapě nebo v nabídce."}</p>`;return}
   const R=st.route,e=R.eff;
   const split=R.offKm<5?"celou cestu po stezkách":R.roadKm<5?"bez stezek, napříč krajinou":`${R.roadKm} km po stezkách, ${R.offKm} km mimo ně`;
   r.innerHTML=`<p><b>${st.ta.name}</b> → <b>${st.tb.name}</b>: <span class="km">asi ${R.km} km</span> <span class="lbl">(${split})</span></p>
