@@ -5,4 +5,4 @@ rod: ste
 role: nejvyšší purkrabí pražský
 sidlo: Konopiště
 ---
-Nejmocnější katolík u dvora; volbu Jiřího podpořil. Má syny Jaroslava a Jana.
+Nejmocnější katolík u dvora; volbu Jiřího podpořil. Má syny Jaroslava a Zdeslava a další děti.

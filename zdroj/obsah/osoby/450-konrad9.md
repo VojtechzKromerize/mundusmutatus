@@ -5,4 +5,4 @@ rod: ole
 role: kníže olešnický
 sidlo: Olešnice
 ---
-Vládne Olešnicku spolu s bratrem Konrádem X. Bílým.
+Od dělení roku 1452 vládne sám Olešnici, Kozlí a polovině Bytomi. Manželka Markéta Ravská z mazovských Piastovců.

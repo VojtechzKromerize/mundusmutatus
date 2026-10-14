@@ -5,4 +5,4 @@ rod: opa
 role: kníže krnovský
 sidlo: Krnov
 ---
-Vládne v Krnově od roku 1452.
+Asi osmnáctiletý. Od roku 1452 vládne nedílně s bratrem Václavem III. Krnovsku, Bruntálu, Rybniku, Pštině a Žorám.

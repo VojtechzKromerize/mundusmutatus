@@ -5,4 +5,4 @@ rod: cim
 role: moravský zemský hejtman
 sidlo: Tovačov
 ---
-Horlivý kališník, zemským hejtmanem od roku 1440.
+Horlivý kališník, zemským hejtmanem od roku 1437.

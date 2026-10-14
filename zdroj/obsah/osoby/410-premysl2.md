@@ -5,4 +5,4 @@ rod: tes
 role: kníže těšínský
 sidlo: Těšín
 ---
-Bratr Vladislava, který drží polovinu Hlohova.
+Spoluvládce bratra Václava a poručník synovce Kazimíra II. Dosud je svobodný.

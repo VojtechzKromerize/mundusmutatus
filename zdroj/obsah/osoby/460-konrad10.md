@@ -2,7 +2,6 @@
 id: konrad10
 jmeno: Konrád X. Bílý
 rod: ole
-role: kníže olešnický
-sidlo: Olešnice
+role: kníže stínavský (polovina Stínavy)
 ---
-Spoluvládce svého bratra Konráda IX.
+Mladší bratr Konráda IX., do roku 1452 jeho spoluvládce, nyní pán poloviny Stínavy.

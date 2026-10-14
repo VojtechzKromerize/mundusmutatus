@@ -5,4 +5,4 @@ rod: leg
 role: nezletilý kníže lehnický
 sidlo: Lehnice
 ---
-Asi dvanáctiletý; za něj vládne matka Hedvika.
+Jedenáctiletý (narozen 1446), jediný žijící syn Jana I. Lubinského; za něj vládne matka Hedvika.

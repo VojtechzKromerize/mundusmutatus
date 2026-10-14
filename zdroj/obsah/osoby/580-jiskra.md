@@ -5,4 +5,4 @@ rod: jis
 role: hejtman Horních Uher
 sidlo: Zvolen
 ---
-Český žoldnéřský vůdce, který s bratříky drží hrady a hornická města; Matyášovi nepřátelský.
+Český žoldnéřský vůdce, hejtman Horních Uher se sídlem ve Zvoleni. Matyáše formálně uznal, ale jedná s Polskem.

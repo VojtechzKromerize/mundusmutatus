@@ -5,4 +5,4 @@ rod: opa
 role: vévodkyně-vdova ratibořská
 sidlo: Ratiboř
 ---
-Vdova po Václavovi II. Ratibořském, vládne za nezletilé děti.
+Dcera Vincence ze Šamotul, podruhé ovdovělá: po Kazimírovi II. Bełzském a po Václavovi II. Ratibořském († 1456). Vládne za nezletilého syna Jana V. a dcery.

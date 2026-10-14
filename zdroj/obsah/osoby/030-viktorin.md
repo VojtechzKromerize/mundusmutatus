@@ -2,7 +2,7 @@
 id: viktorin
 jmeno: Viktorin z Poděbrad
 rod: pod
-role: nejstarší syn Jiřího
+role: druhorozený syn Jiřího
 sidlo: Kladsko
 ---
-Patnáctiletý druhorozený syn, pro něhož otec drží Kladsko a Minsterberk.
+Čtrnáctiletý druhorozený syn (narozen 1443). Otec mu chystá Kladsko a Minsterberk, které spravuje hejtman Hanuš z Varnsdorfu.

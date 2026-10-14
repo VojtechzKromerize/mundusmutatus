@@ -1,8 +1,8 @@
 ---
 id: ludvikleu
-jmeno: ✦ Ludvík z Leuchtenberka
+jmeno: Leopold z Leuchtenberka
 rod: leu
 role: lankrabě
-sidlo: Leuchtenberg
+sidlo: Pfreimd
 ---
-Zadlužený pán Horní Falce.
+Zadlužený pán z pomezí Horní Falce, sídlí na vodním hradě v Pfreimdu.
