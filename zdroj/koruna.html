@@ -1540,6 +1540,13 @@ html::before{background:
   var(--pozadi)}
 /* bez bočních přezek kodexu */
 .wrap::before{display:none!important}
+/* štítek Na tahu: vínová kůže jako ostatní zvolené karty, šipkami se tah posouvá o jednu pozici */
+.bnatahu{display:inline-flex;align-items:center;gap:6px;clip-path:none;border-radius:2px;padding:3px 10px;color:#f6d27a;text-shadow:0 1px 0 rgba(0,0,0,.45);border:1px solid rgba(20,3,6,.85);background:linear-gradient(180deg,color-mix(in srgb,var(--kuze) 85%,#000) 0%,var(--kuze) 35%,var(--kuze2) 100%);box-shadow:inset 0 0 0 2px var(--kuze),inset 0 0 0 3px var(--zlato-linka),0 1px 3px rgba(40,10,10,.3)}
+.bnatahu.bnsip{padding:2px 4px}
+.bnatahu button{font:inherit;font-size:.8rem;line-height:1;color:#f6d27a;background:rgba(0,0,0,.18);border:1px solid rgba(214,170,90,.45);border-radius:2px;width:24px;height:22px;padding:0;cursor:pointer;display:grid;place-items:center}
+.bnatahu button:hover:not(:disabled){background:rgba(255,220,160,.14);color:#ffe7a8}
+.bnatahu button:disabled{opacity:.3;cursor:default}
+.bzpet{margin-left:10px;font-size:.8rem;padding:2px 8px}
 </style>
 
 <div class="wrap"><div class="papir" aria-hidden="true"></div>
@@ -5131,7 +5138,7 @@ function bojAktivni(){
       c=`<select data-bslot="${i}" aria-label="Kdo jedná ve slotu ${i+1}"><option value="">— volný —</option>${opts.map(o=>`<option value="${o.id}"${o.id===kdo?" selected":""}>${besc(o.n)}</option>`).join("")}</select>`}
     else c=kdo?`<b>${besc(bojJm(s,kdo))}</b>`:x.t==="h"&&bojDB&&bojDB.obsad?`<button type="button" class="gbtn ghost" data-bclaim="${i}">Obsadit</button>`:`<span class="bfree">volný</span>`;
     const npc=x.t==="n"&&kdo?(s.npc||[]).find(n=>n.id===kdo):null;
-    return `<li class="bslot b${x.t}${i===s.tah?" btah":""}${i<(s.tah||0)?" bdone":""}${kdo?" bobs":""}${muj(i)?" bmuj":""}${muj(i)&&i===s.tah?" bmujtah":""}"><span class="bstit"><span class="bhod">${x.hod}</span></span><span class="bkdo">${c}</span><span class="btyp">${x.t==="h"?"Družina":"Nepřátelé"}${npc?` · ${BDRUH[npc.druh]||npc.druh}`:""}</span>${i===s.tah?`<span class="bnatahu">na tahu</span>`:""}</li>`};
+    return `<li class="bslot b${x.t}${i===s.tah?" btah":""}${i<(s.tah||0)?" bdone":""}${kdo?" bobs":""}${muj(i)?" bmuj":""}${muj(i)&&i===s.tah?" bmujtah":""}"><span class="bstit"><span class="bhod">${x.hod}</span></span><span class="bkdo">${c}</span><span class="btyp">${x.t==="h"?"Družina":"Nepřátelé"}${npc?` · ${BDRUH[npc.druh]||npc.druh}`:""}</span>${i===s.tah?(gm?`<span class="bnatahu bnsip"><button type="button" data-bact="zpet" aria-label="Tah o jednu pozici zpět" title="O jednu pozici zpět"${i===0?" disabled":""}>▲</button><span>na tahu</span><button type="button" data-bact="dalsi" aria-label="Další tah" title="Další tah">▼</button></span>`:`<span class="bnatahu">na tahu</span>`):""}</li>`};
   const npc=n=>{const lim=BLIM[n.druh]||1,u=bojUzito(s,n.id),houf=n.druh==="houf",bon=houf?Math.min(Math.max((n.pocet||0)-1,0),5):0,
       mor=houf&&n.pocet>0&&(n.pocet<=Math.floor((n.max||0)/2)||n.velitel===false);
     const tah=[...Array(lim)].map((_,j)=>`<i class="${j<u?"on":""}"></i>`).join("");
@@ -5142,14 +5149,11 @@ function bojAktivni(){
   const jaH=!gm&&bojDB&&bojDB.obsad?`<div class="bja"><label>Hraji za <select data-bja aria-label="Za koho hraješ"><option value="">— vyber svou postavu —</option>${(s.hraci||[]).map(h=>`<option${h.n===bojJa.get()?" selected":""}>${besc(h.n)}</option>`).join("")}</select></label>
       ${ja?(muj(s.tah)?`<b class="bjatah">Jsi na tahu!</b>`:Object.keys(ob).some(k=>ob[k]===ja&&+k===s.tah+1)?`<span class="bjadal">Jsi další na řadě.</span>`:Object.values(ob).includes(ja)?`<span class="rsmall">Tvůj slot je v kole obsazený – telefon zavibruje, až přijdeš na řadu.</span>`:`<span class="rsmall">Obsaď si volný slot družiny.</span>`):""}</div>`:"";
   const konec=(s.tah||0)>=sl.length;
-  return `${jaH}<div class="bojhead"><div class="bojtit"><h2 class="arttitle">Boj</h2><span class="bkolo">kolo <b>${s.kolo}</b></span></div>${gm?`<div class="bojbtn"><button type="button" class="gbtn" data-bact="dalsi">Další tah ▶</button><button type="button" class="gbtn ghost" data-bact="kolo">Nové kolo</button><button type="button" class="gbtn ghost" data-bact="konec">Ukončit boj</button></div>`:""}</div>
+  return `${jaH}<div class="bojhead"><div class="bojtit"><h2 class="arttitle">Boj</h2><span class="bkolo">kolo <b>${s.kolo}</b></span></div>${gm?`<div class="bojbtn"><button type="button" class="gbtn ghost" data-bact="kolo">Nové kolo</button><button type="button" class="gbtn ghost" data-bact="konec">Ukončit boj</button></div>`:""}</div>
     <div class="bojgrid"><section class="bosa"><h3 class="uvh2">Pořadí v kole</h3><ol class="bsloty">${sl.map(slot).join("")}</ol>
-      ${konec?`<p class="bkonec">Kolo dobojováno.${gm?" Pokračuj tlačítkem Nové kolo.":""}</p>`:""}
+      ${konec?`<p class="bkonec">Kolo dobojováno.${gm?` Pokračuj tlačítkem Nové kolo. <button type="button" class="gbtn ghost bzpet" data-bact="zpet" title="Vrátit poslední tah">▲ zpět</button>`:""}</p>`:""}
       <p class="rsmall">${gm?"Do slotu vyber, kdo v něm jedná. Hráči si volné sloty družiny mohou obsadit i ze svého telefonu.":"Volný slot družiny si obsadíš tlačítkem Obsadit. Každá postava smí jednat jen jednou za kolo."}</p></section>
     <aside class="bojside">
-      <section class="bkostka"><h3 class="uvh2">Kostka Závoje</h3>${k?`<p class="kvys kv-${k.v==="Pokušení"?"p":k.v==="Požehnání"?"z":"n"}">${bojKostka(k.r)}<span class="kvt"><b>${k.v==="nic"?"bez účinku":k.v}</b><small>${KMODY[k.mode]?KMODY[k.mode][0]:""}${k.pro?" · "+besc(k.pro):""}</small></span></p>`:`<p class="rsmall">Zatím se neházelo.</p>`}
-        ${gm?`<div class="bkr"><select id="bkm" aria-label="Okolnosti">${Object.entries(KMODY).map(([id,[n]])=>`<option value="${id}"${id===(cas&&cas.hodina?"hodina":"bezne")?" selected":""}>${n}</option>`).join("")}</select><input id="bkpro" placeholder="pro koho (nepovinné)" aria-label="Pro koho"><button type="button" class="gbtn" data-bact="kostka">Hodit k6</button></div>
-        ${cas&&cas.hodina?`<p class="rsmall">Je ${cas.H}. hodina – Hodina Závoje, Pokušení padá na 1–3.</p>`:""}`:""}</section>
       <section class="bstrana bsh"><h3 class="uvh2">Družina <small>hod ${s.hod!=null?s.hod:"–"}</small></h3><ul class="bhr">${(s.hraci||[]).map(h=>`<li class="${jed.has(h.id)?"bjed":""}">${besc(h.n)}${jed.has(h.id)?`<span class="vh"> · jednal</span>`:""}</li>`).join("")}</ul></section>
       <section class="bstrana bsn"><h3 class="uvh2">Nepřátelé <small>hod ${s.dm}</small></h3>${(s.npc||[]).map(npc).join("")}
         ${gm?`<form class="bnadd" id="bnadd"><input name="nn" placeholder="Přidat nepřítele" aria-label="Jméno nepřítele" required><select name="nd" aria-label="Druh">${Object.entries(BDRUH).map(([k,v])=>`<option value="${k}">${v}</option>`).join("")}</select><label class="bpoc"><span>počet</span><input name="np" type="number" min="1" max="12" value="6" aria-label="Počet v houfu"></label><button class="gbtn ghost" type="submit">Přidat</button></form>`:""}</section>
@@ -5197,6 +5201,7 @@ document.addEventListener("click",async e=>{
   const a=e.target.closest("[data-bact]");
   if(a){const t=a.dataset.bact;
     if(t==="dalsi")bojZmen(s=>{const n=(s.sloty||bojSloty(s)).length;s.tah=(s.tah||0)+1;if(s.tah>=n){s.tah=n;mmHlasG("Konec kola – klikni na Nové kolo.")}});
+    if(t==="zpet")bojZmen(s=>{s.tah=Math.max(0,(s.tah||0)-1)});
     if(t==="kolo")bojZmen(s=>{s.kolo=(s.kolo||1)+1;s.obsazeni={};s.tah=0});
     if(t==="konec"&&confirm("Ukončit boj? Sloty a přiřazení se smažou, jména hráčů zůstanou pro příští boj."))bojZmen(s=>{s.aktivni=false;s.obsazeni={}});
     if(t==="kostka"){const mode=document.getElementById("bkm").value,pro=document.getElementById("bkpro").value.trim(),[,P,Z]=KMODY[mode],r=1+Math.floor(Math.random()*6);
