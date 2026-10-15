@@ -701,7 +701,6 @@ a.pchar:hover{border-color:var(--kal)}
 .pmkn{font-family:var(--f-label);font-weight:700;pointer-events:none}
 #pmap .prib,#pmap .pkart{font-family:var(--f-disp);font-weight:500;fill:#2b2117;letter-spacing:.03em}
 #pmap .pkart2{font-family:var(--f-body);font-style:italic;fill:#4a3a28}
-#pmap .pvitr{font-family:var(--f-disp);fill:var(--kal);letter-spacing:.06em;paint-order:stroke;stroke:var(--paper);stroke-width:3px;stroke-linejoin:round}
 #pmap .pmer{font-family:var(--f-label);font-weight:700;fill:var(--ink);paint-order:stroke;stroke:var(--paper);stroke-width:2.5px;stroke-linejoin:round}
 .ppik{display:block;align-self:center;height:96px;width:auto;max-width:100%;object-fit:contain;filter:drop-shadow(0 2px 3px rgba(0,0,0,.25))}
 #pmap .pshn{font-family:var(--f-disp);fill:#2b2117;pointer-events:none}
@@ -2906,13 +2905,7 @@ function pPole(g){
   g.appendChild(el("path",{d:v,fill:"var(--road)","fill-opacity":".7",stroke:"var(--ink)","stroke-width":".5"}));}
 function pOzdoby(g){
   const IMG=(f,x,y,w,h,fl)=>{const gi=el("g",{class:"porn"});gi.appendChild(el("image",{href:PMA+f+".webp",x,y,width:w,height:h,...(fl?{transform:`translate(${2*x+w} 0) scale(-1 1)`}:{})}));g.appendChild(gi);return gi};
-  const T=(x,y,t,fs,a,cls,st)=>g.appendChild(el("text",{x,y,class:cls||"pvitr","font-size":fs,"text-anchor":a||"middle",...(st?{style:st}:{})},t));
-  /* čtyři větry; sever zůstává nahoře */
-  const W=100,H=W*256/280,L=36,R=1044-W,U=62,D=1094;
-  IMG("vitr-septentrio",L,U,W,H);T(L+W+4,U+50,"Septentrio",16,"start");
-  IMG("vitr-oriens",R,U,W,H,1);T(R-4,U+50,"Oriens",16,"end");
-  IMG("vitr-meridies",R,D,W,H);T(R-4,D+50,"Meridies",16,"end");
-  IMG("vitr-occidens",L,D,W,H,1);T(L+W+4,D+50,"Occidens",16,"start");
+  const T=(x,y,t,fs,a,cls,st)=>g.appendChild(el("text",{x,y,class:cls||"pmer","font-size":fs,"text-anchor":a||"middle",...(st?{style:st}:{})},t));
   /* kartuš: andělé drží erb Prahy, na pásce jméno města */
   {const X=2,Y=842,S=340/820,gk=el("g",{class:"porn"});const gi=el("g",{transform:`translate(${X} ${Y}) scale(${S.toFixed(4)})`});gk.appendChild(gi);g.appendChild(gk);
    gi.appendChild(el("image",{href:PMA+"kartus.webp",x:0,y:0,width:820,height:508}));
@@ -3108,7 +3101,7 @@ function pDraw(){
   /* ulice a brány – jen při přiblížení */
   if(s<.66){PSTREETS.forEach(([t,x,y,r])=>L(x,y,t,"rivlbl",10.5,r,"fill:var(--ink);font-style:italic;opacity:.85"));
     (PG.gates||[]).forEach(([n,x,y])=>L(x,y+15*k,n,"rivlbl",10,0,"fill:var(--kal);font-style:italic"))}
-  /* ozdoby plánu: větry v rozích, kartuš s erbem a měřítko s kružidlem */
+  /* ozdoby plánu: kartuš s erbem a měřítko s kružidlem */
   pOzdoby(G({"pointer-events":"none"}));
   /* měřená cesta */
   if(PM.on&&(PM.a||PM.path)){const g=G({});
