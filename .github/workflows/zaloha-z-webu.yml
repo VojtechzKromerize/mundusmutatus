@@ -1,10 +1,10 @@
 name: Záloha textů z webu
-# Jednou denně (a kdykoli ručně: Actions → Záloha textů z webu → Run workflow) uloží texty upravené
+# Každou hodinu (a kdykoli ručně: Actions → Záloha textů z webu → Run workflow) uloží texty upravené
 # na webu do souborů v zdroj/obsah ve větvi dev. Potřebuje v GitHubu tajemství SUPABASE_SECRET
 # (Settings → Secrets and variables → Actions → New repository secret).
 on:
   schedule:
-    - cron: "40 2 * * *"
+    - cron: "17 * * * *"
   workflow_dispatch:
 permissions:
   contents: write
