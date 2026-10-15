@@ -269,7 +269,7 @@ header.site{display:flex;flex-direction:column;gap:0;border:0;padding:0}
 .navdd .svitek{position:absolute;left:50%;top:100%;margin:-4px 0 0 -206.75px;width:413.5px;z-index:40;pointer-events:none;visibility:hidden;transition:visibility 0s .3s;filter:drop-shadow(0 8px 10px rgba(0,0,0,.5));transform-origin:206.75px 22px}
 .svitek .roll{display:block;height:90px;background:url(art/menu/prapor-horni.webp) center/100% 100% no-repeat;position:relative;z-index:2;opacity:0;transition:opacity .2s;pointer-events:none}
 .svitek .roll:last-child{height:145px;margin-top:-2px;background-image:url(art/menu/prapor-spodni.webp)}
-.svitek .svlist{display:flex;flex-direction:column;align-items:stretch;margin:-8px 0 -6px;max-height:0;overflow:hidden;padding:0 105px 0 94px;position:relative;z-index:1;background:url(art/menu/prapor-stred.webp) repeat-y top center/100% auto;transition:max-height .45s cubic-bezier(.3,.7,.3,1),padding .45s cubic-bezier(.3,.7,.3,1)}
+.svitek .svlist{display:flex;flex-direction:column;align-items:stretch;margin:-8px 0 -6px;max-height:0;overflow:hidden;padding:0 105px 0 94px;position:relative;z-index:1;background:url(art/menu/prapor-stred-zacatek.webp) top center/413.5px 83px no-repeat,url(art/menu/prapor-stred.webp) repeat-y top center/413.5px 83px;transition:max-height .45s cubic-bezier(.3,.7,.3,1),padding .45s cubic-bezier(.3,.7,.3,1)}
 .svitek .svlist a{display:block;white-space:nowrap;text-align:center;font-family:var(--f-disp);font-weight:700;font-size:22px;line-height:1.1;padding:6px 0;color:#f0d27a;border:0;text-shadow:0 1px 0 #4a0c08,0 0 6px rgba(40,5,0,.6);transition:color .15s}
 .svitek .svlist a:hover,.svitek .svlist a.on{color:#fff3c4}
 .svitek .svlist a.on{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
@@ -4295,7 +4295,12 @@ function renderOsoby(){
 {const dd=document.getElementById("navmapy"),top=dd.querySelector(".ddtop");
  top.addEventListener("click",e=>{if(matchMedia("(hover: none)").matches&&!dd.classList.contains("open")){e.preventDefault();dd.classList.add("open");top.setAttribute("aria-expanded","true")}});
  document.addEventListener("click",e=>{if(!dd.contains(e.target)){dd.classList.remove("open");top.setAttribute("aria-expanded","false")}});
- dd.addEventListener("mouseenter",()=>top.setAttribute("aria-expanded","true"));dd.addEventListener("mouseleave",()=>top.setAttribute("aria-expanded","false"));}
+ dd.addEventListener("mouseenter",()=>top.setAttribute("aria-expanded","true"));dd.addEventListener("mouseleave",()=>top.setAttribute("aria-expanded","false"));
+ /* praporec nesmí přetéct přes okraj okna: před otevřením ho případně posuneme do strany */
+ const sv=dd.querySelector(".svitek"),dosad=()=>{if(matchMedia("(max-width:640px)").matches){sv.style.left="";return}
+   sv.style.left="";const r=sv.getBoundingClientRect(),W=document.documentElement.clientWidth;let dx=0;
+   if(r.right>W-6)dx=W-6-r.right;if(r.left+dx<6)dx=6-r.left;if(dx)sv.style.left=`calc(50% + ${Math.round(dx)}px)`};
+ ["mouseenter","focusin","touchstart"].forEach(t=>dd.addEventListener(t,dosad,{passive:true}));}
 /* panely Vrstvy na mapách */
 document.querySelectorAll(".lyrbtn").forEach(b=>{const p=document.getElementById(b.getAttribute("aria-controls"));
   const set=o=>{p.hidden=!o;b.setAttribute("aria-expanded",o)};
