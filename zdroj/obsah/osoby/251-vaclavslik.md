@@ -2,7 +2,7 @@
 id: vaclavslik
 jmeno: Václav Šlik
 rod: sli
-role: bratr Matyáše, spolusprávce rodového majetku
+role: synovec Matyáše, spolusprávce rodového majetku
 sidlo: Loket
 ---
-Bratr kancléře Kašpara a Matyáše Šlika, po roce 1449 spolusprávce Kašparova dědictví. S bratry utiskuje loketské many.
+Syn Mikuláše Šlika, a tedy synovec kancléře Kašpara a Matyáše Šlika; po roce 1449 spolusprávce Kašparova dědictví. Se strýcem utiskuje loketské many.
