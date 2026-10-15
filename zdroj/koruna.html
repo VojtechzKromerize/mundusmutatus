@@ -477,7 +477,7 @@ mark{background:color-mix(in srgb,var(--gold) 35%,transparent);color:inherit;pad
 .rtab.dlist tbody tr{cursor:pointer}
 .rtab.dlist td:nth-child(2){white-space:nowrap;color:var(--muted)}
 .rtab.dlist td:nth-child(4){white-space:nowrap}
-.rtab.dlist td:nth-child(3){width:30%}.rtab.dlist td:nth-child(5){width:32%}
+.rtab.dlist td:nth-child(3){width:28%}.rtab.dlist td:nth-child(5){white-space:nowrap}.rtab.dlist td:nth-child(6){width:30%}
 @media (max-width:640px){.dtools .dview{margin-left:0}.card{grid-template-columns:60px minmax(0,1fr)}.card .cimg,.armcard{width:60px;height:70px}}
 /* karty rodů v3: větší erb, pečeť vyznání v rohu, barevný proužek, kratší text */
 .card{position:relative;grid-template-columns:104px minmax(0,1fr);border-left:4px solid var(--rule);padding:14px 40px 14px 14px}
@@ -2164,6 +2164,7 @@ function renderDetail(){
    <dl class="kv"><dt>V čele</dt><dd>${f.head}</dd>
    ${f.seats.length?`<dt>Državy</dt><dd>${f.seats.map(sd=>`<button type="button" class="plink${st.focus===sd[0]?" on":""}" data-place="${sd[0]}" title="Ukázat na mapě">${sd[0]}</button>`).join(", ")}</dd>`:""}
    <dt>${f.nbr?"Ke Koruně":"K Jiřímu"}</dt><dd>${f.stance}</dd>
+   ${f.pos?`<dt>Postavení</dt><dd>${POSL(f.pos)}</dd>`:""}
    ${PRAHA_PLACES.some(q=>q.r===f.id)?`<dt>V Praze</dt><dd>${prLinks(PRAHA_PLACES.filter(q=>q.r===f.id))}</dd>`:""}</dl>
    <p>${f.note}</p>
    ${peopleOf(f.id).length?`<span class="lbl">Osoby</span><p>${peopleOf(f.id).map(plinkP).join(", ")}</p>`:""}
@@ -2171,6 +2172,8 @@ function renderDetail(){
    <a class="gbtn ghost" href="#rod/${f.id}">Otevřít v zemských deskách</a>`;
   const bb=document.getElementById("backbtn"); if(bb)bb.addEventListener("click",goBack);
 }
+const POSL=t=>t?t.charAt(0).toUpperCase()+t.slice(1):"";
+const HISTH=f=>f.city?"Historie města":/^(Biskupství|Arcibiskupství|Papežská|Duchovenstvo)/.test(f.name)?"Historie":"Historie rodu";
 const HIST=[];
 function setSel(id,push=true,city=null){
   if(push&&st.sel&&(st.sel!==id||st.city!==city)){HIST.push({id:st.sel,city:st.city});if(HIST.length>30)HIST.shift()}
@@ -2221,8 +2224,8 @@ function deskList(){
   const box=document.getElementById("desklist"); if(box.dataset.done)return; box.dataset.done=1;
   const LANDS_K=["Čechy","Morava","Slezsko","Lužice","Královská města","Duchovenstvo"];
   const rows=FAM.filter(f=>!f.nbr).sort((a,b)=>LANDS_K.indexOf(a.land)-LANDS_K.indexOf(b.land));
-  box.innerHTML=`<div class="rtw"><table class="rtab dlist"><thead><tr><th scope="col">Rod</th><th scope="col">Země</th><th scope="col">V čele</th><th scope="col">Vyznání</th><th scope="col">K Jiřímu</th></tr></thead><tbody>${
-    rows.map(f=>`<tr data-id="${f.id}" data-fc="${f.conf}" data-fl="${f.land}" data-txt="${_nrm(f.name+" "+(SHORT[f.id]||"")+" "+f.head+" "+f.seats.map(s=>s[0]).join(" ")+" "+f.stance).replace(/"/g,"")}"><th scope="row" data-l="Rod"><a href="#rod/${f.id}">${ARMS[f.id]?armsImg(f,"armlist"):shield0(f)}<span>${f.name}</span></a></th><td data-l="Země">${f.land}</td><td data-l="V čele">${f.head}</td><td data-l="Vyznání">${faith(f.conf)}</td><td data-l="K Jiřímu">${f.stance}</td></tr>`).join("")}</tbody></table></div>`;
+  box.innerHTML=`<div class="rtw"><table class="rtab dlist"><thead><tr><th scope="col">Rod</th><th scope="col">Země</th><th scope="col">V čele</th><th scope="col">Vyznání</th><th scope="col">Postavení</th><th scope="col">K Jiřímu</th></tr></thead><tbody>${
+    rows.map(f=>`<tr data-id="${f.id}" data-fc="${f.conf}" data-fl="${f.land}" data-txt="${_nrm(f.name+" "+(SHORT[f.id]||"")+" "+f.head+" "+f.seats.map(s=>s[0]).join(" ")+" "+f.stance+" "+(f.pos||"")).replace(/"/g,"")}"><th scope="row" data-l="Rod"><a href="#rod/${f.id}">${ARMS[f.id]?armsImg(f,"armlist"):shield0(f)}<span>${f.name}</span></a></th><td data-l="Země">${f.land}</td><td data-l="V čele">${f.head}</td><td data-l="Vyznání">${faith(f.conf)}</td><td data-l="Postavení">${POSL(f.pos)}</td><td data-l="K Jiřímu">${f.stance}</td></tr>`).join("")}</tbody></table></div>`;
   box.querySelectorAll("tbody tr").forEach(r=>r.addEventListener("click",e=>{if(!e.target.closest("a"))navTo("#rod/"+r.dataset.id)}));
 }
 function deskApply(){
@@ -2272,7 +2275,7 @@ renderRels(document.getElementById("relcols2"),REL.filter(isForeign));
 
 /* search */
 const norm=s=>String(s).normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
-const IDX=FAM.map(f=>({f,txt:norm([f.name,f.head,f.land,f.seats.map(s=>s[0]).join(" "),f.stance,f.note].join(" "))}));
+const IDX=FAM.map(f=>({f,txt:norm([f.name,f.head,f.land,f.seats.map(s=>s[0]).join(" "),f.stance,f.pos||"",f.hist||"",f.note].join(" "))}));
 const qEl=document.getElementById("q"), qRes=document.getElementById("qres");
 const CIDX=[];FAM.forEach(f=>{if(f.city)f.seats.forEach(sd=>CIDX.push({f,name:sd[0],conf:sd[3]||f.conf,txt:norm(sd[0]+" "+((CITYINFO[sd[0]]||{}).n||""))}))});
 function runSearch(){
@@ -4176,7 +4179,7 @@ function autolink(root,self,filter){
 /* --- HLEDÁNÍ NA CELÉM WEBU --- */
 const GIDX=[];
 (function(){
-  FAM.forEach(f=>GIDX.push({k:"Rod",n:f.name,s:f.land,h:"#rod/"+f.id,t:norm(f.name+" "+(SHORT[f.id]||"")+" "+f.head),b:norm(f.note+" "+f.stance)}));
+  FAM.forEach(f=>GIDX.push({k:"Rod",n:f.name,s:f.land,h:"#rod/"+f.id,t:norm(f.name+" "+(SHORT[f.id]||"")+" "+f.head),b:norm(f.note+" "+f.stance+" "+(f.hist||""))}));
   PEOPLE.forEach(p=>GIDX.push({k:"Osoba",n:p.n.replace(/^✦\s*/,""),s:p.role,h:"#osoba/"+p.id,t:norm(p.n+" "+p.role),b:norm(p.x)}));
   const seen=new Set();FAM.forEach(f=>{if(f.nomap)return;f.seats.forEach(sd=>{if(seen.has(sd[0]))return;seen.add(sd[0]);const ci=(typeof CITYINFO!=="undefined"&&CITYINFO[sd[0]])||{};
     GIDX.push({k:f.city?"Město":"Sídlo",n:sd[0],s:f.name,place:[f.id,sd[0]],t:norm(sd[0]),b:norm(ci.n||"")})})});
@@ -4236,6 +4239,7 @@ function renderRodArticle(id){
      <h2 class="arttitle">${f.name}</h2>
      <p class="artlead">${f.head}</p>
      ${f.sl?`<p class="slnote">O tomto rodu družina zatím jen slyšela. Víc se dozví, až se s ním setká.</p>`:`<h3>${f.nbr?"Postoj ke Koruně":"Postoj k Jiřímu"}</h3><p>${f.stance}</p>
+     ${f.hist?`<h3>${HISTH(f)}</h3><p>${f.hist}</p>`:""}
      <h3>Zápis kronikáře</h3><p class="kron">${f.note}</p>`}
      ${rels.length?`<h3>Vazby</h3>${relGroups(rels,id,true)}`:""}
      ${TREES[id]||TREES[TREEALIAS[id]]?`<h3>Rodokmen</h3>${treeHTML(TREES[id]?id:TREEALIAS[id])}`:""}
@@ -4243,6 +4247,7 @@ function renderRodArticle(id){
    <aside class="infobox">
      <div class="ibshield">${ARMS[f.id]?armsImg(f,"armbig"):shield0(f).replace('class="shield"','class="bigshield"')}</div>
      <dl class="kv"><dt>Vyznání</dt><dd>${faith(f.conf)}</dd>
+     ${f.pos?`<dt>Postavení</dt><dd>${POSL(f.pos)}</dd>`:""}
      <dt>Země</dt><dd>${f.land}</dd>
      ${f.seats.length?`<dt>${f.city?"Města":"Državy"}</dt><dd>${f.seats.map(sd=>maplinkBtn(f,sd)).join(", ")}</dd>`:""}
      ${ppl.length?`<dt>Osoby</dt><dd>${ppl.map(plinkP).join(", ")}</dd>`:""}
@@ -4643,7 +4648,7 @@ if(bojDB){bojNacti().then(()=>bojNav());if(!GMV&&window.MMDB)setInterval(async()
 const ED={z:null,idx:null};
 const EDDRUH={
   osoba:{dir:"osoby",kl:"id",n:"Osoba",tpl:id=>`---\nid: ${id}\njmeno: \nrod: \nrole: \nsidlo: \n---\nKrátký popis osoby.\n`},
-  rod:{dir:"rody",kl:"id",n:"Rod",tpl:id=>`---\nid: ${id}\nzeme: Čechy\nnazev: \nkratce: \nvyznani: kat\nhlava: \npostoj: \nsidla:\n  - Název | 14.42 | 50.09\n---\nZápis kronikáře o rodu.\n`},
+  rod:{dir:"rody",kl:"id",n:"Rod",tpl:id=>`---\nid: ${id}\nzeme: Čechy\nnazev: \nkratce: \nvyznani: kat\nhlava: \npostoj: \npostaveni: \nhistorie: \nsidla:\n  - Název | 14.42 | 50.09\n---\nZápis kronikáře o rodu.\n`},
   zapis:{dir:"kronika",kl:"id",n:"Zápis Kroniky",tpl:id=>`---\nid: ${id}\nn: \ndatum: ${(HRA&&HRA.datum)||"1458-03-03"}\ndate: ${partyDate()}\nhodina: ${HRA&&HRA.hodina!=null?HRA.hodina:""}\nplace: ${partyPlace()||"Praha"}\nroute: ${partyPlace()||"Praha"}\npraha: \ndruzina: \ntitle: \n---\nText zápisu. Odstavce odděluj prázdným řádkem.\n`},
   drak:{dir:"draconomicon/plemena",kl:"id",n:"Dračí plemeno",tpl:id=>`---\nid: ${id}\nnazev: \njinak: \nlatin: \ntrida: S\nvzacnost: \nrod: \npridomek: \nmapa: \nkridla: \nocas: \nstavba: \nlet: \nschopnost: \n---\nPopis plemene.\n`},
   kapitola:{dir:"draconomicon/kapitoly",kl:"id",n:"Kapitola Draconomiconu",tpl:id=>`---\nid: ${id}\ntitle: \n---\nText kapitoly.\n`},
@@ -4651,7 +4656,7 @@ const EDDRUH={
   praha:{dir:"praha",kl:"cislo",n:"Místo v Praze",tpl:id=>`---\ncislo: ${id}\ndruh: dvur\nmesto: stare\nnazev: \npoloha: 500, 500\nvyznani: \nrod: \nosoba: \n---\nPopis místa.\n`},
   postava:{dir:"druzina",kl:"id",n:"Postava družiny",tpl:id=>`---\nid: ${id}\nn: \nepi: \ncls: \nfaith: kal\norigin: \nimg: \nsv: 5\nctnosti: \nneresti: \nvazby: \n---\nPříběh postavy.\n`}};
 const EDPOLE={id:"Id (nelze měnit)",jmeno:"Jméno",rod:"Rod (id)",role:"Postavení",sidlo:"Sídlo",nazev:"Název",kratce:"Krátký název",zeme:"Země",
-  vyznani:"Vyznání",hlava:"Hlava rodu",postoj:"Postoj",mesto:"Město (ano / ne)",soused:"Sousední rod (ano / ne)",nemapovat:"Nezobrazovat na mapě (ano / ne)",
+  vyznani:"Vyznání",hlava:"Hlava rodu",postoj:"Postoj",postaveni:"Postavení rodu (na vrcholu moci / v plné síle / na vzestupu / stabilní / v nesnázích / v úpadku)",historie:"Historie rodu (krátký odstavec)",mesto:"Město (ano / ne)",soused:"Sousední rod (ano / ne)",nemapovat:"Nezobrazovat na mapě (ano / ne)",
   sidla:"Sídla – „název | délka | šířka“, každé na nový řádek",erb:"Erb (název souboru)",n:"Označení",title:"Nadpis",datum:"Datum ve hře (RRRR-MM-DD)",date:"Datum slovy",
   hodina:"Hodina (0–23)",place:"Kde zápis končí",route:"Trasa (místa oddělená čárkou)",praha:"Místa v Praze (čísla, čárkami)",druzina:"Družina na plánu Prahy (číslo místa)",
   jinak:"Jinak zvaný",latin:"Latinsky",trida:"Třída (L / S / T)",vzacnost:"Vzácnost",pridomek:"Přídomek",kridla:"Křídla",ocas:"Ocas",stavba:"Stavba",let:"Let",schopnost:"Schopnost",
@@ -4659,7 +4664,7 @@ const EDPOLE={id:"Id (nelze měnit)",jmeno:"Jméno",rod:"Rod (id)",role:"Postave
   druh:"Druh (dvur / urad / cirkev / hospoda / anomalie)",mesto_p:"Město",poloha:"Poloha na plánu (x, y)",osoba:"Osoba (id)",epi:"Přídomek",cls:"Povolání a úroveň",
   faith:"Vyznání (kal / kat / old)",origin:"Původ",img:"Portrét (adresa obrázku)",sv:"Svědomí (0–10)",ctnosti:"Ctnosti (čárkami)",neresti:"Neřesti (čárkami)",
   nerresti:"Neřesti (čárkami)",vazby:"Vazby na rody (rod: popis, …)"};
-const EDDLOUHE=new Set(["hlava","postoj","note","schopnost","role"]);
+const EDDLOUHE=new Set(["hlava","postoj","historie","note","schopnost","role"]);
 const edEsc=t=>String(t??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 function edRozloz(md){const m=String(md).replace(/\r\n/g,"\n").match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);return m?{head:m[1].split("\n"),body:m[2]}:null}
 function edPole(lines){const out=[];let cur=null;

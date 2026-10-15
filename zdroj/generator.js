@@ -118,7 +118,7 @@ function generuj(soubory, manifest) {
       if (parts.length > 3 && parts[3]) seat.push(parts[3]);
       seats.push(seat);
     }
-    const o = { id: r.id, land: r.zeme, name: r.nazev, conf: r.vyznani, head: r.hlava || "", seats, stance: r.postoj || "", note: text(r._body) };
+    const o = { id: r.id, land: r.zeme, name: r.nazev, conf: r.vyznani, head: r.hlava || "", seats, stance: r.postoj || "", pos: r.postaveni || "", hist: r.historie || "", note: text(r._body) };
     if (ANO(r.mesto)) o.city = true;
     if (ANO(r.soused)) o.nbr = true;
     if (ANO(r.nemapovat)) o.nomap = true;
@@ -245,9 +245,9 @@ function generuj(soubory, manifest) {
   const pref = pid => ({ $g: [pid, prod[pid]], $x: pid });
   const rref = rid => ({ $g: rid, $x: rid });
   const F = fam.map(f => {
-    const base = {}; for (const k in f) if (k !== "stance" && k !== "note") base[k] = f[k];
-    Object.assign(base, { stance: "", note: "", sl: true });
-    return { $g: f.id, ...base, $plne: { stance: f.stance, note: f.note, sl: false } };
+    const base = {}; for (const k in f) if (k !== "stance" && k !== "note" && k !== "hist") base[k] = f[k];
+    Object.assign(base, { stance: "", note: "", hist: "", sl: true });
+    return { $g: f.id, ...base, $plne: { stance: f.stance, note: f.note, hist: f.hist, sl: false } };
   });
   const P = people.map(p => {
     const base = { id: p.id, n: p.n, r: p.r, role: p.role, x: "", sl: true }, plne = { x: p.x, sl: false };
