@@ -247,7 +247,7 @@ function generuj(soubory, manifest) {
   for (const p of readDir("druzina")) {
     if (!p.id || !p.n) fail(`druzina/${p._file}: chybí 'id' nebo 'n'`);
     const o = { id: p.id, n: p.n };
-    for (const k of ["epi", "cls", "faith", "origin", "img"]) if (p[k]) o[k] = p[k];
+    for (const k of ["epi", "cls", "faith", "origin", "img", "hrac", "vek", "cil"]) if (p[k]) o[k] = p[k];
     if (p.sv) o.sv = parseInt(p.sv, 10);
     o.ctn = lst(p.ctnosti); o.ner = lst(p.nerresti || p.neresti);
     o.ties = lst(p.vazby).filter(t => t.includes(":")).map(t => { const i = t.indexOf(":"); return [t.slice(0, i).trim(), t.slice(i + 1).trim()]; });

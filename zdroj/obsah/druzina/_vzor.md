@@ -4,6 +4,11 @@ id: jan
 n: Jan z Kroměříže
 epi: zchudlý panoš
 cls: Fighter · 1. úroveň
+# kdo postavu hraje a kolik jí je (nepovinné)
+hrac: Vojta
+vek: 24
+# osobní cíl, co postavu žene (nepovinné)
+cil: Získat zpět otcovu tvrz
 # faith: kal = kališník, kat = katolík, old = starověrec
 faith: kal
 origin: Praha
