@@ -393,7 +393,7 @@ a.plinkp:hover,.infobox a:hover,.artmain a:hover{color:var(--kal)}
 .alead p+p{margin-top:.6em}
 .orn{display:block;width:min(220px,60%);height:auto;margin:-14px auto}
 .orn.drak{width:min(420px,80%)}
-.apair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:10px 36px;align-items:start}.apair>.asec{margin-top:0}
+.apair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px 36px;align-items:start}.apair>.asec{margin-top:0}
 @media (max-width:760px){.apair{grid-template-columns:minmax(0,1fr)}}
 .asec{display:flex;flex-direction:column;gap:12px;scroll-margin-top:12px}
 .ash{font-family:var(--f-disp);font-weight:500;font-size:1.6rem;color:var(--kal);line-height:1.1}
@@ -755,6 +755,7 @@ svg#map,svg#pmap,svg#smap{will-change:transform;transform:translateZ(0);contain:
 .inic>b{font-weight:500;font-size:3.05em;transform:translateY(.05em)}
 .inic.i0{background-image:var(--inic0)}.inic.i1{background-image:var(--inic1)}.inic.i2{background-image:var(--inic2)}
 .ilp.ilp.ilp::first-letter{font:inherit;float:none;line-height:inherit;margin:0;color:inherit;font-size:inherit}
+.noini.noini>.ash+p::first-letter{font:inherit;float:none;line-height:inherit;margin:0;color:inherit;font-size:inherit}
 @media (max-width:640px){.inic{width:3.4em;height:3.4em}.inic>b{font-size:2.5em}}
 /* podpis kronikáře a pečeť pod zápisem */
 .zpodpis{display:flex;align-items:center;justify-content:flex-end;gap:14px;margin:10px 0 4px;padding-top:12px;border-top:1px solid color-mix(in srgb,var(--gold) 45%,transparent);text-align:right}
@@ -3078,7 +3079,7 @@ const ARTK=[
   <p>Mrtvé lze s pomocí Boží vzkřísit, ale každé vzkříšení zanechá <b>Znamení návratu</b> – ať už je to neutuchající chlad, opožděný stín, nebo změněná barva očí… Další vzkříšení běžným kouzlem již není možné.</p>
   <p>Navrácení získávají speciální <b>Feat: Revenant</b> (zatím zůstává zahalen tajemstvím)!</p>`}
  ]},
-{id:"kriticka",book:"rany",t:"Kritická zranění",img:"kriticka.webp",
+{id:"kriticka",book:"rany",t:"Kritická zranění",img:"kriticka.webp",noini:1,
  sum:"Zasažená část těla podle kostky Závoje, tabulky fyzických a magických zranění.",
  intro:"",
  secs:[
@@ -3146,7 +3147,7 @@ function artChapter(k){
    <h2 class="vh">${k.t}</h2>
    ${k.q?rq(k.q[0],k.q[1]):""}
    ${k.intro?`<div class="alead">${k.intro}</div>`:""}
-   ${(()=>{const sec=s=>`<section class="asec" id="as-${s.id}"><h3 class="ash"><a href="#artikule/${k.id}/${s.id}">${s.t}</a></h3>${s.h}</section>`;let o="";
+   ${(()=>{const sec=s=>`<section class="asec${k.noini?" noini":""}" id="as-${s.id}"><h3 class="ash"><a href="#artikule/${k.id}/${s.id}">${s.t}</a></h3>${s.h}</section>`;let o="";
      for(let j=0;j<k.secs.length;j++){const s=k.secs[j];if(s.pair&&k.secs[j+1]){o+=`<div class="apair">${sec(s)}${sec(k.secs[j+1])}</div>`;j++}else o+=sec(s)}return o})()}
    <nav class="apn">${pv?`<a href="#artikule/${pv.id}" rel="prev"><small>Předchozí</small>${pv.t}</a>`:"<span></span>"}${nx?`<a href="#artikule/${nx.id}" rel="next"><small>Další</small>${nx.t}</a>`:"<span></span>"}</nav>`;
 }
@@ -4842,7 +4843,7 @@ if(GMV){const toast=document.createElement("div");toast.className="gmtoast";toas
  pick(document.getElementById("pmap"),(x,y)=>`${Math.round(x)}, ${Math.round(y)}`);}
 /* ===== Iluminované iniciály: první písmeno zápisu, oddílu Artikulí, kapitoly Draconomiconu a zápisu kronikáře o rodu ===== */
 const ILSEL=".lead,.ztext>p:first-child,.artmain .kron,.asec>.ash+p,.drtext>p:first-of-type,.drtext>h3+p";
-function ilum(root){(root||document).querySelectorAll(ILSEL).forEach(p=>{if(p.classList.contains("ilp")||p.querySelector(".inic"))return;
+function ilum(root){(root||document).querySelectorAll(ILSEL).forEach(p=>{if(p.classList.contains("ilp")||p.querySelector(".inic")||p.closest(".noini"))return;
   const w=document.createTreeWalker(p,NodeFilter.SHOW_TEXT);let n;while((n=w.nextNode())&&!n.nodeValue.trim());
   if(!n)return;const m=n.nodeValue.match(/^(\s*)(\p{L})/u);if(!m)return;
   const sp=document.createElement("span"),ch=m[2];sp.className="inic i"+(ch.toUpperCase().charCodeAt(0)%3);sp.setAttribute("aria-hidden","true");sp.innerHTML=`<b>${ch.toUpperCase()}</b>`;
