@@ -5,6 +5,7 @@ latin: Draco apricus
 pridomek: strážce vinic pod Pálavou
 trida: L
 obrazek: slunecnik
+mapa: 16.65, 48.83; 16.35, 48.55
 ---
 ## Kde přebývá
 

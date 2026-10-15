@@ -11,6 +11,8 @@ Nové záznamy (osoba, rod, zápis Kroniky, plemeno, místo…) vznikají ve vyp
 - Chybu (neexistující rod, neuzavřené ⟦ …) web ohlásí a nic neuloží. **Zkontrolovat texty**
   ve vypravěčském přehledu projde všechno najednou.
 - Portrét, erb nebo obrázek plemene nahraješ tlačítkem v editoru – web ho sám zmenší a uloží.
+- Pole **mapa** u dračího plemene určuje, kde se plemeno ukáže ve vrstvě Draci na mapě světa
+  („délka, šířka“, více míst odděl středníkem). Hráči ho vidí, až o plemeni družina aspoň uslyší.
 - **Záloha:** jednou denně se texty upravené na webu uloží do souborů v této složce (větev `dev`,
   GitHub Actions „Záloha textů z webu“; spustit jde i ručně).
 

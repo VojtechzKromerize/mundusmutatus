@@ -9,6 +9,8 @@ pridomek: krátký přídomek pod jménem
 trida: L
 # obrázek: art/draci/<obrazek>.webp, -m.webp (malý) a -h.webp (výřez hlavy)
 obrazek: nove-plemeno
+# mapa: kde plemeno žije, pro vrstvu Draci na mapě světa – „délka, šířka“, více míst odděl středníkem
+mapa: 15.5, 49.8
 ---
 ## Kde přebývá
 

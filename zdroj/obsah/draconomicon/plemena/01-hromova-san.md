@@ -5,6 +5,7 @@ latin: Draco procellarius
 pridomek: paní krkonošských hřebenů
 trida: S
 obrazek: hromova-san
+mapa: 15.74, 50.74
 ---
 ## Kde přebývá
 

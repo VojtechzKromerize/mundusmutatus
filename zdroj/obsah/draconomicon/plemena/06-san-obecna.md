@@ -5,6 +5,7 @@ latin: Draco vulgaris
 pridomek: drak, kterého zná každý sedlák
 trida: L
 obrazek: san-obecna
+mapa: 14.0, 49.2; 16.9, 49.6
 ---
 ## Kde přebývá
 

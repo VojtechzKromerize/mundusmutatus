@@ -160,7 +160,7 @@ function generuj(soubory, manifest) {
     const img = (manifest.draci || {})[p.obrazek || p.id] || "";
     seed(p.id, p, w);
     pl.push({ id: p.id, n: p.nazev, j: p.jinak || "", la: p.latin || "", tr: p.trida, vz: p.vzacnost || "",
-      rod: p.rod || "", pd: p.pridomek || "", img, prof: ["kridla", "ocas", "stavba", "let", "schopnost"].map(k => p[k] || ""), h: md(p._body) });
+      rod: p.rod || "", pd: p.pridomek || "", mp: String(p.mapa || "").split(";").map(q => q.split(",").map(v => parseFloat(v))).filter(q => q.length === 2 && q.every(v => isFinite(v))), img, prof: ["kridla", "ocas", "stavba", "let", "schopnost"].map(k => p[k] || ""), h: md(p._body) });
   }
   { const dids = [...kap, ...pl].map(x => x.id).concat(["plemena"]);
     if (new Set(dids).size !== dids.length) fail("draconomicon: kapitoly a plemena musí mít různá id"); }
