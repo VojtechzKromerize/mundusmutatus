@@ -273,6 +273,7 @@ body:not(.home) .secsub{font-size:clamp(1.05rem,2.4vw,1.35rem);margin:0 auto 4px
 @media (max-width:640px){
   .sitenav{position:sticky!important;top:0;flex-wrap:nowrap;justify-content:space-between;gap:10px;padding:6px 10px}
   .navmark{display:block}.navmark img{height:26px}
+  body.home .sitenav:not(.stuck) .navmark{visibility:hidden}
   .navtoggle{display:inline-flex}
   .navlinks{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;align-items:stretch;gap:2px;background:var(--paper);border:1px solid var(--rule);border-top:0;padding:10px 14px 14px;box-shadow:0 10px 18px -10px rgba(0,0,0,.4);max-height:calc(100vh - 60px);overflow:auto}
   .sitenav.open .navlinks{display:flex}
@@ -670,7 +671,7 @@ a.pchar:hover{border-color:var(--kal)}
 .herobox .hero{flex:0 1 auto}
 @media (max-width:700px){.herobox{flex-direction:column;gap:10px}.herofig img{width:min(220px,60vw)}}
 .hero{text-align:center;padding:14px 10px 4px;display:flex;flex-direction:column;gap:4px;align-items:center}
-.herod{font-family:var(--f-disp);font-size:clamp(1.8rem,5vw,2.8rem);color:var(--kal);line-height:1.1}
+.herod{font-family:var(--f-disp);font-size:clamp(1.7rem,4.2vw,2.5rem);color:var(--kal);line-height:1.1}
 .herop{color:var(--muted)}
 .herop a{color:var(--kal)}
 .uvgrid{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:28px;align-items:start}
@@ -741,15 +742,91 @@ svg#map .seat,svg#map .partymk,svg#map .discmk,svg#map .dompoly,svg#pmap .pmk,sv
 svg#map:active,svg#map:active *,svg#pmap:active,svg#pmap:active *,svg#smap:active,svg#smap:active *{cursor:url(art/kurzory/drz.png) 16 16,grabbing !important;cursor:-webkit-image-set(url(art/kurzory/drz.png) 1x,url(art/kurzory/drz@2x.png) 2x) 16 16,grabbing !important;cursor:image-set(url(art/kurzory/drz.png) 1x,url(art/kurzory/drz@2x.png) 2x) 16 16,grabbing !important}
 svg#map.measuring,svg#map.measuring *,svg#pmap.measuring,svg#pmap.measuring *,svg#smap.measuring,svg#smap.measuring *{cursor:url(art/kurzory/kruzidlo.png) 4 2,crosshair !important;cursor:-webkit-image-set(url(art/kurzory/kruzidlo.png) 1x,url(art/kurzory/kruzidlo@2x.png) 2x) 4 2,crosshair !important;cursor:image-set(url(art/kurzory/kruzidlo.png) 1x,url(art/kurzory/kruzidlo@2x.png) 2x) 4 2,crosshair !important}
 #smap text{pointer-events:none}#smap .sdrz text{pointer-events:auto}
+
+/* ===== vizuál v4: kodex ===== */
+:root{--rub:#a3232b;--rubtx:#f8ebc8;--frame1:#b8892f;--frame2:#f0d68a}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--rub:#8f2a28;--rubtx:#f6e3b4;--frame1:#9c7428;--frame2:#d9b860}}
+:root[data-theme="dark"]{--rub:#8f2a28;--rubtx:#f6e3b4;--frame1:#9c7428;--frame2:#d9b860}
+/* 1. logo bez světlého obdélníku v tmavém režimu */
+.logo,.navmark{background:none!important;padding:0!important}
+.lg-d{display:none!important}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .lg-l{display:none!important}:root:not([data-theme="light"]) .lg-d{display:block!important}}
+:root[data-theme="dark"] .lg-l{display:none!important}:root[data-theme="dark"] .lg-d{display:block!important}
+.logo img{filter:drop-shadow(0 2px 3px rgba(40,25,10,.18))}
+/* titulní miniatury Artikulí v tmavém režimu na pergamenové skvrně */
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .rart{background:#ece0c2;padding:16px 26px;border:1px solid var(--frame1);border-radius:3px;box-shadow:inset 0 0 0 3px #ece0c2,inset 0 0 0 4px rgba(154,114,38,.55),inset 0 0 34px rgba(120,80,30,.28),0 4px 14px rgba(0,0,0,.35)}}
+:root[data-theme="dark"] .rart{background:#ece0c2;padding:16px 26px;border:1px solid var(--frame1);border-radius:3px;box-shadow:inset 0 0 0 3px #ece0c2,inset 0 0 0 4px rgba(154,114,38,.55),inset 0 0 34px rgba(120,80,30,.28),0 4px 14px rgba(0,0,0,.35)}
+/* 2. pergamen: zrnitý papír, ztmavlé okraje */
+html{background-color:var(--bg);background-image:radial-gradient(ellipse at 50% 40%,transparent 55%,rgba(90,60,25,.16) 100%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .25 0 0 0 0 .12 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");background-attachment:fixed,scroll}
+body{background:transparent}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){background-image:radial-gradient(ellipse at 50% 40%,transparent 50%,rgba(0,0,0,.4) 100%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .9 0 0 0 0 .8 0 0 0 0 .6 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E")}}
+:root[data-theme="dark"]{background-image:radial-gradient(ellipse at 50% 40%,transparent 50%,rgba(0,0,0,.4) 100%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .9 0 0 0 0 .8 0 0 0 0 .6 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E")}
+.sitenav{background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(3px)}
+@media (min-width:1440px){.wrap{position:relative}.wrap::before{content:"";position:fixed;inset:0 calc(50% - 712px);z-index:-1;pointer-events:none;box-shadow:0 0 0 1px color-mix(in srgb,var(--rule) 55%,transparent),0 0 60px rgba(60,40,15,.14);background:color-mix(in srgb,var(--paper) 30%,transparent)}}
+/* 3. tlačítka jako pergamenové štítky, stisknuté rumělkou */
+.controls button,.dtools .controls button,.subnav a,.backbtn,.gbtn,.gbtn.ghost{background:var(--paper);color:var(--ink);border:1px solid color-mix(in srgb,var(--gold) 55%,var(--rule));border-radius:2px;box-shadow:inset 0 0 0 2px var(--paper),inset 0 0 0 3px color-mix(in srgb,var(--gold) 22%,transparent);transition:background .15s,border-color .15s,color .15s}
+.controls button:hover,.dtools .controls button:hover,.subnav a:hover,.backbtn:hover,.gbtn.ghost:hover{border-color:var(--gold);color:var(--rub)}
+.controls button[aria-pressed="true"],.dtools .controls button[aria-pressed="true"],.subnav a.on,.gbtn:not(.ghost){background:var(--rub);color:var(--rubtx);border-color:var(--frame1);box-shadow:inset 0 0 0 1px rgba(255,225,160,.35),0 1px 2px rgba(40,20,5,.25)}
+.controls button[aria-pressed="true"]:hover,.subnav a.on:hover,.gbtn:not(.ghost):hover{color:#fff}
+.controls select,.dtools input,.search input,.gsearch input{border-color:color-mix(in srgb,var(--gold) 45%,var(--rule));border-radius:2px}
+/* 4. titulky stránek: červená iniciála a ozdobná linka */
+.arttitle::before{content:none}
+.arttitle::first-letter{color:var(--rub);font-size:1.22em;text-shadow:0 1px 0 color-mix(in srgb,var(--gold) 60%,transparent)}
+.arttitle::after{content:"";display:block;width:min(260px,60%);height:7px;margin-top:6px;background:linear-gradient(var(--gold) 0 0) left 3px/calc(100% - 14px) 1px no-repeat,radial-gradient(circle,var(--rub) 0 2.6px,transparent 3px) right center/9px 7px no-repeat}
+/* 5. úvod: velká iluminace a datum v kartuši */
+.herobox{gap:44px;padding:18px 0 10px}
+.herofig img{width:min(400px,80vw)}
+.hero{position:relative;padding:22px 40px 20px;background:var(--paper);border:1px solid var(--frame1);box-shadow:inset 0 0 0 4px var(--paper),inset 0 0 0 5px color-mix(in srgb,var(--gold) 70%,transparent),0 4px 14px rgba(40,25,10,.12);max-width:640px}
+.hero::before,.hero::after{content:"❦";position:absolute;left:50%;transform:translateX(-50%);color:var(--gold);background:var(--bg);padding:0 8px;font-size:1.1rem;line-height:1}
+.hero::before{top:-.6em}.hero::after{bottom:-.6em;transform:translateX(-50%) rotate(180deg)}
+.uvtiles{grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.uvt{display:grid;grid-template-columns:62px 1fr;grid-template-rows:auto 1fr;column-gap:14px;align-items:center;border-color:color-mix(in srgb,var(--gold) 55%,var(--rule));transition:transform .15s,box-shadow .15s,border-color .15s}
+.uvt:hover{transform:translateY(-2px);border-color:var(--gold);box-shadow:inset 0 0 0 3px var(--paper),inset 0 0 0 4px var(--gold),0 6px 16px rgba(40,25,10,.16)}
+.uvi{grid-row:span 2;width:62px;height:62px;border-radius:50%;overflow:hidden;display:block;border:2px solid var(--gold);box-shadow:0 0 0 3px var(--paper),0 0 0 4px var(--rule);background:#efe3c6}
+.uvi img{width:100%;height:100%;object-fit:cover;display:block}
+.uvi.q img{object-position:50% 18%;transform:scale(1.45);transform-origin:50% 30%}
+.uvi.uvsvg{background:#efe3c6}.uvi.uvsvg svg{width:100%;height:100%;display:block}
+.uvt b{align-self:end}.uvt span{align-self:start}
+/* 6. osoby: medailony se zlatým kroužkem, siluety tam, kde portrét chybí */
+.pcards{grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.pcard{border-color:color-mix(in srgb,var(--gold) 40%,var(--rule));box-shadow:inset 0 0 0 3px var(--paper),inset 0 0 0 4px color-mix(in srgb,var(--rule) 70%,transparent);padding:12px 14px;transition:transform .15s,border-color .15s}
+.pcard:hover{border-color:var(--gold);transform:translateY(-1px)}
+.pthumb{width:72px;height:72px;border:2px solid var(--gold);box-shadow:0 0 0 3px var(--paper),0 0 0 4px color-mix(in srgb,var(--gold) 50%,var(--rule))}
+.psil{background:radial-gradient(circle at 50% 40%,color-mix(in srgb,var(--paper) 85%,var(--gold)),color-mix(in srgb,var(--bg) 80%,var(--gold)));fill:color-mix(in srgb,var(--muted) 75%,var(--bg));padding:4px 4px 0}
+.pcard.nop b{font-weight:600}
+/* 7. článek rodu: vazby jako rubriky, erb na podstavci */
+.relrub{gap:14px}
+.relrub .relg{border:0;background:none;border-left:0}
+.relrub .relg>summary{padding:2px 0 4px;font-family:var(--f-disp);font-size:1.3rem;letter-spacing:.01em;border-bottom:1px solid color-mix(in srgb,var(--gold) 60%,transparent);gap:10px}
+.relrub .relg>summary:hover{background:none}
+.relrub .relg>summary b{font-weight:500}
+.relrub .relg>summary b::first-letter{font-size:1.25em}
+.relrub .rgc{background:none;color:var(--muted);font-family:var(--f-label);font-size:.85rem;padding:0;min-width:0}
+.relrub .rgc::before{content:"("}.relrub .rgc::after{content:")"}
+.relrub .rels-g{padding:6px 0 0 4px}
+.relrub .rels-g li{border-top:0;padding:4px 0 4px 24px;position:relative}
+.relrub .rels-g li::before{content:"❧";position:absolute;left:2px;top:3px;color:var(--gold)}
+.ibshield{position:relative;display:flex;justify-content:center;padding:6px 0 26px;margin-bottom:4px}
+.ibshield::after{content:"";position:absolute;left:12%;right:12%;bottom:6px;height:14px;background:linear-gradient(var(--frame1),var(--frame2) 45%,var(--frame1));clip-path:polygon(6% 0,94% 0,100% 100%,0 100%);box-shadow:0 2px 3px rgba(0,0,0,.2)}
+.ibshield::before{content:"";position:absolute;left:28%;right:28%;bottom:18px;height:10px;border-radius:50%;background:radial-gradient(ellipse,rgba(40,25,10,.28),transparent 70%)}
+.armbig{width:min(250px,100%);position:relative;z-index:1}
+/* 8. rámy miniatur */
+.drfig a,.rbig a,.herofig,.rwide{position:relative;display:block;padding:7px;background:linear-gradient(135deg,var(--frame1),var(--frame2) 30%,var(--frame1) 50%,var(--frame2) 72%,var(--frame1));box-shadow:0 0 0 1px var(--ink),0 6px 18px rgba(40,25,10,.22);border-radius:1px}
+.drfig a::before,.rbig a::before,.herofig::before,.rwide::before{content:"";position:absolute;inset:2px;pointer-events:none;background:radial-gradient(circle,var(--rub) 0 3px,transparent 3.6px) 0 0/16px 16px no-repeat,radial-gradient(circle,var(--rub) 0 3px,transparent 3.6px) 100% 0/16px 16px no-repeat,radial-gradient(circle,var(--rub) 0 3px,transparent 3.6px) 0 100%/16px 16px no-repeat,radial-gradient(circle,var(--rub) 0 3px,transparent 3.6px) 100% 100%/16px 16px no-repeat;z-index:1}
+.drfig img,.rbig img,.herofig img,.rwide img{border:1px solid var(--ink)!important;border-radius:0!important;box-shadow:none!important;display:block}
+.herofig{padding:7px 7px 7px;display:flex}
+.herofig figcaption{position:absolute;left:0;right:0;bottom:-26px;text-align:center}
+.herobox{padding-bottom:30px}
+.rbig{width:min(760px,100%)}
 </style>
 
 <div class="wrap">
 <header class="site">
-  <a href="#uvod" class="logo"><h1><img src="art/img/logo.webp" alt="Mundus Mutatus" width="1200" height="391"></h1></a>
+  <a href="#uvod" class="logo"><h1><img class="lg-l" src="art/img/logo.webp" alt="Mundus Mutatus" width="1200" height="391"><img class="lg-d" src="art/img/logo-tma.webp" alt="Mundus Mutatus" width="1200" height="391"></h1></a>
   <p class="secsub" id="secsub">Koruna česká k 3. březnu léta Páně 1458</p>
 </header>
   <nav class="sitenav" id="sitenav" aria-label="Hlavní navigace">
-    <a href="#uvod" class="navmark" aria-label="Mundus Mutatus – úvod"><img src="art/img/logo.webp" alt="" width="1200" height="391"></a>
+    <a href="#uvod" class="navmark" aria-label="Mundus Mutatus – úvod"><img class="lg-l" src="art/img/logo.webp" alt="" width="1200" height="391"><img class="lg-d" src="art/img/logo-tma.webp" alt="" width="1200" height="391"></a>
     <button type="button" class="navtoggle" id="navtoggle" aria-expanded="false" aria-controls="navlinks"><span class="navburger" aria-hidden="true"></span><span id="navcur">Úvod</span></button>
     <div class="navlinks" id="navlinks">
     <a href="#uvod" data-nav="uvod">Úvod</a>
@@ -773,11 +850,13 @@ svg#map.measuring,svg#map.measuring *,svg#pmap.measuring,svg#pmap.measuring *,sv
 </div>
 <section class="sec"><h2 class="uvh">Kam dál</h2>
   <div class="uvtiles">
-    <a class="uvt" href="#artikule"><b>Artikule</b><span>Pravidla tažení: Víra, Boj, Rány a slovníček pojmů.</span></a>
-    <a class="uvt" href="#druzina"><b>Družina</b><span>Hrdinové tažení, jejich Svědomí a původ.</span></a>
-    <a class="uvt" href="#kronika"><b>Kronika</b><span>Zápisy ze sezení a letopis světa.</span></a>
-    <a class="uvt" href="#mapa"><b>Mapa</b><span>Koruna a sousedé, državy rodů, cesty, diecéze a země.</span></a>
-    <a class="uvt" href="#desky"><b>Zemské desky</b><span>Rody a osoby, jejich vyznání, vazby a spory.</span></a>
+    <a class="uvt" href="#artikule"><i class="uvi q"><img src="art/svedomi.webp" alt="" loading="lazy"></i><b>Artikule</b><span>Pravidla tažení: Víra, Boj, Rány a slovníček pojmů.</span></a>
+    <a class="uvt" href="#draconomicon"><i class="uvi"><img src="art/draci/plivnik-h.webp" alt="" loading="lazy"></i><b>Draconomicon</b><span>Kniha o dracích a jejich plemenech.</span></a>
+    <a class="uvt" href="#druzina"><i class="uvi q"><img src="art/serm.webp" alt="" loading="lazy"></i><b>Družina</b><span>Hrdinové tažení, jejich Svědomí a původ.</span></a>
+    <a class="uvt" href="#kronika"><i class="uvi"><img src="art/img/kalich-drak.webp" alt="" loading="lazy"></i><b>Kronika</b><span>Zápisy ze sezení a letopis světa.</span></a>
+    <a class="uvt" href="#mapa"><i class="uvi"><img src="art/img/hrad.webp" alt="" loading="lazy"></i><b>Země Koruny</b><span>Koruna a sousedé, državy rodů, cesty, diecéze a země.</span></a>
+    <a class="uvt" href="#svet"><i class="uvi uvsvg"><svg viewBox="0 0 60 60" aria-hidden="true"><circle cx="30" cy="30" r="21" fill="#2f5d9e" stroke="#9a7226" stroke-width="2"/><path d="M30 6l4 20 20 4-20 4-4 20-4-20-20-4 20-4z" fill="#d9b860" stroke="#6b4a12" stroke-width="1"/><path d="M30 14l2.5 13.5L46 30l-13.5 2.5L30 46l-2.5-13.5L14 30l13.5-2.5z" fill="#a3232b" opacity=".85" transform="rotate(45 30 30)"/><circle cx="30" cy="30" r="3" fill="#f6e7c1" stroke="#6b4a12"/></svg></i><b>Známý svět</b><span>Mocnosti Evropy a Středomoří, spojenci a spory.</span></a>
+    <a class="uvt" href="#desky"><i class="uvi"><img src="art/erby/pod.webp" alt="" loading="lazy"></i><b>Zemské desky</b><span>Rody a osoby, jejich vyznání, vazby a spory.</span></a>
   </div>
 </section>
 </div>
@@ -1027,8 +1106,8 @@ const RICON={rod:"art/img/vazba-rod.webp",spoj:"art/img/vazba-spoj.webp",spor:"a
 const rtTag=t=>`<img class="rt" src="${RICON[t]}" alt="${RTN[t]}" title="${RTN[t]}">`;
 const rIco=t=>`<img class="rico" src="${RICON[t]}" alt="" aria-hidden="true">`;
 const RGL={rod:"Krev",spoj:"Spojenectví",spor:"Spory"};
-const relGroups=(rels,id)=>`<div class="relgs">${["rod","spoj","spor"].map(k=>{const rs=rels.filter(r=>r.t===k);if(!rs.length)return"";
-  return `<details class="relg rg-${k}"><summary><img class="rgi" src="${RICON[k]}" alt="" aria-hidden="true"><b>${RGL[k]}</b><span class="rgc">${rs.length}</span></summary><ul class="rels rels-g">${rs.map(r=>`<li><span>${relText(r,id)}</span></li>`).join("")}</ul></details>`}).join("")}</div>`;
+const relGroups=(rels,id,open)=>`<div class="relgs${open?" relrub":""}">${["rod","spoj","spor"].map(k=>{const rs=rels.filter(r=>r.t===k);if(!rs.length)return"";
+  return `<details class="relg rg-${k}"${open?" open":""}><summary><img class="rgi" src="${RICON[k]}" alt="" aria-hidden="true"><b>${RGL[k]}</b><span class="rgc">${rs.length}</span></summary><ul class="rels rels-g">${rs.map(r=>`<li><span>${relText(r,id)}</span></li>`).join("")}</ul></details>`}).join("")}</div>`;
 const ARMS=/*@ARMS@*/{};
 const CARMS={"Brno":"art/erby/mesto-brno.webp","Kutná Hora":"art/erby/mesto-kutna-hora.webp","Plzeň":"art/erby/mesto-plzen.webp","Praha":"art/erby/mesto-praha.webp","Vratislav":"art/erby/vra.webp"};
 const armsImg=(f,cls)=>ARMS[f.id]?`<img class="${cls}" src="${cls==="armbig"?ARMS[f.id].replace("art/erby/","art/erby/velke/"):ARMS[f.id]}" alt="Erb: ${f.name}">`:"";
@@ -3482,7 +3561,7 @@ function renderRodArticle(id){
      <p class="artlead">${f.head}</p>
      <h3>${f.nbr?"Postoj ke Koruně":"Postoj k Jiřímu"}</h3><p>${f.stance}</p>
      <h3>Zápis kronikáře</h3><p class="kron">${f.note}</p>
-     ${rels.length?`<h3>Vazby</h3>${relGroups(rels,id)}`:""}
+     ${rels.length?`<h3>Vazby</h3>${relGroups(rels,id,true)}`:""}
      ${TREES[id]||TREES[TREEALIAS[id]]?`<h3>Rodokmen</h3>${treeHTML(TREES[id]?id:TREEALIAS[id])}`:""}
    </div>
    <aside class="infobox">
@@ -3497,7 +3576,11 @@ function renderRodArticle(id){
    </aside></div>`;
 }
 const PORTR=new Set(/*@PORTR@*/[]);
-const pThumb=(p,cls)=>PORTR.has(p.id)?`<img class="${cls||"pthumb"}" src="art/portrety/${p.id}-m.webp" alt="" loading="lazy">`:"";
+const SIL={m:'<path d="M30 36c0-13 9-21 20-21s20 8 20 21z"/><path d="M25 34h50v6H25z"/><circle cx="50" cy="50" r="15"/><path d="M6 100c2-21 19-34 44-34s42 13 44 34z"/>',
+ f:'<path d="M50 13c-15 0-24 11-24 26 0 13 2 23 3 31-6 3-10 6-12 9 9-2 20-3 33-3s24 1 33 3c-2-3-6-6-12-9 1-8 3-18 3-31 0-15-9-26-24-26z"/><path d="M16 100c3-17 16-27 34-27s31 10 34 27z"/>',
+ c:'<path d="M50 6l-16 13v18h32V19z"/><circle cx="50" cy="50" r="14"/><path d="M6 100c2-21 19-34 44-34s42 13 44 34z"/><path d="M46.5 74h7v26h-7z" fill="var(--paper)"/><path d="M39 81h22v6H39z" fill="var(--paper)"/>'};
+const silKind=p=>/biskup|arcibiskup|kněz|kanovník|probošt|opat|kazatel|administrátor|papež|kardinál|mnich|řeholník|farář/i.test(p.role||"")?"c":/manželka|dcera|vdova|sestra|matka|paní |kněžna|abatyše|choť|vévodkyně|královna|hraběnka/i.test(p.role||"")?"f":"m";
+const pThumb=(p,cls)=>PORTR.has(p.id)?`<img class="${cls||"pthumb"}" src="art/portrety/${p.id}-m.webp" alt="" loading="lazy">`:`<svg class="${cls||"pthumb"} psil" viewBox="0 0 100 100" aria-hidden="true">${SIL[silKind(p)]}</svg>`;
 function renderPersonArticle(pid){
   const p=PBY[pid],f=byId[p.r],art=document.getElementById("article");
   const sd=p.seat&&f.seats.find(x=>x[0]===p.seat);
@@ -3522,7 +3605,7 @@ function renderOsoby(){
   const box=document.getElementById("osobylist"); if(box.dataset.done)return; box.dataset.done=1;
   const groups=[["Čechy",f=>!f.nbr&&(f.land==="Čechy"||f.land==="Královská města")],["Morava",f=>!f.nbr&&f.land==="Morava"],["Slezsko",f=>!f.nbr&&f.land==="Slezsko"],["Lužice",f=>!f.nbr&&f.land==="Lužice"],...NBR_LANDS.map(L=>[L,f=>f.nbr&&f.land===L])];
   box.innerHTML=groups.map(([L,fn])=>{const ps=PEOPLE.filter(p=>fn(byId[p.r])).sort((a,b)=>PORTR.has(b.id)-PORTR.has(a.id));if(!ps.length)return"";
-    return `<div class="land-sec"><h3 class="landh">${L.toUpperCase()}</h3><div class="pcards">${ps.map(p=>`<a class="pcard${PORTR.has(p.id)?" hasp":""}" href="#osoba/${p.id}">${pThumb(p)}<span class="pct"><b>${p.n}</b><span>${p.role}</span><small>${byId[p.r].name}</small></span></a>`).join("")}</div></div>`}).join("");
+    return `<div class="land-sec"><h3 class="landh">${L.toUpperCase()}</h3><div class="pcards">${ps.map(p=>`<a class="pcard hasp${PORTR.has(p.id)?"":" nop"}" href="#osoba/${p.id}">${pThumb(p)}<span class="pct"><b>${p.n}</b><span>${p.role}</span><small>${byId[p.r].name}</small></span></a>`).join("")}</div></div>`}).join("");
 }
 {const dd=document.getElementById("navmapy"),top=dd.querySelector(".ddtop");
  top.addEventListener("click",e=>{if(matchMedia("(hover: none)").matches&&!dd.classList.contains("open")){e.preventDefault();dd.classList.add("open");top.setAttribute("aria-expanded","true")}});
