@@ -278,6 +278,10 @@ header.site{display:flex;flex-direction:column;gap:0;border:0;padding:0}
 .svitek .svlist a:first-child{margin-top:4px}.svitek .svlist a:last-child{margin-bottom:4px}
 .svitek .svlist a small{font-family:var(--f-body);font-size:.8rem;color:rgba(232,200,140,.78);text-shadow:none}
 .svitek .svlist a+a{border-top:1px solid rgba(214,170,90,.22)}
+.svitek .svsep{display:flex;align-items:center;gap:8px;margin:6px 12px 2px;font-family:var(--f-label);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(232,200,140,.7)}
+.svitek .svsep::before,.svitek .svsep::after{content:"";flex:1;border-top:1px solid rgba(214,170,90,.45)}
+.subsep{width:1px;align-self:stretch;margin:2px 4px;background:color-mix(in srgb,var(--gold) 60%,var(--rule))}
+.dhkopie{margin:0 0 12px}.view[data-view="druzina"]>.subnav{margin-bottom:12px}
 .svitek .svlist a:hover{background:rgba(255,220,160,.1);color:#f6d27a}
 .svitek .svlist a:hover small{color:rgba(246,220,160,.9)}
 .svitek .svlist a.on{color:#f6d27a}
@@ -309,7 +313,7 @@ header.site{display:flex;flex-direction:column;gap:0;border:0;padding:0}
   .navlinks .navdd{display:block}
   .navlinks .navdd .svitek{position:static;transform:none;width:auto;margin:0;padding:0 0 4px 14px;pointer-events:auto;visibility:visible;opacity:1}
   .navlinks .navdd .svlist{max-height:none!important;padding:0!important;margin:0;-webkit-mask:none;mask:none;background:none;border:0;box-shadow:none;display:flex;flex-direction:column;align-items:flex-start;min-width:0}
-  .navlinks .navdd .svlist::before,.navlinks .navdd .svlist a.on::before{display:none}.navlinks .navdd .svlist a small{display:none}.navlinks .navdd .svlist a{font-size:1.1rem;font-weight:inherit;padding:4px 0;margin:0!important;color:var(--ink);text-shadow:none;text-align:left;border:0!important;background:none!important;box-shadow:none!important}.navlinks .navdd .svlist a.on,.navlinks .navdd .svlist a:hover{color:var(--kal)}.navlinks .navdd .svlist a+a::before{display:none}
+  .navlinks .navdd .svlist::before,.navlinks .navdd .svlist a.on::before{display:none}.navlinks .navdd .svlist a small{display:none}.navlinks .navdd .svlist a{font-size:1.1rem;font-weight:inherit;padding:4px 0;margin:0!important;color:var(--ink);text-shadow:none;text-align:left;border:0!important;background:none!important;box-shadow:none!important}.navlinks .navdd .svlist a.on,.navlinks .navdd .svlist a:hover{color:var(--kal)}.navlinks .navdd .svlist a+a::before{display:none}.navlinks .navdd .svsep{color:var(--muted);margin:6px 0 0;font-size:.68rem}.navlinks .navdd .svsep::after{border-color:var(--rule)}.navlinks .navdd .svsep::before{display:none}
   .navlinks .gsearch{order:-1;margin-bottom:6px}
   .logo{width:min(100%,300px)}
   header.site .logo{display:none}
@@ -1149,6 +1153,13 @@ html.mmload body::after{content:"Načítám zemské desky…";position:fixed;lef
 .mmhlas{position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(8px);z-index:95;max-width:min(92vw,520px);background:var(--ink);color:var(--paper);font-family:var(--f-label);letter-spacing:.03em;padding:9px 16px;border-radius:4px;box-shadow:0 4px 14px rgba(0,0,0,.3);opacity:0;transition:opacity .25s,transform .25s;pointer-events:none}
 .mmhlas.on{opacity:1;transform:translateX(-50%)}
 #uvnovw{margin:4px 0 14px}
+.kontakty{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:12px 8px;margin:8px 0 4px}
+.kontakt{display:flex;flex-direction:column;align-items:center;text-align:center;gap:3px;text-decoration:none;color:var(--ink);padding:4px 2px;border-radius:3px}
+.kontakt .kmed{width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid var(--gold);box-shadow:0 0 0 2px var(--paper),0 0 0 3px color-mix(in srgb,var(--gold) 45%,var(--rule));background:var(--paper);transition:border-color .12s}
+.kontakt .kmed.psil{object-fit:contain;padding:4px;box-sizing:border-box}
+.kontakt b{font-family:var(--f-label);font-weight:600;font-size:.86rem;line-height:1.15;margin-top:3px}
+.kontakt small{font-size:.74rem;line-height:1.15;color:var(--muted)}
+.kontakt:hover b,.kontakt:focus-visible b{color:var(--rub)}.kontakt:hover .kmed{border-color:var(--rub)}
 .novden{margin:6px 0 8px}
 .novl{list-style:none;margin:3px 0 0;padding:0 0 0 12px;border-left:2px solid var(--gold)}
 .novl li{margin:2px 0;line-height:1.35}
@@ -1413,7 +1424,6 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
 <div class="wrap"><div class="papir" aria-hidden="true"></div>
 <header class="site">
   <a href="#uvod" class="logo"><h1><img class="lg-l" src="art/img/logo.webp" alt="Mundus Mutatus" width="1200" height="391"><img class="lg-d" src="art/img/logo-tma.webp" alt="Mundus Mutatus" width="1200" height="391"></h1></a>
-  <p class="secsub" id="secsub">Úvodem</p>
 </header>
   <nav class="sitenav" id="sitenav" aria-label="Hlavní navigace">
     <a href="#uvod" class="navmark" aria-label="Mundus Mutatus – úvod"><img class="lg-l" src="art/img/logo.webp" alt="" width="1200" height="391"><img class="lg-d" src="art/img/logo-tma.webp" alt="" width="1200" height="391"></a>
@@ -1422,11 +1432,10 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
     <a href="#uvod" data-nav="uvod">Úvod</a>
     <a href="#artikule" data-nav="artikule">Artikule</a>
     <a href="#draconomicon" data-nav="draconomicon">Draconomicon</a>
-    <a href="#druzina" data-nav="druzina">Družina</a>
-    <a href="#kronika" data-nav="kronika">Kronika</a>
-    <div class="navdd" id="navmapy"><a href="#mapa" class="ddtop" data-navgrp="svet mapa praha" aria-haspopup="true" aria-expanded="false">Mapy</a>
-      <div class="svitek"><div class="svlist"><a href="#svet" data-nav="svet">Známý svět<small>Evropa a Středomoří</small></a><a href="#mapa" data-nav="mapa">Země Koruny České<small>Čechy, Morava, Slezsko a Lužice</small></a><a href="#praha" data-nav="praha">Praha<small>čtyři města pražská</small></a></div></div></div>
-    <a href="#desky" data-nav="desky">Zemské desky</a>
+    <div class="navdd" id="navkron"><a href="#kronika" class="ddtop" data-navgrp="kronika druzina" aria-haspopup="true" aria-expanded="false">Kronika</a>
+      <div class="svitek"><div class="svlist"><a href="#kronika">Zápisy tažení<small>ze sezení družiny</small></a><a href="#kronika/clanky">Články<small>o světě po protržení Závoje</small></a><a href="#kronika/letopis">Letopis<small>události Koruny a světa</small></a><a href="#druzina">Družina<small>hrdinové tažení a jejich Svědomí</small></a></div></div></div>
+    <div class="navdd" id="navdesky"><a href="#desky" class="ddtop" data-navgrp="desky mapa praha svet" aria-haspopup="true" aria-expanded="false">Zemské desky</a>
+      <div class="svitek"><div class="svlist"><a href="#desky">Rody<small>panstvo, církev a města Koruny</small></a><a href="#desky/osoby">Osoby<small>koho družina poznala</small></a><a href="#desky/sousede">Sousedé<small>okolní země a jejich vládci</small></a><a href="#desky/vazby">Vazby a spory<small>krev, spojenectví a nepřátelství</small></a><span class="svsep" aria-hidden="true">Mapy</span><a href="#mapa">Země Koruny České<small>Čechy, Morava, Slezsko a Lužice</small></a><a href="#svet">Známý svět<small>Evropa a Středomoří</small></a><a href="#praha">Praha<small>čtyři města pražská</small></a></div></div></div>
     <a href="#boj" data-nav="boj" id="navboj" hidden>Boj</a>
     <div class="gsearch" role="search"><input type="search" id="gq" placeholder="Hledat v celé kronice…" aria-label="Hledat na celém webu" autocomplete="off"><ul class="gres" id="gres" hidden></ul></div>
     <a href="#gm" data-nav="gm" class="navgm" id="navgm" title="Vypravěč – přihlášení" aria-label="Vypravěč – přihlášení"><img class="navpecet" src="art/img/pecet.webp" alt="" width="40" height="40"><span class="navgmt">Vypravěč</span></a>
@@ -1438,29 +1447,25 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
 <div class="herobox"><figure class="herofig"><img src="art/img/kalich-drak.webp" width="560" height="560" alt="Iluminace: bílý drak odpočívá ve zlatém kalichu plném vína pod hvězdnou oblohou"><figcaption>Sub utraque sunt dracones</figcaption></figure><section class="hero" id="hero"></section></div>
 <img class="uvorn" src="art/drak.webp" alt="" aria-hidden="true" width="900" height="300">
 <div class="uvgrid">
-  <section class="sec uvev"><h2 class="uvh">Poslední události</h2><div id="uvnovw" hidden><h3 class="uvh2">Co družina nově ví</h3><div id="uvnov"></div></div><div id="uvzap"></div><h3 class="uvh2">Ze světa</h3><dl class="tl" id="uvlet"></dl><a class="uvmore" href="#kronika/letopis">Celý letopis →</a></section>
+  <section class="sec uvev"><h2 class="uvh">Poslední události</h2><div id="uvnovw" hidden><h3 class="uvh2">Nedávné kontakty</h3><div class="kontakty" id="uvnov"></div></div><div id="uvzap"></div><h3 class="uvh2">Ze světa</h3><dl class="tl" id="uvlet"></dl><a class="uvmore" href="#kronika/letopis">Celý letopis →</a></section>
   <aside class="kal" id="kal1" aria-label="Kalendárium"></aside>
 </div>
 <section class="sec"><h2 class="uvh">Kam dál</h2>
   <div class="uvtiles">
     <a class="uvt" href="#artikule"><i class="uvi q"><img src="art/svedomi.webp" alt="" loading="lazy"></i><b>Artikule</b><span>Pravidla tažení: Víra, Boj, Rány a slovníček pojmů.</span></a>
     <a class="uvt" href="#draconomicon"><i class="uvi"><img src="art/img/draconomicon-ikona.webp" alt="" loading="lazy"></i><b>Draconomicon</b><span>Kniha o dracích a jejich plemenech.</span></a>
-    <a class="uvt" href="#druzina"><i class="uvi q"><img src="art/serm.webp" alt="" loading="lazy"></i><b>Družina</b><span>Hrdinové tažení, jejich Svědomí a původ.</span></a>
-    <a class="uvt" href="#kronika"><i class="uvi"><img src="art/img/kalich-drak.webp" alt="" loading="lazy"></i><b>Kronika</b><span>Zápisy ze sezení a letopis světa.</span></a>
+    <a class="uvt" href="#kronika"><i class="uvi"><img src="art/img/kalich-drak.webp" alt="" loading="lazy"></i><b>Kronika</b><span>Zápisy ze sezení, letopis světa a hrdinové družiny.</span></a>
     <a class="uvt" href="#mapa"><i class="uvi"><img src="art/img/hrad.webp" alt="" loading="lazy"></i><b>Země Koruny</b><span>Koruna a sousedé, državy rodů, cesty, diecéze a země.</span></a>
     <a class="uvt" href="#svet"><i class="uvi uvsvg"><svg viewBox="0 0 60 60" aria-hidden="true"><circle cx="30" cy="30" r="21" fill="#2f5d9e" stroke="#9a7226" stroke-width="2"/><path d="M30 6l4 20 20 4-20 4-4 20-4-20-20-4 20-4z" fill="#d9b860" stroke="#6b4a12" stroke-width="1"/><path d="M30 14l2.5 13.5L46 30l-13.5 2.5L30 46l-2.5-13.5L14 30l13.5-2.5z" fill="#a3232b" opacity=".85" transform="rotate(45 30 30)"/><circle cx="30" cy="30" r="3" fill="#f6e7c1" stroke="#6b4a12"/></svg></i><b>Známý svět</b><span>Mocnosti Evropy a Středomoří, spojenci a spory.</span></a>
-    <a class="uvt" href="#desky"><i class="uvi"><img src="art/erby/pod.webp" alt="" loading="lazy"></i><b>Zemské desky</b><span>Rody a osoby, jejich vyznání, vazby a spory.</span></a>
+    <a class="uvt" href="#desky"><i class="uvi"><img src="art/erby/pod.webp" alt="" loading="lazy"></i><b>Zemské desky</b><span>Rody a osoby, vazby a spory, mapy Koruny, Prahy a světa.</span></a>
   </div>
 </section>
 </div>
 
 <div class="view" data-view="mapa">
+<div class="deskhead dhkopie"></div>
 <section class="sec" id="mapa">
 
-  <div class="search">
-    <input type="search" id="q" placeholder="Hledat rod, osobu nebo sídlo…" autocomplete="off" aria-label="Hledat rod, osobu nebo sídlo">
-    <ul id="qres" class="qres" hidden></ul>
-  </div>
   <div class="mapgrid">
     <div class="mapbox">
       <div class="mapbar">
@@ -1534,6 +1539,10 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
       <a href="#desky/osoby" data-sub="osoby">Osoby</a>
       <a href="#desky/sousede" data-sub="sousede">Sousedé</a>
       <a href="#desky/vazby" data-sub="vazby">Vazby a spory</a>
+      <span class="subsep" aria-hidden="true"></span>
+      <a href="#mapa" data-sub="mapa">Země Koruny</a>
+      <a href="#svet" data-sub="svet">Známý svět</a>
+      <a href="#praha" data-sub="praha">Praha</a>
     </nav>
   </div>
   <article id="article" class="article" hidden></article>
@@ -1542,7 +1551,6 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
   <div class="dtools">
     <div class="controls" role="group" aria-label="Vyznání"><button type="button" data-fconf="all" aria-pressed="true">Vše</button><button type="button" data-fconf="kat" aria-pressed="false" data-fico="kat">Katolíci</button><button type="button" data-fconf="kal" aria-pressed="false" data-fico="kal">Kališníci</button><button type="button" data-fconf="mix" aria-pressed="false" data-fico="mix">Smíšení</button></div>
     <div class="controls" role="group" aria-label="Země"><button type="button" data-fland="all" aria-pressed="true">Všechny země</button><button type="button" data-fland="Čechy" aria-pressed="false">Čechy</button><button type="button" data-fland="Morava" aria-pressed="false">Morava</button><button type="button" data-fland="Slezsko" aria-pressed="false">Slezsko</button><button type="button" data-fland="Lužice" aria-pressed="false">Lužice</button><button type="button" data-fland="Královská města" aria-pressed="false">Města</button><button type="button" data-fland="Duchovenstvo" aria-pressed="false">Duchovenstvo</button></div>
-    <input type="search" id="dfilt" placeholder="Filtrovat podle jména, sídla…" aria-label="Filtrovat rody" autocomplete="off">
     <div class="controls dview" role="group" aria-label="Zobrazení"><button type="button" data-dview="cards" aria-pressed="true">Karty</button><button type="button" data-dview="list" aria-pressed="false">Seznam</button></div>
     <span class="dcount" id="dcount" aria-live="polite"></span>
   </div>
@@ -1586,6 +1594,7 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
 </div>
 
 <div class="view" data-view="praha" hidden>
+<div class="deskhead dhkopie"></div>
 <p class="intro">Praha léta Páně 1458 jsou vlastně čtyři města: Hrad s Hradčany, Malá Strana, Staré a Nové Město, spojená jediným kamenným mostem. Čísla označují místa, kde se rozhoduje o osudu království – i ta, kde se o něm jen u piva mluví. Znamení v kolečku ukazuje vyznání: kalich <b style="color:var(--kal)">kališníky</b>, klíče <b style="color:var(--kat)">katolíky</b>, váhy <b style="color:var(--mix)">smíšené</b>; místa bez znamení mají jen tečku. Kostely nesou křížek, hospody mají hranatý štítek. Blízká místa se v celkovém pohledu slučují do kolečka s počtem – klepnutím se plán přiblíží. Po přiblížení se ukážou čísla míst, ulice a brány, jméno místa po najetí myší; vše vysvětlují Vrstvy nad plánem.</p>
 <div class="mapgrid">
   <div class="mapbox" id="pmapbox">
@@ -1617,6 +1626,7 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
 </div>
 
 <div class="view" data-view="svet" hidden>
+<div class="deskhead dhkopie"></div>
 <p class="intro">Známý svět léta Páně 1458: od Portugalska po Moskvu a od Laponska po Egypt a Svatou zemi. Mapa ukazuje hlavní mocnosti, jejich přibližné hranice a nejvýznamnější města; přiblížením se ukážou i menší země a další města. Kliknutím na zemi zjistíte, kdo v ní vládne.</p>
 <div class="mapgrid">
   <div class="mapbox" id="smapbox">
@@ -1647,6 +1657,7 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
 </div>
 
 <div class="view" data-view="druzina" hidden>
+<div class="khkopie"></div>
 <section class="sec" id="druzinalist"></section>
 <article class="sec" id="druzinadet" hidden></article>
 </div>
@@ -1656,7 +1667,7 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
 </div>
 
 <div class="view" data-view="kronika" hidden>
-<nav class="subnav" aria-label="Kronika"><a href="#kronika" data-ksub="zapisy">Zápisy tažení</a><a href="#kronika/clanky" data-ksub="clanky">Články</a><a href="#kronika/letopis" data-ksub="letopis">Letopis</a></nav>
+<nav class="subnav" aria-label="Kronika"><a href="#kronika" data-ksub="zapisy">Zápisy tažení</a><a href="#kronika/clanky" data-ksub="clanky">Články</a><a href="#kronika/letopis" data-ksub="letopis">Letopis</a><a href="#druzina" data-ksub="druzina">Družina</a></nav>
 <section class="sec" id="kzapisy"></section>
 <section class="sec" id="kclanky" hidden>
   <p class="intro">Články o světě po protržení Závoje: o zemích, řádech, pověstech a tajemstvích.</p>
@@ -2552,7 +2563,7 @@ function deskApply(){
 document.querySelectorAll("[data-fconf]").forEach(b=>b.addEventListener("click",()=>{DF.conf=b.dataset.fconf;deskApply()}));
 document.querySelectorAll("[data-fland]").forEach(b=>b.addEventListener("click",()=>{DF.land=b.dataset.fland;deskApply()}));
 document.querySelectorAll("[data-dview]").forEach(b=>b.addEventListener("click",()=>{DF.view=b.dataset.dview;try{localStorage.setItem("mm-dview",DF.view)}catch(e){}deskApply()}));
-document.getElementById("dfilt").addEventListener("input",e=>{DF.q=_nrm(e.target.value.trim());deskApply()});
+document.getElementById("dfilt")?.addEventListener("input",e=>{DF.q=_nrm(e.target.value.trim());deskApply()});
 deskApply();
 const NBR_LANDS=["Braniborsko","Polsko","Uhry","Rakousy","Bavory","Sasko","Říšská města","Řím","Osmanská říše"];
 buildCards(document.getElementById("nbrlands"),NBR_LANDS,true);
@@ -2584,43 +2595,8 @@ renderRels(document.getElementById("relcols2"),REL.filter(isForeign));
 /* search */
 const norm=s=>String(s).normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
 const IDX=FAM.map(f=>({f,txt:norm([f.name,f.head,f.land,f.seats.map(s=>s[0]).join(" "),f.stance,f.pos||"",f.hist||"",f.note].join(" "))}));
-const qEl=document.getElementById("q"), qRes=document.getElementById("qres");
 const CIDX=[];FAM.forEach(f=>{if(f.city)f.seats.forEach(sd=>CIDX.push({f,name:sd[0],conf:sd[3]||f.conf,txt:norm(sd[0]+" "+((CITYINFO[sd[0]]||{}).n||""))}))});
-function runSearch(){
-  const q=norm(qEl.value.trim());
-  if(q.length<2){qRes.hidden=true;qRes.innerHTML="";return}
-  const words=q.split(/\s+/);
-  const chits=CIDX.filter(c=>norm(c.name).includes(q)).slice(0,4);
-  const phits=PEOPLE.filter(p=>words.every(w=>norm(p.n+" "+p.role).includes(w))).slice(0,4);
-  const hits=IDX.filter(r=>words.every(w=>r.txt.includes(w)))
-    .map(r=>({f:r.f,score:(norm(r.f.name).includes(q)?3:0)+(norm(r.f.head).includes(q)?2:0)+(r.f.seats.some(s=>norm(s[0]).includes(q))?2:0)}))
-    .sort((a,b)=>b.score-a.score).slice(0,8);
-  const items=[...phits.map(p=>`<li><button type="button" data-id="${p.r}" data-person="${p.id}">${p.n}<small>Osoba · ${p.role}</small></button></li>`),...chits.map(c=>`<li><button type="button" data-id="${c.f.id}" data-city="${c.name}">${c.name}<small>Město · ${CONFN[c.conf]} · ${c.f.name}</small></button></li>`),...hits.filter(h=>!h.f.city||!chits.length).map(h=>`<li><button type="button" data-id="${h.f.id}">${h.f.name}<small>${h.f.nbr?h.f.land+" · ":""}${h.f.head}</small></button></li>`)].slice(0,9);
-  qRes.innerHTML=items.length?items.join(""):`<li class="none">Nic nenalezeno.</li>`;
-  qRes.hidden=false;
-}
-qEl.addEventListener("input",runSearch);
-qEl.addEventListener("keydown",e=>{
-  if(e.key==="Enter"){const b=qRes.querySelector("button");if(b){e.preventDefault();b.click()}}
-  if(e.key==="Escape"){qRes.hidden=true}
-  if(e.key==="ArrowDown"){const b=qRes.querySelector("button");if(b){e.preventDefault();b.focus()}}
-});
-qRes.addEventListener("keydown",e=>{
-  const bs=[...qRes.querySelectorAll("button")],i=bs.indexOf(document.activeElement);
-  if(e.key==="ArrowDown"&&i<bs.length-1){e.preventDefault();bs[i+1].focus()}
-  if(e.key==="ArrowUp"){e.preventDefault();(i>0?bs[i-1]:qEl).focus()}
-  if(e.key==="Escape"){qRes.hidden=true;qEl.focus()}
-});
-qRes.addEventListener("click",e=>{
-  const b=e.target.closest("button"); if(!b)return;
-  qRes.hidden=true; qEl.value="";
-  const f=byId[b.dataset.id];
-  if(b.dataset.person){navTo("#osoba/"+b.dataset.person);return}
-  if(f.nomap){navTo("#rod/"+f.id);return}
-  navTo("#mapa");
-  if(b.dataset.city)showCity(f.id,b.dataset.city);else show(f.id);
-});
-document.addEventListener("click",e=>{if(!e.target.closest(".search"))qRes.hidden=true});
+/* hledání na mapě nahradilo jediné hledání v liště */
 
 /* relationship graph */
 const SHORT=/*@SHORT@*/{};
@@ -3142,8 +3118,7 @@ const AK=Object.fromEntries(ARTK.map(k=>[k.id,k]));
 const ASIDX=ARTK.flatMap(k=>[{k,s:null,txt:norm(strip(k.t+" "+(k.intro||"")))},...k.secs.map(s=>({k,s,raw:s.h.replace(/<[^>]+>/g," ").replace(/\s+/g," ").replace(/ ([.,;:)])/g,"$1").trim(),txt:norm(strip(s.t+" "+s.h))}))]);
 
 function artToc(cur){
-  return `<button type="button" class="atoggle" aria-expanded="false">Obsah artikulí ▾</button><label class="asrch"><span class="vh">Hledat v artikulích</span><input type="search" id="aq" placeholder="Hledat v artikulích…" autocomplete="off"></label>
-   <ol class="ares" id="ares" hidden></ol>
+  return `<button type="button" class="atoggle" aria-expanded="false">Obsah artikulí ▾</button>
    <nav class="atoc" aria-label="Obsah artikulí"><a class="atop${cur?"":" on"}" href="#artikule">Úvod</a>${ARTB.map(b=>`<p class="abook">${b.t} · ${b.n}</p><ol>${
     ARTK.filter(k=>k.book===b.id).map(k=>`<li><a href="#artikule/${k.id}"${k.id===cur?' class="on" aria-current="page"':""}>${k.t}</a>${k.id===cur&&k.secs.length>1?`<ol class="asecs">${k.secs.map(s=>`<li><a href="#artikule/${k.id}/${s.id}">${s.t}</a></li>`).join("")}</ol>`:""}</li>`).join("")}</ol>`).join("")}</nav>`;
 }
@@ -3185,19 +3160,9 @@ function renderArtikule(b,c){
   const k=AK[b],main=document.getElementById("amain"),side=document.getElementById("artside");
   side.innerHTML=artToc(k?k.id:null);
   main.innerHTML=k?artChapter(k):artLanding();
-  document.getElementById("secsub").textContent=k?"Pravidla · "+k.t:SUBT.artikule;
+  (document.getElementById("secsub")||{}).textContent=k?"Pravidla · "+k.t:SUBT.artikule;
   document.title="Mundus Mutatus · Artikule"+(k?" · "+k.t:"");
-  const aq=document.getElementById("aq"),ar=document.getElementById("ares");
-  aq.value=artQ;
-  const run=()=>{artQ=aq.value;const q=norm(aq.value.trim());if(q.length<2){ar.hidden=true;ar.innerHTML="";return}
-    const ws=q.split(/\s+/);
-    const hits=ASIDX.filter(x=>x.s&&ws.every(w=>x.txt.includes(w))).slice(0,12);
-    ar.innerHTML=hits.length?hits.map(x=>{const r=x.raw,ni=norm(r).indexOf(ws[0]);const sn=ni>=0?(ni>40?"…":"")+r.slice(Math.max(0,ni-40),ni+70)+"…":"";
-      return `<li><a href="#artikule/${x.k.id}/${x.s.id}" data-q="${aq.value.trim().split(/\s+/)[0]}"><b>${x.k.t} › ${x.s.t}</b><small>${sn}</small></a></li>`}).join(""):`<li class="none">Nic nenalezeno.</li>`;
-    ar.hidden=false};
-  aq.addEventListener("input",run); if(artQ)run();
   const tg=side.querySelector(".atoggle");tg.addEventListener("click",()=>{const o=side.classList.toggle("open");tg.setAttribute("aria-expanded",o)});
-  ar.addEventListener("click",e=>{const a=e.target.closest("a[data-q]");if(a)window._artHi=a.dataset.q});
   if(k&&k.id!=="pojmy")autolink(main,"",v=>v.g&&v.g!==k.id);
   if(k&&c){const el=document.getElementById("as-"+c);if(el){if(el.tagName==="DT"){el.classList.add("flash");setTimeout(()=>el.classList.remove("flash"),2200)}if(window._artHi){hiliteIn(el,window._artHi);window._artHi=null}requestAnimationFrame(()=>el.scrollIntoView({block:"start"}));return true}}
   return false;
@@ -4341,7 +4306,7 @@ function renderDruzina(b){
       Array.from({length:slots},()=>`<div class="pchar pslot"><span class="pport ini" aria-hidden="true">?</span><b>Volné místo</b><span>Postava se teprve chystá na cestu.</span></div>`).join("")}</div>`;
     return;
   }
-  document.getElementById("secsub").textContent="Hrdinové · "+p.n;
+  (document.getElementById("secsub")||{}).textContent="Hrdinové · "+p.n;
   D.innerHTML=`<nav class="crumbs"><a href="#druzina">Družina</a> › <b>${p.n}</b></nav>
    <div class="artgrid"><div class="artmain">
      <h2 class="arttitle">${p.n}</h2>
@@ -4385,7 +4350,7 @@ function renderKronika(b){
     return;
   }
   const i=ZAPISY.indexOf(z),pv=ZAPISY[i-1],nx=ZAPISY[i+1];
-  document.getElementById("secsub").textContent="Kronika · "+z.title;
+  (document.getElementById("secsub")||{}).textContent="Kronika · "+z.title;
   box.innerHTML=`<nav class="crumbs"><a href="#kronika">Zápisy tažení</a> › <b>${z.n}</b></nav>
    <h2 class="arttitle">${z.title}</h2>
    <p class="zmeta"><span>${z.n}</span><span>${z.date}</span><span>${placeLink(z.place)}</span></p>
@@ -4577,14 +4542,12 @@ function entInfo(id){
   const d=DISC.find(x=>x.id===id);if(d)return{k:"misto",n:d.name,h:"#mapa",sl:!d.note};
   return null}
 function renderNovinky(){
+  /* Nedávné kontakty: osoby, které družina naposledy potkala (z deníku odhalení, nejnovější první) */
   const w=document.getElementById("uvnovw");if(!w)return;
-  const items=(__D.NOVINKY||[]).map(n=>Object.assign({},n,{e:entInfo(n.id)})).filter(n=>n.e).slice(0,12);
-  w.hidden=!items.length;if(!items.length)return;
-  const den=t=>{const d=new Date(t),dn=new Date(),y=new Date(Date.now()-864e5),f=x=>x.toDateString();
-    return f(d)===f(dn)?"dnes":f(d)===f(y)?"včera":`${d.getDate()}. ${d.getMonth()+1}. ${d.getFullYear()}`};
-  const co=n=>{const e=n.e,pot=n.stav>=2;return e.k==="zapis"?"Nový zápis Kroniky:":e.k==="misto"?"Objevené místo:":e.k==="drak"?(pot?"Družina spatřila plemeno":"Družina slyšela o plemeni"):e.k==="rod"?(pot?"Družina poznala rod":"Družina slyšela o rodu"):(pot?"Družina potkala":"Družina slyšela o")};
-  const g=[];items.forEach(n=>{const d=den(n.kdy);if(!g.length||g[g.length-1][0]!==d)g.push([d,[]]);g[g.length-1][1].push(n)});
-  document.getElementById("uvnov").innerHTML=g.map(([d,ns])=>`<div class="novden"><span class="lbl">${d}</span><ul class="novl">${ns.map(n=>`<li><span>${co(n)}</span> <a href="${n.e.h}">${n.e.n}</a></li>`).join("")}</ul></div>`).join("");
+  const vid=new Set(),ps=[];
+  (__D.NOVINKY||[]).forEach(n=>{const p=PBY[n.id];if(!p||n.stav<2||vid.has(n.id)||!byId[p.r])return;vid.add(n.id);ps.push(p)});
+  const sel=ps.slice(0,10);w.hidden=!sel.length;if(!sel.length)return;
+  document.getElementById("uvnov").innerHTML=sel.map(p=>`<a class="kontakt" href="#osoba/${p.id}" title="${p.n.replace(/^✦\s*/,"")} – ${p.role}">${pThumb(p,"kmed")}<b>${p.n.replace(/^✦\s*/,"")}</b><small>${byId[p.r].name}</small></a>`).join("");
 }
 /* --- AUTOMATICKÉ ODKAZY --- */
 const AL=(()=>{
@@ -4761,15 +4724,21 @@ function renderOsoby(){
   box.innerHTML=groups.map(([L,fn])=>{const ps=PEOPLE.filter(p=>fn(byId[p.r])).sort((a,b)=>PORTR.has(b.id)-PORTR.has(a.id));if(!ps.length)return"";
     return `<div class="land-sec"><h3 class="landh">${L.toUpperCase()}</h3><div class="pcards">${ps.map(p=>`<a class="pcard hasp${PORTR.has(p.id)?"":" nop"}" href="#osoba/${p.id}">${pThumb(p)}<span class="pct"><b>${p.n}</b><span>${p.role}</span><small>${byId[p.r].name}</small></span></a>`).join("")}</div></div>`}).join("")||`<div class="placeholder"><p>Družina zatím nikoho z panstva nepotkala ani o nikom neslyšela.</p></div>`;
 }
-{const dd=document.getElementById("navmapy"),top=dd.querySelector(".ddtop");
- top.addEventListener("click",e=>{if(matchMedia("(hover: none)").matches&&!dd.classList.contains("open")){e.preventDefault();dd.classList.add("open");top.setAttribute("aria-expanded","true")}});
+document.querySelectorAll(".navdd").forEach(dd=>{const top=dd.querySelector(".ddtop");
+ top.addEventListener("click",e=>{if(matchMedia("(hover: none)").matches&&!matchMedia("(max-width:640px)").matches&&!dd.classList.contains("open")){e.preventDefault();document.querySelectorAll(".navdd.open").forEach(o=>{o.classList.remove("open");o.querySelector(".ddtop").setAttribute("aria-expanded","false")});dd.classList.add("open");top.setAttribute("aria-expanded","true")}});
  document.addEventListener("click",e=>{if(!dd.contains(e.target)){dd.classList.remove("open");top.setAttribute("aria-expanded","false")}});
  dd.addEventListener("mouseenter",()=>top.setAttribute("aria-expanded","true"));dd.addEventListener("mouseleave",()=>top.setAttribute("aria-expanded","false"));
- /* nabídka Map nesmí přetéct přes okraj okna: před otevřením ji případně posuneme do strany */
+ /* nabídka nesmí přetéct přes okraj okna: před otevřením ji případně posuneme do strany */
  const sv=dd.querySelector(".svitek"),dosad=()=>{if(matchMedia("(max-width:640px)").matches){sv.style.left="";return}
    sv.style.left="";const r=sv.getBoundingClientRect(),W=document.documentElement.clientWidth;let dx=0;
    if(r.right>W-6)dx=W-6-r.right;if(r.left+dx<6)dx=6-r.left;if(dx)sv.style.left=`calc(50% + ${Math.round(dx)}px)`};
- ["mouseenter","focusin","touchstart"].forEach(t=>dd.addEventListener(t,dosad,{passive:true}));}
+ ["mouseenter","focusin","touchstart"].forEach(t=>dd.addEventListener(t,dosad,{passive:true}));});
+/* podnabídky Zemských desek a Kroniky se ukazují i na mapách a u Družiny */
+{const dn=document.querySelector('[data-view="desky"] .deskhead .subnav');document.querySelectorAll(".dhkopie").forEach(x=>x.appendChild(dn.cloneNode(true)));
+ const kn=document.querySelector('[data-view="kronika"]>.subnav');document.querySelectorAll(".khkopie").forEach(x=>x.replaceWith(kn.cloneNode(true)));}
+/* zvýraznění položek v rozbalovacích nabídkách podle aktivní podnabídky */
+function navSync(){const on=new Set([...document.querySelectorAll('.view:not([hidden]) .subnav a.on')].map(a=>a.getAttribute("href")));
+  document.querySelectorAll(".svlist a").forEach(a=>a.classList.toggle("on",on.has(a.getAttribute("href"))))}
 /* panely Vrstvy na mapách */
 document.querySelectorAll(".lyrbtn").forEach(b=>{const p=document.getElementById(b.getAttribute("aria-controls"));
   const set=o=>{p.hidden=!o;b.setAttribute("aria-expanded",o)};
@@ -4796,8 +4765,11 @@ function route(){
   document.querySelectorAll(".view").forEach(v=>{v.hidden=v.dataset.view!==view});
   document.querySelectorAll("[data-nav]").forEach(n=>n.classList.toggle("on",n.dataset.nav===view));
   document.querySelectorAll("[data-navgrp]").forEach(n=>n.classList.toggle("on",n.dataset.navgrp.split(" ").includes(view)));
-  {const dd=document.getElementById("navmapy");dd.classList.remove("open");dd.querySelector(".ddtop").setAttribute("aria-expanded","false")}
-  document.getElementById("secsub").textContent=SUBT[view];
+  document.querySelectorAll(".navdd").forEach(dd=>{dd.classList.remove("open");dd.querySelector(".ddtop").setAttribute("aria-expanded","false")});
+  if(["mapa","svet","praha"].includes(view))document.querySelectorAll("[data-sub]").forEach(n=>n.classList.toggle("on",n.dataset.sub===view));
+  if(view==="druzina")document.querySelectorAll("[data-ksub]").forEach(n=>n.classList.toggle("on",n.dataset.ksub==="druzina"));
+  queueMicrotask(navSync);
+  (document.getElementById("secsub")||{}).textContent=SUBT[view];
   document.title=view==="uvod"?"Mundus Mutatus":"Mundus Mutatus · "+(TITL[view]||SUBT[view]);
   if(view==="desky"){
     const art=document.getElementById("article"),subs=["rody","osoby","sousede","vazby"];

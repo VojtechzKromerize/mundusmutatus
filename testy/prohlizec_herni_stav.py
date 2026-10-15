@@ -35,7 +35,7 @@ async def main():
     await pg.goto(BASE+"#uvod");await pg.wait_for_function("!document.documentElement.classList.contains('mmload')");await pg.wait_for_timeout(400)
     t=await pg.inner_text("#hero");chk("5. března" in t and "Kutná Hora" in t,"Úvod: datum a místo z herního stavu: "+t.replace("\n"," | ")[:120])
     chk(await pg.evaluate("document.querySelector('#hero').innerHTML.includes('19')"),"hodiny ukazují 19. hodinu")
-    nov=await pg.inner_text("#uvnovw");chk("Jiří z Poděbrad" in nov,"Novinky ukazují odhalenou osobu")
+    nov=await pg.inner_text("#uvnovw");chk("Jiří z Poděbrad" in nov,"Nedávné kontakty ukazují potkanou osobu")
     await pg.goto(BASE+"#kronika");await pg.wait_for_timeout(300)
     chk(await pg.locator('a[href="#kronika/testkoncept"]').count()==0,"hráč koncept nevidí")
     await pg.goto(BASE+"#mapa");await pg.wait_for_timeout(800)
@@ -48,7 +48,7 @@ async def main():
     await g.click("#kzapisy .gmbar .gs2");await g.wait_for_timeout(700)
     chk(await g.evaluate("STAV.testkoncept===2"),"zveřejnění z lišty zápisu")
     await pg.reload();await pg.wait_for_function("!document.documentElement.classList.contains('mmload')");await pg.goto(BASE+"#uvod");await pg.wait_for_timeout(400)
-    nov=await pg.inner_text("#uvnovw");chk("Nový zápis Kroniky" in nov and "Tajný koncept" in nov,"Novinky: nový zápis Kroniky")
+    nov=await pg.inner_text("#uvzap");chk("Tajný koncept" in nov,"Úvod: nový zápis Kroniky mezi posledními událostmi")
     # Praha
     await g.goto(BASE+"#gm");await g.wait_for_selector("#gmhra")
     await g.fill("#gmhra input[name=misto]","Praha");await g.select_option("#gmhra select[name=praha]","16");await g.click("#gmhra button[type=submit]");await g.wait_for_timeout(700)
