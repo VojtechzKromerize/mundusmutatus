@@ -267,12 +267,90 @@ def svet():
             fail(f"{w}: víra musí být kat / pra / isl / mix / kal")
         out.append({"id": p["id"], "n": p["nazev"], "k": p.get("kratce") or p["nazev"], "v": p.get("vladce", ""), "s": p.get("sidlo", ""),
                     "c": p["vira"], "h": ANO(p.get("hlavni", "")), "x": text(p["_body"]),
-                    "sp": lst(p.get("spor"))})
+                    "sp": lst(p.get("spor")), "al": lst(p.get("spojenec"))})
     ids = {o["id"] for o in out}
     for o in out:
         for x in o["sp"]:
             if x not in ids:
                 fail(f"svet: {o['id']} má spor s neexistující zemí „{x}“")
+        for x in o["al"]:
+            if x not in ids:
+                fail(f"svet: {o['id']} má spojence s neexistující zemí „{x}“")
+            if x in o["sp"]:
+                fail(f"svet: {o['id']} má zemi „{x}“ zároveň jako spor i spojence")
+    return out
+
+def _ll(txt, where):
+    a = txt.replace(",", " ").split()
+    if len(a) != 2:
+        fail(f"{where}: souřadnice mají tvar  délka, šířka")
+    return [num(a[0], where), num(a[1], where)]
+
+def svet_drzavy(ids):
+    out = []
+    for i, line in lines_file("svet-drzavy.md"):
+        w = f"svet-drzavy.md, řádek {i}"
+        a = [x.strip() for x in line.split("|")]
+        if len(a) < 3:
+            fail(f"{w}: má mít tvar  - název | délka, šířka | id země | poznámka")
+        if a[2] not in ids:
+            fail(f"{w}: země „{a[2]}“ neexistuje (svet/)")
+        out.append([a[0], *_ll(a[1], w), a[2], a[3] if len(a) > 3 else ""])
+    return out
+
+def svet_cesty(mesta):
+    p = os.path.join(OBSAH, "svet-cesty.md")
+    raw = open(p, encoding="utf-8").read().split("\n")
+    stops = {m[0]: [m[1], m[2]] for m in mesta}
+    for i, line in enumerate(raw, 1):
+        if line.strip().startswith("= "):
+            a = [x.strip() for x in line.strip()[2:].split("|")]
+            stops[a[0]] = _ll(a[1], f"svet-cesty.md, řádek {i}")
+    out = []
+    for i, line in lines_file("svet-cesty.md"):
+        w = f"svet-cesty.md, řádek {i}"
+        a = [x.strip() for x in line.split("|")]
+        if len(a) != 3:
+            fail(f"{w}: má mít tvar  - druh | název | zastávka; zastávka; …")
+        if a[0] not in ("hanza", "benatky", "janov", "poutlod", "reka", "pout", "obchod"):
+            fail(f"{w}: neznámý druh cesty „{a[0]}“")
+        pts = []
+        for t in [x.strip() for x in a[2].split(";") if x.strip()]:
+            if t in stops:
+                pts.append([t, *stops[t]])
+            elif re.fullmatch(r"-?[\d.]+ +-?[\d.]+", t):
+                pts.append(["", *[float(v) for v in t.split()]])
+            else:
+                fail(f"{w}: neznámá zastávka „{t}“ (doplňte ji řádkem  = {t} | délka, šířka)")
+        if len(pts) < 2 or not pts[0][0] or not pts[-1][0]:
+            fail(f"{w}: cesta musí začínat i končit pojmenovanou zastávkou")
+        out.append({"k": a[0], "n": a[1], "p": pts})
+    return out
+
+def svet_zpravy():
+    out = []
+    for i, line in lines_file("svet-zpravy.md"):
+        w = f"svet-zpravy.md, řádek {i}"
+        a = [x.strip() for x in line.split("|", 3)]
+        if len(a) != 4 or not re.fullmatch(r"\d{4}(-\d{2}){0,2}", a[0]):
+            fail(f"{w}: má mít tvar  - RRRR-MM-DD | místo | délka, šířka | text")
+        out.append([a[0], a[1], *_ll(a[2], w), a[3]])
+    return out
+
+def svet_draci(removed):
+    out = []
+    for i, line in lines_file("svet-draci.md"):
+        w = f"svet-draci.md, řádek {i}"
+        secret = line.lower().startswith("tajné ")
+        if secret:
+            line = line[6:].strip()
+        a = [x.strip() for x in line.split("|", 3)]
+        if len(a) != 4 or a[2] not in ("zavoj", "sbor", "stanice", "hnizdo", "zvest"):
+            fail(f"{w}: má mít tvar  - název | délka, šířka | zavoj/sbor/stanice/hnizdo/zvest | text")
+        if secret and not GM:
+            removed.append(a[3])
+            continue
+        out.append([a[0], *_ll(a[1], w), a[2], a[3], 1 if secret else 0])
     return out
 
 def svet_mesta():
@@ -336,8 +414,11 @@ FAM, SHORT, ARMS = rody()
 IDS = {f["id"] for f in FAM}
 PEOPLE = osoby(IDS)
 PIDS = {p["id"] for p in PEOPLE}
+SV, SVM = svet(), svet_mesta()
 for key, val in (("ZAPISY", zapisy()), ("PARTY", druzina()), ("MISTA", mista()), ("FAM", FAM), ("PEOPLE", PEOPLE),
-                 ("REL", vazby(IDS, removed_items)), ("PRAHA_PLACES", praha(IDS, PIDS)), ("PSTREETS", ulice()), ("PORTR", portrety()), ("SVET", svet()), ("SVETMESTA", svet_mesta())):
+                 ("REL", vazby(IDS, removed_items)), ("PRAHA_PLACES", praha(IDS, PIDS)), ("PSTREETS", ulice()), ("PORTR", portrety()), ("SVET", SV), ("SVETMESTA", SVM),
+                 ("SVETDRZ", svet_drzavy({o["id"] for o in SV})), ("SVETCESTY", svet_cesty(SVM)), ("SVETZPR", svet_zpravy()),
+                 ("SVETDRACI", svet_draci(removed_items))):
     tag = f"/*@{key}@*/[]"
     if tag not in s:
         fail(f"ve zdroji chybí značka {tag}")

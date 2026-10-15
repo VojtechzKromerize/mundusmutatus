@@ -16,6 +16,12 @@ s česky popsanou chybou v přehledu nasazení na Netlify a web zůstane ve stav
 | `kronika/` | zápisy ze sezení | `kronika/_vzor.md` |
 | `druzina/` | postavy hráčů | `druzina/_vzor.md` |
 | `mista/` | místa objevená družinou na mapě zemí | `mista/_vzor.md` |
+| `svet/` | mocnosti na mapě Známý svět (vládce, víra, `spor:` červeně, `spojenec:` modře) | `svet/_vzor.md` |
+| `svet-mesta.md` | města na mapě Známý svět | návod v hlavičce souboru |
+| `svet-drzavy.md` | zámořské a vzdálené državy (tečka v barvě mateřské země) | návod v hlavičce souboru |
+| `svet-cesty.md` | obchodní a poutní cesty a trasy lodí; po nich vede měření cesty | návod v hlavičce souboru |
+| `svet-zpravy.md` | zprávy ze světa (události s datem) | návod v hlavičce souboru |
+| `svet-draci.md` | draci a Závoj: sbory, stanice, hnízdiště, pověsti | návod v hlavičce souboru |
 
 ## Pravidla
 - Soubor má nahoře hlavičku mezi dvěma řádky `---` (pole `klíč: hodnota`), pod ní text.
