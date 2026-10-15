@@ -378,6 +378,9 @@ mark{background:color-mix(in srgb,var(--gold) 35%,transparent);color:inherit;pad
 .rfig{margin:0;line-height:0}
 .rfig img{width:100%;height:auto;border-radius:3px}
 .rside{float:right;width:min(240px,42%);margin:0 0 8px 16px}
+.rbig{align-self:center;width:min(760px,100%);margin:6px auto 4px;line-height:1.3}
+.rbig img{border:1px solid var(--rule);box-shadow:0 4px 16px rgba(0,0,0,.18)}
+.rbig figcaption{text-align:center;font-style:italic;color:var(--muted);font-size:.9rem;margin-top:8px}
 .asec::after{content:"";display:table;clear:both}
 /* tables */
 .rtw{overflow-x:auto;max-width:100%}
@@ -2133,8 +2136,8 @@ const ARTK=[
   <p>Požehnání ani Pokušení neruší základní výsledek hodu d20 (úspěch či neúspěch).</p>
   ${note("Příklad.","Při neúspěšném Perception checku s Požehnáním postava sice nenajde to, co hledá, ale boží prozřetelnost ji přivede k něčemu jinému užitečnému. Naopak útok, který zasáhne s Pokušením (a postava ho odmítne), vede k tomu, že se zbraň zasekne v těle nepřítele a vytrhnout ji vyžaduje bonusovou akci.")}`},
  {id:"hodiny",t:"Hodiny Závoje",h:`
-  <figure class="rfig rside"><img src="${AIMG}hodiny.webp" alt="Kolo hodin Závoje: poledne, klekání, půlnoc a slunovraty" loading="lazy" width="520" height="520"></figure>
-  <p>O <b>půlnoci</b>, v <b>poledne</b>, po <b>večerním klekání</b> a o <b>slunovratech</b> je Závoj nejtenčí. Bytosti z cizích sfér mají snazší průnik na náš svět a ${Z.P} padá již při hodu <b>1–3</b>.</p>`},
+  <p>O <b>půlnoci</b>, v <b>poledne</b>, po <b>večerním klekání</b> a o <b>slunovratech</b> je Závoj nejtenčí. Bytosti z cizích sfér mají snazší průnik na náš svět a ${Z.P} padá již při hodu <b>1–3</b>.</p>
+  <figure class="rfig rbig"><a href="${AIMG}hodiny.webp" target="_blank" rel="noopener" title="Otevřít v plné velikosti"><img src="${AIMG}hodiny.webp" alt="Kolo hodin Závoje: poledne, klekání, půlnoc a slunovraty" loading="lazy" width="1200" height="1200"></a><figcaption>Kolo hodin Závoje: poledne, večerní klekání, půlnoc a slunovraty</figcaption></figure>`},
  {id:"svatky",t:"Svátky",h:`
   <figure class="rfig rwide"><img src="${AIMG}svatky.webp" alt="Svátek ve městě: procesí, trh a mše" loading="lazy" width="1100" height="365"></figure>
   <p>Na den, na který připadá svátek podle vyznání postavy (<i>např. sv. Václav, 6. července Hus, jarní vynášení Morany</i>), padá postavě ${Z.B} již při hodu <b>4–6</b>.</p>
