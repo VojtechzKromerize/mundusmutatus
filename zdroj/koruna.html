@@ -21,6 +21,7 @@
 <link rel="preload" href="art/pisma/alegreya-latin-ext-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="art/pisma/grenze-gotisch-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
 <style>
+@font-face{font-family:'Uncial Antiqua';font-style:normal;font-weight:400;font-display:swap;src:url(art/pisma/uncial-antiqua-latin-400-normal.woff2) format('woff2');unicode-range:U+0049,U+0056,U+0058}
 @font-face{font-family:'Grenze Gotisch';font-style:normal;font-weight:500;font-display:swap;src:url(art/pisma/grenze-gotisch-latin-ext-500-normal.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
 @font-face{font-family:'Grenze Gotisch';font-style:normal;font-weight:500;font-display:swap;src:url(art/pisma/grenze-gotisch-latin-500-normal.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
 @font-face{font-family:'Grenze Gotisch';font-style:normal;font-weight:700;font-display:swap;src:url(art/pisma/grenze-gotisch-latin-ext-700-normal.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
@@ -1035,7 +1036,7 @@ body{padding-top:38px;padding-bottom:48px;padding-left:max(38px,env(safe-area-in
 .dialcz{font-family:var(--f-disp);font-size:9.5px;fill:#e9d49a}
 .dialcantx{font-family:var(--f-label);font-size:10px;letter-spacing:.06em;fill:var(--muted)}
 .dialhr,.dialcan{cursor:help}
-.dialnum{font-weight:500}.dialnum.dnd{fill:#2a1a0e}.dialnum.dnn{fill:#f6ead0;paint-order:stroke;stroke:rgba(8,14,40,.55);stroke-width:2.5px;stroke-linejoin:round}.dialnum.dnr{fill:#b8321f;font-weight:700;paint-order:stroke;stroke:#f7edcf;stroke-width:3.2px;stroke-linejoin:round}.dialnum.dnc{fill:#fbefc9;font-weight:700}
+.dialnum.dialnum{font-family:"Uncial Antiqua",var(--f-disp);font-weight:400}.dialnum.dnd{fill:#2a1a0e}.dialnum.dnn{fill:#f6ead0;paint-order:stroke;stroke:rgba(8,14,40,.55);stroke-width:2.5px;stroke-linejoin:round}.dialnum.dnr{fill:#b8321f;paint-order:stroke;stroke:#f7edcf;stroke-width:3.2px;stroke-linejoin:round}.dialnum.dnc{fill:#fbefc9}
 .dialh span{display:block;font-size:.72rem;letter-spacing:.04em;margin-top:1px;text-transform:none}
 .dialfe{font-family:var(--f-disp);color:var(--gold);font-size:.95rem;margin-top:2px}
 .dialneedle{transform-origin:200px 200px;transform-box:view-box;filter:drop-shadow(0 1.5px 2px rgba(20,10,4,.55))}
@@ -4665,8 +4666,8 @@ function dialCtx(Y,M,D,today,H,Hprev){
   if(sol)fe.push(sol);
   const cz=h=>((Math.round(h-sun.set)%24)+24)%24||24;
   return {Y,M,D,H,Hprev,sun,moon,Z,canon,fe,cz}}
-/* hodiny 2 × 12 („půl orloj“, jako římské číslice pražského orloje), středověkou minuskulí: poslední i jako j, čtyřka iiij */
-const RIMV=["","i","ij","iij","iiij","v","vj","vij","viij","ix","x","xj","xij"];
+/* hodiny 2 × 12 („půl orloj“, jako římské číslice pražského orloje), unciálními kapitálami; čtyřka IIII jako na ciferníku */
+const RIMV=["","I","II","III","IIII","V","VI","VII","VIII","IX","X","XI","XII"];
 function dialSVG(X){
   const {H,Hprev,sun,moon,Z,canon,fe,cz}=X,C=200,P=(r,h)=>{const a=(h-12)*Math.PI/12;return [C+r*Math.sin(a),C-r*Math.cos(a)]},F=v=>v.toFixed(1);
   /* podíl dne 0–1 podle výšky Slunce: noc pod −12°, plný den nad 8°, mezi tím soumrak a svítání */
