@@ -702,7 +702,6 @@ a.pchar:hover{border-color:var(--kal)}
 #pmap .prib,#pmap .pkart{font-family:var(--f-disp);font-weight:500;fill:#2b2117;letter-spacing:.03em}
 #pmap .pkart2{font-family:var(--f-body);font-style:italic;fill:#4a3a28}
 #pmap .pvitr{font-family:var(--f-disp);fill:var(--kal);letter-spacing:.06em;paint-order:stroke;stroke:var(--paper);stroke-width:3px;stroke-linejoin:round}
-#pmap .pdrak{font-family:var(--f-disp);fill:var(--kal);letter-spacing:.04em;paint-order:stroke;stroke:var(--paper);stroke-width:3.5px;stroke-linejoin:round}
 #pmap .pmer{font-family:var(--f-label);font-weight:700;fill:var(--ink);paint-order:stroke;stroke:var(--paper);stroke-width:2.5px;stroke-linejoin:round}
 .ppik{display:block;align-self:center;height:96px;width:auto;max-width:100%;object-fit:contain;filter:drop-shadow(0 2px 3px rgba(0,0,0,.25))}
 #pmap .pshn{font-family:var(--f-disp);fill:#2b2117;pointer-events:none}
@@ -2920,8 +2919,6 @@ function pOzdoby(g){
    if(CARMS&&CARMS["Praha"])gi.appendChild(el("image",{href:CARMS["Praha"],x:348,y:90,width:122,height:150,preserveAspectRatio:"xMidYMid meet"}));
    gi.appendChild(el("text",{x:410,y:352,class:"pkart","font-size":66,"text-anchor":"middle"},"Praha"));
    gi.appendChild(el("text",{x:410,y:390,class:"pkart2","font-size":23,"text-anchor":"middle"},"čtyři města pražská · 1458"));}
-  /* drak u dolního okraje */
-  {const X=222,Y=1032,Wd=566,Hd=Wd*357/1100;IMG("drak",X,Y,Wd,Hd);T(X+Wd*.27,Y+Hd*.27,"Hic sunt dracones",25,"middle","pdrak")}
   /* měřítko s kružidlem: dílek = 200 pražských loktů (loket ≈ 0,5914 m, jednotka plánu ≈ 4,045 m) */
   {const u=200*0.5914/4.045,Wm=u*900/70,Hm=Wm*293/900,X=716,Y=934,px=Wm/900;IMG("meritko",X,Y,Wm,Hm);
    const x0=X+170*px,yb=Y+238*px;[0,2,4,6,8].forEach(i=>T(x0+i*u,yb+12,String(i*200),10.5,"middle","pmer"));
@@ -3111,7 +3108,7 @@ function pDraw(){
   /* ulice a brány – jen při přiblížení */
   if(s<.66){PSTREETS.forEach(([t,x,y,r])=>L(x,y,t,"rivlbl",10.5,r,"fill:var(--ink);font-style:italic;opacity:.85"));
     (PG.gates||[]).forEach(([n,x,y])=>L(x,y+15*k,n,"rivlbl",10,0,"fill:var(--kal);font-style:italic"))}
-  /* ozdoby plánu: větry v rozích, kartuš s erbem, drak a měřítko s kružidlem */
+  /* ozdoby plánu: větry v rozích, kartuš s erbem a měřítko s kružidlem */
   pOzdoby(G({"pointer-events":"none"}));
   /* měřená cesta */
   if(PM.on&&(PM.a||PM.path)){const g=G({});
