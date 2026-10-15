@@ -26,6 +26,9 @@ Hráčský web: https://mundusmutatus.netlify.app (větev `main`), náhled: http
   (300 px) a `-m` (náhled); velké ilustrace Artikulí `-s`, náhledy kapitol `-t`. `art/svet.json` je zhuštěný
   (souřadnice jako rozdíly), rozbalí ho `svRozbal` v prohlížeči.
 
+- `testy/` – automatické testy (sestavení, tajemství, práva v databázi, odhalování, editor, prohlídka všech stránek).
+  Běží na GitHubu při každém nahrání (akce „Kontrola webu“); popis v [`testy/README.md`](testy/README.md).
+
 ## Úpravy
 Zápis ze sezení: na GitHubu otevři `zdroj/obsah/kronika/`, *Add file → Create new file*, zkopíruj obsah `_vzor.md` a uprav.
 Ulož do větve `dev`, zkontroluj náhled, pak sluč do `main`.

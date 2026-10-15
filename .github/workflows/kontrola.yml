@@ -1,0 +1,53 @@
+name: Kontrola webu
+# Při každém nahrání (a u pull requestů) sestaví web a vyzkouší ho v prohlížeči: že do hráčské verze
+# neproteklo žádné tajemství, že databáze nepustí hráče k obsahu vypravěče, že funguje odhalování, herní stav,
+# tracker iniciativy, editor textů, zápisy Kroniky a pečeť a že všechny stránky jdou otevřít bez chyb.
+# Výsledek je vidět u commitu (✓ / ✗); při chybě jsou snímky obrazovky v příloze běhu („testy-snimky“).
+# Nepotřebuje žádná tajemství – Supabase nahrazuje testovací databáze přímo v běhu.
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  kontrola:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      PGHOST: localhost
+      PGUSER: postgres
+      PGPASSWORD: postgres
+      POSTGREST: /tmp/postgrest
+      MM_VYSTUP: /tmp/testy-snimky
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Nástroje pro testy
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq postgresql-client >/dev/null
+          curl -sSL https://github.com/PostgREST/postgrest/releases/download/v12.2.3/postgrest-v12.2.3-linux-static-x64.tar.xz | tar -xJ -C /tmp
+          pip install -q playwright pillow
+          python -m playwright install --with-deps chromium
+      - name: Kontrola
+        run: bash testy/spustit.sh
+      - name: Snímky obrazovky při chybě
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: testy-snimky
+          path: /tmp/testy-snimky
+          if-no-files-found: ignore

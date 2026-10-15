@@ -1,0 +1,60 @@
+import asyncio, json, urllib.request, re
+from playwright.async_api import async_playwright
+import os, sys
+U=os.environ.get("MM_SB","http://localhost:54321");K="sb_publishable_test";BASE=os.environ.get("MM_WEB","http://localhost:8765/")
+VYSTUP=os.environ.get("MM_VYSTUP","/tmp")
+def tok(e):
+    r=urllib.request.Request(U+"/auth/v1/token?grant_type=password",data=json.dumps({"email":e,"password":"heslo"}).encode(),headers={"apikey":K,"Content-Type":"application/json"},method="POST")
+    return json.loads(urllib.request.urlopen(r).read())
+def nastav(z):
+    r=urllib.request.Request(U+"/rest/v1/rpc/mm_nastav_stavy",data=json.dumps({"p_zmeny":z}).encode(),headers={"apikey":K,"Content-Type":"application/json","Authorization":"Bearer "+tok("gm@x.cz")["access_token"]},method="POST")
+    return json.loads(urllib.request.urlopen(r).read())
+def snimek(): return urllib.request.urlopen(urllib.request.Request(U+"/rest/v1/snimek?vetev=eq.test&select=data",headers={"apikey":K})).read().decode()
+H=json.load(open(os.path.join(os.environ["MM_VYPIS"],"hrac.json"),encoding="utf-8"))
+D={d["id"]:d for d in H["DRACI"]["pl"]}
+nastav({"plivnik":2,"slunecnik":1,"hromova-san":0,"veznik":0,"dracek":0,"san-obecna":0,"bojistnik":0})
+S=snimek();fails=[]
+def chk(c,m):
+    print(("OK  " if c else "FAIL"),m)
+    if not c: fails.append(m)
+chk('"hromova-san"' not in S and D["hromova-san"]["$plne"]["h"][30:90] not in S,"skryté plemeno není ve výřezu")
+chk(D["slunecnik"]["$plne"]["h"][30:90] not in S,"popis plemene 'slyšeli' není ve výřezu")
+chk(D["plivnik"]["$plne"]["h"][30:90] in S,"popis plemene 'potkali' ve výřezu je")
+rel=tok("gm@x.cz")
+async def main():
+  async with async_playwright() as p:
+    b=await p.chromium.launch();pg=await b.new_page();errs=[]
+    pg.on("pageerror",lambda e:errs.append(str(e)[:200]))
+    await pg.goto(BASE+"#draconomicon/plemena");await pg.wait_for_function("!document.documentElement.classList.contains('mmload')")
+    await pg.wait_for_timeout(300)
+    n=await pg.locator("#drmain .drcard").count();chk(n==2,f"hráč vidí 2 plemena ({n})")
+    await pg.goto(BASE+"#draconomicon/slunecnik");await pg.wait_for_timeout(300)
+    t=await pg.inner_text("#drmain");chk("jen slyšela" in t and await pg.locator("#drmain .drfig").count()==0,"plemeno 'slyšeli' bez obrázku a s poznámkou")
+    await pg.goto(BASE+"#draconomicon/plivnik");await pg.wait_for_timeout(300)
+    src=await pg.get_attribute("#drmain .drfig img","src");chk(bool(re.search(r"art/draci/[0-9a-f]{24}\.webp",src or "")),"obrázek plemene pod nečitelným názvem "+str(src))
+    await pg.goto(BASE+"#draconomicon/hromova-san");await pg.wait_for_timeout(300)
+    chk("Hromová" not in await pg.inner_text("#drmain .crumbs") if await pg.locator("#drmain .crumbs").count() else True,"skryté plemeno se neukáže")
+    chk(await pg.locator("#navgm").is_visible(),"v nabídce je tlačítko Vypravěč")
+    await pg.click("#navgm");await pg.wait_for_timeout(300)
+    chk(await pg.locator("#gmlogin").count()==1 and await pg.evaluate("location.hash")=="#gm","tlačítko vede na přihlášení")
+    chk(not errs,"hráč bez chyb "+str(errs[:2]))
+    m=await b.new_page(viewport={"width":390,"height":844});await m.goto(BASE);await m.wait_for_function("!document.documentElement.classList.contains('mmload')")
+    await m.click("#navtoggle");await m.wait_for_timeout(200)
+    chk(await m.locator("#navgm .navgmt").is_visible(),"mobil: položka Vypravěč v menu")
+    await m.screenshot(path=os.path.join(VYSTUP,"menu-m.png"))
+    g=await b.new_page();gerr=[];g.on("pageerror",lambda e:gerr.append(str(e)[:200]))
+    await g.add_init_script("localStorage.setItem('mm-gm-relace',JSON.stringify("+json.dumps({"at":rel["access_token"],"rt":rel["refresh_token"],"exp":rel["expires_at"],"email":"gm@x.cz"})+"))")
+    await g.goto(BASE+"#gm");await g.wait_for_selector(".gmlist")
+    chk(await g.locator('.gmrow[data-gmid="hromova-san"] .gs0[aria-pressed="true"]').count()==1,"přehled: sekce dračích plemen")
+    chk("dračích plemen" in await g.inner_text("#gmsum"),"souhrn počítá plemena")
+    await g.goto(BASE+"#draconomicon/hromova-san");await g.wait_for_timeout(300)
+    chk(await g.locator("#drmain .gmbar").count()==1,"lišta stavu na stránce plemene")
+    await g.click("#drmain .gmbar .gs1");await g.wait_for_timeout(600)
+    chk(await g.evaluate("STAV['hromova-san']===1"),"změna plemene uložena")
+    chk(await g.evaluate("document.querySelector('#navgm').matches('.navgm')&&/pecet-zlomena/.test(document.querySelector('#navgm').innerHTML)"),"přihlášený vypravěč má zlomenou pečeť")
+    await g.screenshot(path=os.path.join(VYSTUP,"drak-gm.png"))
+    chk(not gerr,"vypravěč bez chyb "+str(gerr[:2]))
+    await b.close()
+asyncio.run(main())
+print("SELHALO:",len(fails)) if fails else print("VŠE OK")
+sys.exit(1 if fails else 0)
