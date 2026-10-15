@@ -187,6 +187,7 @@ header.site{display:flex;flex-direction:column;gap:0;border:0;padding:0}
 .spoly{cursor:pointer}.spoly:hover{filter:brightness(1.08)}
 .sbadge{display:inline-block;padding:1px 8px;border-radius:10px;border:1.5px solid var(--c);color:var(--c);font-family:var(--f-label);font-size:.85rem;font-weight:600}
 .sswatch{flex:none;width:16px;height:12px;border:1px solid var(--ink);border-radius:2px}
+.sfoenote{display:block;font-size:.8em;color:var(--kal);font-family:var(--ui,inherit);letter-spacing:.02em}
 .sfaithleg{display:flex;flex-direction:row;flex-wrap:wrap;gap:6px 14px}
 /* Draconomicon */
 .drgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
@@ -215,6 +216,7 @@ header.site{display:flex;flex-direction:column;gap:0;border:0;padding:0}
 .drprof th{width:34%;font-family:var(--f-label);font-weight:600;letter-spacing:.04em;color:var(--muted)}
 .drthumb{width:46px;height:31px;object-fit:cover;border-radius:2px;flex:none;border:1px solid var(--rule)}
 .atoc .drpl a{display:flex;align-items:center;gap:8px}
+.sbico{width:16px;height:16px;vertical-align:-3px;margin-right:4px}.sgico{width:22px;height:22px;vertical-align:-5px;margin-right:6px}
 .gmtoast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:90;background:var(--ink);color:var(--paper);font-family:var(--f-label);padding:8px 14px;border-radius:4px;box-shadow:0 4px 12px rgba(0,0,0,.3);opacity:0;pointer-events:none;transition:opacity .2s}.gmtoast.on{opacity:1}
 .navdd{position:relative;display:inline-block}
 .navdd .svitek{position:absolute;left:50%;top:100%;transform:translateX(-50%);padding-top:10px;z-index:40;pointer-events:none}
@@ -817,10 +819,15 @@ svg#map.measuring .seat{cursor:url(art/kurzory/kruzidlo.png) 4 2,crosshair !impo
 <p class="intro">Známý svět léta Páně 1458: od Portugalska po Moskvu a od Laponska po Egypt. Mapa ukazuje hlavní mocnosti, jejich přibližné hranice a nejvýznamnější města; přiblížením se ukážou i menší země a další města. Kliknutím na zemi zjistíte, kdo v ní vládne.</p>
 <div class="mapgrid">
   <div class="mapbox" id="smapbox">
-    <div class="controls" role="group" aria-label="Ovládání mapy"><button type="button" id="sreset">Celý svět</button><button type="button" id="szin" aria-label="Přiblížit">+</button><button type="button" id="szout" aria-label="Oddálit">−</button></div>
+    <div class="controls" role="group" aria-label="Ovládání mapy"><button type="button" id="sreset">Celý svět</button><button type="button" id="szin" aria-label="Přiblížit">+</button><button type="button" id="szout" aria-label="Oddálit">−</button><button type="button" id="smeasure" aria-pressed="false">Měřit cestu</button></div>
+    <div class="controls" role="group" aria-label="Víra"><button type="button" data-sconf="all" aria-pressed="true">Vše</button><button type="button" data-sconf="kat" data-sfico="kat" aria-pressed="false">Katolíci</button><button type="button" data-sconf="pra" data-sfico="pra" aria-pressed="false">Pravoslavní</button><button type="button" data-sconf="isl" data-sfico="isl" aria-pressed="false">Islám</button><button type="button" data-sconf="mix" data-sfico="mix" aria-pressed="false">Smíšení</button></div>
     <div class="controls" role="group" aria-label="Vrstvy"><button type="button" id="sHre" aria-pressed="true">Hranice Říše</button><button type="button" id="sFaith" aria-pressed="false">Podle víry</button><button type="button" id="sCities" aria-pressed="true">Města</button><button type="button" id="sRivers" aria-pressed="true">Řeky a hory</button></div>
     <svg id="smap" viewBox="0 0 1000 772" role="img" aria-label="Mapa Evropy a Středomoří roku 1458 s hlavními mocnostmi"></svg>
     <p id="sfaithleg" class="diolegend sfaithleg" hidden><span class="sbadge" style="--c:var(--kat)">katolíci</span><span class="sbadge" style="--c:var(--spra)">pravoslavní</span><span class="sbadge" style="--c:var(--sisl)">islám</span><span class="sbadge" style="--c:var(--mix)">smíšené vyznání</span></p>
+    <div id="stravel" class="travel" hidden>
+      <div class="trow"><label for="sfrom" class="lbl">Odkud</label><select id="sfrom"></select><label for="sto" class="lbl">Kam</label><select id="sto"></select></div>
+      <div id="stres" class="tres"><p>Klikněte na mapě na dvě místa, nebo vyberte města v nabídce.</p></div>
+    </div>
   </div>
   <aside class="detail empty sdet" id="sdetail" aria-live="polite"></aside>
 </div>
@@ -867,6 +874,7 @@ const REL=/*@REL@*/[];
 const byId=Object.fromEntries(FAM.map(f=>[f.id,f]));
 const CONFN={kat:"katolíci",kal:"kališníci",mix:"smíšení"};
 const FICON={kat:"art/img/vira-kat.webp",kal:"art/img/vira-kal.webp",mix:"art/img/vira-mix.webp"};
+const SFICON={kat:"art/img/vira-kat.webp",kal:"art/img/vira-kal.webp",pra:"art/img/vira-pra.webp",isl:"art/img/vira-isl.webp",mix:"art/img/vira-smi.webp"};
 const faith=c=>`<span class="faith f-${c}"><img src="${FICON[c]}" alt="" aria-hidden="true">${CONFN[c]}</span>`;
 const CASTLEICO="art/img/hrad.webp";
 const castleImg=(c,cls)=>`<img class="${cls||"townico"} t-${c}" src="${CASTLEICO}" alt="" aria-hidden="true">`;
@@ -2629,7 +2637,12 @@ const SVETMESTA=/*@SVETMESTA@*/[];
 const SVB={};SVET.forEach(s=>SVB[s.id]=s);
 const SVIRA={kat:"katolíci",pra:"pravoslavní",isl:"islám",mix:"smíšené vyznání",kal:"kališníci"};
 const SVIRAC={kat:"var(--kat)",pra:"var(--spra)",isl:"var(--sisl)",mix:"var(--mix)",kal:"var(--kal)"};
-let SG=null;const sst={vb:null,sel:null,hre:true,faith:false,cities:true,riv:true};
+let SG=null;const sst={vb:null,sel:null,hre:true,faith:false,cities:true,riv:true,conf:"all"};
+const SM={on:false,a:null,b:null};
+const sDark=()=>{const t=document.documentElement.dataset.theme;return t==="dark"||(t!=="light"&&matchMedia("(prefers-color-scheme: dark)").matches)};
+const sConfOk=S=>sst.conf==="all"||(S&&(S.c===sst.conf||(sst.conf==="mix"&&S.c==="kal")));
+function SPinv(x,y){const p=SG.proj,X=x/p.S+p.X0,Y=p.Y1-y/p.S,dy=p.rho0-Y,rho=Math.sign(p.n)*Math.hypot(X,dy),th=Math.atan2(X,dy);
+  return [p.lon0+th/p.n*180/Math.PI,(2*Math.atan(Math.pow(p.F/rho,1/p.n))-Math.PI/2)*180/Math.PI]}
 const SVB0=[0,0,1000,772];
 /* ručně umístěné popisky velkých mocností (zeměpisná délka, šířka) */
 const SLABPOS={hre:[11.5,52.0],ott:[33.8,38.5],boh:[16.2,50.25],hun:[21.3,46.6],pol:[19.6,52.4],fra:[2.2,46.6],kas:[-3.4,39.4],por:[-8.4,41.1],mam:[30.0,28.6],
@@ -2675,6 +2688,8 @@ function sDraw(){
   rg.appendChild(el("stop",{offset:"58%","stop-color":"var(--rule)","stop-opacity":"0"}));rg.appendChild(el("stop",{offset:"100%","stop-color":"var(--hill)","stop-opacity":".7"}));defs.appendChild(rg);
   {const pt=el("pattern",{id:"swave",patternUnits:"userSpaceOnUse",width:34,height:22});
    pt.appendChild(el("path",{d:"M3,8q3,-2.6 6,0t6,0M20,18q3,-2.6 6,0t6,0",fill:"none",stroke:"var(--water)","stroke-width":".7",opacity:".55"}));defs.appendChild(pt);}
+  {const ph=el("pattern",{id:"shatch",patternUnits:"userSpaceOnUse",width:5*k,height:5*k,patternTransform:"rotate(45)"});
+   ph.appendChild(el("rect",{width:5*k,height:5*k,fill:"var(--land)"}));ph.appendChild(el("path",{d:`M0,0V${5*k}`,stroke:"var(--ink)","stroke-width":(.6*k).toFixed(2),opacity:".22"}));defs.appendChild(ph);}
   svg.appendChild(defs);
   const G=a=>{const g=el("g",a||{});svg.appendChild(g);return g};
   const path=p=>p.map(r=>"M"+r.map(q=>q.join(",")).join("L")+"Z").join("");
@@ -2684,10 +2699,12 @@ function sDraw(){
   /* pevnina a mocnosti */
   {const gl=G({filter:"url(#swash)"});gl.appendChild(el("path",{d:SG.land.map(path).join(""),fill:"var(--land)"}));
    const gs=G({filter:"url(#swob)"});
-   Object.entries(SG.states).forEach(([id,ps])=>{const S=SVB[id];const fill=sst.faith&&S?SVIRAC[S.c]:`var(--sw${SG.col[id]%10})`;
-     const p=el("path",{d:ps.map(path).join(""),fill,"fill-opacity":sst.faith?".5":"1","fill-rule":"evenodd",stroke:"var(--ink)","stroke-width":(.55*k).toFixed(2),"stroke-opacity":".75","stroke-linejoin":"round",class:"spoly","data-id":id});
+   const dk=sDark(),foe=new Set(sst.sel&&SVB[sst.sel]?SVB[sst.sel].sp:[]);
+   Object.entries(SG.states).forEach(([id,ps])=>{const S=SVB[id];const base=SG.fill&&SG.fill[id]?SG.fill[id][dk?1:0]:`var(--sw${SG.col[id]%10})`;
+     const ok=sConfOk(S),fill=foe.has(id)?(dk?"#7a2a24":"#d4473a"):sst.faith&&S?SVIRAC[S.c]:ok?base:"url(#shatch)";
+     const p=el("path",{d:ps.map(path).join(""),fill,"fill-opacity":foe.has(id)?"1":sst.sel&&foe.size&&id!==sst.sel?".38":sst.faith?".5":"1","fill-rule":"evenodd",stroke:"var(--ink)","stroke-width":(.55*k).toFixed(2),"stroke-opacity":".75","stroke-linejoin":"round",class:"spoly","data-id":id});
      p.appendChild(el("title",{},S?S.n:id));
-     p.addEventListener("click",e=>{e.stopPropagation();if(sDrag.moved)return;sSel(id)});
+     p.addEventListener("click",e=>{if(SM.on)return;e.stopPropagation();if(sDrag.moved)return;sSel(id)});
      gs.appendChild(p)});
    gl.appendChild(el("path",{d:SG.land.map(path).join(""),fill:"none",stroke:"var(--water)","stroke-width":(1.3*k).toFixed(2),opacity:".8"}));
    if(SG.lakes)gs.appendChild(el("path",{d:SG.lakes.map(path).join(""),fill:"var(--water)","fill-opacity":".3",stroke:"var(--water)","stroke-width":(.5*k).toFixed(2)}));}
@@ -2695,6 +2712,9 @@ function sDraw(){
   if(sst.hre&&SG.hre){const g=G({filter:"url(#swob)","pointer-events":"none"});const d=SG.hre.map(path).join("");
     g.appendChild(el("path",{d,fill:"none",stroke:"var(--paper)","stroke-width":(4.2*k).toFixed(2),opacity:".8"}));
     g.appendChild(el("path",{d,fill:"none",stroke:"var(--gold)","stroke-width":(2.2*k).toFixed(2),"stroke-dasharray":`${7*k} ${4*k}`}))}
+  /* nepřátelé vybrané mocnosti */
+  if(sst.sel&&SVB[sst.sel]&&SVB[sst.sel].sp.length){const g=G({filter:"url(#swob)","pointer-events":"none"});
+    SVB[sst.sel].sp.forEach(id=>{if(SG.states[id])g.appendChild(el("path",{d:SG.states[id].map(path).join(""),fill:"none",stroke:"var(--kal)","stroke-width":(2.4*k).toFixed(2),"stroke-dasharray":`${5*k} ${3*k}`,"stroke-linejoin":"round"}))})}
   /* vybraná mocnost */
   if(sst.sel&&SG.states[sst.sel]){const g=G({filter:"url(#swob)","pointer-events":"none"});
     g.appendChild(el("path",{d:SG.states[sst.sel].map(path).join(""),fill:"var(--gold)","fill-opacity":".18",stroke:"var(--gold)","stroke-width":(2.6*k).toFixed(2),"stroke-linejoin":"round"}))}
@@ -2720,6 +2740,12 @@ function sDraw(){
      if(cap){gg.appendChild(el("circle",{cx:x,cy:y,r:3.3*k,fill:"var(--paper)",stroke:"var(--ink)","stroke-width":1.1*k}));gg.appendChild(el("circle",{cx:x,cy:y,r:1.3*k,fill:"var(--kal)"}))}
      else gg.appendChild(el("circle",{cx:x,cy:y,r:2*k,fill:"var(--ink)"}));
      gg.appendChild(el("text",{x:x+4.6*k,y:y+3*k,class:"seatlbl","font-size":((cap?10:9)*Math.max(k,.45)).toFixed(1),"stroke-width":(2.6*k).toFixed(2)},n));g.appendChild(gg)})}
+  /* měřená cesta */
+  if(SM.on&&SM.a){const g=G({"pointer-events":"none"});const pa=SP(...SM.a.ll);
+    if(SM.b){const pb=SP(...SM.b.ll);g.appendChild(el("path",{d:`M${pa}L${pb}`,stroke:"var(--paper)","stroke-width":(5*k).toFixed(2),"stroke-linecap":"round",opacity:".8"}));
+      g.appendChild(el("path",{d:`M${pa}L${pb}`,stroke:"var(--kal)","stroke-width":(2.4*k).toFixed(2),"stroke-dasharray":`${7*k} ${3.5*k}`,"stroke-linecap":"round"}))}
+    [[SM.a,"A"],[SM.b,"B"]].forEach(([q,t])=>{if(!q)return;const [x,y]=SP(...q.ll);g.appendChild(el("circle",{cx:x,cy:y,r:6*k,fill:"var(--kal)",stroke:"var(--paper)","stroke-width":1.3*k}));
+      g.appendChild(el("text",{x,y:y+2.8*k,"text-anchor":"middle","font-size":(8*k).toFixed(1),class:"pmkn",style:"fill:var(--paper)"},t))})}
   /* kartuš a růžice */
   {const x=14,y=690,w=196,h=62,g=G({filter:"url(#swob)"});
    g.appendChild(el("path",{d:`M${x+10},${y}H${x+w-10}q10,0 10,10v${h-20}q0,10 -10,10H${x+10}q-10,0 -10,-10v${-(h-20)}q0,-10 10,-10Z`,fill:"var(--paper)",stroke:"var(--ink)","stroke-width":"1.3"}));
@@ -2738,18 +2764,20 @@ function sDraw(){
   gfr.appendChild(el("rect",{x:vb[0]+8*s,y:vb[1]+8*s,width:vb[2]-16*s,height:vb[3]-16*s,fill:"none",stroke:"var(--kal)","stroke-width":.9*s}));
   document.getElementById("sfaithleg").hidden=!sst.faith;
 }
-const sBadge=c=>`<span class="sbadge" style="--c:${SVIRAC[c]}">${SVIRA[c]}</span>`;
+const sBadge=c=>`<span class="sbadge" style="--c:${SVIRAC[c]}">${SFICON[c]?`<img class="sbico" src="${SFICON[c]}" alt="">`:""}${SVIRA[c]}</span>`;
 function sDetail(){
   const d=document.getElementById("sdetail"),S=SVB[sst.sel];
-  if(!S){d.classList.add("empty");d.innerHTML=`<span class="lbl">Známý svět · březen 1458</span><p>Klikněte na zemi na mapě nebo v seznamu pod ní. Uvidíte, kdo v ní vládne, odkud a jaké víry.</p><p class="rsmall">Hranice jsou přibližné: středověké státy neměly ostré čáry, ale panství, léna a sféry vlivu. Zlatá přerušovaná čára obepíná Svatou říši římskou.</p>`;return}
+  if(!S){d.classList.add("empty");d.innerHTML=`<span class="lbl">Známý svět · březen 1458</span><p>Klikněte na zemi na mapě nebo v seznamu pod ní. Uvidíte, kdo v ní vládne, odkud a jaké víry; země, s nimiž je ve válce či sporu, se rozsvítí červeně.</p><p class="rsmall">Hranice jsou přibližné: středověké státy neměly ostré čáry, ale panství, léna a sféry vlivu. Zlatá přerušovaná čára obepíná Svatou říši římskou.</p>`;return}
   d.classList.remove("empty");
   d.innerHTML=`<span class="lbl">${S.h?"Velmoc":"Země"} · březen 1458</span>
    <h3 style="font-size:1.35rem">${S.n}</h3>
-   <dl class="kv"><dt>Vládce</dt><dd>${S.v||"–"}</dd><dt>Sídlo</dt><dd>${S.s||"–"}</dd><dt>Víra</dt><dd>${sBadge(S.c)}</dd></dl>
+   <dl class="kv"><dt>Vládce</dt><dd>${S.v||"–"}</dd><dt>Sídlo</dt><dd>${S.s||"–"}</dd><dt>Víra</dt><dd>${sBadge(S.c)}</dd>
+   ${S.sp.length?`<dt>V konfliktu</dt><dd>${S.sp.filter(x=>SVB[x]).map(x=>`<button type="button" class="plink sfoe" data-sid="${x}">${SVB[x].k}</button>`).join(", ")}<span class="sfoenote">na mapě červeně</span></dd>`:""}</dl>
    <p>${S.x}</p>
    ${S.id==="boh"?`<a class="gbtn ghost" href="#mapa">Mapa zemí Koruny české</a>`:""}
    <button type="button" class="backbtn" id="sclear">Zpět na přehled</button>`;
   autolink(d.querySelector("p"),"");
+  d.querySelectorAll(".sfoe").forEach(b=>b.addEventListener("click",()=>sSel(b.dataset.sid)));
   document.getElementById("sclear").addEventListener("click",()=>sSel(null));
 }
 function sSel(id){sst.sel=id;sDraw();sDetail();document.querySelectorAll(".slist button").forEach(b=>b.classList.toggle("on",b.dataset.sid===id));
@@ -2757,10 +2785,18 @@ function sSel(id){sst.sel=id;sDraw();sDetail();document.querySelectorAll(".slist
 function sList(){
   const grp=[["kat","Katolické země"],["mix","Země smíšené víry"],["pra","Pravoslavné země"],["isl","Islámské země"]];
   document.getElementById("slist").innerHTML=grp.map(([c,t])=>{const ss=SVET.filter(s=>s.c===c||(c==="mix"&&s.c==="kal")).sort((a,b)=>(b.h-a.h)||a.n.localeCompare(b.n,"cs"));if(!ss.length)return"";
-    return `<section class="pgrp"><h3 class="landh">${t.toUpperCase()}</h3><ol class="plist slist">${ss.map(s=>`<li><button type="button" data-sid="${s.id}"><span class="sswatch" style="background:var(--sw${(SG.col[s.id]||0)%10})"></span>${s.h?`<b>${s.n}</b>`:s.n}</button></li>`).join("")}</ol></section>`}).join("");
+    return `<section class="pgrp"><h3 class="landh"><img class="sgico" src="${SFICON[c]}" alt="">${t.toUpperCase()}</h3><ol class="plist slist">${ss.map(s=>`<li><button type="button" data-sid="${s.id}"><span class="sswatch" style="background:${SG.fill?SG.fill[s.id][sDark()?1:0]:"var(--sw0)"}"></span>${s.h?`<b>${s.n}</b>`:s.n}</button></li>`).join("")}</ol></section>`}).join("");
   document.querySelectorAll(".slist button").forEach(b=>b.addEventListener("click",()=>{sSel(b.dataset.sid);document.getElementById("smapbox").scrollIntoView({block:"start",behavior:"smooth"})}));
 }
 const sDrag={moved:false};
+function smPick(q){if(!SM.a||SM.b){SM.a=q;SM.b=null}else SM.b=q;smRender();sDraw()}
+function smRender(){const r=document.getElementById("stres"),F=document.getElementById("sfrom"),T=document.getElementById("sto");
+  F.value=SM.a?SM.a.key:"";T.value=SM.b?SM.b.key:"";
+  if(!SM.a||!SM.b){r.innerHTML=`<p>${SM.a?`Odkud: <b>${SM.a.name}</b>. Vyberte cíl.`:"Klikněte na mapě na dvě místa (v blízkosti města se vybere město), nebo vyberte města v nabídce."}</p>`;return}
+  const air=Math.round(haversine(SM.a.ll,SM.b.ll)),land=Math.round(air*1.3),sea=Math.round(air*1.2);
+  r.innerHTML=`<p><b>${SM.a.name}</b> → <b>${SM.b.name}</b>: <span class="km">asi ${land.toLocaleString("cs")} km</span> <span class="lbl">(vzdušnou čarou ${air.toLocaleString("cs")} km)</span></p>
+   <div class="tgrid"><div><b>Pěšky</b>${days(land,30)}</div><div><b>Na koni</b>${days(land,45)}</div><div><b>S vozem</b>${days(land,20)}</div><div><b>Posel se střídáním koní</b>${days(land,90)}</div><div><b>Lodí, pokud vede voda</b>${days(sea,110)}</div><div><b>Na drakovi</b>${days(air,250)}</div></div>
+   <p class="lbl">Hrubý odhad: po zemi počítá s cestou o třetinu delší než vzdušná čára, po moři o pětinu. Hory, moře, hranice ani války odhad nezná.</p>`}
 (function(){
   const svg=document.getElementById("smap");
   const cur=()=>sst.vb||SVB0,AR=SVB0[3]/SVB0[2];
@@ -2777,10 +2813,19 @@ const sDrag={moved:false};
     else if(pts.size===2){sDrag.moved=true;const [a,b]=[...pts.values()],d=Math.hypot(a[0]-b[0],a[1]-b[1]);if(last)sZoom(last/d,(a[0]+b[0])/2,(a[1]+b[1])/2);last=d}});
   const end=e=>{pts.delete(e.pointerId);if(pts.size<2)last=null;setTimeout(()=>{if(!pts.size)sDrag.moved=false},0)};
   svg.addEventListener("pointerup",end);svg.addEventListener("pointercancel",end);
-  svg.addEventListener("click",e=>{if(!sDrag.moved&&!e.target.closest(".spoly")&&sst.sel)sSel(null)});
+  svg.addEventListener("click",e=>{if(sDrag.moved)return;
+    if(SM.on){const p=svg.createSVGPoint();p.x=e.clientX;p.y=e.clientY;const q=p.matrixTransform(svg.getScreenCTM().inverse());const ll=SPinv(q.x,q.y);
+      let best=null,bd=1e9;SVETMESTA.forEach(([n,lo,la])=>{const [x,y]=SP(lo,la),dd=Math.hypot(x-q.x,y-q.y);if(dd<bd){bd=dd;best=[n,lo,la]}});
+      smPick(bd<9*(cur()[2]/1000)?{name:best[0],ll:[best[1],best[2]],key:best[0]}:{name:(sp=>sp&&SVB[sp.dataset.id]?`místo v zemi ${SVB[sp.dataset.id].k}`:"bod na moři")(e.target.closest(".spoly")),ll,key:""});return}
+    if(!e.target.closest(".spoly")&&sst.sel)sSel(null)});
   document.getElementById("szin").addEventListener("click",()=>sZoom(1/1.4));
   document.getElementById("szout").addEventListener("click",()=>sZoom(1.4));
   document.getElementById("sreset").addEventListener("click",()=>{sst.vb=null;sDraw()});
+  document.querySelectorAll("[data-sfico]").forEach(e=>e.insertAdjacentHTML("afterbegin",`<img class="rico" src="${SFICON[e.dataset.sfico]}" alt="" aria-hidden="true">`));
+  document.querySelectorAll("[data-sconf]").forEach(b=>b.addEventListener("click",()=>{sst.conf=b.dataset.sconf;document.querySelectorAll("[data-sconf]").forEach(x=>x.setAttribute("aria-pressed",x===b));if(SG)sDraw()}));
+  const mb=document.getElementById("smeasure");mb.addEventListener("click",()=>{SM.on=!SM.on;mb.setAttribute("aria-pressed",SM.on);document.getElementById("stravel").hidden=!SM.on;if(!SM.on){SM.a=SM.b=null}smRender();if(SG)sDraw()});
+  const opts=`<option value="">— bod na mapě —</option>`+[...SVETMESTA].sort((a,b)=>a[0].localeCompare(b[0],"cs")).map(c=>`<option value="${c[0]}">${c[0]}</option>`).join("");
+  ["sfrom","sto"].forEach((id,i)=>{const e=document.getElementById(id);e.innerHTML=opts;e.addEventListener("change",()=>{const c=SVETMESTA.find(x=>x[0]===e.value);if(!c)return;const q={name:c[0],ll:[c[1],c[2]],key:c[0]};if(i===0)SM.a=q;else SM.b=q;smRender();if(SG)sDraw()})});
   [["sHre","hre"],["sFaith","faith"],["sCities","cities"],["sRivers","riv"]].forEach(([id,key])=>{const b=document.getElementById(id);
     b.addEventListener("click",()=>{sst[key]=!sst[key];b.setAttribute("aria-pressed",sst[key]);if(SG)sDraw()})});
 })();

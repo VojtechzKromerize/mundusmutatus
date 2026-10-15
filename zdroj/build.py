@@ -266,7 +266,13 @@ def svet():
         if p["vira"] not in ("kat", "pra", "isl", "mix", "kal"):
             fail(f"{w}: víra musí být kat / pra / isl / mix / kal")
         out.append({"id": p["id"], "n": p["nazev"], "k": p.get("kratce") or p["nazev"], "v": p.get("vladce", ""), "s": p.get("sidlo", ""),
-                    "c": p["vira"], "h": ANO(p.get("hlavni", "")), "x": text(p["_body"])})
+                    "c": p["vira"], "h": ANO(p.get("hlavni", "")), "x": text(p["_body"]),
+                    "sp": lst(p.get("spor"))})
+    ids = {o["id"] for o in out}
+    for o in out:
+        for x in o["sp"]:
+            if x not in ids:
+                fail(f"svet: {o['id']} má spor s neexistující zemí „{x}“")
     return out
 
 def svet_mesta():
