@@ -256,8 +256,8 @@ header.site{display:flex;flex-direction:column;gap:0;border:0;padding:0}
 .sitenav{align-items:baseline}
 @media (max-width:640px){.svitek .svlist{min-width:0;padding:0 12px}.svitek .svlist a{font-size:1.05rem}.navdd:hover .svlist,.navdd:focus-within .svlist,.navdd.open .svlist{padding:8px 12px}.svitek .roll{margin:0 -8px}}
 /* hlavička: velké logo jen na úvodu, jinde menší; při posunu se v liště ukáže malé logo */
-body:not(.home) .logo{width:min(100%,430px)}
-body:not(.home) .secsub{font-size:clamp(1.05rem,2.4vw,1.35rem);margin:0 auto 4px}
+.logo{width:min(100%,430px)}
+.secsub{font-size:clamp(1.05rem,2.4vw,1.35rem);margin:0 auto 4px}
 .navlinks{display:flex;flex-wrap:wrap;justify-content:center;align-items:baseline;gap:4px 22px}
 .sitenav{align-items:center}
 .navmark{display:none;line-height:0;border:0!important;padding:0!important}
@@ -273,7 +273,7 @@ body:not(.home) .secsub{font-size:clamp(1.05rem,2.4vw,1.35rem);margin:0 auto 4px
 @media (max-width:640px){
   .sitenav{position:sticky!important;top:0;flex-wrap:nowrap;justify-content:space-between;gap:10px;padding:6px 10px}
   .navmark{display:block}.navmark img{height:26px}
-  body.home .sitenav:not(.stuck) .navmark{visibility:hidden}
+  .sitenav:not(.stuck) .navmark{visibility:hidden}
   .navtoggle{display:inline-flex}
   .navlinks{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;align-items:stretch;gap:2px;background:var(--paper);border:1px solid var(--rule);border-top:0;padding:10px 14px 14px;box-shadow:0 10px 18px -10px rgba(0,0,0,.4);max-height:calc(100vh - 60px);overflow:auto}
   .sitenav.open .navlinks{display:flex}
@@ -284,8 +284,7 @@ body:not(.home) .secsub{font-size:clamp(1.05rem,2.4vw,1.35rem);margin:0 auto 4px
   .navlinks .navdd .svlist{max-height:none!important;padding:0!important;background:none;border:0;box-shadow:none;display:flex;flex-direction:column;align-items:flex-start;min-width:0}
   .navlinks .navdd .svlist a{font-size:1.1rem;padding:4px 0}
   .navlinks .gsearch{order:-1;margin-bottom:6px}
-  body:not(.home) .logo{width:min(100%,300px)}
-  body:not(.home) header.site .logo{display:none}
+  .logo{width:min(100%,300px)}
 }
 .sitenav a:focus-visible,.subnav a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 main{display:block}
@@ -824,7 +823,7 @@ body{background:transparent}
 <div class="wrap">
 <header class="site">
   <a href="#uvod" class="logo"><h1><img class="lg-l" src="art/img/logo.webp" alt="Mundus Mutatus" width="1200" height="391"><img class="lg-d" src="art/img/logo-tma.webp" alt="Mundus Mutatus" width="1200" height="391"></h1></a>
-  <p class="secsub" id="secsub">Koruna česká k 3. březnu léta Páně 1458</p>
+  <p class="secsub" id="secsub">Novinky</p>
 </header>
   <nav class="sitenav" id="sitenav" aria-label="Hlavní navigace">
     <a href="#uvod" class="navmark" aria-label="Mundus Mutatus – úvod"><img class="lg-l" src="art/img/logo.webp" alt="" width="1200" height="391"><img class="lg-d" src="art/img/logo-tma.webp" alt="" width="1200" height="391"></a>
@@ -2452,7 +2451,7 @@ function renderArtikule(b,c){
   const k=AK[b],main=document.getElementById("amain"),side=document.getElementById("artside");
   side.innerHTML=artToc(k?k.id:null);
   main.innerHTML=k?artChapter(k):artLanding();
-  document.getElementById("secsub").textContent=k?"Artikule · "+k.t:SUBT.artikule;
+  document.getElementById("secsub").textContent=k?"Pravidla · "+k.t:SUBT.artikule;
   document.title="Mundus Mutatus · Artikule"+(k?" · "+k.t:"");
   const aq=document.getElementById("aq"),ar=document.getElementById("ares");
   aq.value=artQ;
@@ -3340,7 +3339,7 @@ function renderDruzina(b){
       Array.from({length:slots},()=>`<div class="pchar pslot"><span class="pport ini" aria-hidden="true">?</span><b>Volné místo</b><span>Postava se teprve chystá na cestu.</span></div>`).join("")}</div>`;
     return;
   }
-  document.getElementById("secsub").textContent="Družina · "+p.n;
+  document.getElementById("secsub").textContent="Hrdinové · "+p.n;
   D.innerHTML=`<nav class="crumbs"><a href="#druzina">Družina</a> › <b>${p.n}</b></nav>
    <div class="artgrid"><div class="artmain">
      <h2 class="arttitle">${p.n}</h2>
@@ -3550,7 +3549,7 @@ document.addEventListener("click",e=>{const b=e.target.closest("[data-partymap]"
 
 /* ---------- site navigation: views, house and person articles ---------- */
 const VIEWS=["uvod","svet","mapa","praha","desky","druzina","artikule","draconomicon","kronika"];
-const SUBT={svet:"Známý svět · mocnosti léta Páně 1458",praha:"Praha · čtyři města pražská",uvod:"Kronika Koruny české léta Páně 1458",mapa:"Koruna česká k 3. březnu léta Páně 1458",desky:"Zemské desky · rody a osoby",artikule:"Artikule tažení",druzina:"Družina · hrdinové tažení",draconomicon:"Draconomicon · kniha o dracích",kronika:"Kronika Vojtěcha z Kroměříže"};
+const SUBT={svet:"Známý svět · mocnosti léta Páně 1458",praha:"Praha · čtyři města pražská",uvod:"Novinky",mapa:"Koruna česká k 3. březnu léta Páně 1458",desky:"Rody a Panstvo",artikule:"Pravidla",druzina:"Hrdinové",draconomicon:"O dracích",kronika:"Kronika Vojtěcha z Kroměříže"};
 let curView=null;
 function navTo(h){if(location.hash!==h)history.pushState(null,"",h);route()}
 function maplinkBtn(f,sd){return `<button type="button" class="maplink" data-id="${f.id}" data-place="${sd[0]}">${f.city&&CARMS[sd[0]]?`<img class="cmini" src="${CARMS[sd[0]]}" alt="">`:""}${sd[0]}</button>`}
