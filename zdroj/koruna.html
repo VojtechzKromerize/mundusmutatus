@@ -393,6 +393,8 @@ a.plinkp:hover,.infobox a:hover,.artmain a:hover{color:var(--kal)}
 .alead p+p{margin-top:.6em}
 .orn{display:block;width:min(220px,60%);height:auto;margin:-14px auto}
 .orn.drak{width:min(420px,80%)}
+.apair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:10px 36px;align-items:start}.apair>.asec{margin-top:0}
+@media (max-width:760px){.apair{grid-template-columns:minmax(0,1fr)}}
 .asec{display:flex;flex-direction:column;gap:12px;scroll-margin-top:12px}
 .ash{font-family:var(--f-disp);font-weight:500;font-size:1.6rem;color:var(--kal);line-height:1.1}
 .ash a{color:inherit;text-decoration:none}
@@ -515,7 +517,7 @@ mark{background:color-mix(in srgb,var(--gold) 35%,transparent);color:inherit;pad
 .colophon .corn{width:min(420px,80%);height:0;border-top:3px double var(--ink);position:relative;margin-bottom:10px}
 .colophon .corn::after{content:"❦";position:absolute;left:50%;top:-.85em;transform:translateX(-50%);background:var(--bg);padding:0 10px;color:var(--kal);font-size:1.3rem}
 .colophon .cdrak{display:none;width:min(380px,64%);height:auto;margin:-24px auto -26px}
-body.home .colophon .cdrak{display:block}body.home .colophon .corn{display:none}
+.colophon .cdrak{display:block}.colophon .corn{display:none}
 .colophon .cq{font-family:var(--f-disp);font-size:1.15rem;color:var(--ink)}
 .colophon .cq i{color:var(--kal)}
 .colophon nav{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 14px;font-family:var(--f-label);letter-spacing:.05em;font-size:.85rem}
@@ -3080,7 +3082,7 @@ const ARTK=[
  sum:"Zasažená část těla podle kostky Závoje, tabulky fyzických a magických zranění.",
  intro:"",
  secs:[
- {id:"zasah",t:"Zasažená část těla",h:`
+ {id:"zasah",t:"Zasažená část těla",pair:1,h:`
   <p>Kritická zranění se liší podle zasažené části těla. Kterou část zásah zasáhne, určuje <b>kostka Závoje</b>:</p>
   ${tb(["d6","Zasažená část"],[["6","Hlava"],["3–5","Trup"],["2","Paže"],["1","Nohy"]],"","narrow")}`},
  {id:"trvani",t:"Trvání následků",h:`
@@ -3144,7 +3146,8 @@ function artChapter(k){
    <h2 class="vh">${k.t}</h2>
    ${k.q?rq(k.q[0],k.q[1]):""}
    ${k.intro?`<div class="alead">${k.intro}</div>`:""}
-   ${k.secs.map((s,j)=>`${j||k.intro||k.q?orn:""}<section class="asec" id="as-${s.id}"><h3 class="ash"><a href="#artikule/${k.id}/${s.id}">${s.t}</a></h3>${s.h}</section>`).join("")}
+   ${(()=>{const sec=s=>`<section class="asec" id="as-${s.id}"><h3 class="ash"><a href="#artikule/${k.id}/${s.id}">${s.t}</a></h3>${s.h}</section>`;let o="";
+     for(let j=0;j<k.secs.length;j++){const s=k.secs[j];if(s.pair&&k.secs[j+1]){o+=`<div class="apair">${sec(s)}${sec(k.secs[j+1])}</div>`;j++}else o+=sec(s)}return o})()}
    <nav class="apn">${pv?`<a href="#artikule/${pv.id}" rel="prev"><small>Předchozí</small>${pv.t}</a>`:"<span></span>"}${nx?`<a href="#artikule/${nx.id}" rel="next"><small>Další</small>${nx.t}</a>`:"<span></span>"}</nav>`;
 }
 function hiliteIn(el,q){
@@ -4730,7 +4733,7 @@ function renderOsoby(){
   box.innerHTML=groups.map(([L,fn])=>{const ps=PEOPLE.filter(p=>fn(byId[p.r])).sort((a,b)=>PORTR.has(b.id)-PORTR.has(a.id));if(!ps.length)return"";
     return `<div class="land-sec"><h3 class="landh">${L.toUpperCase()}</h3><div class="pcards">${ps.map(p=>`<a class="pcard hasp${PORTR.has(p.id)?"":" nop"}" href="#osoba/${p.id}">${pThumb(p)}<span class="pct"><b>${p.n}</b><span>${p.role}</span><small>${byId[p.r].name}</small></span></a>`).join("")}</div></div>`}).join("")||`<div class="placeholder"><p>Družina zatím nikoho z panstva nepotkala ani o nikom neslyšela.</p></div>`;
 }
-{const l=document.getElementById("navartl");if(l)l.innerHTML=ARTB.map(b=>`<span class="svsep" aria-hidden="true">${b.n}</span>`+ARTK.filter(k=>k.book===b.id).map(k=>`<a href="#artikule/${k.id}">${k.t}</a>`).join("")).join("")}
+{const l=document.getElementById("navartl");if(l)l.innerHTML=ARTB.filter(b=>b.id!=="rejstrik").map(b=>`<span class="svsep" aria-hidden="true">${b.n}</span>`+ARTK.filter(k=>k.book===b.id).map(k=>`<a href="#artikule/${k.id}">${k.t}</a>`).join("")).join("")}
 document.querySelectorAll(".navdd").forEach(dd=>{const top=dd.querySelector(".ddtop");
  top.addEventListener("click",e=>{if(matchMedia("(hover: none)").matches&&!matchMedia("(max-width:640px)").matches&&!dd.classList.contains("open")){e.preventDefault();document.querySelectorAll(".navdd.open").forEach(o=>{o.classList.remove("open");o.querySelector(".ddtop").setAttribute("aria-expanded","false")});dd.classList.add("open");top.setAttribute("aria-expanded","true")}});
  document.addEventListener("click",e=>{if(!dd.contains(e.target)){dd.classList.remove("open");top.setAttribute("aria-expanded","false")}});
