@@ -1562,6 +1562,16 @@ h3 .pmore{margin:0 0 0 10px;vertical-align:middle}
 .gmclist{margin:2px 0 4px;padding-left:20px;font-size:.9rem}.gmclist li{margin:1px 0}.gmchp{color:var(--kal)}
 .gmcpoz{font-size:.88rem;color:var(--muted)}
 html.gmv .wrap{margin-bottom:56px}
+.cestamap{margin:0 0 12px;border:1px solid color-mix(in srgb,var(--gold) 55%,var(--rule));border-radius:3px;background:var(--paper);box-shadow:inset 0 0 0 3px var(--paper),inset 0 0 0 4px color-mix(in srgb,var(--gold) 30%,transparent)}
+.cestamap>summary{cursor:pointer;padding:8px 14px;font-family:var(--f-disp);font-size:1.15rem;color:var(--kal)}
+.cestamap>summary small{font-family:var(--f-label);font-size:.72rem;letter-spacing:.06em;color:var(--muted);margin-left:8px}
+.cestamap .gmcesta{margin:0 12px 12px}
+.gmcesta{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:flex-end;padding:10px 12px 12px;border:1px dashed color-mix(in srgb,var(--gold) 55%,var(--rule));border-radius:3px}
+.gmcf{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:flex-end;flex-basis:100%}
+.gmcf label{display:flex;flex-direction:column;gap:3px;font-family:var(--f-label);letter-spacing:.04em;font-size:.86rem;color:var(--muted)}
+.gmcf input,.gmcf select{font:inherit;font-family:var(--f-body);color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:3px;padding:5px 8px;min-height:38px}
+.gmcz{flex-basis:100%;margin:0;font-family:var(--f-label);font-size:.82rem;letter-spacing:.04em;color:var(--muted)}
+.gmcesta>.gmcodh,.gmcesta>.gmhrab,.gmcesta>.gmcakt{flex-basis:100%}
 </style>
 
 <div class="wrap"><div class="papir" aria-hidden="true"></div>
@@ -4098,6 +4108,10 @@ function sDraw(){
       gf.appendChild(el("path",{d:`M${x},${y}V${y-22*m}`,stroke:"var(--ink)","stroke-width":(1.4*m).toFixed(2)}));
       gf.appendChild(el("path",{d:`M${x},${y-22*m}L${x+13*m},${y-18*m}L${x},${y-14*m}Z`,fill:"var(--kal)",stroke:"var(--ink)","stroke-width":(.8*m).toFixed(2)}));
       gf.addEventListener("click",e=>{e.stopPropagation();const L=ZAPISY[ZAPISY.length-1];navTo(L?"#kronika/"+L.id:"#kronika")});svg.appendChild(gf)}}
+  /* plánovaná cesta družiny (panel vypravěče) */
+  if(typeof CPLAN!=="undefined"&&CPLAN&&CPLAN.track.length>1){const g=G({"pointer-events":"none"}),d="M"+CPLAN.track.map(q=>SP(q[1],q[2]).map(v=>v.toFixed(1)).join(",")).join("L");
+    g.appendChild(el("path",{d,fill:"none",stroke:"var(--paper)","stroke-width":(4*k).toFixed(2),opacity:".8"}));
+    g.appendChild(el("path",{d,fill:"none",stroke:"var(--kal)","stroke-width":(2*k).toFixed(2),"stroke-dasharray":`${2*k} ${2*k}`}))}
   /* měřená cesta */
   if(SM.on&&SM.a){const g=G({"pointer-events":"none"});const pa=SP(...SM.a.ll);
     if(SM.b){const segs=SM.path?SM.path.map(q=>[SP(...q.ll),q.sea]):[[pa,false],[SP(...SM.b.ll),false]];
@@ -4513,6 +4527,7 @@ function drawParty(svg,s,k){
      const pl=el("polyline",{points:rp,fill:"none",stroke:"var(--kal)","stroke-width":(1.8*s).toFixed(2),opacity:op,"stroke-dasharray":dash?`${3*s} ${3*s}`:"none","stroke-linecap":"round","stroke-linejoin":"round"});
      if(title)pl.appendChild(el("title",{},title));svg.appendChild(pl)};
    ((HRA&&HRA.putovani)||[]).forEach(c=>line(c.b||[],false,".85",`${c.z} → ${c.do} · ${c.od} – ${c.pr}`));
+   if(typeof CPLAN!=="undefined"&&CPLAN&&!CPLAN.svet)line(CPLAN.track.map(q=>[q[1],q[2]]),true,".75",`plán: ${CPLAN.z} → ${CPLAN.do}`);
    const c=HRA&&HRA.cesta;if(c&&c.track){const now=cT(HRA),done=c.track.filter(q=>q[0]<=now).map(q=>[q[1],q[2]]),qq=cestaPoz(c.track,now);if(qq)done.push(qq);
      line(done,false,".85",`${c.z} → ${c.do}`);line([qq||[c.track[0][1],c.track[0][2]],...c.track.filter(q=>q[0]>now).map(q=>[q[1],q[2]])],true,".45",`plán: ${c.z} → ${c.do}`)}}
   const last=ZAPISY[ZAPISY.length-1],cur=partyPos(); if(!cur)return;
@@ -5087,6 +5102,81 @@ if(GMV&&STAV){
   document.addEventListener("keydown",e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();otevri(true)}
     else if(e.key==="Escape"&&!P.hidden){otevri(false);btn.focus()}});
 }
+/* ===== Herní stav: jedno místo pro uložení (přehled vypravěče i panely u map) ===== */
+const cZaznam=(c,t1,konec)=>{const st=c.track.filter(q=>q[0]<=t1),pts=st.map(q=>[q[1],q[2]]);if(konec)pts.push(konec);
+  const zjed=pts.filter((q,i)=>i===0||i===pts.length-1||i%3===0);return [...((HRA&&HRA.putovani)||[]),{z:c.z,do:c.do,od:cTxt(c.track[0][0]),pr:cTxt(t1),b:zjed}].slice(-80)};
+/* když čas došel na příjezd, družina je v cíli */
+const cDokonci=h=>{const c=h.cesta!==undefined?h.cesta:(HRA&&HRA.cesta);if(!c||!c.track)return h;const now=cT(Object.assign({},HRA,h)),t1=c.track[c.track.length-1][0];
+  if(now==null||now<t1)return h;const e=c.track[c.track.length-1];return Object.assign(h,{cesta:null,misto:c.do,poloha:null,praha:null,putovani:cZaznam(c,t1,[e[1],e[2]])})};
+async function hraUloz(h){
+  if(!window.MMDB){mmHlasG("Herní stav lze měnit jen na webu napojeném na databázi.");return}
+  document.documentElement.classList.add("gmbusy");
+  try{HRA=await MMDB.nastavHru(cDokonci(h));__D.HRA=HRA;renderKal();
+    try{if(typeof drawMap==="function")drawMap()}catch(e){}try{if(SG)sDraw()}catch(e){}
+    if(window._gmHraSync)window._gmHraSync();cestaSloty();mmHlasG(`Uloženo: ${partyDate()}, ${HRA.hodina}:00${HRA.misto?", "+HRA.misto:""}.`)}
+  catch(err){mmHlasG("Nepodařilo se uložit: "+err.message,7000)}finally{document.documentElement.classList.remove("gmbusy")}}
+/* ovládání cesty: vykreslí se do každého [data-cestaslot] (Herní stav, mapa zemí, Známý svět) */
+let CPLAN=null;
+const cOdkud=()=>{const c=cestaAktivni();if(c)return null;return (HRA&&HRA.misto)||partyPlace()||""};
+const cStart=()=>{if(HRA&&cT(HRA)!=null)return {datum:HRA.datum,hodina:+HRA.hodina||0};const L=ZAPISY[ZAPISY.length-1];return {datum:(L&&L.datum)||"1458-03-03",hodina:(L&&L.hodina!=null)?L.hodina:10}};
+function cestaSlotHtml(){return `<div class="gmcakt" hidden></div>
+  <p class="gmcz"></p>
+  <div class="gmcf">
+  <label>Kam<input name="cil" list="cplc" placeholder="např. Kutná Hora" autocomplete="off"></label>
+  <label>Jak<select name="zpusob">${CESTA_ZP.map(([k,n,v])=>`<option value="${k}">${n} (asi ${v} km za den)</option>`).join("")}</select></label>
+  <label>Oproti odhadu<select name="odch">${CESTA_ODCH.map(([v,n])=>`<option value="${v}"${v===1?" selected":""}>${n}</option>`).join("")}</select></label>
+  <label>Zdržení (hodiny)<input name="zdrz" type="number" step="1" min="-48" max="240" value="0" title="Kladné číslo cestu prodlouží, záporné zkrátí"></label>
+  <label class="gmcsez"><span><input type="checkbox" name="sez" checked> počítat s roční dobou</span></label>
+  </div>
+  <div class="gmcodh" aria-live="polite"></div>
+  <div class="gmhrab"><button type="button" class="gbtn" data-cesta="vyrazit" disabled title="Družina vyrazí teď; s každou hodinou se posune po trase">Vyrazit</button><button type="button" class="gbtn ghost" data-cesta="dorazit" disabled title="Přeskočí cestu a posune čas rovnou na příjezd">Rovnou dorazit</button>${document.getElementById("gmhra")?"":`<button type="button" class="gbtn ghost" data-cesta="hod">+1 hodina</button><button type="button" class="gbtn ghost" data-cesta="den">Další den, ráno</button>`}</div>`}
+const cHtml=P=>{const ds=j=>{const [,M,D]=fromJdn(j);return `${D}. ${MES[M-1]}`};
+  return `<p>${P.z} → <b>${P.do}</b>: asi ${P.km} km${P.seaKm?` (z toho ${P.seaKm} km po moři)`:""}, ${P.zpn.toLowerCase()} odhadem ${P.odhad} h cesty${P.hod!==P.odhad?`, po úpravách ${P.hod} h`:""}. Příjezd <b>${cTxt(P.t1)}</b>.</p>
+    ${P.sezona?`<p class="gmcpoz">Roční doba: ${P.sezona} – započteno do odhadu.</p>`:""}
+    ${P.noci.length?`<p class="lbl">Noclehy</p><ol class="gmclist">${P.noci.map(n=>`<li>${ds(n.j)} večer: ${n.kde}</li>`).join("")}</ol>`:""}
+    ${P.sv.length?`<p class="lbl">Kalendář na cestě</p><ul class="gmclist">${P.sv.map(v=>`<li${v.hp?' class="gmchp"':""}>${ds(v.j)}: <b>${v.n}</b>${v.hp?" – Hodina Pravdy":v.w?` – Požehnání 4–6: ${v.w}`:""}${v.kde?` · ${v.kde}`:""}</li>`).join("")}</ul>`:""}
+    ${P.reky.length||P.myta.length?`<p class="lbl">Po cestě</p><ul class="gmclist">${P.reky.map(r=>`<li>${r.r}: ${r.most?`kamenný most v ${r.most}`:`brod nebo přívoz (${r.kde}) – odhad s ním nepočítá`}</li>`).join("")}${P.myta.map(m=>`<li>${m.n}: ${m.t}</li>`).join("")}</ul>`:""}`};
+function cestaOdhad(root){const o=root.querySelector(".gmcodh"),bs=root.querySelectorAll('[data-cesta="vyrazit"],[data-cesta="dorazit"]'),f=k=>root.querySelector(`[name="${k}"]`);bs.forEach(b=>b.disabled=true);
+  const prev=CPLAN;CPLAN=null;const cil=f("cil").value.trim();
+  if(!cil||cestaAktivni()){o.innerHTML="";if(prev)cRedraw();return null}
+  const st=cStart(),P=cestaPlan({z:cOdkud(),do:cil,zp:f("zpusob").value,odch:+f("odch").value,zdrz:+f("zdrz").value||0,sez:f("sez").checked,datum:st.datum,hodina:st.hodina});
+  if(P.chyba){o.innerHTML=`<p>${P.chyba}</p>`;if(P.cekej)setTimeout(()=>cestaOdhad(root),900);if(prev)cRedraw();return null}
+  o.innerHTML=cHtml(P);bs.forEach(b=>b.disabled=false);CPLAN=P;cRedraw();return P}
+const cRedraw=()=>{try{if(curView==="mapa"&&typeof drawMap==="function")drawMap()}catch(e){}try{if(curView==="svet"&&SG)sDraw()}catch(e){}};
+function cestaSloty(){if(!(GMV&&STAV))return;
+  let dl=document.getElementById("cplc");if(!dl){dl=document.createElement("datalist");dl.id="cplc";
+    dl.innerHTML=[...new Set([...PLACES.map(p=>p.name),...TOWNS.map(t=>t[0]),...SVETMESTA.map(c=>c[0])])].sort((a,b)=>a.localeCompare(b,"cs")).map(n=>`<option value="${n}">`).join("");document.body.appendChild(dl)}
+  document.querySelectorAll("[data-cestaslot]").forEach(root=>{if(!root.dataset.hotovo){root.innerHTML=cestaSlotHtml();root.dataset.hotovo=1}
+    const box=root.querySelector(".gmcakt"),c=HRA&&HRA.cesta,z=root.querySelector(".gmcz"),fm=root.querySelector(".gmcf");
+    if(c&&c.track){const now=cT(HRA),t1=c.track[c.track.length-1][0],q=cestaPoz(c.track,now);box.hidden=false;
+      box.innerHTML=`<p><b>Družina je na cestě</b>: ${c.z} → <b>${c.do}</b>. Vyrazila ${cTxt(c.track[0][0])}, příjezd ${cTxt(t1)}${now>=t1?" – už dorazila (uloží se s dalším posunem času)":""}. Teď (${cTxt(now)}): ${q?cKde(...q):"?"}.</p>
+        <div class="gmhrab"><button type="button" class="gbtn" data-cesta="zastavit">Zastavit cestu tady</button><button type="button" class="gbtn ghost" data-cesta="dojet">Rovnou dorazit</button><button type="button" class="gbtn ghost" data-cesta="zrusit">Zrušit cestu</button>${document.getElementById("gmhra")&&root.closest("#gmhra")?"":`<button type="button" class="gbtn ghost" data-cesta="hod">+1 hodina</button><button type="button" class="gbtn ghost" data-cesta="den">Další den, ráno</button>`}</div>`}
+    else box.hidden=true;
+    const act=!!cestaAktivni();fm.hidden=act;root.querySelector(".gmcodh").hidden=act;root.querySelectorAll('[data-cesta="vyrazit"],[data-cesta="dorazit"]').forEach(b=>b.closest(".gmhrab").hidden=act);
+    const st=cStart();z.hidden=act;z.textContent=`Odkud: ${cOdkud()||"?"} · ${cTxt(cT(st))}`;
+    cestaOdhad(root)})}
+if(GMV&&STAV){
+  ["input","change"].forEach(t=>document.addEventListener(t,e=>{const r=e.target.closest&&e.target.closest("[data-cestaslot]");if(r&&e.target.closest(".gmcf"))cestaOdhad(r)}));
+  document.addEventListener("click",e=>{const b=e.target.closest("[data-cestaslot] [data-cesta]");if(!b)return;e.preventDefault();e.stopImmediatePropagation();
+    const root=b.closest("[data-cestaslot]"),k=b.dataset.cesta,c=HRA&&HRA.cesta,vycisti=()=>{const i=root.querySelector('[name="cil"]');if(i)i.value=""};
+    if(k==="hod"||k==="den"){const st=cStart();let [y,m,d]=st.datum.split("-").map(Number),h=st.hodina;
+      if(k==="hod"){h++;if(h>23){h=0;[y,m,d]=fromJdn(jdn(y,m,d)+1)}}else{[y,m,d]=fromJdn(jdn(y,m,d)+1);h=6}
+      hraUloz({datum:`${y}-${String(m).padStart(2,"0")}-${String(d).padStart(2,"0")}`,hodina:h});return}
+    if(k==="vyrazit"||k==="dorazit"){const P=cestaOdhad(root);if(!P)return;const cesta={z:P.z,do:P.do,km:P.km,zpusob:P.zp,track:P.track};
+      const st=cStart();(k==="vyrazit"?hraUloz({cesta,poloha:null,praha:null,datum:st.datum,hodina:st.hodina,misto:P.z}):hraUloz(Object.assign({cesta,poloha:null,praha:null},cDat(P.t1)))).then(()=>{vycisti();CPLAN=null;cestaSloty();cRedraw()});return}
+    if(!c)return;
+    if(k==="dojet")hraUloz(cDat(c.track[c.track.length-1][0]));
+    else if(k==="zrusit"){if(confirm("Zrušit cestu? Družina zůstane, kde vyrazila."))hraUloz({cesta:null})}
+    else if(k==="zastavit"){const now=cT(HRA),q=cestaPoz(c.track,now),n=cNejbliz(...q),misto=n.d<5?n.n:`na cestě ${c.z} → ${c.do}`;
+      hraUloz({cesta:null,misto,poloha:n.d<5?null:[Math.round(q[0]*1000)/1000,Math.round(q[1]*1000)/1000],putovani:cZaznam(c,now,q)})}},true);
+  /* panel Cesta družiny přímo u map */
+  ["mapa","svet"].forEach(v=>{const view=document.querySelector(`.view[data-view="${v}"]`);if(!view)return;const head=view.querySelector(".dhkopie");
+    const d=document.createElement("details");d.className="cestamap";d.innerHTML=`<summary><span aria-hidden="true">⚑</span> Cesta družiny <small>jen pro vypravěče</small></summary><div class="gmcesta" data-cestaslot></div>`;
+    try{if(localStorage.getItem("mm-cestamap")==="1")d.open=true}catch(e){}
+    d.addEventListener("toggle",()=>{try{localStorage.setItem("mm-cestamap",d.open?"1":"0")}catch(e){}});
+    (head||view.firstChild).after(d)});
+  cestaSloty();
+}
 function gmSum(){
   const el=document.getElementById("gmsum");if(!el)return;
   const c=(arr,f)=>arr.filter(x=>f(x)>=1).length;
@@ -5094,7 +5184,7 @@ function gmSum(){
 }
 const CESTA_ZP=[["pesky","Pěšky",30],["kun","Na koni",45],["vuz","S vozem",20],["posel","Posel se střídáním koní",90]],
   CESTA_ODCH=[[0.5,"o polovinu rychleji"],[0.75,"o čtvrtinu rychleji"],[1,"podle odhadu"],[1.25,"o čtvrtinu déle"],[1.5,"o polovinu déle"],[2,"dvakrát déle"]];
-const cestaMisto=n=>{if(!n)return null;const p=placeBy(n);if(p)return p;const t=TOWNS.find(x=>x[0]===n);return t?{name:t[0],lo:t[1],la:t[2]}:null};
+const cestaMisto=n=>{if(!n)return null;if(HRA&&HRA.poloha&&n===HRA.misto)return {name:n,lo:HRA.poloha[0],la:HRA.poloha[1]};const p=placeBy(n);if(p)return p;const t=TOWNS.find(x=>x[0]===n);return t?{name:t[0],lo:t[1],la:t[2]}:null};
 /* řeky z mapy (pořadí jako RIVERS), stálé mosty roku 1458 a známá mýtná místa */
 const RIVNAMES=["Labe","Vltava","Odra","Morava","Nisa","Dunaj","Visla"];
 const CMOSTY=[["Praha",14.414,50.086,"Vltava"],["Drážďany",13.741,51.054,"Labe"],["Vratislav",17.04,51.11,"Odra"],["Řezno",12.097,49.022,"Dunaj"],["Vídeň",16.37,48.21,"Dunaj"]];
@@ -5170,7 +5260,7 @@ function renderGM(){
       try{await MMDB.prihlas(f.elements.e.value.trim(),f.elements.h.value);location.reload()}
       catch(x){err.textContent=x.status===400||x.status===401?"Nesprávný e‑mail nebo heslo.":"Přihlášení se nepodařilo: "+x.message;btn.disabled=false}});
     return}
-  if(box.dataset.done){gmRefresh();if(window._cAkt)window._cAkt();return} box.dataset.done=1;
+  if(box.dataset.done){gmRefresh();cestaSloty();return} box.dataset.done=1;
   const ord=Object.fromEntries(["Čechy","Morava","Slezsko","Lužice","Královská města","Duchovenstvo"].map((l,i)=>[l,i]));
   const rody=[...FAM].sort((a,b)=>(!!a.nbr-!!b.nbr)||((ord[a.land]??9)-(ord[b.land]??9))||a.land.localeCompare(b.land,"cs")||a.name.localeCompare(b.name,"cs"));
   const hra=HRA||{},plc=[...new Set([...PLACES.map(p=>p.name),...SVETMESTA.map(c=>c[0]),...TOWNS.map(t=>t[0])])].sort((a,b)=>a.localeCompare(b,"cs"));
@@ -5182,16 +5272,7 @@ function renderGM(){
       <label>Místo v Praze<select name="praha"><option value="">—</option>${PRAHA_PLACES.map(q=>`<option value="${q.n}"${+hra.praha===q.n?" selected":""}>${q.n} · ${q.name}</option>`).join("")}</select></label>
       <datalist id="gmplc">${plc.map(n=>`<option value="${n}">`).join("")}</datalist>
       <div class="gmhrab"><button type="submit" class="gbtn">Uložit</button><button type="button" class="gbtn ghost" data-hra="+1">+1 hodina</button><button type="button" class="gbtn ghost" data-hra="den">Další den, ráno</button></div>
-      <fieldset class="gmcesta"><legend>Cesta družiny</legend>
-        <div class="gmcakt" hidden></div>
-        <label>Kam<input name="cil" list="gmplc" placeholder="např. Kutná Hora" autocomplete="off"></label>
-        <label>Jak<select name="zpusob">${CESTA_ZP.map(([k,n,v])=>`<option value="${k}">${n} (asi ${v} km za den)</option>`).join("")}</select></label>
-        <label>Oproti odhadu<select name="odch">${CESTA_ODCH.map(([v,n])=>`<option value="${v}"${v===1?" selected":""}>${n}</option>`).join("")}</select></label>
-        <label>Zdržení (hodiny)<input name="zdrz" type="number" step="1" min="-48" max="240" value="0" title="Kladné číslo cestu prodlouží, záporné zkrátí"></label>
-        <label class="gmcsez"><span><input type="checkbox" name="sez" checked> počítat s roční dobou</span></label>
-        <div class="gmcodh" aria-live="polite"></div>
-        <div class="gmhrab"><button type="button" class="gbtn" data-cesta="vyrazit" disabled title="Družina vyrazí teď; s každou hodinou se posune po trase">Vyrazit</button><button type="button" class="gbtn ghost" data-cesta="dorazit" disabled title="Přeskočí cestu a posune čas rovnou na příjezd">Rovnou dorazit</button></div>
-      </fieldset>
+      <div class="gmcesta" data-cestaslot></div>
     </form></div>`;
   const row=(id,cls,href,name,sub)=>`<div class="gmrow ${cls}" data-gmid="${id}"><a href="${href}">${name}</a><small>${sub}</small>${gmSeg(id)}</div>`;
   box.innerHTML=`<h2 class="arttitle">Vypravěč</h2>
@@ -5219,48 +5300,11 @@ function renderGM(){
     const z={};peopleOf(s.dataset.gmbulk).forEach(p=>{if(gmLv(p.id)!==v)z[p.id]=v});if(Object.keys(z).length)gmUloz(z)});
   const o=box.querySelector("#gmout");if(o)o.addEventListener("click",async()=>{await MMDB.odhlas();location.reload()});
   const hf=box.querySelector("#gmhra");
-  let ulozHru=async h=>{if(!window.MMDB){mmHlasG("Herní stav lze měnit jen na webu napojeném na databázi.");return}
-    document.documentElement.classList.add("gmbusy");
-    try{HRA=await MMDB.nastavHru(h);__D.HRA=HRA;renderKal();if(typeof drawMap==="function")try{drawMap()}catch(e){}
-      hf.elements.datum.value=HRA.datum||"";hf.elements.hodina.value=HRA.hodina??"";mmHlasG(`Uloženo: ${partyDate()}, ${HRA.hodina}:00${HRA.misto?", "+HRA.misto:""}.`)}
-    catch(err){mmHlasG("Nepodařilo se uložit: "+err.message,7000)}finally{document.documentElement.classList.remove("gmbusy")}};
+  const ulozHru=h=>hraUloz(h);
+  window._gmHraSync=()=>{if(!HRA)return;hf.elements.datum.value=HRA.datum||"";hf.elements.hodina.value=HRA.hodina??"";if(HRA.misto)hf.elements.misto.value=HRA.misto};
   hf.addEventListener("submit",e=>{e.preventDefault();const f=hf.elements;
     ulozHru({datum:f.datum.value,hodina:+f.hodina.value,misto:f.misto.value.trim()||null,praha:f.praha.value?+f.praha.value:null})});
-  /* cesta družiny: plán, putování po hodinách, zastavení a deník putování */
-  const cVstup=()=>{const f=hf.elements;return {z:f.misto.value.trim(),do:f.cil.value.trim(),zp:f.zpusob.value,odch:+f.odch.value,zdrz:+f.zdrz.value||0,sez:f.sez.checked,datum:f.datum.value,hodina:+f.hodina.value}};
-  const cHtml=P=>{const ds=j=>{const [,M,D]=fromJdn(j);return `${D}. ${MES[M-1]}`};
-    return `<p>${P.z} → <b>${P.do}</b>: asi ${P.km} km${P.seaKm?` (z toho ${P.seaKm} km po moři)`:""}, ${P.zpn.toLowerCase()} odhadem ${P.odhad} h cesty${P.hod!==P.odhad?`, po úpravách ${P.hod} h`:""}. Příjezd <b>${cTxt(P.t1)}</b>.</p>
-      ${P.sezona?`<p class="gmcpoz">Roční doba: ${P.sezona} – započteno do odhadu.</p>`:""}
-      ${P.noci.length?`<p class="lbl">Noclehy</p><ol class="gmclist">${P.noci.map(n=>`<li>${ds(n.j)} večer: ${n.kde}</li>`).join("")}</ol>`:""}
-      ${P.sv.length?`<p class="lbl">Kalendář na cestě</p><ul class="gmclist">${P.sv.map(v=>`<li${v.hp?' class="gmchp"':""}>${ds(v.j)}: <b>${v.n}</b>${v.hp?" – Hodina Pravdy":v.w?` – Požehnání 4–6: ${v.w}`:""}${v.kde?` · ${v.kde}`:""}</li>`).join("")}</ul>`:""}
-      ${P.reky.length||P.myta.length?`<p class="lbl">Po cestě</p><ul class="gmclist">${P.reky.map(r=>`<li>${r.r}: ${r.most?`kamenný most v ${r.most}`:`brod nebo přívoz (${r.kde}) – odhad s ním nepočítá`}</li>`).join("")}${P.myta.map(m=>`<li>${m.n}: ${m.t}</li>`).join("")}</ul>`:""}`};
-  let cPlan=null;
-  const cestaOdhad=()=>{const o=hf.querySelector(".gmcodh"),bs=hf.querySelectorAll("[data-cesta]");bs.forEach(b=>b.disabled=true);cPlan=null;
-    const v=cVstup();if(!v.do){o.innerHTML="";return null}
-    const P=cestaPlan(v);if(P.chyba){o.innerHTML=`<p>${P.chyba}</p>`;if(P.cekej)setTimeout(cestaOdhad,900);return null}
-    o.innerHTML=cHtml(P);bs.forEach(b=>b.disabled=false);cPlan=P;return P};
-  const cAkt=()=>{const box=hf.querySelector(".gmcakt"),c=HRA&&HRA.cesta;if(!c||!c.track){box.hidden=true;return}
-    const now=cT(HRA),t1=c.track[c.track.length-1][0],q=cestaPoz(c.track,now);box.hidden=false;
-    box.innerHTML=`<p><b>Družina je na cestě</b>: ${c.z} → <b>${c.do}</b>. Vyrazila ${cTxt(c.track[0][0])}, příjezd ${cTxt(t1)}${now>=t1?" – už dorazila (uloží se s dalším posunem času)":""}. Teď: ${q?cKde(...q):"?"}.</p>
-      <div class="gmhrab"><button type="button" class="gbtn" data-cesta="zastavit">Zastavit cestu tady</button><button type="button" class="gbtn ghost" data-cesta="dojet">Rovnou dorazit</button><button type="button" class="gbtn ghost" data-cesta="zrusit">Zrušit cestu</button></div>`};
-  const cZaznam=(c,t1,konec)=>{const st=c.track.filter(q=>q[0]<=t1),pts=st.map(q=>[q[1],q[2]]);if(konec)pts.push(konec);
-    const zjed=pts.filter((q,i)=>i===0||i===pts.length-1||i%3===0);return [...((HRA&&HRA.putovani)||[]),{z:c.z,do:c.do,od:cTxt(c.track[0][0]),pr:cTxt(t1),b:zjed}].slice(-80)};
-  /* před každým uložením: když čas došel na příjezd, družina je v cíli */
-  const cDokonci=h=>{const c=h.cesta!==undefined?h.cesta:(HRA&&HRA.cesta);if(!c||!c.track)return h;const now=cT(Object.assign({},HRA,h)),t1=c.track[c.track.length-1][0];
-    if(now==null||now<t1)return h;const e=c.track[c.track.length-1];return Object.assign(h,{cesta:null,misto:c.do,poloha:null,praha:null,putovani:cZaznam(c,t1,[e[1],e[2]])})};
-  const _uloz=ulozHru;ulozHru=h=>_uloz(cDokonci(h)).then(()=>{cAkt();cestaOdhad()});
-  ["input","change"].forEach(t=>hf.addEventListener(t,e=>{if(e.target.closest(".gmcesta")||["misto","datum","hodina"].includes(e.target.name))cestaOdhad()}));
-  hf.addEventListener("click",e=>{const b=e.target.closest("[data-cesta]");if(!b)return;e.stopImmediatePropagation();const k=b.dataset.cesta,c=HRA&&HRA.cesta;
-    if(k==="vyrazit"||k==="dorazit"){const P=cestaOdhad();if(!P)return;
-      const cesta={z:P.z,do:P.do,km:P.km,zpusob:P.zp,track:P.track};
-      if(k==="vyrazit")ulozHru({cesta,poloha:null,praha:null}).then(()=>{hf.elements.cil.value="";cestaOdhad()});
-      else ulozHru(Object.assign({cesta,poloha:null,praha:null},cDat(P.t1))).then(()=>{hf.elements.misto.value=(HRA&&HRA.misto)||P.do;hf.elements.cil.value="";cestaOdhad()});return}
-    if(!c)return;
-    if(k==="dojet"){ulozHru(cDat(c.track[c.track.length-1][0])).then(()=>{hf.elements.misto.value=(HRA&&HRA.misto)||c.do})}
-    else if(k==="zrusit"){if(confirm("Zrušit cestu? Družina zůstane, kde vyrazila."))ulozHru({cesta:null})}
-    else if(k==="zastavit"){const now=cT(HRA),q=cestaPoz(c.track,now),n=cNejbliz(...q),misto=n.d<5?n.n:`na cestě ${c.z} → ${c.do}`;
-      ulozHru({cesta:null,misto,poloha:n.d<5?null:[Math.round(q[0]*1000)/1000,Math.round(q[1]*1000)/1000],putovani:cZaznam(c,now,q)}).then(()=>{hf.elements.misto.value=misto})}},true);
-  cAkt();window._cAkt=()=>{cAkt();cestaOdhad()};
+  cestaSloty();
   hf.addEventListener("click",e=>{const b=e.target.closest("[data-hra]");if(!b)return;const f=hf.elements;let [y,m,d]=f.datum.value.split("-").map(Number),h=+f.hodina.value;
     if(b.dataset.hra==="+1"){h++;if(h>23){h=0;[y,m,d]=fromJdn(jdn(y,m,d)+1)}}else{[y,m,d]=fromJdn(jdn(y,m,d)+1);h=6}
     ulozHru({datum:`${y}-${String(m).padStart(2,"0")}-${String(d).padStart(2,"0")}`,hodina:h})});
