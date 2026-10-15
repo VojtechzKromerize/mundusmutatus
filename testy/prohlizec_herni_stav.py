@@ -1,0 +1,60 @@
+import asyncio, json, urllib.request
+from playwright.async_api import async_playwright
+import os, sys
+U=os.environ.get("MM_SB","http://localhost:54321");K="sb_publishable_test";BASE=os.environ.get("MM_WEB","http://localhost:8765/")
+VYSTUP=os.environ.get("MM_VYSTUP","/tmp")
+def tok():
+    r=urllib.request.Request(U+"/auth/v1/token?grant_type=password",data=json.dumps({"email":"gm@x.cz","password":"heslo"}).encode(),headers={"apikey":K,"Content-Type":"application/json"},method="POST")
+    return json.loads(urllib.request.urlopen(r).read())
+def rpc(fn,body):
+    r=urllib.request.Request(U+"/rest/v1/rpc/"+fn,data=json.dumps(body).encode(),headers={"apikey":K,"Content-Type":"application/json","Authorization":"Bearer "+tok()["access_token"]},method="POST")
+    return json.loads(urllib.request.urlopen(r).read())
+def snimek(): return urllib.request.urlopen(urllib.request.Request(U+"/rest/v1/snimek?vetev=eq.test&select=data",headers={"apikey":K})).read().decode()
+fails=[]
+def chk(c,m):
+    print(("OK  " if c else "FAIL"),m)
+    if not c: fails.append(m)
+rpc("mm_nastav_stavy",{"p_zmeny":{"testkoncept":0,"pod":2,"jiri":2,"zdenekst":0}})
+S=snimek();chk("ZKUŠEBNÍ_TEXT_KONCEPTU" not in S and "testkoncept" not in S,"koncept Kroniky není ve výřezu")
+rel=tok()
+async def main():
+  async with async_playwright() as p:
+    b=await p.chromium.launch()
+    g=await b.new_page();gerr=[];g.on("pageerror",lambda e:gerr.append(str(e)[:200]))
+    await g.add_init_script("localStorage.setItem('mm-gm-relace',JSON.stringify("+json.dumps({"at":rel["access_token"],"rt":rel["refresh_token"],"exp":rel["expires_at"],"email":"gm@x.cz"})+"))")
+    await g.goto(BASE+"#gm");await g.wait_for_selector("#gmhra")
+    await g.fill("#gmhra input[name=datum]","1458-03-05");await g.select_option("#gmhra select[name=hodina]","18");await g.fill("#gmhra input[name=misto]","Kutná Hora")
+    await g.click("#gmhra button[type=submit]");await g.wait_for_timeout(700)
+    chk(await g.evaluate("HRA&&HRA.datum==='1458-03-05'&&HRA.hodina===18&&HRA.misto==='Kutná Hora'"),"vypravěč uložil herní stav")
+    await g.click('#gmhra [data-hra="+1"]');await g.wait_for_timeout(700)
+    chk(await g.evaluate("HRA.hodina===19&&HRA.hodinaPred===18"),"+1 hodina a předchozí hodina pro ručičku")
+    chk(await g.locator('.gmrow[data-gmid="testkoncept"] .gs0[aria-pressed="true"]').count()==1,"koncept v přehledu")
+    await g.goto(BASE+"#kronika");await g.wait_for_timeout(400);print("   dbg",await g.evaluate("[location.hash,STAV.testkoncept,[...document.querySelectorAll('#kzapisy a.zcard')].map(a=>a.className).join(';')]"))
+    chk(await g.locator('#kzapisy a.zcard.gm0[href="#kronika/testkoncept"]').count()==1,"vypravěč vidí koncept označený v Kronice")
+    pg=await b.new_page();errs=[];pg.on("pageerror",lambda e:errs.append(str(e)[:200]))
+    await pg.goto(BASE+"#uvod");await pg.wait_for_function("!document.documentElement.classList.contains('mmload')");await pg.wait_for_timeout(400)
+    t=await pg.inner_text("#hero");chk("5. března" in t and "Kutná Hora" in t,"Úvod: datum a místo z herního stavu: "+t.replace("\n"," | ")[:120])
+    chk(await pg.evaluate("document.querySelector('#hero').innerHTML.includes('19')"),"hodiny ukazují 19. hodinu")
+    nov=await pg.inner_text("#uvnovw");chk("Jiří z Poděbrad" in nov,"Novinky ukazují odhalenou osobu")
+    await pg.goto(BASE+"#kronika");await pg.wait_for_timeout(300)
+    chk(await pg.locator('a[href="#kronika/testkoncept"]').count()==0,"hráč koncept nevidí")
+    await pg.goto(BASE+"#mapa");await pg.wait_for_timeout(800)
+    ttl=await pg.evaluate("[...document.querySelectorAll('.partymk title')].map(t=>t.textContent).join('|')")
+    chk("Kutná Hora" in ttl,"praporec na mapě je v Kutné Hoře: "+ttl)
+    # vypravěč zveřejní koncept
+    await g.goto(BASE+"#kronika/testkoncept");await g.wait_for_timeout(400)
+    await g.click("#kzapisy .gmbar .gs2");await g.wait_for_timeout(700)
+    chk(await g.evaluate("STAV.testkoncept===2"),"zveřejnění z lišty zápisu")
+    await pg.reload();await pg.wait_for_function("!document.documentElement.classList.contains('mmload')");await pg.goto(BASE+"#uvod");await pg.wait_for_timeout(400)
+    nov=await pg.inner_text("#uvnovw");chk("Nový zápis Kroniky" in nov and "Tajný koncept" in nov,"Novinky: nový zápis Kroniky")
+    # Praha
+    await g.goto(BASE+"#gm");await g.wait_for_selector("#gmhra")
+    await g.fill("#gmhra input[name=misto]","Praha");await g.select_option("#gmhra select[name=praha]","16");await g.click("#gmhra button[type=submit]");await g.wait_for_timeout(700)
+    await pg.reload();await pg.wait_for_function("!document.documentElement.classList.contains('mmload')")
+    chk(await pg.evaluate("pParty()&&pParty().druzina===16"),"družina na plánu Prahy (místo 16)")
+    await pg.screenshot(path=os.path.join(VYSTUP,"uvod-a.png"))
+    chk(not errs and not gerr,"bez chyb JS "+str((errs+gerr)[:2]))
+    await b.close()
+asyncio.run(main())
+print("SELHALO:",len(fails)) if fails else print("VŠE OK")
+sys.exit(1 if fails else 0)

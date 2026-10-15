@@ -1,0 +1,72 @@
+import asyncio, json, urllib.request
+from playwright.async_api import async_playwright
+import os, sys
+U=os.environ.get("MM_SB","http://localhost:54321");K="sb_publishable_test";BASE=os.environ.get("MM_WEB","http://localhost:8765/")
+VYSTUP=os.environ.get("MM_VYSTUP","/tmp")
+def tok():
+    r=urllib.request.Request(U+"/auth/v1/token?grant_type=password",data=json.dumps({"email":"gm@x.cz","password":"heslo"}).encode(),headers={"apikey":K,"Content-Type":"application/json"},method="POST")
+    return json.loads(urllib.request.urlopen(r).read())
+def anon_rpc(fn,body):
+    r=urllib.request.Request(U+"/rest/v1/rpc/"+fn,data=json.dumps(body).encode(),headers={"apikey":K,"Content-Type":"application/json"},method="POST")
+    try: return 200,urllib.request.urlopen(r).read().decode()
+    except urllib.error.HTTPError as e: return e.code,e.read().decode()[:120]
+fails=[]
+def chk(c,m):
+    print(("OK  " if c else "FAIL"),m)
+    if not c: fails.append(m)
+rel=tok()
+async def main():
+  async with async_playwright() as p:
+    b=await p.chromium.launch()
+    g=await b.new_page(viewport={"width":1300,"height":1000});gerr=[];g.on("pageerror",lambda e:gerr.append(str(e)[:200]))
+    g.on("dialog",lambda d:asyncio.ensure_future(d.accept()))
+    await g.add_init_script("localStorage.setItem('mm-gm-relace',JSON.stringify("+json.dumps({"at":rel["access_token"],"rt":rel["refresh_token"],"exp":rel["expires_at"],"email":"gm@x.cz"})+"))")
+    await g.goto(BASE+"#boj");await g.wait_for_function("!document.documentElement.classList.contains('mmload')");await g.wait_for_timeout(500)
+    if await g.locator("[data-bact=konec]").count():
+        await g.click("[data-bact=konec]");await g.wait_for_timeout(800)
+    await g.wait_for_selector("#bojform")
+    chk(await g.locator("#navboj").is_visible(),"vypravěč má v nabídce Boj")
+    hn=g.locator('#bojform [name=hn]')
+    for i,n in enumerate(["Adam","Bára","Cyril"]):
+        await hn.nth(i).fill(n)
+    await hn.nth(3).fill("");await g.fill('#bojform [name=hod]',"15")
+    await g.fill('#bojform [name=dm]',"12")
+    nn=g.locator('#bojform [name=nn]');nd=g.locator('#bojform [name=nd]');np=g.locator('#bojform [name=np]')
+    await nn.nth(0).fill("Žoldnéři");await nd.nth(0).select_option("houf");await np.nth(0).fill("6")
+    await nn.nth(1).fill("Hejtman");await nd.nth(1).select_option("sok")
+    await g.click('#bojform button[type=submit]');await g.wait_for_selector(".bsloty")
+    sl=await g.eval_on_selector_all(".bslot","els=>els.map(e=>e.querySelector('.bhod').textContent+(e.classList.contains('bh')?'h':'n'))")
+    chk(sl==["15h","12n","15h","12n","15h","12n"],"sloty se střídají, začíná družina: "+str(sl))
+    alt=await g.evaluate("bojSloty({hraci:[{},{}],hod:10,dm:14}).map(x=>x.t).join('')");chk(alt=="nhnh","vyhraje-li vypravěč, začínají nepřátelé: "+alt)
+    alt=await g.evaluate("bojSloty({hraci:[{},{}],hod:14,dm:14}).map(x=>x.t).join('')");chk(alt=="hnhn","shoda – začíná družina: "+alt)
+    pl=await b.new_page(viewport={"width":390,"height":844});perr=[];pl.on("pageerror",lambda e:perr.append(str(e)[:200]))
+    await pl.goto(BASE);await pl.wait_for_function("!document.documentElement.classList.contains('mmload')");await pl.wait_for_timeout(600)
+    await pl.click("#navtoggle");chk(await pl.locator("#navboj").is_visible(),"hráč vidí Boj v menu, když boj probíhá")
+    await pl.goto(BASE+"#boj");await pl.wait_for_selector(".bsloty")
+    await pl.click('[data-bclaim="0"]');await pl.select_option('[data-bclaimsel="0"]',"h1");await pl.wait_for_timeout(800)
+    chk("Adam" in await pl.inner_text(".bslot >> nth=0"),"hráč obsadil slot z telefonu")
+    await g.wait_for_timeout(3000)
+    chk(await g.eval_on_selector('[data-bslot="0"]',"e=>e.value")=="h1","vypravěč vidí obsazení živě")
+    c,t=anon_rpc("mm_boj_obsad",{"p_slot":2,"p_hrac":"h1"});chk(c>=400 and "jednala" in t,"Adam nesmí jednat podruhé: "+t[:60])
+    c,t=anon_rpc("mm_boj_obsad",{"p_slot":1,"p_hrac":"h2"});chk(c>=400 and "nepatří" in t,"hráč nesmí do slotu nepřátel")
+    await g.select_option('[data-bslot="1"]',"n2");await g.wait_for_timeout(700)
+    await g.select_option('[data-bslot="3"]',"n2");await g.wait_for_timeout(700)
+    opts=await g.eval_on_selector('[data-bslot="5"]',"e=>[...e.options].map(o=>o.value)")
+    chk("n2" not in opts and "n1" in opts,"sok smí jen 2× za kolo: "+str(opts))
+    for _ in range(3):
+        await g.click('[data-bnpc="n1"] [data-bpoc="-1"]');await g.wait_for_timeout(500)
+    t=await g.inner_text('[data-bnpc="n1"]');chk("3 z 6" in t and "útok +2" in t and "Morálka" in t,"houf: počet, bonus a morálka")
+    await g.click('[data-bact="kostka"]');await g.wait_for_timeout(700)
+    chk(await g.locator(".kvys .kd6").count()==1,"kostka Závoje hozena")
+    await pl.wait_for_timeout(3000);chk(await pl.locator(".kvys .kd6").count()==1,"hráč vidí výsledek kostky")
+    await g.click('[data-bact="dalsi"]');await g.wait_for_timeout(700)
+    chk(await g.locator(".bslot.btah >> nth=0").inner_text()!="" and await g.evaluate("BOJ.s.tah===1"),"další tah")
+    await g.click('[data-bact="kolo"]');await g.wait_for_timeout(700)
+    chk(await g.evaluate("BOJ.s.kolo===2&&Object.keys(BOJ.s.obsazeni).length===0"),"nové kolo vymaže přiřazení")
+    await g.screenshot(path=os.path.join(VYSTUP,"boj-gm.png"),full_page=True)
+    await pl.wait_for_timeout(3000);await pl.screenshot(path=os.path.join(VYSTUP,"boj-m.png"),full_page=True)
+    chk(not gerr and not perr,"bez chyb JS "+str((gerr+perr)[:2]))
+    await b.close()
+asyncio.run(main())
+print("SELHALO:",len(fails)) if fails else print("VŠE OK")
+sys.exit(1 if fails else 0)

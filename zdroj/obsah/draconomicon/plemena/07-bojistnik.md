@@ -5,6 +5,7 @@ latin: Draco funebris
 pridomek: drak bojišť a šibenic
 trida: L
 obrazek: bojistnik
+mapa: 15.4, 50.1
 ---
 ## Kde přebývá
 

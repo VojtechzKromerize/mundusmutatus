@@ -1,3 +1,6 @@
 public/
 vypravec/
 __pycache__/
+
+# snímky obrazovky z ladění nepatří do repozitáře
+/*.png

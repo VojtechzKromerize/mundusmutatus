@@ -8,6 +8,10 @@ kratce: Novohradští
 vyznani: kat
 hlava: Jan z Nového hradu
 postoj: Opatrně vyčkává, na čí stranu se přikloní páni z Rožmberka.
+# postaveni: na vrcholu moci / v plné síle / na vzestupu / stabilní / v nesnázích / v úpadku
+postaveni: stabilní
+# historie: krátký odstavec o dějinách rodu (zobrazí se v článku rodu nad zápisem kronikáře)
+historie: Starý rod, který se psal podle Nového hradu.
 # erb: obrázek art/erby/<id>.webp se najde sám; jiný soubor zadejte jako  erb: <název bez .webp>
 # mesto: ano   – jde o město, ne o šlechtický rod
 # soused: ano  – rod ze sousední země (tmavý lem na mapě)

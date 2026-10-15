@@ -1,0 +1,46 @@
+import asyncio, json, urllib.request
+from playwright.async_api import async_playwright
+import os, sys
+U=os.environ.get("MM_SB","http://localhost:54321");K="sb_publishable_test";BASE=os.environ.get("MM_WEB","http://localhost:8765/")
+VYSTUP=os.environ.get("MM_VYSTUP","/tmp")
+t=json.loads(urllib.request.urlopen(urllib.request.Request(U+"/auth/v1/token?grant_type=password",data=json.dumps({"email":"gm@x.cz","password":"heslo"}).encode(),headers={"apikey":K,"Content-Type":"application/json"},method="POST")).read())
+fails=[]
+def chk(c,m):
+    print(("OK  " if c else "FAIL"),m)
+    if not c: fails.append(m)
+async def main():
+  async with async_playwright() as p:
+    b=await p.chromium.launch()
+    g=await b.new_page(viewport={"width":1300,"height":1000});g.on("dialog",lambda d:asyncio.ensure_future(d.accept()))
+    await g.add_init_script("localStorage.setItem('mm-gm-relace',JSON.stringify("+json.dumps({"at":t["access_token"],"rt":t["refresh_token"],"exp":t["expires_at"],"email":"gm@x.cz"})+"))")
+    await g.goto(BASE+"#boj");await g.wait_for_function("!document.documentElement.classList.contains('mmload')");await g.wait_for_timeout(600)
+    if await g.locator("[data-bact=konec]").count():
+        await g.click("[data-bact=konec]");await g.wait_for_timeout(800)
+    await g.wait_for_selector("#bojform")
+    hn=g.locator('#bojform [name=hn]')
+    for i,n in enumerate(["Adam","Bára","",""]): await hn.nth(i).fill(n)
+    await g.fill('#bojform [name=hod]',"15");await g.fill('#bojform [name=dm]',"10")
+    await g.click('#bojform button[type=submit]');await g.wait_for_selector(".bsloty")
+    pl=await b.new_page(viewport={"width":390,"height":844});err=[];pl.on("pageerror",lambda e:err.append(str(e)[:200]))
+    await pl.add_init_script("window.__vib=[];navigator.vibrate=x=>{window.__vib.push(x);return true}")
+    await pl.goto(BASE+"#boj");await pl.wait_for_selector(".bsloty")
+    await pl.select_option("[data-bja]","Adam");await pl.wait_for_timeout(300)
+    await pl.click('[data-bclaim="0"]');await pl.select_option('[data-bclaimsel="0"]',"h1");await pl.wait_for_timeout(1000)
+    chk(await pl.locator(".bjatah").count()==1 and await pl.locator(".bslot.bmujtah").count()==1,"hráč na tahu: hláška a blikající slot")
+    chk(await pl.evaluate("window.__vib.length")==1,"telefon zavibroval")
+    chk((await pl.title()).startswith("⚔ Na tahu!"),"titulek stránky")
+    await g.wait_for_timeout(2600);await g.click('[data-bact="dalsi"]');await pl.wait_for_timeout(3200)
+    chk(await pl.locator(".bjatah").count()==0 and not (await pl.title()).startswith("⚔"),"po dalším tahu hláška zmizí")
+    await g.click('[data-bact="kolo"]');await pl.wait_for_timeout(3200)
+    await pl.click('[data-bclaim="2"]');await pl.select_option('[data-bclaimsel="2"]',"h1");await pl.wait_for_timeout(800)
+    chk(await pl.locator(".bslot.bmuj").count()==1 and await pl.locator(".bjatah").count()==0,"vlastní slot zvýrazněn, zatím není na tahu")
+    await g.wait_for_timeout(2600);await g.click('[data-bact="dalsi"]');await pl.wait_for_timeout(3200)
+    chk(await pl.locator(".bjadal").count()==1,"hráč ví, že je další na řadě")
+    await g.click('[data-bact="dalsi"]');await pl.wait_for_timeout(3200)
+    chk(await pl.locator(".bjatah").count()==1 and await pl.evaluate("window.__vib.length")==2,"na tahu v novém kole: znovu vibrace")
+    await pl.screenshot(path=os.path.join(VYSTUP,"tah-m.png"))
+    chk(not err,"bez chyb "+str(err[:2]))
+    await b.close()
+asyncio.run(main())
+print("SELHALO:",len(fails)) if fails else print("VŠE OK")
+sys.exit(1 if fails else 0)

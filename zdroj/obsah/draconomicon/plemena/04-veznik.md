@@ -5,6 +5,7 @@ latin: Draco rupestris
 pridomek: obyvatel skalních měst
 trida: L
 obrazek: veznik
+mapa: 14.25, 50.88; 14.58, 50.43; 15.28, 50.47; 16.12, 50.62
 ---
 ## Kde přebývá
 

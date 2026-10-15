@@ -1,5 +1,27 @@
 # Jak upravovat obsah webu
 
+## Úpravy přímo na webu (doporučeno)
+Rody, osoby, vazby, rodokmeny, místa v Praze, objevená místa, Kronika, Družina a Draconomicon jsou
+uložené v databázi a vypravěč je upravuje **přímo na webu**: přihlásit se (ikona klíče v nabídce) →
+na stránce osoby, rodu, zápisu, plemene či postavy **Upravit text**, u rodu také **Rodokmen** a **Vazby**.
+Nové záznamy (osoba, rod, zápis Kroniky, plemeno, místo…) vznikají ve vypravěčském přehledu v části
+**Nový záznam** – jsou skryté, dokud je neodhalíš. Hráči změnu uvidí do půl minuty, bez nasazování.
+
+- Každá verze se pamatuje: **Historie** u záznamu ukáže předchozí verze a dovolí je obnovit.
+- Chybu (neexistující rod, neuzavřené ⟦ …) web ohlásí a nic neuloží. **Zkontrolovat texty**
+  ve vypravěčském přehledu projde všechno najednou.
+- Portrét, erb nebo obrázek plemene nahraješ tlačítkem v editoru – web ho sám zmenší a uloží.
+- Pole **mapa** u dračího plemene určuje, kde se plemeno ukáže ve vrstvě Draci na mapě světa
+  („délka, šířka“, více míst odděl středníkem). Hráči ho vidí, až o plemeni družina aspoň uslyší.
+- **Záloha:** jednou denně se texty upravené na webu uloží do souborů v této složce (větev `dev`,
+  GitHub Actions „Záloha textů z webu“; spustit jde i ručně).
+
+## Úpravy v souborech (GitHub, Claude)
+Soubory v této složce jsou zálohou databáze. Když se soubor změní ve větvi `dev`, sestavení změnu
+do databáze přenese – **ledaže byl tentýž záznam mezitím upravený na webu**: pak vyhraje web
+a sestavení vypíše „KONFLIKT“ (soubor se přenese až po další záloze a nové úpravě).
+Před úpravou souborů je proto dobré spustit zálohu, aby soubory odpovídaly webu.
+
 Všechno v této složce jsou obyčejné textové soubory. Dají se upravovat přímo na GitHubu
 (otevřít soubor → tužka ✎ → upravit → *Commit changes* do větve `dev`).
 Po uložení Netlify web sám sestaví; náhled je na https://dev--mundusmutatus.netlify.app.
@@ -11,6 +33,7 @@ s česky popsanou chybou v přehledu nasazení na Netlify a web zůstane ve stav
 | `rody/` | panské rody, církevní vrchnosti, města, sousedé | `rody/_vzor.md` |
 | `osoby/` | osoby v Zemských deskách | `osoby/_vzor.md` |
 | `rodokmeny.json` | rodokmeny rodů (jeden řádek = jeden rod; `p` = id osoby, `r`/`rl` = id rodu, `pl` = id manžela/manželky) | stávající řádky |
+| `postavy-1458.json` | rešerše osob (klíč = id osoby): `narozeni` (RRRR-MM-DD nebo RRRR), `narozeniRok`, `narozeniOdhad` → věk k hernímu datu; `shrnuti` → „Dosavadní život“ (hráči ho vidí, až osobu družina potká). Objekt `gm` (`poBreznu1458`, `umrti`) a pole `jistota`, `rozporSWebem`, `zakladOdhadu`, `zdroje` vidí jen vypravěč (sekce „Po březnu 1458“); do hráčské verze se nedostanou, sestavení to hlídá stejně jako ⟦tajemství⟧ | stávající záznamy |
 | `vazby.md` | krev, spojenectví a spory mezi rody (jeden řádek = jedna vazba) | návod v hlavičce souboru |
 | `praha/` | očíslovaná místa na plánu Prahy | `praha/_vzor.md` |
 | `praha-ulice.md` | názvy ulic, trhů a bran na plánu Prahy | návod v hlavičce souboru |
@@ -35,16 +58,16 @@ s česky popsanou chybou v přehledu nasazení na Netlify a web zůstane ve stav
   (`art/portrety/<id>.webp` + `<id>-m.webp`) se podle jména souboru najdou samy.
 
 ## Odhalování (co družina zná)
-Na webu napojeném na databázi vidí hráči jen to, co vypravěč odhalil. Rody, osoby a objevená místa mají tři stavy:
+Na webu napojeném na databázi vidí hráči jen to, co vypravěč odhalil. Rody, osoby, dračí plemena a objevená místa mají tři stavy:
 
 | Stav | Co uvidí hráči |
 |---|---|
 | **Skryté** | nic – záznam se jim vůbec nepošle (ani do zdrojového kódu stránky) |
-| **Slyšeli** | jméno a základní údaje; osoba bez textu a se siluetou, rod bez postoje, zápisu kronikáře a rodokmenu |
+| **Slyšeli** | jméno a základní údaje; osoba bez textu a se siluetou, rod bez postoje, historie, zápisu kronikáře a rodokmenu, dračí plemeno bez obrázku a popisu |
 | **Potkali** | vše kromě ⟦tajemství⟧ |
 
-- Stav se přepíná na webu: odkaz **Vypravěč** v patičce → přihlášení → přehled všech rodů, osob a míst,
-  případně lišta „Co o osobě ví družina“ přímo na stránce osoby či rodu. Hráčům se změna ukáže do půl minuty.
+- Stav se přepíná na webu: ikona klíče **Vypravěč** vpravo v hlavní nabídce (nebo odkaz v patičce) → přihlášení → přehled všech rodů, osob a míst,
+  případně lišta „Co o … ví družina“ přímo na stránce osoby, rodu či dračího plemene. Hráčům se změna ukáže do půl minuty.
 - Osoba je hráčům vidět, jen když je vidět i její rod. Ve vypravěčském pohledu jsou skryté odkazy
   orámované čárkovaně, „slyšeli“ tečkovaně.
 - **Výchozí stav** nového záznamu lze dát do hlavičky: `stav: skryta`, `stav: slyseli` nebo `stav: potkali`
@@ -52,5 +75,5 @@ Na webu napojeném na databázi vidí hráči jen to, co vypravěč odhalil. Rod
 - **Zmínky v textech** podle stavu: `[[jindrich4|Jindřich z Hradce]]` je odkaz, když družina osobu zná,
   jinak jen text; `[[jindrich4|Jindřich z Hradce|jakýsi pán]]` ukáže skrytou osobu jako „jakýsi pán“;
   `[[?var|celá věta…]]` se ukáže, jen když družina o rodu aspoň slyšela; `[[!var|věta…]]` jen když ho potkali.
-  Funguje v textech osob, rodů, vazeb, Prahy, Kroniky i Družiny.
+  Funguje v textech osob, rodů, vazeb, Prahy, Kroniky, Družiny i Draconomiconu (id plemene např. `plivnik`).
 - Vazba mezi rody se hráčům ukáže, jen když znají všechny rody ve vazbě.

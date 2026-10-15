@@ -29,12 +29,10 @@
 - Na Zderaze | 574, 622 | 65
 - ulice sv. Kateřiny | 733, 660 | 70
 - Výtoň | 566, 896 | 0
-- Újezd | 350, 500 | 0
 - Staroměstský rynk | 676, 271 | 0
 - Malostranský rynk | 330, 249 | 0
 - Hradčanský rynk | 177, 221 | 0
-- Kamenný most | 461, 297 | 11
-- Židovské město | 610, 168 | 0
+- Kamenný most | 457, 289 | 11
 - ostrov | 456, 462 | -80
 - Čertovka | 417, 400 | -75
 - Kampa | 434, 385 | -75

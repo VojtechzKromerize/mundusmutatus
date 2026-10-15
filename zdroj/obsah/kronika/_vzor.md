@@ -15,5 +15,6 @@ praha: 20, 26
 # číslo místa na plánu Prahy, kde družina na konci zápisu je (praporec na plánu; nepovinné)
 druzina: 16
 title: Stříbro a krev
+# bez stavu = koncept (hráči ho nevidí, dokud ho vypravěč na webu nezveřejní); stav: potkali = hned zveřejněno
 ---
 Text zápisu. Odstavce odděluj prázdným řádkem.

@@ -6,6 +6,7 @@ latin: Draco minor
 pridomek: postrach kurníků
 trida: L
 obrazek: dracek
+mapa: 14.3, 49.7; 16.4, 49.45
 ---
 ## Kde přebývá
 

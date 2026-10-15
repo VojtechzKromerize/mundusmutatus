@@ -5,6 +5,7 @@ latin: Draco sulphureus
 pridomek: ohnivý drak Krušných hor
 trida: T
 obrazek: plivnik
+mapa: 12.75, 50.42; 13.55, 50.62
 ---
 ## Kde přebývá
 

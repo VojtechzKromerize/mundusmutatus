@@ -14,6 +14,20 @@ Hráčský web: https://mundusmutatus.netlify.app (větev `main`), náhled: http
   stránka si pak stáhne jen výřez toho, co družina zná; vypravěč se přihlásí odkazem **Vypravěč** v patičce
   a stavy (Skryté / Slyšeli / Potkali) přepíná živě, bez nového nasazení. Portréty mají v `public/` nečitelné názvy.
   Bez tajného klíče se web sestaví staticky jako dřív.
+- Texty (rody, osoby, vazby, rodokmeny, Praha, místa, Kronika, Družina, Draconomicon) jsou v databázi a vypravěč
+  je upravuje přímo na webu. Data webu z nich vyrábí `zdroj/generator.js` – stejný kód běží při sestavení
+  (Node.js) i v prohlížeči vypravěče. Soubory v `zdroj/obsah/` jsou záloha: GitHub Actions je jednou denně
+  aktualizuje z databáze (`zdroj/zaloha.py`, potřebuje tajemství `SUPABASE_SECRET` v nastavení repozitáře)
+  a změny souborů ve větvi `dev` se při sestavení přenesou do databáze (pokud záznam mezitím nikdo neupravil na webu).
+- Herní stav (datum, hodina, poloha družiny), Novinky a tracker iniciativy (`#boj`) jsou také v databázi.
+- Rychlost: hráčská verze má hlavní styl a skript v `public/v/` pod jmény s otiskem obsahu (prohlížeč si je uloží
+  natrvalo, viz hlavičky v `netlify.toml`), písma leží v `art/pisma` (licence SIL OFL) a `zdroj/sw.js` zajišťuje
+  offline režim (bez připojení se ukáže naposledy uložený stav desek). Portréty mají kromě plné verze i `-s`
+  (300 px) a `-m` (náhled); velké ilustrace Artikulí `-s`, náhledy kapitol `-t`. `art/svet.json` je zhuštěný
+  (souřadnice jako rozdíly), rozbalí ho `svRozbal` v prohlížeči.
+
+- `testy/` – automatické testy (sestavení, tajemství, práva v databázi, odhalování, editor, prohlídka všech stránek).
+  Běží na GitHubu při každém nahrání (akce „Kontrola webu“); popis v [`testy/README.md`](testy/README.md).
 
 ## Úpravy
 Zápis ze sezení: na GitHubu otevři `zdroj/obsah/kronika/`, *Add file → Create new file*, zkopíruj obsah `_vzor.md` a uprav.
