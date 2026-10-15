@@ -696,6 +696,8 @@ a.pchar:hover{border-color:var(--kal)}
 
 /* Praha */
 #pmap{width:100%;height:auto;display:block;touch-action:none;background:var(--land)}
+/* mapy s filtry se vykreslí jednou do vlastní vrstvy; posouvání stránky je pak jen přesune */
+svg#map,svg#pmap,svg#smap{will-change:transform;transform:translateZ(0);contain:paint}
 .pdet a{color:var(--kal)}
 .pmk{cursor:pointer}.pmk:focus-visible circle{stroke:var(--gold)}
 .pmkn{font-family:var(--f-label);font-weight:700;pointer-events:none}
@@ -777,7 +779,9 @@ svg#map.measuring,svg#map.measuring *,svg#pmap.measuring,svg#pmap.measuring *,sv
 /* 2. vazba: vínová kůže s tlačenými zlatými linkami, stránky z pergamenu */
 :root{--kuze:#4d1521;--kuze2:#3a0e17;--zlato-linka:rgba(214,170,90,.62)}
 :root{--kuze-vrstvy:radial-gradient(ellipse at 50% 28%,rgba(150,42,56,.45),transparent 62%),radial-gradient(ellipse at 50% 55%,transparent 52%,rgba(12,0,3,.62) 100%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .12 0 0 0 0 .02 0 0 0 0 .04 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.018 .03' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .2 0 0 0 0 .22 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='600' height='600' filter='url(%23n)'/%3E%3C/svg%3E")}
-html{background-color:var(--kuze);background-image:var(--kuze-vrstvy);background-attachment:fixed}
+html{background-color:var(--kuze)}
+/* kůže vazby leží v pevné vrstvě pod stránkou: při posouvání se nepřekresluje */
+html::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background-color:var(--kuze);background-image:var(--kuze-pozadi,var(--kuze-vrstvy));will-change:transform}
 body{background:transparent}
 .wrap{background-color:var(--bg);background-image:radial-gradient(ellipse at 50% 40%,transparent 55%,rgba(90,60,25,.16) 100%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .25 0 0 0 0 .12 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");border-radius:4px;padding:18px 26px 26px;position:relative;box-shadow:0 0 0 1px rgba(20,3,6,.75),0 0 0 7px var(--kuze),0 0 0 8px rgba(0,0,0,.42),0 0 0 9px rgba(255,190,170,.09),0 0 0 15px var(--kuze),0 0 0 16px rgba(0,0,0,.36),0 0 0 17px rgba(255,190,170,.08),0 18px 46px rgba(0,0,0,.7),inset 0 0 46px rgba(110,70,30,.2)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--kuze:#2c0b12;--kuze2:#1f070c}:root:not([data-theme="light"]) .wrap{background-image:radial-gradient(ellipse at 50% 40%,transparent 50%,rgba(0,0,0,.4) 100%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .9 0 0 0 0 .8 0 0 0 0 .6 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E")}}
@@ -785,10 +789,10 @@ body{background:transparent}
 /* kování kodexu: mosazné rohy a spony na předním okraji */
 .wrap::after{content:"";position:absolute;inset:-22px;pointer-events:none;z-index:4;background:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Cdefs%3E%3ClinearGradient id=%27b%27 x1=%270%27 y1=%270%27 x2=%271%27 y2=%271%27%3E%3Cstop offset=%270%27 stop-color=%27%23f3d98a%27/%3E%3Cstop offset=%27.45%27 stop-color=%27%23c39136%27/%3E%3Cstop offset=%271%27 stop-color=%27%236e4512%27/%3E%3C/linearGradient%3E%3CradialGradient id=%27k%27 cx=%27.35%27 cy=%27.3%27 r=%27.7%27%3E%3Cstop offset=%270%27 stop-color=%27%23fff3c4%27/%3E%3Cstop offset=%27.5%27 stop-color=%27%23c99a3c%27/%3E%3Cstop offset=%271%27 stop-color=%27%235c3a0e%27/%3E%3C/radialGradient%3E%3C/defs%3E%3Cg transform=%27%27%3E%3Cpath d=%27M2,2H96L86,12C74,13 66,19 62,27C55,23 46,24 40,30C34,36 33,45 37,52C29,56 23,64 21,75L12,86L2,96Z%27 fill=%27url%28%23b%29%27 stroke=%27%233a2208%27 stroke-width=%272.2%27 stroke-linejoin=%27round%27/%3E%3Cpath d=%27M9,9H80L74,15C64,17 57,22 53,29C46,28 39,31 34,36C29,41 27,48 29,55C22,60 17,67 15,76L9,82Z%27 fill=%27none%27 stroke=%27%236e4512%27 stroke-width=%271.2%27 opacity=%27.8%27/%3E%3Ccircle cx=%2717%27 cy=%2717%27 r=%278.5%27 fill=%27url%28%23k%29%27 stroke=%27%233a2208%27 stroke-width=%271.5%27/%3E%3Ccircle cx=%2746%27 cy=%2742%27 r=%275%27 fill=%27url%28%23k%29%27 stroke=%27%233a2208%27 stroke-width=%271.2%27/%3E%3Ccircle cx=%2772%27 cy=%278%27 r=%272.6%27 fill=%27url%28%23k%29%27 stroke=%27%233a2208%27/%3E%3Ccircle cx=%278%27 cy=%2772%27 r=%272.6%27 fill=%27url%28%23k%29%27 stroke=%27%233a2208%27/%3E%3C/g%3E%3C/svg%3E") left top/92px no-repeat,url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Cdefs%3E%3ClinearGradient id=%27b%27 x1=%270%27 y1=%270%27 x2=%271%27 y2=%271%27%3E%3Cstop offset=%270%27 stop-color=%27%23f3d98a%27/%3E%3Cstop offset=%27.45%27 stop-color=%27%23c39136%27/%3E%3Cstop offset=%271%27 stop-color=%27%236e4512%27/%3E%3C/linearGradient%3E%3CradialGradient id=%27k%27 cx=%27.35%27 cy=%27.3%27 r=%27.7%27%3E%3Cstop offset=%270%27 stop-color=%27%23fff3c4%27/%3E%3Cstop offset=%27.5%27 stop-color=%27%23c99a3c%27/%3E%3Cstop offset=%271%27 stop-color=%27%235c3a0e%27/%3E%3C/radialGradient%3E%3C/defs%3E%3Cg transform=%27translate%28100 0%29 scale%28-1 1%29%27%3E%3Cpath d=%27M2,2H96L86,12C74,13 66,19 62,27C55,23 46,24 40,30C34,36 33,45 37,52C29,56 23,64 21,75L12,86L2,96Z%27 fill=%27url%28%23b%29%27 stroke=%27%233a2208%27 stroke-width=%272.2%27 stroke-linejoin=%27round%27/%3E%3Cpath d=%27M9,9H80L74,15C64,17 57,22 53,29C46,28 39,31 34,36C29,41 27,48 29,55C22,60 17,67 15,76L9,82Z%27 fill=%27none%27 stroke=%27%236e4512%27 stroke-width=%271.2%27 opacity=%27.8%27/%3E%3Ccircle cx=%2717%27 cy=%2717%27 r=%278.5%27 fill=%27url%28%23k%29%27 stroke=%27%233a2208%27 stroke-width=%271.5%27/%3E%3Ccircle cx=%2746%27 cy=%2742%27 r=%275%27 fill=%27url%28%23k%29%27 stroke=%27%233a2208%27 stroke-width=%271.2%27/%3E%3Ccircle cx=%2772%27 cy=%278%27 r=%272.6%27 fill=%27url%28%23k%29%27 stroke=%27%233a2208%27/%3E%3Ccircle cx=%278%27 cy=%2772%27 r=%272.6%27 fill=%27url%28%23k%29%27 stroke=%27%233a2208%27/%3E%3C/g%3E%3C/svg%3E") right top/92px no-repeat,url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Cdefs%3E%3ClinearGradient id=%27b%27 x1=%270%27 y1=%270%27 x2=%271%27 y2=%271%27%3E%3Cstop offset=%270%27 stop-color=%27%23f3d98a%27/%3E%3Cstop offset=%27.45%27 stop-color=%27%23c39136%27/%3E%3Cstop offset=%271%27 stop-color=%27%236e4512%27/%3E%3C/linearGradient%3E%3CradialGradient id=%27k%27 cx=%27.35%27 cy=%27.3%27 r=%27.7%27%3E%3Cstop offset=%270%27 stop-color=%27%23fff3c4%27/%3E%3Cstop offset=%27.5%27 stop-color=%27%23c99a3c%27/%3E%3Cstop offset=%271%27 stop-color=%27%235c3a0e%27/%3E%3C/radialGradient%3E%3C/defs%3E%3Cg transform=%27translate%280 100%29 scale%281 -1%29%27%3E%3Cpath d=%27M2,2H96L86,12C74,13 66,19 62,27C55,23 46,24 40,30C34,36 33,45 37,52C29,56 23,64 21,75L12,86L2,96Z%27 fill=%27url%28%23b%29%27 stroke=%27%233a2208%27 stroke-width=%272.2%27 stroke-linejoin=%27round%27/%3E%3Cpath d=%27M9,9H80L74,15C64,17 57,22 53,29C46,28 39,31 34,36C29,41 27,48 29,55C22,60 17,67 15,76L9,82Z%27 fill=%27none%27 stroke=%27%236e4512%27 stroke-width=%271.2%27 opacity=%27.8%27/%3E%3Ccircle cx=%2717%27 cy=%2717%27 r=%278.5%27 fill=%27url%28%23k%29%27 stroke=%27%233a2208%27 stroke-width=%271.5%27/%3E%3Ccircle cx=%2746%27 cy=%2742%27 r=%275%27 fill=%27url%28%23k%29%27 stroke=%27%233a2208%27 stroke-width=%271.2%27/%3E%3Ccircle cx=%2772%27 cy=%278%27 r=%272.6%27 fill=%27url%28%23k%29%27 stroke=%27%233a2208%27/%3E%3Ccircle cx=%278%27 cy=%2772%27 r=%272.6%27 fill=%27url%28%23k%29%27 stroke=%27%233a2208%27/%3E%3C/g%3E%3C/svg%3E") left bottom/92px no-repeat,url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Cdefs%3E%3ClinearGradient id=%27b%27 x1=%270%27 y1=%270%27 x2=%271%27 y2=%271%27%3E%3Cstop offset=%270%27 stop-color=%27%23f3d98a%27/%3E%3Cstop offset=%27.45%27 stop-color=%27%23c39136%27/%3E%3Cstop offset=%271%27 stop-color=%27%236e4512%27/%3E%3C/linearGradient%3E%3CradialGradient id=%27k%27 cx=%27.35%27 cy=%27.3%27 r=%27.7%27%3E%3Cstop offset=%270%27 stop-color=%27%23fff3c4%27/%3E%3Cstop offset=%27.5%27 stop-color=%27%23c99a3c%27/%3E%3Cstop offset=%271%27 stop-color=%27%235c3a0e%27/%3E%3C/radialGradient%3E%3C/defs%3E%3Cg transform=%27translate%28100 100%29 scale%28-1 -1%29%27%3E%3Cpath d=%27M2,2H96L86,12C74,13 66,19 62,27C55,23 46,24 40,30C34,36 33,45 37,52C29,56 23,64 21,75L12,86L2,96Z%27 fill=%27url%28%23b%29%27 stroke=%27%233a2208%27 stroke-width=%272.2%27 stroke-linejoin=%27round%27/%3E%3Cpath d=%27M9,9H80L74,15C64,17 57,22 53,29C46,28 39,31 34,36C29,41 27,48 29,55C22,60 17,67 15,76L9,82Z%27 fill=%27none%27 stroke=%27%236e4512%27 stroke-width=%271.2%27 opacity=%27.8%27/%3E%3Ccircle cx=%2717%27 cy=%2717%27 r=%278.5%27 fill=%27url%28%23k%29%27 stroke=%27%233a2208%27 stroke-width=%271.5%27/%3E%3Ccircle cx=%2746%27 cy=%2742%27 r=%275%27 fill=%27url%28%23k%29%27 stroke=%27%233a2208%27 stroke-width=%271.2%27/%3E%3Ccircle cx=%2772%27 cy=%278%27 r=%272.6%27 fill=%27url%28%23k%29%27 stroke=%27%233a2208%27/%3E%3Ccircle cx=%278%27 cy=%2772%27 r=%272.6%27 fill=%27url%28%23k%29%27 stroke=%27%233a2208%27/%3E%3C/g%3E%3C/svg%3E") right bottom/92px no-repeat;filter:drop-shadow(0 3px 3px rgba(0,0,0,.55))}
 .wrap::before{content:"";position:absolute;right:-40px;top:18%;bottom:18%;width:52px;pointer-events:none;z-index:4;background:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 44%27%3E%3Cdefs%3E%3ClinearGradient id=%27b%27 x1=%270%27 y1=%270%27 x2=%270%27 y2=%271%27%3E%3Cstop offset=%270%27 stop-color=%27%23f3d98a%27/%3E%3Cstop offset=%27.5%27 stop-color=%27%23b8862f%27/%3E%3Cstop offset=%271%27 stop-color=%27%236e4512%27/%3E%3C/linearGradient%3E%3ClinearGradient id=%27r%27 x1=%270%27 y1=%270%27 x2=%270%27 y2=%271%27%3E%3Cstop offset=%270%27 stop-color=%27%233b1016%27/%3E%3Cstop offset=%27.5%27 stop-color=%27%232a0a10%27/%3E%3Cstop offset=%271%27 stop-color=%27%231a0508%27/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x=%270%27 y=%2712%27 width=%2746%27 height=%2720%27 rx=%272%27 fill=%27url%28%23r%29%27 stroke=%27%23120305%27 stroke-width=%271.2%27/%3E%3Cpath d=%27M4,16H42M4,28H42%27 stroke=%27%237a4a3a%27 stroke-width=%27.8%27 stroke-dasharray=%272 2.2%27/%3E%3Cpath d=%27M36,6H56Q62,6 62,12V32Q62,38 56,38H36Z%27 fill=%27url%28%23b%29%27 stroke=%27%233a2208%27 stroke-width=%271.6%27/%3E%3Cpath d=%27M40,10H55Q58,10 58,13V31Q58,34 55,34H40%27 fill=%27none%27 stroke=%27%236e4512%27 stroke-width=%271%27/%3E%3Ccircle cx=%2742%27 cy=%2715%27 r=%272.4%27 fill=%27%23f6e3a0%27 stroke=%27%233a2208%27/%3E%3Ccircle cx=%2742%27 cy=%2729%27 r=%272.4%27 fill=%27%23f6e3a0%27 stroke=%27%233a2208%27/%3E%3Cpath d=%27M62,17V27%27 stroke=%27%233a2208%27 stroke-width=%273%27 stroke-linecap=%27round%27/%3E%3C/svg%3E") left top/52px no-repeat,url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 44%27%3E%3Cdefs%3E%3ClinearGradient id=%27b%27 x1=%270%27 y1=%270%27 x2=%270%27 y2=%271%27%3E%3Cstop offset=%270%27 stop-color=%27%23f3d98a%27/%3E%3Cstop offset=%27.5%27 stop-color=%27%23b8862f%27/%3E%3Cstop offset=%271%27 stop-color=%27%236e4512%27/%3E%3C/linearGradient%3E%3ClinearGradient id=%27r%27 x1=%270%27 y1=%270%27 x2=%270%27 y2=%271%27%3E%3Cstop offset=%270%27 stop-color=%27%233b1016%27/%3E%3Cstop offset=%27.5%27 stop-color=%27%232a0a10%27/%3E%3Cstop offset=%271%27 stop-color=%27%231a0508%27/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x=%270%27 y=%2712%27 width=%2746%27 height=%2720%27 rx=%272%27 fill=%27url%28%23r%29%27 stroke=%27%23120305%27 stroke-width=%271.2%27/%3E%3Cpath d=%27M4,16H42M4,28H42%27 stroke=%27%237a4a3a%27 stroke-width=%27.8%27 stroke-dasharray=%272 2.2%27/%3E%3Cpath d=%27M36,6H56Q62,6 62,12V32Q62,38 56,38H36Z%27 fill=%27url%28%23b%29%27 stroke=%27%233a2208%27 stroke-width=%271.6%27/%3E%3Cpath d=%27M40,10H55Q58,10 58,13V31Q58,34 55,34H40%27 fill=%27none%27 stroke=%27%236e4512%27 stroke-width=%271%27/%3E%3Ccircle cx=%2742%27 cy=%2715%27 r=%272.4%27 fill=%27%23f6e3a0%27 stroke=%27%233a2208%27/%3E%3Ccircle cx=%2742%27 cy=%2729%27 r=%272.4%27 fill=%27%23f6e3a0%27 stroke=%27%233a2208%27/%3E%3Cpath d=%27M62,17V27%27 stroke=%27%233a2208%27 stroke-width=%273%27 stroke-linecap=%27round%27/%3E%3C/svg%3E") left bottom/52px no-repeat;filter:drop-shadow(0 3px 3px rgba(0,0,0,.55))}
-html{background-image:repeating-linear-gradient(45deg,transparent 0 46px,rgba(0,0,0,.07) 46px 47px,rgba(255,190,170,.035) 47px 48px),repeating-linear-gradient(-45deg,transparent 0 46px,rgba(0,0,0,.07) 46px 47px,rgba(255,190,170,.035) 47px 48px),var(--kuze-vrstvy)}
+:root{--kuze-pozadi:repeating-linear-gradient(45deg,transparent 0 46px,rgba(0,0,0,.07) 46px 47px,rgba(255,190,170,.035) 47px 48px),repeating-linear-gradient(-45deg,transparent 0 46px,rgba(0,0,0,.07) 46px 47px,rgba(255,190,170,.035) 47px 48px),var(--kuze-vrstvy)}
 body{padding-top:38px;padding-bottom:48px;padding-left:max(38px,env(safe-area-inset-left,0px));padding-right:max(58px,env(safe-area-inset-right,0px))}
 @media (max-width:640px){body{padding:18px max(10px,env(safe-area-inset-left,0px)) 26px max(10px,env(safe-area-inset-right,0px))}.wrap{padding:10px 10px 18px;box-shadow:0 0 0 1px rgba(20,3,6,.75),0 0 0 5px var(--kuze),0 0 0 6px rgba(0,0,0,.4),0 10px 28px rgba(0,0,0,.6),inset 0 0 30px rgba(110,70,30,.18)}.wrap::after{inset:-9px;background-size:52px,52px,52px,52px}.wrap::before{display:none}}
-.sitenav{background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(3px)}
+.sitenav{background:color-mix(in srgb,var(--bg) 97%,transparent)}
 /* 3. tlačítka jako pergamenové štítky, stisknuté rumělkou */
 .controls button,.dtools .controls button,.subnav a,.backbtn,.gbtn,.gbtn.ghost{background:var(--paper);color:var(--ink);border:1px solid color-mix(in srgb,var(--gold) 55%,var(--rule));border-radius:2px;box-shadow:inset 0 0 0 2px var(--paper),inset 0 0 0 3px color-mix(in srgb,var(--gold) 22%,transparent);transition:background .15s,border-color .15s,color .15s}
 .controls button:hover,.dtools .controls button:hover,.subnav a:hover,.backbtn:hover,.gbtn.ghost:hover{border-color:var(--gold);color:var(--rub)}
@@ -1507,6 +1511,10 @@ let st={zoom:"all",conf:"all",sel:null,city:null,focus:null,vb:null,roads:false,
 const svg=document.getElementById("map");
 const NS="http://www.w3.org/2000/svg";
 const el=(n,a,txt)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(txt!=null)e.textContent=txt;return e};
+/* skupiny se stejným filtrem jdoucí po sobě sdílí jeden filtrovaný obal: filtr se pak počítá jednou, ne pro každou vrstvu zvlášť */
+const svgG=(svg,a)=>{a=a||{};const f=a.filter;if(!f){const g=el("g",a);svg.appendChild(g);return g}
+  let w=svg.lastElementChild;if(!w||w.getAttribute("data-fw")!==f){w=el("g",{filter:f,"data-fw":f});svg.appendChild(w)}
+  const b={...a};delete b.filter;const g=el("g",b);w.appendChild(g);return g};
 
 const ROADS=[
  ["Zlatá stezka",[[13.46,48.57],[13.6,48.73],[13.8,48.9],[14.0,49.01]],1],
@@ -1888,7 +1896,7 @@ function drawMap(){
     n.appendChild(el("feComposite",{in2:"d1",operator:"in",result:"o1"}));
     const m2=el("feMerge",{});for(const k of ["o2","o1","SourceGraphic"])m2.appendChild(el("feMergeNode",{in:k}));n.appendChild(m2);defs.appendChild(n)}
   svg.appendChild(defs);
-  const G=(attrs)=>{const g=el("g",attrs||{});svg.appendChild(g);return g};
+  const G=(attrs)=>svgG(svg,attrs);
   svg.appendChild(el("rect",{x:R.x,y:R.y,width:R.width,height:R.height,fill:"var(--nbr)"}));
   /* neighbouring countries: watercolour washes, dotted inked borders */
   const gw=G({filter:"url(#wash)",opacity:".85"});
@@ -1930,7 +1938,8 @@ function drawMap(){
     gr.appendChild(el("path",{d,fill:"none",stroke:"var(--water)","stroke-width":(3.2*s).toFixed(2),"stroke-linecap":"round","stroke-opacity":".22"}));
     gr.appendChild(el("path",{d,fill:"none",stroke:"var(--water)","stroke-width":(1.6*s).toFixed(2),"stroke-linecap":"round"}));});
   /* forests: drawn trees, conifers in the border hvozd, round crowns in the lowlands */
-  const gf=G({filter:"url(#wob)"});
+  /* lesy a hory bez filtru chvění: stovky drobných tvarů by se při posouvání stránky překreslovaly pomalu */
+  const gf=G({});
   FORESTS.forEach((poly,fi)=>{
     const pp=poly.map(c=>P(...c));
     gf.appendChild(el("path",{d:smoothClosed(pp),fill:"var(--tree)","fill-opacity":".13",stroke:"none"}));
@@ -1961,7 +1970,7 @@ function drawMap(){
     gf.appendChild(el("path",{d:inkD,fill:"none",stroke:"var(--city)","stroke-width":(0.45*s).toFixed(2),"stroke-linejoin":"round",opacity:".75"}));
   });
   /* mountains: pointed "molehill" peaks, shaded with hatching on the eastern flank */
-  const gm=G({filter:"url(#wob)"});
+  const gm=G({});
   for(const [ci,ch] of MOUNTAINS.entries()){
     let seed=31+ci*17; const rnd=()=>{seed=(seed*16807)%2147483647;return seed/2147483647};
     const pts2=chainPts(ch,9*s);
@@ -2858,10 +2867,21 @@ const PVB0=[-40,20,1160,1220],PAR=PVB0[3]/PVB0[2],PMA="art/mapa/";
 /* názvy ulic, trhů a bran: [název, x, y, natočení] */
 const PSTREETS=/*@PSTREETS@*/[];
 const pcol=c=>c==="kat"?"var(--kat)":c==="kal"?"var(--kal)":c==="mix"?"var(--mix)":"var(--gold)";
+/* ručně kreslené čáry plánu: obrysy bloků, hradeb a toků se jednou při načtení jemně rozvlní (místo filtru,
+   který by se při posouvání stránky musel stále přepočítávat); sousední tvary se posunou stejně, takže nevzniknou mezery */
+function pRuka(d){
+  const nz=(x,y)=>[Math.sin(x*.21+y*.07)*.5+Math.sin(x*.037-y*.11+1.7)*.45,Math.cos(y*.19-x*.06)*.5+Math.cos(y*.041+x*.09+.4)*.45];
+  const pt=([x,y])=>{const [a,b]=nz(x,y);return [+(x+a*.75).toFixed(1),+(y+b*.75).toFixed(1)]};
+  const line=(r,closed)=>{const o=[];const n=r.length;for(let i=0;i<(closed?n:n-1);i++){const a=r[i],b=r[(i+1)%n],L=Math.hypot(b[0]-a[0],b[1]-a[1]),k=Math.max(1,Math.round(L/5));
+      for(let j=0;j<k;j++)o.push(pt([a[0]+(b[0]-a[0])*j/k,a[1]+(b[1]-a[1])*j/k]))}if(!closed)o.push(pt(r[n-1]));return o};
+  const polys=v=>v.map(p=>p.map(r=>line(r,true)));
+  ["sm","nm","ms","hc","w_sm","w_nm","w_hc","w_ms","w_hrad","sm_in","nm_in","ms_in","hc_in","garden","island"].forEach(k=>{if(d[k])d[k]=k==="island"?d[k].map(r=>line(r,true)):polys(d[k])});
+  ["hladova","botic","certovka"].forEach(k=>{if(d[k])d[k]=line(d[k],false)});if(d.vys)d.vys=line(d.vys,true);
+  return d}
 function praInit(){
   if(PG){pDraw();return}
   document.getElementById("pmap").innerHTML='<text x="500" y="480" text-anchor="middle" class="rivlbl" font-size="20">Plán se načítá…</text>';
-  fetch("art/praha.json").then(r=>r.json()).then(d=>{PG=d;pDraw();pList()}).catch(()=>{document.getElementById("pmap").innerHTML='<text x="500" y="480" text-anchor="middle" class="rivlbl" font-size="20">Plán se nepodařilo načíst.</text>'});
+  fetch("art/praha.json").then(r=>r.json()).then(d=>{PG=pRuka(d);pDraw();pList()}).catch(()=>{document.getElementById("pmap").innerHTML='<text x="500" y="480" text-anchor="middle" class="rivlbl" font-size="20">Plán se nepodařilo načíst.</text>'});
 }
 /* ilustrace plánu: šířky piktogramů (výška 170 px), stavby [druh, x, pata, výška], stuhy, Židovské Město */
 const PBW={kostel:106,katedrala:118,hrad:157,brana:124,radnice:113,klaster:176,kaple:136,mlyn:219,zricenina:165,domy:229,ves:279,
@@ -2946,7 +2966,10 @@ function pDraw(){
     f.appendChild(el("feTurbulence",{type:"fractalNoise",baseFrequency:freq,numOctaves:oct,seed,result:"n"}));
     f.appendChild(el("feDisplacementMap",{in:"SourceGraphic",in2:"n",scale,xChannelSelector:"R",yChannelSelector:"G",result:"d"}));
     if(extra)extra(f);defs.appendChild(f)};
-  mkF("pwob",0.05,1.6,2,3);
+  /* ručně kreslené chvění čar: oblast filtru jen kolem kresby skupiny (ne celý list), jinak se plán při posouvání stránky kouše */
+  {const f=el("filter",{id:"pwob",x:"-2%",y:"-2%",width:"104%",height:"104%"});
+   f.appendChild(el("feTurbulence",{type:"fractalNoise",baseFrequency:0.05,numOctaves:2,seed:3,result:"n"}));
+   f.appendChild(el("feDisplacementMap",{in:"SourceGraphic",in2:"n",scale:1.6,xChannelSelector:"R",yChannelSelector:"G"}));defs.appendChild(f)}
   mkF("pwash",0.03,6,3,5,f=>{f.appendChild(el("feGaussianBlur",{in:"d",stdDeviation:1.4,result:"b"}));
     f.appendChild(el("feTurbulence",{type:"fractalNoise",baseFrequency:0.08,numOctaves:2,seed:11,result:"m"}));
     f.appendChild(el("feColorMatrix",{in:"m",type:"matrix",values:"0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.1 1.35",result:"ma"}));
@@ -2977,7 +3000,7 @@ function pDraw(){
    const pt3=el("pattern",{id:"pmeadow",patternUnits:"userSpaceOnUse",width:18,height:14});
    pt3.appendChild(el("path",{d:"M3,9l1.2,-3l1.2,3M11,4l1.2,-3l1.2,3",fill:"none",stroke:"var(--tree)","stroke-width":".7",opacity:".6"}));defs.appendChild(pt3);}
   svg.appendChild(defs);
-  const G=a=>{const g=el("g",a||{});svg.appendChild(g);return g};
+  const G=a=>svgG(svg,a&&a.filter==="url(#pwob)"?(({filter,...b})=>b)(a):a);
   const path=p=>p.map(r=>"M"+r.map(q=>q.join(",")).join("L")+"Z").join("");
   const ring=r=>"M"+r.map(q=>q.join(",")).join("L")+"Z";
   svg.appendChild(el("rect",{...R,fill:"var(--land)"}));
@@ -3009,7 +3032,7 @@ function pDraw(){
   /* Vítkov: Protržení Závoje za palisádou */
   if(PG.vitkov){const V=PG.vitkov,[cx,cy]=V.c,g=G({filter:"url(#pwob)"});
    {const rgV=el("radialGradient",{id:"pvitglow"});rgV.appendChild(el("stop",{offset:"0%","stop-color":"var(--anom)","stop-opacity":".55"}));rgV.appendChild(el("stop",{offset:"60%","stop-color":"var(--anom)","stop-opacity":".18"}));rgV.appendChild(el("stop",{offset:"100%","stop-color":"var(--anom)","stop-opacity":"0"}));defs.appendChild(rgV);}
-   svg.insertBefore(el("ellipse",{cx,cy,rx:V.rx*1.7,ry:V.ry*1.9,fill:"url(#pvitglow)","pointer-events":"none"}),g);
+   g.parentNode.insertBefore(el("ellipse",{cx,cy,rx:V.rx*1.7,ry:V.ry*1.9,fill:"url(#pvitglow)","pointer-events":"none"}),g);
    /* trhlina */
    g.appendChild(el("path",{d:`M${cx-22},${cy+4}L${cx-12},${cy-3}L${cx-6},${cy+3}L${cx+2},${cy-6}L${cx+8},${cy+1}L${cx+16},${cy-4}L${cx+24},${cy+2}`,fill:"none",stroke:"var(--anom)","stroke-width":"4.5","stroke-linejoin":"round",opacity:".45"}));
    g.appendChild(el("path",{d:`M${cx-22},${cy+4}L${cx-12},${cy-3}L${cx-6},${cy+3}L${cx+2},${cy-6}L${cx+8},${cy+1}L${cx+16},${cy-4}L${cx+24},${cy+2}`,fill:"none",stroke:"var(--paper)","stroke-width":"1.2","stroke-linejoin":"round"}));
@@ -3452,7 +3475,7 @@ function sDraw(){
   {const ph=el("pattern",{id:"shatch",patternUnits:"userSpaceOnUse",width:5*k,height:5*k,patternTransform:"rotate(45)"});
    ph.appendChild(el("rect",{width:5*k,height:5*k,fill:"var(--land)"}));ph.appendChild(el("path",{d:`M0,0V${5*k}`,stroke:"var(--ink)","stroke-width":(.6*k).toFixed(2),opacity:".22"}));defs.appendChild(ph);}
   svg.appendChild(defs);
-  const G=a=>{const g=el("g",a||{});svg.appendChild(g);return g};
+  const G=a=>svgG(svg,a);
   const path=p=>p.map(r=>"M"+r.map(q=>q.join(",")).join("L")+"Z").join("");
   const pxu=(svg.getBoundingClientRect().width||700)/vb[2],pf=Math.min(1,Math.max(.8,(svg.getBoundingClientRect().width||700)/700)),RR=px=>px*pf/pxu;
   /* opakované obrázky přes <symbol>/<use>: obrázek se načte jednou */
@@ -3478,7 +3501,8 @@ function sDraw(){
     Object.entries(SG.lab).forEach(([id,[x,y]])=>{if(id==="boh")return;if(rings.some(r=>pip(x,y,r)))SG._hre.add(id);const [lo,la]=SPinv(x,y);if(lo>6.3&&lo<18.9&&la>36.4&&la<46.6&&!SVB[id]?.h)SG._ita.add(id)})}
   {const gl=G({filter:"url(#swash)"});gl.appendChild(el("path",{d:SG.land.map(path).join(""),fill:"var(--land)"}));
    const dk=sDark(),col=id=>SG.fill&&SG.fill[id]?SG.fill[id][dk?1:0]:`var(--sw${SG.col[id]%10})`;
-   const gw=G({filter:"url(#swash)","pointer-events":"none"});
+   /* vodový pás podél hranic: bez filtru, jinak se mapa při posouvání stránky kouše */
+   const gw=G({"pointer-events":"none"});
    Object.entries(SG.states).forEach(([id,ps])=>{const d=ps.map(path).join("");
      if(id==="boh"){gw.appendChild(el("path",{d,fill:col(id),"fill-opacity":dk?".8":".72"}));return}
      if(SG._hre.has(id))return;
