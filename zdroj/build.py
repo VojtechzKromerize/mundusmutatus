@@ -142,7 +142,7 @@ UROVNE = {"skryta": 0, "skrytá": 0, "skryty": 0, "skrytý": 0, "skryte": 0, "sk
 SEED = {}
 
 def seed(eid, meta, where):
-    v = str(meta.get("stav", "") or "potkali").strip().lower()
+    v = str(meta.get("stav", "") or "skryta").strip().lower()  # výchozí: družina nic neví
     if v not in UROVNE:
         fail(f"{where}: stav musí být skryta / slyseli / potkali (je „{v}“)")
     if eid in SEED:

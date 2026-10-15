@@ -48,7 +48,7 @@ Na webu napojeném na databázi vidí hráči jen to, co vypravěč odhalil. Rod
 - Osoba je hráčům vidět, jen když je vidět i její rod. Ve vypravěčském pohledu jsou skryté odkazy
   orámované čárkovaně, „slyšeli“ tečkovaně.
 - **Výchozí stav** nového záznamu lze dát do hlavičky: `stav: skryta`, `stav: slyseli` nebo `stav: potkali`
-  (bez pole = potkali). Platí jen při prvním nahrání – potom rozhoduje přepínač na webu a nasazení ho nepřepíše.
+  (bez pole = **skryté**, družina zpočátku nezná nic). Platí jen při prvním nahrání – potom rozhoduje přepínač na webu a nasazení ho nepřepíše.
 - **Zmínky v textech** podle stavu: `[[jindrich4|Jindřich z Hradce]]` je odkaz, když družina osobu zná,
   jinak jen text; `[[jindrich4|Jindřich z Hradce|jakýsi pán]]` ukáže skrytou osobu jako „jakýsi pán“;
   `[[?var|celá věta…]]` se ukáže, jen když družina o rodu aspoň slyšela; `[[!var|věta…]]` jen když ho potkali.

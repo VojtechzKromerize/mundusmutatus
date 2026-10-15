@@ -1947,6 +1947,7 @@ const histName=h=>h.city||byId[h.id].name;
 const fs=document.getElementById("famsel");
 const _nrm=s=>String(s).normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
 function buildCards(container,lands,nbr){
+  if(!FAM.some(f=>!!f.nbr===nbr)){container.innerHTML=`<div class="placeholder"><p>Družina zatím nezná žádný ${nbr?"sousední ":""}rod. Přibudou, jak o nich uslyší nebo je potká.</p></div>`;return}
   for(const L of lands){
     const fams=FAM.filter(f=>f.land===L&&!!f.nbr===nbr); if(!fams.length)continue;
     const sec=document.createElement("div"); sec.className="land-sec"; sec.dataset.land=L;
@@ -3748,7 +3749,7 @@ function renderOsoby(){
   const box=document.getElementById("osobylist"); if(box.dataset.done)return; box.dataset.done=1;
   const groups=[["Čechy",f=>!f.nbr&&(f.land==="Čechy"||f.land==="Královská města")],["Morava",f=>!f.nbr&&f.land==="Morava"],["Slezsko",f=>!f.nbr&&f.land==="Slezsko"],["Lužice",f=>!f.nbr&&f.land==="Lužice"],["Duchovenstvo",f=>!f.nbr&&f.land==="Duchovenstvo"],...NBR_LANDS.map(L=>[L,f=>f.nbr&&f.land===L])];
   box.innerHTML=groups.map(([L,fn])=>{const ps=PEOPLE.filter(p=>fn(byId[p.r])).sort((a,b)=>PORTR.has(b.id)-PORTR.has(a.id));if(!ps.length)return"";
-    return `<div class="land-sec"><h3 class="landh">${L.toUpperCase()}</h3><div class="pcards">${ps.map(p=>`<a class="pcard hasp${PORTR.has(p.id)?"":" nop"}" href="#osoba/${p.id}">${pThumb(p)}<span class="pct"><b>${p.n}</b><span>${p.role}</span><small>${byId[p.r].name}</small></span></a>`).join("")}</div></div>`}).join("");
+    return `<div class="land-sec"><h3 class="landh">${L.toUpperCase()}</h3><div class="pcards">${ps.map(p=>`<a class="pcard hasp${PORTR.has(p.id)?"":" nop"}" href="#osoba/${p.id}">${pThumb(p)}<span class="pct"><b>${p.n}</b><span>${p.role}</span><small>${byId[p.r].name}</small></span></a>`).join("")}</div></div>`}).join("")||`<div class="placeholder"><p>Družina zatím nikoho z panstva nepotkala ani o nikom neslyšela.</p></div>`;
 }
 {const dd=document.getElementById("navmapy"),top=dd.querySelector(".ddtop");
  top.addEventListener("click",e=>{if(matchMedia("(hover: none)").matches&&!dd.classList.contains("open")){e.preventDefault();dd.classList.add("open");top.setAttribute("aria-expanded","true")}});
