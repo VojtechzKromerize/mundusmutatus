@@ -157,14 +157,8 @@ svg#map:active{cursor:grabbing}
 .relcol h3{font-family:var(--f-label);letter-spacing:.12em;font-size:1rem;border-bottom:2px solid currentColor;padding-bottom:4px}
 .relcol ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
 .relcol li{font-size:.95rem;border-bottom:1px dotted var(--rule);padding-bottom:8px}
-.search{position:relative;max-width:560px}
 #q{width:100%;font:inherit;font-size:1rem;padding:8px 12px;border:1px solid var(--rule);background:var(--paper);color:var(--ink);border-radius:3px}
 #q:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
-.qres{position:absolute;z-index:5;left:0;right:0;top:100%;margin:4px 0 0;padding:4px;list-style:none;background:var(--paper);border:1px solid var(--ink);max-height:60vh;overflow:auto;box-shadow:0 6px 18px rgba(0,0,0,.15)}
-.qres button{display:block;width:100%;text-align:left;background:none;border:0;padding:6px 8px;font:inherit;color:var(--ink);cursor:pointer;border-radius:2px}
-.qres button:hover,.qres button:focus-visible{background:var(--bg);outline:none}
-.qres small{display:block;color:var(--muted);font-size:.85rem;line-height:1.3}
-.qres .none{padding:6px 8px;color:var(--muted)}
 .graphbox{background:var(--paper);border:1px solid var(--rule);padding:10px;display:flex;flex-direction:column;gap:10px;min-width:0}
 .graphscroll{overflow-x:auto}
 #graph{width:100%;min-width:680px;height:auto;display:block}
@@ -208,9 +202,6 @@ svg#map:active{cursor:grabbing}
 .logo h1{margin:0;line-height:0}
 .logo img{width:100%;height:auto;display:block}
 .logo:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
-.secsub{margin:4px auto 10px;text-align:center;font-family:var(--f-disp);font-size:clamp(1.25rem,3.2vw,1.8rem);color:var(--kal);letter-spacing:.02em;display:grid;grid-template-columns:minmax(0,90px) auto minmax(0,90px);align-items:center;justify-content:center;gap:14px;max-width:100%;text-wrap:balance}
-@media (max-width:560px){.secsub{grid-template-columns:minmax(0,22px) auto minmax(0,22px);gap:8px}}
-.secsub::before,.secsub::after{content:"";height:0;border-top:1px solid var(--gold);border-bottom:1px solid var(--gold);padding-top:3px;opacity:.8}
 header.site{display:flex;flex-direction:column;gap:0;border:0;padding:0}
 .banner{position:relative;border:1px solid var(--ink);box-shadow:inset 0 0 0 4px var(--paper),inset 0 0 0 5px var(--gold);
   background:radial-gradient(ellipse at 50% 120%,color-mix(in srgb,var(--kal) 55%,transparent),transparent 60%),radial-gradient(circle at 15% 20%,color-mix(in srgb,var(--gold) 30%,transparent),transparent 40%),radial-gradient(circle at 85% 20%,color-mix(in srgb,var(--gold) 30%,transparent),transparent 40%),#241b12;
@@ -290,7 +281,6 @@ header.site{display:flex;flex-direction:column;gap:0;border:0;padding:0}
 .sitenav{align-items:baseline}
 /* hlavička: na všech stránkách stejné menší logo; při posunu se v liště ukáže malé logo */
 .logo{width:min(100%,430px)}
-.secsub{font-size:clamp(1.05rem,2.4vw,1.35rem);margin:0 auto 4px}
 .navlinks{display:flex;flex-wrap:wrap;justify-content:center;align-items:baseline;gap:4px 22px}
 .sitenav{align-items:center}
 .navmark{display:none;line-height:0;border:0!important;padding:0!important}
@@ -363,13 +353,6 @@ a.plinkp:hover,.infobox a:hover,.artmain a:hover{color:var(--kal)}
 .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .alay{display:grid;grid-template-columns:250px minmax(0,1fr);gap:36px;align-items:start}
 .aside{position:sticky;top:calc(var(--navh) + 12px);max-height:calc(100vh - var(--navh) - 24px);overflow:auto;display:flex;flex-direction:column;gap:10px;background:var(--paper);border:1px solid var(--rule);box-shadow:inset 0 0 0 3px var(--paper),inset 0 0 0 4px var(--rule);padding:14px}
-.asrch input{width:100%;font:inherit;font-size:.95rem;background:var(--bg);color:var(--ink);border:1px solid var(--rule);border-radius:3px;padding:5px 9px}
-.ares{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px;border-bottom:1px solid var(--rule);padding-bottom:8px}
-.ares a{display:block;padding:5px 6px;border-radius:3px;color:var(--ink);text-decoration:none}
-.ares a:hover,.ares a:focus-visible{background:var(--bg)}
-.ares b{display:block;font-family:var(--f-label);font-weight:700;font-size:.82rem;letter-spacing:.04em;color:var(--kal)}
-.ares small{display:block;color:var(--muted);font-size:.84rem;line-height:1.3}
-.ares .none{color:var(--muted);font-style:italic;font-size:.9rem}
 .atoc{display:flex;flex-direction:column;gap:2px}
 .atoc ol{list-style:none;margin:0;padding:0}
 .atoc a{display:block;padding:3px 8px;border-left:2px solid transparent;color:var(--ink);text-decoration:none;line-height:1.3}
@@ -741,11 +724,6 @@ a.pchar:hover{border-color:var(--kal)}
 .uvh{font-size:clamp(1.4rem,3.5vw,1.9rem)}
 .uvh2{font-family:var(--f-disp);font-weight:500;font-size:1.35rem;margin-top:8px;color:var(--kal)}
 .uvmore{font-family:var(--f-label);letter-spacing:.05em;color:var(--kal);align-self:flex-start}
-.uvtiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
-.uvt{display:flex;flex-direction:column;gap:4px;background:var(--paper);border:1px solid var(--rule);box-shadow:inset 0 0 0 3px var(--paper),inset 0 0 0 4px var(--rule);padding:14px 16px;color:var(--ink);text-decoration:none}
-.uvt b{font-family:var(--f-disp);font-weight:500;font-size:1.4rem;color:var(--kal)}
-.uvt span{font-size:.93rem;color:var(--muted)}
-.uvt:hover{border-color:var(--kal)}
 .kalt{font-family:var(--f-disp);font-size:1.5rem;color:var(--kal)}
 #kal1{position:sticky;top:calc(var(--navh) + 12px)}
 #kal1 .kallist{display:flex;flex-direction:column;gap:0}
@@ -975,7 +953,7 @@ body{padding-top:38px;padding-bottom:48px;padding-left:max(38px,env(safe-area-in
 .controls button:hover,.dtools .controls button:hover,.subnav a:hover,.backbtn:hover,.gbtn.ghost:hover{border-color:var(--gold);color:var(--rub)}
 .controls button[aria-pressed="true"],.dtools .controls button[aria-pressed="true"],.subnav a.on,.gbtn:not(.ghost){background:var(--rub);color:var(--rubtx);border-color:var(--frame1);box-shadow:inset 0 0 0 1px rgba(255,225,160,.35),0 1px 2px rgba(40,20,5,.25)}
 .controls button[aria-pressed="true"]:hover,.subnav a.on:hover,.gbtn:not(.ghost):hover{color:#fff}
-.controls select,.dtools input,.search input,.gsearch input{border-color:color-mix(in srgb,var(--gold) 45%,var(--rule));border-radius:2px}
+.controls select,.dtools input,.gsearch input{border-color:color-mix(in srgb,var(--gold) 45%,var(--rule));border-radius:2px}
 /* 4. titulky stránek: červená iniciála a ozdobná linka */
 .arttitle::before{content:none}
 .arttitle::first-letter{color:var(--rub);font-size:1.22em;text-shadow:0 1px 0 color-mix(in srgb,var(--gold) 60%,transparent)}
@@ -986,14 +964,10 @@ body{padding-top:38px;padding-bottom:48px;padding-left:max(38px,env(safe-area-in
 .hero{position:relative;padding:22px 40px 20px;background:var(--paper);border:1px solid var(--frame1);box-shadow:inset 0 0 0 4px var(--paper),inset 0 0 0 5px color-mix(in srgb,var(--gold) 70%,transparent),0 4px 14px rgba(40,25,10,.12);max-width:640px}
 .hero::before,.hero::after{content:"❦";position:absolute;left:50%;transform:translateX(-50%);color:var(--gold);background:var(--bg);padding:0 8px;font-size:1.1rem;line-height:1}
 .hero::before{top:-.6em}.hero::after{bottom:-.6em;transform:translateX(-50%) rotate(180deg)}
-.uvtiles{grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
-.uvt{display:grid;grid-template-columns:62px 1fr;grid-template-rows:auto 1fr;column-gap:14px;align-items:center;border-color:color-mix(in srgb,var(--gold) 55%,var(--rule));transition:transform .15s,box-shadow .15s,border-color .15s}
-.uvt:hover{border-color:var(--gold);box-shadow:inset 0 0 0 3px var(--paper),inset 0 0 0 4px var(--gold),0 6px 16px rgba(40,25,10,.16)}
 .uvi{grid-row:span 2;width:62px;height:62px;border-radius:50%;overflow:hidden;display:block;border:2px solid var(--gold);box-shadow:0 0 0 3px var(--paper),0 0 0 4px var(--rule);background:#efe3c6}
 .uvi img{width:100%;height:100%;object-fit:cover;display:block}
 .uvi.q img{object-position:50% 18%;transform:scale(1.45);transform-origin:50% 30%}
 .uvi.uvsvg{background:#efe3c6}.uvi.uvsvg svg{width:100%;height:100%;display:block}
-.uvt b{align-self:end}.uvt span{align-self:start}
 /* 6. osoby: medailony se zlatým kroužkem, siluety tam, kde portrét chybí */
 .pcards{grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
 .pcard{border-color:color-mix(in srgb,var(--gold) 40%,var(--rule));box-shadow:inset 0 0 0 3px var(--paper),inset 0 0 0 4px color-mix(in srgb,var(--rule) 70%,transparent);padding:12px 14px;transition:transform .15s,border-color .15s}
@@ -1075,7 +1049,6 @@ body{padding-top:38px;padding-bottom:48px;padding-left:max(38px,env(safe-area-in
 #kal1 .kallist li.hp .kd{background:var(--rub);color:var(--rubtx);border-color:var(--frame1)}
 #kal1 .kallist li.hp .kd small{color:var(--rubtx)}
 /* úvod: ozdoba pod iluminací a list kroniky */
-.uvorn{display:block;width:min(380px,64%);height:auto;margin:-34px auto -30px}
 .uvev{background:var(--paper);border:1px solid var(--frame1);box-shadow:inset 0 0 0 4px var(--paper),inset 0 0 0 5px color-mix(in srgb,var(--gold) 60%,transparent),0 4px 14px rgba(40,25,10,.1);padding:18px 22px 16px}
 .uvev .zcard{background:color-mix(in srgb,var(--bg) 40%,var(--paper))}
 /* Praha: legenda v panelu */
@@ -1132,12 +1105,6 @@ body{padding-top:38px;padding-bottom:48px;padding-left:max(38px,env(safe-area-in
 .bdel{background:none;border:0;color:var(--muted);font-family:var(--f-label);font-size:.8rem;text-decoration:underline;cursor:pointer;padding:4px 0 0}
 .bnadd{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .bnadd input[name=nn]{flex:1 1 150px}.bnadd input[type=number]{width:70px}
-.bkr{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
-.bkr input{flex:1 1 120px}
-.kvys{display:flex;align-items:center;gap:10px;margin:6px 0}
-.kd6{font-family:var(--f-disp);font-size:2rem;width:48px;height:48px;display:grid;place-items:center;border:2px solid var(--ink);border-radius:8px;background:var(--paper)}
-.kvys b{font-size:1.2rem}.kvys small{font-family:var(--f-label);color:var(--muted)}
-.kv-p b{color:var(--kal)}.kv-z b{color:var(--kat)}
 /* ===== editor textů (vypravěč) ===== */
 body.edopen{overflow:hidden}
 .edov{position:fixed;inset:0;z-index:200;background:rgba(20,14,8,.55);display:flex;align-items:flex-start;justify-content:center;overflow:auto;padding:24px 12px}
@@ -1196,11 +1163,6 @@ html.mmload body::after{content:"Načítám zemské desky…";position:fixed;lef
 .kontakt b{font-family:var(--f-label);font-weight:600;font-size:.86rem;line-height:1.15;margin-top:3px}
 .kontakt small{font-size:.74rem;line-height:1.15;color:var(--muted)}
 .kontakt:hover b,.kontakt:focus-visible b{color:var(--rub)}.kontakt:hover .kmed{border-color:var(--rub)}
-.novden{margin:6px 0 8px}
-.novl{list-style:none;margin:3px 0 0;padding:0 0 0 12px;border-left:2px solid var(--gold)}
-.novl li{margin:2px 0;line-height:1.35}
-.novl li>span{color:var(--muted);font-size:.95em}
-.novl a{color:var(--kal)}
 .slnote{font-style:italic;color:var(--muted);border-left:3px solid var(--rule);padding:4px 0 4px 12px;margin:10px 0}
 .hcent{text-align:center}
 /* Vazby v článku rodu: tři sloupce (krev, spojenectví, spory), každý se rozbalí zvlášť */
@@ -1290,14 +1252,12 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
 :root{--muted:#54473a}
 :root[data-theme="dark"]{--muted:#bdae91}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--muted:#bdae91}}
-.uvt span{font-size:1rem;line-height:1.35}
 #kal1 .kallist .kw{font-size:.92rem}
 .kallist .kr{font-size:.86rem}
 /* 3 kompaktní hlavička: velké logo jen na úvodu */
 @media (min-width:641px){
   body:not(.home) header.site .logo{display:none}
   body:not(.home) .sitenav .navmark{display:block}
-  body:not(.home) header.site .secsub{margin:2px auto 6px}
 }
 /* 2 mapy: větší mapa, panel drží při posunu */
 @media (min-width:861px){
@@ -1310,27 +1270,6 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
 .slistbox .pgrp{margin-bottom:18px}
 .slistbox .pgrp h3{break-after:avoid-column}
 .slistbox .plist li{break-inside:avoid-column}
-/* 5 Kam dál: 4 + 3 vycentrované */
-.uvtiles{display:flex;flex-wrap:wrap;justify-content:center;gap:14px}
-.uvt{flex:0 1 calc(25% - 11px);min-width:220px}
-@media (max-width:560px){.uvt{flex-basis:100%}}
-/* 5 Artikule: obsah knihy */
-.atocbk{display:flex;flex-direction:column;gap:26px;max-width:760px}
-.atocbk .abk{margin:0}
-.tbk{font-family:var(--f-disp);font-weight:500;font-size:1.45rem;margin:0;color:var(--ink)}
-.tbk span{color:var(--kal)}
-.tbd{margin:2px 0 8px;font-style:italic;color:var(--muted)}
-.tch{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
-.tch li{border-bottom:1px dashed color-mix(in srgb,var(--rule) 80%,transparent)}
-.tch a{display:grid;grid-template-columns:3.2em auto 1fr auto;column-gap:8px;align-items:baseline;padding:9px 4px;color:var(--ink);text-decoration:none}
-.tnum{font-family:var(--f-disp);color:var(--kal);text-align:right}
-.tti{font-family:var(--f-disp);font-size:1.25rem}
-.tdots{border-bottom:2px dotted color-mix(in srgb,var(--muted) 55%,transparent);transform:translateY(-4px)}
-.tsec{font-family:var(--f-label);font-size:.86rem;letter-spacing:.04em;color:var(--muted);white-space:nowrap}
-.tsum{grid-column:2/-1;font-size:.95rem;color:var(--muted);line-height:1.35;margin-top:2px}
-.tch a:hover .tti,.tch a:focus-visible .tti{color:var(--kal)}
-.tch a:hover{background:color-mix(in srgb,var(--paper) 70%,transparent)}
-@media (max-width:560px){.tch a{grid-template-columns:2.4em 1fr auto}.tdots{display:none}.tti{font-size:1.15rem}}
 
 /* ===== boj: nový vzhled (2026-10-15) – bitevní rejstřík ===== */
 #bojview{--bh:var(--kat);--bn:var(--kal)}
@@ -1407,18 +1346,6 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
 .bojside{gap:22px}
 .bojside .uvh2{display:flex;align-items:baseline;gap:10px;border-bottom:1px solid var(--rule);padding-bottom:3px;margin-bottom:8px}
 .bojside .uvh2 small{font-family:var(--f-label);font-size:.85rem;letter-spacing:.05em;color:var(--muted);margin-left:auto}
-.bkostka{background:var(--paper);border:1px solid var(--rule);padding:12px 14px;box-shadow:inset 0 0 0 3px var(--paper),inset 0 0 0 4px color-mix(in srgb,var(--gold) 45%,var(--rule))}
-.kvys{gap:14px;margin:4px 0 8px}
-.kd6{width:54px;height:54px;padding:7px;box-sizing:border-box;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);place-items:center;border:2px solid var(--ink);border-radius:9px;background:#f6eedb;box-shadow:inset 0 -3px 0 rgba(0,0,0,.12),0 2px 4px rgba(0,0,0,.18);font-size:0}
-.kd6 i{width:9px;height:9px;border-radius:50%}
-.kd6 i.on{background:#2b2117}
-.kv-p .kd6{border-color:var(--kal)}.kv-p .kd6 i.on{background:var(--kal)}
-.kv-z .kd6{border-color:var(--kat)}.kv-z .kd6 i.on{background:var(--kat)}
-.kvt{display:flex;flex-direction:column}
-.kvys .kvt b{font-family:var(--f-disp);font-weight:500;font-size:1.5rem;line-height:1.1}
-.kv-n .kvt b{color:var(--muted)}
-.bkr{gap:6px}
-.bkr select,.bkr input{min-height:34px!important}
 .bhr{display:flex;flex-wrap:wrap;gap:6px;margin:0}
 .bhr li{border:1px solid color-mix(in srgb,var(--bh) 40%,var(--rule));border-radius:14px;padding:2px 12px;background:var(--paper);font-family:var(--f-disp);font-size:1.1rem}
 .bhr li.bjed{color:var(--muted);border-style:dashed;text-decoration:line-through;text-decoration-color:color-mix(in srgb,var(--muted) 60%,transparent)}
@@ -1511,14 +1438,12 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
   .bnatahu{font-size:.7rem;padding:2px 8px 2px 13px}
   .bkonec{margin-left:54px}.bosa>.rsmall{margin:4px 0 0 54px;font-size:.85rem}
   .bojside{gap:14px}
-  .bkostka{padding:8px 12px}
   .bnpc{padding:5px 10px;margin:0 0 5px}
   .bslot{grid-template-columns:42px minmax(150px,260px) minmax(0,1fr) auto}
   .btyp{text-align:left}
   .bojside{gap:10px}
   .bojside .uvh2{padding-bottom:2px;margin-bottom:5px}
-  .bkr select,.bkr input,.bnadd input,.bnadd select{min-height:32px;padding:3px 8px}
-  .bkostka .kvys{margin:4px 0 6px}
+  .bnadd input,.bnadd select{min-height:32px;padding:3px 8px}
 }
 /* rozbalovací výběry (select): čitelný seznam možností nezávisle na tmavém režimu systému */
 :root{color-scheme:light}
@@ -1547,14 +1472,23 @@ html::before{background:
 .bnatahu button:hover:not(:disabled){background:rgba(255,220,160,.14);color:#ffe7a8}
 .bnatahu button:disabled{opacity:.3;cursor:default}
 .bzpet{margin-left:10px;font-size:.8rem;padding:2px 8px}
+/* Začít boj: stejná vínová kůže se zlatou linkou jako ostatní hlavní tlačítka */
+.bstart{background:linear-gradient(180deg,color-mix(in srgb,var(--kuze) 85%,#000) 0%,var(--kuze) 35%,var(--kuze2) 100%)!important;color:#f6d27a!important;border:1px solid rgba(20,3,6,.85)!important;text-shadow:0 1px 0 rgba(0,0,0,.45);box-shadow:inset 0 0 0 3px var(--kuze),inset 0 0 0 4px var(--zlato-linka),0 2px 6px rgba(40,10,10,.35)!important}
+/* mobil: záložky pod menu v jednom řádku s posouváním do strany místo tří řádků */
+@media (max-width:640px){
+  .subnav{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:2px;margin-right:-10px;padding-right:10px}
+  .subnav::-webkit-scrollbar{display:none}
+  .subnav a{flex:none;white-space:nowrap}
+  .subsep{flex:none}
+}
 </style>
 
 <div class="wrap"><div class="papir" aria-hidden="true"></div>
 <header class="site">
-  <a href="#uvod" class="logo"><h1><img class="lg-l" src="art/img/logo.webp" alt="Mundus Mutatus" width="1200" height="391"><img class="lg-d" src="art/img/logo-tma.webp" alt="Mundus Mutatus" width="1200" height="391"></h1></a>
+  <a href="#uvod" class="logo"><h1><img class="lg-l" src="art/img/logo.webp" alt="Mundus Mutatus" width="1200" height="391"><img class="lg-d" loading="lazy" src="art/img/logo-tma.webp" alt="Mundus Mutatus" width="1200" height="391"></h1></a>
 </header>
   <nav class="sitenav" id="sitenav" aria-label="Hlavní navigace">
-    <a href="#uvod" class="navmark" aria-label="Mundus Mutatus – úvod"><img class="lg-l" src="art/img/logo.webp" alt="" width="1200" height="391"><img class="lg-d" src="art/img/logo-tma.webp" alt="" width="1200" height="391"></a>
+    <a href="#uvod" class="navmark" aria-label="Mundus Mutatus – úvod"><img class="lg-l" loading="lazy" src="art/img/logo.webp" alt="" width="1200" height="391"><img class="lg-d" loading="lazy" src="art/img/logo-tma.webp" alt="" width="1200" height="391"></a>
     <button type="button" class="navtoggle" id="navtoggle" aria-expanded="false" aria-controls="navlinks"><span class="navburger" aria-hidden="true"></span><span id="navcur">Úvod</span></button>
     <div class="navlinks" id="navlinks">
     <a href="#uvod" data-nav="uvod">Úvod</a>
@@ -1949,7 +1883,7 @@ const relGroups=(rels,id,open)=>`<div class="relgs relrub">${["rod","spoj","spor
 const ARMS=/*@ARMS@*/{};
 const CARMS={"Brno":"art/erby/mesto-brno.webp","Kutná Hora":"art/erby/mesto-kutna-hora.webp","Plzeň":"art/erby/mesto-plzen.webp","Praha":"art/erby/mesto-praha.webp","Vratislav":"art/erby/vra.webp"};
 const armsSrc=(A,big)=>A&&typeof A==="object"?(big?A.v||A.s:A.s||A.v):big?A.replace("art/erby/","art/erby/velke/"):A;
-const armsImg=(f,cls)=>ARMS[f.id]?`<img class="${cls}" src="${armsSrc(ARMS[f.id],cls==="armbig")}" alt="Erb: ${f.name}">`:"";
+const armsImg=(f,cls)=>ARMS[f.id]?`<img class="${cls}" src="${armsSrc(ARMS[f.id],cls==="armbig")}" alt="Erb: ${f.name}" loading="lazy" decoding="async">`:"";
 const shield=f=>ARMS[f.id]?armsImg(f,"armsmall"):shield0(f);
 const shield0=f=>`<svg class="shield" viewBox="0 0 20 24" aria-hidden="true"><path d="M2 2h16v9c0 6-4 9.5-8 11-4-1.5-8-5-8-11z" fill="var(--${f.conf})" stroke="var(--ink)" stroke-width="1.2"${f.nbr?' stroke-dasharray="2 1.5"':""}/></svg>`;
 
@@ -2682,7 +2616,6 @@ function deskApply(){
 document.querySelectorAll("[data-fconf]").forEach(b=>b.addEventListener("click",()=>{DF.conf=b.dataset.fconf;deskApply()}));
 document.querySelectorAll("[data-fland]").forEach(b=>b.addEventListener("click",()=>{DF.land=b.dataset.fland;deskApply()}));
 document.querySelectorAll("[data-dview]").forEach(b=>b.addEventListener("click",()=>{DF.view=b.dataset.dview;try{localStorage.setItem("mm-dview",DF.view)}catch(e){}deskApply()}));
-document.getElementById("dfilt")?.addEventListener("input",e=>{DF.q=_nrm(e.target.value.trim());deskApply()});
 deskApply();
 const NBR_LANDS=["Braniborsko","Polsko","Uhry","Rakousy","Bavory","Sasko","Říšská města","Řím","Osmanská říše"];
 buildCards(document.getElementById("nbrlands"),NBR_LANDS,true);
@@ -2949,7 +2882,6 @@ function tb(head,rows,cap,cls){
     rows.map(r=>`<tr>${r.map((c,i)=>i===0?`<th scope="row" data-l="${strip(head[0])}">${c}</th>`:`<td data-l="${strip(head[i])}">${c}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
 }
 const rq=(t,c)=>`<blockquote class="rq"><p>„${t}“</p><cite>${c}</cite></blockquote>`;
-const orn=`<img class="orn" src="${AIMG}ornament.webp" alt="" aria-hidden="true" loading="lazy">`;
 const note=(t,h)=>`<div class="rnote"><b>${t}</b> ${h}</div>`;
 const xl=(ch,sec,t)=>`<a href="#artikule/${ch}${sec?"/"+sec:""}">${t}</a>`;
 const Z={P:`<b class="zv zp">Pokušení</b>`,B:`<b class="zv zb">Požehnání</b>`};
@@ -3278,7 +3210,6 @@ function renderArtikule(b,c){
   const k=AK[b],main=document.getElementById("amain"),side=document.getElementById("artside");
   side.innerHTML=artToc(k?k.id:null);
   main.innerHTML=k?artChapter(k):artLanding();
-  (document.getElementById("secsub")||{}).textContent=k?"Pravidla · "+k.t:SUBT.artikule;
   document.title="Mundus Mutatus · Artikule"+(k?" · "+k.t:"");
   const tg=side.querySelector(".atoggle");tg.addEventListener("click",()=>{const o=side.classList.toggle("open");tg.setAttribute("aria-expanded",o)});
   if(k&&k.id!=="pojmy")autolink(main,"",v=>v.g&&v.g!==k.id);
@@ -4424,7 +4355,6 @@ function renderDruzina(b){
       Array.from({length:slots},()=>`<div class="pchar pslot"><span class="pport ini" aria-hidden="true">?</span><b>Volné místo</b><span>Postava se teprve chystá na cestu.</span></div>`).join("")}</div>`;
     return;
   }
-  (document.getElementById("secsub")||{}).textContent="Hrdinové · "+p.n;
   D.innerHTML=`<nav class="crumbs"><a href="#druzina">Družina</a> › <b>${p.n}</b></nav>
    <div class="artgrid"><div class="artmain">
      <h2 class="arttitle">${p.n}</h2>
@@ -4468,7 +4398,6 @@ function renderKronika(b){
     return;
   }
   const i=ZAPISY.indexOf(z),pv=ZAPISY[i-1],nx=ZAPISY[i+1];
-  (document.getElementById("secsub")||{}).textContent="Kronika · "+z.title;
   box.innerHTML=`<nav class="crumbs"><a href="#kronika">Zápisy tažení</a> › <b>${z.n}</b></nav>
    <h2 class="arttitle">${z.title}</h2>
    <p class="zmeta"><span>${z.n}</span><span>${z.date}</span><span>${placeLink(z.place)}</span></p>
@@ -4865,7 +4794,8 @@ document.querySelectorAll(".navdd").forEach(dd=>{const top=dd.querySelector(".dd
  const kn=document.querySelector('[data-view="kronika"]>.subnav');document.querySelectorAll(".khkopie").forEach(x=>x.replaceWith(kn.cloneNode(true)));}
 /* zvýraznění položek v rozbalovacích nabídkách podle aktivní podnabídky */
 function navSync(){const on=new Set([...document.querySelectorAll('.view:not([hidden]) .subnav a.on, .view:not([hidden]) #artside a.on')].map(a=>a.getAttribute("href")));
-  document.querySelectorAll(".svlist a").forEach(a=>a.classList.toggle("on",on.has(a.getAttribute("href"))))}
+  document.querySelectorAll(".svlist a").forEach(a=>a.classList.toggle("on",on.has(a.getAttribute("href"))));
+  document.querySelectorAll(".view:not([hidden]) .subnav").forEach(n=>{const o=n.querySelector("a.on");if(o&&n.scrollWidth>n.clientWidth)n.scrollLeft=Math.max(0,o.offsetLeft-n.offsetLeft-16)})}
 /* panely Vrstvy na mapách */
 document.querySelectorAll(".lyrbtn").forEach(b=>{const p=document.getElementById(b.getAttribute("aria-controls"));
   const set=o=>{p.hidden=!o;b.setAttribute("aria-expanded",o)};
@@ -4896,7 +4826,6 @@ function route(){
   if(["mapa","svet","praha"].includes(view))document.querySelectorAll("[data-sub]").forEach(n=>n.classList.toggle("on",n.dataset.sub===view));
   if(view==="druzina")document.querySelectorAll("[data-ksub]").forEach(n=>n.classList.toggle("on",n.dataset.ksub==="druzina"));
   queueMicrotask(navSync);
-  (document.getElementById("secsub")||{}).textContent=SUBT[view];
   document.title=view==="uvod"?"Mundus Mutatus":"Mundus Mutatus · "+(TITL[view]||SUBT[view]);
   if(view==="desky"){
     const art=document.getElementById("article"),subs=["rody","osoby","sousede","vazby"];
@@ -5083,7 +5012,6 @@ function renderGM(){
    nepřátelé dostanou stejný počet slotů se svým hodem; při shodě jdou první hráči.
    V kole obsadí každý hráč jen jeden slot; vypravěč smí jedno NPC použít: pacholek/houf 1×, sok 2×, zhoubce 3×. */
 const BLIM={houf:1,pacholek:1,sok:2,zhoubce:3},BDRUH={houf:"Houf pacholků",pacholek:"Pacholek",sok:"Sok",zhoubce:"Zhoubce"};
-const KMODY={bezne:["Běžně",[1,2],[5,6]],hodina:["Hodina Závoje",[1,3],[5,6]],svatek:["Svátek",[1,2],[4,6]],pravda:["Hodina Pravdy",[1,3],[4,6]]};
 const BOJ={s:null,v:-1,poll:null};
 const bojDB=window.MMDB?{nacti:()=>MMDB.bojNacti(),uloz:s=>MMDB.bojUloz(s),obsad:(i,h)=>MMDB.bojObsad(i,h)}
   :GMV?{nacti:async()=>{try{return JSON.parse(localStorage.getItem("mm-boj")||"null")}catch(e){return null}},
@@ -5098,11 +5026,6 @@ function bojSloty(s){
   return a}
 const bojUzito=(s,id)=>Object.values(s.obsazeni||{}).filter(x=>x===id).length;
 const bojJm=(s,id)=>{const h=(s.hraci||[]).find(x=>x.id===id);if(h)return h.n;const n=(s.npc||[]).find(x=>x.id===id);return n?n.n:""};
-function bojCas(){
-  try{const last=[...ZAPISY].reverse().find(z=>/^\d{4}-\d{2}-\d{2}$/.test(z.datum||""));
-    const hd=HRA&&/^\d{4}-\d{2}-\d{2}$/.test(HRA.datum||"")?HRA.datum:null,[Y,M,D]=(hd||(last?last.datum:"1458-03-03")).split("-").map(Number);
-    const hz=[...ZAPISY].reverse().find(z=>z.hodina!=null),H=HRA&&HRA.hodina!=null?+HRA.hodina:(hz?hz.hodina:null);
-    if(H==null)return null;const X=dialCtx(Y,M,D,jdn(Y,M,D),H,null);return {H,hodina:!!X.Z[H]||X.fe.some(f=>/slunovrat/.test(f))}}catch(e){return null}}
 async function bojNacti(){if(!bojDB)return;try{const r=await bojDB.nacti();const v=r?r.verze:0;if(v!==BOJ.v){BOJ.s=r?r.stav:null;BOJ.v=v;return true}}catch(e){}return false}
 async function bojZmen(fn){
   if(!bojDB)return;document.documentElement.classList.add("gmbusy");
@@ -5110,9 +5033,6 @@ async function bojZmen(fn){
     const v=await bojDB.uloz(s);BOJ.s=s;BOJ.v=v;renderBoj();bojNav()}
   catch(e){mmHlasG("Nepodařilo se uložit: "+e.message,6000)}finally{document.documentElement.classList.remove("gmbusy")}}
 function bojNav(){const a=document.getElementById("navboj");if(a)a.hidden=!(GMV||(BOJ.s&&BOJ.s.aktivni))}
-/* oka kostky: pozice v mřížce 3×3 pro hodnoty 1–6 */
-const BPIPS={1:[4],2:[0,8],3:[0,4,8],4:[0,2,6,8],5:[0,2,4,6,8],6:[0,2,3,5,6,8]};
-const bojKostka=r=>`<span class="kd6" role="img" aria-label="Padlo ${r}">${[...Array(9)].map((_,i)=>`<i${(BPIPS[r]||[]).includes(i)?' class="on"':""}></i>`).join("")}</span>`;
 function bojSetup(){
   const p=BOJ.s||{},hr=(p.hraci&&p.hraci.length?p.hraci.map(h=>h.n):PARTY.map(x=>x.n)).concat(["","","",""]).slice(0,Math.max(4,(p.hraci||PARTY).length));
   const x=`<button type="button" class="bx" data-bdelrow aria-label="Odebrat řádek">×</button>`;
@@ -5131,7 +5051,7 @@ function bojSetup(){
       </div>
       <button type="submit" class="gbtn bstart">⚔ Začít boj</button></form>`}
 function bojAktivni(){
-  const s=BOJ.s,sl=s.sloty||bojSloty(s),ob=s.obsazeni||{},jed=new Set(Object.values(ob)),gm=GMV&&!!bojDB,cas=bojCas();
+  const s=BOJ.s,sl=s.sloty||bojSloty(s),ob=s.obsazeni||{},jed=new Set(Object.values(ob)),gm=GMV&&!!bojDB;
   const ja=!gm?((s.hraci||[]).find(h=>h.n===bojJa.get())||{}).id:null,muj=i=>ja&&ob[i]===ja;
   const slot=(x,i)=>{const kdo=ob[i];let c;
     if(gm){const opts=x.t==="h"?(s.hraci||[]).filter(h=>h.id===kdo||!jed.has(h.id)):(s.npc||[]).filter(n=>n.id===kdo||((n.druh!=="houf"||n.pocet>0)&&bojUzito(s,n.id)<(BLIM[n.druh]||1)));
@@ -5145,7 +5065,7 @@ function bojAktivni(){
     return `<div class="bnpc${houf&&!n.pocet?" bdead":""}${u>=lim?" bvyc":""}" data-bnpc="${n.id}"><div class="bnh"><b>${besc(n.n)}</b><small>${BDRUH[n.druh]||n.druh}</small><span class="buse" title="Kolikrát v kole jednal">jednal ${u}/${lim}<span class="btahy" aria-hidden="true">${tah}</span></span>${gm?`<button type="button" class="bdel" data-bdel aria-label="Odebrat ${besc(n.n)}" title="Odebrat z boje">×</button>`:""}</div>
       ${houf?`<div class="bhouf"><span class="bzivi" aria-hidden="true">${[...Array(n.max||0)].map((_,j)=>`<i class="${j<n.pocet?"on":""}"></i>`).join("")}</span><span class="bpocet"><b>${n.pocet}</b> z ${n.max}</span>${gm?`<span class="bpm"><button type="button" class="gbtn ghost" data-bpoc="-1" aria-label="Ubrat pacholka">−</button><button type="button" class="gbtn ghost" data-bpoc="1" aria-label="Přidat pacholka">+</button></span>`:""}<span class="bbon">${n.pocet?`útok +${bon}`:"houf poražen"}</span>
         ${gm?`<label class="bvel"><input type="checkbox" data-bvel${n.velitel===false?"":" checked"}> velitel žije</label>`:""}</div>${mor&&gm?`<p class="bmor">Morálka: padla polovina houfu nebo velitel – houf prchá, pokud ho v boji nedrží sok.</p>`:""}`:""}</div>`};
-  const k=s.kostka;
+
   const jaH=!gm&&bojDB&&bojDB.obsad?`<div class="bja"><label>Hraji za <select data-bja aria-label="Za koho hraješ"><option value="">— vyber svou postavu —</option>${(s.hraci||[]).map(h=>`<option${h.n===bojJa.get()?" selected":""}>${besc(h.n)}</option>`).join("")}</select></label>
       ${ja?(muj(s.tah)?`<b class="bjatah">Jsi na tahu!</b>`:Object.keys(ob).some(k=>ob[k]===ja&&+k===s.tah+1)?`<span class="bjadal">Jsi další na řadě.</span>`:Object.values(ob).includes(ja)?`<span class="rsmall">Tvůj slot je v kole obsazený – telefon zavibruje, až přijdeš na řadu.</span>`:`<span class="rsmall">Obsaď si volný slot družiny.</span>`):""}</div>`:"";
   const konec=(s.tah||0)>=sl.length;
@@ -5204,8 +5124,6 @@ document.addEventListener("click",async e=>{
     if(t==="zpet")bojZmen(s=>{s.tah=Math.max(0,(s.tah||0)-1)});
     if(t==="kolo")bojZmen(s=>{s.kolo=(s.kolo||1)+1;s.obsazeni={};s.tah=0});
     if(t==="konec"&&confirm("Ukončit boj? Sloty a přiřazení se smažou, jména hráčů zůstanou pro příští boj."))bojZmen(s=>{s.aktivni=false;s.obsazeni={}});
-    if(t==="kostka"){const mode=document.getElementById("bkm").value,pro=document.getElementById("bkpro").value.trim(),[,P,Z]=KMODY[mode],r=1+Math.floor(Math.random()*6);
-      bojZmen(s=>{s.kostka={r,mode,pro,v:r<=P[1]?"Pokušení":r>=Z[0]?"Požehnání":"nic",kdy:Date.now()}})}
     return}
   const n=e.target.closest("[data-bnpc]");
   if(n&&e.target.closest("[data-bpoc]")){const d=+e.target.closest("[data-bpoc]").dataset.bpoc;bojZmen(s=>{const o=s.npc.find(x=>x.id===n.dataset.bnpc);if(o)o.pocet=Math.max(0,Math.min(o.max,(o.pocet||0)+d))});return}
