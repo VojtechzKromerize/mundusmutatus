@@ -28,7 +28,11 @@
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.5;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px}
-.wrap{max-width:1360px;margin:0 auto;display:flex;flex-direction:column;gap:40px}
+.wrap{max-width:1360px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.wrap>.sitenav{margin-top:-14px}
+:root{--navh:62px}
+html{scroll-padding-top:calc(var(--navh) + 10px)}
+@media (max-width:640px){:root{--navh:50px}}
 h1,h2{font-family:var(--f-disp);font-weight:500;text-wrap:balance;margin:0;letter-spacing:.01em}
 h1{font-size:clamp(2.3rem,7vw,3.8rem);line-height:1}
 h2{font-size:clamp(1.7rem,4.5vw,2.3rem);line-height:1.1}
@@ -52,6 +56,20 @@ h2::before{content:"¶ ";color:var(--kal);font-family:var(--f-body);font-weight:
 .cart{font-family:var(--f-disp);fill:var(--ink);pointer-events:none}
 .sec{display:flex;flex-direction:column;gap:16px}
 .sec>.intro{max-width:none;color:var(--muted)}
+/* mapy: lišta nad mapou a panel Vrstvy v rohu mapy */
+.mapbar{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+.mapstage{position:relative;line-height:0}
+.mapstage>svg{line-height:normal}
+.lyrbtn{position:absolute;top:12px;right:12px;z-index:6;font-family:var(--f-label);font-weight:700;letter-spacing:.08em;font-size:.82rem;text-transform:uppercase;color:var(--paper);background:var(--kal);border:0;padding:7px 16px 7px 14px;clip-path:polygon(0 0,100% 0,calc(100% - 8px) 50%,100% 100%,0 100%);box-shadow:0 2px 6px rgba(0,0,0,.3);line-height:1.2;display:inline-flex;align-items:center;gap:7px}
+.lyrbtn::before{content:"";width:14px;height:10px;background:linear-gradient(var(--paper) 0 0) top/100% 2px no-repeat,linear-gradient(var(--paper) 0 0) center/100% 2px no-repeat,linear-gradient(var(--paper) 0 0) bottom/100% 2px no-repeat}
+.lyrbtn[aria-expanded="true"]{background:var(--ink)}
+.lyrbtn.dirty::after{content:"";width:7px;height:7px;border-radius:50%;background:var(--gold);margin-left:2px}
+.lyrpanel{position:absolute;top:48px;right:12px;z-index:6;width:min(360px,calc(100% - 24px));max-height:calc(100% - 60px);overflow:auto;background:var(--paper);border:1px solid var(--rule);box-shadow:0 8px 22px rgba(0,0,0,.28),inset 0 0 0 3px var(--paper),inset 0 0 0 4px var(--rule);padding:12px 14px 14px;line-height:1.4;display:flex;flex-direction:column;gap:6px}
+.lyrpanel[hidden]{display:none}
+.lyrh{font-family:var(--f-label);font-weight:700;letter-spacing:.08em;font-size:.76rem;text-transform:uppercase;color:var(--kal);margin:4px 0 0;border-bottom:1px solid color-mix(in srgb,var(--gold) 50%,transparent);padding-bottom:3px}
+.lyrh:first-child{margin-top:0}
+.lyrpanel .controls select{max-width:100%}
+@media (max-width:640px){.lyrbtn{top:8px;right:8px;padding:5px 12px 5px 10px}.lyrpanel{top:40px;right:8px;width:calc(100% - 16px);max-height:none}}
 .legend{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center}
 .dot{display:inline-block;width:11px;height:11px;border-radius:50%;vertical-align:-1px;margin-right:6px}
 .sq{display:inline-block;width:10px;height:10px;vertical-align:-1px;margin-right:6px;border:1.5px solid var(--city);background:var(--paper)}
@@ -237,9 +255,40 @@ header.site{display:flex;flex-direction:column;gap:0;border:0;padding:0}
 @media (prefers-reduced-motion:reduce){.svitek .svlist,.svitek .roll{transition:none}}
 .sitenav{align-items:baseline}
 @media (max-width:640px){.svitek .svlist{min-width:0;padding:0 12px}.svitek .svlist a{font-size:1.05rem}.navdd:hover .svlist,.navdd:focus-within .svlist,.navdd.open .svlist{padding:8px 12px}.svitek .roll{margin:0 -8px}}
+/* hlavička: velké logo jen na úvodu, jinde menší; při posunu se v liště ukáže malé logo */
+body:not(.home) .logo{width:min(100%,430px)}
+body:not(.home) .secsub{font-size:clamp(1.05rem,2.4vw,1.35rem);margin:0 auto 4px}
+.navlinks{display:flex;flex-wrap:wrap;justify-content:center;align-items:baseline;gap:4px 22px}
+.sitenav{align-items:center}
+.navmark{display:none;line-height:0;border:0!important;padding:0!important}
+.navmark img{height:30px;width:auto;display:block}
+.navmark{background:var(--logobg);border-radius:3px}
+.navmark img{padding:2px 6px;box-sizing:content-box}
+.sitenav.stuck .navmark{display:block}
+.sitenav.stuck{box-shadow:0 3px 10px -6px rgba(0,0,0,.35)}
+.navtoggle{display:none;align-items:center;gap:10px;font-family:var(--f-disp);font-size:1.2rem;background:none;border:1px solid var(--rule);border-radius:3px;color:var(--kal);padding:3px 12px}
+.navburger,.navburger::before,.navburger::after{display:block;width:18px;height:2px;background:var(--ink);position:relative}
+.navburger::before,.navburger::after{content:"";position:absolute;left:0}
+.navburger::before{top:-6px}.navburger::after{top:6px}
+@media (max-width:640px){
+  .sitenav{position:sticky!important;top:0;flex-wrap:nowrap;justify-content:space-between;gap:10px;padding:6px 10px}
+  .navmark{display:block}.navmark img{height:26px}
+  .navtoggle{display:inline-flex}
+  .navlinks{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;align-items:stretch;gap:2px;background:var(--paper);border:1px solid var(--rule);border-top:0;padding:10px 14px 14px;box-shadow:0 10px 18px -10px rgba(0,0,0,.4);max-height:calc(100vh - 60px);overflow:auto}
+  .sitenav.open .navlinks{display:flex}
+  .navlinks>a,.navlinks .ddtop{font-size:1.25rem;padding:6px 4px;border-bottom:1px solid color-mix(in srgb,var(--rule) 60%,transparent)!important}
+  .navlinks .navdd{display:block}
+  .navlinks .navdd .svitek{position:static;transform:none;padding:0 0 4px 14px;pointer-events:auto}
+  .navlinks .navdd .roll{display:none}
+  .navlinks .navdd .svlist{max-height:none!important;padding:0!important;background:none;border:0;box-shadow:none;display:flex;flex-direction:column;align-items:flex-start;min-width:0}
+  .navlinks .navdd .svlist a{font-size:1.1rem;padding:4px 0}
+  .navlinks .gsearch{order:-1;margin-bottom:6px}
+  body:not(.home) .logo{width:min(100%,300px)}
+  body:not(.home) header.site .logo{display:none}
+}
 .sitenav a:focus-visible,.subnav a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 main{display:block}
-.view{display:flex;flex-direction:column;gap:40px;padding-top:24px}
+.view{display:flex;flex-direction:column;gap:40px;padding-top:6px}
 .deskhead{display:flex;flex-direction:column;gap:10px}
 .subnav{display:flex;flex-wrap:wrap;gap:6px}
 .subnav a{font-family:var(--f-label);font-weight:500;letter-spacing:.04em;font-size:.95rem;text-decoration:none;color:var(--ink);background:var(--paper);border:1px solid var(--rule);padding:4px 12px;border-radius:3px}
@@ -281,7 +330,7 @@ a.plinkp:hover,.infobox a:hover,.artmain a:hover{color:var(--kal)}
 /* ---------- Artikule ---------- */
 .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .alay{display:grid;grid-template-columns:250px minmax(0,1fr);gap:36px;align-items:start}
-.aside{position:sticky;top:12px;max-height:calc(100vh - 24px);overflow:auto;display:flex;flex-direction:column;gap:10px;background:var(--paper);border:1px solid var(--rule);box-shadow:inset 0 0 0 3px var(--paper),inset 0 0 0 4px var(--rule);padding:14px}
+.aside{position:sticky;top:calc(var(--navh) + 12px);max-height:calc(100vh - var(--navh) - 24px);overflow:auto;display:flex;flex-direction:column;gap:10px;background:var(--paper);border:1px solid var(--rule);box-shadow:inset 0 0 0 3px var(--paper),inset 0 0 0 4px var(--rule);padding:14px}
 .asrch input{width:100%;font:inherit;font-size:.95rem;background:var(--bg);color:var(--ink);border:1px solid var(--rule);border-radius:3px;padding:5px 9px}
 .ares{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px;border-bottom:1px solid var(--rule);padding-bottom:8px}
 .ares a{display:block;padding:5px 6px;border-radius:3px;color:var(--ink);text-decoration:none}
@@ -317,7 +366,7 @@ a.plinkp:hover,.infobox a:hover,.artmain a:hover{color:var(--kal)}
 .ash a{color:inherit;text-decoration:none}
 .ash a:hover{text-decoration:underline;text-decoration-thickness:1px}
 .rh4{font-family:var(--f-label);font-weight:700;letter-spacing:.06em;font-size:.95rem;margin:4px 0 0;color:var(--ink)}
-.asec p,.asec li{max-width:none}
+.asec li{max-width:none}
 .rl{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:5px}
 .rl li::marker{color:var(--kal)}
 .rsmall{color:var(--muted);font-size:.93rem}
@@ -402,6 +451,41 @@ mark{background:color-mix(in srgb,var(--gold) 35%,transparent);color:inherit;pad
 .rtab.dlist td:nth-child(4){white-space:nowrap}
 .rtab.dlist td:nth-child(3){width:30%}.rtab.dlist td:nth-child(5){width:32%}
 @media (max-width:640px){.dtools .dview{margin-left:0}.card{grid-template-columns:60px minmax(0,1fr)}.card .cimg,.armcard{width:60px;height:70px}}
+/* karty rodů v3: větší erb, pečeť vyznání v rohu, barevný proužek, kratší text */
+.card{position:relative;grid-template-columns:104px minmax(0,1fr);border-left:4px solid var(--rule);padding:14px 40px 14px 14px}
+.card[data-fc="kat"]{border-left-color:var(--kat)}.card[data-fc="kal"]{border-left-color:var(--kal)}.card[data-fc="mix"]{border-left-color:var(--mix)}
+.card .cimg,.armcard{width:104px;height:116px}
+.cshield{width:64px;height:76px}
+.cseal{position:absolute;top:8px;right:8px;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--bg);border:1.5px solid currentColor;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.cseal.f-kat{color:var(--kat)}.cseal.f-kal{color:var(--kal)}.cseal.f-mix{color:var(--mix)}
+.cseal img{width:20px;height:20px}
+.card .cbody{align-self:center}
+.card .head{-webkit-line-clamp:2}
+@media (max-width:640px){.card{grid-template-columns:72px minmax(0,1fr);padding-right:38px}.card .cimg,.armcard{width:72px;height:82px}}
+/* sazba: rozumná délka řádku, iniciály a ozdoby jako v rukopisu */
+.drtext{display:block;max-width:calc(70ch + 190px)}.drtext>*+*{margin-top:.7em}
+.drtext>p,.drtext>ul,.drtext>ol,.drtext>h3,.drtext>blockquote{max-width:70ch}
+.asec>p,.asec>ul,.asec>ol,.asec>.rl,.asec>.rnote,.alead,.artmain>p,.artmain>.artlead{max-width:72ch}
+.asec>.ash+p::first-letter,.drtext>h3+p::first-letter{font-family:var(--f-disp);font-size:2.7em;float:left;line-height:.82;margin:.06em .1em 0 0;color:var(--kal)}
+.drtext>h3:not(:first-child)::before{content:"❦";display:block;text-align:center;font-size:1.3rem;color:var(--gold);margin:.4em 0 .5em;font-family:var(--f-body)}
+.marg{float:right;clear:right;width:132px;margin:.4em 0 1em 28px;text-align:center;font-size:.8rem;line-height:1.3}
+.marg a{display:block;color:var(--muted);text-decoration:none;font-style:italic}
+.marg img{width:120px;height:120px;object-fit:cover;border-radius:50%;border:2px solid var(--gold);box-shadow:0 0 0 4px var(--paper),0 0 0 5px var(--rule);display:block;margin:0 auto 6px}
+.marg a:hover{color:var(--kal)}
+@media (max-width:1000px){.marg{display:none}}
+/* patička */
+.colophon{margin:30px 0 10px;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;color:var(--muted);font-size:.92rem}
+.colophon .corn{width:min(420px,80%);height:0;border-top:3px double var(--ink);position:relative;margin-bottom:10px}
+.colophon .corn::after{content:"❦";position:absolute;left:50%;top:-.85em;transform:translateX(-50%);background:var(--bg);padding:0 10px;color:var(--kal);font-size:1.3rem}
+.colophon .cq{font-family:var(--f-disp);font-size:1.15rem;color:var(--ink)}
+.colophon .cq i{color:var(--kal)}
+.colophon nav{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 14px;font-family:var(--f-label);letter-spacing:.05em;font-size:.85rem}
+.colophon nav a{color:var(--muted)}
+.colophon .ctop{font-family:var(--f-label);letter-spacing:.06em;font-size:.85rem;color:var(--kal);background:none;border:0;padding:4px 8px}
+/* přechod mezi stránkami jako obrácení listu */
+@keyframes leaf{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.view.enter{animation:leaf .32s ease-out both}
+@media (prefers-reduced-motion:reduce){.view.enter{animation:none}}
 /* faith & foe cards */
 .faiths,.foes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
 .fcard,.foe{background:var(--paper);border:1px solid var(--rule);border-top:3px solid var(--rule);padding:14px;display:flex;flex-direction:column;gap:8px}
@@ -476,7 +560,7 @@ mark{background:color-mix(in srgb,var(--gold) 35%,transparent);color:inherit;pad
 a.al{color:inherit;text-decoration:underline;text-decoration-style:dotted;text-decoration-color:var(--kal);text-underline-offset:3px}
 a.al:hover{color:var(--kal)}
 .party{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
-@media (max-width:640px){.sitenav{position:static}.pport{width:72px;height:72px}}
+@media (max-width:640px){.pport{width:72px;height:72px}}
 .pchar{display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;background:var(--paper);border:1px solid var(--rule);box-shadow:inset 0 0 0 3px var(--paper),inset 0 0 0 4px var(--rule);padding:18px 12px;color:var(--ink);text-decoration:none}
 a.pchar:hover{border-color:var(--kal)}
 .pchar b{font-family:var(--f-disp);font-weight:500;font-size:1.35rem;color:var(--kal);line-height:1.1}
@@ -596,7 +680,7 @@ a.pchar:hover{border-color:var(--kal)}
 .uvt span{font-size:.93rem;color:var(--muted)}
 .uvt:hover{border-color:var(--kal)}
 .kalt{font-family:var(--f-disp);font-size:1.5rem;color:var(--kal)}
-#kal1{position:sticky;top:12px}
+#kal1{position:sticky;top:calc(var(--navh) + 12px)}
 #kal1 .kallist{display:flex;flex-direction:column;gap:0}
 #kal1 .kallist li{display:grid;grid-template-columns:92px 1fr auto;column-gap:10px;padding:7px 0;border-top:1px dashed color-mix(in srgb,var(--rule) 70%,transparent)}
 #kal1 .kallist li:first-child{border-top:0}
@@ -660,7 +744,11 @@ svg#map.measuring,svg#map.measuring *,svg#pmap.measuring,svg#pmap.measuring *,sv
 <header class="site">
   <a href="#uvod" class="logo"><h1><img src="art/img/logo.webp" alt="Mundus Mutatus" width="1200" height="391"></h1></a>
   <p class="secsub" id="secsub">Koruna česká k 3. březnu léta Páně 1458</p>
-  <nav class="sitenav" aria-label="Hlavní navigace">
+</header>
+  <nav class="sitenav" id="sitenav" aria-label="Hlavní navigace">
+    <a href="#uvod" class="navmark" aria-label="Mundus Mutatus – úvod"><img src="art/img/logo.webp" alt="" width="1200" height="391"></a>
+    <button type="button" class="navtoggle" id="navtoggle" aria-expanded="false" aria-controls="navlinks"><span class="navburger" aria-hidden="true"></span><span id="navcur">Úvod</span></button>
+    <div class="navlinks" id="navlinks">
     <a href="#uvod" data-nav="uvod">Úvod</a>
     <a href="#artikule" data-nav="artikule">Artikule</a>
     <a href="#draconomicon" data-nav="draconomicon">Draconomicon</a>
@@ -670,8 +758,8 @@ svg#map.measuring,svg#map.measuring *,svg#pmap.measuring,svg#pmap.measuring *,sv
       <div class="svitek"><span class="roll"></span><div class="svlist"><a href="#svet" data-nav="svet">Známý svět</a><a href="#mapa" data-nav="mapa">Země Koruny České</a><a href="#praha" data-nav="praha">Praha</a></div><span class="roll"></span></div></div>
     <a href="#desky" data-nav="desky">Zemské desky</a>
     <div class="gsearch" role="search"><input type="search" id="gq" placeholder="Hledat v celé kronice…" aria-label="Hledat na celém webu" autocomplete="off"><ul class="gres" id="gres" hidden></ul></div>
+    </div>
   </nav>
-</header>
 
 <main>
 <div class="view" data-view="uvod" hidden>
@@ -708,6 +796,7 @@ svg#map.measuring,svg#map.measuring *,svg#pmap.measuring,svg#pmap.measuring *,sv
   </div>
   <div class="mapgrid">
     <div class="mapbox">
+      <div class="mapbar">
       <div class="controls" role="group" aria-label="Výřez mapy">
         <button type="button" data-zoom="all" aria-pressed="true">Se sousedy</button>
         <button type="button" data-zoom="koruna" aria-pressed="false">Koruna</button>
@@ -717,7 +806,13 @@ svg#map.measuring,svg#map.measuring *,svg#pmap.measuring,svg#pmap.measuring *,sv
         <button type="button" data-zoom="luzice" aria-pressed="false">Lužice</button>
         <button type="button" id="zin" aria-label="Přiblížit">+</button>
         <button type="button" id="zout" aria-label="Oddálit">−</button>
+        <button type="button" id="lyMeasure" aria-pressed="false">Měřit cestu</button>
       </div>
+      </div>
+      <div class="mapstage">
+      <button type="button" class="lyrbtn" aria-expanded="false" aria-controls="lyr-map">Vrstvy</button>
+      <div class="lyrpanel" id="lyr-map" hidden>
+      <p class="lyrh">Vyznání a výběr rodu</p>
       <div class="controls" role="group" aria-label="Filtr">
         <button type="button" data-conf="all" aria-pressed="true">Vše</button>
         <button type="button" data-conf="kat" data-fico="kat" aria-pressed="false">Katolíci</button>
@@ -726,6 +821,7 @@ svg#map.measuring,svg#map.measuring *,svg#pmap.measuring,svg#pmap.measuring *,sv
         <button type="button" data-conf="nbr" aria-pressed="false">Sousedé</button>
         <select id="famsel" aria-label="Vybrat rod"><option value="">Vybrat rod…</option></select>
       </div>
+      <p class="lyrh">Vrstvy</p>
       <div class="controls" role="group" aria-label="Vrstvy a nástroje">
         <button type="button" id="lyHolds" aria-pressed="true">Sídla rodů</button>
         <button type="button" id="lyCities" aria-pressed="true">Města</button>
@@ -735,9 +831,10 @@ svg#map.measuring,svg#map.measuring *,svg#pmap.measuring,svg#pmap.measuring *,sv
         <button type="button" id="lyDio" aria-pressed="false">Diecéze</button>
         <button type="button" id="lyParty" aria-pressed="true">Družina</button>
         <button type="button" id="lyRings" aria-pressed="false">Vazby rodu</button>
-        <button type="button" id="lyMeasure" aria-pressed="false">Měřit cestu</button>
+      </div>
       </div>
       <svg id="map" viewBox="0 0 680 605" role="img" aria-label="Schematická mapa zemí Koruny české a sousedních zemí s vyznačenými sídly rodů"></svg>
+      </div>
       <details class="maplegend"><summary>Legenda mapy</summary><div class="lgrid"><div><img class="townico t-kat" src="art/img/hrad.webp" alt="">sídlo katolického rodu</div><div><img class="townico t-kal" src="art/img/hrad.webp" alt="">sídlo kališnického rodu</div><div><img class="townico t-mix" src="art/img/hrad.webp" alt="">sídlo smíšeného rodu</div><div><img class="townico n-kat" src="art/img/hrad.webp" alt="">sídlo sousedního rodu (tmavší lem)</div><div><img class="townico t-kal" src="art/img/mesto.webp" alt="">kališnické město</div><div><img class="townico t-kat" src="art/img/mesto.webp" alt="">katolické město</div><div><svg viewBox="0 0 30 18" aria-hidden="true"><path d="M3,14Q9,3 15,14M15,14Q21,3 27,14" fill="var(--hill)" stroke="var(--city)"/></svg>pohoří</div><div><svg viewBox="0 0 30 18" aria-hidden="true"><circle cx="10" cy="8" r="3.5" fill="var(--tree)"/><circle cx="20" cy="9" r="3.5" fill="var(--tree)"/></svg>les</div><div><svg viewBox="0 0 30 18" aria-hidden="true"><path d="M2,12Q10,4 16,10T28,6" fill="none" stroke="var(--water)" stroke-width="2"/></svg>řeka</div><div><svg viewBox="0 0 30 18" aria-hidden="true"><line x1="2" y1="9" x2="28" y2="9" stroke="var(--road)" stroke-width="2.2" stroke-dasharray="6 3"/></svg>zemská stezka (vrstva Cesty)</div><div><svg viewBox="0 0 30 18" aria-hidden="true"><line x1="2" y1="9" x2="28" y2="9" stroke="var(--road)" stroke-width="1.1" stroke-dasharray="2.5 2.5"/></svg>vedlejší cesta</div><div><svg viewBox="0 0 30 18" aria-hidden="true"><rect x="3" y="3" width="24" height="12" fill="var(--nsa)" fill-opacity=".4" stroke="var(--city)" stroke-dasharray="3 2"/></svg>sousední země</div><div><svg viewBox="0 0 30 18" aria-hidden="true"><path d="M15,2V16M10,6H20" stroke="var(--dpr)" stroke-width="2.6" stroke-linecap="round"/></svg>sídlo biskupa (vrstva Diecéze)</div><div><svg viewBox="0 0 30 18" aria-hidden="true"><line x1="2" y1="9" x2="28" y2="9" stroke="var(--kal)" stroke-width="2.4" stroke-dasharray="7 3.5"/></svg>měřená trasa</div><div><svg viewBox="0 0 30 18" aria-hidden="true"><circle cx="15" cy="9" r="4" fill="var(--kat)"/><circle cx="15" cy="9" r="7" fill="none" stroke="var(--kal)" stroke-width="1.6"/></svg>vazba vybraného rodu (vrstva Vazby rodu)</div></div><p class="lbl" style="margin-top:6px">Mapu lze přibližovat kolečkem myši nebo dvěma prsty a posouvat tažením myší či dvěma prsty.</p></details>
       <p id="ringlegend" class="ringlegend" hidden>Kroužky u sídel ukazují vazby vybraného rodu: <span style="color:var(--gold)">◌ krev</span> <span style="color:var(--kat)">○ spojenci</span> <span style="color:var(--kal)">○ spor</span>.</p>
       <div id="travel" class="travel" hidden>
@@ -816,10 +913,19 @@ svg#map.measuring,svg#map.measuring *,svg#pmap.measuring,svg#pmap.measuring *,sv
 <p class="intro">Praha léta Páně 1458 jsou vlastně čtyři města: Hrad s Hradčany, Malá Strana, Staré a Nové Město, spojená jediným kamenným mostem. Čísla označují místa, kde se rozhoduje o osudu království – i ta, kde se o něm jen u piva mluví. Barva okraje čísla ukazuje vyznání: <b style="color:var(--kal)">kališnické</b>, <b style="color:var(--kat)">katolické</b>, <b style="color:var(--mix)">smíšené</b>, <b style="color:var(--gold)">ostatní</b>. Kostely nesou křížek, hospody mají hranatý štítek; vše vysvětluje legenda v rohu plánu. Po přiblížení se ukážou čísla míst, ulice a brány, jméno místa po najetí myší.</p>
 <div class="mapgrid">
   <div class="mapbox" id="pmapbox">
+    <div class="mapbar">
     <div class="controls" role="group" aria-label="Ovládání plánu"><button type="button" id="preset">Celá Praha</button><button type="button" id="pzin" aria-label="Přiblížit">+</button><button type="button" id="pzout" aria-label="Oddálit">−</button><button type="button" id="pmeasure" aria-pressed="false">Měřit cestu</button></div>
+    </div>
+    <div class="mapstage">
+    <button type="button" class="lyrbtn" aria-expanded="false" aria-controls="lyr-praha">Vrstvy</button>
+    <div class="lyrpanel" id="lyr-praha" hidden>
+    <p class="lyrh">Vyznání</p>
     <div class="controls" role="group" aria-label="Vyznání"><button type="button" data-pconf="all" aria-pressed="true">Vše</button><button type="button" data-pconf="kat" data-fico="kat" aria-pressed="false">Katolíci</button><button type="button" data-pconf="kal" data-fico="kal" aria-pressed="false">Kališníci</button><button type="button" data-pconf="mix" data-fico="mix" aria-pressed="false">Smíšení</button></div>
+    <p class="lyrh">Druh místa</p>
     <div class="controls" role="group" aria-label="Druh místa"><button type="button" data-pkind="all" aria-pressed="true">Všechna místa</button><button type="button" data-pkind="dvur" aria-pressed="false">Dvory a domy</button><button type="button" data-pkind="urad" aria-pressed="false">Obec a úřady</button><button type="button" data-pkind="cirkev" aria-pressed="false">Církevní stavby</button><button type="button" data-pkind="hospoda" aria-pressed="false">Hospody a lázně</button><button type="button" data-pkind="anomalie" aria-pressed="false">Anomálie</button></div>
+    </div>
     <svg id="pmap" viewBox="-40 30 1160 1044" role="img" aria-label="Plán Prahy roku 1458 s očíslovanými místy"></svg>
+    </div>
     <div id="ptravel" class="travel" hidden>
       <div class="trow"><label for="pfrom" class="lbl">Odkud</label><select id="pfrom"></select><label for="pto" class="lbl">Kam</label><select id="pto"></select></div>
       <div id="ptres" class="tres"><p>Klikněte na plánu na dvě místa (číslo nebo libovolný bod), nebo je vyberte v nabídce.</p></div>
@@ -834,11 +940,20 @@ svg#map.measuring,svg#map.measuring *,svg#pmap.measuring,svg#pmap.measuring *,sv
 <p class="intro">Známý svět léta Páně 1458: od Portugalska po Moskvu a od Laponska po Egypt. Mapa ukazuje hlavní mocnosti, jejich přibližné hranice a nejvýznamnější města; přiblížením se ukážou i menší země a další města. Kliknutím na zemi zjistíte, kdo v ní vládne.</p>
 <div class="mapgrid">
   <div class="mapbox" id="smapbox">
+    <div class="mapbar">
     <div class="controls" role="group" aria-label="Ovládání mapy"><button type="button" id="sreset">Celý svět</button><button type="button" id="szin" aria-label="Přiblížit">+</button><button type="button" id="szout" aria-label="Oddálit">−</button><button type="button" id="smeasure" aria-pressed="false">Měřit cestu</button></div>
+    </div>
+    <div class="mapstage">
+    <button type="button" class="lyrbtn" aria-expanded="false" aria-controls="lyr-svet">Vrstvy</button>
+    <div class="lyrpanel" id="lyr-svet" hidden>
+    <p class="lyrh">Víra</p>
     <div class="controls" role="group" aria-label="Víra"><button type="button" data-sconf="all" aria-pressed="true">Vše</button><button type="button" data-sconf="kat" data-sfico="kat" aria-pressed="false">Katolíci</button><button type="button" data-sconf="pra" data-sfico="pra" aria-pressed="false">Pravoslavní</button><button type="button" data-sconf="isl" data-sfico="isl" aria-pressed="false">Islám</button><button type="button" data-sconf="mix" data-sfico="mix" aria-pressed="false">Smíšení</button></div>
+    <p class="lyrh">Vrstvy</p>
     <div class="controls" role="group" aria-label="Vrstvy"><button type="button" id="sHre" aria-pressed="true">Hranice Říše</button><button type="button" id="sFaith" aria-pressed="false">Podle víry</button><button type="button" id="sCities" aria-pressed="true">Města</button><button type="button" id="sRoutes" aria-pressed="false">Cesty</button><button type="button" id="sDrac" aria-pressed="false">Draci a Závoj</button><button type="button" id="sParty" aria-pressed="true">Družina</button><button type="button" id="sRivers" aria-pressed="true">Řeky a hory</button></div>
+    </div>
     <svg id="smap" viewBox="0 0 1000 772" role="img" aria-label="Mapa Evropy a Středomoří roku 1458 s hlavními mocnostmi"></svg>
     <div id="stip" class="stip" hidden></div>
+    </div>
     <p id="sroutleg" class="diolegend sleg" hidden><span><i class="slsw" style="--c:#8b5a2b;--d:dashed"></i>lodě Hanzy</span><span><i class="slsw" style="--c:#b0302a;--d:dashed"></i>benátské galéry</span><span><i class="slsw" style="--c:#2f5d9e;--d:dashed"></i>janovské lodě</span><span><i class="slsw" style="--c:#3d7f8f;--d:dashed"></i>říční plavba</span><span><i class="slsw" style="--c:#7a4a9a;--d:dotted"></i>poutní cesty a galéra</span><span><i class="slsw" style="--c:#6b5a3a;--d:solid"></i>obchodní cesty po souši</span></p>
     <p id="sdracleg" class="diolegend sleg" hidden><span><b style="color:#7b4bb0">✶</b> Závoj a jeho stopy</span><span><b style="color:#b0302a">◆</b> dračí sbor nebo chov</span><span><b style="color:#2f5d9e">▲</b> kurýrní stanice</span><span><b style="color:#7a5a2a">⬮</b> hnízdiště</span><span><b style="color:#4f6b3a">?</b> pověst</span></p>
     <p id="sfaithleg" class="diolegend sfaithleg" hidden><span class="sbadge" style="--c:var(--kat)">katolíci</span><span class="sbadge" style="--c:var(--spra)">pravoslavní</span><span class="sbadge" style="--c:var(--sisl)">islám</span><span class="sbadge" style="--c:var(--mix)">smíšené vyznání</span></p>
@@ -884,6 +999,12 @@ svg#map.measuring,svg#map.measuring *,svg#pmap.measuring,svg#pmap.measuring *,sv
 
 </div>
 </main>
+<footer class="colophon">
+  <span class="corn" aria-hidden="true"></span>
+  <p class="cq">Sepsáno v Praze léta Páně 1458 · <i>Sub utraque sunt dracones</i></p>
+  <nav aria-label="Patička"><a href="#uvod">Úvod</a><a href="#artikule">Artikule</a><a href="#draconomicon">Draconomicon</a><a href="#kronika">Kronika</a><a href="#svet">Známý svět</a><a href="#mapa">Země Koruny</a><a href="#praha">Praha</a><a href="#desky">Zemské desky</a></nav>
+  <button type="button" class="ctop" onclick="scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'})">↑ Zpět nahoru</button>
+</footer>
 </div>
 
 <script>
@@ -1580,11 +1701,10 @@ function buildCards(container,lands,nbr){
     for(const f of fams){
       const c=document.createElement("article"); c.className="card"; c.dataset.id=f.id; c.dataset.fc=f.conf; c.dataset.fl=f.land;
       c.dataset.txt=_nrm(f.name+" "+f.head+" "+f.seats.map(s=>s[0]).join(" ")+" "+f.stance);
-      c.innerHTML=`<div class="cimg">${ARMS[f.id]?armsImg(f,"armcard"):shield0(f).replace('class="shield"','class="cshield"')}</div>
-        <div class="cbody"><h3>${f.name}</h3><div class="cmeta">${faith(f.conf)}</div>
+      c.innerHTML=`<span class="cseal f-${f.conf}" title="${CONFN[f.conf]}"><img src="${FICON[f.conf]}" alt="${CONFN[f.conf]}"></span><div class="cimg">${ARMS[f.id]?armsImg(f,"armcard"):shield0(f).replace('class="shield"','class="cshield"')}</div>
+        <div class="cbody"><h3>${f.name}</h3>
         <p class="head">${f.head}</p>
-        ${f.seats.length?`<p class="seats">${f.seats.map(s=>s[0]).join(" · ")}</p>`:""}
-        <p class="note"><span class="lbl">${nbr?"Ke Koruně:":"K Jiřímu:"}</span> ${f.stance}</p></div>`;
+        ${f.seats.length?`<p class="seats">${f.seats.map(s=>s[0]).join(" · ")}</p>`:""}</div>`;
       c.tabIndex=0; c.setAttribute("role","link"); c.setAttribute("aria-label",f.name);
       {const go=()=>navTo("#rod/"+f.id);
        c.addEventListener("click",go); c.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();go()}});}
@@ -2717,7 +2837,7 @@ function sRoute(A,B,vl,vs){
   path.unshift({ll:llOf(ia),sea:false});
   return {path,land:Math.round(land),sea:Math.round(sea)}}
 const sTip=(e,h)=>{const t=document.getElementById("stip");if(!t)return;if(!h||e.pointerType!=="mouse"){t.hidden=true;return}
-  const b=document.getElementById("smapbox").getBoundingClientRect();t.innerHTML=h;t.hidden=false;
+  const b=t.parentElement.getBoundingClientRect();t.innerHTML=h;t.hidden=false;
   t.style.left=Math.min(e.clientX-b.left+14,b.width-t.offsetWidth-6)+"px";t.style.top=(e.clientY-b.top+16)+"px"};
 /* ručně umístěné popisky velkých mocností (zeměpisná délka, šířka) */
 const SLABPOS={hre:[11.5,52.0],ott:[33.8,38.5],boh:[16.2,50.25],hun:[21.3,46.6],pol:[19.6,52.4],fra:[2.2,46.6],kas:[-3.4,39.4],por:[-8.4,41.1],mam:[30.0,28.6],
@@ -3010,7 +3130,10 @@ function renderDraco(b){
       <p class="drlatin">Liber de draconibus · kniha o dracích, sepsaná léta Páně 1458</p>
       <div class="drtext">${K.h}</div>
       <section class="asec"><h3 class="ash"><a href="#draconomicon/plemena">Plemena</a></h3><div class="drgrid">${DRACI.pl.map(card).join("")}</div></section>`;
-    autolink(main.querySelector(".drtext"),"");return}
+    autolink(main.querySelector(".drtext"),"");
+    {const hs=[...main.querySelectorAll(".drtext>h3")],pl=DRACI.pl.filter(p=>p.img);
+     hs.forEach((h,j)=>{const p=pl[j%pl.length];if(!p)return;h.insertAdjacentHTML("afterend",`<figure class="marg"><a href="#draconomicon/${p.id}"><img src="art/draci/${p.img}-h.webp" alt="" loading="lazy">${p.n}</a></figure>`)})}
+    return}
   const list=DRACI.pl,i=list.indexOf(cur.o),pv=list[i-1],nx=list[i+1],o=cur.o;
   const nav=`<nav class="apn">${pv?`<a href="#draconomicon/${pv.id}" rel="prev"><small>Předchozí</small>${pv.n}</a>`:"<span></span>"}${nx?`<a href="#draconomicon/${nx.id}" rel="next"><small>Další</small>${nx.n}</a>`:"<span></span>"}</nav>`;
   main.innerHTML=`<nav class="crumbs"><a href="#draconomicon">Draconomicon</a> › <a href="#draconomicon/plemena">Plemena</a> › <b>${o.n}</b></nav>
@@ -3427,12 +3550,30 @@ function renderOsoby(){
  top.addEventListener("click",e=>{if(matchMedia("(hover: none)").matches&&!dd.classList.contains("open")){e.preventDefault();dd.classList.add("open");top.setAttribute("aria-expanded","true")}});
  document.addEventListener("click",e=>{if(!dd.contains(e.target)){dd.classList.remove("open");top.setAttribute("aria-expanded","false")}});
  dd.addEventListener("mouseenter",()=>top.setAttribute("aria-expanded","true"));dd.addEventListener("mouseleave",()=>top.setAttribute("aria-expanded","false"));}
+/* panely Vrstvy na mapách */
+document.querySelectorAll(".lyrbtn").forEach(b=>{const p=document.getElementById(b.getAttribute("aria-controls"));
+  const set=o=>{p.hidden=!o;b.setAttribute("aria-expanded",o)};
+  b.addEventListener("click",e=>{e.stopPropagation();set(p.hidden)});
+  document.addEventListener("pointerdown",e=>{if(!p.hidden&&!p.contains(e.target)&&e.target!==b)set(false)});
+  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!p.hidden){set(false);b.focus()}});
+  const def=[...p.querySelectorAll("button[aria-pressed]")].map(x=>x.getAttribute("aria-pressed"));
+  const sel=p.querySelector("select");
+  const chk=()=>b.classList.toggle("dirty",[...p.querySelectorAll("button[aria-pressed]")].some((x,i)=>x.getAttribute("aria-pressed")!==def[i])||!!(sel&&sel.value));
+  new MutationObserver(chk).observe(p,{attributes:true,subtree:true,attributeFilter:["aria-pressed"]});if(sel)sel.addEventListener("change",chk)});
+{const nav=document.getElementById("sitenav"),tg=document.getElementById("navtoggle"),logo=document.querySelector("header.site .logo");
+ tg.addEventListener("click",()=>{const o=nav.classList.toggle("open");tg.setAttribute("aria-expanded",o)});
+ document.addEventListener("click",e=>{if(!nav.contains(e.target)&&nav.classList.contains("open")){nav.classList.remove("open");tg.setAttribute("aria-expanded","false")}});
+ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&nav.classList.contains("open")){nav.classList.remove("open");tg.setAttribute("aria-expanded","false");tg.focus()}});
+ if("IntersectionObserver" in window)new IntersectionObserver(([en])=>nav.classList.toggle("stuck",!en.isIntersecting),{threshold:0}).observe(logo);}
+const NAVNAME={uvod:"Úvod",artikule:"Artikule",draconomicon:"Draconomicon",druzina:"Družina",kronika:"Kronika",mapa:"Mapa zemí",praha:"Praha",svet:"Známý svět",desky:"Zemské desky"};
 function route(){
   const h=decodeURIComponent(location.hash.slice(1))||"uvod";
   const [a,b,c]=h.split("/");
   let view=(a==="rod"||a==="osoba")?"desky":a; if(!VIEWS.includes(view))view="uvod";
   const changed=view!==curView; curView=view;
-  document.querySelectorAll(".view").forEach(v=>{v.hidden=v.dataset.view!==view});
+  document.body.classList.toggle("home",view==="uvod");document.getElementById("navcur").textContent=NAVNAME[view]||"";
+  {const nav=document.getElementById("sitenav");nav.classList.remove("open");document.getElementById("navtoggle").setAttribute("aria-expanded","false")}
+  document.querySelectorAll(".view").forEach(v=>{v.hidden=v.dataset.view!==view;if(changed&&!v.hidden){v.classList.remove("enter");void v.offsetWidth;v.classList.add("enter")}});
   document.querySelectorAll("[data-nav]").forEach(n=>n.classList.toggle("on",n.dataset.nav===view));
   document.querySelectorAll("[data-navgrp]").forEach(n=>n.classList.toggle("on",n.dataset.navgrp.split(" ").includes(view)));
   {const dd=document.getElementById("navmapy");dd.classList.remove("open");dd.querySelector(".ddtop").setAttribute("aria-expanded","false")}
