@@ -3315,7 +3315,7 @@ const SIMG={"mesto-velke":[283,200],"mesto-hradby":[308,200],"mesto-pristav":[39
  gryf:[370,360],fenix:[336,360],drak:[400,360],"m-praha":[221,220],"m-viden":[196,220],"m-budin":[258,220],"m-krakov":[269,220],"m-moskva":[319,220],"m-novgorod":[281,220],
  "m-rim":[321,220],"m-benatky":[210,220],"m-pariz":[237,220],"m-londyn":[244,220],"m-lisabon":[269,220],"m-granada":[315,220],"m-konstantinopol":[233,220],"m-jeruzalem":[337,220],
  "m-kahira":[244,220],"m-janov":[285,220],"m-tabriz":[311,220],ruzice:[434,440],"lod-koga":[211,220],"lod-galera":[240,220],"lod-karavela":[228,220],"lod-rybarska":[256,220],
- "obluda-velryba":[358,220],"obluda-had":[264,220],"hora-1":[238,130],"hora-2":[204,130],"hora-3":[269,130],hory:[276,130],"hora-snih":[191,130],kopce:[404,109],
+ "obluda-velryba":[358,220],"obluda-had":[264,220],
  "strom-1":[139,130],"strom-2":[106,130],"strom-3":[114,130],"smrk-1":[105,130],"smrk-2":[97,130],les:[210,130]};
 /* města jako obrázky: [obrázek, velikost]; ostatní hlavní města dostanou opevněné město */
 const SCITY={"Praha":["m-praha",2],"Vídeň":["m-viden",1.2],"Budín":["m-budin",1.2],"Krakov":["m-krakov",1.2],"Moskva":["m-moskva",1.2],"Novgorod":["m-novgorod",1.1],
@@ -3327,8 +3327,8 @@ const SCITY={"Praha":["m-praha",2],"Vídeň":["m-viden",1.2],"Budín":["m-budin"
 /* hory jen v pásmech skutečných pohoří; zasněžené vrcholy v Alpách a na Kavkaze */
 /* v celkovém pohledu jen tato města; ostatní po přiblížení */
 const SZAKL=new Set(["Praha","Řím","Konstantinopol"]);
-const SHORY=new Set(["Alpy","Karpaty","Jižní Karpaty","Tatry","Pyreneje","Atlas","Vysoký Atlas","Střední Atlas","Tellský Atlas","Kavkaz","Malý Kavkaz","Skandy","Ural","Balkán"]);
-const SHSNIH=new Set(["Alpy","Kavkaz","Pyreneje"]);
+/* hory na Sahaře a v Arábii se nekreslí */
+const SBEZHOR=new Set(["Ahaggar","Saharský Atlas","Hidžáz"]);
 const SRIVHL=new Set(["Dunaj","Rýn","Labe","Visla","Dněpr","Volha"]);
 /* lesy [obrázek, délka, šířka], lodě a obludy [obrázek, délka, šířka, šířka obrázku, zrcadlit], růžice portulánu [délka, šířka, velká] */
 const SLES=[["les",13.5,48.95],["les",12.8,50.5],["smrk-1",14.4,48.75],["smrk-2",13.6,50.68],["les",24.2,55.2],["strom-1",26.3,54.5],["les",22.4,54.1],
@@ -3515,11 +3515,18 @@ function sDraw(){
     {const d=SG.rivers.filter(r=>SRIVHL.has(r.n)&&r.p.some(([x,y])=>inV(x,y,20))).map(r=>"M"+r.p.map(q=>q.join(",")).join("L")).join("");
      g.appendChild(el("path",{d,fill:"none",stroke:"var(--paper)","stroke-width":(3.4*k).toFixed(2),"stroke-linecap":"round","stroke-linejoin":"round",opacity:".55"}));
      g.appendChild(el("path",{d,fill:"none",stroke:"var(--water)","stroke-width":(2*k).toFixed(2),"stroke-linecap":"round","stroke-linejoin":"round"}))}
-    const gm=G({"pointer-events":"none"}),mw=RR(15),gap=mw*1.45;let pts=[];
-    (SG.mts||[]).forEach(m=>{if(!SHORY.has(m.n))return;const sn=SHSNIH.has(m.n);m.p.forEach(([x,y,t])=>{if(t===0&&inV(x,y,20))pts.push([x,y,sn])})});
-    const kept=[];pts.forEach(p=>{if(!kept.some(q=>Math.abs(q[0]-p[0])<gap&&Math.abs(q[1]-p[1])<gap*.55))kept.push(p)});
-    kept.sort((p,q)=>p[1]-q[1]).forEach(([x,y,sn],i)=>{const f=sn&&i%3===0?"hora-snih":["hora-1","hora-2","hora-3","hory","hora-2"][(i*7+Math.round(x))%5],[iw,ih]=SIMG[f],w=mw*(f==="hory"?1.35:1),h=w*ih/iw;
-      gm.appendChild(use(f,x-w/2,y-h*.85,w,h))});
+    const showT1=s<.55,over=s>=.62,w=showT1?2.6*Math.max(k/.55,.6):over?7:5.2*Math.max(k,.7),gap=over?17:s>=.55?11:0;
+    let pts=[];(SG.mts||[]).forEach(m=>{if(SBEZHOR.has(m.n)||(over&&!SMAJOR.has(m.n)))return;m.p.forEach(([x,y,t])=>{if((t===0||showT1)&&inV(x,y,10)&&!(m.n==="Atlas"&&y>690))pts.push([x,y])})});
+    if(gap){const kept=[];pts.forEach(p=>{if(!kept.some(q=>Math.abs(q[0]-p[0])<gap&&Math.abs(q[1]-p[1])<gap*.62))kept.push(p)});pts=kept}
+    pts.sort((p,q)=>p[1]-q[1]);let d="",sh="",h="";
+    pts.forEach(([x,y],i)=>{const ht=w*(over?1.15:.9)*(.88+((i*7)%5)*.06),px=x-w*.08;
+      d+=`M${(x-w).toFixed(1)},${y.toFixed(1)}Q${(x-w*.45).toFixed(1)},${(y-ht*.55).toFixed(1)} ${px.toFixed(1)},${(y-ht).toFixed(1)}Q${(x+w*.4).toFixed(1)},${(y-ht*.6).toFixed(1)} ${(x+w).toFixed(1)},${y.toFixed(1)}Z`;
+      sh+=`M${px.toFixed(1)},${(y-ht).toFixed(1)}Q${(x+w*.4).toFixed(1)},${(y-ht*.6).toFixed(1)} ${(x+w).toFixed(1)},${y.toFixed(1)}L${(x+w*.15).toFixed(1)},${y.toFixed(1)}Q${(x+w*.05).toFixed(1)},${(y-ht*.5).toFixed(1)} ${px.toFixed(1)},${(y-ht).toFixed(1)}Z`;
+      h+=`M${(x-w*.55).toFixed(1)},${(y-ht*.25).toFixed(1)}l${(w*.18).toFixed(1)},${(-ht*.12).toFixed(1)}`});
+    const sw=over?.7:.5*Math.min(1,k/.55+.2);
+    g.appendChild(el("path",{d,fill:"var(--hill)","fill-opacity":".9",stroke:"var(--city)","stroke-width":sw.toFixed(2),"stroke-linejoin":"round"}));
+    g.appendChild(el("path",{d:sh,fill:"var(--city)","fill-opacity":".32"}));g.appendChild(el("path",{d:h,stroke:"var(--city)","stroke-width":(sw*.8).toFixed(2),opacity:".6"}));
+    const gm=G({"pointer-events":"none"});
     SLES.forEach(([f,lo,la])=>{const [x,y]=SP(lo,la);if(!inV(x,y,30))return;const [iw,ih]=SIMG[f],w=RR(f==="les"?20:9),h=w*ih/iw;gm.appendChild(use(f,x-w/2,y-h*.8,w,h))})}
   /* lodě na obchodních trasách, obludy v otevřeném Atlantiku, růžice portulánu */
   {const g=G({"pointer-events":"none"}),z=Math.max(k,.5);
@@ -3531,7 +3538,7 @@ function sDraw(){
   const T=(x,y,t,cls,fs,rot,st,ls)=>svg.appendChild(el("text",{x,y,class:cls,"font-size":(fs*k).toFixed(1),"text-anchor":"middle","stroke-width":(2.6*k).toFixed(2),...(ls?{"letter-spacing":ls}:{}),...(rot?{transform:`rotate(${rot} ${x} ${y})`}:{}),...(st?{style:st}:{})},t));
   SSEAS.forEach(([n,lo,la,r,fs])=>{const [x,y]=SP(lo,la);T(x,y,n,"rivlbl",fs,r,"stroke:none",".06em")});
   if(sst.riv){(SG.rivlab||[]).forEach(([n,x,y,r,t])=>{if(t>rivT-(s<.45?0:1)||!inV(x,y,0))return;T(x,y-1.2*k,n,"rivlbl",t?6.5:7.5,r,"stroke:var(--land)")});
-    (SG.mts||[]).forEach(m=>{if(!m.n||!SHORY.has(m.n)||!inV(m.l[0],m.l[1],0)||s>.62)return;T(m.l[0],m.l[1]+6*k,m.n,"rivlbl mtlbl",m.a>25?8.5:7,0,"","0.08em")})}
+    (SG.mts||[]).forEach(m=>{if(!m.n||SBEZHOR.has(m.n)||!inV(m.l[0],m.l[1],0)||s>.62||(s>.4&&m.a<12))return;T(m.l[0],m.l[1]+4*k,m.n,"rivlbl mtlbl",m.a>25?8.5:7,0,"","0.08em")})}
   /* popisky mocností; menší státy Říše a Itálie až po přiblížení */
   Object.entries(SG.lab).forEach(([id,[x,y,a]])=>{const S=SVB[id];if(!S)return;if(SLABPOS[id])[x,y]=SP(...SLABPOS[id]);
     if(!S.h&&(s>.62||(s>.42&&a<16)||((SG._hre.has(id)||SG._ita.has(id))&&s>.5)))return;
