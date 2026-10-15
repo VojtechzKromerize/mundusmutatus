@@ -22,6 +22,9 @@ SB_KEY = os.environ.get("SUPABASE_KEY", "").strip()
 SB_SECRET = os.environ.get("SUPABASE_SECRET", "").strip()
 DB = bool(SB_URL and SB_KEY and SB_SECRET) and not GM and "--staticky" not in sys.argv
 VETEV = (os.environ.get("MM_VETEV") or os.environ.get("BRANCH") or "mistni").strip()
+if not GM and not DB and "--staticky" not in sys.argv and (SB_URL or SB_KEY or SB_SECRET):
+    chybi = [n for n, v in (("SUPABASE_URL", SB_URL), ("SUPABASE_KEY", SB_KEY), ("SUPABASE_SECRET", SB_SECRET)) if not v]
+    print("supabase: chybí proměnná " + ", ".join(chybi) + " – sestavuji statickou verzi bez odhalování")
 
 def fail(msg):
     sys.exit("CHYBA: " + msg)
