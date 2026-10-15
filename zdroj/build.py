@@ -330,22 +330,6 @@ def svet_cesty(mesta):
         out.append({"k": a[0], "n": a[1], "p": pts})
     return out
 
-def svet_draci(removed):
-    out = []
-    for i, line in lines_file("svet-draci.md"):
-        w = f"svet-draci.md, řádek {i}"
-        secret = line.lower().startswith("tajné ")
-        if secret:
-            line = line[6:].strip()
-        a = [x.strip() for x in line.split("|", 3)]
-        if len(a) != 4 or a[2] not in ("zavoj", "sbor", "stanice", "hnizdo", "zvest"):
-            fail(f"{w}: má mít tvar  - název | délka, šířka | zavoj/sbor/stanice/hnizdo/zvest | text")
-        if secret and not GM:
-            removed.append(a[3])
-            continue
-        out.append([a[0], *_ll(a[1], w), a[2], a[3], 1 if secret else 0])
-    return out
-
 def svet_mesta():
     out = []
     for i, line in lines_file("svet-mesta.md"):
@@ -410,8 +394,7 @@ PIDS = {p["id"] for p in PEOPLE}
 SV, SVM = svet(), svet_mesta()
 for key, val in (("ZAPISY", zapisy()), ("PARTY", druzina()), ("MISTA", mista()), ("FAM", FAM), ("PEOPLE", PEOPLE),
                  ("REL", vazby(IDS, removed_items)), ("PRAHA_PLACES", praha(IDS, PIDS)), ("PSTREETS", ulice()), ("PORTR", portrety()), ("SVET", SV), ("SVETMESTA", SVM),
-                 ("SVETDRZ", svet_drzavy({o["id"] for o in SV})), ("SVETCESTY", svet_cesty(SVM)),
-                 ("SVETDRACI", svet_draci(removed_items))):
+                 ("SVETDRZ", svet_drzavy({o["id"] for o in SV})), ("SVETCESTY", svet_cesty(SVM))):
     tag = f"/*@{key}@*/[]"
     if tag not in s:
         fail(f"ve zdroji chybí značka {tag}")

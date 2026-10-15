@@ -20,7 +20,6 @@ s česky popsanou chybou v přehledu nasazení na Netlify a web zůstane ve stav
 | `svet-mesta.md` | města na mapě Známý svět | návod v hlavičce souboru |
 | `svet-drzavy.md` | zámořské a vzdálené državy (tečka v barvě mateřské země) | návod v hlavičce souboru |
 | `svet-cesty.md` | obchodní a poutní cesty a trasy lodí; po nich vede měření cesty | návod v hlavičce souboru |
-| `svet-draci.md` | draci a Závoj: sbory, stanice, hnízdiště, pověsti | návod v hlavičce souboru |
 
 ## Pravidla
 - Soubor má nahoře hlavičku mezi dvěma řádky `---` (pole `klíč: hodnota`), pod ní text.
