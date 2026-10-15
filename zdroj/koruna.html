@@ -1038,7 +1038,7 @@ body{padding-top:38px;padding-bottom:48px;padding-left:max(38px,env(safe-area-in
 .dialnum{font-weight:500}.dialnum.dnd{fill:#2a1a0e}.dialnum.dnn{fill:#f6ead0;paint-order:stroke;stroke:rgba(8,14,40,.55);stroke-width:2.5px;stroke-linejoin:round}.dialnum.dnr{fill:#b8321f;font-weight:700;paint-order:stroke;stroke:#f7edcf;stroke-width:3.2px;stroke-linejoin:round}.dialnum.dnc{fill:#fbefc9;font-weight:700}
 .dialh span{display:block;font-size:.72rem;letter-spacing:.04em;margin-top:1px;text-transform:none}
 .dialfe{font-family:var(--f-disp);color:var(--gold);font-size:.95rem;margin-top:2px}
-.dialneedle{transform-origin:200px 200px;transform-box:view-box}
+.dialneedle{transform-origin:200px 200px;transform-box:view-box;filter:drop-shadow(0 1.5px 2px rgba(20,10,4,.55))}
 .dialneedle.anim{animation:dialsweep 1.8s cubic-bezier(.45,.05,.25,1) .3s both}
 @keyframes dialsweep{from{transform:rotate(var(--a0))}to{transform:rotate(var(--a1))}}
 .dialfest{filter:blur(3px);opacity:.75;animation:dialglow 3s ease-in-out infinite}
@@ -4712,8 +4712,8 @@ function dialSVG(X){
     o+=`<circle cx="${F(x)}" cy="${F(y)}" r="14" fill="transparent"/><text x="${F(x)}" y="${F(y)}" transform="rotate(${a} ${F(x)} ${F(y)})" text-anchor="middle" dominant-baseline="central" class="dialnum ${cur?"dnc":rub?"dnr":noc?"dnn":"dnd"}">${h}</text></g>`}
   /* ručička: při načtení přejede od hodiny minulého zápisu */
   if(H!=null){const a1=(H-12)*15;let a0=Hprev!=null?(Hprev-12)*15:a1;if(a0>a1)a0-=360;
-    const [p1,q1]=P(R0+2,12),[p2,q2]=P(R0-13,12),[x,y]=P(R0-17,12);
-    o+=`<g class="dialneedle${a0!==a1?" anim":""}" style="--a0:${a0}deg;--a1:${a1}deg;transform:rotate(${a1}deg)"><path d="M${F(p1)},${F(q1)}L${F(p2)},${F(q2)}" stroke="${INK}" stroke-width="5" stroke-linecap="round"/><path d="M${F(p1)},${F(q1)}L${F(p2)},${F(q2)}" stroke="#f0d68a" stroke-width="3" stroke-linecap="round"/><path d="M${F(x)},${F(y)}l-5,9h10z" fill="#f0d68a" stroke="${INK}" stroke-width="1"/></g>`}
+    /* ručička: zlacený hrot s inkoustovým obrysem od středového štítu až k terčíku hodiny */
+    o+=`<g class="dialneedle${a0!==a1?" anim":""}" style="--a0:${a0}deg;--a1:${a1}deg;transform:rotate(${a1}deg)"><g filter="url(#dkruka)"><path d="M200,41L210.5,58.5L205,61L205.8,74L200,82L194.2,74L195,61L189.5,58.5Z" fill="url(#dkzl)" stroke="${INK}" stroke-width="1.6" stroke-linejoin="round"/><path d="M200,45L200,57" stroke="#6a4610" stroke-width="1.2"/><circle cx="200" cy="78" r="6.5" fill="url(#dkzl)" stroke="${INK}" stroke-width="1.5"/></g><circle cx="200" cy="78" r="3" fill="#b8321f"/><path d="M200,62l3.4,5l-3.4,5l-3.4,-5z" fill="#b8321f" stroke="${INK}" stroke-width=".6"/></g>`}
   return o+`</svg>`}
 function dialHour(X){const {H,moon,Z,fe,cz}=X,h=H%24,z=Z[h],pravda=fe.length&&z;
   return `<p class="dialh">${h===0||h===12?hourWord(h):`${h}. hodina · ${hourWord(h)}`}<span>${cz(h)}. hodina na orloji · ${moon.nm}</span></p>`+
