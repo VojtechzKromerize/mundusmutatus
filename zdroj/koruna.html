@@ -4123,10 +4123,11 @@ const bojDB=window.MMDB?{nacti:()=>MMDB.bojNacti(),uloz:s=>MMDB.bojUloz(s),obsad
         uloz:async s=>{const v=(BOJ.v>0?BOJ.v:0)+1;try{localStorage.setItem("mm-boj",JSON.stringify({stav:s,verze:v}))}catch(e){}return v},obsad:null}:null;
 const besc=t=>String(t??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 function bojSloty(s){
-  const a=[];(s.hraci||[]).forEach((h,i)=>a.push({t:"h",hod:+h.hod||0,i}));
-  for(let k=0;k<(s.hraci||[]).length;k++)a.push({t:"n",hod:+s.dm||0,i:k});
-  a.sort((x,y)=>y.hod-x.hod||(x.t===y.t?x.i-y.i:(x.t==="h"?-1:1)));
-  return a.map(({t,hod})=>({t,hod}))}
+  /* sloty se střídají mezi družinou a vypravěčem; začíná strana s nejlepším hodem (při shodě družina) */
+  const h=(s.hraci||[]).map(x=>+x.hod||0).sort((a,b)=>b-a),dm=+s.dm||0,n=h.length,a=[];
+  const prvniH=!n||h[0]>=dm;
+  for(let i=0;i<n;i++){const hs={t:"h",hod:h[i]},ns={t:"n",hod:dm};if(prvniH)a.push(hs,ns);else a.push(ns,hs)}
+  return a}
 const bojUzito=(s,id)=>Object.values(s.obsazeni||{}).filter(x=>x===id).length;
 const bojJm=(s,id)=>{const h=(s.hraci||[]).find(x=>x.id===id);if(h)return h.n;const n=(s.npc||[]).find(x=>x.id===id);return n?n.n:""};
 function bojCas(){
@@ -4145,7 +4146,7 @@ function bojSetup(){
   const p=BOJ.s||{},hr=(p.hraci&&p.hraci.length?p.hraci.map(h=>h.n):PARTY.map(x=>x.n)).concat(["","","",""]).slice(0,Math.max(4,(p.hraci||PARTY).length));
   const hrow=n=>`<div class="bsr"><input name="hn" placeholder="Jméno postavy" value="${besc(n)}" aria-label="Jméno postavy"><input name="hh" type="number" inputmode="numeric" placeholder="hod" aria-label="Hod iniciativy" min="-10" max="50"></div>`;
   const nrow=()=>`<div class="bsr"><input name="nn" placeholder="Nepřítel (např. Žoldnéři)" aria-label="Jméno nepřítele"><select name="nd" aria-label="Druh">${Object.entries(BDRUH).map(([k,v])=>`<option value="${k}">${v}</option>`).join("")}</select><input name="np" type="number" min="1" max="12" value="6" aria-label="Počet v houfu" title="Počet pacholků v houfu"></div>`;
-  return `<h2 class="arttitle">Boj</h2><p class="intro">Hráči hodí <b>d20 + Obratnost</b>, ty jednou za nepřítele s nejlepší iniciativou. Každý hod hráče je slot hráčů; nepřátelé dostanou stejný počet slotů se tvým hodem. Při shodě jdou první hráči.</p>
+  return `<h2 class="arttitle">Boj</h2><p class="intro">Hráči hodí <b>d20 + Obratnost</b>, ty jednou za nepřítele s nejlepší iniciativou. Každý hod hráče je slot družiny a nepřátelé dostanou stejný počet slotů. Sloty se střídají – družina, nepřátelé, družina… – a začíná strana s nejlepším hodem (při shodě družina).</p>
     <form class="bojform" id="bojform">
       <fieldset><legend>Hráči a jejich hody</legend><div id="bfh">${hr.map(hrow).join("")}</div><button type="button" class="gbtn ghost" data-badd="h">+ hráč</button></fieldset>
       <fieldset><legend>Nepřátelé</legend><label class="bdm">Tvůj hod za nejlepšího nepřítele <input name="dm" type="number" inputmode="numeric" required min="-10" max="50"></label>
