@@ -101,3 +101,4 @@
 - spoj | cat, mes | Sůl ze Solné komory jde přes Linec a Freistadt do jižních Čech, hlavně do Budějovic.
 - spor | cbr, bra | Berlín-Cölln se v letech 1447–1448 vzbouřil proti kurfiřtovi a markrabě vzpouru zlomil.
 - spoj | var, pod | Jan z Vartenberka se uchází o hornolužické fojtství a hledá přízeň nového krále.
+- spor | osm, hun | Mehmed II. byl roku 1456 odražen od Bělehradu Janem Hunyadim; Osmané a Uhry stojí proti sobě na Dunaji a v Srbsku.

@@ -77,7 +77,7 @@ h2::before{content:"¶ ";color:var(--kal);font-family:var(--f-body);font-weight:
 .pill{font-family:var(--f-label);font-weight:700;font-size:.78rem;letter-spacing:.06em;padding:1px 8px;border-radius:3px;color:var(--paper);white-space:nowrap}
 .faith{display:inline-flex;align-items:center;gap:5px;font-family:var(--f-label);font-weight:700;font-size:.82rem;letter-spacing:.05em;white-space:nowrap}
 .faith img{width:26px;height:26px;object-fit:contain;flex:none}
-.f-kat{color:var(--kat)}.f-kal{color:var(--kal)}.f-mix{color:var(--mix)}
+.f-kat{color:var(--kat)}.f-kal{color:var(--kal)}.f-mix{color:var(--mix)}.f-isl{color:var(--isl)}
 .townico{width:28px;height:28px;object-fit:contain;flex:none;margin:0 1px}
 .townico.big{width:34px;height:34px;vertical-align:-8px;margin-right:6px}
 .t-kat{filter:drop-shadow(1.2px 0 0 var(--kat)) drop-shadow(-1.2px 0 0 var(--kat)) drop-shadow(0 1.2px 0 var(--kat)) drop-shadow(0 -1.2px 0 var(--kat))}
@@ -460,7 +460,8 @@ mark{background:color-mix(in srgb,var(--gold) 35%,transparent);color:inherit;pad
 .card .cimg,.armcard{width:104px;height:116px}
 .cshield{width:64px;height:76px}
 .cseal{position:absolute;top:8px;right:8px;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--bg);border:1.5px solid currentColor;box-shadow:0 1px 3px rgba(0,0,0,.25)}
-.cseal.f-kat{color:var(--kat)}.cseal.f-kal{color:var(--kal)}.cseal.f-mix{color:var(--mix)}
+.cseal.f-kat{color:var(--kat)}.cseal.f-kal{color:var(--kal)}.cseal.f-mix{color:var(--mix)}.cseal.f-isl{color:var(--isl)}
+.card[data-fc="isl"]{border-left-color:var(--isl)}
 .cseal img{width:20px;height:20px}
 .card .cbody{align-self:center}
 .card .head{-webkit-line-clamp:2}
@@ -744,7 +745,7 @@ svg#map.measuring,svg#map.measuring *,svg#pmap.measuring,svg#pmap.measuring *,sv
 #smap text{pointer-events:none}#smap .sdrz text{pointer-events:auto}
 
 /* ===== vizuál v4: kodex ===== */
-:root{--rub:#a3232b;--rubtx:#f8ebc8;--frame1:#b8892f;--frame2:#f0d68a}
+:root{--isl:#2f7a5a;--rub:#a3232b;--rubtx:#f8ebc8;--frame1:#b8892f;--frame2:#f0d68a}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--rub:#8f2a28;--rubtx:#f6e3b4;--frame1:#9c7428;--frame2:#d9b860}}
 :root[data-theme="dark"]{--rub:#8f2a28;--rubtx:#f6e3b4;--frame1:#9c7428;--frame2:#d9b860}
 /* 1. logo bez světlého obdélníku v tmavém režimu */
@@ -1151,8 +1152,8 @@ body{background:transparent}
 const FAM=/*@FAM@*/[];
 const REL=/*@REL@*/[];
 const byId=Object.fromEntries(FAM.map(f=>[f.id,f]));
-const CONFN={kat:"katolíci",kal:"kališníci",mix:"smíšení"};
-const FICON={kat:"art/img/vira-kat.webp",kal:"art/img/vira-kal.webp",mix:"art/img/vira-mix.webp"};
+const CONFN={kat:"katolíci",kal:"kališníci",mix:"smíšení",isl:"islám"};
+const FICON={kat:"art/img/vira-kat.webp",kal:"art/img/vira-kal.webp",mix:"art/img/vira-mix.webp",isl:"art/img/vira-isl.webp"};
 const SFICON={kat:"art/img/vira-kat.webp",kal:"art/img/vira-kal.webp",pra:"art/img/vira-pra.webp",isl:"art/img/vira-isl.webp",mix:"art/img/vira-smi.webp"};
 const faith=c=>`<span class="faith f-${c}"><img src="${FICON[c]}" alt="" aria-hidden="true">${CONFN[c]}</span>`;
 const CASTLEICO="art/img/hrad.webp";
@@ -1884,7 +1885,7 @@ document.querySelectorAll("[data-fland]").forEach(b=>b.addEventListener("click",
 document.querySelectorAll("[data-dview]").forEach(b=>b.addEventListener("click",()=>{DF.view=b.dataset.dview;try{localStorage.setItem("mm-dview",DF.view)}catch(e){}deskApply()}));
 document.getElementById("dfilt").addEventListener("input",e=>{DF.q=_nrm(e.target.value.trim());deskApply()});
 deskApply();
-const NBR_LANDS=["Braniborsko","Polsko","Uhry","Rakousy","Bavory","Sasko","Říšská města","Řím"];
+const NBR_LANDS=["Braniborsko","Polsko","Uhry","Rakousy","Bavory","Sasko","Říšská města","Řím","Osmanská říše"];
 buildCards(document.getElementById("nbrlands"),NBR_LANDS,true);
 const tabsEl=document.getElementById("nbrtabs");
 function setTab(L){
@@ -3663,7 +3664,7 @@ const SUBT={svet:"Známý svět · mocnosti léta Páně 1458",praha:"Praha · �
 const TITL={svet:"Známý svět",praha:"Praha",mapa:"Koruna česká k 3. březnu léta Páně 1458",desky:"Zemské desky",artikule:"Artikule tažení",druzina:"Družina",draconomicon:"Draconomicon",kronika:"Kronika Vojtěcha z Kroměříže"};
 let curView=null;
 function navTo(h){if(location.hash!==h)history.pushState(null,"",h);route()}
-function maplinkBtn(f,sd){return `<button type="button" class="maplink" data-id="${f.id}" data-place="${sd[0]}">${f.city&&CARMS[sd[0]]?`<img class="cmini" src="${CARMS[sd[0]]}" alt="">`:""}${sd[0]}</button>`}
+function maplinkBtn(f,sd){if(f.nomap){const c=SVETMESTA.find(x=>x[0]===sd[0]),w=c&&SVET.find(z=>z.s&&z.s.includes(sd[0]));return w?`<a href="#svet/${w.id}">${sd[0]}</a>`:sd[0]}return `<button type="button" class="maplink" data-id="${f.id}" data-place="${sd[0]}">${f.city&&CARMS[sd[0]]?`<img class="cmini" src="${CARMS[sd[0]]}" alt="">`:""}${sd[0]}</button>`}
 function renderRodArticle(id){
   const f=byId[id],rels=relsFor(id),ppl=peopleOf(id),art=document.getElementById("article");
   art.innerHTML=`<nav class="crumbs"><a href="#desky">Zemské desky</a> › ${f.nbr?`<a href="#desky/sousede">Sousedé</a> › ${f.land}`:f.land} › <b>${f.name}</b></nav>
