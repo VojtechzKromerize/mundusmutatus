@@ -185,17 +185,17 @@ header.site{display:flex;flex-direction:column;gap:0;border:0;padding:0}
 .sitenav a:hover{color:var(--kal)}
 .sitenav a.on{color:var(--kal);border-bottom-color:var(--kal)}
 .slbl{font-family:var(--f-disp);fill:var(--ink);paint-order:stroke;stroke:var(--paper);stroke-opacity:.85;stroke-linejoin:round;pointer-events:none}
-.spoly{cursor:pointer}.spoly:hover{filter:brightness(1.08)}
+.spoly:hover{filter:brightness(1.08)}
 .sbadge{display:inline-block;padding:1px 8px;border-radius:10px;border:1.5px solid var(--c);color:var(--c);font-family:var(--f-label);font-size:.85rem;font-weight:600}
 .sswatch{flex:none;width:16px;height:12px;border:1px solid var(--ink);border-radius:2px}
 .sfoenote{display:block;font-size:.8em;color:var(--kal);font-family:var(--ui,inherit);letter-spacing:.02em}
 .stip{position:absolute;z-index:5;pointer-events:none;background:var(--paper);border:1px solid var(--ink);padding:4px 8px;font-size:.85rem;line-height:1.3;max-width:280px;box-shadow:0 2px 6px rgba(0,0,0,.2)}
 #smapbox{position:relative}
+#smap{width:100%;height:auto;display:block;touch-action:none}
 .sleg{flex-direction:row;flex-wrap:wrap;gap:6px 16px}
 .slsw{display:inline-block;width:26px;height:0;border-top:2.5px var(--d) var(--c);vertical-align:middle;margin-right:6px}
 .sallynote{color:#2f5d9e}
 .stensnote{color:#b06d10}
-.sdrac,.sdrz,.sparty{cursor:pointer}
 .sfaithleg{display:flex;flex-direction:row;flex-wrap:wrap;gap:6px 14px}
 /* Draconomicon */
 .drgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
@@ -615,7 +615,7 @@ a.pchar:hover{border-color:var(--kal)}
 .plist button{display:flex;align-items:center;gap:8px;width:100%;text-align:left;background:none;border:0;padding:4px 6px;border-radius:3px;font:inherit;color:var(--ink)}
 .plist button:hover,.plist button.on{background:var(--paper)}
 .plist button.on{outline:1px solid var(--gold)}
-.prl{white-space:nowrap;color:var(--ink);text-decoration:underline dotted var(--kal);text-underline-offset:3px}.prl:hover{color:var(--kal)}.prn{display:inline-grid;place-items:center;min-width:1.35em;height:1.35em;margin-right:4px;border-radius:50%;border:1.5px solid currentColor;font-family:var(--f-label);font-size:.72em;font-weight:700;vertical-align:.1em}
+.prl{color:var(--ink);text-decoration:underline dotted var(--kal);text-underline-offset:3px}.prl:hover{color:var(--kal)}.prn{display:inline-grid;place-items:center;min-width:1.35em;height:1.35em;margin-right:4px;border-radius:50%;border:1.5px solid currentColor;font-family:var(--f-label);font-size:.72em;font-weight:700;vertical-align:.1em}
 .zpraha{font-size:.95rem}
 .plbl{font-family:var(--f-label);font-weight:600;fill:var(--ink);stroke:var(--paper);paint-order:stroke;stroke-linejoin:round}
 .pparty{font-size:.95rem}
@@ -648,11 +648,12 @@ a.pchar:hover{border-color:var(--kal)}
 html{cursor:url(art/kurzory/brk.png) 2 1,auto;cursor:-webkit-image-set(url(art/kurzory/brk.png) 1x,url(art/kurzory/brk@2x.png) 2x) 2 1,auto;cursor:image-set(url(art/kurzory/brk.png) 1x,url(art/kurzory/brk@2x.png) 2x) 2 1,auto}
 a,button,select,summary,label[for],[role=link],[role=button],.card,.seat,.gnode,.dompoly,.partymk,.discmk,.maplink,.plink,.flink,.rtab.dlist tbody tr,.zcard,.achap,.qk,.pchar,.uvt,.pmk,.plist button{cursor:url(art/kurzory/ruka.png) 0 1,pointer !important;cursor:-webkit-image-set(url(art/kurzory/ruka.png) 1x,url(art/kurzory/ruka@2x.png) 2x) 0 1,pointer !important;cursor:image-set(url(art/kurzory/ruka.png) 1x,url(art/kurzory/ruka@2x.png) 2x) 0 1,pointer !important}
 input,textarea,[contenteditable]{cursor:text !important}
-svg#map{cursor:url(art/kurzory/chop.png) 16 16,grab !important;cursor:-webkit-image-set(url(art/kurzory/chop.png) 1x,url(art/kurzory/chop@2x.png) 2x) 16 16,grab !important;cursor:image-set(url(art/kurzory/chop.png) 1x,url(art/kurzory/chop@2x.png) 2x) 16 16,grab !important}
-svg#map:active{cursor:url(art/kurzory/drz.png) 16 16,grabbing !important;cursor:-webkit-image-set(url(art/kurzory/drz.png) 1x,url(art/kurzory/drz@2x.png) 2x) 16 16,grabbing !important;cursor:image-set(url(art/kurzory/drz.png) 1x,url(art/kurzory/drz@2x.png) 2x) 16 16,grabbing !important}
-svg#map.measuring,svg#map.measuring:active{cursor:url(art/kurzory/kruzidlo.png) 4 2,crosshair !important;cursor:-webkit-image-set(url(art/kurzory/kruzidlo.png) 1x,url(art/kurzory/kruzidlo@2x.png) 2x) 4 2,crosshair !important;cursor:image-set(url(art/kurzory/kruzidlo.png) 1x,url(art/kurzory/kruzidlo@2x.png) 2x) 4 2,crosshair !important}
-svg#map .seat,svg#map .partymk{cursor:url(art/kurzory/ruka.png) 0 1,pointer !important;cursor:-webkit-image-set(url(art/kurzory/ruka.png) 1x,url(art/kurzory/ruka@2x.png) 2x) 0 1,pointer !important;cursor:image-set(url(art/kurzory/ruka.png) 1x,url(art/kurzory/ruka@2x.png) 2x) 0 1,pointer !important}
-svg#map.measuring .seat{cursor:url(art/kurzory/kruzidlo.png) 4 2,crosshair !important;cursor:-webkit-image-set(url(art/kurzory/kruzidlo.png) 1x,url(art/kurzory/kruzidlo@2x.png) 2x) 4 2,crosshair !important;cursor:image-set(url(art/kurzory/kruzidlo.png) 1x,url(art/kurzory/kruzidlo@2x.png) 2x) 4 2,crosshair !important}
+/* mapy: ruka na přetahování, sevřená ruka při tažení, ukazováček nad klikatelným, kružidlo při měření */
+svg#map,svg#pmap,svg#smap{cursor:url(art/kurzory/chop.png) 16 16,grab !important;cursor:-webkit-image-set(url(art/kurzory/chop.png) 1x,url(art/kurzory/chop@2x.png) 2x) 16 16,grab !important;cursor:image-set(url(art/kurzory/chop.png) 1x,url(art/kurzory/chop@2x.png) 2x) 16 16,grab !important}
+svg#map .seat,svg#map .partymk,svg#map .discmk,svg#map .dompoly,svg#pmap .pmk,svg#smap .spoly,svg#smap .smk,svg#smap .sdrac,svg#smap .sdrz,svg#smap .sparty{cursor:url(art/kurzory/ruka.png) 0 1,pointer !important;cursor:-webkit-image-set(url(art/kurzory/ruka.png) 1x,url(art/kurzory/ruka@2x.png) 2x) 0 1,pointer !important;cursor:image-set(url(art/kurzory/ruka.png) 1x,url(art/kurzory/ruka@2x.png) 2x) 0 1,pointer !important}
+svg#map:active,svg#map:active *,svg#pmap:active,svg#pmap:active *,svg#smap:active,svg#smap:active *{cursor:url(art/kurzory/drz.png) 16 16,grabbing !important;cursor:-webkit-image-set(url(art/kurzory/drz.png) 1x,url(art/kurzory/drz@2x.png) 2x) 16 16,grabbing !important;cursor:image-set(url(art/kurzory/drz.png) 1x,url(art/kurzory/drz@2x.png) 2x) 16 16,grabbing !important}
+svg#map.measuring,svg#map.measuring *,svg#pmap.measuring,svg#pmap.measuring *,svg#smap.measuring,svg#smap.measuring *{cursor:url(art/kurzory/kruzidlo.png) 4 2,crosshair !important;cursor:-webkit-image-set(url(art/kurzory/kruzidlo.png) 1x,url(art/kurzory/kruzidlo@2x.png) 2x) 4 2,crosshair !important;cursor:image-set(url(art/kurzory/kruzidlo.png) 1x,url(art/kurzory/kruzidlo@2x.png) 2x) 4 2,crosshair !important}
+#smap text{pointer-events:none}#smap .sdrac text,#smap .sdrz text{pointer-events:auto}
 </style>
 
 <div class="wrap">
@@ -2622,7 +2623,7 @@ function pmPick(pt,name,key){if(!PM.a||PM.b){PM.a={pt,name,key:key||""};PM.b=nul
  const opts=`<option value="">— bod na plánu —</option>`+PRAHA_PLACES.map(p=>`<option value="p:${p.n}">${p.n}. ${p.name}</option>`).join("");
  ["pfrom","pto"].forEach((id,i)=>{const e=document.getElementById(id);e.innerHTML=opts;e.addEventListener("change",()=>{const p=PRB[+e.value.slice(2)];if(!p||!PG)return;
    const q={pt:p.pos,name:`${p.n}. ${p.name}`,key:e.value};if(i===0){PM.a=q}else{PM.b=q}if(PM.a&&PM.b)PM.path=pmRoute(PM.a.pt,PM.b.pt);pmRender();pDraw()})});
- const btn=document.getElementById("pmeasure");btn.addEventListener("click",()=>{PM.on=!PM.on;btn.setAttribute("aria-pressed",PM.on);document.getElementById("ptravel").hidden=!PM.on;if(!PM.on){PM.a=PM.b=PM.path=null}pmRender();if(PG)pDraw()});
+ const btn=document.getElementById("pmeasure");btn.addEventListener("click",()=>{PM.on=!PM.on;btn.setAttribute("aria-pressed",PM.on);document.getElementById("pmap").classList.toggle("measuring",PM.on);document.getElementById("ptravel").hidden=!PM.on;if(!PM.on){PM.a=PM.b=PM.path=null}pmRender();if(PG)pDraw()});
  document.getElementById("pmap").addEventListener("click",e=>{if(!PM.on||!PG||e.altKey||pDrag.moved||e.target.closest(".pmk,.partymk"))return;const sv=e.currentTarget,p=sv.createSVGPoint();p.x=e.clientX;p.y=e.clientY;const q=p.matrixTransform(sv.getScreenCTM().inverse());pmPick([q.x,q.y],"bod na plánu","")});}
 const pDrag={moved:false};
 (function(){
@@ -2978,7 +2979,7 @@ function smRender(){const r=document.getElementById("stres"),F=document.getEleme
   svg.addEventListener("pointerleave",e=>sTip(e,""));
   document.querySelectorAll("[data-sfico]").forEach(e=>e.insertAdjacentHTML("afterbegin",`<img class="rico" src="${SFICON[e.dataset.sfico]}" alt="" aria-hidden="true">`));
   document.querySelectorAll("[data-sconf]").forEach(b=>b.addEventListener("click",()=>{sst.conf=b.dataset.sconf;document.querySelectorAll("[data-sconf]").forEach(x=>x.setAttribute("aria-pressed",x===b));if(SG)sDraw()}));
-  const mb=document.getElementById("smeasure");mb.addEventListener("click",()=>{SM.on=!SM.on;mb.setAttribute("aria-pressed",SM.on);document.getElementById("stravel").hidden=!SM.on;if(!SM.on){SM.a=SM.b=null}smRender();if(SG)sDraw()});
+  const mb=document.getElementById("smeasure");mb.addEventListener("click",()=>{SM.on=!SM.on;mb.setAttribute("aria-pressed",SM.on);document.getElementById("smap").classList.toggle("measuring",SM.on);document.getElementById("stravel").hidden=!SM.on;if(!SM.on){SM.a=SM.b=null}smRender();if(SG)sDraw()});
   const opts=`<option value="">— bod na mapě —</option>`+[...SVETMESTA].sort((a,b)=>a[0].localeCompare(b[0],"cs")).map(c=>`<option value="${c[0]}">${c[0]}</option>`).join("");
   ["sfrom","sto"].forEach((id,i)=>{const e=document.getElementById(id);e.innerHTML=opts;e.addEventListener("change",()=>{const c=SVETMESTA.find(x=>x[0]===e.value);if(!c)return;const q={name:c[0],ll:[c[1],c[2]],key:c[0]};if(i===0)SM.a=q;else SM.b=q;smRender();if(SG)sDraw()})});
   [["sHre","hre"],["sFaith","faith"],["sCities","cities"],["sRivers","riv"],["sRoutes","routes"],["sDrac","drac"],["sParty","party"]].forEach(([id,key])=>{const b=document.getElementById(id);
