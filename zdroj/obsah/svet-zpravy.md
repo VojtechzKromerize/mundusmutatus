@@ -16,10 +16,10 @@
 - 1456-07-22 | Bělehrad | 20.46, 44.82 | Jan Hunyadi s Janem Kapistránem odrazili Mehmeda II. od Bělehradu. Nad Dunajem prý bojovali i draci obou stran.
 - 1456-08-11 | Zemun | 20.41, 44.84 | Jan Hunyadi zemřel v táboře u Bělehradu na mor.
 - 1456-08 | Târgoviște | 25.46, 44.93 | Vlad III. Drákula se s uherskou pomocí zmocnil valašského trůnu.
-- 1456-06 | Athény | 23.73, 37.98 | Osmané obsadili Athény; florentská posádka se drží jen na Akropoli.
+- 1456-06 | Athény | 23.73, 37.98 | Osmané obsadili Athény; na Akropoli se drží jen posádka vévody Franka Acciaioliho.
 - 1457-04 | Suceava | 26.26, 47.65 | Štěpán III. se s valašskou pomocí zmocnil moldavského trůnu.
 - 1457-06 | Malbork | 19.03, 54.04 | Čeští žoldnéři prodali Malbork, hlavní hrad Řádu, polskému králi Kazimírovi.
 - 1457-06-29 | Uppsala | 17.64, 59.86 | Kristián I. korunován švédským králem; Kalmarská unie je opět celá.
-- 1457-09-02 | Albulena | 19.85, 41.62 | Skanderbeg porazil u Albuleny osmanské vojsko, které vedl jeho vlastní synovec Hamza.
+- 1457-09-02 | Albulena | 19.85, 41.62 | Skanderbeg porazil u Albuleny osmanské vojsko, které spoluvedl jeho vlastní synovec Hamza Kastriota.
 - 1457-11-23 | Praha | 14.42, 50.09 | V Praze náhle zemřel sedmnáctiletý král Ladislav Pohrobek.
 - 1458-01-24 | Pešť | 19.06, 47.50 | Uherské stavy zvolily králem Matyáše, syna Jana Hunyadiho, který byl tou dobou rukojmím v Praze.

@@ -31,9 +31,9 @@
 # Ostatní
 - Ceuta | -5.32, 35.89 | por | dobyta Portugalci roku 1415
 - Madeira | -16.90, 32.75 | por | portugalská od 20. let 15. století
-- Kanárské ostrovy | -13.60, 29.00 | kas | Lanzarote, Fuerteventura, Gomera a Hierro pod kastilskou svrchovaností; Gran Canaria se brání
+- Kanárské ostrovy | -13.60, 29.00 | kas | Lanzarote, Fuerteventura, Gomera a Hierro pod kastilskou svrchovaností; Gran Canaria, Tenerife a La Palma se brání a nárok zpochybňuje Portugalsko
 - Calais | 1.86, 50.95 | eng | poslední anglická država na pevnině
 - Normanské ostrovy | -2.20, 49.30 | eng | Jersey a Guernsey zůstaly anglické
 - Kos a Bodrum | 27.30, 36.92 | rho | johanitské hrady naproti Rhodu
 - Avignon | 4.81, 43.95 | pap | papežská enkláva v Provenci
-- Benevento | 14.78, 41.13 | pap | papežská enkláva v Neapolském království
+- Benevento | 14.78, 41.13 | pap | formálně papežská enkláva, fakticky ji drží Alfons V. jako apoštolský vikář
