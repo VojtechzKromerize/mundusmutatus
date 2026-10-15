@@ -9,7 +9,10 @@
 --   stavy   – co družina zná: 0 = skryté, 1 = slyšeli, 2 = potkali. Mění je jen vypravěč.
 --   snimek  – hráčský výřez obsahu podle stavů. Veřejně čitelný; nikdy neobsahuje nic skrytého.
 --             Přepočítává se sám při každé změně stavu nebo nahrání obsahu.
---   denik   – záznam změn stavů (pro budoucí „Novinky“). Čte jen vypravěč.
+--   denik   – záznam změn stavů (z něj vznikají Novinky). Čte jen vypravěč.
+--   zaznamy – texty rodů, osob, Kroniky, míst… (zdroj pravdy). Upravuje je vypravěč na webu;
+--             soubory v repozitáři jsou záloha (denní záloha z webu, změny ze souborů se přenesou).
+--   zaznamy_historie – předchozí verze textů (lze obnovit).
 --
 -- Značky v datech (vyrábí je build.py, viz zdroj/obsah/NÁVOD.md):
 --   {"$g": "id" | ["id",…], "$u": 1|2, …}  objekt (nebo prvek pole) jen pokud všechna id mají stav ≥ $u (výchozí 1)
@@ -44,6 +47,24 @@ create table if not exists public.denik (
   kdy  timestamptz not null default now()
 );
 
+create table if not exists public.zaznamy (
+  soubor   text primary key,                 -- cesta v zdroj/obsah, např. osoby/140-jindrich4.md
+  md       text not null,
+  md_hash  text,                             -- otisk textu při posledním souladu se soubory v gitu
+  web      boolean not null default false,   -- upraveno na webu od poslední zálohy
+  smazano  boolean not null default false,   -- smazáno na webu (záloha soubor odstraní)
+  upraveno timestamptz not null default now()
+);
+
+create table if not exists public.zaznamy_historie (
+  n      bigserial primary key,
+  soubor text not null,
+  md     text,
+  akce   text not null,
+  kdy    timestamptz not null default now()
+);
+create index if not exists zaznamy_historie_soubor on public.zaznamy_historie (soubor, n desc);
+
 create table if not exists public.nastaveni (
   klic    text primary key,
   hodnota jsonb not null,
@@ -68,6 +89,9 @@ alter table public.denik  enable row level security;
 alter table public.gm     enable row level security;
 alter table public.nastaveni enable row level security;
 alter table public.boj enable row level security;
+alter table public.zaznamy enable row level security;
+alter table public.zaznamy_historie enable row level security;
+alter table public.obsah add column if not exists gen text;
 
 -- Je přihlášený uživatel vypravěč?
 create or replace function public.mm_je_gm() returns boolean
@@ -278,13 +302,14 @@ language sql stable security definer set search_path = public as $$
               then (select coalesce(jsonb_object_agg(id, stav), '{}'::jsonb) from public.stavy) end
 $$;
 
--- Build na Netlify nahraje obsah větve; výchozí stavy (p_vychozi) zapíše jen pro nová id.
-create or replace function public.mm_nahraj_obsah(p_vetev text, p_hrac jsonb, p_gm jsonb, p_vychozi jsonb)
+-- Uložení obsahu větve; výchozí stavy (p_vychozi) se zapíší jen pro nová id.
+drop function if exists public.mm_nahraj_obsah(text, jsonb, jsonb, jsonb);
+create or replace function public.mm__uloz_obsah(p_vetev text, p_hrac jsonb, p_gm jsonb, p_vychozi jsonb, p_gen text)
 returns bigint
 language plpgsql security definer set search_path = public as $$
 begin
-  insert into public.obsah (vetev, hrac, gm, nahrano) values (p_vetev, p_hrac, p_gm, now())
-  on conflict (vetev) do update set hrac = excluded.hrac, gm = excluded.gm, nahrano = now();
+  insert into public.obsah (vetev, hrac, gm, nahrano, gen) values (p_vetev, p_hrac, p_gm, now(), p_gen)
+  on conflict (vetev) do update set hrac = excluded.hrac, gm = excluded.gm, nahrano = now(), gen = excluded.gen;
   insert into public.stavy (id, stav)
   select key, value::text::smallint from jsonb_each(coalesce(p_vychozi, '{}'::jsonb))
   on conflict (id) do nothing;
@@ -292,9 +317,190 @@ begin
   return (select verze from public.snimek where vetev = p_vetev);
 end $$;
 
+-- Build na Netlify (tajný klíč)
+create or replace function public.mm_nahraj_obsah(p_vetev text, p_hrac jsonb, p_gm jsonb, p_vychozi jsonb, p_gen text default null)
+returns bigint
+language sql security definer set search_path = public as $$
+  select public.mm__uloz_obsah(p_vetev, p_hrac, p_gm, p_vychozi, p_gen)
+$$;
+
+-- Vypravěč po úpravě textu na webu (jeho prohlížeč obsah znovu vygeneruje)
+create or replace function public.mm_uloz_obsah(p_vetev text, p_hrac jsonb, p_gm jsonb, p_vychozi jsonb, p_gen text)
+returns bigint
+language plpgsql security definer set search_path = public as $$
+begin
+  if not public.mm_je_gm() then
+    raise exception 'jen pro vypravěče' using errcode = '42501';
+  end if;
+  return public.mm__uloz_obsah(p_vetev, p_hrac, p_gm, p_vychozi, p_gen);
+end $$;
+
+-- ===== Texty v databázi =====
+-- Build: soubory z gitu → databáze. Nový soubor se vloží; změněný se přepíše, jen pokud záznam
+-- nebyl od poslední zálohy upraven na webu (jinak konflikt – vyhrává web). p_uplny: soubory, které
+-- v gitu už nejsou, se smažou (pokud je web neupravil).
+create or replace function public.mm_sync_zaznamy(p_soubory jsonb, p_uplny boolean default false) returns jsonb
+language plpgsql security definer set search_path = public as $$
+declare
+  f record; z record;
+  nove int := 0; zmenene int := 0; smazane int := 0; konflikty jsonb := '[]'::jsonb;
+begin
+  for f in select x ->> 'soubor' as soubor, x ->> 'md' as md, x ->> 'hash' as hash from jsonb_array_elements(p_soubory) x loop
+    select * into z from public.zaznamy where soubor = f.soubor;
+    if not found then
+      insert into public.zaznamy (soubor, md, md_hash) values (f.soubor, f.md, f.hash);
+      insert into public.zaznamy_historie (soubor, md, akce) values (f.soubor, f.md, 'soubor');
+      nove := nove + 1;
+    elsif z.md_hash is not distinct from f.hash then
+      null;
+    elsif not z.web and not z.smazano then
+      insert into public.zaznamy_historie (soubor, md, akce) values (f.soubor, z.md, 'před změnou ze souboru');
+      update public.zaznamy set md = f.md, md_hash = f.hash, upraveno = now() where soubor = f.soubor;
+      zmenene := zmenene + 1;
+    elsif z.md = f.md then
+      update public.zaznamy set md_hash = f.hash where soubor = f.soubor;
+    else
+      konflikty := konflikty || to_jsonb(f.soubor);
+    end if;
+  end loop;
+  if p_uplny then
+    with pryc as (
+      delete from public.zaznamy zz
+       where not zz.web and not zz.smazano and zz.md_hash is not null
+         and not exists (select 1 from jsonb_array_elements(p_soubory) x where x ->> 'soubor' = zz.soubor)
+      returning zz.soubor, zz.md)
+    insert into public.zaznamy_historie (soubor, md, akce) select soubor, md, 'smazáno v souborech' from pryc;
+    get diagnostics smazane = row_count;
+  end if;
+  return jsonb_build_object('nove', nove, 'zmenene', zmenene, 'smazane', smazane, 'konflikty', konflikty);
+end $$;
+
+-- Všechny platné texty {soubor: md} – pro build (tajný klíč) a pro vypravěče
+create or replace function public.mm_zaznamy_vse() returns jsonb
+language sql stable security definer set search_path = public as $$
+  select coalesce(jsonb_object_agg(soubor, md), '{}'::jsonb) from public.zaznamy where not smazano
+$$;
+create or replace function public.mm_zaznamy_gm() returns jsonb
+language plpgsql stable security definer set search_path = public as $$
+begin
+  if not public.mm_je_gm() then
+    raise exception 'jen pro vypravěče' using errcode = '42501';
+  end if;
+  return public.mm_zaznamy_vse();
+end $$;
+
+-- Vypravěč uloží text. p_puvodni = text, ze kterého úprava vyšla (null u nového záznamu):
+-- když se mezitím změnil, uložení se odmítne, aby se nic nepřepsalo.
+create or replace function public.mm_uloz_zaznam(p_soubor text, p_md text, p_puvodni text) returns timestamptz
+language plpgsql security definer set search_path = public as $$
+declare z record;
+begin
+  if not public.mm_je_gm() then
+    raise exception 'jen pro vypravěče' using errcode = '42501';
+  end if;
+  if p_soubor !~ '^[a-z/_-]+/[0-9A-Za-z_.-]+\.md$' and p_soubor not in ('vazby.md', 'rodokmeny.json') then
+    raise exception 'neplatný název souboru %', p_soubor;
+  end if;
+  select * into z from public.zaznamy where soubor = p_soubor for update;
+  if found and not z.smazano and z.md is distinct from p_puvodni then
+    raise exception 'Text se mezitím změnil (jiné okno nebo sestavení). Obnovte stránku a úpravu zopakujte.';
+  end if;
+  if found and p_puvodni is null and not z.smazano then
+    raise exception 'Soubor % už existuje.', p_soubor;
+  end if;
+  if found then
+    insert into public.zaznamy_historie (soubor, md, akce) values (p_soubor, z.md, 'před úpravou na webu');
+    update public.zaznamy set md = p_md, web = true, smazano = false, upraveno = now() where soubor = p_soubor;
+  else
+    insert into public.zaznamy (soubor, md, web) values (p_soubor, p_md, true);
+  end if;
+  insert into public.zaznamy_historie (soubor, md, akce) values (p_soubor, p_md, 'upraveno na webu');
+  return now();
+end $$;
+
+create or replace function public.mm_smaz_zaznam(p_soubor text) returns void
+language plpgsql security definer set search_path = public as $$
+begin
+  if not public.mm_je_gm() then
+    raise exception 'jen pro vypravěče' using errcode = '42501';
+  end if;
+  insert into public.zaznamy_historie (soubor, md, akce) select soubor, md, 'smazáno na webu' from public.zaznamy where soubor = p_soubor;
+  update public.zaznamy set smazano = true, web = true, upraveno = now() where soubor = p_soubor;
+end $$;
+
+-- Historie jednoho textu (posledních 40 verzí)
+create or replace function public.mm_historie(p_soubor text) returns jsonb
+language plpgsql stable security definer set search_path = public as $$
+begin
+  if not public.mm_je_gm() then
+    raise exception 'jen pro vypravěče' using errcode = '42501';
+  end if;
+  return (select coalesce(jsonb_agg(jsonb_build_object('n', n, 'kdy', kdy, 'akce', akce, 'md', md) order by n desc), '[]'::jsonb)
+            from (select * from public.zaznamy_historie where soubor = p_soubor order by n desc limit 40) h);
+end $$;
+
+-- Záloha do gitu (GitHub Actions, tajný klíč): co se změnilo na webu, a potvrzení po zapsání souborů
+create or replace function public.mm_zaloha_seznam() returns jsonb
+language sql stable security definer set search_path = public as $$
+  select coalesce(jsonb_agg(jsonb_build_object('soubor', soubor, 'md', md, 'smazano', smazano, 'hash', md5(md)) order by soubor), '[]'::jsonb)
+    from public.zaznamy where web
+$$;
+create or replace function public.mm_zaloha_hotovo(p_soubory jsonb) returns int
+language plpgsql security definer set search_path = public as $$
+declare n int := 0; k int;
+begin
+  -- jen pokud se text od exportu nezměnil (otisk sedí); jinak zůstane označený k další záloze
+  delete from public.zaznamy z using jsonb_array_elements(p_soubory) x
+   where z.soubor = x ->> 'soubor' and z.smazano and md5(z.md) = x ->> 'hash';
+  get diagnostics k = row_count; n := n + k;
+  update public.zaznamy z set web = false, md_hash = x ->> 'hash'
+    from jsonb_array_elements(p_soubory) x
+   where z.soubor = x ->> 'soubor' and not z.smazano and md5(z.md) = x ->> 'hash';
+  get diagnostics k = row_count; n := n + k;
+  return n;
+end $$;
+
+-- Nahrané obrázky (portréty, erby, obrázky plemen) – {"portrety":{"jiri":{"f":url,"m":url}}, "erby":{…}, "draci":{…}}
+create or replace function public.mm_obrazky() returns jsonb
+language sql stable security definer set search_path = public as $$
+  select coalesce((select hodnota from public.nastaveni where klic = 'obrazky'), '{}'::jsonb)
+$$;
+create or replace function public.mm_nastav_obrazek(p_typ text, p_klic text, p_hodnota jsonb) returns jsonb
+language plpgsql security definer set search_path = public as $$
+declare o jsonb;
+begin
+  if not public.mm_je_gm() then
+    raise exception 'jen pro vypravěče' using errcode = '42501';
+  end if;
+  if p_typ not in ('portrety', 'erby', 'draci') then
+    raise exception 'neznámý druh obrázku %', p_typ;
+  end if;
+  o := coalesce((select hodnota from public.nastaveni where klic = 'obrazky'), '{}'::jsonb);
+  o := jsonb_set(o, array[p_typ], coalesce(o -> p_typ, '{}'::jsonb) || jsonb_build_object(p_klic, p_hodnota));
+  insert into public.nastaveni (klic, hodnota, zmeneno) values ('obrazky', o, now())
+  on conflict (klic) do update set hodnota = excluded.hodnota, zmeneno = now();
+  return o;
+end $$;
+
 -- Práva: veřejnost smí jen číst snimek; vypravěč smí měnit stavy; nahrávat smí jen tajný klíč.
 revoke all on function public.mm_prepocitej(text) from public, anon, authenticated;
-revoke all on function public.mm_nahraj_obsah(text, jsonb, jsonb, jsonb) from public, anon, authenticated;
+revoke all on function public.mm__uloz_obsah(text, jsonb, jsonb, jsonb, text) from public, anon, authenticated;
+revoke all on function public.mm_nahraj_obsah(text, jsonb, jsonb, jsonb, text) from public, anon, authenticated;
+revoke all on function public.mm_uloz_obsah(text, jsonb, jsonb, jsonb, text) from public, anon;
+revoke all on function public.mm_sync_zaznamy(jsonb, boolean) from public, anon, authenticated;
+revoke all on function public.mm_zaznamy_vse() from public, anon, authenticated;
+revoke all on function public.mm_zaznamy_gm() from public, anon;
+revoke all on function public.mm_uloz_zaznam(text, text, text) from public, anon;
+revoke all on function public.mm_smaz_zaznam(text) from public, anon;
+revoke all on function public.mm_historie(text) from public, anon;
+revoke all on function public.mm_zaloha_seznam() from public, anon, authenticated;
+revoke all on function public.mm_zaloha_hotovo(jsonb) from public, anon, authenticated;
+revoke all on function public.mm_obrazky() from public, anon, authenticated;
+revoke all on function public.mm_nastav_obrazek(text, text, jsonb) from public, anon;
+grant execute on function public.mm_uloz_obsah(text, jsonb, jsonb, jsonb, text), public.mm_zaznamy_gm(), public.mm_uloz_zaznam(text, text, text),
+  public.mm_smaz_zaznam(text), public.mm_historie(text), public.mm_nastav_obrazek(text, text, jsonb) to authenticated;
+grant execute on function public.mm_sync_zaznamy(jsonb, boolean), public.mm_zaznamy_vse(), public.mm_zaloha_seznam(),
+  public.mm_zaloha_hotovo(jsonb), public.mm_obrazky(), public.mm__uloz_obsah(text, jsonb, jsonb, jsonb, text) to service_role;
 revoke all on function public.mm_nastav_stavy(jsonb) from public, anon;
 revoke all on function public.mm_stavy() from public, anon;
 revoke all on function public.mm_nastav_hru(jsonb) from public, anon;
@@ -309,14 +515,30 @@ revoke all on function public.mm_uroven(jsonb, jsonb) from public, anon, authent
 grant execute on function public.mm_nastav_stavy(jsonb) to authenticated;
 grant execute on function public.mm_je_gm() to anon, authenticated;
 grant execute on function public.mm_prepocitej(text) to service_role;
-grant execute on function public.mm_nahraj_obsah(text, jsonb, jsonb, jsonb) to service_role;
+grant execute on function public.mm_nahraj_obsah(text, jsonb, jsonb, jsonb, text) to service_role;
 grant execute on function public.mm_orez(jsonb, jsonb), public.mm_zminky(text, jsonb), public.mm_uroven(jsonb, jsonb) to service_role;
 
-revoke insert, update, delete, truncate on public.obsah, public.stavy, public.snimek, public.denik, public.gm, public.nastaveni, public.boj from anon, authenticated;
+revoke insert, update, delete, truncate on public.obsah, public.stavy, public.snimek, public.denik, public.gm, public.nastaveni, public.boj,
+  public.zaznamy, public.zaznamy_historie from anon, authenticated;
+revoke select on public.zaznamy, public.zaznamy_historie from anon, authenticated;
 grant select on public.boj to anon, authenticated;
 revoke select on public.nastaveni from anon, authenticated;
 grant select on public.snimek to anon, authenticated;
 grant select on public.obsah, public.stavy, public.denik, public.gm to authenticated;
+
+-- Úložiště nahraných obrázků (veřejné čtení přes nečitelné adresy, nahrává jen vypravěč)
+do $$
+begin
+  if exists (select 1 from information_schema.schemata where schema_name = 'storage') then
+    insert into storage.buckets (id, name, public) values ('obrazky', 'obrazky', true) on conflict (id) do nothing;
+    execute 'drop policy if exists "obrazky: nahrává vypravěč" on storage.objects';
+    execute 'create policy "obrazky: nahrává vypravěč" on storage.objects for insert to authenticated with check (bucket_id = ''obrazky'' and public.mm_je_gm())';
+    execute 'drop policy if exists "obrazky: mění vypravěč" on storage.objects';
+    execute 'create policy "obrazky: mění vypravěč" on storage.objects for update to authenticated using (bucket_id = ''obrazky'' and public.mm_je_gm())';
+    execute 'drop policy if exists "obrazky: maže vypravěč" on storage.objects';
+    execute 'create policy "obrazky: maže vypravěč" on storage.objects for delete to authenticated using (bucket_id = ''obrazky'' and public.mm_je_gm())';
+  end if;
+end $$;
 
 -- ▼ Doplňte svůj e‑mail (účet založený v Authentication → Users) a spusťte:
 -- insert into public.gm (user_id) select id from auth.users where email = 'VAS@EMAIL.CZ' on conflict do nothing;

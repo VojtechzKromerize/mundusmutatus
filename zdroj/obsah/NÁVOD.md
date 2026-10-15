@@ -1,5 +1,25 @@
 # Jak upravovat obsah webu
 
+## Úpravy přímo na webu (doporučeno)
+Rody, osoby, vazby, rodokmeny, místa v Praze, objevená místa, Kronika, Družina a Draconomicon jsou
+uložené v databázi a vypravěč je upravuje **přímo na webu**: přihlásit se (ikona klíče v nabídce) →
+na stránce osoby, rodu, zápisu, plemene či postavy **Upravit text**, u rodu také **Rodokmen** a **Vazby**.
+Nové záznamy (osoba, rod, zápis Kroniky, plemeno, místo…) vznikají ve vypravěčském přehledu v části
+**Nový záznam** – jsou skryté, dokud je neodhalíš. Hráči změnu uvidí do půl minuty, bez nasazování.
+
+- Každá verze se pamatuje: **Historie** u záznamu ukáže předchozí verze a dovolí je obnovit.
+- Chybu (neexistující rod, neuzavřené ⟦ …) web ohlásí a nic neuloží. **Zkontrolovat texty**
+  ve vypravěčském přehledu projde všechno najednou.
+- Portrét, erb nebo obrázek plemene nahraješ tlačítkem v editoru – web ho sám zmenší a uloží.
+- **Záloha:** jednou denně se texty upravené na webu uloží do souborů v této složce (větev `dev`,
+  GitHub Actions „Záloha textů z webu“; spustit jde i ručně).
+
+## Úpravy v souborech (GitHub, Claude)
+Soubory v této složce jsou zálohou databáze. Když se soubor změní ve větvi `dev`, sestavení změnu
+do databáze přenese – **ledaže byl tentýž záznam mezitím upravený na webu**: pak vyhraje web
+a sestavení vypíše „KONFLIKT“ (soubor se přenese až po další záloze a nové úpravě).
+Před úpravou souborů je proto dobré spustit zálohu, aby soubory odpovídaly webu.
+
 Všechno v této složce jsou obyčejné textové soubory. Dají se upravovat přímo na GitHubu
 (otevřít soubor → tužka ✎ → upravit → *Commit changes* do větve `dev`).
 Po uložení Netlify web sám sestaví; náhled je na https://dev--mundusmutatus.netlify.app.

@@ -7,9 +7,9 @@
 Tajemství se ve zdroji značí  ⟦tajný text⟧  nebo  ⟦tajný text¦text pro hráče⟧.
 Obsah (rody, osoby, vazby, Praha, Kronika, Družina, objevená místa) je v zdroj/obsah/ jako Markdown
 s hlavičkou – viz zdroj/obsah/NÁVOD.md.
-Jen standardní knihovna Pythonu (běží i na Netlify).
+Jen standardní knihovna Pythonu a Node.js pro zdroj/generator.js (obojí běží i na Netlify).
 """
-import hashlib, html, json, os, re, shutil, sys, urllib.error, urllib.request
+import hashlib, json, os, re, shutil, subprocess, sys, urllib.error, urllib.request
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, "zdroj", "koruna.html")
@@ -31,33 +31,6 @@ def fail(msg):
     sys.exit("CHYBA: " + msg)
 
 # ---------- Markdown s hlavičkou ----------
-def inline(t):
-    t = html.escape(t, quote=False)
-    t = re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", t)
-    t = re.sub(r"\*(.+?)\*", r"<i>\1</i>", t)
-    t = re.sub(r"\[(.+?)\]\((.+?)\)", r'<a href="\2">\1</a>', t)
-    return t
-
-def md(body):
-    out = []
-    for block in re.split(r"\n\s*\n", body.strip()):
-        lines = block.strip().split("\n")
-        if all(l.strip().startswith("|") for l in lines):
-            rows = [[c.strip() for c in l.strip().strip("|").split("|")] for l in lines]
-            head, body = (rows[0], rows[2:]) if len(rows) > 1 and all(set(c) <= set("-: ") for c in rows[1]) else (None, rows)
-            t = '<div class="rtw"><table class="rtab">'
-            if head:
-                t += "<thead><tr>" + "".join(f'<th scope="col">{inline(c)}</th>' for c in head) + "</tr></thead>"
-            t += "<tbody>" + "".join("<tr>" + "".join(f"<td>{inline(c)}</td>" for c in r) + "</tr>" for r in body) + "</tbody></table></div>"
-            out.append(t)
-        elif all(l.lstrip().startswith(("- ", "* ")) for l in lines):
-            out.append("<ul>" + "".join("<li>" + inline(l.lstrip()[2:]) + "</li>" for l in lines) + "</ul>")
-        elif lines[0].startswith("## "):
-            out.append("<h3>" + inline(lines[0][3:]) + "</h3>" + ("<p>" + inline(" ".join(lines[1:])) + "</p>" if lines[1:] else ""))
-        else:
-            out.append("<p>" + inline(" ".join(l.strip() for l in lines)) + "</p>")
-    return "\n".join(out)
-
 def parse_head(text, where):
     """Hlavička: řádky „klíč: hodnota“; seznam = „klíč:“ a pod ním řádky „  - položka“."""
     meta, key = {}, None
@@ -109,65 +82,6 @@ def lst(v):
         return [x.strip() for x in v if x.strip()]
     return [x.strip() for x in v.split(",") if x.strip()] if v else []
 
-def zapisy():
-    out = []
-    for z in read_dir("kronika"):
-        for k in ("id", "title", "date", "place"):
-            if not z.get(k):
-                fail(f"kronika/{z['_file']}: chybí '{k}'")
-        seed(z["id"], z, "kronika/" + z["_file"])  # skryta = koncept, potkali = zveřejněno
-        out.append({"id": z["id"], "n": z.get("n", ""), "date": z["date"], "datum": z.get("datum", ""),
-                    "place": z["place"], "route": lst(z.get("route")) or [z["place"]],
-                    "title": z["title"], "text": md(z["_body"]),
-                    "praha": [int(x) for x in lst(z.get("praha")) if x.isdigit()],
-                    "druzina": int(z["druzina"]) if str(z.get("druzina", "")).strip().isdigit() else None,
-                    "hodina": int(str(z["hodina"]).split(":")[0]) % 24 if str(z.get("hodina", "")).strip().split(":")[0].isdigit() else None})
-    return out
-
-def druzina():
-    out = []
-    for p in read_dir("druzina"):
-        if not p.get("id") or not p.get("n"):
-            fail(f"druzina/{p['_file']}: chybí 'id' nebo 'n'")
-        o = {"id": p["id"], "n": p["n"]}
-        for k in ("epi", "cls", "faith", "origin", "img"):
-            if p.get(k):
-                o[k] = p[k]
-        if p.get("sv"):
-            o["sv"] = int(p["sv"])
-        o["ctn"], o["ner"] = lst(p.get("ctnosti")), lst(p.get("nerresti") or p.get("neresti"))
-        o["ties"] = [[t.split(":", 1)[0].strip(), t.split(":", 1)[1].strip()] for t in lst(p.get("vazby")) if ":" in t]
-        o["x"] = md(p["_body"])
-        out.append(o)
-    return out
-
-# ---------- odhalování: výchozí stavy ----------
-UROVNE = {"skryta": 0, "skrytá": 0, "skryty": 0, "skrytý": 0, "skryte": 0, "skryté": 0, "0": 0,
-          "slyseli": 1, "slyšeli": 1, "1": 1, "potkali": 2, "znaji": 2, "znají": 2, "2": 2}
-SEED = {}
-
-def seed(eid, meta, where):
-    v = str(meta.get("stav", "") or "skryta").strip().lower()  # výchozí: družina nic neví
-    if v not in UROVNE:
-        fail(f"{where}: stav musí být skryta / slyseli / potkali (je „{v}“)")
-    if eid in SEED:
-        fail(f"{where}: id „{eid}“ už používá jiný rod, osoba nebo místo")
-    SEED[eid] = UROVNE[v]
-
-def mista():
-    out = []
-    for p in read_dir("mista"):
-        w = "mista/" + p["_file"]
-        try:
-            o = {"name": p["name"], "lo": float(p["lo"]), "la": float(p["la"]), "note": p.get("note", ""), "z": p.get("zapis", "")}
-        except (KeyError, ValueError):
-            fail(f"{w}: potřebuje name, lo, la")
-        o["id"] = p.get("id") or "m-" + re.sub(r"^\d+-", "", p["_file"][:-3])
-        seed(o["id"], p, w)
-        out.append(o)
-    return out
-
-
 ANO = lambda v: str(v).strip().lower() in ("ano", "true", "1", "yes")
 
 def num(v, where):
@@ -175,104 +89,6 @@ def num(v, where):
         return float(v.replace(",", "."))
     except ValueError:
         fail(f"{where}: „{v}“ není číslo")
-
-def rody():
-    fam, short, arms = [], {}, {}
-    for r in read_dir("rody"):
-        w = "rody/" + r["_file"]
-        for k in ("id", "zeme", "nazev", "vyznani"):
-            if not r.get(k):
-                fail(f"{w}: chybí '{k}'")
-        seats = []
-        for sd in r.get("sidla") or []:
-            parts = [x.strip() for x in sd.split("|")]
-            if len(parts) < 3:
-                fail(f"{w}: sídlo „{sd}“ má mít tvar  název | délka | šířka")
-            seat = [parts[0], num(parts[1], w), num(parts[2], w)]
-            if len(parts) > 3 and parts[3]:
-                seat.append(parts[3])
-            seats.append(seat)
-        o = {"id": r["id"], "land": r["zeme"], "name": r["nazev"], "conf": r["vyznani"], "head": r.get("hlava", ""),
-             "seats": seats, "stance": r.get("postoj", ""), "note": text(r["_body"])}
-        if ANO(r.get("mesto", "")): o["city"] = True
-        if ANO(r.get("soused", "")): o["nbr"] = True
-        if ANO(r.get("nemapovat", "")): o["nomap"] = True
-        if any(f["id"] == o["id"] for f in fam):
-            fail(f"{w}: id „{o['id']}“ už má jiný rod")
-        fam.append(o)
-        seed(o["id"], r, w)
-        if r.get("kratce"): short[o["id"]] = r["kratce"]
-        e = r.get("erb") or o["id"]
-        if os.path.exists(os.path.join(ROOT, "art", "erby", e + ".webp")):
-            arms[o["id"]] = f"art/erby/{e}.webp"
-    return fam, short, arms
-
-def osoby(ids):
-    out = []
-    for p in read_dir("osoby"):
-        w = "osoby/" + p["_file"]
-        for k in ("id", "jmeno", "rod", "role"):
-            if not p.get(k):
-                fail(f"{w}: chybí '{k}'")
-        if p["rod"] not in ids:
-            fail(f"{w}: rod „{p['rod']}“ neexistuje")
-        o = {"id": p["id"], "n": p["jmeno"], "r": p["rod"], "role": p["role"]}
-        if p.get("sidlo"): o["seat"] = p["sidlo"]
-        o["x"] = text(p["_body"])
-        if any(q["id"] == o["id"] for q in out):
-            fail(f"{w}: id „{o['id']}“ už má jiná osoba")
-        seed(o["id"], p, w)
-        out.append(o)
-    return out
-
-def vazby(ids, removed):
-    out = []
-    for i, line in lines_file("vazby.md"):
-        parts = [x.strip() for x in line.split("|", 2)]
-        if len(parts) < 3:
-            fail(f"vazby.md, řádek {i}: má mít tvar  - druh | rod, rod | text")
-        kind = parts[0].split()
-        secret = kind[0] in ("tajné", "tajne")
-        t = kind[-1]
-        if t not in ("rod", "spoj", "spor"):
-            fail(f"vazby.md, řádek {i}: neznámý druh „{t}“ (rod / spoj / spor)")
-        rids = [x.strip() for x in parts[1].split(",") if x.strip()]
-        for x in rids:
-            if x not in ids:
-                fail(f"vazby.md, řádek {i}: rod „{x}“ neexistuje")
-        o = {"t": t, "ids": rids, "x": parts[2]}
-        if secret:
-            removed.append(parts[2])
-            o["$gm"] = True
-        out.append(o)
-    return out
-
-def praha(ids, pids):
-    out = []
-    for p in read_dir("praha"):
-        w = "praha/" + p["_file"]
-        for k in ("cislo", "druh", "mesto", "nazev", "poloha"):
-            if not p.get(k):
-                fail(f"{w}: chybí '{k}'")
-        if p["druh"] not in ("dvur", "urad", "cirkev", "hospoda", "anomalie"):
-            fail(f"{w}: druh musí být dvur / urad / cirkev / hospoda / anomalie")
-        if p["mesto"] not in ("hrad", "mala", "stare", "nove", "vys", "okoli"):
-            fail(f"{w}: město musí být hrad / mala / stare / nove / vys / okoli")
-        xy = [num(v, w) for v in p["poloha"].split(",")]
-        o = {"n": int(p["cislo"]), "k": p["druh"], "t": p["mesto"], "name": p["nazev"], "c": p.get("vyznani", "")}
-        if p.get("rod"):
-            if p["rod"] not in ids: fail(f"{w}: rod „{p['rod']}“ neexistuje")
-            o["r"] = p["rod"]
-        if p.get("osoba"):
-            if p["osoba"] not in pids: fail(f"{w}: osoba „{p['osoba']}“ neexistuje")
-            o["p"] = p["osoba"]
-        o["d"] = text(p["_body"])
-        o["pos"] = xy
-        if any(q["n"] == o["n"] for q in out):
-            fail(f"{w}: číslo {o['n']} už má jiné místo")
-        out.append(o)
-    out.sort(key=lambda o: o["n"])
-    return out
 
 def ulice():
     out = []
@@ -373,35 +189,6 @@ def svet_mesta():
     return out
 
 
-def draconomicon():
-    kap = []
-    for k in read_dir("draconomicon/kapitoly"):
-        if not k.get("id") or not k.get("title"):
-            fail(f"draconomicon/kapitoly/{k['_file']}: chybí 'id' nebo 'title'")
-        kap.append({"id": k["id"], "t": k["title"], "h": md(k["_body"])})
-    pl = []
-    for p in read_dir("draconomicon/plemena"):
-        w = "draconomicon/plemena/" + p["_file"]
-        for k in ("id", "nazev", "trida"):
-            if not p.get(k):
-                fail(f"{w}: chybí '{k}'")
-        if p["trida"] not in ("L", "S", "T"):
-            fail(f"{w}: třída musí být L, S nebo T")
-        img = p.get("obrazek") or p["id"]
-        if not os.path.exists(os.path.join(ROOT, "art", "draci", img + ".webp")):
-            img = ""
-        seed(p["id"], p, w)
-        pl.append({"id": p["id"], "n": p["nazev"], "j": p.get("jinak", ""), "la": p.get("latin", ""), "tr": p["trida"], "vz": p.get("vzacnost", ""),
-                   "rod": p.get("rod", ""), "pd": p.get("pridomek", ""), "img": img, "prof": [p.get(k, "") for k in ("kridla", "ocas", "stavba", "let", "schopnost")], "h": md(p["_body"])})
-    ids = [x["id"] for x in kap + pl] + ["plemena"]
-    if len(ids) != len(set(ids)):
-        fail("draconomicon: kapitoly a plemena musí mít různá id")
-    return {"kap": kap, "pl": pl}
-
-def portrety():
-    d = os.path.join(ROOT, "art", "portrety")
-    return sorted(fn[:-7] for fn in os.listdir(d) if fn.endswith("-m.webp")) if os.path.isdir(d) else []
-
 # ---------- tajemství ----------
 SECRET = re.compile(r"⟦(.*?)⟧", re.S)
 
@@ -465,80 +252,10 @@ def rozbal(j, st, texty=True):
         return zminky(j, st)
     return j
 
-def bez_tajnych(j, gm):
-    """Tajné vazby (značka $gm): hráčům se vynechají, vypravěči se jen smaže značka."""
-    if isinstance(j, dict):
-        return {k: bez_tajnych(v, gm) for k, v in j.items() if k != "$gm"}
-    if isinstance(j, list):
-        return [bez_tajnych(v, gm) for v in j if gm or not (isinstance(v, dict) and v.get("$gm"))]
-    return j
+class ChybiFunkce(Exception):
+    pass
 
-def odhalovaci_data(fam, short, arms, people, rel, praha_pl, mista_l, trees, portr_stem, zapisy_l, party, draci, drak_stem):
-    prod = {p["id"]: p["r"] for p in people}
-    pids, rids = set(prod), {f["id"] for f in fam}
-    pref = lambda pid: {"$g": [pid, prod[pid]], "$x": pid}
-    rref = lambda rid: {"$g": rid, "$x": rid}
-    F = []
-    for f in fam:
-        base = {k: v for k, v in f.items() if k not in ("stance", "note")}
-        base.update({"stance": "", "note": "", "sl": True})
-        F.append({"$g": f["id"], **base, "$plne": {"stance": f["stance"], "note": f["note"], "sl": False}})
-    P = []
-    for p in people:
-        base = {"id": p["id"], "n": p["n"], "r": p["r"], "role": p["role"], "x": "", "sl": True}
-        plne = {"x": p["x"], "sl": False}
-        if p.get("seat"):
-            plne["seat"] = p["seat"]
-        P.append({"$g": p["r"], "$x": {"$g": p["id"], **base, "$plne": plne}})
-    REL_ = [{"$g": list(r["ids"]), **r} for r in rel]
-    PR = []
-    for q in praha_pl:
-        q = dict(q)
-        if "r" in q: q["r"] = rref(q["r"])
-        if "p" in q: q["p"] = pref(q["p"])
-        PR.append(q)
-    MI = [{"$g": m["id"], "id": m["id"], "name": m["name"], "lo": m["lo"], "la": m["la"], "note": "", "z": "",
-           "$plne": {"note": m["note"], "z": m["z"]}} for m in mista_l]
-    def tnode(n, prvek, where):
-        n = dict(n)
-        for k in ("p", "pl"):
-            if k in n and n[k] not in pids:
-                fail(f"rodokmeny.json, {where}: osoba „{n[k]}“ neexistuje")
-        for k in ("r", "rl"):
-            if k in n and n[k] not in rids:
-                fail(f"rodokmeny.json, {where}: rod „{n[k]}“ neexistuje")
-        if "pl" in n: n["pl"] = pref(n["pl"])
-        if "r" in n: n["r"] = rref(n["r"])
-        if "rl" in n: n["rl"] = rref(n["rl"])
-        for k in ("kids", "sp"):
-            if k in n: n[k] = [tnode(c, True, where) for c in n[k]]
-        if "p" in n:
-            if prvek:
-                n = {"$g": [n["p"], prod[n["p"]]], **n}
-            else:
-                n["p"] = pref(n["p"])
-        return n
-    T = {}
-    for rid, t in trees.items():
-        if rid not in rids:
-            fail(f"rodokmeny.json: rod „{rid}“ neexistuje")
-        t = dict(t)
-        for k in ("root", "main"):
-            if k in t: t[k] = tnode(t[k], False, rid)
-        if "kids" in t: t["kids"] = [tnode(c, True, rid) for c in t["kids"]]
-        T[rid] = {"$g": rid, "$u": 2, "$x": t}
-    PL = []
-    for d in draci["pl"]:
-        base = {k: v for k, v in d.items() if k not in ("img", "prof", "h")}
-        base.update({"img": "", "prof": ["", "", "", "", ""], "h": "", "sl": True})
-        PL.append({"$g": d["id"], **base, "$plne": {"img": drak_stem.get(d["img"], d["img"]), "prof": d["prof"], "h": d["h"], "sl": False}})
-    return {"DRACI": {"kap": draci["kap"], "pl": PL}, "FAM": F, "PEOPLE": P, "REL": REL_, "PRAHA_PLACES": PR, "MISTA": MI, "TREES": T,
-            "SHORT": {k: {"$g": k, "$x": v} for k, v in short.items()},
-            "ARMS": {k: {"$g": k, "$x": v} for k, v in arms.items()},
-            "PORTR": {pid: {"$g": prod[pid], "$x": {"$g": pid, "$u": 2, "$x": stem}} for pid, stem in portr_stem.items()},
-            "ZAPISY": [{"$g": z["id"], **z} for z in zapisy_l], "PARTY": party}
-
-def sb_rpc(fn, body):
+def sb_rpc(fn, body, volitelna=False):
     hdr = {"apikey": SB_SECRET, "Content-Type": "application/json"}
     if SB_SECRET.startswith("eyJ"):
         hdr["Authorization"] = "Bearer " + SB_SECRET
@@ -547,47 +264,101 @@ def sb_rpc(fn, body):
         with urllib.request.urlopen(req, timeout=120) as r:
             return json.loads(r.read() or b"null")
     except urllib.error.HTTPError as e:
-        fail(f"Supabase {fn}: HTTP {e.code} {e.read().decode('utf-8', 'replace')[:400]}")
+        txt = e.read().decode("utf-8", "replace")
+        if volitelna and e.code in (400, 404) and "PGRST202" in txt:
+            raise ChybiFunkce(fn)
+        fail(f"Supabase {fn}: HTTP {e.code} {txt[:400]}")
     except urllib.error.URLError as e:
         fail(f"Supabase {fn}: {e.reason}")
+
+# ---------- obsah: soubory, obrázky, generátor ----------
+# Rody, osoby, vazby, rodokmeny, Praha, místa, Kronika, Družina a Draconomicon zpracovává zdroj/generator.js
+# (stejný kód používá web, když vypravěč upraví text). Na webu napojeném na databázi je zdrojem pravdy
+# databáze (tabulka zaznamy); soubory v repozitáři jsou její záloha a nové či změněné soubory se do ní přenesou.
+ZAZNAMY_SLOZKY = ("rody/", "osoby/", "kronika/", "druzina/", "mista/", "praha/", "draconomicon/kapitoly/", "draconomicon/plemena/")
+ZAZNAMY_SOUBORY = ("vazby.md", "rodokmeny.json")
+GENERATOR = os.path.join(ROOT, "zdroj", "generator.js")
+
+def je_zaznam(rel):
+    name = rel.rsplit("/", 1)[-1]
+    return rel in ZAZNAMY_SOUBORY or (rel.startswith(ZAZNAMY_SLOZKY) and rel.endswith(".md") and not name.startswith("_") and rel.count("/") == (2 if rel.startswith("draconomicon/") else 1))
+
+def soubory_z_disku():
+    out = {}
+    for koren, _, files in os.walk(OBSAH):
+        for fn in files:
+            rel = os.path.relpath(os.path.join(koren, fn), OBSAH).replace(os.sep, "/")
+            if je_zaznam(rel):
+                out[rel] = open(os.path.join(koren, fn), encoding="utf-8").read().replace("\r\n", "\n")
+    return dict(sorted(out.items()))
+
+def otisk(t):
+    return hashlib.md5(t.encode("utf-8")).hexdigest()
+
+def manifest_z_disku():
+    """Které obrázky existují: erby rodů, portréty osob (+ zmenšenina -m), obrázky dračích plemen."""
+    art = os.path.join(ROOT, "art")
+    ls = lambda d: sorted(os.listdir(os.path.join(art, d))) if os.path.isdir(os.path.join(art, d)) else []
+    erby = {fn[:-5]: f"art/erby/{fn}" for fn in ls("erby") if fn.endswith(".webp") and os.path.isfile(os.path.join(art, "erby", fn))}
+    portrety = [fn[:-7] for fn in ls("portrety") if fn.endswith("-m.webp")]
+    draci = [fn[:-5] for fn in ls("draci") if fn.endswith(".webp") and not fn.endswith(("-h.webp", "-m.webp"))]
+    if DB:  # nečitelné názvy, aby se nedalo uhodnout, kdo či co existuje
+        P = {pid: hashlib.sha256(f"mm-portret:{SB_SECRET}:{pid}".encode()).hexdigest()[:24] for pid in portrety}
+        D = {i: hashlib.sha256(f"mm-drak:{SB_SECRET}:{i}".encode()).hexdigest()[:24] for i in draci}
+    else:
+        P, D = {pid: pid for pid in portrety}, {i: i for i in draci}
+    return {"erby": erby, "portrety": P, "draci": D}
+
+def generuj(soubory, manifest):
+    try:
+        r = subprocess.run(["node", GENERATOR], input=json.dumps({"soubory": soubory, "manifest": manifest}, ensure_ascii=False),
+                           capture_output=True, text=True, encoding="utf-8", timeout=120)
+    except FileNotFoundError:
+        fail("pro sestavení je potřeba Node.js (příkaz node)")
+    if r.returncode == 2:
+        fail(r.stderr.strip())
+    if r.returncode != 0:
+        fail("generátor obsahu selhal: " + r.stderr.strip()[-800:])
+    return json.loads(r.stdout)
 
 # ---------- sestavení ----------
 s = open(SRC, encoding="utf-8").read()
 J = lambda v: json.dumps(v, ensure_ascii=False, separators=(",", ":"))
-removed_items = []
-FAM, SHORT, ARMS = rody()
-IDS = {f["id"] for f in FAM}
-PEOPLE = osoby(IDS)
-PIDS = {p["id"] for p in PEOPLE}
-SV, SVM = svet(), svet_mesta()
-TREES = json.load(open(os.path.join(OBSAH, "rodokmeny.json"), encoding="utf-8"))
-PORTR_IDS = [x for x in portrety() if x in PIDS]
-if DB:  # portréty pod nečitelnými názvy, aby se nedalo uhodnout, kdo existuje
-    STEM = {pid: hashlib.sha256(f"mm-portret:{SB_SECRET}:{pid}".encode()).hexdigest()[:24] for pid in PORTR_IDS}
-else:
-    STEM = {pid: pid for pid in PORTR_IDS}
-DRACI_ = draconomicon()
-DRAK_IMG = sorted({d["img"] for d in DRACI_["pl"] if d["img"]})
-if DB:  # obrázky plemen také pod nečitelnými názvy
-    DSTEM = {i: hashlib.sha256(f"mm-drak:{SB_SECRET}:{i}".encode()).hexdigest()[:24] for i in DRAK_IMG}
-else:
-    DSTEM = {i: i for i in DRAK_IMG}
-ODH = odhalovaci_data(FAM, SHORT, ARMS, PEOPLE, vazby(IDS, removed_items), praha(IDS, PIDS), mista(), TREES, STEM, zapisy(), druzina(), DRACI_, DSTEM)
-STAT = {"PSTREETS": ulice(), "SVET": SV, "SVETMESTA": SVM, "SVETDRZ": svet_drzavy({o["id"] for o in SV}),
-        "SVETCESTY": svet_cesty(SVM)}
-
-def pro_hrace(txt):
-    t, rem = strip_secrets(txt)
-    return t.replace("✦ ", "").replace("✦", ""), rem
-
-_odh = J(ODH)
-HRAC_TXT, rem1 = pro_hrace(_odh)
-HRAC = bez_tajnych(json.loads(HRAC_TXT), False)            # s branami – nahrává se do databáze
-GMD = rozbal(bez_tajnych(json.loads(show_secrets(_odh)), True), None, texty=False)  # vypravěč vidí vše
+GEN_VERZE = otisk(open(GENERATOR, encoding="utf-8").read())[:12]
+SOUBORY = soubory_z_disku()
+MANIFEST = manifest_z_disku()
+if DB:
+    # 1) změny ze souborů do databáze – jen na větvi, kam se zálohuje (jinak by starší větev přepsala novější texty)
+    sync_vetve = [v.strip() for v in os.environ.get("MM_SYNC_VETVE", "dev").split(",") if v.strip()]
+    try:
+        if VETEV in sync_vetve:
+            generuj(SOUBORY, MANIFEST)  # nejdřív kontrola souborů – chybný soubor se do databáze nedostane
+            r = sb_rpc("mm_sync_zaznamy", {"p_soubory": [{"soubor": k, "md": v, "hash": otisk(v)} for k, v in SOUBORY.items()], "p_uplny": True}, True)
+            print(f"supabase: ze souborů nových {r['nove']}, změněných {r['zmenene']}, smazaných {r['smazane']}")
+            for k in r.get("konflikty") or []:
+                print(f"supabase: KONFLIKT {k} – na webu upraveno od poslední zálohy, ponechávám verzi z webu")
+        # 2) obsah se generuje z databáze (zdroj pravdy); nahrané obrázky mají přednost před soubory
+        z = sb_rpc("mm_zaznamy_vse", {}, True)
+        if z:
+            SOUBORY = dict(sorted(z.items()))
+        else:
+            print("supabase: databáze zatím nemá žádné texty – používám soubory z repozitáře")
+        nahrane = sb_rpc("mm_obrazky", {}, True) or {}
+        for typ in ("erby", "portrety", "draci"):
+            MANIFEST[typ].update(nahrane.get(typ) or {})
+    except ChybiFunkce as e:
+        print(f"supabase: v databázi chybí funkce {e} – spusťte aktuální supabase/schema.sql; zatím sestavuji ze souborů")
+G = generuj(SOUBORY, MANIFEST)
+HRAC, GMD, SEED = G["hrac"], G["gm"], G["seed"]
+GMD["MANIFEST"] = MANIFEST
+STAT = {"PSTREETS": ulice(), "SVET": svet(), "SVETMESTA": svet_mesta()}
+STAT["SVETDRZ"] = svet_drzavy({o["id"] for o in STAT["SVET"]})
+STAT["SVETCESTY"] = svet_cesty(STAT["SVETMESTA"])
 _stat = J(STAT)
-STAT_H_TXT, rem2 = pro_hrace(_stat)
-STAT_H, STAT_G = json.loads(STAT_H_TXT), json.loads(show_secrets(_stat))
-secrets_all = rem1 + rem2 + removed_items
+STAT_H_TXT, rem2 = strip_secrets(_stat)
+STAT_H, STAT_G = json.loads(STAT_H_TXT.replace("✦ ", "").replace("✦", "")), json.loads(show_secrets(_stat))
+secrets_all = G["odstranene"] + rem2
+ODH_KLICE = list(HRAC)
 
 if "--vypis" in sys.argv:  # pro testy: data s branami a výchozí stavy
     _d = sys.argv[sys.argv.index("--vypis") + 1]
@@ -603,7 +374,7 @@ else:
     DATA = {**rozbal(HRAC, SEED), **STAT_H}
 
 # značky ve zdroji → čtení z window.__D
-for key in list(ODH) + list(STAT):
+for key in ODH_KLICE + list(STAT):
     for empty in ("[]", "{}"):
         tag = f"/*@{key}@*/{empty}"
         if tag in s:
@@ -611,12 +382,13 @@ for key in list(ODH) + list(STAT):
             break
     else:
         fail(f"ve zdroji chybí značka /*@{key}@*/")
-if "/*@GM@*/false" not in s or "/*@MMDATA@*/" not in s:
-    fail("ve zdroji chybí značka /*@GM@*/ nebo /*@MMDATA@*/")
+for tag in ("/*@GM@*/false", "/*@MMDATA@*/"):
+    if tag not in s:
+        fail(f"ve zdroji chybí značka {tag}")
 s = s.replace("/*@GM@*/false", "!!__D.GM")
 safe = lambda v: J(v).replace("</", "<\\/")
 if DB:
-    s = s.replace("/*@MMDATA@*/", "window.MMCFG=" + safe({"url": SB_URL, "key": SB_KEY, "vetev": VETEV}) + ";window.__S=" + safe(STAT_H) + ";")
+    s = s.replace("/*@MMDATA@*/", "window.MMCFG=" + safe({"url": SB_URL, "key": SB_KEY, "vetev": VETEV, "gen": GEN_VERZE}) + ";window.__S=" + safe(STAT_H) + ";")
     if '<script id="mmhlavni">' not in s:
         fail('ve zdroji chybí <script id="mmhlavni">')
     s = s.replace('<script id="mmhlavni">', '<script type="text/x-mm" id="mmhlavni">')
@@ -647,27 +419,28 @@ page = ('<!doctype html>\n<html lang="cs">\n<head>\n<meta charset="utf-8">\n'
         + head + reset + "</head>\n<body>\n" + body + "\n</body>\n</html>\n")
 
 if DB:
-    ver = sb_rpc("mm_nahraj_obsah", {"p_vetev": VETEV, "p_hrac": HRAC,
-                                     "p_gm": {**GMD, **{k: v for k, v in STAT_G.items() if v != STAT_H.get(k)}},
-                                     "p_vychozi": SEED})
+    _arg = {"p_vetev": VETEV, "p_hrac": HRAC, "p_gm": {**GMD, **{k: v for k, v in STAT_G.items() if v != STAT_H.get(k)}}, "p_vychozi": SEED}
+    try:
+        ver = sb_rpc("mm_nahraj_obsah", {**_arg, "p_gen": GEN_VERZE}, True)
+    except ChybiFunkce:
+        ver = sb_rpc("mm_nahraj_obsah", _arg)
     print(f"supabase: obsah větve „{VETEV}“ nahrán, verze výřezu {ver}")
 
 shutil.rmtree(OUT, ignore_errors=True)
 os.makedirs(OUT)
 open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(page)
+if DB:  # generátor si stáhne jen vypravěč, když upravuje texty na webu
+    shutil.copyfile(GENERATOR, os.path.join(OUT, f"generator-{GEN_VERZE}.js"))
 shutil.copytree(os.path.join(ROOT, "art"), os.path.join(OUT, "art"), ignore=shutil.ignore_patterns("portrety", "draci") if DB else None)
 if DB:
-    src_d, dst_d = os.path.join(ROOT, "art", "draci"), os.path.join(OUT, "art", "draci")
-    os.makedirs(dst_d)
-    for img, stem in DSTEM.items():
-        for suf in ("", "-h", "-m"):
-            if os.path.exists(os.path.join(src_d, f"{img}{suf}.webp")):
-                shutil.copyfile(os.path.join(src_d, f"{img}{suf}.webp"), os.path.join(dst_d, f"{stem}{suf}.webp"))
-    src_p, dst_p = os.path.join(ROOT, "art", "portrety"), os.path.join(OUT, "art", "portrety")
-    os.makedirs(dst_p)
-    for pid, stem in STEM.items():
-        for suf in ("", "-m"):
-            if os.path.exists(os.path.join(src_p, f"{pid}{suf}.webp")):
-                shutil.copyfile(os.path.join(src_p, f"{pid}{suf}.webp"), os.path.join(dst_p, f"{stem}{suf}.webp"))
+    for slozka, mapa, pripony in (("draci", MANIFEST["draci"], ("", "-h", "-m")), ("portrety", MANIFEST["portrety"], ("", "-m"))):
+        src_d, dst_d = os.path.join(ROOT, "art", slozka), os.path.join(OUT, "art", slozka)
+        os.makedirs(dst_d)
+        for jm, stem in mapa.items():
+            if not isinstance(stem, str):
+                continue  # nahraný obrázek – leží v úložišti Supabase
+            for suf in pripony:
+                if os.path.exists(os.path.join(src_d, f"{jm}{suf}.webp")):
+                    shutil.copyfile(os.path.join(src_d, f"{jm}{suf}.webp"), os.path.join(dst_d, f"{stem}{suf}.webp"))
 mode = "vypravěčská" if GM else ("hráčská, napojená na databázi" if DB else "hráčská, statická")
 print(f"ok: {OUT}/index.html ({len(page)//1024} kB), {mode} verze")
