@@ -255,7 +255,7 @@ header.site{display:flex;flex-direction:column;gap:0;border:0;padding:0}
 @media (prefers-reduced-motion:reduce){.svitek .svlist,.svitek .roll{transition:none}}
 .sitenav{align-items:baseline}
 @media (max-width:640px){.svitek .svlist{min-width:0;padding:0 12px}.svitek .svlist a{font-size:1.05rem}.navdd:hover .svlist,.navdd:focus-within .svlist,.navdd.open .svlist{padding:8px 12px}.svitek .roll{margin:0 -8px}}
-/* hlavička: velké logo jen na úvodu, jinde menší; při posunu se v liště ukáže malé logo */
+/* hlavička: na všech stránkách stejné menší logo; při posunu se v liště ukáže malé logo */
 .logo{width:min(100%,430px)}
 .secsub{font-size:clamp(1.05rem,2.4vw,1.35rem);margin:0 auto 4px}
 .navlinks{display:flex;flex-wrap:wrap;justify-content:center;align-items:baseline;gap:4px 22px}
@@ -273,7 +273,6 @@ header.site{display:flex;flex-direction:column;gap:0;border:0;padding:0}
 @media (max-width:640px){
   .sitenav{position:sticky!important;top:0;flex-wrap:nowrap;justify-content:space-between;gap:10px;padding:6px 10px}
   .navmark{display:block}.navmark img{height:26px}
-  .sitenav:not(.stuck) .navmark{visibility:hidden}
   .navtoggle{display:inline-flex}
   .navlinks{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;align-items:stretch;gap:2px;background:var(--paper);border:1px solid var(--rule);border-top:0;padding:10px 14px 14px;box-shadow:0 10px 18px -10px rgba(0,0,0,.4);max-height:calc(100vh - 60px);overflow:auto}
   .sitenav.open .navlinks{display:flex}
@@ -285,6 +284,7 @@ header.site{display:flex;flex-direction:column;gap:0;border:0;padding:0}
   .navlinks .navdd .svlist a{font-size:1.1rem;padding:4px 0}
   .navlinks .gsearch{order:-1;margin-bottom:6px}
   .logo{width:min(100%,300px)}
+  header.site .logo{display:none}
 }
 .sitenav a:focus-visible,.subnav a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 main{display:block}
@@ -3550,6 +3550,7 @@ document.addEventListener("click",e=>{const b=e.target.closest("[data-partymap]"
 /* ---------- site navigation: views, house and person articles ---------- */
 const VIEWS=["uvod","svet","mapa","praha","desky","druzina","artikule","draconomicon","kronika"];
 const SUBT={svet:"Známý svět · mocnosti léta Páně 1458",praha:"Praha · čtyři města pražská",uvod:"Novinky",mapa:"Koruna česká k 3. březnu léta Páně 1458",desky:"Rody a Panstvo",artikule:"Pravidla",druzina:"Hrdinové",draconomicon:"O dracích",kronika:"Kronika Vojtěcha z Kroměříže"};
+const TITL={svet:"Známý svět",praha:"Praha",mapa:"Koruna česká k 3. březnu léta Páně 1458",desky:"Zemské desky",artikule:"Artikule tažení",druzina:"Družina",draconomicon:"Draconomicon",kronika:"Kronika Vojtěcha z Kroměříže"};
 let curView=null;
 function navTo(h){if(location.hash!==h)history.pushState(null,"",h);route()}
 function maplinkBtn(f,sd){return `<button type="button" class="maplink" data-id="${f.id}" data-place="${sd[0]}">${f.city&&CARMS[sd[0]]?`<img class="cmini" src="${CARMS[sd[0]]}" alt="">`:""}${sd[0]}</button>`}
@@ -3641,7 +3642,7 @@ function route(){
   document.querySelectorAll("[data-navgrp]").forEach(n=>n.classList.toggle("on",n.dataset.navgrp.split(" ").includes(view)));
   {const dd=document.getElementById("navmapy");dd.classList.remove("open");dd.querySelector(".ddtop").setAttribute("aria-expanded","false")}
   document.getElementById("secsub").textContent=SUBT[view];
-  document.title=view==="uvod"?"Mundus Mutatus":"Mundus Mutatus · "+SUBT[view].split(" · ")[0];
+  document.title=view==="uvod"?"Mundus Mutatus":"Mundus Mutatus · "+(TITL[view]||SUBT[view]);
   if(view==="desky"){
     const art=document.getElementById("article"),subs=["rody","osoby","sousede","vazby"];
     let sub=null;
