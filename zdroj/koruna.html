@@ -514,6 +514,8 @@ mark{background:color-mix(in srgb,var(--gold) 35%,transparent);color:inherit;pad
 .colophon{margin:30px 0 10px;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;color:var(--muted);font-size:.92rem}
 .colophon .corn{width:min(420px,80%);height:0;border-top:3px double var(--ink);position:relative;margin-bottom:10px}
 .colophon .corn::after{content:"❦";position:absolute;left:50%;top:-.85em;transform:translateX(-50%);background:var(--bg);padding:0 10px;color:var(--kal);font-size:1.3rem}
+.colophon .cdrak{display:none;width:min(380px,64%);height:auto;margin:-24px auto -26px}
+body.home .colophon .cdrak{display:block}body.home .colophon .corn{display:none}
 .colophon .cq{font-family:var(--f-disp);font-size:1.15rem;color:var(--ink)}
 .colophon .cq i{color:var(--kal)}
 .colophon nav{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 14px;font-family:var(--f-label);letter-spacing:.05em;font-size:.85rem}
@@ -1449,7 +1451,6 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
 <main>
 <div class="view" data-view="uvod" hidden>
 <div class="herobox"><figure class="herofig"><img src="art/img/kalich-drak.webp" width="560" height="560" alt="Iluminace: bílý drak odpočívá ve zlatém kalichu plném vína pod hvězdnou oblohou"><figcaption>Sub utraque sunt dracones</figcaption></figure><section class="hero" id="hero"></section></div>
-<img class="uvorn" src="art/drak.webp" alt="" aria-hidden="true" width="900" height="300">
 <div class="uvgrid">
   <section class="sec uvev"><h2 class="uvh">Poslední události</h2><div id="uvnovw" hidden><h3 class="uvh2">Nedávné kontakty</h3><div class="kontakty" id="uvnov"></div></div><div id="uvzap"></div><h3 class="uvh2">Ze světa</h3><dl class="tl" id="uvlet"></dl><a class="uvmore" href="#kronika/letopis">Celý letopis →</a></section>
   <aside class="kal" id="kal1" aria-label="Kalendárium"></aside>
@@ -1692,6 +1693,7 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
 </main>
 <footer class="colophon">
   <span class="corn" aria-hidden="true"></span>
+  <img class="cdrak" src="art/drak.webp" alt="" aria-hidden="true" width="900" height="300" loading="lazy">
   <p class="cq">Sepsáno v Praze léta Páně 1458 · <i>Sub utraque sunt dracones</i></p>
   <button type="button" class="ctop" onclick="scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'})">↑ Zpět nahoru</button>
 </footer>
@@ -2841,7 +2843,7 @@ const GLOSS=[
  {id:"pokuseni",t:"Pokušení",ch:"zavoj",f:["Pokušení"],d:"Výsledek 1–2 na kostce Závoje. Kdo ho přijme, získá bod hříchu; kdo odmítne, čelí komplikaci."},
  {id:"pozehnani",t:"Požehnání",ch:"zavoj",f:["Požehnání"],d:"Výsledek 5–6 na kostce Závoje: dodatečný příznivý účinek. Na Požehnání se váží i některé šermířské techniky a vlastnosti zbraní."},
  {id:"hodiny",t:"Hodiny Závoje",ch:"zavoj",f:["Hodiny Závoje","Hodinách Závoje","Hodin Závoje"],d:"Půlnoc, poledne, doba po večerním klekání a slunovraty. Závoj je nejtenčí a Pokušení padá už na 1–3."},
- {id:"svatek",t:"Svátek",ch:"zavoj",f:[],d:"Den svátku podle vyznání postavy (svatý patron, Hus, vynášení Morany…). Požehnání padá už na 4–6."},
+ {id:"svatek",t:"Svátek",ch:"zavoj",f:[],d:"Den svátku podle vyznání postavy: svátky světců pro všechny katolíky, Mistr Jan Hus pro kališníky, svátky starých bohů (např. vynášení Morany) pro všechny starověrce. Požehnání padá už na 4–6."},
  {id:"hodina-pravdy",t:"Hodina Pravdy",ch:"zavoj",f:["Hodina Pravdy","Hodině Pravdy","Hodinu Pravdy","Hodiny Pravdy"],d:"Souběh Hodiny Závoje a svátku: Pokušení na 1–3, Požehnání na 4–6, nic neutrálního. Trvá vždy jen hodinu; přirozeně nastává o Filipojakubské a Svatojánské noci a o Půlnoční na Štědrý den."},
  {id:"ctnosti",t:"Ctnosti a Neřesti",ch:"ctnosti",f:["Ctnosti a Neřesti","Ctnost","Ctnosti","Neřest","Neřesti"],d:"Každá postava má dvě Ctnosti (v čem je silná) a dvě Neřesti (kde ji ďábel nejsnáze svede). Jednání podle nich přináší body hříchu či dobrých skutků i Heroic Inspiration."},
  {id:"hrich",t:"Všední a smrtelný hřích",ch:"ctnosti",f:["Všední hřích","všední hřích","Smrtelný hřích","smrtelný hřích","bod hříchu","body hříchu"],d:"Všední hřích dává 1 bod hříchu (proti vlastní Ctnosti 2). Smrtelný hřích – vražda bezbranného, zrada, mučení, křivá přísaha – sníží Svědomí okamžitě o 1 (proti Ctnosti o 2)."},
@@ -2921,7 +2923,7 @@ const ARTK=[
   <figure class="rfig rbig"><a href="${AIMG}hodiny.webp" target="_blank" rel="noopener" title="Otevřít v plné velikosti"><img src="${AIMG}hodiny.webp" srcset="${AIMG}hodiny-s.webp 800w, ${AIMG}hodiny.webp 1200w" sizes="(max-width:800px) 100vw, 760px" alt="Kolo hodin Závoje: poledne, klekání, půlnoc a slunovraty" loading="lazy" width="1200" height="1200"></a><figcaption>Kolo hodin Závoje: poledne, večerní klekání, půlnoc a slunovraty</figcaption></figure>`},
  {id:"svatky",t:"Svátky",h:`
   <figure class="rfig rwide"><img src="${AIMG}svatky.webp" srcset="${AIMG}svatky-s.webp 800w, ${AIMG}svatky.webp 1385w" sizes="(max-width:820px) 100vw, 1000px" alt="Svátek ve městě: procesí, trh a mše" loading="lazy" width="1100" height="365"></figure>
-  <p>Na den, na který připadá svátek podle vyznání postavy (<i>např. sv. Václav, 6. července Hus, jarní vynášení Morany</i>), padá postavě ${Z.B} již při hodu <b>4–6</b>.</p>
+  <p>Na den, na který připadá svátek podle vyznání postavy, padá postavě ${Z.B} již při hodu <b>4–6</b>. Svátky platí pro celé vyznání: <b>katolíkům</b> svátky všech světců (<i>např. sv. Václav, sv. Jiří</i>), <b>kališníkům</b> 6. července Mistr Jan Hus a <b>starověrcům</b> všechny jejich svátky (<i>např. jarní vynášení Morany</i>).</p>
   <p>Světci a dovednosti, k nimž se váží (viz též ${xl("vyznani","vyznani-volba","Přímluva patrona")}):</p>
   ${tb(["Světec","Dovednosti"],[
    ["sv. Jiří","Acrobatics, Athletics"],["sv. Václav","Attack Roll, Persuasion"],["sv. Ludmila","Insight, Medicine"],
