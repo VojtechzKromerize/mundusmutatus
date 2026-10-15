@@ -283,7 +283,11 @@ function generuj(soubory, manifest) {
   });
   const PORTR = {};
   for (const [pid, stem] of Object.entries(manifest.portrety || {})) if (pids.has(pid)) PORTR[pid] = { $g: prod[pid], $x: { $g: pid, $u: 2, $x: stem } };
-  const odh = { DRACI: { kap, pl: PL }, FAM: F, PEOPLE: P, REL, PRAHA_PLACES: PR, MISTA: MI, TREES: T,
+  /* zeměpis: královská města a sídla církevních vrchností (bez brány – jsou na mapě vždy) */
+  const ZEM = [];
+  for (const f of fam) if (!f.nomap && (f.city || f.land === "Duchovenstvo"))
+    for (const sd of f.seats) ZEM.push([sd[0], sd[1], sd[2], sd[3] || f.conf, f.city ? "mesto" : "cirkev"]);
+  const odh = { DRACI: { kap, pl: PL }, ZEMEPIS: ZEM, FAM: F, PEOPLE: P, REL, PRAHA_PLACES: PR, MISTA: MI, TREES: T,
     SHORT: Object.fromEntries(Object.entries(short).map(([k, v]) => [k, { $g: k, $x: v }])),
     ARMS: Object.fromEntries(Object.entries(arms).map(([k, v]) => [k, { $g: k, $x: v }])),
     PORTR, ZAPISY: zapisy.map(z => ({ $g: z.id, ...z })), PARTY: party };
