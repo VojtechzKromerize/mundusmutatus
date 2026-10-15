@@ -769,50 +769,82 @@ svg#map,svg#pmap,svg#smap{will-change:transform;transform:translateZ(0);contain:
 #pmapbox>.controls+.controls{margin-top:6px}
 .pnum{flex:none;display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;border:2px solid;background:var(--paper);font-family:var(--f-label);font-weight:700;font-size:.78rem}
 
-/* rodokmen: rodič → manželský pár (vybrané manželství) → děti z něj */
-.tree{display:flex;flex-direction:column;align-items:center;background:var(--paper);border:1px solid var(--rule);padding:18px 14px 14px}
-.tline{width:2px;height:18px;background:color-mix(in srgb,var(--gold) 70%,var(--rule));flex:none}
-.tcard{display:flex;gap:10px;align-items:center;background:var(--bg);border:1px solid var(--rule);border-radius:3px;padding:8px 12px;box-shadow:inset 0 0 0 3px var(--bg),inset 0 0 0 4px color-mix(in srgb,var(--rule) 60%,transparent);text-align:left;min-width:0}
-.tbody{display:flex;flex-direction:column;gap:1px;min-width:0}
-.tnm{font-family:var(--f-disp);font-size:1.12rem;line-height:1.15}
+/* rodokmen: rodič nad hlavní osobou, manželský pár spojený znakem ∞, od něj osa k dětem (řádky po čtyřech) */
+.tree{--kw:176px;--tg:#b08a3e;display:flex;flex-direction:column;align-items:center;background:var(--paper);border:1px solid var(--rule);padding:22px 14px 16px}
+.tcouple{display:grid;grid-template-columns:minmax(0,310px) 64px minmax(0,310px);grid-template-areas:"root . ." "up . ." "main inf sp";align-items:start;justify-content:center;width:100%}
+.tcouple.solo{grid-template-columns:minmax(0,340px);grid-template-areas:"root" "up" "main"}
+.troot{grid-area:root;justify-self:center;max-width:100%}
+.tup{grid-area:up;justify-self:center;width:2px;height:18px;background:var(--tg)}
+.tmain{grid-area:main}.tspouse{grid-area:sp}
+.tinf{grid-area:inf;position:relative;align-self:stretch;min-height:90px}
+.tinf::before{content:"";position:absolute;left:0;right:0;top:44px;height:2px;background:var(--tg)}
+.tinf::after{content:"";position:absolute;left:calc(50% - 1px);top:44px;bottom:0;width:2px;background:var(--tg)}
+.tcouple.solo~.tdrop{height:22px}
+.tinf span{position:absolute;left:calc(50% - 17px);top:27px;width:34px;height:34px;display:grid;place-items:center;border-radius:50%;background:var(--paper);border:2px solid var(--tg);color:var(--kal);font-size:1.25rem;line-height:1}
+.tcard{position:relative;display:flex;gap:10px;align-items:flex-start;background:var(--bg);border:1px solid var(--rule);border-top:3px solid var(--tg);border-radius:3px;padding:10px 12px;text-align:left;min-width:0}
+.tbody{display:flex;flex-direction:column;gap:2px;min-width:0}
+.tnm{font-family:var(--f-disp);font-size:1.08rem;line-height:1.15}
 .tnm a{color:inherit;text-decoration:underline dotted var(--kal);text-underline-offset:3px}
-.tdt{font-family:var(--f-label);font-size:.76rem;letter-spacing:.05em;color:var(--muted)}
+.tdt{font-family:var(--f-label);font-size:.74rem;letter-spacing:.05em;color:var(--muted)}
+.tdt b{font-weight:600;color:var(--ink)}
 .tnote{font-size:.84rem;color:var(--muted);line-height:1.3;margin-top:2px}
 .tnote a{color:var(--kal)}
-.trl{display:inline-flex;align-items:center;gap:5px;margin-top:3px;font-family:var(--f-label);font-size:.74rem;letter-spacing:.04em;color:var(--kal);white-space:nowrap}
+.trl{display:inline-flex;align-items:center;gap:5px;margin-top:4px;font-family:var(--f-label);font-size:.72rem;letter-spacing:.04em;color:var(--kal);white-space:nowrap}
 .tarm{width:14px;height:auto}
-.tlbl{font-family:var(--f-label);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-.tport{width:44px;height:44px;flex:none;border-radius:50%;object-fit:cover;border:2px solid var(--gold)}
-.troot{max-width:min(560px,100%)}
-.troot .tnm{font-size:1.02rem}
-.tcouple{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;max-width:100%}
-.tcard.tmain{border-top:3px solid var(--kal);padding:12px 16px;max-width:380px}
-.tcard.tmain .tnm{font-size:1.45rem;color:var(--kal)}
-.tcard.tmain .tport{width:64px;height:64px}
-.tcard.tspouse{border-top:3px solid var(--gold);max-width:340px}
-.tinf{font-size:1.5rem;color:var(--gold);line-height:1;font-family:var(--f-disp)}
-.tspnav{display:flex;align-items:center;gap:8px;margin-top:6px;font-family:var(--f-label);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.tswap{width:26px;height:26px;display:grid;place-items:center;padding:0;border:1px solid var(--rule);border-radius:50%;background:var(--paper);color:var(--kal);font-size:1.15rem;line-height:1}
+.tlbl{font-family:var(--f-label);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.tport{width:42px;height:42px;flex:none;border-radius:50%;object-fit:cover;border:2px solid var(--tg)}
+.tmono{display:grid;place-items:center;background:color-mix(in srgb,var(--tg) 14%,var(--paper));color:var(--tg);font-family:var(--f-disp);font-size:1.25rem;line-height:1}
+.troot{padding:7px 12px;border-top-width:1px}.troot .tnm{font-size:1rem}.troot .tnote{font-size:.8rem}
+.tcard.tmain{border-top-color:var(--kal);align-items:center}
+.tcard.tmain .tnm{font-size:1.4rem;color:var(--kal)}
+.tcard.tmain .tport{width:62px;height:62px}
+.tcard.tspouse{align-items:center}
+.tcard.tspouse .tport{width:52px;height:52px}
+.tspnav{display:flex;align-items:center;gap:8px;margin-top:8px;font-family:var(--f-label);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.tswap{width:26px;height:26px;flex:none;display:grid;place-items:center;padding:0;border:1px solid var(--rule);border-radius:50%;background:var(--paper);color:var(--kal);font-size:1.15rem;line-height:1}
+.tswap.off{visibility:hidden}
 .tswap:hover{border-color:var(--kal);background:color-mix(in srgb,var(--kal) 10%,var(--paper))}
-.tree .dead .tspnav{color:var(--tdm)}
-.tree .dead .tswap{background:transparent;border-color:#8c6a2a;color:#e9c56b}
-.tkids{list-style:none;margin:0;padding:14px 0 0;display:flex;flex-wrap:wrap;justify-content:center;gap:12px;width:100%;position:relative}
-.tkids::before{content:"";position:absolute;top:0;left:8%;right:8%;height:2px;background:color-mix(in srgb,var(--gold) 70%,var(--rule))}
-.tkid{position:relative;flex:0 1 200px;min-width:150px;display:flex;gap:8px;align-items:flex-start;background:var(--bg);border:1px solid var(--rule);border-radius:3px;padding:8px 10px}
-.tkid{border-top:3px solid color-mix(in srgb,var(--gold) 70%,var(--rule))}
+.tdrop{width:2px;height:22px;background:var(--tg)}
+.tkidsh{margin:0;padding:3px 12px;border:1px solid var(--tg);border-radius:12px;background:var(--paper);font-family:var(--f-label);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);position:relative;z-index:1}
+.tkids{display:flex;flex-direction:column;align-items:center;width:100%}
+.trow{position:relative;list-style:none;margin:0;padding:18px 0 0;display:flex;justify-content:center;align-items:stretch;gap:12px;width:fit-content;max-width:100%}
+.trow+.trow{margin-top:14px}
+.trow::before{content:"";position:absolute;top:0;left:calc(var(--kw)/2);right:calc(var(--kw)/2);height:2px;background:var(--tg)}
+.trow::after{content:"";position:absolute;left:calc(50% - 1px);width:2px;top:-14px;height:14px;background:var(--tg)}
+.trow:first-child::after{top:-12px;height:12px}
+.trow:not(:last-child) .tkid:nth-child(2)::after{content:"";position:absolute;right:-7px;top:-18px;bottom:-14px;width:2px;background:var(--tg)}
+.tkid{flex:0 0 var(--kw);width:var(--kw)}
+.tkid::before{content:"";position:absolute;left:calc(50% - 1px);top:-21px;width:2px;height:18px;background:var(--tg)}
+.tkid .tport{width:36px;height:36px;font-size:1.05rem}
+.tkid .tnote{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.tnokids{margin:12px 0 0;font-style:italic}
 .tlinkb{background:none;border:0;padding:0;font:inherit;color:var(--kal);text-decoration:underline dotted;text-underline-offset:3px}
-.tkid .tport{width:36px;height:36px}
-.tnokids{margin:10px 0 0;font-style:italic}
 .tfoot{margin:14px 0 0;max-width:72ch;text-align:center}
 .tsub{list-style:none;margin:6px 0 0;padding:4px 0 0 10px;border-left:2px solid var(--rule);display:flex;flex-direction:column;gap:3px}
 .tsub li{display:flex;flex-direction:column;border-radius:2px}
-.tsub .tnm{font-size:1rem}
+.tsub .tnm{font-size:.98rem}
+.troot{align-self:end}
+@media (max-width:1100px){.tree{--kw:160px}.trow{gap:8px}.trow:not(:last-child) .tkid:nth-child(2)::after{right:-5px}}
+@media (max-width:900px){
+  .tcouple{grid-template-columns:minmax(0,1fr);grid-template-areas:"root" "up" "main" "inf" "sp"}
+  .tinf{min-height:44px;height:44px}.tinf::before{left:calc(50% - 1px);right:auto;top:0;bottom:0;width:2px;height:auto}.tinf::after{display:none}.tinf span{top:5px}
+  .tkids{align-items:stretch;padding-left:18px;border-left:2px solid var(--tg);margin-left:20px;width:calc(100% - 20px)}
+  .tdrop{display:none}.tkidsh{margin:14px 0 10px}
+  .trow{display:flex;flex-direction:column;width:auto;padding:0;gap:10px}.trow+.trow{margin-top:10px}
+  .trow::before,.trow::after,.trow .tkid::after{display:none}
+  .tkid{flex:none;width:auto}.tkid::before{left:-19px;top:22px;width:17px;height:2px}
+}
 /* zemřelí (k hernímu datu) mají tmavou kartu; žijící potomci uvnitř zůstávají světlí */
 .tree .dead{--tdk:#33261a;--tdt:#eadcbd;--tdm:#c9b48d;--tda:#e9c56b;background:var(--tdk)!important;border-color:#1c140c!important;color:var(--tdt);box-shadow:none}
 .tree .dead>.tbody>.tnm,.tree .dead>.tbody>.tnm a,.tree .dead>.tnm,.tree .dead>.tnm a{color:var(--tdt)}
 .tree .dead>.tbody>.tdt,.tree .dead>.tbody>.tnote,.tree .dead>.tbody>.tlbl,.tree .dead>.tdt,.tree .dead>.tnote{color:var(--tdm)}
 .tree .dead>.tbody>.trl,.tree .dead>.tbody>.tnote a{color:var(--tda)}
 .tree .dead>.tport{filter:grayscale(.5) brightness(.85)}
+.tree .tcard.dead{border-top-color:#8c6a2a!important}
+.tree .dead .tmono{background:transparent;color:#c9a85a;border-color:#8c6a2a}
+.tree .dead .tdt b{color:var(--tdt)}
+.tree .dead .tspnav{color:var(--tdm)}
+.tree .dead .tswap{background:transparent;border-color:#8c6a2a;color:#e9c56b}
 .tree .tsub li.dead{padding:3px 6px}
 .tree .dead .tsub li:not(.dead){background:var(--bg);color:var(--ink);padding:3px 6px}
 .tree .dead .tsub{border-left-color:#8c6a2a}
@@ -3975,29 +4007,39 @@ const TSTAV={};
 function treeHTML(id){
   const T=TREES[id]; if(!T)return""; const kids=T.kids||[], sps=T.main.sp||[];
   const mrtvy=o=>umrelTree(o.d), DC=o=>mrtvy(o)?" dead":"";
-  const port=(o,cls)=>o.p&&PBY[o.p]&&typeof PORTR!=="undefined"&&PORTR.has(o.p)?`<img class="${cls||"tport"}" src="${portU(o.p,1)}" alt="" loading="lazy">`:"";
+  const esc=t=>String(t).replace(/<[^>]*>/g,"").replace(/"/g,"&quot;");
+  /* portrét, nebo iniciála v medailonu */
+  const port=o=>o.p&&PBY[o.p]&&typeof PORTR!=="undefined"&&PORTR.has(o.p)?`<img class="tport" src="${portU(o.p,1)}" alt="" loading="lazy">`:`<span class="tport tmono" aria-hidden="true">${(o.n.replace(/^✦\s*/,"").match(/\p{L}/u)||["?"])[0]}</span>`;
   const nm=o=>{const P=o.p&&PBY[o.p];return `<span class="tnm">${P?`<a href="#osoba/${o.p}">${o.n}</a>`:o.n}</span>`};
-  const dt=o=>o.d?`<span class="tdt">${o.d}</span>`:"";
-  const rl=(r)=>r&&byId[r]?`<a class="trl" href="#rod/${r}">${armsImg(byId[r],"tarm")}${SHORT[r]||byId[r].name}</a>`:"";
-  const note=o=>{let x=o.note||"";if(o.pl&&PBY[o.pl])x=x.replace(PBY[o.pl].n.replace(/^✦\s*/,""),`<a href="#osoba/${o.pl}">$&</a>`);return x?`<span class="tnote">${x}</span>`:""};
-  const card=(o,cls,extra)=>`<div class="tcard ${cls||""}${DC(o)}">${port(o)}<div class="tbody">${nm(o)}${dt(o)}${note(o)}${rl(o.r||o.rl)}${extra||""}</div></div>`;
-  /* manželství: žijící manželé jsou vidět hned, zesnulí po rozkliknutí; děti podle vybraného manželství */
+  /* věk k hernímu datu u žijících: z rešerše (osoby v deskách), jinak z data narození v rodokmenu */
+  const vek=o=>{if(mrtvy(o))return"";if(o.p&&PBY[o.p]&&PBY[o.p].nar)return vekPostavy(PBY[o.p].nar);
+    const m=String(o.d||"").match(/^\*\s*(asi\s*)?(\d{4})/);if(!m)return"";const n=herniDen()[0]-+m[2];return n>=0?`${m[1]?"asi ":""}${n} ${tvarLet(n)}`:""};
+  const meta=o=>{const v=vek(o);return o.d||v?`<span class="tdt">${o.d||""}${o.d&&v?" · ":""}${v?`<b>${v}</b>`:""}</span>`:""};
+  const rl=r=>r&&byId[r]?`<a class="trl" href="#rod/${r}">${armsImg(byId[r],"tarm")}${SHORT[r]||byId[r].name}</a>`:"";
+  const note=o=>{let x=o.note||"";if(o.pl&&PBY[o.pl])x=x.replace(PBY[o.pl].n.replace(/^✦\s*/,""),`<a href="#osoba/${o.pl}">$&</a>`);return x?`<span class="tnote" title="${esc(x)}">${x}</span>`:""};
+  const card=(o,cls,extra)=>`<div class="tcard ${cls||""}${DC(o)}">${port(o)}<div class="tbody">${nm(o)}${meta(o)}${note(o)}${rl(o.r||o.rl)}${extra||""}</div></div>`;
   const st=TSTAV[id]||(TSTAV[id]={});
-  const zive=sps.map((o,i)=>i).filter(i=>!mrtvy(sps[i])), mrtve=sps.map((o,i)=>i).filter(i=>mrtvy(sps[i]));
+  const zive=sps.map((o,i)=>i).filter(i=>!mrtvy(sps[i]));
   if(st.sel==null||st.sel>=sps.length)st.sel=sps.length?(zive.length?zive[zive.length-1]:sps.length-1):-1;
   const podleM=sps.length>1&&kids.some(k=>k.m);
   const dKids=podleM?kids.filter(k=>!k.m||k.m===st.sel+1):kids;
   const sel=st.sel>=0?sps[st.sel]:null;
-  /* šipky na kartě manžela: přepnou na předchozí / další manželství (zesnulí se tak ukážou až na kliknutí) */
-  const sipka=(i,smer)=>i<0||i>=sps.length?"":`<button type="button" class="tswap t${smer}" data-tree="${id}" data-tsel="${i}" title="${i+1}. manželství: ${sps[i].n}${mrtvy(sps[i])?" (zesnulá/ý)":""}" aria-label="${smer==="prev"?"Předchozí":"Další"} manželství: ${sps[i].n}">${smer==="prev"?"‹":"›"}</button>`;
+  /* šipky na kartě manžela: předchozí / další manželství */
+  const sipka=(i,smer)=>i<0||i>=sps.length?`<span class="tswap off"></span>`:`<button type="button" class="tswap t${smer}" data-tree="${id}" data-tsel="${i}" title="${i+1}. manželství: ${esc(sps[i].n)}${mrtvy(sps[i])?" (zesnulá/ý)":""}" aria-label="${smer==="prev"?"Předchozí":"Další"} manželství: ${esc(sps[i].n)}">${smer==="prev"?"‹":"›"}</button>`;
   const spNav=sps.length>1?`<div class="tspnav">${sipka(st.sel-1,"prev")}<span>${st.sel+1}. manželství z ${sps.length}</span>${sipka(st.sel+1,"next")}</div>`:"";
-  const kid=k=>`<li class="tkid${DC(k)}">${port(k)}<div class="tbody">${nm(k)}${dt(k)}${note(k)}${rl(k.rl)}${k.kids?`<ul class="tsub">${k.kids.map(c=>`<li class="${DC(c).trim()}">${nm(c)}${dt(c)}${note(c)}</li>`).join("")}</ul>`:""}</div></li>`;
+  const kid=k=>`<li class="tcard tkid${DC(k)}">${port(k)}<div class="tbody">${nm(k)}${meta(k)}${note(k)}${rl(k.rl)}${k.kids?`<ul class="tsub">${k.kids.map(c=>`<li class="${DC(c).trim()}">${nm(c)}${meta(c)}${note(c)}</li>`).join("")}</ul>`:""}</div></li>`;
+  /* děti po řádcích po čtyřech: osa jde od znaku ∞ středem mezi kartami k dalšímu řádku */
+  const rows=[];for(let i=0;i<dKids.length;i+=4)rows.push(dKids.slice(i,i+4));
   const jinde=podleM?sps.map((o,i)=>i).filter(i=>i!==st.sel&&kids.some(k=>k.m===i+1)):[];
-  const deti=dKids.length?`<div class="tline"></div><ul class="tkids">${dKids.map(kid).join("")}</ul>`
+  const nadpis=dKids.length?`<p class="tkidsh">${podleM&&sel?`Děti z ${st.sel+1}. manželství`:"Děti"} · ${dKids.length}</p>`:"";
+  const deti=dKids.length?`<div class="tdrop"></div>${nadpis}<div class="tkids">${rows.map(r=>`<ul class="trow">${r.map(kid).join("")}</ul>`).join("")}</div>`
     :podleM&&sel?`<p class="rsmall tnokids">Z tohoto manželství nejsou známy žádné děti.${jinde.length?` Děti jsou z ${jinde.map(i=>`<button type="button" class="tlinkb" data-tree="${id}" data-tsel="${i}">${i+1}. manželství (${sps[i].n})</button>`).join(" a ")}.`:""}</p>`:"";
   return `<div class="tree" data-tree="${id}">
-    ${T.root?`<div class="tcard troot${DC(T.root)}"><div class="tbody"><span class="tlbl">rodič</span>${nm(T.root)}${dt(T.root)}${note(T.root)}</div></div><div class="tline"></div>`:""}
-    <div class="tcouple">${card(T.main,"tmain")}${sel?`<span class="tinf" aria-label="manželé">∞</span>${card(sel,"tspouse",spNav)}`:""}</div>
+    <div class="tcouple${sel?"":" solo"}">
+      ${T.root?`<div class="tcard troot${DC(T.root)}"><div class="tbody"><span class="tlbl">rodič</span>${nm(T.root)}${meta(T.root)}${note(T.root)}</div></div><div class="tup"></div>`:""}
+      ${card(T.main,"tmain")}
+      ${sel?`<div class="tinf"><span aria-label="manželé">∞</span></div>${card(sel,"tspouse",spNav)}`:""}
+    </div>
     ${deti}
     ${T.foot?`<p class="rsmall tfoot">${T.foot}</p>`:""}
   </div>`;
