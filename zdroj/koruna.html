@@ -3328,7 +3328,7 @@ const SZAKL=new Set(["Praha","Řím","Konstantinopol"]);
 const SRIVHL=new Set(["Dunaj","Rýn","Labe","Visla","Dněpr","Volha"]);
 /* lodě a obludy [obrázek, délka, šířka, šířka obrázku, zrcadlit], růžice portulánu [délka, šířka, velká] */
 const SLODE=[["lod-koga",3.6,55.4,30],["lod-koga",17.6,55.9,26,1],["lod-galera",12.4,39.4,30],["lod-galera",27.2,34.4,28,1],["lod-karavela",-12.6,37.6,30],["lod-rybarska",2.5,64.3,24,1]];
-const SOBLUDY=[["obluda-velryba",-21.5,51.6,64],["obluda-had",-17.5,31.5,46,1]];
+const SOBLUDY=[["obluda-velryba",-21.5,51.6,50],["obluda-had",-17.5,31.5,36,1]];
 const SPORT=[[-17,42.6,1],[5,38.5],[19.5,35.5],[28.5,33.8],[34,43.3]];
 /* hlavní obchodní trasy: složené z úseků cest v svet-cesty.md [název, směr, odkud, kam] */
 const SHCOL={hanza:"#8b5a2b",benatky:"#b0302a",janov:"#2f5d9e",souse:"#a07a22"};
@@ -3620,9 +3620,9 @@ function sDraw(){
      [[0,0],[.4,.85],[1,1]].forEach(([o,a])=>lw.appendChild(el("stop",{offset:o,"stop-color":"#fff","stop-opacity":a})));defs.appendChild(lw);mk.appendChild(el("rect",{x,y,width:w,height:h,fill:`url(#sfw${n})`}));defs.appendChild(mk);
      g.appendChild(el("rect",{x,y,width:w,height:h,fill:`url(#sfg${n})`}));g.appendChild(el("rect",{x,y,width:w,height:h,filter:"url(#sfog)",mask:`url(#sfm${n})`,opacity:".9"}))});
    const B=(f,x,y,w,fl)=>{const [iw,ih]=SIMG[f],gi=el("g",{class:"sorn"});gi.appendChild(use(f,x,y,w,w*ih/iw,fl));g.appendChild(gi)};
-   B("drak",622,6,84,1);B("gryf",948,286,72,1);B("fenix",590,700,62);
+   B("drak",690,38,62,1);B("gryf",918,300,54,1);B("fenix",548,664,48);
    const TX=(x,y,t,fs,r)=>g.appendChild(el("text",{x,y,class:"sincog","font-size":fs,"text-anchor":"middle",...(r?{transform:`rotate(${r} ${x} ${y})`}:{})},t));
-   TX(440,44,"Terra incognita",19);TX(570,74,"Hic sunt dracones",13);TX(998,560,"Terra incognita",17,90);TX(420,760,"Terra incognita",17);}
+   TX(440,44,"Terra incognita",19);TX(812,74,"Hic sunt dracones",12);TX(998,560,"Terra incognita",17,90);TX(420,760,"Terra incognita",17);}
   /* kartuš s Korunou českou */
   {const g=G({"pointer-events":"none"});
    const X=28,Y=622,S=250/820,gk=el("g",{class:"sorn"}),gi=el("g",{transform:`translate(${X} ${Y}) scale(${S.toFixed(4)})`});gk.appendChild(gi);g.appendChild(gk);
