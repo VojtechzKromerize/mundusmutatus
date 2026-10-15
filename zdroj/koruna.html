@@ -3108,9 +3108,9 @@ const ARTK=[
    ["Svatá / Prokletá","<b>Předzvěst Závoje</b> – Pokušení padá na 1–4 při příštím hodu","<b>Předtucha smrti</b> – max. HP −10","<b>Cejch Závoje</b> – Pokušení ti padá na 1–3","<b>Rozervaná duše</b> <i>(nelze vzkřísit běžnými kouzly)</i>"],
    ["Psychická","<b>Zmatení</b> – příští útok míří na náhodný cíl","<b>Pomatení</b> – nevýhoda na WIS saves","<b>Hlasy v hlavě</b> – nevýhoda na INT/WIS skillchecky a Concentration","<b>Šílenství</b>"]],"","crit")}`}
  ]},
-{id:"pojmy",book:"rejstrik",t:"Slovníček pojmů",img:"drak.webp",wide:1,
+{id:"pojmy",book:"rejstrik",t:"Slovníček pojmů",
  sum:"Závoj, Svědomí, Výdrž, Proměněnci a další pojmy na jednom místě.",
- intro:`<p>Krátká vysvětlení pojmů, se kterými Artikule i Kronika pracují. Podrobnosti najdete v kapitolách, na které pojmy odkazují.</p>`,
+ intro:"",
  secs:[{id:"pojmy-vse",t:"Pojmy od A do Ž",h:`<dl class="gloss">${GLOSS.slice().sort((a,b)=>a.t.localeCompare(b.t,"cs")).map(g=>`<dt id="as-p-${g.id}">${g.t}</dt><dd>${g.d} <a class="gref" href="#artikule/${g.ch}">→ ${GCH[g.ch]}</a></dd>`).join("")}</dl>`}]}
 ];
 const AK=Object.fromEntries(ARTK.map(k=>[k.id,k]));
@@ -3142,7 +3142,7 @@ function artLanding(){
 function artChapter(k){
   const i=ARTK.indexOf(k),pv=ARTK[i-1],nx=ARTK[i+1],b=ARTB.find(x=>x.id===k.book);
   return `<nav class="crumbs"><a href="#artikule">Artikule</a> › ${b.t} · ${b.n} › <b>${k.t}</b></nav>
-   <div class="rart${k.wide?" wide":""}"><img src="${AIMG}${k.img}" alt="" width="${k.wide?560:300}" height="${k.wide?314:300}"></div>
+   ${k.img?`<div class="rart${k.wide?" wide":""}"><img src="${AIMG}${k.img}" alt="" width="${k.wide?560:300}" height="${k.wide?314:300}"></div>`:""}
    <h2 class="vh">${k.t}</h2>
    ${k.q?rq(k.q[0],k.q[1]):""}
    ${k.intro?`<div class="alead">${k.intro}</div>`:""}
