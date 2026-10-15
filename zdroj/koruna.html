@@ -1475,6 +1475,9 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
 #navdesky{--kos:linear-gradient(135deg,#ffffff,#d4d8de 50%,#8d949e)}
 .navdd .svitek .svlist::before,.navdd .svitek .svlist a.on::before{background:var(--kos);box-shadow:0 0 0 1.5px #e0b04a,0 0 0 2.5px rgba(20,3,6,.85)}
 .navdd .svitek .svlist::before{width:12px;height:12px;margin-left:-6px;top:-7px}
+/* zvolená karta / přepínač: stejná vínová kůže se zlatou linkou jako hlavní lišta */
+.controls button[aria-pressed="true"],.dtools .controls button[aria-pressed="true"],.subnav a.on,.gbtn:not(.ghost){background:linear-gradient(180deg,color-mix(in srgb,var(--kuze) 85%,#000) 0%,var(--kuze) 35%,var(--kuze2) 100%);color:#f6d27a;border-color:rgba(20,3,6,.85);text-shadow:0 1px 0 rgba(0,0,0,.45);box-shadow:inset 0 0 0 2px var(--kuze),inset 0 0 0 3px var(--zlato-linka),0 1px 3px rgba(40,10,10,.3)}
+.controls button[aria-pressed="true"]:hover,.subnav a.on:hover,.gbtn:not(.ghost):hover{color:#ffe7a8}
 </style>
 
 <div class="wrap"><div class="papir" aria-hidden="true"></div>
