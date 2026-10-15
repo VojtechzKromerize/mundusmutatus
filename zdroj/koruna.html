@@ -791,13 +791,11 @@ svg#map,svg#pmap,svg#smap{will-change:transform;transform:translateZ(0);contain:
 .tcard.tmain .tport{width:64px;height:64px}
 .tcard.tspouse{border-top:3px solid var(--gold);max-width:340px}
 .tinf{font-size:1.5rem;color:var(--gold);line-height:1;font-family:var(--f-disp)}
-.tspsel{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:10px}
-.tchip{display:flex;flex-direction:column;align-items:flex-start;gap:0;padding:4px 12px;border:1px solid var(--rule);border-radius:3px;background:var(--bg);color:var(--ink);font-family:var(--f-disp);font-size:.98rem;line-height:1.15}
-.tchip small{font-family:var(--f-label);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-.tchip:hover{border-color:var(--gold)}
-.tchip.on{border-color:var(--kal);box-shadow:inset 0 -3px 0 var(--kal)}
-.tchipx{padding:4px 12px;border:1px dashed var(--rule);border-radius:3px;background:none;color:var(--muted);font-family:var(--f-label);font-size:.74rem;letter-spacing:.05em}
-.tchipx:hover{color:var(--kal);border-color:var(--kal)}
+.tspnav{display:flex;align-items:center;gap:8px;margin-top:6px;font-family:var(--f-label);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.tswap{width:26px;height:26px;display:grid;place-items:center;padding:0;border:1px solid var(--rule);border-radius:50%;background:var(--paper);color:var(--kal);font-size:1.15rem;line-height:1}
+.tswap:hover{border-color:var(--kal);background:color-mix(in srgb,var(--kal) 10%,var(--paper))}
+.tree .dead .tspnav{color:var(--tdm)}
+.tree .dead .tswap{background:transparent;border-color:#8c6a2a;color:#e9c56b}
 .tkids{list-style:none;margin:0;padding:14px 0 0;display:flex;flex-wrap:wrap;justify-content:center;gap:12px;width:100%;position:relative}
 .tkids::before{content:"";position:absolute;top:0;left:8%;right:8%;height:2px;background:color-mix(in srgb,var(--gold) 70%,var(--rule))}
 .tkid{position:relative;flex:0 1 200px;min-width:150px;display:flex;gap:8px;align-items:flex-start;background:var(--bg);border:1px solid var(--rule);border-radius:3px;padding:8px 10px}
@@ -812,11 +810,9 @@ svg#map,svg#pmap,svg#smap{will-change:transform;transform:translateZ(0);contain:
 /* zemřelí (k hernímu datu) mají tmavou kartu; žijící potomci uvnitř zůstávají světlí */
 .tree .dead{--tdk:#33261a;--tdt:#eadcbd;--tdm:#c9b48d;--tda:#e9c56b;background:var(--tdk)!important;border-color:#1c140c!important;color:var(--tdt);box-shadow:none}
 .tree .dead>.tbody>.tnm,.tree .dead>.tbody>.tnm a,.tree .dead>.tnm,.tree .dead>.tnm a{color:var(--tdt)}
-.tree .dead>.tbody>.tdt,.tree .dead>.tbody>.tnote,.tree .dead>.tbody>.tlbl,.tree .dead>.tdt,.tree .dead>.tnote,.tree .tchip.dead small{color:var(--tdm)}
+.tree .dead>.tbody>.tdt,.tree .dead>.tbody>.tnote,.tree .dead>.tbody>.tlbl,.tree .dead>.tdt,.tree .dead>.tnote{color:var(--tdm)}
 .tree .dead>.tbody>.trl,.tree .dead>.tbody>.tnote a{color:var(--tda)}
 .tree .dead>.tport{filter:grayscale(.5) brightness(.85)}
-.tree .tchip.dead{color:var(--tdt)}
-.tree .tchip.dead.on{box-shadow:inset 0 -3px 0 #c9a85a}
 .tree .tsub li.dead{padding:3px 6px}
 .tree .dead .tsub li:not(.dead){background:var(--bg);color:var(--ink);padding:3px 6px}
 .tree .dead .tsub{border-left-color:#8c6a2a}
@@ -1091,6 +1087,7 @@ html.mmload body::after{content:"Načítám zemské desky…";position:fixed;lef
 .novl li>span{color:var(--muted);font-size:.95em}
 .novl a{color:var(--kal)}
 .slnote{font-style:italic;color:var(--muted);border-left:3px solid var(--rule);padding:4px 0 4px 12px;margin:10px 0}
+.hcent{text-align:center}
 /* Vazby v článku rodu: tři sloupce (krev, spojenectví, spory), každý se rozbalí zvlášť */
 .relcol3 .relgs{flex-direction:row;align-items:flex-start;gap:10px}
 .relcol3 .relg{flex:1 1 0;min-width:0}
@@ -3988,26 +3985,25 @@ function treeHTML(id){
   const st=TSTAV[id]||(TSTAV[id]={});
   const zive=sps.map((o,i)=>i).filter(i=>!mrtvy(sps[i])), mrtve=sps.map((o,i)=>i).filter(i=>mrtvy(sps[i]));
   if(st.sel==null||st.sel>=sps.length)st.sel=sps.length?(zive.length?zive[zive.length-1]:sps.length-1):-1;
-  const ukazMrtve=st.mrtve||!zive.length||mrtve.includes(st.sel)&&st.mrtve!==false;
   const podleM=sps.length>1&&kids.some(k=>k.m);
   const dKids=podleM?kids.filter(k=>!k.m||k.m===st.sel+1):kids;
-  const chip=i=>{const o=sps[i];return `<button type="button" class="tchip${DC(o)}${i===st.sel?" on":""}" data-tree="${id}" data-tsel="${i}" aria-pressed="${i===st.sel}"><small>${i+1}. manželství</small>${o.n}</button>`};
-  const vyber=sps.length>1?`<div class="tspsel">${zive.map(chip).join("")}${mrtve.length?(ukazMrtve?mrtve.map(chip).join("")+(zive.length?`<button type="button" class="tchipx" data-tree="${id}" data-tdead="0">skrýt zesnulé</button>`:""):`<button type="button" class="tchipx" data-tree="${id}" data-tdead="1">+ ${mrtve.length===1?"zesnulý manžel / manželka":"zesnulí manželé ("+mrtve.length+")"}</button>`):""}</div>`:"";
   const sel=st.sel>=0?sps[st.sel]:null;
+  /* šipky na kartě manžela: přepnou na předchozí / další manželství (zesnulí se tak ukážou až na kliknutí) */
+  const sipka=(i,smer)=>i<0||i>=sps.length?"":`<button type="button" class="tswap t${smer}" data-tree="${id}" data-tsel="${i}" title="${i+1}. manželství: ${sps[i].n}${mrtvy(sps[i])?" (zesnulá/ý)":""}" aria-label="${smer==="prev"?"Předchozí":"Další"} manželství: ${sps[i].n}">${smer==="prev"?"‹":"›"}</button>`;
+  const spNav=sps.length>1?`<div class="tspnav">${sipka(st.sel-1,"prev")}<span>${st.sel+1}. manželství z ${sps.length}</span>${sipka(st.sel+1,"next")}</div>`:"";
   const kid=k=>`<li class="tkid${DC(k)}">${port(k)}<div class="tbody">${nm(k)}${dt(k)}${note(k)}${rl(k.rl)}${k.kids?`<ul class="tsub">${k.kids.map(c=>`<li class="${DC(c).trim()}">${nm(c)}${dt(c)}${note(c)}</li>`).join("")}</ul>`:""}</div></li>`;
   const jinde=podleM?sps.map((o,i)=>i).filter(i=>i!==st.sel&&kids.some(k=>k.m===i+1)):[];
   const deti=dKids.length?`<div class="tline"></div><ul class="tkids">${dKids.map(kid).join("")}</ul>`
     :podleM&&sel?`<p class="rsmall tnokids">Z tohoto manželství nejsou známy žádné děti.${jinde.length?` Děti jsou z ${jinde.map(i=>`<button type="button" class="tlinkb" data-tree="${id}" data-tsel="${i}">${i+1}. manželství (${sps[i].n})</button>`).join(" a ")}.`:""}</p>`:"";
   return `<div class="tree" data-tree="${id}">
     ${T.root?`<div class="tcard troot${DC(T.root)}"><div class="tbody"><span class="tlbl">rodič</span>${nm(T.root)}${dt(T.root)}${note(T.root)}</div></div><div class="tline"></div>`:""}
-    <div class="tcouple">${card(T.main,"tmain")}${sel?`<span class="tinf" aria-label="manželé">∞</span>${card(sel,"tspouse")}`:""}</div>
-    ${vyber}
+    <div class="tcouple">${card(T.main,"tmain")}${sel?`<span class="tinf" aria-label="manželé">∞</span>${card(sel,"tspouse",spNav)}`:""}</div>
     ${deti}
     ${T.foot?`<p class="rsmall tfoot">${T.foot}</p>`:""}
   </div>`;
 }
-document.addEventListener("click",e=>{const b=e.target.closest("[data-tsel],[data-tdead]");if(!b)return;const id=b.dataset.tree,st=TSTAV[id]||(TSTAV[id]={});
-  if(b.dataset.tsel!=null){st.sel=+b.dataset.tsel;if(umrelTree((TREES[id].main.sp||[])[st.sel]?.d))st.mrtve=true}else{st.mrtve=b.dataset.tdead==="1";if(!st.mrtve){const sp=TREES[id].main.sp||[];if(sp[st.sel]&&umrelTree(sp[st.sel].d))st.sel=null}}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-tsel]");if(!b)return;const id=b.dataset.tree,st=TSTAV[id]||(TSTAV[id]={});
+  if(b.dataset.tsel!=null)st.sel=+b.dataset.tsel;
   const el=document.querySelector(`.tree[data-tree="${id}"]`);if(el){el.outerHTML=treeHTML(id);const n=document.querySelector(`.tree[data-tree="${id}"] [data-tsel="${st.sel}"]`);if(n&&b.dataset.tsel!=null)n.focus({preventScroll:true})}});
 
 /* ======== Družina · Kronika tažení · automatické odkazy · hledání ======== */
@@ -4398,8 +4394,8 @@ function renderRodArticle(id){
      ${f.sl?`<p class="slnote">O tomto rodu družina zatím jen slyšela. Víc se dozví, až se s ním setká.</p>`:`<h3>${f.nbr?"Postoj ke Koruně":"Postoj k Jiřímu"}</h3><p>${f.stance}</p>
      ${f.hist?`<h3>${HISTH(f)}</h3><p>${f.hist}</p>`:""}
      <h3>Zápis kronikáře</h3><p class="kron">${f.note}</p>`}
-     ${rels.length?`<h3>Vazby</h3><div class="relcol3">${relGroups(rels,id,false)}</div>`:""}
-     ${TREES[id]||TREES[TREEALIAS[id]]?`<h3>Rodokmen</h3>${treeHTML(TREES[id]?id:TREEALIAS[id])}`:""}
+     ${rels.length?`<h3 class="hcent">Vazby</h3><div class="relcol3">${relGroups(rels,id,false)}</div>`:""}
+     ${TREES[id]||TREES[TREEALIAS[id]]?`<h3 class="hcent">Rodokmen</h3>${treeHTML(TREES[id]?id:TREEALIAS[id])}`:""}
    </div>
    <aside class="infobox">
      <div class="ibshield">${ARMS[f.id]?armsImg(f,"armbig"):shield0(f).replace('class="shield"','class="bigshield"')}</div>
