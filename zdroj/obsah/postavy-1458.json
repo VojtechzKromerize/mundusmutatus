@@ -29,7 +29,7 @@
   "narozeniRok": 1430,
   "narozeniOdhad": true,
   "zakladOdhadu": "Literatura uvádí „kolem 1430“, resp. „před rokem 1432“ (diplomová práce UK); sňatek 1450 a první porod 1452.",
-  "shrnuti": "Pochází z rodu Lvů z Rožmitálu; jejím otcem byl Jan z Blatné, bratry Jaroslav Lev a Protiva, sestrou Hedvika. Roku 1450 se provdala za ovdovělého Jiřího z Poděbrad, sňatek patrně zprostředkoval její bratr Jaroslav Lev, a stala se macechou Jiřího dětí z prvního manželství. Porodila mu syny Jindřicha mladšího (Hynka, 1452), Bedřicha a Jiřího a dceru Ludmilu (1456). Vlastní vyznání Johany je v literatuře sporné, rod však byl katolický.",
+  "shrnuti": "Pochází z rodu Lvů z Rožmitálu; jejím otcem byl Jan z Blatné, bratry Jaroslav Lev a Protiva, sestrou Hedvika. Roku 1450 se provdala za ovdovělého Jiřího z Poděbrad, sňatek patrně zprostředkoval její bratr Jaroslav Lev, a stala se macechou Jiřího dětí z prvního manželství. Porodila mu syny Jindřicha mladšího (Hynka, 1452), Bedřicha a Jiřího a dceru Ludmilu (1456). ⟦Vlastní vyznání Johany je v literatuře sporné, rod však byl katolický.¦Její rod je katolický.⟧",
   "jistota": "vysoká",
   "rozporSWebem": null,
   "zdroje": [
@@ -137,7 +137,7 @@
   "narozeniRok": 1448,
   "narozeniOdhad": false,
   "zakladOdhadu": "Rok 1448 doložen; den 15. 5. uváděný na webu se mi v dostupných zdrojích nepodařilo ověřit (nebyl ani vyvrácen).",
-  "shrnuti": "Třetí syn Jiřího z Poděbrad a Kunhuty ze Šternberka. O matku přišel roku 1449 a vyrůstá u macechy Johany z Rožmitálu; o jeho dětství prameny jinak mnoho neříkají.",
+  "shrnuti": "Třetí syn Jiřího z Poděbrad a Kunhuty ze Šternberka. O matku přišel roku 1449 a vyrůstá u macechy Johany z Rožmitálu⟦; o jeho dětství prameny jinak mnoho neříkají⟧.",
   "jistota": "střední",
   "rozporSWebem": null,
   "zdroje": [
@@ -1241,7 +1241,7 @@
   "narozeniRok": 1430,
   "narozeniOdhad": true,
   "zakladOdhadu": "Rok narození nedoložen. Studia ve Vídni od 1446 ukazují na narození kolem 1430; starší ADB uvádí smrt „asi v sedmdesáti letech“ (tedy kolem 1412), to ale se studijní dráhou nesouhlasí.",
-  "shrnuti": "Nejstarší syn Beneše z Boskovic a Černé Hory z významného moravského rodu. Od roku 1446 studoval ve Vídni, kde se spřátelil s opavským vévodou Přemkem, poté ve Ferraře a Padově; tam se pohyboval v humanistických kruzích, přátelil se s Janem Panoniem a rétoriku ho učil Galeotto Marzio. Stal se kanovníkem v Brně a později tamním proboštem. Po smrti biskupa Bohuslava ze Zvole (31. 7. 1457, údajně otráveného) ho olomoucká kapitula zvolila biskupem; podle německých přehledů papež volbu potvrdil 21. 11. 1457, vysvěcen však dosud není.",
+  "shrnuti": "Nejstarší syn Beneše z Boskovic a Černé Hory z významného moravského rodu. Od roku 1446 studoval ve Vídni, kde se spřátelil s opavským vévodou Přemkem, poté ve Ferraře a Padově; tam se pohyboval v humanistických kruzích, přátelil se s Janem Panoniem a rétoriku ho učil Galeotto Marzio. Stal se kanovníkem v Brně a později tamním proboštem. Po smrti biskupa Bohuslava ze Zvole (31. 7. 1457, údajně otráveného) ho olomoucká kapitula zvolila biskupem; ⟦podle německých přehledů papež volbu potvrdil 21. 11. 1457, ⟧vysvěcen však dosud není.",
   "jistota": "vysoká",
   "rozporSWebem": null,
   "zdroje": [
@@ -1672,7 +1672,7 @@
   "narozeniRok": 1431,
   "narozeniOdhad": true,
   "zakladOdhadu": "Prameny uvádějí narození „1431/32“, přesný rok není jistý.",
-  "shrnuti": "Nejstarší syn hlohovského knížete Jindřicha IX. Staršího a Hedviky Olešnické z rodu slezských Piastovců. Otec drží polovinu Hlohova, Kožuchów, Zelenou Horu, Krosno a Svěbodzín a od roku 1446 i zástavou Lubin; Zikmund je čekatelem tohoto dědictví. Jeho mladším bratrem je Jindřich XI. a sestra Anna se roku 1454 provdala za Jana II. z Rožmberka. O jeho samostatném veřejném působení se prameny zmiňují jen skoupě.",
+  "shrnuti": "Nejstarší syn hlohovského knížete Jindřicha IX. Staršího a Hedviky Olešnické z rodu slezských Piastovců. Otec drží polovinu Hlohova, Kožuchów, Zelenou Horu, Krosno a Svěbodzín a od roku 1446 i zástavou Lubin; Zikmund je čekatelem tohoto dědictví. Jeho mladším bratrem je Jindřich XI. a sestra Anna se roku 1454 provdala za Jana II. z Rožmberka.⟦ O jeho samostatném veřejném působení se prameny zmiňují jen skoupě.⟧",
   "jistota": "střední",
   "rozporSWebem": "Formálně bez rozporu. Pozor na vyprávění: skutečný Zikmund zemřel již 24. 12. 1458, takže ve hře „žije“ jen necelý rok kampaně. Údaje o věku bratra Jindřicha XI. se v pramenech liší (po 1428 vs. kolem 1435), takže to, že je Zikmund nejstarší, je pravděpodobné, ale ne zcela jisté.",
   "zdroje": [

@@ -787,7 +787,20 @@ svg#map,svg#pmap,svg#smap{will-change:transform;transform:translateZ(0);contain:
 .tport{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)}
 .tkids{list-style:none;margin:0;padding:12px 0 0;border-top:2px solid var(--rule);display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;width:100%}
 .tkid{position:relative;background:var(--bg);border:1px solid var(--rule);padding:8px 10px;display:flex;flex-wrap:wrap;align-items:center;gap:2px 8px}
-.tkid.dead{opacity:.75}
+/* zemřelí (k hernímu datu) mají v rodokmenu tmavou kartu; žijící potomci uvnitř zůstávají světlí */
+.tree .dead{--tdk:#33261a;--tdt:#eadcbd;--tdm:#c9b48d;--tda:#e9c56b;background:var(--tdk)!important;border-color:#1c140c!important;color:var(--tdt)}
+.tnode.dead{border-top-color:#8c6a2a!important}
+.tree .dead>.tnm,.tree .dead>.tnm a,.tree .dead>div>.tnm,.tree .dead>div>.tnm a{color:var(--tdt)}
+.tree .dead>.tdt,.tree .dead>.tnote,.tree .dead>.tinf,.tree .dead>div>.tdt,.tree .dead>div>.tnote{color:var(--tdm)}
+.tree .dead>.tnote a,.tree .dead>div>.tnote a,.tree .dead>div>a,.tree .dead>.trl,.tree .dead>.tnote .trl{color:var(--tda);text-decoration-color:rgba(233,197,107,.55)}
+.tree .dead>.tport,.tree .dead>div>.tport{filter:grayscale(.5) brightness(.85)}
+.tree .tsp.dead{padding:6px 8px;margin-left:-6px;margin-right:-6px;width:calc(100% + 12px);border-top:0;border-radius:2px}
+.tree .tsub li{border-radius:2px}
+.tree .tsub li.dead{padding:3px 6px;margin:2px 0}
+.tree .dead .tsub li:not(.dead){background:var(--bg);color:var(--ink);padding:3px 6px;margin:2px 0}
+.tree .dead .tsub{border-left-color:#8c6a2a}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tree .dead{--tdk:#060403;--tdt:#bfb196;--tdm:#8d7f66;--tda:#c9a85a;border:1px dashed #5a4a35!important}}
+:root[data-theme="dark"] .tree .dead{--tdk:#060403;--tdt:#bfb196;--tdm:#8d7f66;--tda:#c9a85a;border:1px dashed #5a4a35!important}
 .tm{font-family:var(--f-label);font-weight:700;font-size:.72rem;color:var(--paper);background:var(--muted);border-radius:8px;padding:0 6px}
 .tsub{list-style:none;margin:4px 0 0;padding:4px 0 0 10px;border-left:2px solid var(--rule);width:100%}
 /* vlastní kurzory (jen počítač) */
@@ -3929,18 +3942,23 @@ function renderDraco(b){
 /* p = osoba v zemských deskách, r = rod, d = data, m = z kterého manželství, note = poznámka */
 const TREES=/*@TREES@*/{};
 const TREEALIAS={fra:"bra"};
+/* zemřel k hernímu datu? podle údaje d („† 1436“, „1403–1427“); budoucí úmrtí hráči v datech nemají */
+function umrelTree(d){
+  if(!d)return false;const t=String(d),m=t.match(/†[^0-9]{0,24}(\d{4})/)||t.match(/\d{4}\s*[–-]\s*(?:asi\s*)?(\d{4})/);
+  if(!m)return false;const y=+m[1],Y=herniDen()[0];return y<Y||(y===Y&&/před/.test(t))}
 function treeHTML(id){
   const T=TREES[id]; if(!T)return""; T.kids=T.kids||[];
+  const DC=o=>umrelTree(o.d)?" dead":"";
   const pn=o=>{const P=o.p&&PBY[o.p];const nm=o.n;const img=P&&typeof PORTR!=="undefined"&&PORTR.has(o.p)?`<img class="tport" src="${portU(o.p,1)}" alt="" loading="lazy">`:"";
     return `${img}<span class="tnm">${P?`<a href="#osoba/${o.p}">${nm}</a>`:nm}</span>${o.d?`<span class="tdt">${o.d}</span>`:""}`};
   const extra=o=>{let s=o.note||"";if(o.pl&&PBY[o.pl])s=s.replace(PBY[o.pl].n.replace(/^✦\s*/,""),`<a href="#osoba/${o.pl}">$&</a>`);
     if(o.rl&&byId[o.rl])s+=` <a class="trl" href="#rod/${o.rl}">→ ${SHORT[o.rl]||byId[o.rl].name}</a>`;return s?`<span class="tnote">${s}</span>`:""};
-  const sp=o=>`<div class="tsp"><span class="tinf">∞</span><div>${pn(o)}${o.r&&byId[o.r]?` <a class="trl" href="#rod/${o.r}">→ ${SHORT[o.r]||byId[o.r].name}</a>`:""}${extra(o)}</div></div>`;
+  const sp=o=>`<div class="tsp${DC(o)}"><span class="tinf">∞</span><div>${pn(o)}${o.r&&byId[o.r]?` <a class="trl" href="#rod/${o.r}">→ ${SHORT[o.r]||byId[o.r].name}</a>`:""}${extra(o)}</div></div>`;
   const multi=(T.main.sp||[]).length>1;
-  const kid=k=>`<li class="tkid${k.d&&k.d.startsWith("†")?" dead":""}">${multi&&k.m?`<span class="tm">${k.m}.</span>`:""}${pn(k)}${extra(k)}${k.kids?`<ul class="tsub">${k.kids.map(c=>`<li>${pn(c)}${extra(c)}</li>`).join("")}</ul>`:""}</li>`;
+  const kid=k=>`<li class="tkid${DC(k)}">${multi&&k.m?`<span class="tm">${k.m}.</span>`:""}${pn(k)}${extra(k)}${k.kids?`<ul class="tsub">${k.kids.map(c=>`<li class="${DC(c).trim()}">${pn(c)}${extra(c)}</li>`).join("")}</ul>`:""}</li>`;
   return `<div class="tree">
-    ${T.root?`<div class="tnode troot dead">${pn(T.root)}${extra(T.root)}</div><div class="tline"></div>`:""}
-    <div class="tnode tmain">${pn(T.main)}${(T.main.sp||[]).map(sp).join("")}</div>
+    ${T.root?`<div class="tnode troot${DC(T.root)}">${pn(T.root)}${extra(T.root)}</div><div class="tline"></div>`:""}
+    <div class="tnode tmain${DC(T.main)}">${pn(T.main)}${(T.main.sp||[]).map(sp).join("")}</div>
     <div class="tline"></div>
     ${T.kids.length?`<ul class="tkids">${T.kids.map(kid).join("")}</ul>`:""}
     ${multi&&T.kids.some(k=>k.m)?`<p class="rsmall">Čísla u dětí označují, z kterého manželství pocházejí.</p>`:""}
