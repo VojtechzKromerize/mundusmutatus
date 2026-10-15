@@ -993,7 +993,9 @@ body{padding-top:38px;padding-bottom:48px;padding-left:max(38px,env(safe-area-in
 .drfig img,.rbig img,.herofig img,.rwide img{border:1px solid var(--ink)!important;border-radius:0!important;box-shadow:none!important;display:block}
 .herofig{padding:7px 7px 7px;display:flex}
 .herofig figcaption{position:absolute;left:0;right:0;bottom:-26px;text-align:center}
-.herobox{padding-bottom:30px}
+.herobox{padding-bottom:4px}
+.herobox+.uvgrid{margin-top:-18px}
+.dvazby{font-family:var(--f-label);letter-spacing:.04em;font-size:.9rem;color:var(--kal);white-space:nowrap;margin-left:6px}.dvazby.dzpet{margin:0 8px 0 0}
 .rbig{width:min(760px,100%)}
 
 /* hodiny Závoje na úvodu */
@@ -1441,7 +1443,7 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
     <div class="navdd" id="navkron"><a href="#kronika" class="ddtop" data-navgrp="kronika druzina" aria-haspopup="true" aria-expanded="false">Kronika</a>
       <div class="svitek"><div class="svlist"><a href="#kronika">Zápisy tažení<small>ze sezení družiny</small></a><a href="#kronika/clanky">Traktáty<small>o světě po protržení Závoje</small></a><a href="#kronika/letopis">Letopis<small>události Koruny a světa</small></a><a href="#druzina">Družina<small>hrdinové tažení a jejich Svědomí</small></a></div></div></div>
     <div class="navdd" id="navdesky"><a href="#desky" class="ddtop" data-navgrp="desky mapa praha svet" aria-haspopup="true" aria-expanded="false">Zemské desky</a>
-      <div class="svitek"><div class="svlist"><span class="svsep" aria-hidden="true">Rody</span><a href="#desky">Země Koruny České<small>panstvo, církev a města Koruny</small></a><a href="#desky/sousede">Zahraniční rody<small>okolní země a jejich vládci</small></a><a href="#desky/vazby">Vazby<small>krev, spojenectví a nepřátelství</small></a><span class="svsep" aria-hidden="true">Osoby</span><a href="#desky/osoby">Matriky<small>koho družina poznala</small></a><span class="svsep" aria-hidden="true">Mapy</span><a href="#mapa">Mapa Koruny České<small>Čechy, Morava, Slezsko a Lužice</small></a><a href="#svet">Známý svět<small>Evropa a Středomoří</small></a><a href="#praha">Praha<small>čtyři města pražská</small></a></div></div></div>
+      <div class="svitek"><div class="svlist"><span class="svsep" aria-hidden="true">Rody</span><a href="#desky">Země Koruny České<small>panstvo, církev a města Koruny</small></a><a href="#desky/sousede">Zahraniční rody<small>okolní země a jejich vládci</small></a><span class="svsep" aria-hidden="true">Osoby</span><a href="#desky/osoby">Matriky<small>koho družina poznala</small></a><span class="svsep" aria-hidden="true">Mapy</span><a href="#mapa">Mapa Koruny České<small>Čechy, Morava, Slezsko a Lužice</small></a><a href="#svet">Známý svět<small>Evropa a Středomoří</small></a><a href="#praha">Praha<small>čtyři města pražská</small></a></div></div></div>
     <a href="#boj" data-nav="boj" class="navgm navboj" id="navboj" title="Boj – iniciativa" aria-label="Boj" hidden><img class="navpecet" src="art/img/kostka.webp" alt="" width="40" height="40"><span class="navgmt">Boj</span></a>
     <div class="gsearch" role="search"><input type="search" id="gq" placeholder="Hledat v celé kronice…" aria-label="Hledat na celém webu" autocomplete="off"><ul class="gres" id="gres" hidden></ul></div>
     <a href="#gm" data-nav="gm" class="navgm" id="navgm" title="Vypravěč – přihlášení" aria-label="Vypravěč – přihlášení"><img class="navpecet" src="art/img/pecet.webp" alt="" width="40" height="40"><span class="navgmt">Vypravěč</span></a>
@@ -1532,7 +1534,6 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
     <nav class="subnav" aria-label="Zemské desky">
       <a href="#desky" data-sub="rody">Země Koruny České</a>
       <a href="#desky/sousede" data-sub="sousede">Zahraniční rody</a>
-      <a href="#desky/vazby" data-sub="vazby">Vazby</a>
       <span class="subsep" aria-hidden="true"></span>
       <a href="#desky/osoby" data-sub="osoby">Matriky</a>
       <span class="subsep" aria-hidden="true"></span>
@@ -1543,7 +1544,7 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
   </div>
   <article id="article" class="article" hidden></article>
 <section class="sec" id="rody">
-  <p class="intro">Panské rody, církevní vrchnosti, údělná knížectví a města, která mají v Koruně politickou váhu. Řazeno podle zemí.</p>
+  <p class="intro">Panské rody, církevní vrchnosti, údělná knížectví a města, která mají v Koruně politickou váhu. Řazeno podle zemí. <a class="dvazby" href="#desky/vazby">Vazby a spory mezi rody →</a></p>
   <div class="dtools">
     <div class="controls" role="group" aria-label="Vyznání"><button type="button" data-fconf="all" aria-pressed="true">Vše</button><button type="button" data-fconf="kat" aria-pressed="false" data-fico="kat">Katolíci</button><button type="button" data-fconf="kal" aria-pressed="false" data-fico="kal">Kališníci</button><button type="button" data-fconf="mix" aria-pressed="false" data-fico="mix">Smíšení</button></div>
     <div class="controls" role="group" aria-label="Země"><button type="button" data-fland="all" aria-pressed="true">Všechny země</button><button type="button" data-fland="Čechy" aria-pressed="false">Čechy</button><button type="button" data-fland="Morava" aria-pressed="false">Morava</button><button type="button" data-fland="Slezsko" aria-pressed="false">Slezsko</button><button type="button" data-fland="Lužice" aria-pressed="false">Lužice</button><button type="button" data-fland="Královská města" aria-pressed="false">Města</button><button type="button" data-fland="Duchovenstvo" aria-pressed="false">Duchovenstvo</button></div>
@@ -1555,13 +1556,13 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
 </section>
 
 <section class="sec" id="sousede">
-  <p class="intro">Vládnoucí rody okolních zemí a pohraniční rody, jejichž državy nebo léna zasahují do zemí Koruny.</p>
+  <p class="intro">Vládnoucí rody okolních zemí a pohraniční rody, jejichž državy nebo léna zasahují do zemí Koruny. <a class="dvazby" href="#desky/vazby">Vazby a spory mezi rody →</a></p>
   <div class="controls" id="nbrtabs" role="group" aria-label="Země"></div>
   <div id="nbrlands" class="sec"></div>
 </section>
 
 <section class="sec" id="vazby">
-  <p class="intro">Krev a sňatky, spojenectví a otevřené křivdy, jak stojí na počátku března 1458.</p>
+  <p class="intro"><a class="dvazby dzpet" href="#desky">← Rody</a> Krev a sňatky, spojenectví a otevřené křivdy, jak stojí na počátku března 1458.</p>
   <div class="graphbox">
     <div class="controls" role="group" aria-label="Typ vazby">
       <button type="button" data-gt="all" aria-pressed="true">Všechny vazby</button>
@@ -2843,7 +2844,7 @@ const GLOSS=[
  {id:"pokuseni",t:"Pokušení",ch:"zavoj",f:["Pokušení"],d:"Výsledek 1–2 na kostce Závoje. Kdo ho přijme, získá bod hříchu; kdo odmítne, čelí komplikaci."},
  {id:"pozehnani",t:"Požehnání",ch:"zavoj",f:["Požehnání"],d:"Výsledek 5–6 na kostce Závoje: dodatečný příznivý účinek. Na Požehnání se váží i některé šermířské techniky a vlastnosti zbraní."},
  {id:"hodiny",t:"Hodiny Závoje",ch:"zavoj",f:["Hodiny Závoje","Hodinách Závoje","Hodin Závoje"],d:"Půlnoc, poledne, doba po večerním klekání a slunovraty. Závoj je nejtenčí a Pokušení padá už na 1–3."},
- {id:"svatek",t:"Svátek",ch:"zavoj",f:[],d:"Den svátku podle vyznání postavy: svátky světců pro všechny katolíky, Mistr Jan Hus pro kališníky, svátky starých bohů (např. vynášení Morany) pro všechny starověrce. Požehnání padá už na 4–6."},
+ {id:"svatek",t:"Svátek",ch:"zavoj",f:[],d:"Den svátku podle vyznání postavy: svátky světců pro všechny křesťany (katolíky i kališníky), Mistr Jan Hus navíc pro kališníky, svátky starých bohů (např. vynášení Morany) pro všechny starověrce. Požehnání padá už na 4–6."},
  {id:"hodina-pravdy",t:"Hodina Pravdy",ch:"zavoj",f:["Hodina Pravdy","Hodině Pravdy","Hodinu Pravdy","Hodiny Pravdy"],d:"Souběh Hodiny Závoje a svátku: Pokušení na 1–3, Požehnání na 4–6, nic neutrálního. Trvá vždy jen hodinu; přirozeně nastává o Filipojakubské a Svatojánské noci a o Půlnoční na Štědrý den."},
  {id:"ctnosti",t:"Ctnosti a Neřesti",ch:"ctnosti",f:["Ctnosti a Neřesti","Ctnost","Ctnosti","Neřest","Neřesti"],d:"Každá postava má dvě Ctnosti (v čem je silná) a dvě Neřesti (kde ji ďábel nejsnáze svede). Jednání podle nich přináší body hříchu či dobrých skutků i Heroic Inspiration."},
  {id:"hrich",t:"Všední a smrtelný hřích",ch:"ctnosti",f:["Všední hřích","všední hřích","Smrtelný hřích","smrtelný hřích","bod hříchu","body hříchu"],d:"Všední hřích dává 1 bod hříchu (proti vlastní Ctnosti 2). Smrtelný hřích – vražda bezbranného, zrada, mučení, křivá přísaha – sníží Svědomí okamžitě o 1 (proti Ctnosti o 2)."},
@@ -2923,7 +2924,7 @@ const ARTK=[
   <figure class="rfig rbig"><a href="${AIMG}hodiny.webp" target="_blank" rel="noopener" title="Otevřít v plné velikosti"><img src="${AIMG}hodiny.webp" srcset="${AIMG}hodiny-s.webp 800w, ${AIMG}hodiny.webp 1200w" sizes="(max-width:800px) 100vw, 760px" alt="Kolo hodin Závoje: poledne, klekání, půlnoc a slunovraty" loading="lazy" width="1200" height="1200"></a><figcaption>Kolo hodin Závoje: poledne, večerní klekání, půlnoc a slunovraty</figcaption></figure>`},
  {id:"svatky",t:"Svátky",h:`
   <figure class="rfig rwide"><img src="${AIMG}svatky.webp" srcset="${AIMG}svatky-s.webp 800w, ${AIMG}svatky.webp 1385w" sizes="(max-width:820px) 100vw, 1000px" alt="Svátek ve městě: procesí, trh a mše" loading="lazy" width="1100" height="365"></figure>
-  <p>Na den, na který připadá svátek podle vyznání postavy, padá postavě ${Z.B} již při hodu <b>4–6</b>. Svátky platí pro celé vyznání: <b>katolíkům</b> svátky všech světců (<i>např. sv. Václav, sv. Jiří</i>), <b>kališníkům</b> 6. července Mistr Jan Hus a <b>starověrcům</b> všechny jejich svátky (<i>např. jarní vynášení Morany</i>).</p>
+  <p>Na den, na který připadá svátek podle vyznání postavy, padá postavě ${Z.B} již při hodu <b>4–6</b>. Svátky platí pro celé vyznání: <b>křesťanům</b> – katolíkům i kališníkům – svátky všech světců (<i>např. sv. Václav, sv. Jiří</i>), <b>kališníkům</b> navíc 6. července Mistr Jan Hus a <b>starověrcům</b> všechny jejich svátky (<i>např. jarní vynášení Morany</i>).</p>
   <p>Světci a dovednosti, k nimž se váží (viz též ${xl("vyznani","vyznani-volba","Přímluva patrona")}):</p>
   ${tb(["Světec","Dovednosti"],[
    ["sv. Jiří","Acrobatics, Athletics"],["sv. Václav","Attack Roll, Persuasion"],["sv. Ludmila","Insight, Medicine"],
@@ -4393,11 +4394,11 @@ const jdn=(y,m,d)=>{const a=Math.floor((14-m)/12),Y=y+4800-a,M=m+12*a-3;return d
 const fromJdn=j=>{const c=j+32082,d=Math.floor((4*c+3)/1461),e=c-Math.floor(1461*d/4),m=Math.floor((5*e+2)/153);return [d-4800+Math.floor(m/10),m+3-12*Math.floor(m/10),e-Math.floor((153*m+2)/5)+1]};
 function easter(y){const a=y%4,b=y%7,c=y%19,d=(19*c+15)%30,e=(2*a+4*b-d+34)%7,s=d+e+114;return jdn(y,Math.floor(s/31),s%31+1)}
 function feasts(y){const E=easter(y);return [
- {j:jdn(y,4,23),n:"sv. Vojtěch",w:"katolíci",p:1},
- {j:jdn(y,4,24),n:"sv. Jiří",w:"katolíci",p:1},
- {j:jdn(y,7,25),n:"sv. Kryštof",w:"katolíci",p:1},
- {j:jdn(y,9,16),n:"sv. Ludmila",w:"katolíci",p:1},
- {j:jdn(y,9,28),n:"sv. Václav",w:"katolíci",p:1},
+ {j:jdn(y,4,23),n:"sv. Vojtěch",w:"křesťané",p:1},
+ {j:jdn(y,4,24),n:"sv. Jiří",w:"křesťané",p:1},
+ {j:jdn(y,7,25),n:"sv. Kryštof",w:"křesťané",p:1},
+ {j:jdn(y,9,16),n:"sv. Ludmila",w:"křesťané",p:1},
+ {j:jdn(y,9,28),n:"sv. Václav",w:"křesťané",p:1},
  {j:jdn(y,7,6),n:"Mistr Jan Hus",w:"kališníci",p:1},
  {j:E-14,n:"Smrtná neděle – vynášení Morany",w:"starověrci",p:1},
  {j:jdn(y,4,30),n:"Filipojakubská noc",w:"všichni",hp:1},
@@ -4784,7 +4785,7 @@ function route(){
     else if(a==="osoba"&&PBY[b]){renderPersonArticle(b);art.hidden=false}
     else{art.hidden=true;sub=subs.includes(b)?b:"rody";if(sub==="osoby")renderOsoby()}
     subs.forEach(k=>{document.getElementById(k).hidden=k!==sub});
-    document.querySelectorAll("[data-sub]").forEach(n=>n.classList.toggle("on",n.dataset.sub===(sub||(a==="osoba"?"osoby":a==="rod"&&byId[b]?.nbr?"sousede":"rody"))));
+    document.querySelectorAll("[data-sub]").forEach(n=>n.classList.toggle("on",n.dataset.sub===((sub==="vazby"?"rody":sub)||(a==="osoba"?"osoby":a==="rod"&&byId[b]?.nbr?"sousede":"rody"))));
     window.scrollTo(0,0);
   }else if(view==="mapa"){
     if(b&&byId[b]&&st.sel!==b)show(b); else{drawMap();if(!document.getElementById("detail").innerHTML)renderDetail()}
