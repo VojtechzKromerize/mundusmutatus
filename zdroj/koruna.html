@@ -881,6 +881,16 @@ html.mmload body::after{content:"Načítám zemské desky…";position:fixed;lef
 .mmhlas.on{opacity:1;transform:translateX(-50%)}
 .slnote{font-style:italic;color:var(--muted);border-left:3px solid var(--rule);padding:4px 0 4px 12px;margin:10px 0}
 .colophon .gmlink{opacity:.55}
+.sitenav a.navgm{display:inline-flex;align-items:center;gap:6px;align-self:center;color:var(--muted);border:1px solid var(--rule);border-radius:50%;width:34px;height:34px;justify-content:center;padding:0}
+.sitenav a.navgm svg{width:19px;height:19px}
+.sitenav a.navgm:hover,.sitenav a.navgm.on{color:var(--kal);border-color:var(--kal)}
+.navgm .navgmt{display:none}
+html.gmv .sitenav a.navgm{color:var(--paper);background:var(--gold);border-color:var(--gold)}
+@media (max-width:640px){
+  .sitenav a.navgm{width:auto;height:auto;border-radius:0;border:0;align-self:stretch;justify-content:flex-start;padding:6px 4px;color:var(--ink);font-size:1.25rem}
+  .navgm .navgmt{display:inline}
+  html.gmv .sitenav a.navgm{background:none;color:var(--gold)}
+}
 .gmbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin:10px 0 4px;padding:8px 12px;border:1px dashed var(--gold);border-radius:4px;background:color-mix(in srgb,var(--gold) 8%,transparent)}
 .gmlbl{font-family:var(--f-label);letter-spacing:.05em;font-size:.86rem;color:var(--muted)}
 .gmseg{display:inline-flex;border:1px solid var(--rule);border-radius:3px;overflow:hidden}
@@ -932,6 +942,7 @@ html.gmv a.gm1{outline:1.5px dotted var(--gold);outline-offset:2px}
       <div class="svitek"><span class="roll"></span><div class="svlist"><a href="#svet" data-nav="svet">Známý svět</a><a href="#mapa" data-nav="mapa">Země Koruny České</a><a href="#praha" data-nav="praha">Praha</a></div><span class="roll"></span></div></div>
     <a href="#desky" data-nav="desky">Zemské desky</a>
     <div class="gsearch" role="search"><input type="search" id="gq" placeholder="Hledat v celé kronice…" aria-label="Hledat na celém webu" autocomplete="off"><ul class="gres" id="gres" hidden></ul></div>
+    <a href="#gm" data-nav="gm" class="navgm" id="navgm" title="Vypravěč – přihlášení" aria-label="Vypravěč – přihlášení"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 3.5c-2.8 0-5 2.2-5 5 0 .6.1 1.1.3 1.6L3 16.9V21h4.1v-2.2h2.2v-2.2h2.2l1.6-1.6c.5.2 1 .3 1.5.3 2.8 0 5-2.2 5-5s-2.3-4.8-5.1-4.8Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="16" cy="8" r="1.5" fill="currentColor"/></svg><span class="navgmt">Vypravěč</span></a>
     </div>
   </nav>
 
@@ -946,7 +957,7 @@ html.gmv a.gm1{outline:1.5px dotted var(--gold);outline-offset:2px}
 <section class="sec"><h2 class="uvh">Kam dál</h2>
   <div class="uvtiles">
     <a class="uvt" href="#artikule"><i class="uvi q"><img src="art/svedomi.webp" alt="" loading="lazy"></i><b>Artikule</b><span>Pravidla tažení: Víra, Boj, Rány a slovníček pojmů.</span></a>
-    <a class="uvt" href="#draconomicon"><i class="uvi"><img src="art/draci/plivnik-h.webp" alt="" loading="lazy"></i><b>Draconomicon</b><span>Kniha o dracích a jejich plemenech.</span></a>
+    <a class="uvt" href="#draconomicon"><i class="uvi"><img src="art/img/draconomicon-ikona.webp" alt="" loading="lazy"></i><b>Draconomicon</b><span>Kniha o dracích a jejich plemenech.</span></a>
     <a class="uvt" href="#druzina"><i class="uvi q"><img src="art/serm.webp" alt="" loading="lazy"></i><b>Družina</b><span>Hrdinové tažení, jejich Svědomí a původ.</span></a>
     <a class="uvt" href="#kronika"><i class="uvi"><img src="art/img/kalich-drak.webp" alt="" loading="lazy"></i><b>Kronika</b><span>Zápisy ze sezení a letopis světa.</span></a>
     <a class="uvt" href="#mapa"><i class="uvi"><img src="art/img/hrad.webp" alt="" loading="lazy"></i><b>Země Koruny</b><span>Koruna a sousedé, državy rodů, cesty, diecéze a země.</span></a>
@@ -1196,8 +1207,8 @@ html.gmv a.gm1{outline:1.5px dotted var(--gold);outline-offset:2px}
 (function(){
 const ZRE=/\[\[([?!]?)([A-Za-z0-9_-]+)\|([^\]|]*)(?:\|([^\]]*))?\]\]/g;
 function zminky(D){
-  const P=new Set((D.PEOPLE||[]).map(p=>p.id)),R=new Set((D.FAM||[]).map(f=>f.id));
-  const conv=s=>s.indexOf("[[")<0?s:s.replace(ZRE,(m,fl,id,t)=>fl?t:P.has(id)?`<a class=zm href=#osoba/${id}>${t}</a>`:R.has(id)?`<a class=zm href=#rod/${id}>${t}</a>`:t);
+  const P=new Set((D.PEOPLE||[]).map(p=>p.id)),R=new Set((D.FAM||[]).map(f=>f.id)),Q=new Set(((D.DRACI||{}).pl||[]).map(d=>d.id));
+  const conv=s=>s.indexOf("[[")<0?s:s.replace(ZRE,(m,fl,id,t)=>fl?t:P.has(id)?`<a class=zm href=#osoba/${id}>${t}</a>`:R.has(id)?`<a class=zm href=#rod/${id}>${t}</a>`:Q.has(id)?`<a class=zm href=#draconomicon/${id}>${t}</a>`:t);
   const walk=v=>{if(typeof v==="string")return conv(v);if(Array.isArray(v)){for(let i=0;i<v.length;i++)v[i]=walk(v[i]);return v}
     if(v&&typeof v==="object"){for(const k in v)v[k]=walk(v[k]);return v}return v};
   for(const k in D)if(k!=="STAV"&&k!=="GM")D[k]=walk(D[k]);
@@ -3354,8 +3365,8 @@ function renderDraco(b){
   const nav=`<nav class="apn">${pv?`<a href="#draconomicon/${pv.id}" rel="prev"><small>Předchozí</small>${pv.n}</a>`:"<span></span>"}${nx?`<a href="#draconomicon/${nx.id}" rel="next"><small>Další</small>${nx.n}</a>`:"<span></span>"}</nav>`;
   main.innerHTML=`<nav class="crumbs"><a href="#draconomicon">Draconomicon</a> › <a href="#draconomicon/plemena">Plemena</a> › <b>${o.n}</b></nav>
     <h2 class="arttitle">${o.n}</h2><p class="drlatin">${[o.la,o.j,o.pd].filter(Boolean).join(" · ")}</p>
-    ${o.img?`<figure class="drfig"><a href="art/draci/${o.img}.webp" target="_blank" rel="noopener" title="Otevřít v plné velikosti"><img src="art/draci/${o.img}.webp" alt="${o.n}" width="1200" height="800"></a></figure>`:""}
-    <div class="drtext">${o.h}</div>${nav}`;
+    ${o.sl?`<p class="slnote">O tomto plemeni družina zatím jen slyšela. Víc se dozví, až ho potká.</p>`:`${o.img?`<figure class="drfig"><a href="art/draci/${o.img}.webp" target="_blank" rel="noopener" title="Otevřít v plné velikosti"><img src="art/draci/${o.img}.webp" alt="${o.n}" width="1200" height="800"></a></figure>`:""}
+    <div class="drtext">${o.h}</div>`}${nav}`;
   autolink(main.querySelector(".drtext"),"");
 }
 
@@ -3847,16 +3858,17 @@ const STLBL=["Skryté","Slyšeli","Potkali"];
 if(GMV)document.documentElement.classList.add("gmv");
 const gmLv=id=>STAV?(STAV[id]??0):2;
 const gmEff=id=>PBY[id]?Math.min(gmLv(id),gmLv(PBY[id].r)):gmLv(id);
+const gmPl=id=>DRBY[id]&&DRBY[id].k==="pl";
 const gmSeg=id=>`<span class="gmseg">${[0,1,2].map(i=>`<button type="button" class="gmst gs${i}" data-gmset="${i}" aria-pressed="${gmLv(id)===i}" title="${["Hráči o tom nevědí","Hráči znají jméno a základní údaje","Hráči znají vše kromě tajemství"][i]}">${STLBL[i]}</button>`).join("")}</span>`;
 function gmBar(id,kind){
   if(!GMV||!STAV)return"";
   const warn=kind==="osoba"&&PBY[id]&&gmLv(PBY[id].r)===0?`<span class="gmwarn">Rod je skrytý – hráči osobu neuvidí, dokud neodhalíte rod.</span>`:"";
-  return `<div class="gmbar noal" data-gmid="${id}" data-gmkind="${kind}"><span class="gmlbl">Co o ${kind==="rod"?"rodu":kind==="misto"?"místu":"osobě"} ví družina</span>${gmSeg(id)}${warn}${window.MMDB?"":`<span class="gmwarn">Měnit lze jen na webu napojeném na databázi.</span>`}</div>`;
+  return `<div class="gmbar noal" data-gmid="${id}" data-gmkind="${kind}"><span class="gmlbl">Co o ${kind==="rod"?"rodu":kind==="misto"?"místu":kind==="drak"?"plemeni":"osobě"} ví družina</span>${gmSeg(id)}${warn}${window.MMDB?"":`<span class="gmwarn">Měnit lze jen na webu napojeném na databázi.</span>`}</div>`;
 }
 function gmMark(root){
   if(!STAV)return;
-  (root||document).querySelectorAll('a[href^="#osoba/"],a[href^="#rod/"]').forEach(a=>{const id=a.getAttribute("href").split("/")[1],v=gmEff(id);
-    a.classList.toggle("gm0",v===0);a.classList.toggle("gm1",v===1)});
+  (root||document).querySelectorAll('a[href^="#osoba/"],a[href^="#rod/"],a[href^="#draconomicon/"]').forEach(a=>{const h=a.getAttribute("href"),id=h.split("/")[1];
+    if(h.startsWith("#draconomicon/")&&!gmPl(id))return;const v=gmEff(id);a.classList.toggle("gm0",v===0);a.classList.toggle("gm1",v===1)});
 }
 function gmRefresh(){
   document.querySelectorAll(".gmbar[data-gmid]").forEach(b=>{b.outerHTML=gmBar(b.dataset.gmid,b.dataset.gmkind)});
@@ -3875,6 +3887,7 @@ if(GMV&&STAV){
   const _r1=renderRodArticle,_r2=renderPersonArticle;
   renderRodArticle=function(id){_r1(id);const c=document.querySelector("#article .crumbs");if(c)c.insertAdjacentHTML("afterend",gmBar(id,"rod"))};
   renderPersonArticle=function(id){_r2(id);const c=document.querySelector("#article .crumbs");if(c)c.insertAdjacentHTML("afterend",gmBar(id,"osoba"))};
+  const _r3=renderDraco;renderDraco=function(b){_r3(b);if(gmPl(b)){const c=document.querySelector("#drmain .crumbs");if(c)c.insertAdjacentHTML("afterend",gmBar(b,"drak"))}};
   document.addEventListener("click",e=>{const b=e.target.closest("[data-gmset]");if(!b)return;const box=b.closest("[data-gmid]");
     if(+b.dataset.gmset===gmLv(box.dataset.gmid))return;gmUloz({[box.dataset.gmid]:+b.dataset.gmset})});
   let mq=0;new MutationObserver(()=>{if(!mq)mq=requestAnimationFrame(()=>{mq=0;gmMark()})}).observe(document.body,{childList:true,subtree:true});
@@ -3882,7 +3895,7 @@ if(GMV&&STAV){
 function gmSum(){
   const el=document.getElementById("gmsum");if(!el)return;
   const c=(arr,f)=>arr.filter(x=>f(x)>=1).length;
-  el.textContent=`Družina zná ${c(FAM,f=>gmLv(f.id))} z ${FAM.length} rodů, ${c(PEOPLE,p=>gmEff(p.id))} z ${PEOPLE.length} osob`+(DISC.length?` a ${c(DISC,d=>gmLv(d.id))} z ${DISC.length} míst.`:".");
+  el.textContent=`Družina zná ${c(FAM,f=>gmLv(f.id))} z ${FAM.length} rodů, ${c(PEOPLE,p=>gmEff(p.id))} z ${PEOPLE.length} osob`+`, ${c(DRACI.pl,d=>gmLv(d.id))} z ${DRACI.pl.length} dračích plemen`+(DISC.length?` a ${c(DISC,d=>gmLv(d.id))} z ${DISC.length} míst.`:".");
 }
 function renderGM(){
   const box=document.getElementById("gmview");
@@ -3904,7 +3917,7 @@ function renderGM(){
   const row=(id,cls,href,name,sub)=>`<div class="gmrow ${cls}" data-gmid="${id}"><a href="${href}">${name}</a><small>${sub}</small>${gmSeg(id)}</div>`;
   box.innerHTML=`<h2 class="arttitle">Vypravěč</h2>
     <div class="gmhead"><span class="lbl">${window.MMDB?`Přihlášen: ${MMDB.email()||"vypravěč"}`:"Statická vypravěčská verze – stavy jen ke čtení"}</span>${window.MMDB?`<button type="button" class="gbtn" id="gmout">Odhlásit</button>`:""}</div>
-    <p class="intro">Hráči vidí jen to, co je odhalené. <b>Slyšeli</b>: jméno a základní údaje, u osob silueta místo portrétu. <b>Potkali</b>: vše kromě tajemství vypravěče. Osoba je hráčům vidět, jen když je vidět i její rod. Změna se hráčům projeví do půl minuty, bez nového nasazení webu.</p>
+    <p class="intro">Hráči vidí jen to, co je odhalené. <b>Slyšeli</b>: jméno a základní údaje, u osob silueta místo portrétu. <b>Potkali</b>: vše kromě tajemství vypravěče (u dračích plemen „Slyšeli“ = jméno bez obrázku a popisu). Osoba je hráčům vidět, jen když je vidět i její rod. Změna se hráčům projeví do půl minuty, bez nového nasazení webu.</p>
     <div class="gmtools"><input type="search" id="gmq" placeholder="Hledat rod, osobu nebo místo…" aria-label="Hledat">
       <select id="gmf" aria-label="Filtr stavu"><option value="">Všechny stavy</option><option value="0">Jen skryté</option><option value="1">Jen slyšeli</option><option value="2">Jen potkali</option></select>
       <span class="gmsum" id="gmsum"></span></div>
@@ -3912,6 +3925,7 @@ function renderGM(){
       ${row(f.id,"gmr","#rod/"+f.id,f.name,f.land+(f.nbr?" · soused":""))}
       ${peopleOf(f.id).length?`<div class="gmrow gmp gmbk"><small>Všechny osoby rodu:</small><select class="gmbulk" data-gmbulk="${f.id}" aria-label="Nastavit všechny osoby rodu ${f.name}"><option value="">nastavit…</option>${STLBL.map((l,i)=>`<option value="${i}">${l}</option>`).join("")}</select></div>`:""}
       ${peopleOf(f.id).map(p=>row(p.id,"gmp","#osoba/"+p.id,p.n,p.role)).join("")}</div>`).join("")}
+    ${DRACI.pl.length?`<div class="gmrod" data-rn="draconomicon draci plemena"><div class="gmrow"><b>Draconomicon – dračí plemena</b></div>${DRACI.pl.map(d=>row(d.id,"gmp","#draconomicon/"+d.id,d.n,[d.la,d.pd].filter(Boolean).join(" · ")||"plemeno")).join("")}</div>`:""}
     ${DISC.length?`<div class="gmrod" data-rn="objevena mista"><div class="gmrow"><b>Objevená místa</b></div>${DISC.map(d=>row(d.id,"gmp","#mapa",d.name,"místo na mapě")).join("")}</div>`:""}</div>`;
   gmSum();gmMark(box);
   const flt=()=>{const q=_nrm(box.querySelector("#gmq").value.trim()),f=box.querySelector("#gmf").value;

@@ -35,16 +35,16 @@ s česky popsanou chybou v přehledu nasazení na Netlify a web zůstane ve stav
   (`art/portrety/<id>.webp` + `<id>-m.webp`) se podle jména souboru najdou samy.
 
 ## Odhalování (co družina zná)
-Na webu napojeném na databázi vidí hráči jen to, co vypravěč odhalil. Rody, osoby a objevená místa mají tři stavy:
+Na webu napojeném na databázi vidí hráči jen to, co vypravěč odhalil. Rody, osoby, dračí plemena a objevená místa mají tři stavy:
 
 | Stav | Co uvidí hráči |
 |---|---|
 | **Skryté** | nic – záznam se jim vůbec nepošle (ani do zdrojového kódu stránky) |
-| **Slyšeli** | jméno a základní údaje; osoba bez textu a se siluetou, rod bez postoje, zápisu kronikáře a rodokmenu |
+| **Slyšeli** | jméno a základní údaje; osoba bez textu a se siluetou, rod bez postoje, zápisu kronikáře a rodokmenu, dračí plemeno bez obrázku a popisu |
 | **Potkali** | vše kromě ⟦tajemství⟧ |
 
-- Stav se přepíná na webu: odkaz **Vypravěč** v patičce → přihlášení → přehled všech rodů, osob a míst,
-  případně lišta „Co o osobě ví družina“ přímo na stránce osoby či rodu. Hráčům se změna ukáže do půl minuty.
+- Stav se přepíná na webu: ikona klíče **Vypravěč** vpravo v hlavní nabídce (nebo odkaz v patičce) → přihlášení → přehled všech rodů, osob a míst,
+  případně lišta „Co o … ví družina“ přímo na stránce osoby, rodu či dračího plemene. Hráčům se změna ukáže do půl minuty.
 - Osoba je hráčům vidět, jen když je vidět i její rod. Ve vypravěčském pohledu jsou skryté odkazy
   orámované čárkovaně, „slyšeli“ tečkovaně.
 - **Výchozí stav** nového záznamu lze dát do hlavičky: `stav: skryta`, `stav: slyseli` nebo `stav: potkali`
@@ -52,5 +52,5 @@ Na webu napojeném na databázi vidí hráči jen to, co vypravěč odhalil. Rod
 - **Zmínky v textech** podle stavu: `[[jindrich4|Jindřich z Hradce]]` je odkaz, když družina osobu zná,
   jinak jen text; `[[jindrich4|Jindřich z Hradce|jakýsi pán]]` ukáže skrytou osobu jako „jakýsi pán“;
   `[[?var|celá věta…]]` se ukáže, jen když družina o rodu aspoň slyšela; `[[!var|věta…]]` jen když ho potkali.
-  Funguje v textech osob, rodů, vazeb, Prahy, Kroniky i Družiny.
+  Funguje v textech osob, rodů, vazeb, Prahy, Kroniky, Družiny i Draconomiconu (id plemene např. `plivnik`).
 - Vazba mezi rody se hráčům ukáže, jen když znají všechny rody ve vazbě.

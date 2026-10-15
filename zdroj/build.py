@@ -389,6 +389,7 @@ def draconomicon():
         img = p.get("obrazek") or p["id"]
         if not os.path.exists(os.path.join(ROOT, "art", "draci", img + ".webp")):
             img = ""
+        seed(p["id"], p, w)
         pl.append({"id": p["id"], "n": p["nazev"], "j": p.get("jinak", ""), "la": p.get("latin", ""), "tr": p["trida"], "vz": p.get("vzacnost", ""),
                    "rod": p.get("rod", ""), "pd": p.get("pridomek", ""), "img": img, "prof": [p.get(k, "") for k in ("kridla", "ocas", "stavba", "let", "schopnost")], "h": md(p["_body"])})
     ids = [x["id"] for x in kap + pl] + ["plemena"]
@@ -471,7 +472,7 @@ def bez_tajnych(j, gm):
         return [bez_tajnych(v, gm) for v in j if gm or not (isinstance(v, dict) and v.get("$gm"))]
     return j
 
-def odhalovaci_data(fam, short, arms, people, rel, praha_pl, mista_l, trees, portr_stem, zapisy_l, party):
+def odhalovaci_data(fam, short, arms, people, rel, praha_pl, mista_l, trees, portr_stem, zapisy_l, party, draci, drak_stem):
     prod = {p["id"]: p["r"] for p in people}
     pids, rids = set(prod), {f["id"] for f in fam}
     pref = lambda pid: {"$g": [pid, prod[pid]], "$x": pid}
@@ -525,7 +526,12 @@ def odhalovaci_data(fam, short, arms, people, rel, praha_pl, mista_l, trees, por
             if k in t: t[k] = tnode(t[k], False, rid)
         if "kids" in t: t["kids"] = [tnode(c, True, rid) for c in t["kids"]]
         T[rid] = {"$g": rid, "$u": 2, "$x": t}
-    return {"FAM": F, "PEOPLE": P, "REL": REL_, "PRAHA_PLACES": PR, "MISTA": MI, "TREES": T,
+    PL = []
+    for d in draci["pl"]:
+        base = {k: v for k, v in d.items() if k not in ("img", "prof", "h")}
+        base.update({"img": "", "prof": ["", "", "", "", ""], "h": "", "sl": True})
+        PL.append({"$g": d["id"], **base, "$plne": {"img": drak_stem.get(d["img"], d["img"]), "prof": d["prof"], "h": d["h"], "sl": False}})
+    return {"DRACI": {"kap": draci["kap"], "pl": PL}, "FAM": F, "PEOPLE": P, "REL": REL_, "PRAHA_PLACES": PR, "MISTA": MI, "TREES": T,
             "SHORT": {k: {"$g": k, "$x": v} for k, v in short.items()},
             "ARMS": {k: {"$g": k, "$x": v} for k, v in arms.items()},
             "PORTR": {pid: {"$g": prod[pid], "$x": {"$g": pid, "$u": 2, "$x": stem}} for pid, stem in portr_stem.items()},
@@ -559,9 +565,15 @@ if DB:  # portréty pod nečitelnými názvy, aby se nedalo uhodnout, kdo existu
     STEM = {pid: hashlib.sha256(f"mm-portret:{SB_SECRET}:{pid}".encode()).hexdigest()[:24] for pid in PORTR_IDS}
 else:
     STEM = {pid: pid for pid in PORTR_IDS}
-ODH = odhalovaci_data(FAM, SHORT, ARMS, PEOPLE, vazby(IDS, removed_items), praha(IDS, PIDS), mista(), TREES, STEM, zapisy(), druzina())
+DRACI_ = draconomicon()
+DRAK_IMG = sorted({d["img"] for d in DRACI_["pl"] if d["img"]})
+if DB:  # obrázky plemen také pod nečitelnými názvy
+    DSTEM = {i: hashlib.sha256(f"mm-drak:{SB_SECRET}:{i}".encode()).hexdigest()[:24] for i in DRAK_IMG}
+else:
+    DSTEM = {i: i for i in DRAK_IMG}
+ODH = odhalovaci_data(FAM, SHORT, ARMS, PEOPLE, vazby(IDS, removed_items), praha(IDS, PIDS), mista(), TREES, STEM, zapisy(), druzina(), DRACI_, DSTEM)
 STAT = {"PSTREETS": ulice(), "SVET": SV, "SVETMESTA": SVM, "SVETDRZ": svet_drzavy({o["id"] for o in SV}),
-        "SVETCESTY": svet_cesty(SVM), "DRACI": draconomicon()}
+        "SVETCESTY": svet_cesty(SVM)}
 
 def pro_hrace(txt):
     t, rem = strip_secrets(txt)
@@ -642,8 +654,14 @@ if DB:
 shutil.rmtree(OUT, ignore_errors=True)
 os.makedirs(OUT)
 open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(page)
-shutil.copytree(os.path.join(ROOT, "art"), os.path.join(OUT, "art"), ignore=shutil.ignore_patterns("portrety") if DB else None)
+shutil.copytree(os.path.join(ROOT, "art"), os.path.join(OUT, "art"), ignore=shutil.ignore_patterns("portrety", "draci") if DB else None)
 if DB:
+    src_d, dst_d = os.path.join(ROOT, "art", "draci"), os.path.join(OUT, "art", "draci")
+    os.makedirs(dst_d)
+    for img, stem in DSTEM.items():
+        for suf in ("", "-h", "-m"):
+            if os.path.exists(os.path.join(src_d, f"{img}{suf}.webp")):
+                shutil.copyfile(os.path.join(src_d, f"{img}{suf}.webp"), os.path.join(dst_d, f"{stem}{suf}.webp"))
     src_p, dst_p = os.path.join(ROOT, "art", "portrety"), os.path.join(OUT, "art", "portrety")
     os.makedirs(dst_p)
     for pid, stem in STEM.items():
