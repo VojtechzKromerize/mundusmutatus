@@ -109,7 +109,8 @@ def zapisy():
                     "place": z["place"], "route": lst(z.get("route")) or [z["place"]],
                     "title": z["title"], "text": md(z["_body"]),
                     "praha": [int(x) for x in lst(z.get("praha")) if x.isdigit()],
-                    "druzina": int(z["druzina"]) if str(z.get("druzina", "")).strip().isdigit() else None})
+                    "druzina": int(z["druzina"]) if str(z.get("druzina", "")).strip().isdigit() else None,
+                    "hodina": int(str(z["hodina"]).split(":")[0]) % 24 if str(z.get("hodina", "")).strip().split(":")[0].isdigit() else None})
     return out
 
 def druzina():

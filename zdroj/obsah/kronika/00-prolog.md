@@ -3,6 +3,7 @@ id: prolog
 n: Prolog
 datum: 1458-03-03
 date: 3. března 1458
+hodina: 10
 place: Praha
 route: Praha
 praha: 20, 17
