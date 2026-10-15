@@ -874,6 +874,44 @@ body{background:transparent}
 .plegend{display:grid;grid-template-columns:1fr 1fr;gap:5px 12px;font-size:.88rem}
 .plegend span{display:flex;align-items:center;gap:8px}
 .plegend svg{width:22px;height:16px;flex:none}
+/* ===== odhalování: načítání, hlášky, vypravěč ===== */
+html.mmload .wrap>main{visibility:hidden}
+html.mmload body::after{content:"Načítám zemské desky…";position:fixed;left:50%;top:45%;transform:translateX(-50%);font-family:var(--f-label);letter-spacing:.06em;color:var(--muted)}
+.mmhlas{position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(8px);z-index:95;max-width:min(92vw,520px);background:var(--ink);color:var(--paper);font-family:var(--f-label);letter-spacing:.03em;padding:9px 16px;border-radius:4px;box-shadow:0 4px 14px rgba(0,0,0,.3);opacity:0;transition:opacity .25s,transform .25s;pointer-events:none}
+.mmhlas.on{opacity:1;transform:translateX(-50%)}
+.slnote{font-style:italic;color:var(--muted);border-left:3px solid var(--rule);padding:4px 0 4px 12px;margin:10px 0}
+.colophon .gmlink{opacity:.55}
+.gmbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin:10px 0 4px;padding:8px 12px;border:1px dashed var(--gold);border-radius:4px;background:color-mix(in srgb,var(--gold) 8%,transparent)}
+.gmlbl{font-family:var(--f-label);letter-spacing:.05em;font-size:.86rem;color:var(--muted)}
+.gmseg{display:inline-flex;border:1px solid var(--rule);border-radius:3px;overflow:hidden}
+.gmst{font-family:var(--f-label);font-size:.86rem;letter-spacing:.03em;background:transparent;color:var(--ink);border:0;border-left:1px solid var(--rule);padding:4px 10px;cursor:pointer;min-height:30px}
+.gmst:first-child{border-left:0}
+.gmst:hover{background:color-mix(in srgb,var(--ink) 8%,transparent)}
+.gmst.gs0[aria-pressed="true"]{background:var(--muted);color:var(--paper)}
+.gmst.gs1[aria-pressed="true"]{background:var(--gold);color:var(--paper)}
+.gmst.gs2[aria-pressed="true"]{background:var(--kat);color:var(--paper)}
+html.gmbusy .gmst{cursor:progress;opacity:.6}
+.gmwarn{font-size:.9rem;color:var(--kal)}
+html.gmv a.gm0{opacity:.5;outline:1.5px dashed var(--muted);outline-offset:2px}
+html.gmv a.gm1{outline:1.5px dotted var(--gold);outline-offset:2px}
+.gmform{display:flex;flex-direction:column;gap:10px;max-width:340px;margin-top:12px}
+.gmform label{display:flex;flex-direction:column;gap:3px;font-family:var(--f-label);letter-spacing:.04em;font-size:.9rem;color:var(--muted)}
+.gmform input{font:inherit;font-family:var(--f-body);color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:3px;padding:7px 9px;min-height:40px}
+.gmerr{color:var(--kal);min-height:1.2em;margin:0}
+.gmhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;margin:6px 0 10px}
+.gmtools{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin:10px 0 14px}
+.gmtools input,.gmtools select{font:inherit;color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:3px;padding:6px 9px;min-height:38px}
+.gmtools input{flex:1 1 220px;max-width:360px}
+.gmsum{font-family:var(--f-label);letter-spacing:.04em;color:var(--muted);font-size:.9rem}
+.gmlist{display:flex;flex-direction:column;gap:10px}
+.gmrod{border:1px solid var(--rule);border-radius:4px;background:var(--paper);padding:6px 10px}
+.gmrow{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;padding:5px 0}
+.gmrow>a{font-weight:700;min-width:0;flex:1 1 200px}
+.gmrow small{font-family:var(--f-label);letter-spacing:.03em;color:var(--muted);flex:1 1 140px}
+.gmrow.gmp{padding-left:16px;border-top:1px dotted var(--rule)}
+.gmrow.gmp>a{font-weight:400}
+.gmbulk{font:inherit;font-size:.86rem;color:var(--ink);background:transparent;border:1px solid var(--rule);border-radius:3px;padding:3px 6px;min-height:30px}
+@media (max-width:640px){.gmrow>a,.gmrow small{flex-basis:100%}.gmrow.gmp{padding-left:8px}}
 </style>
 
 <div class="wrap">
@@ -1139,16 +1177,92 @@ body{background:transparent}
 </section>
 
 </div>
+<div class="view" data-view="gm" hidden>
+<section class="sec" id="gmview"></section>
+</div>
 </main>
 <footer class="colophon">
   <span class="corn" aria-hidden="true"></span>
   <p class="cq">Sepsáno v Praze léta Páně 1458 · <i>Sub utraque sunt dracones</i></p>
-  <nav aria-label="Patička"><a href="#uvod">Úvod</a><a href="#artikule">Artikule</a><a href="#draconomicon">Draconomicon</a><a href="#kronika">Kronika</a><a href="#svet">Známý svět</a><a href="#mapa">Země Koruny</a><a href="#praha">Praha</a><a href="#desky">Zemské desky</a></nav>
+  <nav aria-label="Patička"><a href="#uvod">Úvod</a><a href="#artikule">Artikule</a><a href="#draconomicon">Draconomicon</a><a href="#kronika">Kronika</a><a href="#svet">Známý svět</a><a href="#mapa">Země Koruny</a><a href="#praha">Praha</a><a href="#desky">Zemské desky</a><a class="gmlink" href="#gm">Vypravěč</a></nav>
   <button type="button" class="ctop" onclick="scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'})">↑ Zpět nahoru</button>
 </footer>
 </div>
 
 <script>
+/*@MMDATA@*/
+/* ===== Zavaděč dat: statická verze má data přímo v window.__D; verze napojená na databázi
+   si je stáhne (hráč: veřejný výřez, vypravěč po přihlášení: vše) a teprve pak spustí hlavní skript. ===== */
+(function(){
+const ZRE=/\[\[([?!]?)([A-Za-z0-9_-]+)\|([^\]|]*)(?:\|([^\]]*))?\]\]/g;
+function zminky(D){
+  const P=new Set((D.PEOPLE||[]).map(p=>p.id)),R=new Set((D.FAM||[]).map(f=>f.id));
+  const conv=s=>s.indexOf("[[")<0?s:s.replace(ZRE,(m,fl,id,t)=>fl?t:P.has(id)?`<a class=zm href=#osoba/${id}>${t}</a>`:R.has(id)?`<a class=zm href=#rod/${id}>${t}</a>`:t);
+  const walk=v=>{if(typeof v==="string")return conv(v);if(Array.isArray(v)){for(let i=0;i<v.length;i++)v[i]=walk(v[i]);return v}
+    if(v&&typeof v==="object"){for(const k in v)v[k]=walk(v[k]);return v}return v};
+  for(const k in D)if(k!=="STAV"&&k!=="GM")D[k]=walk(D[k]);
+}
+const C=window.MMCFG||null;
+window.MMDB=null;window.MMINFO="";
+if(!C){zminky(window.__D=window.__D||{});return}
+document.documentElement.classList.add("mmload");
+const LS="mm-gm-relace",V=encodeURIComponent(C.vetev);
+const hdr=tok=>{const h={apikey:C.key},b=tok||(C.key.startsWith("eyJ")?C.key:null);if(b)h.Authorization="Bearer "+b;return h};
+async function api(path,o={}){
+  const r=await fetch(C.url+path,{method:o.method||"GET",body:o.body,cache:"no-store",headers:{...hdr(o.tok),...(o.body?{"Content-Type":"application/json"}:{})}});
+  const t=await r.text();let j=null;try{j=t?JSON.parse(t):null}catch(e){}
+  if(!r.ok){const e=new Error((j&&(j.msg||j.message||j.error_description||j.error))||("HTTP "+r.status));e.status=r.status;throw e}
+  return j}
+const relace=()=>{try{return JSON.parse(localStorage.getItem(LS)||"null")}catch(e){return null}};
+const uloz=j=>{const r={at:j.access_token,rt:j.refresh_token,exp:j.expires_at||Math.floor(Date.now()/1000)+(j.expires_in||3600),email:(j.user&&j.user.email)||(relace()||{}).email};
+  try{localStorage.setItem(LS,JSON.stringify(r))}catch(e){}return r};
+const smaz=()=>{try{localStorage.removeItem(LS)}catch(e){}};
+async function token(){
+  let r=relace();if(!r||!r.at)return null;
+  if(r.exp-60<Date.now()/1000){
+    try{r=uloz(await api("/auth/v1/token?grant_type=refresh_token",{method:"POST",body:JSON.stringify({refresh_token:r.rt})}))}
+    catch(e){if(e.status>=400&&e.status<500)smaz();return null}}
+  return r.at}
+window.MMDB={vetev:C.vetev,
+  async prihlas(email,heslo){uloz(await api("/auth/v1/token?grant_type=password",{method:"POST",body:JSON.stringify({email,password:heslo})}))},
+  async odhlas(){const t=await token();if(t)try{await api("/auth/v1/logout",{method:"POST",tok:t})}catch(e){}smaz()},
+  email(){const r=relace();return r&&r.email},
+  prihlasen(){return !!relace()},
+  async nastav(zmeny){const t=await token();if(!t)throw new Error("Přihlášení vypršelo – přihlaste se znovu.");
+    return api("/rest/v1/rpc/mm_nastav_stavy",{method:"POST",tok:t,body:JSON.stringify({p_zmeny:zmeny})})},
+  async verze(){const j=await api(`/rest/v1/snimek?vetev=eq.${V}&select=verze`);return j&&j[0]?j[0].verze:null}};
+let MMV=null;
+function spust(D){
+  window.__D=D;zminky(D);
+  const m=document.getElementById("mmhlavni"),s=document.createElement("script");s.textContent=m.textContent;m.after(s);
+  document.documentElement.classList.remove("mmload");
+  let ob=null;try{ob=JSON.parse(sessionStorage.getItem("mm-obnova")||"null");sessionStorage.removeItem("mm-obnova")}catch(e){}
+  if(ob&&ob.h===location.hash)setTimeout(()=>{scrollTo(0,ob.y);hlas("Zemské desky byly doplněny o nové poznatky.")},60);
+  if(window.MMINFO&&!D.GM)hlas(window.MMINFO,8000);
+  if(!D.GM&&MMV!==null){
+    const kontrola=async()=>{if(document.visibilityState!=="visible")return;
+      try{const v=await window.MMDB.verze();if(v!==null&&v!==MMV){try{sessionStorage.setItem("mm-obnova",JSON.stringify({h:location.hash,y:scrollY}))}catch(e){}location.reload()}}catch(e){}};
+    setInterval(kontrola,20000);document.addEventListener("visibilitychange",kontrola)}
+}
+function hlas(t,ms){const d=document.createElement("div");d.className="mmhlas";d.setAttribute("role","status");d.textContent=t;document.body.appendChild(d);
+  requestAnimationFrame(()=>d.classList.add("on"));setTimeout(()=>{d.classList.remove("on");setTimeout(()=>d.remove(),400)},ms||4500)}
+window.mmHlas=hlas;
+(async()=>{
+  const S=window.__S||{};let D=null;
+  if(relace()){
+    try{const t=await token();
+      if(t){const [o,st]=await Promise.all([api(`/rest/v1/obsah?vetev=eq.${V}&select=gm`,{tok:t}),api("/rest/v1/rpc/mm_stavy",{method:"POST",tok:t,body:"{}"})]);
+        if(o&&o[0])D=Object.assign({},S,o[0].gm,{GM:true,STAV:st||{}});else window.MMINFO="Tento účet nemá práva vypravěče, zobrazuji hráčskou verzi."}
+      else window.MMINFO="Přihlášení vypršelo, zobrazuji hráčskou verzi."}
+    catch(e){window.MMINFO="Vypravěčská data se nepodařilo načíst ("+e.message+"), zobrazuji hráčskou verzi.";if(e.status===401)smaz()}}
+  if(!D){try{const j=await api(`/rest/v1/snimek?vetev=eq.${V}&select=data,verze`);
+      if(j&&j[0]){D=Object.assign({},S,j[0].data);MMV=j[0].verze}else window.MMINFO="Zemské desky zatím nejsou v databázi."}
+    catch(e){window.MMINFO="Zemské desky se nepodařilo načíst – zkuste stránku obnovit."}}
+  spust(D||Object.assign({},S));
+})();
+})();
+</script>
+<script id="mmhlavni">
 const FAM=/*@FAM@*/[];
 const REL=/*@REL@*/[];
 const byId=Object.fromEntries(FAM.map(f=>[f.id,f]));
@@ -3246,63 +3360,11 @@ function renderDraco(b){
 
 /* ---------- Rodokmeny klíčových rodů (stav k 3. 3. 1458) ---------- */
 /* p = osoba v zemských deskách, r = rod, d = data, m = z kterého manželství, note = poznámka */
-const TREES={
- pod:{root:{n:"Viktorin z Kunštátu a Poděbrad",d:"1403–1427",note:"husitský pán, otec Jiřího; Jiřího matka není jistě známa (uvádí se Anna z Vartenberka)"},main:{p:"jiri",n:"Jiří z Poděbrad",d:"* 1420",sp:[{n:"Kunhuta ze Šternberka",d:"1425–1449",r:"ste",note:"1. manželka (∞ 1440/1441), dcera Smila Holického ze Šternberka; dobročinná a oblíbená kališnice"},{p:"johana",n:"Johana z Rožmitálu",d:"* asi 1430",r:"rzm",note:"2. manželka (∞ 1450), z katolického rodu, sestra Jaroslava Lva z Rožmitálu"}]},kids:[{p:"bocek",n:"Boček",d:"* 1442",m:1,note:"nejstarší syn"},{p:"viktorin",n:"Viktorin",d:"* 1443",m:1},{n:"Barbora",d:"* 1446",m:1,note:"svobodná; až roku 1461 se provdá za Jindřicha z Lipé",pl:"jindrichlipe"},{p:"jindrichst",n:"Jindřich starší",d:"* 1448",m:1},{p:"katerina",n:"Kateřina",d:"* 1449",m:1,note:"dvojče; zaslíbena Matyáši Korvínovi",pl:"matyas",rl:"hun"},{p:"zdenka",n:"Zdeňka (Sidonie)",d:"* 1449",m:1,note:"dvojče Kateřiny"},{n:"Hynek (Jindřich mladší)",d:"* 1452",m:2},{n:"Fridrich (Bedřich)",d:"* asi 1453",m:2,note:"zemřel v dětství 1458/1459; existence částečně nejistá"},{n:"Jiří",d:"* asi 1454",m:2,note:"zemřel v dětství (1459/1462)"},{n:"Ludmila",d:"* 1456",m:2}],foot:"Z druhého manželství snad ještě syn Jan, který zemřel ve třech letech (data neznámá); kronikář Urbánek zmiňuje i dceru Anežku, jinak nedoloženou."},
- roz:{root:{n:"Jindřich III. z Rožmberka",d:"† 1412",note:"∞ Eliška z Kravař"},main:{p:"oldrich2",n:"Oldřich II. z Rožmberka",d:"* 1403",sp:[{n:"Kateřina z Vartenberka",d:"† 1436",r:"var",note:"∞ 1418; dcera Čeňka z Vartenberka, rytíře Dračího řádu"},{n:"Eliška (Alžběta) ze Švamberka",r:"sva",note:"2. manželka podle Čechury; sporné, jiné genealogie ji neuvádějí"}]},kids:[{n:"Jindřich IV.",d:"asi 1427–1457",note:"vladař rodu od 1451; ∞ 1453 Anežka ze Schaunberku, bezdětný",pl:"anezkasbg",rl:"sbg"},{p:"perchta",n:"Perchta",d:"* asi 1429",note:"∞ 1449 Jan z Lichtenštejna",pl:"janlie"},{p:"jost",n:"Jošt II.",d:"* 1430",note:"biskup vratislavský",rl:"bvr"},{p:"jan2roz",n:"Jan II.",d:"* 1434",note:"vladař od 1457; ∞ Anna Hlohovská",pl:"annahlo",rl:"hlo",kids:[{p:"jindrich5roz",n:"Jindřich V.",d:"* 1456",note:"dědic rodu, batole"}]},{n:"Anežka"},{n:"Ludmila",d:"† asi před 1458",note:"∞ 1452 Bohuslav ze Švamberka",pl:"bohuslavsva",rl:"sva"}],foot:"Oldřich II. předal vládu synům roku 1451, ale žije dál na Krumlově a do politiky stále zasahuje."},
- ste:{root:{n:"Petr Konopišťský ze Šternberka",d:"† 1420",note:"padl u Vyšehradu; ∞ 1415 Perchta z Kravař"},main:{p:"zdenekst",n:"Zdeněk Konopišťský ze Šternberka",d:"* asi 1420",sp:[{n:"Anežka z Janovic",note:"1. manželka"},{n:"Anežka Zajícová z Hazmburka",r:"haz",note:"2. manželka"}]},kids:[{n:"Ladislav",note:"zemře 1460; jediný s trvalým mužským potomstvem"},{n:"Jaroslav",note:"doložen 1463–1492"},{n:"Jan",note:"doložen od 1459"},{n:"Zdeslav",note:"doložen od 1463"},{n:"Jiřík",note:"doložen 1463–1469"},{n:"Kunka",note:"dcera, ∞ Hynek ze Švamberka",rl:"sva"},{n:"Alžběta (Eliška)",note:"později 1. manželka Jindřicha IV. z Hradce; zda je dcerou Zdeňka, či Petra ze Šternberka, je sporné",pl:"jindrich4",rl:"hra"}],foot:"Z holické větve pocházela Kunhuta ze Šternberka (1425–1449), dcera Smila Holického, první manželka krále Jiřího. Kateřina ze Šternberka, dcera Jaroslava ze Šternberka a Veselí, je matkou pánů z Hradce a Zdeněk je jejich poručníkem. Moravskou větev zastupují Matouš ze Šternberka na Holešově a Albrecht mladší ze Šternberka na Lukově."},
- var:{main:{p:"janvar",n:"Jan z Vartenberka",note:"pán na Děčíně, od 1459 hornolužický fojt",sp:[{n:"Kateřina z Donína",note:"1. manželka"},{n:"Kateřina (Eliška) z Kunštátu",note:"2. manželka; rok sňatku neznámý"}]},foot:"Nejslavnějším mužem rodu byl Čeněk z Vartenberka († 1425), nejvyšší purkrabí 1414–1420; jeho dcera Kateřina († 1436) byla manželkou Oldřicha II. z Rožmberka a matkou Jana II. a biskupa Jošta. Z Vartenberků pocházela i Anna, matka krále Jiřího."},
- hra:{root:{n:"Jan mladší z Hradce",note:"∞ Eliška z Vartenberka"},main:{n:"Jan z Hradce na Telči",d:"1419–1451/1452",sp:[{p:"katerinast",n:"Kateřina ze Šternberka",r:"ste",note:"dcera Jaroslava ze Šternberka a Veselí, vdova"}]},kids:[{p:"jindrich4",n:"Jindřich IV.",d:"* 1442",note:"starší syn, spoludědic; vládu převezme sám 1463"},{p:"hermanhra",n:"Heřman",d:"asi 1445–1464",note:"mladší syn, spoludědic"}],foot:"Rodu vládnou společně dva nezletilí bratři, proto je jako hlavní postava uveden jejich zesnulý otec. Bratři zdědili statky Oldřicha V. z Hradce († 1453), posledního syna Menharta z Hradce († 1449). Poručníky byli Arnošt z Leskovce a po něm Zdeněk Konopišťský ze Šternberka. Narodily se také dcery."},
- per:{root:{n:"Vilém I. z Pernštejna",note:"moravský zemský hejtman (1421)"},main:{p:"janper",n:"Jan II. z Pernštejna",d:"* asi 1406",sp:[{n:"Barbora Brtnická z Valdštejna",d:"† před 1445",note:"1. manželka"},{p:"bohunkaper",n:"Bohunka z Lomnice",r:"lom",note:"2. manželka, sňatek asi 1441"}]},kids:[{p:"zikmundper",n:"Zikmund",d:"* asi 1437",m:1},{n:"Kateřina",d:"asi 1437–1449",m:1},{p:"vilemper",n:"Vilém",d:"* 1438",m:2,note:"za matku se uvádí Bohunka z Lomnice"}],foot:"Až po roce 1458 se narodí Jan a Vratislav a z třetího manželství s Markétou z Vranova Jimram."},
- cim:{main:{p:"tovacovsky",n:"Jan Tovačovský z Cimburka",sp:[{n:"Žofie z Kunštátu a Skalé",r:"pod",note:"sňatek asi 1437; z Kunštátů, příbuzenstva Jiřího z Poděbrad"}]},kids:[{p:"ctibortov",n:"Ctibor",d:"* asi 1438",m:1,note:"∞ asi 1458 Eliška z Melic; později zemský hejtman a autor Knihy tovačovské"},{p:"janmltov",n:"Jan mladší",d:"* asi 1440",m:1,note:"∞ Magdalena z Michalovic; rok sňatku nejistý (50. léta, jinde až 1468)"}]},
- lom:{root:{n:"Jan z Lomnice",d:"† 1451",note:"zemský hejtman 1427–1434; v mládí husita, od 1423 opět katolík"},main:{p:"vaclavmez",n:"Václav Meziříčský z Lomnice"},foot:"Sestra Bohunka je druhou manželkou Jana II. z Pernštejna. Václavovy děti jsou nezletilé; po jeho smrti je bude poručnicky spravovat příbuzný Bohuš z Lomnice."},
- smi:{main:{n:"Jan Smiřický ze Smiřic",d:"† 1453",note:"sťat v Praze 6. 9. 1453 pro obvinění ze zrady",sp:[{p:"marketasmi",n:"Markéta z Michalovic",note:"vdova"}]},kids:[{p:"vaclavsmi",n:"Václav",note:"starší syn; ∞ Kateřina ze Svojšína, zemře bez potomků"},{p:"jindrichsmi",n:"Jindřich",d:"* asi 1440",note:"mladší syn; později ∞ Kateřina z Kolovrat (Mašťovská)"}],foot:"Poručníkem nezletilých synů se stal Zdeněk Konopišťský ze Šternberka. Janova sestra Kateřina (doložena 1434–1457) je manželkou Albrechta Krakovského z Kolovrat."},
- kol:{root:{n:"Hanuš I. z Kolovrat",d:"† 1450",note:"pán na Žebráku, hejtman pražských měst a odpůrce Jiřího; ∞ Anna ze Stráže"},main:{p:"hanus2",n:"Hanuš II. z Kolovrat",d:"* asi 1430",sp:[{n:"Kateřina ze Šternberka",r:"ste",note:"rok sňatku neznámý"}]},foot:"Bratranci z libštejnské větve Jindřich a Beneš jsou synové Bedřicha z Kolovrat a Kateřiny z Vartenberka. Albrecht Krakovský z Kolovrat je ženatý s Kateřinou Smiřickou, nejspíš sestrou popraveného Jana."},
- lob:{root:{n:"Mikuláš Chudý z Lobkovic",d:"† 1435",note:"nejvyšší písař (1417), získal Hasištejn; ∞ Anna z Nechvalic"},main:{p:"mikulaslob",n:"Mikuláš Hasištejnský z Lobkovic",sp:[{n:"Žofie ze Žerotína",note:"dcera Jaroslavce ze Žerotína"}]},kids:[{n:"Jan",d:"* asi 1450"},{n:"Jaroslav",d:"* asi 1455"}],foot:"Mladší bratr Jan Popel z Lobkovic, zakladatel popelovské větve, je ženatý s Annou Švihovskou z Rýzmberka. Oba bratry povýší 3. 8. 1459 císař Fridrich III. do stavu svobodných pánů; v Čechách bude povýšení uznáno až roku 1479."},
- opo:{root:{n:"Bolek IV. Opolský",d:"† 1437",note:"∞ Markéta (snad Gorická)"},main:{p:"boleslav5",n:"Bolek V. Husita",d:"* asi 1400",sp:[{n:"Alžběta Granowská",note:"∞ asi 1418, rozvedeni 1451; nevlastní dcera krále Vladislava II. Jagella"},{n:"Hedvika Bessová z Kujav",note:"∞ 27. 6. 1451"}]},kids:[{n:"Václav",d:"1433 – asi 1453",note:"jediný syn, zemřel bez potomků"}],foot:"Bratr Mikuláš I. (* asi 1424) ∞ 1442 Magdalena Břežská, sestra Hedviky Lehnické; jejich děti mj. Ludvík (* 1450), Markéta (Machna, * asi 1450) a Alžběta (* asi 1452). Sestra Markéta († 1454) byla matkou Jana I. Lubinského."},
- opa:{main:{n:"Přemek I. Opavský",d:"† 1433",note:"∞ 1) Anna z Lucka, 2) Kateřina Minsterberská, 3) Helena Bosenská"},kids:[{n:"Václav II. Hlubčický",d:"† 1445/47",kids:[{p:"jan2pob",n:"Jan II. Pobožný",d:"* asi 1425",note:"třetina Opavska, Hlubčice"}]},{n:"Vilém Opavský",d:"† 1452",note:"∞ Salomena z Častolovic",kids:[{n:"Fridrich, Václav a Přemek",note:"nezletilí, pod poručnictvím strýce Arnošta"},{n:"Kateřina a Anna"}]},{p:"arnost",n:"Arnošt",d:"* asi 1415",note:"svobodný, poručník synovců; prodal Minsterberk Jiřímu"},{p:"premek2opa",n:"Přemek II.",d:"* asi 1423/25",note:"syn Heleny Bosenské, kanovník vratislavský"},{n:"Jitka",d:"† 1445",note:"∞ hrabě Jiří ze Svatého Jura a Pezinku",pl:"jirisvj",rl:"sgy"}],foot:"Krnovská větev: Jan IV. (* asi 1440) a Václav III. (* asi 1442), synové Mikuláše V. († 1452), pod poručnictvím macechy Barbory Rokemberkové. Ratibořská větev: Jan V. (* asi 1446), syn Václava II. Ratibořského († 1456) a Markéty ze Šamotul."},
- tes:{main:{n:"Boleslav I. Těšínský",d:"† 1431",sp:[{n:"Eufémie (Ofka) Mazovská",d:"† 1447",note:"∞ 1412"}]},kids:[{p:"vaclav1tes",n:"Václav I.",d:"* 1413/18",note:"∞ 1439 Alžběta Braniborská († 1449), asi 1445 se rozešli; bezdětný",rl:"bra"},{p:"vladislavtes",n:"Vladislav",d:"* asi 1420",note:"∞ 1444 Markéta Celská; drží půl Hlohova; bezdětný"},{p:"premysl2",n:"Přemysl II.",d:"* 1422/25",note:"fakticky vládne Těšínsku, poručník synovce"},{n:"Boleslav II.",d:"† 1452",note:"∞ 1448 Anna Bělská",kids:[{n:"Kazimír II.",d:"* asi 1449",note:"pod poručnictvím strýce Přemysla"},{n:"Žofie a Barbora",d:"* asi 1450–1453"}]},{n:"Alexandra",note:"∞ uherský palatin Ladislav Garai"}]},
- ole:{root:{n:"Konrád V. Kantner",d:"† 1439",note:"∞ Markéta († 1449)"},main:{p:"konrad9",n:"Konrád IX. Černý",d:"* asi 1415",sp:[{n:"Markéta Ravská",note:"dcera Siemovíta V. Ravského z mazovských Piastovců; ∞ do 1453"}]},foot:"Bratr Konrád X. Bílý (* 1420) drží od 1452 polovinu Stínavy. Sestry: Anežka († 1448) ∞ 1444 kancléř Kašpar Šlik (zasnoubena 1437), Anna ∞ Vladislav I. Plocký, Markéta je od 1456 abatyší v Třebnici. Teta Hedvika byla manželkou Jindřicha IX. Hlohovského."},
- hlo:{root:{n:"Jindřich VIII. Vrabec",d:"† 1397",note:"∞ Kateřina Opolská"},main:{p:"jindrich9",n:"Jindřich IX. Starší",d:"* asi 1389",sp:[{n:"Hedvika Olešnická",r:"ole",note:"dcera Konráda III. Starého; † mezi 1447 a 1453"}]},kids:[{p:"zikmundhlo",n:"Zikmund",d:"* 1431/32",note:"nejstarší syn a dědic"},{n:"Jindřich XI.",d:"* asi 1435"},{p:"annahlo",n:"Anna",note:"∞ 1454 Jan II. z Rožmberka",pl:"jan2roz",rl:"roz"},{n:"Hedvika",d:"* asi 1450"},{n:"Kateřina",d:"* před 1454"}],foot:"Synovci Baltazar (* asi 1415, Žaháň, ∞ Anežka), duševně nemocný Václav a Jan II. Šílený (* 1435, Převoz), synové Jana I. Žaháňského († 1439) a Scholastiky Saské († 1461), se přou o Žaháň; jejich bratr Rudolf padl 1454 u Chojnic na straně Řádu."},
- leg:{root:{n:"Ludvík II. Břežský",d:"† 1436",note:"∞ 1418 Alžběta Braniborská († 1449)"},main:{p:"hedvikaleg",n:"Hedvika Břežská",d:"* asi 1433",sp:[{n:"Jan I. Lubinský",d:"1425–1453",note:"∞ 1445; syn Ludvíka III. Olavského a Markéty Opolské"}]},kids:[{p:"fridrichleg",n:"Fridrich I.",d:"* 1446",note:"jediný syn; Lehnice, Chojnov, Střelín, Olava, Němčí"}],foot:"Hedvičina sestra Magdalena (* asi 1430) je manželkou Mikuláše I. Opolského, který drží v zástavě Břeh; Lubin drží od 1446 v zástavě Jindřich IX. Hlohovský."},
- jag:{root:{n:"Vladislav II. Jagello",d:"† 1434",note:"∞ Žofie Holšanská"},main:{p:"kazimir",n:"Kazimír IV.",d:"* 1427",sp:[{p:"alzbetahab",n:"Alžběta Habsburská",r:"hab",note:"∞ 1454, sestra Ladislava Pohrobka"}]},kids:[{p:"vladislav",n:"Vladislav",d:"* 1456"},{n:"Hedvika",d:"* 1457",note:"později (1475) ∞ Jiří Bohatý Bavorsko-Landshutský",rl:"wit"}],foot:"Kazimírův starší bratr Vladislav III. padl roku 1444 u Varny. Královna matka Žofie Holšanská žije (do 1461)."},
- hun:{root:{n:"Jan Hunyadi",d:"† 1456",note:"∞ asi 1429 Alžběta Silágyiová"},main:{p:"matyas",n:"Matyáš Korvín",d:"* 1443",sp:[{n:"Alžběta Celská",d:"† 1455",note:"∞ 1455, zemřela týž rok"},{p:"katerina",n:"Kateřina z Poděbrad",d:"* 1449",r:"pod",note:"zasnoubena při Matyášově propuštění (Strážnice, 9. 2. 1458)"}]},foot:"Matka Alžběta Silágyiová žije, její bratr Michal Silágyi je gubernátorem Uher. Matyášův starší bratr Ladislav byl popraven v Budíně 16. 3. 1457."},
- hab:{root:{n:"Arnošt Železný",d:"† 1424",note:"∞ 1412 Cimburgis Mazovská"},main:{p:"fridrich3",n:"Fridrich III.",d:"* 1415",sp:[{p:"eleonorapor",n:"Eleonora Portugalská",d:"* 1434",note:"∞ 16. 3. 1452 v Římě"}]},kids:[{n:"Kryštof",d:"1455–1456"}],foot:"Sourozenci: Albrecht VI. (* 1418, ∞ 1452 Mechtilda Falcká), Markéta (∞ 1431 saský kurfiřt Fridrich II.) a Kateřina (∞ 1447 Karel I. Bádenský). Bratranec Zikmund Tyrolský (* 1427). Albertinská větev vymřela smrtí Ladislava Pohrobka 23. 11. 1457. Jeho sestry Anna a Alžběta jsou provdány za Viléma Saského a Kazimíra IV."},
- wet:{root:{n:"Fridrich I. Bojovný",d:"† 1428",note:"∞ Kateřina Brunšvicko-Lüneburská"},main:{p:"fridrich2wet",n:"Fridrich II. Dobrotivý",d:"* 1412",sp:[{n:"Markéta Habsburská",r:"hab",note:"∞ 3. 6. 1431, sestra císaře Fridricha III."}]},kids:[{p:"amalie",n:"Amálie",d:"* 1436",m:"Ludvík IX. Bohatý",note:"∞ 1452",rl:"wit"},{n:"Anna",d:"* 1437",note:"sňatek s Albrechtem Achillem až 12. 11. 1458",rl:"fra"},{n:"Fridrich",d:"1439–1451"},{p:"arnostsas",n:"Arnošt",d:"* 1441",note:"dědic"},{n:"Albrecht",d:"* 1443"},{n:"Markéta",d:"* 1444",note:"později abatyše v Seußlitz"},{n:"Hedvika",d:"* 1445",note:"od 1458 abatyše v Quedlinburgu"},{n:"Alexandr",d:"† 1447",note:"zemřel jako nemluvně"}],foot:"Kurfiřtův bratr Vilém III. (* 1425) je od roku 1446 ženatý s Annou Habsburskou, sestrou Ladislava Pohrobka, a má dcery Markétu (* 1449) a Kateřinu (* 1453). Sestra Kateřina je od roku 1441 manželkou braniborského kurfiřta Fridricha II."},
- bra:{root:{n:"Fridrich I. Braniborský",d:"1371–1440",note:"∞ 1401 Alžběta Bavorsko-Landshutská († 1442), sestra Jindřicha XVI. Bohatého"},main:{p:"fridrich2bra",n:"Fridrich II. Železný",d:"* 1413",sp:[{p:"katerinasas",n:"Kateřina Saská",d:"* 1421",r:"wet",note:"∞ 11. 6. 1441"}]},kids:[{n:"Dorota",d:"* 1446"},{n:"Markéta",d:"* 1449/1450"},{n:"Jan",d:"asi 1452–1454",note:"zemřel v dětství"}],foot:"Bratři: Jan Alchymista (vlády v Kulmbachu se vzdal 1457), Albrecht Achilles (Ansbach a od 1457 Kulmbach) a Fridrich Tlustý (Stará marka). Sestra Alžběta († 1449) byla manželkou Ludvíka II. Břežského (1418) a Václava I. Těšínského (1439). Přes matku je kurfiřt bratrancem Ludvíka Bohatého."},
- wit:{root:{n:"Jindřich XVI. Bohatý",d:"† 1450",note:"∞ 1412 Markéta Rakouská, sestra krále Albrechta II."},main:{p:"ludvik9",n:"Ludvík IX. Bohatý",d:"* 1417",sp:[{p:"amalie",n:"Amálie Saská",d:"* 1436",r:"wet",note:"∞ 1452 v Landshutu"}]},kids:[{n:"Alžběta",d:"† 1457"},{n:"Jiří",d:"* 1455",note:"dědic Landshutu"},{n:"Markéta",d:"* 1456"}],foot:"Zobrazena je landshutská větev. Wittelsbachové vládnou také v Mnichově (Albrecht III.), ve Falci (Fridrich I. Vítězný) a v Mosbachu a Neumarktu (Ota I., vdovec po Ludvíkově tetě Johaně). Ludvíkova teta Alžběta byla matkou Fridricha II. Braniborského a Albrechta Achilla."},
- rzm:{root:{n:"Jan Lev z Rožmitálu (z Blatné)",note:"otec Jaroslava, Protivy, Johany a Hedviky"},main:{p:"jaroslavlev",n:"Jaroslav Lev z Rožmitálu",d:"* asi 1425",sp:[{n:"Markéta z Valdštejna",note:"1. manželka (rok sňatku neznámý)"},{n:"Eliška Bezdružická z Kolovrat",r:"kol",note:"2. manželka (rok sňatku neznámý)"}]},foot:"Děti Jaroslava (Zdeněk Lev, Kateřina, Johana) se narodí až později, Zdeněk asi kolem roku 1460. Sourozenci: Johana (∞ 1450 Jiří z Poděbrad), Protiva († 1474, ∞ Kateřina z Pecky) a Hedvika (∞ 1. Jan ze Švamberka, 2. Šebestián Pluh z Rabštejna)."},
- rab:{root:{n:"Jan starší (Ješek) z Rabštejna",note:"syn rabštejnského purkrabí Jindřicha; ∞ 1) Kateřina, dcera žateckého měšťana Mikuláše Mulsteina, 2) neznámá"},main:{p:"prokop",n:"Prokop z Rabštejna",d:"* asi 1410/1420"},foot:"Bratři: Jan († 1457), Jan mladší (* 1437, vyšehradský probošt; Prokop je jeho nejbližší starší bratr), kněz Jindřich († nejpozději 1453) a Václav. Zda je některý z nich z druhého manželství otce, prameny jednoznačně neříkají."},
- kos:{root:{n:"Vilém I. Kostka z Postupic",d:"† 1436",note:"roku 1436 získal od císaře Zikmunda zástavou litomyšlské panství"},main:{p:"kostka",n:"Zdeněk Kostka z Postupic"},foot:"Zdeněk je druhorozený syn; starším bratrem byl Bohuš I. Kostka, mladším Albrecht Kostka z Postupic (později stoupenec Matyáše Korvína). Manželka a děti Zdeňka nejsou ve zdrojích doloženy."},
- sva:{root:{n:"Hynek Krušina ze Švamberka",d:"† 1456",note:"hejtman plzeňského landfrídu, 1449 spoluzakladatel Strakonické jednoty"},main:{p:"bohuslavsva",n:"Bohuslav ze Švamberka",d:"* asi 1428",sp:[{n:"Ludmila z Rožmberka",d:"† asi před 1458",r:"roz",note:"1. manželka, ∞ 1452, dcera Oldřicha II. z Rožmberka"},{p:"konstanciesli",n:"Konstancie Šliková",r:"sli",note:"2. manželka, sňatek 1458; dcera Matyáše Šlika"}]},foot:"Bohuslavovi synové Hynek a Jindřich jsou doloženi později, data narození nejsou známa. Stařešinou rodu byl Bohuslavův strýc, husitský hejtman Bohuslav ze Švamberka († 1425)."},
- haz:{main:{p:"mikulashaz",n:"Mikuláš Zajíc z Hazmburka",note:"nejvyšší sudí 1436–1451",sp:[{n:"Škonka z Kunštátu",note:"∞ před 1414, dědička hradu Kost"}]},kids:[{p:"oldrichhaz",n:"Oldřich",note:"pán na Kosti; ∞ Anna z Častolovic"},{p:"zajic",n:"Jan",d:"* asi 1420",note:"pán na Budyni, kterou 1451 prodal bratranci Zbyňkovi; 1. manželka Kateřina z Častolovic († 1457)"},{n:"Anna",d:"† asi 1435",note:"∞ Hynek Krušina z Lichtenburka"}],foot:"Bratranec Zbyněk Zajíc z Hazmburka, syn Viléma, drží Hazmburk a od roku 1451 i Budyni."},
- ryz:{main:{p:"depolt",n:"Děpolt Švihovský z Rýzmberka",note:"pán na Velharticích, purkrabí Pražského hradu 1445–1448",sp:[{n:"Kateřina Sokolová z Lamberka"}]},kids:[{n:"Vilém",note:"pozdější pán na Velharticích"},{n:"Anna",note:"∞ Jan Popel z Lobkovic",pl:"janpopel",rl:"lob"},{n:"Alžběta",note:"∞ Viktorin Planský ze Žeberka"},{n:"Johanka",note:"později abatyše kláštera sv. Jiří na Pražském hradě"}],foot:"Švihovská větev rodu sídlí na Švihově a Rabí; její pozdější hlava Půta Švihovský sjednotí roku 1480 obě linie."},
- sli:{root:{n:"Jindřich Šlik",d:"† 1425",note:"chebský měšťan a konšel; ∞ Konstancie (snad z Collalta)"},main:{p:"slik",n:"Matyáš Šlik",note:"zástavní pán Lokte",sp:[{n:"Kunhuta ze Švarcenberka",note:"manželka; pořadí obou manželství je v pramenech rozporné"},{n:"N. z Kravař",note:"druhá manželka"}]},kids:[{p:"konstanciesli",n:"Konstancie",note:"z 1. manželství; ∞ 1458 Bohuslav ze Švamberka (jeho 2. manželka)",pl:"bohuslavsva",rl:"sva"},{n:"Jeroným",d:"* před 1450"},{n:"Mikuláš",d:"* po 1450"},{n:"Kašpar",d:"* po 1451"}],foot:"Bratr Kašpar, říšský kancléř († 1449), zemřel bez žijících dětí a jeho majetek převzal Matyáš s příbuznými; synovec Václav, syn bratra Mikuláše, je spolusprávcem dědictví, bratr Jindřich byl roku 1443 zvolen biskupem frisinským."},
- bis:{root:{n:"Beneš Černohorský z Boskovic",note:"moravský podkomoří; 1451 se vrátil ke katolictví"},main:{p:"tas",n:"Tas (Protasius) Černohorský z Boskovic",note:"zvolený biskup 1457; papežské potvrzení nejisté (údaje 21. 11. 1457 i 1459), dosud nevysvěcen"},foot:"Tas je Benešův prvorozený syn; jeho bratři jsou Beneš, Dobeš, Jindřich a Jan, strýc Vaněk mladší Černohorský z Boskovic."},
- bos:{root:{n:"Vaněk starší z Boskovic a Černé Hory"},main:{p:"vanek",n:"Vaněk mladší Černohorský z Boskovic",d:"* asi 1390",sp:[{n:"Johanka z Vlašimi",note:"neověřeno"}]},kids:[{n:"Václav",m:1,note:"otec pozdějších Jaroslava, Tobiáše a Ladislava z Boskovic"}],foot:"Bratr Beneš († 1473) je moravským podkomořím a otcem biskupa Tase a jeho bratrů Beneše, Dobeše, Jindřicha a Jana."},
- lip:{root:{n:"Hynek (Jindřich) z Lipé",d:"† 1414",note:"nejvyšší maršálek; ∞ Eliška z Vartenberka"},main:{p:"jindrichlipe",n:"Jindřich z Lipé",sp:[{n:"Eliška z Potštejna",note:"1. manželka, dcera Mikuláše Žampacha z Potštejna"}]},kids:[{n:"Pertold",note:"pozdější nejvyšší maršálek"}],foot:"Sestry Ofka a Eliška. Strýc Pertold z Lipé († asi 1449) byl nejvyšším maršálkem v letech 1431–1449. Roku 1461 se Jindřich ožení s Barborou, dcerou krále Jiřího."},
- lie:{root:{n:"Jiří III. z Lichtenštejna",d:"† 1444",note:"∞ Hedvika z Pottendorfu († po 1449)"},main:{p:"janlie",n:"Jan V. z Lichtenštejna",sp:[{p:"perchta",n:"Perchta z Rožmberka",d:"* asi 1429",r:"roz",note:"sňatek v říjnu 1449; věno 1000 kop grošů"}]},kids:[{n:"Alžběta",d:"* 1450",m:1}],foot:"Perchta má s Janem syna a dceru. Janovy sestry jsou Alžběta a Barbora, bratr patrně Jindřich VII. Chromý. Pánem na Mikulově se píše i příbuzný Vilém († 1459)."},
- bvr:{root:{n:"Oldřich II. z Rožmberka"},main:{p:"jost",n:"Jošt II. z Rožmberka",d:"* 1430"},foot:"Bratři Jan II. (vladař) a Jindřich V. († 1457), sestra Perchta, provdaná za Jana V. z Lichtenštejna."},
- fra:{root:{n:"Fridrich I. Braniborský",d:"1371–1440"},main:{p:"achilles",n:"Albrecht Achilles",d:"* 1414",sp:[{n:"Markéta Bádenská",d:"1431–1457",note:"∞ 1446, † 24. 10. 1457"},{n:"Anna Saská",d:"* 1437",r:"wet",note:"sňatek až 12. 11. 1458"}]},kids:[{n:"Uršula",d:"* 1450",note:"později (1467) ∞ Jindřich starší z Minstrberka, syn Jiřího z Poděbrad",rl:"pod"},{n:"Alžběta",d:"* 1451"},{n:"Markéta",d:"* 1453",note:"později abatyše v Hofu"},{n:"Jan (Cicero)",d:"* 1455",note:"dědic"}],foot:"Synové Wolfgang a Fridrich z prvního manželství zemřeli v dětství. Bratr kurfiřta Fridricha II. Železného; přes matku bratranec svého soupeře Ludvíka Bohatého."},
- jis:{root:{n:"Alšík z Brandýsa",note:"pravděpodobný otec; moravská větev pánů z Brandýsa"},main:{p:"jiskra",n:"Jan Jiskra z Brandýsa",d:"* asi 1400",sp:[{n:"neteř palatina Michala Orsága",note:"jméno ani rok sňatku nejsou známy"}]},foot:"Bratříci nejsou Jiskrův rod: vede je Petr Aksamit z Liderovic, s nímž se Jiskra roku 1453 rozešel, a hejtmani jako Jan Talafús z Ostrova (Richnava)."},
- kra:{root:{n:"Konrád II. Krajíř z Krajku",d:"† 1446",note:"korutanský hejtman a hofmistr Fridricha III."},main:{n:"Volfgang I. Krajíř z Krajku",d:"† 1490/1491",sp:[{n:"Eliška z Boskovic",r:"bos",note:"rok sňatku nedoložen"}]},foot:"Volfgang drží Landštejn a Novou Bystřici od roku 1446. Strýc Jan Krajíř († 1464) dostal při dělbě 1454 rakouské statky. Volfgangovi synové Lipolt, Jiří, Jindřich a Konrád III. a dcera Johanka jsou doloženi, data jejich narození však nejsou jistá. Postava ✦ Konrád do skutečného rodokmenu nezapadá (viz nejisté)."},
- pla:{root:{n:"Jindřich I. z Plavna",d:"† 1446",note:"dvorský sudí, purkrabí míšeňský od 1426"},main:{p:"plavno",n:"Jindřich II. z Plavna",d:"† po 1482"},kids:[{n:"Jindřich III.",d:"* asi 1453"}],foot:"Anna z Plavna je od roku 1439 manželkou Víta II. ze Šumburka, kterému přinesla Hartenštejn."},
- sch:{root:{n:"Fridrich XVII. ze Šumburka",d:"† 1426",note:"padl u Ústí nad Labem; ∞ Žofie z Leisnigu"},main:{p:"vit",n:"Vít II. ze Šumburka",d:"* asi 1418",sp:[{n:"Anna z Plavna",r:"pla",note:"∞ 1439, věnem Hartenštejn"}]},foot:"Vít je bezdětný. Bratr Fridrich XX. (asi 1420–1480) sídlí na Waldenburku a spravuje s ním Glauchau, bratr Dětřich zemřel po roce 1453. Perštejnská větev drží Perštejn a Šumburk v Čechách."},
- zat:{root:{n:"Kazimír I. Osvětimský",d:"† 1434",note:"∞ 1) Anna Žaháňská, matka synů; 2) Markéta Opavská"},main:{p:"vaclavzat",n:"Václav I. Zátorský",d:"* asi 1418",sp:[{n:"Markéta Kopčovská",note:"∞ asi 1450, šlechtična ze Seveřska, dcera Urbana Kopčovského (Świrczyny); někdy mylně Marie"}]},kids:[{n:"Kazimír II.",d:"* asi 1450",m:1},{n:"Václav II.",d:"* asi 1450/55",m:1},{n:"Jan V.",d:"* před 1455",m:1},{n:"Vladislav",d:"* 1455",m:1},{n:"Žofie",m:1},{n:"Kateřina",m:1},{n:"Anežka",m:1}],foot:"Bratři: Přemysl, kníže toszecký, a Jan IV., který prodal Osvětimsko Polsku. Při dělení roku 1445 připadl Václavovi Zátor."},
- tec:{root:{n:"Ondřej z Tęczyna",d:"† 1411",note:"kastelán vojnický, ∞ Anna z Goraje"},main:{p:"jantec",n:"Jan z Tęczyna",d:"* asi 1408",sp:[{n:"Barbora z Lanckorony (z Brzezia)",note:"dcera korunního maršálka Zbigniewa z Brzezia; údaj z genealogie Minakowského, nejistý"}]},kids:[{n:"Sędziwój",note:"kanovník, později rektor krakovské univerzity"},{n:"Zbigniew",d:"* asi 1450",note:"později rádce Kazimíra IV."},{n:"Mikuláš",note:"později vojvoda bełzský a ruský"}],foot:"Bratr Ondřej, starosta rabštejnský (prchlivý), má syny Spytka Melštýnského a Jana Rabštejnského. Jan z Tęczyna měl ještě další syny a tři dcery."},
- szm:{root:{n:"Vincenc ze Šamotul",d:"† 1444",note:"kastelán międzyrzecký, padl u Varny"},main:{p:"marketa",n:"Markéta ze Šamotul",d:"* asi 1420",sp:[{n:"Kazimír II. Belzský",d:"† 1442",note:"1. manžel, mazovský Piastovec"},{n:"Václav II. Ratibořský",d:"† 1456",r:"opa",note:"2. manžel"}]},kids:[{p:"jan5rat",n:"Jan",d:"* asi 1446",m:2,rl:"opa",note:"dědic Ratibořska"},{n:"Kateřina",m:2},{n:"Helena",m:2},{n:"Anna",m:2}],foot:"Hlavou rodu ve Velkopolsku je Markétin příbuzný Petr ze Šamotul, kastelán poznaňský od roku 1450, syn Dobrogosta; ∞ Viktorie z Pleszowa, syn Ondřej (* asi 1452)."},
- sgy:{root:{n:"Mikuláš ze Svatého Jura a Pezinku",note:"zmiňován 1384–1429, ∞ Klára z Héderváru"},main:{p:"jirisvj",n:"Jiří ze Svatého Jura a Pezinku",d:"zmiňován od 1420",sp:[{n:"Uršula z Wolfurtu",note:"1. manželka (zmiňována 1435)"},{n:"Jitka (Guta) Opavská",d:"1415–1445",r:"opa",note:"2. manželka"},{n:"Markéta Botošová z Harapky",note:"3. manželka"}]},kids:[{n:"Zikmund"},{n:"Jan"},{n:"Kryštof"},{n:"Jiří"},{n:"Petr"}],foot:"Pezinskou větev vedou Jiřího příbuzní, hrabě Imrich a Ladislav, synové Petra a Hedviky Marczali. Roku 1459 se z členů rodu stali říšští hrabata."},
- eiz:{root:{n:"Jiří (Görig) Eicinger",note:"pravděpodobný otec, syn Štěpánův"},main:{p:"eicinger",n:"Oldřich Eicinger z Eicingu",d:"* asi 1395",sp:[{n:"Barbora Kraftová",note:"z pasovského rytířského rodu, dcera Štěpána Krafta"}]},foot:"Sourozenci: Osvald, Štěpán a Alžběta (roku 1439 povýšeni na svobodné pány). Děti nejsou doloženy. Sídlo má na Schrattenthalu."},
- puc:{root:{n:"Albrecht (Albero) z Puchheimu",note:"pán na Heidenreichsteinu, roku 1411 nejvyšší truksas Rakous; otcovství podle burgenwelt.org"},main:{p:"jiripuch",n:"Jiří z Puchheimu"},kids:[{n:"Jindřich (IV.)",note:"později císařův purkrabí ve Waidhofenu nad Dyjí"},{n:"Kryštof (I.)"},{p:"albero",n:"Albrecht (VI.)",note:"v kampani ✦ Albero; viz nejisté"},{n:"Jan (X.)"},{n:"Baltazar (I.)"}],foot:"Heidenreichstein a Litschau drží Puchheimové od roku 1348 jako vévodské léno. Jiří vládne asi od roku 1423 a zemře roku 1458."},
- mai:{root:{n:"Jan III. z Maidburku, hrabě z Hardeggu",d:"† 1427",note:"zajat husity v Retzu 1425, zemřel v zajetí na Valdštejně"},main:{p:"michalhard",n:"Michal z Maidburku, hrabě z Hardeggu",d:"* 1425",sp:[{n:"Anna z Lomnice (?)",note:"1. manželka; pramen uvádí „von Lomitz“, ztotožnění nejisté"},{n:"Anna Ungnadová ze Sonneggu",note:"2. manželka, ∞ 1453 ve Vídeňském Novém Městě za přítomnosti císaře"}]},foot:"Michal je bezdětný. Podle dědické smlouvy z roku 1392 připadne Hardegg po vymření rodu Habsburkům."},
- sbg:{root:{n:"Jan II. ze Schaunberku",d:"† 1453",note:"∞ Anna z Ptuje; říšský dvorní mistr"},main:{p:"bernhard",n:"Bernhard ze Schaunberku",sp:[{n:"Anežka z Wallsee",note:"∞ 1439, dcera Reinprechta z Wallsee, zemského hejtmana Horních Rakous"}]},kids:[{n:"Fridrich",d:"* asi 1447",note:"kmotřenec císaře Fridricha III., později arcibiskup salcburský"},{n:"Jiří"},{n:"Ladislav"}],foot:"Bratři: Oldřich III. (p. oldrichsbg, věrný císaři), Wolfgang, Zikmund a Albrecht, probošt u sv. Štěpána ve Vídni."},
- leu:{root:{n:"Albrecht z Leuchtenberka",d:"† 1415",note:"∞ Alžběta z Oettingenu"},main:{p:"ludvikleu",n:"Leopold z Leuchtenberka",d:"* asi 1382",sp:[{n:"Alžběta (Lisa) von der Alben",note:"∞ 1424 v Pětikostelí"}]},kids:[{n:"Fridrich (V.)",d:"* 1437",note:"roku 1460 přijme v léno Hals a pasovský maršálský úřad"},{n:"Ludvík",note:"syn podle tradice, nejistý"}],foot:"Hals a pasovský maršálský úřad přijal roku 1456 v léno lankrabě Jan (Johannes) z Leuchtenberka. Rodinné sídlo a hrobka jsou v Pfreimdu."},
- reu:{root:{n:"Jindřich VII. z Gery",d:"1341–1420",note:"∞ 2) 1402 Lutrada z Hohnsteinu"},main:{p:"jindrichgera",n:"Jindřich IX. z Gery",d:"* 1406",sp:[{n:"Mechtilda ze Schwarzburgu-Wachsenburgu",note:"∞ asi 1435–1439"}]},kids:[{n:"Jindřich",note:"kanovník v Kolíně a Koblenci"},{n:"Jindřich (XI.) Starší"},{n:"Jindřich (XII.) Prostřední"},{n:"Jindřich (XIII.) Mladší"},{n:"Brigita",note:"∞ před 1449 hrabě Jindřich XXV. ze Schwarzburgu-Leutenberku"},{n:"Kateřina",note:"jeptiška v Cronschwitz"},{n:"Metze",note:"∞ Bernhard z Torgau"}],foot:"Bratr Jindřich X. Mladší zemřel roku 1452 v pražském zajetí. Reussovskou větev v Greizi vede jiný Jindřich IX. (pánem od 1436)."},
- osm:{root:{n:"Murad II.",d:"† 1451",note:"sultán"},main:{p:"mehmed2",n:"Mehmed II. Dobyvatel",d:"* 1432",sp:[{n:"Gülbahar Hatun",note:"konkubína, matka Bajezida"},{n:"Gülşah Hatun",note:"konkubína, matka Mustafy"},{n:"Sitti Mükrime Hatun",note:"dulkadirovská princezna, ∞ asi 1449"}]},kids:[{n:"Bajezid",d:"* 1447/48",m:1,note:"místodržitel v Amasyi"},{n:"Mustafa",d:"* asi 1450",m:2}],foot:"Mehmedův malý bratr Ahmed byl po nástupu roku 1451 zavražděn. Matkou Mehmeda byla Hüma Hatun."}
-};
+const TREES=/*@TREES@*/{};
 const TREEALIAS={fra:"bra"};
 function treeHTML(id){
   const T=TREES[id]; if(!T)return""; T.kids=T.kids||[];
-  const pn=o=>{const P=o.p&&PBY[o.p];const nm=o.n;const img=P&&typeof PORTR!=="undefined"&&PORTR.has(o.p)?`<img class="tport" src="art/portrety/${o.p}-m.webp" alt="" loading="lazy">`:"";
+  const pn=o=>{const P=o.p&&PBY[o.p];const nm=o.n;const img=P&&typeof PORTR!=="undefined"&&PORTR.has(o.p)?`<img class="tport" src="${portU(o.p,1)}" alt="" loading="lazy">`:"";
     return `${img}<span class="tnm">${P?`<a href="#osoba/${o.p}">${nm}</a>`:nm}</span>${o.d?`<span class="tdt">${o.d}</span>`:""}`};
   const extra=o=>{let s=o.note||"";if(o.pl&&PBY[o.pl])s=s.replace(PBY[o.pl].n.replace(/^✦\s*/,""),`<a href="#osoba/${o.pl}">$&</a>`);
     if(o.rl&&byId[o.rl])s+=` <a class="trl" href="#rod/${o.rl}">→ ${SHORT[o.rl]||byId[o.rl].name}</a>`;return s?`<span class="tnote">${s}</span>`:""};
@@ -3626,9 +3688,9 @@ document.addEventListener("click",e=>{const b=e.target.closest("[data-partymap]"
   const z=ZBY[b.dataset.partymap],p=z&&placeBy(z.place);if(p){const [x,y]=P(p.lo,p.la);mapCenter(x,y,300)}});
 
 /* ---------- site navigation: views, house and person articles ---------- */
-const VIEWS=["uvod","svet","mapa","praha","desky","druzina","artikule","draconomicon","kronika"];
-const SUBT={svet:"Známý svět · mocnosti léta Páně 1458",praha:"Praha · čtyři města pražská",uvod:"Novinky",mapa:"Koruna česká k 3. březnu léta Páně 1458",desky:"Rody a Panstvo",artikule:"Pravidla",druzina:"Hrdinové",draconomicon:"O dracích",kronika:"Kronika Vojtěcha z Kroměříže"};
-const TITL={svet:"Známý svět",praha:"Praha",mapa:"Koruna česká k 3. březnu léta Páně 1458",desky:"Zemské desky",artikule:"Artikule tažení",druzina:"Družina",draconomicon:"Draconomicon",kronika:"Kronika Vojtěcha z Kroměříže"};
+const VIEWS=["uvod","svet","mapa","praha","desky","druzina","artikule","draconomicon","kronika","gm"];
+const SUBT={svet:"Známý svět · mocnosti léta Páně 1458",praha:"Praha · čtyři města pražská",uvod:"Novinky",mapa:"Koruna česká k 3. březnu léta Páně 1458",desky:"Rody a Panstvo",artikule:"Pravidla",druzina:"Hrdinové",draconomicon:"O dracích",kronika:"Kronika Vojtěcha z Kroměříže",gm:"Vypravěč · odhalování"};
+const TITL={svet:"Známý svět",praha:"Praha",mapa:"Koruna česká k 3. březnu léta Páně 1458",desky:"Zemské desky",artikule:"Artikule tažení",druzina:"Družina",draconomicon:"Draconomicon",kronika:"Kronika Vojtěcha z Kroměříže",gm:"Vypravěč"};
 let curView=null;
 function navTo(h){if(location.hash!==h)history.pushState(null,"",h);route()}
 function maplinkBtn(f,sd){if(f.nomap){const c=SVETMESTA.find(x=>x[0]===sd[0]),w=c&&SVET.find(z=>z.s&&z.s.includes(sd[0]));return w?`<a href="#svet/${w.id}">${sd[0]}</a>`:sd[0]}return `<button type="button" class="maplink" data-id="${f.id}" data-place="${sd[0]}">${f.city&&CARMS[sd[0]]?`<img class="cmini" src="${CARMS[sd[0]]}" alt="">`:""}${sd[0]}</button>`}
@@ -3638,8 +3700,8 @@ function renderRodArticle(id){
    <div class="artgrid"><div class="artmain">
      <h2 class="arttitle">${f.name}</h2>
      <p class="artlead">${f.head}</p>
-     <h3>${f.nbr?"Postoj ke Koruně":"Postoj k Jiřímu"}</h3><p>${f.stance}</p>
-     <h3>Zápis kronikáře</h3><p class="kron">${f.note}</p>
+     ${f.sl?`<p class="slnote">O tomto rodu družina zatím jen slyšela. Víc se dozví, až se s ním setká.</p>`:`<h3>${f.nbr?"Postoj ke Koruně":"Postoj k Jiřímu"}</h3><p>${f.stance}</p>
+     <h3>Zápis kronikáře</h3><p class="kron">${f.note}</p>`}
      ${rels.length?`<h3>Vazby</h3>${relGroups(rels,id,true)}`:""}
      ${TREES[id]||TREES[TREEALIAS[id]]?`<h3>Rodokmen</h3>${treeHTML(TREES[id]?id:TREEALIAS[id])}`:""}
    </div>
@@ -3654,14 +3716,14 @@ function renderRodArticle(id){
      ${f.nomap?"":`<button type="button" class="gbtn" data-showmap="${id}">Ukázat na mapě</button>`}
    </aside></div>`;
 }
-const PORTR=new Set(/*@PORTR@*/[]);
+const PORTRH=/*@PORTR@*/{};const PORTR=new Set(Object.keys(PORTRH));const portU=(id,m)=>"art/portrety/"+PORTRH[id]+(m?"-m":"")+".webp";
 const silKind=p=>{const r=p.role||"",f=byId[p.r]||{};
   if(/biskup|arcibiskup|kněz|kanovník|probošt|opat|kazatel|administrátor|papež|kardinál|mnich|řeholník|farář|děkan|teolog/i.test(r))return"cirkev";
   if(/manželka|dcera|vdova|sestra|matka|paní |kněžna|abatyše|choť|vévodkyně|královna|hraběnka|chotí/i.test(r))return"pani";
   if(f.city||/měšťan|purkmistr|konšel|primas|rychtář|kupec|myslitel|spisovatel|písař|mistr univerzity/i.test(r))return"mestan";
   if(/rytíř|hejtman|vojevůdce|žoldnéř|bratřík|kapitán|purkrabí|vladyka|zeman|velitel/i.test(r))return"rytir";
   return"pan"};
-const pThumb=(p,cls)=>PORTR.has(p.id)?`<img class="${cls||"pthumb"}" src="art/portrety/${p.id}-m.webp" alt="" loading="lazy">`:`<img class="${cls||"pthumb"} psil" src="art/img/silueta-${silKind(p)}.webp" alt="" loading="lazy">`;
+const pThumb=(p,cls)=>PORTR.has(p.id)?`<img class="${cls||"pthumb"}" src="${portU(p.id,1)}" alt="" loading="lazy">`:`<img class="${cls||"pthumb"} psil" src="art/img/silueta-${silKind(p)}.webp" alt="" loading="lazy">`;
 function renderPersonArticle(pid){
   const p=PBY[pid],f=byId[p.r],art=document.getElementById("article");
   const sd=p.seat&&f.seats.find(x=>x[0]===p.seat);
@@ -3670,11 +3732,11 @@ function renderPersonArticle(pid){
    <div class="artgrid pgrid"><div class="artmain">
      <h2 class="arttitle">${p.n}</h2>
      <p class="artlead">${p.role}</p>
-     <p class="kron">${p.x}</p>
+     ${p.sl?`<p class="slnote">O této osobě družina zatím jen slyšela.</p>`:`<p class="kron">${p.x}</p>`}
      ${kin.length?`<h3>Z téhož rodu či dvora</h3><p>${kin.map(plinkP).join(", ")}</p>`:""}
    </div>
    <aside class="infobox">
-     ${PORTR.has(pid)?`<a class="portr" href="art/portrety/${pid}.webp" target="_blank" rel="noopener" title="Otevřít portrét v plné velikosti"><img src="art/portrety/${pid}.webp" alt="Portrét: ${p.n}" width="600" height="1500"></a>`:`<img class="psilbig" src="art/img/silueta-${silKind(p)}.webp" alt="" width="160" height="160">`}
+     ${PORTR.has(pid)?`<a class="portr" href="${portU(pid)}" target="_blank" rel="noopener" title="Otevřít portrét v plné velikosti"><img src="${portU(pid)}" alt="Portrét: ${p.n}" width="600" height="1500"></a>`:`<img class="psilbig" src="art/img/silueta-${silKind(p)}.webp" alt="" width="160" height="160">`}
      <dl class="kv"><dt>Rod</dt><dd><a href="#rod/${f.id}">${f.name}</a></dd>
      <dt>Postavení</dt><dd>${p.role}</dd>
      ${sd?`<dt>Sídlo</dt><dd>${maplinkBtn(f,sd)}</dd>`:""}
@@ -3707,7 +3769,7 @@ document.querySelectorAll(".lyrbtn").forEach(b=>{const p=document.getElementById
  document.addEventListener("click",e=>{if(!nav.contains(e.target)&&nav.classList.contains("open")){nav.classList.remove("open");tg.setAttribute("aria-expanded","false")}});
  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&nav.classList.contains("open")){nav.classList.remove("open");tg.setAttribute("aria-expanded","false");tg.focus()}});
  if("IntersectionObserver" in window)new IntersectionObserver(([en])=>nav.classList.toggle("stuck",!en.isIntersecting),{threshold:0}).observe(logo);}
-const NAVNAME={uvod:"Úvod",artikule:"Artikule",draconomicon:"Draconomicon",druzina:"Družina",kronika:"Kronika",mapa:"Mapa zemí",praha:"Praha",svet:"Známý svět",desky:"Zemské desky"};
+const NAVNAME={uvod:"Úvod",artikule:"Artikule",draconomicon:"Draconomicon",druzina:"Družina",kronika:"Kronika",mapa:"Mapa zemí",praha:"Praha",svet:"Známý svět",desky:"Zemské desky",gm:"Vypravěč"};
 function route(){
   const h=decodeURIComponent(location.hash.slice(1))||"uvod";
   const [a,b,c]=h.split("/");
@@ -3743,6 +3805,8 @@ function route(){
     renderDruzina(b); window.scrollTo(0,0);
   }else if(view==="kronika"){
     renderKronika(b); window.scrollTo(0,0);
+  }else if(view==="gm"){
+    renderGM(); if(changed)window.scrollTo(0,0);
   }else if(view==="artikule"){
     if(!renderArtikule(b,c))window.scrollTo(0,0);
   }else if(changed)window.scrollTo(0,0);
@@ -3767,7 +3831,7 @@ document.querySelectorAll("[data-conf]").forEach(b=>b.addEventListener("click",(
 autolink(document.querySelector("#letopis dl"),"");
 renderKal();
 {const _rd=renderDetail;renderDetail=function(){_rd.apply(this,arguments);const d=document.getElementById("detail");if(st.sel&&!d.classList.contains("empty"))autolink(d,st.city?"":"#rod/"+st.sel)};}
-select("pod");
+if(FAM.length)select(byId.pod?"pod":FAM[0].id);
 /* vypravěč: Alt + klik do mapy ukáže a zkopíruje souřadnice pro soubory v zdroj/obsah */
 if(GMV){const toast=document.createElement("div");toast.className="gmtoast";toast.setAttribute("role","status");document.body.appendChild(toast);
  const pick=(sv,fmt)=>sv&&sv.addEventListener("click",e=>{if(!e.altKey)return;e.preventDefault();e.stopPropagation();
@@ -3776,5 +3840,87 @@ if(GMV){const toast=document.createElement("div");toast.className="gmtoast";toas
   clearTimeout(toast._t);toast._t=setTimeout(()=>toast.classList.remove("on"),4000)},true);
  pick(document.getElementById("map"),(x,y)=>`${(x/72+10.9).toFixed(2)} | ${(52.7-y/112).toFixed(2)}`);
  pick(document.getElementById("pmap"),(x,y)=>`${Math.round(x)}, ${Math.round(y)}`);}
+/* ===== Vypravěč: stavy odhalení (Skryté / Slyšeli / Potkali), přihlášení a přehled ===== */
+const STAV=__D.STAV||null;
+const STLBL=["Skryté","Slyšeli","Potkali"];
+if(GMV)document.documentElement.classList.add("gmv");
+const gmLv=id=>STAV?(STAV[id]??0):2;
+const gmEff=id=>PBY[id]?Math.min(gmLv(id),gmLv(PBY[id].r)):gmLv(id);
+const gmSeg=id=>`<span class="gmseg">${[0,1,2].map(i=>`<button type="button" class="gmst gs${i}" data-gmset="${i}" aria-pressed="${gmLv(id)===i}" title="${["Hráči o tom nevědí","Hráči znají jméno a základní údaje","Hráči znají vše kromě tajemství"][i]}">${STLBL[i]}</button>`).join("")}</span>`;
+function gmBar(id,kind){
+  if(!GMV||!STAV)return"";
+  const warn=kind==="osoba"&&PBY[id]&&gmLv(PBY[id].r)===0?`<span class="gmwarn">Rod je skrytý – hráči osobu neuvidí, dokud neodhalíte rod.</span>`:"";
+  return `<div class="gmbar noal" data-gmid="${id}" data-gmkind="${kind}"><span class="gmlbl">Co o ${kind==="rod"?"rodu":kind==="misto"?"místu":"osobě"} ví družina</span>${gmSeg(id)}${warn}${window.MMDB?"":`<span class="gmwarn">Měnit lze jen na webu napojeném na databázi.</span>`}</div>`;
+}
+function gmMark(root){
+  if(!STAV)return;
+  (root||document).querySelectorAll('a[href^="#osoba/"],a[href^="#rod/"]').forEach(a=>{const id=a.getAttribute("href").split("/")[1],v=gmEff(id);
+    a.classList.toggle("gm0",v===0);a.classList.toggle("gm1",v===1)});
+}
+function gmRefresh(){
+  document.querySelectorAll(".gmbar[data-gmid]").forEach(b=>{b.outerHTML=gmBar(b.dataset.gmid,b.dataset.gmkind)});
+  document.querySelectorAll(".gmrow[data-gmid]").forEach(r=>r.querySelectorAll("[data-gmset]").forEach(x=>x.setAttribute("aria-pressed",+x.dataset.gmset===gmLv(r.dataset.gmid))));
+  gmMark();if(curView==="gm")gmSum();
+}
+async function gmUloz(z){
+  if(!window.MMDB){mmHlasG("Stavy lze měnit jen na webu napojeném na databázi.");return}
+  document.documentElement.classList.add("gmbusy");
+  try{const n=await MMDB.nastav(z);Object.keys(STAV).forEach(k=>delete STAV[k]);Object.assign(STAV,n||{});gmRefresh();mmHlasG("Uloženo – hráči to uvidí do půl minuty.")}
+  catch(err){mmHlasG("Nepodařilo se uložit: "+err.message,7000)}
+  finally{document.documentElement.classList.remove("gmbusy")}
+}
+const mmHlasG=(t,ms)=>window.mmHlas?mmHlas(t,ms):alert(t);
+if(GMV&&STAV){
+  const _r1=renderRodArticle,_r2=renderPersonArticle;
+  renderRodArticle=function(id){_r1(id);const c=document.querySelector("#article .crumbs");if(c)c.insertAdjacentHTML("afterend",gmBar(id,"rod"))};
+  renderPersonArticle=function(id){_r2(id);const c=document.querySelector("#article .crumbs");if(c)c.insertAdjacentHTML("afterend",gmBar(id,"osoba"))};
+  document.addEventListener("click",e=>{const b=e.target.closest("[data-gmset]");if(!b)return;const box=b.closest("[data-gmid]");
+    if(+b.dataset.gmset===gmLv(box.dataset.gmid))return;gmUloz({[box.dataset.gmid]:+b.dataset.gmset})});
+  let mq=0;new MutationObserver(()=>{if(!mq)mq=requestAnimationFrame(()=>{mq=0;gmMark()})}).observe(document.body,{childList:true,subtree:true});
+}
+function gmSum(){
+  const el=document.getElementById("gmsum");if(!el)return;
+  const c=(arr,f)=>arr.filter(x=>f(x)>=1).length;
+  el.textContent=`Družina zná ${c(FAM,f=>gmLv(f.id))} z ${FAM.length} rodů, ${c(PEOPLE,p=>gmEff(p.id))} z ${PEOPLE.length} osob`+(DISC.length?` a ${c(DISC,d=>gmLv(d.id))} z ${DISC.length} míst.`:".");
+}
+function renderGM(){
+  const box=document.getElementById("gmview");
+  if(!GMV){
+    if(!window.MMDB){box.innerHTML=`<h2 class="arttitle">Vypravěč</h2><p class="intro">Odhalování postav, rodů a míst funguje jen na webu napojeném na databázi.</p>`;return}
+    box.innerHTML=`<h2 class="arttitle">Vypravěč</h2><p class="intro">Přihlášení pro vypravěče. Hráči se přihlašovat nemusí – co družina zná, vidí každý.</p>
+      ${window.MMINFO?`<p class="gmwarn">${window.MMINFO}</p>`:""}
+      <form class="gmform" id="gmlogin"><label>E‑mail<input type="email" name="e" autocomplete="username" required></label>
+      <label>Heslo<input type="password" name="h" autocomplete="current-password" required></label>
+      <button class="gbtn" type="submit">Přihlásit</button><p class="gmerr" role="alert"></p></form>`;
+    box.querySelector("form").addEventListener("submit",async e=>{e.preventDefault();const f=e.target,err=f.querySelector(".gmerr"),btn=f.querySelector("button");
+      err.textContent="";btn.disabled=true;
+      try{await MMDB.prihlas(f.elements.e.value.trim(),f.elements.h.value);location.reload()}
+      catch(x){err.textContent=x.status===400||x.status===401?"Nesprávný e‑mail nebo heslo.":"Přihlášení se nepodařilo: "+x.message;btn.disabled=false}});
+    return}
+  if(box.dataset.done){gmRefresh();return} box.dataset.done=1;
+  const ord=Object.fromEntries(["Čechy","Morava","Slezsko","Lužice","Královská města","Duchovenstvo"].map((l,i)=>[l,i]));
+  const rody=[...FAM].sort((a,b)=>(!!a.nbr-!!b.nbr)||((ord[a.land]??9)-(ord[b.land]??9))||a.land.localeCompare(b.land,"cs")||a.name.localeCompare(b.name,"cs"));
+  const row=(id,cls,href,name,sub)=>`<div class="gmrow ${cls}" data-gmid="${id}"><a href="${href}">${name}</a><small>${sub}</small>${gmSeg(id)}</div>`;
+  box.innerHTML=`<h2 class="arttitle">Vypravěč</h2>
+    <div class="gmhead"><span class="lbl">${window.MMDB?`Přihlášen: ${MMDB.email()||"vypravěč"}`:"Statická vypravěčská verze – stavy jen ke čtení"}</span>${window.MMDB?`<button type="button" class="gbtn" id="gmout">Odhlásit</button>`:""}</div>
+    <p class="intro">Hráči vidí jen to, co je odhalené. <b>Slyšeli</b>: jméno a základní údaje, u osob silueta místo portrétu. <b>Potkali</b>: vše kromě tajemství vypravěče. Osoba je hráčům vidět, jen když je vidět i její rod. Změna se hráčům projeví do půl minuty, bez nového nasazení webu.</p>
+    <div class="gmtools"><input type="search" id="gmq" placeholder="Hledat rod, osobu nebo místo…" aria-label="Hledat">
+      <select id="gmf" aria-label="Filtr stavu"><option value="">Všechny stavy</option><option value="0">Jen skryté</option><option value="1">Jen slyšeli</option><option value="2">Jen potkali</option></select>
+      <span class="gmsum" id="gmsum"></span></div>
+    <div class="gmlist">${rody.map(f=>`<div class="gmrod" data-rn="${_nrm(f.name+" "+(SHORT[f.id]||"")).replace(/"/g,"")}">
+      ${row(f.id,"gmr","#rod/"+f.id,f.name,f.land+(f.nbr?" · soused":""))}
+      ${peopleOf(f.id).length?`<div class="gmrow gmp gmbk"><small>Všechny osoby rodu:</small><select class="gmbulk" data-gmbulk="${f.id}" aria-label="Nastavit všechny osoby rodu ${f.name}"><option value="">nastavit…</option>${STLBL.map((l,i)=>`<option value="${i}">${l}</option>`).join("")}</select></div>`:""}
+      ${peopleOf(f.id).map(p=>row(p.id,"gmp","#osoba/"+p.id,p.n,p.role)).join("")}</div>`).join("")}
+    ${DISC.length?`<div class="gmrod" data-rn="objevena mista"><div class="gmrow"><b>Objevená místa</b></div>${DISC.map(d=>row(d.id,"gmp","#mapa",d.name,"místo na mapě")).join("")}</div>`:""}</div>`;
+  gmSum();gmMark(box);
+  const flt=()=>{const q=_nrm(box.querySelector("#gmq").value.trim()),f=box.querySelector("#gmf").value;
+    box.querySelectorAll(".gmrod").forEach(r=>{const rh=!q||r.dataset.rn.includes(q);let any=false;
+      r.querySelectorAll(".gmrow[data-gmid]").forEach(x=>{const ok=(!f||gmLv(x.dataset.gmid)===+f)&&(rh||_nrm(x.textContent).includes(q));x.hidden=!ok;if(ok)any=true});
+      r.querySelectorAll(".gmbk").forEach(x=>x.hidden=!!(q||f));r.hidden=!any})};
+  box.querySelector("#gmq").addEventListener("input",flt);box.querySelector("#gmf").addEventListener("change",flt);
+  box.addEventListener("change",e=>{const s=e.target.closest("[data-gmbulk]");if(!s||s.value==="")return;const v=+s.value;s.value="";
+    const z={};peopleOf(s.dataset.gmbulk).forEach(p=>{if(gmLv(p.id)!==v)z[p.id]=v});if(Object.keys(z).length)gmUloz(z)});
+  const o=box.querySelector("#gmout");if(o)o.addEventListener("click",async()=>{await MMDB.odhlas();location.reload()});
+}
 route();
 </script>

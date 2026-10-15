@@ -10,6 +10,7 @@ s česky popsanou chybou v přehledu nasazení na Netlify a web zůstane ve stav
 |---|---|---|
 | `rody/` | panské rody, církevní vrchnosti, města, sousedé | `rody/_vzor.md` |
 | `osoby/` | osoby v Zemských deskách | `osoby/_vzor.md` |
+| `rodokmeny.json` | rodokmeny rodů (jeden řádek = jeden rod; `p` = id osoby, `r`/`rl` = id rodu, `pl` = id manžela/manželky) | stávající řádky |
 | `vazby.md` | krev, spojenectví a spory mezi rody (jeden řádek = jedna vazba) | návod v hlavičce souboru |
 | `praha/` | očíslovaná místa na plánu Prahy | `praha/_vzor.md` |
 | `praha-ulice.md` | názvy ulic, trhů a bran na plánu Prahy | návod v hlavičce souboru |
@@ -32,3 +33,24 @@ s česky popsanou chybou v přehledu nasazení na Netlify a web zůstane ve stav
   souřadnice se ukážou a zkopírují do schránky ve tvaru, který patří do souboru.
 - Erby (`art/erby/<id>.webp`, velké `art/erby/velke/<id>.webp`) a portréty
   (`art/portrety/<id>.webp` + `<id>-m.webp`) se podle jména souboru najdou samy.
+
+## Odhalování (co družina zná)
+Na webu napojeném na databázi vidí hráči jen to, co vypravěč odhalil. Rody, osoby a objevená místa mají tři stavy:
+
+| Stav | Co uvidí hráči |
+|---|---|
+| **Skryté** | nic – záznam se jim vůbec nepošle (ani do zdrojového kódu stránky) |
+| **Slyšeli** | jméno a základní údaje; osoba bez textu a se siluetou, rod bez postoje, zápisu kronikáře a rodokmenu |
+| **Potkali** | vše kromě ⟦tajemství⟧ |
+
+- Stav se přepíná na webu: odkaz **Vypravěč** v patičce → přihlášení → přehled všech rodů, osob a míst,
+  případně lišta „Co o osobě ví družina“ přímo na stránce osoby či rodu. Hráčům se změna ukáže do půl minuty.
+- Osoba je hráčům vidět, jen když je vidět i její rod. Ve vypravěčském pohledu jsou skryté odkazy
+  orámované čárkovaně, „slyšeli“ tečkovaně.
+- **Výchozí stav** nového záznamu lze dát do hlavičky: `stav: skryta`, `stav: slyseli` nebo `stav: potkali`
+  (bez pole = potkali). Platí jen při prvním nahrání – potom rozhoduje přepínač na webu a nasazení ho nepřepíše.
+- **Zmínky v textech** podle stavu: `[[jindrich4|Jindřich z Hradce]]` je odkaz, když družina osobu zná,
+  jinak jen text; `[[jindrich4|Jindřich z Hradce|jakýsi pán]]` ukáže skrytou osobu jako „jakýsi pán“;
+  `[[?var|celá věta…]]` se ukáže, jen když družina o rodu aspoň slyšela; `[[!var|věta…]]` jen když ho potkali.
+  Funguje v textech osob, rodů, vazeb, Prahy, Kroniky i Družiny.
+- Vazba mezi rody se hráčům ukáže, jen když znají všechny rody ve vazbě.

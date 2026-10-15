@@ -9,13 +9,19 @@ Obsah (rody, osoby, vazby, Praha, Kronika, Družina, objevená místa) je v zdro
 s hlavičkou – viz zdroj/obsah/NÁVOD.md.
 Jen standardní knihovna Pythonu (běží i na Netlify).
 """
-import html, json, os, re, shutil, sys
+import hashlib, html, json, os, re, shutil, sys, urllib.error, urllib.request
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, "zdroj", "koruna.html")
 OBSAH = os.path.join(ROOT, "zdroj", "obsah")
 GM = "--vypravec" in sys.argv
 OUT = os.path.join(ROOT, "vypravec" if GM else "public")
+# Napojení na Supabase (odhalování). Bez tajného klíče se web sestaví staticky jako dřív.
+SB_URL = os.environ.get("SUPABASE_URL", "").strip().rstrip("/")
+SB_KEY = os.environ.get("SUPABASE_KEY", "").strip()
+SB_SECRET = os.environ.get("SUPABASE_SECRET", "").strip()
+DB = bool(SB_URL and SB_KEY and SB_SECRET) and not GM and "--staticky" not in sys.argv
+VETEV = (os.environ.get("MM_VETEV") or os.environ.get("BRANCH") or "mistni").strip()
 
 def fail(msg):
     sys.exit("CHYBA: " + msg)
@@ -130,13 +136,30 @@ def druzina():
         out.append(o)
     return out
 
+# ---------- odhalování: výchozí stavy ----------
+UROVNE = {"skryta": 0, "skrytá": 0, "skryty": 0, "skrytý": 0, "skryte": 0, "skryté": 0, "0": 0,
+          "slyseli": 1, "slyšeli": 1, "1": 1, "potkali": 2, "znaji": 2, "znají": 2, "2": 2}
+SEED = {}
+
+def seed(eid, meta, where):
+    v = str(meta.get("stav", "") or "potkali").strip().lower()
+    if v not in UROVNE:
+        fail(f"{where}: stav musí být skryta / slyseli / potkali (je „{v}“)")
+    if eid in SEED:
+        fail(f"{where}: id „{eid}“ už používá jiný rod, osoba nebo místo")
+    SEED[eid] = UROVNE[v]
+
 def mista():
     out = []
     for p in read_dir("mista"):
+        w = "mista/" + p["_file"]
         try:
-            out.append({"name": p["name"], "lo": float(p["lo"]), "la": float(p["la"]), "note": p.get("note", ""), "z": p.get("zapis", "")})
+            o = {"name": p["name"], "lo": float(p["lo"]), "la": float(p["la"]), "note": p.get("note", ""), "z": p.get("zapis", "")}
         except (KeyError, ValueError):
-            fail(f"mista/{p['_file']}: potřebuje name, lo, la")
+            fail(f"{w}: potřebuje name, lo, la")
+        o["id"] = p.get("id") or "m-" + re.sub(r"^\d+-", "", p["_file"][:-3])
+        seed(o["id"], p, w)
+        out.append(o)
     return out
 
 
@@ -172,6 +195,7 @@ def rody():
         if any(f["id"] == o["id"] for f in fam):
             fail(f"{w}: id „{o['id']}“ už má jiný rod")
         fam.append(o)
+        seed(o["id"], r, w)
         if r.get("kratce"): short[o["id"]] = r["kratce"]
         e = r.get("erb") or o["id"]
         if os.path.exists(os.path.join(ROOT, "art", "erby", e + ".webp")):
@@ -192,6 +216,7 @@ def osoby(ids):
         o["x"] = text(p["_body"])
         if any(q["id"] == o["id"] for q in out):
             fail(f"{w}: id „{o['id']}“ už má jiná osoba")
+        seed(o["id"], p, w)
         out.append(o)
     return out
 
@@ -210,10 +235,11 @@ def vazby(ids, removed):
         for x in rids:
             if x not in ids:
                 fail(f"vazby.md, řádek {i}: rod „{x}“ neexistuje")
-        if secret and not GM:
+        o = {"t": t, "ids": rids, "x": parts[2]}
+        if secret:
             removed.append(parts[2])
-            continue
-        out.append({"t": t, "ids": rids, "x": parts[2]})
+            o["$gm"] = True
+        out.append(o)
     return out
 
 def praha(ids, pids):
@@ -384,6 +410,136 @@ def strip_secrets(s):
 def show_secrets(s):
     return SECRET.sub(lambda m: m.group(1).partition("¦")[0], s)
 
+# ---------- odhalování: brány v datech ----------
+# Hráčská data nesou značky, podle nichž databáze (mm_orez v supabase/schema.sql) vyřízne, co družina nezná.
+# Stejný algoritmus je níže v Pythonu (statická verze bez databáze a test shody).
+ZMINKA = re.compile(r"(\[\[([?!]?)([A-Za-z0-9_-]+)\|([^\]|]*)(\|([^\]]*))?\]\])")
+
+def zminky(t, st):
+    def rep(m):
+        flag, eid, txt, alt = m.group(2), m.group(3), m.group(4), m.group(6)
+        lv = st.get(eid, 0)
+        if flag == "":
+            return f"[[{eid}|{txt}]]" if lv >= 1 else (alt if m.group(5) is not None else txt)
+        if flag == "?":
+            return txt if lv >= 1 else (alt or "")
+        return txt if lv >= 2 else (alt or "")
+    return ZMINKA.sub(rep, t)
+
+_VYNECH = object()
+
+def uroven(st, g):
+    if st is None:
+        return 2
+    ids = g if isinstance(g, list) else [g]
+    return min((st.get(i, 0) for i in ids), default=2)
+
+def rozbal(j, st, texty=True):
+    """st = {id: 0|1|2}; st=None znamená „vše odhaleno“ (vypravěč)."""
+    if isinstance(j, dict):
+        if "$g" in j:
+            lv = uroven(st, j["$g"])
+            if lv < int(j.get("$u", 1)):
+                return _VYNECH
+            if "$x" in j:
+                return rozbal(j["$x"], st, texty)
+            plne = j.get("$plne")
+            j = {k: v for k, v in j.items() if k not in ("$g", "$u", "$plne")}
+            if isinstance(plne, dict) and lv >= 2:
+                j = {**j, **plne}
+        out = {}
+        for k, v in j.items():
+            x = rozbal(v, st, texty)
+            if x is not _VYNECH:
+                out[k] = x
+        return out
+    if isinstance(j, list):
+        return [x for x in (rozbal(v, st, texty) for v in j) if x is not _VYNECH]
+    if isinstance(j, str) and texty and st is not None and "[[" in j:
+        return zminky(j, st)
+    return j
+
+def bez_tajnych(j, gm):
+    """Tajné vazby (značka $gm): hráčům se vynechají, vypravěči se jen smaže značka."""
+    if isinstance(j, dict):
+        return {k: bez_tajnych(v, gm) for k, v in j.items() if k != "$gm"}
+    if isinstance(j, list):
+        return [bez_tajnych(v, gm) for v in j if gm or not (isinstance(v, dict) and v.get("$gm"))]
+    return j
+
+def odhalovaci_data(fam, short, arms, people, rel, praha_pl, mista_l, trees, portr_stem, zapisy_l, party):
+    prod = {p["id"]: p["r"] for p in people}
+    pids, rids = set(prod), {f["id"] for f in fam}
+    pref = lambda pid: {"$g": [pid, prod[pid]], "$x": pid}
+    rref = lambda rid: {"$g": rid, "$x": rid}
+    F = []
+    for f in fam:
+        base = {k: v for k, v in f.items() if k not in ("stance", "note")}
+        base.update({"stance": "", "note": "", "sl": True})
+        F.append({"$g": f["id"], **base, "$plne": {"stance": f["stance"], "note": f["note"], "sl": False}})
+    P = []
+    for p in people:
+        base = {"id": p["id"], "n": p["n"], "r": p["r"], "role": p["role"], "x": "", "sl": True}
+        plne = {"x": p["x"], "sl": False}
+        if p.get("seat"):
+            plne["seat"] = p["seat"]
+        P.append({"$g": p["r"], "$x": {"$g": p["id"], **base, "$plne": plne}})
+    REL_ = [{"$g": list(r["ids"]), **r} for r in rel]
+    PR = []
+    for q in praha_pl:
+        q = dict(q)
+        if "r" in q: q["r"] = rref(q["r"])
+        if "p" in q: q["p"] = pref(q["p"])
+        PR.append(q)
+    MI = [{"$g": m["id"], "id": m["id"], "name": m["name"], "lo": m["lo"], "la": m["la"], "note": "", "z": "",
+           "$plne": {"note": m["note"], "z": m["z"]}} for m in mista_l]
+    def tnode(n, prvek, where):
+        n = dict(n)
+        for k in ("p", "pl"):
+            if k in n and n[k] not in pids:
+                fail(f"rodokmeny.json, {where}: osoba „{n[k]}“ neexistuje")
+        for k in ("r", "rl"):
+            if k in n and n[k] not in rids:
+                fail(f"rodokmeny.json, {where}: rod „{n[k]}“ neexistuje")
+        if "pl" in n: n["pl"] = pref(n["pl"])
+        if "r" in n: n["r"] = rref(n["r"])
+        if "rl" in n: n["rl"] = rref(n["rl"])
+        for k in ("kids", "sp"):
+            if k in n: n[k] = [tnode(c, True, where) for c in n[k]]
+        if "p" in n:
+            if prvek:
+                n = {"$g": [n["p"], prod[n["p"]]], **n}
+            else:
+                n["p"] = pref(n["p"])
+        return n
+    T = {}
+    for rid, t in trees.items():
+        if rid not in rids:
+            fail(f"rodokmeny.json: rod „{rid}“ neexistuje")
+        t = dict(t)
+        for k in ("root", "main"):
+            if k in t: t[k] = tnode(t[k], False, rid)
+        if "kids" in t: t["kids"] = [tnode(c, True, rid) for c in t["kids"]]
+        T[rid] = {"$g": rid, "$u": 2, "$x": t}
+    return {"FAM": F, "PEOPLE": P, "REL": REL_, "PRAHA_PLACES": PR, "MISTA": MI, "TREES": T,
+            "SHORT": {k: {"$g": k, "$x": v} for k, v in short.items()},
+            "ARMS": {k: {"$g": k, "$x": v} for k, v in arms.items()},
+            "PORTR": {pid: {"$g": prod[pid], "$x": {"$g": pid, "$u": 2, "$x": stem}} for pid, stem in portr_stem.items()},
+            "ZAPISY": zapisy_l, "PARTY": party}
+
+def sb_rpc(fn, body):
+    hdr = {"apikey": SB_SECRET, "Content-Type": "application/json"}
+    if SB_SECRET.startswith("eyJ"):
+        hdr["Authorization"] = "Bearer " + SB_SECRET
+    req = urllib.request.Request(f"{SB_URL}/rest/v1/rpc/{fn}", data=json.dumps(body, ensure_ascii=False).encode("utf-8"), headers=hdr, method="POST")
+    try:
+        with urllib.request.urlopen(req, timeout=120) as r:
+            return json.loads(r.read() or b"null")
+    except urllib.error.HTTPError as e:
+        fail(f"Supabase {fn}: HTTP {e.code} {e.read().decode('utf-8', 'replace')[:400]}")
+    except urllib.error.URLError as e:
+        fail(f"Supabase {fn}: {e.reason}")
+
 # ---------- sestavení ----------
 s = open(SRC, encoding="utf-8").read()
 J = lambda v: json.dumps(v, ensure_ascii=False, separators=(",", ":"))
@@ -393,30 +549,74 @@ IDS = {f["id"] for f in FAM}
 PEOPLE = osoby(IDS)
 PIDS = {p["id"] for p in PEOPLE}
 SV, SVM = svet(), svet_mesta()
-for key, val in (("ZAPISY", zapisy()), ("PARTY", druzina()), ("MISTA", mista()), ("FAM", FAM), ("PEOPLE", PEOPLE),
-                 ("REL", vazby(IDS, removed_items)), ("PRAHA_PLACES", praha(IDS, PIDS)), ("PSTREETS", ulice()), ("PORTR", portrety()), ("SVET", SV), ("SVETMESTA", SVM),
-                 ("SVETDRZ", svet_drzavy({o["id"] for o in SV})), ("SVETCESTY", svet_cesty(SVM))):
-    tag = f"/*@{key}@*/[]"
-    if tag not in s:
-        fail(f"ve zdroji chybí značka {tag}")
-    s = s.replace(tag, J(val))
-for key, val in (("SHORT", SHORT), ("ARMS", ARMS), ("DRACI", draconomicon())):
-    tag = f"/*@{key}@*/{{}}"
-    if tag not in s:
-        fail(f"ve zdroji chybí značka {tag}")
-    s = s.replace(tag, J(val))
-s = s.replace("/*@GM@*/false", "true" if GM else "false")
+TREES = json.load(open(os.path.join(OBSAH, "rodokmeny.json"), encoding="utf-8"))
+PORTR_IDS = [x for x in portrety() if x in PIDS]
+if DB:  # portréty pod nečitelnými názvy, aby se nedalo uhodnout, kdo existuje
+    STEM = {pid: hashlib.sha256(f"mm-portret:{SB_SECRET}:{pid}".encode()).hexdigest()[:24] for pid in PORTR_IDS}
+else:
+    STEM = {pid: pid for pid in PORTR_IDS}
+ODH = odhalovaci_data(FAM, SHORT, ARMS, PEOPLE, vazby(IDS, removed_items), praha(IDS, PIDS), mista(), TREES, STEM, zapisy(), druzina())
+STAT = {"PSTREETS": ulice(), "SVET": SV, "SVETMESTA": SVM, "SVETDRZ": svet_drzavy({o["id"] for o in SV}),
+        "SVETCESTY": svet_cesty(SVM), "DRACI": draconomicon()}
+
+def pro_hrace(txt):
+    t, rem = strip_secrets(txt)
+    return t.replace("✦ ", "").replace("✦", ""), rem
+
+_odh = J(ODH)
+HRAC_TXT, rem1 = pro_hrace(_odh)
+HRAC = bez_tajnych(json.loads(HRAC_TXT), False)            # s branami – nahrává se do databáze
+GMD = rozbal(bez_tajnych(json.loads(show_secrets(_odh)), True), None, texty=False)  # vypravěč vidí vše
+_stat = J(STAT)
+STAT_H_TXT, rem2 = pro_hrace(_stat)
+STAT_H, STAT_G = json.loads(STAT_H_TXT), json.loads(show_secrets(_stat))
+secrets_all = rem1 + rem2 + removed_items
+
+if "--vypis" in sys.argv:  # pro testy: data s branami a výchozí stavy
+    _d = sys.argv[sys.argv.index("--vypis") + 1]
+    os.makedirs(_d, exist_ok=True)
+    json.dump(HRAC, open(os.path.join(_d, "hrac.json"), "w", encoding="utf-8"), ensure_ascii=False)
+    json.dump(SEED, open(os.path.join(_d, "seed.json"), "w", encoding="utf-8"), ensure_ascii=False)
+
+if GM:
+    DATA = {**GMD, **STAT_G, "GM": True, "STAV": SEED}
+elif DB:
+    DATA = None
+else:
+    DATA = {**rozbal(HRAC, SEED), **STAT_H}
+
+# značky ve zdroji → čtení z window.__D
+for key in list(ODH) + list(STAT):
+    for empty in ("[]", "{}"):
+        tag = f"/*@{key}@*/{empty}"
+        if tag in s:
+            s = s.replace(tag, f"(__D.{key}||{empty})")
+            break
+    else:
+        fail(f"ve zdroji chybí značka /*@{key}@*/")
+if "/*@GM@*/false" not in s or "/*@MMDATA@*/" not in s:
+    fail("ve zdroji chybí značka /*@GM@*/ nebo /*@MMDATA@*/")
+s = s.replace("/*@GM@*/false", "!!__D.GM")
+safe = lambda v: J(v).replace("</", "<\\/")
+if DB:
+    s = s.replace("/*@MMDATA@*/", "window.MMCFG=" + safe({"url": SB_URL, "key": SB_KEY, "vetev": VETEV}) + ";window.__S=" + safe(STAT_H) + ";")
+    if '<script id="mmhlavni">' not in s:
+        fail('ve zdroji chybí <script id="mmhlavni">')
+    s = s.replace('<script id="mmhlavni">', '<script type="text/x-mm" id="mmhlavni">')
+else:
+    s = s.replace("/*@MMDATA@*/", "window.__D=" + safe(DATA) + ";")
 
 if GM:
     s = show_secrets(s)
 else:
     s, removed = strip_secrets(s)
     s = s.replace("✦ ", "").replace("✦", "")
-    for sec in removed + removed_items:  # pojistka: žádný tajný text nesmí zůstat
+    hrac_vse = s + (J(HRAC) if DB else "")
+    for sec in removed + secrets_all:  # pojistka: žádný tajný text nesmí zůstat
         probe = sec.strip()[:40]
-        if len(probe) > 12 and probe in s:
+        if len(probe) > 12 and probe in hrac_vse:
             fail("tajemství proteklo do hráčské verze: " + probe)
-    if "⟦" in s or "⟧" in s:
+    if "⟦" in hrac_vse or "⟧" in hrac_vse:
         fail("neuzavřená značka tajemství ⟦ ⟧")
 
 s = s.replace('<meta name="claude:viewport-fit-sides" content="cover">\n', "")
@@ -429,8 +629,22 @@ page = ('<!doctype html>\n<html lang="cs">\n<head>\n<meta charset="utf-8">\n'
         '<meta name="description" content="Rody Čech, Moravy, Slezska, Lužic a sousedních zemí k 3. březnu 1458: mapa držav, vyznání, vazby a spory.">\n'
         + head + reset + "</head>\n<body>\n" + body + "\n</body>\n</html>\n")
 
+if DB:
+    ver = sb_rpc("mm_nahraj_obsah", {"p_vetev": VETEV, "p_hrac": HRAC,
+                                     "p_gm": {**GMD, **{k: v for k, v in STAT_G.items() if v != STAT_H.get(k)}},
+                                     "p_vychozi": SEED})
+    print(f"supabase: obsah větve „{VETEV}“ nahrán, verze výřezu {ver}")
+
 shutil.rmtree(OUT, ignore_errors=True)
 os.makedirs(OUT)
 open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(page)
-shutil.copytree(os.path.join(ROOT, "art"), os.path.join(OUT, "art"))
-print(f"ok: {OUT}/index.html ({len(page)//1024} kB), {'vypravěčská' if GM else 'hráčská'} verze")
+shutil.copytree(os.path.join(ROOT, "art"), os.path.join(OUT, "art"), ignore=shutil.ignore_patterns("portrety") if DB else None)
+if DB:
+    src_p, dst_p = os.path.join(ROOT, "art", "portrety"), os.path.join(OUT, "art", "portrety")
+    os.makedirs(dst_p)
+    for pid, stem in STEM.items():
+        for suf in ("", "-m"):
+            if os.path.exists(os.path.join(src_p, f"{pid}{suf}.webp")):
+                shutil.copyfile(os.path.join(src_p, f"{pid}{suf}.webp"), os.path.join(dst_p, f"{stem}{suf}.webp"))
+mode = "vypravěčská" if GM else ("hráčská, napojená na databázi" if DB else "hráčská, statická")
+print(f"ok: {OUT}/index.html ({len(page)//1024} kB), {mode} verze")
