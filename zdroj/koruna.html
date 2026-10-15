@@ -833,6 +833,23 @@ body{background:transparent}
 .dialz{font-size:.78rem;color:var(--kal);max-width:16em;line-height:1.25}
 .dialz a{color:inherit}
 .hero .herop{margin-top:10px;text-align:center}
+
+.dial{width:min(480px,92vw)}
+.dialtxt{inset:27%}
+.dialcz{font-family:var(--f-disp);font-size:9.5px;fill:#e9d49a}
+.dialcantx{font-family:var(--f-label);font-size:10px;letter-spacing:.06em;fill:var(--muted)}
+.dialhr,.dialcan{cursor:help}
+.dialmoon{paint-order:stroke;stroke:#efe9d6;stroke-width:3px}
+.dialh span{display:block;font-size:.72rem;letter-spacing:.04em;margin-top:1px;text-transform:none}
+.dialfe{font-family:var(--f-disp);color:var(--gold);font-size:.95rem;margin-top:2px}
+.dialneedle{transform-origin:200px 200px;transform-box:view-box}
+.dialneedle.anim{animation:dialsweep 1.8s cubic-bezier(.45,.05,.25,1) .3s both}
+@keyframes dialsweep{from{transform:rotate(var(--a0))}to{transform:rotate(var(--a1))}}
+.dialfest{filter:blur(3px);opacity:.75;animation:dialglow 3s ease-in-out infinite}
+@keyframes dialglow{50%{opacity:.35}}
+.dialcur.pravda{animation:dialpulse 1.6s ease-in-out infinite}
+@keyframes dialpulse{50%{fill:#d4473a;filter:drop-shadow(0 0 10px rgba(212,71,58,.9))}}
+@media (prefers-reduced-motion:reduce){.dialneedle.anim,.dialfest,.dialcur.pravda{animation:none}}
 </style>
 
 <div class="wrap">
@@ -3451,45 +3468,79 @@ function feasts(y){const E=easter(y);return [
  {j:E,n:"Boží hod velikonoční",w:"",info:1},
  {j:jdn(y,12,25),n:"Boží hod vánoční",w:"",info:1}]}
 
-/* hodiny Závoje na úvodu: 24 hodin, poledne nahoře, půlnoc dole */
-const DIALZ={12:"poledne",18:"večerní klekání",0:"půlnoc"};
-function dialSVG(H){
-  const C=200,P=(r,h)=>{const a=(h-12)*Math.PI/12;return [C+r*Math.sin(a),C-r*Math.cos(a)]};
-  const lerp=(a,b,t)=>a.map((v,i)=>Math.round(v+(b[i]-v)*t));
-  const night=[22,34,70],dusk=[96,124,168],day=[236,226,200],noon=[232,184,74];
-  const col=h=>{const d=Math.cos((h-12)/12*Math.PI);/* 1 poledne … -1 půlnoc */
-    if(d<-.35)return night; if(d<.05)return lerp(night,dusk,(d+.35)/.4); if(d<.45)return lerp(dusk,day,(d-.05)/.4); return lerp(day,noon,(d-.45)/.55)};
-  let o=`<svg class="dialsvg" viewBox="0 0 400 400" aria-hidden="true"><defs><radialGradient id="dsun"><stop offset="0" stop-color="#ffe9a0"/><stop offset=".6" stop-color="#f2c14e" stop-opacity=".9"/><stop offset="1" stop-color="#f2c14e" stop-opacity="0"/></radialGradient></defs>`;
+/* hodiny Závoje na úvodu: 24 hodin (pravý sluneční čas Prahy), poledne nahoře, půlnoc dole */
+const DEG=Math.PI/180;
+function sunFor(jd){/* deklinace Slunce, východ a západ (h), výška Slunce v hodině h */
+  const n=jd-2451545,L=(280.460+.9856474*n)%360,g=((357.528+.9856003*n)%360)*DEG,lam=(L+1.915*Math.sin(g)+.02*Math.sin(2*g))*DEG,eps=(23.439-4e-7*n)*DEG;
+  const dec=Math.asin(Math.sin(eps)*Math.sin(lam)),phi=50.09*DEG;
+  const c=(Math.sin(-.833*DEG)-Math.sin(phi)*Math.sin(dec))/(Math.cos(phi)*Math.cos(dec)),H0=Math.acos(Math.max(-1,Math.min(1,c)))/DEG/15;
+  return {dec:dec/DEG,rise:12-H0,set:12+H0,alt:h=>Math.asin(Math.sin(phi)*Math.sin(dec)+Math.cos(phi)*Math.cos(dec)*Math.cos(15*(h-12)*DEG))/DEG}}
+function moonFor(jd){const p=((jd-2451550.1)/29.530588853%1+1)%1;
+  const nm=p<.03||p>.97?"nov":p<.22?"dorůstající srpek":p<.28?"první čtvrť":p<.47?"měsíc dorůstá":p<.53?"úplněk":p<.72?"měsíc couvá":p<.78?"poslední čtvrť":"ubývající srpek";
+  return {p,nm,lit:Math.round((1-Math.cos(2*Math.PI*p))/2*100)}}
+const hourWord=h=>h===0?"půlnoc":h<5?"v noci":h<9?"ráno":h<12?"dopoledne":h===12?"poledne":h<18?"odpoledne":h<21?"večer":"v noci";
+function dialCtx(Y,M,D,today,H,Hprev){
+  const jd=today-.5+(H??12)/24,sun=sunFor(today),moon=moonFor(jd),th=(sun.set-sun.rise)/12;
+  const kl=Math.round(sun.set)%24,Z={12:"poledne",0:"půlnoc"};Z[kl]="večerní klekání";
+  const canon=[["matutinum",2],["laudy",sun.rise-.75],["prima",sun.rise],["tercie",sun.rise+3*th],["sexta",12],["nona",sun.rise+9*th],["nešpory",sun.set-.5],["kompletář",sun.set+1.5]];
+  const fe=feasts(Y).filter(f=>f.j===today).map(f=>f.n),sol=Math.abs(sun.dec)>23.3?(sun.dec>0?"letní slunovrat":"zimní slunovrat"):"";
+  if(sol)fe.push(sol);
+  const cz=h=>((Math.round(h-sun.set)%24)+24)%24||24;
+  return {Y,M,D,H,Hprev,sun,moon,Z,canon,fe,cz}}
+function dialSVG(X){
+  const {H,Hprev,sun,moon,Z,canon,fe,cz}=X,C=200,P=(r,h)=>{const a=(h-12)*Math.PI/12;return [C+r*Math.sin(a),C-r*Math.cos(a)]},F=v=>v.toFixed(1);
+  const lerp=(a,b,t)=>a.map((v,i)=>Math.round(v+(b[i]-v)*Math.max(0,Math.min(1,t))));
+  const night=[22,34,70],dusk=[96,124,168],day=[236,226,200],noon=[232,184,74],amax=sun.alt(12);
+  const col=h=>{const a=sun.alt(h);if(a<-12)return night;if(a<-.8)return lerp(night,dusk,(a+12)/11.2);if(a<8)return lerp(dusk,day,(a+.8)/8.8);return lerp(day,noon,(a-8)/Math.max(1,amax-8))};
+  const pravda=H!=null&&fe.length&&Z[H%24]!=null;
+  let o=`<svg class="dialsvg" viewBox="-34 -34 468 468" role="img" aria-label="Hodiny Závoje"><defs><radialGradient id="dsun"><stop offset="0" stop-color="#ffe9a0"/><stop offset=".6" stop-color="#f2c14e" stop-opacity=".9"/><stop offset="1" stop-color="#f2c14e" stop-opacity="0"/></radialGradient></defs>`;
+  if(fe.length)o+=`<circle cx="${C}" cy="${C}" r="203" fill="none" stroke="#f0d68a" stroke-width="9" class="dialfest"/>`;
   const R1=196,R0=150;
   for(let k=0;k<96;k++){const h0=k/4,h1=(k+1)/4,c=col(h0+.125);const [a,b]=P(R1,h0),[c2,d2]=P(R1,h1),[e,f]=P(R0,h1),[g,i]=P(R0,h0);
-    o+=`<path d="M${a.toFixed(1)},${b.toFixed(1)}A${R1},${R1} 0 0 1 ${c2.toFixed(1)},${d2.toFixed(1)}L${e.toFixed(1)},${f.toFixed(1)}A${R0},${R0} 0 0 0 ${g.toFixed(1)},${i.toFixed(1)}Z" fill="rgb(${c})" stroke="rgb(${c})" stroke-width=".6"/>`}
+    o+=`<path d="M${F(a)},${F(b)}A${R1},${R1} 0 0 1 ${F(c2)},${F(d2)}L${F(e)},${F(f)}A${R0},${R0} 0 0 0 ${F(g)},${F(i)}Z" fill="rgb(${c})" stroke="rgb(${c})" stroke-width=".6"/>`}
   {const [x,y]=P(173,12);o+=`<circle cx="${x}" cy="${y}" r="40" fill="url(#dsun)"/>`;
-   for(let k=0;k<16;k++){const a=k*Math.PI/8;o+=`<path d="M${(x+13*Math.cos(a)).toFixed(1)},${(y+13*Math.sin(a)).toFixed(1)}L${(x+(k%2?22:30)*Math.cos(a)).toFixed(1)},${(y+(k%2?22:30)*Math.sin(a)).toFixed(1)}" stroke="#d49a22" stroke-width="2" stroke-linecap="round" opacity=".75"/>`}}
-  [[1.5,186],[2.5,162],[3.5,186],[4.5,163],[20.5,186],[21.5,162],[22.5,186],[23.5,163],[0.5,187],[1.5,161],[19.5,163],[3.5,160],[22.5,160]].forEach(([h,r],i)=>{const [x,y]=P(r,h);const s=i%3?2.6:3.6;
+   for(let k=0;k<16;k++){const a=k*Math.PI/8;o+=`<path d="M${F(x+13*Math.cos(a))},${F(y+13*Math.sin(a))}L${F(x+(k%2?22:30)*Math.cos(a))},${F(y+(k%2?22:30)*Math.sin(a))}" stroke="#d49a22" stroke-width="2" stroke-linecap="round" opacity=".75"/>`}}
+  [[1.5,186],[2.5,162],[3.5,186],[4.5,163],[20.5,186],[21.5,162],[22.5,186],[23.5,163],[.5,187],[1.5,161],[19.5,163],[3.5,160],[22.5,160]].forEach(([h,r],i)=>{if(sun.alt(h)>-6)return;const [x,y]=P(r,h);const s=i%3?2.6:3.6;
     o+=`<path d="M${x},${y-s}L${x+s*.3},${y-s*.3}L${x+s},${y}L${x+s*.3},${y+s*.3}L${x},${y+s}L${x-s*.3},${y+s*.3}L${x-s},${y}L${x-s*.3},${y-s*.3}Z" fill="#e8c35a"/>`});
-  {const [x,y]=P(173,0);o+=`<circle cx="${x}" cy="${y}" r="15" fill="#e8e2d2" stroke="#b8b0a0"/><circle cx="${x-4}" cy="${y-3}" r="3" fill="#cfc6b3"/><circle cx="${x+5}" cy="${y+4}" r="2.2" fill="#cfc6b3"/>`}
+  /* měsíc ve skutečné fázi */
+  {const [x,y]=P(173,0),r=16,p=moon.p,k=Math.abs(Math.cos(2*Math.PI*p))*r,wax=p<.5,ts=wax?(p<.25?0:1):(p<.75?0:1);
+   o+=`<g><title>Měsíc: ${moon.nm} (osvětleno ${moon.lit} %)</title><circle cx="${F(x)}" cy="${F(y)}" r="${r+3}" fill="#e8e2d2" opacity=".18"/><circle cx="${F(x)}" cy="${F(y)}" r="${r}" fill="#3b4058" stroke="#b8b0a0" stroke-width=".8"/>`;
+   if(moon.lit>1)o+=`<path d="M${F(x)},${F(y-r)}A${r},${r} 0 0 ${wax?1:0} ${F(x)},${F(y+r)}A${F(k)},${r} 0 0 ${ts} ${F(x)},${F(y-r)}Z" fill="#efe9d6"/>`;
+   o+=`</g>`}
   o+=`<circle cx="${C}" cy="${C}" r="${R1}" fill="none" stroke="#b8892f" stroke-width="3"/><circle cx="${C}" cy="${C}" r="${R0}" fill="none" stroke="#b8892f" stroke-width="2"/>`;
+  /* kanonické hodinky vně kruhu */
+  canon.forEach(([n,h])=>{const [a,b]=P(R1+1,h),[c2,d2]=P(R1+8,h),[x,y]=P(213,h);let rot=(h-12)*15;if(Math.cos(rot*DEG)<0)rot+=180;
+    o+=`<g class="dialcan"><title>${n} – kolem ${Math.floor(((h%24)+24)%24)}. hodiny; zvon k modlitbě</title><path d="M${F(a)},${F(b)}L${F(c2)},${F(d2)}" stroke="#b8892f" stroke-width="2"/><text x="${F(x)}" y="${F(y)}" transform="rotate(${F(rot)} ${F(x)} ${F(y)})" text-anchor="middle" dominant-baseline="central" class="dialcantx">${n}</text></g>`});
   o+=`<circle cx="${C}" cy="${C}" r="${R0-1}" fill="#241c14"/>`;
-  for(let k=0;k<96;k++){const [a,b]=P(R0-1,k/4),[c2,d2]=P(k%4?R0-9:R0-13,k/4);o+=`<path d="M${a.toFixed(1)},${b.toFixed(1)}L${c2.toFixed(1)},${d2.toFixed(1)}" stroke="#b8892f" stroke-width="${k%4?.8:1.6}"/>`}
-  o+=`<circle cx="${C}" cy="${C}" r="${R0-15}" fill="var(--paper)" stroke="#b8892f" stroke-width="2"/>`;
-  for(let h=1;h<=24;h++){const hh=h%24,[x,y]=P(173,h),c=col(h),dark=(c[0]+c[1]+c[2])/3>140,a=(h-12)*15,cur=H!=null&&H%24===hh,zv=DIALZ[hh]!=null;
-    if(zv&&!cur)o+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="15" fill="none" stroke="#d4a53c" stroke-width="1.6"><title>Hodina Závoje: ${DIALZ[hh]}</title></circle>`;
-    if(cur)o+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="17" fill="#a3232b" stroke="#f0d68a" stroke-width="2.5" class="dialcur"/>`;
-    o+=`<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" transform="rotate(${a} ${x.toFixed(1)} ${y.toFixed(1)})" text-anchor="middle" dominant-baseline="central" class="dialnum" fill="${cur?"#fbefc9":hh===0?"#3a2c18":zv?(dark?"#8a5a10":"#f0cf6a"):dark?"#2b2117":"#f2e8cf"}"${cur?' font-weight="700"':""}>${h}</text>`}
-  if(H!=null){const a=(H-12)*15,[x,y]=P(R0-16,H),[bx,by]=P(R0-13,H+.35),[cx2,cy2]=P(R0-13,H-.35);
-    o+=`<path d="M${x.toFixed(1)},${y.toFixed(1)}L${bx.toFixed(1)},${by.toFixed(1)}L${cx2.toFixed(1)},${cy2.toFixed(1)}Z" transform="translate(0 0)" fill="#f0d68a" stroke="#6b4a12" stroke-width=".8"/>`;
-    const [p1,q1]=P(R0+2,H),[p2,q2]=P(R0-12,H);o+=`<path d="M${p1.toFixed(1)},${q1.toFixed(1)}L${p2.toFixed(1)},${q2.toFixed(1)}" stroke="#f0d68a" stroke-width="3" stroke-linecap="round"/>`}
+  for(let k=0;k<96;k++){const [a,b]=P(R0-1,k/4),[c2,d2]=P(k%4?R0-9:R0-13,k/4);o+=`<path d="M${F(a)},${F(b)}L${F(c2)},${F(d2)}" stroke="#b8892f" stroke-width="${k%4?.8:1.6}"/>`}
+  /* staročeský čas (orloj): hodiny od západu slunce */
+  const RC=128;o+=`<circle cx="${C}" cy="${C}" r="${R0-15}" fill="#3a2a18" stroke="#b8892f" stroke-width="1.5"/>`;
+  for(let n=1;n<=24;n++){const h=sun.set+n,[x,y]=P(RC,h);o+=`<text x="${F(x)}" y="${F(y)}" transform="rotate(${F((h-12)*15)} ${F(x)} ${F(y)})" text-anchor="middle" dominant-baseline="central" class="dialcz">${n}<title>${n}. hodina na orloji (počítáno od západu slunce)</title></text>`}
+  o+=`<circle cx="${C}" cy="${C}" r="${RC-9}" fill="var(--paper)" stroke="#b8892f" stroke-width="2"/>`;
+  /* číslice hodin s popisky */
+  for(let h=1;h<=24;h++){const hh=h%24,[x,y]=P(173,h),c=col(h),dark=(c[0]+c[1]+c[2])/3>140,a=(h-12)*15,cur=H!=null&&H%24===hh,zv=Z[hh]!=null;
+    const can=canon.filter(([n,t])=>Math.round(((t%24)+24)%24)===hh).map(q=>q[0]).join(", ");
+    o+=`<g class="dialhr"><title>${h}. hodina · ${hourWord(hh)} · na orloji ${cz(hh)}.${can?" · "+can:""}${zv?" · Hodina Závoje ("+Z[hh]+")":""}</title>`;
+    if(zv&&!cur)o+=`<circle cx="${F(x)}" cy="${F(y)}" r="15" fill="none" stroke="#d4a53c" stroke-width="1.6"/>`;
+    if(cur)o+=`<circle cx="${F(x)}" cy="${F(y)}" r="17" fill="#a3232b" stroke="#f0d68a" stroke-width="2.5" class="dialcur${pravda?" pravda":""}"/>`;
+    o+=`<circle cx="${F(x)}" cy="${F(y)}" r="14" fill="transparent"/><text x="${F(x)}" y="${F(y)}" transform="rotate(${a} ${F(x)} ${F(y)})" text-anchor="middle" dominant-baseline="central" class="dialnum${hh===0?" dialmoon":""}" fill="${cur?"#fbefc9":hh===0?"#2a2418":zv?(dark?"#8a5a10":"#f0cf6a"):dark?"#2b2117":"#f2e8cf"}"${cur?' font-weight="700"':""}>${h}</text></g>`}
+  /* ručička: při načtení přejede od hodiny minulého zápisu */
+  if(H!=null){const a1=(H-12)*15;let a0=Hprev!=null?(Hprev-12)*15:a1;if(a0>a1)a0-=360;
+    const [p1,q1]=P(R0+2,12),[p2,q2]=P(R0-13,12),[x,y]=P(R0-17,12);
+    o+=`<g class="dialneedle${a0!==a1?" anim":""}" style="--a0:${a0}deg;--a1:${a1}deg;transform:rotate(${a1}deg)"><path d="M${F(p1)},${F(q1)}L${F(p2)},${F(q2)}" stroke="#f0d68a" stroke-width="3" stroke-linecap="round"/><path d="M${F(x)},${F(y)}l-5,9h10z" fill="#f0d68a" stroke="#6b4a12" stroke-width=".8"/></g>`}
   return o+`</svg>`}
-function dialHour(H){const h=H%24,w=h===0?"půlnoc":h<5?"v noci":h<9?"ráno":h<12?"dopoledne":h===12?"poledne":h<18?"odpoledne":h<21?"večer":"v noci";
-  const z=DIALZ[h];return `<p class="dialh">${h===0||h===12?w:`${h}. hodina · ${w}`}</p>${z?`<p class="dialz"><a href="#artikule/zavoj/hodiny">Hodina Závoje</a> – ${z}; Pokušení padá již na 1–3</p>`:""}`}
+function dialHour(X){const {H,moon,Z,fe,cz}=X,h=H%24,z=Z[h],pravda=fe.length&&z;
+  return `<p class="dialh">${h===0||h===12?hourWord(h):`${h}. hodina · ${hourWord(h)}`}<span>${cz(h)}. hodina na orloji · ${moon.nm}</span></p>`+
+   (fe.length?`<p class="dialfe">Dnes: ${fe.join(", ")}</p>`:"")+
+   (pravda?`<p class="dialz"><a href="#artikule/zavoj/hodina-pravdy">Hodina Pravdy</a> – svátek a ${z}: kostka Závoje nezná neutrální výsledek</p>`:z?`<p class="dialz"><a href="#artikule/zavoj/hodiny">Hodina Závoje</a> – ${z}; Pokušení padá již na 1–3</p>`:"")}
 function renderKal(){
   const last=[...ZAPISY].reverse().find(z=>/^\d{4}-\d{2}-\d{2}$/.test(z.datum||""));
   const [Y,M,D]=(last?last.datum:"1458-03-03").split("-").map(Number), today=jdn(Y,M,D);
   const up=[...feasts(Y),...feasts(Y+1)].filter(f=>f.j>=today).sort((a,b)=>a.j-b.j).slice(0,8);
   const fd=j=>{const [y,m,d]=fromJdn(j);return `${d}. ${MES[m-1]}`+(y!==Y?` ${y}`:"")};
   const rel=j=>{const n=j-today;return n===0?"dnes":n===1?"zítra":`za ${n} ${n<5?"dny":"dní"}`};
-  {const hz=[...ZAPISY].reverse().find(z=>z.hodina!=null),H=hz?hz.hodina:null;
-   document.getElementById("hero").innerHTML=`<div class="dial">${dialSVG(H)}<div class="dialtxt"><p class="lbl">Dnes je</p><p class="herod">${DNY[(today+1)%7]} ${D}. ${MES[M-1]}<span>léta Páně ${Y}</span></p>${H!=null?dialHour(H):""}</div></div>${last?`<p class="herop">Družina: <button type="button" class="maplink" data-id="${(PLACES.find(p=>p.name===last.place)?FAM.find(f=>f.seats.some(s=>s[0]===last.place)):{id:""}).id}" data-place="${last.place}">${last.place}</button> · poslední zápis: <a href="#kronika/${last.id}">${last.title}</a></p>`:""}`;}
+  {const hzs=[...ZAPISY].reverse().filter(z=>z.hodina!=null),H=hzs[0]?hzs[0].hodina:null,X=dialCtx(Y,M,D,today,H,hzs[1]?hzs[1].hodina:null);
+   document.getElementById("hero").innerHTML=`<div class="dial">${dialSVG(X)}<div class="dialtxt"><p class="lbl">Dnes je</p><p class="herod">${DNY[(today+1)%7]} ${D}. ${MES[M-1]}<span>léta Páně ${Y}</span></p>${H!=null?dialHour(X):""}</div></div>${last?`<p class="herop">Družina: <button type="button" class="maplink" data-id="${(PLACES.find(p=>p.name===last.place)?FAM.find(f=>f.seats.some(s=>s[0]===last.place)):{id:""}).id}" data-place="${last.place}">${last.place}</button> · poslední zápis: <a href="#kronika/${last.id}">${last.title}</a></p>`:""}`;}
   const zs=[...ZAPISY].reverse().slice(0,3);
   document.getElementById("uvzap").innerHTML=`<ol class="zlist">${zs.map(z=>`<li><a class="zcard" href="#kronika/${z.id}"><small>${z.n} · ${z.date} · ${z.place}</small><b>${z.title}</b><span>${strip(z.text).replace(/\s+/g," ").slice(0,180)}…</span></a></li>`).join("")}</ol>`;
   const L=[...document.querySelectorAll("#letopis dt")].slice(-3).reverse();
