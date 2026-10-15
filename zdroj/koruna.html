@@ -1494,6 +1494,32 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
 .lyrbtn:hover{color:#ffe7a8}
 .lyrbtn[aria-expanded="true"]{background:linear-gradient(180deg,var(--kuze2),color-mix(in srgb,var(--kuze2) 80%,#000))}
 @media (max-width:640px){.lyrbtn{padding:5px 11px}}
+/* Boj: kompaktní rozložení, aby se celý přehled vešel na jednu obrazovku (1920×1080 i se zvětšením 125 %) */
+@media (min-width:821px){
+  #bojview .bojhead{gap:8px}
+  #bojview .arttitle{font-size:2.3rem;line-height:1}
+  #bojview .arttitle::after{display:none}
+  #bojview .bojgrid{margin-top:4px;gap:22px}
+  #bojview .uvh2{margin:0 0 4px;font-size:1.15rem}
+  .bsloty{gap:1px;margin:4px 0}
+  .bsloty::before{left:20px;top:10px;bottom:10px}
+  .bslot{grid-template-columns:42px minmax(0,1fr) auto auto;grid-template-areas:"s k t n";column-gap:12px;padding:2px 10px 2px 0;min-height:42px}
+  .bstit{transform:scale(.78);margin:-5px -5px -6px -3px;transform-origin:center}
+  .bkdo{font-size:1rem}.bkdo b{font-size:1.15rem}
+  .btyp{font-size:.74rem;text-align:right;white-space:nowrap}
+  .bsloty select{min-height:28px;font-size:1.05rem;padding:0 20px 0 0;width:100%;max-width:260px}
+  .bnatahu{font-size:.7rem;padding:2px 8px 2px 13px}
+  .bkonec{margin-left:54px}.bosa>.rsmall{margin:4px 0 0 54px;font-size:.85rem}
+  .bojside{gap:14px}
+  .bkostka{padding:8px 12px}
+  .bnpc{padding:5px 10px;margin:0 0 5px}
+  .bslot{grid-template-columns:42px minmax(150px,260px) minmax(0,1fr) auto}
+  .btyp{text-align:left}
+  .bojside{gap:10px}
+  .bojside .uvh2{padding-bottom:2px;margin-bottom:5px}
+  .bkr select,.bkr input,.bnadd input,.bnadd select{min-height:32px;padding:3px 8px}
+  .bkostka .kvys{margin:4px 0 6px}
+}
 </style>
 
 <div class="wrap"><div class="papir" aria-hidden="true"></div>
