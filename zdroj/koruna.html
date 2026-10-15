@@ -265,20 +265,17 @@ header.site{display:flex;flex-direction:column;gap:0;border:0;padding:0}
 .sbico{width:16px;height:16px;vertical-align:-3px;margin-right:4px}.sgico{width:22px;height:22px;vertical-align:-5px;margin-right:6px}
 .gmtoast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:90;background:var(--ink);color:var(--paper);font-family:var(--f-label);padding:8px 14px;border-radius:4px;box-shadow:0 4px 12px rgba(0,0,0,.3);opacity:0;pointer-events:none;transition:opacity .2s}.gmtoast.on{opacity:1}
 .navdd{position:relative;display:inline-block}
-/* kreslený praporec pod položkou Mapy (SVG v art/menu, vyrábí je zdroj/prapor_svg.py): ratiště s horní částí, látka se rozvine (max-height) a pak se celý prapor zhoupne na ratišti */
-.navdd .svitek{position:absolute;left:50%;top:100%;margin:-4px 0 0 -207px;width:414px;z-index:40;pointer-events:none;visibility:hidden;transition:visibility 0s .3s;filter:drop-shadow(0 8px 10px rgba(0,0,0,.5));transform-origin:207px 24px}
-.svitek .roll{display:block;height:90px;background:url(art/menu/prapor-horni.svg) center/100% 100% no-repeat;position:relative;z-index:2;opacity:0;transition:opacity .2s;pointer-events:none}
-.svitek .roll:last-child{height:130px;background-image:url(art/menu/prapor-spodni.svg)}
-.svitek .svlist{display:flex;flex-direction:column;align-items:stretch;margin:0;max-height:0;overflow:hidden;padding:0 76px;position:relative;z-index:1;background:url(art/menu/prapor-stred.svg) repeat-y top center/414px 60px;transition:max-height .45s cubic-bezier(.3,.7,.3,1),padding .45s cubic-bezier(.3,.7,.3,1)}
-.svitek .svlist a{display:block;white-space:nowrap;text-align:center;font-family:var(--f-disp);font-weight:700;font-size:22px;line-height:1.1;padding:6px 0;color:#f0d27a;border:0;text-shadow:0 1px 0 #4a0c08;transition:color .15s}
-.svitek .svlist a:hover,.svitek .svlist a.on{color:#fff3c4}
-.svitek .svlist a.on{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
-.svitek .svlist a+a::before{content:"";display:block;width:85%;height:16px;margin:0 auto 8px;background:url(art/menu/prapor-oddelovac.svg) center/contain no-repeat;pointer-events:none}
-.navdd:hover .svitek,.navdd:focus-within .svitek,.navdd.open .svitek{pointer-events:auto;visibility:visible;transition:visibility 0s;animation:houpni 1.4s ease-out .35s both}
-.navdd:hover .roll,.navdd:focus-within .roll,.navdd.open .roll{opacity:1}
-.navdd:hover .svlist,.navdd:focus-within .svlist,.navdd.open .svlist{max-height:260px;padding:2px 76px 0}
-@keyframes houpni{0%{transform:rotate(0)}25%{transform:rotate(1.6deg)}50%{transform:rotate(-1deg)}75%{transform:rotate(.4deg)}100%{transform:rotate(0)}}
-@media (prefers-reduced-motion:reduce){.svitek .svlist,.svitek .roll{transition:none}.navdd .svitek{animation:none!important}}
+/* nabídka Map: pod položkou vyjede pergamenový lístek s volbou mapy */
+.navdd .svitek{position:absolute;left:50%;top:100%;transform:translate(-50%,-6px);z-index:40;padding-top:8px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .16s ease,transform .16s ease,visibility 0s .16s}
+.navdd:hover .svitek,.navdd:focus-within .svitek,.navdd.open .svitek{opacity:1;visibility:visible;pointer-events:auto;transform:translate(-50%,0);transition:opacity .16s ease,transform .16s ease}
+.svitek .svlist{position:relative;display:flex;flex-direction:column;min-width:250px;padding:6px;background:var(--paper);border:1px solid color-mix(in srgb,var(--gold) 55%,var(--rule));border-top:3px solid var(--kal);border-radius:0 0 3px 3px;box-shadow:inset 0 0 0 3px var(--paper),inset 0 0 0 4px color-mix(in srgb,var(--rule) 70%,transparent),0 12px 26px -10px rgba(40,20,5,.5)}
+.svitek .svlist::before{content:"";position:absolute;left:50%;top:-8px;width:9px;height:9px;margin-left:-5px;background:var(--kal);transform:rotate(45deg);box-shadow:0 0 0 2px var(--paper)}
+.svitek .svlist a{display:flex;flex-direction:column;gap:1px;padding:8px 14px 8px 16px;border:0;border-radius:2px;color:var(--ink);font-size:1.18rem;line-height:1.15;white-space:nowrap;text-align:left;transition:background .12s,color .12s}
+.svitek .svlist a small{font-family:var(--f-body);font-size:.8rem;color:var(--muted)}
+.svitek .svlist a+a{border-top:1px solid color-mix(in srgb,var(--rule) 55%,transparent)}
+.svitek .svlist a:hover{background:color-mix(in srgb,var(--gold) 16%,transparent);color:var(--kal)}
+.svitek .svlist a.on{color:var(--kal);box-shadow:inset 3px 0 0 var(--kal)}
+@media (prefers-reduced-motion:reduce){.navdd .svitek,.navdd:hover .svitek{transition:none}}
 .sitenav{align-items:baseline}
 /* hlavička: na všech stránkách stejné menší logo; při posunu se v liště ukáže malé logo */
 .logo{width:min(100%,430px)}
@@ -303,10 +300,9 @@ header.site{display:flex;flex-direction:column;gap:0;border:0;padding:0}
   .sitenav.open .navlinks{display:flex}
   .navlinks>a,.navlinks .ddtop{font-size:1.25rem;padding:6px 4px;border-bottom:1px solid color-mix(in srgb,var(--rule) 60%,transparent)!important}
   .navlinks .navdd{display:block}
-  .navlinks .navdd .svitek{position:static;transform:none;width:auto;margin:0;filter:none;padding:0 0 4px 14px;pointer-events:auto;visibility:visible;animation:none!important}
-  .navlinks .navdd .roll{display:none}
+  .navlinks .navdd .svitek{position:static;transform:none;width:auto;margin:0;padding:0 0 4px 14px;pointer-events:auto;visibility:visible;opacity:1}
   .navlinks .navdd .svlist{max-height:none!important;padding:0!important;margin:0;-webkit-mask:none;mask:none;background:none;border:0;box-shadow:none;display:flex;flex-direction:column;align-items:flex-start;min-width:0}
-  .navlinks .navdd .svlist a{font-size:1.1rem;font-weight:inherit;padding:4px 0;color:var(--ink);text-shadow:none;text-align:left}.navlinks .navdd .svlist a.on,.navlinks .navdd .svlist a:hover{color:var(--kal)}.navlinks .navdd .svlist a+a::before{display:none}
+  .navlinks .navdd .svlist::before{display:none}.navlinks .navdd .svlist a small{display:none}.navlinks .navdd .svlist a{font-size:1.1rem;font-weight:inherit;padding:4px 0;color:var(--ink);text-align:left;border:0!important;background:none!important;box-shadow:none!important}.navlinks .navdd .svlist a.on,.navlinks .navdd .svlist a:hover{color:var(--kal)}.navlinks .navdd .svlist a+a::before{display:none}
   .navlinks .gsearch{order:-1;margin-bottom:6px}
   .logo{width:min(100%,300px)}
   header.site .logo{display:none}
@@ -1192,7 +1188,7 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
     <a href="#druzina" data-nav="druzina">Družina</a>
     <a href="#kronika" data-nav="kronika">Kronika</a>
     <div class="navdd" id="navmapy"><a href="#mapa" class="ddtop" data-navgrp="svet mapa praha" aria-haspopup="true" aria-expanded="false">Mapy</a>
-      <div class="svitek"><span class="roll"></span><div class="svlist"><a href="#svet" data-nav="svet">Známý svět</a><a href="#mapa" data-nav="mapa">Země Koruny České</a><a href="#praha" data-nav="praha">Praha</a></div><span class="roll"></span></div></div>
+      <div class="svitek"><div class="svlist"><a href="#svet" data-nav="svet">Známý svět<small>Evropa a Středomoří</small></a><a href="#mapa" data-nav="mapa">Země Koruny České<small>Čechy, Morava, Slezsko a Lužice</small></a><a href="#praha" data-nav="praha">Praha<small>čtyři města pražská</small></a></div></div></div>
     <a href="#desky" data-nav="desky">Zemské desky</a>
     <a href="#boj" data-nav="boj" id="navboj" hidden>Boj</a>
     <div class="gsearch" role="search"><input type="search" id="gq" placeholder="Hledat v celé kronice…" aria-label="Hledat na celém webu" autocomplete="off"><ul class="gres" id="gres" hidden></ul></div>
@@ -4400,7 +4396,7 @@ function renderOsoby(){
  top.addEventListener("click",e=>{if(matchMedia("(hover: none)").matches&&!dd.classList.contains("open")){e.preventDefault();dd.classList.add("open");top.setAttribute("aria-expanded","true")}});
  document.addEventListener("click",e=>{if(!dd.contains(e.target)){dd.classList.remove("open");top.setAttribute("aria-expanded","false")}});
  dd.addEventListener("mouseenter",()=>top.setAttribute("aria-expanded","true"));dd.addEventListener("mouseleave",()=>top.setAttribute("aria-expanded","false"));
- /* praporec nesmí přetéct přes okraj okna: před otevřením ho případně posuneme do strany */
+ /* nabídka Map nesmí přetéct přes okraj okna: před otevřením ji případně posuneme do strany */
  const sv=dd.querySelector(".svitek"),dosad=()=>{if(matchMedia("(max-width:640px)").matches){sv.style.left="";return}
    sv.style.left="";const r=sv.getBoundingClientRect(),W=document.documentElement.clientWidth;let dx=0;
    if(r.right>W-6)dx=W-6-r.right;if(r.left+dx<6)dx=6-r.left;if(dx)sv.style.left=`calc(50% + ${Math.round(dx)}px)`};
