@@ -20,7 +20,8 @@ PIDS=(); CHYBY=()
 uklid(){ for p in "${PIDS[@]:-}"; do [ -n "$p" ] && kill "$p" 2>/dev/null; done; rm -rf "$PRAC"; }
 trap uklid EXIT
 krok(){ echo; echo "=== $*"; }
-zkus(){ local jm="$1"; shift; if "$@"; then echo "✓ $jm"; else echo "✗ $jm"; CHYBY+=("$jm"); fi; }
+SHRN="${GITHUB_STEP_SUMMARY:-/dev/null}"; echo "### Kontrola webu" >> "$SHRN"
+zkus(){ local jm="$1"; shift; if "$@"; then echo "✓ $jm"; echo "- ✓ $jm" >> "$SHRN"; else echo "✗ $jm"; echo "- ✗ **$jm**" >> "$SHRN"; CHYBY+=("$jm"); fi; }
 cekej(){ for i in $(seq 1 60); do curl -s -o /dev/null "$1" && return 0; sleep 0.5; done; echo "nenaběhlo: $1"; return 1; }
 server(){ (cd "$1" && exec python3 -m http.server "$2" --bind 127.0.0.1 >/dev/null 2>&1) & PIDS+=($!); cekej "http://127.0.0.1:$2/"; }
 
@@ -43,6 +44,7 @@ server "$WEB/public" $P_WEB && zkus "statická verze: všechny stránky bez chyb
 
 if [ "${MM_BEZ_DB:-}" = "1" ] || ! command -v "${PSQL%% *}" >/dev/null || ! command -v "$POSTGREST" >/dev/null; then
   echo; echo "(databázová část přeskočena – chybí psql nebo postgrest, případně MM_BEZ_DB=1)"
+  echo "- (databázová část přeskočena)" >> "$SHRN"
 else
   krok "Testovací databáze"
   $PSQL -q -d postgres -c "drop database if exists $DBN" -c "create database $DBN" >/dev/null
