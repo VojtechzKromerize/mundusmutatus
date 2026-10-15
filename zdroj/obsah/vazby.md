@@ -1,0 +1,104 @@
+# Vazby a spory mezi rody
+#
+# Každý řádek je jedna vazba:  - druh | rod, rod, … | text
+# druh: rod (krev a sňatky), spoj (spojenectví), spor (spory a nepřátelství)
+# Slovo „tajné“ před druhem schová celou vazbu hráčům (uvidí ji jen vypravěč):
+#   - tajné spor | mai, eiz | Za Eicingerovým zajetím prý stáli …
+# Řádky začínající # jsou poznámky a web je ignoruje.
+
+- rod | pod, rzm | Jiří z Poděbrad je ženatý s Johanou z Rožmitálu. Lvové jsou královi švagři, a přitom katolíci.
+- rod | pod, hun | Kateřina z Poděbrad je zasnoubena s Matyášem Korvínem jako cena za jeho propuštění z Prahy.
+- rod | roz, bvr | Biskup Jošt II. vratislavský je bratr vladaře Jana II. z Rožmberka a syn Oldřicha II.
+- rod | roz, hra | Oba rody vyšly z Vítkovců a opakovaně se spojovaly sňatky.
+- rod | roz, lie | Perchta z Rožmberka, dcera Oldřicha II., je od roku 1449 manželkou Jana z Lichtenštejna. ⟦Spor o věno a její stížné dopisy otcovi a bratrům kalí vztahy obou rodů.¦Nešťastné manželství a spor o věno kalí vztahy obou rodů.⟧
+- rod | lip, ber | Páni z Lipé a Berkové z Dubé jsou větve starého rodu Ronovců a nesou stejný erb se zkříženými ostrvemi.
+- spoj | lip, pod | Jindřich z Lipé jako nejvyšší maršálek stojí při zvoleném králi.
+- rod | bos, bis | Biskup Tas je synovec Vaňka mladšího, nejstarší syn jeho bratra Beneše Černohorského z Boskovic.
+- spoj | bos, jag | Vaněk Černohorský doprovázel roku 1454 Alžbětu, sestru Ladislava Pohrobka, k sňatku s Kazimírem IV.; má na krakovském dvoře známé.
+- spor | bos, pod | Boskovicové a Kunštátové jsou rodoví soupeři. Jiří drží boskovický hrad od roku 1437 a Vaňkovi dluží peníze; vrácení hradu je nabízející se cena za věrnost Boskoviců.
+- tajné spoj | bis, opa | Biskup Tas se za studií ve Vídni spřátelil s Přemkem Opavským.
+- rod | jag, hab, wet | Kazimír IV. a Vilém Saský jsou ženatí se sestrami zesnulého Ladislava Pohrobka, Habsburkami.
+- spoj | ste, pod | Zdeněk ze Šternberka volbu podpořil a jako nejvyšší purkrabí je nejdůležitějším katolíkem u dvora.
+- spoj | rab, pod | Kancléř Prokop z Rabštejna, katolík a přítel kardinála Piccolominiho, je pro Jiřího mostem k Římu.
+- spoj | kos, pod | Zdeněk Kostka z Postupic je nejbližším kališnickým spojencem Jiřího.
+- spoj | per, cim, pod | Pernštejnové a zemský hejtman Jan Tovačovský z Cimburka jsou oporou krále na Moravě.
+- spoj | opo, pod | Boleslav V. Opolský, jediný slezský kníže se sympatiemi ke kalichu.
+- spoj | opo, opa | Bolek V. získal roku 1456 od poručníka Arnošta dvě třetiny Opavska, dědictví Vilémových synů.
+- spoj | roz, kol, hra, sva | Strakonická jednota (1449): katolická panská strana proti Jiřímu. Její zakladatelé už nežijí nebo předali vládu synům, ale síť nezanikla.
+- spoj | roz, svi | Svídnicko-javorské hejtmanství drží Rožmberkové: Jindřich IV. (1454–1457), nyní Jan II.
+- spoj | roz, ses | Jindřich IV. z Rožmberka byl do smrti (1457) fojtem Horní Lužice; úřad zůstal neobsazen.
+- spoj | jis, pod | Jiskra je Čech a jeho žoldnéři jsou s Čechami úzce svázáni.
+- spor | pod, hra | Jiří zajal Menharta z Hradce při dobytí Prahy (1448). Menhart zemřel v únoru 1449 krátce po propuštění a Jiří musel odrážet řeči o otravě.
+- spor | pod, smi | Jan Smiřický ze Smiřic byl roku 1453 popraven pro obvinění ze zrady.
+- spor | pod, roz | Oldřich II. z Rožmberka vedl katolický odpor proti Jiřímu; jeho syn Jan II. však volbu podpořil a mezi rody panuje ostražité příměří.
+- spor | pod, vra | Vratislav odmítá holdovat kališnickému králi a hledá oporu u papeže.
+- spor | pod, bra | Braniborsko drží Dolní Lužici; Koruna ji žádá zpět.
+- spor | pod, mes | Katolická moravská města, zejména Jihlava, se zdráhají krále uznat.
+- spor | pod, jag, wet | Kazimír IV. a Vilém Saský si přes manželky dělají nárok na český trůn.
+- spor | jag, pod | Prodej Osvětimska Polsku (1457) ukrojil z Koruny kus Slezska.
+- spor | hab | Fridrich III., Albrecht VI. a Zikmund Tyrolský se přou o Ladislavovo rakouské dědictví.
+- spor | hun, hab, esz | Císař Fridrich III. drží uherskou svatou korunu a Matyášovu volbu neuznává; ostřihomský arcibiskup bez ní nemůže korunovat.
+- rod | bra, fra | Kurfiřt Fridrich II. Železný a Albrecht Achilles jsou bratři.
+- spor | fra, wit | Albrecht Achilles a Ludvík Bohatý soupeří o vliv ve Francích a Švábsku.
+- spoj | eiz, hab | Oldřich Eicinger drží ve sporu o dědictví s císařem Fridrichem; Albrecht VI. ho má za nepřítele.
+- rod | wit, rez | Řezenský biskup Ruprecht je syn Oty I. Neumarktského.
+- spoj | kom, jis | Petr Komorovský léta bojoval po boku Jiskry, ale s Matyášem už vyjednává o Oravu a Liptov.
+- spoj | mei, ses | Budyšínská kapitula a lužická města spadají pod míšeňského biskupa.
+- tajné spoj | puc, eiz | Na Heidenreichsteinu se skrývá část rodiny Eicingera, který tuší, že po něm Albrecht VI. jde.
+- spor | mai, mes | Hardegští přepadají znojemské vinaře; Znojmo potřebuje krále, kterého se zdráhá uznat.
+- tajné spoj | sbg, hab | Bernhard ze Schaunberku nabízí podporu Albrechtovi VI. proti císaři.
+- rod | pla, reu | Reussové a páni z Plavna jsou větve téhož fojtského rodu.
+- tajné spor | reu, pla | Jindřich z Gery se tajně sbližuje s Wettiny proti plavenským příbuzným a doufá, že po jejich pádu zdědí jejich práva.
+- spor | puc, kra | Puchheimové a Krajířové se léta přou o pohraniční lesy a pastviny a každý tvrdí, že jde o zemskou hranici.
+- tajné spor | mai, eiz | Michal z Hardeggu, Eicingerův kolega ve stavovské vládě, prý donáší Albrechtovi VI., kde a s kým Eicinger jezdí.
+- tajné spoj | sbg, roz | Bernhard ze Schaunberku hledá spojence i za Šumavou, v Krumlově.
+- rod | szm, opa | Markéta ze Šamotul, vdova po Václavovi II. Ratibořském, vládne v Ratiboři za nezletilé děti.
+- spoj | tec, jag | Tęczyńští patří k nejbližšímu okolí krále Kazimíra.
+- spor | bkr, pod | Krakovská kapitula, vychovaná kardinálem Oleśnickým, považuje kališnického krále za kacíře.
+- spor | rmi, fra | Norimberk a Albrecht Achilles spolu nedávno válčili (1449–1450) a nedůvěra trvá.
+- spoj | rmi, pod | Norimberští kupci jsou hlavními obchodními partnery Prahy a Plzně.
+- spor | umi, jis | Kremnicu a Banskou Štiavnicu drží Jiskra jako hejtman Horních Uher; okolí ovládají bratříci a vybírají výpalné.
+- tajné spoj | jag, zat | Václav Zátorský roku 1456 tajně holdoval Kazimírovi IV., ačkoli je formálně leníkem české koruny.
+- spor | jis, hun | Jiskra Matyáše přes Jiřího zprostředkování formálně uznal, ale dál drží Horní Uhry po svém a novému králi nedůvěřuje.
+- spor | ses, var | Šestiměstí vede fehdy s Vartenberky a dalšími severočeskými pány a ničí jejich hrady.
+- spor | hlo | Jan II. si roku 1457 za Baltazarovy nepřítomnosti vynutil hold žaháňských stavů a Baltazar to po návratu zvrátil; bratři se přou o Žaháň.
+- spor | pla, wet | Jindřich II. z Plavna vede s Wettiny vleklý spor o míšeňské purkrabství a lenní svrchovanost.
+- spor | pap, pod | Řím kompaktáta nikdy nepotvrdil a Rokycanu neuznává; volba kališníka králem budí nedůvěru.
+- rod | pod, ste | První manželkou Jiřího byla Kunhuta ze Šternberka († 1449), matka Bočka, Viktorina, Jindřicha staršího, Kateřiny a Zdeňky.
+- rod | hra, ste | Matkou mladého Jindřicha IV. z Hradce je Kateřina ze Šternberka.
+- rod | roz, hlo | Jan II. z Rožmberka je ženatý s Annou, dcerou Jindřicha IX. Hlohovského; roku 1456 se jim narodil syn Jindřich V.
+- rod | roz, sva | Druhou manželkou Oldřicha II. z Rožmberka je Alžběta ze Švamberka a jeho dcera Ludmila se provdala za Bohuslava ze Švamberka.
+- rod | roz, var | Oldřich II. z Rožmberka se oženil s Kateřinou († 1436), dcerou svého poručníka Čeňka z Vartenberka, rytíře Dračího řádu; jejich syny jsou Jan II. a biskup Jošt.
+- rod | kol, ste | Hanuš II. z Kolovrat je ženatý s Kateřinou ze Šternberka.
+- spor | pod, kol | Hanuš z Kolovrat musel Jiřímu vydat hrad Žebrák; náhradou dostal Zbiroh, ale křivdu nezapomněl.
+- spoj | sli, rab | Prokop z Rabštejna začínal v říšské kanceláři, kterou vedl Kašpar Šlik, a tam se seznámil s Piccolominim.
+- rod | per, lom | Jan II. z Pernštejna má za manželku Bohunku Meziříčskou z Lomnice; jejich syn Vilém je napůl Lomnický.
+- spoj | cim, bos | Jan Tovačovský z Cimburka je dlouholetým spojencem Beneše a Vaňka z Boskovic.
+- spoj | cim, lip | Páni z Lipé pomáhali Tovačovskému roku 1449 sjednat příměří a patří k jeho spojencům v moravské zemské politice.
+- rod | opo, leg | Mikuláš I. Opolský je manželem Magdaleny Břežské, sestry poručnice Hedviky, a od roku 1450 drží v zástavě Břeh.
+- rod | leg, bra | Babička Fridricha Lehnického, Alžběta Braniborská († 1449), byla sestrou kurfiřta Fridricha II.
+- spoj | bra, mdl | Dolnolužické fojtství drží od roku 1448 v zástavě kurfiřt Fridrich II. Braniborský.
+- spoj | pod, opa | Arnošt Opavský prodal roku 1456 Minsterberské knížectví Jiřímu z Poděbrad.
+- spoj | tes, ole | Bytom je rozdělen napůl mezi Václava I. Těšínského a Konráda IX. Černého a Stínava mezi Vladislava Těšínského a Konráda X. Bílého.
+- rod | hlo, ole | Jindřich IX. Hlohovský byl ženatý s Hedvikou Olešnickou, tetou obou Konrádů.
+- rod | tes, zat | Zátorští Piastovci jsou boční větví těšínských Piastovců.
+- spoj | bvr, pap | Papež Kalixt III. potvrdil Jošta biskupem s dispenzí pro nízký věk a Jošt se snaží jednat jako zástupce Svaté stolice.
+- spor | vra, bvr | Kanovník Tempelfeld štve město proti Jiřímu, zatímco biskup Jošt se drží neutrálně a chce zprostředkovat.
+- rod | bra, wet | Kurfiřt Fridrich II. Železný je ženatý s Kateřinou Saskou, sestrou saského kurfiřta a Viléma III.
+- rod | wet, hab | Saská kurfiřtka Markéta je sestrou císaře Fridricha III.
+- rod | wit, wet | Ludvík Bohatý je od roku 1452 ženatý s Amálií, dcerou saského kurfiřta.
+- rod | wit, hab | Albrecht VI. je ženatý s Mechtildou Falckou, sestrou falckého kurfiřta Fridricha Vítězného.
+- spor | jag, hun | Kazimír IV. si přes Alžbětu činí nárok i na uherskou korunu a Matyášovu volbu nepovažuje za konečnou.
+- spoj | jis, jag | Jiskra se po Matyášově nástupu obrací do Polska a nabízí Kazimírovi pomoc.
+- spor | jis | Jan Jiskra a hejtman bratříků Petr Aksamit jsou od roku 1453 rozkmotření.
+- spoj | eiz, sbg, mai | Eicinger, Bernhard ze Schaunberku a Michal z Hardeggu zasedají od prosince 1457 ve stavovské vládě, která spravuje Rakousy.
+- spoj | pas, hab | Pasovský biskup Oldřich z Nussdorfu je kancléřem císaře Fridricha III.
+- spoj | pas, wit | Oldřich z Nussdorfu je zároveň tajným radou Ludvíka Bohatého.
+- spoj | rez, hab | Ruprecht získal Řezno na doporučení císaře Fridricha III. a krále Ladislava.
+- spoj | leu, pas | Lankrabata drží hrabství Hals a pasovský maršálský úřad v léno od pasovského biskupa.
+- spoj | mei, wet | Biskup Kašpar ze Schönbergu vděčí za volbu saskému kurfiřtovi a slouží mu jako diplomat.
+- spoj | pap, hun | Legát Carvajal financuje boj proti Turkům a podporuje Matyášovu volbu.
+- spoj | cat, mes | Sůl ze Solné komory jde přes Linec a Freistadt do jižních Čech, hlavně do Budějovic.
+- spor | cbr, bra | Berlín-Cölln se v letech 1447–1448 vzbouřil proti kurfiřtovi a markrabě vzpouru zlomil.
+- spoj | var, pod | Jan z Vartenberka se uchází o hornolužické fojtství a hledá přízeň nového krále.
+- spor | osm, hun | Mehmed II. byl roku 1456 odražen od Bělehradu Janem Hunyadim; Osmané a Uhry stojí proti sobě na Dunaji a v Srbsku.

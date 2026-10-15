@@ -5,7 +5,8 @@
   python3 zdroj/build.py --vypravec -> vypravec/index.html (s tajemstvími, NEPUBLIKOVAT)
 
 Tajemství se ve zdroji značí  ⟦tajný text⟧  nebo  ⟦tajný text¦text pro hráče⟧.
-Obsah Kroniky, Družiny a objevených míst je v zdroj/obsah/*/ jako Markdown s hlavičkou.
+Obsah (rody, osoby, vazby, Praha, Kronika, Družina, objevená místa) je v zdroj/obsah/ jako Markdown
+s hlavičkou – viz zdroj/obsah/NÁVOD.md.
 Jen standardní knihovna Pythonu (běží i na Netlify).
 """
 import html, json, os, re, shutil, sys
@@ -31,7 +32,15 @@ def md(body):
     out = []
     for block in re.split(r"\n\s*\n", body.strip()):
         lines = block.strip().split("\n")
-        if all(l.lstrip().startswith(("- ", "* ")) for l in lines):
+        if all(l.strip().startswith("|") for l in lines):
+            rows = [[c.strip() for c in l.strip().strip("|").split("|")] for l in lines]
+            head, body = (rows[0], rows[2:]) if len(rows) > 1 and all(set(c) <= set("-: ") for c in rows[1]) else (None, rows)
+            t = '<div class="rtw"><table class="rtab">'
+            if head:
+                t += "<thead><tr>" + "".join(f'<th scope="col">{inline(c)}</th>' for c in head) + "</tr></thead>"
+            t += "<tbody>" + "".join("<tr>" + "".join(f"<td>{inline(c)}</td>" for c in r) + "</tr>" for r in body) + "</tbody></table></div>"
+            out.append(t)
+        elif all(l.lstrip().startswith(("- ", "* ")) for l in lines):
             out.append("<ul>" + "".join("<li>" + inline(l.lstrip()[2:]) + "</li>" for l in lines) + "</ul>")
         elif lines[0].startswith("## "):
             out.append("<h3>" + inline(lines[0][3:]) + "</h3>" + ("<p>" + inline(" ".join(lines[1:])) + "</p>" if lines[1:] else ""))
@@ -39,27 +48,55 @@ def md(body):
             out.append("<p>" + inline(" ".join(l.strip() for l in lines)) + "</p>")
     return "\n".join(out)
 
+def parse_head(text, where):
+    """Hlavička: řádky „klíč: hodnota“; seznam = „klíč:“ a pod ním řádky „  - položka“."""
+    meta, key = {}, None
+    for line in text.split("\n"):
+        if not line.strip() or line.lstrip().startswith("#"):
+            continue
+        if line.lstrip().startswith("- ") and key:
+            if not isinstance(meta.get(key), list):
+                meta[key] = []
+            meta[key].append(line.lstrip()[2:].strip())
+            continue
+        if ":" not in line:
+            fail(f"{where}: nesrozumitelný řádek hlavičky: {line.strip()}")
+        k, _, v = line.partition(":")
+        key = k.strip()
+        meta[key] = v.strip()
+    return meta
+
 def read_dir(name):
     d = os.path.join(OBSAH, name)
     items = []
     for fn in sorted(os.listdir(d)) if os.path.isdir(d) else []:
         if not fn.endswith(".md") or fn.startswith("_"):
             continue
-        raw = open(os.path.join(d, fn), encoding="utf-8").read()
+        raw = open(os.path.join(d, fn), encoding="utf-8").read().replace("\r\n", "\n")
         m = re.match(r"---\n(.*?)\n---\n?(.*)", raw, re.S)
         if not m:
             fail(f"{name}/{fn}: chybí hlavička --- … ---")
-        meta = {}
-        for line in m.group(1).split("\n"):
-            if line.strip() and not line.lstrip().startswith("#"):
-                k, _, v = line.partition(":")
-                meta[k.strip()] = v.strip()
+        meta = parse_head(m.group(1), f"{name}/{fn}")
         meta["_body"] = m.group(2)
         meta["_file"] = fn
         items.append(meta)
     return items
 
+def text(body):
+    """Prostý text (bez Markdownu): řádky se spojí mezerou."""
+    return re.sub(r"\s*\n\s*", " ", body.strip())
+
+def lines_file(name):
+    p = os.path.join(OBSAH, name)
+    out = []
+    for i, line in enumerate(open(p, encoding="utf-8").read().split("\n"), 1):
+        if line.strip().startswith("- "):
+            out.append((i, line.strip()[2:].strip()))
+    return out
+
 def lst(v):
+    if isinstance(v, list):
+        return [x.strip() for x in v if x.strip()]
     return [x.strip() for x in v.split(",") if x.strip()] if v else []
 
 def zapisy():
@@ -70,7 +107,10 @@ def zapisy():
                 fail(f"kronika/{z['_file']}: chybí '{k}'")
         out.append({"id": z["id"], "n": z.get("n", ""), "date": z["date"], "datum": z.get("datum", ""),
                     "place": z["place"], "route": lst(z.get("route")) or [z["place"]],
-                    "title": z["title"], "text": md(z["_body"])})
+                    "title": z["title"], "text": md(z["_body"]),
+                    "praha": [int(x) for x in lst(z.get("praha")) if x.isdigit()],
+                    "druzina": int(z["druzina"]) if str(z.get("druzina", "")).strip().isdigit() else None,
+                    "hodina": int(str(z["hodina"]).split(":")[0]) % 24 if str(z.get("hodina", "")).strip().split(":")[0].isdigit() else None})
     return out
 
 def druzina():
@@ -99,6 +139,237 @@ def mista():
             fail(f"mista/{p['_file']}: potřebuje name, lo, la")
     return out
 
+
+ANO = lambda v: str(v).strip().lower() in ("ano", "true", "1", "yes")
+
+def num(v, where):
+    try:
+        return float(v.replace(",", "."))
+    except ValueError:
+        fail(f"{where}: „{v}“ není číslo")
+
+def rody():
+    fam, short, arms = [], {}, {}
+    for r in read_dir("rody"):
+        w = "rody/" + r["_file"]
+        for k in ("id", "zeme", "nazev", "vyznani"):
+            if not r.get(k):
+                fail(f"{w}: chybí '{k}'")
+        seats = []
+        for sd in r.get("sidla") or []:
+            parts = [x.strip() for x in sd.split("|")]
+            if len(parts) < 3:
+                fail(f"{w}: sídlo „{sd}“ má mít tvar  název | délka | šířka")
+            seat = [parts[0], num(parts[1], w), num(parts[2], w)]
+            if len(parts) > 3 and parts[3]:
+                seat.append(parts[3])
+            seats.append(seat)
+        o = {"id": r["id"], "land": r["zeme"], "name": r["nazev"], "conf": r["vyznani"], "head": r.get("hlava", ""),
+             "seats": seats, "stance": r.get("postoj", ""), "note": text(r["_body"])}
+        if ANO(r.get("mesto", "")): o["city"] = True
+        if ANO(r.get("soused", "")): o["nbr"] = True
+        if ANO(r.get("nemapovat", "")): o["nomap"] = True
+        if any(f["id"] == o["id"] for f in fam):
+            fail(f"{w}: id „{o['id']}“ už má jiný rod")
+        fam.append(o)
+        if r.get("kratce"): short[o["id"]] = r["kratce"]
+        e = r.get("erb") or o["id"]
+        if os.path.exists(os.path.join(ROOT, "art", "erby", e + ".webp")):
+            arms[o["id"]] = f"art/erby/{e}.webp"
+    return fam, short, arms
+
+def osoby(ids):
+    out = []
+    for p in read_dir("osoby"):
+        w = "osoby/" + p["_file"]
+        for k in ("id", "jmeno", "rod", "role"):
+            if not p.get(k):
+                fail(f"{w}: chybí '{k}'")
+        if p["rod"] not in ids:
+            fail(f"{w}: rod „{p['rod']}“ neexistuje")
+        o = {"id": p["id"], "n": p["jmeno"], "r": p["rod"], "role": p["role"]}
+        if p.get("sidlo"): o["seat"] = p["sidlo"]
+        o["x"] = text(p["_body"])
+        if any(q["id"] == o["id"] for q in out):
+            fail(f"{w}: id „{o['id']}“ už má jiná osoba")
+        out.append(o)
+    return out
+
+def vazby(ids, removed):
+    out = []
+    for i, line in lines_file("vazby.md"):
+        parts = [x.strip() for x in line.split("|", 2)]
+        if len(parts) < 3:
+            fail(f"vazby.md, řádek {i}: má mít tvar  - druh | rod, rod | text")
+        kind = parts[0].split()
+        secret = kind[0] in ("tajné", "tajne")
+        t = kind[-1]
+        if t not in ("rod", "spoj", "spor"):
+            fail(f"vazby.md, řádek {i}: neznámý druh „{t}“ (rod / spoj / spor)")
+        rids = [x.strip() for x in parts[1].split(",") if x.strip()]
+        for x in rids:
+            if x not in ids:
+                fail(f"vazby.md, řádek {i}: rod „{x}“ neexistuje")
+        if secret and not GM:
+            removed.append(parts[2])
+            continue
+        out.append({"t": t, "ids": rids, "x": parts[2]})
+    return out
+
+def praha(ids, pids):
+    out = []
+    for p in read_dir("praha"):
+        w = "praha/" + p["_file"]
+        for k in ("cislo", "druh", "mesto", "nazev", "poloha"):
+            if not p.get(k):
+                fail(f"{w}: chybí '{k}'")
+        if p["druh"] not in ("dvur", "urad", "cirkev", "hospoda", "anomalie"):
+            fail(f"{w}: druh musí být dvur / urad / cirkev / hospoda / anomalie")
+        if p["mesto"] not in ("hrad", "mala", "stare", "nove", "vys", "okoli"):
+            fail(f"{w}: město musí být hrad / mala / stare / nove / vys / okoli")
+        xy = [num(v, w) for v in p["poloha"].split(",")]
+        o = {"n": int(p["cislo"]), "k": p["druh"], "t": p["mesto"], "name": p["nazev"], "c": p.get("vyznani", "")}
+        if p.get("rod"):
+            if p["rod"] not in ids: fail(f"{w}: rod „{p['rod']}“ neexistuje")
+            o["r"] = p["rod"]
+        if p.get("osoba"):
+            if p["osoba"] not in pids: fail(f"{w}: osoba „{p['osoba']}“ neexistuje")
+            o["p"] = p["osoba"]
+        o["d"] = text(p["_body"])
+        o["pos"] = xy
+        if any(q["n"] == o["n"] for q in out):
+            fail(f"{w}: číslo {o['n']} už má jiné místo")
+        out.append(o)
+    out.sort(key=lambda o: o["n"])
+    return out
+
+def ulice():
+    out = []
+    for i, line in lines_file("praha-ulice.md"):
+        parts = [x.strip() for x in line.split("|")]
+        if len(parts) < 2:
+            fail(f"praha-ulice.md, řádek {i}: má mít tvar  - název | x, y | natočení")
+        x, y = [num(v, f"praha-ulice.md, řádek {i}") for v in parts[1].split(",")]
+        out.append([parts[0], x, y, num(parts[2], f"praha-ulice.md, řádek {i}") if len(parts) > 2 and parts[2] else 0])
+    return out
+
+
+def svet():
+    geo = json.load(open(os.path.join(ROOT, "art", "svet.json"), encoding="utf-8"))
+    out = []
+    for p in read_dir("svet"):
+        w = "svet/" + p["_file"]
+        for k in ("id", "nazev", "vira"):
+            if not p.get(k):
+                fail(f"{w}: chybí '{k}'")
+        if p["id"] not in geo["states"]:
+            fail(f"{w}: oblast „{p['id']}“ na mapě neexistuje (art/svet.json)")
+        if p["vira"] not in ("kat", "pra", "isl", "mix", "kal"):
+            fail(f"{w}: víra musí být kat / pra / isl / mix / kal")
+        out.append({"id": p["id"], "n": p["nazev"], "k": p.get("kratce") or p["nazev"], "v": p.get("vladce", ""), "s": p.get("sidlo", ""),
+                    "c": p["vira"], "h": ANO(p.get("hlavni", "")), "x": text(p["_body"]),
+                    "sp": lst(p.get("spor")), "al": lst(p.get("spojenec")), "na": lst(p.get("napeti"))})
+    ids = {o["id"] for o in out}
+    for o in out:
+        for x in o["sp"]:
+            if x not in ids:
+                fail(f"svet: {o['id']} má spor s neexistující zemí „{x}“")
+        for x in o["al"]:
+            if x not in ids:
+                fail(f"svet: {o['id']} má spojence s neexistující zemí „{x}“")
+            if x in o["sp"]:
+                fail(f"svet: {o['id']} má zemi „{x}“ zároveň jako spor i spojence")
+        for x in o["na"]:
+            if x not in ids:
+                fail(f"svet: {o['id']} má napětí s neexistující zemí „{x}“")
+    return out
+
+def _ll(txt, where):
+    a = txt.replace(",", " ").split()
+    if len(a) != 2:
+        fail(f"{where}: souřadnice mají tvar  délka, šířka")
+    return [num(a[0], where), num(a[1], where)]
+
+def svet_drzavy(ids):
+    out = []
+    for i, line in lines_file("svet-drzavy.md"):
+        w = f"svet-drzavy.md, řádek {i}"
+        a = [x.strip() for x in line.split("|")]
+        if len(a) < 3:
+            fail(f"{w}: má mít tvar  - název | délka, šířka | id země | poznámka")
+        if a[2] not in ids:
+            fail(f"{w}: země „{a[2]}“ neexistuje (svet/)")
+        out.append([a[0], *_ll(a[1], w), a[2], a[3] if len(a) > 3 else ""])
+    return out
+
+def svet_cesty(mesta):
+    p = os.path.join(OBSAH, "svet-cesty.md")
+    raw = open(p, encoding="utf-8").read().split("\n")
+    stops = {m[0]: [m[1], m[2]] for m in mesta}
+    for i, line in enumerate(raw, 1):
+        if line.strip().startswith("= "):
+            a = [x.strip() for x in line.strip()[2:].split("|")]
+            stops[a[0]] = _ll(a[1], f"svet-cesty.md, řádek {i}")
+    out = []
+    for i, line in lines_file("svet-cesty.md"):
+        w = f"svet-cesty.md, řádek {i}"
+        a = [x.strip() for x in line.split("|")]
+        if len(a) != 3:
+            fail(f"{w}: má mít tvar  - druh | název | zastávka; zastávka; …")
+        if a[0] not in ("hanza", "benatky", "janov", "poutlod", "reka", "pout", "obchod"):
+            fail(f"{w}: neznámý druh cesty „{a[0]}“")
+        pts = []
+        for t in [x.strip() for x in a[2].split(";") if x.strip()]:
+            if t in stops:
+                pts.append([t, *stops[t]])
+            elif re.fullmatch(r"-?[\d.]+ +-?[\d.]+", t):
+                pts.append(["", *[float(v) for v in t.split()]])
+            else:
+                fail(f"{w}: neznámá zastávka „{t}“ (doplňte ji řádkem  = {t} | délka, šířka)")
+        if len(pts) < 2 or not pts[0][0] or not pts[-1][0]:
+            fail(f"{w}: cesta musí začínat i končit pojmenovanou zastávkou")
+        out.append({"k": a[0], "n": a[1], "p": pts})
+    return out
+
+def svet_mesta():
+    out = []
+    for i, line in lines_file("svet-mesta.md"):
+        parts = [x.strip() for x in line.split("|")]
+        if len(parts) < 2:
+            fail(f"svet-mesta.md, řádek {i}: má mít tvar  - název | délka, šířka | hlavní | poznámka")
+        lo, la = [num(v, f"svet-mesta.md, řádek {i}") for v in parts[1].split(",")]
+        out.append([parts[0], lo, la, 1 if len(parts) > 2 and parts[2].lower().startswith("hlav") else 0, parts[3] if len(parts) > 3 else ""])
+    return out
+
+
+def draconomicon():
+    kap = []
+    for k in read_dir("draconomicon/kapitoly"):
+        if not k.get("id") or not k.get("title"):
+            fail(f"draconomicon/kapitoly/{k['_file']}: chybí 'id' nebo 'title'")
+        kap.append({"id": k["id"], "t": k["title"], "h": md(k["_body"])})
+    pl = []
+    for p in read_dir("draconomicon/plemena"):
+        w = "draconomicon/plemena/" + p["_file"]
+        for k in ("id", "nazev", "trida"):
+            if not p.get(k):
+                fail(f"{w}: chybí '{k}'")
+        if p["trida"] not in ("L", "S", "T"):
+            fail(f"{w}: třída musí být L, S nebo T")
+        img = p.get("obrazek") or p["id"]
+        if not os.path.exists(os.path.join(ROOT, "art", "draci", img + ".webp")):
+            img = ""
+        pl.append({"id": p["id"], "n": p["nazev"], "j": p.get("jinak", ""), "la": p.get("latin", ""), "tr": p["trida"], "vz": p.get("vzacnost", ""),
+                   "rod": p.get("rod", ""), "pd": p.get("pridomek", ""), "img": img, "prof": [p.get(k, "") for k in ("kridla", "ocas", "stavba", "let", "schopnost")], "h": md(p["_body"])})
+    ids = [x["id"] for x in kap + pl] + ["plemena"]
+    if len(ids) != len(set(ids)):
+        fail("draconomicon: kapitoly a plemena musí mít různá id")
+    return {"kap": kap, "pl": pl}
+
+def portrety():
+    d = os.path.join(ROOT, "art", "portrety")
+    return sorted(fn[:-7] for fn in os.listdir(d) if fn.endswith("-m.webp")) if os.path.isdir(d) else []
+
 # ---------- tajemství ----------
 SECRET = re.compile(r"⟦(.*?)⟧", re.S)
 
@@ -116,18 +387,32 @@ def show_secrets(s):
 # ---------- sestavení ----------
 s = open(SRC, encoding="utf-8").read()
 J = lambda v: json.dumps(v, ensure_ascii=False, separators=(",", ":"))
-for key, val in (("ZAPISY", zapisy()), ("PARTY", druzina()), ("MISTA", mista())):
+removed_items = []
+FAM, SHORT, ARMS = rody()
+IDS = {f["id"] for f in FAM}
+PEOPLE = osoby(IDS)
+PIDS = {p["id"] for p in PEOPLE}
+SV, SVM = svet(), svet_mesta()
+for key, val in (("ZAPISY", zapisy()), ("PARTY", druzina()), ("MISTA", mista()), ("FAM", FAM), ("PEOPLE", PEOPLE),
+                 ("REL", vazby(IDS, removed_items)), ("PRAHA_PLACES", praha(IDS, PIDS)), ("PSTREETS", ulice()), ("PORTR", portrety()), ("SVET", SV), ("SVETMESTA", SVM),
+                 ("SVETDRZ", svet_drzavy({o["id"] for o in SV})), ("SVETCESTY", svet_cesty(SVM))):
     tag = f"/*@{key}@*/[]"
     if tag not in s:
         fail(f"ve zdroji chybí značka {tag}")
     s = s.replace(tag, J(val))
+for key, val in (("SHORT", SHORT), ("ARMS", ARMS), ("DRACI", draconomicon())):
+    tag = f"/*@{key}@*/{{}}"
+    if tag not in s:
+        fail(f"ve zdroji chybí značka {tag}")
+    s = s.replace(tag, J(val))
+s = s.replace("/*@GM@*/false", "true" if GM else "false")
 
 if GM:
     s = show_secrets(s)
 else:
     s, removed = strip_secrets(s)
     s = s.replace("✦ ", "").replace("✦", "")
-    for sec in removed:  # pojistka: žádný tajný text nesmí zůstat
+    for sec in removed + removed_items:  # pojistka: žádný tajný text nesmí zůstat
         probe = sec.strip()[:40]
         if len(probe) > 12 and probe in s:
             fail("tajemství proteklo do hráčské verze: " + probe)

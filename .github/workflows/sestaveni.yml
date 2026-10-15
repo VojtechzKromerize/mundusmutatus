@@ -1,0 +1,18 @@
+name: Sestavení webu
+# Při každém nahrání ověří, že web jde sestavit (hráčská i vypravěčská verze)
+# a že do hráčské verze neproteklo žádné tajemství. Výsledek je vidět u commitu (✓ / ✗).
+on:
+  push:
+  pull_request:
+jobs:
+  sestaveni:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Hráčská verze
+        run: python3 zdroj/build.py
+      - name: Vypravěčská verze (jen kontrola, nepublikuje se)
+        run: python3 zdroj/build.py --vypravec
