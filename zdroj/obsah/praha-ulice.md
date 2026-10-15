@@ -32,7 +32,7 @@
 - Staroměstský rynk | 676, 271 | 0
 - Malostranský rynk | 330, 249 | 0
 - Hradčanský rynk | 177, 221 | 0
-- Kamenný most | 461, 297 | 11
+- Kamenný most | 457, 289 | 11
 - ostrov | 456, 462 | -80
 - Čertovka | 417, 400 | -75
 - Kampa | 434, 385 | -75

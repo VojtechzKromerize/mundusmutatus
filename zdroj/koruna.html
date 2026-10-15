@@ -2867,9 +2867,9 @@ function praInit(){
 const PBW={kostel:106,katedrala:118,hrad:157,brana:124,radnice:113,klaster:176,kaple:136,mlyn:219,zricenina:165,domy:229,ves:279,
  "ik-kostel":135*170/170,"ik-klaster":191,"ik-dum":140,"ik-urad":145,"ik-palac":183,"ik-pivo":176,"ik-lazen":170,"ik-anomalie":152,
  "pr-betlem":221*.85,"pr-emauzy":248*.85,"pr-hrad":245*.85,"pr-jiri":264*.85,"pr-karlov":203*.85,"pr-karolinum":170*.85,"pr-kraluv-dvur":374*170/240,"pr-martin":231*.85,
- "pr-most":229*.85,"pr-novomestska-radnice":210*.85,"pr-staromestska-radnice":140*.85,"pr-tyn":149*.85,"pr-vitkov":225*.85,"pr-vysehrad":275*.85};
+ "vez-juditina":41*170/150,"vez-staromestska":54*170/200,"pr-novomestska-radnice":210*.85,"pr-staromestska-radnice":140*.85,"pr-tyn":149*.85,"pr-vitkov":225*.85,"pr-vysehrad":275*.85};
 /* krajina a stavby mimo očíslovaná místa: [druh, x, pata, výška, zrcadlit, jen v celkovém pohledu] */
-const PBLD=[["pr-hrad",284,214,62,0,1],["pr-vysehrad",632,1012,56,0,1],["pr-most",462,322,30,1],["brana",397,299,24],["kostel",733,783,22],
+const PBLD=[["pr-hrad",284,214,62,0,1],["pr-vysehrad",632,1012,56,0,1],["vez-juditina",398,297,19],["vez-staromestska",523,318,31],["kostel",733,783,22],
  ["ves",392,622,26],["domy",318,532,16],["domy",585,901,12],["ves",600,64,20],["ves",904,58,18]];
 /* ikony míst: vlastní kresba [soubor, výška], jinak obecná podle druhu */
 const PICO={1:["ik-palac",24],2:["katedrala",40],3:["pr-jiri",28],7:["klaster",30],16:["pr-kraluv-dvur",34],17:["pr-tyn",42],20:["pr-staromestska-radnice",38],21:["pr-karolinum",30],
@@ -3072,14 +3072,21 @@ function pDraw(){
    g.appendChild(el("path",{d,fill:"none",stroke:"var(--paper)","stroke-width":(.9*k).toFixed(2),"stroke-dasharray":`${2*k} ${2.4*k}`}));
    let acc=0,td="";for(let i=1;i<r.length;i++){const a=r[i-1],b=r[i];acc+=Math.hypot(b[0]-a[0],b[1]-a[1]);if(acc>38){acc=0;const z=2.5*k;td+=`M${(b[0]-z).toFixed(1)},${(b[1]-z).toFixed(1)}h${2*z}v${2*z}h${-2*z}Z`}}
    g.appendChild(el("path",{d:td,fill:"var(--paper)",stroke:"var(--ink)","stroke-width":(1*k).toFixed(2)}))}
-  /* Kamenný most */
-  {const g=G({filter:"url(#pwob)"});const [a,b]=PG.bridge;
-   g.appendChild(el("line",{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:"var(--ink)","stroke-width":"7","stroke-linecap":"butt"}));
-   g.appendChild(el("line",{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:"var(--paper)","stroke-width":"4.2"}));
-   const L=Math.hypot(b[0]-a[0],b[1]-a[1]),nx=-(b[1]-a[1])/L,ny=(b[0]-a[0])/L;let d="";
-   for(let i=1;i<12;i++){const t=i/12,x=a[0]+(b[0]-a[0])*t,y=a[1]+(b[1]-a[1])*t;d+=`M${(x-nx*3.4).toFixed(1)},${(y-ny*3.4).toFixed(1)}L${(x+nx*3.4).toFixed(1)},${(y+ny*3.4).toFixed(1)}`}
-   g.appendChild(el("path",{d,stroke:"var(--ink)","stroke-width":".7"}));
-}
+  /* Kamenný most: kresba podél linie mostu – po proudu (na sever, Vltava tu teče k severu) řada oblouků, proti proudu ledolamy u pilířů */
+  {const [a,b]=PG.bridge,L=Math.hypot(b[0]-a[0],b[1]-a[1]),ux=(b[0]-a[0])/L,uy=(b[1]-a[1])/L;
+   /* místní souřadnice: x podél mostu od malostranského konce, y kolmo k severu (po proudu) */
+   const g=G({filter:"url(#pwob)"}),m=el("g",{transform:`matrix(${ux.toFixed(5)},${uy.toFixed(5)},${uy.toFixed(5)},${(-ux).toFixed(5)},${a[0]},${a[1]})`});g.appendChild(m);
+   const hw=3.5,N=16,sp=L/N,pw=1.3,fh=4.6;let ice="",face=`M0,${hw}H${L.toFixed(1)}V${hw+fh}H0Z`,arch="",pier="";
+   for(let i=1;i<N;i++){const x=i*sp;ice+=`M${(x-pw).toFixed(2)},${-hw}L${x.toFixed(2)},${-hw-2.5}L${(x+pw).toFixed(2)},${-hw}Z`}
+   for(let i=0;i<N;i++){const x0=i*sp+(i?pw:0),x1=(i+1)*sp-(i<N-1?pw:0),r=(x1-x0)/2;
+     arch+=`M${x0.toFixed(2)},${hw+fh}V${(hw+fh-.6).toFixed(2)}A${r.toFixed(2)},${(fh-1.1).toFixed(2)} 0 0 1 ${x1.toFixed(2)},${(hw+fh-.6).toFixed(2)}V${hw+fh}Z`}
+   m.appendChild(el("path",{d:ice,fill:"var(--paper)",stroke:"var(--ink)","stroke-width":".6","stroke-linejoin":"round"}));
+   m.appendChild(el("path",{d:face,fill:"var(--paper)",stroke:"var(--ink)","stroke-width":".7"}));
+   m.appendChild(el("path",{d:arch,fill:"var(--water)","fill-opacity":".7",stroke:"var(--ink)","stroke-width":".45"}));
+   m.appendChild(el("rect",{x:0,y:-hw,width:L.toFixed(1),height:2*hw,fill:"var(--ink)"}));
+   m.appendChild(el("rect",{x:0,y:-hw+1.4,width:L.toFixed(1),height:2*hw-2.8,fill:"var(--paper)"}));
+   let d="";for(let i=1;i<12;i++){const x=L*i/12;d+=`M${x.toFixed(1)},${-hw+.1}V${hw-.1}`}
+   m.appendChild(el("path",{d,stroke:"var(--ink)","stroke-width":".7"}));}
   /* stavby: iluminované piktogramy kostelů, klášterů, radnic, bran a mlýnů */
   {const g=G({class:"porn","pointer-events":"none"});
    const B=(t,x,b,h,fl)=>{const w=h*PBW[t]/170;g.appendChild(el("image",{href:PMA+t+".webp",x:(x-w/2).toFixed(1),y:(b-h).toFixed(1),width:w.toFixed(1),height:h,...(fl?{transform:`translate(${2*x} 0) scale(-1 1)`}:{})}))};
