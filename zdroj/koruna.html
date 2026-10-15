@@ -769,40 +769,60 @@ svg#map,svg#pmap,svg#smap{will-change:transform;transform:translateZ(0);contain:
 #pmapbox>.controls+.controls{margin-top:6px}
 .pnum{flex:none;display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;border:2px solid;background:var(--paper);font-family:var(--f-label);font-weight:700;font-size:.78rem}
 
-/* rodokmen */
-.tree{display:flex;flex-direction:column;align-items:center;gap:0;background:var(--paper);border:1px solid var(--rule);padding:16px 14px}
-.tnode{background:var(--bg);border:1px solid var(--rule);border-top:3px solid var(--gold);padding:8px 14px;display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;max-width:100%}
-.tnode.tmain{border-top-color:var(--kal);flex-direction:column;align-items:center;text-align:center}
-.tnode.troot{opacity:.85}
-.tline{width:2px;height:16px;background:var(--rule)}
-.tnm{font-family:var(--f-disp);font-size:1.15rem;line-height:1.1}
-.tmain>.tnm{font-size:1.4rem;color:var(--kal)}
+/* rodokmen: rodič → manželský pár (vybrané manželství) → děti z něj */
+.tree{display:flex;flex-direction:column;align-items:center;background:var(--paper);border:1px solid var(--rule);padding:18px 14px 14px}
+.tline{width:2px;height:18px;background:color-mix(in srgb,var(--gold) 70%,var(--rule));flex:none}
+.tcard{display:flex;gap:10px;align-items:center;background:var(--bg);border:1px solid var(--rule);border-radius:3px;padding:8px 12px;box-shadow:inset 0 0 0 3px var(--bg),inset 0 0 0 4px color-mix(in srgb,var(--rule) 60%,transparent);text-align:left;min-width:0}
+.tbody{display:flex;flex-direction:column;gap:1px;min-width:0}
+.tnm{font-family:var(--f-disp);font-size:1.12rem;line-height:1.15}
 .tnm a{color:inherit;text-decoration:underline dotted var(--kal);text-underline-offset:3px}
-.tdt{margin-left:4px;font-family:var(--f-label);font-size:.8rem;letter-spacing:.04em;color:var(--muted)}
-.tnote{display:block;width:100%;font-size:.86rem;color:var(--muted);line-height:1.3}
-.tnote a,.trl{color:var(--kal)}
-.trl{font-family:var(--f-label);font-size:.78rem;letter-spacing:.03em;white-space:nowrap}
-.tsp{display:flex;gap:8px;align-items:flex-start;text-align:left;border-top:1px dashed var(--rule);padding-top:6px;margin-top:4px;width:100%}
-.tinf{font-size:1.2rem;color:var(--gold);line-height:1}
-.tport{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)}
-.tkids{list-style:none;margin:0;padding:12px 0 0;border-top:2px solid var(--rule);display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;width:100%}
-.tkid{position:relative;background:var(--bg);border:1px solid var(--rule);padding:8px 10px;display:flex;flex-wrap:wrap;align-items:center;gap:2px 8px}
-/* zemřelí (k hernímu datu) mají v rodokmenu tmavou kartu; žijící potomci uvnitř zůstávají světlí */
-.tree .dead{--tdk:#33261a;--tdt:#eadcbd;--tdm:#c9b48d;--tda:#e9c56b;background:var(--tdk)!important;border-color:#1c140c!important;color:var(--tdt)}
-.tnode.dead{border-top-color:#8c6a2a!important}
-.tree .dead>.tnm,.tree .dead>.tnm a,.tree .dead>div>.tnm,.tree .dead>div>.tnm a{color:var(--tdt)}
-.tree .dead>.tdt,.tree .dead>.tnote,.tree .dead>.tinf,.tree .dead>div>.tdt,.tree .dead>div>.tnote{color:var(--tdm)}
-.tree .dead>.tnote a,.tree .dead>div>.tnote a,.tree .dead>div>a,.tree .dead>.trl,.tree .dead>.tnote .trl{color:var(--tda);text-decoration-color:rgba(233,197,107,.55)}
-.tree .dead>.tport,.tree .dead>div>.tport{filter:grayscale(.5) brightness(.85)}
-.tree .tsp.dead{padding:6px 8px;margin-left:-6px;margin-right:-6px;width:calc(100% + 12px);border-top:0;border-radius:2px}
-.tree .tsub li{border-radius:2px}
-.tree .tsub li.dead{padding:3px 6px;margin:2px 0}
-.tree .dead .tsub li:not(.dead){background:var(--bg);color:var(--ink);padding:3px 6px;margin:2px 0}
+.tdt{font-family:var(--f-label);font-size:.76rem;letter-spacing:.05em;color:var(--muted)}
+.tnote{font-size:.84rem;color:var(--muted);line-height:1.3;margin-top:2px}
+.tnote a{color:var(--kal)}
+.trl{display:inline-flex;align-items:center;gap:5px;margin-top:3px;font-family:var(--f-label);font-size:.74rem;letter-spacing:.04em;color:var(--kal);white-space:nowrap}
+.tarm{width:14px;height:auto}
+.tlbl{font-family:var(--f-label);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.tport{width:44px;height:44px;flex:none;border-radius:50%;object-fit:cover;border:2px solid var(--gold)}
+.troot{max-width:min(560px,100%)}
+.troot .tnm{font-size:1.02rem}
+.tcouple{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;max-width:100%}
+.tcard.tmain{border-top:3px solid var(--kal);padding:12px 16px;max-width:380px}
+.tcard.tmain .tnm{font-size:1.45rem;color:var(--kal)}
+.tcard.tmain .tport{width:64px;height:64px}
+.tcard.tspouse{border-top:3px solid var(--gold);max-width:340px}
+.tinf{font-size:1.5rem;color:var(--gold);line-height:1;font-family:var(--f-disp)}
+.tspsel{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:10px}
+.tchip{display:flex;flex-direction:column;align-items:flex-start;gap:0;padding:4px 12px;border:1px solid var(--rule);border-radius:3px;background:var(--bg);color:var(--ink);font-family:var(--f-disp);font-size:.98rem;line-height:1.15}
+.tchip small{font-family:var(--f-label);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.tchip:hover{border-color:var(--gold)}
+.tchip.on{border-color:var(--kal);box-shadow:inset 0 -3px 0 var(--kal)}
+.tchipx{padding:4px 12px;border:1px dashed var(--rule);border-radius:3px;background:none;color:var(--muted);font-family:var(--f-label);font-size:.74rem;letter-spacing:.05em}
+.tchipx:hover{color:var(--kal);border-color:var(--kal)}
+.tkids{list-style:none;margin:0;padding:14px 0 0;display:flex;flex-wrap:wrap;justify-content:center;gap:12px;width:100%;position:relative}
+.tkids::before{content:"";position:absolute;top:0;left:8%;right:8%;height:2px;background:color-mix(in srgb,var(--gold) 70%,var(--rule))}
+.tkid{position:relative;flex:0 1 200px;min-width:150px;display:flex;gap:8px;align-items:flex-start;background:var(--bg);border:1px solid var(--rule);border-radius:3px;padding:8px 10px}
+.tkid{border-top:3px solid color-mix(in srgb,var(--gold) 70%,var(--rule))}
+.tlinkb{background:none;border:0;padding:0;font:inherit;color:var(--kal);text-decoration:underline dotted;text-underline-offset:3px}
+.tkid .tport{width:36px;height:36px}
+.tnokids{margin:10px 0 0;font-style:italic}
+.tfoot{margin:14px 0 0;max-width:72ch;text-align:center}
+.tsub{list-style:none;margin:6px 0 0;padding:4px 0 0 10px;border-left:2px solid var(--rule);display:flex;flex-direction:column;gap:3px}
+.tsub li{display:flex;flex-direction:column;border-radius:2px}
+.tsub .tnm{font-size:1rem}
+/* zemřelí (k hernímu datu) mají tmavou kartu; žijící potomci uvnitř zůstávají světlí */
+.tree .dead{--tdk:#33261a;--tdt:#eadcbd;--tdm:#c9b48d;--tda:#e9c56b;background:var(--tdk)!important;border-color:#1c140c!important;color:var(--tdt);box-shadow:none}
+.tree .dead>.tbody>.tnm,.tree .dead>.tbody>.tnm a,.tree .dead>.tnm,.tree .dead>.tnm a{color:var(--tdt)}
+.tree .dead>.tbody>.tdt,.tree .dead>.tbody>.tnote,.tree .dead>.tbody>.tlbl,.tree .dead>.tdt,.tree .dead>.tnote,.tree .tchip.dead small{color:var(--tdm)}
+.tree .dead>.tbody>.trl,.tree .dead>.tbody>.tnote a{color:var(--tda)}
+.tree .dead>.tport{filter:grayscale(.5) brightness(.85)}
+.tree .tchip.dead{color:var(--tdt)}
+.tree .tchip.dead.on{box-shadow:inset 0 -3px 0 #c9a85a}
+.tree .tsub li.dead{padding:3px 6px}
+.tree .dead .tsub li:not(.dead){background:var(--bg);color:var(--ink);padding:3px 6px}
 .tree .dead .tsub{border-left-color:#8c6a2a}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tree .dead{--tdk:#060403;--tdt:#bfb196;--tdm:#8d7f66;--tda:#c9a85a;border:1px dashed #5a4a35!important}}
 :root[data-theme="dark"] .tree .dead{--tdk:#060403;--tdt:#bfb196;--tdm:#8d7f66;--tda:#c9a85a;border:1px dashed #5a4a35!important}
-.tm{font-family:var(--f-label);font-weight:700;font-size:.72rem;color:var(--paper);background:var(--muted);border-radius:8px;padding:0 6px}
-.tsub{list-style:none;margin:4px 0 0;padding:4px 0 0 10px;border-left:2px solid var(--rule);width:100%}
+@media (max-width:640px){.tcouple{flex-direction:column}.tcard.tmain,.tcard.tspouse{max-width:100%}.tkid{flex:1 1 100%}.tkids::before{left:2%;right:2%}}
 /* vlastní kurzory (jen počítač) */
 html{cursor:url(art/kurzory/brk.png) 2 1,auto;cursor:-webkit-image-set(url(art/kurzory/brk.png) 1x,url(art/kurzory/brk@2x.png) 2x) 2 1,auto;cursor:image-set(url(art/kurzory/brk.png) 1x,url(art/kurzory/brk@2x.png) 2x) 2 1,auto}
 a,button,select,summary,label[for],[role=link],[role=button],.card,.seat,.gnode,.dompoly,.partymk,.discmk,.maplink,.plink,.flink,.rtab.dlist tbody tr,.zcard,.achap,.qk,.pchar,.uvt,.pmk,.plist button{cursor:url(art/kurzory/ruka.png) 0 1,pointer !important;cursor:-webkit-image-set(url(art/kurzory/ruka.png) 1x,url(art/kurzory/ruka@2x.png) 2x) 0 1,pointer !important;cursor:image-set(url(art/kurzory/ruka.png) 1x,url(art/kurzory/ruka@2x.png) 2x) 0 1,pointer !important}
@@ -1071,7 +1091,14 @@ html.mmload body::after{content:"Načítám zemské desky…";position:fixed;lef
 .novl li>span{color:var(--muted);font-size:.95em}
 .novl a{color:var(--kal)}
 .slnote{font-style:italic;color:var(--muted);border-left:3px solid var(--rule);padding:4px 0 4px 12px;margin:10px 0}
-/* skrytý obsah (spoiler): Vazby v článku rodu se ukážou až po rozkliknutí */
+/* Vazby v článku rodu: tři sloupce (krev, spojenectví, spory), každý se rozbalí zvlášť */
+.relcol3 .relgs{flex-direction:row;align-items:flex-start;gap:10px}
+.relcol3 .relg{flex:1 1 0;min-width:0}
+.relcol3 .relg>summary{justify-content:center;padding:8px 10px}
+.relcol3 .relg>summary::after{margin-left:6px}
+.relcol3 .relg .rels{padding:8px 12px 10px}
+@media (max-width:640px){.relcol3 .relgs{flex-direction:column;align-items:stretch}}
+/* skrytý obsah (spoiler) */
 details.spoiler{margin:18px 0 6px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
 details.spoiler>summary{cursor:pointer;list-style:none;display:flex;align-items:baseline;gap:12px;padding:6px 0}
 details.spoiler>summary::-webkit-details-marker{display:none}
@@ -3946,25 +3973,42 @@ const TREEALIAS={fra:"bra"};
 function umrelTree(d){
   if(!d)return false;const t=String(d),m=t.match(/†[^0-9]{0,24}(\d{4})/)||t.match(/\d{4}\s*[–-]\s*(?:asi\s*)?(\d{4})/);
   if(!m)return false;const y=+m[1],Y=herniDen()[0];return y<Y||(y===Y&&/před/.test(t))}
+/* stav rodokmenů: které manželství je vybrané a zda jsou vidět zesnulí manželé */
+const TSTAV={};
 function treeHTML(id){
-  const T=TREES[id]; if(!T)return""; T.kids=T.kids||[];
-  const DC=o=>umrelTree(o.d)?" dead":"";
-  const pn=o=>{const P=o.p&&PBY[o.p];const nm=o.n;const img=P&&typeof PORTR!=="undefined"&&PORTR.has(o.p)?`<img class="tport" src="${portU(o.p,1)}" alt="" loading="lazy">`:"";
-    return `${img}<span class="tnm">${P?`<a href="#osoba/${o.p}">${nm}</a>`:nm}</span>${o.d?`<span class="tdt">${o.d}</span>`:""}`};
-  const extra=o=>{let s=o.note||"";if(o.pl&&PBY[o.pl])s=s.replace(PBY[o.pl].n.replace(/^✦\s*/,""),`<a href="#osoba/${o.pl}">$&</a>`);
-    if(o.rl&&byId[o.rl])s+=` <a class="trl" href="#rod/${o.rl}">→ ${SHORT[o.rl]||byId[o.rl].name}</a>`;return s?`<span class="tnote">${s}</span>`:""};
-  const sp=o=>`<div class="tsp${DC(o)}"><span class="tinf">∞</span><div>${pn(o)}${o.r&&byId[o.r]?` <a class="trl" href="#rod/${o.r}">→ ${SHORT[o.r]||byId[o.r].name}</a>`:""}${extra(o)}</div></div>`;
-  const multi=(T.main.sp||[]).length>1;
-  const kid=k=>`<li class="tkid${DC(k)}">${multi&&k.m?`<span class="tm">${k.m}.</span>`:""}${pn(k)}${extra(k)}${k.kids?`<ul class="tsub">${k.kids.map(c=>`<li class="${DC(c).trim()}">${pn(c)}${extra(c)}</li>`).join("")}</ul>`:""}</li>`;
-  return `<div class="tree">
-    ${T.root?`<div class="tnode troot${DC(T.root)}">${pn(T.root)}${extra(T.root)}</div><div class="tline"></div>`:""}
-    <div class="tnode tmain${DC(T.main)}">${pn(T.main)}${(T.main.sp||[]).map(sp).join("")}</div>
-    <div class="tline"></div>
-    ${T.kids.length?`<ul class="tkids">${T.kids.map(kid).join("")}</ul>`:""}
-    ${multi&&T.kids.some(k=>k.m)?`<p class="rsmall">Čísla u dětí označují, z kterého manželství pocházejí.</p>`:""}
-    ${T.foot?`<p class="rsmall">${T.foot}</p>`:""}
+  const T=TREES[id]; if(!T)return""; const kids=T.kids||[], sps=T.main.sp||[];
+  const mrtvy=o=>umrelTree(o.d), DC=o=>mrtvy(o)?" dead":"";
+  const port=(o,cls)=>o.p&&PBY[o.p]&&typeof PORTR!=="undefined"&&PORTR.has(o.p)?`<img class="${cls||"tport"}" src="${portU(o.p,1)}" alt="" loading="lazy">`:"";
+  const nm=o=>{const P=o.p&&PBY[o.p];return `<span class="tnm">${P?`<a href="#osoba/${o.p}">${o.n}</a>`:o.n}</span>`};
+  const dt=o=>o.d?`<span class="tdt">${o.d}</span>`:"";
+  const rl=(r)=>r&&byId[r]?`<a class="trl" href="#rod/${r}">${armsImg(byId[r],"tarm")}${SHORT[r]||byId[r].name}</a>`:"";
+  const note=o=>{let x=o.note||"";if(o.pl&&PBY[o.pl])x=x.replace(PBY[o.pl].n.replace(/^✦\s*/,""),`<a href="#osoba/${o.pl}">$&</a>`);return x?`<span class="tnote">${x}</span>`:""};
+  const card=(o,cls,extra)=>`<div class="tcard ${cls||""}${DC(o)}">${port(o)}<div class="tbody">${nm(o)}${dt(o)}${note(o)}${rl(o.r||o.rl)}${extra||""}</div></div>`;
+  /* manželství: žijící manželé jsou vidět hned, zesnulí po rozkliknutí; děti podle vybraného manželství */
+  const st=TSTAV[id]||(TSTAV[id]={});
+  const zive=sps.map((o,i)=>i).filter(i=>!mrtvy(sps[i])), mrtve=sps.map((o,i)=>i).filter(i=>mrtvy(sps[i]));
+  if(st.sel==null||st.sel>=sps.length)st.sel=sps.length?(zive.length?zive[zive.length-1]:sps.length-1):-1;
+  const ukazMrtve=st.mrtve||!zive.length||mrtve.includes(st.sel)&&st.mrtve!==false;
+  const podleM=sps.length>1&&kids.some(k=>k.m);
+  const dKids=podleM?kids.filter(k=>!k.m||k.m===st.sel+1):kids;
+  const chip=i=>{const o=sps[i];return `<button type="button" class="tchip${DC(o)}${i===st.sel?" on":""}" data-tree="${id}" data-tsel="${i}" aria-pressed="${i===st.sel}"><small>${i+1}. manželství</small>${o.n}</button>`};
+  const vyber=sps.length>1?`<div class="tspsel">${zive.map(chip).join("")}${mrtve.length?(ukazMrtve?mrtve.map(chip).join("")+(zive.length?`<button type="button" class="tchipx" data-tree="${id}" data-tdead="0">skrýt zesnulé</button>`:""):`<button type="button" class="tchipx" data-tree="${id}" data-tdead="1">+ ${mrtve.length===1?"zesnulý manžel / manželka":"zesnulí manželé ("+mrtve.length+")"}</button>`):""}</div>`:"";
+  const sel=st.sel>=0?sps[st.sel]:null;
+  const kid=k=>`<li class="tkid${DC(k)}">${port(k)}<div class="tbody">${nm(k)}${dt(k)}${note(k)}${rl(k.rl)}${k.kids?`<ul class="tsub">${k.kids.map(c=>`<li class="${DC(c).trim()}">${nm(c)}${dt(c)}${note(c)}</li>`).join("")}</ul>`:""}</div></li>`;
+  const jinde=podleM?sps.map((o,i)=>i).filter(i=>i!==st.sel&&kids.some(k=>k.m===i+1)):[];
+  const deti=dKids.length?`<div class="tline"></div><ul class="tkids">${dKids.map(kid).join("")}</ul>`
+    :podleM&&sel?`<p class="rsmall tnokids">Z tohoto manželství nejsou známy žádné děti.${jinde.length?` Děti jsou z ${jinde.map(i=>`<button type="button" class="tlinkb" data-tree="${id}" data-tsel="${i}">${i+1}. manželství (${sps[i].n})</button>`).join(" a ")}.`:""}</p>`:"";
+  return `<div class="tree" data-tree="${id}">
+    ${T.root?`<div class="tcard troot${DC(T.root)}"><div class="tbody"><span class="tlbl">rodič</span>${nm(T.root)}${dt(T.root)}${note(T.root)}</div></div><div class="tline"></div>`:""}
+    <div class="tcouple">${card(T.main,"tmain")}${sel?`<span class="tinf" aria-label="manželé">∞</span>${card(sel,"tspouse")}`:""}</div>
+    ${vyber}
+    ${deti}
+    ${T.foot?`<p class="rsmall tfoot">${T.foot}</p>`:""}
   </div>`;
 }
+document.addEventListener("click",e=>{const b=e.target.closest("[data-tsel],[data-tdead]");if(!b)return;const id=b.dataset.tree,st=TSTAV[id]||(TSTAV[id]={});
+  if(b.dataset.tsel!=null){st.sel=+b.dataset.tsel;if(umrelTree((TREES[id].main.sp||[])[st.sel]?.d))st.mrtve=true}else{st.mrtve=b.dataset.tdead==="1";if(!st.mrtve){const sp=TREES[id].main.sp||[];if(sp[st.sel]&&umrelTree(sp[st.sel].d))st.sel=null}}
+  const el=document.querySelector(`.tree[data-tree="${id}"]`);if(el){el.outerHTML=treeHTML(id);const n=document.querySelector(`.tree[data-tree="${id}"] [data-tsel="${st.sel}"]`);if(n&&b.dataset.tsel!=null)n.focus({preventScroll:true})}});
 
 /* ======== Družina · Kronika tažení · automatické odkazy · hledání ======== */
 
@@ -4354,7 +4398,7 @@ function renderRodArticle(id){
      ${f.sl?`<p class="slnote">O tomto rodu družina zatím jen slyšela. Víc se dozví, až se s ním setká.</p>`:`<h3>${f.nbr?"Postoj ke Koruně":"Postoj k Jiřímu"}</h3><p>${f.stance}</p>
      ${f.hist?`<h3>${HISTH(f)}</h3><p>${f.hist}</p>`:""}
      <h3>Zápis kronikáře</h3><p class="kron">${f.note}</p>`}
-     ${rels.length?`<details class="spoiler"><summary><h3>Vazby</h3><span>${rels.length} ${rels.length===1?"vazba":rels.length<5?"vazby":"vazeb"}</span></summary>${relGroups(rels,id,true)}</details>`:""}
+     ${rels.length?`<h3>Vazby</h3><div class="relcol3">${relGroups(rels,id,false)}</div>`:""}
      ${TREES[id]||TREES[TREEALIAS[id]]?`<h3>Rodokmen</h3>${treeHTML(TREES[id]?id:TREEALIAS[id])}`:""}
    </div>
    <aside class="infobox">
