@@ -704,6 +704,7 @@ a.pchar:hover{border-color:var(--kal)}
 #pmap .pvitr{font-family:var(--f-disp);fill:var(--kal);letter-spacing:.06em;paint-order:stroke;stroke:var(--paper);stroke-width:3px;stroke-linejoin:round}
 #pmap .pdrak{font-family:var(--f-disp);fill:var(--kal);letter-spacing:.04em;paint-order:stroke;stroke:var(--paper);stroke-width:3.5px;stroke-linejoin:round}
 #pmap .pmer{font-family:var(--f-label);font-weight:700;fill:var(--ink);paint-order:stroke;stroke:var(--paper);stroke-width:2.5px;stroke-linejoin:round}
+.ppik{display:block;align-self:center;height:96px;width:auto;max-width:100%;object-fit:contain;filter:drop-shadow(0 2px 3px rgba(0,0,0,.25))}
 #pmap .pshn{font-family:var(--f-disp);fill:#2b2117;pointer-events:none}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #pmap .porn{filter:url(#pglow)}:root:not([data-theme="light"]) #pmap .pornf{filter:url(#pglowf)}}
 :root[data-theme="dark"] #pmap .porn{filter:url(#pglow)}:root[data-theme="dark"] #pmap .pornf{filter:url(#pglowf)}
@@ -2858,13 +2859,18 @@ function praInit(){
   fetch("art/praha.json").then(r=>r.json()).then(d=>{PG=d;pDraw();pList()}).catch(()=>{document.getElementById("pmap").innerHTML='<text x="500" y="480" text-anchor="middle" class="rivlbl" font-size="20">Plán se nepodařilo načíst.</text>'});
 }
 /* ilustrace plánu: šířky piktogramů (výška 170 px), stavby [druh, x, pata, výška], stuhy, Židovské Město */
-const PBW={kostel:106,katedrala:118,hrad:157,brana:124,radnice:113,klaster:176,kaple:136,mlyn:219,zricenina:165,domy:229,ves:279};
-const PBLD=[["katedrala",262,182,40],["klaster",304,162,24],["klaster",47,333,30],["kostel",323,275,28],["klaster",366,245,24],
- ["katedrala",700,266,38],["radnice",652,285,30],["kostel",641,262,22],["kostel",622,354,24],["kostel",694,330,24],["kaple",649,412,18],
- ["kostel",731,161,24],["klaster",752,231,26],["kaple",604,374,20],["kostel",716,412,30],["klaster",609,745,28],["kostel",733,783,22],
- ["kostel",749,617,26],["kostel",855,352,26],["kostel",922,157,24],["radnice",681,588,28],["kostel",739,881,24],
- ["brana",397,299,24],["brana",523,323,22],["zricenina",620,962,30],["kaple",662,1005,17],["hrad",588,932,20],
+const PBW={kostel:106,katedrala:118,hrad:157,brana:124,radnice:113,klaster:176,kaple:136,mlyn:219,zricenina:165,domy:229,ves:279,
+ "ik-kostel":135*170/170,"ik-klaster":191,"ik-dum":140,"ik-urad":145,"ik-palac":183,"ik-pivo":176,"ik-lazen":170,"ik-anomalie":152,
+ "pr-betlem":221*.85,"pr-emauzy":248*.85,"pr-hrad":245*.85,"pr-jiri":264*.85,"pr-karlov":203*.85,"pr-karolinum":170*.85,"pr-kraluv-dvur":374*170/240,"pr-martin":231*.85,
+ "pr-most":229*.85,"pr-novomestska-radnice":210*.85,"pr-staromestska-radnice":140*.85,"pr-tyn":149*.85,"pr-vitkov":225*.85,"pr-vysehrad":275*.85};
+/* krajina a stavby mimo očíslovaná místa: [druh, x, pata, výška, zrcadlit, jen v celkovém pohledu] */
+const PBLD=[["pr-hrad",284,214,62,0,1],["pr-vysehrad",632,1012,56,0,1],["pr-most",462,322,30,1],["brana",397,299,24],["kostel",733,783,22],
  ["ves",392,622,26],["domy",318,532,16],["domy",585,901,12],["ves",600,64,20],["ves",904,58,18]];
+/* ikony míst: vlastní kresba [soubor, výška], jinak obecná podle druhu */
+const PICO={1:["ik-palac",24],2:["katedrala",40],3:["pr-jiri",28],7:["klaster",30],16:["pr-kraluv-dvur",34],17:["pr-tyn",42],20:["pr-staromestska-radnice",38],21:["pr-karolinum",30],
+ 29:["pr-betlem",28],32:["ik-dum",22],28:["ik-dum",22],33:["kostel",32],34:["pr-emauzy",32],40:["pr-martin",26],53:["zricenina",28],54:["kaple",18],55:["ik-dum",20],56:["pr-vitkov",46],57:["pr-novomestska-radnice",34],58:["pr-karlov",30]};
+const pIco=p=>PICO[p.n]?[...PICO[p.n],1]:p.k==="cirkev"?[/[Kk]lášter|Křižovníci|Johanité/.test(p.name)?"ik-klaster":"ik-kostel",26,1]:
+ p.k==="hospoda"?[/[Ll]áze/.test(p.name)?"ik-lazen":"ik-pivo",20,0]:p.k==="anomalie"?["ik-anomalie",24,1]:[p.k==="urad"?"ik-urad":"ik-dum",22,0];
 const PRIBT={kratka:[520,135,.62],stredni:[560,118,.59],dlouha:[600,129,.54]};
 const PRIB={hrad:[288,90,"Pražský hrad","stredni",150,17],hc:[118,302,"Hradčany","kratka",124,15],ms:[300,378,"Malá Strana","stredni",150,17],
  sm:[680,82,"Staré Město","stredni",168,19],zid:[622,146,"Židovské Město","kratka",112,10],nm:[792,668,"Nové Město","dlouha",200,22],vys:[792,955,"Vyšehrad","kratka",124,16]};
@@ -3081,7 +3087,9 @@ function pDraw(){
   {const g=G({class:"porn","pointer-events":"none"});
    const B=(t,x,b,h,fl)=>{const w=h*PBW[t]/170;g.appendChild(el("image",{href:PMA+t+".webp",x:(x-w/2).toFixed(1),y:(b-h).toFixed(1),width:w.toFixed(1),height:h,...(fl?{transform:`translate(${2*x} 0) scale(-1 1)`}:{})}))};
    (PG.mills||[]).forEach(([x,y])=>B("mlyn",x+2,y+6,15));
-   PBLD.forEach(a=>B(...a));
+   const full=s>=.62;PBLD.forEach(([t,x,b,h,fl,jen])=>{if(!jen||full)B(t,x,b,h,fl)});
+   /* ikony očíslovaných míst: významné vždy, domy, úřady a hospody až po přiblížení; hrad a Vyšehrad v celku kreslí jejich veduta */
+   PRAHA_PLACES.forEach(p=>{const [t,h,vzdy]=pIco(p);if(!PBW[t]||(!vzdy&&full))return;if(full&&(p.t==="hrad"&&p.n<=6||p.t==="vys"))return;B(t,p.pos[0],p.pos[1]+6,h)});
    (PG.gates||[]).forEach(([n,x,y])=>B("brana",x,y+7,20));}
   /* popisky */
   const L=(x,y,t,cls,fs,rot,st)=>svg.appendChild(el("text",{x,y,class:cls,"font-size":(fs*k).toFixed(1),"text-anchor":"middle","stroke-width":(3*k).toFixed(2),...(rot?{transform:`rotate(${rot} ${x} ${y})`}:{}),...(st?{style:st}:{})},t));
@@ -3185,6 +3193,7 @@ function pDetail(){
   d.classList.remove("empty");const t=PRAHA_TOWNS.find(x=>x.id===p.t),f=p.r&&byId[p.r];
   d.innerHTML=`<span class="lbl">${t.n} · ${PKIND[p.k]} · č. ${p.n}</span>
    <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h3 style="font-size:1.35rem">${p.name}</h3>${p.c&&FICON[p.c]?faith(p.c):""}</div>
+   <img class="ppik" src="${PMA+pIco(p)[0]}.webp" alt="" loading="lazy">
    <p>${p.d}</p>
    ${(()=>{const zd=pParty();return zd&&zd.druzina===p.n?`<p class="pparty"><b style="color:var(--kal)">⚑</b> Zde se právě nachází družina${zd.id?` – <a href="#kronika/${zd.id}">${zd.n}: ${zd.title}</a>`:""}.</p>`:""})()}
    ${f||p.p?`<dl class="kv">${f?`<dt>Rod</dt><dd><a href="#rod/${f.id}">${ARMS[f.id]?armsImg(f,"armsmall"):""}${f.name}</a></dd>`:""}${p.p&&PBY[p.p]?`<dt>Osoba</dt><dd><a href="#osoba/${p.p}">${PBY[p.p].n.replace(/^✦\s*/,"")}</a></dd>`:""}</dl>`:""}
