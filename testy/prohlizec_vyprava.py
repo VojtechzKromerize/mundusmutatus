@@ -1,0 +1,61 @@
+# Výprava (cesta družiny): stránka jen pro vypravěče – uložení do databáze, Odcestovat posune herní stav, hráč nic nevidí
+import asyncio, json, urllib.request
+from playwright.async_api import async_playwright
+import os, sys
+U=os.environ.get("MM_SB","http://localhost:54321");K="sb_publishable_test";BASE=os.environ.get("MM_WEB","http://localhost:8765/")
+VYSTUP=os.environ.get("MM_VYSTUP","/tmp")
+def tok():
+    r=urllib.request.Request(U+"/auth/v1/token?grant_type=password",data=json.dumps({"email":"gm@x.cz","password":"heslo"}).encode(),headers={"apikey":K,"Content-Type":"application/json"},method="POST")
+    return json.loads(urllib.request.urlopen(r).read())
+def rpc(fn,body):
+    r=urllib.request.Request(U+"/rest/v1/rpc/"+fn,data=json.dumps(body).encode(),headers={"apikey":K,"Content-Type":"application/json","Authorization":"Bearer "+tok()["access_token"]},method="POST")
+    t=urllib.request.urlopen(r).read();return json.loads(t) if t else None
+def snimek(): return urllib.request.urlopen(urllib.request.Request(U+"/rest/v1/snimek?vetev=eq.test&select=data",headers={"apikey":K})).read().decode()
+fails=[]
+def chk(c,m):
+    print(("OK  " if c else "FAIL"),m)
+    if not c: fails.append(m)
+rpc("mm_nastav_hru",{"p_hra":{"datum":"1458-03-03","hodina":8,"misto":"Praha","praha":None}})
+rel=tok()
+async def main():
+  async with async_playwright() as p:
+    b=await p.chromium.launch()
+    g=await b.new_page(viewport={"width":1400,"height":1000});gerr=[];g.on("pageerror",lambda e:gerr.append(str(e)[:200]));g.on("dialog",lambda d:asyncio.ensure_future(d.accept()))
+    await g.add_init_script("localStorage.setItem('mm-gm-relace',JSON.stringify("+json.dumps({"at":rel["access_token"],"rt":rel["refresh_token"],"exp":rel["expires_at"],"email":"gm@x.cz"})+"))")
+    await g.goto(BASE+"#vyprava");await g.wait_for_selector("#vyslot #kmapbox");await g.wait_for_timeout(600)
+    chk(await g.evaluate("!document.getElementById('navvy').hidden"),"vypravěč má v navigaci Výpravu")
+    chk(await g.evaluate("VY.z&&VY.z.name==='Praha'"),"výchozí místo = poloha družiny")
+    await g.select_option("#tto","Kutná Hora");await g.wait_for_timeout(600)
+    chk(await g.evaluate("VYT&&VYT.do==='Kutná Hora'&&VYS.H>6"),"trasa do Kutné Hory a doba v hodinách")
+    chk(await g.locator("#vypanely .vyden").count()>0,"počasí po dnech")
+    await g.fill('[data-vyf="d0n"]',"Testovací rytíř");await g.dispatch_event('[data-vyf="d0n"]',"change")
+    await g.select_option('[data-vyf="d0r"]',"zved");await g.wait_for_timeout(1200)
+    st=rpc("mm_vyprava_nacti",{})
+    chk(st and st.get("do",{}).get("name")=="Kutná Hora" and st["druzina"][0]["n"]=="Testovací rytíř","výprava uložená v databázi")
+    S=snimek();chk("Testovací rytíř" not in S,"výprava není ve veřejném výřezu")
+    await g.reload();await g.wait_for_selector("#vyslot #kmapbox");await g.wait_for_timeout(800)
+    chk(await g.evaluate("VY.do&&VY.do.name==='Kutná Hora'&&VY.druzina[0].role==='zved'"),"po obnovení stránky se výprava načte")
+    prij=await g.evaluate("[VYS.prij.j,VYS.prij.h,vyDat(VYS.prij.j)]")
+    await g.click('#vyside [data-vy="vyrazit-cas"]');await g.wait_for_timeout(1200)
+    chk(await g.evaluate("!!(HRA.cesta&&HRA.cesta.track&&HRA.cesta.track.length>1&&HRA.cesta.do==='Kutná Hora'&&HRA.datum==='1458-03-03')"),"Vyrazit: družina je na cestě, čas se nemění")
+    chk(await g.evaluate("cestaAktivni()&&partyPos().cesta===true"),"poloha družiny na cestě")
+    rpc("mm_nastav_hru",{"p_hra":{"datum":"1458-03-03","hodina":8,"misto":"Praha","praha":None,"cesta":None}})
+    await g.reload();await g.wait_for_selector("#vyslot #kmapbox");await g.wait_for_timeout(800)
+    await g.evaluate("()=>{VY.z={name:'Praha',lo:14.42,la:50.09};VY.do={name:'Kutná Hora',lo:15.27,la:49.95};renderVyprava()}");await g.wait_for_timeout(800)
+    prij=await g.evaluate("[VYS.prij.j,VYS.prij.h,vyDat(VYS.prij.j)]")
+    await g.click('#vyside [data-vy="odcestovat"]');await g.wait_for_timeout(1200)
+    chk(await g.evaluate(f"HRA.misto==='Kutná Hora'&&HRA.datum==='{prij[2]}'&&HRA.hodina==={prij[1]}"),"Rovnou dorazit posune herní stav: "+str(prij))
+    chk(await g.evaluate("!HRA.cesta&&(HRA.putovani||[]).some(c=>c.do==='Kutná Hora')"),"cesta zapsaná v deníku putování")
+    chk(await g.evaluate("VY.z&&VY.z.name==='Kutná Hora'&&!VY.do&&!!VY.posledniMd"),"po příjezdu je výchozím místem cíl")
+    await g.goto(BASE+"#mapa");await g.wait_for_timeout(400)
+    chk(await g.evaluate("document.getElementById('kmapbox').closest('[data-view]').dataset.view==='mapa'"),"mapa se vrátí na svou stránku")
+    pg=await b.new_page();errs=[];pg.on("pageerror",lambda e:errs.append(str(e)[:200]))
+    await pg.goto(BASE+"#vyprava");await pg.wait_for_function("!document.documentElement.classList.contains('mmload')");await pg.wait_for_timeout(400)
+    chk(await pg.evaluate("document.getElementById('navvy').hidden"),"hráč nemá Výpravu v navigaci")
+    chk("jen pro vypravěče" in await pg.inner_text("#vyview"),"hráč stránku nevidí")
+    await g.goto(BASE+"#vyprava");await g.wait_for_timeout(800);await g.screenshot(path=os.path.join(VYSTUP,"vyprava.png"),full_page=True)
+    chk(not errs and not gerr,"bez chyb JS "+str((errs+gerr)[:2]))
+    await b.close()
+asyncio.run(main())
+print("SELHALO:", len(fails)) if fails else print("VŠE OK")
+sys.exit(1 if fails else 0)

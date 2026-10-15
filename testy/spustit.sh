@@ -73,7 +73,7 @@ KONF
   zkus "práva v databázi" python3 "$KOREN/testy/bezpecnost.py"
 
   krok "Testy v prohlížeči"
-  for t in odhalovani herni_stav draci boj tah pecet editor zapisy; do
+  for t in odhalovani herni_stav draci boj tah pecet editor zapisy vyprava; do
     zkus "prohlížeč: $t" python3 "$KOREN/testy/prohlizec_$t.py"
   done
 

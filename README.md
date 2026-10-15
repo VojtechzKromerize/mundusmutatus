@@ -20,6 +20,10 @@ Hráčský web: https://mundusmutatus.netlify.app (větev `main`), náhled: http
   aktualizuje z databáze (`zdroj/zaloha.py`, potřebuje tajemství `SUPABASE_SECRET` v nastavení repozitáře)
   a změny souborů ve větvi `dev` se při sestavení přenesou do databáze (pokud záznam mezitím nikdo neupravil na webu).
 - Herní stav (datum, hodina, poloha družiny), Novinky a tracker iniciativy (`#boj`) jsou také v databázi.
+- **Výprava** (`#vyprava`, jen vypravěč): cesta družiny podle pravidel Uncharted Journeys na všech třech mapách (Známý svět,
+  Země Koruny, Praha) – trasa a doba v hodinách, generátor počasí podle data a místa, obtížnost, role a přípravy, setkání
+  s vlastními tabulkami pro Čechy 1458, příjezd a tlačítko Odcestovat. Stav se ukládá do databáze (`mm_vyprava_uloz`,
+  čte jen vypravěč); bez aktuálního `supabase/schema.sql` se ukládá jen v prohlížeči.
 - Rychlost: hráčská verze má hlavní styl a skript v `public/v/` pod jmény s otiskem obsahu (prohlížeč si je uloží
   natrvalo, viz hlavičky v `netlify.toml`), písma leží v `art/pisma` (licence SIL OFL) a `zdroj/sw.js` zajišťuje
   offline režim (bez připojení se ukáže naposledy uložený stav desek). Portréty mají kromě plné verze i `-s`

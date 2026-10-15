@@ -295,6 +295,26 @@ begin
   return v;
 end $$;
 
+-- Výprava (cesta družiny): stav plánovače cest jen pro vypravěče, uložený v nastavení pod klíčem 'vyprava'
+create or replace function public.mm_vyprava_nacti() returns jsonb
+language plpgsql stable security definer set search_path = public as $$
+begin
+  if not public.mm_je_gm() then
+    raise exception 'jen pro vypravěče' using errcode = '42501';
+  end if;
+  return (select hodnota from public.nastaveni where klic = 'vyprava');
+end $$;
+
+create or replace function public.mm_vyprava_uloz(p_stav jsonb) returns void
+language plpgsql security definer set search_path = public as $$
+begin
+  if not public.mm_je_gm() then
+    raise exception 'jen pro vypravěče' using errcode = '42501';
+  end if;
+  insert into public.nastaveni (klic, hodnota, zmeneno) values ('vyprava', p_stav, now())
+  on conflict (klic) do update set hodnota = excluded.hodnota, zmeneno = now();
+end $$;
+
 -- Vypravěč čte všechny stavy najednou (bez limitu počtu řádků)
 create or replace function public.mm_stavy() returns jsonb
 language sql stable security definer set search_path = public as $$
@@ -506,6 +526,9 @@ revoke all on function public.mm_stavy() from public, anon;
 revoke all on function public.mm_nastav_hru(jsonb) from public, anon;
 revoke all on function public.mm_boj_uloz(jsonb) from public, anon;
 grant execute on function public.mm_boj_uloz(jsonb) to authenticated;
+revoke all on function public.mm_vyprava_nacti() from public, anon;
+revoke all on function public.mm_vyprava_uloz(jsonb) from public, anon;
+grant execute on function public.mm_vyprava_nacti(), public.mm_vyprava_uloz(jsonb) to authenticated;
 grant execute on function public.mm_boj_obsad(int, text) to anon, authenticated;
 grant execute on function public.mm_nastav_hru(jsonb) to authenticated;
 grant execute on function public.mm_stavy() to authenticated;
