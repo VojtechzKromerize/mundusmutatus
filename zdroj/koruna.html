@@ -494,7 +494,8 @@ mark{background:color-mix(in srgb,var(--gold) 35%,transparent);color:inherit;pad
 /* sazba: rozumná délka řádku, iniciály a ozdoby jako v rukopisu */
 .drtext{display:block;max-width:calc(70ch + 190px)}.drtext>*+*{margin-top:.7em}
 .drtext>p,.drtext>ul,.drtext>ol,.drtext>h3,.drtext>blockquote{max-width:70ch}
-.asec>p,.asec>ul,.asec>ol,.asec>.rl,.asec>.rnote,.alead,.artmain>p,.artmain>.artlead{max-width:72ch}
+.asec>p,.asec>ul,.asec>ol,.asec>.rl,.asec>.rnote,.artmain>p,.artmain>.artlead{max-width:72ch}
+.alead{max-width:none}/* úvod Artikulí pod citátem jde přes celou šíři */
 .asec>.ash+p::first-letter,.drtext>h3+p::first-letter{font-family:var(--f-disp);font-size:2.7em;float:left;line-height:.82;margin:.06em .1em 0 0;color:var(--kal)}
 .drtext>h3:not(:first-child)::before{content:"❦";display:block;text-align:center;font-size:1.3rem;color:var(--gold);margin:.4em 0 .5em;font-family:var(--f-body)}
 .marg{float:right;clear:right;width:132px;margin:.4em 0 1em 28px;text-align:center;font-size:.8rem;line-height:1.3}
@@ -1212,7 +1213,7 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
         <button type="button" id="lyDom" aria-pressed="false" title="Hrubý odhad podle rodových sídel">Panství rodů (odhad)</button>
         <button type="button" id="lyDuchy" aria-pressed="false">Země a knížectví</button>
         <button type="button" id="lyDio" aria-pressed="false">Diecéze</button>
-        <button type="button" id="lyParty" aria-pressed="true">Družina</button>
+        <button type="button" id="lyParty" aria-pressed="false">Družina</button>
         <button type="button" id="lyRings" aria-pressed="false">Vazby rodu</button>
       </div>
       <p class="lyrh">Legenda</p>
@@ -1315,6 +1316,8 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
     <div class="controls" role="group" aria-label="Vyznání"><button type="button" data-pconf="all" aria-pressed="true">Vše</button><button type="button" data-pconf="kat" data-fico="kat" aria-pressed="false">Katolíci</button><button type="button" data-pconf="kal" data-fico="kal" aria-pressed="false">Kališníci</button><button type="button" data-pconf="mix" data-fico="mix" aria-pressed="false">Smíšení</button></div>
     <p class="lyrh">Druh místa</p>
     <div class="controls" role="group" aria-label="Druh místa"><button type="button" data-pkind="all" aria-pressed="true">Všechna místa</button><button type="button" data-pkind="dvur" aria-pressed="false">Dvory a domy</button><button type="button" data-pkind="urad" aria-pressed="false">Obec a úřady</button><button type="button" data-pkind="cirkev" aria-pressed="false">Církevní stavby</button><button type="button" data-pkind="hospoda" aria-pressed="false">Hospody a lázně</button><button type="button" data-pkind="anomalie" aria-pressed="false">Anomálie</button></div>
+    <p class="lyrh">Družina</p>
+    <div class="controls" role="group" aria-label="Družina"><button type="button" id="pParty" aria-pressed="false">Kde je družina</button></div>
     <p class="lyrh">Vysvětlivky</p>
     <div class="plegend"><span><svg viewBox="0 0 22 16"><rect x="3" y="3" width="16" height="10" fill="var(--pphrad)" stroke="var(--ink)" stroke-width=".8"/></svg>Pražský hrad</span><span><svg viewBox="0 0 22 16"><rect x="3" y="3" width="16" height="10" fill="var(--phrad)" stroke="var(--ink)" stroke-width=".8"/></svg>Hradčany</span><span><svg viewBox="0 0 22 16"><rect x="3" y="3" width="16" height="10" fill="var(--pmala)" stroke="var(--ink)" stroke-width=".8"/></svg>Malá Strana</span><span><svg viewBox="0 0 22 16"><rect x="3" y="3" width="16" height="10" fill="var(--pstare)" stroke="var(--ink)" stroke-width=".8"/></svg>Staré Město</span><span><svg viewBox="0 0 22 16"><rect x="3" y="3" width="16" height="10" fill="var(--pnove)" stroke="var(--ink)" stroke-width=".8"/></svg>Nové Město</span><span><svg viewBox="0 0 22 16"><rect x="3" y="3" width="16" height="10" fill="var(--land)" stroke="var(--tree)" stroke-width=".8"/><path d="M6 5v6M10 5v6M14 5v6M18 5v6" stroke="var(--tree)" stroke-width="1.1" stroke-dasharray="1.6 1.2"/></svg>vinice a zahrady</span><span><svg viewBox="0 0 22 16"><path d="M2 8h18" stroke="var(--ink)" stroke-width="2.6"/><rect x="8.5" y="5.5" width="5" height="5" fill="var(--paper)" stroke="var(--ink)" stroke-width=".9"/></svg>hradba s branou</span><span><svg viewBox="0 0 22 16"><path d="M4 13v-6l1.1-2 1.1 2v6ZM8 13v-6l1.1-2 1.1 2v6ZM12 13v-6l1.1-2 1.1 2v6ZM16 13v-6l1.1-2 1.1 2v6Z" fill="var(--road)" stroke="var(--ink)" stroke-width=".45"/></svg>palisáda</span><span><svg viewBox="0 0 22 16"><circle cx="11" cy="8" r="6.5" fill="#f6eedb" stroke="var(--kal)" stroke-width="1.5"/><image href="art/img/vira-kal.webp" x="5" y="2" width="12" height="12"/></svg>dvůr, úřad (kališníci)</span><span><svg viewBox="0 0 22 16"><circle cx="11" cy="9.5" r="5.8" fill="#f6eedb" stroke="var(--kat)" stroke-width="1.5"/><image href="art/img/vira-kat.webp" x="5.8" y="4.3" width="10.4" height="10.4"/><path d="M11 3.7v-3.4M9 1.8h4" stroke="var(--kat)" stroke-width="1.3"/></svg>kostel, klášter (katolíci)</span><span><svg viewBox="0 0 22 16"><rect x="5" y="2" width="12" height="12" rx="3" fill="#f6eedb" stroke="var(--gold)" stroke-width="1.5"/><circle cx="11" cy="8" r="1.6" fill="var(--gold)"/></svg>hospoda, lázně</span><span><svg viewBox="0 0 22 16"><circle cx="11" cy="8" r="7.2" fill="none" stroke="var(--gold)" stroke-width="1.1"/><circle cx="11" cy="8" r="5.6" fill="#f6eedb" stroke="#2b2117" stroke-width="1"/><text x="11" y="11" text-anchor="middle" font-size="8" fill="#2b2117" font-family="var(--f-disp)">3</text></svg>shluk míst – klepnutím přiblížit</span><span><svg viewBox="0 0 22 16"><image href="art/mapa/kostel.webp" x="6" y="0" width="10" height="16"/></svg>stavba</span><span><svg viewBox="0 0 22 16"><path d="M8 15V2" stroke="var(--ink)" stroke-width="1.3"/><path d="M8 2q5 1 9 3l-3 1.5 3 1.5q-5-1-9 0Z" fill="var(--kal)"/></svg>družina</span><span><svg viewBox="0 0 22 16"><path d="M3 8h16" stroke="var(--road)" stroke-width="1.7" stroke-dasharray="5 2.5"/></svg>cesta</span><span><svg viewBox="0 0 22 16"><path d="M3 12Q8 3 11 3Q14 3 19 12" fill="none" stroke="var(--ink)" stroke-width=".9"/></svg>vrch</span><span><svg viewBox="0 0 22 16"><path d="M11 1.5L17.5 8 11 14.5 4.5 8Z" fill="var(--paper)" stroke="var(--anom)" stroke-width="1.8"/></svg>anomálie</span></div>
     </div>
@@ -1343,7 +1346,7 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
     <p class="lyrh">Víra</p>
     <div class="controls" role="group" aria-label="Víra"><button type="button" data-sconf="all" aria-pressed="true">Vše</button><button type="button" data-sconf="kat" data-sfico="kat" aria-pressed="false">Katolíci</button><button type="button" data-sconf="pra" data-sfico="pra" aria-pressed="false">Pravoslavní</button><button type="button" data-sconf="isl" data-sfico="isl" aria-pressed="false">Islám</button><button type="button" data-sconf="mix" data-sfico="mix" aria-pressed="false">Smíšení</button></div>
     <p class="lyrh">Vrstvy</p>
-    <div class="controls" role="group" aria-label="Vrstvy"><button type="button" id="sHre" aria-pressed="true">Hranice Říše</button><button type="button" id="sFaith" aria-pressed="false">Vyznání</button><button type="button" id="sCities" aria-pressed="true">Města</button><button type="button" id="sRoutes" aria-pressed="false">Obchodní cesty</button><button type="button" id="sDraci" aria-pressed="false">Draci</button><button type="button" id="sParty" aria-pressed="true">Družina</button><button type="button" id="sRivers" aria-pressed="true">Řeky</button></div>
+    <div class="controls" role="group" aria-label="Vrstvy"><button type="button" id="sHre" aria-pressed="true">Hranice Říše</button><button type="button" id="sFaith" aria-pressed="false">Vyznání</button><button type="button" id="sCities" aria-pressed="true">Města</button><button type="button" id="sRoutes" aria-pressed="false">Obchodní cesty</button><button type="button" id="sDraci" aria-pressed="false">Draci</button><button type="button" id="sParty" aria-pressed="false">Družina</button><button type="button" id="sRivers" aria-pressed="true">Řeky</button></div>
     </div>
     <svg id="smap" viewBox="0 0 1024 790" role="img" aria-label="Mapa Evropy a Středomoří roku 1458 s hlavními mocnostmi"></svg>
     <div id="stip" class="stip" hidden></div>
@@ -1572,7 +1575,7 @@ const NBRS=[
  ["nba",[[[13.45,48.0],[13.2,47.95],[12.95,47.98],[12.847,47.985],[12.861,47.963],[12.93,47.924],[12.991,47.846],[12.926,47.777],[12.919,47.75],[12.894,47.723],[12.908,47.713],[12.966,47.705],[13.02,47.713],[13.045,47.696],[13.074,47.659],[13.074,47.622],[13.038,47.585],[13.041,47.561],[13.027,47.542],[13.038,47.493],[13.002,47.466],[12.969,47.475],[12.933,47.473],[12.829,47.537],[12.778,47.554],[12.775,47.58],[12.786,47.603],[12.814,47.612],[12.753,47.649],[12.76,47.667],[12.652,47.676],[12.598,47.662],[12.555,47.635],[12.498,47.629],[12.444,47.656],[12.426,47.691],[12.408,47.694],[12.35,47.681],[12.292,47.689],[12.238,47.679],[12.224,47.696],[12.238,47.716],[12.238,47.732],[12.177,47.706],[12.181,47.693],[12.206,47.672],[12.206,47.637],[12.174,47.605],[11.936,47.61],[11.853,47.6],[11.821,47.575],[11.619,47.59],[11.59,47.571],[11.576,47.537],[11.551,47.514],[11.482,47.502],[11.436,47.51],[11.414,47.505],[11.367,47.47],[11.389,47.461],[11.385,47.445],[11.306,47.436],[11.259,47.401],[11.238,47.394],[11.212,47.396],[11.216,47.423],[11.194,47.429],[11.083,47.389],[10.978,47.39],[10.964,47.396],[10.957,47.409],[10.964,47.421],[10.96,47.433],[10.91,47.468],[10.852,47.493],[10.892,47.515],[10.87,47.527],[10.831,47.529],[10.762,47.514],[10.741,47.529],[10.6,47.563],[10.6,48.99],[11.0,48.95],[11.15,49.1],[11.3,49.3],[11.3,49.45],[11.45,49.7],[11.7,49.85],[12.0,49.95],[12.244,50.048],[12.415,49.982],[12.451,49.981],[12.469,49.971],[12.472,49.955],[12.462,49.932],[12.519,49.912],[12.523,49.886],[12.483,49.827],[12.462,49.83],[12.454,49.78],[12.397,49.758],[12.382,49.743],[12.418,49.7],[12.498,49.67],[12.505,49.66],[12.498,49.635],[12.508,49.63],[12.501,49.619],[12.548,49.596],[12.562,49.55],[12.584,49.523],[12.624,49.51],[12.631,49.444],[12.645,49.43],[12.71,49.405],[12.728,49.391],[12.76,49.342],[12.778,49.332],[12.858,49.322],[12.876,49.324],[12.872,49.337],[12.886,49.339],[12.94,49.327],[13.002,49.295],[13.012,49.268],[13.149,49.155],[13.178,49.118],[13.207,49.108],[13.268,49.106],[13.3,49.094],[13.372,49.039],[13.383,49.022],[13.383,48.993],[13.398,48.978],[13.459,48.946],[13.484,48.937],[13.491,48.956],[13.516,48.971],[13.61,48.946],[13.61,48.927],[13.621,48.909],[13.653,48.881],[13.725,48.868],[13.815,48.767],[13.783,48.716],[13.815,48.696],[13.802,48.679],[13.82,48.48],[13.6,48.15]]]]
 ];
 const VB={all:[0,0,680,605],koruna:[60,35,560,445],cechy:[70,165,375,312],morava:[288,250,285,225],slezsko:[280,50,345,330],luzice:[145,30,205,190]};
-let st={zoom:"all",conf:"all",sel:null,city:null,focus:null,vb:null,roads:false,rings:false,holds:true,cities:true,dio:false,duchy:false,dom:false,party:true,measure:false,ta:null,tb:null};
+let st={zoom:"all",conf:"all",sel:null,city:null,focus:null,vb:null,roads:false,rings:false,holds:true,cities:true,dio:false,duchy:false,dom:false,party:false,measure:false,ta:null,tb:null};
 const svg=document.getElementById("map");
 const NS="http://www.w3.org/2000/svg";
 const el=(n,a,txt)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(txt!=null)e.textContent=txt;return e};
@@ -2929,7 +2932,7 @@ const PRAHA_TOWNS=[
 const PRAHA_PLACES=/*@PRAHA_PLACES@*/[];
 const PRB={}; PRAHA_PLACES.forEach(p=>PRB[p.n]=p);
 const prLinks=ps=>ps.map(q=>`<a class="prl" href="#praha/${q.n}"><span class="prn">${q.n}</span>${q.name}</a>`).join(", ");
-let PG=null, pst={sel:null,vb:null,conf:"all",kind:"all"};
+let PG=null, pst={sel:null,vb:null,conf:"all",kind:"all",party:false};
 const PKIND={dvur:"Dvory a domy",urad:"Obec a úřady",cirkev:"Církevní stavby",hospoda:"Hospody a lázně",anomalie:"Anomálie"};
 const pcolP=p=>p.k==="anomalie"?"var(--anom)":pcol(p.c);
 const pVis=p=>p.n===pst.sel||((pst.conf==="all"||p.c===pst.conf)&&(pst.kind==="all"||p.k===pst.kind));
@@ -3271,7 +3274,7 @@ function pDraw(){
     hovOn(g,()=>showHov(c.x,c.y,r+RR(10),`${n} míst · klepnutím přiblížit`));
     gm.appendChild(g)});
   /* praporec družiny */
-  {const zd=pParty();if(zd){const q=PRB[zd.druzina],v=vis.find(w=>w.p===q)||{x:q.pos[0],y:q.pos[1],r:5*k},m=1.15*k,x=v.x+v.r+3*k,y=v.y+2*k;
+  {const zd=pst.party&&pParty();if(zd){const q=PRB[zd.druzina],v=vis.find(w=>w.p===q)||{x:q.pos[0],y:q.pos[1],r:5*k},m=1.15*k,x=v.x+v.r+3*k,y=v.y+2*k;
     const g=el("g",{class:"partymk",tabindex:0,role:"link","aria-label":`Družina: ${q.name}. Otevřít zápis.`});
     g.appendChild(el("title",{},`Družina · ${q.name} · ${zd.date}`));
     g.appendChild(el("rect",{x:x-4*m,y:y-30*m,width:24*m,height:33*m,fill:"transparent"}));
@@ -3308,6 +3311,7 @@ function pDetail(){
 function pFilt(){document.querySelectorAll("#plist .plist button[data-pn]").forEach(b=>{const p=PRB[+b.dataset.pn];b.parentNode.hidden=!p||!pVis(p)});
   document.querySelectorAll("#plist .pgrp").forEach(g=>g.hidden=![...g.querySelectorAll("li")].some(l=>!l.hidden))}
 document.querySelectorAll("[data-pconf]").forEach(b=>b.addEventListener("click",()=>{pst.conf=b.dataset.pconf;document.querySelectorAll("[data-pconf]").forEach(x=>x.setAttribute("aria-pressed",x===b));if(PG){pDraw();pFilt()}}));
+document.getElementById("pParty").addEventListener("click",e=>{pst.party=!pst.party;e.currentTarget.setAttribute("aria-pressed",pst.party);if(PG)pDraw()});
 document.querySelectorAll("[data-pkind]").forEach(b=>b.addEventListener("click",()=>{pst.kind=b.dataset.pkind;document.querySelectorAll("[data-pkind]").forEach(x=>x.setAttribute("aria-pressed",x===b));if(PG){pDraw();pFilt()}}));
 function pSel(n,center){pst.sel=n;if(n&&center){const [x,y]=PRB[n].pos;const w=420,h=w*PAR;pst.vb=[Math.max(-100,Math.min(1100-w,x-w/2)),Math.max(-60,Math.min(1240-h,y-h/2)),w,h]}pDraw();pDetail();
   document.querySelectorAll(".plist button").forEach(b=>b.classList.toggle("on",+b.dataset.pn===n))}
@@ -3456,7 +3460,7 @@ function sHlavni(){if(SHL)return SHL;SHL=SHLAVNI.map(h=>{const pts=[];h.r.forEac
   return {...h,pts}}).filter(h=>h.pts.length>1);return SHL}
 const SVIRA={kat:"katolíci",pra:"pravoslavní",isl:"islám",mix:"smíšené vyznání",kal:"kališníci"};
 const SVIRAC={kat:"var(--kat)",pra:"var(--spra)",isl:"var(--sisl)",mix:"var(--mix)",kal:"var(--kal)"};
-let SG=null;const sst={vb:null,sel:null,hre:true,faith:false,cities:true,riv:true,conf:"all",routes:false,party:true,draci:false};
+let SG=null;const sst={vb:null,sel:null,hre:true,faith:false,cities:true,riv:true,conf:"all",routes:false,party:false,draci:false};
 const SM={on:false,a:null,b:null,path:null};
 const sDark=()=>{const t=document.documentElement.dataset.theme;return t==="dark"||(t!=="light"&&matchMedia("(prefers-color-scheme: dark)").matches)};
 const sConfOk=S=>sst.conf==="all"||(S&&(S.c===sst.conf||(sst.conf==="mix"&&S.c==="kal")));
