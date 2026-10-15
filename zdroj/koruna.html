@@ -1199,6 +1199,7 @@ details.spoiler[open]{padding-bottom:8px}
 @media (max-width:640px){.gmresmeta{grid-template-columns:1fr}.gmresmeta dd{margin-bottom:5px}}
 @media (max-width:820px){.artgrid.pgrid>.infobox{order:1}.pgrid .portr{max-width:min(280px,70vw);margin:0 auto}.pgrid .psilbig{margin:0 auto}}
 @media (max-width:700px){.herobox .herofig{order:2;margin-top:14px}.herobox .herofig img{width:min(210px,58vw)}}
+.sitenav a.navgm[hidden]{display:none!important}
 .sitenav a.navgm{display:inline-flex;align-items:center;gap:8px;align-self:center;padding:0;border:0;color:var(--ink);transition:transform .15s,filter .15s}
 .sitenav a.navgm:hover,.sitenav a.navgm.on{transform:rotate(-8deg) scale(1.06);filter:drop-shadow(0 2px 3px rgba(0,0,0,.3))}
 .navpecet{width:40px;height:40px;display:block}
@@ -1430,13 +1431,14 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
     <button type="button" class="navtoggle" id="navtoggle" aria-expanded="false" aria-controls="navlinks"><span class="navburger" aria-hidden="true"></span><span id="navcur">Úvod</span></button>
     <div class="navlinks" id="navlinks">
     <a href="#uvod" data-nav="uvod">Úvod</a>
-    <a href="#artikule" data-nav="artikule">Artikule</a>
+    <div class="navdd" id="navart"><a href="#artikule" class="ddtop" data-navgrp="artikule" aria-haspopup="true" aria-expanded="false">Artikule</a>
+      <div class="svitek"><div class="svlist" id="navartl"></div></div></div>
     <a href="#draconomicon" data-nav="draconomicon">Draconomicon</a>
     <div class="navdd" id="navkron"><a href="#kronika" class="ddtop" data-navgrp="kronika druzina" aria-haspopup="true" aria-expanded="false">Kronika</a>
-      <div class="svitek"><div class="svlist"><a href="#kronika">Zápisy tažení<small>ze sezení družiny</small></a><a href="#kronika/clanky">Články<small>o světě po protržení Závoje</small></a><a href="#kronika/letopis">Letopis<small>události Koruny a světa</small></a><a href="#druzina">Družina<small>hrdinové tažení a jejich Svědomí</small></a></div></div></div>
+      <div class="svitek"><div class="svlist"><a href="#kronika">Zápisy tažení<small>ze sezení družiny</small></a><a href="#kronika/clanky">Traktáty<small>o světě po protržení Závoje</small></a><a href="#kronika/letopis">Letopis<small>události Koruny a světa</small></a><a href="#druzina">Družina<small>hrdinové tažení a jejich Svědomí</small></a></div></div></div>
     <div class="navdd" id="navdesky"><a href="#desky" class="ddtop" data-navgrp="desky mapa praha svet" aria-haspopup="true" aria-expanded="false">Zemské desky</a>
-      <div class="svitek"><div class="svlist"><a href="#desky">Rody<small>panstvo, církev a města Koruny</small></a><a href="#desky/osoby">Osoby<small>koho družina poznala</small></a><a href="#desky/sousede">Sousedé<small>okolní země a jejich vládci</small></a><a href="#desky/vazby">Vazby a spory<small>krev, spojenectví a nepřátelství</small></a><span class="svsep" aria-hidden="true">Mapy</span><a href="#mapa">Země Koruny České<small>Čechy, Morava, Slezsko a Lužice</small></a><a href="#svet">Známý svět<small>Evropa a Středomoří</small></a><a href="#praha">Praha<small>čtyři města pražská</small></a></div></div></div>
-    <a href="#boj" data-nav="boj" id="navboj" hidden>Boj</a>
+      <div class="svitek"><div class="svlist"><span class="svsep" aria-hidden="true">Rody</span><a href="#desky">Země Koruny České<small>panstvo, církev a města Koruny</small></a><a href="#desky/sousede">Zahraniční rody<small>okolní země a jejich vládci</small></a><a href="#desky/vazby">Spory<small>krev, spojenectví a nepřátelství</small></a><span class="svsep" aria-hidden="true">Osoby</span><a href="#desky/osoby">Matriky<small>koho družina poznala</small></a><span class="svsep" aria-hidden="true">Mapy</span><a href="#mapa">Mapa Koruny České<small>Čechy, Morava, Slezsko a Lužice</small></a><a href="#svet">Známý svět<small>Evropa a Středomoří</small></a><a href="#praha">Praha<small>čtyři města pražská</small></a></div></div></div>
+    <a href="#boj" data-nav="boj" class="navgm navboj" id="navboj" title="Boj – iniciativa" aria-label="Boj" hidden><img class="navpecet" src="art/img/kostka.webp" alt="" width="40" height="40"><span class="navgmt">Boj</span></a>
     <div class="gsearch" role="search"><input type="search" id="gq" placeholder="Hledat v celé kronice…" aria-label="Hledat na celém webu" autocomplete="off"><ul class="gres" id="gres" hidden></ul></div>
     <a href="#gm" data-nav="gm" class="navgm" id="navgm" title="Vypravěč – přihlášení" aria-label="Vypravěč – přihlášení"><img class="navpecet" src="art/img/pecet.webp" alt="" width="40" height="40"><span class="navgmt">Vypravěč</span></a>
     </div>
@@ -1535,12 +1537,13 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
 <div class="view" data-view="desky" hidden>
   <div class="deskhead">
     <nav class="subnav" aria-label="Zemské desky">
-      <a href="#desky" data-sub="rody">Rody</a>
-      <a href="#desky/osoby" data-sub="osoby">Osoby</a>
-      <a href="#desky/sousede" data-sub="sousede">Sousedé</a>
-      <a href="#desky/vazby" data-sub="vazby">Vazby a spory</a>
+      <a href="#desky" data-sub="rody">Země Koruny České</a>
+      <a href="#desky/sousede" data-sub="sousede">Zahraniční rody</a>
+      <a href="#desky/vazby" data-sub="vazby">Spory</a>
       <span class="subsep" aria-hidden="true"></span>
-      <a href="#mapa" data-sub="mapa">Země Koruny</a>
+      <a href="#desky/osoby" data-sub="osoby">Matriky</a>
+      <span class="subsep" aria-hidden="true"></span>
+      <a href="#mapa" data-sub="mapa">Mapa Koruny</a>
       <a href="#svet" data-sub="svet">Známý svět</a>
       <a href="#praha" data-sub="praha">Praha</a>
     </nav>
@@ -1667,11 +1670,11 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
 </div>
 
 <div class="view" data-view="kronika" hidden>
-<nav class="subnav" aria-label="Kronika"><a href="#kronika" data-ksub="zapisy">Zápisy tažení</a><a href="#kronika/clanky" data-ksub="clanky">Články</a><a href="#kronika/letopis" data-ksub="letopis">Letopis</a><a href="#druzina" data-ksub="druzina">Družina</a></nav>
+<nav class="subnav" aria-label="Kronika"><a href="#kronika" data-ksub="zapisy">Zápisy tažení</a><a href="#kronika/clanky" data-ksub="clanky">Traktáty</a><a href="#kronika/letopis" data-ksub="letopis">Letopis</a><a href="#druzina" data-ksub="druzina">Družina</a></nav>
 <section class="sec" id="kzapisy"></section>
 <section class="sec" id="kclanky" hidden>
-  <p class="intro">Články o světě po protržení Závoje: o zemích, řádech, pověstech a tajemstvích.</p>
-  <div class="placeholder"><p>Články kroniky budou doplněny.</p></div>
+  <p class="intro">Traktáty o světě po protržení Závoje: o zemích, řádech, pověstech a tajemstvích.</p>
+  <div class="placeholder"><p>Traktáty budou doplněny.</p></div>
 </section>
 <section class="sec" id="letopis" hidden><h3 class="subh">Letopis</h3>
   <dl class="tl">
@@ -4654,7 +4657,7 @@ function navTo(h){if(location.hash!==h)history.pushState(null,"",h);route()}
 function maplinkBtn(f,sd){if(f.nomap){const c=SVETMESTA.find(x=>x[0]===sd[0]),w=c&&SVET.find(z=>z.s&&z.s.includes(sd[0]));return w?`<a href="#svet/${w.id}">${sd[0]}</a>`:sd[0]}return `<button type="button" class="maplink" data-id="${f.id}" data-place="${sd[0]}">${f.city&&CARMS[sd[0]]?`<img class="cmini" src="${CARMS[sd[0]]}" alt="">`:""}${sd[0]}</button>`}
 function renderRodArticle(id){
   const f=byId[id],rels=relsFor(id),ppl=peopleOf(id),art=document.getElementById("article");
-  art.innerHTML=`<nav class="crumbs"><a href="#desky">Zemské desky</a> › ${f.nbr?`<a href="#desky/sousede">Sousedé</a> › ${f.land}`:f.land} › <b>${f.name}</b></nav>
+  art.innerHTML=`<nav class="crumbs"><a href="#desky">Zemské desky</a> › ${f.nbr?`<a href="#desky/sousede">Zahraniční rody</a> › ${f.land}`:f.land} › <b>${f.name}</b></nav>
    <div class="artgrid"><div class="artmain">
      <h2 class="arttitle">${f.name}</h2>
      <p class="artlead">${f.head}</p>
@@ -4690,7 +4693,7 @@ function renderPersonArticle(pid){
   const p=PBY[pid],f=byId[p.r],art=document.getElementById("article");
   const sd=p.seat&&f.seats.find(x=>x[0]===p.seat);
   const kin=peopleOf(p.r).filter(q=>q.id!==pid);
-  art.innerHTML=`<nav class="crumbs"><a href="#desky">Zemské desky</a> › <a href="#desky/osoby">Osoby</a> › <b>${p.n}</b></nav>
+  art.innerHTML=`<nav class="crumbs"><a href="#desky">Zemské desky</a> › <a href="#desky/osoby">Matriky</a> › <b>${p.n}</b></nav>
    <div class="artgrid pgrid"><div class="artmain">
      <h2 class="arttitle">${p.n}</h2>
      <p class="artlead">${p.role}</p>
@@ -4724,6 +4727,7 @@ function renderOsoby(){
   box.innerHTML=groups.map(([L,fn])=>{const ps=PEOPLE.filter(p=>fn(byId[p.r])).sort((a,b)=>PORTR.has(b.id)-PORTR.has(a.id));if(!ps.length)return"";
     return `<div class="land-sec"><h3 class="landh">${L.toUpperCase()}</h3><div class="pcards">${ps.map(p=>`<a class="pcard hasp${PORTR.has(p.id)?"":" nop"}" href="#osoba/${p.id}">${pThumb(p)}<span class="pct"><b>${p.n}</b><span>${p.role}</span><small>${byId[p.r].name}</small></span></a>`).join("")}</div></div>`}).join("")||`<div class="placeholder"><p>Družina zatím nikoho z panstva nepotkala ani o nikom neslyšela.</p></div>`;
 }
+{const l=document.getElementById("navartl");if(l)l.innerHTML=ARTB.map(b=>`<span class="svsep" aria-hidden="true">${b.n}</span>`+ARTK.filter(k=>k.book===b.id).map(k=>`<a href="#artikule/${k.id}">${k.t}</a>`).join("")).join("")}
 document.querySelectorAll(".navdd").forEach(dd=>{const top=dd.querySelector(".ddtop");
  top.addEventListener("click",e=>{if(matchMedia("(hover: none)").matches&&!matchMedia("(max-width:640px)").matches&&!dd.classList.contains("open")){e.preventDefault();document.querySelectorAll(".navdd.open").forEach(o=>{o.classList.remove("open");o.querySelector(".ddtop").setAttribute("aria-expanded","false")});dd.classList.add("open");top.setAttribute("aria-expanded","true")}});
  document.addEventListener("click",e=>{if(!dd.contains(e.target)){dd.classList.remove("open");top.setAttribute("aria-expanded","false")}});
@@ -4737,7 +4741,7 @@ document.querySelectorAll(".navdd").forEach(dd=>{const top=dd.querySelector(".dd
 {const dn=document.querySelector('[data-view="desky"] .deskhead .subnav');document.querySelectorAll(".dhkopie").forEach(x=>x.appendChild(dn.cloneNode(true)));
  const kn=document.querySelector('[data-view="kronika"]>.subnav');document.querySelectorAll(".khkopie").forEach(x=>x.replaceWith(kn.cloneNode(true)));}
 /* zvýraznění položek v rozbalovacích nabídkách podle aktivní podnabídky */
-function navSync(){const on=new Set([...document.querySelectorAll('.view:not([hidden]) .subnav a.on')].map(a=>a.getAttribute("href")));
+function navSync(){const on=new Set([...document.querySelectorAll('.view:not([hidden]) .subnav a.on, .view:not([hidden]) #artside a.on')].map(a=>a.getAttribute("href")));
   document.querySelectorAll(".svlist a").forEach(a=>a.classList.toggle("on",on.has(a.getAttribute("href"))))}
 /* panely Vrstvy na mapách */
 document.querySelectorAll(".lyrbtn").forEach(b=>{const p=document.getElementById(b.getAttribute("aria-controls"));
