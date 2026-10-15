@@ -1540,10 +1540,19 @@ html::before{background:
   var(--pozadi)}
 /* bez bočních přezek kodexu */
 .wrap::before{display:none!important}
+
+/* ===== postavy z iluminace Roztržení Závoje stojí na liště vedle loga (jen úvod, široké obrazovky) ===== */
+header.site{position:relative;container-type:inline-size}
+.frez{display:none;position:absolute;bottom:-1px;height:auto;pointer-events:none;user-select:none;filter:drop-shadow(0 3px 3px rgba(40,15,5,.35))}
+.frez-r{right:6px;width:min(381px,calc(50cqw - 232px))}
+.frez-l{left:6px;width:calc(min(381px,calc(50cqw - 232px)) * 684 / 762)}
+body.home .frez{display:block}
+@container (max-width:900px){.frez{display:none!important}}
 </style>
 
 <div class="wrap"><div class="papir" aria-hidden="true"></div>
 <header class="site">
+  <img class="frez frez-l" src="art/img/postavy-vlevo.webp" alt="" aria-hidden="true" width="684" height="300"><img class="frez frez-r" src="art/img/postavy-vpravo.webp" alt="" aria-hidden="true" width="762" height="300">
   <a href="#uvod" class="logo"><h1><img class="lg-l" src="art/img/logo.webp" alt="Mundus Mutatus" width="1200" height="391"><img class="lg-d" src="art/img/logo-tma.webp" alt="Mundus Mutatus" width="1200" height="391"></h1></a>
 </header>
   <nav class="sitenav" id="sitenav" aria-label="Hlavní navigace">
