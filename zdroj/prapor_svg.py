@@ -5,7 +5,8 @@ INK="#2e1a0c"; RED="#a8262c"; RED2="#8c1d23"; RED3="#c0363a"; G="#d9a93f"; G2="#
 W=414; FL,FR=66.5,347.5-12  # okraje látky
 FR=335.5; CX=201
 BL=(72,92); BR=(2*201-92,2*201-72)   # zlaté linky bordur (vlevo, vpravo)
-P=60  # perioda bordury
+P=60  # výška opakované dlaždice
+BORDURA=False  # zlaté postranní bordury (úponka s trojlístky); vypnuto na přání
 
 def fabric_shading(y0,y1):
   # ploché svislé záhyby
@@ -18,6 +19,7 @@ def vine(c,y):
   return f'<path d="M{c},{y}C{c+8},{y+P*.18} {c+8},{y+P*.32} {c},{y+P*.5}S{c-8},{y+P*.82} {c},{y+P}" fill="none" stroke="{G}" stroke-width="1.6"/>'
 def border_seg(y,band=False):
   s=""
+  if not BORDURA: return s
   for a,b in (BL,BR):
     c=(a+b)/2
     if band: s+=f'<rect x="{a-2}" y="{y-2}" width="{b-a+4}" height="4" fill="{G}" stroke="{INK}" stroke-width=".6"/>'
@@ -29,6 +31,7 @@ def border_seg(y,band=False):
   return s
 
 def border_lines(y0,y1):
+  if not BORDURA: return ""
   d="".join(f"M{x},{y0}V{y1}" for x in BL+BR)
   return f'<path d="{d}" stroke="{INK}" stroke-width="3.6"/><path d="{d}" stroke="{G}" stroke-width="2.4"/>'
 
@@ -60,7 +63,7 @@ def horni():
   # bordura: linky začínají růžicí
   s+=border_lines(52,90)
   s+=f'<clipPath id="hc"><rect x="0" y="54" width="{W}" height="40"/></clipPath><g clip-path="url(#hc)">'+border_seg(30)+'</g>'
-  for a,b in (BL,BR):
+  for a,b in ((BL,BR) if BORDURA else ()):
     s+=f'<rect x="{a-2}" y="50" width="{b-a+4}" height="4" fill="{G}" stroke="{INK}" stroke-width=".6"/>'
   s+=f'<path d="M{FL},38V90M{FR},38V90" stroke="{INK}" stroke-width="1.6"/>'
   s+=f'<path d="M{FL},38H{FR}" stroke="{INK}" stroke-width="1.4"/>'
