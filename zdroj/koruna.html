@@ -3078,11 +3078,16 @@ function pDraw(){
    const g=G({filter:"url(#pwob)"}),m=el("g",{transform:`matrix(${ux.toFixed(5)},${uy.toFixed(5)},${(-uy).toFixed(5)},${ux.toFixed(5)},${a[0]},${a[1]})`});g.appendChild(m);
    const hw=3.5,N=16,sp=L/N,pw=1.3,fh=4.6;let ice="",face=`M0,${hw}H${L.toFixed(1)}V${hw+fh}H0Z`,arch="",pier="";
    for(let i=1;i<N;i++){const x=i*sp;ice+=`M${(x-pw).toFixed(2)},${-hw}L${x.toFixed(2)},${-hw-2.5}L${(x+pw).toFixed(2)},${-hw}Z`}
-   for(let i=0;i<N;i++){const x0=i*sp+(i?pw:0),x1=(i+1)*sp-(i<N-1?pw:0),r=(x1-x0)/2;
-     arch+=`M${x0.toFixed(2)},${hw+fh}V${(hw+fh-.6).toFixed(2)}A${r.toFixed(2)},${(fh-1.1).toFixed(2)} 0 0 1 ${x1.toFixed(2)},${(hw+fh-.6).toFixed(2)}V${hw+fh}Z`}
+   /* oblouk nad vodou má pod sebou vodu, nad břehem zem */
+   const inR=(x,y)=>{let ins=false;PG.river.forEach(p=>p.forEach(r=>{for(let i=0,j=r.length-1;i<r.length;j=i++){const [xi,yi]=r[i],[xj,yj]=r[j];if(((yi>y)!==(yj>y))&&(x<(xj-xi)*(y-yi)/(yj-yi)+xi))ins=!ins}}));return ins};
+   let archL="";
+   for(let i=0;i<N;i++){const x0=i*sp+(i?pw:0),x1=(i+1)*sp-(i<N-1?pw:0),r=(x1-x0)/2,xm=(x0+x1)/2,yy=hw+fh*.7;
+     const pth=`M${x0.toFixed(2)},${hw+fh}V${(hw+fh-.6).toFixed(2)}A${r.toFixed(2)},${(fh-1.1).toFixed(2)} 0 0 1 ${x1.toFixed(2)},${(hw+fh-.6).toFixed(2)}V${hw+fh}Z`;
+     if(inR(a[0]+ux*xm-uy*yy,a[1]+uy*xm+ux*yy))arch+=pth;else archL+=pth}
    m.appendChild(el("path",{d:ice,fill:"var(--paper)",stroke:"var(--ink)","stroke-width":".6","stroke-linejoin":"round"}));
    m.appendChild(el("path",{d:face,fill:"var(--paper)",stroke:"var(--ink)","stroke-width":".7"}));
    m.appendChild(el("path",{d:arch,fill:"var(--water)","fill-opacity":".7",stroke:"var(--ink)","stroke-width":".45"}));
+   m.appendChild(el("path",{d:archL,fill:"var(--land)",stroke:"var(--ink)","stroke-width":".45"}));
    m.appendChild(el("rect",{x:0,y:-hw,width:L.toFixed(1),height:2*hw,fill:"var(--ink)"}));
    m.appendChild(el("rect",{x:0,y:-hw+1.4,width:L.toFixed(1),height:2*hw-2.8,fill:"var(--paper)"}));
    let d="";for(let i=1;i<12;i++){const x=L*i/12;d+=`M${x.toFixed(1)},${-hw+.1}V${hw-.1}`}
