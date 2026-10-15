@@ -1447,6 +1447,28 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
   .brows .bsr .bpoc{grid-area:p}
   .brows .bsr:has([name=nn]) .bx{grid-area:x}
 }
+/* ===== hlavní lišta: vínová kůže se zlatými linkami jako rozbalovací nabídky a obsah Artikulí ===== */
+.sitenav{--lt:#f4e6c4;--lth:#f6d27a;background:linear-gradient(180deg,color-mix(in srgb,var(--kuze) 88%,#000) 0%,var(--kuze) 30%,var(--kuze2) 100%)!important;border:1px solid rgba(20,3,6,.85);border-radius:3px;
+  box-shadow:inset 0 0 0 4px var(--kuze),inset 0 0 0 5px var(--zlato-linka),inset 0 0 0 7px var(--kuze),inset 0 0 0 8px rgba(214,170,90,.28),0 8px 18px -12px rgba(20,5,5,.6)!important;padding:12px 14px}
+.sitenav a,.sitenav a.navgm{color:var(--lt);text-shadow:0 1px 0 rgba(0,0,0,.45)}
+.sitenav a:hover{color:var(--lth)}
+.sitenav a.on,.sitenav .ddtop.on{color:var(--lth);border-bottom-color:#d9a93f}
+.sitenav .navmark .lg-d{display:none!important}.sitenav .navmark .lg-l{display:block!important}
+.sitenav .navmark.navmark{background:#efe3c6!important;border-radius:2px;box-shadow:0 0 0 1px rgba(214,170,90,.6),0 1px 3px rgba(0,0,0,.4)}.sitenav .navmark img{padding:2px 6px}
+.sitenav .gsearch input{background:rgba(0,0,0,.22);color:var(--lt);border-color:rgba(214,170,90,.55)}
+.sitenav .gsearch input::placeholder{color:rgba(232,200,140,.6)}
+.sitenav .gsearch input:focus{outline:2px solid rgba(214,170,90,.7);outline-offset:1px}
+.sitenav .navpecet{filter:drop-shadow(0 0 1px rgba(246,220,160,.55)) drop-shadow(0 1px 2px rgba(0,0,0,.5))}
+.sitenav .navtoggle{color:var(--lth);border-color:rgba(214,170,90,.55)}
+.sitenav .navburger,.sitenav .navburger::before,.sitenav .navburger::after{background:var(--lt)}
+@media (max-width:640px){
+  .sitenav{border-radius:0;padding:8px 12px}
+  .navlinks{flex-wrap:nowrap!important}
+  .navlinks{background:linear-gradient(180deg,var(--kuze),var(--kuze2))!important;border-color:rgba(20,3,6,.85)!important;box-shadow:inset 0 0 0 3px var(--kuze),inset 0 0 0 4px var(--zlato-linka),0 10px 18px -10px rgba(0,0,0,.5)!important}
+  .navlinks>a,.navlinks .ddtop{border-bottom-color:rgba(214,170,90,.25)!important}
+  .navlinks .navdd .svlist a{color:var(--lt)!important}.navlinks .navdd .svlist a.on,.navlinks .navdd .svlist a:hover{color:var(--lth)!important}
+  .navlinks .navdd .svsep{color:rgba(232,200,140,.7)}
+}
 </style>
 
 <div class="wrap"><div class="papir" aria-hidden="true"></div>
@@ -3154,9 +3176,7 @@ function artLanding(){
    <p class="alead">K přečtení jsou zde pravidla a mechaniky pro kampaň <i>Mundus Mutatus: Sub Utraque Sunt Dracones</i>. Základ vychází z pravidel D&amp;D 2024, je však upraven a doplněn tak, aby vytvořil temný a nebezpečný středověký svět, v němž o duše postav svádějí souboj Bůh a ďábel.</p>
    <img class="orn drak" src="${AIMG}drak.webp" alt="" aria-hidden="true">
    <h3 class="abh">Ve zkratce</h3>${quick}
-   <h3 class="abh">Obsah</h3>
-   <nav class="atocbk" aria-label="Obsah Artikulí">${ARTB.map(b=>`<section class="abk"><h4 class="tbk">${b.t} · <span>${b.n}</span></h4><p class="tbd">${b.d}</p><ol class="tch">${
-     ARTK.filter(k=>k.book===b.id).map(k=>`<li><a href="#artikule/${k.id}"><span class="tnum">${ROM(ARTK.indexOf(k)+1)}.</span><span class="tti">${k.t}</span><span class="tdots" aria-hidden="true"></span><span class="tsec">${k.secs.length} ${k.secs.length===1?"hlava":k.secs.length<5?"hlavy":"hlav"}</span><span class="tsum">${k.sum}</span></a></li>`).join("")}</ol></section>`).join("")}</nav>`;
+`;
 }
 function artChapter(k){
   const i=ARTK.indexOf(k),pv=ARTK[i-1],nx=ARTK[i+1],b=ARTB.find(x=>x.id===k.book);
