@@ -6071,6 +6071,11 @@ function vyOprav(m){if(curView!=="vyprava"||!VY||VY.mapa!==m)return;const z=VY.z
     VY.do=st.tb?{name:st.tb.name,lo:st.tb.lo,la:st.tb.la}:null}
   if(m==="svet"){if(!z&&SM.a)VY.z=SM.a;else if(z&&(!SM.a||SM.a.name!==z.name||SM.a.ll+""!==z.ll+"")){if(SM.a&&!SM.b)SM.b=SM.a;SM.a=z}VY.do=SM.b||null}
   if(m==="praha"){if(!z&&PM.a)VY.z=PM.a;else if(z&&(!PM.a||PM.a.pt+""!==z.pt+"")){if(PM.a&&!PM.b)PM.b=PM.a;PM.a=z;PM.path=PM.b&&PG?pmRoute(PM.a.pt,PM.b.pt):null}VY.do=PM.b||null}}
+/* let na drakovi: na mapě i ve výpočtu vzdušnou čarou */
+const vyDrakem=()=>curView==="vyprava"&&VY&&VY.zp==="drak";
+{const _ur=updateRoute;updateRoute=function(){_ur.apply(this,arguments);if(vyDrakem()&&st.route&&st.ta&&st.tb){const a=[st.ta.lo,st.ta.la],b=[st.tb.lo,st.tb.la],air=Math.round(haversine(a,b));
+  st.route=Object.assign({},st.route,{coords:[a,b],km:air,roadKm:0,offKm:air,eff:air,names:[st.ta.name,st.tb.name],_drak:true})}}}
+{const _sr=smRender;smRender=function(){_sr.apply(this,arguments);if(vyDrakem()&&SM.a&&SM.b){SM.path=[{ll:SM.a.ll,sea:false},{ll:SM.b.ll,sea:false}];SM._drak=true}else SM._drak=false}}
 {const _rt=renderTravel;renderTravel=function(){vyOprav("koruna");_rt.apply(this,arguments);vyPoTrase("koruna")};
  const _sm=smRender;smRender=function(){vyOprav("svet");_sm.apply(this,arguments);vyPoTrase("svet")};
  const _pm=pmRender;pmRender=function(){vyOprav("praha");_pm.apply(this,arguments);vyPoTrase("praha")};
@@ -6090,7 +6095,7 @@ function vyMapaZapni(){const m=VY.mapa;
       document.getElementById("pmap").classList.add("measuring");document.getElementById("ptravel").hidden=false;
       if(!VY.z)VY.z=vyPuvod("praha");if(VY.z){PM.a=VY.z;PM.b=VY.do||null;PM.path=PM.b?pmRoute(PM.a.pt,PM.b.pt):null}pmRender();pDraw()};go()}}
 const VY_BOXY={svet:"smapbox",koruna:"kmapbox",praha:"pmapbox"};
-function vyVrat(view){if(view==="vyprava")return;Object.values(VY_BOXY).forEach(id=>{const b=document.getElementById(id),h=document.getElementById(id+"-domov");if(b&&h&&b.previousElementSibling!==h)h.after(b)})}
+function vyVrat(view){if(view==="vyprava")return;if(st.route&&st.route._drak){updateRoute();renderTravel()}if(SM._drak&&SG)smRender();Object.values(VY_BOXY).forEach(id=>{const b=document.getElementById(id),h=document.getElementById(id+"-domov");if(b&&h&&b.previousElementSibling!==h)h.after(b)})}
 function vyVlozMapu(){const slot=document.getElementById("vyslot");if(!slot)return;const id=VY_BOXY[VY.mapa];
   Object.entries(VY_BOXY).forEach(([m,bid])=>{if(m!==VY.mapa){const b=document.getElementById(bid),h=document.getElementById(bid+"-domov");if(b&&h&&b.previousElementSibling!==h)h.after(b)}});
   const b=document.getElementById(id);if(b&&b.parentNode!==slot)slot.appendChild(b)}
@@ -6331,6 +6336,7 @@ document.addEventListener("change",e=>{const t=e.target;if(curView!=="vyprava"||
   if(["pocasiV","teren"].includes(f)){VY[f]=v===""?null:Math.max(1,Math.min(10,+v));vyZmena();return}
   if(["nepritel","zdrz","odch"].includes(f)){VY[f]=+v||0;if(f==="odch"&&!VY[f])VY[f]=1;vyZmena();return}
   if(f==="rychle"){VY.rychle=v;VY.rychleK=null}else VY[f]=v;
+  if(f==="zp"){if(VY.mapa==="koruna"){updateRoute();renderTravel();drawMap()}else if(VY.mapa==="svet"&&SG){smRender();sDraw()}}
   vyZmena()});
 document.addEventListener("input",e=>{const t=e.target;if(curView!=="vyprava"||!VY||!t.closest("#vyview"))return;
   if(t.dataset.vyd==="n"){VY.druzina[+t.closest("[data-vyi]").dataset.vyi].n=t.value;vyUloz()}
