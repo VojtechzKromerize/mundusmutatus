@@ -3072,10 +3072,10 @@ function pDraw(){
    g.appendChild(el("path",{d,fill:"none",stroke:"var(--paper)","stroke-width":(.9*k).toFixed(2),"stroke-dasharray":`${2*k} ${2.4*k}`}));
    let acc=0,td="";for(let i=1;i<r.length;i++){const a=r[i-1],b=r[i];acc+=Math.hypot(b[0]-a[0],b[1]-a[1]);if(acc>38){acc=0;const z=2.5*k;td+=`M${(b[0]-z).toFixed(1)},${(b[1]-z).toFixed(1)}h${2*z}v${2*z}h${-2*z}Z`}}
    g.appendChild(el("path",{d:td,fill:"var(--paper)",stroke:"var(--ink)","stroke-width":(1*k).toFixed(2)}))}
-  /* Kamenný most: kresba podél linie mostu – po proudu (na sever, Vltava tu teče k severu) řada oblouků, proti proudu ledolamy u pilířů */
+  /* Kamenný most: kresba podél linie mostu – pod mostovkou (k jihu) řada oblouků jako při pohledu z boku, na protější straně ledolamy u pilířů */
   {const [a,b]=PG.bridge,L=Math.hypot(b[0]-a[0],b[1]-a[1]),ux=(b[0]-a[0])/L,uy=(b[1]-a[1])/L;
-   /* místní souřadnice: x podél mostu od malostranského konce, y kolmo k severu (po proudu) */
-   const g=G({filter:"url(#pwob)"}),m=el("g",{transform:`matrix(${ux.toFixed(5)},${uy.toFixed(5)},${uy.toFixed(5)},${(-ux).toFixed(5)},${a[0]},${a[1]})`});g.appendChild(m);
+   /* místní souřadnice: x podél mostu od malostranského konce, y kolmo k jihu */
+   const g=G({filter:"url(#pwob)"}),m=el("g",{transform:`matrix(${ux.toFixed(5)},${uy.toFixed(5)},${(-uy).toFixed(5)},${ux.toFixed(5)},${a[0]},${a[1]})`});g.appendChild(m);
    const hw=3.5,N=16,sp=L/N,pw=1.3,fh=4.6;let ice="",face=`M0,${hw}H${L.toFixed(1)}V${hw+fh}H0Z`,arch="",pier="";
    for(let i=1;i<N;i++){const x=i*sp;ice+=`M${(x-pw).toFixed(2)},${-hw}L${x.toFixed(2)},${-hw-2.5}L${(x+pw).toFixed(2)},${-hw}Z`}
    for(let i=0;i<N;i++){const x0=i*sp+(i?pw:0),x1=(i+1)*sp-(i<N-1?pw:0),r=(x1-x0)/2;
