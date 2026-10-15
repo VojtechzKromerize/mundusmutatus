@@ -4,7 +4,7 @@ druh: cirkev
 mesto: stare
 nazev: Týnský chrám
 vyznani: kal
-rod: mes
+rod: duch
 osoba: rokycana
 poloha: 700.7, 261.3
 ---

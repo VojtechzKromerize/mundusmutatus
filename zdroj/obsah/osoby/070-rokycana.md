@@ -1,7 +1,7 @@
 ---
 id: rokycana
 jmeno: Jan Rokycana
-rod: mes
+rod: duch
 role: zvolený arcibiskup kališníků
 sidlo: Praha
 ---

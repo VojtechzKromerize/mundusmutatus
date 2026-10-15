@@ -619,6 +619,7 @@ a.pchar:hover{border-color:var(--kal)}
 /* portréty */
 .portr{display:block;line-height:0;border:1px solid var(--rule);box-shadow:0 3px 10px rgba(0,0,0,.18)}
 .portr img{width:100%;height:auto;display:block}
+.psilbig{width:150px;height:150px;align-self:center;filter:drop-shadow(0 3px 6px rgba(40,25,10,.3))}
 .pcard.hasp{flex-direction:row;align-items:center;gap:12px}
 .pcard .pct{display:flex;flex-direction:column;gap:2px;min-width:0}
 .pthumb{width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid var(--gold);flex:none}
@@ -792,7 +793,7 @@ body{background:transparent}
 .pcard{border-color:color-mix(in srgb,var(--gold) 40%,var(--rule));box-shadow:inset 0 0 0 3px var(--paper),inset 0 0 0 4px color-mix(in srgb,var(--rule) 70%,transparent);padding:12px 14px;transition:transform .15s,border-color .15s}
 .pcard:hover{border-color:var(--gold);transform:translateY(-1px)}
 .pthumb{width:72px;height:72px;border:2px solid var(--gold);box-shadow:0 0 0 3px var(--paper),0 0 0 4px color-mix(in srgb,var(--gold) 50%,var(--rule))}
-.psil{background:radial-gradient(circle at 50% 40%,color-mix(in srgb,var(--paper) 85%,var(--gold)),color-mix(in srgb,var(--bg) 80%,var(--gold)));fill:color-mix(in srgb,var(--muted) 75%,var(--bg));padding:4px 4px 0}
+.pthumb.psil{border:0;box-shadow:0 2px 5px rgba(40,25,10,.25);padding:0;background:none}
 .pcard.nop b{font-weight:600}
 /* 7. článek rodu: vazby jako rubriky, erb na podstavci */
 .relrub{gap:14px}
@@ -947,7 +948,7 @@ body{background:transparent}
   <p class="intro">Panské rody, církevní vrchnosti, údělná knížectví a města, která mají v Koruně politickou váhu. Řazeno podle zemí.</p>
   <div class="dtools">
     <div class="controls" role="group" aria-label="Vyznání"><button type="button" data-fconf="all" aria-pressed="true">Vše</button><button type="button" data-fconf="kat" aria-pressed="false" data-fico="kat">Katolíci</button><button type="button" data-fconf="kal" aria-pressed="false" data-fico="kal">Kališníci</button><button type="button" data-fconf="mix" aria-pressed="false" data-fico="mix">Smíšení</button></div>
-    <div class="controls" role="group" aria-label="Země"><button type="button" data-fland="all" aria-pressed="true">Všechny země</button><button type="button" data-fland="Čechy" aria-pressed="false">Čechy</button><button type="button" data-fland="Morava" aria-pressed="false">Morava</button><button type="button" data-fland="Slezsko" aria-pressed="false">Slezsko</button><button type="button" data-fland="Lužice" aria-pressed="false">Lužice</button><button type="button" data-fland="Královská města" aria-pressed="false">Města</button></div>
+    <div class="controls" role="group" aria-label="Země"><button type="button" data-fland="all" aria-pressed="true">Všechny země</button><button type="button" data-fland="Čechy" aria-pressed="false">Čechy</button><button type="button" data-fland="Morava" aria-pressed="false">Morava</button><button type="button" data-fland="Slezsko" aria-pressed="false">Slezsko</button><button type="button" data-fland="Lužice" aria-pressed="false">Lužice</button><button type="button" data-fland="Královská města" aria-pressed="false">Města</button><button type="button" data-fland="Duchovenstvo" aria-pressed="false">Duchovenstvo</button></div>
     <input type="search" id="dfilt" placeholder="Filtrovat podle jména, sídla…" aria-label="Filtrovat rody" autocomplete="off">
     <div class="controls dview" role="group" aria-label="Zobrazení"><button type="button" data-dview="cards" aria-pressed="true">Karty</button><button type="button" data-dview="list" aria-pressed="false">Seznam</button></div>
     <span class="dcount" id="dcount" aria-live="polite"></span>
@@ -1795,13 +1796,13 @@ function buildCards(container,lands,nbr){
     sec.appendChild(grid); container.appendChild(sec); if(og.children.length)fs.appendChild(og);
   }
 }
-buildCards(document.getElementById("cardlands"),["Čechy","Morava","Slezsko","Lužice","Královská města"],false);
+buildCards(document.getElementById("cardlands"),["Čechy","Morava","Slezsko","Lužice","Královská města","Duchovenstvo"],false);
 /* desky: filters + list view */
 const DF={conf:"all",land:"all",q:"",view:"cards"};
 try{const v=localStorage.getItem("mm-dview");if(v==="list"||v==="cards")DF.view=v}catch(e){}
 function deskList(){
   const box=document.getElementById("desklist"); if(box.dataset.done)return; box.dataset.done=1;
-  const LANDS_K=["Čechy","Morava","Slezsko","Lužice","Královská města"];
+  const LANDS_K=["Čechy","Morava","Slezsko","Lužice","Královská města","Duchovenstvo"];
   const rows=FAM.filter(f=>!f.nbr).sort((a,b)=>LANDS_K.indexOf(a.land)-LANDS_K.indexOf(b.land));
   box.innerHTML=`<div class="rtw"><table class="rtab dlist"><thead><tr><th scope="col">Rod</th><th scope="col">Země</th><th scope="col">V čele</th><th scope="col">Vyznání</th><th scope="col">K Jiřímu</th></tr></thead><tbody>${
     rows.map(f=>`<tr data-id="${f.id}" data-fc="${f.conf}" data-fl="${f.land}" data-txt="${_nrm(f.name+" "+(SHORT[f.id]||"")+" "+f.head+" "+f.seats.map(s=>s[0]).join(" ")+" "+f.stance).replace(/"/g,"")}"><th scope="row" data-l="Rod"><a href="#rod/${f.id}">${ARMS[f.id]?armsImg(f,"armlist"):shield0(f)}<span>${f.name}</span></a></th><td data-l="Země">${f.land}</td><td data-l="V čele">${f.head}</td><td data-l="Vyznání">${faith(f.conf)}</td><td data-l="K Jiřímu">${f.stance}</td></tr>`).join("")}</tbody></table></div>`;
@@ -3576,11 +3577,13 @@ function renderRodArticle(id){
    </aside></div>`;
 }
 const PORTR=new Set(/*@PORTR@*/[]);
-const SIL={m:'<path d="M30 36c0-13 9-21 20-21s20 8 20 21z"/><path d="M25 34h50v6H25z"/><circle cx="50" cy="50" r="15"/><path d="M6 100c2-21 19-34 44-34s42 13 44 34z"/>',
- f:'<path d="M50 13c-15 0-24 11-24 26 0 13 2 23 3 31-6 3-10 6-12 9 9-2 20-3 33-3s24 1 33 3c-2-3-6-6-12-9 1-8 3-18 3-31 0-15-9-26-24-26z"/><path d="M16 100c3-17 16-27 34-27s31 10 34 27z"/>',
- c:'<path d="M50 6l-16 13v18h32V19z"/><circle cx="50" cy="50" r="14"/><path d="M6 100c2-21 19-34 44-34s42 13 44 34z"/><path d="M46.5 74h7v26h-7z" fill="var(--paper)"/><path d="M39 81h22v6H39z" fill="var(--paper)"/>'};
-const silKind=p=>/biskup|arcibiskup|kněz|kanovník|probošt|opat|kazatel|administrátor|papež|kardinál|mnich|řeholník|farář/i.test(p.role||"")?"c":/manželka|dcera|vdova|sestra|matka|paní |kněžna|abatyše|choť|vévodkyně|královna|hraběnka/i.test(p.role||"")?"f":"m";
-const pThumb=(p,cls)=>PORTR.has(p.id)?`<img class="${cls||"pthumb"}" src="art/portrety/${p.id}-m.webp" alt="" loading="lazy">`:`<svg class="${cls||"pthumb"} psil" viewBox="0 0 100 100" aria-hidden="true">${SIL[silKind(p)]}</svg>`;
+const silKind=p=>{const r=p.role||"",f=byId[p.r]||{};
+  if(/biskup|arcibiskup|kněz|kanovník|probošt|opat|kazatel|administrátor|papež|kardinál|mnich|řeholník|farář|děkan|teolog/i.test(r))return"cirkev";
+  if(/manželka|dcera|vdova|sestra|matka|paní |kněžna|abatyše|choť|vévodkyně|královna|hraběnka|chotí/i.test(r))return"pani";
+  if(f.city||/měšťan|purkmistr|konšel|primas|rychtář|kupec|myslitel|spisovatel|písař|mistr univerzity/i.test(r))return"mestan";
+  if(/rytíř|hejtman|vojevůdce|žoldnéř|bratřík|kapitán|purkrabí|vladyka|zeman|velitel/i.test(r))return"rytir";
+  return"pan"};
+const pThumb=(p,cls)=>PORTR.has(p.id)?`<img class="${cls||"pthumb"}" src="art/portrety/${p.id}-m.webp" alt="" loading="lazy">`:`<img class="${cls||"pthumb"} psil" src="art/img/silueta-${silKind(p)}.webp" alt="" loading="lazy">`;
 function renderPersonArticle(pid){
   const p=PBY[pid],f=byId[p.r],art=document.getElementById("article");
   const sd=p.seat&&f.seats.find(x=>x[0]===p.seat);
@@ -3593,7 +3596,7 @@ function renderPersonArticle(pid){
      ${kin.length?`<h3>Z téhož rodu či dvora</h3><p>${kin.map(plinkP).join(", ")}</p>`:""}
    </div>
    <aside class="infobox">
-     ${PORTR.has(pid)?`<a class="portr" href="art/portrety/${pid}.webp" target="_blank" rel="noopener" title="Otevřít portrét v plné velikosti"><img src="art/portrety/${pid}.webp" alt="Portrét: ${p.n}" width="600" height="1500"></a>`:""}
+     ${PORTR.has(pid)?`<a class="portr" href="art/portrety/${pid}.webp" target="_blank" rel="noopener" title="Otevřít portrét v plné velikosti"><img src="art/portrety/${pid}.webp" alt="Portrét: ${p.n}" width="600" height="1500"></a>`:`<img class="psilbig" src="art/img/silueta-${silKind(p)}.webp" alt="" width="160" height="160">`}
      <dl class="kv"><dt>Rod</dt><dd><a href="#rod/${f.id}">${f.name}</a></dd>
      <dt>Postavení</dt><dd>${p.role}</dd>
      ${sd?`<dt>Sídlo</dt><dd>${maplinkBtn(f,sd)}</dd>`:""}
@@ -3603,7 +3606,7 @@ function renderPersonArticle(pid){
 }
 function renderOsoby(){
   const box=document.getElementById("osobylist"); if(box.dataset.done)return; box.dataset.done=1;
-  const groups=[["Čechy",f=>!f.nbr&&(f.land==="Čechy"||f.land==="Královská města")],["Morava",f=>!f.nbr&&f.land==="Morava"],["Slezsko",f=>!f.nbr&&f.land==="Slezsko"],["Lužice",f=>!f.nbr&&f.land==="Lužice"],...NBR_LANDS.map(L=>[L,f=>f.nbr&&f.land===L])];
+  const groups=[["Čechy",f=>!f.nbr&&(f.land==="Čechy"||f.land==="Královská města")],["Morava",f=>!f.nbr&&f.land==="Morava"],["Slezsko",f=>!f.nbr&&f.land==="Slezsko"],["Lužice",f=>!f.nbr&&f.land==="Lužice"],["Duchovenstvo",f=>!f.nbr&&f.land==="Duchovenstvo"],...NBR_LANDS.map(L=>[L,f=>f.nbr&&f.land===L])];
   box.innerHTML=groups.map(([L,fn])=>{const ps=PEOPLE.filter(p=>fn(byId[p.r])).sort((a,b)=>PORTR.has(b.id)-PORTR.has(a.id));if(!ps.length)return"";
     return `<div class="land-sec"><h3 class="landh">${L.toUpperCase()}</h3><div class="pcards">${ps.map(p=>`<a class="pcard hasp${PORTR.has(p.id)?"":" nop"}" href="#osoba/${p.id}">${pThumb(p)}<span class="pct"><b>${p.n}</b><span>${p.role}</span><small>${byId[p.r].name}</small></span></a>`).join("")}</div></div>`}).join("");
 }
