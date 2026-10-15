@@ -1520,6 +1520,12 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
   .bkr select,.bkr input,.bnadd input,.bnadd select{min-height:32px;padding:3px 8px}
   .bkostka .kvys{margin:4px 0 6px}
 }
+/* rozbalovací výběry (select): čitelný seznam možností nezávisle na tmavém režimu systému */
+:root{color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark}}
+:root[data-theme="dark"]{color-scheme:dark}
+select option,select optgroup{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:1rem}
+select option:checked{background:color-mix(in srgb,var(--gold) 35%,var(--paper));color:var(--ink)}
 </style>
 
 <div class="wrap"><div class="papir" aria-hidden="true"></div>
