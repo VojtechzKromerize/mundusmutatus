@@ -286,16 +286,28 @@ function generuj(soubory, manifest) {
     if ("pl" in n) n.pl = pref(n.pl);
     if ("r" in n) n.r = rref(n.r);
     if ("rl" in n) n.rl = rref(n.rl);
-    for (const k of ["kids", "sp"]) if (k in n) n[k] = n[k].map(c => tnode(c, true, where));
+    for (const k of ["kids", "sp"]) if (k in n) n[k] = prvky(n[k], where);
     if ("p" in n) { if (prvek) n = { $g: [n.p, prod[n.p]], ...n }; else n.p = pref(n.p); }
     return n;
   };
+  /* děti a manželé v rodokmenu: _i = pořadí v souboru (pro úpravy vypravěče); u osob ze Zemských desek
+     navíc anonymní zástupce (duch) – hráč tak vidí, že tam někdo je, i když osobu ještě nezná */
+  let slot = 0;
+  const zena = n => { const w = String(n || "").replace(/^✦\s*/, "").split(/[\s(]/)[0]; return /[aeě]$/i.test(w) && !/^(Protiva|Ota)$/i.test(w); };
+  const prvky = (arr, where) => arr.flatMap((c, i) => {
+    const t = tnode(c, true, where); t._i = i;
+    if (!c.p) return [t];
+    const g = { duch: 1, slot: ++slot, _i: i, z: zena(c.n) ? 1 : 0 };
+    if (c.m) g.m = c.m;
+    t.slot = g.slot;
+    return [g, t];
+  });
   const T = {};
   for (const [rid, t0] of Object.entries(trees)) {
     if (!ids.has(rid)) fail(`rodokmeny.json: rod „${rid}“ neexistuje`);
     const t = { ...t0 };
     for (const k of ["root", "main"]) if (k in t) t[k] = tnode(t[k], false, rid);
-    if ("kids" in t) t.kids = t.kids.map(c => tnode(c, true, rid));
+    if ("kids" in t) t.kids = prvky(t.kids, rid);
     T[rid] = { $g: rid, $u: 2, $x: t };
   }
   const PL = pl.map(d => {
