@@ -758,12 +758,16 @@ svg#map.measuring,svg#map.measuring *,svg#pmap.measuring,svg#pmap.measuring *,sv
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .rart{background:#ece0c2;padding:16px 26px;border:1px solid var(--frame1);border-radius:3px;box-shadow:inset 0 0 0 3px #ece0c2,inset 0 0 0 4px rgba(154,114,38,.55),inset 0 0 34px rgba(120,80,30,.28),0 4px 14px rgba(0,0,0,.35)}}
 :root[data-theme="dark"] .rart{background:#ece0c2;padding:16px 26px;border:1px solid var(--frame1);border-radius:3px;box-shadow:inset 0 0 0 3px #ece0c2,inset 0 0 0 4px rgba(154,114,38,.55),inset 0 0 34px rgba(120,80,30,.28),0 4px 14px rgba(0,0,0,.35)}
 /* 2. pergamen: zrnitý papír, ztmavlé okraje */
-html{background-color:var(--bg);background-image:radial-gradient(ellipse at 50% 40%,transparent 55%,rgba(90,60,25,.16) 100%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .25 0 0 0 0 .12 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");background-attachment:fixed,scroll}
+/* 2. vazba: vínová kůže s tlačenými zlatými linkami, stránky z pergamenu */
+:root{--kuze:#4d1521;--kuze2:#3a0e17;--zlato-linka:rgba(214,170,90,.62)}
+html{background-color:var(--kuze);background-image:radial-gradient(ellipse at 50% 28%,rgba(150,42,56,.45),transparent 62%),radial-gradient(ellipse at 50% 55%,transparent 52%,rgba(12,0,3,.62) 100%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .12 0 0 0 0 .02 0 0 0 0 .04 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.018 .03' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .2 0 0 0 0 .22 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='600' height='600' filter='url(%23n)'/%3E%3C/svg%3E");background-attachment:fixed}
 body{background:transparent}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){background-image:radial-gradient(ellipse at 50% 40%,transparent 50%,rgba(0,0,0,.4) 100%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .9 0 0 0 0 .8 0 0 0 0 .6 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E")}}
-:root[data-theme="dark"]{background-image:radial-gradient(ellipse at 50% 40%,transparent 50%,rgba(0,0,0,.4) 100%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .9 0 0 0 0 .8 0 0 0 0 .6 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E")}
+.wrap{background-color:var(--bg);background-image:radial-gradient(ellipse at 50% 40%,transparent 55%,rgba(90,60,25,.16) 100%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .25 0 0 0 0 .12 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");border-radius:4px;padding:18px 26px 26px;box-shadow:0 0 0 1px rgba(25,4,8,.7),0 0 0 7px var(--kuze2),0 0 0 8px var(--zlato-linka),0 0 0 12px var(--kuze2),0 0 0 13px color-mix(in srgb,var(--zlato-linka) 60%,transparent),0 16px 44px rgba(0,0,0,.65),inset 0 0 46px rgba(110,70,30,.2)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--kuze:#2c0b12;--kuze2:#1f070c}:root:not([data-theme="light"]) .wrap{background-image:radial-gradient(ellipse at 50% 40%,transparent 50%,rgba(0,0,0,.4) 100%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .9 0 0 0 0 .8 0 0 0 0 .6 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E")}}
+:root[data-theme="dark"]{--kuze:#2c0b12;--kuze2:#1f070c}:root[data-theme="dark"] .wrap{background-image:radial-gradient(ellipse at 50% 40%,transparent 50%,rgba(0,0,0,.4) 100%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .9 0 0 0 0 .8 0 0 0 0 .6 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E")}
+body{padding-top:30px;padding-bottom:40px;padding-left:max(30px,env(safe-area-inset-left,0px));padding-right:max(30px,env(safe-area-inset-right,0px))}
+@media (max-width:640px){body{padding:16px max(9px,env(safe-area-inset-left,0px)) 24px max(9px,env(safe-area-inset-right,0px))}.wrap{padding:10px 10px 18px;box-shadow:0 0 0 1px rgba(25,4,8,.7),0 0 0 4px var(--kuze2),0 0 0 5px var(--zlato-linka),0 10px 28px rgba(0,0,0,.6),inset 0 0 30px rgba(110,70,30,.18)}}
 .sitenav{background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(3px)}
-@media (min-width:1440px){.wrap{position:relative}.wrap::before{content:"";position:fixed;inset:0 calc(50% - 712px);z-index:-1;pointer-events:none;box-shadow:0 0 0 1px color-mix(in srgb,var(--rule) 55%,transparent),0 0 60px rgba(60,40,15,.14);background:color-mix(in srgb,var(--paper) 30%,transparent)}}
 /* 3. tlačítka jako pergamenové štítky, stisknuté rumělkou */
 .controls button,.dtools .controls button,.subnav a,.backbtn,.gbtn,.gbtn.ghost{background:var(--paper);color:var(--ink);border:1px solid color-mix(in srgb,var(--gold) 55%,var(--rule));border-radius:2px;box-shadow:inset 0 0 0 2px var(--paper),inset 0 0 0 3px color-mix(in srgb,var(--gold) 22%,transparent);transition:background .15s,border-color .15s,color .15s}
 .controls button:hover,.dtools .controls button:hover,.subnav a:hover,.backbtn:hover,.gbtn.ghost:hover{border-color:var(--gold);color:var(--rub)}
@@ -957,6 +961,24 @@ body.edopen{overflow:hidden}
 .edhr span{color:var(--muted);font-family:var(--f-label);font-size:.88rem;flex:1 1 140px}
 .edpre{white-space:pre-wrap;font-size:.85rem;background:var(--paper);border:1px solid var(--rule);padding:8px;max-height:40vh;overflow:auto}
 .gmprl{margin:6px 0 0}
+/* ===== pečeť: rozpečetění nově poznaného, zapečetěné „jen slyšeli“ ===== */
+.pecfx-host{position:relative}
+.pecfx{position:absolute;inset:0;z-index:6;display:grid;place-items:center;pointer-events:none;background:radial-gradient(circle,color-mix(in srgb,var(--paper) 88%,transparent) 30%,color-mix(in srgb,var(--paper) 55%,transparent) 75%);opacity:0;animation:pecbg 2.4s ease forwards;animation-delay:var(--pd,0ms)}
+.pecfx img{grid-area:1/1;width:min(110px,55%);max-height:80%;aspect-ratio:1;object-fit:contain;filter:drop-shadow(0 4px 6px rgba(40,10,5,.45))}
+.pecfx .pc1{animation:pc1 2.4s ease forwards;animation-delay:var(--pd,0ms);opacity:0}
+.pecfx .pc2{animation:pc2 2.4s ease forwards;animation-delay:var(--pd,0ms);opacity:0}
+@keyframes pecbg{0%{opacity:0}8%{opacity:1}62%{opacity:1}100%{opacity:0}}
+@keyframes pc1{0%{opacity:0;transform:scale(1.7) rotate(-14deg)}16%{opacity:1;transform:scale(.96) rotate(0)}22%{transform:scale(1)}40%{opacity:1;transform:scale(1) rotate(0)}44%{transform:rotate(-4deg)}47%{transform:rotate(4deg)}50%{opacity:0}100%{opacity:0}}
+@keyframes pc2{0%,48%{opacity:0;transform:scale(1)}50%{opacity:1;transform:scale(1.06)}56%{transform:scale(1) rotate(-2deg)}72%{opacity:1;transform:translateY(0) rotate(0)}100%{opacity:0;transform:translateY(36px) rotate(14deg)}}
+.pecfx.razit .pc2{display:none}
+.pecfx.razit .pc1{animation:pcrazit 2.4s ease forwards;animation-delay:var(--pd,0ms)}
+@keyframes pcrazit{0%{opacity:0;transform:scale(2.2) rotate(-20deg)}22%{opacity:1;transform:scale(.92) rotate(-12deg)}30%{transform:scale(1) rotate(-12deg)}75%{opacity:1;transform:scale(1) rotate(-12deg)}100%{opacity:0;transform:scale(.4) translate(90%,90%) rotate(-14deg)}}
+@media (prefers-reduced-motion:reduce){.pecfx{display:none}}
+.zapec{position:relative}
+.pcard.zapec,.card.zapec,.drcard.zapec{filter:sepia(.25) saturate(.85)}
+.pcard.zapec::after,.card.zapec::after,.drcard.zapec::after{content:"";position:absolute;right:6px;bottom:6px;width:38px;height:38px;background:url(art/img/pecet.webp) center/contain no-repeat;transform:rotate(-14deg);filter:drop-shadow(0 2px 2px rgba(0,0,0,.35));pointer-events:none}
+.slnote{position:relative;padding-left:58px!important;min-height:46px}
+.slnote::before{content:"";position:absolute;left:10px;top:50%;width:38px;height:38px;margin-top:-19px;background:url(art/img/pecet.webp) center/contain no-repeat;transform:rotate(-12deg)}
 /* ===== odhalování: načítání, hlášky, vypravěč ===== */
 html.mmload .wrap>main{visibility:hidden}
 html.mmload body::after{content:"Načítám zemské desky…";position:fixed;left:50%;top:45%;transform:translateX(-50%);font-family:var(--f-label);letter-spacing:.06em;color:var(--muted)}
@@ -4466,5 +4488,31 @@ document.addEventListener("click",async e=>{if(!e.target.closest("[data-edkontro
 document.addEventListener("submit",e=>{if(e.target.getAttribute("id")!=="ednovy")return;e.preventDefault();const f=e.target.elements,id=f.nid.value.trim().toLowerCase();
   if(!/^[a-z0-9-]+$/.test(id)){mmHlasG("Id smí obsahovat jen malá písmena bez diakritiky, číslice a pomlčky.");return}
   edNacti().then(()=>{const d=EDDRUH[f.druh.value];if(edIndex()[f.druh.value+":"+id]){mmHlasG(`${d.n} s id „${id}“ už existuje.`);return}edOtevri(f.druh.value,id,true)}).catch(err=>mmHlasG(err.message,7000))});
+/* ===== Pečeť: co družina nově pozná, se při prvním zobrazení „rozpečetí“; o čem jen slyšela, je zapečetěné ===== */
+const PEC=(()=>{
+  const lv=id=>PBY[id]?(PBY[id].sl?1:2):byId[id]?(byId[id].sl?1:2):(DRBY[id]&&DRBY[id].k==="pl")?(DRBY[id].o.sl?1:2):ZBY[id]?2:0;
+  if(GMV||!window.MMCFG)return {lv,nove:()=>false,videl:()=>{}};
+  let v=null;try{v=JSON.parse(localStorage.getItem("mm-videno")||"null")}catch(e){}
+  const save=()=>{try{localStorage.setItem("mm-videno",JSON.stringify(v))}catch(e){}};
+  if(!v||typeof v!=="object"){v={};PEOPLE.forEach(p=>v[p.id]=lv(p.id));FAM.forEach(f=>v[f.id]=lv(f.id));DRACI.pl.forEach(d=>v[d.id]=lv(d.id));ZAPISY.forEach(z=>v[z.id]=2);save()}
+  return {lv,nove:id=>lv(id)>(v[id]||0),videl:id=>{v[id]=lv(id);save()}};
+})();
+function pecId(el){const h=el.getAttribute("href")||"";if(el.dataset.id)return el.dataset.id;const m=h.match(/^#(?:osoba|rod|draconomicon|kronika)\/(.+)$/);return m?m[1]:null}
+function rozpecet(host,id,zpozdeni){
+  if(host.querySelector(":scope>.pecfx"))return;PEC.videl(id);
+  host.classList.add("pecfx-host");const o=document.createElement("span");o.className="pecfx"+(PEC.lv(id)===1?" razit":"");o.setAttribute("aria-hidden","true");
+  o.style.setProperty("--pd",(zpozdeni||0)+"ms");
+  o.innerHTML='<img class="pc1" src="art/img/pecet.webp" alt=""><img class="pc2" src="art/img/pecet-zlomena.webp" alt="">';
+  host.appendChild(o);setTimeout(()=>o.remove(),2600+(zpozdeni||0))}
+const pecIO="IntersectionObserver" in window?new IntersectionObserver(es=>{let n=0;es.forEach(e=>{if(!e.isIntersecting)return;pecIO.unobserve(e.target);
+  const id=e.target.dataset.pecid;if(id&&PEC.nove(id))rozpecet(e.target,id,(n++)*140)})},{threshold:.5}):null;
+function pecProjdi(root){
+  (root||document).querySelectorAll('a.pcard[href^="#osoba/"],article.card[data-id],a.drcard,a.zcard,#article .arttitle,#drmain .arttitle,#kzapisy .arttitle').forEach(el=>{
+    let id=el.matches(".arttitle")?(location.hash.split("/")[1]||""):pecId(el);if(!id)return;id=decodeURIComponent(id);
+    const host=el.matches(".arttitle")?el.closest(".artmain")||el.parentNode:el;
+    host.classList.toggle("zapec",PEC.lv(id)===1&&!GMV);
+    if(pecIO&&PEC.nove(id)&&!host.dataset.pecid){host.dataset.pecid=id;pecIO.observe(host)}});
+}
+{let pq=0;new MutationObserver(()=>{if(!pq)pq=requestAnimationFrame(()=>{pq=0;pecProjdi()})}).observe(document.body,{childList:true,subtree:true})}
 route();
 </script>
