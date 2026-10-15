@@ -63,7 +63,7 @@ Na webu napojeném na databázi vidí hráči jen to, co vypravěč odhalil. Rod
 | Stav | Co uvidí hráči |
 |---|---|
 | **Skryté** | nic – záznam se jim vůbec nepošle (ani do zdrojového kódu stránky) |
-| **Slyšeli** | jméno a základní údaje; osoba bez textu a se siluetou, rod bez postoje, historie, zápisu kronikáře a rodokmenu, dračí plemeno bez obrázku a popisu |
+| **Slyšeli** | jméno a základní údaje; osoba bez textu a se siluetou, rod s historií, ale bez postoje, zápisu kronikáře a rodokmenu, dračí plemeno bez obrázku a popisu |
 | **Potkali** | vše kromě ⟦tajemství⟧ |
 
 - Stav se přepíná na webu: ikona klíče **Vypravěč** vpravo v hlavní nabídce (nebo odkaz v patičce) → přihlášení → přehled všech rodů, osob a míst,

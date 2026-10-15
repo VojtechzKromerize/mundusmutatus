@@ -265,9 +265,10 @@ function generuj(soubory, manifest) {
   const pref = pid => ({ $g: [pid, prod[pid]], $x: pid });
   const rref = rid => ({ $g: rid, $x: rid });
   const F = fam.map(f => {
-    const base = {}; for (const k in f) if (k !== "stance" && k !== "note" && k !== "hist") base[k] = f[k];
-    Object.assign(base, { stance: "", note: "", hist: "", sl: true });
-    return { $g: f.id, ...base, $plne: { stance: f.stance, note: f.note, hist: f.hist, sl: false } };
+    /* „Slyšeli“: jméno, základní údaje a veřejně známá historie rodu; postoj ke králi a zápis kronikáře až „Potkali“ */
+    const base = {}; for (const k in f) if (k !== "stance" && k !== "note") base[k] = f[k];
+    Object.assign(base, { stance: "", note: "", sl: true });
+    return { $g: f.id, ...base, $plne: { stance: f.stance, note: f.note, sl: false } };
   });
   const P = people.map(p => {
     const base = { id: p.id, n: p.n, r: p.r, role: p.role, x: "", sl: true }, plne = { x: p.x, sl: false };
