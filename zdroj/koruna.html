@@ -1551,6 +1551,10 @@ h3 .pmore{margin:0 0 0 10px;vertical-align:middle}
 @media (min-width:821px){.artgrid.pgrid{grid-template-columns:270px minmax(0,1fr)}}
 @media (max-width:820px){.pgrid .portr{max-width:min(252px,63vw)}}
 .edbar.eddole{display:flex;justify-content:flex-start;margin:28px 0 0;padding-top:12px;border-top:1px dashed color-mix(in srgb,var(--gold) 50%,var(--rule))}
+.gmcesta{flex-basis:100%;display:flex;flex-wrap:wrap;gap:10px 14px;align-items:flex-end;margin:8px 0 0;padding:10px 12px 12px;border:1px dashed color-mix(in srgb,var(--gold) 55%,var(--rule));border-radius:3px}
+.gmcesta legend{font-family:var(--f-label);letter-spacing:.06em;font-size:.82rem;color:var(--kal);padding:0 6px}
+.gmcesta input[name=cil]{min-width:200px}.gmcesta input[name=zdrz]{width:90px}
+.gmcodh{flex-basis:100%;margin:2px 0 0;font-size:.92rem;color:var(--ink)}.gmcodh:empty{display:none}
 </style>
 
 <div class="wrap"><div class="papir" aria-hidden="true"></div>
@@ -5073,6 +5077,10 @@ function gmSum(){
   const c=(arr,f)=>arr.filter(x=>f(x)>=1).length;
   el.textContent=`Zveřejněno ${c(ZAPISY,z=>gmLv(z.id))} z ${ZAPISY.length} zápisů Kroniky. Družina zná ${c(FAM,f=>gmLv(f.id))} z ${FAM.length} rodů, ${c(PEOPLE,p=>gmEff(p.id))} z ${PEOPLE.length} osob`+`, ${c(DRACI.pl,d=>gmLv(d.id))} z ${DRACI.pl.length} dračích plemen`+(DISC.length?` a ${c(DISC,d=>gmLv(d.id))} z ${DISC.length} míst.`:".");
 }
+const CESTA_ZP=[["pesky","Pěšky",30],["kun","Na koni",45],["vuz","S vozem",20],["posel","Posel se střídáním koní",90]],
+  CESTA_ODCH=[[0.5,"o polovinu rychleji"],[0.75,"o čtvrtinu rychleji"],[1,"podle odhadu"],[1.25,"o čtvrtinu déle"],[1.5,"o polovinu déle"],[2,"dvakrát déle"]],
+  CESTA_OD=7,CESTA_DO=19,CESTA_HOD=CESTA_DO-CESTA_OD;
+const cestaMisto=n=>{if(!n)return null;const p=placeBy(n);if(p)return p;const t=TOWNS.find(x=>x[0]===n);return t?{name:t[0],lo:t[1],la:t[2]}:null};
 function renderGM(){
   const box=document.getElementById("gmview");
   if(!GMV){
@@ -5099,6 +5107,14 @@ function renderGM(){
       <label>Místo v Praze<select name="praha"><option value="">—</option>${PRAHA_PLACES.map(q=>`<option value="${q.n}"${+hra.praha===q.n?" selected":""}>${q.n} · ${q.name}</option>`).join("")}</select></label>
       <datalist id="gmplc">${plc.map(n=>`<option value="${n}">`).join("")}</datalist>
       <div class="gmhrab"><button type="submit" class="gbtn">Uložit</button><button type="button" class="gbtn ghost" data-hra="+1">+1 hodina</button><button type="button" class="gbtn ghost" data-hra="den">Další den, ráno</button></div>
+      <fieldset class="gmcesta"><legend>Cesta družiny</legend>
+        <label>Kam<input name="cil" list="gmplc" placeholder="např. Kutná Hora" autocomplete="off"></label>
+        <label>Jak<select name="zpusob">${CESTA_ZP.map(([k,n,v])=>`<option value="${k}">${n} (asi ${v} km za den)</option>`).join("")}</select></label>
+        <label>Oproti odhadu<select name="odch">${CESTA_ODCH.map(([v,n])=>`<option value="${v}"${v===1?" selected":""}>${n}</option>`).join("")}</select></label>
+        <label>Zdržení (hodiny)<input name="zdrz" type="number" step="1" min="-48" max="240" value="0" title="Kladné číslo cestu prodlouží, záporné zkrátí"></label>
+        <p class="gmcodh" aria-live="polite"></p>
+        <div class="gmhrab"><button type="button" class="gbtn" data-hra="cesta" disabled>Odcestovat</button></div>
+      </fieldset>
     </form></div>`;
   const row=(id,cls,href,name,sub)=>`<div class="gmrow ${cls}" data-gmid="${id}"><a href="${href}">${name}</a><small>${sub}</small>${gmSeg(id)}</div>`;
   box.innerHTML=`<h2 class="arttitle">Vypravěč</h2>
@@ -5133,6 +5149,23 @@ function renderGM(){
     catch(err){mmHlasG("Nepodařilo se uložit: "+err.message,7000)}finally{document.documentElement.classList.remove("gmbusy")}};
   hf.addEventListener("submit",e=>{e.preventDefault();const f=hf.elements;
     ulozHru({datum:f.datum.value,hodina:+f.hodina.value,misto:f.misto.value.trim()||null,praha:f.praha.value?+f.praha.value:null})});
+  /* cesta družiny: odhad podle tras na mapě, hodina příjezdu (putuje se od 7 do 19 h) */
+  const cestaOdhad=()=>{const f=hf.elements,o=hf.querySelector(".gmcodh"),bt=hf.querySelector('[data-hra="cesta"]');
+    const A=cestaMisto(f.misto.value.trim()),B=cestaMisto(f.cil.value.trim());bt.disabled=true;
+    if(!f.cil.value.trim()){o.textContent="";return null}
+    if(!A){o.textContent="Výchozí místo („Kde je družina“) neznám na mapě zemí Koruny – vyber ho z nabídky.";return null}
+    if(!B){o.textContent="Cíl neznám na mapě zemí Koruny – vyber ho z nabídky.";return null}
+    if(A.name===B.name){o.textContent="Družina už na místě je.";return null}
+    const R=computeRoute(A,B);if(!R){o.textContent="Cestu se nepodařilo spočítat.";return null}
+    const zp=CESTA_ZP.find(z=>z[0]===f.zpusob.value)||CESTA_ZP[0],odh=R.eff/zp[2]*CESTA_HOD,hod=Math.max(1,Math.round(odh*(+f.odch.value||1)+(+f.zdrz.value||0)));
+    let [y,m,d]=f.datum.value.split("-").map(Number),j=jdn(y,m,d),h=+f.hodina.value,zb=hod;
+    while(zb>0){if(h<CESTA_OD)h=CESTA_OD;if(h>=CESTA_DO){j++;h=CESTA_OD;continue}const k=Math.min(CESTA_DO-h,zb);h+=k;zb-=k}
+    const [Y,M,D]=fromJdn(j),dny=j-jdn(y,m,d);
+    o.innerHTML=`${A.name} → <b>${B.name}</b>: asi ${R.km} km, ${zp[1].toLowerCase()} odhadem ${Math.round(odh)} h cesty${hod!==Math.round(odh)?`, se zdržením ${hod} h`:""}. Příjezd <b>${D}. ${MES[M-1]} ${Y}, ${h}:00</b>${dny?` (${dny} ${dny===1?"den":dny<5?"dny":"dní"} na cestě)`:""}.`;
+    bt.disabled=false;return {datum:`${Y}-${String(M).padStart(2,"0")}-${String(D).padStart(2,"0")}`,hodina:h,misto:B.name,cesta:{z:A.name,do:B.name,km:R.km,hod,zpusob:zp[0]}}};
+  ["input","change"].forEach(t=>hf.addEventListener(t,e=>{if(e.target.closest(".gmcesta")||["misto","datum","hodina"].includes(e.target.name))cestaOdhad()}));
+  hf.addEventListener("click",e=>{const b=e.target.closest('[data-hra="cesta"]');if(!b)return;e.stopImmediatePropagation();const c=cestaOdhad();if(!c)return;
+    ulozHru(Object.assign(c,{praha:null})).then(()=>{hf.elements.misto.value=c.misto;hf.elements.cil.value="";cestaOdhad()})},true);
   hf.addEventListener("click",e=>{const b=e.target.closest("[data-hra]");if(!b)return;const f=hf.elements;let [y,m,d]=f.datum.value.split("-").map(Number),h=+f.hodina.value;
     if(b.dataset.hra==="+1"){h++;if(h>23){h=0;[y,m,d]=fromJdn(jdn(y,m,d)+1)}}else{[y,m,d]=fromJdn(jdn(y,m,d)+1);h=6}
     ulozHru({datum:`${y}-${String(m).padStart(2,"0")}-${String(d).padStart(2,"0")}`,hodina:h})});
