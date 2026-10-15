@@ -1547,23 +1547,11 @@ html::before{background:
 .bnatahu button:hover:not(:disabled){background:rgba(255,220,160,.14);color:#ffe7a8}
 .bnatahu button:disabled{opacity:.3;cursor:default}
 .bzpet{margin-left:10px;font-size:.8rem;padding:2px 8px}
-/* úvodní hlavička: červený a modrý dráček po stranách loga, hledí na sebe */
-@media (min-width:641px){
-  body.home header.site{flex-direction:row;align-items:flex-end;justify-content:center;gap:clamp(8px,2vw,28px)}
-  body.home header.site .logo{margin-left:0;margin-right:0}
-  .hdrak{display:none;height:auto;flex:none;align-self:center;filter:drop-shadow(0 3px 4px rgba(40,20,5,.25))}
-  body.home .hdrak{display:block}
-  .hdl{width:clamp(80px,9vw,128px)}
-  .hdr{width:clamp(57px,6.4vw,90px)}
-}
-@media (max-width:640px){.hdrak{display:none}}
 </style>
 
 <div class="wrap"><div class="papir" aria-hidden="true"></div>
 <header class="site">
-  <img class="hdrak hdl" src="art/img/drak-cerveny.webp" alt="" aria-hidden="true" width="312" height="320">
   <a href="#uvod" class="logo"><h1><img class="lg-l" src="art/img/logo.webp" alt="Mundus Mutatus" width="1200" height="391"><img class="lg-d" src="art/img/logo-tma.webp" alt="Mundus Mutatus" width="1200" height="391"></h1></a>
-  <img class="hdrak hdr" src="art/img/drak-modry.webp" alt="" aria-hidden="true" width="220" height="320">
 </header>
   <nav class="sitenav" id="sitenav" aria-label="Hlavní navigace">
     <a href="#uvod" class="navmark" aria-label="Mundus Mutatus – úvod"><img class="lg-l" src="art/img/logo.webp" alt="" width="1200" height="391"><img class="lg-d" src="art/img/logo-tma.webp" alt="" width="1200" height="391"></a>
