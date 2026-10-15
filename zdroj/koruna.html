@@ -1630,6 +1630,25 @@ html.gmv .wrap{margin-bottom:56px}
 .vypozn2{display:flex;flex-direction:column;gap:4px;margin-top:8px}.vypozn2 textarea{font:inherit;background:var(--bg);border:1px solid var(--rule);border-radius:3px;padding:6px;color:var(--ink)}
 .vyznt{paint-order:stroke;stroke:var(--paper);stroke-width:.5px;font-family:var(--f-label)}
 .navvy[hidden]{display:none!important}
+.vyok{margin-top:6px;font-size:.92rem}.vyok p{margin:4px 0}
+.vyos{display:flex;flex-direction:column;gap:2px;margin:4px 0}.vyosr{padding:2px 0!important}.vyosr small{color:var(--muted)}
+.vynoci{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}.vynoci li{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center;border-bottom:1px solid color-mix(in srgb,var(--rule) 60%,transparent);padding:4px 0}
+.vynoci select{font:inherit;font-size:.92rem;background:var(--bg);border:1px solid var(--rule);border-radius:3px;padding:3px 6px;color:var(--ink)}
+.vypoznm{flex-basis:100%;margin:2px 0 0}
+.vytabta{width:100%;box-sizing:border-box;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.82rem;background:var(--bg);color:var(--ink);border:1px solid var(--rule);border-radius:3px;padding:6px}
+.vytabedit code{font-size:.85rem}
+.vystul .vyform,.vystul .vytg+p.lbl{display:none}
+.vystulc .vystulp{display:flex;gap:12px;align-items:flex-start;font-size:1.1rem}.vystulc .vystulp p{margin:2px 0}
+.vystulc .vyw{min-width:40px;height:40px;font-size:1.2rem}
+.vytrackb .gbtn{min-width:44px;min-height:40px;font-size:1rem}.vytrackb .vykst{flex-wrap:wrap}
+.vyhodv{font-family:var(--f-disp);font-size:1.8rem;color:var(--kal);min-height:1em}.vyblik{animation:vyblik .5s}
+@keyframes vyblik{from{transform:scale(1.5);opacity:.3}to{transform:none;opacity:1}}
+.vysub{margin:14px 0 4px;font-family:var(--f-label);letter-spacing:.05em}
+.vysetkb .gbtn,.vysetkb .controls button{min-height:40px}
+.vystulm{white-space:nowrap}.vystulm.on{text-decoration:line-through;opacity:.6}.vystulm.akt{font-weight:700;color:var(--kal)}
+.vyuvp .lbl{margin-right:6px}
+.vypanely .vystulc{grid-column:1/-1}.vyhodv{display:block}
+#vyview.vystul{display:flex;flex-direction:column}#vyview.vystul>.vyhead{order:0}#vyview.vystul>.vytabs{order:1}#vyview.vystul>.vypanely{order:2;margin:0 0 20px}#vyview.vystul>.vygrid{order:3}
 </style>
 
 <div class="wrap"><div class="papir" aria-hidden="true"></div>
@@ -5960,7 +5979,7 @@ function vyMisto(ll){const [lo,la]=ll,kor=lo>11.8&&lo<19&&la>48.5&&la<51.3;let e
   return {el,hory,niz,stin:lo>13.3&&lo<14.3&&la>50.15&&la<50.55,la,jih:la<44.5,cell:Math.round(lo*2)+":"+Math.round(la*2)}}
 const vyDat=j=>{const [y,m,d]=fromJdn(j);return `${y}-${String(m).padStart(2,"0")}-${String(d).padStart(2,"0")}`};
 function vyZaklad(j,ll,more){
-  const o=((VY.pocasi||{})[vyDat(j)])||{},salt=o.salt||0,doy=vyDoy(j),sez=vySez(j),M=vyMisto(ll),gm=vyGreg(j)[1];
+  const o=(((VY&&VY.pocasi)||(HRA&&HRA.pocasiR)||{})[vyDat(j)])||{},salt=o.salt||0,doy=vyDoy(j),sez=vySez(j),M=vyMisto(ll),gm=vyGreg(j)[1];
   const rz=salt?vyRezPick(vyH("rz2",j,salt),sez):vyRezim(j),r=VY_REZ[rz];
   const nT=(vyH("t",j,salt)-.5)*5,adj=(M.el-300)*.0065+(M.la-50)*.6;
   let tx=vyKlima(VY_TMAX,doy)+r.ta[sez]+nT-adj,tn=vyKlima(VY_TMIN,doy)+r.ta[sez]*.8+nT*.6-adj,mlha=false;
@@ -6022,11 +6041,11 @@ const vyHod=h=>{const H=Math.floor(h),m=Math.round((h-H)*60);return m?`${H}:${St
 /* ---------- stav výpravy ---------- */
 let VY=null,VYT=null,VYS=null,VY_NACTENO=false,VY_LOK=false;
 const VY_NOVA=()=>({v:1,mapa:"koruna",z:null,do:null,zp:"pesky",odch:1,zdrz:0,start:null,teren:null,pocasiV:null,nepritel:0,nepritelS:false,tempo:"normal",
-  rychle:false,rychleK:null,hratKratkou:false,druzina:null,setk:[],navic:0,odp:false,gc:null,kostky:null,vudce:{},najdi:false,konec:{vys:"",prij:null,mou:1,pozn:""},hotovo:false,pocasi:{}});
+  rychle:false,rychleK:null,hratKratkou:false,druzina:null,setk:[],navic:0,odp:false,gc:null,kostky:null,vudce:{},najdi:false,konec:{vys:"",prij:null,mou:1,pozn:""},hotovo:false,pocasi:{},tab:{},tabT:0,noc:{},stul:false,pocHraci:false,revir:false});
 const vyEsc=t=>String(t??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const vyId=()=>Math.random().toString(36).slice(2,9);
 function vyDruzina(){if(!VY.druzina||!VY.druzina.length){const n=PARTY.length?PARTY.map(p=>p.n.replace(/^✦\s*/,"")):["","","",""];
-  VY.druzina=n.map(x=>({id:vyId(),n:x,role:"",role2:"",bz:2,prip:"",pv:"",gc:"",hod:0}))}return VY.druzina}
+  VY.druzina=n.map((x,i)=>({id:vyId(),n:x,role:"",role2:"",bz:2,prip:"",pv:"",gc:"",hod:0,vira:(PARTY[i]&&PARTY[i].faith)||""}))}return VY.druzina}
 let vyTm=0;
 function vyUloz(){clearTimeout(vyTm);vyTm=setTimeout(vyUlozHned,700)}
 async function vyUlozHned(){clearTimeout(vyTm);if(!VY)return;
@@ -6106,14 +6125,14 @@ function vyPrepocti(){VYT=vyTrasa();VYS=null;if(!VYT)return;
   const dr=vyDruzina().filter(x=>x.n.trim()),hody=dr.map(x=>x.gc).filter(Boolean),ok=hody.filter(x=>x==="ok").length;
   let gc=null;if(dr.length&&hody.length===dr.length){gc=ok===dr.length?-1:ok>dr.length/2?0:ok===0?2:1}
   let n=dl?dl+(gc||0):0;if(dl&&gc===-1)n=Math.max(1,n);
-  if(dl){if(VY.nepritelS)n++;if(VY.tempo==="spech")n=Math.max(1,n-1);if(VY.tempo==="opatrne")n++;n+=(+VY.navic||0)+(VY.odp?1:0)}
+  if(dl){if(VY.nepritelS)n++;if(VY.tempo==="spech")n=Math.max(1,n-1);if(VY.tempo==="opatrne")n++;n+=(+VY.navic||0)+(VY.odp?1:0)+(VY.revir&&VY.zp==="drak"?1:0)}
   /* setkání navíc prodlužují cestu (každé o desetinu, nejméně 2 h; v Praze o čtvrthodinu) */
   const zakl=dl?Math.max(1,dl+(gc||0)):0,navic=Math.max(0,n-zakl),zdrzSetk=navic*(praha?.25:Math.max(2,H0*.1));
   const H=Math.max(praha?.05:1,H0+(+VY.zdrz||0)+zdrzSetk);
   /* časový průběh po dnech: putuje se od východu slunce, nejvýš 12 hodin denně */
   const s=VY.start||vyHraStart();let [y,m,d]=s.datum.split("-").map(Number),j=jdn(y,m,d),h=+s.hodina||0,p=0;const dny=[];
   if(praha){const P=vyPocasi(j,[14.42,50.088]),f=vyRychl(P,zp)||1,t=H/f;dny.push({j,od:h,do:h+t,p0:0,p1:1,P,f,q:vyBod(VYT,.5)});h+=t;while(h>=24){h-=24;j++}}
-  else for(let g=0;g<500&&p<1-1e-9;g++){const q=vyBod(VYT,Math.min(p+.02,1)),ll=vyLL(VYT,q),P=vyPocasi(j,ll,q.more),[sr,ss]=vyDen(j,ll[1]),od=Math.ceil(sr),ko=od+Math.min(12,Math.floor(ss)-od);
+  else for(let g=0;g<500&&p<1-1e-9;g++){const q=vyBod(VYT,Math.min(p+.02,1)),ll=vyLL(VYT,q),P=vyPocasi(j,ll,q.more),[sr,ss]=vyDen(j,ll[1]),od=Math.ceil(sr),ko=od+Math.min(zp==="drak"?8:12,Math.floor(ss)-od);
     if(h<od)h=od;if(h>=ko){j++;h=0;continue}
     const f=vyRychl(P,zp,q.more);if(f<=0){dny.push({j,od:h,do:h,p0:p,p1:p,P,f,q,stuj:true});j++;h=0;continue}
     const t=Math.min(ko-h,(1-p)*H/f),p1=Math.min(1,p+t*f/H);dny.push({j,od:h,do:h+t,p0:p,p1,P,f,q});h+=t;p=p1;if(p>=1-1e-9)break;j++;h=0}
@@ -6136,7 +6155,7 @@ function vyPrepocti(){VYT=vyTrasa();VYS=null;if(!VYT)return;
   S.forEach((x,i)=>{const pe=(i+.5)/n,q=vyBod(VYT,pe),dd=dny.find(z=>pe<=z.p1+1e-9&&!z.stuj)||dny[dny.length-1];
     x._p=pe;x._q=q;x._kraj=vyKrajBodu(VYT,q);x._j=dd?dd.j:j;x._h=dd?dd.od+(dd.p1>dd.p0?(pe-dd.p0)/(dd.p1-dd.p0):0)*(dd.do-dd.od):0;
     x._kde=VYT.m==="koruna"?vyBlizko(q.xy):VYT.m==="svet"?(q.more?"na moři":vyNejblizsiMesto(q.xy)):"Praha"});
-  VYS={H0,H,dl,delka,gc,n,zakl,navic,zdrzSetk,dny,prij:{j,h:prijH%24},W,Wa,T,Ta,bl,prip,pr,D,dr}}
+  VYS={H0,H,dl,delka,gc,n,zakl,navic,zdrzSetk,dny,prij:{j,h:prijH%24},W,Wa,T,Ta,bl,prip,pr,D,dr,reviry:vyReviry(VYT)}}
 function vyBlizko(ll){let b=null,bd=1e9;for(const [n,lo,la] of NAMEPTS){const d=haversine(ll,[lo,la]);if(d<bd){bd=d;b=n}}return !b?"cestou":bd<4?b:bd<30?"nedaleko: "+b:"cestou"}
 function vyNejblizsiMesto(ll){let b=null,bd=1e9;SVETMESTA.forEach(c=>{const d=haversine(ll,[c[1],c[2]]);if(d<bd){bd=d;b=c[0]}});return bd<120?"u města "+b:"cestou"}
 const vyDatum=j=>{const [y,m,d]=fromJdn(j);return `${d}. ${MES[m-1]} ${y}`};
@@ -6149,7 +6168,7 @@ function renderVyprava(){const box=document.getElementById("vyview");if(!box)ret
   if(!VY_NACTENO){box.innerHTML=`<h2 class="arttitle">Výprava</h2><p class="intro">Načítám…</p>`;vyNacti().then(()=>{box.innerHTML="";renderVyprava()});return}
   if(!box.querySelector("#vyslot")){
     box.innerHTML=`<div class="bojhead vyhead"><div class="bojtit"><h2 class="arttitle">Výprava</h2><p class="bojlead">Cesta družiny podle pravidel Uncharted Journeys.</p></div>
-      <div class="bojbtn"><button type="button" class="gbtn ghost" data-vy="zhry" title="Výchozí místo, datum a hodinu vezme z herního stavu">Převzít polohu a čas družiny</button><button type="button" class="gbtn ghost" data-vy="nova">Nová výprava</button></div></div>
+      <div class="bojbtn"><button type="button" class="gbtn ghost" data-vy="zhry" title="Výchozí místo, datum a hodinu vezme z herního stavu">Převzít polohu a čas družiny</button><button type="button" class="gbtn ghost" data-vy="stul" aria-pressed="false" title="Zjednodušené zobrazení na tablet: počasí dne, kostky a aktuální setkání">U stolu</button><button type="button" class="gbtn ghost" data-vy="nova">Nová výprava</button></div></div>
       <div class="controls vytabs" role="group" aria-label="Mapa">${[["svet","Známý svět"],["koruna","Země Koruny"],["praha","Praha"]].map(([k,n])=>`<button type="button" data-vymapa="${k}" aria-pressed="${VY.mapa===k}">${n}</button>`).join("")}</div>
       <div class="vygrid"><div class="vyslot" id="vyslot"></div><aside class="vyside" id="vyside"></aside></div>
       <div id="vypanely" class="vypanely"></div>`}
@@ -6157,7 +6176,9 @@ function renderVyprava(){const box=document.getElementById("vyview");if(!box)ret
   vyVlozMapu();vyMapaZapni();vyPrepocti();vyPanely()}
 function vyPanely(){const side=document.getElementById("vyside"),pan=document.getElementById("vypanely");if(!side||!pan)return;
   const f=document.activeElement&&pan.contains(document.activeElement)&&document.activeElement.matches("input,select,textarea")?document.activeElement.getAttribute("data-vyf")||document.activeElement.name:null;
-  side.innerHTML=vyHtmlTrasa();pan.innerHTML=VYT?vyHtmlPanely():"";
+  document.getElementById("vyview").classList.toggle("vystul",!!VY.stul);
+  side.innerHTML=vyHtmlTrasa();pan.innerHTML=VYT?(VY.stul?vyHtmlStul():vyHtmlPanely()):"";
+  const sb=document.querySelector('[data-vy="stul"]');if(sb)sb.setAttribute("aria-pressed",!!VY.stul);
   if(f){const e=pan.querySelector(`[data-vyf="${f}"]`)||pan.querySelector(`[name="${f}"]`);if(e)e.focus()}}
 function vyHtmlTrasa(){const S=VY.start||vyHraStart(),zp=VY_ZP.filter(z=>VY.mapa!=="praha"||z[0]!=="drak");
   const kde=VY.z?VY.z.name:"–",cil=VY.do?VY.do.name:"";
@@ -6180,6 +6201,8 @@ function vyHtmlTrasa(){const S=VY.start||vyHraStart(),zp=VY_ZP.filter(z=>VY.mapa
     ${VYT.m==="svet"&&VYT.more?`<p class="lbl">Z toho asi ${Math.round(VYT.km*VYT.more)} km lodí.</p>`:""}
     ${X.zdrzSetk?`<p class="lbl">Setkání navíc prodlužují cestu o ${vyTrvani(X.zdrzSetk)}.</p>`:""}
     ${!X.delka?`<p class="vypozn">Pod ${VYT.plan?"40 minut":"6 hodin"} cesty stačí vyprávění. <label class="vychk"><input type="checkbox" data-vyf="hratKratkou"${VY.hratKratkou?" checked":""}> přesto hrát jako krátkou výpravu</label></p>`:""}
+    ${X.reviry&&X.reviry.length?`<p class="vypozn"><b>Dračí revíry na trase:</b> ${X.reviry.map(r=>`<a href="#draconomicon/${r.d.id}">${vyEsc(r.d.n)}</a> (${vyEsc(r.kde)})`).join(", ")}. Divocí draci brání revír i proti drakům s jezdcem. <label class="vychk"><input type="checkbox" data-vyf="revir"${VY.revir?" checked":""}> přidat setkání za přelet revíru</label></p>`:""}
+    ${VY.zp==="drak"?`<p class="rsmall">Drak letí nejvýš 8 hodin denně; v bouři a vichřici nevzlétne.</p>`:""}
     ${vyPoCeste()}
     <div class="gmhrab">${VYT.plan?"":`<button type="button" class="gbtn" data-vy="vyrazit-cas"${VY.do?"":" disabled"} title="Družina vyrazí teď a s každou hodinou herního času se posune po trase">Vyrazit</button>`}<button type="button" class="gbtn${VYT.plan?"":" ghost"}" data-vy="odcestovat"${VY.do?"":" disabled"} title="Posune herní čas rovnou na příjezd a praporec do cíle">Rovnou dorazit</button></div></section>`;
   return out}
@@ -6194,7 +6217,8 @@ function vyHtmlPanely(){const X=VYS,dr=vyDruzina();
   /* počasí */
   const sr=vyDen(X.dny.length?X.dny[0].j:jdn(...(VY.start||vyHraStart()).datum.split("-").map(Number)),VYT.plan?50.09:vyLL(VYT,vyBod(VYT,0))[1]);
   let h=`<section class="vycard vypoc"><h3 class="uvh2">Počasí <small>slunce vychází v ${vyHod(Math.round(sr[0]*4)/4)}, zapadá v ${vyHod(Math.round(sr[1]*4)/4)}</small></h3>
-    <ol class="vydny">${X.dny.slice(0,21).map(vyPocasiRadek).join("")}</ol>${X.dny.length>21?`<p class="rsmall">…a dalších ${X.dny.length-21} dní.</p>`:""}</section>`;
+    <label class="vychk"><input type="checkbox" data-vyf="pocHraci"${VY.pocHraci?" checked":""}> ukazovat hráčům počasí dne na Úvodu (bez čísel; ruční úpravy se přenesou)</label>
+    <ol class="vydny">${X.dny.slice(0,21).map(vyPocasiRadek).join("")}</ol>${X.dny.length>21?`<p class="rsmall">…a dalších ${X.dny.length-21} dní.</p>`:""}</section>`+vyHtmlNoci();
   /* obtížnost */
   h+=`<section class="vycard"><h3 class="uvh2">Obtížnost <span class="vydc">SO ${X.D}</span></h3>
     <table class="vytab"><tr><td>Základ</td><td>10</td><td></td></tr>
@@ -6211,8 +6235,9 @@ function vyHtmlPanely(){const X=VYS,dr=vyDruzina();
   if(nn&&nn<4&&role.some(([k])=>!poc[k])&&!dr.some(x=>x.role2))vars.push("Méně než čtyři postavy: někdo vezme druhou roli (hází za ni s nevýhodou, ale má její schopnost).");
   Object.entries(poc).forEach(([k,c])=>{if(c>2)vars.push(`${VY_ROLE[k].n}: nejvýš dvě postavy.`);else if(c===2)vars.push(`${VY_ROLE[k].n}: dvě postavy – hází jen jedna (střídají se) s výhodou, schopnost role použije jen jedna.`);else if(c>1&&nn<=4)vars.push(`${VY_ROLE[k].n} je dvakrát – každá role má mít jinou postavu.`)});
   h+=`<section class="vycard vydr"><h3 class="uvh2">Družina a příprava ${VY.rychle?"":`<small>přípravy SO 13</small>`}</h3>
-    <div class="vytabw"><table class="vytab vytabd"><thead><tr><th>Postava</th><th>Role</th><th title="Bonus zdatnosti">BZ</th>${VY.rychle?"":"<th>Příprava</th><th>Výsledek</th>"}<th>Hod na cestu (SO ${X.D})</th><th></th></tr></thead><tbody>
+    <div class="vytabw"><table class="vytab vytabd"><thead><tr><th>Postava</th><th>Víra</th><th>Role</th><th title="Bonus zdatnosti">BZ</th>${VY.rychle?"":"<th>Příprava</th><th>Výsledek</th>"}<th>Hod na cestu (SO ${X.D})</th><th></th></tr></thead><tbody>
     ${dr.map((x,i)=>{const R=VY_ROLE[x.role];return `<tr data-vyi="${i}"><td><input data-vyf="d${i}n" data-vyd="n" value="${vyEsc(x.n)}" placeholder="Jméno" aria-label="Jméno postavy"></td>
+      <td><select data-vyf="d${i}f" data-vyd="vira" aria-label="Víra"><option value="">—</option>${[["kal","kališník"],["kat","katolík"],["old","starověrec"]].map(([k,n])=>`<option value="${k}"${x.vira===k?" selected":""}>${n}</option>`).join("")}</select></td>
       <td><select data-vyf="d${i}r" data-vyd="role" aria-label="Role"><option value="">—</option>${role.map(([k,r])=>`<option value="${k}"${x.role===k?" selected":""}>${r.n}</option>`).join("")}</select>
         ${nn<4||x.role2?`<select data-vyf="d${i}r2" data-vyd="role2" aria-label="Druhá role" class="vyr2"><option value="">+ druhá role</option>${role.map(([k,r])=>`<option value="${k}"${x.role2===k?" selected":""}>${r.n}</option>`).join("")}</select>`:""}</td>
       <td><input data-vyf="d${i}b" data-vyd="bz" type="number" min="2" max="6" value="${x.bz||2}" class="vynum" aria-label="Bonus zdatnosti"></td>
@@ -6243,6 +6268,8 @@ function vyHtmlPanely(){const X=VYS,dr=vyDruzina();
     ${K?"":`<button type="button" class="gbtn" data-vy="vyrazit"${X.dl?"":" disabled"}>Vyrazit – rozdat kostky zásob a bdělosti</button>`}
     <ol class="vysetk">${VY.setk.map((s,i)=>vyHtmlSetk(s,i)).join("")}</ol>
     ${X.dl?`<button type="button" class="badd" data-vy="setkplus">+ Setkání navíc (bloudění, výsledek jiného setkání…)</button>${VY.navic>0?` <button type="button" class="badd" data-vy="setkminus">− ubrat přidané setkání</button>`:""}`:""}
+    <div class="vyrow"><button type="button" class="gbtn ghost" data-vy="clovek">Člověk na cestě</button><span class="rsmall" id="vyclovek">${vyEsc(VY.clovek||"")}</span></div>
+    ${vyHtmlTabulky()}
     <details class="vyjak"><summary>Odpočinek a schopnosti na cestě</summary><p>Na cestě se dlouhý odpočinek nedá vzít, leda to dovolí setkání (Místo k odpočinku). Krátký jednou za výpravu, za cenu setkání navíc.</p>
       <p>Mezi setkáními (ne během nich) lze za kostky životů obnovit schopnosti povolání: co se obnovuje krátkým odpočinkem, stojí 1 kostku; co dlouhým, 2 kostky; pozice kouzla stojí tolik kostek, kolikátá je její úroveň (černokněžník podle úrovně svých pozic).</p>
       <p class="rsmall">Naše domácí pravidla: featy víry „1× za dlouhý odpočinek“ by šly obnovit za 2 kostky životů – rozhodni na nultém sezení. Pozor na únavu v těžké zbroji (neúspěšná záchrana proti vyčerpání = 2 úrovně) a na Horečku z ran.</p></details></section>`;
@@ -6260,7 +6287,7 @@ function vyHtmlPanely(){const X=VYS,dr=vyDruzina();
     <div class="gmhrab">${VYT&&!VYT.plan?`<button type="button" class="gbtn" data-vy="vyrazit-cas"${VY.do?"":" disabled"}>Vyrazit</button>`:""}<button type="button" class="gbtn${VYT&&!VYT.plan?" ghost":""}" data-vy="odcestovat"${VY.do?"":" disabled"}>Rovnou dorazit</button><button type="button" class="gbtn ghost" data-vy="kronika"${VYT||VY.posledniMd?"":" disabled"}>Koncept zápisu do Kroniky</button></div>
     <details class="vyjak"><summary>Odměny za cestu</summary><p><b>Příběhové:</b> věhlas (cesta, kterou nikdo nezvládl), spojenci a nepřátelé z cesty, proměna postavy (jizva, nový pohled na svět, nová vada nebo ctnost). <b>Krátkodobé:</b> inspirace, výhoda nebo bonusová kostka při další cestě stejným krajem, dočasná zdatnost s nástroji. Nebo zkušenosti podle počtu a obtížnosti setkání.</p></details></section>`;
   return h}
-function vyHtmlSetk(s,i){const kr=s.kraj||s._kraj,T=s.typ!=null?VY_TYPY[s.typ]:null,Z=s.typ!=null&&s.zaz!=null?VY_ZAZ[s.typ][s.zaz]:null;
+function vyHtmlSetk(s,i){const kr=s.kraj||s._kraj,T=s.typ!=null?VY_TYPY[s.typ]:null,Z=s.typ!=null&&s.zaz!=null?vyZazT(s.typ)[s.zaz]:null;
   const vys=["cela","vice","mene","nikdo"],vn=["uspěli všichni","víc než polovina","polovina a méně","nikdo"],vi=vys.indexOf(s.vys);
   return `<li class="vys${s.hotovo?" vyhot":""}" data-vys="${i}"><div class="vysh"><span class="vysn">${i+1}</span><div class="vyskde"><b>${vyEsc(s._kde)}</b><small>${vyDatum(s._j)}, ${vyDobaDne(s._h)}${s.navic?" · navíc":""}</small></div>
       <select data-vyf="s${i}k" data-vys2="kraj" aria-label="Kraj">${Object.entries(VY_KRAJ).map(([k,[n]])=>`<option value="${k}"${kr===k?" selected":""}>${n}${k===s._kraj&&!s.kraj?" (z mapy)":""}</option>`).join("")}</select>
@@ -6272,11 +6299,13 @@ function vyHtmlSetk(s,i){const kr=s.kraj||s._kraj,T=s.typ!=null?VY_TYPY[s.typ]:n
         ${s.typ2!=null?`<span class="vynajdi">Zvěd vybírá: <button type="button" class="gbtn ghost" data-vysvol="${i}" data-t="${s.typ}">${VY_TYPY[s.typ].n}</button> nebo <button type="button" class="gbtn ghost" data-vysvol="${i}" data-t="${s.typ2}">${VY_TYPY[s.typ2].n}</button></span>`:""}</div>
       ${T?`<p class="vyjakt"><b>${T.n}</b> · klíčová role: ${T.r}. ${T.jak}</p>
         <div class="vyrow"><button type="button" class="gbtn ghost" data-vysh="zaz" data-i="${i}">${Z?"Jiný záznam":"Hodit záznam"}</button>
-          <select data-vyf="s${i}z" data-vys2="zaz" aria-label="Záznam"><option value="">— záznam —</option>${VY_ZAZ[s.typ].map((z,k)=>`<option value="${k}"${s.zaz===k?" selected":""}>${vyEsc(z.n)}${vyHodiSe(z,kr)?"":" (jiný kraj)"}</option>`).join("")}</select></div>
+          <select data-vyf="s${i}z" data-vys2="zaz" aria-label="Záznam"><option value="">— záznam —</option>${vyZazT(s.typ).map((z,k)=>`<option value="${k}"${s.zaz===k?" selected":""}>${vyEsc(z.n)}${vyHodiSe(z,kr)?"":" (jiný kraj)"}</option>`).join("")}</select></div>
         ${Z?`<p class="vyzaz"><b>${vyEsc(Z.n)}.</b> ${vyEsc(Z.t)}${Z.k?` <i>Ověření: ${vyEsc(Z.k)}.</i>`:""}</p>`:""}
         <div class="controls vyvys" role="group" aria-label="Výsledek skupinového hodu">${vys.map((v,k)=>`<button type="button" data-vysv="${i}" data-v="${v}" aria-pressed="${s.vys===v}">${vn[k]}</button>`).join("")}</div>
         ${vi>=0?`<p class="vyvt">${T.v[vi]}</p>`:""}`:""}
-      <textarea data-vyf="s${i}p" data-vys2="pozn" rows="1" placeholder="Poznámky k setkání" aria-label="Poznámky">${vyEsc(s.pozn||"")}</textarea></div></li>`}
+      ${vyHtmlOkoli(s)}
+      <textarea data-vyf="s${i}p" data-vys2="pozn" rows="${Math.min(6,Math.max(1,(s.pozn||"").split("\n").length))}" placeholder="Poznámky k setkání" aria-label="Poznámky">${vyEsc(s.pozn||"")}</textarea>
+      <div class="vyrow"><button type="button" class="badd" data-vyclov="${i}">+ člověk na cestě do poznámek</button></div></div></li>`}
 const vyHodiSe=(z,kr)=>z.r.includes("*")||z.r.includes((VY_KRAJ[kr]||["","P"])[1]);
 const vyK=n=>1+Math.floor(Math.random()*n);
 function vyZnacky(m){if(curView!=="vyprava"||!VY||VY.mapa!==m||!VYT||!VYS||VYT.m!==m)return;
@@ -6291,6 +6320,7 @@ function vyZnacky(m){if(curView!=="vyprava"||!VY||VY.mapa!==m||!VYT||!VYS||VYT.m
 function vyZmena(){vyPrepocti();vyPanely();vyUloz();try{if(VY.mapa==="koruna")drawMap();else if(VY.mapa==="svet"&&SG)sDraw();else if(PG)pDraw()}catch(e){}}
 document.addEventListener("change",e=>{const t=e.target;if(curView!=="vyprava"||!VY||!t.closest("#vyview"))return;const f=t.getAttribute("data-vyf");if(!f)return;
   const v=t.type==="checkbox"?t.checked:t.value;
+  if(f==="pocHraci"){VY.pocHraci=v;vyZmena();vyZverejniPocasi();return}
   if(t.dataset.vyd){const i=+t.closest("[data-vyi]").dataset.vyi,x=VY.druzina[i];x[t.dataset.vyd]=t.dataset.vyd==="bz"||t.dataset.vyd==="hod"?+v:v;
     if(t.dataset.vyd==="role"&&x.role===x.role2)x.role2="";vyZmena();return}
   if(t.dataset.vys2){const i=+t.closest("[data-vys]").dataset.vys,s=VY.setk[i],k=t.dataset.vys2;
@@ -6328,7 +6358,7 @@ document.addEventListener("click",async e=>{if(curView!=="vyprava"||!VY)return;c
   if(t.dataset.vysh){const s=VY.setk[+t.dataset.i];
     if(t.dataset.vysh==="typ"){s.typ=vyK(12)-1;s.typ2=null;s.zaz=null;s.vys=""}
     if(t.dataset.vysh==="najdi"){s.typ=vyK(12)-1;s.typ2=vyK(12)-1;s.zaz=null;s.vys="";VY.najdi=true;if(s.typ2===s.typ)s.typ2=null}
-    if(t.dataset.vysh==="zaz"){const kr=s.kraj||s._kraj,L=VY_ZAZ[s.typ].map((z,k)=>[z,k]).filter(([z])=>vyHodiSe(z,kr)),M=L.length?L:VY_ZAZ[s.typ].map((z,k)=>[z,k]);
+    if(t.dataset.vysh==="zaz"){const kr=s.kraj||s._kraj,L=vyZazT(s.typ).map((z,k)=>[z,k]).filter(([z])=>vyHodiSe(z,kr)),M=L.length?L:vyZazT(s.typ).map((z,k)=>[z,k]);
       let k=M[vyK(M.length)-1][1];if(M.length>1&&k===s.zaz)k=M[(M.findIndex(x=>x[1]===k)+1)%M.length][1];s.zaz=k}
     vyZmena();return}
   if(t.dataset.vysvol!=null){const s=VY.setk[+t.dataset.vysvol];s.typ=+t.dataset.t;s.typ2=null;s.zaz=null;vyZmena();return}
@@ -6340,12 +6370,21 @@ document.addEventListener("click",async e=>{if(curView!=="vyprava"||!VY)return;c
     else if(t.dataset.vypoc==="zpet"){delete o[d]}
     else{const x=VYS.dny.find(q=>vyDat(q.j)===d),P=x&&x.P;const txt=prompt("Popis počasí pro "+vyDatum(x.j)+":",P?P.text:"");if(txt===null)return;
       const val=prompt("Hodnota počasí pro obtížnost (1–10):",P?P.w:3);if(val===null)return;o[d]=Object.assign({},o[d]||{},{t:txt.trim()||undefined,v:Math.max(1,Math.min(10,+val||1))})}
-    vyZmena();return}
+    vyZmena();if(VY.pocHraci)vyZverejniPocasi();return}
+  if(a==="stul"){VY.stul=!VY.stul;vyZmena();return}
+  if(a==="clovek"){const q=VYT&&VY.setk.find(x=>!x.hotovo&&x._q);VY.clovek=vyClovek(q&&!VYT.plan?q._q.xy:(VYT&&!VYT.plan?vyBod(VYT,0).xy:null));vyPanely();vyUloz();return}
+  if(t.dataset.vyclov!=null){const s=VY.setk[+t.dataset.vyclov];s.pozn=(s.pozn?s.pozn.trim()+"\n":"")+vyClovek(s._q&&!VYT.plan?s._q.xy:null);vyZmena();return}
+  if(t.dataset.vyhod){const n=+t.dataset.vyhod,r=vyK(n),o=document.getElementById("vyhodv");if(o){o.textContent=`k${n}: ${r}`;o.classList.remove("vyblik");void o.offsetWidth;o.classList.add("vyblik")}return}
+  if(a==="tabuloz"){const ta=document.querySelector("[data-vytab]"),k=+ta.dataset.vytab,txt=ta.value.trim();(VY.tab||(VY.tab={}))[k]=txt&&txt!==vyZazText(k)?txt:undefined;if(!VY.tab[k])delete VY.tab[k];
+    VY.setk.forEach(x=>{if(x.typ===k&&x.zaz!=null&&x.zaz>=vyZazT(k).length)x.zaz=null});VY.tabOpen=true;vyZmena();mmHlasG("Tabulka uložena.");return}
+  if(a==="tabzpet"){const k=VY.tabT||0;if(VY.tab)delete VY.tab[k];VY.tabOpen=true;vyZmena();return}
   if(a==="odcestovat"){await vyOdcestuj(false);return}
   if(a==="vyrazit-cas"){await vyOdcestuj(true);return}
   if(a==="kronika"){vyKronika();return}});
 document.addEventListener("change",e=>{const t=e.target;if(curView!=="vyprava"||!VY||!t.closest("#vyview"))return;
   if(t.dataset.vypov){VY.vudce[t.dataset.vypov]=t.checked;vyUloz()}
+  if(t.dataset.vynoc){(VY.noc||(VY.noc={}))[t.dataset.vynoc]=t.value;vyZmena()}
+  if(t.hasAttribute("data-vytabt")){VY.tabT=+t.value;VY.tabOpen=true;vyPanely()}
   if(t.dataset.vyhot!=null){VY.setk[+t.dataset.vyhot].hotovo=t.checked;vyZmena()}});
 /* stopa pro putování po hodinách (stejný tvar jako HRA.cesta.track: [hodina od počátku letopočtu, délka, šířka]) */
 function vyStopa(){if(!VYT||VYT.plan||!VYS)return null;const pts=VYT.pts,d=haversine;let L=0;const cum=[0];for(let i=1;i<pts.length;i++){L+=d(pts[i-1],pts[i]);cum.push(L)}
@@ -6393,11 +6432,97 @@ function vyKronikaMd(){
   const id=`cesta-${dat}-${slug}`,route=VYT.m==="koruna"?VYT.names.join(", "):`${VYT.z}, ${misto}`;
   const tx=[`Družina vyrazila ${vyDatum(jdn(...S.datum.split("-").map(Number)))} z místa ${VYT.z} (${VY_ZP.find(z=>z[0]===VY.zp)[1].toLowerCase()}) a dorazila ${vyDatum(p.j)} k ${p.h}. hodině.`];
   if(VYS.dny.length)tx.push("Počasí: "+[...new Set(VYS.dny.map(x=>x.P.text.split(".")[0]))].slice(0,4).join("; ")+".");
-  VY.setk.forEach((s,i)=>{if(s.typ==null)return;const Z=s.zaz!=null?VY_ZAZ[s.typ][s.zaz]:null;tx.push(`${i+1}. ${s._kde}, ${vyDatum(s._j)}: ${VY_TYPY[s.typ].n}${Z?` – ${Z.n}`:""}.${s.pozn?" "+s.pozn:""}`)});
+  VY.setk.forEach((s,i)=>{if(s.typ==null)return;const Z=s.zaz!=null?vyZazT(s.typ)[s.zaz]:null;tx.push(`${i+1}. ${s._kde}, ${vyDatum(s._j)}: ${VY_TYPY[s.typ].n}${Z?` – ${Z.n}`:""}.${s.pozn?" "+s.pozn:""}`)});
   if(VY.konec.prij!=null){const r=VY_PRIJ.find(q=>VY.konec.prij<=q[0]);tx.push(`Příjezd: ${r[1].toLowerCase()}.`)}
   if(VY.konec.pozn)tx.push(VY.konec.pozn);
   const md=`---\nid: ${id}\nn: Cesta\ndatum: ${dat}\ndate: ${vyDatum(p.j)}\nhodina: ${p.h}\nplace: ${misto}\nroute: ${route}\n${VYT.m==="praha"&&VY.do&&VY.do.key&&VY.do.key.startsWith("p:")?`druzina: ${VY.do.key.slice(2)}\n`:""}title: Cesta: ${misto}\n---\n${tx.join("\n\n")}\n`;
   return md}
+
+/* ---------- Výprava 2: okolí trasy, draci, vlastní tabulky, noclehy, lidé na cestě, počasí pro hráče, režim u stolu ---------- */
+const VY_VIRA={kal:"kališníci",kat:"katolíci",mix:"smíšené vyznání",isl:"muslimové",old:"starověrci"};
+/* panství kolem bodu: nejbližší sídla rodů (do 25 km), u Prahy místa na plánu s rodem */
+function vyOkoli(T,q){if(!T||!q)return [];
+  if(T.plan){const pt=q.xy,o=[];PRAHA_PLACES.forEach(p=>{if(!p.r||!byId[p.r])return;const d=Math.hypot(p.pos[0]-pt[0],p.pos[1]-pt[1])*PMU/1000;if(d<.6)o.push({f:byId[p.r],sd:[`${p.n}. ${p.name}`],d})});
+    o.sort((a,b)=>a.d-b.d);const s=new Set();return o.filter(x=>!s.has(x.f.id)&&s.add(x.f.id)).slice(0,3)}
+  const ll=q.xy,o=[];FAM.forEach(f=>{if(f.nomap)return;(f.seats||[]).forEach(sd=>{const d=haversine(ll,[sd[1],sd[2]]);if(d<25)o.push({f,sd,d})})});
+  o.sort((a,b)=>a.d-b.d);const s=new Set();return o.filter(x=>!s.has(x.f.id)&&s.add(x.f.id)).slice(0,3)}
+function vyOsobyOkoli(ok){const ids=new Set(ok.map(x=>x.f.id)),seats=new Set(ok.map(x=>x.sd[0]));
+  return PEOPLE.filter(p=>ids.has(p.r)).sort((a,b)=>(seats.has(b.seat)-seats.has(a.seat))).slice(0,5)}
+/* vyznání družiny: většina podle sloupce víra */
+function vyViraDruziny(){const c={};vyDruzina().forEach(x=>{if(x.n.trim()&&x.vira)c[x.vira]=(c[x.vira]||0)+1});const e=Object.entries(c).sort((a,b)=>b[1]-a[1]);return e.length?e[0][0]:""}
+function vyRozpor(f){const v=vyViraDruziny();if(!v||!f)return "";if(f.conf==="mix"||v==="old")return f.conf==="mix"?"":`Pán okolí (${VY_VIRA[f.conf]||f.conf}) nemá starověrce v lásce.`;
+  if((v==="kal"&&f.conf==="kat")||(v==="kat"&&f.conf==="kal"))return `Pán okolí je ${f.conf==="kat"?"katolík":"kališník"}, družina ${v==="kat"?"katolická":"kališnická"}: u setkání s místními (Setkání na cestě, Prosba o pomoc, Místo k odpočinku) navrhuji SO +2.`;return ""}
+/* draci: plemena, jejichž místa výskytu (mp) jsou do 50 km */
+function vyDraciU(ll){if(!ll||!DRACI||!DRACI.pl)return [];return DRACI.pl.filter(d=>(d.mp||[]).some(m=>haversine(ll,m)<50))}
+function vyReviry(T){if(!T||T.plan||VY.zp!=="drak")return [];const o=new Map();for(let p=0;p<=1;p+=.05){const q=vyBod(T,p);
+  DRACI.pl.forEach(d=>{(d.mp||[]).forEach(m=>{if(haversine(q.xy,m)<35&&!o.has(d.id))o.set(d.id,{d,kde:vyBlizko(q.xy)})})})}
+  return [...o.values()]}
+/* vlastní tabulky setkání (uložené ve výpravě) */
+function vyZazT(t){const tx=VY&&VY.tab&&VY.tab[t];if(!tx)return VY_ZAZ[t];
+  const L=tx.split("\n").map(r=>r.trim()).filter(r=>r&&!r.startsWith("#")).map(r=>{const a=r.split("|").map(x=>x.trim());return {r:a[0]||"*",n:a[1]||"?",t:a[2]||"",k:a[3]||""}});return L.length?L:VY_ZAZ[t]}
+const vyZazText=t=>VY_ZAZ[t].map(z=>`${z.r} | ${z.n} | ${z.t}${z.k?` | ${z.k}`:""}`).join("\n");
+/* noclehy */
+const VY_NOC={krcma:["V krčmě",2,"Odpočinek bez obtíží. Za koně píce 1 groš."],klaster:["V klášteře nebo na faře",0,"Zdarma, čeká se dar (1 groš). Kněz se zeptá na vyznání."],
+  tvrz:["Na tvrzi nebo dvoře",0,"Pohostinnost pána – a závazek, novinky, otázky."],sirak:["Pod širákem",0,"Žádné náklady. Za mrazu záchrana Odolnosti, jinak úroveň vyčerpání."]};
+function vyNoci(){if(!VYT||!VYS||VYT.plan)return [];const out=[];VYS.dny.forEach((x,i)=>{if(i===VYS.dny.length-1)return;const q=vyBod(VYT,x.p1),kde=vyBlizko(q.xy),sidlo=!/^(nedaleko|cestou)/.test(kde);
+  const k=vyDat(x.j),v=(VY.noc&&VY.noc[k])||(sidlo?"krcma":"sirak"),tn=x.P.tn;let pozn="";
+  if(v==="sirak"){if(tn<=-8)pozn=`Krutá zima (${Math.round(tn)} °C): záchrana Odolnosti SO 15, jinak úroveň vyčerpání.`;else if(tn<=0)pozn=`Mráz (${Math.round(tn)} °C): záchrana Odolnosti SO 10, jinak úroveň vyčerpání.`;else if(x.P.typ&&x.P.typ!=="snih")pozn="Prší: bez přístřeší jen polovina kostek životů.";}
+  out.push({k,j:x.j,kde,v,pozn,sidlo})});return out}
+/* lidé na cestě */
+const VY_JM={m:["Jan","Petr","Václav","Mikuláš","Jakub","Matěj","Ondřej","Jiří","Martin","Prokop","Havel","Bohuslav","Zdeněk","Vilém","Hynek","Ctibor","Bušek","Mareš","Šimon","Vít","Jíra","Duchek","Mach","Pešek","Vaněk","Zikmund","Beneš","Štěpán","Linhart","Mates"],
+  z:["Anna","Kateřina","Markéta","Dorota","Ludmila","Johana","Barbora","Machna","Dobruška","Eliška","Ofka","Zdeňka","Anežka","Magdaléna","Hedvika","Kunka","Bětka","Voršila","Jitka","Běta"]};
+const VY_PRIZ=["Černý","Malý","Bezzubý","Šilhavý","Kulhavý","Ryšavý","Holý","Dlouhý","Mladý","Starý","Vousatý","Kos","Vrána","Liška","Zajíc"];
+const VY_STAV=[["sedlák",5,"Novák|Dvořák|Svoboda|Procházka|z Lhoty"],["měšťan",3,"od Zlatého lva|od Tří kaprů|z Rynku|Bohatý"],["řemeslník",4,"Kovář|Švec|Krejčí|Pekař|Sladovník|Kožešník|Hrnčíř|Tesař"],["kupec",2,"z Norimberka|z Vratislavi|z Kolína|Solař"],
+  ["kněz pod obojí",1,""],["katolický mnich",1,""],["zeman",1,"z Lomnice|ze Lhoty|z Dubé|z Chlumu"],["panoš",1,""],["žoldnéř",2,""],["poutník",2,""],["žebrák",1,""],["havíř",1,""],["vorař",1,""],["kramář",1,""],["bylinkářka",1,""],["dračí letec",.5,""]];
+const VY_POV=["podezíravý","upovídaný","zbožný až horlivý","vychytralý","dobrosrdečný","ustrašený","hrdý na svůj stav","opilý","zachmuřený","zvědavý","úlisný","prostořeký","unavený k smrti","výbušný","pověrčivý","vděčný za každé slovo"];
+const VY_CHCE=["dostat se domů dřív než bouře","prodat, co nese, za dobrou cenu","najít ztraceného syna","doručit list, který nesmí otevřít","utéct před dluhy","vyprosit si ochranu na cestu","pomstít křivdu na pánovi","dozvědět se novinky z Prahy","sehnat felčara","zjistit, kdo je družina","najít Proměněnce, který mu ukradl ženu","dojít na pouť","zbavit se prokletí","najít práci na zimu","přechytračit mýtníka","vidět draka zblízka"];
+const VY_TAJ=["je ve skutečnosti Proměněnec a skrývá to","pracuje pro rod, se kterým má družina spor","nese ukradené stříbro z Kutné Hory","viděl něco, co neměl, u místa Závoje","je kališník mezi katolíky (nebo naopak)","dluží peníze nebezpečným lidem","zná zkratku přes hvozd","je hledaný pro vraždu, kterou nespáchal","nosí relikvii, o které neví, že je pravá","je zvěd jednoho z pánů","utíká z kláštera","má u sebe dračí vejce"];
+function vyClovek(ll){const pick=a=>a[Math.floor(Math.random()*a.length)],wp=a=>{const t=a.reduce((s,x)=>s+x[1],0);let r=Math.random()*t;for(const x of a){if((r-=x[1])<0)return x}return a[0]};
+  const S=wp(VY_STAV),zena=S[0]==="bylinkářka"||(!/mnich|kněz|žoldnéř|panoš|havíř|vorař|letec/.test(S[0])&&Math.random()<.4),jm=pick(zena?VY_JM.z:VY_JM.m),
+    pr=S[2]&&Math.random()<.7?pick(S[2].split("|")):pick(VY_PRIZ),rs=/měšťan|řemeslník|kupec|kramář/.test(S[0])?.25:.07,
+    rasa=Math.random()<rs?pick(["elf","trpaslík","půlčík","gnóm","napůl proměněný"]):"člověk";
+  const ok=ll?vyOkoli({},{xy:ll}):[],pan=ok[0]&&ok[0].f;let vira=Math.random();
+  vira=S[0]==="katolický mnich"?"katolík":S[0]==="kněz pod obojí"?"kališník":vira<.08?"starověrec":vira<.12?"bratr z Jednoty":(pan&&pan.conf==="kat"?vira<.7:pan&&pan.conf==="kal"?vira<.3:vira<.45)?"katolík":"kališník";
+  const st=S[0]==="sedlák"&&zena?"selka":S[0]==="měšťan"&&zena?"měšťka":S[0]==="řemeslník"&&zena?"řemeslnice":S[0]==="kupec"&&zena?"kupcová":S[0]==="poutník"&&zena?"poutnice":S[0]==="žebrák"&&zena?"žebračka":S[0]==="kramář"&&zena?"kramářka":S[0]==="zeman"&&zena?"zemanka":S[0];
+  return `${jm} ${pr} – ${st}${rasa!=="člověk"?`, ${rasa}`:""}, ${vira}; ${pick(VY_POV)}. Chce ${pick(VY_CHCE)}. Tajemství: ${pick(VY_TAJ)}.`}
+/* počasí na Úvodu pro hráče (vypravěč ho zapíná ve Výpravě) */
+function vyUvodPocasi(){const h=document.getElementById("hero");if(!h||!HRA||!HRA.pocasiHraci)return;try{
+  const [Y,M,D]=herniDen(),j=jdn(Y,M,D),pp=typeof partyPos==="function"?partyPos():null,ll=pp&&pp.lo!=null?[pp.lo,pp.la]:(c=>c?[c.lo,c.la]:[14.42,50.088])(cestaMisto(partyPlace()||""));
+  const P=vyPocasi(j,ll);h.insertAdjacentHTML("beforeend",`<p class="herop vyuvp"><span class="lbl">Počasí</span> ${vyEsc(P.text)}${P.zav?` <i>${vyEsc(P.zav)}</i>`:""}</p>`)}catch(e){}}
+{const _rk=renderKal;renderKal=function(){_rk.apply(this,arguments);vyUvodPocasi()}}
+vyUvodPocasi();
+async function vyZverejniPocasi(){if(!window.MMDB||!GMV)return;try{HRA=await MMDB.nastavHru({pocasiHraci:!!VY.pocHraci,pocasiR:VY.pocHraci?(VY.pocasi||{}):{}});__D.HRA=HRA;renderKal()}catch(e){mmHlasG("Počasí pro hráče se nepodařilo uložit: "+e.message,6000)}}
+/* HTML: okolí u setkání, noclehy, lidé, tabulky, stůl */
+function vyHtmlOkoli(s){if(!s._q)return "";const ok=vyOkoli(VYT,s._q),os=vyOsobyOkoli(ok),dr=VYT.plan?[]:vyDraciU(s._q.xy);if(!ok.length&&!dr.length)return "";
+  const roz=ok[0]?vyRozpor(ok[0].f):"",ukaz=[0,3,7,11].includes(s.typ),draci=[6,10].includes(s.typ);
+  return `<div class="vyok">${ok.length?`<p><span class="lbl">Okolí</span> ${ok.map(x=>`<a href="#rod/${x.f.id}">${vyEsc(x.f.name)}</a> <small>(${VY_VIRA[x.f.conf]||x.f.conf} · ${vyEsc(x.sd[0])}${x.d>=.5&&!VYT.plan?`, ${Math.round(x.d)} km`:""})</small>`).join(" · ")}</p>`:""}
+    ${roz?`<p class="vypozn">${roz}</p>`:""}
+    ${ukaz&&os.length?`<div class="vyos">${os.map(p=>`<div class="gmrow gmp vyosr" data-gmid="${p.id}"><a href="#osoba/${p.id}">${vyEsc(p.n.replace(/^✦\s*/,""))}</a><small>${vyEsc(p.role||"")}</small>${typeof gmSeg==="function"?gmSeg(p.id):""}</div>`).join("")}</div>`:""}
+    ${draci&&dr.length?`<p><span class="lbl">Draci v kraji</span> ${dr.map(d=>`<a href="#draconomicon/${d.id}">${vyEsc(d.n)}</a>`).join(", ")}</p>`:""}</div>`}
+function vyHtmlNoci(){const N=vyNoci();if(!N.length)return "";const lid=Math.max(1,VYS.dr.length),kone=["kun","vuz","posel"].includes(VY.zp);
+  let sum=0;N.forEach(n=>{const c=VY_NOC[n.v][1];sum+=c*lid+(n.v==="krcma"&&kone?lid:0)+(n.v==="klaster"?1:0)});
+  return `<section class="vycard"><h3 class="uvh2">Noclehy <small>${N.length} ${N.length===1?"noc":N.length<5?"noci":"nocí"} · asi ${sum} grošů za družinu (${lid} ${lid===1?"osoba":lid<5?"osoby":"osob"})</small></h3>
+    <ol class="vynoci">${N.map(n=>`<li><b>${vyDatum(n.j)}</b> <small>${vyEsc(n.kde)}</small> <select data-vynoc="${n.k}" aria-label="Kde se nocuje">${Object.entries(VY_NOC).map(([k,[t]])=>`<option value="${k}"${n.v===k?" selected":""}>${t}</option>`).join("")}</select>
+      <span class="rsmall">${VY_NOC[n.v][2]}</span>${n.pozn?`<span class="vypozn vypoznm">${n.pozn}</span>`:""}</li>`).join("")}</ol>
+    <p class="rsmall">Ceny jsou orientační: nocleh s jídlem v krčmě asi 2 groše na osobu.</p></section>`}
+function vyHtmlTabulky(){const t=VY.tabT||0;return `<details class="vyjak vytabedit"${VY.tabOpen?" open":""}><summary>Upravit tabulky setkání</summary>
+  <p class="rsmall">Každý řádek je jeden záznam: <code>kraje | název | text | ověření</code>. Kraje jsou písmena P pole, L hvozdy, H hory, M město, V voda, K pohraničí, W válkou zpustlý kraj, Z místa Závoje, * kdekoli. Řádky začínající # se přeskočí.</p>
+  <div class="vyrow"><select data-vytabt aria-label="Typ setkání">${VY_TYPY.map((x,k)=>`<option value="${k}"${t===k?" selected":""}>${k+1}. ${x.n}${VY.tab&&VY.tab[k]?" (upraveno)":""}</option>`).join("")}</select>
+    <button type="button" class="gbtn ghost" data-vy="tabzpet"${VY.tab&&VY.tab[t]?"":" disabled"}>Vrátit výchozí</button></div>
+  <textarea data-vytab="${t}" rows="10" class="vytabta" spellcheck="false">${vyEsc(VY.tab&&VY.tab[t]?VY.tab[t]:vyZazText(t))}</textarea>
+  <div class="vyrow"><button type="button" class="gbtn" data-vy="tabuloz">Uložit tabulku</button></div></details>`}
+function vyHtmlStul(){const X=VYS,dr=X.dr,K=VY.kostky,akt=VY.setk.findIndex(s=>!s.hotovo),[Y,M,D]=herniDen(),jd=jdn(Y,M,D),den=X.dny.find(x=>x.j===jd)||X.dny[0];
+  const zasob=dr.find(x=>x.role==="zasob"||x.role2==="zasob"),hlid=dr.find(x=>x.role==="hlidka"||x.role2==="hlidka");
+  return `<section class="vycard vystulc"><h3 class="uvh2">U stolu <small>SO ${X.D}</small></h3>
+    ${den?`<div class="vystulp"><span class="vyw">${den.P.w}</span><div><b>${vyDatum(den.j)}</b><p>${vyEsc(den.P.text)}</p>${den.P.drak?`<p class="rsmall">Draci: ${vyEsc(den.P.drak)}</p>`:""}</div></div>`:""}
+    <div class="vytrack vytrackb">
+      <div><b>Zásoby</b>${K&&zasob?`<span class="vykst"><button type="button" class="gbtn ghost" data-vyk="zas" data-d="-1">−</button><span>${K.zas} × d${K.zasD}</span><button type="button" class="gbtn ghost" data-vyk="zas" data-d="1">+</button></span>`:"<small>–</small>"}</div>
+      <div><b>Bdělost</b>${K&&hlid?`<span class="vykst"><button type="button" class="gbtn ghost" data-vyk="bdel" data-d="-1">−</button><span>${K.bdel} × d6</span><button type="button" class="gbtn ghost" data-vyk="bdel" data-d="1">+</button></span>`:"<small>–</small>"}</div>
+      <div><b>Kostky</b><span class="vykst">${[4,6,8,10,12,20].map(n=>`<button type="button" class="gbtn ghost" data-vyhod="${n}">k${n}</button>`).join("")}</span><span class="vyhodv" id="vyhodv"></span></div></div>
+    ${K?"":`<button type="button" class="gbtn" data-vy="vyrazit"${X.dl?"":" disabled"}>Vyrazit – rozdat kostky zásob a bdělosti</button>`}
+    ${akt>=0?`<h4 class="vysub">Setkání ${akt+1} z ${VY.setk.length}</h4><ol class="vysetk vysetkb">${vyHtmlSetk(VY.setk[akt],akt)}</ol>`:VY.setk.length?`<p>Všechna setkání jsou vyřešená – zbývá Konec cesty.</p>`:`<p>Tato cesta nemá žádná setkání.</p>`}
+    <div class="vyrow"><button type="button" class="gbtn ghost" data-vy="clovek">Člověk na cestě</button><span class="rsmall" id="vyclovek">${vyEsc(VY.clovek||"")}</span></div>
+    <p class="rsmall">${VY.setk.map((s,i)=>`<span class="vystulm${s.hotovo?" on":""}${i===akt?" akt":""}">${i+1}${s.typ!=null?` ${VY_TYPY[s.typ].n}`:""}</span>`).join(" · ")}</p></section>`}
 
 {let pq=0;new MutationObserver(()=>{if(!pq)pq=requestAnimationFrame(()=>{pq=0;pecProjdi()})}).observe(document.body,{childList:true,subtree:true})}
 route();
