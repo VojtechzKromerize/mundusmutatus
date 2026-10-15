@@ -267,7 +267,7 @@ def svet():
             fail(f"{w}: víra musí být kat / pra / isl / mix / kal")
         out.append({"id": p["id"], "n": p["nazev"], "k": p.get("kratce") or p["nazev"], "v": p.get("vladce", ""), "s": p.get("sidlo", ""),
                     "c": p["vira"], "h": ANO(p.get("hlavni", "")), "x": text(p["_body"]),
-                    "sp": lst(p.get("spor")), "al": lst(p.get("spojenec"))})
+                    "sp": lst(p.get("spor")), "al": lst(p.get("spojenec")), "na": lst(p.get("napeti"))})
     ids = {o["id"] for o in out}
     for o in out:
         for x in o["sp"]:
@@ -278,6 +278,9 @@ def svet():
                 fail(f"svet: {o['id']} má spojence s neexistující zemí „{x}“")
             if x in o["sp"]:
                 fail(f"svet: {o['id']} má zemi „{x}“ zároveň jako spor i spojence")
+        for x in o["na"]:
+            if x not in ids:
+                fail(f"svet: {o['id']} má napětí s neexistující zemí „{x}“")
     return out
 
 def _ll(txt, where):
@@ -325,16 +328,6 @@ def svet_cesty(mesta):
         if len(pts) < 2 or not pts[0][0] or not pts[-1][0]:
             fail(f"{w}: cesta musí začínat i končit pojmenovanou zastávkou")
         out.append({"k": a[0], "n": a[1], "p": pts})
-    return out
-
-def svet_zpravy():
-    out = []
-    for i, line in lines_file("svet-zpravy.md"):
-        w = f"svet-zpravy.md, řádek {i}"
-        a = [x.strip() for x in line.split("|", 3)]
-        if len(a) != 4 or not re.fullmatch(r"\d{4}(-\d{2}){0,2}", a[0]):
-            fail(f"{w}: má mít tvar  - RRRR-MM-DD | místo | délka, šířka | text")
-        out.append([a[0], a[1], *_ll(a[2], w), a[3]])
     return out
 
 def svet_draci(removed):
@@ -417,7 +410,7 @@ PIDS = {p["id"] for p in PEOPLE}
 SV, SVM = svet(), svet_mesta()
 for key, val in (("ZAPISY", zapisy()), ("PARTY", druzina()), ("MISTA", mista()), ("FAM", FAM), ("PEOPLE", PEOPLE),
                  ("REL", vazby(IDS, removed_items)), ("PRAHA_PLACES", praha(IDS, PIDS)), ("PSTREETS", ulice()), ("PORTR", portrety()), ("SVET", SV), ("SVETMESTA", SVM),
-                 ("SVETDRZ", svet_drzavy({o["id"] for o in SV})), ("SVETCESTY", svet_cesty(SVM)), ("SVETZPR", svet_zpravy()),
+                 ("SVETDRZ", svet_drzavy({o["id"] for o in SV})), ("SVETCESTY", svet_cesty(SVM)),
                  ("SVETDRACI", svet_draci(removed_items))):
     tag = f"/*@{key}@*/[]"
     if tag not in s:
