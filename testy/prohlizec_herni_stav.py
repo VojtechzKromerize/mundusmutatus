@@ -39,6 +39,8 @@ async def main():
     await pg.goto(BASE+"#kronika");await pg.wait_for_timeout(300)
     chk(await pg.locator('a[href="#kronika/testkoncept"]').count()==0,"hráč koncept nevidí")
     await pg.goto(BASE+"#mapa");await pg.wait_for_timeout(800)
+    chk(await pg.locator(".partymk").count()==0,"vrstva Družina je ve výchozím stavu vypnutá")
+    await pg.click("#lyParty");await pg.wait_for_timeout(500)
     ttl=await pg.evaluate("[...document.querySelectorAll('.partymk title')].map(t=>t.textContent).join('|')")
     chk("Kutná Hora" in ttl,"praporec na mapě je v Kutné Hoře: "+ttl)
     # vypravěč zveřejní koncept
