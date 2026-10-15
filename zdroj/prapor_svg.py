@@ -6,7 +6,11 @@ W=414; FL,FR=66.5,347.5-12  # okraje látky
 FR=335.5; CX=201
 BL=(72,92); BR=(2*201-92,2*201-72)   # zlaté linky bordur (vlevo, vpravo)
 P=60  # výška opakované dlaždice
-BORDURA=False  # zlaté postranní bordury (úponka s trojlístky); vypnuto na přání
+BORDURA=False
+RAM=True  # zlatý rám podél okraje látky
+RO=6     # odsazení rámu od okraje
+def ram(d):
+  return f'<path d="{d}" fill="none" stroke="{INK}" stroke-width="3.8" stroke-linejoin="round"/><path d="{d}" fill="none" stroke="{G}" stroke-width="2.3" stroke-linejoin="round"/><path d="{d}" fill="none" stroke="{G3}" stroke-width=".6" stroke-linejoin="round" opacity=".7"/>' if RAM else ''  # zlaté postranní bordury (úponka s trojlístky); vypnuto na přání
 
 def fabric_shading(y0,y1):
   # ploché svislé záhyby
@@ -65,6 +69,7 @@ def horni():
   s+=f'<clipPath id="hc"><rect x="0" y="54" width="{W}" height="40"/></clipPath><g clip-path="url(#hc)">'+border_seg(30)+'</g>'
   for a,b in ((BL,BR) if BORDURA else ()):
     s+=f'<rect x="{a-2}" y="50" width="{b-a+4}" height="4" fill="{G}" stroke="{INK}" stroke-width=".6"/>'
+  s+=ram(f'M{FL+RO},90V47H{FR-RO}V90')
   s+=f'<path d="M{FL},38V90M{FR},38V90" stroke="{INK}" stroke-width="1.6"/>'
   s+=f'<path d="M{FL},38H{FR}" stroke="{INK}" stroke-width="1.4"/>'
   # ratiště
@@ -85,6 +90,7 @@ def stred():
   s=f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {P}" preserveAspectRatio="none">'
   s+=f'<rect x="{FL}" y="0" width="{FR-FL}" height="{P}" fill="{RED}"/>'+fabric_shading(0,P)
   s+=border_lines(0,P)+border_seg(0)
+  s+=ram(f'M{FL+RO},0V{P}M{FR-RO},0V{P}')
   s+=f'<path d="M{FL},0V{P}M{FR},0V{P}" stroke="{INK}" stroke-width="1.6"/>'
   return s+"</svg>"
 
@@ -104,6 +110,8 @@ def spodni():
   s+=f'<g>{fr}</g>'
   s+=f'<path d="{poly}" fill="{RED}"/>'
   s+=f'<g clip-path="url(#c)">'+fabric_shading(0,H)+border_lines(4,H)+border_seg(2)+border_seg(2+P)+border_seg(2,True)+'</g>'
+  k=(A[1]-B[1])/(CX-FL); dv=9*math.sqrt(1+k*k)
+  s+=ram(f'M{FL+RO},0V{A[1]-RO*k-dv:.1f}L{CX},{B[1]-dv:.1f}L{FR-RO},{C[1]-RO*k-dv:.1f}V0')
   # lemovka
   s+=f'<path d="M{FL},{A[1]}L{CX},{B[1]}L{FR},{C[1]}" fill="none" stroke="{INK}" stroke-width="5.5" stroke-linejoin="round"/>'
   s+=f'<path d="M{FL},{A[1]}L{CX},{B[1]}L{FR},{C[1]}" fill="none" stroke="{G}" stroke-width="3.4" stroke-linejoin="round"/>'
