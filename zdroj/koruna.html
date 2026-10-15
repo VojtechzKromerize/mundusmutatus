@@ -724,6 +724,8 @@ a.pchar:hover{border-color:var(--kal)}
 #kal1 .kallist .kr{grid-column:3;grid-row:1}
 @media (max-width:860px){#kal1{position:static}}
 @media (max-width:860px){.uvgrid{grid-template-columns:minmax(0,1fr)}}
+/* Kalendárium je stejně vysoké jako Poslední události; co se nevejde, skryje se */
+@media (min-width:861px){.uvgrid{align-items:stretch}.uvgrid>.kal{contain:size;overflow:hidden}}
 
 /* Praha */
 #pmap{width:100%;height:auto;display:block;touch-action:none;background:var(--land)}
@@ -1437,7 +1439,7 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
     <div class="navdd" id="navkron"><a href="#kronika" class="ddtop" data-navgrp="kronika druzina" aria-haspopup="true" aria-expanded="false">Kronika</a>
       <div class="svitek"><div class="svlist"><a href="#kronika">Zápisy tažení<small>ze sezení družiny</small></a><a href="#kronika/clanky">Traktáty<small>o světě po protržení Závoje</small></a><a href="#kronika/letopis">Letopis<small>události Koruny a světa</small></a><a href="#druzina">Družina<small>hrdinové tažení a jejich Svědomí</small></a></div></div></div>
     <div class="navdd" id="navdesky"><a href="#desky" class="ddtop" data-navgrp="desky mapa praha svet" aria-haspopup="true" aria-expanded="false">Zemské desky</a>
-      <div class="svitek"><div class="svlist"><span class="svsep" aria-hidden="true">Rody</span><a href="#desky">Země Koruny České<small>panstvo, církev a města Koruny</small></a><a href="#desky/sousede">Zahraniční rody<small>okolní země a jejich vládci</small></a><a href="#desky/vazby">Spory<small>krev, spojenectví a nepřátelství</small></a><span class="svsep" aria-hidden="true">Osoby</span><a href="#desky/osoby">Matriky<small>koho družina poznala</small></a><span class="svsep" aria-hidden="true">Mapy</span><a href="#mapa">Mapa Koruny České<small>Čechy, Morava, Slezsko a Lužice</small></a><a href="#svet">Známý svět<small>Evropa a Středomoří</small></a><a href="#praha">Praha<small>čtyři města pražská</small></a></div></div></div>
+      <div class="svitek"><div class="svlist"><span class="svsep" aria-hidden="true">Rody</span><a href="#desky">Země Koruny České<small>panstvo, církev a města Koruny</small></a><a href="#desky/sousede">Zahraniční rody<small>okolní země a jejich vládci</small></a><a href="#desky/vazby">Vazby<small>krev, spojenectví a nepřátelství</small></a><span class="svsep" aria-hidden="true">Osoby</span><a href="#desky/osoby">Matriky<small>koho družina poznala</small></a><span class="svsep" aria-hidden="true">Mapy</span><a href="#mapa">Mapa Koruny České<small>Čechy, Morava, Slezsko a Lužice</small></a><a href="#svet">Známý svět<small>Evropa a Středomoří</small></a><a href="#praha">Praha<small>čtyři města pražská</small></a></div></div></div>
     <a href="#boj" data-nav="boj" class="navgm navboj" id="navboj" title="Boj – iniciativa" aria-label="Boj" hidden><img class="navpecet" src="art/img/kostka.webp" alt="" width="40" height="40"><span class="navgmt">Boj</span></a>
     <div class="gsearch" role="search"><input type="search" id="gq" placeholder="Hledat v celé kronice…" aria-label="Hledat na celém webu" autocomplete="off"><ul class="gres" id="gres" hidden></ul></div>
     <a href="#gm" data-nav="gm" class="navgm" id="navgm" title="Vypravěč – přihlášení" aria-label="Vypravěč – přihlášení"><img class="navpecet" src="art/img/pecet.webp" alt="" width="40" height="40"><span class="navgmt">Vypravěč</span></a>
@@ -1452,16 +1454,6 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
   <section class="sec uvev"><h2 class="uvh">Poslední události</h2><div id="uvnovw" hidden><h3 class="uvh2">Nedávné kontakty</h3><div class="kontakty" id="uvnov"></div></div><div id="uvzap"></div><h3 class="uvh2">Ze světa</h3><dl class="tl" id="uvlet"></dl><a class="uvmore" href="#kronika/letopis">Celý letopis →</a></section>
   <aside class="kal" id="kal1" aria-label="Kalendárium"></aside>
 </div>
-<section class="sec"><h2 class="uvh">Kam dál</h2>
-  <div class="uvtiles">
-    <a class="uvt" href="#artikule"><i class="uvi q"><img src="art/svedomi.webp" alt="" loading="lazy"></i><b>Artikule</b><span>Pravidla tažení: Víra, Boj, Rány a slovníček pojmů.</span></a>
-    <a class="uvt" href="#draconomicon"><i class="uvi"><img src="art/img/draconomicon-ikona.webp" alt="" loading="lazy"></i><b>Draconomicon</b><span>Kniha o dracích a jejich plemenech.</span></a>
-    <a class="uvt" href="#kronika"><i class="uvi"><img src="art/img/kalich-drak.webp" alt="" loading="lazy"></i><b>Kronika</b><span>Zápisy ze sezení, letopis světa a hrdinové družiny.</span></a>
-    <a class="uvt" href="#mapa"><i class="uvi"><img src="art/img/hrad.webp" alt="" loading="lazy"></i><b>Země Koruny</b><span>Koruna a sousedé, državy rodů, cesty, diecéze a země.</span></a>
-    <a class="uvt" href="#svet"><i class="uvi uvsvg"><svg viewBox="0 0 60 60" aria-hidden="true"><circle cx="30" cy="30" r="21" fill="#2f5d9e" stroke="#9a7226" stroke-width="2"/><path d="M30 6l4 20 20 4-20 4-4 20-4-20-20-4 20-4z" fill="#d9b860" stroke="#6b4a12" stroke-width="1"/><path d="M30 14l2.5 13.5L46 30l-13.5 2.5L30 46l-2.5-13.5L14 30l13.5-2.5z" fill="#a3232b" opacity=".85" transform="rotate(45 30 30)"/><circle cx="30" cy="30" r="3" fill="#f6e7c1" stroke="#6b4a12"/></svg></i><b>Známý svět</b><span>Mocnosti Evropy a Středomoří, spojenci a spory.</span></a>
-    <a class="uvt" href="#desky"><i class="uvi"><img src="art/erby/pod.webp" alt="" loading="lazy"></i><b>Zemské desky</b><span>Rody a osoby, vazby a spory, mapy Koruny, Prahy a světa.</span></a>
-  </div>
-</section>
 </div>
 
 <div class="view" data-view="mapa">
@@ -1539,7 +1531,7 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
     <nav class="subnav" aria-label="Zemské desky">
       <a href="#desky" data-sub="rody">Země Koruny České</a>
       <a href="#desky/sousede" data-sub="sousede">Zahraniční rody</a>
-      <a href="#desky/vazby" data-sub="vazby">Spory</a>
+      <a href="#desky/vazby" data-sub="vazby">Vazby</a>
       <span class="subsep" aria-hidden="true"></span>
       <a href="#desky/osoby" data-sub="osoby">Matriky</a>
       <span class="subsep" aria-hidden="true"></span>
@@ -4399,13 +4391,13 @@ const jdn=(y,m,d)=>{const a=Math.floor((14-m)/12),Y=y+4800-a,M=m+12*a-3;return d
 const fromJdn=j=>{const c=j+32082,d=Math.floor((4*c+3)/1461),e=c-Math.floor(1461*d/4),m=Math.floor((5*e+2)/153);return [d-4800+Math.floor(m/10),m+3-12*Math.floor(m/10),e-Math.floor((153*m+2)/5)+1]};
 function easter(y){const a=y%4,b=y%7,c=y%19,d=(19*c+15)%30,e=(2*a+4*b-d+34)%7,s=d+e+114;return jdn(y,Math.floor(s/31),s%31+1)}
 function feasts(y){const E=easter(y);return [
- {j:jdn(y,4,23),n:"sv. Vojtěch",w:"katolíci s patronem sv. Vojtěchem",p:1},
- {j:jdn(y,4,24),n:"sv. Jiří",w:"katolíci s patronem sv. Jiřím",p:1},
- {j:jdn(y,7,25),n:"sv. Kryštof",w:"katolíci s patronem sv. Kryštofem",p:1},
- {j:jdn(y,9,16),n:"sv. Ludmila",w:"katolíci s patronkou sv. Ludmilou",p:1},
- {j:jdn(y,9,28),n:"sv. Václav",w:"katolíci s patronem sv. Václavem",p:1},
+ {j:jdn(y,4,23),n:"sv. Vojtěch",w:"katolíci",p:1},
+ {j:jdn(y,4,24),n:"sv. Jiří",w:"katolíci",p:1},
+ {j:jdn(y,7,25),n:"sv. Kryštof",w:"katolíci",p:1},
+ {j:jdn(y,9,16),n:"sv. Ludmila",w:"katolíci",p:1},
+ {j:jdn(y,9,28),n:"sv. Václav",w:"katolíci",p:1},
  {j:jdn(y,7,6),n:"Mistr Jan Hus",w:"kališníci",p:1},
- {j:E-14,n:"Smrtná neděle – vynášení Morany",w:"starověrci (Morana)",p:1},
+ {j:E-14,n:"Smrtná neděle – vynášení Morany",w:"starověrci",p:1},
  {j:jdn(y,4,30),n:"Filipojakubská noc",w:"všichni",hp:1},
  {j:jdn(y,6,23),n:"Svatojánská noc",w:"všichni",hp:1},
  {j:jdn(y,12,24),n:"Půlnoční na Štědrý den",w:"všichni",hp:1},
@@ -4535,7 +4527,15 @@ function renderKal(){
   const html=`<div class="kalhead"><span class="kalt">Kalendárium</span><span class="lbl">svátky a Hodiny Pravdy</span></div>
    <ul class="kallist">${up.map(f=>`<li class="${f.hp?"hp":f.info?"inf":""}"><span class="kd">${(([y,m,d])=>`${d}<small>${MES[m-1].slice(0,3)}</small>`)(fromJdn(f.j))}</span><span class="kn">${f.n}</span><span class="kw">${f.hp?`<a href="#artikule/pojmy/p-hodina-pravdy">Hodina Pravdy</a>`:f.info?"":`Požehnání 4–6: ${f.w}`}</span><span class="kr">${rel(f.j)}</span></li>`).join("")}</ul>`;
   document.querySelectorAll(".kal").forEach(k=>k.innerHTML=html);
+  kalFit();
 }
+function kalFit(){
+  const k=document.getElementById("kal1");if(!k)return;const lis=[...k.querySelectorAll(".kallist li")];
+  lis.forEach(l=>l.style.display="");if(!matchMedia("(min-width:861px)").matches||!k.offsetHeight)return;
+  const dol=k.getBoundingClientRect().bottom-parseFloat(getComputedStyle(k).paddingBottom);
+  lis.forEach(l=>{const r=[l,...l.children].map(x=>x.getBoundingClientRect()).filter(r=>r.height).reduce((m,r)=>Math.max(m,r.bottom),0);if(r>dol+1)l.style.display="none"})}
+if("ResizeObserver" in window){const u=document.querySelector(".uvev");if(u)new ResizeObserver(()=>kalFit()).observe(u)}
+addEventListener("resize",()=>kalFit());
 /* --- NOVINKY: co družina nově zná (z deníku odhalení) --- */
 function entInfo(id){
   if(PBY[id])return{k:"osoba",n:PBY[id].n.replace(/^✦\s*/,""),h:"#osoba/"+id,sl:PBY[id].sl};
