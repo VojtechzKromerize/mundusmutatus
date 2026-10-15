@@ -1,8 +1,8 @@
 ---
 id: albero
-jmeno: ✦ Albero z Puchheimu
+jmeno: Albrecht (Albero) z Puchheimu
 rod: puc
 role: syn pána na Heidenreichsteinu
 sidlo: Heidenreichstein
 ---
-Rakouský pán z pomezí, loajální především sám sobě.
+Jeden z pěti synů Jiřího z Puchheimu na Heidenreichsteinu. Rakouský pán z pomezí, loajální především sám sobě.

@@ -5,4 +5,4 @@ rod: rez
 role: biskup řezenský
 sidlo: Řezno
 ---
-Syn Oty I. Neumarktského; pod jeho diecézi patří i Chebsko. Je mu asi 21 let; biskupem je od roku 1457 na doporučení císaře a krále Ladislava.
+Syn Oty I. Neumarktského (Mosbašského); pod jeho diecézi patří i Chebsko. Je mu asi 21 let a biskupem je od roku 1457 na doporučení císaře, krále Ladislava a vévody Ludvíka Bohatého.

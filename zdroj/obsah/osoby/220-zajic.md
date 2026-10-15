@@ -4,4 +4,4 @@ jmeno: Jan Zajíc z Hazmburka
 rod: haz
 role: z rodu Zajíců z Hazmburka
 ---
-Katolický pán z Podřipska, příslušník rodu Zajíců z Hazmburka. Roku 1451 prodal Budyni bratranci Zbyňkovi.
+Syn Mikuláše Zajíce z Hazmburka, katolický pán z Podřipska. Roku 1451 prodal Budyni bratranci Zbyňkovi; jeho první manželka Kateřina z Častolovic zemřela roku 1457.

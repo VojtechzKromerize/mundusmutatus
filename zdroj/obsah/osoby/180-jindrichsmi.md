@@ -5,4 +5,4 @@ rod: smi
 role: hlava rodu, mladý dědic
 sidlo: Smiřice
 ---
-Mladý dědic bohatého rodu. Jeho otec Jan byl roku 1453 popraven pro obvinění ze zrady; rodové statky do Jindřichovy dospělosti spravuje jeho matka.
+Mladší syn Jana Smiřického ze Smiřic, sťatého v Praze 6. září 1453 pro obvinění ze zrady. Spolu se starším bratrem Václavem dědí bohaté otcovy statky; za oba jedná matka Markéta z Michalovic.

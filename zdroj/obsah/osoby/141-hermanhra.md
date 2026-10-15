@@ -5,4 +5,4 @@ rod: hra
 role: spoludědic, nezletilý
 sidlo: Jindřichův Hradec
 ---
-Mladší bratr Jindřicha IV., s nímž po roce 1453 zdědil statky Oldřicha z Hradce.
+Starší bratr Jindřicha IV., s nímž po roce 1453 zdědil statky Oldřicha V. z Hradce. Zemře mladý roku 1463/1464.

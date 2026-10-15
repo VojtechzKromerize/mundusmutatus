@@ -5,4 +5,4 @@ rod: pod
 role: manželka Jiřího
 sidlo: Poděbrady
 ---
-Katolička z rodu Lvů z Rožmitálu a druhá manželka Jiřího. Její bratr Jaroslav Lev patří ke králově družině.
+Pochází z katolického rodu Lvů z Rožmitálu; od roku 1450 je druhou manželkou Jiřího a matkou jeho mladších dětí. Její bratr Jaroslav Lev patří ke králově družině.

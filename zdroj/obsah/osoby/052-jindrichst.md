@@ -5,4 +5,4 @@ rod: pod
 role: syn krále
 sidlo: Poděbrady
 ---
-Desetiletý syn Jiřího a Kunhuty ze Šternberka, narozený roku 1448.
+Devítiletý syn Jiřího a Kunhuty ze Šternberka, narozený 15. května 1448.

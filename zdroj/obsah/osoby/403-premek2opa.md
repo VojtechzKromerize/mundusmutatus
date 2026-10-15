@@ -5,4 +5,4 @@ rod: opa
 role: kníže-kněz, vratislavský kanovník
 sidlo: Opava
 ---
-Učený bratr Arnošta, studoval v Krakově a ve Vídni a zabývá se astrologií. Vlastní úděl nemá.
+Učený nevlastní bratr Arnošta (syn Heleny Bosenské), vystudoval teologii v Krakově a ve Vídni, kde sepsal astrologický traktát; zabývá se i alchymií. Vlastní úděl nemá, nese jen titul knížete opavského.

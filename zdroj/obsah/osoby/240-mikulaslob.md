@@ -5,4 +5,4 @@ rod: lob
 role: pán na Hasištejně
 sidlo: Hasištejn
 ---
-Katolický pán z Kadaňska.
+Starší syn Mikuláše Chudého z Lobkovic, od roku 1440 pán na Hasištejně a Obříství. Katolický pán z Kadaňska, ženatý se Žofií ze Žerotína.

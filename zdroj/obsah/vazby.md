@@ -15,7 +15,7 @@
 - spoj | lip, pod | Jindřich z Lipé jako nejvyšší maršálek stojí při zvoleném králi.
 - rod | bos, bis | Biskup Tas je synovec Vaňka mladšího, nejstarší syn jeho bratra Beneše Černohorského z Boskovic.
 - spoj | bos, jag | Vaněk Černohorský doprovázel roku 1454 Alžbětu, sestru Ladislava Pohrobka, k sňatku s Kazimírem IV.; má na krakovském dvoře známé.
-- spor | bos, pod | Boskovicové a Kunštátové jsou rodoví soupeři. Jiří drží boskovický hrad od roku 1437 a Vaňkovi dluží peníze; vrácení hradu je nabízející se cena za věrnost Boskoviců.
+- spor | bos, pod | Boskovicové a Kunštátové jsou rodoví soupeři. Kunštátové drží boskovický hrad od husitských válek a Jiří Vaňkovi dluží peníze; vrácení hradu je nabízející se cena za věrnost Boskoviců.
 - tajné spoj | bis, opa | Biskup Tas se za studií ve Vídni spřátelil s Přemkem Opavským.
 - rod | jag, hab, wet | Kazimír IV. a Vilém Saský jsou ženatí se sestrami zesnulého Ladislava Pohrobka, Habsburkami.
 - spoj | ste, pod | Zdeněk ze Šternberka volbu podpořil a jako nejvyšší purkrabí je nejdůležitějším katolíkem u dvora.
@@ -23,13 +23,13 @@
 - spoj | kos, pod | Zdeněk Kostka z Postupic je nejbližším kališnickým spojencem Jiřího.
 - spoj | per, cim, pod | Pernštejnové a zemský hejtman Jan Tovačovský z Cimburka jsou oporou krále na Moravě.
 - spoj | opo, pod | Boleslav V. Opolský, jediný slezský kníže se sympatiemi ke kalichu.
-- spoj | opo, opa | Bolek V. získal roku 1456 od poručníka Arnošta dvě třetiny Opavska, dědictví Vilémových synů.
-- spoj | roz, kol, hra, sva | Strakonická jednota (1449): katolická panská strana proti Jiřímu. Její zakladatelé už nežijí nebo předali vládu synům, ale síť nezanikla.
+- spoj | opo, opa | Bolek V. získal po roce 1454 od poručníka Arnošta dvě třetiny Opavska, dědictví Vilémových synů.
+- spoj | roz, kol, hra, sva, lob, ryz | Strakonická jednota (8. 2. 1449): katolická panská strana proti Jiřímu, kterou založili mj. Oldřich a Jindřich z Rožmberka, Hynek Krušina a Jan ze Švamberka, Jan a Oldřich z Hradce, Jindřich z Kolovrat, Jan z Rýzmberka ze Skály a Jan z Lobkovic. Mnozí zakladatelé už nežijí nebo předali vládu synům, ale síť nezanikla.
 - spoj | roz, svi | Svídnicko-javorské hejtmanství drží Rožmberkové: Jindřich IV. (1454–1457), nyní Jan II.
 - spoj | roz, ses | Jindřich IV. z Rožmberka byl do smrti (1457) fojtem Horní Lužice; úřad zůstal neobsazen.
 - spoj | jis, pod | Jiskra je Čech a jeho žoldnéři jsou s Čechami úzce svázáni.
 - spor | pod, hra | Jiří zajal Menharta z Hradce při dobytí Prahy (1448). Menhart zemřel v únoru 1449 krátce po propuštění a Jiří musel odrážet řeči o otravě.
-- spor | pod, smi | Jan Smiřický ze Smiřic byl roku 1453 popraven pro obvinění ze zrady.
+- spor | pod, smi | Jan Smiřický ze Smiřic byl 6. září 1453 v Praze sťat pro obvinění ze zrady.
 - spor | pod, roz | Oldřich II. z Rožmberka vedl katolický odpor proti Jiřímu; jeho syn Jan II. však volbu podpořil a mezi rody panuje ostražité příměří.
 - spor | pod, vra | Vratislav odmítá holdovat kališnickému králi a hledá oporu u papeže.
 - spor | pod, bra | Braniborsko drží Dolní Lužici; Koruna ji žádá zpět.
@@ -62,12 +62,12 @@
 - spor | jis, hun | Jiskra Matyáše přes Jiřího zprostředkování formálně uznal, ale dál drží Horní Uhry po svém a novému králi nedůvěřuje.
 - spor | ses, var | Šestiměstí vede fehdy s Vartenberky a dalšími severočeskými pány a ničí jejich hrady.
 - spor | hlo | Jan II. si roku 1457 za Baltazarovy nepřítomnosti vynutil hold žaháňských stavů a Baltazar to po návratu zvrátil; bratři se přou o Žaháň.
-- spor | pla, wet | Jindřich II. z Plavna vede s Wettiny vleklý spor o míšeňské purkrabství a lenní svrchovanost.
+- spor | pla, wet | Plavenští drží od roku 1439 míšeňské purkrabství jen jako titul, úřad i statky získali Wettinové. Ti teď pokukují i po plavenském panství, které je lénem české koruny.
 - spor | pap, pod | Řím kompaktáta nikdy nepotvrdil a Rokycanu neuznává; volba kališníka králem budí nedůvěru.
-- rod | pod, ste | První manželkou Jiřího byla Kunhuta ze Šternberka († 1449), matka Bočka, Viktorina, Jindřicha staršího, Kateřiny a Zdeňky.
-- rod | hra, ste | Matkou mladého Jindřicha IV. z Hradce je Kateřina ze Šternberka.
+- rod | pod, ste | První manželkou Jiřího byla Kunhuta ze Šternberka († 1449), matka Bočka, Viktorina, Barbory, Jindřicha staršího, Kateřiny a Zdeňky.
+- rod | hra, ste | Matkou mladých pánů Heřmana a Jindřicha IV. z Hradce je Kateřina ze Šternberka; jejich poručníkem se po Arnoštovi z Leskovce stal Zdeněk ze Šternberka.
 - rod | roz, hlo | Jan II. z Rožmberka je ženatý s Annou, dcerou Jindřicha IX. Hlohovského; roku 1456 se jim narodil syn Jindřich V.
-- rod | roz, sva | Druhou manželkou Oldřicha II. z Rožmberka je Alžběta ze Švamberka a jeho dcera Ludmila se provdala za Bohuslava ze Švamberka.
+- rod | roz, sva | Ludmila, dcera Oldřicha II. z Rožmberka a Kateřiny z Vartenberka, se roku 1452 provdala za Bohuslava ze Švamberka.
 - rod | roz, var | Oldřich II. z Rožmberka se oženil s Kateřinou († 1436), dcerou svého poručníka Čeňka z Vartenberka, rytíře Dračího řádu; jejich syny jsou Jan II. a biskup Jošt.
 - rod | kol, ste | Hanuš II. z Kolovrat je ženatý s Kateřinou ze Šternberka.
 - spor | pod, kol | Hanuš z Kolovrat musel Jiřímu vydat hrad Žebrák; náhradou dostal Zbiroh, ale křivdu nezapomněl.
@@ -75,7 +75,7 @@
 - rod | per, lom | Jan II. z Pernštejna má za manželku Bohunku Meziříčskou z Lomnice; jejich syn Vilém je napůl Lomnický.
 - spoj | cim, bos | Jan Tovačovský z Cimburka je dlouholetým spojencem Beneše a Vaňka z Boskovic.
 - spoj | cim, lip | Páni z Lipé pomáhali Tovačovskému roku 1449 sjednat příměří a patří k jeho spojencům v moravské zemské politice.
-- rod | opo, leg | Mikuláš I. Opolský je manželem Magdaleny Břežské, sestry poručnice Hedviky, a od roku 1450 drží v zástavě Břeh.
+- rod | opo, leg | Mikuláš I. Opolský je manželem Magdaleny Břežské, sestry poručnice Hedviky, a strýcem zesnulého Jana I. Lubinského (syna jeho sestry Markéty); od roku 1450 drží v zástavě Břeh.
 - rod | leg, bra | Babička Fridricha Lehnického, Alžběta Braniborská († 1449), byla sestrou kurfiřta Fridricha II.
 - spoj | bra, mdl | Dolnolužické fojtství drží od roku 1448 v zástavě kurfiřt Fridrich II. Braniborský.
 - spoj | pod, opa | Arnošt Opavský prodal roku 1456 Minsterberské knížectví Jiřímu z Poděbrad.
@@ -102,3 +102,22 @@
 - spor | cbr, bra | Berlín-Cölln se v letech 1447–1448 vzbouřil proti kurfiřtovi a markrabě vzpouru zlomil.
 - spoj | var, pod | Jan z Vartenberka se uchází o hornolužické fojtství a hledá přízeň nového krále.
 - spor | osm, hun | Mehmed II. byl roku 1456 odražen od Bělehradu Janem Hunyadim; Osmané a Uhry stojí proti sobě na Dunaji a v Srbsku.
+- rod | roz, sbg | Jindřich IV. z Rožmberka († 1457) se roku 1453 oženil s Anežkou, dcerou Jana ze Schaunberku; bezdětná vdova žije v Krumlově.
+- spoj | rab, pap | Kancléř Prokop z Rabštejna je dávným přítelem kardinála Eneáše Silvia Piccolominiho, který mu roku 1444 věnoval list De fortuna.
+- rod | smi, kol | Kateřina, dcera popraveného Jana Smiřického, je manželkou Albrechta Krakovského z Kolovrat.
+- rod | lob, ryz | Jan Popel z Lobkovic je ženatý s Annou, dcerou Děpolta Švihovského z Rýzmberka na Velharticích.
+- rod | kol, var | Bedřich z Kolovrat na Libštejně († 1432) měl za manželku Kateřinu z Vartenberka († 1445); jejich synové Jindřich a Beneš žijí.
+- rod | pod, var | Matka krále Jiřího Anna pocházela z rodu pánů z Vartenberka.
+- rod | cim, pod | Jan Tovačovský z Cimburka má za manželku Žofii z Kunštátu a Skalé z příbuzenstva Jiřího z Poděbrad; Ctibor a Jan mladší jsou po matce Kunštátové.
+- rod | lip, var | Matkou maršálka Jindřicha z Lipé je Eliška z Vartenberka.
+- rod | tes, bra | Václav I. Těšínský byl od roku 1439 ženatý s Alžbětou Braniborskou († 1449), sestrou kurfiřta Fridricha II.; kolem roku 1445 se rozešli.
+- rod | ole, sli | Anežka Olešnická († 1448), sestra obou Konrádů, byla manželkou říšského kancléře Kašpara Šlika († 1449), bratra Matyáše Šlika.
+- rod | tes, jag | Anna Bělská, vdova po Boleslavovi II. Těšínském a matka Kazimíra II., je sestřenicí krále Kazimíra IV., který roku 1448 jejich sňatek schválil.
+- spoj | opa, jag | Barbora Rokemberková, poručnice krnovských knížat, uzavřela roku 1457 s Kazimírem IV. dohodu o vzájemné pomoci proti lupičům.
+- rod | opa, sgy | Jitka Opavská († 1445), sestra Arnošta a Viléma, byla manželkou hraběte Jiřího II. Svatojiřského a Pezinského († 1467).
+- spoj | bib, bra | Václav II. z Bibrštejna, pán Žar, Beeskowa a Storkowa, ustanovil roku 1451 dědicem těchto panství kurfiřta Fridricha II. Braniborského (smlouva potvrzena 1452).
+- rod | bra, wit | Matka kurfiřta Fridricha II. Alžběta Bavorsko-Landshutská byla sestrou Jindřicha XVI., kurfiřt a Ludvík Bohatý jsou tedy bratranci.
+- rod | fra, wit | Albrecht Achilles a Ludvík Bohatý jsou bratranci (matka Albrechta byla sestrou Jindřicha XVI.), přesto jsou úhlavní soupeři.
+- rod | sch, pla | Vít II. ze Šumburka je od roku 1439 ženatý s Annou z Plavna, která mu přinesla Hartenštejn.
+- spoj | sch, wet | Vít II. ze Šumburka je „man a služebník“ saského kurfiřta a Hartenštejn drží od roku 1456 jako saské léno.
+- rod | zat, hlo | Matka Václava Zátorského Anna byla dcerou Jindřicha VIII. Žaháňského.

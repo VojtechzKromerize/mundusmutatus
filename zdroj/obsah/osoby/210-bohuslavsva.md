@@ -5,4 +5,4 @@ rod: sva
 role: pán na Boru a Švamberku
 sidlo: Bor
 ---
-Nástupce Hynka Krušiny ze Švamberka.
+Syn a nástupce Hynka Krušiny ze Švamberka. Od roku 1452 je ženatý s Ludmilou, dcerou Oldřicha II. z Rožmberka.
