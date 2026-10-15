@@ -2878,7 +2878,7 @@ function pPole(g){
   const rnd=(i)=>{const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x)};
   const bank=y=>{const r=PG.river[0][0];let best=1e9;for(let a=0,b=r.length-1;a<r.length;b=a++){const[x1,y1]=r[b],[x2,y2]=r[a];if((y1>y)!==(y2>y)){const x=x1+(y-y1)*(x2-x1)/(y2-y1);if(x<best)best=x}}return best};
   const P={a:"",b:"",v:"",m:"",e:""};let i=0;
-  for(let y=504,row=0;y<1160;row++){const rh=30+rnd(row*7.3)*34,tilt=(rnd(row*3.1)-.5)*16;
+  for(let y=504,row=0;y<1240;row++){const rh=30+rnd(row*7.3)*34,tilt=(rnd(row*3.1)-.5)*16;
     for(let x=-40;x<480;){i++;const w=34+rnd(i*1.7)*80,j=rnd(i),yy=y+tilt*(x+40)/520,bx=bank(yy+rh/2)-8;
       if(x>bx){break}
       const x2=Math.min(x+w,bx),t=tilt*w/520,q=[[x,yy],[x2,yy+t],[x2,yy+t+rh],[x,yy+rh]].map(([a,b],n)=>[a+(rnd(i*5+n)-.5)*3,b+(rnd(i*9+n)-.5)*3]);
@@ -2907,13 +2907,13 @@ function pOzdoby(g){
   const IMG=(f,x,y,w,h,fl)=>{const gi=el("g",{class:"porn"});gi.appendChild(el("image",{href:PMA+f+".webp",x,y,width:w,height:h,...(fl?{transform:`translate(${2*x+w} 0) scale(-1 1)`}:{})}));g.appendChild(gi);return gi};
   const T=(x,y,t,fs,a,cls,st)=>g.appendChild(el("text",{x,y,class:cls||"pmer","font-size":fs,"text-anchor":a||"middle",...(st?{style:st}:{})},t));
   /* kartuš: andělé drží erb Prahy, na pásce jméno města */
-  {const X=2,Y=842,S=340/820,gk=el("g",{class:"porn"});const gi=el("g",{transform:`translate(${X} ${Y}) scale(${S.toFixed(4)})`});gk.appendChild(gi);g.appendChild(gk);
+  {const X=2,Y=986,S=340/820,gk=el("g",{class:"porn"});const gi=el("g",{transform:`translate(${X} ${Y}) scale(${S.toFixed(4)})`});gk.appendChild(gi);g.appendChild(gk);
    gi.appendChild(el("image",{href:PMA+"kartus.webp",x:0,y:0,width:820,height:508}));
    if(CARMS&&CARMS["Praha"])gi.appendChild(el("image",{href:CARMS["Praha"],x:348,y:90,width:122,height:150,preserveAspectRatio:"xMidYMid meet"}));
    gi.appendChild(el("text",{x:410,y:352,class:"pkart","font-size":66,"text-anchor":"middle"},"Praha"));
    gi.appendChild(el("text",{x:410,y:390,class:"pkart2","font-size":23,"text-anchor":"middle"},"čtyři města pražská · 1458"));}
   /* měřítko s kružidlem: dílek = 200 pražských loktů (loket ≈ 0,5914 m, jednotka plánu ≈ 4,045 m) */
-  {const u=200*0.5914/4.045,Wm=u*900/70,Hm=Wm*293/900,X=716,Y=934,px=Wm/900;IMG("meritko",X,Y,Wm,Hm);
+  {const u=200*0.5914/4.045,Wm=u*900/70,Hm=Wm*293/900,X=676,Y=1068,px=Wm/900;IMG("meritko",X,Y,Wm,Hm);
    const x0=X+170*px,yb=Y+238*px;[0,2,4,6,8].forEach(i=>T(x0+i*u,yb+12,String(i*200),10.5,"middle","pmer"));
    T(X+Wm/2,yb+25,"loktů pražských",10.5,"middle","pmer","font-style:italic")}
 }
