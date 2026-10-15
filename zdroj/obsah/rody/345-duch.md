@@ -12,4 +12,6 @@ nemapovat: ano
 sidla:
   - Praha | 14.42 | 50.09 | mix
 ---
-Pražské arcibiskupství je od husitských válek bez arcibiskupa. Kališníci se řídí konzistoří pod obojí v čele se zvoleným arcibiskupem Janem Rokycanou, jehož volbu Řím nikdy nepotvrdil; katolickou část arcidiecéze spravují administrátoři volení svatovítskou kapitulou. Mimo obě církve stojí laičtí myslitelé jako Petr Chelčický, z jejichž učení vyrůstá Jednota bratrská.
+Pražské arcibiskupství je od husitských válek bez arcibiskupa. Kališníci se řídí konzistoří pod obojí, v jejímž čele stojí zvolený arcibiskup Jan Rokycana; jeho volbu však Řím nikdy nepotvrdil. Katolickou část arcidiecéze spravují administrátoři, které volí kapitula u svatého Víta.
+
+Mimo obě církve stojí laičtí myslitelé, jako je Petr Chelčický, z jejichž učení vyrůstá Jednota bratrská.
