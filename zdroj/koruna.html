@@ -1550,6 +1550,7 @@ h3 .pmore{margin:0 0 0 10px;vertical-align:middle}
 /* stránka osoby: portrét na 90 % původní velikosti */
 @media (min-width:821px){.artgrid.pgrid{grid-template-columns:270px minmax(0,1fr)}}
 @media (max-width:820px){.pgrid .portr{max-width:min(252px,63vw)}}
+.edbar.eddole{display:flex;justify-content:flex-start;margin:28px 0 0;padding-top:12px;border-top:1px dashed color-mix(in srgb,var(--gold) 50%,var(--rule))}
 </style>
 
 <div class="wrap"><div class="papir" aria-hidden="true"></div>
@@ -5459,14 +5460,14 @@ async function edNahrajObrazek(typ,id,file){
 }
 /* --- tlačítka na stránkách --- */
 if(GMV&&window.MMDB){
-  const tl=(druh,id,extra)=>`<span class="edbar"><button type="button" class="gbtn ghost" data-ed="${druh}:${id}">Upravit text</button>${extra||""}</span>`;
-  const vlož=(sel,html)=>{const c=document.querySelector(sel);if(c&&!c.parentNode.querySelector(".edbar"))c.insertAdjacentHTML("afterend",html)};
+  const tl=(druh,id,extra)=>`<span class="edbar eddole"><button type="button" class="gbtn ghost" data-ed="${druh}:${id}">Upravit text</button>${extra||""}</span>`;
+  const vlož=(sel,html)=>{const c=document.querySelector(sel);if(c&&!c.parentNode.querySelector(".edbar"))c.parentNode.insertAdjacentHTML("beforeend",html)};
   const _e1=renderRodArticle,_e2=renderPersonArticle,_e3=renderKronika,_e4=renderDraco,_e5=renderDruzina;
   renderRodArticle=function(id){_e1(id);vlož("#article .gmbar",tl("rod",id,`<button type="button" class="gbtn ghost" data-edstrom="${id}">Rodokmen</button><button type="button" class="gbtn ghost" data-edsoubor="vazby.md">Vazby</button>`))};
   renderPersonArticle=function(id){_e2(id);vlož("#article .gmbar",tl("osoba",id))};
   renderKronika=function(b){_e3(b);if(ZBY[b])vlož("#kzapisy .gmbar",tl("zapis",b))};
-  renderDraco=function(b){_e4(b);if(gmPl(b))vlož("#drmain .gmbar",tl("drak",b));else if(DRBY[b]&&DRBY[b].k==="kap"||!DRBY[b]&&b!=="plemena"){const k=DRBY[b]?b:(DRACI.kap[0]||{}).id;if(k){const h=document.querySelector("#drmain h2");if(h&&!document.querySelector("#drmain .edbar"))h.insertAdjacentHTML("afterend",tl("kapitola",k))}}};
-  renderDruzina=function(b){_e5(b);if(PARTY.find(x=>x.id===b)){const h=document.querySelector("#druzinadet h2");if(h&&!document.querySelector("#druzinadet .edbar"))h.insertAdjacentHTML("afterend",tl("postava",b))}};
+  renderDraco=function(b){_e4(b);if(gmPl(b))vlož("#drmain .gmbar",tl("drak",b));else if(DRBY[b]&&DRBY[b].k==="kap"||!DRBY[b]&&b!=="plemena"){const k=DRBY[b]?b:(DRACI.kap[0]||{}).id;if(k){const h=document.querySelector("#drmain h2");if(h&&!document.querySelector("#drmain .edbar"))h.parentNode.closest("#drmain,#druzinadet").insertAdjacentHTML("beforeend",tl("kapitola",k))}}};
+  renderDruzina=function(b){_e5(b);if(PARTY.find(x=>x.id===b)){const h=document.querySelector("#druzinadet h2");if(h&&!document.querySelector("#druzinadet .edbar"))h.parentNode.closest("#drmain,#druzinadet").insertAdjacentHTML("beforeend",tl("postava",b))}};
   document.addEventListener("click",e=>{const b=e.target.closest("[data-ed],[data-edstrom],[data-edsoubor]");if(!b||b.closest(".edbox"))return;
     if(b.dataset.ed){const i=b.dataset.ed.indexOf(":");edOtevri(b.dataset.ed.slice(0,i),b.dataset.ed.slice(i+1))}
     else if(b.dataset.edstrom)edStrom(b.dataset.edstrom);
