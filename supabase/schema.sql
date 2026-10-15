@@ -44,6 +44,19 @@ create table if not exists public.denik (
   kdy  timestamptz not null default now()
 );
 
+create table if not exists public.nastaveni (
+  klic    text primary key,
+  hodnota jsonb not null,
+  zmeneno timestamptz not null default now()
+);
+
+create table if not exists public.boj (
+  id      text primary key,
+  stav    jsonb not null,
+  verze   bigint not null default 1,
+  zmeneno timestamptz not null default now()
+);
+
 create table if not exists public.gm (
   user_id uuid primary key references auth.users (id) on delete cascade
 );
@@ -53,6 +66,8 @@ alter table public.stavy  enable row level security;
 alter table public.snimek enable row level security;
 alter table public.denik  enable row level security;
 alter table public.gm     enable row level security;
+alter table public.nastaveni enable row level security;
+alter table public.boj enable row level security;
 
 -- Je přihlášený uživatel vypravěč?
 create or replace function public.mm_je_gm() returns boolean
@@ -68,6 +83,8 @@ drop policy if exists "stavy: čte vypravěč" on public.stavy;
 create policy "stavy: čte vypravěč" on public.stavy for select to authenticated using (public.mm_je_gm());
 drop policy if exists "denik: čte vypravěč" on public.denik;
 create policy "denik: čte vypravěč" on public.denik for select to authenticated using (public.mm_je_gm());
+drop policy if exists "boj: čte každý" on public.boj;
+create policy "boj: čte každý" on public.boj for select to anon, authenticated using (true);
 drop policy if exists "gm: vidí sebe" on public.gm;
 create policy "gm: vidí sebe" on public.gm for select to authenticated using (user_id = auth.uid());
 -- Zápisy přímo do tabulek nejsou povoleny nikomu kromě tajného klíče; vše jde přes funkce níže.
@@ -145,10 +162,20 @@ create or replace function public.mm_prepocitej(p_vetev text default null) retur
 language plpgsql security definer set search_path = public as $$
 declare
   s jsonb;
+  doplnek jsonb;
 begin
   select coalesce(jsonb_object_agg(id, stav), '{}'::jsonb) into s from public.stavy;
+  -- herní stav (datum, hodina, poloha družiny) a novinky: jen to, co družina právě zná
+  doplnek := jsonb_build_object(
+    'HRA', (select hodnota from public.nastaveni where klic = 'hra'),
+    'NOVINKY', (select coalesce(jsonb_agg(jsonb_build_object('id', q.id, 'stav', q.stav, 'kdy', q.kdy) order by q.kdy desc), '[]'::jsonb)
+                  from (select d.id, d.stav, d.kdy
+                          from (select distinct on (id) id, stav, kdy from public.denik order by id, kdy desc) d
+                          join public.stavy st on st.id = d.id
+                         where d.stav >= 1 and st.stav >= 1 and d.kdy > now() - interval '120 days'
+                         order by d.kdy desc limit 60) q));
   insert into public.snimek as sn (vetev, data, verze, zmeneno)
-  select o.vetev, public.mm_orez(o.hrac, s), 1, now()
+  select o.vetev, public.mm_orez(o.hrac, s) || doplnek, 1, now()
     from public.obsah o
    where p_vetev is null or o.vetev = p_vetev
   on conflict (vetev) do update
@@ -179,6 +206,71 @@ begin
   return (select coalesce(jsonb_object_agg(id, stav), '{}'::jsonb) from public.stavy);
 end $$;
 
+-- Vypravěč nastavuje herní stav: {"datum":"1458-03-03","hodina":10,"misto":"Praha","praha":16}
+-- (předchozí hodina se uloží sama, aby ručička na Úvodu mohla dojet z minulé polohy)
+create or replace function public.mm_nastav_hru(p_hra jsonb) returns jsonb
+language plpgsql security definer set search_path = public as $$
+declare
+  stara jsonb;
+  nova jsonb;
+begin
+  if not public.mm_je_gm() then
+    raise exception 'jen pro vypravěče' using errcode = '42501';
+  end if;
+  select hodnota into stara from public.nastaveni where klic = 'hra';
+  nova := coalesce(stara, '{}'::jsonb) || (p_hra - 'hodinaPred');
+  if stara is not null and (stara -> 'hodina') is distinct from (nova -> 'hodina') then
+    nova := nova || jsonb_build_object('hodinaPred', stara -> 'hodina');
+  end if;
+  insert into public.nastaveni (klic, hodnota, zmeneno) values ('hra', nova, now())
+  on conflict (klic) do update set hodnota = excluded.hodnota, zmeneno = now();
+  perform public.mm_prepocitej(null);
+  return nova;
+end $$;
+
+-- Tracker iniciativy: vypravěč ukládá celý stav boje (sloty, přiřazení, nepřátelé, kostka)
+create or replace function public.mm_boj_uloz(p_stav jsonb) returns bigint
+language plpgsql security definer set search_path = public as $$
+declare v bigint;
+begin
+  if not public.mm_je_gm() then
+    raise exception 'jen pro vypravěče' using errcode = '42501';
+  end if;
+  insert into public.boj as b (id, stav, verze, zmeneno) values ('aktivni', p_stav, 1, now())
+  on conflict (id) do update set stav = excluded.stav, verze = b.verze + 1, zmeneno = now()
+  returning verze into v;
+  return v;
+end $$;
+
+-- Hráč si sám obsadí volný hráčský slot (bez přihlášení). Smí jen platný tah: volný slot hráčů
+-- a postava, která v tomto kole ještě nejednala.
+create or replace function public.mm_boj_obsad(p_slot int, p_hrac text) returns bigint
+language plpgsql security definer set search_path = public as $$
+declare
+  s jsonb;
+  v bigint;
+begin
+  select stav into s from public.boj where id = 'aktivni' for update;
+  if s is null or coalesce((s ->> 'aktivni')::boolean, false) = false then
+    raise exception 'žádný boj neprobíhá';
+  end if;
+  if coalesce(s -> 'sloty' -> p_slot ->> 't', '') <> 'h' then
+    raise exception 'tento slot nepatří hráčům';
+  end if;
+  if coalesce(s -> 'obsazeni', '{}'::jsonb) ? p_slot::text then
+    raise exception 'slot už je obsazený';
+  end if;
+  if not exists (select 1 from jsonb_array_elements(coalesce(s -> 'hraci', '[]'::jsonb)) h where h ->> 'id' = p_hrac) then
+    raise exception 'neznámá postava';
+  end if;
+  if exists (select 1 from jsonb_each_text(coalesce(s -> 'obsazeni', '{}'::jsonb)) o where o.value = p_hrac) then
+    raise exception 'postava už v tomto kole jednala';
+  end if;
+  s := jsonb_set(s, '{obsazeni}', coalesce(s -> 'obsazeni', '{}'::jsonb) || jsonb_build_object(p_slot::text, p_hrac));
+  update public.boj set stav = s, verze = verze + 1, zmeneno = now() where id = 'aktivni' returning verze into v;
+  return v;
+end $$;
+
 -- Vypravěč čte všechny stavy najednou (bez limitu počtu řádků)
 create or replace function public.mm_stavy() returns jsonb
 language sql stable security definer set search_path = public as $$
@@ -205,6 +297,11 @@ revoke all on function public.mm_prepocitej(text) from public, anon, authenticat
 revoke all on function public.mm_nahraj_obsah(text, jsonb, jsonb, jsonb) from public, anon, authenticated;
 revoke all on function public.mm_nastav_stavy(jsonb) from public, anon;
 revoke all on function public.mm_stavy() from public, anon;
+revoke all on function public.mm_nastav_hru(jsonb) from public, anon;
+revoke all on function public.mm_boj_uloz(jsonb) from public, anon;
+grant execute on function public.mm_boj_uloz(jsonb) to authenticated;
+grant execute on function public.mm_boj_obsad(int, text) to anon, authenticated;
+grant execute on function public.mm_nastav_hru(jsonb) to authenticated;
 grant execute on function public.mm_stavy() to authenticated;
 revoke all on function public.mm_orez(jsonb, jsonb) from public, anon, authenticated;
 revoke all on function public.mm_zminky(text, jsonb) from public, anon, authenticated;
@@ -215,7 +312,9 @@ grant execute on function public.mm_prepocitej(text) to service_role;
 grant execute on function public.mm_nahraj_obsah(text, jsonb, jsonb, jsonb) to service_role;
 grant execute on function public.mm_orez(jsonb, jsonb), public.mm_zminky(text, jsonb), public.mm_uroven(jsonb, jsonb) to service_role;
 
-revoke insert, update, delete, truncate on public.obsah, public.stavy, public.snimek, public.denik, public.gm from anon, authenticated;
+revoke insert, update, delete, truncate on public.obsah, public.stavy, public.snimek, public.denik, public.gm, public.nastaveni, public.boj from anon, authenticated;
+grant select on public.boj to anon, authenticated;
+revoke select on public.nastaveni from anon, authenticated;
 grant select on public.snimek to anon, authenticated;
 grant select on public.obsah, public.stavy, public.denik, public.gm to authenticated;
 

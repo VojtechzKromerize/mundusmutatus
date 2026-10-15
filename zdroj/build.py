@@ -115,6 +115,7 @@ def zapisy():
         for k in ("id", "title", "date", "place"):
             if not z.get(k):
                 fail(f"kronika/{z['_file']}: chybí '{k}'")
+        seed(z["id"], z, "kronika/" + z["_file"])  # skryta = koncept, potkali = zveřejněno
         out.append({"id": z["id"], "n": z.get("n", ""), "date": z["date"], "datum": z.get("datum", ""),
                     "place": z["place"], "route": lst(z.get("route")) or [z["place"]],
                     "title": z["title"], "text": md(z["_body"]),
@@ -535,7 +536,7 @@ def odhalovaci_data(fam, short, arms, people, rel, praha_pl, mista_l, trees, por
             "SHORT": {k: {"$g": k, "$x": v} for k, v in short.items()},
             "ARMS": {k: {"$g": k, "$x": v} for k, v in arms.items()},
             "PORTR": {pid: {"$g": prod[pid], "$x": {"$g": pid, "$u": 2, "$x": stem}} for pid, stem in portr_stem.items()},
-            "ZAPISY": zapisy_l, "PARTY": party}
+            "ZAPISY": [{"$g": z["id"], **z} for z in zapisy_l], "PARTY": party}
 
 def sb_rpc(fn, body):
     hdr = {"apikey": SB_SECRET, "Content-Type": "application/json"}

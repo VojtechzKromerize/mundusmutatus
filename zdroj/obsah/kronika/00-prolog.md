@@ -10,6 +10,8 @@ praha: 20, 17
 # kde v Praze družina právě je (číslo místa na plánu)
 druzina: 16
 title: Den po volbě
+# stav: skryta = koncept (hráči ho nevidí), potkali = zveřejněno
+stav: potkali
 ---
 Praha je přeplněná. Včera, 2. března, se stavové na Staroměstské radnici shodli na novém králi: stal se jím Jiří z Poděbrad, dosavadní zemský správce a kališník, jemuž katolíci nevěří a Vratislav ho odmítá uznat.
 
