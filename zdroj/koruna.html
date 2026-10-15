@@ -1283,6 +1283,131 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
 .tch a:hover .tti,.tch a:focus-visible .tti{color:var(--kal)}
 .tch a:hover{background:color-mix(in srgb,var(--paper) 70%,transparent)}
 @media (max-width:560px){.tch a{grid-template-columns:2.4em 1fr auto}.tdots{display:none}.tti{font-size:1.15rem}}
+
+/* ===== boj: nový vzhled (2026-10-15) – bitevní rejstřík ===== */
+#bojview{--bh:var(--kat);--bn:var(--kal)}
+.bojtit{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 18px}
+.bojtit .arttitle{margin:0}
+.bojlead{margin:0;color:var(--muted);font-style:italic}
+.bkolo{font-family:var(--f-label);letter-spacing:.08em;color:var(--muted);font-size:1rem}
+.bkolo b{font-family:var(--f-disp);font-weight:500;letter-spacing:0;font-size:1.9rem;color:var(--kal);margin-left:4px}
+.bojjak{max-width:760px;margin:-18px 0 0;font-size:.95rem}
+.bojjak summary{cursor:pointer;font-family:var(--f-label);letter-spacing:.05em;color:var(--muted)}
+.bojjak p{margin:6px 0 0;color:var(--muted)}
+/* formulář: dva tábory proti sobě */
+.bojform{max-width:none;gap:20px}
+.bcamps{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:0 14px;align-items:stretch}
+@media (max-width:820px){.bcamps{grid-template-columns:1fr;gap:6px}}
+.bojform .bcamp{--c:var(--bh);position:relative;border:1px solid color-mix(in srgb,var(--c) 45%,var(--rule));border-top:4px solid var(--c);border-radius:3px;background:var(--paper);padding:30px 18px 16px;gap:12px;box-shadow:inset 0 0 0 3px var(--paper),inset 0 0 0 4px color-mix(in srgb,var(--c) 18%,transparent)}
+.bojform .bcn{--c:var(--bn)}
+.bojform .bcamp legend{position:absolute;top:-4px;left:14px;margin:0;padding:3px 22px 5px 12px;background:var(--c);color:#f6ecd6;font-family:var(--f-disp);font-size:1.3rem;letter-spacing:.02em;clip-path:polygon(0 0,100% 0,calc(100% - 10px) 50%,100% 100%,0 100%)}
+.bvs{display:grid;place-items:center}
+.bvs span{font-family:var(--f-disp);font-size:1.3rem;color:var(--gold);writing-mode:vertical-rl;letter-spacing:.1em;padding:10px 0;border-top:1px solid var(--gold);border-bottom:1px solid var(--gold)}
+@media (max-width:820px){.bvs span{writing-mode:horizontal-tb;border:0;padding:0 12px;background:var(--bg)}.bvs{background:linear-gradient(var(--gold),var(--gold)) center/100% 1px no-repeat}}
+.broll{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:14px;align-items:center;margin-top:4px}
+.brd{grid-row:span 2;width:72px;height:80px;display:grid;place-items:center;background:var(--c);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+.brd input{width:64px;height:72px;border:0!important;border-radius:0!important;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:var(--paper)!important;text-align:center;font-family:var(--f-disp)!important;font-size:1.9rem!important;padding:0!important;-moz-appearance:textfield;appearance:textfield}
+.brd input::-webkit-inner-spin-button,.brd input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+.brd input:focus{outline:none;background:color-mix(in srgb,var(--gold) 18%,var(--paper))!important}
+.brt{font-family:var(--f-label);font-weight:700;letter-spacing:.05em;align-self:end}
+.broll small{color:var(--muted);font-style:italic;align-self:start}
+.brows{list-style:none;margin:0;padding:0;counter-reset:br;display:flex;flex-direction:column}
+.brows .bsr{counter-increment:br;display:flex;flex-wrap:nowrap;align-items:center;gap:8px;padding:4px 0;border-bottom:1px dashed color-mix(in srgb,var(--rule) 80%,transparent)}
+.brows .bsr::before{content:counter(br,upper-roman) ".";font-family:var(--f-disp);color:var(--c);min-width:2.2em;text-align:right}
+.bojform .brows input,.bojform .brows select{border:0;border-bottom:1px solid transparent;border-radius:0;background:transparent;padding:4px 2px;min-height:36px}
+.bojform .brows input:hover,.bojform .brows select:hover{border-bottom-color:var(--rule)}
+.bojform .brows input:focus,.bojform .brows select:focus{outline:none;border-bottom-color:var(--c);background:color-mix(in srgb,var(--c) 6%,transparent)}
+.brows input[name=hn],.brows input[name=nn]{flex:1 1 auto;min-width:0}
+.brows select{flex:0 0 auto;font-family:var(--f-label)!important;font-size:.95rem;color:var(--muted)!important}
+.bpoc{display:inline-flex;align-items:center;gap:4px;font-family:var(--f-label);font-size:.85rem;color:var(--muted)}
+.bpoc input{width:3.4em!important;text-align:center}
+.bsr:has(select[name=nd]) .bpoc{display:none}
+.bsr:has(option[value=houf]:checked) .bpoc{display:inline-flex}
+.bx{flex:none;background:none;border:0;color:var(--muted);font-size:1.3rem;line-height:1;padding:2px 6px;border-radius:3px;cursor:pointer;opacity:.5}
+.bsr:hover .bx,.bx:focus-visible{opacity:1}.bx:hover{color:var(--kal)}
+.badd{align-self:flex-start;background:none;border:1px dashed color-mix(in srgb,var(--c) 50%,var(--rule));color:var(--c);font-family:var(--f-label);letter-spacing:.04em;padding:5px 12px;border-radius:3px;cursor:pointer}
+.badd:hover{border-style:solid;background:color-mix(in srgb,var(--c) 6%,transparent)}
+.bstart{align-self:center;font-family:var(--f-disp)!important;font-size:1.4rem!important;letter-spacing:.02em!important;padding:8px 34px!important;background:var(--kal)!important;color:#f6ecd6!important;box-shadow:0 0 0 2px var(--paper),0 0 0 3px var(--gold),0 4px 12px rgba(60,10,10,.25)}
+.bstart:hover{filter:brightness(1.08)}
+/* průběh: pořadí slotů jako osa se štíty */
+@media (min-width:821px){.bojgrid{grid-template-columns:minmax(0,1.25fr) minmax(300px,1fr);gap:26px}}
+.bsloty{position:relative;gap:4px;margin:10px 0}
+.bsloty::before{content:"";position:absolute;left:25px;top:14px;bottom:14px;width:2px;background:linear-gradient(var(--gold),color-mix(in srgb,var(--gold) 30%,transparent))}
+.bslot{position:relative;display:grid;grid-template-columns:52px minmax(0,1fr) auto;grid-template-areas:"s k n" "s t n";column-gap:14px;align-items:center;padding:6px 12px 6px 0;border:0;border-radius:3px;background:none}
+.bslot.bn{background:none}
+.bstit{grid-area:s;--c:var(--bh);width:44px;height:50px;margin-left:3px;display:grid;place-items:center;background:var(--c);clip-path:path("M0 0H44V26C44 40 30 47 22 50 14 47 0 40 0 26Z");position:relative;z-index:1}
+.bslot.bn .bstit{--c:var(--bn)}
+.bstit::before{content:"";position:absolute;inset:3px;background:var(--paper);clip-path:path("M0 0H38V22.5C38 34.6 26 40.6 19 43.2 12 40.6 0 34.6 0 22.5Z")}
+.bhod{position:relative;font-family:var(--f-disp);font-size:1.35rem;min-width:0;color:var(--c);margin-top:-4px}
+.bkdo{grid-area:k;flex:none;min-width:0;font-size:1.1rem}
+.bkdo b{font-family:var(--f-disp);font-weight:500;font-size:1.3rem}
+.btyp{grid-area:t;min-width:0;font-size:.8rem;color:color-mix(in srgb,var(--c,var(--bh)) 70%,var(--muted))}
+.bslot.bh .btyp{--c:var(--bh)}.bslot.bn .btyp{--c:var(--bn)}
+.bnatahu{grid-area:n;background:var(--gold);color:#2b2117;font-size:.78rem;padding:3px 9px 3px 14px;clip-path:polygon(8px 0,100% 0,100% 100%,8px 100%,0 50%)}
+.bslot.btah{box-shadow:none;background:linear-gradient(90deg,color-mix(in srgb,var(--gold) 26%,transparent),color-mix(in srgb,var(--gold) 8%,transparent))}
+.bslot.btah .bstit{filter:drop-shadow(0 0 5px color-mix(in srgb,var(--gold) 90%,transparent))}
+.bslot.bdone{opacity:.45}
+.bslot.bdone .bstit::after{content:"✓";position:absolute;right:-6px;bottom:-2px;font-size:.9rem;color:var(--gold)}
+.bsloty select{border:0;border-bottom:1px dashed var(--rule);border-radius:0;background:transparent;padding:2px 22px 2px 0;min-height:34px;font-family:var(--f-disp);font-size:1.2rem;max-width:100%}
+.bsloty select:focus{outline:none;border-bottom:1px solid var(--gold)}
+.bfree{font-size:1rem}
+.bslot.bmuj{border:0}
+.bslot.bmuj .bstit{--c:var(--gold)}
+.bkonec{margin:4px 0 0 66px;font-family:var(--f-disp);font-size:1.15rem;color:var(--kal)}
+.bosa>.rsmall{margin-left:66px}
+/* boční sloupec */
+.bojside{gap:22px}
+.bojside .uvh2{display:flex;align-items:baseline;gap:10px;border-bottom:1px solid var(--rule);padding-bottom:3px;margin-bottom:8px}
+.bojside .uvh2 small{font-family:var(--f-label);font-size:.85rem;letter-spacing:.05em;color:var(--muted);margin-left:auto}
+.bkostka{background:var(--paper);border:1px solid var(--rule);padding:12px 14px;box-shadow:inset 0 0 0 3px var(--paper),inset 0 0 0 4px color-mix(in srgb,var(--gold) 45%,var(--rule))}
+.kvys{gap:14px;margin:4px 0 8px}
+.kd6{width:54px;height:54px;padding:7px;box-sizing:border-box;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);place-items:center;border:2px solid var(--ink);border-radius:9px;background:#f6eedb;box-shadow:inset 0 -3px 0 rgba(0,0,0,.12),0 2px 4px rgba(0,0,0,.18);font-size:0}
+.kd6 i{width:9px;height:9px;border-radius:50%}
+.kd6 i.on{background:#2b2117}
+.kv-p .kd6{border-color:var(--kal)}.kv-p .kd6 i.on{background:var(--kal)}
+.kv-z .kd6{border-color:var(--kat)}.kv-z .kd6 i.on{background:var(--kat)}
+.kvt{display:flex;flex-direction:column}
+.kvys .kvt b{font-family:var(--f-disp);font-weight:500;font-size:1.5rem;line-height:1.1}
+.kv-n .kvt b{color:var(--muted)}
+.bkr{gap:6px}
+.bkr select,.bkr input{min-height:34px!important}
+.bhr{display:flex;flex-wrap:wrap;gap:6px;margin:0}
+.bhr li{border:1px solid color-mix(in srgb,var(--bh) 40%,var(--rule));border-radius:14px;padding:2px 12px;background:var(--paper);font-family:var(--f-disp);font-size:1.1rem}
+.bhr li.bjed{color:var(--muted);border-style:dashed;text-decoration:line-through;text-decoration-color:color-mix(in srgb,var(--muted) 60%,transparent)}
+.bnpc{border:1px solid var(--rule);border-left:3px solid var(--bn);border-radius:3px;padding:8px 12px;margin:0 0 8px}
+.bnpc.bvyc{border-left-color:var(--rule)}
+.bnh{align-items:center}
+.bnh b{font-family:var(--f-disp);font-weight:500;font-size:1.25rem}
+.bnh small{font-size:.85rem}
+.buse{display:inline-flex;align-items:center;gap:6px;font-size:.8rem}
+.btahy{display:inline-flex;gap:3px}
+.btahy i{width:8px;height:8px;transform:rotate(45deg);border:1.5px solid var(--bn)}
+.btahy i.on{background:var(--bn)}
+.bdel{padding:0 4px;font-size:1.2rem;text-decoration:none;line-height:1;opacity:.55}
+.bdel:hover{opacity:1;color:var(--kal)}
+.bhouf{gap:6px 10px;margin-top:6px}
+.bzivi{display:inline-flex;flex-wrap:wrap;gap:3px}
+.bzivi i{width:12px;height:14px;background:color-mix(in srgb,var(--bn) 18%,transparent);clip-path:path("M0 0H12V7C12 11 8 13 6 14 4 13 0 11 0 7Z")}
+.bzivi i.on{background:var(--bn)}
+.bpocet{font-size:.92rem;color:var(--muted)}
+.bpocet b{color:var(--ink)}
+.bpm{display:inline-flex;gap:4px}
+.bpm .gbtn{min-width:30px;padding:0 6px;line-height:1.5}
+.bbon{font-size:.85rem}
+.bnadd{align-items:center;padding-top:6px;border-top:1px dashed var(--rule)}
+.bnadd input[name=nn]{flex:1 1 140px}
+.bnadd:has(option[value=houf]:checked) .bpoc{display:inline-flex}
+.bnadd .bpoc{display:none}
+@media (max-width:820px){.bosa>.rsmall,.bkonec{margin-left:0}}
+@media (max-width:560px){
+  .bojform .bcamp{padding:28px 12px 14px}
+  .brows .bsr:has([name=nn]){display:grid;grid-template-columns:2.2em auto 1fr auto;grid-template-areas:"c n n x" ". d p .";column-gap:8px;align-items:center}
+  .brows .bsr:has([name=nn])::before{grid-area:c}
+  .brows .bsr [name=nn]{grid-area:n}
+  .brows .bsr [name=nd]{grid-area:d;justify-self:start}
+  .brows .bsr .bpoc{grid-area:p}
+  .brows .bsr:has([name=nn]) .bx{grid-area:x}
+}
 </style>
 
 <div class="wrap"><div class="papir" aria-hidden="true"></div>
@@ -4886,18 +5011,26 @@ async function bojZmen(fn){
     const v=await bojDB.uloz(s);BOJ.s=s;BOJ.v=v;renderBoj();bojNav()}
   catch(e){mmHlasG("Nepodařilo se uložit: "+e.message,6000)}finally{document.documentElement.classList.remove("gmbusy")}}
 function bojNav(){const a=document.getElementById("navboj");if(a)a.hidden=!(GMV||(BOJ.s&&BOJ.s.aktivni))}
+/* oka kostky: pozice v mřížce 3×3 pro hodnoty 1–6 */
+const BPIPS={1:[4],2:[0,8],3:[0,4,8],4:[0,2,6,8],5:[0,2,4,6,8],6:[0,2,3,5,6,8]};
+const bojKostka=r=>`<span class="kd6" role="img" aria-label="Padlo ${r}">${[...Array(9)].map((_,i)=>`<i${(BPIPS[r]||[]).includes(i)?' class="on"':""}></i>`).join("")}</span>`;
 function bojSetup(){
   const p=BOJ.s||{},hr=(p.hraci&&p.hraci.length?p.hraci.map(h=>h.n):PARTY.map(x=>x.n)).concat(["","","",""]).slice(0,Math.max(4,(p.hraci||PARTY).length));
-  const hrow=n=>`<div class="bsr"><input name="hn" placeholder="Jméno postavy" value="${besc(n)}" aria-label="Jméno postavy"></div>`;
-  const nrow=()=>`<div class="bsr"><input name="nn" placeholder="Nepřítel (např. Žoldnéři)" aria-label="Jméno nepřítele"><select name="nd" aria-label="Druh">${Object.entries(BDRUH).map(([k,v])=>`<option value="${k}">${v}</option>`).join("")}</select><input name="np" type="number" min="1" max="12" value="6" aria-label="Počet v houfu" title="Počet pacholků v houfu"></div>`;
-  return `<h2 class="arttitle">Boj</h2><p class="intro">Hráči hodí <b>d20 + Obratnost</b>, ty jednou za nepřítele s nejlepší iniciativou. Zadej nejlepší hod družiny a svůj hod. Družina i nepřátelé dostanou tolik slotů, kolik je hráčů; sloty se střídají – družina, nepřátelé, družina… – a začíná strana s vyšším hodem (při shodě družina).</p>
+  const x=`<button type="button" class="bx" data-bdelrow aria-label="Odebrat řádek">×</button>`;
+  const hrow=n=>`<li class="bsr"><input name="hn" placeholder="Jméno postavy" value="${besc(n)}" aria-label="Jméno postavy">${x}</li>`;
+  const nrow=()=>`<li class="bsr"><input name="nn" placeholder="Nepřítel, např. Žoldnéři" aria-label="Jméno nepřítele"><select name="nd" aria-label="Druh">${Object.entries(BDRUH).map(([k,v])=>`<option value="${k}">${v}</option>`).join("")}</select><label class="bpoc"><span>počet</span><input name="np" type="number" min="1" max="12" value="6" aria-label="Počet v houfu"></label>${x}</li>`;
+  const roll=(nm,t,s)=>`<label class="broll"><span class="brt">${t}</span><span class="brd"><input name="${nm}" type="number" inputmode="numeric" required min="-10" max="50" placeholder="–"></span><small>${s}</small></label>`;
+  return `<div class="bojtit"><h2 class="arttitle">Boj</h2><p class="bojlead">Rozestav obě strany, zapiš hody iniciativy a vytrub do boje.</p></div>
+    <details class="bojjak"><summary>Jak se rozdělují sloty</summary><p>Hráči hodí <b>d20 + Obratnost</b>, vypravěč jednou za nepřítele s nejlepší iniciativou. Družina i nepřátelé dostanou tolik slotů, kolik je hráčů. Sloty se střídají – družina, nepřátelé, družina… – a začíná strana s vyšším hodem (při shodě družina). Houf pacholků i pacholek jednají 1× za kolo, sok až 2×, zhoubce až 3×.</p></details>
     <form class="bojform" id="bojform">
-      <fieldset><legend>Družina</legend><label class="bdm">Nejlepší hod družiny <input name="hod" type="number" inputmode="numeric" required min="-10" max="50"></label>
-        <div id="bfh">${hr.map(hrow).join("")}</div><button type="button" class="gbtn ghost" data-badd="h">+ hráč</button></fieldset>
-      <fieldset><legend>Nepřátelé</legend><label class="bdm">Tvůj hod za nejlepšího nepřítele <input name="dm" type="number" inputmode="numeric" required min="-10" max="50"></label>
-        <div id="bfn">${nrow()}${nrow()}</div><button type="button" class="gbtn ghost" data-badd="n">+ nepřítel</button>
-        <p class="rsmall">Houf pacholků i pacholek jednají 1× za kolo, sok až 2×, zhoubce až 3×. Počet se zadává jen u houfu.</p></fieldset>
-      <button type="submit" class="gbtn">Začít boj</button></form>`}
+      <div class="bcamps">
+        <fieldset class="bcamp bch"><legend>Družina</legend>${roll("hod","Nejlepší hod družiny","d20 + Obratnost")}
+          <ol class="brows" id="bfh">${hr.map(hrow).join("")}</ol><button type="button" class="badd" data-badd="h">+ Přidat postavu</button></fieldset>
+        <div class="bvs" aria-hidden="true"><span>proti</span></div>
+        <fieldset class="bcamp bcn"><legend>Nepřátelé</legend>${roll("dm","Tvůj hod za nejlepšího","d20 + Obratnost")}
+          <ol class="brows" id="bfn">${nrow()}${nrow()}</ol><button type="button" class="badd" data-badd="n">+ Přidat nepřítele</button></fieldset>
+      </div>
+      <button type="submit" class="gbtn bstart">⚔ Začít boj</button></form>`}
 function bojAktivni(){
   const s=BOJ.s,sl=s.sloty||bojSloty(s),ob=s.obsazeni||{},jed=new Set(Object.values(ob)),gm=GMV&&!!bojDB,cas=bojCas();
   const ja=!gm?((s.hraci||[]).find(h=>h.n===bojJa.get())||{}).id:null,muj=i=>ja&&ob[i]===ja;
@@ -4905,26 +5038,29 @@ function bojAktivni(){
     if(gm){const opts=x.t==="h"?(s.hraci||[]).filter(h=>h.id===kdo||!jed.has(h.id)):(s.npc||[]).filter(n=>n.id===kdo||((n.druh!=="houf"||n.pocet>0)&&bojUzito(s,n.id)<(BLIM[n.druh]||1)));
       c=`<select data-bslot="${i}" aria-label="Kdo jedná ve slotu ${i+1}"><option value="">— volný —</option>${opts.map(o=>`<option value="${o.id}"${o.id===kdo?" selected":""}>${besc(o.n)}</option>`).join("")}</select>`}
     else c=kdo?`<b>${besc(bojJm(s,kdo))}</b>`:x.t==="h"&&bojDB&&bojDB.obsad?`<button type="button" class="gbtn ghost" data-bclaim="${i}">Obsadit</button>`:`<span class="bfree">volný</span>`;
-    return `<li class="bslot b${x.t}${i===s.tah?" btah":""}${kdo?" bobs":""}${muj(i)?" bmuj":""}${muj(i)&&i===s.tah?" bmujtah":""}"><span class="bhod">${x.hod}</span><span class="btyp">${x.t==="h"?"Hráči":"Nepřátelé"}</span><span class="bkdo">${c}</span>${i===s.tah?`<span class="bnatahu">na tahu</span>`:""}</li>`};
+    const npc=x.t==="n"&&kdo?(s.npc||[]).find(n=>n.id===kdo):null;
+    return `<li class="bslot b${x.t}${i===s.tah?" btah":""}${i<(s.tah||0)?" bdone":""}${kdo?" bobs":""}${muj(i)?" bmuj":""}${muj(i)&&i===s.tah?" bmujtah":""}"><span class="bstit"><span class="bhod">${x.hod}</span></span><span class="bkdo">${c}</span><span class="btyp">${x.t==="h"?"Družina":"Nepřátelé"}${npc?` · ${BDRUH[npc.druh]||npc.druh}`:""}</span>${i===s.tah?`<span class="bnatahu">na tahu</span>`:""}</li>`};
   const npc=n=>{const lim=BLIM[n.druh]||1,u=bojUzito(s,n.id),houf=n.druh==="houf",bon=houf?Math.min(Math.max((n.pocet||0)-1,0),5):0,
       mor=houf&&n.pocet>0&&(n.pocet<=Math.floor((n.max||0)/2)||n.velitel===false);
-    return `<div class="bnpc${houf&&!n.pocet?" bdead":""}" data-bnpc="${n.id}"><div class="bnh"><b>${besc(n.n)}</b><small>${BDRUH[n.druh]||n.druh}</small><span class="buse">jednal ${u}/${lim}</span></div>
-      ${houf?`<div class="bhouf">${gm?`<button type="button" class="gbtn ghost" data-bpoc="-1" aria-label="Ubrat pacholka">−</button>`:""}<span><b>${n.pocet}</b> z ${n.max}</span>${gm?`<button type="button" class="gbtn ghost" data-bpoc="1" aria-label="Přidat pacholka">+</button>`:""}<span class="bbon">${n.pocet?`útok +${bon}`:"houf poražen"}</span>
-        ${gm?`<label class="bvel"><input type="checkbox" data-bvel${n.velitel===false?"":" checked"}> velitel žije</label>`:""}</div>${mor&&gm?`<p class="bmor">Morálka: padla polovina houfu nebo velitel – houf prchá, pokud ho v boji nedrží sok.</p>`:""}`:""}
-      ${gm?`<button type="button" class="bdel" data-bdel aria-label="Odebrat ${besc(n.n)}">odebrat</button>`:""}</div>`};
-  const k=s.kostka,km=KMODY[(k&&k.mode)||"bezne"];
+    const tah=[...Array(lim)].map((_,j)=>`<i class="${j<u?"on":""}"></i>`).join("");
+    return `<div class="bnpc${houf&&!n.pocet?" bdead":""}${u>=lim?" bvyc":""}" data-bnpc="${n.id}"><div class="bnh"><b>${besc(n.n)}</b><small>${BDRUH[n.druh]||n.druh}</small><span class="buse" title="Kolikrát v kole jednal">jednal ${u}/${lim}<span class="btahy" aria-hidden="true">${tah}</span></span>${gm?`<button type="button" class="bdel" data-bdel aria-label="Odebrat ${besc(n.n)}" title="Odebrat z boje">×</button>`:""}</div>
+      ${houf?`<div class="bhouf"><span class="bzivi" aria-hidden="true">${[...Array(n.max||0)].map((_,j)=>`<i class="${j<n.pocet?"on":""}"></i>`).join("")}</span><span class="bpocet"><b>${n.pocet}</b> z ${n.max}</span>${gm?`<span class="bpm"><button type="button" class="gbtn ghost" data-bpoc="-1" aria-label="Ubrat pacholka">−</button><button type="button" class="gbtn ghost" data-bpoc="1" aria-label="Přidat pacholka">+</button></span>`:""}<span class="bbon">${n.pocet?`útok +${bon}`:"houf poražen"}</span>
+        ${gm?`<label class="bvel"><input type="checkbox" data-bvel${n.velitel===false?"":" checked"}> velitel žije</label>`:""}</div>${mor&&gm?`<p class="bmor">Morálka: padla polovina houfu nebo velitel – houf prchá, pokud ho v boji nedrží sok.</p>`:""}`:""}</div>`};
+  const k=s.kostka;
   const jaH=!gm&&bojDB&&bojDB.obsad?`<div class="bja"><label>Hraji za <select data-bja aria-label="Za koho hraješ"><option value="">— vyber svou postavu —</option>${(s.hraci||[]).map(h=>`<option${h.n===bojJa.get()?" selected":""}>${besc(h.n)}</option>`).join("")}</select></label>
       ${ja?(muj(s.tah)?`<b class="bjatah">Jsi na tahu!</b>`:Object.keys(ob).some(k=>ob[k]===ja&&+k===s.tah+1)?`<span class="bjadal">Jsi další na řadě.</span>`:Object.values(ob).includes(ja)?`<span class="rsmall">Tvůj slot je v kole obsazený – telefon zavibruje, až přijdeš na řadu.</span>`:`<span class="rsmall">Obsaď si volný slot družiny.</span>`):""}</div>`:"";
-  return `${jaH}<div class="bojhead"><h2 class="arttitle">Boj · kolo ${s.kolo}</h2>${gm?`<div class="bojbtn"><button type="button" class="gbtn" data-bact="dalsi">Další tah ▶</button><button type="button" class="gbtn ghost" data-bact="kolo">Nové kolo</button><button type="button" class="gbtn ghost" data-bact="konec">Ukončit boj</button></div>`:""}</div>
-    <div class="bojgrid"><section><h3 class="uvh2">Sloty iniciativy</h3><ol class="bsloty">${sl.map(slot).join("")}</ol>
-      <p class="rsmall">${gm?"Do slotu vyber, kdo v něm jedná. Hráči si volné sloty hráčů mohou obsadit i ze svého telefonu.":"Volný slot hráčů si obsadíš tlačítkem Obsadit. Každá postava smí jednat jen jednou za kolo."}</p></section>
+  const konec=(s.tah||0)>=sl.length;
+  return `${jaH}<div class="bojhead"><div class="bojtit"><h2 class="arttitle">Boj</h2><span class="bkolo">kolo <b>${s.kolo}</b></span></div>${gm?`<div class="bojbtn"><button type="button" class="gbtn" data-bact="dalsi">Další tah ▶</button><button type="button" class="gbtn ghost" data-bact="kolo">Nové kolo</button><button type="button" class="gbtn ghost" data-bact="konec">Ukončit boj</button></div>`:""}</div>
+    <div class="bojgrid"><section class="bosa"><h3 class="uvh2">Pořadí v kole</h3><ol class="bsloty">${sl.map(slot).join("")}</ol>
+      ${konec?`<p class="bkonec">Kolo dobojováno.${gm?" Pokračuj tlačítkem Nové kolo.":""}</p>`:""}
+      <p class="rsmall">${gm?"Do slotu vyber, kdo v něm jedná. Hráči si volné sloty družiny mohou obsadit i ze svého telefonu.":"Volný slot družiny si obsadíš tlačítkem Obsadit. Každá postava smí jednat jen jednou za kolo."}</p></section>
     <aside class="bojside">
-      <section class="bkostka"><h3 class="uvh2">Kostka Závoje</h3>${k?`<p class="kvys kv-${k.v==="Pokušení"?"p":k.v==="Požehnání"?"z":"n"}"><span class="kd6">${k.r}</span><b>${k.v}</b><small>${KMODY[k.mode]?KMODY[k.mode][0]:""}${k.pro?" · "+besc(k.pro):""}</small></p>`:`<p class="rsmall">Zatím se neházelo.</p>`}
+      <section class="bkostka"><h3 class="uvh2">Kostka Závoje</h3>${k?`<p class="kvys kv-${k.v==="Pokušení"?"p":k.v==="Požehnání"?"z":"n"}">${bojKostka(k.r)}<span class="kvt"><b>${k.v==="nic"?"bez účinku":k.v}</b><small>${KMODY[k.mode]?KMODY[k.mode][0]:""}${k.pro?" · "+besc(k.pro):""}</small></span></p>`:`<p class="rsmall">Zatím se neházelo.</p>`}
         ${gm?`<div class="bkr"><select id="bkm" aria-label="Okolnosti">${Object.entries(KMODY).map(([id,[n]])=>`<option value="${id}"${id===(cas&&cas.hodina?"hodina":"bezne")?" selected":""}>${n}</option>`).join("")}</select><input id="bkpro" placeholder="pro koho (nepovinné)" aria-label="Pro koho"><button type="button" class="gbtn" data-bact="kostka">Hodit k6</button></div>
         ${cas&&cas.hodina?`<p class="rsmall">Je ${cas.H}. hodina – Hodina Závoje, Pokušení padá na 1–3.</p>`:""}`:""}</section>
-      <section><h3 class="uvh2">Družina</h3><p class="rsmall">Hod družiny: ${s.hod!=null?s.hod:"–"}</p><ul class="bhr">${(s.hraci||[]).map(h=>`<li class="${jed.has(h.id)?"bjed":""}"><b>${besc(h.n)}</b>${jed.has(h.id)?" · jednal":""}</li>`).join("")}</ul></section>
-      <section><h3 class="uvh2">Nepřátelé</h3><p class="rsmall">Hod za nepřátele: ${s.dm}</p>${(s.npc||[]).map(npc).join("")}
-        ${gm?`<form class="bnadd" id="bnadd"><input name="nn" placeholder="Přidat nepřítele" aria-label="Jméno nepřítele" required><select name="nd" aria-label="Druh">${Object.entries(BDRUH).map(([k,v])=>`<option value="${k}">${v}</option>`).join("")}</select><input name="np" type="number" min="1" max="12" value="6" aria-label="Počet v houfu"><button class="gbtn ghost" type="submit">Přidat</button></form>`:""}</section>
+      <section class="bstrana bsh"><h3 class="uvh2">Družina <small>hod ${s.hod!=null?s.hod:"–"}</small></h3><ul class="bhr">${(s.hraci||[]).map(h=>`<li class="${jed.has(h.id)?"bjed":""}">${besc(h.n)}${jed.has(h.id)?`<span class="vh"> · jednal</span>`:""}</li>`).join("")}</ul></section>
+      <section class="bstrana bsn"><h3 class="uvh2">Nepřátelé <small>hod ${s.dm}</small></h3>${(s.npc||[]).map(npc).join("")}
+        ${gm?`<form class="bnadd" id="bnadd"><input name="nn" placeholder="Přidat nepřítele" aria-label="Jméno nepřítele" required><select name="nd" aria-label="Druh">${Object.entries(BDRUH).map(([k,v])=>`<option value="${k}">${v}</option>`).join("")}</select><label class="bpoc"><span>počet</span><input name="np" type="number" min="1" max="12" value="6" aria-label="Počet v houfu"></label><button class="gbtn ghost" type="submit">Přidat</button></form>`:""}</section>
     </aside></div>`}
 function renderBoj(){
   const box=document.getElementById("bojview");if(!box)return;
@@ -4964,6 +5100,7 @@ document.addEventListener("submit",e=>{
 });
 document.addEventListener("click",async e=>{
   const v=document.getElementById("bojview");if(!v||!v.contains(e.target))return;
+  const dr=e.target.closest("[data-bdelrow]");if(dr){const li=dr.closest(".bsr"),ol=li.parentElement;if(ol.children.length>1)li.remove();else li.querySelectorAll("input").forEach(i=>{if(i.name!=="np")i.value=""});return}
   const add=e.target.closest("[data-badd]");if(add){const box=document.getElementById(add.dataset.badd==="h"?"bfh":"bfn"),r=box.lastElementChild.cloneNode(true);r.querySelectorAll("input").forEach(i=>{if(i.name!=="np")i.value=""});box.appendChild(r);r.querySelector("input").focus();return}
   const a=e.target.closest("[data-bact]");
   if(a){const t=a.dataset.bact;
