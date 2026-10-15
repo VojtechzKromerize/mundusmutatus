@@ -568,6 +568,12 @@ a.pchar:hover{border-color:var(--kal)}
 }
 
 /* úvod */
+.herobox{display:flex;align-items:center;justify-content:center;gap:40px;padding:14px 0 4px}
+.herofig{margin:0;flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:6px}
+.herofig img{width:250px;height:auto;display:block;border:1px solid var(--rule);box-shadow:0 3px 14px rgba(40,25,10,.22)}
+.herofig figcaption{font-style:italic;color:var(--muted);font-size:.9rem;letter-spacing:.03em}
+.herobox .hero{flex:0 1 auto}
+@media (max-width:700px){.herobox{flex-direction:column;gap:10px}.herofig img{width:min(220px,60vw)}}
 .hero{text-align:center;padding:14px 10px 4px;display:flex;flex-direction:column;gap:4px;align-items:center}
 .herod{font-family:var(--f-disp);font-size:clamp(1.8rem,5vw,2.8rem);color:var(--kal);line-height:1.1}
 .herop{color:var(--muted)}
@@ -660,7 +666,7 @@ svg#map.measuring .seat{cursor:url(art/kurzory/kruzidlo.png) 4 2,crosshair !impo
 
 <main>
 <div class="view" data-view="uvod" hidden>
-<section class="hero" id="hero"></section>
+<div class="herobox"><figure class="herofig"><img src="art/img/kalich-drak.webp" width="560" height="560" alt="Iluminace: bílý drak odpočívá ve zlatém kalichu plném vína pod hvězdnou oblohou"><figcaption>Sub utraque sunt dracones</figcaption></figure><section class="hero" id="hero"></section></div>
 <div class="uvgrid">
   <section class="sec uvev"><h2 class="uvh">Poslední události</h2><div id="uvzap"></div><h3 class="uvh2">Ze světa</h3><dl class="tl" id="uvlet"></dl><a class="uvmore" href="#kronika/letopis">Celý letopis →</a></section>
   <aside class="kal" id="kal1" aria-label="Kalendárium"></aside>
