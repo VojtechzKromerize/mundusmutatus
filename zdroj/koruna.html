@@ -1478,6 +1478,8 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
 /* zvolená karta / přepínač: stejná vínová kůže se zlatou linkou jako hlavní lišta */
 .controls button[aria-pressed="true"],.dtools .controls button[aria-pressed="true"],.subnav a.on,.gbtn:not(.ghost){background:linear-gradient(180deg,color-mix(in srgb,var(--kuze) 85%,#000) 0%,var(--kuze) 35%,var(--kuze2) 100%);color:#f6d27a;border-color:rgba(20,3,6,.85);text-shadow:0 1px 0 rgba(0,0,0,.45);box-shadow:inset 0 0 0 2px var(--kuze),inset 0 0 0 3px var(--zlato-linka),0 1px 3px rgba(40,10,10,.3)}
 .controls button[aria-pressed="true"]:hover,.subnav a.on:hover,.gbtn:not(.ghost):hover{color:#ffe7a8}
+/* zvolené Zemské desky: jantarový kosočtverec u nápisu v liště */
+#navdesky .ddtop.on::before{content:"";display:inline-block;width:8px;height:8px;margin:0 9px 0 2px;vertical-align:.2em;transform:rotate(45deg);background:linear-gradient(135deg,#ffe28a,#f0a91e 50%,#b86a06);box-shadow:0 0 0 1px #e0b04a,0 0 0 2px rgba(20,3,6,.85)}
 </style>
 
 <div class="wrap"><div class="papir" aria-hidden="true"></div>
