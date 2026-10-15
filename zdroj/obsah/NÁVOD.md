@@ -33,6 +33,7 @@ s česky popsanou chybou v přehledu nasazení na Netlify a web zůstane ve stav
 | `rody/` | panské rody, církevní vrchnosti, města, sousedé | `rody/_vzor.md` |
 | `osoby/` | osoby v Zemských deskách | `osoby/_vzor.md` |
 | `rodokmeny.json` | rodokmeny rodů (jeden řádek = jeden rod; `p` = id osoby, `r`/`rl` = id rodu, `pl` = id manžela/manželky) | stávající řádky |
+| `postavy-1458.json` | rešerše osob (klíč = id osoby): `narozeni` (RRRR-MM-DD nebo RRRR), `narozeniRok`, `narozeniOdhad` → věk k hernímu datu; `shrnuti` → „Dosavadní život“ (hráči ho vidí, až osobu družina potká). Objekt `gm` (`poBreznu1458`, `umrti`) a pole `jistota`, `rozporSWebem`, `zakladOdhadu`, `zdroje` vidí jen vypravěč (sekce „Po březnu 1458“); do hráčské verze se nedostanou, sestavení to hlídá stejně jako ⟦tajemství⟧ | stávající záznamy |
 | `vazby.md` | krev, spojenectví a spory mezi rody (jeden řádek = jedna vazba) | návod v hlavičce souboru |
 | `praha/` | očíslovaná místa na plánu Prahy | `praha/_vzor.md` |
 | `praha-ulice.md` | názvy ulic, trhů a bran na plánu Prahy | návod v hlavičce souboru |

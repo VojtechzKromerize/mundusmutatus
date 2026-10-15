@@ -146,6 +146,26 @@ function generuj(soubory, manifest) {
   }
   const pids = new Set(people.map(p => p.id)), prod = Object.fromEntries(people.map(p => [p.id, p.r]));
 
+  /* rešerše postav (postavy-1458.json): narození a dosavadní život pro hráče, zbytek jen pro vypravěče */
+  let resers = {};
+  if ("postavy-1458.json" in soubory) {
+    try { resers = JSON.parse(soubory["postavy-1458.json"]); } catch (e) { fail("postavy-1458.json: chybný zápis JSON – " + e.message); }
+  }
+  const RES = [];
+  for (const [pid, r] of Object.entries(resers)) {
+    const w = `postavy-1458.json, ${pid}`;
+    if (!pids.has(pid)) fail(`${w}: osoba „${pid}“ neexistuje`);
+    if (r.narozeni != null && !/^\d{4}(-\d{2}-\d{2})?$/.test(String(r.narozeni))) fail(`${w}: narozeni má tvar RRRR-MM-DD nebo RRRR`);
+    const rok = r.narozeniRok != null ? parseInt(r.narozeniRok, 10) : (r.narozeni ? parseInt(String(r.narozeni).slice(0, 4), 10) : NaN);
+    const o = people.find(q => q.id === pid);
+    if (isFinite(rok)) o.nar = { d: /^\d{4}-\d{2}-\d{2}$/.test(String(r.narozeni || "")) ? String(r.narozeni) : "", r: rok, o: !!r.narozeniOdhad };
+    if (r.shrnuti) o.sh = String(r.shrnuti);
+    const g = r.gm || {}, t = { id: pid, po: g.poBreznu1458 || "", um: g.umrti || "", jis: r.jistota || "", roz: r.rozporSWebem || "", zak: r.zakladOdhadu || "",
+      zdr: Array.isArray(r.zdroje) ? r.zdroje.filter(Boolean).map(String) : [] };
+    for (const k of ["po", "roz", "zak"]) if (t[k]) odstranene.push(t[k]);
+    RES.push({ $gm: true, ...t });
+  }
+
   /* Draconomicon */
   const kap = [];
   for (const k of readDir("draconomicon/kapitoly")) {
@@ -252,6 +272,8 @@ function generuj(soubory, manifest) {
   const P = people.map(p => {
     const base = { id: p.id, n: p.n, r: p.r, role: p.role, x: "", sl: true }, plne = { x: p.x, sl: false };
     if (p.seat) plne.seat = p.seat;
+    if (p.nar) plne.nar = p.nar;
+    if (p.sh) plne.sh = p.sh;
     return { $g: p.r, $x: { $g: p.id, ...base, $plne: plne } };
   });
   const REL = rel.map(r => ({ $g: [...r.ids], ...r }));
@@ -290,7 +312,7 @@ function generuj(soubory, manifest) {
   const odh = { DRACI: { kap, pl: PL }, ZEMEPIS: ZEM, FAM: F, PEOPLE: P, REL, PRAHA_PLACES: PR, MISTA: MI, TREES: T,
     SHORT: Object.fromEntries(Object.entries(short).map(([k, v]) => [k, { $g: k, $x: v }])),
     ARMS: Object.fromEntries(Object.entries(arms).map(([k, v]) => [k, { $g: k, $x: v }])),
-    PORTR, ZAPISY: zapisy.map(z => ({ $g: z.id, ...z })), PARTY: party };
+    PORTR, ZAPISY: zapisy.map(z => ({ $g: z.id, ...z })), PARTY: party, RESERS: RES };
   return { odh, seed: SEED, odstranene };
 }
 

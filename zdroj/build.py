@@ -276,7 +276,7 @@ def sb_rpc(fn, body, volitelna=False):
 # (stejný kód používá web, když vypravěč upraví text). Na webu napojeném na databázi je zdrojem pravdy
 # databáze (tabulka zaznamy); soubory v repozitáři jsou její záloha a nové či změněné soubory se do ní přenesou.
 ZAZNAMY_SLOZKY = ("rody/", "osoby/", "kronika/", "druzina/", "mista/", "praha/", "draconomicon/kapitoly/", "draconomicon/plemena/")
-ZAZNAMY_SOUBORY = ("vazby.md", "rodokmeny.json")
+ZAZNAMY_SOUBORY = ("vazby.md", "rodokmeny.json", "postavy-1458.json")
 GENERATOR = os.path.join(ROOT, "zdroj", "generator.js")
 
 def je_zaznam(rel):
