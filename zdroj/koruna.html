@@ -1526,6 +1526,18 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
 :root[data-theme="dark"]{color-scheme:dark}
 select option,select optgroup{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:1rem}
 select option:checked{background:color-mix(in srgb,var(--gold) 35%,var(--paper));color:var(--ink)}
+
+/* ===== pozadí webu: iluminační modř se zlatými hvězdami; kožený rám, lišta a spony zůstávají vínové (2026-10-15) ===== */
+:root{--pozadi:#16264a;--pozadi2:#0f1a35}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--pozadi:#0e1830;--pozadi2:#09101f}}
+:root[data-theme="dark"]{--pozadi:#0e1830;--pozadi2:#09101f}
+html{background-color:var(--pozadi)}
+html::before{background:
+  radial-gradient(ellipse at 50% 45%,transparent 45%,rgba(0,0,0,.55) 100%) 0 0/100% 100% no-repeat,
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='92' height='92'%3E%3Cpath d='M23 17.5L24.54 21.46L28.5 23L24.54 24.54L23 28.5L21.46 24.54L17.5 23L21.46 21.46Z' fill='%23d9b860' fill-opacity='0.62'/%3E%3Cpath d='M69 65.2L70.064 67.936L72.8 69L70.064 70.064L69 72.8L67.936 70.064L65.2 69L67.936 67.936Z' fill='%23d9b860' fill-opacity='0.45'/%3E%3Ccircle cx='69' cy='23' r='.9' fill='%23d9b860' fill-opacity='.35'/%3E%3Ccircle cx='23' cy='69' r='.9' fill='%23d9b860' fill-opacity='.35'/%3E%3C/svg%3E") 0 0/92px 92px,
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") 0 0/300px 300px,
+  linear-gradient(180deg,var(--pozadi),var(--pozadi2)) 0 0/100% 100% no-repeat,
+  var(--pozadi)}
 </style>
 
 <div class="wrap"><div class="papir" aria-hidden="true"></div>
