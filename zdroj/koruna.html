@@ -4811,7 +4811,7 @@ function renderRodArticle(id){
    <div class="artgrid"><div class="artmain">
      <h2 class="arttitle">${f.name}</h2>
      <p class="artlead">${f.head}</p>
-     ${f.sl?`<p class="slnote">O tomto rodu družina zatím jen slyšela. Víc se dozví, až se s ním setká.</p>`:`<h3>${f.nbr?"Postoj ke Koruně":"Postoj k Jiřímu"}</h3><p>${f.stance}</p>
+     ${f.sl?`${f.hist?`<h3>${HISTH(f)}</h3><p>${f.hist}</p>`:""}<p class="slnote">O tomto rodu družina zatím jen slyšela. Víc se dozví, až se s ním setká.</p>`:`<h3>${f.nbr?"Postoj ke Koruně":"Postoj k Jiřímu"}</h3><p>${f.stance}</p>
      ${f.hist?`<h3>${HISTH(f)}</h3><p>${f.hist}</p>`:""}
      <h3>Zápis kronikáře</h3><p class="kron">${f.note}</p>`}
      ${rels.length?`<h3 class="hcent">Vazby</h3><div class="relcol3">${relGroups(rels,id,false)}</div>`:""}
