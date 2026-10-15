@@ -19,7 +19,8 @@ OUT = os.path.join(ROOT, "vypravec" if GM else "public")
 # Napojení na Supabase (odhalování). Bez tajného klíče se web sestaví staticky jako dřív.
 SB_URL = os.environ.get("SUPABASE_URL", "").strip().rstrip("/")
 SB_KEY = os.environ.get("SUPABASE_KEY", "").strip()
-SB_SECRET = os.environ.get("SUPABASE_SECRET", "").strip()
+SB_SECRET = next((os.environ[n].strip() for n in ("SUPABASE_SECRET", "SUPABASE_SECRET_KEY", "SUPABASE_SERVICE_ROLE_KEY",
+                  "SUPABASE_SERVICE_KEY", "SUPABASE_SERVICE_ROLE", "SECRET_KEY", "SUPABASE_SB_SECRET") if os.environ.get(n, "").strip()), "")
 DB = bool(SB_URL and SB_KEY and SB_SECRET) and not GM and "--staticky" not in sys.argv
 VETEV = (os.environ.get("MM_VETEV") or os.environ.get("BRANCH") or "mistni").strip()
 if not GM and not DB and "--staticky" not in sys.argv and (SB_URL or SB_KEY or SB_SECRET):
