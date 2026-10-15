@@ -3,8 +3,28 @@
 <link rel="icon" type="image/png" sizes="64x64" href="art/img/ikona-64.png">
 <link rel="apple-touch-icon" href="art/img/ikona-180.png">
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@500;700&family=Alegreya:ital,wght@0,400;0,600;0,700;1,400&family=Alegreya+Sans+SC:wght@500;700&display=swap">
+<!-- písma leží přímo na webu (art/pisma, licence SIL OFL): rychlejší načtení a žádné dotazy na Google -->
+<link rel="preload" href="art/pisma/alegreya-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="art/pisma/alegreya-latin-ext-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="art/pisma/grenze-gotisch-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:'Grenze Gotisch';font-style:normal;font-weight:500;font-display:swap;src:url(art/pisma/grenze-gotisch-latin-ext-500-normal.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Grenze Gotisch';font-style:normal;font-weight:500;font-display:swap;src:url(art/pisma/grenze-gotisch-latin-500-normal.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Grenze Gotisch';font-style:normal;font-weight:700;font-display:swap;src:url(art/pisma/grenze-gotisch-latin-ext-700-normal.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Grenze Gotisch';font-style:normal;font-weight:700;font-display:swap;src:url(art/pisma/grenze-gotisch-latin-700-normal.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Alegreya';font-style:normal;font-weight:400;font-display:swap;src:url(art/pisma/alegreya-latin-ext-400-normal.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Alegreya';font-style:normal;font-weight:400;font-display:swap;src:url(art/pisma/alegreya-latin-400-normal.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Alegreya';font-style:normal;font-weight:600;font-display:swap;src:url(art/pisma/alegreya-latin-ext-600-normal.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Alegreya';font-style:normal;font-weight:600;font-display:swap;src:url(art/pisma/alegreya-latin-600-normal.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Alegreya';font-style:normal;font-weight:700;font-display:swap;src:url(art/pisma/alegreya-latin-ext-700-normal.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Alegreya';font-style:normal;font-weight:700;font-display:swap;src:url(art/pisma/alegreya-latin-700-normal.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Alegreya';font-style:italic;font-weight:400;font-display:swap;src:url(art/pisma/alegreya-latin-ext-400-italic.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Alegreya';font-style:italic;font-weight:400;font-display:swap;src:url(art/pisma/alegreya-latin-400-italic.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Alegreya Sans SC';font-style:normal;font-weight:500;font-display:swap;src:url(art/pisma/alegreya-sans-sc-latin-ext-500-normal.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Alegreya Sans SC';font-style:normal;font-weight:500;font-display:swap;src:url(art/pisma/alegreya-sans-sc-latin-500-normal.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Alegreya Sans SC';font-style:normal;font-weight:700;font-display:swap;src:url(art/pisma/alegreya-sans-sc-latin-ext-700-normal.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Alegreya Sans SC';font-style:normal;font-weight:700;font-display:swap;src:url(art/pisma/alegreya-sans-sc-latin-700-normal.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+</style>
 <style>
 /* Layout: kronikářský list — mapa s detailem nahoře, pod ní rejstřík rodů po zemích, sousedé, vazby, letopis */
 :root{
@@ -1363,6 +1383,9 @@ function zminky(D){
 }
 const C=window.MMCFG||null;
 window.MMDB=null;window.MMINFO="";
+/* offline režim: jen hráčská verze na webu (ne vypravěčský soubor ani náhled) */
+if("serviceWorker" in navigator&&(location.protocol==="https:"||location.hostname==="localhost"))
+  addEventListener("load",()=>{if(document.querySelector("script#mmhlavni[src],script#mmhlavni[data-src]"))navigator.serviceWorker.register("sw.js").catch(()=>{})});
 if(!C){zminky(window.__D=window.__D||{});return}
 document.documentElement.classList.add("mmload");
 const LS="mm-gm-relace",V=encodeURIComponent(C.vetev);
@@ -1414,8 +1437,12 @@ window.MMDB={vetev:C.vetev,
 let MMV=null;
 function spust(D){
   window.__D=D;zminky(D);
-  const m=document.getElementById("mmhlavni"),s=document.createElement("script");s.textContent=m.textContent;m.after(s);
+  const m=document.getElementById("mmhlavni"),s=document.createElement("script");
+  if(m.dataset.src){s.src=m.dataset.src;s.onload=()=>po(D);s.onerror=()=>{document.documentElement.classList.remove("mmload");hlas("Stránku se nepodařilo načíst – zkuste ji obnovit.",9000)};m.after(s);return}
+  s.textContent=m.textContent;m.after(s);po(D)}
+function po(D){
   document.documentElement.classList.remove("mmload");
+  if(navigator.onLine===false)setTimeout(()=>hlas("Jste bez připojení – zobrazuji naposledy uložený stav desek.",7000),300);
   let ob=null;try{ob=JSON.parse(sessionStorage.getItem("mm-obnova")||"null");sessionStorage.removeItem("mm-obnova")}catch(e){}
   if(ob&&ob.h===location.hash)setTimeout(()=>{scrollTo(0,ob.y);hlas(ob.t||"Zemské desky byly doplněny o nové poznatky.")},60);
   if(window.MMINFO&&!D.GM)hlas(window.MMINFO,8000);
@@ -2591,9 +2618,9 @@ const ARTK=[
   ${note("Příklad.","Při neúspěšném Perception checku s Požehnáním postava sice nenajde to, co hledá, ale boží prozřetelnost ji přivede k něčemu jinému užitečnému. Naopak útok, který zasáhne s Pokušením (a postava ho odmítne), vede k tomu, že se zbraň zasekne v těle nepřítele a vytrhnout ji vyžaduje bonusovou akci.")}`},
  {id:"hodiny",t:"Hodiny Závoje",h:`
   <p>O <b>půlnoci</b>, v <b>poledne</b>, po <b>večerním klekání</b> a o <b>slunovratech</b> je Závoj nejtenčí. Bytosti z cizích sfér mají snazší průnik na náš svět a ${Z.P} padá již při hodu <b>1–3</b>.</p>
-  <figure class="rfig rbig"><a href="${AIMG}hodiny.webp" target="_blank" rel="noopener" title="Otevřít v plné velikosti"><img src="${AIMG}hodiny.webp" alt="Kolo hodin Závoje: poledne, klekání, půlnoc a slunovraty" loading="lazy" width="1200" height="1200"></a><figcaption>Kolo hodin Závoje: poledne, večerní klekání, půlnoc a slunovraty</figcaption></figure>`},
+  <figure class="rfig rbig"><a href="${AIMG}hodiny.webp" target="_blank" rel="noopener" title="Otevřít v plné velikosti"><img src="${AIMG}hodiny.webp" srcset="${AIMG}hodiny-s.webp 800w, ${AIMG}hodiny.webp 1200w" sizes="(max-width:800px) 100vw, 760px" alt="Kolo hodin Závoje: poledne, klekání, půlnoc a slunovraty" loading="lazy" width="1200" height="1200"></a><figcaption>Kolo hodin Závoje: poledne, večerní klekání, půlnoc a slunovraty</figcaption></figure>`},
  {id:"svatky",t:"Svátky",h:`
-  <figure class="rfig rwide"><img src="${AIMG}svatky.webp" alt="Svátek ve městě: procesí, trh a mše" loading="lazy" width="1100" height="365"></figure>
+  <figure class="rfig rwide"><img src="${AIMG}svatky.webp" srcset="${AIMG}svatky-s.webp 800w, ${AIMG}svatky.webp 1385w" sizes="(max-width:820px) 100vw, 1000px" alt="Svátek ve městě: procesí, trh a mše" loading="lazy" width="1100" height="365"></figure>
   <p>Na den, na který připadá svátek podle vyznání postavy (<i>např. sv. Václav, 6. července Hus, jarní vynášení Morany</i>), padá postavě ${Z.B} již při hodu <b>4–6</b>.</p>
   <p>Světci a dovednosti, k nimž se váží (viz též ${xl("vyznani","vyznani-volba","Přímluva patrona")}):</p>
   ${tb(["Světec","Dovednosti"],[
@@ -2724,7 +2751,7 @@ const ARTK=[
    ["Lámání paže","1V + reakce + Pokušení nepřítele",`Když tě Restrained soupeř napadne, hází CON save s nevýhodou: při neúspěchu má zlomenou paži (${xl("kriticka","fyzicka","kritické zranění")}).`],
    ["Zápas o zbraň","1V + reakce","Když na tebe někdo útočí lehkou zbraní (dýka), hází STR/AGI save: při neúspěchu útok mine a zbraň máš ve svých rukou."],
    ["Zápas ve zbroji <i>(Ringen im Harnisch)</i>","1V + bonusová akce","Proti Restrained nebo Prone soupeři ignorují tvé útoky dýkou do konce tahu jakoukoli Resistance zbroje."]])}
-  <figure class="rfig rwide"><img src="${AIMG}sermiri.webp" alt="Šermíři z fechtbuchu: vazba, zápas s mečem a hod" loading="lazy" width="1100" height="365"></figure>`}
+  <figure class="rfig rwide"><img src="${AIMG}sermiri.webp" srcset="${AIMG}sermiri-s.webp 800w, ${AIMG}sermiri.webp 1385w" sizes="(max-width:820px) 100vw, 1000px" alt="Šermíři z fechtbuchu: vazba, zápas s mečem a hod" loading="lazy" width="1100" height="365"></figure>`}
  ]},
 /* ======== KNIHA III · RÁNY ======== */
 {id:"zraneni",book:"rany",t:"Zranění a smrt",img:"zraneni.webp",
@@ -2796,15 +2823,15 @@ function artLanding(){
    <a class="qk" href="#artikule/zavoj/kostka"><b>Kostka Závoje · d6</b><span>1–2 ${Z.P}</span><span>3–4 bez efektu</span><span>5–6 ${Z.B}</span></a>
    <a class="qk" href="#artikule/svedomi/stavy"><b>Svědomí · 0–10</b><span>0 Zatracený</span><span>1–3 Na scestí</span><span>4–7 Na vážkách</span><span>8–10 V milosti</span></a>
    <a class="qk" href="#artikule/zraneni/zavaznost"><b>Kritické zranění · d10</b><span>1–5 Lehká · 6–9 Těžká</span><span>10–12 Vážná · 13+ Smrtelná</span><span>Část těla: kostka Závoje</span></a></div>`;
-  return `<figure class="rfig rwide rbanner"><img src="${AIMG}banner.webp" alt="Iluminace: draci nad krajinou a lid pod nimi" width="1100" height="367"></figure>
-   <div class="rart wide"><img src="${AIMG}titul.webp" alt="" width="620" height="269"></div>
+  return `<figure class="rfig rwide rbanner"><img src="${AIMG}banner.webp" srcset="${AIMG}banner-s.webp 800w, ${AIMG}banner.webp 1430w" sizes="(max-width:820px) 100vw, 1000px" alt="Iluminace: draci nad krajinou a lid pod nimi" width="1100" height="367"></figure>
+   <div class="rart wide"><img src="${AIMG}titul.webp" srcset="${AIMG}titul-s.webp 620w, ${AIMG}titul.webp 1000w" sizes="(max-width:820px) 80vw, 420px" alt="" width="620" height="269"></div>
    <h2 class="vh">Artikule</h2>
    ${rq("Zde jsou sepsány Artikule, jimiž se řídí tato Kronika i ti, o nichž vypráví. Stanoví, co komu přísluší, co se smí a nesmí, co stojí za to riskovati a co se již nevyplácí. Kdož je zná, nebude zaskočen, kdož je nezná, budiž zatracen.","Vojtěch z Kroměříže, rytíř ve službách biskupa olomouckého")}
    <p class="alead">K přečtení jsou zde pravidla a mechaniky pro kampaň <i>Mundus Mutatus: Sub Utraque Sunt Dracones</i>. Základ vychází z pravidel D&amp;D 2024, je však upraven a doplněn tak, aby vytvořil temný a nebezpečný středověký svět, v němž o duše postav svádějí souboj Bůh a ďábel.</p>
    <img class="orn drak" src="${AIMG}drak.webp" alt="" aria-hidden="true">
    <h3 class="abh">Ve zkratce</h3>${quick}
    ${ARTB.map(b=>`<section class="abk"><h3 class="abh">${b.t} · <span>${b.n}</span></h3><p class="rsmall">${b.d}</p><div class="achaps">${
-     ARTK.filter(k=>k.book===b.id).map(k=>`<a class="achap" href="#artikule/${k.id}"><img src="${AIMG}${k.img}"${k.wide?' class="wide"':""} alt="" loading="lazy"><b>${k.t}</b><span>${k.sum}</span></a>`).join("")}</div></section>`).join("")}`;
+     ARTK.filter(k=>k.book===b.id).map(k=>`<a class="achap" href="#artikule/${k.id}"><img src="${AIMG}${k.img.replace(".webp","-t.webp")}"${k.wide?' class="wide"':""} alt="" loading="lazy"><b>${k.t}</b><span>${k.sum}</span></a>`).join("")}</div></section>`).join("")}`;
 }
 function artChapter(k){
   const i=ARTK.indexOf(k),pv=ARTK[i-1],nx=ARTK[i+1],b=ARTB.find(x=>x.id===k.book);
@@ -2958,7 +2985,7 @@ function pRam(g,vb,s,o){o=o||{};
   [["roh-lh",x0,y0],["roh-ph",x1-C,y0],["roh-ld",x0,y1-Ch],["roh-pd",x1-C,y1-Ch]].forEach(([f,x,y])=>gc.appendChild(el("image",{href:PMA+f+".webp",x,y,width:C,height:Ch})));
 }
 function pDraw(){
-  const svg=document.getElementById("pmap"),vb=pst.vb||PVB0; svg.setAttribute("viewBox",vb.join(" "));
+  const svg=document.getElementById("pmap"),vb=pst.vb||PVB0,SW0=svg.getBoundingClientRect().width||700; svg.setAttribute("viewBox",vb.join(" "));
   const s=vb[2]/PVB0[2]; svg.innerHTML=""; const k=Math.max(s,.5);
   const R={x:-200,y:-200,width:1440,height:1600};
   const defs=el("defs",{});
@@ -3001,8 +3028,8 @@ function pDraw(){
    pt3.appendChild(el("path",{d:"M3,9l1.2,-3l1.2,3M11,4l1.2,-3l1.2,3",fill:"none",stroke:"var(--tree)","stroke-width":".7",opacity:".6"}));defs.appendChild(pt3);}
   svg.appendChild(defs);
   const G=a=>svgG(svg,a&&a.filter==="url(#pwob)"?(({filter,...b})=>b)(a):a);
-  const path=p=>p.map(r=>"M"+r.map(q=>q.join(",")).join("L")+"Z").join("");
-  const ring=r=>"M"+r.map(q=>q.join(",")).join("L")+"Z";
+  const path=svPath;
+  const ring=r=>svLine(r)+"Z";
   svg.appendChild(el("rect",{...R,fill:"var(--land)"}));
   /* zahrady, vinice a stráně */
   {const gg=G({filter:"url(#pwash)"}),gv=G({filter:"url(#pwob)"});
@@ -3153,7 +3180,7 @@ function pDraw(){
    [[PM.a,"A"],[PM.b,"B"]].forEach(([q,t])=>{if(!q)return;const [x,y]=q.pt;g.appendChild(el("circle",{cx:x,cy:y,r:7*k,fill:"var(--kal)",stroke:"var(--paper)","stroke-width":1.4*k}));
      g.appendChild(el("text",{x,y:y+3*k,"text-anchor":"middle","font-size":(9*k).toFixed(1),class:"pmkn",style:"fill:var(--paper)"},t))})}
   /* místa: ikony vyznání; v celkovém pohledu se blízká místa slučují do shluků, po přiblížení se odsunou s vodicí čarou */
-  const sw0=svg.getBoundingClientRect().width||700,pxu=sw0/vb[2],pf=Math.min(1,Math.max(.74,sw0/700)),RR=px=>px*pf/pxu;
+  const sw0=SW0,pxu=sw0/vb[2],pf=Math.min(1,Math.max(.74,sw0/700)),RR=px=>px*pf/pxu;
   const zoomed=s<.62,gm=G({}),hov=el("g",{"pointer-events":"none"});
   const vis=PRAHA_PLACES.filter(pVis).map(p=>{const on=pst.sel===p.n,r=RR(on?13:zoomed?11:8.5);return {p,on,r,x:p.pos[0],y:p.pos[1],ox:p.pos[0],oy:p.pos[1]}});
   let shl=[];
@@ -3442,14 +3469,22 @@ const SSEAS=[["Atlantský oceán",-15,47,0,15],["Severní moře",3.5,56.3,0,11],
  ["Azovské moře",36.7,46.1,0,7.5],["Kaspické moře",50.5,43,-75,10],["Biskajský záliv",-5,45.4,0,9],["Iónské moře",18.5,37.8,0,8.5]];
 function SP(lon,lat){const p=SG.proj,r=p.F/Math.pow(Math.tan(Math.PI/4+lat*Math.PI/360),p.n),t=p.n*(lon-p.lon0)*Math.PI/180;
   return [(r*Math.sin(t)-p.X0)*p.S,(p.Y1-(p.rho0-r*Math.cos(t)))*p.S]}
+/* svet.json je zhuštěný: souřadnice jsou celá čísla (desetiny bodu) zapsaná jako rozdíly od předchozího bodu */
+function svRozbal(d){if(!d._z)return d;
+  const dz=a=>{const o=[];let x=0,y=0;for(let i=0;i<a.length;i+=2){x+=a[i];y+=a[i+1];o.push([x/10,y/10])}return o},P=v=>(v||[]).map(p=>p.map(dz));
+  for(const k in d.states)d.states[k]=P(d.states[k]);d.land=P(d.land);d.hre=P(d.hre);d.lakes=P(d.lakes);(d.rivers||[]).forEach(r=>r.p=dz(r.p));return d}
 function svInit(){
   if(SG){sDraw();return}
   if(!sst.vb&&matchMedia("(max-width:700px)").matches)sst.vb=SVMOB;
   const m=document.getElementById("smap");m.innerHTML='<text x="500" y="386" text-anchor="middle" class="rivlbl" font-size="20">Mapa se načítá…</text>';
-  fetch("art/svet.json").then(r=>r.json()).then(d=>{SG=d;sDraw();sList();sDetail()}).catch(()=>{m.innerHTML='<text x="500" y="386" text-anchor="middle" class="rivlbl" font-size="20">Mapu se nepodařilo načíst.</text>'});
+  fetch("art/svet.json").then(r=>r.json()).then(d=>{SG=svRozbal(d);sDraw();sList();sDetail()}).catch(()=>{m.innerHTML='<text x="500" y="386" text-anchor="middle" class="rivlbl" font-size="20">Mapu se nepodařilo načíst.</text>'});
 }
+/* řetězce cest pro tvary mapy se sestaví jen jednou; při přiblížení se jen znovu použijí */
+const SVPC=new WeakMap();
+const svPath=p=>{let v=SVPC.get(p);if(v===undefined){v=p.map(r=>"M"+r.map(q=>q.join(",")).join("L")+"Z").join("");SVPC.set(p,v)}return v};
+const svLine=r=>{let v=SVPC.get(r);if(v===undefined){v="M"+r.map(q=>q.join(",")).join("L");SVPC.set(r,v)}return v};
 function sDraw(){
-  const svg=document.getElementById("smap"),vb=sst.vb||SVB0;svg.setAttribute("viewBox",vb.join(" "));
+  const svg=document.getElementById("smap"),vb=sst.vb||SVB0,SW0=svg.getBoundingClientRect().width||700;svg.setAttribute("viewBox",vb.join(" "));
   const s=vb[2]/SVB0[2];svg.innerHTML="";const k=Math.max(s,.35);{const t=document.getElementById("stip");if(t)t.hidden=true}
   const R={x:-60,y:-60,width:1150,height:920};
   const defs=el("defs",{});
@@ -3476,8 +3511,8 @@ function sDraw(){
    ph.appendChild(el("rect",{width:5*k,height:5*k,fill:"var(--land)"}));ph.appendChild(el("path",{d:`M0,0V${5*k}`,stroke:"var(--ink)","stroke-width":(.6*k).toFixed(2),opacity:".22"}));defs.appendChild(ph);}
   svg.appendChild(defs);
   const G=a=>svgG(svg,a);
-  const path=p=>p.map(r=>"M"+r.map(q=>q.join(",")).join("L")+"Z").join("");
-  const pxu=(svg.getBoundingClientRect().width||700)/vb[2],pf=Math.min(1,Math.max(.8,(svg.getBoundingClientRect().width||700)/700)),RR=px=>px*pf/pxu;
+  const path=svPath;
+  const pxu=SW0/vb[2],pf=Math.min(1,Math.max(.8,SW0/700)),RR=px=>px*pf/pxu;
   /* opakované obrázky přes <symbol>/<use>: obrázek se načte jednou */
   const SYM=new Set(),use=(f,x,y,w,h,fl)=>{if(!SYM.has(f)){SYM.add(f);const [iw,ih]=SIMG[f],sy=el("symbol",{id:"ss-"+f,viewBox:`0 0 ${iw} ${ih}`,preserveAspectRatio:"none"});
       sy.appendChild(el("image",{href:(SIMG[f][2]||SMA)+f+".webp",width:iw,height:ih}));defs.appendChild(sy)}
@@ -3540,9 +3575,9 @@ function sDraw(){
   const inV=(x,y,m)=>x>vb[0]-m&&x<vb[0]+vb[2]+m&&y>vb[1]-m&&y<vb[1]+vb[3]+m;
   const rivT=s<.35?2:s<.62?1:0;
   if(sst.riv){const g=G({filter:"url(#swob)","pointer-events":"none"});
-    [0,1,2].forEach(t=>{if(t>rivT)return;const d=SG.rivers.filter(r=>r.t===t&&!SRIVHL.has(r.n)&&r.p.some(([x,y])=>inV(x,y,20))).map(r=>"M"+r.p.map(q=>q.join(",")).join("L")).join("");
+    [0,1,2].forEach(t=>{if(t>rivT)return;const d=SG.rivers.filter(r=>r.t===t&&!SRIVHL.has(r.n)&&r.p.some(([x,y])=>inV(x,y,20))).map(r=>svLine(r.p)).join("");
       if(d)g.appendChild(el("path",{d,fill:"none",stroke:"var(--water)","stroke-width":([1.1,.8,.6][t]*k).toFixed(2),"stroke-linecap":"round","stroke-linejoin":"round",opacity:".9"}))});
-    {const d=SG.rivers.filter(r=>SRIVHL.has(r.n)&&r.p.some(([x,y])=>inV(x,y,20))).map(r=>"M"+r.p.map(q=>q.join(",")).join("L")).join("");
+    {const d=SG.rivers.filter(r=>SRIVHL.has(r.n)&&r.p.some(([x,y])=>inV(x,y,20))).map(r=>svLine(r.p)).join("");
      g.appendChild(el("path",{d,fill:"none",stroke:"var(--paper)","stroke-width":(3.4*k).toFixed(2),"stroke-linecap":"round","stroke-linejoin":"round",opacity:".55"}));
      g.appendChild(el("path",{d,fill:"none",stroke:"var(--water)","stroke-width":(2*k).toFixed(2),"stroke-linecap":"round","stroke-linejoin":"round"}))}
   }
@@ -4174,7 +4209,9 @@ function renderRodArticle(id){
      ${f.nomap?"":`<button type="button" class="gbtn" data-showmap="${id}">Ukázat na mapě</button>`}
    </aside></div>`;
 }
-const PORTRH=/*@PORTR@*/{};const PORTR=new Set(Object.keys(PORTRH));const portU=(id,m)=>{const v=PORTRH[id];return v&&typeof v==="object"?((m?v.m:v.f)||v.f||v.m):"art/portrety/"+v+(m?"-m":"")+".webp"};
+const PORTRH=/*@PORTR@*/{};const PORTR=new Set(Object.keys(PORTRH));const portU=(id,m)=>{const v=PORTRH[id];return v&&typeof v==="object"?((m&&m!=="s"?v.m:v.f)||v.f||v.m):"art/portrety/"+v+(m==="s"?"-s":m?"-m":"")+".webp"};
+/* portrét v článku: menší verze pro běžné obrazovky, plná pro husté displeje (nahrané obrázky mají jen jednu velikost) */
+const portSet=id=>typeof PORTRH[id]==="string"?` srcset="${portU(id,"s")} 300w, ${portU(id)} 600w" sizes="(max-width:820px) min(280px,70vw), 270px"`:"";
 const silKind=p=>{const r=p.role||"",f=byId[p.r]||{};
   if(/biskup|arcibiskup|kněz|kanovník|probošt|opat|kazatel|administrátor|papež|kardinál|mnich|řeholník|farář|děkan|teolog/i.test(r))return"cirkev";
   if(/manželka|dcera|vdova|sestra|matka|paní |kněžna|abatyše|choť|vévodkyně|královna|hraběnka|chotí/i.test(r))return"pani";
@@ -4194,7 +4231,7 @@ function renderPersonArticle(pid){
      ${kin.length?`<h3>Z téhož rodu či dvora</h3><p>${kin.map(plinkP).join(", ")}</p>`:""}
    </div>
    <aside class="infobox">
-     ${PORTR.has(pid)?`<a class="portr" href="${portU(pid)}" target="_blank" rel="noopener" title="Otevřít portrét v plné velikosti"><img src="${portU(pid)}" alt="Portrét: ${p.n}" width="600" height="1500"></a>`:`<img class="psilbig" src="art/img/silueta-${silKind(p)}.webp" alt="" width="160" height="160">`}
+     ${PORTR.has(pid)?`<a class="portr" href="${portU(pid)}" target="_blank" rel="noopener" title="Otevřít portrét v plné velikosti"><img src="${portU(pid)}"${portSet(pid)} alt="Portrét: ${p.n}" width="600" height="1500"></a>`:`<img class="psilbig" src="art/img/silueta-${silKind(p)}.webp" alt="" width="160" height="160">`}
      <dl class="kv"><dt>Rod</dt><dd><a href="#rod/${f.id}">${f.name}</a></dd>
      <dt>Postavení</dt><dd>${p.role}</dd>
      ${sd?`<dt>Sídlo</dt><dd>${maplinkBtn(f,sd)}</dd>`:""}
@@ -4584,7 +4621,7 @@ function edSloz(orig,vals,body){
   [...pole].reverse().forEach(f=>{if(!(f.k in vals))return;done.add(f.k);lines.splice(f.i,f.end-f.i+1,...rad(f.k,vals[f.k]))});
   for(const k in vals){if(done.has(k))continue;const v=vals[k];if(Array.isArray(v)?!v.length:v==="")continue;lines.push(...rad(k,v))}
   return `---\n${lines.join("\n")}\n---\n${String(body).replace(/\s+$/,"")}\n`}
-function edGen(){return window.mmGen?Promise.resolve():new Promise((ok,ko)=>{const s=document.createElement("script");s.src=`generator-${MMDB.cfg.gen}.js`;
+function edGen(){return window.mmGen?Promise.resolve():new Promise((ok,ko)=>{const s=document.createElement("script");s.src=`v/generator-${MMDB.cfg.gen}.js`;
   s.onload=ok;s.onerror=()=>ko(new Error("Nepodařilo se načíst generátor obsahu."));document.head.appendChild(s)})}
 async function edNacti(){if(!ED.z){ED.z=await MMDB.zaznamy()||{};ED.idx=null}return ED.z}
 function edIndex(){if(ED.idx)return ED.idx;const idx={};

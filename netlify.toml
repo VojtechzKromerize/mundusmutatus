@@ -10,3 +10,27 @@
 [build.environment]
   SUPABASE_URL = "https://rzbflnwxpyepjcpndqyj.supabase.co"
   SUPABASE_KEY = "sb_publishable_kN6K2Na9lg-54Tt1EvmKjA_TRx6Xm_S"
+
+# Mezipaměť prohlížeče. Stránka a service worker se vždy ověří na serveru (změny jsou vidět hned);
+# soubory s otiskem obsahu ve jménu (složka v/) se nemění nikdy; obrázky, písma a mapy platí den
+# a pak se na pozadí ověří (stale-while-revalidate), takže opakovaná návštěva je okamžitá.
+[[headers]]
+  for = "/"
+  [headers.values]
+    Cache-Control = "no-cache"
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "no-cache"
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache"
+[[headers]]
+  for = "/v/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+[[headers]]
+  for = "/art/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=2592000"

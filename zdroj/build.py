@@ -428,12 +428,38 @@ if DB:
 
 shutil.rmtree(OUT, ignore_errors=True)
 os.makedirs(OUT)
+VSOUB = {}  # soubory s otiskem obsahu ve jménu: v/<jméno> -> obsah
+if not GM:
+    # Hráčská verze: hlavní styl a hlavní skript jdou do samostatných souborů s otiskem obsahu.
+    # Prohlížeč (a service worker) si je uloží natrvalo; při další návštěvě se stahuje jen malá stránka s daty.
+    otisk_v = lambda t: hashlib.md5(t.encode("utf-8")).hexdigest()[:10]
+    a = page.index("<style>", page.index("</style>") + 8)  # druhý blok stylů = hlavní styl (první jsou písma)
+    b = page.index("</style>", a)
+    css = page[a + 7:b].replace("url(art/", "url(../art/").replace('url("art/', 'url("../art/').replace("url('art/", "url('../art/")
+    jm_css = f"styl-{otisk_v(css)}.css"
+    VSOUB[jm_css] = css
+    page = page[:a] + f'<link rel="stylesheet" href="v/{jm_css}">' + page[b + 8:]
+    zn = '<script type="text/x-mm" id="mmhlavni">' if DB else '<script id="mmhlavni">'
+    a = page.index(zn)
+    b = page.index("</script>", a)
+    js = page[a + len(zn):b]
+    jm_js = f"app-{otisk_v(js)}.js"
+    VSOUB[jm_js] = js
+    page = page[:a] + (f'<script type="text/x-mm" id="mmhlavni" data-src="v/{jm_js}"></script>' if DB else f'<script id="mmhlavni" src="v/{jm_js}"></script>') + page[b + 9:]
+    page = page.replace("</head>", f'<link rel="preload" href="v/{jm_js}" as="script">\n</head>', 1)
+    # service worker: offline režim a rychlé opakované návštěvy (verze podle otisku stránky)
+    sw = open(os.path.join(ROOT, "zdroj", "sw.js"), encoding="utf-8").read()
+    sw = sw.replace("/*@VERZE@*/", otisk_v(css + js + page)).replace("/*@JADRO@*/[]", json.dumps(["./", f"v/{jm_css}", f"v/{jm_js}"]))
+    open(os.path.join(OUT, "sw.js"), "w", encoding="utf-8").write(sw)
 open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(page)
+os.makedirs(os.path.join(OUT, "v"), exist_ok=True)
+for jm, obsah in VSOUB.items():
+    open(os.path.join(OUT, "v", jm), "w", encoding="utf-8").write(obsah)
 if DB:  # generátor si stáhne jen vypravěč, když upravuje texty na webu
-    shutil.copyfile(GENERATOR, os.path.join(OUT, f"generator-{GEN_VERZE}.js"))
+    shutil.copyfile(GENERATOR, os.path.join(OUT, "v", f"generator-{GEN_VERZE}.js"))
 shutil.copytree(os.path.join(ROOT, "art"), os.path.join(OUT, "art"), ignore=shutil.ignore_patterns("portrety", "draci") if DB else None)
 if DB:
-    for slozka, mapa, pripony in (("draci", MANIFEST["draci"], ("", "-h", "-m")), ("portrety", MANIFEST["portrety"], ("", "-m"))):
+    for slozka, mapa, pripony in (("draci", MANIFEST["draci"], ("", "-h", "-m")), ("portrety", MANIFEST["portrety"], ("", "-m", "-s"))):
         src_d, dst_d = os.path.join(ROOT, "art", slozka), os.path.join(OUT, "art", slozka)
         os.makedirs(dst_d)
         for jm, stem in mapa.items():
