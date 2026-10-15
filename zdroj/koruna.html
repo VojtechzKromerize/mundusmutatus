@@ -1547,6 +1547,9 @@ h3 .pmore{margin:0 0 0 10px;vertical-align:middle}
 .bstavy button[aria-pressed="true"],.bstavy span{border:1px solid rgba(20,3,6,.85);color:#f6d27a;background:linear-gradient(180deg,var(--kuze),var(--kuze2));text-shadow:0 1px 0 rgba(0,0,0,.4)}
 .bskup{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:8px}
 .bskup select,.bnadd select[data-bskupadd]{font:inherit;font-size:.9rem;max-width:100%}
+/* stránka osoby: portrét o třetinu menší */
+@media (min-width:821px){.artgrid.pgrid{grid-template-columns:200px minmax(0,1fr)}.pgrid>.infobox .kv{display:block}.pgrid>.infobox .kv dt{margin:8px 0 1px}.pgrid>.infobox .kv dt:first-child{margin-top:0}.pgrid>.infobox .kv dd{margin:0}}
+@media (max-width:820px){.pgrid .portr{max-width:min(187px,47vw)}}
 </style>
 
 <div class="wrap"><div class="papir" aria-hidden="true"></div>
