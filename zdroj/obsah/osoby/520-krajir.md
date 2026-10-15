@@ -1,8 +1,8 @@
 ---
 id: krajir
-jmeno: ✦ Konrád Krajíř z Krajku
+jmeno: Volfgang Krajíř z Krajku
 rod: kra
-role: pán na Landštejně
+role: pán na Landštejně a Nové Bystřici
 sidlo: Landštejn
 ---
-Starý válečník, který zbohatl na mýtu na česko-rakouské hranici.
+Syn Konráda Krajíře († 1446), skutečný držitel Landštejna v letech 1446–1491. Z Korutan a od císařského dvora se v letech 1454–1459 přesouvá do Čech a na Moravu, kde rod pozvedne mezi přední panstvo. Manželka Eliška z Boskovic.

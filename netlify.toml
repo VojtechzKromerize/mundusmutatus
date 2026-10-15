@@ -3,3 +3,10 @@
 [build]
   command = "python3 zdroj/build.py"
   publish = "public"
+
+# Napojení na Supabase (odhalování rodů, osob a míst). Adresa a veřejný klíč jsou veřejné údaje.
+# Tajný klíč SUPABASE_SECRET je jen v Netlify → Site configuration → Environment variables.
+# Bez něj se web sestaví staticky (vše podle výchozích stavů v souborech, bez přepínání).
+[build.environment]
+  SUPABASE_URL = "https://rzbflnwxpyepjcpndqyj.supabase.co"
+  SUPABASE_KEY = "sb_publishable_kN6K2Na9lg-54Tt1EvmKjA_TRx6Xm_S"

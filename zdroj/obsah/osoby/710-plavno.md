@@ -5,4 +5,4 @@ rod: pla
 role: purkrabí míšeňský
 sidlo: Plavno
 ---
-Vede s Wettiny vleklý spor o míšeňské purkrabství.
+Titulární purkrabí míšeňský a pán na Plavně, které drží jako české léno, a na Bečově a Kynžvartu. Úřad purkrabího ztratil už jeho otec roku 1439 ve prospěch Wettinů a napětí se Saskem trvá.

@@ -9,6 +9,11 @@ Hráčský web: https://mundusmutatus.netlify.app (větev `main`), náhled: http
 - `art/` – obrázky (erby, portréty, ilustrace).
 - `zdroj/build.py` – sestaví hráčskou verzi do `public/`; tajemství odstraní a zkontroluje, že žádné nezůstalo.
   Netlify ho spouští sám (viz `netlify.toml`) a publikuje **jen** `public/`.
+- `supabase/schema.sql` – databáze odhalování (Supabase). Když má Netlify proměnnou `SUPABASE_SECRET`, build
+  nahraje rody, osoby, vazby, rodokmeny, místa a Kroniku do databáze a do `public/` nedá nic z nich. Hráčská
+  stránka si pak stáhne jen výřez toho, co družina zná; vypravěč se přihlásí odkazem **Vypravěč** v patičce
+  a stavy (Skryté / Slyšeli / Potkali) přepíná živě, bez nového nasazení. Portréty mají v `public/` nečitelné názvy.
+  Bez tajného klíče se web sestaví staticky jako dřív.
 
 ## Úpravy
 Zápis ze sezení: na GitHubu otevři `zdroj/obsah/kronika/`, *Add file → Create new file*, zkopíruj obsah `_vzor.md` a uprav.

@@ -1,0 +1,15 @@
+name: Budíček databáze
+# Bezplatný projekt Supabase se po týdnu bez provozu uspí. Jednou denně se proto zeptáme na verzi
+# hráčského výřezu (stejný dotaz, jaký dělá web), aby databáze zůstala vzhůru i mezi sezeními.
+on:
+  schedule:
+    - cron: "17 4 * * *"
+  workflow_dispatch:
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dotaz na Supabase
+        run: |
+          curl -fsS "https://rzbflnwxpyepjcpndqyj.supabase.co/rest/v1/snimek?select=vetev,verze" \
+            -H "apikey: sb_publishable_kN6K2Na9lg-54Tt1EvmKjA_TRx6Xm_S"

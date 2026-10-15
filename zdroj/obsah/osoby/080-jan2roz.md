@@ -5,4 +5,4 @@ rod: roz
 role: vladař rodu, hejtman Svídnicka-Javorska
 sidlo: Český Krumlov
 ---
-Hlava nejbohatšího rodu v zemi od roku 1457. Volbu Jiřího přijal, ale ostražitě. Volbu Jiřího podpořil; Jiří je přitom velkým věřitelem rožmberského dominia.
+Hlava nejbohatšího rodu v zemi od roku 1457 a zemský hejtman Vratislavska a Svídnicka-Javorska. Volbu Jiřího podpořil i proti vůli otce, přestože zůstal katolíkem; Jiří je přitom velkým věřitelem rožmberského dominia.

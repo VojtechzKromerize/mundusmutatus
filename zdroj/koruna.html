@@ -874,6 +874,44 @@ body{background:transparent}
 .plegend{display:grid;grid-template-columns:1fr 1fr;gap:5px 12px;font-size:.88rem}
 .plegend span{display:flex;align-items:center;gap:8px}
 .plegend svg{width:22px;height:16px;flex:none}
+/* ===== odhalování: načítání, hlášky, vypravěč ===== */
+html.mmload .wrap>main{visibility:hidden}
+html.mmload body::after{content:"Načítám zemské desky…";position:fixed;left:50%;top:45%;transform:translateX(-50%);font-family:var(--f-label);letter-spacing:.06em;color:var(--muted)}
+.mmhlas{position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(8px);z-index:95;max-width:min(92vw,520px);background:var(--ink);color:var(--paper);font-family:var(--f-label);letter-spacing:.03em;padding:9px 16px;border-radius:4px;box-shadow:0 4px 14px rgba(0,0,0,.3);opacity:0;transition:opacity .25s,transform .25s;pointer-events:none}
+.mmhlas.on{opacity:1;transform:translateX(-50%)}
+.slnote{font-style:italic;color:var(--muted);border-left:3px solid var(--rule);padding:4px 0 4px 12px;margin:10px 0}
+.colophon .gmlink{opacity:.55}
+.gmbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin:10px 0 4px;padding:8px 12px;border:1px dashed var(--gold);border-radius:4px;background:color-mix(in srgb,var(--gold) 8%,transparent)}
+.gmlbl{font-family:var(--f-label);letter-spacing:.05em;font-size:.86rem;color:var(--muted)}
+.gmseg{display:inline-flex;border:1px solid var(--rule);border-radius:3px;overflow:hidden}
+.gmst{font-family:var(--f-label);font-size:.86rem;letter-spacing:.03em;background:transparent;color:var(--ink);border:0;border-left:1px solid var(--rule);padding:4px 10px;cursor:pointer;min-height:30px}
+.gmst:first-child{border-left:0}
+.gmst:hover{background:color-mix(in srgb,var(--ink) 8%,transparent)}
+.gmst.gs0[aria-pressed="true"]{background:var(--muted);color:var(--paper)}
+.gmst.gs1[aria-pressed="true"]{background:var(--gold);color:var(--paper)}
+.gmst.gs2[aria-pressed="true"]{background:var(--kat);color:var(--paper)}
+html.gmbusy .gmst{cursor:progress;opacity:.6}
+.gmwarn{font-size:.9rem;color:var(--kal)}
+html.gmv a.gm0{opacity:.5;outline:1.5px dashed var(--muted);outline-offset:2px}
+html.gmv a.gm1{outline:1.5px dotted var(--gold);outline-offset:2px}
+.gmform{display:flex;flex-direction:column;gap:10px;max-width:340px;margin-top:12px}
+.gmform label{display:flex;flex-direction:column;gap:3px;font-family:var(--f-label);letter-spacing:.04em;font-size:.9rem;color:var(--muted)}
+.gmform input{font:inherit;font-family:var(--f-body);color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:3px;padding:7px 9px;min-height:40px}
+.gmerr{color:var(--kal);min-height:1.2em;margin:0}
+.gmhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;margin:6px 0 10px}
+.gmtools{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin:10px 0 14px}
+.gmtools input,.gmtools select{font:inherit;color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:3px;padding:6px 9px;min-height:38px}
+.gmtools input{flex:1 1 220px;max-width:360px}
+.gmsum{font-family:var(--f-label);letter-spacing:.04em;color:var(--muted);font-size:.9rem}
+.gmlist{display:flex;flex-direction:column;gap:10px}
+.gmrod{border:1px solid var(--rule);border-radius:4px;background:var(--paper);padding:6px 10px}
+.gmrow{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;padding:5px 0}
+.gmrow>a{font-weight:700;min-width:0;flex:1 1 200px}
+.gmrow small{font-family:var(--f-label);letter-spacing:.03em;color:var(--muted);flex:1 1 140px}
+.gmrow.gmp{padding-left:16px;border-top:1px dotted var(--rule)}
+.gmrow.gmp>a{font-weight:400}
+.gmbulk{font:inherit;font-size:.86rem;color:var(--ink);background:transparent;border:1px solid var(--rule);border-radius:3px;padding:3px 6px;min-height:30px}
+@media (max-width:640px){.gmrow>a,.gmrow small{flex-basis:100%}.gmrow.gmp{padding-left:8px}}
 </style>
 
 <div class="wrap">
@@ -1139,16 +1177,92 @@ body{background:transparent}
 </section>
 
 </div>
+<div class="view" data-view="gm" hidden>
+<section class="sec" id="gmview"></section>
+</div>
 </main>
 <footer class="colophon">
   <span class="corn" aria-hidden="true"></span>
   <p class="cq">Sepsáno v Praze léta Páně 1458 · <i>Sub utraque sunt dracones</i></p>
-  <nav aria-label="Patička"><a href="#uvod">Úvod</a><a href="#artikule">Artikule</a><a href="#draconomicon">Draconomicon</a><a href="#kronika">Kronika</a><a href="#svet">Známý svět</a><a href="#mapa">Země Koruny</a><a href="#praha">Praha</a><a href="#desky">Zemské desky</a></nav>
+  <nav aria-label="Patička"><a href="#uvod">Úvod</a><a href="#artikule">Artikule</a><a href="#draconomicon">Draconomicon</a><a href="#kronika">Kronika</a><a href="#svet">Známý svět</a><a href="#mapa">Země Koruny</a><a href="#praha">Praha</a><a href="#desky">Zemské desky</a><a class="gmlink" href="#gm">Vypravěč</a></nav>
   <button type="button" class="ctop" onclick="scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'})">↑ Zpět nahoru</button>
 </footer>
 </div>
 
 <script>
+/*@MMDATA@*/
+/* ===== Zavaděč dat: statická verze má data přímo v window.__D; verze napojená na databázi
+   si je stáhne (hráč: veřejný výřez, vypravěč po přihlášení: vše) a teprve pak spustí hlavní skript. ===== */
+(function(){
+const ZRE=/\[\[([?!]?)([A-Za-z0-9_-]+)\|([^\]|]*)(?:\|([^\]]*))?\]\]/g;
+function zminky(D){
+  const P=new Set((D.PEOPLE||[]).map(p=>p.id)),R=new Set((D.FAM||[]).map(f=>f.id));
+  const conv=s=>s.indexOf("[[")<0?s:s.replace(ZRE,(m,fl,id,t)=>fl?t:P.has(id)?`<a class=zm href=#osoba/${id}>${t}</a>`:R.has(id)?`<a class=zm href=#rod/${id}>${t}</a>`:t);
+  const walk=v=>{if(typeof v==="string")return conv(v);if(Array.isArray(v)){for(let i=0;i<v.length;i++)v[i]=walk(v[i]);return v}
+    if(v&&typeof v==="object"){for(const k in v)v[k]=walk(v[k]);return v}return v};
+  for(const k in D)if(k!=="STAV"&&k!=="GM")D[k]=walk(D[k]);
+}
+const C=window.MMCFG||null;
+window.MMDB=null;window.MMINFO="";
+if(!C){zminky(window.__D=window.__D||{});return}
+document.documentElement.classList.add("mmload");
+const LS="mm-gm-relace",V=encodeURIComponent(C.vetev);
+const hdr=tok=>{const h={apikey:C.key},b=tok||(C.key.startsWith("eyJ")?C.key:null);if(b)h.Authorization="Bearer "+b;return h};
+async function api(path,o={}){
+  const r=await fetch(C.url+path,{method:o.method||"GET",body:o.body,cache:"no-store",headers:{...hdr(o.tok),...(o.body?{"Content-Type":"application/json"}:{})}});
+  const t=await r.text();let j=null;try{j=t?JSON.parse(t):null}catch(e){}
+  if(!r.ok){const e=new Error((j&&(j.msg||j.message||j.error_description||j.error))||("HTTP "+r.status));e.status=r.status;throw e}
+  return j}
+const relace=()=>{try{return JSON.parse(localStorage.getItem(LS)||"null")}catch(e){return null}};
+const uloz=j=>{const r={at:j.access_token,rt:j.refresh_token,exp:j.expires_at||Math.floor(Date.now()/1000)+(j.expires_in||3600),email:(j.user&&j.user.email)||(relace()||{}).email};
+  try{localStorage.setItem(LS,JSON.stringify(r))}catch(e){}return r};
+const smaz=()=>{try{localStorage.removeItem(LS)}catch(e){}};
+async function token(){
+  let r=relace();if(!r||!r.at)return null;
+  if(r.exp-60<Date.now()/1000){
+    try{r=uloz(await api("/auth/v1/token?grant_type=refresh_token",{method:"POST",body:JSON.stringify({refresh_token:r.rt})}))}
+    catch(e){if(e.status>=400&&e.status<500)smaz();return null}}
+  return r.at}
+window.MMDB={vetev:C.vetev,
+  async prihlas(email,heslo){uloz(await api("/auth/v1/token?grant_type=password",{method:"POST",body:JSON.stringify({email,password:heslo})}))},
+  async odhlas(){const t=await token();if(t)try{await api("/auth/v1/logout",{method:"POST",tok:t})}catch(e){}smaz()},
+  email(){const r=relace();return r&&r.email},
+  prihlasen(){return !!relace()},
+  async nastav(zmeny){const t=await token();if(!t)throw new Error("Přihlášení vypršelo – přihlaste se znovu.");
+    return api("/rest/v1/rpc/mm_nastav_stavy",{method:"POST",tok:t,body:JSON.stringify({p_zmeny:zmeny})})},
+  async verze(){const j=await api(`/rest/v1/snimek?vetev=eq.${V}&select=verze`);return j&&j[0]?j[0].verze:null}};
+let MMV=null;
+function spust(D){
+  window.__D=D;zminky(D);
+  const m=document.getElementById("mmhlavni"),s=document.createElement("script");s.textContent=m.textContent;m.after(s);
+  document.documentElement.classList.remove("mmload");
+  let ob=null;try{ob=JSON.parse(sessionStorage.getItem("mm-obnova")||"null");sessionStorage.removeItem("mm-obnova")}catch(e){}
+  if(ob&&ob.h===location.hash)setTimeout(()=>{scrollTo(0,ob.y);hlas("Zemské desky byly doplněny o nové poznatky.")},60);
+  if(window.MMINFO&&!D.GM)hlas(window.MMINFO,8000);
+  if(!D.GM&&MMV!==null){
+    const kontrola=async()=>{if(document.visibilityState!=="visible")return;
+      try{const v=await window.MMDB.verze();if(v!==null&&v!==MMV){try{sessionStorage.setItem("mm-obnova",JSON.stringify({h:location.hash,y:scrollY}))}catch(e){}location.reload()}}catch(e){}};
+    setInterval(kontrola,20000);document.addEventListener("visibilitychange",kontrola)}
+}
+function hlas(t,ms){const d=document.createElement("div");d.className="mmhlas";d.setAttribute("role","status");d.textContent=t;document.body.appendChild(d);
+  requestAnimationFrame(()=>d.classList.add("on"));setTimeout(()=>{d.classList.remove("on");setTimeout(()=>d.remove(),400)},ms||4500)}
+window.mmHlas=hlas;
+(async()=>{
+  const S=window.__S||{};let D=null;
+  if(relace()){
+    try{const t=await token();
+      if(t){const [o,st]=await Promise.all([api(`/rest/v1/obsah?vetev=eq.${V}&select=gm`,{tok:t}),api("/rest/v1/rpc/mm_stavy",{method:"POST",tok:t,body:"{}"})]);
+        if(o&&o[0])D=Object.assign({},S,o[0].gm,{GM:true,STAV:st||{}});else window.MMINFO="Tento účet nemá práva vypravěče, zobrazuji hráčskou verzi."}
+      else window.MMINFO="Přihlášení vypršelo, zobrazuji hráčskou verzi."}
+    catch(e){window.MMINFO="Vypravěčská data se nepodařilo načíst ("+e.message+"), zobrazuji hráčskou verzi.";if(e.status===401)smaz()}}
+  if(!D){try{const j=await api(`/rest/v1/snimek?vetev=eq.${V}&select=data,verze`);
+      if(j&&j[0]){D=Object.assign({},S,j[0].data);MMV=j[0].verze}else window.MMINFO="Zemské desky zatím nejsou v databázi."}
+    catch(e){window.MMINFO="Zemské desky se nepodařilo načíst – zkuste stránku obnovit."}}
+  spust(D||Object.assign({},S));
+})();
+})();
+</script>
+<script id="mmhlavni">
 const FAM=/*@FAM@*/[];
 const REL=/*@REL@*/[];
 const byId=Object.fromEntries(FAM.map(f=>[f.id,f]));
@@ -1833,6 +1947,7 @@ const histName=h=>h.city||byId[h.id].name;
 const fs=document.getElementById("famsel");
 const _nrm=s=>String(s).normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
 function buildCards(container,lands,nbr){
+  if(!FAM.some(f=>!!f.nbr===nbr)){container.innerHTML=`<div class="placeholder"><p>Družina zatím nezná žádný ${nbr?"sousední ":""}rod. Přibudou, jak o nich uslyší nebo je potká.</p></div>`;return}
   for(const L of lands){
     const fams=FAM.filter(f=>f.land===L&&!!f.nbr===nbr); if(!fams.length)continue;
     const sec=document.createElement("div"); sec.className="land-sec"; sec.dataset.land=L;
@@ -3246,96 +3361,11 @@ function renderDraco(b){
 
 /* ---------- Rodokmeny klíčových rodů (stav k 3. 3. 1458) ---------- */
 /* p = osoba v zemských deskách, r = rod, d = data, m = z kterého manželství, note = poznámka */
-const TREES={
- pod:{root:{n:"Viktorin Boček z Kunštátu a Poděbrad",d:"† 1427",note:"husitský pán, otec Jiřího"},
-  main:{p:"jiri",n:"Jiří z Poděbrad",d:"* 1420",sp:[
-    {n:"Kunhuta ze Šternberka",d:"1425–1449",r:"ste",note:"1. manželka (1440), z holické větve Šternberků; dobročinná a oblíbená kališnice"},
-    {p:"johana",n:"Johana z Rožmitálu",r:"rzm",note:"2. manželka (1450), katolička, sestra Jaroslava Lva z Rožmitálu"}]},
-  kids:[
-    {p:"bocek",n:"Boček",d:"* 1442",m:1,note:"nejstarší syn"},
-    {p:"viktorin",n:"Viktorin",d:"* 1443",m:1},
-    {n:"Barbora",d:"* 1446",m:1},
-    {p:"jindrichst",n:"Jindřich starší",d:"* 1448",m:1},
-    {p:"katerina",n:"Kateřina",d:"* 1449",m:1,note:"dvojče; zaslíbena Matyáši Korvínovi"},
-    {p:"zdenka",n:"Zdeňka (Sidonie)",d:"* 1449",m:1,note:"dvojče Kateřiny"},
-    {n:"Hynek (Jindřich mladší)",d:"* 1452",m:2},
-    {n:"Fridrich",d:"* 1453",m:2},
-    {n:"Ludmila",d:"* 1456",m:2}]},
- roz:{root:{n:"Jindřich III. z Rožmberka",d:"† 1412",note:"∞ Eliška z Kravař"},
-  main:{p:"oldrich2",n:"Oldřich II. z Rožmberka",d:"* 1403",sp:[{n:"Kateřina z Vartenberka",d:"† 1436",r:"var",note:"dcera Čeňka z Vartenberka, rytíře Dračího řádu"}]},
-  kids:[
-    {n:"Jindřich IV.",d:"† 1457",note:"dosavadní vladař rodu, zemřel roku 1457"},
-    {p:"perchta",n:"Perchta",d:"* asi 1429",note:"∞ 1449 Jan z Lichtenštejna",pl:"janlie"},
-    {p:"jost",n:"Jošt II.",d:"* 1430",note:"biskup vratislavský",rl:"bvr"},
-    {p:"jan2roz",n:"Jan II.",d:"* 1434",note:"∞ Anna Hlohovská (z hlohovských Piastovců)",pl:"annahlo",rl:"hlo",kids:[{p:"jindrich5roz",n:"Jindřich V.",d:"* 1456",note:"dědic rodu, batole"}]},
-    {n:"Anežka"},
-    {n:"Ludmila"}]},
- ste:{main:{p:"zdenekst",n:"Zdeněk Konopišťský ze Šternberka",d:"* asi 1410",sp:[
-    {n:"Anežka z Janovic",note:"1. manželka"},
-    {n:"Anežka z Hazmburka",r:"haz",note:"2. manželka, z rodu Zajíců z Hazmburka"}]},
-  kids:[{n:"Ladislav"},{n:"Jaroslav"},{n:"Jan"},{n:"Zdeslav"},{n:"Kunka",note:"dcera"}],
-  foot:"Ze stejného rodu, z holické větve, pocházela i Kunhuta ze Šternberka († 1449), první manželka krále Jiřího."},
- var:{main:{n:"Čeněk z Vartenberka",d:"† 1425",note:"nejvyšší purkrabí, rytíř Dračího řádu"},
-  kids:[{n:"Kateřina",d:"† 1436",note:"∞ Oldřich II. z Rožmberka; matka Jana II. a biskupa Jošta",rl:"roz"}],
-  foot:"Dnes rod vedou Jan z Vartenberka na Děčíně a jeho bratranec Heník na Ralsku."},
- hra:{main:{n:"Jan z Hradce",d:"† 1451",sp:[{n:"Kateřina ze Šternberka",r:"ste"}]},
-  kids:[{p:"jindrich4",n:"Jindřich IV.",d:"* 1442"},{p:"hermanhra",n:"Heřman"}],
-  foot:"Oba bratři jsou nezletilí dědicové Oldřicha V. z Hradce († 1453). Přední muž rodu Menhart z Hradce zemřel roku 1449 krátce po propuštění z Jiřího zajetí."},
- per:{main:{p:"janper",n:"Jan II. z Pernštejna",sp:[{n:"Barbora z Valdštejna",note:"1. manželka"},{p:"bohunkaper",n:"Bohunka z Lomnice",r:"lom",note:"2. manželka"}]},
-  kids:[{n:"Zikmund",d:"* asi 1437",m:1},{p:"vilemper",n:"Vilém",d:"* 1438",m:2}]},
- cim:{main:{p:"tovacovsky",n:"Jan Tovačovský z Cimburka"},
-  kids:[{p:"ctibortov",n:"Ctibor",d:"* 1438",note:"pozdější autor Knihy tovačovské"},{n:"Jan mladší",d:"* asi 1440",note:"∞ Magdalena z Michalovic"}]},
- lom:{main:{n:"Jan z Lomnice",d:"† 1451",note:"v mládí husita, od 1423 opět katolík"},
-  kids:[{p:"vaclavmez",n:"Václav Meziříčský"},{p:"bohunkaper",n:"Bohunka",note:"∞ Jan II. z Pernštejna",rl:"per"}]},
- smi:{main:{n:"Jan Smiřický ze Smiřic",d:"† 1453",note:"popraven pro obvinění ze zrady"},
-  kids:[{p:"jindrichsmi",n:"Jindřich",note:"mladý dědic"}]},
- kol:{main:{n:"Hanuš I. z Kolovrat",d:"† 1450",note:"vůdce Strakonické jednoty"},
-  kids:[{p:"hanus2",n:"Hanuš II.",note:"∞ Kateřina ze Šternberka",rl:"ste"}]},
- lob:{main:{n:"Mikuláš Chudý z Lobkovic",d:"† 1435"},
-  kids:[{p:"mikulaslob",n:"Mikuláš Hasištejnský"},{p:"janpopel",n:"Jan Popel",note:"zakladatel popelovské větve"}],
-  foot:"Do panského stavu budou bratři povýšeni až roku 1459."},
- opo:{main:{n:"Bolek IV. Opolský",d:"† 1437"},
-  kids:[{p:"boleslav5",n:"Bolek V. Husita",note:"∞ Alžběta Granowská"},{p:"mikulas1opo",n:"Mikuláš I.",note:"∞ Magdalena Břežská",rl:"leg"}]},
- opa:{main:{n:"Přemek I. Opavský",d:"† 1433"},
-  kids:[{n:"Václav II. Opavský",d:"† 1445",kids:[{p:"jan2pob",n:"Jan II. Pobožný",note:"třetina Opavska, Hlubčice"}]},
-   {n:"Vilém Opavský",d:"† 1452",kids:[{n:"nezletilí synové",note:"pod poručnictvím strýce Arnošta"}]},
-   {p:"arnost",n:"Arnošt",note:"poručník, prodal Minsterberk Jiřímu"},{p:"premek2opa",n:"Přemek",note:"kanovník vratislavský"}],
-  foot:"Krnovsko-ratibořská větev: Jan IV. a Václav III. Krnovští, synové Mikuláše V. († 1452); Jan V. Ratibořský, syn Václava II. Ratibořského († 1456) a Markéty ze Šamotul."},
- tes:{main:{n:"Boleslav I. Těšínský",d:"† 1431",sp:[{n:"Eufémie Mazovská"}]},
-  kids:[{p:"vaclav1tes",n:"Václav I."},{p:"vladislavtes",n:"Vladislav",note:"∞ Markéta Celská; drží půl Hlohova"},{p:"premysl2",n:"Přemysl II."},
-   {n:"Boleslav II.",d:"† 1452",note:"∞ Anna Bełzská",kids:[{n:"Kazimír II.",d:"* asi 1449",note:"pod poručnictvím strýce Přemysla"}]}]},
- ole:{main:{n:"Konrád V. Kantner",d:"† 1439"},
-  kids:[{p:"konrad9",n:"Konrád IX. Černý",note:"∞ Markéta Ravská"},{p:"konrad10",n:"Konrád X. Bílý"}],
-  foot:"Jejich teta Hedvika Olešnická byla manželkou Jindřicha IX. Hlohovského."},
- hlo:{main:{p:"jindrich9",n:"Jindřich IX. Starší",sp:[{n:"Hedvika Olešnická",r:"ole"}]},
-  kids:[{n:"Jindřich XI.",note:"dědic"},{p:"annahlo",n:"Anna",note:"∞ Jan II. z Rožmberka",rl:"roz"}],
-  foot:"Synovci Jindřicha IX., Baltazar a Jan II., synové Jana I. Žaháňského († 1439), se přou o Žaháň."},
- leg:{main:{n:"Jan I. Lubinský",d:"† 1453",sp:[{p:"hedvikaleg",n:"Hedvika Břežská",note:"poručnice syna"}]},
-  kids:[{p:"fridrichleg",n:"Fridrich I.",d:"* 1446"}]},
- jag:{root:{n:"Vladislav II. Jagello",d:"† 1434"},
-  main:{p:"kazimir",n:"Kazimír IV.",d:"* 1427",sp:[{p:"alzbetahab",n:"Alžběta Habsburská",r:"hab"}]},
-  kids:[{p:"vladislav",n:"Vladislav",d:"* 1456"},{n:"Hedvika",d:"* 1457"}],
-  foot:"Kazimírův starší bratr Vladislav III. padl roku 1444 u Varny."},
- hun:{main:{n:"Jan Hunyadi",d:"† 1456",sp:[{p:"alzbetasil",n:"Alžběta Silágyiová"}]},
-  kids:[{n:"Ladislav",d:"† 1457",note:"popraven v Budíně"},{p:"matyas",n:"Matyáš",d:"* 1443",note:"zasnouben s Kateřinou z Poděbrad",rl:"pod"}],
-  foot:"Alžbětin bratr Michal Silágyi je gubernátorem Uher."},
- hab:{main:{n:"Arnošt Železný",d:"† 1424",sp:[{n:"Cimburgis Mazovská"}]},
-  kids:[{p:"fridrich3",n:"Fridrich III.",d:"* 1415",note:"∞ Eleonora Portugalská"},{n:"Markéta",note:"∞ Fridrich II. Saský",rl:"wet"},{p:"albrecht6",n:"Albrecht VI.",d:"* 1418",note:"∞ Mechtilda Falcká",rl:"wit"}],
-  foot:"Zikmund Tyrolský je jejich bratranec. Albertinská větev vymřela smrtí Ladislava Pohrobka (1457); jeho sestry Anna a Alžběta jsou provdány za Viléma Saského a Kazimíra IV."},
- wet:{main:{p:"fridrich2wet",n:"Fridrich II. Dobrotivý",sp:[{n:"Markéta Habsburská",r:"hab"}]},
-  kids:[{n:"Anna",d:"* 1437"},{p:"arnostsas",n:"Arnošt",d:"* 1441"},{n:"Albrecht",d:"* 1443"},{p:"amalie",n:"Amálie",note:"∞ Ludvík Bohatý",rl:"wit"}],
-  foot:"Kurfiřtův bratr Vilém III. je ženatý s Annou Habsburskou, sestrou Ladislava Pohrobka; sestra Kateřina je manželkou braniborského kurfiřta."},
- bra:{main:{n:"Fridrich I. Braniborský",d:"† 1440",sp:[{n:"Alžběta Bavorsko-Landshutská"}]},
-  kids:[{n:"Jan Alchymista",note:"vlády se vzdal 1457"},{n:"Alžběta",d:"† 1449",note:"∞ Ludvík II. Břežský",rl:"leg"},{p:"fridrich2bra",n:"Fridrich II. Železný",note:"∞ Kateřina Saská",rl:"wet"},
-   {p:"achilles",n:"Albrecht Achilles"},{n:"Fridrich Tlustý",note:"markrabě ve Staré marce"}]},
- wit:{root:{n:"Jindřich XVI. Bohatý",d:"† 1450"},main:{p:"ludvik9",n:"Ludvík IX. Bohatý",sp:[{p:"amalie",n:"Amálie Saská",r:"wet"}]},
-  kids:[{n:"Jiří",d:"* 1455",note:"dědic Landshutu"}],
-  foot:"Zobrazena je landshutská větev; Wittelsbachové vládnou také v Mnichově (Albrecht III.), ve Falci (Fridrich Vítězný) a v Neumarktu (Ota I.)."}
-};
+const TREES=/*@TREES@*/{};
 const TREEALIAS={fra:"bra"};
 function treeHTML(id){
-  const T=TREES[id]; if(!T)return"";
-  const pn=o=>{const P=o.p&&PBY[o.p];const nm=o.n;const img=P&&typeof PORTR!=="undefined"&&PORTR.has(o.p)?`<img class="tport" src="art/portrety/${o.p}-m.webp" alt="" loading="lazy">`:"";
+  const T=TREES[id]; if(!T)return""; T.kids=T.kids||[];
+  const pn=o=>{const P=o.p&&PBY[o.p];const nm=o.n;const img=P&&typeof PORTR!=="undefined"&&PORTR.has(o.p)?`<img class="tport" src="${portU(o.p,1)}" alt="" loading="lazy">`:"";
     return `${img}<span class="tnm">${P?`<a href="#osoba/${o.p}">${nm}</a>`:nm}</span>${o.d?`<span class="tdt">${o.d}</span>`:""}`};
   const extra=o=>{let s=o.note||"";if(o.pl&&PBY[o.pl])s=s.replace(PBY[o.pl].n.replace(/^✦\s*/,""),`<a href="#osoba/${o.pl}">$&</a>`);
     if(o.rl&&byId[o.rl])s+=` <a class="trl" href="#rod/${o.rl}">→ ${SHORT[o.rl]||byId[o.rl].name}</a>`;return s?`<span class="tnote">${s}</span>`:""};
@@ -3346,7 +3376,7 @@ function treeHTML(id){
     ${T.root?`<div class="tnode troot dead">${pn(T.root)}${extra(T.root)}</div><div class="tline"></div>`:""}
     <div class="tnode tmain">${pn(T.main)}${(T.main.sp||[]).map(sp).join("")}</div>
     <div class="tline"></div>
-    <ul class="tkids">${T.kids.map(kid).join("")}</ul>
+    ${T.kids.length?`<ul class="tkids">${T.kids.map(kid).join("")}</ul>`:""}
     ${multi&&T.kids.some(k=>k.m)?`<p class="rsmall">Čísla u dětí označují, z kterého manželství pocházejí.</p>`:""}
     ${T.foot?`<p class="rsmall">${T.foot}</p>`:""}
   </div>`;
@@ -3659,9 +3689,9 @@ document.addEventListener("click",e=>{const b=e.target.closest("[data-partymap]"
   const z=ZBY[b.dataset.partymap],p=z&&placeBy(z.place);if(p){const [x,y]=P(p.lo,p.la);mapCenter(x,y,300)}});
 
 /* ---------- site navigation: views, house and person articles ---------- */
-const VIEWS=["uvod","svet","mapa","praha","desky","druzina","artikule","draconomicon","kronika"];
-const SUBT={svet:"Známý svět · mocnosti léta Páně 1458",praha:"Praha · čtyři města pražská",uvod:"Novinky",mapa:"Koruna česká k 3. březnu léta Páně 1458",desky:"Rody a Panstvo",artikule:"Pravidla",druzina:"Hrdinové",draconomicon:"O dracích",kronika:"Kronika Vojtěcha z Kroměříže"};
-const TITL={svet:"Známý svět",praha:"Praha",mapa:"Koruna česká k 3. březnu léta Páně 1458",desky:"Zemské desky",artikule:"Artikule tažení",druzina:"Družina",draconomicon:"Draconomicon",kronika:"Kronika Vojtěcha z Kroměříže"};
+const VIEWS=["uvod","svet","mapa","praha","desky","druzina","artikule","draconomicon","kronika","gm"];
+const SUBT={svet:"Známý svět · mocnosti léta Páně 1458",praha:"Praha · čtyři města pražská",uvod:"Novinky",mapa:"Koruna česká k 3. březnu léta Páně 1458",desky:"Rody a Panstvo",artikule:"Pravidla",druzina:"Hrdinové",draconomicon:"O dracích",kronika:"Kronika Vojtěcha z Kroměříže",gm:"Vypravěč · odhalování"};
+const TITL={svet:"Známý svět",praha:"Praha",mapa:"Koruna česká k 3. březnu léta Páně 1458",desky:"Zemské desky",artikule:"Artikule tažení",druzina:"Družina",draconomicon:"Draconomicon",kronika:"Kronika Vojtěcha z Kroměříže",gm:"Vypravěč"};
 let curView=null;
 function navTo(h){if(location.hash!==h)history.pushState(null,"",h);route()}
 function maplinkBtn(f,sd){if(f.nomap){const c=SVETMESTA.find(x=>x[0]===sd[0]),w=c&&SVET.find(z=>z.s&&z.s.includes(sd[0]));return w?`<a href="#svet/${w.id}">${sd[0]}</a>`:sd[0]}return `<button type="button" class="maplink" data-id="${f.id}" data-place="${sd[0]}">${f.city&&CARMS[sd[0]]?`<img class="cmini" src="${CARMS[sd[0]]}" alt="">`:""}${sd[0]}</button>`}
@@ -3671,8 +3701,8 @@ function renderRodArticle(id){
    <div class="artgrid"><div class="artmain">
      <h2 class="arttitle">${f.name}</h2>
      <p class="artlead">${f.head}</p>
-     <h3>${f.nbr?"Postoj ke Koruně":"Postoj k Jiřímu"}</h3><p>${f.stance}</p>
-     <h3>Zápis kronikáře</h3><p class="kron">${f.note}</p>
+     ${f.sl?`<p class="slnote">O tomto rodu družina zatím jen slyšela. Víc se dozví, až se s ním setká.</p>`:`<h3>${f.nbr?"Postoj ke Koruně":"Postoj k Jiřímu"}</h3><p>${f.stance}</p>
+     <h3>Zápis kronikáře</h3><p class="kron">${f.note}</p>`}
      ${rels.length?`<h3>Vazby</h3>${relGroups(rels,id,true)}`:""}
      ${TREES[id]||TREES[TREEALIAS[id]]?`<h3>Rodokmen</h3>${treeHTML(TREES[id]?id:TREEALIAS[id])}`:""}
    </div>
@@ -3687,14 +3717,14 @@ function renderRodArticle(id){
      ${f.nomap?"":`<button type="button" class="gbtn" data-showmap="${id}">Ukázat na mapě</button>`}
    </aside></div>`;
 }
-const PORTR=new Set(/*@PORTR@*/[]);
+const PORTRH=/*@PORTR@*/{};const PORTR=new Set(Object.keys(PORTRH));const portU=(id,m)=>"art/portrety/"+PORTRH[id]+(m?"-m":"")+".webp";
 const silKind=p=>{const r=p.role||"",f=byId[p.r]||{};
   if(/biskup|arcibiskup|kněz|kanovník|probošt|opat|kazatel|administrátor|papež|kardinál|mnich|řeholník|farář|děkan|teolog/i.test(r))return"cirkev";
   if(/manželka|dcera|vdova|sestra|matka|paní |kněžna|abatyše|choť|vévodkyně|královna|hraběnka|chotí/i.test(r))return"pani";
   if(f.city||/měšťan|purkmistr|konšel|primas|rychtář|kupec|myslitel|spisovatel|písař|mistr univerzity/i.test(r))return"mestan";
   if(/rytíř|hejtman|vojevůdce|žoldnéř|bratřík|kapitán|purkrabí|vladyka|zeman|velitel/i.test(r))return"rytir";
   return"pan"};
-const pThumb=(p,cls)=>PORTR.has(p.id)?`<img class="${cls||"pthumb"}" src="art/portrety/${p.id}-m.webp" alt="" loading="lazy">`:`<img class="${cls||"pthumb"} psil" src="art/img/silueta-${silKind(p)}.webp" alt="" loading="lazy">`;
+const pThumb=(p,cls)=>PORTR.has(p.id)?`<img class="${cls||"pthumb"}" src="${portU(p.id,1)}" alt="" loading="lazy">`:`<img class="${cls||"pthumb"} psil" src="art/img/silueta-${silKind(p)}.webp" alt="" loading="lazy">`;
 function renderPersonArticle(pid){
   const p=PBY[pid],f=byId[p.r],art=document.getElementById("article");
   const sd=p.seat&&f.seats.find(x=>x[0]===p.seat);
@@ -3703,11 +3733,11 @@ function renderPersonArticle(pid){
    <div class="artgrid pgrid"><div class="artmain">
      <h2 class="arttitle">${p.n}</h2>
      <p class="artlead">${p.role}</p>
-     <p class="kron">${p.x}</p>
+     ${p.sl?`<p class="slnote">O této osobě družina zatím jen slyšela.</p>`:`<p class="kron">${p.x}</p>`}
      ${kin.length?`<h3>Z téhož rodu či dvora</h3><p>${kin.map(plinkP).join(", ")}</p>`:""}
    </div>
    <aside class="infobox">
-     ${PORTR.has(pid)?`<a class="portr" href="art/portrety/${pid}.webp" target="_blank" rel="noopener" title="Otevřít portrét v plné velikosti"><img src="art/portrety/${pid}.webp" alt="Portrét: ${p.n}" width="600" height="1500"></a>`:`<img class="psilbig" src="art/img/silueta-${silKind(p)}.webp" alt="" width="160" height="160">`}
+     ${PORTR.has(pid)?`<a class="portr" href="${portU(pid)}" target="_blank" rel="noopener" title="Otevřít portrét v plné velikosti"><img src="${portU(pid)}" alt="Portrét: ${p.n}" width="600" height="1500"></a>`:`<img class="psilbig" src="art/img/silueta-${silKind(p)}.webp" alt="" width="160" height="160">`}
      <dl class="kv"><dt>Rod</dt><dd><a href="#rod/${f.id}">${f.name}</a></dd>
      <dt>Postavení</dt><dd>${p.role}</dd>
      ${sd?`<dt>Sídlo</dt><dd>${maplinkBtn(f,sd)}</dd>`:""}
@@ -3719,7 +3749,7 @@ function renderOsoby(){
   const box=document.getElementById("osobylist"); if(box.dataset.done)return; box.dataset.done=1;
   const groups=[["Čechy",f=>!f.nbr&&(f.land==="Čechy"||f.land==="Královská města")],["Morava",f=>!f.nbr&&f.land==="Morava"],["Slezsko",f=>!f.nbr&&f.land==="Slezsko"],["Lužice",f=>!f.nbr&&f.land==="Lužice"],["Duchovenstvo",f=>!f.nbr&&f.land==="Duchovenstvo"],...NBR_LANDS.map(L=>[L,f=>f.nbr&&f.land===L])];
   box.innerHTML=groups.map(([L,fn])=>{const ps=PEOPLE.filter(p=>fn(byId[p.r])).sort((a,b)=>PORTR.has(b.id)-PORTR.has(a.id));if(!ps.length)return"";
-    return `<div class="land-sec"><h3 class="landh">${L.toUpperCase()}</h3><div class="pcards">${ps.map(p=>`<a class="pcard hasp${PORTR.has(p.id)?"":" nop"}" href="#osoba/${p.id}">${pThumb(p)}<span class="pct"><b>${p.n}</b><span>${p.role}</span><small>${byId[p.r].name}</small></span></a>`).join("")}</div></div>`}).join("");
+    return `<div class="land-sec"><h3 class="landh">${L.toUpperCase()}</h3><div class="pcards">${ps.map(p=>`<a class="pcard hasp${PORTR.has(p.id)?"":" nop"}" href="#osoba/${p.id}">${pThumb(p)}<span class="pct"><b>${p.n}</b><span>${p.role}</span><small>${byId[p.r].name}</small></span></a>`).join("")}</div></div>`}).join("")||`<div class="placeholder"><p>Družina zatím nikoho z panstva nepotkala ani o nikom neslyšela.</p></div>`;
 }
 {const dd=document.getElementById("navmapy"),top=dd.querySelector(".ddtop");
  top.addEventListener("click",e=>{if(matchMedia("(hover: none)").matches&&!dd.classList.contains("open")){e.preventDefault();dd.classList.add("open");top.setAttribute("aria-expanded","true")}});
@@ -3740,7 +3770,7 @@ document.querySelectorAll(".lyrbtn").forEach(b=>{const p=document.getElementById
  document.addEventListener("click",e=>{if(!nav.contains(e.target)&&nav.classList.contains("open")){nav.classList.remove("open");tg.setAttribute("aria-expanded","false")}});
  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&nav.classList.contains("open")){nav.classList.remove("open");tg.setAttribute("aria-expanded","false");tg.focus()}});
  if("IntersectionObserver" in window)new IntersectionObserver(([en])=>nav.classList.toggle("stuck",!en.isIntersecting),{threshold:0}).observe(logo);}
-const NAVNAME={uvod:"Úvod",artikule:"Artikule",draconomicon:"Draconomicon",druzina:"Družina",kronika:"Kronika",mapa:"Mapa zemí",praha:"Praha",svet:"Známý svět",desky:"Zemské desky"};
+const NAVNAME={uvod:"Úvod",artikule:"Artikule",draconomicon:"Draconomicon",druzina:"Družina",kronika:"Kronika",mapa:"Mapa zemí",praha:"Praha",svet:"Známý svět",desky:"Zemské desky",gm:"Vypravěč"};
 function route(){
   const h=decodeURIComponent(location.hash.slice(1))||"uvod";
   const [a,b,c]=h.split("/");
@@ -3776,6 +3806,8 @@ function route(){
     renderDruzina(b); window.scrollTo(0,0);
   }else if(view==="kronika"){
     renderKronika(b); window.scrollTo(0,0);
+  }else if(view==="gm"){
+    renderGM(); if(changed)window.scrollTo(0,0);
   }else if(view==="artikule"){
     if(!renderArtikule(b,c))window.scrollTo(0,0);
   }else if(changed)window.scrollTo(0,0);
@@ -3800,7 +3832,7 @@ document.querySelectorAll("[data-conf]").forEach(b=>b.addEventListener("click",(
 autolink(document.querySelector("#letopis dl"),"");
 renderKal();
 {const _rd=renderDetail;renderDetail=function(){_rd.apply(this,arguments);const d=document.getElementById("detail");if(st.sel&&!d.classList.contains("empty"))autolink(d,st.city?"":"#rod/"+st.sel)};}
-select("pod");
+if(FAM.length)select(byId.pod?"pod":FAM[0].id);
 /* vypravěč: Alt + klik do mapy ukáže a zkopíruje souřadnice pro soubory v zdroj/obsah */
 if(GMV){const toast=document.createElement("div");toast.className="gmtoast";toast.setAttribute("role","status");document.body.appendChild(toast);
  const pick=(sv,fmt)=>sv&&sv.addEventListener("click",e=>{if(!e.altKey)return;e.preventDefault();e.stopPropagation();
@@ -3809,5 +3841,87 @@ if(GMV){const toast=document.createElement("div");toast.className="gmtoast";toas
   clearTimeout(toast._t);toast._t=setTimeout(()=>toast.classList.remove("on"),4000)},true);
  pick(document.getElementById("map"),(x,y)=>`${(x/72+10.9).toFixed(2)} | ${(52.7-y/112).toFixed(2)}`);
  pick(document.getElementById("pmap"),(x,y)=>`${Math.round(x)}, ${Math.round(y)}`);}
+/* ===== Vypravěč: stavy odhalení (Skryté / Slyšeli / Potkali), přihlášení a přehled ===== */
+const STAV=__D.STAV||null;
+const STLBL=["Skryté","Slyšeli","Potkali"];
+if(GMV)document.documentElement.classList.add("gmv");
+const gmLv=id=>STAV?(STAV[id]??0):2;
+const gmEff=id=>PBY[id]?Math.min(gmLv(id),gmLv(PBY[id].r)):gmLv(id);
+const gmSeg=id=>`<span class="gmseg">${[0,1,2].map(i=>`<button type="button" class="gmst gs${i}" data-gmset="${i}" aria-pressed="${gmLv(id)===i}" title="${["Hráči o tom nevědí","Hráči znají jméno a základní údaje","Hráči znají vše kromě tajemství"][i]}">${STLBL[i]}</button>`).join("")}</span>`;
+function gmBar(id,kind){
+  if(!GMV||!STAV)return"";
+  const warn=kind==="osoba"&&PBY[id]&&gmLv(PBY[id].r)===0?`<span class="gmwarn">Rod je skrytý – hráči osobu neuvidí, dokud neodhalíte rod.</span>`:"";
+  return `<div class="gmbar noal" data-gmid="${id}" data-gmkind="${kind}"><span class="gmlbl">Co o ${kind==="rod"?"rodu":kind==="misto"?"místu":"osobě"} ví družina</span>${gmSeg(id)}${warn}${window.MMDB?"":`<span class="gmwarn">Měnit lze jen na webu napojeném na databázi.</span>`}</div>`;
+}
+function gmMark(root){
+  if(!STAV)return;
+  (root||document).querySelectorAll('a[href^="#osoba/"],a[href^="#rod/"]').forEach(a=>{const id=a.getAttribute("href").split("/")[1],v=gmEff(id);
+    a.classList.toggle("gm0",v===0);a.classList.toggle("gm1",v===1)});
+}
+function gmRefresh(){
+  document.querySelectorAll(".gmbar[data-gmid]").forEach(b=>{b.outerHTML=gmBar(b.dataset.gmid,b.dataset.gmkind)});
+  document.querySelectorAll(".gmrow[data-gmid]").forEach(r=>r.querySelectorAll("[data-gmset]").forEach(x=>x.setAttribute("aria-pressed",+x.dataset.gmset===gmLv(r.dataset.gmid))));
+  gmMark();if(curView==="gm")gmSum();
+}
+async function gmUloz(z){
+  if(!window.MMDB){mmHlasG("Stavy lze měnit jen na webu napojeném na databázi.");return}
+  document.documentElement.classList.add("gmbusy");
+  try{const n=await MMDB.nastav(z);Object.keys(STAV).forEach(k=>delete STAV[k]);Object.assign(STAV,n||{});gmRefresh();mmHlasG("Uloženo – hráči to uvidí do půl minuty.")}
+  catch(err){mmHlasG("Nepodařilo se uložit: "+err.message,7000)}
+  finally{document.documentElement.classList.remove("gmbusy")}
+}
+const mmHlasG=(t,ms)=>window.mmHlas?mmHlas(t,ms):alert(t);
+if(GMV&&STAV){
+  const _r1=renderRodArticle,_r2=renderPersonArticle;
+  renderRodArticle=function(id){_r1(id);const c=document.querySelector("#article .crumbs");if(c)c.insertAdjacentHTML("afterend",gmBar(id,"rod"))};
+  renderPersonArticle=function(id){_r2(id);const c=document.querySelector("#article .crumbs");if(c)c.insertAdjacentHTML("afterend",gmBar(id,"osoba"))};
+  document.addEventListener("click",e=>{const b=e.target.closest("[data-gmset]");if(!b)return;const box=b.closest("[data-gmid]");
+    if(+b.dataset.gmset===gmLv(box.dataset.gmid))return;gmUloz({[box.dataset.gmid]:+b.dataset.gmset})});
+  let mq=0;new MutationObserver(()=>{if(!mq)mq=requestAnimationFrame(()=>{mq=0;gmMark()})}).observe(document.body,{childList:true,subtree:true});
+}
+function gmSum(){
+  const el=document.getElementById("gmsum");if(!el)return;
+  const c=(arr,f)=>arr.filter(x=>f(x)>=1).length;
+  el.textContent=`Družina zná ${c(FAM,f=>gmLv(f.id))} z ${FAM.length} rodů, ${c(PEOPLE,p=>gmEff(p.id))} z ${PEOPLE.length} osob`+(DISC.length?` a ${c(DISC,d=>gmLv(d.id))} z ${DISC.length} míst.`:".");
+}
+function renderGM(){
+  const box=document.getElementById("gmview");
+  if(!GMV){
+    if(!window.MMDB){box.innerHTML=`<h2 class="arttitle">Vypravěč</h2><p class="intro">Odhalování postav, rodů a míst funguje jen na webu napojeném na databázi.</p>`;return}
+    box.innerHTML=`<h2 class="arttitle">Vypravěč</h2><p class="intro">Přihlášení pro vypravěče. Hráči se přihlašovat nemusí – co družina zná, vidí každý.</p>
+      ${window.MMINFO?`<p class="gmwarn">${window.MMINFO}</p>`:""}
+      <form class="gmform" id="gmlogin"><label>E‑mail<input type="email" name="e" autocomplete="username" required></label>
+      <label>Heslo<input type="password" name="h" autocomplete="current-password" required></label>
+      <button class="gbtn" type="submit">Přihlásit</button><p class="gmerr" role="alert"></p></form>`;
+    box.querySelector("form").addEventListener("submit",async e=>{e.preventDefault();const f=e.target,err=f.querySelector(".gmerr"),btn=f.querySelector("button");
+      err.textContent="";btn.disabled=true;
+      try{await MMDB.prihlas(f.elements.e.value.trim(),f.elements.h.value);location.reload()}
+      catch(x){err.textContent=x.status===400||x.status===401?"Nesprávný e‑mail nebo heslo.":"Přihlášení se nepodařilo: "+x.message;btn.disabled=false}});
+    return}
+  if(box.dataset.done){gmRefresh();return} box.dataset.done=1;
+  const ord=Object.fromEntries(["Čechy","Morava","Slezsko","Lužice","Královská města","Duchovenstvo"].map((l,i)=>[l,i]));
+  const rody=[...FAM].sort((a,b)=>(!!a.nbr-!!b.nbr)||((ord[a.land]??9)-(ord[b.land]??9))||a.land.localeCompare(b.land,"cs")||a.name.localeCompare(b.name,"cs"));
+  const row=(id,cls,href,name,sub)=>`<div class="gmrow ${cls}" data-gmid="${id}"><a href="${href}">${name}</a><small>${sub}</small>${gmSeg(id)}</div>`;
+  box.innerHTML=`<h2 class="arttitle">Vypravěč</h2>
+    <div class="gmhead"><span class="lbl">${window.MMDB?`Přihlášen: ${MMDB.email()||"vypravěč"}`:"Statická vypravěčská verze – stavy jen ke čtení"}</span>${window.MMDB?`<button type="button" class="gbtn" id="gmout">Odhlásit</button>`:""}</div>
+    <p class="intro">Hráči vidí jen to, co je odhalené. <b>Slyšeli</b>: jméno a základní údaje, u osob silueta místo portrétu. <b>Potkali</b>: vše kromě tajemství vypravěče. Osoba je hráčům vidět, jen když je vidět i její rod. Změna se hráčům projeví do půl minuty, bez nového nasazení webu.</p>
+    <div class="gmtools"><input type="search" id="gmq" placeholder="Hledat rod, osobu nebo místo…" aria-label="Hledat">
+      <select id="gmf" aria-label="Filtr stavu"><option value="">Všechny stavy</option><option value="0">Jen skryté</option><option value="1">Jen slyšeli</option><option value="2">Jen potkali</option></select>
+      <span class="gmsum" id="gmsum"></span></div>
+    <div class="gmlist">${rody.map(f=>`<div class="gmrod" data-rn="${_nrm(f.name+" "+(SHORT[f.id]||"")).replace(/"/g,"")}">
+      ${row(f.id,"gmr","#rod/"+f.id,f.name,f.land+(f.nbr?" · soused":""))}
+      ${peopleOf(f.id).length?`<div class="gmrow gmp gmbk"><small>Všechny osoby rodu:</small><select class="gmbulk" data-gmbulk="${f.id}" aria-label="Nastavit všechny osoby rodu ${f.name}"><option value="">nastavit…</option>${STLBL.map((l,i)=>`<option value="${i}">${l}</option>`).join("")}</select></div>`:""}
+      ${peopleOf(f.id).map(p=>row(p.id,"gmp","#osoba/"+p.id,p.n,p.role)).join("")}</div>`).join("")}
+    ${DISC.length?`<div class="gmrod" data-rn="objevena mista"><div class="gmrow"><b>Objevená místa</b></div>${DISC.map(d=>row(d.id,"gmp","#mapa",d.name,"místo na mapě")).join("")}</div>`:""}</div>`;
+  gmSum();gmMark(box);
+  const flt=()=>{const q=_nrm(box.querySelector("#gmq").value.trim()),f=box.querySelector("#gmf").value;
+    box.querySelectorAll(".gmrod").forEach(r=>{const rh=!q||r.dataset.rn.includes(q);let any=false;
+      r.querySelectorAll(".gmrow[data-gmid]").forEach(x=>{const ok=(!f||gmLv(x.dataset.gmid)===+f)&&(rh||_nrm(x.textContent).includes(q));x.hidden=!ok;if(ok)any=true});
+      r.querySelectorAll(".gmbk").forEach(x=>x.hidden=!!(q||f));r.hidden=!any})};
+  box.querySelector("#gmq").addEventListener("input",flt);box.querySelector("#gmf").addEventListener("change",flt);
+  box.addEventListener("change",e=>{const s=e.target.closest("[data-gmbulk]");if(!s||s.value==="")return;const v=+s.value;s.value="";
+    const z={};peopleOf(s.dataset.gmbulk).forEach(p=>{if(gmLv(p.id)!==v)z[p.id]=v});if(Object.keys(z).length)gmUloz(z)});
+  const o=box.querySelector("#gmout");if(o)o.addEventListener("click",async()=>{await MMDB.odhlas();location.reload()});
+}
 route();
 </script>
