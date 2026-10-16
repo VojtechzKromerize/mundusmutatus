@@ -1935,6 +1935,33 @@ abbr.btp{text-decoration:underline dotted color-mix(in srgb,var(--gold) 85%,tran
   body:has(.view[data-view=boj]:not([hidden]) .bctl) .phbtn{bottom:74px}
 }
 @media print{.bprtg,#bojview .bpravidla,#bojview .bctl{display:none!important}#bojview .bosa{position:static}}
+.kzfil{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin:8px 0 14px}
+.kzfil .kzq{flex:1 1 260px;font:inherit;font-family:var(--f-body);color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:3px;padding:7px 10px;min-height:40px}
+.kzfil select{font:inherit;font-family:var(--f-body);color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:3px;padding:5px 8px;min-height:38px;color-scheme:light dark}
+.kzur{flex-basis:100%;display:flex;flex-wrap:wrap;gap:4px}.kzur button{min-width:40px}
+.kzchk{display:inline-flex;gap:6px;align-items:center;font-family:var(--f-label);letter-spacing:.03em;color:var(--muted)}
+.kzpoc{margin-left:auto}
+.kzgrid{display:grid;grid-template-columns:minmax(240px,340px) 1fr;gap:18px;align-items:start}
+.kzlist{list-style:none;margin:0;padding:0;max-height:70vh;overflow:auto;border:1px solid color-mix(in srgb,var(--gold) 40%,var(--rule));border-radius:3px;background:var(--paper)}
+.kzlist li+li{border-top:1px solid color-mix(in srgb,var(--gold) 20%,transparent)}
+.kzlist a{display:block;padding:6px 10px;text-decoration:none;color:var(--ink)}.kzlist a b{display:block;font-weight:600}.kzlist a small{color:var(--muted);font-size:.8rem}
+.kzlist a:hover,.kzlist a.on{background:color-mix(in srgb,var(--gold) 18%,var(--paper))}.kzlist a.on b{color:var(--kal)}
+.kzmiss{padding:10px}
+.kzdet{position:sticky;top:calc(var(--navh,60px) + 10px)}
+.kzkarta{position:relative;background:var(--paper);border:1px solid color-mix(in srgb,var(--gold) 55%,var(--rule));border-radius:3px;padding:14px 18px;box-shadow:inset 0 0 0 3px var(--paper),inset 0 0 0 4px color-mix(in srgb,var(--gold) 35%,transparent)}
+.kzkarta h3{margin:0;font-family:var(--f-disp);font-weight:500;font-size:1.6rem;color:var(--kal);line-height:1.1}.kzkarta h3 small{display:block;font-family:var(--f-label);font-size:.85rem;letter-spacing:.05em;color:var(--muted)}
+.kzmeta{margin:4px 0 8px;font-style:italic;color:var(--muted)}
+.kzkv{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;margin:0 0 10px;font-size:.93rem}.kzkv dt{font-family:var(--f-label);letter-spacing:.04em;color:var(--muted)}.kzkv dd{margin:0}
+.kztext p{margin:.45em 0}.kztext ul{margin:.3em 0 .5em 1.2em;padding:0}
+.kzsrc{font-size:.82rem;color:var(--muted);margin:10px 0 0}
+.kzsrc a,.kzlic a,.kzmiss a{color:var(--kal)}
+.kzlic{font-size:.78rem;color:var(--muted);margin-top:18px;max-width:900px}
+.kzprazdne{color:var(--muted);font-style:italic}
+.kzpop{position:fixed;right:14px;bottom:14px;z-index:90;width:min(460px,calc(100vw - 28px));max-height:min(78vh,720px);overflow:auto;box-shadow:0 10px 30px rgba(20,10,4,.35);border-radius:3px}
+.kzpop[hidden]{display:none}.kzpop .kzkarta{padding-right:38px}
+.kzx{position:absolute;right:8px;top:6px;font-size:1.4rem;line-height:1;background:none;border:0;color:var(--muted);cursor:pointer}
+a.kzodk{color:inherit;text-decoration:underline dotted color-mix(in srgb,var(--kal) 70%,transparent);text-underline-offset:2px}
+@media (max-width:760px){.kzgrid{grid-template-columns:1fr}.kzdet{position:static;order:-1}.kzlist{max-height:50vh}.kzpop{left:8px;right:8px;bottom:8px;width:auto}}
 </style>
 
 <div class="wrap"><div class="papir" aria-hidden="true"></div>
@@ -1946,7 +1973,7 @@ abbr.btp{text-decoration:underline dotted color-mix(in srgb,var(--gold) 85%,tran
     <button type="button" class="navtoggle" id="navtoggle" aria-expanded="false" aria-controls="navlinks"><span class="navburger" aria-hidden="true"></span><span id="navcur">Úvod</span></button>
     <div class="navlinks" id="navlinks">
     <a href="#uvod" data-nav="uvod">Úvod</a>
-    <div class="navdd" id="navart"><a href="#artikule" class="ddtop" data-navgrp="artikule" aria-haspopup="true" aria-expanded="false">Artikule</a>
+    <div class="navdd" id="navart"><a href="#artikule" class="ddtop" data-navgrp="artikule kouzla" aria-haspopup="true" aria-expanded="false">Artikule</a>
       <div class="svitek"><div class="svlist" id="navartl"></div></div></div>
     <a href="#draconomicon" data-nav="draconomicon">Draconomicon</a>
     <div class="navdd" id="navkron"><a href="#kronika" class="ddtop" data-navgrp="kronika druzina" aria-haspopup="true" aria-expanded="false">Kronika</a>
@@ -2198,6 +2225,9 @@ abbr.btp{text-decoration:underline dotted color-mix(in srgb,var(--gold) 85%,tran
 </div>
 <div class="view" data-view="boj" hidden>
 <section class="sec" id="bojview"></section>
+</div>
+<div class="view" data-view="kouzla" hidden>
+<section class="sec" id="kzview"></section>
 </div>
 <div class="view" data-view="vyprava" hidden>
 <section class="sec" id="vyview"></section>
@@ -5248,7 +5278,7 @@ document.addEventListener("click",e=>{const b=e.target.closest("[data-partymap]"
   const z=ZBY[b.dataset.partymap],p=z&&placeBy(z.place);if(p){const [x,y]=P(p.lo,p.la);mapCenter(x,y,300)}});
 
 /* ---------- site navigation: views, house and person articles ---------- */
-const VIEWS=["uvod","svet","mapa","praha","desky","druzina","artikule","draconomicon","kronika","gm","boj","vyprava"];
+const VIEWS=["uvod","svet","mapa","praha","desky","druzina","artikule","draconomicon","kronika","gm","boj","vyprava","kouzla"];
 const SUBT={svet:"Známý svět · mocnosti léta Páně 1458",praha:"Praha · čtyři města pražská",uvod:"Úvodem",mapa:"Koruna česká k 3. březnu léta Páně 1458",desky:"Rody a panstvo",artikule:"Pravidla",druzina:"Hrdinové",draconomicon:"O dracích",kronika:"Kronika Vojtěcha z Kroměříže",gm:"Vypravěč · odhalování",boj:"Boj · sloty iniciativy",vyprava:"Výprava · cesta družiny"};
 const TITL={svet:"Známý svět",praha:"Praha",mapa:"Koruna česká k 3. březnu léta Páně 1458",desky:"Zemské desky",artikule:"Artikule tažení",druzina:"Družina",draconomicon:"Draconomicon",kronika:"Kronika Vojtěcha z Kroměříže",gm:"Vypravěč",boj:"Boj",vyprava:"Výprava"};
 let curView=null;
@@ -5359,11 +5389,11 @@ document.querySelectorAll(".lyrbtn").forEach(b=>{const p=document.getElementById
  document.addEventListener("click",e=>{if(!nav.contains(e.target)&&nav.classList.contains("open")){nav.classList.remove("open");tg.setAttribute("aria-expanded","false")}});
  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&nav.classList.contains("open")){nav.classList.remove("open");tg.setAttribute("aria-expanded","false");tg.focus()}});
  if("IntersectionObserver" in window)new IntersectionObserver(([en])=>nav.classList.toggle("stuck",!en.isIntersecting),{threshold:0}).observe(logo);}
-const NAVNAME={uvod:"Úvod",artikule:"Artikule",draconomicon:"Draconomicon",druzina:"Družina",kronika:"Kronika",mapa:"Mapa zemí",praha:"Praha",svet:"Známý svět",desky:"Zemské desky",gm:"Vypravěč",boj:"Boj",vyprava:"Výprava"};
+const NAVNAME={kouzla:"Kouzla",uvod:"Úvod",artikule:"Artikule",draconomicon:"Draconomicon",druzina:"Družina",kronika:"Kronika",mapa:"Mapa zemí",praha:"Praha",svet:"Známý svět",desky:"Zemské desky",gm:"Vypravěč",boj:"Boj",vyprava:"Výprava"};
 function route(){
   const h=decodeURIComponent(location.hash.slice(1))||"uvod";
   const [a,b,c]=h.split("/");
-  let view=(a==="rod"||a==="osoba")?"desky":a; if(!VIEWS.includes(view))view="uvod";
+  let view=(a==="rod"||a==="osoba")?"desky":a; if(!VIEWS.includes(view)||(view==="kouzla"&&!GMV))view="uvod";
   const changed=view!==curView; curView=view;
   document.body.classList.toggle("home",view==="uvod");document.getElementById("navcur").textContent=NAVNAME[view]||"";
   {const nav=document.getElementById("sitenav");nav.classList.remove("open");document.getElementById("navtoggle").setAttribute("aria-expanded","false")}
@@ -5402,6 +5432,8 @@ function route(){
     bojNacti().then(()=>renderBoj());renderBoj();bojStart(); if(changed)window.scrollTo(0,0);
   }else if(view==="vyprava"){
     renderVyprava(); if(changed)window.scrollTo(0,0);
+  }else if(view==="kouzla"){
+    renderKouzla(b); if(changed)window.scrollTo(0,0);
   }else if(view==="gm"){
     renderGM(); if(changed)window.scrollTo(0,0);
   }else if(view==="artikule"){
@@ -5506,7 +5538,7 @@ if(GMV&&STAV){
     <div class="phres"></div><p class="phfoot">${window.MMDB?"Změna se hráčům ukáže do půl minuty.":"Statická verze – stavy jen ke čtení."} <a href="#gm">Celý přehled →</a></p>`;
   document.body.append(btn,P);
   const q=P.querySelector(".phq"),res=P.querySelector(".phres");
-  const radek=x=>`<div class="gmrow gmp" data-gmid="${x.id}"><a href="${x.h}">${x.n}</a><small>${x.k} · ${x.s}</small>${gmSeg(x.id)}</div>`;
+  const radek=x=>`<div class="gmrow gmp" data-gmid="${x.id}"><a href="${x.h}">${x.n}</a><small>${x.k} · ${x.s}</small>${x.k==="Kouzlo"?"":gmSeg(x.id)}</div>`;window._phIDX=IDX;
   const vykresli=()=>{const v=_nrm(q.value.trim());let L,nad;
     if(v.length<2){L=nedavne().map(id=>IDX.find(x=>x.id===id)).filter(Boolean);nad=L.length?"Naposledy měněné":""}
     else{const w=v.split(/\s+/);L=IDX.filter(x=>w.every(t=>x.t.includes(t))).sort((a,b)=>(_nrm(b.n).startsWith(v)-_nrm(a.n).startsWith(v))).slice(0,14);nad=L.length?"":"Nic nenalezeno."}
@@ -5707,6 +5739,71 @@ document.addEventListener("click",e=>{const t=e.target.closest("[data-trc]");if(
   else{if(!confirm(`Rovnou dorazit: ${P.do}? Herní čas se posune na ${cTxt(P.t1)}.`))return;
     const e2=P.track[P.track.length-1];hraUloz(Object.assign({cesta:null,misto:P.do,poloha:pa(B),praha:null,putovani:[...((HRA&&HRA.putovani)||[]),{z:P.z,do:P.do,od:cTxt(P.t0),pr:cTxt(P.t1),t0:P.t0,t1:P.t1,b:P.track.map(q=>[q[1],q[2]]).filter((q,i,a)=>i===0||i===a.length-1||i%3===0)}].slice(-80)},cDat(P.t1)))}});
 if(typeof smRender==="function"){const _sm=smRender;smRender=function(){_sm.apply(this,arguments);const r=document.getElementById("stres");if(GMV&&STAV&&SM.a&&SM.b&&r)r.insertAdjacentHTML("beforeend",cestaMapHtml("s"))}}
+/* ===== Kouzla: SRD 5.2.1 česky (art/kouzla.json, načítá se až při potřebě) – jen pro vypravěče ===== */
+let KZ=null,KZP=null,KZRE=null;const KZBY={};
+function kzNacti(){if(KZ)return Promise.resolve(KZ);
+  if(!KZP)KZP=fetch("art/kouzla.json").then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(d=>{KZ=d;d.forEach(x=>{KZBY[x.i]=x;KZBY["en:"+x.en]=x});
+    const n=d.map(x=>x.en).sort((a,b)=>b.length-a.length).map(t=>t.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"));KZRE=new RegExp(`(?<![\\w-])(${n.join("|")})(?![\\w-])`,"g");
+    if(window._phIDX)d.forEach(x=>window._phIDX.push({id:"kz:"+x.i,n:x.cz||x.en,s:`${x.en} · ${kzUr(x.l)}`,h:"#kouzla/"+x.i,k:"Kouzlo",t:_nrm(`${x.cz} ${x.en}`)}));
+    return d}).catch(e=>{KZP=null;throw e});
+  return KZP}
+const kzUr=l=>l?`${l}. úroveň`:"trik";
+const kzE=t=>String(t??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const kzIn=t=>kzE(t).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/\*(.+?)\*/g,"<i>$1</i>");
+const kzMd=t=>String(t||"").replace(/\r/g,"").split(/\n\s*\n|\n(?=\s*-\s)|\n\s{2,}/).map(b=>b.trim()).filter(Boolean).reduce((a,b)=>{
+  if(/^-\s/.test(b)){const li=b.split(/\n/).map(x=>x.replace(/^-\s*/,"")).map(x=>`<li>${kzIn(x)}</li>`).join("");if(a.length&&a[a.length-1].startsWith("<ul>"))a[a.length-1]=a[a.length-1].replace(/<\/ul>$/,li+"</ul>");else a.push(`<ul>${li}</ul>`)}
+  else a.push(`<p>${kzIn(b).replace(/\n/g,"<br>")}</p>`);return a},[]).join("");
+const KZSK=["Abjurace","Vyvolávání","Věštění","Očarování","Evokace","Iluze","Nekromancie","Přeměna"],KZPOV=["Bard","Klerik","Druid","Paladin","Hraničář","Čaroděj","Černokněžník","Kouzelník"];
+function kzKarta(x,pop){return `<article class="kzkarta">${pop?`<button type="button" class="kzx" data-kzzavri aria-label="Zavřít">×</button>`:""}
+  <h3>${kzE(x.cz||x.en)} <small lang="en">${kzE(x.en)}</small></h3>
+  <p class="kzmeta">${x.l?kzUr(x.l):"Trik"} · ${kzE(x.s)}${x.ri?" · rituál":""}${x.ko?" · Concentration":""}</p>
+  <dl class="kzkv"><dt>Sesílání</dt><dd>${kzE(x.ct)}${x.ri?", nebo jako rituál":""}</dd><dt>Dosah</dt><dd>${kzE(x.r)}</dd>
+    <dt>Složky</dt><dd>${kzE(x.k.join(", "))}${x.m?` (${kzE(x.m)})`:""}</dd><dt>Trvání</dt><dd>${kzE(x.d)}</dd><dt>Povolání</dt><dd>${kzE(x.p.join(", "))}</dd></dl>
+  <div class="kztext">${kzMd(x.t)}${x.v?`<p><b>Na vyšší úrovni.</b> ${kzIn(x.v)}</p>`:""}</div>
+  <p class="kzsrc">${x.cs?"":"Zatím bez překladu – anglické znění SRD. "}<a href="https://www.aidedd.org/spell/${x.i}" target="_blank" rel="noopener">Anglicky na aidedd.org</a>${pop?` · <a href="#kouzla/${x.i}">v seznamu kouzel</a>`:""}</p></article>`}
+const KZF={q:"",l:"",s:"",p:"",ko:false,ri:false};
+function kzFiltr(){const box=document.getElementById("kzview");if(!box||!KZ)return;const q=_nrm(KZF.q.trim()),cur=decodeURIComponent((location.hash.split("/")[1])||"");
+  let L=KZ.filter(x=>(KZF.l===""||x.l===+KZF.l)&&(!KZF.s||x.s===KZF.s)&&(!KZF.p||x.p.includes(KZF.p))&&(!KZF.ko||x.ko)&&(!KZF.ri||x.ri));
+  if(q){const jm=x=>_nrm(x.cz+" "+x.en),w=q.split(/\s+/);const A=L.filter(x=>w.every(t=>jm(x).includes(t))),B=q.length>=3?L.filter(x=>!A.includes(x)&&w.every(t=>_nrm(x.t+" "+x.v).includes(t))):[];
+    A.sort((a,b)=>(_nrm(b.cz).startsWith(q)||_nrm(b.en).startsWith(q))-(_nrm(a.cz).startsWith(q)||_nrm(a.en).startsWith(q)));L=[...A,...B]}
+  const ul=box.querySelector(".kzlist");box.querySelector(".kzpoc").textContent=`${L.length} z ${KZ.length}`;
+  ul.innerHTML=L.length?L.slice(0,400).map(x=>`<li><a href="#kouzla/${x.i}" class="${x.i===cur?"on":""}"><b>${kzE(x.cz||x.en)}</b><small><span lang="en">${kzE(x.en)}</span> · ${kzUr(x.l)} · ${kzE(x.s)}${x.ko?' · <abbr title="Concentration">K</abbr>':""}${x.ri?' · <abbr title="rituál">R</abbr>':""}</small></a></li>`).join("")
+    :`<li class="kzmiss">V SRD nic takového není.${KZF.q.trim()?` <a href="https://www.aidedd.org/spell/${encodeURIComponent(_nrm(KZF.q.trim()).replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,""))}" target="_blank" rel="noopener">Zkusit „${kzE(KZF.q.trim())}“ na aidedd.org</a> (anglický název kouzla z Player's Handbooku).`:""}</li>`}
+function renderKouzla(b){const box=document.getElementById("kzview");if(!box||!GMV)return;
+  if(!box.dataset.hotovo){box.dataset.hotovo=1;
+    box.innerHTML=`<div class="kzhlav"><h2 class="arttitle">Kouzla</h2><p class="intro">Kouzla D&amp;D 2024 ze SRD 5.2.1 pro rychlé dohledání u stolu – česky, s anglickým názvem. Jen pro vypravěče. Kouzla z Player's Handbooku, která v SRD nejsou, najdeš přes odkaz na aidedd.org.</p></div>
+      <div class="kzfil"><input type="search" class="kzq" placeholder="Hledat česky nebo anglicky, i v textu…" aria-label="Hledat kouzlo">
+        <div class="kzur controls" role="group" aria-label="Úroveň"><button type="button" data-kzl="" aria-pressed="true">Vše</button>${[0,1,2,3,4,5,6,7,8,9].map(l=>`<button type="button" data-kzl="${l}" aria-pressed="false">${l?l:"Trik"}</button>`).join("")}</div>
+        <select class="kzs" aria-label="Škola"><option value="">Všechny školy</option>${KZSK.map(x=>`<option>${x}</option>`).join("")}</select>
+        <select class="kzp" aria-label="Povolání"><option value="">Všechna povolání</option>${KZPOV.map(x=>`<option>${x}</option>`).join("")}</select>
+        <label class="kzchk"><input type="checkbox" class="kzko"> Concentration</label><label class="kzchk"><input type="checkbox" class="kzri"> rituál</label><span class="kzpoc lbl"></span></div>
+      <div class="kzgrid"><ol class="kzlist"><li>Načítám kouzla…</li></ol><div class="kzdet"></div></div>
+      <p class="kzlic">Obsahuje materiál ze <i>System Reference Document 5.2.1</i> („SRD 5.2.1“) společnosti Wizards of the Coast LLC, dostupného na <a href="https://www.dndbeyond.com/srd" target="_blank" rel="noopener">dndbeyond.com/srd</a>. SRD 5.2.1 je licencováno pod <a href="https://creativecommons.org/licenses/by/4.0/legalcode" target="_blank" rel="noopener">Creative Commons Attribution 4.0 International</a>. Texty jsou přeložené do češtiny a terminologicky upravené pro Mundus Mutatus. Anglická data z projektů 5e-bits/5e-database a foundryvtt/dnd5e (SRD 5.2.1).</p>`;
+    const f=box.querySelector(".kzfil");
+    f.querySelector(".kzq").addEventListener("input",e=>{KZF.q=e.target.value;kzFiltr()});
+    f.addEventListener("click",e=>{const t=e.target.closest("[data-kzl]");if(!t)return;KZF.l=t.dataset.kzl;f.querySelectorAll("[data-kzl]").forEach(x=>x.setAttribute("aria-pressed",x===t));kzFiltr()});
+    f.addEventListener("change",e=>{if(e.target.matches(".kzs"))KZF.s=e.target.value;else if(e.target.matches(".kzp"))KZF.p=e.target.value;else if(e.target.matches(".kzko"))KZF.ko=e.target.checked;else if(e.target.matches(".kzri"))KZF.ri=e.target.checked;else return;kzFiltr()})}
+  kzNacti().then(()=>{kzFiltr();const d=box.querySelector(".kzdet"),x=b&&KZBY[b];d.innerHTML=x?kzKarta(x):`<p class="kzprazdne">Vyber kouzlo vlevo.</p>`;
+    if(x&&matchMedia("(max-width:760px)").matches)d.scrollIntoView({block:"start"})}).catch(()=>{box.querySelector(".kzlist").innerHTML=`<li>Kouzla se nepodařilo načíst.</li>`})}
+/* odkazy na kouzla v Boji, Výpravě a Artikulích (anglické názvy ze statbloků) a karta kouzla přes stránku */
+function kzOdkazy(root){if(!KZRE||!root)return;const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>n.parentElement&&!n.parentElement.closest("a,button,input,textarea,select,script,style,.kzkarta,.kzpop,label,summary,option,.kzx")&&/[A-Z]/.test(n.nodeValue)?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_REJECT});
+  const ns=[];while(w.nextNode())ns.push(w.currentNode);
+  ns.forEach(n=>{KZRE.lastIndex=0;if(!KZRE.test(n.nodeValue))return;KZRE.lastIndex=0;const f=document.createDocumentFragment();let i=0,m;const t=n.nodeValue;
+    while((m=KZRE.exec(t))){f.appendChild(document.createTextNode(t.slice(i,m.index)));const a=document.createElement("a");const x=KZBY["en:"+m[1]];a.href="#kouzla/"+x.i;a.className="kzodk";a.textContent=m[1];a.title=(x.cz||x.en)+" – "+kzUr(x.l);f.appendChild(a);i=m.index+m[1].length}
+    f.appendChild(document.createTextNode(t.slice(i)));n.replaceWith(f)})}
+if(GMV){
+  const pop=document.createElement("div");pop.className="kzpop";pop.hidden=true;pop.setAttribute("role","dialog");pop.setAttribute("aria-label","Kouzlo");document.body.appendChild(pop);
+  document.addEventListener("click",e=>{if(e.target.closest("[data-kzzavri]")){pop.hidden=true;return}
+    const a=e.target.closest('a[href^="#kouzla/"]');if(!a||a.closest("#kzview")||a.closest(".kzpop")&&!a.classList.contains("kzodk"))return;if(curView==="kouzla")return;
+    e.preventDefault();e.stopPropagation();const id=decodeURIComponent(a.getAttribute("href").split("/")[1]);kzNacti().then(()=>{const x=KZBY[id];if(!x)return;pop.innerHTML=kzKarta(x,true);pop.hidden=false;pop.scrollTop=0})},true);
+  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!pop.hidden)pop.hidden=true});
+  const KZV={boj:"bojview",vyprava:"vyview",artikule:"artikule"};let kzT=0;
+  const kzSken=()=>{const id=KZV[curView];if(!id)return;const el=document.getElementById(id)||document.querySelector(`.view[data-view="${curView}"]`);if(!el)return;
+    const go=()=>{mo.disconnect();try{kzOdkazy(el)}finally{mo.observe(document.querySelector("main")||document.body,{childList:true,subtree:true})}};if(KZRE)go();else kzNacti().then(go,()=>{})};
+  const mo=new MutationObserver(()=>{clearTimeout(kzT);kzT=setTimeout(kzSken,250)});mo.observe(document.querySelector("main")||document.body,{childList:true,subtree:true});
+  addEventListener("hashchange",()=>{clearTimeout(kzT);kzT=setTimeout(kzSken,300)});
+  const nl=document.getElementById("navartl");if(nl)nl.insertAdjacentHTML("beforeend",`<span class="svsep" aria-hidden="true">Pro vypravěče</span><a href="#kouzla">Kouzla</a>`);
+  if(document.querySelector(".phpanel"))kzNacti().catch(()=>{})}
 function renderGM(){
   const box=document.getElementById("gmview");
   if(!GMV){
