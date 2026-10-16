@@ -80,12 +80,12 @@ header .date{font-family:var(--f-label);letter-spacing:.08em;color:var(--gold);f
 h2::before{content:"¶ ";color:var(--kal);font-family:var(--f-body);font-weight:400;font-size:.8em}
 
 .shield{width:.95em;height:1.15em;vertical-align:-.2em;margin-right:.4em;flex:none}
-.tower{display:inline-block;width:12px;height:12px;vertical-align:-1px;margin-right:6px}
+
 .card{box-shadow:inset 0 0 0 3px var(--paper),inset 0 0 0 4px var(--rule)}
 .detail{border-top-color:var(--kal)}
 .mapbox{box-shadow:inset 0 0 0 3px var(--paper),inset 0 0 0 4px var(--rule)}
 .maplbl{font-family:var(--f-disp);fill:var(--ink);letter-spacing:.12em;pointer-events:none}
-.mtlbl{fill:var(--city);font-weight:600}
+
 .rivlbl{font-family:var(--f-body);font-style:italic;fill:var(--water);pointer-events:none;paint-order:stroke;stroke:var(--land);stroke-linejoin:round}
 .cart{font-family:var(--f-disp);fill:var(--ink);pointer-events:none}
 .sec{display:flex;flex-direction:column;gap:16px}
@@ -105,10 +105,10 @@ h2::before{content:"¶ ";color:var(--kal);font-family:var(--f-body);font-weight:
 .lyrpanel .controls select{max-width:100%}
 @media (max-width:640px){.lyrbtn{top:8px;right:8px;padding:5px 12px 5px 10px}.lyrpanel{top:40px;right:8px;width:calc(100% - 16px);max-height:none}}
 .legend{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center}
-.dot{display:inline-block;width:11px;height:11px;border-radius:50%;vertical-align:-1px;margin-right:6px}
+
 .sq{display:inline-block;width:10px;height:10px;vertical-align:-1px;margin-right:6px;border:1.5px solid var(--city);background:var(--paper)}
 .dia{display:inline-block;width:9px;height:9px;transform:rotate(45deg);vertical-align:0;margin-right:7px;background:var(--muted)}
-.pill{font-family:var(--f-label);font-weight:700;font-size:.78rem;letter-spacing:.06em;padding:1px 8px;border-radius:3px;color:var(--paper);white-space:nowrap}
+
 .faith{display:inline-flex;align-items:center;gap:5px;font-family:var(--f-label);font-weight:700;font-size:.82rem;letter-spacing:.05em;white-space:nowrap}
 .faith img{width:26px;height:26px;object-fit:contain;flex:none}
 .f-kat{color:var(--kat)}.f-kal{color:var(--kal)}.f-mix{color:var(--mix)}.f-isl{color:var(--isl)}
@@ -137,8 +137,7 @@ svg#map:active{cursor:grabbing}
 .lgrid div{display:flex;align-items:center;gap:8px}
 .lgrid svg{width:30px;height:18px;flex:none}
 .land{stroke:var(--ink);stroke-linejoin:round}
-.landlbl{font-family:var(--f-label);font-weight:700;fill:var(--muted);letter-spacing:.18em;pointer-events:none}
-.nbrlbl{font-family:var(--f-label);font-weight:700;fill:var(--muted);opacity:.6;letter-spacing:.16em;pointer-events:none}
+
 .river{fill:none;stroke:var(--water);stroke-linecap:round;stroke-linejoin:round}
 .seat{cursor:pointer;transition:opacity .15s}
 .seatlbl{font-family:var(--f-body);font-weight:700;fill:var(--ink);paint-order:stroke;stroke:var(--paper);stroke-linejoin:round;pointer-events:none}
@@ -201,7 +200,7 @@ svg#map:active{cursor:grabbing}
 .fold>summary::after{content:"▾";color:var(--kal);font-size:1.2rem;transition:transform .15s}
 .fold:not([open])>summary::after{transform:rotate(-90deg)}
 .fold>summary:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
-.foldbody{display:flex;flex-direction:column;gap:16px;margin-top:16px}
+
 .backbtn{align-self:flex-start;font-family:var(--f-label);font-weight:500;letter-spacing:.04em;font-size:.9rem;background:var(--bg);color:var(--ink);border:1px solid var(--rule);padding:3px 10px;border-radius:3px;cursor:pointer}
 .backbtn:hover{border-color:var(--ink)}
 .ringlegend{font-size:.88rem;color:var(--muted);margin:0}
@@ -220,7 +219,7 @@ header.site{display:flex;flex-direction:column;gap:0;border:0;padding:0}
 .banner{position:relative;border:1px solid var(--ink);box-shadow:inset 0 0 0 4px var(--paper),inset 0 0 0 5px var(--gold);
   background:radial-gradient(ellipse at 50% 120%,color-mix(in srgb,var(--kal) 55%,transparent),transparent 60%),radial-gradient(circle at 15% 20%,color-mix(in srgb,var(--gold) 30%,transparent),transparent 40%),radial-gradient(circle at 85% 20%,color-mix(in srgb,var(--gold) 30%,transparent),transparent 40%),#241b12;
   background-size:cover;background-position:center;min-height:clamp(150px,22vw,240px);display:flex;align-items:flex-end;justify-content:center}
-.bannerin{text-align:center;padding:18px 16px 22px;display:flex;flex-direction:column;gap:6px}
+
 .banner h1{color:#f4ecd8;font-size:clamp(2.6rem,8vw,4.6rem);text-shadow:0 2px 0 rgba(0,0,0,.35)}
 .banner .date{font-family:var(--f-label);letter-spacing:.12em;color:var(--gold);font-weight:700}
 .sitenav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;display:flex;flex-wrap:wrap;justify-content:center;gap:4px 22px;padding:10px 8px;background:var(--bg);border-bottom:3px double var(--ink)}
@@ -249,7 +248,7 @@ header.site{display:flex;flex-direction:column;gap:0;border:0;padding:0}
 .drcard b{font-family:var(--f-disp);font-weight:500;font-size:1.35rem;color:var(--kal);line-height:1.1}
 .drcard i{color:var(--muted);font-size:.9rem}
 .drcard small{font-family:var(--f-label);letter-spacing:.04em;color:var(--muted);font-size:.82rem}
-.drbadges{display:flex;flex-wrap:wrap;gap:6px}
+
 .drb{font-family:var(--f-label);font-weight:600;font-size:.85rem;letter-spacing:.04em;padding:1px 9px;border-radius:10px;border:1px solid var(--rule);background:var(--paper)}
 .drb.tr{border-color:var(--kal);color:var(--kal)}
 .drfig{margin:0;line-height:0}.drfig img{width:100%;height:auto;border-radius:3px;border:1px solid var(--rule)}
@@ -264,7 +263,7 @@ header.site{display:flex;flex-direction:column;gap:0;border:0;padding:0}
 .drtext li::marker{color:var(--kal)}
 .drtext .rtab td,.drtext .rtab th{padding:5px 9px;border-bottom:1px solid var(--rule);text-align:left;vertical-align:top}
 .drtext .rtab thead th{font-family:var(--f-label);letter-spacing:.04em;background:var(--bg)}
-.drprof th{width:34%;font-family:var(--f-label);font-weight:600;letter-spacing:.04em;color:var(--muted)}
+
 .drthumb{width:46px;height:31px;object-fit:cover;border-radius:2px;flex:none;border:1px solid var(--rule)}
 .atoc .drpl a{display:flex;align-items:center;gap:8px}
 .sbico{width:16px;height:16px;vertical-align:-3px;margin-right:4px}.sgico{width:22px;height:22px;vertical-align:-5px;margin-right:6px}
@@ -407,7 +406,7 @@ a.plinkp:hover,.infobox a:hover,.artmain a:hover{color:var(--kal)}
 .rart{align-self:center;background:var(--logobg);padding:var(--logopad);border-radius:6px;line-height:0}
 .rart img{width:190px;height:auto}
 .rart.wide img{width:min(420px,80vw)}
-.rbanner img{border:1px solid var(--rule)}
+
 .rq{margin:0 auto;max-width:60ch;text-align:center;font-style:italic;color:var(--kal);border-top:1px solid color-mix(in srgb,var(--gold) 45%,transparent);border-bottom:1px solid color-mix(in srgb,var(--gold) 45%,transparent);padding:10px 18px}
 .rq cite{color:var(--gold)!important}
 .rq p{font-size:1.08rem}
@@ -435,7 +434,7 @@ a.plinkp:hover,.infobox a:hover,.artmain a:hover{color:var(--kal)}
 mark{background:color-mix(in srgb,var(--gold) 35%,transparent);color:inherit;padding:0 1px}
 .rfig{margin:0;line-height:0}
 .rfig img{width:100%;height:auto;border-radius:3px}
-.rside{float:right;width:min(240px,42%);margin:0 0 8px 16px}
+
 .rbig{align-self:center;width:min(760px,100%);margin:6px auto 4px;line-height:1.3}
 .rbig img{border:1px solid var(--rule);box-shadow:0 4px 16px rgba(0,0,0,.18)}
 .rbig figcaption{text-align:center;font-style:italic;color:var(--muted);font-size:.9rem;margin-top:8px}
@@ -490,7 +489,7 @@ mark{background:color-mix(in srgb,var(--gold) 35%,transparent);color:inherit;pad
 .cbody{display:flex;flex-direction:column;gap:6px;min-width:0}
 .cbody h3{font-family:var(--f-body);font-weight:700;font-size:1.12rem;line-height:1.2;color:var(--ink);text-wrap:balance}
 .card:hover .cbody h3{color:var(--kal)}
-.cmeta .faith{font-size:.76rem}.cmeta .faith img{width:20px;height:20px}
+
 .card .head{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .card .seats{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .card .note{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
@@ -559,7 +558,7 @@ mark{background:color-mix(in srgb,var(--gold) 35%,transparent);color:inherit;pad
 .fcard.fc-old{border-top-color:var(--tree)}.fcard.fc-old h4{color:var(--tree)}
 .amain a:not([class]){color:var(--kal);text-decoration-thickness:1px;text-underline-offset:2px}
 .qk b.zv{margin:0;letter-spacing:.04em}.qk b.zp{color:var(--kal)}.qk b.zb{color:var(--kat)}
-.achap img.wide{object-fit:contain;object-position:center}
+
 .fcard ol{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:8px;font-size:.95rem}
 .fcard li::marker{font-family:var(--f-label);font-weight:700;color:var(--gold)}
 .fcard li b{display:block}
@@ -568,17 +567,12 @@ mark{background:color-mix(in srgb,var(--gold) 35%,transparent);color:inherit;pad
 /* landing */
 .abh{font-family:var(--f-disp);font-weight:500;font-size:1.5rem;border-bottom:1px solid var(--rule);padding-bottom:4px;margin-top:6px}
 .abh span{color:var(--kal)}
-.abk{display:flex;flex-direction:column;gap:10px}
+
 .aquick{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 .qk{background:var(--paper);border:1px solid var(--rule);padding:10px 14px;display:flex;flex-direction:column;gap:2px;color:var(--ink);text-decoration:none;font-size:.93rem}
 .qk b{font-family:var(--f-label);letter-spacing:.06em;color:var(--gold);margin-bottom:2px}
 .qk:hover{border-color:var(--gold)}
-.achaps{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
-.achap{display:grid;grid-template-columns:64px 1fr;grid-template-rows:auto 1fr;column-gap:12px;align-items:start;background:var(--paper);border:1px solid var(--rule);padding:10px;color:var(--ink);text-decoration:none}
-.achap img{grid-row:span 2;width:64px;height:64px;object-fit:cover;object-position:top;background:var(--logobg);border-radius:4px}
-.achap b{font-family:var(--f-disp);font-weight:500;font-size:1.25rem;color:var(--kal);line-height:1.1}
-.achap span{font-size:.88rem;color:var(--muted);line-height:1.3}
-.achap:hover{border-color:var(--kal)}
+
 .apn{display:flex;justify-content:space-between;gap:12px;border-top:2px solid var(--ink);padding-top:12px;margin-top:10px}
 .apn a{display:flex;flex-direction:column;color:var(--kal);text-decoration:none;font-family:var(--f-disp);font-size:1.25rem}
 .apn a[rel=next]{text-align:right}
@@ -592,7 +586,7 @@ mark{background:color-mix(in srgb,var(--gold) 35%,transparent);color:inherit;pad
 }
 .atoggle{display:none;font-family:var(--f-label);font-weight:700;letter-spacing:.06em;background:var(--bg);color:var(--ink);border:1px solid var(--rule);border-radius:3px;padding:5px 10px;cursor:pointer;text-align:left}
 @media (max-width:640px){
-  .rside{float:none;width:min(260px,80%);margin:0 auto}
+  
   .rtab:not(.narrow) thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
   .rtab:not(.narrow),.rtab:not(.narrow) tbody,.rtab:not(.narrow) tr,.rtab:not(.narrow) th,.rtab:not(.narrow) td{display:block;width:auto}
   .rtab:not(.narrow) tr{border-bottom:2px solid var(--rule);padding:6px 0}
@@ -656,7 +650,6 @@ a.pchar:hover{border-color:var(--kal)}
 .partymk{cursor:pointer}
 .partymk:focus-visible{outline:2px solid var(--gold)}
 .discmk{cursor:pointer}
-
 
 /* vazby jako rozbalovací sekce */
 .relgs{display:flex;flex-direction:column;gap:6px}
@@ -761,9 +754,9 @@ svg#map,svg#pmap,svg#smap{will-change:transform;transform:translateZ(0);contain:
 #pmap .pkart2{font-family:var(--f-body);font-style:italic;fill:#4a3a28}
 #pmap .pmer{font-family:var(--f-label);font-weight:700;fill:var(--ink);paint-order:stroke;stroke:var(--paper);stroke-width:2.5px;stroke-linejoin:round}
 .ppik{display:block;align-self:center;height:96px;width:auto;max-width:100%;object-fit:contain;filter:drop-shadow(0 2px 3px rgba(0,0,0,.25))}
-#smap .srib,#smap .pkart{font-family:var(--f-disp);font-weight:500;fill:#2b2117;letter-spacing:.03em}
+#smap .pkart{font-family:var(--f-disp);font-weight:500;fill:#2b2117;letter-spacing:.03em}
 #smap .pkart2{font-family:var(--f-body);font-style:italic;fill:#4a3a28}
-#smap .svitr{font-family:var(--f-disp);fill:var(--kal);letter-spacing:.05em;paint-order:stroke;stroke:var(--paper);stroke-width:2.5px;stroke-linejoin:round}
+
 #smap .sincog{font-family:var(--f-disp);fill:var(--muted);letter-spacing:.12em;opacity:.85}
 #smap .spraha{font-weight:700;fill:var(--kal)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #smap .sorn{filter:url(#sglow)}:root:not([data-theme="light"]) #smap .sornf{filter:url(#sglowf)}}
@@ -885,9 +878,7 @@ svg#map,svg#pmap,svg#smap{will-change:transform;transform:translateZ(0);contain:
 .tkarr{color:var(--tg)}
 .tlinkb{background:none;border:0;padding:0;font:inherit;color:var(--kal);text-decoration:underline dotted;text-underline-offset:3px}
 .tfoot{margin:14px 0 0;max-width:72ch;text-align:center}
-.tsub{align-self:stretch;min-width:0;list-style:none;margin:6px 0 0;padding:4px 0 0 10px;border-left:2px solid var(--rule);display:flex;flex-direction:column;gap:3px}
-.tsub li{display:flex;flex-direction:column;min-width:0;border-radius:2px;hyphens:auto;overflow-wrap:break-word}
-.tsub .tnm{font-size:.98rem}
+
 .troot{align-self:end}
 @container (max-width:800px){.tkids{--kw:156px}.trow{gap:8px}.trow:not(:last-child) .tkid:nth-child(2)::after{right:-5px}}
 @container (max-width:690px){
@@ -908,18 +899,16 @@ svg#map,svg#pmap,svg#smap{will-change:transform;transform:translateZ(0);contain:
 .tree .dead>.tport{filter:grayscale(.5) brightness(.85)}
 .tree .tcard.dead{border-top-color:#8c6a2a!important}
 .tree .dead .tmono{background:transparent;color:#c9a85a;border-color:#8c6a2a}
-.tree .dead>.tbody>.tdt b,.tree .tsub li.dead .tdt b{color:var(--tdt)}
+.tree .dead>.tbody>.tdt b{color:var(--tdt)}
 .tree .dead .tspnav{color:var(--tdm)}
 .tree .dead .tswap{background:transparent;border-color:#8c6a2a;color:#e9c56b}
-.tree .tsub li.dead{padding:3px 6px}
-.tree .dead .tsub li:not(.dead){background:var(--bg);color:var(--ink);padding:3px 6px}
-.tree .dead .tsub{border-left-color:#8c6a2a}
+
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tree .dead{--tdk:#060403;--tdt:#bfb196;--tdm:#8d7f66;--tda:#c9a85a;border:1px dashed #5a4a35!important}}
 :root[data-theme="dark"] .tree .dead{--tdk:#060403;--tdt:#bfb196;--tdm:#8d7f66;--tda:#c9a85a;border:1px dashed #5a4a35!important}
 @media (max-width:640px){.tcouple{flex-direction:column}.tcard.tmain,.tcard.tspouse{max-width:100%}.tkid{flex:1 1 100%}.tkids::before{left:2%;right:2%}}
 /* vlastní kurzory (jen počítač) */
 html{cursor:url(art/kurzory/brk.png) 2 1,auto;cursor:-webkit-image-set(url(art/kurzory/brk.png) 1x,url(art/kurzory/brk@2x.png) 2x) 2 1,auto;cursor:image-set(url(art/kurzory/brk.png) 1x,url(art/kurzory/brk@2x.png) 2x) 2 1,auto}
-a,button,select,summary,label[for],[role=link],[role=button],.card,.seat,.gnode,.dompoly,.partymk,.discmk,.maplink,.plink,.flink,.rtab.dlist tbody tr,.zcard,.achap,.qk,.pchar,.uvt,.pmk,.plist button{cursor:url(art/kurzory/ruka.png) 0 1,pointer !important;cursor:-webkit-image-set(url(art/kurzory/ruka.png) 1x,url(art/kurzory/ruka@2x.png) 2x) 0 1,pointer !important;cursor:image-set(url(art/kurzory/ruka.png) 1x,url(art/kurzory/ruka@2x.png) 2x) 0 1,pointer !important}
+a,button,select,summary,label[for],[role=link],[role=button],.card,.seat,.gnode,.dompoly,.partymk,.discmk,.maplink,.plink,.flink,.rtab.dlist tbody tr,.zcard,.qk,.pchar,.pmk,.plist button{cursor:url(art/kurzory/ruka.png) 0 1,pointer !important;cursor:-webkit-image-set(url(art/kurzory/ruka.png) 1x,url(art/kurzory/ruka@2x.png) 2x) 0 1,pointer !important;cursor:image-set(url(art/kurzory/ruka.png) 1x,url(art/kurzory/ruka@2x.png) 2x) 0 1,pointer !important}
 input,textarea,[contenteditable]{cursor:text !important}
 /* mapy: ruka na přetahování, sevřená ruka při tažení, ukazováček nad klikatelným, kružidlo při měření */
 svg#map,svg#pmap,svg#smap{cursor:url(art/kurzory/chop.png) 16 16,grab !important;cursor:-webkit-image-set(url(art/kurzory/chop.png) 1x,url(art/kurzory/chop@2x.png) 2x) 16 16,grab !important;cursor:image-set(url(art/kurzory/chop.png) 1x,url(art/kurzory/chop@2x.png) 2x) 16 16,grab !important}
@@ -978,10 +967,7 @@ body{padding-top:38px;padding-bottom:48px;padding-left:max(38px,env(safe-area-in
 .hero{position:relative;padding:22px 40px 20px;background:var(--paper);border:1px solid var(--frame1);box-shadow:inset 0 0 0 4px var(--paper),inset 0 0 0 5px color-mix(in srgb,var(--gold) 70%,transparent),0 4px 14px rgba(40,25,10,.12);max-width:640px}
 .hero::before,.hero::after{content:"❦";position:absolute;left:50%;transform:translateX(-50%);color:var(--gold);background:var(--bg);padding:0 8px;font-size:1.1rem;line-height:1}
 .hero::before{top:-.6em}.hero::after{bottom:-.6em;transform:translateX(-50%) rotate(180deg)}
-.uvi{grid-row:span 2;width:62px;height:62px;border-radius:50%;overflow:hidden;display:block;border:2px solid var(--gold);box-shadow:0 0 0 3px var(--paper),0 0 0 4px var(--rule);background:#efe3c6}
-.uvi img{width:100%;height:100%;object-fit:cover;display:block}
-.uvi.q img{object-position:50% 18%;transform:scale(1.45);transform-origin:50% 30%}
-.uvi.uvsvg{background:#efe3c6}.uvi.uvsvg svg{width:100%;height:100%;display:block}
+
 /* 6. osoby: medailony se zlatým kroužkem, siluety tam, kde portrét chybí */
 .pcards{grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
 .pcard{border-color:color-mix(in srgb,var(--gold) 40%,var(--rule));box-shadow:inset 0 0 0 3px var(--paper),inset 0 0 0 4px color-mix(in srgb,var(--rule) 70%,transparent);padding:12px 14px;transition:transform .15s,border-color .15s}
@@ -1020,7 +1006,8 @@ body{padding-top:38px;padding-bottom:48px;padding-left:max(38px,env(safe-area-in
 .hero{background:none;border:0;box-shadow:none;padding:0;max-width:none}
 .hero::before,.hero::after{content:none}
 .dial{position:relative;width:min(440px,90vw);aspect-ratio:1}
-.dialsvg{width:100%;height:100%;display:block;filter:drop-shadow(0 6px 16px rgba(40,25,10,.3))}
+.dialsvg{width:100%;height:100%;display:block;position:relative}
+.dial::before{content:"";position:absolute;inset:2.4%;border-radius:50%;box-shadow:0 6px 18px rgba(40,25,10,.32);pointer-events:none}
 .dialnum{font-family:var(--f-disp);font-size:20px}
 .dialcur{filter:drop-shadow(0 0 6px rgba(240,214,138,.9))}
 .dialtxt{position:absolute;inset:22%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:2px}
@@ -1074,11 +1061,10 @@ body{padding-top:38px;padding-bottom:48px;padding-left:max(38px,env(safe-area-in
 .bojform fieldset{border:1px solid var(--rule);border-radius:4px;padding:10px 12px;background:var(--paper);display:flex;flex-direction:column;gap:8px}
 .bojform legend{font-family:var(--f-label);letter-spacing:.05em;color:var(--muted);padding:0 4px}
 .bsr{display:flex;flex-wrap:wrap;gap:8px}
-.bojform input,.bojform select,.bnadd input,.bnadd select,.bkr select,.bkr input,.bsloty select{font:inherit;font-family:var(--f-body);color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:3px;padding:5px 8px;min-height:38px}
+.bojform input,.bojform select,.bnadd input,.bnadd select,.bsloty select{font:inherit;font-family:var(--f-body);color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:3px;padding:5px 8px;min-height:38px}
 .bsr input[name=hn],.bsr input[name=nn]{flex:1 1 200px}
 .bsr input[type=number]{width:84px}
-.bdm{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-family:var(--f-label);letter-spacing:.03em}
-.bdm input{width:90px}
+
 .bojhead{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px}
 .bojbtn{display:flex;flex-wrap:wrap;gap:8px}
 .bojgrid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:18px;margin-top:10px}
@@ -1186,18 +1172,7 @@ html.mmload body::after{content:"Načítám zemské desky…";position:fixed;lef
 .relcol3 .relg>summary::after{margin-left:6px}
 .relcol3 .relg .rels{padding:8px 12px 10px}
 @media (max-width:640px){.relcol3 .relgs{flex-direction:column;align-items:stretch}}
-/* skrytý obsah (spoiler) */
-details.spoiler{margin:18px 0 6px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
-details.spoiler>summary{cursor:pointer;list-style:none;display:flex;align-items:baseline;gap:12px;padding:6px 0}
-details.spoiler>summary::-webkit-details-marker{display:none}
-details.spoiler>summary h3{margin:0}
-details.spoiler>summary span{font-family:var(--f-label);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
-details.spoiler>summary span::before{content:"▸ ";color:var(--kal)}
-details.spoiler[open]>summary span::before{content:"▾ "}
-details.spoiler[open]>summary span{color:var(--kal)}
-details.spoiler>summary span::after{content:" · zobrazit"}
-details.spoiler[open]>summary span::after{content:" · skrýt"}
-details.spoiler[open]{padding-bottom:8px}
+
 /* vypravěčská sekce rešerše postavy */
 .gmres{margin:18px 0 6px;border:1px dashed var(--kal);border-radius:4px;padding:8px 14px;background:color-mix(in srgb,var(--kal) 5%,transparent)}
 .gmres summary{cursor:pointer;font-family:var(--f-disp);font-size:1.15rem;color:var(--kal)}
@@ -1674,15 +1649,7 @@ html.gmv .wrap{margin-bottom:56px}
 .vysub{margin:14px 0 4px;font-family:var(--f-label);letter-spacing:.05em}
 .vysetkb .gbtn,.vysetkb .controls button{min-height:40px}
 .vystulm{white-space:nowrap}.vystulm.on{text-decoration:line-through;opacity:.6}.vystulm.akt{font-weight:700;color:var(--kal)}
-.herofig .vymed{position:absolute;right:-26px;top:-26px;width:76px;height:76px;border-radius:50%;z-index:3;display:grid;place-items:center;
-  background:radial-gradient(circle at 40% 35%,#fbf3dc,#ead9ae 70%);box-shadow:0 0 0 3px var(--frame1),0 0 0 4px var(--ink),0 0 0 7px var(--frame2),0 0 0 8px var(--ink),0 4px 10px rgba(40,25,10,.35)}
-.herofig .vymed.vynoc{background:radial-gradient(circle at 40% 35%,#2f4a7a,#16233f 75%)}
-.herofig .vymed svg{width:62px;height:62px;display:block}
-.herofig figcaption.vypoccap{position:absolute;top:calc(100% + 10px);bottom:auto;left:-14px;right:-14px;margin:0;font-size:.88rem;line-height:1.35;text-align:center;letter-spacing:0}
-.herofig.vypfig{margin-bottom:6.2em}
-.vypkde{display:block;font-style:normal;font-family:var(--f-label);letter-spacing:.06em;font-size:.78rem;color:var(--kal);margin-bottom:2px}
-.vypzav{display:block;color:var(--anom);margin-top:2px}
-@media (max-width:700px){.herofig .vymed{right:-16px;top:-16px;width:60px;height:60px}.herofig .vymed svg{width:48px;height:48px}.herofig.vypfig{margin-bottom:6.8em}}
+
 .vypanely .vystulc{grid-column:1/-1}.vyhodv{display:block}
 #vyview.vystul{display:flex;flex-direction:column}#vyview.vystul>.vyhead{order:0}#vyview.vystul>.vytabs{order:1}#vyview.vystul>.vypanely{order:2;margin:0 0 20px}#vyview.vystul>.vygrid{order:3}
 .dialpoct{font-family:var(--f-label);font-size:12px;letter-spacing:.05em;fill:#f3dc94;paint-order:stroke;stroke:rgba(8,12,34,.6);stroke-width:2px}
@@ -1746,7 +1713,7 @@ html.gmv .wrap{margin-bottom:56px}
 
 <main>
 <div class="view" data-view="uvod" hidden>
-<div class="herobox"><figure class="herofig"><span class="drstav" role="img" aria-label="Iluminace: bílý dráček ve zlatém kalichu plném vína pod hvězdnou oblohou. Dráček bdí – je den." title="Dráček bdí – je den."><img class="drsp" src="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 1 1%27/%3E" width="560" height="560" alt=""><img class="drl drz on" data-k="bdi" src="art/img/drak-bdi-640.webp" srcset="art/img/drak-bdi-420.webp 420w, art/img/drak-bdi-640.webp 640w, art/img/drak-bdi-840.webp 840w" sizes="(max-width:700px) 60vw, 400px" width="560" height="560" alt=""></span><figcaption>Sub utraque sunt dracones</figcaption></figure><section class="hero" id="hero"></section></div>
+<div class="herobox"><figure class="herofig"><span class="drstav" role="img" aria-label="Iluminace: bílý dráček ve zlatém kalichu plném vína pod hvězdnou oblohou. Dráček bdí – je den." title="Dráček bdí – je den."><img class="drsp" src="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 1 1%27/%3E" width="560" height="560" alt=""></span><figcaption>Sub utraque sunt dracones</figcaption></figure><section class="hero" id="hero"></section></div>
 <div class="uvgrid">
   <section class="sec uvev"><h2 class="uvh">Poslední události</h2><div id="uvnovw" hidden><h3 class="uvh2">Nedávné kontakty</h3><div class="kontakty" id="uvnov"></div></div><div id="uvzap"></div><h3 class="uvh2">Ze světa</h3><dl class="tl" id="uvlet"></dl><a class="uvmore" href="#kronika/letopis">Celý letopis →</a></section>
   <aside class="kal" id="kal1" aria-label="Kalendárium"></aside>
@@ -2112,13 +2079,11 @@ const FICON={kat:"art/img/vira-kat.webp",kal:"art/img/vira-kal.webp",mix:"art/im
 const SFICON={kat:"art/img/vira-kat.webp",kal:"art/img/vira-kal.webp",pra:"art/img/vira-pra.webp",isl:"art/img/vira-isl.webp",mix:"art/img/vira-smi.webp"};
 const faith=c=>`<span class="faith f-${c}"><img src="${FICON[c]}" alt="" aria-hidden="true">${CONFN[c]}</span>`;
 const CASTLEICO="art/img/hrad.webp";
-const castleImg=(c,cls)=>`<img class="${cls||"townico"} t-${c}" src="${CASTLEICO}" alt="" aria-hidden="true">`;
 const TOWNSEATS=new Set(["Picnov","Moravský Krumlov","Poděbrady", "Náchod", "Kladsko", "Minsterberk", "Český Krumlov", "Třeboň", "Jindřichův Hradec", "Telč (Morava)", "Blatná", "Rožmitál", "Litomyšl", "Budyně", "Děčín", "Bor", "Šternberk (Morava)", "Kroměříž", "Vyškov", "Velké Meziříčí", "Nisa", "Opolí", "Horní Hlohov", "Opava", "Hlubčice", "Krnov", "Ratiboř", "Těšín", "Olešnice", "Žaháň", "Hlohov", "Lehnice", "Břeh", "Svídnice", "Javor", "Žary", "Beeskow", "Berlín-Cölln", "Chotěbuz", "Krakov", "Osvětim", "Budín", "Kremnice", "Vídeňské Nové Město", "Vídeň", "Landshut", "Mnichov", "Neumarkt", "Míšeň", "Drážďany", "Výmar", "Plavno", "Šamotuly", "Hnězdno", "Ostřihom", "Pezinok", "Svätý Jur", "Eferding", "Pasov", "Řezno", "Pfreimd", "Gera"]); /* family seats that are towns rather than castles */
 const TOWNICO="art/img/mesto.webp";
 const townImg=(c,cls)=>`<img class="${cls||"townico"} t-${c}" src="${TOWNICO}" alt="" aria-hidden="true">`;
 const RTN={rod:"krev",spoj:"spojenci",spor:"spor"};
 const RICON={rod:"art/img/vazba-rod.webp",spoj:"art/img/vazba-spoj.webp",spor:"art/img/vazba-spor.webp"};
-const rtTag=t=>`<img class="rt" src="${RICON[t]}" alt="${RTN[t]}" title="${RTN[t]}">`;
 const rIco=t=>`<img class="rico" src="${RICON[t]}" alt="" aria-hidden="true">`;
 const RGL={rod:"Krev",spoj:"Spojenectví",spor:"Spory"};
 const relGroups=(rels,id,open)=>`<div class="relgs relrub">${["rod","spoj","spor"].map(k=>{const rs=rels.filter(r=>r.t===k);if(!rs.length)return"";
@@ -2335,21 +2300,6 @@ const DUCHY_POLY={"kcz":[[[13.725,48.868],[13.653,48.881],[13.621,48.909],[13.61
 const haversine=(a,b)=>{const R=6371,toR=Math.PI/180,dLa=(b[1]-a[1])*toR,dLo=(b[0]-a[0])*toR;const h=Math.sin(dLa/2)**2+Math.cos(a[1]*toR)*Math.cos(b[1]*toR)*Math.sin(dLo/2)**2;return 2*R*Math.asin(Math.sqrt(h))};
 const PLACES=[]; (function(){const seen=new Set();for(const f of FAM){if(f.nomap)continue;for(const sd of f.seats){if(seen.has(sd[0]))continue;seen.add(sd[0]);PLACES.push({name:sd[0],lo:sd[1],la:sd[2],fam:f.name})}}
   for(const z of ZEMEPIS){if(seen.has(z[0]))continue;seen.add(z[0]);PLACES.push({name:z[0],lo:z[1],la:z[2],fam:""})}PLACES.sort((a,b)=>a.name.localeCompare(b.name,"cs"))})();
-/* frayed borders: every land/diocese/neighbour outline is densified and pushed by a 2-D value-noise field.
-   The field depends only on position, so borders shared by two lands stay exactly on top of each other. */
-function vnoise(x,y,seed){const xi=Math.floor(x),yi=Math.floor(y),fx=x-xi,fy=y-yi;
-  const h=(a,b)=>{let n=a*374761393+b*668265263+seed*2147483647;n=(n^(n>>>13))*1274126177;n=n^(n>>>16);return((n>>>0)%10000)/5000-1};
-  const sx=fx*fx*(3-2*fx),sy=fy*fy*(3-2*fy);
-  const a=h(xi,yi),b=h(xi+1,yi),c=h(xi,yi+1),d=h(xi+1,yi+1);
-  return a+(b-a)*sx+(c-a)*sy+(a-b-c+d)*sx*sy}
-function fbm(x,y,seed){return 0.6*vnoise(x/0.42,y/0.30,seed)+0.28*vnoise(x/0.16,y/0.11,seed+7)+0.12*vnoise(x/0.06,y/0.045,seed+13)}
-const ROUGH=new Map();
-function rough(poly){
-  if(ROUGH.has(poly))return ROUGH.get(poly);
-  const out=[];
-  for(let i=0;i<poly.length;i++){const a=poly[i],b=poly[(i+1)%poly.length],L=Math.hypot(b[0]-a[0],b[1]-a[1]),n=Math.max(1,Math.round(L/0.035));
-    for(let j=0;j<n;j++){const t=j/n,x=a[0]+(b[0]-a[0])*t,y=a[1]+(b[1]-a[1])*t;out.push([x+0.075*fbm(x,y,3),y+0.05*fbm(x,y,11)])}}
-  ROUGH.set(poly,out);return out}
 const rpts=poly=>pts(poly);
 const MOUNTAINS=[
  [[12.35,50.33],[12.8,50.43],[13.3,50.56],[13.8,50.72]],
@@ -3082,7 +3032,6 @@ document.addEventListener("click",e=>{
   navTo("#rod/"+id);
 });
 
-function openFold(id){const d=document.querySelector(`#${id} details.fold`);if(d)d.open=true}
 if(matchMedia("(max-width:700px)").matches)document.querySelectorAll("details.fold").forEach(d=>{d.open=false});
 
 /* zoom & pan: wheel, mouse drag, two-finger pinch; full redraw after the gesture settles */
@@ -3416,7 +3365,6 @@ function artToc(cur){
    <nav class="atoc" aria-label="Obsah artikulí"><a class="atop${cur?"":" on"}" href="#artikule">Úvod</a>${ARTB.map(b=>`<p class="abook">${b.t} · ${b.n}</p><ol>${
     ARTK.filter(k=>k.book===b.id).map(k=>`<li><a href="#artikule/${k.id}"${k.id===cur?' class="on" aria-current="page"':""}>${k.t}</a>${k.id===cur&&k.secs.length>1?`<ol class="asecs">${k.secs.map(s=>`<li><a href="#artikule/${k.id}/${s.id}">${s.t}</a></li>`).join("")}</ol>`:""}</li>`).join("")}</ol>`).join("")}</nav>`;
 }
-const ROM=n=>["","I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX"][n]||String(n);
 function artLanding(){
   const quick=`<div class="aquick">
    <a class="qk" href="#artikule/zavoj/kostka"><b>Kostka Závoje · d6</b><span>1–2 ${Z.P}</span><span>3–4 bez efektu</span><span>5–6 ${Z.B}</span></a>
@@ -4776,8 +4724,8 @@ function dialSVG(X){
   const usek=(r0,r1,h)=>{const [a,b]=P(r0,h),[c2,d2]=P(r1,h);return `M${F(a)},${F(b)}L${F(c2)},${F(d2)}`};
   let mask="";for(let k=0;k<96;k++){const v=Math.round(den(k/4+.125)*255);mask+=`<path d="${vysec(236,116,k/4,(k+1)/4)}" fill="rgb(${v},${v},${v})" stroke="rgb(${v},${v},${v})" stroke-width=".8"/>`}
   let o=`<svg class="dialsvg" viewBox="-62 -62 524 524" role="img" aria-label="Hodiny Závoje"><defs>
-<pattern id="dkzl" patternUnits="userSpaceOnUse" x="-62" y="-62" width="524" height="524"><image href="${IMG}kolo-den.webp" width="524" height="524"/></pattern>
-<filter id="dkruka" filterUnits="userSpaceOnUse" x="-76" y="-76" width="552" height="552"><feTurbulence type="fractalNoise" baseFrequency=".09" numOctaves="2" seed="7"/><feDisplacementMap in="SourceGraphic" scale="2.6" xChannelSelector="R" yChannelSelector="G"/></filter>
+<linearGradient id="dkzl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fbe7a1"/><stop offset=".3" stop-color="#d2a23c"/><stop offset=".55" stop-color="#f4d985"/><stop offset=".8" stop-color="#b8862a"/><stop offset="1" stop-color="#e9c66a"/></linearGradient>
+<filter id="dkruka" filterUnits="userSpaceOnUse" x="-76" y="-76" width="552" height="552"><feTurbulence type="fractalNoise" baseFrequency=".09" numOctaves="1" seed="7"/><feDisplacementMap in="SourceGraphic" scale="2.6" xChannelSelector="R" yChannelSelector="G"/></filter>
 <filter id="dkmlha" filterUnits="userSpaceOnUse" x="-40" y="-40" width="480" height="480"><feGaussianBlur stdDeviation="3.5" result="b"/><feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="3" seed="3" result="n"/><feDisplacementMap in="b" in2="n" scale="14" xChannelSelector="R" yChannelSelector="B"/></filter>
 <mask id="dkden" maskUnits="userSpaceOnUse" x="-34" y="-34" width="468" height="468"><g filter="url(#dkmlha)">${mask}</g></mask>
 <clipPath id="dkpr"><path d="${kruh(R1)}${kruh(R0)}" clip-rule="evenodd"/></clipPath>
@@ -4797,8 +4745,9 @@ function dialSVG(X){
   {const [x,y]=P(173,0),r=20.5,p=moon.p,k=Math.abs(Math.cos(2*Math.PI*p))*r,wax=p<.5,ts=wax?(p<.25?0:1):(p<.75?0:1);
    if(moon.lit<99)o+=`<mask id="dkfaze" maskUnits="userSpaceOnUse" x="${F(x-r-2)}" y="${F(y-r-2)}" width="${2*r+4}" height="${2*r+4}"><circle cx="${F(x)}" cy="${F(y)}" r="${r}" fill="#fff"/>${moon.lit>1?`<path d="M${F(x)},${F(y-r)}A${r},${r} 0 0 ${wax?1:0} ${F(x)},${F(y+r)}A${F(k)},${r} 0 0 ${ts} ${F(x)},${F(y-r)}Z" fill="#000"/>`:""}</mask><circle cx="${F(x)}" cy="${F(y)}" r="${r}" fill="#070b1f" opacity=".58" mask="url(#dkfaze)" pointer-events="none"/>`}
   /* kanonické hodinky vně kruhu */
+  o+=`<g filter="url(#dkruka)" stroke-linecap="round">${canon.map(([,h])=>`<path d="${usek(R1+2,R1+9,h)}" stroke="${INK}" stroke-width="3.4"/><path d="${usek(R1+2,R1+9,h)}" stroke="url(#dkzl)" stroke-width="1.8"/>`).join("")}</g>`;
   canon.forEach(([n,h])=>{const [x,y]=P(213,h);let rot=(h-12)*15;if(Math.cos(rot*DEG)<0)rot+=180;
-    o+=`<g class="dialcan"><title>${n} – kolem ${Math.floor(((h%24)+24)%24)}. hodiny; zvon k modlitbě</title><path d="${usek(R1+2,R1+9,h)}" stroke="${INK}" stroke-width="3.4" stroke-linecap="round" filter="url(#dkruka)"/><path d="${usek(R1+2,R1+9,h)}" stroke="url(#dkzl)" stroke-width="1.8" stroke-linecap="round" filter="url(#dkruka)"/><text x="${F(x)}" y="${F(y)}" transform="rotate(${F(rot)} ${F(x)} ${F(y)})" text-anchor="middle" dominant-baseline="central" class="dialcantx">${n}</text></g>`});
+    o+=`<g class="dialcan"><title>${n} – kolem ${Math.floor(((h%24)+24)%24)}. hodiny; zvon k modlitbě</title><text x="${F(x)}" y="${F(y)}" transform="rotate(${F(rot)} ${F(x)} ${F(y)})" text-anchor="middle" dominant-baseline="central" class="dialcantx">${n}</text></g>`});
   /* vnitřní kruh z tmavého dřeva; jeho střed se otáčí se západem slunce (orloj) */
   o+=`<g clip-path="url(#dkvn)"><image href="${IMG}kolo-drevo.webp" x="${C-R0}" y="${C-R0}" width="${2*R0}" height="${2*R0}" transform="rotate(${F((sun.set-18)*15)} ${C} ${C})"/><path d="${kruh(R0)}${kruh(R0-15)}" fill-rule="evenodd" fill="#140a04" opacity=".38"/></g>`;
   let t96="";for(let k=0;k<96;k++)t96+=`<path d="${usek(R0-1,k%4?R0-8:R0-12,k/4)}" stroke="#d6aa4a" stroke-width="${k%4?.8:1.6}"/>`;
@@ -4812,7 +4761,7 @@ function dialSVG(X){
   for(let h=1;h<=24;h++){const hh=h%24,[x,y]=P(173,h),noc=den(h)<.5,a=(h-12)*15,cur=H!=null&&H%24===hh,zv=Z[hh]!=null,rub=hh===0||hh===12;
     const can=canon.filter(([n,t])=>Math.round(((t%24)+24)%24)===hh).map(q=>q[0]).join(", ");
     o+=`<g class="dialhr"><title>${h}. hodina · ${hourWord(hh)} · na orloji ${cz(hh)}.${can?" · "+can:""}${zv?" · Hodina Závoje ("+Z[hh]+")":""}</title>`;
-    if(zv&&!cur&&!rub)o+=`<circle cx="${F(x)}" cy="${F(y)}" r="14.5" fill="none" stroke="${noc?"#f0d68a":"#8e2416"}" stroke-width="1.3" filter="url(#dkruka)"/>`;
+    if(zv&&!cur&&!rub)o+=`<circle cx="${F(x)}" cy="${F(y)}" r="14.5" fill="none" stroke="${noc?"#f0d68a":"#8e2416"}" stroke-width="1.3"/>`;
     if(cur)o+=`<circle cx="${F(x)}" cy="${F(y)}" r="15.8" fill="${INK}"/><circle cx="${F(x)}" cy="${F(y)}" r="14" fill="url(#dksm)" stroke="url(#dkzl)" stroke-width="2.4" class="dialcur${pravda?" pravda":""}"/><ellipse cx="${F(x-4.5)}" cy="${F(y-5.5)}" rx="4.5" ry="2.6" fill="#fff" opacity=".28" transform="rotate(-35 ${F(x-4.5)} ${F(y-5.5)})"/>`;
     o+=`<circle cx="${F(x)}" cy="${F(y)}" r="14" fill="transparent"/><text x="${F(x)}" y="${F(y)}" transform="rotate(${a} ${F(x)} ${F(y)})" text-anchor="middle" dominant-baseline="central" class="dialnum ${cur?"dnc":rub?"dnr":noc?"dnn":"dnd"}" style="font-size:${[0,21,21,20,18.5][RIMV[(h-1)%12+1].length]}px">${RIMV[(h-1)%12+1]}</text></g>`}
   /* ručička: při načtení přejede od hodiny minulého zápisu */
@@ -4888,12 +4837,11 @@ function vekPostavy(nar){
 function renderKal(){
   const [Y,M,D]=herniDen(), today=jdn(Y,M,D);
   const up=[...feasts(Y),...feasts(Y+1)].filter(f=>f.j>=today).sort((a,b)=>a.j-b.j).slice(0,8);
-  const fd=j=>{const [y,m,d]=fromJdn(j);return `${d}. ${MES[m-1]}`+(y!==Y?` ${y}`:"")};
   const rel=j=>{const n=j-today;return n===0?"dnes":n===1?"zítra":`za ${n} ${n<5?"dny":"dní"}`};
   {const hzs=[...ZAPISY].reverse().filter(z=>z.hodina!=null),hh=HRA&&HRA.hodina!=null,H=hh?+HRA.hodina:(hzs[0]?hzs[0].hodina:null),
      X=dialCtx(Y,M,D,today,H,hh?(HRA.hodinaPred!=null?+HRA.hodinaPred:null):(hzs[1]?hzs[1].hodina:null));X.poc=dialPoc(today);X.today=today;
    const pp=partyPlace(),fz=pp&&FAM.find(f=>!f.nomap&&f.seats.some(sd=>sd[0]===pp)),LZ=ZAPISY[ZAPISY.length-1];
-   document.getElementById("hero").innerHTML=`<div class="dial">${dialSVG(X)}<div class="dialtxt"><p class="lbl">Dnes je</p><p class="herod">${DNY[(today+1)%7]} ${D}. ${MES[M-1]}<span>léta Páně ${Y}</span></p>${H!=null?dialHour(X):""}</div></div>${cestaAktivni()?`<p class="herop">Družina je na cestě: ${HRA.cesta.z} → <b>${HRA.cesta.do}</b> · příjezd asi ${cTxt(HRA.cesta.track[HRA.cesta.track.length-1][0]).replace(/ \d{4},/,",")}${LZ?` · poslední zápis: <a href="#kronika/${LZ.id}">${LZ.title}</a>`:""}</p>`:pp?`<p class="herop">Družina: ${fz?`<button type="button" class="maplink" data-id="${fz.id}" data-place="${pp}">${pp}</button>`:pp}${LZ?` · poslední zápis: <a href="#kronika/${LZ.id}">${LZ.title}</a>`:""}</p>`:""}`;try{drakStav(X)}catch(e){console.warn(e)}}
+   {const he=document.getElementById("hero"),hh2=`<div class="dial">${dialSVG(X)}<div class="dialtxt"><p class="lbl">Dnes je</p><p class="herod">${DNY[(today+1)%7]} ${D}. ${MES[M-1]}<span>léta Páně ${Y}</span></p>${H!=null?dialHour(X):""}</div></div>${cestaAktivni()?`<p class="herop">Družina je na cestě: ${HRA.cesta.z} → <b>${HRA.cesta.do}</b> · příjezd asi ${cTxt(HRA.cesta.track[HRA.cesta.track.length-1][0]).replace(/ \d{4},/,",")}${LZ?` · poslední zápis: <a href="#kronika/${LZ.id}">${LZ.title}</a>`:""}</p>`:pp?`<p class="herop">Družina: ${fz?`<button type="button" class="maplink" data-id="${fz.id}" data-place="${pp}">${pp}</button>`:pp}${LZ?` · poslední zápis: <a href="#kronika/${LZ.id}">${LZ.title}</a>`:""}</p>`:""}`;if(he._h!==hh2){he.innerHTML=hh2;he._h=hh2}};try{drakStav(X)}catch(e){console.warn(e)}}
   renderNovinky();
   const zs=[...ZAPISY].reverse().slice(0,3);
   document.getElementById("uvzap").innerHTML=`<ol class="zlist">${zs.map(z=>`<li><a class="zcard" href="#kronika/${z.id}"><small>${z.n} · ${z.date} · ${z.place}</small><b>${z.title}</b><span>${strip(z.text).replace(/\s+/g," ").slice(0,180)}…</span></a></li>`).join("")}</ol>`;
@@ -4913,13 +4861,6 @@ function kalFit(){
 if("ResizeObserver" in window){const u=document.querySelector(".uvev");if(u)new ResizeObserver(()=>kalFit()).observe(u)}
 addEventListener("resize",()=>kalFit());
 /* --- NOVINKY: co družina nově zná (z deníku odhalení) --- */
-function entInfo(id){
-  if(PBY[id])return{k:"osoba",n:PBY[id].n.replace(/^✦\s*/,""),h:"#osoba/"+id,sl:PBY[id].sl};
-  if(byId[id])return{k:"rod",n:byId[id].name,h:"#rod/"+id,sl:byId[id].sl};
-  if(DRBY[id]&&DRBY[id].k==="pl")return{k:"drak",n:DRBY[id].o.n,h:"#draconomicon/"+id,sl:DRBY[id].o.sl};
-  if(ZBY[id])return{k:"zapis",n:ZBY[id].title,h:"#kronika/"+id};
-  const d=DISC.find(x=>x.id===id);if(d)return{k:"misto",n:d.name,h:"#mapa",sl:!d.note};
-  return null}
 function renderNovinky(){
   /* Nedávné kontakty: osoby, které družina naposledy potkala (z deníku odhalení, nejnovější první) */
   const w=document.getElementById("uvnovw");if(!w)return;
@@ -5200,7 +5141,7 @@ function route(){
   }else if(view==="draconomicon"){
     renderDraco(b); window.scrollTo(0,0);
   }else if(view==="svet"){
-    svInit(); if(b&&SVB[b]){const go=()=>{if(SG)sSel(b);else setTimeout(go,120)};go()} else if(changed)window.scrollTo(0,0);
+    svInit();if(SG&&window._sDirty){window._sDirty=0;sDraw()} if(b&&SVB[b]){const go=()=>{if(SG)sSel(b);else setTimeout(go,120)};go()} else if(changed)window.scrollTo(0,0);
   }else if(view==="praha"){
     praInit(); if(b&&PRB[+b]){const go=()=>{if(PG)pSel(+b,true);else setTimeout(go,120)};go()} else if(changed)window.scrollTo(0,0);
   }else if(view==="druzina"){
@@ -5424,7 +5365,7 @@ async function hraUloz(h){
   catch(err){mmHlasG("Nepodařilo se uložit: "+err.message,7000)}finally{document.documentElement.classList.remove("gmbusy")}
   return HRA}
 const HRA_PO=[];
-function hraPo(){try{renderKal()}catch(e){}try{if(typeof drawMap==="function")drawMap()}catch(e){}try{if(SG)sDraw()}catch(e){}
+function hraPo(){try{renderKal()}catch(e){}try{if(curView==="mapa")drawMap()}catch(e){}try{if(SG){if(curView==="svet")sDraw();else window._sDirty=1}}catch(e){}
   if(curView==="boj")try{renderBoj()}catch(e){}
   if(curView==="druzina")try{renderDruzina(decodeURIComponent((location.hash.split("/")[1])||""))}catch(e){}
   HRA_PO.forEach(f=>{try{f()}catch(e){}})}
@@ -5599,11 +5540,7 @@ function renderGM(){
     const now=cT(HRA),t1=c.track[c.track.length-1][0],q=cestaPoz(c.track,now);box.hidden=false;
     box.innerHTML=`<p><b>Družina je na cestě</b>: ${c.z} → <b>${c.do}</b>. Vyrazila ${cTxt(c.track[0][0])}, příjezd ${cTxt(t1)}${now>=t1?" – už dorazila (uloží se s dalším posunem času)":""}. Teď: ${q?cKde(...q):"?"}.</p>
       <div class="gmhrab"><button type="button" class="gbtn" data-cesta="zastavit">Zastavit cestu tady</button><button type="button" class="gbtn ghost" data-cesta="dojet">Rovnou dorazit</button><button type="button" class="gbtn ghost" data-cesta="zrusit">Zrušit cestu</button></div>`};
-  const cZaznam=(c,t1,konec)=>{const st=c.track.filter(q=>q[0]<=t1),pts=st.map(q=>[q[1],q[2]]);if(konec)pts.push(konec);
-    const zjed=pts.filter((q,i)=>i===0||i===pts.length-1||i%3===0);return [...((HRA&&HRA.putovani)||[]),{z:c.z,do:c.do,od:cTxt(c.track[0][0]),pr:cTxt(t1),b:zjed}].slice(-80)};
-  /* před každým uložením: když čas došel na příjezd, družina je v cíli */
-  const cDokonci=h=>{const c=h.cesta!==undefined?h.cesta:(HRA&&HRA.cesta);if(!c||!c.track)return h;const now=cT(Object.assign({},HRA,h)),t1=c.track[c.track.length-1][0];
-    if(now==null||now<t1)return h;const e=c.track[c.track.length-1];return Object.assign(h,{cesta:null,misto:c.do,poloha:null,praha:null,putovani:cZaznam(c,t1,[e[1],e[2]])})};
+  const cZaznam=cZaznamG,cDokonci=cDokonciG;
   const _uloz=ulozHru;ulozHru=h=>_uloz(cDokonci(h)).then(()=>{cAkt();cestaOdhad()});
   ["input","change"].forEach(t=>hf.addEventListener(t,e=>{if(e.target.closest(".gmcesta")||["misto","datum","hodina"].includes(e.target.name))cestaOdhad()}));
   hf.addEventListener("click",e=>{const b=e.target.closest("[data-cesta]");if(!b)return;e.stopImmediatePropagation();const k=b.dataset.cesta,c=HRA&&HRA.cesta;
@@ -6751,28 +6688,6 @@ function vyClovek(ll){const pick=a=>a[Math.floor(Math.random()*a.length)],wp=a=>
   return `${jm} ${pr} – ${st}${rasa!=="člověk"?`, ${rasa}`:""}, ${vira}; ${pick(VY_POV)}. Chce ${pick(VY_CHCE)}. Tajemství: ${pick(VY_TAJ)}.`}
 /* počasí na Úvodu pro hráče (vypravěč ho zapíná ve Výpravě) */
 /* symbol počasí (iluminace: zlato, rumělka, modř; tučné obrysy, aby byl čitelný i malý) */
-let vyIkN=0;
-function vyIkona(P,noc){const z="#e2b23c",zt="#6b4310",m="#2f5fae",o="#eef1f4",i="#2b2117",c="#a7b0bb",id="vyik"+(++vyIkN);
-  const slunce=(x,y,r,b)=>{let t="";for(let k=0;k<12;k++){const a=k*Math.PI/6,l=k%2?r*1.5:r*1.85;t+=`<path d="M${x+Math.cos(a-.22)*r*1.02},${y+Math.sin(a-.22)*r*1.02}L${x+Math.cos(a)*l},${y+Math.sin(a)*l}L${x+Math.cos(a+.22)*r*1.02},${y+Math.sin(a+.22)*r*1.02}Z" fill="${b||z}" stroke="${zt}" stroke-width="1.6" stroke-linejoin="round"/>`}
-    return t+`<circle cx="${x}" cy="${y}" r="${r}" fill="${b||z}" stroke="${zt}" stroke-width="2"/><circle cx="${x-r*.36}" cy="${y-r*.18}" r="${r*.11}" fill="${zt}"/><circle cx="${x+r*.36}" cy="${y-r*.18}" r="${r*.11}" fill="${zt}"/><path d="M${x-r*.38},${y+r*.28}q${r*.38},${r*.32} ${r*.76},0" fill="none" stroke="${zt}" stroke-width="1.9" stroke-linecap="round"/>`};
-  const mesic=(x,y,r)=>`<defs><mask id="${id}"><rect x="0" y="0" width="64" height="64" fill="#fff"/><circle cx="${x+r*.55}" cy="${y-r*.25}" r="${r*.86}" fill="#000"/></mask></defs><circle cx="${x}" cy="${y}" r="${r}" fill="${z}" stroke="${zt}" stroke-width="2" mask="url(#${id})"/>`
-    +[[x+r*1.05,y-r*.95,2.4],[x+r*1.25,y+r*.35,1.8],[x+r*.25,y-r*1.45,1.6]].map(([a,b,q])=>`<path d="M${a},${b-q*1.6}L${a+q*.5},${b-q*.5}L${a+q*1.6},${b}L${a+q*.5},${b+q*.5}L${a},${b+q*1.6}L${a-q*.5},${b+q*.5}L${a-q*1.6},${b}L${a-q*.5},${b-q*.5}Z" fill="${z}"/>`).join("");
-  const mrak=(x,y,s,f)=>`<path d="M-17,8a8,8 0 0,1 1.5,-15.8a12,12 0 0,1 22.5,-4a9.5,9.5 0 0,1 11.5,9.6a7.4,7.4 0 0,1 -1.2,10.2Z" transform="translate(${x} ${y}) scale(${s})" fill="${f||o}" stroke="${i}" stroke-width="${2.2/s}" stroke-linejoin="round"/>`;
-  const kapky=(n,col)=>Array.from({length:n},(_,k)=>`<path d="M${22+k*8},${44+(k%2)*4}l-2.6,8" stroke="${col||m}" stroke-width="3.2" stroke-linecap="round"/>`).join("");
-  const vlocka=(x,y,r)=>`<g stroke="${m}" stroke-width="2.4" stroke-linecap="round"><path d="M${x-r},${y}h${2*r}M${x-r/2},${y-r*.87}l${r},${r*1.73}M${x+r/2},${y-r*.87}l${-r},${r*1.73}"/></g>`;
-  let g="",t="";
-  if(P.typ==="bourka"){g=mrak(33,30,1.1,c)+`<path d="M34,36l-6.5,11h6l-3.5,11l11.5,-15h-6l3.5,-7Z" fill="${z}" stroke="${zt}" stroke-width="1.6" stroke-linejoin="round"/>`+(P.kroupy?`<circle cx="19" cy="48" r="2.8" fill="#fff" stroke="${i}" stroke-width="1.3"/><circle cx="47" cy="50" r="2.8" fill="#fff" stroke="${i}" stroke-width="1.3"/>`:"");t="bouřka"}
-  else if(P.typ==="snih"){g=mrak(33,28,1.05,o)+vlocka(22,47,4.5)+vlocka(34,51,4.5)+(P.int>=2?vlocka(46,47,4.5):"");t="sníh"}
-  else if(P.typ==="plucha"){g=mrak(33,28,1.05,o)+kapky(1)+vlocka(40,49,4.5);t="déšť se sněhem"}
-  else if(P.typ==="dest"){g=mrak(33,28,1.05,P.int>=2?c:o)+kapky(P.int>=3?4:P.int>=2?3:2);t=P.int>=3?"liják":"déšť"}
-  else if(P.mlha){g=(noc?mesic(32,22,10):slunce(32,22,8.5,"#ecd28a"))+[36,44,52].map((y,k)=>`<path d="M${9+k*2},${y}q5.5,-4 11,0t11,0t11,0t11,0" fill="none" stroke="#7d8794" stroke-width="3.6" stroke-linecap="round"/>`).join("");t="mlha"}
-  else if(P.v>=3){g=`<path d="M8,24h30a7,7 0 1,0 -7,-7M8,34h40a7,7 0 1,1 -7,7M12,44h18" fill="none" stroke="${m}" stroke-width="3.6" stroke-linecap="round"/>`;t=VY_VITR[P.v]}
-  else if(P.rz==="fro"||P.rz==="stre"){g=mrak(26,30,.95,c)+mrak(38,38,1.05,o);t="zataženo"}
-  else if(P.rz==="zap"||P.rz==="sev"){g=(noc?mesic(23,23,10):slunce(23,23,8.5))+mrak(37,40,1.05,o);t="polojasno"}
-  else{g=noc?mesic(30,33,15):slunce(32,32,12.5,P.tx>=27?"#e88a3a":null);t=noc?"jasná noc":P.tx>=27?"vedro":P.tx<=-2?"mrazivé jasno":"jasno";
-    if(P.tx<=-2&&!noc)g+=`<circle cx="49" cy="49" r="8" fill="#eef4fb" stroke="${i}" stroke-width="1.4"/>`+vlocka(49,49,4.6)}
-  if(P.zav)g+=`<path d="M52,6l2,5.5l5.5,2l-5.5,2l-2,5.5l-2,-5.5l-5.5,-2l5.5,-2Z" fill="#a77ee6" stroke="#4b2a7a" stroke-width="1.2" stroke-linejoin="round"/>`;
-  return {svg:`<svg viewBox="2 2 60 60" aria-hidden="true">${g}</svg>`,t}}
 /* počasí na Úvodu ukazuje jen prstenec kola času; pod iluminací s dráčkem zůstává původní heslo */
 async function vyZverejniPocasi(){if(!window.MMDB||!GMV||!VY)return;const o=VY.pocasi||{};if(JSON.stringify((HRA&&HRA.pocasiR)||{})===JSON.stringify(o)){renderKal();return}
   try{HRA=await MMDB.nastavHru({pocasiR:o});__D.HRA=HRA;renderKal()}catch(e){mmHlasG("Počasí pro hráče se nepodařilo uložit: "+e.message,6000)}}
