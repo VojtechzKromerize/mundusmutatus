@@ -1710,6 +1710,15 @@ html.gmv .wrap{margin-bottom:56px}
 .phbtn.phzv{box-shadow:0 0 0 2px #c0392b,0 0 14px rgba(192,57,43,.6)}
 .phbtn.phpr{animation:phpul 1.6s ease-in-out infinite}@keyframes phpul{50%{box-shadow:0 0 0 3px #e74c3c,0 0 22px rgba(231,76,60,.9)}}
 @media (prefers-reduced-motion:reduce){.phbtn.phpr{animation:none}}
+.pvcard.pvgmon{pointer-events:auto!important}
+.pvgm{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:10px;padding-top:8px;border-top:1px dashed color-mix(in srgb,var(--gold) 50%,var(--rule))}
+.pvgm .lbl{margin:0}.pvwarn{display:block;color:var(--kal);font-size:.8rem;margin-top:4px}
+.mapcas{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0 4px;padding:6px 10px;border:1px solid color-mix(in srgb,var(--gold) 40%,var(--rule));border-radius:3px;background:var(--paper)}
+.mapcas input{flex:1 1 220px;accent-color:var(--kal)}.mapcas output{flex-basis:100%;font-size:.9rem;color:var(--ink)}
+.zapmk{cursor:pointer}.zapmk:focus{outline:none}.zapmk:focus circle,.zapmk:hover circle{stroke:var(--gold)}
+.trcest{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:10px;padding-top:8px;border-top:1px dashed color-mix(in srgb,var(--gold) 50%,var(--rule))}
+.trcest select{font:inherit;font-family:var(--f-body);color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:3px;padding:4px 8px;min-height:36px}
+.trodh{font-size:.88rem;color:var(--muted)}
 </style>
 
 <div class="wrap"><div class="papir" aria-hidden="true"></div>
@@ -1800,6 +1809,7 @@ html.gmv .wrap{margin-bottom:56px}
       </div>
       <details class="maplegend"><summary>Legenda mapy</summary><div class="lgrid"><div><img class="townico t-kat" src="art/img/hrad.webp" alt="">sídlo katolického rodu</div><div><img class="townico t-kal" src="art/img/hrad.webp" alt="">sídlo kališnického rodu</div><div><img class="townico t-mix" src="art/img/hrad.webp" alt="">sídlo smíšeného rodu</div><div><img class="townico n-kat" src="art/img/hrad.webp" alt="">sídlo sousedního rodu (tmavší lem)</div><div><img class="townico t-kal" src="art/img/mesto.webp" alt="">kališnické město</div><div><img class="townico t-kat" src="art/img/mesto.webp" alt="">katolické město</div><div><svg viewBox="0 0 30 18" aria-hidden="true"><path d="M3,14Q9,3 15,14M15,14Q21,3 27,14" fill="var(--hill)" stroke="var(--city)"/></svg>pohoří</div><div><svg viewBox="0 0 30 18" aria-hidden="true"><circle cx="10" cy="8" r="3.5" fill="var(--tree)"/><circle cx="20" cy="9" r="3.5" fill="var(--tree)"/></svg>les</div><div><svg viewBox="0 0 30 18" aria-hidden="true"><path d="M2,12Q10,4 16,10T28,6" fill="none" stroke="var(--water)" stroke-width="2"/></svg>řeka</div><div><svg viewBox="0 0 30 18" aria-hidden="true"><line x1="2" y1="9" x2="28" y2="9" stroke="var(--road)" stroke-width="2.2" stroke-dasharray="6 3"/></svg>zemská stezka (vrstva Cesty)</div><div><svg viewBox="0 0 30 18" aria-hidden="true"><line x1="2" y1="9" x2="28" y2="9" stroke="var(--road)" stroke-width="1.1" stroke-dasharray="2.5 2.5"/></svg>vedlejší cesta</div><div><svg viewBox="0 0 30 18" aria-hidden="true"><rect x="3" y="3" width="24" height="12" fill="var(--nsa)" fill-opacity=".4" stroke="var(--city)" stroke-dasharray="3 2"/></svg>sousední země</div><div><svg viewBox="0 0 30 18" aria-hidden="true"><path d="M15,2V16M10,6H20" stroke="var(--dpr)" stroke-width="2.6" stroke-linecap="round"/></svg>sídlo biskupa (vrstva Diecéze)</div><div><svg viewBox="0 0 30 18" aria-hidden="true"><line x1="2" y1="9" x2="28" y2="9" stroke="var(--kal)" stroke-width="2.4" stroke-dasharray="7 3.5"/></svg>měřená trasa</div><div><svg viewBox="0 0 30 18" aria-hidden="true"><circle cx="15" cy="9" r="4" fill="var(--kat)"/><circle cx="15" cy="9" r="7" fill="none" stroke="var(--kal)" stroke-width="1.6"/></svg>vazba vybraného rodu (vrstva Vazby rodu)</div></div><p class="lbl" style="margin-top:6px">Mapu lze přibližovat kolečkem myši nebo dvěma prsty a posouvat tažením myší či dvěma prsty.</p></details>
       <p id="ringlegend" class="ringlegend" hidden>Kroužky u sídel ukazují vazby vybraného rodu: <span style="color:var(--gold)">◌ krev</span> <span style="color:var(--kat)">○ spojenci</span> <span style="color:var(--kal)">○ spor</span>.</p>
+      <div id="mapcas" class="mapcas" hidden><label for="mapcasr" class="lbl">Kde jsme byli kdy</label><input type="range" id="mapcasr" min="0" max="1" step="1" value="1"><output id="mapcaso"></output></div>
       <div id="travel" class="travel" hidden>
         <div class="trow"><label for="tfrom" class="lbl">Odkud</label><select id="tfrom"></select><label for="tto" class="lbl">Kam</label><select id="tto"></select></div>
         <div id="tres" class="tres"><p>Vyberte dvě sídla na mapě nebo v nabídce.</p></div>
@@ -4645,11 +4655,12 @@ function renderKronika(b){
    <nav class="apn">${pv?`<a href="#kronika/${pv.id}" rel="prev"><small>Předchozí</small>${pv.title}</a>`:"<span></span>"}${nx?`<a href="#kronika/${nx.id}" rel="next"><small>Další</small>${nx.title}</a>`:"<span></span>"}</nav>`;
   autolink(box.querySelector(".ztext"),"");
 }
-function partyPath(){const pts=[];ZAPISY.forEach(z=>(z.route||[z.place]).concat(z.place).forEach(n=>{const p=placeBy(n);if(p&&(!pts.length||pts[pts.length-1].name!==p.name))pts.push(p)}));
-  const q=placeBy(partyPlace()||"");if(q&&(!pts.length||pts[pts.length-1].name!==q.name))pts.push(q);return pts}
+function partyPath(lim){const pts=[];(lim!=null?ZAPISY.slice(0,lim+1):ZAPISY).forEach(z=>(z.route||[z.place]).concat(z.place).forEach(n=>{const p=placeBy(n);if(p&&(!pts.length||pts[pts.length-1].name!==p.name))pts.push(p)}));
+  if(lim!=null)return pts;const q=placeBy(partyPlace()||"");if(q&&(!pts.length||pts[pts.length-1].name!==q.name))pts.push(q);return pts}
 function drawParty(svg,s,k){
   if(!st.party||(!ZAPISY.length&&!HRA))return;
-  const pts=partyPath();
+  const lim=st.cas!=null&&ZAPISY[st.cas]?st.cas:null,LZ=lim!=null?ZAPISY[lim]:null,tz=LZ?cT({datum:LZ.datum,hodina:LZ.hodina??23}):null;
+  const pts=partyPath(lim);
   if(pts.length>1){const rp=pts.map(p=>P(p.lo,p.la).join(",")).join(" ");
     svg.appendChild(el("polyline",{points:rp,fill:"none",stroke:"var(--paper)","stroke-width":(4.5*s).toFixed(2),opacity:".8","stroke-linejoin":"round","pointer-events":"none"}));
     svg.appendChild(el("polyline",{points:rp,fill:"none",stroke:"var(--kal)","stroke-width":(2.2*s).toFixed(2),"stroke-dasharray":`${0.5*s} ${4*s}`,"stroke-linecap":"round","stroke-linejoin":"round","pointer-events":"none"}))}
@@ -4664,10 +4675,17 @@ function drawParty(svg,s,k){
      svg.appendChild(el("polyline",{points:rp,fill:"none",stroke:"var(--paper)","stroke-width":(4*s).toFixed(2),opacity:".7","stroke-linejoin":"round","pointer-events":"none"}));
      const pl=el("polyline",{points:rp,fill:"none",stroke:"var(--kal)","stroke-width":(1.8*s).toFixed(2),opacity:op,"stroke-dasharray":dash?`${3*s} ${3*s}`:"none","stroke-linecap":"round","stroke-linejoin":"round"});
      if(title)pl.appendChild(el("title",{},title));svg.appendChild(pl)};
-   ((HRA&&HRA.putovani)||[]).forEach(c=>line(c.b||[],false,".85",`${c.z} → ${c.do} · ${c.od} – ${c.pr}`));
-   const c=HRA&&HRA.cesta;if(c&&c.track){const now=cT(HRA),done=c.track.filter(q=>q[0]<=now).map(q=>[q[1],q[2]]),qq=cestaPoz(c.track,now);if(qq)done.push(qq);
+   ((HRA&&HRA.putovani)||[]).filter(c=>lim==null||(c.t1!=null&&tz!=null&&c.t1<=tz)).forEach(c=>line(c.b||[],false,".85",`${c.z} → ${c.do} · ${c.od} – ${c.pr}`));
+   const c=lim==null&&HRA&&HRA.cesta;if(c&&c.track){const now=cT(HRA),done=c.track.filter(q=>q[0]<=now).map(q=>[q[1],q[2]]),qq=cestaPoz(c.track,now);if(qq)done.push(qq);
      line(done,false,".85",`${c.z} → ${c.do}`);line([qq||[c.track[0][1],c.track[0][2]],...c.track.filter(q=>q[0]>now).map(q=>[q[1],q[2]])],true,".45",`plán: ${c.z} → ${c.do}`)}}
-  const last=ZAPISY[ZAPISY.length-1],cur=partyPos(); if(!cur)return;
+  /* paměť tažení: pečeti zápisů Kroniky v místech, kde zápis končí */
+  {const by=new Map();ZAPISY.forEach((z,i)=>{if(lim!=null&&i>lim)return;const p=placeBy(z.place);if(!p)return;if(!by.has(p.name))by.set(p.name,{p,z:[]});by.get(p.name).z.push([i,z])});
+   by.forEach(({p,z})=>{const [x,y]=P(p.lo,p.la),m=s*1.15,[i0,zl]=z[z.length-1],g=el("g",{class:"zapmk",tabindex:0,role:"link","aria-label":`Zápis Kroniky: ${zl.title}`});
+     g.appendChild(el("title",{},z.map(([i,q])=>`${q.n||"Zápis "+(i+1)} · ${q.date||""} · ${q.title}`).join("\n")));
+     g.appendChild(el("circle",{cx:x-9*m,cy:y+9*m,r:6.4*m,fill:"#a3232b",stroke:"var(--paper)","stroke-width":(1.4*s).toFixed(2)}));
+     g.appendChild(el("text",{x:x-9*m,y:y+9*m,"text-anchor":"middle","dominant-baseline":"central","font-size":(z.length>1?7.5:8.5)*m,fill:"#fbefc9",style:"font-family:var(--f-disp);pointer-events:none"},z.length>1?`${z.length}×`:String(i0+1)));
+     const go=e=>{e.stopPropagation();navTo("#kronika/"+zl.id)};g.addEventListener("click",go);g.addEventListener("keydown",e=>{if(e.key==="Enter")go(e)});svg.appendChild(g)})}
+  const last=lim!=null?LZ:ZAPISY[ZAPISY.length-1],cur=lim!=null?placeBy(LZ.place):partyPos(); if(!cur)return;
   const [x0,y]=P(cur.lo,cur.la),m=s*1.3,x=x0+7*m;
   const g=el("g",{class:"partymk",tabindex:0,role:"link","aria-label":`Družina: ${cur.name}, ${partyDate()}.${last?" Otevřít zápis.":""}`});
   g.appendChild(el("title",{},`Družina · ${cur.name} · ${partyDate()}`));
@@ -4965,16 +4983,21 @@ function autolink(root,self,filter){
    if(a==="artikule"&&c&&c.startsWith("p-")){const g=GLOSS.find(x=>"p-"+x.id===c);if(g)return `<div class="pvhl"><div><b>${g.t}</b><small>Slovníček pojmů</small></div></div><p>${kr(g.d,220)}</p>`}
    if(a==="draconomicon"&&DRBY[b]&&DRBY[b].k==="pl"){const o=DRBY[b].o,im=drU(o.img,"-h");return `<div class="pvhl">${im?`<img class="pvimg pvdrak" src="${im}" alt="" loading="lazy">`:""}<div><b>${o.n}</b><small>${[o.la,o.pd].filter(Boolean).join(" · ")}</small></div></div>`}
    return ""};
+ /* vypravěč: Skryté / Slyšeli / Potkali přímo v náhledu */
+ const gmPas=h=>{if(!(GMV&&STAV)||typeof gmSeg!=="function")return "";const [a,b]=decodeURIComponent(h.slice(1)).split("/");
+   if(!((a==="osoba"&&PBY[b])||(a==="rod"&&byId[b])||(a==="draconomicon"&&gmPl(b))))return "";
+   const w=a==="osoba"&&gmLv(PBY[b].r)===0?`<small class="pvwarn">Rod je skrytý – hráči osobu neuvidí.</small>`:"";
+   return `<div class="gmrow pvgm" data-gmid="${b}"><span class="lbl">Družina</span>${gmSeg(b)}</div>${w}`};
  let cur=null,tm=0;
  const ukaz=a=>{const html=obsah(a.getAttribute("href"));if(!html){skryj();return}
-   cur=a;PV.innerHTML=html+(matchMedia("(hover: none)").matches?`<a class="pvgo" href="${a.getAttribute("href")}">Otevřít →</a>`:"");PV.hidden=false;
+   cur=a;const gp=gmPas(a.getAttribute("href"));PV.innerHTML=html+gp+(matchMedia("(hover: none)").matches?`<a class="pvgo" href="${a.getAttribute("href")}">Otevřít →</a>`:"");PV.classList.toggle("pvgmon",!!gp);PV.hidden=false;
    const r=a.getBoundingClientRect(),W=document.documentElement.clientWidth,H=innerHeight,w=PV.offsetWidth,h=PV.offsetHeight;
    let x=Math.min(Math.max(8,r.left+r.width/2-w/2),W-w-8),y=r.bottom+8;if(y+h>H-8&&r.top-h-8>8)y=r.top-h-8;
    PV.style.left=x+"px";PV.style.top=y+"px"};
  const skryj=()=>{clearTimeout(tm);PV.hidden=true;cur=null};
  const vhodny=a=>a&&a.closest(".view")&&!a.closest(SKIP)&&!a.querySelector("img");
  document.addEventListener("mouseover",e=>{if(matchMedia("(hover: none)").matches)return;const a=e.target.closest(SEL);
-   if(!vhodny(a)){if(cur&&!e.target.closest(".pvcard"))skryj();return}
+   if(!vhodny(a)){if(e.target.closest(".pvcard")){clearTimeout(tm);return}if(cur){if(PV.classList.contains("pvgmon")){clearTimeout(tm);tm=setTimeout(skryj,400)}else skryj()}return}
    if(a===cur)return;clearTimeout(tm);tm=setTimeout(()=>ukaz(a),220)});
  document.addEventListener("click",e=>{const a=e.target.closest(SEL);
    if(matchMedia("(hover: none)").matches&&vhodny(a)&&a!==cur&&obsah(a.getAttribute("href"))){e.preventDefault();e.stopPropagation();ukaz(a);return}
@@ -5257,7 +5280,8 @@ function gmRefresh(){
 async function gmUloz(z){
   if(!window.MMDB){mmHlasG("Stavy lze měnit jen na webu napojeném na databázi.");return}
   document.documentElement.classList.add("gmbusy");
-  try{const n=await MMDB.nastav(z);Object.keys(STAV).forEach(k=>delete STAV[k]);Object.assign(STAV,n||{});gmRefresh();mmHlasG("Uloženo – hráči to uvidí do půl minuty.")}
+  try{const n=await MMDB.nastav(z);Object.keys(STAV).forEach(k=>delete STAV[k]);Object.assign(STAV,n||{});gmRefresh();
+    __D.NOVINKY=[...Object.entries(z).map(([id,v])=>({id,stav:+v})),...(__D.NOVINKY||[])];try{renderNovinky()}catch(e){}mmHlasG("Uloženo – hráči to uvidí do půl minuty.")}
   catch(err){mmHlasG("Nepodařilo se uložit: "+err.message,7000)}
   finally{document.documentElement.classList.remove("gmbusy")}
 }
@@ -5453,6 +5477,41 @@ async function zapisNovy(){
   const md=zapisMd(id,n),tpl=EDDRUH.zapis.tpl;EDDRUH.zapis.tpl=()=>md;try{await edOtevri("zapis",id,true)}finally{EDDRUH.zapis.tpl=tpl}}
 async function zapisDoHry(v){const t=cT({datum:v.datum,hodina:v.hodina||0}),now=cT(HRA);if(t==null||(now!=null&&t<=now))return;
   const h={datum:v.datum,hodina:+v.hodina||0};if(v.place&&cestaMisto(v.place)&&!cestaAktivni())Object.assign(h,{misto:v.place,poloha:null});await hraUloz(h)}
+/* Výprava → Boj: setkání se přenese mezi nepřátele v Boji */
+document.addEventListener("click",e=>{const b=e.target.closest("[data-vyboj]");if(!b||typeof VY==="undefined"||!VY)return;const s=VY.setk[+b.dataset.vyboj];if(!s)return;
+  const T=s.typ!=null?VY_TYPY[s.typ]:null,Z=s.typ!=null&&s.zaz!=null?vyZazT(s.typ)[s.zaz]:null,n=(Z&&Z.n)||(T&&T.n)||"Nepřítel";
+  try{sessionStorage.setItem("mm-boj-pred",JSON.stringify({npc:[{n,druh:T&&T.n==="Krutý boj"?"houf":"sok",pocet:4}],z:`Setkání ${+b.dataset.vyboj+1} na cestě: ${n}${s._kde?" – "+s._kde:""}. Uprav nepřátele a vytrub do boje.`}))}catch(x){}
+  if(BOJ.s&&BOJ.s.aktivni){mmHlasG("Boj už probíhá – setkání přidej mezi nepřátele ručně.",5000)}navTo("#boj")});
+/* ===== Mapa jako paměť tažení: posuvník po zápisech Kroniky ===== */
+{const box=document.getElementById("mapcas"),r=document.getElementById("mapcasr"),o=document.getElementById("mapcaso");
+  const popis=()=>{const n=ZAPISY.length,v=+r.value;if(v>=n){o.textContent=`teď · ${partyDate()}${partyPos()?" · "+partyPos().name:""}`;return}const z=ZAPISY[v];o.textContent=`${z.n||"Zápis "+(v+1)} · ${z.date||""}${z.hodina!=null?`, ${z.hodina}:00`:""} · ${z.place||""} – ${z.title}`};
+  const sync=()=>{const n=ZAPISY.length;box.hidden=!(st.party&&n);r.max=n;if(st.cas==null)r.value=n;popis()};
+  r.addEventListener("input",()=>{const v=+r.value;st.cas=v>=ZAPISY.length?null:v;popis();drawMap()});
+  const lb=document.getElementById("lyParty");if(lb)lb.addEventListener("click",()=>setTimeout(()=>{if(!st.party){st.cas=null}sync()},0));
+  HRA_PO.push(sync);sync()}
+/* ===== Měření a cesta z místa kliknutí na místo kliknutí (mapa zemí Koruny) ===== */
+{const _pp=pickPlace;pickPlace=function(n){st._pk=Date.now();return _pp(n)};
+  svg.addEventListener("click",e=>{if(!st.measure||mapDrag.moved||Date.now()-(st._pk||0)<120||e.target.closest(".partymk,.discmk,.zapmk"))return;
+    const pt=svg.createSVGPoint();pt.x=e.clientX;pt.y=e.clientY;const q=pt.matrixTransform(svg.getScreenCTM().inverse()),lo=q.x/72+10.9,la=52.7-q.y/112,n=cNejbliz(lo,la);
+    const b={name:n.d<2?n.n:`bod u: ${n.n} (${n.d} km)`,lo:Math.round(lo*1000)/1000,la:Math.round(la*1000)/1000,bod:true};
+    if(!st.ta||st.tb){st.ta=b;st.tb=null}else st.tb=b;updateRoute();renderTravel();drawMap()});
+  const _rt=renderTravel;renderTravel=function(){[[tFrom,st.ta],[tTo,st.tb]].forEach(([sel,q])=>{if(q&&![...sel.options].some(o=>o.value===q.name)){const op=document.createElement("option");op.value=op.textContent=q.name;sel.appendChild(op)}});
+    _rt.apply(this,arguments);const r=document.getElementById("tres");if(r&&!st.tb){const p0=r.querySelector("p");if(p0&&!st.ta)p0.textContent="Klikněte do mapy na dvě místa – sídlo, město nebo kterýkoli bod v krajině –, nebo je vyberte v nabídce."}
+    if(GMV&&STAV&&st.ta&&st.tb&&st.route&&r)r.insertAdjacentHTML("beforeend",cestaMapHtml("k"))}}
+/* společné ovládání „Družina vyrazí“ pod měřenou trasou (Koruna i Známý svět) */
+function cestaMapHtml(m){return `<div class="trcest" data-trm="${m}"><span class="lbl">Družina</span><select data-trzp aria-label="Jak družina cestuje">${CESTA_ZP.map(([k,n,v])=>`<option value="${k}">${n} (asi ${v} km za den)</option>`).join("")}</select>
+  <button type="button" class="gbtn" data-trc="vyrazit" title="Družina vyrazí z výchozího místa teď; s herním časem se posouvá po trase">Vyrazit odsud tam</button><button type="button" class="gbtn ghost" data-trc="dorazit" title="Posune herní čas rovnou na příjezd">Rovnou dorazit</button><span class="trodh"></span></div>`}
+document.addEventListener("change",e=>{const s=e.target.closest("[data-trzp]");if(s){const b=s.closest(".trcest"),P=cestaMapPlan(b);b.querySelector(".trodh").textContent=P&&!P.chyba?`odhadem ${P.hod} h, příjezd ${cTxt(P.t1)}`:""}});
+function cestaMapPlan(b){const m=b.dataset.trm,A=m==="k"?st.ta:SM.a,B=m==="k"?st.tb:SM.b;if(!A||!B)return null;const X=hraX(),zp=b.querySelector("[data-trzp]").value;
+  return cestaPlan({zP:A,doP:B,svet:m==="s",zp,odch:1,zdrz:0,sez:true,datum:`${X.Y}-${p2(X.M)}-${p2(X.D)}`,hodina:X.H??10})}
+document.addEventListener("click",e=>{const t=e.target.closest("[data-trc]");if(!t)return;const b=t.closest(".trcest"),P=cestaMapPlan(b);if(!P){return}if(P.chyba){mmHlasG(P.chyba);return}
+  const m=b.dataset.trm,A=m==="k"?st.ta:SM.a,B=m==="k"?st.tb:SM.b,pa=q=>q.bod||!cestaMisto(q.name)?[+(q.lo??q.ll[0]),+(q.la??q.ll[1])]:null;
+  const cesta={z:P.z,do:P.do,km:P.km,zpusob:P.zp,track:P.track};
+  if(t.dataset.trc==="vyrazit"){if(!confirm(`Družina vyrazí: ${P.z} → ${P.do}. Teď je na místě „${P.z}“; dorazí ${cTxt(P.t1)}.`))return;
+    hraUloz({cesta,misto:P.z,poloha:pa(A),praha:null})}
+  else{if(!confirm(`Rovnou dorazit: ${P.do}? Herní čas se posune na ${cTxt(P.t1)}.`))return;
+    const e2=P.track[P.track.length-1];hraUloz(Object.assign({cesta:null,misto:P.do,poloha:pa(B),praha:null,putovani:[...((HRA&&HRA.putovani)||[]),{z:P.z,do:P.do,od:cTxt(P.t0),pr:cTxt(P.t1),t0:P.t0,t1:P.t1,b:P.track.map(q=>[q[1],q[2]]).filter((q,i,a)=>i===0||i===a.length-1||i%3===0)}].slice(-80)},cDat(P.t1)))}});
+if(typeof smRender==="function"){const _sm=smRender;smRender=function(){_sm.apply(this,arguments);const r=document.getElementById("stres");if(GMV&&STAV&&SM.a&&SM.b&&r)r.insertAdjacentHTML("beforeend",cestaMapHtml("s"))}}
 function renderGM(){
   const box=document.getElementById("gmview");
   if(!GMV){
@@ -5642,7 +5701,7 @@ function renderBoj(){
   const box=document.getElementById("bojview");if(!box)return;
   if(!bojDB){box.innerHTML=`<h2 class="arttitle">Boj</h2><p class="intro">Tracker iniciativy funguje na webu napojeném na databázi.</p>`;return}
   const s=BOJ.s;
-  if(!s||!s.aktivni){if(GMV){if(!box.querySelector("#bojform")){box.innerHTML=bojSetup();bojPred(box)}bojHorni(box)}else box.innerHTML=`<h2 class="arttitle">Boj</h2><p class="intro">Právě neprobíhá žádný boj. Až ho vypravěč zahájí, objeví se tu sloty iniciativy.</p>`;return}
+  if(!s||!s.aktivni){if(GMV){if(!box.querySelector("#bojform"))box.innerHTML=bojSetup();bojPred(box);bojHorni(box)}else box.innerHTML=`<h2 class="arttitle">Boj</h2><p class="intro">Právě neprobíhá žádný boj. Až ho vypravěč zahájí, objeví se tu sloty iniciativy.</p>`;return}
   const f=document.activeElement&&box.contains(document.activeElement)&&document.activeElement.matches("input")?document.activeElement.name||document.activeElement.id:null;
   box.innerHTML=bojAktivni();bojHorni(box);if(f){const e=box.querySelector(`[name="${f}"],#${f}`);if(e)e.focus()}
   bojUpozorni();
@@ -6494,7 +6553,7 @@ function vyHtmlSetk(s,i){const kr=s.kraj||s._kraj,T=s.typ!=null?VY_TYPY[s.typ]:n
       <select data-vyf="s${i}k" data-vys2="kraj" aria-label="Kraj">${Object.entries(VY_KRAJ).map(([k,[n]])=>`<option value="${k}"${kr===k?" selected":""}>${n}${k===s._kraj&&!s.kraj?" (z mapy)":""}</option>`).join("")}</select>
       <label class="vychk"><input type="checkbox" data-vyhot="${i}"${s.hotovo?" checked":""}> vyřešeno</label></div>
     ${s.hotovo?`<details class="vyhotd"><summary>${T?vyEsc(T.n):"bez typu"}${Z?` – ${vyEsc(Z.n)}`:""}${vi>=0?` · ${vn[vi]}`:""}</summary>`:""}<div class="vysb">
-      <div class="vyrow"><button type="button" class="gbtn ghost" data-vysh="typ" data-i="${i}">${T?"Hodit znovu":"Hodit typ (k12)"}</button>
+      <div class="vyrow"><button type="button" class="gbtn ghost" data-vysh="typ" data-i="${i}">${T?"Hodit znovu":"Hodit typ (k12)"}</button><button type="button" class="gbtn ghost" data-vyboj="${i}" title="Otevře Boj s tímto setkáním mezi nepřáteli">⚔ Do boje</button>
         ${!VY.najdi&&VYS.dr.some(x=>x.role==="zved"||x.role2==="zved")?`<button type="button" class="gbtn ghost" data-vysh="najdi" data-i="${i}" title="Zvěd hodí také a vybere">Najdi cestu (2× k12)</button>`:""}
         <select data-vyf="s${i}t" data-vys2="typ" aria-label="Typ setkání"><option value="">— typ —</option>${VY_TYPY.map((t,k)=>`<option value="${k}"${s.typ===k?" selected":""}>${k+1}. ${t.n}</option>`).join("")}</select>
         ${s.typ2!=null?`<span class="vynajdi">Zvěd vybírá: <button type="button" class="gbtn ghost" data-vysvol="${i}" data-t="${s.typ}">${VY_TYPY[s.typ].n}</button> nebo <button type="button" class="gbtn ghost" data-vysvol="${i}" data-t="${s.typ2}">${VY_TYPY[s.typ2].n}</button></span>`:""}</div>
