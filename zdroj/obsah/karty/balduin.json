@@ -1,0 +1,59 @@
+{
+  "id": "balduin",
+  "n": "Balduin",
+  "test": true,
+  "hrac": "BalduinCZ",
+  "zdroj": "D&D Beyond, PDF 86391730",
+  "druh": "Human",
+  "povolani": "Warlock 6 / Fighter 1",
+  "uroven": 7,
+  "pozadi": "Ruined (Memory Loss)",
+  "vl": {"STR": 9, "AGI": 14, "CON": 14, "INT": 10, "WIS": 12, "CHA": 18},
+  "zach": {"STR": 0, "AGI": 3, "CON": 3, "INT": 1, "WIS": 5, "CHA": 8},
+  "zachPozn": ["+1 na všechny záchrany z Ring of Protection (už započteno)", "výhoda na CON záchrany pro udržení soustředění (War Caster)"],
+  "konVyhoda": true,
+  "ac": 18,
+  "hp": 62,
+  "kz": "6d8 + 1d10",
+  "ini": 2,
+  "zdatnost": 3,
+  "rychlost": "30 stop, šplhání 30 stop",
+  "odol": ["Cold"],
+  "smysly": "Blindsight 10 stop, Darkvision 180 stop (Devil's Sight 120 stop)",
+  "vidiTma": true,
+  "pasiv": {"vnimani": 17, "vhled": 14, "patrani": 10},
+  "dov": {"Acrobatics": 2, "Animal Handling": 1, "Arcana": 3, "Athletics": -1, "Deception": 10, "History": 3, "Insight": 1, "Intimidation": 4, "Investigation": 0, "Medicine": 1, "Nature": 0, "Perception": 8, "Performance": 4, "Persuasion": 7, "Religion": 3, "Sleight of Hand": 2, "Stealth": 5, "Survival": 4},
+  "utoky": [
+    {"n": "Nevermore", "b": 8, "z": "1d8+5", "t": "Force", "pocet": 2, "vl": ["Versatile (1d10+5)", "Sap"], "pozn": "Paktová zbraň: Thirsting Blade = 2 útoky za akci Útok. Sap: zasažený cíl má nevýhodu na příští útok. Booming Blade: +1d8 Thunder, pohne-li se cíl, 2d8 Thunder."},
+    {"n": "Eldritch Blast", "b": 7, "z": "1d10", "t": "Force", "pocet": 2, "dal": true, "pozn": "2 paprsky, každý zvlášť. Repelling Blast: zasažený cíl Large nebo menší odhodí o 10 stop."},
+    {"n": "Dýka", "b": 5, "z": "1d4+2", "t": "Piercing", "vl": ["Light", "Finesse", "Thrown", "Nick"]}
+  ],
+  "efekty": [
+    {"n": "Hexblade's Curse: Damaging Hex", "zr": 3, "pozn": "+3 ke zranění proti prokletému cíli"},
+    {"n": "Hexblade's Curse: Striking Hex", "krit": 19, "pozn": "kritický zásah na 19–20 proti prokletému cíli"}
+  ],
+  "kouzla": {"vl": "CHA", "dc": 15, "utok": 7,
+    "sloty": [{"st": 3, "max": 2, "pakt": true}],
+    "seznam": [
+      {"n": "Booming Blade", "st": 0}, {"n": "Eldritch Blast", "st": 0}, {"n": "Minor Illusion", "st": 0}, {"n": "Message", "st": 0}, {"n": "Prestidigitation", "st": 0},
+      {"n": "Hex", "st": 1, "kon": true}, {"n": "Shield", "st": 1, "pozn": "reakce"}, {"n": "Absorb Elements", "st": 1, "pozn": "reakce, 1× za dlouhý odpočinek bez slotu"}, {"n": "Wrathful Smite", "st": 1, "zach": "WIS 15"}, {"n": "Armor of Agathys", "st": 1},
+      {"n": "Darkness", "st": 2, "kon": true}, {"n": "Hold Person", "st": 2, "kon": true, "zach": "WIS 15"}, {"n": "Misty Step", "st": 2}, {"n": "Blur", "st": 2, "kon": true}, {"n": "Shining Smite", "st": 2, "kon": true}, {"n": "Invisibility", "st": 2, "kon": true},
+      {"n": "Hypnotic Pattern", "st": 3, "kon": true, "zach": "WIS 15"}, {"n": "Spirit Shroud", "st": 3, "kon": true}, {"n": "Haste", "st": 3, "kon": true}, {"n": "Blink", "st": 3}
+    ]},
+  "zdroje": [
+    {"n": "Hexblade's Curse", "max": 4, "obn": "dlouhý odpočinek"},
+    {"n": "Second Wind (1d10+1 HP)", "max": 2, "obn": "dlouhý odpočinek, 1 krátkým"},
+    {"n": "Magical Cunning", "max": 1, "obn": "dlouhý odpočinek"},
+    {"n": "Absorb Elements bez slotu", "max": 1, "obn": "dlouhý odpočinek"},
+    {"n": "Potion of Healing", "max": 2, "obn": "spotřební"}
+  ],
+  "rysy": [
+    "Hexblade's Curse (bonusová akce, do 30 stop, 1 minuta): Damaging Hex +3 ke zranění, Striking Hex kritický zásah na 19–20, nebo Healing Hex – když cíl zemře, Balduin získá 10 HP.",
+    "Pact of the Blade a Thirsting Blade: s paktovou zbraní dva útoky za akci Útok; zbraň může dávat Force zranění.",
+    "Weapon Mastery: Longsword (Sap), Dagger (Nick), Rapier a Hand Crossbow (Vex).",
+    "War Caster: výhoda na CON záchrany pro soustředění, reakcí kouzlo místo příležitostného útoku.",
+    "Devil's Sight a One with Shadows: vidí v magické tmě do 120 stop, ve tmě si sešle Invisibility bez slotu.",
+    "Blind Fighting: Blindsight 10 stop. Repelling Blast: Eldritch Blast odhodí o 10 stop.",
+    "Resistance vůči Cold; Ring of Protection (+1 AC a záchrany), Ring of Mind Shielding, Slippers of Spider Climbing."
+  ]
+}

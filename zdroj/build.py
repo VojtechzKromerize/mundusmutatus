@@ -281,6 +281,8 @@ GENERATOR = os.path.join(ROOT, "zdroj", "generator.js")
 
 def je_zaznam(rel):
     name = rel.rsplit("/", 1)[-1]
+    if rel.startswith("karty/") and rel.endswith(".json") and not name.startswith("_") and rel.count("/") == 1:
+        return True
     return rel in ZAZNAMY_SOUBORY or (rel.startswith(ZAZNAMY_SLOZKY) and rel.endswith(".md") and not name.startswith("_") and rel.count("/") == (2 if rel.startswith("draconomicon/") else 1))
 
 def soubory_z_disku():

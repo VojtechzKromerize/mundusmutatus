@@ -392,6 +392,16 @@ function generuj(soubory, manifest) {
     party.push(o);
   }
 
+  /* karty postav pro boj (zatím zkušební; později import listu postavy z PDF D&D Beyond) */
+  const karty = [];
+  for (const [path, txt] of Object.entries(soubory).filter(([q]) => /^karty\/[^/_][^/]*\.json$/.test(q)).sort()) {
+    let k; try { k = JSON.parse(txt); } catch (e) { fail(`${path}: chybný JSON – ${e.message}`); }
+    if (!k.id || !k.n) fail(`${path}: chybí 'id' nebo 'n'`);
+    if (!(+k.ac > 0) || !(+k.hp > 0)) fail(`${path}: chybí 'ac' nebo 'hp'`);
+    if (karty.some(q => q.id === k.id)) fail(`${path}: id „${k.id}“ už má jiná karta`);
+    karty.push(k);
+  }
+
   /* rodokmeny */
   let trees = {};
   if ("rodokmeny.json" in soubory) {
@@ -462,7 +472,7 @@ function generuj(soubory, manifest) {
   const odh = { DRACI: { kap, pl: PL }, ZEMEPIS: ZEM, FAM: F, PEOPLE: P, REL, PRAHA_PLACES: PR, MISTA: MI, TREES: T,
     SHORT: Object.fromEntries(Object.entries(short).map(([k, v]) => [k, { $g: k, $x: v }])),
     ARMS: Object.fromEntries(Object.entries(arms).map(([k, v]) => [k, { $g: k, $x: v }])),
-    PORTR, ZAPISY: zapisy.map(z => ({ $g: z.id, ...z })), PARTY: party, RESERS: RES, PROTIVNICI: PROT,
+    PORTR, ZAPISY: zapisy.map(z => ({ $g: z.id, ...z })), PARTY: party, KARTY: karty, RESERS: RES, PROTIVNICI: PROT,
     PRIVLASTKY: PRIV, SETKANI: SETK, PROTOSOBY: PROTOS, VYZAZ };
   return { odh, seed: SEED, odstranene };
 }

@@ -381,6 +381,23 @@ begin
     else
       raise exception 'neplatná připravená akce';
     end if;
+  elsif p_pole in ('hp', 'thp') then
+    if jsonb_typeof(x) = 'null' then
+      s := s #- array['hraci', i::text, p_pole];
+    elsif jsonb_typeof(x) = 'number' and public.mm_cislo(x, case when p_pole = 'hp' then -999 else 0 end, 999) then
+      s := jsonb_set(s, array['hraci', i::text, p_pole], x);
+    else
+      raise exception 'neplatné životy';
+    end if;
+  elsif p_pole = 'zdr' then
+    if jsonb_typeof(x) = 'null' or x = '{}'::jsonb then
+      s := s #- array['hraci', i::text, 'zdr'];
+    elsif jsonb_typeof(x) = 'object' and (select count(*) from jsonb_object_keys(x)) <= 24 and not exists (
+        select 1 from jsonb_each(x) e where char_length(e.key) > 60 or jsonb_typeof(e.value) <> 'number' or not public.mm_cislo(e.value, 0, 20)) then
+      s := jsonb_set(s, array['hraci', i::text, 'zdr'], x);
+    else
+      raise exception 'neplatné zdroje';
+    end if;
   elsif p_pole = 'zbrane' then
     if coalesce(s -> 'hraci' -> i ->> 'n', '') = '' then
       raise exception 'postava nemá jméno';
@@ -431,7 +448,7 @@ begin
   if not exists (select 1 from jsonb_array_elements(coalesce(s -> 'hraci', '[]'::jsonb)) h where h ->> 'id' = p_hrac) then
     raise exception 'neznámá postava';
   end if;
-  if jsonb_typeof(x) <> 'object' or exists (select 1 from jsonb_object_keys(x) k where k not in ('ci', 'cim', 'hod', 'd', 'adv', 'dmg', 't', 'drt', 'pru', 'plos')) then
+  if jsonb_typeof(x) <> 'object' or exists (select 1 from jsonb_object_keys(x) k where k not in ('ci', 'cim', 'hod', 'd', 'adv', 'dmg', 't', 'drt', 'pru', 'plos', 'kmin')) then
     raise exception 'neplatný útok';
   end if;
   ci := x -> 'ci';
@@ -440,7 +457,7 @@ begin
       where jsonb_typeof(e) <> 'string' or not exists (select 1 from jsonb_array_elements(coalesce(s -> 'npc', '[]'::jsonb)) q where q ->> 'id' = e #>> '{}')) then
     raise exception 'neplatný cíl';
   end if;
-  if not public.mm_cislo(x -> 'hod', -10, 60) or not public.mm_cislo(x -> 'd', 1, 20) or not public.mm_cislo(x -> 'adv', -1, 1) or not public.mm_cislo(x -> 'dmg', 0, 300)
+  if not public.mm_cislo(x -> 'hod', -10, 60) or not public.mm_cislo(x -> 'd', 1, 20) or not public.mm_cislo(x -> 'adv', -1, 1) or not public.mm_cislo(x -> 'dmg', 0, 300) or not public.mm_cislo(x -> 'kmin', 15, 20)
      or (x ? 'cim' and (jsonb_typeof(x -> 'cim') <> 'string' or char_length(x ->> 'cim') > 60))
      or (x ? 't' and coalesce(x ->> 't', '') not in ('Slashing','Piercing','Bludgeoning','Fire','Cold','Lightning','Thunder','Acid','Poison','Necrotic','Radiant','Psychic','Force'))
      or (x ? 'drt' and jsonb_typeof(x -> 'drt') <> 'boolean') or (x ? 'pru' and jsonb_typeof(x -> 'pru') <> 'boolean') then
@@ -465,7 +482,7 @@ begin
   u := jsonb_build_object('id', 'u' || to_char(clock_timestamp(), 'YYMMDDHH24MISSMS') || (floor(random() * 900) + 100)::int, 'h', p_hrac, 'ci', ci,
     'cim', coalesce(x ->> 'cim', ''), 'hod', x -> 'hod', 'd', x -> 'd', 'adv', coalesce(x -> 'adv', '0'::jsonb), 'dmg', coalesce(x -> 'dmg', '0'::jsonb),
     't', coalesce(x -> 't', '"Slashing"'::jsonb), 'drt', coalesce(x -> 'drt', 'false'::jsonb), 'pru', coalesce(x -> 'pru', 'false'::jsonb),
-    'k', coalesce(s -> 'kolo', '1'::jsonb), 'stav', 'ceka');
+    'kmin', coalesce(x -> 'kmin', '20'::jsonb), 'k', coalesce(s -> 'kolo', '1'::jsonb), 'stav', 'ceka');
   if pl is not null then
     u := u || jsonb_build_object('plos', jsonb_build_object('ab', pl -> 'ab', 'dc', pl -> 'dc', 'pol', coalesce(pl -> 'pol', 'false'::jsonb)));
   end if;
