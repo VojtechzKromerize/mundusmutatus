@@ -315,6 +315,30 @@ begin
   on conflict (klic) do update set hodnota = excluded.hodnota, zmeneno = now();
 end $$;
 
+-- Vlastní kouzla vypravěče (texty mimo SRD, které si vypravěč zapíše sám): jen pro vypravěče,
+-- uložená v nastavení pod klíčem 'kouzla' (pole objektů ve stejném tvaru jako art/kouzla.json)
+create or replace function public.mm_kouzla_nacti() returns jsonb
+language plpgsql stable security definer set search_path = public as $$
+begin
+  if not public.mm_je_gm() then
+    raise exception 'jen pro vypravěče' using errcode = '42501';
+  end if;
+  return coalesce((select hodnota from public.nastaveni where klic = 'kouzla'), '[]'::jsonb);
+end $$;
+
+create or replace function public.mm_kouzla_uloz(p_kouzla jsonb) returns void
+language plpgsql security definer set search_path = public as $$
+begin
+  if not public.mm_je_gm() then
+    raise exception 'jen pro vypravěče' using errcode = '42501';
+  end if;
+  if jsonb_typeof(p_kouzla) <> 'array' then
+    raise exception 'očekávám pole kouzel' using errcode = '22023';
+  end if;
+  insert into public.nastaveni (klic, hodnota, zmeneno) values ('kouzla', p_kouzla, now())
+  on conflict (klic) do update set hodnota = excluded.hodnota, zmeneno = now();
+end $$;
+
 -- Vypravěč čte všechny stavy najednou (bez limitu počtu řádků)
 create or replace function public.mm_stavy() returns jsonb
 language sql stable security definer set search_path = public as $$
@@ -529,6 +553,9 @@ grant execute on function public.mm_boj_uloz(jsonb) to authenticated;
 revoke all on function public.mm_vyprava_nacti() from public, anon;
 revoke all on function public.mm_vyprava_uloz(jsonb) from public, anon;
 grant execute on function public.mm_vyprava_nacti(), public.mm_vyprava_uloz(jsonb) to authenticated;
+revoke all on function public.mm_kouzla_nacti() from public, anon;
+revoke all on function public.mm_kouzla_uloz(jsonb) from public, anon;
+grant execute on function public.mm_kouzla_nacti(), public.mm_kouzla_uloz(jsonb) to authenticated;
 grant execute on function public.mm_boj_obsad(int, text) to anon, authenticated;
 grant execute on function public.mm_nastav_hru(jsonb) to authenticated;
 grant execute on function public.mm_stavy() to authenticated;

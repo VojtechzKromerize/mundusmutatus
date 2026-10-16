@@ -1958,7 +1958,15 @@ abbr.btp{text-decoration:underline dotted color-mix(in srgb,var(--gold) 85%,tran
 .kzlic{font-size:.78rem;color:var(--muted);margin-top:18px;max-width:900px}
 .kzprazdne{color:var(--muted);font-style:italic}
 .kzpop{position:fixed;right:14px;bottom:14px;z-index:90;width:min(460px,calc(100vw - 28px));max-height:min(78vh,720px);overflow:auto;box-shadow:0 10px 30px rgba(20,10,4,.35);border-radius:3px}
-.kzpop[hidden]{display:none}.kzpop .kzkarta{padding-right:38px}
+.kzpop[hidden]{display:none}
+.kzfg{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px 12px;margin:10px 0}
+.kzfl{display:flex;flex-direction:column;gap:3px}.kzfl>span{font-family:var(--f-label);letter-spacing:.04em;color:var(--muted);font-size:.85rem}
+.kzfl input,.kzfl select,.kzfl textarea{font:inherit;font-family:var(--f-body);color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:3px;padding:6px 8px;min-height:36px}
+.kzfl textarea{resize:vertical;line-height:1.45}.kzfw{margin:8px 0}
+.kzfs{border:1px solid color-mix(in srgb,var(--gold) 35%,var(--rule));border-radius:3px;margin:8px 0;padding:6px 10px;display:flex;flex-wrap:wrap;gap:6px 14px}
+.kzfs legend{font-family:var(--f-label);letter-spacing:.04em;color:var(--muted);font-size:.85rem;padding:0 4px}
+.kzalt{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--rule)}.kzmiss .gbtn{margin:6px 0}
+.kzakce{display:inline-flex;gap:6px;flex-wrap:wrap}.kzvl{color:var(--kal);font-style:italic}.kzpop .kzkarta{padding-right:38px}
 .kzx{position:absolute;right:8px;top:6px;font-size:1.4rem;line-height:1;background:none;border:0;color:var(--muted);cursor:pointer}
 a.kzodk{color:inherit;text-decoration:underline dotted color-mix(in srgb,var(--kal) 70%,transparent);text-underline-offset:2px}
 @media (max-width:760px){.kzgrid{grid-template-columns:1fr}.kzdet{position:static;order:-1}.kzlist{max-height:50vh}.kzpop{left:8px;right:8px;bottom:8px;width:auto}}
@@ -5756,12 +5764,25 @@ document.addEventListener("click",e=>{const t=e.target.closest("[data-trc]");if(
     const e2=P.track[P.track.length-1];hraUloz(Object.assign({cesta:null,misto:P.do,poloha:pa(B),praha:null,putovani:[...((HRA&&HRA.putovani)||[]),{z:P.z,do:P.do,od:cTxt(P.t0),pr:cTxt(P.t1),t0:P.t0,t1:P.t1,b:P.track.map(q=>[q[1],q[2]]).filter((q,i,a)=>i===0||i===a.length-1||i%3===0)}].slice(-80)},cDat(P.t1)))}});
 if(typeof smRender==="function"){const _sm=smRender;smRender=function(){_sm.apply(this,arguments);const r=document.getElementById("stres");if(GMV&&STAV&&SM.a&&SM.b&&r)r.insertAdjacentHTML("beforeend",cestaMapHtml("s"))}}
 /* ===== Kouzla: SRD 5.2.1 česky (art/kouzla.json, načítá se až při potřebě) – jen pro vypravěče ===== */
-let KZ=null,KZP=null,KZRE=null;const KZBY={};
+let KZ=null,KZP=null,KZRE=null,KZSRD=[],KZVL=[],KZ_LOK=false;const KZBY={};
+/* vlastní kouzla vypravěče: v databázi jen pro vypravěče (mm_kouzla_*), bez databáze v tomto prohlížeči – nikdy ve veřejných souborech */
+function kzIndex(){const vl=[...KZVL].sort((a,b)=>a.l-b.l||(a.cz||a.en).localeCompare(b.cz||b.en,"cs"));KZ=[...KZSRD,...vl];
+  for(const k in KZBY)delete KZBY[k];KZ.forEach(x=>{KZBY[x.i]=x;KZBY["en:"+x.en]=x});
+  const n=KZ.map(x=>x.en).filter(Boolean).sort((a,b)=>b.length-a.length).map(t=>t.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"));KZRE=new RegExp(`(?<![\\w-])(${n.join("|")})(?![\\w-])`,"g");
+  const I=window._phIDX;if(I){for(let j=I.length-1;j>=0;j--)if(I[j].k==="Kouzlo")I.splice(j,1);
+    KZ.forEach(x=>I.push({id:"kz:"+x.i,n:x.cz||x.en,s:`${x.en} · ${kzUr(x.l)}${x.vl?" · vlastní":""}`,h:"#kouzla/"+x.i,k:"Kouzlo",t:_nrm(`${x.cz} ${x.en}`)}))}}
+async function kzVlNacti(){let s=null,loc=[];try{loc=JSON.parse(localStorage.getItem("mm-kouzla")||"[]")||[]}catch(e){}
+  if(window.MMDB&&MMDB.prihlasen()){try{s=await MMDB.gm("mm_kouzla_nacti")}catch(e){KZ_LOK=true}}else KZ_LOK=true;
+  if(!Array.isArray(s))s=loc;else if(!s.length&&loc.length){s=loc;KZVL=s;kzVlUloz().catch(()=>{})}
+  return s.filter(x=>x&&x.i&&x.en).map(x=>Object.assign({},x,{vl:1}))}
+async function kzVlUloz(){const d=KZVL.map(({vl,...x})=>x);
+  if(window.MMDB&&!KZ_LOK){try{await MMDB.gm("mm_kouzla_uloz",{p_kouzla:d});try{localStorage.removeItem("mm-kouzla")}catch(e){}return true}
+    catch(e){if(e.status===404||/mm_kouzla|function|schema cache/i.test(e.message)){KZ_LOK=true;mmHlasG("Databáze zatím neumí ukládat vlastní kouzla – spusť v Supabase aktuální supabase/schema.sql. Do té doby se ukládají jen v tomto prohlížeči.",9000)}
+      else{mmHlasG("Kouzlo se nepodařilo uložit: "+e.message,6000);return false}}}
+  try{localStorage.setItem("mm-kouzla",JSON.stringify(d))}catch(e){mmHlasG("Kouzlo se nepodařilo uložit ani v prohlížeči.",6000);return false}return true}
 function kzNacti(){if(KZ)return Promise.resolve(KZ);
-  if(!KZP)KZP=fetch("art/kouzla.json").then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(d=>{KZ=d;d.forEach(x=>{KZBY[x.i]=x;KZBY["en:"+x.en]=x});
-    const n=d.map(x=>x.en).sort((a,b)=>b.length-a.length).map(t=>t.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"));KZRE=new RegExp(`(?<![\\w-])(${n.join("|")})(?![\\w-])`,"g");
-    if(window._phIDX)d.forEach(x=>window._phIDX.push({id:"kz:"+x.i,n:x.cz||x.en,s:`${x.en} · ${kzUr(x.l)}`,h:"#kouzla/"+x.i,k:"Kouzlo",t:_nrm(`${x.cz} ${x.en}`)}));
-    return d}).catch(e=>{KZP=null;throw e});
+  if(!KZP)KZP=Promise.all([fetch("art/kouzla.json").then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}),kzVlNacti().catch(()=>[])])
+    .then(([d,v])=>{KZSRD=d;KZVL=v;kzIndex();return KZ}).catch(e=>{KZP=null;throw e});
   return KZP}
 const kzUr=l=>l?`${l}. úroveň`:"trik";
 const kzE=t=>String(t??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -5774,31 +5795,64 @@ function kzKarta(x,pop){return `<article class="kzkarta">${pop?`<button type="bu
   <h3>${kzE(x.cz||x.en)} <small lang="en">${kzE(x.en)}</small></h3>
   <p class="kzmeta">${x.l?kzUr(x.l):"Trik"} · ${kzE(x.s)}${x.ri?" · rituál":""}${x.ko?" · Concentration":""}</p>
   <dl class="kzkv"><dt>Sesílání</dt><dd>${kzE(x.ct)}${x.ri?", nebo jako rituál":""}</dd><dt>Dosah</dt><dd>${kzE(x.r)}</dd>
-    <dt>Složky</dt><dd>${kzE(x.k.join(", "))}${x.m?` (${kzE(x.m)})`:""}</dd><dt>Trvání</dt><dd>${kzE(x.d)}</dd><dt>Povolání</dt><dd>${kzE(x.p.join(", "))}</dd></dl>
+    <dt>Složky</dt><dd>${kzE((x.k||[]).join(", "))}${x.m?` (${kzE(x.m)})`:""}</dd><dt>Trvání</dt><dd>${kzE(x.d)}</dd>${x.p&&x.p.length?`<dt>Povolání</dt><dd>${kzE(x.p.join(", "))}</dd>`:""}</dl>
   <div class="kztext">${kzMd(x.t)}${x.v?`<p><b>Na vyšší úrovni.</b> ${kzIn(x.v)}</p>`:""}</div>
-  <p class="kzsrc">${x.cs?"":"Zatím bez překladu – anglické znění SRD. "}<a href="https://www.aidedd.org/spell/${x.i}" target="_blank" rel="noopener">Anglicky na aidedd.org</a>${pop?` · <a href="#kouzla/${x.i}">v seznamu kouzel</a>`:""}</p></article>`}
-const KZF={q:"",l:"",s:"",p:"",ko:false,ri:false};
+  ${x.vl?`<p class="kzsrc">Vlastní kouzlo vypravěče – vidíš ho jen ty.${pop?` <a href="#kouzla/${x.i}">v seznamu kouzel</a>`:` <span class="kzakce"><button type="button" class="gbtn" data-kzuprav="${kzE(x.i)}">Upravit</button> <button type="button" class="gbtn kzalt" data-kzsmaz="${kzE(x.i)}">Smazat</button></span>`}</p></article>`:
+  `<p class="kzsrc">${x.cs?"":"Zatím bez překladu – anglické znění SRD. "}<a href="https://www.aidedd.org/spell/${x.i}" target="_blank" rel="noopener">Anglicky na aidedd.org</a>${pop?` · <a href="#kouzla/${x.i}">v seznamu kouzel</a>`:""}</p></article>`}`}
+const KZK=["V","S","M"];
+function kzForm(x){const n=!x;x=x||{en:"",cz:"",l:1,s:"Evokace",p:[],ct:"Akce",r:"",k:["V","S"],m:"",d:"Okamžité",ko:0,ri:0,t:"",v:""};
+  const inp=(k,l,ph)=>`<label class="kzfl"><span>${l}</span><input name="${k}" value="${kzE(x[k])}"${ph?` placeholder="${ph}"`:""}></label>`;
+  return `<form class="kzkarta kzform" data-kzid="${n?"":kzE(x.i)}"><h3>${n?"Nové vlastní kouzlo":"Upravit kouzlo"}</h3>
+  <p class="kzsrc">Uloží se jen pro vypravěče – v databázi (nebo v tomto prohlížeči), nikdy do veřejných souborů webu.</p>
+  <div class="kzfg">${inp("en","Anglický název *","např. Hunger of Hadar")}${inp("cz","Český název")}
+    <label class="kzfl"><span>Úroveň</span><select name="l">${[0,1,2,3,4,5,6,7,8,9].map(l=>`<option value="${l}"${+x.l===l?" selected":""}>${l?l+". úroveň":"Trik"}</option>`).join("")}</select></label>
+    <label class="kzfl"><span>Škola</span><select name="s">${KZSK.map(v=>`<option${x.s===v?" selected":""}>${v}</option>`).join("")}</select></label>
+    ${inp("ct","Sesílání","Akce, Bonusová akce, Reakce…")}${inp("r","Dosah","60 stop, Dotyk, Sebe…")}${inp("d","Trvání","Okamžité, až 1 minutu…")}${inp("m","Materiální složka")}</div>
+  <fieldset class="kzfs"><legend>Složky</legend>${KZK.map(v=>`<label class="kzchk"><input type="checkbox" name="k" value="${v}"${(x.k||[]).includes(v)?" checked":""}> ${v}</label>`).join("")}
+    <label class="kzchk"><input type="checkbox" name="ko"${x.ko?" checked":""}> Concentration</label><label class="kzchk"><input type="checkbox" name="ri"${x.ri?" checked":""}> rituál</label></fieldset>
+  <fieldset class="kzfs"><legend>Povolání</legend>${KZPOV.map(v=>`<label class="kzchk"><input type="checkbox" name="p" value="${v}"${(x.p||[]).includes(v)?" checked":""}> ${v}</label>`).join("")}</fieldset>
+  <label class="kzfl kzfw"><span>Text</span><textarea name="t" rows="9" placeholder="Odstavce odděl prázdným řádkem, **tučně**, *kurzívou*, odrážky „- “.">${kzE(x.t)}</textarea></label>
+  <label class="kzfl kzfw"><span>Na vyšší úrovni</span><textarea name="v" rows="3">${kzE(x.v)}</textarea></label>
+  <p class="kzakce"><button type="submit" class="gbtn">Uložit</button> <button type="button" class="gbtn kzalt" data-kzzrus>Zrušit</button></p></form>`}
+async function kzFormUloz(f){const g=k=>(f.elements[k].value||"").trim(),ch=k=>[...f.querySelectorAll(`input[name="${k}"]:checked`)].map(e=>e.value);
+  const en=g("en").replace(/\s+/g," ");if(!en){alert("Vyplň anglický název kouzla.");f.elements.en.focus();return}
+  const id0=f.dataset.kzid,srd=KZSRD.find(x=>x.en.toLowerCase()===en.toLowerCase());if(srd){alert(`„${en}“ už je v SRD jako ${srd.cz||srd.en}.`);return}
+  const dup=KZVL.find(x=>x.en.toLowerCase()===en.toLowerCase()&&x.i!==id0);if(dup){alert(`Vlastní kouzlo „${en}“ už existuje.`);return}
+  let i=id0;if(!i){const b="v-"+(_nrm(en).replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||"kouzlo");i=b;let n=2;while(KZBY[i])i=b+"-"+n++}
+  const x={i,en,cz:g("cz"),l:+g("l"),s:g("s"),p:ch("p"),ct:g("ct"),r:g("r"),k:ch("k"),m:g("m"),d:g("d"),ko:f.elements.ko.checked?1:0,ri:f.elements.ri.checked?1:0,t:f.elements.t.value.trim(),v:f.elements.v.value.trim(),cs:1,vl:1};
+  const old=KZVL;KZVL=[...KZVL.filter(y=>y.i!==i),x];kzIndex();if(!(await kzVlUloz())){KZVL=old;kzIndex();return}
+  mmHlasG("Kouzlo uloženo.",2500);if(location.hash==="#kouzla/"+i)renderKouzla(i);else location.hash="#kouzla/"+i}
+async function kzSmaz(i){const x=KZBY[i];if(!x||!x.vl||!confirm(`Smazat vlastní kouzlo „${x.cz||x.en}“?`))return;
+  const old=KZVL;KZVL=KZVL.filter(y=>y.i!==i);kzIndex();if(!(await kzVlUloz())){KZVL=old;kzIndex();return}location.hash="#kouzla"}
+const KZF={q:"",l:"",s:"",p:"",ko:false,ri:false,vl:false};
 function kzFiltr(){const box=document.getElementById("kzview");if(!box||!KZ)return;const q=_nrm(KZF.q.trim()),cur=decodeURIComponent((location.hash.split("/")[1])||"");
-  let L=KZ.filter(x=>(KZF.l===""||x.l===+KZF.l)&&(!KZF.s||x.s===KZF.s)&&(!KZF.p||x.p.includes(KZF.p))&&(!KZF.ko||x.ko)&&(!KZF.ri||x.ri));
+  let L=KZ.filter(x=>(KZF.l===""||x.l===+KZF.l)&&(!KZF.s||x.s===KZF.s)&&(!KZF.p||x.p.includes(KZF.p))&&(!KZF.ko||x.ko)&&(!KZF.ri||x.ri)&&(!KZF.vl||x.vl));
   if(q){const jm=x=>_nrm(x.cz+" "+x.en),w=q.split(/\s+/);const A=L.filter(x=>w.every(t=>jm(x).includes(t))),B=q.length>=3?L.filter(x=>!A.includes(x)&&w.every(t=>_nrm(x.t+" "+x.v).includes(t))):[];
     A.sort((a,b)=>(_nrm(b.cz).startsWith(q)||_nrm(b.en).startsWith(q))-(_nrm(a.cz).startsWith(q)||_nrm(a.en).startsWith(q)));L=[...A,...B]}
   const ul=box.querySelector(".kzlist");box.querySelector(".kzpoc").textContent=`${L.length} z ${KZ.length}`;
-  ul.innerHTML=L.length?L.slice(0,400).map(x=>`<li><a href="#kouzla/${x.i}" class="${x.i===cur?"on":""}"><b>${kzE(x.cz||x.en)}</b><small><span lang="en">${kzE(x.en)}</span> · ${kzUr(x.l)} · ${kzE(x.s)}${x.ko?' · <abbr title="Concentration">K</abbr>':""}${x.ri?' · <abbr title="rituál">R</abbr>':""}</small></a></li>`).join("")
-    :`<li class="kzmiss">V SRD nic takového není.${KZF.q.trim()?` <a href="https://www.aidedd.org/spell/${encodeURIComponent(_nrm(KZF.q.trim()).replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,""))}" target="_blank" rel="noopener">Zkusit „${kzE(KZF.q.trim())}“ na aidedd.org</a> (anglický název kouzla z Player's Handbooku).`:""}</li>`}
+  ul.innerHTML=L.length?L.slice(0,400).map(x=>`<li><a href="#kouzla/${x.i}" class="${x.i===cur?"on":""}"><b>${kzE(x.cz||x.en)}</b><small><span lang="en">${kzE(x.en)}</span> · ${kzUr(x.l)} · ${kzE(x.s)}${x.ko?' · <abbr title="Concentration">K</abbr>':""}${x.ri?' · <abbr title="rituál">R</abbr>':""}${x.vl?' · <span class="kzvl">vlastní</span>':""}</small></a></li>`).join("")
+    :`<li class="kzmiss">${KZF.vl&&!KZVL.length?"Zatím nemáš žádné vlastní kouzlo.":"Nic takového tu není."} <button type="button" class="gbtn" data-kznove="${kzE(KZF.q.trim())}">Zapsat jako vlastní kouzlo</button>${KZF.q.trim()?` <a href="https://www.aidedd.org/spell/${encodeURIComponent(_nrm(KZF.q.trim()).replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,""))}" target="_blank" rel="noopener">Zkusit „${kzE(KZF.q.trim())}“ na aidedd.org</a> (anglický název kouzla z Player's Handbooku).`:""}</li>`}
 function renderKouzla(b){const box=document.getElementById("kzview");if(!box||!GMV)return;
   if(!box.dataset.hotovo){box.dataset.hotovo=1;
-    box.innerHTML=`<div class="kzhlav"><h2 class="arttitle">Kouzla</h2><p class="intro">Kouzla D&amp;D 2024 ze SRD 5.2.1 pro rychlé dohledání u stolu – česky, s anglickým názvem. Jen pro vypravěče. Kouzla z Player's Handbooku, která v SRD nejsou, najdeš přes odkaz na aidedd.org.</p></div>
+    box.innerHTML=`<div class="kzhlav"><h2 class="arttitle">Kouzla</h2><p class="intro">Kouzla D&amp;D 2024 ze SRD 5.2.1 pro rychlé dohledání u stolu – česky, s anglickým názvem. Jen pro vypravěče. Kouzla z Player's Handbooku, která v SRD nejsou, si můžeš zapsat jako vlastní – uloží se jen pro vypravěče.</p>
+      <p><button type="button" class="gbtn" data-kznove="">+ Vlastní kouzlo</button></p></div>
       <div class="kzfil"><input type="search" class="kzq" placeholder="Hledat česky nebo anglicky, i v textu…" aria-label="Hledat kouzlo">
         <div class="kzur controls" role="group" aria-label="Úroveň"><button type="button" data-kzl="" aria-pressed="true">Vše</button>${[0,1,2,3,4,5,6,7,8,9].map(l=>`<button type="button" data-kzl="${l}" aria-pressed="false">${l?l:"Trik"}</button>`).join("")}</div>
         <select class="kzs" aria-label="Škola"><option value="">Všechny školy</option>${KZSK.map(x=>`<option>${x}</option>`).join("")}</select>
         <select class="kzp" aria-label="Povolání"><option value="">Všechna povolání</option>${KZPOV.map(x=>`<option>${x}</option>`).join("")}</select>
-        <label class="kzchk"><input type="checkbox" class="kzko"> Concentration</label><label class="kzchk"><input type="checkbox" class="kzri"> rituál</label><span class="kzpoc lbl"></span></div>
+        <label class="kzchk"><input type="checkbox" class="kzko"> Concentration</label><label class="kzchk"><input type="checkbox" class="kzri"> rituál</label><label class="kzchk"><input type="checkbox" class="kzvlf"> jen vlastní</label><span class="kzpoc lbl"></span></div>
       <div class="kzgrid"><ol class="kzlist"><li>Načítám kouzla…</li></ol><div class="kzdet"></div></div>
       <p class="kzlic">Obsahuje materiál ze <i>System Reference Document 5.2.1</i> („SRD 5.2.1“) společnosti Wizards of the Coast LLC, dostupného na <a href="https://www.dndbeyond.com/srd" target="_blank" rel="noopener">dndbeyond.com/srd</a>. SRD 5.2.1 je licencováno pod <a href="https://creativecommons.org/licenses/by/4.0/legalcode" target="_blank" rel="noopener">Creative Commons Attribution 4.0 International</a>. Texty jsou přeložené do češtiny a terminologicky upravené pro Mundus Mutatus. Anglická data z projektů 5e-bits/5e-database a foundryvtt/dnd5e (SRD 5.2.1).</p>`;
     const f=box.querySelector(".kzfil");
     f.querySelector(".kzq").addEventListener("input",e=>{KZF.q=e.target.value;kzFiltr()});
     f.addEventListener("click",e=>{const t=e.target.closest("[data-kzl]");if(!t)return;KZF.l=t.dataset.kzl;f.querySelectorAll("[data-kzl]").forEach(x=>x.setAttribute("aria-pressed",x===t));kzFiltr()});
-    f.addEventListener("change",e=>{if(e.target.matches(".kzs"))KZF.s=e.target.value;else if(e.target.matches(".kzp"))KZF.p=e.target.value;else if(e.target.matches(".kzko"))KZF.ko=e.target.checked;else if(e.target.matches(".kzri"))KZF.ri=e.target.checked;else return;kzFiltr()})}
+    f.addEventListener("change",e=>{if(e.target.matches(".kzs"))KZF.s=e.target.value;else if(e.target.matches(".kzp"))KZF.p=e.target.value;else if(e.target.matches(".kzko"))KZF.ko=e.target.checked;else if(e.target.matches(".kzri"))KZF.ri=e.target.checked;else if(e.target.matches(".kzvlf"))KZF.vl=e.target.checked;else return;kzFiltr()});
+    box.addEventListener("click",e=>{const t=e.target;let b;const det=box.querySelector(".kzdet");
+      if((b=t.closest("[data-kznove]"))){kzNacti().then(()=>{det.innerHTML=kzForm();const f=det.querySelector("form");if(b.dataset.kznove)f.elements.en.value=b.dataset.kznove.split(/\s+/).map((w,j)=>j&&/^(of|the|and|or|to|a|an|in|on|from|with|for)$/i.test(w)?w.toLowerCase():w.charAt(0).toUpperCase()+w.slice(1)).join(" ");f.elements[b.dataset.kznove?"cz":"en"].focus();if(matchMedia("(max-width:760px)").matches)det.scrollIntoView({block:"start"})})}
+      else if((b=t.closest("[data-kzuprav]"))){const x=KZBY[b.dataset.kzuprav];if(x){det.innerHTML=kzForm(x);det.querySelector("form").elements.en.focus()}}
+      else if((b=t.closest("[data-kzsmaz]")))kzSmaz(b.dataset.kzsmaz);
+      else if(t.closest("[data-kzzrus]")){const id=decodeURIComponent((location.hash.split("/")[1])||""),x=KZBY[id];det.innerHTML=x?kzKarta(x):`<p class="kzprazdne">Vyber kouzlo vlevo.</p>`}});
+    box.addEventListener("submit",e=>{const f=e.target.closest(".kzform");if(!f)return;e.preventDefault();kzFormUloz(f)})}
   kzNacti().then(()=>{kzFiltr();const d=box.querySelector(".kzdet"),x=b&&KZBY[b];d.innerHTML=x?kzKarta(x):`<p class="kzprazdne">Vyber kouzlo vlevo.</p>`;
     if(x&&matchMedia("(max-width:760px)").matches)d.scrollIntoView({block:"start"})}).catch(()=>{box.querySelector(".kzlist").innerHTML=`<li>Kouzla se nepodařilo načíst.</li>`})}
 /* odkazy na kouzla v Boji, Výpravě a Artikulích (anglické názvy ze statbloků) a karta kouzla přes stránku */
