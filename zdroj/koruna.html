@@ -1387,7 +1387,7 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
 .bhp.bhp2 i{background:linear-gradient(90deg,var(--gold) var(--p),color-mix(in srgb,var(--rule) 60%,transparent) var(--p))}
 .bhp.bhp0 i{background:var(--kal)}.bhp.bhp0 input{color:var(--kal);border-color:var(--kal)}
 .bstat{margin-top:4px}
-.bstat>summary,.bbestiar>summary,.bbe>summary{cursor:pointer;font-family:var(--f-label);letter-spacing:.04em;color:var(--muted)}
+.bstat>summary,.bbe>summary{cursor:pointer;font-family:var(--f-label);letter-spacing:.04em;color:var(--muted)}
 .bstat>summary:hover,.bbe>summary:hover .bben{color:var(--kal)}
 .bsb{margin:6px 0;padding:8px 10px;background:color-mix(in srgb,var(--bg) 55%,var(--paper));border-left:2px solid var(--gold);font-size:.92rem;line-height:1.45;overflow-wrap:anywhere}
 .bsb p{margin:0 0 6px}.bsb ul{margin:0 0 6px;padding-left:18px}.bsb li{margin:0 0 3px}
@@ -1396,12 +1396,12 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
 .bsb .rtab{font-size:.85rem}.bsb .rtab td,.bsb .rtab th{padding:3px 6px;border-bottom:1px solid var(--rule);text-align:center;vertical-align:top}
 .bsb .rtab:has(th:nth-child(5):last-child) td,.bsb .rtab:has(th:nth-child(5):last-child) th{text-align:left}
 .bedit{font-size:.82rem;padding:3px 10px}
-.bbestiar{margin-top:18px;max-width:none}
-.bojside .bbestiar{margin-top:12px;padding-top:8px;border-top:1px dashed var(--rule)}
-.bbestiar>summary{font-family:var(--f-disp);font-size:1.25rem;letter-spacing:.01em;color:var(--ink)}
-.bbestiar>summary small{font-family:var(--f-label);font-size:.85rem;color:var(--muted);margin-left:6px}
-.bbestiar h4{font-family:var(--f-label);letter-spacing:.08em;text-transform:uppercase;font-size:.78rem;color:var(--muted);margin:12px 0 4px;border-bottom:1px solid var(--rule);padding-bottom:2px}
-.bbl{list-style:none;margin:0;padding:0;columns:2 340px;column-gap:24px}
+.bhledej{margin-top:18px;max-width:640px}
+.bojside .bhledej{margin-top:10px}
+.bhledej input{width:100%;box-sizing:border-box;font:inherit;font-family:var(--f-body);color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-left:3px solid var(--gold);border-radius:3px;padding:6px 10px;min-height:38px}
+.bhledej input:focus{outline:none;border-color:var(--gold)}
+.bnic{color:var(--muted);font-style:italic;padding:4px 0}
+.bbl{list-style:none;margin:4px 0 0;padding:0}
 .bbl>li{break-inside:avoid;margin:0 0 2px}
 .bbe>summary{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 10px;padding:4px 0;list-style:none}
 .bbe>summary::-webkit-details-marker{display:none}
@@ -1410,7 +1410,6 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
 .bben{font-family:var(--f-disp);font-size:1.12rem;color:var(--ink);letter-spacing:0}
 .bbe>summary small{font-size:.8rem}
 .bbadd{--c:var(--bn);margin-left:auto;padding:1px 9px;font-size:.8rem}
-.bojside .bbl{columns:1}
 /* ===== hlavní lišta: vínová kůže se zlatými linkami jako rozbalovací nabídky a obsah Artikulí ===== */
 .sitenav{--lt:#f4e6c4;--lth:#f6d27a;background:linear-gradient(180deg,color-mix(in srgb,var(--kuze) 88%,#000) 0%,var(--kuze) 30%,var(--kuze2) 100%)!important;border:1px solid rgba(20,3,6,.85);border-radius:3px;
   box-shadow:inset 0 0 0 4px var(--kuze),inset 0 0 0 5px var(--zlato-linka),inset 0 0 0 7px var(--kuze),inset 0 0 0 8px rgba(214,170,90,.28),0 8px 18px -12px rgba(20,5,5,.6)!important;padding:12px 14px}
@@ -5632,12 +5631,16 @@ function bojRef(n){const p=PROTBY[n.b];if(!p)return "";const hv=bojHp.get()[n.id
       return `<label class="bhp${cur<=0?" bhp0":cur<=h.max/2?" bhp2":""}"><span>${h.n?besc(h.n)+" ":""}HP</span><input type="number" inputmode="numeric" name="hp-${n.id}-${k}" data-bhp="${k}" data-max="${h.max}" value="${cur}" aria-label="Životy – ${besc(n.n)}${h.n?", "+besc(h.n):""}"><small>/ ${h.max}</small><i style="--p:${pr}%"></i></label>`}).join("")}</div>`:"";
   return `<div class="bref">${p.ac?`<span class="brac"><b>AC</b> ${besc(p.ac)}</span>`:""}${hp}${bojRefTxt(p)}
     <details class="bstat" data-otv="st-${n.id}"${bojOtv("st-"+n.id)}><summary>Celý statblock</summary><div class="bsb">${p.h}</div>${bojEdit(p)}</details></div>`}
+/* vyhledávání v bestiáři: výsledky až po napsání dotazu; dotaz přežije překreslení během boje */
+let BHLED="";
+const bojNorm=t=>String(t||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
+function bojVysl(q){const t=bojNorm(q).trim();if(!t)return "";
+  const sl=t.split(/\s+/),hit=PROTIVNICI.filter(p=>{const h=bojNorm([p.n,BDRUH[p.u]||p.u,p.ut,p.id].join(" "));return sl.every(x=>h.includes(x))}).slice(0,8);
+  if(!hit.length)return `<li class="bnic">Nic takového v bestiáři není.</li>`;
+  return hit.map(p=>`<li><details class="bbe" data-otv="be-${besc(p.id)}"${bojOtv("be-"+p.id)}><summary><span class="bben">${besc(p.n)}</span><small>${BDRUH[p.u]||p.u}${p.poc?` · ${p.poc}`:""}${p.vy?` · výzva ${besc(p.vy)}`:""}</small><button type="button" class="badd bbadd" data-bbadd="${besc(p.id)}" title="Přidat do boje">+ do boje</button></summary>
+      <div class="bsb">${p.ac?`<p class="brf"><b>AC</b> ${besc(p.ac)}${p.hp.length?` · <b>HP</b> ${p.hp.map(h=>(h.n?h.n+" ":"")+h.max).join(", ")}`:""}</p>`:""}${bojRefTxt(p)}<hr>${p.h}</div>${bojEdit(p)}</details></li>`).join("")}
 function bojBestiar(){if(!PROTIVNICI.length||!GMV)return "";
-  const G=[["Pacholci",PROTIVNICI.filter(p=>p.u==="houf"||p.u==="pacholek")],["Sokové",PROTIVNICI.filter(p=>p.u==="sok")],["Zhoubci",PROTIVNICI.filter(p=>p.u==="zhoubce")]];
-  return `<details class="bbestiar" data-otv="best"${bojOtv("best")}><summary>Bestiář protivníků <small>${PROTIVNICI.length}</small></summary>
-    ${G.map(([t,a])=>a.length?`<h4>${t}</h4><ul class="bbl">${a.map(p=>`<li><details class="bbe" data-otv="be-${besc(p.id)}"${bojOtv("be-"+p.id)}><summary><span class="bben">${besc(p.n)}</span><small>${BDRUH[p.u]||p.u}${p.poc?` · ${p.poc}`:""}${p.vy?` · výzva ${besc(p.vy)}`:""}</small><button type="button" class="badd bbadd" data-bbadd="${besc(p.id)}" title="Přidat do boje">+ do boje</button></summary>
-      <div class="bsb">${p.ac?`<p class="brf"><b>AC</b> ${besc(p.ac)}${p.hp.length?` · <b>HP</b> ${p.hp.map(h=>(h.n?h.n+" ":"")+h.max).join(", ")}`:""}</p>`:""}${bojRefTxt(p)}<hr>${p.h}</div>${bojEdit(p)}</details></li>`).join("")}</ul>`:"").join("")}
-    <p class="rsmall">Nového protivníka založíš ve vypravěčském přehledu v části Nový záznam (druh Protivník).</p></details>`}
+  return `<div class="bhledej"><input type="search" name="bhledej" data-bhledej value="${besc(BHLED)}" placeholder="Hledat v bestiáři – jméno, druh, zbraň…" aria-label="Hledat v bestiáři protivníků" autocomplete="off"><ul class="bbl" data-bvysl>${bojVysl(BHLED)}</ul></div>`}
 const BOJ={s:null,v:-1,poll:null};
 const bojDB=window.MMDB?{nacti:()=>MMDB.bojNacti(),uloz:s=>MMDB.bojUloz(s),obsad:(i,h)=>MMDB.bojObsad(i,h)}
   :GMV?{nacti:async()=>{try{return JSON.parse(localStorage.getItem("mm-boj")||"null")}catch(e){return null}},
@@ -5788,17 +5791,21 @@ const bojNapoj=(row,p)=>{const nb=row.querySelector('[name="nb"]');if(nb)nb.valu
   if(!p)return;row.querySelector('[name="nn"]').title="Statblock: "+p.n;const nd=row.querySelector('[name="nd"]');if(nd)nd.value=p.u;const np=row.querySelector('[name="np"]');if(np&&p.poc)np.value=p.poc};
 document.addEventListener("input",e=>{
   const v=document.getElementById("bojview");if(!v||!v.contains(e.target))return;
+  if(e.target.matches("[data-bhledej]")){BHLED=e.target.value;const u=e.target.parentElement.querySelector("[data-bvysl]");if(u)u.innerHTML=bojVysl(BHLED);return}
   if(e.target.matches('[name="nn"]')){const row=e.target.closest(".bsr,.bnadd");if(!row)return;const p=bojBest(e.target.value);
     if(p)bojNapoj(row,p);else if(!e.target.value.trim())bojNapoj(row,null);return}
   if(e.target.matches("[data-bhp]")){const card=e.target.closest("[data-bnpc]");if(!card)return;const id=card.dataset.bnpc,o=bojHp.get(),a=o[id]||[],k=+e.target.dataset.bhp,mx=+e.target.dataset.max||1;
     const cur=e.target.value===""?mx:+e.target.value;a[k]=cur;o[id]=a;bojHp.set(o);
     const l=e.target.closest(".bhp");if(l){l.classList.toggle("bhp0",cur<=0);l.classList.toggle("bhp2",cur>0&&cur<=mx/2);const i=l.querySelector("i");if(i)i.style.setProperty("--p",Math.max(0,Math.min(100,Math.round(cur/mx*100)))+"%")}}
 });
+document.addEventListener("keydown",e=>{if(e.key!=="Enter"||!e.target.matches||!e.target.matches("[data-bhledej]"))return;e.preventDefault();
+  const b=e.target.parentElement.querySelector("[data-bbadd]");if(b)b.click()});
 document.addEventListener("toggle",e=>{const d=e.target;if(!d.matches||!d.matches("details[data-otv]"))return;if(d.open)BOTV.add(d.dataset.otv);else BOTV.delete(d.dataset.otv)},true);
 document.addEventListener("click",e=>{
   const v=document.getElementById("bojview");if(!v||!v.contains(e.target))return;
   const ed=e.target.closest("[data-bedit]");if(ed){e.preventDefault();if(typeof edOtevri==="function")edOtevri("protivnik",ed.dataset.bedit);return}
   const a=e.target.closest("[data-bbadd]");if(!a)return;e.preventDefault();e.stopPropagation();const p=PROTBY[a.dataset.bbadd];if(!p)return;
+  BHLED="";const hl=v.querySelector("[data-bhledej]");if(hl){hl.value="";const u=hl.parentElement.querySelector("[data-bvysl]");if(u)u.innerHTML="";hl.focus()}
   const fn=document.getElementById("bfn");
   if(fn){let r=[...fn.querySelectorAll(".bsr")].find(x=>!x.querySelector('[name="nn"]').value.trim());
     if(!r){r=fn.lastElementChild.cloneNode(true);r.querySelectorAll("input").forEach(i=>{if(i.name!=="np")i.value=""});fn.appendChild(r)}

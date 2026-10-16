@@ -20,7 +20,7 @@ Nové záznamy (osoba, rod, zápis Kroniky, plemeno, místo…) vznikají ve vyp
 Statblocky protivníků jsou ve složce `protivnici/` (vzor `_vzor.md`) a vidí je **jen vypravěč** – hráči nedostanou
 ani jejich seznam. Hlavička nese rychlé údaje pro tracker iniciativy (úroveň houf / pacholek / sok / zhoubce, počet v houfu,
 AC, HP, útok, základní útočný bonus houfu, Požehnání, Pokušení, komplikace, Neřest), text pod ní je celý statblock.
-Na stránce **Boj** je vybereš ze seznamu u jména nepřítele nebo tlačítkem **+ do boje** v Bestiáři; nového založíš
+Na stránce **Boj** je vybereš ze seznamu u jména nepřítele nebo vyhledáním v bestiáři a tlačítkem **+ do boje**; nového založíš
 v **Nový záznam** jako druh Protivník. Životy soků a zhoubců se během boje ukládají jen ve tvém prohlížeči.
 
 ## Úpravy v souborech (GitHub, Claude)
