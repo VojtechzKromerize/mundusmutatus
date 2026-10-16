@@ -274,6 +274,12 @@ function generuj(soubory, manifest) {
     const np = (Array.isArray(p.nepratele) ? p.nepratele : lst(p.nepratele)).map(x => radek(x, w));
     if (!np.length) fail(`${w}: chybí nepratele (seznam řádků  - 6 houf-zoldneru)`);
     const o = { $gm: true, id: p.id, n: p.nazev, st: lst(p.stitky), np, h: md(p._body), x: text(p._body) };
+    /* volitelně: cíle boje (řádky „Zachránit rukojmí (3×, do 2. kola, skrytý)“), prostředí (tma, mlha, silný vítr…) a přepadení (družina / nepřátelé) */
+    const cl = Array.isArray(p.cile) ? p.cile.map(x => String(x).trim()).filter(Boolean) : String(p.cile || "").split(";").map(x => x.trim()).filter(Boolean);
+    if (cl.length) o.cl = cl;
+    if (lst(p.prostredi).length) o.pro = lst(p.prostredi);
+    const pk = String(p.prekvapeni || "").trim().toLowerCase();
+    if (pk) { if (/^dru/.test(pk)) o.pk = "h"; else if (/^nep/.test(pk)) o.pk = "n"; else fail(`${w}: prekvapeni má být „družina“ nebo „nepřátelé“`); }
     if (o.x) odstranene.push(o.x);
     SETK.push(o);
   }

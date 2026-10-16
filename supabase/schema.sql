@@ -319,6 +319,74 @@ begin
   return v;
 end $$;
 
+-- Boj: hráč z telefonu u své postavy – stavy, kryt, hody proti smrti, připravená akce, reakce (jen během přípravy nebo boje, jen povolené hodnoty)
+create or replace function public.mm_boj_hrac(p_hrac text, p_pole text, p_hodnota jsonb) returns bigint
+language plpgsql security definer set search_path = public as $$
+declare
+  s jsonb;
+  v bigint;
+  i int;
+  x jsonb := coalesce(p_hodnota, 'null'::jsonb);
+begin
+  select stav into s from public.boj where id = 'aktivni' for update;
+  if s is null or not (coalesce((s ->> 'aktivni')::boolean, false) or coalesce((s ->> 'priprava')::boolean, false)) then
+    raise exception 'žádný boj neprobíhá';
+  end if;
+  select (h.ord - 1)::int into i from jsonb_array_elements(coalesce(s -> 'hraci', '[]'::jsonb)) with ordinality h(val, ord) where h.val ->> 'id' = p_hrac;
+  if i is null then
+    raise exception 'neznámá postava';
+  end if;
+  if p_pole = 'stav' then
+    if jsonb_typeof(x) = 'null' or x = '[]'::jsonb then
+      s := s #- array['hraci', i::text, 'stav'];
+    elsif jsonb_typeof(x) = 'array' and jsonb_array_length(x) <= 8 and not exists (
+        select 1 from jsonb_array_elements(x) e
+        where jsonb_typeof(e) <> 'string' or not ((e #>> '{}') = any (array['sražen','omráčen','zadržen','oslepen','neviditelný','otrávený','vyděšený','soustředí']))) then
+      s := jsonb_set(s, array['hraci', i::text, 'stav'], x);
+    else
+      raise exception 'neplatné stavy';
+    end if;
+  elsif p_pole = 'kryt' then
+    if jsonb_typeof(x) = 'null' or x = '0'::jsonb then
+      s := s #- array['hraci', i::text, 'kryt'];
+    elsif x = '2'::jsonb or x = '5'::jsonb then
+      s := jsonb_set(s, array['hraci', i::text, 'kryt'], x);
+    else
+      raise exception 'neplatný kryt';
+    end if;
+  elsif p_pole = 'ds' then
+    if jsonb_typeof(x) = 'null' then
+      s := s #- array['hraci', i::text, 'ds'];
+    elsif jsonb_typeof(x) = 'object'
+        and not exists (select 1 from jsonb_object_keys(x) k where k not in ('u', 'n', 'st'))
+        and jsonb_typeof(x -> 'u') = 'number' and (x ->> 'u') ~ '^[0-3]$'
+        and jsonb_typeof(x -> 'n') = 'number' and (x ->> 'n') ~ '^[0-3]$'
+        and (not (x ? 'st') or x ->> 'st' in ('stab', 'mrtev')) then
+      s := jsonb_set(s, array['hraci', i::text, 'ds'], x);
+    else
+      raise exception 'neplatné hody proti smrti';
+    end if;
+  elsif p_pole = 'ready' then
+    if jsonb_typeof(x) = 'null' or x = '""'::jsonb then
+      s := jsonb_set(s, '{ready}', coalesce(s -> 'ready', '{}'::jsonb) - p_hrac);
+    elsif jsonb_typeof(x) = 'string' and char_length(x #>> '{}') <= 160 then
+      s := jsonb_set(s, '{ready}', coalesce(s -> 'ready', '{}'::jsonb) || jsonb_build_object(p_hrac, x));
+    else
+      raise exception 'neplatná připravená akce';
+    end if;
+  elsif p_pole = 'reak' then
+    if x = 'true'::jsonb then
+      s := jsonb_set(s, '{reak}', coalesce(s -> 'reak', '{}'::jsonb) || jsonb_build_object(p_hrac, 1));
+    else
+      s := jsonb_set(s, '{reak}', coalesce(s -> 'reak', '{}'::jsonb) - p_hrac);
+    end if;
+  else
+    raise exception 'neznámé pole';
+  end if;
+  update public.boj set stav = s, verze = verze + 1, zmeneno = now() where id = 'aktivni' returning verze into v;
+  return v;
+end $$;
+
 -- Výprava (cesta družiny): stav plánovače cest jen pro vypravěče, uložený v nastavení pod klíčem 'vyprava'
 create or replace function public.mm_vyprava_nacti() returns jsonb
 language plpgsql stable security definer set search_path = public as $$
@@ -582,6 +650,7 @@ revoke all on function public.mm_kouzla_uloz(jsonb) from public, anon;
 grant execute on function public.mm_kouzla_nacti(), public.mm_kouzla_uloz(jsonb) to authenticated;
 grant execute on function public.mm_boj_obsad(int, text) to anon, authenticated;
 grant execute on function public.mm_boj_hod(text, int) to anon, authenticated;
+grant execute on function public.mm_boj_hrac(text, text, jsonb) to anon, authenticated;
 grant execute on function public.mm_nastav_hru(jsonb) to authenticated;
 grant execute on function public.mm_stavy() to authenticated;
 revoke all on function public.mm_orez(jsonb, jsonb) from public, anon, authenticated;

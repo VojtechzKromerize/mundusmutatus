@@ -17,9 +17,12 @@ for f in glob.glob(ob+"/**/*",recursive=True):
     if os.path.isfile(f) and (r.endswith(".md") or r.endswith(".json")) and not r.split("/")[-1].startswith("_"): sb[r]=open(f,encoding="utf-8").read()
 k=next(x for x in sb if x.startswith("osoby/") and "\nid: viktorin\n" in "\n"+sb[x])
 sb[k]=sb[k].replace("\n---\n","\nstatblok: rytir-v-plne-zbroji + zkuseny\n---\n",1)
+sb["setkani/99-test-cile.md"]="---\nid: test-cile\nnazev: Zkouška cílů\nprostredi: mlha, úzký průchod\nprekvapeni: nepřátelé\nnepratele:\n  - 3 houf-zoldneru\ncile:\n  - Zachránit rukojmí (3×, do 2. kola)\n  - Zabít kněze (skrytý)\n---\nZkušební setkání.\n"
 g=json.loads(subprocess.run(["node",os.path.join(KOR,"zdroj","generator.js")],input=json.dumps({"soubory":sb,"manifest":{}},ensure_ascii=False),capture_output=True,text=True,check=True).stdout)
 chk([o["b"] for o in g["gm"]["PROTOSOBY"]]==["rytir-v-plne-zbroji"] and g["gm"]["PROTOSOBY"][0]["pr"]==["zkuseny"],"generátor: statblok u osoby pro vypravěče")
 chk(all(not g["hrac"].get(x) for x in ("PROTIVNICI","PRIVLASTKY","SETKANI","PROTOSOBY","VYZAZ")),"generátor: hráč nedostane bestiář ani tabulky setkání")
+tc=next((x for x in g["gm"]["SETKANI"] if x["id"]=="test-cile"),{})
+chk(tc.get("cl")==["Zachránit rukojmí (3×, do 2. kola)","Zabít kněze (skrytý)"] and tc.get("pro")==["mlha","úzký průchod"] and tc.get("pk")=="n","generátor: setkání nese cíle, prostředí a přepadení")
 
 async def priprava(g,jmena,hody,dm,npc=(),spoj=()):
     """Příprava boje na stránce Boj: postavy s hody, nepřátelé a spojenci přes formuláře, hod nepřátel, Začít boj."""
@@ -65,6 +68,12 @@ async def main():
     await g.fill("[data-bur]","8");await g.wait_for_timeout(200)
     ob=await g.locator(".bobt").first.inner_text();print(ob)
     chk("XP" in ob and "pro 4 postavy 8. úrovně" in ob,"odhad obtížnosti se ukáže")
+    r=await g.evaluate("(()=>{const c=bojCilParse('Zachránit rukojmí (3×, do 2. kola, skrytý)');return [c.n,c.cil,c.kolo,c.ver,bojProsParse('silný vítr, mlha').join(),bojCilTxt(c)]})()")
+    chk(r==["Zachránit rukojmí",3,2,False,"vitr,mlha","Zachránit rukojmí (3×, do 2. kola, skrytý)"],"cíl setkání jako text tam i zpět: "+str(r))
+    await g.evaluate("bojZmen(z=>bojSetkPouzij(z,{rows:[],cile:[{n:'Udržet bránu',kolo:3,ver:true}],prostr:['mlha'],prekv:'n'}))");await g.wait_for_timeout(400)
+    chk(await g.evaluate("BOJ.s.cile.some(c=>c.n==='Udržet bránu'&&c.kolo===3)&&BOJ.s.prostr.includes('mlha')&&BOJ.s.prekv==='n'"),"setkání v přípravě přidá cíle, prostředí a přepadení")
+    chk(await g.locator('[data-bpros="mlha"][aria-pressed="true"]').count()==1,"prostředí je vidět v přípravě")
+    await g.evaluate("bojZmen(z=>{delete z.prostr;delete z.prekv;z.cile=(z.cile||[]).filter(c=>c.n!=='Udržet bránu');if(!z.cile.length)delete z.cile})");await g.wait_for_timeout(300)
     await g.click("[data-bdmhod]");await g.wait_for_timeout(400)
     chk(await g.evaluate("typeof BOJ.s.dm==='number'"),"hod za nepřátele zapíše iniciativu nepřátel")
     await g.evaluate("bojZmen(z=>{z.dm=12})");await g.wait_for_timeout(300)
