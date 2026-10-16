@@ -69,6 +69,8 @@ async def main():
     chk(await g.locator(".btip.on").count()==1 and "AC 18" in await g.locator(".btip").inner_text(),"popisek AC při najetí myší")
     await g.hover(rot+' [data-bstav="sražen"]');await g.wait_for_timeout(300)
     chk("Prone" in await g.locator(".btip").inner_text(),"stav jako ikonka s popiskem")
+    chk(await g.locator(rot+" .bsb").inner_html()=="","statblock se počítá až při otevření")
+    await g.click(rot+" .bstat summary");await g.wait_for_timeout(200)
     ab=rot+' .bsb abbr.btp:text-is("Ostrá")'
     chk(await g.locator(ab).count()>=1 and "19–20" in (await g.locator(ab).first.get_attribute("data-tip") or ""),"vlastnost zbraně ve statblocku vysvětlí, co dělá")
     # útok soka
@@ -98,7 +100,7 @@ async def main():
     chk(await g.locator(rot+' [data-bzd="Výdrž"] button').count()==3,"Veterán: Výdrž 2 → 3")
     # vazba sok–houf a morálka
     await g.select_option(hf+" [data-bvelsok]","n1");await g.wait_for_timeout(400)
-    await g.fill(rot+' [data-bhp]',"0");await g.wait_for_timeout(100)
+    await g.fill(rot+' [data-bhp]',"0");await g.press(rot+' [data-bhp]',"Enter");await g.wait_for_timeout(100)
     await g.evaluate("renderBoj()");await g.wait_for_timeout(100)
     chk("padl" in await g.locator(hf+" .bmor").inner_text(),"když sok padne, houf hlásí útěk")
     # kritické zranění v šuplíku s pravidly

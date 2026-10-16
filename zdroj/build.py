@@ -302,7 +302,7 @@ def manifest_z_disku():
     erby = {fn[:-5]: f"art/erby/{fn}" for fn in ls("erby") if fn.endswith(".webp") and os.path.isfile(os.path.join(art, "erby", fn))}
     portrety = [fn[:-7] for fn in ls("portrety") if fn.endswith("-m.webp")]
     draci = [fn[:-5] for fn in ls("draci") if fn.endswith(".webp") and not fn.endswith(("-h.webp", "-m.webp"))]
-    bestiar = [fn[:-5] for fn in ls("bestiar") if fn.endswith(".webp")]  # obrázky protivníků pro žetony v Boji (art/bestiar/<id>.webp)
+    bestiar = [fn[:-5] for fn in ls("bestiar") if fn.endswith(".webp") and not fn.endswith("-96.webp")]  # obrázky protivníků pro žetony v Boji (art/bestiar/<id>.webp)
     if DB:  # nečitelné názvy, aby se nedalo uhodnout, kdo či co existuje
         P = {pid: hashlib.sha256(f"mm-portret:{SB_SECRET}:{pid}".encode()).hexdigest()[:24] for pid in portrety}
         D = {i: hashlib.sha256(f"mm-drak:{SB_SECRET}:{i}".encode()).hexdigest()[:24] for i in draci}
@@ -460,7 +460,7 @@ if DB:  # generátor si stáhne jen vypravěč, když upravuje texty na webu
     shutil.copyfile(GENERATOR, os.path.join(OUT, "v", f"generator-{GEN_VERZE}.js"))
 shutil.copytree(os.path.join(ROOT, "art"), os.path.join(OUT, "art"), ignore=shutil.ignore_patterns("portrety", "draci", "bestiar") if DB else None)
 if DB:
-    for slozka, mapa, pripony in (("draci", MANIFEST["draci"], ("", "-h", "-m")), ("portrety", MANIFEST["portrety"], ("", "-m", "-s")), ("bestiar", MANIFEST.get("bestiar", {}), ("",))):
+    for slozka, mapa, pripony in (("draci", MANIFEST["draci"], ("", "-h", "-m")), ("portrety", MANIFEST["portrety"], ("", "-m", "-s")), ("bestiar", MANIFEST.get("bestiar", {}), ("", "-96"))):
         src_d, dst_d = os.path.join(ROOT, "art", slozka), os.path.join(OUT, "art", slozka)
         os.makedirs(dst_d)
         for jm, stem in mapa.items():
