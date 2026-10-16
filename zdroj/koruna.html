@@ -1694,6 +1694,22 @@ html.gmv .wrap{margin-bottom:56px}
 .herofig .drstav img.drl.bez{transition:none}
 .herofig .drstav img.drs{border-color:transparent!important;z-index:2}
 @media (prefers-reduced-motion:reduce){.herofig .drstav img.drl{transition:none}}
+.zavban{margin:0 0 10px;padding:8px 12px;border-radius:3px;border:1px solid #a3232b;background:color-mix(in srgb,#a3232b 12%,var(--paper));color:var(--ink);font-size:.95rem}
+.zavban b{color:#a3232b;font-family:var(--f-disp);font-size:1.1rem;font-weight:500;margin-right:2px}
+.zavban.pravda{border-color:#7a1414;background:color-mix(in srgb,#a3232b 24%,var(--paper));box-shadow:0 0 0 2px color-mix(in srgb,#a3232b 25%,transparent)}
+.zavban a{color:inherit;white-space:nowrap}
+.bojhorni{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.bojpoc{padding:6px 12px;border-left:3px solid var(--gold);background:color-mix(in srgb,var(--gold) 8%,var(--paper));font-size:.93rem}
+.bojpoc .lbl{margin-right:6px}.bojpoc ul{margin:4px 0 0 18px;padding:0}.bojpoc li{margin:1px 0}
+.ppoz{display:inline-block;margin-top:4px;padding:1px 8px;border-radius:2px;font-family:var(--f-label);font-size:.78rem;letter-spacing:.03em;color:#7a5410;background:color-mix(in srgb,var(--gold) 22%,var(--paper));border:1px solid color-mix(in srgb,var(--gold) 70%,transparent)}
+.artlead+.ppoz{margin:-4px 0 12px}
+.phcas{display:flex;flex-direction:column;gap:6px;padding:8px 10px;border:1px solid color-mix(in srgb,var(--gold) 45%,var(--rule));border-radius:3px;background:color-mix(in srgb,var(--gold) 7%,var(--paper))}
+.phted b{display:block;font-family:var(--f-disp);font-weight:500;font-size:1.15rem;color:var(--kal)}.phted small{color:var(--muted);font-size:.85rem}
+.phcasb{display:flex;flex-wrap:wrap;gap:5px}.phcasb .gbtn{padding:3px 9px;min-height:32px;font-size:.88rem}
+.phzav .zavban{margin:0;font-size:.88rem}.phzav:empty{display:none}
+.phbtn.phzv{box-shadow:0 0 0 2px #c0392b,0 0 14px rgba(192,57,43,.6)}
+.phbtn.phpr{animation:phpul 1.6s ease-in-out infinite}@keyframes phpul{50%{box-shadow:0 0 0 3px #e74c3c,0 0 22px rgba(231,76,60,.9)}}
+@media (prefers-reduced-motion:reduce){.phbtn.phpr{animation:none}}
 </style>
 
 <div class="wrap"><div class="papir" aria-hidden="true"></div>
@@ -4568,14 +4584,14 @@ function renderDruzina(b){
   if(!p){
     const slots=Math.max(0,PARTY_SLOTS-PARTY.length);
     L.innerHTML=`<p class="intro">Družina, která 3. března léta Páně 1458 vyráží z Prahy. Postavy se teprve chystají na cestu – jakmile budou hotové, objeví se tu jejich portréty, vyznání, Ctnosti a Neřesti, stav Svědomí, původ a vazby na rody Koruny.</p>
-     <div class="party">${PARTY.map(p=>`<a class="pchar" href="#druzina/${p.id}">${pPort(p)}<b>${p.n}</b><span>${p.epi||""}</span><small>${p.cls||""}</small>${pFaith(p.faith)}${p.sv!=null?`<span class="psv psv${p.sv<=0?0:p.sv<=3?1:p.sv<=7?2:3}">${SVST(p.sv)} · ${p.sv}</span>`:""}${(p.ctn||[]).length||(p.ner||[]).length?`<span class="pcn">${(p.ctn||[]).map(c=>`<i class="ctn">${c}</i>`).join("")}${(p.ner||[]).map(c=>`<i class="ner">${c}</i>`).join("")}</span>`:""}${p.hrac?`<small class="phr">hraje ${p.hrac}</small>`:""}</a>`).join("")}${
+     <div class="party">${PARTY.map(p=>`<a class="pchar" href="#druzina/${p.id}">${pPort(p)}<b>${p.n}</b><span>${p.epi||""}</span><small>${p.cls||""}</small>${pFaith(p.faith)}${pozBadge(p)}${p.sv!=null?`<span class="psv psv${p.sv<=0?0:p.sv<=3?1:p.sv<=7?2:3}">${SVST(p.sv)} · ${p.sv}</span>`:""}${(p.ctn||[]).length||(p.ner||[]).length?`<span class="pcn">${(p.ctn||[]).map(c=>`<i class="ctn">${c}</i>`).join("")}${(p.ner||[]).map(c=>`<i class="ner">${c}</i>`).join("")}</span>`:""}${p.hrac?`<small class="phr">hraje ${p.hrac}</small>`:""}</a>`).join("")}${
       Array.from({length:slots},()=>`<div class="pchar pslot"><span class="pport ini" aria-hidden="true">?</span><b>Volné místo</b><span>Postava se teprve chystá na cestu.</span></div>`).join("")}</div>`;
     return;
   }
   D.innerHTML=`<nav class="crumbs"><a href="#druzina">Družina</a> › <b>${p.n}</b></nav>
    <div class="artgrid"><div class="artmain">
      <h2 class="arttitle">${p.n}</h2>
-     <p class="artlead">${[p.epi,p.cls].filter(Boolean).join(" · ")}</p>
+     <p class="artlead">${[p.epi,p.cls].filter(Boolean).join(" · ")}</p>${pozBadge(p)}
      ${p.cil?`<p class="pcil"><span class="lbl">Co ho žene</span>${p.cil}</p>`:""}
      ${p.x?`<div class="kron">${p.x}</div>`:""}
      ${(p.ctn||[]).length||(p.ner||[]).length?`<h3>Ctnosti a Neřesti <a class="pmore" href="#artikule/ctnosti">pravidla →</a></h3><p class="chips">${(p.ctn||[]).map(c=>`<span class="chip ctn">${c}</span>`).join("")}${(p.ner||[]).map(c=>`<span class="chip ner">${c}</span>`).join("")}</p>`:""}
@@ -5291,7 +5307,7 @@ function gmSum(){
 }
 const CESTA_ZP=[["pesky","Pěšky",30],["kun","Na koni",45],["vuz","S vozem",20],["posel","Posel se střídáním koní",90]],
   CESTA_ODCH=[[0.5,"o polovinu rychleji"],[0.75,"o čtvrtinu rychleji"],[1,"podle odhadu"],[1.25,"o čtvrtinu déle"],[1.5,"o polovinu déle"],[2,"dvakrát déle"]];
-const cestaMisto=n=>{if(!n)return null;const p=placeBy(n);if(p)return p;const t=TOWNS.find(x=>x[0]===n);return t?{name:t[0],lo:t[1],la:t[2]}:null};
+const cestaMisto=n=>{if(!n)return null;if(typeof n==="object")return n.lo!=null?n:n.ll?{name:n.name,lo:n.ll[0],la:n.ll[1]}:null;if(HRA&&HRA.poloha&&n===HRA.misto)return {name:n,lo:HRA.poloha[0],la:HRA.poloha[1]};const p=placeBy(n);if(p)return p;const t=TOWNS.find(x=>x[0]===n);return t?{name:t[0],lo:t[1],la:t[2]}:null};
 /* řeky z mapy (pořadí jako RIVERS), stálé mosty roku 1458 a známá mýtná místa */
 const RIVNAMES=["Labe","Vltava","Odra","Morava","Nisa","Dunaj","Visla"];
 const CMOSTY=[["Praha",14.414,50.086,"Vltava"],["Drážďany",13.741,51.054,"Labe"],["Vratislav",17.04,51.11,"Odra"],["Řezno",12.097,49.022,"Dunaj"],["Vídeň",16.37,48.21,"Dunaj"]];
@@ -5311,10 +5327,10 @@ function cestaPoz(track,t){if(!track||!track.length)return null;if(t<=track[0][0
 /* plán cesty: trasa, hodiny na cestě, noclehy, svátky, řeky, mýta a stopa s časy pro polohu družiny */
 function cestaPlan(o){
   const zp=CESTA_ZP.find(z=>z[0]===o.zp)||CESTA_ZP[0],sw=n=>{const c=SVETMESTA.find(x=>x[0]===n);return c?{name:c[0],ll:[c[1],c[2]],key:c[0]}:null};
-  const A=cestaMisto(o.z),B=cestaMisto(o.do);let legs,km,svet=false,seaKm=0;
+  const A=o.svet?null:(o.zP&&o.zP.lo!=null?o.zP:cestaMisto(o.z)),B=o.svet?null:(o.doP&&o.doP.lo!=null?o.doP:cestaMisto(o.do));let legs,km,svet=false,seaKm=0;
   if(A&&B){if(A.name===B.name)return {chyba:"Družina už na místě je."};const R=computeRoute(A,B);if(!R)return {chyba:"Cestu se nepodařilo spočítat."};
     legs=R.legs.map(l=>({p0:l.p0,p1:l.p1,km:l.km,eff:l.eff,sea:false}));km=R.km}
-  else{const a=A?{name:A.name,ll:[A.lo,A.la],key:""}:sw(o.z),b=B?{name:B.name,ll:[B.lo,B.la],key:""}:sw(o.do);
+  else{const bod=q=>q?{name:q.name,ll:q.ll||[q.lo,q.la],key:q.key||""}:null,a=A?{name:A.name,ll:[A.lo,A.la],key:""}:bod(o.zP)||sw(o.z),b=B?{name:B.name,ll:[B.lo,B.la],key:""}:bod(o.doP)||sw(o.do);
     if(!a)return {chyba:"Výchozí místo („Kde je družina“) na mapách neznám – vyber ho z nabídky."};if(!b)return {chyba:"Cíl na mapách neznám – vyber ho z nabídky."};
     if(a.name===b.name)return {chyba:"Družina už na místě je."};
     if(!SG){svInit();return {chyba:"Načítám mapu Známého světa…",cekej:true}}
@@ -5344,7 +5360,7 @@ function cestaPlan(o){
       const kraj=[legs[0].p0,legs[legs.length-1].p1].some(q=>haversine(q,x)<4);
       if(!kraj&&!reky.some(r=>r.r===RIVNAMES[ri]))reky.push({r:RIVNAMES[ri],most:most?most[0]:null,kde:cKde(...x)});break}}});
     CMYTA.forEach(m=>{if(myta.some(x=>x.n===m[0]))return;for(let f=0;f<=1;f+=.1){if(haversine([m[1],m[2]],[l.p0[0]+(l.p1[0]-l.p0[0])*f,l.p0[1]+(l.p1[1]-l.p0[1])*f])<6){myta.push({n:m[0],t:m[3]});break}}})});
-  return {z:A?A.name:o.z,do:B?B.name:o.do,km:Math.round(km),seaKm:Math.round(seaKm),zp:zp[0],zpn:zp[1],odhad:Math.round(odhad),hod:Math.round(legs.reduce((s,l)=>s+l.h,0)),t0,t1:t,track:trk,
+  return {z:A?A.name:o.zP?o.zP.name:o.z,do:B?B.name:o.doP?o.doP.name:o.do,km:Math.round(km),seaKm:Math.round(seaKm),zp:zp[0],zpn:zp[1],odhad:Math.round(odhad),hod:Math.round(legs.reduce((s,l)=>s+l.h,0)),t0,t1:t,track:trk,
     noci:noci.map(n=>({j:n.j,kde:cKde(...n.p)})),sv,reky,myta,sezona:sn,svet}}
 /* kde je družina právě teď (na cestě, zastavená v krajině, nebo v sídle) */
 function cestaAktivni(){const c=HRA&&HRA.cesta;if(!c||!c.track)return null;const now=cT(HRA),t1=c.track[c.track.length-1][0];return now!=null&&now<t1?c:null}
@@ -5353,6 +5369,90 @@ function partyPos(){const c=HRA&&HRA.cesta;
     const b=cestaMisto(c.do);if(b)return b;const w=SVETMESTA.find(x=>x[0]===c.do);if(w)return {name:w[0],lo:w[1],la:w[2]}}
   if(HRA&&HRA.poloha&&HRA.misto)return {name:HRA.misto,lo:HRA.poloha[0],la:HRA.poloha[1]};
   const n=partyPlace();if(!n)return null;const p=cestaMisto(n);if(p)return p;const w=SVETMESTA.find(x=>x[0]===n);return w?{name:w[0],lo:w[1],la:w[2]}:null}
+/* ===== Herní čas: jedno místo pro uložení a posun (Při hře, přehled vypravěče, mapy) ===== */
+const p2=n=>String(n).padStart(2,"0"),hEsc=t=>String(t??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+/* aktuální herní okamžik: den, hodina, Slunce, svátky a hodiny Závoje (stejně jako kolo času) */
+function hraX(){const [Y,M,D]=herniDen(),today=jdn(Y,M,D),hzs=[...ZAPISY].reverse().filter(z=>z.hodina!=null),H=HRA&&HRA.hodina!=null?+HRA.hodina:(hzs[0]?hzs[0].hodina:null);
+  const X=dialCtx(Y,M,D,today,H,null);X.today=today;return X}
+function zavojInfo(){const X=hraX(),h=X.H==null?null:X.H%24,z=h!=null?X.Z[h]:null;return {z,pravda:!!(z&&X.fe.length),fe:X.fe,X}}
+function zavojBan(){const I=zavojInfo();if(!I.z)return "";
+  return I.pravda?`<div class="zavban pravda" role="status"><b>Hodina Pravdy</b> – ${I.fe.join(", ")} a ${I.z}: kostka Závoje nezná neutrální výsledek. <a href="#artikule/zavoj/hodina-pravdy">Pravidlo →</a></div>`
+    :`<div class="zavban" role="status"><b>Hodina Závoje</b> – ${I.z}: Pokušení padá již na 1–3. <a href="#artikule/zavoj/hodiny">Pravidlo →</a></div>`}
+/* Požehnání 4–6 o svátcích podle vyznání postavy (křesťané = katolíci i kališníci) */
+function pozehnaniDnes(faith){if(!faith)return [];const X=hraX();
+  return feasts(X.Y).filter(f=>f.j===X.today&&f.p&&(f.w==="křesťané"?["kat","kal","mix"].includes(faith):f.w==="kališníci"?faith==="kal":f.w==="starověrci"?faith==="old":false))}
+const pozBadge=p=>{const f=pozehnaniDnes(p.faith).map(x=>x.n);return f.length?`<span class="ppoz" title="Dnes je ${f.join(", ")} – postava má Požehnání 4–6">✦ Dnes Požehnání 4–6 · ${f.join(", ")}</span>`:""};
+/* deník putování a dokončení cesty, když čas došel na příjezd */
+const cZaznamG=(c,t1,konec)=>{const st=c.track.filter(q=>q[0]<=t1),pts=st.map(q=>[q[1],q[2]]);if(konec)pts.push(konec);
+  const zjed=pts.filter((q,i)=>i===0||i===pts.length-1||i%3===0);return [...((HRA&&HRA.putovani)||[]),{z:c.z,do:c.do,od:cTxt(c.track[0][0]),pr:cTxt(t1),t0:c.track[0][0],t1,b:zjed}].slice(-80)};
+const cDokonciG=h=>{const c=h.cesta!==undefined?h.cesta:(HRA&&HRA.cesta);if(!c||!c.track)return h;const now=cT(Object.assign({},HRA,h)),t1=c.track[c.track.length-1][0];
+  if(now==null||now<t1)return h;const e=c.track[c.track.length-1],znam=cestaMisto(c.do)&&!(HRA&&HRA.poloha&&c.do===HRA.misto);
+  return Object.assign(h,{cesta:null,misto:c.do,poloha:znam?null:[e[1],e[2]],praha:null,putovani:cZaznamG(c,t1,[e[1],e[2]])})};
+async function hraUloz(h){
+  h=cDokonciG(Object.assign({},h));
+  if(h.hodina!=null&&HRA&&HRA.hodina!=null&&h.hodinaPred===undefined&&(h.datum==null||h.datum===HRA.datum))h.hodinaPred=+HRA.hodina;
+  if(!window.MMDB){HRA=Object.assign({},HRA||{},h);__D.HRA=HRA;hraPo();mmHlasG("Statická verze – změna platí jen v tomto okně, neukládá se.",5000);return HRA}
+  document.documentElement.classList.add("gmbusy");
+  try{HRA=await MMDB.nastavHru(h);__D.HRA=HRA;hraPo();mmHlasG(`Uloženo: ${partyDate()}, ${HRA.hodina}:00${HRA.misto?", "+HRA.misto:""}.`)}
+  catch(err){mmHlasG("Nepodařilo se uložit: "+err.message,7000)}finally{document.documentElement.classList.remove("gmbusy")}
+  return HRA}
+const HRA_PO=[];
+function hraPo(){try{renderKal()}catch(e){}try{if(typeof drawMap==="function")drawMap()}catch(e){}try{if(SG)sDraw()}catch(e){}
+  if(curView==="boj")try{renderBoj()}catch(e){}
+  if(curView==="druzina")try{renderDruzina(decodeURIComponent((location.hash.split("/")[1])||""))}catch(e){}
+  HRA_PO.forEach(f=>{try{f()}catch(e){}})}
+/* posun herního času: +h, do večera (západ slunce), další ráno */
+function hraPosun(k){const X=hraX();let j=X.today,h=X.H==null?10:X.H;
+  if(k==="rano"){j++;h=6}
+  else if(k==="vecer"){const v=Math.round(X.sun.set);if(h>=v){mmHlasG("Slunce už zapadlo – použij Další ráno.");return Promise.resolve()}h=v}
+  else{h+=+k;while(h>23){h-=24;j++}while(h<0){h+=24;j--}}
+  const [y,m,d]=fromJdn(j);return hraUloz({datum:`${y}-${p2(m)}-${p2(d)}`,hodina:h})}
+/* Boj: nahoře upozornění na Hodinu Závoje / Pravdy a počasí s dopadem na boj (pravidla D&D 2024) */
+function bojPocasi(){let X,P;try{X=hraX();P=dialPoc(X.today)}catch(e){return ""}if(!P)return "";
+  const h=X.H==null?12:X.H%24,noc=X.sun.alt(h)<-6,d=[];
+  if(P.mlha&&h<12)d.push("ranní mlha: v dálce silně zastřeno");
+  if(P.typ==="bourka"||(P.typ&&P.int>=3))d.push(`${P.typ==="snih"?"husté sněžení":"silný déšť"}: lehce zastřeno, nevýhoda na Moudrost (Vnímání), otevřený oheň ${P.typ==="snih"?"se špatně udržuje":"zhasíná"}`);
+  if(P.v>=3)d.push("silný vítr: nevýhoda na útoky zbraní na dálku, otevřený oheň zhasíná, rozhání mlhu");
+  if(P.snih>=3)d.push("hluboký sníh: obtížný terén");
+  if(noc)d.push("noc: bez světla silně zastřeno");
+  return `<div class="bojpoc"><span class="lbl">Počasí</span> ${hEsc(P.text)}${d.length?`<ul>${d.map(x=>`<li>${x}</li>`).join("")}</ul>`:""}</div>`}
+function bojHorni(box){const old=box.querySelector(".bojhorni");if(old)old.remove();const html=zavojBan()+bojPocasi();if(html)box.insertAdjacentHTML("afterbegin",`<div class="bojhorni">${html}</div>`)}
+/* Boj: nepřátelé předaní z Výpravy (setkání) */
+function bojPred(box){let x=null;try{x=JSON.parse(sessionStorage.getItem("mm-boj-pred")||"null");sessionStorage.removeItem("mm-boj-pred")}catch(e){}
+  if(!x||!x.npc||!x.npc.length)return;const fn=box.querySelector("#bfn");if(!fn)return;const vzor=fn.querySelector(".bsr");fn.innerHTML="";
+  x.npc.forEach(q=>{const r=vzor.cloneNode(true);r.querySelector('[name="nn"]').value=q.n;r.querySelector('[name="nd"]').value=q.druh||"sok";r.querySelector('[name="np"]').value=q.pocet||6;fn.appendChild(r)});
+  if(x.z)box.querySelector(".bojlead").textContent=x.z}
+/* Při hře: herní čas, posun hodin a upozornění na Hodinu Závoje */
+if(GMV&&STAV){const P=document.querySelector(".phpanel"),B=document.querySelector(".phbtn");
+  if(P){P.querySelector(".phhead").insertAdjacentHTML("afterend",`<div class="phcas"><div class="phted"></div><div class="phcasb" role="group" aria-label="Posun herního času">
+    <button type="button" class="gbtn ghost" data-cas="-1" title="O hodinu zpět">−1 h</button><button type="button" class="gbtn ghost" data-cas="1">+1 h</button><button type="button" class="gbtn ghost" data-cas="3">+3 h</button>
+    <button type="button" class="gbtn ghost" data-cas="vecer" title="Do západu slunce">Do večera</button><button type="button" class="gbtn ghost" data-cas="rano" title="Další den v 6 hodin">Další ráno</button>
+    <button type="button" class="gbtn ghost" data-cas="zapis" title="Nový zápis Kroniky s datem, hodinou, místem a deníkem putování">Nový zápis</button></div><div class="phzav"></div></div>`);
+    const kresli=()=>{const X=hraX(),pp=partyPos(),c=cestaAktivni();
+      P.querySelector(".phted").innerHTML=`<b>${DNY[(X.today+1)%7]} ${X.D}. ${MES[X.M-1]} ${X.Y}${X.H!=null?`, ${X.H}:00`:""}</b><small>${c?`na cestě ${hEsc(c.z)} → ${hEsc(c.do)}${pp?" · "+hEsc(cKde(pp.lo,pp.la)):""}`:pp?hEsc(pp.name):""}</small>`;
+      P.querySelector(".phzav").innerHTML=zavojBan();if(B){const I=zavojInfo();B.classList.toggle("phzv",!!I.z);B.classList.toggle("phpr",!!I.pravda);B.title=I.z?(I.pravda?"Hodina Pravdy! ":"Hodina Závoje! ")+"Při hře (Ctrl+K)":"Při hře – čas, rychlé odhalování (Ctrl+K)"}};
+    P.addEventListener("click",e=>{const b=e.target.closest("[data-cas]");if(!b)return;const k=b.dataset.cas;if(k==="zapis"){zapisNovy();return}hraPosun(k)});
+    HRA_PO.push(kresli);if(B)B.addEventListener("click",kresli);kresli()}}
+/* ===== Kronika z herního stavu: nový zápis s datem, hodinou, místem, trasou a podklady (putování, boj, počasí); uložení posune herní čas ===== */
+function zapisMd(id,n){const X=hraX(),L=ZAPISY[ZAPISY.length-1],tz=L?cT({datum:L.datum,hodina:L.hodina??0}):null,pp=partyPos();
+  const dat=`${X.Y}-${p2(X.M)}-${p2(X.D)}`,misto=(HRA&&HRA.misto)||partyPlace()||"Praha";
+  const put=((HRA&&HRA.putovani)||[]).filter(c=>c.t1!=null&&(tz==null||c.t1>tz)),c=cestaAktivni();
+  const route=[...new Set([L?L.place:null,...put.flatMap(q=>[q.z,q.do]),c?c.z:null,misto].filter(x=>x&&cestaMisto(x)&&!/^na cestě/.test(x)))];
+  const pod=[];
+  put.forEach(q=>pod.push(`putování ${q.z} → ${q.do} (${q.od} – ${q.pr})`));
+  if(c)pod.push(`právě na cestě ${c.z} → ${c.do}, teď ${pp?cKde(pp.lo,pp.la):"?"}`);
+  if(BOJ.s&&BOJ.s.npc&&BOJ.s.npc.length)pod.push(`boj (kolo ${BOJ.s.kolo||1}): `+BOJ.s.npc.map(q=>q.n+(q.druh==="houf"?` ${q.pocet} z ${q.max}`:"")+((q.stav||[]).length?` – ${q.stav.join(", ")}`:"")).join("; "));
+  try{const P=dialPoc(X.today);if(P)pod.push("počasí: "+P.text.replace(/\.$/,""))}catch(e){}
+  if(X.fe.length)pod.push("svátek: "+X.fe.join(", "));
+  return `---\nid: ${id}\nn: Sezení ${n}\ndatum: ${dat}\ndate: ${partyDate()}\nhodina: ${X.H??""}\nplace: ${misto}\nroute: ${route.join(", ")||misto}\npraha: \ndruzina: ${HRA&&HRA.praha!=null?HRA.praha:""}\ntitle: \n---\nText zápisu. Odstavce odděluj prázdným řádkem.\n${pod.length?`\n⟦Podklady (hráči je neuvidí, před zveřejněním smaž): ${pod.join(" · ")}⟧\n`:""}`}
+async function zapisNovy(){
+  if(!window.MMDB||typeof edOtevri!=="function"){const md=zapisMd(`sezeni-${ZAPISY.length+1}`,ZAPISY.length+1);
+    try{await navigator.clipboard.writeText(md);mmHlasG("Koncept zápisu je ve schránce – vlož ho do nového souboru v zdroj/obsah/kronika/.",6000)}catch(e){prompt("Koncept zápisu:",md)}return}
+  try{await edNacti()}catch(e){mmHlasG("Texty se nepodařilo načíst: "+e.message,7000);return}
+  let n=Object.keys(ED.z).filter(k=>k.startsWith("kronika/")&&!k.includes("_vzor")).length;let id;do{n++;id=`sezeni-${n}`}while(edIndex()["zapis:"+id]);
+  const md=zapisMd(id,n),tpl=EDDRUH.zapis.tpl;EDDRUH.zapis.tpl=()=>md;try{await edOtevri("zapis",id,true)}finally{EDDRUH.zapis.tpl=tpl}}
+async function zapisDoHry(v){const t=cT({datum:v.datum,hodina:v.hodina||0}),now=cT(HRA);if(t==null||(now!=null&&t<=now))return;
+  const h={datum:v.datum,hodina:+v.hodina||0};if(v.place&&cestaMisto(v.place)&&!cestaAktivni())Object.assign(h,{misto:v.place,poloha:null});await hraUloz(h)}
 function renderGM(){
   const box=document.getElementById("gmview");
   if(!GMV){
@@ -5417,11 +5517,7 @@ function renderGM(){
     const z={};peopleOf(s.dataset.gmbulk).forEach(p=>{if(gmLv(p.id)!==v)z[p.id]=v});if(Object.keys(z).length)gmUloz(z)});
   const o=box.querySelector("#gmout");if(o)o.addEventListener("click",async()=>{await MMDB.odhlas();location.reload()});
   const hf=box.querySelector("#gmhra");
-  let ulozHru=async h=>{if(!window.MMDB){mmHlasG("Herní stav lze měnit jen na webu napojeném na databázi.");return}
-    document.documentElement.classList.add("gmbusy");
-    try{HRA=await MMDB.nastavHru(h);__D.HRA=HRA;renderKal();if(typeof drawMap==="function")try{drawMap()}catch(e){}
-      hf.elements.datum.value=HRA.datum||"";hf.elements.hodina.value=HRA.hodina??"";mmHlasG(`Uloženo: ${partyDate()}, ${HRA.hodina}:00${HRA.misto?", "+HRA.misto:""}.`)}
-    catch(err){mmHlasG("Nepodařilo se uložit: "+err.message,7000)}finally{document.documentElement.classList.remove("gmbusy")}};
+  let ulozHru=h=>hraUloz(h).then(()=>{if(HRA){hf.elements.datum.value=HRA.datum||"";hf.elements.hodina.value=HRA.hodina??"";if(HRA.misto)hf.elements.misto.value=HRA.misto}});
   hf.addEventListener("submit",e=>{e.preventDefault();const f=hf.elements;
     ulozHru({datum:f.datum.value,hodina:+f.hodina.value,misto:f.misto.value.trim()||null,praha:f.praha.value?+f.praha.value:null})});
   /* cesta družiny: plán, putování po hodinách, zastavení a deník putování */
@@ -5508,7 +5604,7 @@ function bojSetup(){
     <form class="bojform" id="bojform">
       <div class="bcamps">
         <fieldset class="bcamp bch"><legend>Družina</legend>${roll("hod","Nejlepší hod družiny","d20 + Obratnost")}
-          <ol class="brows" id="bfh">${hr.map(hrow).join("")}</ol><button type="button" class="badd" data-badd="h">+ Přidat postavu</button></fieldset>
+          <ol class="brows" id="bfh">${hr.map(hrow).join("")}</ol><button type="button" class="badd" data-badd="h">+ Přidat postavu</button>${PARTY.length?`<button type="button" class="badd" data-bdruz title="Nahradí seznam postavami z karet družiny">Načíst družinu z karet</button>`:""}</fieldset>
         <div class="bvs" aria-hidden="true"><span>proti</span></div>
         <fieldset class="bcamp bcn"><legend>Nepřátelé</legend>${roll("dm","Tvůj hod za nejlepšího","d20 + Obratnost")}
           <ol class="brows" id="bfn">${nrow()}${nrow()}</ol><button type="button" class="badd" data-badd="n">+ Přidat nepřítele</button><div class="bskup">${bojSkupSel("data-bskup","Načíst uloženou skupinu…")}<button type="button" class="badd" data-bskupuloz>Uložit nepřátele jako skupinu</button>${Object.keys(bojSkup()).length?`<button type="button" class="badd" data-bskupdel>Smazat skupinu…</button>`:""}</div></fieldset>
@@ -5546,11 +5642,13 @@ function renderBoj(){
   const box=document.getElementById("bojview");if(!box)return;
   if(!bojDB){box.innerHTML=`<h2 class="arttitle">Boj</h2><p class="intro">Tracker iniciativy funguje na webu napojeném na databázi.</p>`;return}
   const s=BOJ.s;
-  if(!s||!s.aktivni){if(GMV){if(!box.querySelector("#bojform"))box.innerHTML=bojSetup()}else box.innerHTML=`<h2 class="arttitle">Boj</h2><p class="intro">Právě neprobíhá žádný boj. Až ho vypravěč zahájí, objeví se tu sloty iniciativy.</p>`;return}
+  if(!s||!s.aktivni){if(GMV){if(!box.querySelector("#bojform")){box.innerHTML=bojSetup();bojPred(box)}bojHorni(box)}else box.innerHTML=`<h2 class="arttitle">Boj</h2><p class="intro">Právě neprobíhá žádný boj. Až ho vypravěč zahájí, objeví se tu sloty iniciativy.</p>`;return}
   const f=document.activeElement&&box.contains(document.activeElement)&&document.activeElement.matches("input")?document.activeElement.name||document.activeElement.id:null;
-  box.innerHTML=bojAktivni();if(f){const e=box.querySelector(`[name="${f}"],#${f}`);if(e)e.focus()}
+  box.innerHTML=bojAktivni();bojHorni(box);if(f){const e=box.querySelector(`[name="${f}"],#${f}`);if(e)e.focus()}
   bojUpozorni();
 }
+document.addEventListener("click",e=>{const b=e.target.closest("[data-bdruz]");if(!b)return;const fh=document.getElementById("bfh");if(!fh)return;
+  const vzor=fh.querySelector(".bsr");fh.innerHTML="";PARTY.forEach(p=>{const r=vzor.cloneNode(true);r.querySelector('[name="hn"]').value=p.n;fh.appendChild(r)})});
 /* Boj: načtení a přidání uložené skupiny nepřátel */
 document.addEventListener("change",e=>{
   const s1=e.target.closest("[data-bskup]");if(s1&&s1.value){const g=bojSkup()[s1.value];s1.value="";if(!g)return;const box=document.getElementById("bfn");if(!box)return;
@@ -5722,7 +5820,8 @@ async function edOtevri(druh,id,novy){
     pole.forEach(f=>{const el=F.elements["f_"+f.k];if(!el)return;vals[f.k]=el.hasAttribute("data-seznam")?el.value.split("\n").map(x=>x.trim()).filter(Boolean):el.value.replace(/\s*\n\s*/g," ").trim()});
     const nmd=edSloz(md,vals,F.elements.f__body.value);
     if(nmd===md&&!novy){edZavri();return}
-    edBusy(o,true);try{await edUloz(soubor,nmd,novy?null:md)}catch(err){edBusy(o,false);edChyba(o,err.message)}});
+    edBusy(o,true);if(druh==="zapis")try{await zapisDoHry(vals)}catch(err){}
+    try{await edUloz(soubor,nmd,novy?null:md)}catch(err){edBusy(o,false);edChyba(o,err.message)}});
   o.querySelector("[data-edtaj]").addEventListener("click",()=>{const t=edLast&&o.contains(edLast)?edLast:o.querySelector("textarea[name=f__body]");
     const a=t.selectionStart??t.value.length,b=t.selectionEnd??a;t.value=t.value.slice(0,a)+"\u27E6"+t.value.slice(a,b)+"\u27E7"+t.value.slice(b);t.focus();t.setSelectionRange(a+1,b+1)});
   const hb=o.querySelector("[data-edhist]");if(hb)hb.addEventListener("click",()=>edHistorie(soubor));
