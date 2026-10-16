@@ -56,7 +56,7 @@ async def main():
     await g.click('[data-vy="stul"]');await g.wait_for_timeout(300)
     pg=await b.new_page();errs=[];pg.on("pageerror",lambda e:errs.append(str(e)[:200]))
     await pg.goto(BASE+"#uvod");await pg.wait_for_function("!document.documentElement.classList.contains('mmload')");await pg.wait_for_timeout(400)
-    chk(await pg.locator(".herofig .vymed svg").count()==1,"hráč vidí symbol počasí na Úvodu")
+    chk(await pg.locator(".herofig .vymed").count()==0,"iluminace s dráčkem je bez medailonu")
     cap=await pg.inner_text(".herofig figcaption");chk("Sub utraque" not in cap and len(cap)>10,"pod iluminací je počasí dne: "+cap[:80])
     await pg.goto(BASE+"#vyprava");await pg.wait_for_function("!document.documentElement.classList.contains('mmload')");await pg.wait_for_timeout(400)
     chk(await pg.evaluate("document.getElementById('navvy').hidden"),"hráč nemá Výpravu v navigaci")

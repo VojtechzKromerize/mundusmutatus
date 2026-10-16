@@ -6527,8 +6527,6 @@ function vyUvodPocasi(){const fig=document.querySelector(".herofig");if(!fig)ret
   const [Y,M,D]=herniDen(),j=jdn(Y,M,D),pp=typeof partyPos==="function"?partyPos():null,ll=pp&&pp.lo!=null?[pp.lo,pp.la]:(c=>c?[c.lo,c.la]:[14.42,50.088])(cestaMisto(partyPlace()||""));
   const P=vyPocasi(j,ll),h=HRA&&HRA.hodina!=null?+HRA.hodina:12,[sr,ss]=vyDen(j,ll[1]),noc=h<Math.round(sr)||h>=Math.round(ss),I=vyIkona(P,noc);
   const kde=pp&&pp.cesta?"na cestě":(pp&&pp.name)||partyPlace()||"Praha";
-  let md=fig.querySelector(".vymed");if(!md){md=document.createElement("span");md.className="vymed";fig.appendChild(md)}
-  md.className="vymed"+(noc?" vynoc":"");md.innerHTML=I.svg;md.title=`Počasí – ${I.t}`;md.setAttribute("role","img");md.setAttribute("aria-label",`Počasí: ${I.t}`);
   const fc=fig.querySelector("figcaption");fig.classList.add("vypfig");if(fc){fc.classList.add("vypoccap");fc.innerHTML=`<span class="vypkde">${vyEsc(kde)} · ${I.t}</span>${vyEsc(P.text)}${P.zav?` <i class="vypzav">${vyEsc(P.zav)}</i>`:""}`}}catch(e){}}
 {const _rk=renderKal;renderKal=function(){_rk.apply(this,arguments);vyUvodPocasi()}}
 vyUvodPocasi();
