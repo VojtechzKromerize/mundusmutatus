@@ -2,12 +2,16 @@
 id: houf-biricu
 nazev: Houf biřiců
 uroven: houf
+vyzva: 50 XP za pacholka
 pocet: 6
 ac: 12 (prošívanice)
 hp: 1
 utok: Palcáty, dosah 5 stop · 3 Bludgeoning za každého pacholka v dosahu cíle (Drtivá)
 bonus: 3
 komplikace: Biřic zařve „Ve jménu práva!“ a chytí útočníka za rukáv: útočník je Grappled (únik DC 12).
+stitky: biřici, město, Církev, inkvizice, stráž
+utoky:
+  - Palcáty | +3 | 3 za pacholka Bludgeoning | Drtivá
 ---
 *„Biřic nemusí být statečný. Stačí, když je jich víc a za nimi stojí kostel nebo radnice.“*
 

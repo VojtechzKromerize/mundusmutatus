@@ -2,12 +2,16 @@
 id: houf-pistalniku
 nazev: Houf píšťalníků a kušiníků
 uroven: houf
+vyzva: 100 XP za pacholka
 pocet: 8
 ac: 12 (prošívanice), za pavézou +2
 hp: 1
 utok: Salva, dostřel 30/90 stop · 4 Piercing za každého střelce, který na cíl vidí (Průrazná); pak tah nabíjí
 bonus: 3
 komplikace: Zablýsknutí na pánvičce: polovina houfu (dolů) vypálí na útočníka mimořádnou salvu, i když nabíjí.
+stitky: husité, kališníci, vozová hradba, střelci, pole
+utoky:
+  - Salva | +3 | 4 za pacholka Piercing | dostřel 30/90 stop, Průrazná; pak tah nabíjí
 ---
 *„Husité nás naučili, že sedlák s píšťalou za vozem zabije rytíře, aniž by mu viděl do tváře. Bůh nám odpusť, že jsme se to naučili tak rychle.“*
 

@@ -2,12 +2,16 @@
 id: houf-besu
 nazev: Houf běsů
 uroven: houf
+vyzva: 100 XP za pacholka
 pocet: 6
 ac: 12
 hp: 1
 utok: Spáry a šepot, dosah 5 stop · 2 Prokleté (Necrotic) za každého běsa v dosahu cíle; zbroj nepomáhá
 bonus: 4
 komplikace: Běs se zasměje útočníkovým hlasem: útočník je Frightened do konce svého příštího tahu (postava V milosti je imunní).
+stitky: běsi, démoni, Závoj, Hodina Závoje, noc
+utoky:
+  - Spáry a šepot | +4 | 2 za pacholka Prokleté (Necrotic) | zbroj nepomáhá
 ---
 *„Viděl jsem je za soumraku po klekání. Malé, šedé, s tvářemi lidí, které znáš. Smály se tvým hlasem.“*
 

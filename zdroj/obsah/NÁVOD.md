@@ -16,14 +16,29 @@ Nové záznamy (osoba, rod, zápis Kroniky, plemeno, místo…) vznikají ve vyp
 - **Záloha:** jednou denně se texty upravené na webu uloží do souborů v této složce (větev `dev`,
   GitHub Actions „Záloha textů z webu“; spustit jde i ručně).
 
-## Protivníci (bestiář pro Boj)
-Statblocky protivníků jsou ve složce `protivnici/` (vzor `_vzor.md`) a vidí je **jen vypravěč** – hráči nedostanou
-ani jejich seznam. Hlavička nese rychlé údaje pro tracker iniciativy (úroveň houf / pacholek / sok / zhoubce, počet v houfu,
-AC, HP, útok, základní útočný bonus houfu, Požehnání, Pokušení, komplikace, Neřest), text pod ní je celý statblock.
-Na stránce **Boj** je vybereš ze seznamu u jména nepřítele nebo vyhledáním v bestiáři a tlačítkem **+ do boje**; nového založíš
-v **Nový záznam** jako druh Protivník. Životy soků a zhoubců se během boje ukládají jen ve tvém prohlížeči.
-V kartě nepřítele v boji je jen statblock pro boj: citát, popis (odstavce, které nezačínají **tučným slovem**)
-a **Výkupné a kořist** se ukážou jen v bestiáři.
+## Boj: bestiář, přívlastky, setkání (jen vypravěč)
+Vše v této části vidí **jen vypravěč** – hráči nedostanou ani seznamy. Upravuje se na webu (Nový záznam) i v souborech.
+
+- **Protivníci** – `protivnici/` (vzor `_vzor.md`). Hlavička nese údaje pro tracker: `uroven` (houf / pacholek / sok /
+  zhoubce), `pocet`, `vyzva` (XP pro odhad obtížnosti; u houfu „100 XP za pacholka“), `ac`, `hp` („75“ nebo
+  „jezdec 45, dráček 68“), `bonus` (útok houfu), `pozehnani`, `pokuseni`, `komplikace`, `nerest`, `stitky` (pro hledání),
+  `zdroje` (k odškrtávání: „Výdrž 2, Náboje 3“), `vyznani` (kat / kal / old – svátky pro Závoj), `kriticka: drak`
+  a `utoky` – každý řádek `Název | +6 | 1d8+3 Slashing | poznámka`, u houfu `| 3 za pacholka Slashing |`,
+  u schopnosti se záchranou `| AGI DC 15 | 2d8 Fire |`. Text pod hlavičkou je celý statblock; v boji se ukáže bez citátu,
+  popisu (odstavců, které nezačínají **tučným slovem**) a bez **Výkupné a kořist** – ten odstavec se ale objeví
+  ve shrnutí po boji.
+- **Přívlastky** – `privlastky/` (Zkušený, Veterán, Ve zbroji, Jízdní, Zatracený, Proměněnec…). Přídavky `ac`, `hp`,
+  `utok`, `zraneni`, `xp` (číslo nebo procenta), `zdroje`, `pro` (komu se hodí); text = vlastnosti navíc.
+  V boji je přidáš v kartě nepřítele.
+- **Hotová setkání** – `setkani/`. Řádky `nepratele`: `[Jméno = ][počet ]id [+ přívlastek]`, id je protivník
+  nebo osoba se statblokem (u houfu je počet počet pacholků, u soka počet kusů). V Boji je načteš výběrem,
+  hledáním nebo tlačítkem „Uložit jako setkání“.
+- **Osoby se statblokem** – v souboru osoby pole `statblok: rytir-v-plne-zbroji + zkuseny`. Osoba se pak najde
+  v hledání a na její stránce má vypravěč tlačítko „+ do boje“.
+- **Tabulky setkání Výpravy** – `vyprava-setkani.json`; nepovinné pole `b` (setkání nebo nepřátelé
+  „6 houf-zoldneru; rotmistr-zoldneru“) přenese setkání do Boje i se statblocky.
+
+Životy, spotřebované zdroje, záznam hodů a zajatci se během boje ukládají jen v prohlížeči vypravěče.
 
 ## Úpravy v souborech (GitHub, Claude)
 Soubory v této složce jsou zálohou databáze. Když se soubor změní ve větvi `dev`, sestavení změnu

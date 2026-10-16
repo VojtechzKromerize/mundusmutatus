@@ -9,6 +9,12 @@ utok: Kousnutí +8, 2d10+5 a drápy +8, 2d6+5 · ocas +8, dosah 15 stop, 1d8+5 a
 pozehnani: Kořist v drápech: po zásahu drápy cíl uchvátí a ihned vzlétne.
 pokuseni: Zaváhá a promluví. Pokud ji v tu chvíli někdo osloví, další slot nevyužije k útoku, ale k řeči.
 nerest: Hlad – nabídka dobytka (kráva za boj, Persuasion DC 12) ji přiměje odletět. Hladová jarní saň má nevýhodu, nasycená výhodu.
+kriticka: drak
+stitky: drak, saň, divoký drak, dračí mír, les, pole
+utoky:
+  - Kousnutí | +8 | 2d10+5 Piercing | dosah 10 stop; v jednom slotu i drápy
+  - Drápy | +8 | 2d6+5 Slashing
+  - Ocas | +8 | 1d8+5 Bludgeoning | dosah 15 stop, Prone (STR DC 16)
 ---
 *„Saň mi řekla, že kráva je dobrá a sedlák je špatný. Zeptal jsem se proč. Řekla, že sedlák má vidle.“*
 

@@ -9,6 +9,11 @@ utok: Umrlčí dotek +7, 2d10 Prokleté · Umíráček: WIS save DC 15, 2d8 (2d1
 pozehnani: Ozvěna: kouzlo zasáhne i druhý cíl do 10 stop od prvního.
 pokuseni: Kouzlo se mu vymkne: sám si hodí na magické kritické zranění (Svatá/Prokletá, Lehká). Je-li to Animate Dead, umrlec se obrátí proti němu.
 nerest: Závist – nesnese, že někdo kouzlí lépe. Když vidí cizí kouzlo, musí v příštím slotu zaútočit na toho, kdo ho seslal.
+stitky: mág, nigromant, čarodějnictví, univerzita, Závoj
+zdroje: Ray of Sickness 2, Ray of Enfeeblement 2, Blindness/Deafness 2, Vampiric Touch 1, Bestow Curse 1, Animate Dead 1
+utoky:
+  - Umrlčí dotek | +7 | 2d10 Prokleté (Necrotic) | cíl nezíská HP do začátku nigromantova tahu
+  - Umíráček | WIS DC 15 | 2d8 Prokleté (Necrotic) | 2d12, pokud je cíl zraněný
 ---
 *„Nigromant mi tvrdil, že čerpá z magie jako z vody. Neřekl mi, kdo mu tu studnu vykopal.“*
 

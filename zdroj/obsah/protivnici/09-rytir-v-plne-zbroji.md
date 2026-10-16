@@ -9,6 +9,12 @@ utok: Dva útoky mečem obouruč +7, 1d10+4 · v sedle kopí +7, 1d10+4, Vpřed!
 pozehnani: Vazba: zasažený soupeř hodí STR save DC 15, jinak mu vyrazí zbraň z ruky (5 stop stranou).
 pokuseni: Kůň se splaší, nebo se mu pod hledím rozjede přezka: do konce příštího tahu AC −2.
 nerest: Pýcha – kdo ho urazí (Intimidation nebo Persuasion DC 13), toho musí v příštím slotu vyzvat. Vzdá se jen rytíři, nikdy pacholkovi.
+stitky: rytíř, šlechta, jízda, katolíci, kališníci
+zdroje: Výdrž 2
+utoky:
+  - Dlouhý meč obouruč | +7 | 1d10+4 Slashing nebo Piercing | dva útoky v jednom slotu; Šikovná, Ostrá
+  - Kopí v sedle | +7 | 1d10+4 Piercing | dosah 10 stop; Vpřed! po 15 stopách rovně dvojité kostky
+  - Dýka v zápase | +7 | 1d4+4 Piercing | se Zápasem ve zbroji ignoruje Resistance
 ---
 *„V plátu se člověk nebojí meče. Bojí se jen toho, že se mu nikdo nepostaví.“*
 

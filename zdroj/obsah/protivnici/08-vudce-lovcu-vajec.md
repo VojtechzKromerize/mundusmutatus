@@ -9,6 +9,13 @@ utok: Harpunová kuše +6, 1d10+3 Piercing (Průrazná), velký cíl uvázne na 
 pozehnani: Pokud zasáhne draka, lano se omotá kolem křídla: drak nemůže vzlétnout, dokud lano nepřetrhne.
 pokuseni: Lano se zamotá, nebo mu kouřový hrnec praskne v ruce (stojí v kouři sám).
 nerest: Hněv – stačí zmínka o bratrovi, kterého zabila saň: v příštím slotu zaútočí na nejbližšího draka, i kdyby musel opustit úkryt.
+vyznani: kat
+stitky: lovci draků, pytláci, Vratislav, Slezsko, hory, Krkonoše
+zdroje: Výdrž 1, Kouřový hrnec 2
+utoky:
+  - Harpunová kuše | +6 | 1d10+3 Piercing | Průrazná; velký cíl uvázne na laně; nabití bonusovou akcí
+  - Lovecký tesák | +6 | 1d6+3 Slashing
+  - Kouřový hrnec | CON DC 13 | | koule 15 stop, Poisoned; draci s nevýhodou
 ---
 *„Vratislav nechce českého krále. Ale česká vejce chce velmi.“*
 

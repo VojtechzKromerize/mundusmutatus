@@ -9,6 +9,10 @@ utok: Dva útoky dlouhým mečem +6, 1d8+3 Slashing nebo Piercing
 pozehnani: Strhne muže s sebou: jeden houf v doslechu ihned zaútočí na tentýž cíl.
 pokuseni: Vyzve nejsilnějšího protivníka na souboj a v příštím slotu musí útočit na něj, i kdyby to byla chyba.
 nerest: Lakomství – dvojnásobný žold (Persuasion DC 15 a skutečné peníze) ho i s rotou převede na druhou stranu, alespoň do konce boje.
+stitky: žoldnéři, rota, velitel, Uhry, Slezsko
+zdroje: Výdrž 2
+utoky:
+  - Dlouhý meč | +6 | 1d8+3 Slashing nebo Piercing | dva útoky v jednom slotu; Šikovná, Ostrá
 ---
 *„Ptal jsem se ho, komu slouží. Řekl, že pánu, který platí. Ptal jsem se, komu slouží Bůh. Řekl, že asi také tomu, kdo platí.“*
 

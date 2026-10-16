@@ -9,6 +9,12 @@ utok: Meč obouruč +9, 1d10+5 a 1d8 Prokleté · Hlas za Závojem 1/den: WIS DC
 pozehnani: Ruka na rameni: zásah je kritický.
 pokuseni: Přijme ho – nemá komplikace, ale na bojišti se zhmotní jeden běs (přidej ho do houfu běsů, nebo houf založ).
 nerest: Pýcha a Hněv. Ctnosti: Štědrost (ke svým mužům), Píle. Svědomí 0 – Zatracený.
+vyznani: kat
+stitky: zatracený, rytíř, Závoj, běsi, zbojníci
+zdroje: Výdrž 4, Legendární odolnost 1, Smlouva s ďáblem 1, Hlas za Závojem 1, Zbroj 3
+utoky:
+  - Dlouhý meč obouruč | +9 | 1d10+5 Slashing nebo Piercing | a 1d8 Prokleté (Necrotic)
+  - Hlas za Závojem | WIS DC 15 | | Frightened do konce příštího tahu; V milosti imunní
 ---
 *„Říkal, že za Závojem je někdo, kdo ho vyslyšel, když Bůh mlčel. Neřekl kdo. Myslím, že to nevěděl.“*
 

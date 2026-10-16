@@ -2,12 +2,16 @@
 id: houf-umrlcu
 nazev: Houf umrlců
 uroven: houf
+vyzva: 50 XP za pacholka
 pocet: 3
 ac: 8
 hp: 1
 utok: Zetlelé pěsti, dosah 5 stop · 3 Bludgeoning za každého umrlce v dosahu cíle
 bonus: 3
 komplikace: Umrlec se zakousne a nepustí: útočník je Grappled (únik DC 11), dokud umrlce neskolí.
+stitky: umrlci, nemrtví, nigromant, mor, hřbitov
+utoky:
+  - Zetlelé pěsti | +3 | 3 za pacholka Bludgeoning
 ---
 *„Mrtví nemají strach. Proto je nigromanti tolik milují.“*
 

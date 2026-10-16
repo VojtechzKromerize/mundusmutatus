@@ -9,6 +9,15 @@ utok: Jezdec: kuše +5, 1d8+2 · kopí +5, 1d10+2 · ohnivý hrnec 1/den (AGI DC
 pozehnani: Dráček se otočí ve vzduchu a jezdec i drak zaútočí v jednom slotu.
 pokuseni: Dráček je drzý: dá se do řeči s nepřítelem (nebo s jeho drakem) a jeden slot promarní.
 nerest: Pýcha (jezdec) – chce být prvním rytířem, který přemohl českého draka. Výzvou k souboji v letu ho lze vylákat od jeho houfu.
+kriticka: drak
+stitky: letci, dráček, Slezsko, Sasko, rytíř, nebe
+zdroje: Ohnivý hrnec 1
+utoky:
+  - Jezdec: lehká kuše | +5 | 1d8+2 Piercing
+  - Jezdec: kopí na háku | +5 | 1d10+2 Piercing | při náletu Vpřed!
+  - Jezdec: ohnivý hrnec | AGI DC 13 | 3d6 Fire | koule 10 stop, hoří 1d4
+  - Dráček: kousnutí | +6 | 1d10+3 Piercing
+  - Dráček: drápy | +6 | 2d6+3 Slashing | po pádu 30 stop +2d6 a Prone (STR DC 14)
 ---
 *„Ve Slezsku si rytíř koupí dráčka, jako si u nás koupí koně. U nás se ten rytíř jmenuje lapka.“*
 

@@ -20,8 +20,10 @@ Hráčský web: https://mundusmutatus.netlify.app (větev `main`), náhled: http
   aktualizuje z databáze (`zdroj/zaloha.py`, potřebuje tajemství `SUPABASE_SECRET` v nastavení repozitáře)
   a změny souborů ve větvi `dev` se při sestavení přenesou do databáze (pokud záznam mezitím nikdo neupravil na webu).
 - Herní stav (datum, hodina, poloha družiny), Novinky a tracker iniciativy (`#boj`) jsou také v databázi.
-  Tracker má bestiář protivníků (`zdroj/obsah/protivnici/`, jen pro vypravěče): výběr nepřítele ze seznamu, AC, HP,
-  útok, Závoj a celý statblock přímo v kartě nepřítele.
+  Tracker má bestiář jen pro vypravěče (`protivnici/`, `privlastky/`, `setkani/`, pole `statblok` u osob): hledání,
+  hotová setkání, odhad obtížnosti, karty nepřátel s útoky a Závojem na kliknutí, zdroji, přívlastky a vazbou sok–houf,
+  spojenci, kritická zranění, rychlá pravidla a shrnutí po boji do Kroniky. Tabulky setkání Výpravy jsou v
+  `vyprava-setkani.json` (jen pro vypravěče).
 - **Výprava** (`#vyprava`, jen vypravěč): cesta družiny podle pravidel Uncharted Journeys na všech třech mapách (Známý svět,
   Země Koruny, Praha) – trasa a doba v hodinách, generátor počasí podle data a místa, obtížnost, role a přípravy, setkání
   s vlastními tabulkami pro Čechy 1458, příjezd a tlačítko Odcestovat. Stav se ukládá do databáze (`mm_vyprava_uloz`,

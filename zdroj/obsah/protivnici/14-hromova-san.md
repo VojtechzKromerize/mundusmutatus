@@ -9,6 +9,14 @@ utok: Kousnutí +11, 2d10+6 · sevření +11, 2d8+6 a Grappled · ocas +11, dosa
 pozehnani: Za bouře do ní udeří blesk a obnoví všechny Náboje. Bez bouře zasáhne výboj i tvory do 10 stop, které nedrží.
 pokuseni: Výboj se zkratuje do země nebo do mokré skály: ztratí Náboj bez účinku.
 nerest: Hamižnost a Nevděk – v hladové zimě bere víc dobytka, než úmluva dovoluje; vděk není její starost, úmluva ano. Ctnosti: Pravdomluvnost, Věrnost rodu.
+kriticka: drak
+stitky: drak, saň, Krkonoše, hory, bouře, dvouocasnice, dračí mír
+zdroje: Náboje 3, Legendární odolnost 2
+utoky:
+  - Kousnutí | +11 | 2d10+6 Piercing | dosah 10 stop
+  - Sevření | +11 | 2d8+6 Slashing | Grappled (únik DC 19)
+  - Obtočení ocasem | +11 | 2d6+6 Bludgeoning | dosah 20 stop, Grappled a Restrained
+  - Výboj | CON DC 18 | 6d8 Lightning | stojí 1 Náboj; drženým a dotýkajícím se; kov s nevýhodou
 ---
 *„Nad Sněžkou jsem viděl létat bouři, která měla oči.“*
 

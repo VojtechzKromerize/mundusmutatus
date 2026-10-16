@@ -2,12 +2,16 @@
 id: houf-zoldneru
 nazev: Houf žoldnéřů (halapartníci)
 uroven: houf
+vyzva: 100 XP za pacholka
 pocet: 6
 ac: 14 (kroužková košile)
 hp: 1
 utok: Halapartny, dosah 10 stop · 3 Slashing nebo Piercing za každého pacholka v dosahu cíle (Průrazná)
 bonus: 4
 komplikace: Halapartna zahákne zbraň nebo štít: útočník do začátku svého příštího tahu nemůže tuto zbraň použít, nebo ztrácí AC ze štítu.
+stitky: žoldnéři, rota, Uhry, Slezsko, pole, pohraničí
+utoky:
+  - Halapartny | +4 | 3 za pacholka Slashing nebo Piercing | dosah 10 stop, Průrazná
 ---
 *„Žoldnéř bojuje za groš, a proto bojuje dobře, dokud groš cinká. Když přestane cinkat, uvidíš jen záda.“*
 

@@ -9,6 +9,12 @@ utok: Plamen víry: AGI save DC 15, 2d8 Svaté · těžký kříž +3, 1d6 (Drti
 pozehnani: Zázrak: kouzlo neutratí denní použití.
 pokuseni: Horlivost: příští kouzlo namíří na nejbližšího Proměněnce nebo dračího jezdce, i kdyby to byl spojenec nebo nevinný.
 nerest: Chtíč po moci – touží po biskupské mitře. Kdo mu nabídne cestu výš (dopis do Říma, svědectví, cizí hřích), má výhodu na Persuasion.
+vyznani: kat
+stitky: inkvizice, Církev, katolíci, Řím, město
+zdroje: Pravda Páně 1, Command 2, Bless 2, Hold Person 1, Zone of Truth 1, Spirit Guardians 1, Oroduj za nás 1
+utoky:
+  - Plamen víry | AGI DC 15 | 2d8 Svaté (Radiant) | dosah 60 stop
+  - Těžký kříž | +3 | 1d6 Bludgeoning | Drtivá
 ---
 *„Ptal se mě, zda drak má duši. Řekl jsem, že nevím. Řekl, že já nevím, ale on ano.“*
 

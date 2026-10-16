@@ -2,12 +2,16 @@
 id: houf-lovcu-vajec
 nazev: Houf lovců vajec
 uroven: houf
+vyzva: 50 XP za pacholka
 pocet: 5
 ac: 13 (kožená)
 hp: 1
 utok: Tesáky a sítě, dosah 5 stop · 3 Slashing za každého pacholka v dosahu cíle, nebo síť (Restrained)
 bonus: 4
 komplikace: Lano povolí: útočník na skále, svahu nebo stěně hodí AGI save DC 12, jinak sklouzne o 10 stop (a možná dolů).
+stitky: lovci draků, pytláci, Vratislav, Slezsko, hory, Krkonoše
+utoky:
+  - Tesáky | +4 | 3 za pacholka Slashing | dosah 5 stop; místo zranění síť: Restrained
 ---
 *„Mezi lezci z Vratislavi se říká, že dračí vejce je teplé jako chléb a těžké jako hřích. Kdo ho jednou nesl, ten už je nese napořád.“*
 

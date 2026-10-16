@@ -41,6 +41,8 @@ print(chr(10).join(z));sys.exit(1 if z or not (pathlib.Path(sys.argv[1])/'index.
 
 krok "Prohlídka statické verze"
 server "$WEB/public" $P_WEB && zkus "statická verze: všechny stránky bez chyb" python3 "$KOREN/testy/prochazka.py" "http://127.0.0.1:$P_WEB/"
+server "$WEB/vypravec" $((P_WEB+4)) && MM_GMWEB="http://127.0.0.1:$((P_WEB+4))/" MM_HRWEB="http://127.0.0.1:$P_WEB/" MM_KOREN="$WEB" MM_VYSTUP="$VYSTUP" \
+  zkus "bestiář v Boji (vypravěč bez databáze)" python3 "$KOREN/testy/prohlizec_bestiar.py"
 
 if [ "${MM_BEZ_DB:-}" = "1" ] || ! command -v "${PSQL%% *}" >/dev/null || ! command -v "$POSTGREST" >/dev/null; then
   echo; echo "(databázová část přeskočena – chybí psql nebo postgrest, případně MM_BEZ_DB=1)"
