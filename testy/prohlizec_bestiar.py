@@ -20,13 +20,31 @@ sb[k]=sb[k].replace("\n---\n","\nstatblok: rytir-v-plne-zbroji + zkuseny\n---\n"
 g=json.loads(subprocess.run(["node",os.path.join(KOR,"zdroj","generator.js")],input=json.dumps({"soubory":sb,"manifest":{}},ensure_ascii=False),capture_output=True,text=True,check=True).stdout)
 chk([o["b"] for o in g["gm"]["PROTOSOBY"]]==["rytir-v-plne-zbroji"] and g["gm"]["PROTOSOBY"][0]["pr"]==["zkuseny"],"generátor: statblok u osoby pro vypravěče")
 chk(all(not g["hrac"].get(x) for x in ("PROTIVNICI","PRIVLASTKY","SETKANI","PROTOSOBY","VYZAZ")),"generátor: hráč nedostane bestiář ani tabulky setkání")
+
+async def priprava(g,jmena,hody,dm,npc=(),spoj=()):
+    """Příprava boje na stránce Boj: postavy s hody, nepřátelé a spojenci přes formuláře, hod nepřátel, Začít boj."""
+    await g.wait_for_selector(".bprip")
+    await g.evaluate("bojZmen(z=>{z.hraci="+json.dumps([{"id":"h"+str(i+1),"n":"","hod":None} for i in range(len(jmena))])+";z.npc=[];z.nid=0;z.dm=null})")
+    await g.wait_for_timeout(400)
+    for i,(n,h) in enumerate(zip(jmena,hody)):
+        f=g.locator(f'[data-bhn="h{i+1}"]');await f.fill(n);await f.press("Tab");await g.wait_for_timeout(150)
+        if h is not None:
+            f=g.locator(f'[data-bhhod="h{i+1}"]');await f.fill(str(h));await f.press("Tab");await g.wait_for_timeout(150)
+    for fid,rows in (("bnadd",npc),("bnadds",spoj)):
+        for (n,d,p) in rows:
+            if fid=="bnadds" and not await g.locator("#bnadds").is_visible(): await g.click('[data-otv="pridej-s"] summary')
+            await g.fill(f'#{fid} [name=nn]',n);await g.select_option(f'#{fid} [name=nd]',d)
+            if p: await g.fill(f'#{fid} [name=np]',str(p))
+            await g.click(f'#{fid} button[type=submit]');await g.wait_for_timeout(350)
+    if dm is not None:
+        f=g.locator('[data-bdm]');await f.fill(str(dm));await f.press("Tab");await g.wait_for_timeout(400)
 async def main():
   async with async_playwright() as p:
     b=await p.chromium.launch()
     g=await b.new_page(viewport={"width":1300,"height":1100});err=[];g.on("pageerror",lambda e:err.append(str(e)[:300]))
     g.on("dialog",lambda d:asyncio.ensure_future(d.accept()))
     await g.goto(GM+"#boj");await g.wait_for_function("!document.documentElement.classList.contains('mmload')");await g.wait_for_timeout(600)
-    await g.wait_for_selector("#bojform")
+    await g.wait_for_selector(".bprip")
     chk(await g.locator(".bpravidla .bqr").count()==3,"rychlá pravidla v šuplíku (kritická zranění, zbraně, zbroj)")
     chk(not await g.locator(".bpravidla").is_visible(),"šuplík s pravidly je zavřený")
     # hledání: štítek, setkání, osoba
@@ -37,20 +55,20 @@ async def main():
     t=await g.locator("[data-bvysl]").inner_text()
     chk("Krakonoš" in t or "Vodník" in t,"hledání najde relikty (lidové potvory)")
     chk(await g.evaluate("PROTIVNICI.filter(p=>p.rel).every(p=>p.zak&&p.b.includes('Zažehnání'))"),"každý relikt má zákon a blok Relikt se zažehnáním")
-    # načíst hotové setkání do formuláře
-    await g.select_option("[data-bskup]","s:rota-bez-pana");await g.wait_for_timeout(200)
-    nn=await g.eval_on_selector_all("#bfn [name=nn]","e=>e.map(x=>x.value)");print(nn)
-    chk(nn==["Rotmistr žoldnéřů","Halapartníci","Druhý šik","Střelci"],"setkání Rota bez pána vyplní 4 řádky")
-    chk(await g.locator("#bfn [name=nb]").nth(3).input_value()=="houf-pistalniku","řádky nesou statblock")
-    hn=g.locator('#bojform [name=hn]')
-    for i,n in enumerate(["Adam","Bára","Cyril","Dora"]): await hn.nth(i).fill(n)
-    await g.fill("[data-bur]","8");await g.wait_for_timeout(100)
-    ob=await g.locator("#bobt").inner_text();print(ob)
+    # příprava: postavy, hotové setkání, spojenec
+    await priprava(g,["Adam","Bára","Cyril","Dora"],[15,None,None,None],None)
+    await g.select_option("[data-bskupadd]","s:rota-bez-pana");await g.wait_for_timeout(500)
+    await g.click('[data-otv="pridej-s"] summary');await g.fill('#bnadds [name=nn]',"Rytíř v plné zbroji");await g.select_option('#bnadds [name=nd]',"sok");await g.click('#bnadds button[type=submit]');await g.wait_for_timeout(400)
+    nn=await g.evaluate("BOJ.s.npc.filter(n=>!n.str).map(n=>n.n)");print(nn)
+    chk(nn==["Rotmistr žoldnéřů","Halapartníci","Druhý šik","Střelci"],"setkání Rota bez pána přidá 4 nepřátele")
+    chk(await g.evaluate("BOJ.s.npc.filter(n=>!n.str)[3].b")=="houf-pistalniku","nepřátelé nesou statblock")
+    await g.fill("[data-bur]","8");await g.wait_for_timeout(200)
+    ob=await g.locator(".bobt").first.inner_text();print(ob)
     chk("XP" in ob and "pro 4 postavy 8. úrovně" in ob,"odhad obtížnosti se ukáže")
-    # spojenec
-    await g.click('[data-badd="s"]');await g.locator("#bfs [name=nn]").nth(0).fill("Rytíř v plné zbroji")
-    await g.fill('#bojform [name=hod]',"15");await g.fill('#bojform [name=dm]',"12")
-    await g.click('#bojform button[type=submit]');await g.wait_for_selector(".bsloty");await g.wait_for_timeout(300)
+    await g.click("[data-bdmhod]");await g.wait_for_timeout(400)
+    chk(await g.evaluate("typeof BOJ.s.dm==='number'"),"hod za nepřátele zapíše iniciativu nepřátel")
+    await g.evaluate("bojZmen(z=>{z.dm=12})");await g.wait_for_timeout(300)
+    await g.click('[data-bstart]');await g.wait_for_selector(".bsloty");await g.wait_for_timeout(300)
     st=await g.evaluate("BOJ.s.npc.map(n=>[n.id,n.n,n.druh,n.b||'',(n.pr||[]).join('+'),n.str||'',n.os||''])");print(st)
     chk(any(x[5]=="h" for x in st),"spojenec je na straně družiny")
     lay=await g.evaluate("(()=>{const a=document.querySelector('.bsh').getBoundingClientRect(),b=document.querySelector('.bsn').getBoundingClientRect(),t=document.querySelector('.bsloty').getBoundingClientRect();return [a.left<b.left,a.width<b.width,t.bottom<=a.top+2]})()")
@@ -122,7 +140,7 @@ async def main():
     txt=await g.evaluate("bojShrn(BOJ.s).txt");print(txt[:200])
     chk(txt.startswith("boj (kolo 1)") and "zajat" in txt,"podklad pro Kroniku")
     await g.click('[data-bkon="ok"]');await g.wait_for_timeout(400)
-    chk(await g.locator("#bojform").count()==1,"po ukončení zpět rozestavení")
+    await g.wait_for_timeout(500);chk(await g.locator(".bprip").count()==1 and await g.evaluate("BOJ.s.hraci.map(h=>h.n).join()")=="Adam,Bára,Cyril,Dora","po ukončení zpět příprava se stejnou družinou")
     # mobil
     await g.set_viewport_size({"width":390,"height":844});await g.wait_for_timeout(300)
     sw=await g.evaluate("document.documentElement.scrollWidth");chk(sw<=392,"mobil bez vodorovného posunu: "+str(sw))

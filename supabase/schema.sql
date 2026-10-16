@@ -295,6 +295,30 @@ begin
   return v;
 end $$;
 
+-- Příprava boje: hráč si sám zapíše hod iniciativy své postavy (bez přihlášení), jen dokud boj nezačal.
+create or replace function public.mm_boj_hod(p_hrac text, p_hod int) returns bigint
+language plpgsql security definer set search_path = public as $$
+declare
+  s jsonb;
+  v bigint;
+  i int;
+begin
+  select stav into s from public.boj where id = 'aktivni' for update;
+  if s is null or coalesce((s ->> 'priprava')::boolean, false) = false or coalesce((s ->> 'aktivni')::boolean, false) then
+    raise exception 'boj se právě nepřipravuje';
+  end if;
+  if p_hod is null or p_hod < -10 or p_hod > 50 then
+    raise exception 'neplatný hod';
+  end if;
+  select (h.ord - 1)::int into i from jsonb_array_elements(coalesce(s -> 'hraci', '[]'::jsonb)) with ordinality h(val, ord) where h.val ->> 'id' = p_hrac;
+  if i is null then
+    raise exception 'neznámá postava';
+  end if;
+  s := jsonb_set(s, array['hraci', i::text, 'hod'], to_jsonb(p_hod));
+  update public.boj set stav = s, verze = verze + 1, zmeneno = now() where id = 'aktivni' returning verze into v;
+  return v;
+end $$;
+
 -- Výprava (cesta družiny): stav plánovače cest jen pro vypravěče, uložený v nastavení pod klíčem 'vyprava'
 create or replace function public.mm_vyprava_nacti() returns jsonb
 language plpgsql stable security definer set search_path = public as $$
@@ -557,6 +581,7 @@ revoke all on function public.mm_kouzla_nacti() from public, anon;
 revoke all on function public.mm_kouzla_uloz(jsonb) from public, anon;
 grant execute on function public.mm_kouzla_nacti(), public.mm_kouzla_uloz(jsonb) to authenticated;
 grant execute on function public.mm_boj_obsad(int, text) to anon, authenticated;
+grant execute on function public.mm_boj_hod(text, int) to anon, authenticated;
 grant execute on function public.mm_nastav_hru(jsonb) to authenticated;
 grant execute on function public.mm_stavy() to authenticated;
 revoke all on function public.mm_orez(jsonb, jsonb) from public, anon, authenticated;

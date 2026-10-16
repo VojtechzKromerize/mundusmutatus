@@ -8,6 +8,24 @@ fails=[]
 def chk(c,m):
     print(("OK  " if c else "FAIL"),m)
     if not c: fails.append(m)
+
+async def priprava(g,jmena,hody,dm,npc=(),spoj=()):
+    """Příprava boje na stránce Boj: postavy s hody, nepřátelé a spojenci přes formuláře, hod nepřátel, Začít boj."""
+    await g.wait_for_selector(".bprip")
+    await g.evaluate("bojZmen(z=>{z.hraci="+json.dumps([{"id":"h"+str(i+1),"n":"","hod":None} for i in range(len(jmena))])+";z.npc=[];z.nid=0;z.dm=null})")
+    await g.wait_for_timeout(400)
+    for i,(n,h) in enumerate(zip(jmena,hody)):
+        f=g.locator(f'[data-bhn="h{i+1}"]');await f.fill(n);await f.press("Tab");await g.wait_for_timeout(150)
+        if h is not None:
+            f=g.locator(f'[data-bhhod="h{i+1}"]');await f.fill(str(h));await f.press("Tab");await g.wait_for_timeout(150)
+    for fid,rows in (("bnadd",npc),("bnadds",spoj)):
+        for (n,d,p) in rows:
+            if fid=="bnadds" and not await g.locator("#bnadds").is_visible(): await g.click('[data-otv="pridej-s"] summary')
+            await g.fill(f'#{fid} [name=nn]',n);await g.select_option(f'#{fid} [name=nd]',d)
+            if p: await g.fill(f'#{fid} [name=np]',str(p))
+            await g.click(f'#{fid} button[type=submit]');await g.wait_for_timeout(350)
+    if dm is not None:
+        f=g.locator('[data-bdm]');await f.fill(str(dm));await f.press("Tab");await g.wait_for_timeout(400)
 async def main():
   async with async_playwright() as p:
     b=await p.chromium.launch()
@@ -18,11 +36,8 @@ async def main():
         await g.click("[data-bact=konec]");await g.wait_for_timeout(800)
         if await g.locator('[data-bkon="ok"]').count():  # se statblocky se nejdřív ukáže shrnutí boje
             await g.click('[data-bkon="ok"]');await g.wait_for_timeout(800)
-    await g.wait_for_selector("#bojform")
-    hn=g.locator('#bojform [name=hn]')
-    for i,n in enumerate(["Adam","Bára","",""]): await hn.nth(i).fill(n)
-    await g.fill('#bojform [name=hod]',"15");await g.fill('#bojform [name=dm]',"10")
-    await g.click('#bojform button[type=submit]');await g.wait_for_selector(".bsloty")
+    await priprava(g,["Adam","Bára"],[15,None],10)
+    await g.click('[data-bstart]');await g.wait_for_selector(".bsloty")
     pl=await b.new_page(viewport={"width":390,"height":844});err=[];pl.on("pageerror",lambda e:err.append(str(e)[:200]))
     await pl.add_init_script("window.__vib=[];navigator.vibrate=x=>{window.__vib.push(x);return true};window.__wl=0;Object.defineProperty(navigator,'wakeLock',{value:{request:async()=>{window.__wl++;const l=new EventTarget();l.release=async()=>{window.__wl--;l.dispatchEvent(new Event('release'))};return l}}})")
     await pl.goto(BASE+"#boj");await pl.wait_for_selector(".bsloty")

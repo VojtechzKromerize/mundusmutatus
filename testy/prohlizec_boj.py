@@ -15,6 +15,24 @@ def chk(c,m):
     print(("OK  " if c else "FAIL"),m)
     if not c: fails.append(m)
 rel=tok()
+
+async def priprava(g,jmena,hody,dm,npc=(),spoj=()):
+    """Příprava boje na stránce Boj: postavy s hody, nepřátelé a spojenci přes formuláře, hod nepřátel, Začít boj."""
+    await g.wait_for_selector(".bprip")
+    await g.evaluate("bojZmen(z=>{z.hraci="+json.dumps([{"id":"h"+str(i+1),"n":"","hod":None} for i in range(len(jmena))])+";z.npc=[];z.nid=0;z.dm=null})")
+    await g.wait_for_timeout(400)
+    for i,(n,h) in enumerate(zip(jmena,hody)):
+        f=g.locator(f'[data-bhn="h{i+1}"]');await f.fill(n);await f.press("Tab");await g.wait_for_timeout(150)
+        if h is not None:
+            f=g.locator(f'[data-bhhod="h{i+1}"]');await f.fill(str(h));await f.press("Tab");await g.wait_for_timeout(150)
+    for fid,rows in (("bnadd",npc),("bnadds",spoj)):
+        for (n,d,p) in rows:
+            if fid=="bnadds" and not await g.locator("#bnadds").is_visible(): await g.click('[data-otv="pridej-s"] summary')
+            await g.fill(f'#{fid} [name=nn]',n);await g.select_option(f'#{fid} [name=nd]',d)
+            if p: await g.fill(f'#{fid} [name=np]',str(p))
+            await g.click(f'#{fid} button[type=submit]');await g.wait_for_timeout(350)
+    if dm is not None:
+        f=g.locator('[data-bdm]');await f.fill(str(dm));await f.press("Tab");await g.wait_for_timeout(400)
 async def main():
   async with async_playwright() as p:
     b=await p.chromium.launch()
@@ -26,23 +44,29 @@ async def main():
         await g.click("[data-bact=konec]");await g.wait_for_timeout(800)
         if await g.locator('[data-bkon="ok"]').count():  # se statblocky se nejdřív ukáže shrnutí boje
             await g.click('[data-bkon="ok"]');await g.wait_for_timeout(800)
-    await g.wait_for_selector("#bojform")
     chk(await g.locator("#navboj").is_visible(),"vypravěč má v nabídce Boj")
-    hn=g.locator('#bojform [name=hn]')
-    for i,n in enumerate(["Adam","Bára","Cyril"]):
-        await hn.nth(i).fill(n)
-    await hn.nth(3).fill("");await g.fill('#bojform [name=hod]',"15")
-    await g.fill('#bojform [name=dm]',"12")
-    nn=g.locator('#bojform [name=nn]');nd=g.locator('#bojform [name=nd]');np=g.locator('#bojform [name=np]')
-    await nn.nth(0).fill("Žoldnéři");await nd.nth(0).select_option("houf");await np.nth(0).fill("6")
-    await nn.nth(1).fill("Hejtman");await nd.nth(1).select_option("sok")
-    await g.click('#bojform button[type=submit]');await g.wait_for_selector(".bsloty")
+    await priprava(g,["Adam","Bára","Cyril"],[15,9,None],None,[("Žoldnéři","houf",6),("Hejtman","sok",None)])
+    # hráč zapíše svůj hod z telefonu během přípravy
+    ph=await b.new_page(viewport={"width":390,"height":844});await ph.goto(BASE+"#boj");await ph.wait_for_selector(".bprip")
+    chk(await ph.locator(".bnpc").count()==0,"hráč v přípravě nevidí nepřátele")
+    await ph.select_option("[data-bja]","Cyril");await ph.wait_for_timeout(300)
+    await ph.fill("[data-bjahod]","11");await ph.press("[data-bjahod]","Tab");await ph.wait_for_timeout(800)
+    await g.wait_for_timeout(3000)
+    chk(await g.locator('[data-bhhod="h3"]').input_value()=="11","vypravěč vidí hod, který hráč zapsal z telefonu")
+    c,t=anon_rpc("mm_boj_hod",{"p_hrac":"h9","p_hod":12});chk(c>=400,"neznámá postava nezapíše hod")
+    await g.click('[data-bstart]');await g.wait_for_timeout(500)
+    chk(await g.locator(".bsloty").count()==0,"bez hodu nepřátel boj nezačne")
+    f=g.locator('[data-bdm]');await f.fill("12");await f.press("Tab");await g.wait_for_timeout(400)
+    await g.click('[data-bstart]');await g.wait_for_selector(".bsloty")
+    await ph.close();await g.wait_for_timeout(1200)
+    c,t=anon_rpc("mm_boj_hod",{"p_hrac":"h1","p_hod":3});chk(c>=400,"po zahájení už hráč hod nemění")
     sl=await g.evaluate("BOJ.s.sloty.map(x=>x.hod+x.t)")
     chk(sl==["15h","12n","15h","12n","15h","12n"],"sloty se střídají, začíná družina: "+str(sl))
     pruh=await g.eval_on_selector_all(".bsloty .bslot:not(.bzbyt)","els=>els.map(e=>e.querySelector('.bhod').textContent+(e.classList.contains('bh')?'h':'n'))")
     chk(pruh==["15h","12n"] and await g.locator(".bslot.bzbyt").count()==1,"pruh ukazuje jen nejbližší volné sloty a zbytek shrne: "+str(pruh))
     alt=await g.evaluate("bojSloty({hraci:[{},{}],hod:10,dm:14}).map(x=>x.t).join('')");chk(alt=="nhnh","vyhraje-li vypravěč, začínají nepřátelé: "+alt)
     alt=await g.evaluate("bojSloty({hraci:[{},{}],hod:14,dm:14}).map(x=>x.t).join('')");chk(alt=="hnhn","shoda – začíná družina: "+alt)
+    chk(await g.evaluate("BOJ.s.hod")==15,"družina jde s nejlepším hodem 15")
     pl=await b.new_page(viewport={"width":390,"height":844});perr=[];pl.on("pageerror",lambda e:perr.append(str(e)[:200]))
     await pl.goto(BASE);await pl.wait_for_function("!document.documentElement.classList.contains('mmload')");await pl.wait_for_timeout(600)
     await pl.click("#navtoggle");chk(await pl.locator("#navboj").is_visible(),"hráč vidí Boj v menu, když boj probíhá")
@@ -69,6 +93,12 @@ async def main():
     await g.click('[data-bact="kolo"]');await g.wait_for_timeout(700)
     chk(await g.evaluate("BOJ.s.kolo===2&&Object.keys(BOJ.s.obsazeni).length===0"),"nové kolo vymaže přiřazení")
     # rychlá série změn: optimistické ukládání nesmí ztratit žádnou změnu
+    # reakce: odškrtne se a na začátku tahu se obnoví
+    await g.click('[data-break="n1"]');await g.wait_for_timeout(300)
+    chk(await g.evaluate("!!(BOJ.s.reak||{}).n1"),"reakce se odškrtne")
+    await g.select_option(f'[data-bslot="{await g.evaluate("BOJ.s.tah")}"]',"n1") if await g.evaluate("(BOJ.s.sloty[BOJ.s.tah]||{}).t==='n'&&!BOJ.s.obsazeni[BOJ.s.tah]") else None
+    await g.wait_for_timeout(400)
+    chk(await g.evaluate("!(BOJ.s.reak||{}).n1") or await g.evaluate("(BOJ.s.sloty[BOJ.s.tah]||{}).t!=='n'"),"reakce se na začátku jeho tahu obnoví")
     await g.evaluate("bojZmen(s=>{bojPridejNpc(s,[{n:'Rotmistr',druh:'sok',b:'rotmistr-zoldneru',pr:[]},{n:'Žoldnéři 2',druh:'houf',pocet:6,b:'houf-zoldneru',pr:[]}])})");await g.wait_for_timeout(900)
     hid=await g.evaluate("BOJ.s.npc.find(n=>n.n==='Žoldnéři 2').id");rid=await g.evaluate("BOJ.s.npc.find(n=>n.n==='Rotmistr').id")
     t0=await g.evaluate("performance.now()")
