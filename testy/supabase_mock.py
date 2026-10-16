@@ -14,6 +14,7 @@ USERS={"gm@x.cz":("heslo","11111111-1111-1111-1111-111111111111"),"hrac@x.cz":("
 RT={}
 STORE={}
 EXPIN=int(sys.argv[1]) if len(sys.argv)>1 else 3600
+LAT=float(os.environ.get("MM_SB_LAT","0"))/1000  # umělá síťová prodleva pro měření výkonu (ms)
 LOG=[]
 class H(BaseHTTPRequestHandler):
     def log_message(self,*a): pass
@@ -33,6 +34,7 @@ class H(BaseHTTPRequestHandler):
             b=STORE.get(self.path.split("/obrazky/",1)[1].split("?")[0])
             if b is None: return self.out(404,{"message":"not found"})
             self.send_response(200);self.cors();self.send_header("Content-Type",b[0]);self.end_headers();self.wfile.write(b[1]);return
+        if LAT: time.sleep(LAT)
         key=self.headers.get("apikey")
         LOG.append((method,self.path,key))
         if key not in KEYS: return self.out(401,{"message":"Invalid API key"})

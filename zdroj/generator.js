@@ -212,9 +212,11 @@ function generuj(soubory, manifest) {
       return { n: m[1].trim(), max: parseInt(m[2], 10) };
     });
     const o = { $gm: true, id: p.id, n: p.nazev, u, ac: p.ac || "", hp, ut: p.utok || "", poz: p.pozehnani || "", pok: p.pokuseni || "",
-      kom: p.komplikace || "", ner: p.nerest || "", vy: p.vyzva || "", h: md(p._body), b: mdBoj(p._body),
+      kom: p.komplikace || "", ner: p.nerest || "", zak: p.zakon || "", vy: p.vyzva || "", h: md(p._body), b: mdBoj(p._body),
       at: utoky(p.utoky, w), zd: zdroje(p.zdroje, w), st: lst(p.stitky), xp: xpZ(p.vyzva), vk: vykupne(p._body) };
     if (/za\s+pacholka|za\s+kus/i.test(String(p.vyzva || ""))) o.xpp = 1;
+    if (o.st.some(x => x.toLowerCase() === "relikt")) o.rel = 1; /* relikt: starší než Protržení, zažehnává se (bestiar/relikty.md) */
+    { const im = (manifest.bestiar || {})[p.obrazek || p.id]; if (im) o.img = "art/bestiar/" + im + ".webp"; }
     if (p.vyznani) { if (!["kat", "kal", "old"].includes(p.vyznani)) fail(`${w}: vyznani je kat / kal / old`); o.vz = p.vyznani; }
     if (String(p.kriticka || "").trim().toLowerCase() === "drak") o.kd = 1;
     if (String(p.pocet || "").trim()) {
@@ -272,6 +274,12 @@ function generuj(soubory, manifest) {
     const np = (Array.isArray(p.nepratele) ? p.nepratele : lst(p.nepratele)).map(x => radek(x, w));
     if (!np.length) fail(`${w}: chybí nepratele (seznam řádků  - 6 houf-zoldneru)`);
     const o = { $gm: true, id: p.id, n: p.nazev, st: lst(p.stitky), np, h: md(p._body), x: text(p._body) };
+    /* volitelně: cíle boje (řádky „Zachránit rukojmí (3×, do 2. kola, skrytý)“), prostředí (tma, mlha, silný vítr…) a přepadení (družina / nepřátelé) */
+    const cl = Array.isArray(p.cile) ? p.cile.map(x => String(x).trim()).filter(Boolean) : String(p.cile || "").split(";").map(x => x.trim()).filter(Boolean);
+    if (cl.length) o.cl = cl;
+    if (lst(p.prostredi).length) o.pro = lst(p.prostredi);
+    const pk = String(p.prekvapeni || "").trim().toLowerCase();
+    if (pk) { if (/^dru/.test(pk)) o.pk = "h"; else if (/^nep/.test(pk)) o.pk = "n"; else fail(`${w}: prekvapeni má být „družina“ nebo „nepřátelé“`); }
     if (o.x) odstranene.push(o.x);
     SETK.push(o);
   }

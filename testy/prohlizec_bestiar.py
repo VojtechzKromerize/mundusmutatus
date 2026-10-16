@@ -17,36 +17,67 @@ for f in glob.glob(ob+"/**/*",recursive=True):
     if os.path.isfile(f) and (r.endswith(".md") or r.endswith(".json")) and not r.split("/")[-1].startswith("_"): sb[r]=open(f,encoding="utf-8").read()
 k=next(x for x in sb if x.startswith("osoby/") and "\nid: viktorin\n" in "\n"+sb[x])
 sb[k]=sb[k].replace("\n---\n","\nstatblok: rytir-v-plne-zbroji + zkuseny\n---\n",1)
+sb["setkani/99-test-cile.md"]="---\nid: test-cile\nnazev: Zkouška cílů\nprostredi: mlha, úzký průchod\nprekvapeni: nepřátelé\nnepratele:\n  - 3 houf-zoldneru\ncile:\n  - Zachránit rukojmí (3×, do 2. kola)\n  - Zabít kněze (skrytý)\n---\nZkušební setkání.\n"
 g=json.loads(subprocess.run(["node",os.path.join(KOR,"zdroj","generator.js")],input=json.dumps({"soubory":sb,"manifest":{}},ensure_ascii=False),capture_output=True,text=True,check=True).stdout)
 chk([o["b"] for o in g["gm"]["PROTOSOBY"]]==["rytir-v-plne-zbroji"] and g["gm"]["PROTOSOBY"][0]["pr"]==["zkuseny"],"generátor: statblok u osoby pro vypravěče")
 chk(all(not g["hrac"].get(x) for x in ("PROTIVNICI","PRIVLASTKY","SETKANI","PROTOSOBY","VYZAZ")),"generátor: hráč nedostane bestiář ani tabulky setkání")
+tc=next((x for x in g["gm"]["SETKANI"] if x["id"]=="test-cile"),{})
+chk(tc.get("cl")==["Zachránit rukojmí (3×, do 2. kola)","Zabít kněze (skrytý)"] and tc.get("pro")==["mlha","úzký průchod"] and tc.get("pk")=="n","generátor: setkání nese cíle, prostředí a přepadení")
+
+async def priprava(g,jmena,hody,dm,npc=(),spoj=()):
+    """Příprava boje na stránce Boj: postavy s hody, nepřátelé a spojenci přes formuláře, hod nepřátel, Začít boj."""
+    await g.wait_for_selector(".bprip")
+    await g.evaluate("bojZmen(z=>{z.hraci="+json.dumps([{"id":"h"+str(i+1),"n":"","hod":None} for i in range(len(jmena))])+";z.npc=[];z.nid=0;z.dm=null})")
+    await g.wait_for_timeout(400)
+    for i,(n,h) in enumerate(zip(jmena,hody)):
+        f=g.locator(f'[data-bhn="h{i+1}"]');await f.fill(n);await f.press("Tab");await g.wait_for_timeout(150)
+        if h is not None:
+            f=g.locator(f'[data-bhhod="h{i+1}"]');await f.fill(str(h));await f.press("Tab");await g.wait_for_timeout(150)
+    for fid,rows in (("bnadd",npc),("bnadds",spoj)):
+        for (n,d,p) in rows:
+            if fid=="bnadds" and not await g.locator("#bnadds").is_visible(): await g.click('[data-otv="pridej-s"] summary')
+            await g.fill(f'#{fid} [name=nn]',n);await g.select_option(f'#{fid} [name=nd]',d)
+            if p: await g.fill(f'#{fid} [name=np]',str(p))
+            await g.click(f'#{fid} button[type=submit]');await g.wait_for_timeout(350)
+    if dm is not None:
+        f=g.locator('[data-bdm]');await f.fill(str(dm));await f.press("Tab");await g.wait_for_timeout(400)
 async def main():
   async with async_playwright() as p:
     b=await p.chromium.launch()
     g=await b.new_page(viewport={"width":1300,"height":1100});err=[];g.on("pageerror",lambda e:err.append(str(e)[:300]))
     g.on("dialog",lambda d:asyncio.ensure_future(d.accept()))
     await g.goto(GM+"#boj");await g.wait_for_function("!document.documentElement.classList.contains('mmload')");await g.wait_for_timeout(600)
-    await g.wait_for_selector("#bojform")
+    await g.wait_for_selector(".bprip")
     chk(await g.locator(".bpravidla .bqr").count()==3,"rychlá pravidla v šuplíku (kritická zranění, zbraně, zbroj)")
     chk(not await g.locator(".bpravidla").is_visible(),"šuplík s pravidly je zavřený")
     # hledání: štítek, setkání, osoba
     await g.fill("[data-bhledej]","krkonose");await g.wait_for_timeout(100)
     t=await g.locator("[data-bvysl]").inner_text()
     chk("Lovci vajec v Krkonoších" in t and "Hromová saň" in t,"hledání podle štítku Krkonoše najde setkání i saň")
-    # načíst hotové setkání do formuláře
-    await g.select_option("[data-bskup]","s:rota-bez-pana");await g.wait_for_timeout(200)
-    nn=await g.eval_on_selector_all("#bfn [name=nn]","e=>e.map(x=>x.value)");print(nn)
-    chk(nn==["Rotmistr žoldnéřů","Halapartníci","Druhý šik","Střelci"],"setkání Rota bez pána vyplní 4 řádky")
-    chk(await g.locator("#bfn [name=nb]").nth(3).input_value()=="houf-pistalniku","řádky nesou statblock")
-    hn=g.locator('#bojform [name=hn]')
-    for i,n in enumerate(["Adam","Bára","Cyril","Dora"]): await hn.nth(i).fill(n)
-    await g.fill("[data-bur]","8");await g.wait_for_timeout(100)
-    ob=await g.locator("#bobt").inner_text();print(ob)
+    await g.fill("[data-bhledej]","relikt");await g.wait_for_timeout(100)
+    t=await g.locator("[data-bvysl]").inner_text()
+    chk("Krakonoš" in t or "Vodník" in t,"hledání najde relikty (lidové potvory)")
+    chk(await g.evaluate("PROTIVNICI.filter(p=>p.rel).every(p=>p.zak&&p.b.includes('Zažehnání'))"),"každý relikt má zákon a blok Relikt se zažehnáním")
+    # příprava: postavy, hotové setkání, spojenec
+    await priprava(g,["Adam","Bára","Cyril","Dora"],[15,None,None,None],None)
+    await g.select_option("[data-bskupadd]","s:rota-bez-pana");await g.wait_for_timeout(500)
+    await g.click('[data-otv="pridej-s"] summary');await g.fill('#bnadds [name=nn]',"Rytíř v plné zbroji");await g.select_option('#bnadds [name=nd]',"sok");await g.click('#bnadds button[type=submit]');await g.wait_for_timeout(400)
+    nn=await g.evaluate("BOJ.s.npc.filter(n=>!n.str).map(n=>n.n)");print(nn)
+    chk(nn==["Rotmistr žoldnéřů","Halapartníci","Druhý šik","Střelci"],"setkání Rota bez pána přidá 4 nepřátele")
+    chk(await g.evaluate("BOJ.s.npc.filter(n=>!n.str)[3].b")=="houf-pistalniku","nepřátelé nesou statblock")
+    await g.fill("[data-bur]","8");await g.wait_for_timeout(200)
+    ob=await g.locator(".bobt").first.inner_text();print(ob)
     chk("XP" in ob and "pro 4 postavy 8. úrovně" in ob,"odhad obtížnosti se ukáže")
-    # spojenec
-    await g.click('[data-badd="s"]');await g.locator("#bfs [name=nn]").nth(0).fill("Rytíř v plné zbroji")
-    await g.fill('#bojform [name=hod]',"15");await g.fill('#bojform [name=dm]',"12")
-    await g.click('#bojform button[type=submit]');await g.wait_for_selector(".bsloty");await g.wait_for_timeout(300)
+    r=await g.evaluate("(()=>{const c=bojCilParse('Zachránit rukojmí (3×, do 2. kola, skrytý)');return [c.n,c.cil,c.kolo,c.ver,bojProsParse('silný vítr, mlha').join(),bojCilTxt(c)]})()")
+    chk(r==["Zachránit rukojmí",3,2,False,"vitr,mlha","Zachránit rukojmí (3×, do 2. kola, skrytý)"],"cíl setkání jako text tam i zpět: "+str(r))
+    await g.evaluate("bojZmen(z=>bojSetkPouzij(z,{rows:[],cile:[{n:'Udržet bránu',kolo:3,ver:true}],prostr:['mlha'],prekv:'n'}))");await g.wait_for_timeout(400)
+    chk(await g.evaluate("BOJ.s.cile.some(c=>c.n==='Udržet bránu'&&c.kolo===3)&&BOJ.s.prostr.includes('mlha')&&BOJ.s.prekv==='n'"),"setkání v přípravě přidá cíle, prostředí a přepadení")
+    chk(await g.locator('[data-bpros="mlha"][aria-pressed="true"]').count()==1,"prostředí je vidět v přípravě")
+    await g.evaluate("bojZmen(z=>{delete z.prostr;delete z.prekv;z.cile=(z.cile||[]).filter(c=>c.n!=='Udržet bránu');if(!z.cile.length)delete z.cile})");await g.wait_for_timeout(300)
+    await g.click("[data-bdmhod]");await g.wait_for_timeout(400)
+    chk(await g.evaluate("typeof BOJ.s.dm==='number'"),"hod za nepřátele zapíše iniciativu nepřátel")
+    await g.evaluate("bojZmen(z=>{z.dm=12})");await g.wait_for_timeout(300)
+    await g.click('[data-bstart]');await g.wait_for_selector(".bsloty");await g.wait_for_timeout(300)
     st=await g.evaluate("BOJ.s.npc.map(n=>[n.id,n.n,n.druh,n.b||'',(n.pr||[]).join('+'),n.str||'',n.os||''])");print(st)
     chk(any(x[5]=="h" for x in st),"spojenec je na straně družiny")
     lay=await g.evaluate("(()=>{const a=document.querySelector('.bsh').getBoundingClientRect(),b=document.querySelector('.bsn').getBoundingClientRect(),t=document.querySelector('.bsloty').getBoundingClientRect();return [a.left<b.left,a.width<b.width,t.bottom<=a.top+2]})()")
@@ -58,18 +89,32 @@ async def main():
     await g.click('.bnatahu [data-bact="dalsi"]');await g.wait_for_timeout(300)
     chk(await g.locator(rot+".bopen").count()==1 and await g.locator(hf+".bopen").count()==0,"karta toho, kdo je na tahu, je rozbalená, ostatní sbalené")
     chk("Rotmistr" in await g.locator(".bnatahu .bcur").inner_text(),"lišta Na tahu ukazuje rotmistra")
-    chk(await g.locator(".bslot.bdone .bdoneic").count()==1,"odehraný slot má ikonku")
+    chk(await g.locator(".bslot.bdone").count()==0,"volný odehraný slot se v pruhu nezobrazuje")
+    chk(await g.locator(".bslot.btah .bsvic").count()==1,"žeton na tahu má svíci")
     # popisky při najetí myší: ikonky a vlastnosti zbraní
     await g.hover(rot+" .brac");await g.wait_for_timeout(300)
     chk(await g.locator(".btip.on").count()==1 and "AC 18" in await g.locator(".btip").inner_text(),"popisek AC při najetí myší")
     await g.hover(rot+' [data-bstav="sražen"]');await g.wait_for_timeout(300)
     chk("Prone" in await g.locator(".btip").inner_text(),"stav jako ikonka s popiskem")
+    chk(await g.locator(rot+" .bsb").inner_html()=="","statblock se počítá až při otevření")
+    await g.click(rot+" .bstat summary");await g.wait_for_timeout(200)
     ab=rot+' .bsb abbr.btp:text-is("Ostrá")'
     chk(await g.locator(ab).count()>=1 and "19–20" in (await g.locator(ab).first.get_attribute("data-tip") or ""),"vlastnost zbraně ve statblocku vysvětlí, co dělá")
     # útok soka
     await g.click(rot+' [data-but="0"]');await g.wait_for_timeout(150)
     lg=await g.locator(rot+" .blog li").first.inner_text();print("log:",lg)
     chk("Dlouhý meč" in lg and "zranění" in lg and ("Závoj" in lg or "Pokušení" in lg or "Požehnání" in lg),"útok soka: hod, zranění i Závoj")
+    # cíl, výhoda a útok jako reakce
+    await g.select_option(rot+" [data-bcil]","h1");await g.wait_for_timeout(150)
+    await g.click(rot+' [data-badv="1"]');await g.check(rot+" [data-bjr]");await g.click(rot+' [data-but="0"]');await g.wait_for_timeout(500)
+    lg=await g.locator(rot+" .blog li").first.inner_text()
+    chk("Adam" in lg and "výhoda" in lg,"útok na zvolený cíl s výhodou (2d20)")
+    chk(await g.evaluate("!!(BOJ.s.reak||{}).n1"),"útok jako reakce odškrtne R")
+    await g.click(rot+' [data-badv="auto"]');await g.wait_for_timeout(100)
+    # cíle boje
+    await g.click(".bcld summary");await g.fill(".bclf [name=n]","Udržet bránu");await g.fill(".bclf [name=cil]","2");await g.click(".bclf button");await g.wait_for_timeout(500)
+    await g.click("[data-bclp]");await g.wait_for_timeout(400)
+    chk("1" in await g.locator(".bclp").inner_text(),"cíl boje: počitadlo")
     # útok houfu podle počtu v dosahu
     await g.click(hf+" .brozb");await g.wait_for_timeout(200)
     chk(await g.locator(hf+".bopen").count()==1,"kartu jde rozbalit ručně")
@@ -78,8 +123,9 @@ async def main():
     chk("zranění 9" in lg and "3 × 3 v dosahu" in lg,"houf: 3 zranění × 3 v dosahu = 9")
     chk("přesila +5" in lg,"houf: útok s přesilou +5")
     # Závoj samostatně
+    n0=await g.locator(".bglog li").count()
     await g.click(rot+" [data-bzav]");await g.wait_for_timeout(100)
-    chk(await g.locator(".bglog li").count()==3 and "Závoj" in await g.locator(rot+" .blog li").first.inner_text(),"samostatný hod Závoje se zapíše (karta i záznam boje)")
+    chk(await g.locator(".bglog li").count()==n0+1 and "Závoj" in await g.locator(rot+" .blog li").first.inner_text(),"samostatný hod Závoje se zapíše (karta i záznam boje)")
     # zdroje
     await g.click(rot+' [data-bzd="Výdrž"] [data-bzdi="0"]');await g.wait_for_timeout(100)
     chk(await g.locator(rot+' [data-bzd="Výdrž"] button.on').count()==1,"Výdrž se odškrtne")
@@ -93,7 +139,7 @@ async def main():
     chk(await g.locator(rot+' [data-bzd="Výdrž"] button').count()==3,"Veterán: Výdrž 2 → 3")
     # vazba sok–houf a morálka
     await g.select_option(hf+" [data-bvelsok]","n1");await g.wait_for_timeout(400)
-    await g.fill(rot+' [data-bhp]',"0");await g.wait_for_timeout(100)
+    await g.fill(rot+' [data-bhp]',"0");await g.press(rot+' [data-bhp]',"Enter");await g.wait_for_timeout(100)
     await g.evaluate("renderBoj()");await g.wait_for_timeout(100)
     chk("padl" in await g.locator(hf+" .bmor").inner_text(),"když sok padne, houf hlásí útěk")
     # kritické zranění v šuplíku s pravidly
@@ -115,7 +161,7 @@ async def main():
     txt=await g.evaluate("bojShrn(BOJ.s).txt");print(txt[:200])
     chk(txt.startswith("boj (kolo 1)") and "zajat" in txt,"podklad pro Kroniku")
     await g.click('[data-bkon="ok"]');await g.wait_for_timeout(400)
-    chk(await g.locator("#bojform").count()==1,"po ukončení zpět rozestavení")
+    await g.wait_for_timeout(500);chk(await g.locator(".bprip").count()==1 and await g.evaluate("BOJ.s.hraci.map(h=>h.n).join()")=="Adam,Bára,Cyril,Dora","po ukončení zpět příprava se stejnou družinou")
     # mobil
     await g.set_viewport_size({"width":390,"height":844});await g.wait_for_timeout(300)
     sw=await g.evaluate("document.documentElement.scrollWidth");chk(sw<=392,"mobil bez vodorovného posunu: "+str(sw))

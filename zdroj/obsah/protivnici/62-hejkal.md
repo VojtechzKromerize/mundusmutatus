@@ -9,7 +9,8 @@ utok: Úder šlahounem +6, dosah 10 stop, 1d8+4 · trny +6, 60 stop, 1d6+4 · ok
 pozehnani: Hejkne: všichni, kdo ho slyší, hodí WIS save DC 14, jinak jdou do konce kola za hlasem (o 30 stop).
 pokuseni: Ztratí ozvěnu: do konce kola nemůže skočit mezi stromy.
 nerest: Les – bojuje jen v lese a jen proti těm, kdo lesu škodí. Kdo nesl dřevo, ať ho položí; kdo přinese obětinu, tomu ukáže cestu.
-stitky: bytosti z pověstí, hejkal, les, bažina, starověrci, Staří bozi, Šumava, Beskydy
+zakon: Kdo mu odpoví, tomu smí skočit na záda; nesmí na mýtinu, kde stojí kříž nebo kaplička.
+stitky: relikt, bytosti z pověstí, hejkal, les, bažina, starověrci, Staří bozi, Šumava, Beskydy
 zdroje: Zapletení 1, Beze stop 1
 utoky:
   - Úder šlahounem | +6 | 1d8+4 Slashing | dosah 10 stop; v jednom slotu i okouzlení
@@ -45,6 +46,16 @@ Duch hlubokých lesů, kterého je víc slyšet než vidět. Po Noci Proměny se
 ## Bonusová akce
 
 - **Skok mezi stromy.** Od velkého stromu se přenese k jinému do 60 stop.
+
+## Relikt
+
+- **Znamení.** V lese volání „hej, hej“; stopy, které vedou dozadu; zlomené mladé stromky.
+- **Zákon.** Kdo mu odpoví, tomu smí skočit na záda a nést ho do rána. Nesmí na mýtinu, kde stojí kříž nebo kaplička.
+- **Moc.** Zabloudění (nikdo nenajde cestu, dokud si neobrátí oděv naruby), zapletení kořeny.
+- **Co chce.** Aby se v lese nekácelo bez dovolení a nekřičelo.
+- **Ochrana.** Neodpovídat, mít oděv naruby, nést chléb pro lesní duchy.
+- **Zažehnání.** 1) Najít jeho strom. 2) Za každý pokácený strom zasadit nový. 3) Nechat na pařezu chléb a sůl a třikrát se omluvit.
+- **Tajemství.** Hejkal je poslední strážce háje Starých bohů. Starověrci ho mohou poprosit o pomoc.
 
 **Výkupné a kořist.** Jeho hůl z kořene, která ukazuje cestu – komu ji dá dobrovolně.
 
