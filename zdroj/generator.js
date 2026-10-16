@@ -166,6 +166,31 @@ function generuj(soubory, manifest) {
     RES.push({ $gm: true, ...t });
   }
 
+  /* protivníci (bestiář pro tracker iniciativy) – celé jen pro vypravěče, hráči nedostanou nic */
+  const PROT = [], UROVNE_P = ["houf", "pacholek", "sok", "zhoubce"];
+  for (const p of readDir("protivnici")) {
+    const w = "protivnici/" + p._file;
+    for (const k of ["id", "nazev", "uroven"]) if (!p[k]) fail(`${w}: chybí '${k}'`);
+    const u = String(p.uroven).trim().toLowerCase();
+    if (!UROVNE_P.includes(u)) fail(`${w}: uroven musí být houf / pacholek / sok / zhoubce (je „${p.uroven}“)`);
+    if (PROT.some(q => q.id === p.id)) fail(`${w}: id „${p.id}“ už má jiný protivník`);
+    /* hp: „75“ nebo „jezdec 45, dráček 68“ → [{n, max}] */
+    const hp = String(p.hp || "").split(",").map(x => x.trim()).filter(Boolean).map(x => {
+      const m = x.match(/^(.*?)(\d+)/);
+      if (!m) fail(`${w}: hp „${x}“ má mít tvar  75  nebo  jezdec 45, dráček 68`);
+      return { n: m[1].trim(), max: parseInt(m[2], 10) };
+    });
+    const o = { $gm: true, id: p.id, n: p.nazev, u, ac: p.ac || "", hp, ut: p.utok || "", poz: p.pozehnani || "", pok: p.pokuseni || "",
+      kom: p.komplikace || "", ner: p.nerest || "", vy: p.vyzva || "", h: md(p._body) };
+    if (String(p.pocet || "").trim()) {
+      o.poc = Math.round(num(p.pocet, w));
+      if (o.poc < 1 || o.poc > 12) fail(`${w}: pocet má být 1 až 12`);
+    }
+    if (String(p.bonus || "").trim()) o.bon = Math.round(num(p.bonus, w));
+    for (const k of ["ut", "poz", "pok", "kom", "ner", "h"]) if (o[k]) odstranene.push(o[k]);
+    PROT.push(o);
+  }
+
   /* Draconomicon */
   const kap = [];
   for (const k of readDir("draconomicon/kapitoly")) {
@@ -325,7 +350,7 @@ function generuj(soubory, manifest) {
   const odh = { DRACI: { kap, pl: PL }, ZEMEPIS: ZEM, FAM: F, PEOPLE: P, REL, PRAHA_PLACES: PR, MISTA: MI, TREES: T,
     SHORT: Object.fromEntries(Object.entries(short).map(([k, v]) => [k, { $g: k, $x: v }])),
     ARMS: Object.fromEntries(Object.entries(arms).map(([k, v]) => [k, { $g: k, $x: v }])),
-    PORTR, ZAPISY: zapisy.map(z => ({ $g: z.id, ...z })), PARTY: party, RESERS: RES };
+    PORTR, ZAPISY: zapisy.map(z => ({ $g: z.id, ...z })), PARTY: party, RESERS: RES, PROTIVNICI: PROT };
   return { odh, seed: SEED, odstranene };
 }
 

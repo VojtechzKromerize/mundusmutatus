@@ -16,6 +16,13 @@ Nové záznamy (osoba, rod, zápis Kroniky, plemeno, místo…) vznikají ve vyp
 - **Záloha:** jednou denně se texty upravené na webu uloží do souborů v této složce (větev `dev`,
   GitHub Actions „Záloha textů z webu“; spustit jde i ručně).
 
+## Protivníci (bestiář pro Boj)
+Statblocky protivníků jsou ve složce `protivnici/` (vzor `_vzor.md`) a vidí je **jen vypravěč** – hráči nedostanou
+ani jejich seznam. Hlavička nese rychlé údaje pro tracker iniciativy (úroveň houf / pacholek / sok / zhoubce, počet v houfu,
+AC, HP, útok, základní útočný bonus houfu, Požehnání, Pokušení, komplikace, Neřest), text pod ní je celý statblock.
+Na stránce **Boj** je vybereš ze seznamu u jména nepřítele nebo tlačítkem **+ do boje** v Bestiáři; nového založíš
+v **Nový záznam** jako druh Protivník. Životy soků a zhoubců se během boje ukládají jen ve tvém prohlížeči.
+
 ## Úpravy v souborech (GitHub, Claude)
 Soubory v této složce jsou zálohou databáze. Když se soubor změní ve větvi `dev`, sestavení změnu
 do databáze přenese – **ledaže byl tentýž záznam mezitím upravený na webu**: pak vyhraje web
