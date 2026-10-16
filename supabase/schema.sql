@@ -576,6 +576,16 @@ revoke select on public.nastaveni from anon, authenticated;
 grant select on public.snimek to anon, authenticated;
 grant select on public.obsah, public.stavy, public.denik, public.gm to authenticated;
 
+-- Realtime pro tracker boje: hráči dostanou změnu hned, dotazování klesne na zálohu jednou za minutu.
+-- Respektuje RLS (tabulku boj smí číst každý, zapisuje jen vypravěč přes funkce). Bez publikace web funguje dál dotazováním.
+do $$
+begin
+  if exists (select 1 from pg_publication where pubname = 'supabase_realtime')
+     and not exists (select 1 from pg_publication_tables where pubname = 'supabase_realtime' and schemaname = 'public' and tablename = 'boj') then
+    execute 'alter publication supabase_realtime add table public.boj';
+  end if;
+end $$;
+
 -- Úložiště nahraných obrázků (veřejné čtení přes nečitelné adresy, nahrává jen vypravěč)
 do $$
 begin
