@@ -22,7 +22,8 @@ Hráčský web: https://mundusmutatus.netlify.app (větev `main`), náhled: http
 - Herní stav (datum, hodina, poloha družiny), Novinky a tracker iniciativy (`#boj`) jsou také v databázi.
   Tracker má bestiář jen pro vypravěče (`protivnici/`, `privlastky/`, `setkani/`, pole `statblok` u osob): hledání,
   hotová setkání, odhad obtížnosti, karty nepřátel s útoky a Závojem na kliknutí, zdroji, přívlastky a vazbou sok–houf,
-  spojenci, kritická zranění, rychlá pravidla a shrnutí po boji do Kroniky. Tabulky setkání Výpravy jsou v
+  spojenci, kritická zranění, šuplík s rychlými pravidly a shrnutí po boji do Kroniky. Ovládá se ikonkami s popiskem při najetí
+  myší (stavy, Závoj, vlastnosti zbraní a zbrojí, techniky), osa slotů je lepkavá a karta nepřítele se rozbalí, když je na tahu. Tabulky setkání Výpravy jsou v
   `vyprava-setkani.json` (jen pro vypravěče). Část protivníků je převedena z D&D 2024; herní mechaniky podle
   System Reference Document 5.2 od Wizards of the Coast LLC, licence CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/).
 - **Výprava** (`#vyprava`, jen vypravěč): cesta družiny podle pravidel Uncharted Journeys na všech třech mapách (Známý svět,

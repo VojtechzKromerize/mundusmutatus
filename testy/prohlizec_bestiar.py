@@ -27,7 +27,8 @@ async def main():
     g.on("dialog",lambda d:asyncio.ensure_future(d.accept()))
     await g.goto(GM+"#boj");await g.wait_for_function("!document.documentElement.classList.contains('mmload')");await g.wait_for_timeout(600)
     await g.wait_for_selector("#bojform")
-    chk(await g.locator(".bpravidla .bqr").count()==7,"rychlá pravidla pod formulářem (7 karet)")
+    chk(await g.locator(".bpravidla .bqr").count()==3,"rychlá pravidla v šuplíku (kritická zranění, zbraně, zbroj)")
+    chk(not await g.locator(".bpravidla").is_visible(),"šuplík s pravidly je zavřený")
     # hledání: štítek, setkání, osoba
     await g.fill("[data-bhledej]","krkonose");await g.wait_for_timeout(100)
     t=await g.locator("[data-bvysl]").inner_text()
@@ -51,20 +52,34 @@ async def main():
     lay=await g.evaluate("(()=>{const a=document.querySelector('.bsh').getBoundingClientRect(),b=document.querySelector('.bsn').getBoundingClientRect(),t=document.querySelector('.bsloty').getBoundingClientRect();return [a.left<b.left,a.width<b.width,t.bottom<=a.top+2]})()")
     chk(lay==[True,True,True],"rozložení: osa nahoře, družina vlevo užší, nepřátelé vpravo: "+str(lay))
     chk(await g.locator(".bsh .bnpc.bspj").count()==1,"karta spojence v družině")
+    # sok na tahu se rozbalí sám, ostatní karty zůstanou sbalené
+    rot='[data-bnpc="n1"]';hf='[data-bnpc="n2"]'
+    await g.select_option('[data-bslot="1"]',"n1");await g.wait_for_timeout(250)
+    await g.click('.bnatahu [data-bact="dalsi"]');await g.wait_for_timeout(300)
+    chk(await g.locator(rot+".bopen").count()==1 and await g.locator(hf+".bopen").count()==0,"karta toho, kdo je na tahu, je rozbalená, ostatní sbalené")
+    chk("Rotmistr" in await g.locator(".bnatahu .bcur").inner_text(),"lišta Na tahu ukazuje rotmistra")
+    chk(await g.locator(".bslot.bdone .bdoneic").count()==1,"odehraný slot má ikonku")
+    # popisky při najetí myší: ikonky a vlastnosti zbraní
+    await g.hover(rot+" .brac");await g.wait_for_timeout(300)
+    chk(await g.locator(".btip.on").count()==1 and "AC 18" in await g.locator(".btip").inner_text(),"popisek AC při najetí myší")
+    await g.hover(rot+' [data-bstav="sražen"]');await g.wait_for_timeout(300)
+    chk("Prone" in await g.locator(".btip").inner_text(),"stav jako ikonka s popiskem")
+    ab=rot+' .bsb abbr.btp:text-is("Ostrá")'
+    chk(await g.locator(ab).count()>=1 and "19–20" in (await g.locator(ab).first.get_attribute("data-tip") or ""),"vlastnost zbraně ve statblocku vysvětlí, co dělá")
     # útok soka
-    rot='[data-bnpc="n1"]'
     await g.click(rot+' [data-but="0"]');await g.wait_for_timeout(150)
     lg=await g.locator(rot+" .blog li").first.inner_text();print("log:",lg)
     chk("Dlouhý meč" in lg and "zranění" in lg and ("Závoj" in lg or "Pokušení" in lg or "Požehnání" in lg),"útok soka: hod, zranění i Závoj")
     # útok houfu podle počtu v dosahu
-    hf='[data-bnpc="n2"]'
+    await g.click(hf+" .brozb");await g.wait_for_timeout(200)
+    chk(await g.locator(hf+".bopen").count()==1,"kartu jde rozbalit ručně")
     await g.fill(hf+" [data-bdos]","3");await g.click(hf+' [data-but="0"]');await g.wait_for_timeout(150)
     lg=await g.locator(hf+" .blog li").first.inner_text();print("houf:",lg)
     chk("zranění 9" in lg and "3 × 3 v dosahu" in lg,"houf: 3 zranění × 3 v dosahu = 9")
     chk("přesila +5" in lg,"houf: útok s přesilou +5")
     # Závoj samostatně
     await g.click(rot+" [data-bzav]");await g.wait_for_timeout(100)
-    chk(await g.locator(rot+" .blog li").count()==2,"samostatný hod Závoje se zapíše")
+    chk(await g.locator(".bglog li").count()==3 and "Závoj" in await g.locator(rot+" .blog li").first.inner_text(),"samostatný hod Závoje se zapíše (karta i záznam boje)")
     # zdroje
     await g.click(rot+' [data-bzd="Výdrž"] [data-bzdi="0"]');await g.wait_for_timeout(100)
     chk(await g.locator(rot+' [data-bzd="Výdrž"] button.on').count()==1,"Výdrž se odškrtne")
@@ -81,11 +96,15 @@ async def main():
     await g.fill(rot+' [data-bhp]',"0");await g.wait_for_timeout(100)
     await g.evaluate("renderBoj()");await g.wait_for_timeout(100)
     chk("padl" in await g.locator(hf+" .bmor").inner_text(),"když sok padne, houf hlásí útěk")
-    # kritické zranění
+    # kritické zranění v šuplíku s pravidly
+    await g.click(".bprtg");await g.wait_for_timeout(350)
+    chk(await g.locator(".bpravidla").is_visible(),"šuplík s pravidly se otevře")
     await g.select_option("[data-bkd]","drak");await g.fill("[data-bkr]","1");await g.fill("[data-bkp]","10");await g.click("[data-bkhod]");await g.wait_for_timeout(150)
     kt=await g.locator(".bkrit").inner_text();print("krit:",kt[:160].replace("\n"," | "))
     chk(re.search(r"d10 \d+ \+ 3 = \d+",kt) is not None and any(x in kt for x in ["Hlava","Trup","Křídla","Nohy a ocas"]),"kritické zranění draka: modifikátor +3 a místo zásahu")
     await g.screenshot(path=OUT+"5-boj-novy.png",full_page=True)
+    await g.keyboard.press("Escape");await g.wait_for_timeout(350)
+    chk(not await g.locator(".bpravidla").is_visible(),"Escape šuplík zavře")
     # konec boje: shrnutí
     await g.click("[data-bact=konec]");await g.wait_for_timeout(200)
     sh=await g.locator(".bkonsh").inner_text();print("shrnutí:",sh[:200].replace("\n"," | "))
