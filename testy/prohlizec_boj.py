@@ -208,7 +208,7 @@ async def main():
     if not await pl.locator('[data-bhpan="h4"] .bkhl').is_visible(): await pl.click('[data-otv="ja-pan"] > summary');await pl.wait_for_timeout(200)
     await pl.fill('[data-bhpan="h4"] [data-bkzrv]',"12");await pl.select_option('[data-bhpan="h4"] [data-bkzrt]',"Cold");await pl.click('[data-bhpan="h4"] [data-bkzr="z"]');await pl.wait_for_timeout(1000)
     await g.wait_for_timeout(3200)
-    chk(await g.evaluate("BOJ.s.hraci.find(h=>h.id==='h4').hp")==56,"hráč zapíše zranění z telefonu, karta započte Resistance (12 Cold → 6)")
+    chk(await g.evaluate("kartaStav('balduin').hp")==56,"hráč zapíše zranění z telefonu, karta započte Resistance (12 Cold → 6)")
     n0=await g.evaluate("(BOJ.s.utoky||[]).length")
     await pl.select_option('[name="jucil"]',rid);await pl.wait_for_timeout(300);await pl.select_option('[name="juzi"]',"0");await pl.wait_for_timeout(300)
     await pl.click("[data-juhod]");await pl.wait_for_timeout(300)
@@ -216,6 +216,25 @@ async def main():
     await pl.click("[data-juposl]");await pl.wait_for_timeout(1500);await g.wait_for_timeout(3200)
     chk(await g.evaluate("(BOJ.s.utoky||[]).length")-n0==2,"oba útoky dorazí vypravěči")
     c,t=anon_rpc("mm_boj_hrac",{"p_hrac":"h4","p_pole":"hp","p_hodnota":5000});chk(c>=400,"mm_boj_hrac odmítne nesmyslné životy")
+    # karta postavy jako stránka: hody do herního záznamu, sloty, import z polí PDF, kontrola vstupů v databázi
+    await pl.goto(BASE+"#karty/balduin");await pl.wait_for_selector(".kstat",timeout=15000)
+    chk("56" in await pl.inner_text(".khp"),"stránka karty ukazuje životy ze stavu postavy")
+    await pl.click('[data-khod="za:CON"]');await pl.wait_for_timeout(1200)
+    hody=json.loads(urllib.request.urlopen(urllib.request.Request(U+"/rest/v1/hody?select=data&order=id.desc&limit=5",headers={"apikey":K})).read())
+    chk(any(h["data"].get("co")=="Záchrana CON" for h in hody),"hod z karty je ve společném herním záznamu")
+    await pl.click('[data-kses="16"]');await pl.wait_for_timeout(1200)
+    chk(await pl.evaluate("(kartaStav('balduin').zdr||{}).slot3p")==1,"seslání kouzla odečte slot paktu")
+    pole=json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)),"karta-pdf-pole.json"),encoding="utf-8"))
+    r=await pl.evaluate("F=>{const K=kartaZPdf(F);return [K.n,K.ac,K.hp,K.utoky.length,K.kouzla.seznam.length,K.kouzla.sloty[0].max,K.odol.join(),K.efekty.length]}",pole)
+    chk(r==["Balduin",18,62,2,20,2,"Cold",3],"import listu z D&D Beyond: pole PDF → karta: "+str(r))
+    for fn,body,m in (("mm_karta_uloz",{"p_karta":{"id":"Zlé ID","n":"x","ac":10,"hp":5}},"špatné id"),("mm_karta_uloz",{"p_karta":{"id":"x","n":"x","ac":10}},"chybí životy"),
+                      ("mm_karta_stav",{"p_id":"balduin","p_pole":"hp","p_hodnota":"x"},"životy jako text"),("mm_karta_stav",{"p_id":"balduin","p_pole":"cokoli","p_hodnota":1},"neznámé pole"),
+                      ("mm_hod",{"p_hod":{"kdo":"x","co":"y","tot":5,"hack":1}},"cizí pole hodu")):
+        c,t=anon_rpc(fn,body);chk(c>=400,f"{fn} odmítne: {m}")
+    rqk=urllib.request.Request(U+"/rest/v1/karty",data=json.dumps({"id":"hack","karta":{}}).encode(),headers={"apikey":K,"Content-Type":"application/json"},method="POST")
+    try: urllib.request.urlopen(rqk);chk(False,"anonym nesmí zapisovat do tabulky karet přímo")
+    except urllib.error.HTTPError as e: chk(e.code>=400,"anonym nesmí zapisovat do tabulky karet přímo")
+    await pl.goto(BASE+"#boj");await pl.wait_for_selector(".bsloty")
     # zajatec, kořist a návrh zápisu
     if not await g.locator(f'[data-bnpc="{rid}"] [data-bstav="vzdal se"]').count():
         await g.click(f'[data-bnpc="{rid}"] [data-brozb]');await g.wait_for_timeout(300)
