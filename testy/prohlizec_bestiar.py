@@ -95,6 +95,17 @@ async def main():
     await g.click(rot+' [data-but="0"]');await g.wait_for_timeout(150)
     lg=await g.locator(rot+" .blog li").first.inner_text();print("log:",lg)
     chk("Dlouhý meč" in lg and "zranění" in lg and ("Závoj" in lg or "Pokušení" in lg or "Požehnání" in lg),"útok soka: hod, zranění i Závoj")
+    # cíl, výhoda a útok jako reakce
+    await g.select_option(rot+" [data-bcil]","h1");await g.wait_for_timeout(150)
+    await g.click(rot+' [data-badv="1"]');await g.check(rot+" [data-bjr]");await g.click(rot+' [data-but="0"]');await g.wait_for_timeout(500)
+    lg=await g.locator(rot+" .blog li").first.inner_text()
+    chk("Adam" in lg and "výhoda" in lg,"útok na zvolený cíl s výhodou (2d20)")
+    chk(await g.evaluate("!!(BOJ.s.reak||{}).n1"),"útok jako reakce odškrtne R")
+    await g.click(rot+' [data-badv="auto"]');await g.wait_for_timeout(100)
+    # cíle boje
+    await g.click(".bcld summary");await g.fill(".bclf [name=n]","Udržet bránu");await g.fill(".bclf [name=cil]","2");await g.click(".bclf button");await g.wait_for_timeout(500)
+    await g.click("[data-bclp]");await g.wait_for_timeout(400)
+    chk("1" in await g.locator(".bclp").inner_text(),"cíl boje: počitadlo")
     # útok houfu podle počtu v dosahu
     await g.click(hf+" .brozb");await g.wait_for_timeout(200)
     chk(await g.locator(hf+".bopen").count()==1,"kartu jde rozbalit ručně")
@@ -103,8 +114,9 @@ async def main():
     chk("zranění 9" in lg and "3 × 3 v dosahu" in lg,"houf: 3 zranění × 3 v dosahu = 9")
     chk("přesila +5" in lg,"houf: útok s přesilou +5")
     # Závoj samostatně
+    n0=await g.locator(".bglog li").count()
     await g.click(rot+" [data-bzav]");await g.wait_for_timeout(100)
-    chk(await g.locator(".bglog li").count()==3 and "Závoj" in await g.locator(rot+" .blog li").first.inner_text(),"samostatný hod Závoje se zapíše (karta i záznam boje)")
+    chk(await g.locator(".bglog li").count()==n0+1 and "Závoj" in await g.locator(rot+" .blog li").first.inner_text(),"samostatný hod Závoje se zapíše (karta i záznam boje)")
     # zdroje
     await g.click(rot+' [data-bzd="Výdrž"] [data-bzdi="0"]');await g.wait_for_timeout(100)
     chk(await g.locator(rot+' [data-bzd="Výdrž"] button.on').count()==1,"Výdrž se odškrtne")

@@ -2049,9 +2049,20 @@ a.kzodk{color:inherit;text-decoration:underline dotted color-mix(in srgb,var(--k
 .break.on{background:var(--muted);color:var(--paper);text-decoration:line-through;border-color:var(--muted)}.break:disabled{cursor:default}
 #bojview .bhrpl li{gap:6px}.bhrp input[data-bhn]{width:9.5em;font:inherit;font-family:var(--f-disp);border:0;border-bottom:1px dashed var(--rule);background:transparent;color:var(--ink)}
 .bhrh input{width:3.6em;min-height:30px;text-align:center;font:inherit;border:1px solid var(--gold);border-radius:3px;background:var(--paper);color:var(--ink)}
-.bhradd{display:flex;gap:6px;flex-wrap:wrap}.bpriph{margin:0;color:var(--muted);font-size:.92rem}.bdml{display:inline-flex;gap:6px;align-items:center;font-family:var(--f-label);color:var(--ink);margin-right:10px}
+.bhradd{display:flex;gap:6px;flex-wrap:wrap}.bpriph{margin:0;color:var(--muted);font-size:.92rem}.bpripw{min-width:0}.bdml{flex-wrap:wrap}.bdml{display:inline-flex;gap:6px;align-items:center;font-family:var(--f-label);color:var(--ink);margin-right:10px}
 .bdml input{width:4em;min-height:32px;text-align:center;font:inherit;border:1px solid var(--gold);border-radius:3px;background:var(--paper);color:var(--ink)}
 #bojview .bosa.bprip{grid-template-columns:auto minmax(0,1fr)}.bjahod{display:inline-flex;gap:6px;align-items:center;margin-left:10px}.bjahod input{width:4em;min-height:34px;text-align:center;font:inherit}
+.butc{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin:8px 0 4px;font-family:var(--f-label);font-size:.82rem}
+.butc select{min-height:30px;font:inherit;font-size:.9rem;border:1px solid var(--rule);border-radius:3px;background:var(--paper);color:var(--ink);max-width:170px}
+.badv{display:inline-flex;border:1px solid var(--rule);border-radius:3px;overflow:hidden}.badv button{border:0;background:var(--paper);padding:3px 8px;font:inherit;font-size:.78rem;cursor:pointer;color:var(--ink)}
+.badv button+button{border-left:1px solid var(--rule)}.badv button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}.badv b{color:var(--gold)}
+.bjr{display:inline-flex;gap:4px;align-items:center}.bjr.brkusd{color:var(--kal)}.brdy{align-items:center}.brdyadd{margin:6px 0;padding:2px 10px;font-size:.82rem}
+.bprekv{margin:6px 0 0;display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center;font-family:var(--f-label);font-size:.85rem}.bprekv small{color:var(--muted)}.bprekvh{color:var(--kal)}
+.bcls{list-style:none;margin:0 0 6px;padding:0;display:flex;flex-direction:column;gap:4px}.bcl{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;padding:4px 8px;border:1px solid var(--rule);border-radius:3px;background:var(--paper)}
+.bcln{flex:1 1 140px;font-family:var(--f-disp)}.bclok{border-color:var(--tree)}.bclok .bcln{color:var(--tree)}.bclx{border-color:var(--kal)}.bclx .bcln{color:var(--kal)}
+.bclp{display:inline-flex;gap:4px;align-items:center}.bclp .gbtn{padding:0 7px;min-width:26px}.bclk{color:var(--muted);font-size:.8rem}.bclchk{font-size:.82rem;display:inline-flex;gap:4px;align-items:center}
+.bclf{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;margin:6px 0}.bclf input[name=n]{flex:1 1 200px;min-height:32px;font:inherit;padding:2px 8px;border:1px solid var(--rule);border-radius:3px;background:var(--paper);color:var(--ink)}
+.bclf label{display:inline-flex;gap:4px;align-items:center;font-family:var(--f-label);font-size:.8rem}.bclf input[type=number]{width:3.6em;min-height:30px;text-align:center;border:1px solid var(--rule);border-radius:3px;background:var(--paper);color:var(--ink)}
 .bi.bimg{width:24px;height:24px;stroke:none;fill:none;object-fit:contain;vertical-align:middle;overflow:hidden}
 #bojview .bi:not(.bimg){color:var(--ink);stroke-width:1.65}
 #bojview :is(.gbtn:not(.ghost),.bnav,[aria-pressed="true"],.bkolo) .bi:not(.bimg){color:inherit}
@@ -6308,7 +6319,14 @@ function bojLog(id,o,kdo){o.t=Date.now();(BLOG[id]=BLOG[id]||[]).unshift(o);BLOG
 const bsg=v=>`${v>=0?"+":"−"}${Math.abs(v)}`;
 const bojZavObj=(p,z)=>({r:z.r,d:z.d,hod:z.hod||"",txt:z.r==="pok"?(p&&p.pok)||"":z.r==="poz"?(p&&p.poz)||"":""});
 /* zbraň s více typy zranění (Šikovná, „Slashing nebo Piercing“) a Půlmeč: volba se pamatuje u útoku */
-const BUTT={};
+const BUTT={},BCIL={},BADV={},BJR={};
+/* výhoda / nevýhoda: návrh podle stavu útočníka a cíle (Sražen: zblízka výhoda, z dálky nevýhoda; Omráčen: výhoda; útočník Sražen: nevýhoda) */
+const bojDalka=a=>/dostřel|na dálku|střel|kuš|luk|píšťal|hák/i.test((a.n||"")+" "+(a.p||""))&&!/dosah 5 stop|zblízka/i.test(a.p||"");
+function bojAdvNavrh(s,n,a){const why=[];let v=0;const st=n.stav||[];if(st.includes("sražen")){v--;why.push("útočník leží")}
+  const cid=BCIL[n.id],c=cid&&(s.npc||[]).find(x=>x.id===cid);if(c){const ct=c.stav||[];
+    if(ct.includes("sražen")){if(bojDalka(a)){v--;why.push("cíl leží, útok z dálky")}else{v++;why.push("cíl leží, útok zblízka")}}
+    if(ct.includes("omráčen")){v++;why.push("cíl omráčen")}}
+  return {v:Math.max(-1,Math.min(1,v)),why}}
 const bojTypy=a=>{const o=[];String(a.zt||"").replace(/\b(Bludgeoning|Piercing|Slashing|Fire|Cold|Lightning|Thunder|Acid|Poison|Necrotic|Radiant|Psychic|Force)\b/g,(m,t)=>{if(!o.includes(t))o.push(t);return m});return o};
 const bojKostkaDolu=z=>String(z||"").replace(/d(12|10|8|6)\b/,(m,f)=>"d"+({12:10,10:8,8:6,6:4})[f]);
 /* útok po volbě typu: vybraný typ zranění, při Půlmeči Piercing s Průraznou a kostkou o stupeň níž */
@@ -6318,8 +6336,10 @@ function bojUtokV(n,ai,a){const v=BUTT[n.id+":"+ai];if(!v)return a;const b=Objec
   return b}
 function bojUtok(n,ai){const E=bojEff(n);if(!E)return;const a=E.at[ai]?bojUtokV(n,ai,E.at[ai]):null;if(!a)return;const houf=n.druh==="houf",p=E.p,o={n:a.n,p:a.p||""};
   let krit=false;
-  if(a.b!=null){const pres=houf?Math.min(Math.max((n.pocet||0)-1,0),5):0,b=a.b+pres,d=bK(20);krit=d===20;
-    o.hod={tot:d+b,d,b,pres,krit,mis:d===1,o19:!krit&&d===19&&/ostr/i.test(a.p||"")&&!/^(Piercing|Bludgeoning)$/.test(String(a.zt||"").trim())}}
+  const S=BOJ.s||{},cid=BCIL[n.id],cil=cid?((S.hraci||[]).find(h=>h.id===cid)||(S.npc||[]).find(x=>x.id===cid)):null;if(cil){o.cil=cil.n;if(String(cid)[0]==="h")o.cilPC=cil.n}
+  const am=BADV[n.id]==null?"auto":BADV[n.id],av=am==="auto"?bojAdvNavrh(S,n,a):{v:+am,why:[]};
+  if(a.b!=null){const pres=houf?Math.min(Math.max((n.pocet||0)-1,0),5):0,b=a.b+pres,d1=bK(20),d2=av.v?bK(20):null,d=av.v>0?Math.max(d1,d2):av.v<0?Math.min(d1,d2):d1;krit=d===20;
+    o.hod={tot:d+b,d,b,pres,krit,mis:d===1,adv:av.v,dd:d2!=null?[d1,d2]:null,advWhy:av.why.join(", "),o19:!krit&&d===19&&/ostr/i.test(a.p||"")&&!/^(Piercing|Bludgeoning)$/.test(String(a.zt||"").trim())}}
   else if(a.dc)o.dc=a.dc;
   if(a.zp!=null){const dos=Math.max(1,Math.min(n.pocet||1,BDOS[n.id]!=null?BDOS[n.id]:(n.pocet||1)));o.zr={t:a.zp*dos,x:`${a.zp} × ${dos} v dosahu`,zt:a.zt||""}}
   else if(a.z){const k=bojKostky(a.z,krit);if(k){/* další kostky v popisu („… a 1d8 Prokleté“) se hodí taky */
@@ -6335,13 +6355,13 @@ function bojPlak(o){const h=o.hod,z=o.zav;
   const seal=h?`<span class="bpls${h.krit?" bkr":h.mis?" bmis":""}"><b class="bhd${h.krit?" bkr":h.mis?" bmis":""}">${h.tot}</b><small>${o.sav||(h.krit?"kritický zásah":h.mis?"vedle":"útok")}</small></span>`
     :o.dc?`<span class="bpls bdc"><b class="bhd">${besc(String(o.dc).replace(/^.*?DC\s*/i,"DC "))}</b><small>${besc(String(o.dc).replace(/\s*DC.*$/i,"")||"záchrana")} záchrana</small></span>`
     :z?`<span class="bpls bzs">${bi("zavoj")}<small>Závoj</small></span>`:"";
-  const det=h?`<small class="bpld">d20 ${h.d} ${bsg(h.b)}${h.pres?`, přesila +${h.pres}`:""}${h.o19?" · 19: kritický, pokud seká (Slashing) cíl bez Resistance (Ostrá)":""}</small>`:o.dc?`<small class="bpld">záchrana cíle</small>`:"";
+  const det=h?`<small class="bpld">${o.cil?`→ <b>${besc(o.cil)}</b> · `:""}${h.dd?`${h.adv>0?"výhoda":"nevýhoda"}${h.advWhy?` (${besc(h.advWhy)})`:""}: d20 ${h.dd[0]} / ${h.dd[1]} → ${h.d}`:`d20 ${h.d}`} ${bsg(h.b)}${h.pres?`, přesila +${h.pres}`:""}${h.o19?" · 19: kritický, pokud seká (Slashing) cíl bez Resistance (Ostrá)":""}</small>`:o.dc?`<small class="bpld">záchrana cíle</small>`:"";
   const zr=o.zr?`<span class="bplz">zranění <b>${o.zr.t}</b> ${bikZrTxt(o.zr.zt)}<small>${besc(o.zr.x)} ${besc(o.zr.zt)}${o.zr.pol?" · při úspěchu záchrany obvykle polovina":""}</small></span>`:o.zt?`<small>${besc(o.zt)}</small>`:"";
   const zb=z?`<div class="bplv ${z.r==="pok"?"zp":z.r==="poz"?"zb":"zn"}">${bi(z.r==="pok"?"pokuseni":z.r==="poz"?"pozehnani":"zavoj")}<b>${z.r==="pok"?"Pokušení":z.r==="poz"?"Požehnání":"Závoj bez efektu"}</b><small>k6 ${z.d}${z.hod?" · "+besc(z.hod):""}</small>${z.txt?`<span>${besc(z.txt)}</span>`:""}</div>`:"";
   const btn=(o.leg?`<button type="button" class="badd" data-blegod>Použít Legendární odolnost (zbývá ${o.leg}) →</button>`:"")+(o.krit?`<button type="button" class="badd" data-bkritz="${o.krit}">Kritické zranění cíle →</button>`:"")+(o.bes?`<button type="button" class="badd bbes" data-bbes>Zhmotnit běsa</button>`:"");
   return `${seal}<div class="bplm"><b class="bpln">${besc(o.n)}</b>${det}${zr}${o.p?`<small class="bpoz">${bojTipy(besc(o.p))}</small>`:""}${btn?`<div class="bplb">${btn}</div>`:""}</div>${zb}`}
 const bojLogTxt=o=>{const h=o.hod,z=o.zav;
-  return `${besc(o.n)}${h?` <b class="${h.krit?"bkr":h.mis?"bmis":""}">${h.tot}</b>${h.krit?` <b class="bkrt">krit</b>`:""}`:o.dc?` <b>${besc(o.dc)}</b>`:""}${o.zr?` · zranění <b>${o.zr.t}</b>`:""}${z?` · <span class="bzv ${z.r==="pok"?"zp":z.r==="poz"?"zb":""}">${z.r==="pok"?"Pokušení":z.r==="poz"?"Požehnání":"Závoj"} ${z.d}</span>`:""}`};
+  return `${besc(o.n)}${o.cil?` → ${besc(o.cil)}`:""}${h?` <b class="${h.krit?"bkr":h.mis?"bmis":""}">${h.tot}</b>${h.adv?` <small>${h.adv>0?"(výh.)":"(nev.)"}</small>`:""}${h.krit?` <b class="bkrt">krit</b>`:""}`:o.dc?` <b>${besc(o.dc)}</b>`:""}${o.zr?` · zranění <b>${o.zr.t}</b>`:""}${z?` · <span class="bzv ${z.r==="pok"?"zp":z.r==="poz"?"zb":""}">${z.r==="pok"?"Pokušení":z.r==="poz"?"Požehnání":"Závoj"} ${z.d}</span>`:""}`};
 
 /* --- karta nepřítele: rychlý přehled pro boj --- */
 function bojRefTxt(p,karta){const r=[];
@@ -6371,7 +6391,14 @@ function bojRef(n,s,velH){const E=bojEff(n),houf=n.druh==="houf";
   const zd=E.zd.length?`<div class="bzdr">${E.zd.map(z=>{const u=Math.min(z.max,zu[z.n]||0);return `<span class="bzd" data-bzd="${besc(z.n)}" data-max="${z.max}" ${btip(`${z.n}: spotřebováno ${u} z ${z.max} – klikni na kosočtverec`)}><span>${besc(z.n)}</span>${[...Array(z.max)].map((_,j)=>`<button type="button" class="${j<u?"on":""}" data-bzdi="${j}" aria-label="${besc(z.n)} ${j+1} z ${z.max}${j<u?" – spotřebováno":""}"></button>`).join("")}</span>`}).join("")}</div>`:"";
   const dos=houf&&E.at.some(a=>a.zp!=null)?`<label class="bdos" ${btip("Kolik pacholků dosáhne na cíl – podle toho se počítá zranění")}>${bi("dosah")}<input type="number" min="1" max="${n.pocet||1}" name="dos-${n.id}" data-bdos value="${Math.max(1,Math.min(n.pocet||1,BDOS[n.id]!=null?BDOS[n.id]:(n.pocet||1)))}" aria-label="Kolik pacholků dosáhne na cíl"></label>`:"";
   const zavB=!houf?`<button type="button" class="gbtn ghost but bzavb" data-bzav ${btip("Hod kostkou Závoje za protivníka (testy, záchrany)")}>${bi("zavoj")} Závoj</button>`:"";
-  const ut=E.at.length||zavB?`<div class="butoky">${E.at.map((a,i)=>`<button type="button" class="gbtn ghost but" data-but="${i}" ${btip(([a.dc?"Záchrana "+a.dc:a.b!=null?"Útok "+bsg(a.b):"",a.zp!=null?a.zp+" za pacholka "+(a.zt||""):[a.z,a.zt].filter(Boolean).join(" "),a.p].filter(Boolean).join(" · "))||a.n)}>${besc(a.n)} ${a.b!=null?`<b>${a.b>=0?"+":""}${a.b}</b>`:a.dc?`<b>${besc(a.dc)}</b>`:""}${(()=>{const av=bojUtokV(n,i,a),ic=bikZvTxt(av.p)+bikZrTxt(av.zt);return ic?`<span class="biks">${ic}</span>`:""})()}</button>${(()=>{const ty=bojTypy(a),v=BUTT[n.id+":"+i]||{},pul=/půlmeč/i.test(a.p||"")||(/meč/i.test(a.n)&&!/půlmeč/i.test(a.n)&&/Půlmeč/.test(String(E.p.b||E.p.h||"")));
+  const S=BOJ.s||{},cile=[...(bojSpoj(n)?[]:(S.hraci||[])),...(S.npc||[]).filter(x=>x.id!==n.id&&bojSpoj(x)!==bojSpoj(n))],am=BADV[n.id]==null?"auto":String(BADV[n.id]),nav=E.at.length?bojAdvNavrh(S,n,E.at[0]):{v:0,why:[]};
+  const rdy=(S.ready||{})[n.id],rk=!!(S.reak||{})[n.id];
+  const utc=E.at.length?`<div class="butc"><label>Cíl <select data-bcil aria-label="Cíl útoku"><option value="">—</option>${cile.map(x=>`<option value="${x.id}"${BCIL[n.id]===x.id?" selected":""}>${besc(x.n)}</option>`).join("")}</select></label>
+    <span class="badv" role="group" aria-label="Výhoda">${[["auto","auto"],["1","výhoda"],["-1","nevýhoda"],["0","bez"]].map(([k,l])=>`<button type="button" data-badv="${k}" aria-pressed="${am===k}" ${btip(k==="auto"?`Podle stavu útočníka a cíle${nav.v?` – teď ${nav.v>0?"výhoda":"nevýhoda"} (${nav.why.join(", ")})`:" – teď bez výhody"}`:l)}>${l}${k==="auto"&&nav.v?` <b>${nav.v>0?"+":"−"}</b>`:""}</button>`).join("")}</span>
+    <label class="bjr${rk?" brkusd":""}" ${btip(rk?"Reakce už je v tomto kole použitá":"Další útok proběhne jako reakce (příležitostný útok, Křížný sek…) a odškrtne R")}><input type="checkbox" data-bjr${BJR[n.id]?" checked":""}> jako reakce</label></div>`:"";
+  const rdyB=rdy?`<p class="bmor bkonc brdy">⏳ <b>Připravená akce:</b> ${besc(rdy)} <button type="button" class="gbtn ghost" data-brdygo>Spustit (reakce)</button><button type="button" class="bkoncx" data-brdyx aria-label="Zrušit připravenou akci">×</button></p>`
+    :`<button type="button" class="gbtn ghost brdyadd" data-brdyadd ${btip("Připravit akci (Ready): spustí se reakcí, propadne na začátku jeho dalšího tahu")}>⏳ Připravit akci</button>`;
+  const ut=E.at.length||zavB?`${utc}<div class="butoky">${E.at.map((a,i)=>`<button type="button" class="gbtn ghost but" data-but="${i}" ${btip(([a.dc?"Záchrana "+a.dc:a.b!=null?"Útok "+bsg(a.b):"",a.zp!=null?a.zp+" za pacholka "+(a.zt||""):[a.z,a.zt].filter(Boolean).join(" "),a.p].filter(Boolean).join(" · "))||a.n)}>${besc(a.n)} ${a.b!=null?`<b>${a.b>=0?"+":""}${a.b}</b>`:a.dc?`<b>${besc(a.dc)}</b>`:""}${(()=>{const av=bojUtokV(n,i,a),ic=bikZvTxt(av.p)+bikZrTxt(av.zt);return ic?`<span class="biks">${ic}</span>`:""})()}</button>${(()=>{const ty=bojTypy(a),v=BUTT[n.id+":"+i]||{},pul=/půlmeč/i.test(a.p||"")||(/meč/i.test(a.n)&&!/půlmeč/i.test(a.n)&&/Půlmeč/.test(String(E.p.b||E.p.h||"")));
     if(ty.length<2&&!pul&&!(a.dc&&(a.z||a.zp)))return "";const cur=v.pul?"":(v.t&&ty.includes(v.t)?v.t:"");
     return `<span class="buttg" role="group" aria-label="Typ zranění – ${besc(a.n)}">${ty.length>1?ty.map(t=>`<button type="button" data-butt="${i}" data-t="${t}" aria-pressed="${cur===t}" ${btip(`${a.n}: zranění ${BZRT[t]} (${t})${/šikovn/i.test(a.p||"")?" – Šikovná: volí se před hodem":""}`)}>${bikZr(t)}</button>`).join(""):""}${a.dc&&(a.z||a.zp)?`<button type="button" class="bplb" data-bplos="${i}" ${btip(`Plošně: ${a.n} na více cílů – jeden hod zranění, záchrany všech`)}>☄</button>`:""}${pul?`<button type="button" data-butpul="${i}" aria-pressed="${!!v.pul}" ${btip(`Půlmeč: přehmat zbraně – Piercing s vlastností Průrazná, kostka zranění o stupeň níž (${besc(a.z||"")} → ${besc(bojKostkaDolu(a.z))})`)}>${bikZv("Půlmeč")}</button>`:""}</span>`})()}`).join("")}${dos}${zavB}</div>`:"";
   const L=BLOG[n.id]||[];
@@ -6394,7 +6421,7 @@ function bojRef(n,s,velH){const E=bojEff(n),houf=n.druh==="houf";
     <input name="z" placeholder="zranění/tah (1d4)" aria-label="Zranění na začátku tahu" size="9"><select name="t" aria-label="Typ zranění"><option value="">typ</option>${Object.entries(BZRT).map(([en,cz])=>`<option value="${en}">${cz}</option>`).join("")}</select><button class="gbtn">Přidat</button></form></details>`;
   const zs=`<div class="bzach"><span class="bkzlh">Záchrana</span>${BAB.map(a=>`<button type="button" class="gbtn ghost" data-bzach="${a}">${a} <b>${bsg(bojSaveB(p,a))}</b></button>`).join("")}<label>DC <input type="number" min="1" max="40" data-bzdc value="${BZDC[n.id]||""}" aria-label="DC záchrany"></label>${bojLegMax(E)?`<span class="bleg" ${btip("Legendární odolnost: neúspěšnou záchranu může změnit v úspěch")}>Leg. odolnost ${bojLegZb(n,E)}/${bojLegMax(E)}</span>`:""}</div>`;
   const rc=bojRecharge(p),rcB=rc.length?`<div class="bkzl"><span class="bkzlh">Dobíjení</span>${rc.map(q=>{const u=(BRCH[n.id]||{})[q.n];return `<button type="button" class="gbtn ghost bkzb${u?" bkzv":""}" data-brch="${besc(q.n)}" ${btip(`${q.n}: dobíjí se na ${q.min}${q.min<6?"–6":""} – ${u?"použito, na začátku tahu se hodí k6":"připraveno, klikni po použití"}`)}>${besc(q.n)} <small>${u?"použito":"připraveno"}</small></button>`}).join("")}</div>`:"";
-  return `<div class="bref">${tmsg}${bar}${efs?`<div class="befs">${efs}</div>`:""}${kon}${pad}${zrf}${zd}${ut}${kzB}${rcB}${zs}${efF}${plak}
+  return `<div class="bref">${tmsg}${bar}${rdy?rdyB:""}${efs?`<div class="befs">${efs}</div>`:""}${kon}${pad}${zrf}${zd}${ut}${kzB}${rcB}${zs}${rdy?"":rdyB}${efF}${plak}
     <details class="bstat" data-otv="st-${n.id}"${bojOtv("st-"+n.id)}><summary>${bi("svitek")} Statblock</summary><div class="bsb" data-bsb="${besc(p.id)}">${BOTV.has("st-"+n.id)?bojStatHtml(p):""}</div>${bojEdit(p)}</details></div>`}
 /* statblock s vysvětlivkami se počítá až při prvním otevření a pamatuje se */
 const BSTC={};
@@ -6499,7 +6526,7 @@ const bojDB=window.MMDB?{nacti:()=>MMDB.bojNacti(),verze:()=>MMDB.bojVerze(),ulo
         verze:async()=>{try{return (JSON.parse(localStorage.getItem("mm-boj")||"null")||{}).verze||0}catch(e){return 0}},
         uloz:async s=>{const v=(BOJ.v>0?BOJ.v:0)+1;try{localStorage.setItem("mm-boj",JSON.stringify({stav:s,verze:v}))}catch(e){}return v},obsad:null}:null;
 const bojJa={get(){try{return localStorage.getItem("mm-boj-ja")||""}catch(e){return ""}},set(n){try{n?localStorage.setItem("mm-boj-ja",n):localStorage.removeItem("mm-boj-ja")}catch(e){}}};
-let bojHlasen="",BKON=false;
+let bojHlasen="",BKON=false,BODP=false;
 const besc=t=>String(t??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 function bojSloty(s){
   /* sloty se střídají mezi družinou a vypravěčem; začíná strana s nejlepším hodem (při shodě družina) */
@@ -6518,8 +6545,9 @@ function bojNovaPriprava(z){const st=JSON.parse(JSON.stringify(z||{}));Object.ke
   let x=null;try{x=JSON.parse(sessionStorage.getItem("mm-boj-pred")||"null");sessionStorage.removeItem("mm-boj-pred")}catch(e){}
   if(x&&x.npc&&x.npc.length){bojPridejNpc(z,x.npc.map(q=>{const p=q.b?PROTBY[q.b]:bojBest(q.n);return Object.assign({druh:"sok",pocet:6,pr:[]},q,p&&!q.b?{b:p.id,druh:p.u,pocet:p.poc||q.pocet}:{})}));if(x.z)z.lead=x.z;bojDmHod(z)}}
 /* hod za nepřátele: d20 + nejlepší iniciativa ze statblocků */
-function bojDmHod(z){let best=null;(z.npc||[]).filter(o=>!bojSpoj(o)&&o.b).forEach(o=>{const b=bojIniB(PROTBY[o.b]);if(!best||b>best.b)best={b,n:o.n}});const d=bK(20),b=best?best.b:0;z.dm=d+b;
-  mmHlasG(`Iniciativa nepřátel: d20 ${d} ${bsg(b)}${best?` (${best.n})`:""} = ${d+b}`,4000)}
+function bojDmHod(z){let best=null;(z.npc||[]).filter(o=>!bojSpoj(o)&&o.b).forEach(o=>{const b=bojIniB(PROTBY[o.b]);if(!best||b>best.b)best={b,n:o.n}});
+  const n=z.prekv==="n",d1=bK(20),d2=n?bK(20):null,d=n?Math.min(d1,d2):d1,b=best?best.b:0;z.dm=d+b;
+  mmHlasG(`Iniciativa nepřátel: ${n?`překvapení, nevýhoda – d20 ${d1} / ${d2} → ${d}`:`d20 ${d}`} ${bsg(b)}${best?` (${best.n})`:""} = ${d+b}`,4500)}
 /* zpět: poslední změny boje (stav i životy), nejvýš 40 kroků */
 const BUNDO=[];
 function bojUndoPush(o){BUNDO.push(o);if(BUNDO.length>40)BUNDO.shift();const b=document.querySelector("[data-bundo]");if(b)b.disabled=false}
@@ -6620,7 +6648,8 @@ function bojNavrh(s){const sl=s.sloty||bojSloty(s),t=s.tah||0,x=sl[t];if(!x||x.t
 /* tah: konec předchozího jednajícího a začátek nového (volá se při každé změně boje) */
 function bojTahHook(pre,s){const o0=pre.obsazeni||{},o1=s.obsazeni||{},t0=pre.tah||0,t1=s.tah||0,k0=pre.kolo||1,k1=s.kolo||1,id0=o0[t0],id1=o1[t1];
   const posun=k1>k0||(k1===k0&&t1>t0);if(!posun&&!(k1===k0&&t1===t0))return;
-  if(posun&&id0)bojKonecTahu(s,id0);if(id1&&(posun||id1!==id0)){if(s.reak&&s.reak[id1]){delete s.reak[id1];if(!Object.keys(s.reak).length)delete s.reak}bojZacatekTahu(s,id1)}}
+  if(posun&&id0)bojKonecTahu(s,id0);if(id1&&(posun||id1!==id0)){if(s.reak&&s.reak[id1]){delete s.reak[id1];if(!Object.keys(s.reak).length)delete s.reak}
+    const rd=(s.ready||{})[id1];if(rd){delete s.ready[id1];if(!Object.keys(s.ready).length)delete s.ready;bojMsg(id1,`Připravená akce propadla: ${rd}.`)}bojZacatekTahu(s,id1)}}
 function bojEfDel(n,e){n.ef=(n.ef||[]).filter(x=>x!==e);if(e.st&&!(n.ef||[]).some(x=>x.st===e.st))n.stav=(n.stav||[]).filter(x=>x!==e.st);if(!n.ef.length)delete n.ef}
 function bojKonecTahu(s,id){const n=(s.npc||[]).find(x=>x.id===id);if(!n)return;
   (n.ef||[]).slice().forEach(e=>{if(e.kdy==="konec"&&e.zac){bojEfDel(n,e);bojMsg(id,`Skončilo: ${e.n}.`)}})}
@@ -6758,7 +6787,7 @@ function bojShrn(s){const zaj=bojZaj.get(),rows=[],txt=[];
     txt.push(`${o.n} ${st}${p&&p.vk&&(por||z)?` (${p.vk.replace(/\s+/g," ").slice(0,140)})`:""}`)});
   return {html:`<ul class="bshl">${rows.join("")}</ul>`,txt:`boj (kolo ${s.kolo||1}): `+txt.join("; ")}}
 /* stavy NPC jako malé ikonky zavěšené na žetonu v pruhu iniciativy */
-function bojSlStav(kdo){const n=((BOJ.s&&BOJ.s.npc)||[]).find(x=>x.id===kdo);const a=(n&&n.stav||[]).filter(t=>BSTI[t]);if(!a.length)return "";
+function bojSlStav(kdo){const n=((BOJ.s&&BOJ.s.npc)||[]).find(x=>x.id===kdo);const a=(n&&n.stav||[]).filter(t=>BSTI[t]),rd=n&&((BOJ.s.ready||{})[kdo]);if(!a.length)return rd?`<span class="bslst"><b ${btip("Připravená akce")}>⏳</b></span>`:"";
   return `<span class="bslst">${a.slice(0,3).map(t=>bi(BSTI[t][0])).join("")}${a.length>3?`<b>+${a.length-3}</b>`:""}</span>`}
 function bojAktivni(){
   const s=BOJ.s,sl=s.sloty||bojSloty(s),ob=s.obsazeni||{},jed=new Set(Object.values(ob)),gm=GMV&&!!bojDB,tah=s.tah||0,prip=!s.aktivni&&!!s.priprava;
@@ -6775,7 +6804,7 @@ function bojAktivni(){
     const tip=`${i+1}. slot · ${strana} (hod ${x.hod}) · ${nm||"volný"}${stav?" · "+stav:""}${!kdo&&ctl?(gm?" – klikni a vyber, kdo jedná":" – klikni a obsaď"):gm?" – klikni pro změnu":""}`;
     return `<li class="bslot b${x.t}${i===tah?" btah":""}${i<tah?" bdone":""}${i===tah+1?" bdalsi":""}${kdo?" bobs":""}${muj(i)?" bmuj":""}${muj(i)&&i===tah?" bmujtah":""}" ${btip(tip)}><span class="bhod vh">${x.hod}</span>${i===tah&&kdo?`<span class="bsvic" aria-hidden="true"><i></i></span>`:""}${kdo?med(kdo)+bojSlStav(kdo):`<span class="bmed bmprazd ${x.t==="h"?"bmk":"bmc"}">${bi("plus")}</span>`}${i<tah?`<span class="bdoneic">${bi("hotovo")}</span>`:""}<span class="bkdo">${nm?besc(nm):strana}</span>${ctl}</li>`};
   const jaHp=prip&&!gm?(()=>{const me=(s.hraci||[]).find(h=>h.n===bojJa.get());return `<div class="bja"><label>Hraji za <select data-bja aria-label="Za koho hraješ"><option value="">— vyber svou postavu —</option>${(s.hraci||[]).filter(h=>h.n).map(h=>`<option${h.n===bojJa.get()?" selected":""}>${besc(h.n)}</option>`).join("")}</select></label>
-      ${me&&bojDB&&bojDB.hod?`<label class="bjahod">Můj hod iniciativy <input type="number" inputmode="numeric" min="-10" max="50" data-bjahod="${me.id}" value="${me.hod??""}" aria-label="Můj hod iniciativy"><small>d20 + Obratnost</small></label>`:`<span class="rsmall">Vyber svou postavu a zapiš hod iniciativy.</span>`}</div>`})():"";
+      ${s.prekv==="h"?`<b class="bprekvh">Přepadení – hoď iniciativu s nevýhodou (2d20, nižší).</b>`:""}${me&&bojDB&&bojDB.hod?`<label class="bjahod">Můj hod iniciativy <input type="number" inputmode="numeric" min="-10" max="50" data-bjahod="${me.id}" value="${me.hod??""}" aria-label="Můj hod iniciativy"><small>d20 + Obratnost</small></label>`:`<span class="rsmall">Vyber svou postavu a zapiš hod iniciativy.</span>`}</div>`})():"";
   const jaH=prip?jaHp:!gm&&bojDB&&bojDB.obsad?`<div class="bja"><label>Hraji za <select data-bja aria-label="Za koho hraješ"><option value="">— vyber svou postavu —</option>${(s.hraci||[]).map(h=>`<option${h.n===bojJa.get()?" selected":""}>${besc(h.n)}</option>`).join("")}</select></label>
       ${ja?(muj(s.tah)?`<b class="bjatah">Jsi na tahu!</b>`:Object.keys(ob).some(k=>ob[k]===ja&&+k===s.tah+1)?`<span class="bjadal">Jsi další na řadě.</span>`:Object.values(ob).includes(ja)?`<span class="rsmall">Tvůj slot je v kole obsazený – telefon zavibruje, až přijdeš na řadu.</span>`:`<span class="rsmall">Obsaď si volný slot družiny.</span>`):""}</div>`:"";
   const konec=tah>=sl.length;
@@ -6802,7 +6831,8 @@ function bojAktivni(){
     return {hor:(()=>{const h=zavojBan()+bojPocasi();return h?`<div class="bojhorni">${h}</div>`:""})(),ja:jaH,
     head:`<div class="bojhead"><div class="bojtit"><h2 class="arttitle">Boj</h2><p class="bojlead">${besc(s.lead||(gm?"Rozestav obě strany. Hráči mohou zapsat hod iniciativy ze svého telefonu, nebo ho doplň sám.":"Boj se připravuje. Vyber svou postavu a zapiš hod iniciativy."))}</p></div>${gm?`<div class="bojbtn"><button type="button" class="gbtn ghost" data-bdmhod ${btip("Hodí d20 + nejlepší iniciativu ze statblocků nepřátel")}>🎲 Hodit za nepřátele</button><button type="button" class="gbtn ghost" data-bskupuloz>Uložit jako setkání</button><button type="button" class="gbtn bstart" data-bstart>⚔ Začít boj</button></div>`:""}</div>`,
     osa:`<section class="bosa bprip"><div class="bleg"><span class="bkolo" role="img" aria-label="Příprava"><small>kolo</small><b>–</b></span><span class="binic"><span class="bih" role="img" aria-label="Nejlepší hod družiny ${bh??"–"}" ${btip("Družina – nejlepší hod iniciativy")}>${bh??"–"}</span><span class="bin" role="img" aria-label="Hod nepřátel ${s.dm??"–"}" ${btip("Nepřátelé – hod iniciativy")}>${s.dm??"–"}</span></span></div>
-      <p class="bpriph">${gm?`<label class="bdml">Hod nepřátel <input type="number" inputmode="numeric" min="-10" max="50" data-bdm value="${s.dm??""}" placeholder="hod" aria-label="Hod iniciativy nepřátel"></label> `:""}Družina i nepřátelé dostanou tolik slotů, kolik je postav. Sloty se střídají a začíná strana s vyšším hodem (při shodě družina).</p></section>`,
+      <div class="bpripw"><p class="bpriph">${gm?`<label class="bdml">Hod nepřátel <input type="number" inputmode="numeric" min="-10" max="50" data-bdm value="${s.dm??""}" placeholder="hod" aria-label="Hod iniciativy nepřátel"></label> `:""}Družina i nepřátelé dostanou tolik slotů, kolik je postav. Sloty se střídají a začíná strana s vyšším hodem (při shodě družina).</p>
+      ${gm?`<p class="bprekv" role="radiogroup" aria-label="Přepadení">Překvapená strana: ${[["","nikdo"],["h","družina"],["n","nepřátelé"]].map(([k,l])=>`<label><input type="radio" name="bprekv" data-bprekv value="${k}"${(s.prekv||"")===k?" checked":""}> ${l}</label>`).join("")} <small>(překvapená strana hází iniciativu s nevýhodou)</small></p>`:s.prekv==="h"?`<p class="bprekv bprekvh"><b>Družina je překvapena:</b> hoďte iniciativu s nevýhodou (2d20, nižší).</p>`:""}</div></section>`,
     plos:"",hr:`<h3 class="uvh2">Družina</h3><ul class="bhr bhrpl">${(s.hraci||[]).map(hracP).join("")}</ul>${gm?`<p class="bhradd"><button type="button" class="badd" data-bhadd>+ Přidat postavu</button>${PARTY.length?`<button type="button" class="badd" data-bhdruz ${btip("Nahradí seznam postavami z karet družiny")}>Načíst družinu z karet</button>`:""}</p>`:""}`,
     spojH:spojP.length?`<h4 class="bsph">Spojenci</h4>`:"",spoj:spojP.map(n=>[n.id,bojKarta(s,n,gm)]),
     adds:gm?`<details class="bpridej" data-otv="pridej-s"${bojOtv("pridej-s")}><summary>${bi("plus")} Přidat spojence</summary>${addF("bnadds","Přidat spojence (NPC)")}</details>`:"",glog:"",
@@ -6810,17 +6840,25 @@ function bojAktivni(){
     addn:gm?`<details class="bpridej" data-otv="pridej-n" open><summary>${bi("plus")} Přidat nepřítele nebo setkání</summary>${addF("bnadd","Přidat nepřítele")}<div class="bskup">${bojSkupSel("data-bskupadd","+ přidat setkání nebo skupinu")}${Object.keys(bojSkup()).length?`<button type="button" class="badd" data-bskupdel>Smazat skupinu z prohlížeče…</button>`:""}</div>${bojBestDl()}${bojBestiar()}</details>`:""}}
   return {hor:(()=>{const h=zavojBan()+bojPocasi();return h?`<div class="bojhorni">${h}</div>`:""})(),ja:jaH,
     head:`<div class="bojhead"><div class="bojtit"><h2 class="arttitle">Boj</h2></div>${gm?`<div class="bojbtn"><button type="button" class="gbtn ghost" data-bplosnew ${btip("Plošný zásah: jeden hod zranění, záchrana každého cíle, odolnosti")}>☄ Plošný zásah</button><button type="button" class="gbtn ghost" data-bundo ${btip("Vrátit poslední změnu (Ctrl+Z)")}${BUNDO.length?"":" disabled"}>↶ Zpět</button><button type="button" class="gbtn ghost" data-bact="kolo">Nové kolo</button><button type="button" class="gbtn ghost" data-bact="konec">Ukončit boj</button></div>`:""}</div>
-    ${sh?`<section class="bkonsh"><h3 class="uvh2">Konec boje</h3>${sh.html}<p class="rsmall">Zajetí si poznač, výkupné a kořist se podle statblocků doplní do podkladů pro Kroniku.</p>
+    ${sh?`<section class="bkonsh"><h3 class="uvh2">Konec boje</h3>${sh.html}<p class="rsmall">Boj trval ${s.kolo||1} ${(s.kolo||1)===1?"kolo":(s.kolo||1)<5?"kola":"kol"} (asi ${Math.max(1,Math.round((s.kolo||1)*6/60))} min).${(s.cile||[]).length?" Cíle: "+(s.cile||[]).map(c=>`${c.n} ${(c.cil?c.stav>=c.cil:c.stav)?"✓":"✗"}`).join(", ")+".":""}</p>
+      <p><button type="button" class="gbtn ghost" data-bodp ${btip("Posune herní čas o hodinu a připíše krátký odpočinek do zápisu sezení")}${BODP?" disabled":""}>${BODP?"✓ Krátký odpočinek zapsán":"Krátký odpočinek (+1 h)"}</button></p><p class="rsmall">Zajetí si poznač, výkupné a kořist se podle statblocků doplní do podkladů pro Kroniku.</p>
       <div class="bojbtn"><button type="button" class="gbtn" data-bkon="kron">Ukončit a zapsat do Kroniky</button><button type="button" class="gbtn ghost" data-bkon="ok">Ukončit bez zápisu</button><button type="button" class="gbtn ghost" data-bkon="zpet">Zpět do boje</button></div></section>`:""}`,
     osa:`<section class="bosa${konec?" bkon":""}">${leg}<ol class="bsloty">${sl.map((x,i)=>vid[i]?slot(x,i):"").join("")}${zbyt}</ol>${ctl}</section>`,plos:gm?bojPlosPanel(s):"",
     hr:`<h3 class="uvh2">Družina</h3><ul class="bhr">${(s.hraci||[]).map(hrac).join("")}</ul>`,spojH:spoj.length?`<h4 class="bsph">Spojenci</h4>`:"",spoj:spoj.map(n=>[n.id,bojKarta(s,n,gm)]),
     adds:gm?`<details class="bpridej" data-otv="pridej-s"${bojOtv("pridej-s")}><summary>${bi("plus")} Přidat spojence</summary>${addF("bnadds","Přidat spojence (NPC)")}</details>`:"",glog,
     obt:`<h3 class="uvh2">Nepřátelé</h3>${obt}`,npc:nepr.map(n=>[n.id,bojKarta(s,n,gm)]),
     addn:gm?`<details class="bpridej" data-otv="pridej-n"${bojOtv("pridej-n")}><summary>${bi("plus")} Přidat nepřítele nebo setkání</summary>${addF("bnadd","Přidat nepřítele")}<div class="bskup">${bojSkupSel("data-bskupadd","+ přidat setkání nebo skupinu")}</div>${bojBestDl()}${bojBestiar()}</details>`:""}}
+/* cíle boje: počitadla (2/5), termín do kola N, viditelnost pro hráče */
+function bojCile(s,gm){const L=(s.cile||[]).filter(c=>gm||c.ver);if(!L.length&&!gm)return "";const kolo=s.aktivni?(s.kolo||1):0;
+  const row=c=>{const hot=c.cil?c.stav>=c.cil:false,zb=c.kolo?c.kolo-kolo:null,pro=c.kolo&&!hot&&kolo>c.kolo;
+    return `<li class="bcl${hot?" bclok":pro?" bclx":""}"><span class="bcln">${hot?"✓ ":pro?"✗ ":""}${besc(c.n)}${c.ver||!gm?"":` <small ${btip("Vidí jen vypravěč")}>(skrytý)</small>`}</span>
+      ${c.cil?`<span class="bclp">${gm?`<button type="button" class="gbtn ghost" data-bclm="${c.id}" aria-label="Ubrat">−</button>`:""}<b>${c.stav||0}</b>/${c.cil}${gm?`<button type="button" class="gbtn ghost" data-bclp="${c.id}" aria-label="Přidat">+</button>`:""}</span>`:gm?`<label class="bclchk"><input type="checkbox" data-bclh="${c.id}"${hot||c.stav?" checked":""}> splněno</label>`:c.stav?"✓":""}
+      ${c.kolo?`<small class="bclk">${pro?`vypršelo v ${c.kolo}. kole`:`do ${c.kolo}. kola${s.aktivni?` · zbývá ${zb+1} ${zb+1===1?"kolo":zb+1<5?"kola":"kol"}`:""}`}</small>`:""}${gm?`<button type="button" class="bx" data-bcldel="${c.id}" aria-label="Smazat cíl">×</button>`:""}</li>`};
+  return `<h4 class="bsph">Cíle boje</h4>${L.length?`<ul class="bcls">${L.map(row).join("")}</ul>`:""}${gm?`<details class="bpridej bcld"><summary>${bi("plus")} Přidat cíl</summary><form class="bclf" data-bclf><input name="n" placeholder="např. Udržet bránu, Zachránit rukojmí" required aria-label="Název cíle"><label>počet <input name="cil" type="number" min="1" max="99" placeholder="—" aria-label="Kolikrát (nepovinné)"></label><label>do kola <input name="kolo" type="number" min="1" max="99" placeholder="—" aria-label="Do kola (nepovinné)"></label><label class="bzrk"><input type="checkbox" name="ver" checked> vidí hráči</label><button class="gbtn">Přidat</button></form></details>`:""}`}
 /* kostra aktivního boje: bloky se klíčem, překreslí se jen ty, jejichž obsah se změnil */
 const BRC={};
 const BKOSTRA=`<div class="bojakt"><div data-bk="hor"></div><div data-bk="ja"></div><div data-bk="head"></div><div data-bk="osa"></div><div data-bk="plos"></div>
-  <div class="bojgrid2"><section class="bstrana bsh"><div data-bk="hr"></div><div data-bk="spojH"></div><div data-bkl="spoj"></div><div data-bk="adds"></div><div data-bk="glog"></div></section>
+  <div class="bojgrid2"><section class="bstrana bsh"><div data-bk="hr"></div><div data-bk="cile"></div><div data-bk="spojH"></div><div data-bkl="spoj"></div><div data-bk="adds"></div><div data-bk="glog"></div></section>
   <section class="bstrana bsn"><div data-bk="obt"></div><div data-bkl="npc"></div><div data-bk="addn"></div></section></div></div>`;
 function bojBlok(root,k,h){if(BRC[k]===h)return false;const el=root.querySelector(`[data-bk="${k}"]`);if(!el)return false;el.innerHTML=h;BRC[k]=h;return true}
 function bojSeznam(el,items){const tpl=document.createElement("template");let prev=null;const nech=new Set(items.map(x=>x[0]));
@@ -6841,7 +6879,7 @@ function renderBoj(){
   let root=box.querySelector(":scope > .bojakt");
   if(!root){box.innerHTML=BKOSTRA+`<div class="bojprav">${bojPravidla()}</div>`;root=box.querySelector(".bojakt");for(const k in BRC)delete BRC[k];BRC.krit=bojKritPanel()}
   else{const kp=bojKritPanel();if(BRC.krit!==kp){const el=box.querySelector(".bojprav .bkrit");if(el)el.outerHTML=kp;BRC.krit=kp}}
-  const P=bojAktivni();for(const k of ["hor","ja","head","osa","plos","hr","spojH","adds","glog","obt","addn"])bojBlok(root,k,P[k]);
+  const P=bojAktivni();P.cile=bojCile(s,GMV&&!!bojDB);for(const k of ["hor","ja","head","osa","plos","hr","cile","spojH","adds","glog","obt","addn"])bojBlok(root,k,P[k]);
   bojSeznam(root.querySelector('[data-bkl="spoj"]'),P.spoj);bojSeznam(root.querySelector('[data-bkl="npc"]'),P.npc);obnovPr();
   const tr=box.querySelector(".bsloty");if(tr){if(kk!==BOJ.rk){BOJ.rk=kk;const c=tr.querySelector(".btah");tr.scrollLeft=c?Math.max(0,c.offsetLeft-(tr.clientWidth-c.offsetWidth)/2):0}else tr.scrollLeft=sx}
   if(f&&!(ae&&ae.isConnected)){const e=box.querySelector(`[name="${f}"]`)||(/^[A-Za-z][\w-]*$/.test(f)?box.querySelector("#"+f):null);if(e){e.focus();if(ss!=null)try{e.setSelectionRange(ss,ss)}catch(x){}}}
@@ -6877,6 +6915,8 @@ document.addEventListener("change",e=>{const t=e.target;if(!t.matches||!t.matche
   if(!t.checked||!card){b.hidden=true;b.innerHTML="";return}const n=(BOJ.s.npc||[]).find(x=>x.id===card.dataset.bnpc),E=n&&bojEff(n),ZS=E&&bojZbrStav(n,E);if(!ZS)return;
   b.innerHTML=`<span>Obětovat zbroj? Kritický zásah se změní v běžný.</span>${ZS.d.filter(z=>z.u<z.max).map(z=>`<button type="button" class="gbtn ghost" data-bobet="${besc(z.k)}">${bikZb(z.k)}${z.k} <small>zbývá ${z.max-z.u}×</small></button>`).join("")}<button type="button" class="gbtn ghost" data-bobetne>Ne</button>`;b.hidden=false});
 document.addEventListener("submit",e=>{
+  if(e.target.matches&&e.target.matches("#bojview .bclf")){e.preventDefault();const f=e.target.elements,n=f.n.value.trim();if(!n)return;
+    bojZmen(z=>{const c={id:"c"+Date.now().toString(36),n,stav:0,ver:f.ver.checked};if(+f.cil.value>0)c.cil=+f.cil.value;if(+f.kolo.value>0)c.kolo=+f.kolo.value;(z.cile=z.cile||[]).push(c)});return}
   if(e.target.matches&&e.target.matches("#bojview .beff")){e.preventDefault();const f=e.target,card=f.closest("[data-bnpc]");if(!card)return;const id=card.dataset.bnpc,g=k=>f.elements[k].value.trim();
     const st=g("st"),nm=g("n")||(st?(BSTI[st]||[0,st])[1].split(/ [–(]/)[0]:""),kdy=g("kdy");if(!nm){mmHlasG("Zadej název účinku.",2000);return}
     bojZmen(s=>{const o=(s.npc||[]).find(x=>x.id===id);if(!o)return;const ef={n:nm,kdy:kdy[0]==="k"?"kola":kdy,kolo:s.kolo||1,tah:s.tah||0};if(kdy[0]==="k")ef.k=+kdy.slice(1);if(st)ef.st=st;
@@ -6960,6 +7000,10 @@ document.addEventListener("change",async e=>{
   if(e.target.matches("[data-bkkomu]")){BKS.komu=e.target.value;BKS.vys="";if(BKS.komu)BKS.rany=(bojKritPC()[BKS.komu]||[]).length;renderBoj();return}
   if(e.target.matches("[data-bzaj]")){const o=bojZaj.get();if(e.target.checked)o[e.target.dataset.bzaj]=1;else delete o[e.target.dataset.bzaj];bojZaj.set(o);renderBoj();return}
   if(e.target.matches("[data-bja]")){bojJa.set(e.target.value);bojHlasen="";renderBoj();return}
+  if(e.target.matches("#bojview [data-bcil]")){const c=e.target.closest("[data-bnpc]");if(c){if(e.target.value)BCIL[c.dataset.bnpc]=e.target.value;else delete BCIL[c.dataset.bnpc];renderBoj()}return}
+  if(e.target.matches("#bojview [data-bjr]")){const c=e.target.closest("[data-bnpc]");if(c){if(e.target.checked)BJR[c.dataset.bnpc]=1;else delete BJR[c.dataset.bnpc]}return}
+  if(e.target.matches("[data-bclh]")){const id=e.target.dataset.bclh,v=e.target.checked?1:0;bojZmen(z=>{const c=(z.cile||[]).find(x=>x.id===id);if(c)c.stav=v});return}
+  if(e.target.matches("[data-bprekv]")){const v=e.target.value;bojZmen(z=>{if(v)z.prekv=v;else delete z.prekv});return}
   if(e.target.matches("[data-bhn]")){const id=e.target.dataset.bhn,v=e.target.value.trim();bojZmen(z=>{const h=(z.hraci||[]).find(x=>x.id===id);if(h)h.n=v});return}
   if(e.target.matches("[data-bhhod]")&&GMV){const id=e.target.dataset.bhhod,v=e.target.value===""?null:+e.target.value;bojZmen(z=>{const h=(z.hraci||[]).find(x=>x.id===id);if(h)h.hod=v});return}
   if(e.target.matches("[data-bdm]")){const v=e.target.value===""?null:+e.target.value;bojZmen(z=>{z.dm=v});return}
@@ -6987,7 +7031,8 @@ document.addEventListener("click",async e=>{
   if(a){const t=a.dataset.bact;
     if(t==="dalsi")bojZmen(s=>{const n=(s.sloty||bojSloty(s)).length;s.tah=(s.tah||0)+1;if(s.tah>=n){s.tah=n;mmHlasG("Konec kola – klikni na Nové kolo.")}});
     if(t==="zpet")bojZmen(s=>{s.tah=Math.max(0,(s.tah||0)-1)});
-    if(t==="kolo")bojZmen(s=>{s.kolo=(s.kolo||1)+1;s.obsazeni={};s.tah=0});
+    if(t==="kolo")bojZmen(s=>{s.kolo=(s.kolo||1)+1;s.obsazeni={};s.tah=0;
+      (s.cile||[]).forEach(c=>{const hot=c.cil?c.stav>=c.cil:!!c.stav;if(c.kolo&&!hot){if(s.kolo===c.kolo)mmHlasG(`Poslední kolo pro cíl: ${c.n}.`,5000);else if(s.kolo===c.kolo+1)mmHlasG(`Cíl nesplněn včas: ${c.n}.`,5000)}})});
     if(t==="konec"){if(PROTIVNICI.length){BKON=true;renderBoj();const k=v.querySelector(".bkonsh");if(k)k.scrollIntoView({block:"start",behavior:"smooth"})}
       else if(confirm("Ukončit boj? Sloty a přiřazení se smažou, jména hráčů zůstanou pro příští boj."))bojZmen(s=>{s.aktivni=false;s.obsazeni={}})}
     return}
@@ -6998,6 +7043,8 @@ document.addEventListener("click",async e=>{
   if(T("[data-bploshod]")&&BPLOS){const f=v.querySelector(".bplos");if(f){BPLOS.z=f.querySelector('[name="pz"]').value.trim();BPLOS.t=f.querySelector('[name="pt"]').value;BPLOS.ab=f.querySelector('[name="pa"]').value;BPLOS.dc=+f.querySelector('[name="pdc"]').value||"";BPLOS.pol=f.querySelector('[name="ppol"]').checked;
     BPLOS.cile=[...f.querySelectorAll("[data-bplc]:checked")].map(x=>x.dataset.bplc);BPLOS.dos={};f.querySelectorAll("[data-bpld]").forEach(x=>BPLOS.dos[x.dataset.bpld]=+x.value||0)}bojPlosHod();return}
   if(T("[data-bdmhod]")){bojZmen(z=>bojDmHod(z));return}
+  const clp=T("[data-bclp]")||T("[data-bclm]");if(clp){const id=clp.dataset.bclp||clp.dataset.bclm,d=clp.dataset.bclp?1:-1;bojZmen(z=>{const c=(z.cile||[]).find(x=>x.id===id);if(c){c.stav=Math.max(0,Math.min(c.cil||99,(c.stav||0)+d));if(c.cil&&c.stav>=c.cil)mmHlasG(`Cíl splněn: ${c.n}.`,3500)}});return}
+  const cld=T("[data-bcldel]");if(cld){bojZmen(z=>{z.cile=(z.cile||[]).filter(x=>x.id!==cld.dataset.bcldel);if(!z.cile.length)delete z.cile});return}
   if(T("[data-bstart]")){const s=BOJ.s||{},bh=bojBestHod(s),hr=(s.hraci||[]).filter(h=>String(h.n||"").trim());
     if(!hr.length){mmHlasG("Zadej aspoň jednu postavu.",3000);return}if(bh==null){mmHlasG("Chybí hod iniciativy družiny – zapiš aspoň jeden.",3500);return}if(s.dm==null||s.dm===""){mmHlasG("Chybí hod nepřátel – zapiš ho, nebo klikni na Hodit za nepřátele.",3500);return}
     bojKonecLS();BKON=false;bojZmen(z=>{z.hraci=(z.hraci||[]).filter(h=>String(h.n||"").trim());z.hod=bojBestHod(z);z.aktivni=true;delete z.priprava;delete z.lead;Object.assign(z,{kolo:1,tah:0,obsazeni:{}})});return}
@@ -7005,8 +7052,9 @@ document.addEventListener("click",async e=>{
   const hd=T("[data-bhdel]");if(hd){bojZmen(z=>{z.hraci=(z.hraci||[]).filter(h=>h.id!==hd.dataset.bhdel)});return}
   if(T("[data-bhdruz]")){bojZmen(z=>{z.hraci=PARTY.map((p,i)=>({id:"h"+(i+1),n:p.n.replace(/^✦\s*/,""),hod:null}))});return}
   const rkb=T("[data-break]");if(rkb&&!rkb.disabled){const id=rkb.dataset.break;e.stopPropagation();bojZmen(z=>{z.reak=z.reak||{};if(z.reak[id])delete z.reak[id];else z.reak[id]=1;if(!Object.keys(z.reak).length)delete z.reak});return}
+  if(T("[data-bodp]")&&!BODP){BODP=true;if(typeof hraPosun==="function")hraPosun(1);renderBoj();return}
   const kon=T("[data-bkon]");if(kon){const k=kon.dataset.bkon;if(k==="zpet"){BKON=false;renderBoj();return}
-    const txt=bojShrn(BOJ.s).txt;BKON=false;await bojZmen(s=>{s.aktivni=false;s.obsazeni={}});bojKonecLS();
+    const S0=BOJ.s||{},txt=bojShrn(S0).txt+`; trval ${S0.kolo||1} ${(S0.kolo||1)===1?"kolo":"kol"}`+((S0.cile||[]).length?"; cíle: "+S0.cile.map(c=>`${c.n} ${(c.cil?c.stav>=c.cil:c.stav)?"splněn":"nesplněn"}`).join(", "):"")+(BODP?"; poté krátký odpočinek (1 h)":"");BODP=false;BKON=false;await bojZmen(s=>{s.aktivni=false;s.obsazeni={}});bojKonecLS();
     if(k==="kron"){window.BOJ_SHRN=txt;if(typeof zapisNovy==="function")zapisNovy()}return}
   if(T("[data-bskupuloz]")){bojUlozSetkani();return}
   if(T("[data-bskupdel]")){const g=bojSkup(),k=Object.keys(g);if(!k.length)return;const jm=(prompt("Kterou skupinu smazat?\n"+k.join("\n"))||"").trim();if(!g[jm])return;delete g[jm];bojSkupUloz(g);mmHlasG("Skupina smazána.");const sel=document.querySelector("[data-bskup]");if(sel)sel.outerHTML=bojSkupSel("data-bskup","Načíst setkání nebo skupinu…");return}
@@ -7023,7 +7071,7 @@ document.addEventListener("click",async e=>{
   const kh=T("[data-bkhod]");if(kh){const p=kh.closest(".bkrit");if(p){BKS.druh=p.querySelector("[data-bkd]").value;BKS.rany=+p.querySelector("[data-bkr]").value||0;BKS.pod=+p.querySelector("[data-bkp]").value||0}bojKritHod();renderBoj();
     if(BKS.komu&&BKS.last){const K=Object.assign({},bojKritPC());K[BKS.komu]=[...(K[BKS.komu]||[]),BKS.last];hraUloz({krit:K}).then(()=>{BKS.rany=K[BKS.komu].length;renderBoj()})}return}
   const kh2=T("[data-bkheal]");if(kh2&&BKS.komu){const j=+kh2.dataset.bkheal,K=Object.assign({},bojKritPC());K[BKS.komu]=(K[BKS.komu]||[]).filter((_,i)=>i!==j);if(!K[BKS.komu].length)delete K[BKS.komu];hraUloz({krit:K}).then(()=>{BKS.rany=(K[BKS.komu]||[]).length;renderBoj()});return}
-  const kz=T("[data-bkritz]");if(kz){BKS.druh=kz.dataset.bkritz;BKS.vys="";const card=kz.closest("[data-bnpc]");BKS.kdo=card?"zásah od: "+(card.querySelector(".bnn b")||{}).textContent:"";BPRAV=true;renderBoj();const k=v.querySelector(".bkrit");if(k){k.scrollIntoView({block:"center",behavior:"smooth"});const i=k.querySelector("[data-bkr]");if(i)i.focus()}return}
+  const kz=T("[data-bkritz]");if(kz){BKS.druh=kz.dataset.bkritz;BKS.vys="";const card=kz.closest("[data-bnpc]");{const L=card&&(BLOG[card.dataset.bnpc]||[])[0];if(L&&L.cilPC){BKS.komu=L.cilPC;BKS.rany=(bojKritPC()[L.cilPC]||[]).length}}BKS.kdo=card?"zásah od: "+(card.querySelector(".bnn b")||{}).textContent:"";BPRAV=true;renderBoj();const k=v.querySelector(".bkrit");if(k){k.scrollIntoView({block:"center",behavior:"smooth"});const i=k.querySelector("[data-bkr]");if(i)i.focus()}return}
   if(T("[data-bprav]")){BPRAV=!BPRAV;v.querySelectorAll(".bpravidla").forEach(a=>a.classList.toggle("open",BPRAV));v.querySelectorAll(".bprtg").forEach(b=>b.setAttribute("aria-expanded",BPRAV));if(BPRAV){const x=v.querySelector(".bprx");if(x)x.focus({preventScroll:true})}return}
   const n=T("[data-bnpc]");if(!n){
     const c=T("[data-bclaim]");
@@ -7060,7 +7108,13 @@ document.addEventListener("click",async e=>{
   if(T("[data-bprdel]")){const pr=T("[data-bprdel]").dataset.bprdel;upd(o=>{o.pr=(o.pr||[]).filter(x=>x!==pr);if(!o.pr.length)delete o.pr});return}
   const btt=T("[data-butt]");if(btt){const k=id+":"+btt.dataset.butt,v=BUTT[k]||{};BUTT[k]=v.t===btt.dataset.t&&!v.pul?{}:{t:btt.dataset.t};renderBoj();return}
   const btp=T("[data-butpul]");if(btp){const k=id+":"+btp.dataset.butpul,v=BUTT[k]||{};BUTT[k]=v.pul?{}:{pul:1};renderBoj();return}
-  if(T("[data-but]")&&o0){bojUtok(o0,+T("[data-but]").dataset.but);renderBoj();return}
+  if(T("[data-but]")&&o0){if(BJR[id]){if((BOJ.s.reak||{})[id])mmHlasG(`${o0.n}: reakce už byla v tomto kole použita.`,3500);else bojZmen(z=>{(z.reak=z.reak||{})[id]=1});delete BJR[id]}
+    bojUtok(o0,+T("[data-but]").dataset.but);renderBoj();return}
+  const adv=T("[data-badv]");if(adv){const k=adv.dataset.badv;if(k==="auto")delete BADV[id];else BADV[id]=+k;renderBoj();return}
+  if(T("[data-brdyadd]")&&o0){const t=(prompt(`Připravená akce – ${o0.n}: co a kdy udělá?`,"zaútočí, až se někdo přiblíží")||"").trim();if(!t)return;bojZmen(z=>{(z.ready=z.ready||{})[id]=t});return}
+  if(T("[data-brdyx]")){bojZmen(z=>{if(z.ready){delete z.ready[id];if(!Object.keys(z.ready).length)delete z.ready}});return}
+  if(T("[data-brdygo]")&&o0){const t=(BOJ.s.ready||{})[id];if((BOJ.s.reak||{})[id]){mmHlasG(`${o0.n}: reakce už byla v tomto kole použita – připravenou akci nejde spustit.`,4000);return}
+    bojLog(id,{n:"Připravená akce",zt:t||""},o0.n);bojZmen(z=>{(z.reak=z.reak||{})[id]=1;if(z.ready){delete z.ready[id];if(!Object.keys(z.ready).length)delete z.ready}});return}
   if(T("[data-bzav]")&&o0){const p=PROTBY[o0.b],z=bojZavoj(p);bojLog(id,{n:"Závoj",zav:bojZavObj(p,z),bes:z.r==="pok"&&bojZatr(o0)},o0.n);renderBoj();return}
   if(T("[data-bbes]")){bojZmen(s=>{let h=(s.npc||[]).find(x=>x.b==="houf-besu"&&!bojSpoj(x));if(h){h.pocet=(h.pocet||0)+1;h.max=Math.max(h.max||0,h.pocet)}else bojPridejNpc(s,[{n:"Běsi",druh:"houf",pocet:1,b:PROTBY["houf-besu"]?"houf-besu":"",pr:[]}])});mmHlasG("Ze Závoje se zhmotnil běs.");return}
   const zi=T("[data-bzdi]");if(zi){const zd=zi.closest("[data-bzd]"),nm=zd.dataset.bzd,j=+zi.dataset.bzdi,o=bojZdr.get(),u=(o[id]=o[id]||{});u[nm]=(u[nm]||0)>j?j:j+1;bojZdr.set(o);renderBoj();return}
