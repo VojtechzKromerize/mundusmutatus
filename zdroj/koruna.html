@@ -1659,6 +1659,13 @@ html.gmv .wrap{margin-bottom:56px}
 #vyview.vystul{display:flex;flex-direction:column}#vyview.vystul>.vyhead{order:0}#vyview.vystul>.vytabs{order:1}#vyview.vystul>.vypanely{order:2;margin:0 0 20px}#vyview.vystul>.vygrid{order:3}
 .dialpoct{font-family:var(--f-label);font-size:12px;letter-spacing:.05em;fill:#f3dc94;paint-order:stroke;stroke:rgba(8,12,34,.6);stroke-width:2px}
 .dialpocm{cursor:help}
+.drstav{position:relative;display:block;line-height:0}
+.drstav .drsp{visibility:visible}
+.herofig .drstav img.drl{position:absolute;inset:0;width:100%!important;height:100%!important;box-sizing:border-box;opacity:0;transition:opacity 1.5s ease}
+.herofig .drstav img.drl.on{opacity:1}
+.herofig .drstav img.drl.bez{transition:none}
+.herofig .drstav img.drs{border-color:transparent!important;z-index:2}
+@media (prefers-reduced-motion:reduce){.herofig .drstav img.drl{transition:none}}
 </style>
 
 <div class="wrap"><div class="papir" aria-hidden="true"></div>
@@ -1686,7 +1693,7 @@ html.gmv .wrap{margin-bottom:56px}
 
 <main>
 <div class="view" data-view="uvod" hidden>
-<div class="herobox"><figure class="herofig"><img src="art/img/kalich-drak.webp" width="560" height="560" alt="Iluminace: bílý drak odpočívá ve zlatém kalichu plném vína pod hvězdnou oblohou"><figcaption>Sub utraque sunt dracones</figcaption></figure><section class="hero" id="hero"></section></div>
+<div class="herobox"><figure class="herofig"><span class="drstav" role="img" aria-label="Iluminace: bílý dráček ve zlatém kalichu plném vína pod hvězdnou oblohou. Dráček bdí – je den." title="Dráček bdí – je den."><img class="drsp" src="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 1 1%27/%3E" width="560" height="560" alt=""><img class="drl drz on" data-k="bdi" src="art/img/drak-bdi-640.webp" srcset="art/img/drak-bdi-420.webp 420w, art/img/drak-bdi-640.webp 640w, art/img/drak-bdi-840.webp 840w" sizes="(max-width:700px) 60vw, 400px" width="560" height="560" alt=""></span><figcaption>Sub utraque sunt dracones</figcaption></figure><section class="hero" id="hero"></section></div>
 <div class="uvgrid">
   <section class="sec uvev"><h2 class="uvh">Poslední události</h2><div id="uvnovw" hidden><h3 class="uvh2">Nedávné kontakty</h3><div class="kontakty" id="uvnov"></div></div><div id="uvzap"></div><h3 class="uvh2">Ze světa</h3><dl class="tl" id="uvlet"></dl><a class="uvmore" href="#kronika/letopis">Celý letopis →</a></section>
   <aside class="kal" id="kal1" aria-label="Kalendárium"></aside>
@@ -4774,6 +4781,27 @@ function dialPocSVG(P,Pt,F,C,INK,IMG){
   const [x0,y0]=Pt(RM,6.4),[x1,y1]=Pt(RM,17.6);
   o+=`<path id="dkpocp" d="M${F(x0)},${F(y0)}A${RM},${RM} 0 1 0 ${F(x1)},${F(y1)}" fill="none"/><text class="dialpoct" dominant-baseline="central"><title>${popis}</title><textPath href="#dkpocp" startOffset="50%" text-anchor="middle">${vyEsc(t)}</textPath></text>`;
   return o+`</g>`}
+/* ===== dráček na Úvodu ukazuje stav hry: bdí / spí / svátek / neklid (Hodina Závoje) / Hodina Pravdy; rámeček podle ročního období ===== */
+const DRAK_T={bdi:"Dráček bdí – je den.",spi:"Dráček spí – je noc.",svatek:"Dráček slaví – dnes je svátek",neklid:"Dráček je neklidný – Hodina Závoje",pravda:"Dráček řve – Hodina Pravdy"};
+const drakSrc=k=>[420,640,840].map(w=>`art/img/drak-${k}-${w}.webp ${w}w`).join(", ");
+function drakVrstva(box,cls,k){/* nová vrstva se prolne přes starou (asi 1,5 s); stejný stav se nepřekresluje */
+  const old=[...box.querySelectorAll("img."+cls)],cur=old.find(i=>i.classList.contains("on")&&!i.dataset.pryc);
+  if((cur?cur.dataset.k:"")===(k||""))return;
+  const prvni=!box.dataset.hotovo,pryc=()=>old.forEach(i=>{i.dataset.pryc=1;i.classList.remove("on");setTimeout(()=>i.remove(),1700)});
+  if(!k){pryc();return}
+  const im=document.createElement("img");im.className="drl "+cls;im.dataset.k=k;im.alt="";im.width=im.height=560;im.sizes="(max-width:700px) 60vw, 400px";im.srcset=drakSrc(k);im.src=`art/img/drak-${k}-640.webp`;
+  if(prvni)im.classList.add("bez");box.appendChild(im);
+  const ukaz=()=>{requestAnimationFrame(()=>{im.classList.add("on");if(prvni){old.forEach(i=>i.remove());requestAnimationFrame(()=>im.classList.remove("bez"))}else pryc()})};
+  (im.decode?im.decode():Promise.resolve()).then(ukaz,ukaz)}
+function drakStav(X){const box=document.querySelector(".drstav");if(!box)return;
+  const {H,sun,Z}=X,today=X.today,fe=feasts(X.Y).filter(f=>f.j===today).map(f=>f.n),h=H==null?null:H%24;
+  const zav=h!=null&&Z[h]!=null,noc=h!=null&&sun.alt(h)<-2;
+  const k=fe.length&&zav?"pravda":zav?"neklid":fe.length?"svatek":noc?"spi":"bdi";
+  const gm=fromJdn(today+9)[1],sez=gm>=3&&gm<=5?"jaro":gm>=6&&gm<=8?"":gm>=9&&gm<=11?"podzim":"zima";/* roční doba podle skutečného (gregoriánského) data */
+  let t=DRAK_T[k];if(k==="svatek")t+=`: ${fe.join(", ")}.`;else if(k==="neklid")t+=` (${Z[h]}).`;else if(k==="pravda")t+=`: ${fe.join(", ")} a ${Z[h]}.`;
+  t+=" "+({jaro:"Jaro.",podzim:"Podzim.",zima:"Zima.","":"Léto."})[sez];
+  box.title=t;box.setAttribute("aria-label","Iluminace: bílý dráček ve zlatém kalichu plném vína pod hvězdnou oblohou. "+t);
+  drakVrstva(box,"drz",k);drakVrstva(box,"drs",sez);box.dataset.hotovo=1}
 function dialHour(X){const {H,moon,Z,fe,cz}=X,h=H%24,z=Z[h],pravda=fe.length&&z;
   return `<p class="dialh">${h===0||h===12?hourWord(h):`${h}. hodina · ${hourWord(h)}`}<span>${cz(h)}. hodina na orloji · ${moon.nm}</span></p>`+
    (fe.length?`<p class="dialfe">Dnes: ${fe.join(", ")}</p>`:"")+
@@ -4798,9 +4826,9 @@ function renderKal(){
   const fd=j=>{const [y,m,d]=fromJdn(j);return `${d}. ${MES[m-1]}`+(y!==Y?` ${y}`:"")};
   const rel=j=>{const n=j-today;return n===0?"dnes":n===1?"zítra":`za ${n} ${n<5?"dny":"dní"}`};
   {const hzs=[...ZAPISY].reverse().filter(z=>z.hodina!=null),hh=HRA&&HRA.hodina!=null,H=hh?+HRA.hodina:(hzs[0]?hzs[0].hodina:null),
-     X=dialCtx(Y,M,D,today,H,hh?(HRA.hodinaPred!=null?+HRA.hodinaPred:null):(hzs[1]?hzs[1].hodina:null));X.poc=dialPoc(today);
+     X=dialCtx(Y,M,D,today,H,hh?(HRA.hodinaPred!=null?+HRA.hodinaPred:null):(hzs[1]?hzs[1].hodina:null));X.poc=dialPoc(today);X.today=today;
    const pp=partyPlace(),fz=pp&&FAM.find(f=>!f.nomap&&f.seats.some(sd=>sd[0]===pp)),LZ=ZAPISY[ZAPISY.length-1];
-   document.getElementById("hero").innerHTML=`<div class="dial">${dialSVG(X)}<div class="dialtxt"><p class="lbl">Dnes je</p><p class="herod">${DNY[(today+1)%7]} ${D}. ${MES[M-1]}<span>léta Páně ${Y}</span></p>${H!=null?dialHour(X):""}</div></div>${cestaAktivni()?`<p class="herop">Družina je na cestě: ${HRA.cesta.z} → <b>${HRA.cesta.do}</b> · příjezd asi ${cTxt(HRA.cesta.track[HRA.cesta.track.length-1][0]).replace(/ \d{4},/,",")}${LZ?` · poslední zápis: <a href="#kronika/${LZ.id}">${LZ.title}</a>`:""}</p>`:pp?`<p class="herop">Družina: ${fz?`<button type="button" class="maplink" data-id="${fz.id}" data-place="${pp}">${pp}</button>`:pp}${LZ?` · poslední zápis: <a href="#kronika/${LZ.id}">${LZ.title}</a>`:""}</p>`:""}`;}
+   document.getElementById("hero").innerHTML=`<div class="dial">${dialSVG(X)}<div class="dialtxt"><p class="lbl">Dnes je</p><p class="herod">${DNY[(today+1)%7]} ${D}. ${MES[M-1]}<span>léta Páně ${Y}</span></p>${H!=null?dialHour(X):""}</div></div>${cestaAktivni()?`<p class="herop">Družina je na cestě: ${HRA.cesta.z} → <b>${HRA.cesta.do}</b> · příjezd asi ${cTxt(HRA.cesta.track[HRA.cesta.track.length-1][0]).replace(/ \d{4},/,",")}${LZ?` · poslední zápis: <a href="#kronika/${LZ.id}">${LZ.title}</a>`:""}</p>`:pp?`<p class="herop">Družina: ${fz?`<button type="button" class="maplink" data-id="${fz.id}" data-place="${pp}">${pp}</button>`:pp}${LZ?` · poslední zápis: <a href="#kronika/${LZ.id}">${LZ.title}</a>`:""}</p>`:""}`;try{drakStav(X)}catch(e){console.warn(e)}}
   renderNovinky();
   const zs=[...ZAPISY].reverse().slice(0,3);
   document.getElementById("uvzap").innerHTML=`<ol class="zlist">${zs.map(z=>`<li><a class="zcard" href="#kronika/${z.id}"><small>${z.n} · ${z.date} · ${z.place}</small><b>${z.title}</b><span>${strip(z.text).replace(/\s+/g," ").slice(0,180)}…</span></a></li>`).join("")}</ol>`;
