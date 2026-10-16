@@ -2484,6 +2484,7 @@ html:not(.gmv) .gmonly{display:none!important}
 .kdb .bzd button{border-color:var(--kb-mu)}
 .kdb .gbtn.ghost{color:var(--kb-tx);border-color:var(--kb-bd);background:#14100d}
 .kdb .bzrk{color:var(--kb-tx)}
+.kdice{display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin:0 0 6px}.kdice .bst{font-size:.78rem}.kdice select{font-size:.8rem}.kdbkon{margin:4px 0}
 .kro .kdbtop button,.kro .kdbtop input,.kro .kdbmain button:not([data-kspd]):not([data-kinvpop]):not([data-ktab]):not([data-kdbf]),.kro .kdbmain input:not([data-kdbq]),.kro .kdbmain textarea,.kro .kdbmain select{pointer-events:none;opacity:.55}
 
 /* bojová karta hráče – zúžená karta ve stylu D&D Beyond */
@@ -8412,7 +8413,7 @@ document.addEventListener("click",async e=>{const v=e.target.closest&&e.target.c
   const fe=T("[data-kfeat]");if(fe){kFeat(K,fe.dataset.kfeat);return}
   const pk=T("[data-kpok]");if(pk){kPok(K,pk.dataset.kpok);return}
   if(T("[data-kzavx]")){delete KZAV[K.id];kartyPrekresli();return}
-  const kp=T("[data-kpri]");if(kp){kPriTog(K,kp.dataset.kpri);return}
+  const kp=T("[data-kdice]");if(kp){kPriTog(K,kp.dataset.kdice);return}
   if(T("[data-kkonh]")){if(KKON[K.id])kKonHod(K,KKON[K.id]);return}
   if(T("[data-kkonx]")){delete KKON[K.id];kartyPrekresli();return}
   const tx=T("[data-ktechx]");if(tx){if(!confirm("Odebrat techniku z karty?"))return;kartaStavZmen(K.id,{tech:kTech(K).filter(i=>i!==tx.dataset.ktechx)});return}
@@ -8722,7 +8723,7 @@ function kPriHod(K,co){const typ=/^Útok/.test(co)?"ut":/^Záchrana/.test(co)?"z
 async function kPriTog(K,n){const P=kPri(K),on=P.includes(n),z=on?P.filter(x=>x!==n):[...P.filter(x=>!(/^Bardic /.test(n)&&/^Bardic /.test(x))),n],ch={pri:z.length?z:null};
   if(n==="Rage"&&!on){const q=kZdroje(K).find(x=>x.n==="Rage"),U=Object.assign({},kartaStav(K.id).zdr||{});if(q){if((U.Rage||0)>=q.max){mmHlasG(`${K.n}: Rage už nezbývá.`,3500);return}U.Rage=(U.Rage||0)+1;ch.zdr=U}}
   await kartaStavZmen(K.id,ch,`${K.n}: ${n} ${on?"vypnuto":"zapnuto"}.`)}
-const kPriHtml=K=>{const P=kPri(K);return `<p class="kpri" role="group" aria-label="Kostky k hodům">${KPRID.filter(([n])=>!/^Bardic d(8|10|12)$/.test(n)||P.includes(n)).map(([n,,,t])=>`<button type="button" class="bst${P.includes(n)?" on":""}" data-kpri="${besc(n)}" aria-pressed="${P.includes(n)}" ${btip(t||n)}>${besc(n==="Bardic d6"&&!P.some(x=>/^Bardic/.test(x))?"Bardic":n)}</button>`).join("")}${P.some(x=>/^Bardic/.test(x))?`<select data-kprib aria-label="Kostka Bardic Inspiration">${["d6","d8","d10","d12"].map(d=>`<option${P.includes("Bardic "+d)?" selected":""}>${d}</option>`).join("")}</select>`:""}</p>`};
+const kPriHtml=K=>{const P=kPri(K);return `<p class="kdice" role="group" aria-label="Kostky k hodům">${KPRID.filter(([n])=>!/^Bardic d(8|10|12)$/.test(n)||P.includes(n)).map(([n,,,t])=>`<button type="button" class="bst${P.includes(n)?" on":""}" data-kdice="${besc(n)}" aria-pressed="${P.includes(n)}" ${btip(t||n)}>${besc(n==="Bardic d6"&&!P.some(x=>/^Bardic/.test(x))?"Bardic":n)}</button>`).join("")}${P.some(x=>/^Bardic/.test(x))?`<select data-kprib aria-label="Kostka Bardic Inspiration">${["d6","d8","d10","d12"].map(d=>`<option${P.includes("Bardic "+d)?" selected":""}>${d}</option>`).join("")}</select>`:""}</p>`};
 function kEfekty(K){const c=kCtx(K),L=[...(K.efekty||[])],nm=new Set(kSeznam(K).map(x=>String(x.n).toLowerCase())),has=n=>nm.has(n.toLowerCase())&&!L.some(e=>e.n===n);
   const ro=kTrU(c,"Rogue");if(ro)L.push({n:"Sneak Attack",zr:`${Math.ceil(ro/2)}d6`,pozn:`+${Math.ceil(ro/2)}d6 jednou za tah: s výhodou, nebo když je u cíle spojenec; zbraň Finesse nebo na dálku`});
   const ba=kTrU(c,"Barbarian");if(ba)L.push({n:"Rage",zr:ba>=16?4:ba>=9?3:2,pri:"Rage",blizko:1,pozn:"Rage: + ke zranění útoků zblízka, Resistance Bludgeoning/Piercing/Slashing, výhoda na STR ověření a záchrany; zapnutí spotřebuje 1 Rage"});
@@ -9617,7 +9618,7 @@ document.addEventListener("click",async e=>{
   if(T("[data-blfx]")){BLF="";renderBoj();return}
   const blu=T("[data-blund]");if(blu){bojLogZpet(+blu.dataset.blund);return}
   const jad=T("[data-juadv]");if(jad){BJU.adv=jad.dataset.juadv;renderBoj();return}
-  const jkp=T("[data-kpri]");if(jkp&&!jkp.closest("[data-kid]")){const K=bojKartaH(((BOJ.s||{}).hraci||[]).find(h=>h.n===bojJa.get()));if(K)kPriTog(K,jkp.dataset.kpri).then(()=>renderBoj());return}
+  const jkp=T("[data-kdice]");if(jkp&&!jkp.closest("[data-kid]")){const K=bojKartaH(((BOJ.s||{}).hraci||[]).find(h=>h.n===bojJa.get()));if(K)kPriTog(K,jkp.dataset.kdice).then(()=>renderBoj());return}
   if(T("[data-juhod]")){bojJaHod();return}
   if(T("[data-juposl]")){bojJaPosli();return}
   const zbd=T("[data-bzbdel]");if(zbd){const pan=zbd.closest("[data-bhpan]");if(pan){const j=+zbd.dataset.bzbdel;bojHracAkce(pan.dataset.bhpan,(h,z)=>{const a=((z.zbrane||{})[h.n]||[]).filter((_,i)=>i!==j);z.zbrane=z.zbrane||{};if(a.length)z.zbrane[h.n]=a;else delete z.zbrane[h.n]})}return}
