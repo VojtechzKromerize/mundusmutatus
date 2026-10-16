@@ -5745,7 +5745,9 @@ function bojUtok(n,ai){const E=bojEff(n);if(!E)return;const a=E.at[ai];if(!a)ret
     if(!krit&&d===19&&/ostr/i.test(a.p||""))r.push(`<small>19: kritický, pokud seká (Slashing) cíl bez Resistance (Ostrá)</small>`)}
   else r.push(`<b>${besc(a.n)}</b>${a.dc?` <span class="bhd">${besc(a.dc)}</span> <small>záchrana cíle</small>`:""}`);
   if(a.zp!=null){const dos=Math.max(1,Math.min(n.pocet||1,BDOS[n.id]!=null?BDOS[n.id]:(n.pocet||1)));r.push(`zranění <b>${a.zp*dos}</b> <small>${a.zp} × ${dos} v dosahu ${besc(a.zt||"")}</small>`)}
-  else if(a.z){const k=bojKostky(a.z,krit);if(k)r.push(`zranění <b>${k.t}</b> <small>${k.x} ${besc(a.zt||"")}${a.dc?" · při úspěchu záchrany obvykle polovina":""}</small>`)}
+  else if(a.z){const k=bojKostky(a.z,krit);if(k){/* další kostky v popisu („… a 1d8 Prokleté“) se hodí taky */
+    let t=k.t,x=k.x;String(a.zt||"").replace(/(?:^|\s)(?:a|\+)\s*(\d*d\d+(?:[+-]\d+)?)/gi,(m,z)=>{const q=bojKostky(z,krit);if(q){t+=q.t;x+=` + ${q.x}`}return m});
+    r.push(`zranění <b>${t}</b> <small>${x} ${besc(a.zt||"")}${a.dc?" · při úspěchu záchrany obvykle polovina":""}</small>`)}}
   else if(a.zt)r.push(`<small>${besc(a.zt)}</small>`);
   if(!houf&&a.b!=null){const z=bojZavoj(p);r.push(bojZavTxt(p,z)+(z.hod?` <small>(${besc(z.hod)})</small>`:""));if(z.r==="pok"&&bojZatr(n))r.push(`<button type="button" class="badd bbes" data-bbes>Zhmotnit běsa</button>`)}
   if(krit)r.push(`<button type="button" class="badd" data-bkritz="${bojKritDruh(a.zt)}">Kritické zranění cíle →</button>`);
