@@ -1962,6 +1962,22 @@ abbr.btp{text-decoration:underline dotted color-mix(in srgb,var(--gold) 85%,tran
 .kzx{position:absolute;right:8px;top:6px;font-size:1.4rem;line-height:1;background:none;border:0;color:var(--muted);cursor:pointer}
 a.kzodk{color:inherit;text-decoration:underline dotted color-mix(in srgb,var(--kal) 70%,transparent);text-underline-offset:2px}
 @media (max-width:760px){.kzgrid{grid-template-columns:1fr}.kzdet{position:static;order:-1}.kzlist{max-height:50vh}.kzpop{left:8px;right:8px;bottom:8px;width:auto}}
+/* malované ikony a rámečky trackeru boje (art/img/boj) */
+.bi.bimg{width:24px;height:24px;stroke:none;fill:none;object-fit:contain;vertical-align:middle;overflow:hidden}
+#bojview .bi:not(.bimg){color:var(--ink);stroke-width:1.65}
+#bojview :is(.gbtn:not(.ghost),.bnav,[aria-pressed="true"],.bkolo) .bi:not(.bimg){color:inherit}
+#bojview .bkolo{width:54px;height:54px;border-radius:0;box-shadow:none;background:url(art/img/boj/kolo-128.webp) center/contain no-repeat;background-image:image-set(url(art/img/boj/kolo-128.webp) 1x,url(art/img/boj/kolo-256.webp) 2x);padding:2px 1px 0;text-shadow:0 1px 1px rgba(40,5,5,.7)}
+#bojview .bkolo small{font-size:.48rem}
+.binic>span{width:31px;height:40px;padding:0 0 14px;clip-path:none;background:center/contain no-repeat;font-size:.86rem;letter-spacing:-.02em;text-shadow:0 1px 1px rgba(10,10,30,.6)}
+.binic>span.bih{background-image:url(art/img/boj/prapor-druzina-128.webp);background-image:image-set(url(art/img/boj/prapor-druzina-128.webp) 1x,url(art/img/boj/prapor-druzina-256.webp) 2x)}
+.binic>span.bin{background-image:url(art/img/boj/prapor-nepratele-128.webp);background-image:image-set(url(art/img/boj/prapor-nepratele-128.webp) 1x,url(art/img/boj/prapor-nepratele-256.webp) 2x)}
+#bojview .brac{width:30px;height:36px;padding:0 0 7px;clip-path:none;background:url(art/img/boj/stit-ac-128.webp) center/contain no-repeat;background-image:image-set(url(art/img/boj/stit-ac-128.webp) 1x,url(art/img/boj/stit-ac-256.webp) 2x);color:#f4ead2;text-shadow:0 1px 1px rgba(0,0,0,.6)}
+#bojview .bstavy button{width:32px;height:32px}
+#bojview .bstavy button .bimg{filter:grayscale(.85) opacity(.55);transition:filter .15s}
+#bojview .bstavy button:hover .bimg{filter:none}
+#bojview .bstavy button[aria-pressed="true"]{background:color-mix(in srgb,var(--gold) 30%,var(--paper));border-color:var(--kal);box-shadow:0 0 0 1px var(--kal)}
+#bojview .bstavy button[aria-pressed="true"] .bimg{filter:none}
+.bzivi{filter:url(#bwob) drop-shadow(0 0 .6px color-mix(in srgb,var(--ink) 80%,transparent))}
 </style>
 
 <div class="wrap"><div class="papir" aria-hidden="true"></div>
@@ -5944,7 +5960,11 @@ const BIC={
   tahok:'<circle cx="8" cy="8" r="5.6" fill="currentColor" stroke="none"/><path d="M5.4 8.2 7.2 10l3.4-3.6" stroke="#f6ecd6" stroke-width="1.6"/>',
   zdroj:'<path d="M8 1.8 13.2 8 8 14.2 2.8 8Z"/>',
   osoba:'<circle cx="8" cy="5.2" r="2.7"/><path d="M2.8 14.2c.6-3 2.7-4.6 5.2-4.6s4.6 1.6 5.2 4.6"/>'};
-const bi=(k,c)=>`<svg class="bi${c?" "+c:""}" viewBox="0 0 16 16" aria-hidden="true" focusable="false">${BIC[k]||""}</svg>`;
+/* malované ikony (art/img/boj, 48/96 px) – ostatní klíče zůstávají vektorové s ručně kresleným chvěním (filtr #bwob) */
+const BIMG=new Set(["pozehnani","pokuseni","komplikace","nerest","zavoj","pacholek","houf","sok","zhoubce","zranen","omracen","srazen","odzbrojen","porazen","prcha"]);
+const bi=(k,c)=>BIMG.has(k)?`<img class="bi bimg bimg-${k}${c?" "+c:""}" src="art/img/boj/${k}-48.webp" srcset="art/img/boj/${k}-48.webp 48w, art/img/boj/${k}-96.webp 96w" sizes="24px" width="24" height="24" alt="" aria-hidden="true" decoding="async">`
+  :`<svg class="bi${c?" "+c:""}" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><g filter="url(#bwob)">${BIC[k]||""}</g></svg>`;
+if(!document.getElementById("bwobdef"))document.body.insertAdjacentHTML("beforeend",`<svg id="bwobdef" width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><filter id="bwob" x="-15%" y="-15%" width="130%" height="130%"><feTurbulence type="fractalNoise" baseFrequency=".32" numOctaves="2" seed="5" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale=".9" xChannelSelector="R" yChannelSelector="G"/></filter></svg>`);
 const btip=t=>`data-tip="${besc(t)}"`;
 const bTxt=h=>String(h||"").replace(/<[^>]*>/g," ").replace(/&nbsp;/g," ").replace(/&amp;/g,"&").replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/&quot;/g,'"').replace(/\s+/g," ").trim();
 /* stavy nepřátel: ikonka a popisek */
