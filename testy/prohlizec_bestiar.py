@@ -48,7 +48,7 @@ async def main():
     g.on("dialog",lambda d:asyncio.ensure_future(d.accept()))
     await g.goto(GM+"#boj");await g.wait_for_function("!document.documentElement.classList.contains('mmload')");await g.wait_for_timeout(600)
     await g.wait_for_selector(".bprip")
-    chk(await g.locator(".bpravidla .bqr").count()==3,"rychlá pravidla v šuplíku (kritická zranění, zbraně, zbroj)")
+    chk(await g.locator(".bpravidla .bqr").count()==5,"rychlá pravidla v šuplíku (kritická zranění, stavy, akce, zbraně, zbroj)")
     chk(not await g.locator(".bpravidla").is_visible(),"šuplík s pravidly je zavřený")
     # hledání: štítek, setkání, osoba
     await g.fill("[data-bhledej]","krkonose");await g.wait_for_timeout(100)

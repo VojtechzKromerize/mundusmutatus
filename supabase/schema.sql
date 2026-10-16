@@ -367,9 +367,9 @@ begin
   if p_pole = 'stav' then
     if jsonb_typeof(x) = 'null' or x = '[]'::jsonb then
       s := s #- array['hraci', i::text, 'stav'];
-    elsif jsonb_typeof(x) = 'array' and jsonb_array_length(x) <= 8 and not exists (
+    elsif jsonb_typeof(x) = 'array' and jsonb_array_length(x) <= 16 and not exists (
         select 1 from jsonb_array_elements(x) e
-        where jsonb_typeof(e) <> 'string' or not ((e #>> '{}') = any (array['sražen','omráčen','zadržen','oslepen','neviditelný','otrávený','vyděšený','soustředí']))) then
+        where jsonb_typeof(e) <> 'string' or not ((e #>> '{}') = any (array['sražen','omráčen','zadržen','chycen','oslepen','ohlušen','neviditelný','otrávený','vyděšený','okouzlen','neschopný','ochromen','zkamenělý','úhyb','soustředí']))) then
       s := jsonb_set(s, array['hraci', i::text, 'stav'], x);
     else
       raise exception 'neplatné stavy';
