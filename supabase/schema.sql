@@ -93,6 +93,40 @@ create table if not exists public.hody (
   data jsonb not null
 );
 
+-- přihlášení hráčů: heslo ke kartě postavy (bcrypt přes pgcrypto) a relace (v tabulce jen otisk tokenu); nikdo je nečte přímo
+create schema if not exists extensions;
+create extension if not exists pgcrypto with schema extensions;
+create table if not exists public.hesla (
+  karta  text primary key,
+  hash   text not null,
+  pokusy int not null default 0,
+  blok   timestamptz
+);
+create table if not exists public.relace_hracu (
+  token text primary key,
+  karta text not null,
+  exp   timestamptz not null
+);
+create index if not exists relace_hracu_karta on public.relace_hracu (karta);
+alter table public.karty add column if not exists zamceno boolean not null default false;
+-- výzvy k hodu od vypravěče (záchrana, ověření, iniciativa, krátký odpočinek); čte každý, odpovídá hráč za svou postavu
+create table if not exists public.vyzvy (
+  id       bigserial primary key,
+  cas      timestamptz not null default now(),
+  data     jsonb not null,
+  odpovedi jsonb not null default '{}'::jsonb,
+  zavrena  boolean not null default false
+);
+-- tajné zprávy mezi hráčem a vypravěčem: jen přes funkce (hráč vidí jen zprávy své postavy)
+create table if not exists public.zpravy (
+  id     bigserial primary key,
+  cas    timestamptz not null default now(),
+  karta  text not null,
+  od_gm  boolean not null,
+  t      text not null
+);
+create index if not exists zpravy_karta on public.zpravy (karta, id);
+
 -- ukázky pro hráče: obrázek, dopis nebo mapka, které vypravěč pošle na telefony; čte každý
 create table if not exists public.ukazky (
   id   bigserial primary key,
@@ -114,6 +148,10 @@ alter table public.boj enable row level security;
 alter table public.karty enable row level security;
 alter table public.hody enable row level security;
 alter table public.ukazky enable row level security;
+alter table public.hesla enable row level security;
+alter table public.relace_hracu enable row level security;
+alter table public.vyzvy enable row level security;
+alter table public.zpravy enable row level security;
 alter table public.zaznamy enable row level security;
 alter table public.zaznamy_historie enable row level security;
 alter table public.obsah add column if not exists gen text;
@@ -138,6 +176,8 @@ drop policy if exists "hody: čte každý" on public.hody;
 create policy "hody: čte každý" on public.hody for select to anon, authenticated using (true);
 drop policy if exists "ukazky: čte každý" on public.ukazky;
 create policy "ukazky: čte každý" on public.ukazky for select to anon, authenticated using (true);
+drop policy if exists "vyzvy: čte každý" on public.vyzvy;
+create policy "vyzvy: čte každý" on public.vyzvy for select to anon, authenticated using (true);
 drop policy if exists "boj: čte každý" on public.boj;
 create policy "boj: čte každý" on public.boj for select to anon, authenticated using (true);
 drop policy if exists "gm: vidí sebe" on public.gm;
@@ -297,15 +337,169 @@ begin
   return v;
 end $$;
 
+-- ===== Přihlášení hráčů =====
+-- Zápis za postavu smí: vypravěč; kdokoli, dokud karta nemá heslo; jinak jen s platnou relací té postavy.
+create or replace function public.mm_hrac_ok(p_karta text, p_token text) returns boolean
+language sql stable security definer set search_path = public as $$
+  select public.mm_je_gm()
+    or not exists (select 1 from public.hesla h where h.karta = p_karta)
+    or (p_token is not null and exists (select 1 from public.relace_hracu r
+          where r.token = encode(sha256(convert_to(p_token, 'UTF8')), 'hex') and r.karta = p_karta and r.exp > now()))
+$$;
+-- karta, za kterou hraje postava v boji (podle k nebo jména)
+create or replace function public.mm_boj_karta(h jsonb) returns text
+language sql stable security definer set search_path = public as $$
+  select coalesce(nullif(h ->> 'k', ''), (select k.id from public.karty k where k.karta ->> 'n' = h ->> 'n' limit 1))
+$$;
+create or replace function public.mm_boj_over(s jsonb, p_hrac text, p_token text) returns void
+language plpgsql stable security definer set search_path = public as $$
+declare h jsonb; k text;
+begin
+  select e into h from jsonb_array_elements(coalesce(s -> 'hraci', '[]'::jsonb)) e where e ->> 'id' = p_hrac;
+  if h is null then return; end if;
+  k := public.mm_boj_karta(h);
+  if k is not null and not public.mm_hrac_ok(k, p_token) then
+    raise exception 'za tuto postavu hraje přihlášený hráč' using errcode = '42501';
+  end if;
+end $$;
+create or replace function public.mm_hrac_relace(p_karta text) returns text
+language plpgsql security definer set search_path = public as $$
+declare t text := replace(gen_random_uuid()::text, '-', '') || replace(gen_random_uuid()::text, '-', '');
+begin
+  delete from public.relace_hracu where exp < now();
+  insert into public.relace_hracu (token, karta, exp) values (encode(sha256(convert_to(t, 'UTF8')), 'hex'), p_karta, now() + interval '180 days');
+  return t;
+end $$;
+-- nastavení hesla: vypravěč komukoli; hráč u karty bez hesla (zabere si ji) nebo s platnou relací (změna)
+create or replace function public.mm_hrac_heslo(p_karta text, p_heslo text, p_token text default null) returns text
+language plpgsql security definer set search_path = public as $$
+begin
+  if p_karta is null or p_karta !~ '^[a-z0-9-]{1,40}$' then raise exception 'neplatná karta'; end if;
+  if p_heslo is null or char_length(p_heslo) not between 4 and 100 then raise exception 'heslo má mít 4 až 100 znaků'; end if;
+  if not public.mm_hrac_ok(p_karta, p_token) then raise exception 'karta už má heslo – přihlas se, nebo požádej vypravěče o nové' using errcode = '42501'; end if;
+  insert into public.hesla (karta, hash) values (p_karta, extensions.crypt(p_heslo, extensions.gen_salt('bf')))
+    on conflict (karta) do update set hash = excluded.hash, pokusy = 0, blok = null;
+  insert into public.karty (id, stav, zamceno) values (p_karta, '{}'::jsonb, true) on conflict (id) do update set zamceno = true;
+  delete from public.relace_hracu where karta = p_karta;
+  return public.mm_hrac_relace(p_karta);
+end $$;
+create or replace function public.mm_hrac_prihlas(p_karta text, p_heslo text) returns text
+language plpgsql security definer set search_path = public as $$
+declare h public.hesla;
+begin
+  select * into h from public.hesla where karta = p_karta for update;
+  if h is null then raise exception 'karta zatím nemá heslo'; end if;
+  if h.blok is not null and h.blok > now() then raise exception 'příliš mnoho pokusů – zkus to za pár minut'; end if;
+  if h.hash <> extensions.crypt(coalesce(p_heslo, ''), h.hash) then
+    update public.hesla set pokusy = pokusy + 1, blok = case when pokusy + 1 >= 5 then now() + interval '5 minutes' else null end where karta = p_karta;
+    return null;
+  end if;
+  update public.hesla set pokusy = 0, blok = null where karta = p_karta;
+  return public.mm_hrac_relace(p_karta);
+end $$;
+create or replace function public.mm_hrac_kdo(p_token text) returns text
+language sql stable security definer set search_path = public as $$
+  select r.karta from public.relace_hracu r where r.token = encode(sha256(convert_to(coalesce(p_token, ''), 'UTF8')), 'hex') and r.exp > now()
+$$;
+create or replace function public.mm_hrac_odhlas(p_token text) returns void
+language sql security definer set search_path = public as $$
+  delete from public.relace_hracu where token = encode(sha256(convert_to(coalesce(p_token, ''), 'UTF8')), 'hex')
+$$;
+create or replace function public.mm_hrac_zrus_heslo(p_karta text) returns void
+language plpgsql security definer set search_path = public as $$
+begin
+  if not public.mm_je_gm() then raise exception 'jen pro vypravěče' using errcode = '42501'; end if;
+  delete from public.hesla where karta = p_karta;
+  delete from public.relace_hracu where karta = p_karta;
+  update public.karty set zamceno = false where id = p_karta;
+end $$;
+
+-- ===== Výzvy k hodu =====
+create or replace function public.mm_vyzva(p_vyzva jsonb) returns bigint
+language plpgsql security definer set search_path = public as $$
+declare x jsonb := coalesce(p_vyzva, '{}'::jsonb); i bigint;
+begin
+  if not public.mm_je_gm() then raise exception 'jen pro vypravěče' using errcode = '42501'; end if;
+  if jsonb_typeof(x) <> 'object' or octet_length(x::text) > 3000
+     or exists (select 1 from jsonb_object_keys(x) k where k not in ('typ', 'ab', 'dov', 'dc', 'skryt', 'komu', 'pozn', 'adv'))
+     or coalesce(x ->> 'typ', '') not in ('zach', 'over', 'ini', 'odp', 'hod')
+     or (x ? 'ab' and coalesce(x ->> 'ab', '') not in ('STR', 'AGI', 'CON', 'INT', 'WIS', 'CHA'))
+     or (x ? 'dov' and (jsonb_typeof(x -> 'dov') <> 'string' or char_length(x ->> 'dov') > 40))
+     or not public.mm_cislo(x -> 'dc', 1, 40) or not public.mm_cislo(x -> 'adv', -1, 1)
+     or (x ? 'skryt' and jsonb_typeof(x -> 'skryt') <> 'boolean')
+     or (x ? 'pozn' and (jsonb_typeof(x -> 'pozn') <> 'string' or char_length(x ->> 'pozn') > 200))
+     or (x ? 'komu' and (jsonb_typeof(x -> 'komu') <> 'array' or jsonb_array_length(x -> 'komu') > 12
+         or exists (select 1 from jsonb_array_elements(x -> 'komu') e where jsonb_typeof(e) <> 'string' or (e #>> '{}') !~ '^[a-z0-9-]{1,40}$'))) then
+    raise exception 'neplatná výzva';
+  end if;
+  update public.vyzvy set zavrena = true where not zavrena and cas < now() - interval '6 hours';
+  insert into public.vyzvy (data) values (x) returning id into i;
+  delete from public.vyzvy where id <= i - 100;
+  return i;
+end $$;
+create or replace function public.mm_vyzva_odpoved(p_id bigint, p_karta text, p_hod jsonb, p_token text default null) returns void
+language plpgsql security definer set search_path = public as $$
+declare v public.vyzvy; x jsonb := coalesce(p_hod, '{}'::jsonb);
+begin
+  select * into v from public.vyzvy where id = p_id for update;
+  if v is null or v.zavrena then raise exception 'výzva už neplatí'; end if;
+  if v.data ? 'komu' and jsonb_array_length(v.data -> 'komu') > 0 and not (v.data -> 'komu') ? p_karta then raise exception 'výzva není pro tuto postavu'; end if;
+  if not public.mm_hrac_ok(p_karta, p_token) then raise exception 'přihlas se za svou postavu' using errcode = '42501'; end if;
+  if jsonb_typeof(x) <> 'object' or octet_length(x::text) > 600
+     or exists (select 1 from jsonb_object_keys(x) k where k not in ('tot', 'd', 'zav', 'txt', 'adv', 'n'))
+     or not public.mm_cislo(x -> 'tot', -50, 999) or not public.mm_cislo(x -> 'd', 0, 100) or not public.mm_cislo(x -> 'zav', 1, 6) then
+    raise exception 'neplatný hod';
+  end if;
+  update public.vyzvy set odpovedi = odpovedi || jsonb_build_object(p_karta, x) where id = p_id;
+end $$;
+create or replace function public.mm_vyzva_zavri(p_id bigint) returns void
+language plpgsql security definer set search_path = public as $$
+begin
+  if not public.mm_je_gm() then raise exception 'jen pro vypravěče' using errcode = '42501'; end if;
+  update public.vyzvy set zavrena = true where id = p_id or p_id is null;
+end $$;
+
+-- ===== Tajné zprávy hráč ↔ vypravěč =====
+create or replace function public.mm_zprava(p_karta text, p_t text, p_token text default null) returns bigint
+language plpgsql security definer set search_path = public as $$
+declare i bigint; gm boolean := public.mm_je_gm();
+begin
+  if p_t is null or char_length(btrim(p_t)) not between 1 and 2000 then raise exception 'prázdná nebo dlouhá zpráva'; end if;
+  if not exists (select 1 from public.karty where id = p_karta) then raise exception 'neznámá postava'; end if;
+  if not gm and (not exists (select 1 from public.hesla where karta = p_karta) or not public.mm_hrac_ok(p_karta, p_token)) then
+    raise exception 'zprávy posílá jen přihlášený hráč' using errcode = '42501';
+  end if;
+  insert into public.zpravy (karta, od_gm, t) values (p_karta, gm, btrim(p_t)) returning id into i;
+  delete from public.zpravy where karta = p_karta and id <= i - 200;
+  return i;
+end $$;
+create or replace function public.mm_zpravy(p_karta text, p_token text default null) returns jsonb
+language plpgsql stable security definer set search_path = public as $$
+begin
+  if not public.mm_je_gm() and (not exists (select 1 from public.hesla where karta = p_karta) or not public.mm_hrac_ok(p_karta, p_token)) then
+    raise exception 'zprávy čte jen přihlášený hráč' using errcode = '42501';
+  end if;
+  return coalesce((select jsonb_agg(jsonb_build_object('id', id, 'cas', cas, 'gm', od_gm, 't', t) order by id) from public.zpravy where karta = p_karta), '[]'::jsonb);
+end $$;
+create or replace function public.mm_zpravy_gm() returns jsonb
+language plpgsql stable security definer set search_path = public as $$
+begin
+  if not public.mm_je_gm() then raise exception 'jen pro vypravěče' using errcode = '42501'; end if;
+  return coalesce((select jsonb_agg(jsonb_build_object('id', id, 'cas', cas, 'k', karta, 'gm', od_gm, 't', t) order by id)
+    from (select * from public.zpravy order by id desc limit 300) z), '[]'::jsonb);
+end $$;
+
 -- Hráč si sám obsadí volný hráčský slot (bez přihlášení). Smí jen platný tah: volný slot hráčů
 -- a postava, která v tomto kole ještě nejednala.
-create or replace function public.mm_boj_obsad(p_slot int, p_hrac text) returns bigint
+drop function if exists public.mm_boj_obsad(int, text);
+create or replace function public.mm_boj_obsad(p_slot int, p_hrac text, p_token text default null) returns bigint
 language plpgsql security definer set search_path = public as $$
 declare
   s jsonb;
   v bigint;
 begin
   select stav into s from public.boj where id = 'aktivni' for update;
+  perform public.mm_boj_over(s, p_hrac, p_token);
   if s is null or coalesce((s ->> 'aktivni')::boolean, false) = false then
     raise exception 'žádný boj neprobíhá';
   end if;
@@ -327,7 +521,8 @@ begin
 end $$;
 
 -- Příprava boje: hráč si sám zapíše hod iniciativy své postavy (bez přihlášení), jen dokud boj nezačal.
-create or replace function public.mm_boj_hod(p_hrac text, p_hod int) returns bigint
+drop function if exists public.mm_boj_hod(text, int);
+create or replace function public.mm_boj_hod(p_hrac text, p_hod int, p_token text default null) returns bigint
 language plpgsql security definer set search_path = public as $$
 declare
   s jsonb;
@@ -335,6 +530,7 @@ declare
   i int;
 begin
   select stav into s from public.boj where id = 'aktivni' for update;
+  perform public.mm_boj_over(s, p_hrac, p_token);
   if s is null or coalesce((s ->> 'priprava')::boolean, false) = false or coalesce((s ->> 'aktivni')::boolean, false) then
     raise exception 'boj se právě nepřipravuje';
   end if;
@@ -358,7 +554,8 @@ language sql immutable as $$
 $$;
 
 -- Boj: hráč z telefonu u své postavy – stavy, kryt, hody proti smrti, připravená akce, reakce (jen během přípravy nebo boje, jen povolené hodnoty)
-create or replace function public.mm_boj_hrac(p_hrac text, p_pole text, p_hodnota jsonb) returns bigint
+drop function if exists public.mm_boj_hrac(text, text, jsonb);
+create or replace function public.mm_boj_hrac(p_hrac text, p_pole text, p_hodnota jsonb, p_token text default null) returns bigint
 language plpgsql security definer set search_path = public as $$
 declare
   s jsonb;
@@ -367,6 +564,7 @@ declare
   x jsonb := coalesce(p_hodnota, 'null'::jsonb);
 begin
   select stav into s from public.boj where id = 'aktivni' for update;
+  perform public.mm_boj_over(s, p_hrac, p_token);
   if s is null or not (coalesce((s ->> 'aktivni')::boolean, false) or coalesce((s ->> 'priprava')::boolean, false)) then
     raise exception 'žádný boj neprobíhá';
   end if;
@@ -448,6 +646,15 @@ begin
     else
       raise exception 'neplatné zbraně';
     end if;
+  elsif p_pole = 'hotovo' then
+    -- hráč ukončil tah: kolo × 100 + slot
+    if jsonb_typeof(x) = 'null' then
+      s := jsonb_set(s, '{hotovo}', coalesce(s -> 'hotovo', '{}'::jsonb) - p_hrac);
+    elsif public.mm_cislo(x, 0, 9999) and jsonb_typeof(x) = 'number' then
+      s := jsonb_set(s, '{hotovo}', coalesce(s -> 'hotovo', '{}'::jsonb) || jsonb_build_object(p_hrac, x));
+    else
+      raise exception 'neplatný konec tahu';
+    end if;
   elsif p_pole = 'reak' then
     if x = 'true'::jsonb then
       s := jsonb_set(s, '{reak}', coalesce(s -> 'reak', '{}'::jsonb) || jsonb_build_object(p_hrac, 1));
@@ -462,7 +669,8 @@ begin
 end $$;
 
 -- Boj: hráč z telefonu pošle útok (cíl, čím, hod, zranění; plošně SO a záchrana). Vyhodnotí ho vypravěč, který zná AC nepřátel.
-create or replace function public.mm_boj_utok(p_hrac text, p_utok jsonb) returns bigint
+drop function if exists public.mm_boj_utok(text, jsonb);
+create or replace function public.mm_boj_utok(p_hrac text, p_utok jsonb, p_token text default null) returns bigint
 language plpgsql security definer set search_path = public as $$
 declare
   s jsonb;
@@ -473,6 +681,7 @@ declare
   x jsonb := coalesce(p_utok, '{}'::jsonb);
 begin
   select stav into s from public.boj where id = 'aktivni' for update;
+  perform public.mm_boj_over(s, p_hrac, p_token);
   if s is null or coalesce((s ->> 'aktivni')::boolean, false) = false then
     raise exception 'žádný boj neprobíhá';
   end if;
@@ -524,7 +733,8 @@ begin
 end $$;
 
 -- Karty postav: uložení importované karty (kdokoli z družiny; jen kontrola tvaru a velikosti), smazání jen vypravěč
-create or replace function public.mm_karta_uloz(p_karta jsonb) returns text
+drop function if exists public.mm_karta_uloz(jsonb);
+create or replace function public.mm_karta_uloz(p_karta jsonb, p_token text default null) returns text
 language plpgsql security definer set search_path = public as $$
 declare
   k jsonb := coalesce(p_karta, '{}'::jsonb);
@@ -538,6 +748,9 @@ begin
      or not public.mm_cislo(k -> 'hp', 1, 999) or jsonb_typeof(k -> 'hp') is distinct from 'number' then
     raise exception 'karta potřebuje id, jméno, AC a životy';
   end if;
+  if not public.mm_hrac_ok(i, p_token) then
+    raise exception 'karta je chráněná heslem – přihlas se' using errcode = '42501';
+  end if;
   insert into public.karty (id, karta) values (i, k)
     on conflict (id) do update set karta = excluded.karta, verze = public.karty.verze + 1, zmeneno = now();
   return i;
@@ -550,10 +763,13 @@ begin
     raise exception 'jen pro vypravěče' using errcode = '42501';
   end if;
   delete from public.karty where id = p_id;
+  delete from public.hesla where karta = p_id;
+  delete from public.relace_hracu where karta = p_id;
 end $$;
 
 -- Karty postav: trvalý stav (životy, dočasné HP, spotřebované zdroje a sloty, kostky životů, vyčerpání, inspirace, vybavení, peníze, poznámky)
-create or replace function public.mm_karta_stav(p_id text, p_pole text, p_hodnota jsonb) returns bigint
+drop function if exists public.mm_karta_stav(text, text, jsonb);
+create or replace function public.mm_karta_stav(p_id text, p_pole text, p_hodnota jsonb, p_token text default null) returns bigint
 language plpgsql security definer set search_path = public as $$
 declare
   x jsonb := coalesce(p_hodnota, 'null'::jsonb);
@@ -562,6 +778,9 @@ declare
 begin
   if p_id is null or p_id !~ '^[a-z0-9-]{1,40}$' then
     raise exception 'neplatná karta';
+  end if;
+  if not public.mm_hrac_ok(p_id, p_token) then
+    raise exception 'karta je chráněná heslem – přihlas se' using errcode = '42501';
   end if;
   ok := case p_pole
     when 'hp' then public.mm_cislo(x, -999, 999)
@@ -613,7 +832,8 @@ begin
 end $$;
 
 -- Herní záznam: hod z karty (kdo, co, výsledek, Závoj); drží se posledních 300
-create or replace function public.mm_hod(p_hod jsonb) returns bigint
+drop function if exists public.mm_hod(jsonb);
+create or replace function public.mm_hod(p_hod jsonb, p_token text default null) returns bigint
 language plpgsql security definer set search_path = public as $$
 declare
   x jsonb := coalesce(p_hod, '{}'::jsonb);
@@ -625,6 +845,13 @@ begin
      or jsonb_typeof(x -> 'co') is distinct from 'string' or char_length(x ->> 'co') not between 1 and 80
      or not public.mm_cislo(x -> 'tot', -50, 999) or not public.mm_cislo(x -> 'zav', 1, 6) then
     raise exception 'neplatný hod';
+  end if;
+  if x ? 'k' then
+    if jsonb_typeof(x -> 'k') <> 'string' or not public.mm_hrac_ok(x ->> 'k', p_token) then
+      raise exception 'za tuto postavu hází přihlášený hráč' using errcode = '42501';
+    end if;
+  elsif not public.mm_je_gm() then
+    raise exception 'hod bez postavy zapisuje jen vypravěč' using errcode = '42501';
   end if;
   insert into public.hody (data) values (x) returning id into i;
   delete from public.hody where id <= i - 300;
@@ -946,19 +1173,24 @@ grant execute on function public.mm_vyprava_nacti(), public.mm_vyprava_uloz(json
 revoke all on function public.mm_kouzla_nacti() from public, anon;
 revoke all on function public.mm_kouzla_uloz(jsonb) from public, anon;
 grant execute on function public.mm_kouzla_nacti(), public.mm_kouzla_uloz(jsonb) to authenticated;
-grant execute on function public.mm_boj_obsad(int, text) to anon, authenticated;
-grant execute on function public.mm_boj_hod(text, int) to anon, authenticated;
-grant execute on function public.mm_boj_hrac(text, text, jsonb) to anon, authenticated;
-grant execute on function public.mm_boj_utok(text, jsonb) to anon, authenticated;
-grant execute on function public.mm_karta_uloz(jsonb) to anon, authenticated;
-grant execute on function public.mm_karta_stav(text, text, jsonb) to anon, authenticated;
+grant execute on function public.mm_boj_obsad(int, text, text) to anon, authenticated;
+grant execute on function public.mm_boj_hod(text, int, text) to anon, authenticated;
+grant execute on function public.mm_boj_hrac(text, text, jsonb, text) to anon, authenticated;
+grant execute on function public.mm_boj_utok(text, jsonb, text) to anon, authenticated;
+grant execute on function public.mm_karta_uloz(jsonb, text) to anon, authenticated;
+grant execute on function public.mm_karta_stav(text, text, jsonb, text) to anon, authenticated;
 grant execute on function public.mm_karta_smaz(text) to authenticated;
-grant execute on function public.mm_hod(jsonb) to anon, authenticated;
+grant execute on function public.mm_hod(jsonb, text) to anon, authenticated;
 revoke all on function public.mm_ukaz(jsonb) from public, anon;
 revoke all on function public.mm_ukaz_smaz(bigint) from public, anon;
 revoke all on function public.mm_sezeni_nacti() from public, anon;
 revoke all on function public.mm_sezeni_uloz(jsonb) from public, anon;
 grant execute on function public.mm_ukaz(jsonb), public.mm_ukaz_smaz(bigint), public.mm_sezeni_nacti(), public.mm_sezeni_uloz(jsonb) to authenticated;
+revoke all on function public.mm_hrac_ok(text, text), public.mm_boj_karta(jsonb), public.mm_boj_over(jsonb, text, text), public.mm_hrac_relace(text) from public, anon, authenticated;
+grant execute on function public.mm_hrac_heslo(text, text, text), public.mm_hrac_prihlas(text, text), public.mm_hrac_kdo(text), public.mm_hrac_odhlas(text) to anon, authenticated;
+revoke all on function public.mm_hrac_zrus_heslo(text), public.mm_vyzva(jsonb), public.mm_vyzva_zavri(bigint), public.mm_zpravy_gm() from public, anon;
+grant execute on function public.mm_hrac_zrus_heslo(text), public.mm_vyzva(jsonb), public.mm_vyzva_zavri(bigint), public.mm_zpravy_gm() to authenticated;
+grant execute on function public.mm_vyzva_odpoved(bigint, text, jsonb, text), public.mm_zprava(text, text, text), public.mm_zpravy(text, text) to anon, authenticated;
 grant execute on function public.mm_nastav_hru(jsonb) to authenticated;
 grant execute on function public.mm_stavy() to authenticated;
 revoke all on function public.mm_orez(jsonb, jsonb) from public, anon, authenticated;
@@ -970,9 +1202,10 @@ grant execute on function public.mm_prepocitej(text) to service_role;
 grant execute on function public.mm_nahraj_obsah(text, jsonb, jsonb, jsonb, text) to service_role;
 grant execute on function public.mm_orez(jsonb, jsonb), public.mm_zminky(text, jsonb), public.mm_uroven(jsonb, jsonb) to service_role;
 
-revoke insert, update, delete, truncate on public.obsah, public.stavy, public.snimek, public.denik, public.gm, public.nastaveni, public.boj, public.karty, public.hody, public.ukazky,
+revoke insert, update, delete, truncate on public.obsah, public.stavy, public.snimek, public.denik, public.gm, public.nastaveni, public.boj, public.karty, public.hody, public.ukazky, public.hesla, public.relace_hracu, public.vyzvy, public.zpravy,
   public.zaznamy, public.zaznamy_historie from anon, authenticated;
 revoke select on public.zaznamy, public.zaznamy_historie from anon, authenticated;
+revoke select on public.hesla, public.relace_hracu, public.zpravy from anon, authenticated;
 grant select on public.boj to anon, authenticated;
 revoke select on public.nastaveni from anon, authenticated;
 grant select on public.snimek to anon, authenticated;
