@@ -5471,7 +5471,7 @@ function zapisMd(id,n){const X=hraX(),L=ZAPISY[ZAPISY.length-1],tz=L?cT({datum:L
   if(BOJ.s&&BOJ.s.npc&&BOJ.s.npc.length)pod.push(`boj (kolo ${BOJ.s.kolo||1}): `+BOJ.s.npc.map(q=>q.n+(q.druh==="houf"?` ${q.pocet} z ${q.max}`:"")+((q.stav||[]).length?` – ${q.stav.join(", ")}`:"")).join("; "));
   try{const P=dialPoc(X.today);if(P)pod.push("počasí: "+P.text.replace(/\.$/,""))}catch(e){}
   if(X.fe.length)pod.push("svátek: "+X.fe.join(", "));
-  return `---\nid: ${id}\nn: Sezení ${n}\ndatum: ${dat}\ndate: ${partyDate()}\nhodina: ${X.H??""}\nplace: ${misto}\nroute: ${route.join(", ")||misto}\npraha: \ndruzina: ${HRA&&HRA.praha!=null?HRA.praha:""}\ntitle: \n---\nText zápisu. Odstavce odděluj prázdným řádkem.\n${pod.length?`\n⟦Podklady (hráči je neuvidí, před zveřejněním smaž): ${pod.join(" · ")}⟧\n`:""}`}
+  return `---\nid: ${id}\nn: Sezení ${n}\ndatum: ${dat}\ndate: ${partyDate()}\nhodina: ${X.H??""}\nplace: ${misto}\nroute: ${route.join(", ")||misto}\npraha: \ndruzina: ${HRA&&HRA.praha!=null?HRA.praha:""}\ntitle: \n---\nText zápisu. Odstavce odděluj prázdným řádkem.\n${pod.length?`\n\u27E6Podklady (hráči je neuvidí, před zveřejněním smaž): ${pod.join(" · ")}\u27E7\n`:""}`}
 async function zapisNovy(){
   if(!window.MMDB||typeof edOtevri!=="function"){const md=zapisMd(`sezeni-${ZAPISY.length+1}`,ZAPISY.length+1);
     try{await navigator.clipboard.writeText(md);mmHlasG("Koncept zápisu je ve schránce – vlož ho do nového souboru v zdroj/obsah/kronika/.",6000)}catch(e){prompt("Koncept zápisu:",md)}return}
