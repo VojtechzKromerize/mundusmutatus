@@ -926,7 +926,8 @@ begin
       and not exists (select 1 from jsonb_each(x) e where char_length(e.key) > 60 or jsonb_typeof(e.value) <> 'number' or not public.mm_cislo(e.value, 0, 30)))
     when 'inv' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'array' and jsonb_array_length(x) <= 300 and not exists (
       select 1 from jsonb_array_elements(x) e where jsonb_typeof(e) <> 'object'
-        or exists (select 1 from jsonb_object_keys(e) k where k not in ('n', 'q', 'w', 'pripoutano', 'mag'))
+        or exists (select 1 from jsonb_object_keys(e) k where k not in ('n', 'q', 'w', 'pripoutano', 'mag', 'obl', 'nab'))
+        or (e ? 'obl' and jsonb_typeof(e -> 'obl') <> 'boolean') or (e ? 'nab' and not public.mm_cislo(e -> 'nab', 0, 99))
         or jsonb_typeof(e -> 'n') is distinct from 'string' or char_length(e ->> 'n') not between 1 and 80 or not public.mm_cislo(e -> 'q', 0, 9999)
         or (e ? 'w' and (jsonb_typeof(e -> 'w') <> 'string' or char_length(e ->> 'w') > 20))
         or (e ? 'mag' and (jsonb_typeof(e -> 'mag') <> 'string' or (e ->> 'mag') !~ '^[a-z0-9-]{1,60}$'))))
@@ -968,6 +969,21 @@ begin
         and not exists (select 1 from jsonb_each(x) e where e.key not in ('utoky', 'rysy', 'zdat', 'jazyky') or jsonb_typeof(e.value) <> 'array' or jsonb_array_length(e.value) > 40))
     when 'mun' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'object' and (select count(*) from jsonb_object_keys(x)) <= 20
         and not exists (select 1 from jsonb_each(x) e where char_length(e.key) > 60 or jsonb_typeof(e.value) <> 'string' or char_length(e.value #>> '{}') > 80))
+    -- pravidla postavy (2026-10-17): povolání a úrovně, přepsaná skóre, odebrané rozdíly z PDF, vlastní úpravy
+    when 'tridy' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'array' and jsonb_array_length(x) between 1 and 6 and not exists (
+        select 1 from jsonb_array_elements(x) e where jsonb_typeof(e) <> 'object' or exists (select 1 from jsonb_object_keys(e) k where k not in ('n', 'u'))
+          or jsonb_typeof(e -> 'n') is distinct from 'string' or char_length(e ->> 'n') not between 1 and 40 or jsonb_typeof(e -> 'u') is distinct from 'number' or not public.mm_cislo(e -> 'u', 1, 20)))
+    when 'vlU' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'object' and not exists (
+        select 1 from jsonb_each(x) e where e.key not in ('STR', 'AGI', 'CON', 'INT', 'WIS', 'CHA') or jsonb_typeof(e.value) <> 'number' or not public.mm_cislo(e.value, 1, 30)))
+    when 'pdfx' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'array' and jsonb_array_length(x) <= 80 and not exists (
+        select 1 from jsonb_array_elements(x) e where jsonb_typeof(e) <> 'string' or char_length(e #>> '{}') > 60))
+    when 'upr' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'array' and jsonb_array_length(x) <= 30 and not exists (
+        select 1 from jsonb_array_elements(x) e where jsonb_typeof(e) <> 'object' or exists (select 1 from jsonb_object_keys(e) k where k not in ('c', 'v', 'n'))
+          or jsonb_typeof(e -> 'c') is distinct from 'string' or char_length(e ->> 'c') > 20 or jsonb_typeof(e -> 'v') is distinct from 'number' or not public.mm_cislo(e -> 'v', -20, 20)
+          or (e ? 'n' and (jsonb_typeof(e -> 'n') <> 'string' or char_length(e ->> 'n') > 40))))
+    -- přídavky k útokům a hodům (2026-10-17): zapnuté přepínače (Rage, Bless…) – jen názvy
+    when 'pri' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'array' and jsonb_array_length(x) <= 20 and not exists (
+        select 1 from jsonb_array_elements(x) e where jsonb_typeof(e) <> 'string' or char_length(e #>> '{}') > 40))
     else false end;
   if not coalesce(ok, false) then
     raise exception 'neplatná hodnota (%)', p_pole;
@@ -977,6 +993,47 @@ begin
     verze = verze + 1, zmeneno = now() where id = p_id returning verze into v;
   return v;
 end $$;
+
+-- léčení spojence (2026-10-17): hráč za svou postavu (p_od) vyléčí jinou kartu – přičte životy do maxima (posílá ho klient,
+-- pravidla postavy počítá prohlížeč); umírající postavu v běžícím boji stabilizuje (Artikule: do konce boje mimo hru)
+create or replace function public.mm_karta_lecit(p_id text, p_hp int, p_max int, p_od text, p_token text default null) returns bigint
+language plpgsql security definer set search_path = public as $$
+declare st jsonb; cur int; nov int; s jsonb; h jsonb; i int; v bigint; zm boolean := false;
+begin
+  if p_id is null or p_id !~ '^[a-z0-9-]{1,40}$' or p_od is null or p_od !~ '^[a-z0-9-]{1,40}$' then
+    raise exception 'neplatná karta';
+  end if;
+  if p_hp is null or p_hp not between 1 and 300 or p_max is null or p_max not between 1 and 999 then
+    raise exception 'neplatné léčení';
+  end if;
+  if not public.mm_hrac_ok(p_od, p_token) then
+    raise exception 'léčí jen přihlášený hráč za svou postavu' using errcode = '42501';
+  end if;
+  select stav into st from public.karty where id = p_id for update;
+  if not found then
+    raise exception 'neznámá karta';
+  end if;
+  cur := case when jsonb_typeof(st -> 'hp') = 'number' then (st ->> 'hp')::int else p_max end;
+  nov := least(p_max, greatest(0, cur) + p_hp);
+  update public.karty set stav = case when nov >= p_max then stav - 'hp' else jsonb_set(stav, '{hp}', to_jsonb(nov)) end,
+    verze = verze + 1, zmeneno = now() where id = p_id returning verze into v;
+  select stav into s from public.boj where id = 'aktivni' for update;
+  if s is not null and coalesce((s ->> 'aktivni')::boolean, false) then
+    for i in 0 .. coalesce(jsonb_array_length(s -> 'hraci'), 0) - 1 loop
+      h := s -> 'hraci' -> i;
+      if public.mm_boj_karta(h) = p_id and jsonb_typeof(h -> 'ds') = 'object' and coalesce(h -> 'ds' ->> 'st', '') = '' then
+        s := jsonb_set(s, array['hraci', i::text, 'ds'], jsonb_build_object('u', 3, 'n', coalesce(h -> 'ds' -> 'n', '0'::jsonb), 'st', 'stab'));
+        zm := true;
+      end if;
+    end loop;
+    if zm then
+      update public.boj set stav = s, verze = verze + 1, zmeneno = now() where id = 'aktivni';
+    end if;
+  end if;
+  return v;
+end $$;
+revoke all on function public.mm_karta_lecit(text, int, int, text, text) from public;
+grant execute on function public.mm_karta_lecit(text, int, int, text, text) to anon, authenticated;
 
 -- Herní záznam: hod z karty (kdo, co, výsledek, Závoj); drží se posledních 300
 drop function if exists public.mm_hod(jsonb);

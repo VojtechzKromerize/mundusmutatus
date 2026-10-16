@@ -2929,6 +2929,7 @@ window.MMDB={vetev:C.vetev,
   async kartyNacti(){return api(`/rest/v1/karty?select=id,karta,stav,verze,zamceno,hrac`)},
   async kartaUloz(k){return rpc("mm_karta_uloz",{p_karta:k,p_token:htok()})},
   async kartaStav(id,pole,hodnota){return rpc("mm_karta_stav",{p_id:id,p_pole:pole,p_hodnota:hodnota,p_token:htok()})},
+  async kartaLecit(id,hp,max,od){return rpc("mm_karta_lecit",{p_id:id,p_hp:hp,p_max:max,p_od:od,p_token:htok()})},
   kartaSmaz(id){return this.gm("mm_karta_smaz",{p_id:id})},
   async hodyNacti(){return api(`/rest/v1/hody?select=id,cas,data&order=id.desc&limit=100`)},
   async hodZapis(h){return rpc("mm_hod",{p_hod:h,p_token:htok()})},
@@ -8672,10 +8673,20 @@ function kSpUcinek(K,x,lvl){const d=kSp(x.n);if(!d)return null;const t=String(d.
 function kSesHtml(K,x,i){const sl=kSloty(K).filter(q=>q.st>=x.st&&q.u<q.max),uc=x.st>0?(sl[0]||null):null,lvl=uc?uc.st:x.st;
   const sel=x.st>0&&sl.length>1?`<select data-kslot="${i}" aria-label="Slot pro ${besc(x.n)}">${sl.map(q=>`<option value="${q.k}">${q.pakt?"pakt ":""}${q.st}. st. (${q.max-q.u})</option>`).join("")}</select>`:"";
   const E=kSpUcinek(K,x,lvl),kz=K.kouzla||{};
-  return `${sel}${x.st>0||x.kon||x.zach?`<button type="button" class="gbtn ghost" data-kses="${i}">Seslat</button>`:""}${x.utok!=null||(E&&E.utok)?`<button type="button" class="gbtn ghost" data-khod="ks:${i}">Útok ${bsg(kSpU1(K,x))}</button>`:""}${E?`<button type="button" class="gbtn ghost" data-kspz="${i}" ${btip("Hod se počítá se stupněm vybraného slotu")}>${E.k==="l"?"Léčení":"Zranění"} ${besc(E.x)}${E.mod?bsg(E.mod):""}${E.t?" "+besc(BZRT[E.t]||E.t):""}${E.pocet>1?` ×${E.pocet}`:""}</button>${E.zach?`<small> · záchrana ${E.zach} SO ${kSpDC(K)||"?"}${E.pol?", úspěch = polovina":""}</small>`:""}`:""}`}
-async function kSpZraneni(K,x,lvl,krit){const E=kSpUcinek(K,x,lvl);if(!E)return;const cnt=E.pocet||1,L=[];let tot=0;
+  return `${sel}${x.st>0||x.kon||x.zach?`<button type="button" class="gbtn ghost" data-kses="${i}">Seslat</button>`:""}${x.utok!=null||(E&&E.utok)?`<button type="button" class="gbtn ghost" data-khod="ks:${i}">Útok ${bsg(kSpU1(K,x))}</button>`:""}${E&&E.k==="l"?kCilHtml(K,i):""}${E?`<button type="button" class="gbtn ghost" data-kspz="${i}" ${btip("Hod se počítá se stupněm vybraného slotu")}>${E.k==="l"?"Léčení":"Zranění"} ${besc(E.x)}${E.mod?bsg(E.mod):""}${E.t?" "+besc(BZRT[E.t]||E.t):""}${E.pocet>1?` ×${E.pocet}`:""}</button>${E.zach?`<small> · záchrana ${E.zach} SO ${kSpDC(K)||"?"}${E.pol?", úspěch = polovina":""}</small>`:""}`:""}`}
+/* léčení na kartu (2026-10-17): svou kartu (a kartu bez hesla) mění přímo, cizí přes mm_karta_lecit, který v boji stabilizuje umírajícího */
+const KCIL={};
+const kCilHtml=(K,i)=>{const L=(KARTY||[]).filter(k=>k.id!==K.id&&!k.test),v=KCIL[K.id+":"+i]||K.id;return `<select data-kcil="${i}" aria-label="Koho léčíš"><option value="${besc(K.id)}">sebe</option>${L.map(k=>`<option value="${besc(k.id)}"${v===k.id?" selected":""}>${besc(k.n)}</option>`).join("")}<option value="-"${v==="-"?" selected":""}>jen hod</option></select>`};
+async function kLecKarta(K2,tot,od,co){if(!K2||!(tot>0))return;const S=kartaStav(K2.id),h0=((BOJ.s&&BOJ.s.aktivni&&BOJ.s.hraci)||[]).find(x=>bojKartaH(x)===K2);
+  if(kMuze(K2)){if(h0){bojPCZmena(h0.id,x=>bojLecPC(x,K2,tot),true);return}const o={hp:S.hp,thp:S.thp},m=bojLecPC(o,K2,tot);await kartaStavZmen(K2.id,{hp:o.hp!=null&&o.hp<kHPmax(K2)?o.hp:null},`${K2.n}: ${m}.`);return}
+  if(!window.MMDB||!MMDB.kartaLecit){mmHlasG(`${K2.n}: léčení zapiš na jeho kartě.`,4000);return}
+  try{await MMDB.kartaLecit(K2.id,Math.min(300,Math.round(tot)),kHPmax(K2),od.id);await kartyNacti();if(BOJ.s&&BOJ.s.aktivni){BOJ.v=-2;try{await bojNacti()}catch(e){}}mmHlasG(`${K2.n}: +${tot} HP (${co}).`,5000)}
+  catch(e){mmHlasG("Léčení se nezapsalo: "+(e.message||e),6000)}}
+async function kSpZraneni(K,x,lvl,krit,cil){const E=kSpUcinek(K,x,lvl);if(!E)return;const cnt=E.pocet||1,L=[];let tot=0;
   for(let i=0;i<cnt;i++){const r=kVyraz((krit?E.x.replace(/(\d+)d/g,(q,n)=>`${2*n}d`):E.x)+(E.mod?(E.mod>=0?"+":"")+E.mod:""));if(r){tot+=r.tot;L.push(r.txt)}}
-  kHodZapis({k:K.id,kdo:K.n,co:`${E.k==="l"?"Léčení":"Zranění"} – ${x.n}${lvl>x.st?` (${lvl}. st.)`:""}`.slice(0,80),tot:Math.min(999,tot),txt:`${L.join(" | ")}${E.t?" "+(BZRT[E.t]||E.t):""}${krit?" (kritický zásah)":""}${E.zach?` · záchrana ${E.zach} SO ${(K.kouzla||{}).dc||"?"}`:""}`.slice(0,290)});
+  const K2=E.k==="l"&&cil!=="-"?(KARTBY[cil||K.id]||K):null;
+  kHodZapis({k:K.id,kdo:K.n,co:`${E.k==="l"?"Léčení":"Zranění"} – ${x.n}${lvl>x.st?` (${lvl}. st.)`:""}${K2&&K2!==K?` → ${K2.n}`:""}`.slice(0,80),tot:Math.min(999,tot),txt:`${L.join(" | ")}${E.t?" "+(BZRT[E.t]||E.t):""}${krit?" (kritický zásah)":""}${E.zach?` · záchrana ${E.zach} SO ${kSpDC(K)||"?"}`:""}`.slice(0,290)});
+  if(K2){await kLecKarta(K2,tot,K,x.n);return}
   mmHlasG(`${K.n}: ${x.n} – ${E.k==="l"?"léčení":"zranění"} ${tot}${cnt>1?` (${cnt}×)`:""}`,5000)}
 /* ---- stavy mimo boj (ovlivňují hody z karty) ---- */
 const KSTV=["otrávený","vyděšený","neviditelný","sražen","zadržen","chycen","oslepen","ohlušen","okouzlen","neschopný","ochromen","omráčen","zkamenělý","v bezvědomí","soustředí"];
@@ -8948,6 +8959,7 @@ async function kartaUlozImport(K0){const K=Object.assign({},K0),tx=K.texty;delet
   const i=await KDB.uloz(K);kartyNastav([{id:i,karta:K,stav:kartaStav(i)}]);if(tx)await kTextyUloz(i,tx);return i}
 const KSLV={};
 document.addEventListener("change",async e=>{const t=e.target;if(!t.matches)return;
+  if(t.matches("[data-kcil]")){const K=kvK(t);if(K)KCIL[K.id+":"+t.dataset.kcil]=t.value;return}
   if(t.matches("[data-kslot]")){const K=kvK(t);if(K)KSLV[K.id+":"+t.dataset.kslot]=t.value;const b=t.parentElement&&t.parentElement.querySelector(`[data-kspz="${t.dataset.kslot}"]`);if(b&&K){const x=kSeznam(K)[+t.dataset.kslot],q=kSloty(K).find(z=>z.k===t.value),E=x&&kSpUcinek(K,x,q?q.st:x.st);if(E)b.textContent=`${E.k==="l"?"Léčení":"Zranění"} ${E.x}${E.mod?bsg(E.mod).replace("−","-"):""}${E.t?" "+(BZRT[E.t]||E.t):""}${E.pocet>1?` ×${E.pocet}`:""}`}return}
   if(t.matches("[data-kimphra]")&&t.files[0]){try{KIMP=await kartaImport(t.files[0]);renderHra()}catch(err){mmHlasG("Import se nepodařil: "+(err.message||err),7000)}return}
   if(t.matches("[data-kbezstit]")){const K=kvK(t);if(K)kartaStavZmen(K.id,{bezstit:t.checked||null},`${K.n}: AC ${t.checked?"bez štítu":"se štítem"}.`);return}});
@@ -8960,7 +8972,7 @@ document.addEventListener("click",async e=>{const T=s=>e.target.closest(s);
   const K=kvK(e.target);
   const ry=T("[data-krys]");if(ry&&K){if(!SRDRY)await srdRysy();mmPop(kRysPopis(K,ry.dataset.krys));return}
   if(!K)return;
-  const sz=T("[data-kspz]");if(sz){const i=+sz.dataset.kspz,x=kSeznam(K)[i];if(!x)return;const q=kSloty(K).find(z=>z.k===KSLV[K.id+":"+i])||kSloty(K).filter(z=>z.st>=x.st&&z.u<z.max)[0];kSpZraneni(K,x,q&&x.st>0?q.st:x.st,false);return}
+  const sz=T("[data-kspz]");if(sz){const i=+sz.dataset.kspz,x=kSeznam(K)[i];if(!x)return;const q=kSloty(K).find(z=>z.k===KSLV[K.id+":"+i])||kSloty(K).filter(z=>z.st>=x.st&&z.u<z.max)[0];kSpZraneni(K,x,q&&x.st>0?q.st:x.st,false,KCIL[K.id+":"+i]);return}
   const ks=T("[data-kstav]");if(ks){const L=[...(kartaStav(K.id).stavy||[])],k=ks.dataset.kstav,on=L.includes(k);const N=on?L.filter(x=>x!==k):[...L,k];
     if(!on&&k==="vyděšený"&&kDuse(K).sv>=8){mmHlasG(`${K.n} je V milosti – imunní vůči Frightened.`,4000);return}
     await kartaStavZmen(K.id,{stavy:N.length?N:null});kHodZapis({k:K.id,kdo:K.n,co:on?"Stav skončil":"Stav",txt:k});return}
