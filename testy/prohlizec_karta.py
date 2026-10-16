@@ -1,0 +1,89 @@
+# Karta postavy podle Artikulí (duše, Pokušení, techniky, účinky, hody, lektvar), přehled družiny,
+# ukázky pro hráče, příprava sezení, SRD předměty a nestvůry, offline fronta – s databází.
+import asyncio, json, os, urllib.request
+from playwright.async_api import async_playwright
+U=os.environ.get("MM_SB","http://localhost:54321");K="sb_publishable_test";BASE=os.environ.get("MM_WEB","http://localhost:8765/")
+VYSTUP=os.environ.get("MM_VYSTUP","/tmp")
+def tok():
+    r=urllib.request.Request(U+"/auth/v1/token?grant_type=password",data=json.dumps({"email":"gm@x.cz","password":"heslo"}).encode(),headers={"apikey":K,"Content-Type":"application/json"},method="POST")
+    return json.loads(urllib.request.urlopen(r).read())
+def stav(i="balduin"):
+    r=urllib.request.Request(U+f"/rest/v1/karty?id=eq.{i}&select=stav",headers={"apikey":K})
+    j=json.loads(urllib.request.urlopen(r).read());return j[0]["stav"] if j else {}
+def hody():
+    r=urllib.request.Request(U+"/rest/v1/hody?select=data&order=id.desc&limit=20",headers={"apikey":K})
+    return [x["data"] for x in json.loads(urllib.request.urlopen(r).read())]
+fails=[]
+def chk(c,m):
+    print(("OK  " if c else "FAIL"),m)
+    if not c: fails.append(m)
+rel=tok()
+async def main():
+  async with async_playwright() as p:
+    b=await p.chromium.launch()
+    cx=await b.new_context(viewport={"width":390,"height":844});pl=await cx.new_page();perr=[];pl.on("pageerror",lambda e:perr.append(str(e)[:200]))
+    pl.on("dialog",lambda d:asyncio.ensure_future(d.accept()))
+    await pl.goto(BASE+"#karty/balduin");await pl.wait_for_selector(".kduse",timeout=15000)
+    await pl.wait_for_timeout(2500);await pl.evaluate("mmPopX()")  # starší ukázka z testu práv by překážela
+    chk(await pl.evaluate("!!document.querySelector('.kduse .svm')"),"karta ukazuje Svědomí")
+    await pl.click('[data-kdu="h1"]');await pl.wait_for_timeout(700)
+    chk(stav().get("hr")==1,"všední hřích uložen do databáze")
+    await pl.evaluate("bojZavoj=()=>({d:2,r:'pok',hod:''})");await pl.click('[data-khod="za:WIS"]');await pl.wait_for_selector(".kzavbox.kpok")
+    await pl.click('[data-kpok="1"]');await pl.wait_for_timeout(700)
+    chk(stav().get("hr")==2,"přijaté Pokušení = bod hříchu")
+    chk(any(h.get("co")=="Pokušení přijato" for h in hody()),"Pokušení v herním záznamu")
+    await pl.click('[data-kdu="d1"]');await pl.wait_for_timeout(500)
+    await pl.click('[data-kdu="zp"]');await pl.wait_for_timeout(900)
+    s=stav();chk("hr" not in s and "sk" not in s and s.get("sv") in (4,5,6),"Zpytování svědomí vynuluje body a posune Svědomí nejvýš o 1")
+    await pl.evaluate("kartaStavZmen('balduin',{sv:9})");await pl.wait_for_timeout(500)
+    await pl.click('[data-khod="dv:Deception"]');await pl.wait_for_timeout(500)
+    chk("nevýhoda" in await pl.evaluate("HODY[0].txt"),"V milosti: Deception s nevýhodou")
+    await pl.select_option('[data-ktechadd]','zornhau');await pl.wait_for_timeout(600)
+    await pl.evaluate("bojZavoj=()=>({d:6,r:'poz',hod:''})");await pl.click('[data-khod="ut:0"]');await pl.wait_for_selector('.kzavbox [data-ktech="zornhau"]')
+    await pl.click('.kzavbox [data-ktech="zornhau"]');await pl.wait_for_timeout(700)
+    chk((stav().get("zdr") or {}).get("Výdrž")==1 and stav().get("tech")==["zornhau"],"technika za Požehnání stojí Výdrž")
+    await pl.click('[data-kspd="5"]');await pl.wait_for_selector(".mmpop .kzkarta",timeout=8000)
+    chk("Hex" in await pl.inner_text(".mmpop"),"popis kouzla z karty")
+    await pl.keyboard.press("Escape")
+    await pl.click('[data-kses="5"]');await pl.wait_for_timeout(1200)
+    chk(any(x.get("n")=="Hex" and x.get("kon") for x in (stav().get("uc") or [])),"seslaný Hex je mezi účinky se soustředěním")
+    await pl.fill('[data-kvlh] input[name=v]','4d6kh3+2');await pl.click('[data-kvlh] button');await pl.wait_for_timeout(700)
+    chk(any(h.get("co")=="4d6kh3+2" for h in hody()),"vlastní hod v herním záznamu")
+    # lektvar ze SRD
+    await pl.evaluate("predNacti().then(()=>predDoVybaveni('balduin',PREDBY['potion-of-healing'],1))");await pl.wait_for_timeout(1200)
+    await pl.evaluate("kartaStavZmen('balduin',{hp:10})");await pl.wait_for_timeout(600)
+    await pl.click('[data-kinvpij]');await pl.wait_for_timeout(900)
+    s=stav();chk(s.get("hp",62)>10 and not any(x.get("mag")=="potion-of-healing" for x in (s.get("inv") or [])),"vypitý Potion of Healing léčí a ubude z vybavení")
+    # offline fronta
+    await cx.set_offline(True);await pl.click('[data-kdu="d1"]');await pl.wait_for_timeout(500)
+    chk(len(await pl.evaluate("KFR.get()"))>0,"bez připojení se změna řadí do fronty")
+    await cx.set_offline(False);await pl.evaluate("dispatchEvent(new Event('online'))");await pl.wait_for_timeout(1500)
+    chk(stav().get("sk")==1 and await pl.evaluate("KFR.get().length")==0,"po připojení se fronta odešle")
+    # vypravěč: přehled družiny, ukázka, příprava sezení, nestvůry SRD
+    g=await b.new_page(viewport={"width":1300,"height":1000});gerr=[];g.on("pageerror",lambda e:gerr.append(str(e)[:200]));g.on("dialog",lambda d:asyncio.ensure_future(d.accept()))
+    await g.add_init_script("localStorage.setItem('mm-gm-relace',JSON.stringify("+json.dumps({"at":rel["access_token"],"rt":rel["refresh_token"],"exp":rel["expires_at"],"email":"gm@x.cz"})+"))")
+    await g.goto(BASE+"#karty");await g.wait_for_function("!document.documentElement.classList.contains('mmload')");await g.wait_for_selector(".kprehled",timeout=15000)
+    await g.fill('[data-kpzach] input[name=dc]','12');await g.click('[data-kpzach] button');await g.wait_for_selector(".kpvys")
+    chk("Balduin" in await g.inner_text(".kpvys"),"přehled družiny: skupinová záchrana")
+    await g.goto(BASE+"#sezeni");await g.wait_for_selector("[data-sznove]");await g.click("[data-sznove]");await g.wait_for_selector(".szsc")
+    await g.fill('[data-sz="pozn"]',"Tajná poznámka k sezení");await g.wait_for_timeout(1500)
+    await g.reload();await g.wait_for_selector(".szsc",timeout=15000)
+    chk(await g.input_value('[data-sz="pozn"]')=="Tajná poznámka k sezení","příprava sezení se uloží do databáze")
+    await g.goto(BASE+"#sezeni");await g.wait_for_selector("[data-ukf]")
+    await g.fill('[data-ukf] input[name=n]',"Dopis od purkmistra");await g.fill('[data-ukf] textarea',"Přijďte za soumraku.");await g.click('[data-ukf] button')
+    await pl.wait_for_selector(".mmpop .ukazka",timeout=15000)
+    chk("purkmistra" in await pl.inner_text(".mmpop"),"ukázka vyskočí hráči na telefonu")
+    await g.goto(BASE+"#boj");await g.wait_for_timeout(2500)
+    chk(await g.evaluate("!!PROTBY['srd-goblin-warrior']"),"nestvůry SRD v bestiáři boje")
+    await g.goto(BASE+"#pravidla/predmety");await g.wait_for_selector("[data-pred]",timeout=15000)
+    chk(await g.evaluate("document.querySelectorAll('[data-pred]').length")>=100,"magické předměty v pravidlech")
+    await pl.goto(BASE+"#pravidla/hrani");await pl.wait_for_selector(".srdtext",timeout=15000);await pl.wait_for_timeout(1200)
+    chk(await pl.evaluate("document.querySelectorAll('abbr.poj').length")>0,"popisky pojmů v pravidlech")
+    chk(await pl.evaluate("!document.querySelector('[data-view=\"sezeni\"]') || location.hash!=='#sezeni'"),"hráč nemá přípravu sezení")
+    await pl.goto(BASE+"#sezeni");await pl.wait_for_timeout(600)
+    chk(await pl.evaluate("curView")!="sezeni","hráče #sezeni přesměruje")
+    chk(not perr,f"hráč bez chyb JS {perr[:3]}");chk(not gerr,f"vypravěč bez chyb JS {gerr[:3]}")
+    await b.close()
+asyncio.run(main())
+print("VŠE OK" if not fails else f"CHYBY: {fails}")
+raise SystemExit(1 if fails else 0)

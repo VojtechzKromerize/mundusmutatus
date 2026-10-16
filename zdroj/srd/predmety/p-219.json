@@ -1,0 +1,504 @@
+[
+ {
+  "en": "Dragon Slayer",
+  "cz": "drakobijec",
+  "druh": "Zbraň",
+  "upr": "jakákoli jednoduchá nebo válečná",
+  "vz": "vzácný",
+  "pr": false,
+  "t": "Získáváš bonus +1 k hodům na útok a zranění touto magickou zbraní.\nZbraň způsobí dodatečných 3d6 zranění typu zbraně, je-li cílem Drak (Dragon).",
+  "ef": {
+   "utok": 1
+  },
+  "str": 219
+ },
+ {
+  "en": "Dust of Disappearance",
+  "cz": "prach zmizení",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Tento prášek připomíná jemný písek. Vystačí na jedno použití. Když akcí Použití vyhodíš prach do vzduchu, ty a každý tvor a předmět ve vyzařování 10 stop vycházejícím z tebe získáte stav Neviditelný (Invisible) na 2d4 minut. Doba trvání je pro všechny zasažené stejná a prach se spotřebuje, jakmile se projeví jeho magie.\nIhned poté, co zasažený tvor provede hod na útok, způsobí zranění nebo sešle kouzlo, stav Neviditelný pro tohoto tvora skončí.",
+  "str": 219
+ },
+ {
+  "en": "Dust of Dryness",
+  "cz": "prach vysušení",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Tento malý balíček obsahuje 1d6 + 4 špetek prachu. Akcí Použití můžeš špetku prachu nasypat na vodu a proměnit až krychli vody o hraně 15 stop v jedinou kuličku velikosti hliněnky, která plave nebo leží poblíž místa, kam jsi prach nasypal. Hmotnost kuličky je zanedbatelná. Tvor může akcí Použití kuličku rozbít o tvrdý povrch; kulička se roztříští a uvolní vodu, kterou prach pohltil. Tím se kulička zničí a její magie skončí.\nAkcí Použití můžeš špetku prachu nasypat na Elementála (Elemental) do 5 stop od sebe, který je složen převážně z vody (například **Water Elemental**). Takový tvor vystavený špetce prachu si hází záchranný hod na Odolnost se SO 13; při neúspěchu utrpí 10d6 Necrotic zranění, při úspěchu poloviční zranění.",
+  "str": 219
+ },
+ {
+  "en": "Dust of Sneezing and Choking",
+  "cz": "prach kýchání a dušení",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Tento prášek, nalezený v malé nádobce, připomíná *Dust of Disappearance* a kouzlo *Identify* ho za něj také prohlásí. Vystačí na jedno použití.\nAkcí Použití můžeš prach vyhodit do vzduchu a donutit sebe i každého tvora ve vyzařování 30 stop vycházejícím z tebe k záchrannému hodu na Odolnost se SO 15. Konstrukty, Elementálové, Slizy, Rostliny a Nemrtví (Constructs, Elementals, Oozes, Plants, Undead) v záchraně automaticky uspějí.\nPři neúspěchu tvor začne nezadržitelně kýchat; má stav Neschopný (Incapacitated) a dusí se. Tvor opakuje záchranu na konci každého svého tahu a při úspěchu účinek na sobě ukončí. Účinek skončí také u každého tvora, na kterého je sesláno kouzlo *Lesser Restoration*.",
+  "str": 219
+ },
+ {
+  "en": "Dwarven Plate",
+  "cz": "trpasličí plátová zbroj",
+  "druh": "Zbroj",
+  "upr": "Half Plate Armor nebo Plate Armor",
+  "vz": "velmi vzácný",
+  "pr": false,
+  "t": "Dokud nosíš tuto zbroj, získáváš bonus +2 k AC. Navíc když tě nějaký účinek přesouvá proti tvé vůli po zemi, můžeš reakcí zkrátit vzdálenost, o kterou jsi přesunut, až o 10 stop.",
+  "ef": {
+   "ac": 2
+  },
+  "str": 219
+ },
+ {
+  "en": "Dwarven Thrower",
+  "cz": "trpasličí vrhač",
+  "druh": "Zbraň",
+  "upr": "Warhammer",
+  "vz": "velmi vzácný",
+  "pr": "trpaslíkem nebo tvorem sladěným s Belt of Dwarvenkind",
+  "t": "Získáváš bonus +3 k hodům na útok a zranění touto magickou zbraní. Má vlastnost Vrhací (Thrown) s běžným dostřelem 20 stop a dlouhým dostřelem 60 stop. Když zasáhneš útokem na dálku touto zbraní, způsobí dodatečné 1d8 Force zranění, nebo dodatečné 2d8 Force zranění, je-li cílem Obr (Giant). Ihned po zásahu nebo minutí ti zbraň přiletí zpět do ruky.",
+  "ef": {
+   "utok": 3
+  },
+  "str": 219
+ },
+ {
+  "en": "Efficient Quiver",
+  "cz": "důmyslný toulec",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Každá ze tří přihrádek toulce je spojena s mimorozměrným prostorem, díky němuž toulec pojme spoustu věcí, a přitom nikdy neváží víc než 2 lb. Nejkratší přihrádka pojme až 60 šípů, šipek (Arrows, Bolts) nebo podobných předmětů. Prostřední přihrádka pojme až 18 oštěpů (Javelins) nebo podobných předmětů. Nejdelší přihrádka pojme až 6 dlouhých předmětů, jako jsou luky, hole (Quarterstaffs) nebo kopí (Spears).\nJakoukoli věc z toulce můžeš vytáhnout, jako bys ji tahal z obyčejného toulce nebo pochvy.",
+  "str": 219
+ },
+ {
+  "en": "Efreeti Bottle",
+  "cz": "efrítova láhev",
+  "druh": "Divotvorný předmět",
+  "vz": "velmi vzácný",
+  "pr": false,
+  "t": "Když akcí Magie vytáhneš zátku z této malované mosazné láhve, vyvalí se z ní oblak hustého dýmu. Na konci tvého tahu dým zmizí v záblesku neškodného ohně a v neobsazeném prostoru do 30 stop od tebe se objeví **Efreeti**.\nKdyž je láhev otevřena poprvé, vypravěč hodí na následující tabulku, aby určil, co se stane.\n**1d10 – Účinek**\n- **1:** Efrít na tebe zaútočí. Po 5 kolech boje efrít zmizí a láhev ztratí svou magii.\n- **2–9:** Efrít rozumí tvým jazykům a 1 hodinu plní tvé rozkazy, poté se vrátí do láhve a uzavře ho nová zátka. Zátku nelze 24 hodin vytáhnout. Při dalších dvou otevřeních láhve nastane stejný účinek. Pokud je láhev otevřena počtvrté, efrít uteče a zmizí a láhev ztratí svou magii.\n- **10:** Efrít rozumí tvým jazykům a může pro tebe jednou seslat *Wish*. Zmizí, jakmile přání splní, nebo po 1 hodině, a láhev ztratí svou magii.",
+  "str": 220
+ },
+ {
+  "en": "Elemental Gem",
+  "cz": "elementální drahokam",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Tento drahokam obsahuje zrnko elementální energie. Když akcí Použití drahokam rozbiješ, přivoláš elementála (jeho statblok viz „Nestvůry“) a drahokam přestane být magický. Elementál se objeví v neobsazeném prostoru co nejblíže rozbitému drahokamu, rozumí tvým jazykům, plní tvé rozkazy a jedná ve svém tahu hned po tobě v tvém pořadí iniciativy. Elementál zmizí po 1 hodině, když zemře, nebo když ho bonusovou akcí propustíš. Druh drahokamu určuje elementála, jak ukazuje následující tabulka.\n**Drahokam – Přivolaný elementál**\n- modrý safír – Air Elemental\n- smaragd – Water Elemental\n- červený korund – Fire Elemental\n- žlutý diamant – Earth Elemental",
+  "str": 220
+ },
+ {
+  "en": "Elixir of Health",
+  "cz": "elixír zdraví",
+  "druh": "Lektvar",
+  "vz": "vzácný",
+  "pr": false,
+  "t": "Když vypiješ tento lektvar, vyléčíš se ze všech magických nákaz. Navíc na tobě skončí tyto stavy: Oslepen (Blinded), Ohlušen (Deafened), Ochromen (Paralyzed) a Otráven (Poisoned).\nČirá červená tekutina obsahuje drobné bublinky světla.",
+  "str": 220
+ },
+ {
+  "en": "Elven Chain",
+  "cz": "elfí kroužková zbroj",
+  "druh": "Zbroj",
+  "upr": "Chain Mail nebo Chain Shirt",
+  "vz": "vzácný",
+  "pr": false,
+  "t": "Dokud nosíš tuto zbroj, získáváš bonus +1 k AC. Jsi považován za vycvičeného v této zbroji, i když nemáš výcvik se střední nebo těžkou zbrojí.",
+  "ef": {
+   "ac": 1
+  },
+  "str": 220
+ },
+ {
+  "en": "Energy Bow",
+  "cz": "luk energie",
+  "druh": "Zbraň",
+  "upr": "Longbow nebo Shortbow",
+  "vz": "velmi vzácný",
+  "pr": true,
+  "t": "Získáváš bonus +1 k hodům na útok a zranění touto magickou zbraní, která nemá tětivu. Pokaždé, když stáhneš paži dozadu jako při výstřelu, objeví se založený a k výstřelu připravený magický šíp ze zlaté energie. Šíp vytvořený touto zbraní způsobí při zásahu Force zranění místo Piercing zranění a zmizí poté, co svůj cíl zasáhne nebo mine. Dokud nezmizí, vydává šíp jasné světlo v okruhu 20 stop a šero v dalších 20 stopách.\nTato zbraň má následující dodatečné vlastnosti.\n**Arrow of Restraint (Šíp spoutání).** Kdykoli touto zbraní útočíš na dálku na tvora, můžeš se místo způsobení zranění pokusit cíl spoutat. Pokud šíp zasáhne, cíl musí uspět v záchranném hodu na Sílu se SO 15, jinak má na 1 minutu stav Zadržen (Restrained). Tvor Zadržený šípem se může akcí pokusit o ověření Síly (Athletics) se SO 20, aby se z pout vymanil; při úspěšném ověření účinek na sobě ukončí.\n**Arrow of Transport (Šíp přenosu).** Akcí Magie můžeš z této zbraně vystřelit jeden energetický šíp na cíl, který vidíš do 60 stop od sebe. Cílem může být buď ochotný Střední nebo menší tvor, nebo předmět, který nikdo nenosí ani nedrží, pokud je dost malý, aby se vešel do krychle o hraně 5 stop. Šíp cíl teleportuje do neobsazeného prostoru, který vidíš, do 10 stop od tebe.\n**Energy Ladder (Energetický žebřík).** Akcí Magie můžeš z této zbraně vypálit spršku energetických šípů do zdi vzdálené až 60 stop. Šípy se promění v zářící příčky trčící ze zdi a vytvoří na ní magický žebřík dlouhý až 60 stop. Žebřík vydrží 1 minutu, pak zmizí.",
+  "ef": {
+   "utok": 1
+  },
+  "str": 220
+ },
+ {
+  "en": "Eversmoking Bottle",
+  "cz": "věčně kouřící láhev",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Akcí Magie můžeš tuto láhev otevřít nebo zavřít.\nOtevřením láhve se z ní začne valit hustý dým a vytvoří oblak vyplňující vyzařování 60 stop vycházející z láhve. Oblast v dýmu je silně zastřená.\nZa každou minutu, po kterou láhev zůstane otevřená, se vyzařování zvětší o 10 stop, až dosáhne maximální velikosti 120 stop.\nZavřením láhve se oblak ustálí na místě, dokud se po 10 minutách nerozptýlí. Silný vítr (například vytvořený kouzlem *Gust of Wind*) oblak rozptýlí po 1 minutě.",
+  "str": 220
+ },
+ {
+  "en": "Eyes of Charming",
+  "cz": "oči okouzlení",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": true,
+  "t": "Tyto křišťálové čočky se nasazují na oči. Mají 3 náboje. Dokud je nosíš, můžeš utratit 1 nebo více nábojů a seslat *Charm Person* (SO záchrany 13). Za 1 náboj sešleš verzi kouzla 1. úrovně. Za každý další utracený náboj zvýšíš úroveň kouzla o jednu. Čočky obnoví všechny utracené náboje denně za úsvitu.",
+  "str": 221
+ },
+ {
+  "en": "Eyes of Minute Seeing",
+  "cz": "oči drobného zraku",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Tyto křišťálové čočky se nasazují na oči. Dokud je nosíš, tvůj zrak se výrazně zlepší na vzdálenost 1 stopy; v tomto dosahu máš Darkvision a výhodu na ověření Inteligence (Investigation), jimiž zkoumáš něco v tomto dosahu.",
+  "str": 221
+ },
+ {
+  "en": "Eyes of the Eagle",
+  "cz": "orlí oči",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Tyto křišťálové čočky se nasazují na oči. Dokud je nosíš, máš výhodu na ověření Moudrosti (Perception), která závisí na zraku. Za jasné viditelnosti rozeznáš podrobnosti i u nesmírně vzdálených tvorů a předmětů velkých jen 2 stopy.",
+  "str": 221
+ },
+ {
+  "en": "Feather Token",
+  "cz": "pírkový žeton",
+  "druh": "Divotvorný předmět",
+  "vz": "proměnlivá",
+  "vzt": "neobvyklý (Anchor, Fan, Tree), vzácný (Bird, Swan Boat, Whip)",
+  "pr": false,
+  "t": "Tento předmět vypadá jako pírko. Existují různé druhy pírkových žetonů, každý s jiným jednorázovým účinkem. Vypravěč druh žetonu zvolí, nebo ho určí náhodně hodem na tabulku Pírkové žetony. Druh žetonu určuje jeho vzácnost.\n**Anchor (Kotva; neobvyklý).** Akcí Magie se můžeš žetonem dotknout člunu nebo lodi. Následujících 24 hodin nelze plavidlem pohnout žádným způsobem. Opětovný dotek žetonu plavidla účinek ukončí. Když účinek skončí, žeton zmizí.\n**Bird (Pták; vzácný).** Akcí Magie můžeš žeton vyhodit 5 stop do vzduchu. Žeton zmizí a na jeho místě se objeví obrovský pestrobarevný pták. Pták má statistiky **Roc**, ale nemůže útočit. Plní tvé jednoduché rozkazy a dokáže unést až 500 lb. při letu maximální rychlostí (16 mil za hodinu, nejvýš 144 mil za den, s 1 hodinou odpočinku po každých 3 hodinách letu), nebo 1 000 lb. poloviční rychlostí. Pták zmizí, jakmile za den uletí svou maximální vzdálenost, nebo když klesne na 0 HP. Akcí Magie můžeš ptáka propustit.\n**Fan (Vějíř; neobvyklý).** Jsi-li na člunu nebo lodi, můžeš akcí Magie vyhodit žeton až 10 stop do vzduchu. Žeton zmizí a na jeho místě se objeví obří mávající vějíř. Vějíř se vznáší a vytváří silný vítr. Tento vítr dokáže naplnit plachty jedné lodi a zvýšit její rychlost o 5 mil za hodinu na 8 hodin. Akcí Magie můžeš vějíř propustit.\n**Swan Boat (Labutí loď; vzácný).** Akcí Magie se můžeš žetonem dotknout vodní plochy o průměru alespoň 60 stop. Žeton zmizí a na jeho místě se objeví loď ve tvaru labutě, dlouhá 50 stop a široká 20 stop. Loď se pohání sama a pluje po vodě rychlostí 6 mil za hodinu. Na lodi můžeš akcí Magie přikázat, aby se pohnula nebo otočila až o 90 stupňů. Loď vydrží 24 hodin, pak zmizí. Akcí Magie můžeš loď propustit.\n**Tree (Strom; neobvyklý).** Tento žeton musíš použít venku. Akcí Magie se jím můžeš dotknout neobsazeného prostoru na zemi. Žeton zmizí a na jeho místě vyroste nemagický dub. Strom je vysoký 60 stop, má kmen o průměru 5 stop a jeho větve se v koruně rozprostírají v okruhu 20 stop.\n**Whip (Bič; vzácný).** Akcí Magie můžeš žeton hodit na bod do 10 stop od sebe. Žeton zmizí a na jeho místě se objeví vznášející se bič. Poté můžeš bonusovou akcí provést útok kouzlem na blízko proti tvorovi do 10 stop od biče s bonusem k útoku +9. Při zásahu cíl utrpí 1d6 + 5 Force zranění.\nBonusovou akcí můžeš bič navést, aby přeletěl až 20 stop, a zopakovat útok proti tvorovi do 10 stop od biče. Bič zmizí po 1 hodině, když ho akcí Magie propustíš, nebo když zemřeš či získáš stav Neschopný (Incapacitated).\n**Pírkové žetony (1d100 – žeton – vzácnost)**\n- 01–20: Anchor – neobvyklý\n- 21–35: Bird – vzácný\n- 36–50: Fan – neobvyklý\n- 51–65: Swan boat – vzácný\n- 66–90: Tree – neobvyklý\n- 91–00: Whip – vzácný",
+  "str": 221
+ },
+ {
+  "en": "Figurine of Wondrous Power",
+  "cz": "soška divuplné moci",
+  "druh": "Divotvorný předmět",
+  "vz": "proměnlivá",
+  "vzt": "neobvyklý (Silver Raven), vzácný (většina), velmi vzácný (Obsidian Steed)",
+  "pr": false,
+  "t": "*Figurine of Wondrous Power* je soška dost malá, aby se vešla do kapsy. Když akcí Magie hodíš sošku na bod na zemi do 60 stop od sebe, soška se promění v živého tvora uvedeného v jejím popisu níže. Je-li prostor, kde se má tvor objevit, obsazen jinými tvory nebo předměty, nebo v něm pro tvora není dost místa, soška se v tvora nepromění.\nTvor je vůči tobě a tvým spojencům přátelský. Rozumí tvým jazykům, plní tvé rozkazy a jedná ve svém tahu hned po tobě v tvém pořadí iniciativy. Pokud mu nedáš žádné rozkazy, tvor se brání, ale jinak nejedná.\nTvor existuje po dobu danou pro každou sošku. Na konci této doby se tvor vrátí do podoby sošky. Do podoby sošky se vrátí předčasně, klesne-li jeho podoba tvora na 0 HP, nebo když se ho dotkneš a akcí Magie ho přiměješ vrátit se do podoby sošky. Když se tvor znovu stane soškou, její vlastnost nelze znovu použít, dokud neuplyne určitá doba uvedená v popisu sošky.\n**Bronze Griffon (Bronzový gryf; vzácný).** Tato bronzová soška zobrazuje vzepjatého gryfa. Na až 6 hodin se může stát **Griffon**. Po použití ji nelze znovu použít, dokud neuplyne 5 dní.\n**Ebony Fly (Ebenová moucha; vzácný).** Tato ebenová soška, vyřezaná do podoby ováda, se může na až 12 hodin stát **Giant Fly** (viz připojený statblok) a lze na ní jezdit jako na jízdním zvířeti. Po použití ji nelze znovu použít, dokud neuplynou 2 dny.\n**Giant Fly** – Velké zvíře (Beast), bez přesvědčení. AC 11; iniciativa +1 (11); HP 19 (3d10 + 3); rychlost 30 stop, let 60 stop. STR 14 (+2, záchrana +2), AGI 13 (+1, +1), CON 13 (+1, +1), INT 2 (−4, −4), WIS 10 (+0, +0), CHA 3 (−4, −4). Smysly: Darkvision 60 stop; pasivní Perception 10. Jazyky: žádné. CR 0 (XP 0; PB +2).\n**Golden Lions (Zlatí lvi; vzácný).** Tyto zlaté sošky lvů se vždy vyrábějí v párech. Můžeš použít jednu sošku, nebo obě zároveň. Každá se může na až 1 hodinu stát **Lion**. Po použití lva ho nelze znovu použít, dokud neuplyne 7 dní.\n**Ivory Goats (Slonovinové kozy; vzácný).** Tyto slonovinové sošky koz se vždy vyrábějí v sadách po třech. Každá koza vypadá jedinečně a funguje jinak než ostatní. Jejich vlastnosti jsou následující:\n- **Goat of Terror (Koza hrůzy).** Tato soška se může na až 3 hodiny stát **Giant Goat**. Koza nemůže útočit, ale můžeš jí (neškodně) sejmout rohy a použít je jako zbraně. Jeden roh se stane *+1 Lance* a druhý *+2 Longsword*. Sejmutí rohu vyžaduje akci Magie; zbraně zmizí a rohy se vrátí, když se koza vrátí do podoby sošky. Dokud na koze jedeš, každý nepřátelský tvor, který začne svůj tah ve vyzařování 30 stop vycházejícím z kozy, musí uspět v záchranném hodu na Moudrost se SO 15, jinak má stav Vyděšen (Frightened) na 1 minutu, dokud na koze přestaneš jet, nebo dokud se koza nevrátí do podoby sošky. Vyděšený tvor opakuje záchranu na konci každého svého tahu a při úspěchu účinek na sobě ukončí. Jakmile tvor v záchraně uspěje, je vůči tomuto účinku na následujících 24 hodin imunní. Po použití sošku nelze znovu použít, dokud neuplyne 15 dní.\n- **Goat of Traveling (Koza cestování).** Tato soška se může stát Velkou kozou se stejnými statistikami jako **Riding Horse**. Má 24 nábojů a každá hodina nebo její část strávená v podobě kozy stojí 1 náboj. Dokud má náboje, můžeš ji používat, jak často chceš. Když jí dojdou náboje, vrátí se do podoby sošky a nelze ji znovu použít, dokud neuplyne 7 dní; pak obnoví všechny utracené náboje.\n- **Goat of Travail (Koza strasti).** Tato soška se může na až 3 hodiny stát **Giant Goat**. Po použití ji nelze znovu použít, dokud neuplyne 30 dní.\n**Marble Elephant (Mramorový slon; vzácný).** Tato mramorová soška připomíná troubícího slona. Na až 24 hodin se může stát **Elephant**. Po použití ji nelze znovu použít, dokud neuplyne 7 dní.\n**Obsidian Steed (Obsidiánový oř; velmi vzácný).** Tento vyleštěný obsidiánový kůň se může na až 24 hodin stát **Nightmare**. Noční můra bojuje jen na svou obranu. Po použití ji nelze znovu použít, dokud neuplyne 5 dní.\nSoška má při každém použití 10% šanci, že bude ignorovat tvé rozkazy, včetně rozkazu vrátit se do podoby sošky. Pokud nasedneš na noční můru, zatímco ignoruje tvé rozkazy, ty i noční můra jste okamžitě přeneseni na náhodné místo v rovině Hádu (Hades), kde se noční můra vrátí do podoby sošky.\n**Onyx Dog (Onyxový pes; vzácný).** Tato onyxová soška psa se může na až 6 hodin stát **Mastiff**. Mastif má Inteligenci 8 a umí mluvit obecnou řečí (Common). Má také Blindsight s dosahem 60 stop. Po použití ji nelze znovu použít, dokud neuplyne 7 dní.\n**Serpentine Owl (Hadcová sova; vzácný).** Tato hadcová soška sovy se může na až 8 hodin stát **Giant Owl**. Sova s tebou může komunikovat telepaticky na jakoukoli vzdálenost, pokud jste ty i ona na stejné rovině existence. Po použití ji nelze znovu použít, dokud neuplynou 2 dny.\n**Silver Raven (Stříbrný havran; neobvyklý).** Tato stříbrná soška havrana se může na až 12 hodin stát **Raven**. Po použití ji nelze znovu použít, dokud neuplynou 2 dny. Dokud je v podobě havrana, soška ti umožňuje na ni seslat *Animal Messenger*.",
+  "str": 221
+ },
+ {
+  "en": "Flame Tongue",
+  "cz": "plamenný jazyk",
+  "druh": "Zbraň",
+  "upr": "jakákoli zbraň na blízko",
+  "vz": "vzácný",
+  "pr": true,
+  "t": "Dokud držíš tuto magickou zbraň, můžeš bonusovou akcí a povelem způsobit, že část zbraně, která způsobuje zranění, zahalí plameny. Tyto plameny vydávají jasné světlo v okruhu 40 stop a šero v dalších 40 stopách. Dokud zbraň hoří, způsobí při zásahu dodatečné 2d6 Fire zranění. Plameny vydrží, dokud bonusovou akcí povel nezopakuješ, nebo dokud zbraň nepustíš, neuložíš nebo nezasuneš do pochvy.",
+  "str": 223
+ },
+ {
+  "en": "Folding Boat",
+  "cz": "skládací loď",
+  "druh": "Divotvorný předmět",
+  "vz": "vzácný",
+  "pr": false,
+  "t": "Tento předmět vypadá jako dřevěná skříňka o rozměrech 12 × 6 × 6 palců (délka, šířka, hloubka). Váží 4 lb. a plave. Lze ji otevřít a ukládat do ní věci. Předmět má také tři povely, z nichž každý vyžaduje akci Magie:\n**První povel.** Skříňka se rozloží v **Rowboat** (veslici).\n**Druhý povel.** Skříňka se rozloží v **Keelboat** (kýlový člun).\n**Třetí povel.** *Folding Boat* se složí zpět do skříňky, pokud na palubě nejsou žádní tvorové. Předměty v plavidle, které se do skříňky nevejdou, zůstanou při složení mimo ni. Předměty v plavidle, které se do skříňky vejdou, se do ní složí.\nKdyž se skříňka stane plavidlem, její hmotnost se rovná hmotnosti běžného plavidla dané velikosti a vše, co bylo uloženo ve skříňce, zůstane v lodi.\nStatistiky veslice a kýlového člunu najdeš v kapitole „Vybavení“. Klesne-li kterékoli z plavidel na 0 HP, *Folding Boat* se zničí.",
+  "str": 223
+ },
+ {
+  "en": "Frost Brand",
+  "cz": "mrazivá čepel",
+  "druh": "Zbraň",
+  "upr": "Glaive, Greatsword, Longsword, Rapier, Scimitar nebo Shortsword",
+  "vz": "velmi vzácný",
+  "pr": true,
+  "t": "Když zasáhneš hodem na útok touto magickou zbraní, cíl utrpí dodatečné 1d6 Cold zranění. Navíc dokud zbraň držíš, máš Resistance vůči Fire zranění.\nZa mrazu zbraň vydává jasné světlo v okruhu 10 stop a šero v dalších 10 stopách.\nKdyž tuto zbraň tasíš, můžeš uhasit všechny nemagické plameny do 30 stop od sebe. Po použití nelze tuto vlastnost znovu použít 1 hodinu.",
+  "str": 223
+ },
+ {
+  "en": "Gauntlets of Ogre Power",
+  "cz": "rukavice zlobří síly",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": true,
+  "t": "Dokud nosíš tyto rukavice, tvoje Síla je 19. Nemají na tebe žádný účinek, pokud je tvoje Síla bez nich 19 nebo vyšší.",
+  "str": 223
+ },
+ {
+  "en": "Gem of Brightness",
+  "cz": "drahokam jasu",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Tento hranol má 50 nábojů. Dokud ho držíš, můžeš akcí Magie a jedním ze tří povelů vyvolat jeden z následujících účinků:\n**První povel.** Drahokam vydává jasné světlo v okruhu 30 stop a šero v dalších 30 stopách. Tento účinek nestojí náboj. Trvá, dokud bonusovou akcí povel nezopakuješ, nebo dokud nepoužiješ jinou funkci drahokamu.\n**Druhý povel.** Utratíš 1 náboj a drahokam vyšle oslnivý paprsek světla na jednoho tvora, kterého vidíš do 60 stop od sebe. Tvor musí uspět v záchranném hodu na Odolnost se SO 15, jinak má na 1 minutu stav Oslepen (Blinded). Tvor opakuje záchranu na konci každého svého tahu a při úspěchu účinek na sobě ukončí.\n**Třetí povel.** Utratíš 5 nábojů a drahokam vzplane intenzivním světlem v kuželu 30 stop. Každý tvor v kuželu si hází záchranu, jako by ho zasáhl paprsek vytvořený druhým povelem.\nKdyž jsou všechny náboje drahokamu utraceny, stane se z něj nemagický klenot v hodnotě 50 GP.",
+  "str": 223
+ },
+ {
+  "en": "Gem of Seeing",
+  "cz": "drahokam vidění",
+  "druh": "Divotvorný předmět",
+  "vz": "vzácný",
+  "pr": true,
+  "t": "Tento drahokam má 3 náboje. Akcí Magie můžeš utratit 1 náboj. Na následujících 10 minut máš Truesight do 120 stop, když se díváš skrz drahokam.\nDrahokam obnoví 1d3 utracených nábojů denně za úsvitu.",
+  "str": 223
+ },
+ {
+  "en": "Giant Slayer",
+  "cz": "obrobijec",
+  "druh": "Zbraň",
+  "upr": "jakákoli jednoduchá nebo válečná",
+  "vz": "vzácný",
+  "pr": false,
+  "t": "Získáváš bonus +1 k hodům na útok a zranění touto magickou zbraní.\nKdyž touto zbraní zasáhneš Obra (Giant), Obr utrpí dodatečných 2d6 zranění typu zbraně a musí uspět v záchranném hodu na Sílu se SO 15, jinak má stav Sražen (Prone).",
+  "ef": {
+   "utok": 1
+  },
+  "str": 223
+ },
+ {
+  "en": "Glamoured Studded Leather",
+  "cz": "kouzelná pobíjená kožená zbroj",
+  "druh": "Zbroj",
+  "upr": "Studded Leather Armor",
+  "vz": "vzácný",
+  "pr": false,
+  "t": "Dokud nosíš tuto zbroj, získáváš bonus +1 k AC. Bonusovou akcí také můžeš zbroji dát vzhled obyčejného oblečení nebo jiného druhu zbroje. O vzhledu rozhoduješ ty – včetně barvy, střihu a doplňků –, ale zbroj si zachová svůj obvyklý objem a hmotnost. Iluzorní vzhled trvá, dokud tuto vlastnost znovu nepoužiješ, nebo dokud zbroj nesvlékneš.",
+  "ef": {
+   "ac": 1
+  },
+  "str": 223
+ },
+ {
+  "en": "Gloves of Missile Snaring",
+  "cz": "rukavice chytání střel",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": true,
+  "t": "Pokud tě zasáhne hod na útok zbraní na dálku nebo vrhací zbraní, zatímco nosíš tyto rukavice, a máš volnou ruku, můžeš reakcí snížit zranění o 1d10 plus svůj modifikátor Obratnosti. Pokud snížíš zranění na 0, můžeš střelivo nebo zbraň chytit, je-li dost malá, abys ji udržel v té ruce.",
+  "str": 224
+ },
+ {
+  "en": "Gloves of Swimming and Climbing",
+  "cz": "rukavice plavání a šplhání",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": true,
+  "t": "Dokud nosíš tyto rukavice, máš rychlost šplhání a rychlost plavání rovnou své rychlosti a získáváš bonus +5 k ověřením Síly (Athletics) při šplhání nebo plavání.",
+  "str": 224
+ },
+ {
+  "en": "Gloves of Thievery",
+  "cz": "zlodějské rukavice",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Tyto rukavice jsou při nošení nepostřehnutelné. Dokud je nosíš, získáváš bonus +5 k ověřením Obratnosti (Sleight of Hand).",
+  "str": 224
+ },
+ {
+  "en": "Goggles of Night",
+  "cz": "noční brýle",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Dokud nosíš tyto tmavé čočky, máš Darkvision do 60 stop. Pokud již Darkvision máš, nošení brýlí zvýší jeho dosah o 60 stop.",
+  "str": 224
+ },
+ {
+  "en": "Hammer of Thunderbolts",
+  "cz": "kladivo hromů",
+  "druh": "Zbraň",
+  "upr": "Maul nebo Warhammer",
+  "vz": "legendární",
+  "pr": true,
+  "t": "Získáváš bonus +1 k hodům na útok a zranění touto magickou zbraní.\nZbraň má 5 nábojů. Můžeš utratit 1 náboj a provést zbraní útok na dálku – vrhnout ji, jako by měla vlastnost Vrhací (Thrown) s běžným dostřelem 20 stop a dlouhým dostřelem 60 stop. Pokud útok zasáhne, zbraň vypustí hromovou ránu slyšitelnou do 300 stop. Cíl a každý tvor do 30 stop od něj kromě tebe musí uspět v záchranném hodu na Odolnost se SO 17, jinak má stav Omráčen (Stunned) do konce tvého příštího tahu. Ihned po zásahu nebo minutí ti zbraň přiletí zpět do ruky. Zbraň obnoví 1d4 + 1 utracených nábojů denně za úsvitu.\n**Giant’s Bane (Zhouba obrů).** Dokud jsi se zbraní sladěn a nosíš buď *Belt of Giant Strength*, nebo *Gauntlets of Ogre Power*, s nimiž jsi také sladěn, získáváš následující výhody:\n- **Giants’ Bane (Zhouba obrů).** Když na d20 při hodu na útok touto zbraní proti Obrovi (Giant) padne 20, tvor musí uspět v záchranném hodu na Odolnost se SO 17, jinak zemře.\n- **Might of Giants (Síla obrů).** Hodnota Síly, kterou ti dává *Belt of Giant Strength* nebo *Gauntlets of Ogre Power*, se zvýší o 4, nejvýš na 30.",
+  "ef": {
+   "utok": 1
+  },
+  "str": 224
+ },
+ {
+  "en": "Handy Haversack",
+  "cz": "šikovná torna",
+  "druh": "Divotvorný předmět",
+  "vz": "vzácný",
+  "pr": false,
+  "t": "Tento batoh má prostřední kapsu a dvě boční kapsy, z nichž každá je mimorozměrným prostorem. Každá boční kapsa pojme až 200 lb. materiálu o objemu nejvýš 25 krychlových stop. Prostřední kapsa pojme až 500 lb. materiálu o objemu nejvýš 64 krychlových stop. Torna váží vždy 5 lb. bez ohledu na obsah.\nVytažení věci z torny vyžaduje akci Použití nebo bonusovou akci (podle tvé volby). Když v torně sáhneš po určité věci, je ta věc vždy magicky navrchu.\nJe-li kterákoli kapsa přeplněna, propíchnuta nebo roztržena, torna praskne a zničí se. Je-li torna zničena, její obsah je navždy ztracen, ačkoli artefakt se vždy někde znovu objeví. Pokud se torna obrátí naruby, její obsah se nepoškozený vysype a tornu je třeba vrátit do původního stavu, než ji lze znovu použít.\nKaždá kapsa torny obsahuje dost vzduchu na 10 minut dýchání, děleno počtem dýchajících tvorů uvnitř.\nVložení torny do mimorozměrného prostoru vytvořeného předmětem *Bag of Holding*, *Portable Hole* nebo podobným předmětem okamžitě zničí oba předměty a otevře bránu do Astrální roviny. Brána vznikne v místě, kde byl jeden předmět vložen do druhého. Každý tvor do 10 stop od brány, který není za úplným krytem, je jí vtažen a vyvržen na náhodném místě v Astrální rovině. Poté se brána zavře. Brána je jednosměrná a nelze ji znovu otevřít.",
+  "str": 224
+ },
+ {
+  "en": "Hat of Disguise",
+  "cz": "klobouk přestrojení",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": true,
+  "t": "Dokud nosíš tento klobouk, můžeš seslat kouzlo *Disguise Self*. Kouzlo skončí, pokud je klobouk sejmut.",
+  "str": 224
+ },
+ {
+  "en": "Hat of Many Spells",
+  "cz": "klobouk mnoha kouzel",
+  "druh": "Divotvorný předmět",
+  "vz": "velmi vzácný",
+  "pr": "Wizardem",
+  "t": "Tento špičatý klobouk má následující vlastnosti.\n**Spellcasting Focus (Ohnisko).** Dokud klobouk držíš, můžeš ho používat jako ohnisko (Spellcasting Focus) pro svá kouzla Wizarda. Každé kouzlo, které sešleš pomocí klobouku, získá zvláštní pohybovou složku (S): musíš sáhnout do klobouku a kouzlo z něj „vytáhnout“.\n**Unknown Spell (Neznámé kouzlo).** Dokud klobouk držíš, můžeš se pokusit seslat kouzlo 1. nebo vyšší úrovně, které neznáš. Kouzlo musí být na seznamu kouzel Wizarda, musí být úrovně, kterou umíš seslat, a nesmí mít materiální složky v ceně přes 1 000 GP. Jakmile se pro kouzlo rozhodneš, musíš utratit slot kouzla jeho úrovně. Poté, abys určil, zda kouzlo sešleš, proveď ověření Inteligence (Arcana) (SO 10 plus úroveň kouzla). Při úspěšném ověření sešleš kouzlo s jeho běžnou dobou seslání a tuto vlastnost nemůžeš znovu použít, dokud nedokončíš krátký nebo dlouhý odpočinek. Při neúspěšném ověření se ti kouzlo seslat nepodaří a místo toho nastane náhodný účinek určený hodem na následující tabulku.\nKaždé kouzlo, které z klobouku sešleš, používá tvoje SO záchrany proti kouzlu a tvůj bonus útoku kouzlem.\n**1d100 – Účinek**\n- **01–50:** Sešleš náhodné kouzlo určené hodem 1d10: při **1** *Enlarge/Reduce* (účinek zvětšení); při **2** *Enlarge/Reduce* (účinek zmenšení); při **3** *Faerie Fire*; při **4** *Fireball*; při **5** *Gust of Wind*; při **6** *Invisibility* (sesláno na tebe); při **7** *Lightning Bolt*; při **8** *Phantasmal Force*; při **9** *Polymorph*; při **10** *Stinking Cloud*.\n- **51–55:** Do konce svého příštího tahu máš stav Omráčen (Stunned), protože věříš, že se právě stalo něco úžasného.\n- **56–60:** Neškodný roj motýlů vyplní krychli o hraně 10 stop do 30 stop od tebe. Roj se po 1 minutě rozptýlí.\n- **61–65:** Vytáhneš z klobouku nemagický předmět. Hodem 1d4 urči předmět: při **1** lahvička kyseliny (Acid); při **2** baňka alchymistického ohně (Alchemist’s Fire); při **3** páčidlo (Crowbar); při **4** zapálená pochodeň (Torch).\n- **66–70:** Postihne tě záchvat „magické nevolnosti“ a na 1 hodinu máš stav Otráven (Poisoned).\n- **71–75:** Do konce svého příštího tahu máš stav Zkamenělý (Petrified).\n- **76–80:** Vytáhneš z klobouku nemagický předmět. Hodem 1d4 urči předmět: při **1** dýka (Dagger); při **2** lano (Rope) s kotvičkou (Grappling Hook) přivázanou k jednomu konci; při **3** pytlík ostnů (Caltrops); při **4** drahokam v hodnotě 50 GP.\n- **81–85:** V neobsazeném prostoru co nejblíže tobě se objeví tvor. Tvor není pod tvou kontrolou, jedná jako obvykle a zmizí po 1 hodině, nebo když klesne na 0 HP. Hodem 1d4 urči tvora: při **1** **Camel**; při **2** **Constrictor Snake**; při **3** **Elephant**; při **4** **Mule**.\n- **86–90:** Z klobouku vyletí nepřátelský **Swarm of Bats**, obsadí tvůj prostor a zaútočí na tebe.\n- **91–95:** V neobsazeném prostoru do 30 stop od tebe se otevře svislý obousměrný portál o průměru 10 stop do jiné roviny existence a zůstane otevřený do konce tvého příštího tahu. Kam vede, určí vypravěč.\n- **96–00:** Vytáhneš z klobouku magický předmět. Hodem 1d6 urči vzácnost předmětu: při **1–3** běžný; při **4–5** neobvyklý; při **6** vzácný. Předmět zvolí vypravěč; zmizí po 1 hodině, pokud do té doby není spotřebován nebo zničen.",
+  "str": 224
+ },
+ {
+  "en": "Headband of Intellect",
+  "cz": "čelenka intelektu",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": true,
+  "t": "Dokud nosíš tuto čelenku, tvoje Inteligence je 19. Nemá na tebe žádný účinek, pokud je tvoje Inteligence bez ní 19 nebo vyšší.",
+  "str": 225
+ },
+ {
+  "en": "Helm of Brilliance",
+  "cz": "přilba oslnění",
+  "druh": "Divotvorný předmět",
+  "vz": "velmi vzácný",
+  "pr": true,
+  "t": "Tato přilba je posázena 1d10 diamanty, 2d10 rubíny, 3d10 ohnivými opály a 4d10 opály. Každý drahokam vylomený z přilby se rozpadne v prach. Když jsou všechny drahokamy odstraněny nebo zničeny, přilba ztratí svou magii.\nDokud přilbu nosíš, získáváš následující výhody.\n**Diamond Light (Diamantové světlo).** Dokud má přilba alespoň jeden diamant, vydává vyzařování 30 stop. Když je v této oblasti alespoň jeden Nemrtvý (Undead), vyzařování je vyplněno šerem. Každý Nemrtvý, který v této oblasti začne svůj tah, utrpí 1d6 Radiant zranění.\n**Fire Opal Flames (Plameny ohnivých opálů).** Dokud má přilba alespoň jeden ohnivý opál, můžeš akcí Magie způsobit, že jedna zbraň, kterou držíš, vzplane. Plameny vydávají jasné světlo v okruhu 10 stop a šero v dalších 10 stopách. Plameny jsou neškodné pro tebe i zbraň. Když zasáhneš útokem planoucí zbraní, cíl utrpí dodatečné 1d6 Fire zranění. Plameny vydrží, dokud je bonusovou akcí neuhasíš, nebo dokud zbraň nepustíš či neuložíš.\n**Ruby Resistance (Rubínová odolnost).** Dokud má přilba alespoň jeden rubín, máš Resistance vůči Fire zranění.\n**Spells (Kouzla).** Můžeš seslat jedno z následujících kouzel (SO záchrany 18) s použitím jednoho z drahokamů přilby daného druhu jako složky: *Daylight* (opál), *Fireball* (ohnivý opál), *Prismatic Spray* (diamant) nebo *Wall of Fire* (rubín). Drahokam se při seslání kouzla zničí a z přilby zmizí.\n**Taking Fire Damage (Utržení Fire zranění).** Hoď 1d20, pokud nosíš přilbu a utrpíš Fire zranění v důsledku neúspěšného záchranného hodu proti kouzlu. Padne-li 1, přilba vyšle paprsky světla ze svých zbývajících drahokamů a poté se zničí. Každý tvor ve vyzařování 60 stop vycházejícím z tebe musí uspět v záchranném hodu na Obratnost se SO 17, jinak ho paprsek zasáhne a utrpí Radiant zranění rovné počtu drahokamů v přilbě.",
+  "str": 225
+ },
+ {
+  "en": "Helm of Comprehending Languages",
+  "cz": "přilba porozumění jazykům",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Dokud nosíš tuto přilbu, můžeš z ní seslat *Comprehend Languages*.",
+  "str": 226
+ },
+ {
+  "en": "Helm of Telepathy",
+  "cz": "přilba telepatie",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": true,
+  "t": "Dokud nosíš tuto přilbu, máš telepatii s dosahem 30 stop a můžeš z přilby seslat *Detect Thoughts* nebo *Suggestion* (SO záchrany 13). Jakmile je z přilby sesláno kterékoli z těchto kouzel, nelze to kouzlo z ní znovu seslat až do příštího úsvitu.",
+  "str": 226
+ },
+ {
+  "en": "Helm of Teleportation",
+  "cz": "přilba teleportace",
+  "druh": "Divotvorný předmět",
+  "vz": "vzácný",
+  "pr": true,
+  "t": "Tato přilba má 3 náboje. Dokud ji nosíš, můžeš utratit 1 náboj a seslat z ní *Teleport*. Přilba obnoví 1d3 utracených nábojů denně za úsvitu.",
+  "str": 226
+ },
+ {
+  "en": "Holy Avenger",
+  "cz": "svatý mstitel",
+  "druh": "Zbraň",
+  "upr": "jakákoli jednoduchá nebo válečná",
+  "vz": "legendární",
+  "pr": "Paladinem",
+  "t": "Získáváš bonus +3 k hodům na útok a zranění touto magickou zbraní. Když jí zasáhneš Ďábla (Fiend) nebo Nemrtvého (Undead), tento tvor utrpí dodatečné 2d10 Radiant zranění.\nDokud držíš tasenou zbraň, vytváří vyzařování 10 stop vycházející z tebe. Ty a všichni tvorové ve vyzařování, kteří jsou k tobě přátelští, máte výhodu na záchranné hody proti kouzlům a jiným magickým účinkům. Máš-li 17 nebo více úrovní v povolání Paladin, velikost vyzařování se zvětší na 30 stop.",
+  "ef": {
+   "utok": 3
+  },
+  "str": 226
+ },
+ {
+  "en": "Horn of Blasting",
+  "cz": "roh zkázy",
+  "druh": "Divotvorný předmět",
+  "vz": "vzácný",
+  "pr": false,
+  "t": "Akcí Magie můžeš zatroubit na roh, který vydá hromový třesk v kuželu 30 stop, slyšitelný do 600 stop. Každý tvor v kuželu si hází záchranný hod na Odolnost se SO 15. Při neúspěchu tvor utrpí 5d8 Thunder zranění a má na 1 minutu stav Ohlušen (Deafened). Při úspěchu tvor utrpí pouze poloviční zranění. Skleněné nebo křišťálové předměty v kuželu, které nikdo nenosí ani nedrží, utrpí 10d8 Thunder zranění.\nKaždé použití magie rohu má 20% šanci, že roh vybuchne. Výbuch způsobí uživateli 10d6 Force zranění a zničí roh.",
+  "str": 226
+ },
+ {
+  "en": "Horn of Valhalla",
+  "cz": "roh Valhally",
+  "druh": "Divotvorný předmět",
+  "vz": "proměnlivá",
+  "vzt": "vzácný (stříbrný nebo mosazný), velmi vzácný (bronzový), legendární (železný)",
+  "pr": false,
+  "t": "Akcí Magie můžeš na tento roh zatroubit. V odpověď se v neobsazených prostorech do 60 stop od tebe objeví duchové válečníků z roviny Ysgard. Každý duch používá statblok **Berserker** a vrátí se do Ysgardu po 1 hodině, nebo když klesne na 0 HP. Duchové vypadají jako živí, dýchající válečníci a mají Immunity vůči stavům Okouzlen (Charmed) a Vyděšen (Frightened). Po použití nelze roh znovu použít, dokud neuplyne 7 dní.\nZnámy jsou čtyři druhy rohu *Horn of Valhalla*, každý z jiného kovu. Druh rohu určuje, kolik duchů přivolá, a také požadavek na jeho použití. Vypravěč druh rohu zvolí, nebo ho určí náhodně hodem na následující tabulku.\nPokud na roh zatroubíš, aniž splňuješ jeho požadavek, přivolaní duchové zaútočí na tebe. Pokud požadavek splňuješ, jsou přátelští k tobě a tvým spojencům a plní tvé rozkazy.\n**1d100 – druh rohu – duchové – požadavek**\n- 01–40: stříbrný – 2 – žádný\n- 41–75: mosazný – 3 – zdatnost se všemi jednoduchými zbraněmi\n- 76–90: bronzový – 4 – výcvik se všemi středními zbrojemi\n- 91–00: železný – 5 – zdatnost se všemi válečnými zbraněmi",
+  "str": 226
+ },
+ {
+  "en": "Horseshoes of a Zephyr",
+  "cz": "podkovy vánku",
+  "druh": "Divotvorný předmět",
+  "vz": "velmi vzácný",
+  "pr": false,
+  "t": "Tyto podkovy tvoří sadu po čtyřech. Akcí Magie se můžeš jednou z podkov dotknout kopyta koně nebo podobného tvora, načež se podkova ke kopytu sama připevní. Sejmutí podkovy rovněž vyžaduje akci Magie.\nDokud jsou všechny čtyři podkovy připevněny ke kopytům koně nebo podobného tvora, umožňují tvorovi pohybovat se normálně, zatímco se vznáší 4 palce nad povrchem. Díky tomu tvor může přecházet nebo stát nad nepevnými či nestabilními povrchy, jako je voda nebo láva. Tvor nezanechává stopy a ignoruje obtížný terén. Navíc tvor může cestovat až 12 hodin denně, aniž by získával úrovně vyčerpání (Exhaustion) z dlouhého cestování.",
+  "str": 226
+ },
+ {
+  "en": "Horseshoes of Speed",
+  "cz": "podkovy rychlosti",
+  "druh": "Divotvorný předmět",
+  "vz": "vzácný",
+  "pr": false,
+  "t": "Tyto podkovy tvoří sadu po čtyřech. Akcí Magie se můžeš jednou z podkov dotknout kopyta koně nebo podobného tvora, načež se podkova ke kopytu sama připevní. Sejmutí podkovy rovněž vyžaduje akci Magie.\nDokud jsou všechny čtyři podkovy připevněny ke stejnému tvorovi, jeho rychlost se zvýší o 30 stop.",
+  "str": 227
+ },
+ {
+  "en": "Immovable Rod",
+  "cz": "nehybné žezlo",
+  "druh": "Žezlo",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Toto železné žezlo má na jednom konci tlačítko. Akcí Použití můžeš tlačítko stisknout, čímž se žezlo magicky upevní na místě. Dokud ty nebo jiný tvor akcí Použití tlačítko znovu nestisknete, žezlo se nepohne, ani kdyby to odporovalo gravitaci. Žezlo udrží až 8 000 lb. Větší váha způsobí, že se žezlo deaktivuje a spadne. Tvor může akcí Použití provést ověření Síly (Athletics) se SO 30 a při úspěchu upevněným žezlem posunout až o 10 stop.",
+  "str": 227
+ },
+ {
+  "en": "Instant Fortress",
+  "cz": "okamžitá pevnost",
+  "druh": "Divotvorný předmět",
+  "vz": "vzácný",
+  "pr": true,
+  "t": "Akcí Magie můžeš tuto jednopalcovou adamantinovou sošku položit na zem a povelem způsobit, že rychle vyroste ve čtvercovou adamantinovou věž. Zopakování povelu vrátí věž do podoby sošky, což funguje jen tehdy, je-li věž prázdná. Každý tvor v oblasti, kde se věž objeví, je odsunut do neobsazeného prostoru vně věže, ale vedle ní. Předměty v oblasti, které nikdo nenosí ani nedrží, jsou rovněž odsunuty z místa věže.\nVěž má stranu 20 stop a výšku 30 stop, na všech stranách střílny a na vrcholu cimbuří. Její vnitřek je rozdělen na dvě podlaží, spojená žebříkem, schodištěm nebo rampou (podle tvé volby). Tento žebřík, schodiště či rampa končí u padacích dvířek vedoucích na střechu. Při vytvoření má věž jediné dveře v přízemí na straně obrácené k tobě. Dveře se otevírají jen na tvůj povel, který můžeš vydat bonusovou akcí. Jsou imunní vůči kouzlu *Knock* a podobné magii.\nMagie brání tomu, aby se věž převrhla. Střecha, dveře i zdi mají každá AC 20; HP 100; Immunity vůči Bludgeoning, Piercing a Slashing zranění kromě zranění způsobeného obléhacími stroji; a Resistance vůči všem ostatním zraněním. Zmenšení věže zpět do podoby sošky poškození věže neopraví. Věž může opravit jen kouzlo *Wish* (toto použití kouzla se počítá jako napodobení kouzla 8. nebo nižší úrovně). Každé seslání *Wish* věži obnoví všechny HP.",
+  "str": 227
+ },
+ {
+  "en": "Ioun Stone",
+  "cz": "ionský kámen",
+  "druh": "Divotvorný předmět",
+  "vz": "proměnlivá",
+  "vzt": "vzácný (Awareness, Protection, Reserve, Sustenance), velmi vzácný (Absorption, Agility, Fortitude, Insight, Intellect, Leadership, Strength), legendární (Greater Absorption, Mastery, Regeneration)",
+  "pr": true,
+  "t": "*Ioun Stones* (ionské kameny), zhruba velikosti hliněnky, jsou pojmenovány po Iounovi, bohu vědění a proroctví uctívaném v některých světech. Existuje mnoho druhů *Ioun Stones*, každý je osobitou kombinací tvaru a barvy.\nKdyž akcí Magie vyhodíš *Ioun Stone* do vzduchu, kámen začne obíhat kolem tvé hlavy ve vzdálenosti 1d3 stop a po tu dobu ti poskytuje svůj přínos. Kolem hlavy ti mohou obíhat až tři *Ioun Stones* zároveň.\nKaždý *Ioun Stone* obíhající kolem tvé hlavy se považuje za předmět, který nosíš. Obíhající kámen se vyhýbá kontaktu s jinými tvory a předměty, upravuje svou dráhu, aby se vyhnul srážkám, a maří všechny pokusy jiných tvorů na něj zaútočit nebo ho uchvátit.\nAkcí Použití můžeš uchopit a uložit libovolný počet *Ioun Stones* obíhajících kolem tvé hlavy. Pokud tvoje sladění s *Ioun Stone* skončí, zatímco obíhá kolem tvé hlavy, kámen spadne, jako bys ho upustil.\nDruh kamene určuje jeho vzácnost a účinky.\n**Absorption (Pohlcení; velmi vzácný).** Dokud tento světle levandulový elipsoid obíhá kolem tvé hlavy, můžeš reakcí zrušit kouzlo 4. nebo nižší úrovně seslané tvorem, kterého vidíš. Zrušené kouzlo nemá žádný účinek a všechny prostředky použité k jeho seslání jsou promarněny. Jakmile kámen zruší 20 úrovní kouzel, vyhoří, zešedne a ztratí svou magii.\n**Agility (Hbitost; velmi vzácný).** Dokud tato tmavě rudá koule obíhá kolem tvé hlavy, tvoje Obratnost se zvýší o 2, nejvýš na 20.\n**Awareness (Ostražitost; vzácný).** Dokud tento tmavě modrý kosočtverec obíhá kolem tvé hlavy, máš výhodu na hody na iniciativu a ověření Moudrosti (Perception).\n**Fortitude (Houževnatost; velmi vzácný).** Dokud tento růžový kosočtverec obíhá kolem tvé hlavy, tvoje Odolnost se zvýší o 2, nejvýš na 20.\n**Greater Absorption (Větší pohlcení; legendární).** Dokud tento mramorovaný levandulovo-zelený elipsoid obíhá kolem tvé hlavy, můžeš reakcí zrušit kouzlo 8. nebo nižší úrovně seslané tvorem, kterého vidíš. Zrušené kouzlo nemá žádný účinek a všechny prostředky použité k jeho seslání jsou promarněny. Jakmile kámen zruší 20 úrovní kouzel, vyhoří, zešedne a ztratí svou magii.\n**Insight (Vhled; velmi vzácný).** Dokud tato žhnoucí modrá koule obíhá kolem tvé hlavy, tvoje Moudrost se zvýší o 2, nejvýš na 20.\n**Intellect (Intelekt; velmi vzácný).** Dokud tato mramorovaná šarlatovo-modrá koule obíhá kolem tvé hlavy, tvoje Inteligence se zvýší o 2, nejvýš na 20.\n**Leadership (Vůdcovství; velmi vzácný).** Dokud tato mramorovaná růžovo-zelená koule obíhá kolem tvé hlavy, tvoje Charisma se zvýší o 2, nejvýš na 20.\n**Mastery (Mistrovství; legendární).** Dokud tento světle zelený hranol obíhá kolem tvé hlavy, tvůj bonus zdatnosti se zvýší o 1.\n**Protection (Ochrana; vzácný).** Dokud tento starorůžový hranol obíhá kolem tvé hlavy, získáváš bonus +1 k AC.\n**Regeneration (Regenerace; legendární).** Dokud toto perleťově bílé vřeteno obíhá kolem tvé hlavy, na konci každé hodiny získáš zpět 15 HP, pokud máš alespoň 1 HP.\n**Reserve (Zásoba; vzácný).** Tento sytě purpurový hranol uchovává kouzla do něj seslaná, dokud je nepoužiješ. Kámen pojme najednou až 4 úrovně kouzel. Při nalezení obsahuje 1d4 úrovní uložených kouzel, která zvolí vypravěč.\nKaždý tvor může do kamene seslat kouzlo 1. až 4. úrovně tak, že se ho při seslání kouzla dotkne. Kouzlo nemá žádný účinek kromě toho, že se v kameni uloží. Pokud kámen kouzlo nepojme, kouzlo se bez účinku spotřebuje. Úroveň slotu použitého k seslání kouzla určuje, kolik místa zabere.\nDokud tento kámen obíhá kolem tvé hlavy, můžeš seslat kterékoli kouzlo v něm uložené. Kouzlo používá úroveň slotu, SO záchrany proti kouzlu, bonus útoku kouzlem a sesílací vlastnost původního sesilatele, jinak se ale s ním zachází, jako bys ho seslal ty. Kouzlo seslané z kamene v něm již není uloženo, čímž se uvolní místo.\n**Strength (Síla; velmi vzácný).** Dokud tento světle modrý kosočtverec obíhá kolem tvé hlavy, tvoje Síla se zvýší o 2, nejvýš na 20.\n**Sustenance (Výživa; vzácný).** Dokud toto průzračné vřeteno obíhá kolem tvé hlavy, nepotřebuješ jíst ani pít.",
+  "str": 227
+ },
+ {
+  "en": "Iron Bands",
+  "cz": "železná pouta",
+  "druh": "Divotvorný předmět",
+  "vz": "vzácný",
+  "pr": false,
+  "t": "Tato zrezivělá železná koule má průměr 3 palce a váží 1 lb. Akcí Magie ji můžeš hodit po Obrovském nebo menším tvorovi, kterého vidíš do 60 stop od sebe. Jak koule letí vzduchem, rozvine se ve spleť kovových pásů.\nProveď hod na útok na dálku s bonusem k útoku rovným tvému modifikátoru Obratnosti plus bonusu zdatnosti. Při zásahu má cíl stav Zadržen (Restrained), dokud bonusovou akcí nevydáš povel, který ho uvolní. Tím, nebo minutím útoku, se pásy stáhnou a opět se z nich stane koule.\nTvor, který se může pásů dotknout, včetně toho Zadrženého, může akcí provést ověření Síly (Athletics) se SO 20, aby železné pásy přerval. Při úspěšném ověření se předmět zničí a Zadržený tvor je osvobozen. Při neúspěšném ověření všechny další pokusy tohoto tvora automaticky selžou, dokud neuplyne 24 hodin.\nPo použití nelze pásy znovu použít až do příštího úsvitu.",
+  "str": 228
+ },
+ {
+  "en": "Iron Flask",
+  "cz": "železná baňka",
+  "druh": "Divotvorný předmět",
+  "vz": "legendární",
+  "pr": false,
+  "t": "Dokud držíš tuto železnou baňku s mosaznou zátkou, můžeš akcí Magie zacílit na tvora, kterého vidíš do 60 stop od sebe. Je-li baňka prázdná a cíl pochází z jiné roviny existence, než na které se nacházíš, musí cíl uspět v záchranném hodu na Moudrost se SO 17, jinak je v baňce uvězněn. Byl-li cíl již dříve v baňce uvězněn, má na záchranu výhodu.\nUvězněný tvor zůstává v baňce, dokud není propuštěn. Baňka pojme najednou jen jednoho tvora. Tvor uvězněný v baňce nestárne a nepotřebuje dýchat, jíst ani pít.\nAkcí Magie můžeš z baňky vytáhnout zátku a tvora v ní propustit. Tvor pak 1 hodinu plní tvé rozkazy a rozumí jim, i když nezná jazyk, ve kterém jsou vydány. Pokud mu nedáš žádné rozkazy, nebo mu dáš rozkaz, který by pravděpodobně vedl k jeho smrti či uvěznění, brání se, ale jinak nejedná. Na konci této doby tvor jedná podle své běžné povahy a přesvědčení.\nKouzlo *Identify* odhalí, zda baňka obsahuje tvora, ale jediný způsob, jak zjistit druh tvora, je baňku otevřít. Nově nalezená *Iron Flask* už může obsahovat tvora, kterého zvolí vypravěč.",
+  "str": 228
+ },
+ {
+  "en": "Javelin of Lightning",
+  "cz": "oštěp blesku",
+  "druh": "Zbraň",
+  "upr": "Javelin",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Pokaždé, když s touto magickou zbraní provedeš hod na útok a zasáhneš, můžeš ji nechat způsobit Lightning zranění místo Piercing zranění.\n**Lightning Bolt (Blesk).** Když tuto zbraň hodíš na cíl vzdálený nejvýš 120 stop od tebe, můžeš se vzdát hodu na útok na dálku a místo toho zbraň proměnit v blesk. Blesk vytvoří čáru širokou 5 stop mezi tebou a cílem. Cíl a každý další tvor v čáře (kromě tebe) si hází záchranný hod na Obratnost se SO 13; při neúspěchu utrpí 4d6 Lightning zranění, při úspěchu poloviční zranění. Ihned po způsobení tohoto zranění se ti zbraň znovu objeví v ruce. Tuto vlastnost nelze znovu použít až do příštího úsvitu.",
+  "str": 228
+ },
+ {
+  "en": "Lantern of Revealing",
+  "cz": "lucerna odhalení",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Zapálená lucerna s klapkou hoří 6 hodin na 1 pintu oleje a vydává jasné světlo v okruhu 30 stop a šero v dalších 30 stopách. Neviditelní tvorové a předměty jsou viditelní, dokud se nacházejí v jasném světle lucerny. Akcí Použití můžeš sklopit klapku a zmenšit světlo lucerny na šero v okruhu 5 stop.",
+  "str": 228
+ }
+]

@@ -57,5 +57,5 @@ self.addEventListener("fetch", e => {
   }
   if (req.headers.has("authorization")) return; // přihlášený vypravěč: nic neukládat
   if (u.pathname.includes("/storage/v1/object/public/")) { e.respondWith(obnov(e, req, C_ART)); return; }
-  if (/\/rest\/v1\/(snimek|boj)$/.test(u.pathname)) { e.respondWith(sit(req, C_DATA)); return; }
+  if (/\/rest\/v1\/(snimek|boj|karty|hody|ukazky)$/.test(u.pathname)) { e.respondWith(sit(req, C_DATA)); return; }
 });

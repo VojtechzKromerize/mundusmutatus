@@ -1,0 +1,1920 @@
+[
+ {
+  "en": "Noble",
+  "cz": "šlechtic",
+  "vel": "Střední nebo Malá",
+  "typ": "Humanoid",
+  "pres": "neutrální",
+  "ac": "15",
+  "ini": "+1 (11)",
+  "hp": 9,
+  "hpk": "2d8",
+  "rych": "30 stop",
+  "vl": {
+   "STR": 11,
+   "AGI": 12,
+   "CON": 11,
+   "INT": 12,
+   "WIS": 14,
+   "CHA": 16
+  },
+  "zach": {
+   "STR": "+0",
+   "AGI": "+1",
+   "CON": "+0",
+   "INT": "+1",
+   "WIS": "+2",
+   "CHA": "+3"
+  },
+  "dov": "Deception +5, Insight +4, Persuasion +5",
+  "vyb": "Breastplate, Rapier",
+  "smysly": "pasivní Perception 12",
+  "jaz": "Common a dva další jazyky",
+  "cr": "1/8",
+  "xp": 25,
+  "pb": "+2",
+  "akce": [
+   {
+    "n": "Rapier",
+    "t": "*Hod na útok na blízko:* +3, dosah 5 stop. *Zásah:* 5 (1d8 + 1) Piercing zranění."
+   }
+  ],
+  "reakce": [
+   {
+    "n": "Parry",
+    "t": "*Spouštěč:* Šlechtice zasáhne hod na útok na blízko, zatímco drží zbraň. *Reakce:* Šlechtic si proti tomuto útoku přičte 2 k AC, čímž může útok minout."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Rapier",
+    "b": 3,
+    "z": "1d8+1",
+    "zt": "Piercing",
+    "p": "dosah 5 stop"
+   }
+  ],
+  "str": 312
+ },
+ {
+  "en": "Ochre Jelly",
+  "cz": "okrový sliz",
+  "vel": "Velká",
+  "typ": "Ooze",
+  "pres": "bez přesvědčení",
+  "ac": "8",
+  "ini": "-2 (8)",
+  "hp": 52,
+  "hpk": "7d10 + 14",
+  "rych": "20 stop, šplhání 20 stop",
+  "vl": {
+   "STR": 15,
+   "AGI": 6,
+   "CON": 14,
+   "INT": 2,
+   "WIS": 6,
+   "CHA": 1
+  },
+  "zach": {
+   "STR": "+2",
+   "AGI": "-2",
+   "CON": "+2",
+   "INT": "-4",
+   "WIS": "-2",
+   "CHA": "-5"
+  },
+  "odol": "Acid",
+  "imu": "Lightning, Slashing; Okouzlen (Charmed), Ohlušen (Deafened), Vyčerpání (Exhaustion), Vyděšen (Frightened), Chycen (Grappled), Sražen (Prone), Zadržen (Restrained)",
+  "smysly": "Blindsight 60 stop; pasivní Perception 8",
+  "jaz": "žádné",
+  "cr": "2",
+  "xp": 450,
+  "pb": "+2",
+  "rysy": [
+   {
+    "n": "Amorphous",
+    "t": "Sliz se může pohybovat prostorem úzkým jen 1 palec, aniž by za to utrácel pohyb navíc."
+   },
+   {
+    "n": "Spider Climb",
+    "t": "Sliz dokáže šplhat po obtížných površích, včetně stropů, aniž by musel provádět ověření vlastnosti."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Pseudopod",
+    "t": "*Hod na útok na blízko:* +4, dosah 5 stop. *Zásah:* 12 (3d6 + 2) Acid zranění."
+   }
+  ],
+  "reakce": [
+   {
+    "n": "Split",
+    "t": "*Spouštěč:* Zatímco je sliz Velký nebo Střední a má 10 nebo více HP, stane se zkrvaveným (Bloodied) nebo utrpí Lightning nebo Slashing zranění. *Reakce:* Sliz se rozdělí na dva nové **Ochre Jelly**. Každý nový sliz je o jednu velikost menší než původní sliz a jedná ve svém pořadí iniciativy. HP původního slizu se mezi nové slizy rozdělí rovným dílem (zaokrouhleno dolů)."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Pseudopod",
+    "b": 4,
+    "z": "3d6+2",
+    "zt": "Acid",
+    "p": "dosah 5 stop"
+   }
+  ],
+  "str": 312
+ },
+ {
+  "en": "Ogre",
+  "cz": "zlobr",
+  "vel": "Velká",
+  "typ": "Giant",
+  "pres": "chaoticky zlý",
+  "ac": "11",
+  "ini": "-1 (9)",
+  "hp": 68,
+  "hpk": "8d10 + 24",
+  "rych": "40 stop",
+  "vl": {
+   "STR": 19,
+   "AGI": 8,
+   "CON": 16,
+   "INT": 5,
+   "WIS": 7,
+   "CHA": 7
+  },
+  "zach": {
+   "STR": "+4",
+   "AGI": "-1",
+   "CON": "+3",
+   "INT": "-3",
+   "WIS": "-2",
+   "CHA": "-2"
+  },
+  "vyb": "Greatclub, Javelins (3)",
+  "smysly": "Darkvision 60 stop; pasivní Perception 8",
+  "jaz": "Common, Giant",
+  "cr": "2",
+  "xp": 450,
+  "pb": "+2",
+  "akce": [
+   {
+    "n": "Greatclub",
+    "t": "*Hod na útok na blízko:* +6, dosah 5 stop. *Zásah:* 13 (2d8 + 4) Bludgeoning zranění."
+   },
+   {
+    "n": "Javelin",
+    "t": "*Hod na útok na blízko nebo na dálku:* +6, dosah 5 stop nebo dostřel 30/120 stop. *Zásah:* 11 (2d6 + 4) Piercing zranění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Greatclub",
+    "b": 6,
+    "z": "2d8+4",
+    "zt": "Bludgeoning",
+    "p": "dosah 5 stop"
+   },
+   {
+    "n": "Javelin",
+    "b": 6,
+    "z": "2d6+4",
+    "zt": "Piercing",
+    "p": "dosah 5 stop nebo dostřel 30/120 stop"
+   }
+  ],
+  "str": 312
+ },
+ {
+  "en": "Oni",
+  "vel": "Velká",
+  "typ": "Fiend",
+  "pres": "zákonně zlý",
+  "ac": "17",
+  "ini": "+0 (10)",
+  "hp": 119,
+  "hpk": "14d10 + 42",
+  "rych": "30 stop, let 30 stop (vznáší se)",
+  "vl": {
+   "STR": 19,
+   "AGI": 11,
+   "CON": 16,
+   "INT": 14,
+   "WIS": 12,
+   "CHA": 15
+  },
+  "zach": {
+   "STR": "+4",
+   "AGI": "+3",
+   "CON": "+6",
+   "INT": "+2",
+   "WIS": "+4",
+   "CHA": "+5"
+  },
+  "dov": "Arcana +5, Deception +8, Perception +4",
+  "odol": "Cold",
+  "smysly": "Darkvision 60 stop; pasivní Perception 14",
+  "jaz": "Common, Giant",
+  "cr": "7",
+  "xp": 2900,
+  "pb": "+3",
+  "rysy": [
+   {
+    "n": "Regeneration",
+    "t": "Oni na začátku každého svého tahu získá zpět 10 HP, pokud má alespoň 1 HP."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Oni provede dva útoky Claw nebo Nightmare Ray. Jeden útok může nahradit použitím Spellcasting."
+   },
+   {
+    "n": "Claw",
+    "t": "*Hod na útok na blízko:* +7, dosah 10 stop. *Zásah:* 10 (1d12 + 4) Slashing zranění plus 9 (2d8) Necrotic zranění."
+   },
+   {
+    "n": "Nightmare Ray",
+    "t": "*Hod na útok na dálku:* +5, dostřel 60 stop. *Zásah:* 9 (2d6 + 2) Psychic zranění a cíl má stav Vyděšen (Frightened) až do začátku příštího tahu oniho."
+   },
+   {
+    "n": "Shape-Shift",
+    "t": "Oni se promění v Malého nebo Středního humanoida nebo ve Velkého obra, případně se vrátí do své pravé podoby. Kromě velikosti jsou jeho herní statistiky ve všech podobách stejné. Žádné vybavení, které má na sobě nebo nese, se nepromění."
+   },
+   {
+    "n": "Spellcasting",
+    "t": "Oni sešle jedno z následujících kouzel, aniž by potřeboval materiální složky, a jako vlastnost pro sesílání kouzel používá Charisma (SO záchrany proti kouzlu 13):\n**1× za den každé:** *Charm Person* (verze 2. úrovně), *Darkness*, *Gaseous Form*, *Sleep*"
+   }
+  ],
+  "bonus": [
+   {
+    "n": "Invisibility",
+    "t": "Oni sešle na sebe *Invisibility*, aniž by potřeboval jakékoli složky kouzla, a používá stejnou vlastnost pro sesílání kouzel jako u Spellcasting."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Claw",
+    "b": 7,
+    "z": "1d12+4",
+    "zt": "Slashing",
+    "p": "dosah 10 stop; + 2d8 Necrotic"
+   },
+   {
+    "n": "Nightmare Ray",
+    "b": 5,
+    "z": "2d6+2",
+    "zt": "Psychic",
+    "p": "dostřel 60 stop; cíl Vyděšen do začátku příštího tahu oniho"
+   }
+  ],
+  "str": 312
+ },
+ {
+  "en": "Otyugh",
+  "cz": "otyugh",
+  "vel": "Velká",
+  "typ": "Aberration",
+  "pres": "neutrální",
+  "ac": "14",
+  "ini": "+0 (10)",
+  "hp": 104,
+  "hpk": "11d10 + 44",
+  "rych": "30 stop",
+  "vl": {
+   "STR": 16,
+   "AGI": 11,
+   "CON": 19,
+   "INT": 6,
+   "WIS": 13,
+   "CHA": 6
+  },
+  "zach": {
+   "STR": "+3",
+   "AGI": "+0",
+   "CON": "+7",
+   "INT": "-2",
+   "WIS": "+1",
+   "CHA": "-2"
+  },
+  "smysly": "Darkvision 120 stop; pasivní Perception 11",
+  "jaz": "Otyugh; telepatie 120 stop (neumožňuje přijímajícímu tvorovi odpovědět telepaticky)",
+  "cr": "5",
+  "xp": 1800,
+  "pb": "+3",
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Otyugh provede jeden útok Bite a dva útoky Tentacle."
+   },
+   {
+    "n": "Bite",
+    "t": "*Hod na útok na blízko:* +6, dosah 5 stop. *Zásah:* 12 (2d8 + 3) Piercing zranění a cíl má stav Otráven (Poisoned). Kdykoli otrávený cíl dokončí dlouhý odpočinek, podstoupí následující účinek. *Záchrana Odolnosti:* SO 15. *Neúspěch:* Maximum HP cíle se sníží o 5 (1d10) a nevrátí se k normálu, dokud stav Otráven na cíli neskončí. *Úspěch:* Stav Otráven skončí."
+   },
+   {
+    "n": "Tentacle",
+    "t": "*Hod na útok na blízko:* +6, dosah 10 stop. *Zásah:* 12 (2d8 + 3) Piercing zranění. Je-li cíl Střední nebo menší tvor, má stav Chycen (Grappled) (únik SO 13) jedním ze dvou chapadel."
+   },
+   {
+    "n": "Tentacle Slam",
+    "t": "*Záchrana Odolnosti:* SO 14, každý tvor, kterého otyugh drží jako Chyceného (Grappled). *Neúspěch:* 16 (3d8 + 3) Bludgeoning zranění a cíl má stav Omráčen (Stunned) až do začátku příštího tahu otyugha. *Úspěch:* Pouze poloviční zranění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 6,
+    "z": "2d8+3",
+    "zt": "Piercing",
+    "p": "dosah 5 stop; cíl Otráven (CON SO 15 po dlouhém odpočinku, jinak −1d10 max HP)"
+   },
+   {
+    "n": "Tentacle",
+    "b": 6,
+    "z": "2d8+3",
+    "zt": "Piercing",
+    "p": "dosah 10 stop; Chycen (únik SO 13)"
+   },
+   {
+    "n": "Tentacle Slam",
+    "dc": "CON SO 14",
+    "z": "3d8+3",
+    "zt": "Bludgeoning",
+    "p": "každý tvor Chycený otyughem; Omráčen; polovina při úspěchu"
+   }
+  ],
+  "str": 313
+ },
+ {
+  "en": "Owlbear",
+  "cz": "sovomedvěd",
+  "vel": "Velká",
+  "typ": "Monstrosity",
+  "pres": "bez přesvědčení",
+  "ac": "13",
+  "ini": "+1 (11)",
+  "hp": 59,
+  "hpk": "7d10 + 21",
+  "rych": "40 stop, šplhání 40 stop",
+  "vl": {
+   "STR": 20,
+   "AGI": 12,
+   "CON": 17,
+   "INT": 3,
+   "WIS": 12,
+   "CHA": 7
+  },
+  "zach": {
+   "STR": "+5",
+   "AGI": "+1",
+   "CON": "+3",
+   "INT": "-4",
+   "WIS": "+1",
+   "CHA": "-2"
+  },
+  "dov": "Perception +5",
+  "smysly": "Darkvision 60 stop; pasivní Perception 15",
+  "jaz": "žádné",
+  "cr": "3",
+  "xp": 700,
+  "pb": "+2",
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Sovomedvěd provede dva útoky Rend."
+   },
+   {
+    "n": "Rend",
+    "t": "*Hod na útok na blízko:* +7, dosah 5 stop. *Zásah:* 14 (2d8 + 5) Slashing zranění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Rend",
+    "b": 7,
+    "z": "2d8+5",
+    "zt": "Slashing",
+    "p": "dosah 5 stop"
+   }
+  ],
+  "str": 313
+ },
+ {
+  "en": "Pegasus",
+  "cz": "pegas",
+  "vel": "Velká",
+  "typ": "Celestial",
+  "pres": "chaoticky dobrý",
+  "ac": "12",
+  "ini": "+2 (12)",
+  "hp": 59,
+  "hpk": "7d10 + 21",
+  "rych": "60 stop, let 90 stop",
+  "vl": {
+   "STR": 18,
+   "AGI": 15,
+   "CON": 16,
+   "INT": 10,
+   "WIS": 15,
+   "CHA": 13
+  },
+  "zach": {
+   "STR": "+4",
+   "AGI": "+4",
+   "CON": "+5",
+   "INT": "+0",
+   "WIS": "+4",
+   "CHA": "+3"
+  },
+  "dov": "Perception +6",
+  "smysly": "pasivní Perception 16",
+  "jaz": "rozumí Celestial, Common, Elvish a Sylvan, ale nemluví",
+  "cr": "2",
+  "xp": 450,
+  "pb": "+2",
+  "akce": [
+   {
+    "n": "Hooves",
+    "t": "*Hod na útok na blízko:* +6, dosah 5 stop. *Zásah:* 7 (1d6 + 4) Bludgeoning zranění plus 5 (2d4) Radiant zranění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Hooves",
+    "b": 6,
+    "z": "1d6+4",
+    "zt": "Bludgeoning",
+    "p": "dosah 5 stop; + 2d4 Radiant"
+   }
+  ],
+  "str": 313
+ },
+ {
+  "en": "Phase Spider",
+  "cz": "fázový pavouk",
+  "vel": "Velká",
+  "typ": "Monstrosity",
+  "pres": "bez přesvědčení",
+  "ac": "14",
+  "ini": "+3 (13)",
+  "hp": 45,
+  "hpk": "7d10 + 7",
+  "rych": "30 stop, šplhání 30 stop",
+  "vl": {
+   "STR": 15,
+   "AGI": 16,
+   "CON": 12,
+   "INT": 6,
+   "WIS": 10,
+   "CHA": 6
+  },
+  "zach": {
+   "STR": "+2",
+   "AGI": "+3",
+   "CON": "+1",
+   "INT": "-2",
+   "WIS": "+0",
+   "CHA": "-2"
+  },
+  "dov": "Stealth +7",
+  "smysly": "Darkvision 60 stop; pasivní Perception 10",
+  "jaz": "žádné",
+  "cr": "3",
+  "xp": 700,
+  "pb": "+2",
+  "rysy": [
+   {
+    "n": "Ethereal Sight",
+    "t": "Pavouk vidí 60 stop do Éterické roviny (Ethereal Plane), když je na Materiální rovině (Material Plane), a naopak."
+   },
+   {
+    "n": "Spider Climb",
+    "t": "Pavouk dokáže šplhat po obtížných površích, včetně stropů, aniž by musel provádět ověření vlastnosti."
+   },
+   {
+    "n": "Web Walker",
+    "t": "Pavouk ignoruje omezení pohybu způsobená pavučinami a zná polohu každého dalšího tvora, který je v kontaktu se stejnou pavučinou."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Pavouk provede dva útoky Bite."
+   },
+   {
+    "n": "Bite",
+    "t": "*Hod na útok na blízko:* +5, dosah 5 stop. *Zásah:* 8 (1d10 + 3) Piercing zranění plus 9 (2d8) Poison zranění. Pokud toto zranění sníží HP cíle na 0, cíl se stane stabilizovaným a na 1 hodinu má stav Otráven (Poisoned). Dokud je Otráven, má cíl také stav Ochromen (Paralyzed)."
+   }
+  ],
+  "bonus": [
+   {
+    "n": "Ethereal Jaunt",
+    "t": "Pavouk se teleportuje z Materiální roviny na Éterickou rovinu nebo naopak."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 5,
+    "z": "1d10+3",
+    "zt": "Piercing",
+    "p": "dosah 5 stop; + 2d8 Poison"
+   }
+  ],
+  "str": 313
+ },
+ {
+  "en": "Pirate",
+  "cz": "pirát",
+  "vel": "Střední nebo Malá",
+  "typ": "Humanoid",
+  "pres": "neutrální",
+  "ac": "14",
+  "ini": "+5 (15)",
+  "hp": 33,
+  "hpk": "6d8 + 6",
+  "rych": "30 stop",
+  "vl": {
+   "STR": 10,
+   "AGI": 16,
+   "CON": 12,
+   "INT": 8,
+   "WIS": 12,
+   "CHA": 14
+  },
+  "zach": {
+   "STR": "+0",
+   "AGI": "+5",
+   "CON": "+1",
+   "INT": "-1",
+   "WIS": "+1",
+   "CHA": "+4"
+  },
+  "vyb": "Daggers (6), Leather Armor",
+  "smysly": "pasivní Perception 11",
+  "jaz": "Common a jeden další jazyk",
+  "cr": "1",
+  "xp": 200,
+  "pb": "+2",
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Pirát provede dva útoky Dagger. Jeden útok může nahradit použitím Enthralling Panache."
+   },
+   {
+    "n": "Dagger",
+    "t": "*Hod na útok na blízko nebo na dálku:* +5, dosah 5 stop nebo dostřel 20/60 stop. *Zásah:* 5 (1d4 + 3) Piercing zranění."
+   },
+   {
+    "n": "Enthralling Panache",
+    "t": "*Záchrana Moudrosti:* SO 12, jeden tvor, kterého pirát vidí do 30 stop. *Neúspěch:* Cíl má stav Okouzlen (Charmed) až do začátku příštího tahu piráta."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Dagger",
+    "b": 5,
+    "z": "1d4+3",
+    "zt": "Piercing",
+    "p": "dosah 5 stop nebo dostřel 20/60 stop"
+   }
+  ],
+  "str": 314
+ },
+ {
+  "en": "Pirate Captain",
+  "cz": "pirátský kapitán",
+  "vel": "Střední nebo Malá",
+  "typ": "Humanoid",
+  "pres": "neutrální",
+  "ac": "17",
+  "ini": "+7 (17)",
+  "hp": 84,
+  "hpk": "13d8 + 26",
+  "rych": "30 stop",
+  "vl": {
+   "STR": 10,
+   "AGI": 18,
+   "CON": 14,
+   "INT": 10,
+   "WIS": 14,
+   "CHA": 17
+  },
+  "zach": {
+   "STR": "+3",
+   "AGI": "+7",
+   "CON": "+2",
+   "INT": "+0",
+   "WIS": "+5",
+   "CHA": "+6"
+  },
+  "dov": "Acrobatics +7, Perception +5",
+  "vyb": "Pistol, Rapier",
+  "smysly": "pasivní Perception 15",
+  "jaz": "Common a jeden další jazyk",
+  "cr": "6",
+  "xp": 2300,
+  "pb": "+3",
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Pirát provede tři útoky, v libovolné kombinaci Rapier nebo Pistol."
+   },
+   {
+    "n": "Rapier",
+    "t": "*Hod na útok na blízko:* +7, dosah 5 stop. *Zásah:* 13 (2d8 + 4) Piercing zranění a pirát má výhodu na další hod na útok, který provede před koncem tohoto tahu."
+   },
+   {
+    "n": "Pistol",
+    "t": "*Hod na útok na dálku:* +7, dostřel 30/90 stop. *Zásah:* 15 (2d10 + 4) Piercing zranění."
+   }
+  ],
+  "bonus": [
+   {
+    "n": "Captain's Charm",
+    "t": "*Záchrana Moudrosti:* SO 14, jeden tvor, kterého pirát vidí do 30 stop. *Neúspěch:* Cíl má stav Okouzlen (Charmed) až do začátku příštího tahu piráta."
+   }
+  ],
+  "reakce": [
+   {
+    "n": "Riposte",
+    "t": "*Spouštěč:* Piráta zasáhne hod na útok na blízko, zatímco drží zbraň. *Reakce:* Pirát si proti tomuto útoku přičte 3 k AC, čímž může útok minout. Pokud útok mine, provede pirát jeden útok Rapier proti tvorovi, který reakci spustil, je-li v dosahu."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Rapier",
+    "b": 7,
+    "z": "2d8+4",
+    "zt": "Piercing",
+    "p": "dosah 5 stop; výhoda na další útok v tomto tahu"
+   },
+   {
+    "n": "Pistol",
+    "b": 7,
+    "z": "2d10+4",
+    "zt": "Piercing",
+    "p": "dostřel 30/90 stop"
+   }
+  ],
+  "str": 314
+ },
+ {
+  "en": "Pit Fiend",
+  "cz": "ďábel jámy",
+  "vel": "Velká",
+  "typ": "Fiend (Devil)",
+  "pres": "zákonně zlý",
+  "ac": "21",
+  "ini": "+14 (24)",
+  "hp": 337,
+  "hpk": "27d10 + 189",
+  "rych": "30 stop, let 60 stop",
+  "vl": {
+   "STR": 26,
+   "AGI": 14,
+   "CON": 24,
+   "INT": 22,
+   "WIS": 18,
+   "CHA": 24
+  },
+  "zach": {
+   "STR": "+8",
+   "AGI": "+8",
+   "CON": "+7",
+   "INT": "+6",
+   "WIS": "+10",
+   "CHA": "+7"
+  },
+  "dov": "Perception +10, Persuasion +19",
+  "odol": "Cold",
+  "imu": "Fire, Poison; Otráven (Poisoned)",
+  "smysly": "Truesight 120 stop; pasivní Perception 20",
+  "jaz": "Infernal; telepatie 120 stop",
+  "cr": "20",
+  "xp": 25000,
+  "pb": "+6",
+  "rysy": [
+   {
+    "n": "Diabolical Restoration",
+    "t": "Pokud ďábel jámy zemře mimo Devět pekel, jeho tělo zmizí v sirném dýmu a okamžitě získá nové tělo, v němž se se všemi svými HP oživí kdesi v Devíti peklech."
+   },
+   {
+    "n": "Fear Aura",
+    "t": "Ďábel jámy vyzařuje auru v podobě 20stopového vyzařování, dokud nemá stav Neschopný (Incapacitated). *Záchrana Moudrosti:* SO 21, každý nepřítel, který v auře začne svůj tah. *Neúspěch:* Cíl má stav Vyděšen (Frightened) až do začátku svého příštího tahu. *Úspěch:* Cíl je vůči auře tohoto ďábla jámy na 24 hodin imunní."
+   },
+   {
+    "n": "Legendary Resistance (4× za den)",
+    "t": "Pokud ďábel jámy neuspěje v záchranném hodu, může se rozhodnout, že místo toho uspěje."
+   },
+   {
+    "n": "Magic Resistance",
+    "t": "Ďábel jámy má výhodu na záchranné hody proti kouzlům a jiným magickým účinkům."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Ďábel jámy provede jeden útok Bite, dva útoky Devilish Claw a jeden útok Fiery Mace."
+   },
+   {
+    "n": "Bite",
+    "t": "*Hod na útok na blízko:* +14, dosah 10 stop. *Zásah:* 18 (3d6 + 8) Piercing zranění. Je-li cílem tvor, musí si hodit následující záchranný hod. *Záchrana Odolnosti:* SO 21. *Neúspěch:* Cíl má stav Otráven (Poisoned). Dokud je Otráven, nemůže cíl získávat zpět HP, na začátku každého svého tahu utrpí 21 (6d6) Poison zranění a na konci každého svého tahu záchranu opakuje; při úspěchu účinek sám na sobě ukončí. Po 1 minutě uspěje automaticky."
+   },
+   {
+    "n": "Devilish Claw",
+    "t": "*Hod na útok na blízko:* +14, dosah 10 stop. *Zásah:* 26 (4d8 + 8) Necrotic zranění."
+   },
+   {
+    "n": "Fiery Mace",
+    "t": "*Hod na útok na blízko:* +14, dosah 10 stop. *Zásah:* 22 (4d6 + 8) Force zranění plus 21 (6d6) Fire zranění."
+   },
+   {
+    "n": "Hellfire Spellcasting (obnova 4–6)",
+    "t": "Ďábel jámy dvakrát sešle *Fireball* (verze 5. úrovně), aniž by potřeboval materiální složky, a jako vlastnost pro sesílání kouzel používá Charisma (SO záchrany proti kouzlu 21). Jeden *Fireball* může nahradit kouzlem *Hold Monster* (verze 7. úrovně) nebo *Wall of Fire*."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 14,
+    "z": "3d6+8",
+    "zt": "Piercing",
+    "p": "dosah 10 stop; CON SO 21, jinak Otráven: 6d6 Poison na začátku tahu, nemůže se léčit"
+   },
+   {
+    "n": "Devilish Claw",
+    "b": 14,
+    "z": "4d8+8",
+    "zt": "Necrotic",
+    "p": "dosah 10 stop"
+   },
+   {
+    "n": "Fiery Mace",
+    "b": 14,
+    "z": "4d6+8",
+    "zt": "Force",
+    "p": "dosah 10 stop; + 6d6 Fire"
+   },
+   {
+    "n": "Hellfire Spellcasting (Fireball ×2)",
+    "dc": "AGI SO 21",
+    "z": "10d6",
+    "zt": "Fire",
+    "p": "2× Fireball (5. úroveň), koule o poloměru 20 stop, polovina při úspěchu, obnova 4–6"
+   }
+  ],
+  "str": 314
+ },
+ {
+  "en": "Planetar",
+  "cz": "planetár",
+  "vel": "Velká",
+  "typ": "Celestial (Angel)",
+  "pres": "zákonně dobrý",
+  "ac": "19",
+  "ini": "+10 (20)",
+  "hp": 262,
+  "hpk": "21d10 + 147",
+  "rych": "40 stop, let 120 stop (vznáší se)",
+  "vl": {
+   "STR": 24,
+   "AGI": 20,
+   "CON": 24,
+   "INT": 19,
+   "WIS": 22,
+   "CHA": 25
+  },
+  "zach": {
+   "STR": "+12",
+   "AGI": "+5",
+   "CON": "+12",
+   "INT": "+4",
+   "WIS": "+11",
+   "CHA": "+12"
+  },
+  "dov": "Perception +11",
+  "odol": "Radiant",
+  "imu": "Okouzlen (Charmed), Vyčerpání (Exhaustion), Vyděšen (Frightened)",
+  "smysly": "Truesight 120 stop; pasivní Perception 21",
+  "jaz": "všechny; telepatie 120 stop",
+  "cr": "16",
+  "xp": 15000,
+  "pb": "+5",
+  "rysy": [
+   {
+    "n": "Divine Awareness",
+    "t": "Planetár pozná, když slyší lež."
+   },
+   {
+    "n": "Exalted Restoration",
+    "t": "Pokud planetár zemře mimo horu Celestia (Mount Celestia), jeho tělo zmizí a okamžitě získá nové tělo, v němž se se všemi svými HP oživí kdesi na hoře Celestia."
+   },
+   {
+    "n": "Magic Resistance",
+    "t": "Planetár má výhodu na záchranné hody proti kouzlům a jiným magickým účinkům."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Planetár provede tři útoky Radiant Sword nebo dvakrát použije Holy Burst."
+   },
+   {
+    "n": "Radiant Sword",
+    "t": "*Hod na útok na blízko:* +12, dosah 10 stop. *Zásah:* 14 (2d6 + 7) Slashing zranění plus 18 (4d8) Radiant zranění."
+   },
+   {
+    "n": "Holy Burst",
+    "t": "*Záchrana Obratnosti:* SO 20, každý nepřítel v kouli o poloměru 20 stop se středem v bodě do 120 stop, který planetár vidí. *Neúspěch:* 24 (7d6) Radiant zranění. *Úspěch:* Poloviční zranění."
+   },
+   {
+    "n": "Spellcasting",
+    "t": "Planetár sešle jedno z následujících kouzel, aniž by potřeboval materiální složky, a jako vlastnost pro sesílání kouzel používá Charisma (SO záchrany proti kouzlu 20):\n**Libovolně:** *Detect Evil and Good*\n**1× za den každé:** *Commune*, *Control Weather*, *Dispel Evil and Good*, *Raise Dead*"
+   }
+  ],
+  "bonus": [
+   {
+    "n": "Divine Aid (2× za den)",
+    "t": "Planetár sešle *Cure Wounds*, *Invisibility*, *Lesser Restoration* nebo *Remove Curse* a používá stejnou vlastnost pro sesílání kouzel jako u Spellcasting."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Radiant Sword",
+    "b": 12,
+    "z": "2d6+7",
+    "zt": "Slashing",
+    "p": "dosah 10 stop; + 4d8 Radiant"
+   },
+   {
+    "n": "Holy Burst",
+    "dc": "AGI SO 20",
+    "z": "7d6",
+    "zt": "Radiant",
+    "p": "koule o poloměru 20 stop do 120 stop, jen nepřátelé, polovina při úspěchu"
+   }
+  ],
+  "str": 315
+ },
+ {
+  "en": "Priest Acolyte",
+  "cz": "akolyta",
+  "vel": "Střední nebo Malá",
+  "typ": "Humanoid (Cleric)",
+  "pres": "neutrální",
+  "ac": "13",
+  "ini": "+0 (10)",
+  "hp": 11,
+  "hpk": "2d8 + 2",
+  "rych": "30 stop",
+  "vl": {
+   "STR": 14,
+   "AGI": 10,
+   "CON": 12,
+   "INT": 10,
+   "WIS": 14,
+   "CHA": 11
+  },
+  "zach": {
+   "STR": "+2",
+   "AGI": "+0",
+   "CON": "+1",
+   "INT": "+0",
+   "WIS": "+2",
+   "CHA": "+0"
+  },
+  "dov": "Medicine +4, Religion +2",
+  "vyb": "Chain Shirt, Holy Symbol, Mace",
+  "smysly": "pasivní Perception 12",
+  "jaz": "Common",
+  "cr": "1/4",
+  "xp": 50,
+  "pb": "+2",
+  "akce": [
+   {
+    "n": "Mace",
+    "t": "*Hod na útok na blízko:* +4, dosah 5 stop. *Zásah:* 5 (1d6 + 2) Bludgeoning zranění plus 2 (1d4) Radiant zranění."
+   },
+   {
+    "n": "Radiant Flame",
+    "t": "*Hod na útok na dálku:* +4, dostřel 60 stop. *Zásah:* 7 (2d6) Radiant zranění."
+   },
+   {
+    "n": "Spellcasting",
+    "t": "Kněz sešle jedno z následujících kouzel a jako vlastnost pro sesílání kouzel používá Moudrost:\n**Libovolně:** *Light*, *Thaumaturgy*"
+   }
+  ],
+  "bonus": [
+   {
+    "n": "Divine Aid (1× za den)",
+    "t": "Kněz sešle *Bless*, *Healing Word* nebo *Sanctuary* a používá stejnou vlastnost pro sesílání kouzel jako u Spellcasting."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Mace",
+    "b": 4,
+    "z": "1d6+2",
+    "zt": "Bludgeoning",
+    "p": "dosah 5 stop; + 1d4 Radiant"
+   },
+   {
+    "n": "Radiant Flame",
+    "b": 4,
+    "z": "2d6",
+    "zt": "Radiant",
+    "p": "dostřel 60 stop"
+   }
+  ],
+  "str": 316
+ },
+ {
+  "en": "Priest",
+  "cz": "kněz",
+  "vel": "Střední nebo Malá",
+  "typ": "Humanoid (Cleric)",
+  "pres": "neutrální",
+  "ac": "13",
+  "ini": "+0 (10)",
+  "hp": 38,
+  "hpk": "7d8 + 7",
+  "rych": "30 stop",
+  "vl": {
+   "STR": 16,
+   "AGI": 10,
+   "CON": 12,
+   "INT": 13,
+   "WIS": 16,
+   "CHA": 13
+  },
+  "zach": {
+   "STR": "+3",
+   "AGI": "+0",
+   "CON": "+1",
+   "INT": "+1",
+   "WIS": "+3",
+   "CHA": "+1"
+  },
+  "dov": "Medicine +7, Perception +5, Religion +5",
+  "vyb": "Chain Shirt, Holy Symbol, Mace",
+  "smysly": "pasivní Perception 15",
+  "jaz": "Common a jeden další jazyk",
+  "cr": "2",
+  "xp": 450,
+  "pb": "+2",
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Kněz provede dva útoky, v libovolné kombinaci Mace nebo Radiant Flame."
+   },
+   {
+    "n": "Mace",
+    "t": "*Hod na útok na blízko:* +5, dosah 5 stop. *Zásah:* 6 (1d6 + 3) Bludgeoning zranění plus 5 (2d4) Radiant zranění."
+   },
+   {
+    "n": "Radiant Flame",
+    "t": "*Hod na útok na dálku:* +5, dostřel 60 stop. *Zásah:* 11 (2d10) Radiant zranění."
+   },
+   {
+    "n": "Spellcasting",
+    "t": "Kněz sešle jedno z následujících kouzel a jako vlastnost pro sesílání kouzel používá Moudrost (SO záchrany proti kouzlu 13):\n**Libovolně:** *Light*, *Thaumaturgy*\n**1× za den:** *Spirit Guardians*"
+   }
+  ],
+  "bonus": [
+   {
+    "n": "Divine Aid (3× za den)",
+    "t": "Kněz sešle *Bless*, *Dispel Magic*, *Healing Word* nebo *Lesser Restoration* a používá stejnou vlastnost pro sesílání kouzel jako u Spellcasting."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Mace",
+    "b": 5,
+    "z": "1d6+3",
+    "zt": "Bludgeoning",
+    "p": "dosah 5 stop; + 2d4 Radiant"
+   },
+   {
+    "n": "Radiant Flame",
+    "b": 5,
+    "z": "2d10",
+    "zt": "Radiant",
+    "p": "dostřel 60 stop"
+   }
+  ],
+  "str": 316
+ },
+ {
+  "en": "Pseudodragon",
+  "cz": "pseudodrak",
+  "vel": "Drobná",
+  "typ": "Dragon",
+  "pres": "neutrálně dobrý",
+  "ac": "14",
+  "ini": "+2 (12)",
+  "hp": 10,
+  "hpk": "3d4 + 3",
+  "rych": "15 stop, let 60 stop",
+  "vl": {
+   "STR": 6,
+   "AGI": 15,
+   "CON": 13,
+   "INT": 10,
+   "WIS": 12,
+   "CHA": 10
+  },
+  "zach": {
+   "STR": "-2",
+   "AGI": "+2",
+   "CON": "+1",
+   "INT": "+0",
+   "WIS": "+1",
+   "CHA": "+0"
+  },
+  "dov": "Perception +5, Stealth +4",
+  "smysly": "Blindsight 10 stop, Darkvision 60 stop; pasivní Perception 15",
+  "jaz": "rozumí Common a Draconic, ale nemluví",
+  "cr": "1/4",
+  "xp": 50,
+  "pb": "+2",
+  "rysy": [
+   {
+    "n": "Magic Resistance",
+    "t": "Pseudodrak má výhodu na záchranné hody proti kouzlům a jiným magickým účinkům."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Pseudodrak provede dva útoky Bite."
+   },
+   {
+    "n": "Bite",
+    "t": "*Hod na útok na blízko:* +4, dosah 5 stop. *Zásah:* 4 (1d4 + 2) Piercing zranění."
+   },
+   {
+    "n": "Sting",
+    "t": "*Záchrana Odolnosti:* SO 12, jeden tvor do 5 stop, kterého pseudodrak vidí. *Neúspěch:* 5 (2d4) Poison zranění a cíl má na 1 hodinu stav Otráven (Poisoned). *Neúspěch o 5 nebo více:* Dokud je cíl Otráven, má také stav V bezvědomí (Unconscious), který skončí předčasně, pokud cíl utrpí zranění nebo pokud tvor do 5 stop od něj použije akci, aby ho probudil."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 4,
+    "z": "1d4+2",
+    "zt": "Piercing",
+    "p": "dosah 5 stop"
+   },
+   {
+    "n": "Sting",
+    "dc": "CON SO 12",
+    "z": "2d4",
+    "zt": "Poison",
+    "p": "jeden tvor do 5 stop; Otráven 1 h, neúspěch o 5+ = V bezvědomí"
+   }
+  ],
+  "str": 316
+ },
+ {
+  "en": "Purple Worm",
+  "cz": "purpurový červ",
+  "vel": "Gigantická",
+  "typ": "Monstrosity",
+  "pres": "bez přesvědčení",
+  "ac": "18",
+  "ini": "+3 (13)",
+  "hp": 247,
+  "hpk": "15d20 + 90",
+  "rych": "50 stop, hrabání 50 stop",
+  "vl": {
+   "STR": 28,
+   "AGI": 7,
+   "CON": 22,
+   "INT": 1,
+   "WIS": 8,
+   "CHA": 4
+  },
+  "zach": {
+   "STR": "+9",
+   "AGI": "-2",
+   "CON": "+11",
+   "INT": "-5",
+   "WIS": "+4",
+   "CHA": "-3"
+  },
+  "smysly": "Blindsight 30 stop, Tremorsense 60 stop; pasivní Perception 9",
+  "jaz": "žádné",
+  "cr": "15",
+  "xp": 13000,
+  "pb": "+5",
+  "rysy": [
+   {
+    "n": "Tunneler",
+    "t": "Červ se dokáže prohrabávat pevnou skálou poloviční rychlostí hrabání a zanechává za sebou tunel o průměru 10 stop."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Červ provede jeden útok Bite a jeden útok Tail Stinger."
+   },
+   {
+    "n": "Bite",
+    "t": "*Hod na útok na blízko:* +14, dosah 10 stop. *Zásah:* 22 (3d8 + 9) Piercing zranění. Je-li cíl Velký nebo menší tvor, má stav Chycen (Grappled) (únik SO 19) a dokud chvat neskončí, má stav Zadržen (Restrained)."
+   },
+   {
+    "n": "Tail Stinger",
+    "t": "*Hod na útok na blízko:* +14, dosah 10 stop. *Zásah:* 16 (2d6 + 9) Piercing zranění plus 35 (10d6) Poison zranění."
+   }
+  ],
+  "bonus": [
+   {
+    "n": "Swallow",
+    "t": "*Záchrana Síly:* SO 19, jeden Velký nebo menší tvor, kterého červ drží jako Chyceného (Grappled) (červ může mít spolknuté až tři tvory současně). *Neúspěch:* Cíl je červem spolknut a stav Chycen skončí. Spolknutý tvor má stavy Oslepen (Blinded) a Zadržen (Restrained), má úplný kryt proti útokům a jiným účinkům zvenčí červa a na začátku každého tahu červa utrpí 17 (5d6) Acid zranění.\nPokud červ během jediného tahu utrpí od tvora uvnitř sebe 30 nebo více zranění, musí na konci tohoto tahu uspět v záchranném hodu na Odolnost se SO 21, jinak vyvrhne všechny spolknuté tvory; každý z nich dopadne na prostor do 5 stop od červa a má stav Sražen (Prone). Pokud červ zemře, spolknutý tvor už nemá stav Zadržen a může z mrtvoly uniknout za 20 stop pohybu, přičemž opustí stav Sražen."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 14,
+    "z": "3d8+9",
+    "zt": "Piercing",
+    "p": "dosah 10 stop; Velký nebo menší Chycen (únik SO 19) a Zadržen"
+   },
+   {
+    "n": "Tail Stinger",
+    "b": 14,
+    "z": "2d6+9",
+    "zt": "Piercing",
+    "p": "dosah 10 stop; + 10d6 Poison"
+   },
+   {
+    "n": "Swallow",
+    "dc": "STR SO 19",
+    "z": "5d6",
+    "zt": "Acid",
+    "p": "Chycený tvor spolknut; 5d6 Acid na začátku každého tahu červa"
+   }
+  ],
+  "str": 316
+ },
+ {
+  "en": "Quasit",
+  "cz": "kvasit",
+  "vel": "Drobná",
+  "typ": "Fiend (Demon)",
+  "pres": "chaoticky zlý",
+  "ac": "13",
+  "ini": "+3 (13)",
+  "hp": 25,
+  "hpk": "10d4",
+  "rych": "40 stop",
+  "vl": {
+   "STR": 5,
+   "AGI": 17,
+   "CON": 10,
+   "INT": 7,
+   "WIS": 10,
+   "CHA": 10
+  },
+  "zach": {
+   "STR": "-3",
+   "AGI": "+3",
+   "CON": "+0",
+   "INT": "-2",
+   "WIS": "+0",
+   "CHA": "+0"
+  },
+  "dov": "Stealth +5",
+  "odol": "Cold, Fire, Lightning",
+  "imu": "Poison; Otráven (Poisoned)",
+  "smysly": "Darkvision 120 stop; pasivní Perception 10",
+  "jaz": "Abyssal, Common",
+  "cr": "1",
+  "xp": 200,
+  "pb": "+2",
+  "rysy": [
+   {
+    "n": "Magic Resistance",
+    "t": "Kvasit má výhodu na záchranné hody proti kouzlům a jiným magickým účinkům."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Rend",
+    "t": "*Hod na útok na blízko:* +5, dosah 5 stop. *Zásah:* 5 (1d4 + 3) Slashing zranění a cíl má stav Otráven (Poisoned) až do začátku příštího tahu kvasita."
+   },
+   {
+    "n": "Invisibility",
+    "t": "Kvasit na sebe sešle *Invisibility*, aniž by potřeboval jakékoli složky kouzla, a jako vlastnost pro sesílání kouzel používá Charisma."
+   },
+   {
+    "n": "Scare (1× za den)",
+    "t": "*Záchrana Moudrosti:* SO 10, jeden tvor do 20 stop. *Neúspěch:* Cíl má stav Vyděšen (Frightened). Na konci každého svého tahu cíl záchranu opakuje; při úspěchu účinek sám na sobě ukončí. Po 1 minutě uspěje automaticky."
+   },
+   {
+    "n": "Shape-Shift",
+    "t": "Kvasit se promění tak, aby připomínal netopýra (rychlost 10 stop, let 40 stop), stonožku (40 stop, šplhání 40 stop) nebo ropuchu (40 stop, plavání 40 stop), případně se vrátí do své pravé podoby. Jeho herní statistiky jsou ve všech podobách stejné kromě rychlosti. Žádné vybavení, které má na sobě nebo nese, se nepromění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Rend",
+    "b": 5,
+    "z": "1d4+3",
+    "zt": "Slashing",
+    "p": "dosah 5 stop; Otráven do začátku příštího tahu kvasita"
+   }
+  ],
+  "str": 317
+ },
+ {
+  "en": "Rakshasa",
+  "cz": "rakšasa",
+  "vel": "Střední",
+  "typ": "Fiend",
+  "pres": "zákonně zlý",
+  "ac": "17",
+  "ini": "+8 (18)",
+  "hp": 221,
+  "hpk": "26d8 + 104",
+  "rych": "40 stop",
+  "vl": {
+   "STR": 14,
+   "AGI": 17,
+   "CON": 18,
+   "INT": 13,
+   "WIS": 16,
+   "CHA": 20
+  },
+  "zach": {
+   "STR": "+2",
+   "AGI": "+3",
+   "CON": "+4",
+   "INT": "+1",
+   "WIS": "+3",
+   "CHA": "+5"
+  },
+  "dov": "Deception +10, Insight +8, Perception +8",
+  "zra": "Piercing zranění od zbraní, které ovládají tvorové pod účinkem kouzla *Bless*",
+  "imu": "Okouzlen (Charmed), Vyděšen (Frightened)",
+  "smysly": "Truesight 60 stop; pasivní Perception 18",
+  "jaz": "Common, Infernal",
+  "cr": "13",
+  "xp": 10000,
+  "pb": "+5",
+  "rysy": [
+   {
+    "n": "Greater Magic Resistance",
+    "t": "Rakšasa automaticky uspěje v záchranných hodech proti kouzlům a jiným magickým účinkům a hody na útok kouzly ho automaticky minou. Bez svolení rakšasy jej žádné kouzlo nemůže pozorovat na dálku ani zjistit jeho myšlenky, typ tvora nebo přesvědčení."
+   },
+   {
+    "n": "Fiendish Restoration",
+    "t": "Pokud rakšasa zemře mimo Devět pekel, jeho tělo se promění v ichor a okamžitě získá nové tělo, v němž se se všemi svými HP oživí kdesi v Devíti peklech."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Rakšasa provede tři útoky Cursed Touch."
+   },
+   {
+    "n": "Cursed Touch",
+    "t": "*Hod na útok na blízko:* +10, dosah 5 stop. *Zásah:* 12 (2d6 + 5) Slashing zranění plus 19 (3d12) Necrotic zranění. Je-li cílem tvor, je prokletý. Dokud je prokletý, nezískává cíl žádný prospěch z dokončení krátkého ani dlouhého odpočinku."
+   },
+   {
+    "n": "Baleful Command (obnova 5–6)",
+    "t": "*Záchrana Moudrosti:* SO 18, každý nepřítel ve 30stopovém vyzařování vycházejícím z rakšasy. *Neúspěch:* 28 (8d6) Psychic zranění a cíl má stavy Vyděšen (Frightened) a Neschopný (Incapacitated) až do začátku příštího tahu rakšasy."
+   },
+   {
+    "n": "Spellcasting",
+    "t": "Rakšasa sešle jedno z následujících kouzel, aniž by potřeboval materiální složky, a jako vlastnost pro sesílání kouzel používá Charisma (SO záchrany proti kouzlu 18):\n**Libovolně:** *Detect Magic*, *Detect Thoughts*, *Disguise Self*, *Mage Hand*, *Minor Illusion*\n**1× za den každé:** *Fly*, *Invisibility*, *Major Image*, *Plane Shift*"
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Cursed Touch",
+    "b": 10,
+    "z": "2d6+5",
+    "zt": "Slashing",
+    "p": "dosah 5 stop; + 3d12 Necrotic; prokletí (žádný prospěch z odpočinku)"
+   },
+   {
+    "n": "Baleful Command",
+    "dc": "WIS SO 18",
+    "z": "8d6",
+    "zt": "Psychic",
+    "p": "vyzařování 30 stop, jen nepřátelé; Vyděšen a Neschopný; obnova 5–6"
+   }
+  ],
+  "str": 317
+ },
+ {
+  "en": "Red Dragon Wyrmling",
+  "cz": "mládě červeného draka",
+  "vel": "Střední",
+  "typ": "Dragon (Chromatic)",
+  "pres": "chaoticky zlý",
+  "ac": "17",
+  "ini": "+2 (12)",
+  "hp": 75,
+  "hpk": "10d8 + 30",
+  "rych": "30 stop, šplhání 30 stop, let 60 stop",
+  "vl": {
+   "STR": 19,
+   "AGI": 10,
+   "CON": 17,
+   "INT": 12,
+   "WIS": 11,
+   "CHA": 15
+  },
+  "zach": {
+   "STR": "+4",
+   "AGI": "+2",
+   "CON": "+3",
+   "INT": "+1",
+   "WIS": "+2",
+   "CHA": "+2"
+  },
+  "dov": "Perception +4, Stealth +2",
+  "imu": "Fire",
+  "smysly": "Blindsight 10 stop, Darkvision 60 stop; pasivní Perception 14",
+  "jaz": "Draconic",
+  "cr": "4",
+  "xp": 1100,
+  "pb": "+2",
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Drak provede dva útoky Rend."
+   },
+   {
+    "n": "Rend",
+    "t": "*Hod na útok na blízko:* +6, dosah 5 stop. *Zásah:* 9 (1d10 + 4) Slashing zranění plus 3 (1d6) Fire zranění."
+   },
+   {
+    "n": "Fire Breath (obnova 5–6)",
+    "t": "*Záchrana Obratnosti:* SO 13, každý tvor v 15stopém kuželu. *Neúspěch:* 24 (7d6) Fire zranění. *Úspěch:* Poloviční zranění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Rend",
+    "b": 6,
+    "z": "1d10+4",
+    "zt": "Slashing",
+    "p": "dosah 5 stop; + 1d6 Fire"
+   },
+   {
+    "n": "Fire Breath",
+    "dc": "AGI SO 13",
+    "z": "7d6",
+    "zt": "Fire",
+    "p": "kužel 15 stop, polovina při úspěchu, obnova 5–6"
+   }
+  ],
+  "str": 318
+ },
+ {
+  "en": "Young Red Dragon",
+  "cz": "mladý červený drak",
+  "vel": "Velká",
+  "typ": "Dragon (Chromatic)",
+  "pres": "chaoticky zlý",
+  "ac": "18",
+  "ini": "+4 (14)",
+  "hp": 178,
+  "hpk": "17d10 + 85",
+  "rych": "40 stop, šplhání 40 stop, let 80 stop",
+  "vl": {
+   "STR": 23,
+   "AGI": 10,
+   "CON": 21,
+   "INT": 14,
+   "WIS": 11,
+   "CHA": 19
+  },
+  "zach": {
+   "STR": "+6",
+   "AGI": "+4",
+   "CON": "+5",
+   "INT": "+2",
+   "WIS": "+4",
+   "CHA": "+4"
+  },
+  "dov": "Perception +8, Stealth +4",
+  "imu": "Fire",
+  "smysly": "Blindsight 30 stop, Darkvision 120 stop; pasivní Perception 18",
+  "jaz": "Common, Draconic",
+  "cr": "10",
+  "xp": 5900,
+  "pb": "+4",
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Drak provede tři útoky Rend."
+   },
+   {
+    "n": "Rend",
+    "t": "*Hod na útok na blízko:* +10, dosah 10 stop. *Zásah:* 13 (2d6 + 6) Slashing zranění plus 3 (1d6) Fire zranění."
+   },
+   {
+    "n": "Fire Breath (obnova 5–6)",
+    "t": "*Záchrana Obratnosti:* SO 17, každý tvor ve 30stopém kuželu. *Neúspěch:* 56 (16d6) Fire zranění. *Úspěch:* Poloviční zranění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Rend",
+    "b": 10,
+    "z": "2d6+6",
+    "zt": "Slashing",
+    "p": "dosah 10 stop; + 1d6 Fire"
+   },
+   {
+    "n": "Fire Breath",
+    "dc": "AGI SO 17",
+    "z": "16d6",
+    "zt": "Fire",
+    "p": "kužel 30 stop, polovina při úspěchu, obnova 5–6"
+   }
+  ],
+  "str": 318
+ },
+ {
+  "en": "Adult Red Dragon",
+  "cz": "dospělý červený drak",
+  "vel": "Obrovská",
+  "typ": "Dragon (Chromatic)",
+  "pres": "chaoticky zlý",
+  "ac": "19",
+  "ini": "+12 (22)",
+  "hp": 256,
+  "hpk": "19d12 + 133",
+  "rych": "40 stop, šplhání 40 stop, let 80 stop",
+  "vl": {
+   "STR": 27,
+   "AGI": 10,
+   "CON": 25,
+   "INT": 16,
+   "WIS": 13,
+   "CHA": 23
+  },
+  "zach": {
+   "STR": "+8",
+   "AGI": "+6",
+   "CON": "+7",
+   "INT": "+3",
+   "WIS": "+7",
+   "CHA": "+6"
+  },
+  "dov": "Perception +13, Stealth +6",
+  "imu": "Fire",
+  "smysly": "Blindsight 60 stop, Darkvision 120 stop; pasivní Perception 23",
+  "jaz": "Common, Draconic",
+  "cr": "17",
+  "xp": 18000,
+  "xpt": "18 000 XP, nebo 20 000 XP v doupěti",
+  "pb": "+6",
+  "rysy": [
+   {
+    "n": "Legendary Resistance (3× za den, nebo 4× za den v doupěti)",
+    "t": "Pokud drak neuspěje v záchranném hodu, může se rozhodnout, že místo toho uspěje."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Drak provede tři útoky Rend. Jeden útok může nahradit použitím Spellcasting k seslání *Scorching Ray*."
+   },
+   {
+    "n": "Rend",
+    "t": "*Hod na útok na blízko:* +14, dosah 10 stop. *Zásah:* 13 (1d10 + 8) Slashing zranění plus 5 (2d4) Fire zranění."
+   },
+   {
+    "n": "Fire Breath (obnova 5–6)",
+    "t": "*Záchrana Obratnosti:* SO 21, každý tvor v 60stopém kuželu. *Neúspěch:* 59 (17d6) Fire zranění. *Úspěch:* Poloviční zranění."
+   },
+   {
+    "n": "Spellcasting",
+    "t": "Drak sešle jedno z následujících kouzel, aniž by potřeboval materiální složky, a jako vlastnost pro sesílání kouzel používá Charisma (SO záchrany proti kouzlu 20, +12 k zásahu útoky kouzly):\n**Libovolně:** *Command* (verze 2. úrovně), *Detect Magic*, *Scorching Ray*\n**1× za den:** *Fireball*"
+   }
+  ],
+  "legT": "Počet použití legendárních akcí: 3 (4 v doupěti). Bezprostředně po tahu jiného tvora může drak utratit jedno použití a provést jednu z následujících akcí. Drak získá zpět všechna utracená použití na začátku každého svého tahu.",
+  "leg": [
+   {
+    "n": "Commanding Presence",
+    "t": "Drak použije Spellcasting k seslání *Command* (verze 2. úrovně). Drak nemůže tuto akci znovu provést až do začátku svého příštího tahu."
+   },
+   {
+    "n": "Fiery Rays",
+    "t": "Drak použije Spellcasting k seslání *Scorching Ray*. Drak nemůže tuto akci znovu provést až do začátku svého příštího tahu."
+   },
+   {
+    "n": "Pounce",
+    "t": "Drak se pohne až o polovinu své rychlosti a provede jeden útok Rend."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Rend",
+    "b": 14,
+    "z": "1d10+8",
+    "zt": "Slashing",
+    "p": "dosah 10 stop; + 2d4 Fire"
+   },
+   {
+    "n": "Fire Breath",
+    "dc": "AGI SO 21",
+    "z": "17d6",
+    "zt": "Fire",
+    "p": "kužel 60 stop, polovina při úspěchu, obnova 5–6"
+   }
+  ],
+  "str": 318
+ },
+ {
+  "en": "Ancient Red Dragon",
+  "cz": "prastarý červený drak",
+  "vel": "Gigantická",
+  "typ": "Dragon (Chromatic)",
+  "pres": "chaoticky zlý",
+  "ac": "22",
+  "ini": "+14 (24)",
+  "hp": 507,
+  "hpk": "26d20 + 234",
+  "rych": "40 stop, šplhání 40 stop, let 80 stop",
+  "vl": {
+   "STR": 30,
+   "AGI": 10,
+   "CON": 29,
+   "INT": 18,
+   "WIS": 15,
+   "CHA": 27
+  },
+  "zach": {
+   "STR": "+10",
+   "AGI": "+7",
+   "CON": "+9",
+   "INT": "+4",
+   "WIS": "+9",
+   "CHA": "+8"
+  },
+  "dov": "Perception +16, Stealth +7",
+  "imu": "Fire",
+  "smysly": "Blindsight 60 stop, Darkvision 120 stop; pasivní Perception 26",
+  "jaz": "Common, Draconic",
+  "cr": "24",
+  "xp": 62000,
+  "xpt": "62 000 XP, nebo 75 000 XP v doupěti",
+  "pb": "+7",
+  "rysy": [
+   {
+    "n": "Legendary Resistance (4× za den, nebo 5× za den v doupěti)",
+    "t": "Pokud drak neuspěje v záchranném hodu, může se rozhodnout, že místo toho uspěje."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Drak provede tři útoky Rend. Jeden útok může nahradit použitím Spellcasting k seslání *Scorching Ray* (verze 3. úrovně)."
+   },
+   {
+    "n": "Rend",
+    "t": "*Hod na útok na blízko:* +17, dosah 15 stop. *Zásah:* 19 (2d8 + 10) Slashing zranění plus 10 (3d6) Fire zranění."
+   },
+   {
+    "n": "Fire Breath (obnova 5–6)",
+    "t": "*Záchrana Obratnosti:* SO 24, každý tvor v 90stopém kuželu. *Neúspěch:* 91 (26d6) Fire zranění. *Úspěch:* Poloviční zranění."
+   },
+   {
+    "n": "Spellcasting",
+    "t": "Drak sešle jedno z následujících kouzel, aniž by potřeboval materiální složky, a jako vlastnost pro sesílání kouzel používá Charisma (SO záchrany proti kouzlu 23, +15 k zásahu útoky kouzly):\n**Libovolně:** *Command* (verze 2. úrovně), *Detect Magic*, *Scorching Ray* (verze 3. úrovně)\n**1× za den každé:** *Fireball* (verze 6. úrovně), *Scrying*"
+   }
+  ],
+  "legT": "Počet použití legendárních akcí: 3 (4 v doupěti). Bezprostředně po tahu jiného tvora může drak utratit jedno použití a provést jednu z následujících akcí. Drak získá zpět všechna utracená použití na začátku každého svého tahu.",
+  "leg": [
+   {
+    "n": "Commanding Presence",
+    "t": "Drak použije Spellcasting k seslání *Command* (verze 2. úrovně). Drak nemůže tuto akci znovu provést až do začátku svého příštího tahu."
+   },
+   {
+    "n": "Fiery Rays",
+    "t": "Drak použije Spellcasting k seslání *Scorching Ray* (verze 3. úrovně). Drak nemůže tuto akci znovu provést až do začátku svého příštího tahu."
+   },
+   {
+    "n": "Pounce",
+    "t": "Drak se pohne až o polovinu své rychlosti a provede jeden útok Rend."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Rend",
+    "b": 17,
+    "z": "2d8+10",
+    "zt": "Slashing",
+    "p": "dosah 15 stop; + 3d6 Fire"
+   },
+   {
+    "n": "Fire Breath",
+    "dc": "AGI SO 24",
+    "z": "26d6",
+    "zt": "Fire",
+    "p": "kužel 90 stop, polovina při úspěchu, obnova 5–6"
+   }
+  ],
+  "str": 319
+ },
+ {
+  "en": "Remorhaz",
+  "vel": "Obrovská",
+  "typ": "Monstrosity",
+  "pres": "bez přesvědčení",
+  "ac": "17",
+  "ini": "+5 (15)",
+  "hp": 195,
+  "hpk": "17d12 + 85",
+  "rych": "40 stop, hrabání 30 stop",
+  "vl": {
+   "STR": 24,
+   "AGI": 13,
+   "CON": 21,
+   "INT": 4,
+   "WIS": 10,
+   "CHA": 5
+  },
+  "zach": {
+   "STR": "+7",
+   "AGI": "+1",
+   "CON": "+5",
+   "INT": "-3",
+   "WIS": "+0",
+   "CHA": "-3"
+  },
+  "imu": "Cold, Fire",
+  "smysly": "Darkvision 60 stop, Tremorsense 60 stop; pasivní Perception 10",
+  "jaz": "žádné",
+  "cr": "11",
+  "xp": 7200,
+  "pb": "+4",
+  "rysy": [
+   {
+    "n": "Heat Aura",
+    "t": "Na konci každého tahu remorhaze utrpí každý tvor v 5stopém vyzařování vycházejícím z remorhaze 16 (3d10) Fire zranění."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Bite",
+    "t": "*Hod na útok na blízko:* +11, dosah 10 stop. *Zásah:* 18 (2d10 + 7) Piercing zranění plus 14 (4d6) Fire zranění. Je-li cíl Velký nebo menší tvor, má stav Chycen (Grappled) (únik SO 17) a dokud chvat neskončí, má stav Zadržen (Restrained)."
+   }
+  ],
+  "bonus": [
+   {
+    "n": "Swallow",
+    "t": "*Záchrana Síly:* SO 19, jeden Velký nebo menší tvor, kterého remorhaz drží jako Chyceného (Grappled) (remorhaz může mít spolknuté až dva tvory současně). *Neúspěch:* Cíl je remorhazem spolknut a stav Chycen skončí. Spolknutý tvor má stavy Oslepen (Blinded) a Zadržen (Restrained), má úplný kryt proti útokům a jiným účinkům zvenčí remorhaze a na začátku každého tahu remorhaze utrpí 10 (3d6) Acid zranění plus 10 (3d6) Fire zranění.\nPokud remorhaz během jediného tahu utrpí od tvora uvnitř sebe 30 nebo více zranění, musí na konci tohoto tahu uspět v záchranném hodu na Odolnost se SO 15, jinak vyvrhne všechny spolknuté tvory; každý z nich dopadne na prostor do 5 stop od remorhaze a má stav Sražen (Prone). Pokud remorhaz zemře, spolknutý tvor už nemá stav Zadržen a může z mrtvoly uniknout za 15 stop pohybu, přičemž opustí stav Sražen."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 11,
+    "z": "2d10+7",
+    "zt": "Piercing",
+    "p": "dosah 10 stop; + 4d6 Fire; Velký nebo menší Chycen (únik SO 17) a Zadržen"
+   },
+   {
+    "n": "Heat Aura",
+    "z": "3d10",
+    "zt": "Fire",
+    "p": "automaticky, vyzařování 5 stop na konci každého tahu remorhaze"
+   },
+   {
+    "n": "Swallow",
+    "dc": "STR SO 19",
+    "z": "3d6",
+    "zt": "Acid",
+    "p": "Chycený tvor spolknut; + 3d6 Fire na začátku každého tahu remorhaze"
+   }
+  ],
+  "str": 319
+ },
+ {
+  "en": "Roc",
+  "cz": "noh",
+  "vel": "Gigantická",
+  "typ": "Monstrosity",
+  "pres": "bez přesvědčení",
+  "ac": "15",
+  "ini": "+8 (18)",
+  "hp": 248,
+  "hpk": "16d20 + 80",
+  "rych": "20 stop, let 120 stop",
+  "vl": {
+   "STR": 28,
+   "AGI": 10,
+   "CON": 20,
+   "INT": 3,
+   "WIS": 10,
+   "CHA": 9
+  },
+  "zach": {
+   "STR": "+9",
+   "AGI": "+4",
+   "CON": "+5",
+   "INT": "-4",
+   "WIS": "+4",
+   "CHA": "-1"
+  },
+  "dov": "Perception +8",
+  "smysly": "pasivní Perception 18",
+  "jaz": "žádné",
+  "cr": "11",
+  "xp": 7200,
+  "pb": "+4",
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Noh provede dva útoky Beak. Jeden útok může nahradit útokem Talons."
+   },
+   {
+    "n": "Beak",
+    "t": "*Hod na útok na blízko:* +13, dosah 10 stop. *Zásah:* 28 (3d12 + 9) Piercing zranění."
+   },
+   {
+    "n": "Talons",
+    "t": "*Hod na útok na blízko:* +13, dosah 5 stop. *Zásah:* 23 (4d6 + 9) Slashing zranění. Je-li cíl Obrovský nebo menší tvor, má stav Chycen (Grappled) (únik SO 19) oběma pařáty a dokud chvat neskončí, má stav Zadržen (Restrained)."
+   }
+  ],
+  "bonus": [
+   {
+    "n": "Swoop (obnova 5–6)",
+    "t": "Pokud noh drží nějakého tvora jako Chyceného (Grappled), uletí až o polovinu své rychlosti letu, aniž by vyvolal příležitostné útoky, a tohoto tvora upustí."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Beak",
+    "b": 13,
+    "z": "3d12+9",
+    "zt": "Piercing",
+    "p": "dosah 10 stop"
+   },
+   {
+    "n": "Talons",
+    "b": 13,
+    "z": "4d6+9",
+    "zt": "Slashing",
+    "p": "dosah 5 stop; Obrovský nebo menší Chycen (únik SO 19) a Zadržen"
+   }
+  ],
+  "str": 320
+ },
+ {
+  "en": "Roper",
+  "cz": "lanař",
+  "vel": "Velká",
+  "typ": "Aberration",
+  "pres": "neutrálně zlý",
+  "ac": "20",
+  "ini": "+5 (15)",
+  "hp": 93,
+  "hpk": "11d10 + 33",
+  "rych": "10 stop, šplhání 20 stop",
+  "vl": {
+   "STR": 18,
+   "AGI": 8,
+   "CON": 17,
+   "INT": 7,
+   "WIS": 16,
+   "CHA": 6
+  },
+  "zach": {
+   "STR": "+4",
+   "AGI": "-1",
+   "CON": "+3",
+   "INT": "-2",
+   "WIS": "+3",
+   "CHA": "-2"
+  },
+  "dov": "Perception +6, Stealth +5",
+  "smysly": "Darkvision 60 stop; pasivní Perception 16",
+  "jaz": "žádné",
+  "cr": "5",
+  "xp": 1800,
+  "pb": "+3",
+  "rysy": [
+   {
+    "n": "Spider Climb",
+    "t": "Lanař dokáže šplhat po obtížných površích, včetně stropů, aniž by musel provádět ověření vlastnosti."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Lanař provede dva útoky Tentacle, použije Reel a provede dva útoky Bite."
+   },
+   {
+    "n": "Bite",
+    "t": "*Hod na útok na blízko:* +7, dosah 5 stop. *Zásah:* 17 (3d8 + 4) Piercing zranění."
+   },
+   {
+    "n": "Tentacle",
+    "t": "*Hod na útok na blízko:* +7, dosah 60 stop. *Zásah:* Cíl má stav Chycen (Grappled) (únik SO 14) jedním ze šesti chapadel a dokud chvat neskončí, má stav Otráven (Poisoned).\nChapadlo lze poškodit; když je zničeno, uvolní tvora, kterého drželo (AC 20, HP 10, Immunity vůči Poison a Psychic zranění). Poškození chapadla nezpůsobí lanaři žádné zranění a zničené chapadlo na začátku příštího tahu lanaře doroste."
+   },
+   {
+    "n": "Reel",
+    "t": "Lanař přitáhne každého tvora, kterého drží jako Chyceného (Grappled), až o 30 stop přímo k sobě."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 7,
+    "z": "3d8+4",
+    "zt": "Piercing",
+    "p": "dosah 5 stop"
+   },
+   {
+    "n": "Tentacle",
+    "b": 7,
+    "z": "0",
+    "p": "dosah 60 stop; bez zranění, Chycen (únik SO 14) a Otráven"
+   }
+  ],
+  "str": 320
+ },
+ {
+  "en": "Rust Monster",
+  "cz": "rezavec",
+  "vel": "Střední",
+  "typ": "Monstrosity",
+  "pres": "bez přesvědčení",
+  "ac": "14",
+  "ini": "+1 (11)",
+  "hp": 33,
+  "hpk": "6d8 + 6",
+  "rych": "40 stop",
+  "vl": {
+   "STR": 13,
+   "AGI": 12,
+   "CON": 13,
+   "INT": 2,
+   "WIS": 13,
+   "CHA": 6
+  },
+  "zach": {
+   "STR": "+1",
+   "AGI": "+1",
+   "CON": "+1",
+   "INT": "-4",
+   "WIS": "+1",
+   "CHA": "-2"
+  },
+  "smysly": "Darkvision 60 stop; pasivní Perception 11",
+  "jaz": "žádné",
+  "cr": "1/2",
+  "xp": 100,
+  "pb": "+2",
+  "rysy": [
+   {
+    "n": "Iron Scent",
+    "t": "Rezavec dokáže přesně určit polohu železného kovu do 30 stop od sebe."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Rezavec provede jeden útok Bite a dvakrát použije Antennae."
+   },
+   {
+    "n": "Bite",
+    "t": "*Hod na útok na blízko:* +3, dosah 5 stop. *Zásah:* 5 (1d8 + 1) Piercing zranění."
+   },
+   {
+    "n": "Antennae",
+    "t": "Rezavec si za cíl zvolí jeden nemagický kovový předmět – zbroj nebo zbraň –, který má na sobě nebo nese tvor do 5 stop od něj. *Záchrana Obratnosti:* SO 11, tvor s tímto předmětem. *Neúspěch:* Předmět dostane postih −1 k AC, které poskytuje (zbroj), nebo ke svým hodům na útok (zbraň). Zbroj je zničena, pokud postih sníží její AC na 10, a zbraň je zničena, pokud její postih dosáhne −5. Postih lze odstranit sesláním kouzla *Mending* na zbroj nebo zbraň."
+   },
+   {
+    "n": "Destroy Metal",
+    "t": "Rezavec se dotkne nemagického kovového předmětu do 5 stop od sebe, který nikdo nemá na sobě ani nenese. Dotek zničí krychli předmětu o hraně 1 stopa."
+   }
+  ],
+  "reakce": [
+   {
+    "n": "Reflexive Antennae",
+    "t": "*Spouštěč:* Rezavce zasáhne hod na útok. *Reakce:* Rezavec použije Antennae."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 3,
+    "z": "1d8+1",
+    "zt": "Piercing",
+    "p": "dosah 5 stop"
+   }
+  ],
+  "str": 320
+ }
+]

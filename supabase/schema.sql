@@ -93,6 +93,13 @@ create table if not exists public.hody (
   data jsonb not null
 );
 
+-- ukázky pro hráče: obrázek, dopis nebo mapka, které vypravěč pošle na telefony; čte každý
+create table if not exists public.ukazky (
+  id   bigserial primary key,
+  cas  timestamptz not null default now(),
+  data jsonb not null
+);
+
 create table if not exists public.gm (
   user_id uuid primary key references auth.users (id) on delete cascade
 );
@@ -106,6 +113,7 @@ alter table public.nastaveni enable row level security;
 alter table public.boj enable row level security;
 alter table public.karty enable row level security;
 alter table public.hody enable row level security;
+alter table public.ukazky enable row level security;
 alter table public.zaznamy enable row level security;
 alter table public.zaznamy_historie enable row level security;
 alter table public.obsah add column if not exists gen text;
@@ -128,6 +136,8 @@ drop policy if exists "karty: čte každý" on public.karty;
 create policy "karty: čte každý" on public.karty for select to anon, authenticated using (true);
 drop policy if exists "hody: čte každý" on public.hody;
 create policy "hody: čte každý" on public.hody for select to anon, authenticated using (true);
+drop policy if exists "ukazky: čte každý" on public.ukazky;
+create policy "ukazky: čte každý" on public.ukazky for select to anon, authenticated using (true);
 drop policy if exists "boj: čte každý" on public.boj;
 create policy "boj: čte každý" on public.boj for select to anon, authenticated using (true);
 drop policy if exists "gm: vidí sebe" on public.gm;
@@ -563,12 +573,35 @@ begin
       and not exists (select 1 from jsonb_each(x) e where char_length(e.key) > 60 or jsonb_typeof(e.value) <> 'number' or not public.mm_cislo(e.value, 0, 30)))
     when 'inv' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'array' and jsonb_array_length(x) <= 300 and not exists (
       select 1 from jsonb_array_elements(x) e where jsonb_typeof(e) <> 'object'
-        or exists (select 1 from jsonb_object_keys(e) k where k not in ('n', 'q', 'w', 'pripoutano'))
+        or exists (select 1 from jsonb_object_keys(e) k where k not in ('n', 'q', 'w', 'pripoutano', 'mag'))
         or jsonb_typeof(e -> 'n') is distinct from 'string' or char_length(e ->> 'n') not between 1 and 80 or not public.mm_cislo(e -> 'q', 0, 9999)
-        or (e ? 'w' and (jsonb_typeof(e -> 'w') <> 'string' or char_length(e ->> 'w') > 20))))
+        or (e ? 'w' and (jsonb_typeof(e -> 'w') <> 'string' or char_length(e ->> 'w') > 20))
+        or (e ? 'mag' and (jsonb_typeof(e -> 'mag') <> 'string' or (e ->> 'mag') !~ '^[a-z0-9-]{1,60}$'))))
     when 'pen' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'object' and not exists (
       select 1 from jsonb_each(x) e where e.key not in ('CP', 'SP', 'EP', 'GP', 'PP') or jsonb_typeof(e.value) <> 'number' or (e.value #>> '{}') !~ '^[0-9]{1,7}$'))
     when 'pozn' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'string' and char_length(x #>> '{}') <= 4000)
+    -- duše postavy (Artikule): Svědomí 0–10, body hříchu a dobrých skutků, vyznání, Ctnosti a Neřesti, stupeň featu víry, odkaz na postavu v Družině
+    when 'sv' then public.mm_cislo(x, 0, 10)
+    when 'hr' then public.mm_cislo(x, 0, 99)
+    when 'sk' then public.mm_cislo(x, 0, 99)
+    when 'duse' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'object'
+      and not exists (select 1 from jsonb_object_keys(x) k where k not in ('vz', 'ctn', 'ner', 'fs', 'dr'))
+      and (not x ? 'vz' or x ->> 'vz' in ('kal', 'kat', 'old'))
+      and (not x ? 'fs' or public.mm_cislo(x -> 'fs', 1, 3))
+      and (not x ? 'dr' or (jsonb_typeof(x -> 'dr') = 'string' and (x ->> 'dr') ~ '^[a-z0-9-]{1,40}$'))
+      and not exists (select 1 from unnest(array['ctn', 'ner']) f where x ? f and (jsonb_typeof(x -> f) <> 'array' or jsonb_array_length(x -> f) > 3
+        or exists (select 1 from jsonb_array_elements(x -> f) e where jsonb_typeof(e) <> 'string' or char_length(e #>> '{}') not between 1 and 40))))
+    -- naučené šermířské techniky a zápasnické chvaty (id)
+    when 'tech' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'array' and jsonb_array_length(x) <= 30
+      and not exists (select 1 from jsonb_array_elements(x) e where jsonb_typeof(e) <> 'string' or (e #>> '{}') !~ '^[a-z0-9-]{1,40}$'))
+    -- účinky s trváním v herním čase: {n, h (hodiny), do (herní hodina konce), kon}
+    when 'uc' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'array' and jsonb_array_length(x) <= 30 and not exists (
+      select 1 from jsonb_array_elements(x) e where jsonb_typeof(e) <> 'object'
+        or exists (select 1 from jsonb_object_keys(e) k where k not in ('n', 'h', 'do', 'kon'))
+        or jsonb_typeof(e -> 'n') is distinct from 'string' or char_length(e ->> 'n') not between 1 and 80
+        or (e ? 'h' and (jsonb_typeof(e -> 'h') <> 'number' or (e ->> 'h')::numeric not between 0 and 8760))
+        or (e ? 'do' and (jsonb_typeof(e -> 'do') <> 'number' or abs((e ->> 'do')::numeric) > 1e9))
+        or (e ? 'kon' and jsonb_typeof(e -> 'kon') <> 'boolean')))
     else false end;
   if not coalesce(ok, false) then
     raise exception 'neplatná hodnota (%)', p_pole;
@@ -596,6 +629,60 @@ begin
   insert into public.hody (data) values (x) returning id into i;
   delete from public.hody where id <= i - 300;
   return i;
+end $$;
+
+-- Ukázat hráčům: vypravěč pošle obrázek, dopis nebo mapku (drží se posledních 50)
+create or replace function public.mm_ukaz(p_ukazka jsonb) returns bigint
+language plpgsql security definer set search_path = public as $$
+declare
+  x jsonb := coalesce(p_ukazka, '{}'::jsonb);
+  i bigint;
+begin
+  if not public.mm_je_gm() then
+    raise exception 'jen pro vypravěče' using errcode = '42501';
+  end if;
+  if jsonb_typeof(x) <> 'object' or octet_length(x::text) > 6000
+     or exists (select 1 from jsonb_object_keys(x) k where k not in ('n', 't', 'img'))
+     or exists (select 1 from jsonb_each(x) e where jsonb_typeof(e.value) <> 'string')
+     or char_length(coalesce(x ->> 'n', '')) > 120 or char_length(coalesce(x ->> 't', '')) > 4000 or char_length(coalesce(x ->> 'img', '')) > 500
+     or (x ? 'img' and (x ->> 'img') !~ '^(https://|art/)') then
+    raise exception 'neplatná ukázka';
+  end if;
+  insert into public.ukazky (data) values (x) returning id into i;
+  delete from public.ukazky where id <= i - 50;
+  return i;
+end $$;
+
+create or replace function public.mm_ukaz_smaz(p_id bigint) returns void
+language plpgsql security definer set search_path = public as $$
+begin
+  if not public.mm_je_gm() then
+    raise exception 'jen pro vypravěče' using errcode = '42501';
+  end if;
+  delete from public.ukazky where id = p_id;
+end $$;
+
+-- Příprava sezení (scény, poznámky, setkání, ukázky): jen pro vypravěče, v nastavení pod klíčem 'sezeni'
+create or replace function public.mm_sezeni_nacti() returns jsonb
+language plpgsql stable security definer set search_path = public as $$
+begin
+  if not public.mm_je_gm() then
+    raise exception 'jen pro vypravěče' using errcode = '42501';
+  end if;
+  return (select hodnota from public.nastaveni where klic = 'sezeni');
+end $$;
+
+create or replace function public.mm_sezeni_uloz(p_sezeni jsonb) returns void
+language plpgsql security definer set search_path = public as $$
+begin
+  if not public.mm_je_gm() then
+    raise exception 'jen pro vypravěče' using errcode = '42501';
+  end if;
+  if octet_length(coalesce(p_sezeni, '{}'::jsonb)::text) > 2000000 then
+    raise exception 'příprava sezení je příliš velká';
+  end if;
+  insert into public.nastaveni (klic, hodnota, zmeneno) values ('sezeni', p_sezeni, now())
+  on conflict (klic) do update set hodnota = excluded.hodnota, zmeneno = now();
 end $$;
 
 -- Výprava (cesta družiny): stav plánovače cest jen pro vypravěče, uložený v nastavení pod klíčem 'vyprava'
@@ -867,6 +954,11 @@ grant execute on function public.mm_karta_uloz(jsonb) to anon, authenticated;
 grant execute on function public.mm_karta_stav(text, text, jsonb) to anon, authenticated;
 grant execute on function public.mm_karta_smaz(text) to authenticated;
 grant execute on function public.mm_hod(jsonb) to anon, authenticated;
+revoke all on function public.mm_ukaz(jsonb) from public, anon;
+revoke all on function public.mm_ukaz_smaz(bigint) from public, anon;
+revoke all on function public.mm_sezeni_nacti() from public, anon;
+revoke all on function public.mm_sezeni_uloz(jsonb) from public, anon;
+grant execute on function public.mm_ukaz(jsonb), public.mm_ukaz_smaz(bigint), public.mm_sezeni_nacti(), public.mm_sezeni_uloz(jsonb) to authenticated;
 grant execute on function public.mm_nastav_hru(jsonb) to authenticated;
 grant execute on function public.mm_stavy() to authenticated;
 revoke all on function public.mm_orez(jsonb, jsonb) from public, anon, authenticated;
@@ -878,7 +970,7 @@ grant execute on function public.mm_prepocitej(text) to service_role;
 grant execute on function public.mm_nahraj_obsah(text, jsonb, jsonb, jsonb, text) to service_role;
 grant execute on function public.mm_orez(jsonb, jsonb), public.mm_zminky(text, jsonb), public.mm_uroven(jsonb, jsonb) to service_role;
 
-revoke insert, update, delete, truncate on public.obsah, public.stavy, public.snimek, public.denik, public.gm, public.nastaveni, public.boj, public.karty, public.hody,
+revoke insert, update, delete, truncate on public.obsah, public.stavy, public.snimek, public.denik, public.gm, public.nastaveni, public.boj, public.karty, public.hody, public.ukazky,
   public.zaznamy, public.zaznamy_historie from anon, authenticated;
 revoke select on public.zaznamy, public.zaznamy_historie from anon, authenticated;
 grant select on public.boj to anon, authenticated;

@@ -1,0 +1,434 @@
+[
+ {
+  "en": "Staff of the Woodlands",
+  "cz": "hůl lesů",
+  "druh": "Hůl",
+  "vz": "vzácný",
+  "pr": "Druidem",
+  "t": "Tato hůl má 6 nábojů a lze ji třímat jako magickou Quarterstaff, která dává bonus +2 k hodům na útok a zranění, které s ní provedeš. Dokud ji držíš, máš bonus +2 k hodům na útok kouzlem.\n**Kouzla.** Dokud hůl držíš, můžeš z ní seslat jedno z kouzel z následující tabulky, a to s použitím svého SO záchrany proti kouzlu. Tabulka udává, kolik nábojů musíš na seslání kouzla vynaložit.\n- Animal Friendship – 1 náboj\n- Awaken – 5 nábojů\n- Barkskin – 2 náboje\n- Locate Animals or Plants – 2 náboje\n- Pass without Trace – 2 náboje\n- Speak with Animals – 1 náboj\n- Speak with Plants – 3 náboje\n- Wall of Thorns – 6 nábojů\n**Podoba stromu.** Můžeš provést akci Magie, zabodnout jeden konec hole do země na neobsazeném místě a vynaložit 1 náboj, čímž hůl přeměníš ve zdravý strom. Strom je 60 stop vysoký, má kmen o průměru 5 stop a jeho větve se v koruně rozprostírají v okruhu 20 stop. Strom vypadá obyčejně, ale vyzařuje slabou auru magie přeměny (Transmutation), kterou lze odhalit kouzlem Detect Magic. Když se stromu dotýkáš a provedeš akci Magie, vrátíš hůl do její normální podoby. Každý tvor na stromě spadne, když se strom změní zpět v hůl.\n**Obnova nábojů.** Hůl každý den za úsvitu obnoví 1d6 vyčerpaných nábojů. Když vyčerpáš poslední náboj, hoď 1d20. Padne-li 1, hůl ztratí své vlastnosti a stane se nemagickou Quarterstaff.",
+  "ef": {
+   "utok": 2
+  },
+  "str": 247
+ },
+ {
+  "en": "Staff of the Python",
+  "cz": "hůl krajty",
+  "druh": "Hůl",
+  "vz": "neobvyklý",
+  "pr": true,
+  "t": "Akcí Magie můžeš tuto hůl hodit tak, aby dopadla na neobsazené místo do 10 stop od tebe, a hůl se na tom místě promění v Giant Constrictor Snake. Had je pod tvou kontrolou, sdílí tvou iniciativu a svůj tah provádí bezprostředně po tobě.\nVe svém tahu můžeš hadovi v duchu velet (nevyžaduje žádnou akci), pokud je do 60 stop od tebe a nemáš stav Neschopný (Incapacitated). Rozhoduješ, jakou akci had ve svém tahu provede a kam se pohne, nebo mu můžeš dát obecný příkaz, například útočit na tvé nepřátele nebo hlídat určité místo. Bez tvých příkazů se had brání.\nBonusovou akcí můžeš hadovi přikázat, aby se na svém současném místě vrátil do podoby hole, a pak nemůžeš vlastnost hole znovu použít po dobu 1 hodiny. Klesnou-li hadovy životy na 0, zemře a vrátí se do podoby hole; hůl se pak roztříští a je zničena. Pokud se had vrátí do podoby hole dřív, než přijde o všechny životy, obnoví si je všechny.",
+  "str": 247
+ },
+ {
+  "en": "Staff of Thunder and Lightning",
+  "cz": "hůl hromu a blesku",
+  "druh": "Hůl",
+  "vz": "velmi vzácný",
+  "pr": true,
+  "t": "Tuto hůl lze třímat jako magickou Quarterstaff, která dává bonus +2 k hodům na útok a zranění, které s ní provedeš. Má také následující dodatečné vlastnosti. Jakmile je jedna z těchto vlastností použita, nelze ji znovu použít až do příštího úsvitu.\n**Blesk.** Když zasáhneš útokem na blízko holí, můžeš způsobit, že cíl utrpí navíc 2d6 Lightning zranění (nevyžaduje žádnou akci).\n**Hrom.** Když zasáhneš útokem na blízko holí, můžeš způsobit, že hůl vydá zahřmění slyšitelné až do vzdálenosti 300 stop (nevyžaduje žádnou akci). Cíl, který jsi zasáhl, musí uspět v záchraně Odolnosti se SO 17, jinak má stav Omráčen (Stunned) do konce tvého příštího tahu.\n**Hrom a blesk.** Bezprostředně poté, co zasáhneš útokem na blízko holí, můžeš provést bonusovou akci a použít vlastnosti Blesk a Hrom (viz výše) současně. Tím se nevyčerpá denní použití těchto vlastností, pouze použití této vlastnosti.\n**Úder blesku.** Můžeš provést akci Magie, aby z hrotu hole vyšlehl blesk v čáře široké 5 stop a dlouhé 120 stop. Každý tvor v této čáře si hází záchranu Obratnosti se SO 17; při neúspěchu utrpí 9d6 Lightning zranění, při úspěchu poloviční zranění.\n**Zahřmění.** Můžeš provést akci Magie, aby hůl vydala zahřmění slyšitelné až do vzdálenosti 600 stop. Každý tvor ve vyzařování 60 stop vycházejícím z tebe si hází záchranu Odolnosti se SO 17. Při neúspěchu utrpí tvor 2d6 Thunder zranění a má stav Ohlušen (Deafened) po dobu 1 minuty. Při úspěchu utrpí tvor pouze poloviční zranění.",
+  "ef": {
+   "utok": 2
+  },
+  "str": 247
+ },
+ {
+  "en": "Staff of Withering",
+  "cz": "hůl uvadání",
+  "druh": "Hůl",
+  "vz": "vzácný",
+  "pr": true,
+  "t": "Tato hůl má 3 náboje a každý den za úsvitu obnoví 1d3 vyčerpaných nábojů.\nHůl lze třímat jako magickou Quarterstaff. Při zásahu způsobí zranění jako normální Quarterstaff a ty můžeš vynaložit 1 náboj, abys cíli způsobil navíc 2d10 Necrotic zranění a donutil ho k záchraně Odolnosti se SO 15. Při neúspěchu má cíl po dobu 1 hodiny nevýhodu na všechna ověření vlastností a záchranné hody, které používají Sílu nebo Odolnost.",
+  "str": 248
+ },
+ {
+  "en": "Stone of Controlling Earth Elementals",
+  "cz": "kámen ovládání zemských elementálů",
+  "druh": "Divotvorný předmět",
+  "vz": "vzácný",
+  "pr": false,
+  "t": "Když se tímto kamenem vážícím 5 liber dotýkáš země, můžeš provést akci Magie a přivolat Earth Elemental. Elementál se objeví na neobsazeném místě dle tvé volby do 30 stop od tebe, poslouchá tvé příkazy a provádí svůj tah bezprostředně po tobě na tvé hodnotě iniciativy. Elementál zmizí po 1 hodině, když zemře, nebo když ho bonusovou akcí propustíš. Kámen nelze tímto způsobem znovu použít až do příštího úsvitu.",
+  "str": 248
+ },
+ {
+  "en": "Stone of Good Luck (Luckstone)",
+  "cz": "kámen štěstí",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": true,
+  "t": "Dokud máš tento vyleštěný achát u sebe, získáváš bonus +1 k ověřením vlastností a k záchranným hodům.",
+  "ef": {
+   "zach": 1
+  },
+  "str": 248
+ },
+ {
+  "en": "Sun Blade",
+  "cz": "sluneční čepel",
+  "druh": "Zbraň",
+  "upr": "Longsword",
+  "vz": "vzácný",
+  "pr": true,
+  "t": "Tento předmět vypadá jako jílec meče.\n**Čepel záře.** Když držíš jílec, můžeš bonusovou akcí způsobit, že se objeví čepel z čisté záře, nebo že čepel zmizí. Dokud čepel existuje, funguje tato magická zbraň jako Longsword s vlastností Finesa (Finesse). Máš-li zdatnost s Longsword nebo Shortsword, máš zdatnost i se Sun Blade.\nS touto zbraní získáváš bonus +2 k hodům na útok a zranění a zbraň způsobuje Radiant zranění místo Slashing zranění. Když jí zasáhneš nemrtvého (Undead), utrpí tento cíl navíc 1d8 Radiant zranění.\n**Sluneční světlo.** Zářivá čepel vydává jasné světlo v okruhu 15 stop a šero v dalších 15 stopách. Toto světlo je sluneční světlo. Dokud čepel trvá, můžeš akcí Magie zvětšit nebo zmenšit okruh jejího jasného světla i šera vždy o 5 stop, nejvýše na 30 stop každý, nebo nejméně na 10 stop každý.",
+  "ef": {
+   "utok": 2
+  },
+  "str": 248
+ },
+ {
+  "en": "Sword of Life Stealing",
+  "cz": "meč kradoucí život",
+  "druh": "Zbraň",
+  "upr": "Glaive, Greatsword, Longsword, Rapier, Scimitar nebo Shortsword",
+  "vz": "vzácný",
+  "pr": true,
+  "t": "Když útočíš touto magickou zbraní na tvora a při hodu na útok ti na d20 padne 20, utrpí tento cíl navíc 15 Necrotic zranění, pokud není výtvor (Construct) ani nemrtvý (Undead), a ty získáš dočasné životy ve výši utrpěného Necrotic zranění.",
+  "str": 248
+ },
+ {
+  "en": "Sword of Sharpness",
+  "cz": "meč ostrosti",
+  "druh": "Zbraň",
+  "upr": "Glaive, Greatsword, Longsword nebo Scimitar",
+  "vz": "velmi vzácný",
+  "pr": true,
+  "t": "Když touto magickou zbraní útočíš na předmět a zasáhneš, započítej proti cíli maximální hodnotu kostek zranění zbraně.\nKdyž touto zbraní útočíš na tvora a při hodu na útok ti na d20 padne 20, utrpí tento cíl navíc 14 Slashing zranění a získá 1 úroveň vyčerpání (Exhaustion).",
+  "str": 248
+ },
+ {
+  "en": "Sword of Wounding",
+  "cz": "meč zraňování",
+  "druh": "Zbraň",
+  "upr": "Glaive, Greatsword, Longsword, Rapier, Scimitar nebo Shortsword",
+  "vz": "vzácný",
+  "pr": true,
+  "t": "Když zasáhneš tvora útokem touto magickou zbraní, utrpí cíl navíc 2d6 Necrotic zranění a musí uspět v záchraně Odolnosti se SO 15, jinak si po dobu 1 hodiny nemůže obnovovat životy. Cíl záchranu opakuje na konci každého svého tahu a při úspěchu účinek na sobě ukončí.",
+  "str": 248
+ },
+ {
+  "en": "Talisman of Pure Good",
+  "cz": "talisman čistého dobra",
+  "druh": "Divotvorný předmět",
+  "vz": "legendární",
+  "pr": "Clericem nebo Paladinem",
+  "t": "Tento talisman je mocným symbolem dobra. Ďábel (Fiend) nebo nemrtvý (Undead), který se talismanu dotkne, utrpí 8d6 Radiant zranění a utrpí toto zranění znovu pokaždé, když ukončí svůj tah, zatímco talisman drží nebo nese.\n**Svatý symbol.** Talisman můžeš používat jako svatý symbol (Holy Symbol). Dokud ho nosíš nebo držíš, získáváš bonus +2 k hodům na útok kouzlem.\n**Čisté pokárání.** Talisman má 7 nábojů. Dokud talisman nosíš nebo držíš, můžeš provést akci Magie, vynaložit 1 náboj a zvolit za cíl jednoho tvora, kterého vidíš, na zemi do 120 stop od tebe. Pod cílem se otevře plamenná puklina a cíl si hází záchranu Obratnosti se SO 20. Je-li cíl ďábel (Fiend) nebo nemrtvý (Undead), má na tuto záchranu nevýhodu. Při neúspěchu cíl spadne do pukliny a je zničen, aniž by po něm zůstaly jakékoli ostatky. Při úspěchu cíl do pukliny svržen není, ale z prožitého utrpení utrpí 4d6 Psychic zranění. V obou případech se pak puklina uzavře a nezůstane po ní ani stopa. Když vynaložíš poslední náboj, talisman se rozptýlí v zlatavé jiskry světla a je zničen.",
+  "str": 248
+ },
+ {
+  "en": "Talisman of the Sphere",
+  "cz": "talisman koule",
+  "druh": "Divotvorný předmět",
+  "vz": "legendární",
+  "pr": true,
+  "t": "Dokud tento talisman držíš nebo nosíš, máš výhodu na každé ověření Inteligence (Arcana), které provádíš, abys ovládl Sphere of Annihilation. Navíc když začínáš svůj tah tak, že ovládáš Sphere of Annihilation, můžeš akcí Magie posunout ji o 10 stop plus o počet dalších stop rovný desetinásobku tvého modifikátoru Inteligence. Tento pohyb nemusí být v přímé linii.",
+  "str": 249
+ },
+ {
+  "en": "Talisman of Ultimate Evil",
+  "cz": "talisman nejvyššího zla",
+  "druh": "Divotvorný předmět",
+  "vz": "legendární",
+  "pr": true,
+  "t": "Tento předmět symbolizuje nekajícné zlo. Tvor, který není ďábel (Fiend) ani nemrtvý (Undead) a dotkne se talismanu, utrpí 8d6 Necrotic zranění a utrpí toto zranění znovu pokaždé, když ukončí svůj tah, zatímco talisman drží nebo nese.\n**Svatý symbol.** Talisman můžeš používat jako svatý symbol (Holy Symbol). Dokud ho nosíš nebo držíš, získáváš bonus +2 k hodům na útok kouzlem.\n**Konečný konec.** Talisman má 6 nábojů. Dokud talisman nosíš nebo držíš, můžeš provést akci Magie, vynaložit 1 náboj a zvolit za cíl jednoho tvora, kterého vidíš, na zemi do 120 stop od tebe. Pod cílem se otevře plamenná puklina a cíl si hází záchranu Obratnosti se SO 20. Je-li cíl nebešťan (Celestial), má na tuto záchranu nevýhodu. Při neúspěchu cíl spadne do pukliny a je zničen, aniž by po něm zůstaly jakékoli ostatky. Při úspěchu cíl do pukliny svržen není, ale z prožitého utrpení utrpí 4d6 Psychic zranění. V obou případech se pak puklina uzavře a nezůstane po ní ani stopa. Když vynaložíš poslední náboj, talisman se rozpustí v páchnoucí sliz a je zničen.",
+  "str": 249
+ },
+ {
+  "en": "Thunderous Greatclub",
+  "cz": "hromový kyj",
+  "druh": "Zbraň",
+  "upr": "Greatclub",
+  "vz": "velmi vzácný",
+  "pr": true,
+  "t": "Dokud jsi s touto magickou zbraní sladěn, je tvá Síla 20, pokud už není rovna této hodnotě nebo vyšší. Zbraň způsobí navíc 1d8 Thunder zranění každému tvoru, kterého zasáhne, a navíc 3d8 Thunder zranění předmětům, které zasáhne a které nikdo nenosí ani nenese.\nZbraň má následující dodatečné vlastnosti.\n**Úder hromu.** Akcí Magie můžeš udeřit zbraní o tvrdý povrch a vyvolat hlasité zahřmění slyšitelné až do vzdálenosti 300 stop. Zároveň vytvoříš kužel hromové energie o délce 30 stop. Každý tvor v kuželu musí uspět v záchraně Síly se SO 15, jinak má stav Sražen (Prone). Nemagické předměty v kuželu, které nikdo nenosí ani nenese, utrpí 3d8 Thunder zranění.\n**Zemětřesení.** Akcí Magie můžeš udeřit zbraní o zem a vyvolat silné seismické otřesy v kruhu o poloměru 50 stop se středem v místě úderu. Stavby, které se v této oblasti dotýkají země, utrpí 50 Bludgeoning zranění, a každý tvor na zemi v této oblasti musí uspět v záchraně Obratnosti se SO 20, jinak má stav Sražen (Prone). Pokud se takový tvor zároveň soustředí, musí uspět v záchraně Odolnosti se SO 20, jinak se jeho soustředění (Concentration) přeruší. Navíc můžeš způsobit, že se kdekoli v oblasti otevře v zemi puklina hluboká 30 stop a široká 10 stop. Každý tvor na místě, kde se puklina otevře, si musí hodit záchranu Obratnosti se SO 20; při neúspěchu do pukliny spadne, při úspěchu se pohne spolu s okrajem pukliny. Každá stavba na místě, kde se puklina otevře, se do pukliny zřítí. Jakmile tuto vlastnost použiješ, nelze ji znovu použít až do příštího úsvitu.",
+  "str": 249
+ },
+ {
+  "en": "Tome of Clear Thought",
+  "cz": "foliant jasného myšlení",
+  "druh": "Divotvorný předmět",
+  "vz": "velmi vzácný",
+  "pr": false,
+  "t": "Tato kniha obsahuje cvičení paměti a logiky a její slova jsou nabita magií. Pokud během nejvýše 6 dní strávíš 48 hodin studiem obsahu knihy a cvičením podle jejích pokynů, zvýší se tvá Inteligence o 2, nejvýše na 30. Příručka pak ztratí svou magii, ale za sto let ji znovu získá.",
+  "str": 249
+ },
+ {
+  "en": "Tome of Leadership and Influence",
+  "cz": "foliant vůdcovství a vlivu",
+  "druh": "Divotvorný předmět",
+  "vz": "velmi vzácný",
+  "pr": false,
+  "t": "Tato kniha obsahuje pokyny, jak ovlivňovat a okouzlovat druhé a její slova jsou nabita magií. Pokud během nejvýše 6 dní strávíš 48 hodin studiem obsahu knihy a cvičením podle jejích pokynů, zvýší se tvé Charisma o 2, nejvýše na 30. Příručka pak ztratí svou magii, ale za sto let ji znovu získá.",
+  "str": 249
+ },
+ {
+  "en": "Tome of Understanding",
+  "cz": "foliant porozumění",
+  "druh": "Divotvorný předmět",
+  "vz": "velmi vzácný",
+  "pr": false,
+  "t": "Tato kniha obsahuje cvičení intuice a vhledu a její slova jsou nabita magií. Pokud během nejvýše 6 dní strávíš 48 hodin studiem obsahu knihy a cvičením podle jejích pokynů, zvýší se tvá Moudrost o 2, nejvýše na 30. Příručka pak ztratí svou magii, ale za sto let ji znovu získá.",
+  "str": 250
+ },
+ {
+  "en": "Trident of Fish Command",
+  "cz": "trojzubec vlády nad rybami",
+  "druh": "Zbraň",
+  "upr": "Trident",
+  "vz": "neobvyklý",
+  "pr": true,
+  "t": "Tato magická zbraň má 3 náboje a každý den za úsvitu obnoví 1d3 vyčerpaných nábojů. Dokud ji neseš, můžeš vynaložit 1 náboj a seslat z ní kouzlo Dominate Beast (SO záchrany 15) na zvíře (Beast), které má rychlost plavání.",
+  "str": 250
+ },
+ {
+  "en": "Universal Solvent",
+  "cz": "univerzální rozpouštědlo",
+  "druh": "Divotvorný předmět",
+  "vz": "legendární",
+  "pr": false,
+  "t": "Tato trubička obsahuje mléčnou tekutinu se silným pachem alkoholu. Když je trubička nalezena, obsahuje 1d6 + 1 uncí.\nMůžeš provést akci Použití a vylít 1 či více uncí rozpouštědla z trubičky na povrch v dosahu. Každá unce okamžitě rozpustí až 1 čtvereční stopu lepidla, kterého se dotkne, včetně Sovereign Glue.",
+  "str": 250
+ },
+ {
+  "en": "Vicious Weapon",
+  "cz": "zákeřná zbraň",
+  "druh": "Zbraň",
+  "upr": "jakákoli jednoduchá nebo válečná",
+  "vz": "vzácný",
+  "pr": false,
+  "t": "Tato magická zbraň způsobí navíc 2d6 zranění každému tvoru, kterého zasáhne. Toto dodatečné zranění je stejného typu jako normální zranění zbraně.",
+  "str": 250
+ },
+ {
+  "en": "Vorpal Sword",
+  "cz": "vorpalový meč",
+  "druh": "Zbraň",
+  "upr": "Glaive, Greatsword, Longsword nebo Scimitar",
+  "vz": "legendární",
+  "pr": true,
+  "t": "S touto magickou zbraní získáváš bonus +3 k hodům na útok a zranění. Navíc zbraň ignoruje Resistance vůči Slashing zranění.\nKdyž touto zbraní útočíš na tvora, který má alespoň jednu hlavu, a při hodu na útok ti na d20 padne 20, usekneš tvorovi jednu z hlav. Tvor zemře, pokud bez ztracené hlavy nemůže přežít. Tvor je vůči tomuto účinku imunní, pokud má Immunity vůči Slashing zranění, pokud hlavu nemá nebo ji nepotřebuje, nebo pokud vypravěč rozhodne, že je tvor příliš velký na to, aby mu tato zbraň mohla hlavu useknout. Takový tvor místo toho utrpí zásahem navíc 30 Slashing zranění. Má-li tvor rys Legendary Resistance, může vynaložit jedno jeho denní použití, aby se vyhnul ztrátě hlavy, a místo toho utrpí dodatečné zranění.",
+  "ef": {
+   "utok": 3
+  },
+  "str": 250
+ },
+ {
+  "en": "Wand of Binding",
+  "cz": "hůlka spoutání",
+  "druh": "Hůlka",
+  "vz": "vzácný",
+  "pr": true,
+  "t": "Tato hůlka má 7 nábojů.\n**Kouzla.** Dokud hůlku držíš, můžeš z ní seslat jedno z kouzel (SO záchrany 17) z následující tabulky. Tabulka udává, kolik nábojů musíš na seslání kouzla vynaložit.\n- Hold Monster – 5 nábojů\n- Hold Person – 2 náboje\n**Obnova nábojů.** Hůlka každý den za úsvitu obnoví 1d6 + 1 vyčerpaných nábojů. Když vyčerpáš poslední náboj hůlky, hoď 1d20. Padne-li 1, hůlka se rozpadne na popel a je zničena.",
+  "str": 250
+ },
+ {
+  "en": "Wand of Enemy Detection",
+  "cz": "hůlka odhalení nepřátel",
+  "druh": "Hůlka",
+  "vz": "vzácný",
+  "pr": true,
+  "t": "Tato hůlka má 7 nábojů. Dokud ji držíš, můžeš provést akci Magie a vynaložit 1 náboj. Po dobu 1 minuty znáš směr k nejbližšímu tvoru, který je vůči tobě nepřátelský, do 60 stop, ale ne jeho vzdálenost od tebe. Hůlka dokáže vycítit přítomnost nepřátelských tvorů, kteří jsou neviditelní (Invisible), éteričtí, převlečení nebo skrytí, stejně jako těch, kteří jsou na očích. Účinek skončí, když hůlku přestaneš držet.\n**Obnova nábojů.** Hůlka každý den za úsvitu obnoví 1d6 + 1 vyčerpaných nábojů. Když vyčerpáš poslední náboj hůlky, hoď 1d20. Padne-li 1, hůlka se rozpadne na popel a je zničena.",
+  "str": 250
+ },
+ {
+  "en": "Wand of Fear",
+  "cz": "hůlka strachu",
+  "druh": "Hůlka",
+  "vz": "vzácný",
+  "pr": true,
+  "t": "Tato hůlka má 7 nábojů.\n**Kouzla.** Dokud hůlku držíš, můžeš z ní seslat jedno z kouzel (SO záchrany 15) z následující tabulky. Tabulka udává, kolik nábojů musíš na seslání kouzla vynaložit.\n- Command (jen „uteč“ nebo „plaz se“) – 1 náboj\n- Fear (kužel 60 stop) – 3 náboje\n**Obnova nábojů.** Hůlka každý den za úsvitu obnoví 1d6 + 1 vyčerpaných nábojů. Když vyčerpáš poslední náboj hůlky, hoď 1d20. Padne-li 1, hůlka se rozpadne na popel a je zničena.",
+  "str": 250
+ },
+ {
+  "en": "Wand of Fireballs",
+  "cz": "hůlka ohnivých koulí",
+  "druh": "Hůlka",
+  "vz": "vzácný",
+  "pr": "sesilatelem kouzel",
+  "t": "Tato hůlka má 7 nábojů. Dokud ji držíš, můžeš vynaložit nejvýše 3 náboje a seslat z ní Fireball (SO záchrany 15). Za 1 náboj sešleš verzi kouzla 3. úrovně. Za každý další vynaložený náboj můžeš úroveň kouzla zvýšit o 1.\n**Obnova nábojů.** Hůlka každý den za úsvitu obnoví 1d6 + 1 vyčerpaných nábojů. Když vyčerpáš poslední náboj hůlky, hoď 1d20. Padne-li 1, hůlka se rozpadne na popel a je zničena.",
+  "str": 250
+ },
+ {
+  "en": "Wand of Lightning Bolts",
+  "cz": "hůlka blesků",
+  "druh": "Hůlka",
+  "vz": "vzácný",
+  "pr": "sesilatelem kouzel",
+  "t": "Tato hůlka má 7 nábojů. Dokud ji držíš, můžeš vynaložit nejvýše 3 náboje a seslat z ní Lightning Bolt (SO záchrany 15). Za 1 náboj sešleš verzi kouzla 3. úrovně. Za každý další vynaložený náboj můžeš úroveň kouzla zvýšit o 1.\n**Obnova nábojů.** Hůlka každý den za úsvitu obnoví 1d6 + 1 vyčerpaných nábojů. Když vyčerpáš poslední náboj hůlky, hoď 1d20. Padne-li 1, hůlka se rozpadne na popel a je zničena.",
+  "str": 251
+ },
+ {
+  "en": "Wand of Magic Detection",
+  "cz": "hůlka odhalení magie",
+  "druh": "Hůlka",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Tato hůlka má 3 náboje. Dokud ji držíš, můžeš vynaložit 1 náboj a seslat z ní Detect Magic. Hůlka každý den za úsvitu obnoví 1d3 vyčerpaných nábojů.",
+  "str": 251
+ },
+ {
+  "en": "Wand of Magic Missiles",
+  "cz": "hůlka magických střel",
+  "druh": "Hůlka",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Tato hůlka má 7 nábojů. Dokud ji držíš, můžeš vynaložit nejvýše 3 náboje a seslat z ní Magic Missile. Za 1 náboj sešleš verzi kouzla 1. úrovně. Za každý další vynaložený náboj můžeš úroveň kouzla zvýšit o 1.\n**Obnova nábojů.** Hůlka každý den za úsvitu obnoví 1d6 + 1 vyčerpaných nábojů. Když vyčerpáš poslední náboj hůlky, hoď 1d20. Padne-li 1, hůlka se rozpadne na popel a je zničena.",
+  "str": 251
+ },
+ {
+  "en": "Wand of Paralysis",
+  "cz": "hůlka ochromení",
+  "druh": "Hůlka",
+  "vz": "vzácný",
+  "pr": "sesilatelem kouzel",
+  "t": "Tato hůlka má 7 nábojů. Dokud ji držíš, můžeš provést akci Magie a vynaložit 1 náboj, aby z hrotu vyšlehl tenký modrý paprsek k tvoru, kterého vidíš, do 60 stop od tebe. Cíl musí uspět v záchraně Odolnosti se SO 15, jinak má stav Ochromen (Paralyzed) po dobu 1 minuty. Na konci každého svého tahu cíl záchranu opakuje a při úspěchu účinek na sobě ukončí.\n**Obnova nábojů.** Hůlka každý den za úsvitu obnoví 1d6 + 1 vyčerpaných nábojů. Když vyčerpáš poslední náboj hůlky, hoď 1d20. Padne-li 1, hůlka se rozpadne na popel a je zničena.",
+  "str": 251
+ },
+ {
+  "en": "Wand of Polymorph",
+  "cz": "hůlka proměny",
+  "druh": "Hůlka",
+  "vz": "velmi vzácný",
+  "pr": "sesilatelem kouzel",
+  "t": "Tato hůlka má 7 nábojů. Dokud ji držíš, můžeš vynaložit 1 náboj a seslat z ní Polymorph (SO záchrany 15).\n**Obnova nábojů.** Hůlka každý den za úsvitu obnoví 1d6 + 1 vyčerpaných nábojů. Když vyčerpáš poslední náboj hůlky, hoď 1d20. Padne-li 1, hůlka se rozpadne na popel a je zničena.",
+  "str": 251
+ },
+ {
+  "en": "Wand of Secrets",
+  "cz": "hůlka tajemství",
+  "druh": "Hůlka",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Tato hůlka má 3 náboje a každý den za úsvitu obnoví 1d3 vyčerpaných nábojů. Dokud ji držíš, můžeš provést akci Magie a vynaložit 1 náboj, a pokud je do 60 stop od tebe tajné dveře nebo past, hůlka zapulzuje a ukáže na tu, která je ti nejblíž.",
+  "str": 251
+ },
+ {
+  "en": "Wand of the War Mage, +1",
+  "cz": "hůlka válečného mága",
+  "druh": "Hůlka",
+  "vz": "neobvyklý",
+  "pr": "sesilatelem kouzel",
+  "t": "Dokud tuto hůlku držíš, získáváš bonus k hodům na útok kouzlem určený vzácností hůlky (+1 neobvyklá, +2 vzácná, +3 velmi vzácná); u této hůlky +1. Navíc při hodu na útok kouzlem ignoruješ poloviční kryt.",
+  "str": 251
+ },
+ {
+  "en": "Wand of the War Mage, +2",
+  "cz": "hůlka válečného mága",
+  "druh": "Hůlka",
+  "vz": "vzácný",
+  "pr": "sesilatelem kouzel",
+  "t": "Dokud tuto hůlku držíš, získáváš bonus k hodům na útok kouzlem určený vzácností hůlky (+1 neobvyklá, +2 vzácná, +3 velmi vzácná); u této hůlky +2. Navíc při hodu na útok kouzlem ignoruješ poloviční kryt.",
+  "str": 251
+ },
+ {
+  "en": "Wand of the War Mage, +3",
+  "cz": "hůlka válečného mága",
+  "druh": "Hůlka",
+  "vz": "velmi vzácný",
+  "pr": "sesilatelem kouzel",
+  "t": "Dokud tuto hůlku držíš, získáváš bonus k hodům na útok kouzlem určený vzácností hůlky (+1 neobvyklá, +2 vzácná, +3 velmi vzácná); u této hůlky +3. Navíc při hodu na útok kouzlem ignoruješ poloviční kryt.",
+  "str": 251
+ },
+ {
+  "en": "Wand of Web",
+  "cz": "hůlka pavučin",
+  "druh": "Hůlka",
+  "vz": "neobvyklý",
+  "pr": "sesilatelem kouzel",
+  "t": "Tato hůlka má 7 nábojů. Dokud ji držíš, můžeš vynaložit 1 náboj a seslat z ní Web (SO záchrany 13).\n**Obnova nábojů.** Hůlka každý den za úsvitu obnoví 1d6 + 1 vyčerpaných nábojů. Když vyčerpáš poslední náboj hůlky, hoď 1d20. Padne-li 1, hůlka se rozpadne na popel a je zničena.",
+  "str": 251
+ },
+ {
+  "en": "Wand of Wonder",
+  "cz": "hůlka divů",
+  "druh": "Hůlka",
+  "vz": "vzácný",
+  "pr": true,
+  "t": "Tato hůlka má 7 nábojů. Dokud ji držíš, můžeš provést akci Magie, vynaložit 1 náboj a zvolit bod do 120 stop od sebe. Toto místo se stane počátečním bodem kouzla nebo jiného magického účinku, který určíš hodem v tabulce Účinky Wand of Wonder. Kouzla seslaná z hůlky mají SO záchrany 15. Je-li maximální dosah kouzla normálně menší než 120 stop, při seslání z hůlky se stane 120 stop. Má-li účinek více možných subjektů, vypravěč náhodně určí, kterých z nich se týká.\n**Obnova nábojů.** Hůlka každý den za úsvitu obnoví 1d6 + 1 vyčerpaných nábojů. Když vyčerpáš poslední náboj hůlky, hoď 1d20. Padne-li 1, hůlka se rozpadne v prach a je zničena.\n**Účinky Wand of Wonder (1d100):**\n- **01–20:** Sešleš kouzlo vycházející ze zvoleného bodu. Kouzlo urči hodem 1d10: 1–2 Darkness; 3–4 Faerie Fire; 5–6 Fireball; 7–8 Slow; 9–10 Stinking Cloud.\n- **21–25:** Ve zvoleném počátečním bodě se nic nestane. Místo toho máš stav Omráčen (Stunned) do začátku svého příštího tahu, protože věříš, že se právě stalo něco úžasného.\n- **26–30:** Sešleš Gust of Wind. Čára vytvořená kouzlem vede od tebe ke zvolenému počátečnímu bodu.\n- **31–35:** Ve zvoleném počátečním bodě se nic nestane. Místo toho utrpíš 1d6 Psychic zranění.\n- **36–40:** Po dobu 1 minuty padá prudký déšť ve válci vysokém 120 stop o poloměru 60 stop se středem ve zvoleném počátečním bodě. Po tu dobu je oblast účinku lehce zastřená.\n- **41–45:** Mrak 600 přerostlých motýlů zaplní válec vysoký 60 stop o poloměru 30 stop se středem ve zvoleném počátečním bodě. Motýli zůstanou 10 minut a po tu dobu je oblast účinku silně zastřená.\n- **46–50:** Sešleš Lightning Bolt. Čára vytvořená kouzlem vede od tebe ke zvolenému počátečnímu bodu.\n- **51–55:** Tvor nejblíže zvolenému počátečnímu bodu se zvětší, jako bys na něj seslal Enlarge/Reduce. Pokud cílem nejsi ty a cíl nemůže být tímto kouzlem ovlivněn, stáváš se cílem místo něj ty.\n- **56–60:** Na neobsazeném místě co nejblíže zvolenému počátečnímu bodu se objeví magicky zformovaný tvor. Tvor není pod tvou kontrolou, jedná, jak by normálně jednal, a zmizí po 1 hodině nebo když jeho životy klesnou na 0. Který tvor se objeví, urči hodem 1d4: 1 Rhinoceros; 2 Elephant; 3–4 Rat.\n- **61–64:** Tráva pokryje kruh země o poloměru 60 stop, jehož střed je co nejblíže zvolenému počátečnímu bodu. Tráva, která tam už roste, vyroste do desetinásobku své normální velikosti a zůstane přerostlá po dobu 1 minuty.\n- **65–68:** Předmět dle volby vypravěče zmizí do Éterické roviny (Ethereal Plane). Předmět nesmí nikdo nosit ani nést, musí být do 120 stop od zvoleného počátečního bodu a v žádném rozměru nesmí být větší než 10 stop. Nejsou-li v dosahu žádné takové předměty, nic se nestane.\n- **69–72:** Ve zvoleném počátečním bodě se nic nestane. Místo toho se zmenšíš, jako bys na sebe seslal Enlarge/Reduce, a v tomto stavu zůstaneš po dobu 1 minuty.\n- **73–77:** Tvorovi nejblíže zvolenému počátečnímu bodu vyrostou listy. Pokud nejsou otrhány, listy po 24 hodinách zhnědnou a opadají.\n- **78–82:** Ve zvoleném počátečním bodě se nic nestane. Místo toho se z tebe ve vyzařování 30 stop rozšíří záblesk barevného třpytivého světla. Každý tvor v oblasti musí uspět v záchraně Odolnosti se SO 15, jinak má stav Oslepen (Blinded) po dobu 1 minuty. Tvor záchranu opakuje na konci každého svého tahu a při úspěchu účinek na sobě ukončí.\n- **83–87:** Ve zvoleném počátečním bodě se nic nestane. Místo toho na sebe sešleš Invisibility.\n- **88–92:** Ve zvoleném počátečním bodě se nic nestane. Místo toho z hrotu hůlky vystřelí proud 1d4 × 10 drahokamů, každý v hodnotě 1 GP, v čáře dlouhé 30 stop a široké 5 stop směrem ke zvolenému počátečnímu bodu. Každý drahokam způsobí 1 Bludgeoning zranění a celkové zranění drahokamů se rovným dílem rozdělí mezi všechny tvory v čáře.\n- **93–97:** Sešleš Polymorph, jehož cílem je tvor nejblíže zvolenému počátečnímu bodu. Novou podobu cíle urči hodem 1d4: 1 Black Bear; 2 Giant Wasp; 3–4 Frog.\n- **98–00:** Tvor nejblíže zvolenému počátečnímu bodu si hází záchranu Odolnosti se SO 15. Při neúspěchu má stav Zadržen (Restrained) a začne se měnit v kámen. Dokud je takto zadržen, opakuje tvor záchranu na konci svého příštího tahu. Při úspěchu účinek skončí. Při neúspěchu má tvor místo stavu Zadržen stav Zkamenělý (Petrified). Zkamenění trvá, dokud tvora neosvobodí kouzlo Greater Restoration nebo podobná magie.",
+  "str": 251
+ },
+ {
+  "en": "Weapon, +1",
+  "cz": "zbraň +1",
+  "druh": "Zbraň",
+  "upr": "jakákoli jednoduchá nebo válečná",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "S touto magickou zbraní máš bonus k hodům na útok a zranění. Bonus je určen vzácností zbraně (+1 neobvyklá, +2 vzácná, +3 velmi vzácná); u této zbraně +1.",
+  "ef": {
+   "utok": 1
+  },
+  "str": 253
+ },
+ {
+  "en": "Weapon, +2",
+  "cz": "zbraň +2",
+  "druh": "Zbraň",
+  "upr": "jakákoli jednoduchá nebo válečná",
+  "vz": "vzácný",
+  "pr": false,
+  "t": "S touto magickou zbraní máš bonus k hodům na útok a zranění. Bonus je určen vzácností zbraně (+1 neobvyklá, +2 vzácná, +3 velmi vzácná); u této zbraně +2.",
+  "ef": {
+   "utok": 2
+  },
+  "str": 253
+ },
+ {
+  "en": "Weapon, +3",
+  "cz": "zbraň +3",
+  "druh": "Zbraň",
+  "upr": "jakákoli jednoduchá nebo válečná",
+  "vz": "velmi vzácný",
+  "pr": false,
+  "t": "S touto magickou zbraní máš bonus k hodům na útok a zranění. Bonus je určen vzácností zbraně (+1 neobvyklá, +2 vzácná, +3 velmi vzácná); u této zbraně +3.",
+  "ef": {
+   "utok": 3
+  },
+  "str": 253
+ },
+ {
+  "en": "Weapon of Warning",
+  "cz": "zbraň varování",
+  "druh": "Zbraň",
+  "upr": "jakákoli jednoduchá nebo válečná",
+  "vz": "neobvyklý",
+  "pr": true,
+  "t": "Dokud je tato zbraň v tvém dosahu a jsi s ní sladěn, získáváš ty i spojenci do 30 stop od tebe následující výhody.\n**Poplach.** Zbraň magicky probudí každého, kdo přirozeně spí, když začne boj. Tato výhoda neprobudí nikoho z magicky vyvolaného spánku.\n**Nadpřirozená pohotovost.** Každý, koho se to týká, má výhodu na hody na iniciativu.",
+  "str": 253
+ },
+ {
+  "en": "Well of Many Worlds",
+  "cz": "studna mnoha světů",
+  "druh": "Divotvorný předmět",
+  "vz": "legendární",
+  "pr": false,
+  "t": "Tato jemná černá látka, hebká jako hedvábí, je složená do rozměrů kapesníku. Rozkládá se do kruhového plátna o průměru 6 stop.\nMůžeš provést akci Magie, rozložit Well of Many Worlds a položit ji na pevný povrch, načež vytvoří obousměrný kruhový portál o průměru 6 stop do jiného světa nebo jiné roviny existence. Pokaždé, když předmět otevře portál, rozhodne vypravěč, kam vede. Portál zůstane otevřený, dokud tvor do 5 stop od něj neprovede akci Magie, kterou ho uzavře tím, že uchopí okraje látky a složí ji.\nJakmile Well of Many Worlds otevře portál, nemůže to znovu udělat po dobu 1d8 hodin.",
+  "str": 253
+ },
+ {
+  "en": "Wind Fan",
+  "cz": "větrný vějíř",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Dokud držíš tento vějíř, můžeš z něj seslat Gust of Wind (SO záchrany 13). Pokaždé, když je vějíř znovu použit před příštím úsvitem, má kumulativní 20procentní šanci, že nebude fungovat; pokud vějíř selže, roztrhá se na nepoužitelné nemagické cáry.",
+  "str": 253
+ },
+ {
+  "en": "Winged Boots",
+  "cz": "okřídlené boty",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": true,
+  "t": "Tyto boty mají 4 náboje a každý den za úsvitu obnoví 1d4 vyčerpaných nábojů. Dokud boty nosíš, můžeš provést akci Magie a vynaložit 1 náboj, čímž získáš rychlost letu 30 stop na 1 hodinu. Pokud letíš, když doba trvání vyprší, klesáš rychlostí 30 stop za kolo, dokud nepřistaneš.",
+  "str": 253
+ },
+ {
+  "en": "Wings of Flying",
+  "cz": "křídla letu",
+  "druh": "Divotvorný předmět",
+  "vz": "vzácný",
+  "pr": true,
+  "t": "Dokud nosíš tento plášť, můžeš akcí Magie proměnit plášť v pár křídel na svých zádech. Křídla vydrží 1 hodinu, nebo dokud účinek předčasně neukončíš akcí Magie. Křídla ti dávají rychlost letu 60 stop. Pokud jsi ve vzduchu, když křídla zmizí, spadneš. Když křídla zmizí, nemůžeš je znovu použít po dobu 1d12 hodin.",
+  "str": 253
+ }
+]

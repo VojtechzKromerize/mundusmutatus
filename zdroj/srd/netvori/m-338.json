@@ -1,0 +1,1822 @@
+[
+ {
+  "en": "Wereboar",
+  "cz": "kancodlak",
+  "vel": "Střední nebo Malá",
+  "typ": "Monstrosity (Lycanthrope)",
+  "pres": "neutrálně zlý",
+  "ac": "15",
+  "ini": "+2 (12)",
+  "hp": 97,
+  "hpk": "15d8 + 30",
+  "rych": "30 stop, 40 stop (jen v kančí podobě)",
+  "vl": {
+   "STR": 17,
+   "AGI": 10,
+   "CON": 15,
+   "INT": 10,
+   "WIS": 11,
+   "CHA": 8
+  },
+  "zach": {
+   "STR": "+3",
+   "AGI": "+0",
+   "CON": "+2",
+   "INT": "+0",
+   "WIS": "+0",
+   "CHA": "-1"
+  },
+  "dov": "Perception +2",
+  "vyb": "Javelins (6)",
+  "smysly": "pasivní Perception 12",
+  "jaz": "Common (v kančí podobě nemluví)",
+  "cr": "4",
+  "xp": 1100,
+  "xpt": "1 100 XP",
+  "pb": "+2",
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Kancodlak provede dva útoky, v libovolné kombinaci Javelin nebo Tusk. Jeden útok může nahradit útokem Gore."
+   },
+   {
+    "n": "Gore (jen v hybridní nebo kančí podobě)",
+    "t": "*Hod na útok na blízko:* +5, dosah 5 stop. *Zásah:* 12 (2d8 + 3) Piercing zranění. Je-li cíl humanoid (Humanoid), podstoupí následující účinek. *Záchrana Odolnosti:* SO 12. *Neúspěch:* Cíl je proklet. Pokud prokletý cíl klesne na 0 HP, stane se místo toho z něj **Wereboar** pod kontrolou vypravěče a má 10 HP. *Úspěch:* Cíl je na 24 hodin imunní vůči kletbě tohoto kancodlaka."
+   },
+   {
+    "n": "Javelin (jen v humanoidní nebo hybridní podobě)",
+    "t": "*Hod na útok na blízko nebo na dálku:* +5, dosah 5 stop nebo dostřel 30/120 stop. *Zásah:* 13 (3d6 + 3) Piercing zranění."
+   },
+   {
+    "n": "Tusk (jen v kančí nebo hybridní podobě)",
+    "t": "*Hod na útok na blízko:* +5, dosah 5 stop. *Zásah:* 10 (2d6 + 3) Piercing zranění. Je-li cíl Střední nebo menší tvor a kancodlak se bezprostředně před zásahem pohnul alespoň 20 stop přímo k němu, cíl utrpí navíc 7 (2d6) Piercing zranění a má stav Sražen (Prone)."
+   }
+  ],
+  "bonus": [
+   {
+    "n": "Shape-Shift",
+    "t": "Kancodlak se promění v Střední hybridní podobu kance a humanoida nebo v Malého kance, nebo se vrátí do své pravé humanoidní podoby. Jeho herní statistiky jsou kromě velikosti ve všech podobách stejné. Vybavení, které má na sobě nebo nese, se nepromění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Gore",
+    "b": 5,
+    "z": "2d8+3",
+    "zt": "Piercing",
+    "p": "dosah 5 stop; Humanoid: CON SO 12, jinak kletba lykantropie"
+   },
+   {
+    "n": "Javelin",
+    "b": 5,
+    "z": "3d6+3",
+    "zt": "Piercing",
+    "p": "dosah 5 stop nebo dostřel 30/120 stop"
+   },
+   {
+    "n": "Tusk",
+    "b": 5,
+    "z": "2d6+3",
+    "zt": "Piercing",
+    "p": "dosah 5 stop; po rozběhu 20+ stop + 2d6 Piercing a Sražen (Střední a menší)"
+   }
+  ],
+  "str": 338
+ },
+ {
+  "en": "Wererat",
+  "cz": "krysodlak",
+  "vel": "Střední nebo Malá",
+  "typ": "Monstrosity (Lycanthrope)",
+  "pres": "zákonně zlý",
+  "ac": "13",
+  "ini": "+3 (13)",
+  "hp": 60,
+  "hpk": "11d8 + 11",
+  "rych": "30 stop, šplhání 30 stop",
+  "vl": {
+   "STR": 10,
+   "AGI": 16,
+   "CON": 12,
+   "INT": 11,
+   "WIS": 10,
+   "CHA": 8
+  },
+  "zach": {
+   "STR": "+0",
+   "AGI": "+3",
+   "CON": "+1",
+   "INT": "+0",
+   "WIS": "+0",
+   "CHA": "-1"
+  },
+  "dov": "Perception +4, Stealth +5",
+  "vyb": "Hand Crossbow",
+  "smysly": "Darkvision 60 stop; pasivní Perception 14",
+  "jaz": "Common (v krysí podobě nemluví)",
+  "cr": "2",
+  "xp": 450,
+  "xpt": "450 XP",
+  "pb": "+2",
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Krysodlak provede dva útoky, v libovolné kombinaci Scratch nebo Hand Crossbow. Jeden útok může nahradit útokem Bite."
+   },
+   {
+    "n": "Bite (jen v krysí nebo hybridní podobě)",
+    "t": "*Hod na útok na blízko:* +5, dosah 5 stop. *Zásah:* 8 (2d4 + 3) Piercing zranění. Je-li cíl humanoid (Humanoid), podstoupí následující účinek. *Záchrana Odolnosti:* SO 11. *Neúspěch:* Cíl je proklet. Pokud prokletý cíl klesne na 0 HP, stane se místo toho z něj **Wererat** pod kontrolou vypravěče a má 10 HP. *Úspěch:* Cíl je na 24 hodin imunní vůči kletbě tohoto krysodlaka."
+   },
+   {
+    "n": "Scratch",
+    "t": "*Hod na útok na blízko:* +5, dosah 5 stop. *Zásah:* 6 (1d6 + 3) Slashing zranění."
+   },
+   {
+    "n": "Hand Crossbow (jen v humanoidní nebo hybridní podobě)",
+    "t": "*Hod na útok na dálku:* +5, dostřel 30/120 stop. *Zásah:* 6 (1d6 + 3) Piercing zranění."
+   }
+  ],
+  "bonus": [
+   {
+    "n": "Shape-Shift",
+    "t": "Krysodlak se promění v Střední hybridní podobu krysy a humanoida nebo v Malou krysu, nebo se vrátí do své pravé humanoidní podoby. Jeho herní statistiky jsou kromě velikosti ve všech podobách stejné. Vybavení, které má na sobě nebo nese, se nepromění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 5,
+    "z": "2d4+3",
+    "zt": "Piercing",
+    "p": "dosah 5 stop; Humanoid: CON SO 11, jinak kletba lykantropie"
+   },
+   {
+    "n": "Scratch",
+    "b": 5,
+    "z": "1d6+3",
+    "zt": "Slashing",
+    "p": "dosah 5 stop"
+   },
+   {
+    "n": "Hand Crossbow",
+    "b": 5,
+    "z": "1d6+3",
+    "zt": "Piercing",
+    "p": "dostřel 30/120 stop"
+   }
+  ],
+  "str": 338
+ },
+ {
+  "en": "Weretiger",
+  "cz": "tygrodlak",
+  "vel": "Střední nebo Malá",
+  "typ": "Monstrosity (Lycanthrope)",
+  "pres": "neutrální",
+  "ac": "12",
+  "ini": "+2 (12)",
+  "hp": 120,
+  "hpk": "16d8 + 48",
+  "rych": "30 stop, 40 stop (jen v tygří podobě)",
+  "vl": {
+   "STR": 17,
+   "AGI": 15,
+   "CON": 16,
+   "INT": 10,
+   "WIS": 13,
+   "CHA": 11
+  },
+  "zach": {
+   "STR": "+3",
+   "AGI": "+2",
+   "CON": "+3",
+   "INT": "+0",
+   "WIS": "+1",
+   "CHA": "+0"
+  },
+  "dov": "Perception +5, Stealth +4",
+  "vyb": "Longbow",
+  "smysly": "Darkvision 60 stop; pasivní Perception 15",
+  "jaz": "Common (v tygří podobě nemluví)",
+  "cr": "4",
+  "xp": 1100,
+  "xpt": "1 100 XP",
+  "pb": "+2",
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Tygrodlak provede dva útoky, v libovolné kombinaci Scratch nebo Longbow. Jeden útok může nahradit útokem Bite."
+   },
+   {
+    "n": "Bite (jen v tygří nebo hybridní podobě)",
+    "t": "*Hod na útok na blízko:* +5, dosah 5 stop. *Zásah:* 12 (2d8 + 3) Piercing zranění. Je-li cíl humanoid (Humanoid), podstoupí následující účinek. *Záchrana Odolnosti:* SO 13. *Neúspěch:* Cíl je proklet. Pokud prokletý cíl klesne na 0 HP, stane se místo toho z něj **Weretiger** pod kontrolou vypravěče a má 10 HP. *Úspěch:* Cíl je na 24 hodin imunní vůči kletbě tohoto tygrodlaka."
+   },
+   {
+    "n": "Scratch",
+    "t": "*Hod na útok na blízko:* +5, dosah 5 stop. *Zásah:* 10 (2d6 + 3) Slashing zranění."
+   },
+   {
+    "n": "Longbow (jen v humanoidní nebo hybridní podobě)",
+    "t": "*Hod na útok na dálku:* +4, dostřel 150/600 stop. *Zásah:* 11 (2d8 + 2) Piercing zranění."
+   }
+  ],
+  "bonus": [
+   {
+    "n": "Prowl (jen v tygří nebo hybridní podobě)",
+    "t": "Tygrodlak se pohne až o svou rychlost, aniž by vyvolal příležitostné útoky. Na konci tohoto pohybu může tygrodlak provést akci Skrytí (Hide)."
+   },
+   {
+    "n": "Shape-Shift",
+    "t": "Tygrodlak se promění v Velkou hybridní podobu tygra a humanoida nebo ve Velkého tygra, nebo se vrátí do své pravé humanoidní podoby. Jeho herní statistiky jsou kromě velikosti ve všech podobách stejné. Vybavení, které má na sobě nebo nese, se nepromění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 5,
+    "z": "2d8+3",
+    "zt": "Piercing",
+    "p": "dosah 5 stop; Humanoid: CON SO 13, jinak kletba lykantropie"
+   },
+   {
+    "n": "Scratch",
+    "b": 5,
+    "z": "2d6+3",
+    "zt": "Slashing",
+    "p": "dosah 5 stop"
+   },
+   {
+    "n": "Longbow",
+    "b": 4,
+    "z": "2d8+2",
+    "zt": "Piercing",
+    "p": "dostřel 150/600 stop"
+   }
+  ],
+  "str": 339
+ },
+ {
+  "en": "Werewolf",
+  "cz": "vlkodlak",
+  "vel": "Střední nebo Malá",
+  "typ": "Monstrosity (Lycanthrope)",
+  "pres": "chaoticky zlý",
+  "ac": "15",
+  "ini": "+4 (14)",
+  "hp": 71,
+  "hpk": "11d8 + 22",
+  "rych": "30 stop, 40 stop (jen ve vlčí podobě)",
+  "vl": {
+   "STR": 16,
+   "AGI": 14,
+   "CON": 14,
+   "INT": 10,
+   "WIS": 11,
+   "CHA": 10
+  },
+  "zach": {
+   "STR": "+3",
+   "AGI": "+2",
+   "CON": "+2",
+   "INT": "+0",
+   "WIS": "+0",
+   "CHA": "+0"
+  },
+  "dov": "Perception +4, Stealth +4",
+  "vyb": "Longbow",
+  "smysly": "Darkvision 60 stop; pasivní Perception 14",
+  "jaz": "Common (ve vlčí podobě nemluví)",
+  "cr": "3",
+  "xp": 700,
+  "xpt": "700 XP",
+  "pb": "+2",
+  "rysy": [
+   {
+    "n": "Pack Tactics",
+    "t": "Vlkodlak má výhodu na hod na útok proti tvorovi, pokud je alespoň jeden ze vlkodlakových spojenců do 5 stop od tohoto tvora a tento spojenec nemá stav Neschopný (Incapacitated)."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Vlkodlak provede dva útoky, v libovolné kombinaci Scratch nebo Longbow. Jeden útok může nahradit útokem Bite."
+   },
+   {
+    "n": "Bite (jen ve vlčí nebo hybridní podobě)",
+    "t": "*Hod na útok na blízko:* +5, dosah 5 stop. *Zásah:* 12 (2d8 + 3) Piercing zranění. Je-li cíl humanoid (Humanoid), podstoupí následující účinek. *Záchrana Odolnosti:* SO 12. *Neúspěch:* Cíl je proklet. Pokud prokletý cíl klesne na 0 HP, stane se místo toho z něj **Werewolf** pod kontrolou vypravěče a má 10 HP. *Úspěch:* Cíl je na 24 hodin imunní vůči kletbě tohoto vlkodlaka."
+   },
+   {
+    "n": "Scratch",
+    "t": "*Hod na útok na blízko:* +5, dosah 5 stop. *Zásah:* 10 (2d6 + 3) Slashing zranění."
+   },
+   {
+    "n": "Longbow (jen v humanoidní nebo hybridní podobě)",
+    "t": "*Hod na útok na dálku:* +4, dostřel 150/600 stop. *Zásah:* 11 (2d8 + 2) Piercing zranění."
+   }
+  ],
+  "bonus": [
+   {
+    "n": "Shape-Shift",
+    "t": "Vlkodlak se promění v Velkou hybridní podobu vlka a humanoida nebo ve Středního vlka, nebo se vrátí do své pravé humanoidní podoby. Jeho herní statistiky jsou kromě velikosti ve všech podobách stejné. Vybavení, které má na sobě nebo nese, se nepromění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 5,
+    "z": "2d8+3",
+    "zt": "Piercing",
+    "p": "dosah 5 stop; Humanoid: CON SO 12, jinak kletba lykantropie"
+   },
+   {
+    "n": "Scratch",
+    "b": 5,
+    "z": "2d6+3",
+    "zt": "Slashing",
+    "p": "dosah 5 stop"
+   },
+   {
+    "n": "Longbow",
+    "b": 4,
+    "z": "2d8+2",
+    "zt": "Piercing",
+    "p": "dostřel 150/600 stop"
+   }
+  ],
+  "str": 339
+ },
+ {
+  "en": "White Dragon Wyrmling",
+  "cz": "mládě bílého draka",
+  "vel": "Střední",
+  "typ": "Dragon (Chromatic)",
+  "pres": "chaoticky zlý",
+  "ac": "16",
+  "ini": "+2 (12)",
+  "hp": 32,
+  "hpk": "5d8 + 10",
+  "rych": "30 stop, hrabání 15 stop, let 60 stop, plavání 30 stop",
+  "vl": {
+   "STR": 14,
+   "AGI": 10,
+   "CON": 14,
+   "INT": 5,
+   "WIS": 10,
+   "CHA": 11
+  },
+  "zach": {
+   "STR": "+2",
+   "AGI": "+2",
+   "CON": "+2",
+   "INT": "-3",
+   "WIS": "+2",
+   "CHA": "+0"
+  },
+  "dov": "Perception +4, Stealth +2",
+  "imu": "Cold",
+  "smysly": "Blindsight 10 stop, Darkvision 60 stop; pasivní Perception 14",
+  "jaz": "Draconic",
+  "cr": "2",
+  "xp": 450,
+  "xpt": "450 XP",
+  "pb": "+2",
+  "rysy": [
+   {
+    "n": "Ice Walk",
+    "t": "Drak se může pohybovat po ledových površích a šplhat po nich, aniž by musel provádět ověření vlastnosti. Navíc ho obtížný terén tvořený ledem nebo sněhem nestojí pohyb navíc."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Drak provede dva útoky Rend."
+   },
+   {
+    "n": "Rend",
+    "t": "*Hod na útok na blízko:* +4, dosah 5 stop. *Zásah:* 6 (1d8 + 2) Slashing zranění plus 2 (1d4) Cold zranění."
+   },
+   {
+    "n": "Cold Breath (obnova 5–6)",
+    "t": "*Záchrana Odolnosti:* SO 12, každý tvor v kuželu 15 stop. *Neúspěch:* 22 (5d8) Cold zranění. *Úspěch:* Poloviční zranění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Rend",
+    "b": 4,
+    "z": "1d8+2",
+    "zt": "Slashing",
+    "p": "dosah 5 stop; + 1d4 Cold"
+   },
+   {
+    "n": "Cold Breath",
+    "dc": "CON SO 12",
+    "z": "5d8",
+    "zt": "Cold",
+    "p": "kužel 15 stop, polovina při úspěchu, obnova 5–6"
+   }
+  ],
+  "str": 339
+ },
+ {
+  "en": "Young White Dragon",
+  "cz": "mladý bílý drak",
+  "vel": "Velká",
+  "typ": "Dragon (Chromatic)",
+  "pres": "chaoticky zlý",
+  "ac": "17",
+  "ini": "+3 (13)",
+  "hp": 123,
+  "hpk": "13d10 + 52",
+  "rych": "40 stop, hrabání 20 stop, let 80 stop, plavání 40 stop",
+  "vl": {
+   "STR": 18,
+   "AGI": 10,
+   "CON": 18,
+   "INT": 6,
+   "WIS": 11,
+   "CHA": 12
+  },
+  "zach": {
+   "STR": "+4",
+   "AGI": "+3",
+   "CON": "+4",
+   "INT": "-2",
+   "WIS": "+3",
+   "CHA": "+1"
+  },
+  "dov": "Perception +6, Stealth +3",
+  "imu": "Cold",
+  "smysly": "Blindsight 30 stop, Darkvision 120 stop; pasivní Perception 16",
+  "jaz": "Common, Draconic",
+  "cr": "6",
+  "xp": 2300,
+  "xpt": "2 300 XP",
+  "pb": "+3",
+  "rysy": [
+   {
+    "n": "Ice Walk",
+    "t": "Drak se může pohybovat po ledových površích a šplhat po nich, aniž by musel provádět ověření vlastnosti. Navíc ho obtížný terén tvořený ledem nebo sněhem nestojí pohyb navíc."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Drak provede tři útoky Rend."
+   },
+   {
+    "n": "Rend",
+    "t": "*Hod na útok na blízko:* +7, dosah 10 stop. *Zásah:* 9 (2d4 + 4) Slashing zranění plus 2 (1d4) Cold zranění."
+   },
+   {
+    "n": "Cold Breath (obnova 5–6)",
+    "t": "*Záchrana Odolnosti:* SO 15, každý tvor v kuželu 30 stop. *Neúspěch:* 40 (9d8) Cold zranění. *Úspěch:* Poloviční zranění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Rend",
+    "b": 7,
+    "z": "2d4+4",
+    "zt": "Slashing",
+    "p": "dosah 10 stop; + 1d4 Cold"
+   },
+   {
+    "n": "Cold Breath",
+    "dc": "CON SO 15",
+    "z": "9d8",
+    "zt": "Cold",
+    "p": "kužel 30 stop, polovina při úspěchu, obnova 5–6"
+   }
+  ],
+  "str": 340
+ },
+ {
+  "en": "Adult White Dragon",
+  "cz": "dospělý bílý drak",
+  "vel": "Obrovská",
+  "typ": "Dragon (Chromatic)",
+  "pres": "chaoticky zlý",
+  "ac": "18",
+  "ini": "+10 (20)",
+  "hp": 200,
+  "hpk": "16d12 + 96",
+  "rych": "40 stop, hrabání 30 stop, let 80 stop, plavání 40 stop",
+  "vl": {
+   "STR": 22,
+   "AGI": 10,
+   "CON": 22,
+   "INT": 8,
+   "WIS": 12,
+   "CHA": 12
+  },
+  "zach": {
+   "STR": "+6",
+   "AGI": "+5",
+   "CON": "+6",
+   "INT": "-1",
+   "WIS": "+6",
+   "CHA": "+1"
+  },
+  "dov": "Perception +11, Stealth +5",
+  "imu": "Cold",
+  "smysly": "Blindsight 60 stop, Darkvision 120 stop; pasivní Perception 21",
+  "jaz": "Common, Draconic",
+  "cr": "13",
+  "xp": 10000,
+  "xpt": "10 000 XP, nebo 11 500 XP v doupěti",
+  "pb": "+5",
+  "rysy": [
+   {
+    "n": "Ice Walk",
+    "t": "Drak se může pohybovat po ledových površích a šplhat po nich, aniž by musel provádět ověření vlastnosti. Navíc ho obtížný terén tvořený ledem nebo sněhem nestojí pohyb navíc."
+   },
+   {
+    "n": "Legendary Resistance (3× za den, v doupěti 4× za den)",
+    "t": "Pokud drak neuspěje v záchranném hodu, může se rozhodnout, že místo toho uspěje."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Drak provede tři útoky Rend."
+   },
+   {
+    "n": "Rend",
+    "t": "*Hod na útok na blízko:* +11, dosah 10 stop. *Zásah:* 13 (2d6 + 6) Slashing zranění plus 4 (1d8) Cold zranění."
+   },
+   {
+    "n": "Cold Breath (obnova 5–6)",
+    "t": "*Záchrana Odolnosti:* SO 19, každý tvor v kuželu 60 stop. *Neúspěch:* 54 (12d8) Cold zranění. *Úspěch:* Poloviční zranění."
+   }
+  ],
+  "legT": "Počet legendárních akcí: 3 (4 v doupěti). Bezprostředně po tahu jiného tvora může drak utratit jedno použití a provést jednu z následujících akcí. Na začátku každého svého tahu drak obnoví všechna utracená použití.",
+  "leg": [
+   {
+    "n": "Freezing Burst",
+    "t": "*Záchrana Odolnosti:* SO 14, každý tvor v kouli o poloměru 30 stop se středem v bodě, který drak vidí, do 120 stop. *Neúspěch:* 7 (2d6) Cold zranění a rychlost cíle je 0 do konce jeho příštího tahu. *Neúspěch nebo úspěch:* Drak nemůže tuto akci znovu provést do začátku svého příštího tahu."
+   },
+   {
+    "n": "Frightful Presence",
+    "t": "Drak sešle kouzlo *Fear*, nepotřebuje k tomu materiální složky a jako sesílací vlastnost použije Charisma (SO záchrany proti kouzlu 14). Drak nemůže tuto akci znovu provést do začátku svého příštího tahu."
+   },
+   {
+    "n": "Pounce",
+    "t": "Drak se pohne až o polovinu své rychlosti a provede jeden útok Rend."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Rend",
+    "b": 11,
+    "z": "2d6+6",
+    "zt": "Slashing",
+    "p": "dosah 10 stop; + 1d8 Cold"
+   },
+   {
+    "n": "Cold Breath",
+    "dc": "CON SO 19",
+    "z": "12d8",
+    "zt": "Cold",
+    "p": "kužel 60 stop, polovina při úspěchu, obnova 5–6"
+   },
+   {
+    "n": "Freezing Burst",
+    "dc": "CON SO 14",
+    "z": "2d6",
+    "zt": "Cold",
+    "p": "koule o poloměru 30 stop do 120 stop, při neúspěchu rychlost 0; legendární akce"
+   }
+  ],
+  "str": 340
+ },
+ {
+  "en": "Ancient White Dragon",
+  "cz": "prastarý bílý drak",
+  "vel": "Gigantická",
+  "typ": "Dragon (Chromatic)",
+  "pres": "chaoticky zlý",
+  "ac": "20",
+  "ini": "+12 (22)",
+  "hp": 333,
+  "hpk": "18d20 + 144",
+  "rych": "40 stop, hrabání 40 stop, let 80 stop, plavání 40 stop",
+  "vl": {
+   "STR": 26,
+   "AGI": 10,
+   "CON": 26,
+   "INT": 10,
+   "WIS": 13,
+   "CHA": 18
+  },
+  "zach": {
+   "STR": "+8",
+   "AGI": "+6",
+   "CON": "+8",
+   "INT": "+0",
+   "WIS": "+7",
+   "CHA": "+4"
+  },
+  "dov": "Perception +13, Stealth +6",
+  "imu": "Cold",
+  "smysly": "Blindsight 60 stop, Darkvision 120 stop; pasivní Perception 23",
+  "jaz": "Common, Draconic",
+  "cr": "20",
+  "xp": 25000,
+  "xpt": "25 000 XP, nebo 33 000 XP v doupěti",
+  "pb": "+6",
+  "rysy": [
+   {
+    "n": "Ice Walk",
+    "t": "Drak se může pohybovat po ledových površích a šplhat po nich, aniž by musel provádět ověření vlastnosti. Navíc ho obtížný terén tvořený ledem nebo sněhem nestojí pohyb navíc."
+   },
+   {
+    "n": "Legendary Resistance (4× za den, v doupěti 5× za den)",
+    "t": "Pokud drak neuspěje v záchranném hodu, může se rozhodnout, že místo toho uspěje."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Drak provede tři útoky Rend."
+   },
+   {
+    "n": "Rend",
+    "t": "*Hod na útok na blízko:* +14, dosah 15 stop. *Zásah:* 17 (2d8 + 8) Slashing zranění plus 7 (2d6) Cold zranění."
+   },
+   {
+    "n": "Cold Breath (obnova 5–6)",
+    "t": "*Záchrana Odolnosti:* SO 22, každý tvor v kuželu 90 stop. *Neúspěch:* 63 (14d8) Cold zranění. *Úspěch:* Poloviční zranění."
+   }
+  ],
+  "legT": "Počet legendárních akcí: 3 (4 v doupěti). Bezprostředně po tahu jiného tvora může drak utratit jedno použití a provést jednu z následujících akcí. Na začátku každého svého tahu drak obnoví všechna utracená použití.",
+  "leg": [
+   {
+    "n": "Freezing Burst",
+    "t": "*Záchrana Odolnosti:* SO 20, každý tvor v kouli o poloměru 30 stop se středem v bodě, který drak vidí, do 120 stop. *Neúspěch:* 14 (4d6) Cold zranění a rychlost cíle je 0 do konce jeho příštího tahu. *Neúspěch nebo úspěch:* Drak nemůže tuto akci znovu provést do začátku svého příštího tahu."
+   },
+   {
+    "n": "Frightful Presence",
+    "t": "Drak sešle kouzlo *Fear*, nepotřebuje k tomu materiální složky a jako sesílací vlastnost použije Charisma (SO záchrany proti kouzlu 18). Drak nemůže tuto akci znovu provést do začátku svého příštího tahu."
+   },
+   {
+    "n": "Pounce",
+    "t": "Drak se pohne až o polovinu své rychlosti a provede jeden útok Rend."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Rend",
+    "b": 14,
+    "z": "2d8+8",
+    "zt": "Slashing",
+    "p": "dosah 15 stop; + 2d6 Cold"
+   },
+   {
+    "n": "Cold Breath",
+    "dc": "CON SO 22",
+    "z": "14d8",
+    "zt": "Cold",
+    "p": "kužel 90 stop, polovina při úspěchu, obnova 5–6"
+   },
+   {
+    "n": "Freezing Burst",
+    "dc": "CON SO 20",
+    "z": "4d6",
+    "zt": "Cold",
+    "p": "koule o poloměru 30 stop do 120 stop, při neúspěchu rychlost 0; legendární akce"
+   }
+  ],
+  "str": 341
+ },
+ {
+  "en": "Wight",
+  "vel": "Střední",
+  "typ": "Undead",
+  "pres": "neutrálně zlý",
+  "ac": "14",
+  "ini": "+4 (14)",
+  "hp": 82,
+  "hpk": "11d8 + 33",
+  "rych": "30 stop",
+  "vl": {
+   "STR": 15,
+   "AGI": 14,
+   "CON": 16,
+   "INT": 10,
+   "WIS": 13,
+   "CHA": 15
+  },
+  "zach": {
+   "STR": "+2",
+   "AGI": "+2",
+   "CON": "+3",
+   "INT": "+0",
+   "WIS": "+1",
+   "CHA": "+2"
+  },
+  "dov": "Perception +3, Stealth +4",
+  "odol": "Necrotic",
+  "imu": "Poison; Vyčerpání (Exhaustion), Otráven (Poisoned)",
+  "vyb": "Studded Leather Armor",
+  "smysly": "Darkvision 60 stop; pasivní Perception 13",
+  "jaz": "Common a jeden další jazyk",
+  "cr": "3",
+  "xp": 700,
+  "xpt": "700 XP",
+  "pb": "+2",
+  "rysy": [
+   {
+    "n": "Sunlight Sensitivity",
+    "t": "Na slunečním světle má wight nevýhodu na ověření vlastností a hody na útok."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Wight provede dva útoky, v libovolné kombinaci Necrotic Sword nebo Necrotic Bow. Jeden útok může nahradit použitím Life Drain."
+   },
+   {
+    "n": "Necrotic Sword",
+    "t": "*Hod na útok na blízko:* +4, dosah 5 stop. *Zásah:* 6 (1d8 + 2) Slashing zranění plus 4 (1d8) Necrotic zranění."
+   },
+   {
+    "n": "Necrotic Bow",
+    "t": "*Hod na útok na dálku:* +4, dostřel 150/600 stop. *Zásah:* 6 (1d8 + 2) Piercing zranění plus 4 (1d8) Necrotic zranění."
+   },
+   {
+    "n": "Life Drain",
+    "t": "*Záchrana Odolnosti:* SO 13, jeden tvor do 5 stop. *Neúspěch:* 6 (1d8 + 2) Necrotic zranění a maximum HP cíle se sníží o hodnotu rovnou utrženému zranění.\nHumanoid zabitý tímto útokem po 24 hodinách povstane jako **Zombie** pod kontrolou wighta, ledaže je humanoid navrácen k životu nebo je jeho tělo zničeno. Wight nemůže mít pod kontrolou více než dvanáct zombií najednou."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Necrotic Sword",
+    "b": 4,
+    "z": "1d8+2",
+    "zt": "Slashing",
+    "p": "dosah 5 stop; + 1d8 Necrotic"
+   },
+   {
+    "n": "Necrotic Bow",
+    "b": 4,
+    "z": "1d8+2",
+    "zt": "Piercing",
+    "p": "dostřel 150/600 stop; + 1d8 Necrotic"
+   },
+   {
+    "n": "Life Drain",
+    "dc": "CON SO 13",
+    "z": "1d8+2",
+    "zt": "Necrotic",
+    "p": "jeden tvor do 5 stop; sníží maximum HP o utržené zranění"
+   }
+  ],
+  "str": 341
+ },
+ {
+  "en": "Will-o’-Wisp",
+  "cz": "bludička",
+  "vel": "Drobná",
+  "typ": "Undead",
+  "pres": "chaoticky zlý",
+  "ac": "19",
+  "ini": "+9 (19)",
+  "hp": 27,
+  "hpk": "11d4",
+  "rych": "5 stop, let 50 stop (vznáší se)",
+  "vl": {
+   "STR": 1,
+   "AGI": 28,
+   "CON": 10,
+   "INT": 13,
+   "WIS": 14,
+   "CHA": 11
+  },
+  "zach": {
+   "STR": "-5",
+   "AGI": "+9",
+   "CON": "+0",
+   "INT": "+1",
+   "WIS": "+2",
+   "CHA": "+0"
+  },
+  "odol": "Acid, Bludgeoning, Cold, Fire, Necrotic, Piercing, Slashing",
+  "imu": "Lightning, Poison; Vyčerpání (Exhaustion), Chycen (Grappled), Ochromen (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned), Sražen (Prone), Zadržen (Restrained), V bezvědomí (Unconscious)",
+  "smysly": "Darkvision 120 stop; pasivní Perception 12",
+  "jaz": "Common a jeden další jazyk",
+  "cr": "2",
+  "xp": 450,
+  "xpt": "450 XP",
+  "pb": "+2",
+  "rysy": [
+   {
+    "n": "Ephemeral",
+    "t": "Bludička nemůže nic nosit na sobě ani nést."
+   },
+   {
+    "n": "Illumination",
+    "t": "Bludička vydává jasné světlo v okruhu 20 stop a šero dalších 20 stop."
+   },
+   {
+    "n": "Incorporeal Movement",
+    "t": "Bludička se může pohybovat skrz jiné tvory a předměty, jako by byli obtížným terénem. Utrpí 5 (1d10) Force zranění, pokud ukončí svůj tah uvnitř předmětu."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Shock",
+    "t": "*Hod na útok na blízko:* +4, dosah 5 stop. *Zásah:* 11 (2d8 + 2) Lightning zranění."
+   }
+  ],
+  "bonus": [
+   {
+    "n": "Consume Life",
+    "t": "*Záchrana Odolnosti:* SO 10, jeden živý tvor, kterého bludička vidí do 5 stop a který má 0 HP. *Neúspěch:* Cíl zemře a bludička obnoví 10 (3d6) HP."
+   },
+   {
+    "n": "Vanish",
+    "t": "Bludička i její světlo mají stav Neviditelný (Invisible), dokud neskončí soustředění (Concentration) bludičky na tento účinek; ten skončí předčasně bezprostředně poté, co bludička provede hod na útok nebo použije Consume Life."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Shock",
+    "b": 4,
+    "z": "2d8+2",
+    "zt": "Lightning",
+    "p": "dosah 5 stop"
+   }
+  ],
+  "str": 341
+ },
+ {
+  "en": "Winter Wolf",
+  "cz": "zimní vlk",
+  "vel": "Velká",
+  "typ": "Monstrosity",
+  "pres": "neutrálně zlý",
+  "ac": "13",
+  "ini": "+1 (11)",
+  "hp": 75,
+  "hpk": "10d10 + 20",
+  "rych": "50 stop",
+  "vl": {
+   "STR": 18,
+   "AGI": 13,
+   "CON": 14,
+   "INT": 7,
+   "WIS": 12,
+   "CHA": 8
+  },
+  "zach": {
+   "STR": "+4",
+   "AGI": "+1",
+   "CON": "+2",
+   "INT": "-2",
+   "WIS": "+1",
+   "CHA": "-1"
+  },
+  "dov": "Perception +5, Stealth +5",
+  "imu": "Cold",
+  "smysly": "pasivní Perception 15",
+  "jaz": "Common, Giant",
+  "cr": "3",
+  "xp": 700,
+  "xpt": "700 XP",
+  "pb": "+2",
+  "rysy": [
+   {
+    "n": "Pack Tactics",
+    "t": "Vlk má výhodu na hod na útok proti tvorovi, pokud je alespoň jeden ze vlkových spojenců do 5 stop od tohoto tvora a tento spojenec nemá stav Neschopný (Incapacitated)."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Bite",
+    "t": "*Hod na útok na blízko:* +6, dosah 5 stop. *Zásah:* 11 (2d6 + 4) Piercing zranění. Je-li cíl Velký nebo menší tvor, má stav Sražen (Prone)."
+   },
+   {
+    "n": "Cold Breath (obnova 5–6)",
+    "t": "*Záchrana Odolnosti:* SO 12, každý tvor v kuželu 15 stop. *Neúspěch:* 18 (4d8) Cold zranění. *Úspěch:* Poloviční zranění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 6,
+    "z": "2d6+4",
+    "zt": "Piercing",
+    "p": "dosah 5 stop; Velký a menší cíl Sražen"
+   },
+   {
+    "n": "Cold Breath",
+    "dc": "CON SO 12",
+    "z": "4d8",
+    "zt": "Cold",
+    "p": "kužel 15 stop, polovina při úspěchu, obnova 5–6"
+   }
+  ],
+  "str": 342
+ },
+ {
+  "en": "Worg",
+  "vel": "Velká",
+  "typ": "Fey",
+  "pres": "neutrálně zlý",
+  "ac": "13",
+  "ini": "+1 (11)",
+  "hp": 26,
+  "hpk": "4d10 + 4",
+  "rych": "50 stop",
+  "vl": {
+   "STR": 16,
+   "AGI": 13,
+   "CON": 13,
+   "INT": 7,
+   "WIS": 11,
+   "CHA": 8
+  },
+  "zach": {
+   "STR": "+3",
+   "AGI": "+1",
+   "CON": "+1",
+   "INT": "-2",
+   "WIS": "+0",
+   "CHA": "-1"
+  },
+  "dov": "Perception +4",
+  "smysly": "Darkvision 60 stop; pasivní Perception 14",
+  "jaz": "Goblin, Worg",
+  "cr": "1/2",
+  "xp": 100,
+  "xpt": "100 XP",
+  "pb": "+2",
+  "akce": [
+   {
+    "n": "Bite",
+    "t": "*Hod na útok na blízko:* +5, dosah 5 stop. *Zásah:* 7 (1d8 + 3) Piercing zranění a další hod na útok proti cíli provedený před začátkem příštího tahu worga má výhodu."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 5,
+    "z": "1d8+3",
+    "zt": "Piercing",
+    "p": "dosah 5 stop; další útok proti cíli s výhodou"
+   }
+  ],
+  "str": 342
+ },
+ {
+  "en": "Wraith",
+  "cz": "přízrak",
+  "vel": "Střední nebo Malá",
+  "typ": "Undead",
+  "pres": "neutrálně zlý",
+  "ac": "13",
+  "ini": "+3 (13)",
+  "hp": 67,
+  "hpk": "9d8 + 27",
+  "rych": "5 stop, let 60 stop (vznáší se)",
+  "vl": {
+   "STR": 6,
+   "AGI": 16,
+   "CON": 16,
+   "INT": 12,
+   "WIS": 14,
+   "CHA": 15
+  },
+  "zach": {
+   "STR": "-2",
+   "AGI": "+3",
+   "CON": "+3",
+   "INT": "+1",
+   "WIS": "+2",
+   "CHA": "+2"
+  },
+  "odol": "Acid, Bludgeoning, Cold, Fire, Piercing, Slashing",
+  "imu": "Necrotic, Poison; Okouzlen (Charmed), Vyčerpání (Exhaustion), Chycen (Grappled), Ochromen (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned), Sražen (Prone), Zadržen (Restrained), V bezvědomí (Unconscious)",
+  "smysly": "Darkvision 60 stop; pasivní Perception 12",
+  "jaz": "Common a dva další jazyky",
+  "cr": "5",
+  "xp": 1800,
+  "xpt": "1 800 XP",
+  "pb": "+3",
+  "rysy": [
+   {
+    "n": "Incorporeal Movement",
+    "t": "Wraith se může pohybovat skrz jiné tvory a předměty, jako by byli obtížným terénem. Utrpí 5 (1d10) Force zranění, pokud ukončí svůj tah uvnitř předmětu."
+   },
+   {
+    "n": "Sunlight Sensitivity",
+    "t": "Na slunečním světle má wraith nevýhodu na ověření vlastností a hody na útok."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Life Drain",
+    "t": "*Hod na útok na blízko:* +6, dosah 5 stop. *Zásah:* 21 (4d8 + 3) Necrotic zranění. Je-li cílem tvor, jeho maximum HP se sníží o hodnotu rovnou utrženému zranění."
+   },
+   {
+    "n": "Create Specter",
+    "t": "Wraith si za cíl zvolí mrtvolu humanoida do 10 stop od sebe, který není mrtvý déle než 1 minutu. Duch cíle povstane jako **Specter** v prostoru své mrtvoly nebo v nejbližším neobsazeném prostoru. Specter je pod kontrolou wraitha. Wraith nemůže mít pod kontrolou více než sedm specterů najednou."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Life Drain",
+    "b": 6,
+    "z": "4d8+3",
+    "zt": "Necrotic",
+    "p": "dosah 5 stop; sníží maximum HP o utržené zranění"
+   }
+  ],
+  "str": 342
+ },
+ {
+  "en": "Wyvern",
+  "cz": "wyverna",
+  "vel": "Velká",
+  "typ": "Dragon",
+  "pres": "bez přesvědčení",
+  "ac": "14",
+  "ini": "+0 (10)",
+  "hp": 127,
+  "hpk": "15d10 + 45",
+  "rych": "30 stop, let 80 stop",
+  "vl": {
+   "STR": 19,
+   "AGI": 10,
+   "CON": 16,
+   "INT": 5,
+   "WIS": 12,
+   "CHA": 6
+  },
+  "zach": {
+   "STR": "+4",
+   "AGI": "+0",
+   "CON": "+3",
+   "INT": "-3",
+   "WIS": "+1",
+   "CHA": "-2"
+  },
+  "dov": "Perception +4",
+  "smysly": "Darkvision 120 stop; pasivní Perception 14",
+  "jaz": "žádné",
+  "cr": "6",
+  "xp": 2300,
+  "xpt": "2 300 XP",
+  "pb": "+3",
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Wyverna provede jeden útok Bite a jeden útok Sting."
+   },
+   {
+    "n": "Bite",
+    "t": "*Hod na útok na blízko:* +7, dosah 5 stop. *Zásah:* 13 (2d8 + 4) Piercing zranění."
+   },
+   {
+    "n": "Sting",
+    "t": "*Hod na útok na blízko:* +7, dosah 10 stop. *Zásah:* 11 (2d6 + 4) Piercing zranění plus 24 (7d6) Poison zranění a cíl má stav Otráven (Poisoned) do začátku příštího tahu wyverny."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 7,
+    "z": "2d8+4",
+    "zt": "Piercing",
+    "p": "dosah 5 stop"
+   },
+   {
+    "n": "Sting",
+    "b": 7,
+    "z": "2d6+4",
+    "zt": "Piercing",
+    "p": "dosah 10 stop; + 7d6 Poison, Otráven do začátku příštího tahu wyverny"
+   }
+  ],
+  "str": 343
+ },
+ {
+  "en": "Xorn",
+  "vel": "Střední",
+  "typ": "Elemental",
+  "pres": "neutrální",
+  "ac": "19",
+  "ini": "+0 (10)",
+  "hp": 84,
+  "hpk": "8d8 + 48",
+  "rych": "20 stop, hrabání 20 stop",
+  "vl": {
+   "STR": 17,
+   "AGI": 10,
+   "CON": 22,
+   "INT": 11,
+   "WIS": 10,
+   "CHA": 11
+  },
+  "zach": {
+   "STR": "+3",
+   "AGI": "+0",
+   "CON": "+6",
+   "INT": "+0",
+   "WIS": "+0",
+   "CHA": "+0"
+  },
+  "dov": "Perception +6, Stealth +6",
+  "imu": "Poison; Ochromen (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned)",
+  "smysly": "Darkvision 60 stop, Tremorsense 60 stop; pasivní Perception 16",
+  "jaz": "Primordial (Terran)",
+  "cr": "5",
+  "xp": 1800,
+  "xpt": "1 800 XP",
+  "pb": "+3",
+  "rysy": [
+   {
+    "n": "Earth Glide",
+    "t": "Xorn se může prohrabávat nemagickou, neopracovanou zeminou a kamenem. Přitom nenarušuje materiál, kterým se pohybuje."
+   },
+   {
+    "n": "Treasure Sense",
+    "t": "Xorn dokáže přesně určit polohu drahých kovů a kamenů do 60 stop od sebe."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Xorn provede jeden útok Bite a tři útoky Claw."
+   },
+   {
+    "n": "Bite",
+    "t": "*Hod na útok na blízko:* +6, dosah 5 stop. *Zásah:* 17 (4d6 + 3) Piercing zranění."
+   },
+   {
+    "n": "Claw",
+    "t": "*Hod na útok na blízko:* +6, dosah 5 stop. *Zásah:* 8 (1d10 + 3) Slashing zranění."
+   }
+  ],
+  "bonus": [
+   {
+    "n": "Charge",
+    "t": "Xorn se pohne až o svou rychlost nebo rychlost hrabání přímo k nepříteli, kterého vnímá."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 6,
+    "z": "4d6+3",
+    "zt": "Piercing",
+    "p": "dosah 5 stop"
+   },
+   {
+    "n": "Claw",
+    "b": 6,
+    "z": "1d10+3",
+    "zt": "Slashing",
+    "p": "dosah 5 stop"
+   }
+  ],
+  "str": 343
+ },
+ {
+  "en": "Zombie",
+  "cz": "zombie",
+  "vel": "Střední",
+  "typ": "Undead",
+  "pres": "neutrálně zlý",
+  "ac": "8",
+  "ini": "-2 (8)",
+  "hp": 15,
+  "hpk": "2d8 + 6",
+  "rych": "20 stop",
+  "vl": {
+   "STR": 13,
+   "AGI": 6,
+   "CON": 16,
+   "INT": 3,
+   "WIS": 6,
+   "CHA": 5
+  },
+  "zach": {
+   "STR": "+1",
+   "AGI": "-2",
+   "CON": "+3",
+   "INT": "-4",
+   "WIS": "+0",
+   "CHA": "-3"
+  },
+  "imu": "Poison; Vyčerpání (Exhaustion), Otráven (Poisoned)",
+  "smysly": "Darkvision 60 stop; pasivní Perception 8",
+  "jaz": "rozumí Common a jednomu dalšímu jazyku, ale nemluví",
+  "cr": "1/4",
+  "xp": 50,
+  "xpt": "50 XP",
+  "pb": "+2",
+  "rysy": [
+   {
+    "n": "Undead Fortitude",
+    "t": "Pokud zranění sníží zombii na 0 HP, provede záchranný hod na Odolnost (SO 5 plus utržené zranění), ledaže je zranění typu Radiant nebo pochází z kritického zásahu. Při úspěchu zombie místo toho klesne na 1 HP."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Slam",
+    "t": "*Hod na útok na blízko:* +3, dosah 5 stop. *Zásah:* 5 (1d8 + 1) Bludgeoning zranění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Slam",
+    "b": 3,
+    "z": "1d8+1",
+    "zt": "Bludgeoning",
+    "p": "dosah 5 stop"
+   }
+  ],
+  "str": 343
+ },
+ {
+  "en": "Ogre Zombie",
+  "cz": "zombie zlobra",
+  "vel": "Velká",
+  "typ": "Undead",
+  "pres": "neutrálně zlý",
+  "ac": "8",
+  "ini": "-2 (8)",
+  "hp": 85,
+  "hpk": "9d10 + 36",
+  "rych": "30 stop",
+  "vl": {
+   "STR": 19,
+   "AGI": 6,
+   "CON": 18,
+   "INT": 3,
+   "WIS": 6,
+   "CHA": 5
+  },
+  "zach": {
+   "STR": "+4",
+   "AGI": "-2",
+   "CON": "+4",
+   "INT": "-4",
+   "WIS": "+0",
+   "CHA": "-3"
+  },
+  "imu": "Poison; Vyčerpání (Exhaustion), Otráven (Poisoned)",
+  "smysly": "Darkvision 60 stop; pasivní Perception 8",
+  "jaz": "rozumí Common a Giant, ale nemluví",
+  "cr": "2",
+  "xp": 450,
+  "xpt": "450 XP",
+  "pb": "+2",
+  "rysy": [
+   {
+    "n": "Undead Fortitude",
+    "t": "Pokud zranění sníží zombii na 0 HP, provede záchranný hod na Odolnost (SO 5 plus utržené zranění), ledaže je zranění typu Radiant nebo pochází z kritického zásahu. Při úspěchu zombie místo toho klesne na 1 HP."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Slam",
+    "t": "*Hod na útok na blízko:* +6, dosah 5 stop. *Zásah:* 13 (2d8 + 4) Bludgeoning zranění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Slam",
+    "b": 6,
+    "z": "2d8+4",
+    "zt": "Bludgeoning",
+    "p": "dosah 5 stop"
+   }
+  ],
+  "str": 344
+ },
+ {
+  "en": "Allosaurus",
+  "cz": "alosaurus",
+  "vel": "Velká",
+  "typ": "Beast (Dinosaur)",
+  "ac": "13",
+  "ini": "+1 (11)",
+  "hp": 51,
+  "hpk": "6d10 + 18",
+  "rych": "60 stop",
+  "vl": {
+   "STR": 19,
+   "AGI": 13,
+   "CON": 17,
+   "INT": 2,
+   "WIS": 12,
+   "CHA": 5
+  },
+  "zach": {
+   "STR": "+4",
+   "AGI": "+1",
+   "CON": "+3",
+   "INT": "-4",
+   "WIS": "+1",
+   "CHA": "-3"
+  },
+  "dov": "Perception +5",
+  "smysly": "pasivní Perception 15",
+  "cr": "2",
+  "xp": 450,
+  "xpt": "450 XP",
+  "pb": "+2",
+  "akce": [
+   {
+    "n": "Bite",
+    "t": "*Hod na útok na blízko:* +6, dosah 5 stop. *Zásah:* 15 (2d10 + 4) Piercing zranění."
+   },
+   {
+    "n": "Claws",
+    "t": "*Hod na útok na blízko:* +6, dosah 5 stop. *Zásah:* 8 (1d8 + 4) Slashing zranění. Je-li cíl Velký nebo menší tvor a alosaurus se bezprostředně před zásahem pohnul alespoň 30 stop přímo k němu, cíl má stav Sražen (Prone) a alosaurus proti němu může provést jeden útok Bite."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 6,
+    "z": "2d10+4",
+    "zt": "Piercing",
+    "p": "dosah 5 stop"
+   },
+   {
+    "n": "Claws",
+    "b": 6,
+    "z": "1d8+4",
+    "zt": "Slashing",
+    "p": "dosah 5 stop; po rozběhu 30+ stop Sražen a útok Bite"
+   }
+  ],
+  "str": 344,
+  "zvire": true,
+  "pres": "bez přesvědčení",
+  "jaz": "žádné"
+ },
+ {
+  "en": "Ankylosaurus",
+  "cz": "ankylosaurus",
+  "vel": "Obrovská",
+  "typ": "Beast (Dinosaur)",
+  "ac": "15",
+  "ini": "+0 (10)",
+  "hp": 68,
+  "hpk": "8d12 + 16",
+  "rych": "30 stop",
+  "vl": {
+   "STR": 19,
+   "AGI": 11,
+   "CON": 15,
+   "INT": 2,
+   "WIS": 12,
+   "CHA": 5
+  },
+  "zach": {
+   "STR": "+6",
+   "AGI": "+0",
+   "CON": "+2",
+   "INT": "-4",
+   "WIS": "+1",
+   "CHA": "-3"
+  },
+  "smysly": "pasivní Perception 11",
+  "cr": "3",
+  "xp": 700,
+  "xpt": "700 XP",
+  "pb": "+2",
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Ankylosaurus provede dva útoky Tail."
+   },
+   {
+    "n": "Tail",
+    "t": "*Hod na útok na blízko:* +6, dosah 10 stop. *Zásah:* 9 (1d10 + 4) Bludgeoning zranění. Je-li cíl Obrovský nebo menší tvor, má stav Sražen (Prone)."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Tail",
+    "b": 6,
+    "z": "1d10+4",
+    "zt": "Bludgeoning",
+    "p": "dosah 10 stop; Obrovský a menší cíl Sražen"
+   }
+  ],
+  "str": 344,
+  "zvire": true,
+  "pres": "bez přesvědčení",
+  "jaz": "žádné"
+ },
+ {
+  "en": "Ape",
+  "cz": "lidoop",
+  "vel": "Střední",
+  "typ": "Beast",
+  "ac": "12",
+  "ini": "+2 (12)",
+  "hp": 19,
+  "hpk": "3d8 + 6",
+  "rych": "30 stop, šplhání 30 stop",
+  "vl": {
+   "STR": 16,
+   "AGI": 14,
+   "CON": 14,
+   "INT": 6,
+   "WIS": 12,
+   "CHA": 7
+  },
+  "zach": {
+   "STR": "+3",
+   "AGI": "+2",
+   "CON": "+2",
+   "INT": "-2",
+   "WIS": "+1",
+   "CHA": "-2"
+  },
+  "dov": "Athletics +5, Perception +3",
+  "smysly": "pasivní Perception 13",
+  "cr": "1/2",
+  "xp": 100,
+  "xpt": "100 XP",
+  "pb": "+2",
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Lidoop provede dva útoky Fist."
+   },
+   {
+    "n": "Fist",
+    "t": "*Hod na útok na blízko:* +5, dosah 5 stop. *Zásah:* 5 (1d4 + 3) Bludgeoning zranění."
+   },
+   {
+    "n": "Rock (obnova 6)",
+    "t": "*Hod na útok na dálku:* +5, dostřel 25/50 stop. *Zásah:* 10 (2d6 + 3) Bludgeoning zranění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Fist",
+    "b": 5,
+    "z": "1d4+3",
+    "zt": "Bludgeoning",
+    "p": "dosah 5 stop"
+   },
+   {
+    "n": "Rock",
+    "b": 5,
+    "z": "2d6+3",
+    "zt": "Bludgeoning",
+    "p": "dostřel 25/50 stop, obnova 6"
+   }
+  ],
+  "str": 344,
+  "zvire": true,
+  "pres": "bez přesvědčení",
+  "jaz": "žádné"
+ },
+ {
+  "en": "Archelon",
+  "cz": "archelon",
+  "vel": "Obrovská",
+  "typ": "Beast (Dinosaur)",
+  "ac": "17",
+  "ini": "+3 (13)",
+  "hp": 90,
+  "hpk": "12d12 + 12",
+  "rych": "20 stop, plavání 80 stop",
+  "vl": {
+   "STR": 18,
+   "AGI": 16,
+   "CON": 13,
+   "INT": 4,
+   "WIS": 14,
+   "CHA": 6
+  },
+  "zach": {
+   "STR": "+4",
+   "AGI": "+3",
+   "CON": "+1",
+   "INT": "-3",
+   "WIS": "+2",
+   "CHA": "-2"
+  },
+  "dov": "Stealth +5",
+  "smysly": "pasivní Perception 12",
+  "cr": "4",
+  "xp": 1100,
+  "xpt": "1 100 XP",
+  "pb": "+2",
+  "rysy": [
+   {
+    "n": "Amphibious",
+    "t": "Archelon může dýchat vzduch i vodu."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Archelon provede dva útoky Bite."
+   },
+   {
+    "n": "Bite",
+    "t": "*Hod na útok na blízko:* +6, dosah 5 stop. *Zásah:* 14 (3d6 + 4) Piercing zranění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 6,
+    "z": "3d6+4",
+    "zt": "Piercing",
+    "p": "dosah 5 stop"
+   }
+  ],
+  "str": 344,
+  "zvire": true,
+  "pres": "bez přesvědčení",
+  "jaz": "žádné"
+ },
+ {
+  "en": "Baboon",
+  "cz": "pavián",
+  "vel": "Malá",
+  "typ": "Beast",
+  "ac": "12",
+  "ini": "+2 (12)",
+  "hp": 3,
+  "hpk": "1d6",
+  "rych": "30 stop, šplhání 30 stop",
+  "vl": {
+   "STR": 8,
+   "AGI": 14,
+   "CON": 11,
+   "INT": 4,
+   "WIS": 12,
+   "CHA": 6
+  },
+  "zach": {
+   "STR": "-1",
+   "AGI": "+2",
+   "CON": "+0",
+   "INT": "-3",
+   "WIS": "+1",
+   "CHA": "-2"
+  },
+  "smysly": "pasivní Perception 11",
+  "cr": "0",
+  "xp": 10,
+  "xpt": "10 XP",
+  "pb": "+2",
+  "rysy": [
+   {
+    "n": "Pack Tactics",
+    "t": "Pavián má výhodu na hod na útok proti tvorovi, pokud je alespoň jeden ze paviánových spojenců do 5 stop od tohoto tvora a tento spojenec nemá stav Neschopný (Incapacitated)."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Bite",
+    "t": "*Hod na útok na blízko:* +1, dosah 5 stop. *Zásah:* 1 (1d4 − 1) Piercing zranění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 1,
+    "z": "1d4-1",
+    "zt": "Piercing",
+    "p": "dosah 5 stop"
+   }
+  ],
+  "str": 345,
+  "zvire": true,
+  "pres": "bez přesvědčení",
+  "jaz": "žádné"
+ },
+ {
+  "en": "Badger",
+  "cz": "jezevec",
+  "vel": "Drobná",
+  "typ": "Beast",
+  "ac": "11",
+  "ini": "+0 (10)",
+  "hp": 5,
+  "hpk": "1d4 + 3",
+  "rych": "20 stop, hrabání 5 stop",
+  "vl": {
+   "STR": 10,
+   "AGI": 11,
+   "CON": 16,
+   "INT": 2,
+   "WIS": 12,
+   "CHA": 5
+  },
+  "zach": {
+   "STR": "+0",
+   "AGI": "+0",
+   "CON": "+3",
+   "INT": "-4",
+   "WIS": "+1",
+   "CHA": "-3"
+  },
+  "dov": "Perception +3",
+  "odol": "Poison",
+  "smysly": "Darkvision 30 stop; pasivní Perception 13",
+  "cr": "0",
+  "xp": 10,
+  "xpt": "10 XP",
+  "pb": "+2",
+  "akce": [
+   {
+    "n": "Bite",
+    "t": "*Hod na útok na blízko:* +2, dosah 5 stop. *Zásah:* 1 Piercing zranění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 2,
+    "z": "1",
+    "zt": "Piercing",
+    "p": "dosah 5 stop"
+   }
+  ],
+  "str": 345,
+  "zvire": true,
+  "pres": "bez přesvědčení",
+  "jaz": "žádné"
+ },
+ {
+  "en": "Bat",
+  "cz": "netopýr",
+  "vel": "Drobná",
+  "typ": "Beast",
+  "ac": "12",
+  "ini": "+2 (12)",
+  "hp": 1,
+  "hpk": "1d4 − 1",
+  "rych": "5 stop, let 30 stop",
+  "vl": {
+   "STR": 2,
+   "AGI": 15,
+   "CON": 8,
+   "INT": 2,
+   "WIS": 12,
+   "CHA": 4
+  },
+  "zach": {
+   "STR": "-4",
+   "AGI": "+2",
+   "CON": "-1",
+   "INT": "-4",
+   "WIS": "+1",
+   "CHA": "-3"
+  },
+  "smysly": "Blindsight 60 stop; pasivní Perception 11",
+  "cr": "0",
+  "xp": 10,
+  "xpt": "10 XP",
+  "pb": "+2",
+  "akce": [
+   {
+    "n": "Bite",
+    "t": "*Hod na útok na blízko:* +4, dosah 5 stop. *Zásah:* 1 Piercing zranění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 4,
+    "z": "1",
+    "zt": "Piercing",
+    "p": "dosah 5 stop"
+   }
+  ],
+  "str": 345,
+  "zvire": true,
+  "pres": "bez přesvědčení",
+  "jaz": "žádné"
+ },
+ {
+  "en": "Black Bear",
+  "cz": "černý medvěd (baribal)",
+  "vel": "Střední",
+  "typ": "Beast",
+  "ac": "11",
+  "ini": "+1 (11)",
+  "hp": 19,
+  "hpk": "3d8 + 6",
+  "rych": "30 stop, šplhání 30 stop, plavání 30 stop",
+  "vl": {
+   "STR": 15,
+   "AGI": 12,
+   "CON": 14,
+   "INT": 2,
+   "WIS": 12,
+   "CHA": 7
+  },
+  "zach": {
+   "STR": "+2",
+   "AGI": "+1",
+   "CON": "+2",
+   "INT": "-4",
+   "WIS": "+1",
+   "CHA": "-2"
+  },
+  "dov": "Perception +5",
+  "smysly": "Darkvision 60 stop; pasivní Perception 15",
+  "cr": "1/2",
+  "xp": 100,
+  "xpt": "100 XP",
+  "pb": "+2",
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Medvěd provede dva útoky Rend."
+   },
+   {
+    "n": "Rend",
+    "t": "*Hod na útok na blízko:* +4, dosah 5 stop. *Zásah:* 5 (1d6 + 2) Slashing zranění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Rend",
+    "b": 4,
+    "z": "1d6+2",
+    "zt": "Slashing",
+    "p": "dosah 5 stop"
+   }
+  ],
+  "str": 345,
+  "zvire": true,
+  "pres": "bez přesvědčení",
+  "jaz": "žádné"
+ },
+ {
+  "en": "Blood Hawk",
+  "cz": "krvavý jestřáb",
+  "vel": "Malá",
+  "typ": "Beast",
+  "ac": "12",
+  "ini": "+2 (12)",
+  "hp": 7,
+  "hpk": "2d6",
+  "rych": "10 stop, let 60 stop",
+  "vl": {
+   "STR": 6,
+   "AGI": 14,
+   "CON": 10,
+   "INT": 3,
+   "WIS": 14,
+   "CHA": 5
+  },
+  "zach": {
+   "STR": "-2",
+   "AGI": "+2",
+   "CON": "+0",
+   "INT": "-4",
+   "WIS": "+2",
+   "CHA": "-3"
+  },
+  "dov": "Perception +6",
+  "smysly": "pasivní Perception 16",
+  "cr": "1/8",
+  "xp": 25,
+  "xpt": "25 XP",
+  "pb": "+2",
+  "rysy": [
+   {
+    "n": "Pack Tactics",
+    "t": "Jestřáb má výhodu na hod na útok proti tvorovi, pokud je alespoň jeden ze jestřábových spojenců do 5 stop od tohoto tvora a tento spojenec nemá stav Neschopný (Incapacitated)."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Beak",
+    "t": "*Hod na útok na blízko:* +4, dosah 5 stop. *Zásah:* 4 (1d4 + 2) Piercing zranění, nebo 6 (1d8 + 2) Piercing zranění, je-li cíl zkrvavený (Bloodied)."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Beak",
+    "b": 4,
+    "z": "1d4+2",
+    "zt": "Piercing",
+    "p": "dosah 5 stop; 1d8+2 proti zkrvavenému (Bloodied) cíli"
+   }
+  ],
+  "str": 345,
+  "zvire": true,
+  "pres": "bez přesvědčení",
+  "jaz": "žádné"
+ }
+]
