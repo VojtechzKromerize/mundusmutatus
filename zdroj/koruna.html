@@ -1971,6 +1971,10 @@ abbr.btp{text-decoration:underline dotted color-mix(in srgb,var(--gold) 85%,tran
 a.kzodk{color:inherit;text-decoration:underline dotted color-mix(in srgb,var(--kal) 70%,transparent);text-underline-offset:2px}
 @media (max-width:760px){.kzgrid{grid-template-columns:1fr}.kzdet{position:static;order:-1}.kzlist{max-height:50vh}.kzpop{left:8px;right:8px;bottom:8px;width:auto}}
 /* malované ikony a rámečky trackeru boje (art/img/boj) */
+.bik{margin:0 2px 0 0}.biks{display:inline-flex;gap:1px;margin-left:4px;vertical-align:middle}.biks .bik{width:20px;height:20px}
+.bikzb{display:inline-flex;align-items:center;gap:1px;white-space:nowrap}.bikzb .bik-zb{margin-right:2px}.bikzb .bik-zr{width:20px;height:20px}
+.bzbrw{display:inline-flex;gap:8px;align-items:center}.bnh>.bik-zb{margin:0 4px 0 -2px}
+.bsb .bik,.bplz .bik,.bdl .bik{width:20px;height:20px;vertical-align:-5px}.rtab .bik{vertical-align:-6px;margin-right:4px}.rtab td .bik-zr{margin-right:2px}
 .bi.bimg{width:24px;height:24px;stroke:none;fill:none;object-fit:contain;vertical-align:middle;overflow:hidden}
 #bojview .bi:not(.bimg){color:var(--ink);stroke-width:1.65}
 #bojview :is(.gbtn:not(.ghost),.bnav,[aria-pressed="true"],.bkolo) .bi:not(.bimg){color:inherit}
@@ -3369,6 +3373,38 @@ const mapDrag={moved:false};
 document.getElementById("zin").addEventListener("click",()=>mapZoom(1/1.4));
 document.getElementById("zout").addEventListener("click",()=>mapZoom(1.4));
 
+const BVLZ={"Drtivá":"Ignoruje Resistance zbroje proti Bludgeoning.","Průrazná":"Ignoruje Resistance zbroje proti Piercing.","Šikovná":"Před hodem na útok si útočník zvolí typ zranění podle zbraně.",
+  "Ostrá":"Při Slashing proti cíli bez Resistance je kritický zásah už na 19–20.","Půlmeč":"Bonusovou akcí přehmat zbraně: Piercing útoky získají vlastnost Průrazná, kostka zranění klesne o stupeň (d8 na d6).",
+  "Ratiště":"Když nepřítel vstoupí do dosahu zbraně (10 stop), smí udělat Opportunity Attack. V kontaktu (5 stop) má na útoky nevýhodu.",
+  "Do slabin!":"Padne-li proti Restrained nebo Prone cíli Požehnání, jde o automatický kritický zásah.","Strhující":"Padne-li při útoku na jezdce Požehnání, může ho strhnout (cíl hází záchranu, zda bude Prone, nebo jen stržen z koně).",
+  "Vpřed!":"Po jízdě aspoň 15 stop rovně se zdvojnásobí kostky zranění (kritický zásah 4×).","Štěpící":"Padne-li při útoku na cíl se štítem Požehnání, může štít zničit.",
+  "Hrom a kouř!":"Pokušení: zbraň selže a před dalším užitím potřebuje opravu. Požehnání: střelce zahalí dým a má výhodu proti útokům zblízka."};
+const BZBR={"Vycpávaná":["Bludgeoning","1×"],"Kroužková":["Bludgeoning, Slashing","2×"],"Plátová":["Slashing, Piercing","3×"],"Komplexní":["Bludgeoning, Slashing, Piercing","3×"],"Štít":["—","1×"]};
+/* malované ikony vlastností zbraní (zv-), typů zranění (zr-) a zbrojí (zb-) – art/img/boj, zadání vyvoj/ikony-boj.md */
+const BZVK={"Drtivá":"drtiva","Průrazná":"prurazna","Šikovná":"sikovna","Ostrá":"ostra","Půlmeč":"pulmec","Do slabin!":"do-slabin","Ratiště":"ratiste","Strhující":"strhujici","Vpřed!":"vpred","Štěpící":"stepici","Hrom a kouř!":"hrom-a-kour"};
+const BZRT={Bludgeoning:"Drtivé",Piercing:"Bodné",Slashing:"Sečné",Fire:"Ohnivé",Cold:"Mrazivé",Lightning:"Bleskové",Thunder:"Hromové",Acid:"Kyselinové",Poison:"Jedové",Necrotic:"Prokleté",Radiant:"Svaté",Psychic:"Psychické",Force:"Silové"};
+const BZBK={"Vycpávaná":"vycpavana","Kroužková":"krouzkova","Plátová":"platova","Komplexní":"komplexni","Štít":"stit"};
+const bikE=t=>String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const bik=(f,tip,c)=>`<img class="bi bimg bik${c?" "+c:""}" src="art/img/boj/${f}-48.webp" srcset="art/img/boj/${f}-48.webp 48w, art/img/boj/${f}-96.webp 96w" sizes="24px" width="24" height="24" alt="${bikE(tip)}" aria-label="${bikE(tip)}" data-tip="${bikE(tip)}" decoding="async" loading="lazy">`;
+const bikZv=k=>BZVK[k]?bik("zv-"+BZVK[k],`${k} (vlastnost zbraně): ${BVLZ[k]}`,"bik-zv"):"";
+const bikZrTip=t=>t==="magicke"?"Magické zranění – Resistance a Immunity vůči nemagickým útokům na ně neplatí":t==="stribrne"?"Stříbrné zranění (silvered) – překoná ochranu, kterou má jen obyčejná zbraň":`${BZRT[t]} (${t})`;
+const bikZr=t=>BZRT[t]?bik("zr-"+t.toLowerCase(),bikZrTip(t),"bik-zr"):t==="magicke"||t==="stribrne"?bik("zr-"+t,bikZrTip(t),"bik-zr bik-zr2"):"";
+const bikZbTip=k=>{const z=BZBR[k];return k==="Štít"?"Štít · bez Resistance · vydrží 1× (obětování při kritickém zásahu)":`${k} zbroj · Resistance ${z[0]} · vydrží ${z[1]} (obětování při kritickém zásahu)`};
+const bikZb=k=>BZBK[k]?bik("zb-"+BZBK[k],bikZbTip(k),"bik-zb"):"";
+/* zbroj i s medailonky typů zranění, proti kterým dává Resistance */
+const bikZbR=k=>!BZBK[k]?"":`<span class="bikzb">${bikZb(k)}${BZBR[k][0]==="—"?"":BZBR[k][0].split(/,\s*/).map(bikZr).join("")}</span>`;
+/* typy zranění v textu („Slashing nebo Piercing“, „Svaté (Radiant)“) jako řada medailonků */
+const bikZrTxt=t=>{const r=[],x=String(t||"");x.replace(/\b(Bludgeoning|Piercing|Slashing|Fire|Cold|Lightning|Thunder|Acid|Poison|Necrotic|Radiant|Psychic|Force)\b/g,(m,a)=>{if(!r.includes(a))r.push(a);return m});
+  if(!/\b(Necrotic)\b/.test(x)&&/prokleté/i.test(x))r.push("Necrotic");if(!/\bRadiant\b/.test(x)&&/(^|\s)svaté/i.test(x))r.push("Radiant");
+  const o=r.map(bikZr);if(/stříbrn|silvered/i.test(x))o.push(bikZr("stribrne"));if(/magick|magical/i.test(x))o.push(bikZr("magicke"));return o.join("")};
+/* vlastnosti zbraní v textu („dosah 10 stop, Průrazná“) */
+const bikZvTxt=t=>Object.keys(BZVK).filter(k=>new RegExp(`(?<![\\p{L}])${k.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")}(?![\\p{L}])`,"u").test(String(t||""))).map(bikZv).join("");
+/* druhy zbroje z popisu AC („kroužková košile, štít“, „kyrys a pavéza“, „plná zbroj“) */
+const bikZbDruhy=t=>{t=String(t||"").toLowerCase();if(/kouzeln|přirozen|mage armor|zbytky/.test(t)&&!/štít|pavéz/.test(t))return [];const d=[];
+  if(/plná zbroj|komplexn|\bplate\b/.test(t))d.push("Komplexní");else if(/plátov|kyrys|brigantin|půlplát|breastplate|half-plate|splint/.test(t))d.push("Plátová");
+  else if(/kroužkov|drátěn|šupin|chain|scale|ring mail/.test(t))d.push("Kroužková");else if(/kožen|prošívan|vycpávan|gambeson|padded|leather|hide/.test(t))d.push("Vycpávaná");
+  if(/štít|pavéz|shield/.test(t))d.push("Štít");return d};
+
 /* ---------- Artikule: pravidla tažení, rozdělená do knih a kapitol ---------- */
 const AIMG="art/";
 const strip=s=>String(s).replace(/<[^>]+>/g,"");
@@ -3548,11 +3584,11 @@ const ARTK=[
  {id:"zbroj",t:"Zbroj",h:`
   <p>Každá zbroj poskytuje kromě AC i <b>Resistance</b> vůči určitým typům zranění. Ta se určuje i podle toho, jak se zbroj běžně nosila, aniž bychom komplikovali pravidla vrstvením zbroje:</p>
   ${tb(["Druh zbroje","Příklady","Resistance","Vydrží critů"],[
-   ["Vycpávaná","Padded, Leather, Studded Leather, Hide","Bludgeoning","1×"],
-   ["Kroužková","Chain Shirt, Scale Mail, Ring Mail, Chainmail","Bludgeoning, Slashing","2×"],
-   ["Plátová","Breastplate, Half-plate, Splint","Slashing, Piercing","3×"],
-   ["Komplexní","Plate","Bludgeoning, Slashing, Piercing","3×"],
-   ["Štít","—","—","1×"]])}
+   [`${bikZb("Vycpávaná")}Vycpávaná`,"Padded, Leather, Studded Leather, Hide",`${bikZr("Bludgeoning")}Bludgeoning`,"1×"],
+   [`${bikZb("Kroužková")}Kroužková`,"Chain Shirt, Scale Mail, Ring Mail, Chainmail",`${bikZr("Bludgeoning")}Bludgeoning, ${bikZr("Slashing")}Slashing`,"2×"],
+   [`${bikZb("Plátová")}Plátová`,"Breastplate, Half-plate, Splint",`${bikZr("Slashing")}Slashing, ${bikZr("Piercing")}Piercing`,"3×"],
+   [`${bikZb("Komplexní")}Komplexní`,"Plate",`${bikZr("Bludgeoning")}Bludgeoning, ${bikZr("Slashing")}Slashing, ${bikZr("Piercing")}Piercing`,"3×"],
+   [`${bikZb("Štít")}Štít`,"—","—","1×"]])}
   <h4 class="rh4">Obětování zbroje</h4>
   <p>Zbroj se v boji poškozuje. Při kritickém zásahu může postava <b>obětovat zbroj nebo štít</b> a kritický zásah se změní v běžný. Po vyčerpání počtu v tabulce zbroj či štít přestane poskytovat AC bonus a je nutné je opravit. Opravu obstará kovář, nebo postava s kovářským nářadím během dlouhého odpočinku.</p>
   <h4 class="rh4">Tíha zbroje</h4>
@@ -3563,17 +3599,17 @@ const ARTK=[
  {id:"zbrane",t:"Zbraně",h:`
   <p>Weapon Mastery z D&amp;D 2024 funguje beze změny. Každá dobře vyrobená zbraň má ale navíc fyzické vlastnosti, které platí pro každého, kdo ji používá a má příslušnou zdatnost (proficiency):</p>
   ${tb(["Vlastnost","Zbraně","Efekt"],[
-   ["Drtivá","Mace, Flail, Warhammer","Ignoruje Resistance zbroje proti Bludgeoning."],
-   ["Ratiště","Halberd, Pike, Glaive, Spear","Když nepřítel vstoupí do dosahu zbraně (10 stop), můžeš udělat Opportunity Attack. V kontaktním boji (5 stop) máš ale na útoky nevýhodu."],
-   ["Průrazná","Handgun, Heavy Crossbow, Lance, Halberd, Warpick","Ignoruje Resistance zbroje proti Piercing."],
-   ["Šikovná","Shortsword, Longsword, Greatsword, Scimitar, Warhammer, Halberd","Před hodem na útok umožňuje zvolit typ poškození podle zbraně."],
-   ["Ostrá","Shortsword, Longsword, Greatsword, Scimitar","Při Slashing proti cíli bez Resistance critne na 19–20."],
-   ["Půlmeč","Longsword, Greatsword","Bonusovou akcí provedeš přehmat zbraně: Piercing útoky získávají vlastnost Průrazná, ale kostka poškození klesá o stupeň (<i>tj. d8 na d6</i>)."],
-   ["Do slabin!","Dagger","Pokud proti Restrained nebo Prone cíli padne Požehnání, jde o automatický crit."],
-   ["Strhující","Halberd, Glaive","Pokud při útoku na cíl na koni padne Požehnání, umožňuje strhnout cíl k zemi (cíl hází save, zda bude Prone, nebo jen stržen z koně)."],
-   ["Vpřed!","Lance","Po jízdě aspoň 15 stop rovně se zdvojnásobuje poškození na kostkách (crit 4×)."],
-   ["Štěpící","Greataxe","Pokud při útoku na cíl se štítem padne Požehnání, umožňuje zničit soupeřův štít."],
-   ["Hrom a kouř!","Handgun",`Pokud při útoku padne:<br>${Z.P} – zbraň selže a před dalším užitím vyžaduje opravu;<br>${Z.B} – zahalí střelce v dýmu a dá mu výhodu proti útokům zblízka.`]])}`}
+   [`${bikZv("Drtivá")}Drtivá`,"Mace, Flail, Warhammer","Ignoruje Resistance zbroje proti Bludgeoning."],
+   [`${bikZv("Ratiště")}Ratiště`,"Halberd, Pike, Glaive, Spear","Když nepřítel vstoupí do dosahu zbraně (10 stop), můžeš udělat Opportunity Attack. V kontaktním boji (5 stop) máš ale na útoky nevýhodu."],
+   [`${bikZv("Průrazná")}Průrazná`,"Handgun, Heavy Crossbow, Lance, Halberd, Warpick","Ignoruje Resistance zbroje proti Piercing."],
+   [`${bikZv("Šikovná")}Šikovná`,"Shortsword, Longsword, Greatsword, Scimitar, Warhammer, Halberd","Před hodem na útok umožňuje zvolit typ poškození podle zbraně."],
+   [`${bikZv("Ostrá")}Ostrá`,"Shortsword, Longsword, Greatsword, Scimitar","Při Slashing proti cíli bez Resistance critne na 19–20."],
+   [`${bikZv("Půlmeč")}Půlmeč`,"Longsword, Greatsword","Bonusovou akcí provedeš přehmat zbraně: Piercing útoky získávají vlastnost Průrazná, ale kostka poškození klesá o stupeň (<i>tj. d8 na d6</i>)."],
+   [`${bikZv("Do slabin!")}Do slabin!`,"Dagger","Pokud proti Restrained nebo Prone cíli padne Požehnání, jde o automatický crit."],
+   [`${bikZv("Strhující")}Strhující`,"Halberd, Glaive","Pokud při útoku na cíl na koni padne Požehnání, umožňuje strhnout cíl k zemi (cíl hází save, zda bude Prone, nebo jen stržen z koně)."],
+   [`${bikZv("Vpřed!")}Vpřed!`,"Lance","Po jízdě aspoň 15 stop rovně se zdvojnásobuje poškození na kostkách (crit 4×)."],
+   [`${bikZv("Štěpící")}Štěpící`,"Greataxe","Pokud při útoku na cíl se štítem padne Požehnání, umožňuje zničit soupeřův štít."],
+   [`${bikZv("Hrom a kouř!")}Hrom a kouř!`,"Handgun",`Pokud při útoku padne:<br>${Z.P} – zbraň selže a před dalším užitím vyžaduje opravu;<br>${Z.B} – zahalí střelce v dýmu a dá mu výhodu proti útokům zblízka.`]])}`}
  ]},
 {id:"serm",book:"boj",t:"Šerm a zápas",img:"serm.webp",
  sum:"Výdrž, šermířské techniky a zápasnické chvaty od mistrů.",
@@ -6039,13 +6075,6 @@ function bojMedH(h,c){const im=bojPortH(h.n);return `<span class="bmed bmk${c?" 
 function bojMedN(o,c){const im=bojPortN(o);return `<span class="bmed bmc ${bojSpoj(o)?"bmsp":"bmen"}${c?" "+c:""}" style="--mc:${bojBarva(o.id)}${im?`;background-image:url('${besc(im)}')`:""}">${im?"":`<b>${besc(bojMono(o.n))}</b>`}</span>`}
 const BDRIC={houf:"houf",pacholek:"pacholek",sok:"sok",zhoubce:"zhoubce"};
 /* vlastnosti zbraní a zbrojí, techniky, chvaty a stavy: vysvětlení při najetí myší (Artikule › Výzbroj, Šerm a zápas) */
-const BVLZ={"Drtivá":"Ignoruje Resistance zbroje proti Bludgeoning.","Průrazná":"Ignoruje Resistance zbroje proti Piercing.","Šikovná":"Před hodem na útok si útočník zvolí typ zranění podle zbraně.",
-  "Ostrá":"Při Slashing proti cíli bez Resistance je kritický zásah už na 19–20.","Půlmeč":"Bonusovou akcí přehmat zbraně: Piercing útoky získají vlastnost Průrazná, kostka zranění klesne o stupeň (d8 na d6).",
-  "Ratiště":"Když nepřítel vstoupí do dosahu zbraně (10 stop), smí udělat Opportunity Attack. V kontaktu (5 stop) má na útoky nevýhodu.",
-  "Do slabin!":"Padne-li proti Restrained nebo Prone cíli Požehnání, jde o automatický kritický zásah.","Strhující":"Padne-li při útoku na jezdce Požehnání, může ho strhnout (cíl hází záchranu, zda bude Prone, nebo jen stržen z koně).",
-  "Vpřed!":"Po jízdě aspoň 15 stop rovně se zdvojnásobí kostky zranění (kritický zásah 4×).","Štěpící":"Padne-li při útoku na cíl se štítem Požehnání, může štít zničit.",
-  "Hrom a kouř!":"Pokušení: zbraň selže a před dalším užitím potřebuje opravu. Požehnání: střelce zahalí dým a má výhodu proti útokům zblízka."};
-const BZBR={"Vycpávaná":["Bludgeoning","1×"],"Kroužková":["Bludgeoning, Slashing","2×"],"Plátová":["Slashing, Piercing","3×"],"Komplexní":["Bludgeoning, Slashing, Piercing","3×"],"Štít":["—","1×"]};
 const BTEC={"Sek hněvu":"1 Výdrž + Požehnání: vazba čepele – výhoda na další útok proti cíli, cíl má proti němu nevýhodu.",
   "Křižný sek":"1 Výdrž + reakce: když ho zasáhne útok zblízka, +2 AC a okamžitý protiútok.","Křížný sek":"1 Výdrž + reakce: když ho zasáhne útok zblízka, +2 AC a okamžitý protiútok.",
   "Křivý sek":"1 Výdrž + reakce na Pokušení útočníka: sek do rukou. Útočník hází STR save – neúspěch: upustí zbraň a útok se neuskuteční; úspěch: poloviční zranění.",
@@ -6080,10 +6109,17 @@ const BTIPRE=new RegExp(`(?<![\\p{L}])(${Object.keys(BTIP).sort((a,b)=>b.length-
 const BZBRRE=/(?<![\p{L}])(vycpávan|kroužkov|plátov|komplexn)(\p{L}*)/giu;
 const bojZbrTip=k=>{const n=k.toLowerCase().startsWith("vycp")?"Vycpávaná":k.toLowerCase().startsWith("krou")?"Kroužková":k.toLowerCase().startsWith("plát")?"Plátová":"Komplexní",z=BZBR[n];
   return `${n} zbroj: Resistance vůči ${z[0]}; při kritickém zásahu ji lze obětovat ${z[1]} (crit se změní v běžný zásah).`};
+const BZRRE=/(?<![\p{L}])(Bludgeoning|Piercing|Slashing|Fire|Cold|Lightning|Thunder|Acid|Poison|Necrotic|Radiant|Psychic|Force)(?![\p{L}])|(?<![\p{L}])(Svat|Proklet)(é|ého|ým)(?![\p{L}])(?!\s*\()|(?<![\p{L}])(stříbrn\p{L}*|magick\p{L}*)(?=[\p{L}\s,]{0,24}zbra)/gu;
+const BACRE=/(\d+\s*)\(([^()]{2,60})\)/g;
 function bojTipy(h){let skip=0;return String(h||"").split(/(<[^>]*>)/).map((x,i)=>{
   if(i%2){if(/^<(abbr|button|summary|a)\b/i.test(x))skip++;else if(/^<\/(abbr|button|summary|a)>/i.test(x))skip=Math.max(0,skip-1);return x}
   if(skip||!x)return x;
-  return x.replace(BTIPRE,m=>`<abbr class="btp" ${btip(BTIP[m])}>${m}</abbr>`).replace(BZBRRE,(m,a)=>`<abbr class="btp" ${btip(bojZbrTip(a))}>${m}</abbr>`)}).join("")}
+  /* vložené značky se schovají, aby je další náhrady nepřepsaly */
+  const T=[],k=v=>`\u0001${T.push(v)-1}\u0002`;
+  x=x.replace(BACRE,(m,n,v)=>{const d=bikZbDruhy(v);return d.length?m+k(d.map(bikZbR).join("")):m});
+  x=x.replace(BZRRE,(m,en,cz,suf,ex)=>en?k(bikZr(en))+m:cz?k(bikZr(cz==="Svat"?"Radiant":"Necrotic"))+m:m+k(bikZr(/stříbr/i.test(ex)?"stribrne":"magicke")));
+  x=x.replace(BTIPRE,m=>k(`${BZVK[m]?bikZv(m):""}<abbr class="btp" ${btip(BTIP[m])}>${m}</abbr>`)).replace(BZBRRE,(m,a)=>k(`<abbr class="btp" ${btip(bojZbrTip(a))}>${m}</abbr>`));
+  return x.replace(/\u0001(\d+)\u0002/g,(m,j)=>T[j])}).join("")}
 /* plovoucí popisek: myš, dotyk (na chvíli) i klávesnice */
 const BTT={el:null,t:0,cil:null};
 function bttShow(c){const tx=c&&c.getAttribute("data-tip");if(!tx||!c.isConnected)return;let el=BTT.el;
@@ -6172,7 +6208,7 @@ function bojPlak(o){const h=o.hod,z=o.zav;
     :o.dc?`<span class="bpls bdc"><b class="bhd">${besc(String(o.dc).replace(/^.*?DC\s*/i,"DC "))}</b><small>${besc(String(o.dc).replace(/\s*DC.*$/i,"")||"záchrana")} záchrana</small></span>`
     :z?`<span class="bpls bzs">${bi("zavoj")}<small>Závoj</small></span>`:"";
   const det=h?`<small class="bpld">d20 ${h.d} ${bsg(h.b)}${h.pres?`, přesila +${h.pres}`:""}${h.o19?" · 19: kritický, pokud seká (Slashing) cíl bez Resistance (Ostrá)":""}</small>`:o.dc?`<small class="bpld">záchrana cíle</small>`:"";
-  const zr=o.zr?`<span class="bplz">zranění <b>${o.zr.t}</b> <small>${besc(o.zr.x)} ${besc(o.zr.zt)}${o.zr.pol?" · při úspěchu záchrany obvykle polovina":""}</small></span>`:o.zt?`<small>${besc(o.zt)}</small>`:"";
+  const zr=o.zr?`<span class="bplz">zranění <b>${o.zr.t}</b> ${bikZrTxt(o.zr.zt)}<small>${besc(o.zr.x)} ${besc(o.zr.zt)}${o.zr.pol?" · při úspěchu záchrany obvykle polovina":""}</small></span>`:o.zt?`<small>${besc(o.zt)}</small>`:"";
   const zb=z?`<div class="bplv ${z.r==="pok"?"zp":z.r==="poz"?"zb":"zn"}">${bi(z.r==="pok"?"pokuseni":z.r==="poz"?"pozehnani":"zavoj")}<b>${z.r==="pok"?"Pokušení":z.r==="poz"?"Požehnání":"Závoj bez efektu"}</b><small>k6 ${z.d}${z.hod?" · "+besc(z.hod):""}</small>${z.txt?`<span>${besc(z.txt)}</span>`:""}</div>`:"";
   const btn=(o.krit?`<button type="button" class="badd" data-bkritz="${o.krit}">Kritické zranění cíle →</button>`:"")+(o.bes?`<button type="button" class="badd bbes" data-bbes>Zhmotnit běsa</button>`:"");
   return `${seal}<div class="bplm"><b class="bpln">${besc(o.n)}</b>${det}${zr}${o.p?`<small class="bpoz">${bojTipy(besc(o.p))}</small>`:""}${btn?`<div class="bplb">${btn}</div>`:""}</div>${zb}`}
@@ -6199,13 +6235,14 @@ function bojRef(n,s,velH){const E=bojEff(n),houf=n.druh==="houf";
   const p=E?E.p:null;
   const zn=p?[["poz","pozehnani","Požehnání"],["pok","pokuseni","Pokušení"],["kom","komplikace","Komplikace pro útočníka"],["ner","nerest","Neřest"]].filter(([k])=>p[k]).map(([k,ic,t])=>`<span class="bzn bzn-${k}" role="img" aria-label="${t}" ${btip(t+": "+p[k])}>${bi(ic)}</span>`).join(""):"";
   const os=n.os&&PBY[n.os]?`<a class="bosl" href="#osoba/${n.os}" ${btip(PBY[n.os].n+" – Zemské desky")} aria-label="${besc(PBY[n.os].n)} – Zemské desky">${bi("osoba")}</a>`:"";
-  const bar=`<div class="bbar1">${bojStavy(n,true,true)}${zn?`<span class="bznw">${zn}</span>`:""}${velH||""}${prC}${os}</div>`;
+  const zbr=E?bikZbDruhy((String(E.ac||"").match(/\(([^)]*)\)/)||[])[1]).map(bikZbR).join(""):"";
+  const bar=`<div class="bbar1">${bojStavy(n,true,true)}${zbr?`<span class="bzbrw">${zbr}</span>`:""}${zn?`<span class="bznw">${zn}</span>`:""}${velH||""}${prC}${os}</div>`;
   if(!E)return `<div class="bref">${bar}</div>`;
   const zu=bojZdr.get()[n.id]||{};
   const zd=E.zd.length?`<div class="bzdr">${E.zd.map(z=>{const u=Math.min(z.max,zu[z.n]||0);return `<span class="bzd" data-bzd="${besc(z.n)}" data-max="${z.max}" ${btip(`${z.n}: spotřebováno ${u} z ${z.max} – klikni na kosočtverec`)}><span>${besc(z.n)}</span>${[...Array(z.max)].map((_,j)=>`<button type="button" class="${j<u?"on":""}" data-bzdi="${j}" aria-label="${besc(z.n)} ${j+1} z ${z.max}${j<u?" – spotřebováno":""}"></button>`).join("")}</span>`}).join("")}</div>`:"";
   const dos=houf&&E.at.some(a=>a.zp!=null)?`<label class="bdos" ${btip("Kolik pacholků dosáhne na cíl – podle toho se počítá zranění")}>${bi("dosah")}<input type="number" min="1" max="${n.pocet||1}" name="dos-${n.id}" data-bdos value="${Math.max(1,Math.min(n.pocet||1,BDOS[n.id]!=null?BDOS[n.id]:(n.pocet||1)))}" aria-label="Kolik pacholků dosáhne na cíl"></label>`:"";
   const zavB=!houf?`<button type="button" class="gbtn ghost but bzavb" data-bzav ${btip("Hod kostkou Závoje za protivníka (testy, záchrany)")}>${bi("zavoj")} Závoj</button>`:"";
-  const ut=E.at.length||zavB?`<div class="butoky">${E.at.map((a,i)=>`<button type="button" class="gbtn ghost but" data-but="${i}" ${btip(([a.dc?"Záchrana "+a.dc:a.b!=null?"Útok "+bsg(a.b):"",a.zp!=null?a.zp+" za pacholka "+(a.zt||""):[a.z,a.zt].filter(Boolean).join(" "),a.p].filter(Boolean).join(" · "))||a.n)}>${besc(a.n)} ${a.b!=null?`<b>${a.b>=0?"+":""}${a.b}</b>`:a.dc?`<b>${besc(a.dc)}</b>`:""}</button>`).join("")}${dos}${zavB}</div>`:"";
+  const ut=E.at.length||zavB?`<div class="butoky">${E.at.map((a,i)=>`<button type="button" class="gbtn ghost but" data-but="${i}" ${btip(([a.dc?"Záchrana "+a.dc:a.b!=null?"Útok "+bsg(a.b):"",a.zp!=null?a.zp+" za pacholka "+(a.zt||""):[a.z,a.zt].filter(Boolean).join(" "),a.p].filter(Boolean).join(" · "))||a.n)}>${besc(a.n)} ${a.b!=null?`<b>${a.b>=0?"+":""}${a.b}</b>`:a.dc?`<b>${besc(a.dc)}</b>`:""}${(()=>{const ic=bikZvTxt(a.p)+bikZrTxt(a.zt);return ic?`<span class="biks">${ic}</span>`:""})()}</button>`).join("")}${dos}${zavB}</div>`:"";
   const L=BLOG[n.id]||[];
   const plak=L.length?`<ol class="blog"><li class="bplak${Date.now()-L[0].t<1500?" bnov":""}">${bojPlak(L[0])}</li></ol>`:"";
   return `<div class="bref">${bar}${zd}${ut}${plak}
@@ -6369,7 +6406,7 @@ function bojKarta(s,n,gm){const lim=BLIM[n.druh]||1,u=bojUzito(s,n.id),houf=n.dr
   const tah=`<span class="btahy" role="img" aria-label="Jednal ${u} z ${lim} v tomto kole" ${btip(`Jednal ${u}× z ${lim} v tomto kole`)}>${[...Array(lim)].map((_,j)=>bi(j<u?"tahok":"tah",j<u?"on":"")).join("")}</span>`;
   const hf=houf?`<span class="bhouf"><span class="bzivi" aria-hidden="true">${[...Array(n.max||0)].map((_,j)=>`<i class="${j<n.pocet?"on":""}"></i>`).join("")}</span><span class="bpocet" ${btip(`Pacholků: ${n.pocet} z ${n.max}`)}><b>${n.pocet}</b>/${n.max}</span>${gm?`<span class="bpm"><button type="button" class="gbtn ghost" data-bpoc="-1" aria-label="Ubrat pacholka" ${btip("Padl pacholek")}>−</button><button type="button" class="gbtn ghost" data-bpoc="1" aria-label="Přidat pacholka" ${btip("Vrátit pacholka")}>+</button></span>`:""}<span class="bbon" ${btip(n.pocet?(gm&&E&&E.bon!=null?`Útok houfu: základ +${E.bon}, přesila +${bon}`:`Útok houfu: přesila +${bon}`):"Houf poražen")}>${n.pocet?`útok +${gm&&E&&E.bon!=null?E.bon+bon:bon}`:"poražen"}</span></span>`:"";
   return `<div class="bnpc bu-${n.druh}${bojSpoj(n)?" bspj":""}${houf&&!n.pocet?" bdead":""}${u>=lim?" bvyc":""}${open?" bopen":""}" data-bnpc="${n.id}" style="--mc:${bojBarva(n.id)}">
-    <div class="bnh">${bojMedN(n)}<span class="bnn"${gm?" data-brozb":""}><b>${besc(n.n)}</b>${prj.length?`<small>${besc(prj.join(", "))}</small>`:""}</span><span class="bdruh" role="img" aria-label="${BDRUH[n.druh]||n.druh}" ${btip((BDRUH[n.druh]||n.druh)+(E?" · "+E.p.n+(E.p.vy?" · výzva "+E.p.vy:""):""))}>${bi(BDRIC[n.druh]||"sok")}</span>${acN?`<span class="brac" role="img" aria-label="AC ${besc(E.ac)}" ${btip("AC "+E.ac)}>${acN}</span>`:""}${gm?bojHpHtml(n,E):""}${hf}${bojStavy(n,gm,false)}${tah}${gm?`<button type="button" class="brozb" data-brozb aria-expanded="${open}" aria-label="${open?"Sbalit":"Rozbalit"} kartu" ${btip(open?"Sbalit kartu":"Rozbalit – stavy, útoky, zdroje, statblock")}>${bi("sipka")}</button><button type="button" class="bdel" data-bdel aria-label="Odebrat ${besc(n.n)}" ${btip("Odebrat z boje")}>${bi("krizek")}</button>`:""}</div>
+    <div class="bnh">${bojMedN(n)}<span class="bnn"${gm?" data-brozb":""}><b>${besc(n.n)}</b>${prj.length?`<small>${besc(prj.join(", "))}</small>`:""}</span><span class="bdruh" role="img" aria-label="${BDRUH[n.druh]||n.druh}" ${btip((BDRUH[n.druh]||n.druh)+(E?" · "+E.p.n+(E.p.vy?" · výzva "+E.p.vy:""):""))}>${bi(BDRIC[n.druh]||"sok")}</span>${acN?`<span class="brac" role="img" aria-label="AC ${besc(E.ac)}" ${btip("AC "+E.ac)}>${acN}</span>${bikZbDruhy((String(E.ac).match(/\(([^)]*)\)/)||[])[1]).map(bikZb).join("")}`:""}${gm?bojHpHtml(n,E):""}${hf}${bojStavy(n,gm,false)}${tah}${gm?`<button type="button" class="brozb" data-brozb aria-expanded="${open}" aria-label="${open?"Sbalit":"Rozbalit"} kartu" ${btip(open?"Sbalit kartu":"Rozbalit – stavy, útoky, zdroje, statblock")}>${bi("sipka")}</button><button type="button" class="bdel" data-bdel aria-label="Odebrat ${besc(n.n)}" ${btip("Odebrat z boje")}>${bi("krizek")}</button>`:""}</div>
     ${mor&&gm?`<p class="bmor">${bi("velitel")} ${mor}</p>`:""}${open?bojRef(n,s,velH):""}</div>`}
 /* rychlá pravidla v šuplíku: kritická zranění, vlastnosti zbraní, zbroj */
 let BPRAV=false;
@@ -6377,8 +6414,8 @@ function bojPravidla(){const L=(h,t)=>`<p class="rsmall"><a href="#artikule/${h}
   return `<button type="button" class="bprtg" data-bprav aria-controls="bpravidla" aria-expanded="${BPRAV}" ${btip("Rychlá pravidla: kritická zranění, zbraně, zbroj")}>${bi("kniha")}<span>Pravidla</span></button>
   <aside class="bpravidla${BPRAV?" open":""}" id="bpravidla" aria-label="Rychlá pravidla"><div class="bprh"><h3>Rychlá pravidla</h3><button type="button" class="bprx" data-bprav aria-label="Zavřít rychlá pravidla">${bi("krizek")}</button></div><div class="bprg">
     <article class="bqr bqkrit"><h4>Kritické zranění</h4><p>k10 + 1 za každé neléčené kritické zranění + 1 za každých 5 HP pod 0: <b>1–5</b> Lehká · <b>6–9</b> Těžká · <b>10–12</b> Vážná · <b>13+</b> Smrtelná. Místo podle Závoje: 6 hlava, 3–5 trup, 2 paže, 1 nohy.</p>${bojKritPanel()}</article>
-    <article class="bqr"><h4>Vlastnosti zbraní</h4><dl class="bdl">${Object.entries(BVLZ).map(([k,v])=>`<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>${L("vyzbroj","Výzbroj")}</article>
-    <article class="bqr"><h4>Zbroj</h4><dl class="bdl">${Object.entries(BZBR).map(([k,v])=>`<dt>${k}</dt><dd>${v[0]==="—"?"":`Resistance ${v[0]} · `}obětovat ${v[1]}</dd>`).join("")}</dl>
+    <article class="bqr"><h4>Vlastnosti zbraní</h4><dl class="bdl">${Object.entries(BVLZ).map(([k,v])=>`<dt>${bikZv(k)}${k}</dt><dd>${v}</dd>`).join("")}</dl>${L("vyzbroj","Výzbroj")}</article>
+    <article class="bqr"><h4>Zbroj</h4><dl class="bdl">${Object.entries(BZBR).map(([k,v])=>`<dt>${bikZb(k)}${k}</dt><dd>${v[0]==="—"?"":`Resistance ${v[0].split(/,\s*/).map(t=>bikZr(t)+t).join(", ")} · `}obětovat ${v[1]}</dd>`).join("")}</dl>
       <p><b>Obětování</b>: při kritickém zásahu se crit změní v běžný zásah; po vyčerpání zbroj nedává AC, dokud ji kovář neopraví.</p>${L("vyzbroj","Výzbroj")}</article>
   </div></aside>`}
 /* shrnutí po boji: padlí, zajatí, výkupné a kořist */
