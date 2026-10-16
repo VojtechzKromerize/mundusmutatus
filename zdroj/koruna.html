@@ -4793,6 +4793,9 @@ function dialSVG(X){
   /* medailony: slunce v poledne, měsíc o půlnoci */
   const med=(h,src,t)=>{const [x,y]=P(173,h),r=21;return `<g>${t?`<title>${t}</title>`:""}<circle cx="${F(x)}" cy="${F(y)}" r="${r+1.3}" fill="${INK}"/><image href="${IMG}${src}" x="${F(x-r)}" y="${F(y-r)}" width="${2*r}" height="${2*r}" clip-path="url(#dkmed)"/></g>`};
   o+=med(12,"kolo-slunce.webp","Poledne")+med(0,"kolo-mesic.webp",`Měsíc: ${moon.nm} (osvětleno ${moon.lit} %)`);
+  /* stín skutečné fáze Měsíce přes medailon */
+  {const [x,y]=P(173,0),r=20.5,p=moon.p,k=Math.abs(Math.cos(2*Math.PI*p))*r,wax=p<.5,ts=wax?(p<.25?0:1):(p<.75?0:1);
+   if(moon.lit<99)o+=`<mask id="dkfaze" maskUnits="userSpaceOnUse" x="${F(x-r-2)}" y="${F(y-r-2)}" width="${2*r+4}" height="${2*r+4}"><circle cx="${F(x)}" cy="${F(y)}" r="${r}" fill="#fff"/>${moon.lit>1?`<path d="M${F(x)},${F(y-r)}A${r},${r} 0 0 ${wax?1:0} ${F(x)},${F(y+r)}A${F(k)},${r} 0 0 ${ts} ${F(x)},${F(y-r)}Z" fill="#000"/>`:""}</mask><circle cx="${F(x)}" cy="${F(y)}" r="${r}" fill="#070b1f" opacity=".58" mask="url(#dkfaze)" pointer-events="none"/>`}
   /* kanonické hodinky vně kruhu */
   canon.forEach(([n,h])=>{const [x,y]=P(213,h);let rot=(h-12)*15;if(Math.cos(rot*DEG)<0)rot+=180;
     o+=`<g class="dialcan"><title>${n} – kolem ${Math.floor(((h%24)+24)%24)}. hodiny; zvon k modlitbě</title><path d="${usek(R1+2,R1+9,h)}" stroke="${INK}" stroke-width="3.4" stroke-linecap="round" filter="url(#dkruka)"/><path d="${usek(R1+2,R1+9,h)}" stroke="url(#dkzl)" stroke-width="1.8" stroke-linecap="round" filter="url(#dkruka)"/><text x="${F(x)}" y="${F(y)}" transform="rotate(${F(rot)} ${F(x)} ${F(y)})" text-anchor="middle" dominant-baseline="central" class="dialcantx">${n}</text></g>`});
@@ -6239,7 +6242,7 @@ function vyZaklad(j,ll,more){
   const pp=r.p*(M.hory?1.35:1)*(M.stin?.65:1)*(M.niz?.9:1)*(M.jih&&sez===2?.3:1),srz=vyH("p",j,M.cell,salt)<pp;
   let typ=null,int=0,kroupy=false;
   if(srz){const x=vyH("i",j,salt);int=r.typ==="vytrvaly"?3:r.typ==="trvaly"?(x<.4?2:3):(x<.6?1:2);
-    typ=tx<=1?"snih":tx<=3?"plucha":(r.typ==="bourky"||(sez===2&&tx>=22&&x>.5))?"bourka":"dest";
+    typ=tx<=1?"snih":tx<=3?"plucha":((r.typ==="bourky"&&tx>=12)||(sez===2&&tx>=22&&x>.5))?"bourka":"dest";
     if(typ==="bourka"){int=Math.max(int,2);kroupy=vyH("k",j,M.cell,salt)<.12}}
   let v=r.v+(M.hory?1:0)+(more?1:0);if(rz==="fro"&&sez!==2&&vyH("w",j,salt)<.25)v=4;if(typ==="bourka")v=Math.max(v,3);v=Math.max(0,Math.min(4,v));
   return {j,rz,tx,tn,typ,int,kroupy,v,mlha,M,salt,o}}
