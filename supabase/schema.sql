@@ -319,6 +319,13 @@ begin
   return v;
 end $$;
 
+-- Boj: celé číslo v rozmezí (nebo nic) – pomocník pro kontrolu vstupů od hráčů
+create or replace function public.mm_cislo(v jsonb, lo int, hi int) returns boolean
+language sql immutable as $$
+  select v is null or jsonb_typeof(v) = 'null'
+    or (jsonb_typeof(v) = 'number' and (v #>> '{}') ~ '^-?[0-9]{1,4}$' and (v #>> '{}')::int between lo and hi)
+$$;
+
 -- Boj: hráč z telefonu u své postavy – stavy, kryt, hody proti smrti, připravená akce, reakce (jen během přípravy nebo boje, jen povolené hodnoty)
 create or replace function public.mm_boj_hrac(p_hrac text, p_pole text, p_hodnota jsonb) returns bigint
 language plpgsql security definer set search_path = public as $$
@@ -374,6 +381,25 @@ begin
     else
       raise exception 'neplatná připravená akce';
     end if;
+  elsif p_pole = 'zbrane' then
+    if coalesce(s -> 'hraci' -> i ->> 'n', '') = '' then
+      raise exception 'postava nemá jméno';
+    end if;
+    if jsonb_typeof(x) = 'null' or x = '[]'::jsonb then
+      s := jsonb_set(s, '{zbrane}', coalesce(s -> 'zbrane', '{}'::jsonb) - (s -> 'hraci' -> i ->> 'n'));
+    elsif jsonb_typeof(x) = 'array' and jsonb_array_length(x) <= 12 and not exists (
+        select 1 from jsonb_array_elements(x) e
+        where jsonb_typeof(e) <> 'object'
+          or exists (select 1 from jsonb_object_keys(e) k where k not in ('n', 'b', 'z', 't', 'drt', 'pru', 'dal'))
+          or jsonb_typeof(e -> 'n') is distinct from 'string' or char_length(e ->> 'n') not between 1 and 40
+          or not public.mm_cislo(e -> 'b', -5, 30)
+          or (e ? 'z' and (jsonb_typeof(e -> 'z') <> 'string' or (e ->> 'z') !~ '^[0-9]{0,2}d[0-9]{1,3}([+-][0-9]{1,2})?$'))
+          or (e ? 't' and coalesce(e ->> 't', '') not in ('Slashing','Piercing','Bludgeoning','Fire','Cold','Lightning','Thunder','Acid','Poison','Necrotic','Radiant','Psychic','Force'))
+          or exists (select 1 from unnest(array['drt', 'pru', 'dal']) f where e ? f and jsonb_typeof(e -> f) <> 'boolean')) then
+      s := jsonb_set(s, '{zbrane}', coalesce(s -> 'zbrane', '{}'::jsonb) || jsonb_build_object(s -> 'hraci' -> i ->> 'n', x));
+    else
+      raise exception 'neplatné zbraně';
+    end if;
   elsif p_pole = 'reak' then
     if x = 'true'::jsonb then
       s := jsonb_set(s, '{reak}', coalesce(s -> 'reak', '{}'::jsonb) || jsonb_build_object(p_hrac, 1));
@@ -383,6 +409,68 @@ begin
   else
     raise exception 'neznámé pole';
   end if;
+  update public.boj set stav = s, verze = verze + 1, zmeneno = now() where id = 'aktivni' returning verze into v;
+  return v;
+end $$;
+
+-- Boj: hráč z telefonu pošle útok (cíl, čím, hod, zranění; plošně SO a záchrana). Vyhodnotí ho vypravěč, který zná AC nepřátel.
+create or replace function public.mm_boj_utok(p_hrac text, p_utok jsonb) returns bigint
+language plpgsql security definer set search_path = public as $$
+declare
+  s jsonb;
+  v bigint;
+  u jsonb;
+  ci jsonb;
+  pl jsonb;
+  x jsonb := coalesce(p_utok, '{}'::jsonb);
+begin
+  select stav into s from public.boj where id = 'aktivni' for update;
+  if s is null or coalesce((s ->> 'aktivni')::boolean, false) = false then
+    raise exception 'žádný boj neprobíhá';
+  end if;
+  if not exists (select 1 from jsonb_array_elements(coalesce(s -> 'hraci', '[]'::jsonb)) h where h ->> 'id' = p_hrac) then
+    raise exception 'neznámá postava';
+  end if;
+  if jsonb_typeof(x) <> 'object' or exists (select 1 from jsonb_object_keys(x) k where k not in ('ci', 'cim', 'hod', 'd', 'adv', 'dmg', 't', 'drt', 'pru', 'plos')) then
+    raise exception 'neplatný útok';
+  end if;
+  ci := x -> 'ci';
+  if jsonb_typeof(ci) is distinct from 'array' or jsonb_array_length(ci) not between 1 and 12 or exists (
+      select 1 from jsonb_array_elements(ci) e
+      where jsonb_typeof(e) <> 'string' or not exists (select 1 from jsonb_array_elements(coalesce(s -> 'npc', '[]'::jsonb)) q where q ->> 'id' = e #>> '{}')) then
+    raise exception 'neplatný cíl';
+  end if;
+  if not public.mm_cislo(x -> 'hod', -10, 60) or not public.mm_cislo(x -> 'd', 1, 20) or not public.mm_cislo(x -> 'adv', -1, 1) or not public.mm_cislo(x -> 'dmg', 0, 300)
+     or (x ? 'cim' and (jsonb_typeof(x -> 'cim') <> 'string' or char_length(x ->> 'cim') > 60))
+     or (x ? 't' and coalesce(x ->> 't', '') not in ('Slashing','Piercing','Bludgeoning','Fire','Cold','Lightning','Thunder','Acid','Poison','Necrotic','Radiant','Psychic','Force'))
+     or (x ? 'drt' and jsonb_typeof(x -> 'drt') <> 'boolean') or (x ? 'pru' and jsonb_typeof(x -> 'pru') <> 'boolean') then
+    raise exception 'neplatné hodnoty útoku';
+  end if;
+  pl := x -> 'plos';
+  if pl is not null and jsonb_typeof(pl) <> 'null' then
+    if jsonb_typeof(pl) <> 'object' or exists (select 1 from jsonb_object_keys(pl) k where k not in ('ab', 'dc', 'pol'))
+       or coalesce(pl ->> 'ab', '') not in ('STR', 'AGI', 'CON', 'INT', 'WIS', 'CHA') or jsonb_typeof(pl -> 'dc') is distinct from 'number' or not public.mm_cislo(pl -> 'dc', 1, 40)
+       or (pl ? 'pol' and jsonb_typeof(pl -> 'pol') <> 'boolean') then
+      raise exception 'neplatný plošný útok';
+    end if;
+  else
+    pl := null;
+    if jsonb_typeof(x -> 'hod') is distinct from 'number' then
+      raise exception 'chybí hod na útok';
+    end if;
+  end if;
+  if (select count(*) from jsonb_array_elements(coalesce(s -> 'utoky', '[]'::jsonb)) e where e ->> 'h' = p_hrac and e ->> 'stav' = 'ceka') >= 5 then
+    raise exception 'příliš mnoho útoků čeká na vypravěče';
+  end if;
+  u := jsonb_build_object('id', 'u' || to_char(clock_timestamp(), 'YYMMDDHH24MISSMS') || (floor(random() * 900) + 100)::int, 'h', p_hrac, 'ci', ci,
+    'cim', coalesce(x ->> 'cim', ''), 'hod', x -> 'hod', 'd', x -> 'd', 'adv', coalesce(x -> 'adv', '0'::jsonb), 'dmg', coalesce(x -> 'dmg', '0'::jsonb),
+    't', coalesce(x -> 't', '"Slashing"'::jsonb), 'drt', coalesce(x -> 'drt', 'false'::jsonb), 'pru', coalesce(x -> 'pru', 'false'::jsonb),
+    'k', coalesce(s -> 'kolo', '1'::jsonb), 'stav', 'ceka');
+  if pl is not null then
+    u := u || jsonb_build_object('plos', jsonb_build_object('ab', pl -> 'ab', 'dc', pl -> 'dc', 'pol', coalesce(pl -> 'pol', 'false'::jsonb)));
+  end if;
+  s := jsonb_set(s, '{utoky}', (select coalesce(jsonb_agg(e order by o), '[]'::jsonb) from (
+      select e, o from jsonb_array_elements(coalesce(s -> 'utoky', '[]'::jsonb) || jsonb_build_array(u)) with ordinality t(e, o) order by o desc limit 30) w));
   update public.boj set stav = s, verze = verze + 1, zmeneno = now() where id = 'aktivni' returning verze into v;
   return v;
 end $$;
@@ -651,6 +739,7 @@ grant execute on function public.mm_kouzla_nacti(), public.mm_kouzla_uloz(jsonb)
 grant execute on function public.mm_boj_obsad(int, text) to anon, authenticated;
 grant execute on function public.mm_boj_hod(text, int) to anon, authenticated;
 grant execute on function public.mm_boj_hrac(text, text, jsonb) to anon, authenticated;
+grant execute on function public.mm_boj_utok(text, jsonb) to anon, authenticated;
 grant execute on function public.mm_nastav_hru(jsonb) to authenticated;
 grant execute on function public.mm_stavy() to authenticated;
 revoke all on function public.mm_orez(jsonb, jsonb) from public, anon, authenticated;
