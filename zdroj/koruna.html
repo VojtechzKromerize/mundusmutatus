@@ -6551,14 +6551,7 @@ function vyIkona(P,noc){const z="#e2b23c",zt="#6b4310",m="#2f5fae",o="#eef1f4",i
     if(P.tx<=-2&&!noc)g+=`<circle cx="49" cy="49" r="8" fill="#eef4fb" stroke="${i}" stroke-width="1.4"/>`+vlocka(49,49,4.6)}
   if(P.zav)g+=`<path d="M52,6l2,5.5l5.5,2l-5.5,2l-2,5.5l-2,-5.5l-5.5,-2l5.5,-2Z" fill="#a77ee6" stroke="#4b2a7a" stroke-width="1.2" stroke-linejoin="round"/>`;
   return {svg:`<svg viewBox="2 2 60 60" aria-hidden="true">${g}</svg>`,t}}
-/* počasí na Úvodu: vždy podle polohy družiny – popis místo hesla pod iluminací a symbol v medailonu na rámu */
-function vyUvodPocasi(){const fig=document.querySelector(".herofig");if(!fig)return;try{
-  const [Y,M,D]=herniDen(),j=jdn(Y,M,D),pp=typeof partyPos==="function"?partyPos():null,ll=pp&&pp.lo!=null?[pp.lo,pp.la]:(c=>c?[c.lo,c.la]:[14.42,50.088])(cestaMisto(partyPlace()||""));
-  const P=vyPocasi(j,ll),h=HRA&&HRA.hodina!=null?+HRA.hodina:12,[sr,ss]=vyDen(j,ll[1]),noc=h<Math.round(sr)||h>=Math.round(ss),I=vyIkona(P,noc);
-  const kde=pp&&pp.cesta?"na cestě":(pp&&pp.name)||partyPlace()||"Praha";
-  const fc=fig.querySelector("figcaption");fig.classList.add("vypfig");if(fc){fc.classList.add("vypoccap");fc.innerHTML=`<span class="vypkde">${vyEsc(kde)} · ${I.t}</span>${vyEsc(P.text)}${P.zav?` <i class="vypzav">${vyEsc(P.zav)}</i>`:""}`}}catch(e){}}
-{const _rk=renderKal;renderKal=function(){_rk.apply(this,arguments);vyUvodPocasi()}}
-vyUvodPocasi();
+/* počasí na Úvodu ukazuje jen prstenec kola času; pod iluminací s dráčkem zůstává původní heslo */
 async function vyZverejniPocasi(){if(!window.MMDB||!GMV||!VY)return;const o=VY.pocasi||{};if(JSON.stringify((HRA&&HRA.pocasiR)||{})===JSON.stringify(o)){renderKal();return}
   try{HRA=await MMDB.nastavHru({pocasiR:o});__D.HRA=HRA;renderKal()}catch(e){mmHlasG("Počasí pro hráče se nepodařilo uložit: "+e.message,6000)}}
 /* HTML: okolí u setkání, noclehy, lidé, tabulky, stůl */
