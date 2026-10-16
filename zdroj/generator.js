@@ -212,9 +212,10 @@ function generuj(soubory, manifest) {
       return { n: m[1].trim(), max: parseInt(m[2], 10) };
     });
     const o = { $gm: true, id: p.id, n: p.nazev, u, ac: p.ac || "", hp, ut: p.utok || "", poz: p.pozehnani || "", pok: p.pokuseni || "",
-      kom: p.komplikace || "", ner: p.nerest || "", vy: p.vyzva || "", h: md(p._body), b: mdBoj(p._body),
+      kom: p.komplikace || "", ner: p.nerest || "", zak: p.zakon || "", vy: p.vyzva || "", h: md(p._body), b: mdBoj(p._body),
       at: utoky(p.utoky, w), zd: zdroje(p.zdroje, w), st: lst(p.stitky), xp: xpZ(p.vyzva), vk: vykupne(p._body) };
     if (/za\s+pacholka|za\s+kus/i.test(String(p.vyzva || ""))) o.xpp = 1;
+    if (o.st.some(x => x.toLowerCase() === "relikt")) o.rel = 1; /* relikt: starší než Protržení, zažehnává se (bestiar/relikty.md) */
     { const im = (manifest.bestiar || {})[p.obrazek || p.id]; if (im) o.img = "art/bestiar/" + im + ".webp"; }
     if (p.vyznani) { if (!["kat", "kal", "old"].includes(p.vyznani)) fail(`${w}: vyznani je kat / kal / old`); o.vz = p.vyznani; }
     if (String(p.kriticka || "").trim().toLowerCase() === "drak") o.kd = 1;

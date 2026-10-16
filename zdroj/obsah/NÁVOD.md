@@ -31,6 +31,10 @@ Vše v této části vidí **jen vypravěč** – hráči nedostanou ani seznamy
   od kostlivců po Anděla Páně); u každého je na konci řádek „Předloha: …“. Převedená pravidla vycházejí ze System
   Reference Document 5.2 (Wizards of the Coast, licence CC-BY-4.0, https://creativecommons.org/licenses/by/4.0/),
   texty a jména jsou vlastní.
+  **Relikty** (lidové potvory starší než Protržení: vodník, polednice, Krakonoš…) mají ve štítcích `relikt`, v hlavičce
+  `zakon` (krátce, ukáže se jako ikonka klíče v kartě) a v textu oddíl `## Relikt` (Znamení, Zákon, Moc, Co chce, Ochrana,
+  Zažehnání, Tajemství). V Boji mají navíc stav „rozplynul se“: relikt se vrátí ve své příští hodině, dokud ho družina
+  nezažehná. Podrobně v projektu `bestiar/relikty.md`.
 - **Přívlastky** – `privlastky/` (Zkušený, Veterán, Ve zbroji, Jízdní, Zatracený, Proměněnec…). Přídavky `ac`, `hp`,
   `utok`, `zraneni`, `xp` (číslo nebo procenta), `zdroje`, `pro` (komu se hodí); text = vlastnosti navíc.
   V boji je přidáš v kartě nepřítele.

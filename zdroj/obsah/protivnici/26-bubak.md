@@ -9,7 +9,8 @@ utok: Hozený předmět +4, 2d4+2 · telekinetický náraz (STR DC 12, 2d6+2 For
 pozehnani: Zhasnou všechny svíce v místnosti; do konce kola je tma.
 pokuseni: Musí něco rozbít: příští slot hází jen hrnce a talíře bez účinku.
 nerest: Zlomyslnost – nesnese, když se mu nikdo nebojí. Kdo se mu vysměje (Performance DC 12), toho začne pronásledovat a nechá ostatní.
-stitky: nemrtví, duch, dům, statek, město, Praha
+zakon: Smí jen strašit, ne zabít; musí utéct před smíchem.
+stitky: relikt, nemrtví, duch, dům, statek, město, Praha
 utoky:
   - Hozený předmět | +4 | 2d4+2 Bludgeoning | na blízko nebo na 30 stop; v jednom slotu i telekinetický náraz
   - Telekinetický náraz | STR DC 12 | 2d6+2 Force | tvor do 30 stop, při neúspěchu odhozen o 30 stop
@@ -41,6 +42,16 @@ Neklidný duch domu, který hází věcmi, bouchá dveřmi a chodí po půdě. Z
 ## Bonusová akce
 
 - **Zmizet.** Stane se neviditelným, nebo se ukáže.
+
+## Relikt
+
+- **Znamení.** Kroky na půdě, převrácené nádobí, povolené uzly pytlů; děti se bojí jít pro vodu.
+- **Zákon.** Smí jen strašit, ne zabít. Musí utéct před smíchem.
+- **Moc.** Hluk, tma, házení věcmi, strach (Frightened).
+- **Co chce.** Být sám; aby se dům bál.
+- **Ochrana.** Smích, rozsvícená louč, zvonek.
+- **Zažehnání.** 1) Zjistit, čí je (zemřelý v domě, který neměl pohřeb). 2) Vysmát se mu. 3) Pochovat ho.
+- **Tajemství.** Bubák bývá duše děcka nebo blázna, kterému se smáli. Když se smějí s ním, ne jemu, odejde.
 
 **Výkupné a kořist.** Pod podlahou je obvykle důvod, proč straší.
 

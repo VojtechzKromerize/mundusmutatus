@@ -9,7 +9,8 @@ utok: Dva zvadající doteky +5, 3d10+3 Prokleté · děsivá tvář (WIS DC 13,
 pozehnani: Posednutí se dobije hned.
 pokuseni: Pozná v někom z družiny potomka svého rodu: místo útoku ho jeden slot jen pozoruje a pláče.
 nerest: Nedokončená věc – bloudí, protože něco nezůstalo vykonáno (nevrácené věno, nepohřbené dítě, křivá přísaha). Kdo to slíbí napravit (Persuasion DC 13), toho ušetří.
-stitky: nemrtví, duch, hrad, šlechta, rod, Závoj
+zakon: Musí rod varovat před smrtí a neštěstím; smí jen ukazovat, ne mluvit; nesmí z hradu.
+stitky: relikt, nemrtví, duch, hrad, šlechta, rod, Závoj
 zdroje: Posednutí 1, Éterická podoba 1
 utoky:
   - Zvadající dotek | +5 | 3d10+3 Prokleté (Necrotic) | dva v jednom slotu
@@ -42,6 +43,16 @@ Duch paní z rodu, který na hradě sídlí. Zjevuje se před smrtí v rodu a hl
 - **Děsivá tvář.** Každý živý tvor v kuželu 60 stop, který ji vidí, hodí WIS save DC 13: neúspěch 2d6+3 Psychic a Frightened do začátku jejího příštího tahu; úspěch = na den imunní.
 - **Ustoupit za Závoj.** Zmizí do světa za Závojem; odtud nemůže působit a nic nepůsobí na ni.
 - **Posednutí (dobíjí se na 6).** Člověk do 5 stop hodí CHA save DC 13, jinak do něj vstoupí: tělo jedná podle ní, zasáhnout ji jde jen proti nemrtvým (Ve jménu Páně!). Končí, když tělo klesne na 0 HP.
+
+## Relikt
+
+- **Znamení.** Bílá postava v oknech; rukavice bílé značí radost, černé smrt; klíče zvoní na chodbě.
+- **Zákon.** Musí rod varovat před smrtí a neštěstím. Smí jen ukazovat, ne mluvit. Nesmí opustit hrad.
+- **Moc.** Předpověď, zjevení, chlad.
+- **Co chce.** Aby se splnil její odkaz (sladká kaše chudým, slib rodu, smír).
+- **Ochrana.** Konat její odkaz.
+- **Zažehnání.** 1) Zjistit, kým byla (je starší než dnešní rody). 2) Najít slib, který rod nedodržel. 3) Slib splnit.
+- **Tajemství.** Perchta z Rožmberka roku 1458 žije (v nešťastném manželství s Lichtenštejnem). Bílá paní jindřichohradecká je někdo starší – a Perchta ji možná vidí.
 
 **Výkupné a kořist.** Prsten nebo list, který nedokončenou věc vysvětlí. Klid jí přinese splnění, ne meč.
 

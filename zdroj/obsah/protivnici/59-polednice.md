@@ -9,7 +9,8 @@ utok: Dva drápy +6, 1d8+4 a 1d6 Poison · paprsek nemoci (CON DC 12, 3. úrove�
 pozehnani: Zneviditelní se a objeví se za cílem; další útok má s výhodou.
 pokuseni: Zvon odbije poledne nebo jednu: musí zmizet do konce kola.
 nerest: Poledne – přichází jen v poledním žáru a musí odpovědět na každou otázku hádankou. Kdo ji zaměstná řečí do jedné (Persuasion či Performance DC 13), ten přežije.
-stitky: bytosti z pověstí, polednice, pole, poledne, žně, děti, ježibaba
+zakon: Smí přijít jen mezi poledním zvoněním a jednou; musí se ptát a musí dostat odpověď.
+stitky: relikt, bytosti z pověstí, polednice, pole, poledne, žně, děti, ježibaba
 utoky:
   - Drápy | +6 | 1d8+4 Slashing a 1d6 Poison | dva v jednom slotu
   - Paprsek nemoci | +4 | 3d8 Poison | dostřel 60 stop; CON DC 12, jinak Poisoned do konce příštího tahu
@@ -39,6 +40,16 @@ Shrbená bába v bílém se srpem a pokřivenou tváří. Chodí v poledne po po
 - **Dva drápy.** Dvakrát sekne.
 - **Drápy.** +6, dosah 5 stop. **Zásah:** 1d8+4 Slashing a 1d6 Poison.
 - **Kouzla (WIS, DC 12, útok +4).** Libovolně: Dancing Lights, Disguise Self (24 h), Invisibility (jen sebe, nezanechá stopy), Minor Illusion, Ray of Sickness (3. úroveň).
+
+## Relikt
+
+- **Znamení.** V poledne bezvětří a ticho cvrčků; dítě s horečkou a bílými skvrnami na čele; zlámaná stébla do kruhu.
+- **Zákon.** Smí přijít jen mezi poledním zvoněním a jednou. Musí se ptát a musí dostat odpověď; kdo ji zabaví řečí do jedné, toho nechá být.
+- **Moc.** Úpal (Exhaustion), poledne, které se táhne; zmámí matku, aby nechala dítě v poli.
+- **Co chce.** Nemluvňata nechaná v brázdě; úctu k polednímu klidu.
+- **Ochrana.** V poledne nepracovat, děti ve stínu, žehnat se při poledním zvonění.
+- **Zažehnání.** 1) Přivolat ji v poledne (zůstat v poli). 2) Odpovídat na její hádanky do jedné. 3) Nakonec jí položit otázku, na kterou nezná odpověď.
+- **Tajemství.** Nezná odpověď na otázku „Kolik je hodin?“ – zvony neslyší, jen cítí slunce.
 
 **Výkupné a kořist.** Její srp nikdy netupí. Za něj by kovář dal celou kovárnu.
 

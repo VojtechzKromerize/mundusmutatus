@@ -9,7 +9,8 @@ utok: Dva drápy +7, 2d8+4 · magické střely (4. úroveň) · přízračný vr
 pozehnani: Ustoupí za Závoj a objeví se na hrudi spícího.
 pokuseni: Někdo zavolá její jméno: do konce kola je viditelná a nemůže ustoupit za Závoj.
 nerest: Váček duší – nosí duše svých obětí ve váčku. Kdo ho zničí nebo ukradne, ten ji spoutá.
-stitky: pekelníci, můra, sny, noc, spáči, ježibaba, Závoj
+zakon: Je duší živé ženy; musí se vrátit před kuropěním a nesmí vstoupit dírou, kterou ucpali.
+stitky: relikt, pekelníci, můra, sny, noc, spáči, ježibaba, Závoj
 zdroje: Přízračný vrah 2, Přechod mezi světy 2, Noční můra 1
 utoky:
   - Drápy | +7 | 2d8+4 Slashing | dva v jednom slotu
@@ -47,6 +48,16 @@ Noční ježibaba, která chodí za Závojem a sedá spícím na hruď. Krade de
 ## Bonusová akce
 
 - **Proměna.** Podoba člověka (stará žena, dívka), nebo zpět.
+
+## Relikt
+
+- **Znamení.** Spáč ráno vyčerpaný, s modřinami na hrudi; v koutě stéblo nebo pírko, které tam nebylo; koně zpocení se zapletenými hřívami.
+- **Zákon.** Lidová můra je duše živé ženy, která v noci opouští tělo. Musí se vrátit před kuropěním. Nesmí vstoupit dírou, kterou ucpali. (Pekelná můra z tohoto statblocku je její horší sestra – vypravěč zvolí, kterou družina potká.)
+- **Moc.** Tíha na prsou (Exhaustion), zlé sny, krádež dechu.
+- **Co chce.** To, co jí chybí ve dne (lásku, mateřství, odpuštění).
+- **Ochrana.** Nůž ostřím vzhůru u postele, ucpaná klíčová dírka, říct „Přijď ráno pro sůl“.
+- **Zažehnání.** 1) Zjistit, kdo je ve dne (ta, která ráno přijde pro sůl). 2) Dát jí sůl a odpustit jí, nebo 3) zničit stéblo, ve kterém přišla.
+- **Tajemství.** Můra o sobě často neví. Zabije-li ji družina v noci, zemře ráno žena ve vsi.
 
 **Výkupné a kořist.** Váček s dušemi. Kněží by je chtěli vysvobodit; čarodějnice by za něj daly cokoli.
 

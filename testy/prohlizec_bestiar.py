@@ -33,6 +33,10 @@ async def main():
     await g.fill("[data-bhledej]","krkonose");await g.wait_for_timeout(100)
     t=await g.locator("[data-bvysl]").inner_text()
     chk("Lovci vajec v Krkonoších" in t and "Hromová saň" in t,"hledání podle štítku Krkonoše najde setkání i saň")
+    await g.fill("[data-bhledej]","relikt");await g.wait_for_timeout(100)
+    t=await g.locator("[data-bvysl]").inner_text()
+    chk("Krakonoš" in t or "Vodník" in t,"hledání najde relikty (lidové potvory)")
+    chk(await g.evaluate("PROTIVNICI.filter(p=>p.rel).every(p=>p.zak&&p.b.includes('Zažehnání'))"),"každý relikt má zákon a blok Relikt se zažehnáním")
     # načíst hotové setkání do formuláře
     await g.select_option("[data-bskup]","s:rota-bez-pana");await g.wait_for_timeout(200)
     nn=await g.eval_on_selector_all("#bfn [name=nn]","e=>e.map(x=>x.value)");print(nn)
