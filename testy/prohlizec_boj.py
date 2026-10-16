@@ -219,9 +219,9 @@ async def main():
     chk(await g.evaluate("(BOJ.s.utoky||[]).length")-n0==2,"oba útoky dorazí vypravěči")
     c,t=anon_rpc("mm_boj_hrac",{"p_hrac":"h4","p_pole":"hp","p_hodnota":5000});chk(c>=400,"mm_boj_hrac odmítne nesmyslné životy")
     # karta postavy jako stránka: hody do herního záznamu, sloty, import z polí PDF, kontrola vstupů v databázi
-    await pl.goto(BASE+"#karty/balduin");await pl.wait_for_selector(".kstat",timeout=15000)
+    await pl.goto(BASE+"#karty/balduin");await pl.wait_for_selector(".kdbtop",timeout=15000)
     chk("56" in await pl.inner_text(".khp"),"stránka karty ukazuje životy ze stavu postavy")
-    await pl.click('[data-ktab="hody"]');await pl.click('#kartyview [data-khod="za:CON"]');await pl.wait_for_timeout(1200)
+    await pl.click('#kartyview [data-khod="za:CON"]');await pl.wait_for_timeout(1200)
     hody=json.loads(urllib.request.urlopen(urllib.request.Request(U+"/rest/v1/hody?select=data&order=id.desc&limit=5",headers={"apikey":K})).read())
     chk(any(h["data"].get("co")=="Záchrana CON" for h in hody),"hod z karty je ve společném herním záznamu")
     await pl.click('[data-ktab="kouzla"]');await pl.click('.ktab[data-tab="kouzla"] [data-kses="16"]');await pl.wait_for_timeout(1200)

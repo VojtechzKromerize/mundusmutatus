@@ -2288,6 +2288,257 @@ html:not(.gmv) .gmonly{display:none!important}
 .mmkvyp{position:absolute;right:14px;bottom:14px;pointer-events:none;font-family:var(--f-label);letter-spacing:.04em;font-size:.85rem;color:var(--paper);background:color-mix(in srgb,var(--ink) 80%,transparent);border:0;border-radius:3px;padding:5px 12px;cursor:pointer}
 .mmkostky.on .mmkvyp{pointer-events:auto}
 .kmmk{font-family:var(--f-label);letter-spacing:.03em;font-size:.9rem;color:var(--muted);display:inline-flex;align-items:center;gap:4px}
+
+/* ===== karta postavy v rozvržení D&D Beyond (2026-10-16): tmavé panely s měděným rámem ===== */
+.kdb{--kb-pan:#1e1915;--kb-pan2:#262019;--kb-bd:#8e5a3e;--kb-bd2:#5a3826;--kb-tx:#ece1c9;--kb-mu:#a99a7e;--kb-ac:#d0464b;--kb-gold:#d6b05a;--kb-ok:#5aa65e;
+  display:flex;flex-direction:column;gap:12px;color:var(--kb-tx);font-family:var(--f-body)}
+.kdb small{color:var(--kb-mu)}
+.kdb .kdbp{position:relative;background:var(--kb-pan);border:2px solid var(--kb-bd);border-radius:12px;padding:12px 12px 30px;box-shadow:inset 0 0 0 2px var(--kb-pan),inset 0 0 0 3px var(--kb-bd2),0 6px 14px -8px rgba(0,0,0,.6)}
+.kdb .kdbpt{position:absolute;left:0;right:0;bottom:6px;margin:0;text-align:center;font-family:var(--f-label);font-weight:700;letter-spacing:.08em;font-size:.82rem;text-transform:uppercase;color:var(--kb-tx)}
+.kdb button{cursor:pointer;font:inherit}
+.kdb .kdbnote{color:var(--kb-mu);font-size:.85rem;margin:6px 0 0;line-height:1.35}
+.kdb .kdbnote a{color:var(--kb-gold)}
+.kdb a{color:var(--kb-gold)}
+/* hlavička */
+.kdbhead{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;background:linear-gradient(180deg,#2a2420,#1a1512);border:2px solid var(--kb-bd);border-radius:12px;padding:10px 14px}
+.kdbport{width:72px;height:72px;border-radius:50%;object-fit:cover;object-position:50% 18%;border:3px solid var(--kb-gold);box-shadow:0 0 0 2px #1a1512,0 0 0 3px var(--kb-bd);background:#3a2b20}
+.kdbini{display:grid;place-items:center;font-family:var(--f-disp);font-size:2.2rem;color:var(--kb-gold)}
+.kdbnm{flex:1 1 200px;min-width:0}
+.kdbnm h2{margin:0;font-family:var(--f-disp);font-weight:500;font-size:1.9rem;line-height:1.05;color:var(--kb-tx)}
+.kdbnm p{margin:2px 0 0;color:var(--kb-mu);font-size:.92rem}
+.kdbnm .kdblv{font-family:var(--f-label);letter-spacing:.04em;font-size:.82rem}
+.kdbhb{display:flex;flex-wrap:wrap;gap:8px}
+.kdbbtn{font-family:var(--f-label)!important;font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:.8rem;color:var(--kb-tx);background:#2d1d17;border:1px solid var(--kb-ac);border-radius:3px;padding:6px 12px;text-decoration:none}
+.kdbbtn:hover{background:#45231d}
+/* horní řada */
+.kdbtop{display:grid;grid-template-columns:repeat(6,minmax(64px,1fr)) repeat(4,minmax(72px,.9fr)) minmax(260px,2.6fr);gap:8px;margin:0!important}
+.kdbab,.kdbsm,.kdbhp{position:relative;background:var(--kb-pan);border:2px solid var(--kb-bd);border-radius:10px;box-shadow:inset 0 0 0 2px var(--kb-pan),inset 0 0 0 3px var(--kb-bd2);text-align:center}
+.kdbab{display:flex;flex-direction:column;align-items:center;padding:6px 4px 0;min-height:104px}
+.kdbab small,.kdbsm small{font-family:var(--f-label);font-weight:700;letter-spacing:.05em;font-size:.68rem;text-transform:uppercase;color:var(--kb-tx)}
+.kdbab button{margin:4px 0 0;min-width:56px;padding:2px 8px;background:#14100d;border:1px solid var(--kb-bd);border-radius:5px;color:var(--kb-tx);font-family:var(--f-body);font-size:1.8rem;line-height:1.15}
+.kdbab button:hover,.kdb [data-khod]:hover{border-color:var(--kb-gold);color:#fff}
+.kdbab b{margin:4px 0 -12px;min-width:34px;padding:1px 8px;background:var(--kb-pan2);border:2px solid var(--kb-bd);border-radius:12px;font-weight:600;font-size:1rem}
+.kdbsm{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:6px 4px}
+.kdbsm b{font-family:var(--f-body);font-size:1.7rem;line-height:1.1;font-weight:500}
+.kdbsm b i{font-style:normal;font-size:.9rem}
+.kdbinsp input{position:absolute;opacity:0;width:0;height:0}
+.kdbinsp span{width:42px;height:34px;border:2px solid var(--kb-bd);border-radius:6px;background:#14100d;display:block;cursor:pointer}
+.kdbinsp input:checked+span{background:radial-gradient(circle,var(--kb-gold) 0 30%,transparent 34%),#14100d;box-shadow:0 0 10px -2px var(--kb-gold)}
+.kdbinsp input:focus-visible+span{outline:2px solid var(--kb-gold)}
+.kdbhp{display:grid;grid-template-columns:auto 1fr;grid-template-rows:1fr auto;gap:4px 12px;padding:8px 10px 24px;text-align:left}
+.kdbhpz{display:flex;flex-direction:column;gap:3px;grid-row:span 1}
+.kdbhpz input{width:84px;text-align:center;background:#0f0c0a;color:var(--kb-tx);border:1px solid var(--kb-bd);border-radius:3px;padding:3px;font-size:1rem}
+.kdbheal,.kdbdmg{font-family:var(--f-label)!important;font-weight:700;letter-spacing:.06em;font-size:.68rem;text-transform:uppercase;border-radius:3px;padding:2px 6px;background:#14100d}
+.kdbheal{color:#7fd284;border:1px solid #3f7d43}.kdbdmg{color:#f0757a;border:1px solid #8e3236}
+.kdbhpc{display:flex;align-items:flex-end;justify-content:center;gap:8px}
+.kdbhpc span{display:flex;flex-direction:column;align-items:center}
+.kdbhpc small{font-family:var(--f-label);font-weight:700;letter-spacing:.05em;font-size:.68rem;text-transform:uppercase;color:var(--kb-tx)}
+.kdbhpc b{font-family:var(--f-body);font-size:2rem;line-height:1;font-weight:500}
+.kdbhpc>i{font-size:1.9rem;color:var(--kb-mu);font-style:normal;line-height:1}
+.kdbtmp b{color:var(--kb-mu)}
+.kdbhp.bhp2 .kdbhpc span:first-child b{color:var(--kb-gold)}.kdbhp.bhp0 .kdbhpc span:first-child b{color:var(--kb-ac)}
+.kdbhpo{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.kdbhpo select{background:#0f0c0a;color:var(--kb-tx);border:1px solid var(--kb-bd);border-radius:3px;font-size:.8rem;padding:2px}
+.kdbkz{display:inline-flex;align-items:center;gap:2px;font-family:var(--f-label);font-size:.72rem;color:var(--kb-mu);margin-left:auto}
+.kdbkz button,.kdbvy button,.kdbpips button{width:12px;height:12px;padding:0;border:1px solid var(--kb-mu);background:transparent;border-radius:2px}
+.kdbkz button.on,.kdbvy button.on,.kdbpips button.on{background:var(--kb-ac);border-color:var(--kb-ac)}
+.kdbhpbar{position:absolute;left:12px;right:12px;bottom:4px;height:3px;border-radius:2px;background:linear-gradient(90deg,var(--kb-ok) var(--p),rgba(255,255,255,.1) var(--p))}
+.kdbhp .kdbpt{bottom:8px}
+.kdbmini{font-family:var(--f-label)!important;font-weight:600;letter-spacing:.04em;font-size:.75rem;color:var(--kb-tx);background:#14100d;border:1px solid var(--kb-bd);border-radius:3px;padding:2px 8px}
+.kdbmini:hover{border-color:var(--kb-gold)}
+/* hlavní mřížka */
+.kdbmain{display:grid;grid-template-columns:minmax(230px,.95fr) minmax(250px,1fr) minmax(0,2.6fr);gap:12px;align-items:start}
+.kdbc1,.kdbc2,.kdbc3{display:flex;flex-direction:column;gap:12px;min-width:0}
+@media (max-width:1180px){.kdbmain{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.kdbc3{grid-column:1/-1}.kdbtop{grid-template-columns:repeat(12,minmax(0,1fr))}.kdbtop .kdbab{grid-column:span 2}.kdbtop .kdbsm{grid-column:span 3}.kdbtop .kdbhp{grid-column:1/-1}}
+@media (max-width:640px){.kdbmain{grid-template-columns:1fr}.kdbtop{grid-template-columns:repeat(6,minmax(0,1fr))}.kdbtop .kdbab{grid-column:span 2}.kdbtop .kdbsm{grid-column:span 3}.kdbtop .kdbhp{grid-column:1/-1}.kdbab button{font-size:1.5rem}.kdbtab{font-size:.85rem}.kdbtab td,.kdbtab th{padding:4px 3px}.kdbhead .kdbhb{width:100%}}
+/* záchrany */
+.kdbzg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.kdbzr,.kdbdr{display:flex;align-items:center;gap:6px}
+.kdbzr{border:1px solid var(--kb-bd2);border-radius:20px;padding:3px 3px 3px 8px;background:var(--kb-pan2)}
+.kdbzr span{flex:1;font-family:var(--f-label);font-weight:700;letter-spacing:.05em;font-size:.85rem;text-decoration:underline dotted var(--kb-mu);text-underline-offset:3px}
+.kdbzr button,.kdbdr button{min-width:40px;padding:1px 6px;background:#14100d;border:1px solid var(--kb-bd);border-radius:14px;color:var(--kb-tx);font-size:1rem}
+.kdbdot{width:9px;height:9px;border-radius:50%;border:1px solid var(--kb-mu);flex:none}
+.kprof>.kdbdot{background:var(--kb-bd);border-color:#c88762}
+.kexp>.kdbdot{background:var(--kb-gold);border-color:var(--kb-gold);box-shadow:0 0 0 2px var(--kb-pan),0 0 0 3px var(--kb-gold)}
+/* smysly */
+.kdbsr{display:flex;align-items:center;gap:10px;margin:0 0 6px;border:1px solid var(--kb-bd2);border-radius:20px;background:var(--kb-pan2);padding:2px 10px 2px 2px}
+.kdbsr b{min-width:36px;text-align:center;font-size:1.15rem;border-right:1px solid var(--kb-bd2);padding:2px 6px}
+.kdbsr span{font-family:var(--f-label);font-weight:700;letter-spacing:.05em;font-size:.75rem;text-transform:uppercase}
+/* zdatnosti */
+.kdbzdat dl{margin:0}.kdbzdat dt{font-family:var(--f-label);font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:.85rem;color:var(--kb-mu);margin-top:8px}
+.kdbzdat dd{margin:2px 0 6px;padding-bottom:8px;border-bottom:1px solid var(--kb-bd2);font-size:.92rem}
+.kdbzdat dd:last-child{border-bottom:0}
+/* dovednosti */
+.kdbdh{display:grid;grid-template-columns:22px 38px 1fr 46px;gap:4px;font-family:var(--f-label);font-weight:700;letter-spacing:.05em;font-size:.68rem;text-transform:uppercase;color:var(--kb-tx);padding:0 0 4px;border-bottom:1px solid var(--kb-bd2)}
+.kdbdh span:last-child{text-align:right}
+.kdbdr{display:grid;grid-template-columns:22px 38px 1fr 46px;gap:4px;padding:4px 0;border-bottom:1px solid var(--kb-bd2)}
+.kdbdr small{font-family:var(--f-label);font-weight:700;font-size:.72rem}
+.kdbdr span{font-size:.95rem}
+.kdbdr button{border-radius:3px;justify-self:end;min-width:42px}
+.kdbhod .kadv{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:.85rem;margin:0 0 6px}
+.kdbhod form.kvlh{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.kdbhod form.kvlh label{display:flex;align-items:center;gap:4px;font-size:.85rem}
+.kdb input[type=search],.kdb input:not([type]),.kdb input[type=text],.kdb input[type=number],.kdb select,.kdb textarea{background:#0f0c0a;color:var(--kb-tx);border:1px solid var(--kb-bd);border-radius:3px;font-family:var(--f-body)}
+.kdb textarea{width:100%;box-sizing:border-box;padding:6px 8px}
+.kdbhod form.kvlh input[name=v]{width:100px}.kdbhod form.kvlh input[name=co]{width:120px}
+.kdbhod .gbtn{background:#2d1d17!important;border:1px solid var(--kb-ac)!important;color:var(--kb-tx)!important}
+/* iniciativa, AC, obrana, stavy */
+.kdbr1{display:grid;grid-template-columns:auto auto 1fr;gap:12px;align-items:stretch}
+@media (max-width:640px){.kdbr1{grid-template-columns:1fr 1fr}.kdbr1 .kdbdef{grid-column:1/-1}}
+.kdbini,.kdbac{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.kdbini small,.kdbac small{font-family:var(--f-label);font-weight:700;letter-spacing:.06em;font-size:.75rem;text-transform:uppercase;color:var(--ink)}
+.kdbini button{width:92px;height:66px;background:var(--kb-pan);border:2px solid var(--kb-bd);color:var(--kb-tx);font-size:1.8rem;clip-path:polygon(18% 0,82% 0,100% 50%,82% 100%,18% 100%,0 50%)}
+.kdbac{width:96px;height:112px;background:var(--kb-pan);border:2px solid var(--kb-bd);clip-path:path("M0 0H96V58C96 86 70 102 48 112 26 102 0 86 0 58Z");color:var(--kb-tx);padding-bottom:10px;box-sizing:border-box}
+.kdbac small{color:var(--kb-tx)}.kdbac b{font-size:2.2rem;line-height:1;font-weight:500}
+.kdbdef{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-bottom:12px}
+.kdbdef h4{margin:0 0 4px;font-family:var(--f-label);font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:.82rem}
+.kdbdef>div+div{border-left:1px solid var(--kb-bd2);padding-left:10px}
+.kdbdef p{margin:2px 0;font-size:.9rem;display:flex;flex-wrap:wrap;align-items:center;gap:4px}
+.kdbst{gap:4px!important}
+.kdbsta{display:inline-flex;align-items:center;gap:4px;background:var(--kb-pan2);border:1px solid var(--kb-bd2);border-radius:14px;padding:1px 8px 1px 2px;color:var(--kb-tx);font-size:.82rem}
+.kdbvy{gap:3px!important}.kdbvy small{font-family:var(--f-label);font-size:.75rem;margin-right:4px}
+.kdbstp summary{cursor:pointer;font-family:var(--f-label);font-size:.8rem;color:var(--kb-gold);list-style:none}
+.kdbstp p{display:flex;flex-wrap:wrap;gap:3px}
+.kdbstp button{background:#14100d;border:1px solid var(--kb-bd2);border-radius:4px;padding:2px}
+.kdbstp button[aria-pressed=true]{border-color:var(--kb-gold);box-shadow:0 0 0 1px var(--kb-gold)}
+/* záložky */
+.kdbtabs{padding:6px 14px 16px}
+.kdb .ktabs{display:flex;flex-wrap:wrap;gap:2px 18px;border:0;margin:0 0 10px;padding:6px 0 0;background:none}
+.kdb .ktabs button{background:none;border:0;border-bottom:3px solid transparent;border-radius:0;padding:4px 0;font-family:var(--f-label);font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:.95rem;color:var(--kb-tx)}
+.kdb .ktabs button[aria-selected=true]{border-bottom-color:var(--kb-ac)}
+.kdbchips{display:flex;flex-wrap:wrap;gap:4px;margin:0 0 10px}
+.kdbchips button{font-family:var(--f-label);font-weight:700;letter-spacing:.05em;text-transform:uppercase;font-size:.74rem;color:var(--kb-tx);background:#0f0c0a;border:1px solid #000;border-radius:3px;padding:4px 9px}
+.kdbchips button[aria-pressed=true]{background:#7d2b22;border-color:var(--kb-ac)}
+.kdbsec{margin:0 0 14px}
+.kdbsh{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:6px 0 6px;font-family:var(--f-label);font-weight:700;letter-spacing:.07em;text-transform:uppercase;font-size:.82rem;color:#c98564;border-bottom:1px solid var(--kb-bd2);padding-bottom:4px}
+.kdbsh small{text-transform:none;letter-spacing:0;color:var(--kb-mu)}
+.kdbtab{width:100%;border-collapse:collapse;font-size:.92rem}
+.kdbtab th{font-family:var(--f-label);font-weight:700;letter-spacing:.05em;text-transform:uppercase;font-size:.7rem;text-align:left;color:var(--kb-tx);padding:4px 6px;border-bottom:1px solid var(--kb-bd2)}
+.kdbtab td{padding:6px;border-bottom:1px solid var(--kb-bd2);vertical-align:middle}
+.kdbtab td small{display:block;font-size:.75rem;line-height:1.25}
+.kdbtab td b{font-weight:600}
+.kdbbox{min-width:44px;padding:3px 8px;background:#14100d;border:1px solid var(--kb-bd);border-radius:3px;color:var(--kb-tx);font-size:1rem}
+.kdbz{display:inline-flex;align-items:center;gap:4px;margin-right:4px}
+.kdbdc{font-family:var(--f-label);font-weight:700;font-size:.85rem}
+.kdb .kspn{background:none;border:0;padding:0;color:var(--kb-tx);font-style:italic;text-decoration:underline dotted var(--kb-mu);text-underline-offset:3px;text-align:left}
+.kdbakce{border-left:2px solid var(--kb-bd);padding-left:10px;margin:4px 0}
+.kdbakce{font-size:.92rem;line-height:1.5}.kdbakce abbr{color:var(--kb-tx);text-decoration:none;border-bottom:1px dotted var(--kb-mu)}
+.kdbli li>b{font-size:.98rem}
+.kdbli{list-style:none;margin:0;padding:0}
+.kdbli li{padding:5px 0;border-bottom:1px solid var(--kb-bd2);display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px}
+.kdbli li span{color:var(--kb-mu);font-size:.9rem}
+.kdbpips{display:inline-flex;align-items:center;gap:3px}
+.kdbpips button{width:14px;height:14px}
+.kdbpips small{font-size:.75rem;margin-left:4px}
+.kdbslot{margin-left:auto;display:inline-flex;align-items:center;gap:4px}
+.kdbkzh{display:flex;justify-content:center;gap:28px;margin:0 0 10px}
+.kdbkzh span{display:flex;flex-direction:column;align-items:center}
+.kdbkzh b{font-size:1.25rem}.kdbkzh small{font-family:var(--f-label);font-weight:700;letter-spacing:.05em;text-transform:uppercase;font-size:.66rem;color:var(--kb-tx)}
+.kdbsrch input{width:100%;box-sizing:border-box;padding:7px 10px;margin:0 0 8px}
+.kdbinvh{display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px 24px;margin:0 0 10px}
+.kdbinvh>span{display:flex;flex-direction:column}
+.kdbinvh small{font-family:var(--f-label);font-weight:700;letter-spacing:.05em;text-transform:uppercase;font-size:.7rem}
+.kdb .kdbinvh .kpen{display:flex;flex-direction:row;flex-wrap:wrap;gap:6px;margin-left:auto;width:auto;grid-template-columns:none}
+.kdb .kdbinvh .kpen label{display:flex;flex-direction:column;align-items:center;width:auto;font-family:var(--f-label);font-weight:700;font-size:.72rem;color:var(--kb-gold)}
+.kdbrp summary{cursor:pointer;font-family:var(--f-label);font-size:.78rem;color:var(--kb-gold);list-style:none}
+.kdbab{justify-content:center}
+.kdb .kpen input{width:70px;text-align:right}
+.kdbinv td.kq,.kdbtab td.kq{white-space:nowrap}
+.kdbinv td.kq b,.kdbtab td.kq b{display:inline-block;min-width:26px;text-align:center}
+.kdb .kpri{background:#14100d;border:1px solid var(--kb-bd);color:var(--kb-mu);border-radius:3px;width:22px;height:22px;padding:0}
+.kdb .kpri.on{color:var(--kb-gold);border-color:var(--kb-gold)}
+.kdb .kinvf,.kdbexf{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.kdbexf input{width:110px}
+.kdbrys{padding:6px 0 10px;border-bottom:1px solid var(--kb-bd2)}
+.kdbrys h5{margin:0 0 3px;font-family:var(--f-body);font-weight:700;font-size:1rem}
+.kdbrys h5 small{font-weight:400;font-style:italic}
+.kdbakt{font-family:var(--f-label)!important;font-style:normal!important;text-transform:uppercase;letter-spacing:.05em;font-size:.68rem!important;color:#c98564!important;border:1px solid var(--kb-bd2);border-radius:3px;padding:0 5px}
+.kdbrys p{margin:2px 0 4px;font-size:.92rem;line-height:1.4}
+.kdbrys textarea{font-size:.88rem;opacity:.85}
+.kdbbig{font-family:var(--f-body);font-weight:700;font-size:1.15rem;margin:4px 0}
+.kdbcar{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px 12px;margin:0}
+@media (max-width:640px){.kdbcar{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.kdbcar dt{font-family:var(--f-label);font-weight:700;letter-spacing:.05em;text-transform:uppercase;font-size:.75rem}
+.kdbcar dd{margin:0;color:var(--kb-mu)}
+.kdbpop{display:block;margin:0 0 10px}.kdbpop b{display:block;font-size:.95rem;margin-bottom:2px}
+.kdb .kgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.kdb .uvh2{color:#c98564}
+.kdb .rsmall{color:var(--kb-mu)}
+.kdb .khody li{border-color:var(--kb-bd2)}
+.kdb .kzavbox{color:var(--ink)}
+.kdb .kropozn,.kdb .kpostup{color:var(--ink)}
+.kdb .kduse,.kdb .krany,.kdb .kuc{color:var(--kb-tx)}
+.kdb .bzd button{border-color:var(--kb-mu)}
+.kdb .gbtn.ghost{color:var(--kb-tx);border-color:var(--kb-bd);background:#14100d}
+.kdb .bzrk{color:var(--kb-tx)}
+.kro .kdbtop button,.kro .kdbtop input,.kro .kdbmain button:not([data-kspd]):not([data-kinvpop]):not([data-ktab]):not([data-kdbf]),.kro .kdbmain input:not([data-kdbq]),.kro .kdbmain textarea,.kro .kdbmain select{pointer-events:none;opacity:.55}
+
+/* bojová karta hráče – zúžená karta ve stylu D&D Beyond */
+.kdbc{background:var(--kb-pan);border:2px solid var(--kb-bd);border-radius:12px;padding:10px 12px 12px;box-shadow:inset 0 0 0 2px var(--kb-pan),inset 0 0 0 3px var(--kb-bd2)}
+.kdbc>.uvh2{font-family:var(--f-disp);font-size:1.4rem;color:var(--kb-tx);margin:0 0 6px}
+.kdbc .pmore{color:var(--kb-gold)}
+.kdbcr{display:grid;grid-template-columns:auto minmax(220px,1fr) auto auto;gap:8px;align-items:stretch;margin:0 0 8px}
+@media (max-width:640px){.kdbcr{grid-template-columns:auto 1fr 1fr}.kdbcr .kdbhp{grid-column:1/-1;order:-1}}
+.kdbcr .kdbac{width:78px;height:92px;clip-path:path("M0 0H78V48C78 70 57 83 39 92 21 83 0 70 0 48Z")}
+.kdbcr .kdbac b{font-size:1.9rem}
+.kdbcr .kdbsm{min-width:66px}
+.kdbcr .bklink{margin-left:auto;font-family:var(--f-label);font-size:.78rem}
+.kdbc .kdbzach,.kdbc .kdbzdrc{margin:0 0 8px}
+.kdbc .bhpst button,.kdbc .bhpkr button{background:#14100d;border-color:var(--kb-bd2);color:var(--kb-tx)}
+.kdbc .bhpst button[aria-pressed=true],.kdbc .bhpkr button[aria-pressed=true]{border-color:var(--kb-gold);box-shadow:0 0 0 1px var(--kb-gold)}
+.kdbc details.bjapd{background:var(--kb-pan2);border:1px solid var(--kb-bd2);border-radius:8px;padding:6px 10px;margin:6px 0;color:var(--kb-tx)}
+.kdbc details.bjapd summary{font-family:var(--f-label);font-weight:700;letter-spacing:.05em;text-transform:uppercase;font-size:.82rem}
+.kdbc .brdy,.kdbc .bhds,.kdbc .bjkon{color:var(--kb-tx)}
+.kdbc .break{background:#14100d;color:var(--kb-tx);border-color:var(--kb-bd)}
+.kdbc .gbtn,.kdbc .gbtn.ghost{background:#14100d!important;color:var(--kb-tx)!important;border:1px solid var(--kb-bd)!important;box-shadow:none!important}
+.kdbc .bhpkr{background:#14100d;border-color:var(--kb-bd2);color:var(--kb-tx)}.kdbc .bhpkr .bi{filter:invert(.85)}
+.kdbc .kdbzdr li{padding:4px 0}
+@media (max-width:640px){
+  .kdbut thead{display:none}.kdbut tr{display:grid;grid-template-columns:1fr auto auto auto;gap:4px 8px;align-items:center;border-bottom:1px solid var(--kb-bd2);padding:6px 0}
+  .kdbut td{border:0;padding:0}.kdbut td:nth-child(5){grid-column:1/-1}
+  .kdbspt th:nth-child(1),.kdbspt td:nth-child(1),.kdbspt th:nth-child(5),.kdbspt td:nth-child(5){display:none}
+  .kdb .ktabs{gap:2px 12px}.kdb .ktabs button{font-size:.85rem}}
+
+/* karta Beyond: vnitřní části (akce, kouzla, stavy, vybavení, společníci, doplňky) v tmavém panelu */
+.kdb .kakcegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:4px 18px}
+.kdb .kakcegrid>section>.uvh2,.kdb .bsph,.kdb .ktab .uvh2{font-family:var(--f-label);font-weight:700;letter-spacing:.07em;text-transform:uppercase;font-size:.82rem;color:#c98564;border-bottom:1px solid var(--kb-bd2);padding-bottom:4px;margin:8px 0 6px}
+.kdb .kakl,.kdb .kspl,.kdb .kinv{list-style:none;margin:0;padding:0}
+.kdb .kakl li,.kdb .kspl li,.kdb .kinv li{padding:5px 0;border-bottom:1px solid var(--kb-bd2);display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px}
+.kdb .kinv li{justify-content:space-between}
+.kdb .kakl small,.kdb .kspl small{color:var(--kb-mu)}
+.kdb .bzd button{width:12px;height:12px;border:1px solid var(--kb-mu);background:transparent;border-radius:2px;transform:none}
+.kdb .bzd button.on{background:var(--kb-ac);border-color:var(--kb-ac)}
+.kdb .bzd{background:none;border:0;padding:0;color:var(--kb-tx)}
+.kdb .kstavy{display:flex;flex-wrap:wrap;gap:3px;margin:4px 0}
+.kdb .kstavy .bst{display:inline-flex;align-items:center;gap:3px;background:#14100d;border:1px solid var(--kb-bd2);border-radius:12px;padding:1px 7px 1px 2px;color:var(--kb-mu);font-size:.78rem}
+.kdb .kstavy .bst.on{color:var(--kb-tx);border-color:var(--kb-gold);box-shadow:0 0 0 1px var(--kb-gold)}
+.kdbstp summary{color:var(--kb-tx);font-size:.85rem;font-family:var(--f-body)}
+.kdbstp[open] summary{color:var(--kb-gold)}
+.kdbdef h4 small{text-transform:none;letter-spacing:0;font-weight:400;color:var(--kb-mu)}
+.kdb .chip{display:inline-flex;align-items:center;gap:4px;background:var(--kb-pan2);border:1px solid var(--kb-bd2);border-radius:12px;padding:0 6px;font-size:.85rem}
+.kdb .kx{background:none;border:0;color:var(--kb-mu);font-size:1rem;padding:0 3px}
+.kdb .kpop dt{font-family:var(--f-label);font-weight:700;letter-spacing:.05em;text-transform:uppercase;font-size:.78rem;color:var(--kb-mu);margin-top:8px}
+.kdb .kpop dd{margin:2px 0 6px}
+.kdbzdat form.kvlh{display:flex;gap:4px;margin:4px 0}.kdbzdat form.kvlh input{flex:1;min-width:0;font-size:.85rem;padding:3px 6px}
+.kdb .krysy2{line-height:1.9}
+.kdb .kcas,.kdb .ksrd{font-family:var(--f-label);text-transform:uppercase;letter-spacing:.04em;font-size:.66rem;color:#c98564;border:1px solid var(--kb-bd2);border-radius:3px;padding:0 4px;margin-left:3px}
+.kdb .kspol{background:var(--kb-pan2);border:1px solid var(--kb-bd2);border-radius:8px;padding:8px 10px;margin:0 0 8px}
+.kdb .kspol .kbox{background:#14100d;border-color:var(--kb-bd2);color:var(--kb-tx)}
+.kdb .kstat .kbox{background:#14100d;border-color:var(--kb-bd2);color:var(--kb-tx)}
+.kdb .kpen{display:flex;flex-wrap:wrap;gap:6px 12px;margin:8px 0}.kdb .kpen label{color:var(--kb-gold)}
+.kdb details.bjapd{background:var(--kb-pan2);border:1px solid var(--kb-bd2);border-radius:8px;padding:6px 10px;margin:8px 0;color:var(--kb-tx)}
+.kdb details.bjapd summary{font-family:var(--f-label);font-weight:700;letter-spacing:.05em;text-transform:uppercase;font-size:.8rem;cursor:pointer}
+.kdb .kakce dt{font-weight:700}.kdb .kakce dd{color:var(--kb-mu);margin:0 0 6px}
+.kdb .kdbslots .bkzdr{display:flex;flex-wrap:wrap;gap:6px 16px}
+.kdb .kdbslots .bzd>span{font-family:var(--f-label);font-size:.8rem;margin-right:4px}
+.kdb .kspn.ksub{opacity:.85}
+.kdb select option{background:#1e1915;color:var(--kb-tx)}
+.kdb .gbtn,.kdb .gbtn.ghost{font-family:var(--f-label)!important;font-weight:600!important;letter-spacing:.04em!important;font-size:.78rem!important;line-height:1.3!important;color:var(--kb-tx)!important;background:#14100d!important;border:1px solid var(--kb-bd)!important;border-radius:3px!important;padding:3px 9px!important;box-shadow:none!important;min-height:0!important}
+.kdb .gbtn:hover{border-color:var(--kb-gold)!important}
+.kdb .uvh2{font-family:var(--f-label);font-weight:700;letter-spacing:.07em;text-transform:uppercase;font-size:.82rem;color:#c98564}
+.kdbdpl form.kvlh{display:flex;flex-wrap:wrap;gap:4px;margin:6px 0}
+.bhr .kdbc li,.kdbc li{background:none!important;border:0;border-bottom:1px solid var(--kb-bd2);border-radius:0!important;font-family:var(--f-body)!important;font-size:.92rem;padding:4px 0;text-decoration:none!important;color:var(--kb-tx)!important;display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px}
+.kdbc li b{font-family:var(--f-body)}
 </style>
 
 <div class="wrap"><div class="papir" aria-hidden="true"></div>
@@ -7331,7 +7582,7 @@ function bojHracPanel(h,s,gm){const st=h.stav||[],d=h.ds,rd=(s.ready||{})[h.id],
   const ds=!d?`<button type="button" class="gbtn ghost bhpad" data-bhds="pad" ${btip("Pád na 0 HP: bezvědomí, hody proti smrti, hod na kritické zranění a 1 úroveň vyčerpání")}>${bi("porazen")} ${gm?"Padl na 0 HP":"Padl jsem (0 HP)"}</button>`
     :d.st?`<p class="bhds">${bojDsPip(h)} <b>${d.st==="mrtev"?"Tři neúspěchy – umírá.":"Stabilizován – do konce boje mimo hru."}</b> <button type="button" class="gbtn ghost" data-bhds="x" ${btip("Zrušit (vyléčen, vzkříšen, omyl)")}>${d.st==="mrtev"?"Zrušit":"Zpět do boje (Restoration)"}</button></p>`
     :`<div class="bhds"><span class="bhdsh">${bi("porazen")} <b>Na prahu smrti</b> ${bojDsPip(h)}</span><button type="button" class="gbtn" data-bhds="hod" ${btip("d20: 10+ úspěch, méně neúspěch, 1 dva neúspěchy, 20 probere se s 1 HP")}>🎲 Hod proti smrti</button>${gm?`<button type="button" class="gbtn ghost" data-bhds="u">+ úspěch</button><button type="button" class="gbtn ghost" data-bhds="n" ${btip("Neúspěch – i když padlého někdo zasáhne (krit = 2)")}>+ neúspěch</button><button type="button" class="gbtn ghost" data-bhds="stab" ${btip("Stabilizován – Lékařství SO 10, léčení nebo Spare the Dying")}>stabilizovat</button>`:`<label class="bhdsv">nebo svůj hod <input type="number" inputmode="numeric" min="1" max="20" data-bhdsv aria-label="Vlastní hod proti smrti (d20)"></label>`}<button type="button" class="gbtn ghost" data-bhds="x" ${btip("Zpět na nohou – zruší hody proti smrti")}>vstal</button></div>`;
-  return `<div class="bhpan" data-bhpan="${h.id}">${bojKartaHlava(h,s,gm)}${stav}<div class="bhprow">${kr}${rea}${rdy}</div>${gm?"":bojKonHtml(h)}${ds}${bojKartaOvl(h,s,gm)}${bojZbraneHtml(s,h)}${bojKartaInfo(bojKartaH(h))}</div>`}
+  return `<div class="bhpan${bojKartaH(h)?" kdb kdbc":""}" data-bhpan="${h.id}">${bojKartaHlava(h,s,gm)}${stav}<div class="bhprow">${kr}${rea}${rdy}</div>${gm?"":bojKonHtml(h)}${ds}${bojKartaOvl(h,s,gm)}${bojZbraneHtml(s,h)}</div>`}
 /* akce panelu postavy: vypravěč rovnou mění boj, hráč posílá jen změněná pole přes mm_boj_hrac */
 async function bojHracAkce(id,fn,msg){
   {const K0=bojKartaH(((BOJ.s||{}).hraci||[]).find(x=>x.id===id));if(K0&&kDuse(K0).sv>=8){const f0=fn;fn=(h,z)=>{const r=f0(h,z);if(h&&(h.stav||[]).includes("vyděšený")){h.stav=h.stav.filter(x=>x!=="vyděšený");if(!h.stav.length)delete h.stav;mmHlasG(`${h.n} je V milosti – imunní vůči Frightened.`,4500)}return r}}}
@@ -7392,14 +7643,18 @@ function bojLecPC(h,K,x){const v=+x||0;if(v<=0)return "";const mx=K?+K.hp:0,cur=
   h.hp=Math.min(mx,cur+v);if(h.hp>=mx)delete h.hp;return `+${v} HP (${Math.min(mx,cur+v)}/${mx})`}
 /* hlavička karty: AC, životy s pruhem, dočasné HP, ovládání zranění a léčení */
 function bojKartaHlava(h,s,gm){const K=bojKartaH(h);if(!K)return "";const mx=+K.hp,cur=bojHpPC(h,K),pr=Math.max(0,Math.min(100,Math.round(cur/mx*100))),kr=+h.kryt||0,ks=kartaStav(K.id);
-  return `<div class="bkhl"><span class="bkac" ${btip(`AC ${kAC(K)}${kr?` + kryt ${kr}`:""}`)}><small>AC</small><b>${kAC(K)+kr}</b></span><span class="bkhp${cur<=mx/2?" bhp2":""}${cur<=0?" bhp0":""}"><small>HP</small><b>${cur}</b>/${mx}${ks.thp?` <i class="bkthp" ${btip("Dočasné HP")}>+${ks.thp}</i>`:""}${ks.vycerp?` <i class="bkvy" ${btip(`Vyčerpání ${ks.vycerp}: −${2*ks.vycerp} k hodům d20`)}>vyč. ${ks.vycerp}</i>`:""} <a class="bklink" href="#karty/${besc(K.id)}">karta →</a><i class="bkhpb" style="--p:${pr}%"></i></span>
-    <span class="bkzr"><input type="number" name="bkzr-${h.id}" data-bkzrv min="0" max="300" inputmode="numeric" placeholder="HP" aria-label="Kolik HP"><select data-bkzrt aria-label="Typ zranění">${BZTYPY.map(t=>`<option value="${t}">${BZRT[t]}</option>`).join("")}</select><button type="button" class="gbtn ghost" data-bkzr="z" ${btip("Zranění – odečte se s odolnostmi a dočasnými HP")}>−</button><button type="button" class="gbtn ghost" data-bkzr="l" ${btip("Léčení")}>+</button><button type="button" class="gbtn ghost" data-bkzr="d" ${btip("Dočasné HP (nesčítají se – platí vyšší)")}>dočasné</button></span></div>`}
+  return `<div class="kdbcr"><div class="kdbac" ${btip(`AC ${kAC(K)}${kr?` + kryt ${kr}`:""}`)}><small>AC</small><b>${kAC(K)+kr}</b>${kr?`<small>kryt +${kr}</small>`:"<small>obrana</small>"}</div>
+    <div class="kdbhp${cur<=mx/2?" bhp2":""}${cur<=0?" bhp0":""}"><div class="kdbhpz"><button type="button" class="kdbheal" data-bkzr="l" ${btip("Léčení")}>Léčit</button><input type="number" name="bkzr-${h.id}" data-bkzrv min="0" max="300" inputmode="numeric" aria-label="Kolik HP"><button type="button" class="kdbdmg" data-bkzr="z" ${btip("Zranění – odečte se s odolnostmi a dočasnými HP")}>Zranit</button></div>
+      <div class="kdbhpc"><span><small>Teď</small><b>${cur}</b></span><i>/</i><span><small>Max</small><b>${mx}</b></span><span class="kdbtmp"><small>Dočasné</small><b>${ks.thp||"–"}</b></span></div>
+      <div class="kdbhpo"><select data-bkzrt aria-label="Typ zranění">${BZTYPY.map(t=>`<option value="${t}">${BZRT[t]}</option>`).join("")}</select><button type="button" class="kdbmini" data-bkzr="d" ${btip("Dočasné HP (nesčítají se – platí vyšší)")}>+ dočasné</button>${ks.vycerp?`<span class="bkvy" ${btip(`Vyčerpání ${ks.vycerp}: −${2*ks.vycerp} k hodům d20`)}>vyčerpání ${ks.vycerp}</span>`:""}<a class="bklink" href="#karty/${besc(K.id)}">celá karta →</a></div><h3 class="kdbpt">Životy</h3><i class="kdbhpbar" style="--p:${pr}%"></i></div>
+    <div class="kdbsm"><small>Pěšky</small><b>${besc(String(K.rychlost||"").match(/\d+/)?.[0]||"–")}<i> st.</i></b><small>rychlost</small></div>
+    <div class="kdbsm" ${btip("Pasivní Vnímání")}><small>Vnímání</small><b>${(K.pasiv||{}).vnimani??"–"}</b><small>pasivní</small></div></div>`}
 /* záchrany, iniciativa, zdroje a sloty – na kliknutí */
-function bojKartaOvl(h,s,gm){const K=bojKartaH(h);if(!K)return "";const U=kartaStav(K.id).zdr||{};
-  const zach=`<div class="bkzach"><span class="bkzlh">Záchrany</span>${BAB.map(a=>`<button type="button" class="gbtn ghost" data-bkzh="${a}">${a} <b>${bsg((K.zach||{})[a]||0)}</b></button>`).join("")}${K.konVyhoda?`<button type="button" class="gbtn ghost" data-bkzh="CON" data-adv="1" ${btip("CON záchrana pro udržení soustředění s výhodou (War Caster)")}>soustředění <b>${bsg((K.zach||{}).CON||0)}</b> výh.</button>`:""}</div>`;
+function bojKartaOvl(h,s,gm){const K=bojKartaH(h);if(!K)return "";const U=kartaStav(K.id).zdr||{},pf=K.zachProf||[];
+  const zach=`<section class="kdbp kdbzach"><div class="kdbzg">${BAB.map(a=>`<div class="kdbzr${pf.includes(a)?" kprof":""}"><i class="kdbdot" aria-hidden="true"></i><span>${a}</span><button type="button" data-bkzh="${a}" ${btip(`Záchrana ${KSK[a]}: d20 ${bsg((K.zach||{})[a]||0)}`)}>${bsg((K.zach||{})[a]||0)}</button></div>`).join("")}</div>${K.konVyhoda?`<p class="kdbnote"><button type="button" class="kdbmini" data-bkzh="CON" data-adv="1" ${btip("CON záchrana pro udržení soustředění s výhodou (War Caster)")}>soustředění ${bsg((K.zach||{}).CON||0)} s výhodou</button></p>`:""}${(K.odol||[]).length||(K.imu||[]).length?`<p class="kdbnote">${(K.odol||[]).length?`<b>Resistance</b> ${K.odol.map(t=>bikZr(t)+besc(BZRT[t]||t)).join(" ")}`:""}${(K.imu||[]).length?` · <b>Immunity</b> ${K.imu.map(t=>besc(BZRT[t]||t)).join(", ")}`:""}</p>`:""}<h3 class="kdbpt">Záchranné hody</h3></section>`;
   const sl=((K.kouzla||{}).sloty||[]).map(q=>({k:"slot"+q.st+(q.pakt?"p":""),n:`${q.pakt?"Pakt":"Sloty"} ${q.st}. st.`,max:q.max}));
   const zd=[...sl,...(K.zdroje||[]).map(q=>({k:q.n,n:q.n,max:q.max,obn:q.obn})),...(kVydMax(K)?[{k:"Výdrž",n:"Výdrž",max:kVydMax(K),obn:"dlouhý odpočinek"}]:[])];
-  const zdH=zd.length?`<div class="bkzdr">${zd.map(q=>{const u=Math.min(q.max,U[q.k]||0);return `<span class="bzd" ${btip(`${q.n}: použito ${u} z ${q.max}${q.obn?" · obnova: "+q.obn:""} – klikni na kosočtverec`)}><span>${besc(q.n)}</span>${[...Array(q.max)].map((_,j)=>`<button type="button" class="${j<u?"on":""}" data-bkzd="${besc(q.k)}" data-j="${j}" aria-label="${besc(q.n)} ${j+1} z ${q.max}${j<u?" – použito":""}"></button>`).join("")}</span>`}).join("")}</div>`:"";
+  const zdH=zd.length?`<section class="kdbp kdbzdrc"><ul class="kdbli kdbzdr">${zd.map(q=>{const u=Math.min(q.max,U[q.k]||0);return `<li><b>${besc(q.n)}</b><span class="kdbpips" ${btip(`${q.n}: použito ${u} z ${q.max}${q.obn?" · obnova: "+q.obn:""}`)}>${[...Array(q.max)].map((_,j)=>`<button type="button" class="${j<u?"on":""}" data-bkzd="${besc(q.k)}" data-j="${j}" aria-label="${besc(q.n)} ${j+1} z ${q.max}${j<u?" – použito":""}"></button>`).join("")}</span></li>`}).join("")}</ul><h3 class="kdbpt">Omezené použití</h3></section>`:"";
   return zach+zdH}
 /* celá karta ke čtení (vlastnosti, dovednosti, smysly, rysy, kouzla) */
 function bojKartaInfo(K){if(!K)return "";const ab=a=>{const v=(K.vl||{})[a];return v==null?"":`<span><small>${a}</small><b>${v}</b><i>${bsg(Math.floor((v-10)/2))}</i></span>`};const kz=K.kouzla||{};
@@ -7570,44 +7825,82 @@ function renderKarty(id){const box=document.getElementById("kartyview");if(!box)
   const tabs=[["hody","Hody"],["akce","Akce"],...(kz.seznam||(S.kpn||[]).length?[["kouzla","Kouzla"]]:[]),["vybaveni","Vybavení"],["duse","Duše"],["spol","Společníci"],["denik","Deník"]];if(!KSPD)kSpNacti().then(()=>kartyPrekresli()).catch(()=>{});let tab=KTAB.get();if(!tabs.some(x=>x[0]===tab))tab="hody";
   const sec=(id,h)=>`<section class="ktab" data-tab="${id}"${tab===id?"":" hidden"}>${h}</section>`;
   const ro=!kMuze(K),zat=kZatez(K,inv,pen),pri=inv.filter(x=>x.pripoutano).length;
-  box.innerHTML=`<div data-kid="${besc(K.id)}" class="kcard${ro?" kro":""}"><nav class="crumbs"><a href="#karty">Karty postav</a> › <b>${besc(K.n)}</b></nav>
-    <div class="khead"><div><h2 class="arttitle">${besc(K.n)}</h2><p class="bojlead">${besc([K.povolani,K.druh,K.pozadi].filter(Boolean).join(" · "))}${K.hrac?` · hraje ${besc(K.hrac)}`:""}${K.test?" · <i>zkušební karta</i>":""}</p></div>
-      <div class="bojbtn"><button type="button" class="gbtn ghost" data-kodp="k">Krátký odpočinek</button><button type="button" class="gbtn ghost" data-kodp="d">Dlouhý odpočinek</button><button type="button" class="gbtn ghost" data-ktisk ${btip("Vytiskne celou kartu nebo ji uloží jako PDF")}>Tisk</button><button type="button" class="gbtn ghost" data-kexport ${btip("Stáhne kartu a stav postavy jako JSON")}>Export</button>${GMV&&!KSTAT.has(K.id)&&!K.test?`<button type="button" class="gbtn ghost" data-ksmaz>Smazat kartu</button>`:""}</div></div>
+  box.innerHTML=kartaDbHtml(K,{ef,zd,slH,invH,popH,ja,tabs0:tabs,sec,ro,zat,pri,S,mx,cur,pr,kzMax,vy,kz});pojZnac(box)}
+/* ===== karta postavy v rozvržení D&D Beyond (2026-10-16): hlavička, vlastnosti, zdatnost, rychlost, inspirace,
+   Svědomí, životy; záchrany, smysly, zdatnosti; dovednosti a hod kostkou; iniciativa, AC, obrana a stavy;
+   záložky Akce · Kouzla · Vybavení · Rysy · Duše · Zázemí · Poznámky · Společníci. Používá pomocné funkce karty
+   (kAkceHtml, kSpListHtml, kStavHtml, kRysyHtml, kDoplHtml, kSpolHtml, kAC). ===== */
+const KDBFLT={a:"all",q:""};
+const KDBVL={STR:"Síla",AGI:"Obratnost",CON:"Odolnost",INT:"Inteligence",WIS:"Moudrost",CHA:"Charisma"};
+const kdbPanel=(cls,tit,h)=>`<section class="kdbp ${cls}">${h}${tit?`<h3 class="kdbpt">${tit}</h3>`:""}</section>`;
+const kdbChips=(gr,cur,L)=>`<div class="kdbchips" role="group">${L.map(([k,l])=>`<button type="button" data-kdbf="${gr}:${k}" aria-pressed="${cur===k}">${l}</button>`).join("")}</div>`;
+function kdbPips(K,q){const U=kartaStav(K.id).zdr||{},u=Math.min(q.max,U[q.k]||0);
+  return `<span class="kdbpips" ${btip(`${q.n}: použito ${u} z ${q.max}${q.obn?" · obnova: "+q.obn:""}`)}>${[...Array(q.max)].map((_,j)=>`<button type="button" class="${j<u?"on":""}" data-kzd="${besc(q.k)}" data-j="${j}" aria-label="${besc(q.n)} ${j+1} z ${q.max}${j<u?" – použito":""}"></button>`).join("")}${q.obn?`<small>/ ${besc(q.obn)}</small>`:""}</span>`}
+function kartaDbHtml(K,o){const {ef,invH,popH,ja,sec,ro,zat,pri,S,mx,cur,pr,kzMax,vy,kz}=o,E=KEF[K.id]||[],D=kDuse(K),P=kParty(K)||{},prof=K.zachProf||[],dp=K.dovProf||{},ac=kAC(K);
+  /* hlavička */
+  const head=`<div class="kdbhead">${P.img?`<img class="kdbport" src="${besc(P.img)}" alt="" width="72" height="72">`:`<span class="kdbport kdbini">${besc((K.n||"?")[0])}</span>`}
+    <div class="kdbnm"><h2>${besc(K.n)}</h2><p>${besc([K.druh,K.povolani].filter(Boolean).join(" · "))}</p><p class="kdblv">${K.uroven?`${K.uroven}. úroveň`:""}${K.hrac?` · hraje ${besc(K.hrac)}`:""}${K.test?" · <i>zkušební</i>":""}</p></div>
+    <div class="kdbhb"><button type="button" class="kdbbtn" data-kodp="k">☾ Krátký odpočinek</button><button type="button" class="kdbbtn" data-kodp="d">☾ Dlouhý odpočinek</button><button type="button" class="kdbbtn" data-ktisk ${btip("Vytiskne celou kartu nebo ji uloží jako PDF")}>Tisk</button><button type="button" class="kdbbtn" data-kexport ${btip("Stáhne kartu a stav postavy jako JSON")}>Export</button>${GMV&&!KSTAT.has(K.id)&&!K.test?`<button type="button" class="kdbbtn" data-ksmaz>Smazat kartu</button>`:""}<a class="kdbbtn" href="#karty">Všechny karty</a></div></div>`;
+  /* horní řada */
+  const ab=BAB.map(a=>{const v=(K.vl||{})[a];if(v==null)return "";const m=kMod(v);return `<div class="kdbab"><small>${KDBVL[a]}</small><button type="button" data-khod="ov:${a}" ${btip(`Ověření ${KSK[a]} (${a}): d20 ${bsg(m)}`)}>${bsg(m)}</button><b>${v}</b></div>`}).join("");
+  const hp=`<div class="kdbhp khp${cur<=mx/2?" bhp2":""}${cur<=0?" bhp0":""}"><div class="kdbhpz"><button type="button" class="kdbheal" data-kzrz="l">Léčit</button><input type="number" min="0" max="999" data-kzrv inputmode="numeric" aria-label="Kolik HP"><button type="button" class="kdbdmg" data-kzrz="z">Zranit</button></div>
+    <div class="kdbhpc"><span><small>Teď</small><b>${cur}</b></span><i>/</i><span><small>Max</small><b>${mx}</b></span><span class="kdbtmp"><small>Dočasné</small><b>${S.thp?S.thp:"–"}</b></span></div>
+    <div class="kdbhpo"><select data-kzrt aria-label="Typ zranění">${BZTYPY.map(t=>`<option value="${t}">${BZRT[t]}</option>`).join("")}</select><button type="button" class="kdbmini" data-kzrz="d" ${btip("Zadané číslo jako dočasné HP")}>+ dočasné</button><span class="kdbkz" ${btip(`Kostky životů ${K.kz||""}: použité zaškrtni (krátký odpočinek je utratí sám)`)}>KŽ ${[...Array(kzMax)].map((_,j)=>`<button type="button" class="${j<(+S.kz||0)?"on":""}" data-kkz="${j}" aria-label="Kostka životů ${j+1}"></button>`).join("")}</span></div>
+    <h3 class="kdbpt">Životy</h3><i class="kdbhpbar" style="--p:${pr}%"></i></div>`;
+  const top=`<div class="kdbtop">${ab}
+    <div class="kdbsm"><small>Zdatnost</small><b>${bsg(+K.zdatnost||0)}</b><small>bonus</small></div>
+    <div class="kdbsm" ${btip(K.rychlost||"")}><small>Pěšky</small><b>${besc(String(K.rychlost||"").match(/\d+/)?.[0]||"–")}<i> st.</i></b><small>${zat.pret?`<b class="bhrich">přetížen</b>`:"rychlost"}</small></div>
+    <label class="kdbsm kdbinsp" ${btip("Heroic Inspiration – zaškrtni, když ji postava má")}><input type="checkbox" data-kinsp${S.insp?" checked":""}><span aria-hidden="true"></span><small>Hrdinská inspirace</small></label>
+    <div class="kdbsm" ${btip(SVST(D.sv))}><small>Svědomí</small><b class="psv psv${kSvKl(D.sv)}">${D.sv}</b><small>${SVST(D.sv)}</small></div>${hp}</div>`;
+  /* levý a prostřední sloupec */
+  const zach=kdbPanel("kdbzach","Záchranné hody",`<div class="kdbzg">${BAB.map(a=>`<div class="kdbzr${prof.includes(a)?" kprof":""}"><i class="kdbdot" aria-hidden="true"></i><span>${a}</span><button type="button" data-khod="za:${a}" ${btip(`Záchrana ${KSK[a]}: d20 ${bsg((K.zach||{})[a]||0)}`)}>${bsg((K.zach||{})[a]||0)}</button></div>`).join("")}</div>${(K.zachPozn||[]).length?`<p class="kdbnote">${K.zachPozn.map(besc).join("<br>")}</p>`:""}`);
+  const pas=K.pasiv||{},sm=kdbPanel("kdbsmy","Smysly",`${[["vnimani","Pasivní Vnímání"],["patrani","Pasivní Pátrání"],["vhled","Pasivní Vhled"]].map(([k,l])=>`<div class="kdbsr"><b>${pas[k]??"–"}</b><span>${l}</span></div>`).join("")}<p class="kdbnote">${besc(K.smysly||"Další smysly: žádné")}</p>`);
+  const dpl=kDoplHtml(K).replace(/<h3 class="uvh2">Zdatnosti a jazyky<\/h3>/,""),dpi=dpl.indexOf('<h3 class="uvh2">Doplnit'),zdat=kdbPanel("kdbzdat","Zdatnosti a jazyky",dpi>=0?dpl.slice(0,dpi):dpl),dplX=dpi>=0?dpl.slice(dpi):"";
+  const dov=kdbPanel("kdbdov","Dovednosti",`<div class="kdbdh"><span>Zd.</span><span>Vl.</span><span>Dovednost</span><span>Bonus</span></div>${Object.keys(KDOVAB).filter(n=>(K.dov||{})[n]!=null).map(n=>`<div class="kdbdr${dp[n]?" kprof":""}${dp[n]==="E"?" kexp":""}"><i class="kdbdot" aria-hidden="true"></i><small>${KDOVAB[n]}</small><span>${besc(n)}</span><button type="button" data-khod="dv:${besc(n)}" ${btip(`${n}: d20 ${bsg(K.dov[n])}${dp[n]==="E"?" · Expertise":dp[n]?" · zdatnost":""}`)}>${bsg(K.dov[n])}</button></div>`).join("")}`);
+  const hod=kdbPanel("kdbhod","Hod kostkou",`<p class="kadv" role="radiogroup" aria-label="Další hod">${[[0,"normálně"],[1,"výhoda"],[-1,"nevýhoda"]].map(([k,l])=>`<label><input type="radio" name="kadv" data-kadv="${k}"${KADV===k?" checked":""}> ${l}</label>`).join("")}${GMV?` <label><input type="checkbox" data-kskr${window.KSKR?" checked":""}> skrytý</label>`:""}</p>${kHodForm(K)}`);
+  /* iniciativa, AC, obrana, stavy */
+  const def=[["Resistance",K.odol],["Immunity",K.imu],["Vulnerability",K.zra]].filter(([,L])=>(L||[]).length);
+  const r1=`<div class="kdbr1"><div class="kdbini"><small>Iniciativa</small><button type="button" data-khod="in" ${btip(`Iniciativa: d20 ${bsg(+K.ini||0)}`)}>${bsg(+K.ini||0)}</button></div>
+    <div class="kdbac" ${btip(`AC ${ac} (z PDF ${K.ac}${S.bezstit?", bez štítu −2":""}${(S.uc||[]).filter(x=>x.ac||x.acmin).map(x=>`, ${x.n}`).join("")})`)}><small>AC</small><b>${ac}</b><small>${ac!==+K.ac?`z PDF ${K.ac}`:"obrana"}</small></div>
+    <section class="kdbp kdbdef"><div><h4>Obrana</h4>${def.length?def.map(([l,L])=>`<p><b>${l}</b> ${L.map(t=>`${bikZr(t)}<span>${besc(BZRT[t]||t)}</span>`).join(" ")}</p>`).join(""):`<p class="kdbnote">Resistance, Immunity ani Vulnerability</p>`}${K.obrana&&!def.length?`<p class="kdbnote">${besc(K.obrana)}</p>`:""}</div>
+      <div><h4>Stavy <small>ovlivní hody</small></h4><details class="kdbstp"${(S.stavy||[]).length?" open":""}><summary>${(S.stavy||[]).length?besc(S.stavy.join(", ")):"bez stavů – přidat"}</summary>${kStavHtml(K)}</details>
+        <p class="kdbvy" ${btip(vy?`Vyčerpání ${vy}: −${2*vy} k hodům d20`:"Vyčerpání")}><small>Vyčerpání</small>${[...Array(6)].map((_,j)=>`<button type="button" class="${j<vy?"on":""}" data-kvy="${j}" aria-label="Vyčerpání ${j+1}"></button>`).join("")}</p></div></section></div>`;
+  /* záložka Akce: útoky jako tabulka, pak akce / bonusové akce / reakce / ostatní, omezené použití */
+  const efH=ef?`<div class="kef">${ef}</div>`:"",UT=kUtoky(K);
+  const utR=UT.map((a,i)=>`<tr><td><b>${besc(a.n)}</b><small>${besc([a.dal?"na dálku":"zblízka",...(a.vl||[])].join(" · "))}</small></td><td>${a.dal?"dálka":"5 st."}</td><td><button type="button" class="kdbbox" data-khod="ut:${i}" ${btip(`Útok ${a.n}: d20 ${bsg(+a.b||0)}${a.pocet>1?` · ${a.pocet}× za akci`:""}`)}>${bsg(+a.b||0)}</button></td><td>${a.z?`<button type="button" class="kdbbox kdbz" data-kzr="${i}" ${btip(`Zranění ${a.z} ${BZRT[a.t]||a.t||""}`)}>${besc(a.z)} ${bikZr(a.t)}</button><button type="button" class="kdbmini" data-kzr="${i}" data-krit="1" ${btip("Kritický zásah: dvojnásob kostek")}>krit</button>`:"–"}</td><td><small>${a.pocet>1?`${a.pocet}× za akci. `:""}${besc(a.pozn||"")}${typeof kMunTxt==="function"?kMunTxt(K,a):""}</small></td></tr>`).join("");
+  const sekce=(k,t,h)=>h?`<section class="kdbsec" data-kac="${k}"${KDBFLT.a!=="all"&&KDBFLT.a!==k?" hidden":""}>${t?`<h4 class="kdbsh">${t}</h4>`:""}${h}</section>`:"";
+  let ak=kAkceHtml(K,true),ai=0;const AKK=["A","BA","R","X"];ak=ak.replace(/<section>/g,()=>{const k=AKK[ai++]||"X";return `<section data-kac="${k}"${KDBFLT.a!=="all"&&KDBFLT.a!==k?" hidden":""}>`});
+  const zdrL=[...kSloty(K).map(q=>({k:q.k,n:`${q.pakt?"Pakt":"Sloty"} ${q.st}. st.`,max:q.max,obn:q.pakt?"krátký odpočinek":"dlouhý odpočinek"})),...(K.zdroje||[]).map(q=>({k:q.n,n:q.n,max:q.max,obn:q.obn})),...(kVydMax(K)?[{k:"Výdrž",n:"Výdrž",max:kVydMax(K),obn:"dlouhý odpočinek"}]:[])];
+  const akceT=`${kdbChips("a",KDBFLT.a,[["all","Vše"],["utok","Útok"],["A","Akce"],["BA","Bonusová akce"],["R","Reakce"],["X","Ostatní"],["omez","Omezené použití"]])}
+    ${sekce("utok",`Útoky <small>· v tahu: pohyb (${besc(K.rychlost||"")}), akce, bonusová akce, reakce</small>`,`${efH}<table class="kdbtab kdbut"><thead><tr><th>Útok</th><th>Dosah</th><th>Zásah</th><th>Zranění</th><th>Poznámky</th></tr></thead><tbody>${utR||`<tr><td colspan="5"><i>žádné útoky</i></td></tr>`}</tbody></table>`)}
+    <div class="kdbak">${ak}</div>
+    ${sekce("omez","Omezené použití",zdrL.length?`<ul class="kdbli kdbzdr">${zdrL.map(q=>`<li><b>${besc(q.n)}</b>${kdbPips(K,q)}</li>`).join("")}</ul>`:`<p class="kdbnote">Nic s omezeným počtem použití.</p>`)}
+    ${sekce("X","",kSermHtml(K))}${dplX?`<details class="bjapd kdbdpl"><summary>Doplnit útok nebo schopnost, které v PDF chybí</summary>${dplX.replace(/<h3 class="uvh2">[^<]*<\/h3>/,"")}</details>`:""}`;
+  /* záložka Kouzla */
+  const kouzlaT=`<div class="kdbkzh"><span><b>${besc(kz.vl||"–")}</b><small>vlastnost</small></span><span><b>${bsg(+kz.utok||0)}</b><small>útok kouzlem</small></span><span><b>${kz.dc||"–"}</b><small>SO záchrany</small></span></div>
+    <div class="kdbsrch"><input type="search" data-kdbq placeholder="Hledat kouzlo podle názvu, seslání, dosahu…" value="${besc(KDBFLT.q)}" aria-label="Hledat kouzlo"></div>
+    ${o.slH?`<div class="kdbslots"><h4 class="kdbsh">Sloty</h4>${o.slH}</div>`:""}<div class="kdbspl">${kSpListHtml(K)}</div><p class="kdbnote">Klikni na název kouzla – ukáže se jeho popis. U kouzel s více sloty vyber stupeň, zranění se podle něj přepočítá.</p><details class="bjapd kpripw"><summary>Připravit nebo vyměnit kouzla</summary>${kPripHtml(K)}</details>`;
+  /* záložka Vybavení */
+  const vybT=`<div class="kdbinvh"><span><small>Neseno</small><b>${zat.w?String(Math.round(zat.w*10)/10).replace(".",","):"0"} lb</b><small>${zat.pret?`<b class="bhrich">přetížen</b> – víc než ${zat.max} lb`:`unese ${zat.max} lb`}</small></span><span><small>Připoutáno</small><b>${pri}/3</b></span></div>${invH}`;
+  /* záložky */
+  const tabs=[["akce","Akce"],...(kz.seznam||(S.kpn||[]).length?[["kouzla","Kouzla"]]:[]),["vybaveni","Vybavení"],["rysy","Rysy"],["duse","Duše"],["zazemi","Zázemí"],["denik","Poznámky"],["spol","Společníci"]];let tab=KTAB.get();if(!tabs.some(x=>x[0]===tab))tab="akce";
+  const sec2=(id,h)=>`<section class="ktab" data-tab="${id}"${tab===id?"":" hidden"}>${h}</section>`;
+  const tabsH=`<section class="kdbp kdbtabs"><nav class="ktabs" role="tablist">${tabs.map(([id,n])=>`<button type="button" role="tab" data-ktab="${id}" aria-selected="${tab===id}">${n}</button>`).join("")}</nav>
+    ${sec2("akce",akceT)}${kz.seznam||(S.kpn||[]).length?sec2("kouzla",kouzlaT):""}${sec2("vybaveni",vybT)}
+    ${sec2("rysy",kRysyHtml(K)||`<p class="kdbnote">Žádné rysy – nahraj list postavy z D&amp;D Beyond.</p>`)}
+    ${sec2("duse",`<div class="kgrid"><div>${kDuseHtml(K)}</div><div>${kRanyHtml(K)}${kUcHtml(K)}</div></div>`)}
+    ${sec2("zazemi",`<h4 class="kdbsh">Zázemí</h4><p class="kdbbig">${besc(K.pozadi||"–")}</p>${popH?`<h4 class="kdbsh">O postavě</h4>${popH}`:`<p class="kdbnote">Popis postavy se načte z PDF.</p>`}`)}
+    ${sec2("denik",`<div class="kgrid"><div><h4 class="kdbsh">Poznámky a deník</h4><textarea class="kpozn" data-kpozn rows="12" maxlength="4000" placeholder="Koho jsme potkali, co jsme slíbili, co si pamatovat…">${besc(S.pozn||"")}</textarea><p class="kdbnote">Ukládá se samo. Vidí je každý, kdo otevře kartu – tajnosti pošli vypravěči ze stránky Hra.</p></div><div><h4 class="kdbsh">Herní záznam</h4>${kHodyHtml(ja,30)}<p class="kdbnote"><a href="#karty">Celý záznam družiny →</a></p></div></div>`)}
+    ${sec2("spol",kSpolHtml(K))}</section>`;
+  return `<div data-kid="${besc(K.id)}" class="kcard kdb${ro?" kro":""}">${head}
     ${ro?`<p class="kropozn">Tuto kartu upravuje přihlášený hráč. Ke své postavě se přihlas na stránce <a href="#hra">Hra</a>.</p>`:""}${postupBanner(K)}
-    <div class="kstat">
-      <span class="kbox" ${btip(`AC ${kAC(K)} (z PDF ${K.ac}${S.bezstit?", bez štítu −2":""}${(S.uc||[]).filter(x=>x.ac||x.acmin).map(x=>`, ${x.n}`).join("")})`)}><small>AC</small><b>${kAC(K)}</b>${kAC(K)!==+K.ac?`<small>z PDF ${K.ac}</small>`:""}</span>
-      <button type="button" class="kbox" data-khod="in" ${btip(`Iniciativa: d20 ${bsg(+K.ini||0)}`)}><small>Iniciativa</small><b>${bsg(+K.ini||0)}</b></button>
-      <span class="kbox"><small>Zdatnost</small><b>${bsg(+K.zdatnost||0)}</b></span>
-      <span class="kbox"><small>Pasivní Vnímání</small><b>${(K.pasiv||{}).vnimani??"–"}</b></span>
-      <span class="kbox kwide"><small>Rychlost</small><span>${besc(K.rychlost||"")}${zat.pret?` <b class="bhrich">· přetížen</b>`:""}</span></span>
-      <span class="kbox khp${cur<=mx/2?" bhp2":""}${cur<=0?" bhp0":""}"><small>Životy</small><b>${cur}</b><span>/${mx}${S.thp?` <i class="bkthp">+${S.thp}</i>`:""}</span><i class="bkhpb" style="--p:${pr}%"></i></span>
-      <span class="kbox kzrb"><input type="number" min="0" max="999" data-kzrv inputmode="numeric" placeholder="HP" aria-label="Kolik HP"><select data-kzrt aria-label="Typ zranění">${BZTYPY.map(t=>`<option value="${t}">${BZRT[t]}</option>`).join("")}</select><button type="button" class="gbtn ghost" data-kzrz="z">−</button><button type="button" class="gbtn ghost" data-kzrz="l">+</button><button type="button" class="gbtn ghost" data-kzrz="d">dočasné</button></span>
-      <span class="kbox"><small>Kostky životů</small><span class="bzd">${[...Array(kzMax)].map((_,j)=>`<button type="button" class="${j<(+S.kz||0)?"on":""}" data-kkz="${j}" aria-label="Kostka životů ${j+1}"></button>`).join("")}</span><small>${besc(K.kz||"")}</small></span>
-      <span class="kbox"><small>Vyčerpání</small><span class="bzd">${[...Array(6)].map((_,j)=>`<button type="button" class="${j<vy?"on":""}" data-kvy="${j}" aria-label="Vyčerpání ${j+1}"></button>`).join("")}</span><small>${vy?`−${2*vy} k d20`:"–"}</small></span>
-      <label class="kbox kinsp"><small>Inspirace</small><input type="checkbox" data-kinsp${S.insp?" checked":""}></label>
-      <span class="kbox"><small>Svědomí</small><b class="psv psv${kSvKl(kDuse(K).sv)}">${kDuse(K).sv}</b><small>${SVST(kDuse(K).sv)}</small></span></div>
-    ${kZavBox(K)}<p class="kadv" role="radiogroup" aria-label="Další hod">Další hod: ${[[0,"normálně"],[1,"s výhodou"],[-1,"s nevýhodou"]].map(([k,l])=>`<label><input type="radio" name="kadv" data-kadv="${k}"${KADV===k?" checked":""}> ${l}</label>`).join("")}${GMV?` <label><input type="checkbox" data-kskr${window.KSKR?" checked":""}> skrytý hod (jen pro mě)</label>`:""}</p>
-    <nav class="ktabs" role="tablist">${tabs.map(([id,n])=>`<button type="button" role="tab" data-ktab="${id}" aria-selected="${tab===id}">${n}</button>`).join("")}</nav>
-    ${sec("hody",`<div class="kgrid"><div>
-      <h3 class="uvh2">Vlastnosti</h3><div class="kabs">${BAB.map(ab).join("")}</div>
-      <h3 class="uvh2">Záchrany</h3><div class="kzach">${zach}</div>${(K.zachPozn||[]).length?`<p class="rsmall">${besc(K.zachPozn.join(" · "))}</p>`:""}
-      <h3 class="uvh2">Stavy <small>ovlivní hody z karty</small></h3>${kStavHtml(K)}
-      ${(K.odol||[]).length||(K.imu||[]).length?`<p class="rsmall"><b>Resistance</b> ${besc((K.odol||[]).map(t=>BZRT[t]||t).join(", "))}${(K.imu||[]).length?` · <b>Immunity</b> ${besc(K.imu.map(t=>BZRT[t]||t).join(", "))}`:""}</p>`:""}
-    </div><div>
-      <h3 class="uvh2">Dovednosti</h3><div class="kdovs">${dov}</div>
-      <p class="rsmall"><b>Smysly</b> ${besc(K.smysly||"–")}${K.pasiv?` · pasivní Vhled ${K.pasiv.vhled}, Pátrání ${K.pasiv.patrani}`:""}</p>
-      <h3 class="uvh2">Hod kostkou</h3>${kHodForm(K)}
-    </div></div>`)}
-    ${sec("akce",`${ef?`<div class="kef">${ef}</div>`:""}<p class="rsmall">V tahu: pohyb (${besc(K.rychlost||"")}), jedna akce, jedna bonusová akce (má-li ji něco), jedna reakce za kolo.</p>${kAkceHtml(K)}
-      <div class="kgrid"><div>${zd?`<h3 class="uvh2">Počty použití</h3><div class="bkzdr">${zd}</div>`:""}${kRysyHtml(K)}</div><div>${kSermHtml(K)}</div></div>`)}
-    ${kz.seznam?sec("kouzla",`<h3 class="uvh2">Kouzla <small>${besc(kz.vl||"")} · SO ${kz.dc} · útok ${bsg(+kz.utok||0)}</small></h3>${slH}<p class="rsmall">Klikni na název kouzla – ukáže se jeho popis. U kouzel s více sloty vyber stupeň, zranění se podle něj přepočítá.</p>${kSpListHtml(K)}<details class="bjapd kpripw"><summary>Připravit nebo vyměnit kouzla</summary>${kPripHtml(K)}</details>`):""}
-    ${sec("vybaveni",`<h3 class="uvh2">Vybavení <small>${zat.w?`${String(Math.round(zat.w*10)/10).replace(".",",")} lb z ${zat.max} lb`:""}${pri?` · připoutáno ${pri}/3`:""}</small></h3>${zat.pret?`<p class="kpostup">Neseš víc, než unese tvoje Síla (STR × 15 lb). S takovou zátěží se nepohneš rychleji než 5 stop.</p>`:""}${invH}`)}
-    ${sec("duse",`<div class="kgrid"><div>${kDuseHtml(K)}</div><div>${kRanyHtml(K)}${kUcHtml(K)}</div></div>`)}
-    ${sec("spol",kSpolHtml(K))}
-    ${sec("denik",`<div class="kgrid"><div><h3 class="uvh2">Poznámky a deník</h3><textarea class="kpozn" data-kpozn rows="10" maxlength="4000" placeholder="Koho jsme potkali, co jsme slíbili, co si pamatovat…">${besc(S.pozn||"")}</textarea><p class="rsmall">Ukládá se samo. Vidí je každý, kdo otevře kartu – tajnosti pošli vypravěči ze stránky Hra.</p>
-      ${popH?`<h3 class="uvh2">O postavě</h3>${popH}`:""}${kDoplHtml(K)}</div><div>
-      <h3 class="uvh2">Herní záznam</h3>${kHodyHtml(ja,30)}<p class="rsmall"><a href="#karty">Celý záznam družiny →</a></p></div></div>`)}
-    </div>`;pojZnac(box)}
+    ${top}${kZavBox(K)}
+    <div class="kdbmain"><div class="kdbc1">${zach}${sm}${zdat}</div><div class="kdbc2">${dov}${hod}</div><div class="kdbc3">${r1}${tabsH}</div></div></div>`}
+/* filtr v záložce Akce a hledání kouzel – bez překreslení */
+document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-kdbf]");if(!b)return;const [g,k]=b.dataset.kdbf.split(":");KDBFLT[g]=k;const c=b.closest(".ktab");if(!c)return;
+  c.querySelectorAll(`[data-kdbf^="${g}:"]`).forEach(x=>x.setAttribute("aria-pressed",x===b));c.querySelectorAll("[data-kac]").forEach(s=>{s.hidden=k!=="all"&&s.dataset.kac!==k})});
+document.addEventListener("input",e=>{const t=e.target;if(!t.matches||!t.matches("[data-kdbq]"))return;KDBFLT.q=t.value;const q=t.value.trim().toLowerCase(),c=t.closest(".ktab");
+  c.querySelectorAll(".kdbspl .kspl li").forEach(r=>{r.hidden=!!q&&!r.textContent.toLowerCase().includes(q)});c.querySelectorAll(".kdbspl .bsph").forEach(h=>{const ul=h.nextElementSibling;h.hidden=!!ul&&![...ul.children].some(li=>!li.hidden)})});
 /* import PDF: pdf.js z art/lib, pole formuláře → karta */
 async function kartaImport(file){mmHlasG("Čtu PDF…",2500);
   const lib=await import(new URL("art/lib/pdfjs/pdf.min.mjs",location.href).href);lib.GlobalWorkerOptions.workerSrc=new URL("art/lib/pdfjs/pdf.worker.min.mjs",location.href).href;
@@ -8338,8 +8631,8 @@ function kRysPopis(K,n){const T=KTX[K.id]||{},t=T[n],s=kRysSrd(n);
 /* ---- čas aktivace a seznamy akcí ---- */
 const KCAS={A:"Akce",BA:"Bonusové akce",R:"Reakce",X:"Ostatní"};
 const kCasKouzla=x=>{const d=kSp(x.n);const c=(d&&d.ct)||x.cas||"";return /^Bonus|^1BA|bonus/i.test(c)?"BA":/^Reakc|^1R|reaction/i.test(c)?"R":/^Akce|^1A$|action/i.test(c)?"A":"X"};
-function kAkceHtml(K){const D=kDopl(K),sez=kSeznam(K),sl=kSloty(K),U=kartaStav(K.id).zdr||{};const G={A:[],BA:[],R:[],X:[]};
-  kUtoky(K).forEach((a,i)=>G[a.cas||"A"].push(`<li><b>${besc(a.n)}</b>${a.pocet>1?` <small>${a.pocet}×</small>`:""} <button type="button" class="gbtn ghost" data-khod="ut:${i}">Útok ${bsg(+a.b||0)}</button>${a.z?`<button type="button" class="gbtn ghost" data-kzr="${i}">${besc(a.z)} ${besc(BZRT[a.t]||a.t||"")}</button>`:""}${kMunTxt(K,a)}</li>`));
+function kAkceHtml(K,bezUt){const D=kDopl(K),sez=kSeznam(K),sl=kSloty(K),U=kartaStav(K.id).zdr||{};const G={A:[],BA:[],R:[],X:[]};
+  if(!bezUt)kUtoky(K).forEach((a,i)=>G[a.cas||"A"].push(`<li><b>${besc(a.n)}</b>${a.pocet>1?` <small>${a.pocet}×</small>`:""} <button type="button" class="gbtn ghost" data-khod="ut:${i}">Útok ${bsg(+a.b||0)}</button>${a.z?`<button type="button" class="gbtn ghost" data-kzr="${i}">${besc(a.z)} ${besc(BZRT[a.t]||a.t||"")}</button>`:""}${kMunTxt(K,a)}</li>`));
   sez.forEach((x,i)=>{if(x.st>0&&!sl.some(q=>q.st>=x.st&&q.u<q.max))return;G[kCasKouzla(x)].push(`<li><button type="button" class="kspn" data-kspd="${i}">${besc(x.n)}</button> <small>${x.st?x.st+". st.":"trik"}${x.kon?" · ◎":""}</small> ${kSesHtml(K,x,i)}</li>`)});
   [...((K.rysy2||[]).filter(r=>r.cas||r.max)),...(D.rysy||[])].forEach(r=>{const u=Math.min(r.max||0,+(U[r.n]||0));G[r.cas||"X"].push(`<li><button type="button" class="kspn" data-krys="${besc(r.n)}">${besc(r.n)}</button>${r.max?` <span class="bzd">${[...Array(r.max)].map((_,j)=>`<button type="button" class="${j<u?"on":""}" data-kzd="${besc(r.n)}" data-j="${j}" aria-label="${besc(r.n)} ${j+1}"></button>`).join("")}</span>`:""}</li>`)});
   kTech(K).forEach(id=>{const t=STBY[id];G[/reakce/.test(t.c)?"R":/bonusov/.test(t.c)?"BA":"X"].push(`<li><button type="button" class="kspn" data-ktech="${t.id}">${besc(t.n)}</button> <small>${besc(t.c)}</small></li>`)});
