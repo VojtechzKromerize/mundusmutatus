@@ -132,7 +132,7 @@ function generuj(soubory, manifest) {
   const ids = new Set(fam.map(f => f.id));
 
   /* osoby */
-  const people = [];
+  const people = [], osStat = [];
   for (const p of readDir("osoby")) {
     const w = "osoby/" + p._file;
     for (const k of ["id", "jmeno", "rod", "role"]) if (!p[k]) fail(`${w}: chybí '${k}'`);
@@ -143,6 +143,7 @@ function generuj(soubory, manifest) {
     if (people.some(q => q.id === o.id)) fail(`${w}: id „${o.id}“ už má jiná osoba`);
     seed(o.id, p, w);
     people.push(o);
+    if (String(p.statblok || "").trim()) osStat.push({ id: o.id, n: o.n, r: o.r, s: String(p.statblok).trim(), w });
   }
   const pids = new Set(people.map(p => p.id)), prod = Object.fromEntries(people.map(p => [p.id, p.r]));
 
@@ -164,6 +165,134 @@ function generuj(soubory, manifest) {
       zdr: Array.isArray(r.zdroje) ? r.zdroje.filter(Boolean).map(String) : [] };
     for (const k of ["po", "roz", "zak"]) if (t[k]) odstranene.push(t[k]);
     RES.push({ $gm: true, ...t });
+  }
+
+  /* protivníci (bestiář pro tracker iniciativy) – celé jen pro vypravěče, hráči nedostanou nic.
+     h = celý statblock (bestiář), b = verze pro boj: bez citátu, popisu (odstavce, které nezačínají tučným slovem)
+     a bez výkupného a kořisti */
+  const BEZ_BOJ = /^\*\*(Výkupné|Kořist)/;
+  const mdBoj = body => md(body.trim().split(/\n\s*\n/).filter(bl => {
+    const t = bl.trim();
+    if (/^[|#]|^[-*] /.test(t)) return true;
+    return t.startsWith("**") && !BEZ_BOJ.test(t);
+  }).join("\n\n"));
+  const PROT = [], UROVNE_P = ["houf", "pacholek", "sok", "zhoubce"];
+  /* „Výdrž 2, Náboje 3“ → [{n, max}] */
+  const zdroje = (v, w) => lst(v).map(x => {
+    const m = x.match(/^(.*?)\s*(\d+)(\s*\/\s*den)?$/);
+    if (!m || !m[1].trim()) fail(`${w}: zdroj „${x}“ má mít tvar  Název počet  (např. Výdrž 2)`);
+    return { n: m[1].trim(), max: parseInt(m[2], 10) };
+  });
+  /* útok: „Název | +6 | 1d8+3 | poznámka“, „Název | AGI DC 15 | 2d8 Svaté“, u houfu „Název | +4 | 3 za pacholka | …“ */
+  const utoky = (v, w) => (Array.isArray(v) ? v : v ? [v] : []).map(x => {
+    const a = x.split("|").map(y => y.trim());
+    if (a.length < 2 || !a[0]) fail(`${w}: útok „${x}“ má mít tvar  Název | +6 | 1d8+3 | poznámka`);
+    const o = { n: a[0] }, b = a[1] || "", z = a[2] || "";
+    const mb = b.match(/^([+-]\s*\d+)$/);
+    if (mb) o.b = parseInt(mb[1].replace(/\s/g, ""), 10); else if (b) o.dc = b;
+    const mz = z.match(/^(\d+)\s+za\s+(pacholka|každého|kus)/i);
+    if (mz) { o.zp = parseInt(mz[1], 10); o.zt = z.slice(mz[0].length).trim(); }
+    else { const md2 = z.match(/^(\d*d\d+(?:\s*[+-]\s*\d+)?)(.*)$/i); if (md2) { o.z = md2[1].replace(/\s/g, ""); o.zt = md2[2].trim(); } else if (z) o.zt = z; }
+    if (a[3]) o.p = a.slice(3).join(" | ");
+    return o;
+  });
+  const xpZ = v => { const m = String(v || "").replace(/\s/g, "").match(/(\d+)XP/i); return m ? parseInt(m[1], 10) : 0; };
+  /* odstavec „**Výkupné a kořist.** …“ z textu – pro shrnutí po boji */
+  const vykupne = body => { const bl = body.split(/\n\s*\n/).map(x => x.trim()).find(x => /^\*\*(Výkupné|Kořist)/.test(x)); return bl ? bl.replace(/^\*\*[^*]+\*\*\s*/, "").replace(/\s*\n\s*/g, " ") : ""; };
+  for (const p of readDir("protivnici")) {
+    const w = "protivnici/" + p._file;
+    for (const k of ["id", "nazev", "uroven"]) if (!p[k]) fail(`${w}: chybí '${k}'`);
+    const u = String(p.uroven).trim().toLowerCase();
+    if (!UROVNE_P.includes(u)) fail(`${w}: uroven musí být houf / pacholek / sok / zhoubce (je „${p.uroven}“)`);
+    if (PROT.some(q => q.id === p.id)) fail(`${w}: id „${p.id}“ už má jiný protivník`);
+    /* hp: „75“ nebo „jezdec 45, dráček 68“ → [{n, max}] */
+    const hp = String(p.hp || "").split(",").map(x => x.trim()).filter(Boolean).map(x => {
+      const m = x.match(/^(.*?)(\d+)/);
+      if (!m) fail(`${w}: hp „${x}“ má mít tvar  75  nebo  jezdec 45, dráček 68`);
+      return { n: m[1].trim(), max: parseInt(m[2], 10) };
+    });
+    const o = { $gm: true, id: p.id, n: p.nazev, u, ac: p.ac || "", hp, ut: p.utok || "", poz: p.pozehnani || "", pok: p.pokuseni || "",
+      kom: p.komplikace || "", ner: p.nerest || "", vy: p.vyzva || "", h: md(p._body), b: mdBoj(p._body),
+      at: utoky(p.utoky, w), zd: zdroje(p.zdroje, w), st: lst(p.stitky), xp: xpZ(p.vyzva), vk: vykupne(p._body) };
+    if (/za\s+pacholka|za\s+kus/i.test(String(p.vyzva || ""))) o.xpp = 1;
+    if (p.vyznani) { if (!["kat", "kal", "old"].includes(p.vyznani)) fail(`${w}: vyznani je kat / kal / old`); o.vz = p.vyznani; }
+    if (String(p.kriticka || "").trim().toLowerCase() === "drak") o.kd = 1;
+    if (String(p.pocet || "").trim()) {
+      o.poc = Math.round(num(p.pocet, w));
+      if (o.poc < 1 || o.poc > 12) fail(`${w}: pocet má být 1 až 12`);
+    }
+    if (String(p.bonus || "").trim()) o.bon = Math.round(num(p.bonus, w));
+    for (const k of ["ut", "poz", "pok", "kom", "ner", "h"]) if (o[k]) odstranene.push(o[k]);
+    PROT.push(o);
+  }
+  const protIds = new Set(PROT.map(q => q.id));
+
+  /* přívlastky: úpravy statblocku (Zkušený, Ve zbroji, Proměněnec…) – jen pro vypravěče */
+  const PRIV = [];
+  const plus = (v, w, k) => { const t = String(v || "").trim(); if (!t) return null; const m = t.match(/^([+-]?\d+)\s*(%?)$/); if (!m) fail(`${w}: ${k} má mít tvar  +2  nebo  +25%`); return { v: parseInt(m[1], 10), pr: !!m[2] }; };
+  for (const p of readDir("privlastky")) {
+    const w = "privlastky/" + p._file;
+    for (const k of ["id", "nazev"]) if (!p[k]) fail(`${w}: chybí '${k}'`);
+    if (PRIV.some(q => q.id === p.id)) fail(`${w}: id „${p.id}“ už má jiný přívlastek`);
+    const pro = lst(p.pro).map(x => x.toLowerCase());
+    for (const x of pro) if (!UROVNE_P.includes(x)) fail(`${w}: pro „${x}“ – možnosti jsou houf / pacholek / sok / zhoubce`);
+    const o = { $gm: true, id: p.id, n: p.nazev, pro, ac: plus(p.ac, w, "ac"), hp: plus(p.hp, w, "hp"), ut: plus(p.utok, w, "utok"),
+      zr: plus(p.zraneni, w, "zraneni"), xp: plus(p.xp, w, "xp"), zd: zdroje(p.zdroje, w), st: lst(p.stitky), h: md(p._body) };
+    if (o.h) odstranene.push(o.h);
+    PRIV.push(o);
+  }
+  const privIds = new Set(PRIV.map(q => q.id));
+  /* „Jméno = 6 houf-zoldneru + zkuseny“ → {n, k, id, pr, os} (id je protivník, nebo osoba se statblokem) */
+  const osById = Object.fromEntries(osStat.map(x => [x.id, x]));
+  const radek = (x, w) => {
+    let t = String(x).trim(), n = "";
+    const i = t.indexOf("=");
+    if (i > 0) { n = t.slice(0, i).trim(); t = t.slice(i + 1).trim(); }
+    const parts = t.split("+").map(y => y.trim()).filter(Boolean);
+    let hl = parts.shift() || "", k = 0;
+    const mk = hl.match(/^(\d+)\s*[×x]?\s+(.+)$/);
+    if (mk) { k = parseInt(mk[1], 10); hl = mk[2].trim(); }
+    for (const pr of parts) if (!privIds.has(pr)) fail(`${w}: přívlastek „${pr}“ neexistuje`);
+    if (protIds.has(hl)) return { n, k, id: hl, pr: parts };
+    if (osById[hl]) return { n, k, os: hl, pr: parts };
+    fail(`${w}: „${hl}“ není protivník ani osoba se statblokem`);
+  };
+  /* osoby se statblokem (pole statblok: v souboru osoby) – jen pro vypravěče */
+  const PROTOS = osStat.map(x => {
+    const r = radek(x.s, x.w);
+    if (!r.id) fail(`${x.w}: statblok „${x.s}“ musí začínat id protivníka z bestiáře`);
+    return { $gm: true, id: x.id, n: x.n, r: x.r, b: r.id, pr: r.pr };
+  });
+  /* hotová setkání (zdroj/obsah/setkani) – jen pro vypravěče */
+  const SETK = [];
+  for (const p of readDir("setkani")) {
+    const w = "setkani/" + p._file;
+    for (const k of ["id", "nazev"]) if (!p[k]) fail(`${w}: chybí '${k}'`);
+    if (SETK.some(q => q.id === p.id)) fail(`${w}: id „${p.id}“ už má jiné setkání`);
+    const np = (Array.isArray(p.nepratele) ? p.nepratele : lst(p.nepratele)).map(x => radek(x, w));
+    if (!np.length) fail(`${w}: chybí nepratele (seznam řádků  - 6 houf-zoldneru)`);
+    const o = { $gm: true, id: p.id, n: p.nazev, st: lst(p.stitky), np, h: md(p._body), x: text(p._body) };
+    if (o.x) odstranene.push(o.x);
+    SETK.push(o);
+  }
+  const setkIds = new Set(SETK.map(q => q.id));
+
+  /* tabulky setkání Výpravy (vyprava-setkani.json) – jen pro vypravěče; sloupec b = setkání nebo seznam nepřátel */
+  let VYZAZ = [];
+  if ("vyprava-setkani.json" in soubory) {
+    let t;
+    try { t = JSON.parse(soubory["vyprava-setkani.json"]); } catch (e) { fail("vyprava-setkani.json: chybný zápis JSON – " + e.message); }
+    if (!Array.isArray(t)) fail("vyprava-setkani.json: má to být seznam tabulek");
+    VYZAZ = t.map((tab, i) => {
+      if (!Array.isArray(tab)) fail(`vyprava-setkani.json: tabulka ${i + 1} má být seznam`);
+      tab.forEach((z, j) => {
+        const w = `vyprava-setkani.json, tabulka ${i + 1}, řádek ${j + 1}`;
+        if (!z || !z.n) fail(`${w}: chybí n (název)`);
+        if (z.b && !setkIds.has(z.b)) z.b.split(";").forEach(x => radek(x, w));
+        odstranene.push(String(z.t || ""));
+      });
+      return { $gm: true, i, z: tab };
+    });
   }
 
   /* Draconomicon */
@@ -247,7 +376,7 @@ function generuj(soubory, manifest) {
   for (const p of readDir("druzina")) {
     if (!p.id || !p.n) fail(`druzina/${p._file}: chybí 'id' nebo 'n'`);
     const o = { id: p.id, n: p.n };
-    for (const k of ["epi", "cls", "faith", "origin", "img"]) if (p[k]) o[k] = p[k];
+    for (const k of ["epi", "cls", "faith", "origin", "img", "hrac", "vek", "cil"]) if (p[k]) o[k] = p[k];
     if (p.sv) o.sv = parseInt(p.sv, 10);
     o.ctn = lst(p.ctnosti); o.ner = lst(p.nerresti || p.neresti);
     o.ties = lst(p.vazby).filter(t => t.includes(":")).map(t => { const i = t.indexOf(":"); return [t.slice(0, i).trim(), t.slice(i + 1).trim()]; });
@@ -265,9 +394,10 @@ function generuj(soubory, manifest) {
   const pref = pid => ({ $g: [pid, prod[pid]], $x: pid });
   const rref = rid => ({ $g: rid, $x: rid });
   const F = fam.map(f => {
-    const base = {}; for (const k in f) if (k !== "stance" && k !== "note" && k !== "hist") base[k] = f[k];
-    Object.assign(base, { stance: "", note: "", hist: "", sl: true });
-    return { $g: f.id, ...base, $plne: { stance: f.stance, note: f.note, hist: f.hist, sl: false } };
+    /* „Slyšeli“: jméno, základní údaje a veřejně známá historie rodu; postoj ke králi a zápis kronikáře až „Potkali“ */
+    const base = {}; for (const k in f) if (k !== "stance" && k !== "note") base[k] = f[k];
+    Object.assign(base, { stance: "", note: "", sl: true });
+    return { $g: f.id, ...base, $plne: { stance: f.stance, note: f.note, sl: false } };
   });
   const P = people.map(p => {
     const base = { id: p.id, n: p.n, r: p.r, role: p.role, x: "", sl: true }, plne = { x: p.x, sl: false };
@@ -324,7 +454,8 @@ function generuj(soubory, manifest) {
   const odh = { DRACI: { kap, pl: PL }, ZEMEPIS: ZEM, FAM: F, PEOPLE: P, REL, PRAHA_PLACES: PR, MISTA: MI, TREES: T,
     SHORT: Object.fromEntries(Object.entries(short).map(([k, v]) => [k, { $g: k, $x: v }])),
     ARMS: Object.fromEntries(Object.entries(arms).map(([k, v]) => [k, { $g: k, $x: v }])),
-    PORTR, ZAPISY: zapisy.map(z => ({ $g: z.id, ...z })), PARTY: party, RESERS: RES };
+    PORTR, ZAPISY: zapisy.map(z => ({ $g: z.id, ...z })), PARTY: party, RESERS: RES, PROTIVNICI: PROT,
+    PRIVLASTKY: PRIV, SETKANI: SETK, PROTOSOBY: PROTOS, VYZAZ };
   return { odh, seed: SEED, odstranene };
 }
 

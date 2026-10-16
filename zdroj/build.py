@@ -272,11 +272,11 @@ def sb_rpc(fn, body, volitelna=False):
         fail(f"Supabase {fn}: {e.reason}")
 
 # ---------- obsah: soubory, obrázky, generátor ----------
-# Rody, osoby, vazby, rodokmeny, Praha, místa, Kronika, Družina a Draconomicon zpracovává zdroj/generator.js
+# Rody, osoby, vazby, rodokmeny, Praha, místa, Kronika, Družina, protivníci a Draconomicon zpracovává zdroj/generator.js
 # (stejný kód používá web, když vypravěč upraví text). Na webu napojeném na databázi je zdrojem pravdy
 # databáze (tabulka zaznamy); soubory v repozitáři jsou její záloha a nové či změněné soubory se do ní přenesou.
-ZAZNAMY_SLOZKY = ("rody/", "osoby/", "kronika/", "druzina/", "mista/", "praha/", "draconomicon/kapitoly/", "draconomicon/plemena/")
-ZAZNAMY_SOUBORY = ("vazby.md", "rodokmeny.json", "postavy-1458.json")
+ZAZNAMY_SLOZKY = ("rody/", "osoby/", "kronika/", "druzina/", "mista/", "praha/", "protivnici/", "privlastky/", "setkani/", "draconomicon/kapitoly/", "draconomicon/plemena/")
+ZAZNAMY_SOUBORY = ("vazby.md", "rodokmeny.json", "postavy-1458.json", "vyprava-setkani.json")
 GENERATOR = os.path.join(ROOT, "zdroj", "generator.js")
 
 def je_zaznam(rel):
@@ -415,8 +415,7 @@ reset = ("<style>\nhtml{-webkit-text-size-adjust:100%}\n:root{padding-top:env(sa
 robots = '<meta name="robots" content="noindex">\n' if GM else ""
 page = ('<!doctype html>\n<html lang="cs">\n<head>\n<meta charset="utf-8">\n'
         '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n' + robots +
-        '<meta name="description" content="Rody Čech, Moravy, Slezska, Lužic a sousedních zemí k 3. březnu 1458: mapa držav, vyznání, vazby a spory.">\n'
-        + head + reset + "</head>\n<body>\n" + body + "\n</body>\n</html>\n")
+        head + reset + "</head>\n<body>\n" + body + "\n</body>\n</html>\n")
 
 if DB:
     _arg = {"p_vetev": VETEV, "p_hrac": HRAC, "p_gm": {**GMD, **{k: v for k, v in STAT_G.items() if v != STAT_H.get(k)}}, "p_vychozi": SEED}

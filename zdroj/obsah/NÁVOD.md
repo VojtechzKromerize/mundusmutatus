@@ -16,6 +16,34 @@ Nové záznamy (osoba, rod, zápis Kroniky, plemeno, místo…) vznikají ve vyp
 - **Záloha:** jednou denně se texty upravené na webu uloží do souborů v této složce (větev `dev`,
   GitHub Actions „Záloha textů z webu“; spustit jde i ručně).
 
+## Boj: bestiář, přívlastky, setkání (jen vypravěč)
+Vše v této části vidí **jen vypravěč** – hráči nedostanou ani seznamy. Upravuje se na webu (Nový záznam) i v souborech.
+
+- **Protivníci** – `protivnici/` (vzor `_vzor.md`). Hlavička nese údaje pro tracker: `uroven` (houf / pacholek / sok /
+  zhoubce), `pocet`, `vyzva` (XP pro odhad obtížnosti; u houfu „100 XP za pacholka“), `ac`, `hp` („75“ nebo
+  „jezdec 45, dráček 68“), `bonus` (útok houfu), `pozehnani`, `pokuseni`, `komplikace`, `nerest`, `stitky` (pro hledání),
+  `zdroje` (k odškrtávání: „Výdrž 2, Náboje 3“), `vyznani` (kat / kal / old – svátky pro Závoj), `kriticka: drak`
+  a `utoky` – každý řádek `Název | +6 | 1d8+3 Slashing | poznámka`, u houfu `| 3 za pacholka Slashing |`,
+  u schopnosti se záchranou `| AGI DC 15 | 2d8 Fire |`. Text pod hlavičkou je celý statblock; v boji se ukáže bez citátu,
+  popisu (odstavců, které nezačínají **tučným slovem**) a bez **Výkupné a kořist** – ten odstavec se ale objeví
+  ve shrnutí po boji.
+  Bestiář obsahuje i netvory převedené z D&D 2024 (nemrtví, zvířata a obludy, čerti a bytosti z pověstí, lidé –
+  od kostlivců po Anděla Páně); u každého je na konci řádek „Předloha: …“. Převedená pravidla vycházejí ze System
+  Reference Document 5.2 (Wizards of the Coast, licence CC-BY-4.0, https://creativecommons.org/licenses/by/4.0/),
+  texty a jména jsou vlastní.
+- **Přívlastky** – `privlastky/` (Zkušený, Veterán, Ve zbroji, Jízdní, Zatracený, Proměněnec…). Přídavky `ac`, `hp`,
+  `utok`, `zraneni`, `xp` (číslo nebo procenta), `zdroje`, `pro` (komu se hodí); text = vlastnosti navíc.
+  V boji je přidáš v kartě nepřítele.
+- **Hotová setkání** – `setkani/`. Řádky `nepratele`: `[Jméno = ][počet ]id [+ přívlastek]`, id je protivník
+  nebo osoba se statblokem (u houfu je počet počet pacholků, u soka počet kusů). V Boji je načteš výběrem,
+  hledáním nebo tlačítkem „Uložit jako setkání“.
+- **Osoby se statblokem** – v souboru osoby pole `statblok: rytir-v-plne-zbroji + zkuseny`. Osoba se pak najde
+  v hledání a na její stránce má vypravěč tlačítko „+ do boje“.
+- **Tabulky setkání Výpravy** – `vyprava-setkani.json`; nepovinné pole `b` (setkání nebo nepřátelé
+  „6 houf-zoldneru; rotmistr-zoldneru“) přenese setkání do Boje i se statblocky.
+
+Životy, spotřebované zdroje, záznam hodů a zajatci se během boje ukládají jen v prohlížeči vypravěče.
+
 ## Úpravy v souborech (GitHub, Claude)
 Soubory v této složce jsou zálohou databáze. Když se soubor změní ve větvi `dev`, sestavení změnu
 do databáze přenese – **ledaže byl tentýž záznam mezitím upravený na webu**: pak vyhraje web
@@ -63,7 +91,7 @@ Na webu napojeném na databázi vidí hráči jen to, co vypravěč odhalil. Rod
 | Stav | Co uvidí hráči |
 |---|---|
 | **Skryté** | nic – záznam se jim vůbec nepošle (ani do zdrojového kódu stránky) |
-| **Slyšeli** | jméno a základní údaje; osoba bez textu a se siluetou, rod bez postoje, historie, zápisu kronikáře a rodokmenu, dračí plemeno bez obrázku a popisu |
+| **Slyšeli** | jméno a základní údaje; osoba bez textu a se siluetou, rod s historií, ale bez postoje, zápisu kronikáře a rodokmenu, dračí plemeno bez obrázku a popisu |
 | **Potkali** | vše kromě ⟦tajemství⟧ |
 
 - Stav se přepíná na webu: ikona klíče **Vypravěč** vpravo v hlavní nabídce (nebo odkaz v patičce) → přihlášení → přehled všech rodů, osob a míst,

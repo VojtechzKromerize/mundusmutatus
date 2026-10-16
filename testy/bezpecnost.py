@@ -29,7 +29,7 @@ for kdo, tok in (("anonym", None), ("hráč", hr)):
     for fn, body in (("mm_nastav_stavy", {"p_zmeny": {"slik": 1}}), ("mm_nastav_hru", {"p_hra": {}}),
                      ("mm_nahraj_obsah", {"p_vetev": "x", "p_hrac": {}, "p_gm": {}, "p_vychozi": {}}), ("mm_prepocitej", {}),
                      ("mm_uloz_zaznam", {"p_soubor": "osoby/x.md", "p_md": "x", "p_puvodni": None}), ("mm_zaznamy_gm", {}),
-                     ("mm_boj_uloz", {"p_stav": {}}), ("mm_nastav_obrazek", {"p_typ": "erby", "p_klic": "x", "p_hodnota": {}})):
+                     ("mm_boj_uloz", {"p_stav": {}}), ("mm_vyprava_nacti", {}), ("mm_vyprava_uloz", {"p_stav": {}}), ("mm_nastav_obrazek", {"p_typ": "erby", "p_klic": "x", "p_hodnota": {}})):
         chk(not ok(call(f"/rest/v1/rpc/{fn}", "POST", body, tok=tok)[0]), f"{kdo} nesmí volat {fn}")
     for t, body in (("snimek", {"vetev": "zz", "data": {}}), ("stavy", {"id": "novy", "stav": 2}), ("gm", {"user_id": "22222222-2222-2222-2222-222222222222"})):
         chk(not ok(call(f"/rest/v1/{t}", "POST", body, tok=tok)[0]), f"{kdo} nesmí zapisovat do {t}")
@@ -37,6 +37,9 @@ chk(json.loads(call("/rest/v1/obsah?select=vetev", tok=gm)[1]) != [], "vypravě�
 chk(ok(call("/rest/v1/rpc/mm_nastav_stavy", "POST", {"p_zmeny": {"slik": 2}}, tok=gm)[0]), "vypravěč mění stavy")
 for fn, body in (("mm_nahraj_obsah", {"p_vetev": "x", "p_hrac": {}, "p_gm": {}, "p_vychozi": {}}), ("mm_zaznamy_vse", {}), ("mm_sync_zaznamy", {"p_soubory": {}, "p_uplny": False})):
     chk(not ok(call(f"/rest/v1/rpc/{fn}", "POST", body, tok=gm)[0]), f"vypravěč nesmí volat služební {fn}")
+chk(ok(call("/rest/v1/rpc/mm_vyprava_uloz", "POST", {"p_stav": {"tajne": "trasa"}}, tok=gm)[0]), "vypravěč ukládá výpravu")
+chk("trasa" in call("/rest/v1/rpc/mm_vyprava_nacti", "POST", {}, tok=gm)[1], "vypravěč čte výpravu")
+chk("trasa" not in call(f"/rest/v1/snimek?select=data", tok=None)[1], "výprava není ve veřejném výřezu")
 chk(not ok(call("/rest/v1/gm", "POST", {"user_id": "22222222-2222-2222-2222-222222222222"}, tok=gm)[0]), "vypravěč nepřidá dalšího vypravěče")
 print("SELHALO:", len(fails)) if fails else print("VŠE OK")
 sys.exit(1 if fails else 0)

@@ -24,6 +24,8 @@ async def main():
     await g.goto(BASE+"#boj");await g.wait_for_function("!document.documentElement.classList.contains('mmload')");await g.wait_for_timeout(500)
     if await g.locator("[data-bact=konec]").count():
         await g.click("[data-bact=konec]");await g.wait_for_timeout(800)
+        if await g.locator('[data-bkon="ok"]').count():  # se statblocky se nejdřív ukáže shrnutí boje
+            await g.click('[data-bkon="ok"]');await g.wait_for_timeout(800)
     await g.wait_for_selector("#bojform")
     chk(await g.locator("#navboj").is_visible(),"vypravěč má v nabídce Boj")
     hn=g.locator('#bojform [name=hn]')
@@ -55,7 +57,7 @@ async def main():
     chk("n2" not in opts and "n1" in opts,"sok smí jen 2× za kolo: "+str(opts))
     for _ in range(3):
         await g.click('[data-bnpc="n1"] [data-bpoc="-1"]');await g.wait_for_timeout(500)
-    t=await g.inner_text('[data-bnpc="n1"]');chk("3 z 6" in t and "útok +2" in t and "Morálka" in t,"houf: počet, bonus a morálka")
+    t=await g.inner_text('[data-bnpc="n1"]');chk("3/6" in t and "útok +2" in t and "Morálka" in t,"houf: počet, bonus a morálka")
     chk(await g.locator(".bkostka").count()==0,"kostka Závoje v Boji není (hází se fyzicky)")
     await g.click('.bnatahu [data-bact="dalsi"]');await g.wait_for_timeout(700)
     chk(await g.locator(".bslot.btah >> nth=0").inner_text()!="" and await g.evaluate("BOJ.s.tah===1"),"šipka ▼: další tah")
