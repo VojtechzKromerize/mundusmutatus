@@ -24,6 +24,8 @@ async def main():
     await g.goto(BASE+"#boj");await g.wait_for_function("!document.documentElement.classList.contains('mmload')");await g.wait_for_timeout(500)
     if await g.locator("[data-bact=konec]").count():
         await g.click("[data-bact=konec]");await g.wait_for_timeout(800)
+        if await g.locator('[data-bkon="ok"]').count():  # se statblocky se nejdřív ukáže shrnutí boje
+            await g.click('[data-bkon="ok"]');await g.wait_for_timeout(800)
     await g.wait_for_selector("#bojform")
     chk(await g.locator("#navboj").is_visible(),"vypravěč má v nabídce Boj")
     hn=g.locator('#bojform [name=hn]')
