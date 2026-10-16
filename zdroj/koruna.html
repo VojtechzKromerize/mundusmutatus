@@ -2268,6 +2268,16 @@ abbr.poj{text-decoration:underline dotted color-mix(in srgb,var(--kal) 60%,trans
 .bhotovo{font-size:.8rem;color:var(--kat);font-family:var(--f-label)}.bjaja{display:inline-flex;gap:6px;align-items:baseline}
 html:not(.gmv) .gmonly{display:none!important}
 @media (max-width:640px){.kdusk{min-width:0;width:100%}.mmpop{padding:2vh 6px}}
+
+/* ===== 3D kostky (2026-10-16) ===== */
+.mmkostky{position:fixed;inset:0;z-index:90;pointer-events:none;opacity:0;visibility:hidden;transition:opacity .35s,visibility 0s .35s;background:radial-gradient(ellipse at 50% 50%,rgba(30,14,4,.08),rgba(30,14,4,.28))}
+.mmkostky.on{opacity:1;visibility:visible;transition:opacity .2s}
+.mmk3d{position:absolute;inset:12vh 12vw}
+@media (max-width:640px){.mmk3d{inset:14vh 4vw}}
+.mmk3d canvas{display:block}
+.mmkvyp{position:absolute;right:14px;bottom:14px;pointer-events:none;font-family:var(--f-label);letter-spacing:.04em;font-size:.85rem;color:var(--paper);background:color-mix(in srgb,var(--ink) 80%,transparent);border:0;border-radius:3px;padding:5px 12px;cursor:pointer}
+.mmkostky.on .mmkvyp{pointer-events:auto}
+.kmmk{font-family:var(--f-label);letter-spacing:.03em;font-size:.9rem;color:var(--muted);display:inline-flex;align-items:center;gap:4px}
 </style>
 
 <div class="wrap"><div class="papir" aria-hidden="true"></div>
@@ -6616,12 +6626,40 @@ function bojEff(n){const p=PROTBY[n.b];if(!p)return null;const pr=(n.pr||[]).map
 const bojJmPr=n=>(n.pr||[]).map(i=>PRIVBY[i]).filter(Boolean).map(x=>x.n);
 
 /* --- kostky --- */
-const bK=s=>1+Math.floor(Math.random()*s);
+const bK=(s,z)=>{const v=1+Math.floor(Math.random()*s);mmkZaznam(s,v,z);return v};
+/* 3D kostky: hody bK se po skončení obsluhy přehrají jako slonovinové kostky, kostka Závoje vínová
+   (art/kostky/kostky.js = dice-box-threejs, MIT). Výsledek se nemění: kostky dopadnou na už hozená čísla.
+   Načte se až při prvním hodu; vypnout jde v Hodu kostkou nebo tlačítkem během hodu (výchozí podle omezení animací). */
+const MMK={q:[],t:0,box:null,load:null,run:0,el:null,zi:-1,ci:0,gl:undefined};
+function mmkZap(){try{const v=localStorage.getItem("mm-kostky");if(v)return v==="1"}catch(e){}return !navigator.webdriver&&!matchMedia("(prefers-reduced-motion: reduce)").matches}
+function mmkNastav(on){try{localStorage.setItem("mm-kostky",on?"1":"0")}catch(e){}document.querySelectorAll("[data-mmk]").forEach(x=>{x.checked=on});if(!on)mmkSkryj(true)}
+function mmkZaznam(s,v,z){if(![4,6,8,10,12,20].includes(s))return;MMK.q.push({s,v,z:!!z});if(!MMK.t)MMK.t=setTimeout(mmkPrehraj,0)}
+async function mmkNacti(){const el=document.createElement("div");el.className="mmkostky";el.setAttribute("aria-hidden","true");
+  el.innerHTML=`<div class="mmk3d" id="mmk3d"></div><button type="button" class="mmkvyp" data-mmkvyp tabindex="-1">Vypnout 3D kostky</button>`;document.body.appendChild(el);MMK.el=el;
+  const {default:DiceBox}=await import(new URL("art/kostky/kostky.js",document.baseURI).href);
+  const IV={name:"mm-slonovina",foreground:"#33200f",background:"#f0e5cb",outline:"#f0e5cb",edge:"#e2d1ab",texture:"none",material:"plastic"},
+    ZV={name:"mm-zavoj",foreground:"#f2cf72",background:"#781421",outline:"#781421",texture:"none",material:"plastic"};
+  const B=new DiceBox("#mmk3d",{theme_customColorset:IV,sounds:false,shadows:true,light_intensity:.85,baseScale:innerWidth<700?85:100,strength:1.1});await B.initialize();
+  const ZD=await B.DiceColors.makeColorSet(ZV),ID=B.colorData,F=B.DiceFactory,oc=F.create.bind(F);
+  F.create=(ty,cd)=>{const z=MMK.ci++===MMK.zi;if(z)F.applyColorSet(ZD);const r=oc(ty,z?ZD:cd);if(z)F.applyColorSet(ID);return r};
+  MMK.box=B}
+async function mmkPrehraj(){const q=MMK.q;MMK.q=[];MMK.t=0;if(!q.length||q.length>12||!mmkZap()||document.visibilityState!=="visible")return;
+  if(MMK.gl===undefined){try{const c=document.createElement("canvas");MMK.gl=!!(c.getContext("webgl2")||c.getContext("webgl"))}catch(e){MMK.gl=false}}if(!MMK.gl)return;
+  const id=++MMK.run;
+  try{if(!MMK.load)MMK.load=mmkNacti();await MMK.load}catch(e){console.warn("3D kostky se nenačetly:",e);MMK.load=null;MMK.gl=false;return}
+  if(id!==MMK.run)return;
+  clearTimeout(MMK.skr);MMK.el.classList.add("on");MMK.zi=q.findIndex(x=>x.z);MMK.ci=0;
+  try{await MMK.box.roll(q.map(x=>"1d"+x.s).join("+")+"@"+q.map(x=>x.v).join(","))}catch(e){}
+  if(id===MMK.run)MMK.skr=setTimeout(mmkSkryj,1500)}
+function mmkSkryj(hned){if(!MMK.el||!MMK.el.classList.contains("on"))return;MMK.run++;clearTimeout(MMK.skr);MMK.el.classList.remove("on");setTimeout(()=>{if(MMK.box&&!MMK.el.classList.contains("on"))MMK.box.clearDice()},hned?0:400)}
+document.addEventListener("pointerdown",e=>{if(!MMK.el||!MMK.el.classList.contains("on"))return;if(e.target.closest&&e.target.closest("[data-mmkvyp]")){mmkNastav(false);mmHlasG("3D kostky jsou vypnuté – zapneš je v Hodu kostkou.",4500);return}mmkSkryj()},true);
+document.addEventListener("keydown",e=>{if(e.key==="Escape")mmkSkryj()});
+document.addEventListener("change",e=>{if(e.target.matches&&e.target.matches("[data-mmk]"))mmkNastav(e.target.checked)});
 function bojKostky(z,krit){const m=String(z||"").match(/^(\d*)d(\d+)([+-]\d+)?$/i);if(!m)return null;let n=+(m[1]||1),s=+m[2];if(krit)n*=2;
   const h=[...Array(n)].map(()=>bK(s)),c=m[3]?+m[3]:0;return {t:Math.max(0,h.reduce((a,b)=>a+b,0)+c),x:`${n}d${s}(${h.join("+")})${c?(c>0?"+":"")+c:""}`}}
 /* Závoj za protivníka: Hodiny Závoje (Pokušení 1–3) a svátky podle jeho vyznání (Požehnání 4–6) */
 function bojZavoj(p){let I={};try{I=zavojInfo()}catch(e){}let fe=[];try{fe=p&&p.vz?pozehnaniDnes(p.vz):[]}catch(e){}
-  const pm=I.z?3:2,pz=fe.length?4:5,d=bK(6);return {d,r:d<=pm?"pok":d>=pz?"poz":"",hod:I.z?(fe.length?"Hodina Pravdy":"Hodina Závoje"):fe.length?fe.map(x=>x.n).join(", "):""}}
+  const pm=I.z?3:2,pz=fe.length?4:5,d=bK(6,1);return {d,r:d<=pm?"pok":d>=pz?"poz":"",hod:I.z?(fe.length?"Hodina Pravdy":"Hodina Závoje"):fe.length?fe.map(x=>x.n).join(", "):""}}
 const bojZatr=n=>{const p=PROTBY[n.b];return !!p&&(p.id==="zatraceny-rytir"||(n.pr||[]).includes("zatraceny"))};
 
 /* typ zranění → druh kritického zranění */
@@ -7687,7 +7725,7 @@ async function kVlastniHod(kdo,kid,vyr,co,zav){const r=kVyraz(vyr);if(!r){mmHlas
   if(K&&z)KZAV[K.id]={co:H.co,d:z.d,r:z.r,hod:z.hod};
   if(GMV&&window.KSKR){HODY.unshift(Object.assign({id:Date.now(),cas:new Date().toISOString(),skryty:true},H));kartyPrekresli()}else kHodZapis(H);
   mmHlasG(`${H.kdo}: ${H.co} = ${r.tot} (${r.txt})${z?` · Závoj ${z.d}${z.r==="pok"?" – Pokušení":z.r==="poz"?" – Požehnání":""}`:""}`,6500);return r}
-const kHodForm=(K,id)=>`<form class="kvlh" data-kvlh${K?` data-k="${besc(K.id)}"`:""}><label>${K?"Vlastní hod":"Hod kostkou"} <input name="v" placeholder="2d6+3" maxlength="60" required autocomplete="off" list="kvlhl"></label><input name="co" placeholder="za co (nepovinné)" maxlength="60">${K?"":`<select name="kdo" aria-label="Kdo hází">${GMV?`<option value="">Vypravěč</option>`:""}${KARTY.map(k=>`<option value="${besc(k.id)}">${besc(k.n)}</option>`).join("")}</select>`}<label><input type="checkbox" name="zav"> + Závoj</label><button class="gbtn ghost">Hodit</button></form>
+const kHodForm=(K,id)=>`<form class="kvlh" data-kvlh${K?` data-k="${besc(K.id)}"`:""}><label>${K?"Vlastní hod":"Hod kostkou"} <input name="v" placeholder="2d6+3" maxlength="60" required autocomplete="off" list="kvlhl"></label><input name="co" placeholder="za co (nepovinné)" maxlength="60">${K?"":`<select name="kdo" aria-label="Kdo hází">${GMV?`<option value="">Vypravěč</option>`:""}${KARTY.map(k=>`<option value="${besc(k.id)}">${besc(k.n)}</option>`).join("")}</select>`}<label><input type="checkbox" name="zav"> + Závoj</label><button class="gbtn ghost">Hodit</button><label class="kmmk" ${btip("Hody se přehrají jako 3D kostky. Klepnutím kamkoli se animace přeskočí.")}><input type="checkbox" data-mmk${mmkZap()?" checked":""}> 3D kostky</label></form>
   <datalist id="kvlhl"><option value="d20"><option value="2d20kh1"><option value="2d20kl1"><option value="4d6kh3"><option value="d%"><option value="2d6"><option value="d4"></datalist>`;
 /* ---- duše na kartě ---- */
 function kDuseHtml(K){const D=kDuse(K),s=D.sv,kr=D.vz==="old"?"old":"kr",feat=(KFEAT[D.vz]||[]).filter(f=>f[2]<=D.fs),U=kartaStav(K.id).zdr||{};
