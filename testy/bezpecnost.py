@@ -31,9 +31,9 @@ for kdo, tok in (("anonym", None), ("hráč", hr)):
                      ("mm_uloz_zaznam", {"p_soubor": "osoby/x.md", "p_md": "x", "p_puvodni": None}), ("mm_zaznamy_gm", {}),
                      ("mm_boj_uloz", {"p_stav": {}}), ("mm_vyprava_nacti", {}), ("mm_vyprava_uloz", {"p_stav": {}}), ("mm_kouzla_nacti", {}), ("mm_kouzla_uloz", {"p_kouzla": []}), ("mm_nastav_obrazek", {"p_typ": "erby", "p_klic": "x", "p_hodnota": {}}),
                      ("mm_ukaz", {"p_ukazka": {"n": "x"}}), ("mm_ukaz_smaz", {"p_id": 1}), ("mm_sezeni_nacti", {}), ("mm_sezeni_uloz", {"p_sezeni": {"s": []}}),
-                     ("mm_vyzva", {"p_vyzva": {"typ": "zach", "ab": "WIS"}}), ("mm_vyzva_zavri", {"p_id": None}), ("mm_hrac_zrus_heslo", {"p_karta": "balduin"}), ("mm_zpravy_gm", {}), ("mm_hrac_ok", {"p_karta": "x", "p_token": None})):
+                     ("mm_vyzva", {"p_vyzva": {"typ": "zach", "ab": "WIS"}}), ("mm_vyzva_zavri", {"p_id": None}), ("mm_hrac_zrus_heslo", {"p_karta": "balduin"}), ("mm_zpravy_gm", {}), ("mm_hrac_ok", {"p_karta": "x", "p_token": None}), ("mm_ja_uvolni", {"p_karta": "x"}), ("mm_discord_nastav", {"p_url": None})):
         chk(not ok(call(f"/rest/v1/rpc/{fn}", "POST", body, tok=tok)[0]), f"{kdo} nesmí volat {fn}")
-    for t in ("hesla", "relace_hracu", "zpravy"):
+    for t in ("hesla", "relace_hracu", "zpravy", "hraci_ucty", "karty_texty"):
         st, bd = call(f"/rest/v1/{t}?select=*", tok=tok)
         chk(not ok(st) or bd.strip() == "[]", f"{kdo} nečte tabulku {t}")
     for t, body in (("snimek", {"vetev": "zz", "data": {}}), ("stavy", {"id": "novy", "stav": 2}), ("gm", {"user_id": "22222222-2222-2222-2222-222222222222"})):
