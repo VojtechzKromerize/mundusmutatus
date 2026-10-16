@@ -22,6 +22,8 @@ ani jejich seznam. Hlavička nese rychlé údaje pro tracker iniciativy (úrove�
 AC, HP, útok, základní útočný bonus houfu, Požehnání, Pokušení, komplikace, Neřest), text pod ní je celý statblock.
 Na stránce **Boj** je vybereš ze seznamu u jména nepřítele nebo vyhledáním v bestiáři a tlačítkem **+ do boje**; nového založíš
 v **Nový záznam** jako druh Protivník. Životy soků a zhoubců se během boje ukládají jen ve tvém prohlížeči.
+V kartě nepřítele v boji je jen statblock pro boj: citát, popis (odstavce, které nezačínají **tučným slovem**)
+a **Výkupné a kořist** se ukážou jen v bestiáři.
 
 ## Úpravy v souborech (GitHub, Claude)
 Soubory v této složce jsou zálohou databáze. Když se soubor změní ve větvi `dev`, sestavení změnu

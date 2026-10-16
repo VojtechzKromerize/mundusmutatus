@@ -166,7 +166,15 @@ function generuj(soubory, manifest) {
     RES.push({ $gm: true, ...t });
   }
 
-  /* protivníci (bestiář pro tracker iniciativy) – celé jen pro vypravěče, hráči nedostanou nic */
+  /* protivníci (bestiář pro tracker iniciativy) – celé jen pro vypravěče, hráči nedostanou nic.
+     h = celý statblock (bestiář), b = verze pro boj: bez citátu, popisu (odstavce, které nezačínají tučným slovem)
+     a bez výkupného a kořisti */
+  const BEZ_BOJ = /^\*\*(Výkupné|Kořist)/;
+  const mdBoj = body => md(body.trim().split(/\n\s*\n/).filter(bl => {
+    const t = bl.trim();
+    if (/^[|#]|^[-*] /.test(t)) return true;
+    return t.startsWith("**") && !BEZ_BOJ.test(t);
+  }).join("\n\n"));
   const PROT = [], UROVNE_P = ["houf", "pacholek", "sok", "zhoubce"];
   for (const p of readDir("protivnici")) {
     const w = "protivnici/" + p._file;
@@ -181,7 +189,7 @@ function generuj(soubory, manifest) {
       return { n: m[1].trim(), max: parseInt(m[2], 10) };
     });
     const o = { $gm: true, id: p.id, n: p.nazev, u, ac: p.ac || "", hp, ut: p.utok || "", poz: p.pozehnani || "", pok: p.pokuseni || "",
-      kom: p.komplikace || "", ner: p.nerest || "", vy: p.vyzva || "", h: md(p._body) };
+      kom: p.komplikace || "", ner: p.nerest || "", vy: p.vyzva || "", h: md(p._body), b: mdBoj(p._body) };
     if (String(p.pocet || "").trim()) {
       o.poc = Math.round(num(p.pocet, w));
       if (o.poc < 1 || o.poc > 12) fail(`${w}: pocet má být 1 až 12`);

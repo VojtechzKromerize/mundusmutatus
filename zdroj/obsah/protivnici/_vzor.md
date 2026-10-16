@@ -12,6 +12,8 @@ pozehnani: Co protivníkovi dá Požehnání.
 pokuseni: Jakou komplikaci způsobí Pokušení.
 komplikace: 
 nerest: 
+# V boji (karta nepřítele na stránce Boj) se ukáže jen to, co je potřeba k boji: citát, popis
+# (odstavce, které nezačínají **tučným slovem**) a **Výkupné a kořist** zůstanou jen v bestiáři.
 ---
 *„Citát z Kroniky.“*
 

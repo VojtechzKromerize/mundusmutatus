@@ -12,7 +12,9 @@ nerest: Pýcha (jezdec) – chce být prvním rytířem, který přemohl české
 ---
 *„Ve Slezsku si rytíř koupí dráčka, jako si u nás koupí koně. U nás se ten rytíř jmenuje lapka.“*
 
-Rytíř ze Slezska nebo Saska na drakovi, kterého koupil jako mládě z pašovaného českého vejce. Dráček (kaňák) je nejmenší jezdecký drak, zvědavý a drzý. Jezdec a drak jsou jeden sok se dvěma sloty: v jednom jedná jezdec, ve druhém drak, nebo dvakrát jeden z nich.
+Rytíř ze Slezska nebo Saska na drakovi, kterého koupil jako mládě z pašovaného českého vejce. Dráček (kaňák) je nejmenší jezdecký drak, zvědavý a drzý.
+
+**Sloty.** Jezdec a drak jsou jeden sok se dvěma sloty: v jednom jedná jezdec, ve druhém drak, nebo dvakrát jeden z nich.
 
 **Kritický zásah na jezdce nebo draka porazí oba:** drak s raněným jezdcem odlétá (pouto), nebo dosedne a jezdec se vzdá.
 

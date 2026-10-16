@@ -5630,7 +5630,7 @@ function bojRef(n){const p=PROTBY[n.b];if(!p)return "";const hv=bojHp.get()[n.id
   const hp=n.druh!=="houf"&&p.hp.some(h=>h.max>1)?`<div class="bhpw">${p.hp.map((h,k)=>{const cur=hv[k]!=null?hv[k]:h.max,pr=Math.max(0,Math.min(100,Math.round(cur/h.max*100)));
       return `<label class="bhp${cur<=0?" bhp0":cur<=h.max/2?" bhp2":""}"><span>${h.n?besc(h.n)+" ":""}HP</span><input type="number" inputmode="numeric" name="hp-${n.id}-${k}" data-bhp="${k}" data-max="${h.max}" value="${cur}" aria-label="Životy – ${besc(n.n)}${h.n?", "+besc(h.n):""}"><small>/ ${h.max}</small><i style="--p:${pr}%"></i></label>`}).join("")}</div>`:"";
   return `<div class="bref">${p.ac?`<span class="brac"><b>AC</b> ${besc(p.ac)}</span>`:""}${hp}${bojRefTxt(p)}
-    <details class="bstat" data-otv="st-${n.id}"${bojOtv("st-"+n.id)}><summary>Celý statblock</summary><div class="bsb">${p.h}</div>${bojEdit(p)}</details></div>`}
+    <details class="bstat" data-otv="st-${n.id}"${bojOtv("st-"+n.id)}><summary>Statblock pro boj</summary><div class="bsb">${p.b||p.h}</div>${bojEdit(p)}</details></div>`}
 /* vyhledávání v bestiáři: výsledky až po napsání dotazu; dotaz přežije překreslení během boje */
 let BHLED="";
 const bojNorm=t=>String(t||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
