@@ -4755,26 +4755,8 @@ function dialPoc(j){try{const pp=typeof partyPos==="function"?partyPos():null,ll
 const pocDruh=P=>{if(P.typ==="bourka")return "bourka";if(P.typ==="snih")return "snih";if(P.typ==="plucha")return "plucha";if(P.typ==="dest")return P.int<=1?"mrholi":"dest";
   if(P.mlha)return "mlha";if(P.rz==="fro"||P.rz==="stre")return "zatazeno";if(P.rz==="zap"||P.rz==="sev")return "oblacno";return "jasno"};
 const POC_N={jasno:"jasno",oblacno:"polojasno",zatazeno:"zataženo",mlha:"mlha",mrholi:"mrholení",dest:"déšť",snih:"sněžení",plucha:"plucha",bourka:"bouřka",vitr:"vítr",mraz:"mráz",vedro:"vedro",snihl:"leží sníh",zavoj:"znamení Závoje"};
-/* malované symboly v jednotkovém poli (−10…10), inkoustový obrys */
-function pocIkona(k,IMG,INK){
-  const mrak=(dx,dy,f,sh)=>`<g transform="translate(${dx} ${dy})"><path d="M-8.5,3.5C-11,3.5,-11,-1.5,-7.5,-1.5C-8,-6,-1.5,-7.5,0.5,-3.8C2,-7.6,8.6,-6.4,7.6,-1.6C11,-1.4,10.8,3.5,7.8,3.5Z" fill="${f}" stroke="${INK}" stroke-width=".9" stroke-linejoin="round"/><path d="M-8,2.6L7.6,2.6" stroke="${sh}" stroke-width="1.6" opacity=".55"/></g>`;
-  const kapky=(n,c,d)=>[...Array(n)].map((_,i)=>`<path d="M${-5+i*4.2},6.5l-1.6,${d}" stroke="${c}" stroke-width="1.3" stroke-linecap="round"/>`).join("");
-  const vlocka=(x,y,r)=>`<g stroke="#fff" stroke-width="1.6" stroke-linecap="round">${[0,60,120].map(a=>`<path d="M${(x-r*Math.cos(a*DEG)).toFixed(2)},${(y-r*Math.sin(a*DEG)).toFixed(2)}L${(x+r*Math.cos(a*DEG)).toFixed(2)},${(y+r*Math.sin(a*DEG)).toFixed(2)}"/>`).join("")}</g><g stroke="#3a5a96" stroke-width=".7" stroke-linecap="round">${[0,60,120].map(a=>`<path d="M${(x-r*Math.cos(a*DEG)).toFixed(2)},${(y-r*Math.sin(a*DEG)).toFixed(2)}L${(x+r*Math.cos(a*DEG)).toFixed(2)},${(y+r*Math.sin(a*DEG)).toFixed(2)}"/>`).join("")}</g>`;
-  const slunce=(x,y,r)=>`<image href="${IMG}kolo-slunce.webp" x="${x-r}" y="${y-r}" width="${2*r}" height="${2*r}" clip-path="url(#dkmed)"/><circle cx="${x}" cy="${y}" r="${r*.97}" fill="none" stroke="${INK}" stroke-width=".8"/>`;
-  switch(k){
-    case "jasno":case "vedro":return slunce(0,0,9.5);
-    case "oblacno":return slunce(-2.5,-3,7)+mrak(2,3,"#f6f1e3","#9aa6c0");
-    case "zatazeno":return mrak(-2,-2.5,"#cfd3dd","#7d869c")+mrak(1.5,2.5,"#eceadf","#8f98ad");
-    case "mlha":return [-5,0,5].map((y,i)=>`<path d="M-9,${y}q3,-2.2 6,0t6,0t6,0" fill="none" stroke="${INK}" stroke-width="2.6" stroke-linecap="round"/><path d="M-9,${y}q3,-2.2 6,0t6,0t6,0" fill="none" stroke="${i===1?"#e9e4d6":"#d4d6dc"}" stroke-width="1.4" stroke-linecap="round"/>`).join("");
-    case "mrholi":return mrak(0,-2.5,"#e9e8e1","#8f98ad")+[-4,0,4].map(x=>`<circle cx="${x}" cy="7" r=".9" fill="#2f57a8"/>`).join("");
-    case "dest":return mrak(0,-3,"#dfe1e8","#7d869c")+kapky(4,"#2f57a8",4);
-    case "snih":return mrak(0,-3.5,"#f4f3ee","#9aa6c0")+vlocka(-4.5,6.5,2.3)+vlocka(2.5,7.5,2.3);
-    case "plucha":return mrak(0,-3.5,"#e3e4ea","#8f98ad")+kapky(2,"#2f57a8",3.5)+vlocka(3.5,7,2.1);
-    case "bourka":return mrak(0,-3.5,"#8d93a6","#4b5268")+`<path d="M0.8,1.2L-3.2,7L0,7L-2,11.5L4.2,4.6L1,4.6L3,1.2Z" fill="url(#dkzl)" stroke="${INK}" stroke-width=".8" stroke-linejoin="round"/>`;
-    case "vitr":return [[-4,"M-9,-4h10q4,0 4,-3.2t-3,-2.4"],[0,"M-9,0.5h14q4,0 4,3.4t-3.4,2.2"],[4,"M-9,5h7"]].map(([,d])=>`<path d="${d}" fill="none" stroke="${INK}" stroke-width="2.6" stroke-linecap="round"/><path d="${d}" fill="none" stroke="#9fb4d8" stroke-width="1.2" stroke-linecap="round"/>`).join("");
-    case "mraz":case "snihl":return `<circle r="9" fill="#2f4f8f" opacity=".9"/>`+vlocka(0,0,6.5);
-    case "zavoj":return `<path d="M-9,0Q0,-8 9,0Q0,8 -9,0Z" fill="#f3ecd8" stroke="${INK}" stroke-width=".9"/><circle r="3.4" fill="#2e7d5b" stroke="${INK}" stroke-width=".7"/><circle r="1.3" fill="${INK}"/>`;
-  }return ""}
+/* malované medailony počasí (art/img/pocasi-*.webp); jasno a vedro ukazuje slunce z kola */
+const pocObr=k=>k==="jasno"||k==="vedro"?"kolo-slunce.webp":`pocasi-${k==="mraz"?"mraz":k}.webp`;
 function dialPocSVG(P,Pt,F,C,INK,IMG){
   const RA=223,RB=247,RM=235,kruh=r=>`M${C-r},${C}a${r},${r} 0 1 0 ${2*r},0a${r},${r} 0 1 0 ${-2*r},0Z`;
   let o=`<g class="dialpoc"><path d="${kruh(RA)}${kruh(196)}" fill-rule="evenodd" fill="var(--paper)"/><clipPath id="dkpocc"><path d="${kruh(RB)}${kruh(RA)}" clip-rule="evenodd"/></clipPath><g clip-path="url(#dkpocc)"><image href="${IMG}kolo-noc.webp" x="${C-RB-60}" y="${C-RB-60}" width="${2*RB+120}" height="${2*RB+120}" transform="rotate(37 ${C} ${C})"/><path d="${kruh(RB)}${kruh(RA)}" fill-rule="evenodd" fill="#0a1230" opacity=".35"/></g>`;
@@ -4782,11 +4764,11 @@ function dialPocSVG(P,Pt,F,C,INK,IMG){
   if(!P)return o+`</g>`;
   const k=pocDruh(P),extra=[];
   if(P.v>=3)extra.push("vitr");if(P.tn<=-6)extra.push("mraz");if(P.tx>=27&&k!=="jasno")extra.push("vedro");if(P.mlha&&k!=="mlha")extra.push("mlha");if(P.snih>=3&&k!=="snih")extra.push("snihl");if(P.zav)extra.push("zavoj");
-  const med=(h,r,kind,tt)=>{const [x,y]=Pt(h===12?RM+3:RM,h);return `<g class="dialpocm"><title>${tt}</title><circle cx="${F(x)}" cy="${F(y)}" r="${r+1.6}" fill="${INK}"/><circle cx="${F(x)}" cy="${F(y)}" r="${r}" fill="#f6eedb" stroke="url(#dkzl)" stroke-width="2.2"/><g transform="translate(${F(x)} ${F(y)}) scale(${(r/12.5).toFixed(3)})" filter="url(#dkruka)">${pocIkona(kind,IMG,INK)}</g></g>`};
+  const med=(h,r,kind,tt)=>{const [x,y]=Pt(h===12?RM+3:RM,h);return `<g class="dialpocm"><title>${tt}</title><circle cx="${F(x)}" cy="${F(y)}" r="${r+1.4}" fill="${INK}"/><image href="${IMG}${pocObr(kind)}" x="${F(x-r)}" y="${F(y-r)}" width="${2*r}" height="${2*r}" clip-path="url(#dkmed)"/></g>`};
   const popis=vyEsc(P.text)+(P.zav?" "+vyEsc(P.zav):"");
-  o+=med(12,18.5,k,`Dnešní počasí: ${popis}`);
+  o+=med(12,20,k,`Dnešní počasí: ${popis}`);
   /* vedlejší jevy (vítr, mráz, mlha, sníh na zemi, znamení Závoje) drobně po stranách hlavního symbolu */
-  [9.7,14.3,8,16].forEach((h,i)=>{const kind=extra[i];if(kind)o+=med(h,13.5,kind,(POC_N[kind]||"")+(kind==="zavoj"?": "+vyEsc(P.zav):""))});
+  [9.7,14.3,8,16].forEach((h,i)=>{const kind=extra[i];if(kind)o+=med(h,14.5,kind,(POC_N[kind]||"")+(kind==="zavoj"?": "+vyEsc(P.zav):""))});
   /* popis dne po spodním oblouku */
   let t=P.text.split(". ")[0].replace(/\.$/,"");if(t.length>78)t=t.slice(0,76).replace(/[ ,–-]+\S*$/,"")+"…";
   const [x0,y0]=Pt(RM,6.4),[x1,y1]=Pt(RM,17.6);
