@@ -1,0 +1,73 @@
+[
+ {
+  "en": "Aasimar",
+  "cz": "Aasimar",
+  "rych": 30,
+  "vel": "Střední nebo Malá",
+  "t": "Humanoid s jiskrou nebeské moci v duši; žije až 160 let a nese drobné znaky nebeského původu.",
+  "rysy": [
+   {
+    "en": "Celestial Resistance",
+    "cz": "Nebeská odolnost",
+    "u": 1,
+    "t": "Získáš Resistance vůči Necrotic a Radiant zranění."
+   },
+   {
+    "en": "Darkvision",
+    "cz": "Vidění ve tmě",
+    "u": 1,
+    "t": "Máš Darkvision 60 stop."
+   },
+   {
+    "en": "Healing Hands",
+    "cz": "Léčivé dlaně",
+    "u": 1,
+    "t": "Akcí (Magic) se dotkneš tvora; ten získá zpět HP ve výši součtu tolika d4, kolik je tvůj bonus zdatnosti.",
+    "cas": "A",
+    "pocet": 1,
+    "obn": "dlouhý odpočinek"
+   },
+   {
+    "en": "Light Bearer",
+    "cz": "Nositel světla",
+    "u": 1,
+    "t": "Znáš trik *Light*; sesíláš ho pomocí CHA.",
+    "kouzla": [
+     [
+      1,
+      [
+       "Light"
+      ]
+     ]
+    ]
+   },
+   {
+    "en": "Celestial Revelation",
+    "cz": "Nebeské zjevení",
+    "u": 3,
+    "t": "Na 3. úrovni si zvolíš jednu z podob níže. Bonusovou akcí se proměníš na 1 minutu (ukončit můžeš Bonusovou akcí).",
+    "cas": "BA",
+    "pocet": 1,
+    "obn": "dlouhý odpočinek"
+   },
+   {
+    "en": "Celestial Revelation: Heavenly Wings",
+    "cz": "Zjevení: Nebeská křídla",
+    "u": 3,
+    "t": "Během proměny máš rychlost létání rovnou své rychlosti."
+   },
+   {
+    "en": "Celestial Revelation: Inner Radiance",
+    "cz": "Zjevení: Vnitřní záře",
+    "u": 3,
+    "t": "Během proměny vydáváš jasné světlo v okruhu 10 stop a šero dalších 10 stop. Na konci každého tvého tahu utrpí každý tvor do 10 stop od tebe Radiant zranění ve výši bonusu zdatnosti."
+   },
+   {
+    "en": "Celestial Revelation: Necrotic Shroud",
+    "cz": "Zjevení: Nekrotický závoj",
+    "u": 3,
+    "t": "Při proměně si tvorové do 10 stop (kromě spojenců) hází CHA záchranný hod (SO 8 + CHA + bonus zdatnosti), jinak mají stav Frightened do konce tvého příštího tahu. Během proměny jednou za tah přidáš k zranění tvora Necrotic zranění ve výši bonusu zdatnosti."
+   }
+  ]
+ }
+]

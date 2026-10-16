@@ -1,0 +1,692 @@
+[
+ {
+  "en": "Crafter",
+  "cz": "Řemeslník",
+  "kat": "origin",
+  "pred": "",
+  "t": "Zdatnost se 3 druhy řemeslnických nástrojů dle volby (z tabulky rychlé výroby). Nemagické předměty kupuješ o 20 % levněji. Po dlouhém odpočinku můžeš vyrobit 1 kus jednoduchého vybavení odpovídajícího nástrojům, s nimiž máš zdatnost (např. lano, pochodeň, žebřík, kotvička); vydrží do konce dalšího dlouhého odpočinku."
+ },
+ {
+  "en": "Healer",
+  "cz": "Felčar",
+  "kat": "origin",
+  "pred": "",
+  "t": "Akcí Utilize spotřebuješ 1 použití Healer's Kit u tvora do 5 stop: ten utratí 1 kostku HP, ty ji hodíš a tvor získá zpět HP ve výši hodu + tvůj bonus zdatnosti. Když hážeš kostkou léčení (kouzlo nebo tento feat) a padne 1, smíš ji jednou přehodit a platí nový hod.",
+  "cas": "A"
+ },
+ {
+  "en": "Lucky",
+  "cz": "Šťastlivec",
+  "kat": "origin",
+  "pred": "",
+  "t": "Máš body štěstí = bonus zdatnosti, obnova dlouhým odpočinkem. Za 1 bod si dáš výhodu na svůj hod d20 (ověření, záchranný hod nebo útok). Za 1 bod uvalíš nevýhodu na útok, který proti tobě někdo hází.",
+  "pocet": "PB",
+  "obn": "dlouhý odpočinek"
+ },
+ {
+  "en": "Musician",
+  "cz": "Muzikant",
+  "kat": "origin",
+  "pred": "",
+  "t": "Zdatnost se 3 hudebními nástroji dle volby. Na konci krátkého nebo dlouhého odpočinku můžeš zahrát na nástroj, s nímž máš zdatnost, a dát Heroic Inspiration spojencům, kteří tě slyší; počet spojenců = bonus zdatnosti."
+ },
+ {
+  "en": "Tavern Brawler",
+  "cz": "Hospodský rváč",
+  "kat": "origin",
+  "pred": "",
+  "t": "Úder beze zbraně může způsobit 1d4 + STR Bludgeoning zranění. Jedničky na kostkách zranění úderu beze zbraně smíš přehodit (platí nový hod). Zdatnost s improvizovanými zbraněmi. Jednou za tah při zásahu úderem beze zbraně v rámci akce Útok můžeš cíl kromě zranění i odstrčit o 5 stop."
+ },
+ {
+  "en": "Tough",
+  "cz": "Houževnatý",
+  "kat": "origin",
+  "pred": "",
+  "t": "Maximum HP se ti zvýší o 2 za každou úroveň postavy (hned při získání featu zpětně a dál s každou novou úrovní).",
+  "ef": {
+   "hpL": 2
+  }
+ },
+ {
+  "en": "Actor",
+  "cz": "Herec",
+  "kat": "general",
+  "pred": "4. úroveň, CHA 13+",
+  "vl": [
+   "CHA"
+  ],
+  "t": "V převleku za skutečnou či smyšlenou osobu máš výhodu na ověření CHA (Deception) a CHA (Performance), jimiž přesvědčuješ, že jsi ta osoba. Umíš napodobit zvuky i řeč jiných tvorů; kdo to slyší, odhalí napodobeninu jen úspěšným ověřením WIS (Insight) proti SO 8 + CHA + bonus zdatnosti."
+ },
+ {
+  "en": "Athlete",
+  "cz": "Atlet",
+  "kat": "general",
+  "pred": "4. úroveň, STR nebo AGI 13+",
+  "vl": [
+   "STR",
+   "AGI"
+  ],
+  "t": "Získáš rychlost šplhu rovnou své rychlosti. Vstát ze stavu Prone tě stojí jen 5 stop pohybu. Skok do dálky či výšky s rozběhem zvládneš už po 5 stopách pohybu."
+ },
+ {
+  "en": "Charger",
+  "cz": "Útočník z rozběhu",
+  "kat": "general",
+  "pred": "4. úroveň, STR nebo AGI 13+",
+  "vl": [
+   "STR",
+   "AGI"
+  ],
+  "t": "Při akci Dash máš rychlost +10 stop. Jednou za tah, když se těsně před zásahem útokem na blízko (v akci Útok) posuneš aspoň 10 stop přímo k cíli, vyber: +1d8 ke zranění, nebo odstrčení cíle až o 10 stop (cíl nejvýš o 1 velikost větší než ty)."
+ },
+ {
+  "en": "Chef",
+  "cz": "Kuchař",
+  "kat": "general",
+  "pred": "4. úroveň",
+  "vl": [
+   "CON",
+   "WIS"
+  ],
+  "t": "Zdatnost s Cook's Utensils. Při krátkém odpočinku uvaříš jídlo pro 4 + bonus zdatnosti tvorů; kdo jí a utratí kostky HP, získá navíc 1d8 HP. Po dlouhém odpočinku nebo hodině práce připravíš pochoutky (počet = bonus zdatnosti, vydrží 8 h); snědení Bonusovou akcí dá dočasné HP = tvůj bonus zdatnosti."
+ },
+ {
+  "en": "Crossbow Expert",
+  "cz": "Mistr kuše",
+  "kat": "general",
+  "pred": "4. úroveň, AGI 13+",
+  "vl": [
+   "AGI"
+  ],
+  "t": "U kuší ignoruješ vlastnost Loading a nabíjíš je i bez volné ruky. Nepřítel do 5 stop ti nedává nevýhodu na útoky kuší. Při extra útoku z vlastnosti Light kuší s vlastností Light přičteš ke zranění modifikátor vlastnosti (pokud ho už nepřičítáš)."
+ },
+ {
+  "en": "Crusher",
+  "cz": "Drtič",
+  "kat": "general",
+  "pred": "4. úroveň",
+  "vl": [
+   "STR",
+   "CON"
+  ],
+  "t": "Jednou za tah při zásahu útokem s Bludgeoning zraněním můžeš cíl (nejvýš o 1 velikost větší) posunout o 5 stop na volné místo. Po kritickém zásahu s Bludgeoning zraněním mají útoky proti cíli výhodu do začátku tvého dalšího tahu."
+ },
+ {
+  "en": "Defensive Duelist",
+  "cz": "Obranný šermíř",
+  "kat": "general",
+  "pred": "4. úroveň, AGI 13+",
+  "vl": [
+   "AGI"
+  ],
+  "t": "Držíš-li zbraň s vlastností Finesse a zasáhne tě útok na blízko, můžeš Reakcí přičíst bonus zdatnosti k AC (útok tak může minout). Bonus platí proti útokům na blízko do začátku tvého dalšího tahu.",
+  "cas": "R"
+ },
+ {
+  "en": "Dual Wielder",
+  "cz": "Boj se dvěma zbraněmi",
+  "kat": "general",
+  "pred": "4. úroveň, STR nebo AGI 13+",
+  "vl": [
+   "STR",
+   "AGI"
+  ],
+  "t": "Když v akci Útok zaútočíš zbraní s vlastností Light, můžeš později v tahu Bonusovou akcí zaútočit jinou zbraní na blízko bez vlastnosti Two-Handed (bez kladného modifikátoru ke zranění). Zbraně bez Two-Handed taseš a schováváš po dvou.",
+  "cas": "BA"
+ },
+ {
+  "en": "Durable",
+  "cz": "Odolný",
+  "kat": "general",
+  "pred": "4. úroveň",
+  "vl": [
+   "CON"
+  ],
+  "t": "Máš výhodu na záchranné hody proti smrti. Bonusovou akcí můžeš utratit 1 kostku HP, hodit jí a získat zpět HP ve výši hodu.",
+  "cas": "BA"
+ },
+ {
+  "en": "Elemental Adept",
+  "cz": "Adept živlů",
+  "kat": "general",
+  "pred": "4. úroveň, schopnost Spellcasting nebo Pact Magic",
+  "vl": [
+   "INT",
+   "WIS",
+   "CHA"
+  ],
+  "t": "Zvol typ zranění: Acid, Cold, Fire, Lightning nebo Thunder. Tvá kouzla ignorují Resistance vůči němu a jedničky na kostkách zranění tohoto typu z tvých kouzel počítáš jako 2. Feat lze vzít víckrát, pokaždé s jiným typem."
+ },
+ {
+  "en": "Fey Touched",
+  "cz": "Políbený vílami",
+  "kat": "general",
+  "pred": "4. úroveň",
+  "vl": [
+   "INT",
+   "WIS",
+   "CHA"
+  ],
+  "t": "Máš vždy připravené *Misty Step* a jedno kouzlo 1. úrovně ze školy Věštění nebo Očarování dle volby. Každé z nich sešleš 1× bez slotu (obnova dlouhým odpočinkem), jinak i se slotem. Sesílací vlastnost = vlastnost zvýšená tímto featem.",
+  "pocet": 1,
+  "obn": "dlouhý odpočinek",
+  "kouzla": [
+   [
+    1,
+    [
+     "Misty Step"
+    ]
+   ]
+  ]
+ },
+ {
+  "en": "Great Weapon Master",
+  "cz": "Mistr těžkých zbraní",
+  "kat": "general",
+  "pred": "4. úroveň, STR 13+",
+  "vl": [
+   "STR"
+  ],
+  "t": "Při zásahu zbraní s vlastností Heavy v rámci akce Útok můžeš přidat zranění ve výši bonusu zdatnosti. Hned po kritickém zásahu zbraní na blízko nebo srážce tvora na 0 HP můžeš Bonusovou akcí zaútočit toutéž zbraní.",
+  "cas": "BA"
+ },
+ {
+  "en": "Heavily Armored",
+  "cz": "Těžce obrněný",
+  "kat": "general",
+  "pred": "4. úroveň, výcvik ve střední zbroji",
+  "vl": [
+   "CON",
+   "STR"
+  ],
+  "t": "Získáš výcvik v těžké zbroji."
+ },
+ {
+  "en": "Heavy Armor Master",
+  "cz": "Mistr těžké zbroje",
+  "kat": "general",
+  "pred": "4. úroveň, výcvik v těžké zbroji",
+  "vl": [
+   "CON",
+   "STR"
+  ],
+  "t": "V těžké zbroji si od Bludgeoning, Piercing a Slashing zranění z každého útoku, který tě zasáhne, odečteš bonus zdatnosti."
+ },
+ {
+  "en": "Inspiring Leader",
+  "cz": "Inspirující vůdce",
+  "kat": "general",
+  "pred": "4. úroveň, WIS nebo CHA 13+",
+  "vl": [
+   "WIS",
+   "CHA"
+  ],
+  "t": "Na konci krátkého nebo dlouhého odpočinku můžeš pronést řeč či předvést výstup: až 6 spojenců (i ty) do 30 stop, kteří ho sledují, získá dočasné HP = úroveň postavy + modifikátor vlastnosti zvýšené tímto featem."
+ },
+ {
+  "en": "Keen Mind",
+  "cz": "Bystrý rozum",
+  "kat": "general",
+  "pred": "4. úroveň, INT 13+",
+  "vl": [
+   "INT"
+  ],
+  "t": "Zvol dovednost Arcana, History, Investigation, Nature nebo Religion: získáš v ní zdatnost, a pokud ji už máš, Expertise. Akci Study můžeš provést jako Bonusovou akci.",
+  "cas": "BA"
+ },
+ {
+  "en": "Lightly Armored",
+  "cz": "Lehce obrněný",
+  "kat": "general",
+  "pred": "4. úroveň",
+  "vl": [
+   "STR",
+   "AGI"
+  ],
+  "t": "Získáš výcvik v lehké zbroji a štítech."
+ },
+ {
+  "en": "Mage Slayer",
+  "cz": "Přemožitel mágů",
+  "kat": "general",
+  "pred": "4. úroveň",
+  "vl": [
+   "STR",
+   "AGI"
+  ],
+  "t": "Tvor, kterému způsobíš zranění během Concentration, má nevýhodu na záchranný hod k jejímu udržení. Když neuspěješ v INT, WIS nebo CHA záchranném hodu, můžeš ho změnit na úspěch; 1×, obnova krátkým nebo dlouhým odpočinkem.",
+  "pocet": 1,
+  "obn": "krátký nebo dlouhý odpočinek"
+ },
+ {
+  "en": "Martial Weapon Training",
+  "cz": "Výcvik s válečnými zbraněmi",
+  "kat": "general",
+  "pred": "4. úroveň",
+  "vl": [
+   "STR",
+   "AGI"
+  ],
+  "t": "Získáš zdatnost s válečnými (Martial) zbraněmi."
+ },
+ {
+  "en": "Medium Armor Master",
+  "cz": "Mistr střední zbroje",
+  "kat": "general",
+  "pred": "4. úroveň, výcvik ve střední zbroji",
+  "vl": [
+   "STR",
+   "AGI"
+  ],
+  "t": "Ve střední zbroji si při AGI 16+ přičítáš k AC až +3 z AGI místo +2."
+ },
+ {
+  "en": "Moderately Armored",
+  "cz": "Středně obrněný",
+  "kat": "general",
+  "pred": "4. úroveň, výcvik v lehké zbroji",
+  "vl": [
+   "STR",
+   "AGI"
+  ],
+  "t": "Získáš výcvik ve střední zbroji."
+ },
+ {
+  "en": "Mounted Combatant",
+  "cz": "Jezdecký bojovník",
+  "kat": "general",
+  "pred": "4. úroveň",
+  "vl": [
+   "STR",
+   "AGI",
+   "WIS"
+  ],
+  "t": "V sedle máš výhodu na útoky proti nejezdícím tvorům do 5 stop od zvířete, kteří jsou aspoň o 1 velikost menší než ono. Když tvé zvíře hází AGI záchranný hod na poloviční zranění, při úspěchu neutrpí nic a při neúspěchu polovinu. Útok, který zasáhne tvé zvíře, můžeš přesměrovat na sebe. Nesmíš mít stav Incapacitated."
+ },
+ {
+  "en": "Observant",
+  "cz": "Všímavý",
+  "kat": "general",
+  "pred": "4. úroveň, INT nebo WIS 13+",
+  "vl": [
+   "INT",
+   "WIS"
+  ],
+  "t": "Zvol dovednost Insight, Investigation nebo Perception: získáš v ní zdatnost, a pokud ji už máš, Expertise. Akci Search můžeš provést jako Bonusovou akci.",
+  "cas": "BA"
+ },
+ {
+  "en": "Piercer",
+  "cz": "Probodávač",
+  "kat": "general",
+  "pred": "4. úroveň",
+  "vl": [
+   "STR",
+   "AGI"
+  ],
+  "t": "Jednou za tah při zásahu útokem s Piercing zraněním smíš přehodit jednu kostku zranění (platí nový hod). Při kritickém zásahu s Piercing zraněním hodíš navíc jednu kostku zranění."
+ },
+ {
+  "en": "Poisoner",
+  "cz": "Travič",
+  "kat": "general",
+  "pred": "4. úroveň",
+  "vl": [
+   "AGI",
+   "INT"
+  ],
+  "t": "Tvé Poison zranění ignoruje Resistance. Zdatnost s Poisoner's Kit: 1 h + 50 zl = dávky jedu v počtu bonusu zdatnosti. Bonusovou akcí natřeš dávku na zbraň/střelu (1 min nebo do prvního zranění). Zraněný: CON záchranný hod (SO 8 + mod. zvýšené vl. + bonus zdatnosti), jinak utrpí 2d8 Poison zranění a stav Poisoned do konce tvého dalšího tahu.",
+  "cas": "BA"
+ },
+ {
+  "en": "Polearm Master",
+  "cz": "Mistr dřevcových zbraní",
+  "kat": "general",
+  "pred": "4. úroveň, STR nebo AGI 13+",
+  "vl": [
+   "STR",
+   "AGI"
+  ],
+  "t": "Platí pro Quarterstaff, Spear a zbraně s vlastnostmi Heavy i Reach. Hned po útoku touto zbraní v rámci Akce Útok můžeš Bonusovou akcí zaútočit druhým koncem: kostka zranění d4, Bludgeoning. Když nepřítel vstoupí do tvého dosahu s takovou zbraní, můžeš Reakcí provést jeden útok na blízko."
+ },
+ {
+  "en": "Resilient",
+  "cz": "Odolný",
+  "kat": "general",
+  "pred": "4. úroveň",
+  "vl": [
+   "STR",
+   "AGI",
+   "CON",
+   "INT",
+   "WIS",
+   "CHA"
+  ],
+  "t": "Zvolíš vlastnost, v jejíchž záchranných hodech nemáš zdatnost; zvýšíš ji o 1 (max. 20) a získáš zdatnost v jejích záchranných hodech."
+ },
+ {
+  "en": "Ritual Caster",
+  "cz": "Rituální sesilatel",
+  "kat": "general",
+  "pred": "4. úroveň, INT, WIS nebo CHA 13+",
+  "vl": [
+   "INT",
+   "WIS",
+   "CHA"
+  ],
+  "t": "Vždy máš připravená rituální kouzla 1. úrovně v počtu = bonus zdatnosti (s každým jeho zvýšením přibude jedno); sesíláš je zvýšenou vlastností a smíš na ně použít jakýkoli slot. Jednou za dlouhý odpočinek můžeš připravené rituální kouzlo seslat bez slotu v běžném čase sesílání.",
+  "pocet": 1,
+  "obn": "dlouhý odpočinek"
+ },
+ {
+  "en": "Sentinel",
+  "cz": "Strážce",
+  "kat": "general",
+  "pred": "4. úroveň, STR nebo AGI 13+",
+  "vl": [
+   "STR",
+   "AGI"
+  ],
+  "t": "Tvor do 5 stop od tebe, který provede Akci Odpoutání nebo zasáhne útokem někoho jiného než tebe, si od tebe hned vyslouží příležitostný útok. Zasáhneš-li tvora příležitostným útokem, jeho rychlost klesne na 0 do konce aktuálního tahu.",
+  "cas": "R"
+ },
+ {
+  "en": "Shadow Touched",
+  "cz": "Dotčený stínem",
+  "kat": "general",
+  "pred": "4. úroveň",
+  "vl": [
+   "INT",
+   "WIS",
+   "CHA"
+  ],
+  "t": "Vždy máš připravené *Invisibility* a jedno zvolené kouzlo 1. úrovně ze školy Iluze nebo Nekromancie. Každé z nich můžeš jednou za dlouhý odpočinek seslat bez slotu, jinak i běžně se sloty. Sesíláš je zvýšenou vlastností.",
+  "pocet": 1,
+  "obn": "dlouhý odpočinek",
+  "kouzla": [
+   [
+    1,
+    [
+     "Invisibility"
+    ]
+   ]
+  ]
+ },
+ {
+  "en": "Sharpshooter",
+  "cz": "Ostrostřelec",
+  "kat": "general",
+  "pred": "4. úroveň, AGI 13+",
+  "vl": [
+   "AGI"
+  ],
+  "t": "Tvé útoky zbraněmi na dálku ignorují poloviční a tříčtvrteční krytí. Útoky zbraněmi na dálku nemají nevýhodu kvůli nepříteli do 5 stop ani kvůli dlouhému dostřelu."
+ },
+ {
+  "en": "Shield Master",
+  "cz": "Mistr štítu",
+  "kat": "general",
+  "pred": "4. úroveň, výcvik se štíty",
+  "vl": [
+   "STR"
+  ],
+  "t": "Jednou za tah, když v rámci Akce Útok zasáhneš zbraní na blízko tvora do 5 stop, můžeš ho udeřit štítem: STR záchranný hod (SO 8 + STR + bonus zdatnosti), při neúspěchu ho odstrčíš o 5 stop nebo mu způsobíš stav Prone. Držíš-li štít a uspěješ v AGI záchranném hodu proti efektu s polovičním zraněním, můžeš Reakcí neutrpět nic.",
+  "cas": "R"
+ },
+ {
+  "en": "Skill Expert",
+  "cz": "Znalec dovedností",
+  "kat": "general",
+  "pred": "4. úroveň",
+  "vl": [
+   "STR",
+   "AGI",
+   "CON",
+   "INT",
+   "WIS",
+   "CHA"
+  ],
+  "t": "Získáš zdatnost v jedné dovednosti dle volby. V jedné dovednosti, v níž už zdatnost máš, získáš Expertise."
+ },
+ {
+  "en": "Skulker",
+  "cz": "Plíživec",
+  "kat": "general",
+  "pred": "4. úroveň, AGI 13+",
+  "vl": [
+   "AGI"
+  ],
+  "t": "Máš Blindsight 10 stop. V boji máš výhodu na ověření AGI (Stealth) při Akci Skrytí. Minul-li tvůj útok, když jsi skrytý, tvá pozice se tím neprozradí."
+ },
+ {
+  "en": "Slasher",
+  "cz": "Sekáč",
+  "kat": "general",
+  "pred": "4. úroveň",
+  "vl": [
+   "STR",
+   "AGI"
+  ],
+  "t": "Jednou za tah, když zasáhneš útokem se Slashing zraněním, můžeš cíli snížit rychlost o 10 stop do začátku svého příštího tahu. Kritický zásah se Slashing zraněním dá cíli nevýhodu na hody na útok do začátku tvého příštího tahu."
+ },
+ {
+  "en": "Speedy",
+  "cz": "Rychlonohý",
+  "kat": "general",
+  "pred": "4. úroveň, AGI nebo CON 13+",
+  "vl": [
+   "AGI",
+   "CON"
+  ],
+  "t": "Rychlost +10 stop. Po Akci Sprint tě do konce tahu obtížný terén nezpomaluje. Příležitostné útoky proti tobě mají nevýhodu.",
+  "ef": {
+   "rych": 10
+  }
+ },
+ {
+  "en": "Spell Sniper",
+  "cz": "Kouzelný ostrostřelec",
+  "kat": "general",
+  "pred": "4. úroveň, rys Spellcasting nebo Pact Magic",
+  "vl": [
+   "INT",
+   "WIS",
+   "CHA"
+  ],
+  "t": "Útoky kouzly ignorují poloviční a tříčtvrteční krytí a nemají nevýhodu kvůli nepříteli do 5 stop. Kouzlu s útokem a dosahem aspoň 10 stop můžeš prodloužit dosah o 60 stop."
+ },
+ {
+  "en": "Telekinetic",
+  "cz": "Telekinetik",
+  "kat": "general",
+  "pred": "4. úroveň",
+  "vl": [
+   "INT",
+   "WIS",
+   "CHA"
+  ],
+  "t": "Znáš *Mage Hand*: sesíláš ji bez složek V a S, ruka může být neviditelná a dosah i vzdálenost ruky jsou o 30 stop větší. Bonusovou akcí můžeš strčit do viditelného tvora do 30 stop: STR záchranný hod (SO 8 + mod. zvýšené vlastnosti + bonus zdatnosti), jinak ho posuneš o 5 stop k sobě nebo od sebe.",
+  "cas": "BA",
+  "kouzla": [
+   [
+    1,
+    [
+     "Mage Hand"
+    ]
+   ]
+  ]
+ },
+ {
+  "en": "Telepathic",
+  "cz": "Telepat",
+  "kat": "general",
+  "pred": "4. úroveň",
+  "vl": [
+   "INT",
+   "WIS",
+   "CHA"
+  ],
+  "t": "Můžeš telepaticky mluvit k viditelnému tvoru do 60 stop jazykem, který znáš (rozumí jen, zná-li ho; odpovědět telepaticky nemůže). Vždy máš připravené *Detect Thoughts*; jednou za dlouhý odpočinek ho sešleš bez slotu a složek, jinak se sloty. Sesíláš zvýšenou vlastností.",
+  "pocet": 1,
+  "obn": "dlouhý odpočinek",
+  "kouzla": [
+   [
+    1,
+    [
+     "Detect Thoughts"
+    ]
+   ]
+  ]
+ },
+ {
+  "en": "War Caster",
+  "cz": "Válečný mág",
+  "kat": "general",
+  "pred": "4. úroveň, rys Spellcasting nebo Pact Magic",
+  "vl": [
+   "INT",
+   "WIS",
+   "CHA"
+  ],
+  "t": "Výhoda na CON záchranné hody k udržení Concentration. Místo příležitostného útoku na tvora opouštějícího tvůj dosah můžeš Reakcí seslat kouzlo se sesíláním 1 Akce, cílící jen na něj. Somatické složky zvládneš i se zbraní či štítem v rukou.",
+  "cas": "R"
+ },
+ {
+  "en": "Weapon Master",
+  "cz": "Mistr zbraní",
+  "kat": "general",
+  "pred": "4. úroveň",
+  "vl": [
+   "STR",
+   "AGI"
+  ],
+  "t": "Můžeš používat vlastnost mistrovství (mastery) jednoho druhu jednoduché nebo válečné zbraně, se kterou máš zdatnost. Po každém dlouhém odpočinku můžeš druh zbraně změnit."
+ },
+ {
+  "en": "Blind Fighting",
+  "cz": "Boj naslepo",
+  "kat": "fightStyle",
+  "pred": "rys Fighting Style",
+  "t": "Máš Blindsight 10 stop."
+ },
+ {
+  "en": "Dueling",
+  "cz": "Souboj",
+  "kat": "fightStyle",
+  "pred": "rys Fighting Style",
+  "t": "Držíš-li zbraň na blízko v jedné ruce a žádnou jinou zbraň, máš s ní +2 k hodům na zranění."
+ },
+ {
+  "en": "Interception",
+  "cz": "Zachycení",
+  "kat": "fightStyle",
+  "pred": "rys Fighting Style",
+  "t": "Když viditelný tvor zasáhne útokem jiného tvora do 5 stop od tebe, můžeš Reakcí snížit jeho zranění o 1d10 + bonus zdatnosti. Musíš držet štít nebo jednoduchou či válečnou zbraň.",
+  "cas": "R"
+ },
+ {
+  "en": "Protection",
+  "cz": "Ochrana",
+  "kat": "fightStyle",
+  "pred": "rys Fighting Style",
+  "t": "Když viditelný tvor útočí na jiný cíl do 5 stop od tebe a ty držíš štít, můžeš Reakcí dát nevýhodu tomuto útoku i všem dalším útokům na ten cíl do začátku svého příštího tahu, dokud zůstaneš do 5 stop od něj.",
+  "cas": "R"
+ },
+ {
+  "en": "Thrown Weapon Fighting",
+  "cz": "Boj vrhacími zbraněmi",
+  "kat": "fightStyle",
+  "pred": "rys Fighting Style",
+  "t": "Při zásahu útokem na dálku zbraní s vlastností Thrown máš +2 k hodu na zranění."
+ },
+ {
+  "en": "Unarmed Fighting",
+  "cz": "Boj beze zbraně",
+  "kat": "fightStyle",
+  "pred": "rys Fighting Style",
+  "t": "Úder beze zbraně může způsobit 1d6 + STR Bludgeoning zranění (1d8, nedržíš-li při útoku zbraň ani štít). Na začátku každého svého tahu můžeš jednomu tvoru, kterého držíš (stav Grappled), způsobit 1d4 Bludgeoning zranění."
+ },
+ {
+  "en": "Boon of Energy Resistance",
+  "cz": "Dar odolnosti vůči energiím",
+  "kat": "epic",
+  "pred": "19. úroveň",
+  "vl": [
+   "STR",
+   "AGI",
+   "CON",
+   "INT",
+   "WIS",
+   "CHA"
+  ],
+  "t": "Získáš Resistance vůči 2 typům z Acid, Cold, Fire, Lightning, Necrotic, Poison, Psychic, Radiant, Thunder (změna po dlouhém odpočinku). Utrpíš-li zranění zvoleného typu, můžeš Reakcí zasáhnout viditelného tvora do 60 stop bez úplného krytí: AGI záchranný hod (SO 8 + CON + bonus zdatnosti), jinak utrpí 2d12 + CON zranění téhož typu.",
+  "cas": "R"
+ },
+ {
+  "en": "Boon of Fortitude",
+  "cz": "Dar houževnatosti",
+  "kat": "epic",
+  "pred": "19. úroveň",
+  "vl": [
+   "STR",
+   "AGI",
+   "CON",
+   "INT",
+   "WIS",
+   "CHA"
+  ],
+  "t": "Maximum HP +40. Jednou za kolo (do začátku tvého příštího tahu), když získáváš zpět HP, můžeš získat navíc HP ve výši modifikátoru CON."
+ },
+ {
+  "en": "Boon of Recovery",
+  "cz": "Dar zotavení",
+  "kat": "epic",
+  "pred": "19. úroveň",
+  "vl": [
+   "STR",
+   "AGI",
+   "CON",
+   "INT",
+   "WIS",
+   "CHA"
+  ],
+  "t": "Jednou za dlouhý odpočinek: když bys klesl na 0 HP, zůstaneš na 1 HP a získáš zpět polovinu maxima HP. Dále máš zásobu 10d10: Bonusovou akcí hodíš libovolný počet z nich a získáš zpět HP ve výši součtu; zásoba se doplní dlouhým odpočinkem.",
+  "cas": "BA",
+  "pocet": 1,
+  "obn": "dlouhý odpočinek"
+ },
+ {
+  "en": "Boon of Skill",
+  "cz": "Dar dovedností",
+  "kat": "epic",
+  "pred": "19. úroveň",
+  "vl": [
+   "STR",
+   "AGI",
+   "CON",
+   "INT",
+   "WIS",
+   "CHA"
+  ],
+  "t": "Získáš zdatnost ve všech dovednostech a Expertise v jedné dovednosti dle volby."
+ },
+ {
+  "en": "Boon of Speed",
+  "cz": "Dar rychlosti",
+  "kat": "epic",
+  "pred": "19. úroveň",
+  "vl": [
+   "STR",
+   "AGI",
+   "CON",
+   "INT",
+   "WIS",
+   "CHA"
+  ],
+  "t": "Rychlost +30 stop. Bonusovou akcí můžeš provést Akci Odpoutání, která navíc ukončí stav Grappled na tobě.",
+  "cas": "BA",
+  "ef": {
+   "rych": 30
+  }
+ }
+]

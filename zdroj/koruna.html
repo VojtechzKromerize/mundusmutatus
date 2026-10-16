@@ -2552,6 +2552,9 @@ html:not(.gmv) .gmonly{display:none!important}
 .kdbdpl form.kvlh{display:flex;flex-wrap:wrap;gap:4px;margin:6px 0}
 .bhr .kdbc li,.kdbc li{background:none!important;border:0;border-bottom:1px solid var(--kb-bd2);border-radius:0!important;font-family:var(--f-body)!important;font-size:.92rem;padding:4px 0;text-decoration:none!important;color:var(--kb-tx)!important;display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px}
 .kdbc li b{font-family:var(--f-body)}
+/* obsah mimo SRD: vlastní shrnutí mechaniky (2026-10-17) */
+.kmimo{border-left:3px solid var(--gold);padding-left:.7em;margin:.6em 0}
+.kmimo .srdattr{opacity:.8}
 </style>
 
 <div class="wrap"><div class="papir" aria-hidden="true"></div>
@@ -6084,13 +6087,34 @@ document.querySelectorAll(".lyrbtn").forEach(b=>{const p=document.getElementById
 /* ===== Pravidla: český překlad SRD 5.2.1 s poznámkami Artikulí (art/pravidla.json, načte se až při otevření) ===== */
 let SRDP=null,SRDPP=null;
 const srdNacti=()=>SRDP?Promise.resolve(SRDP):(SRDPP=SRDPP||fetch("art/pravidla.json").then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(j=>SRDP=j).catch(e=>{SRDPP=null;throw e}));
+/* Doplňky mimo SRD: podtřídy podle povolání, featy podle druhu, zázemí, druhy a kouzla (vlastní shrnutí mechaniky) */
+const MIMOKAT={origin:"Featy původu",general:"Obecné featy",fightStyle:"Bojové styly",epic:"Epická požehnání"};
+function renderMimo(main,c){if(!MIMO){main.innerHTML=`<p class="rsmall">Načítám…</p>`;Promise.all([mimoNacti(),kSpNacti().catch(()=>{})]).then(j=>{if(curView==="pravidla")renderMimo(main,c)});return}
+  if(!KSPD){kSpNacti().then(()=>{if(curView==="pravidla")renderMimo(main,c)}).catch(()=>{})}
+  const rys=(r,m)=>`<li id="mimo-${besc(slugMimo(r.en))}"><b>${besc(r.cz||r.en)}</b> <small lang="en">${besc(r.en)}</small>${(()=>{const t=mimoMeta({r,typ:m,o:{}},null);return t?` <small>· ${besc(t)}</small>`:""})()}<br>${kzIn(r.t||"")}</li>`;
+  const tr={};(MIMO.podtridy||[]).forEach(p=>(tr[p.tr]=tr[p.tr]||[]).push(p));
+  const kat={};(MIMO.featy||[]).forEach(f=>(kat[f.kat]=kat[f.kat]||[]).push(f));
+  const sp=KSPD?Object.values(KSPD).filter(x=>x.x).sort((a,b)=>a.l-b.l||a.en.localeCompare(b.en)):[];
+  const toc=[["podtridy","Podtřídy"],["featy","Featy"],["zazemi","Zázemí"],["druhy","Druhy"],["kouzla","Kouzla"]];
+  main.innerHTML=`<nav class="crumbs"><a href="#pravidla">Pravidla</a> › <b>Doplňky mimo SRD</b></nav><h2 class="arttitle">Doplňky mimo SRD</h2>
+  <p class="intro">Podtřídy, featy, zázemí, druh a kouzla z D&amp;D 2024, které nejsou v SRD 5.2.1. Každá položka je stručné shrnutí mechaniky vlastními slovy – stačí pro hru a pro výpočty na kartě, plné znění je v příručce nebo na listu postavy z D&amp;D Beyond. Artikule platí přednostně i tady.</p>
+  <p class="rsmall">${toc.map(([id,n])=>`<a href="#pravidla/mimo/mimo-${id}">${n}</a>`).join(" · ")}</p>
+  <h3 class="uvh2" id="mimo-podtridy">Podtřídy</h3>${Object.keys(KTR).filter(k=>tr[k]).map(k=>`<h4>${besc(KTR[k].cz)}</h4>${tr[k].map(p=>`<details class="bjapd" id="mimo-${besc(p.id)}"><summary><b>${besc(p.cz||p.en)}</b> <small lang="en">${besc(p.en)}</small></summary><p>${besc(p.t||"")}</p><ul class="kfeat">${(p.rysy||[]).map(r=>rys(r,"rys")).join("")}</ul></details>`).join("")}`).join("")}
+  <h3 class="uvh2" id="mimo-featy">Featy</h3>${Object.keys(MIMOKAT).filter(k=>kat[k]).map(k=>`<h4>${MIMOKAT[k]}</h4><ul class="kfeat">${kat[k].map(f=>`<li id="mimo-${besc(slugMimo(f.en))}"><b>${besc(f.cz||f.en)}</b> <small lang="en">${besc(f.en)}</small>${f.pred?` <small>· předpoklad: ${besc(f.pred)}</small>`:""}${f.vl&&f.vl.length?` <small>· +1 ${besc(f.vl.join("/"))}</small>`:""}${(()=>{const t=mimoMeta({r:f,typ:"feat",o:{}},null);return t?` <small>· ${besc(t)}</small>`:""})()}<br>${kzIn(f.t||"")}</li>`).join("")}</ul>`).join("")}
+  <h3 class="uvh2" id="mimo-zazemi">Zázemí</h3><ul class="kfeat">${(MIMO.zazemi||[]).map(z=>`<li><b>${besc(z.cz||z.en)}</b> <small lang="en">${besc(z.en)}</small><br>${z.t?besc(z.t)+"<br>":""}<small>Vlastnosti ${besc((z.vl||[]).join(", "))} · feat ${besc(z.feat||"")} · dovednosti ${besc((z.dov||[]).join(", "))}${z.nastroj?` · nástroj: ${besc(z.nastroj)}`:""}${z.vybava?` · výbava: ${besc(z.vybava)}`:""}</small></li>`).join("")}</ul>
+  <h3 class="uvh2" id="mimo-druhy">Druhy</h3>${(MIMO.druhy||[]).map(d=>`<h4>${besc(d.cz||d.en)}</h4><p>${besc(d.t||"")} <small>Rychlost ${d.rych} stop · velikost ${besc(d.vel||"")}</small></p><ul class="kfeat">${(d.rysy||[]).map(r=>rys(r,"druh")).join("")}</ul>`).join("")}
+  <h3 class="uvh2" id="mimo-kouzla">Kouzla</h3>${sp.length?`<ul class="kfeat">${sp.map(x=>`<li><details><summary><b>${besc(x.cz||x.en)}</b> <small lang="en">${besc(x.en)}</small> <small>· ${kzUr(x.l)} · ${besc((x.p||[]).join(", "))}</small></summary>${kSpPopis({n:x.en})}</details></li>`).join("")}</ul>`:`<p class="rsmall">Načítám kouzla…</p>`}
+  <p class="rsmall srdattr">${besc(MIMOPOZN)}</p>`;
+  const el=c&&document.getElementById(c);if(el){if(el.tagName==="DETAILS")el.open=true;el.scrollIntoView({block:"start"})}else window.scrollTo(0,0)}
+const slugMimo=s=>String(s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
 function renderPravidla(b,c){const side=document.getElementById("srdside"),main=document.getElementById("srdmain");if(!side||!main)return;
   if(!SRDP){main.innerHTML=`<p class="rsmall">Načítám pravidla…</p>`;srdNacti().then(()=>{if(curView==="pravidla")renderPravidla(b,c)},()=>{main.innerHTML=`<p class="intro">Pravidla se nepodařilo načíst.</p>`});return}
   const K=SRDP.kap.find(k=>k.id===b);
-  side.innerHTML=`<nav class="atoc srdtoc" aria-label="Obsah pravidel"><a class="atop${K||b==="predmety"||b==="netvori"?"":" on"}" href="#pravidla">Úvod</a>${SRDP.kap.map(k=>`<p class="abook"><a href="#pravidla/${k.id}"${K&&K.id===k.id?' class="on"':""}>${k.n}</a></p>${K&&K.id===k.id?`<ol>${k.toc.filter(t=>t.l<=(k.id==="glosar"?2:1)).map(t=>`<li class="srdl${t.l}"><a href="#pravidla/${k.id}/${t.id}">${besc(t.n)}</a></li>`).join("")}</ol>`:""}`).join("")}<p class="abook"><a href="#pravidla/predmety"${b==="predmety"?' class="on"':""}>Magické předměty</a></p>${GMV?`<p class="abook"><a href="#pravidla/netvori"${b==="netvori"?' class="on"':""}>Nestvůry a zvířata</a></p>`:""}</nav>`;
+  side.innerHTML=`<nav class="atoc srdtoc" aria-label="Obsah pravidel"><a class="atop${K||b==="predmety"||b==="netvori"||b==="mimo"?"":" on"}" href="#pravidla">Úvod</a>${SRDP.kap.map(k=>`<p class="abook"><a href="#pravidla/${k.id}"${K&&K.id===k.id?' class="on"':""}>${k.n}</a></p>${K&&K.id===k.id?`<ol>${k.toc.filter(t=>t.l<=(k.id==="glosar"?2:1)).map(t=>`<li class="srdl${t.l}"><a href="#pravidla/${k.id}/${t.id}">${besc(t.n)}</a></li>`).join("")}</ol>`:""}`).join("")}<p class="abook"><a href="#pravidla/predmety"${b==="predmety"?' class="on"':""}>Magické předměty</a></p><p class="abook"><a href="#pravidla/mimo"${b==="mimo"?' class="on"':""}>Doplňky mimo SRD</a></p>${GMV?`<p class="abook"><a href="#pravidla/netvori"${b==="netvori"?' class="on"':""}>Nestvůry a zvířata</a></p>`:""}</nav>`;
+  if(b==="mimo"){renderMimo(main,c);return}
   if(b==="predmety"){renderPredmety(main);window.scrollTo(0,0);return}if(b==="netvori"){renderNetvori(main);window.scrollTo(0,0);return}
   if(!K){main.innerHTML=`<h2 class="arttitle">Pravidla</h2><p class="intro">Základní pravidla D&amp;D 2024 podle System Reference Document 5.2.1, přeložená do češtiny. Kde Mundus Mutatus hraje jinak, stojí u pravidla rámeček <b>Artikule</b> – ten platí přednostně. Celá domácí pravidla jsou v <a href="#artikule">Artikulích</a>.</p>
-    <ul class="srdkap">${SRDP.kap.map(k=>`<li><a href="#pravidla/${k.id}"><b>${k.n}</b><small>${besc(k.p)}</small></a></li>`).join("")}<li><a href="#pravidla/predmety"><b>Magické předměty</b><small>lektvary, prsteny, zbraně a divotvorné předměty s českým popisem</small></a></li>${GMV?`<li><a href="#pravidla/netvori"><b>Nestvůry a zvířata</b><small>statistiky SRD pro bestiář a Boj (jen vypravěč)</small></a></li>`:""}</ul>
+    <ul class="srdkap">${SRDP.kap.map(k=>`<li><a href="#pravidla/${k.id}"><b>${k.n}</b><small>${besc(k.p)}</small></a></li>`).join("")}<li><a href="#pravidla/predmety"><b>Magické předměty</b><small>lektvary, prsteny, zbraně a divotvorné předměty s českým popisem</small></a></li><li><a href="#pravidla/mimo"><b>Doplňky mimo SRD</b><small>další podtřídy, featy, zázemí, Aasimar a kouzla – stručně vlastními slovy</small></a></li>${GMV?`<li><a href="#pravidla/netvori"><b>Nestvůry a zvířata</b><small>statistiky SRD pro bestiář a Boj (jen vypravěč)</small></a></li>`:""}</ul>
     <p class="rsmall">Kouzla SRD česky má vypravěč v části Kouzla; hráči je vidí u kouzel na své kartě.</p>
     <p class="rsmall srdattr">${besc(SRDP.attr)} Překlad do češtiny a doplnění pravidly Artikulí: Mundus Mutatus. Kompatibilní s 5. edicí (5E compatible).</p>
     <p class="rsmall srdattr" lang="en">${besc(SRDP.attr_en)}</p>`;window.scrollTo(0,0);return}
@@ -8063,8 +8087,8 @@ let KSPD=null;
 const kSpNacti=()=>KSPD?Promise.resolve(KSPD):fetch("art/kouzla.json").then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(d=>{KSPD={};d.forEach(x=>{KSPD[x.en.toLowerCase()]=x});return KSPD});
 const kSp=n=>KSPD&&KSPD[String(n||"").toLowerCase().replace(/\s*\((ritual|rituál)\)\s*$/,"").trim()]||null;
 const KSPO=new Set();
-function kSpPopis(sp){const x=kSp(sp.n);if(!KSPD)return `<p class="rsmall">Načítám popis…</p>`;if(!x)return `<p class="rsmall">Kouzlo není v SRD 5.2.1 – popis najdeš v D&amp;D Beyond.</p>`;
-  return `<div class="kspd"><p class="rsmall"><b>${besc(x.cz||x.en)}</b> · ${kzUr(x.l)} · ${besc(x.s||"")} · ${besc(x.ct||"")} · ${besc(x.r||"")} · ${besc((x.k||[]).join(", "))}${x.m?` (${besc(x.m)})`:""} · ${besc(x.d||"")}${x.ri?" · rituál":""}</p>${kzMd(x.t)}${x.v?`<p><b>Na vyšší úrovni.</b> ${kzIn(x.v)}</p>`:""}</div>`}
+function kSpPopis(sp){const x=kSp(sp.n);if(!KSPD)return `<p class="rsmall">Načítám popis…</p>`;if(!x)return `<p class="rsmall">Kouzlo web nezná – popis najdeš v D&amp;D Beyond.</p>`;
+  return `<div class="kspd${x.x?" kmimo":""}"><p class="rsmall"><b>${besc(x.cz||x.en)}</b> · ${kzUr(x.l)} · ${besc(x.s||"")} · ${besc(x.ct||"")} · ${besc(x.r||"")} · ${besc((x.k||[]).join(", "))}${x.m?` (${besc(x.m)})`:""} · ${besc(x.d||"")}${x.ri?" · rituál":""}</p>${kzMd(x.t)}${x.v?`<p><b>Na vyšší úrovni.</b> ${kzIn(x.v)}</p>`:""}</div>`}
 /* ---- vlastní hod: 2d6+3, 4d6kh3, 2d20kl1, d%, s kostkou Závoje ---- */
 function kVyraz(v){const s=String(v||"").toLowerCase().replace(/\s+/g,"").replace(/d%/g,"d100").replace(/[−–]/g,"-");if(!s||s.length>60||!/^[+-]?(\d*d\d+(k[hl]\d+)?|\d+)([+-](\d*d\d+(k[hl]\d+)?|\d+))*$/.test(s))return null;
   let tot=0;const parts=[];let kostek=0;
@@ -8645,7 +8669,7 @@ async function kTextyUloz(id,t){if(!t||!Object.keys(t).length)return;KTX[id]=t;
   else{try{const o=JSON.parse(localStorage.getItem("mm-karty-texty")||"{}")||{};o[id]=t;localStorage.setItem("mm-karty-texty",JSON.stringify(o))}catch(e){}}}
 const kRysSrd=n=>{if(!SRDRY)return null;const c=String(n||"").replace(/[’]/g,"'").replace(/\s*\(.*\)$/,"").trim();return SRDRY[c]||SRDRY[c.replace(/'/g,"’")]||null};
 function kRysPopis(K,n){const T=KTX[K.id]||{},t=T[n],s=kRysSrd(n);
-  return `<h3>${besc(n)}</h3>${t?`<div class="kron">${besc(t).replace(/\n/g,"<br>")}</div><p class="rsmall">Text z tvého listu D&amp;D Beyond – vidíš ho jen ty a vypravěč.</p>`:`<p class="rsmall">${kMuze(K)?"Popis z PDF tu zatím není – nahraj list znovu.":"Popis vidí jen hráč této postavy a vypravěč."}</p>`}${s?`<p><a class="gbtn ghost" href="#pravidla/${s[0]}/${s[1]}" data-mmpopx>Pravidla SRD česky →</a></p>`:""}`}
+  return `<h3>${besc(n)}</h3>${t?`<div class="kron">${besc(t).replace(/\n/g,"<br>")}</div><p class="rsmall">Text z tvého listu D&amp;D Beyond – vidíš ho jen ty a vypravěč.</p>`:`<p class="rsmall">${kMuze(K)?"Popis z PDF tu zatím není – nahraj list znovu.":"Popis vidí jen hráč této postavy a vypravěč."}</p>`}${s?`<p><a class="gbtn ghost" href="#pravidla/${s[0]}/${s[1]}" data-mmpopx>Pravidla SRD česky →</a></p>`:MIMO?mimoRysHtml(mimoNajdi(kCtx(K),n),kCtx(K)):""}`}
 /* ---- čas aktivace a seznamy akcí ---- */
 const KCAS={A:"Akce",BA:"Bonusové akce",R:"Reakce",X:"Ostatní"};
 const kCasKouzla=x=>{const d=kSp(x.n);const c=(d&&d.ct)||x.cas||"";return /^Bonus|^1BA|bonus/i.test(c)?"BA":/^Reakc|^1R|reaction/i.test(c)?"R":/^Akce|^1A$|action/i.test(c)?"A":"X"};
@@ -8756,7 +8780,7 @@ const kTridy=K=>kartaStav(K.id).tridy||kTridyPdf(K);
 const kTrU=(c,n)=>(c.tr.find(t=>t.n===n)||{}).u||0;
 /* ---- kontext: vstupy modelu (aktuální stav, nebo stav PDF pro porovnání) ---- */
 const KCX=new WeakMap(),KCX0=new WeakMap();
-function kCtx(K,pdf){const S=pdf?{}:kartaStav(K.id),C=pdf?KCX0:KCX,key=pdf?(K.vybaveni?K:(KST[K.id]||K)):(KST[K.id]||K),c0=C.get(key);if(c0&&c0.K===K&&c0.pred===!!PRED)return c0;
+function kCtx(K,pdf){const S=pdf?{}:kartaStav(K.id),C=pdf?KCX0:KCX,key=pdf?(K.vybaveni?K:(KST[K.id]||K)):(KST[K.id]||K),c0=C.get(key);if(c0&&c0.K===K&&c0.pred===!!PRED&&c0.mimo===!!MIMO)return c0;if(!MIMO&&!MIMOP)mimoNacti().then(j=>{if(j)kartyPrekresli()});
   const tr=pdf?kTridyPdf(K):kTridy(K),lv=tr.reduce((a,t)=>a+t.u,0)||+K.uroven||1,pb=2+Math.floor((lv-1)/4);
   const inv=(pdf?(K.vybaveni||kartaStav(K.id).inv||[]).map(x=>Object.assign({},x,{obl:undefined})):(S.inv||K.vybaveni||[])).filter(x=>!(x.q!=null&&+x.q<=0));
   const ry=new Set([...(K.rysy2||[]).map(r=>r.n),...(K.rysy||[])].map(x=>String(x).toLowerCase().replace(/[’']/g,"'")));
@@ -8767,6 +8791,7 @@ function kCtx(K,pdf){const S=pdf?{}:kartaStav(K.id),C=pdf?KCX0:KCX,key=pdf?(K.vy
     Object.entries(ef).forEach(([k,v])=>{if(k==="vl")Object.entries(v).forEach(([a,s])=>{vlSet[a]=Math.max(vlSet[a]||0,s);E.push({c:"vl:"+a,v:s,n:nm,set:1})});else if(/^(ac|zach|sput|spdc|ov|zrd|acz)$/.test(k))E.push({c:k,v:+v,n:nm})})});
   const vl={};BAB.forEach(a=>{const o=(S.vlU||{})[a];let v=o!=null?+o:kVl0(K,a);if(v==null)v=10;if(vlSet[a]&&vlSet[a]>v)v=vlSet[a];vl[a]=v});
   const c={pred:!!PRED,K,S,pdf,tr,lv,pb,inv,ry,maRys,E,vl,md:a=>kMod(vl[a]),N:kNoseno(inv),druh:String(K.druh||"")};
+  c.mimo=!!MIMO;kMimoEf(c);
   (S.upr||[]).forEach(u=>E.push({c:u.c,v:+u.v,n:u.n||"vlastní úprava",vl:1}));
   C.set(key,c);return c}
 const kEf=(c,k)=>c.E.filter(e=>e.c===k).reduce((a,e)=>a+e.v,0);
@@ -8782,7 +8807,7 @@ const KR={
   ov:(c,a)=>{const L=[[a,c.md(a)]];if(kJoat(c))L.push(["Jack of All Trades",Math.floor(c.pb/2)]);L.push(...kEfL(c,"ov"));return L},
   ini:c=>{const L=[["AGI",c.md("AGI")]];if(c.maRys(/^alert$/))L.push(["Alert",c.pb]);if(kJoat(c))L.push(["Jack of All Trades",Math.floor(c.pb/2)]);L.push(...kEfL(c,"ov"),...kEfL(c,"ini"));return L},
   pas:(c,k)=>{const n=KPASD[k];return [["základ",10],[n,kSum(KR.dov(c,n))+(c.pdf?kDeltaRaw(c.K,"dov",n):kDelta(c.K,"dov",n))],...kEfL(c,"pas:"+k)]},
-  spab:c=>{const t=c.tr.map(x=>KTR[x.n]).filter(x=>x&&x.ab);return kSpAbPdf(c.K)||(t[0]||{}).ab||(c.maRys(/eldritch knight|arcane trickster/)?"INT":null)},
+  spab:c=>{const t=c.tr.map(x=>KTR[x.n]).filter(x=>x&&x.ab);return kSpAbPdf(c.K)||(t[0]||{}).ab||(c.maRys(/eldritch knight|arcane trickster/)?"INT":null)||kMimoSpab(c)},
   spdc:c=>{const a=KR.spab(c);return a?[["základ",8],["zdatnost",c.pb],[a,c.md(a)],...kEfL(c,"spdc")]:[]},
   sput:c=>{const a=KR.spab(c);return a?[["zdatnost",c.pb],[a,c.md(a)],...kEfL(c,"sput")]:[]},
   hp:c=>{if(!c.tr.length||c.tr.some(t=>!KTR[t.n]))return [["z D&D Beyond",+c.K.hp||1]];const L=[],t0=c.tr[0];
@@ -8798,7 +8823,7 @@ const kSum=L=>L.reduce((a,x)=>a+(+x[1]||0),0);
 const KPDFV={zach:(K,a)=>(K.zach||{})[a],dov:(K,n)=>(K.dov||{})[n],ini:K=>K.ini,pas:(K,k)=>(K.pasiv||{})[k],spdc:K=>(K.kouzla||{}).dc,sput:K=>(K.kouzla||{}).utok,hp:K=>K.hp,
   rych:K=>{const m=String(K.rychlost||"").match(/\d+/);return m?+m[0]:null}};
 const KDLT=new WeakMap();
-function kDeltaRaw(K,t,a){const kk=K.vybaveni?K:(KST[K.id]||K);let M=KDLT.get(kk);if(!M||M.$p!==!!PRED){M={$p:!!PRED};KDLT.set(kk,M)}const key=t+(a!=null?":"+a:"");if(!(key in M)){const p=KPDFV[t]?KPDFV[t](K,a):null;M[key]=p==null||p===""?0:(+p)-kSum(KR[t](kCtx(K,true),a))}return M[key]}
+function kDeltaRaw(K,t,a){const kk=K.vybaveni?K:(KST[K.id]||K);let M=KDLT.get(kk);if(!M||M.$p!==!!PRED||M.$m!==!!MIMO){M={$p:!!PRED,$m:!!MIMO};KDLT.set(kk,M)}const key=t+(a!=null?":"+a:"");if(!(key in M)){const p=KPDFV[t]?KPDFV[t](K,a):null;M[key]=p==null||p===""?0:(+p)-kSum(KR[t](kCtx(K,true),a))}return M[key]}
 function kDelta(K,t,a){const key=t+(a!=null?":"+a:"");return (kartaStav(K.id).pdfx||[]).includes(key)?0:kDeltaRaw(K,t,a)}
 function kHodn(K,t,a){const c=kCtx(K),L=KR[t](c,a).filter(x=>x[1]),d=kDelta(K,t,a);if(d)L.push(["z D&D Beyond",d]);return {v:kSum(L),L}}
 const kRozpis=L=>L.map(([l,v])=>`${l} ${bsg(v)}`).join(" · ");
@@ -8845,8 +8870,43 @@ const KZDRP=[[/^rage$/i,c=>{const u=kTrU(c,"Barbarian");return u?(u>=17?6:u>=12?
   [/divine intervention/i,c=>kTrU(c,"Cleric")>=10?1:0,"dlouhý odpočinek"],[/tireless/i,c=>kTrU(c,"Ranger")>=10?c.pb:0,"dlouhý odpočinek"],[/favored enemy/i,c=>{const u=kTrU(c,"Ranger");return u>=17?6:u>=13?5:u>=9?4:u>=5?3:u?2:0},"dlouhý odpočinek"]];
 function kZdroje(K){const c=kCtx(K),fit=n=>KZDRP.find(x=>x[0].test(String(n).replace(/[’']/g,"'"))),ob=(r,q)=>typeof r[2]==="function"?r[2](c):r[2]||q.obn;
   const o=(K.zdroje||[]).map(q=>{const r=fit(q.n);if(!r)return q;const m=r[1](c);return m>0?Object.assign({},q,{max:m,obn:ob(r,q),kr1:/1 se vrátí/.test(ob(r,q))||undefined,pr:1}):q});
-  KZDRP.filter(r=>r[3]&&!o.some(q=>r[0].test(String(q.n).replace(/[’']/g,"'")))).forEach(r=>{const m=r[1](c);if(m>0)o.push({n:r[3],max:m,obn:ob(r,{}),kr1:/1 se vrátí/.test(ob(r,{}))||undefined,pr:1})});return o}
+  KZDRP.filter(r=>r[3]&&!o.some(q=>r[0].test(String(q.n).replace(/[’']/g,"'")))).forEach(r=>{const m=r[1](c);if(m>0)o.push({n:r[3],max:m,obn:ob(r,{}),kr1:/1 se vrátí/.test(ob(r,{}))||undefined,pr:1})});return kMimoZdroje(c,o)}
 /* ---- zbroj, štít, AC ---- */
+/* ---- obsah D&D 2024 mimo SRD (art/mimo-srd.json): podtřídy, featy, zázemí, Aasimar – vlastní stručné shrnutí mechaniky.
+   Postava má rys, když je jeho název mezi rysy z PDF; počty použití a trvalé bonusy (ef) se pak počítají samy. ---- */
+let MIMO=null,MIMOP=null,MIMOR={};
+const mimoN=s=>String(s||"").toLowerCase().replace(/[’`]/g,"'").replace(/\s*\(.*\)\s*$/,"").replace(/^[^:]{2,40}:\s*/,"").trim();
+const mimoNacti=()=>MIMO?Promise.resolve(MIMO):(MIMOP=MIMOP||fetch("art/mimo-srd.json").then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(j=>{
+  const R={},add=(n,v)=>{const k=mimoN(n);(R[k]=R[k]||[]).push(v)};
+  (j.podtridy||[]).forEach(p=>{add(p.en,{typ:"pod",o:p,r:null});(p.al||[]).forEach(a=>add(a,{typ:"pod",o:p,r:null}));(p.rysy||[]).forEach(r=>add(r.en,{typ:"rys",o:p,r}))});
+  (j.featy||[]).forEach(f=>add(f.en,{typ:"feat",o:f,r:f}));(j.zazemi||[]).forEach(z=>add(z.en,{typ:"zaz",o:z,r:z}));
+  (j.druhy||[]).forEach(d=>{add(d.en,{typ:"druh",o:d,r:null});(d.rysy||[]).forEach(r=>add(r.en,{typ:"druh",o:d,r}))});
+  MIMOR=R;MIMO=j;return j}).catch(()=>{MIMOP=null;return null}));
+/* nejlepší shoda: rys podtřídy povolání, které postava má, a nejvíc rysů téže podtřídy na listu */
+function mimoNajdi(c,n){const L=MIMOR[mimoN(n)];if(!L||!L.length)return null;if(L.length===1||!c)return L[0];
+  const sk=x=>(x.typ==="rys"||x.typ==="pod"?(kTrU(c,x.o.tr)?10:0)+(x.o.rysy||[]).filter(r=>c.ry.has(mimoN(r.en))).length:1);return L.slice().sort((a,b)=>sk(b)-sk(a))[0]}
+const mimoMa=c=>{const o=[];c.ry.forEach(n=>{const m=mimoNajdi(c,n);if(m&&m.r&&!(m.typ==="rys"&&m.r.u&&kTrU(c,m.o.tr)&&kTrU(c,m.o.tr)<m.r.u))o.push(m)});return o};
+function mimoPocet(c,m){const p=m.r.pocet;if(p==null)return 0;if(typeof p==="number")return p;if(p==="PB")return c.pb;if(/^(STR|AGI|DEX|CON|INT|WIS|CHA)$/.test(p))return Math.max(1,c.md(p==="DEX"?"AGI":p));
+  if(Array.isArray(p)){const u=m.typ==="rys"?kTrU(c,m.o.tr):c.lv;let v=0;p.forEach(([od,n])=>{if(u>=od)v=n});return v}return 0}
+const mimoKostka=(c,m)=>{const k=m.r.kostka;if(!k)return "";if(typeof k==="string")return k;const u=m.typ==="rys"?kTrU(c,m.o.tr):c.lv;let v="";k.forEach(([od,d])=>{if(u>=od)v=d});return v};
+/* rysy, které pravidla už počítají jménem (Tough, Speedy, Lucky…), tu nesčítat podruhé */
+const MIMOSKIP=/^(tough|speedy|mobile|lucky|alert)$/;
+function kMimoEf(c){if(!MIMO)return;mimoMa(c).forEach(m=>{const ef=m.r.ef;if(!ef||MIMOSKIP.test(mimoN(m.r.en)))return;const nm=m.r.en;
+  if(ef.ac)c.E.push({c:"ac",v:+ef.ac,n:nm});if(ef.rych)c.E.push({c:"rych",v:+ef.rych,n:nm});
+  if(ef.ini)c.E.push({c:"ini",v:ef.ini==="PB"?c.pb:/^[A-Z]{3}$/.test(ef.ini)?c.md(ef.ini==="DEX"?"AGI":ef.ini):+ef.ini,n:nm});
+  if(ef.hpU&&m.typ==="rys")c.E.push({c:"hp",v:ef.hpU*kTrU(c,m.o.tr),n:nm});if(ef.hpL)c.E.push({c:"hp",v:ef.hpL*c.lv,n:nm})})}
+function kMimoSpab(c){if(!MIMO)return null;const m=mimoMa(c).find(m=>m.r.ef&&m.r.ef.spab);return m?m.r.ef.spab:null}
+function kMimoZdroje(c,o){if(!MIMO)return o;mimoMa(c).forEach(m=>{if(m.r.zdroj||m.r.pocet==null||KZDRP.some(r=>r[0].test(m.r.en)))return;const max=mimoPocet(c,m);if(!(max>0))return;
+  const obn=m.r.obn||"dlouhý odpočinek",k=mimoKostka(c,m),i=o.findIndex(q=>mimoN(q.n)===mimoN(m.r.en));
+  const q={n:m.r.en,max,obn:k?`${obn} · kostka ${k}`:obn,kr1:/1 se vrátí/.test(obn)||undefined,pr:1};if(i>=0){if(!o[i].pr)o[i]=Object.assign({},o[i],q)}else o.push(q)});return o}
+const MIMOCAS={A:"Akce",BA:"Bonusová akce",R:"Reakce"};
+function mimoMeta(m,c){const r=m.r,L=[];if(r.u)L.push(`${r.u}. úroveň`);if(r.cas)L.push(MIMOCAS[r.cas]||r.cas);
+  if(r.pocet!=null)L.push(`použití: ${c?mimoPocet(c,m)+"× ":""}${typeof r.pocet==="number"?"":Array.isArray(r.pocet)?"podle úrovně":r.pocet==="PB"?"bonus zdatnosti":r.pocet+" (min. 1)"}`.replace(/\s+$/,""));
+  if(r.obn)L.push(`obnova: ${r.obn}`);if(r.kostka)L.push(`kostka ${c?mimoKostka(c,m):Array.isArray(r.kostka)?r.kostka.map(x=>x[1]).join("/"):r.kostka}`);if(r.zdroj)L.push(`spotřebuje: ${r.zdroj}`);
+  if(r.kouzla)L.push(`vždy připravená kouzla: ${r.kouzla.map(([u,k])=>`${u}. ${k.join(", ")}`).join(" · ")}`);return L.join(" · ")}
+const MIMOPOZN="Shrnutí mechaniky vlastními slovy pro tažení Mundus Mutatus – nejde o oficiální text pravidel. Obsah mimo SRD 5.2.1; plné znění najdeš ve své příručce nebo na listu postavy z D&D Beyond.";
+function mimoRysHtml(m,c){if(!m||!m.r)return "";const r=m.r,kde=m.typ==="rys"?`${m.o.cz||m.o.en} (${(KTR[m.o.tr]||{}).cz||m.o.tr})`:m.typ==="feat"?"feat":m.typ==="druh"?m.o.cz||m.o.en:"zázemí";
+  const meta=mimoMeta(m,c);return `<div class="kmimo"><p><b>${besc(r.cz||r.en)}</b> <small>· ${besc(kde)}</small></p><p>${kzIn(r.t||"")}</p>${meta?`<p class="rsmall">${besc(meta)}</p>`:""}<p class="rsmall srdattr">${besc(MIMOPOZN)}</p></div>`}
 const KZBRT=[[/padded|prošívan|vycpávan|gambeson/i,11,9,"Vycpávaná"],[/studded|pobíjen/i,12,9,"Vycpávaná"],[/leather armou?r|kožená zbroj|kožený kabátec/i,11,9,"Vycpávaná"],[/hide armou?r|kožešinov/i,12,2,"Vycpávaná"],
   [/chain shirt|kroužková košile|drátěná košile|elven chain/i,13,2,"Kroužková"],[/scale mail|šupinov|dragon scale/i,14,2,"Kroužková"],[/breastplate|kyrys|brigantin/i,14,2,"Plátová"],[/half.?plate|půlplát|poloplát/i,15,2,"Plátová"],
   [/ring mail|kroužkovan/i,14,null,"Kroužková"],[/chain ?mail|kroužková zbroj|drátěná zbroj|drátěnk/i,16,null,"Kroužková"],[/splint|dlahov|šínov/i,17,null,"Plátová"],[/plate armou?r|^plate\b|plátová zbroj|plná zbroj|dwarven plate|demon armor/i,18,null,"Komplexní"]];

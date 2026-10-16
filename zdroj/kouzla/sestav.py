@@ -53,5 +53,15 @@ for x in sorted(en, key=lambda q: (q["level"], q["name"])):
         "k": k, "m": t.get("mat") or x.get("material") or "", "d": trvani(x["duration"], x.get("concentration")),
         "ko": 1 if x.get("concentration") else 0, "ri": 1 if x.get("ritual") else 0,
         "t": t.get("pop") or x["description"], "v": t.get("vys") or x.get("higher_level") or "", "cs": 1 if t else 0})
+# kouzla D&D 2024 mimo SRD: vlastní stručné shrnutí mechaniky (pole x = 1), nikdy text příruček
+mimo = json.load(open(os.path.join(D, "mimo-srd.json"), encoding="utf-8"))
+znama = {x["en"].lower() for x in out}
+for x in mimo:
+    if x["en"].lower() in znama:
+        raise SystemExit(f"CHYBA: kouzlo {x['en']} je už v SRD")
+    if len(x.get("t", "")) > 450:
+        raise SystemExit(f"CHYBA: popis kouzla {x['en']} je delší než 450 znaků")
+    out.append(dict(x, x=1, cs=1))
+out.sort(key=lambda q: (q["l"], q["en"]))
 json.dump(out, open(os.path.join(ROOT, "art", "kouzla.json"), "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
-print(f"art/kouzla.json: {len(out)} kouzel, bez překladu {len(chybi)}")
+print(f"art/kouzla.json: {len(out)} kouzel ({len(mimo)} mimo SRD), bez překladu {len(chybi)}")

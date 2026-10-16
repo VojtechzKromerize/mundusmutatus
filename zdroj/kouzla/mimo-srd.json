@@ -1,0 +1,2336 @@
+[
+ {
+  "i": "blade-ward",
+  "en": "Blade Ward",
+  "cz": "Odvrácení čepelí",
+  "l": 0,
+  "s": "Abjurace",
+  "p": [
+   "Bard",
+   "Čaroděj",
+   "Černokněžník",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "Sebe",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0,
+  "t": "Dokud kouzlo trvá, každý útočník si od svého hodu na útok proti tobě odečte 1d4.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "friends",
+  "en": "Friends",
+  "cz": "Spřátelení",
+  "l": 0,
+  "s": "Očarování",
+  "p": [
+   "Bard",
+   "Čaroděj",
+   "Černokněžník",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "10 stop",
+  "k": [
+   "S",
+   "M"
+  ],
+  "m": "trocha líčidla",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0,
+  "t": "Jeden viditelný tvor v dosahu si hází WIS záchranný hod; při neúspěchu má po dobu kouzla stav Charmed. Automaticky uspěje, není-li Humanoid, bojuješ-li s ním nebo jsi na něj kouzlo seslal za posledních 24 hodin. Kouzlo končí, jakmile cíl utrpí zranění nebo ty zaútočíš, způsobíš zranění či vynutíš záchranný hod. Po skončení cíl ví, že jsi ho okouzlil.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "mind-sliver",
+  "en": "Mind Sliver",
+  "cz": "Tříska v mysli",
+  "l": 0,
+  "s": "Očarování",
+  "p": [
+   "Čaroděj",
+   "Černokněžník",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "60 stop",
+  "k": [
+   "V"
+  ],
+  "m": "",
+  "d": "1 kolo",
+  "ko": 0,
+  "ri": 0,
+  "t": "Tvor v dohledu si hází INT záchranný hod; při neúspěchu utrpí 1d6 Psychic zranění a od svého nejbližšího záchranného hodu před koncem tvého příštího tahu odečte 1d4.\n\n**Zesílení triku.** Zranění roste na 2d6 (5. úroveň), 3d6 (11.) a 4d6 (17.).",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "thorn-whip",
+  "en": "Thorn Whip",
+  "cz": "Trnitý bič",
+  "l": 0,
+  "s": "Přeměna",
+  "p": [
+   "Druid"
+  ],
+  "ct": "Akce",
+  "r": "30 stop",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "stonek trnité rostliny",
+  "d": "Okamžité",
+  "ko": 0,
+  "ri": 0,
+  "t": "Proveď útok kouzlem na blízko proti tvoru v dosahu. Při zásahu utrpí 1d6 Piercing zranění; je-li velikosti Large nebo menší, můžeš ho přitáhnout až o 10 stop k sobě.\n\n**Zesílení triku.** Kostka zranění roste na 5., 11. a 17. úrovni (2d6, 3d6, 4d6).",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "thunderclap",
+  "en": "Thunderclap",
+  "cz": "Hromové tlesknutí",
+  "l": 0,
+  "s": "Evokace",
+  "p": [
+   "Bard",
+   "Druid",
+   "Čaroděj",
+   "Černokněžník",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "Sebe (vyzařování 5 stop)",
+  "k": [
+   "S"
+  ],
+  "m": "",
+  "d": "Okamžité",
+  "ko": 0,
+  "ri": 0,
+  "t": "Každý tvor do 5 stop od tebe si hází CON záchranný hod; při neúspěchu utrpí 1d6 Thunder zranění. Rána je slyšet až na 100 stop.\n\n**Zesílení triku.** Zranění roste na 2d6 (5. úroveň), 3d6 (11.) a 4d6 (17.).",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "toll-the-dead",
+  "en": "Toll the Dead",
+  "cz": "Umíráček",
+  "l": 0,
+  "s": "Nekromancie",
+  "p": [
+   "Klerik",
+   "Černokněžník",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "60 stop",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Okamžité",
+  "ko": 0,
+  "ri": 0,
+  "t": "Cíl v dosahu si hází WIS záchranný hod; při neúspěchu utrpí 1d8 Necrotic zranění, je-li zraněný, 1d12.\n\n**Zesílení triku.** Kostka zranění roste na 5., 11. a 17. úrovni (2, 3, 4 kostky).",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "armor-of-agathys",
+  "en": "Armor of Agathys",
+  "cz": "Agathysina zbroj",
+  "l": 1,
+  "s": "Abjurace",
+  "p": [
+   "Černokněžník"
+  ],
+  "ct": "Bonusová akce",
+  "r": "Sebe",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "střep modrého skla",
+  "d": "1 hodina",
+  "ko": 0,
+  "ri": 0,
+  "t": "Získáš 5 dočasných HP. Dokud kouzlo trvá, každý tvor, který tě zasáhne útokem na blízko, utrpí 5 Cold zranění. Kouzlo skončí, jakmile ti dočasné HP dojdou.",
+  "v": "Dočasné HP i Cold zranění se zvýší o 5 za každou úroveň slotu kouzla nad 1.",
+  "x": 1
+ },
+ {
+  "i": "arms-of-hadar",
+  "en": "Arms of Hadar",
+  "cz": "Hadarova chapadla",
+  "l": 1,
+  "s": "Vyvolávání",
+  "p": [
+   "Černokněžník"
+  ],
+  "ct": "Akce",
+  "r": "Sebe (vyzařování 10 stop)",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Okamžité",
+  "ko": 0,
+  "ri": 0,
+  "t": "Každý tvor do 10 stop od tebe si hází STR záchranný hod. Při neúspěchu utrpí 2d6 Necrotic zranění a do začátku svého dalšího tahu nemůže použít Reakci; při úspěchu poloviční zranění bez dalšího efektu.",
+  "v": "Zranění se zvýší o 1d6 za každou úroveň slotu kouzla nad 1.",
+  "x": 1
+ },
+ {
+  "i": "compelled-duel",
+  "en": "Compelled Duel",
+  "cz": "Vynucený souboj",
+  "l": 1,
+  "s": "Očarování",
+  "p": [
+   "Paladin"
+  ],
+  "ct": "Bonusová akce",
+  "r": "30 stop",
+  "k": [
+   "V"
+  ],
+  "m": "",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0,
+  "t": "Tvor v dosahu si hází WIS záchranný hod. Při neúspěchu má nevýhodu na útoky proti komukoli kromě tebe a nesmí se dobrovolně vzdálit víc než 30 stop od tebe. Kouzlo končí, když zaútočíš nebo sešleš kouzlo na jiného nepřítele, když cíl zraní tvůj spojenec, nebo když skončíš tah dál než 30 stop od cíle.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "hail-of-thorns",
+  "en": "Hail of Thorns",
+  "cz": "Trnové krupobití",
+  "l": 1,
+  "s": "Vyvolávání",
+  "p": [
+   "Hraničář"
+  ],
+  "ct": "Bonusová akce, hned po zásahu zbraní na dálku",
+  "r": "Sebe",
+  "k": [
+   "V"
+  ],
+  "m": "",
+  "d": "Okamžité",
+  "ko": 0,
+  "ri": 0,
+  "t": "Zasažený cíl a každý tvor do 5 stop od něj si hází AGI záchranný hod; při neúspěchu utrpí 1d10 Piercing zranění, při úspěchu poloviční.",
+  "v": "Zranění se zvýší o 1d10 za každou úroveň slotu kouzla nad 1.",
+  "x": 1
+ },
+ {
+  "i": "thunderous-smite",
+  "en": "Thunderous Smite",
+  "cz": "Hromový úder",
+  "l": 1,
+  "s": "Evokace",
+  "p": [
+   "Paladin"
+  ],
+  "ct": "Bonusová akce, hned po zásahu zbraní na blízko nebo úderem beze zbraně",
+  "r": "Sebe",
+  "k": [
+   "V"
+  ],
+  "m": "",
+  "d": "Okamžité",
+  "ko": 0,
+  "ri": 0,
+  "t": "Zasažený cíl navíc utrpí 2d6 Thunder zranění (rána je slyšet na 300 stop). Je-li cíl tvor, hází si STR záchranný hod; při neúspěchu je odhozen o 10 stop od tebe a získá stav Prone.",
+  "v": "Zranění se zvýší o 1d6 za každou úroveň slotu kouzla nad 1.",
+  "x": 1
+ },
+ {
+  "i": "witch-bolt",
+  "en": "Witch Bolt",
+  "cz": "Čarodějný blesk",
+  "l": 1,
+  "s": "Evokace",
+  "p": [
+   "Čaroděj",
+   "Černokněžník",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "60 stop",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "větvička zasažená bleskem",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0,
+  "t": "Proveď útok kouzlem na dálku; při zásahu cíl utrpí 2d12 Lightning zranění. V každém dalším tahu mu můžeš Bonusovou akcí automaticky způsobit 1d12 Lightning zranění, i když první útok minul. Kouzlo končí, je-li cíl mimo dosah nebo za úplným krytem.",
+  "v": "Počáteční zranění se zvýší o 1d12 za každou úroveň slotu kouzla nad 1.",
+  "x": 1
+ },
+ {
+  "i": "wrathful-smite",
+  "en": "Wrathful Smite",
+  "cz": "Hněvivý úder",
+  "l": 1,
+  "s": "Nekromancie",
+  "p": [
+   "Paladin"
+  ],
+  "ct": "Bonusová akce, hned po zásahu zbraní na blízko nebo beze zbraně",
+  "r": "Sebe",
+  "k": [
+   "V"
+  ],
+  "m": "",
+  "d": "1 minuta",
+  "ko": 0,
+  "ri": 0,
+  "t": "Zasažený cíl utrpí navíc 1d6 Necrotic zranění a hází si WIS záchranný hod; při neúspěchu má stav Frightened, dokud kouzlo trvá. Na konci každého svého tahu hod opakuje a úspěchem kouzlo na sebe ukončí.",
+  "v": "Zranění se zvýší o 1d6 za každou úroveň slotu kouzla nad 1.",
+  "x": 1
+ },
+ {
+  "i": "arcane-vigor",
+  "en": "Arcane Vigor",
+  "cz": "Arkánní vitalita",
+  "l": 2,
+  "s": "Abjurace",
+  "p": [
+   "Čaroděj",
+   "Kouzelník"
+  ],
+  "ct": "Bonusová akce",
+  "r": "Sebe",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Okamžité",
+  "ko": 0,
+  "ri": 0,
+  "t": "Hodíš jednou nebo dvěma nevyčerpanými kostkami životů (Hit Dice) a získáš zpět HP ve výši jejich součtu plus tvůj modifikátor sesílací vlastnosti. Použité kostky životů se vyčerpají.",
+  "v": "Za každou úroveň slotu kouzla nad 2 můžeš hodit o jednu kostku životů víc.",
+  "x": 1
+ },
+ {
+  "i": "beast-sense",
+  "en": "Beast Sense",
+  "cz": "Zvířecí smysly",
+  "l": 2,
+  "s": "Věštění",
+  "p": [
+   "Druid",
+   "Hraničář"
+  ],
+  "ct": "Akce",
+  "r": "Dotyk",
+  "k": [
+   "S"
+  ],
+  "m": "",
+  "d": "Concentration, až 1 hodinu",
+  "ko": 1,
+  "ri": 1,
+  "t": "Dotkneš se ochotného tvora typu Beast. Akcí se přepneš na jeho zrak a sluch, další Akcí zpět. Mezitím využíváš i jeho zvláštní smysly, ale vůči vlastnímu okolí máš stav Blinded a Deafened.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "cloud-of-daggers",
+  "en": "Cloud of Daggers",
+  "cz": "Mrak dýk",
+  "l": 2,
+  "s": "Vyvolávání",
+  "p": [
+   "Bard",
+   "Čaroděj",
+   "Černokněžník",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "60 stop",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "úlomek skla",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0,
+  "t": "Vytvoříš krychli o hraně 5 stop se středem v bodě v dosahu. Tvor utrpí 4d4 Slashing zranění, když do ní poprvé v tahu vstoupí nebo v ní začne tah.",
+  "v": "Zranění se zvýší o 2d4 za každou úroveň slotu kouzla nad 2.",
+  "x": 1
+ },
+ {
+  "i": "cordon-of-arrows",
+  "en": "Cordon of Arrows",
+  "cz": "Hradba šípů",
+  "l": 2,
+  "s": "Přeměna",
+  "p": [
+   "Hraničář"
+  ],
+  "ct": "Akce",
+  "r": "5 stop",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "nejméně čtyři šípy nebo šipky",
+  "d": "8 hodin",
+  "ko": 0,
+  "ri": 0,
+  "t": "Zabodneš 4 nemagické šípy či šipky do země v dosahu. Kdykoli jiný tvor poprvé v tahu vstoupí do 30 stop od nich nebo tam skončí tah, jeden projektil na něj vyletí: tvor si hází AGI záchranný hod, při neúspěchu utrpí 1d6 Piercing zranění. Projektil se tím zničí; kouzlo končí, když žádný nezbývá. Při seslání můžeš určit tvory, které kouzlo ignoruje.",
+  "v": "Za každou úroveň slotu kouzla nad 2 můžeš použít o 2 projektily víc.",
+  "x": 1
+ },
+ {
+  "i": "crown-of-madness",
+  "en": "Crown of Madness",
+  "cz": "Koruna šílenství",
+  "l": 2,
+  "s": "Očarování",
+  "p": [
+   "Bard",
+   "Čaroděj",
+   "Černokněžník",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "120 stop",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0,
+  "t": "Humanoid v dosahu si hází WIS záchranný hod; při neúspěchu má stav Charmed. Ve svém tahu musí před pohybem použít Akci k útoku na blízko proti tvoru, kterého v duchu určíš (je-li nějaký v jeho dosahu). V každém dalším tahu musíš na udržení obětovat svou Akci, jinak kouzlo skončí. Cíl opakuje WIS záchranný hod na konci každého svého tahu.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "earthbind",
+  "en": "Earthbind",
+  "cz": "Přikování k zemi",
+  "l": 2,
+  "s": "Přeměna",
+  "p": [
+   "Druid",
+   "Čaroděj",
+   "Černokněžník",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "300 stop",
+  "k": [
+   "V"
+  ],
+  "m": "",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0,
+  "t": "Viditelný tvor v dosahu si hází STR záchranný hod; při neúspěchu má po dobu kouzla rychlost létání 0. Je-li ve vzduchu, bezpečně klesá 60 stop za kolo, dokud nedosedne nebo kouzlo neskončí.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "flock-of-familiars",
+  "en": "Flock of Familiars",
+  "cz": "Hejno famulů",
+  "l": 2,
+  "s": "Vyvolávání",
+  "p": [
+   "Černokněžník",
+   "Kouzelník"
+  ],
+  "ct": "1 minuta",
+  "r": "Dotyk",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "1 hodina",
+  "ko": 0,
+  "ri": 0,
+  "t": "Přivoláš 3 dočasné familiáry podle pravidel kouzla *Find Familiar*, všechny stejného typu (Celestial, Fey nebo Fiend). Máš-li už familiára, přivoláš o jednoho méně.",
+  "v": "Za každou úroveň slotu kouzla nad 2 přibudou 2 familiáři.",
+  "x": 1
+ },
+ {
+  "i": "nathairs-mischief",
+  "en": "Nathair's Mischief",
+  "cz": "Nathairovo šibalství",
+  "l": 2,
+  "s": "Iluze",
+  "p": [
+   "Bard",
+   "Čaroděj",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "60 stop",
+  "k": [
+   "S",
+   "M"
+  ],
+  "m": "kousek kůrky z jablečného koláče",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0,
+  "t": "Zasáhneš krychli 20 stop se středem v dosahu. Hned a na začátku každého svého tahu hoď 1d6 (předtím můžeš krychli posunout až o 10 stop):\n1–2: tvorové v oblasti si hází WIS záchranný hod, při neúspěchu do začátku svého dalšího tahu jen propadají smíchu a nedělají nic jiného;\n3–4: každému tvoru do konce kouzla naroste ocas (bez herního efektu);\n5–6: WIS záchranný hod, při neúspěchu stav Frightened vůči tobě do konce jeho dalšího tahu.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "shadow-blade",
+  "en": "Shadow Blade",
+  "cz": "Stínová čepel",
+  "l": 2,
+  "s": "Iluze",
+  "p": [
+   "Čaroděj",
+   "Černokněžník",
+   "Kouzelník"
+  ],
+  "ct": "Bonusová akce",
+  "r": "Sebe",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0,
+  "t": "Získáš magický meč: jednoduchá zbraň na blízko, kterou ovládáš, s vlastnostmi Finesse, Light a Thrown (20/60 stop). Při zásahu cíl utrpí 2d8 Psychic zranění. Útočíš-li jím na cíl v šeru nebo ve tmě, máš výhodu.",
+  "v": "Zranění je 3d8 se slotem 3.–4. úrovně a 4d8 se slotem 5.–6. úrovně.",
+  "x": 1
+ },
+ {
+  "i": "skywrite",
+  "en": "Skywrite",
+  "cz": "Nebeské písmo",
+  "l": 2,
+  "s": "Přeměna",
+  "p": [
+   "Bard",
+   "Druid",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "Sebe",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Concentration, až 1 hodinu",
+  "ko": 1,
+  "ri": 1,
+  "t": "Na části oblohy, kterou vidíš, vytvoříš z oblaků nápis o nejvýš deseti slovech. Vydrží po dobu trvání; silný vítr ho může rozfoukat a kouzlo předčasně ukončit.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "summon-beast",
+  "en": "Summon Beast",
+  "cz": "Vyvolání zvířete",
+  "l": 2,
+  "s": "Vyvolávání",
+  "p": [
+   "Druid",
+   "Hraničář",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "90 stop",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "pozlacený žalud s pírkem, chomáčem srsti a rybím ocasem, za 200+ zl",
+  "d": "Concentration, až 1 hodinu",
+  "ko": 1,
+  "ri": 0,
+  "t": "Přivoláš ducha zvířete (statblok Bestial Spirit) do volného místa v dosahu; zvolíš prostředí Vzduch, Země nebo Voda, které určí některé jeho rysy. Je to tvůj spojenec: jedná hned po tobě ve tvé iniciativě a plní tvé slovní pokyny (bez akce); bez pokynu použije akci Dodge a vyhýbá se nebezpečí. Zmizí při 0 HP nebo koncem kouzla.",
+  "v": "Statblok používá úroveň použitého slotu.",
+  "x": 1
+ },
+ {
+  "i": "vortex-warp",
+  "en": "Vortex Warp",
+  "cz": "Vírový přesun",
+  "l": 2,
+  "s": "Vyvolávání",
+  "p": [
+   "Čaroděj",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "90 stop",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Okamžité",
+  "ko": 0,
+  "ri": 0,
+  "t": "Tvor v dosahu si hází CON záchranný hod (může dobrovolně selhat). Při neúspěchu ho teleportuješ na volné místo na zemi v dosahu, které vidíš.",
+  "v": "Dosah se zvýší o 30 stop za každou úroveň slotu kouzla nad 2.",
+  "x": 1
+ },
+ {
+  "i": "wither-and-bloom",
+  "en": "Wither and Bloom",
+  "cz": "Uvadnutí a rozkvět",
+  "l": 2,
+  "s": "Nekromancie",
+  "p": [
+   "Druid",
+   "Čaroděj",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "60 stop",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "sáček hřbitovní hlíny a snítka cesmíny",
+  "d": "Okamžité",
+  "ko": 0,
+  "ri": 0,
+  "t": "Koule o poloměru 10 stop v dosahu. Tvorové dle tvé volby v ní si hází CON záchranný hod; při neúspěchu utrpí 2d6 Necrotic zranění, při úspěchu poloviční. Nemagické rostliny v oblasti uschnou. Jeden tvor dle tvé volby v oblasti může utratit 1 kostku životů a získá zpět HP ve výši hodu plus tvůj modifikátor sesílací vlastnosti.",
+  "v": "Zranění se zvýší o 1d6 za každou úroveň slotu kouzla nad 2; zároveň lze utratit o 1 kostku životů víc.",
+  "x": 1
+ },
+ {
+  "i": "aura-of-vitality",
+  "en": "Aura of Vitality",
+  "cz": "Aura života",
+  "l": 3,
+  "s": "Abjurace",
+  "p": [
+   "Klerik",
+   "Druid",
+   "Paladin"
+  ],
+  "ct": "Akce",
+  "r": "Sebe (vyzařování 30 stop)",
+  "k": [
+   "V"
+  ],
+  "m": "",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0,
+  "t": "Po dobu kouzla tě obklopuje aura o poloměru 30 stop. Při seslání a na začátku každého tvého tahu může jeden tvor v auře (i ty) získat zpět HP ve výši 2d6.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "catnap",
+  "en": "Catnap",
+  "cz": "Šlofík",
+  "l": 3,
+  "s": "Očarování",
+  "p": [
+   "Bard",
+   "Čaroděj",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "30 stop",
+  "k": [
+   "S",
+   "M"
+  ],
+  "m": "špetka písku",
+  "d": "10 minut",
+  "ko": 0,
+  "ri": 0,
+  "t": "Až 3 ochotní tvorové v dosahu upadnou do bezvědomí (stav Unconscious). Probudí je zranění nebo něčí Akce. Kdo prospí celých 10 minut, získá výhody krátkého odpočinku a do dlouhého odpočinku na něj kouzlo znovu nepůsobí.",
+  "v": "Za každou úroveň slotu kouzla nad 3 můžeš zacílit o 1 tvora víc.",
+  "x": 1
+ },
+ {
+  "i": "conjure-barrage",
+  "en": "Conjure Barrage",
+  "cz": "Vyvolaná palba",
+  "l": 3,
+  "s": "Vyvolávání",
+  "p": [
+   "Hraničář"
+  ],
+  "ct": "Akce",
+  "r": "Sebe (kužel 60 stop)",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "jeden kus munice nebo vrhací zbraň",
+  "d": "Okamžité",
+  "ko": 0,
+  "ri": 0,
+  "t": "Každý tvor v kuželu si hází AGI záchranný hod; při neúspěchu utrpí 5d8 zranění stejného typu jako zbraň či munice použitá jako složka, při úspěchu poloviční.",
+  "v": "Zranění se zvýší o 1d8 za každou úroveň slotu kouzla nad 3.",
+  "x": 1
+ },
+ {
+  "i": "elemental-weapon",
+  "en": "Elemental Weapon",
+  "cz": "Živelná zbraň",
+  "l": 3,
+  "s": "Přeměna",
+  "p": [
+   "Druid",
+   "Paladin",
+   "Hraničář"
+  ],
+  "ct": "Akce",
+  "r": "Dotyk",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Concentration, až 1 hodinu",
+  "ko": 1,
+  "ri": 0,
+  "t": "Nemagická zbraň, které se dotkneš, se stane magickou. Zvolíš typ zranění: Acid, Cold, Fire, Lightning nebo Thunder. Po dobu kouzla má zbraň +1 k hodům na útok a při zásahu způsobí navíc 1d4 zranění zvoleného typu.",
+  "v": "Slot 5.–6. úrovně: +2 k útoku a 2d4 zranění; slot 7. a vyšší úrovně: +3 a 3d4.",
+  "x": 1
+ },
+ {
+  "i": "enemies-abound",
+  "en": "Enemies Abound",
+  "cz": "Všude nepřátelé",
+  "l": 3,
+  "s": "Očarování",
+  "p": [
+   "Bard",
+   "Čaroděj",
+   "Černokněžník",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "120 stop",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0,
+  "t": "Tvor v dosahu si hází INT záchranný hod (s Immunity vůči stavu Frightened uspěje automaticky). Při neúspěchu považuje všechny tvory za nepřátele a cíle útoků, kouzel a schopností volí náhodně mezi tvory v dosahu. INT záchranný hod opakuje pokaždé, když utrpí zranění.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "erupting-earth",
+  "en": "Erupting Earth",
+  "cz": "Vzedmutá zem",
+  "l": 3,
+  "s": "Přeměna",
+  "p": [
+   "Druid",
+   "Čaroděj",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "120 stop",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "kousek obsidiánu",
+  "d": "Okamžité",
+  "ko": 0,
+  "ri": 0,
+  "t": "Krychle o hraně 20 stop se středem v bodě na zemi v dosahu. Tvorové v ní si hází AGI záchranný hod; při neúspěchu utrpí 3d12 Bludgeoning zranění, při úspěchu poloviční. Oblast se stane těžkým terénem; ruční vyčištění každého čtverce 5×5 stop trvá aspoň 1 minutu.",
+  "v": "Zranění se zvýší o 1d12 za každou úroveň slotu kouzla nad 3.",
+  "x": 1
+ },
+ {
+  "i": "fast-friends",
+  "en": "Fast Friends",
+  "cz": "Rychlí přátelé",
+  "l": 3,
+  "s": "Očarování",
+  "p": [
+   "Bard",
+   "Klerik",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "30 stop",
+  "k": [
+   "V"
+  ],
+  "m": "",
+  "d": "Concentration, až 1 hodinu",
+  "ko": 1,
+  "ri": 0,
+  "t": "Až 3 viditelní tvorové v dosahu si hází WIS záchranný hod; při neúspěchu mají po dobu kouzla stav Charmed – jsou k tobě přátelští a plní tvé ústní pokyny. Utrpí-li cíl újmu nebo dostane sebevražedný příkaz, opakuje záchranu a při úspěchu pro něj efekt končí. Kouzlo končí, ublížíš-li cíli ty nebo tvoji společníci.",
+  "v": "Za každou úroveň slotu kouzla nad 3 můžeš zasáhnout o 1 tvora víc.",
+  "x": 1
+ },
+ {
+  "i": "feign-death",
+  "en": "Feign Death",
+  "cz": "Zdánlivá smrt",
+  "l": 3,
+  "s": "Nekromancie",
+  "p": [
+   "Bard",
+   "Klerik",
+   "Druid",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "Dotyk",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "špetka hlíny ze hřbitova",
+  "d": "1 hodina",
+  "ko": 0,
+  "ri": 1,
+  "t": "Ochotný tvor se jeví jako mrtvý, i pro věštecká kouzla. Má stav Blinded a Incapacitated, rychlost 0 a Resistance vůči všemu zranění kromě Psychic. Nemoci a jedy (i stav Poisoned) na něj do konce kouzla nepůsobí. Akcí a dotykem můžeš kouzlo ukončit dřív.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "hunger-of-hadar",
+  "en": "Hunger of Hadar",
+  "cz": "Hadarův hlad",
+  "l": 3,
+  "s": "Vyvolávání",
+  "p": [
+   "Černokněžník"
+  ],
+  "ct": "Akce",
+  "r": "150 stop",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "nakládané chobotnicové chapadlo",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0,
+  "t": "Koule tmy o poloměru 20 stop v dosahu; oblast je silně zastřená. Tvor, který v ní začne tah, utrpí 2d6 Cold zranění. Tvor, který v ní tah ukončí, si hází AGI záchranný hod; při neúspěchu utrpí 2d6 Acid zranění. Kouzlo nepůsobí v jasném světle z kouzla 3. úrovně nebo nižší.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "intellect-fortress",
+  "en": "Intellect Fortress",
+  "cz": "Pevnost mysli",
+  "l": 3,
+  "s": "Abjurace",
+  "p": [
+   "Bard",
+   "Čaroděj",
+   "Černokněžník",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "30 stop",
+  "k": [
+   "V"
+  ],
+  "m": "",
+  "d": "Concentration, až 1 hodinu",
+  "ko": 1,
+  "ri": 0,
+  "t": "Ty nebo jeden ochotný viditelný tvor v dosahu získá po dobu kouzla Resistance vůči Psychic zranění a výhodu na INT, WIS a CHA záchranné hody.",
+  "v": "Za každou úroveň slotu kouzla nad 3 můžeš zasáhnout o 1 tvora víc.",
+  "x": 1
+ },
+ {
+  "i": "life-transference",
+  "en": "Life Transference",
+  "cz": "Přenos života",
+  "l": 3,
+  "s": "Nekromancie",
+  "p": [
+   "Klerik",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "30 stop",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Okamžité",
+  "ko": 0,
+  "ri": 0,
+  "t": "Sám utrpíš 4d8 Necrotic zranění, které nelze nijak snížit. Jeden tvor v dosahu získá zpět HP ve výši dvojnásobku zranění, které jsi utrpěl.",
+  "v": "Zranění se zvýší o 1d8 za každou úroveň slotu kouzla nad 3.",
+  "x": 1
+ },
+ {
+  "i": "motivational-speech",
+  "en": "Motivational Speech",
+  "cz": "Povzbudivý proslov",
+  "l": 3,
+  "s": "Očarování",
+  "p": [
+   "Bard",
+   "Klerik"
+  ],
+  "ct": "1 minuta",
+  "r": "60 stop",
+  "k": [
+   "V"
+  ],
+  "m": "",
+  "d": "1 hodina",
+  "ko": 0,
+  "ri": 0,
+  "t": "Až 5 tvorů v dosahu, kteří tě slyší, získá 5 dočasných HP a výhodu na WIS záchranné hody. Když je takový tvor zasažen útokem, má výhodu na svůj další hod na útok do konce svého příštího tahu. Pro tvora kouzlo končí, když jeho dočasné HP klesnou na 0.",
+  "v": "Za každou úroveň slotu kouzla nad 3 můžeš zvolit o 1 tvora víc.",
+  "x": 1
+ },
+ {
+  "i": "summon-fey",
+  "en": "Summon Fey",
+  "cz": "Vyvolání vílí bytosti",
+  "l": 3,
+  "s": "Vyvolávání",
+  "p": [
+   "Druid",
+   "Hraničář",
+   "Černokněžník",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "90 stop",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "pozlacený květ za 300+ zl",
+  "d": "Concentration, až 1 hodinu",
+  "ko": 1,
+  "ri": 0,
+  "t": "Přivoláš vílího ducha (statblok Fey Spirit) do volného místa v dosahu; zvolíš náladu Fuming, Mirthful nebo Tricksy, která určí jeden z jeho rysů. Je to tvůj spojenec: jedná hned po tobě ve tvé iniciativě a plní tvé slovní pokyny. Zmizí při 0 HP nebo koncem kouzla.",
+  "v": "Statblok používá úroveň použitého slotu.",
+  "x": 1
+ },
+ {
+  "i": "summon-lesser-demons",
+  "en": "Summon Lesser Demons",
+  "cz": "Vyvolání nižších démonů",
+  "l": 3,
+  "s": "Vyvolávání",
+  "p": [
+   "Černokněžník",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "60 stop",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "lahvička krve humanoida zabitého během posledních 24 hodin",
+  "d": "Concentration, až 1 hodinu",
+  "ko": 1,
+  "ri": 0,
+  "t": "Hoď d6: 1–2 = 2 démoni s CR do 1, 3–4 = 4 démoni s CR do 1/2, 5–6 = 8 démonů s CR do 1/4 (vybírá PJ). Objeví se do 60 stop od tebe a zmizí při 0 HP nebo koncem kouzla. Jsou nepřátelští ke všem včetně tebe, jednají ve vlastní společné iniciativě a útočí na nejbližší tvory, kteří nejsou démoni.",
+  "v": "Za každou úroveň slotu kouzla nad 3 přibude 1 démon příslušného CR.",
+  "x": 1
+ },
+ {
+  "i": "thunder-step",
+  "en": "Thunder Step",
+  "cz": "Hromový krok",
+  "l": 3,
+  "s": "Vyvolávání",
+  "p": [
+   "Čaroděj",
+   "Černokněžník",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "90 stop",
+  "k": [
+   "V"
+  ],
+  "m": "",
+  "d": "Okamžité",
+  "ko": 0,
+  "ri": 0,
+  "t": "Teleportuješ se na volné místo, které vidíš v dosahu. Každý tvor do 10 stop od místa, odkud jsi zmizel, si hází CON záchranný hod; při neúspěchu utrpí 3d10 Thunder zranění, při úspěchu poloviční. Vezmeš s sebou nesené předměty a můžeš vzít i jednoho ochotného tvora tvé velikosti či menšího do 5 stop od tebe, je-li u cíle volné místo do 5 stop.",
+  "v": "Zranění se zvýší o 1d10 za každou úroveň slotu kouzla nad 3.",
+  "x": 1
+ },
+ {
+  "i": "tidal-wave",
+  "en": "Tidal Wave",
+  "cz": "Přílivová vlna",
+  "l": 3,
+  "s": "Vyvolávání",
+  "p": [
+   "Druid",
+   "Čaroděj",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "120 stop",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "kapka vody",
+  "d": "Okamžité",
+  "ko": 0,
+  "ri": 0,
+  "t": "Oblast v dosahu (až 30 stop dlouhou, 10 širokou a 10 vysokou) zasáhne vlna. Každý tvor v ní si hází AGI záchranný hod; při neúspěchu utrpí 4d8 Bludgeoning zranění a získá stav Prone, při úspěchu poloviční zranění a nepadá. Voda pak uhasí nechráněné plameny v oblasti a do 30 stop od ní a zmizí.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "tiny-servant",
+  "en": "Tiny Servant",
+  "cz": "Drobný služebník",
+  "l": 3,
+  "s": "Přeměna",
+  "p": [
+   "Kouzelník"
+  ],
+  "ct": "1 minuta",
+  "r": "Dotyk",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "8 hodin",
+  "ko": 0,
+  "ri": 0,
+  "t": "Oživíš drobný (Tiny) nemagický volný předmět, který nikdo nenese; stane se tvorem pod tvou kontrolou do konce kouzla nebo do 0 HP. Bonusovou akcí mu na 120 stop zadáš příkaz (konkrétní akci a pohyb, nebo obecný úkol); bez příkazu se jen vyhýbá nebezpečí. Unese až 8 liber, rychlost 30 stop.",
+  "v": "Za každou úroveň slotu kouzla nad 3 oživíš o 2 předměty víc.",
+  "x": 1
+ },
+ {
+  "i": "wall-of-sand",
+  "en": "Wall of Sand",
+  "cz": "Písečná stěna",
+  "l": 3,
+  "s": "Evokace",
+  "p": [
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "90 stop",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "hrst písku",
+  "d": "Concentration, až 10 minut",
+  "ko": 1,
+  "ri": 0,
+  "t": "Na zemi v dosahu vytvoříš stěnu vířícího písku až 30 stop dlouhou, 10 stop vysokou a 10 stop silnou. Blokuje výhled, ne pohyb. Tvor uvnitř má stav Blinded a každá stopa pohybu ho v ní stojí 3 stopy.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "wall-of-water",
+  "en": "Wall of Water",
+  "cz": "Vodní stěna",
+  "l": 3,
+  "s": "Evokace",
+  "p": [
+   "Druid",
+   "Čaroděj",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "60 stop",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "kapka vody",
+  "d": "Concentration, až 10 minut",
+  "ko": 1,
+  "ri": 0,
+  "t": "Vytvoříš stěnu vody: rovnou až 30 × 10 × 1 stopa, nebo kruhovou o průměru až 20 stop, výšce 20 a tloušťce 1 stopa. Její prostor je obtížný terén. Útoky zbraní na dálku skrz ni mají nevýhodu a Fire zranění, které jí projde, se půlí. Kouzlo s Cold zraněním zmrazí úsek, jímž projde (min. 5 stop): AC 5, 15 HP; zničený úsek se znovu nezaplní.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "aura-of-purity",
+  "en": "Aura of Purity",
+  "cz": "Aura čistoty",
+  "l": 4,
+  "s": "Abjurace",
+  "p": [
+   "Klerik",
+   "Paladin"
+  ],
+  "ct": "Akce",
+  "r": "Sebe (emanace 30 stop)",
+  "k": [
+   "V"
+  ],
+  "m": "",
+  "d": "Concentration, až 10 minut",
+  "ko": 1,
+  "ri": 0,
+  "t": "Ty a nenepřátelští tvorové v emanaci 30 stop kolem tebe nemůžete onemocnět, máte Resistance vůči Poison zranění a výhodu na záchranné hody proti stavům Blinded, Charmed, Deafened, Frightened, Paralyzed, Poisoned a Stunned.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "elemental-bane",
+  "en": "Elemental Bane",
+  "cz": "Živelná zhouba",
+  "l": 4,
+  "s": "Přeměna",
+  "p": [
+   "Druid",
+   "Černokněžník",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "90 stop",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0,
+  "t": "Zvol tvora, kterého vidíš v dosahu, a typ Acid, Cold, Fire, Lightning nebo Thunder. Cíl si hází CON záchranný hod; při neúspěchu po dobu kouzla ztratí Resistance vůči zvolenému typu a poprvé v každém tahu, kdy utrpí zranění toho typu, utrpí navíc 2d6 zranění téhož typu.",
+  "v": "Za každou úroveň slotu kouzla nad 4 můžeš zvolit o 1 tvora víc.",
+  "x": 1
+ },
+ {
+  "i": "fount-of-moonlight",
+  "en": "Fount of Moonlight",
+  "cz": "Pramen měsíčního svitu",
+  "l": 4,
+  "s": "Evokace",
+  "p": [
+   "Bard",
+   "Druid"
+  ],
+  "ct": "Akce",
+  "r": "Sebe",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Concentration, až 10 minut",
+  "ko": 1,
+  "ri": 0,
+  "t": "Po dobu kouzla vydáváš jasné světlo na 20 stop a šero na dalších 20 stop. Máš Resistance vůči Radiant zranění a tvé útoky na blízko při zásahu způsobí navíc 2d6 Radiant zranění. Když tě zasáhne útokem tvor do 60 stop, můžeš Reakcí vynutit jeho CON záchranný hod; při neúspěchu má stav Blinded do konce svého dalšího tahu.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "grasping-vine",
+  "en": "Grasping Vine",
+  "cz": "Chápavá liána",
+  "l": 4,
+  "s": "Vyvolávání",
+  "p": [
+   "Druid",
+   "Hraničář"
+  ],
+  "ct": "Bonusová akce",
+  "r": "60 stop",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0,
+  "t": "Na volném místě v dosahu vyroste liána. Při seslání a pak Bonusovou akcí v každém tvém tahu může šlehnout po tvoru do 30 stop od sebe: AGI záchranný hod, při neúspěchu je přitažen o 20 stop přímo k liáně.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "sickening-radiance",
+  "en": "Sickening Radiance",
+  "cz": "Chorobná záře",
+  "l": 4,
+  "s": "Evokace",
+  "p": [
+   "Čaroděj",
+   "Černokněžník",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "120 stop",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Concentration, až 10 minut",
+  "ko": 1,
+  "ri": 0,
+  "t": "Koule tlumeného světla o poloměru 30 stop v dosahu (šíří se i za rohy). Tvor, který do ní poprvé v tahu vstoupí nebo v ní začne tah, si hází CON záchranný hod; při neúspěchu utrpí 4d10 Radiant zranění, 1 úroveň Exhaustion a svítí v okruhu 5 stop, takže nemůže těžit ze stavu Invisible. Světlo i Exhaustion z kouzla koncem kouzla zmizí.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "storm-sphere",
+  "en": "Storm Sphere",
+  "cz": "Bouřná koule",
+  "l": 4,
+  "s": "Evokace",
+  "p": [
+   "Čaroděj",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "150 stop",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0,
+  "t": "Vznikne koule o poloměru 20 stop se středem v dosahu; její prostor je obtížný terén. Tvor v ní při jejím vzniku nebo na konci svého tahu si hází STR záchranný hod; při neúspěchu utrpí 2d6 Bludgeoning zranění. V každém svém tahu můžeš Bonusovou akcí vyslat blesk na tvora do 60 stop od středu: proveď útok kouzlem na dálku, při zásahu cíl utrpí 4d6 Lightning zranění.",
+  "v": "Zranění se zvýší o 1d6 za každou úroveň slotu kouzla nad 4 (platí pro Bludgeoning i Lightning).",
+  "x": 1
+ },
+ {
+  "i": "summon-aberration",
+  "en": "Summon Aberration",
+  "cz": "Vyvolání aberace",
+  "l": 4,
+  "s": "Vyvolávání",
+  "p": [
+   "Černokněžník",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "90 stop",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "nakládané chapadlo a oko v lahvičce zdobené platinou za 400+ zl",
+  "d": "Concentration, až 1 hodinu",
+  "ko": 1,
+  "ri": 0,
+  "t": "Přivoláš spojeneckého ducha se statistikami Aberrant Spirit (zvol Beholderkin, Slaad nebo Star Spawn). Sdílí tvou iniciativu, jedná hned po tobě a poslouchá tvé slovní příkazy. Zmizí při 0 HP nebo koncem kouzla.",
+  "v": "Se slotem 5. úrovně a vyšším použij ve statistikách tvora úroveň slotu.",
+  "x": 1
+ },
+ {
+  "i": "summon-construct",
+  "en": "Summon Construct",
+  "cz": "Přivolání konstruktu",
+  "l": 4,
+  "s": "Vyvolávání",
+  "p": [
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "90 stop",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "zdobená kamenná a kovová schránka za 400+ zl",
+  "d": "Concentration, až 1 hodinu",
+  "ko": 1,
+  "ri": 0,
+  "t": "Na volném místě v dosahu se objeví duch konstruktu se statistikami Construct Spirit; zvolíš materiál Clay, Metal nebo Stone, který určuje část jeho vlastností. Je tvým spojencem, poslouchá hlasové povely, sdílí tvou iniciativu a jedná hned po tobě. Zmizí při 0 HP nebo koncem kouzla.",
+  "v": "Ve statistikách tvora použij úroveň použitého slotu kouzla.",
+  "x": 1
+ },
+ {
+  "i": "summon-elemental",
+  "en": "Summon Elemental",
+  "cz": "Vyvolání elementála",
+  "l": 4,
+  "s": "Vyvolávání",
+  "p": [
+   "Druid",
+   "Hraničář",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "90 stop",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "symbol zvoleného živlu (např. váček hlíny, lahvička vody) za 400+ zl",
+  "d": "Concentration, až 1 hodinu",
+  "ko": 1,
+  "ri": 0,
+  "t": "Přivoláš živelného ducha (statblok Elemental Spirit) do volného místa v dosahu; zvolíš živel Air, Earth, Fire nebo Water, který určí některé jeho rysy. Je to tvůj spojenec: jedná hned po tobě ve tvé iniciativě a plní tvé slovní pokyny. Zmizí při 0 HP nebo koncem kouzla.",
+  "v": "Statblok používá úroveň použitého slotu.",
+  "x": 1
+ },
+ {
+  "i": "watery-sphere",
+  "en": "Watery Sphere",
+  "cz": "Vodní koule",
+  "l": 4,
+  "s": "Vyvolávání",
+  "p": [
+   "Druid",
+   "Čaroděj",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "90 stop",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "kapka vody",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0,
+  "t": "Vytvoříš vodní kouli o poloměru 10 stop (max. 10 stop nad zemí). Tvorové v ní: STR záchranný hod (Huge+ uspějí vždy, Large a menší smí selhat). Úspěch = vytlačení ven, neúspěch = stav Restrained, opakuje se na konci tahu. Pojme 4 Medium či menší nebo 1 Large tvora, přebytečný vypadne (stav Prone). Akcí kouli posuneš o 30 stop; tvorové, do nichž narazí, se musí zachránit.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "banishing-smite",
+  "en": "Banishing Smite",
+  "cz": "Vypuzující úder",
+  "l": 5,
+  "s": "Vyvolávání",
+  "p": [
+   "Paladin"
+  ],
+  "ct": "Bonusová akce",
+  "r": "Sebe",
+  "k": [
+   "V"
+  ],
+  "m": "",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0,
+  "t": "Když dokud kouzlo trvá zasáhneš tvora útokem zbraní, utrpí navíc 5d10 Force zranění. Má-li po útoku 50 HP nebo méně, vypudíš ho: tvor z jiné roviny se vrátí na svou domovskou, ostatní zmizí do neškodné demiroviny, kde mají stav Incapacitated, a koncem kouzla se vrátí na své místo (nebo nejbližší volné).",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "circle-of-power",
+  "en": "Circle of Power",
+  "cz": "Kruh moci",
+  "l": 5,
+  "s": "Abjurace",
+  "p": [
+   "Klerik",
+   "Paladin",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "Sebe (vyzařování 30 stop)",
+  "k": [
+   "V"
+  ],
+  "m": "",
+  "d": "Concentration, až 10 minut",
+  "ko": 1,
+  "ri": 0,
+  "t": "Po dobu kouzla se s tebou pohybuje aura o poloměru 30 stop. Ty a spřátelení tvorové v ní máte výhodu na záchranné hody proti kouzlům a jiným magickým efektům. Uspěje-li takový tvor v záchraně proti efektu, který by mu po úspěšné záchraně ubral polovinu zranění, neutrpí žádné.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "control-winds",
+  "en": "Control Winds",
+  "cz": "Vláda nad větry",
+  "l": 5,
+  "s": "Přeměna",
+  "p": [
+   "Druid",
+   "Čaroděj",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "300 stop",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Concentration, až 1 hodinu",
+  "ko": 1,
+  "ri": 0,
+  "t": "Ovládáš vzduch v krychli 100 stop. Zvol efekt (Akcí ho později změníš, pozastavíš či obnovíš). **Poryv:** kdo vstoupí nebo začne tah v krychli, hází STR záchranný hod, jinak je odstrčen o 10 stop zvoleným směrem. **Sestupný proud:** útoky zbraní na dálku s nevýhodou, letci musí na konci tahu přistát, jinak padají. **Vzestupný proud:** kdo skončí tah v krychli, má do svého dalšího tahu rychlost letu 10 stop.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "dawn",
+  "en": "Dawn",
+  "cz": "Úsvit",
+  "l": 5,
+  "s": "Evokace",
+  "p": [
+   "Klerik",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "60 stop",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "přívěsek se slunečním motivem za 100+ zl",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0,
+  "t": "V dosahu vytvoříš válec jasného slunečního světla o poloměru 30 stop a výšce 40 stop. Při jeho vzniku a vždy, když tvor ukončí tah ve válci, si tvor hází CON záchranný hod; při neúspěchu utrpí 4d10 Radiant zranění, při úspěchu poloviční. Jsi-li do 60 stop od válce, můžeš ho Bonusovou akcí posunout až o 60 stop.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "destructive-wave",
+  "en": "Destructive Wave",
+  "cz": "Ničivá vlna",
+  "l": 5,
+  "s": "Evokace",
+  "p": [
+   "Klerik",
+   "Paladin"
+  ],
+  "ct": "Akce",
+  "r": "Sebe (vyzařování 30 stop)",
+  "k": [
+   "V"
+  ],
+  "m": "",
+  "d": "Okamžité",
+  "ko": 0,
+  "ri": 0,
+  "t": "Zvolení tvorové do 30 stop od tebe si hází CON záchranný hod. Při neúspěchu utrpí 5d6 Thunder zranění a 5d6 Radiant zranění (místo Radiant můžeš zvolit Necrotic) a získají stav Prone; při úspěchu poloviční zranění a nepadají.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "holy-weapon",
+  "en": "Holy Weapon",
+  "cz": "Svatá zbraň",
+  "l": 5,
+  "s": "Evokace",
+  "p": [
+   "Klerik",
+   "Paladin"
+  ],
+  "ct": "Bonusová akce",
+  "r": "Dotyk",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Concentration, až 1 hodinu",
+  "ko": 1,
+  "ri": 0,
+  "t": "Zbraň se stane magickou, svítí (jasné světlo 30 stop, šero dalších 30) a její zásahy způsobí navíc 2d8 Radiant zranění. Bonusovou akcí můžeš kouzlo ukončit výbuchem: zvolení tvorové do 30 stop od zbraně hází CON záchranný hod; při neúspěchu utrpí 4d8 Radiant zranění a stav Blinded na 1 minutu (záchrana na konci každého tahu), při úspěchu poloviční.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "immovable-object",
+  "en": "Immovable Object",
+  "cz": "Nehybný předmět",
+  "l": 5,
+  "s": "Přeměna",
+  "p": [
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "Dotyk",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "zlatý prach za 25+ zl, spotřebuje se",
+  "d": "1 hodina",
+  "ko": 0,
+  "ri": 0,
+  "t": "Předmět do 10 liber, kterého se dotkneš, se magicky upevní na místě. Ty a tvorové, které určíš, s ním hýbete normálně; heslo vyslovené do 5 stop od něj kouzlo na 1 minutu potlačí. Upevněný ve vzduchu unese až 4 000 liber. Jinak ho tvor může Akcí zkusit posunout ověřením STR proti tvému SO kouzla; úspěchem ho posune až o 10 stop.",
+  "v": "Nosnost se zvýší o 4 000 liber za každou úroveň slotu kouzla nad 5. Na 6. úrovni trvá 24 hodin, na 7. a vyšší do rozptýlení.",
+  "x": 1
+ },
+ {
+  "i": "infernal-calling",
+  "en": "Infernal Calling",
+  "cz": "Pekelné vzývání",
+  "l": 5,
+  "s": "Vyvolávání",
+  "p": [
+   "Černokněžník",
+   "Kouzelník"
+  ],
+  "ct": "1 minuta",
+  "r": "90 stop",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "rubín za 999+ zl",
+  "d": "Concentration, až 1 hodinu",
+  "ko": 1,
+  "ri": 0,
+  "t": "Přivoláš ďábla s CR nejvýše 6 (typ volíš) do volného místa v dosahu. Je vůči vám nepřátelský, má vlastní iniciativu a zmizí při 0 HP nebo koncem kouzla. Rozkaz (bez akce) vyžaduje tvé ověření CHA (Persuasion) proti jeho ověření WIS (Insight); při úspěchu ho v příštím tahu splní. Při neúspěchu buď Akcí zkusíš znovu, nebo jedná volně a útočí na nejbližšího viditelného tvora.",
+  "v": "Za každou úroveň slotu kouzla nad 5 se maximální CR ďábla zvýší o 1.",
+  "x": 1
+ },
+ {
+  "i": "maelstrom",
+  "en": "Maelstrom",
+  "cz": "Vír",
+  "l": 5,
+  "s": "Evokace",
+  "p": [
+   "Druid"
+  ],
+  "ct": "Akce",
+  "r": "120 stop",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "papír nebo list stočený do trychtýře",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0,
+  "t": "Na zemi nebo vodní ploše v dosahu vznikne vír o poloměru 30 stop a hloubce 5 stop; oblast je těžký terén. Kdo v ní začne tah, hází STR záchranný hod; při neúspěchu utrpí 6d6 Bludgeoning zranění a je stažen o 10 stop ke středu.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "negative-energy-flood",
+  "en": "Negative Energy Flood",
+  "cz": "Příval negativní energie",
+  "l": 5,
+  "s": "Nekromancie",
+  "p": [
+   "Černokněžník",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "60 stop",
+  "k": [
+   "V",
+   "M"
+  ],
+  "m": "zlomená kost a čtverec černého hedvábí",
+  "d": "Okamžité",
+  "ko": 0,
+  "ri": 0,
+  "t": "Tvor, kterého vidíš v dosahu, si hází CON záchranný hod; při neúspěchu utrpí 5d12 Necrotic zranění, při úspěchu poloviční. Zabitý cíl na začátku tvého příštího tahu povstane jako Zombie a napadá nejbližšího tvora, kterého vidí. Je-li cíl Undead, nehází si a místo toho získá dočasné HP ve výši 5d12.",
+  "v": "Zranění se zvýší o 2d12 za každou úroveň slotu kouzla nad 5 (stejně i dočasné HP).",
+  "x": 1
+ },
+ {
+  "i": "skill-empowerment",
+  "en": "Skill Empowerment",
+  "cz": "Posílení dovednosti",
+  "l": 5,
+  "s": "Přeměna",
+  "p": [
+   "Bard",
+   "Čaroděj",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "Dotyk",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Concentration, až 1 hodinu",
+  "ko": 1,
+  "ri": 0,
+  "t": "Ochotný tvor, kterého se dotkneš, získá po dobu kouzla Expertise v jedné dovednosti dle tvé volby, v níž je zdatný a Expertise zatím nemá (k ověření si přičte dvojnásobný bonus zdatnosti).",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "steel-wind-strike",
+  "en": "Steel Wind Strike",
+  "cz": "Ocelový vítr",
+  "l": 5,
+  "s": "Vyvolávání",
+  "p": [
+   "Hraničář",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "30 stop",
+  "k": [
+   "S",
+   "M"
+  ],
+  "m": "zbraň na blízko v hodnotě aspoň 1 st",
+  "d": "Okamžité",
+  "ko": 0,
+  "ri": 0,
+  "t": "Zvol až 5 tvorů v dosahu a proti každému proveď útok kouzlem na blízko; při zásahu utrpí 6d10 Force zranění. Poté se můžeš teleportovat na volné místo do 5 stop od kteréhokoli z cílů.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "summon-celestial",
+  "en": "Summon Celestial",
+  "cz": "Přivolání nebešťana",
+  "l": 5,
+  "s": "Vyvolávání",
+  "p": [
+   "Klerik",
+   "Paladin"
+  ],
+  "ct": "Akce",
+  "r": "90 stop",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "zlatý relikviář za 500+ zl",
+  "d": "Concentration, až 1 hodinu",
+  "ko": 1,
+  "ri": 0,
+  "t": "Na volném místě v dosahu se objeví nebeský duch se statistikami Celestial Spirit; zvolíš variantu Avenger nebo Defender, která určuje část jeho vlastností. Je tvým spojencem, poslouchá hlasové povely, sdílí tvou iniciativu a jedná hned po tobě. Zmizí při 0 HP nebo koncem kouzla.",
+  "v": "Ve statistikách tvora použij úroveň použitého slotu kouzla.",
+  "x": 1
+ },
+ {
+  "i": "swift-quiver",
+  "en": "Swift Quiver",
+  "cz": "Neúnavný toulec",
+  "l": 5,
+  "s": "Přeměna",
+  "p": [
+   "Hraničář"
+  ],
+  "ct": "Bonusová akce",
+  "r": "Dotyk",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "toulec s alespoň jedním kusem střeliva",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0,
+  "t": "Toulec, jehož se dotkneš, dodává neomezeně nemagického střeliva. Až do konce kouzla můžeš v každém svém tahu Bonusovou akcí provést dva útoky zbraní se střelivem z toulce. Vystřelené střelivo se ihned doplní; vytvořené kusy koncem kouzla zmizí.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "synaptic-static",
+  "en": "Synaptic Static",
+  "cz": "Synaptický šum",
+  "l": 5,
+  "s": "Očarování",
+  "p": [
+   "Bard",
+   "Čaroděj",
+   "Černokněžník",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "120 stop",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Okamžité",
+  "ko": 0,
+  "ri": 0,
+  "t": "Tvorové v kouli o poloměru 20 stop (kromě tvorů s INT 2 a nižší) hází INT záchranný hod; při neúspěchu utrpí 8d6 Psychic zranění, při úspěchu poloviční. Kdo selže, odečítá 1 minutu 1d6 od útoků, ověření vlastností a CON záchranných hodů na udržení Concentration; INT záchranný hod na konci každého jeho tahu to ukončí.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "wall-of-light",
+  "en": "Wall of Light",
+  "cz": "Světelná stěna",
+  "l": 5,
+  "s": "Evokace",
+  "p": [
+   "Čaroděj",
+   "Černokněžník",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "120 stop",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "ruční zrcátko",
+  "d": "Concentration, až 10 minut",
+  "ko": 1,
+  "ri": 0,
+  "t": "Stěna až 60×10×5 stop v libovolné poloze; blokuje výhled, ne průchod, svítí jasně 120 stop a slabě dalších 120. Tvorové v ní při vzniku si hází CON záchranný hod; při neúspěchu utrpí 4d8 Radiant zranění a stav Blinded na 1 minutu (CON na konci tahu), při úspěchu poloviční. Kdo v ní ukončí tah, utrpí 4d8 Radiant zranění. Akcí: Proveď útok kouzlem na dálku na tvora do 60 stop od stěny; zásah = 4d8 Radiant zranění, stěna se zkrátí o 10 stop.",
+  "v": "Zranění se zvýší o 1d8 za každou úroveň slotu kouzla nad 5.",
+  "x": 1
+ },
+ {
+  "i": "wrath-of-nature",
+  "en": "Wrath of Nature",
+  "cz": "Hněv přírody",
+  "l": 5,
+  "s": "Evokace",
+  "p": [
+   "Druid",
+   "Hraničář"
+  ],
+  "ct": "Akce",
+  "r": "120 stop",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0,
+  "t": "Oživíš přírodu v krychli 60 stop v dosahu. Tráva: obtížný terén pro nepřátele. Stromy: na začátku tvého tahu si nepřátelé do 10 stop od stromu hází AGI záchranný hod, jinak utrpí 4d6 Slashing zranění. Kořeny: na konci tvého tahu jeden tvor na zemi hází STR záchranný hod, jinak stav Restrained (Akcí ověření STR proti SO). Kameny: Bonusovou akcí proveď útok kouzlem na dálku, zásah 3d8 Bludgeoning zranění a STR záchrana proti stavu Prone.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "arcane-gate",
+  "en": "Arcane Gate",
+  "cz": "Tajemná brána",
+  "l": 6,
+  "s": "Vyvolávání",
+  "p": [
+   "Čaroděj",
+   "Černokněžník",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "500 stop",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Concentration, až 10 minut",
+  "ko": 1,
+  "ri": 0,
+  "t": "Otevřeš dva propojené kruhové portály o průměru 10 stop nad zemí: jeden do 10 stop od tebe, druhý do 500 stop. Co vstoupí do jednoho, vyjde z druhého. Ze zadní strany portál nepůsobí.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "bones-of-the-earth",
+  "en": "Bones of the Earth",
+  "cz": "Kosti země",
+  "l": 6,
+  "s": "Přeměna",
+  "p": [
+   "Druid"
+  ],
+  "ct": "Akce",
+  "r": "120 stop",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Okamžité",
+  "ko": 0,
+  "ri": 0,
+  "t": "Ze země v dosahu vyrazí až 6 kamenných sloupů (průměr 5 stop, výška až 30 stop, AC 5, 30 HP); vzniknout mohou i pod tvorem velikosti Medium nebo menším. Tvor na sloupu může seskočit, nebo se nechat bez zranění vynést. Narazí-li sloup na strop či překážku, tvor na něm utrpí 6d6 Bludgeoning zranění a získá stav Prone.",
+  "v": "Za každou úroveň slotu kouzla nad 6 vytvoříš o 2 sloupy víc.",
+  "x": 1
+ },
+ {
+  "i": "investiture-of-flame",
+  "en": "Investiture of Flame",
+  "cz": "Plamenný šat",
+  "l": 6,
+  "s": "Přeměna",
+  "p": [
+   "Druid",
+   "Čaroděj",
+   "Černokněžník",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "Sebe",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Concentration, až 10 minut",
+  "ko": 1,
+  "ri": 0,
+  "t": "Po dobu kouzla vydáváš jasné světlo na 30 stop a šero na dalších 30. Máš Immunity vůči Fire zranění a Resistance vůči Cold zranění. Tvor, který se poprvé v tahu přiblíží do 5 stop od tebe nebo tam skončí tah, utrpí 1d10 Fire zranění. Akcí můžeš vytvořit linii ohně 15 × 5 stop: tvorové v ní si hází AGI záchranný hod, při neúspěchu utrpí 4d8 Fire zranění, při úspěchu poloviční.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "investiture-of-ice",
+  "en": "Investiture of Ice",
+  "cz": "Ledový šat",
+  "l": 6,
+  "s": "Přeměna",
+  "p": [
+   "Druid",
+   "Čaroděj",
+   "Černokněžník",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "Sebe",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Concentration, až 10 minut",
+  "ko": 1,
+  "ri": 0,
+  "t": "Získáš Immunity vůči Cold zranění a Resistance vůči Fire zranění; těžký terén z ledu a sněhu tě nezpomaluje. Zem v okruhu 10 stop kolem tebe je pro ostatní těžký terén. Akcí vyšleš kužel 15 stop: CON záchranný hod, při neúspěchu utrpí 4d6 Cold zranění, při úspěchu poloviční. Kdo selže, má do začátku tvého dalšího tahu poloviční rychlost.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "investiture-of-stone",
+  "en": "Investiture of Stone",
+  "cz": "Kamenné roucho",
+  "l": 6,
+  "s": "Přeměna",
+  "p": [
+   "Druid",
+   "Čaroděj",
+   "Černokněžník",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "Sebe",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Concentration, až 10 minut",
+  "ko": 1,
+  "ri": 0,
+  "t": "Dokud kouzlo trvá: máš Resistance vůči Bludgeoning, Piercing a Slashing zranění z nemagických útoků. Akcí vyvoláš otřes v okruhu 15 stop; ostatní tvorové na zemi si hází AGI záchranný hod, při neúspěchu mají stav Prone a poloviční rychlost do konce tvého příštího tahu. Hlína a kámen tě nezpomalují a můžeš jimi procházet, ale neskonči v nich pohyb (vyvrhne tě, kouzlo skončí a máš stav Stunned do konce příštího tahu).",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "investiture-of-wind",
+  "en": "Investiture of Wind",
+  "cz": "Větrný šat",
+  "l": 6,
+  "s": "Přeměna",
+  "p": [
+   "Druid",
+   "Čaroděj",
+   "Černokněžník",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "Sebe",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Concentration, až 10 minut",
+  "ko": 1,
+  "ri": 0,
+  "t": "Po dobu kouzla mají útoky zbraní na dálku tvé i proti tobě nevýhodu a máš rychlost létání 60 stop (koncem kouzla ve vzduchu padáš). Akcí můžeš zasáhnout krychli 15 stop se středem do 60 stop: tvorové v ní si hází CON záchranný hod, při neúspěchu utrpí 2d10 Bludgeoning zranění, při úspěchu poloviční. Tvor velikosti Large či menší, který neuspěje, je navíc odsunut až o 10 stop od středu.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "jallarzis-storm-of-radiance",
+  "en": "Jallarzi's Storm of Radiance",
+  "cz": "Jallarzina bouře záře",
+  "l": 6,
+  "s": "Evokace",
+  "p": [
+   "Černokněžník",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "120 stop",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0,
+  "t": "Ve válci o poloměru 10 stop a výšce 40 stop mají tvorové stav Blinded a Deafened. Při vzniku válce a na začátku každého svého tahu v něm hází tvor CON záchranný hod; při neúspěchu utrpí 2d10 Radiant zranění a 2d10 Thunder zranění, při úspěchu poloviční.",
+  "v": "Radiant i Thunder zranění se zvýší o 1d10 za každou úroveň slotu kouzla nad 6.",
+  "x": 1
+ },
+ {
+  "i": "mental-prison",
+  "en": "Mental Prison",
+  "cz": "Duševní vězení",
+  "l": 6,
+  "s": "Iluze",
+  "p": [
+   "Čaroděj",
+   "Černokněžník",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "60 stop",
+  "k": [
+   "S"
+  ],
+  "m": "",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0,
+  "t": "Tvor, kterého vidíš v dosahu, si hází INT záchranný hod (imunní vůči stavu Charmed uspěje automaticky). Při úspěchu utrpí 5d10 Psychic zranění a kouzlo končí. Při neúspěchu utrpí 5d10 Psychic zranění a dokud kouzlo trvá, nemůže se pohybovat ani provádět akce a Reakce; když se přesune nebo je přesunut, utrpí 10d10 Psychic zranění a kouzlo končí.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "scatter",
+  "en": "Scatter",
+  "cz": "Rozprášení",
+  "l": 6,
+  "s": "Vyvolávání",
+  "p": [
+   "Čaroděj",
+   "Černokněžník",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "30 stop",
+  "k": [
+   "V"
+  ],
+  "m": "",
+  "d": "Okamžité",
+  "ko": 0,
+  "ri": 0,
+  "t": "Zvol až 5 tvorů, které vidíš v dosahu; nedobrovolný cíl si hází WIS záchranný hod a úspěchem odolá. Ostatní teleportuješ na volná místa na zemi či podlaze, která vidíš do 120 stop od sebe.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "soul-cage",
+  "en": "Soul Cage",
+  "cz": "Klec na duši",
+  "l": 6,
+  "s": "Nekromancie",
+  "p": [
+   "Černokněžník",
+   "Kouzelník"
+  ],
+  "ct": "Reakce, když do 60 stop zemře viditelný Humanoid",
+  "r": "60 stop",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "stříbrná klícka za 100+ zl",
+  "d": "8 hodin",
+  "ko": 0,
+  "ri": 0,
+  "t": "Uvězníš duši umírajícího Humanoida v klícce; dokud tam je, nelze ho oživit. Duši můžeš využít až 6×, pak se uvolní a kouzlo končí (končí i zničením klícky). Využití: Bonusovou akcí získáš zpět HP ve výši 2d8; bez akce položíš otázku a dostaneš stručnou pravdivou odpověď; Bonusovou akcí získáš výhodu na příští hod na útok, ověření či záchranu; Akcí spatříš místo, které zemřelý za života viděl.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "tashas-bubbling-cauldron",
+  "en": "Tasha's Bubbling Cauldron",
+  "cz": "Tašin kypící kotel",
+  "l": 6,
+  "s": "Vyvolávání",
+  "p": [
+   "Černokněžník",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "5 stop",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "pozlacený železný kotel za 500+ zl",
+  "d": "Do rozptýlení",
+  "ko": 0,
+  "ri": 0,
+  "t": "Do 5 stop od tebe vznikne nepohyblivý kotel velikosti Large; zrušíš ho akcí Magic. Bonusovou akcí z něj dáš tvoru na dotek (i sobě) jeden účinek. **Léčivý odvar:** získá zpět HP ve výši 2d6. **Ochrana:** k příštímu záchrannému hodu proti kouzlu či magii přičte tvůj modifikátor sesílací vlastnosti (min. +1). **Posílení:** na 10 minut výhoda na ověření jedné vlastnosti dle tvé volby.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "tensers-transformation",
+  "en": "Tenser's Transformation",
+  "cz": "Tenserova proměna",
+  "l": 6,
+  "s": "Přeměna",
+  "p": [
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "Sebe",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "pár chlupů z býka",
+  "d": "Concentration, až 10 minut",
+  "ko": 1,
+  "ri": 0,
+  "t": "Dokud kouzlo trvá, nesesíláš kouzla a: získáš 50 dočasných HP (koncem zmizí); máš výhodu na útoky jednoduchými a válečnými zbraněmi; cíl zasažený zbraní utrpí navíc 2d12 Force zranění; máš zdatnost se všemi zbrojemi, štíty a zbraněmi a se STR a CON záchrannými hody; akcí Útok útočíš dvakrát (nesčítá se s Extra Attack). Po skončení si hoď CON záchranný hod se SO 15, jinak získáš 1 úroveň Exhaustion.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "crown-of-stars",
+  "en": "Crown of Stars",
+  "cz": "Hvězdná koruna",
+  "l": 7,
+  "s": "Evokace",
+  "p": [
+   "Čaroděj",
+   "Černokněžník",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "Sebe",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "1 hodina",
+  "ko": 0,
+  "ri": 0,
+  "t": "Kolem hlavy ti krouží 7 světelných bodů. Bonusovou akcí jeden vyšleš na tvora či předmět do 120 stop: proveď útok kouzlem na dálku, při zásahu cíl utrpí 4d12 Radiant zranění. Bod se spotřebuje i při minutí; s posledním kouzlo končí.",
+  "v": "Za každou úroveň slotu kouzla nad 7 vzniknou 2 body navíc.",
+  "x": 1
+ },
+ {
+  "i": "power-word-fortify",
+  "en": "Power Word Fortify",
+  "cz": "Slovo moci: posílení",
+  "l": 7,
+  "s": "Očarování",
+  "p": [
+   "Bard",
+   "Klerik"
+  ],
+  "ct": "Akce",
+  "r": "60 stop",
+  "k": [
+   "V"
+  ],
+  "m": "",
+  "d": "Okamžité",
+  "ko": 0,
+  "ri": 0,
+  "t": "Až 6 tvorů v dosahu si rovným dílem (zaokrouhleno dolů) rozdělí 120 dočasných HP. Kdo už dočasné HP má, nezíská nic.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "whirlwind",
+  "en": "Whirlwind",
+  "cz": "Vichřice",
+  "l": 7,
+  "s": "Evokace",
+  "p": [
+   "Druid",
+   "Čaroděj",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "300 stop",
+  "k": [
+   "V",
+   "M"
+  ],
+  "m": "stéblo slámy",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0,
+  "t": "Válec větru (poloměr 10 stop, výška 30 stop) na zemi v dosahu; Akcí ho posuneš až o 30 stop. Tvor si hází AGI záchranný hod poprvé v tahu, kdy se s vichrem střetne; při neúspěchu utrpí 10d6 Bludgeoning zranění, při úspěchu poloviční. Neuspěvší tvor Large či menší si hází i STR záchranný hod, jinak má stav Restrained a stoupá v něm. Vyprostí se Akcí ověřením STR nebo AGI proti tvému SO a odletí 3d6×10 stop.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "abi-dalzims-horrid-wilting",
+  "en": "Abi-Dalzim's Horrid Wilting",
+  "cz": "Abi-Dalzimovo hrozné vadnutí",
+  "l": 8,
+  "s": "Nekromancie",
+  "p": [
+   "Čaroděj",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "150 stop",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "kousek mořské houby",
+  "d": "Okamžité",
+  "ko": 0,
+  "ri": 0,
+  "t": "Každý tvor v krychli 30 stop se středem v dosahu si hází CON záchranný hod; při neúspěchu utrpí 12d8 Necrotic zranění, při úspěchu poloviční. Tvorové typu Construct a Undead nejsou zasaženi; rostliny a vodní elementálové mají na záchranu nevýhodu.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "illusory-dragon",
+  "en": "Illusory Dragon",
+  "cz": "Přízračný drak",
+  "l": 8,
+  "s": "Iluze",
+  "p": [
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "120 stop",
+  "k": [
+   "S"
+  ],
+  "m": "",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0,
+  "t": "Vytvoříš hmotnou iluzi draka velikosti Huge. Nepřátelé, kteří ho vidí, hází WIS záchranný hod, jinak mají stav Frightened na 1 minutu (opakují na konci tahu mimo dohled draka). Bonusovou akcí ho posuneš o 60 stop a můžeš vydechnout kužel 60 stop: INT záchranný hod, při neúspěchu utrpí 7d6 zranění zvoleného typu, při úspěchu poloviční. Drak je nezranitelný; kdo ho odhalí ověřením INT (Investigation) proti tvému SO, má výhodu proti dechu.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "maddening-darkness",
+  "en": "Maddening Darkness",
+  "cz": "Šílivá tma",
+  "l": 8,
+  "s": "Evokace",
+  "p": [
+   "Černokněžník",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "150 stop",
+  "k": [
+   "V",
+   "M"
+  ],
+  "m": "kapka smoly s kapkou rtuti",
+  "d": "Concentration, až 10 minut",
+  "ko": 1,
+  "ri": 0,
+  "t": "Magická tma vyplní kouli o poloměru 60 stop v dosahu a šíří se za rohy. Darkvision jí neprohlédne a nemagické světlo ani světlo z kouzel 8. úrovně a nižší ji neprosvětlí. Tvor, který v ní začne tah, si hází WIS záchranný hod; při neúspěchu utrpí 8d8 Psychic zranění, při úspěchu poloviční.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "telepathy",
+  "en": "Telepathy",
+  "cz": "Telepatie",
+  "l": 8,
+  "s": "Věštění",
+  "p": [
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "Neomezený",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "pár propojených stříbrných prstenů",
+  "d": "24 hodin",
+  "ko": 0,
+  "ri": 0,
+  "t": "Telepaticky se propojíš s ochotným tvorem, kterého znáš a který je na stejné rovině existence. Po dobu kouzla si můžete okamžitě posílat slova, obrazy, zvuky a jiné vjemy; cíl ví, že komunikuje s tebou, a rozumí ti, má-li INT alespoň 1. Kouzlo končí, ocitnete-li se na různých rovinách.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "blade-of-disaster",
+  "en": "Blade of Disaster",
+  "cz": "Čepel zkázy",
+  "l": 9,
+  "s": "Vyvolávání",
+  "p": [
+   "Čaroděj",
+   "Černokněžník",
+   "Kouzelník"
+  ],
+  "ct": "Bonusová akce",
+  "r": "60 stop",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0,
+  "t": "Na volném místě v dosahu vytvoříš čepel z planární trhliny. Hned dvakrát proveď útok kouzlem na blízko proti cíli do 5 stop od čepele; při zásahu utrpí 4d12 Force zranění. Kritický zásah už při 18–20 na d20 a přidá 8d12 Force zranění (celkem 12d12). V dalších tazích ji Bonusovou akcí posuneš o 30 stop a znovu zaútočíš dvakrát.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "invulnerability",
+  "en": "Invulnerability",
+  "cz": "Nezranitelnost",
+  "l": 9,
+  "s": "Abjurace",
+  "p": [
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "Sebe",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "kousek adamantinu za 500+ zl, spotřebuje se",
+  "d": "Concentration, až 10 minut",
+  "ko": 1,
+  "ri": 0,
+  "t": "Dokud kouzlo trvá, máš Immunity vůči veškerému zranění.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "mass-polymorph",
+  "en": "Mass Polymorph",
+  "cz": "Hromadná proměna",
+  "l": 9,
+  "s": "Přeměna",
+  "p": [
+   "Bard",
+   "Čaroděj",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "120 stop",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "kukla housenky",
+  "d": "Concentration, až 1 hodinu",
+  "ko": 1,
+  "ri": 0,
+  "t": "Promění až 10 viditelných tvorů v dosahu ve zvířata (Beast), která jsi viděl, s CR nejvýše rovným CR cíle (nebo polovině jeho úrovně). Nedobrovolný cíl si hází WIS záchranný hod, měňavci uspějí automaticky. Statistiky cíle nahradí statistiky zvířete; získá dočasné HP rovné HP nové podoby a vrátí se, když o ně přijde, zemře nebo kouzlo skončí. Nemůže sesílat kouzla, mluvit ani používat výbavu.",
+  "v": "",
+  "x": 1
+ },
+ {
+  "i": "psychic-scream",
+  "en": "Psychic Scream",
+  "cz": "Psychický výkřik",
+  "l": 9,
+  "s": "Očarování",
+  "p": [
+   "Bard",
+   "Čaroděj",
+   "Černokněžník",
+   "Kouzelník"
+  ],
+  "ct": "Akce",
+  "r": "90 stop",
+  "k": [
+   "S"
+  ],
+  "m": "",
+  "d": "Okamžité",
+  "ko": 0,
+  "ri": 0,
+  "t": "Až 10 zvolených tvorů v dosahu (kromě tvorů s INT 2 a nižší) hází INT záchranný hod; při neúspěchu utrpí 14d6 Psychic zranění a mají stav Stunned, při úspěchu poloviční (bez Stunned). Omráčený cíl opakuje INT záchranný hod na konci každého svého tahu.",
+  "v": "",
+  "x": 1
+ }
+]

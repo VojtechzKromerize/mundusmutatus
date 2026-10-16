@@ -1,0 +1,206 @@
+[
+ {
+  "en": "Artisan",
+  "cz": "Řemeslník",
+  "vl": [
+   "STR",
+   "AGI",
+   "INT"
+  ],
+  "feat": "Crafter",
+  "dov": [
+   "Investigation",
+   "Persuasion"
+  ],
+  "nastroj": "jedna sada řemeslnických nástrojů dle volby",
+  "vybava": "A: řemeslnické nástroje, 2 váčky, cestovní šaty, 32 zl; nebo B: 50 zl",
+  "t": "Vyučil ses u mistra a umíš odhadnout hodnotu i kvalitu výrobků."
+ },
+ {
+  "en": "Charlatan",
+  "cz": "Šarlatán",
+  "vl": [
+   "AGI",
+   "CON",
+   "CHA"
+  ],
+  "feat": "Skilled",
+  "dov": [
+   "Deception",
+   "Sleight of Hand"
+  ],
+  "nastroj": "Forgery Kit",
+  "vybava": "A: Forgery Kit, Costume, Fine Clothes, 15 zl; nebo B: 50 zl",
+  "t": "Podvodník, který se živí falešnými sliby, padělky a hraným šarmem."
+ },
+ {
+  "en": "Entertainer",
+  "cz": "Bavič",
+  "vl": [
+   "STR",
+   "AGI",
+   "CHA"
+  ],
+  "feat": "Musician",
+  "dov": [
+   "Acrobatics",
+   "Performance"
+  ],
+  "nastroj": "jeden hudební nástroj dle volby",
+  "vybava": "A: zvolený nástroj, 2× Costume, Mirror, Perfume, Traveler's Clothes, 11 zl; nebo B: 50 zl",
+  "t": "Kočovný umělec zvyklý na jeviště, publikum a potlesk."
+ },
+ {
+  "en": "Farmer",
+  "cz": "Sedlák",
+  "vl": [
+   "STR",
+   "CON",
+   "WIS"
+  ],
+  "feat": "Tough",
+  "dov": [
+   "Animal Handling",
+   "Nature"
+  ],
+  "nastroj": "Carpenter's Tools",
+  "vybava": "A: Sickle, Carpenter's Tools, Healer's Kit, Iron Pot, Shovel, Traveler's Clothes, 30 zl; nebo B: 50 zl",
+  "t": "Člověk od pluhu a dobytka, otužilý prací na poli."
+ },
+ {
+  "en": "Guard",
+  "cz": "Strážný",
+  "vl": [
+   "STR",
+   "INT",
+   "WIS"
+  ],
+  "feat": "Alert",
+  "dov": [
+   "Athletics",
+   "Perception"
+  ],
+  "nastroj": "jedna herní sada dle volby",
+  "vybava": "A: Spear, Light Crossbow, 20 Bolts, zvolená herní sada, Hooded Lantern, Manacles, Quiver, Traveler's Clothes, 12 zl; nebo B: 50 zl",
+  "t": "Bývalý hlídkař z hradeb a bran, zvyklý bdít a všímat si."
+ },
+ {
+  "en": "Guide",
+  "cz": "Průvodce",
+  "vl": [
+   "AGI",
+   "CON",
+   "WIS"
+  ],
+  "feat": "Magic Initiate (Druid)",
+  "dov": [
+   "Stealth",
+   "Survival"
+  ],
+  "nastroj": "Cartographer's Tools",
+  "vybava": "A: Shortbow, 20 Arrows, Cartographer's Tools, Bedroll, Quiver, Tent, Traveler's Clothes, 3 zl; nebo B: 50 zl",
+  "t": "Znalec divočiny, který vodí poutníky a pochytil základy přírodní magie."
+ },
+ {
+  "en": "Hermit",
+  "cz": "Poustevník",
+  "vl": [
+   "CON",
+   "WIS",
+   "CHA"
+  ],
+  "feat": "Healer",
+  "dov": [
+   "Medicine",
+   "Religion"
+  ],
+  "nastroj": "Herbalism Kit",
+  "vybava": "A: Quarterstaff, Herbalism Kit, Bedroll, Book (filozofie), Lamp, 3× Oil, Traveler's Clothes, 16 zl; nebo B: 50 zl",
+  "t": "Samotář z ústraní, který léta rozjímal a léčil bylinami."
+ },
+ {
+  "en": "Merchant",
+  "cz": "Kupec",
+  "vl": [
+   "CON",
+   "INT",
+   "CHA"
+  ],
+  "feat": "Lucky",
+  "dov": [
+   "Animal Handling",
+   "Persuasion"
+  ],
+  "nastroj": "Navigator's Tools",
+  "vybava": "A: Navigator's Tools, 2× Pouch, Traveler's Clothes, 22 zl; nebo B: 50 zl",
+  "t": "Obchodník a vozka, který zná cesty, ceny i umění smlouvat."
+ },
+ {
+  "en": "Noble",
+  "cz": "Šlechtic",
+  "vl": [
+   "STR",
+   "INT",
+   "CHA"
+  ],
+  "feat": "Skilled",
+  "dov": [
+   "History",
+   "Persuasion"
+  ],
+  "nastroj": "jedna herní sada dle volby",
+  "vybava": "A: zvolená herní sada, Fine Clothes, Perfume, 29 zl; nebo B: 50 zl",
+  "t": "Potomek drobného panského rodu, vzdělaný a zvyklý velet."
+ },
+ {
+  "en": "Sailor",
+  "cz": "Plavec",
+  "vl": [
+   "STR",
+   "AGI",
+   "WIS"
+  ],
+  "feat": "Tavern Brawler",
+  "dov": [
+   "Acrobatics",
+   "Perception"
+  ],
+  "nastroj": "Navigator's Tools",
+  "vybava": "A: Dagger, Navigator's Tools, Rope, Traveler's Clothes, 20 zl; nebo B: 50 zl",
+  "t": "Lodník či vorař zocelený bouřemi a přístavními krčmami."
+ },
+ {
+  "en": "Scribe",
+  "cz": "Písař",
+  "vl": [
+   "AGI",
+   "INT",
+   "WIS"
+  ],
+  "feat": "Skilled",
+  "dov": [
+   "Investigation",
+   "Perception"
+  ],
+  "nastroj": "Calligrapher's Supplies",
+  "vybava": "A: Calligrapher's Supplies, Fine Clothes, Lamp, 3× Oil, 12× Parchment, 23 zl; nebo B: 50 zl",
+  "t": "Pečlivý opisovač listin a knih, který nepřehlédne chybu."
+ },
+ {
+  "en": "Wayfarer",
+  "cz": "Tulák",
+  "vl": [
+   "AGI",
+   "WIS",
+   "CHA"
+  ],
+  "feat": "Lucky",
+  "dov": [
+   "Insight",
+   "Stealth"
+  ],
+  "nastroj": "Thieves' Tools",
+  "vybava": "A: 2× Dagger, Thieves' Tools, herní sada dle volby, Bedroll, 2× Pouch, Traveler's Clothes, 16 zl; nebo B: 50 zl",
+  "t": "Dítě ulice, které přežilo díky vlastní vynalézavosti."
+ }
+]
