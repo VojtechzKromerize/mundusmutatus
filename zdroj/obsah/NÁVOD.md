@@ -27,6 +27,10 @@ Vše v této části vidí **jen vypravěč** – hráči nedostanou ani seznamy
   u schopnosti se záchranou `| AGI DC 15 | 2d8 Fire |`. Text pod hlavičkou je celý statblock; v boji se ukáže bez citátu,
   popisu (odstavců, které nezačínají **tučným slovem**) a bez **Výkupné a kořist** – ten odstavec se ale objeví
   ve shrnutí po boji.
+  Bestiář obsahuje i netvory převedené z D&D 2024 (nemrtví, zvířata a obludy, čerti a bytosti z pověstí, lidé –
+  od kostlivců po Anděla Páně); u každého je na konci řádek „Předloha: …“. Převedená pravidla vycházejí ze System
+  Reference Document 5.2 (Wizards of the Coast, licence CC-BY-4.0, https://creativecommons.org/licenses/by/4.0/),
+  texty a jména jsou vlastní.
 - **Přívlastky** – `privlastky/` (Zkušený, Veterán, Ve zbroji, Jízdní, Zatracený, Proměněnec…). Přídavky `ac`, `hp`,
   `utok`, `zraneni`, `xp` (číslo nebo procenta), `zdroje`, `pro` (komu se hodí); text = vlastnosti navíc.
   V boji je přidáš v kartě nepřítele.
