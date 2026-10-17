@@ -133,7 +133,8 @@ const BMSTOP=/^(a|i|v|ve|z|ze|s|se|o|od|do|na|pod|pro|u|k|ke|za|z|von|de|of|der|
 const bojMono=n=>{n=String(n||"").trim();const m=n.match(/\s(\d+)$/),w=(m?n.slice(0,m.index):n).split(/\s+/).filter(x=>x&&!BMSTOP.test(x));
   const ini=w.map(x=>(x.match(/\p{L}/u)||[""])[0].toLocaleUpperCase("cs")).join("");return (m?(ini[0]||"")+m[1]:ini.slice(0,2))||"?"};
 const bojPortH=n=>{const K=(KARTY||[]).find(k=>k.n===n),ki=K&&kartaStav(K.id).img;if(ki)return ki;const p=PARTY.find(x=>x.n===n);return p&&p.img?p.img:""};
-const bojPortN=o=>o&&o.os&&PORTR.has(o.os)?portU(o.os,"m"):(o&&PROTBY[o.b]&&PROTBY[o.b].img)||"";
+/* obrázek žetonu: vypravěč ho bere z bestiáře a portrétů, ukládá ho k nepříteli do stavu boje (o.img), hráč ho čte odtud */
+const bojPortN=o=>o&&o.os&&PORTR.has(o.os)?portU(o.os,"m"):(o&&PROTBY[o.b]&&PROTBY[o.b].img)||(o&&typeof o.img==="string"&&/^art\/(bestiar|portrety)\/[\w-]+\.webp$/.test(o.img)?o.img:"");
 /* žeton: bestiář má 96px variantu, plný obrázek jen pro husté displeje */
 const bojBg=im=>/art\/bestiar\/[^/]+\.webp$/.test(im)?`background-image:url('${besc(im.replace(/\.webp$/,"-96.webp"))}');background-image:image-set(url('${besc(im.replace(/\.webp$/,"-96.webp"))}') 2x,url('${besc(im)}') 6x)`:`background-image:url('${besc(im)}')`;
 function bojMedH(h,c){const im=bojPortH(h.n);return `<span class="bmed bmk${c?" "+c:""}"${im?` style="background-image:url('${besc(im)}')"`:""}>${im?"":`<b>${besc(bojMono(h.n))}</b>`}</span>`}
@@ -592,7 +593,7 @@ const BZRSL=[["bez škrábnutí","bzs0"],["zraněný","bzs1"],["sotva stojí","b
 const bojHpSlovo=n=>{const z=BZRSL[n.zr|0];return n.zr==null||!z?"":`<span class="bzrsl ${z[1]}" ${btip("Jak na tom sok vypadá")}>${z[0]}</span>`};
 function bojHpSync(){if(!GMV||!BOJ.s||!(BOJ.s.npc||[]).length)return;if((BOJ.s.npc||[]).some(o=>{try{const z=bojZrSt(o,bojEff(o));return (z??null)!==(o.zr??null)}catch(e){return false}}))bojZmen(()=>{},true)}
 {const st=bojHp.set.bind(bojHp);bojHp.set=o=>{st(o);clearTimeout(bojHpSync.t);bojHpSync.t=setTimeout(bojHpSync,400)}}
-function bojAcSync(s){if(!GMV)return;(s.npc||[]).forEach(o=>{try{const E=bojEff(o);if(!E)return;const z=bojZrSt(o,E);if(z==null)delete o.zr;else o.zr=z;const ZS=bojZbrStav(o,E),ac=(+ZS.ac||0)+(+o.kryt||0);if(ac>0){if(o.ac!==ac)o.ac=ac}else delete o.ac}catch(e){}})}
+function bojAcSync(s){if(!GMV)return;(s.npc||[]).forEach(o=>{try{{const im=o.os&&PORTR.has(o.os)?portU(o.os,"m"):(PROTBY[o.b]&&PROTBY[o.b].img)||"";if(im&&/^art\/(bestiar|portrety)\//.test(im)){if(o.img!==im)o.img=im}else delete o.img}const E=bojEff(o);if(!E)return;const z=bojZrSt(o,E);if(z==null)delete o.zr;else o.zr=z;const ZS=bojZbrStav(o,E),ac=(+ZS.ac||0)+(+o.kryt||0);if(ac>0){if(o.ac!==ac)o.ac=ac}else delete o.ac}catch(e){}})}
 function bojZmen(fn0,bezUndo){const fn=z=>{fn0(z);bojAcSync(z)};
   if(!bojDB)return Promise.resolve();
   const s=JSON.parse(JSON.stringify(BOJ.s||{})),pre=JSON.stringify(s);if(!bezUndo)bojUndoPush({s:pre});

@@ -74,6 +74,19 @@ function renderKarty(id){const box=document.getElementById("kartyview");if(!box)
       <section class="kimp"><h3 class="uvh2">Nahrát list postavy</h3><p class="rsmall">V D&amp;D Beyond otevři postavu → <i>Export to PDF</i> → stáhni PDF a nahraj ho sem. Karta se vytvoří, nebo přepíše dřívější kartu stejné postavy (stav postavy zůstane).</p>
         <label class="gbtn"><input type="file" accept="application/pdf,.pdf" data-kimp hidden>Vybrat PDF…</label>${KIMP?kImpNahled(KIMP):""}</section>`;pojZnac(box.querySelector(".kprehled"));return}
   box.innerHTML=kartaDbHtml(K,kartaDbData(K));pojZnac(box)}
+/* ikony vlastností (2026-10-17): zvíře podle vlastnosti, nahoře (hnědé pole) skóre, vlevo dole (červené) modifikátor = ověření,
+   vpravo dole (modré) záchrana; pole jsou umístěná v procentech obrázku art/img/vl-*.webp [vlevo, nahoře, šířka, výška] */
+const KVLIK={STR:["str","býk",[22.8,4.4,53.9,13.7],[12.9,76.8,32.9,16.2],[53.7,77.1,33.1,16.0]],AGI:["agi","kočka",[23.6,4.4,53.1,14.0],[12.9,77.2,32.6,16.3],[54.2,77.4,32.0,16.1]],
+  CON:["con","medvěd",[23.3,4.7,53.9,13.6],[13.2,77.3,33.1,16.3],[53.9,77.5,32.9,16.1]],INT:["int","liška",[24.1,6.7,52.1,12.9],[13.6,79.0,32.6,16.4],[54.3,78.8,32.6,16.6]],
+  WIS:["wis","sova",[23.9,4.7,52.5,13.2],[13.7,78.1,31.9,17.1],[54.4,78.6,31.4,16.7]],CHA:["cha","lev",[23.7,4.7,52.7,13.2],[13.4,78.1,32.5,16.9],[54.3,78.4,32.0,16.7]]};
+const kVlPos=b=>`left:${b[0]}%;top:${b[1]}%;width:${b[2]}%;height:${b[3]}%`;
+/* o.zach: atributy tlačítka záchrany (v Boji jiné než na kartě); o.edit: skóre jde přepsat */
+function kVlIkona(K,a,o={}){const v=kVl(K,a);if(v==null)return "";const I=KVLIK[a],zm=((kartaStav(K.id).vlU)||{})[a]!=null,pf=(K.zachProf||[]).includes(a),zs=kZach(K,a),ov=kOvB(K,a);
+  return `<figure class="kvli${zm?" kvliu":""}${pf?" kvlipf":""}"><div class="kvlib"><img src="art/img/vl-${I[0]}.webp" alt="" width="260" height="346" loading="lazy" decoding="async">
+    <button type="button" class="kvlh" style="${kVlPos(I[2])}" ${o.edit!==false?`data-kvled="${a}"`:"disabled"} ${btip(zm?`${KDBVL[a]}: skóre ${v} (přepsáno, v PDF ${kVl0(K,a)}) – klikni pro změnu`:`${KDBVL[a]}: skóre ${v}${o.edit!==false?" – klikni pro změnu":""}`)}>${v}</button>
+    <button type="button" class="kvlm" style="${kVlPos(I[3])}" data-khod="ov:${a}" ${btip(`Ověření ${KSK[a]} (${a}): d20 ${bsg(ov)}`)}>${bsg(kMod(v))}</button>
+    <button type="button" class="kvlz" style="${kVlPos(I[4])}" ${o.zach||`data-khod="za:${a}"`} ${btip(`Záchrana ${KSK[a]}${pf?" (zdatnost)":""}: d20 ${bsg(zs)}`)}>${bsg(zs)}</button></div>
+    <figcaption>${KDBVL[a]}</figcaption></figure>`}
 /* data pro kartu v rozvržení D&D Beyond – stejná karta na stránce Karty postav i Hra */
 function kartaDbData(K){
   if(!PRED)predNacti().then(()=>{if(curView==="karty"||curView==="hra")kartyPrekresli()}).catch(()=>{});kUcVyprsi(K);
@@ -129,9 +142,9 @@ function kartaDbHtml(K,o,o2){const {ef,invH,popH,ja,sec,ro,zat,pri,S,mx,cur,pr,k
     <div class="kdbs" ${btip("Bonus zdatnosti")}><small>Zdatnost</small><b>${bsg(kPB(K))}</b></div>
     <label class="kdbs kdbinsp" ${btip("Heroic Inspiration – zaškrtni, když ji postava má")}><input type="checkbox" data-kinsp${S.insp?" checked":""}><span aria-hidden="true"></span><small>Inspirace</small></label>
     <div class="kdbs" ${btip(SVST(D.sv))}><small>Svědomí</small><b class="psv psv${kSvKl(D.sv)}">${D.sv}</b></div></div>`;
-  /* vlastnosti v jednom řádku */
-  const vlU=S.vlU||{},ab=BAB.map(a=>{const v=kVl(K,a);if(v==null)return "";const m=kMod(v),zm=vlU[a]!=null;return `<div class="kdbab${zm?" kdbabu":""}"><small>${KDBVL[a]}</small><button type="button" data-khod="ov:${a}" ${btip(`Ověření ${KSK[a]} (${a}): d20 ${bsg(kOvB(K,a))} · ${kRozpis(kHodn(K,"ov",a).L)}`)}>${bsg(m)}</button><button type="button" class="kdbabs" data-kvled="${a}" ${btip(zm?`Skóre ${v} (přepsáno, v PDF ${kVl0(K,a)}) – klikni pro změnu`:`Skóre ${v} – klikni pro změnu (např. předmět, kletba, zvýšení vlastnosti); záchrany, dovednosti, útoky i AC se přepočítají`)}>${v}</button></div>`}).join("");
-  const abr=`<div class="kdbabr">${ab}</div>`;
+  /* vlastnosti v jednom řádku – ikony se zvířaty (skóre, ověření, záchrana) */
+  const ab=BAB.map(a=>kVlIkona(K,a,{edit:kMuze(K)})).join("");
+  const abr=`<div class="kdbabr kvlr">${ab}</div>`;
   /* hlášení a stavy */
   const konH=KKON[K.id]&&kKonDrzi(K)?`<p class="khl kdbkon">${bi("soustredi")} <b>Soustředění:</b> CON záchrana SO ${KKON[K.id]} <button type="button" class="gbtn" data-kkonh>🎲 CON ${bsg(kZach(K,"CON"))}${K.konVyhoda?" s výhodou":""}</button><button type="button" class="kx" data-kkonx aria-label="Zavřít">×</button></p>`:"";
   const hl=kHlas([postupBanner(K),konH,kZavBox(K),kPoslBox(K)]);

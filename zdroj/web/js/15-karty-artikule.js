@@ -25,7 +25,8 @@ const KFEAT={kal:[["Přijímání podobojí",1,1,"1× za dlouhý odpočinek při
   old:[["Zřídlo místa",1,1,"Trik Druidcraft. Na místě se Starými bohy 1× za dlouhý odpočinek okamžitě získáš výhody krátkého odpočinku."],["Obětina",1,2,"1× za dlouhý odpočinek obětuješ Starému bohu něco cenného a smíš seslat kouzlo (podle volby vypravěče)."],["Vtělení",0,3,"Akce: vezmeš na sebe podobu podle svého Starého boha (Wild Shape), např. Morana – bílá vlčice z jinovatky."]]};
 /* Výdrž (Artikule, Šerm a zápas): Fighter = bonus zdatnosti, Barbarian, Paladin, Ranger, Rogue, Monk polovina */
 const KVYDP=[["Fighter",1],["Barbarian",.5],["Paladin",.5],["Ranger",.5],["Rogue",.5],["Monk",.5]];
-function kVydMax(K){const pb=kPB(K);let m=0;KVYDP.forEach(([c,f])=>{if(new RegExp("\\b"+c+"\\b","i").test(K.povolani||""))m=Math.max(m,Math.floor(pb*f))});return m}
+/* Výdrž má jen bojová postava: hlavní povolání (nejvíc úrovní) je Fighter, Monk, Barbarian, Rogue, Ranger nebo Paladin */
+function kVydMax(K){const pb=kPB(K),T=(kTridy(K)||[]).slice().sort((a,b)=>b.u-a.u),h=T[0];if(!h)return 0;const p=KVYDP.find(([c])=>c===h.n);return p?Math.max(1,Math.ceil(pb*p[1])):0}
 const kVydU=K=>Math.min(kVydMax(K),+((kartaStav(K.id).zdr||{})["Výdrž"]||0));
 /* techniky a chvaty: id, název, cena, Požehnání (1) / reakce (r) / bonusová akce (b), účinek */
 const STECH=[

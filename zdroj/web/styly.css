@@ -2839,3 +2839,30 @@ button.kdbs:hover{border-color:var(--kb-gold)}.kdbsac b{color:var(--kb-gold)}
 .bdmabm{font-size:1.6rem!important;min-width:56px!important}
 .bdmpas{margin-top:12px}.bdmpas b{color:var(--kb-tx)}
 .bdmart:empty{display:none}
+/* ikony vlastností se zvířaty (2026-10-17): skóre nahoře, modifikátor (ověření) vlevo dole, záchrana vpravo dole */
+.kvlr{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px 8px;align-items:end}
+.bdmab.kvlr{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px 14px;margin-top:12px}
+.kvli{margin:0;display:flex;flex-direction:column;align-items:center;min-width:0}
+.kvlib{position:relative;width:100%;max-width:150px;container-type:inline-size}
+.kvlib img{display:block;width:100%;height:auto;filter:drop-shadow(0 3px 4px rgba(0,0,0,.45))}
+.kvlib button{position:absolute;display:grid;place-items:center;margin:0;padding:0;min-width:0;min-height:0;background:none;border:0;border-radius:5px;color:#fff;font-family:var(--f-body);font-weight:700;line-height:1;text-shadow:0 1px 2px #000,0 0 5px rgba(0,0,0,.85);cursor:pointer;box-shadow:none}
+.kvlib .kvlh{font-size:13cqw;color:#f7e9c4}
+.kvlib .kvlm,.kvlib .kvlz{font-size:15cqw}
+.kvlib button:hover,.kvlib button:focus-visible{outline:2px solid #e8c35a;outline-offset:-1px;background:rgba(255,255,255,.08)}
+.kvlib button:disabled{cursor:default;outline:0;background:none}
+.kvliu .kvlh{color:#ffcf5c}
+.kvlipf .kvlz::after{content:"";position:absolute;top:10%;right:9%;width:9cqw;height:9cqw;border-radius:50%;background:#f0cf6a;box-shadow:0 0 5px #f0cf6a}
+.kvli figcaption{margin-top:3px;font-family:var(--f-label);font-weight:700;font-size:.64rem;letter-spacing:.07em;text-transform:uppercase;color:var(--kb-mu,var(--muted));text-align:center}
+.kdbabr.kvlr{padding-bottom:4px}
+@media (max-width:640px){.kdbabr.kvlr{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 12px}.kvlib{max-width:120px}}
+/* bojová karta hráče přes celou šířku hlavního sloupce */
+.bjamain .bdm{max-width:none}
+.bjamain .bja:has(.bdm){padding:0;border:0;background:none}
+.bjamain .bdmport{max-width:150px}
+@media (min-width:900px){.bjamain .bdmab.kvlr{grid-template-columns:repeat(6,minmax(0,1fr))}}
+/* herní záznam pod pruhem iniciativy */
+.bglogd{margin:8px 0 12px}
+.bglogd>summary small{color:var(--muted);font-weight:400}
+.bglogd .bglog,.bglogd .khody{max-height:340px;overflow:auto}
+.bglogd .bzazn{margin:0}
+.bjanep{flex:1 1 100%}

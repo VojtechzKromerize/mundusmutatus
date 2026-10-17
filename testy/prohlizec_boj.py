@@ -40,6 +40,7 @@ async def main():
     g.on("dialog",lambda d:asyncio.ensure_future(d.accept()))
     await g.add_init_script("localStorage.setItem('mm-gm-relace',JSON.stringify("+json.dumps({"at":rel["access_token"],"rt":rel["refresh_token"],"exp":rel["expires_at"],"email":"gm@x.cz"})+"))")
     await g.goto(BASE+"#boj");await g.wait_for_function("!document.documentElement.classList.contains('mmload')");await g.wait_for_timeout(500)
+    await g.evaluate("BOTV.add('glog')")  # herní záznam pod pruhem iniciativy je rozbalitelný; vypravěč ho má v testu otevřený
     if await g.locator("[data-bact=konec]").count():
         await g.click("[data-bact=konec]");await g.wait_for_timeout(800)
         if await g.locator('[data-bkon="ok"]').count():  # se statblocky se nejdřív ukáže shrnutí boje
@@ -49,7 +50,7 @@ async def main():
     # hráč zapíše svůj hod z telefonu během přípravy
     ph=await b.new_page(viewport={"width":390,"height":844});await ph.goto(BASE+"#boj");await ph.wait_for_selector(".bprip")
     chk(await ph.locator(".bnpc").count()==0,"hráč v přípravě nevidí nepřátele")
-    await ph.select_option("[data-bja]","Cyril");await ph.wait_for_timeout(300)
+    await ph.evaluate("bojJa.set('Cyril');renderBoj()");await ph.wait_for_timeout(300)
     await ph.fill("[data-bjahod]","11");await ph.press("[data-bjahod]","Tab");await ph.wait_for_timeout(800)
     await g.wait_for_timeout(3000)
     chk(await g.locator('[data-bhhod="h3"]').input_value()=="11","vypravěč vidí hod, který hráč zapsal z telefonu")
@@ -139,7 +140,7 @@ async def main():
     await g.click('[data-bpros="uzky"]');await g.wait_for_timeout(300)
     # hráč u své postavy: stav, kryt a hody proti smrti z telefonu
     pl.on("dialog",lambda d:asyncio.ensure_future(d.accept()))
-    await pl.select_option("[data-bja]","Adam");await pl.wait_for_timeout(500)
+    await pl.evaluate("bojJa.set('Adam');renderBoj()");await pl.wait_for_timeout(500)
     if await pl.locator('[data-bhpan="h1"] [data-kstp]').count():await pl.click('[data-bhpan="h1"] [data-kstp]');await pl.wait_for_timeout(300)
     await pl.click('[data-bhpan="h1"] [data-bhst="sražen"]');await pl.wait_for_timeout(900)
     await pl.click('[data-bhpan="h1"] [data-bhkr="2"]');await pl.wait_for_timeout(900)
@@ -162,7 +163,7 @@ async def main():
     chk(await g.evaluate("(BOJ.s.hraci[1].ds||{}).st")=="mrtev","tři neúspěchy hodu proti smrti: postava umírá")
     chk(await g.evaluate("bojDs({u:0,n:0},'hod',1).ds.n===2&&bojDs({u:2,n:0},'hod',12).ds.st==='stab'&&bojDs({u:1,n:1},'hod',20).ds===null"),"hody proti smrti: 1 = dva neúspěchy, třetí úspěch stabilizuje, 20 probudí")
     # hráč útočí z telefonu: zbraň uložená u postavy, hod, vyhodnocení u vypravěče (AC hráč nevidí), veřejný záznam, Zpět, filtr
-    await pl.select_option("[data-bja]","Cyril");await pl.wait_for_timeout(600)
+    await pl.evaluate("bojJa.set('Cyril');renderBoj()");await pl.wait_for_timeout(600)
     await pl.click('[data-otv="zb-h3"] summary');await pl.wait_for_timeout(200)
     await pl.fill('[data-bhpan="h3"] .bzbf [name=n]',"Dlouhý meč");await pl.fill('[data-bhpan="h3"] .bzbf [name=b]',"6");await pl.fill('[data-bhpan="h3"] .bzbf [name=z]',"1d8+3")
     await pl.check('[data-bhpan="h3"] .bzbf [name=pru]');await pl.click('[data-bhpan="h3"] .bzbf button');await pl.wait_for_timeout(2500)
@@ -184,7 +185,15 @@ async def main():
     chk("Cyril" in await g.inner_text(".bglog"),"útok hráče je v záznamu vypravěče")
     await pl.wait_for_timeout(3200)
     mj=await pl.inner_text(".bjumoje");chk("zásah" in mj and "AC" not in mj,"hráč vidí zásah, ale ne AC: "+mj[:80])
-    chk("Cyril" in await pl.inner_text(".bzazn"),"hráč má zkrácený záznam boje")
+    await pl.click(".bglogd summary");await pl.wait_for_timeout(400)
+    chk("Cyril" in await pl.inner_text(".bglogd"),"hráč má herní záznam pod pruhem iniciativy (hody a veřejný záznam boje)")
+    chk(await pl.locator("[data-bja]").count()==0 and "Hraji za" not in await pl.inner_text("#bojview"),"hráč nevybírá postavu na stránce Boj")
+    pid=await g.evaluate("(PROTIVNICI.find(p=>p.img)||{}).id||''")
+    if pid:
+        await g.evaluate(f"bojZmen(z=>{{z.nid=(z.nid||0)+1;z.npc.push({{id:'n'+z.nid,n:'Obrázkový',druh:'sok',b:'{pid}'}})}})");await pl.wait_for_timeout(3500)
+        chk(await pl.evaluate("[...document.querySelectorAll('.bjaside .bmed')].some(e=>/art\\/bestiar\\//.test(e.getAttribute('style')||''))"),"hráč vidí obrázek nepřítele z bestiáře")
+        await g.evaluate("bojZmen(z=>{z.npc=z.npc.filter(o=>o.n!=='Obrázkový')})");await pl.wait_for_timeout(1500)
+    else: chk(False,"v testovacích datech chybí protivník s obrázkem")
     await g.click("[data-blund] >> nth=0");await g.wait_for_timeout(400)
     chk(await g.evaluate(f"(bojHp.get()['{rid}']||[])[0]")==hp0 or hp0 is None,"Zpět v záznamu vrátí životy")
     await g.click(".bglog [data-blf] >> nth=0");await g.wait_for_timeout(300);chk(await g.locator(".blfc").count()==1,"filtr záznamu podle žetonu");await g.click("[data-blfx]");await g.wait_for_timeout(300)
@@ -227,7 +236,7 @@ async def main():
     r=await g.evaluate("(()=>{BPLV[999999]={dmg:10,pol:true,t:'Fire',ab:'AGI',dc:15,map:{balduin:'h4'},hot:new Set(),src:'',cim:'Test'};const V0=VYZVY;VYZVY=[{id:999999,data:{typ:'zach'},odpovedi:{balduin:{tot:5}}}];bojVyzZpracuj();VYZVY=V0;return kartaStav('balduin').hp})()")
     chk(r==52,"plošný zásah výzvou: neúspěšná záchrana hráče odečte zranění samo ("+str(r)+")")
     await g.evaluate("kartaStavZmen('balduin',{hp:null,thp:null},null,{bezZpet:true})");await g.wait_for_timeout(800)
-    await pl.wait_for_timeout(3000);await pl.select_option("[data-bja]","Balduin");await pl.wait_for_timeout(600)
+    await pl.wait_for_timeout(3000);await pl.evaluate("bojJa.set('Balduin');renderBoj()");await pl.wait_for_timeout(600)
     try:
         await pl.wait_for_selector(".kzas",timeout=8000);chk(True,"hráči se ukáže zásah nepřítele s nabídkou reakce")
         await pl.click('.kzas [data-bzr="ok"]');await pl.wait_for_timeout(300)
