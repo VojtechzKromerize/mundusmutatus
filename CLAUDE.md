@@ -87,9 +87,12 @@ Oddíly mají hlavičky `/* ===== název ===== */` nebo `/* ---------- název --
 
 - K dispozici je Python, Node a Playwright. Bez databáze: `MM_BEZ_DB=1 bash testy/spustit.sh`
   (sestavení, kontrola tajemství, prohlídka statické verze, bestiář).
-- Databázová část potřebuje běžící PostgreSQL 16 a `postgrest` (CI ho stahuje z GitHub release v12.2.3,
-  viz `.github/workflows/kontrola.yml`). Jednotlivé `prohlizec_*.py` potřebují proměnné ze `spustit.sh`,
-  pouštěj je přes něj.
+- S databází: nejdřív `eval "$(bash testy/priprav-prostredi.sh)"` (spustí PostgreSQL, stáhne PostgREST přes curl –
+  `gh release download` tu nefunguje), pak rychle jen dotčené testy: `MM_TESTY="boj karta" bash testy/spustit.sh`
+  (sestavení, schéma, práva a vybrané `prohlizec_*.py`, bez prohlídek všech stránek; pár minut).
+  Jednotlivé `prohlizec_*.py` potřebují proměnné ze `spustit.sh`, pouštěj je přes něj.
+- Logy GitHub Actions se odsud stáhnout nedají (`--log-failed` selže). Chyby jsou v anotacích:
+  `gh run view <id>` → ANNOTATIONS (řádky FAIL a konec chyby Pythonu).
 - Nové chování doplň do příslušného `prohlizec_*.py`. Vzhled kontroluj jako vypravěč i hráč, desktop i mobil,
   světlý i tmavý režim.
 
