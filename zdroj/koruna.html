@@ -2574,6 +2574,10 @@ html:not(.gmv) .gmonly{display:none!important}
   body:has(.view:not([hidden]) .kbar) .phbtn{bottom:74px}body:has(.view:not([hidden]) .kbar) .mmhlas{bottom:80px}
 }
 @media print{.kbar,.kposl{display:none!important}}
+/* vybavení z nabídky, zbraň v ruce (2026-10-17) */
+.kpool{margin:8px 0}.kpoolf{display:flex;flex-wrap:wrap;gap:6px;align-items:center}.kpoolf input[name=p]{flex:1 1 16em;min-width:12em}.kpoolx{display:inline-flex;gap:4px}
+.kzvb{font:inherit;font-size:.85rem;line-height:1;padding:2px 4px;margin-right:4px;border:1px solid var(--kb-bd2,var(--rule));border-radius:3px;background:none;color:inherit;opacity:.45;cursor:pointer}.kzvb.on{opacity:1;border-color:var(--kb-gold,var(--gold));background:color-mix(in srgb,var(--kb-gold,var(--gold)) 22%,transparent)}
+tr.kdbzv td:first-child b{color:var(--kb-gold,var(--gold))}
 </style>
 
 <div class="wrap"><div class="papir" aria-hidden="true"></div>
@@ -7937,7 +7941,7 @@ function kartaDbHtml(K,o,o2){const {ef,invH,popH,ja,sec,ro,zat,pri,S,mx,cur,pr,k
         <p class="kdbvy" ${btip(vy?`Vyčerpání ${vy}: −${2*vy} k hodům d20`:"Vyčerpání")}><small>Vyčerpání</small>${[...Array(6)].map((_,j)=>`<button type="button" class="${j<vy?"on":""}" data-kvy="${j}" aria-label="Vyčerpání ${j+1}"></button>`).join("")}</p></div></section></div>`;
   /* záložka Akce: útoky jako tabulka, pak akce / bonusové akce / reakce / ostatní, omezené použití */
   const efH=ef?`<div class="kef">${ef}</div>`:"",UT=kUtoky(K);
-  const utR=UT.map((a,i)=>`<tr><td><b>${besc(a.n)}</b><small>${besc([a.dal?"na dálku":"zblízka",...(a.vl||[])].join(" · "))}</small></td><td>${a.dal?"dálka":"5 st."}</td><td><button type="button" class="kdbbox" data-khod="ut:${i}" ${btip(`Útok ${a.n}: d20 ${bsg(+a.b||0)}${a.pocet>1?` · ${a.pocet}× za akci`:""}`)}>${bsg(+a.b||0)}</button></td><td>${a.z?`<button type="button" class="kdbbox kdbz" data-kzr="${i}" ${btip(`Zranění ${a.z} ${BZRT[a.t]||a.t||""}`)}>${besc(a.z)} ${bikZr(a.t)}</button><button type="button" class="kdbmini" data-kzr="${i}" data-krit="1" ${btip("Kritický zásah: dvojnásob kostek")}>krit</button>`:"–"}</td><td><small>${a.pocet>1?`${a.pocet}× za akci. `:""}${besc(a.pozn||"")}${typeof kMunTxt==="function"?kMunTxt(K,a):""}</small></td></tr>`).join("");
+  const utR=UT.map((a,i)=>`<tr${KZBRV[K.id]===a.n?' class="kdbzv"':""}><td>${kJeZbran(K,a.n)?`<button type="button" class="kzvb${KZBRV[K.id]===a.n?" on":""}" data-kzbrv="${besc(a.n)}" aria-pressed="${KZBRV[K.id]===a.n}" ${btip(KZBRV[K.id]===a.n?"Zbraň v ruce – v Boji se nabídne první. Klikni pro zrušení.":"Zvolit jako zbraň v ruce (v Boji se nabídne první)")}>✋</button>`:""}<b>${besc(a.n)}</b><small>${besc([a.dal?"na dálku":"zblízka",...(a.vl||[])].join(" · "))}</small></td><td>${a.dal?"dálka":"5 st."}</td><td><button type="button" class="kdbbox" data-khod="ut:${i}" ${btip(`Útok ${a.n}: d20 ${bsg(+a.b||0)}${a.pocet>1?` · ${a.pocet}× za akci`:""}`)}>${bsg(+a.b||0)}</button></td><td>${a.z?`<button type="button" class="kdbbox kdbz" data-kzr="${i}" ${btip(`Zranění ${a.z} ${BZRT[a.t]||a.t||""}`)}>${besc(a.z)} ${bikZr(a.t)}</button><button type="button" class="kdbmini" data-kzr="${i}" data-krit="1" ${btip("Kritický zásah: dvojnásob kostek")}>krit</button>`:"–"}</td><td><small>${a.pocet>1?`${a.pocet}× za akci. `:""}${besc(a.pozn||"")}${typeof kMunTxt==="function"?kMunTxt(K,a):""}</small></td></tr>`).join("");
   const sekce=(k,t,h)=>h?`<section class="kdbsec" data-kac="${k}"${KDBFLT.a!=="all"&&KDBFLT.a!==k?" hidden":""}>${t?`<h4 class="kdbsh">${t}</h4>`:""}${h}</section>`:"";
   let ak=kAkceHtml(K,true),ai=0;const AKK=["A","BA","R","X"];ak=ak.replace(/<section>/g,()=>{const k=AKK[ai++]||"X";return `<section data-kac="${k}"${KDBFLT.a!=="all"&&KDBFLT.a!==k?" hidden":""}>`});
   const zdrL=[...kSloty(K).map(q=>({k:q.k,n:`${q.pakt?"Pakt":"Sloty"} ${q.st}. st.`,max:q.max,obn:q.pakt?"krátký odpočinek":"dlouhý odpočinek"})),...kZdroje(K).map(q=>({k:q.n,n:q.n,max:q.max,obn:q.obn})),...(kVydMax(K)?[{k:"Výdrž",n:"Výdrž",max:kVydMax(K),obn:"dlouhý odpočinek"}]:[])];
@@ -7951,7 +7955,7 @@ function kartaDbHtml(K,o,o2){const {ef,invH,popH,ja,sec,ro,zat,pri,S,mx,cur,pr,k
     <div class="kdbsrch"><input type="search" data-kdbq placeholder="Hledat kouzlo podle názvu, seslání, dosahu…" value="${besc(KDBFLT.q)}" aria-label="Hledat kouzlo"></div>
     ${o.slH?`<div class="kdbslots"><h4 class="kdbsh">Sloty</h4>${o.slH}</div>`:""}<div class="kdbspl">${kSpListHtml(K)}</div><p class="kdbnote">Klikni na název kouzla – ukáže se jeho popis. U kouzel s více sloty vyber stupeň, zranění se podle něj přepočítá.</p><details class="bjapd kpripw"><summary>Připravit nebo vyměnit kouzla</summary>${kPripHtml(K)}</details>`;
   /* záložka Vybavení */
-  const vybT=`<div class="kdbinvh"><span><small>Neseno</small><b>${zat.w?String(Math.round(zat.w*10)/10).replace(".",","):"0"} lb</b><small>${zat.pret?`<b class="bhrich">přetížen</b> – víc než ${zat.max} lb`:`unese ${zat.max} lb`}</small></span><span><small>Připoutáno</small><b>${pri}/3</b></span></div>${invH}`;
+  const vybT=`<div class="kdbinvh"><span><small>Neseno</small><b>${zat.w?String(Math.round(zat.w*10)/10).replace(".",","):"0"} lb</b><small>${zat.pret?`<b class="bhrich">přetížen</b> – víc než ${zat.max} lb`:`unese ${zat.max} lb`}</small></span><span><small>Připoutáno</small><b>${pri}/3</b></span></div>${kPoolHtml(K)}${invH}`;
   /* záložky */
   const tabs=[["akce","Akce"],...(kz.seznam||(S.kpn||[]).length?[["kouzla","Kouzla"]]:[]),["vybaveni","Vybavení"],["rysy","Rysy"],["duse","Duše"],["zazemi","Zázemí"],["denik","Poznámky"],["spol","Společníci"]];let tab=KTAB.get();if(!tabs.some(x=>x[0]===tab))tab="akce";
   const sec2=(id,h)=>`<section class="ktab" data-tab="${id}"${tab===id?"":" hidden"}>${h}</section>`;
@@ -8140,6 +8144,58 @@ async function bojJaUprav(typ){const s=BOJ.s||{},me=(s.hraci||[]).find(h=>h.n===
   BJU.info=`${BJU.info?BJU.info+" · ":""}${BJU.serie.length>1?`${i+1}. útok: `:""}${pop}: ${old} → ${n.hod}${pz}`;renderBoj()}
 document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-juupr]");if(b){bojJaUprav(b.dataset.juupr);return}});
 document.addEventListener("change",e=>{const t=e.target;if(t.matches&&t.matches("[data-juui]")){BJU.ui=+t.value||0;renderBoj()}});
+/* ===== Karta: vybavení z nabídky (2026-10-17) – zbraně a zbroj SRD 5.2.1, výstroj, magické předměty SRD.
+   Zbraň se zvolí k útoku (karta i Boj), zbroj a štít si postava oblékne, magický předmět se připoutá, je-li volné místo. ===== */
+const KZBRL=[["Padded Armor",8,"lehká"],["Leather Armor",10,"lehká"],["Studded Leather Armor",13,"lehká"],["Hide Armor",12,"střední"],["Chain Shirt",20,"střední"],["Scale Mail",45,"střední"],["Breastplate",20,"střední"],["Half Plate Armor",40,"střední"],
+  ["Ring Mail",40,"těžká"],["Chain Mail",55,"těžká"],["Splint Armor",60,"těžká"],["Plate Armor",65,"těžká"]];
+const KZBRW={Club:2,Dagger:1,Greatclub:10,Handaxe:2,Javelin:2,"Light Hammer":2,Mace:4,Quarterstaff:4,Sickle:2,Spear:3,Dart:0.25,"Light Crossbow":5,Shortbow:2,Sling:0,Battleaxe:4,Flail:2,Glaive:6,Greataxe:7,Greatsword:6,Halberd:6,Lance:6,Longsword:3,Maul:10,
+  Morningstar:4,Pike:18,Rapier:2,Scimitar:3,Shortsword:2,Trident:4,Warhammer:5,"War Pick":2,Whip:3,"Hand Crossbow":3,"Heavy Crossbow":18,Longbow:2,Musket:10,Pistol:3,Blowgun:1,Shield:6};
+const KVYBS=[["Arrows (20)",1],["Bolts (20)",1.5],["Sling Bullets (20)",1.5],["Firearm Bullets (10)",2],["Backpack",5],["Bedroll",7],["Blanket",3],["Candle",0],["Chain (10 feet)",10],["Crowbar",5],["Flask",1],["Grappling Hook",4],["Healer's Kit",3],["Holy Water (flask)",1],
+  ["Holy Symbol",1],["Hunting Trap",25],["Lamp",1],["Hooded Lantern",2],["Manacles",6],["Oil (flask)",1],["Pouch",1],["Rations (1 day)",2],["Rope (50 feet)",5],["Sack",0.5],["Shovel",5],["Iron Spikes (10)",5],["Tinderbox",1],["Torch",1],["Waterskin",5],
+  ["Component Pouch",2],["Spellbook",3],["Thieves' Tools",1],["Climber's Kit",12],["Herbalism Kit",3],["Poisoner's Kit",2],["Mirror",0.5],["Ink",0],["Paper (sheet)",0],["Parchment (sheet)",0],["Caltrops",2],["Ball Bearings",2],["Clothes, Traveler's",4],["Clothes, Fine",6]];
+const KZBRV=(()=>{try{return JSON.parse(localStorage.getItem("mm-zbrv")||"{}")||{}}catch(e){return {}}})();
+const kZbrvUloz=()=>{try{localStorage.setItem("mm-zbrv",JSON.stringify(KZBRV))}catch(e){}};
+let KPOOLM=null,KPOOLO=false;
+document.addEventListener("toggle",e=>{const d=e.target;if(d.matches&&d.matches("details[data-kpoolw]"))KPOOLO=d.open},true);
+function kPool(){if(KPOOLM&&KPOOLM.$p===!!PRED)return KPOOLM;const M={$p:!!PRED},add=(l,o)=>{M[l]=o};
+  KZBRAN.forEach(r=>add(`${r[1]} – ${r[5]==="S"?"jednoduchá":"válečná"} zbraň ${r[2]} ${BZRT[r[3]]||r[3]}${r[6]?", na dálku":""}`,{k:"zbr",n:r[1],w:KZBRW[r[1]]}));
+  KZBRL.forEach(([n,w,d])=>{const i=kZbrInfo({n});add(`${n} – ${d} zbroj, AC ${i?i.ac:"?"}${i&&i.max!=null?` + AGI (nejvýš ${i.max>8?"bez omezení":"+"+i.max})`:i&&i.max==null?"":" + AGI"}`,{k:"zbroj",n,w})});
+  add("Shield – štít, +2 AC",{k:"zbroj",n:"Shield",w:6});
+  KVYBS.forEach(([n,w])=>add(`${n} – výstroj`,{k:"vyb",n,w}));
+  (PRED||[]).forEach(x=>add(`${x.en}${x.cz&&x.cz.toLowerCase()!==x.en.toLowerCase()?` (${x.cz})`:""} – ${String(x.druh||"").toLowerCase()}, ${x.vz||""}${x.pr?", připoutání":""}`,{k:"mag",n:x.en,mag:x.id,upr:x.upr||""}));
+  return KPOOLM=M}
+/* základ magické zbraně nebo zbroje podle „upr“ (Longsword, jakákoli zbraň na blízko, jakákoli střední nebo těžká…) */
+function kPoolZaklady(e){if(!e||e.k!=="mag")return [];const u=String(e.upr||""),x=PREDBY[e.mag]||{},W=KZBRAN.map(r=>r[1]),A=[...KZBRL.map(r=>r[0]),"Shield"];
+  if(!u)return [];if(/munice/i.test(u))return ["Arrows","Bolts","Sling Bullets"];
+  const jm=[...W,...A].filter(n=>new RegExp("\\b"+n.replace(/ Armor$/,"")+"\\b","i").test(u));
+  if(!/jakákoli/i.test(u))return jm.length?jm:[];
+  if(x.druh==="Zbroj"||/lehká|střední|těžká/i.test(u)){let L=KZBRL.filter(r=>/lehká/i.test(u)&&r[2]==="lehká"||/střední/i.test(u)&&r[2]==="střední"||/těžká/i.test(u)&&r[2]==="těžká").map(r=>r[0]);if(/kromě hide/i.test(u))L=L.filter(n=>n!=="Hide Armor");return L}
+  if(/na blízko/i.test(u))return KZBRAN.filter(r=>!r[6]).map(r=>r[1]);return W}
+function kPoolDopl(e){const Z=kPoolZaklady(e),bon=e&&e.k==="mag"&&/\+1, \+2, or \+3/.test(e.n);
+  return `${Z.length?`<select name="zakl" aria-label="Základ předmětu">${Z.map(n=>`<option>${besc(n)}</option>`).join("")}</select>`:""}${bon?`<select name="bon" aria-label="Bonus"><option value="1">+1</option><option value="2">+2</option><option value="3">+3</option></select>`:""}`}
+function kPoolHtml(K){if(!kMuze(K))return "";const M=kPool();
+  return `<details class="bjapd kpool" data-kpoolw${KPOOLO?" open":""}><summary>Přidat z nabídky – zbraně, zbroj, výstroj, magické předměty</summary>
+    <form class="kvlh kpoolf" data-kpoolf><input name="p" list="kpooll-${besc(K.id)}" placeholder="hledat: Longsword, Breastplate, Rope, Flame Tongue…" data-kpoolq autocomplete="off" required>
+      <datalist id="kpooll-${besc(K.id)}">${Object.keys(M).filter(k=>k!=="$p").map(l=>`<option value="${besc(l)}"></option>`).join("")}</datalist>
+      <span class="kpoolx" data-kpoolx></span><input name="q" type="number" min="1" max="999" value="1" aria-label="Počet" style="width:4.5em"><button class="gbtn">Přidat</button></form>
+    <p class="kdbnote">Zbraň se rovnou zvolí k útoku (i v Boji), zbroj a štít si postava oblékne a AC se přepočítá, magický předmět se připoutá, je-li volné místo (nejvýš 3).${PRED?"":" Magické předměty se načítají…"}</p></details>`}
+const kJeZbran=(K,n)=>!/beze zbraně|unarmed/i.test(n)&&!kSeznam(K).some(x=>String(x.n).toLowerCase()===String(n).toLowerCase());
+const kLbTxt=w=>w>0?`${String(Math.round(w*100)/100).replace(".",",")} lb.`:"";
+async function kPoolPridej(K,F){const f=F.elements,e=kPool()[f.p.value.trim()];if(!e){mmHlasG("Vyber položku z nabídky (začni psát a klepni na návrh).",3500);return}
+  const q=Math.max(1,Math.min(999,Math.round(+f.q.value||1))),zakl=f.zakl?f.zakl.value:"",bon=f.bon?+f.bon.value:0;let n=e.n,w1=e.w||0;
+  if(e.k==="mag"){const x=PREDBY[e.mag]||{};if(zakl){w1=KZBRW[zakl]??(KZBRL.find(r=>r[0]===zakl)||[])[1]??0;const gn=x.en&&x.en.match(/^(Weapon|Armor|Shield|Ammunition), \+(\d)$/);n=bon?`${zakl} +${bon}`:gn?`${zakl} +${gn[2]}`:new RegExp("\\b"+zakl+"\\b","i").test(x.en)?x.en:`${x.en} (${zakl})`}else if(bon)n=x.en.replace(/,?\s*\+1, \+2, or \+3/,` +${bon}`)}
+  n=n.slice(0,80);const S=kartaStav(K.id),inv=[...(S.inv||K.vybaveni||[])].map(y=>Object.assign({},y)),it={n,q},msg=[];if(w1)it.w=kLbTxt(w1*q);if(e.mag)it.mag=e.mag;
+  const P=e.mag?PREDBY[e.mag]:null;if(P&&P.pr){if(inv.filter(y=>y.pripoutano).length<3){it.pripoutano=true;msg.push("připoutáno")}else msg.push("připoutat nejde – už 3 předměty (uvolni jeden ◆)")}
+  const r=kZbrInfo(it);if(r){inv.forEach(y=>{const z=kZbrInfo(y);if(z&&z.k===r.k)y.obl=false});it.obl=true;msg.push(r.k==="s"?"štít v ruce":"zbroj na sobě")}
+  const ex=!r&&!kZbranInfo(n)?inv.findIndex(y=>String(y.n).toLowerCase()===n.toLowerCase()&&(y.mag||"")===(it.mag||"")):-1;
+  if(ex>=0){inv[ex].q=Math.min(9999,(+inv[ex].q||0)+q);if(w1)inv[ex].w=kLbTxt(w1*inv[ex].q)}else inv.push(it);
+  const ac0=kAC(K);await kartaStavZmen(K.id,{inv});
+  if(kZbranInfo(n)&&!/^(arrows|bolts|sling bullets)/i.test(n)){KZBRV[K.id]=n;kZbrvUloz();msg.push("zbraň zvolena k útoku");kartyPrekresli()}
+  f.p.value="";const x=F.querySelector("[data-kpoolx]");if(x)x.innerHTML="";f.q.value=1;
+  mmHlasG(`${K.n}: ${n}${q>1?` ×${q}`:""} ve vybavení${msg.length?" – "+msg.join(", "):""}${kAC(K)!==ac0?` · AC ${ac0} → ${kAC(K)}`:""}.`,6000)}
+document.addEventListener("input",e=>{const t=e.target;if(!t.matches||!t.matches("[data-kpoolq]"))return;const x=t.form&&t.form.querySelector("[data-kpoolx]");if(!x)return;const en=kPool()[t.value.trim()];const h=en?kPoolDopl(en):"";if(x.innerHTML!==h)x.innerHTML=h});
+document.addEventListener("submit",e=>{if(!e.target.matches||!e.target.matches("[data-kpoolf]"))return;e.preventDefault();const K=kvK(e.target);if(K)kPoolPridej(K,e.target)});
+document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-kzbrv]");if(!b)return;const K=kvK(b);if(!K)return;const n=b.dataset.kzbrv;if(KZBRV[K.id]===n)delete KZBRV[K.id];else KZBRV[K.id]=n;kZbrvUloz();kartyPrekresli()});
 /* ===== Karta postavy podle Artikulí: duše (Svědomí, Ctnosti a Neřesti, vyznání, feat víry), Výdrž a techniky,
    účinky v herním čase, popisy kouzel, vlastní hod, přehled družiny, offline fronta (2026-10-16) ===== */
 const KCTN={kr:["Pokora","Štědrost","Laskavost","Trpělivost","Cudnost","Střídmost","Píle"],old:["Pohostinství","Pravdomluvnost","Odvaha","Úcta k předkům","Respekt","Věrnost rodu","Čest"]};
@@ -9119,9 +9175,9 @@ function kUtAdj(K,a){if(a.b==null||a.b===""||a.vlastni)return a;const c=kCtx(K),
   if((a.pocet||1)>1||kPocet(c,true)>1)o.pocet=kPocet(c,true);o.rozpis=`${i.fin?"STR/AGI":i.ab} ${bsg(md)} · zdatnost ${bsg(c.pb)}${i.m?` · magie ${bsg(i.m)}`:""}${i.arch?" · Archery +2":""}`;return o}
 /* zbraně z vybavení, které v PDF nejsou (koupené, nalezené), a úder beze zbraně */
 function kUtZInv(K){const c=kCtx(K),pdfU=K.utoky||[],o=[],prof=t=>{const z=((K.zd||{}).zbrane||[]).join(" ");return t==="S"?true:/martial/i.test(z)||c.tr.some(x=>KMARC.test(x.n))};
-  c.inv.forEach(x=>{const w=kZbranInfo(x.n);if(!w)return;if([...pdfU,...(kDopl(K).utoky||[])].some(a=>String(a.n).toLowerCase()===String(x.n).toLowerCase()||(kZbranInfo(a.n)||[])[1]===w[1]))return;if(o.some(q=>q.n===x.n))return;
-    const p=kPred(x),m=+(String(x.n).match(/\+\s*([1-3])\b/)||[])[1]||+((p&&p.ef&&p.ef.utok)||0),fin=/Finesse/.test(w[4]),dal=!!w[6],ab=dal?"AGI":fin?(c.md("AGI")>=c.md("STR")?"AGI":"STR"):"STR",md=c.md(ab),arch=dal&&c.maRys(/^archery$/)?2:0,zr=md+m+(dal?kEf(c,"zrd"):0);
-    o.push({n:x.n,b:md+(prof(w[5])?c.pb:0)+m+arch,z:w[2]+(zr?(zr>0?"+":"")+zr:""),t:w[3],dal:dal||undefined,vl:w[4]?w[4].split(/,\s*/):[],pocet:kPocet(c)>1?kPocet(c):undefined,cas:"A",zInv:1,rozpis:`z vybavení · ${ab} ${bsg(md)}${prof(w[5])?` · zdatnost ${bsg(c.pb)}`:" · bez zdatnosti"}${m?` · magie ${bsg(m)}`:""}`})});
+  c.inv.forEach(x=>{const w=kZbranInfo(x.n);if(!w)return;const mg=!!x.mag||/\+\s*[1-3]\b/.test(x.n);if([...pdfU,...(kDopl(K).utoky||[])].some(a=>String(a.n).toLowerCase()===String(x.n).toLowerCase()||(!mg&&(kZbranInfo(a.n)||[])[1]===w[1])))return;if(o.some(q=>q.n===x.n))return;
+    const p=kPred(x),m=+(String(x.n).match(/\+\s*([1-3])\b/)||[])[1]||+((p&&p.ef&&p.ef.utok)||0),fin=/Finesse/.test(w[4]),dal=!!w[6],ab0=dal?"AGI":fin?(c.md("AGI")>=c.md("STR")?"AGI":"STR"):"STR",chx=!dal&&!/Two-Handed/.test(w[4])&&c.maRys(/^hex warrior$|^pact of the blade$/)&&c.md("CHA")>c.md(ab0),ab=chx?"CHA":ab0,md=c.md(ab),arch=dal&&c.maRys(/^archery$/)?2:0,zr=md+m+(dal?kEf(c,"zrd"):0);
+    o.push({n:x.n,b:md+(prof(w[5])?c.pb:0)+m+arch,z:w[2]+(zr?(zr>0?"+":"")+zr:""),t:w[3],dal:dal||undefined,vl:w[4]?w[4].split(/,\s*/):[],pocet:kPocet(c)>1?kPocet(c):undefined,cas:"A",zInv:1,rozpis:`z vybavení · ${ab} ${bsg(md)}${chx?" (Hex Warrior / Pact of the Blade)":""}${prof(w[5])?` · zdatnost ${bsg(c.pb)}`:" · bez zdatnosti"}${m?` · magie ${bsg(m)}`:""}`})});
   if(![...pdfU,...(kDopl(K).utoky||[])].some(a=>/unarmed|beze zbraně/i.test(a.n))){const mk=kTrU(c,"Monk"),ab=mk&&c.md("AGI")>c.md("STR")?"AGI":"STR",md=c.md(ab),dd=mk?(mk>=17?"1d12":mk>=11?"1d10":mk>=5?"1d8":"1d6"):"";
     o.push({n:"Úder beze zbraně",pocet:kPocet(c)>1?kPocet(c):undefined,b:md+c.pb,z:dd?dd+(md?(md>0?"+":"")+md:""):String(Math.max(1,1+md)),t:"Bludgeoning",vl:mk?["Martial Arts"]:[],cas:"A",zInv:1,rozpis:`${ab} ${bsg(md)} · zdatnost ${bsg(c.pb)}${mk?" · Martial Arts":" · zranění 1 + "+ab}`})}
   return o}
@@ -9351,7 +9407,7 @@ function bojAdvHrac(s,me,c,dal){const plus=[],minus=[],st=me.stav||[];
   const P=bojPros(s);if(P.includes("mlha")&&dal)minus.push("mlha");if(P.includes("vitr")&&dal)minus.push("silný vítr");
   if(c)srdAdv([],c.stav||[],dal,plus,minus);
   const v=plus.length&&!minus.length?1:minus.length&&!plus.length?-1:0;return {v,why:v>0?plus:v<0?minus:plus.length?["výhoda i nevýhoda se ruší"]:[]}}
-function bojJaUtokHtml(s,me){const zb=bojZbrVse(s,me),K=bojKartaH(me),cile=(s.npc||[]).filter(o=>!bojSpoj(o)&&!(o.stav||[]).some(t=>t==="poražen"||t==="prchá"||t==="vzdal se")&&(o.druh!=="houf"||o.pocet>0));
+function bojJaUtokHtml(s,me){const zb=bojZbrVse(s,me),K=bojKartaH(me),zv0=K&&KZBRV[K.id];if(zv0&&BJU.zvAuto!==zv0&&!BJU.ks){const i=zb.findIndex(x=>x.karta&&x.n===zv0);if(i>=0){BJU.zvAuto=zv0;BJU.zi=String(i);const w0=zb[i];BJU.t=w0.t||BJU.t;BJU.drt=!!w0.drt;BJU.pru=!!w0.pru;BJU.dal=!!w0.dal}}const cile=(s.npc||[]).filter(o=>!bojSpoj(o)&&!(o.stav||[]).some(t=>t==="poražen"||t==="prchá"||t==="vzdal se")&&(o.druh!=="houf"||o.pocet>0));
   if(K&&!KSPD&&!BJSPN){BJSPN=1;kSpNacti().then(()=>{if(curView==="boj")renderBoj()}).catch(()=>{})}
   const sp=bojJaSp(s,me),SPL=K&&KSPD?kSeznam(K).map((x,i)=>[x,i]).filter(([x])=>(x.st===0||kSloty(K).some(q=>q.st>=x.st&&q.u<q.max))&&kSpBoj(K,x,x.st)):[];
   const w=sp?null:(zb[+BJU.zi]||null),c=cile.find(o=>o.id===BJU.cil),nav=bojAdvHrac(s,me,c,w?!!w.dal:BJU.dal),am=BJU.adv;
@@ -9671,7 +9727,7 @@ document.addEventListener("change",async e=>{
   if(e.target.matches("[data-juef]")){const i=+e.target.dataset.juef;BJU.ef=e.target.checked?[...new Set([...BJU.ef,i])]:BJU.ef.filter(x=>x!==i);return}
   if(e.target.matches("[data-jucile]")){const id=e.target.dataset.jucile;BJU.cile=e.target.checked?[...new Set([...BJU.cile,id])]:BJU.cile.filter(x=>x!==id);return}
   if(e.target.matches("select[data-jusl]")){BJU.sl=e.target.value;BJU.serie=null;BJU.hod=BJU.d=BJU.dmg="";BJU.info="";renderBoj();return}
-  if(e.target.matches("select[data-ju]")){const k=e.target.dataset.ju;if(k==="zi"&&/^k\d+$/.test(e.target.value)){bojJaZvolKouzlo(+e.target.value.slice(1));return}if(k==="zi")BJU.ks=null;BJU[k]=e.target.value;if(k==="zi"){const me=(BOJ.s.hraci||[]).find(h=>h.n===bojJa.get()),w=bojZbrVse(BOJ.s,me)[+BJU.zi];if(w&&BJU.zi!==""){BJU.t=w.t||BJU.t;BJU.drt=!!w.drt;BJU.pru=!!w.pru;BJU.dal=!!w.dal}else{BJU.drt=BJU.pru=BJU.dal=false}}BJU.info="";renderBoj();return}
+  if(e.target.matches("select[data-ju]")){const k=e.target.dataset.ju;if(k==="zi"&&/^k\d+$/.test(e.target.value)){bojJaZvolKouzlo(+e.target.value.slice(1));return}if(k==="zi")BJU.ks=null;BJU[k]=e.target.value;if(k==="zi"){const me=(BOJ.s.hraci||[]).find(h=>h.n===bojJa.get()),w=bojZbrVse(BOJ.s,me)[+BJU.zi];if(w&&BJU.zi!==""){BJU.t=w.t||BJU.t;BJU.drt=!!w.drt;BJU.pru=!!w.pru;BJU.dal=!!w.dal;const K0=w.karta&&bojKartaH(me);if(K0&&kJeZbran(K0,w.n)){KZBRV[K0.id]=w.n;BJU.zvAuto=w.n;kZbrvUloz()}}else{BJU.drt=BJU.pru=BJU.dal=false}}BJU.info="";renderBoj();return}
   if(e.target.matches('.bzrf [name="cim"]')){const f=e.target.form,kdo=f.elements.kdo?f.elements.kdo.value:"",h=((BOJ.s||{}).hraci||[]).find(x=>x.n===kdo),w=bojZbrVse(BOJ.s,h).find(x=>x.n===e.target.value.trim());if(w){if(w.t)f.elements.t.value=w.t;f.elements.drt.checked=!!w.drt;f.elements.pru.checked=!!w.pru}return}
   if(e.target.matches('.bzrf [name="kdo"]')){BKDO=e.target.value;const c=e.target.form&&e.target.form.elements.cim;if(c)c.value=BCIM[BKDO]||"";return}
   if(e.target.matches("[data-bosud]")){const o=bojZaj.get();o[e.target.dataset.bosud]=e.target.value||1;bojZaj.set(o);BZAPT=null;renderBoj();return}

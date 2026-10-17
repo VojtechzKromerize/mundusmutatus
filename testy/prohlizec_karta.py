@@ -92,6 +92,20 @@ async def main():
     await pl.evaluate("KTX.balduin=Object.assign(KTX.balduin||{},{'Test Rys':'You deal 2d6 + your Strength modifier damage.'});mmPop(kRysPopis(KARTBY.balduin,'Test Rys'))")
     await pl.click('.mmpop [data-ktxh]');await pl.wait_for_timeout(800);await pl.evaluate("mmPopX()")
     chk(hody()[0].get("co")=="Test Rys","hod z textu schopnosti v herním záznamu")
+    # vybavení z nabídky: zbraň se zvolí a počítá jako útok, zbroj se oblékne, magická zbraň dostane bonus
+    await pl.evaluate("predNacti()");await pl.wait_for_timeout(800);await pl.click('[data-ktab="vybaveni"]');await pl.click('.kpool summary')
+    L=await pl.evaluate("Object.keys(kPool())")
+    async def pridej(pref,sel=None):
+        lab=[l for l in L if l.startswith(pref)][0];await pl.fill('[data-kpoolq]',lab);await pl.dispatch_event('[data-kpoolq]','input')
+        for k,v in (sel or {}).items(): await pl.select_option(f'[data-kpoolf] select[name={k}]',v)
+        await pl.click('[data-kpoolf] button');await pl.wait_for_timeout(900)
+    await pridej("Longsword –")
+    chk(any(x.get("n")=="Longsword" for x in (stav().get("inv") or [])) and await pl.evaluate("KZBRV.balduin")=="Longsword" and await pl.evaluate("kUtoky(KARTBY.balduin).some(a=>a.n==='Longsword')"),"zbraň z nabídky: ve vybavení, zvolená a mezi útoky")
+    await pridej("Plate Armor –")
+    chk(await pl.evaluate("kAC(KARTBY.balduin)")==20 and any(x.get("n")=="Plate Armor" and x.get("obl") for x in (stav().get("inv") or [])),"zbroj z nabídky se oblékne a přepočítá AC")
+    await pridej("Weapon, +2 ",{"zakl":"Rapier"})
+    chk(await pl.evaluate("(()=>{const U=kUtoky(KARTBY.balduin),a=U.find(x=>x.n==='Rapier +2');return !!a&&a.z.endsWith('+6')})()"),"magická zbraň +2 z nabídky: útok i zranění s bonusem")
+    await pl.evaluate("kartaStavZmen('balduin',{inv:null},null,{bezZpet:true});delete KZBRV.balduin;kZbrvUloz()");await pl.wait_for_timeout(500)
     # vypravěč: přehled družiny, ukázka, příprava sezení, nestvůry SRD
     g=await b.new_page(viewport={"width":1300,"height":1000});gerr=[];g.on("pageerror",lambda e:gerr.append(str(e)[:200]));g.on("dialog",lambda d:asyncio.ensure_future(d.accept()))
     await g.add_init_script("localStorage.setItem('mm-gm-relace',JSON.stringify("+json.dumps({"at":rel["access_token"],"rt":rel["refresh_token"],"exp":rel["expires_at"],"email":"gm@x.cz"})+"))")
