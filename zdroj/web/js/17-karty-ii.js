@@ -54,8 +54,18 @@ function kSpUcinek(K,x,lvl){const d=kSp(x.n);if(!d)return null;const t=String(d.
   if(!d.l&&/Zesílení triku/.test(t)){const ul=kLv(K),tier=ul>=17?4:ul>=11?3:ul>=5?2:1;if(tier>1){if(/paprsk|šip/i.test(t.slice(t.indexOf("Zesílení triku"))))o.pocet=tier;else o.x=o.x.replace(/^(\d+)d/,(q,n)=>`${n*tier}d`)}}
   const ms=v.match(/o jednu šipku|jeden paprsek navíc|o jeden paprsek/);if(ms&&d.l&&lvl>d.l)o.pocet=(/šip/.test(v)?3:/paprs/.test(t)?3:1)+(lvl-d.l);
   const zs=t.match(/(STR|AGI|CON|INT|WIS|CHA) záchrann/);if(zs)o.zach=zs[1];o.utok=/útok kouzlem/i.test(t);o.pol=/při úspěchu poloviční/i.test(t);return o}
-function kSesHtml(K,x,i){const sl=kSloty(K).filter(q=>q.st>=x.st&&q.u<q.max),uc=x.st>0?(sl[0]||null):null,lvl=uc?uc.st:x.st;
-  const sel=x.st>0&&sl.length>1?`<select data-kslot="${i}" aria-label="Slot pro ${besc(x.n)}">${sl.map(q=>`<option value="${q.k}">${q.pakt?"pakt ":""}${q.st}. st. (${q.max-q.u})</option>`).join("")}</select>`:"";
+/* sesílání na vyšším stupni (upcasting): volba slotu kolečky se stupněm; co vyšší stupeň přidá, z popisu kouzla SRD */
+function kSpVyssi(K,x,lvl){const d=typeof kSp==="function"?kSp(x.n):null,v=String((d&&d.v)||""),n=lvl-x.st;if(!v||n<=0)return "";const o=[];let m;
+  if((m=v.match(/o (\d+) za každou úroveň slotu kouzla nad (\d+)/))&&!/o \d+d\d+ za/.test(v))o.push(`${/dočasn/i.test(v)?"dočasné HP":""}${/zranění/i.test(v)&&/dočasn/i.test(v)?" i zranění":/zranění/i.test(v)?"zranění":""} +${n*+m[1]}`.trim());
+  if((m=v.match(/získáš (\d+) dalších dočasných HP/)))o.push(`dočasné HP +${n*+m[1]}`);
+  if((m=v.match(/HP každého cíle se zvýší o dalších (\d+)/)))o.push(`HP cílů +${n*+m[1]}`);
+  if(/(zacílit|zaměřit|ovlivnit|zvolit|zasáhnout)[^.]*?(jednoho|jedno|jednu|jednoho dalšího|o \d+)[^.]*?(navíc|víc|dalšího)|jednoho dalšího tvora/.test(v)){const k=+(v.match(/o (\d+) tvor/)||[])[1]||1;o.push(`+${n*k} ${n*k===1?"cíl":n*k<5?"cíle":"cílů"}`)}
+  if((m=v.match(/o (\d+) projektil/)))o.push(`+${n*+m[1]} projektily`);if(/kostku životů víc/.test(v))o.push(`+${n} kostka životů`);
+  if(/Concentration trvat déle|Doba trvání kouzla se zvýší/.test(v))o.push("delší trvání");if(/statblok|statistikách tvora/i.test(v))o.push(`statblok ${lvl}. stupně`);
+  return o.join(", ")}
+function kSesHtml(K,x,i){const sl=kSloty(K).filter(q=>q.st>=x.st&&q.u<q.max),ch=KSLV[K.id+":"+i],uc=x.st>0?(sl.find(q=>q.k===ch)||sl[0]||null):null,lvl=uc?uc.st:x.st;
+  const d=x.st>0&&typeof kSp==="function"?kSp(x.n):null,vt=d&&d.v?` Na vyšším stupni: ${d.v}`:"",up=uc?kSpVyssi(K,x,lvl):"";
+  const sel=x.st>0&&sl.length?`<span class="kslv" role="group" aria-label="Stupeň seslání ${besc(x.n)}">${sl.map(q=>`<button type="button" class="kslvb${q===uc?" on":""}${q.pakt?" kslvp":""}" data-kslvb="${i}" data-k="${q.k}" aria-pressed="${q===uc}" ${btip(`Seslat se slotem ${q.st}. stupně${q.pakt?" (pakt)":""} – zbývá ${q.max-q.u}${q.st>x.st?` · vyšší stupeň${kSpVyssi(K,x,q.st)?": "+kSpVyssi(K,x,q.st):""}`:""}.${vt}`)}>${KRIM[q.st]}</button>`).join("")}</span>${up?`<small class="kupc">${besc(up)}</small>`:""}`:"";
   const E=kSpUcinek(K,x,lvl),kz=K.kouzla||{};
   return `${sel}${x.st>0||x.kon||x.zach?`<button type="button" class="gbtn ghost" data-kses="${i}">Seslat</button>`:""}${x.utok!=null||(E&&E.utok)?`<button type="button" class="gbtn ghost" data-khod="ks:${i}">Útok ${bsg(kSpU1(K,x))}</button>`:""}${E&&E.k==="l"?kCilHtml(K,i):""}${E?`<button type="button" class="gbtn ghost" data-kspz="${i}" ${btip("Hod se počítá se stupněm vybraného slotu")}>${E.k==="l"?"Léčení":"Zranění"} ${besc(E.x)}${E.mod?bsg(E.mod):""}${E.t?" "+besc(BZRT[E.t]||E.t):""}${E.pocet>1?` ×${E.pocet}`:""}</button>${E.zach?`<small> · záchrana ${E.zach} SO ${kSpDC(K)||"?"}${E.pol?", úspěch = polovina":""}</small>`:""}`:""}`}
 /* léčení na kartu (2026-10-17): svou kartu (a kartu bez hesla) mění přímo, cizí přes mm_karta_lecit, který v boji stabilizuje umírajícího */

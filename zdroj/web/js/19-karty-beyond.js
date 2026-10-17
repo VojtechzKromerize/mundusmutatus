@@ -172,6 +172,8 @@ async function kartaUlozImport(K0){const K=Object.assign({},K0),tx=K.texty;delet
   const i=await KDB.uloz(K);kartyNastav([{id:i,karta:K,stav:kartaStav(i)}]);if(tx)await kTextyUloz(i,tx);
   if(KIMPINV&&kartaStav(i).inv)await kartaStavZmen(i,{inv:null},null,{bezZpet:true});return i}
 const KSLV={};
+document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-kslvb]");if(!b)return;const K=kvK(b);if(!K)return;KSLV[K.id+":"+b.dataset.kslvb]=b.dataset.k;
+  if(typeof bdmPrekresli==="function"&&b.closest(".bdm"))bdmPrekresli();else kartyPrekresli()});
 document.addEventListener("change",async e=>{const t=e.target;if(!t.matches)return;
   if(t.matches("[data-kcil]")){const K=kvK(t);if(K)KCIL[K.id+":"+t.dataset.kcil]=t.value;return}
   if(t.matches("[data-kslot]")){const K=kvK(t);if(K)KSLV[K.id+":"+t.dataset.kslot]=t.value;const b=t.parentElement&&t.parentElement.querySelector(`[data-kspz="${t.dataset.kslot}"]`);if(b&&K){const x=kSeznam(K)[+t.dataset.kslot],q=kSloty(K).find(z=>z.k===t.value),E=x&&kSpUcinek(K,x,q?q.st:x.st);if(E)b.textContent=`${E.k==="l"?"Léčení":"Zranění"} ${E.x}${E.mod?bsg(E.mod).replace("−","-"):""}${E.t?" "+(BZRT[E.t]||E.t):""}${E.pocet>1?` ×${E.pocet}`:""}`}return}

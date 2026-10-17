@@ -191,7 +191,7 @@ function kartaDbHtml(K,o,o2){const {ef,invH,popH,ja,sec,ro,zat,pri,S,mx,cur,pr,k
       return akceT}
     if(id==="kouzla"){
   /* záložka Kouzla */
-  const kouzlaT=`<div class="kdbkzh"><span><b>${besc(kz.vl||"–")}</b><small>vlastnost</small></span><span><b>${bsg(kSpUt(K))}</b><small>útok kouzlem</small></span><span><b>${kSpDC(K)||"–"}</b><small>SO záchrany</small></span></div>
+  const kouzlaT=`<div class="kdbkzh"><span><b>${besc(kSpAb(K)||"–")}</b></span><span><b>${bsg(kSpUt(K))}</b><small>útok kouzlem</small></span><span><b>${kSpDC(K)||"–"}</b><small>SO záchrany</small></span></div>
     <div class="kdbsrch"><input type="search" data-kdbq placeholder="Hledat kouzlo podle názvu, seslání, dosahu…" value="${besc(KDBFLT.q)}" aria-label="Hledat kouzlo"></div>
     ${o.slH?`<div class="kdbslots"><h4 class="kdbsh">Sloty</h4>${o.slH}</div>`:""}<div class="kdbspl">${kSpListHtml(K)}</div><p class="kdbnote">Klikni na název kouzla – ukáže se jeho popis. U kouzel s více sloty vyber stupeň, zranění se podle něj přepočítá.</p><details class="bjapd kpripw"><summary>Připravit nebo vyměnit kouzla</summary>${kPripHtml(K)}</details>`;
       return kouzlaT}
