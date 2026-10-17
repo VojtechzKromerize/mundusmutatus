@@ -59,3 +59,21 @@ self.addEventListener("fetch", e => {
   if (u.pathname.includes("/storage/v1/object/public/")) { e.respondWith(obnov(e, req, C_ART)); return; }
   if (/\/rest\/v1\/(snimek|boj|karty|hody|ukazky)$/.test(u.pathname)) { e.respondWith(sit(req, C_DATA)); return; }
 });
+
+/* upozornění v telefonu (Web Push): výzva k hodu, tah v boji, tajná zpráva; klepnutí otevře web na dané stránce */
+self.addEventListener("push", e => {
+  let d = {};
+  try { d = e.data ? e.data.json() : {}; } catch (x) { d = { text: e.data && e.data.text() }; }
+  e.waitUntil(self.registration.showNotification(d.titul || "Mundus Mutatus", {
+    body: d.text || "", icon: "art/img/kostka-192.png", badge: "art/img/kostka-64.png", tag: d.tag || d.url || "mm", renotify: true, data: { url: d.url || "#hra" }
+  }));
+});
+self.addEventListener("notificationclick", e => {
+  e.notification.close();
+  const cil = new URL("./" + ((e.notification.data && e.notification.data.url) || ""), self.registration.scope).href;
+  e.waitUntil(self.clients.matchAll({ type: "window", includeUncontrolled: true }).then(L => {
+    const w = L.find(c => c.url.startsWith(self.registration.scope));
+    if (w) { w.navigate(cil).catch(() => {}); return w.focus(); }
+    return self.clients.openWindow(cil);
+  }));
+});
