@@ -20,11 +20,13 @@ v `zdroj/obsah/NÁVOD.md`, testy v `testy/README.md`. Tady je jen to, co ušetř
 ## Struktura
 
 ```
-zdroj/koruna.html    celý web v jednom souboru (~1,4 MB, ~10 500 řádků) včetně tajemství vypravěče
+zdroj/koruna.html    kostra stránky (~53 kB): hlavička, HTML pohledů, zavaděč dat, řádky /*@vloz web/…*/
+zdroj/web/styly.css  všechny styly (~2 800 řádků)
+zdroj/web/js/NN-*.js hlavní skript po oddílech (22 souborů, viz níže); dohromady jeden skript ve sdíleném
+                     prostoru – pořadí podle čísla, funkce a konstanty jsou vidět ze všech souborů
 zdroj/build.py       sestaví public/ (hráč) nebo vypravec/ (--vypravec, NEPUBLIKOVAT); --staticky bez databáze;
-                     řádky /*@vloz web/…*/ v koruna.html nahradí obsahem souborů ze zdroj/web/
-zdroj/rozdel.py      rozdělí koruna.html na kostru + zdroj/web/styly.css a zdroj/web/js/NN-*.js (ověří, že
-                     sestavení dá bajt po bajtu stejný výsledek); --spoj vrátí jeden soubor, --zkus jen ověří
+                     řádky /*@vloz …*/ nahradí obsahem souborů (výsledek je jeden soubor jako dřív)
+zdroj/rozdel.py      --spoj spojí vše zpět do jednoho koruna.html; bez přepínače rozdělí jeden soubor znovu
 zdroj/generator.js   z textů obsahu vyrobí data webu; běží v buildu (Node) i v prohlížeči vypravěče
 zdroj/obsah/         rody, osoby, vazby, Praha, místa, Kronika, Družina, Draconomicon, protivníci,
                      přívlastky, setkání, karty – ZÁLOHA databáze (viz níže)
@@ -43,16 +45,26 @@ podklady/            skripty na geodata map
 Pořadí sestavení dat: `zdroj/pravidla/sestav.py` → `zdroj/srd/sestav.py` (potřebuje art/pravidla.json).
 Do repozitáře nepatří `public/`, `vypravec/` ani snímky obrazovky (`.gitignore`).
 
-## zdroj/koruna.html – orientace
+## Zdroj webu – orientace
 
-Soubor je velký a řádky jsou dlouhé: **nečti ho celý**. Hledej grepem a čti výřezy (`sed -n A,Bp | cut -c1-300`).
+Celý web (včetně tajemství vypravěče) je `koruna.html` + `zdroj/web/`. Build soubory spojí; v prohlížeči
+je to jeden skript, takže na pořadí souborů záleží jen u kódu, který běží hned při načtení (konstanty
+použité v jiném souboru musí být definované v souboru s nižším číslem nebo až uvnitř funkcí).
+Nový kód dej do souboru, kam věcně patří; nový velký celek může dostat vlastní soubor – přidej ho
+do kostry řádkem `/*@vloz web/js/NN-nazev.js*/` na správné místo (a do seznamu `JS` v `rozdel.py`).
+
+Řádky jsou dlouhé: hledej grepem (`grep -n … zdroj/web/js/*.js`) a čti výřezy (`sed -n A,Bp | cut -c1-300`).
 Úpravy dělej Editem s jednoznačným úryvkem; nikdy nepřepisuj soubor z výstupu nástroje (může být oříznutý).
 
-Rozvržení (orientačně, čísla řádků se posouvají): styly ~23–2555 · HTML pohledů ~2556–2850 ·
-zavaděč dat ~2851–3003 · hlavní skript `<script id="mmhlavni">` ~3004–konec.
-
-Oddíly mají hlavičky `/* ===== název ===== */` nebo `/* ---------- název ---------- */`; přehled:
-`grep -n -E '^/\* ?[=-]{3,}' zdroj/koruna.html`. Hlavní orientační body:
+Soubory skriptu: 01 základ (data z buildu, erby) · 02 mapa · 03 Artikule · 04 Praha · 05 Známý svět ·
+06 Draconomicon a rodokmeny · 07 Družina, Kronika, kalendář, odkazy, hledání · 08 navigace (`route()`),
+Pravidla · 09 vypravěč: odhalování, panel, herní čas · 10 Kouzla · 11 Boj: tracker, ikony, bestiář ·
+12 Boj: tah, postavy v boji · 13 Karty: import PDF, stav, stránka · 14 karta: vybavení, bojová karta ·
+15 karta podle Artikulí · 16 SRD předměty, ukázky, příprava sezení, kořist, stránka Hra · 17 Karta II ·
+18 Pravidla postavy (D&D 2024) · 19 karta jako D&D Beyond · 20 Boj: útoky hráčů z telefonu ·
+21 editor textů, pečeť · 22 Výprava.
+Oddíly uvnitř mají hlavičky `/* ===== název ===== */`; přehled: `grep -n -E '^/\* ?[=-]{3,}' zdroj/web/js/*.js`.
+Hlavní orientační body:
 
 - `route()` – hashový router; seznam stránek `VIEWS`, popisky `NAVNAME`. Stránky: uvod, hra, svet, mapa,
   praha, desky (#rod/…, #osoba/…), druzina, artikule, draconomicon, kronika, pravidla, karty, boj,

@@ -3,7 +3,7 @@
 Hráčský web: https://mundusmutatus.netlify.app (větev `main`), náhled: https://dev--mundusmutatus.netlify.app (větev `dev`).
 
 ## Jak to funguje
-- `zdroj/koruna.html` – celý web včetně **tajemství vypravěče**. Tajné pasáže jsou ve značkách `⟦tajné⟧` nebo `⟦tajné¦text pro hráče⟧`.
+- `zdroj/koruna.html` (kostra stránky) a `zdroj/web/` (styly `styly.css`, skript po oddílech v `js/`) – celý web včetně **tajemství vypravěče**; `build.py` je spojí do jedné stránky. Tajné pasáže jsou ve značkách `⟦tajné⟧` nebo `⟦tajné¦text pro hráče⟧`.
 - `zdroj/obsah/` – veškerý obsah jako textové soubory: rody, osoby, vazby, místa v Praze, Kronika, Družina,
   objevená místa. **Návod: [`zdroj/obsah/NÁVOD.md`](zdroj/obsah/NÁVOD.md).**
 - `art/` – obrázky (erby, portréty, ilustrace).
