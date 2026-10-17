@@ -2881,3 +2881,22 @@ button.kdbs:hover{border-color:var(--kb-gold)}.kdbsac b{color:var(--kb-gold)}
 .bdmsvh{text-decoration:none}
 .bdmsvh b{font-size:1.9rem!important}
 .bdmsvh.psv0 b{color:#f0757a}.bdmsvh.psv1 b{color:#e3a55c}.bdmsvh.psv2 b{color:var(--kb-tx)}.bdmsvh.psv3 b{color:var(--kb-gold)}
+/* bojová karta – vlastnosti v řádcích: zkratka | skóre | ověření nad záchranou (2026-10-17) */
+.bdmvl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px}
+@media (min-width:700px){.bdmvl{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.bdmvlr{display:grid;grid-template-columns:3.1em minmax(2.6em,1fr) minmax(4.6em,1.3fr);align-items:stretch;background:#14100d;border:2px solid var(--kb-bd);border-radius:8px;overflow:hidden;min-height:58px}
+.bdmvlr>*{min-width:0}
+.bdmvlz{display:grid;place-items:center;font-family:var(--f-label);font-weight:700;font-size:.95rem;letter-spacing:.06em;color:var(--kb-gold);background:#1e1915;border-right:1px solid var(--kb-bd)}
+.bdmvls{display:grid;place-items:center;margin:0;padding:0;background:none;border:0;border-right:1px solid var(--kb-bd);border-radius:0;color:var(--kb-tx);font-family:var(--f-body);font-size:1.5rem;font-weight:700;cursor:pointer}
+.bdmvls:disabled{cursor:default}
+.bdmvlu .bdmvls{color:#ffcf5c}
+.bdmvlmz{display:grid;grid-template-rows:1fr 1fr}
+.bdmvlm,.bdmvlzh{position:relative;display:flex;align-items:center;justify-content:space-between;gap:4px;margin:0;padding:2px 8px;background:none;border:0;border-radius:0;color:var(--kb-tx);font-family:var(--f-body);font-size:1.1rem;font-weight:700;line-height:1.1;cursor:pointer}
+.bdmvlm{border-bottom:1px solid var(--kb-bd)}
+.bdmvlzh{color:#9cc4ff}
+.bdmvlm small,.bdmvlzh small{font-family:var(--f-label);font-weight:700;font-size:.56rem;letter-spacing:.05em;text-transform:uppercase;color:var(--kb-mu)}
+.bdmvlzh .kdbdot{position:absolute;top:4px;right:3px;width:6px;height:6px}
+.bdmvlr.kprof .bdmvlzh .kdbdot{background:var(--kb-gold);border-color:var(--kb-gold)}
+.bdmvls:hover,.bdmvlm:hover,.bdmvlzh:hover,.bdmvls:focus-visible,.bdmvlm:focus-visible,.bdmvlzh:focus-visible{background:#2a221c;outline:0}
+@media (max-width:699px){.bdmvlr{grid-template-columns:2.5em minmax(0,.85fr) minmax(0,1.35fr);min-height:52px}.bdmvlz{font-size:.82rem;letter-spacing:.03em}.bdmvls{font-size:1.25rem}
+  .bdmvlm,.bdmvlzh{padding:1px 6px 1px 5px;font-size:1rem}.bdmvlm small,.bdmvlzh small{font-size:.5rem;letter-spacing:.02em}}
