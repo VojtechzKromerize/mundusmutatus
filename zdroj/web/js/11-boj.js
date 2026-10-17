@@ -285,6 +285,10 @@ function bojKostky(z,krit){const m=String(z||"").match(/^(\d*)d(\d+)([+-]\d+)?$/
 /* Závoj za protivníka: Hodiny Závoje (Pokušení 1–3) a svátky podle jeho vyznání (Požehnání 4–6) */
 function bojZavoj(p){let I={};try{I=zavojInfo()}catch(e){}let fe=[];try{fe=p&&p.vz?pozehnaniDnes(p.vz):[]}catch(e){}
   const pm=I.z?3:2,pz=fe.length?4:5,d=bK(6,1);return {d,r:d<=pm?"pok":d>=pz?"poz":"",hod:I.z?(fe.length?"Hodina Pravdy":"Hodina Závoje"):fe.length?fe.map(x=>x.n).join(", "):""}}
+/* výsledek kostky Závoje slovy; Závoj se hází k ověřením (i iniciativě) a útokům, ne k záchranám (Artikule › Kostka Závoje) */
+const zavVys=r=>r==="pok"?"Pokušení":r==="poz"?"Požehnání":"bez vlivu Závoje";
+const zavBezZach=co=>/^Záchrana|záchrann|proti smrti/i.test(String(co||""));
+const zavTxt=z=>z?`Závoj ${z.d}: ${zavVys(z.r)}${z.hod?` (${z.hod})`:""}`:"";
 const bojZatr=n=>{const p=PROTBY[n.b];return !!p&&(p.id==="zatraceny-rytir"||(n.pr||[]).includes("zatraceny"))};
 
 /* typ zranění → druh kritického zranění */

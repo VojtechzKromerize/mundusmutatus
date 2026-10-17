@@ -2866,3 +2866,18 @@ button.kdbs:hover{border-color:var(--kb-gold)}.kdbsac b{color:var(--kb-gold)}
 .bglogd .bglog,.bglogd .khody{max-height:340px;overflow:auto}
 .bglogd .bzazn{margin:0}
 .bjanep{flex:1 1 100%}
+/* bojová karta: AC štít s kolečky obětování zbroje, nad ním Resistance; v šestiúhelníku Svědomí (2026-10-17) */
+.bdmacw{grid-column:1;grid-row:1;display:flex;flex-direction:column;align-items:stretch;gap:4px;min-width:0}
+.bdmacw .bdmac{flex:1 1 auto}
+.bdmres{display:flex;flex-wrap:wrap;justify-content:center;gap:2px;min-height:0}
+.bdmres .bik-zr{width:18px;height:18px}
+.bdmimu{display:inline-flex;border-radius:50%;box-shadow:0 0 0 1px var(--kb-gold)}
+.bdmzk{display:flex;flex-wrap:wrap;justify-content:center;gap:2px 6px;margin-top:4px}
+.bdmzkg{display:inline-flex;gap:3px}
+.bdmzkg i{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--kb-gold);box-sizing:border-box}
+.bdmzkg i.on{background:var(--kb-gold)}
+.bdmzks i{border-radius:2px}
+.bdmac.bdmzbr0 .bdmzkg i{border-color:#f0757a}
+.bdmsvh{text-decoration:none}
+.bdmsvh b{font-size:1.9rem!important}
+.bdmsvh.psv0 b{color:#f0757a}.bdmsvh.psv1 b{color:#e3a55c}.bdmsvh.psv2 b{color:var(--kb-tx)}.bdmsvh.psv3 b{color:var(--kb-gold)}

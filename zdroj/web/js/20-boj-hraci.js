@@ -84,7 +84,7 @@ function bojJaHodKouzlo(s,me,sp){const {K,x,B,lvl}=sp,c=(s.npc||[]).find(o=>o.id
     ser.push({hod:d+b+PD.t,d,d1,d2,v,b:b+PD.t,dmg:r.tot,krit,vys,upr:[]});txt.push(`d20 ${d1}${d2!=null?`/${d2}`:""} ${bsg(b)}${PD.txt} = ${d+b+PD.t}${krit?" krit!":d===1?" (1)":""}${vys?` → ${vys.toUpperCase()}`:""}, zranění ${r.txt} = ${r.tot}`)}
   Object.assign(BJU,{hod:String(ser[0].hod),d:String(ser[0].d),dmg:String(ser[0].dmg),kmin:null,serie:ser});
   const z=kZavoj(K);KZAV[K.id]={co:`Útok – ${x.n}`,d:z.d,r:z.r,hod:z.hod};
-  BJU.info=`${x.n} (${st}). ${v?`${v>0?"Výhoda":"Nevýhoda"}. `:""}${txt.join(" · ")} · Závoj ${z.d}${z.r==="pok"?" – Pokušení":z.r==="poz"?" – Požehnání":""}`;renderBoj()}
+  BJU.info=`${x.n} (${st}). ${v?`${v>0?"Výhoda":"Nevýhoda"}. `:""}${txt.join(" · ")} · ${zavTxt(z)}`;renderBoj()}
 let BJSPN=0;
 function bojAdvHrac(s,me,c,dal){const plus=[],minus=[],st=me.stav||[];
   srdAdv(st,[],dal,plus,minus,true);
@@ -118,7 +118,7 @@ function bojJaHod(){const s=BOJ.s||{},me=(s.hraci||[]).find(h=>h.n===bojJa.get()
     ser.push({hod:d+b+PD.t,d,d1,d2,v,b:b+PD.t,dmg,krit,vys:bojJaZas(c,d+b+PD.t,d,krit),upr:[]});txt.push(`d20 ${d1}${d2!=null?`/${d2}`:""} ${bsg(b)}${PD.txt} = ${d+b+PD.t}${krit?" krit!":d===1?" (1)":""}${ser[ser.length-1].vys?` → ${ser[ser.length-1].vys.toUpperCase()}`:""}${k?`, zranění ${k.x}${plus?` +${plus}`:""}${ek.map(q=>" + "+q.x).join("")} = ${dmg}`:""}`)}
   if(K&&w.karta){const a=kUtoky(K).find(x=>x.n===w.n);if(a)kMunOdecti(K,a,ser.length)}if(K)kEfPouzij(K,E,BJU.ef);
   BJU.hod=String(ser[0].hod);BJU.d=String(ser[0].d);BJU.dmg=String(ser[0].dmg);BJU.t=w.t||BJU.t;BJU.drt=!!w.drt;BJU.pru=!!w.pru;BJU.kmin=kmin;BJU.serie=ser;
-  let zv="";if(K){const z=kZavoj(K);KZAV[K.id]={co:`Útok – ${w.n}`,d:z.d,r:z.r,hod:z.hod};zv=` · Závoj ${z.d}${z.r==="pok"?" – Pokušení":z.r==="poz"?" – Požehnání":""}`}
+  let zv="";if(K){const z=kZavoj(K);KZAV[K.id]={co:`Útok – ${w.n}`,d:z.d,r:z.r,hod:z.hod};zv=" · "+zavTxt(z)}
   BJU.info=(v?`${v>0?"Výhoda":"Nevýhoda"}. `:"")+txt.join(" · ")+zv;bojBptOznac("A");renderBoj()}
 /* hráč: poslat útok vypravěči */
 async function bojJaPosli(){const s=BOJ.s||{},me=(s.hraci||[]).find(h=>h.n===bojJa.get());if(!me||!bojDB||!bojDB.utok)return;const w=bojZbrVse(s,me)[+BJU.zi],ci=BJU.plos?BJU.cile.filter(id=>(s.npc||[]).some(o=>o.id===id)):(BJU.cil?[BJU.cil]:[]);
@@ -521,8 +521,8 @@ document.addEventListener("click",async e=>{
     if(k==="l"){const m=bojLecPC(o,K,v);kartaStavZmen(K.id,{hp:o.hp!=null&&o.hp<kHPmax(K)?o.hp:null},`${h0.n}: ${m}.`);if(JSON.stringify(o.ds??null)!==JSON.stringify(h0.ds??null))bojHracAkce(id,h=>{if(o.ds)h.ds=o.ds;else delete h.ds});if(GMV)bojLog(id,{n:"Léčení",ai:null,ci:id,zt:m},h0.n)}
     else{const t=Math.max(+ks.thp||0,v);kartaStavZmen(K.id,{thp:t},`${h0.n}: dočasné HP ${t}.`)}return}
   const kzh=T("[data-bkzh]");if(kzh){const pan=kzh.closest("[data-bhpan]"),id=pan&&pan.dataset.bhpan,S=BOJ.s||{},h0=(S.hraci||[]).find(x=>x.id===id),K=bojKartaH(h0);if(!K)return;
-    const ab=kzh.dataset.bkzh,adv=!!kzh.dataset.adv,b=kZach(K,ab)-2*kVycerp(K),d1=bK(20),d2=adv?bK(20):null,d=adv?Math.max(d1,d2):d1,t=d+b,z=kZavoj(K);KZAV[K.id]={co:`Záchrana ${ab}`,d:z.d,r:z.r,hod:z.hod};
-    let txt=`${h0.n}: záchrana ${ab} ${t} (d20 ${d1}${d2!=null?` / ${d2}, výhoda`:""} ${bsg(b)}) · Závoj ${z.d}${z.r==="pok"?" – Pokušení":z.r==="poz"?" – Požehnání":""}`;
+    const ab=kzh.dataset.bkzh,adv=!!kzh.dataset.adv,b=kZach(K,ab)-2*kVycerp(K),d1=bK(20),d2=adv?bK(20):null,d=adv?Math.max(d1,d2):d1,t=d+b;
+    let txt=`${h0.n}: záchrana ${ab} ${t} (d20 ${d1}${d2!=null?` / ${d2}, výhoda`:""} ${bsg(b)})`;
     if(adv&&!GMV&&BJK.d){const dc=bojKonDC(BJK.d),ok=t>=dc;txt+=` → SO ${dc}: ${ok?"soustředění udrženo":"soustředění ztraceno"}`;BJK.d="";if(!ok)bojHracAkce(id,h=>{h.stav=(h.stav||[]).filter(x=>x!=="soustředí");if(!h.stav.length)delete h.stav});else renderBoj()}
     if(GMV){bojLog(id,{n:`Záchrana ${ab}`,ai:id,zt:txt.replace(/^[^:]*:\s*/,"")},h0.n);renderBoj()}(GMV?mmHlasG:mmHlas)(txt,7000);return}
   const kzd=T("[data-bkzd]");if(kzd){const pan=kzd.closest("[data-bhpan]"),id=pan&&pan.dataset.bhpan,S=BOJ.s||{},K=bojKartaH((S.hraci||[]).find(x=>x.id===id));if(!K)return;const k=kzd.dataset.bkzd,j=+kzd.dataset.j,U=Object.assign({},kartaStav(K.id).zdr||{}),u=U[k]||0;U[k]=u>j?j:j+1;if(!U[k])delete U[k];kartaStavZmen(K.id,{zdr:Object.keys(U).length?U:null});return}
@@ -554,7 +554,7 @@ document.addEventListener("click",async e=>{
     const ef=(o0.stav||[]).map(k=>SRDST[k]&&SRDST[k].zach&&SRDST[k].zach[ab]?[k,SRDST[k].zach[ab]]:null).filter(Boolean),fail=ef.find(x=>x[1]==="f"),va=ef.some(x=>x[1]==="a")-ef.some(x=>x[1]==="d");
     const d1=bK(20),d2=va?bK(20):null,d=va>0?Math.max(d1,d2):va<0?Math.min(d1,d2):d1,t=d+b;
     const ok=fail?false:dc?t>=dc:null,o={n:`Záchrana ${ab}${dc?` DC ${dc}`:""}`,hod:{tot:t,d,b,pres:0,krit:false,mis:false,adv:va,dd:d2!=null?[d1,d2]:null,advWhy:ef.map(x=>x[0]).join(", ")},sav:fail?`automaticky neúspěch (${fail[0]})`:ok==null?"záchrana":ok?"úspěch":"neúspěch"};
-    if(o0.druh!=="houf"){const z=bojZavoj(p);o.zav=bojZavObj(p,z)}if(ok===false&&bojLegZb(o0,E))o.leg=bojLegZb(o0,E);bojLog(id,o,o0.n);renderBoj();return}
+    if(ok===false&&bojLegZb(o0,E))o.leg=bojLegZb(o0,E);bojLog(id,o,o0.n);renderBoj();return}
   if(T("[data-blegod]")&&o0){const E=bojEff(o0),zn=bojLegN(E),z=bojZdr.get(),u=(z[id]=z[id]||{});u[zn]=(u[zn]||0)+1;bojZdr.set(z);const L=(BLOG[id]||[])[0];if(L){L.sav="úspěch (Leg. odolnost)";delete L.leg}mmHlasG(`${o0.n}: Legendární odolnost – záchrana se mění v úspěch (zbývá ${bojLegZb(o0,E)}).`,4000);renderBoj();return}
   const pls=T("[data-bplos]");if(pls&&o0){const E=bojEff(o0),a=E&&E.at[+pls.dataset.bplos];if(!a)return;const av=bojUtokV(o0,+pls.dataset.bplos,a),m=String(av.dc||"").match(/(STR|AGI|CON|INT|WIS|CHA)\D*(\d+)/),ty=bojTypy(av);
     const s=BOJ.s,sp=bojSpoj(o0);BPLOS={src:`${o0.n}: ${a.n}`,srcId:id,z:av.z||"",t:ty[0]||"Fire",ab:m?m[1]:"AGI",dc:m?+m[2]:"",pol:/polovin/i.test((av.p||"")+(av.zt||""))||!!av.dc,cile:[...(sp?[]:(s.hraci||[]).map(h=>h.id)),...(s.npc||[]).filter(x=>x.id!==id&&bojSpoj(x)!==sp).map(x=>x.id)],vys:""};renderBoj();const el=document.querySelector("#bojview .bplos");if(el)el.scrollIntoView({block:"center",behavior:"smooth"});return}

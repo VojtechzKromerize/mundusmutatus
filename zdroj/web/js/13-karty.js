@@ -22,15 +22,15 @@ function kartyPrekresli(){if(curView==="karty")renderKarty(decodeURIComponent((l
 /* vyčerpání (D&D 2024): každá úroveň −2 ke všem hodům d20 */
 const kVycerp=K=>+(kartaStav(K.id).vycerp||0);
 const kMod=v=>Math.floor((+v-10)/2);
-/* hod d20 z karty se Závojem (Artikule: Závoj ke každému ověření, záchraně i útoku) */
+/* hod d20 z karty; ověření a útoky hází i kostku Závoje a rovnou ji vyhodnotí, záchrany ne (Artikule › Kostka Závoje) */
 let KADV=0;
-async function kartaHod(K,co,b,o={}){const SV=kStavVliv(K,co),v=kAdvSum(o.adv!=null?o.adv:KADV,SV.r);if(SV.r.length)o.why=[o.why,...SV.r.map(x=>x[1])].filter(Boolean).join(", ");if(SV.fail)o.why=[o.why,"automaticky selhává (stav)"].filter(Boolean).join(", ");const d1=bK(20),d2=v?bK(20):null,d=v>0?Math.max(d1,d2):v<0?Math.min(d1,d2):d1,vy=2*kVycerp(K),PD=kPriHod(K,co),tot=d+(+b||0)-vy+PD.t,z=kZavoj(K);
+async function kartaHod(K,co,b,o={}){const SV=kStavVliv(K,co),v=kAdvSum(o.adv!=null?o.adv:KADV,SV.r);if(SV.r.length)o.why=[o.why,...SV.r.map(x=>x[1])].filter(Boolean).join(", ");if(SV.fail)o.why=[o.why,"automaticky selhává (stav)"].filter(Boolean).join(", ");const d1=bK(20),d2=v?bK(20):null,d=v>0?Math.max(d1,d2):v<0?Math.min(d1,d2):d1,vy=2*kVycerp(K),PD=kPriHod(K,co),tot=d+(+b||0)-vy+PD.t,z=zavBezZach(co)?null:kZavoj(K);
   const krit=d>=(o.kmin||20)&&!!o.utok,mis=d===1&&!!o.utok;
   const txt=`d20 ${d1}${d2!=null?` / ${d2} (${v>0?"výhoda":"nevýhoda"})`:""} ${bsg(+b||0)}${vy?` −${vy} vyčerpání`:""}${PD.txt} = ${tot}${krit?" · kritický zásah":mis?" · minutí":""}${o.why?" · "+o.why:""}`;
-  const H={k:K.id,kdo:K.n,co,txt,tot,d,zav:z.d};KZAV[K.id]={co,d:z.d,r:z.r,hod:z.hod};if(krit)H.krit=true;
+  const H={k:K.id,kdo:K.n,co,txt,tot,d};if(z){H.zav=z.d;H.zr=z.r||"0";KZAV[K.id]={co,d:z.d,r:z.r,hod:z.hod}}if(krit)H.krit=true;
   KPOSL[K.id]={co,d1,d2,v,b:(+b||0)-vy+PD.t,d,tot,kmin:o.kmin||20,utok:!!o.utok,krit,mis,ut:o.ut,skryty:!!o.skryty,cas:Date.now(),upr:[],mods:[],puv:tot,bylMis:mis,bylKrit:krit};if(mis)H.mis=true;if(v)H.adv=v;
   if(!o.skryty)kHodZapis(H);else{HODY.unshift(Object.assign({id:Date.now(),cas:new Date().toISOString(),skryty:true},H));kartyPrekresli()}
-  mmHlasG(`${K.n}: ${co} ${tot} (${txt.replace(/ = \d+.*/,"")}) · Závoj ${z.d}${z.r==="pok"?" – Pokušení":z.r==="poz"?" – Požehnání":""}`,6500);return {tot,d,krit,mis,zav:z.d,txt}}
+  mmHlasG(`${K.n}: ${co} ${tot} (${txt.replace(/ = \d+.*/,"")})${z?" · "+zavTxt(z):""}`,6500);return {tot,d,krit,mis,zav:z?z.d:undefined,zr:z?z.r:undefined,txt}}
 async function kHodZapis(H){HODY.unshift(Object.assign({id:Date.now(),cas:new Date().toISOString()},H));kartyPrekresli();try{await KDB.hod(H)}catch(e){if(window.MMDB&&kSitChyba(e)){kFrontaPridej({t:"h",h:H});KCACHE.uloz();return}mmHlasG("Hod se nepodařilo zapsat: "+(e.message||e),4000)}}
 /* hod výrazem (zranění, léčení): „1d8+5“, při kritickém zásahu dvojnásob kostek; přidané efekty (Hex 1d6, Damaging Hex +3) */
 function kartaZraneni(K,a,krit,ef){const k=bojKostky(String(a.z||"").replace(/\s+/g,""),krit);let t=k?k.t:0,x=k?k.x:"";
@@ -64,7 +64,7 @@ async function kartaSeslat(K,sp,chce){try{const c=kCasKouzla(sp);const h0=((BOJ.
 const KSK={"STR":"Síla","AGI":"Obratnost","CON":"Odolnost","INT":"Inteligence","WIS":"Moudrost","CHA":"Charisma"};
 const KDOVAB={"Acrobatics":"AGI","Animal Handling":"WIS","Arcana":"INT","Athletics":"STR","Deception":"CHA","History":"INT","Insight":"WIS","Intimidation":"CHA","Investigation":"INT","Medicine":"WIS","Nature":"INT","Perception":"WIS","Performance":"CHA","Persuasion":"CHA","Religion":"INT","Sleight of Hand":"AGI","Stealth":"AGI","Survival":"WIS"};
 const KEF={};let KIMP=null;
-const kHodyHtml=(L,cap)=>L.length?`<ol class="khody">${L.slice(0,cap||40).map(h=>`<li${h.skryty?' class="kskr"':""}><b>${besc(h.kdo||"")}</b> · ${besc(h.co||"")}${h.tot!=null?` <b class="khtot${h.krit?" bkr":h.mis?" bmis":""}">${h.tot}</b>`:""}${h.zav?` <span class="bzv ${h.zav<=2?"zp":h.zav>=5?"zb":""}" ${btip("Kostka Závoje")}>${h.zav<=2?"Pokušení":h.zav>=5?"Požehnání":"Závoj"} ${h.zav}</span>`:""}${h.txt?`<small>${besc(h.txt)}</small>`:""}<time>${(()=>{try{return new Date(h.cas).toLocaleTimeString("cs-CZ",{hour:"2-digit",minute:"2-digit"})}catch(e){return ""}})()}</time></li>`).join("")}</ol>`:`<p class="rsmall">Zatím žádné hody.</p>`;
+const kHodyHtml=(L,cap)=>L.length?`<ol class="khody">${L.slice(0,cap||40).map(h=>`<li${h.skryty?' class="kskr"':""}><b>${besc(h.kdo||"")}</b> · ${besc(h.co||"")}${h.tot!=null?` <b class="khtot${h.krit?" bkr":h.mis?" bmis":""}">${h.tot}</b>`:""}${h.zav?(()=>{const r=h.zr?(h.zr==="0"?"":h.zr):h.zav<=2?"pok":h.zav>=5?"poz":"";return ` <span class="bzv ${r==="pok"?"zp":r==="poz"?"zb":""}" ${btip(`Kostka Závoje ${h.zav}: ${zavVys(r)}`)}>${r?zavVys(r):"bez vlivu"} ${h.zav}</span>`})():""}${h.txt?`<small>${besc(h.txt)}</small>`:""}<time>${(()=>{try{return new Date(h.cas).toLocaleTimeString("cs-CZ",{hour:"2-digit",minute:"2-digit"})}catch(e){return ""}})()}</time></li>`).join("")}</ol>`:`<p class="rsmall">Zatím žádné hody.</p>`;
 function renderKarty(id){const box=document.getElementById("kartyview");if(!box)return;if(!KLOAD){KLOAD=1;Promise.all([kartyNacti(),hodyNacti()]).then(()=>renderKarty(id))}
   const K=id&&KARTBY[id];
   if(!K){box.innerHTML=`<div class="bojtit"><h2 class="arttitle">Karty postav</h2><p class="bojlead">List postavy z D&amp;D Beyond: AC, životy, záchrany, dovednosti, útoky, kouzla a vybavení. Hody se zapisují do herního záznamu družiny.</p></div>
