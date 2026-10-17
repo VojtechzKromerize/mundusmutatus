@@ -107,7 +107,7 @@ const kSpAbPdf=K=>{const v=String((K.kouzla||{}).vl||"");return !v?null:/cha/i.t
 const kSpAb=K=>KR.spab(kCtx(K));
 const kSpDC=(K,x)=>x&&x.pz&&x.pz.dc?x.pz.dc:kSpAb(K)?kHodn(K,"spdc").v:null;
 const kSpUt=K=>kSpAb(K)?kHodn(K,"sput").v:0;
-const kSpU1=(K,x)=>kSpUt(K);
+const kSpU1=(K,x)=>x&&x.pz&&x.pz.ut!=null?x.pz.ut:kSpUt(K);
 const kHPmax=K=>Math.max(1,kHodn(K,"hp").v);
 const kRychN=K=>{const c=kCtx(K),S=c.S;let v=kHodn(K,"rych").v;const vy=+S.vycerp||0;if(vy)v-=5*vy;const st=kStavy(K);if(st.some(x=>/chycen|zadržen|ochromen|omráčen|zkamen|bezvědomí/.test(x)))v=0;return Math.max(0,v)};
 const kRychTxt=K=>{const t=String(K.rychlost||""),n=kRychN(K);return /\d+/.test(t)?t.replace(/\d+/,n):n+" stop"};

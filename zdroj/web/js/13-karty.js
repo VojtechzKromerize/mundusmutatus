@@ -52,15 +52,19 @@ async function kartaOdpocinek(K,dlouhy){const S=kartaStav(K.id),ch={},msg=[],poo
   await kartaStavZmen(K.id,ch);kHodZapis({k:K.id,kdo:K.n,co:dlouhy?"Dlouhý odpočinek":"Krátký odpočinek",txt:msg.join("; ")});mmHlasG(`${K.n}: ${dlouhy?"dlouhý":"krátký"} odpočinek – ${msg.join("; ")}.`,8000)}
 /* sesílání kouzla: odečte nejnižší volný slot (sloty paktu i běžné), soustředění zapne v běžícím boji */
 async function kartaSeslat(K,sp,chce){try{const c=kCasKouzla(sp);const h0=((BOJ.s&&BOJ.s.aktivni&&BOJ.s.hraci)||[]).find(x=>bojKartaH(x)===K);if(h0&&h0.n===bojJa.get())bojBptOznac(c)}catch(e){}const L=kSlX(K,sp).sort((a,b)=>(chce&&a.k===chce?-1:chce&&b.k===chce?1:a.st-b.st));
-  if((sp.st>0||sp.pz)&&!L.length){mmHlasG(sp.pz?`${K.n}: ${sp.pz.p} nemá na ${sp.n} dost nábojů.`:`${K.n}: na ${sp.n} nezbývá slot ${sp.st}. stupně nebo vyšší.`,4000);return}
+  if((sp.st>0||sp.pz)&&!L.length){mmHlasG(sp.pz?(sp.pz.sv?`${K.n}: ${sp.n} není na seznamu kouzel tvého povolání – svitek je nesrozumitelný.`:`${K.n}: ${sp.pz.p} nemá na ${sp.n} dost nábojů.`):`${K.n}: na ${sp.n} nezbývá slot ${sp.st}. stupně nebo vyšší.`,4000);return false}
   const q=sp.st>0||sp.pz?L[0]:null,U=Object.assign({},kartaStav(K.id).zdr||{});
-  if(q&&q.lab!=null){const S=kartaStav(K.id),inv=[...(S.inv||K.vybaveni||[])].map(y=>Object.assign({},y)),it=inv[sp.pz.i];if(it&&q.nab){it.nab=(+it.nab||0)+q.nab;await kartaStavZmen(K.id,{inv})}}
+  if(q&&q.lab!=null&&sp.pz.sv){const S=kartaStav(K.id),inv=[...(S.inv||K.vybaveni||[])].map(y=>Object.assign({},y)),it=inv[sp.pz.i],mx=Math.max(0,...kSloty(K).map(z=>z.st)),so=10+(+sp.st||0);let ok=true;
+    if(+sp.st>mx){const r=await kartaHod(K,`Svitek ${sp.n} – ověření (SO ${so})`,kSpMod(K));ok=!!r&&r.tot>=so}
+    if(it){if((it.q==null?1:+it.q)>1)it.q=+it.q-1;else inv.splice(sp.pz.i,1);await kartaStavZmen(K.id,{inv})}
+    if(!ok){kHodZapis({k:K.id,kdo:K.n,co:`Svitek ${sp.n}`,txt:"ověření selhalo – kouzlo zmizelo bez účinku"});mmHlasG(`${K.n}: ověření selhalo – ${sp.n} ze svitku zmizelo bez účinku.`,5000);return false}}
+  else if(q&&q.lab!=null){const S=kartaStav(K.id),inv=[...(S.inv||K.vybaveni||[])].map(y=>Object.assign({},y)),it=inv[sp.pz.i];if(it&&q.nab){it.nab=(+it.nab||0)+q.nab;await kartaStavZmen(K.id,{inv})}}
   else{if(q)U[q.k]=(U[q.k]||0)+1;if(q)await kartaStavZmen(K.id,{zdr:U})}
   const h=((BOJ.s&&BOJ.s.aktivni&&BOJ.s.hraci)||[]).find(x=>bojKartaH(x)===K);
   if(sp.kon&&h){if(window.MMDB&&!GMV)bojHracAkce(h.id,x=>{x.stav=[...new Set([...(x.stav||[]),"soustředí"])]});else if(GMV)bojHracAkce(h.id,x=>{x.stav=[...new Set([...(x.stav||[]),"soustředí"])]})}
   await kSpNacti().catch(()=>{});{const d=kSp(sp.n),h=d?kTrv(d.d):null;if(h)await kUcPridej(K,sp.n,h,sp.kon||!!(d&&d.ko))}
   kHodZapis({k:K.id,kdo:K.n,co:`Seslal ${sp.n}`,txt:`${q&&q.lab!=null?`${sp.pz.p}, ${q.lab} (${q.st}. st.)`:q?`slot ${q.st}. st.${q.pakt?" (pakt)":""}`:"trik"}${sp.zach?` · záchrana ${sp.zach}`:""}${sp.kon?" · Concentration":""}`});
-  mmHlasG(`${K.n} sesílá ${sp.n}${q&&q.lab!=null?` (${sp.pz.p}: ${q.lab}, zbývá ${q.max-q.nab})`:q?` (slot ${q.st}. st., zbývá ${q.max-q.u-1})`:""}${sp.kon?" – soustředění":""}${sp.zach?` · záchrana ${sp.zach}`:""}.`,5000)}
+  mmHlasG(`${K.n} sesílá ${sp.n}${q&&q.lab!=null?(sp.pz.sv?` ze svitku`:` (${sp.pz.p}: ${q.lab}, zbývá ${q.max-q.nab})`):q?` (slot ${q.st}. st., zbývá ${q.max-q.u-1})`:""}${sp.kon?" – soustředění":""}${sp.zach?` · záchrana ${sp.zach}`:""}.`,5000);return true}
 /* ===== stránka Karty postav ===== */
 const KSK={"STR":"Síla","AGI":"Obratnost","CON":"Odolnost","INT":"Inteligence","WIS":"Moudrost","CHA":"Charisma"};
 const KDOVAB={"Acrobatics":"AGI","Animal Handling":"WIS","Arcana":"INT","Athletics":"STR","Deception":"CHA","History":"INT","Insight":"WIS","Intimidation":"CHA","Investigation":"INT","Medicine":"WIS","Nature":"INT","Perception":"WIS","Performance":"CHA","Persuasion":"CHA","Religion":"INT","Sleight of Hand":"AGI","Stealth":"AGI","Survival":"WIS"};

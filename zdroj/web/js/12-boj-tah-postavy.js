@@ -37,12 +37,19 @@ function bojSpStavDej(s,n,S,u){const h=(s.hraci||[]).find(x=>x.id===u.h),kon=S.k
   S.st.forEach(st=>{const ef={n:S.n,kdy:"kola",k:S.k,kolo:s.kolo||1,tah:s.tah||0,st};if(S.op&&u.plos)ef.op={ab:u.plos.ab,dc:u.plos.dc};if(kon)ef.src=u.h;
     if(!(n.stav||[]).includes(st))n.stav=[...(n.stav||[]),st];(n.ef=n.ef||[]).push(ef)});bojMsg(n.id,`${S.n}: ${S.st.join(", ")}${S.op?` – na konci tahu záchrana ${u.plos.ab} SO ${u.plos.dc}`:""}.`)}
 function bojEfDel(n,e){n.ef=(n.ef||[]).filter(x=>x!==e);if(e.st&&!(n.ef||[]).some(x=>x.st===e.st))n.stav=(n.stav||[]).filter(x=>x!==e.st);if(!n.ef.length)delete n.ef}
-function bojKonecTahu(s,id){const n=(s.npc||[]).find(x=>x.id===id);if(!n)return;
+function bojKonecTahu(s,id){const n=(s.npc||[]).find(x=>x.id===id);if(!n){bojPcKonec(s,id);return}
   {const hot=new Set();(n.ef||[]).slice().forEach(e=>{if(!e.op||hot.has(e.n))return;hot.add(e.n);const E=bojEff(n),b=bojSaveB(E&&E.p,e.op.ab),d=bK(20),t=d+b,ok=t>=e.op.dc;
     bojMsg(id,`${e.n}: záchrana ${e.op.ab} ${t} (d20 ${d} ${bsg(b)}) proti SO ${e.op.dc} – ${ok?"uspěl, kouzlo na něm končí":"neuspěl, trvá dál"}.`);
     if(ok)(n.ef||[]).filter(x=>x.n===e.n).forEach(x=>bojEfDel(n,x))})}
   (n.ef||[]).slice().forEach(e=>{if(e.kdy==="konec"&&e.zac){bojEfDel(n,e);bojMsg(id,`Skončilo: ${e.n}.`)}})}
-function bojZacatekTahu(s,id){const n=(s.npc||[]).find(x=>x.id===id);if(!n)return;BTMSG[id]=[];const E=bojEff(n),kolo=s.kolo||1;
+/* postava: na konci tahu opakovaná záchrana stavu (výzva na telefon; bez karty připomínka), na začátku tahu odpočet kol */
+const BOPV={};
+function bojPcKonec(s,id){const h=(s.hraci||[]).find(x=>x.id===id);if(!h||!GMV)return;const K=bojKartaH(h),hot=new Set();
+  (h.ef||[]).forEach(e=>{if(!e.op||hot.has(e.n))return;hot.add(e.n);const o={hid:h.id,n:e.n,ab:e.op.ab,dc:e.op.dc};
+    if(K&&window.MMDB&&MMDB.vyzva)setTimeout(()=>MMDB.vyzva({typ:"zach",ab:o.ab,dc:o.dc,komu:[K.id],pozn:`${e.n}: opakovaná záchrana – úspěch ukončí ${e.st||"účinek"}`.slice(0,200)}).then(v=>{BOPV[+v]=Object.assign(o,{kid:K.id});vyzvyNacti()}).catch(()=>{}),0);
+    else bojMsg(id,`${e.n}: na konci tahu záchrana ${o.ab} SO ${o.dc} – úspěch ukončí ${e.st||"účinek"}.`)})}
+function bojPcZac(s,id){const h=(s.hraci||[]).find(x=>x.id===id);if(!h)return;(h.ef||[]).slice().forEach(e=>{if(e.kdy==="kola"){e.k=(e.k||1)-1;if(e.k<=0){bojEfDel(h,e);bojMsg(id,`Skončilo: ${e.n}.`)}}})}
+function bojZacatekTahu(s,id){const n=(s.npc||[]).find(x=>x.id===id);if(!n){bojPcZac(s,id);return}BTMSG[id]=[];const E=bojEff(n),kolo=s.kolo||1;
   (n.ef||[]).slice().forEach(e=>{
     if(e.kdy==="zacatek"&&!(e.kolo===kolo&&e.tah===(s.tah||0))){bojEfDel(n,e);bojMsg(id,`Skončilo: ${e.n}.`);return}
     if(e.kdy==="konec")e.zac=1;
@@ -63,29 +70,41 @@ function bojPlosPanel(s){const P=BPLOS;if(!P)return "";const cil=x=>P.cile.inclu
       <label>Typ <select name="pt">${Object.entries(BZRT).map(([en,cz])=>`<option value="${en}"${P.t===en?" selected":""}>${cz} (${en})</option>`).join("")}</select></label>
       <label>Záchrana <select name="pa">${BAB.map(a=>`<option${P.ab===a?" selected":""}>${a}</option>`).join("")}</select></label>
       <label>DC <input name="pdc" type="number" min="1" max="40" value="${P.dc||""}"></label>
-      <label class="bzrk"><input type="checkbox" name="ppol"${P.pol?" checked":""}> úspěch = polovina</label></div>
+      <label class="bzrk"><input type="checkbox" name="ppol"${P.pol?" checked":""}> úspěch = polovina</label>
+      <label ${btip("Stav, který cíl dostane při neúspěšné záchraně (postavám se zapíše sám podle výzvy)")}>Při neúspěchu <select name="pst"><option value="">bez stavu</option>${Object.entries(SRDST).map(([k,v])=>`<option value="${k}"${(P.st||[])[0]===k?" selected":""}>${k} (${v.en})</option>`).join("")}</select></label>
+      <label class="bzrk" ${btip("Cíl opakuje záchranu na konci každého svého tahu; úspěch stav ukončí")}><input type="checkbox" name="pop"${P.op?" checked":""}> záchrana na konci tahu</label></div>
     <div class="bplc"><span class="bkzlh">Cíle</span>${npc.map(n=>`<label class="bplt${bojSpoj(n)?" bspj":""}"><input type="checkbox" data-bplc="${n.id}"${cil(n.id)?" checked":""}>${bojMedN(n,"bmini")} ${besc(n.n)}${n.druh==="houf"?` <input type="number" min="0" max="${n.pocet||0}" value="${P.dos&&P.dos[n.id]!=null?P.dos[n.id]:n.pocet||0}" data-bpld="${n.id}" aria-label="Kolik pacholků v dosahu" ${btip("Kolik pacholků je v zasažené oblasti")}>`:""}</label>`).join("")}
       ${hr.map(h=>`<label class="bplt bplh"><input type="checkbox" data-bplc="${h.id}"${cil(h.id)?" checked":""}>${bojMedH(h,"bmini")} ${besc(h.n)}</label>`).join("")}</div>
     <p><button type="button" class="gbtn" data-bploshod>Hodit zranění a záchrany</button></p>${P.vys||""}</section>`}
-function bojPlosHod(){const P=BPLOS,s=BOJ.s;if(!P)return;const k=bojKostky(String(P.z).replace(/\s+/g,""),false),dmg=k?k.t:(+P.z||0);if(!dmg){mmHlasG("Zadej zranění – kostky (8d6) nebo číslo.",3000);return}
+function bojPlosHod(){const P=BPLOS,s=BOJ.s;if(!P)return;const k=bojKostky(String(P.z).replace(/\s+/g,""),false),dmg=k?k.t:(+P.z||0),ST=(P.st||[]).filter(Boolean);if(!dmg&&!ST.length){mmHlasG("Zadej zranění – kostky (8d6) nebo číslo – nebo stav při neúspěchu.",3000);return}
+  if(ST.length&&!P.dc){mmHlasG("Stav při neúspěchu potřebuje SO záchrany.",3000);return}const stN=[],cim0=P.src?P.src.replace(/^[^:]*:\s*/,""):"Plošný zásah";
   const r=[],hp=bojHp.get();let und=false,houfy=[];
   P.cile.forEach(id=>{const h=(s.hraci||[]).find(x=>x.id===id);if(h){const K=bojKartaH(h),pul=P.pol?Math.floor(dmg/2):0;r.push(`<li>${besc(h.n)}: ${P.ab} záchrana DC ${P.dc||"?"}${K?` (${P.ab} ${bsg(kZach(K,P.ab))})`:""} – neúspěch <b>${dmg}</b>${P.pol?`, úspěch <b>${pul}</b>`:", úspěch 0"} ${besc(BZRT[P.t])} <small>(hráč hází sám)</small>${K?` <button type="button" class="badd" data-bpcz="${h.id}" data-z="${dmg}" data-t="${P.t}">neúspěch −${dmg}</button>${pul?`<button type="button" class="badd" data-bpcz="${h.id}" data-z="${pul}" data-t="${P.t}">úspěch −${pul}</button>`:""}`:""}</li>`);return}
     const n=(s.npc||[]).find(x=>x.id===id);if(!n)return;const E=bojEff(n),p=E&&E.p,b=bojSaveB(p,P.ab),d=bK(20),t=d+b,ok=P.dc?t>=P.dc:false,base=ok?(P.pol?Math.floor(dmg/2):0):dmg,z=E?bojZasah(E,base,P.t,{}):{x:base,pozn:[]};
     const zav=`${P.ab} ${t} <small>(d20 ${d} ${bsg(b)})</small> ${P.dc?(ok?"úspěch":"neúspěch"):""}`;
     if(n.druh==="houf"){const H=bojHoufZachrany(n,E,dmg,P.t,P.ab,P.dc,P.pol,P.dos&&P.dos[id]!=null?+P.dos[id]:null),pad=H.pad,v=H.v;houfy.push([id,pad]);r.push(`<li>${besc(n.n)}: záchrany ${besc(H.txt)} – <b>padlo ${pad}</b> z ${v} v dosahu</li>`);bojZaz({a:P.src?P.src.replace(/:.*$/,""):"",ai:P.srcId||"",c:n.n,ci:id,cim:P.src?P.src.replace(/^[^:]*:\s*/,""):"plošný zásah",v:`padlo ${pad} z ${v}`});bojLog(id,{n:P.src?P.src.replace(/^[^:]*:\s*/,""):"Plošný zásah",ai:P.srcId||null,ci:id,und:pad?{id,poc:pad}:null,zt:`záchrany ${H.txt} · padlo ${pad}`},n.n);return}
-    if(!E||!E.hp.length){r.push(`<li>${besc(n.n)}: ${zav} → ${z.x} (bez statblocku)</li>`);return}
+    if(!E||!E.hp.length){if(ST.length&&P.dc&&!ok)stN.push(id);r.push(`<li>${besc(n.n)}: ${zav} → ${z.x} (bez statblocku)</li>`);return}
     if(!und){bojUndoPush({hp:JSON.parse(JSON.stringify(hp))});und=true}
     const a=hp[id]||[],old=a[0]!=null?a[0]:E.hp[0].max;a[0]=old-z.x;hp[id]=a;bojHp.set(hp);(BDMG[id]={k:s.kolo||1,t:[P.t]});
     bojHpZmena(id,0,old,old-z.x);bojZaz({a:P.src?P.src.replace(/:.*$/,""):"",ai:P.srcId||"",c:n.n,ci:id,cim:P.src?P.src.replace(/^[^:]*:\s*/,""):"plošný zásah",v:(P.dc?(ok?"záchrana uspěla":"zasažen"):"zasažen")+(old-z.x<=0?", padl":"")});bojLog(id,{n:P.src?P.src.replace(/^[^:]*:\s*/,""):"Plošný zásah",ai:P.srcId||null,ci:id,und:{id,k:0,old,nov:old-z.x},ap:1,zr:{t:z.x,x:`${P.ab} ${t}${P.dc?(ok?" úspěch":" neúspěch"):""}${z.pozn.length?" → "+z.pozn.join(", "):""}`,zt:P.t}},n.n);
+    if(ST.length&&P.dc&&!ok)stN.push(id);
     let leg="";if(P.dc&&!ok&&bojLegZb(n,E))leg=` <small>(má Legendární odolnost – zvaž)</small>`;
     r.push(`<li>${besc(n.n)}: ${zav} → <b>−${z.x} HP</b>${z.pozn.length?" ("+z.pozn.join(", ")+")":""} → ${old-z.x}/${E.hp[0].max}${leg}</li>`)});
   /* postavy s kartou: výzva k záchraně, zranění se odečte samo podle hodu hráče */
   const vz=P.cile.map(id=>(s.hraci||[]).find(x=>x.id===id)).filter(h=>h&&bojKartaH(h));let vzt="";
   if(vz.length&&P.dc&&window.MMDB&&GMV){const map={};vz.forEach(h=>{map[bojKartaH(h).id]=h.id});const src=P.src?P.src.replace(/:.*$/,""):"",cim=P.src?P.src.replace(/^[^:]*:\s*/,""):"Plošný zásah";
-    MMDB.vyzva({typ:"zach",ab:P.ab,dc:P.dc,komu:Object.keys(map),pozn:`${cim}: ${dmg} ${BZRT[P.t]||P.t}${P.pol?", úspěch = polovina":""}`.slice(0,200)}).then(id=>{BPLV[+id]={dmg,pol:!!P.pol,t:P.t,ab:P.ab,dc:P.dc,map,hot:new Set(),src,cim};vyzvyNacti()}).catch(e=>mmHlasG("Výzvu se nepodařilo poslat: "+(e.message||e),5000));
+    MMDB.vyzva({typ:"zach",ab:P.ab,dc:P.dc,komu:Object.keys(map),pozn:`${cim}: ${dmg?`${dmg} ${BZRT[P.t]||P.t}${P.pol?", úspěch = polovina":""}`:""}${ST.length?`${dmg?" · ":""}při neúspěchu ${ST.join(", ")}`:""}`.slice(0,200)}).then(id=>{BPLV[+id]={dmg,pol:!!P.pol,t:P.t,ab:P.ab,dc:P.dc,map,hot:new Set(),src,cim,st:ST,op:!!P.op,k:P.k||10};vyzvyNacti()}).catch(e=>mmHlasG("Výzvu se nepodařilo poslat: "+(e.message||e),5000));
     vzt=`<p class="rsmall">Hráčům (${vz.map(h=>besc(h.n)).join(", ")}) vyskočila výzva k záchraně ${P.ab} SO ${P.dc} – zranění se jim odečte samo podle hodu. Tlačítka níž jsou pro ruční zápis.</p>`}
-  P.vys=`<p class="bkv"><b>${dmg}</b> ${besc(BZRT[P.t])} <small>${k?k.x:""}</small></p>${vzt}<ul class="bplv">${r.join("")}</ul>`;
-  if(houfy.length)bojZmen(z=>{houfy.forEach(([id,pad])=>{const o=(z.npc||[]).find(x=>x.id===id);if(o)o.pocet=Math.max(0,(o.pocet||0)-pad)})});else renderBoj()}
+  P.vys=`<p class="bkv"><b>${dmg}</b> ${besc(BZRT[P.t])} <small>${k?k.x:""}</small>${ST.length?` · při neúspěchu ${besc(ST.join(", "))}${stN.length?` (${stN.map(id=>besc(bojJm(s,id))).join(", ")})`:""}`:""}</p>${vzt}<ul class="bplv">${r.join("")}</ul>`;
+  if(houfy.length||stN.length)bojZmen(z=>{houfy.forEach(([id,pad])=>{const o=(z.npc||[]).find(x=>x.id===id);if(o)o.pocet=Math.max(0,(o.pocet||0)-pad)});
+    stN.forEach(id=>{const n=(z.npc||[]).find(x=>x.id===id);if(n)bojStavDej(z,n,{n:cim0,st:ST,op:!!P.op,k:P.k||10,ab:P.ab,dc:P.dc})})});else renderBoj()}
+/* stav ze záchrany (schopnost nepřítele, kouzlo): komukoli v boji (nepřítel i postava) – účinek v kolech, případně opakovaná záchrana na konci tahu */
+function bojStavDej(z,o,S){(o.ef||[]).filter(e=>e.n===S.n).forEach(e=>bojEfDel(o,e));S.st.forEach(st=>{const ef={n:S.n,kdy:"kola",k:S.k||10,kolo:z.kolo||1,tah:z.tah||0,st};if(S.op)ef.op={ab:S.ab,dc:S.dc};
+  if(!(o.stav||[]).includes(st))o.stav=[...(o.stav||[]),st];(o.ef=o.ef||[]).push(ef)});bojMsg(o.id,`${S.n}: ${S.st.join(", ")}${S.op?` – na konci tahu záchrana ${S.ab} SO ${S.dc}`:""}.`)}
+/* stav ze záchrany v textu schopnosti nepřítele nebo z kouzla stejného jména */
+function bojAkceStav(nm,txt){const S=typeof bojSpStav==="function"?bojSpStav(nm):null;if(S)return {st:S.st,op:S.op,k:S.k};const t=String(txt||""),EN=Object.fromEntries(Object.entries(SRDST).map(([k,v])=>[v.en,k])),st=[];
+  (t.match(/\b(Blinded|Charmed|Deafened|Frightened|Incapacitated|Paralyzed|Petrified|Poisoned|Prone|Restrained|Stunned|Unconscious)\b/g)||[]).forEach(e=>{const k=EN[e];if(k&&!st.includes(k))st.push(k)});if(!st.length)return null;
+  const m=t.match(/(\d+)\s*minut/);return {st,op:/na konci (?:každého )?(?:svého )?tahu[^.]{0,90}(?:opak|zopak)|end of each of (?:its|their) turns/i.test(t),k:m?+m[1]*10:10}}
 /* kritická zranění postav: zapisují se do herního stavu, počet neléčených se započítá sám */
 const bojKritPC=()=>(typeof HRA!=="undefined"&&HRA&&HRA.krit)||{};
 /* morálka houfu (Artikule › Iniciativa a protivníci): padne-li polovina houfu nebo velitel a nedrží ho sok, houf prchá */
