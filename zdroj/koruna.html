@@ -7733,7 +7733,7 @@ function bojKartaInfo(K){if(!K)return "";const ab=a=>{const v=(K.vl||{})[a];retu
     ${(K.rysy||[]).length?`<ul class="bkrys">${K.rysy.map(r=>`<li>${besc(r)}</li>`).join("")}</ul>`:""}</details>`}
 /* list postavy z PDF D&D Beyond → karta postavy. F = pole formuláře z pdf.js (getAnnotations): {f:název, v:hodnota, p:strana, r:[x1,y1,x2,y2]} */
 function kartaZPdf(F){
-  const N=s=>String(s||"").replace(/\s+/g," ").trim();
+  const N=s=>String(s||"").replace(/[’‘]/g,"'").replace(/\s+/g," ").trim();
   const P=F.filter(q=>q&&q.f&&q.v!=null&&String(q.v).trim()!==""&&String(q.v).trim()!=="--").map(q=>({f:N(q.f),v:String(q.v).replace(/\r/g,"").trim(),p:q.p||1,r:q.r||[0,0,0,0]}));
   const g=(...n)=>{for(const k of n){const x=P.find(q=>q.f===k);if(x)return x.v}return ""};
   const num=t=>{const m=String(t||"").replace(/[−–]/g,"-").replace(/,/g,"").match(/[+-]?\d+/);return m?+m[0]:null};
@@ -7745,7 +7745,7 @@ function kartaZPdf(F){
   const AB=[["STR","STR","Strength"],["AGI","DEX","Dexterity"],["CON","CON","Constitution"],["INT","INT","Intelligence"],["WIS","WIS","Wisdom"],["CHA","CHA","Charisma"]];
   K.vl={};K.zach={};K.zachProf=[];
   AB.forEach(([k,f,l])=>{const v=num(g(f));if(v!=null)K.vl[k]=v;const z=num(g("ST "+l));if(z!=null)K.zach[k]=z;if(g(l.slice(0,3)+"Prof",l.slice(0,3).toUpperCase()+"Prof",l.slice(0,2)+"Prof"))K.zachProf.push(k)});
-  const sm=g("SaveModifiers");K.zachPozn=sm?sm.split(/\n+/).map(N).filter(Boolean):[];
+  const sm=g("SaveModifiers");K.zachPozn=sm?sm.split(/\n+/).map(N).filter(Boolean).map(kZachPoznCz):[];
   const def=g("Defenses"),TY=["Bludgeoning","Piercing","Slashing","Fire","Cold","Lightning","Thunder","Acid","Poison","Necrotic","Radiant","Psychic","Force"],typy=t=>TY.filter(x=>new RegExp("\\b"+x+"\\b","i").test(t||""));
   K.odol=typy((def.match(/Resistances?\s*[-–:]\s*([^\n]*)/i)||[])[1]);K.imu=typy((def.match(/Immunit(?:y|ies)\s*[-–:]\s*([^\n]*)/i)||[])[1]);K.zra=typy((def.match(/Vulnerabilit(?:y|ies)\s*[-–:]\s*([^\n]*)/i)||[])[1]);
   if(def)K.obrana=N(def);
@@ -7783,7 +7783,9 @@ function kartaZPdf(F){
   if(spellBy.hex)K.efekty.push({n:"Hex",zr:"1d6",t:"Necrotic",pozn:"+1d6 Necrotic proti očarovanému cíli"});
   /* vybavení a peníze */
   const att=new Set(P.filter(q=>/^Attuned Name\d+$/.test(q.f)).map(q=>q.v));
-  K.vybaveni=P.filter(q=>/^Eq Name\d+$/.test(q.f)).map(q=>{const i=q.f.match(/\d+$/)[0];const w=g("Eq Weight"+i);return Object.assign({n:q.v,q:num(g("Eq Qty"+i))||1},w&&w!=="--"?{w}:{},att.has(q.v)?{pripoutano:true}:{})});
+  /* D&D Beyond tiskne vlastní předměty ještě jednou na další stránce (stejná pole Eq Name) – ty se nepočítají dvakrát */
+  {const vid=new Map();K.vybaveni=[];P.filter(q=>/^Eq Name\d+$/.test(q.f)).forEach(q=>{const i=q.f.match(/\d+$/)[0],w=g("Eq Weight"+i),qq=num(g("Eq Qty"+i))||1,key=N(q.v).toLowerCase()+"|"+qq+"|"+w;
+    if(vid.has(key)&&vid.get(key)!==q.p)return;vid.set(key,q.p);K.vybaveni.push(Object.assign({n:N(q.v),q:qq},w&&w!=="--"?{w}:{},att.has(q.v)?{pripoutano:true}:{}))})}
   K.penize={};["CP","SP","EP","GP","PP"].forEach(k=>{const v=num(g(k));if(v)K.penize[k]=v});
   /* popis postavy (vlastní text hráče) */
   const pp={pohlavi:"GENDER",vek:"AGE",velikost:"SIZE",vyska:"HEIGHT",vaha:"WEIGHT",presvedceni:"ALIGNMENT",vira:"FAITH",pokozka:"SKIN",oci:"EYES",vlasy:"HAIR",povaha:"PersonalityTraits",idealy:"Ideals",pouta:"Bonds",vady:"Flaws",spojenci:"AlliesOrganizations",pribeh:"Backstory",poznamky:"AdditionalNotes1"};
@@ -7976,10 +7978,21 @@ async function kartaImport(file){mmHlasG("Čtu PDF…",2500);
   for(let p=1;p<=doc.numPages;p++){const pg=await doc.getPage(p);for(const a of await pg.getAnnotations())if(a.fieldName)F.push({f:a.fieldName,v:a.fieldValue,p,r:a.rect})}
   if(!F.length)throw new Error("V PDF nejsou pole listu postavy. Exportuj postavu z D&D Beyond znovu (Export to PDF).");
   return kartaZPdf(F)}
-const kImpNahled=(K,ja)=>`<div class="kimpn"><p><b>${besc(K.n)}</b> · ${besc(K.povolani||"")} · AC ${K.ac} · HP ${K.hp} · útoky ${(K.utoky||[]).length} · kouzla ${((K.kouzla||{}).seznam||[]).length} · předměty ${(K.vybaveni||[]).length}${KARTBY[K.id]?` · <b>přepíše existující kartu</b>`:""}</p>
+/* kontrola importu: AC z vybavení podle pravidel proti AC v PDF; vybavení upravené na webu */
+function kImpKontrola(K,ja){const id=ja&&JA.get()&&JA.get().k||K.id,S=KARTBY[id]?kartaStav(id):{};let h="";
+  try{const T=Object.assign({},K,{id:"__imp"+Date.now()}),r=kACR(T),zb=r.N&&r.N.z,st=r.N&&r.N.s,dl=/z D&D Beyond/.test(r.txt);
+    h+=`<p class="rsmall kimpac"><b>AC ${K.ac}</b> = ${besc(r.txt)}${zb?"":` <b class="bhrich">· zbroj v PDF nenalezena</b>`}</p>`;
+    if(dl)h+=`<p class="rsmall">Část AC web z pravidel nevysvětlí (např. Fighting Style Defense nebo vlastní předmět) – drží se jako úprava „z D&amp;D Beyond“. V Úpravách postavy ji jde nahradit konkrétním předmětem nebo rysem.</p>`;
+    if(!zb&&!st&&(K.vybaveni||[]).length)h+=`<p class="rsmall">Když postava zbroj nosí a web ji nepoznal, zkontroluj název ve vybavení (např. „Breastplate“, „Chain Mail“).</p>`}catch(e){}
+  if(S.inv){const a=new Set((S.inv||[]).map(x=>x.n.toLowerCase())),b=(K.vybaveni||[]).filter(x=>!a.has(x.n.toLowerCase()));
+    h+=`<label class="rsmall kimpinv"><input type="checkbox" data-kimpinv${KIMPINV?" checked":""}> Převzít vybavení z nového PDF${b.length?` (na webu chybí ${b.length}: ${besc(b.slice(0,5).map(x=>x.n).join(", "))}${b.length>5?"…":""})`:""} – vybavení upravené na webu se nahradí</label>`}
+  return h}
+let KIMPINV=true;
+const kImpNahled=(K,ja)=>`<div class="kimpn"><p><b>${besc(K.n)}</b> · ${besc(K.povolani||"")} · AC ${K.ac} · HP ${K.hp} · útoky ${(K.utoky||[]).length} · kouzla ${((K.kouzla||{}).seznam||[]).length} · předměty ${(K.vybaveni||[]).length}${KARTBY[K.id]?` · <b>přepíše existující kartu</b>`:""}</p>${kImpKontrola(K,ja)}
   ${KARTBY[K.id]?(()=>{const r=kRozdil(KARTBY[K.id],K);return r.length?`<p class="rsmall"><b>Co se změní:</b></p><ul class="kdiff">${r.map(x=>`<li>${besc(x)}</li>`).join("")}</ul><p class="rsmall">Stav postavy (životy, sloty, Svědomí, vybavení na webu) zůstane.</p>`:`<p class="rsmall">Proti uložené kartě beze změn.</p>`})():""}
   <p class="rsmall">Popisy schopností z PDF (texty příruček) uvidí jen hráč této postavy a vypravěč.</p>${ja?`<button type="button" class="gbtn" data-kimpja>Uložit a hrát za tuto postavu</button>`:`<button type="button" class="gbtn" data-kimpok>Uložit kartu</button>`} <button type="button" class="gbtn ghost" data-kimpx>Zrušit</button></div>`;
 document.addEventListener("change",async e=>{const v=e.target.closest&&e.target.closest("#kartyview,#hraview");if(!v)return;const t=e.target,K=kvK(t);
+  if(t.matches("[data-kimpinv]")){KIMPINV=t.checked;return}
   if(t.matches("[data-kimp]")&&t.files[0]){try{KIMP=await kartaImport(t.files[0]);renderKarty("")}catch(err){mmHlasG("Import se nepodařil: "+(err.message||err),7000)}return}
   if(!K)return;
   if(t.matches("[data-kadv]")){KADV=+t.dataset.kadv;return}
@@ -8732,7 +8745,7 @@ function kRysyZPdf(F){
   const pole=re=>F.filter(q=>q&&q.f&&re.test(String(q.f).trim())).map(q=>({n:+(String(q.f).match(/(\d+)\s*$/)||[0,0])[1],v:String(q.v||"").replace(/\r/g,"")})).sort((a,b)=>a.n-b.n);
   const spoj=L=>L.map(x=>x.v).join("\n");
   const cas=t=>/\bBonus Action\b/i.test(t)?"BA":/\bReaction\b/i.test(t)?"R":/\b\d*\s*Action\b/i.test(t)?"A":"";
-  const cist=t=>String(t||"").replace(/\s*•\s*\d+\s*\/\s*(Long|Short)\s*Rest.*$/i,"").replace(/\s*•\s*(PHB|XGtE|TCoE|SCAG|EE|br|MotM|FToD|BGG|TBoMT|DMG|BMT|EGtW|VGtM|MToF|ERLW|GGtR|SRD|Basic)[^•]*$/i,"").replace(/\s*•\s*$/,"").trim();
+  const cist=t=>String(t||"").replace(/[’‘]/g,"'").replace(/\s*•\s*\d+\s*\/\s*(Long|Short)\s*Rest.*$/i,"").replace(/\s*•\s*(PHB|XGtE|TCoE|SCAG|EE|br|MotM|FToD|BGG|TBoMT|DMG|BMT|EGtW|VGtM|MToF|ERLW|GGtR|SRD|Basic)[^•]*$/i,"").replace(/\s*•\s*$/,"").trim();
   const rysy=[],texty={},akce={A:[],BA:[],R:[]};let sek="",cur=null;
   const pridej=(n,o)=>{n=cist(n);if(!n)return null;let r=rysy.find(x=>x.n===n);if(!r){r=Object.assign({n,s:sek},o||{});rysy.push(r)}return r};
   spoj(pole(/^FeaturesTraits\d+$/i)).split("\n").forEach(raw=>{const l=raw.replace(/\s+$/,""),t=l.trim();if(!t)return;
@@ -8757,7 +8770,16 @@ function kRysyZPdf(F){
   const pl=String((F.find(q=>q&&/^ProficienciesLang$/i.test(String(q.f).trim()))||{}).v||""),zd={};let s2="";
   pl.replace(/\r/g,"").split("\n").forEach(l=>{const t=l.trim();if(!t)return;const m=t.match(/^===\s*(.+?)\s*===$/);if(m){s2=/ARMOR/i.test(m[1])?"zbroj":/WEAPON/i.test(m[1])?"zbrane":/TOOL/i.test(m[1])?"nastroje":/LANG/i.test(m[1])?"jazyky":"jine";return}
     if(s2)zd[s2]=[...(zd[s2]||[]),...t.split(/,\s*/).map(x=>x.trim()).filter(Boolean)]});
-  return {rysy,texty,akce,zd}}
+  return {rysy:rysy.filter(x=>!KRYSSUM.test(x.n)),texty,akce,zd}}
+/* nadpisy a souhrny z D&D Beyond, které nejsou samostatné rysy (velikost, rychlost, jazyky, volba vlastnosti…) */
+const KRYSSUM=/^(core \w+ traits|size|speed|languages|creature type|ability score (increases?|improvements?)|increase .*scores?.*|special|expanded spell list|\w+ subclass|[\w' ]+ spells|strength|dexterity|constitution|intelligence|wisdom|charisma)$/i;
+/* poznámky k záchranám z D&D Beyond česky */
+function kZachPoznCz(t){let m;
+  if((m=t.match(/^\+(\d+) Bonus on saves$/i)))return `+${m[1]} ke všem záchranám (předmět nebo rys, už započteno)`;
+  if(/^Advantage on CON saving throws (that )?you make to maintain/i.test(t))return "výhoda na CON záchrany pro udržení soustředění (War Caster)";
+  if((m=t.match(/^Advantage on saving throws against (.+?)\.?$/i)))return `výhoda na záchrany proti: ${m[1]}`;
+  if((m=t.match(/^Advantage on (STR|DEX|CON|INT|WIS|CHA) saving throws( against (.+?))?\.?$/i)))return `výhoda na ${m[1].toUpperCase()==="DEX"?"AGI":m[1].toUpperCase()} záchrany${m[3]?" proti: "+m[3]:""}`;
+  return t}
 /* ===== Karta postavy II (2026-10-16): Discord, texty rysů jen pro vlastníka, kouzla se sloty a zraněním, akce podle času,
    stavy mimo boj, AC s efekty, střelivo, příprava kouzel, společníci, pokladna družiny, tisk a export, doplňky hráče ===== */
 /* ---- Discord: přihlášený účet a jeho postava ---- */
@@ -9178,7 +9200,8 @@ function poklHtml(){const P=(POKL&&POKL.pen)||{},K=jaK(),muze=GMV||(K&&KZAM.has(
 function kExport(K){const b=new Blob([JSON.stringify({karta:K,stav:kartaStav(K.id)},null,1)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=`${K.id}.json`;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)}
 /* uložení importované karty: texty schopností zvlášť (soukromě); hráč přepisuje jen svou kartu */
 async function kartaUlozImport(K0){const K=Object.assign({},K0),tx=K.texty;delete K.texty;const j=JA.get();if(!GMV&&j&&j.k)K.id=j.k;
-  const i=await KDB.uloz(K);kartyNastav([{id:i,karta:K,stav:kartaStav(i)}]);if(tx)await kTextyUloz(i,tx);return i}
+  const i=await KDB.uloz(K);kartyNastav([{id:i,karta:K,stav:kartaStav(i)}]);if(tx)await kTextyUloz(i,tx);
+  if(KIMPINV&&kartaStav(i).inv)await kartaStavZmen(i,{inv:null},null,{bezZpet:true});return i}
 const KSLV={};
 document.addEventListener("change",async e=>{const t=e.target;if(!t.matches)return;
   if(t.matches("[data-kcil]")){const K=kvK(t);if(K)KCIL[K.id+":"+t.dataset.kcil]=t.value;return}

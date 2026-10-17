@@ -203,7 +203,7 @@ async def main():
     chk(await pl.locator(".bnpch").count()>0 and await pl.locator(".bnpch .bpocet, .bnpch .break, .bnpch .bstavy").count()==0,"hráč u nepřátel vidí jen jméno a druh")
     chk(await pl.evaluate("KARTY.some(k=>k.id==='balduin')"),"karta Balduina je v datech webu")
     await g.evaluate("bojZmen(z=>{z.hraci.push({id:'h4',n:'Balduin',k:'balduin',hod:10})})");await g.wait_for_timeout(900)
-    r=await g.evaluate("(()=>{const K=KARTBY.balduin,h={id:'x'};const a=bojZranPC(h,K,20,'Cold',false),b=h.hp;const h2={id:'y',thp:5};bojZranPC(h2,K,8,'Slashing',false);const h3={id:'z',hp:10};bojZranPC(h3,K,80,'Fire',false);const h4={id:'w',hp:3};bojZranPC(h4,K,5,'Fire',false);const l=bojLecPC(h4,K,4);return [b,h2.hp,h3.ds&&h3.ds.st,h4.ds&&h4.ds.st]})()")
+    r=await g.evaluate("(()=>{const K=KARTBY.balduin,h={id:'x'};const a=bojZranPC(h,K,20,'Cold',false),b=h.hp;const h2={id:'y',thp:5};bojZranPC(h2,K,8,'Fire',false);const h3={id:'z',hp:10};bojZranPC(h3,K,80,'Fire',false);const h4={id:'w',hp:3};bojZranPC(h4,K,5,'Fire',false);const l=bojLecPC(h4,K,4);return [b,h2.hp,h3.ds&&h3.ds.st,h4.ds&&h4.ds.st]})()")
     chk(r==[52,59,"mrtev","stab"],"karta: Resistance Cold, dočasné HP, okamžitá smrt přesahem, léčení na 0 jen stabilizuje: "+str(r))
     await g.evaluate(f"BCIL['{rid}']='h4';BADV['{rid}']=0;bojUtok(BOJ.s.npc.find(n=>n.id==='{rid}'),0);delete BCIL['{rid}'];delete BADV['{rid}'];renderBoj()")
     chk(await g.evaluate(f"BLOG['{rid}'][0].pcAC")==18,"útok nepřítele na postavu s kartou se porovná s jejím AC")
