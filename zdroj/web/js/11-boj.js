@@ -64,7 +64,7 @@ const BIC={
   uhyb:'<path d="M3 13.4c3.6-1.2 6-4.6 6.4-9.8M6.6 6.2l2.8-2.8 2.8 2.8"/>',
   smrt:'<path d="M5.4 14.4V12M10.6 14.4V12M8 14.4V12"/><path d="M8 1.8a5 5 0 0 0-5 5c0 2 1 3.6 2.4 4.6h5.2C12 10.4 13 8.8 13 6.8a5 5 0 0 0-5-5Z"/><path d="M5.8 6.6l1.4 1.4M7.2 6.6 5.8 8M8.8 6.6l1.4 1.4M10.2 6.6 8.8 8"/>'};
 /* malované ikony (art/img/boj, 48/96 px) – ostatní klíče zůstávají vektorové s ručně kresleným chvěním (filtr #bwob) */
-const BIMG=new Set(["pozehnani","pokuseni","komplikace","nerest","zavoj","pacholek","houf","sok","zhoubce","zranen","omracen","srazen","odzbrojen","porazen","prcha","oslepen","okouzlen","ohlusen","vydesen","chycen","neschopny","neviditelny","ochromen","zkameneny","otraven","zadrzen","bezvedomi","vycerpani","soustredi"]);
+const BIMG=new Set(["pozehnani","pokuseni","komplikace","nerest","zavoj","pacholek","houf","sok","zhoubce","zranen","omracen","srazen","odzbrojen","porazen","prcha","oslepen","okouzlen","ohlusen","vydesen","chycen","neschopny","neviditelny","ochromen","zkameneny","otraven","zadrzen","bezvedomi","vycerpani","soustredi","vyhoda","nevyhoda"]);
 const bi=(k,c)=>BIMG.has(k)?`<img class="bi bimg bimg-${k}${c?" "+c:""}" src="art/img/boj/${k}-48.webp" srcset="art/img/boj/${k}-48.webp 48w, art/img/boj/${k}-96.webp 96w" sizes="24px" width="24" height="24" alt="" aria-hidden="true" decoding="async">`
   :`<svg class="bi${c?" "+c:""}" viewBox="0 0 16 16" aria-hidden="true" focusable="false">${bojWob(k)}</svg>`;
 /* ručně kreslené chvění vektorových ikon: místo filtru feTurbulence (počítal se při každém vykreslení) se tvary jednou
