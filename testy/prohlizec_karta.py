@@ -146,9 +146,8 @@ async def main():
     await pl.evaluate("location.hash='#boj'");await pl.wait_for_timeout(4500)
     if not await pl.evaluate("!!(BOJ.s&&(BOJ.s.aktivni||BOJ.s.priprava))"):
         chk(await pl.locator(".bdmmimo .bdm").count()==1,"hráč mimo boj: v Boji má svou bojovou kartu (rozvržení D&D Beyond)")
-        await pl.click(".bdm [data-bdmvse]");await pl.wait_for_timeout(300)
-        chk(await pl.locator(".bdm .bdmsec").count()>=6,"bojová karta: všechny oddíly pod sebou")
-        await pl.click(".bdm [data-bdmvse]")
+        await pl.click('.bdm .bdmtabs [data-bdmsec="kouzla"]');await pl.wait_for_timeout(300)
+        chk(await pl.locator(".bdm .bdmsec[data-bdmid=kouzla]").count()==1,"bojová karta: záložka Kouzla")
     await pl.evaluate("location.hash='#hra'");await pl.wait_for_selector(".hraja",timeout=10000)
     cizi=await b.new_page(viewport={"width":390,"height":844});cerr=[];cizi.on("pageerror",lambda e:cerr.append(str(e)[:200]))
     await cizi.goto(BASE+"#karty/balduin");await cizi.wait_for_selector(".kcard",timeout=15000);await cizi.wait_for_timeout(2600);await cizi.evaluate("mmPopX()")
