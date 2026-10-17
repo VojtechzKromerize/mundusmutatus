@@ -3030,3 +3030,14 @@ h4 .kspi{margin-right:5px}
 .bphgo{display:flex;flex-direction:column;justify-content:center;align-items:center;min-width:96px;padding:6px 14px;border-radius:8px;border:0;background:#c9353b;color:#fff;cursor:pointer;box-shadow:0 2px 0 #7a1f22}
 .bphgo b{font-family:var(--f-disp,serif);font-size:1.25rem;line-height:1.05}.bphgo small{font-size:.72rem;opacity:.9}
 .bphgo:active{transform:translateY(1px);box-shadow:none}
+
+/* kolo: číslo vlevo od přesýpacích hodin; stavy pod jménem v pruhu iniciativy */
+#bojview .bkolo2{display:inline-grid;grid-template-columns:auto auto;grid-template-rows:auto auto;align-items:center;column-gap:4px}
+#bojview .bkolo2 b{grid-row:1/3;font-family:var(--f-disp);font-weight:500;font-size:2rem;line-height:1;color:var(--kal);min-width:.7em;text-align:right}
+#bojview .bkolo2 .bkolhg{width:44px;height:44px;object-fit:contain}
+#bojview .bkolo2 small{grid-column:2;font-family:var(--f-label);font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center;line-height:1}
+@media (max-width:600px){#bojview .bkolo2 .bkolhg{width:34px;height:34px}#bojview .bkolo2 b{font-size:1.6rem}}
+#bojview .bslot .bslst{position:static;display:flex;justify-content:center;gap:1px;margin-top:2px;min-height:24px}
+#bojview .bslot .bslst .bi.bimg,#bojview .bslot .bslst .bslsti .bimg{width:24px;height:24px;margin:0;filter:drop-shadow(0 0 1px var(--paper))}
+#bojview .bslot .bslsti{display:inline-flex;cursor:help}
+#bojview .bslot.btah .bslst{top:auto;left:auto}
