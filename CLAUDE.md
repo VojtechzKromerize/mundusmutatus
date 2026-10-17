@@ -21,7 +21,10 @@ v `zdroj/obsah/NÁVOD.md`, testy v `testy/README.md`. Tady je jen to, co ušetř
 
 ```
 zdroj/koruna.html    celý web v jednom souboru (~1,4 MB, ~10 500 řádků) včetně tajemství vypravěče
-zdroj/build.py       sestaví public/ (hráč) nebo vypravec/ (--vypravec, NEPUBLIKOVAT); --staticky bez databáze
+zdroj/build.py       sestaví public/ (hráč) nebo vypravec/ (--vypravec, NEPUBLIKOVAT); --staticky bez databáze;
+                     řádky /*@vloz web/…*/ v koruna.html nahradí obsahem souborů ze zdroj/web/
+zdroj/rozdel.py      rozdělí koruna.html na kostru + zdroj/web/styly.css a zdroj/web/js/NN-*.js (ověří, že
+                     sestavení dá bajt po bajtu stejný výsledek); --spoj vrátí jeden soubor, --zkus jen ověří
 zdroj/generator.js   z textů obsahu vyrobí data webu; běží v buildu (Node) i v prohlížeči vypravěče
 zdroj/obsah/         rody, osoby, vazby, Praha, místa, Kronika, Družina, Draconomicon, protivníci,
                      přívlastky, setkání, karty – ZÁLOHA databáze (viz níže)

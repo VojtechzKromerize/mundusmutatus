@@ -1,0 +1,124 @@
+#!/usr/bin/env python3
+"""Rozdělí zdroj/koruna.html na menší soubory v zdroj/web/ (styly a hlavní skript po oddílech).
+
+V koruna.html zůstane kostra stránky (hlavička, HTML pohledů, zavaděč dat) a místo stylů a skriptu řádky
+/*@vloz web/…*/. build.py je při sestavení nahradí obsahem souborů, takže výsledek je bajt po bajtu stejný
+jako původní soubor (skript to ověří, jinak nic nezapíše).
+
+    python3 zdroj/rozdel.py          rozdělí (když už rozdělený je, nic nedělá)
+    python3 zdroj/rozdel.py --spoj   spojí zpět do jednoho souboru (pro případ nouze)
+    python3 zdroj/rozdel.py --zkus   jen ověří, že by rozdělení prošlo
+
+Hranice oddílů se hledají podle začátku hlavičky komentáře, ne podle čísel řádků – skript jde pustit znovu
+na novější verzi souboru. Když hlavička chybí, oddíl se přiřadí k předchozímu souboru a skript to vypíše.
+"""
+import os, re, sys
+
+ZDROJ = os.path.dirname(os.path.abspath(__file__))
+SRC = os.path.join(ZDROJ, "koruna.html")
+WEB = os.path.join(ZDROJ, "web")
+VLOZ = re.compile(r"^/\*@vloz (web/[\w./-]+)\*/\n", re.M)
+
+# soubor → začátek prvního řádku oddílu (hlavička komentáře); první soubor začíná hned za <script id="mmhlavni">
+JS = [
+    ("01-zaklad.js", None),
+    ("02-mapa.js", "/* --- map geometry --- */"),
+    ("03-artikule.js", "/* ---------- Artikule: pravidla tažení"),
+    ("04-praha.js", "/* ---------- Praha: plán města"),
+    ("05-svet.js", "/* ---------- Známý svět: mapa Evropy"),
+    ("06-draconomicon-rodokmeny.js", "/* ---------- Draconomicon ---------- */"),
+    ("07-druzina-kronika.js", "/* ======== Družina · Kronika tažení"),
+    ("08-navigace-pravidla.js", "/* ---------- site navigation"),
+    ("09-vypravec-herni-cas.js", "/* ===== Vypravěč: stavy odhalení"),
+    ("10-kouzla.js", "/* ===== Kouzla: SRD 5.2.1 česky"),
+    ("11-boj.js", "/* ===== BOJ: tracker slotové iniciativy"),
+    ("12-boj-tah-postavy.js", "/* ===== automatizace tahu:"),
+    ("13-karty.js", "/* ===== Karty postav: import listu z PDF"),
+    ("14-karty-bojova-karta.js", "/* ===== Karta: vybavení z nabídky"),
+    ("15-karty-artikule.js", "/* ===== Karta postavy podle Artikulí"),
+    ("16-srd-ukazky-sezeni-hrac.js", "/* ===== SRD 5.2.1: magické předměty"),
+    ("17-karty-ii.js", "/* ===== Karta postavy II"),
+    ("18-pravidla-postavy.js", "/* ===== Pravidla postavy"),
+    ("19-karty-beyond.js", "/* ===== karta jako D&D Beyond (2026-10-17 b)"),
+    ("20-boj-hraci.js", "/* ===== útoky postav z telefonu"),
+    ("21-editor-pecet.js", "/* ===== Vypravěč: úpravy textů a obrázků"),
+    ("22-vyprava.js", "/* ===== VÝPRAVA: cesta družiny"),
+]
+CSS = "styly.css"
+
+
+def sestav(text, koren=ZDROJ):
+    """Nahradí řádky /*@vloz web/…*/ obsahem souborů (stejná funkce je v build.py)."""
+    def rep(m):
+        p = os.path.join(koren, m.group(1))
+        if not os.path.isfile(p):
+            raise SystemExit(f"chybí soubor {m.group(1)} (vkládá ho koruna.html)")
+        return open(p, encoding="utf-8").read()
+    return VLOZ.sub(rep, text)
+
+
+def rozdel(s):
+    a = s.find('<script id="mmhlavni">\n')
+    b = s.rfind("</script>")
+    if a < 0 or b < a:
+        raise SystemExit('nenašel jsem <script id="mmhlavni"> … </script>')
+    a += len('<script id="mmhlavni">\n')
+    js = s[a:b]
+    st = [m.start() for m in re.finditer(r"<style>\n", s)]
+    if len(st) < 2:
+        raise SystemExit("nenašel jsem druhý blok <style>")
+    ca = st[1] + len("<style>\n")
+    cb = s.find("</style>", ca)
+    css = s[ca:cb]
+    # hranice JS oddílů
+    zac, chybi = [0], []
+    for jm, hl in JS[1:]:
+        m = re.search("^" + re.escape(hl), js, re.M)
+        if not m or m.start() <= zac[-1]:
+            chybi.append(jm); zac.append(None); continue
+        zac.append(m.start())
+    casti, posl = [], None
+    for i, (jm, _) in enumerate(JS):
+        if zac[i] is None:
+            continue
+        konec = next((z for z in zac[i + 1:] if z is not None), len(js))
+        casti.append((jm, js[zac[i]:konec]))
+    soubory = {"web/" + CSS: css, **{"web/js/" + jm: t for jm, t in casti}}
+    kostra = (s[:ca] + f"/*@vloz web/{CSS}*/\n" + s[cb:a]
+              + "".join(f"/*@vloz web/js/{jm}*/\n" for jm, _ in casti) + s[b:])
+    return kostra, soubory, chybi
+
+
+def main():
+    s = open(SRC, encoding="utf-8").read()
+    if "--spoj" in sys.argv:
+        if not VLOZ.search(s):
+            print("koruna.html už je jeden soubor."); return
+        cele = sestav(s)
+        open(SRC, "w", encoding="utf-8").write(cele)
+        for p in VLOZ.findall(s):
+            os.remove(os.path.join(ZDROJ, p))
+        print(f"Spojeno zpět do koruna.html ({len(cele)//1024} kB); soubory ve web/ smazány.")
+        return
+    if VLOZ.search(s):
+        print("koruna.html už je rozdělený – nic nedělám."); return
+    kostra, soubory, chybi = rozdel(s)
+    # ověření: po sestavení musí vyjít přesně původní soubor
+    def rep(m): return soubory[m.group(1)]
+    if VLOZ.sub(rep, kostra) != s:
+        raise SystemExit("Ověření selhalo: po spojení by soubor nebyl stejný. Nic jsem nezapsal.")
+    for jm in chybi:
+        print(f"pozor: hlavička oddílu pro {jm} nenalezena – oddíl je v předchozím souboru")
+    if "--zkus" in sys.argv:
+        print(f"Rozdělení by prošlo: kostra {len(kostra)//1024} kB + {len(soubory)} souborů."); return
+    os.makedirs(os.path.join(WEB, "js"), exist_ok=True)
+    for p, t in soubory.items():
+        open(os.path.join(ZDROJ, p), "w", encoding="utf-8").write(t)
+    open(SRC, "w", encoding="utf-8").write(kostra)
+    print(f"Rozděleno: koruna.html {len(kostra)//1024} kB (kostra) + {len(soubory)} souborů ve zdroj/web/.")
+    for p, t in soubory.items():
+        print(f"  {p:42} {t.count(chr(10)):6} řádků")
+
+
+if __name__ == "__main__":
+    main()

@@ -326,7 +326,15 @@ def generuj(soubory, manifest):
     return json.loads(r.stdout)
 
 # ---------- sestavení ----------
-s = open(SRC, encoding="utf-8").read()
+# koruna.html může být jeden soubor, nebo kostra s řádky /*@vloz web/…*/ (zdroj/rozdel.py) – vloží se obsah souborů
+def vloz_soubory(t):
+    def rep(m):
+        p = os.path.join(ROOT, "zdroj", m.group(1))
+        if not os.path.isfile(p):
+            fail(f"chybí zdroj/{m.group(1)} (vkládá ho koruna.html)")
+        return open(p, encoding="utf-8").read()
+    return re.sub(r"^/\*@vloz (web/[\w./-]+)\*/\n", rep, t, flags=re.M)
+s = vloz_soubory(open(SRC, encoding="utf-8").read())
 J = lambda v: json.dumps(v, ensure_ascii=False, separators=(",", ":"))
 GEN_VERZE = otisk(open(GENERATOR, encoding="utf-8").read())[:12]
 SOUBORY = soubory_z_disku()
