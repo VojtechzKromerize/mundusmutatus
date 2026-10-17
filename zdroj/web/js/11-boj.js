@@ -64,7 +64,7 @@ const BIC={
   uhyb:'<path d="M3 13.4c3.6-1.2 6-4.6 6.4-9.8M6.6 6.2l2.8-2.8 2.8 2.8"/>',
   smrt:'<path d="M5.4 14.4V12M10.6 14.4V12M8 14.4V12"/><path d="M8 1.8a5 5 0 0 0-5 5c0 2 1 3.6 2.4 4.6h5.2C12 10.4 13 8.8 13 6.8a5 5 0 0 0-5-5Z"/><path d="M5.8 6.6l1.4 1.4M7.2 6.6 5.8 8M8.8 6.6l1.4 1.4M10.2 6.6 8.8 8"/>'};
 /* malované ikony (art/img/boj, 48/96 px) – ostatní klíče zůstávají vektorové s ručně kresleným chvěním (filtr #bwob) */
-const BIMG=new Set(["pozehnani","pokuseni","komplikace","nerest","zavoj","pacholek","houf","sok","zhoubce","zranen","omracen","srazen","odzbrojen","porazen","prcha"]);
+const BIMG=new Set(["pozehnani","pokuseni","komplikace","nerest","zavoj","pacholek","houf","sok","zhoubce","zranen","omracen","srazen","odzbrojen","porazen","prcha","oslepen","okouzlen","ohlusen","vydesen","chycen","neschopny","neviditelny","ochromen","zkameneny","otraven","zadrzen","bezvedomi","vycerpani","soustredi"]);
 const bi=(k,c)=>BIMG.has(k)?`<img class="bi bimg bimg-${k}${c?" "+c:""}" src="art/img/boj/${k}-48.webp" srcset="art/img/boj/${k}-48.webp 48w, art/img/boj/${k}-96.webp 96w" sizes="24px" width="24" height="24" alt="" aria-hidden="true" decoding="async">`
   :`<svg class="bi${c?" "+c:""}" viewBox="0 0 16 16" aria-hidden="true" focusable="false">${bojWob(k)}</svg>`;
 /* ručně kreslené chvění vektorových ikon: místo filtru feTurbulence (počítal se při každém vykreslení) se tvary jednou
@@ -115,7 +115,7 @@ const SRDST={"oslepen":{en:"Blinded",ut:-1,cil:1,t:"nevidí, ověření vyžaduj
   "omráčen":{en:"Stunned",cil:1,nej:1,zach:{STR:"f",AGI:"f"},t:"Incapacitated, záchrany STR a AGI automaticky selžou, útoky na něj s výhodou"},
   "v bezvědomí":{en:"Unconscious",cil:1,nej:1,zach:{STR:"f",AGI:"f"},k5:1,t:"Incapacitated a sražen, upustí, co drží; rychlost 0; záchrany STR a AGI automaticky selžou; útoky na něj s výhodou a zásah zblízka do 5 stop je kritický"},
   "úhyb":{en:"Dodge",cil:-1,zach:{AGI:"a"},t:"akce Úhyb do začátku jeho příštího tahu: útoky na něj s nevýhodou (vidí-li útočníka), výhoda na záchrany AGI"}};
-const SRDIC={"oslepen":"oslepen","okouzlen":"okouzlen","ohlušen":"ohlusen","vyděšený":"vydesen","chycen":"chycen","neschopný":"neschopny","neviditelný":"neviditelny","ochromen":"ochromen","zkamenělý":"zkameneny","otrávený":"otraven","sražen":"srazen","zadržen":"zadrzen","omráčen":"omracen","v bezvědomí":"bezvedomi","úhyb":"uhyb"};
+const SRDIC={"oslepen":"oslepen","okouzlen":"okouzlen","ohlušen":"ohlusen","vyděšený":"vydesen","chycen":"chycen","neschopný":"neschopny","neviditelný":"neviditelny","ochromen":"ochromen","zkamenělý":"zkameneny","otrávený":"otraven","sražen":"srazen","zadržen":"zadrzen","omráčen":"omracen","v bezvědomí":"bezvedomi","úhyb":"uhyb","soustředí":"soustredi"};
 Object.entries(SRDST).forEach(([k,v])=>{BSTI[k]=[SRDIC[k],`${k[0].toUpperCase()+k.slice(1)} (${v.en}) – ${v.t}`]});
 /* výhoda/nevýhoda ze stavů útočníka (st) a cíle (ct); dal = útok z dálky */
 function srdAdv(st,ct,dal,plus,minus,ja){const P=ja?"":"útočník ";

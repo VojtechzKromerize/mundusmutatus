@@ -2973,3 +2973,9 @@ h4 .kspi{margin-right:5px}
 .kupc{color:#6db3f2!important;font-family:var(--f-label);font-weight:700;font-size:.72rem}
 .bdmstk{display:inline-flex;vertical-align:-3px;margin-left:3px}.bdmstk img,.bdmstk svg{width:16px;height:16px}
 @media (max-width:600px){.bdmspr .bdmspa{grid-column:1/-1}}
+
+/* malované ikony stavů: neviditelný je jen tečkovaný obrys – na tmavém podkladu světlá linka */
+.kdb .bimg-neviditelny,.bdm .bimg-neviditelny,.bdpruh .bimg-neviditelny{filter:invert(.85) sepia(.3)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .bimg-neviditelny{filter:invert(.85) sepia(.3)}}
+:root[data-theme="dark"] .bimg-neviditelny{filter:invert(.85) sepia(.3)}
+.kdbvy .kvyi{width:20px;height:20px;margin-right:2px}
