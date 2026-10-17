@@ -51,15 +51,16 @@ async function kartaOdpocinek(K,dlouhy){const S=kartaStav(K.id),ch={},msg=[],poo
   const kr=(bojKritPC()[K.n]||[]).filter(x=>/^Lehká/.test(x.t));if(kr.length)msg.push(`Lehká kritická zranění se hojí odpočinkem – vypravěč je odškrtne (${kr.length})`);
   await kartaStavZmen(K.id,ch);kHodZapis({k:K.id,kdo:K.n,co:dlouhy?"Dlouhý odpočinek":"Krátký odpočinek",txt:msg.join("; ")});mmHlasG(`${K.n}: ${dlouhy?"dlouhý":"krátký"} odpočinek – ${msg.join("; ")}.`,8000)}
 /* sesílání kouzla: odečte nejnižší volný slot (sloty paktu i běžné), soustředění zapne v běžícím boji */
-async function kartaSeslat(K,sp,chce){try{const c=kCasKouzla(sp);const h0=((BOJ.s&&BOJ.s.aktivni&&BOJ.s.hraci)||[]).find(x=>bojKartaH(x)===K);if(h0&&h0.n===bojJa.get())bojBptOznac(c)}catch(e){}const L=kSloty(K).filter(q=>q.st>=sp.st&&q.u<q.max).sort((a,b)=>(chce&&a.k===chce?-1:chce&&b.k===chce?1:a.st-b.st));
-  if(sp.st>0&&!L.length){mmHlasG(`${K.n}: na ${sp.n} nezbývá slot ${sp.st}. stupně nebo vyšší.`,4000);return}
-  const q=sp.st>0?L[0]:null,U=Object.assign({},kartaStav(K.id).zdr||{});if(q)U[q.k]=(U[q.k]||0)+1;
-  if(q)await kartaStavZmen(K.id,{zdr:U});
+async function kartaSeslat(K,sp,chce){try{const c=kCasKouzla(sp);const h0=((BOJ.s&&BOJ.s.aktivni&&BOJ.s.hraci)||[]).find(x=>bojKartaH(x)===K);if(h0&&h0.n===bojJa.get())bojBptOznac(c)}catch(e){}const L=kSlX(K,sp).sort((a,b)=>(chce&&a.k===chce?-1:chce&&b.k===chce?1:a.st-b.st));
+  if((sp.st>0||sp.pz)&&!L.length){mmHlasG(sp.pz?`${K.n}: ${sp.pz.p} nemá na ${sp.n} dost nábojů.`:`${K.n}: na ${sp.n} nezbývá slot ${sp.st}. stupně nebo vyšší.`,4000);return}
+  const q=sp.st>0||sp.pz?L[0]:null,U=Object.assign({},kartaStav(K.id).zdr||{});
+  if(q&&q.lab!=null){const S=kartaStav(K.id),inv=[...(S.inv||K.vybaveni||[])].map(y=>Object.assign({},y)),it=inv[sp.pz.i];if(it&&q.nab){it.nab=(+it.nab||0)+q.nab;await kartaStavZmen(K.id,{inv})}}
+  else{if(q)U[q.k]=(U[q.k]||0)+1;if(q)await kartaStavZmen(K.id,{zdr:U})}
   const h=((BOJ.s&&BOJ.s.aktivni&&BOJ.s.hraci)||[]).find(x=>bojKartaH(x)===K);
   if(sp.kon&&h){if(window.MMDB&&!GMV)bojHracAkce(h.id,x=>{x.stav=[...new Set([...(x.stav||[]),"soustředí"])]});else if(GMV)bojHracAkce(h.id,x=>{x.stav=[...new Set([...(x.stav||[]),"soustředí"])]})}
   await kSpNacti().catch(()=>{});{const d=kSp(sp.n),h=d?kTrv(d.d):null;if(h)await kUcPridej(K,sp.n,h,sp.kon||!!(d&&d.ko))}
-  kHodZapis({k:K.id,kdo:K.n,co:`Seslal ${sp.n}`,txt:`${q?`slot ${q.st}. st.${q.pakt?" (pakt)":""}`:"trik"}${sp.zach?` · záchrana ${sp.zach}`:""}${sp.kon?" · Concentration":""}`});
-  mmHlasG(`${K.n} sesílá ${sp.n}${q?` (slot ${q.st}. st., zbývá ${q.max-q.u-1})`:""}${sp.kon?" – soustředění":""}${sp.zach?` · záchrana ${sp.zach}`:""}.`,5000)}
+  kHodZapis({k:K.id,kdo:K.n,co:`Seslal ${sp.n}`,txt:`${q&&q.lab!=null?`${sp.pz.p}, ${q.lab} (${q.st}. st.)`:q?`slot ${q.st}. st.${q.pakt?" (pakt)":""}`:"trik"}${sp.zach?` · záchrana ${sp.zach}`:""}${sp.kon?" · Concentration":""}`});
+  mmHlasG(`${K.n} sesílá ${sp.n}${q&&q.lab!=null?` (${sp.pz.p}: ${q.lab}, zbývá ${q.max-q.nab})`:q?` (slot ${q.st}. st., zbývá ${q.max-q.u-1})`:""}${sp.kon?" – soustředění":""}${sp.zach?` · záchrana ${sp.zach}`:""}.`,5000)}
 /* ===== stránka Karty postav ===== */
 const KSK={"STR":"Síla","AGI":"Obratnost","CON":"Odolnost","INT":"Inteligence","WIS":"Moudrost","CHA":"Charisma"};
 const KDOVAB={"Acrobatics":"AGI","Animal Handling":"WIS","Arcana":"INT","Athletics":"STR","Deception":"CHA","History":"INT","Insight":"WIS","Intimidation":"CHA","Investigation":"INT","Medicine":"WIS","Nature":"INT","Perception":"WIS","Performance":"CHA","Persuasion":"CHA","Religion":"INT","Sleight of Hand":"AGI","Stealth":"AGI","Survival":"WIS"};
@@ -263,7 +264,8 @@ document.addEventListener("click",async e=>{const v=e.target.closest&&e.target.c
     return}
   const zr=T("[data-kzr]");if(zr){const at=kUtoky(K)[+zr.dataset.kzr],E=kEfAkt(K,KEF[K.id],at);if(!at)return;const r=kartaZraneni(K,at,!!zr.dataset.krit,E);kEfPouzij(K,E,KEF[K.id]);
     const H={k:K.id,kdo:K.n,co:`Zranění – ${at.n}`,tot:r.t,txt:`${r.x}${zr.dataset.krit?" (kritický zásah)":""} ${BZRT[at.t]||at.t||""}`};if(skr){HODY.unshift(Object.assign({id:Date.now(),cas:new Date().toISOString(),skryty:true},H));renderKarty(id)}else kHodZapis(H);mmHlasG(`${K.n}: zranění ${r.t} (${r.x})`,4500);return}
-  const ses=T("[data-kses]");if(ses){const sp=kSeznam(K)[+ses.dataset.kses];if(sp)kartaSeslat(K,sp,KSLV[K.id+":"+ses.dataset.kses]);return}
+  const cm=T("[data-kcilm]");if(cm){const [i,id]=cm.dataset.kcilm.split("|"),x=kSeznam(K)[+i];if(!x)return;const S=kCilM(K,i),mx=kCilMax(K,x,i);if(S.has(id))S.delete(id);else if(S.size<mx)S.add(id);else mmHlasG(`${x.n}: nejvýš ${mx} ${mx===1?"cíl":mx<5?"cíle":"cílů"}.`,3000);kartyPrekresli();return}
+  const ses=T("[data-kses]");if(ses){const i=ses.dataset.kses,sp=kSeznam(K)[+i];if(sp){await kSpNacti().catch(()=>{});if(kSesCil(sp)){kSesDlg(K,sp,i);return}await kartaSeslat(K,sp,KSLV[K.id+":"+i])}return}
   const zd=T("[data-kzd]");if(zd){const k=zd.dataset.kzd,j=+zd.dataset.j,U=Object.assign({},S.zdr||{}),u=U[k]||0;U[k]=u>j?j:j+1;if(!U[k])delete U[k];kartaStavZmen(K.id,{zdr:Object.keys(U).length?U:null});return}
   const kk=T("[data-kkz]");if(kk){const j=+kk.dataset.kkz,u=+S.kz||0;kartaStavZmen(K.id,{kz:(u>j?j:j+1)||null});return}
   const vy=T("[data-kvy]");if(vy){const j=+vy.dataset.kvy,u=+S.vycerp||0;kartaStavZmen(K.id,{vycerp:(u>j?j:j+1)||null});return}

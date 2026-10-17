@@ -325,6 +325,25 @@ async def main():
     chk("soustředí" in await g.evaluate("JSON.stringify(BOJ.s.hraci.find(h=>h.id==='h4').stav||[])"),"Hold Person zapne soustředění v boji")
     await pl.evaluate(f"(()=>{{const [z,u]={z0};return Promise.all([kartaStavZmen('balduin',{{zdr:z}}),kartaStavZmen('balduin',{{uc:u}})])}})()")  # další testy počítají s volnými sloty
     await g.evaluate("bojZmen(z=>{const h=z.hraci.find(h=>h.id==='h4');if(h){h.stav=(h.stav||[]).filter(x=>x!=='soustředí');if(!h.stav.length)delete h.stav}})");await pl.wait_for_timeout(1200)
+    # Seslat na koho (vypravěč za hráče): Hold Person na nepřítele – záchrana hned, Ochromen, opakovaná záchrana na konci tahu, konec se soustředěním
+    await g.evaluate("kSpNacti()");await g.wait_for_function("typeof KSPD==='object'&&KSPD!==null",timeout=10000)
+    i_hp=await g.evaluate("kSeznam(KARTBY.balduin).findIndex(x=>x.n==='Hold Person')");nid=await g.evaluate("(kSesNpc().find(o=>o.druh!=='houf')||{}).id")
+    async def drz(rnd):
+        await g.evaluate(f"kSesDlg(KARTBY.balduin,kSeznam(KARTBY.balduin)[{i_hp}],{i_hp})");await g.wait_for_selector(".ksdpop")
+        ok=await g.locator(f'.ksdpop [data-ksdc="n:{nid}"]').count()==1 and await g.locator('.ksdpop [data-ksdc="k:balduin"]').count()==1
+        await g.click(f'.ksdpop [data-ksdc="n:{nid}"]');await g.evaluate(f"window._mr=Math.random;Math.random=()=>{rnd};0")
+        await g.click('.ksdpop .ksdok .gbtn:not(.ghost)');await g.wait_for_timeout(1500);await g.evaluate("Math.random=window._mr;0");return ok
+    chk(await drz(0),"Seslat na koho: v boji nabídne družinu i nepřátele")
+    n1=await g.evaluate(f"JSON.parse(JSON.stringify(BOJ.s.npc.find(n=>n.id==='{nid}')))")
+    ef=[e for e in (n1.get("ef") or []) if e.get("n")=="Hold Person"]
+    chk("ochromen" in (n1.get("stav") or []) and ef and ef[0].get("op",{}).get("ab")=="WIS" and ef[0].get("src")=="h4","Hold Person: neúspěšná záchrana → Ochromen, opakovaná záchrana WIS, drží soustředění Balduina: "+str(ef)[:160])
+    await g.evaluate("bojZmen(z=>{const h=z.hraci.find(h=>h.id==='h4');h.stav=(h.stav||[]).filter(x=>x!=='soustředí')})");await g.wait_for_timeout(900)
+    n1=await g.evaluate(f"JSON.parse(JSON.stringify(BOJ.s.npc.find(n=>n.id==='{nid}')))")
+    chk("ochromen" not in (n1.get("stav") or []) and not any(e.get("n")=="Hold Person" for e in (n1.get("ef") or [])),"ztráta soustředění sesilatele ukončí Hold Person na nepříteli")
+    await drz(0);await g.evaluate(f"window._mr=Math.random;Math.random=()=>0.999;bojZmen(z=>bojKonecTahu(z,'{nid}'));Math.random=window._mr;0");await g.wait_for_timeout(900)
+    n1=await g.evaluate(f"JSON.parse(JSON.stringify(BOJ.s.npc.find(n=>n.id==='{nid}')))")
+    chk("ochromen" not in (n1.get("stav") or []),"opakovaná záchrana na konci tahu: úspěch Hold Person ukončí")
+    await g.evaluate("bojZmen(s=>{const h=s.hraci.find(h=>h.id==='h4');h.stav=(h.stav||[]).filter(x=>x!=='soustředí');if(!h.stav.length)delete h.stav});kartaStavZmen('balduin',{zdr:null,uc:null})");await g.wait_for_timeout(1500)  # další testy počítají s volnými sloty
     c,t=anon_rpc("mm_boj_hrac",{"p_hrac":"h4","p_pole":"hp","p_hodnota":5000});chk(c>=400,"mm_boj_hrac odmítne nesmyslné životy")
     # karta postavy jako stránka: hody do herního záznamu, sloty, import z polí PDF, kontrola vstupů v databázi
     await pl.goto(BASE+"#karty/balduin");await pl.wait_for_selector(".kdbtop",timeout=15000)
@@ -333,7 +352,7 @@ async def main():
     hody=json.loads(urllib.request.urlopen(urllib.request.Request(U+"/rest/v1/hody?select=data&order=id.desc&limit=5",headers={"apikey":K})).read())
     chk(any(h["data"].get("co")=="Záchrana CON" for h in hody),"hod z karty je ve společném herním záznamu")
     s1=await pl.evaluate("(kartaStav('balduin').zdr||{}).slot3p||0")
-    await pl.click('[data-ktab="kouzla"]');await pl.click('.ktab[data-tab="kouzla"] [data-kses="16"]');await pl.wait_for_timeout(1200)
+    await pl.click('[data-ktab="kouzla"]');await pl.click('.ktab[data-tab="kouzla"] [data-kses="16"]');await pl.wait_for_selector(".ksdpop",timeout=5000);await pl.click('.ksdpop [data-ksdok="bez"]');await pl.wait_for_timeout(1200)
     chk(await pl.evaluate("(kartaStav('balduin').zdr||{}).slot3p||0")==s1+1,"seslání kouzla odečte slot paktu")
     pole=json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)),"karta-pdf-pole.json"),encoding="utf-8"))
     r=await pl.evaluate("F=>{const K=kartaZPdf(F);return [K.n,K.ac,K.hp,K.utoky.length,K.kouzla.seznam.length,K.kouzla.sloty[0].max,K.odol.join(),K.efekty.length]}",pole)

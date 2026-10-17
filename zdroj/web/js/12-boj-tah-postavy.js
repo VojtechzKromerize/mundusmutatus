@@ -25,8 +25,22 @@ function bojTahHook(pre,s){const o0=pre.obsazeni||{},o1=s.obsazeni||{},t0=pre.ta
   const posun=k1>k0||(k1===k0&&t1>t0);if(!posun&&!(k1===k0&&t1===t0))return;
   if(posun&&id0)bojKonecTahu(s,id0);if(id1&&(posun||id1!==id0)){if(s.reak&&s.reak[id1]){delete s.reak[id1];if(!Object.keys(s.reak).length)delete s.reak}
     const rd=(s.ready||{})[id1];if(rd){delete s.ready[id1];if(!Object.keys(s.ready).length)delete s.ready;bojMsg(id1,`Připravená akce propadla: ${rd}.`);const hh=(s.hraci||[]).find(x=>x.id===id1);if(hh)mmHlasG(`${hh.n}: připravená akce propadla (${rd}).`,4000)}bojZacatekTahu(s,id1)}}
+/* stav z kouzla se záchranou (2026-10-17): Hold Person → ochromen (Paralyzed) apod. Při neúspěšné záchraně dostane cíl stav
+   s trváním kouzla; když kouzlo říká „na konci každého tahu hod opakuje“, tracker ho na konci tahu nepřítele hodí sám.
+   Soustředěné kouzlo skončí i tehdy, když sesilatel ztratí soustředění (bojAcSync). */
+function bojSpStav(cim){if(typeof kSp!=="function"||!KSPD)return null;const nm=String(cim||"").replace(/\s*\(\d+\. st\.\)\s*$/,"").trim(),d=kSp(nm);if(!d)return null;
+  const t=String(d.t||""),EN=Object.fromEntries(Object.entries(SRDST).map(([k,v])=>[v.en,k])),st=[];
+  t.split(/(?<=\.)\s+/).filter(v=>/neúspěch|jinak|musí uspět/i.test(v)).forEach(v=>{(v.match(/\b(Blinded|Charmed|Deafened|Frightened|Grappled|Incapacitated|Invisible|Paralyzed|Petrified|Poisoned|Prone|Restrained|Stunned|Unconscious)\b/g)||[]).forEach(e=>{const k=EN[e];if(k&&!st.includes(k))st.push(k)})});
+  if(!st.length)return null;const h=kTrv(d.d);return {n:d.en||nm,st,op:/na konci každého (?:svého )?tahu[^.]{0,90}(?:opakuje|zopakuje)/i.test(t),k:h?Math.max(1,Math.round(h*600)):1,kon:!!d.ko}}
+function bojSpStavDej(s,n,S,u){const h=(s.hraci||[]).find(x=>x.id===u.h),kon=S.kon&&h&&(h.stav||[]).includes("soustředí");
+  (n.ef||[]).filter(e=>e.n===S.n).forEach(e=>bojEfDel(n,e));
+  S.st.forEach(st=>{const ef={n:S.n,kdy:"kola",k:S.k,kolo:s.kolo||1,tah:s.tah||0,st};if(S.op&&u.plos)ef.op={ab:u.plos.ab,dc:u.plos.dc};if(kon)ef.src=u.h;
+    if(!(n.stav||[]).includes(st))n.stav=[...(n.stav||[]),st];(n.ef=n.ef||[]).push(ef)});bojMsg(n.id,`${S.n}: ${S.st.join(", ")}${S.op?` – na konci tahu záchrana ${u.plos.ab} SO ${u.plos.dc}`:""}.`)}
 function bojEfDel(n,e){n.ef=(n.ef||[]).filter(x=>x!==e);if(e.st&&!(n.ef||[]).some(x=>x.st===e.st))n.stav=(n.stav||[]).filter(x=>x!==e.st);if(!n.ef.length)delete n.ef}
 function bojKonecTahu(s,id){const n=(s.npc||[]).find(x=>x.id===id);if(!n)return;
+  {const hot=new Set();(n.ef||[]).slice().forEach(e=>{if(!e.op||hot.has(e.n))return;hot.add(e.n);const E=bojEff(n),b=bojSaveB(E&&E.p,e.op.ab),d=bK(20),t=d+b,ok=t>=e.op.dc;
+    bojMsg(id,`${e.n}: záchrana ${e.op.ab} ${t} (d20 ${d} ${bsg(b)}) proti SO ${e.op.dc} – ${ok?"uspěl, kouzlo na něm končí":"neuspěl, trvá dál"}.`);
+    if(ok)(n.ef||[]).filter(x=>x.n===e.n).forEach(x=>bojEfDel(n,x))})}
   (n.ef||[]).slice().forEach(e=>{if(e.kdy==="konec"&&e.zac){bojEfDel(n,e);bojMsg(id,`Skončilo: ${e.n}.`)}})}
 function bojZacatekTahu(s,id){const n=(s.npc||[]).find(x=>x.id===id);if(!n)return;BTMSG[id]=[];const E=bojEff(n),kolo=s.kolo||1;
   (n.ef||[]).slice().forEach(e=>{

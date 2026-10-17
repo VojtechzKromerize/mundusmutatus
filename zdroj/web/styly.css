@@ -3005,3 +3005,16 @@ h4 .kspi{margin-right:5px}
 .bdmsti .bimg-neviditelny{filter:invert(.85) sepia(.3) drop-shadow(0 1px 1px #000)!important}
 .bdmsti b{font-size:.8rem;color:var(--kb-tx);align-self:center;margin-left:2px}
 .bdmsti3 .bimg.bdmsti1{width:28px;height:28px}.bdmsti3{gap:0}
+/* výběr cílů kouzla (Seslat na koho), kouzla z předmětů (2026-10-17 b) */
+.kcilm{display:inline-flex;flex-wrap:wrap;align-items:center;gap:5px;margin:2px 4px}
+.kcilm small{color:var(--muted);font-size:.8rem}
+.kcilmb{display:inline-flex;align-items:center;gap:5px;min-height:32px;padding:3px 11px;border:1px solid var(--rule);border-radius:999px;background:var(--paper);color:var(--ink);font:inherit;font-size:.9rem;cursor:pointer}
+.kcilmb .bmini{--ms:22px}
+.kcilmb[aria-pressed=true]{background:var(--kat);border-color:var(--gold);color:#fbf1d4;box-shadow:0 0 0 1px var(--gold)}
+.ksdlg .ksdl{display:flex;margin:4px 0 10px}
+.ksdlg h4.bsph{margin:10px 0 2px}
+.ksdok{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.kpzz{display:inline-block;padding:0 6px;border:1px dashed var(--gold);border-radius:999px;color:var(--muted);font-size:.75rem;white-space:nowrap}
+.kdb .kcilmb,.bdm .kcilmb{background:#14100d;border-color:var(--kb-bd2,#5a3d2c);color:var(--kb-tx,#e8dcc4)}
+.kdb .kcilmb[aria-pressed=true],.bdm .kcilmb[aria-pressed=true]{background:#2f2416;border-color:var(--kb-gold,#d9b45a)}
+.kucod{opacity:.9;border-top:1px dashed var(--rule);padding-top:4px}

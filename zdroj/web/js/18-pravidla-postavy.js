@@ -105,7 +105,7 @@ const KPASD={vnimani:"Perception",vhled:"Insight",patrani:"Investigation"};
 const kPas=(K,k)=>kHodn(K,"pas",k).v;
 const kSpAbPdf=K=>{const v=String((K.kouzla||{}).vl||"");return !v?null:/cha/i.test(v)?"CHA":/wis|mou/i.test(v)?"WIS":/int/i.test(v)?"INT":/con|odo/i.test(v)?"CON":/dex|agi|obr/i.test(v)?"AGI":/str|síl/i.test(v)?"STR":null};
 const kSpAb=K=>KR.spab(kCtx(K));
-const kSpDC=K=>kSpAb(K)?kHodn(K,"spdc").v:null;
+const kSpDC=(K,x)=>x&&x.pz&&x.pz.dc?x.pz.dc:kSpAb(K)?kHodn(K,"spdc").v:null;
 const kSpUt=K=>kSpAb(K)?kHodn(K,"sput").v:0;
 const kSpU1=(K,x)=>kSpUt(K);
 const kHPmax=K=>Math.max(1,kHodn(K,"hp").v);
@@ -188,7 +188,8 @@ KPDFV.ac=K=>K.ac;
 function kACR(K){const S=kartaStav(K.id),H=kHodn(K,"ac"),N=kCtx(K).N,L=H.L.slice();let ac=H.v;
   if(S.forma&&S.forma.ac)return {ac:+S.forma.ac,txt:`podoba ${S.forma.n} (AC zvířete)`,N};
   if(S.bezstit&&N.s){ac-=N.s.ac;L.push(["bez štítu",-N.s.ac])}else if(S.bezstit){ac-=2;L.push(["bez štítu",-2])}let min=0;
-  (S.uc||[]).forEach(x=>{if(x.ac){ac+=+x.ac;L.push([x.n,+x.ac])}if(x.acmin)min=Math.max(min,+x.acmin)});const txt=L.map(([l,v],i)=>i?`${l} ${bsg(v)}`:`${l} ${v}`).join(" · ")+(min>ac?` · aspoň ${min} (kouzlo)`:"");return {ac:Math.max(ac,min),txt,N}}
+  (S.uc||[]).forEach(x=>{if(x.ac){ac+=+x.ac;L.push([x.n,+x.ac])}if(x.acmin)min=Math.max(min,+x.acmin)});
+  if(typeof kBufy==="function"&&!(S.uc||[]).some(x=>x.ac&&/^Shield of Faith$/.test(x.n))&&kBufy(K).some(b=>b.n==="Shield of Faith")){ac+=2;L.push(["Shield of Faith",2])}const txt=L.map(([l,v],i)=>i?`${l} ${bsg(v)}`:`${l} ${v}`).join(" · ")+(min>ac?` · aspoň ${min} (kouzlo)`:"");return {ac:Math.max(ac,min),txt,N}}
 const kAC=K=>kACR(K).ac;
 /* Resistance: z karty (D&D Beyond) + ze zbroje, kterou postava nosí (Artikule, Zbroj) */
 const kOdol=K=>{const N=kCtx(K).N,r=[...(K.odol||[])];if(kPri(K).includes("Rage"))["Bludgeoning","Piercing","Slashing"].forEach(t=>{if(!r.includes(t))r.push(t)});if(N.z&&BZBR[N.z.dr])BZBR[N.z.dr][0].split(/,\s*/).forEach(t=>{if(t!=="—"&&!r.includes(t))r.push(t)});return r};
