@@ -2900,3 +2900,30 @@ button.kdbs:hover{border-color:var(--kb-gold)}.kdbsac b{color:var(--kb-gold)}
 .bdmvls:hover,.bdmvlm:hover,.bdmvlzh:hover,.bdmvls:focus-visible,.bdmvlm:focus-visible,.bdmvlzh:focus-visible{background:#2a221c;outline:0}
 @media (max-width:699px){.bdmvlr{grid-template-columns:2.5em minmax(0,.85fr) minmax(0,1.35fr);min-height:52px}.bdmvlz{font-size:.82rem;letter-spacing:.03em}.bdmvls{font-size:1.25rem}
   .bdmvlm,.bdmvlzh{padding:1px 6px 1px 5px;font-size:1rem}.bdmvlm small,.bdmvlzh small{font-size:.5rem;letter-spacing:.02em}}
+/* před hodem na útok: cíl, výhoda, typ zranění (2026-10-17) */
+.bphod{display:flex;flex-direction:column;gap:8px;margin:0 0 10px;padding:10px;background:#1e1915;border:1px solid var(--kb-bd2);border-radius:8px}
+.bphr{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px}
+.bphl{min-width:4.6em;font-family:var(--f-label);font-weight:700;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--kb-mu)}
+.bphc{display:flex;flex-wrap:wrap;gap:6px}
+.bphcil,.bphtyp{display:inline-flex;align-items:center;gap:6px;padding:3px 10px 3px 4px;background:#14100d;border:1px solid var(--kb-bd2);border-radius:999px;color:var(--kb-tx);font:inherit;font-size:.9rem;cursor:pointer}
+.bphtyp{padding:3px 10px 3px 6px}
+.bphcil[aria-pressed=true],.bphtyp[aria-pressed=true]{border-color:var(--kb-gold);background:#2f2416;box-shadow:0 0 0 1px var(--kb-gold)}
+.bphadv button{padding:4px 10px}
+.bphnav{color:var(--kb-mu);font-size:.78rem}
+.bphod .bdmhod{align-self:flex-start;margin-top:2px}
+/* Svědomí v šestiúhelníku: body hříchu a dobrých skutků; list Svědomí */
+.bdmsvb{display:flex;gap:4px;margin-top:2px}
+.bdmsvb i{font-style:normal;font-size:.7rem;font-weight:700;min-width:1.3em;padding:0 3px;border-radius:999px;text-align:center}
+.bdmsvh1{background:#5a1d20;color:#ffb3b5}.bdmsvd1{background:#2b3d22;color:#bfe3a5}
+.bdmsvk{display:flex;gap:10px}
+.bdmsvk .kbod{display:flex;flex-direction:column;align-items:center;padding:6px 14px;background:#14100d;border:1px solid var(--kb-bd2);border-radius:6px}
+.bdmsvk .kbod small{font-family:var(--f-label);font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;color:var(--kb-mu)}
+.bdmsvk .kbod b{font-size:1.4rem;color:var(--kb-tx)}
+.bdmpan .kdusk{min-width:4em;font-family:var(--f-label);font-weight:700;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--kb-mu)}
+.bdmpan .bhrich{border-color:#8e3236;color:#f0757a}
+.bphadv button{background:#14100d;color:var(--kb-tx);border:1px solid var(--kb-bd2)}
+.bphadv button[aria-pressed=true]{background:#2f2416;border-color:var(--kb-gold);color:var(--kb-gold)}
+.bdmpan .bdmsk{border-color:#4f7a3a;color:#bfe3a5}
+.bdm .kzavbox{color:var(--kb-tx)}
+.bdm .kzavbox b{color:inherit}
+.bdm .kzavbox.kpok b{color:#f0757a}.bdm .kzavbox.kpoz b{color:var(--kb-gold)}

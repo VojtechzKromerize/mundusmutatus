@@ -117,7 +117,7 @@ function bojJaHod(){const s=BOJ.s||{},me=(s.hraci||[]).find(h=>h.n===bojJa.get()
   for(let i=0;i<Math.max(1,+w.pocet||1);i++){const d1=bK(20),d2=v?bK(20):null,d=v>0?Math.max(d1,d2):v<0?Math.min(d1,d2):d1,krit=d>=kmin,PD=K?kPriHod(K,"Útok"):{t:0,txt:""},k=w.z?bojKostky(w.z,krit):null,ek=efK.map(e=>bojKostky(e.zr,krit)).filter(Boolean),dmg=(k?k.t:0)+(d===1?0:plus+ek.reduce((a,q)=>a+q.t,0));
     ser.push({hod:d+b+PD.t,d,d1,d2,v,b:b+PD.t,dmg,krit,vys:bojJaZas(c,d+b+PD.t,d,krit),upr:[]});txt.push(`d20 ${d1}${d2!=null?`/${d2}`:""} ${bsg(b)}${PD.txt} = ${d+b+PD.t}${krit?" krit!":d===1?" (1)":""}${ser[ser.length-1].vys?` → ${ser[ser.length-1].vys.toUpperCase()}`:""}${k?`, zranění ${k.x}${plus?` +${plus}`:""}${ek.map(q=>" + "+q.x).join("")} = ${dmg}`:""}`)}
   if(K&&w.karta){const a=kUtoky(K).find(x=>x.n===w.n);if(a)kMunOdecti(K,a,ser.length)}if(K)kEfPouzij(K,E,BJU.ef);
-  BJU.hod=String(ser[0].hod);BJU.d=String(ser[0].d);BJU.dmg=String(ser[0].dmg);BJU.t=w.t||BJU.t;BJU.drt=!!w.drt;BJU.pru=!!w.pru;BJU.kmin=kmin;BJU.serie=ser;
+  BJU.hod=String(ser[0].hod);BJU.d=String(ser[0].d);BJU.dmg=String(ser[0].dmg);BJU.t=bojUtTyp(K,w)||w.t||BJU.t;BJU.drt=!!w.drt;BJU.pru=!!w.pru;BJU.kmin=kmin;BJU.serie=ser;
   let zv="";if(K){const z=kZavoj(K);KZAV[K.id]={co:`Útok – ${w.n}`,d:z.d,r:z.r,hod:z.hod};zv=" · "+zavTxt(z)}
   BJU.info=(v?`${v>0?"Výhoda":"Nevýhoda"}. `:"")+txt.join(" · ")+zv;bojBptOznac("A");renderBoj()}
 /* hráč: poslat útok vypravěči */
