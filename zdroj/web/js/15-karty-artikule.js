@@ -68,7 +68,7 @@ function kUcHtml(K){const L=kUc(K),t=kTed();
     <p class="rsmall">Vyprší podle herního času, který posouvá vypravěč (odpočinek družiny ho posune sám). Kratší účinky ukonči ručně.</p>`}
 /* ---- popisy kouzel z art/kouzla.json (pro hráče jen kouzla jejich postavy) ---- */
 let KSPD=null;
-const kSpNacti=()=>KSPD?Promise.resolve(KSPD):fetch("art/kouzla.json").then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(d=>{KSPD={};d.forEach(x=>{KSPD[x.en.toLowerCase()]=x});return KSPD});
+let KSPDP=null;const kSpNacti=()=>KSPD?Promise.resolve(KSPD):(KSPDP=KSPDP||kouzlaTxt().then(t=>{const d=JSON.parse(t),M={};d.forEach(x=>{M[x.en.toLowerCase()]=x});return KSPD=M}).catch(e=>{KSPDP=null;throw e}));
 const kSp=n=>KSPD&&KSPD[String(n||"").toLowerCase().replace(/\s*\((ritual|rituál)\)\s*$/,"").trim()]||null;
 const KSPO=new Set();
 function kSpPopis(sp){const x=kSp(sp.n);if(!KSPD)return `<p class="rsmall">Načítám popis…</p>`;if(!x)return `<p class="rsmall">Kouzlo web nezná – popis najdeš v D&amp;D Beyond.</p>`;

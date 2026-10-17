@@ -423,11 +423,15 @@ window.MMDB={vetev:C.vetev,
   cfg:C,
   async bojNacti(){const j=await api(`/rest/v1/boj?id=eq.aktivni&select=stav,verze`);return j&&j[0]?j[0]:null},
   async bojVerze(){const j=await api(`/rest/v1/boj?id=eq.aktivni&select=verze`);return j&&j[0]?j[0].verze:0},
-  async bojUloz(s){const t=await token();if(!t)throw new Error("Přihlášení vypršelo – přihlaste se znovu.");
+  async bojUloz(s,v){const t=await token();if(!t)throw new Error("Přihlášení vypršelo – přihlaste se znovu.");
+    if(v!=null&&v>0)return api("/rest/v1/rpc/mm_boj_uloz_v",{method:"POST",tok:t,body:JSON.stringify({p_stav:s,p_verze:v})});
     return api("/rest/v1/rpc/mm_boj_uloz",{method:"POST",tok:t,body:JSON.stringify({p_stav:s})})},
   async bojHod(hrac,hod){return rpc("mm_boj_hod",{p_hrac:hrac,p_hod:hod,p_token:htok()})},
   async bojUtok(hrac,utok){return rpc("mm_boj_utok",{p_hrac:hrac,p_utok:utok,p_token:htok()})},
-  async kartyNacti(){return api(`/rest/v1/karty?select=id,karta,stav,verze,zamceno,hrac`)},
+  /* karty: nejdřív jen verze (pár bajtů), celé řádky jen u karet, které se změnily – telefony nestahují každé 4 s všechny karty i s portréty */
+  async kartyNacti(znovu){const zn=this._kv&&!znovu?this._kv:(this._kv={}),V=await api(`/rest/v1/karty?select=id,verze,zamceno,hrac`)||[],zm=V.filter(r=>zn[r.id]!==r.verze).map(r=>r.id);
+    const F=zm.length?await api(`/rest/v1/karty?select=id,karta,stav,verze,zamceno,hrac&id=in.(${zm.join(",")})`)||[]:[],by={};F.forEach(r=>{zn[r.id]=r.verze;by[r.id]=r});
+    return V.map(r=>by[r.id]||{id:r.id,zamceno:r.zamceno,hrac:r.hrac,$beze:1})},
   async kartaUloz(k){return rpc("mm_karta_uloz",{p_karta:k,p_token:htok()})},
   async kartaStav(id,pole,hodnota){return rpc("mm_karta_stav",{p_id:id,p_pole:pole,p_hodnota:hodnota,p_token:htok()})},
   async kartaLecit(id,hp,max,od){return rpc("mm_karta_lecit",{p_id:id,p_hp:hp,p_max:max,p_od:od,p_token:htok()})},

@@ -3042,3 +3042,5 @@ h4 .kspi{margin-right:5px}
 @media (max-width:600px){#bojview .bslot .bslst .bi.bimg,#bojview .bslot .bslst .bslsti .bimg{width:28px;height:28px}#bojview .bslot .bslst{min-height:28px}}
 #bojview .bslot .bslsti{display:inline-flex;cursor:help}
 #bojview .bslot.btah .bslst{top:auto;left:auto}
+/* dotykové displeje: rozbalovací nabídky a zaškrtávátka dost velká na prst (2026-10-18) */
+@media (pointer:coarse){select{min-height:34px}input[type=checkbox],input[type=radio]{width:20px;height:20px;flex:none}}

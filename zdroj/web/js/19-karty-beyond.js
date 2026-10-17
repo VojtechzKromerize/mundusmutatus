@@ -25,9 +25,9 @@ async function kHistorie(K){if(!window.MMDB||!MMDB.kartaHistorie){mmHlasG("Histo
     ${L.length?`<ul class="khist">${L.map(h=>`<li><small>${(()=>{try{return new Date(h.cas).toLocaleString("cs-CZ",{day:"numeric",month:"numeric",hour:"2-digit",minute:"2-digit"})}catch(e){return ""}})()}</small> <span>${besc(kHistShrn(h.stav||{}))}</span> ${kMuze(K)?`<button type="button" class="gbtn ghost" data-khist="${+h.n}" data-khistk="${besc(K.id)}">Obnovit</button>`:""}</li>`).join("")}</ul>`:`<p>Zatím žádný starší stav.</p>`}`)}
   catch(err){mmHlasG("Historii se nepodařilo načíst: "+(err.message||err),5000)}}
 document.addEventListener("click",async e=>{const b=e.target.closest&&e.target.closest("[data-khist]");if(!b)return;const K=KARTBY[b.dataset.khistk];if(!K||!kMuze(K))return;if(!confirm(`Vrátit kartu ${K.n} do stavu ze ${b.parentNode.querySelector("small").textContent}?`))return;
-  try{await MMDB.kartaObnov(K.id,+b.dataset.khist);mmPopX();KPENDT[K.id]=0;await kartyNacti();kartyPrekresli();mmHlasG(`${K.n}: karta obnovena.`,4000);kHodZapis({k:K.id,kdo:K.n,co:"Karta obnovena",txt:"z historie"})}catch(err){mmHlasG("Nepodařilo se: "+(err.message||err),5000)}});
+  try{await MMDB.kartaObnov(K.id,+b.dataset.khist);mmPopX();KPENDT[K.id]=0;await kartyNacti(true);kartyPrekresli();mmHlasG(`${K.n}: karta obnovena.`,4000);kHodZapis({k:K.id,kdo:K.n,co:"Karta obnovena",txt:"z historie"})}catch(err){mmHlasG("Nepodařilo se: "+(err.message||err),5000)}});
 /* ---- postup na úroveň: životy (průměr nebo hod), nové rysy povolání ze SRD, zvýšení vlastností nebo feat, kouzla ---- */
-let SRDUR=null;const srdUrovne=()=>SRDUR?Promise.resolve(SRDUR):fetch("art/srd-urovne.json").then(r=>r.json()).then(d=>SRDUR=d).catch(()=>SRDUR={});
+let SRDUR=null,SRDURP=null;const srdUrovne=()=>SRDUR?Promise.resolve(SRDUR):(SRDURP=SRDURP||fetch("art/srd-urovne.json").then(r=>r.json()).then(d=>SRDUR=d).catch(()=>SRDUR={}));
 const KLVUP={};
 function kLvupHtml(K){const o=KLVUP[K.id];if(!o)return "";if(!SRDUR){srdUrovne().then(()=>kartyPrekresli());return `<div class="klvup"><p>Načítám tabulky povolání…</p></div>`}
   const tr=kTridy(K),lv=tr.reduce((a,t)=>a+t.u,0);if(lv>=20)return `<div class="klvup"><p>${besc(K.n)} má 20. úroveň – výš to nejde.</p><button type="button" class="gbtn ghost" data-klvx>Zavřít</button></div>`;

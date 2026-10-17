@@ -16,7 +16,7 @@ function jaBezKartyHtml(){const volne=KARTY.filter(k=>!KZAM.has(k.id)&&!k.test);
     <p class="bojbtn"><button type="button" class="gbtn ghost" data-discordx>Odhlásit Discord</button></p></section>`}
 /* ---- texty rysů (soukromé) a rejstřík rysů SRD ---- */
 const KTX={},KTXP={};let SRDRY=null;
-const srdRysy=()=>SRDRY?Promise.resolve(SRDRY):fetch("art/srd-rysy.json").then(r=>r.json()).then(d=>SRDRY=d).catch(()=>SRDRY={});
+let SRDRYP=null;const srdRysy=()=>SRDRY?Promise.resolve(SRDRY):(SRDRYP=SRDRYP||fetch("art/srd-rysy.json").then(r=>r.json()).then(d=>SRDRY=d).catch(()=>SRDRY={}));
 function kTexty(K){if(KTX[K.id]!==undefined)return KTX[K.id];if(KTXP[K.id])return null;
   KTXP[K.id]=(async()=>{let t=null;if(window.MMDB&&MMDB.kartaTexty){try{t=await MMDB.kartaTexty(K.id)}catch(e){}}else{try{t=(JSON.parse(localStorage.getItem("mm-karty-texty")||"{}")||{})[K.id]||null}catch(e){}}
     KTX[K.id]=t||{};kartyPrekresli()})();return null}
