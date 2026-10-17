@@ -76,15 +76,21 @@ function bojJaZvolKouzlo(i){const s=BOJ.s||{},me=(s.hraci||[]).find(h=>h.n===boj
   if(B.zach){BJU.plos=true;BJU.ab=B.zach;BJU.dc=String(kSpDC(K)||"");BJU.pol=!!B.pol;if(BJU.cil&&!BJU.cile.includes(BJU.cil))BJU.cile=[BJU.cil]}else BJU.plos=false;
   renderBoj()}
 function bojJaHodKouzlo(s,me,sp){const {K,x,B,lvl}=sp,c=(s.npc||[]).find(o=>o.id===BJU.cil),st=lvl?`${lvl}. st.`:"trik";
-  if(B.zach){const r=bojJaSpDmg(B,false);BJU.dmg=String(r.tot);BJU.serie=null;BJU.info=`${x.n} (${st}): zranění ${r.txt} = ${r.tot}${B.pol?" · při úspěšné záchraně polovina":""}`;renderBoj();return}
-  if(B.auto){let t=0;const L=[];for(let i=0;i<B.pocet;i++){const r=bojJaSpDmg(B,false);t+=r.tot;L.push(r.txt)}
+  /* Zadat ručně: d20, kostka Závoje a součet kostek zranění hozené u stolu (u kouzla se záchranou jen zranění) */
+  const R=BRUC[me.id]||{},r20=bRucN(R.d20,1,20),r6=bRucN(R.d6,1,6),rz=bRucN(R.dmg,0,500),pl=v=>String(v??"").trim()!=="";
+  if((pl(R.d20)&&r20==null)||(pl(R.d6)&&r6==null)||(pl(R.dmg)&&rz==null)){mmHlas(pl(R.d20)&&r20==null?"d20 musí být 1–20.":pl(R.d6)&&r6==null?"Kostka Závoje musí být 1–6.":"Zranění zadej jako číslo.",3000);return}
+  delete BRUC[me.id];
+  const plusK=n=>{const m=String(B.x||"").match(/([+-]\d+)$/);return (m?+m[1]:0)+(+B.mod||0)};
+  const rucDmg=(n,kus)=>({tot:Math.max(0,n+plusK()*kus),txt:`${n} (ručně)${plusK()?` ${bsg(plusK())}${kus>1?` ×${kus}`:""}`:""}`});
+  if(B.zach){const r=rz!=null?rucDmg(rz,1):bojJaSpDmg(B,false);BJU.dmg=String(r.tot);BJU.serie=null;BJU.info=`${x.n} (${st}): zranění ${r.txt} = ${r.tot}${B.pol?" · při úspěšné záchraně polovina":""}`;renderBoj();return}
+  if(B.auto){let t=0;const L=[];if(rz!=null){const r=rucDmg(rz,B.pocet);t=r.tot;L.push(r.txt)}else for(let i=0;i<B.pocet;i++){const r=bojJaSpDmg(B,false);t+=r.tot;L.push(r.txt)}
     Object.assign(BJU,{hod:"60",d:"",dmg:String(t),serie:null,kmin:null,info:`${x.n} (${st}): automatický zásah${B.pocet>1?`, ${B.pocet}×`:""} – ${L.join(" | ")} = ${t}`});renderBoj();return}
   const nav=bojAdvHrac(s,me,c,BJU.dal),v=BJU.adv==="auto"?nav.v:+BJU.adv,b=kSpU1(K,x)-2*kVycerp(K),ser=[],txt=[];
-  for(let i=0;i<Math.max(1,B.pocet);i++){const d1=bK(20),d2=v?bK(20):null,d=v>0?Math.max(d1,d2):v<0?Math.min(d1,d2):d1,krit=d===20,PD=kPriHod(K,"Útok"),r=bojJaSpDmg(B,krit),vys=bojJaZas(c,d+b+PD.t,d,krit);
-    ser.push({hod:d+b+PD.t,d,d1,d2,v,b:b+PD.t,dmg:r.tot,krit,vys,upr:[]});txt.push(`d20 ${d1}${d2!=null?`/${d2}`:""} ${bsg(b)}${PD.txt} = ${d+b+PD.t}${krit?" krit!":d===1?" (1)":""}${vys?` → ${vys.toUpperCase()}`:""}, zranění ${r.txt} = ${r.tot}`)}
+  for(let i=0;i<Math.max(1,B.pocet);i++){const ru=i===0&&r20!=null,d1=ru?r20:bK(20),d2=v&&!ru?bK(20):null,d=d2==null?d1:v>0?Math.max(d1,d2):Math.min(d1,d2),krit=d===20,PD=kPriHod(K,"Útok"),r=i===0&&rz!=null?rucDmg(rz,1):bojJaSpDmg(B,krit),vys=bojJaZas(c,d+b+PD.t,d,krit);
+    ser.push({hod:d+b+PD.t,d,d1,d2,v,b:b+PD.t,dmg:r.tot,krit,vys,upr:[]});txt.push(`d20 ${d1}${ru?" (ručně)":""}${d2!=null?`/${d2}`:""} ${bsg(b)}${PD.txt} = ${d+b+PD.t}${krit?" krit!":d===1?" (1)":""}${vys?` → ${vys.toUpperCase()}`:""}, zranění ${r.txt} = ${r.tot}`)}
   Object.assign(BJU,{hod:String(ser[0].hod),d:String(ser[0].d),dmg:String(ser[0].dmg),kmin:null,serie:ser});
-  const z=kZavoj(K);KZAV[K.id]={co:`Útok – ${x.n}`,d:z.d,r:z.r,hod:z.hod};
-  BJU.info=`${x.n} (${st}). ${v?`${v>0?"Výhoda":"Nevýhoda"}. `:""}${txt.join(" · ")} · ${zavTxt(z)}`;renderBoj()}
+  const z=kZavoj(K,r6);KZAV[K.id]={co:`Útok – ${x.n}`,d:z.d,r:z.r,hod:z.hod};
+  BJU.info=`${x.n} (${st}). ${v&&r20==null?`${v>0?"Výhoda":"Nevýhoda"}. `:""}${txt.join(" · ")} · ${zavTxt(z)}${r6!=null?" (ručně)":""}`;renderBoj()}
 let BJSPN=0;
 function bojAdvHrac(s,me,c,dal){const plus=[],minus=[],st=me.stav||[];
   srdAdv(st,[],dal,plus,minus,true);
