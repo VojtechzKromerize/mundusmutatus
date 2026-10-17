@@ -2946,3 +2946,16 @@ button.kdbs:hover{border-color:var(--kb-gold)}.kdbsac b{color:var(--kb-gold)}
 #bojview .bslot.btah .bdrak{width:152%;height:152%}
 #bojview .bslot.btah .bdrakn{width:146%;height:146%}
 #bojview .bslot.btah .bkdo{margin-top:14px}
+
+/* ikonky kouzel: stupeň v kolečku (římsky), trik, soustředění, rituál */
+.kspi{display:inline-grid;place-items:center;flex:none;box-sizing:border-box;width:20px;height:20px;vertical-align:-5px;border-radius:50%;border:1.5px solid var(--gold);background:var(--kat);color:#fbf1d4;font-family:Georgia,"Times New Roman",serif;font-weight:700;font-size:12px;line-height:1;letter-spacing:-.02em;font-style:normal;text-transform:none}
+.kspi svg{width:72%;height:72%}
+.kspv3,.kspv4,.kspv6,.kspv9{font-size:9.5px}.kspv7{font-size:8.5px;letter-spacing:-.04em}.kspv8{font-size:7.5px;letter-spacing:-.06em}
+.kspt{background:#c9a34a;color:#2b2117;border-color:#8a6516}
+.kspk{border-radius:4px;transform:rotate(45deg);width:16px;height:16px;background:#7a1f22;border-color:#c86a6a;color:#f6dcd2;margin:0 2px}.kspk svg{transform:rotate(-45deg)}
+.kspr{border-radius:4px;background:#3d3124;border-color:var(--gold);color:#e9c46a}
+h4 .kspi{margin-right:5px}
+.kdb .kspi,.bdm .kspi{border-color:#d9b45a;background:#2f5fae}.kdb .kspt,.bdm .kspt{background:#d9b45a;color:#2b2117}.kdb .kspk,.bdm .kspk{background:#8d2327;border-color:#e08a7a}.kdb .kspr,.bdm .kspr{background:#4a3a24}.kdb .kspl .kspi,.kdbspl .kspi{margin-left:2px}
+.bdmchips button.bdmchi{display:inline-flex;align-items:center;justify-content:center;min-width:2.6em;padding:5px 9px}
+
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .kspi{border-color:#c9a34a}}
