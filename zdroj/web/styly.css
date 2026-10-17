@@ -3023,7 +3023,7 @@ h4 .kspi{margin-right:5px}
 .bphhod{display:flex;align-items:stretch;gap:8px;flex-wrap:wrap}
 .bphadvi{display:flex;gap:6px}
 .bphai{display:flex;flex-direction:column;align-items:center;gap:1px;width:64px;padding:4px 2px 3px;border-radius:8px;border:1.5px solid var(--kb-bd2,#5a3d2c);background:#14100d;color:var(--kb-mu,#a8977c);cursor:pointer}
-.bphai .bimg{width:40px;height:40px;filter:grayscale(.8) opacity(.6)!important;transition:filter .15s}
+.bphai .bimg{width:40px;height:40px;filter:grayscale(.4) opacity(.7)!important;transition:filter .15s}
 .bphai small{font-family:var(--f-label);font-weight:700;font-size:.62rem;text-transform:uppercase;letter-spacing:.04em}
 .bphai[aria-pressed=true]{border-color:#d9b45a;background:#2a2016;color:#f4e7c3}.bphai[aria-pressed=true] .bimg{filter:none!important}
 .bphai[data-bpadv$="|1"][aria-pressed=true]{box-shadow:0 0 0 2px #3f7f5a inset}.bphai[data-bpadv$="|-1"][aria-pressed=true]{box-shadow:0 0 0 2px #a3232b inset}
