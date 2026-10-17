@@ -17,7 +17,7 @@ function kSvAdv(K,dov){const s=kDuse(K).sv,r=[];
   return r}
 const kAdvSum=(base,r)=>{const a=[base,...r.map(x=>x[0])],p=a.some(x=>x>0),m=a.some(x=>x<0);return p&&m?0:p?1:m?-1:0};
 /* kostka Závoje podle vyznání postavy (svátky) a Hodin Závoje */
-const kZavoj=K=>bojZavoj({vz:kDuse(K).vz});
+const kZavoj=(K,d)=>bojZavoj({vz:kDuse(K).vz,d});
 const KZAV={};
 /* feat víry (Artikule, Vyznání): [název, použití za dlouhý odpočinek (0 = bez počítadla), stupeň, popis] */
 const KFEAT={kal:[["Přijímání podobojí",1,1,"1× za dlouhý odpočinek přijmi krev Boží: obnov slot kouzla až do stupně podle bonusu zdatnosti, nebo Výdrž až do poloviny bonusu zdatnosti."],["Pravda Páně",1,2,"Akce, 1× za dlouhý odpočinek: zjistíš, zda je cíl ovlivněn Závojem (anděl, démon či Proměněnec)."],["Ktož sú Boží bojovníci!",1,3,"Akce, 1× za dlouhý odpočinek: bojový chorál – spojenci v doslechu získají bonus d4 ke všem útokům i záchranám."]],

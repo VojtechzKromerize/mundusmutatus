@@ -117,6 +117,16 @@ document.addEventListener("change",e=>{const t=e.target;if(t.matches&&t.matches(
 /* vypravěč: hod za hráče z karty předvyplní zápis; zápis útoku = útok hráče, rovnou vyhodnocený */
 /* před hodem na útok (2026-10-17): cíl, výhoda/nevýhoda a u zbraní s vlastností Šikovná typ zranění */
 const BUTYP={};
+/* hráč: „Zadat ručně“ – kostky hozené u stolu (d20, d6 Závoje, kostky zranění); prázdné pole hodí web */
+const BRUC={};
+const bRucN=(v,a,b)=>{if(v==null||String(v).trim()==="")return null;const n=Math.round(+v);return isFinite(n)&&n>=a&&n<=b?n:null};
+const bojRucHtml=(h,w)=>{const R=BRUC[h.id]||{},kz=String(w.z||"").replace(/[+-]\d+$/,"");
+  return `<details class="bphruc" data-otv="ruc-${besc(h.id)}"${BOTV.has("ruc-"+h.id)||R.d20||R.d6||R.dmg?" open":""}><summary>Zadat ručně <small>– hodil jsem kostkami u stolu</small></summary><div class="bphr">
+    <label ${btip("Kostka d20, jak padla (s výhodou či nevýhodou ta, která platí). Bonus k útoku se přičte sám.")}>d20 <input type="number" inputmode="numeric" min="1" max="20" data-bruc="${besc(h.id)}|d20" value="${besc(R.d20??"")}" aria-label="Hozená d20"></label>
+    <label ${btip("Kostka Závoje: 1–2 Pokušení, 5–6 Požehnání")}>d6 Závoje <input type="number" inputmode="numeric" min="1" max="6" data-bruc="${besc(h.id)}|d6" value="${besc(R.d6??"")}" aria-label="Hozená kostka Závoje"></label>
+    ${kz?`<label ${btip(`Součet kostek zranění ${kz} (při kritickém zásahu dvojnásob kostek). Modifikátor se přičte sám.`)}>zranění ${besc(kz)} <input type="number" inputmode="numeric" min="0" max="300" data-bruc="${besc(h.id)}|dmg" value="${besc(R.dmg??"")}" aria-label="Součet kostek zranění"></label>`:""}
+    </div><small class="bphnav">Co nevyplníš, hodí web. Platí pro první útok; vyplněná čísla se po hodu smažou.</small></details>`};
+addEventListener("input",e=>{const t=e.target;if(!t.matches||!t.matches("[data-bruc]"))return;const [hid,k]=t.dataset.bruc.split("|");(BRUC[hid]=BRUC[hid]||{})[k]=t.value});
 const BSIKALT={Slashing:"Piercing",Piercing:"Slashing",Bludgeoning:"Piercing"};
 function bojSikTypy(K,w){if(!K||!w||!w.t)return null;const a=kUtoky(K).find(x=>x.n===w.n);if(!a||!bdmZvl(a).includes("Šikovná"))return null;const alt=BSIKALT[w.t];return alt?[w.t,alt]:null}
 const bojUtTyp=(K,w)=>{const T=bojSikTypy(K,w),v=K&&w?BUTYP[K.id+":"+w.n]:null;return T&&T.includes(v)?v:(w&&w.t)||""};
@@ -128,6 +138,7 @@ function bojPredHod(s,h,K,gm,j){const w=bojZbrVse(s,h)[+j];if(!w)return "";
   return `<div class="bphod"><div class="bphr"><span class="bphl">Cíl</span><span class="bphc">${c.map(o=>`<button type="button" class="bphcil" data-bpcil="${besc(h.id)}|${besc(o.id)}" aria-pressed="${cil===o.id}">${bojMedN(o,"bmini")}<span>${besc(o.n)}</span></button>`).join("")||`<small>žádný nepřítel</small>`}</span></div>
     <div class="bphr"><span class="bphl">Hod</span><span class="badv bphadv" role="group" aria-label="Výhoda">${[["-1","nevýhoda"],["0","normálně"],["1","výhoda"]].map(([k,l])=>`<button type="button" data-bpadv="${besc(h.id)}|${k}" aria-pressed="${adv===k}">${l}</button>`).join("")}</span>${nav.v&&String(nav.v)!==adv?`<small class="bphnav" ${btip(nav.why.join(", "))}>podle stavů by šla ${nav.v>0?"výhoda":"nevýhoda"}</small>`:""}</div>
     ${T?`<div class="bphr"><span class="bphl" ${btip("Šikovná: před hodem si zvolíš typ zranění podle zbraně")}>Zranění</span><span class="bphc">${T.map(t=>`<button type="button" class="bphtyp" data-bptyp="${besc(K.id)}|${besc(w.n)}|${t}" aria-pressed="${typ===t}" ${btip(BZRT[t]||t)}>${bikZr(t)}<span>${besc(BZRT[t]||t)}</span></button>`).join("")}</span></div>`:""}
+    ${gm?"":bojRucHtml(h,w)}
     <button type="button" class="bdmbtn bdmhod" ${gm?`data-bgmhod="${+j}"`:`data-bjut="${+j}"`} data-bph="${besc(h.id)}">🎲 Hodit útok ${bsg(+w.b||0)}${w.pocet>1?` · ${w.pocet}×`:""}${adv!=="0"?` ${adv==="1"?"s výhodou":"s nevýhodou"}`:""}</button></div>`}
 function bojGmHod(hid,i){const s=BOJ.s||{},h=(s.hraci||[]).find(x=>x.id===hid);if(!h)return;const K=bojKartaH(h),w=bojZbrVse(s,h)[i];if(!w)return;
   const G0=BGMU[hid]||{},v=+(G0.adv||0),d1=bK(20),d2=v?bK(20):null,d=v>0?Math.max(d1,d2):v<0?Math.min(d1,d2):d1,krit=d>=20,k=w.z?bojKostky(w.z,krit):null,b=(+w.b||0)-(K?2*kVycerp(K):0),typ=bojUtTyp(K,w);

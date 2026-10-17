@@ -114,12 +114,17 @@ function bojJaUtokHtml(s,me){const zb=bojZbrVse(s,me),K=bojKartaH(me),zv0=K&&KZB
 function bojJaHod(){const s=BOJ.s||{},me=(s.hraci||[]).find(h=>h.n===bojJa.get()),sp=me&&bojJaSp(s,me);if(sp){bojJaHodKouzlo(s,me,sp);return}const w=bojZbrVse(s,me)[+BJU.zi];if(!me||!w||BJU.zi===""){mmHlas("Vyber zbraň s kostkou zranění.",2500);return}
   const K=bojKartaH(me),E=K?kEfAkt(K,BJU.ef,w):[],kmin=Math.min(20,...E.map(e=>+e.krit||20)),plus=E.reduce((a,e)=>a+(typeof e.zr==="string"?0:(+e.zr||0)),0),efK=E.filter(e=>typeof e.zr==="string");
   const c=(s.npc||[]).find(o=>o.id===BJU.cil),nav=bojAdvHrac(s,me,c,!!w.dal),v=BJU.adv==="auto"?nav.v:+BJU.adv,b=(+w.b||0)-(K?2*kVycerp(K):0),ser=[],txt=[];
-  for(let i=0;i<Math.max(1,+w.pocet||1);i++){const d1=bK(20),d2=v?bK(20):null,d=v>0?Math.max(d1,d2):v<0?Math.min(d1,d2):d1,krit=d>=kmin,PD=K?kPriHod(K,"Útok"):{t:0,txt:""},k=w.z?bojKostky(w.z,krit):null,ek=efK.map(e=>bojKostky(e.zr,krit)).filter(Boolean),dmg=(k?k.t:0)+(d===1?0:plus+ek.reduce((a,q)=>a+q.t,0));
-    ser.push({hod:d+b+PD.t,d,d1,d2,v,b:b+PD.t,dmg,krit,vys:bojJaZas(c,d+b+PD.t,d,krit),upr:[]});txt.push(`d20 ${d1}${d2!=null?`/${d2}`:""} ${bsg(b)}${PD.txt} = ${d+b+PD.t}${krit?" krit!":d===1?" (1)":""}${ser[ser.length-1].vys?` → ${ser[ser.length-1].vys.toUpperCase()}`:""}${k?`, zranění ${k.x}${plus?` +${plus}`:""}${ek.map(q=>" + "+q.x).join("")} = ${dmg}`:""}`)}
+  /* Zadat ručně: kostky hozené u stolu nahradí hod webu (jen první útok); co chybí, hodí web */
+  const R=BRUC[me.id]||{},r20=bRucN(R.d20,1,20),r6=bRucN(R.d6,1,6),rz=bRucN(R.dmg,0,300),pl=v=>String(v??"").trim()!=="";
+  if((pl(R.d20)&&r20==null)||(pl(R.d6)&&r6==null)||(pl(R.dmg)&&rz==null)){mmHlas(pl(R.d20)&&r20==null?"d20 musí být 1–20.":pl(R.d6)&&r6==null?"Kostka Závoje musí být 1–6.":"Zranění zadej jako číslo.",3000);return}
+  delete BRUC[me.id];
+  const kRuc=(z,n)=>{const m=String(z||"").match(/([+-]\d+)$/),c0=m?+m[1]:0;return {t:Math.max(0,n+c0),x:`${n} (ručně)${c0?(c0>0?"+":"")+c0:""}`}};
+  for(let i=0;i<Math.max(1,+w.pocet||1);i++){const ru=i===0&&r20!=null,d1=ru?r20:bK(20),d2=v&&!ru?bK(20):null,d=d2==null?d1:v>0?Math.max(d1,d2):Math.min(d1,d2),krit=d>=kmin,PD=K?kPriHod(K,"Útok"):{t:0,txt:""},k=w.z?(i===0&&rz!=null?kRuc(w.z,rz):bojKostky(w.z,krit)):null,ek=efK.map(e=>bojKostky(e.zr,krit)).filter(Boolean),dmg=(k?k.t:0)+(d===1?0:plus+ek.reduce((a,q)=>a+q.t,0));
+    ser.push({hod:d+b+PD.t,d,d1,d2,v,b:b+PD.t,dmg,krit,vys:bojJaZas(c,d+b+PD.t,d,krit),upr:[]});txt.push(`d20 ${d1}${ru?" (ručně)":""}${d2!=null?`/${d2}`:""} ${bsg(b)}${PD.txt} = ${d+b+PD.t}${krit?" krit!":d===1?" (1)":""}${ser[ser.length-1].vys?` → ${ser[ser.length-1].vys.toUpperCase()}`:""}${k?`, zranění ${k.x}${plus?` +${plus}`:""}${ek.map(q=>" + "+q.x).join("")} = ${dmg}`:""}`)}
   if(K&&w.karta){const a=kUtoky(K).find(x=>x.n===w.n);if(a)kMunOdecti(K,a,ser.length)}if(K)kEfPouzij(K,E,BJU.ef);
   BJU.hod=String(ser[0].hod);BJU.d=String(ser[0].d);BJU.dmg=String(ser[0].dmg);BJU.t=bojUtTyp(K,w)||w.t||BJU.t;BJU.drt=!!w.drt;BJU.pru=!!w.pru;BJU.kmin=kmin;BJU.serie=ser;
-  let zv="";if(K){const z=kZavoj(K);KZAV[K.id]={co:`Útok – ${w.n}`,d:z.d,r:z.r,hod:z.hod};zv=" · "+zavTxt(z)}
-  BJU.info=(v?`${v>0?"Výhoda":"Nevýhoda"}. `:"")+txt.join(" · ")+zv;bojBptOznac("A");renderBoj()}
+  let zv="";if(K){const z=kZavoj(K,r6);KZAV[K.id]={co:`Útok – ${w.n}`,d:z.d,r:z.r,hod:z.hod};zv=" · "+zavTxt(z)+(r6!=null?" (ručně)":"")}
+  BJU.info=(v&&r20==null?`${v>0?"Výhoda":"Nevýhoda"}. `:"")+txt.join(" · ")+zv;bojBptOznac("A");renderBoj()}
 /* hráč: poslat útok vypravěči */
 async function bojJaPosli(){const s=BOJ.s||{},me=(s.hraci||[]).find(h=>h.n===bojJa.get());if(!me||!bojDB||!bojDB.utok)return;const w=bojZbrVse(s,me)[+BJU.zi],ci=BJU.plos?BJU.cile.filter(id=>(s.npc||[]).some(o=>o.id===id)):(BJU.cil?[BJU.cil]:[]);
   if(!ci.length){mmHlas("Vyber cíl.",2500);return}const K=bojKartaH(me),sp=bojJaSp(s,me);

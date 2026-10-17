@@ -284,7 +284,7 @@ function bojKostky(z,krit){const m=String(z||"").match(/^(\d*)d(\d+)([+-]\d+)?$/
   const h=[...Array(n)].map(()=>bK(s)),c=m[3]?+m[3]:0;return {t:Math.max(0,h.reduce((a,b)=>a+b,0)+c),x:`${n}d${s}(${h.join("+")})${c?(c>0?"+":"")+c:""}`}}
 /* Závoj za protivníka: Hodiny Závoje (Pokušení 1–3) a svátky podle jeho vyznání (Požehnání 4–6) */
 function bojZavoj(p){let I={};try{I=zavojInfo()}catch(e){}let fe=[];try{fe=p&&p.vz?pozehnaniDnes(p.vz):[]}catch(e){}
-  const pm=I.z?3:2,pz=fe.length?4:5,d=bK(6,1);return {d,r:d<=pm?"pok":d>=pz?"poz":"",hod:I.z?(fe.length?"Hodina Pravdy":"Hodina Závoje"):fe.length?fe.map(x=>x.n).join(", "):""}}
+  const pm=I.z?3:2,pz=fe.length?4:5,d=p&&p.d>=1&&p.d<=6?Math.round(p.d):bK(6,1);return {d,r:d<=pm?"pok":d>=pz?"poz":"",hod:I.z?(fe.length?"Hodina Pravdy":"Hodina Závoje"):fe.length?fe.map(x=>x.n).join(", "):""}}
 /* výsledek kostky Závoje slovy; Závoj se hází k ověřením (i iniciativě) a útokům, ne k záchranám (Artikule › Kostka Závoje) */
 const zavVys=r=>r==="pok"?"Pokušení":r==="poz"?"Požehnání":"bez vlivu Závoje";
 const zavBezZach=co=>/^Záchrana|záchrann|proti smrti/i.test(String(co||""));

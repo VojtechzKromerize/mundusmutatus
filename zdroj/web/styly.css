@@ -2911,6 +2911,13 @@ button.kdbs:hover{border-color:var(--kb-gold)}.kdbsac b{color:var(--kb-gold)}
 .bphadv button{padding:4px 10px}
 .bphnav{color:var(--kb-mu);font-size:.78rem}
 .bphod .bdmhod{align-self:flex-start;margin-top:2px}
+/* hráč: Zadat ručně – kostky hozené u stolu */
+.bphruc{border-top:1px dashed var(--kb-bd2);padding-top:6px}
+.bphruc summary{cursor:pointer;font-family:var(--f-label);font-weight:700;font-size:.78rem;letter-spacing:.04em;color:var(--kb-tx)}
+.bphruc summary small{font-weight:400;letter-spacing:0;color:var(--kb-mu)}
+.bphruc .bphr{margin:6px 0 4px}
+.bphruc label{display:inline-flex;align-items:center;gap:5px;font-size:.85rem;color:var(--kb-mu)}
+.bphruc input{width:3.6em;padding:4px 6px;background:#14100d;border:1px solid var(--kb-bd2);border-radius:6px;color:var(--kb-tx);font:inherit;font-size:1rem}
 /* Svědomí v šestiúhelníku: body hříchu a dobrých skutků; list Svědomí */
 .bdmsvb{display:flex;gap:4px;margin-top:2px}
 .bdmsvb i{font-style:normal;font-size:.7rem;font-weight:700;min-width:1.3em;padding:0 3px;border-radius:999px;text-align:center}
