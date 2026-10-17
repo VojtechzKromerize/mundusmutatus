@@ -29,8 +29,13 @@ for kdo, tok in (("anonym", None), ("hráč", hr)):
     for fn, body in (("mm_nastav_stavy", {"p_zmeny": {"slik": 1}}), ("mm_nastav_hru", {"p_hra": {}}),
                      ("mm_nahraj_obsah", {"p_vetev": "x", "p_hrac": {}, "p_gm": {}, "p_vychozi": {}}), ("mm_prepocitej", {}),
                      ("mm_uloz_zaznam", {"p_soubor": "osoby/x.md", "p_md": "x", "p_puvodni": None}), ("mm_zaznamy_gm", {}),
-                     ("mm_boj_uloz", {"p_stav": {}}), ("mm_vyprava_nacti", {}), ("mm_vyprava_uloz", {"p_stav": {}}), ("mm_kouzla_nacti", {}), ("mm_kouzla_uloz", {"p_kouzla": []}), ("mm_nastav_obrazek", {"p_typ": "erby", "p_klic": "x", "p_hodnota": {}})):
+                     ("mm_boj_uloz", {"p_stav": {}}), ("mm_vyprava_nacti", {}), ("mm_vyprava_uloz", {"p_stav": {}}), ("mm_kouzla_nacti", {}), ("mm_kouzla_uloz", {"p_kouzla": []}), ("mm_nastav_obrazek", {"p_typ": "erby", "p_klic": "x", "p_hodnota": {}}),
+                     ("mm_ukaz", {"p_ukazka": {"n": "x"}}), ("mm_ukaz_smaz", {"p_id": 1}), ("mm_sezeni_nacti", {}), ("mm_sezeni_uloz", {"p_sezeni": {"s": []}}),
+                     ("mm_vyzva", {"p_vyzva": {"typ": "zach", "ab": "WIS"}}), ("mm_vyzva_zavri", {"p_id": None}), ("mm_hrac_zrus_heslo", {"p_karta": "balduin"}), ("mm_zpravy_gm", {}), ("mm_hrac_ok", {"p_karta": "x", "p_token": None}), ("mm_ja_uvolni", {"p_karta": "x"}), ("mm_discord_nastav", {"p_url": None})):
         chk(not ok(call(f"/rest/v1/rpc/{fn}", "POST", body, tok=tok)[0]), f"{kdo} nesmí volat {fn}")
+    for t in ("hesla", "relace_hracu", "zpravy", "hraci_ucty", "karty_texty"):
+        st, bd = call(f"/rest/v1/{t}?select=*", tok=tok)
+        chk(not ok(st) or bd.strip() == "[]", f"{kdo} nečte tabulku {t}")
     for t, body in (("snimek", {"vetev": "zz", "data": {}}), ("stavy", {"id": "novy", "stav": 2}), ("gm", {"user_id": "22222222-2222-2222-2222-222222222222"})):
         chk(not ok(call(f"/rest/v1/{t}", "POST", body, tok=tok)[0]), f"{kdo} nesmí zapisovat do {t}")
 chk(json.loads(call("/rest/v1/obsah?select=vetev", tok=gm)[1]) != [], "vypravěč čte obsah")
@@ -43,6 +48,15 @@ chk("trasa" not in call(f"/rest/v1/snimek?select=data", tok=None)[1], "výprava 
 chk(ok(call("/rest/v1/rpc/mm_kouzla_uloz", "POST", {"p_kouzla": [{"i": "v-tajne", "en": "Tajne kouzlo"}]}, tok=gm)[0]), "vypravěč ukládá vlastní kouzla")
 chk("Tajne kouzlo" in call("/rest/v1/rpc/mm_kouzla_nacti", "POST", {}, tok=gm)[1], "vypravěč čte vlastní kouzla")
 chk("Tajne kouzlo" not in call(f"/rest/v1/snimek?select=data", tok=None)[1], "vlastní kouzla nejsou ve veřejném výřezu")
+chk(ok(call("/rest/v1/rpc/mm_sezeni_uloz", "POST", {"p_sezeni": {"s": [{"id": "a", "n": "Tajne sezeni"}]}}, tok=gm)[0]), "vypravěč ukládá přípravu sezení")
+chk("Tajne sezeni" in call("/rest/v1/rpc/mm_sezeni_nacti", "POST", {}, tok=gm)[1], "vypravěč čte přípravu sezení")
+chk("Tajne sezeni" not in call(f"/rest/v1/snimek?select=data", tok=None)[1], "příprava sezení není ve veřejném výřezu")
+chk(not ok(call("/rest/v1/rpc/mm_ukaz", "POST", {"p_ukazka": {"img": "javascript:alert(1)"}}, tok=gm)[0]), "ukázka nepřijme cizí adresu obrázku")
+chk(ok(call("/rest/v1/rpc/mm_ukaz", "POST", {"p_ukazka": {"n": "Dopis"}}, tok=gm)[0]), "vypravěč ukáže hráčům")
+chk("Dopis" in call("/rest/v1/ukazky?select=data", tok=None)[1], "hráč čte ukázky")
+for u in json.loads(call("/rest/v1/ukazky?select=id", tok=None)[1]):
+    chk(ok(call("/rest/v1/rpc/mm_ukaz_smaz", "POST", {"p_id": u["id"]}, tok=gm)[0]), "vypravěč smaže ukázku")
+chk(not ok(call("/rest/v1/ukazky", "POST", {"data": {"n": "podvrh"}}, tok=None)[0]), "hráč nesmí zapisovat ukázky přímo")
 chk(not ok(call("/rest/v1/gm", "POST", {"user_id": "22222222-2222-2222-2222-222222222222"}, tok=gm)[0]), "vypravěč nepřidá dalšího vypravěče")
 print("SELHALO:", len(fails)) if fails else print("VŠE OK")
 sys.exit(1 if fails else 0)

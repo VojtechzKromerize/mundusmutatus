@@ -1,0 +1,414 @@
+[
+ {
+  "en": "Ring of Spell Storing",
+  "cz": "prsten uchovávání kouzel",
+  "druh": "Prsten",
+  "vz": "vzácný",
+  "pr": true,
+  "t": "Tento prsten uchovává kouzla, která jsou do něj seslána, a drží je, dokud je sladěný nositel nepoužije. Prsten dokáže najednou uchovat kouzla v celkové hodnotě až 5 úrovní. Když je nalezen, obsahuje 1d6 − 1 úrovní uložených kouzel, která zvolí vypravěč.\nJakýkoli tvor může do prstenu seslat kouzlo 1. až 5. úrovně tak, že se prstenu během sesílání kouzla dotkne. Kouzlo nemá jiný účinek, než že se do prstenu uloží. Pokud prsten kouzlo pojmout nedokáže, kouzlo se spotřebuje bez účinku. Úroveň slotu použitého k seslání kouzla určuje, kolik místa zabere.\nPokud máš tento prsten na sobě, můžeš seslat jakékoli kouzlo v něm uložené. Kouzlo použije úroveň slotu, SO záchrany proti kouzlu, bonus útoku kouzlem a sesílací vlastnost původního sesilatele, jinak se s ním ale zachází, jako bys ho seslal ty. Kouzlo seslané z prstenu v něm už není uloženo, čímž se v něm uvolní místo.",
+  "str": 239
+ },
+ {
+  "en": "Ring of Spell Turning",
+  "cz": "prsten odrážení kouzel",
+  "druh": "Prsten",
+  "vz": "legendární",
+  "pr": true,
+  "t": "Pokud máš tento prsten na sobě, máš výhodu na záchranné hody proti kouzlům. Pokud uspěješ v záchraně proti kouzlu 7. nebo nižší úrovně, kouzlo na tebe nemá žádný účinek. Pokud toto kouzlo cílilo jen na tebe a nevytvořilo oblast účinku, můžeš použít reakci a odrazit kouzlo zpět na jeho sesilatele; sesilatel si musí hodit záchranný hod proti tomuto kouzlu se svým vlastním SO záchrany proti kouzlu.",
+  "str": 239
+ },
+ {
+  "en": "Ring of Swimming",
+  "cz": "prsten plavání",
+  "druh": "Prsten",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Pokud máš tento prsten na sobě, máš rychlost plavání 40 stop.",
+  "str": 239
+ },
+ {
+  "en": "Ring of Telekinesis",
+  "cz": "prsten telekineze",
+  "druh": "Prsten",
+  "vz": "velmi vzácný",
+  "pr": true,
+  "t": "Pokud máš tento prsten na sobě, můžeš z něj seslat Telekinesis.",
+  "str": 239
+ },
+ {
+  "en": "Ring of the Ram",
+  "cz": "prsten berana",
+  "druh": "Prsten",
+  "vz": "vzácný",
+  "pr": true,
+  "t": "Tento prsten má 3 náboje a každý den za úsvitu obnoví 1d3 spotřebovaných nábojů. Pokud máš prsten na sobě, můžeš použít akci Magie a spotřebovat 1 až 3 náboje, abys provedl útok kouzlem na dálku proti jednomu tvoru, kterého vidíš do 60 stop od sebe. Prsten vytvoří přízračnou beraní hlavu a hází na útok s bonusem +7. Při zásahu utrpí cíl za každý spotřebovaný náboj 2d10 Force zranění a je odstrčen o 5 stop od tebe.\nPřípadně můžeš jako akci Magie spotřebovat 1 až 3 náboje prstenu a pokusit se rozbít nemagický předmět, který vidíš do 60 stop od sebe a který nikdo nemá na sobě ani nenese. Prsten provede ověření Síly s bonusem +5 za každý spotřebovaný náboj.",
+  "str": 239
+ },
+ {
+  "en": "Ring of Three Wishes",
+  "cz": "prsten tří přání",
+  "druh": "Prsten",
+  "vz": "legendární",
+  "pr": false,
+  "t": "Pokud máš tento prsten na sobě, můžeš spotřebovat 1 z jeho 3 nábojů a seslat z něj Wish. Když použiješ poslední náboj, prsten se stane nemagickým.",
+  "str": 239
+ },
+ {
+  "en": "Ring of Warmth",
+  "cz": "prsten tepla",
+  "druh": "Prsten",
+  "vz": "neobvyklý",
+  "pr": true,
+  "t": "Pokud utrpíš Cold zranění, zatímco máš tento prsten na sobě, prsten sníží zranění, které utrpíš, o 2d8.\nKromě toho, dokud máš tento prsten na sobě, neškodí tobě ani ničemu, co máš na sobě a neseš, teploty 0 stupňů Fahrenheita nebo nižší.",
+  "str": 239
+ },
+ {
+  "en": "Ring of Water Walking",
+  "cz": "prsten chůze po vodě",
+  "druh": "Prsten",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Pokud máš tento prsten na sobě, sesíláš z něj Water Walk, přičemž cílíš jen na sebe.",
+  "str": 239
+ },
+ {
+  "en": "Ring of X-ray Vision",
+  "cz": "prsten rentgenového vidění",
+  "druh": "Prsten",
+  "vz": "vzácný",
+  "pr": true,
+  "t": "Pokud máš tento prsten na sobě, můžeš použít akci Magie a na 1 minutu získat rentgenové vidění s dosahem 30 stop. Pevné předměty v tomto okruhu se ti jeví jako průhledné a nebrání průchodu světla. Vidění pronikne 1 stopou kamene, 1 palcem běžného kovu nebo až 3 stopami dřeva či hlíny. Silnější vrstvy hmoty nebo tenký plát olova vidění zablokují.\nKdykoli prsten použiješ znovu dřív, než si dáš dlouhý odpočinek, musíš uspět v záchranném hodu na Odolnost se SO 15, jinak získáš 1 úroveň Vyčerpání (Exhaustion).",
+  "str": 239
+ },
+ {
+  "en": "Robe of Eyes",
+  "cz": "róba očí",
+  "druh": "Divotvorný předmět",
+  "vz": "vzácný",
+  "pr": true,
+  "t": "Tato róba je zdobena vzory připomínajícími oči. Dokud róbu nosíš, získáváš následující výhody:\n**Všestranné vidění.** Róba ti dává výhodu na ověření Moudrosti (Perception), která spoléhají na zrak.\n**Zvláštní smysly.** Máš Darkvision a Truesight, obojí s dosahem 120 stop.\n**Slabiny.** Kouzlo Light seslané na róbu nebo kouzlo Daylight seslané do 5 stop od róby ti na 1 minutu způsobí stav Oslepen (Blinded). Na konci každého svého tahu si házíš záchranný hod na Odolnost (SO 11 u Light nebo SO 15 u Daylight); při úspěchu stav na sobě ukončíš.",
+  "str": 240
+ },
+ {
+  "en": "Robe of Scintillating Colors",
+  "cz": "róba třpytivých barev",
+  "druh": "Divotvorný předmět",
+  "vz": "velmi vzácný",
+  "pr": true,
+  "t": "Tato róba má 3 náboje a každý den za úsvitu obnoví 1d3 spotřebovaných nábojů. Dokud ji máš na sobě, můžeš použít akci Magie a spotřebovat 1 náboj, aby oděv až do konce tvého příštího tahu zobrazoval proměnlivý vzor oslnivých barev. Během této doby róba vydává jasné světlo v okruhu 30 stop a šero v dalších 30 stopách a tvorové, kteří tě vidí, mají nevýhodu na hody na útok proti tobě. Každý tvor v jasném světle, který tě vidí v okamžiku, kdy je moc róby aktivována, musí uspět v záchranném hodu na Moudrost se SO 15, jinak má stav Omráčen (Stunned), dokud účinek neskončí.",
+  "str": 240
+ },
+ {
+  "en": "Robe of Stars",
+  "cz": "hvězdná róba",
+  "druh": "Divotvorný předmět",
+  "vz": "velmi vzácný",
+  "pr": true,
+  "t": "Tato černá nebo tmavomodrá róba je vyšívána malými bílými nebo stříbrnými hvězdami. Dokud ji máš na sobě, získáváš bonus +1 k záchranným hodům.\nŠest hvězd na horní přední části róby je obzvlášť velkých. Dokud máš róbu na sobě, můžeš použít akci Magie, odstranit jednu z těchto hvězd a spotřebovat ji k seslání verze kouzla Magic Missile 5. úrovně. Každý den za soumraku se na róbě znovu objeví 1d6 odstraněných hvězd.\nDokud máš róbu na sobě, můžeš použít akci Magie a vstoupit na Astrální rovinu (Astral Plane) spolu se vším, co máš na sobě a neseš. Zůstaneš tam, dokud nepoužiješ akci Magie k návratu na rovinu, na které jsi byl předtím. Znovu se objevíš v prostoru, který jsi naposledy zabíral, nebo, je-li obsazený, v nejbližším neobsazeném prostoru.",
+  "ef": {
+   "zach": 1
+  },
+  "str": 240
+ },
+ {
+  "en": "Robe of the Archmagi",
+  "cz": "róba arcimága",
+  "druh": "Divotvorný předmět",
+  "vz": "legendární",
+  "pr": "Sorcererem, Warlockem nebo Wizardem",
+  "t": "Tento elegantní oděv je ušit z vybrané látky a zdoben runami.\nDokud máš róbu na sobě, získáváš tyto výhody.\n**Zbroj.** Pokud nemáš na sobě zbroj, tvoje základní třída zbroje (AC) je 15 plus tvůj modifikátor Obratnosti.\n**Magická odolnost.** Máš výhodu na záchranné hody proti kouzlům a jiným magickým účinkům.\n**Válečný mág.** Tvoje SO záchrany proti kouzlu i tvůj bonus útoku kouzlem se zvyšují o 2.",
+  "str": 240
+ },
+ {
+  "en": "Robe of Useful Items",
+  "cz": "róba užitečných věcí",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Tato róba je pokryta látkovými záplatami různých tvarů a barev. Dokud máš róbu na sobě, můžeš použít akci Magie a jednu ze záplat odpojit, čímž se z ní stane předmět nebo tvor, kterého představuje. Jakmile je odstraněna poslední záplata, z róby se stane obyčejný oděv.\nRóba má po dvou kusech každé z následujících záplat:\n- Bullseye Lantern (lucerna s clonou; naplněná a rozsvícená)\n- Dagger (dýka)\n- Mirror (zrcadlo)\n- Pole (tyč)\n- Rope (lano; smotané)\n- Sack (pytel)\nKromě toho má róba 4d4 dalších záplat. Vypravěč záplaty zvolí, nebo je určí náhodně hodem na následující tabulku (1d100: záplata).\n- **01–08:** Měšec se 100 GP\n- **09–15:** Stříbrná truhlička (1 stopa dlouhá, 6 palců široká a hluboká) v hodnotě 500 GP\n- **16–22:** Železné dveře (až 10 stop široké a 10 stop vysoké, zajištěné závorou na jedné straně podle tvé volby), které můžeš umístit do otvoru, na který dosáhneš; přizpůsobí se otvoru, samy se v něm upevní a zavěsí na panty\n- **23–30:** 10 drahokamů v hodnotě 100 GP za kus\n- **31–44:** Dřevěný žebřík (24 stop dlouhý)\n- **45–51:** Riding Horse (jezdecký kůň) s jezdeckým sedlem (Riding Saddle)\n- **52–59:** Otevřená jáma (krychle o hraně 10 stop), kterou můžeš umístit na zem do 10 stop od sebe\n- **60–68:** 4 Potions of Healing\n- **69–75:** Veslice (12 stop dlouhá)\n- **76–83:** Spell Scroll s jedním kouzlem 1., 2. nebo 3. úrovně (podle tvé volby)\n- **84–90:** 2 Mastiffs (dogy)\n- **91–96:** Okno (2 krát 4 stopy, až 2 stopy hluboké), které můžeš umístit na svislý povrch, na který dosáhneš\n- **97–00:** Portable Ram (přenosné beranidlo)",
+  "str": 240
+ },
+ {
+  "en": "Rod of Absorption",
+  "cz": "žezlo pohlcení",
+  "druh": "Žezlo",
+  "vz": "velmi vzácný",
+  "pr": true,
+  "t": "Dokud držíš toto žezlo, můžeš použít reakci a pohltit kouzlo, které cílí jen na tebe a nevytváří oblast účinku. Účinek pohlceného kouzla je zrušen a energie kouzla – nikoli kouzlo samotné – se uloží do žezla. Energie má stejnou úroveň, jakou mělo kouzlo při seslání. Zrušené kouzlo se rozplyne bez účinku a veškeré prostředky vynaložené na jeho seslání jsou promarněny. Žezlo dokáže za dobu své existence pohltit a uložit až 50 úrovní energie. Jakmile žezlo pohltí 50 úrovní energie, další už pohltit nedokáže. Pokud na tebe cílí kouzlo, které žezlo nedokáže uložit, žezlo na toto kouzlo nemá žádný vliv.\nKdyž se se žezlem sladíš, víš, kolik úrovní energie za dobu své existence pohltilo a kolik úrovní energie kouzel je v něm právě uloženo.\nPokud jsi sesilatel a držíš žezlo, můžeš energii v něm uloženou přeměnit na sloty kouzel a sesílat kouzla, která máš připravená nebo která znáš. Můžeš vytvářet jen sloty kouzel úrovně rovné úrovni tvých vlastních slotů kouzel nebo nižší, nejvýše 5. úrovně. Uložené úrovně použiješ místo svých slotů, jinak ale kouzlo sesíláš jako obvykle. Můžeš například použít 3 úrovně uložené v žezle jako slot kouzla 3. úrovně.\nNově nalezené žezlo má obvykle uloženo 1d10 úrovní energie kouzel. Žezlo, které už nedokáže pohlcovat energii kouzel a nemá žádnou zbývající energii, se stane nemagickým.",
+  "str": 241
+ },
+ {
+  "en": "Rod of Alertness",
+  "cz": "žezlo ostražitosti",
+  "druh": "Žezlo",
+  "vz": "velmi vzácný",
+  "pr": true,
+  "t": "Toto žezlo má následující vlastnosti.\n**Ostražitost.** Dokud držíš žezlo, máš výhodu na ověření Moudrosti (Perception) a na hody na iniciativu.\n**Kouzla.** Dokud držíš žezlo, můžeš z něj seslat následující kouzla:\n- Detect Evil and Good\n- Detect Magic\n- Detect Poison and Disease\n- See Invisibility\n**Ochranná aura.** Jako akci Magie můžeš zarazit žezlo koncem násady do země, načež hlavice žezla začne vydávat jasné světlo v okruhu 60 stop a šero v dalších 60 stopách. Dokud jste v tomto jasném světle, ty a tvoji spojenci získáváte bonus +1 k třídě zbroje (AC) a k záchranným hodům a můžete vycítit polohu každého neviditelného (Invisible) tvora, který je také v tomto jasném světle.\nHlavice žezla přestane zářit a účinek skončí po 10 minutách nebo když nějaký tvor použije akci Magie a vytáhne žezlo ze země. Jakmile je tato vlastnost použita, nelze ji znovu použít až do příštího úsvitu.",
+  "str": 241
+ },
+ {
+  "en": "Rod of Lordly Might",
+  "cz": "žezlo panovnické moci",
+  "druh": "Žezlo",
+  "vz": "legendární",
+  "pr": true,
+  "t": "Toto žezlo má hlavici s přírubami a funguje jako magický Mace, který poskytuje bonus +3 k hodům na útok a hodům na zranění, které s ním provádíš. Žezlo má vlastnosti spojené se šesti různými tlačítky, která jsou umístěna v řadě podél násady. Má také tři další vlastnosti, popsané níže.\n**Tlačítka.** Jedno z následujících tlačítek můžeš stisknout jako bonusovou akci; účinek tlačítka trvá, dokud nestiskneš jiné tlačítko nebo dokud znovu nestiskneš totéž tlačítko, čímž se žezlo vrátí do své normální podoby:\n- **Tlačítko 1.** Z konce naproti přírubové hlavici žezla vyraší ohnivá čepel. Plameny vydávají jasné světlo v okruhu 40 stop a šero v dalších 40 stopách a čepel funguje jako magický Longsword nebo Shortsword (podle tvé volby), který při zásahu způsobí navíc 2d6 Fire zranění.\n- **Tlačítko 2.** Přírubová hlavice žezla se sklopí a vyskočí z ní dvě srpovité čepele, čímž se žezlo promění v magický Battleaxe, který poskytuje bonus +3 k hodům na útok a hodům na zranění, které s ním provádíš.\n- **Tlačítko 3.** Přírubová hlavice žezla se sklopí, ze špičky žezla vyskočí hrot kopí a rukojeť žezla se prodlouží v 6 stop dlouhou násadu, čímž se žezlo promění v magický Spear, který poskytuje bonus +3 k hodům na útok a hodům na zranění, které s ním provádíš.\n- **Tlačítko 4.** Žezlo se promění v lezeckou tyč dlouhou až 50 stop (délku určíš ty), přičemž tlačítka žezla zůstanou na dosah tvé ruky. V površích tvrdých jako žula tyč ukotví hrot na spodním konci a tři háky nahoře. Ze stran se vyklopí 3 palce dlouhé vodorovné příčky ve vzdálenosti 1 stopy od sebe a vytvoří žebřík. Tyč unese až 4 000 liber. Větší váha nebo chybějící pevné ukotvení způsobí, že se žezlo vrátí do své normální podoby.\n- **Tlačítko 5.** Žezlo se promění v ruční beranidlo a poskytne svému uživateli bonus +10 k ověřením Síly (Athletics) prováděným za účelem prolomení dveří, barikád a jiných překážek.\n- **Tlačítko 6.** Žezlo zaujme svou normální podobu nebo v ní zůstane a ukazuje k magnetickému severu. (Pokud je tato funkce žezla použita na místě, které nemá magnetický sever, nic se nestane.) Žezlo ti také dá vědomí o tvé přibližné hloubce pod zemí nebo výšce nad ní.\n**Vysátí života.** Když zasáhneš tvora útokem na blízko pomocí žezla, můžeš cíl přinutit k záchrannému hodu na Odolnost se SO 17. Při neúspěchu utrpí cíl navíc 4d6 Necrotic zranění a ty získáš zpět počet životů rovný polovině tohoto Necrotic zranění. Jakmile je tato vlastnost použita, nelze ji znovu použít až do příštího úsvitu.\n**Ochromení.** Když zasáhneš tvora útokem na blízko pomocí žezla, můžeš cíl přinutit k záchrannému hodu na Odolnost se SO 17. Při neúspěchu má cíl na 1 minutu stav Ochromen (Paralyzed). Cíl opakuje záchranu na konci každého svého tahu a při úspěchu účinek skončí. Jakmile je tato vlastnost použita, nelze ji znovu použít až do příštího úsvitu.\n**Zastrašení.** Dokud držíš žezlo, můžeš použít akci Magie a přinutit každého tvora, kterého vidíš do 30 stop od sebe, k záchrannému hodu na Moudrost se SO 17. Při neúspěchu má cíl na 1 minutu stav Vyděšen (Frightened). Vyděšený cíl opakuje záchranu na konci každého svého tahu a při úspěchu na sobě účinek ukončí. Jakmile je tato vlastnost použita, nelze ji znovu použít až do příštího úsvitu.",
+  "ef": {
+   "utok": 3
+  },
+  "str": 241
+ },
+ {
+  "en": "Rod of Resurrection",
+  "cz": "žezlo vzkříšení",
+  "druh": "Žezlo",
+  "vz": "legendární",
+  "pr": true,
+  "t": "Žezlo má 5 nábojů. Dokud ho držíš, můžeš z něj seslat jedno z následujících kouzel: Heal (spotřebuje 1 náboj) nebo Resurrection (spotřebuje 5 nábojů). Žezlo každý den za úsvitu obnoví 1 spotřebovaný náboj. Pokud spotřebuješ poslední náboj, hoď 1d20. Při výsledku 1 žezlo zmizí v neškodném záblesku jasu.",
+  "str": 242
+ },
+ {
+  "en": "Rod of Rulership",
+  "cz": "žezlo vlády",
+  "druh": "Žezlo",
+  "vz": "vzácný",
+  "pr": true,
+  "t": "Můžeš použít akci Magie, pozvednout žezlo a vyžádat si poslušnost od každého tvora podle své volby, kterého vidíš do 120 stop od sebe. Každý cíl musí uspět v záchranném hodu na Moudrost se SO 15, jinak má na 8 hodin stav Okouzlen (Charmed). Dokud je tvor takto okouzlen, považuje tě za svého důvěryhodného vůdce. Pokud cíli ublížíš ty nebo tvoji spojenci, nebo pokud dostane rozkaz udělat něco v rozporu se svou povahou, přestane být takto okouzlen. Jakmile je tato vlastnost použita, nelze ji znovu použít až do příštího úsvitu.",
+  "str": 242
+ },
+ {
+  "en": "Rod of Security",
+  "cz": "žezlo bezpečí",
+  "druh": "Žezlo",
+  "vz": "velmi vzácný",
+  "pr": false,
+  "t": "Dokud držíš toto žezlo, můžeš použít akci Magie a aktivovat ho. Žezlo pak okamžitě přenese tebe a až 199 dalších ochotných tvorů, které vidíš, do polo-roviny (demiplane). Podobu polo-roviny zvolíš ty. Může to být klidná zahrada, veselá hospoda, nesmírný palác, tropický ostrov, fantastický karneval nebo cokoli jiného, co si dokážeš představit. Bez ohledu na svou povahu obsahuje polo-rovina dostatek vody a jídla k obživě svých návštěvníků a prostředí polo-roviny nemůže jejím obyvatelům ublížit. Vše ostatní, s čím se tam dá zacházet, může existovat jen tam. Například květina utržená v tamní zahradě zmizí, pokud je vynesena mimo polo-rovinu.\nZa každou hodinu strávenou v polo-rovině získá návštěvník zpět životy, jako by utratil 1 kostku životů. Tvorové tam také nestárnou, ačkoli čas plyne normálně. Návštěvníci tam mohou zůstat až 200 dní vydělených počtem přítomných tvorů (zaokrouhleno dolů).\nKdyž čas vyprší nebo když použiješ akci Magie k ukončení účinku, všichni návštěvníci se znovu objeví na místě, kde byli, když jsi žezlo aktivoval, nebo v neobsazeném prostoru nejbližším tomuto místu. Jakmile je tato vlastnost použita, nelze ji znovu použít, dokud neuplyne 10 dní.",
+  "str": 242
+ },
+ {
+  "en": "Rope of Climbing",
+  "cz": "šplhací lano",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Toto lano o délce 60 stop unese až 3 000 liber. Dokud držíš jeden konec lana, můžeš použít akci Magie a přikázat druhému konci lana, aby ožil a pohyboval se k cíli podle tvé volby, nejvýše na délku lana od tebe. Tento konec se posune o 10 stop ve tvém tahu, kdy mu poprvé přikážeš, a o 10 stop na začátku každého tvého dalšího tahu, dokud nedosáhne cíle nebo dokud mu neřekneš, aby se zastavil. Lanu také můžeš říct, aby se pevně uvázalo k předmětu nebo se odvázalo, aby se zauzlovalo nebo rozuzlovalo nebo aby se svinulo k přenášení.\nKdyž lanu řekneš, aby se zauzlovalo, objeví se na něm v rozestupech 1 stopy velké uzly. Zauzlované lano se zkrátí na délku 50 stop a poskytuje výhodu na ověření vlastností prováděná při šplhání po laně.\nLano má AC 20, 20 HP a Immunity vůči Poison a Psychic zranění. Každých 5 minut získá zpět 1 život, dokud má alespoň 1 život. Pokud lano klesne na 0 životů, je zničeno.",
+  "str": 242
+ },
+ {
+  "en": "Rope of Entanglement",
+  "cz": "zaplétací lano",
+  "druh": "Divotvorný předmět",
+  "vz": "vzácný",
+  "pr": false,
+  "t": "Toto lano je 30 stop dlouhé. Dokud držíš jeden konec lana, můžeš použít akci Magie a přikázat druhému konci, aby vyrazil vpřed a zapletl jednoho tvora, kterého vidíš do 20 stop od sebe. Cíl musí uspět v záchranném hodu na Obratnost se SO 15, jinak má stav Zadržen (Restrained). Cíl můžeš uvolnit tak, že pustíš svůj konec lana (lano se pak svine v prostoru cíle), nebo tak, že bonusovou akcí příkaz zopakuješ (lano se pak svine v tvé ruce).\nCíl zadržený lanem může použít akci k ověření Síly (Athletics) nebo Obratnosti (Acrobatics) se SO 15 podle své volby. Při úspěšném ověření už cíl není lanem zadržen. Pokud lano stále držíš, když se z něj cíl vymaní, můžeš použít reakci a přikázat lanu, aby se svinulo v tvé ruce; jinak se lano svine v prostoru cíle.\nLano má AC 20, 20 HP a Immunity vůči Poison a Psychic zranění. Každých 5 minut získá zpět 1 život, dokud má alespoň 1 život. Pokud lano klesne na 0 životů, je zničeno.",
+  "str": 242
+ },
+ {
+  "en": "Scarab of Protection",
+  "cz": "ochranný skarabeus",
+  "druh": "Divotvorný předmět",
+  "vz": "legendární",
+  "pr": true,
+  "t": "Tento medailon ve tvaru skarabea poskytuje tři výhody, dokud ho máš u sebe.\n**Obrana.** Získáváš bonus +1 k třídě zbroje (AC).\n**Ochrana.** Skarabeus má 12 nábojů. Pokud neuspěješ v záchranném hodu proti kouzlu školy Necromancy nebo proti škodlivému účinku pocházejícímu od nemrtvého (Undead), můžeš použít reakci, spotřebovat 1 náboj a proměnit neúspěšnou záchranu v úspěšnou. Když je spotřebován poslední náboj, skarabeus se rozpadne v prach a je zničen.\n**Odolnost vůči kouzlům.** Máš výhodu na záchranné hody proti kouzlům.",
+  "ef": {
+   "ac": 1
+  },
+  "str": 243
+ },
+ {
+  "en": "Scimitar of Speed",
+  "cz": "šavle rychlosti",
+  "druh": "Zbraň",
+  "upr": "Scimitar",
+  "vz": "velmi vzácný",
+  "pr": true,
+  "t": "Získáváš bonus +2 k hodům na útok a hodům na zranění, které provádíš s touto magickou zbraní. Kromě toho s ní můžeš v každém svém tahu provést jeden útok jako bonusovou akci.",
+  "ef": {
+   "utok": 2
+  },
+  "str": 243
+ },
+ {
+  "en": "Sending Stones",
+  "cz": "poselské kameny",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Sending Stones se vyskytují v párech; každý kámen je vytesán tak, aby odpovídal tomu druhému, takže je pár snadno rozpoznatelný. Dokud se dotýkáš jednoho kamene, můžeš z něj seslat Sending. Cílem je nositel druhého kamene. Pokud druhý kámen nikdo nenese, zjistíš to, jakmile kámen použiješ, a kouzlo nesešleš.\nJakmile je kouzlo Sending sesláno pomocí kteréhokoli z kamenů, nelze kameny znovu použít až do příštího úsvitu. Pokud je jeden z kamenů páru zničen, druhý se stane nemagickým.",
+  "str": 243
+ },
+ {
+  "en": "Sentinel Shield",
+  "cz": "štít hlídky",
+  "druh": "Zbroj",
+  "upr": "Shield",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Dokud držíš tento štít, máš výhodu na hody na iniciativu a na ověření Moudrosti (Perception). Štít je ozdoben symbolem oka.",
+  "str": 243
+ },
+ {
+  "en": "Shield, +1, +2, or +3",
+  "cz": "štít +1, +2, +3",
+  "druh": "Zbroj",
+  "upr": "Shield",
+  "vz": "proměnlivá",
+  "vzt": "neobvyklý (+1), vzácný (+2) nebo velmi vzácný (+3)",
+  "pr": false,
+  "t": "Dokud držíš tento štít, máš bonus k třídě zbroje (AC) určený vzácností štítu, a to navíc k běžnému bonusu štítu k AC.",
+  "str": 243
+ },
+ {
+  "en": "Shield of Missile Attraction",
+  "cz": "štít přitahující střely",
+  "druh": "Zbroj",
+  "upr": "Shield",
+  "vz": "vzácný",
+  "pr": true,
+  "t": "Dokud držíš tento štít, máš Resistance vůči zranění od útoků zbraněmi na dálku.\n**Kletba.** Tento štít je prokletý. Sladění s ním prokleje tebe, dokud se nestaneš cílem kouzla Remove Curse nebo podobné magie. Odložení štítu kletbu z tebe nesejme. Kdykoli útok zbraní na dálku cílí na tvora do 10 stop od tebe, kletba způsobí, že se jeho cílem místo toho staneš ty.",
+  "str": 243
+ },
+ {
+  "en": "Shield of the Cavalier",
+  "cz": "štít rytíře",
+  "druh": "Zbroj",
+  "upr": "Shield",
+  "vz": "velmi vzácný",
+  "pr": true,
+  "t": "Dokud držíš tento štít, máš bonus +2 k třídě zbroje (AC). Tento bonus je navíc k běžnému bonusu štítu k AC.\nŠtít má následující další vlastnosti, které můžeš používat, dokud ho držíš.\n**Mocný úder.** Když použiješ akci Útok, můžeš jeden z hodů na útok provést štítem proti cíli do 5 stop od sebe. K hodu na útok přičti svůj bonus zdatnosti a modifikátor Síly. Při zásahu způsobí štít cíli Force zranění rovné 2d6 + 2 plus tvůj modifikátor Síly, a pokud je cílem tvor, můžeš ho odstrčit až o 10 stop přímo od sebe. Pokud je tvor tvé velikosti nebo menší, můžeš ho také srazit k zemi, čímž mu způsobíš stav Sražen (Prone).\n**Ochranné pole.** Jako reakci, když se ty nebo spojenec, kterého vidíš do 5 stop od sebe, stanete cílem útoku nebo si házíte záchranný hod proti oblasti účinku, můžeš štítem vytvořit nehybné vyzařování 5 stop vycházející z tebe. Když se vyzařování objeví, všichni tvorové a předměty, které v něm nejsou zcela obsaženy, jsou vytlačeni do nejbližších neobsazených prostorů mimo ně. Útok nebo oblast účinku, které reakci spustily, nemají na tvory a předměty uvnitř vyzařování žádný účinek; vyzařování trvá, dokud udržuješ soustředění (Concentration), nejvýše 1 minutu. Nic nemůže do vyzařování vstoupit ani z něj vystoupit. Tvorovi ani předmětu uvnitř vyzařování nemohou útoky ani účinky pocházející zvenčí způsobit zranění a tvor uvnitř vyzařování nemůže způsobit zranění ničemu venku. Jakmile je tato vlastnost použita, nelze ji znovu použít až do příštího úsvitu.",
+  "ef": {
+   "ac": 2
+  },
+  "str": 243
+ },
+ {
+  "en": "Slippers of Spider Climbing",
+  "cz": "pavoučí střevíce",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": true,
+  "t": "Dokud nosíš tyto lehké střevíce, můžeš se pohybovat nahoru, dolů a napříč po svislých plochách a po stropech, a ruce ti přitom zůstávají volné. Máš rychlost šplhání rovnou své rychlosti. Střevíce ti však neumožňují takto se pohybovat po kluzkém povrchu, například pokrytém ledem nebo olejem.",
+  "str": 244
+ },
+ {
+  "en": "Sovereign Glue",
+  "cz": "svrchované lepidlo",
+  "druh": "Divotvorný předmět",
+  "vz": "legendární",
+  "pr": false,
+  "t": "Tato hustá, mléčně bílá látka dokáže vytvořit trvalé lepivé spojení mezi libovolnými dvěma předměty. Musí být uchovávána ve džbánku nebo baňce, které byly zevnitř potřeny Oil of Slipperiness. Když je nádoba nalezena, obsahuje 1d6 + 1 uncí.\nJedna unce lepidla pokryje plochu jedné čtvereční stopy. Nanesení unce Sovereign Glue vyžaduje akci Použití a nanesené lepidlo tuhne 1 minutu. Jakmile ztuhne, spojení, které vytvoří, lze zrušit jedině nanesením Universal Solvent nebo Oil of Etherealness, případně kouzlem Wish.",
+  "str": 244
+ },
+ {
+  "en": "Spellguard Shield",
+  "cz": "štít ochrany před kouzly",
+  "druh": "Zbroj",
+  "upr": "Shield",
+  "vz": "velmi vzácný",
+  "pr": true,
+  "t": "Dokud držíš tento štít, máš výhodu na záchranné hody proti kouzlům a jiným magickým účinkům a hody na útok kouzlem proti tobě mají nevýhodu.",
+  "str": 244
+ },
+ {
+  "en": "Spell Scroll",
+  "cz": "svitek s kouzlem",
+  "druh": "Svitek",
+  "vz": "proměnlivá",
+  "vzt": "běžný (trik, 1. úroveň), neobvyklý (2.–3. úroveň), vzácný (4.–5. úroveň), velmi vzácný (6.–8. úroveň), legendární (9. úroveň)",
+  "pr": false,
+  "t": "Spell Scroll nese slova jediného kouzla zapsaná mystickou šifrou. Pokud je kouzlo na tvém seznamu kouzel, můžeš svitek přečíst a seslat jeho kouzlo bez materiálních složek. Jinak je svitek nesrozumitelný. Seslání kouzla přečtením svitku vyžaduje běžnou dobu sesílání daného kouzla. Jakmile je kouzlo sesláno, svitek se rozpadne v prach. Pokud je sesílání přerušeno, svitek není ztracen.\nPokud je kouzlo na tvém seznamu kouzel, ale je vyšší úrovně, než jakou běžně dokážeš sesílat, provedeš ověření vlastnosti se svou sesílací vlastností, abys určil, zda kouzlo sešleš. SO je rovno 10 plus úroveň kouzla. Při neúspěšném ověření kouzlo ze svitku zmizí bez dalšího účinku.\nÚroveň kouzla na svitku určuje SO záchrany proti kouzlu a bonus útoku, stejně jako vzácnost svitku, jak ukazuje následující tabulka (úroveň kouzla: vzácnost, SO záchrany, bonus útoku).\n- **Trik:** běžný, SO 13, +5\n- **1:** běžný, SO 13, +5\n- **2:** neobvyklý, SO 13, +5\n- **3:** neobvyklý, SO 15, +7\n- **4:** vzácný, SO 15, +7\n- **5:** vzácný, SO 17, +9\n- **6:** velmi vzácný, SO 17, +9\n- **7:** velmi vzácný, SO 18, +10\n- **8:** velmi vzácný, SO 18, +10\n- **9:** legendární, SO 19, +11\n**Opsání svitku do knihy kouzel.** Kouzlo Wizarda na Spell Scroll lze opsat do knihy kouzel. Když je kouzlo takto opisováno, musí opisovatel uspět v ověření Inteligence (Arcana) se SO rovným 10 plus úroveň kouzla. Při úspěšném ověření je kouzlo opsáno. Ať ověření uspěje, nebo selže, Spell Scroll je zničen.",
+  "str": 244
+ },
+ {
+  "en": "Sphere of Annihilation",
+  "cz": "koule zničení",
+  "druh": "Divotvorný předmět",
+  "vz": "legendární",
+  "pr": false,
+  "t": "Tato černá koule o průměru 2 stop je dírou v multivesmíru; vznáší se v prostoru a je stabilizována magickým polem, které ji obklopuje.\nKoule vyhladí veškerou hmotu, kterou projde, i veškerou hmotu, která projde jí. Výjimkou jsou artefakty. Pokud artefakt není náchylný ke zranění od Sphere of Annihilation, projde koulí bez úhony. Cokoli jiného, co se koule dotkne, ale není jí celé pohlceno a vyhlazeno, utrpí 8d10 Force zranění.\n**Ovládání koule.** Sphere of Annihilation je nehybná, dokud ji někdo neovládne. Pokud jsi do 60 stop od koule, můžeš použít akci Magie a provést ověření Inteligence (Arcana) se SO 25. Při úspěšném ověření ovládáš kouli až do začátku svého příštího tahu, a pokud byla pod kontrolou jiného tvora, ten nad koulí kontrolu ztratí. Při neúspěšném ověření se koule posune o 10 stop přímočaře k tobě.\nDokud kouli ovládáš, můžeš bonusovou akcí způsobit, že se posune jedním směrem podle tvé volby, až o počet stop rovný pětinásobku tvého modifikátoru Inteligence (nejméně o 5 stop). Každý tvor, do jehož prostoru koule vstoupí, musí uspět v záchranném hodu na Obratnost se SO 19, jinak se ho koule dotkne a utrpí 8d10 Force zranění. Tvor, kterého toto zranění sníží na 0 životů, je vyhlazen a zanechá po sobě svůj majetek, ale žádné jiné tělesné pozůstatky.\n**Interakce koule.** Pokud koule přijde do styku s planárním portálem (například vytvořeným kouzlem Gate) nebo s mimodimenzionálním prostorem (například uvnitř Portable Hole), vypravěč náhodně určí, co se stane, pomocí následující tabulky (1d100: výsledek).\n- **01–50:** Koule je zničena.\n- **51–85:** Koule projde portálem nebo vstoupí do mimodimenzionálního prostoru.\n- **86–00:** Prostorová trhlina pošle kouli i každého tvora a předmět do 180 stop od koule na náhodnou rovinu existence.",
+  "str": 244
+ },
+ {
+  "en": "Staff of Charming",
+  "cz": "hůl okouzlování",
+  "druh": "Hůl",
+  "vz": "vzácný",
+  "pr": "Bardem, Clericem, Druidem, Sorcererem, Warlockem nebo Wizardem",
+  "t": "Tato hůl má 10 nábojů. Dokud hůl držíš, můžeš použít kteroukoli z jejích vlastností:\n- **Seslání kouzla.** Můžeš spotřebovat 1 náboj hole a seslat z ní Charm Person, Command nebo Comprehend Languages se svým SO záchrany proti kouzlu.\n- **Odražení očarování.** Pokud uspěješ v záchranném hodu proti kouzlu školy Enchantment, které cílí jen na tebe, můžeš použít reakci, spotřebovat 1 náboj hole a obrátit kouzlo zpět proti jeho sesilateli, jako bys ho seslal ty.\n- **Odolání očarování.** Pokud neuspěješ v záchranném hodu proti kouzlu školy Enchantment, které cílí jen na tebe, můžeš svou neúspěšnou záchranu proměnit v úspěšnou. Tuto vlastnost hole nemůžeš znovu použít až do příštího úsvitu.\n**Obnova nábojů.** Hůl každý den za úsvitu obnoví 1d8 + 2 spotřebovaných nábojů. Pokud spotřebuješ poslední náboj, hoď 1d20. Při výsledku 1 se hůl rozpadne v prach a je zničena.",
+  "str": 245
+ },
+ {
+  "en": "Staff of Fire",
+  "cz": "ohnivá hůl",
+  "druh": "Hůl",
+  "vz": "velmi vzácný",
+  "pr": "Druidem, Sorcererem, Warlockem nebo Wizardem",
+  "t": "Dokud držíš tuto hůl, máš Resistance vůči Fire zranění.\n**Kouzla.** Hůl má 10 nábojů. Dokud hůl držíš, můžeš z ní seslat jedno z kouzel v následující tabulce se svým SO záchrany proti kouzlu. Tabulka uvádí, kolik nábojů musíš k seslání kouzla spotřebovat (kouzlo: cena v nábojích).\n- Burning Hands: 1\n- Fireball: 3\n- Wall of Fire: 4\n**Obnova nábojů.** Hůl každý den za úsvitu obnoví 1d6 + 4 spotřebovaných nábojů. Pokud spotřebuješ poslední náboj, hoď 1d20. Při výsledku 1 se hůl rozpadne na oharky a je zničena.",
+  "str": 245
+ },
+ {
+  "en": "Staff of Frost",
+  "cz": "mrazivá hůl",
+  "druh": "Hůl",
+  "vz": "velmi vzácný",
+  "pr": "Druidem, Sorcererem, Warlockem nebo Wizardem",
+  "t": "Dokud držíš tuto hůl, máš Resistance vůči Cold zranění.\n**Kouzla.** Hůl má 10 nábojů. Dokud hůl držíš, můžeš z ní seslat jedno z kouzel v následující tabulce se svým SO záchrany proti kouzlu. Tabulka uvádí, kolik nábojů musíš k seslání kouzla spotřebovat (kouzlo: cena v nábojích).\n- Cone of Cold: 5\n- Fog Cloud: 1\n- Ice Storm: 4\n- Wall of Ice: 4\n**Obnova nábojů.** Hůl každý den za úsvitu obnoví 1d6 + 4 spotřebovaných nábojů. Pokud spotřebuješ poslední náboj, hoď 1d20. Při výsledku 1 se hůl promění ve vodu a je zničena.",
+  "str": 245
+ },
+ {
+  "en": "Staff of Healing",
+  "cz": "hůl léčení",
+  "druh": "Hůl",
+  "vz": "vzácný",
+  "pr": "Bardem, Clericem nebo Druidem",
+  "t": "Tato hůl má 10 nábojů. Dokud hůl držíš, můžeš z ní seslat jedno z kouzel v následující tabulce se svým modifikátorem sesílací vlastnosti. Tabulka uvádí, kolik nábojů musíš k seslání kouzla spotřebovat (kouzlo: cena v nábojích).\n- Cure Wounds: 1 náboj za úroveň kouzla (nejvýše 4 pro kouzlo 4. úrovně)\n- Lesser Restoration: 2\n- Mass Cure Wounds: 5\n**Obnova nábojů.** Hůl každý den za úsvitu obnoví 1d6 + 4 spotřebovaných nábojů. Pokud spotřebuješ poslední náboj, hoď 1d20. Při výsledku 1 hůl zmizí v záblesku světla, navždy ztracena.",
+  "str": 245
+ },
+ {
+  "en": "Staff of Power",
+  "cz": "hůl moci",
+  "druh": "Hůl",
+  "vz": "velmi vzácný",
+  "pr": "Sorcererem, Warlockem nebo Wizardem",
+  "t": "Tato hůl má 20 nábojů a lze ji používat jako magický Quarterstaff, který poskytuje bonus +2 k hodům na útok a hodům na zranění, které s ním provádíš. Dokud ji držíš, získáváš bonus +2 k třídě zbroje (AC), záchranným hodům a hodům na útok kouzlem.\n**Kouzla.** Dokud hůl držíš, můžeš z ní seslat jedno z kouzel v následující tabulce se svým SO záchrany proti kouzlu. Tabulka uvádí, kolik nábojů musíš k seslání kouzla spotřebovat (kouzlo: cena v nábojích).\n- Cone of Cold: 5\n- Fireball (verze 5. úrovně): 5\n- Globe of Invulnerability: 6\n- Hold Monster: 5\n- Levitate: 2\n- Lightning Bolt (verze 5. úrovně): 5\n- Magic Missile: 1\n- Ray of Enfeeblement: 1\n- Wall of Force: 5\n**Obnova nábojů.** Hůl každý den za úsvitu obnoví 2d8 + 4 spotřebovaných nábojů. Pokud spotřebuješ poslední náboj, hoď 1d20. Při výsledku 1 si hůl ponechá svůj bonus +2 k hodům na útok a hodům na zranění, ale ztratí všechny ostatní vlastnosti. Při výsledku 20 hůl obnoví 1d8 + 2 nábojů.\n**Odvetný úder.** Můžeš použít akci Magie a zlomit hůl o koleno nebo o pevný povrch. Hůl je zničena a uvolní svou magii ve výbuchu, který vyplní vyzařování 30 stop vycházející z ní. Máš 50% šanci, že se okamžitě přeneseš na náhodnou rovinu existence a výbuchu se vyhneš. Pokud se účinku nevyhneš, utrpíš Force zranění rovné 16násobku počtu nábojů v holi. Každý další tvor v oblasti si hází záchranný hod na Obratnost se SO 17. Při neúspěchu utrpí tvor Force zranění rovné 4násobku počtu nábojů v holi. Při úspěchu utrpí polovinu tohoto zranění.",
+  "ef": {
+   "utok": 2,
+   "ac": 2,
+   "zach": 2
+  },
+  "str": 245
+ },
+ {
+  "en": "Staff of Striking",
+  "cz": "hůl úderu",
+  "druh": "Hůl",
+  "vz": "velmi vzácný",
+  "pr": true,
+  "t": "Tuto hůl lze používat jako magický Quarterstaff, který poskytuje bonus +3 k hodům na útok a hodům na zranění, které s ním provádíš.\nHůl má 10 nábojů. Když zasáhneš útokem na blízko pomocí hole, můžeš spotřebovat až 3 náboje. Za každý spotřebovaný náboj utrpí cíl navíc 1d6 Force zranění.\n**Obnova nábojů.** Hůl každý den za úsvitu obnoví 1d6 + 4 spotřebovaných nábojů. Pokud spotřebuješ poslední náboj, hoď 1d20. Při výsledku 1 se hůl stane nemagickým Quarterstaff.",
+  "ef": {
+   "utok": 3
+  },
+  "str": 246
+ },
+ {
+  "en": "Staff of Swarming Insects",
+  "cz": "hůl hmyzích rojů",
+  "druh": "Hůl",
+  "vz": "vzácný",
+  "pr": "Bardem, Clericem, Druidem, Sorcererem, Warlockem nebo Wizardem",
+  "t": "Tato hůl má 10 nábojů.\n**Hmyzí mračno.** Dokud držíš hůl, můžeš použít akci Magie a spotřebovat 1 náboj, aby roj neškodného létajícího hmyzu vyplnil vyzařování 30 stop vycházející z tebe. Hmyz zůstane 10 minut a pro všechny tvory kromě tebe činí oblast silně zastřenou. Silný vítr (jako ten, který vytvoří Gust of Wind) roj rozežene a účinek ukončí.\n**Kouzla.** Dokud hůl držíš, můžeš z ní seslat jedno z kouzel v následující tabulce se svým SO záchrany proti kouzlu a modifikátorem útoku kouzlem. Tabulka uvádí, kolik nábojů musíš k seslání kouzla spotřebovat (kouzlo: cena v nábojích).\n- Giant Insect: 4\n- Insect Plague: 5\n**Obnova nábojů.** Hůl každý den za úsvitu obnoví 1d6 + 4 spotřebovaných nábojů. Pokud spotřebuješ poslední náboj, hoď 1d20. Při výsledku 1 roj hmyzu hůl pozře a zničí a poté se rozptýlí.",
+  "str": 246
+ },
+ {
+  "en": "Staff of the Magi",
+  "cz": "hůl mágů",
+  "druh": "Hůl",
+  "vz": "legendární",
+  "pr": "Sorcererem, Warlockem nebo Wizardem",
+  "t": "Tato hůl má 50 nábojů a lze ji používat jako magický Quarterstaff, který poskytuje bonus +2 k hodům na útok a hodům na zranění, které s ním provádíš. Dokud ji držíš, získáváš bonus +2 k hodům na útok kouzlem.\n**Pohlcení kouzel.** Dokud držíš hůl, máš výhodu na záchranné hody proti kouzlům. Kromě toho můžeš použít reakci, když jiný tvor sesílá kouzlo, které cílí jen na tebe. Pokud tak učiníš, hůl pohltí magii kouzla, zruší jeho účinek a získá počet nábojů rovný úrovni pohlceného kouzla. Pokud by tím však celkový počet nábojů hole přesáhl 50, hůl vybuchne, jako bys aktivoval její Odvetný úder (viz níže).\n**Kouzla.** Dokud hůl držíš, můžeš z ní seslat jedno z kouzel v následující tabulce se svým SO záchrany proti kouzlu. Tabulka uvádí, kolik nábojů musíš k seslání kouzla spotřebovat (kouzlo: cena v nábojích).\n- Arcane Lock: 0\n- Conjure Elemental: 7\n- Detect Magic: 0\n- Dispel Magic: 3\n- Enlarge/Reduce: 0\n- Fireball (verze 7. úrovně): 7\n- Flaming Sphere: 2\n- Ice Storm: 4\n- Invisibility: 2\n- Knock: 2\n- Light: 0\n- Lightning Bolt (verze 7. úrovně): 7\n- Mage Hand: 0\n- Passwall: 5\n- Plane Shift: 7\n- Protection from Evil and Good: 0\n- Telekinesis: 5\n- Wall of Fire: 4\n- Web: 2\n**Obnova nábojů.** Hůl každý den za úsvitu obnoví 4d6 + 2 spotřebovaných nábojů. Pokud spotřebuješ poslední náboj, hoď 1d20. Při výsledku 20 hůl obnoví 1d12 + 1 nábojů.\n**Odvetný úder.** Můžeš použít akci Magie a zlomit hůl o koleno nebo o pevný povrch. Hůl je zničena a uvolní svou magii ve výbuchu, který vyplní vyzařování 30 stop vycházející z ní. Máš 50% šanci, že se okamžitě přeneseš na náhodnou rovinu existence a výbuchu se vyhneš. Pokud se účinku nevyhneš, utrpíš Force zranění rovné 16násobku počtu nábojů v holi. Každý další tvor v oblasti si hází záchranný hod na Obratnost se SO 17. Při neúspěchu utrpí tvor Force zranění rovné 6násobku počtu nábojů v holi. Při úspěchu utrpí polovinu tohoto zranění.",
+  "ef": {
+   "utok": 2
+  },
+  "str": 246
+ }
+]

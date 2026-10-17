@@ -1,0 +1,682 @@
+[
+ {
+  "en": "Luck Blade",
+  "cz": "čepel štěstí",
+  "druh": "Zbraň",
+  "upr": "Glaive, Greatsword, Longsword, Rapier, Scimitar, Sickle nebo Shortsword",
+  "vz": "legendární",
+  "pr": true,
+  "t": "Získáváš bonus +1 k hodům na útok a hodům na zranění s touto magickou zbraní. Dokud máš zbraň u sebe, získáváš také bonus +1 k záchranným hodům.\n**Štěstí.** Pokud máš zbraň u sebe, můžeš se dovolat jejího štěstí (bez akce) a přehodit jeden neúspěšný test d20, pokud nemáš stav Neschopný (Incapacitated). Musíš použít druhý hod. Po použití nelze tuto vlastnost znovu použít až do příštího úsvitu.\n**Přání.** Zbraň má 1d3 náboje. Když ji držíš, můžeš utratit 1 náboj a seslat z ní kouzlo *Wish*. Po použití nelze tuto vlastnost znovu použít až do příštího úsvitu. Zbraň tuto vlastnost ztratí, pokud nemá žádné náboje.",
+  "ef": {
+   "utok": 1,
+   "zach": 1
+  },
+  "str": 229
+ },
+ {
+  "en": "Mace of Disruption",
+  "cz": "palcát rozvratu",
+  "druh": "Zbraň",
+  "upr": "Mace",
+  "vz": "vzácný",
+  "pr": true,
+  "t": "Když touto magickou zbraní zasáhneš Fienda nebo Undeada, utrpí tento tvor navíc 2d6 Radiant zranění. Pokud má cíl po utrpění tohoto zranění 25 životů nebo méně, musí uspět v záchranném hodu na Moudrost se SO 15, jinak je zničen. Při úspěšné záchraně má tvor stav Vyděšen (Frightened) do konce tvého příštího tahu.\n**Světlo.** Dokud tuto zbraň držíš, vydává jasné světlo v okruhu 20 stop a šero dalších 20 stop.",
+  "str": 229
+ },
+ {
+  "en": "Mace of Smiting",
+  "cz": "palcát drtivých úderů",
+  "druh": "Zbraň",
+  "upr": "Mace",
+  "vz": "vzácný",
+  "pr": false,
+  "t": "Získáváš bonus +1 k hodům na útok a hodům na zranění s touto magickou zbraní. Když zbraní útočíš na Construct, bonus se zvýší na +3.\nKdyž při hodu na útok touto zbraní hodíš 20, cíl utrpí navíc 7 Bludgeoning zranění, nebo 14 Bludgeoning zranění, jde-li o Construct. Pokud má Construct po utrpění tohoto zranění 25 životů nebo méně, je zničen.",
+  "ef": {
+   "utok": 1
+  },
+  "str": 229
+ },
+ {
+  "en": "Mace of Terror",
+  "cz": "palcát hrůzy",
+  "druh": "Zbraň",
+  "upr": "Mace",
+  "vz": "vzácný",
+  "pr": true,
+  "t": "Tato magická zbraň má 3 náboje a každý den za úsvitu obnoví 1d3 utracené náboje. Když zbraň držíš, můžeš provést akci Magie a utratit 1 náboj, abys z ní vypustil vlnu hrůzy. Každý tvor podle tvé volby do 30 stop od tebe musí uspět v záchranném hodu na Moudrost se SO 15, jinak má na 1 minutu stav Vyděšen (Frightened). Takto vyděšený tvor musí svoje tahy trávit snahou dostat se od tebe co nejdál a nemůže provádět příležitostné útoky. Jako svou akci může použít pouze akci Sprint nebo se pokusit uniknout z účinku, který mu brání v pohybu. Pokud se nemá kam pohnout, může tvor provést akci Úhyb. Na konci každého svého tahu tvor záchranu opakuje a při úspěchu účinek na sobě ukončí.",
+  "str": 229
+ },
+ {
+  "en": "Mantle of Spell Resistance",
+  "cz": "plášť odolnosti vůči kouzlům",
+  "druh": "Divotvorný předmět",
+  "vz": "vzácný",
+  "pr": true,
+  "t": "Dokud nosíš tento plášť, máš výhodu na záchranné hody proti kouzlům.",
+  "str": 229
+ },
+ {
+  "en": "Manual of Bodily Health",
+  "cz": "příručka tělesného zdraví",
+  "druh": "Divotvorný předmět",
+  "vz": "velmi vzácný",
+  "pr": false,
+  "t": "Tato kniha obsahuje rady ohledně zdraví a výživy a její slova jsou nabita magií. Pokud během nejvýše 6 dnů strávíš 48 hodin studiem obsahu knihy a dodržováním jejích pokynů, tvoje Odolnost se zvýší o 2, nejvýše na 30. Příručka poté ztratí svou magii, ale znovu ji získá za sto let.",
+  "str": 229
+ },
+ {
+  "en": "Manual of Gainful Exercise",
+  "cz": "příručka prospěšného cvičení",
+  "druh": "Divotvorný předmět",
+  "vz": "velmi vzácný",
+  "pr": false,
+  "t": "Tato kniha popisuje cviky pro fyzickou zdatnost a její slova jsou nabita magií. Pokud během nejvýše 6 dnů strávíš 48 hodin studiem obsahu knihy a dodržováním jejích pokynů, tvoje Síla se zvýší o 2, nejvýše na 30. Příručka poté ztratí svou magii, ale znovu ji získá za sto let.",
+  "str": 229
+ },
+ {
+  "en": "Manual of Golems",
+  "cz": "příručka golemů",
+  "druh": "Divotvorný předmět",
+  "vz": "velmi vzácný",
+  "pr": false,
+  "t": "Tento foliant obsahuje informace a zaříkadla nezbytná k vytvoření určitého druhu golema. Druh zvolí vypravěč, nebo jej určí náhodně hodem na přiloženou tabulku. Abys mohl příručku rozluštit a použít, musíš být sesilatel kouzel s alespoň dvěma sloty kouzel 5. úrovně. Tvor, který *Manual of Golems* použít nedokáže a pokusí se ji číst, utrpí 6d6 Psychic zranění.\nK vytvoření golema musíš strávit dobu uvedenou v tabulce nepřerušovanou prací s příručkou po ruce a odpočívat nejvýše 8 hodin denně. Musíš také zaplatit uvedenou cenu za nákup potřebného materiálu.\nJakmile golema dokončíš, kniha shoří v nadpřirozených plamenech. Golem oživne, když je na něj nasypán popel příručky. Statistiky golema najdeš v kapitole „Nestvůry“. Golem je pod tvou kontrolou, rozumí tvým rozkazům a poslouchá je.\n**Tabulka (1d20 – golem – doba – cena):**\n- 1–5: Clay Golem – 30 dní – 65 000 GP\n- 6–17: Flesh Golem – 60 dní – 50 000 GP\n- 18: Iron Golem – 120 dní – 100 000 GP\n- 19–20: Stone Golem – 90 dní – 80 000 GP",
+  "str": 229
+ },
+ {
+  "en": "Manual of Quickness of Action",
+  "cz": "příručka hbitosti",
+  "druh": "Divotvorný předmět",
+  "vz": "velmi vzácný",
+  "pr": false,
+  "t": "Tato kniha obsahuje cviky na koordinaci a rovnováhu a její slova jsou nabita magií. Pokud během nejvýše 6 dnů strávíš 48 hodin studiem obsahu knihy a dodržováním jejích pokynů, tvoje Obratnost se zvýší o 2, nejvýše na 30. Příručka poté ztratí svou magii, ale znovu ji získá za sto let.",
+  "str": 230
+ },
+ {
+  "en": "Marvelous Pigments",
+  "cz": "zázračná barviva",
+  "druh": "Divotvorný předmět",
+  "vz": "velmi vzácný",
+  "pr": false,
+  "t": "Tato jemná dřevěná krabička obsahuje 1d4 kelímky barviva a štětec (vše dohromady váží 1 lb.).\nPomocí štětce a za spotřebování 1 kelímku barviva můžeš namalovat libovolný počet trojrozměrných předmětů a terénních prvků (například zdi, dveře, stromy, květiny, zbraně, pavučiny a jámy), pokud se všechny tyto prvky vejdou do krychle o hraně 20 stop. Práce trvá 10 minut (bez ohledu na počet vytvořených prvků), během nichž musíš zůstat v krychli, a vyžaduje soustředění (Concentration). Pokud je tvoje soustředění přerušeno nebo opustíš krychli před dokončením díla, všechny namalované prvky zmizí a kelímek barviva přijde nazmar.\nKdyž je dílo hotovo, všechny namalované předměty a terénní prvky se stanou skutečnými. Namalováním dveří na zeď tak vzniknou skutečné dveře, které lze otevřít do toho, co je za nimi. Namalováním jámy vznikne skutečná jáma, jejíž celá hloubka musí ležet uvnitř krychle o hraně 20 stop.\nŽádný předmět vytvořený jedním kelímkem barviva nemůže mít hodnotu vyšší než 25 GP a celková hodnota všech předmětů vytvořených jedním kelímkem nesmí přesáhnout 500 GP. Pokud namaluješ předměty vyšší hodnoty (například velkou hromadu zlata), vypadají pravé, ale bližší prohlídka odhalí, že jsou vyrobeny z těsta, sušenek nebo jiného bezcenného materiálu.\nPokud namaluješ nějakou formu energie, například oheň nebo blesk, energie se rozplyne, jakmile malbu dokončíš, a nezpůsobí žádnou škodu.",
+  "str": 230
+ },
+ {
+  "en": "Medallion of Thoughts",
+  "cz": "medailon myšlenek",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": true,
+  "t": "Medailon má 5 nábojů. Když jej nosíš, můžeš utratit 1 náboj a seslat z něj kouzlo *Detect Thoughts* (SO záchrany 13). Medailon každý den za úsvitu obnoví 1d4 utracené náboje.",
+  "str": 230
+ },
+ {
+  "en": "Mirror of Life Trapping",
+  "cz": "zrcadlo věznící životy",
+  "druh": "Divotvorný předmět",
+  "vz": "velmi vzácný",
+  "pr": false,
+  "t": "Když se na toto zrcadlo vysoké 4 stopy a široké 2 stopy díváš nepřímo, ukazuje jeho povrch slabé obrazy tvorů. Zrcadlo váží 50 lb. a má AC 11, 10 HP, Immunity vůči Poison a Psychic zranění a Vulnerability vůči Bludgeoning zranění. Když klesne na 0 životů, roztříští se a je zničeno.\nPokud zrcadlo visí na svislé ploše a jsi do 5 stop od něj, můžeš provést akci Magie a pomocí povelového slova je aktivovat. Zůstane aktivované, dokud neprovedeš akci Magie a nezopakuješ povelové slovo, abys ho deaktivoval.\nKaždý tvor kromě tebe, který spatří svůj odraz v aktivovaném zrcadle, když je do 30 stop od něj, musí uspět v záchranném hodu na Charisma se SO 15, jinak je i se vším, co má na sobě nebo nese, uvězněn v jedné z dvanácti mimodimenzionálních cel zrcadla. Tvor, který zná povahu zrcadla, si hází záchranu s výhodou a Constructy v záchraně automaticky uspějí.\nMimodimenzionální cela je nekonečný prostor vyplněný hustou mlhou, která omezuje viditelnost na 10 stop. Tvorové uvěznění v celách zrcadla nestárnou a nepotřebují jíst, pít ani spát. Tvor uvězněný v cele může uniknout pomocí magie umožňující cestování mezi sférami. Jinak zůstává v cele uvězněn, dokud není osvobozen.\nPokud zrcadlo uvězní tvora, ale všech dvanáct jeho mimodimenzionálních cel je již obsazeno, zrcadlo náhodně osvobodí jednoho uvězněného tvora, aby uvolnilo místo novému vězni. Osvobozený tvor se objeví na neobsazeném místě v dohledu zrcadla, ale otočený zády k němu. Pokud je zrcadlo roztříštěno, všichni tvorové v něm jsou osvobozeni a objeví se na neobsazených místech poblíž.\nKdyž jsi do 5 stop od zrcadla, můžeš provést akci Magie a jmenovat jednoho tvora v něm uvězněného nebo vyvolat konkrétní celu jejím číslem. Jmenovaný tvor nebo tvor v jmenované cele se objeví jako obraz na povrchu zrcadla. Ty a tento tvor pak spolu můžete komunikovat.\nPodobně můžeš provést akci Magie a pomocí druhého povelového slova osvobodit jednoho tvora uvězněného v zrcadle. Osvobozený tvor se se svým majetkem objeví na neobsazeném místě nejblíže zrcadlu, otočený zády k němu.\nUmístění zrcadla do mimodimenzionálního prostoru vytvořeného předmětem *Bag of Holding*, *Portable Hole* nebo podobným předmětem okamžitě zničí oba předměty a otevře bránu do Astrální sféry. Brána vznikne v místě, kde byl jeden předmět vložen do druhého. Každý tvor do 10 stop od brány, který není za úplným krytem, je jí vtažen na náhodné místo v Astrální sféře. Brána se pak uzavře. Brána je pouze jednosměrná a nelze ji znovu otevřít.",
+  "str": 231
+ },
+ {
+  "en": "Mithral Armor",
+  "cz": "mithrilová zbroj",
+  "druh": "Zbroj",
+  "upr": "jakákoli střední nebo těžká kromě Hide Armor",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Mithril je lehký, ohebný kov. Zbroj z této látky lze nosit pod běžným oblečením. Pokud zbroj obvykle ukládá nevýhodu na ověření Obratnosti (Stealth) nebo má požadavek na Sílu, její mithrilová verze to nedělá.",
+  "str": 231
+ },
+ {
+  "en": "Mysterious Deck",
+  "cz": "tajemný balíček",
+  "druh": "Divotvorný předmět",
+  "vz": "legendární",
+  "pr": false,
+  "t": "Tento balíček, obvykle nalézaný v krabičce nebo váčku, obsahuje určitý počet karet ze slonoviny nebo pergamenu. Většina (75 procent) těchto balíčků má třináct karet, některé však mají dvaadvacet. Při náhodném určování karet tažených z balíčku použij příslušný sloupec tabulky Mysterious Deck.\nNež si vytáhneš kartu, musíš ohlásit, kolik karet hodláš táhnout, a pak je náhodně vytáhnout. Karty vytažené nad tento počet nemají žádný účinek. Jinak se magie karty projeví, jakmile ji z balíčku vytáhneš. Každou kartu musíš vytáhnout nejpozději 1 hodinu po předchozím tahu. Pokud nevytáhneš zvolený počet, zbývající karty samy vyletí z balíčku a projeví se všechny najednou.\nJakmile je karta vytažena, zmizí. Pokud nejde o Blázna (Fool) nebo Šaška (Jester), karta se v balíčku znovu objeví, takže je možné vytáhnout tutéž kartu dvakrát. (Jakmile Blázen nebo Šašek balíček opustí, házej na tabulce znovu, pokud tato karta opět padne.)\n**Tabulka Mysterious Deck (1d100 pro balíček o 13 kartách / 1d100 pro balíček o 22 kartách – karta):**\n- — / 01–05: Balance\n- — / 06–10: Comet\n- — / 11–14: Donjon\n- 01–08 / 15–18: Euryale\n- — / 19–23: Fates\n- 09–16 / 24–27: Flames\n- — / 28–31: Fool\n- — / 32–36: Gem\n- 17–24 / 37–41: Jester\n- 25–32 / 42–46: Key\n- 33–40 / 47–51: Knight\n- 41–48 / 52–56: Moon\n- — / 57–60: Puzzle\n- 49–56 / 61–64: Rogue\n- 57–64 / 65–68: Ruin\n- — / 69–73: Sage\n- 65–72 / 74–77: Skull\n- 73–80 / 78–82: Star\n- 81–88 / 83–87: Sun\n- — / 88–91: Talons\n- 89–96 / 92–96: Throne\n- 97–00 / 97–00: Void\nÚčinek každé karty je popsán níže.\n**Balance (Rovnováha).** Můžeš si zvýšit jednu hodnotu vlastnosti o 2, nejvýše na 22, pokud zároveň snížíš jinou hodnotu vlastnosti o 2. Nemůžeš snížit vlastnost, jejíž hodnota je 5 nebo nižší. Případně se můžeš rozhodnout hodnoty vlastností neupravovat, a pak tato karta nemá žádný účinek.\n**Comet (Kometa).** Až příště vstoupíš do boje proti jednomu či více nepřátelským (Hostile) tvorům, můžeš si při hodu na iniciativu jednoho z nich zvolit za svého protivníka. Pokud během tohoto boje snížíš životy svého protivníka na 0, máš po dobu 1 roku výhodu na hody proti smrti. Pokud životy tvého zvoleného protivníka sníží na 0 někdo jiný, nebo si protivníka nezvolíš, nemá tato karta žádný účinek.\n**Donjon (Žalář).** Zmizíš a jsi pohřben ve stavu pozastavené životní činnosti v mimodimenzionální kouli. Vše, co máš na sobě a neseš, zmizí s tebou, kromě artefaktů, které zůstanou na místě, kde jsi stál, když jsi zmizel. Zůstáváš uvězněn, dokud tě někdo nenajde a z koule nevyjme. Nelze tě vypátrat žádnou věšteckou (Divination) magií, ale kouzlo *Wish* může prozradit, kde se tvé vězení nachází. Další karty už netáhneš.\n**Euryale.** Tvář na kartě, podobná medúze, tě prokleje. Dokud jsi takto prokletý, máš postih −2 k záchranným hodům. Tuto kletbu může ukončit jen bůh nebo magie karty Fates.\n**Fates (Sudičky).** Tkanivo reality se rozplete a utká znovu, což ti umožní vyhnout se jedné události nebo ji vymazat, jako by se nikdy nestala. Magii karty můžeš použít hned, jak kartu vytáhneš, nebo kdykoli jindy před svou smrtí.\n**Flames (Plameny).** Mocný ďábel se stane tvým nepřítelem. Ďábel usiluje o tvou zkázu a trýzní tě, vychutnává si tvé utrpení, než se tě pokusí zabít. Toto nepřátelství trvá, dokud nezemřeš ty nebo ďábel.\n**Fool (Blázen).** Na příštích 72 hodin máš nevýhodu na testy d20. Vytáhni další kartu; tento tah se nepočítá do tvých ohlášených tahů.\n**Gem (Drahokam).** U tvých nohou se objeví dvacet pět šperků v hodnotě 2 000 GP za kus nebo padesát drahokamů v hodnotě 1 000 GP za kus.\n**Jester (Šašek).** Na příštích 72 hodin máš výhodu na testy d20, nebo si můžeš vytáhnout dvě karty navíc nad své ohlášené tahy.\n**Key (Klíč).** U tebe se objeví vzácná nebo ještě vzácnější magická zbraň, se kterou máš zdatnost. Zbraň zvolí vypravěč.\n**Knight (Rytíř).** Získáš služby rytíře (Knight), který se magicky objeví na neobsazeném místě podle tvé volby do 30 stop od tebe. Rytíř má stejné přesvědčení jako ty a věrně ti slouží až do smrti v přesvědčení, že vás svedl dohromady osud. Společně s vypravěčem vytvořte jméno a minulost této nehráčské postavy. Vypravěč může rytíře podle potřeby představovat jiným statblokem.\n**Moon (Měsíc).** Získáš schopnost seslat kouzlo *Wish* 1d3krát.\n**Puzzle (Hádanka).** Trvale si sniž Inteligenci nebo Moudrost o 1d4 + 1 (nejníže na hodnotu 1). Můžeš si vytáhnout jednu kartu navíc nad své ohlášené tahy.\n**Rogue (Zloděj).** Nehráčská postava podle volby vypravěče se vůči tobě stane nepřátelskou (Hostile). Totožnost této postavy neznáš, dokud ji neodhalí ona sama nebo někdo jiný. Nepřátelství této postavy vůči tobě nemůže ukončit nic menšího než kouzlo *Wish* nebo božský zásah.\n**Ruin (Zkáza).** Přicházíš o veškeré formy bohatství, které neseš nebo vlastníš, kromě magických předmětů. Movitý majetek zmizí. Podniky, budovy a pozemky, které vlastníš, ztratíš způsobem, který co nejméně změní realitu. Zmizí i veškeré listiny dokládající, že bys měl vlastnit něco, o co jsi kvůli této kartě přišel.\n**Sage (Mudrc).** Kdykoli podle své volby během jednoho roku od vytažení této karty můžeš v meditaci položit otázku a v mysli obdržet pravdivou odpověď na tuto otázku.\n**Skull (Lebka).** Na neobsazeném místě co nejblíže tobě se objeví Avatar smrti (Avatar of Death; viz připojený statblok). Avatar útočí pouze na tebe a vypadá jako přízračná kostra oděná v otrhaném černém rouchu, nesoucí přízračnou kosu. Avatar zmizí, když klesne na 0 životů nebo když zemřeš. Pokud avatarovi způsobí zranění některý z tvých spojenců, tento spojenec přivolá dalšího Avatara smrti. Nový avatar se objeví na neobsazeném místě co nejblíže tomuto spojenci a útočí pouze na něj. Ty i tvoji spojenci můžete v důsledku tohoto tahu přivolat každý jen jednoho avatara. Tvora zabitého avatarem nelze vrátit k životu.\n**Star (Hvězda).** Zvyš jednu svou hodnotu vlastnosti o 2, nejvýše na 24.\n**Sun (Slunce).** U tebe se objeví magický předmět (zvolený vypravěčem). Kromě toho až do své smrti získáváš každý den za úsvitu 10 dočasných životů.\n**Talons (Spáry).** Každý magický předmět, který máš na sobě nebo neseš, se rozpadne. Artefakty v tvém vlastnictví místo toho zmizí.\n**Throne (Trůn).** Získáš zdatnost a Expertise (odbornost) v jedné z dovedností History, Insight, Intimidation nebo Persuasion podle své volby. Kromě toho získáš právoplatné vlastnictví malé tvrze někde ve světě. Tvrz je však momentálně domovem jedné či více nestvůr, které musíš vyhnat, než si ji budeš moci nárokovat jako svou.\n**Void (Prázdnota).** Tvá duše je vytržena z těla a uzavřena v předmětu na místě podle volby vypravěče. Místo střeží jedna či více mocných bytostí. Dokud je tvá duše takto uvězněna, tvé tělo je netečné, přestane stárnout a nepotřebuje jídlo, vzduch ani vodu. Kouzlo *Wish* nemůže vrátit tvou duši do těla, ale prozradí polohu předmětu, který tvou duši drží. Další karty už netáhneš.\n**Avatar of Death (Avatar smrti)**\n*Střední Undead, neutrálně zlý*\n- **AC** 20; **Iniciativa** +3 (13)\n- **HP** polovina maxima životů jeho přivolávače\n- **Rychlost** 60 stop, let 60 stop (vznáší se)\n- **STR** 16 (+3, záchrana +3); **AGI** 16 (+3, záchrana +3); **CON** 16 (+3, záchrana +3); **INT** 16 (+3, záchrana +3); **WIS** 16 (+3, záchrana +3); **CHA** 16 (+3, záchrana +3)\n- **Immunity** Necrotic, Poison; Okouzlen (Charmed), Vyčerpání (Exhaustion), Vyděšen (Frightened), Ochromen (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned), V bezvědomí (Unconscious)\n- **Smysly** Truesight 60 stop; pasivní Perception 13\n- **Jazyky** všechny jazyky, které zná jeho přivolávač\n- **ND** žádný (0 XP; bonus zdatnosti rovný bonusu jeho přivolávače)\n*Rysy*\n- **Incorporeal Movement.** Avatar se může pohybovat skrz jiné tvory a předměty, jako by šlo o obtížný terén. Pokud ukončí tah uvnitř předmětu, utrpí 5 (1d10) Force zranění.\n*Akce*\n- **Multiattack.** Avatar provede počet útoků Reaping Scythe rovný polovině bonusu zdatnosti přivolávače (zaokrouhleno nahoru).\n- **Reaping Scythe.** *Hod na útok na blízko:* automatický zásah, dosah 5 stop. *Zásah:* 7 (1d8 + 3) Slashing zranění plus 4 (1d8) Necrotic zranění.",
+  "str": 231
+ },
+ {
+  "en": "Necklace of Adaptation",
+  "cz": "náhrdelník přizpůsobení",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": true,
+  "t": "Dokud nosíš tento náhrdelník, můžeš normálně dýchat v jakémkoli prostředí a máš výhodu na záchranné hody, kterými se vyhýbáš stavu Otráven (Poisoned) nebo jej ukončuješ.",
+  "str": 232
+ },
+ {
+  "en": "Necklace of Fireballs",
+  "cz": "náhrdelník ohnivých koulí",
+  "druh": "Divotvorný předmět",
+  "vz": "vzácný",
+  "pr": false,
+  "t": "Na tomto náhrdelníku visí 1d6 + 3 korálky. Můžeš provést akci Magie, oddělit jeden korálek a hodit jej až na 60 stop. Když korálek dosáhne konce své dráhy, vybuchne jako *Fireball* 3. úrovně (SO záchrany 15).\nMůžeš vrhnout více korálků, nebo dokonce celý náhrdelník, najednou. V takovém případě zvyš zranění kouzla *Fireball* o 1d6 za každý korálek po prvním (nejvýše 12d6).",
+  "str": 233
+ },
+ {
+  "en": "Necklace of Prayer Beads",
+  "cz": "náhrdelník modlitebních korálků",
+  "druh": "Divotvorný předmět",
+  "vz": "vzácný",
+  "pr": "Clericem, Druidem nebo Paladinem",
+  "t": "Tento náhrdelník má 1d4 + 2 magické korálky z akvamarínu, černé perly nebo topazu. Má také mnoho nemagických korálků z kamenů, jako je jantar, krevel, citrín, korál, nefrit, perla nebo křemen. Pokud je magický korálek z náhrdelníku sejmut, ztratí svou magii.\nExistuje šest druhů magických korálků. Vypravěč určí druh každého korálku na náhrdelníku, nebo jej určí náhodně hodem na tabulku níže. Náhrdelník může mít více korálků stejného druhu. Abys jeden použil, musíš mít náhrdelník na sobě. Každý korálek obsahuje kouzlo, které z něj můžeš seslat jako bonusovou akci (s použitím tvého SO záchrany proti kouzlu, je-li záchrana potřeba). Jakmile je kouzlo magického korálku sesláno, nelze tento korálek znovu použít až do příštího úsvitu.\n**Tabulka (1d20 – korálek – kouzlo):**\n- 1–6: Bead of Blessing – *Bless*\n- 7–12: Bead of Curing – *Cure Wounds* (verze 2. úrovně)\n- 13–16: Bead of Favor – *Greater Restoration*\n- 17–18: Bead of Smiting – *Shining Smite*\n- 19: Bead of Summons – *Guardian of Faith*\n- 20: Bead of Wind Walking – *Wind Walk*",
+  "str": 233
+ },
+ {
+  "en": "Nine Lives Stealer",
+  "cz": "zloděj devíti životů",
+  "druh": "Zbraň",
+  "upr": "jakákoli jednoduchá nebo válečná",
+  "vz": "velmi vzácný",
+  "pr": true,
+  "t": "Získáváš bonus +2 k hodům na útok a hodům na zranění s touto magickou zbraní.\n**Kradení životů.** Zbraň má 1d8 + 1 nábojů. Když touto zbraní útočíš na tvora, který má méně než 100 životů, a při hodu na útok hodíš na d20 20, musí tvor uspět v záchranném hodu na Odolnost se SO 15, jinak je okamžitě zabit, jak mu meč vytrhne životní sílu z těla. Constructy a Undeadi v záchraně automaticky uspějí. Pokud je tvor zabit, zbraň ztratí 1 náboj. Když zbrani nezbudou žádné náboje, tuto vlastnost ztratí.",
+  "ef": {
+   "utok": 2
+  },
+  "str": 233
+ },
+ {
+  "en": "Oathbow",
+  "cz": "luk přísahy",
+  "druh": "Zbraň",
+  "upr": "Longbow nebo Shortbow",
+  "vz": "velmi vzácný",
+  "pr": true,
+  "t": "Když na tento luk založíš šíp, zašeptá elfsky: „Rychlou porážku mým nepřátelům.“ Když touto zbraní provádíš útok na dálku, můžeš vyslovit nebo znakovat tato povelová slova: „Rychlou smrt tobě, jenž jsi mi ublížil.“ Cíl tvého útoku se stane tvým zapřísáhlým nepřítelem, dokud nezemře nebo do úsvitu o 7 dní později. Současně můžeš mít jen jednoho takového zapřísáhlého nepřítele. Když tvůj zapřísáhlý nepřítel zemře, můžeš si po příštím úsvitu zvolit nového.\nKdyž touto zbraní provádíš hod na útok na dálku proti svému zapřísáhlému nepříteli, máš na hod výhodu. Kromě toho tvůj cíl nezískává žádný užitek z polovičního ani tříčtvrtečního krytu a ty netrpíš nevýhodou kvůli dlouhému dostřelu. Pokud útok zasáhne, utrpí tvůj zapřísáhlý nepřítel navíc 3d6 Piercing zranění.\nDokud tvůj zapřísáhlý nepřítel žije, máš nevýhodu na hody na útok všemi ostatními zbraněmi.",
+  "str": 233
+ },
+ {
+  "en": "Oil of Etherealness",
+  "cz": "olej éterickosti",
+  "druh": "Lektvar",
+  "vz": "vzácný",
+  "pr": false,
+  "t": "Jedna lahvička tohoto oleje stačí k potření jednoho Středního nebo menšího tvora i s výbavou, kterou má na sobě a nese (za každou velikostní kategorii nad Střední je potřeba jedna lahvička navíc). Nanesení oleje trvá 10 minut. Ošetřený tvor pak na 1 hodinu získá účinek kouzla *Etherealness*.\nNa vnější straně nádobky s tímto zakaleným šedým olejem se tvoří kapky, které se rychle vypařují.",
+  "str": 233
+ },
+ {
+  "en": "Oil of Sharpness",
+  "cz": "olej ostrosti",
+  "druh": "Lektvar",
+  "vz": "velmi vzácný",
+  "pr": false,
+  "t": "Jedna lahvička tohoto oleje stačí k potření jedné zbraně na blízko nebo dvaceti kusů munice, olej však působí jen na munici a zbraně na blízko, které jsou nemagické a způsobují Slashing nebo Piercing zranění. Nanesení oleje trvá 1 minutu, poté olej magicky vsákne do toho, co pokrývá, a promění potřenou zbraň ve zbraň +3 (+3 Weapon) nebo potřenou munici v munici +3 (+3 Ammunition).\nTento čirý, rosolovitý olej se třpytí drobnými, nesmírně tenkými stříbrnými střípky.",
+  "str": 233
+ },
+ {
+  "en": "Oil of Slipperiness",
+  "cz": "olej kluzkosti",
+  "druh": "Lektvar",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Jedna lahvička tohoto oleje stačí k potření jednoho Středního nebo menšího tvora i s výbavou, kterou má na sobě a nese (za každou velikostní kategorii nad Střední je potřeba jedna lahvička navíc). Nanesení oleje trvá 10 minut. Ošetřený tvor pak na 8 hodin získá účinek kouzla *Freedom of Movement*.\nPřípadně lze olej akcí Magie vylít na zem, kde pokryje čtverec o straně 10 stop a na 8 hodin v této oblasti napodobí účinek kouzla *Grease*.\nTato lepkavá černá mast je hustá a těžká, ale při vylévání rychle teče.",
+  "str": 233
+ },
+ {
+  "en": "Pearl of Power",
+  "cz": "perla moci",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": "sesilatelem kouzel",
+  "t": "Dokud máš tuto perlu u sebe, můžeš provést akci Magie a obnovit si jeden utracený slot kouzla 3. nebo nižší úrovně. Jakmile perlu použiješ, nelze ji znovu použít až do příštího úsvitu.",
+  "str": 234
+ },
+ {
+  "en": "Periapt of Health",
+  "cz": "amulet zdraví",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": true,
+  "t": "Dokud nosíš tento přívěsek, můžeš provést akci Magie a obnovit si 2d4 + 2 životů. Po použití nelze tuto vlastnost znovu použít až do příštího úsvitu.\nKromě toho máš, dokud přívěsek nosíš, výhodu na záchranné hody, kterými se vyhýbáš stavu Otráven (Poisoned) nebo jej ukončuješ.",
+  "str": 234
+ },
+ {
+  "en": "Periapt of Proof against Poison",
+  "cz": "amulet ochrany před jedem",
+  "druh": "Divotvorný předmět",
+  "vz": "vzácný",
+  "pr": true,
+  "t": "Tento jemný stříbrný řetízek nese přívěsek s briliantově broušeným černým drahokamem. Dokud jej nosíš, máš Immunity vůči stavu Otráven (Poisoned) a Poison zranění.",
+  "str": 234
+ },
+ {
+  "en": "Periapt of Wound Closure",
+  "cz": "amulet zacelení ran",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": true,
+  "t": "Dokud nosíš tento přívěsek, získáváš následující výhody.\n**Zachování života.** Kdykoli si házíš hod proti smrti, můžeš změnit výsledek 9 nebo nižší na 10, čímž neúspěšný hod změníš v úspěšný.\n**Posílení přirozeného hojení.** Kdykoli si hodíš kostkou životů, abys obnovil životy, zdvojnásob počet životů, které obnoví.",
+  "str": 234
+ },
+ {
+  "en": "Philter of Love",
+  "cz": "nápoj lásky",
+  "druh": "Lektvar",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Prvním tvorem, kterého spatříš během 10 minut po vypití tohoto nápoje, jsi okouzlen a máš vůči němu na 1 hodinu stav Okouzlen (Charmed).\nTato růžová perlivá tekutina obsahuje jednu snadno přehlédnutelnou bublinku ve tvaru srdce.",
+  "str": 234
+ },
+ {
+  "en": "Pipes of Haunting",
+  "cz": "strašidelné píšťaly",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Tyto píšťaly mají 3 náboje a každý den za úsvitu obnoví 1d3 utracené náboje. Můžeš provést akci Magie, zahrát na ně a utratit 1 náboj, abys vytvořil děsivou, uhrančivou melodii. Každý tvor podle tvé volby do 30 stop od tebe musí uspět v záchranném hodu na Moudrost se SO 15, jinak má na 1 minutu stav Vyděšen (Frightened). Tvor, který v záchraně neuspěje, ji opakuje na konci každého svého tahu a při úspěchu účinek na sobě ukončí. Tvor, který v záchraně uspěje, je vůči účinku těchto píšťal na 24 hodin imunní.",
+  "str": 234
+ },
+ {
+  "en": "Pipes of the Sewers",
+  "cz": "píšťaly stok",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": true,
+  "t": "Dokud máš tyto píšťaly u sebe, jsou obyčejné krysy a obří krysy vůči tobě lhostejné (Indifferent) a nezaútočí na tebe, pokud jim nevyhrožuješ nebo jim neublížíš.\nPíšťaly mají 3 náboje a každý den za úsvitu obnoví 1d3 utracené náboje. Pokud na píšťaly zahraješ jako akci Magie, můžeš provést bonusovou akci a utratit 1 až 3 náboje, čímž za každý utracený náboj přivoláš jeden Swarm of Rats, pokud je do půl míle od tebe dost krys, aby mohly být takto přivolány (jak určí vypravěč). Pokud není dost krys k vytvoření roje, náboj přijde nazmar. Přivolané roje se pohybují k hudbě nejkratší dostupnou cestou, jinak ale nejsou pod tvou kontrolou.\nKdykoli se Swarm of Rats, který není pod kontrolou jiného tvora, dostane do 30 stop od tebe, zatímco hraješ na píšťaly, provede roj záchranný hod na Moudrost se SO 15. Při úspěšné záchraně se roj chová jako obvykle a na příštích 24 hodin jej hudba píšťal nemůže ovlivnit. Při neúspěšné záchraně je roj hudbou píšťal ovládnut a stane se přátelským (Friendly) k tobě a tvým spojencům, dokud každé kolo pokračuješ ve hře na píšťaly jako akci Magie. Přátelský roj poslouchá tvé rozkazy. Pokud přátelskému roji nedáš žádné rozkazy, brání se, ale jinak nic nedělá. Pokud přátelský roj začne svůj tah dále než 30 stop od tebe, tvoje kontrola nad ním skončí, roj se chová jako obvykle a na příštích 24 hodin jej hudba píšťal nemůže ovlivnit.",
+  "str": 234
+ },
+ {
+  "en": "Plate Armor of Etherealness",
+  "cz": "plátová zbroj éterickosti",
+  "druh": "Zbroj",
+  "upr": "Half Plate Armor nebo Plate Armor",
+  "vz": "legendární",
+  "pr": true,
+  "t": "Dokud máš tuto zbroj na sobě, můžeš provést akci Magie a pomocí povelového slova získat účinek kouzla *Etherealness*. Kouzlo okamžitě skončí, pokud zbroj sundáš nebo provedeš akci Magie a zopakuješ povelové slovo. Tuto vlastnost zbroje nelze znovu použít až do příštího úsvitu.",
+  "str": 234
+ },
+ {
+  "en": "Portable Hole",
+  "cz": "přenosná díra",
+  "druh": "Divotvorný předmět",
+  "vz": "vzácný",
+  "pr": false,
+  "t": "Tato jemná černá látka, hebká jako hedvábí, je složená do velikosti kapesníku. Rozkládá se do kruhového plátna o průměru 6 stop.\nMůžeš provést akci Magie, rozložit *Portable Hole* a položit ji na pevný povrch nebo ji k němu přiložit, načež *Portable Hole* vytvoří mimodimenzionální díru hlubokou 10 stop. Válcový prostor uvnitř díry existuje v jiné sféře bytí, takže ji nelze použít k vytváření otevřených průchodů. Každý tvor uvnitř otevřené *Portable Hole* z ní může vylézt.\nMůžeš provést akci Magie a *Portable Hole* zavřít tak, že uchopíš okraje látky a složíš ji. Složením látky se díra uzavře a všichni tvorové či předměty uvnitř zůstanou v mimodimenzionálním prostoru. Bez ohledu na obsah váží díra téměř nic.\nJe-li díra složená, může tvor v jejím mimodimenzionálním prostoru provést akci a pokusit se o ověření Síly (Athletics) se SO 10. Při úspěšném ověření se tvor protlačí ven a objeví se do 5 stop od *Portable Hole*. Zavřená *Portable Hole* obsahuje vzduch na 1 hodinu dýchání, vydělenou počtem dýchajících tvorů uvnitř.\nUmístění *Portable Hole* do mimodimenzionálního prostoru vytvořeného předmětem *Bag of Holding*, *Handy Haversack* nebo podobným předmětem okamžitě zničí oba předměty a otevře bránu do Astrální sféry. Brána vznikne v místě, kde byl jeden předmět vložen do druhého. Každý tvor do 10 stop od brány, který není za úplným krytem, je jí vtažen a vyvržen na náhodném místě v Astrální sféře. Brána se pak uzavře. Brána je pouze jednosměrná a nelze ji znovu otevřít.",
+  "str": 234
+ },
+ {
+  "en": "Potion of Animal Friendship",
+  "cz": "lektvar přátelství se zvířaty",
+  "druh": "Lektvar",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Když vypiješ tento lektvar, můžeš seslat verzi kouzla *Animal Friendship* 3. úrovně (SO záchrany 13).\nZatřepání bahnitou tekutinou tohoto lektvaru odhalí drobné kousky: rybí šupinu, pírko kolibříka, kočičí dráp nebo veverčí chlup.",
+  "str": 235
+ },
+ {
+  "en": "Potion of Clairvoyance",
+  "cz": "lektvar jasnozřivosti",
+  "druh": "Lektvar",
+  "vz": "vzácný",
+  "pr": false,
+  "t": "Když vypiješ tento lektvar, získáš účinek kouzla *Clairvoyance* (bez nutnosti soustředění).\nV nažloutlé tekutině tohoto lektvaru se pohupuje oko, které ale při otevření lektvaru zmizí.",
+  "str": 235
+ },
+ {
+  "en": "Potion of Climbing",
+  "cz": "lektvar šplhání",
+  "druh": "Lektvar",
+  "vz": "běžný",
+  "pr": false,
+  "t": "Když vypiješ tento lektvar, získáš na 1 hodinu rychlost šplhání rovnou své rychlosti. Během této doby máš výhodu na ověření Síly (Athletics) při šplhání.\nTento lektvar je rozdělen do hnědé, stříbrné a šedé vrstvy připomínající pásy kamene. Protřepání lahvičky barvy nepromíchá.",
+  "str": 235
+ },
+ {
+  "en": "Potion of Diminution",
+  "cz": "lektvar zmenšení",
+  "druh": "Lektvar",
+  "vz": "vzácný",
+  "pr": false,
+  "t": "Když vypiješ tento lektvar, získáš na 1d4 hodin účinek „zmenšení“ kouzla *Enlarge/Reduce* (bez nutnosti soustředění).\nČervená barva v tekutině lektvaru se neustále stahuje do drobné kuličky a pak se opět rozpíná a barví čirou tekutinu kolem sebe. Protřepání lahvičky tento proces nepřeruší.",
+  "str": 235
+ },
+ {
+  "en": "Potion of Flying",
+  "cz": "lektvar létání",
+  "druh": "Lektvar",
+  "vz": "velmi vzácný",
+  "pr": false,
+  "t": "Když vypiješ tento lektvar, získáš na 1 hodinu rychlost letu rovnou své rychlosti a můžeš se vznášet. Pokud jsi ve vzduchu, když účinek lektvaru pomine, spadneš, pokud nemáš jiný způsob, jak se udržet ve vzduchu.\nČirá tekutina tohoto lektvaru se drží v horní části nádobky a unášejí se v ní zakalené bílé nečistoty.",
+  "str": 235
+ },
+ {
+  "en": "Potion of Gaseous Form",
+  "cz": "lektvar plynné podoby",
+  "druh": "Lektvar",
+  "vz": "vzácný",
+  "pr": false,
+  "t": "Když vypiješ tento lektvar, získáš na 1 hodinu účinek kouzla *Gaseous Form* (bez nutnosti soustředění), nebo dokud účinek neukončíš bonusovou akcí.\nNádobka tohoto lektvaru jako by obsahovala mlhu, která se pohybuje a přelévá jako voda.",
+  "str": 235
+ },
+ {
+  "en": "Potion of Giant Strength (hill)",
+  "cz": "lektvar obří síly (kopcového obra)",
+  "druh": "Lektvar",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Tato varianta nastaví tvou Sílu na 21.\nKdyž vypiješ tento lektvar, tvoje hodnota Síly se na 1 hodinu změní. Druh obra určuje tuto hodnotu (viz tabulka níže). Lektvar na tebe nemá žádný účinek, pokud je tvoje Síla rovna této hodnotě nebo vyšší.\nV průhledné tekutině tohoto lektvaru se vznáší střípek světla připomínající obří nehet.\n**Tabulka (lektvar – Síla – vzácnost):**\n- Potion of Giant Strength (hill): 21 – neobvyklý\n- Potion of Giant Strength (frost or stone): 23 – vzácný\n- Potion of Giant Strength (fire): 25 – vzácný\n- Potion of Giant Strength (cloud): 27 – velmi vzácný\n- Potion of Giant Strength (storm): 29 – legendární",
+  "str": 235
+ },
+ {
+  "en": "Potion of Giant Strength (frost or stone)",
+  "cz": "lektvar obří síly (mrazivého nebo kamenného obra)",
+  "druh": "Lektvar",
+  "vz": "vzácný",
+  "pr": false,
+  "t": "Tato varianta nastaví tvou Sílu na 23.\nKdyž vypiješ tento lektvar, tvoje hodnota Síly se na 1 hodinu změní. Druh obra určuje tuto hodnotu (viz tabulka níže). Lektvar na tebe nemá žádný účinek, pokud je tvoje Síla rovna této hodnotě nebo vyšší.\nV průhledné tekutině tohoto lektvaru se vznáší střípek světla připomínající obří nehet.\n**Tabulka (lektvar – Síla – vzácnost):**\n- Potion of Giant Strength (hill): 21 – neobvyklý\n- Potion of Giant Strength (frost or stone): 23 – vzácný\n- Potion of Giant Strength (fire): 25 – vzácný\n- Potion of Giant Strength (cloud): 27 – velmi vzácný\n- Potion of Giant Strength (storm): 29 – legendární",
+  "str": 235
+ },
+ {
+  "en": "Potion of Giant Strength (fire)",
+  "cz": "lektvar obří síly (ohnivého obra)",
+  "druh": "Lektvar",
+  "vz": "vzácný",
+  "pr": false,
+  "t": "Tato varianta nastaví tvou Sílu na 25.\nKdyž vypiješ tento lektvar, tvoje hodnota Síly se na 1 hodinu změní. Druh obra určuje tuto hodnotu (viz tabulka níže). Lektvar na tebe nemá žádný účinek, pokud je tvoje Síla rovna této hodnotě nebo vyšší.\nV průhledné tekutině tohoto lektvaru se vznáší střípek světla připomínající obří nehet.\n**Tabulka (lektvar – Síla – vzácnost):**\n- Potion of Giant Strength (hill): 21 – neobvyklý\n- Potion of Giant Strength (frost or stone): 23 – vzácný\n- Potion of Giant Strength (fire): 25 – vzácný\n- Potion of Giant Strength (cloud): 27 – velmi vzácný\n- Potion of Giant Strength (storm): 29 – legendární",
+  "str": 235
+ },
+ {
+  "en": "Potion of Giant Strength (cloud)",
+  "cz": "lektvar obří síly (oblačného obra)",
+  "druh": "Lektvar",
+  "vz": "velmi vzácný",
+  "pr": false,
+  "t": "Tato varianta nastaví tvou Sílu na 27.\nKdyž vypiješ tento lektvar, tvoje hodnota Síly se na 1 hodinu změní. Druh obra určuje tuto hodnotu (viz tabulka níže). Lektvar na tebe nemá žádný účinek, pokud je tvoje Síla rovna této hodnotě nebo vyšší.\nV průhledné tekutině tohoto lektvaru se vznáší střípek světla připomínající obří nehet.\n**Tabulka (lektvar – Síla – vzácnost):**\n- Potion of Giant Strength (hill): 21 – neobvyklý\n- Potion of Giant Strength (frost or stone): 23 – vzácný\n- Potion of Giant Strength (fire): 25 – vzácný\n- Potion of Giant Strength (cloud): 27 – velmi vzácný\n- Potion of Giant Strength (storm): 29 – legendární",
+  "str": 235
+ },
+ {
+  "en": "Potion of Giant Strength (storm)",
+  "cz": "lektvar obří síly (bouřného obra)",
+  "druh": "Lektvar",
+  "vz": "legendární",
+  "pr": false,
+  "t": "Tato varianta nastaví tvou Sílu na 29.\nKdyž vypiješ tento lektvar, tvoje hodnota Síly se na 1 hodinu změní. Druh obra určuje tuto hodnotu (viz tabulka níže). Lektvar na tebe nemá žádný účinek, pokud je tvoje Síla rovna této hodnotě nebo vyšší.\nV průhledné tekutině tohoto lektvaru se vznáší střípek světla připomínající obří nehet.\n**Tabulka (lektvar – Síla – vzácnost):**\n- Potion of Giant Strength (hill): 21 – neobvyklý\n- Potion of Giant Strength (frost or stone): 23 – vzácný\n- Potion of Giant Strength (fire): 25 – vzácný\n- Potion of Giant Strength (cloud): 27 – velmi vzácný\n- Potion of Giant Strength (storm): 29 – legendární",
+  "str": 235
+ },
+ {
+  "en": "Potion of Growth",
+  "cz": "lektvar zvětšení",
+  "druh": "Lektvar",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Když vypiješ tento lektvar, získáš na 10 minut účinek „zvětšení“ kouzla *Enlarge/Reduce* (bez nutnosti soustředění).\nČervená barva v tekutině lektvaru se neustále rozpíná z drobné kuličky, barví čirou tekutinu kolem sebe a pak se opět stahuje. Protřepání lahvičky tento proces nepřeruší.",
+  "str": 235
+ },
+ {
+  "en": "Potion of Healing",
+  "cz": "lektvar léčení",
+  "druh": "Lektvar",
+  "vz": "běžný",
+  "pr": false,
+  "t": "Tento lektvar obnoví 2d4 + 2 životů.\nKdyž vypiješ tento lektvar, obnovíš si životy. Počet životů závisí na vzácnosti lektvaru, jak ukazuje tabulka níže.\nBez ohledu na sílu lektvaru se jeho červená tekutina při zatřepání třpytí.\n**Tabulka (lektvar – obnovené životy – vzácnost):**\n- Potion of Healing: 2d4 + 2 – běžný\n- Potion of Healing (greater): 4d4 + 4 – neobvyklý\n- Potion of Healing (superior): 8d4 + 8 – vzácný\n- Potion of Healing (supreme): 10d4 + 20 – velmi vzácný",
+  "ef": {
+   "lecit": "2d4+2"
+  },
+  "str": 236
+ },
+ {
+  "en": "Potion of Healing (Greater)",
+  "cz": "lektvar většího léčení",
+  "druh": "Lektvar",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Tento lektvar obnoví 4d4 + 4 životů.\nKdyž vypiješ tento lektvar, obnovíš si životy. Počet životů závisí na vzácnosti lektvaru, jak ukazuje tabulka níže.\nBez ohledu na sílu lektvaru se jeho červená tekutina při zatřepání třpytí.\n**Tabulka (lektvar – obnovené životy – vzácnost):**\n- Potion of Healing: 2d4 + 2 – běžný\n- Potion of Healing (greater): 4d4 + 4 – neobvyklý\n- Potion of Healing (superior): 8d4 + 8 – vzácný\n- Potion of Healing (supreme): 10d4 + 20 – velmi vzácný",
+  "ef": {
+   "lecit": "4d4+4"
+  },
+  "str": 236
+ },
+ {
+  "en": "Potion of Healing (Superior)",
+  "cz": "lektvar vyššího léčení",
+  "druh": "Lektvar",
+  "vz": "vzácný",
+  "pr": false,
+  "t": "Tento lektvar obnoví 8d4 + 8 životů.\nKdyž vypiješ tento lektvar, obnovíš si životy. Počet životů závisí na vzácnosti lektvaru, jak ukazuje tabulka níže.\nBez ohledu na sílu lektvaru se jeho červená tekutina při zatřepání třpytí.\n**Tabulka (lektvar – obnovené životy – vzácnost):**\n- Potion of Healing: 2d4 + 2 – běžný\n- Potion of Healing (greater): 4d4 + 4 – neobvyklý\n- Potion of Healing (superior): 8d4 + 8 – vzácný\n- Potion of Healing (supreme): 10d4 + 20 – velmi vzácný",
+  "ef": {
+   "lecit": "8d4+8"
+  },
+  "str": 236
+ },
+ {
+  "en": "Potion of Healing (Supreme)",
+  "cz": "lektvar nejvyššího léčení",
+  "druh": "Lektvar",
+  "vz": "velmi vzácný",
+  "pr": false,
+  "t": "Tento lektvar obnoví 10d4 + 20 životů.\nKdyž vypiješ tento lektvar, obnovíš si životy. Počet životů závisí na vzácnosti lektvaru, jak ukazuje tabulka níže.\nBez ohledu na sílu lektvaru se jeho červená tekutina při zatřepání třpytí.\n**Tabulka (lektvar – obnovené životy – vzácnost):**\n- Potion of Healing: 2d4 + 2 – běžný\n- Potion of Healing (greater): 4d4 + 4 – neobvyklý\n- Potion of Healing (superior): 8d4 + 8 – vzácný\n- Potion of Healing (supreme): 10d4 + 20 – velmi vzácný",
+  "ef": {
+   "lecit": "10d4+20"
+  },
+  "str": 236
+ },
+ {
+  "en": "Potion of Heroism",
+  "cz": "lektvar hrdinství",
+  "druh": "Lektvar",
+  "vz": "vzácný",
+  "pr": false,
+  "t": "Když vypiješ tento lektvar, získáš 10 dočasných životů, které vydrží 1 hodinu. Po stejnou dobu jsi pod účinkem kouzla *Bless* (bez nutnosti soustředění).\nModrá tekutina tohoto lektvaru bublá a kouří, jako by se vařila.",
+  "ef": {
+   "dhp": 10
+  },
+  "str": 236
+ },
+ {
+  "en": "Potion of Invisibility",
+  "cz": "lektvar neviditelnosti",
+  "druh": "Lektvar",
+  "vz": "vzácný",
+  "pr": false,
+  "t": "Nádobka tohoto lektvaru vypadá prázdná, ale na omak jako by obsahovala tekutinu. Když lektvar vypiješ, máš na 1 hodinu stav Neviditelný (Invisible). Účinek skončí předčasně, pokud provedeš hod na útok, způsobíš zranění nebo sešleš kouzlo.",
+  "str": 236
+ },
+ {
+  "en": "Potion of Invulnerability",
+  "cz": "lektvar nezranitelnosti",
+  "druh": "Lektvar",
+  "vz": "vzácný",
+  "pr": false,
+  "t": "Po dobu 1 minuty po vypití tohoto lektvaru máš Resistance vůči všem zraněním.\nSirupovitá tekutina tohoto lektvaru vypadá jako zkapalněné železo.",
+  "str": 236
+ },
+ {
+  "en": "Potion of Longevity",
+  "cz": "lektvar dlouhověkosti",
+  "druh": "Lektvar",
+  "vz": "velmi vzácný",
+  "pr": false,
+  "t": "Když vypiješ tento lektvar, tvůj fyzický věk se sníží o 1d6 + 6 let, nejníže na 13 let. Pokaždé, když později vypiješ další *Potion of Longevity*, je tu kumulativní 10procentní šance, že místo toho zestárneš o 1d6 + 6 let.\nV této jantarové tekutině se vznáší drobné srdce, které navzdory veškerému rozumu stále tluče. Tyto přísady při otevření lektvaru zmizí.",
+  "str": 236
+ },
+ {
+  "en": "Potion of Mind Reading",
+  "cz": "lektvar čtení myšlenek",
+  "druh": "Lektvar",
+  "vz": "vzácný",
+  "pr": false,
+  "t": "Když vypiješ tento lektvar, získáš na 10 minut účinek kouzla *Detect Thoughts* (SO záchrany 13; bez nutnosti soustředění).\nV husté fialové tekutině tohoto lektvaru se vznáší vejčitý růžový obláček.",
+  "str": 236
+ },
+ {
+  "en": "Potion of Poison",
+  "cz": "lektvar jedu",
+  "druh": "Lektvar",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Tento přípravek vypadá, voní a chutná jako *Potion of Healing* nebo jiný prospěšný lektvar. Ve skutečnosti je to však jed maskovaný iluzorní magií. Kouzlo *Identify* odhalí jeho pravou povahu.\nPokud tento lektvar vypiješ, utrpíš 4d6 Poison zranění a musíš uspět v záchranném hodu na Odolnost se SO 13, jinak máš na 1 hodinu stav Otráven (Poisoned).",
+  "str": 236
+ },
+ {
+  "en": "Potion of Resistance",
+  "cz": "lektvar odolnosti",
+  "druh": "Lektvar",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Když vypiješ tento lektvar, máš na 1 hodinu Resistance vůči jednomu typu zranění. Typ zvolí vypravěč, nebo jej určí náhodně hodem na následující tabulku.\n**Tabulka (1d10 – typ zranění):**\n- 1: Acid\n- 2: Cold\n- 3: Fire\n- 4: Force\n- 5: Lightning\n- 6: Necrotic\n- 7: Poison\n- 8: Psychic\n- 9: Radiant\n- 10: Thunder",
+  "str": 236
+ },
+ {
+  "en": "Potion of Speed",
+  "cz": "lektvar rychlosti",
+  "druh": "Lektvar",
+  "vz": "velmi vzácný",
+  "pr": false,
+  "t": "Když vypiješ tento lektvar, získáš na 1 minutu účinek kouzla *Haste* (bez nutnosti soustředění), aniž by tě postihla vlna malátnosti, která obvykle nastává po skončení účinku.\nŽlutá tekutina tohoto lektvaru je protkaná černými pruhy a sama od sebe víří.",
+  "str": 236
+ },
+ {
+  "en": "Potion of Vitality",
+  "cz": "lektvar vitality",
+  "druh": "Lektvar",
+  "vz": "velmi vzácný",
+  "pr": false,
+  "t": "Když vypiješ tento lektvar, odstraní všechny tvé úrovně Vyčerpání (Exhaustion) a ukončí na tobě stav Otráven (Poisoned). Po dobu příštích 24 hodin si za každou kostku životů, kterou utratíš, obnovíš maximální počet životů.\nKarmínová tekutina tohoto lektvaru pravidelně pulzuje matným světlem a připomíná tlukot srdce.",
+  "str": 236
+ },
+ {
+  "en": "Potion of Water Breathing",
+  "cz": "lektvar dýchání pod vodou",
+  "druh": "Lektvar",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Po vypití tohoto lektvaru můžeš 24 hodin dýchat pod vodou.\nZakalená zelená tekutina tohoto lektvaru voní mořem a vznáší se v ní bublina podobná medúze.",
+  "str": 236
+ },
+ {
+  "en": "Quarterstaff of the Acrobat",
+  "cz": "akrobatova hůl",
+  "druh": "Zbraň",
+  "upr": "Quarterstaff",
+  "vz": "velmi vzácný",
+  "pr": true,
+  "t": "Máš bonus +2 k hodům na útok a hodům na zranění s touto magickou zbraní.\nKdyž tuto zbraň držíš, můžeš ji přimět vydávat zelené šero do vzdálenosti 10 stop, a to buď jako bonusovou akci, nebo poté, co si hodíš na iniciativu, případně můžeš světlo zhasnout bonusovou akcí.\nKdyž tuto zbraň držíš, můžeš provést bonusovou akci a změnit její podobu – proměnit ji v 6 palců dlouhou tyčku (pro snadné uložení) nebo v 10 stop dlouhou tyč, případně ji vrátit do podoby Quarterstaff; zbraň se prodlouží jen tak daleko, jak okolní prostor dovolí.\nV určitých podobách má zbraň následující další vlastnosti.\n**Akrobatická pomoc (pouze v podobě Quarterstaff a 10stopé tyče).** Když tuto zbraň držíš, máš výhodu na ověření Obratnosti (Acrobatics).\n**Odražení útoku (pouze v podobě Quarterstaff).** Když tě zasáhne útok, zatímco držíš zbraň, můžeš provést reakci a roztočit zbraň kolem sebe, čímž získáš bonus +5 k třídě zbroje (AC) proti spouštěcímu útoku, takže tě útok může minout. Tuto vlastnost nemůžeš znovu použít, dokud nedokončíš krátký nebo dlouhý odpočinek.\n**Zbraň na dálku (pouze v podobě Quarterstaff).** Tato zbraň má vlastnost Thrown (Vrhací) s normálním dostřelem 30 stop a dlouhým dostřelem 120 stop. Ihned poté, co se zbraní provedeš útok na dálku, přiletí ti zpět do ruky.",
+  "ef": {
+   "utok": 2
+  },
+  "str": 237
+ },
+ {
+  "en": "Ring of Animal Influence",
+  "cz": "prsten vlivu na zvířata",
+  "druh": "Prsten",
+  "vz": "vzácný",
+  "pr": false,
+  "t": "Tento prsten má 3 náboje a každý den za úsvitu obnoví 1d3 utracené náboje. Když prsten nosíš, můžeš utratit 1 náboj a seslat z něj jedno z následujících kouzel (SO záchrany 13):\n- *Animal Friendship*\n- *Fear* (působí jen na Beasty)\n- *Speak with Animals*",
+  "str": 237
+ },
+ {
+  "en": "Ring of Djinni Summoning",
+  "cz": "prsten přivolání džina",
+  "druh": "Prsten",
+  "vz": "legendární",
+  "pr": true,
+  "t": "Když nosíš tento prsten, můžeš provést akci Magie a přivolat konkrétního džina (Djinni) z Elementální sféry vzduchu. Džin se objeví na neobsazeném místě podle tvé volby do 120 stop od tebe. Zůstane, dokud udržuješ soustředění (Concentration), nejvýše 1 hodinu, nebo dokud neklesne na 0 životů.\nDokud je přivolaný, je džin přátelský (Friendly) k tobě a tvým spojencům a poslouchá tvé rozkazy. Pokud mu nedáš rozkaz, brání se proti útočníkům, ale jinak nic nedělá.\nPoté, co džin odejde, nelze jej po 24 hodin znovu přivolat, a pokud džin zemře, prsten se stane nemagickým.\nPrsteny *Ring of Djinni Summoning* často vytvářejí sami džinové, které přivolávají, a darují je smrtelníkům jako dar přátelství nebo projev úcty.",
+  "str": 237
+ },
+ {
+  "en": "Ring of Elemental Command",
+  "cz": "prsten vlády nad živly",
+  "druh": "Prsten",
+  "vz": "legendární",
+  "pr": true,
+  "t": "Každý *Ring of Elemental Command* je spojen s jednou ze čtyř elementálních sfér. Spojenou sféru zvolí vypravěč, nebo ji určí náhodně. Například *Ring of Elemental Command (air)* je spojen s Elementální sférou vzduchu.\nKaždý *Ring of Elemental Command* má následující dvě vlastnosti:\n**Zhouba elementálů.** Když nosíš prsten, máš výhodu na hody na útok proti Elementálům a oni mají nevýhodu na hody na útok proti tobě.\n**Elementální donucení.** Když nosíš prsten, můžeš provést akci Magie a pokusit se donutit Elementála, kterého vidíš do 60 stop od sebe. Elementál provede záchranný hod na Moudrost se SO 18. Při neúspěšné záchraně má Elementál stav Okouzlen (Charmed) do začátku tvého příštího tahu a ty určuješ, co udělá se svým pohybem a akcí ve svém příštím tahu.\n**Elementální zaměření.** Když nosíš prsten, získáváš další vlastnosti odpovídající elementální sféře, se kterou je prsten spojen:\n- **Vzduch (Air).** Znáš jazyk Auran, máš Resistance vůči Lightning zranění a máš rychlost letu rovnou své rychlosti a můžeš se vznášet.\n- **Země (Earth).** Znáš jazyk Terran a máš Resistance vůči Acid zranění. Terén tvořený sutí, kamením nebo hlínou pro tebe není obtížným terénem. Kromě toho se můžeš pohybovat skrz pevnou zeminu nebo skálu, jako by šlo o obtížný terén, aniž bys narušil hmotu, kterou procházíš. Pokud ukončíš tah v pevné zemině nebo skále, jsi vytlačen na nejbližší neobsazené místo, které jsi naposledy obsadil.\n- **Oheň (Fire).** Znáš jazyk Ignan a máš Immunity vůči Fire zranění.\n- **Voda (Water).** Znáš jazyk Aquan, získáš rychlost plavání 60 stop a můžeš dýchat pod vodou.\n**Sesílání kouzel.** Prsten má 5 nábojů a každý den za úsvitu obnoví 1d4 + 1 utracených nábojů. Když prsten nosíš, můžeš z něj seslat kouzlo. Kouzlo zvol ze seznamu dostupných kouzel podle elementální sféry, se kterou je prsten spojen, jak ukazuje následující tabulka. Tabulka uvádí, kolik nábojů musíš k seslání kouzla utratit; kouzlo má SO záchrany 18.\n**Tabulka (sféra – kouzla (náboje)):**\n- Vzduch (Air): *Chain Lightning* (3 náboje), *Feather Fall* (0 nábojů), *Gust of Wind* (2 náboje), *Wind Wall* (1 náboj)\n- Země (Earth): *Earthquake* (5 nábojů), *Stone Shape* (2 náboje), *Stoneskin* (3 náboje), *Wall of Stone* (3 náboje)\n- Oheň (Fire): *Burning Hands* (1 náboj), *Fireball* (2 náboje), *Fire Storm* (4 náboje), *Wall of Fire* (3 náboje)\n- Voda (Water): *Create or Destroy Water* (1 náboj), *Ice Storm* (2 náboje), *Tsunami* (5 nábojů), *Wall of Ice* (3 náboje), *Water Walk* (2 náboje)",
+  "str": 237
+ },
+ {
+  "en": "Ring of Evasion",
+  "cz": "prsten úhybu",
+  "druh": "Prsten",
+  "vz": "vzácný",
+  "pr": true,
+  "t": "Tento prsten má 3 náboje a každý den za úsvitu obnoví 1d3 utracené náboje. Když neuspěješ v záchranném hodu na Obratnost, zatímco nosíš prsten, můžeš provést reakci a utratit 1 náboj, abys v této záchraně místo toho uspěl.",
+  "str": 238
+ },
+ {
+  "en": "Ring of Feather Falling",
+  "cz": "prsten pomalého pádu",
+  "druh": "Prsten",
+  "vz": "vzácný",
+  "pr": true,
+  "t": "Když padáš, zatímco nosíš tento prsten, klesáš rychlostí 60 stop za kolo a neutrpíš žádné zranění pádem.",
+  "str": 238
+ },
+ {
+  "en": "Ring of Free Action",
+  "cz": "prsten volného pohybu",
+  "druh": "Prsten",
+  "vz": "vzácný",
+  "pr": true,
+  "t": "Dokud nosíš tento prsten, nestojí tě obtížný terén pohyb navíc. Kromě toho ti magie nemůže snížit žádnou z tvých rychlostí ani ti způsobit stav Ochromen (Paralyzed) nebo Zadržen (Restrained).",
+  "str": 238
+ },
+ {
+  "en": "Ring of Invisibility",
+  "cz": "prsten neviditelnosti",
+  "druh": "Prsten",
+  "vz": "legendární",
+  "pr": true,
+  "t": "Když nosíš tento prsten, můžeš provést akci Magie a dát si stav Neviditelný (Invisible). Zůstaneš neviditelný, dokud prsten nesundáš nebo dokud neprovedeš bonusovou akci, abys byl opět viditelný.",
+  "str": 238
+ },
+ {
+  "en": "Ring of Jumping",
+  "cz": "prsten skákání",
+  "druh": "Prsten",
+  "vz": "neobvyklý",
+  "pr": true,
+  "t": "Když nosíš tento prsten, můžeš z něj seslat kouzlo *Jump*, ale jeho cílem můžeš učinit jen sebe.",
+  "str": 238
+ },
+ {
+  "en": "Ring of Mind Shielding",
+  "cz": "prsten štítu mysli",
+  "druh": "Prsten",
+  "vz": "neobvyklý",
+  "pr": true,
+  "t": "Když nosíš tento prsten, jsi imunní vůči magii, která jiným tvorům umožňuje číst tvé myšlenky, zjistit, zda lžeš, poznat tvé přesvědčení nebo poznat tvůj typ tvora. Tvorové s tebou mohou telepaticky komunikovat, jen pokud jim to dovolíš.\nMůžeš provést akci Magie a učinit prsten nepostřehnutelným, dokud neprovedeš další akci Magie, abys jej učinil postřehnutelným, dokud prsten nesundáš, nebo dokud nezemřeš.\nPokud zemřeš, zatímco prsten nosíš, tvá duše do něj vstoupí, pokud v něm již nesídlí jiná duše. Můžeš zůstat v prstenu, nebo odejít do posmrtného života. Dokud je tvá duše v prstenu, můžeš telepaticky komunikovat s každým tvorem, který jej nosí. Nositel této telepatické komunikaci nemůže zabránit.",
+  "str": 238
+ },
+ {
+  "en": "Ring of Protection",
+  "cz": "prsten ochrany",
+  "druh": "Prsten",
+  "vz": "vzácný",
+  "pr": true,
+  "t": "Dokud nosíš tento prsten, získáváš bonus +1 k třídě zbroje (AC) a k záchranným hodům.",
+  "ef": {
+   "ac": 1,
+   "zach": 1
+  },
+  "str": 238
+ },
+ {
+  "en": "Ring of Regeneration",
+  "cz": "prsten regenerace",
+  "druh": "Prsten",
+  "vz": "velmi vzácný",
+  "pr": true,
+  "t": "Když nosíš tento prsten, obnovuješ si každých 10 minut 1d6 životů, pokud máš alespoň 1 život. Pokud přijdeš o část těla, prsten způsobí, že chybějící část doroste a po 1d6 + 1 dnech se jí vrátí plná funkčnost, pokud máš celou dobu alespoň 1 život.",
+  "str": 238
+ },
+ {
+  "en": "Ring of Resistance",
+  "cz": "prsten odolnosti",
+  "druh": "Prsten",
+  "vz": "vzácný",
+  "pr": false,
+  "t": "Dokud nosíš tento prsten, máš Resistance vůči jednomu typu zranění. Typ určuje drahokam v prstenu; zvolí jej vypravěč, nebo jej určí náhodně hodem na následující tabulku.\n**Tabulka (1d10 – typ zranění – drahokam):**\n- 1: Acid – perla\n- 2: Cold – turmalín\n- 3: Fire – granát\n- 4: Force – safír\n- 5: Lightning – citrín\n- 6: Necrotic – gagát\n- 7: Poison – ametyst\n- 8: Psychic – nefrit\n- 9: Radiant – topaz\n- 10: Thunder – spinel",
+  "str": 238
+ },
+ {
+  "en": "Ring of Shooting Stars",
+  "cz": "prsten padajících hvězd",
+  "druh": "Prsten",
+  "vz": "velmi vzácný",
+  "pr": true,
+  "t": "Z prstenu můžeš sesílat kouzla *Dancing Lights* nebo *Light*.\nPrsten má 6 nábojů a každý den za úsvitu obnoví 1d6 utracených nábojů. Jeho náboje můžeš utrácet na níže uvedené vlastnosti.\n**Faerie Fire.** Můžeš utratit 1 náboj a seslat z prstenu kouzlo *Faerie Fire*.\n**Kulové blesky.** Můžeš utratit 2 náboje jako akci Magie a vytvořit až čtyři koule blesků o průměru 3 stopy.\nKaždá koule se objeví na neobsazeném místě, které vidíš, do 120 stop od tebe. Koule vydrží, dokud udržuješ soustředění (Concentration), nejvýše 1 minutu. Každá koule vydává šero v okruhu 30 stop.\nJako bonusovou akci můžeš každou kouli posunout až o 30 stop, ale ne dále než 120 stop od sebe. Když se koule poprvé dostane do 5 stop od jiného tvora než tebe, který není za úplným krytem, vybije do tohoto tvora blesk a zmizí. Tento tvor provede záchranný hod na Obratnost se SO 15. Při neúspěšné záchraně utrpí Lightning zranění podle počtu koulí, které jsi vytvořil, jak ukazuje následující tabulka. Při úspěšné záchraně utrpí poloviční zranění.\n**Tabulka (počet koulí – Lightning zranění):**\n- 1: 4d12\n- 2: 5d4\n- 3: 2d6\n- 4: 2d4\n**Padající hvězdy.** Můžeš utratit 1 až 3 náboje jako akci Magie. Za každý utracený náboj vypustíš z prstenu zářící jiskřičku světla do bodu, který vidíš, do 60 stop od tebe. Každého tvora v krychli o hraně 15 stop vycházející z tohoto bodu zasype déšť jisker a tvor provede záchranný hod na Obratnost se SO 15; při neúspěšné záchraně utrpí 5d4 Radiant zranění, při úspěšné polovinu tohoto zranění.",
+  "str": 238
+ }
+]

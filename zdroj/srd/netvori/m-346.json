@@ -1,0 +1,2707 @@
+[
+ {
+  "en": "Boar",
+  "cz": "kanec",
+  "vel": "Střední",
+  "typ": "Beast",
+  "pres": "bez přesvědčení",
+  "ac": "11",
+  "ini": "+0 (10)",
+  "hp": 13,
+  "hpk": "2d8 + 4",
+  "rych": "40 stop",
+  "vl": {
+   "STR": 13,
+   "AGI": 11,
+   "CON": 14,
+   "INT": 2,
+   "WIS": 9,
+   "CHA": 5
+  },
+  "zach": {
+   "STR": "+1",
+   "AGI": "+0",
+   "CON": "+2",
+   "INT": "-4",
+   "WIS": "-1",
+   "CHA": "-3"
+  },
+  "smysly": "pasivní Perception 9",
+  "jaz": "žádné",
+  "cr": "1/4",
+  "xp": 50,
+  "xpt": "50 XP",
+  "pb": "+2",
+  "rysy": [
+   {
+    "n": "Bloodied Fury",
+    "t": "Dokud je kanec zakrvácený (Bloodied), má výhodu na hody na útok."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Gore",
+    "t": "*Hod na útok na blízko:* +3, dosah 5 stop. *Zásah:* 4 (1d6 + 1) Piercing zranění. Pokud je cíl Střední nebo menší tvor a kanec se bezprostředně před zásahem přesunul alespoň o 20 stop přímo k němu, cíl utrpí dodatečných 3 (1d6) Piercing zranění a má stav Sražen (Prone)."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Gore",
+    "b": 3,
+    "z": "1d6+1",
+    "zt": "Piercing",
+    "p": "dosah 5 stop; po rozběhu 20+ stop přímo k cíli (Střední nebo menší) + 1d6 Piercing a Sražen"
+   }
+  ],
+  "str": 346,
+  "zvire": true
+ },
+ {
+  "en": "Brown Bear",
+  "cz": "medvěd hnědý",
+  "vel": "Velká",
+  "typ": "Beast",
+  "pres": "bez přesvědčení",
+  "ac": "11",
+  "ini": "+1 (11)",
+  "hp": 22,
+  "hpk": "3d10 + 6",
+  "rych": "40 stop, šplhání 30 stop",
+  "vl": {
+   "STR": 17,
+   "AGI": 12,
+   "CON": 15,
+   "INT": 2,
+   "WIS": 13,
+   "CHA": 7
+  },
+  "zach": {
+   "STR": "+3",
+   "AGI": "+1",
+   "CON": "+2",
+   "INT": "-4",
+   "WIS": "+1",
+   "CHA": "-2"
+  },
+  "dov": "Perception +3",
+  "smysly": "Darkvision 60 stop; pasivní Perception 13",
+  "jaz": "žádné",
+  "cr": "1",
+  "xp": 200,
+  "xpt": "200 XP",
+  "pb": "+2",
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Medvěd provede jeden útok Bite a jeden útok Claw."
+   },
+   {
+    "n": "Bite",
+    "t": "*Hod na útok na blízko:* +5, dosah 5 stop. *Zásah:* 7 (1d8 + 3) Piercing zranění."
+   },
+   {
+    "n": "Claw",
+    "t": "*Hod na útok na blízko:* +5, dosah 5 stop. *Zásah:* 5 (1d4 + 3) Slashing zranění. Pokud je cíl Velký nebo menší tvor, má stav Sražen (Prone)."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 5,
+    "z": "1d8+3",
+    "zt": "Piercing",
+    "p": "dosah 5 stop"
+   },
+   {
+    "n": "Claw",
+    "b": 5,
+    "z": "1d4+3",
+    "zt": "Slashing",
+    "p": "dosah 5 stop; Velký nebo menší cíl Sražen"
+   }
+  ],
+  "str": 346,
+  "zvire": true
+ },
+ {
+  "en": "Camel",
+  "cz": "velbloud",
+  "vel": "Velká",
+  "typ": "Beast",
+  "pres": "bez přesvědčení",
+  "ac": "10",
+  "ini": "-1 (9)",
+  "hp": 17,
+  "hpk": "2d10 + 6",
+  "rych": "50 stop",
+  "vl": {
+   "STR": 15,
+   "AGI": 8,
+   "CON": 17,
+   "INT": 2,
+   "WIS": 11,
+   "CHA": 5
+  },
+  "zach": {
+   "STR": "+2",
+   "AGI": "-1",
+   "CON": "+5",
+   "INT": "-4",
+   "WIS": "+0",
+   "CHA": "-3"
+  },
+  "smysly": "Darkvision 60 stop; pasivní Perception 10",
+  "jaz": "žádné",
+  "cr": "1/8",
+  "xp": 25,
+  "xpt": "25 XP",
+  "pb": "+2",
+  "akce": [
+   {
+    "n": "Bite",
+    "t": "*Hod na útok na blízko:* +4, dosah 5 stop. *Zásah:* 4 (1d4 + 2) Bludgeoning zranění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 4,
+    "z": "1d4+2",
+    "zt": "Bludgeoning",
+    "p": "dosah 5 stop"
+   }
+  ],
+  "str": 346,
+  "zvire": true
+ },
+ {
+  "en": "Cat",
+  "cz": "kočka",
+  "vel": "Drobná",
+  "typ": "Beast",
+  "pres": "bez přesvědčení",
+  "ac": "12",
+  "ini": "+2 (12)",
+  "hp": 2,
+  "hpk": "1d4",
+  "rych": "40 stop, šplhání 40 stop",
+  "vl": {
+   "STR": 3,
+   "AGI": 15,
+   "CON": 10,
+   "INT": 3,
+   "WIS": 12,
+   "CHA": 7
+  },
+  "zach": {
+   "STR": "-4",
+   "AGI": "+4",
+   "CON": "+0",
+   "INT": "-4",
+   "WIS": "+1",
+   "CHA": "-2"
+  },
+  "dov": "Perception +3, Stealth +4",
+  "smysly": "Darkvision 60 stop; pasivní Perception 13",
+  "jaz": "žádné",
+  "cr": "0",
+  "xp": 10,
+  "xpt": "10 XP",
+  "pb": "+2",
+  "rysy": [
+   {
+    "n": "Jumper",
+    "t": "Délka skoku kočky se určuje podle její Obratnosti místo Síly."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Scratch",
+    "t": "*Hod na útok na blízko:* +4, dosah 5 stop. *Zásah:* 1 Slashing zranění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Scratch",
+    "b": 4,
+    "z": "1",
+    "zt": "Slashing",
+    "p": "dosah 5 stop"
+   }
+  ],
+  "str": 346,
+  "zvire": true
+ },
+ {
+  "en": "Constrictor Snake",
+  "cz": "had škrtič",
+  "vel": "Velká",
+  "typ": "Beast",
+  "pres": "bez přesvědčení",
+  "ac": "13",
+  "ini": "+2 (12)",
+  "hp": 13,
+  "hpk": "2d10 + 2",
+  "rych": "30 stop, plavání 30 stop",
+  "vl": {
+   "STR": 15,
+   "AGI": 14,
+   "CON": 12,
+   "INT": 1,
+   "WIS": 10,
+   "CHA": 3
+  },
+  "zach": {
+   "STR": "+2",
+   "AGI": "+2",
+   "CON": "+1",
+   "INT": "-5",
+   "WIS": "+0",
+   "CHA": "-4"
+  },
+  "dov": "Perception +2, Stealth +4",
+  "smysly": "Blindsight 10 stop; pasivní Perception 12",
+  "jaz": "žádné",
+  "cr": "1/4",
+  "xp": 50,
+  "xpt": "50 XP",
+  "pb": "+2",
+  "akce": [
+   {
+    "n": "Bite",
+    "t": "*Hod na útok na blízko:* +4, dosah 5 stop. *Zásah:* 6 (1d8 + 2) Piercing zranění."
+   },
+   {
+    "n": "Constrict",
+    "t": "*Záchrana Síly:* SO 12, jeden Střední nebo menší tvor, kterého had vidí, do 5 stop. *Neúspěch:* 7 (3d4) Bludgeoning zranění a cíl má stav Chycen (Grappled) (únik SO 12)."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 4,
+    "z": "1d8+2",
+    "zt": "Piercing",
+    "p": "dosah 5 stop"
+   },
+   {
+    "n": "Constrict",
+    "dc": "STR SO 12",
+    "z": "3d4",
+    "zt": "Bludgeoning",
+    "p": "jeden Střední nebo menší tvor do 5 stop; při neúspěchu Chycen (únik SO 12)"
+   }
+  ],
+  "str": 346,
+  "zvire": true
+ },
+ {
+  "en": "Crab",
+  "cz": "krab",
+  "vel": "Drobná",
+  "typ": "Beast",
+  "pres": "bez přesvědčení",
+  "ac": "11",
+  "ini": "+0 (10)",
+  "hp": 3,
+  "hpk": "1d4 + 1",
+  "rych": "20 stop, plavání 20 stop",
+  "vl": {
+   "STR": 6,
+   "AGI": 11,
+   "CON": 12,
+   "INT": 1,
+   "WIS": 8,
+   "CHA": 2
+  },
+  "zach": {
+   "STR": "-2",
+   "AGI": "+0",
+   "CON": "+1",
+   "INT": "-5",
+   "WIS": "-1",
+   "CHA": "-4"
+  },
+  "dov": "Stealth +2",
+  "smysly": "Blindsight 30 stop; pasivní Perception 9",
+  "jaz": "žádné",
+  "cr": "0",
+  "xp": 10,
+  "xpt": "10 XP",
+  "pb": "+2",
+  "rysy": [
+   {
+    "n": "Amphibious",
+    "t": "Krab může dýchat vzduch i vodu."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Claw",
+    "t": "*Hod na útok na blízko:* +2, dosah 5 stop. *Zásah:* 1 Bludgeoning zranění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Claw",
+    "b": 2,
+    "z": "1",
+    "zt": "Bludgeoning",
+    "p": "dosah 5 stop"
+   }
+  ],
+  "str": 347,
+  "zvire": true
+ },
+ {
+  "en": "Crocodile",
+  "cz": "krokodýl",
+  "vel": "Velká",
+  "typ": "Beast",
+  "pres": "bez přesvědčení",
+  "ac": "12",
+  "ini": "+0 (10)",
+  "hp": 13,
+  "hpk": "2d10 + 2",
+  "rych": "20 stop, plavání 30 stop",
+  "vl": {
+   "STR": 15,
+   "AGI": 10,
+   "CON": 13,
+   "INT": 2,
+   "WIS": 10,
+   "CHA": 5
+  },
+  "zach": {
+   "STR": "+2",
+   "AGI": "+0",
+   "CON": "+3",
+   "INT": "-4",
+   "WIS": "+0",
+   "CHA": "-3"
+  },
+  "dov": "Stealth +2",
+  "smysly": "pasivní Perception 10",
+  "jaz": "žádné",
+  "cr": "1/2",
+  "xp": 100,
+  "xpt": "100 XP",
+  "pb": "+2",
+  "rysy": [
+   {
+    "n": "Hold Breath",
+    "t": "Krokodýl dokáže zadržet dech na 1 hodinu."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Bite",
+    "t": "*Hod na útok na blízko:* +4, dosah 5 stop. *Zásah:* 6 (1d8 + 2) Piercing zranění. Pokud je cíl Střední nebo menší tvor, má stav Chycen (Grappled) (únik SO 12). Dokud je cíl chycen, má stav Zadržen (Restrained)."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 4,
+    "z": "1d8+2",
+    "zt": "Piercing",
+    "p": "dosah 5 stop; Střední nebo menší cíl Chycen (únik SO 12) a Zadržen"
+   }
+  ],
+  "str": 347,
+  "zvire": true
+ },
+ {
+  "en": "Deer",
+  "cz": "jelen",
+  "vel": "Střední",
+  "typ": "Beast",
+  "pres": "bez přesvědčení",
+  "ac": "13",
+  "ini": "+3 (13)",
+  "hp": 4,
+  "hpk": "1d8",
+  "rych": "50 stop",
+  "vl": {
+   "STR": 11,
+   "AGI": 16,
+   "CON": 11,
+   "INT": 2,
+   "WIS": 14,
+   "CHA": 5
+  },
+  "zach": {
+   "STR": "+0",
+   "AGI": "+3",
+   "CON": "+0",
+   "INT": "-4",
+   "WIS": "+2",
+   "CHA": "-3"
+  },
+  "dov": "Perception +4",
+  "smysly": "Darkvision 60 stop; pasivní Perception 14",
+  "jaz": "žádné",
+  "cr": "0",
+  "xp": 10,
+  "xpt": "10 XP",
+  "pb": "+2",
+  "rysy": [
+   {
+    "n": "Agile",
+    "t": "Jelen nevyvolává příležitostný útok, když se pohybuje z dosahu nepřítele."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Ram",
+    "t": "*Hod na útok na blízko:* +2, dosah 5 stop. *Zásah:* 2 (1d4) Bludgeoning zranění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Ram",
+    "b": 2,
+    "z": "1d4",
+    "zt": "Bludgeoning",
+    "p": "dosah 5 stop"
+   }
+  ],
+  "str": 347,
+  "zvire": true
+ },
+ {
+  "en": "Dire Wolf",
+  "cz": "strašlivý vlk",
+  "vel": "Velká",
+  "typ": "Beast",
+  "pres": "bez přesvědčení",
+  "ac": "14",
+  "ini": "+2 (12)",
+  "hp": 22,
+  "hpk": "3d10 + 6",
+  "rych": "50 stop",
+  "vl": {
+   "STR": 17,
+   "AGI": 15,
+   "CON": 15,
+   "INT": 3,
+   "WIS": 12,
+   "CHA": 7
+  },
+  "zach": {
+   "STR": "+3",
+   "AGI": "+2",
+   "CON": "+2",
+   "INT": "-4",
+   "WIS": "+1",
+   "CHA": "-2"
+  },
+  "dov": "Perception +5, Stealth +4",
+  "smysly": "Darkvision 60 stop; pasivní Perception 15",
+  "jaz": "žádné",
+  "cr": "1",
+  "xp": 200,
+  "xpt": "200 XP",
+  "pb": "+2",
+  "rysy": [
+   {
+    "n": "Pack Tactics",
+    "t": "Vlk má výhodu na hod na útok proti tvorovi, pokud je alespoň jeden ze spojenců vlka do 5 stop od tohoto tvora a tento spojenec nemá stav Neschopný (Incapacitated)."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Bite",
+    "t": "*Hod na útok na blízko:* +5, dosah 5 stop. *Zásah:* 8 (1d10 + 3) Piercing zranění. Pokud je cíl Velký nebo menší tvor, má stav Sražen (Prone)."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 5,
+    "z": "1d10+3",
+    "zt": "Piercing",
+    "p": "dosah 5 stop; Velký nebo menší cíl Sražen"
+   }
+  ],
+  "str": 347,
+  "zvire": true
+ },
+ {
+  "en": "Draft Horse",
+  "cz": "tažný kůň",
+  "vel": "Velká",
+  "typ": "Beast",
+  "pres": "bez přesvědčení",
+  "ac": "10",
+  "ini": "+0 (10)",
+  "hp": 15,
+  "hpk": "2d10 + 4",
+  "rych": "40 stop",
+  "vl": {
+   "STR": 18,
+   "AGI": 10,
+   "CON": 15,
+   "INT": 2,
+   "WIS": 11,
+   "CHA": 7
+  },
+  "zach": {
+   "STR": "+4",
+   "AGI": "+0",
+   "CON": "+2",
+   "INT": "-4",
+   "WIS": "+0",
+   "CHA": "-2"
+  },
+  "smysly": "pasivní Perception 10",
+  "jaz": "žádné",
+  "cr": "1/4",
+  "xp": 50,
+  "xpt": "50 XP",
+  "pb": "+2",
+  "akce": [
+   {
+    "n": "Hooves",
+    "t": "*Hod na útok na blízko:* +6, dosah 5 stop. *Zásah:* 6 (1d4 + 4) Bludgeoning zranění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Hooves",
+    "b": 6,
+    "z": "1d4+4",
+    "zt": "Bludgeoning",
+    "p": "dosah 5 stop"
+   }
+  ],
+  "str": 347,
+  "zvire": true
+ },
+ {
+  "en": "Eagle",
+  "cz": "orel",
+  "vel": "Malá",
+  "typ": "Beast",
+  "pres": "bez přesvědčení",
+  "ac": "12",
+  "ini": "+2 (12)",
+  "hp": 4,
+  "hpk": "1d6 + 1",
+  "rych": "10 stop, let 60 stop",
+  "vl": {
+   "STR": 6,
+   "AGI": 15,
+   "CON": 12,
+   "INT": 2,
+   "WIS": 14,
+   "CHA": 7
+  },
+  "zach": {
+   "STR": "-2",
+   "AGI": "+2",
+   "CON": "+1",
+   "INT": "-4",
+   "WIS": "+2",
+   "CHA": "-2"
+  },
+  "dov": "Perception +6",
+  "smysly": "pasivní Perception 16",
+  "jaz": "žádné",
+  "cr": "0",
+  "xp": 10,
+  "xpt": "10 XP",
+  "pb": "+2",
+  "akce": [
+   {
+    "n": "Talons",
+    "t": "*Hod na útok na blízko:* +4, dosah 5 stop. *Zásah:* 4 (1d4 + 2) Slashing zranění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Talons",
+    "b": 4,
+    "z": "1d4+2",
+    "zt": "Slashing",
+    "p": "dosah 5 stop"
+   }
+  ],
+  "str": 348,
+  "zvire": true
+ },
+ {
+  "en": "Elephant",
+  "cz": "slon",
+  "vel": "Obrovská",
+  "typ": "Beast",
+  "pres": "bez přesvědčení",
+  "ac": "12",
+  "ini": "-1 (9)",
+  "hp": 76,
+  "hpk": "8d12 + 24",
+  "rych": "40 stop",
+  "vl": {
+   "STR": 22,
+   "AGI": 9,
+   "CON": 17,
+   "INT": 3,
+   "WIS": 11,
+   "CHA": 6
+  },
+  "zach": {
+   "STR": "+6",
+   "AGI": "-1",
+   "CON": "+3",
+   "INT": "-4",
+   "WIS": "+0",
+   "CHA": "-2"
+  },
+  "smysly": "pasivní Perception 10",
+  "jaz": "žádné",
+  "cr": "4",
+  "xp": 1100,
+  "xpt": "1 100 XP",
+  "pb": "+2",
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Slon provede dva útoky Gore."
+   },
+   {
+    "n": "Gore",
+    "t": "*Hod na útok na blízko:* +8, dosah 5 stop. *Zásah:* 15 (2d8 + 6) Piercing zranění. Pokud je cíl Obrovský nebo menší tvor a slon se bezprostředně před zásahem přesunul alespoň o 20 stop přímo k němu, cíl má stav Sražen (Prone)."
+   }
+  ],
+  "bonus": [
+   {
+    "n": "Trample",
+    "t": "*Záchrana Obratnosti:* SO 16, jeden tvor do 5 stop, který má stav Sražen (Prone). *Neúspěch:* 17 (2d10 + 6) Bludgeoning zranění. *Úspěch:* Poloviční zranění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Gore",
+    "b": 8,
+    "z": "2d8+6",
+    "zt": "Piercing",
+    "p": "dosah 5 stop; po rozběhu 20+ stop přímo k cíli (Obrovský nebo menší) Sražen"
+   },
+   {
+    "n": "Trample",
+    "dc": "AGI SO 16",
+    "z": "2d10+6",
+    "zt": "Bludgeoning",
+    "p": "bonusová akce, jeden Sražený tvor do 5 stop, polovina při úspěchu"
+   }
+  ],
+  "str": 348,
+  "zvire": true
+ },
+ {
+  "en": "Elk",
+  "cz": "los",
+  "vel": "Velká",
+  "typ": "Beast",
+  "pres": "bez přesvědčení",
+  "ac": "10",
+  "ini": "+0 (10)",
+  "hp": 11,
+  "hpk": "2d10",
+  "rych": "50 stop",
+  "vl": {
+   "STR": 16,
+   "AGI": 10,
+   "CON": 11,
+   "INT": 2,
+   "WIS": 10,
+   "CHA": 6
+  },
+  "zach": {
+   "STR": "+3",
+   "AGI": "+0",
+   "CON": "+0",
+   "INT": "-4",
+   "WIS": "+0",
+   "CHA": "-2"
+  },
+  "dov": "Perception +2",
+  "smysly": "Darkvision 60 stop; pasivní Perception 12",
+  "jaz": "žádné",
+  "cr": "1/4",
+  "xp": 50,
+  "xpt": "50 XP",
+  "pb": "+2",
+  "akce": [
+   {
+    "n": "Ram",
+    "t": "*Hod na útok na blízko:* +5, dosah 5 stop. *Zásah:* 6 (1d6 + 3) Bludgeoning zranění. Pokud je cíl Velký nebo menší tvor a los se bezprostředně před zásahem přesunul alespoň o 20 stop přímo k němu, cíl utrpí dodatečných 3 (1d6) Bludgeoning zranění a má stav Sražen (Prone)."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Ram",
+    "b": 5,
+    "z": "1d6+3",
+    "zt": "Bludgeoning",
+    "p": "dosah 5 stop; po rozběhu 20+ stop přímo k cíli (Velký nebo menší) + 1d6 Bludgeoning a Sražen"
+   }
+  ],
+  "str": 348,
+  "zvire": true
+ },
+ {
+  "en": "Flying Snake",
+  "cz": "létající had",
+  "vel": "Drobná",
+  "typ": "Monstrosity",
+  "pres": "bez přesvědčení",
+  "ac": "14",
+  "ini": "+2 (12)",
+  "hp": 5,
+  "hpk": "2d4",
+  "rych": "30 stop, let 60 stop, plavání 30 stop",
+  "vl": {
+   "STR": 4,
+   "AGI": 15,
+   "CON": 11,
+   "INT": 2,
+   "WIS": 12,
+   "CHA": 5
+  },
+  "zach": {
+   "STR": "-3",
+   "AGI": "+2",
+   "CON": "+0",
+   "INT": "-4",
+   "WIS": "+1",
+   "CHA": "-3"
+  },
+  "smysly": "Blindsight 10 stop; pasivní Perception 11",
+  "jaz": "žádné",
+  "cr": "1/8",
+  "xp": 25,
+  "xpt": "25 XP",
+  "pb": "+2",
+  "rysy": [
+   {
+    "n": "Flyby",
+    "t": "Had nevyvolává příležitostný útok, když vylétá z dosahu nepřítele."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Bite",
+    "t": "*Hod na útok na blízko:* +4, dosah 5 stop. *Zásah:* 1 Piercing zranění plus 5 (2d4) Poison zranění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 4,
+    "z": "1",
+    "zt": "Piercing",
+    "p": "dosah 5 stop; + 2d4 Poison"
+   }
+  ],
+  "str": 348,
+  "zvire": true
+ },
+ {
+  "en": "Frog",
+  "cz": "žába",
+  "vel": "Drobná",
+  "typ": "Beast",
+  "pres": "bez přesvědčení",
+  "ac": "11",
+  "ini": "+1 (11)",
+  "hp": 1,
+  "hpk": "1d4 - 1",
+  "rych": "20 stop, plavání 20 stop",
+  "vl": {
+   "STR": 1,
+   "AGI": 13,
+   "CON": 8,
+   "INT": 1,
+   "WIS": 8,
+   "CHA": 3
+  },
+  "zach": {
+   "STR": "-5",
+   "AGI": "+1",
+   "CON": "-1",
+   "INT": "-5",
+   "WIS": "-1",
+   "CHA": "-4"
+  },
+  "dov": "Perception +1, Stealth +3",
+  "smysly": "Darkvision 30 stop; pasivní Perception 11",
+  "jaz": "žádné",
+  "cr": "0",
+  "xp": 10,
+  "xpt": "10 XP",
+  "pb": "+2",
+  "rysy": [
+   {
+    "n": "Amphibious",
+    "t": "Žába může dýchat vzduch i vodu."
+   },
+   {
+    "n": "Standing Leap",
+    "t": "Žába skočí do dálky až 10 stop a do výšky až 5 stop, s rozběhem i bez něj."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Bite",
+    "t": "*Hod na útok na blízko:* +3, dosah 5 stop. *Zásah:* 1 Piercing zranění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 3,
+    "z": "1",
+    "zt": "Piercing",
+    "p": "dosah 5 stop"
+   }
+  ],
+  "str": 348,
+  "zvire": true
+ },
+ {
+  "en": "Giant Ape",
+  "cz": "obří lidoop",
+  "vel": "Obrovská",
+  "typ": "Beast",
+  "pres": "bez přesvědčení",
+  "ac": "12",
+  "ini": "+5 (15)",
+  "hp": 168,
+  "hpk": "16d12 + 64",
+  "rych": "40 stop, šplhání 40 stop",
+  "vl": {
+   "STR": 23,
+   "AGI": 14,
+   "CON": 18,
+   "INT": 5,
+   "WIS": 12,
+   "CHA": 7
+  },
+  "zach": {
+   "STR": "+6",
+   "AGI": "+2",
+   "CON": "+4",
+   "INT": "-3",
+   "WIS": "+1",
+   "CHA": "-2"
+  },
+  "dov": "Athletics +9, Perception +4, Survival +4",
+  "smysly": "pasivní Perception 14",
+  "jaz": "žádné",
+  "cr": "7",
+  "xp": 2900,
+  "xpt": "2 900 XP",
+  "pb": "+3",
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Lidoop provede dva útoky Fist."
+   },
+   {
+    "n": "Fist",
+    "t": "*Hod na útok na blízko:* +9, dosah 10 stop. *Zásah:* 22 (3d10 + 6) Bludgeoning zranění."
+   },
+   {
+    "n": "Boulder Toss (obnova 6)",
+    "t": "Lidoop mrští balvan na bod, který vidí, do 90 stop. *Záchrana Obratnosti:* SO 17, každý tvor v kouli o poloměru 5 stop se středem v tomto bodě. *Neúspěch:* 24 (7d6) Bludgeoning zranění. Pokud je cíl Velký nebo menší tvor, má stav Sražen (Prone). *Úspěch:* Pouze poloviční zranění."
+   }
+  ],
+  "bonus": [
+   {
+    "n": "Leap",
+    "t": "Lidoop skočí až o 30 stop, přičemž spotřebuje 10 stop pohybu."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Fist",
+    "b": 9,
+    "z": "3d10+6",
+    "zt": "Bludgeoning",
+    "p": "dosah 10 stop"
+   },
+   {
+    "n": "Boulder Toss",
+    "dc": "AGI SO 17",
+    "z": "7d6",
+    "zt": "Bludgeoning",
+    "p": "koule o poloměru 5 stop do 90 stop, Velký nebo menší cíl Sražen, polovina při úspěchu, obnova 6"
+   }
+  ],
+  "str": 349,
+  "zvire": true
+ },
+ {
+  "en": "Giant Badger",
+  "cz": "obří jezevec",
+  "vel": "Střední",
+  "typ": "Beast",
+  "pres": "bez přesvědčení",
+  "ac": "13",
+  "ini": "+0 (10)",
+  "hp": 15,
+  "hpk": "2d8 + 6",
+  "rych": "30 stop, hrabání 10 stop",
+  "vl": {
+   "STR": 13,
+   "AGI": 10,
+   "CON": 17,
+   "INT": 2,
+   "WIS": 12,
+   "CHA": 5
+  },
+  "zach": {
+   "STR": "+1",
+   "AGI": "+0",
+   "CON": "+3",
+   "INT": "-4",
+   "WIS": "+1",
+   "CHA": "-3"
+  },
+  "dov": "Perception +3",
+  "odol": "Poison",
+  "smysly": "Darkvision 60 stop; pasivní Perception 13",
+  "jaz": "žádné",
+  "cr": "1/4",
+  "xp": 50,
+  "xpt": "50 XP",
+  "pb": "+2",
+  "akce": [
+   {
+    "n": "Bite",
+    "t": "*Hod na útok na blízko:* +3, dosah 5 stop. *Zásah:* 6 (2d4 + 1) Piercing zranění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 3,
+    "z": "2d4+1",
+    "zt": "Piercing",
+    "p": "dosah 5 stop"
+   }
+  ],
+  "str": 349,
+  "zvire": true
+ },
+ {
+  "en": "Giant Bat",
+  "cz": "obří netopýr",
+  "vel": "Velká",
+  "typ": "Beast",
+  "pres": "bez přesvědčení",
+  "ac": "13",
+  "ini": "+3 (13)",
+  "hp": 22,
+  "hpk": "4d10",
+  "rych": "10 stop, let 60 stop",
+  "vl": {
+   "STR": 15,
+   "AGI": 16,
+   "CON": 11,
+   "INT": 2,
+   "WIS": 12,
+   "CHA": 6
+  },
+  "zach": {
+   "STR": "+2",
+   "AGI": "+3",
+   "CON": "+0",
+   "INT": "-4",
+   "WIS": "+1",
+   "CHA": "-2"
+  },
+  "smysly": "Blindsight 120 stop; pasivní Perception 11",
+  "jaz": "žádné",
+  "cr": "1/4",
+  "xp": 50,
+  "xpt": "50 XP",
+  "pb": "+2",
+  "akce": [
+   {
+    "n": "Bite",
+    "t": "*Hod na útok na blízko:* +5, dosah 5 stop. *Zásah:* 6 (1d6 + 3) Piercing zranění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 5,
+    "z": "1d6+3",
+    "zt": "Piercing",
+    "p": "dosah 5 stop"
+   }
+  ],
+  "str": 349,
+  "zvire": true
+ },
+ {
+  "en": "Giant Boar",
+  "cz": "obří kanec",
+  "vel": "Velká",
+  "typ": "Beast",
+  "pres": "bez přesvědčení",
+  "ac": "13",
+  "ini": "+0 (10)",
+  "hp": 42,
+  "hpk": "5d10 + 15",
+  "rych": "40 stop",
+  "vl": {
+   "STR": 17,
+   "AGI": 10,
+   "CON": 16,
+   "INT": 2,
+   "WIS": 7,
+   "CHA": 5
+  },
+  "zach": {
+   "STR": "+5",
+   "AGI": "+0",
+   "CON": "+3",
+   "INT": "-4",
+   "WIS": "-2",
+   "CHA": "-3"
+  },
+  "smysly": "pasivní Perception 8",
+  "jaz": "žádné",
+  "cr": "2",
+  "xp": 450,
+  "xpt": "450 XP",
+  "pb": "+2",
+  "rysy": [
+   {
+    "n": "Bloodied Fury",
+    "t": "Dokud je kanec zakrvácený (Bloodied), má výhodu na hody na útok na blízko."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Gore",
+    "t": "*Hod na útok na blízko:* +5, dosah 5 stop. *Zásah:* 10 (2d6 + 3) Piercing zranění. Pokud je cíl Velký nebo menší tvor a kanec se bezprostředně před zásahem přesunul alespoň o 20 stop přímo k němu, cíl utrpí dodatečných 7 (2d6) Piercing zranění a má stav Sražen (Prone)."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Gore",
+    "b": 5,
+    "z": "2d6+3",
+    "zt": "Piercing",
+    "p": "dosah 5 stop; po rozběhu 20+ stop přímo k cíli (Velký nebo menší) + 2d6 Piercing a Sražen"
+   }
+  ],
+  "str": 349,
+  "zvire": true
+ },
+ {
+  "en": "Giant Centipede",
+  "cz": "obří stonožka",
+  "vel": "Malá",
+  "typ": "Beast",
+  "pres": "bez přesvědčení",
+  "ac": "14",
+  "ini": "+2 (12)",
+  "hp": 9,
+  "hpk": "2d6 + 2",
+  "rych": "30 stop, šplhání 30 stop",
+  "vl": {
+   "STR": 5,
+   "AGI": 14,
+   "CON": 12,
+   "INT": 1,
+   "WIS": 7,
+   "CHA": 3
+  },
+  "zach": {
+   "STR": "-3",
+   "AGI": "+2",
+   "CON": "+1",
+   "INT": "-5",
+   "WIS": "-2",
+   "CHA": "-4"
+  },
+  "smysly": "Blindsight 30 stop; pasivní Perception 8",
+  "jaz": "žádné",
+  "cr": "1/4",
+  "xp": 50,
+  "xpt": "50 XP",
+  "pb": "+2",
+  "akce": [
+   {
+    "n": "Bite",
+    "t": "*Hod na útok na blízko:* +4, dosah 5 stop. *Zásah:* 4 (1d4 + 2) Piercing zranění a cíl má stav Otráven (Poisoned) do začátku příštího tahu stonožky."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 4,
+    "z": "1d4+2",
+    "zt": "Piercing",
+    "p": "dosah 5 stop; Otráven do začátku příštího tahu stonožky"
+   }
+  ],
+  "str": 349,
+  "zvire": true
+ },
+ {
+  "en": "Giant Constrictor Snake",
+  "cz": "obří had škrtič",
+  "vel": "Obrovská",
+  "typ": "Beast",
+  "pres": "bez přesvědčení",
+  "ac": "12",
+  "ini": "+2 (12)",
+  "hp": 60,
+  "hpk": "8d12 + 8",
+  "rych": "30 stop, plavání 30 stop",
+  "vl": {
+   "STR": 19,
+   "AGI": 14,
+   "CON": 12,
+   "INT": 1,
+   "WIS": 10,
+   "CHA": 3
+  },
+  "zach": {
+   "STR": "+4",
+   "AGI": "+2",
+   "CON": "+1",
+   "INT": "-5",
+   "WIS": "+0",
+   "CHA": "-4"
+  },
+  "dov": "Perception +2",
+  "smysly": "Blindsight 10 stop; pasivní Perception 12",
+  "jaz": "žádné",
+  "cr": "2",
+  "xp": 450,
+  "xpt": "450 XP",
+  "pb": "+2",
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Had provede jeden útok Bite a použije Constrict."
+   },
+   {
+    "n": "Bite",
+    "t": "*Hod na útok na blízko:* +6, dosah 10 stop. *Zásah:* 11 (2d6 + 4) Piercing zranění."
+   },
+   {
+    "n": "Constrict",
+    "t": "*Záchrana Síly:* SO 14, jeden Velký nebo menší tvor, kterého had vidí, do 10 stop. *Neúspěch:* 13 (2d8 + 4) Bludgeoning zranění a cíl má stav Chycen (Grappled) (únik SO 14)."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 6,
+    "z": "2d6+4",
+    "zt": "Piercing",
+    "p": "dosah 10 stop"
+   },
+   {
+    "n": "Constrict",
+    "dc": "STR SO 14",
+    "z": "2d8+4",
+    "zt": "Bludgeoning",
+    "p": "jeden Velký nebo menší tvor do 10 stop; při neúspěchu Chycen (únik SO 14)"
+   }
+  ],
+  "str": 350,
+  "zvire": true
+ },
+ {
+  "en": "Giant Crab",
+  "cz": "obří krab",
+  "vel": "Střední",
+  "typ": "Beast",
+  "pres": "bez přesvědčení",
+  "ac": "15",
+  "ini": "+1 (11)",
+  "hp": 13,
+  "hpk": "3d8",
+  "rych": "30 stop, plavání 30 stop",
+  "vl": {
+   "STR": 13,
+   "AGI": 13,
+   "CON": 11,
+   "INT": 1,
+   "WIS": 9,
+   "CHA": 3
+  },
+  "zach": {
+   "STR": "+1",
+   "AGI": "+1",
+   "CON": "+0",
+   "INT": "-5",
+   "WIS": "-1",
+   "CHA": "-4"
+  },
+  "dov": "Stealth +3",
+  "smysly": "Blindsight 30 stop; pasivní Perception 9",
+  "jaz": "žádné",
+  "cr": "1/8",
+  "xp": 25,
+  "xpt": "25 XP",
+  "pb": "+2",
+  "rysy": [
+   {
+    "n": "Amphibious",
+    "t": "Krab může dýchat vzduch i vodu."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Claw",
+    "t": "*Hod na útok na blízko:* +3, dosah 5 stop. *Zásah:* 4 (1d6 + 1) Bludgeoning zranění. Pokud je cíl Střední nebo menší tvor, má stav Chycen (Grappled) (únik SO 11) jedním ze dvou klepet."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Claw",
+    "b": 3,
+    "z": "1d6+1",
+    "zt": "Bludgeoning",
+    "p": "dosah 5 stop; Střední nebo menší cíl Chycen (únik SO 11)"
+   }
+  ],
+  "str": 350,
+  "zvire": true
+ },
+ {
+  "en": "Giant Crocodile",
+  "cz": "obří krokodýl",
+  "vel": "Obrovská",
+  "typ": "Beast",
+  "pres": "bez přesvědčení",
+  "ac": "14",
+  "ini": "-1 (9)",
+  "hp": 85,
+  "hpk": "9d12 + 27",
+  "rych": "30 stop, plavání 50 stop",
+  "vl": {
+   "STR": 21,
+   "AGI": 9,
+   "CON": 17,
+   "INT": 2,
+   "WIS": 10,
+   "CHA": 7
+  },
+  "zach": {
+   "STR": "+5",
+   "AGI": "-1",
+   "CON": "+3",
+   "INT": "-4",
+   "WIS": "+0",
+   "CHA": "-2"
+  },
+  "dov": "Stealth +5",
+  "smysly": "pasivní Perception 10",
+  "jaz": "žádné",
+  "cr": "5",
+  "xp": 1800,
+  "xpt": "1 800 XP",
+  "pb": "+3",
+  "rysy": [
+   {
+    "n": "Hold Breath",
+    "t": "Krokodýl dokáže zadržet dech na 1 hodinu."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Krokodýl provede jeden útok Bite a jeden útok Tail."
+   },
+   {
+    "n": "Bite",
+    "t": "*Hod na útok na blízko:* +8, dosah 5 stop. *Zásah:* 21 (3d10 + 5) Piercing zranění. Pokud je cíl Velký nebo menší tvor, má stav Chycen (Grappled) (únik SO 15). Dokud je cíl chycen, má stav Zadržen (Restrained) a krokodýl na něj nemůže mířit útokem Tail."
+   },
+   {
+    "n": "Tail",
+    "t": "*Hod na útok na blízko:* +8, dosah 10 stop. *Zásah:* 18 (3d8 + 5) Bludgeoning zranění. Pokud je cíl Velký nebo menší tvor, má stav Sražen (Prone)."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 8,
+    "z": "3d10+5",
+    "zt": "Piercing",
+    "p": "dosah 5 stop; Velký nebo menší cíl Chycen (únik SO 15) a Zadržen"
+   },
+   {
+    "n": "Tail",
+    "b": 8,
+    "z": "3d8+5",
+    "zt": "Bludgeoning",
+    "p": "dosah 10 stop; Velký nebo menší cíl Sražen"
+   }
+  ],
+  "str": 350,
+  "zvire": true
+ },
+ {
+  "en": "Giant Eagle",
+  "cz": "obří orel",
+  "vel": "Velká",
+  "typ": "Celestial",
+  "pres": "neutrálně dobrý",
+  "ac": "13",
+  "ini": "+3 (13)",
+  "hp": 26,
+  "hpk": "4d10 + 4",
+  "rych": "10 stop, let 80 stop",
+  "vl": {
+   "STR": 16,
+   "AGI": 17,
+   "CON": 13,
+   "INT": 8,
+   "WIS": 14,
+   "CHA": 10
+  },
+  "zach": {
+   "STR": "+3",
+   "AGI": "+3",
+   "CON": "+1",
+   "INT": "-1",
+   "WIS": "+2",
+   "CHA": "+0"
+  },
+  "dov": "Perception +6",
+  "odol": "Necrotic, Radiant",
+  "smysly": "pasivní Perception 16",
+  "jaz": "Celestial; rozumí Common a Primordial (Auran), ale neumí jimi mluvit",
+  "cr": "1",
+  "xp": 200,
+  "xpt": "200 XP",
+  "pb": "+2",
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Orel provede dva útoky Rend."
+   },
+   {
+    "n": "Rend",
+    "t": "*Hod na útok na blízko:* +5, dosah 5 stop. *Zásah:* 5 (1d4 + 3) Slashing zranění plus 3 (1d6) Radiant zranění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Rend",
+    "b": 5,
+    "z": "1d4+3",
+    "zt": "Slashing",
+    "p": "dosah 5 stop; + 1d6 Radiant"
+   }
+  ],
+  "str": 350,
+  "zvire": true
+ },
+ {
+  "en": "Giant Elk",
+  "cz": "obří los",
+  "vel": "Obrovská",
+  "typ": "Celestial",
+  "pres": "neutrálně dobrý",
+  "ac": "14",
+  "ini": "+6 (16)",
+  "hp": 42,
+  "hpk": "5d12 + 10",
+  "rych": "60 stop",
+  "vl": {
+   "STR": 19,
+   "AGI": 18,
+   "CON": 14,
+   "INT": 7,
+   "WIS": 14,
+   "CHA": 10
+  },
+  "zach": {
+   "STR": "+6",
+   "AGI": "+6",
+   "CON": "+2",
+   "INT": "-2",
+   "WIS": "+2",
+   "CHA": "+0"
+  },
+  "dov": "Perception +4",
+  "odol": "Necrotic, Radiant",
+  "smysly": "Darkvision 90 stop; pasivní Perception 14",
+  "jaz": "Celestial; rozumí Common, Elvish a Sylvan, ale neumí jimi mluvit",
+  "cr": "2",
+  "xp": 450,
+  "xpt": "450 XP",
+  "pb": "+2",
+  "akce": [
+   {
+    "n": "Ram",
+    "t": "*Hod na útok na blízko:* +6, dosah 10 stop. *Zásah:* 11 (2d6 + 4) Bludgeoning zranění plus 5 (2d4) Radiant zranění. Pokud je cíl Obrovský nebo menší tvor a los se bezprostředně před zásahem přesunul alespoň o 20 stop přímo k němu, cíl utrpí dodatečných 5 (2d4) Bludgeoning zranění a má stav Sražen (Prone)."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Ram",
+    "b": 6,
+    "z": "2d6+4",
+    "zt": "Bludgeoning",
+    "p": "dosah 10 stop; + 2d4 Radiant; po rozběhu 20+ stop přímo k cíli (Obrovský nebo menší) + 2d4 Bludgeoning a Sražen"
+   }
+  ],
+  "str": 351,
+  "zvire": true
+ },
+ {
+  "en": "Giant Fire Beetle",
+  "cz": "obří ohnivý brouk",
+  "vel": "Malá",
+  "typ": "Beast",
+  "pres": "bez přesvědčení",
+  "ac": "13",
+  "ini": "+0 (10)",
+  "hp": 4,
+  "hpk": "1d6 + 1",
+  "rych": "30 stop, šplhání 30 stop",
+  "vl": {
+   "STR": 8,
+   "AGI": 10,
+   "CON": 12,
+   "INT": 1,
+   "WIS": 7,
+   "CHA": 3
+  },
+  "zach": {
+   "STR": "-1",
+   "AGI": "+0",
+   "CON": "+1",
+   "INT": "-5",
+   "WIS": "-2",
+   "CHA": "-4"
+  },
+  "odol": "Fire",
+  "smysly": "Blindsight 30 stop; pasivní Perception 8",
+  "jaz": "žádné",
+  "cr": "0",
+  "xp": 10,
+  "xpt": "10 XP",
+  "pb": "+2",
+  "rysy": [
+   {
+    "n": "Illumination",
+    "t": "Brouk vydává jasné světlo v okruhu 10 stop a šero v dalších 10 stopách."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Bite",
+    "t": "*Hod na útok na blízko:* +1, dosah 5 stop. *Zásah:* 1 Fire zranění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 1,
+    "z": "1",
+    "zt": "Fire",
+    "p": "dosah 5 stop"
+   }
+  ],
+  "str": 351,
+  "zvire": true
+ },
+ {
+  "en": "Giant Frog",
+  "cz": "obří žába",
+  "vel": "Střední",
+  "typ": "Beast",
+  "pres": "bez přesvědčení",
+  "ac": "11",
+  "ini": "+1 (11)",
+  "hp": 18,
+  "hpk": "4d8",
+  "rych": "30 stop, plavání 30 stop",
+  "vl": {
+   "STR": 12,
+   "AGI": 13,
+   "CON": 11,
+   "INT": 2,
+   "WIS": 10,
+   "CHA": 3
+  },
+  "zach": {
+   "STR": "+1",
+   "AGI": "+1",
+   "CON": "+0",
+   "INT": "-4",
+   "WIS": "+0",
+   "CHA": "-4"
+  },
+  "dov": "Perception +2, Stealth +4",
+  "smysly": "Darkvision 30 stop; pasivní Perception 12",
+  "jaz": "žádné",
+  "cr": "1/4",
+  "xp": 50,
+  "xpt": "50 XP",
+  "pb": "+2",
+  "rysy": [
+   {
+    "n": "Amphibious",
+    "t": "Žába může dýchat vzduch i vodu."
+   },
+   {
+    "n": "Standing Leap",
+    "t": "Žába skočí do dálky až 20 stop a do výšky až 10 stop, s rozběhem i bez něj."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Bite",
+    "t": "*Hod na útok na blízko:* +3, dosah 5 stop. *Zásah:* 5 (1d6 + 2) Piercing zranění. Pokud je cíl Střední nebo menší tvor, má stav Chycen (Grappled) (únik SO 11)."
+   },
+   {
+    "n": "Swallow",
+    "t": "Žába spolkne Malý nebo menší cíl, který drží v chvatu. Dokud je cíl spolknutý, není chycen, ale má stavy Oslepen (Blinded) a Zadržen (Restrained) a má úplný kryt proti útokům a jiným účinkům zvenčí žáby. Dokud má žába cíl spolknutý, nemůže používat Bite, a pokud žába zemře, spolknutý cíl už není zadržen a může z mrtvoly uniknout za 5 stop pohybu; vyjde ve stavu Sražen (Prone).\nNa konci příštího tahu žáby utrpí spolknutý cíl 5 (2d4) Acid zranění. Pokud ho toto zranění nezabije, žába ho vyvrhne, takže vyjde ve stavu Sražen."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 3,
+    "z": "1d6+2",
+    "zt": "Piercing",
+    "p": "dosah 5 stop; Střední nebo menší cíl Chycen (únik SO 11)"
+   }
+  ],
+  "str": 351,
+  "zvire": true
+ },
+ {
+  "en": "Giant Goat",
+  "cz": "obří koza",
+  "vel": "Velká",
+  "typ": "Beast",
+  "pres": "bez přesvědčení",
+  "ac": "11",
+  "ini": "+1 (11)",
+  "hp": 19,
+  "hpk": "3d10 + 3",
+  "rych": "40 stop, šplhání 30 stop",
+  "vl": {
+   "STR": 17,
+   "AGI": 13,
+   "CON": 12,
+   "INT": 3,
+   "WIS": 12,
+   "CHA": 6
+  },
+  "zach": {
+   "STR": "+5",
+   "AGI": "+1",
+   "CON": "+1",
+   "INT": "-4",
+   "WIS": "+1",
+   "CHA": "-2"
+  },
+  "dov": "Perception +3",
+  "smysly": "Darkvision 60 stop; pasivní Perception 13",
+  "jaz": "žádné",
+  "cr": "1/2",
+  "xp": 100,
+  "xpt": "100 XP",
+  "pb": "+2",
+  "akce": [
+   {
+    "n": "Ram",
+    "t": "*Hod na útok na blízko:* +5, dosah 5 stop. *Zásah:* 6 (1d6 + 3) Bludgeoning zranění. Pokud je cíl Velký nebo menší tvor a koza se bezprostředně před zásahem přesunula alespoň o 20 stop přímo k němu, cíl utrpí dodatečných 5 (2d4) Bludgeoning zranění a má stav Sražen (Prone)."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Ram",
+    "b": 5,
+    "z": "1d6+3",
+    "zt": "Bludgeoning",
+    "p": "dosah 5 stop; po rozběhu 20+ stop přímo k cíli (Velký nebo menší) + 2d4 Bludgeoning a Sražen"
+   }
+  ],
+  "str": 351,
+  "zvire": true
+ },
+ {
+  "en": "Giant Hyena",
+  "cz": "obří hyena",
+  "vel": "Velká",
+  "typ": "Beast",
+  "pres": "bez přesvědčení",
+  "ac": "12",
+  "ini": "+2 (12)",
+  "hp": 45,
+  "hpk": "6d10 + 12",
+  "rych": "50 stop",
+  "vl": {
+   "STR": 16,
+   "AGI": 14,
+   "CON": 14,
+   "INT": 2,
+   "WIS": 12,
+   "CHA": 7
+  },
+  "zach": {
+   "STR": "+3",
+   "AGI": "+2",
+   "CON": "+2",
+   "INT": "-4",
+   "WIS": "+1",
+   "CHA": "-2"
+  },
+  "dov": "Perception +3",
+  "smysly": "Darkvision 60 stop; pasivní Perception 13",
+  "jaz": "žádné",
+  "cr": "1",
+  "xp": 200,
+  "xpt": "200 XP",
+  "pb": "+2",
+  "akce": [
+   {
+    "n": "Bite",
+    "t": "*Hod na útok na blízko:* +5, dosah 5 stop. *Zásah:* 10 (2d6 + 3) Piercing zranění."
+   }
+  ],
+  "bonus": [
+   {
+    "n": "Rampage (1× za den)",
+    "t": "Bezprostředně poté, co hyena způsobí zranění tvorovi, který už byl zakrvácený (Bloodied), se může přesunout až o polovinu své rychlosti a provede jeden útok Bite."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 5,
+    "z": "2d6+3",
+    "zt": "Piercing",
+    "p": "dosah 5 stop"
+   }
+  ],
+  "str": 352,
+  "zvire": true
+ },
+ {
+  "en": "Giant Lizard",
+  "cz": "obří ještěr",
+  "vel": "Velká",
+  "typ": "Beast",
+  "pres": "bez přesvědčení",
+  "ac": "12",
+  "ini": "+1 (11)",
+  "hp": 19,
+  "hpk": "3d10 + 3",
+  "rych": "40 stop, šplhání 40 stop",
+  "vl": {
+   "STR": 15,
+   "AGI": 12,
+   "CON": 13,
+   "INT": 2,
+   "WIS": 10,
+   "CHA": 5
+  },
+  "zach": {
+   "STR": "+2",
+   "AGI": "+3",
+   "CON": "+1",
+   "INT": "-4",
+   "WIS": "+0",
+   "CHA": "-3"
+  },
+  "smysly": "Darkvision 60 stop; pasivní Perception 10",
+  "jaz": "žádné",
+  "cr": "1/4",
+  "xp": 50,
+  "xpt": "50 XP",
+  "pb": "+2",
+  "rysy": [
+   {
+    "n": "Spider Climb",
+    "t": "Ještěr dokáže šplhat po obtížných površích, včetně stropů, aniž by musel provádět ověření vlastnosti."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Bite",
+    "t": "*Hod na útok na blízko:* +4, dosah 5 stop. *Zásah:* 6 (1d8 + 2) Piercing zranění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 4,
+    "z": "1d8+2",
+    "zt": "Piercing",
+    "p": "dosah 5 stop"
+   }
+  ],
+  "str": 352,
+  "zvire": true
+ },
+ {
+  "en": "Giant Octopus",
+  "cz": "obří chobotnice",
+  "vel": "Velká",
+  "typ": "Beast",
+  "pres": "bez přesvědčení",
+  "ac": "11",
+  "ini": "+1 (11)",
+  "hp": 45,
+  "hpk": "7d10 + 7",
+  "rych": "10 stop, plavání 60 stop",
+  "vl": {
+   "STR": 17,
+   "AGI": 13,
+   "CON": 13,
+   "INT": 5,
+   "WIS": 10,
+   "CHA": 4
+  },
+  "zach": {
+   "STR": "+3",
+   "AGI": "+1",
+   "CON": "+1",
+   "INT": "-3",
+   "WIS": "+0",
+   "CHA": "-3"
+  },
+  "dov": "Perception +4, Stealth +5",
+  "smysly": "Darkvision 60 stop; pasivní Perception 14",
+  "jaz": "žádné",
+  "cr": "1",
+  "xp": 200,
+  "xpt": "200 XP",
+  "pb": "+2",
+  "rysy": [
+   {
+    "n": "Water Breathing",
+    "t": "Chobotnice může dýchat jen pod vodou. Mimo vodu dokáže zadržet dech na 1 hodinu."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Tentacles",
+    "t": "*Hod na útok na blízko:* +5, dosah 10 stop. *Zásah:* 10 (2d6 + 3) Bludgeoning zranění. Pokud je cíl Střední nebo menší tvor, má stav Chycen (Grappled) (únik SO 13) všemi osmi chapadly. Dokud je cíl chycen, má stav Zadržen (Restrained)."
+   }
+  ],
+  "reakce": [
+   {
+    "n": "Ink Cloud (1× za den)",
+    "t": "*Spouštěč:* Chobotnice utrpí zranění, když je pod vodou. *Reakce:* Chobotnice vypustí inkoust, který vyplní krychli o hraně 10 stop se středem v ní, a přesune se až o svou rychlost plavání. Krychle je silně zastřená po dobu 1 minuty, nebo dokud inkoust nerozptýlí silný proud či podobný účinek."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Tentacles",
+    "b": 5,
+    "z": "2d6+3",
+    "zt": "Bludgeoning",
+    "p": "dosah 10 stop; Střední nebo menší cíl Chycen (únik SO 13) a Zadržen"
+   }
+  ],
+  "str": 352,
+  "zvire": true
+ },
+ {
+  "en": "Giant Owl",
+  "cz": "obří sova",
+  "vel": "Velká",
+  "typ": "Celestial",
+  "pres": "neutrální",
+  "ac": "12",
+  "ini": "+2 (12)",
+  "hp": 19,
+  "hpk": "3d10 + 3",
+  "rych": "5 stop, let 60 stop",
+  "vl": {
+   "STR": 13,
+   "AGI": 15,
+   "CON": 12,
+   "INT": 10,
+   "WIS": 14,
+   "CHA": 10
+  },
+  "zach": {
+   "STR": "+1",
+   "AGI": "+2",
+   "CON": "+1",
+   "INT": "+0",
+   "WIS": "+4",
+   "CHA": "+0"
+  },
+  "dov": "Perception +6, Stealth +6",
+  "odol": "Necrotic, Radiant",
+  "smysly": "Darkvision 120 stop; pasivní Perception 16",
+  "jaz": "Celestial; rozumí Common, Elvish a Sylvan, ale neumí jimi mluvit",
+  "cr": "1/4",
+  "xp": 50,
+  "xpt": "50 XP",
+  "pb": "+2",
+  "rysy": [
+   {
+    "n": "Flyby",
+    "t": "Sova nevyvolává příležitostný útok, když vylétá z dosahu nepřítele."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Talons",
+    "t": "*Hod na útok na blízko:* +4, dosah 5 stop. *Zásah:* 7 (1d10 + 2) Slashing zranění."
+   },
+   {
+    "n": "Spellcasting",
+    "t": "Sova sešle jedno z následujících kouzel, aniž by potřebovala jakékoli složky kouzla, a jako vlastnost pro sesílání kouzel používá Moudrost:\n- **Libovolně:** Detect Evil and Good, Detect Magic\n- **1× za den:** Clairvoyance"
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Talons",
+    "b": 4,
+    "z": "1d10+2",
+    "zt": "Slashing",
+    "p": "dosah 5 stop"
+   }
+  ],
+  "str": 352,
+  "zvire": true
+ },
+ {
+  "en": "Giant Rat",
+  "cz": "obří krysa",
+  "vel": "Malá",
+  "typ": "Beast",
+  "pres": "bez přesvědčení",
+  "ac": "13",
+  "ini": "+3 (13)",
+  "hp": 7,
+  "hpk": "2d6",
+  "rych": "30 stop, šplhání 30 stop",
+  "vl": {
+   "STR": 7,
+   "AGI": 16,
+   "CON": 11,
+   "INT": 2,
+   "WIS": 10,
+   "CHA": 4
+  },
+  "zach": {
+   "STR": "-2",
+   "AGI": "+5",
+   "CON": "+0",
+   "INT": "-4",
+   "WIS": "+0",
+   "CHA": "-3"
+  },
+  "dov": "Perception +2",
+  "smysly": "Darkvision 60 stop; pasivní Perception 12",
+  "jaz": "žádné",
+  "cr": "1/8",
+  "xp": 25,
+  "xpt": "25 XP",
+  "pb": "+2",
+  "rysy": [
+   {
+    "n": "Pack Tactics",
+    "t": "Krysa má výhodu na hod na útok proti tvorovi, pokud je alespoň jeden ze spojenců krysy do 5 stop od tohoto tvora a tento spojenec nemá stav Neschopný (Incapacitated)."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Bite",
+    "t": "*Hod na útok na blízko:* +5, dosah 5 stop. *Zásah:* 5 (1d4 + 3) Piercing zranění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 5,
+    "z": "1d4+3",
+    "zt": "Piercing",
+    "p": "dosah 5 stop"
+   }
+  ],
+  "str": 353,
+  "zvire": true
+ },
+ {
+  "en": "Giant Scorpion",
+  "cz": "obří štír",
+  "vel": "Velká",
+  "typ": "Beast",
+  "pres": "bez přesvědčení",
+  "ac": "15",
+  "ini": "+1 (11)",
+  "hp": 52,
+  "hpk": "7d10 + 14",
+  "rych": "40 stop",
+  "vl": {
+   "STR": 16,
+   "AGI": 13,
+   "CON": 15,
+   "INT": 1,
+   "WIS": 9,
+   "CHA": 3
+  },
+  "zach": {
+   "STR": "+3",
+   "AGI": "+1",
+   "CON": "+2",
+   "INT": "-5",
+   "WIS": "-1",
+   "CHA": "-4"
+  },
+  "smysly": "Blindsight 60 stop; pasivní Perception 9",
+  "jaz": "žádné",
+  "cr": "3",
+  "xp": 700,
+  "xpt": "700 XP",
+  "pb": "+2",
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Štír provede dva útoky Claw a jeden útok Sting."
+   },
+   {
+    "n": "Claw",
+    "t": "*Hod na útok na blízko:* +5, dosah 5 stop. *Zásah:* 6 (1d6 + 3) Bludgeoning zranění. Pokud je cíl Velký nebo menší tvor, má stav Chycen (Grappled) (únik SO 13) jedním ze dvou klepet."
+   },
+   {
+    "n": "Sting",
+    "t": "*Hod na útok na blízko:* +5, dosah 5 stop. *Zásah:* 7 (1d8 + 3) Piercing zranění plus 11 (2d10) Poison zranění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Claw",
+    "b": 5,
+    "z": "1d6+3",
+    "zt": "Bludgeoning",
+    "p": "dosah 5 stop; Velký nebo menší cíl Chycen (únik SO 13)"
+   },
+   {
+    "n": "Sting",
+    "b": 5,
+    "z": "1d8+3",
+    "zt": "Piercing",
+    "p": "dosah 5 stop; + 2d10 Poison"
+   }
+  ],
+  "str": 353,
+  "zvire": true
+ },
+ {
+  "en": "Giant Seahorse",
+  "cz": "obří mořský koník",
+  "vel": "Velká",
+  "typ": "Beast",
+  "pres": "bez přesvědčení",
+  "ac": "14",
+  "ini": "+1 (11)",
+  "hp": 16,
+  "hpk": "3d10",
+  "rych": "5 stop, plavání 40 stop",
+  "vl": {
+   "STR": 15,
+   "AGI": 12,
+   "CON": 11,
+   "INT": 2,
+   "WIS": 12,
+   "CHA": 5
+  },
+  "zach": {
+   "STR": "+2",
+   "AGI": "+1",
+   "CON": "+0",
+   "INT": "-4",
+   "WIS": "+1",
+   "CHA": "-3"
+  },
+  "smysly": "pasivní Perception 11",
+  "jaz": "žádné",
+  "cr": "1/2",
+  "xp": 100,
+  "xpt": "100 XP",
+  "pb": "+2",
+  "rysy": [
+   {
+    "n": "Water Breathing",
+    "t": "Mořský koník může dýchat jen pod vodou."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Ram",
+    "t": "*Hod na útok na blízko:* +4, dosah 5 stop. *Zásah:* 9 (2d6 + 2) Bludgeoning zranění, nebo 11 (2d8 + 2) Bludgeoning zranění, pokud se mořský koník bezprostředně před zásahem přesunul alespoň o 20 stop přímo k cíli."
+   }
+  ],
+  "bonus": [
+   {
+    "n": "Bubble Dash",
+    "t": "Dokud je pod vodou, mořský koník se přesune až o polovinu své rychlosti plavání, aniž by vyvolal příležitostné útoky."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Ram",
+    "b": 4,
+    "z": "2d6+2",
+    "zt": "Bludgeoning",
+    "p": "dosah 5 stop; po rozběhu 20+ stop přímo k cíli 2d8+2 místo 2d6+2"
+   }
+  ],
+  "str": 353,
+  "zvire": true
+ },
+ {
+  "en": "Giant Shark",
+  "cz": "obří žralok",
+  "vel": "Obrovská",
+  "typ": "Beast",
+  "pres": "bez přesvědčení",
+  "ac": "13",
+  "ini": "+3 (13)",
+  "hp": 92,
+  "hpk": "8d12 + 40",
+  "rych": "5 stop, plavání 60 stop",
+  "vl": {
+   "STR": 23,
+   "AGI": 11,
+   "CON": 21,
+   "INT": 1,
+   "WIS": 10,
+   "CHA": 5
+  },
+  "zach": {
+   "STR": "+6",
+   "AGI": "+0",
+   "CON": "+5",
+   "INT": "-5",
+   "WIS": "+0",
+   "CHA": "-3"
+  },
+  "dov": "Perception +3",
+  "smysly": "Blindsight 60 stop; pasivní Perception 13",
+  "jaz": "žádné",
+  "cr": "5",
+  "xp": 1800,
+  "xpt": "1 800 XP",
+  "pb": "+3",
+  "rysy": [
+   {
+    "n": "Water Breathing",
+    "t": "Žralok může dýchat jen pod vodou."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Žralok provede dva útoky Bite."
+   },
+   {
+    "n": "Bite",
+    "t": "*Hod na útok na blízko:* +9 (s výhodou, pokud cíl nemá všechny své životy), dosah 5 stop. *Zásah:* 22 (3d10 + 6) Piercing zranění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 9,
+    "z": "3d10+6",
+    "zt": "Piercing",
+    "p": "dosah 5 stop; výhoda, pokud cíl nemá všechny životy"
+   }
+  ],
+  "str": 353,
+  "zvire": true
+ },
+ {
+  "en": "Giant Spider",
+  "cz": "obří pavouk",
+  "vel": "Velká",
+  "typ": "Beast",
+  "pres": "bez přesvědčení",
+  "ac": "14",
+  "ini": "+3 (13)",
+  "hp": 26,
+  "hpk": "4d10 + 4",
+  "rych": "30 stop, šplhání 30 stop",
+  "vl": {
+   "STR": 14,
+   "AGI": 16,
+   "CON": 12,
+   "INT": 2,
+   "WIS": 11,
+   "CHA": 4
+  },
+  "zach": {
+   "STR": "+2",
+   "AGI": "+3",
+   "CON": "+1",
+   "INT": "-4",
+   "WIS": "+0",
+   "CHA": "-3"
+  },
+  "dov": "Perception +4, Stealth +7",
+  "smysly": "Darkvision 60 stop; pasivní Perception 14",
+  "jaz": "žádné",
+  "cr": "1",
+  "xp": 200,
+  "xpt": "200 XP",
+  "pb": "+2",
+  "rysy": [
+   {
+    "n": "Spider Climb",
+    "t": "Pavouk dokáže šplhat po obtížných površích, včetně stropů, aniž by musel provádět ověření vlastnosti."
+   },
+   {
+    "n": "Web Walker",
+    "t": "Pavouk ignoruje omezení pohybu způsobená pavučinami a zná polohu každého dalšího tvora, který se dotýká téže pavučiny."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Bite",
+    "t": "*Hod na útok na blízko:* +5, dosah 5 stop. *Zásah:* 7 (1d8 + 3) Piercing zranění plus 7 (2d6) Poison zranění."
+   },
+   {
+    "n": "Web (obnova 5–6)",
+    "t": "*Záchrana Obratnosti:* SO 13, jeden tvor, kterého pavouk vidí, do 60 stop. *Neúspěch:* Cíl má stav Zadržen (Restrained), dokud není pavučina zničena (AC 10; HP 5; Vulnerability vůči Fire zranění; Immunity vůči Poison a Psychic zranění)."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 5,
+    "z": "1d8+3",
+    "zt": "Piercing",
+    "p": "dosah 5 stop; + 2d6 Poison"
+   }
+  ],
+  "str": 353,
+  "zvire": true
+ },
+ {
+  "en": "Giant Toad",
+  "cz": "obří ropucha",
+  "vel": "Velká",
+  "typ": "Beast",
+  "pres": "bez přesvědčení",
+  "ac": "11",
+  "ini": "+1 (11)",
+  "hp": 39,
+  "hpk": "6d10 + 6",
+  "rych": "30 stop, plavání 30 stop",
+  "vl": {
+   "STR": 15,
+   "AGI": 13,
+   "CON": 13,
+   "INT": 2,
+   "WIS": 10,
+   "CHA": 3
+  },
+  "zach": {
+   "STR": "+2",
+   "AGI": "+1",
+   "CON": "+1",
+   "INT": "-4",
+   "WIS": "+0",
+   "CHA": "-4"
+  },
+  "smysly": "Darkvision 60 stop; pasivní Perception 10",
+  "jaz": "žádné",
+  "cr": "1",
+  "xp": 200,
+  "xpt": "200 XP",
+  "pb": "+2",
+  "rysy": [
+   {
+    "n": "Amphibious",
+    "t": "Ropucha může dýchat vzduch i vodu."
+   },
+   {
+    "n": "Standing Leap",
+    "t": "Ropucha skočí do dálky až 20 stop a do výšky až 10 stop, s rozběhem i bez něj."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Bite",
+    "t": "*Hod na útok na blízko:* +4, dosah 5 stop. *Zásah:* 5 (1d6 + 2) Piercing zranění plus 5 (2d4) Poison zranění. Pokud je cíl Střední nebo menší tvor, má stav Chycen (Grappled) (únik SO 12)."
+   },
+   {
+    "n": "Swallow",
+    "t": "Ropucha spolkne Střední nebo menší cíl, který drží v chvatu. Dokud je cíl spolknutý, není chycen, ale má stavy Oslepen (Blinded) a Zadržen (Restrained) a má úplný kryt proti útokům a jiným účinkům zvenčí ropuchy. Navíc cíl utrpí 10 (3d6) Acid zranění na konci každého tahu ropuchy. Ropucha může mít spolknutý vždy jen jeden cíl a nemůže používat Bite, dokud má spolknutý cíl. Pokud ropucha zemře, spolknutý tvor už není zadržen a může z mrtvoly uniknout za 5 stop pohybu; vyjde ve stavu Sražen (Prone)."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 4,
+    "z": "1d6+2",
+    "zt": "Piercing",
+    "p": "dosah 5 stop; + 2d4 Poison; Střední nebo menší cíl Chycen (únik SO 12)"
+   }
+  ],
+  "str": 354,
+  "zvire": true
+ },
+ {
+  "en": "Giant Venomous Snake",
+  "cz": "obří jedovatý had",
+  "vel": "Střední",
+  "typ": "Beast",
+  "pres": "bez přesvědčení",
+  "ac": "14",
+  "ini": "+4 (14)",
+  "hp": 11,
+  "hpk": "2d8 + 2",
+  "rych": "40 stop, plavání 40 stop",
+  "vl": {
+   "STR": 10,
+   "AGI": 18,
+   "CON": 13,
+   "INT": 2,
+   "WIS": 10,
+   "CHA": 3
+  },
+  "zach": {
+   "STR": "+0",
+   "AGI": "+4",
+   "CON": "+1",
+   "INT": "-4",
+   "WIS": "+0",
+   "CHA": "-4"
+  },
+  "dov": "Perception +2",
+  "smysly": "Blindsight 10 stop; pasivní Perception 12",
+  "jaz": "žádné",
+  "cr": "1/4",
+  "xp": 50,
+  "xpt": "50 XP",
+  "pb": "+2",
+  "akce": [
+   {
+    "n": "Bite",
+    "t": "*Hod na útok na blízko:* +6, dosah 10 stop. *Zásah:* 6 (1d4 + 4) Piercing zranění plus 4 (1d8) Poison zranění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 6,
+    "z": "1d4+4",
+    "zt": "Piercing",
+    "p": "dosah 10 stop; + 1d8 Poison"
+   }
+  ],
+  "str": 354,
+  "zvire": true
+ },
+ {
+  "en": "Giant Vulture",
+  "cz": "obří sup",
+  "vel": "Velká",
+  "typ": "Monstrosity",
+  "pres": "neutrálně zlý",
+  "ac": "10",
+  "ini": "+0 (10)",
+  "hp": 25,
+  "hpk": "3d10 + 9",
+  "rych": "10 stop, let 60 stop",
+  "vl": {
+   "STR": 15,
+   "AGI": 10,
+   "CON": 16,
+   "INT": 6,
+   "WIS": 12,
+   "CHA": 7
+  },
+  "zach": {
+   "STR": "+2",
+   "AGI": "+0",
+   "CON": "+3",
+   "INT": "-2",
+   "WIS": "+1",
+   "CHA": "-2"
+  },
+  "dov": "Perception +3",
+  "odol": "Necrotic",
+  "smysly": "Darkvision 60 stop; pasivní Perception 13",
+  "jaz": "rozumí Common, ale neumí jím mluvit",
+  "cr": "1",
+  "xp": 200,
+  "xpt": "200 XP",
+  "pb": "+2",
+  "rysy": [
+   {
+    "n": "Pack Tactics",
+    "t": "Sup má výhodu na hod na útok proti tvorovi, pokud je alespoň jeden ze spojenců supa do 5 stop od tohoto tvora a tento spojenec nemá stav Neschopný (Incapacitated)."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Gouge",
+    "t": "*Hod na útok na blízko:* +4, dosah 5 stop. *Zásah:* 9 (2d6 + 2) Piercing zranění a cíl má stav Otráven (Poisoned) do konce svého příštího tahu."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Gouge",
+    "b": 4,
+    "z": "2d6+2",
+    "zt": "Piercing",
+    "p": "dosah 5 stop; Otráven do konce svého příštího tahu"
+   }
+  ],
+  "str": 354,
+  "zvire": true
+ },
+ {
+  "en": "Giant Wasp",
+  "cz": "obří vosa",
+  "vel": "Střední",
+  "typ": "Beast",
+  "pres": "bez přesvědčení",
+  "ac": "13",
+  "ini": "+2 (12)",
+  "hp": 22,
+  "hpk": "5d8",
+  "rych": "10 stop, let 50 stop",
+  "vl": {
+   "STR": 10,
+   "AGI": 14,
+   "CON": 10,
+   "INT": 1,
+   "WIS": 10,
+   "CHA": 3
+  },
+  "zach": {
+   "STR": "+0",
+   "AGI": "+2",
+   "CON": "+0",
+   "INT": "-5",
+   "WIS": "+0",
+   "CHA": "-4"
+  },
+  "smysly": "pasivní Perception 10",
+  "jaz": "žádné",
+  "cr": "1/2",
+  "xp": 100,
+  "xpt": "100 XP",
+  "pb": "+2",
+  "rysy": [
+   {
+    "n": "Flyby",
+    "t": "Vosa nevyvolává příležitostný útok, když vylétá z dosahu nepřítele."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Sting",
+    "t": "*Hod na útok na blízko:* +4, dosah 5 stop. *Zásah:* 5 (1d6 + 2) Piercing zranění plus 5 (2d4) Poison zranění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Sting",
+    "b": 4,
+    "z": "1d6+2",
+    "zt": "Piercing",
+    "p": "dosah 5 stop; + 2d4 Poison"
+   }
+  ],
+  "str": 354,
+  "zvire": true
+ },
+ {
+  "en": "Giant Weasel",
+  "cz": "obří lasice",
+  "vel": "Střední",
+  "typ": "Beast",
+  "pres": "bez přesvědčení",
+  "ac": "13",
+  "ini": "+3 (13)",
+  "hp": 9,
+  "hpk": "2d8",
+  "rych": "40 stop, šplhání 30 stop",
+  "vl": {
+   "STR": 11,
+   "AGI": 17,
+   "CON": 10,
+   "INT": 4,
+   "WIS": 12,
+   "CHA": 5
+  },
+  "zach": {
+   "STR": "+0",
+   "AGI": "+3",
+   "CON": "+0",
+   "INT": "-3",
+   "WIS": "+1",
+   "CHA": "-3"
+  },
+  "dov": "Acrobatics +5, Perception +3, Stealth +5",
+  "smysly": "Darkvision 60 stop; pasivní Perception 13",
+  "jaz": "žádné",
+  "cr": "1/8",
+  "xp": 25,
+  "xpt": "25 XP",
+  "pb": "+2",
+  "akce": [
+   {
+    "n": "Bite",
+    "t": "*Hod na útok na blízko:* +5, dosah 5 stop. *Zásah:* 5 (1d4 + 3) Piercing zranění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 5,
+    "z": "1d4+3",
+    "zt": "Piercing",
+    "p": "dosah 5 stop"
+   }
+  ],
+  "str": 355,
+  "zvire": true
+ },
+ {
+  "en": "Giant Wolf Spider",
+  "cz": "obří slíďák",
+  "vel": "Střední",
+  "typ": "Beast",
+  "pres": "bez přesvědčení",
+  "ac": "13",
+  "ini": "+3 (13)",
+  "hp": 11,
+  "hpk": "2d8 + 2",
+  "rych": "40 stop, šplhání 40 stop",
+  "vl": {
+   "STR": 12,
+   "AGI": 16,
+   "CON": 13,
+   "INT": 3,
+   "WIS": 12,
+   "CHA": 4
+  },
+  "zach": {
+   "STR": "+1",
+   "AGI": "+3",
+   "CON": "+1",
+   "INT": "-4",
+   "WIS": "+1",
+   "CHA": "-3"
+  },
+  "dov": "Perception +3, Stealth +7",
+  "smysly": "Blindsight 10 stop, Darkvision 60 stop; pasivní Perception 13",
+  "jaz": "žádné",
+  "cr": "1/4",
+  "xp": 50,
+  "xpt": "50 XP",
+  "pb": "+2",
+  "rysy": [
+   {
+    "n": "Spider Climb",
+    "t": "Pavouk dokáže šplhat po obtížných površích, včetně stropů, aniž by musel provádět ověření vlastnosti."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Bite",
+    "t": "*Hod na útok na blízko:* +5, dosah 5 stop. *Zásah:* 5 (1d4 + 3) Piercing zranění plus 5 (2d4) Poison zranění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 5,
+    "z": "1d4+3",
+    "zt": "Piercing",
+    "p": "dosah 5 stop; + 2d4 Poison"
+   }
+  ],
+  "str": 355,
+  "zvire": true
+ },
+ {
+  "en": "Goat",
+  "cz": "koza",
+  "vel": "Střední",
+  "typ": "Beast",
+  "pres": "bez přesvědčení",
+  "ac": "10",
+  "ini": "+0 (10)",
+  "hp": 4,
+  "hpk": "1d8",
+  "rych": "40 stop, šplhání 30 stop",
+  "vl": {
+   "STR": 11,
+   "AGI": 10,
+   "CON": 11,
+   "INT": 2,
+   "WIS": 10,
+   "CHA": 5
+  },
+  "zach": {
+   "STR": "+2",
+   "AGI": "+0",
+   "CON": "+0",
+   "INT": "-4",
+   "WIS": "+0",
+   "CHA": "-3"
+  },
+  "dov": "Perception +2",
+  "smysly": "Darkvision 60 stop; pasivní Perception 12",
+  "jaz": "žádné",
+  "cr": "0",
+  "xp": 10,
+  "xpt": "10 XP",
+  "pb": "+2",
+  "akce": [
+   {
+    "n": "Ram",
+    "t": "*Hod na útok na blízko:* +2, dosah 5 stop. *Zásah:* 1 Bludgeoning zranění, nebo 2 (1d4) Bludgeoning zranění, pokud se koza bezprostředně před zásahem přesunula alespoň o 20 stop přímo k cíli."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Ram",
+    "b": 2,
+    "z": "1",
+    "zt": "Bludgeoning",
+    "p": "dosah 5 stop; po rozběhu 20+ stop přímo k cíli 1d4 místo 1"
+   }
+  ],
+  "str": 355,
+  "zvire": true
+ },
+ {
+  "en": "Hawk",
+  "cz": "jestřáb",
+  "vel": "Drobná",
+  "typ": "Beast",
+  "pres": "bez přesvědčení",
+  "ac": "13",
+  "ini": "+3 (13)",
+  "hp": 1,
+  "hpk": "1d4 - 1",
+  "rych": "10 stop, let 60 stop",
+  "vl": {
+   "STR": 5,
+   "AGI": 16,
+   "CON": 8,
+   "INT": 2,
+   "WIS": 14,
+   "CHA": 6
+  },
+  "zach": {
+   "STR": "-3",
+   "AGI": "+3",
+   "CON": "-1",
+   "INT": "-4",
+   "WIS": "+2",
+   "CHA": "-2"
+  },
+  "dov": "Perception +6",
+  "smysly": "pasivní Perception 16",
+  "jaz": "žádné",
+  "cr": "0",
+  "xp": 10,
+  "xpt": "10 XP",
+  "pb": "+2",
+  "akce": [
+   {
+    "n": "Talons",
+    "t": "*Hod na útok na blízko:* +5, dosah 5 stop. *Zásah:* 1 Slashing zranění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Talons",
+    "b": 5,
+    "z": "1",
+    "zt": "Slashing",
+    "p": "dosah 5 stop"
+   }
+  ],
+  "str": 355,
+  "zvire": true
+ },
+ {
+  "en": "Hippopotamus",
+  "cz": "hroch",
+  "vel": "Velká",
+  "typ": "Beast",
+  "pres": "bez přesvědčení",
+  "ac": "14",
+  "ini": "-2 (8)",
+  "hp": 82,
+  "hpk": "11d10 + 22",
+  "rych": "30 stop, plavání 30 stop",
+  "vl": {
+   "STR": 21,
+   "AGI": 7,
+   "CON": 15,
+   "INT": 2,
+   "WIS": 12,
+   "CHA": 4
+  },
+  "zach": {
+   "STR": "+7",
+   "AGI": "-2",
+   "CON": "+2",
+   "INT": "-4",
+   "WIS": "+1",
+   "CHA": "-3"
+  },
+  "dov": "Perception +3",
+  "smysly": "pasivní Perception 13",
+  "jaz": "žádné",
+  "cr": "4",
+  "xp": 1100,
+  "xpt": "1 100 XP",
+  "pb": "+2",
+  "rysy": [
+   {
+    "n": "Hold Breath",
+    "t": "Hroch dokáže zadržet dech na 10 minut."
+   }
+  ],
+  "akce": [
+   {
+    "n": "Multiattack",
+    "t": "Hroch provede dva útoky Bite."
+   },
+   {
+    "n": "Bite",
+    "t": "*Hod na útok na blízko:* +7, dosah 5 stop. *Zásah:* 16 (2d10 + 5) Piercing zranění."
+   }
+  ],
+  "utoky": [
+   {
+    "n": "Bite",
+    "b": 7,
+    "z": "2d10+5",
+    "zt": "Piercing",
+    "p": "dosah 5 stop"
+   }
+  ],
+  "str": 355,
+  "zvire": true
+ }
+]

@@ -1,0 +1,626 @@
+[
+ {
+  "en": "Adamantine Armor",
+  "cz": "adamantinová zbroj",
+  "druh": "Zbroj",
+  "upr": "jakákoli střední nebo těžká, kromě Hide Armor",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Tato zbroj je zpevněná adamantinem, jednou z nejtvrdších látek, jaké existují. Dokud ji máš na sobě, každý kritický zásah proti tobě se změní v běžný zásah.",
+  "str": 209
+ },
+ {
+  "en": "Ammunition, +1, +2, or +3",
+  "cz": "munice +1, +2 nebo +3",
+  "druh": "Zbraň",
+  "upr": "jakákoli munice",
+  "vz": "proměnlivá",
+  "vzt": "neobvyklý (+1), vzácný (+2), velmi vzácný (+3)",
+  "pr": false,
+  "t": "Máš bonus k hodům na útok a hodům na zranění s tímto kusem magické munice. Bonus závisí na vzácnosti munice. Jakmile munice zasáhne cíl, přestává být magická.\nTato munice se obvykle nachází nebo prodává po deseti nebo dvaceti kusech. Deset kusů této munice má stejnou hodnotu jako lektvar stejné vzácnosti.",
+  "str": 209
+ },
+ {
+  "en": "Ammunition of Slaying",
+  "cz": "munice zhouby",
+  "druh": "Zbraň",
+  "upr": "jakákoli munice",
+  "vz": "velmi vzácný",
+  "pr": false,
+  "t": "Tato magická munice je určena k zabíjení tvorů určitého typu, který zvolí vypravěč nebo který určí náhodně hodem v tabulce níže. Utrpí-li tvor toho typu zranění od této munice, hází záchranný hod na Odolnost se SO 17; při neúspěchu utrpí dodatečných 6d10 Force zranění, při úspěchu polovinu tohoto dodatečného zranění.\nPoté, co munice způsobí tvorovi dodatečné zranění, stane se nemagickou.\n**1d100 – typ tvora:**\n- 01–10: Aberrace (Aberrations)\n- 11–15: Zvířata (Beasts)\n- 16–20: Nebešťané (Celestials)\n- 21–25: Konstrukty (Constructs)\n- 26–35: Draci (Dragons)\n- 36–45: Elementálové (Elementals)\n- 46–50: Humanoidé (Humanoids)\n- 51–60: Víly (Fey)\n- 61–70: Běsi (Fiends)\n- 71–75: Obři (Giants)\n- 76–80: Zrůdy (Monstrosities)\n- 81–85: Slizy (Oozes)\n- 86–90: Rostliny (Plants)\n- 91–00: Nemrtví (Undead)",
+  "str": 209
+ },
+ {
+  "en": "Amulet of Health",
+  "cz": "amulet zdraví",
+  "druh": "Divotvorný předmět",
+  "vz": "vzácný",
+  "pr": true,
+  "t": "Dokud nosíš tento amulet, tvoje Odolnost je 19. Nemá na tebe žádný účinek, pokud je tvoje Odolnost bez něj 19 nebo vyšší.",
+  "str": 209
+ },
+ {
+  "en": "Amulet of Proof against Detection and Location",
+  "cz": "amulet ochrany před odhalením a vypátráním",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": true,
+  "t": "Dokud nosíš tento amulet, nemůžeš být cílem kouzel věštění (Divination) ani být vnímán prostřednictvím magických špehovacích senzorů, pokud to sám nedovolíš.",
+  "str": 209
+ },
+ {
+  "en": "Amulet of the Planes",
+  "cz": "amulet sfér",
+  "druh": "Divotvorný předmět",
+  "vz": "velmi vzácný",
+  "pr": true,
+  "t": "Dokud nosíš tento amulet, můžeš akcí Magie pojmenovat místo na jiné sféře bytí, které dobře znáš. Pak proveď ověření Inteligence (Arcana) se SO 15. Při úspěšném ověření sešleš *Plane Shift*. Při neúspěšném ověření se ty a každý tvor a předmět do 15 stop od tebe přenesete na náhodné místo určené hodem 1d100 v následující tabulce.\n**1d100 – cíl:**\n- 01–60: Náhodné místo na sféře, kterou jsi pojmenoval.\n- 61–70: Náhodné místo na Vnitřní sféře určené hodem 1d6: na **1** Sféra vzduchu, na **2** Sféra země, na **3** Sféra ohně, na **4** Sféra vody, na **5** Feywild, na **6** Shadowfell.\n- 71–80: Náhodné místo na Vnější sféře určené hodem 1d8: na **1** Arborea, na **2** Arcadia, na **3** Beastlands, na **4** Bytopia, na **5** Elysium, na **6** Mechanus, na **7** Mount Celestia, na **8** Ysgard.\n- 81–90: Náhodné místo na Vnější sféře určené hodem 1d8: na **1** Abyss, na **2** Acheron, na **3** Carceri, na **4** Gehenna, na **5** Hades, na **6** Limbo, na **7** Nine Hells, na **8** Pandemonium.\n- 91–00: Náhodné místo na Astrální sféře.",
+  "str": 209
+ },
+ {
+  "en": "Animated Shield",
+  "cz": "oživlý štít",
+  "druh": "Zbroj",
+  "upr": "Shield",
+  "vz": "velmi vzácný",
+  "pr": true,
+  "t": "Dokud držíš tento štít, můžeš bonusovou akcí způsobit, že oživne. Štít vyskočí do vzduchu a vznáší se ve tvém prostoru, kde tě chrání, jako bys ho třímal, a ruce ti zůstanou volné. Štít zůstane oživlý 1 minutu, dokud tento účinek bonusovou akcí neukončíš, nebo dokud nezemřeš či nezískáš stav Neschopný (Incapacitated); v tu chvíli štít spadne na zem, nebo do tvé ruky, máš-li nějakou volnou.",
+  "str": 209
+ },
+ {
+  "en": "Apparatus of the Crab",
+  "cz": "krabí stroj",
+  "druh": "Divotvorný předmět",
+  "vz": "legendární",
+  "pr": false,
+  "t": "Tento předmět se zprvu jeví jako zapečetěný železný sud vážící 500 liber. Sud má skrytou západku, kterou lze najít úspěšným ověřením Inteligence (Investigation) se SO 20. Uvolněním západky se odemkne poklop na jednom konci sudu, kterým mohou dovnitř vlézt dva Střední nebo menší tvorové. Na protějším konci je v řadě deset pák, každá v neutrální poloze, kterou lze posunout nahoru nebo dolů. Při použití určitých pák se stroj promění tak, že připomíná obrovského humra.\nKrabí stroj (Apparatus of the Crab) je Velký předmět s následujícími statistikami: AC 20; HP 200; rychlost 30 stop, plavání 30 stop (nebo u obou 0 stop, nejsou-li vysunuté nohy); Immunity vůči Poison a Psychic zranění.\nK použití jako vozidlo potřebuje stroj jednoho pilota. Dokud je poklop stroje zavřený, je prostor uvnitř vzduchotěsný a vodotěsný. Prostor pojme dost vzduchu na 10 hodin dýchání, děleno počtem dýchajících tvorů uvnitř.\nStroj plave na vodě. Může se také ponořit do hloubky 900 stop. Pod touto hloubkou utrpí vozidlo každou minutu 2d6 Bludgeoning zranění tlakem.\nTvor v prostoru uvnitř může akcí Použití posunout nahoru nebo dolů až dvě páky stroje. Po každém použití se páka vrátí do neutrální polohy. Jednotlivé páky zleva doprava fungují podle tabulky Páky krabího stroje.\n**Páky krabího stroje (páka: nahoru / dolů):**\n- 1: Nahoru – nohy se vysunou, takže stroj může chodit a plavat. / Dolů – nohy se zasunou, rychlost a rychlost plavání stroje klesne na 0 a stroj nemůže těžit z bonusů k rychlosti.\n- 2: Nahoru – přední okenice se otevře. / Dolů – přední okenice se zavře.\n- 3: Nahoru – boční okenice se otevřou (dvě na každé straně). / Dolů – boční okenice se zavřou (dvě na každé straně).\n- 4: Nahoru – z přední strany stroje se vysunou dvě klepeta. / Dolů – klepeta se zasunou.\n- 5: Nahoru – každé vysunuté klepeto provede následující útok na blízko: +8 k zásahu, dosah 5 stop. *Zásah:* 7 (2d6) Bludgeoning zranění. / Dolů – každé vysunuté klepeto provede následující útok na blízko: +8 k zásahu, dosah 5 stop. *Zásah:* Cíl získá stav Chycen (Grappled) (únik SO 15).\n- 6: Nahoru – stroj jde nebo plave vpřed, má-li vysunuté nohy. / Dolů – stroj jde nebo plave vzad, má-li vysunuté nohy.\n- 7: Nahoru – stroj se otočí o 90 stupňů proti směru hodinových ručiček, má-li vysunuté nohy. / Dolů – stroj se otočí o 90 stupňů po směru hodinových ručiček, má-li vysunuté nohy.\n- 8: Nahoru – oči podobné výstupky vyzařují jasné světlo v okruhu 30 stop a šero do dalších 30 stop. / Dolů – světlo zhasne.\n- 9: Nahoru – stroj klesne až o 20 stop, je-li v kapalině. / Dolů – stroj stoupne až o 20 stop, je-li v kapalině.\n- 10: Nahoru – zadní poklop se odpečetí a otevře. / Dolů – zadní poklop se zavře a zapečetí.",
+  "str": 210
+ },
+ {
+  "en": "Armor, +1, +2, or +3",
+  "cz": "zbroj +1, +2 nebo +3",
+  "druh": "Zbroj",
+  "upr": "jakákoli lehká, střední nebo těžká",
+  "vz": "proměnlivá",
+  "vzt": "vzácný (+1), velmi vzácný (+2), legendární (+3)",
+  "pr": false,
+  "t": "Dokud máš tuto zbroj na sobě, máš bonus k Armor Class. Bonus závisí na její vzácnosti.",
+  "str": 210
+ },
+ {
+  "en": "Armor of Invulnerability",
+  "cz": "zbroj nezranitelnosti",
+  "druh": "Zbroj",
+  "upr": "Plate Armor",
+  "vz": "legendární",
+  "pr": true,
+  "t": "Dokud máš tuto zbroj na sobě, máš Resistance vůči Bludgeoning, Piercing a Slashing zranění.\n**Kovový krunýř (Metal Shell).** Akcí Magie si můžeš udělit Immunity vůči Bludgeoning, Piercing a Slashing zranění na 10 minut, nebo dokud zbroj nesvlékneš. Jakmile tuto vlastnost použiješ, nemůžeš ji znovu použít až do příštího úsvitu.",
+  "str": 210
+ },
+ {
+  "en": "Armor of Resistance",
+  "cz": "zbroj odolání",
+  "druh": "Zbroj",
+  "upr": "jakákoli lehká, střední nebo těžká",
+  "vz": "vzácný",
+  "pr": true,
+  "t": "Dokud máš tuto zbroj na sobě, máš Resistance vůči jednomu typu zranění. Typ zvolí vypravěč, nebo ho určí náhodně hodem v následující tabulce.\n**1d10 – typ zranění:**\n- 1: Acid\n- 2: Cold\n- 3: Fire\n- 4: Force\n- 5: Lightning\n- 6: Necrotic\n- 7: Poison\n- 8: Psychic\n- 9: Radiant\n- 10: Thunder",
+  "str": 210
+ },
+ {
+  "en": "Armor of Vulnerability",
+  "cz": "zbroj zranitelnosti",
+  "druh": "Zbroj",
+  "upr": "jakákoli lehká, střední nebo těžká",
+  "vz": "vzácný",
+  "pr": true,
+  "t": "Dokud máš tuto zbroj na sobě, máš Resistance vůči jednomu z následujících typů zranění: Bludgeoning, Piercing nebo Slashing. Typ zvolí vypravěč, nebo ho určí náhodně.\n**Kletba (Curse).** Tato zbroj je prokletá, což se odhalí, jen když je na zbroj sesláno kouzlo *Identify* nebo když se na ni napojíš. Napojení na zbroj tě prokleje, dokud se nestaneš cílem kouzla *Remove Curse* nebo podobné magie; svléknutí zbroje kletbu neukončí. Dokud jsi prokletý, máš Vulnerability vůči dvěma ze tří typů zranění spojených se zbrojí (ne vůči tomu, proti kterému ti dává Resistance).",
+  "str": 211
+ },
+ {
+  "en": "Arrow-Catching Shield",
+  "cz": "štít lapající šípy",
+  "druh": "Zbroj",
+  "upr": "Shield",
+  "vz": "vzácný",
+  "pr": true,
+  "t": "Dokud třímáš tento štít, získáváš bonus +2 k Armor Class proti hodům na útok na dálku. Tento bonus se přičítá k běžnému bonusu štítu k AC.\nKdykoli útočník provede hod na útok na dálku proti cíli do 5 stop od tebe, můžeš reakcí učinit cílem útoku místo něj sebe.",
+  "str": 211
+ },
+ {
+  "en": "Bag of Beans",
+  "cz": "pytlík fazolí",
+  "druh": "Divotvorný předmět",
+  "vz": "vzácný",
+  "pr": false,
+  "t": "Tento těžký látkový pytlík obsahuje při nalezení 3d4 suchých fazolí. Pytlík váží půl libry bez ohledu na to, kolik fazolí obsahuje, a stane se nemagickým předmětem, jakmile v něm už žádné fazole nejsou.\nVysypeš-li z pytlíku jednu nebo více fazolí, vybuchnou v kouli o poloměru 10 stop se středem v nich. Všechny vysypané fazole jsou při výbuchu zničeny a každý tvor v kouli, včetně tebe, hází záchranný hod na Obratnost se SO 15; při neúspěchu utrpí 5d4 Force zranění, při úspěchu polovinu tohoto zranění.\nVyjmeš-li z pytlíku fazoli, zasadíš ji do hlíny nebo písku a pak ji zaliješ, fazole zmizí a o 1 minutu později vyvolá ze země v místě, kde byla zasazena, nějaký účinek. Vypravěč může účinek zvolit z následující tabulky, nebo ho určit náhodně.\n**1d100 – účinek:**\n- 01: Vyraší 5d4 muchomůrek. Sní-li tvor muchomůrku, hoď libovolnou kostkou. Při lichém hodu musí jedlík uspět v záchranném hodu na Odolnost se SO 15, jinak utrpí 5d6 Poison zranění a na 1 hodinu získá stav Otráven (Poisoned). Při sudém hodu získá jedlík na 1 hodinu 5d6 dočasných životů.\n- 02–10: Vytryskne gejzír a na 1d4 minut chrlí do výšky 30 stop vodu, pivo, majonézu, čaj, ocet, víno nebo olej (podle volby vypravěče).\n- 11–20: Vyraší **Treant**. Hoď libovolnou kostkou. Při lichém hodu je treant chaoticky zlý, při sudém chaoticky dobrý.\n- 21–30: Vyroste oživlá, ale nehybná kamenná socha v tvé podobě a začne ti slovně vyhrožovat. Necháš-li ji tam a přijdou-li k ní jiní, vylíčí tě jako nejohavnějšího z padouchů a navede příchozí, aby tě našli a napadli. Jsi-li na stejné sféře bytí jako socha, ví, kde jsi. Po 24 hodinách socha přestane být oživlá.\n- 31–40: Vyšlehne táborák se zelenými plameny a hoří 24 hodin, nebo dokud není uhašen.\n- 41–50: Vyraší tři **Shrieker Fungi**.\n- 51–60: Vyleze 1d4 + 4 jasně růžových ropuch. Kdykoli se někdo ropuchy dotkne, promění se ve Velkou nebo menší nestvůru podle volby vypravěče, která jedná v souladu se svým přesvědčením a povahou. Nestvůra zůstane 1 minutu a pak zmizí v obláčku jasně růžového dýmu.\n- 61–70: Ze země se vyhrabe hladový **Bulette** a zaútočí.\n- 71–80: Vyroste ovocný strom. Nese 1d10 + 20 plodů, z nichž 1d8 působí jako náhodně určené lektvary. Strom po 1 hodině zmizí. Utržené plody zůstanou a jakoukoli magii si podrží 30 dní.\n- 81–90: Objeví se hnízdo s 1d4 + 3 duhově zbarvenými vejci. Každý tvor, který vejce sní, hází záchranný hod na Odolnost se SO 20. Při úspěchu si tvor natrvalo zvýší svou nejnižší hodnotu vlastnosti o 1 (mezi stejně nízkými hodnotami se volí náhodně). Při neúspěchu utrpí tvor 10d6 Force zranění vnitřním výbuchem.\n- 91–95: Ze země se vyhrne pyramida se čtvercovou základnou o straně 60 stop. Uvnitř je pohřební komora s **Mummy**, **Mummy Lord** nebo jiným nemrtvým (Undead) podle volby vypravěče. Jeho sarkofág obsahuje poklad podle volby vypravěče.\n- 96–00: Vyraší obří fazolový stonek a vyroste do výšky podle volby vypravěče. Jeho vrchol vede tam, kam určí vypravěč, například k nádhernému výhledu, na hrad oblačného obra nebo na jinou sféru bytí.",
+  "str": 211
+ },
+ {
+  "en": "Bag of Devouring",
+  "cz": "požírající vak",
+  "druh": "Divotvorný předmět",
+  "vz": "velmi vzácný",
+  "pr": false,
+  "t": "Tento vak vypadá jako Bag of Holding, ale je to krmný otvor obrovského mimodimenzionálního tvora. Obrácením vaku naruby se otvor uzavře.\nMimodimenzionální tvor připojený k vaku cítí cokoli, co je do vaku vloženo. Živočišná nebo rostlinná hmota vložená do vaku celá je pozřena a navždy ztracena. Když je do vaku vložena část živého tvora, jako se stane, když do něj někdo sáhne, je 50procentní šance, že je tvor vtažen do vaku. Tvor uvnitř vaku se může akcí pokusit uniknout, což se mu podaří úspěšným ověřením Síly (Athletics) se SO 15. Jiný tvor může akcí sáhnout do vaku a tvora vytáhnout, což se mu podaří úspěšným ověřením Síly (Athletics) se SO 20, pokud není dřív vtažen do vaku sám. Každý tvor, který začne svůj tah uvnitř vaku, je pozřen a jeho tělo zničeno.\nDo vaku lze ukládat neživé předměty, přičemž pojme krychlovou stopu takového materiálu. Jednou za den však vak všechny předměty uvnitř spolkne a vyplivne je na jinou sféru bytí. Čas a sféru určí vypravěč.\nJe-li vak propíchnut nebo roztržen, je zničen a vše, co obsahoval, se přenese na náhodné místo na Astrální sféře.",
+  "str": 212
+ },
+ {
+  "en": "Bag of Holding",
+  "cz": "vak beztíže",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Tento vak má vnitřní prostor značně větší, než odpovídá jeho vnějším rozměrům – uvnitř zhruba 2 stopy na šířku i délku a 4 stopy do hloubky. Vak pojme až 500 liber, přičemž objem nesmí přesáhnout 64 krychlových stop. Vak váží 5 liber bez ohledu na obsah. Vytažení předmětu z vaku vyžaduje akci Použití.\nJe-li vak přetížen, propíchnut nebo roztržen, je zničen a jeho obsah se rozptýlí po Astrální sféře. Je-li vak obrácen naruby, jeho obsah se nepoškozený vysype, ale vak se musí obrátit zpět, než ho lze znovu použít. Vak pojme dost vzduchu na 10 minut dýchání, děleno počtem dýchajících tvorů uvnitř.\nVložení Bag of Holding do mimodimenzionálního prostoru vytvořeného Handy Haversack, Portable Hole nebo podobným předmětem okamžitě oba předměty zničí a otevře bránu na Astrální sféru. Brána vznikne tam, kde byl jeden předmět vložen do druhého. Každý tvor v kouli o poloměru 10 stop se středem v bráně je jí vtažen na náhodné místo na Astrální sféře. Brána se pak zavře. Brána je jednosměrná a nelze ji znovu otevřít.",
+  "str": 212
+ },
+ {
+  "en": "Bag of Tricks",
+  "cz": "vak s triky",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Tento vak z šedé, rezavé nebo žlutohnědé látky se zdá prázdný. Když do něj však sáhneš, nahmatáš malý chlupatý předmět.\nAkcí Magie můžeš chlupatý předmět z vaku vytáhnout a hodit ho až na 20 stop. Když předmět dopadne, promění se v tvora, kterého určíš hodem v tabulce odpovídající barvě vaku. Statistiky tvora najdeš v oddílu „Nestvůry“ (Monsters). Tvor zmizí s příštím úsvitem, nebo když klesne na 0 životů.\nTvor je přátelský k tobě i tvým spojencům a jedná hned po tobě na tvém pořadí iniciativy. Bonusovou akcí mu můžeš přikázat, jak se pohne a jakou akci provede ve svém příštím tahu, například že zaútočí na nepřítele. Bez takových rozkazů jedná tvor způsobem odpovídajícím své povaze.\nJakmile jsou z vaku vytaženy tři chlupaté předměty, nelze vak znovu použít až do příštího úsvitu.\n**Šedý vak s triky (1d8 – tvor):**\n- 1: **Weasel**\n- 2: **Giant Rat**\n- 3: **Badger**\n- 4: **Boar**\n- 5: **Panther**\n- 6: **Giant Badger**\n- 7: **Dire Wolf**\n- 8: **Giant Elk**\n**Rezavý vak s triky (1d8 – tvor):**\n- 1: **Rat**\n- 2: **Owl**\n- 3: **Mastiff**\n- 4: **Goat**\n- 5: **Giant Goat**\n- 6: **Giant Boar**\n- 7: **Lion**\n- 8: **Brown Bear**\n**Žlutohnědý vak s triky (1d8 – tvor):**\n- 1: **Jackal**\n- 2: **Ape**\n- 3: **Baboon**\n- 4: **Axe Beak**\n- 5: **Black Bear**\n- 6: **Giant Weasel**\n- 7: **Giant Hyena**\n- 8: **Tiger**",
+  "str": 212
+ },
+ {
+  "en": "Bead of Force",
+  "cz": "korálek síly",
+  "druh": "Divotvorný předmět",
+  "vz": "vzácný",
+  "pr": false,
+  "t": "Tato malá černá kulička měří v průměru 3/4 palce a váží unci. Obvykle se nachází 1d4 + 4 korálků síly (Beads of Force) pohromadě.\nAkcí Magie můžeš korálek hodit až na 60 stop. Korálek při dopadu vybuchne v kouli o poloměru 10 stop a je zničen. Každý tvor v kouli musí uspět v záchranném hodu na Obratnost se SO 15, jinak utrpí 5d4 Force zranění. Oblast pak na 1 minutu uzavře koule průhledné síly. Každý tvor, který v záchraně neuspěl a je celý uvnitř oblasti, je v této kouli uvězněn. Tvorové, kteří v záchraně uspěli nebo jsou v oblasti jen částečně, jsou odtlačeni od středu koule, dokud už nejsou uvnitř. Stěnou koule může projít jen dýchatelný vzduch. Žádný útok ani jiný účinek jí projít nemůže.\nUzavřený tvor se může akcí Použití opřít do stěny koule a posunout kouli až o polovinu své rychlosti. Kouli lze zvednout a její magie způsobí, že váží jen 1 libru bez ohledu na váhu tvorů uvnitř.",
+  "str": 212
+ },
+ {
+  "en": "Bead of Nourishment",
+  "cz": "korálek výživy",
+  "druh": "Divotvorný předmět",
+  "vz": "běžný",
+  "pr": false,
+  "t": "Tento rosolovitý korálek bez chuti se ti rozpustí na jazyku a poskytne tolik výživy jako zásoby jídla (Rations) na 1 den.",
+  "str": 213
+ },
+ {
+  "en": "Belt of Dwarvenkind",
+  "cz": "opasek trpasličího rodu",
+  "druh": "Divotvorný předmět",
+  "vz": "vzácný",
+  "pr": true,
+  "t": "Dokud nosíš tento opasek, získáváš následující výhody:\n- **Trpasličtina (Dwarvish).** Umíš trpasličtinu (Dwarvish).\n- **Přítel trpasličího rodu (Friend of Dwarvenkind).** Máš výhodu na ověření Charismatu (Persuasion), když jednáš s trpaslíky a duergary.\n- **Houževnatost (Toughness).** Tvoje Odolnost se zvýší o 2, nejvýš na 20.\nKromě toho máš, dokud jsi na opasek napojen, každý den za úsvitu 50procentní šanci, že ti naroste plnovous, pokud ho můžeš mít, nebo že ti zhoustne vous, který už máš.\nNejsi-li trpaslík ani duergar, získáváš, dokud opasek nosíš, navíc následující výhody:\n- **Darkvision.** Máš Darkvision s dosahem 60 stop.\n- **Nezdolnost (Resilience).** Máš Resistance vůči Poison zranění. Máš také výhodu na záchranné hody, kterými se vyhýbáš stavu Otráven (Poisoned) nebo ho ukončuješ.",
+  "str": 213
+ },
+ {
+  "en": "Belt of Giant Strength (hill)",
+  "cz": "opasek obří síly (kopcový)",
+  "druh": "Divotvorný předmět",
+  "vz": "vzácný",
+  "pr": true,
+  "t": "Dokud nosíš tento opasek, tvoje Síla se změní na hodnotu, kterou opasek poskytuje. Hodnotu určuje druh obra (viz tabulka níže). Předmět na tebe nemá žádný účinek, je-li tvoje Síla bez opasku rovna hodnotě opasku nebo vyšší.\n**Opasek obří síly – Síla, vzácnost:**\n- Belt of Giant Strength (hill): 21, vzácný\n- Belt of Giant Strength (frost or stone): 23, velmi vzácný\n- Belt of Giant Strength (fire): 25, velmi vzácný\n- Belt of Giant Strength (cloud): 27, legendární\n- Belt of Giant Strength (storm): 29, legendární\n**Tento opasek (kopcový obr):** Síla 21.",
+  "str": 213
+ },
+ {
+  "en": "Belt of Giant Strength (frost or stone)",
+  "cz": "opasek obří síly (mrazivý nebo kamenný)",
+  "druh": "Divotvorný předmět",
+  "vz": "velmi vzácný",
+  "pr": true,
+  "t": "Dokud nosíš tento opasek, tvoje Síla se změní na hodnotu, kterou opasek poskytuje. Hodnotu určuje druh obra (viz tabulka níže). Předmět na tebe nemá žádný účinek, je-li tvoje Síla bez opasku rovna hodnotě opasku nebo vyšší.\n**Opasek obří síly – Síla, vzácnost:**\n- Belt of Giant Strength (hill): 21, vzácný\n- Belt of Giant Strength (frost or stone): 23, velmi vzácný\n- Belt of Giant Strength (fire): 25, velmi vzácný\n- Belt of Giant Strength (cloud): 27, legendární\n- Belt of Giant Strength (storm): 29, legendární\n**Tento opasek (mrazivý nebo kamenný obr):** Síla 23.",
+  "str": 213
+ },
+ {
+  "en": "Belt of Giant Strength (fire)",
+  "cz": "opasek obří síly (ohnivý)",
+  "druh": "Divotvorný předmět",
+  "vz": "velmi vzácný",
+  "pr": true,
+  "t": "Dokud nosíš tento opasek, tvoje Síla se změní na hodnotu, kterou opasek poskytuje. Hodnotu určuje druh obra (viz tabulka níže). Předmět na tebe nemá žádný účinek, je-li tvoje Síla bez opasku rovna hodnotě opasku nebo vyšší.\n**Opasek obří síly – Síla, vzácnost:**\n- Belt of Giant Strength (hill): 21, vzácný\n- Belt of Giant Strength (frost or stone): 23, velmi vzácný\n- Belt of Giant Strength (fire): 25, velmi vzácný\n- Belt of Giant Strength (cloud): 27, legendární\n- Belt of Giant Strength (storm): 29, legendární\n**Tento opasek (ohnivý obr):** Síla 25.",
+  "str": 213
+ },
+ {
+  "en": "Belt of Giant Strength (cloud)",
+  "cz": "opasek obří síly (oblačný)",
+  "druh": "Divotvorný předmět",
+  "vz": "legendární",
+  "pr": true,
+  "t": "Dokud nosíš tento opasek, tvoje Síla se změní na hodnotu, kterou opasek poskytuje. Hodnotu určuje druh obra (viz tabulka níže). Předmět na tebe nemá žádný účinek, je-li tvoje Síla bez opasku rovna hodnotě opasku nebo vyšší.\n**Opasek obří síly – Síla, vzácnost:**\n- Belt of Giant Strength (hill): 21, vzácný\n- Belt of Giant Strength (frost or stone): 23, velmi vzácný\n- Belt of Giant Strength (fire): 25, velmi vzácný\n- Belt of Giant Strength (cloud): 27, legendární\n- Belt of Giant Strength (storm): 29, legendární\n**Tento opasek (oblačný obr):** Síla 27.",
+  "str": 213
+ },
+ {
+  "en": "Belt of Giant Strength (storm)",
+  "cz": "opasek obří síly (bouřný)",
+  "druh": "Divotvorný předmět",
+  "vz": "legendární",
+  "pr": true,
+  "t": "Dokud nosíš tento opasek, tvoje Síla se změní na hodnotu, kterou opasek poskytuje. Hodnotu určuje druh obra (viz tabulka níže). Předmět na tebe nemá žádný účinek, je-li tvoje Síla bez opasku rovna hodnotě opasku nebo vyšší.\n**Opasek obří síly – Síla, vzácnost:**\n- Belt of Giant Strength (hill): 21, vzácný\n- Belt of Giant Strength (frost or stone): 23, velmi vzácný\n- Belt of Giant Strength (fire): 25, velmi vzácný\n- Belt of Giant Strength (cloud): 27, legendární\n- Belt of Giant Strength (storm): 29, legendární\n**Tento opasek (bouřný obr):** Síla 29.",
+  "str": 213
+ },
+ {
+  "en": "Berserker Axe",
+  "cz": "berserkrova sekera",
+  "druh": "Zbraň",
+  "upr": "Battleaxe, Greataxe nebo Halberd",
+  "vz": "vzácný",
+  "pr": true,
+  "t": "S touto magickou zbraní získáváš bonus +1 k hodům na útok a hodům na zranění. Kromě toho se ti, dokud jsi na tuto zbraň napojen, zvýší maximum životů o 1 za každou úroveň, které jsi dosáhl.\n**Kletba (Curse).** Tato zbraň je prokletá a napojení na ni rozšíří kletbu i na tebe. Dokud zůstáváš prokletý, nechceš se se zbraní rozloučit a máš ji neustále na dosah. Máš také nevýhodu na hody na útok jinými zbraněmi než touto.\nKdykoli ti jiný tvor způsobí zranění, zatímco máš zbraň u sebe, musíš uspět v záchranném hodu na Moudrost se SO 15, jinak propadneš běsnění. Tento stav běsnění skončí, když začneš svůj tah a do 60 stop od tebe není žádný tvor, kterého vidíš nebo slyšíš.\nDokud běsníš, považuješ za nepřítele tvora, který je ti nejblíž a kterého vidíš nebo slyšíš. Připadá-li v úvahu více tvorů, jednoho vyber náhodně. V každém svém tahu se musíš k tvorovi přesunout co nejblíž a provést akci Útok s tímto tvorem jako cílem. Nemůžeš-li se k tvorovi dostat dost blízko, abys na něj zbraní zaútočil, tvůj tah skončí, jakmile vyčerpáš veškerý dostupný pohyb. Zemře-li tvor, nebo ho už nevidíš ani neslyšíš, stane se tvým novým cílem další nejbližší tvor, kterého vidíš nebo slyšíš.",
+  "ef": {
+   "utok": 1
+  },
+  "str": 213
+ },
+ {
+  "en": "Boots of Elvenkind",
+  "cz": "elfí boty",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Dokud nosíš tyto boty, tvé kroky nevydávají žádný zvuk bez ohledu na povrch, po kterém se pohybuješ. Máš také výhodu na ověření Obratnosti (Stealth).",
+  "str": 213
+ },
+ {
+  "en": "Boots of Levitation",
+  "cz": "boty levitace",
+  "druh": "Divotvorný předmět",
+  "vz": "vzácný",
+  "pr": true,
+  "t": "Dokud nosíš tyto boty, můžeš na sebe sesílat *Levitate*.",
+  "str": 213
+ },
+ {
+  "en": "Boots of Speed",
+  "cz": "boty rychlosti",
+  "druh": "Divotvorný předmět",
+  "vz": "vzácný",
+  "pr": true,
+  "t": "Dokud nosíš tyto boty, můžeš bonusovou akcí srazit podpatky. Uděláš-li to, boty ti zdvojnásobí rychlost a každý tvor, který proti tobě provede příležitostný útok, má na hod na útok nevýhodu. Srazíš-li podpatky znovu, účinek ukončíš.\nJakmile vlastnost bot použiješ celkem 10 minut, jejich magie pro tebe přestane fungovat, dokud nedokončíš dlouhý odpočinek.",
+  "str": 214
+ },
+ {
+  "en": "Boots of Striding and Springing",
+  "cz": "boty kráčení a skákání",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": true,
+  "t": "Dokud nosíš tyto boty, tvoje rychlost je 30 stop, není-li vyšší, a tvoje rychlost se nesnižuje, neseš-li náklad přesahující tvou nosnost nebo máš-li na sobě těžkou zbroj.\nJednou v každém svém tahu můžeš skočit až 30 stop, přičemž spotřebuješ jen 10 stop pohybu.",
+  "str": 214
+ },
+ {
+  "en": "Boots of the Winterlands",
+  "cz": "boty zimních krajů",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": true,
+  "t": "Tyto kožešinou podšité boty těsně padnou a hřejí. Dokud je nosíš, získáváš následující výhody.\n**Odolnost vůči chladu (Cold Resistance).** Máš Resistance vůči Cold zranění a bez jakékoli další ochrany sneseš teploty 0 stupňů Fahrenheita (asi −18 °C) a nižší.\n**Zimní chodec (Winter Strider).** Ignoruješ obtížný terén vytvořený ledem nebo sněhem.",
+  "str": 214
+ },
+ {
+  "en": "Bowl of Commanding Water Elementals",
+  "cz": "mísa ovládání vodních elementálů",
+  "druh": "Divotvorný předmět",
+  "vz": "vzácný",
+  "pr": false,
+  "t": "Dokud je tato mísa naplněná vodou a jsi do 5 stop od ní, můžeš akcí Magie přivolat **Water Elemental**. Elementál se objeví na neobsazeném místě co nejblíže míse, rozumí tvým jazykům, poslouchá tvé rozkazy a svůj tah provádí hned po tobě na tvém pořadí iniciativy. Elementál zmizí po 1 hodině, když zemře, nebo když ho bonusovou akcí propustíš. Mísu nelze tímto způsobem znovu použít až do příštího úsvitu.\nMísa má průměr asi 1 stopu a je o polovinu hlubší. Pojme asi 3 galony.",
+  "str": 214
+ },
+ {
+  "en": "Bracers of Archery",
+  "cz": "lukostřelecké chrániče",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": true,
+  "t": "Dokud nosíš tyto chrániče předloktí, máš zdatnost s Longbow a Shortbow a získáváš bonus +2 k hodům na zranění s těmito zbraněmi.",
+  "str": 214
+ },
+ {
+  "en": "Bracers of Defense",
+  "cz": "ochranné chrániče",
+  "druh": "Divotvorný předmět",
+  "vz": "vzácný",
+  "pr": true,
+  "t": "Dokud nosíš tyto chrániče předloktí, získáváš bonus +2 k Armor Class, nemáš-li na sobě žádnou zbroj a nepoužíváš-li štít.",
+  "ef": {
+   "ac": 2
+  },
+  "str": 214
+ },
+ {
+  "en": "Brazier of Commanding Fire Elementals",
+  "cz": "pánev ovládání ohnivých elementálů",
+  "druh": "Divotvorný předmět",
+  "vz": "vzácný",
+  "pr": false,
+  "t": "Dokud jsi do 5 stop od této žárové pánve, můžeš akcí Magie přivolat **Fire Elemental**. Elementál se objeví na neobsazeném místě co nejblíže pánvi, rozumí tvým jazykům, poslouchá tvé rozkazy a svůj tah provádí hned po tobě na tvém pořadí iniciativy. Elementál zmizí po 1 hodině, když zemře, nebo když ho bonusovou akcí propustíš. Pánev nelze tímto způsobem znovu použít až do příštího úsvitu.",
+  "str": 214
+ },
+ {
+  "en": "Brooch of Shielding",
+  "cz": "štítová brož",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": true,
+  "t": "Dokud nosíš tuto brož, máš Resistance vůči Force zranění a Immunity vůči zranění od kouzla *Magic Missile*.",
+  "str": 214
+ },
+ {
+  "en": "Broom of Flying",
+  "cz": "létající koště",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": true,
+  "t": "Toto dřevěné koště funguje jako obyčejné koště, dokud na něm neobkročmo nestojíš a akcí Magie ho nepřimeješ, aby se pod tebou vznášelo; pak na něm lze létat vzduchem. Má rychlost letu 50 stop. Unese až 400 liber, ale nese-li víc než 200 liber, jeho rychlost letu klesne na 30 stop. Koště se přestane vznášet, když přistaneš nebo když na něm už nesedíš.\nAkcí Magie můžeš koště poslat, aby samo doletělo na místo do 1 míle od tebe, pokud to místo pojmenuješ a znáš ho. Koště se k tobě vrátí, když provedeš akci Magie a vyslovíš povelové slovo, je-li koště stále do 1 míle od tebe.",
+  "str": 214
+ },
+ {
+  "en": "Candle of Invocation",
+  "cz": "svíce vzývání",
+  "druh": "Divotvorný předmět",
+  "vz": "velmi vzácný",
+  "pr": true,
+  "t": "Magie této svíce se aktivuje jejím zapálením, které vyžaduje akci Magie. Po 4 hodinách hoření je svíce zničena. Můžeš ji uhasit dřív a použít později. Dobu, po kterou hořela, odečti od její celkové doby hoření po celých minutách.\nDokud svíce hoří, vydává šero v okruhu 30 stop. Dokud jsi v tomto světle, máš výhodu na testy d20. Kromě toho Cleric nebo Druid v tomto světle může sesílat kouzla 1. úrovně, která má připravená, aniž by spotřeboval sloty kouzel.\nPři prvním zapálení svíce můžeš případně místo toho jejím prostřednictvím seslat *Gate*. Tím se svíce zničí. Portál vytvořený kouzlem vede na určitou Vnější sféru, kterou zvolí vypravěč nebo kterou určí hod v následující tabulce.\n**1d100 – Vnější sféra:**\n- 01–05: Abyss\n- 06–10: Acheron\n- 11–17: Arborea\n- 18–25: Arcadia\n- 26–33: Beastlands\n- 34–41: Bytopia\n- 42–46: Carceri\n- 47–54: Elysium\n- 55–59: Gehenna\n- 60–64: Hades\n- 65–69: Limbo\n- 70–77: Mechanus\n- 78–85: Mount Celestia\n- 86–90: Nine Hells\n- 91–95: Pandemonium\n- 96–00: Ysgard",
+  "str": 214
+ },
+ {
+  "en": "Cape of the Mountebank",
+  "cz": "šarlatánův plášť",
+  "druh": "Divotvorný předmět",
+  "vz": "vzácný",
+  "pr": false,
+  "t": "Tento plášť slabě páchne sírou. Dokud ho nosíš, můžeš jeho prostřednictvím akcí Magie seslat *Dimension Door*. Tuto vlastnost nelze znovu použít až do příštího úsvitu.\nKdyž se tímto kouzlem teleportuješ, zanecháš za sebou oblak kouře. Prostor, který jsi opustil, je tímto kouřem lehce zastřený až do konce tvého příštího tahu.",
+  "str": 215
+ },
+ {
+  "en": "Carpet of Flying",
+  "cz": "létající koberec",
+  "druh": "Divotvorný předmět",
+  "vz": "velmi vzácný",
+  "pr": false,
+  "t": "Akcí Magie a vyslovením povelového slova koberce ho můžeš přimět, aby se vznášel a létal. Pohybuje se podle tvých pokynů, jsi-li do 30 stop od něj.\nExistují čtyři velikosti létajícího koberce (Carpet of Flying). Velikost daného koberce zvolí vypravěč, nebo ji určí náhodně hodem v následující tabulce. Koberec unese až dvojnásobek váhy uvedené v tabulce, ale nese-li víc, než je jeho běžná nosnost, jeho rychlost letu se sníží na polovinu.\n**1d100 – velikost, nosnost, rychlost letu:**\n- 01–20: 3 × 5 stop, 200 lb., 80 stop\n- 21–55: 4 × 6 stop, 400 lb., 60 stop\n- 56–80: 5 × 7 stop, 600 lb., 40 stop\n- 81–00: 6 × 9 stop, 800 lb., 30 stop",
+  "str": 215
+ },
+ {
+  "en": "Censer of Controlling Air Elementals",
+  "cz": "kadidelnice ovládání vzdušných elementálů",
+  "druh": "Divotvorný předmět",
+  "vz": "vzácný",
+  "pr": false,
+  "t": "Zatímco touto kadidelnicí zlehka houpeš, můžeš akcí Magie přivolat **Air Elemental**. Elementál se objeví na neobsazeném místě co nejblíže kadidelnici, rozumí tvým jazykům, poslouchá tvé rozkazy a svůj tah provádí hned po tobě na tvém pořadí iniciativy. Elementál zmizí po 1 hodině, když zemře, nebo když ho bonusovou akcí propustíš. Kadidelnici nelze tímto způsobem znovu použít až do příštího úsvitu.",
+  "str": 215
+ },
+ {
+  "en": "Chime of Opening",
+  "cz": "zvonek otevírání",
+  "druh": "Divotvorný předmět",
+  "vz": "vzácný",
+  "pr": false,
+  "t": "Tato dutá kovová trubice je asi 1 stopu dlouhá a váží 1 libru. Akcí Magie můžeš do zvonku udeřit a seslat tak *Knock*. Obvyklý klepavý zvuk kouzla nahradí čistý zvonivý tón zvonku, který je slyšet až na 300 stop.\nZvonek lze použít 10krát. Po desátém použití praskne a stane se nepoužitelným.",
+  "str": 215
+ },
+ {
+  "en": "Circlet of Blasting",
+  "cz": "čelenka výbuchů",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Dokud nosíš tuto čelenku, můžeš jejím prostřednictvím seslat *Scorching Ray* (+5 k zásahu). Čelenka nemůže toto kouzlo znovu seslat až do příštího úsvitu.",
+  "str": 215
+ },
+ {
+  "en": "Cloak of Arachnida",
+  "cz": "plášť pavoukovců",
+  "druh": "Divotvorný předmět",
+  "vz": "velmi vzácný",
+  "pr": true,
+  "t": "Tento jemný oděv je z černého hedvábí protkaného slabými stříbřitými nitěmi. Dokud ho nosíš, získáváš následující výhody.\n**Odolnost vůči jedu (Poison Resistance).** Máš Resistance vůči Poison zranění.\n**Pavoučí šplhání (Spider Climb).** Máš rychlost šplhání rovnou své rychlosti a můžeš se pohybovat nahoru, dolů a napříč po svislých plochách i po stropech, přičemž máš volné ruce.\n**Pavoučí chůze (Spider Walk).** Nemůžeš uvíznout v žádných pavučinách a můžeš se pavučinami pohybovat, jako by to byl obtížný terén.\n**Pavučina (Web).** Můžeš seslat *Web* (SO záchrany 13). Pavučina vytvořená kouzlem vyplní dvojnásobek své běžné oblasti. Jakmile tuto vlastnost použiješ, nelze ji znovu použít až do příštího úsvitu.",
+  "str": 215
+ },
+ {
+  "en": "Cloak of Displacement",
+  "cz": "plášť přemístění",
+  "druh": "Divotvorný předmět",
+  "vz": "vzácný",
+  "pr": true,
+  "t": "Dokud nosíš tento plášť, magicky promítá iluzi, díky níž se zdá, že stojíš na místě poblíž svého skutečného umístění, takže každý tvor má na hody na útok proti tobě nevýhodu. Utrpíš-li zranění, vlastnost přestane fungovat do začátku tvého příštího tahu. Vlastnost je potlačena, dokud je tvoje rychlost 0.",
+  "str": 215
+ },
+ {
+  "en": "Cloak of Elvenkind",
+  "cz": "elfí plášť",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": true,
+  "t": "Dokud nosíš tento plášť, ověření Moudrosti (Perception), kterými se tě někdo snaží zahlédnout, mají nevýhodu a ty máš výhodu na ověření Obratnosti (Stealth).",
+  "str": 215
+ },
+ {
+  "en": "Cloak of Invisibility",
+  "cz": "plášť neviditelnosti",
+  "druh": "Divotvorný předmět",
+  "vz": "legendární",
+  "pr": true,
+  "t": "Tento plášť má 3 náboje a každý den za úsvitu obnoví 1d3 spotřebovaných nábojů. Dokud plášť nosíš, můžeš akcí Magie přetáhnout přes hlavu jeho kápi a spotřebovat 1 náboj, čímž si na 1 hodinu udělíš stav Neviditelný (Invisible). Účinek skončí dřív, stáhneš-li kápi (není potřeba žádná akce) nebo přestaneš-li plášť nosit.",
+  "str": 215
+ },
+ {
+  "en": "Cloak of Protection",
+  "cz": "plášť ochrany",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": true,
+  "t": "Dokud nosíš tento plášť, získáváš bonus +1 k Armor Class a záchranným hodům.",
+  "ef": {
+   "ac": 1,
+   "zach": 1
+  },
+  "str": 216
+ },
+ {
+  "en": "Cloak of the Bat",
+  "cz": "netopýří plášť",
+  "druh": "Divotvorný předmět",
+  "vz": "vzácný",
+  "pr": true,
+  "t": "Dokud nosíš tento plášť, máš výhodu na ověření Obratnosti (Stealth). V oblasti šera nebo tmy můžeš uchopit okraje pláště a získat jeho pomocí rychlost letu 40 stop. Pokud někdy při takovém letu okraje pláště nedržíš, nebo už nejsi v šeru či tmě, tuto rychlost letu ztratíš.\nDokud nosíš plášť v oblasti šera nebo tmy, můžeš na sebe seslat *Polymorph* a změnit se v netopýra (**Bat**). V této podobě si ponecháš své hodnoty Inteligence, Moudrosti a Charismatu. Plášť nelze tímto způsobem znovu použít až do příštího úsvitu.",
+  "str": 216
+ },
+ {
+  "en": "Cloak of the Manta Ray",
+  "cz": "plášť manty",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": true,
+  "t": "Dokud nosíš tento plášť, můžeš dýchat pod vodou a máš rychlost plavání 60 stop.",
+  "str": 216
+ },
+ {
+  "en": "Crystal Ball",
+  "cz": "křišťálová koule",
+  "druh": "Divotvorný předmět",
+  "vz": "velmi vzácný",
+  "pr": true,
+  "t": "Dokud se dotýkáš této křišťálové koule, můžeš jejím prostřednictvím seslat *Scrying* (SO záchrany 17).",
+  "str": 216
+ },
+ {
+  "en": "Crystal Ball of Mind Reading",
+  "cz": "křišťálová koule čtení myšlenek",
+  "druh": "Divotvorný předmět",
+  "vz": "legendární",
+  "pr": true,
+  "t": "Dokud se dotýkáš této křišťálové koule, můžeš jejím prostřednictvím seslat *Scrying* (SO záchrany 17). Kromě toho můžeš seslat *Detect Thoughts* (SO záchrany 17) na tvory, které vidíš do 30 stop od senzoru kouzla. Na toto kouzlo *Detect Thoughts* se nemusíš soustředit, aby po dobu svého trvání vydrželo, ale skončí, skončí-li kouzlo *Scrying*.",
+  "str": 216
+ },
+ {
+  "en": "Crystal Ball of Telepathy",
+  "cz": "křišťálová koule telepatie",
+  "druh": "Divotvorný předmět",
+  "vz": "legendární",
+  "pr": true,
+  "t": "Dokud se dotýkáš této křišťálové koule, můžeš jejím prostřednictvím seslat *Scrying* (SO záchrany 17). Kromě toho můžeš telepaticky komunikovat s tvory, které vidíš do 30 stop od senzoru kouzla. Přes senzor můžeš na jednoho z těchto tvorů také seslat *Suggestion* (SO záchrany 17). Na toto kouzlo *Suggestion* se nemusíš soustředit, aby po dobu svého trvání vydrželo, ale skončí, skončí-li *Scrying*. Tímto způsobem nemůžeš *Suggestion* znovu seslat až do příštího úsvitu.",
+  "str": 216
+ },
+ {
+  "en": "Crystal Ball of True Seeing",
+  "cz": "křišťálová koule pravého vidění",
+  "druh": "Divotvorný předmět",
+  "vz": "legendární",
+  "pr": true,
+  "t": "Dokud se dotýkáš této křišťálové koule, můžeš jejím prostřednictvím seslat *Scrying* (SO záchrany 17). Kromě toho máš Truesight s dosahem 120 stop se středem v senzoru kouzla.",
+  "str": 216
+ },
+ {
+  "en": "Cube of Force",
+  "cz": "krychle síly",
+  "druh": "Divotvorný předmět",
+  "vz": "vzácný",
+  "pr": true,
+  "t": "Tato krychle má hranu asi palec. Každá stěna nese odlišné znamení. Můžeš jednu z těchto stěn stisknout, spotřebovat pro ni potřebný počet nábojů a seslat tak kouzlo, které k ní patří (SO záchrany 17), jak ukazuje tabulka Stěny krychle síly.\nKrychle má na začátku 10 nábojů a každý den za úsvitu obnoví 1d6 spotřebovaných nábojů.\n**Stěny krychle síly (kouzlo – cena v nábojích):**\n- *Mage Armor*: 1\n- *Shield*: 1\n- *Tiny Hut*: 3\n- *Private Sanctum*: 4\n- *Resilient Sphere*: 4\n- *Wall of Force*: 5",
+  "str": 216
+ },
+ {
+  "en": "Cubic Gate",
+  "cz": "krychlová brána",
+  "druh": "Divotvorný předmět",
+  "vz": "legendární",
+  "pr": false,
+  "t": "Tato krychle má hranu 3 palce a vyzařuje hmatatelnou magickou energii. Každá ze šesti stěn krychle je naladěna na jinou sféru bytí, z nichž jedna je Hmotná sféra. Ostatní stěny jsou spojeny se sférami, které určí vypravěč.\nKrychle má 3 náboje a každý den za úsvitu obnoví 1d3 spotřebovaných nábojů. Akcí Magie můžeš spotřebovat 1 náboj krychle a jejím prostřednictvím seslat jedno z následujících kouzel.\n**Brána (Gate).** Stiskem jedné stěny krychle sešleš *Gate* a otevřeš portál na sféru bytí, na kterou je tato stěna naladěna.\n**Přesun mezi sférami (Plane Shift).** Dvojím stiskem jedné stěny krychle sešleš *Plane Shift* a přeneseš cíle na sféru bytí, na kterou je tato stěna naladěna.",
+  "str": 216
+ },
+ {
+  "en": "Dagger of Venom",
+  "cz": "jedová dýka",
+  "druh": "Zbraň",
+  "upr": "Dagger",
+  "vz": "vzácný",
+  "pr": false,
+  "t": "S touto magickou zbraní získáváš bonus +1 k hodům na útok a hodům na zranění.\nBonusovou akcí můžeš čepel magicky potáhnout jedem. Jed vydrží 1 minutu, nebo dokud útok touto zbraní nezasáhne tvora. Tento tvor musí uspět v záchranném hodu na Odolnost se SO 15, jinak utrpí 2d10 Poison zranění a na 1 minutu získá stav Otráven (Poisoned). Zbraň nelze tímto způsobem znovu použít až do příštího úsvitu.",
+  "ef": {
+   "utok": 1
+  },
+  "str": 216
+ },
+ {
+  "en": "Dancing Sword",
+  "cz": "tančící meč",
+  "druh": "Zbraň",
+  "upr": "Greatsword, Longsword, Rapier, Scimitar nebo Shortsword",
+  "vz": "velmi vzácný",
+  "pr": true,
+  "t": "Bonusovou akcí můžeš tuto magickou zbraň vyhodit do vzduchu. Když to uděláš, zbraň se začne vznášet, uletí až 30 stop a zaútočí na jednoho tvora podle tvé volby do 5 stop od sebe. Zbraň používá tvůj hod na útok a k hodům na zranění přičítá tvůj modifikátor vlastnosti.\nDokud se zbraň vznáší, můžeš ji bonusovou akcí přimět, aby přeletěla až 30 stop na jiné místo do 30 stop od tebe. V rámci téže bonusové akce můžeš zbraň přimět, aby zaútočila na jednoho tvora do 5 stop od sebe.\nPoté, co vznášející se zbraň zaútočí počtvrté, přiletí zpět k tobě a pokusí se vrátit do tvé ruky. Nemáš-li volnou ruku, zbraň spadne na zem ve tvém prostoru. Nemá-li zbraň k tobě volnou cestu, přiblíží se k tobě, jak nejvíc může, a pak spadne na zem. Přestane se vznášet také tehdy, když ji uchopíš nebo když jsi od ní dál než 30 stop.",
+  "str": 217
+ },
+ {
+  "en": "Decanter of Endless Water",
+  "cz": "karafa nekonečné vody",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Tato zazátkovaná láhev při zatřesení šplouchá, jako by obsahovala vodu. Karafa váží 2 libry.\nAkcí Magie můžeš vytáhnout zátku a vyslovit jedno ze tří povelových slov, načež z láhve vytéká určité množství sladké nebo slané vody (podle tvé volby). Voda přestane vytékat na začátku tvého příštího tahu. Vyber si z následujících povelových slov:\n- **Šplouchnutí (Splash).** Karafa vydá 1 galon vody.\n- **Fontána (Fountain).** Karafa vydá 5 galonů vody.\n- **Gejzír (Geyser).** Karafa vydá 30 galonů vody, která vytryskne v čáře dlouhé 30 stop a široké 1 stopu. Držíš-li karafu, můžeš gejzír namířit jedním směrem (není potřeba žádná akce). Jeden tvor podle tvé volby v čáře musí uspět v záchranném hodu na Sílu se SO 13, jinak utrpí 1d4 Bludgeoning zranění a získá stav Sražen (Prone). Místo tvora můžeš zacílit jeden předmět v čáře, který nikdo nenosí ani nedrží a který neváží víc než 200 liber. Gejzír předmět převrhne.",
+  "str": 217
+ },
+ {
+  "en": "Deck of Illusions",
+  "cz": "balíček iluzí",
+  "druh": "Divotvorný předmět",
+  "vz": "neobvyklý",
+  "pr": false,
+  "t": "Tato krabička obsahuje sadu karet. Úplný balíček má 34 karet: 32 zobrazuje určité tvory a dvě mají zrcadlový povrch. Balíčku nalezenému jako poklad obvykle chybí 1d20 − 1 karet.\nMagie balíčku funguje, jen jsou-li karty taženy náhodně. Akcí Magie můžeš z balíčku náhodně vytáhnout kartu a hodit ji na zem na místo do 30 stop od sebe. Nad hozenou kartou se zformuje iluze tvora určeného hodem v tabulce Balíček iluzí a vydrží, dokud není rozptýlena. Iluzorní tvor vytvořený kartou vypadá a chová se jako skutečný tvor svého druhu, jen nemůže nikomu ublížit. Dokud jsi do 120 stop od iluzorního tvora a vidíš ho, můžeš ho akcí Magie přesunout kamkoli do 30 stop od jeho karty.\nJakákoli fyzická interakce s iluzorním tvorem odhalí, že je falešný, protože předměty jím procházejí. Tvor, který akcí Studium iluzorního tvora zrakem prozkoumá, ho rozpozná jako iluzi úspěšným ověřením Inteligence (Investigation) se SO 15. Iluze trvá, dokud není její karta přemístěna nebo iluze rozptýlena (kouzlem *Dispel Magic* nebo podobným účinkem). Když iluze skončí, obrázek na její kartě zmizí a kartu už nelze znovu použít.\n**Balíček iluzí (1d100 – iluze\\*):**\n- 01–03: **Adult Red Dragon**\n- 04–06: **Archmage**\n- 07–09: **Assassin**\n- 10–12: **Bandit Captain**\n- 13–15: **Basilisk**\n- 16–18: **Berserker**\n- 19–21: **Bugbear Warrior**\n- 22–24: **Cloud Giant**\n- 25–27: **Druid**\n- 28–30: **Erinyes**\n- 31–33: **Ettin**\n- 34–36: **Fire Giant**\n- 37–39: **Frost Giant**\n- 40–42: **Gnoll Warrior**\n- 43–45: **Goblin Warrior**\n- 46–48: **Guardian Naga**\n- 49–51: **Hill Giant**\n- 52–54: **Hobgoblin Warrior**\n- 55–57: **Incubus**\n- 58–60: **Iron Golem**\n- 61–63: **Knight**\n- 64–66: **Kobold Warrior**\n- 67–69: **Lich**\n- 70–72: **Medusa**\n- 73–75: **Night Hag**\n- 76–78: **Ogre**\n- 79–81: **Oni**\n- 82–84: **Priest**\n- 85–87: **Succubus**\n- 88–90: **Troll**\n- 91–93: **Veteran Warrior**\n- 94–96: **Wyvern**\n- 97–00: Ten, kdo kartu táhl\n\\*Statistiky těchto tvorů (kromě toho, kdo kartu táhl) najdeš v oddílu „Nestvůry“ (Monsters).",
+  "str": 217
+ },
+ {
+  "en": "Defender",
+  "cz": "ochránce",
+  "druh": "Zbraň",
+  "upr": "jakákoli zbraň na blízko",
+  "vz": "legendární",
+  "pr": true,
+  "t": "S touto magickou zbraní získáváš bonus +3 k hodům na útok a hodům na zranění.\nPři prvním útoku touto zbraní v každém svém tahu můžeš část bonusu zbraně nebo celý bonus převést na svou Armor Class. Můžeš například snížit bonus k hodům na útok a hodům na zranění na +1 a získat bonus +2 k Armor Class. Upravené bonusy platí do začátku tvého příštího tahu, ale abys z bonusu k AC těžil, musíš zbraň držet.",
+  "ef": {
+   "utok": 3
+  },
+  "str": 218
+ },
+ {
+  "en": "Demon Armor",
+  "cz": "démonská zbroj",
+  "druh": "Zbroj",
+  "upr": "jakákoli lehká, střední nebo těžká",
+  "vz": "velmi vzácný",
+  "pr": true,
+  "t": "Dokud máš tuto zbroj na sobě, získáváš bonus +1 k Armor Class a umíš jazyk Abyssal. Kromě toho drápaté kovové rukavice zbroje umožňují tvým úderům beze zbraně způsobovat 1d8 Slashing zranění místo obvyklého Bludgeoning zranění a získáváš bonus +1 k hodům na útok a hodům na zranění při úderech beze zbraně.\n**Kletba (Curse).** Jakmile si tuto prokletou zbroj oblékneš, nemůžeš ji svléknout, dokud se nestaneš cílem kouzla *Remove Curse* nebo podobné magie. Dokud máš zbroj na sobě, máš nevýhodu na hody na útok proti démonům a na záchranné hody proti jejich kouzlům a zvláštním schopnostem.",
+  "ef": {
+   "ac": 1
+  },
+  "str": 218
+ },
+ {
+  "en": "Dimensional Shackles",
+  "cz": "dimenzionální pouta",
+  "druh": "Divotvorný předmět",
+  "vz": "vzácný",
+  "pr": false,
+  "t": "Akcí Použití můžeš tato pouta nasadit tvorovi, který má stav Neschopný (Incapacitated). Pouta se přizpůsobí tvorovi velikosti od Malé po Velkou. Pouta brání spoutanému tvorovi použít jakýkoli způsob mimodimenzionálního pohybu, včetně teleportace nebo cestování na jinou sféru bytí. Nebrání tvorovi projít mezidimenzionálním portálem.\nTy a každý tvor, kterého při nasazování pout určíš, můžete pouta sejmout akcí Použití. Jednou za 30 dní může spoutaný tvor provést ověření Síly (Athletics) se SO 30. Při úspěšném ověření se tvor osvobodí a pouta zničí.",
+  "str": 218
+ },
+ {
+  "en": "Dragon Orb",
+  "cz": "dračí koule",
+  "druh": "Divotvorný předmět",
+  "vz": "artefakt",
+  "pr": true,
+  "t": "Koule je rytá křišťálová sféra o průměru asi 10 palců. Při použití naroste na průměr asi 20 palců a uvnitř se v ní víří mlha.\nDokud jsi na kouli napojen, můžeš akcí Magie pohlédnout do jejích hlubin. Pak musíš provést záchranný hod na Charisma se SO 15. Při úspěchu ovládáš kouli, dokud zůstaneš napojen. Při neúspěchu ti koule udělí stav Okouzlen (Charmed), dokud na ni zůstaneš napojen.\nDokud jsi koulí okouzlen, nemůžeš své napojení na ni dobrovolně ukončit a koule na tebe libovolně sesílá *Suggestion* (SO záchrany 18), kterým tě nabádá k práci na zlých cílech, po nichž touží. Dračí podstata uvnitř koule může chtít mnoho věcí: zničení určité společnosti či organizace, osvobození z koule, šíření utrpení ve světě, rozmach uctívání Tiamat nebo něco jiného, co určí vypravěč.\n**Kouzla (Spells).** Koule má 7 nábojů a každý den za úsvitu obnoví 1d4 + 3 spotřebovaných nábojů. Ovládáš-li kouli, můžeš jejím prostřednictvím seslat jedno z kouzel v následující tabulce. Tabulka uvádí, kolik nábojů musíš za seslání kouzla spotřebovat.\n- *Cure Wounds* (verze 9. úrovně): 4\n- *Daylight*: 1\n- *Death Ward*: 2\n- *Detect Magic*: 0\n- *Scrying* (SO záchrany 18): 3\n**Přivolání draků (Call Dragons).** Dokud kouli ovládáš, můžeš akcí Magie přimět kouli, aby vyslala telepatické volání, které se šíří všemi směry do vzdálenosti 40 mil. Chromatičtí draci v dosahu pociťují nutkání dostavit se ke kouli co nejdříve a nejpřímější cestou. Dračí božstva jako Tiamat tomuto volání nepodléhají. Chromatičtí draci přivolaní ke kouli mohou být vůči tobě nepřátelští, protože jsi je donutil jednat proti jejich vůli. Jakmile tuto vlastnost použiješ, nelze ji znovu použít po dobu 1 hodiny.\n**Zničení koule (Destroying an Orb).** Dračí koule (Dragon Orb) má AC 20 a je zničena, utrpí-li zranění od zbraně +3 nebo od kouzla *Disintegrate*. Nic jiného jí ublížit nemůže.",
+  "str": 218
+ },
+ {
+  "en": "Dragon Scale Mail",
+  "cz": "zbroj z dračích šupin",
+  "druh": "Zbroj",
+  "upr": "Scale Mail",
+  "vz": "velmi vzácný",
+  "pr": true,
+  "t": "Dragon Scale Mail je vyrobena ze šupin jednoho druhu draka. Někdy draci své shozené šupiny sbírají a darují je. Jindy lovci pečlivě uchovají kůži mrtvého draka. V obou případech je zbroj z dračích šupin vysoce ceněná.\nDokud máš tuto zbroj na sobě, získáváš bonus +1 k Armor Class, máš výhodu na záchranné hody proti dechovým zbraním draků (Dragons) a máš Resistance vůči jednomu typu zranění určenému druhem draka, z něhož šupiny pocházejí (viz připojená tabulka).\nKromě toho můžeš akcí Magie zaostřit smysly a rozpoznat vzdálenost a směr k nejbližšímu drakovi do 30 mil od sebe, který je stejného druhu jako zbroj. Tuto akci nelze znovu použít až do příštího úsvitu.\n**Drak – Resistance:**\n- Black (černý): Acid\n- Blue (modrý): Lightning\n- Brass (mosazný): Fire\n- Bronze (bronzový): Lightning\n- Copper (měděný): Acid\n- Gold (zlatý): Fire\n- Green (zelený): Poison\n- Red (červený): Fire\n- Silver (stříbrný): Cold\n- White (bílý): Cold",
+  "ef": {
+   "ac": 1
+  },
+  "str": 218
+ }
+]
