@@ -2927,3 +2927,15 @@ button.kdbs:hover{border-color:var(--kb-gold)}.kdbsac b{color:var(--kb-gold)}
 .bdm .kzavbox{color:var(--kb-tx)}
 .bdm .kzavbox b{color:inherit}
 .bdm .kzavbox.kpok b{color:#f0757a}.bdm .kzavbox.kpoz b{color:var(--kb-gold)}
+/* na tahu: místo svíčky drak kolem žetonu – kulatý u postav, hranatý u NPC (2026-10-17) */
+.bmedw{position:relative;display:inline-grid;place-items:center}
+.bdrak{position:absolute;left:50%;top:50%;z-index:2;width:142%;height:142%;pointer-events:none;background:url("art/img/drak-ramec-kruh.webp") center/contain no-repeat;transform:translate(-50.8%,-52.4%);filter:drop-shadow(0 2px 3px rgba(40,10,0,.45))}
+.bdrakn{background-image:url("art/img/drak-ramec-ctverec.webp");width:138%;height:138%;transform:translate(-52%,-51.1%)}
+#bojview .bslot.btah .bmed{box-shadow:none;margin-top:2px}
+#bojview .bslot.btah::after{display:none}
+#bojview .bslot.btah .bkdo{margin-top:10px}
+#bojview .bslot.btah{flex-basis:84px}
+#bojview .bslot.btah .bmed{--ms:50px;margin-top:6px}
+#bojview .bslot.btah .bdrak{width:152%;height:152%}
+#bojview .bslot.btah .bdrakn{width:146%;height:146%}
+#bojview .bslot.btah .bkdo{margin-top:14px}
