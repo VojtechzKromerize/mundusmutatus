@@ -21,6 +21,13 @@ Ručně, např. na vlastním počítači s PostgreSQL:
     pip install playwright pillow && python -m playwright install chromium
     POSTGREST=/cesta/k/postgrest bash testy/spustit.sh        # celé
     MM_BEZ_DB=1 bash testy/spustit.sh                         # jen sestavení a statická verze
+    MM_TESTY="boj karta" bash testy/spustit.sh                # rychle: sestavení, databáze, práva a jen tyto prohlizec_*.py
+
+Prostředí bez běžící databáze (např. cloudové prostředí Clauda): `eval "$(bash testy/priprav-prostredi.sh)"`
+spustí PostgreSQL, nastaví heslo, stáhne PostgREST do `/tmp/postgrest` a nastaví proměnné.
+
+Když kontrola na GitHubu selže, každý řádek `FAIL …` a konec chyby Pythonu se zapíše jako anotace běhu:
+`gh run view <id>` je ukáže v oddílu ANNOTATIONS (a v souhrnu běhu) bez stahování logů.
 
 Proměnné: `MM_PSQL` (příkaz psql, např. `sudo -u postgres psql`), `PGHOST`/`PGUSER`/`PGPASSWORD`,
 `MM_VYSTUP` (kam uložit snímky obrazovky), `MM_PORT` (první z volných portů, výchozí 18700).

@@ -18,7 +18,7 @@ const DOVCZ: Record<string, string> = { akrobacie: "Acrobatics", zvirata: "Anima
   historie: "History", vhled: "Insight", zastrasovani: "Intimidation", patrani: "Investigation", lekarstvi: "Medicine", priroda: "Nature",
   vnimani: "Perception", vystupovani: "Performance", presvedcovani: "Persuasion", nabozenstvi: "Religion", zrucnost: "Sleight of Hand",
   plizeni: "Stealth", nenapadnost: "Stealth", preziti: "Survival" };
-const bez = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().trim();
+const bez = (s: string) => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
 const k = (n: number) => 1 + Math.floor(Math.random() * n);
 const sg = (n: number) => (n < 0 ? "−" + -n : "+" + n);
 
@@ -46,9 +46,9 @@ async function hod(body: any) {
   const uid = body.member?.user?.id ?? body.user?.id;
   const opt = Object.fromEntries((body.data?.options ?? []).map((o: any) => [o.name, o.value]));
   const S = db();
-  const { data: kid } = await S.rpc("mm_discord_karta", { p_discord: uid });
+  const { data: row } = await S.rpc("mm_discord_postava", { p_discord: uid });
+  const kid = row?.id;
   if (!kid) return { content: "Nejdřív se na webu přihlas přes Discord a vyber si postavu (stránka Hra). Pak hody půjdou odsud.", flags: 64 };
-  const { data: row } = await S.from("karty").select("karta,stav").eq("id", kid).single();
   const K = row?.karta ?? {}, st = row?.stav ?? {}, m: Mods = st.mods ?? {};
   const r = rozbor(String(opt.co ?? "1d20"), m, K);
   if (!r) return { content: `Nerozumím „${opt.co}“. Zkus třeba \`1d20+3\`, \`Stealth\`, \`WIS\`, \`záchrana CON\` nebo \`iniciativa\`.`, flags: 64 };
@@ -61,7 +61,8 @@ async function hod(body: any) {
   } else H = { k: kid, kdo: jm, co: r.co, tot: r.tot, txt: `${r.txt} · z Discordu`, src: "discord" };
   const z = k(6);
   if (r.d20) H.zav = z;
-  await S.from("hody").insert({ data: H });
+  const { error: ch } = await S.rpc("mm_discord_hod", { p_hod: H });
+  if (ch) throw new Error(ch.message);
   const zt = r.d20 ? ` · Závoj ${z}${z <= 2 ? " (Pokušení)" : z >= 5 ? " (Požehnání)" : ""}` : "";
   return { content: `**${jm}** · ${r.co}: **${H.tot}** — ${String(H.txt).replace(" · z Discordu", "")}${zt}`, allowed_mentions: { parse: [] } };
 }

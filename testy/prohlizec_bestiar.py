@@ -90,7 +90,7 @@ async def main():
     chk(await g.locator(rot+".bopen").count()==1 and await g.locator(hf+".bopen").count()==0,"karta toho, kdo je na tahu, je rozbalená, ostatní sbalené")
     chk("Rotmistr" in await g.locator(".bnatahu .bcur").inner_text(),"lišta Na tahu ukazuje rotmistra")
     chk(await g.locator(".bslot.bdone").count()==0,"volný odehraný slot se v pruhu nezobrazuje")
-    chk(await g.locator(".bslot.btah .bsvic").count()==1,"žeton na tahu má svíci")
+    chk(await g.locator(".bslot.btah .bdrak").count()==1,"žeton na tahu má kolem sebe draka")
     # popisky při najetí myší: ikonky a vlastnosti zbraní
     await g.hover(rot+" .brac");await g.wait_for_timeout(300)
     chk(await g.locator(".btip.on").count()==1 and "AC 18" in await g.locator(".btip").inner_text(),"popisek AC při najetí myší")
