@@ -1203,17 +1203,37 @@ revoke all on function public.mm_push_posli(text[], boolean, text, text, text), 
 revoke all on function public.mm_push_prihlas(jsonb, text, text), public.mm_push_odhlas(text) from public;
 grant execute on function public.mm_push_prihlas(jsonb, text, text), public.mm_push_odhlas(text) to anon, authenticated;
 
--- Discord (2026-10-17): příkaz /hod ze serveru – služba (edge funkce mm-discord) najde postavu podle účtu Discord přihlášeného na webu
-create or replace function public.mm_discord_karta(p_discord text) returns text
+-- Discord (2026-10-17): příkaz /hod ze serveru – služba (edge funkce mm-discord) najde postavu podle účtu Discord přihlášeného na webu.
+-- Služby nemají práva k tabulkám, jen k těmto funkcím (stejně jako sestavení webu).
+create or replace function public.mm_discord_postava(p_discord text) returns jsonb
 language plpgsql stable security definer set search_path = public as $$
-declare k text;
+declare k text; r jsonb;
 begin
   execute 'select h.karta from public.hraci_ucty h join auth.identities i on i.user_id = h.user_id where i.provider = ''discord'' and i.provider_id = $1 limit 1' into k using p_discord;
-  return k;
+  if k is null then return null; end if;
+  select jsonb_build_object('id', id, 'karta', karta, 'stav', stav) into r from public.karty where id = k;
+  return r;
 exception when others then return null;
 end $$;
-revoke all on function public.mm_discord_karta(text) from public, anon, authenticated;
-grant execute on function public.mm_discord_karta(text) to service_role;
+create or replace function public.mm_discord_hod(p_hod jsonb) returns void
+language plpgsql security definer set search_path = public as $$
+begin
+  if jsonb_typeof(p_hod) <> 'object' or octet_length(p_hod::text) > 2000 or coalesce(p_hod ->> 'src', '') <> 'discord' then raise exception 'neplatný hod'; end if;
+  insert into public.hody (data) values (p_hod);
+end $$;
+-- služba upozornění: nastavení a odběry pro dané postavy / vypravěče; smazání neplatných odběrů
+create or replace function public.mm_push_data(p_karty text[], p_gm boolean) returns jsonb
+language sql stable security definer set search_path = public as $$
+  select jsonb_build_object('cfg', (select hodnota from public.nastaveni where klic = 'push'),
+    'odbery', coalesce((select jsonb_agg(jsonb_build_object('endpoint', endpoint, 'klice', klice)) from public.push_odbery
+      where karta = any (coalesce(p_karty, '{}')) or (p_gm and gm)), '[]'::jsonb))
+$$;
+create or replace function public.mm_push_smaz(p_endpointy text[]) returns void
+language sql security definer set search_path = public as $$
+  delete from public.push_odbery where endpoint = any (p_endpointy)
+$$;
+revoke all on function public.mm_discord_postava(text), public.mm_discord_hod(jsonb), public.mm_push_data(text[], boolean), public.mm_push_smaz(text[]) from public, anon, authenticated;
+grant execute on function public.mm_discord_postava(text), public.mm_discord_hod(jsonb), public.mm_push_data(text[], boolean), public.mm_push_smaz(text[]) to service_role;
 
 -- Herní záznam: hod z karty (kdo, co, výsledek, Závoj); drží se posledních 300
 drop function if exists public.mm_hod(jsonb);
