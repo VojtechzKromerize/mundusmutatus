@@ -11,13 +11,16 @@ const KDB=window.MMDB?{nacti:()=>MMDB.kartyNacti(),uloz:k=>MMDB.kartaUloz(k),sta
 const KST={},KSTAT=new Set((KARTY||[]).map(k=>k.id));let HODY=[],KLOAD=0;
 const kartaStav=id=>KST[id]||{};
 const KHRAC={};
-function kartyNastav(rows){(rows||[]).forEach(r=>{if(r.zamceno)KZAM.add(r.id);else if(r.zamceno===false)KZAM.delete(r.id);if(r.hrac)KHRAC[r.id]=r.hrac;else if(r.hrac===null)delete KHRAC[r.id];if(r.karta&&r.karta.n){const i=KARTY.findIndex(k=>k.id===r.id);if(i>=0)KARTY[i]=r.karta;else KARTY.push(r.karta)}KST[r.id]=r.stav||{}});
+/* rozepsané změny: načtení z databáze nesmí přepsat změnu, která se právě ukládá (nebo se uložila až po začátku načítání) */
+const KPEND={},KPENDT={};
+function kartyNastav(rows,t0){(rows||[]).forEach(r=>{if(r.zamceno)KZAM.add(r.id);else if(r.zamceno===false)KZAM.delete(r.id);if(r.hrac)KHRAC[r.id]=r.hrac;else if(r.hrac===null)delete KHRAC[r.id];if(r.karta&&r.karta.n){const i=KARTY.findIndex(k=>k.id===r.id);if(i>=0)KARTY[i]=r.karta;else KARTY.push(r.karta)}if(t0&&KPENDT[r.id]>t0)return;let st=r.stav||{};const P=KPEND[r.id];if(P&&Object.keys(P).length){st=Object.assign({},st);Object.entries(P).forEach(([k,q])=>{if(q.v==null)delete st[k];else st[k]=q.v})}KST[r.id]=st});
   Object.keys(KARTBY).forEach(k=>delete KARTBY[k]);KARTY.forEach(k=>{KARTBY[k.id]=k});kFrontaNaStav()}
-async function kartyNacti(){try{const r=await KDB.nacti();const pred=JSON.stringify(KST)+KARTY.length;kartyNastav(r);KLOAD=Date.now();KCACHE.uloz();if(KFR.get().length)kFrontaOdesli();return pred!==JSON.stringify(KST)+KARTY.length}catch(e){if(!KLOAD&&KCACHE.nacti()){KLOAD=Date.now();return true}return false}}
+async function kartyNacti(){try{const t0=Date.now(),r=await KDB.nacti();const pred=JSON.stringify(KST)+KARTY.length;kartyNastav(r,t0);KLOAD=Date.now();KCACHE.uloz();if(KFR.get().length)kFrontaOdesli();return pred!==JSON.stringify(KST)+KARTY.length}catch(e){if(!KLOAD&&KCACHE.nacti()){KLOAD=Date.now();return true}return false}}
 async function hodyNacti(){try{const r=await KDB.hody();const top=(HODY[0]||{}).id;HODY=(r||[]).map(x=>Object.assign({id:x.id,cas:x.cas},x.data||{}));return (HODY[0]||{}).id!==top}catch(e){return false}}
 /* změna stavu karty: hned v prohlížeči, pak do databáze; ch = {pole: hodnota|null} */
-async function kartaStavZmen(id,ch,msg,op={}){if(!op.bezZpet)kZpetZapis(id,ch);const o=Object.assign({},kartaStav(id));Object.entries(ch).forEach(([k,v])=>{if(v==null)delete o[k];else o[k]=v});KST[id]=o;kartyPrekresli();
-  try{for(const [k,v] of Object.entries(ch))await KDB.stav(id,k,v??null);if(msg)mmHlasG(msg,4500)}catch(e){if(window.MMDB&&kSitChyba(e)){Object.entries(ch).forEach(([k,v])=>kFrontaPridej({t:"s",id,k,v:v??null}));KCACHE.uloz();mmHlasG("Bez připojení – změna se uloží, až bude signál.",4000);return}mmHlasG("Nepodařilo se uložit: "+(e.message||e),5000);await kartyNacti();kartyPrekresli()}}
+async function kartaStavZmen(id,ch,msg,op={}){if(!op.bezZpet)kZpetZapis(id,ch);const o=Object.assign({},kartaStav(id));Object.entries(ch).forEach(([k,v])=>{if(v==null)delete o[k];else o[k]=v});KST[id]=o;kartyPrekresli();const P=KPEND[id]=KPEND[id]||{};Object.entries(ch).forEach(([k,v])=>{P[k]={v:v??null,n:((P[k]||{}).n||0)+1}});
+  const hotovo=k=>{const q=P[k];if(q&&--q.n<=0)delete P[k];KPENDT[id]=Date.now()};
+  try{for(const [k,v] of Object.entries(ch)){try{await KDB.stav(id,k,v??null)}finally{hotovo(k)}}if(msg)mmHlasG(msg,4500)}catch(e){if(window.MMDB&&kSitChyba(e)){Object.entries(ch).forEach(([k,v])=>kFrontaPridej({t:"s",id,k,v:v??null}));KCACHE.uloz();mmHlasG("Bez připojení – změna se uloží, až bude signál.",4000);return}mmHlasG("Nepodařilo se uložit: "+(e.message||e),5000);KPENDT[id]=0;await kartyNacti();kartyPrekresli()}}
 function kartyPrekresli(){if(curView==="karty")renderKarty(decodeURIComponent((location.hash.split("/")[1])||""));if(curView==="boj")renderBoj();if(curView==="hra")hraPrekresli()}
 /* vyčerpání (D&D 2024): každá úroveň −2 ke všem hodům d20 */
 const kVycerp=K=>+(kartaStav(K.id).vycerp||0);
