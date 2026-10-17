@@ -2999,3 +2999,9 @@ h4 .kspi{margin-right:5px}
 .kstrxl{display:flex;gap:6px;margin:8px 0 4px 40px;flex-wrap:wrap}
 .kstrxl button{min-width:30px;padding:2px 6px;border-radius:4px;border:1px solid var(--kb-bd2,#5a3d2c);background:#14100d;color:var(--kb-tx,#efe3c8);font-weight:700;cursor:pointer}
 .kstrxl button[aria-pressed=true]{background:#2f7fd0;border-color:#2f7fd0;color:#fff}
+/* aktuální stavy pod portrétem (místo popisku Inspirace) */
+.bdmsti{display:flex;justify-content:center;align-items:flex-end;gap:2px;padding:6px 0 0!important;border:0;background:none;cursor:pointer;justify-self:center}
+.bdmsti .bimg.bdmsti1{width:34px;height:34px;filter:drop-shadow(0 1px 1px #000)}
+.bdmsti .bimg-neviditelny{filter:invert(.85) sepia(.3) drop-shadow(0 1px 1px #000)!important}
+.bdmsti b{font-size:.8rem;color:var(--kb-tx);align-self:center;margin-left:2px}
+.bdmsti3 .bimg.bdmsti1{width:28px;height:28px}.bdmsti3{gap:0}
