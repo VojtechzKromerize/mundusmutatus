@@ -267,7 +267,9 @@ async function hraPoll(hned){if(!window.MMDB)return;const a=await vyzvyNacti(),b
   else{try{bojVyzZpracuj()}catch(e){console.error(e)}const n=VYZVY.filter(v=>!v.zavrena).reduce((a,v)=>a+Object.keys(v.odpovedi||{}).length,0);if(n>VYZODP&&!hned){const v=VYZVY.find(x=>!x.zavrena&&Object.keys(x.odpovedi||{}).length);if(v&&curView!=="hra")mmHlasG(`Hráči odpovídají na výzvu (${vyzvaTxt(v.data)}) – výsledky na stránce Hra.`,4500)}VYZODP=n;
     const nz=ZPRG.filter(z=>!z.gm&&z.id>zprVideno.get());if(nz.length){zprVideno.set(nz[nz.length-1].id);if(!hned)mmHlasG(`Zpráva od ${(KARTBY[nz[nz.length-1].k]||{}).n||"hráče"}: ${nz[nz.length-1].t.slice(0,120)}`,7000)}}
   if(a||b||hned)hraPrekresli();vyzBar()}
-function hraStart(){if(HRAP||!window.MMDB)return;jaOver();jaDiscordInit();poklNacti();hraPoll(true);HRAP=setInterval(()=>{hraPoll();if(curView==="hra"&&bojDB)bojNacti().then(()=>{})},5000)}
+function hraStart(){if(HRAP||!window.MMDB)return;jaOver();jaDiscordInit();poklNacti();hraPoll(true);HRAP=setInterval(()=>{if(document.visibilityState!=="visible")return;hraPoll();if(curView==="hra"&&bojDB)bojNacti().then(()=>{})},5000);
+  /* skrytá záložka nedotazuje (upozornění v telefonu chodí i tak); po návratu hned načíst */
+  document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"){hraPoll();if(window.MMDB&&curView==="karty")kartyNacti().then(ch=>{if(ch)kartyPrekresli()})}})}
 function hraPrekresli(){if(curView!=="hra")return;const v=document.getElementById("hraview"),ae=document.activeElement;if(v&&ae&&v.contains(ae)&&ae.matches("input,textarea,select"))return;renderHra()}
 /* ---- úkoly družiny a postup na úroveň (v herním stavu, který čtou všichni) ---- */
 async function ukolyUloz(L){await hraUloz({ukoly:L});hraPrekresli()}

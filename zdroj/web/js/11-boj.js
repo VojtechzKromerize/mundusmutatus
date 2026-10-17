@@ -536,7 +536,7 @@ function bojOsobaGM(pid){const o=OSPROT[pid];if(!o)return "";const p=PROTBY[o.b]
   return `<details class="gmres bosgm"><summary>Statblock v boji <span>jen pro vypravěče</span></summary><p><b>${besc(p.n)}</b>${(o.pr||[]).length?" · "+o.pr.map(i=>besc((PRIVBY[i]||{}).n||i)).join(", "):""} <button type="button" class="gbtn ghost" data-bosboj="${besc(pid)}">+ do boje</button></p>${bojRefTxt(p)}<div class="bsb">${p.b||p.h}</div></details>`}
 document.addEventListener("click",e=>{const b=e.target.closest("[data-bosboj]");if(!b)return;const o=OSPROT[b.dataset.bosboj];if(!o)return;bojPridejZvenku(bojRozvin([{os:o.id,pr:[]}]),`${o.n} – nepřítel ze Zemských desek.`)});
 const BOJ={s:null,v:-1,poll:null};
-const bojDB=window.MMDB?{nacti:()=>MMDB.bojNacti(),verze:()=>MMDB.bojVerze(),uloz:s=>MMDB.bojUloz(s),obsad:(i,h)=>MMDB.bojObsad(i,h),hod:(h,v)=>MMDB.bojHod(h,v),hrac:(h,p,v)=>MMDB.bojHrac(h,p,v),utok:(h,u)=>MMDB.bojUtok(h,u)}
+const bojDB=window.MMDB?{nacti:()=>MMDB.bojNacti(),verze:()=>MMDB.bojVerze(),uloz:(s,v)=>MMDB.bojUloz(s,v),obsad:(i,h)=>MMDB.bojObsad(i,h),hod:(h,v)=>MMDB.bojHod(h,v),hrac:(h,p,v)=>MMDB.bojHrac(h,p,v),utok:(h,u)=>MMDB.bojUtok(h,u)}
   :GMV?{nacti:async()=>{try{return JSON.parse(localStorage.getItem("mm-boj")||"null")}catch(e){return null}},
         verze:async()=>{try{return (JSON.parse(localStorage.getItem("mm-boj")||"null")||{}).verze||0}catch(e){return 0}},
         uloz:async s=>{const v=(BOJ.v>0?BOJ.v:0)+1;try{localStorage.setItem("mm-boj",JSON.stringify({stav:s,verze:v}))}catch(e){}return v},obsad:null}:null;
@@ -610,10 +610,13 @@ async function bojUlozFrontu(){
   const q=BZ.q.splice(0),cek=BZ.cek.splice(0);if(!q.length){cek.forEach(r=>r());return}
   BZ.beh=true;const busy=setTimeout(()=>document.documentElement.classList.add("gmbusy"),400);
   const prehraj=(z,fs)=>{fs.forEach(f=>{try{f(z)}catch(e){}});bojMoralka(z);z.sloty=bojSloty(z);return z};
-  try{let s=BOJ.s,jinde=false;
-    const v=bojDB.verze?await bojDB.verze():BOJ.v;
-    if(v!==BOJ.v){const cur=await bojDB.nacti();try{bojHracDiff(BOJ.db,cur&&cur.stav)}catch(e){}s=prehraj(JSON.parse(JSON.stringify((cur&&cur.stav)||{})),q);jinde=true}
-    const nv=await bojDB.uloz(s);BOJ.v=nv;BOJ.db=JSON.parse(JSON.stringify(s));
+  try{let s=BOJ.s,jinde=false,nv;
+    /* hráč mohl mezi kontrolou verze a uložením zapsat z telefonu: databáze vrátí konflikt, načteme a přehrajeme znovu */
+    for(let pokus=0;;pokus++){
+      const v=bojDB.verze?await bojDB.verze():BOJ.v;
+      if(v!==BOJ.v||pokus){const cur=await bojDB.nacti();try{bojHracDiff(BOJ.db,cur&&cur.stav)}catch(e){}s=prehraj(JSON.parse(JSON.stringify((cur&&cur.stav)||{})),q);jinde=true;BOJ.v=cur?cur.verze:0}
+      try{nv=await bojDB.uloz(s,BOJ.v);break}catch(e){if(pokus<3&&(e.status===409||/konflikt/i.test(e.message||"")))continue;throw e}}
+    BOJ.v=nv;BOJ.db=JSON.parse(JSON.stringify(s));
     if(jinde){BOJ.s=BZ.q.length?prehraj(JSON.parse(JSON.stringify(s)),BZ.q):s;renderBoj();bojNav();setTimeout(bojUtokyNove,50)}}
   catch(e){mmHlasG("Nepodařilo se uložit: "+e.message,6000);BZ.q.length=0;try{BOJ.v=-1;await bojNacti();renderBoj();bojNav()}catch(x){}}
   finally{clearTimeout(busy);document.documentElement.classList.remove("gmbusy");BZ.beh=false;cek.forEach(r=>r())}}

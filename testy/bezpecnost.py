@@ -24,12 +24,14 @@ for kdo, tok in (("anonym", None), ("hráč", hr)):
         chk(prazdne(r) or not ok(r[0]), f"{kdo} nečte tabulku {t}")
     chk(call("/rest/v1/snimek?select=verze", tok=tok)[0] == 200, f"{kdo} čte veřejný výřez")
     chk(call("/rest/v1/boj?select=verze", tok=tok)[0] == 200, f"{kdo} čte tracker iniciativy")
+    for t in ("karty", "hody", "vyzvy", "ukazky"):
+        chk(call(f"/rest/v1/{t}?select=id&limit=1", tok=tok)[0] == 200, f"{kdo} čte veřejnou tabulku {t}")
     s, b = call("/rest/v1/rpc/mm_stavy", "POST", {}, tok=tok)
     chk(not ok(s) or b.strip() in ("null", ""), f"{kdo} nevidí stavy odhalení")
     for fn, body in (("mm_nastav_stavy", {"p_zmeny": {"slik": 1}}), ("mm_nastav_hru", {"p_hra": {}}),
                      ("mm_nahraj_obsah", {"p_vetev": "x", "p_hrac": {}, "p_gm": {}, "p_vychozi": {}}), ("mm_prepocitej", {}),
                      ("mm_uloz_zaznam", {"p_soubor": "osoby/x.md", "p_md": "x", "p_puvodni": None}), ("mm_zaznamy_gm", {}),
-                     ("mm_boj_uloz", {"p_stav": {}}), ("mm_vyprava_nacti", {}), ("mm_vyprava_uloz", {"p_stav": {}}), ("mm_kouzla_nacti", {}), ("mm_kouzla_uloz", {"p_kouzla": []}), ("mm_nastav_obrazek", {"p_typ": "erby", "p_klic": "x", "p_hodnota": {}}),
+                     ("mm_boj_uloz", {"p_stav": {}}), ("mm_boj_uloz_v", {"p_stav": {}, "p_verze": 1}), ("mm_vyprava_nacti", {}), ("mm_vyprava_uloz", {"p_stav": {}}), ("mm_kouzla_nacti", {}), ("mm_kouzla_uloz", {"p_kouzla": []}), ("mm_nastav_obrazek", {"p_typ": "erby", "p_klic": "x", "p_hodnota": {}}),
                      ("mm_ukaz", {"p_ukazka": {"n": "x"}}), ("mm_ukaz_smaz", {"p_id": 1}), ("mm_sezeni_nacti", {}), ("mm_sezeni_uloz", {"p_sezeni": {"s": []}}),
                      ("mm_vyzva", {"p_vyzva": {"typ": "zach", "ab": "WIS"}}), ("mm_vyzva_zavri", {"p_id": None}), ("mm_hrac_zrus_heslo", {"p_karta": "balduin"}), ("mm_zpravy_gm", {}), ("mm_hrac_ok", {"p_karta": "x", "p_token": None}), ("mm_ja_uvolni", {"p_karta": "x"}), ("mm_discord_nastav", {"p_url": None}), ("mm_discord_postava", {"p_discord": "1"}), ("mm_push_data", {"p_karty": ["balduin"], "p_gm": True}), ("mm_discord_hod", {"p_hod": {"src": "discord"}}), ("mm_push_posli", {"p_karty": ["balduin"], "p_gm": True, "p_titul": "x", "p_text": "x", "p_url": "#hra"}), ("mm_push_prihlas", {"p_odber": {"endpoint": "https://x.cz/a", "keys": {"p256dh": "a", "auth": "b"}}, "p_karta": None})):
         chk(not ok(call(f"/rest/v1/rpc/{fn}", "POST", body, tok=tok)[0]), f"{kdo} nesmí volat {fn}")

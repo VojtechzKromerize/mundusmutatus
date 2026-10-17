@@ -214,7 +214,7 @@ create policy "vyzvy: čte každý" on public.vyzvy for select to anon, authenti
 drop policy if exists "boj: čte každý" on public.boj;
 create policy "boj: čte každý" on public.boj for select to anon, authenticated using (true);
 drop policy if exists "gm: vidí sebe" on public.gm;
-create policy "gm: vidí sebe" on public.gm for select to authenticated using (user_id = auth.uid());
+create policy "gm: vidí sebe" on public.gm for select to authenticated using (user_id = (select auth.uid()));
 -- Zápisy přímo do tabulek nejsou povoleny nikomu kromě tajného klíče; vše jde přes funkce níže.
 
 -- Nejnižší stav ze skupiny id (chybějící id = skryté; prázdná skupina = viditelné)
@@ -363,6 +363,24 @@ declare v bigint;
 begin
   if not public.mm_je_gm() then
     raise exception 'jen pro vypravěče' using errcode = '42501';
+  end if;
+  insert into public.boj as b (id, stav, verze, zmeneno) values ('aktivni', p_stav, 1, now())
+  on conflict (id) do update set stav = excluded.stav, verze = b.verze + 1, zmeneno = now()
+  returning verze into v;
+  return v;
+end $$;
+-- uložení s kontrolou verze: když mezitím zapsal hráč z telefonu (zbraň, stav, hod…), vrátí konflikt a prohlížeč
+-- vypravěče si stav načte znovu a své změny přehraje – hráčovy zápisy se tak nepřepíšou starší kopií
+create or replace function public.mm_boj_uloz_v(p_stav jsonb, p_verze bigint) returns bigint
+language plpgsql security definer set search_path = public as $$
+declare v bigint; cur bigint;
+begin
+  if not public.mm_je_gm() then
+    raise exception 'jen pro vypravěče' using errcode = '42501';
+  end if;
+  select verze into cur from public.boj where id = 'aktivni' for update;
+  if cur is not null and p_verze is not null and cur <> p_verze then
+    raise exception 'konflikt verze boje' using errcode = '40001';
   end if;
   insert into public.boj as b (id, stav, verze, zmeneno) values ('aktivni', p_stav, 1, now())
   on conflict (id) do update set stav = excluded.stav, verze = b.verze + 1, zmeneno = now()
@@ -1571,6 +1589,8 @@ revoke all on function public.mm_stavy() from public, anon;
 revoke all on function public.mm_nastav_hru(jsonb) from public, anon;
 revoke all on function public.mm_boj_uloz(jsonb) from public, anon;
 grant execute on function public.mm_boj_uloz(jsonb) to authenticated;
+revoke all on function public.mm_boj_uloz_v(jsonb, bigint) from public, anon;
+grant execute on function public.mm_boj_uloz_v(jsonb, bigint) to authenticated;
 revoke all on function public.mm_vyprava_nacti() from public, anon;
 revoke all on function public.mm_vyprava_uloz(jsonb) from public, anon;
 grant execute on function public.mm_vyprava_nacti(), public.mm_vyprava_uloz(jsonb) to authenticated;
@@ -1600,6 +1620,11 @@ grant execute on function public.mm_hrac_zrus_heslo(text), public.mm_vyzva(jsonb
 grant execute on function public.mm_vyzva_odpoved(bigint, text, jsonb, text), public.mm_zprava(text, text, text), public.mm_zpravy(text, text) to anon, authenticated;
 grant execute on function public.mm_nastav_hru(jsonb) to authenticated;
 grant execute on function public.mm_stavy() to authenticated;
+-- pomocné čisté funkce: pevná search_path (doporučení Supabase)
+alter function public.mm_cislo(jsonb, int, int) set search_path = pg_catalog, public;
+alter function public.mm_uroven(jsonb, jsonb) set search_path = pg_catalog, public;
+alter function public.mm_zminky(text, jsonb) set search_path = pg_catalog, public;
+alter function public.mm_orez(jsonb, jsonb) set search_path = pg_catalog, public;
 revoke all on function public.mm_orez(jsonb, jsonb) from public, anon, authenticated;
 revoke all on function public.mm_zminky(text, jsonb) from public, anon, authenticated;
 revoke all on function public.mm_uroven(jsonb, jsonb) from public, anon, authenticated;
@@ -1615,6 +1640,8 @@ revoke select on public.karty_historie, public.push_odbery from anon, authentica
 revoke select on public.zaznamy, public.zaznamy_historie from anon, authenticated;
 revoke select on public.hesla, public.relace_hracu, public.zpravy, public.hraci_ucty, public.karty_texty from anon, authenticated;
 grant select on public.boj to anon, authenticated;
+-- Supabase už novým tabulkám práva nedává sám: veřejně čitelné tabulky (RLS „čte každý“) je musí mít výslovně
+grant select on public.karty, public.hody, public.vyzvy, public.ukazky to anon, authenticated;
 revoke select on public.nastaveni from anon, authenticated;
 grant select on public.snimek to anon, authenticated;
 grant select on public.obsah, public.stavy, public.denik, public.gm to authenticated;

@@ -17,8 +17,10 @@ async function kzVlUloz(){const d=KZVL.map(({vl,...x})=>x);
     catch(e){if(e.status===404||/mm_kouzla|function|schema cache/i.test(e.message)){KZ_LOK=true;mmHlasG("Databáze zatím neumí ukládat vlastní kouzla – spusť v Supabase aktuální supabase/schema.sql. Do té doby se ukládají jen v tomto prohlížeči.",9000)}
       else{mmHlasG("Kouzlo se nepodařilo uložit: "+e.message,6000);return false}}}
   try{localStorage.setItem("mm-kouzla",JSON.stringify(d))}catch(e){mmHlasG("Kouzlo se nepodařilo uložit ani v prohlížeči.",6000);return false}return true}
+/* art/kouzla.json se stáhne jednou (sdílí ho seznam kouzel vypravěče i karty postav); každý si ho přečte zvlášť */
+let KZTXTP=null;const kouzlaTxt=()=>KZTXTP=KZTXTP||fetch("art/kouzla.json").then(r=>{if(!r.ok)throw new Error(r.status);return r.text()}).catch(e=>{KZTXTP=null;throw e});
 function kzNacti(){if(KZ)return Promise.resolve(KZ);
-  if(!KZP)KZP=Promise.all([fetch("art/kouzla.json").then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}),kzVlNacti().catch(()=>[])])
+  if(!KZP)KZP=Promise.all([kouzlaTxt().then(t=>JSON.parse(t)),kzVlNacti().catch(()=>[])])
     .then(([d,v])=>{KZSRD=d;KZVL=v;kzIndex();return KZ}).catch(e=>{KZP=null;throw e});
   return KZP}
 const kzUr=l=>l?`${l}. úroveň`:"trik";
