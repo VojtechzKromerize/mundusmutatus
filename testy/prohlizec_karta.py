@@ -157,6 +157,8 @@ async def main():
     await pl.click("[data-vyzhod]");await pl.wait_for_timeout(1200)
     await g.wait_for_function("document.querySelector('.vyzgm') && /Balduin: \\d+/.test(document.querySelector('.vyzgm').innerText)",timeout=15000)
     chk(True,"vypravěč vidí výsledek výzvy")
+    await g.click('[data-vyzrychle="Perception"]');await pl.wait_for_function("document.querySelector('.vyzhr') && document.querySelector('.vyzhr').innerText.includes('Perception')",timeout=15000)
+    chk(True,"vypravěč jedním klepnutím vyzve všechny k ověření Perception")
     # tajné zprávy
     await pl.fill("[data-zprf] textarea","Přijímám Pokušení, ale tajně.");await pl.click("[data-zprf] button");await pl.wait_for_timeout(800)
     await g.wait_for_function("document.body.innerText.includes('Přijímám Pokušení, ale tajně.')",timeout=15000)
