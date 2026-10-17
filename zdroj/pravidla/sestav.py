@@ -135,4 +135,14 @@ if __name__ == "__main__":
                 R[nm] = [k["id"], t["id"]]
     json.dump(R, open(os.path.join(ROOT, "art", "srd-rysy.json"), "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
     print("srd-rysy.json:", len(R), "rysů")
+    # tabulky povolání po úrovních (art/srd-urovne.json) pro postup na úroveň: {povolání: {"h": [sloupce], "r": [[buňky úrovně 1–20]]}}
+    U = {}
+    pv = next(k for k in j["kap"] if k["id"] == "povolani")["h"]
+    for m in re.finditer(r'Rysy povolání (\w+)</h4>.*?<table><thead><tr>(.*?)</tr></thead><tbody>(.*?)</tbody>', pv, re.S):
+        bun = lambda t: [re.sub(r"<[^>]+>", "", x).strip() for x in re.findall(r"<t[hd][^>]*>(.*?)</t[hd]>", t, re.S)]
+        rows = [bun(r) for r in re.findall(r"<tr>(.*?)</tr>", m.group(3), re.S)]
+        if len(rows) == 20:
+            U[m.group(1)] = {"h": bun(m.group(2)), "r": rows}
+    json.dump(U, open(os.path.join(ROOT, "art", "srd-urovne.json"), "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
+    print("srd-urovne.json:", len(U), "povolání")
     print("pravidla.json:", sum(len(k["h"]) for k in j["kap"]), "znaků,", sum(len(k["toc"]) for k in j["kap"]), "oddílů")

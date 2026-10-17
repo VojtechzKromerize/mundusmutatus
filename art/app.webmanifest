@@ -1,0 +1,15 @@
+{
+  "name": "Mundus Mutatus · Sub utraque sunt dracones",
+  "short_name": "Mundus Mutatus",
+  "description": "Karta postavy, hody a boj tažení v Čechách léta Páně 1458.",
+  "lang": "cs",
+  "start_url": "../#hra",
+  "scope": "../",
+  "display": "standalone",
+  "background_color": "#ece0c2",
+  "theme_color": "#4d1521",
+  "icons": [
+    {"src": "img/kostka-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable"},
+    {"src": "img/kostka-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"}
+  ]
+}
