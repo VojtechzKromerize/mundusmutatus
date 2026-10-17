@@ -218,6 +218,7 @@ async def main():
     await g.evaluate("BKART['h4']=true;renderBoj()");await g.wait_for_timeout(500)
     await g.click('[data-bhcard="h4"] [data-bdmsh="utok"][data-j="0"]');await g.wait_for_timeout(500)
     chk(await g.locator('[data-bhcard="h4"] .bphod').count()==1 and await g.input_value('[data-bhcard="h4"] [data-bgmut] [name=hod]')=="","vypravěč: klik na zásah nejdřív nabídne cíl a výhodu, hod ještě neproběhl")
+    chk(await g.get_attribute('[data-bhcard="h4"] [data-bpadv$="|0"]','aria-pressed')=="true","výchozí je normální hod (bez výhody i nevýhody)")
     if await g.locator('[data-bhcard="h4"] .bphcil').count(): await g.click('[data-bhcard="h4"] .bphcil >> nth=0');await g.wait_for_timeout(300)
     await g.click('[data-bhcard="h4"] [data-bpadv$="|1"]');await g.wait_for_timeout(300)
     await g.click('[data-bhcard="h4"] .bphod [data-bgmhod="0"]');await g.wait_for_timeout(500)

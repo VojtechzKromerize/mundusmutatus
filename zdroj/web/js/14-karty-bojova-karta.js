@@ -123,10 +123,10 @@ const bojUtTyp=(K,w)=>{const T=bojSikTypy(K,w),v=K&&w?BUTYP[K.id+":"+w.n]:null;r
 function bojPredHod(s,h,K,gm,j){const w=bojZbrVse(s,h)[+j];if(!w)return "";
   const c=(s.npc||[]).filter(o=>!bojSpoj(o)&&!(o.stav||[]).some(t=>t==="poražen"||t==="prchá"||t==="vzdal se")&&(o.druh!=="houf"||o.pocet>0));
   const G=gm?(BGMU[h.id]||{}):null,cil=gm?G.ci:BJU.cil,nav=bojAdvHrac(s,h,c.find(o=>o.id===cil),!!w.dal);
-  const adv=gm?String(G.adv??(nav.v||0)):(BJU.adv==="auto"?String(nav.v||0):String(BJU.adv));
+  const adv=gm?String(G.adv||0):(BJU.adv==="auto"?"0":String(BJU.adv));
   const T=bojSikTypy(K,w),typ=bojUtTyp(K,w);
   return `<div class="bphod"><div class="bphr"><span class="bphl">Cíl</span><span class="bphc">${c.map(o=>`<button type="button" class="bphcil" data-bpcil="${besc(h.id)}|${besc(o.id)}" aria-pressed="${cil===o.id}">${bojMedN(o,"bmini")}<span>${besc(o.n)}</span></button>`).join("")||`<small>žádný nepřítel</small>`}</span></div>
-    <div class="bphr"><span class="bphl">Hod</span><span class="badv bphadv" role="group" aria-label="Výhoda">${[["-1","nevýhoda"],["0","normálně"],["1","výhoda"]].map(([k,l])=>`<button type="button" data-bpadv="${besc(h.id)}|${k}" aria-pressed="${adv===k}">${l}</button>`).join("")}</span>${nav.v?`<small class="bphnav" ${btip(nav.why.join(", "))}>navrženo: ${nav.v>0?"výhoda":"nevýhoda"}</small>`:""}</div>
+    <div class="bphr"><span class="bphl">Hod</span><span class="badv bphadv" role="group" aria-label="Výhoda">${[["-1","nevýhoda"],["0","normálně"],["1","výhoda"]].map(([k,l])=>`<button type="button" data-bpadv="${besc(h.id)}|${k}" aria-pressed="${adv===k}">${l}</button>`).join("")}</span>${nav.v&&String(nav.v)!==adv?`<small class="bphnav" ${btip(nav.why.join(", "))}>podle stavů by šla ${nav.v>0?"výhoda":"nevýhoda"}</small>`:""}</div>
     ${T?`<div class="bphr"><span class="bphl" ${btip("Šikovná: před hodem si zvolíš typ zranění podle zbraně")}>Zranění</span><span class="bphc">${T.map(t=>`<button type="button" class="bphtyp" data-bptyp="${besc(K.id)}|${besc(w.n)}|${t}" aria-pressed="${typ===t}" ${btip(BZRT[t]||t)}>${bikZr(t)}<span>${besc(BZRT[t]||t)}</span></button>`).join("")}</span></div>`:""}
     <button type="button" class="bdmbtn bdmhod" ${gm?`data-bgmhod="${+j}"`:`data-bjut="${+j}"`} data-bph="${besc(h.id)}">🎲 Hodit útok ${bsg(+w.b||0)}${w.pocet>1?` · ${w.pocet}×`:""}${adv!=="0"?` ${adv==="1"?"s výhodou":"s nevýhodou"}`:""}</button></div>`}
 function bojGmHod(hid,i){const s=BOJ.s||{},h=(s.hraci||[]).find(x=>x.id===hid);if(!h)return;const K=bojKartaH(h),w=bojZbrVse(s,h)[i];if(!w)return;
@@ -151,11 +151,11 @@ document.addEventListener("input",e=>{const t=e.target,f=t.closest&&t.closest("[
 document.addEventListener("submit",e=>{const f=e.target;if(!f.matches||!f.matches("[data-bgmut]"))return;e.preventDefault();bojGmZapis(f.dataset.bgmut,f.elements)});
 document.addEventListener("click",e=>{const T=s=>e.target.closest&&e.target.closest(s);
   const pc=T("[data-bpcil]");if(pc){const [hid,id]=pc.dataset.bpcil.split("|");if(GMV){const G=BGMU[hid]=BGMU[hid]||{};G.ci=G.ci===id?"":id}else{BJU.cil=BJU.cil===id?"":id;BJU.serie=null;BJU.info=""}renderBoj();return}
-  const pa=T("[data-bpadv]");if(pa){const [hid,v]=pa.dataset.bpadv.split("|");if(GMV){(BGMU[hid]=BGMU[hid]||{}).adv=+v}else BJU.adv=v;renderBoj();return}
+  const pa=T("[data-bpadv]");if(pa){const [hid,v]=pa.dataset.bpadv.split("|"),zpet=pa.getAttribute("aria-pressed")==="true"&&v!=="0";if(GMV){(BGMU[hid]=BGMU[hid]||{}).adv=zpet?0:+v}else BJU.adv=zpet?"0":v;renderBoj();return}
   const pt=T("[data-bptyp]");if(pt){const [kid,wn,t]=pt.dataset.bptyp.split("|");BUTYP[kid+":"+wn]=t;renderBoj();return}
   const g=T("[data-bgmhod]");if(g){const k=g.dataset.bph||((g.closest("[data-bhpan]")||{}).dataset||{}).bhpan;if(k)bojGmHod(k,+g.dataset.bgmhod);return}
   const j=T("[data-bjut]");if(j){const s=BOJ.s||{},me=(s.hraci||[]).find(h=>h.n===bojJa.get()),zb=me?bojZbrVse(s,me):[],w=zb[+j.dataset.bjut];if(!w)return;
-    BJU.ks=null;BJU.plos=false;BJU.zi=String(+j.dataset.bjut);BJU.t=bojUtTyp(bojKartaH(me),w)||BJU.t;BJU.drt=!!w.drt;BJU.pru=!!w.pru;BJU.dal=!!w.dal;const K=bojKartaH(me);if(K&&kJeZbran(K,w.n)){KZBRV[K.id]=w.n;BJU.zvAuto=w.n;kZbrvUloz()}bojJaHod();return}});
+    BJU.ks=null;BJU.plos=false;if(BJU.adv==="auto")BJU.adv="0";BJU.zi=String(+j.dataset.bjut);BJU.t=bojUtTyp(bojKartaH(me),w)||BJU.t;BJU.drt=!!w.drt;BJU.pru=!!w.pru;BJU.dal=!!w.dal;const K=bojKartaH(me);if(K&&kJeZbran(K,w.n)){KZBRV[K.id]=w.n;BJU.zvAuto=w.n;kZbrvUloz()}bojJaHod();return}});
 /* ===== Boj: bojová karta postavy v rozvržení D&D Beyond na telefonu (2026-10-17) – úsporná: hlavička (AC s obětováním
    zbroje, zbývající obětování, portrét s hrdinskou inspirací a reakcí, životy, odpočinek, hlavní karta, stavy), pruh jen
    s tím, co právě platí (Závoj, rány, soustředění, vyčerpání, hody proti smrti), hlášky v jednom proužku, záložky
@@ -338,7 +338,7 @@ document.addEventListener("click",e=>{const T=s=>e.target.closest&&e.target.clos
   const sh=T("[data-bdmsh]");if(sh){const t=sh.dataset.bdmsh;
     if(BDM.sheet&&BDM.sheet.k===key&&BDM.sheet.t===t&&t!=="utok"){bdmZavri();return}
     BDM.sheet={k:key,t};
-    if(t==="utok"){const j=sh.dataset.j,ks=sh.dataset.ks;if(j!=null){BDM.sheet.j=+j;if(!GMV){const s0=BOJ.s||{},me=(s0.hraci||[]).find(x=>x.n===bojJa.get()),w=me&&bojZbrVse(s0,me)[+j];if(w){BJU.ks=null;BJU.plos=false;BJU.zi=String(j);BJU.t=w.t||BJU.t;BJU.drt=!!w.drt;BJU.pru=!!w.pru;BJU.dal=!!w.dal}}}
+    if(t==="utok"){const j=sh.dataset.j,ks=sh.dataset.ks;if(j!=null){BDM.sheet.j=+j;if(GMV){const hc=sh.closest("[data-bhcard]"),G=hc&&BGMU[hc.dataset.bhcard];if(G)G.adv=0}if(!GMV){const s0=BOJ.s||{},me=(s0.hraci||[]).find(x=>x.n===bojJa.get()),w=me&&bojZbrVse(s0,me)[+j];if(w){BJU.ks=null;BJU.plos=false;BJU.adv="0";BJU.zi=String(j);BJU.t=w.t||BJU.t;BJU.drt=!!w.drt;BJU.pru=!!w.pru;BJU.dal=!!w.dal}}}
       if(ks!=null){BDM.sheet.ks=+ks;bojJaZvolKouzlo(+ks)}}
     bdmPrekresli();if(t==="hp")setTimeout(()=>{const i=document.querySelector(".bdmlist .bdmhpz input");if(i)i.focus()},40);return}
   if(T("[data-bdmhl]")){if(BDM.hlo.has(key))BDM.hlo.delete(key);else BDM.hlo.add(key);bdmPrekresli();return}
