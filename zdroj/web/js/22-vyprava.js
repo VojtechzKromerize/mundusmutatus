@@ -182,6 +182,36 @@ async function vyNacti(){if(VY_NACTENO)return;let s=null;
   if(!s){try{s=JSON.parse(localStorage.getItem("mm-vyprava")||"null")}catch(e){}}
   VY=Object.assign(VY_NOVA(),s||{});VY.konec=Object.assign(VY_NOVA().konec,VY.konec||{});VY_NACTENO=true}
 
+/* ---------- návrat cest a času (2026-10-18): před každou změnou času, místa nebo cesty se uloží předchozí stav
+   (posledních 20, ve stavu výpravy jen pro vypravěče); Zpět ho vrátí i s časem, Vynulovat smaže stopu cest na mapách ---------- */
+const HRAKL=["datum","hodina","misto","praha","cesta","poloha","putovani"];
+async function hraZpetZapis(popis){if(!GMV||!window.MMDB||!HRA)return;try{await vyNacti()}catch(e){}if(!VY)return;
+  const o={cas:Date.now(),popis:String(popis||"").slice(0,80)};HRAKL.forEach(k=>{o[k]=HRA[k]!==undefined?JSON.parse(JSON.stringify(HRA[k])):null});
+  const L=VY.zpet||[],p=L[L.length-1];if(p&&HRAKL.every(k=>JSON.stringify(p[k])===JSON.stringify(o[k])))return;
+  VY.zpet=[...L,o].slice(-20);await vyUlozHned()}
+const hraZpetTxt=o=>{let d="";try{const [y,m,dd]=String(o.datum||"").split("-").map(Number);d=y?`${dd}. ${MES[m-1]} ${y}`:""}catch(e){}return `${d}${o.hodina!=null?`, ${o.hodina}:00`:""}${o.cesta?` · na cestě ${o.cesta.z} → ${o.cesta.do}`:o.misto?` · ${o.misto}`:""}`};
+async function hraZpet(i){if(!GMV)return;if(!window.MMDB){mmHlasG("Herní stav lze vracet jen na webu napojeném na databázi.");return}try{await vyNacti()}catch(e){}
+  const L=(VY&&VY.zpet)||[];if(!L.length){mmHlasG("Není co vracet – zatím se neuložila žádná změna času ani cesty.",4000);return}
+  const k=i==null?L.length-1:+i,o=L[k];if(!o)return;
+  if(!confirm(`Vrátit družinu do stavu před „${o.popis}“?\n${hraZpetTxt(o)}\n(Čas, místo, probíhající cesta i stopa cest na mapách.)`))return;
+  const h={};HRAKL.forEach(x=>{h[x]=o[x]===undefined?null:o[x]});
+  document.documentElement.classList.add("gmbusy");
+  try{HRA=await MMDB.nastavHru(h);__D.HRA=HRA;VY.zpet=L.slice(0,k);await vyUlozHned();hraPo();if(curView==="vyprava")renderVyprava();
+    mmHlasG(`Vráceno: ${hraZpetTxt(HRA)}.`,5000)}
+  catch(err){mmHlasG("Nepodařilo se vrátit: "+err.message,7000)}finally{document.documentElement.classList.remove("gmbusy")}}
+async function hraCestyVynuluj(){if(!GMV||!window.MMDB||!HRA)return;const c=HRA.cesta&&HRA.cesta.track?HRA.cesta:null;
+  if(!confirm(`Vymazat stopu cest družiny na mapách?${c?`\nProbíhající cesta ${c.z} → ${c.do} se zruší a družina zůstane v ${c.z}.`:""}\nČas se nemění. Jde to vrátit tlačítkem Zpět.`))return;
+  await hraZpetZapis("vynulování cest");const h={putovani:null,cesta:null};if(c)Object.assign(h,{misto:c.z,poloha:null,praha:null});
+  document.documentElement.classList.add("gmbusy");
+  try{HRA=await MMDB.nastavHru(h);__D.HRA=HRA;hraPo();if(curView==="vyprava")renderVyprava();mmHlasG("Stopa cest na mapách vymazána.",4000)}
+  catch(err){mmHlasG("Nepodařilo se uložit: "+err.message,7000)}finally{document.documentElement.classList.remove("gmbusy")}}
+function hraZpetHtml(){const L=((VY&&VY.zpet)||[]).slice().reverse();
+  return `<details class="bjapd vyzpet"><summary>Cesty a čas družiny – vrátit nebo vynulovat${L.length?` <small>(${L.length})</small>`:""}</summary>
+    <p class="rsmall">Před každou změnou času, místa nebo cesty se uloží předchozí stav (posledních 20). Vrácení vrátí i herní čas.</p>
+    ${L.length?`<ul class="khist">${L.map((o,j)=>`<li><small>${(()=>{try{return new Date(o.cas).toLocaleString("cs-CZ",{day:"numeric",month:"numeric",hour:"2-digit",minute:"2-digit"})}catch(e){return ""}})()}</small> <span>před: <b>${vyEsc(o.popis)}</b> → ${vyEsc(hraZpetTxt(o))}</span> <button type="button" class="gbtn ghost" data-vyzpet="${L.length-1-j}">Vrátit sem</button></li>`).join("")}</ul>`:`<p class="rsmall">Zatím nic k vrácení.</p>`}
+    <p><button type="button" class="gbtn ghost" data-vyzpet="">↶ Zpět o krok</button> <button type="button" class="gbtn ghost" data-vynuluj>Vynulovat stopu cest na mapách</button></p></details>`}
+document.addEventListener("click",e=>{const t=e.target.closest&&e.target.closest("[data-vyzpet],[data-vynuluj]");if(!t||!GMV)return;
+  if(t.matches("[data-vynuluj]")){hraCestyVynuluj();return}hraZpet(t.dataset.vyzpet===""?null:+t.dataset.vyzpet)});
 /* ---------- výchozí místo a cíl na jednotlivých mapách ---------- */
 const vyHraStart=()=>{const [y,m,d]=herniDen();return {datum:`${y}-${String(m).padStart(2,"0")}-${String(d).padStart(2,"0")}`,hodina:HRA&&HRA.hodina!=null?+HRA.hodina:8}};
 function vyPuvod(m){const n=partyPlace()||"",pp=typeof partyPos==="function"&&typeof cestaAktivni==="function"&&cestaAktivni()?partyPos():null;
@@ -299,6 +329,7 @@ function renderVyprava(){const box=document.getElementById("vyview");if(!box)ret
     box.innerHTML=`<div class="bojhead vyhead"><div class="bojtit"><h2 class="arttitle">Výprava</h2><p class="bojlead">Cesta družiny podle pravidel Uncharted Journeys.</p></div>
       <div class="bojbtn"><button type="button" class="gbtn ghost" data-vy="zhry" title="Výchozí místo, datum a hodinu vezme z herního stavu">Převzít polohu a čas družiny</button><button type="button" class="gbtn ghost" data-vy="stul" aria-pressed="false" title="Zjednodušené zobrazení na tablet: počasí dne, kostky a aktuální setkání">U stolu</button><button type="button" class="gbtn ghost" data-vy="nova">Nová výprava</button></div></div>
       <div class="controls vytabs" role="group" aria-label="Mapa">${[["svet","Známý svět"],["koruna","Země Koruny"],["praha","Praha"]].map(([k,n])=>`<button type="button" data-vymapa="${k}" aria-pressed="${VY.mapa===k}">${n}</button>`).join("")}</div>
+      <div id="vyzpet"></div>
       <div class="vygrid"><div class="vyslot" id="vyslot"></div><aside class="vyside" id="vyside"></aside></div>
       <div id="vypanely" class="vypanely"></div>`}
   box.querySelectorAll("[data-vymapa]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.vymapa===VY.mapa));
@@ -306,6 +337,7 @@ function renderVyprava(){const box=document.getElementById("vyview");if(!box)ret
 function vyPanely(){const side=document.getElementById("vyside"),pan=document.getElementById("vypanely");if(!side||!pan)return;
   const f=document.activeElement&&pan.contains(document.activeElement)&&document.activeElement.matches("input,select,textarea")?document.activeElement.getAttribute("data-vyf")||document.activeElement.name:null;
   document.getElementById("vyview").classList.toggle("vystul",!!VY.stul);
+  {const z=document.getElementById("vyzpet");if(z){const o=!!(z.querySelector("details")||{}).open;z.innerHTML=hraZpetHtml();if(o)z.querySelector("details").open=true}}
   side.innerHTML=vyHtmlTrasa();pan.innerHTML=VYT?(VY.stul?vyHtmlStul():vyHtmlPanely()):"";
   const sb=document.querySelector('[data-vy="stul"]');if(sb)sb.setAttribute("aria-pressed",!!VY.stul);
   if(f){const e=pan.querySelector(`[data-vyf="${f}"]`)||pan.querySelector(`[name="${f}"]`);if(e)e.focus()}}
@@ -474,7 +506,7 @@ document.addEventListener("click",async e=>{if(curView!=="vyprava"||!VY)return;c
       if(VY.mapa==="praha"&&(VY.zp==="drak"))VY.zp="pesky";renderVyprava();vyUloz()}return}
   const a=t.dataset.vy;
   if(a==="nova"){if(!confirm("Začít novou výpravu? Trasa, přípravy, hody a setkání se smažou (družina a ručně upravené počasí zůstanou)."))return;
-    const keep={druzina:(VY.druzina||[]).map(x=>({...x,prip:"",pv:"",gc:""})),pocasi:VY.pocasi,mapa:VY.mapa,zp:VY.zp};VY=Object.assign(VY_NOVA(),keep);VY.start=vyHraStart();
+    const keep={druzina:(VY.druzina||[]).map(x=>({...x,prip:"",pv:"",gc:""})),pocasi:VY.pocasi,mapa:VY.mapa,zp:VY.zp,zpet:VY.zpet};VY=Object.assign(VY_NOVA(),keep);VY.start=vyHraStart();
     st.tb=null;SM.b=null;PM.b=null;PM.path=null;renderVyprava();vyUloz();return}
   if(a==="zhry"){VY.start=vyHraStart();VY.z=vyPuvod(VY.mapa);if(!VY.z)mmHlasG("Polohu družiny na této mapě neznám – klikni na mapu na výchozí místo.");
     if(VY.mapa==="koruna"){st.ta=VY.z?{...VY.z}:null;updateRoute();renderTravel();drawMap()}else if(VY.mapa==="svet"){SM.a=VY.z;smRender();if(SG)sDraw()}else{PM.a=VY.z;PM.path=PM.a&&PM.b&&PG?pmRoute(PM.a.pt,PM.b.pt):null;pmRender();if(PG)pDraw()}
@@ -549,10 +581,11 @@ async function vyOdcestuj(putovat){if(!VYT||!VYS){mmHlasG("Nejdřív vyber cíl 
   else{h={datum:dat,hodina:p.h,misto,praha:VYT.m==="praha"?praha:null,cesta:null,poloha:null};
     if(tr&&tr.length>1&&typeof cTxt==="function"){const b=tr.map(q=>[q[1],q[2]]).filter((q,i,a)=>i===0||i===a.length-1||i%3===0);
       h.putovani=[...((HRA&&HRA.putovani)||[]),{z:VYT.z,do:misto,od:cTxt(tr[0][0]),pr:cTxt(tr[tr.length-1][0]),b}].slice(-80)}}
+  await hraZpetZapis(`${putovat?"vyrazit":"dorazit"} do: ${misto}`);
   document.documentElement.classList.add("gmbusy");
   try{HRA=await MMDB.nastavHru(h);__D.HRA=HRA;renderKal();
     VY.posledniMd=vyKronikaMd();
-    VY=Object.assign(VY_NOVA(),{druzina:(VY.druzina||[]).map(x=>({...x,prip:"",pv:"",gc:""})),pocasi:VY.pocasi,mapa:VY.mapa,zp:VY.zp,posledniMd:VY.posledniMd,z:putovat?null:VY.do,start:null});
+    VY=Object.assign(VY_NOVA(),{druzina:(VY.druzina||[]).map(x=>({...x,prip:"",pv:"",gc:""})),pocasi:VY.pocasi,mapa:VY.mapa,zp:VY.zp,posledniMd:VY.posledniMd,z:putovat?null:VY.do,start:null,zpet:VY.zpet});
     if(VYT.m==="koruna"){st.ta=st.tb;st.tb=null;updateRoute()}else if(VYT.m==="svet"){SM.a=SM.b;SM.b=null}else{PM.a=PM.b;PM.b=null;PM.path=null}
     mmHlasG(putovat?`Družina vyrazila do: ${misto}. Polohu na cestě posouvá herní čas (Vypravěč › +1 hodina / Další den).`:`Družina dorazila: ${misto}, ${vyDatum(p.j)}, ${p.h}:00.`,7000);await vyUlozHned();renderVyprava()}
   catch(err){mmHlasG("Nepodařilo se uložit: "+err.message,7000)}finally{document.documentElement.classList.remove("gmbusy")}}

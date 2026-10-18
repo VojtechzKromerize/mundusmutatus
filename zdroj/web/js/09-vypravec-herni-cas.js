@@ -161,6 +161,7 @@ async function hraUloz(h){
   h=cDokonciG(Object.assign({},h));
   if(h.hodina!=null&&HRA&&HRA.hodina!=null&&h.hodinaPred===undefined&&(h.datum==null||h.datum===HRA.datum))h.hodinaPred=+HRA.hodina;
   if(!window.MMDB){HRA=Object.assign({},HRA||{},h);__D.HRA=HRA;hraPo();mmHlasG("Statická verze – změna platí jen v tomto okně, neukládá se.",5000);return HRA}
+  if(!h.$bezZpet){try{await hraZpetZapis(h.datum!=null||h.hodina!=null?`čas ${h.datum&&HRA&&h.datum!==HRA.datum?h.datum.split("-").reverse().map(Number).join(". ")+" ":""}${h.hodina!=null?h.hodina+":00":""}`.trim():"herní stav")}catch(e){}}delete h.$bezZpet;
   document.documentElement.classList.add("gmbusy");
   try{HRA=await MMDB.nastavHru(h);__D.HRA=HRA;hraPo();mmHlasG(`Uloženo: ${partyDate()}, ${HRA.hodina}:00${HRA.misto?", "+HRA.misto:""}.`)}
   catch(err){mmHlasG("Nepodařilo se uložit: "+err.message,7000)}finally{document.documentElement.classList.remove("gmbusy")}
@@ -197,11 +198,11 @@ if(GMV&&STAV){const P=document.querySelector(".phpanel"),B=document.querySelecto
   if(P){P.querySelector(".phhead").insertAdjacentHTML("afterend",`<div class="phcas"><div class="phted"></div><div class="phcasb" role="group" aria-label="Posun herního času">
     <button type="button" class="gbtn ghost" data-cas="-1" title="O hodinu zpět">−1 h</button><button type="button" class="gbtn ghost" data-cas="1">+1 h</button><button type="button" class="gbtn ghost" data-cas="3">+3 h</button>
     <button type="button" class="gbtn ghost" data-cas="vecer" title="Do západu slunce">Do večera</button><button type="button" class="gbtn ghost" data-cas="rano" title="Další den v 6 hodin">Další ráno</button>
-    <button type="button" class="gbtn ghost" data-cas="zapis" title="Nový zápis Kroniky s datem, hodinou, místem a deníkem putování">Nový zápis</button></div><div class="phzav"></div></div>`);
+    <button type="button" class="gbtn ghost" data-cas="zapis" title="Nový zápis Kroniky s datem, hodinou, místem a deníkem putování">Nový zápis</button><button type="button" class="gbtn ghost" data-cas="zpet" title="Vrátit poslední změnu času, místa nebo cesty družiny">↶ Zpět</button></div><div class="phzav"></div></div>`);
     const kresli=()=>{const X=hraX(),pp=partyPos(),c=cestaAktivni();
       P.querySelector(".phted").innerHTML=`<b>${DNY[(X.today+1)%7]} ${X.D}. ${MES[X.M-1]} ${X.Y}${X.H!=null?`, ${X.H}:00`:""}</b><small>${c?`na cestě ${hEsc(c.z)} → ${hEsc(c.do)}${pp?" · "+hEsc(cKde(pp.lo,pp.la)):""}`:pp?hEsc(pp.name):""}</small>`;
       P.querySelector(".phzav").innerHTML=zavojBan();if(B){const I=zavojInfo();B.classList.toggle("phzv",!!I.z);B.classList.toggle("phpr",!!I.pravda);B.title=I.z?(I.pravda?"Hodina Pravdy! ":"Hodina Závoje! ")+"Při hře (Ctrl+K)":"Při hře – čas, rychlé odhalování (Ctrl+K)"}};
-    P.addEventListener("click",e=>{const b=e.target.closest("[data-cas]");if(!b)return;const k=b.dataset.cas;if(k==="zapis"){zapisNovy();return}hraPosun(k)});
+    P.addEventListener("click",e=>{const b=e.target.closest("[data-cas]");if(!b)return;const k=b.dataset.cas;if(k==="zapis"){zapisNovy();return}if(k==="zpet"){hraZpet();return}hraPosun(k)});
     HRA_PO.push(kresli);if(B)B.addEventListener("click",kresli);kresli()}}
 /* ===== Kronika z herního stavu: nový zápis s datem, hodinou, místem, trasou a podklady (putování, boj, počasí); uložení posune herní čas ===== */
 function zapisMd(id,n){const X=hraX(),L=ZAPISY[ZAPISY.length-1],tz=L?cT({datum:L.datum,hodina:L.hodina??0}):null,pp=partyPos();
