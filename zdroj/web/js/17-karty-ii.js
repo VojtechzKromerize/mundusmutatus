@@ -155,7 +155,7 @@ async function kSesDlgOk(bez){const D=KSDLG;if(!D)return;KSDLG=null;mmPopX();con
   if(E&&E.k==="l"&&C.length){await kSpZraneni(K,x,lvl,false,{mass:C});return}
   const sp=KBUF[x.n]?C:C.filter(c=>c!==K);if(sp.length)await kBufNa(K,x,sp,kon);
   if(N.length&&s.aktivni&&GMV)kSesGmNpc(K,x,lvl,N,me);
-  else if(N.length&&s.aktivni&&me&&typeof bojDB!=="undefined"&&bojDB&&bojDB.utok){try{await bojDB.utok(me.id,{ci:N.map(o=>o.id).slice(0,12),cim:(BUEF+x.n).slice(0,60),hod:0});kHodZapis({k:K.id,kdo:K.n,co:`${x.n} na nepřátele`,txt:N.map(o=>o.n).join(", ")});mmHlasG(`${K.n}: ${x.n} na ${N.map(o=>o.n).join(", ")} – vypravěč zapíše značku.`,4500);return}catch(err){mmHlasG("Účinek se nepodařilo poslat vypravěči: "+(err.message||err),5000)}}
+  else if(N.length&&s.aktivni&&me&&typeof bojDB!=="undefined"&&bojDB&&bojDB.utok){if(await kOdklad(`${x.n} → ${N.map(o=>o.n).join(", ")}`,()=>true)===false)return;try{await bojDB.utok(me.id,{ci:N.map(o=>o.id).slice(0,12),cim:(BUEF+x.n).slice(0,60),hod:0});kHodZapis({k:K.id,kdo:K.n,co:`${x.n} na nepřátele`,txt:N.map(o=>o.n).join(", ")});mmHlasG(`${K.n}: ${x.n} na ${N.map(o=>o.n).join(", ")} – vypravěč zapíše značku.`,4500);return}catch(err){mmHlasG("Účinek se nepodařilo poslat vypravěči: "+(err.message||err),5000)}}
   else if(N.length)kHodZapis({k:K.id,kdo:K.n,co:`${x.n} na nepřátele`,txt:N.map(o=>o.n).join(", ")});
   const kdo=[...C.map(c=>c===K?"sebe":c.n),...N.map(o=>o.n)];if(kdo.length&&!(N.length&&s.aktivni))mmHlasG(`${K.n}: ${x.n} na ${kdo.join(", ")}.`,4500)}
 /* vypravěč sešle za hráče kouzlo na nepřátele: záchrany a zranění (polovina, Resistance), útoky kouzlem proti AC, stav nebo značka účinku */
@@ -173,7 +173,8 @@ addEventListener("click",e=>{const T=s=>e.target.closest&&e.target.closest(s);if
 /* léčení na kartu (2026-10-17): svou kartu (a kartu bez hesla) mění přímo, cizí přes mm_karta_lecit, který v boji stabilizuje umírajícího */
 const KCIL={};
 const kCilHtml=(K,i)=>{const L=(KARTY||[]).filter(k=>k.id!==K.id&&!k.test),v=KCIL[K.id+":"+i]||K.id;return `<select data-kcil="${i}" aria-label="Koho léčíš"><option value="${besc(K.id)}">sebe</option>${L.map(k=>`<option value="${besc(k.id)}"${v===k.id?" selected":""}>${besc(k.n)}</option>`).join("")}<option value="-"${v==="-"?" selected":""}>jen hod</option></select>`};
-async function kLecKarta(K2,tot,od,co){if(!K2||!(tot>0))return;const S=kartaStav(K2.id),h0=((BOJ.s&&BOJ.s.aktivni&&BOJ.s.hraci)||[]).find(x=>bojKartaH(x)===K2);
+async function kLecKarta(K2,tot,od,co,vratit){if(!K2||!(tot>0))return;
+  if(od&&K2.id!==od.id&&typeof navrhPotreba==="function"&&navrhPotreba()){await navrhPosli(od,Object.assign({typ:"lec",cil:K2.id,hp:Math.min(300,Math.round(tot)),co,popis:`${co||"léčení"} → ${K2.n} +${Math.round(tot)} HP`},vratit?{vratit}:{}));return}const S=kartaStav(K2.id),h0=((BOJ.s&&BOJ.s.aktivni&&BOJ.s.hraci)||[]).find(x=>bojKartaH(x)===K2);
   if(kMuze(K2)){if(h0){bojPCZmena(h0.id,x=>bojLecPC(x,K2,tot),true);return}const o={hp:S.hp,thp:S.thp},m=bojLecPC(o,K2,tot);await kartaStavZmen(K2.id,{hp:o.hp!=null&&o.hp<kHPmax(K2)?o.hp:null},`${K2.n}: ${m}.`);return}
   if(!window.MMDB||!MMDB.kartaLecit){mmHlasG(`${K2.n}: léčení zapiš na jeho kartě.`,4000);return}
   try{await MMDB.kartaLecit(K2.id,Math.min(300,Math.round(tot)),kHPmax(K2),od.id);await kartyNacti();if(BOJ.s&&BOJ.s.aktivni){BOJ.v=-2;try{await bojNacti()}catch(e){}}mmHlasG(`${K2.n}: +${tot} HP (${co}).`,5000)}

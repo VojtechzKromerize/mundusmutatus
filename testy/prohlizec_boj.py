@@ -209,13 +209,13 @@ async def main():
     await g.click("[data-blund] >> nth=0");await g.wait_for_timeout(400)
     chk(await g.evaluate(f"(bojHp.get()['{rid}']||[])[0]")==hp0 or hp0 is None,"Zpět v záznamu vrátí životy")
     await g.click(".bglog [data-blf] >> nth=0");await g.wait_for_timeout(300);chk(await g.locator(".blfc").count()==1,"filtr záznamu podle žetonu");await g.click("[data-blfx]");await g.wait_for_timeout(300)
-    await g.uncheck("[data-bauto]");await g.wait_for_timeout(300)
+    await g.select_option("#bojview [data-potvrzr]","cast");await g.wait_for_timeout(1200)
     await pl.fill('[name="juhod"]',"5");await pl.fill('[name="jud"]',"1");await pl.fill('[name="judmg"]',"4");await pl.click("[data-juposl]");await pl.wait_for_timeout(800)
     await g.wait_for_timeout(3500)
     chk(await g.locator(".butkp li").count()==1,"bez automatického zápisu čeká útok na potvrzení")
     await g.click("[data-buzam]");await g.wait_for_timeout(800)
     chk(await g.evaluate("(BOJ.s.utoky||[]).slice(-1)[0].stav")=="zamitnuto","vypravěč útok zamítne")
-    await g.check("[data-bauto]");await g.wait_for_timeout(300)
+    await g.select_option("#bojview [data-potvrzr]","nic");await g.wait_for_timeout(1200)
     for body,m in (({"p_hrac":"h3","p_utok":{"ci":["n99"],"hod":10}},"neznámý cíl"),({"p_hrac":"h3","p_utok":{"ci":[rid]}},"chybí hod"),({"p_hrac":"h3","p_utok":{"ci":[rid],"hod":10,"stav":"hotovo"}},"cizí pole"),
                    ({"p_hrac":"h3","p_utok":{"ci":[rid],"hod":10,"dmg":5000}},"přehnané zranění")):
         c,t=anon_rpc("mm_boj_utok",body);chk(c>=400,"mm_boj_utok odmítne: "+m)

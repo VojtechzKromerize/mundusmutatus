@@ -261,7 +261,8 @@ const zprHtml=L=>L.length?`<ol class="zprl">${L.slice(-30).map(z=>`<li class="${
 async function zpravaPosli(kid,t){t=String(t||"").trim();if(!t)return;try{await MMDB.zprava(kid,t.slice(0,2000));await zpravyNacti();hraPrekresli()}catch(e){mmHlasG(e.message||String(e),5000)}}
 /* ---- pravidelné načítání pro hráče i vypravěče ---- */
 let HRAP=null;
-async function hraPoll(hned){if(!window.MMDB)return;const a=await vyzvyNacti(),b=await zpravyNacti();if(curView==="hra"||curView==="karty"){const p0=JSON.stringify(POKL);await poklNacti();if(p0!==JSON.stringify(POKL))hraPrekresli()}
+async function hraPoll(hned){if(!window.MMDB)return;const a=await vyzvyNacti(),b=await zpravyNacti();if(hned||!hraPoll.pt||Date.now()-hraPoll.pt>15000){hraPoll.pt=Date.now();await potvrzNacti()}
+  {const n0=navrhyCeka().length,zm=await navrhyNacti(),n1=navrhyCeka().length;if(zm){if(GMV&&n1>n0&&!hned)mmHlasG(`Hráč žádá o schválení: ${navrhyCeka()[0].data.popis||"návrh"}.`,5000);if(curView==="boj")renderBoj();if(curView==="karty"||curView==="hra")kartyPrekresli()}}if(curView==="hra"||curView==="karty"){const p0=JSON.stringify(POKL);await poklNacti();if(p0!==JSON.stringify(POKL))hraPrekresli()}
   if(!GMV){const m=vyzvyMoje(),top=Math.max(0,...m.map(v=>v.id));if(top>VYZVID){VYZVID=top;try{navigator.vibrate&&navigator.vibrate([120,60,120])}catch(e){}mmNotif("Vypravěč žádá hod",vyzvaTxt(m[0].data));if(curView!=="hra")mmHlasG(`Vypravěč žádá: ${vyzvaTxt(m[0].data)}`,5000)}
     const nz=ZPR.filter(z=>z.gm&&z.id>zprVideno.get());if(nz.length){zprVideno.set(nz[nz.length-1].id);mmNotif("Zpráva od vypravěče",nz[nz.length-1].t);mmHlasG("Zpráva od vypravěče: "+nz[nz.length-1].t.slice(0,140),7000)}}
   else{try{bojVyzZpracuj()}catch(e){console.error(e)}const n=VYZVY.filter(v=>!v.zavrena).reduce((a,v)=>a+Object.keys(v.odpovedi||{}).length,0);if(n>VYZODP&&!hned){const v=VYZVY.find(x=>!x.zavrena&&Object.keys(x.odpovedi||{}).length);if(v&&curView!=="hra")mmHlasG(`Hráči odpovídají na výzvu (${vyzvaTxt(v.data)}) – výsledky na stránce Hra.`,4500)}VYZODP=n;
@@ -291,6 +292,8 @@ function renderHra(){const box=document.getElementById("hraview");if(!box)return
   if(GMV){const zk=ZPRK||(KARTY[0]||{}).id||"",zL=ZPRG.filter(z=>z.k===zk);
     box.innerHTML=`${hl}${hraStavHtml()}
       <section><h3 class="uvh2">Výzva k hodu</h3>${vyzvaForm()}${vyzvyGmHtml()}</section>
+      <section><h3 class="uvh2">Akce hráčů</h3><p class="kvlh">${potvrzHtml("hra")}</p>${navrhyGmHtml()||`<p class="rsmall">Nic nečeká na schválení. Útoky hráčů k potvrzení jsou v Boji.</p>`}</section>
+      ${(renderHra.zm||(renderHra.zm=1,zmenyNacti().then(()=>{if(curView==="hra")renderHra()})),zmenyHtml())}
       ${kPrehledHtml()}
       <section><h3 class="uvh2">Tajné zprávy</h3>${KARTY.length?`<p class="kvlh"><label>Postava <select data-zprk>${KARTY.map(k=>{const n=ZPRG.filter(z=>z.k===k.id&&!z.gm).length;return `<option value="${besc(k.id)}"${k.id===zk?" selected":""}>${besc(k.n)}${n?` (${n})`:""}</option>`}).join("")}</select></label></p>${zprHtml(zL.map(z=>Object.assign({},z,{gm:z.gm})))}
         <form class="zprf" data-zprf="${besc(zk)}"><textarea name="t" rows="2" maxlength="2000" placeholder="Zpráva jen pro tuto postavu" required></textarea><button class="gbtn ghost">Poslat</button></form>`:`<p class="rsmall">Bez karet postav.</p>`}</section>
@@ -352,7 +355,7 @@ function bojPruvodce(s,me){const K=bojKartaH(me),k=`${s.kolo}:${s.tah}`;if(BPT.k
       <dt>Bonusová akce</dt><dd>${chips(sp(/^Bonusov/))} ${chips(tech.filter(t=>/bonusov/.test(t.c)).map(t=>t.n))}</dd>
       <dt>Reakce</dt><dd><span class="chip" ${btip("Opportunity Attack: když nepřítel opouští tvůj dosah")}>Příležitostný útok</span> ${chips(sp(/^Reakce/))} ${chips(tech.filter(t=>/reakce/.test(t.c)).map(t=>t.n))}</dd>
       ${zd.length?`<dt>Schopnosti</dt><dd>${chips(zd)}</dd>`:""}</dl>
-    <button type="button" class="gbtn" data-bkonec="${me.id}">✓ Konec tahu</button></section>`}
+    ${bojKonecBtn(me.id)}</section>`}
 document.addEventListener("change",e=>{const t=e.target;if(t.matches&&t.matches("[data-bpt]")){BPT[t.dataset.bpt]=t.checked?1:0;t.closest("label").classList.toggle("on",t.checked)}});
 document.addEventListener("click",async e=>{const b=e.target.closest("[data-bkonec]");if(!b)return;const s=BOJ.s;if(!s||!bojDB||!bojDB.hrac)return;
   try{await bojDB.hrac(b.dataset.bkonec,"hotovo",(s.kolo||1)*100+(s.tah||0));mmHlasG("Tah ukončen – vypravěč pokračuje.",3500);BPT.k=null;try{navigator.vibrate&&navigator.vibrate(40)}catch(err){}}catch(err){mmHlasG(err.message||String(err),5000)}});

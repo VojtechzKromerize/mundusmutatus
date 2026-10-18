@@ -3044,3 +3044,11 @@ h4 .kspi{margin-right:5px}
 #bojview .bslot.btah .bslst{top:auto;left:auto}
 /* dotykové displeje: rozbalovací nabídky a zaškrtávátka dost velká na prst (2026-10-18) */
 @media (pointer:coarse){select{min-height:34px}input[type=checkbox],input[type=radio]{width:20px;height:20px;flex:none}}
+
+/* potvrzování akcí hráčů: lhůta na zrušení, nastavení, časová osa (2026-10-18) */
+.kodkl{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(76px + env(safe-area-inset-bottom));z-index:9000;display:flex;flex-direction:column;gap:6px;width:min(94vw,520px)}
+.kodkr{display:flex;align-items:center;gap:10px;justify-content:space-between;background:#2a1a12;color:#f3e6c8;border:2px solid var(--gold);border-radius:10px;padding:8px 12px;box-shadow:0 8px 22px rgba(0,0,0,.45)}
+.kodkr b{color:var(--gold);font-size:1.15em}.kodkr .gbtn{flex:none}
+.potvrz{display:inline-flex;flex-wrap:wrap;gap:6px 14px;align-items:center}.potvrz select{max-width:22em}
+.zmlist li{align-items:center}.zmlist li.zmgm span{opacity:.85}.zmlist i{color:var(--kal,#8a1f2b);font-style:normal;font-weight:600}
+.navrhy li{display:flex;flex-wrap:wrap;gap:6px;align-items:center}

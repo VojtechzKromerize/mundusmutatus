@@ -435,6 +435,13 @@ window.MMDB={vetev:C.vetev,
   async kartaUloz(k){return rpc("mm_karta_uloz",{p_karta:k,p_token:htok()})},
   async kartaStav(id,pole,hodnota){return rpc("mm_karta_stav",{p_id:id,p_pole:pole,p_hodnota:hodnota,p_token:htok()})},
   async kartaLecit(id,hp,max,od){return rpc("mm_karta_lecit",{p_id:id,p_hp:hp,p_max:max,p_od:od,p_token:htok()})},
+  async navrh(od,data){return rpc("mm_navrh",{p_od:od,p_data:data,p_token:htok()})},
+  async navrhy(){return api(`/rest/v1/navrhy?select=id,cas,karta,data,stav,vys&order=id.desc&limit=40`)},
+  navrhVyrid(id,stav,vys){return this.gm("mm_navrh_vyrid",{p_id:id,p_stav:stav,p_vys:vys||null})},
+  zmeny(od){return this.gm("mm_zmeny",{p_od:od||null,p_limit:600})},
+  zmena(id){return this.gm("mm_zmena",{p_id:id})},
+  async potvrz(){return rpc("mm_potvrz",{})},
+  potvrzNastav(p){return this.gm("mm_potvrz_nastav",{p_hodnota:p})},
   async kartaBardic(id,k,od){return rpc("mm_karta_bardic",{p_id:id,p_kostka:k,p_od:od,p_token:htok()})},
   async kartaHistorie(id){return rpc("mm_karta_historie",{p_id:id,p_token:htok()})},
   async kartaObnov(id,n){return rpc("mm_karta_obnov",{p_id:id,p_n:n,p_token:htok()})},
@@ -536,4 +543,5 @@ window.mmHlas=hlas;
 /*@vloz web/js/20-boj-hraci.js*/
 /*@vloz web/js/21-editor-pecet.js*/
 /*@vloz web/js/22-vyprava.js*/
+/*@vloz web/js/23-potvrzovani.js*/
 </script>

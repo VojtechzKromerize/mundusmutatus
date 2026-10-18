@@ -67,6 +67,8 @@ else
   $PSQL -q -v ON_ERROR_STOP=1 -d $DBN < "$KOREN/testy/priprava.sql" >/dev/null && \
   $PSQL -q -v ON_ERROR_STOP=1 -d $DBN < "$KOREN/supabase/schema.sql" >/dev/null && \
   $PSQL -q -d $DBN -c "insert into public.gm values ('11111111-1111-1111-1111-111111111111')" >/dev/null
+  # starší testy počítají s okamžitým zápisem akcí hráčů; potvrzování a lhůtu zkouší prohlizec_potvrz.py
+  $PSQL -q -d $DBN -c "insert into public.nastaveni (klic, hodnota) values ('potvrz', '{\"rezim\":\"nic\",\"odklad\":0}') on conflict (klic) do update set hodnota = excluded.hodnota" >/dev/null
   zkus "schéma databáze se nahraje" test $? -eq 0
   cat > "$PRAC/pgrst.conf" <<KONF
 db-uri = "postgres://authenticator:auth@${PGHOST:-localhost}:${PGPORT:-5432}/$DBN"
@@ -89,7 +91,7 @@ KONF
   zkus "práva v databázi" python3 "$KOREN/testy/bezpecnost.py"
 
   krok "Testy v prohlížeči"
-  for t in ${MM_TESTY:-odhalovani herni_stav draci boj tah reakce karta karta_vse pecet editor zapisy vyprava}; do
+  for t in ${MM_TESTY:-odhalovani herni_stav draci boj tah reakce potvrz karta karta_vse pecet editor zapisy vyprava}; do
     zkus "prohlížeč: $t" python3 "$KOREN/testy/prohlizec_$t.py"
   done
 

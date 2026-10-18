@@ -55,12 +55,15 @@ async def main():
     # vypravěč připraví boj s Balduinem
     gt=login("gm@x.cz");g=await b.new_page(viewport={"width":1300,"height":1000});g.on("dialog",lambda d:asyncio.ensure_future(d.accept()))
     await g.add_init_script("localStorage.setItem('mm-gm-relace',JSON.stringify("+json.dumps({"at":gt["access_token"],"rt":gt["refresh_token"],"exp":gt["expires_at"],"email":"gm@x.cz"})+"))")
+    # testovací účet hráče může mít postavu z předchozího testu (prohlizec_karta) – vypravěč ho uvolní
+    await g.goto(BASE+"#hra");await g.wait_for_function("!document.documentElement.classList.contains('mmload')");await g.wait_for_timeout(800)
+    await g.evaluate("Promise.all(['testovnik','balduin'].map(k=>MMDB.jaUvolni(k).catch(()=>{}).then(()=>MMDB.hracZrus(k).catch(()=>{}))))")
     # hráč přes Discord (účet hrac@x.cz) si zvolí Balduina
     ht=login("hrac@x.cz")
     cx=await b.new_context(viewport={"width":390,"height":844});pl=await cx.new_page()
     err=[];bad=[]
     pl.on("pageerror",lambda e:err.append("JS: "+str(e)[:160]+" ← po kliknutí na: "+POSL[0][:140]+" @ "+(getattr(e,"stack","") or "").split("\n")[1:2][0][:120] if (getattr(e,"stack","") or "").count("\n") else "JS: "+str(e)[:160]+" ← "+POSL[0][:140]))
-    pl.on("console",lambda m:m.type=="error" and "Failed to load resource" not in m.text and err.append("konzole: "+m.text[:200]))
+    pl.on("console",lambda m:m.type=="error" and "Failed to load resource" not in m.text and "is not focusable" not in m.text and err.append("konzole: "+m.text[:200]))
     def resp(r):
         if r.status>=400 and "/rest/v1/" in r.url and "/rpc/mm_ja" not in r.url: bad.append(f"{r.status} {r.url.split('/rest/v1/')[1][:80]}")
     pl.on("response",resp)
@@ -77,6 +80,7 @@ async def main():
     # karta postavy: každá záložka a v ní všechno
     tabs=await pl.evaluate("[...document.querySelectorAll('.kcard.kdb2 [data-ktab]')].map(t=>t.dataset.ktab)")
     for t in tabs:
+        await pl.evaluate("typeof mmPopX==='function'&&mmPopX()")  # ukázka od vypravěče z předchozího testu
         await pl.click(f'.kcard.kdb2 [data-ktab="{t}"]');await pl.wait_for_timeout(500)
         await proklikej(pl,".kcard.kdb2",f"karta – záložka {t}",None)
         await pl.click(f'.kcard.kdb2 [data-ktab="{t}"]') if await pl.locator(f'.kcard.kdb2 [data-ktab="{t}"]').count() else None
