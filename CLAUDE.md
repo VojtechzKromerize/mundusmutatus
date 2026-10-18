@@ -94,6 +94,10 @@ Hlavní orientační body:
   změna souboru v `dev` se při buildu přenese do databáze, **pokud záznam mezitím nikdo neupravil na webu**
   (jinak build vypíše KONFLIKT a vyhraje web). Před úpravou souborů obsahu spusť zálohu:
   `gh workflow run "Záloha textů z webu"`, počkej a stáhni `dev`.
+- Supabase novým tabulkám nedává práva: veřejně čitelná tabulka potřebuje v schématu `grant select … to anon, authenticated`
+  (testovací `priprava.sql` práva také nedává). Edge funkce (`supabase/functions/`: mm-push, mm-discord) nemají práva
+  k tabulkám – čtou a zapisují jen přes funkce `mm_*` povolené pro `service_role`.
+- Boj ukládá vypravěč s kontrolou verze (`mm_boj_uloz_v`), aby nepřepsal zápisy hráčů z telefonu.
 - Funkce mají předponu `mm_`. Nová tabulka = RLS + případ v `testy/bezpecnost.py` (anonym ani hráč nečtou
   obsah vypravěče a nic nemění; vypravěč nemá služební práva).
 - Bezplatný Supabase usíná; denní „Budíček databáze“ ho drží vzhůru.

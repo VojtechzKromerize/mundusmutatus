@@ -4,10 +4,17 @@ name: Kontrola webu
 # tracker iniciativy, editor textů, zápisy Kroniky a pečeť a že všechny stránky jdou otevřít bez chyb.
 # Výsledek je vidět u commitu (✓ / ✗); při chybě jsou snímky obrazovky v příloze běhu („testy-snimky“).
 # Nepotřebuje žádná tajemství – Supabase nahrazuje testovací databáze přímo v běhu.
+# Úspora minut: jen větve main a dev, ne při změně samotných poznámek a dokumentace; novější nahrání
+# do stejné větve zruší ještě běžící kontrolu staršího (výsledek stejně platí pro poslední stav).
 on:
   push:
+    branches: [main, dev]
+    paths-ignore: ["README.md", "CLAUDE.md", "LICENSE", "testy/README.md", "zdroj/obsah/NÁVOD.md", "podklady/**", "supabase/functions/**"]
   pull_request:
   workflow_dispatch:
+concurrency:
+  group: kontrola-${{ github.ref }}
+  cancel-in-progress: true
 permissions:
   contents: read
 jobs:
