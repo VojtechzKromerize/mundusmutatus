@@ -9,10 +9,11 @@ async function jaDiscordInit(){if(!window.MMDB||!MMDB.hracPrihlasen||!MMDB.hracP
 async function jaZvol(kid){if(!confirm("Volba postavy je trvalá – změnit ji pak může jen vypravěč. Hrát za tuto postavu?"))return;
   try{await MMDB.jaKarta(kid,DCU.jmeno);JA.set({k:kid,n:(KARTBY[kid]||{}).n||kid,d:1});KZAM.add(kid);await kartyNacti();mmHlasG("Postava zvolena.",3000);hraPoll(true);route()}catch(e){mmHlasG(e.message||String(e),6000)}}
 const jaDiscordBtn=()=>window.MMDB&&MMDB.discordLogin?`<p><button type="button" class="gbtn ddisc" data-discord>Přihlásit přes Discord</button></p>`:"";
-function jaBezKartyHtml(){const volne=KARTY.filter(k=>!KZAM.has(k.id)&&!k.test);
+/* volné karty: i zkušební (na nich si hráč může přihlášení vyzkoušet; vypravěč je pak uvolní na stránce Hra) */
+function jaBezKartyHtml(){const volne=KARTY.filter(k=>!KZAM.has(k.id)).sort((a,b)=>(!!a.test-!!b.test)||String(a.n).localeCompare(String(b.n),"cs"));
   return `<section><h3 class="uvh2">Vítej, ${besc(DCU.jmeno||"hráči")}</h3><p>Nahraj list své postavy z D&amp;D Beyond (postava → <i>Export to PDF</i>). Karta se vytvoří a zůstane tvoje.</p>
     <label class="gbtn"><input type="file" accept="application/pdf,.pdf" data-kimphra hidden>Nahrát PDF z D&amp;D Beyond…</label>${KIMP?kImpNahled(KIMP,true):""}
-    ${volne.length?`<details class="bjapd"><summary>Nebo zvol kartu, kterou už nahrál vypravěč</summary><ul class="kfeat">${volne.map(k=>`<li><b>${besc(k.n)}</b> <small>${besc(k.povolani||"")}</small> <button type="button" class="gbtn ghost" data-jazvol="${besc(k.id)}">Hrát za tuto postavu</button></li>`).join("")}</ul></details>`:""}
+    ${volne.length?`<details class="bjapd"${KIMP?"":" open"}><summary>Nebo zvol kartu, kterou už nahrál vypravěč</summary><ul class="kfeat">${volne.map(k=>`<li><b>${besc(k.n)}</b> <small>${besc(k.povolani||"")}${k.test?" · zkušební":""}</small> <button type="button" class="gbtn ghost" data-jazvol="${besc(k.id)}">Hrát za tuto postavu</button></li>`).join("")}</ul></details>`:""}
     <p class="bojbtn"><button type="button" class="gbtn ghost" data-discordx>Odhlásit Discord</button></p></section>`}
 /* ---- texty rysů (soukromé) a rejstřík rysů SRD ---- */
 const KTX={},KTXP={};let SRDRY=null;
