@@ -105,8 +105,8 @@ function kDuseHtml(K){const D=kDuse(K),s=D.sv,kr=D.vz==="old"?"old":"kr",feat=(K
       <form data-kdusf class="kdusf"><label>Postava v Družině <select name="dr"><option value="">— podle jména —</option>${PARTY.map(p=>`<option value="${besc(p.id)}"${D.dr===p.id?" selected":""}>${besc(kNm(p.n))}</option>`).join("")}</select></label>
         <label>Vyznání <select name="vz"><option value="">—</option>${Object.entries(KVZN).map(([k,v])=>`<option value="${k}"${D.vz===k?" selected":""}>${v}</option>`).join("")}</select></label>
         <label>Stupeň featu víry <select name="fs">${[1,2,3].map(i=>`<option${D.fs===i?" selected":""}>${i}</option>`).join("")}</select></label>
-        <label>Ctnosti <select name="c1"><option value=""></option>${opt(KCTN[kr],D.ctn[0])}</select><select name="c2"><option value=""></option>${opt(KCTN[kr],D.ctn[1])}</select></label>
-        <label>Neřesti <select name="n1"><option value=""></option>${opt(KNER[kr],D.ner[0])}</select><select name="n2"><option value=""></option>${opt(KNER[kr],D.ner[1])}</select></label>
+        <label>Ctnost <select name="c1"><option value=""></option>${opt(KCTN[kr],D.ctn[0])}</select></label>
+        <label>Neřest <select name="n1"><option value=""></option>${opt(KNER[kr],D.ner[0])}</select></label>
         <label>Svědomí <input type="number" name="sv" min="0" max="10" value="${s}"></label>
         <button class="gbtn ghost">Uložit</button></form><p class="rsmall">Bez nastavení se bere postava z Družiny se stejným jménem a víra z PDF.</p></details></section>`}
 async function kDuseAkce(K,a){const D=kDuse(K),ch={},log=(co,txt)=>kHodZapis({k:K.id,kdo:K.n,co,txt});let sv=D.sv;

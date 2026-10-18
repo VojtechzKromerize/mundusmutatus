@@ -137,6 +137,7 @@ function bojEfZnacene(me,K,c,w){if(!K)return [];const E=kEfAkt(K,BJU.ef,w),s=BOJ
   return [...E.filter(e=>!BZNAC.includes(e.n)||!moje(e.n)||naCili(e.n)),...kEfekty(K).filter(e=>BZNAC.includes(e.n)&&naCili(e.n)&&!E.some(x=>x.n===e.n))]}
 /* hráč: hod za zbraň (d20 + bonus, s výhodou či nevýhodou; zranění, při přirozené 20 dvojnásob kostek) */
 function bojJaHod(){const s=BOJ.s||{},me=(s.hraci||[]).find(h=>h.n===bojJa.get()),sp=me&&bojJaSp(s,me);if(sp){bojJaHodKouzlo(s,me,sp);return}const w=bojZbrVse(s,me)[+BJU.zi];if(!me||!w||BJU.zi===""){mmHlas("Vyber zbraň s kostkou zranění.",2500);return}
+  {const K0=bojKartaH(me),T0=K0&&bojSikTypy(K0,w);if(T0&&!BJU.sikOk){bojJaSikVolba(K0,w,T0);return}BJU.sikOk=false}
   const K=bojKartaH(me),TL=bojCileL(BJU,s.npc||[]).map(id=>(s.npc||[]).find(o=>o.id===id)),c=TL[0]||(s.npc||[]).find(o=>o.id===BJU.cil),E=bojEfZnacene(me,K,c,w),kmin=Math.min(20,...E.map(e=>+e.krit||20)),plus=E.reduce((a,e)=>a+(typeof e.zr==="string"?0:(+e.zr||0)),0);
   const nav=bojAdvHrac(s,me,c,!!w.dal),v=BJU.adv==="auto"?nav.v:+BJU.adv,b=(+w.b||0)-(K?2*kVycerp(K):0),ser=[],txt=[];
   /* Zadat ručně: kostky hozené u stolu nahradí hod webu (jen první útok); co chybí, hodí web */
@@ -648,3 +649,8 @@ function bojSikVolba(o0,ai,a0){const ty=bojTypy(a0),v=BUTT[o0.id+":"+ai]||{};
   mmPop(`<h3 class="uvh2">${besc(o0.n)}: ${besc(a0.n)}</h3><p class="rsmall">Šikovná zbraň – vyber typ zranění pro tento útok.</p><div class="bsikv">${ty.map(t=>`<button type="button" class="gbtn${v.t===t?"":" ghost"}" data-butsik="${t}" data-n="${besc(o0.id)}" data-ai="${ai}">${bikZr(t)} ${besc(BZRT[t]||t)}</button>`).join("")}</div>`)}
 document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-butsik]");if(!b)return;const o0=((BOJ.s||{}).npc||[]).find(x=>x.id===b.dataset.n);if(!o0)return;const ai=+b.dataset.ai;
   BUTT[o0.id+":"+ai]=Object.assign({},BUTT[o0.id+":"+ai]||{},{t:b.dataset.butsik,pul:false});mmPopX();bojUtokKlik(o0,ai)});
+
+/* hráč: Šikovná zbraň – před hodem volba typu zranění */
+function bojJaSikVolba(K,w,T){const v=BUTYP[K.id+":"+w.n];
+  mmPop(`<h3 class="uvh2">${besc(w.n)}</h3><p class="rsmall">Šikovná zbraň – vyber typ zranění pro tento útok.</p><div class="bsikv">${T.map(t=>`<button type="button" class="gbtn${v===t?"":" ghost"}" data-bjsik="${t}" data-k="${besc(K.id)}" data-w="${besc(w.n)}">${bikZr(t)} ${besc(BZRT[t]||t)}</button>`).join("")}</div>`)}
+document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-bjsik]");if(!b)return;BUTYP[b.dataset.k+":"+b.dataset.w]=b.dataset.bjsik;BJU.sikOk=true;mmPopX();bojJaHod()});

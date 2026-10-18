@@ -152,6 +152,17 @@ async def main():
     await pridej("Weapon, +2 ",{"zakl":"Rapier"})
     chk(await pl.evaluate("(()=>{const U=kUtoky(KARTBY.balduin),a=U.find(x=>x.n==='Rapier +2');return !!a&&a.z.endsWith('+6')})()"),"magická zbraň +2 z nabídky: útok i zranění s bonusem")
     await pl.evaluate("kartaStavZmen('balduin',{inv:null},null,{bezZpet:true});delete KZBRV.balduin;kZbrvUloz()");await pl.wait_for_timeout(500)
+    # vlastnosti zbraně podle Artikulí nastavené hráčem (Šikovná s volbou typu zranění)
+    await pl.keyboard.press('Escape');await pl.click('.bdmtabs [data-bdmsec="akce"]');await pl.wait_for_timeout(300)
+    wn=await pl.evaluate("kUtoky(KARTBY.balduin).find(a=>!/eldritch|unarmed|beze/i.test(a.n)).n")
+    await pl.evaluate(f"BDM.utx.add('balduin|'+{json.dumps(wn)});kartyPrekresli()");await pl.wait_for_timeout(300)
+    await pl.click(f'[data-zvl={json.dumps(wn)}]');await pl.wait_for_selector("[data-bdmzvf]",timeout=5000)
+    await pl.evaluate("document.querySelectorAll('[data-bdmzvf] [name=vl]').forEach(x=>x.checked=['Šikovná','Ostrá'].includes(x.value));document.querySelectorAll('[data-bdmzvf] [name=t]').forEach(x=>x.checked=x.value!=='Bludgeoning')")
+    await pl.click('[data-bdmzvf] button.on');await pl.wait_for_timeout(900)
+    z=(stav().get("zbrVl") or {}).get(wn) or {}
+    chk(z.get("vl")==["Šikovná","Ostrá"] and sorted(z.get("t") or [])==["Piercing","Slashing"],"hráč nastaví zbrani vlastnosti Šikovná a Ostrá: "+str(z))
+    chk(await pl.evaluate(f"bdmZvl(kUtoky(KARTBY.balduin).find(a=>a.n==={json.dumps(wn)}),KARTBY.balduin).join()")=="Šikovná,Ostrá","karta počítá s nastavenými vlastnostmi")
+    await pl.evaluate("kartaStavZmen('balduin',{zbrVl:null},null,{bezZpet:true})");await pl.wait_for_timeout(500)
     # vypravěč: přehled družiny, ukázka, příprava sezení, nestvůry SRD
     g=await b.new_page(viewport={"width":1300,"height":1000});gerr=[];g.on("pageerror",lambda e:gerr.append(str(e)[:200]));g.on("dialog",lambda d:asyncio.ensure_future(d.accept()))
     await g.add_init_script("localStorage.setItem('mm-gm-relace',JSON.stringify("+json.dumps({"at":rel["access_token"],"rt":rel["refresh_token"],"exp":rel["expires_at"],"email":"gm@x.cz"})+"))")

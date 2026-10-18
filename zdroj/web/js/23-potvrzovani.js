@@ -69,7 +69,7 @@ async function bojUtokVratSlot(u){if(!u||!u.sl)return;const h=((BOJ.s||{}).hraci
 var ZMENY=[],ZMOD="6h",ZMFLT="vse";
 var ZMPOLE={hp:"životy",thp:"dočasné HP",kz:"kostky životů",vycerp:"vyčerpání",insp:"inspirace",zdr:"sloty a zdroje",inv:"vybavení",pen:"peníze",pozn:"poznámky",
   sv:"Svědomí",hr:"hříchy",sk:"dobré skutky",duse:"duše",tech:"techniky",uc:"účinky",stavy:"stavy",bezstit:"štít",kpn:"připravená kouzla",kpx:"odebraná kouzla",spol:"společníci",
-  dopl:"doplňky",mun:"munice",tridy:"povolání",vlU:"vlastnosti",pdfx:"rozdíly z PDF",upr:"úpravy",pri:"přídavky k hodům",img:"portrét",forma:"podoba",zbrU:"obětování zbroje"};
+  dopl:"doplňky",mun:"munice",tridy:"povolání",vlU:"vlastnosti",pdfx:"rozdíly z PDF",upr:"úpravy",pri:"přídavky k hodům",img:"portrét",forma:"podoba",zbrU:"obětování zbroje",zbrVl:"vlastnosti zbraní"};
 var zmV=v=>v==null?"–":typeof v==="object"?(Array.isArray(v)?`${v.length} položek`:Object.entries(v).slice(0,4).map(([k,x])=>`${k} ${typeof x==="object"?"…":x}`).join(", ")):String(v);
 function zmPopis(z){if(z.druh==="boj")return `Boj: ${z.souhrn||"změna"}`;if(z.druh==="hra")return `Herní stav: ${z.souhrn||"změna"}`;
   const K=KARTBY[z.klic],n=K?K.n:z.klic,p=ZMPOLE[z.pole]||z.pole;

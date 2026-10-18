@@ -3160,3 +3160,9 @@ span.bzos{cursor:default}
 .bzzt,.bzzv{flex-basis:100%;font-size:.78rem;color:var(--muted)}
 .bzzv{font-style:italic;color:var(--ink)}.bzzv.bzzp{color:var(--kal)}
 .bznic,.bzhr{margin:8px 0}
+.bdmzvlg{display:flex;flex-direction:column;gap:6px;margin:8px 0}
+.bdmzvlr{display:grid;grid-template-columns:auto auto 1fr;grid-template-areas:"c i n" "c i s";align-items:center;column-gap:8px;padding:6px 8px;border:1px solid var(--kb-bd2);border-radius:6px;background:#1e1915;cursor:pointer}
+.bdmzvlr input{grid-area:c;width:18px;height:18px;accent-color:var(--kb-gold)}.bdmzvlr>:nth-child(2){grid-area:i}.bdmzvlr b{grid-area:n;color:var(--kb-tx)}.bdmzvlr small{grid-area:s;color:var(--kb-mu);font-size:.78rem;line-height:1.3}
+.bdmzvlr:has(input:checked){border-color:var(--kb-gold);background:#2a2116}
+.bdmzvlt{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border:1px solid var(--kb-bd2);border-radius:6px}.bdmzvlt input{accent-color:var(--kb-gold)}
+.bdmzvb{margin-top:4px}

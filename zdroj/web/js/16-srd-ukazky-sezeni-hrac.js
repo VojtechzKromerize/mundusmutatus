@@ -183,7 +183,7 @@ document.addEventListener("submit",async e=>{const f=e.target;if(!f.matches||!f.
   if(f.matches("[data-kpdov]")){e.preventDefault();const d=E.dov.value,dc=+E.dc.value||0;KPS.dov=d;KPS.dc=E.dc.value;
     await kPrehledHod(d,k=>{const r=kSvAdv(k,d);return [kDov(k,d),kAdvSum(0,r),r.map(x=>x[1]).join(", ")]},dc);return}
   if(!K)return;
-  if(f.matches("[data-kdusf]")){e.preventDefault();const ctn=[E.c1.value,E.c2.value].filter(Boolean),ner=[E.n1.value,E.n2.value].filter(Boolean),duse={};
+  if(f.matches("[data-kdusf]")){e.preventDefault();const ctn=[E.c1.value].filter(Boolean),ner=[E.n1.value].filter(Boolean),duse={};
     if(E.dr.value)duse.dr=E.dr.value;if(E.vz.value)duse.vz=E.vz.value;if(+E.fs.value>1)duse.fs=+E.fs.value;if(ctn.length)duse.ctn=ctn;if(ner.length)duse.ner=ner;
     const sv=Math.max(0,Math.min(10,Math.round(+E.sv.value)));const D=kDuse(K);await kartaStavZmen(K.id,{duse:Object.keys(duse).length?duse:null,sv},`${K.n}: duše uložena.`);
     if(sv!==D.sv)kHodZapis({k:K.id,kdo:K.n,co:"Svědomí upraveno",txt:`${D.sv} → ${sv} (${SVST(sv)})`});return}

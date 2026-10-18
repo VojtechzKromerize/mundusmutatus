@@ -23,7 +23,7 @@ const GLOSS=[
  {id:"hodiny",t:"Hodiny Závoje",ch:"zavoj",f:["Hodiny Závoje","Hodinách Závoje","Hodin Závoje"],d:"Půlnoc, poledne, doba po večerním klekání a slunovraty. Závoj je nejtenčí a Pokušení padá už na 1–3."},
  {id:"svatek",t:"Svátek",ch:"zavoj",f:[],d:"Den svátku podle vyznání postavy: svátky světců pro všechny křesťany (katolíky i kališníky), Mistr Jan Hus navíc pro kališníky, svátky starých bohů (např. vynášení Morany) pro všechny starověrce. Požehnání padá už na 4–6."},
  {id:"hodina-pravdy",t:"Hodina Pravdy",ch:"zavoj",f:["Hodina Pravdy","Hodině Pravdy","Hodinu Pravdy","Hodiny Pravdy"],d:"Souběh Hodiny Závoje a svátku: Pokušení na 1–3, Požehnání na 4–6, nic neutrálního. Trvá vždy jen hodinu; přirozeně nastává o Filipojakubské a Svatojánské noci a o Půlnoční na Štědrý den."},
- {id:"ctnosti",t:"Ctnosti a Neřesti",ch:"ctnosti",f:["Ctnosti a Neřesti","Ctnost","Ctnosti","Neřest","Neřesti"],d:"Každá postava má dvě Ctnosti (v čem je silná) a dvě Neřesti (kde ji ďábel nejsnáze svede). Jednání podle nich přináší body hříchu či dobrých skutků i Heroic Inspiration."},
+ {id:"ctnosti",t:"Ctnosti a Neřesti",ch:"ctnosti",f:["Ctnosti a Neřesti","Ctnost","Ctnosti","Neřest","Neřesti"],d:"Každá postava má jednu Ctnost (v čem je silná) a jednu Neřest (kde ji ďábel nejsnáze svede). Jednání podle nich přináší body hříchu či dobrých skutků i Heroic Inspiration."},
  {id:"hrich",t:"Všední a smrtelný hřích",ch:"ctnosti",f:["Všední hřích","všední hřích","Smrtelný hřích","smrtelný hřích","bod hříchu","body hříchu"],d:"Všední hřích dává 1 bod hříchu (proti vlastní Ctnosti 2). Smrtelný hřích – vražda bezbranného, zrada, mučení, křivá přísaha – sníží Svědomí okamžitě o 1 (proti Ctnosti o 2)."},
  {id:"skutek",t:"Dobré skutky",ch:"ctnosti",f:["dobrých skutků","Dobré skutky","velký skutek","Velký skutek"],d:"Jednání podle Ctnosti, které něco stojí, dává bod dobrých skutků. Skutečná oběť nebo riziko života je velký skutek: Svědomí +1 hned."},
  {id:"svedomi",t:"Svědomí",ch:"svedomi",f:["Svědomí"],d:"Hodnota 0–10 (začíná na 5) a čtyři stavy: Zatracený, Na scestí, Na vážkách, V milosti. Každý stav má výhody i nevýhody."},
@@ -49,12 +49,12 @@ const ARTB=[
 const ARTK=[
 /* ======== KNIHA I · VÍRA ======== */
 {id:"ctnosti",book:"vira",t:"Ctnosti a hříchy",img:"vira.webp",wide:1,
- sum:"Dvě Ctnosti a dvě Neřesti, body hříchu a dobrých skutků.",
+ sum:"Jedna Ctnost a jedna Neřest, body hříchu a dobrých skutků.",
  q:["Království Boží je ve Vás!","Evangelium dle Lukáše (17, 21)"],
  intro:`<p>Království Boží je královstvím svědomí. Po Noci Proměny není víra pouhou kulisou, ale rozhodnutím, které bude vaši postavu provázet po celé dobrodružství. Určuje, co pro postavu představuje ctnost a co hřích, jak se od hříchu může očistit, a nakonec i to, zda hříchu podlehne, nebo se naopak v očích souvěrců stane světcem. Mistr Jan Hus kvůli svědomí odmítl odvolat své učení.</p>`,
  secs:[
  {id:"ctnosti-a-nerest",t:"Ctnosti a Neřesti",h:`
-  <p>Každá postava si volí <b>dvě Ctnosti a dvě Neřesti</b>. Ctnosti vyjadřují, v čem je postava silná a na jakých hodnotách jí záleží. Neřesti jsou jejími slabinami, kde ji ďábel nejsnáze svede na scestí. Jednání v souladu či rozporu s Ctností nebo Neřestí vede k zisku bodů hříchu či dobrých skutků.</p>
+  <p>Každá postava si volí <b>jednu Ctnost a jednu Neřest</b>. Ctnost vyjadřuje, v čem je postava silná a na jakých hodnotách jí záleží. Neřest je její slabinou, kde ji ďábel nejsnáze svede na scestí. Jednání v souladu či rozporu s Ctností nebo Neřestí vede k zisku bodů hříchu či dobrých skutků.</p>
   ${tb(["Ctnost","Příklady","Neřest","Příklady"],[
    ["Pokora","Přiznání chyby, služba Bohu","<b>Pýcha</b>","Neodpuštěná urážka cti, vychloubání se rodem, bohatstvím"],
    ["Štědrost","Spravedlivá dělba kořisti, vykoupení zajatců, almužny chudým","<b>Lakomství</b>","Ponechání si kořisti, hrabivost, úplatky"],

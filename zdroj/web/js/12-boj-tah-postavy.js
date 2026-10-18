@@ -351,7 +351,7 @@ const bojKartaH=h=>h?(KARTBY[h.k]||(KARTY||[]).find(k=>k.n===h.n)||null):null;
 const bojHpPC=(h,K)=>{if(!K)return null;const ks=kartaStav(K.id);return ks.hp!=null?+ks.hp:kHPmax(K)};
 const hpO=(o,K)=>o.hp!=null?+o.hp:kHPmax(K);
 /* zbraně postavy: z karty + uložené ručně */
-const bojZbrVse=(s,h)=>{const K=bojKartaH(h);return [...(K?kUtoky(K).map(a=>({n:a.n,b:a.b,z:a.z,t:a.t,dal:!!a.dal,pocet:a.pocet||1,drt:(a.vl||[]).some(v=>/drtiv/i.test(v)),pru:(a.vl||[]).some(v=>/průrazn/i.test(v)),karta:1,pozn:a.pozn||""})):[]),...bojZbrH(s,h)]};
+const bojZbrVse=(s,h)=>{const K=bojKartaH(h);return [...(K?kUtoky(K).map(a=>({n:a.n,b:a.b,z:a.z,t:a.t,dal:!!a.dal,pocet:a.pocet||1,drt:(a.vl||[]).some(v=>/drtiv/i.test(v))||bdmZvl(a,K).includes("Drtivá"),pru:(a.vl||[]).some(v=>/průrazn/i.test(v))||bdmZvl(a,K).includes("Průrazná"),karta:1,pozn:a.pozn||""})):[]),...bojZbrH(s,h)]};
 /* zranění postavy s kartou: Resistance/Immunity, dočasné HP, pád na 0, okamžitá smrt, hody proti smrti při zásahu na 0, soustředění */
 function bojZranPC(h,K,x,typ,krit){const m=[];let v=+x||0;if(v<=0)return "";
   if(K&&(K.imu||[]).includes(typ)){m.push(`Immunity (${BZRT[typ]||typ})`);v=0}else if(K&&kOdol(K).includes(typ)){v=Math.floor(v/2);m.push(`Resistance (${BZRT[typ]||typ}) → ${v}`)}

@@ -1062,6 +1062,14 @@ begin
     -- obětování zbroje (Artikule › Zbroj): kolikrát byla zbroj / štít obětována
     when 'zbrU' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'object' and not exists (
         select 1 from jsonb_each(x) e where e.key not in ('Vycpávaná', 'Kroužková', 'Plátová', 'Komplexní', 'Štít') or jsonb_typeof(e.value) <> 'number' or not public.mm_cislo(e.value, 0, 10)))
+    -- vlastnosti zbraní podle Artikulí, jak si je hráč nastavil (2026-10-18): {"Dlouhý meč": {"vl": ["Šikovná", …], "t": ["Slashing", "Piercing"]}}
+    when 'zbrVl' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'object' and octet_length(x::text) <= 6000 and not exists (
+        select 1 from jsonb_each(x) e where char_length(e.key) > 80 or jsonb_typeof(e.value) <> 'object'
+          or exists (select 1 from jsonb_object_keys(e.value) k where k not in ('vl', 't'))
+          or jsonb_typeof(e.value -> 'vl') is distinct from 'array' or jsonb_array_length(e.value -> 'vl') > 11
+          or exists (select 1 from jsonb_array_elements(e.value -> 'vl') q where coalesce(q #>> '{}', '') not in ('Drtivá', 'Průrazná', 'Šikovná', 'Ostrá', 'Půlmeč', 'Ratiště', 'Do slabin!', 'Strhující', 'Vpřed!', 'Štěpící', 'Hrom a kouř!'))
+          or (e.value ? 't' and (jsonb_typeof(e.value -> 't') <> 'array' or jsonb_array_length(e.value -> 't') > 3
+            or exists (select 1 from jsonb_array_elements(e.value -> 't') q where coalesce(q #>> '{}', '') not in ('Slashing', 'Piercing', 'Bludgeoning'))))))
     else false end;
   if not coalesce(ok, false) then
     raise exception 'neplatná hodnota (%)', p_pole;
