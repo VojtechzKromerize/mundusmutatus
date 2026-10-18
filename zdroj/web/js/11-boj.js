@@ -336,6 +336,15 @@ function bojUtokV(n,ai,a){const v=BUTT[n.id+":"+ai];if(!v)return a;const b=Objec
   return b}
 /* přesila houfu: +1 za každého dalšího pacholka, nejvýš +5; v úzkém průchodu nejvýš +1 */
 const bojPres=(s,n)=>Math.min(Math.max((n.pocet||0)-1,0),bojPros(s).includes("uzky")?1:5);
+function bojUtokZr(n,a,krit,S){
+  if(a.zp!=null){const dos=Math.max(1,Math.min(n.pocet||1,bojPros(S).includes("uzky")?2:99,BDOS[n.id]!=null?BDOS[n.id]:(n.pocet||1)));return {t:a.zp*dos,x:`${a.zp} × ${dos} v dosahu`,zt:a.zt||""}}
+  if(a.z){const k=bojKostky(a.z,krit);if(k){/* další kostky v popisu („… a 1d8 Prokleté“) se hodí taky */
+    let t=k.t,x=k.x;String(a.zt||"").replace(/(?:^|\s)(?:a|\+)\s*(\d*d\d+(?:[+-]\d+)?)/gi,(m,z)=>{const q=bojKostky(z,krit);if(q){t+=q.t;x+=` + ${q.x}`}return m});
+    return {t,x,zt:a.zt||"",pol:!!a.dc}}}
+  return null}
+/* „Zásah – hodit zranění“ u útoku bez známé AC cíle */
+function bojUtokZrPo(nid){const L=BLOG[nid],o=L&&L[0],n=((BOJ.s||{}).npc||[]).find(x=>x.id===nid);if(!o||!o.zrPo||!n)return;const E=bojEff(n),a0=E&&E.at[o.zrPo.ai];if(!a0)return;
+  const a=bojUtokV(n,o.zrPo.ai,a0),zr=bojUtokZr(n,a,o.zrPo.krit,BOJ.s||{});delete o.zrPo;if(zr)o.zr=zr;renderBoj()}
 function bojUtok(n,ai){const E=bojEff(n);if(!E)return;const a=E.at[ai]?bojUtokV(n,ai,E.at[ai]):null;if(!a)return;const houf=n.druh==="houf",p=E.p,o={n:a.n,p:a.p||""};
   let krit=false;
   const S=BOJ.s||{},cid=BCIL[n.id],cil=cid?((S.hraci||[]).find(h=>h.id===cid)||(S.npc||[]).find(x=>x.id===cid)):null;if(cil){o.cil=cil.n;o.ci=cid;if(String(cid)[0]==="h")o.cilPC=cil.n}
@@ -344,17 +353,19 @@ function bojUtok(n,ai){const E=bojEff(n);if(!E)return;const a=E.at[ai]?bojUtokV(
   if(a.b!=null){const pres=houf?bojPres(S,n):0,b=a.b+pres,d1=bK(20),d2=av.v?bK(20):null,d=av.v>0?Math.max(d1,d2):av.v<0?Math.min(d1,d2):d1;krit=d===20;
     o.hod={tot:d+b,d,b,pres,krit,mis:d===1,adv:av.v,dd:d2!=null?[d1,d2]:null,advWhy:av.why.join(", "),kryt:nv0.kryt||0,o19:!krit&&d===19&&/ostr/i.test(a.p||"")&&!/^(Piercing|Bludgeoning)$/.test(String(a.zt||"").trim())}}
   else if(a.dc)o.dc=a.dc;
-  if(a.zp!=null){const dos=Math.max(1,Math.min(n.pocet||1,bojPros(S).includes("uzky")?2:99,BDOS[n.id]!=null?BDOS[n.id]:(n.pocet||1)));o.zr={t:a.zp*dos,x:`${a.zp} × ${dos} v dosahu`,zt:a.zt||""}}
-  else if(a.z){const k=bojKostky(a.z,krit);if(k){/* další kostky v popisu („… a 1d8 Prokleté“) se hodí taky */
-    let t=k.t,x=k.x;String(a.zt||"").replace(/(?:^|\s)(?:a|\+)\s*(\d*d\d+(?:[+-]\d+)?)/gi,(m,z)=>{const q=bojKostky(z,krit);if(q){t+=q.t;x+=` + ${q.x}`}return m});
-    o.zr={t,x,zt:a.zt||"",pol:!!a.dc}}}
-  else if(a.zt)o.zt=a.zt;
+  /* zranění se hází až po zásahu (2026-10-18): proti známé AC (postava s kartou, nepřítel s AC) jen při zásahu; bez cíle nebo AC
+     se hodí až tlačítkem „Zásah – hodit zranění“; útok se záchranou (SO) hází zranění hned (polovina při úspěchu) */
+  const ACc=cil?(!cil.druh?(bojKartaH(cil)?kAC(bojKartaH(cil))+(+cil.kryt||0):null):(+cil.ac||null)):null;
+  const zas=!o.hod?true:o.hod.mis?false:krit?true:ACc!=null?o.hod.tot>=ACc:null;
+  if(zas===true){const zr=bojUtokZr(n,a,krit,S);if(zr)o.zr=zr;else if(a.zt)o.zt=a.zt}
+  else if(zas===null&&(a.z||a.zp!=null))o.zrPo={ai,krit};
+  else if(a.zt&&!a.z&&a.zp==null)o.zt=a.zt;
   if(!houf&&a.b!=null){const z=bojZavoj(p);o.zav=bojZavObj(p,z);o.bes=z.r==="pok"&&bojZatr(n)}
   if(krit)o.krit=bojKritDruh(a.zt);
   {const K=cil&&!cil.druh?bojKartaH(cil):null;if(K&&o.hod){const AC=kAC(K)+(+cil.kryt||0);o.pcAC=AC;o.pcHit=o.hod.krit||(!o.hod.mis&&o.hod.tot>=AC);o.pcId=cid}}
-  if(cil&&!cil.druh&&(cil.stav||[]).includes("soustředí")&&o.zr)o.kon=`${cil.n} drží soustředění: při zásahu CON záchrana SO ${bojKonDC(o.zr.t)}`;
+  if(cil&&!cil.druh&&(cil.stav||[]).includes("soustředí")&&o.zr&&o.pcHit!==false)o.kon=`${cil.n} drží soustředění: CON záchrana SO ${bojKonDC(o.zr.t)} – hráč si ji hodí sám`;
   let pz=null;{const K=cil&&!cil.druh?bojKartaH(cil):null;if(K&&o.pcHit&&o.zr&&o.zr.t>0&&bojPcAuto.get()&&GMV){pz=bojPcZasah(o,cid,K);if(pz){o.pcAuto=pz.msg||"bez zranění"}}}
-  {const ver=cil&&bojVerej(S,cid);const ze={a:n.n,ai:n.id,c:cil?cil.n:"",ci:cid||"",cim:a.n,v:o.hod?(o.hod.krit?"kritický zásah":o.hod.mis?"vedle":o.pcAC!=null?(o.pcHit?`zásah (${o.hod.tot})`:`vedle (${o.hod.tot})`):`útok ${o.hod.tot}`):o.dc?String(o.dc):"",z:ver&&o.zr&&!(o.hod&&o.hod.mis)&&o.pcHit!==false?o.zr.t:0,t:o.zr?o.zr.zt:""};if(o.hod&&o.pcAC!=null){ze.hod=o.hod.tot;ze.ac=o.pcAC;if(o.hod.krit)ze.kr=1}if(pz){ze.ph=pz.ph;ze.pt=pz.pt;if(pz.pd)ze.pd=1}bojZaz(ze)}
+  {const ver=cil&&bojVerej(S,cid);const ze={a:n.n,ai:n.id,c:cil?cil.n:"",ci:cid||"",cim:a.n,v:o.hod?(o.hod.krit?"kritický zásah":o.hod.mis?"vedle":o.pcAC!=null?(o.pcHit?`zásah (${o.hod.tot})`:`vedle (${o.hod.tot})`):`útok ${o.hod.tot}`):o.dc?String(o.dc):"",z:ver&&o.zr&&!(o.hod&&o.hod.mis)&&o.pcHit!==false?o.zr.t:0,t:o.zr?o.zr.zt:""};if(o.hod&&o.pcAC!=null){ze.hod=o.hod.tot;ze.ac=o.pcAC;if(o.hod.krit)ze.kr=1}if(pz){ze.ph=pz.ph;ze.pt=pz.pt;if(pz.pd)ze.pd=1;if(pz.kv)ze.kv=1}bojZaz(ze)}
   if(bojRecharge(p).some(q=>q.n===a.n)){(BRCH[n.id]=BRCH[n.id]||{})[a.n]=1}
   bojLog(n.id,o,n.n)}
 /* plaketa posledního hodu: pečeť s výsledkem, zranění, pruh Závoje */
@@ -363,7 +374,7 @@ function bojPlak(o){const h=o.hod,z=o.zav;
     :o.dc?`<span class="bpls bdc"><b class="bhd">${besc(String(o.dc).replace(/^.*?DC\s*/i,"DC "))}</b><small>${besc(String(o.dc).replace(/\s*DC.*$/i,"")||"záchrana")} záchrana</small></span>`
     :z?`<span class="bpls bzs">${bi("zavoj")}<small>Závoj</small></span>`:"";
   const det=h?`<small class="bpld">${o.cil?`→ <b>${besc(o.cil)}</b> · `:""}${h.dd?`${h.adv>0?"výhoda":"nevýhoda"}${h.advWhy?` (${besc(h.advWhy)})`:""}: d20 ${h.dd[0]} / ${h.dd[1]} → ${h.d}`:`d20 ${h.d}`} ${bsg(h.b)}${h.pres?`, přesila +${h.pres}`:""}${h.kryt?` · cíl za ${h.kryt===5?"tříčtvrtečním":"polovičním"} krytem: jeho AC +${h.kryt}`:""}${o.bezv?` · cíl v bezvědomí${o.bezvZbl?": zásah zblízka je kritický":""}`:""}${o.pcAC!=null?` · <b class="${o.pcHit?"bkfail":"bkok"}">${o.pcHit?"zásah":"vedle"}</b> proti AC ${o.pcAC}`:""}${o.kon?` · ${besc(o.kon)}`:""}${h.o19?" · 19: kritický, pokud seká (Slashing) cíl bez Resistance (Ostrá)":""}</small>`:o.dc?`<small class="bpld">záchrana cíle</small>`:"";
-  const zr=o.zr?`<span class="bplz">zranění <b>${o.zr.t}</b> ${bikZrTxt(o.zr.zt)}<small>${besc(o.zr.x)} ${besc(o.zr.zt)}${o.zr.pol?" · při úspěchu záchrany obvykle polovina":""}</small></span>`:o.zt?`<small>${besc(o.zt)}</small>`:"";
+  const zr=o.zr?`<span class="bplz">zranění <b>${o.zr.t}</b> ${bikZrTxt(o.zr.zt)}<small>${besc(o.zr.x)} ${besc(o.zr.zt)}${o.zr.pol?" · při úspěchu záchrany obvykle polovina":""}</small></span>`:o.zrPo?`<button type="button" class="badd" data-bzrpo ${btip("Cíl bez známé AC: když útok zasáhl, hodí zranění")}>Zásah – hodit zranění →</button>`:o.zt?`<small>${besc(o.zt)}</small>`:"";
   const zb=z?`<div class="bplv ${z.r==="pok"?"zp":z.r==="poz"?"zb":"zn"}">${bi(z.r==="pok"?"pokuseni":z.r==="poz"?"pozehnani":"zavoj")}<b>${z.r==="pok"?"Pokušení":z.r==="poz"?"Požehnání":"Závoj bez efektu"}</b><small>k6 ${z.d}${z.hod?" · "+besc(z.hod):""}</small>${z.txt?`<span>${besc(z.txt)}</span>`:""}</div>`:"";
   const btn=(o.leg?`<button type="button" class="badd" data-blegod>Použít Legendární odolnost (zbývá ${o.leg}) →</button>`:"")+(o.krit?`<button type="button" class="badd" data-bkritz="${o.krit}">Kritické zranění cíle →</button>`:"")+(o.bes?`<button type="button" class="badd bbes" data-bbes>Zhmotnit běsa</button>`:"")+(o.pcAuto?`<small class="bpcauto">odečteno z karty: ${besc(o.pcAuto)}</small>`:"")+(o.pcHit&&o.zr&&o.zr.t>0&&!BPCZ.has(o.t)&&!o.pcAuto?`<button type="button" class="badd" data-bpczt="${o.t}" data-bpcz="${besc(o.pcId)}" data-z="${o.zr.t}" data-t="${besc((bojTypy({zt:o.zr.zt})[0])||"Slashing")}"${o.hod&&o.hod.krit?' data-k="1"':""} ${btip("Odečte postavě životy (s jejími odolnostmi a dočasnými HP). Neklikej, když se ubránila reakcí, např. Shield.")}>Zapsat zranění ${besc(o.cil)} −${o.zr.t} →</button>`:"")+(o.bezv&&!(o.hod&&o.hod.mis)?(()=>{const k=o.hod&&o.hod.krit||o.bezvZbl?2:1;return `<button type="button" class="badd" data-bdsf="${besc(o.bezv)}" data-k="${k}" ${btip("Zásah postavy na 0 HP: neúspěch hodu proti smrti, kritický zásah dva")}>Zasáhl padlého: +${k} ${k===1?"neúspěch":"neúspěchy"} →</button>`})():"");
   return `${seal}<div class="bplm"><b class="bpln">${o.an&&o.ci&&o.ai!==o.ci?`${besc(o.an)}: `:""}${besc(o.n)}</b>${det}${zr}${o.p?`<small class="bpoz">${bojTipy(besc(o.p))}</small>`:""}${btn?`<div class="bplb">${btn}</div>`:""}</div>${zb}`}

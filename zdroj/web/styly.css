@@ -3075,3 +3075,4 @@ h4 .kspi{margin-right:5px}
 :root[data-theme="dark"] #bojview{--bh:#6f82bf}
 .bdmd20{background:var(--kb-gold);border-color:#f3dc9c;color:#241a10}.bdmd20[aria-expanded=true]{background:#a8853c}
 .kspi,.bdm .kspi{background:#3a2b1c;border-color:#d9b45a;color:#ecd48e}.kspt,.bdm .kspt{background:#d9b45a;color:#2b2117}
+.bsikv{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}

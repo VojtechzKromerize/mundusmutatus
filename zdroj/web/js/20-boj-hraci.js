@@ -144,8 +144,8 @@ function bojJaHod(){const s=BOJ.s||{},me=(s.hraci||[]).find(h=>h.n===bojJa.get()
   if((pl(R.d20)&&r20==null)||(pl(R.d6)&&r6==null)||(pl(R.dmg)&&rz==null)){mmHlas(pl(R.d20)&&r20==null?"d20 musí být 1–20.":pl(R.d6)&&r6==null?"Kostka Závoje musí být 1–6.":"Zranění zadej jako číslo.",3000);return}
   delete BRUC[me.id];
   const kRuc=(z,n)=>{const m=String(z||"").match(/([+-]\d+)$/),c0=m?+m[1]:0;return {t:Math.max(0,n+c0),x:`${n} (ručně)${c0?(c0>0?"+":"")+c0:""}`}};
-  for(let i=0;i<Math.max(1,+w.pocet||1,TL.length);i++){const ci=TL.length?TL[i%TL.length]:c,ru=i===0&&r20!=null,d1=ru?r20:bK(20),d2=v&&!ru?bK(20):null,d=d2==null?d1:v>0?Math.max(d1,d2):Math.min(d1,d2),krit=d>=kmin,PD=K?kPriHod(K,"Útok"):{t:0,txt:""},k=w.z?(i===0&&rz!=null?kRuc(w.z,rz):bojKostky(w.z,krit)):null,ek=bojEfZnacene(me,K,ci,w).filter(e=>typeof e.zr==="string").map(e=>bojKostky(e.zr,krit)).filter(Boolean),dmg=(k?k.t:0)+(d===1?0:plus+ek.reduce((a,q)=>a+q.t,0));
-    ser.push({ci:ci?ci.id:"",hod:d+b+PD.t,d,d1,d2,v,b:b+PD.t,dmg,krit,vys:bojJaZas(ci,d+b+PD.t,d,krit),upr:[]});txt.push(`${TL.length>1&&ci?ci.n+": ":""}d20 ${d1}${ru?" (ručně)":""}${d2!=null?`/${d2}`:""} ${bsg(b)}${PD.txt} = ${d+b+PD.t}${krit?" krit!":d===1?" (1)":""}${ser[ser.length-1].vys?` → ${ser[ser.length-1].vys.toUpperCase()}`:""}${k?`, zranění ${k.x}${plus?` +${plus}`:""}${ek.map(q=>" + "+q.x).join("")} = ${dmg}`:""}`)}
+  for(let i=0;i<Math.max(1,+w.pocet||1,TL.length);i++){const ci=TL.length?TL[i%TL.length]:c,ru=i===0&&r20!=null,d1=ru?r20:bK(20),d2=v&&!ru?bK(20):null,d=d2==null?d1:v>0?Math.max(d1,d2):Math.min(d1,d2),krit=d>=kmin,PD=K?kPriHod(K,"Útok"):{t:0,txt:""},mis=bojJaZas(ci,d+b+PD.t,d,krit)==="vedle"/* zranění jen po zásahu */,k=w.z&&!mis?(i===0&&rz!=null?kRuc(w.z,rz):bojKostky(w.z,krit)):null,ek=mis?[]:bojEfZnacene(me,K,ci,w).filter(e=>typeof e.zr==="string").map(e=>bojKostky(e.zr,krit)).filter(Boolean),dmg=mis?0:(k?k.t:0)+(d===1?0:plus+ek.reduce((a,q)=>a+q.t,0));
+    ser.push({ci:ci?ci.id:"",hod:d+b+PD.t,d,d1,d2,v,b:b+PD.t,dmg,krit,vys:bojJaZas(ci,d+b+PD.t,d,krit),upr:[]});txt.push(`${TL.length>1&&ci?ci.n+": ":""}d20 ${d1}${ru?" (ručně)":""}${d2!=null?`/${d2}`:""} ${bsg(b)}${PD.txt} = ${d+b+PD.t}${krit?" krit!":d===1?" (1)":""}${ser[ser.length-1].vys?` → ${ser[ser.length-1].vys.toUpperCase()}`:""}${k?`, zranění ${k.x}${plus?` +${plus}`:""}${ek.map(q=>" + "+q.x).join("")} = ${dmg}`:mis&&w.z?", zranění se nehází":""}`)}
   if(K&&w.karta){const a=kUtoky(K).find(x=>x.n===w.n);if(a)kMunOdecti(K,a,ser.length)}if(K)kEfPouzij(K,E,BJU.ef);
   BJU.hod=String(ser[0].hod);BJU.d=String(ser[0].d);BJU.dmg=String(ser[0].dmg);BJU.t=bojUtTyp(K,w)||w.t||BJU.t;BJU.drt=!!w.drt;BJU.pru=!!w.pru;BJU.kmin=kmin;BJU.serie=ser;
   let zv="";if(K){const z=kZavoj(K,r6);KZAV[K.id]={co:`Útok – ${w.n}`,d:z.d,r:z.r,hod:z.hod};zv=" · "+zavTxt(z)+(r6!=null?" (ručně)":"")}
@@ -611,8 +611,10 @@ document.addEventListener("click",async e=>{
   if(T("[data-bprdel]")){const pr=T("[data-bprdel]").dataset.bprdel;upd(o=>{o.pr=(o.pr||[]).filter(x=>x!==pr);if(!o.pr.length)delete o.pr});return}
   const btt=T("[data-butt]");if(btt){const k=id+":"+btt.dataset.butt,v=BUTT[k]||{};BUTT[k]=v.t===btt.dataset.t&&!v.pul?{}:{t:btt.dataset.t};renderBoj();return}
   const btp=T("[data-butpul]");if(btp){const k=id+":"+btp.dataset.butpul,v=BUTT[k]||{};BUTT[k]=v.pul?{}:{pul:1};renderBoj();return}
-  if(T("[data-but]")&&o0){if(BJR[id]){if((BOJ.s.reak||{})[id])mmHlasG(`${o0.n}: reakce už byla v tomto kole použita.`,3500);else bojZmen(z=>{(z.reak=z.reak||{})[id]=1});delete BJR[id]}
-    bojUtok(o0,+T("[data-but]").dataset.but);renderBoj();return}
+  if(T("[data-bzrpo]")&&o0){bojUtokZrPo(id);return}
+  if(T("[data-but]")&&o0){const ai=+T("[data-but]").dataset.but,E0=bojEff(o0),a0=E0&&E0.at[ai];
+    if(a0&&/šikov/i.test(a0.p||"")&&bojTypy(a0).length>1){bojSikVolba(o0,ai,a0);return}
+    bojUtokKlik(o0,ai);return}
   const adv=T("[data-badv]");if(adv){const k=adv.dataset.badv;if(k==="auto")delete BADV[id];else BADV[id]=+k;renderBoj();return}
   if(T("[data-brdyadd]")&&o0){const t=(prompt(`Připravená akce – ${o0.n}: co a kdy udělá?`,"zaútočí, až se někdo přiblíží")||"").trim();if(!t)return;bojZmen(z=>{(z.ready=z.ready||{})[id]=t});return}
   if(T("[data-brdyx]")){bojZmen(z=>{if(z.ready){delete z.ready[id];if(!Object.keys(z.ready).length)delete z.ready}});return}
@@ -623,3 +625,12 @@ document.addEventListener("click",async e=>{
   const zi=T("[data-bzdi]");if(zi){const zd=zi.closest("[data-bzd]"),nm=zd.dataset.bzd,j=+zi.dataset.bzdi,o=bojZdr.get(),u=(o[id]=o[id]||{});u[nm]=(u[nm]||0)>j?j:j+1;bojZdr.set(o);renderBoj();return}
 });
 if(bojDB){bojNacti().then(()=>bojNav());if(!GMV&&window.MMDB)setInterval(async()=>{if(document.visibilityState==="visible"&&curView!=="boj"){await bojPoll();bojNav()}},20000)}
+
+/* útok nepřítele z karty (i po volbě typu zranění u Šikovné zbraně) */
+function bojUtokKlik(o0,ai){const id=o0.id;if(BJR[id]){if(((BOJ.s||{}).reak||{})[id])mmHlasG(`${o0.n}: reakce už byla v tomto kole použita.`,3500);else bojZmen(z=>{(z.reak=z.reak||{})[id]=1});delete BJR[id]}
+  bojUtok(o0,ai);renderBoj()}
+/* Šikovná zbraň: před hodem se zvolí typ zranění */
+function bojSikVolba(o0,ai,a0){const ty=bojTypy(a0),v=BUTT[o0.id+":"+ai]||{};
+  mmPop(`<h3 class="uvh2">${besc(o0.n)}: ${besc(a0.n)}</h3><p class="rsmall">Šikovná zbraň – vyber typ zranění pro tento útok.</p><div class="bsikv">${ty.map(t=>`<button type="button" class="gbtn${v.t===t?"":" ghost"}" data-butsik="${t}" data-n="${besc(o0.id)}" data-ai="${ai}">${bikZr(t)} ${besc(BZRT[t]||t)}</button>`).join("")}</div>`)}
+document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-butsik]");if(!b)return;const o0=((BOJ.s||{}).npc||[]).find(x=>x.id===b.dataset.n);if(!o0)return;const ai=+b.dataset.ai;
+  BUTT[o0.id+":"+ai]=Object.assign({},BUTT[o0.id+":"+ai]||{},{t:b.dataset.butsik,pul:false});mmPopX();bojUtokKlik(o0,ai)});
