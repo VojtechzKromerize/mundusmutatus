@@ -461,6 +461,8 @@ async def main():
     # zajatec, kořist a návrh zápisu
     if not await g.locator(f'[data-bnpc="{rid}"] [data-bstav="vzdal se"]').count():
         await g.click(f'[data-bnpc="{rid}"] [data-brozb]');await g.wait_for_timeout(300)
+    if not await g.locator(f'[data-bnpc="{rid}"] [data-bstav="vzdal se"]').count():
+        await g.click(f'[data-bnpc="{rid}"] [data-bnp="st"]');await g.wait_for_timeout(300)
     await g.click(f'[data-bnpc="{rid}"] [data-bstav="vzdal se"]');await g.wait_for_timeout(500)
     chk("smrtelný hřích" in await g.inner_text(f'[data-bnpc="{rid}"]'),"vzdaný nepřítel: karta varuje před vraždou bezbranného")
     await g.click('[data-bact="konec"]');await g.wait_for_timeout(600)

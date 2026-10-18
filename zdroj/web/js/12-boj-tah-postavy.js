@@ -330,7 +330,10 @@ async function bojHracAkce(id,fn,msg){
   finally{BOJ.zapis--}
   BOJ.v=-2;await bojNacti();renderBoj()}
 function bojHracKlik(T){const pan=T("[data-bhpan]");if(!pan)return false;const id=pan.dataset.bhpan,s=BOJ.s||{},hn=((s.hraci||[]).find(x=>x.id===id)||{}).n||"";
-  const st=T("[data-bhst]");if(st){const t=st.dataset.bhst;bojHracAkce(id,h=>{const a=h.stav||[];h.stav=a.includes(t)?a.filter(x=>x!==t):[...a,t];if(!h.stav.length)delete h.stav});return true}
+  const st=T("[data-bhst]");if(st){const t=st.dataset.bhst,h0=((BOJ.s||{}).hraci||[]).find(x=>x.id===id),K0=h0&&bojKartaH(h0),kon0=K0&&kKonDrzi(K0);
+    if(t==="soustředí"&&kon0){kKonZtrata(K0,"ukončeno");return true}
+    bojHracAkce(id,h=>{const a=h.stav||[],on=a.includes(t);h.stav=on?a.filter(x=>x!==t):[...a,t];if(!on&&SRDST[t]&&SRDST[t].nej)h.stav=h.stav.filter(x=>x!=="soustředí");if(!h.stav.length)delete h.stav});
+    if(kon0&&SRDST[t]&&SRDST[t].nej&&!((h0.stav||[]).includes(t)))kKonZtrata(K0,`${t} – soustředění končí`);return true}
   const kr=T("[data-bhkr]");if(kr){const k=+kr.dataset.bhkr;bojHracAkce(id,h=>{if(k)h.kryt=k;else delete h.kryt});return true}
   if(T("[data-bhrk]")){bojHracAkce(id,(h,z)=>{z.reak=z.reak||{};if(z.reak[id])delete z.reak[id];else z.reak[id]=1});return true}
   if(T("[data-bhrdy]")){const t=(prompt(`Připravená akce – ${hn}: co a kdy udělá?`,"zaútočím, až se někdo přiblíží")||"").trim().slice(0,160);if(!t)return true;bojHracAkce(id,(h,z)=>{(z.ready=z.ready||{})[id]=t});return true}

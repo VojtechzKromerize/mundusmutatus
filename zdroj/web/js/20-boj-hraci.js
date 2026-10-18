@@ -169,6 +169,7 @@ async function bojJaPosli(){const s=BOJ.s||{},me=(s.hraci||[]).find(h=>h.n===boj
     for(const x of ser){if(x.hod===""||x.hod==null||isNaN(+x.hod)){mmHlas("Zadej výsledek hodu na útok, nebo klikni Hodit.",3000);return}
       const u=Object.assign({},zak,km,x.ci?{ci:[x.ci]}:{ci:[ci[0]]},{hod:Math.max(-10,Math.min(60,Math.round(+x.hod))),dmg:Math.max(0,Math.min(300,Math.round(+x.dmg||0))),adv});if(x.d!==""&&+x.d>=1&&+x.d<=20)u.d=Math.round(+x.d);L.push(u)}}
   const cn=(s.npc||[]).filter(o=>ci.includes(o.id)).map(o=>o.n).join(", ");
+  if(sp&&K&&(sp.x.kon||(kSp(sp.x.n)||{}).ko)&&kKonDrzi(K)){const cur=kKonNazev(K)||"dosavadní kouzlo";if(cur!==sp.x.n){if(!confirm(`${K.n} se soustředí na ${cur}. Seslání ${sp.x.n} soustředění přeruší – ${cur} skončí. Seslat?`))return;await kKonZtrata(K,`nové kouzlo se soustředěním: ${sp.x.n}`)}}
   if(await kOdklad(`${zak.cim||"útok"} → ${cn}`,()=>true)===false){BJU.info="Zrušeno – nic se neodeslalo.";renderBoj();return}
   const sv=!!(sp&&sp.x.pz&&sp.x.pz.sv);if(sv&&await kartaSeslat(sp.K,sp.x,sp.q&&sp.q.k)===false){BJU.serie=null;BJU.info="Svitek selhal – nic se neodeslalo.";renderBoj();return}
   const SER=!BJU.plos&&BJU.serie&&BJU.serie.length===L.length?BJU.serie:null,ZV=BJU.zav;
@@ -608,6 +609,12 @@ document.addEventListener("click",async e=>{
   if(T("[data-btmsgx]")){delete BTMSG[id];renderBoj();return}
   const efd=T("[data-befdel]");if(efd){const j=+efd.dataset.befdel;upd(o=>{const e=(o.ef||[])[j];if(e)bojEfDel(o,e)});return}
   const rch=T("[data-brch]");if(rch){const R=BRCH[id]=BRCH[id]||{},k=rch.dataset.brch;if(R[k])delete R[k];else R[k]=1;renderBoj();return}
+  const bnp=T("[data-bnp]");if(bnp&&o0){const k=bnp.dataset.bnp;BNP[id]=BNP[id]===k?"":k;renderBoj();return}
+  const bcb=T("[data-bcilb]");if(bcb&&o0){const c=bcb.dataset.bcilb;if(BCIL[id]===c)delete BCIL[id];else BCIL[id]=c;renderBoj();return}
+  const bov=T("[data-bover]");if(bov&&o0){const ab=bov.dataset.bover,E=bojEff(o0),p=E&&E.p,b=bojAbil(p,ab)||0;
+    const ef=(o0.stav||[]).some(k=>SRDST[k]&&/nevýhod/i.test(SRDST[k].t||"")&&/ověřen/i.test(SRDST[k].t||"")),d1=bK(20),d2=ef?bK(20):null,d=ef?Math.min(d1,d2):d1,t=d+b;
+    const o={n:`Ověření ${ab}`,hod:{tot:t,d,b,pres:0,krit:false,mis:false,adv:ef?-1:0,dd:d2!=null?[d1,d2]:null,advWhy:ef?"stav":""},sav:"ověření"};
+    if(o0.druh!=="houf"){const z=bojZavoj(p);o.zav=bojZavObj(p,z)}bojLog(id,o,o0.n);renderBoj();return}
   const zch=T("[data-bzach]");if(zch&&o0){const ab=zch.dataset.bzach,E=bojEff(o0),p=E&&E.p,b=bojSaveB(p,ab),inp=n.querySelector("[data-bzdc]"),dc=inp&&+inp.value||0;if(dc)BZDC[id]=dc;
     const ef=(o0.stav||[]).map(k=>SRDST[k]&&SRDST[k].zach&&SRDST[k].zach[ab]?[k,SRDST[k].zach[ab]]:null).filter(Boolean),fail=ef.find(x=>x[1]==="f"),va=ef.some(x=>x[1]==="a")-ef.some(x=>x[1]==="d");
     const d1=bK(20),d2=va?bK(20):null,d=va>0?Math.max(d1,d2):va<0?Math.min(d1,d2):d1,t=d+b;

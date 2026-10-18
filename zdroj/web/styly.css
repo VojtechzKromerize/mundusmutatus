@@ -3168,3 +3168,32 @@ span.bzos{cursor:default}
 .bdmzvb{margin-top:4px}
 
 #bojview .bslot .bslst{left:auto;top:auto}
+/* karta nepřítele (2026-10-18): rozvržení jako karta hráče – AC, životy, stavy, vlastnosti se záchranami, znamení Závoje, cíl žetony */
+.bnk{--kb-gold:var(--gold);--kb-tx:var(--ink);--kb-mu:var(--muted);--kb-bd2:var(--rule);--kb-ac:var(--kal);--kb-ok:#4f8a3a;display:flex;flex-direction:column;gap:8px}
+.bnkh{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:6px}
+.bnkb{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;min-height:58px;padding:6px 6px 10px;border:1.5px solid var(--rule);border-radius:8px;background:color-mix(in srgb,var(--paper) 70%,var(--bg));color:var(--ink);font:inherit;cursor:pointer}
+.bnkb small{font-family:var(--f-label);font-weight:700;font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.bnkb b{font-size:1.35rem;line-height:1.1}.bnkb b i{font-style:normal;font-size:.9rem;color:var(--muted)}
+.bnkb.on{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
+.bnkhp .bdmhpbar{background:color-mix(in srgb,var(--muted) 30%,transparent)}.bnkhp .bdmhpbar::after{background:var(--kb-ok)}
+.bnkhp.bhp2 .bdmhpbar::after{background:#c0862a}.bnkhp.bhp0 .bdmhpbar::after{background:var(--kal)}.bnkhp.bhp0 b{color:var(--kal)}
+.bnkstI{display:flex;gap:2px}.bnkstI .bi.bimg{width:22px;height:22px}
+.bnkp{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:8px;border:1px solid var(--gold);border-radius:8px;background:color-mix(in srgb,var(--gold) 6%,var(--paper))}
+.bnkp .bzrf{width:100%}
+.bnkvl{display:grid;grid-template-columns:repeat(6,1fr);gap:4px}
+.bnkv{display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 2px;border:1px solid var(--rule);border-radius:6px}
+.bnkv>span{font-family:var(--f-label);font-weight:800;font-size:.7rem;letter-spacing:.05em;color:var(--muted)}
+.bnkvm,.bnkvz{border:1px solid var(--rule);border-radius:5px;background:var(--paper);color:var(--ink);font:inherit;cursor:pointer;padding:1px 4px;min-width:38px}
+.bnkvm{font-weight:700;font-size:1.05rem}.bnkvz{font-size:.8rem}.bnkvz small{font-size:.6rem;color:var(--muted);margin-right:2px}
+.bnkvm:hover,.bnkvz:hover{border-color:var(--gold)}
+.bnkdc{margin:0;font-size:.8rem;color:var(--muted)}.bnkdc input{width:3.6em}
+.bnkzn{display:flex;flex-direction:column;gap:3px;padding:6px 8px;border-left:3px solid var(--gold);background:color-mix(in srgb,var(--gold) 6%,transparent)}
+.bnkzn .brf{margin:0;display:flex;gap:6px;align-items:baseline}.bnkzn .brf .bi.bimg{width:18px;height:18px;align-self:center}
+.bnk .butc{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.bnk .bnkcil{display:flex;flex-wrap:wrap;gap:4px}
+.bnk .bphcil{background:var(--paper);color:var(--ink);border-color:var(--rule)}
+.bnk .bphcil[aria-pressed=true]{background:color-mix(in srgb,var(--gold) 18%,var(--paper));border-color:var(--gold)}
+.bnk .bphl{font-family:var(--f-label);font-weight:700;font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.bnkbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+@media (max-width:600px){.bnkvl{grid-template-columns:repeat(3,1fr)}}
+.kstrkon{color:var(--kb-gold,#c9a14a);font-weight:700}

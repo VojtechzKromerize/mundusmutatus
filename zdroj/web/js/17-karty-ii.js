@@ -213,6 +213,7 @@ const kNabHtml=(x,i)=>{const N=kNab(x);if(!N)return "";const u=Math.min(N.max,+x
 function kNabObnov(inv){const L=[];inv.forEach(it=>{const N=kNab(it);if(!N||!N.obn||!(+it.nab>0))return;const r=N.obn==="vse"?{tot:+it.nab}:kVyraz(N.obn),b=Math.min(+it.nab,r?r.tot:0);if(!b)return;it.nab=+it.nab-b;if(!it.nab)delete it.nab;L.push(`${it.n} +${b}`)});return L}
 /* soustředění (2026-10-17): CON záchrana na kliknutí (War Caster výhoda, stavy, Závoj); neúspěch ukončí soustředění i soustředěné účinky */
 const KKON={};
+const kKonNazev=K=>[...new Set(kUc(K).filter(x=>x.kon).map(x=>String(x.n).replace(/\s*⇒.*$/,"")))].join(", ");
 const kKonDrzi=K=>kUc(K).some(x=>x.kon)||(kartaStav(K.id).stavy||[]).includes("soustředí")||((BOJ.s&&BOJ.s.aktivni&&BOJ.s.hraci)||[]).some(h=>bojKartaH(h)===K&&(h.stav||[]).includes("soustředí"));
 async function kKonZtrata(K,proc){const L=kUc(K),kon=L.filter(x=>x.kon),zb=L.filter(x=>!x.kon),S=kartaStav(K.id),ch={};
   if(kon.length)ch.uc=zb.length?zb:null;if((S.stavy||[]).includes("soustředí")){const st=S.stavy.filter(x=>x!=="soustředí");ch.stavy=st.length?st:null}

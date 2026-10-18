@@ -163,6 +163,14 @@ async def main():
     chk(z.get("vl")==["Šikovná","Ostrá"] and sorted(z.get("t") or [])==["Piercing","Slashing"],"hráč nastaví zbrani vlastnosti Šikovná a Ostrá: "+str(z))
     chk(await pl.evaluate(f"bdmZvl(kUtoky(KARTBY.balduin).find(a=>a.n==={json.dumps(wn)}),KARTBY.balduin).join()")=="Šikovná,Ostrá","karta počítá s nastavenými vlastnostmi")
     await pl.evaluate("kartaStavZmen('balduin',{zbrVl:null},null,{bezZpet:true})");await pl.wait_for_timeout(500)
+    # soustředění: v seznamu stavů je vidět kouzlo; vypnutí ukončí i účinky kouzel se soustředěním
+    await pl.evaluate("kartaStavZmen('balduin',{uc:[{n:'Hex',kon:true,h:1},{n:'Mage Armor',ac:3,h:8}]},null,{bezZpet:true})");await pl.wait_for_timeout(700)
+    await pl.keyboard.press('Escape');await pl.click('.bdm [data-bdmsh="st"] >> nth=0');await pl.wait_for_timeout(300)
+    chk("Hex" in await pl.inner_text('.bdmlist'),"u soustředění je vidět, na jaké kouzlo se postava soustředí")
+    await pl.click('.bdmlist [data-kstav="soustředí"]');await pl.wait_for_timeout(1000)
+    uc=stav().get("uc") or []
+    chk(not any(x.get("kon") for x in uc) and any(x.get("n")=="Mage Armor" for x in uc),"vypnutí soustředění ukončí kouzla se soustředěním, ostatní účinky zůstanou: "+str(uc))
+    await pl.keyboard.press('Escape');await pl.evaluate("kartaStavZmen('balduin',{uc:null,stavy:null},null,{bezZpet:true})");await pl.wait_for_timeout(500)
     # vypravěč: přehled družiny, ukázka, příprava sezení, nestvůry SRD
     g=await b.new_page(viewport={"width":1300,"height":1000});gerr=[];g.on("pageerror",lambda e:gerr.append(str(e)[:200]));g.on("dialog",lambda d:asyncio.ensure_future(d.accept()))
     await g.add_init_script("localStorage.setItem('mm-gm-relace',JSON.stringify("+json.dumps({"at":rel["access_token"],"rt":rel["refresh_token"],"exp":rel["expires_at"],"email":"gm@x.cz"})+"))")

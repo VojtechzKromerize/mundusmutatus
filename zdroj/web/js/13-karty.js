@@ -54,7 +54,10 @@ async function kartaOdpocinek(K,dlouhy){const S=kartaStav(K.id),ch={},msg=[],poo
   const kr=(bojKritPC()[K.n]||[]).filter(x=>/^Lehká/.test(x.t));if(kr.length)msg.push(`Lehká kritická zranění se hojí odpočinkem – vypravěč je odškrtne (${kr.length})`);
   await kartaStavZmen(K.id,ch);kHodZapis({k:K.id,kdo:K.n,co:dlouhy?"Dlouhý odpočinek":"Krátký odpočinek",txt:msg.join("; ")});mmHlasG(`${K.n}: ${dlouhy?"dlouhý":"krátký"} odpočinek – ${msg.join("; ")}.`,8000)}
 /* sesílání kouzla: odečte nejnižší volný slot (sloty paktu i běžné), soustředění zapne v běžícím boji */
-async function kartaSeslat(K,sp,chce){try{const c=kCasKouzla(sp);const h0=((BOJ.s&&BOJ.s.aktivni&&BOJ.s.hraci)||[]).find(x=>bojKartaH(x)===K);if(h0&&h0.n===bojJa.get())bojBptOznac(c)}catch(e){}const L=kSlX(K,sp).sort((a,b)=>(chce&&a.k===chce?-1:chce&&b.k===chce?1:a.st-b.st));
+async function kartaSeslat(K,sp,chce){
+  /* soustředit se jde jen na jedno kouzlo: nové kouzlo se soustředěním ukončí to dosavadní (po potvrzení) */
+  {const d=typeof kSp==="function"?kSp(sp.n):null;if((sp.kon||(d&&d.ko))&&kKonDrzi(K)){const cur=kKonNazev(K)||"dosavadní kouzlo";
+    if(cur!==sp.n){if(!confirm(`${K.n} se soustředí na ${cur}. Seslání ${sp.n} soustředění přeruší – ${cur} skončí. Seslat?`))return false;await kKonZtrata(K,`nové kouzlo se soustředěním: ${sp.n}`)}}}try{const c=kCasKouzla(sp);const h0=((BOJ.s&&BOJ.s.aktivni&&BOJ.s.hraci)||[]).find(x=>bojKartaH(x)===K);if(h0&&h0.n===bojJa.get())bojBptOznac(c)}catch(e){}const L=kSlX(K,sp).sort((a,b)=>(chce&&a.k===chce?-1:chce&&b.k===chce?1:a.st-b.st));
   if((sp.st>0||sp.pz)&&!L.length){mmHlasG(sp.pz?(sp.pz.sv?`${K.n}: ${sp.n} není na seznamu kouzel tvého povolání – svitek je nesrozumitelný.`:`${K.n}: ${sp.pz.p} nemá na ${sp.n} dost nábojů.`):`${K.n}: na ${sp.n} nezbývá slot ${sp.st}. stupně nebo vyšší.`,4000);return false}
   const q=sp.st>0||sp.pz?L[0]:null,U=Object.assign({},kartaStav(K.id).zdr||{});
   if(q&&q.lab!=null&&sp.pz.sv){const S=kartaStav(K.id),inv=[...(S.inv||K.vybaveni||[])].map(y=>Object.assign({},y)),it=inv[sp.pz.i],mx=Math.max(0,...kSloty(K).map(z=>z.st)),so=10+(+sp.st||0);let ok=true;

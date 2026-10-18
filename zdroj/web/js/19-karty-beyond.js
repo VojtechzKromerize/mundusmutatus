@@ -194,7 +194,9 @@ document.addEventListener("click",async e=>{const T=s=>e.target.closest(s);
   const ry=T("[data-krys]");if(ry&&K){if(!SRDRY)await srdRysy();mmPop(kRysPopis(K,ry.dataset.krys));return}
   if(!K)return;
   const sz=T("[data-kspz]");if(sz){const i=+sz.dataset.kspz,x=kSeznam(K)[i];if(!x)return;const q=kSlX(K,x).find(z=>z.k===KSLV[K.id+":"+i])||kSlX(K,x)[0];kSpZraneni(K,x,q&&(x.st>0||x.pz)?q.st:x.st,false,KMASS[x.n]?{mass:kCile(K,i)}:KCIL[K.id+":"+i]);if(KMASS[x.n])kCilM(K,i).clear();return}
-  const ks=T("[data-kstav]");if(ks){const L=[...(kartaStav(K.id).stavy||[])],k=ks.dataset.kstav,on=L.includes(k);const N=on?L.filter(x=>x!==k):[...L,k];
+  const ks=T("[data-kstav]");if(ks){const L=[...(kartaStav(K.id).stavy||[])],k=ks.dataset.kstav,on=L.includes(k);let N=on?L.filter(x=>x!==k):[...L,k];
+    if(k==="soustředí"&&kKonDrzi(K)){await kKonZtrata(K,"ukončeno");return}
+    if(!on&&SRDST[k]&&SRDST[k].nej&&kKonDrzi(K)){N=N.filter(x=>x!=="soustředí");await kartaStavZmen(K.id,{stavy:N.length?N:null});await kKonZtrata(K,`${k} – soustředění končí`);kHodZapis({k:K.id,kdo:K.n,co:"Stav",txt:k});return}
     if(!on&&k==="vyděšený"&&kDuse(K).sv>=8){mmHlasG(`${K.n} je V milosti – imunní vůči Frightened.`,4000);return}
     await kartaStavZmen(K.id,{stavy:N.length?N:null});kHodZapis({k:K.id,kdo:K.n,co:on?"Stav skončil":"Stav",txt:k});return}
   const ua=T("[data-kucac]");if(ua){const p=KUCAC[+ua.dataset.kucac];if(!p)return;const o={};if(p[1])o.ac=p[1];if(p[2]==="agi")o.acmin=13+kMd(K,"AGI");else if(p[2])o.acmin=p[2];

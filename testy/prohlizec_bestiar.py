@@ -94,19 +94,23 @@ async def main():
     # popisky při najetí myší: ikonky a vlastnosti zbraní
     await g.hover(rot+" .brac");await g.wait_for_timeout(300)
     chk(await g.locator(".btip.on").count()==1 and "AC 18" in await g.locator(".btip").inner_text(),"popisek AC při najetí myší")
-    await g.hover(rot+' [data-bstav="sražen"]');await g.wait_for_timeout(300)
-    chk("Prone" in await g.locator(".btip").inner_text(),"stav jako ikonka s popiskem")
+    await g.click(rot+' [data-bnp="st"]');await g.wait_for_timeout(300)
+    chk("Prone" in await g.inner_text(rot+' .bnkpst'),"stavy nepřítele jako seznam s přepínači (česky i anglicky)")
     chk(await g.locator(rot+" .bsb").inner_html()=="","statblock se počítá až při otevření")
     await g.click(rot+" .bstat summary");await g.wait_for_timeout(200)
     ab=rot+' .bsb abbr.btp:text-is("Ostrá")'
     chk(await g.locator(ab).count()>=1 and "19–20" in (await g.locator(ab).first.get_attribute("data-tip") or ""),"vlastnost zbraně ve statblocku vysvětlí, co dělá")
     # útok soka
-    await g.click(rot+' [data-but="0"]');await g.wait_for_timeout(150)
+    await g.click(rot+' [data-but="0"]');await g.wait_for_timeout(250)
+    if await g.locator(".mmpop [data-butsik]").count():
+        chk(True,"Šikovná zbraň soka: před hodem nabídka typu zranění");await g.click(".mmpop [data-butsik] >> nth=0");await g.wait_for_timeout(250)
     lg=await g.locator(rot+" .blog li").first.inner_text();print("log:",lg)
-    chk("Dlouhý meč" in lg and "zranění" in lg and ("Závoj" in lg or "Pokušení" in lg or "Požehnání" in lg),"útok soka: hod, zranění i Závoj")
+    chk("Dlouhý meč" in lg and ("zranění" in lg.lower()) and ("Závoj" in lg or "Pokušení" in lg or "Požehnání" in lg),"útok soka: hod, zranění i Závoj")
     # cíl, výhoda a útok jako reakce
-    await g.select_option(rot+" [data-bcil]","h1");await g.wait_for_timeout(150)
-    await g.click(rot+' [data-badv="1"]');await g.check(rot+" [data-bjr]");await g.click(rot+' [data-but="0"]');await g.wait_for_timeout(500)
+    await g.click(rot+' [data-bcilb="h1"]');await g.wait_for_timeout(150)
+    await g.click(rot+' [data-badv="1"]');await g.check(rot+" [data-bjr]");await g.click(rot+' [data-but="0"]');await g.wait_for_timeout(300)
+    if await g.locator(".mmpop [data-butsik]").count(): await g.click(".mmpop [data-butsik] >> nth=0")
+    await g.wait_for_timeout(400)
     lg=await g.locator(rot+" .blog li").first.inner_text()
     chk("Adam" in lg and "výhoda" in lg,"útok na zvolený cíl s výhodou (2d20)")
     chk(await g.evaluate("!!(BOJ.s.reak||{}).n1"),"útok jako reakce odškrtne R")
@@ -119,6 +123,7 @@ async def main():
     await g.click(hf+" .brozb");await g.wait_for_timeout(200)
     chk(await g.locator(hf+".bopen").count()==1,"kartu jde rozbalit ručně")
     await g.fill(hf+" [data-bdos]","3");await g.click(hf+' [data-but="0"]');await g.wait_for_timeout(150)
+    if await g.locator(hf+' [data-bzrpo]').count(): await g.click(hf+' [data-bzrpo]');await g.wait_for_timeout(150)
     lg=await g.locator(hf+" .blog li").first.inner_text();print("houf:",lg)
     chk("zranění 9" in lg and "3 × 3 v dosahu" in lg,"houf: 3 zranění × 3 v dosahu = 9")
     chk("přesila +5" in lg,"houf: útok s přesilou +5")
