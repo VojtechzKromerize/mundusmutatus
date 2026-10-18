@@ -562,6 +562,7 @@ document.addEventListener("click",async e=>{
   const bza=T("[data-buzam]");if(bza){bojUtokPotvrd(bza.dataset.buzam,true);return}
   const blf=T("[data-blf]");if(blf){BLF=BLF===blf.dataset.blf?"":blf.dataset.blf;renderBoj();return}
   if(T("[data-blfx]")){BLF="";renderBoj();return}
+  const blz=T("[data-blzpet]");if(blz){bojLogZpetSem(+blz.dataset.blzpet);return}
   const blu=T("[data-blund]");if(blu){bojLogZpet(+blu.dataset.blund);return}
   const jad=T("[data-juadv]");if(jad){BJU.adv=jad.dataset.juadv;renderBoj();return}
   const jkp=T("[data-kdice]");if(jkp&&!jkp.closest("[data-kid]")){const K=bojKartaH(((BOJ.s||{}).hraci||[]).find(h=>h.n===bojJa.get()));if(K)kPriTog(K,jkp.dataset.kdice).then(()=>renderBoj());return}
@@ -661,3 +662,13 @@ document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest
 function bojJaSikVolba(K,w,T){const v=BUTYP[K.id+":"+w.n];
   mmPop(`<h3 class="uvh2">${besc(w.n)}</h3><p class="rsmall">Šikovná zbraň – vyber typ zranění pro tento útok.</p><div class="bsikv">${T.map(t=>`<button type="button" class="gbtn${v===t?"":" ghost"}" data-bjsik="${t}" data-k="${besc(K.id)}" data-w="${besc(w.n)}">${bikZr(t)} ${besc(BZRT[t]||t)}</button>`).join("")}</div>`)}
 document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-bjsik]");if(!b)return;BUTYP[b.dataset.k+":"+b.dataset.w]=b.dataset.bjsik;BJU.sikOk=true;mmPopX();bojJaHod()});
+
+/* herní záznam: vrátit boj do stavu před vybraným krokem (i všechny pozdější kroky) */
+async function bojLogZpetSem(i){const x=BLOGG[i];if(!x||!x.o.pre||x.o.undone)return;const P=x.o.pre,n=BLOGG.slice(0,i).filter(y=>!y.o.undone).length;
+  if(!confirm(`Vrátit boj do stavu před: ${x.kdo?x.kdo+" – ":""}${x.o.n||"krok"}?${n?`\nVrátí se i ${n} ${n===1?"pozdější krok":n<5?"pozdější kroky":"pozdějších kroků"}.`:""}`))return;
+  await bojZmen(s=>{Object.keys(s).forEach(k=>delete s[k]);Object.assign(s,JSON.parse(P.s))});
+  try{bojHp.set(JSON.parse(P.hp))}catch(e){}
+  for(const [kid,js] of Object.entries(P.k||{})){const K=KARTBY[kid];if(!K)continue;const A=JSON.parse(js),C=kartaStav(kid)||{},ch={};
+    new Set([...Object.keys(A),...Object.keys(C)]).forEach(k=>{if(k==="mods")return;if(JSON.stringify(A[k]??null)!==JSON.stringify(C[k]??null))ch[k]=A[k]??null});
+    if(Object.keys(ch).length)await kartaStavZmen(kid,ch,null,{bezZpet:true})}
+  BLOGG.slice(0,i+1).forEach(y=>{y.o.undone=1});bojLog(x.id,{n:"Vráceno",ai:null,zt:`stav před: ${x.o.n||"krok"}${n?` (a ${n} pozdějších)`:""}`},x.kdo);mmHlasG("Boj vrácen do stavu před vybraným krokem.",3500);renderBoj()}

@@ -3166,3 +3166,5 @@ span.bzos{cursor:default}
 .bdmzvlr:has(input:checked){border-color:var(--kb-gold);background:#2a2116}
 .bdmzvlt{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border:1px solid var(--kb-bd2);border-radius:6px}.bdmzvlt input{accent-color:var(--kb-gold)}
 .bdmzvb{margin-top:4px}
+
+#bojview .bslot .bslst{left:auto;top:auto}

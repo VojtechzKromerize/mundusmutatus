@@ -151,6 +151,10 @@ async def main():
     await pl.click('[data-bhpan="h1"] [data-bhds="hod"]');await pl.wait_for_timeout(900)
     await g.wait_for_timeout(3200)
     ds=await g.evaluate("BOJ.s.hraci[0].ds||null");chk(ds is None or (ds["u"]+ds["n"])>=1,"hráč hodí hod proti smrti z telefonu: "+str(ds))
+    chk("Hod proti smrti" in await g.evaluate("BLOGG.slice(0,6).map(x=>x.o.n).join('|')"),"hod proti smrti z telefonu je v záznamu vypravěče")
+    chk("Hod proti smrti" not in await pl.evaluate("JSON.stringify(BOJ.s.zaz||[])"),"hráči hody proti smrti nevidí")
+    r=await g.evaluate("(()=>{const l=[...document.querySelectorAll('#bojview .bslot')].find(x=>x.querySelector('.bslst'));if(!l)return 'bez ikonky';const a=l.getBoundingClientRect(),b=l.querySelector('.bslst').getBoundingClientRect();return Math.abs((b.left+b.right)/2-(a.left+a.right)/2)<6})()")
+    chk(r==True or r=="bez ikonky","ikonka stavu je pod žetonem své postavy: "+str(r))
     for body,m in (({"p_hrac":"h1","p_pole":"stav","p_hodnota":["létá"]},"neznámý stav"),({"p_hrac":"h1","p_pole":"ds","p_hodnota":{"u":5,"n":0}},"5 úspěchů"),
                    ({"p_hrac":"h1","p_pole":"hod","p_hodnota":3},"cizí pole"),({"p_hrac":"h1","p_pole":"ready","p_hodnota":"x"*200},"dlouhá připravená akce"),({"p_hrac":"h9","p_pole":"kryt","p_hodnota":2},"neznámá postava")):
         c,t=anon_rpc("mm_boj_hrac",body);chk(c>=400,"mm_boj_hrac odmítne: "+m)
@@ -219,7 +223,7 @@ async def main():
         chk(await pl.evaluate("[...document.querySelectorAll('.bjaside .bmed')].some(e=>/art\\/bestiar\\//.test(e.getAttribute('style')||''))"),"hráč vidí obrázek nepřítele z bestiáře")
         await g.evaluate("bojZmen(z=>{z.npc=z.npc.filter(o=>o.n!=='Obrázkový')})");await pl.wait_for_timeout(1500)
     else: chk(False,"v testovacích datech chybí protivník s obrázkem")
-    await g.click("[data-blund] >> nth=0");await g.wait_for_timeout(400)
+    await g.click("[data-blzpet], [data-blund] >> nth=0");await g.wait_for_timeout(1200)
     chk(await g.evaluate(f"(bojHp.get()['{rid}']||[])[0]")==hp0 or hp0 is None,"Zpět v záznamu vrátí životy")
     await g.click(".bzl [data-blf] >> nth=0");await g.wait_for_timeout(300);chk(await g.locator(".blfc").count()==1,"filtr záznamu podle žetonu");await g.click("[data-blfx]");await g.wait_for_timeout(300)
     await g.select_option("#bojview [data-potvrzr]","cast");await g.wait_for_timeout(1200)

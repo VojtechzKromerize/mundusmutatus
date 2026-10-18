@@ -295,7 +295,14 @@ const bojZatr=n=>{const p=PROTBY[n.b];return !!p&&(p.id==="zatraceny-rytir"||(n.
 const bojKritDruh=t=>{t=bojNorm(t);return /fire|lightning|ohen|blesk/.test(t)?"ohen":/cold|mraz/.test(t)?"mraz":/acid|poison|kyselin|jed/.test(t)?"jed":/necrotic|radiant|prokl|svat/.test(t)?"svata":/psychic|psych/.test(t)?"psych":"fyz"};
 /* záznam hodů: u karty poslední hod jako plaketa, celý průběh v záznamu boje pod družinou */
 const BLOGG=[];
-function bojLog(id,o,kdo){o.t=Date.now();if(o.k==null&&BOJ.s&&BOJ.s.aktivni)o.k=BOJ.s.kolo||1;(BLOG[id]=BLOG[id]||[]).unshift(o);BLOG[id].length=Math.min(BLOG[id].length,4);BLOGG.unshift({id,kdo:kdo||"",o});BLOGG.length=Math.min(BLOGG.length,80)}
+/* „Zpět“ v herním záznamu (2026-10-18): každý krok vypravěče nese stav před sebou – boj, životy nepřátel a karty postav v boji.
+   Stav se zachytí na začátku kliknutí či změny v Boji (než akce proběhne); záznam vydrží i přenačtení stránky (bez stavů). */
+function bojSnap(){const S=BOJ.s||{};return {s:JSON.stringify(S),hp:JSON.stringify(bojHp.get()||{}),k:Object.fromEntries((S.hraci||[]).map(h=>bojKartaH(h)).filter(Boolean).map(K=>[K.id,JSON.stringify(kartaStav(K.id)||{})]))}}
+let BSNAPC=null;
+["click","change"].forEach(ev=>document.addEventListener(ev,e=>{if(!GMV||typeof curView==="undefined"||curView!=="boj"||!BOJ.s||!BOJ.s.aktivni)return;const v=document.getElementById("bojview");if(!v||!v.contains(e.target)||(e.target.closest&&e.target.closest("[data-blzpet],[data-blund]")))return;BSNAPC={t:Date.now(),snap:bojSnap()}},true));
+try{if(GMV){const L=JSON.parse(localStorage.getItem("mm-boj-blogg")||"[]");if(Array.isArray(L))BLOGG.push(...L.slice(0,80))}}catch(e){}
+function bojLogUloz(){clearTimeout(bojLogUloz.t);bojLogUloz.t=setTimeout(()=>{try{localStorage.setItem("mm-boj-blogg",JSON.stringify(BLOGG.slice(0,80).map(x=>({id:x.id,kdo:x.kdo,o:Object.assign({},x.o,{pre:undefined})}))))}catch(e){}},500)}
+function bojLog(id,o,kdo){o.t=Date.now();if(GMV&&!o.pre&&BSNAPC&&Date.now()-BSNAPC.t<1500)o.pre=BSNAPC.snap;if(GMV)bojLogUloz();if(o.k==null&&BOJ.s&&BOJ.s.aktivni)o.k=BOJ.s.kolo||1;(BLOG[id]=BLOG[id]||[]).unshift(o);BLOG[id].length=Math.min(BLOG[id].length,4);BLOGG.unshift({id,kdo:kdo||"",o});BLOGG.length=Math.min(BLOGG.length,80)}
 const bsg=v=>`${v>=0?"+":"−"}${Math.abs(v)}`;
 const bojZavObj=(p,z)=>({r:z.r,d:z.d,hod:z.hod||"",txt:z.r==="pok"?(p&&p.pok)||"":z.r==="poz"?(p&&p.poz)||"":""});
 /* zbraň s více typy zranění (Šikovná, „Slashing nebo Piercing“) a Půlmeč: volba se pamatuje u útoku */
@@ -568,13 +575,16 @@ const bojSpoj=o=>o.str==="h";
 async function bojNacti(){if(!bojDB)return;try{const r=await bojDB.nacti();const v=r?r.verze:0;if(BOJ.v>0&&v<BOJ.v)return false;if(BOJ.v>0&&(GMV?(BZ.q.length||BZ.beh):BOJ.zapis>0))return false;if(v!==BOJ.v){const old=BOJ.v>0?BOJ.db:null;BOJ.s=r?r.stav:null;BOJ.db=BOJ.s;BOJ.v=v;try{bojHracDiff(old,BOJ.s)}catch(e){}if(GMV)setTimeout(bojUtokyNove,0);return true}}catch(e){}return false}
 /* vypravěč: co hráči změnili z telefonu (stavy, kryt, hody proti smrti, připravená akce) – hláška a záznam boje */
 function bojHracDiff(a,b){if(!GMV||!a||!b||!b.aktivni)return;(b.hraci||[]).forEach(h=>{const o=(a.hraci||[]).find(x=>x.id===h.id);if(!o)return;const t=[];
-  if(JSON.stringify(o.ds||null)!==JSON.stringify(h.ds||null)){const d=h.ds;
-    t.push(!o.ds&&d?"padl na 0 HP – hod na kritické zranění a 1 úroveň vyčerpání":!d?"zase na nohou":d.st==="mrtev"?"třetí neúspěch hodu proti smrti – umírá":d.st==="stab"?"stabilizován":`hody proti smrti: úspěchy ${d.u}/3, neúspěchy ${d.n}/3`)}
+  let ds1=false;if(JSON.stringify(o.ds||null)!==JSON.stringify(h.ds||null)){const d=h.ds,od=o.ds,du=d&&od?(+d.u||0)-(+od.u||0):0,dn=d&&od?(+d.n||0)-(+od.n||0):0;
+    /* hod proti smrti z telefonu: výsledek se pozná podle změny počtu úspěchů a neúspěchů (jen vypravěč, hráčům se neukazuje) */
+    const hod=od&&!od.st?(d&&du===1&&!dn?"úspěch (10+)":d&&dn===1&&!du?"neúspěch (pod 10)":d&&dn===2&&!du?"přirozená 1 – dva neúspěchy":!d&&+od.n<3?"přirozená 20 – probírá se s 1 HP":""):!od&&d&&!d.st?(+d.u===1&&!+d.n?"úspěch (10+)":+d.n===1&&!+d.u?"neúspěch (pod 10)":+d.n===2&&!+d.u?"přirozená 1 – dva neúspěchy":""):"";ds1=!!hod;
+    if(!od&&d&&hod)t.push("padl na 0 HP – hod na kritické zranění a 1 úroveň vyčerpání");
+    t.push(hod?`hod proti smrti: ${hod}${d&&d.st==="mrtev"?" → umírá":d&&d.st==="stab"?" → stabilizován":d?` (úspěchy ${d.u}/3, neúspěchy ${d.n}/3)`:""}`:!o.ds&&d?"padl na 0 HP – hod na kritické zranění a 1 úroveň vyčerpání":!d?"zase na nohou":d.st==="mrtev"?"třetí neúspěch hodu proti smrti – umírá":d.st==="stab"?"stabilizován":`hody proti smrti: úspěchy ${d.u}/3, neúspěchy ${d.n}/3`)}
   const s0=o.stav||[],s1=h.stav||[];s1.filter(x=>!s0.includes(x)).forEach(x=>t.push(x));s0.filter(x=>!s1.includes(x)).forEach(x=>t.push("už ne "+x));
   if((+o.kryt||0)!==(+h.kryt||0))t.push(h.kryt?`kryt +${h.kryt}`:"bez krytu");
   {const K=bojKartaH(h);if(K&&(bojHpPC(o,K)!==bojHpPC(h,K)||(+o.thp||0)!==(+h.thp||0)))t.push(`HP ${bojHpPC(o,K)} → ${bojHpPC(h,K)}${h.thp?` (+${h.thp} dočasné)`:""}`)}
   const r0=(a.ready||{})[h.id],r1=(b.ready||{})[h.id];if(r1&&r1!==r0)t.push("připravená akce: "+r1);else if(r0&&!r1&&(b.reak||{})[h.id]&&!(a.reak||{})[h.id])t.push("spustil připravenou akci");
-  if(t.length){mmHlasG(`${h.n}: ${t.join(", ")}.`,5000);bojLog(h.id,{n:"Z telefonu",zt:t.join(", ")},h.n)}})}
+  if(t.length){mmHlasG(`${h.n}: ${t.join(", ")}.`,5000);bojLog(h.id,{n:ds1?"Hod proti smrti":"Z telefonu",zt:t.join(", "),pre:Object.assign(bojSnap(),{s:JSON.stringify(a)})},h.n)}})}
 /* příprava boje: tatáž stránka jako boj – družina s poli pro hody iniciativy, nepřátelé jako karty, pak „Začít boj“ */
 const bojBestHod=s=>{const v=(s.hraci||[]).map(h=>h.hod).filter(x=>x!==""&&x!=null&&!isNaN(+x)).map(Number);return v.length?Math.max(...v):null};
 function bojNovaPriprava(z){const st=JSON.parse(JSON.stringify(z||{}));Object.keys(z).forEach(k=>delete z[k]);if(st.zbrane)z.zbrane=st.zbrane;
