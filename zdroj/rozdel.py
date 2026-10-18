@@ -44,6 +44,7 @@ JS = [
     ("21-editor-pecet.js", "/* ===== Vypravěč: úpravy textů a obrázků"),
     ("22-vyprava.js", "/* ===== VÝPRAVA: cesta družiny"),
     ("23-potvrzovani.js", "/* ===== Potvrzování akcí hráčů"),
+    ("24-boj-zaznam.js", "/* ===== Boj: herní záznam ve třetím sloupci"),
 ]
 CSS = "styly.css"
 

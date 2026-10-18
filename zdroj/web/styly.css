@@ -3076,3 +3076,87 @@ h4 .kspi{margin-right:5px}
 .bdmd20{background:var(--kb-gold);border-color:#f3dc9c;color:#241a10}.bdmd20[aria-expanded=true]{background:#a8853c}
 .kspi,.bdm .kspi{background:#3a2b1c;border-color:#d9b45a;color:#ecd48e}.kspt,.bdm .kspt{background:#d9b45a;color:#2b2117}
 .bsikv{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+/* ===== Boj: tři sloupce – karta, účastníci, herní záznam; na mobilu záložky (2026-10-18) ===== */
+.bojcols{display:grid;grid-template-columns:minmax(330px,420px) minmax(280px,360px) minmax(280px,1fr);gap:18px;align-items:start;margin-top:12px}
+.bcol{min-width:0}
+.bcolk .bja{margin-top:0}.bcolk .bdm{max-width:none}.bcolk .bdmport{max-width:150px}
+.bcolk [data-bkl="detl"]>*{margin:0 0 10px}
+.bdetnic{display:flex;gap:10px;align-items:center;margin:0;padding:22px 16px;border:1px dashed var(--rule);border-radius:6px;color:var(--muted);font-size:.92rem;background:color-mix(in srgb,var(--paper) 70%,transparent)}
+.bdetnic .bi{width:26px;height:26px;flex:none;opacity:.7}
+.bcolu .bstrana{border-top:3px solid var(--c,var(--kal));padding-top:4px;margin-bottom:14px}
+.bcolu .bsh{--c:var(--bh,#2c517f)}
+.bcolu .uvh2{font-size:1.05rem;margin:4px 0 6px}
+.bcolu .bhrks>*,.bcolu [data-bkl]>*{margin:0 0 5px}
+.bcoll{position:sticky;top:10px;max-height:calc(100vh - 20px);overflow:auto;overscroll-behavior:contain;padding-right:2px}
+.btabs{display:none}
+/* příprava boje: bez záznamu; vypravěč má Družinu a Nepřátele vedle sebe jako dřív */
+.bojakt.bojprip .bojcols{grid-template-columns:minmax(0,1fr)}
+.bojakt.bojprip .bcoll,.bojgm.bojprip .bcolk{display:none}
+.bojgm.bojprip .bcolu{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.7fr);gap:24px;align-items:start}
+.bojgm.bojprip .bcolu .bsh{order:-1}
+.bojhrac.bojprip .bojcols{grid-template-columns:minmax(0,1.3fr) minmax(240px,1fr)}
+@media (max-width:1180px){.bojcols{grid-template-columns:minmax(320px,1fr) minmax(240px,320px)}.bcoll{grid-column:1/-1;position:static;max-height:none;overflow:visible}}
+@media (max-width:760px){
+  .bojcols,.bojhrac.bojprip .bojcols,.bojgm.bojprip .bcolu{grid-template-columns:minmax(0,1fr)}
+  .btabs{display:flex;gap:4px;position:sticky;top:0;z-index:5;margin:10px 0 0;padding:6px 0;background:var(--bg)}
+  .btabs button{flex:1;min-height:40px;padding:4px 6px;border:1px solid color-mix(in srgb,var(--gold) 60%,var(--rule));border-radius:4px;background:var(--paper);color:var(--ink);font:500 .8rem/1.15 var(--f-label);letter-spacing:.05em;text-transform:uppercase;cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .btabs button small{font-size:.75rem;opacity:.75;text-transform:none}
+  .btabs button[aria-selected="true"]{background:#781421;border-color:#5a0f19;color:#f6e7c1}
+  .bojakt:not(.bojprip) .bcol{display:none}
+  .bojakt:not(.bojprip)[data-btab="k"] .bcolk,.bojakt:not(.bojprip)[data-btab="u"] .bcolu,.bojakt:not(.bojprip)[data-btab="l"] .bcoll{display:block}
+  .bcoll{position:static;max-height:none;overflow:visible}}
+/* herní záznam: kdo · co · komu, výsledek, kostky, Závoj */
+.bzaz .uvh2{display:flex;align-items:center;gap:6px;font-size:1.05rem;margin:4px 0 6px;padding-bottom:3px;border-bottom:1px solid var(--rule)}
+.bzaz .uvh2 .bi{width:20px;height:20px}.bzaz .uvh2 small{margin-left:auto;font:400 .8rem var(--f-label);color:var(--muted)}
+.bzl{list-style:none;margin:0;padding:0}
+.bzkolo{padding:8px 2px 3px;border-bottom:1px solid var(--rule);font:500 .72rem var(--f-label);letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.bz{padding:8px 4px 9px;border-bottom:1px dotted var(--rule);line-height:1.35}
+.bzl>.bz:first-child,.bzl>.bzkolo:first-child+.bz{background:color-mix(in srgb,var(--gold) 11%,transparent)}
+.bz.bzlkr{box-shadow:inset 3px 0 0 var(--gold)}
+.bz.blundone{opacity:.5}.bz.blundone .bzdmg b{text-decoration:line-through}.bz.bzskr{opacity:.75}
+.bzh{display:flex;flex-wrap:wrap;align-items:center;gap:3px 6px}
+.bzos{display:inline-flex;align-items:center;gap:5px;max-width:100%;padding:0;border:0;background:none;color:inherit;font:inherit;cursor:pointer;text-align:left}
+span.bzos{cursor:default}
+.bzos b{font-family:var(--f-disp);font-weight:500;font-size:1.02rem;line-height:1.1}
+.bzos .bmed{flex:none}
+.bzco{font-style:italic;color:var(--ink)}.bzco:empty{display:none}
+.bzsip{font-style:normal;color:var(--muted)}
+.bzh time{margin-left:auto;font:400 .7rem var(--f-label);color:var(--muted);white-space:nowrap}
+.bzh .blund{margin-left:2px}
+.bzv,.bzd,.bzp,.bzz{margin-left:31px}
+.bzv{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;margin-top:4px}
+.bzvys{padding:1px 8px;border:1px solid var(--rule);border-radius:3px;font:500 .74rem/1.5 var(--f-label);letter-spacing:.06em;text-transform:uppercase}
+.bzvys.bzhit{border-color:color-mix(in srgb,var(--kal) 55%,transparent);background:color-mix(in srgb,var(--kal) 10%,transparent);color:var(--kal)}
+.bzvys.bzkr{border-color:var(--gold);background:color-mix(in srgb,var(--gold) 28%,transparent);color:var(--ink);font-weight:700}
+.bzvys.bzmis{color:var(--muted);text-decoration:line-through;text-decoration-thickness:1px}
+.bzvys.bztotv{font:500 1.05rem/1.2 var(--f-disp);letter-spacing:0;text-transform:none;padding:0 8px}
+.bzvys.bzdc{text-transform:none}
+.bzdmg{display:inline-flex;align-items:center;gap:4px}
+.bzdmg b{font:500 1.2rem/1 var(--f-disp);color:var(--kal)}.bzdmg.bzlec b{color:var(--isl,#2f7a5a)}
+.bzdmg .bi{width:16px;height:16px}.bzdmg.bzdmgx{opacity:.45}.bzdmg.bzdmgx b{text-decoration:line-through}.bzdmg small{color:var(--muted);font-size:.78rem}
+.bzd{display:grid;gap:3px;margin-top:5px}
+.bzd p{display:flex;align-items:baseline;gap:6px;margin:0;font-size:.86rem}
+.bzd p>span{display:inline-flex;flex-wrap:wrap;align-items:center;gap:3px 5px}
+.bzdl{flex:none;min-width:50px;font:500 .64rem var(--f-label);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.bzd small{color:var(--muted);font-size:.74rem}
+.bztot{font:500 1.05rem/1 var(--f-disp)}
+.bzkg{display:inline-flex;flex-wrap:wrap;align-items:center;gap:3px}
+.bzkg small{color:var(--muted);font-size:.68rem;margin:0 1px}
+.bzk{display:inline-grid;place-items:center;min-width:21px;height:21px;padding:0 3px;border:1.5px solid #9a7226;border-radius:4px;background:#f3e7c9;color:#33200f;font:700 .76rem/1 var(--f-body);font-variant-numeric:tabular-nums}
+.bzk20{min-width:25px;height:27px;padding:0 4px;border:0;border-radius:0;clip-path:polygon(50% 0,96% 25%,96% 75%,50% 100%,4% 75%,4% 25%);background:radial-gradient(circle at 50% 40%,#fbf3dc 45%,#d9bf86 100%)}
+.bzk20.bzkmax{background:radial-gradient(circle at 50% 40%,#f8dc86 40%,#b8892f 100%);color:#5a0f19}
+.bzk20.bzkmin{background:radial-gradient(circle at 50% 40%,#e9c4c0 40%,#a3232b 100%);color:#fff7e8}
+.bzk.bzkx{opacity:.4;text-decoration:line-through}
+.bzk.bzkz{border-color:#5a0f19;background:#781421;color:#f2cf72}
+.bzp{margin-top:3px;font-size:.76rem;color:var(--muted)}
+.bzz{display:flex;flex-wrap:wrap;align-items:center;gap:3px 7px;margin-top:6px;padding:4px 8px;border:1px solid var(--rule);border-radius:4px;font-size:.84rem}
+.bzz .bi{width:18px;height:18px}
+.bzz.zp{border-color:color-mix(in srgb,#781421 50%,transparent);background:color-mix(in srgb,#781421 11%,transparent)}
+.bzz.zb{border-color:color-mix(in srgb,var(--gold) 60%,transparent);background:color-mix(in srgb,var(--gold) 15%,transparent)}
+.bzz.zn{color:var(--muted)}
+.bzzl{font:500 .64rem var(--f-label);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.bzz>b{font-family:var(--f-disp);font-weight:500;font-size:.98rem}
+.bzz.zp>b{color:var(--kal)}
+.bzzt,.bzzv{flex-basis:100%;font-size:.78rem;color:var(--muted)}
+.bzzv{font-style:italic;color:var(--ink)}.bzzv.bzzp{color:var(--kal)}
+.bznic,.bzhr{margin:8px 0}

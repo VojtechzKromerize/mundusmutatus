@@ -62,7 +62,7 @@ Pravidla · 09 vypravěč: odhalování, panel, herní čas · 10 Kouzla · 11 B
 12 Boj: tah, postavy v boji · 13 Karty: import PDF, stav, stránka · 14 karta: vybavení, bojová karta ·
 15 karta podle Artikulí · 16 SRD předměty, ukázky, příprava sezení, kořist, stránka Hra · 17 Karta II ·
 18 Pravidla postavy (D&D 2024) · 19 karta jako D&D Beyond · 20 Boj: útoky hráčů z telefonu ·
-21 editor textů, pečeť · 22 Výprava.
+21 editor textů, pečeť · 22 Výprava · 23 potvrzování akcí hráčů · 24 Boj: herní záznam (kdo · co · komu, kostky, Závoj).
 Oddíly uvnitř mají hlavičky `/* ===== název ===== */`; přehled: `grep -n -E '^/\* ?[=-]{3,}' zdroj/web/js/*.js`.
 Hlavní orientační body:
 
@@ -71,6 +71,8 @@ Hlavní orientační body:
   vyprava, kouzla, sezeni, gm. `kouzla` a `sezeni` jen pro vypravěče.
 - Každá stránka má `render<Stránka>()` (renderBoj, renderKarty, renderVyprava, renderPravidla…).
 - Boj: tracker slotové iniciativy, bestiář (jen vypravěč), automatizace tahu, postavy v boji, průvodce tahem.
+  Rozvržení: pruh iniciativy nahoře, pod ním tři sloupce – karta (hráč: jeho; vypravěč: vybraný účastník, sám přepne na toho,
+  kdo je na tahu – `bojVybranaKarta`, vždy jen jedna rozbalená), účastníci, herní záznam; na mobilu záložky (`BTAB`).
 - Karty postav: import PDF z D&D Beyond, stav karty, hody se Závojem; „Pravidla postavy“ počítají kartu
   podle D&D 2024 (PDF je jen výchozí podklad, rozdíly jsou viditelné úpravy „z D&D Beyond“).
 - Výprava: cesty podle Uncharted Journeys na mapách Svět → Koruna → Praha, počasí, setkání (jen vypravěč).

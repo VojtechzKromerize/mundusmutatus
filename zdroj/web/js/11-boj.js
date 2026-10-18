@@ -378,13 +378,6 @@ function bojPlak(o){const h=o.hod,z=o.zav;
   const zb=z?`<div class="bplv ${z.r==="pok"?"zp":z.r==="poz"?"zb":"zn"}">${bi(z.r==="pok"?"pokuseni":z.r==="poz"?"pozehnani":"zavoj")}<b>${z.r==="pok"?"Pokušení":z.r==="poz"?"Požehnání":"Závoj bez efektu"}</b><small>k6 ${z.d}${z.hod?" · "+besc(z.hod):""}</small>${z.txt?`<span>${besc(z.txt)}</span>`:""}</div>`:"";
   const btn=(o.leg?`<button type="button" class="badd" data-blegod>Použít Legendární odolnost (zbývá ${o.leg}) →</button>`:"")+(o.krit?`<button type="button" class="badd" data-bkritz="${o.krit}">Kritické zranění cíle →</button>`:"")+(o.bes?`<button type="button" class="badd bbes" data-bbes>Zhmotnit běsa</button>`:"")+(o.pcAuto?`<small class="bpcauto">odečteno z karty: ${besc(o.pcAuto)}</small>`:"")+(o.pcHit&&o.zr&&o.zr.t>0&&!BPCZ.has(o.t)&&!o.pcAuto?`<button type="button" class="badd" data-bpczt="${o.t}" data-bpcz="${besc(o.pcId)}" data-z="${o.zr.t}" data-t="${besc((bojTypy({zt:o.zr.zt})[0])||"Slashing")}"${o.hod&&o.hod.krit?' data-k="1"':""} ${btip("Odečte postavě životy (s jejími odolnostmi a dočasnými HP). Neklikej, když se ubránila reakcí, např. Shield.")}>Zapsat zranění ${besc(o.cil)} −${o.zr.t} →</button>`:"")+(o.bezv&&!(o.hod&&o.hod.mis)?(()=>{const k=o.hod&&o.hod.krit||o.bezvZbl?2:1;return `<button type="button" class="badd" data-bdsf="${besc(o.bezv)}" data-k="${k}" ${btip("Zásah postavy na 0 HP: neúspěch hodu proti smrti, kritický zásah dva")}>Zasáhl padlého: +${k} ${k===1?"neúspěch":"neúspěchy"} →</button>`})():"");
   return `${seal}<div class="bplm"><b class="bpln">${o.an&&o.ci&&o.ai!==o.ci?`${besc(o.an)}: `:""}${besc(o.n)}</b>${det}${zr}${o.p?`<small class="bpoz">${bojTipy(besc(o.p))}</small>`:""}${btn?`<div class="bplb">${btn}</div>`:""}</div>${zb}`}
-/* záznam boje: KDO → KOMU · ČÍM · výsledek (hod, zranění s typem, Závoj) */
-const bojLogVys=o=>{const h=o.hod,z=o.zav;
-  return `${h?` <b class="${h.krit?"bkr":h.mis?"bmis":""}">${h.tot}</b>${h.adv?` <small>${h.adv>0?"(výh.)":"(nev.)"}</small>`:""}${h.krit?` <b class="bkrt">krit</b>`:h.mis?` <small>vedle</small>`:""}`:o.dc?` <b>${besc(o.dc)}</b>`:""}${o.sav?` <small>${besc(o.sav)}</small>`:""}${o.zt&&!(o.zr&&o.zr.zt===o.zt)?` <span class="blzt">${besc(o.zt)}</span>`:""}${o.zr?` · <b class="blzr" ${btip(`Zranění ${o.zr.t}: ${o.zr.x||""}`)}>${o.zr.t}</b> ${bikZrTxt(o.zr.zt)}<small>${besc(String(o.zr.zt||"").replace(/\b(Bludgeoning|Piercing|Slashing|Fire|Cold|Lightning|Thunder|Acid|Poison|Necrotic|Radiant|Psychic|Force)\b/g,m=>BZRT[m]||m))}</small>`:""}${z?` · <span class="bzv ${z.r==="pok"?"zp":z.r==="poz"?"zb":""}">${z.r==="pok"?"Pokušení":z.r==="poz"?"Požehnání":"Závoj"} ${z.d}</span>`:""}`};
-function bojLogRow(s,x,i){const o=x.o,F=id=>id?bojCilO(s,id):null,A=o.ai!==undefined?F(o.ai):F(x.id),an=A?A.n:o.ai!==undefined?(o.an||""):x.kdo,C=F(o.ci),cn=C?C.n:(o.cn||o.cil||"");
-  const med=q=>q?`<button type="button" class="blfb" data-blf="${besc(q.id)}" ${btip("Jen akce: "+q.n)}>${q.druh?bojMedN(q,"bmini"):bojMedH(q,"bmini")}</button>`:"";
-  const und=o.und&&!o.undone&&i!=null?`<button type="button" class="blund" data-blund="${i}" ${btip(o.und.poc?"Vrátit padlé pacholky do houfu":`Vrátit životy ${o.und.nov} → ${o.und.old}`)}>↶</button>`:"";
-  return `<li${o.undone?' class="blundone"':""}>${an?`<span class="blkdo">${med(A)}<b>${besc(an)}</b></span>`:""}${cn?`<span class="blkomu"><i aria-label="komu">→</i>${med(C)}<b>${besc(cn)}</b></span>`:""}<span class="blcim">${besc(o.n||"")}</span><span class="blvys">${bojLogVys(o)}</span>${und}</li>`}
 
 /* --- karta nepřítele: rychlý přehled pro boj --- */
 function bojRefTxt(p,karta){const r=[];
@@ -453,10 +446,13 @@ function bojRef(n,s,velH){const E=bojEff(n),houf=n.druh==="houf";
 const BSTC={};
 const bojStatHtml=p=>BSTC[p.id]||(BSTC[p.id]=bojTipy(p.b||p.h));
 document.addEventListener("toggle",e=>{const d=e.target;if(!d.matches||!d.matches("details.bstat")||!d.open)return;const b=d.querySelector("[data-bsb]");if(b&&!b.firstChild){const p=PROTBY[b.dataset.bsb];if(p)b.innerHTML=bojStatHtml(p)}},true);
-/* která karta je rozbalená: ta, kdo je na tahu; ruční přepnutí platí do dalšího tahu */
+/* která karta je rozbalená (2026-10-18: vždy jen jedna – je v levém sloupci Boje): ta, kdo je na tahu;
+   ruční výběr platí do dalšího tahu; BKART[id]=true vybere (platí poslední), BKART[id]=false u toho na tahu = nic */
 const BKART={};let BKARTK="";
-function bojOtevr(s,n){const k=`${s.kolo}:${s.tah}`;if(k!==BKARTK){BKARTK=k;Object.keys(BKART).forEach(x=>delete BKART[x])}
-  return BKART[n.id]!=null?BKART[n.id]:(s.obsazeni||{})[s.tah]===n.id}
+function bojVybranaKarta(s){const k=`${s.kolo}:${s.tah}`;if(k!==BKARTK){BKARTK=k;Object.keys(BKART).forEach(x=>delete BKART[x])}
+  const tr=Object.keys(BKART).filter(x=>BKART[x]),ot=(s.obsazeni||{})[s.tah];return tr.length?tr[tr.length-1]:ot&&BKART[ot]!==false?ot:null}
+function bojOtevr(s,n){return bojVybranaKarta(s)===n.id}
+function bojVyber(id){const s=BOJ.s||{};bojVybranaKarta(s);Object.keys(BKART).forEach(x=>delete BKART[x]);if(id)BKART[id]=true;else{const ot=(s.obsazeni||{})[s.tah];if(ot)BKART[ot]=false}}
 /* houf a sok, který ho drží: když sok padne nebo prchá, houf prchá */
 function bojSokPadl(s,id){const o=(s.npc||[]).find(x=>x.id===id);if(!o)return true;if((o.stav||[]).some(t=>t==="poražen"||t==="prchá"||t==="rozplynul se"||t==="vzdal se"))return true;
   const E=bojEff(o),hv=bojHp.get()[o.id]||[];return !!E&&E.hp.length>0&&E.hp.every((h,k)=>(hv[k]!=null?hv[k]:h.max)<=0)}

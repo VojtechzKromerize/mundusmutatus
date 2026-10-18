@@ -40,7 +40,6 @@ async def main():
     g.on("dialog",lambda d:asyncio.ensure_future(d.accept()))
     await g.add_init_script("localStorage.setItem('mm-gm-relace',JSON.stringify("+json.dumps({"at":rel["access_token"],"rt":rel["refresh_token"],"exp":rel["expires_at"],"email":"gm@x.cz"})+"))")
     await g.goto(BASE+"#boj");await g.wait_for_function("!document.documentElement.classList.contains('mmload')");await g.wait_for_timeout(500)
-    await g.evaluate("BOTV.add('glog')")  # herní záznam pod pruhem iniciativy je rozbalitelný; vypravěč ho má v testu otevřený
     if await g.locator("[data-bact=konec]").count():
         await g.click("[data-bact=konec]");await g.wait_for_timeout(800)
         if await g.locator('[data-bkon="ok"]').count():  # se statblocky se nejdřív ukáže shrnutí boje
@@ -121,7 +120,7 @@ async def main():
         await g.click("h2.arttitle");await g.keyboard.press("Control+z");await g.wait_for_timeout(300)
         chk(await g.locator(f'[data-bnpc="{rid}"] [data-bhp="0"]').input_value()==str(mx-12),"HP: Zpět vrátí předchozí hodnotu")
         chk(await g.locator(f'[data-bnpc="{rid}"] .bhpp').count()==1,"proužek životů pod jménem velkého tvora")
-        chk("Životy" in await g.inner_text(".bglog"),"změna životů je v záznamu boje")
+        chk("Životy" in await g.inner_text(".bzl"),"změna životů je v záznamu boje")
     else: chk(False,"rotmistr má pole životů")
     # dílčí překreslení: jiná karta zůstane stejný prvek
     await g.evaluate(f"window.__karta=document.querySelector('[data-bnpc=\"{rid}\"]')")
@@ -146,7 +145,7 @@ async def main():
     await pl.click('[data-bhpan="h1"] [data-bhkr="2"]');await pl.wait_for_timeout(900)
     await g.wait_for_timeout(3200)
     chk(await g.evaluate("(BOJ.s.hraci[0].stav||[]).includes('sražen')&&BOJ.s.hraci[0].kryt===2"),"vypravěč vidí stav a kryt, které hráč nastavil z telefonu")
-    chk("sražen" in await g.inner_text(".bglog"),"změna z telefonu je v záznamu boje")
+    chk("sražen" in await g.inner_text(".bzl"),"změna z telefonu je v záznamu boje")
     chk(await g.evaluate(f"(()=>{{BCIL['{rid}']='h1';const r=bojAdvNavrh(BOJ.s,BOJ.s.npc.find(n=>n.id==='{rid}'),{{n:'Meč',b:5,p:'dosah 5 stop'}});delete BCIL['{rid}'];return r.v===1&&r.kryt===2}})()"),"návrh výhody počítá se stavem a krytem postavy")
     await pl.click('[data-bhpan="h1"] [data-bhds="pad"]');await pl.wait_for_timeout(900)
     await pl.click('[data-bhpan="h1"] [data-bhds="hod"]');await pl.wait_for_timeout(900)
@@ -194,11 +193,25 @@ async def main():
     await g.wait_for_timeout(3500)
     hp1=await g.evaluate(f"(bojHp.get()['{rid}']||[])[0]")
     chk(await g.evaluate("(BOJ.s.utoky||[]).slice(-1)[0].stav")=="hotovo" and hp1 is not None and (hp0 is None or hp1<hp0),"útok hráče se u vypravěče vyhodnotí a odečte životy: "+str((hp0,hp1)))
-    chk("Cyril" in await g.inner_text(".bglog"),"útok hráče je v záznamu vypravěče")
+    chk("Cyril" in await g.inner_text(".bzl"),"útok hráče je v záznamu vypravěče")
     await pl.wait_for_timeout(3200)
     mj=await pl.inner_text(".bjumoje");chk("zásah" in mj and "AC" not in mj,"hráč vidí zásah, ale ne AC: "+mj[:80])
-    await pl.click(".bglogd summary");await pl.wait_for_timeout(400)
-    chk("Cyril" in await pl.inner_text(".bglogd"),"hráč má herní záznam pod pruhem iniciativy (hody a veřejný záznam boje)")
+    chk("Cyril" in await pl.inner_text(".bcoll .bzaz"),"hráč má herní záznam ve třetím sloupci (hody a veřejný záznam boje)")
+    # tři sloupce u vypravěče (karta · účastníci · záznam), záložky na mobilu hráče
+    lay=await g.evaluate("(()=>{const r=q=>document.querySelector(q).getBoundingClientRect(),k=r('.bcolk'),u=r('.bcolu'),l=r('.bcoll');return [k.left<u.left,u.left<l.left,Math.abs(k.top-l.top)<4]})()")
+    chk(lay==[True,True,True],"vypravěč: karta, účastníci a herní záznam ve třech sloupcích: "+str(lay))
+    chk(await pl.locator(".btabs").is_visible() and not await pl.locator(".bcoll").is_visible(),"mobil: záložky, záznam je schovaný")
+    await pl.click('[data-btab="l"]');await pl.wait_for_timeout(200)
+    chk(await pl.locator(".bcoll").is_visible() and not await pl.locator(".bcolk").is_visible(),"mobil: záložka Záznam ukáže herní záznam místo karty")
+    await pl.click('[data-btab="k"]');await pl.wait_for_timeout(200)
+    # záznam: kostky jako žetony, spojení útoku z telefonu s vyhodnocením, Závoj s volbou Pokušení, nepřátelé jen výsledek
+    r=await pl.evaluate("""(()=>{const t=bzTxt('d20 14 / 8 (výhoda) +5 = 19'),d=document.createElement('div');d.innerHTML=t;const a=[d.querySelectorAll('.bzk20').length,d.querySelector('.bzk20.bzkx')&&d.querySelector('.bzk20.bzkx').textContent];d.innerHTML=bzTxt('2d6(4+6)+3');a.push(d.querySelectorAll('.bzk').length);return a})()""")
+    chk(r==[2,"8",2],"záznam: kostky jako žetony, zahozená kostka u výhody přeškrtnutá: "+str(r))
+    r=await pl.evaluate("""(()=>{const n=Date.now(),s={aktivni:true,zac:n-5000,kolo:1,hraci:[{id:'hx',n:'Testík'}],npc:[{id:'nx',n:'Pacholek',druh:'sok'}],
+      zaz:[{k:1,ts:n,a:'Testík',ai:'hx',c:'Pacholek',ci:'nx',cim:'Meč',v:'zásah',hu:19},{k:1,ts:n,a:'Pacholek',ai:'nx',c:'Testík',ci:'hx',cim:'Sekera',v:'zásah (17)',hod:17,ac:15,z:6,t:'Slashing'}]};
+      const H0=HODY;HODY=[{id:1,cas:new Date(n+500).toISOString(),kdo:'Testík',co:'Pokušení přijato',txt:'Útok – Meč: +1 bod hříchu (celkem 1)'},{id:2,cas:new Date(n-800).toISOString(),k:'x',kdo:'Testík',co:'Útok – Meč → Pacholek',tot:19,d:14,zav:2,zr:'pok',txt:'d20 14 / 8 (výhoda) +5 = 19 · zranění 1d8(6)+3 = 9 Sečné'}];
+      let L;try{L=bzZaznam(s,false)}finally{HODY=H0}return L.map(e=>[e.A.n,(e.vys||[''])[0],e.rows.length,e.zav?e.zav.r+':'+(e.zav.vol||''):''].join('|')).sort()})()""")
+    chk(r==["Pacholek|zásah|0|","Testík|zásah|2|pok:přijato – +1 bod hříchu (celkem 1)"],"záznam: útok z telefonu spojený s vyhodnocením, Pokušení s volbou, u nepřítele jen výsledek: "+str(r))
     chk(await pl.locator("[data-bja]").count()==0 and "Hraji za" not in await pl.inner_text("#bojview"),"hráč nevybírá postavu na stránce Boj")
     pid=await g.evaluate("(PROTIVNICI.find(p=>p.img)||{}).id||''")
     if pid:
@@ -208,7 +221,7 @@ async def main():
     else: chk(False,"v testovacích datech chybí protivník s obrázkem")
     await g.click("[data-blund] >> nth=0");await g.wait_for_timeout(400)
     chk(await g.evaluate(f"(bojHp.get()['{rid}']||[])[0]")==hp0 or hp0 is None,"Zpět v záznamu vrátí životy")
-    await g.click(".bglog [data-blf] >> nth=0");await g.wait_for_timeout(300);chk(await g.locator(".blfc").count()==1,"filtr záznamu podle žetonu");await g.click("[data-blfx]");await g.wait_for_timeout(300)
+    await g.click(".bzl [data-blf] >> nth=0");await g.wait_for_timeout(300);chk(await g.locator(".blfc").count()==1,"filtr záznamu podle žetonu");await g.click("[data-blfx]");await g.wait_for_timeout(300)
     await g.select_option("#bojview [data-potvrzr]","cast");await g.wait_for_timeout(1200)
     await pl.fill('[name="juhod"]',"5");await pl.fill('[name="jud"]',"1");await pl.fill('[name="judmg"]',"4");await pl.click("[data-juposl]");await pl.wait_for_timeout(800)
     await g.wait_for_timeout(3500)
