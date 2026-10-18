@@ -168,6 +168,18 @@ async def main():
     await pl.fill('[data-bhpan="h3"] .bzbf [name=n]',"Dlouhý meč");await pl.fill('[data-bhpan="h3"] .bzbf [name=b]',"6");await pl.fill('[data-bhpan="h3"] .bzbf [name=z]',"1d8+3")
     await pl.check('[data-bhpan="h3"] .bzbf [name=pru]');await pl.click('[data-bhpan="h3"] .bzbf button');await pl.wait_for_timeout(2500)
     chk("Dlouhý meč" in (await pl.evaluate("JSON.stringify((BOJ.s.zbrane||{}).Cyril||[])")),"hráč uloží zbraň ke své postavě")
+    # reakce hráče z telefonu a vypravěče u postavy: po uložení a dalším načtení zůstane zaškrtnutá
+    rb=pl.locator('[data-bhpan="h3"] [data-bhrk]').first
+    if await rb.count():
+        await rb.click();await pl.wait_for_timeout(3500)
+        chk(await pl.evaluate("!!(BOJ.s.reak||{}).h3"),"hráč zaškrtne reakci a po uložení zůstane: "+str(await pl.evaluate("JSON.stringify(BOJ.s.reak||null)")))
+        await g.wait_for_timeout(5500);chk(await g.evaluate("!!(BOJ.s.reak||{}).h3"),"vypravěč vidí reakci hráče")
+        await pl.locator('[data-bhpan="h3"] [data-bhrk]').first.click();await pl.wait_for_timeout(3500)
+        chk(await pl.evaluate("!(BOJ.s.reak||{}).h3"),"hráč reakci zase odškrtne")
+    else: chk(False,"hráč má na kartě tlačítko reakce")
+    await g.click('[data-break="h1"]');await g.wait_for_timeout(3500)
+    chk(await g.evaluate("!!(BOJ.s.reak||{}).h1"),"vypravěč zaškrtne reakci postavy a po uložení zůstane")
+    await g.click('[data-break="h1"]');await g.wait_for_timeout(2500)
     await pl.click(".bjut summary");await pl.wait_for_timeout(200)
     await pl.select_option('[name="jucil"]',rid);await pl.wait_for_timeout(300);await pl.select_option('[name="juzi"]',"0");await pl.wait_for_timeout(300)
     await pl.click("[data-juhod]");await pl.wait_for_timeout(300)

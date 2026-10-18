@@ -319,8 +319,9 @@ async function bojHracAkce(id,fn,msg){
   const rd0=(s.ready||{})[id]||null,rd1=(z.ready||{})[id]||null;if(rd0!==rd1)ch.push(["ready",rd1]);
   const rk0=!!(s.reak||{})[id],rk1=!!(z.reak||{})[id];if(rk0!==rk1)ch.push(["reak",rk1]);
   const zb0=JSON.stringify((s.zbrane||{})[h0.n]||null),zb1=(z.zbrane||{})[h.n]||null;if(zb0!==JSON.stringify(zb1))ch.push(["zbrane",zb1&&zb1.length?zb1:null]);
-  if(!ch.length)return;BOJ.s=z;renderBoj();
+  if(!ch.length)return;BOJ.s=z;renderBoj();BOJ.zapis=(BOJ.zapis||0)+1;
   try{for(const [k,v] of ch)await bojDB.hrac(id,k,v);if(msg)mmHlas(msg,5000)}catch(err){mmHlas("Nepodařilo se uložit: "+(err.message||err),5000)}
+  finally{BOJ.zapis--}
   BOJ.v=-2;await bojNacti();renderBoj()}
 function bojHracKlik(T){const pan=T("[data-bhpan]");if(!pan)return false;const id=pan.dataset.bhpan,s=BOJ.s||{},hn=((s.hraci||[]).find(x=>x.id===id)||{}).n||"";
   const st=T("[data-bhst]");if(st){const t=st.dataset.bhst;bojHracAkce(id,h=>{const a=h.stav||[];h.stav=a.includes(t)?a.filter(x=>x!==t):[...a,t];if(!h.stav.length)delete h.stav});return true}

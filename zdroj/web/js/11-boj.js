@@ -553,7 +553,9 @@ function bojSloty(s){
 const bojUzito=(s,id)=>Object.values(s.obsazeni||{}).filter(x=>x===id).length;
 const bojJm=(s,id)=>{const h=(s.hraci||[]).find(x=>x.id===id);if(h)return h.n;const n=(s.npc||[]).find(x=>x.id===id);return n?n.n:""};
 const bojSpoj=o=>o.str==="h";
-async function bojNacti(){if(!bojDB)return;try{const r=await bojDB.nacti();const v=r?r.verze:0;if(v!==BOJ.v){const old=BOJ.v>0?BOJ.db:null;BOJ.s=r?r.stav:null;BOJ.db=BOJ.s;BOJ.v=v;try{bojHracDiff(old,BOJ.s)}catch(e){}if(GMV)setTimeout(bojUtokyNove,0);return true}}catch(e){}return false}
+/* načtení stavu boje: starší odpověď (dotaz odešel před naším uložením) ani načtení během čekajícího uložení vypravěče
+   nesmí přepsat novější stav v prohlížeči – jinak by se právě zaškrtnutá reakce, stav apod. na chvíli „vrátily“ */
+async function bojNacti(){if(!bojDB)return;try{const r=await bojDB.nacti();const v=r?r.verze:0;if(BOJ.v>0&&v<BOJ.v)return false;if(BOJ.v>0&&(GMV?(BZ.q.length||BZ.beh):BOJ.zapis>0))return false;if(v!==BOJ.v){const old=BOJ.v>0?BOJ.db:null;BOJ.s=r?r.stav:null;BOJ.db=BOJ.s;BOJ.v=v;try{bojHracDiff(old,BOJ.s)}catch(e){}if(GMV)setTimeout(bojUtokyNove,0);return true}}catch(e){}return false}
 /* vypravěč: co hráči změnili z telefonu (stavy, kryt, hody proti smrti, připravená akce) – hláška a záznam boje */
 function bojHracDiff(a,b){if(!GMV||!a||!b||!b.aktivni)return;(b.hraci||[]).forEach(h=>{const o=(a.hraci||[]).find(x=>x.id===h.id);if(!o)return;const t=[];
   if(JSON.stringify(o.ds||null)!==JSON.stringify(h.ds||null)){const d=h.ds;
