@@ -34,12 +34,16 @@ function bojUtokVyhodnot(s,u){const h=(s.hraci||[]).find(x=>x.id===u.h),an=h?h.n
       const b=bojSaveB(E&&E.p,P.ab),d=bK(20),t=d+b,ok=t>=P.dc,base=ok?(P.pol?Math.floor(u.dmg/2):0):u.dmg,z=E?bojZasah(E,base,u.t,{}):{x:base,pozn:[]};
       const SS=!ok?bojSpStav(u.cim):null;if(SS)o.spst=SS;if(!ok)o.fail=1;
       Object.assign(o,{x:z.x,gm:`${n.n}: ${P.ab} ${t} (d20 ${d} ${bsg(b)}) ${ok?"úspěch":"neúspěch"} → ${z.x}${z.pozn.length?" ("+z.pozn.join(", ")+")":""}${SS?` · ${SS.st.join(", ")}${SS.op?" (záchrana na konci každého tahu)":""}`:""}`,vys:ok?(z.x?"záchrana, poloviční zranění":"záchrana uspěla"):SS?SS.st.join(", "):"zasažen",sav:`${P.ab} ${t} ${ok?"úspěch":"neúspěch"}`});r.push(o);return}
-    const ZS=E?bojZbrStav(n,E):null,kr=+n.kryt||0,AC=ZS?ZS.ac+kr:null,krit=u.d!=null&&u.d>=Math.min(20,+u.kmin||20),mis=u.d===1,hit=!mis&&(krit||AC==null||u.hod>=AC);
+    const ZS=E?bojZbrStav(n,E):null,kr=+n.kryt||0,AC=ZS?ZS.ac+kr:null;let krit=u.d!=null&&u.d>=Math.min(20,+u.kmin||20);const mis=u.d===1;
+    /* Ostrá (Artikule): 19 je kritický zásah, když zbraň seká (Slashing) cíl bez Resistance proti Slashing – web přihodí kostky zranění */
+    if(!krit&&+u.d===19&&u.t==="Slashing"&&!bojMaRes(n,"Slashing")){const K=bojKartaH(h),a=K&&kUtoky(K).find(x=>x.n===u.cim),m=a&&String(a.z||"").match(/^(\d*)d(\d+)/);
+      if(a&&m&&bdmZvl(a,K).includes("Ostrá")){const q=bojKostky(`${m[1]||1}d${m[2]}`,false);krit=true;u=Object.assign({},u,{dmg:(+u.dmg||0)+(q?q.t:0)});o.ostra=q?q.x:"";r.ostra=1}}
+    const hit=!mis&&(krit||AC==null||u.hod>=AC);
     Object.assign(o,{hit,krit,AC,acT:AC!=null?`AC ${AC}${kr?` s krytem +${kr}`:""}`:"AC neznámé"});
     if(!hit){o.gm=`${n.n}: ${u.hod}${mis?" (přirozená 1)":""} proti ${o.acT} → vedle`;o.vys="vedle";r.push(o);return}
     if(houf){const z=E?bojZasah(E,u.dmg,u.t,{drt:u.drt,pru:u.pru}):{x:u.dmg,pozn:[]};o.pad=z.x>=1?1:0;o.gm=`${n.n}: ${u.hod} proti ${o.acT} → zásah${o.pad?", padl pacholek":" bez účinku"+(z.pozn.length?" ("+z.pozn.join(", ")+")":"")}`;o.vys=o.pad?(krit?"kritický zásah, pacholek padl":"pacholek padl"):"zásah bez účinku";r.push(o);return}
     const z=E&&E.hp.length?bojZasah(E,u.dmg,u.t,{drt:u.drt,pru:u.pru,st:n.stav}):{x:u.dmg,pozn:[]};o.x=z.x;o.pozn=z.pozn;
-    o.sokKrit=krit&&n.druh==="sok";o.gm=`${n.n}: ${u.hod} proti ${o.acT} → ${krit?"kritický zásah":"zásah"}, ${u.dmg}${z.pozn.length?" → "+z.x+" ("+z.pozn.join(", ")+")":""}${o.sokKrit?" · sok je kritickým zásahem poražen (Artikule) – ledaže pošle do rány pacholka („Za pána!“)":""}${krit&&n.druh==="zhoubce"?" · zhoubce smí obětovat zbroj":""}`;
+    o.sokKrit=krit&&n.druh==="sok";o.gm=`${n.n}: ${u.hod} proti ${o.acT} → ${krit?"kritický zásah":"zásah"}${o.ostra!=null?` (Ostrá: 19 seká cíl bez Resistance, přihozeno ${o.ostra})`:""}, ${u.dmg}${z.pozn.length?" → "+z.x+" ("+z.pozn.join(", ")+")":""}${o.sokKrit?" · sok je kritickým zásahem poražen (Artikule) – ledaže pošle do rány pacholka („Za pána!“)":""}${krit&&n.druh==="zhoubce"?" · zhoubce smí obětovat zbroj":""}`;
     o.vys=o.sokKrit?"kritický zásah – poražen":krit?"kritický zásah":"zásah";r.push(o)});
   return {an,h,r}}
 const BUTZP=new Set();
@@ -579,7 +583,7 @@ document.addEventListener("click",async e=>{
     if(GMV){bojLog(id,{n:`Záchrana ${ab}`,ai:id,zt:txt.replace(/^[^:]*:\s*/,"")},h0.n);renderBoj()}(GMV?mmHlasG:mmHlas)(txt,7000);return}
   const kzd=T("[data-bkzd]");if(kzd){const pan=kzd.closest("[data-bhpan]"),id=pan&&pan.dataset.bhpan,S=BOJ.s||{},K=bojKartaH((S.hraci||[]).find(x=>x.id===id));if(!K)return;const k=kzd.dataset.bkzd,j=+kzd.dataset.j,U=Object.assign({},kartaStav(K.id).zdr||{}),u=U[k]||0;U[k]=u>j?j:j+1;if(!U[k])delete U[k];kartaStavZmen(K.id,{zdr:Object.keys(U).length?U:null});return}
   const pcz=T("[data-bpcz]");if(pcz){const id=pcz.dataset.bpcz,S=BOJ.s||{},h0=(S.hraci||[]).find(x=>x.id===id),K=bojKartaH(h0);if(!h0||!K)return;const v=+pcz.dataset.z,typ=pcz.dataset.t||"Slashing",kr=!!pcz.dataset.k;
-    pcz.disabled=true;if(pcz.dataset.bpczt)BPCZ.add(+pcz.dataset.bpczt);const msg=bojPCZmena(id,o=>bojZranPC(o,K,v,typ,kr));bojZaz({a:"",c:h0.n,ci:id,cim:"",v:String(msg||"").replace(/\s*\(\d+\/\d+\)/,"")});return}
+    pcz.disabled=true;if(pcz.dataset.bpczt)BPCZ.add(+pcz.dataset.bpczt);const msg=bojPCZmena(id,o=>bojZranPC(o,K,v,typ,kr,{drt:!!pcz.dataset.drt,pru:!!pcz.dataset.pru}));bojZaz({a:"",c:h0.n,ci:id,cim:"",v:String(msg||"").replace(/\s*\(\d+\/\d+\)/,"")});return}
   const hk=T("[data-bhkarta]");if(hk){const K=KARTBY[hk.dataset.bhkarta];if(!K)return;bojZmen(z=>{const a=z.hraci=z.hraci||[];const ex=a.find(h=>h.n===K.n||!h.n);if(ex){ex.n=K.n;ex.k=K.id}else{const ids=a.map(h=>+String(h.id).slice(1)||0);a.push({id:"h"+(Math.max(0,...ids)+1),n:K.n,k:K.id,hod:null})}});return}
   const hin=T("[data-bhini]");if(hin){const id=hin.dataset.bhini,S=BOJ.s||{},h0=(S.hraci||[]).find(x=>x.id===id),K=bojKartaH(h0);if(!K)return;const d=bK(20),v=d+(kIni(K));
     if(GMV)bojZmen(z=>{const h=(z.hraci||[]).find(x=>x.id===id);if(h)h.hod=v});else if(bojDB&&bojDB.hod){try{await bojDB.hod(id,v);await bojNacti();renderBoj()}catch(err){mmHlas("Nepodařilo se zapsat: "+(err.message||err),4000);return}}
@@ -628,6 +632,7 @@ document.addEventListener("click",async e=>{
   if(T("[data-bprdel]")){const pr=T("[data-bprdel]").dataset.bprdel;upd(o=>{o.pr=(o.pr||[]).filter(x=>x!==pr);if(!o.pr.length)delete o.pr});return}
   const btt=T("[data-butt]");if(btt){const k=id+":"+btt.dataset.butt,v=BUTT[k]||{};BUTT[k]=v.t===btt.dataset.t&&!v.pul?{}:{t:btt.dataset.t};renderBoj();return}
   const btp=T("[data-butpul]");if(btp){const k=id+":"+btp.dataset.butpul,v=BUTT[k]||{};BUTT[k]=v.pul?{}:{pul:1};renderBoj();return}
+  if(T("[data-bkritpc]")){BPRAV=true;renderBoj();const k=v.querySelector(".bkrit");if(k)k.scrollIntoView({block:"center",behavior:"smooth"});return}
   if(T("[data-bzrpo]")&&o0){bojUtokZrPo(id);return}
   if(T("[data-but]")&&o0){const ai=+T("[data-but]").dataset.but,E0=bojEff(o0),a0=E0&&E0.at[ai];
     if(a0&&/šikov/i.test(a0.p||"")&&bojTypy(a0).length>1){bojSikVolba(o0,ai,a0);return}

@@ -48,8 +48,14 @@ function bojPcKonec(s,id){const h=(s.hraci||[]).find(x=>x.id===id);if(!h||!GMV)r
   (h.ef||[]).forEach(e=>{if(!e.op||hot.has(e.n))return;hot.add(e.n);const o={hid:h.id,n:e.n,ab:e.op.ab,dc:e.op.dc};
     if(K&&window.MMDB&&MMDB.vyzva)setTimeout(()=>MMDB.vyzva({typ:"zach",ab:o.ab,dc:o.dc,komu:[K.id],pozn:`${e.n}: opakovaná záchrana – úspěch ukončí ${e.st||"účinek"}`.slice(0,200)}).then(v=>{BOPV[+v]=Object.assign(o,{kid:K.id});vyzvyNacti()}).catch(()=>{}),0);
     else bojMsg(id,`${e.n}: na konci tahu záchrana ${o.ab} SO ${o.dc} – úspěch ukončí ${e.st||"účinek"}.`)})}
-function bojPcZac(s,id){const h=(s.hraci||[]).find(x=>x.id===id);if(!h)return;(h.ef||[]).slice().forEach(e=>{if(e.kdy==="kola"){e.k=(e.k||1)-1;if(e.k<=0){bojEfDel(h,e);bojMsg(id,`Skončilo: ${e.n}.`)}}})}
+/* krvácení z kritického zranění (stav „krvácí k6 / k8“): na začátku tahu k6 / k8 HP, bez odolností, jednou za kolo */
+function bojKrvaceni(s,n){const st=(n.stav||[]).find(t=>/^krvácí k[68]$/.test(t));if(!st||!GMV)return null;const kolo=s.kolo||1;if(n.krvK===kolo)return null;n.krvK=kolo;
+  const sd=+st.slice(-1),d=bK(sd);return {d,sd,txt:`krvácí: k${sd} = ${d}`}}
+function bojPcZac(s,id){const h=(s.hraci||[]).find(x=>x.id===id);if(!h)return;
+  {const kv=bojKrvaceni(s,h);if(kv&&!h.ds){const K=bojKartaH(h);if(K)setTimeout(()=>{const m=bojPCZmena(id,x=>bojZranPC(x,K,kv.d,"",false),false);bojLog(id,{n:"Krvácení",ci:id,zt:`${kv.txt} → ${m||""}`},h.n);mmHlasG(`${h.n}: ${kv.txt} HP.`,4000)},0);
+    else{const m=bojZranPC(h,null,kv.d,"",false);bojMsg(id,`${kv.txt} → ${m}`)}}}(h.ef||[]).slice().forEach(e=>{if(e.kdy==="kola"){e.k=(e.k||1)-1;if(e.k<=0){bojEfDel(h,e);bojMsg(id,`Skončilo: ${e.n}.`)}}})}
 function bojZacatekTahu(s,id){const n=(s.npc||[]).find(x=>x.id===id);if(!n){bojPcZac(s,id);return}BTMSG[id]=[];const E=bojEff(n),kolo=s.kolo||1;
+  {const kv=n.druh!=="houf"&&E&&E.hp.length?bojKrvaceni(s,n):null;if(kv){const hp=bojHp.get(),a=hp[id]||[],old=a[0]!=null?a[0]:E.hp[0].max;a[0]=old-kv.d;hp[id]=a;bojHp.set(hp);bojHpZmena(id,0,old,old-kv.d);bojMsg(id,`${kv.txt} → −${kv.d} HP (${old-kv.d}).`)}}
   (n.ef||[]).slice().forEach(e=>{
     if(e.kdy==="zacatek"&&!(e.kolo===kolo&&e.tah===(s.tah||0))){bojEfDel(n,e);bojMsg(id,`Skončilo: ${e.n}.`);return}
     if(e.kdy==="konec")e.zac=1;
@@ -281,7 +287,7 @@ function bojDs(ds,act,d){ds=Object.assign({u:0,n:0},ds||{});delete ds.st;let m="
 const bojDsPip=h=>{const d=h&&h.ds;if(!d)return "";
   if(d.st)return `<span class="bdsb bds-${d.st}" role="img" aria-label="${d.st==="mrtev"?"Umírá":"Stabilizován"}" ${btip(d.st==="mrtev"?"Tři neúspěchy hodu proti smrti – postava umírá":"Stabilizován – do konce boje mimo hru, ledaže ho vrátí Lesser nebo Greater Restoration")}>${bi(d.st==="mrtev"?"smrt":"porazen")}</span>`;
   return `<span class="bdsb" role="img" aria-label="Hody proti smrti: úspěchy ${d.u} ze 3, neúspěchy ${d.n} ze 3" ${btip(`Na prahu smrti – úspěchy ${d.u}/3, neúspěchy ${d.n}/3`)}>${bi("porazen")}<i class="bdsu">${"●".repeat(d.u)}${"○".repeat(3-d.u)}</i><i class="bdsn">${"●".repeat(d.n)}${"○".repeat(3-d.n)}</i></span>`};
-const BSTHP={"sražen":"Ležíš: vstát stojí polovinu rychlosti; útoky zblízka na tebe mají výhodu, z dálky nevýhodu; tvé útoky mají nevýhodu.",
+const BSTHP={"krvácí k6":"Krvácíš (kritické zranění): na začátku každého tahu ztratíš k6 HP, dokud tě někdo neošetří (Medicine).","krvácí k8":"Krvácíš (kritické zranění): na začátku každého tahu ztratíš k8 HP, dokud tě někdo neošetří (Medicine).","sražen":"Ležíš: vstát stojí polovinu rychlosti; útoky zblízka na tebe mají výhodu, z dálky nevýhodu; tvé útoky mají nevýhodu.",
   "omráčen":"Omráčen: nemůžeš jednat ani se pohnout, záchrany na Sílu a Obratnost automaticky selžou, útoky na tebe mají výhodu.",
   "zadržen":"Zadržen: rychlost 0, tvé útoky mají nevýhodu, útoky na tebe výhodu; vyprostíš se akcí.",
   "oslepen":"Oslepen: tvé útoky mají nevýhodu, útoky na tebe výhodu.","neviditelný":"Neviditelný: tvé útoky mají výhodu, útoky na tebe nevýhodu.",
@@ -353,14 +359,20 @@ const hpO=(o,K)=>o.hp!=null?+o.hp:kHPmax(K);
 /* zbraně postavy: z karty + uložené ručně */
 const bojZbrVse=(s,h)=>{const K=bojKartaH(h);return [...(K?kUtoky(K).map(a=>({n:a.n,b:a.b,z:a.z,t:a.t,dal:!!a.dal,pocet:a.pocet||1,drt:(a.vl||[]).some(v=>/drtiv/i.test(v))||bdmZvl(a,K).includes("Drtivá"),pru:(a.vl||[]).some(v=>/průrazn/i.test(v))||bdmZvl(a,K).includes("Průrazná"),karta:1,pozn:a.pozn||""})):[]),...bojZbrH(s,h)]};
 /* zranění postavy s kartou: Resistance/Immunity, dočasné HP, pád na 0, okamžitá smrt, hody proti smrti při zásahu na 0, soustředění */
-function bojZranPC(h,K,x,typ,krit){const m=[];let v=+x||0;if(v<=0)return "";
-  if(K&&(K.imu||[]).includes(typ)){m.push(`Immunity (${BZRT[typ]||typ})`);v=0}else if(K&&kOdol(K).includes(typ)){v=Math.floor(v/2);m.push(`Resistance (${BZRT[typ]||typ}) → ${v}`)}
+function bojZranEf(K,x,typ,opt){opt=opt||{};let v=+x||0;if(!K||v<=0)return {v,m:""};if((K.imu||[]).includes(typ))return {v:0,m:`Immunity (${BZRT[typ]||typ})`};
+  if(kOdol(K).includes(typ)){const zbr=((BZBR[kOdolZ(K)]||[""])[0]||"").includes(typ),jinak=(K.odol||[]).includes(typ)||(kPri(K).includes("Rage")&&["Bludgeoning","Piercing","Slashing"].includes(typ));
+    if(zbr&&!jinak&&((typ==="Bludgeoning"&&opt.drt)||(typ==="Piercing"&&opt.pru)))return {v,m:`${opt.drt?"Drtivá":"Průrazná"} zbraň – Resistance zbroje neplatí`};
+    return {v:Math.floor(v/2),m:`Resistance (${BZRT[typ]||typ}) → ${Math.floor(v/2)}`}}
+  return {v,m:""}}
+var BZRPOD=0;
+function bojZranPC(h,K,x,typ,krit,opt){const m=[];let v=+x||0;if(v<=0)return "";BZRPOD=0;
+  {const r=bojZranEf(K,v,typ,opt);v=r.v;if(r.m)m.push(r.m)}
   if(h.thp>0&&v>0){const a=Math.min(h.thp,v);h.thp-=a;v-=a;m.push(`dočasné HP pohltí ${a}`);if(!h.thp)delete h.thp}
   if(v<=0)return m.join(", ");
   if(bojDsAkt(h)){const r=bojDs(h.ds,"n",krit?2:1);h.ds=r.ds;m.push(`zásah v bezvědomí: ${krit?"dva neúspěchy":"neúspěch"} hodu proti smrti${r.m?" → "+r.m:""}`);return m.join(", ")}
   const mx=K?kHPmax(K):0,cur=hpO(h,K),nov=cur-v;
   if((h.stav||[]).includes("soustředí"))m.push(`soustředění: CON záchrana SO ${bojKonDC(v)}${K&&K.konVyhoda?" s výhodou (War Caster)":""}`);
-  if(nov<=0){h.hp=0;if(mx&&-nov>=mx){h.ds={u:0,n:3,st:"mrtev"};m.push(`přesah ${-nov} ≥ maximum HP – okamžitá smrt`)}
+  if(nov<=0){h.hp=0;BZRPOD=Math.max(0,-nov);if(mx&&-nov>=mx){h.ds={u:0,n:3,st:"mrtev"};m.push(`přesah ${-nov} ≥ maximum HP – okamžitá smrt`)}
     else{h.ds={u:0,n:0};m.push(`padá na 0 HP${nov<0?` (${-nov} pod nulou)`:""}: bezvědomí, hody proti smrti, hod na kritické zranění a 1 úroveň vyčerpání`)}
     if(h.stav){h.stav=h.stav.filter(q=>q!=="soustředí");if(!h.stav.length)delete h.stav}}
   else h.hp=nov;

@@ -772,7 +772,7 @@ begin
       s := s #- array['hraci', i::text, 'stav'];
     elsif jsonb_typeof(x) = 'array' and jsonb_array_length(x) <= 16 and not exists (
         select 1 from jsonb_array_elements(x) e
-        where jsonb_typeof(e) <> 'string' or not ((e #>> '{}') = any (array['sražen','omráčen','zadržen','chycen','oslepen','ohlušen','neviditelný','otrávený','vyděšený','okouzlen','neschopný','ochromen','zkamenělý','úhyb','soustředí']))) then
+        where jsonb_typeof(e) <> 'string' or not ((e #>> '{}') = any (array['krvácí k6','krvácí k8','sražen','omráčen','zadržen','chycen','oslepen','ohlušen','neviditelný','otrávený','vyděšený','okouzlen','neschopný','ochromen','zkamenělý','úhyb','soustředí']))) then
       s := jsonb_set(s, array['hraci', i::text, 'stav'], x);
     else
       raise exception 'neplatné stavy';
@@ -1023,7 +1023,7 @@ begin
         or (e ? 'kon' and jsonb_typeof(e -> 'kon') <> 'boolean')))
     -- stavy mimo boj, bez štítu, změny připravených kouzel, společníci a doplňky hráče
     when 'stavy' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'array' and jsonb_array_length(x) <= 16 and not exists (
-        select 1 from jsonb_array_elements(x) e where jsonb_typeof(e) <> 'string' or not ((e #>> '{}') = any (array['sražen','omráčen','zadržen','chycen','oslepen','ohlušen','neviditelný','otrávený','vyděšený','okouzlen','neschopný','ochromen','zkamenělý','v bezvědomí','úhyb','soustředí']))))
+        select 1 from jsonb_array_elements(x) e where jsonb_typeof(e) <> 'string' or not ((e #>> '{}') = any (array['krvácí k6','krvácí k8','sražen','omráčen','zadržen','chycen','oslepen','ohlušen','neviditelný','otrávený','vyděšený','okouzlen','neschopný','ochromen','zkamenělý','v bezvědomí','úhyb','soustředí']))))
     when 'bezstit' then jsonb_typeof(x) in ('boolean', 'null')
     when 'kpn' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'array' and jsonb_array_length(x) <= 80 and not exists (select 1 from jsonb_array_elements(x) e where jsonb_typeof(e) <> 'string' or char_length(e #>> '{}') not between 1 and 60))
     when 'kpx' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'array' and jsonb_array_length(x) <= 80 and not exists (select 1 from jsonb_array_elements(x) e where jsonb_typeof(e) <> 'string' or char_length(e #>> '{}') not between 1 and 60))

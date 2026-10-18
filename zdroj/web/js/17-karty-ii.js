@@ -230,7 +230,7 @@ async function kSpZraneni(K,x,lvl,krit,cil){const E=kSpUcinek(K,x,lvl);if(!E)ret
   if(K2){await kLecKarta(K2,tot,K,x.n);return}
   mmHlasG(`${K.n}: ${x.n} – ${E.k==="l"?"léčení":"zranění"} ${tot}${cnt>1?` (${cnt}×)`:""}`,5000)}
 /* ---- stavy mimo boj (ovlivňují hody z karty) ---- */
-const KSTV=["otrávený","vyděšený","neviditelný","sražen","zadržen","chycen","oslepen","ohlušen","okouzlen","neschopný","ochromen","omráčen","zkamenělý","v bezvědomí","soustředí"];
+const KSTV=["krvácí k6","krvácí k8","otrávený","vyděšený","neviditelný","sražen","zadržen","chycen","oslepen","ohlušen","okouzlen","neschopný","ochromen","omráčen","zkamenělý","v bezvědomí","soustředí"];
 function kStavy(K){const S=kartaStav(K.id),L=[...(S.stavy||[])];const h=((BOJ.s&&BOJ.s.aktivni&&BOJ.s.hraci)||[]).find(x=>bojKartaH(x)===K);if(h)(h.stav||[]).forEach(s=>{if(!L.includes(s))L.push(s)});return L}
 function kStavVliv(K,co){const st=kStavy(K),r=[];let fail=false;const typ=/^Útok/.test(co)?"ut":/^Záchrana/.test(co)?"za":/^Iniciativa/.test(co)?"in":"ov",ab=(co.match(/(STR|AGI|CON|INT|WIS|CHA)/)||[])[1];
   st.forEach(k=>{const d=SRDST[k];if(!d)return;
