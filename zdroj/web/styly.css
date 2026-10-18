@@ -3197,3 +3197,7 @@ span.bzos{cursor:default}
 .bnkbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 @media (max-width:600px){.bnkvl{grid-template-columns:repeat(3,1fr)}}
 .kstrkon{color:var(--kb-gold,#c9a14a);font-weight:700}
+.bdmtahr{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0}
+.bdmtahr .bdmuse{margin-left:0}
+.bpun{font-family:var(--f-label);font-weight:700;font-size:.72rem;color:var(--muted)}
+.ksdlv{align-items:center;margin:4px 0 8px}

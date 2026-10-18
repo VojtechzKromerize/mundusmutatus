@@ -23,7 +23,7 @@ const bzZav=(d,r,txt)=>d?{d:+d,r:r==="0"?"":r||(+d<=2?"pok":+d>=5?"poz":""),txt:
 /* --- záznam vypravěče (BLOGG) → řádek --- */
 function bzZBlogg(s,x,i){const o=x.o,A0=o.ai!==undefined?(o.ai?bzOs(s,o.ai,o.an):null):bzOs(s,x.id,x.kdo);let C=o.ci||o.cn||o.cil?bzOs(s,o.ci,o.cn||o.cil):null,A=A0;
   if(!A&&C){A=C;C=null}if(A&&C&&A.id&&A.id===C.id)C=null;
-  const e={t:o.t||0,tg:o.t||0,k:o.k,A,C,co:o.n||"",rows:[],pozn:[],src:"g",i,undone:!!o.undone};
+  const e={t:o.t||0,tg:o.t||0,k:o.k,A,C,co:(o.n||"")+(o.un?` (${o.un})`:""),rows:[],pozn:[],src:"g",i,undone:!!o.undone};
   if(o.pre&&!o.undone)e.und=`<button type="button" class="blund" data-blzpet="${i}" ${btip("Vrátit boj do stavu před tímto krokem (i všechno pozdější): pořadí a stavy, životy nepřátel i karty postav")}>↶</button>`;
   else if(o.und&&!o.undone&&!(BHIST.length&&BHIST[0].t<(o.t||0)-30))e.und=`<button type="button" class="blund" data-blund="${i}" ${btip(o.und.poc?"Vrátit padlé pacholky do houfu":`Vrátit životy ${o.und.nov} → ${o.und.old}`)}>↶</button>`;
   const h=o.hod;
