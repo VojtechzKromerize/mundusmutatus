@@ -1033,6 +1033,9 @@ begin
         and (not x ? 'vl' or (jsonb_typeof(x -> 'vl') = 'object' and not exists (select 1 from jsonb_each(x -> 'vl') e where e.key not in ('STR', 'AGI', 'CON') or not public.mm_cislo(e.value, 1, 30)))))
     when 'mods' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'object' and octet_length(x::text) <= 3000
         and not exists (select 1 from jsonb_object_keys(x) k where k not in ('ov', 'za', 'dv', 'in', 'n')))
+    -- obětování zbroje (Artikule › Zbroj): kolikrát byla zbroj / štít obětována
+    when 'zbrU' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'object' and not exists (
+        select 1 from jsonb_each(x) e where e.key not in ('Vycpávaná', 'Kroužková', 'Plátová', 'Komplexní', 'Štít') or jsonb_typeof(e.value) <> 'number' or not public.mm_cislo(e.value, 0, 10)))
     else false end;
   if not coalesce(ok, false) then
     raise exception 'neplatná hodnota (%)', p_pole;

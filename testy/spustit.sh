@@ -45,6 +45,7 @@ krok "Sestavení"
 zkus "hráčská verze (statická) bez tajemství" python3 "$WEB/zdroj/build.py" --staticky
 zkus "vypravěčská verze" python3 "$WEB/zdroj/build.py" --vypravec
 zkus "service worker je platný JavaScript" node --check "$WEB/public/sw.js"
+zkus "databáze přijme všechna pole stavu karty" python3 "$KOREN/testy/pole_stavu.py"
 zkus "žádná značka tajemství v hráčské verzi" python3 -c "
 import pathlib,sys
 z=[str(p) for p in pathlib.Path(sys.argv[1]).rglob('*') if p.suffix in ('.html','.js','.css','.json') and any(chr(c) in p.read_text(errors='ignore') for c in (0x27e6,0x27e7))]
