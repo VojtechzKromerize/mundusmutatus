@@ -243,7 +243,7 @@ document.addEventListener("toggle",e=>{const d=e.target;if(!d.matches||!d.matche
 /* změna úrovně: o kolik vzroste maximum životů, o tolik i současné (jako v D&D Beyond) */
 async function kTridyZmen(K,tr,msg){const S=kartaStav(K.id),mx0=kHPmax(K),ch={tridy:tr};
   KST[K.id]=Object.assign({},S,{tridy:tr});const mx1=kHPmax(K);KST[K.id]=S;if(S.hp!=null)ch.hp=Math.max(0,Math.min(mx1,+S.hp+(mx1-mx0)));
-  await kartaStavZmen(K.id,ch,`${K.n}: ${msg} – maximum životů ${mx0} → ${mx1}, úroveň ${tr.reduce((a,t)=>a+t.u,0)}.`)}
+  await kartaStavZmen(K.id,ch,`${K.n}: ${msg} – maximum životů ${mx0} → ${mx1}, úroveň ${(tr||kTridyPdf(K)).reduce((a,t)=>a+t.u,0)}.`)}
 document.addEventListener("click",async e=>{const T=s=>e.target.closest&&e.target.closest(s);const b=T("[data-ktr],[data-ktrx],[data-kpdfx],[data-kuprx]");if(!b)return;const K=kvK(b);if(!K||!kMuze(K))return;const S=kartaStav(K.id);
   if(b.matches("[data-ktr]")){const tr=kTridy(K).map(t=>Object.assign({},t)),i=+b.dataset.ktr,d=+b.dataset.d;if(!tr[i])return;const lv=tr.reduce((a,t)=>a+t.u,0);if(d>0&&lv>=20)return;tr[i].u+=d;
     if(tr[i].u<=0){if(tr.length===1)return;if(!confirm(`Odebrat povolání ${tr[i].n}?`))return;tr.splice(i,1)}await kTridyZmen(K,tr,`${tr[i]?tr[i].n:"povolání"} ${d>0?"+1 úroveň":"−1 úroveň"}`);return}
