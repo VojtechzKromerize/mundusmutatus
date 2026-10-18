@@ -316,7 +316,7 @@ function bojSeznam(el,items){const tpl=document.createElement("template");let pr
   for(const [id,h] of items){let cur=[...el.children].find(c=>c.dataset.bnpc===id);
     if(!cur||cur.__h!==h){tpl.innerHTML=h;const nw=tpl.content.firstElementChild;nw.__h=h;if(cur)cur.replaceWith(nw);cur=nw}
     const want=prev?prev.nextElementSibling:el.firstElementChild;if(want!==cur)el.insertBefore(cur,want);prev=cur}}
-function renderBoj(){
+function renderBoj(){try{bojHistZapis()}catch(e){}
   const box=document.getElementById("bojview");if(!box)return;if(GMV&&!KSPD)kSpNacti().catch(()=>{});bttHide();
   const pg0=box.querySelector(".bpravidla .bprg"),ps=pg0?pg0.scrollTop:0,obnovPr=()=>{const pg=box.querySelector(".bpravidla .bprg");if(pg)pg.scrollTop=ps};
   if(!bojDB){box.innerHTML=`<h2 class="arttitle">Boj</h2><p class="intro">Tracker iniciativy funguje na webu napojeném na databázi.</p>${bojPravidla()}`;obnovPr();return}
@@ -563,6 +563,7 @@ document.addEventListener("click",async e=>{
   const blf=T("[data-blf]");if(blf){BLF=BLF===blf.dataset.blf?"":blf.dataset.blf;renderBoj();return}
   if(T("[data-blfx]")){BLF="";renderBoj();return}
   const blz=T("[data-blzpet]");if(blz){bojLogZpetSem(+blz.dataset.blzpet);return}
+  const bzv=T("[data-bzvrat]");if(bzv){bojVratCas(+bzv.dataset.bzvrat,bzv.dataset.p);return}
   const blu=T("[data-blund]");if(blu){bojLogZpet(+blu.dataset.blund);return}
   const jad=T("[data-juadv]");if(jad){BJU.adv=jad.dataset.juadv;renderBoj();return}
   const jkp=T("[data-kdice]");if(jkp&&!jkp.closest("[data-kid]")){const K=bojKartaH(((BOJ.s||{}).hraci||[]).find(h=>h.n===bojJa.get()));if(K)kPriTog(K,jkp.dataset.kdice).then(()=>renderBoj());return}
@@ -666,9 +667,18 @@ document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest
 /* herní záznam: vrátit boj do stavu před vybraným krokem (i všechny pozdější kroky) */
 async function bojLogZpetSem(i){const x=BLOGG[i];if(!x||!x.o.pre||x.o.undone)return;const P=x.o.pre,n=BLOGG.slice(0,i).filter(y=>!y.o.undone).length;
   if(!confirm(`Vrátit boj do stavu před: ${x.kdo?x.kdo+" – ":""}${x.o.n||"krok"}?${n?`\nVrátí se i ${n} ${n===1?"pozdější krok":n<5?"pozdější kroky":"pozdějších kroků"}.`:""}`))return;
-  await bojZmen(s=>{Object.keys(s).forEach(k=>delete s[k]);Object.assign(s,JSON.parse(P.s))});
+  await bojObnovSnap(P);BZUND.push([x.o.t||0,Date.now()]);
+  BLOGG.slice(0,i+1).forEach(y=>{y.o.undone=1});bojLog(x.id,{n:"Vráceno",ai:null,zt:`stav před: ${x.o.n||"krok"}${n?` (a ${n} pozdějších)`:""}`},x.kdo);mmHlasG("Boj vrácen do stavu před vybraným krokem.",3500);renderBoj()}
+
+async function bojObnovSnap(P){await bojZmen(s=>{Object.keys(s).forEach(k=>delete s[k]);Object.assign(s,JSON.parse(P.s))});
   try{bojHp.set(JSON.parse(P.hp))}catch(e){}
   for(const [kid,js] of Object.entries(P.k||{})){const K=KARTBY[kid];if(!K)continue;const A=JSON.parse(js),C=kartaStav(kid)||{},ch={};
     new Set([...Object.keys(A),...Object.keys(C)]).forEach(k=>{if(k==="mods")return;if(JSON.stringify(A[k]??null)!==JSON.stringify(C[k]??null))ch[k]=A[k]??null});
-    if(Object.keys(ch).length)await kartaStavZmen(kid,ch,null,{bezZpet:true})}
-  BLOGG.slice(0,i+1).forEach(y=>{y.o.undone=1});bojLog(x.id,{n:"Vráceno",ai:null,zt:`stav před: ${x.o.n||"krok"}${n?` (a ${n} pozdějších)`:""}`},x.kdo);mmHlasG("Boj vrácen do stavu před vybraným krokem.",3500);renderBoj()}
+    if(Object.keys(ch).length)await kartaStavZmen(kid,ch,null,{bezZpet:true})}}
+/* „Zpět“ u libovolného řádku záznamu: poslední známý stav před tímto řádkem */
+async function bojVratCas(tr,popis){const P=[...BHIST].reverse().find(x=>x.t<tr-30);
+  if(!P){mmHlasG("Tak daleko web stav nezná – řádek je z doby před otevřením stránky Boj. Použij časovou osu na stránce Hra.",6000);return}
+  const n=BLOGG.filter(y=>(y.o.t||0)>=tr&&!y.o.undone).length;
+  if(!confirm(`Vrátit boj do stavu před: ${popis||"tento řádek"}?\nVrátí se i všechno pozdější (pořadí a stavy, životy nepřátel, karty postav).`))return;
+  await bojObnovSnap(P);BZUND.push([tr,Date.now()]);BLOGG.forEach(y=>{if((y.o.t||0)>=tr)y.o.undone=1});
+  bojLog("",{n:"Vráceno",ai:null,zt:`stav před: ${popis||"řádek záznamu"}`},"");mmHlasG("Boj vrácen do stavu před vybraným řádkem.",3500);renderBoj()}

@@ -299,6 +299,11 @@ const BLOGG=[];
    Stav se zachytí na začátku kliknutí či změny v Boji (než akce proběhne); záznam vydrží i přenačtení stránky (bez stavů). */
 function bojSnap(){const S=BOJ.s||{};return {s:JSON.stringify(S),hp:JSON.stringify(bojHp.get()||{}),k:Object.fromEntries((S.hraci||[]).map(h=>bojKartaH(h)).filter(Boolean).map(K=>[K.id,JSON.stringify(kartaStav(K.id)||{})]))}}
 let BSNAPC=null;
+/* průběžná historie stavů (vypravěč): po každé změně boje, karet či životů nepřátel snímek s časem – „Zpět“ u libovolného řádku záznamu
+   vrátí poslední snímek před tímto řádkem; rozsahy vrácených řádků se v záznamu zašedí */
+const BHIST=[],BHSEEN={},BZUND=[];
+function bojHistZapis(){if(!GMV||!BOJ.s||!BOJ.s.aktivni)return;clearTimeout(bojHistZapis.t);bojHistZapis.t=setTimeout(()=>{if(!BOJ.s||!BOJ.s.aktivni)return;const p=bojSnap(),key=p.s+p.hp+JSON.stringify(p.k),L=BHIST[BHIST.length-1];if(L&&L.key===key)return;BHIST.push(Object.assign(p,{t:Date.now(),key}));if(BHIST.length>250)BHIST.shift()},120)}
+const bojZaUnd=t=>BZUND.some(([a,b])=>t>=a&&t<=b);
 ["click","change"].forEach(ev=>document.addEventListener(ev,e=>{if(!GMV||typeof curView==="undefined"||curView!=="boj"||!BOJ.s||!BOJ.s.aktivni)return;const v=document.getElementById("bojview");if(!v||!v.contains(e.target)||(e.target.closest&&e.target.closest("[data-blzpet],[data-blund]")))return;BSNAPC={t:Date.now(),snap:bojSnap()}},true));
 try{if(GMV){const L=JSON.parse(localStorage.getItem("mm-boj-blogg")||"[]");if(Array.isArray(L))BLOGG.push(...L.slice(0,80))}}catch(e){}
 function bojLogUloz(){clearTimeout(bojLogUloz.t);bojLogUloz.t=setTimeout(()=>{try{localStorage.setItem("mm-boj-blogg",JSON.stringify(BLOGG.slice(0,80).map(x=>({id:x.id,kdo:x.kdo,o:Object.assign({},x.o,{pre:undefined})}))))}catch(e){}},500)}

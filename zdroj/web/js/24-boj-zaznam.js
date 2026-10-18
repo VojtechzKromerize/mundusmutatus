@@ -23,9 +23,9 @@ const bzZav=(d,r,txt)=>d?{d:+d,r:r==="0"?"":r||(+d<=2?"pok":+d>=5?"poz":""),txt:
 /* --- záznam vypravěče (BLOGG) → řádek --- */
 function bzZBlogg(s,x,i){const o=x.o,A0=o.ai!==undefined?(o.ai?bzOs(s,o.ai,o.an):null):bzOs(s,x.id,x.kdo);let C=o.ci||o.cn||o.cil?bzOs(s,o.ci,o.cn||o.cil):null,A=A0;
   if(!A&&C){A=C;C=null}if(A&&C&&A.id&&A.id===C.id)C=null;
-  const e={t:o.t||0,k:o.k,A,C,co:o.n||"",rows:[],pozn:[],src:"g",i,undone:!!o.undone};
+  const e={t:o.t||0,tg:o.t||0,k:o.k,A,C,co:o.n||"",rows:[],pozn:[],src:"g",i,undone:!!o.undone};
   if(o.pre&&!o.undone)e.und=`<button type="button" class="blund" data-blzpet="${i}" ${btip("Vrátit boj do stavu před tímto krokem (i všechno pozdější): pořadí a stavy, životy nepřátel i karty postav")}>↶</button>`;
-  else if(o.und&&!o.undone)e.und=`<button type="button" class="blund" data-blund="${i}" ${btip(o.und.poc?"Vrátit padlé pacholky do houfu":`Vrátit životy ${o.und.nov} → ${o.und.old}`)}>↶</button>`;
+  else if(o.und&&!o.undone&&!(BHIST.length&&BHIST[0].t<(o.t||0)-30))e.und=`<button type="button" class="blund" data-blund="${i}" ${btip(o.und.poc?"Vrátit padlé pacholky do houfu":`Vrátit životy ${o.und.nov} → ${o.und.old}`)}>↶</button>`;
   const h=o.hod;
   if(h){const dd=h.dd||[h.d],k=dd.length>1?(h.adv>0?(dd[0]>=dd[1]?0:1):(dd[0]<=dd[1]?0:1)):0,zb=h.b-(h.pres||0);
     e.rows.push({l:"útok",h:`<span class="bzkg">${dd.map((v,j)=>bzK(20,v,dd.length>1&&j!==k?"bzkx":"")).join("")}${dd.length>1?`<small>${h.adv>0?"výhoda":"nevýhoda"}</small>`:""}</span> ${bsg(zb)}${h.pres?` <small>přesila</small> +${h.pres}`:""} = <b class="bztot">${h.tot}</b>${o.pcAC!=null?` <small>proti AC ${o.pcAC}</small>`:""}`});
@@ -46,7 +46,7 @@ function bzZBlogg(s,x,i){const o=x.o,A0=o.ai!==undefined?(o.ai?bzOs(s,o.ai,o.an)
   return e}
 /* --- hod z karty (HODY) → řádek; „Útok – Dlouhý meč → Rotmistr“: cíl za šipkou --- */
 function bzZHod(s,h){const m=String(h.co||"").match(/^(.*?)\s+→\s+(.+)$/),co=m?m[1]:String(h.co||""),C=m?bzOs(s,null,m[2]):null;
-  const e={t:Date.parse(h.cas)||0,A:bzOs(s,null,h.kdo),C,co,rows:[],pozn:[],src:"h",h,skryty:!!h.skryty};
+  const e={t:Date.parse(h.cas)||0,tg:GMV?(BHSEEN[h.id]||(BHSEEN[h.id]=Date.now())):0,A:bzOs(s,null,h.kdo),C,co,rows:[],pozn:[],src:"h",h,skryty:!!h.skryty};
   String(h.txt||"").split(" · ").forEach(p=>{p=p.trim();if(!p)return;if(bzMaKostky(p)||/=\s*-?\d+/.test(p)){const zr=/^zranění\s+/i.test(p);e.rows.push({l:zr?"zranění":e.rows.length?"":/^Útok/.test(co)?"útok":"hod",h:bzTxt(zr?p.replace(/^zranění\s+/i,""):p)})}
     else if(!/^(kritický zásah|minutí)$/.test(p))e.pozn.push(p)});
   if(h.krit)e.vys=["kritický zásah","bzkr"];else if(h.mis)e.vys=["vedle – přirozená 1","bzmis"];else if(h.tot!=null&&!/^(Zranění|Léčení)/.test(co))e.vys=[String(h.tot),"bztotv"];
@@ -55,7 +55,7 @@ function bzZHod(s,h){const m=String(h.co||"").match(/^(.*?)\s+→\s+(.+)$/),co=m
   return e}
 /* --- veřejný záznam boje (s.zaz) → řádek; hráč u nepřátel vidí jen výsledek --- */
 function bzZZaz(s,z,gm){const A=bzOs(s,z.ai,z.a),C=bzOs(s,z.ci,z.c),np=bzNepr(s,A);
-  const e={t:z.ts||0,k:z.k,A,C,co:z.cim||"",rows:[],pozn:[],src:"z",z};
+  const e={t:z.ts||0,tg:z.ts||0,k:z.k,A,C,co:z.cim||"",rows:[],pozn:[],src:"z",z};
   let v=String(z.v||"");if(np&&!gm)v=v.replace(/\s*\(\d+\)/g,"").replace(/^útok \d+$/,"útok");
   if(v)e.vys=[v,/krit/.test(v)?"bzkr":/vedle/.test(v)?"bzmis":/zásah|padl|zasažen/.test(v)?"bzhit":""];
   if(gm&&z.hod!=null)e.rows.push({l:"útok",h:`<b class="bztot">${z.hod}</b>${z.ac!=null?` <small>proti AC ${z.ac}</small>`:""}`});
@@ -87,7 +87,8 @@ function bzZaznam(s,gm){const zac=s.zac||Math.min(...(s.zaz||[]).map(z=>z.ts||In
   /* kola: hody z karet zdědí kolo z předchozího záznamu */
   let k0=null;for(let j=L.length-1;j>=0;j--){if(L[j].k!=null)k0=L[j].k;else L[j].k=k0!=null?k0:(s.aktivni?1:null)}
   return L.slice(0,120)}
-function bzRadek(e,gm){const med=q=>q&&q.o?(q.o.druh?bojMedN(q.o,"bmini"):bojMedH(q.o,"bmini")):"";
+function bzRadek(e,gm){if(gm&&e.tg&&!e.undone&&bojZaUnd(e.tg))e.undone=true;
+  if(gm&&e.tg&&!e.undone&&!e.und&&e.co!=="Vráceno")e.und=`<button type="button" class="blund" data-bzvrat="${e.tg}" data-p="${besc([e.A&&e.A.n,e.co].filter(Boolean).join(" – "))}" ${btip("Vrátit boj do stavu před tímto řádkem (i všechno pozdější)")}>↶</button>`;const med=q=>q&&q.o?(q.o.druh?bojMedN(q.o,"bmini"):bojMedH(q.o,"bmini")):"";
   const os=q=>q&&q.n?(q.id?`<button type="button" class="bzos blfb" data-blf="${besc(q.id)}" ${btip("Jen akce: "+q.n)}>${med(q)}<b>${besc(q.n)}</b></button>`:`<span class="bzos">${med(q)}<b>${besc(q.n)}</b></span>`):"";
   const zr=e.zr&&e.zr.t!=null?`<span class="bzdmg${e.zr.lec?" bzlec":""}${e.vys&&e.vys[1]==="bzmis"?" bzdmgx":""}"${e.vys&&e.vys[1]==="bzmis"?` ${btip("Hozené zranění – útok minul")}`:""}><b>${e.zr.lec?"+":""}${e.zr.t}</b>${e.zr.zt?` ${bikZrTxt(e.zr.zt)}<small>${besc(bojZrCz(e.zr.zt))}</small>`:`<small>${e.zr.lec?"léčení":"zranění"}</small>`}</span>`:"";
   const z=e.zav,zh=z?`<div class="bzz ${z.r==="pok"?"zp":z.r==="poz"?"zb":"zn"}"${z.txt?" "+btip("Z bestiáře: "+z.txt):""}>${bi(z.r==="pok"?"pokuseni":z.r==="poz"?"pozehnani":"zavoj")}<span class="bzzl">Závoj</span>${z.d?bzK(6,z.d,"bzkz"):""}<b>${z.r==="pok"?"Pokušení":z.r==="poz"?"Požehnání":"bez vlivu"}</b>${z.vol?`<span class="bzzv${z.prij?" bzzp":""}">${besc(z.vol)}</span>`:""}</div>`:"";
