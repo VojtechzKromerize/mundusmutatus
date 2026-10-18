@@ -59,6 +59,7 @@ function bzZZaz(s,z,gm){const A=bzOs(s,z.ai,z.a),C=bzOs(s,z.ci,z.c),np=bzNepr(s,
   if(v)e.vys=[v,/krit/.test(v)?"bzkr":/vedle/.test(v)?"bzmis":/zásah|padl|zasažen/.test(v)?"bzhit":""];
   if(gm&&z.hod!=null)e.rows.push({l:"útok",h:`<b class="bztot">${z.hod}</b>${z.ac!=null?` <small>proti AC ${z.ac}</small>`:""}`});
   if(z.z>0)e.zr={t:z.z,zt:z.t||""};if(z.ph!=null&&gm)e.pozn.push(`životy ${z.ph}`);
+  if(z.zv)e.zav={d:+z.zd||0,r:z.zv,txt:""};/* Požehnání / Pokušení nepřítele: hráč vidí jen výsledek, co se stane, určí vypravěč */
   return e}
 /* --- sestavení záznamu: zdroje, spojení útoku hráče s vyhodnocením, volba u Pokušení, kola --- */
 function bzZaznam(s,gm){const zac=s.zac||Math.min(...(s.zaz||[]).map(z=>z.ts||Infinity),...BLOGG.map(x=>x.o.t||Infinity),Date.now())-60000;
@@ -88,7 +89,7 @@ function bzZaznam(s,gm){const zac=s.zac||Math.min(...(s.zaz||[]).map(z=>z.ts||In
 function bzRadek(e,gm){const med=q=>q&&q.o?(q.o.druh?bojMedN(q.o,"bmini"):bojMedH(q.o,"bmini")):"";
   const os=q=>q&&q.n?(q.id?`<button type="button" class="bzos blfb" data-blf="${besc(q.id)}" ${btip("Jen akce: "+q.n)}>${med(q)}<b>${besc(q.n)}</b></button>`:`<span class="bzos">${med(q)}<b>${besc(q.n)}</b></span>`):"";
   const zr=e.zr&&e.zr.t!=null?`<span class="bzdmg${e.zr.lec?" bzlec":""}${e.vys&&e.vys[1]==="bzmis"?" bzdmgx":""}"${e.vys&&e.vys[1]==="bzmis"?` ${btip("Hozené zranění – útok minul")}`:""}><b>${e.zr.lec?"+":""}${e.zr.t}</b>${e.zr.zt?` ${bikZrTxt(e.zr.zt)}<small>${besc(bojZrCz(e.zr.zt))}</small>`:`<small>${e.zr.lec?"léčení":"zranění"}</small>`}</span>`:"";
-  const z=e.zav,zh=z?`<div class="bzz ${z.r==="pok"?"zp":z.r==="poz"?"zb":"zn"}">${bi(z.r==="pok"?"pokuseni":z.r==="poz"?"pozehnani":"zavoj")}<span class="bzzl">Závoj</span>${bzK(6,z.d,"bzkz")}<b>${z.r==="pok"?"Pokušení":z.r==="poz"?"Požehnání":"bez vlivu"}</b>${z.txt?`<span class="bzzt">${besc(z.txt)}</span>`:""}${z.vol?`<span class="bzzv${z.prij?" bzzp":""}">${besc(z.vol)}</span>`:""}</div>`:"";
+  const z=e.zav,zh=z?`<div class="bzz ${z.r==="pok"?"zp":z.r==="poz"?"zb":"zn"}"${z.txt?" "+btip("Z bestiáře: "+z.txt):""}>${bi(z.r==="pok"?"pokuseni":z.r==="poz"?"pozehnani":"zavoj")}<span class="bzzl">Závoj</span>${z.d?bzK(6,z.d,"bzkz"):""}<b>${z.r==="pok"?"Pokušení":z.r==="poz"?"Požehnání":"bez vlivu"}</b>${z.vol?`<span class="bzzv${z.prij?" bzzp":""}">${besc(z.vol)}</span>`:""}</div>`:"";
   return `<li class="bz${e.undone?" blundone":""}${e.skryty?" bzskr":""}${e.vys&&e.vys[1]==="bzkr"?" bzlkr":""}"><div class="bzh">${os(e.A)}<span class="bzco">${besc(e.co)}</span>${e.C?`<i class="bzsip" aria-label="vůči">→</i>${os(e.C)}`:""}<time>${e.skryty?"skrytý · ":""}${bzCas(e.t)}</time>${e.und||""}</div>
     ${e.vys||zr?`<div class="bzv">${e.vys?`<span class="bzvys ${e.vys[1]}">${besc(e.vys[0])}</span>`:""}${zr}</div>`:""}
     ${e.rows.length?`<div class="bzd">${e.rows.map(r=>`<p>${r.l?`<small class="bzdl">${r.l}</small>`:""}<span>${r.h}</span></p>`).join("")}</div>`:""}${e.pozn.length?`<p class="bzp">${e.pozn.map(besc).join(" · ")}</p>`:""}${zh}</li>`}
