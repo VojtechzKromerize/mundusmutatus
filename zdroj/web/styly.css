@@ -3052,3 +3052,26 @@ h4 .kspi{margin-right:5px}
 .potvrz{display:inline-flex;flex-wrap:wrap;gap:6px 14px;align-items:center}.potvrz select{max-width:22em}
 .zmlist li{align-items:center}.zmlist li.zmgm span{opacity:.85}.zmlist i{color:var(--kal,#8a1f2b);font-style:normal;font-weight:600}
 .navrhy li{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+/* jediná karta (2026-10-18): oddíly z dřívější hlavní karty (Duše, Info, Poznámky) uvnitř bojové karty – jeden sloupec */
+.bdmkdb{padding:4px 0}.bdmkdb .kdbinfo,.bdmkdb .kgrid{display:flex;flex-direction:column;gap:10px}
+.bdmlink{background:none;border:0;padding:0;color:var(--gold,#c9a14a);text-decoration:underline;cursor:pointer;font:inherit}
+.bdmvse{margin-top:10px}
+/* barvy karty postavy (2026-10-18): každá barva jen jeden význam – zlatá = ovládání a zvolené, vínová/červená = škoda,
+   nepřátelé a nebezpečí, zelená = léčení a zdraví, lapis jen pro družinu (pruh iniciativy) */
+.bdmgh{color:var(--kb-gold)}
+.bdmchips button{color:var(--kb-mu)}
+.bdmchips button[aria-pressed=true],.bdm .kdice .bst[aria-pressed=true],#bojview .bdm .kdice .bst[aria-pressed=true],.kstrxl button[aria-pressed=true]{background:#33271a;border-color:var(--kb-gold);color:var(--kb-gold)}
+.kstrs[aria-checked=true]{background:#8a6a2a}
+.bdmtabs button[aria-selected=true]{border-bottom-color:var(--kb-gold)}
+.bdmutn b{color:var(--kb-tx)}
+.bdmhp b em{color:var(--kb-gold)}
+.bdmhpbar::after{background:var(--kb-ok)}
+.bdmrk,.bdmuse{border-color:var(--kb-gold);color:var(--kb-gold)}
+.bdmvlzh{color:var(--kb-gold)}
+.bdm .kslvb.on{background:#33271a;border-color:var(--kb-gold);color:var(--kb-gold)}
+.bdmbtn,.bdmhlb{border-color:color-mix(in srgb,var(--kb-gold) 55%,transparent)}
+.bdmbtn.on{background:#33271a;border-color:var(--kb-gold);color:var(--kb-gold)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #bojview{--bh:#6f82bf}}
+:root[data-theme="dark"] #bojview{--bh:#6f82bf}
+.bdmd20{background:var(--kb-gold);border-color:#f3dc9c;color:#241a10}.bdmd20[aria-expanded=true]{background:#a8853c}
+.kspi,.bdm .kspi{background:#3a2b1c;border-color:#d9b45a;color:#ecd48e}.kspt,.bdm .kspt{background:#d9b45a;color:#2b2117}

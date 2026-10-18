@@ -29,7 +29,7 @@ async def main():
     await g.fill("#hraview [data-potvrzo]","3");await g.locator("#hraview [data-potvrzo]").press("Tab");await g.wait_for_timeout(1500)
     chk(await g.evaluate("potvrz().rezim==='vse'&&potvrz().odklad===3"),"vypravěč nastaví potvrzování a lhůtu")
     pl=await b.new_page(viewport={"width":390,"height":844});perr=[];pl.on("pageerror",lambda e:perr.append(str(e)[:200]))
-    await pl.goto(BASE+"#karty/balduin");await pl.wait_for_selector(".kcard",timeout=15000);await pl.wait_for_timeout(2000)
+    await pl.goto(BASE+"#karty/balduin");await pl.wait_for_selector(".bdm",timeout=15000);await pl.wait_for_timeout(2000)
     chk(await pl.evaluate("potvrz().rezim==='vse'&&potvrz().odklad===3"),"hráč zná nastavení potvrzování")
     # lhůta: zrušená akce se neprovede, nezrušená ano
     await pl.evaluate("window.__x=0;void kOdklad('zkušební akce',()=>{window.__x=1})");await pl.wait_for_timeout(500)

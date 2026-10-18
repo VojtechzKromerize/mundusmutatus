@@ -74,19 +74,20 @@ async def main():
     chk(r=="ok",f"hráč přes Discord si zvolí Balduina ({r})")
     await pl.evaluate("JA.set({k:'balduin',n:'Balduin',d:1});KZAM.add('balduin')")
     await pl.evaluate("window.__hl=[];const o=window.mmHlas;window.mmHlas=(t,ms)=>{window.__hl.push(String(t));return o&&o(t,ms)}")
-    await pl.goto(BASE+"#karty/balduin");await pl.wait_for_selector(".kcard.kdb2",timeout=15000);await pl.wait_for_timeout(1500)
+    await pl.goto(BASE+"#karty/balduin");await pl.wait_for_selector(".bdm",timeout=15000);await pl.wait_for_timeout(1500)
     await pl.evaluate("window.__hl=window.__hl||[];if(!window.__mmw){window.__mmw=1;const o=window.mmHlas;window.mmHlas=(t,ms)=>{window.__hl.push(String(t));return o&&o(t,ms)}}")
-    chk(await pl.evaluate("!document.querySelector('.kcard.kro')"),"hráč může svou kartu upravovat")
+    chk(await pl.evaluate("!document.querySelector('.bdm.kro')"),"hráč může svou kartu upravovat")
     # karta postavy: každá záložka a v ní všechno
-    tabs=await pl.evaluate("[...document.querySelectorAll('.kcard.kdb2 [data-ktab]')].map(t=>t.dataset.ktab)")
+    tabs=await pl.evaluate("[...document.querySelectorAll('.bdm .bdmtabs [data-bdmsec]')].map(t=>t.dataset.bdmsec)")
     for t in tabs:
         await pl.evaluate("typeof mmPopX==='function'&&mmPopX()")  # ukázka od vypravěče z předchozího testu
-        await pl.click(f'.kcard.kdb2 [data-ktab="{t}"]');await pl.wait_for_timeout(500)
-        await proklikej(pl,".kcard.kdb2",f"karta – záložka {t}",None)
-        await pl.click(f'.kcard.kdb2 [data-ktab="{t}"]') if await pl.locator(f'.kcard.kdb2 [data-ktab="{t}"]').count() else None
+        await pl.click(f'.bdm .bdmtabs [data-bdmsec="{t}"]');await pl.wait_for_timeout(500)
+        await proklikej(pl,".bdm",f"karta – záložka {t}",None)
+        await pl.click(f'.bdm .bdmtabs [data-bdmsec="{t}"]') if await pl.locator(f'.bdm .bdmtabs [data-bdmsec="{t}"]').count() else None
     # úpravy a postup na úroveň
-    if await pl.locator(".kcard.kdb2 [data-kuprt]").count():
-        await pl.click(".kcard.kdb2 [data-kuprt]");await pl.wait_for_timeout(400);await proklikej(pl,".kcard.kdb2",f"karta – úpravy",None,120)
+    await pl.click('.bdm [data-bdmsh="sprava"]');await pl.wait_for_timeout(300)
+    if await pl.locator(".bdmlist [data-kuprt]").count():
+        await pl.click(".bdmlist [data-kuprt]");await pl.wait_for_timeout(400);await proklikej(pl,".bdm",f"karta – úpravy",None,120)
     await pl.evaluate("KLVUP.balduin={};srdUrovne().then(()=>kartyPrekresli())");await pl.wait_for_timeout(800);await proklikej(pl,".klvup","postup na úroveň",None,40)
     await pl.wait_for_timeout(3500)
     # bojová karta v Boji

@@ -284,7 +284,7 @@ function hraUkolyHtml(){const uk=(HRA&&HRA.ukoly)||[];
     ${GMV?`<form class="kvlh" data-hrukf><input name="t" maxlength="160" placeholder="nový úkol, např. Doručit dopis do Kutné Hory" required><button class="gbtn ghost">Přidat</button></form>`:""}</section>`}
 function hraMinuleHtml(){const z=ZAPISY.length?ZAPISY[ZAPISY.length-1]:null;if(!z)return "";
   return `<section><h3 class="uvh2">Minule jsme…</h3><p><b>${besc(z.title)}</b> <small>${besc([z.n,z.date,z.place].filter(Boolean).join(" · "))}</small></p><p>${besc(strip(z.text).replace(/\s+/g," ").slice(0,340))}…</p><p class="rsmall"><a href="#kronika/${z.id}">Celý zápis v Kronice →</a></p></section>`}
-function hraJaHtml(K){return `<section class="hraja" data-kid="${besc(K.id)}">${kartaDbHtml(K,kartaDbData(K),{hra:1})}</section>`}
+function hraJaHtml(K){return `<section class="hraja">${kartaJednaHtml(K)}</section>`}
 function renderHra(){const box=document.getElementById("hraview");if(!box)return;
   if(!KLOAD){KLOAD=1;Promise.all([kartyNacti(),hodyNacti()]).then(()=>{if(curView==="hra")renderHra()})}
   if(!BOJ.s&&bojDB&&!renderHra.b){renderHra.b=1;bojNacti().then(()=>{if(curView==="hra")renderHra()})}

@@ -81,7 +81,7 @@ function renderKarty(id){const box=document.getElementById("kartyview");if(!box)
       ${kPrehledHtml()}${poklHtml()}<section class="khodsec"><h3 class="uvh2">Hod kostkou</h3>${kHodForm(null)}</section>${UKDB?`<section><h3 class="uvh2">Ukázky od vypravěče</h3>${ukSeznam()}${GMV?`<p class="rsmall"><a href="#sezeni">Ukázat hráčům a příprava sezení →</a></p>`:""}</section>`:""}<section><h3 class="uvh2">Herní záznam</h3>${kZaznamHtml()}</section>
       <section class="kimp"><h3 class="uvh2">Nahrát list postavy</h3><p class="rsmall">V D&amp;D Beyond otevři postavu → <i>Export to PDF</i> → stáhni PDF a nahraj ho sem. Karta se vytvoří, nebo přepíše dřívější kartu stejné postavy (stav postavy zůstane).</p>
         <label class="gbtn"><input type="file" accept="application/pdf,.pdf" data-kimp hidden>Vybrat PDF…</label>${KIMP?kImpNahled(KIMP):""}</section>`;pojZnac(box.querySelector(".kprehled"));return}
-  box.innerHTML=kartaDbHtml(K,kartaDbData(K));pojZnac(box)}
+  box.innerHTML=kartaJednaHtml(K);pojZnac(box)}
 /* ikony vlastností (2026-10-17): zvíře podle vlastnosti, nahoře (hnědé pole) skóre, vlevo dole (červené) modifikátor = ověření,
    vpravo dole (modré) záchrana; pole jsou umístěná v procentech obrázku art/img/vl-*.webp [vlevo, nahoře, šířka, výška] */
 const KVLIK={STR:["str","býk",[22.8,4.4,53.9,13.7],[12.9,76.8,32.9,16.2],[53.7,77.1,33.1,16.0]],AGI:["agi","kočka",[23.6,4.4,53.1,14.0],[12.9,77.2,32.6,16.3],[54.2,77.4,32.0,16.1]],
@@ -211,6 +211,7 @@ function kartaDbHtml(K,o,o2){const {ef,invH,popH,ja,sec,ro,zat,pri,S,mx,cur,pr,k
     if(id==="duse")return `<div class="kgrid"><div>${kDuseHtml(K)}</div><div>${kRanyHtml(K)}${kUcHtml(K)}</div></div>`;
     if(id==="denik")return `<div class="kgrid"><div><h4 class="kdbsh">Poznámky a deník</h4><textarea class="kpozn" data-kpozn rows="12" maxlength="4000" placeholder="Koho jsme potkali, co jsme slíbili, co si pamatovat…">${besc(S.pozn||"")}</textarea><p class="kdbnote">Ukládá se samo. Vidí je každý, kdo otevře kartu – tajnosti pošli vypravěči ze stránky Hra.</p></div><div><h4 class="kdbsh">Herní záznam</h4>${kHodyHtml(ja,30)}<p class="kdbnote"><a href="#karty">Celý záznam družiny →</a></p></div></div>`;
     if(id==="spol")return kFormaHtml(K)+kSpolHtml(K);return ""};
+  if(o2&&o2.jenTab)return telo(o2.jenTab);
   const tabsH=`<section class="kdbp kdbtabs"><nav class="ktabs" role="tablist">${tabs.map(([id,n])=>`<button type="button" role="tab" data-ktab="${id}" aria-selected="${tab===id}">${n}</button>`).join("")}</nav><section class="ktab" data-tab="${tab}">${telo(tab)}</section></section>`;
   kModsSync(K);
   return `<div data-kid="${besc(K.id)}" class="kcard kdb kdb2${ro?" kro":""}">${head}
