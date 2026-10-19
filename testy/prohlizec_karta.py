@@ -135,7 +135,8 @@ async def main():
     chk(stav().get("hp") is None,"Zpět vrátí zranění")
     await pl.evaluate("delete KKON.balduin;kartaStavZmen('balduin',{uc:null},null,{bezZpet:true})");await pl.wait_for_timeout(500)
     # hody proti smrti mimo boj: pád na 0 HP zapíše ds a vyčerpání, hod d20 přičte úspěch/neúspěch, léčení probere
-    await pl.evaluate("kartaStavZmen('balduin',{hp:5,vycerp:null,ds:null,kz:null},null,{bezZpet:true})");await pl.wait_for_timeout(600)
+    # (po předchozích testech může v databázi zůstat běžící boj s Balduinem – mimo boj = v prohlížeči hráče boj neběží)
+    await pl.evaluate("if(BOJ.s)BOJ.s.aktivni=false;BOJ.v=1e12;kartaStavZmen('balduin',{hp:5,vycerp:null,ds:null,kz:null},null,{bezZpet:true})");await pl.wait_for_timeout(600)
     await pl.click('.bdm [data-bdmsh="hp"] >> nth=0');await pl.wait_for_timeout(300);await pl.fill('.bdmlist [data-kzrv]','9');await pl.click('.bdmlist [data-kzrz="z"]');await pl.wait_for_timeout(900)
     chk(stav().get("hp")==0 and stav().get("ds")=={"u":0,"n":0} and stav().get("vycerp")==1,f"pád na 0 HP mimo boj: hody proti smrti a vyčerpání {stav().get('ds')} {stav().get('vycerp')}")
     chk(await pl.locator('.bdm .bdmart .bdsb').count()==1 and await pl.locator('.bdmlist [data-kds="hod"]').count()==1,"karta ukazuje práh smrti a tlačítko hodu")
@@ -144,7 +145,7 @@ async def main():
     await pl.click('.bdmlist [data-kds="hod"]');await pl.wait_for_timeout(900)
     d=stav().get("ds");chk(d is None and stav().get("hp")==1 or d and (d.get("u",0)+d.get("n",0))>=2,f"hod proti smrti d20 přičte úspěch nebo neúspěch: {d} hp={stav().get('hp')}")
     chk(await pl.evaluate("HODY.some(h=>h.k==='balduin'&&h.co==='Hod proti smrti')"),"hod proti smrti je v záznamu")
-    await pl.evaluate("kartaStavZmen('balduin',{hp:0,ds:{u:1,n:1}},null,{bezZpet:true})");await pl.wait_for_timeout(600)
+    await pl.evaluate("if(BOJ.s)BOJ.s.aktivni=false;kartaStavZmen('balduin',{hp:0,ds:{u:1,n:1}},null,{bezZpet:true})");await pl.wait_for_timeout(600)
     await pl.fill('.bdmlist [data-kzrv]','6');await pl.click('.bdmlist [data-kzrz="l"]');await pl.wait_for_timeout(900)
     chk(stav().get("hp")==6 and not stav().get("ds"),f"léčení mimo boj probere: hp={stav().get('hp')} ds={stav().get('ds')}")
     # kostky životů po jedné
@@ -156,7 +157,7 @@ async def main():
     # záložka Záznam na kartě
     await pl.keyboard.press("Escape");await pl.click('.bdm [data-bdmsec="zaznam"]');await pl.wait_for_timeout(500)
     chk("Kostka životů" in await pl.inner_text('.bdm .bdmsec'),"záložka Záznam ukazuje hody postavy")
-    await pl.evaluate("kartaStavZmen('balduin',{hp:null,vycerp:null,ds:null,kz:null},null,{bezZpet:true})");await pl.wait_for_timeout(500)
+    await pl.evaluate("BOJ.v=-1;kartaStavZmen('balduin',{hp:null,vycerp:null,ds:null,kz:null},null,{bezZpet:true})");await pl.wait_for_timeout(500)
     chk(await pl.evaluate("kTxtKostky(KARTBY.balduin,'regain 1d10 + your Fighter level hit points','X').includes('data-ktxh')"),"kostky v textu schopnosti jsou klikací")
     await pl.evaluate("KTX.balduin=Object.assign(KTX.balduin||{},{'Test Rys':'You deal 2d6 + your Strength modifier damage.'});mmPop(kRysPopis(KARTBY.balduin,'Test Rys'))")
     await pl.click('.mmpop [data-ktxh]');await pl.wait_for_timeout(800);await pl.evaluate("mmPopX()")
@@ -247,7 +248,7 @@ async def main():
     await pl.click("[data-vyzhod]");await pl.wait_for_timeout(1200)
     await g.wait_for_function("document.querySelector('.vyzgm') && /Balduin: \\d+/.test(document.querySelector('.vyzgm').innerText)",timeout=15000)
     chk(True,"vypravěč vidí výsledek výzvy")
-    await g.click('[data-vyzrychle="Perception"]');await pl.wait_for_function("document.querySelector('.vyzhr') && document.querySelector('.vyzhr').innerText.includes('Perception')",timeout=15000)
+    await g.click('#hraview [data-vyzrychle="Perception"]');await pl.wait_for_function("document.querySelector('.vyzhr') && document.querySelector('.vyzhr').innerText.includes('Perception')",timeout=15000)
     chk(True,"vypravěč jedním klepnutím vyzve všechny k ověření Perception")
     # Zpytování svědomí jako výzva: vypravěč vyzve, hráč hodí d10 na své kartě (2026-10-17 b)
     await pl.evaluate("kartaStavZmen('balduin',{hr:2})");await pl.wait_for_timeout(700)

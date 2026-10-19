@@ -343,10 +343,15 @@ async def main():
     chk(await g.locator('[data-bhcard="h1"].bopen').count()==1,"klepnutí v pruhu otevře kartu účastníka")
     await g.evaluate(f"bojZmen(z=>{{const h=z.hraci.find(x=>x.id==='h1');h.stav=(h.stav||[]).filter(t=>t!=='krvácí k6');const o=z.npc.find(x=>x.id==='{rid}');o.stav=(o.stav||[]).filter(t=>t!=='soustředí')}})");await g.wait_for_timeout(500)
     # skrytý nepřítel: hráč ho nemá v seznamu ani v cílech, vypravěč ano
-    await g.click(f'[data-bnpc="{rid}"] [data-bskryt]');await pl.wait_for_timeout(2500)
+    await g.click(f'[data-bnpc="{rid}"] [data-bskryt]');await g.wait_for_timeout(600)
     chk(await g.evaluate(f"!!BOJ.s.npc.find(o=>o.id==='{rid}').skryt") and await g.locator(f'[data-bnpc="{rid}"].bskryt').count()==1,"vypravěč skryje nepřítele před hráči")
+    try: await pl.wait_for_function(f"!BOJ.s.npc.some(o=>o.id==='{rid}')",timeout=20000)
+    except Exception: pass
+    await pl.wait_for_timeout(400)
     chk(await pl.evaluate(f"!BOJ.s.npc.some(o=>o.id==='{rid}')") and await pl.locator(f'[data-bnpc="{rid}"]').count()==0,"hráč skrytého nepřítele nedostane")
-    await g.click(f'[data-bnpc="{rid}"] [data-bskryt]');await pl.wait_for_timeout(2500)
+    await g.click(f'[data-bnpc="{rid}"] [data-bskryt]');await g.wait_for_timeout(600)
+    try: await pl.wait_for_function(f"BOJ.s.npc.some(o=>o.id==='{rid}')",timeout=20000)
+    except Exception: pass
     chk(await pl.evaluate(f"BOJ.s.npc.some(o=>o.id==='{rid}')"),"po odkrytí ho hráč zase vidí")
     # stav, který bere akce: omráčený hráč nemůže útočit, karta to ukáže a ztlumí tlačítka
     await g.evaluate("bojZmen(z=>{const h=z.hraci.find(x=>x.id==='h4');h.stav=[...(h.stav||[]),'omráčen']})");await pl.wait_for_timeout(2500)
