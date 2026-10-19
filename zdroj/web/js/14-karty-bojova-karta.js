@@ -551,11 +551,12 @@ function bojDruzPruh(s){const H=(s.hraci||[]).filter(h=>bojKartaH(h));if(!H.leng
 /* po boji: výzva k odpočinku */
 async function bojOdpVyzva(){const komu=[...new Set(((BOJ.s||{}).hraci||[]).map(h=>bojKartaH(h)).filter(Boolean).map(K=>K.id))];if(!komu.length||!window.MMDB)return;try{await MMDB.vyzva({typ:"odp",komu});await vyzvyNacti()}catch(e){}}
 /* skupinové ověření jedním klepnutím */
-async function vyzvaRychle(d){if(!window.MMDB){mmHlasG("Výzvy fungují jen na webu s databází.",3500);return}const komu=KARTY.filter(k=>!k.test||KHRAC[k.id]).map(k=>k.id);const o={komu:komu.length?komu:KARTY.map(k=>k.id)};
+async function vyzvaRychle(d,x){if(!window.MMDB){mmHlasG("Výzvy fungují jen na webu s databází.",3500);return}const komu=KARTY.filter(k=>!k.test||KHRAC[k.id]).map(k=>k.id);const o={komu:komu.length?komu:KARTY.map(k=>k.id)};
   if(/^(STR|AGI|CON|INT|WIS|CHA)$/.test(d)){o.typ="zach";o.ab=d}else{o.typ="over";o.dov=d;o.ab=KDOVAB[d]||"WIS"}
-  try{await MMDB.vyzva(o);await vyzvyNacti();mmHlasG(`Všichni: ${o.typ==="zach"?"záchrana "+d:d} – hráčům vyskočilo na telefonu.`,3500);hraPrekresli()}catch(e){mmHlasG(e.message||String(e),5000)}}
+  if(x&&x.dc)o.dc=Math.max(1,Math.min(40,Math.round(x.dc)));if(x&&x.skryt)o.skryt=true;if(x&&x.pozn)o.pozn=String(x.pozn).slice(0,60);
+  try{await MMDB.vyzva(o);await vyzvyNacti();mmHlasG(`Všichni: ${o.typ==="zach"?"záchrana "+d:d}${o.dc?" SO "+o.dc:""} – hráčům vyskočilo na telefonu.`,3500);if(curView==="boj")renderBoj();else hraPrekresli()}catch(e){mmHlasG(e.message||String(e),5000)}}
 document.addEventListener("click",e=>{const T=s=>e.target.closest&&e.target.closest(s);
-  const r=T("[data-vyzrychle]");if(r){vyzvaRychle(r.dataset.vyzrychle);return}
+  const r=T("[data-vyzrychle]");if(r){const p=r.closest(".bvyzp");vyzvaRychle(r.dataset.vyzrychle,p?{dc:+((p.querySelector("[data-bvyzdc]")||{}).value||0),skryt:!!((p.querySelector("[data-bvyzskr]")||{}).checked),pozn:((p.querySelector("[data-bvyzpozn]")||{}).value||"").trim()}:null);return}
   if(T("[data-binivyz]")){bojIniVyzva();return}});
 document.addEventListener("change",e=>{const t=e.target;if(t.matches&&t.matches("[data-bpcauto]")){bojPcAuto.set(t.checked);renderBoj()}});
 

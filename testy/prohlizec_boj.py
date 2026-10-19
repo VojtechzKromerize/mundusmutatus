@@ -456,6 +456,15 @@ async def main():
     await g.wait_for_function("!(BOJ.s.hraci.find(h=>h.id==='h4').stav||[]).includes('vyděšený')",timeout=20000)
     chk(True,"opakovaná záchrana postavy na konci tahu (výzva) stav ukončí")
     await pl.evaluate("kartaHod=window._kh;JA.set(window._ja||null);0");await g.evaluate("BPLOS=null;renderBoj()")
+    # hromadný hod družiny z Boje: SO, klepnutí na dovednost → výzva všem, výsledky v panelu
+    await g.evaluate("document.querySelector('.bvyzp').open=true;BOTV.add('vyzvy')");await g.fill(".bvyzp [data-bvyzdc]","13");await g.click('.bvyzp [data-vyzrychle="Perception"]');await g.wait_for_timeout(1200)
+    chk(await g.evaluate("VYZVY.some(v=>!v.zavrena&&v.data.dov==='Perception'&&v.data.dc===13)"),"hromadný hod z Boje: výzva Perception SO 13 všem")
+    await pl.evaluate("window._ja=JA.get();JA.set(Object.assign({},window._ja||{},{k:'balduin'}));window._kh=kartaHod;kartaHod=async()=>({tot:17,d:15,txt:'15 +2'});0")
+    await pl.wait_for_selector("#mmvyz [data-vyzhod]",timeout=15000);await pl.click("#mmvyz [data-vyzhod]");await pl.wait_for_timeout(1500)
+    await g.wait_for_function("VYZVY.some(v=>!v.zavrena&&v.data.dov==='Perception'&&(v.odpovedi||{}).balduin)",timeout=20000);await g.wait_for_timeout(800)
+    chk("17" in await g.inner_text(".bvyzp") and "Balduin" in await g.inner_text(".bvyzp"),"odpověď hráče se ukáže v panelu v Boji")
+    await g.click(".bvyzp [data-vyzx]");await g.wait_for_timeout(800)
+    await pl.evaluate("kartaHod=window._kh;JA.set(window._ja||null);0")
     c,t=anon_rpc("mm_boj_hrac",{"p_hrac":"h4","p_pole":"hp","p_hodnota":5000});chk(c>=400,"mm_boj_hrac odmítne nesmyslné životy")
     # karta postavy jako stránka: hody do herního záznamu, sloty, import z polí PDF, kontrola vstupů v databázi
     await pl.goto(BASE+"#karty/balduin");await pl.wait_for_selector("#kartyview .bdm",timeout=15000)
