@@ -26,7 +26,12 @@ const BUEF="Účinek: ",bojUtEf=u=>String((u&&u.cim)||"").startsWith(BUEF)?u.cim
 function bojEfZnac(z,n,sp,u){const nm=String(sp||"").replace(/\s*\(\d+\. st\.\)\s*$/,"").trim(),d=typeof kSp==="function"&&KSPD?kSp(nm):null,hh=d?kTrv(d.d):null;if(!hh)return false;
   const h=(z.hraci||[]).find(x=>x.id===u.h),ef={n:d.en||nm,kdy:"kola",k:Math.max(1,Math.round(hh*600)),kolo:z.kolo||1,tah:z.tah||0};if(u.h)ef.od=u.h;if(d.ko&&h&&(h.stav||[]).includes("soustředí"))ef.src=u.h;
   (n.ef||[]).filter(e=>e.n===ef.n&&!e.st).forEach(e=>bojEfDel(n,e));(n.ef=n.ef||[]).push(ef);return true}
-function bojUtokVyhodnot(s,u){const h=(s.hraci||[]).find(x=>x.id===u.h),sp=u.sid?(s.npc||[]).find(x=>x.id===u.sid):null,an=sp?`${sp.n} (${h?h.n:"?"})`:h?h.n:"?",r=[],ef=bojUtEf(u);
+/* vyhodnocení útoku hráče se hází jen jednou (2026-10-19): náhled v panelu „k potvrzení“ i zápis používají tytéž kostky
+   (záchrany nepřátel, Ostrá, záchrany houfu) – dřív se při zápisu házelo znovu a výsledek se lišil od náhledu */
+const BUVC=new Map();
+function bojUtokVyhodnot(s,u){if(!u||!u.id)return bojUtokVyhodnot0(s,u);const k=u.id+"|"+(u.ci||[]).join(",");if(BUVC.has(k))return BUVC.get(k);
+  const V=bojUtokVyhodnot0(s,u);BUVC.set(k,V);if(BUVC.size>200)BUVC.delete(BUVC.keys().next().value);return V}
+function bojUtokVyhodnot0(s,u){const h=(s.hraci||[]).find(x=>x.id===u.h),sp=u.sid?(s.npc||[]).find(x=>x.id===u.sid):null,an=sp?`${sp.n} (${h?h.n:"?"})`:h?h.n:"?",r=[],ef=bojUtEf(u);
   (u.ci||[]).forEach(ci=>{const n=(s.npc||[]).find(x=>x.id===ci);if(!n)return;const E=bojEff(n),houf=n.druh==="houf",o={ci,n:n.n,houf};
     if(ef){Object.assign(o,{ef,gm:`${n.n}: ${ef} (účinek kouzla)`,vys:ef});r.push(o);return}
     if(u.plos){const P=u.plos;
