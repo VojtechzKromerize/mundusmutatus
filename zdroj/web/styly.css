@@ -3216,3 +3216,12 @@ span.bzos{cursor:default}
 /* skrytý nepřítel (hráči zatím nevidí) */
 .bnpc.bskryt{outline:2px dashed var(--gold,#b08d3a);outline-offset:-2px;opacity:.78}
 .bskr{background:none;border:0;cursor:pointer;font-size:.95em;padding:0 .2em;line-height:1}.bskr.on{filter:none}
+/* pruh „co teď“ v Boji (vypravěč) */
+.bted{display:flex;flex-wrap:wrap;gap:.35rem;margin:.4rem 0 .6rem;padding:.45rem .6rem;border:1px solid var(--gold,#b08d3a);border-radius:.6rem;background:var(--paper)}
+.btedch{display:inline-flex;align-items:center;gap:.3em;padding:.2em .6em;border-radius:1em;border:1px solid var(--rule);background:var(--paper);font:inherit;font-size:.86em;color:inherit;cursor:default}
+button.btedch{cursor:pointer}button.btedch:hover{border-color:var(--gold,#b08d3a)}
+.btedi{width:1em;height:1em}.btedch small{opacity:.8}.btedch em{font-style:normal;color:var(--kal)}
+.btedtah{border-color:var(--gold,#b08d3a);background:color-mix(in srgb,var(--gold) 18%,var(--paper))}.btedceka{border-color:var(--kal)}
+.btedkon{border-color:var(--ink)}.btedkrv,.btedsmrt{border-color:var(--kal)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .bted{background:rgba(0,0,0,.25)}:root:not([data-theme="light"]) .btedch{background:rgba(255,255,255,.06)}:root:not([data-theme="light"]) .btedtah{background:rgba(176,141,58,.18)}}
+:root[data-theme="dark"] .bted{background:rgba(0,0,0,.25)}:root[data-theme="dark"] .btedch{background:rgba(255,255,255,.06)}:root[data-theme="dark"] .btedtah{background:rgba(176,141,58,.18)}

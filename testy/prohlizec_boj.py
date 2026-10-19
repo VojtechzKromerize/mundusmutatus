@@ -335,6 +335,13 @@ async def main():
     chk(r[5]==1 and r[3].count("d20 17 (ručně)")==1,"Zadat ručně platí pro jeden útok: "+str(r[3])[:160])
     await pl.evaluate("BJU.serie=null;BRUC.h4={d20:'25'};bojJaHod()");chk(await pl.evaluate("BJU.serie===null"),"Zadat ručně: d20 mimo 1–20 se nehodí, hráč dostane upozornění")
     await pl.evaluate("delete BRUC.h4;BJU.serie=null;BJU.info='';BJU.hod='';BJU.d='';BJU.dmg='';BJU.adv='auto';BDM.sheet=null;renderBoj()");await pl.wait_for_timeout(300)
+    # pruh „co teď“: na tahu, soustředění, krvácení, práh smrti
+    await g.evaluate(f"bojZmen(z=>{{const h=z.hraci.find(x=>x.id==='h1');h.stav=[...(h.stav||[]),'krvácí k6'];const o=z.npc.find(x=>x.id==='{rid}');o.stav=[...(o.stav||[]),'soustředí']}})");await g.wait_for_timeout(500)
+    ted=await g.inner_text(".bted");print("co teď:",ted.replace("\n"," | ")[:300])
+    chk(("na tahu" in ted or "volný slot" in ted) and "krvácí" in ted and await g.locator(".bted .btedkon").count()>=1,"pruh co teď: na tahu, soustředění a krvácení")
+    await g.click(".bted .btedkrv");await g.wait_for_timeout(400)
+    chk(await g.locator('[data-bhcard="h1"].bopen').count()==1,"klepnutí v pruhu otevře kartu účastníka")
+    await g.evaluate(f"bojZmen(z=>{{const h=z.hraci.find(x=>x.id==='h1');h.stav=(h.stav||[]).filter(t=>t!=='krvácí k6');const o=z.npc.find(x=>x.id==='{rid}');o.stav=(o.stav||[]).filter(t=>t!=='soustředí')}})");await g.wait_for_timeout(500)
     # skrytý nepřítel: hráč ho nemá v seznamu ani v cílech, vypravěč ano
     await g.click(f'[data-bnpc="{rid}"] [data-bskryt]');await pl.wait_for_timeout(2500)
     chk(await g.evaluate(f"!!BOJ.s.npc.find(o=>o.id==='{rid}').skryt") and await g.locator(f'[data-bnpc="{rid}"].bskryt').count()==1,"vypravěč skryje nepřítele před hráči")
