@@ -38,9 +38,10 @@ if(window.MMLINE){const dal=async()=>{
     try{await mmLina("hra")}catch(e){return}
     if(!GMV)return;
     for(const n of ["mapa","praha","svet","editor","vyprava"])try{await mmLina(n)}catch(e){}
-    /* znovu jen stránky, kam editor přidává tlačítka (přehled vypravěče se kreslí jen jednou – s editorem znovu) */
-    {const gb=document.getElementById("gmview");if(gb)delete gb.dataset.done}
-    if(["desky","kronika","draconomicon","druzina","gm"].includes(curView))route()};
+    /* editor přidává tlačítka: stránky s texty se vykreslí znovu; přehled vypravěče (kreslí se jen jednou a má rozepsané
+       formuláře) dostane jen box „Nový záznam“ */
+    {const h=document.querySelector("#gmview .gmhra");if(h&&!document.getElementById("ednovy")&&typeof edNovyBox==="function")h.insertAdjacentHTML("afterend",edNovyBox())}
+    if(["desky","kronika","draconomicon","druzina"].includes(curView))route()};
   /* hráči až po načtení obrázků stránky a v klidu, aby stahování nezdrželo první zobrazení */
   const klid=()=>"requestIdleCallback" in window?requestIdleCallback(dal,{timeout:3000}):setTimeout(dal,800);
   if(GMV)setTimeout(dal,0);else if(document.readyState==="complete")klid();else addEventListener("load",klid,{once:true})}
