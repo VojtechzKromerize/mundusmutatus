@@ -253,12 +253,17 @@ async def main():
     await g.click('[data-bhcard="h4"] [data-bpadv$="|1"]');await g.wait_for_timeout(300)
     await g.click('[data-bhcard="h4"] .bphod [data-bgmhod="0"]');await g.wait_for_timeout(500)
     chk("výhoda" in await g.evaluate("(BGMU['h4']||{}).info||''"),"vypravěč: hod za hráče s výhodou")
+    n2=await g.evaluate("+(bojZbrVse(BOJ.s,BOJ.s.hraci.find(h=>h.id==='h4'))[0]||{}).pocet||1")
+    chk(await g.evaluate("(BGMU['h4'].serie||[]).length")==1 and (n2<2 or "útok 1 z" in await g.evaluate("BGMU['h4'].info")),f"vypravěč: jedno klepnutí = jeden útok i při {n2} útocích za akci")
     chk(await g.locator('[data-bhcard="h4"].bopen .bdmlist [data-bgmut]').count()==1,"vypravěč: hod za hráče otevře list se zápisem za hráče")
     chk(await g.input_value('[data-bhcard="h4"] [data-bgmut] [name=hod]')!="","vypravěč: hod za hráče předvyplní zápis")
     o=await g.evaluate("(()=>{const s=document.querySelector('[data-bhcard=\"h4\"] [data-bgmut] [name=ci]');return s.options.length>1?s.options[1].value:''})()")
     if o:
         await g.select_option('[data-bhcard="h4"] [data-bgmut] [name=ci]',o);await g.click('[data-bhcard="h4"] [data-bgmut] button');await g.wait_for_timeout(700)
         chk(await g.evaluate("((BOJ.s.utoky||[]).slice(-1)[0]||{}).h")=="h4" and await g.evaluate("((BOJ.s.utoky||[]).slice(-1)[0]||{}).stav")=="hotovo","vypravěč zapíše útok za hráče a vyhodnotí ho")
+        if n2>1:
+            await g.evaluate("bojGmHod('h4',0)");await g.wait_for_timeout(500)
+            chk(f"útok 2 z {n2}" in await g.evaluate("BGMU['h4'].info||''") and await g.evaluate("(BGMU['h4'].serie||[]).length")==1,"vypravěč: druhé klepnutí hodí druhý útok téže akce")
     await g.evaluate("BDM.sheet=null;renderBoj()");await g.wait_for_timeout(300)
     await g.evaluate(f"bojPcAuto.set(false);BCIL['{rid}']='h4';BADV['{rid}']=0;bojUtok(BOJ.s.npc.find(n=>n.id==='{rid}'),0);delete BCIL['{rid}'];delete BADV['{rid}'];renderBoj()")
     chk(await g.evaluate(f"BLOG['{rid}'][0].pcAC")==18,"útok nepřítele na postavu s kartou se porovná s jejím AC")
