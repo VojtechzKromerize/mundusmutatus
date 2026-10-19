@@ -407,8 +407,15 @@ async function bojJaUprav(typ){const s=BOJ.s||{},me=(s.hraci||[]).find(h=>h.n===
   if(!(BJU.serie&&BJU.serie.length)){if(BJU.hod===""||!/^(b4|m4|bard)$/.test(typ))return;const st=typ==="bard"?KBARD:4,x=bK(st),zn=typ==="m4"?-1:1;BJU.hod=String(+BJU.hod+zn*x);BJU.info=`${BJU.info?BJU.info+" · ":""}${typ==="b4"?"Bless +1d4":typ==="m4"?"Bane −1d4":`Bardic +1d${st}`} (${x}) → ${BJU.hod}`;renderBoj();return}
   const i=Math.min(+BJU.ui||0,BJU.serie.length-1),q=BJU.serie[i];if(typ==="insp"&&!(K&&kartaStav(K.id).insp))return;const L=typ==="luck"?(K&&kLucky(K)):null;if(typ==="luck"&&(!L||L.zb<=0))return;
   if(q.d1==null&&/^(insp|luck)$/.test(typ))return;const {r,pop}=kUpravHod({d1:q.d1,d2:q.d2,v:q.v,b:q.b,mods:q.mods,upr:q.upr,utok:true,kmin:BJU.kmin||20},typ,KBARD),old=q.hod;
-  const n=Object.assign({},q,{d1:r.d1,d2:r.d2,v:r.v,mods:r.mods,upr:r.upr,d:r.d,hod:r.tot,krit:r.krit});n.vys=bojJaZas(c,n.hod,n.d,n.krit);BJU.serie[i]=n;
-  const pz=n.krit&&!q.krit?" – kritický zásah: zranění oprav (dvojnásob kostek)":!n.krit&&q.krit?" – už ne kritický: zranění oprav":q.d===1&&n.d!==1&&!(+q.dmg>0)?" – zranění doplň":"";
+  const n=Object.assign({},q,{d1:r.d1,d2:r.d2,v:r.v,mods:r.mods,upr:r.upr,d:r.d,hod:r.tot,krit:r.krit}),ct=(s.npc||[]).find(o=>o.id===q.ci)||c;n.vys=bojJaZas(ct,n.hod,n.d,n.krit);BJU.serie[i]=n;
+  /* zbraň: zranění se hází jen po zásahu – když úprava změní minutí na zásah (nebo zásah na kritický), zranění se hodí teď; zásah na minutí ho vynuluje */
+  let pz="";const misN=n.vys==="vedle",misQ=q.vys==="vedle";
+  if(n.dz&&n.dz.z){const hod=kr=>{const D=n.dz,k=D.rz!=null?(()=>{const m=String(D.z).match(/([+-]\d+)$/),c0=m?+m[1]:0;return {t:Math.max(0,D.rz+c0),x:`${D.rz} (ručně)${c0?(c0>0?"+":"")+c0:""}`}})():bojKostky(D.z,kr),ek=(D.ez||[]).map(x=>bojKostky(x,kr)).filter(Boolean);
+      n.dmg=(k?k.t:0)+(n.d===1?0:(+D.plus||0)+ek.reduce((a,x)=>a+x.t,0));n.zx=k?`${k.x}${D.plus?` +${D.plus}`:""}${ek.map(x=>" + "+x.x).join("")}`:""};
+    if(misN&&!misQ){if(+q.dmg>0){n.dmg0=q.dmg;n.zx0=q.zx}n.dmg=0;n.zx="";pz=" – vedle, zranění se nepočítá"}
+    else if(!misN&&(misQ||!(+q.dmg>0))){if(n.dmg0!=null&&!n.krit){n.dmg=n.dmg0;n.zx=n.zx0}else hod(n.krit);pz=` – zásah, zranění ${n.zx} = ${n.dmg}`}
+    else if(n.krit!==!!q.krit){hod(n.krit);pz=` – ${n.krit?"kritický zásah":"už ne kritický"}, zranění ${n.zx} = ${n.dmg}`}}
+  else pz=n.krit&&!q.krit?" – kritický zásah: zranění oprav (dvojnásob kostek)":!n.krit&&q.krit?" – už ne kritický: zranění oprav":q.d===1&&n.d!==1&&!(+q.dmg>0)?" – zranění doplň":"";
   if(i===0){BJU.hod=String(n.hod);BJU.d=String(n.d);BJU.dmg=String(n.dmg)}
   if(typ==="insp")await kartaStavZmen(K.id,{insp:null});if(L&&L.z){const U=Object.assign({},kartaStav(K.id).zdr||{});U[L.z.n]=(U[L.z.n]||0)+1;await kartaStavZmen(K.id,{zdr:U})}
   BJU.info=`${BJU.info?BJU.info+" · ":""}${BJU.serie.length>1?`${i+1}. útok: `:""}${pop}: ${old} → ${n.hod}${pz}`;renderBoj()}

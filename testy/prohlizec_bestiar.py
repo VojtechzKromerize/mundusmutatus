@@ -170,6 +170,12 @@ async def main():
     await g.fill(rot+' [data-bhp]',"0");await g.press(rot+' [data-bhp]',"Enter");await g.wait_for_timeout(100)
     await g.evaluate("renderBoj()");await g.wait_for_timeout(100)
     chk("padl" in await g.locator(hf+" .bmor").inner_text(),"když sok padne, houf hlásí útěk")
+    # úprava hodu (Bless) změní minutí na zásah: zranění zbraně se hodí teprve teď; Bane zpět na minutí ho vynuluje
+    r=await g.evaluate("""(async()=>{const jm0=bojJa.get();bojJa.set('Adam');BJU.cil='n1';
+      BJU.serie=[{ci:'n1',hod:18,d:10,d1:10,d2:null,v:0,b:8,dmg:0,krit:false,vys:'vedle',upr:[],mods:[],zx:'',dz:{z:'1d8+3',plus:0,ez:[],rz:null}}];BJU.hod='18';BJU.d='10';BJU.dmg='0';
+      await bojJaUprav('b4');const a=Object.assign({},BJU.serie[0]);for(let i=0;i<5;i++)await bojJaUprav('m4');const z=BJU.serie[0];BJU.serie=null;BJU.info='';bojJa.set(jm0||'');
+      return [a.vys,a.dmg,z.vys,z.dmg]})()""")
+    chk(r[0]!="vedle" and 4<=r[1]<=11 and r[2]=="vedle" and r[3]==0,"Bless změní minutí na zásah a zranění se dohodí, Bane zpět na minutí ho vynuluje: "+str(r))
     # kritické zranění v šuplíku s pravidly
     await g.click(".bprtg");await g.wait_for_timeout(350)
     chk(await g.locator(".bpravidla").is_visible(),"šuplík s pravidly se otevře")
