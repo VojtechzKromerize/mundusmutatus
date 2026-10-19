@@ -421,8 +421,11 @@ window.MMDB={vetev:C.vetev,
     if(!r.ok){let m="HTTP "+r.status;try{const j=await r.json();m=j.message||j.error||m}catch(e){}throw new Error("Nahrání obrázku selhalo: "+m)}
     return `${C.url}/storage/v1/object/public/obrazky/${cesta}`},
   cfg:C,
-  async bojNacti(){const j=await api(`/rest/v1/boj?id=eq.aktivni&select=stav,verze`);return j&&j[0]?j[0]:null},
-  async bojVerze(){const j=await api(`/rest/v1/boj?id=eq.aktivni&select=verze`);return j&&j[0]?j[0].verze:0},
+  /* boj čtou hráči přes mm_boj_cti (bez skrytých nepřátel), vypravěč s přihlášením dostane vše; GET, aby to service worker uměl podržet bez připojení */
+  async bojNacti(){const t=await token();try{const j=await api("/rest/v1/rpc/mm_boj_cti",{tok:t||undefined});return j&&j.stav?j:null}
+    catch(e){if(e.status!==404)throw e;const j=await api(`/rest/v1/boj?id=eq.aktivni&select=stav,verze`,{tok:t||undefined});return j&&j[0]?j[0]:null}},
+  async bojVerze(){const t=await token();try{const v=await api("/rest/v1/rpc/mm_boj_verze",{tok:t||undefined});return +v||0}
+    catch(e){if(e.status!==404)throw e;const j=await api(`/rest/v1/boj?id=eq.aktivni&select=verze`,{tok:t||undefined});return j&&j[0]?j[0].verze:0}},
   async bojUloz(s,v){const t=await token();if(!t)throw new Error("Přihlášení vypršelo – přihlaste se znovu.");
     if(v!=null&&v>0)return api("/rest/v1/rpc/mm_boj_uloz_v",{method:"POST",tok:t,body:JSON.stringify({p_stav:s,p_verze:v})});
     return api("/rest/v1/rpc/mm_boj_uloz",{method:"POST",tok:t,body:JSON.stringify({p_stav:s})})},

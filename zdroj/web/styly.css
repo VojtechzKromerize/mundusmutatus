@@ -3213,3 +3213,6 @@ span.bzos{cursor:default}
 .bdmneshl{border-color:var(--rubr,#8a1c1c)}
 /* celá akce nepřítele (Multiattack po jednom) */
 .bmulti{margin:.3rem 0}.bmultib{font-weight:600}.bmultib small{font-weight:400;opacity:.85;margin-left:.3em}
+/* skrytý nepřítel (hráči zatím nevidí) */
+.bnpc.bskryt{outline:2px dashed var(--gold,#b08d3a);outline-offset:-2px;opacity:.78}
+.bskr{background:none;border:0;cursor:pointer;font-size:.95em;padding:0 .2em;line-height:1}.bskr.on{filter:none}

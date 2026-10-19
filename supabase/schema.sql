@@ -235,8 +235,10 @@ drop policy if exists "ukazky: čte každý" on public.ukazky;
 create policy "ukazky: čte každý" on public.ukazky for select to anon, authenticated using (true);
 drop policy if exists "vyzvy: čte každý" on public.vyzvy;
 create policy "vyzvy: čte každý" on public.vyzvy for select to anon, authenticated using (true);
+-- skrytí nepřátelé (2026-10-19): tabulku boj čte přímo jen vypravěč; hráči přes mm_boj_cti, která vyřízne účastníky „hráči zatím nevidí“
 drop policy if exists "boj: čte každý" on public.boj;
-create policy "boj: čte každý" on public.boj for select to anon, authenticated using (true);
+drop policy if exists "boj: čte vypravěč" on public.boj;
+create policy "boj: čte vypravěč" on public.boj for select to authenticated using (public.mm_je_gm());
 drop policy if exists "gm: vidí sebe" on public.gm;
 create policy "gm: vidí sebe" on public.gm for select to authenticated using (user_id = (select auth.uid()));
 -- Zápisy přímo do tabulek nejsou povoleny nikomu kromě tajného klíče; vše jde přes funkce níže.
@@ -381,6 +383,33 @@ begin
 end $$;
 
 -- Tracker iniciativy: vypravěč ukládá celý stav boje (sloty, přiřazení, nepřátelé, kostka)
+-- stav boje pro hráče: bez účastníků se skryt=true, bez jejich řádků záznamu a bez jejich obsazení slotů
+create or replace function public.mm_boj_orez(s jsonb) returns jsonb
+language sql immutable as $$
+  select case when s is null then null else
+    (s - 'npc' - 'zaz' - 'obsazeni')
+    || jsonb_build_object('npc', coalesce((select jsonb_agg(e) from jsonb_array_elements(coalesce(s -> 'npc', '[]'::jsonb)) e
+         where coalesce((e ->> 'skryt')::boolean, false) = false), '[]'::jsonb))
+    || case when s ? 'zaz' then jsonb_build_object('zaz', coalesce((select jsonb_agg(z) from jsonb_array_elements(coalesce(s -> 'zaz', '[]'::jsonb)) z
+         where not exists (select 1 from jsonb_array_elements(coalesce(s -> 'npc', '[]'::jsonb)) e where coalesce((e ->> 'skryt')::boolean, false)
+           and (z ->> 'a' = e ->> 'n' or z ->> 'c' = e ->> 'n' or z ->> 'ai' = e ->> 'id' or z ->> 'ci' = e ->> 'id'))), '[]'::jsonb)) else '{}'::jsonb end
+    || case when s ? 'obsazeni' then jsonb_build_object('obsazeni', coalesce((select jsonb_object_agg(kv.key, kv.value) from jsonb_each(coalesce(s -> 'obsazeni', '{}'::jsonb)) kv
+         where not exists (select 1 from jsonb_array_elements(coalesce(s -> 'npc', '[]'::jsonb)) e where coalesce((e ->> 'skryt')::boolean, false) and kv.value #>> '{}' = e ->> 'id')), '{}'::jsonb)) else '{}'::jsonb end
+  end
+$$;
+create or replace function public.mm_boj_cti() returns jsonb
+language sql stable security definer set search_path = public as $$
+  select case when public.mm_je_gm() then jsonb_build_object('stav', stav, 'verze', verze)
+              else jsonb_build_object('stav', public.mm_boj_orez(stav), 'verze', verze) end
+    from public.boj where id = 'aktivni'
+$$;
+create or replace function public.mm_boj_verze() returns bigint
+language sql stable security definer set search_path = public as $$
+  select verze from public.boj where id = 'aktivni'
+$$;
+revoke all on function public.mm_boj_orez(jsonb), public.mm_boj_cti(), public.mm_boj_verze() from public;
+grant execute on function public.mm_boj_cti(), public.mm_boj_verze() to anon, authenticated;
+
 create or replace function public.mm_boj_uloz(p_stav jsonb) returns bigint
 language plpgsql security definer set search_path = public as $$
 declare v bigint;

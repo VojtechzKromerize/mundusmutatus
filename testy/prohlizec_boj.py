@@ -105,7 +105,7 @@ async def main():
     for _ in range(4): await g.click(f'[data-bnpc="{hid}"] [data-bpoc="-1"]',delay=0)
     lok=await g.evaluate(f"BOJ.s.npc.find(n=>n.id==='{hid}').pocet");chk(lok==2,"rychlá série −: hned vidět 2/6 (optimisticky): "+str(lok))
     await g.wait_for_timeout(1500)
-    db=json.loads(urllib.request.urlopen(urllib.request.Request(U+"/rest/v1/boj?id=eq.aktivni&select=stav",headers={"apikey":K})).read())[0]["stav"]
+    db=json.loads(urllib.request.urlopen(urllib.request.Request(U+"/rest/v1/rpc/mm_boj_cti",headers={"apikey":K})).read())["stav"]
     chk([n for n in db["npc"] if n["id"]==hid][0]["pocet"]==2,"rychlá série −: v databázi uloženo bez ztráty")
     # relativní zápis životů, Zpět a proužek životů
     if not await g.locator(f'[data-bnpc="{rid}"] [data-bhp="0"]').count():
@@ -151,7 +151,7 @@ async def main():
     await pl.click('[data-bhpan="h1"] [data-bhds="hod"]');await pl.wait_for_timeout(900)
     await g.wait_for_timeout(3200)
     ds=await g.evaluate("BOJ.s.hraci[0].ds||null");chk(ds is None or (ds["u"]+ds["n"])>=1,"hráč hodí hod proti smrti z telefonu: "+str(ds))
-    chk("Hod proti smrti" in await g.evaluate("BLOGG.slice(0,6).map(x=>x.o.n).join('|')"),"hod proti smrti z telefonu je v záznamu vypravěče")
+    chk(ds is None or "Hod proti smrti" in await g.evaluate("BLOGG.slice(0,6).map(x=>x.o.n).join('|')"),"hod proti smrti z telefonu je v záznamu vypravěče (při 20 se postava probere a vypravěč vidí jen HP)")
     chk("Hod proti smrti" not in await pl.evaluate("JSON.stringify(BOJ.s.zaz||[])"),"hráči hody proti smrti nevidí")
     r=await g.evaluate("(()=>{const l=[...document.querySelectorAll('#bojview .bslot')].find(x=>x.querySelector('.bslst'));if(!l)return 'bez ikonky';const a=l.getBoundingClientRect(),b=l.querySelector('.bslst').getBoundingClientRect();return Math.abs((b.left+b.right)/2-(a.left+a.right)/2)<6})()")
     chk(r==True or r=="bez ikonky","ikonka stavu je pod žetonem své postavy: "+str(r))
@@ -335,6 +335,12 @@ async def main():
     chk(r[5]==1 and r[3].count("d20 17 (ručně)")==1,"Zadat ručně platí pro jeden útok: "+str(r[3])[:160])
     await pl.evaluate("BJU.serie=null;BRUC.h4={d20:'25'};bojJaHod()");chk(await pl.evaluate("BJU.serie===null"),"Zadat ručně: d20 mimo 1–20 se nehodí, hráč dostane upozornění")
     await pl.evaluate("delete BRUC.h4;BJU.serie=null;BJU.info='';BJU.hod='';BJU.d='';BJU.dmg='';BJU.adv='auto';BDM.sheet=null;renderBoj()");await pl.wait_for_timeout(300)
+    # skrytý nepřítel: hráč ho nemá v seznamu ani v cílech, vypravěč ano
+    await g.click(f'[data-bnpc="{rid}"] [data-bskryt]');await pl.wait_for_timeout(2500)
+    chk(await g.evaluate(f"!!BOJ.s.npc.find(o=>o.id==='{rid}').skryt") and await g.locator(f'[data-bnpc="{rid}"].bskryt').count()==1,"vypravěč skryje nepřítele před hráči")
+    chk(await pl.evaluate(f"!BOJ.s.npc.some(o=>o.id==='{rid}')") and await pl.locator(f'[data-bnpc="{rid}"]').count()==0,"hráč skrytého nepřítele nedostane")
+    await g.click(f'[data-bnpc="{rid}"] [data-bskryt]');await pl.wait_for_timeout(2500)
+    chk(await pl.evaluate(f"BOJ.s.npc.some(o=>o.id==='{rid}')"),"po odkrytí ho hráč zase vidí")
     # stav, který bere akce: omráčený hráč nemůže útočit, karta to ukáže a ztlumí tlačítka
     await g.evaluate("bojZmen(z=>{const h=z.hraci.find(x=>x.id==='h4');h.stav=[...(h.stav||[]),'omráčen']})");await pl.wait_for_timeout(2500)
     chk(await pl.locator('[data-bhcard="h4"] .bdmnesch').count()==1 and await pl.locator('[data-bhcard="h4"] .bdmneshl').count()==1,"omráčený hráč: karta ztlumená a hláška „nemůžeš jednat“")

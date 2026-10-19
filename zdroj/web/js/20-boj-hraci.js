@@ -636,6 +636,7 @@ document.addEventListener("click",async e=>{
   if(T("[data-bkonch]")&&o0){const k=BKONC[id];if(!k)return;const b=bojConB(PROTBY[o0.b]),d=bK(20),t=d+b,ok=t>=k.dc;k.v={d,b,t,ok};
     if(!ok)upd(o=>{o.stav=(o.stav||[]).filter(x=>x!=="soustředí")});else renderBoj();return}
   if(T("[data-bpoc]")){const d=+T("[data-bpoc]").dataset.bpoc;upd(o=>{o.pocet=Math.max(0,Math.min(o.max,(o.pocet||0)+d));if(BDOS[id]!=null)BDOS[id]=Math.min(BDOS[id],o.pocet)});return}
+  if(T("[data-bskryt]")&&o0){bojZmen(s=>{const o=(s.npc||[]).find(x=>x.id===id);if(!o)return;if(o.skryt)delete o.skryt;else o.skryt=true});mmHlasG(o0.skryt?`${o0.n}: hráči ho teď vidí.`:`${o0.n}: hráči ho zatím nevidí.`,3000);return}
   if(T("[data-bdel]")){if(confirm(`Odebrat ${o0?o0.n:"NPC"} z boje?`))bojZmen(s=>{s.npc=s.npc.filter(x=>x.id!==id);(s.npc||[]).forEach(x=>{if(x.vel===id)delete x.vel});Object.keys(s.obsazeni||{}).forEach(k=>{if(s.obsazeni[k]===id)delete s.obsazeni[k]})});return}
   if(T("[data-bprdel]")){const pr=T("[data-bprdel]").dataset.bprdel;upd(o=>{o.pr=(o.pr||[]).filter(x=>x!==pr);if(!o.pr.length)delete o.pr});return}
   const btt=T("[data-butt]");if(btt){const k=id+":"+btt.dataset.butt,v=BUTT[k]||{};BUTT[k]=v.t===btt.dataset.t&&!v.pul?{}:{t:btt.dataset.t};renderBoj();return}
