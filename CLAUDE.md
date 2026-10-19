@@ -111,7 +111,9 @@ Hlavní orientační body:
 - Supabase novým tabulkám nedává práva: veřejně čitelná tabulka potřebuje v schématu `grant select … to anon, authenticated`
   (testovací `priprava.sql` práva také nedává). Edge funkce (`supabase/functions/`: mm-push, mm-discord) nemají práva
   k tabulkám – čtou a zapisují jen přes funkce `mm_*` povolené pro `service_role`.
-- Boj ukládá vypravěč s kontrolou verze (`mm_boj_uloz_v`), aby nepřepsal zápisy hráčů z telefonu.
+- Boj ukládá vypravěč s kontrolou verze (`mm_boj_uloz_v`), aby nepřepsal zápisy hráčů z telefonu. Tabulku `boj` čte přímo jen
+  vypravěč; hráči přes `mm_boj_cti` (GET, kešuje ho service worker), která vyřízne účastníky `skryt` („hráči zatím nevidí“)
+  i jejich řádky záznamu. Hráč mění jen svou postavu přes `mm_boj_hrac` (pole `spol` = jeho společník v boji) a útočí přes `mm_boj_utok`.
 - Funkce mají předponu `mm_`. Nová tabulka = RLS + případ v `testy/bezpecnost.py` (anonym ani hráč nečtou
   obsah vypravěče a nic nemění; vypravěč nemá služební práva).
 - Bezplatný Supabase usíná; denní „Budíček databáze“ ho drží vzhůru.
