@@ -287,7 +287,7 @@ function drakVrstva(box,cls,k){/* nová vrstva se prolne přes starou (asi 1,5 s
   if((cur?cur.dataset.k:"")===(k||""))return;
   const prvni=!box.dataset.hotovo,pryc=()=>old.forEach(i=>{i.dataset.pryc=1;i.classList.remove("on");setTimeout(()=>i.remove(),1700)});
   if(!k){pryc();return}
-  const im=document.createElement("img");im.className="drl "+cls;im.dataset.k=k;im.alt="";im.width=im.height=560;im.sizes="(max-width:700px) 60vw, 400px";im.srcset=drakSrc(k);im.src=`art/img/drak-${k}-640.webp`;
+  const im=document.createElement("img");im.className="drl "+cls;im.dataset.k=k;im.alt="";im.width=im.height=560;im.sizes="(max-width:700px) min(210px,58vw), min(400px,80vw)";im.srcset=drakSrc(k);im.src=`art/img/drak-${k}-640.webp`;
   if(prvni)im.classList.add("bez");box.appendChild(im);
   const ukaz=()=>{requestAnimationFrame(()=>{im.classList.add("on");if(prvni){old.forEach(i=>i.remove());requestAnimationFrame(()=>im.classList.remove("bez"))}else pryc()})};
   (im.decode?im.decode():Promise.resolve()).then(ukaz,ukaz)}

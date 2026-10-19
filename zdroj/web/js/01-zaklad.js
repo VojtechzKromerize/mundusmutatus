@@ -24,3 +24,23 @@ const armsImg=(f,cls)=>ARMS[f.id]?`<img class="${cls}" src="${armsSrc(ARMS[f.id]
 const shield=f=>ARMS[f.id]?armsImg(f,"armsmall"):shield0(f);
 const shield0=f=>`<svg class="shield" viewBox="0 0 20 24" aria-hidden="true"><path d="M2 2h16v9c0 6-4 9.5-8 11-4-1.5-8-5-8-11z" fill="var(--${f.conf})" stroke="var(--ink)" stroke-width="1.2"${f.nbr?' stroke-dasharray="2 1.5"':""}/></svg>`;
 
+/* ===== Samostatné části skriptu (2026-10-19): kresba map, plán Prahy, mapa světa, Výprava a editor textů se stahují,
+   až když je stránka potřebuje. build.py je vyřízne do v/cast-<název>-<otisk>.js a adresy dá do window.MMLINE;
+   ve vypravěčském souboru (a když část už běží) je MMLINE prázdné a mmLina hned skončí. ===== */
+const MMLINY={};
+const mmLinaJe=n=>!(window.MMLINE||{})[n];
+/* část může mít víc souborů (hra = boj, karta, hra): spustí se v uvedeném pořadí; když selže jen jeden z několika,
+   nejde ji zkusit znovu (už spuštěné soubory by se spustily podruhé) – pomůže obnovit stránku */
+function mmLina(n){const L=window.MMLINE||{};if(!L[n])return Promise.resolve();
+  return MMLINY[n]||(MMLINY[n]=new Promise((ok,ko)=>{const U=[].concat(L[n]);let chyba=false;
+    const ss=U.map((u,i)=>{const s=document.createElement("script");s.src=u;s.async=false;
+      s.onerror=()=>{if(chyba)return;chyba=true;if(U.length===1){delete MMLINY[n];s.remove()}
+        ko(new Error(U.length===1?"Část stránky se nepodařilo načíst – zkontroluj připojení.":"Část stránky se nepodařilo načíst – zkontroluj připojení a obnov stránku."))};
+      if(i===U.length-1)s.onload=()=>{if(chyba)return;L[n]=null;ok();try{document.dispatchEvent(new CustomEvent("mmlina",{detail:n}))}catch(e){}};
+      document.head.appendChild(s);return s})}))}
+/* části potřebné pro stránku (v pořadí, v jakém běží: plán Prahy kreslí i mapa světa, Výprava všechny mapy) */
+/* „hra“ (boj, karty, hra, puls…) potřebují stránky s kartou, bojem a pravidly; ostatní stránky se ukážou bez ní */
+const MMLINY_V={mapa:["mapa"],praha:["praha"],svet:["praha","svet"],vyprava:["hra","mapa","praha","svet","editor","vyprava"],
+  pravidla:["hra"],karty:["hra"],boj:["hra"],hra:["hra"],sezeni:["hra"],kouzla:["hra"],gm:["hra"]};
+async function mmLinyPro(v){for(const n of (MMLINY_V[v]||[]))await mmLina(n)}
+const mmLinyHotove=v=>(MMLINY_V[v]||[]).every(mmLinaJe);

@@ -104,7 +104,8 @@ async def main():
     await g.click(rot+' [data-but="0"]');await g.wait_for_timeout(250)
     if await g.locator(".mmpop [data-butsik]").count():
         chk(True,"Šikovná zbraň soka: před hodem nabídka typu zranění");await g.click(".mmpop [data-butsik] >> nth=0");await g.wait_for_timeout(250)
-    lg=await g.locator(rot+" .blog li").first.inner_text();print("log:",lg)
+    # Závoj (Požehnání/Pokušení) může mít v záznamu vlastní řádek nad útokem – stačí poslední tři řádky
+    lg="\n".join((await g.locator(rot+" .blog li").all_inner_texts())[:3]);print("log:",lg)
     chk("Dlouhý meč" in lg and ("zranění" in lg.lower()) and ("Závoj" in lg or "Pokušení" in lg or "Požehnání" in lg),"útok soka: hod, zranění i Závoj")
     # cíl, výhoda a útok jako reakce
     await g.click(rot+' [data-bcilb="h1"]');await g.wait_for_timeout(150)
@@ -124,7 +125,7 @@ async def main():
     chk(await g.locator(hf+".bopen").count()==1,"kartu jde rozbalit ručně")
     await g.fill(hf+" [data-bdos]","3");await g.click(hf+' [data-but="0"]');await g.wait_for_timeout(150)
     if await g.locator(hf+' [data-bzrpo]').count(): await g.click(hf+' [data-bzrpo]');await g.wait_for_timeout(150)
-    lg=await g.locator(hf+" .blog li").first.inner_text();print("houf:",lg)
+    lg="\n".join((await g.locator(hf+" .blog li").all_inner_texts())[:3]);print("houf:",lg)
     chk("zranění 9" in lg and "3 × 3 v dosahu" in lg,"houf: 3 zranění × 3 v dosahu = 9")
     chk("přesila +5" in lg,"houf: útok s přesilou +5")
     # rozbalená je vždy jen jedna karta (v levém sloupci): ručně rozbalený houf rotmistra sbalil

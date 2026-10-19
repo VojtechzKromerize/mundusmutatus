@@ -335,10 +335,6 @@ document.addEventListener("click",async e=>{const T=s=>e.target.closest(s);
   if(T("[data-jaheslo]")){const K=jaK(),h=prompt("Nové heslo (aspoň 4 znaky):");if(!K||!h)return;try{const t=await MMDB.hracHeslo(K.id,h);JA.set({k:K.id,t,n:K.n});mmHlasG("Heslo změněno.",3000)}catch(err){mmHlasG(err.message,5000)}return}
   const ux=T("[data-hrukx]");if(ux&&GMV){const L=[...((HRA&&HRA.ukoly)||[])];L.splice(+ux.dataset.hrukx,1);ukolyUloz(L);return}
   const zr=T("[data-hrzrus]");if(zr&&GMV){if(!confirm("Uvolnit postavu? Zruší se vazba na hráčův Discord účet i heslo; postavu si pak může zvolit kdokoli."))return;try{await MMDB.hracZrus(zr.dataset.hrzrus);await MMDB.jaUvolni(zr.dataset.hrzrus);KZAM.delete(zr.dataset.hrzrus);await kartyNacti();hraPrekresli()}catch(err){mmHlasG(err.message,5000)}return}});
-/* první návštěva hráče: krátký návod */
-setTimeout(()=>{try{if(GMV||localStorage.getItem("mm-navod"))return;const v=document.querySelector('[data-view="uvod"]');if(!v)return;
-  v.insertAdjacentHTML("afterbegin",`<div class="navodbar" role="note"><span><b>Poprvé tady?</b> Přihlas se za svou postavu a během sezení měj otevřenou stránku Hra.</span><a class="gbtn" href="#hra" data-navodx>Jak hrát</a><button type="button" class="kx" data-navodx aria-label="Skrýt">×</button></div>`)}catch(e){}},1200);
-document.addEventListener("click",e=>{const x=e.target.closest("[data-navodx]");if(!x)return;try{localStorage.setItem("mm-navod","1")}catch(err){}const b=x.closest(".navodbar");if(b)b.remove()});
 /* ===== Průvodce tahem hráče v Boji ===== */
 const BPT={k:null};
 function bojPruvodce(s,me){const K=bojKartaH(me),k=`${s.kolo}:${s.tah}`;if(BPT.k!==k){BPT.k=k;BPT.p=BPT.a=BPT.b=0}

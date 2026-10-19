@@ -53,6 +53,7 @@ async def main():
     await g.goto(BASE+"#gm");await g.wait_for_selector("#gmhra")
     await g.fill("#gmhra input[name=misto]","Praha");await g.select_option("#gmhra select[name=praha]","16");await g.click("#gmhra button[type=submit]");await g.wait_for_timeout(700)
     await pg.reload();await pg.wait_for_function("!document.documentElement.classList.contains('mmload')")
+    await pg.goto(BASE+"#praha");await pg.wait_for_function("typeof pParty==='function'",timeout=15000)  # plán Prahy je samostatná část skriptu
     chk(await pg.evaluate("pParty()&&pParty().druzina===16"),"družina na plánu Prahy (místo 16)")
     # změna herního času se hráči pošle sama (puls), stránka se mu nepřenačte
     await pg.evaluate("window.__beznacteni=1");await g.evaluate("hraUloz({hodina:7,$bezZpet:true})");await pg.wait_for_timeout(11000)

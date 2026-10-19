@@ -22,10 +22,11 @@ v `zdroj/obsah/NÁVOD.md`, testy v `testy/README.md`. Tady je jen to, co ušetř
 ```
 zdroj/koruna.html    kostra stránky (~53 kB): hlavička, HTML pohledů, zavaděč dat, řádky /*@vloz web/…*/
 zdroj/web/styly.css  všechny styly (~2 800 řádků)
-zdroj/web/js/NN-*.js hlavní skript po oddílech (22 souborů, viz níže); dohromady jeden skript ve sdíleném
+zdroj/web/js/NN-*.js hlavní skript po oddílech (viz níže); dohromady jeden skript ve sdíleném
                      prostoru – pořadí podle čísla, funkce a konstanty jsou vidět ze všech souborů
 zdroj/build.py       sestaví public/ (hráč) nebo vypravec/ (--vypravec, NEPUBLIKOVAT); --staticky bez databáze;
-                     řádky /*@vloz …*/ nahradí obsahem souborů (výsledek je jeden soubor jako dřív)
+                     řádky /*@vloz …*/ nahradí obsahem souborů; vypravěčský soubor je jeden, hráčská verze
+                     má skript v dílech v/*.js a samostatných částech v/cast-*.js (viz níže)
 zdroj/rozdel.py      --spoj spojí vše zpět do jednoho koruna.html; bez přepínače rozdělí jeden soubor znovu
 zdroj/generator.js   z textů obsahu vyrobí data webu; běží v buildu (Node) i v prohlížeči vypravěče
 zdroj/obsah/         rody, osoby, vazby, Praha, místa, Kronika, Družina, Draconomicon, protivníci,
@@ -62,7 +63,18 @@ Pravidla · 09 vypravěč: odhalování, panel, herní čas · 10 Kouzla · 11 B
 12 Boj: tah, postavy v boji · 13 Karty: import PDF, stav, stránka · 14 karta: vybavení, bojová karta ·
 15 karta podle Artikulí · 16 SRD předměty, ukázky, příprava sezení, kořist, stránka Hra · 17 Karta II ·
 18 Pravidla postavy (D&D 2024) · 19 karta jako D&D Beyond · 20 Boj: útoky hráčů z telefonu ·
-21 editor textů, pečeť · 22 Výprava · 23 potvrzování akcí hráčů · 24 Boj: herní záznam (kdo · co · komu, kostky, Závoj).
+21 editor textů · 22 Výprava (počasí, Zpět herního času) · 23 potvrzování akcí hráčů · 24 Boj: herní záznam (kdo · co · komu, kostky, Závoj) ·
+25 puls (jeden dotaz „co se změnilo“, Realtime) · 26 start: pečeť a první `route()`.
+
+**Samostatné části (načtou se až na své stránce):** 02b kresba mapy, 04b plán Prahy, 05b mapa světa, 21 editor, 22b stránka Výprava –
+obsah mezi `/*@cast název{*/ … /*@cast}*/` build vyřízne do `v/cast-…js`. Kód mimo část na její funkce sahá jen přes `route()`
+(`MMLINY_V` v 01, `mmLina()`), přes `typeof … === "function"` nebo přes zástupnou funkci (`drawMap` → `drawMapK`). Vypravěč dostane
+všechny části hned po startu. Zbytek skriptu build dělí na díly s otiskem podle čísel souborů, takže po nasazení se stáhne jen díl,
+který se změnil: **jádro** (zaklad 01–08, stav 09, start 26) se stáhne hned a stránka se ukáže; boj 10–12, karta 13–19 a hra 20–25
+tvoří líně načítanou část `hra` (stránky pravidla, karty, boj, hra, sezení, kouzla, gm ji čekají; 26-start ji jinak stáhne na pozadí,
+až je stránka načtená). Jádro proto nesmí při načtení ani při vykreslení svých stránek (úvod, mapy, desky, Družina, Kronika,
+Artikule, Draconomicon) volat funkce ze souborů 10–25; co se musí ukázat hned (např. návod pro první návštěvu), patří do jádra. Hráč se na změny ptá jen pulsem (`mm_puls`) – nový
+pravidelný dotaz nepřidávej, přidej druh do pulsu (trigger `mm_puls_tg` v schématu, obsluha v `pulsZpracuj`).
 Oddíly uvnitř mají hlavičky `/* ===== název ===== */`; přehled: `grep -n -E '^/\* ?[=-]{3,}' zdroj/web/js/*.js`.
 Hlavní orientační body:
 

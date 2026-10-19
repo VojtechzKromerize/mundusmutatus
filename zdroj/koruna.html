@@ -343,7 +343,7 @@
 </main>
 <footer class="colophon">
   <span class="corn" aria-hidden="true"></span>
-  <img class="cdrak" src="art/drak.webp" srcset="art/drak-450.webp 450w, art/drak.webp 900w" sizes="(max-width:600px) 64vw, 380px" alt="" aria-hidden="true" width="900" height="300" loading="lazy">
+  <img class="cdrak" src="art/drak.webp" srcset="art/drak-450.webp 450w, art/drak-600.webp 600w, art/drak.webp 900w" sizes="(max-width:600px) 64vw, 380px" alt="" aria-hidden="true" width="900" height="300" loading="lazy">
   <p class="cq">Sepsáno v Praze léta Páně 1458 · <i>Sub utraque sunt dracones</i></p>
   <button type="button" class="ctop" onclick="scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'})">↑ Zpět nahoru</button>
 </footer>
@@ -489,7 +489,11 @@ let MMV=null;
 function spust(D){
   window.__D=D;zminky(D);
   const m=document.getElementById("mmhlavni"),s=document.createElement("script");
-  if(m.dataset.src){s.src=m.dataset.src;s.onload=()=>po(D);s.onerror=()=>{document.documentElement.classList.remove("mmload");hlas("Stránku se nepodařilo načíst – zkuste ji obnovit.",9000)};m.after(s);return}
+  /* hráčská verze: skript je v několika dílech (build.py) – spustí se v daném pořadí, po posledním se stránka ukáže */
+  if(m.dataset.src){const L=m.dataset.src.split(" ").filter(Boolean);let kde=m,chyba=false;
+    L.forEach((u,i)=>{const x=i?document.createElement("script"):s;x.src=u;x.async=false;
+      x.onerror=()=>{if(chyba)return;chyba=true;document.documentElement.classList.remove("mmload");hlas("Stránku se nepodařilo načíst – zkuste ji obnovit.",9000)};
+      if(i===L.length-1)x.onload=()=>{if(!chyba)po(D)};kde.after(x);kde=x});return}
   s.textContent=m.textContent;m.after(s);po(D)}
 function po(D){
   document.documentElement.classList.remove("mmload");
@@ -501,7 +505,7 @@ function po(D){
     const kontrola=async()=>{if(document.visibilityState!=="visible")return;
       try{const v=await window.MMDB.verze();if(v!==null&&v!==MMV){try{sessionStorage.setItem("mm-obnova",JSON.stringify({h:location.hash,y:scrollY}))}catch(e){}location.reload()}}catch(e){}};
     /* s pulsem (25-puls.js) se verze ověří, jen když se výřez opravdu změnil */
-    window.mmKontrolaVerze=kontrola;if(!window.MMPULS){setInterval(kontrola,20000);document.addEventListener("visibilitychange",kontrola)}}
+    window.mmKontrolaVerze=kontrola;if(!window.MMPULS&&!(window.MMLINE||{}).hra){setInterval(kontrola,20000);document.addEventListener("visibilitychange",kontrola)}}
 }
 function hlas(t,ms){const d=document.createElement("div");d.className="mmhlas";d.setAttribute("role","status");d.textContent=t;document.body.appendChild(d);
   requestAnimationFrame(()=>d.classList.add("on"));setTimeout(()=>{d.classList.remove("on");setTimeout(()=>d.remove(),400)},ms||4500)}
@@ -528,9 +532,12 @@ const hraAkt=()=>api("/rest/v1/rpc/mm_hra",{method:"POST",body:"{}"}).then(h=>h&
 <script id="mmhlavni">
 /*@vloz web/js/01-zaklad.js*/
 /*@vloz web/js/02-mapa.js*/
+/*@vloz web/js/02b-mapa-kresba.js*/
 /*@vloz web/js/03-artikule.js*/
 /*@vloz web/js/04-praha.js*/
+/*@vloz web/js/04b-praha-plan.js*/
 /*@vloz web/js/05-svet.js*/
+/*@vloz web/js/05b-svet-mapa.js*/
 /*@vloz web/js/06-draconomicon-rodokmeny.js*/
 /*@vloz web/js/07-druzina-kronika.js*/
 /*@vloz web/js/08-navigace-pravidla.js*/
@@ -548,7 +555,9 @@ const hraAkt=()=>api("/rest/v1/rpc/mm_hra",{method:"POST",body:"{}"}).then(h=>h&
 /*@vloz web/js/20-boj-hraci.js*/
 /*@vloz web/js/21-editor-pecet.js*/
 /*@vloz web/js/22-vyprava.js*/
+/*@vloz web/js/22b-vyprava.js*/
 /*@vloz web/js/23-potvrzovani.js*/
 /*@vloz web/js/24-boj-zaznam.js*/
 /*@vloz web/js/25-puls.js*/
+/*@vloz web/js/26-start.js*/
 </script>

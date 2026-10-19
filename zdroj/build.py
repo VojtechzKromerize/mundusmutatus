@@ -332,7 +332,10 @@ def vloz_soubory(t):
         p = os.path.join(ROOT, "zdroj", m.group(1))
         if not os.path.isfile(p):
             fail(f"chybí zdroj/{m.group(1)} (vkládá ho koruna.html)")
-        return open(p, encoding="utf-8").read()
+        t = open(p, encoding="utf-8").read()
+        # hranice souborů skriptu: hráčská verze podle nich dělí skript na díly s vlastním otiskem (viz níže)
+        mm = re.match(r"web/js/(\d\d)", m.group(1))
+        return (f"/*@soubor {mm.group(1)}*/\n" + t) if mm else t
     return re.sub(r"^/\*@vloz (web/[\w./-]+)\*/\n", rep, t, flags=re.M)
 s = vloz_soubory(open(SRC, encoding="utf-8").read())
 J = lambda v: json.dumps(v, ensure_ascii=False, separators=(",", ":"))
@@ -400,15 +403,16 @@ for tag in ("/*@GM@*/false", "/*@MMDATA@*/"):
 s = s.replace("/*@GM@*/false", "!!__D.GM")
 safe = lambda v: J(v).replace("</", "<\\/")
 if DB:
-    s = s.replace("/*@MMDATA@*/", "window.MMCFG=" + safe({"url": SB_URL, "key": SB_KEY, "vetev": VETEV, "gen": GEN_VERZE}) + ";window.__S=" + safe(STAT_H) + ";")
+    s = s.replace("/*@MMDATA@*/", "window.MMCFG=" + safe({"url": SB_URL, "key": SB_KEY, "vetev": VETEV, "gen": GEN_VERZE}) + ";window.__S=" + safe(STAT_H) + ";/*@MMLINE@*/")
     if '<script id="mmhlavni">' not in s:
         fail('ve zdroji chybí <script id="mmhlavni">')
     s = s.replace('<script id="mmhlavni">', '<script type="text/x-mm" id="mmhlavni">')
 else:
-    s = s.replace("/*@MMDATA@*/", "window.__D=" + safe(DATA) + ";")
+    s = s.replace("/*@MMDATA@*/", "window.__D=" + safe(DATA) + ";/*@MMLINE@*/")
 
 if GM:
     s = show_secrets(s)
+    s = re.sub(r"^/\*@soubor \d\d\*/\n", "", s, flags=re.M)
 else:
     s, removed = strip_secrets(s)
     s = s.replace("✦ ", "").replace("✦", "")
@@ -454,13 +458,51 @@ if not GM:
     a = page.index(zn)
     b = page.index("</script>", a)
     js = page[a + len(zn):b]
-    jm_js = f"app-{otisk_v(js)}.js"
-    VSOUB[jm_js] = js
-    page = page[:a] + (f'<script type="text/x-mm" id="mmhlavni" data-src="v/{jm_js}"></script>' if DB else f'<script id="mmhlavni" src="v/{jm_js}"></script>') + page[b + 9:]
-    page = page.replace("</head>", f'<link rel="preload" href="v/{jm_js}" as="script">\n</head>', 1)
+    # samostatné části (/*@cast název{*/ … /*@cast}*/): stáhnou se, až je stránka potřebuje (mmLina v 01-zaklad.js)
+    CASTI = {}
+    def vyrizni(m):
+        CASTI[m.group(1)] = CASTI.get(m.group(1), "") + m.group(2)
+        return ""
+    js = re.sub(r"/\*@cast (\w+)\{\*/\n(.*?)/\*@cast\}\*/\n", vyrizni, js, flags=re.S)
+    if "/*@cast" in js:
+        fail("neuzavřená část /*@cast …*/ ve skriptu")
+    LINE = {}
+    for jm, t in CASTI.items():
+        t = re.sub(r"^/\*@soubor \d\d\*/\n", "", t, flags=re.M)
+        jmc = f"cast-{jm}-{otisk_v(t)}.js"
+        VSOUB[jmc] = t
+        LINE[jm] = f"v/{jmc}"
+    # zbytek skriptu: díly podle čísel souborů – po nasazení se stáhne jen díl, který se změnil
+    # jádro (zaklad, stav, start) se stáhne hned a stránka se ukáže; boj, karta a hra (soubory 10–25) tvoří
+    # líně načítanou část „hra“ (MMLINE.hra, pořadí dílů zachované) – 26-start ji stáhne na pozadí po vykreslení
+    DILY = [("zaklad", 1, 8, 0), ("stav", 9, 9, 0), ("boj", 10, 12, 1), ("karta", 13, 19, 1), ("hra", 20, 25, 1), ("start", 26, 99, 0)]
+    kusy = re.split(r"^/\*@soubor (\d\d)\*/\n", js, flags=re.M)
+    obsah = {d[0]: "" for d in DILY}
+    obsah[DILY[0][0]] += kusy[0]
+    for i in range(1, len(kusy), 2):
+        n = int(kusy[i])
+        obsah[next(d[0] for d in DILY if d[1] <= n <= d[2])] += kusy[i + 1]
+    jm_jsy, line_hra = [], []
+    for d in DILY:
+        t = obsah[d[0]]
+        if t.strip():
+            jm = f"{d[0]}-{otisk_v(t)}.js"
+            VSOUB[jm] = t
+            (line_hra if d[3] else jm_jsy).append(jm)
+    if line_hra:
+        LINE["hra"] = ["v/" + j for j in line_hra]
+    if DB:
+        tag = f'<script type="text/x-mm" id="mmhlavni" data-src="{" ".join("v/" + j for j in jm_jsy)}"></script>'
+    else:
+        tag = f'<script id="mmhlavni" src="v/{jm_jsy[0]}"></script>' + "".join(f'\n<script src="v/{j}"></script>' for j in jm_jsy[1:])
+    page = page[:a] + tag + page[b + 9:]
+    page = page.replace("/*@MMLINE@*/", "window.MMLINE=" + safe(LINE) + ";", 1)  # až po vyříznutí (posunulo by indexy)
+    page = page.replace("</head>", "".join(f'<link rel="preload" href="v/{j}" as="script">\n' for j in jm_jsy) + "</head>", 1)
+    js = "".join(obsah.values())
     # service worker: offline režim a rychlé opakované návštěvy (verze podle otisku stránky)
     sw = open(os.path.join(ROOT, "zdroj", "sw.js"), encoding="utf-8").read()
-    sw = sw.replace("/*@VERZE@*/", otisk_v(css + js + page)).replace("/*@JADRO@*/[]", json.dumps(["./", f"v/{jm_css}", f"v/{jm_js}"]))
+    sw = (sw.replace("/*@VERZE@*/", otisk_v(css + js + page)).replace("/*@JADRO@*/[]", json.dumps(["./", f"v/{jm_css}"] + [f"v/{j}" for j in jm_jsy + line_hra]))
+          .replace("/*@SOUBORY@*/[]", json.dumps(["v/" + j for j in VSOUB])))
     open(os.path.join(OUT, "sw.js"), "w", encoding="utf-8").write(sw)
 open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(page)
 os.makedirs(os.path.join(OUT, "v"), exist_ok=True)

@@ -153,12 +153,15 @@ function route(){
   const h=decodeURIComponent(location.hash.slice(1))||"uvod";
   const [a,b,c]=h.split("/");
   let view=(a==="rod"||a==="osoba")?"desky":a; if(!VIEWS.includes(view)||((view==="kouzla"||view==="sezeni")&&!GMV))view="uvod";
+  /* stránka s vlastní částí skriptu (mapy, Výprava): nejdřív ji stáhnout, pak vykreslit */
+  if(!mmLinyHotove(view)){document.querySelectorAll(".view").forEach(v=>{v.hidden=v.dataset.view!==view});document.documentElement.classList.add("mmlina");
+    const h0=location.hash;mmLinyPro(view).then(()=>{document.documentElement.classList.remove("mmlina");if(location.hash===h0)route()},e=>{document.documentElement.classList.remove("mmlina");mmHlasG(e.message,7000)});return}
   const changed=view!==curView; curView=view;
   document.body.classList.toggle("home",view==="uvod");document.getElementById("navcur").textContent=NAVNAME[view]||"";
   {const nav=document.getElementById("sitenav");nav.classList.remove("open");document.getElementById("navtoggle").setAttribute("aria-expanded","false")}
   document.querySelectorAll(".view").forEach(v=>{v.hidden=v.dataset.view!==view});
   if(view==="uvod"&&kalHero)try{renderKal()}catch(e){console.warn(e)}
-  vyVrat(view);
+  if(typeof vyVrat==="function")vyVrat(view);
   document.querySelectorAll("[data-nav]").forEach(n=>n.classList.toggle("on",n.dataset.nav===view));
   document.querySelectorAll("[data-navgrp]").forEach(n=>n.classList.toggle("on",n.dataset.navgrp.split(" ").includes(view)));
   document.querySelectorAll(".navdd").forEach(dd=>{dd.classList.remove("open");dd.querySelector(".ddtop").setAttribute("aria-expanded","false")});

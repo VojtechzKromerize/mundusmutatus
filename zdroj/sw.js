@@ -1,19 +1,37 @@
 /* Service worker hráčské verze Mundus Mutatus (build.py doplní verzi a jádro stránky).
    - stránka: nejdřív síť, bez připojení uložená kopie
-   - soubory s otiskem (v/…): z mezipaměti, nemění se
+   - soubory s otiskem (v/…): z trvalé mezipaměti (mm-v), nemění se; po nasazení se stáhnou jen nové díly skriptu
+     a staré, které už stránka nepoužívá, se smažou
    - obrázky, písma a mapy (art/…), obrázky nahrané do Supabase: hned z mezipaměti, na pozadí se obnoví
    - veřejná data desek ze Supabase (snimek, boj): nejdřív síť, bez připojení naposledy uložený stav
    Vypravěčské dotazy (s přihlášením) se nikdy neukládají. */
 const VERZE = "/*@VERZE@*/";
 const JADRO = /*@JADRO@*/[];
-const C_STR = "mm-str-" + VERZE, C_ART = "mm-art", C_DATA = "mm-data";
+const SOUBORY = /*@SOUBORY@*/[]; // všechny soubory v/ této verze (i části, které se stahují až na vyžádání)
+const C_STR = "mm-str-" + VERZE, C_V = "mm-v", C_ART = "mm-art", C_DATA = "mm-data";
+const jeV = u => new URL(u, self.location).pathname.includes("/v/");
 
 self.addEventListener("install", e => {
-  e.waitUntil(caches.open(C_STR).then(c => c.addAll(JADRO)).catch(() => {}).then(() => self.skipWaiting()));
+  e.waitUntil((async () => {
+    const s = await caches.open(C_STR), v = await caches.open(C_V);
+    for (const u of JADRO) {
+      try {
+        if (!jeV(u)) { await s.add(u); continue; }
+        if (!(await v.match(u))) await v.add(u);  // díl se stejným otiskem už máme z minulé verze
+      } catch (x) {}
+    }
+  })().then(() => self.skipWaiting()));
 });
 self.addEventListener("activate", e => {
-  e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k.startsWith("mm-str-") && k !== C_STR).map(k => caches.delete(k))))
-    .then(() => self.clients.claim()));
+  e.waitUntil((async () => {
+    const ks = await caches.keys();
+    await Promise.all(ks.filter(k => (k.startsWith("mm-str-") && k !== C_STR)).map(k => caches.delete(k)));
+    if (SOUBORY.length) {  // z mm-v pryč, co tato verze nepoužívá
+      const v = await caches.open(C_V), drz = new Set(SOUBORY.map(u => new URL(u, self.location).href));
+      for (const r of await v.keys()) if (!drz.has(r.url)) await v.delete(r);
+    }
+    await self.clients.claim();
+  })());
 });
 
 const sit = async (req, cache, klic) => {
@@ -51,7 +69,7 @@ self.addEventListener("fetch", e => {
   const u = new URL(req.url);
   if (u.origin === self.location.origin) {
     if (req.mode === "navigate" || u.pathname.endsWith("/index.html")) { e.respondWith(sit(req, C_STR, "./")); return; }
-    if (u.pathname.includes("/v/")) { e.respondWith(pamet(req, C_STR)); return; }
+    if (u.pathname.includes("/v/")) { e.respondWith(pamet(req, C_V)); return; }
     if (u.pathname.includes("/art/")) { e.respondWith(obnov(e, req, C_ART)); return; }
     return;
   }

@@ -23,9 +23,12 @@ VLOZ = re.compile(r"^/\*@vloz (web/[\w./-]+)\*/\n", re.M)
 JS = [
     ("01-zaklad.js", None),
     ("02-mapa.js", "/* --- map geometry --- */"),
+    ("02b-mapa-kresba.js", "/* ===== Mapa zemí: kresba"),
     ("03-artikule.js", "/* ---------- Artikule: pravidla tažení"),
     ("04-praha.js", "/* ---------- Praha: plán města"),
+    ("04b-praha-plan.js", "/* ===== Praha: kreslený plán"),
     ("05-svet.js", "/* ---------- Známý svět: mapa Evropy"),
+    ("05b-svet-mapa.js", "/* ===== Známý svět: kresba"),
     ("06-draconomicon-rodokmeny.js", "/* ---------- Draconomicon ---------- */"),
     ("07-druzina-kronika.js", "/* ======== Družina · Kronika tažení"),
     ("08-navigace-pravidla.js", "/* ---------- site navigation"),
@@ -43,9 +46,11 @@ JS = [
     ("20-boj-hraci.js", "/* ===== útoky postav z telefonu"),
     ("21-editor-pecet.js", "/* ===== Vypravěč: úpravy textů a obrázků"),
     ("22-vyprava.js", "/* ===== VÝPRAVA: cesta družiny"),
+    ("22b-vyprava.js", "/* ===== Výprava: stránka vypravěče"),
     ("23-potvrzovani.js", "/* ===== Potvrzování akcí hráčů"),
     ("24-boj-zaznam.js", "/* ===== Boj: herní záznam ve třetím sloupci"),
     ("25-puls.js", "/* ===== Puls: jeden dotaz"),
+    ("26-start.js", "/* ===== Pečeť:"),
 ]
 CSS = "styly.css"
 

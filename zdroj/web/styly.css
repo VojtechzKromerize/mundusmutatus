@@ -3201,3 +3201,6 @@ span.bzos{cursor:default}
 .bdmtahr .bdmuse{margin-left:0}
 .bpun{font-family:var(--f-label);font-weight:700;font-size:.72rem;color:var(--muted)}
 .ksdlv{align-items:center;margin:4px 0 8px}
+
+/* načítání (2026-10-19): patička je pod okrajem obrazovky, dokud se neobjeví obsah – nic neposkočí */
+.wrap>main{min-height:100vh}

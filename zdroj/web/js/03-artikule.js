@@ -307,7 +307,7 @@ function artLanding(){
    <h2 class="vh">Artikule</h2>
    ${rq("Zde jsou sepsány Artikule, jimiž se řídí tato Kronika i ti, o nichž vypráví. Stanoví, co komu přísluší, co se smí a nesmí, co stojí za to riskovati a co se již nevyplácí. Kdož je zná, nebude zaskočen, kdož je nezná, budiž zatracen.","Vojtěch z Kroměříže, rytíř ve službách biskupa olomouckého")}
    <p class="alead">K přečtení jsou zde pravidla a mechaniky pro kampaň <i>Mundus Mutatus: Sub Utraque Sunt Dracones</i>. Základ vychází z pravidel D&amp;D 2024, je však upraven a doplněn tak, aby vytvořil temný a nebezpečný středověký svět, v němž o duše postav svádějí souboj Bůh a ďábel.</p>
-   <img class="orn drak" src="${AIMG}drak.webp" alt="" aria-hidden="true">
+   <img class="orn drak" src="${AIMG}drak.webp" srcset="${AIMG}drak-450.webp 450w, ${AIMG}drak-600.webp 600w, ${AIMG}drak.webp 900w" sizes="min(420px,80vw)" width="900" height="300" alt="" aria-hidden="true">
    <h3 class="abh">Ve zkratce</h3>${quick}
 `;
 }
