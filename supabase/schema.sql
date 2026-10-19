@@ -595,7 +595,7 @@ begin
     if v < 0 then raise exception 'v pokladně není dost (%)', k; end if;
     pen := pen || jsonb_build_object(k, v);
   end loop;
-  st := jsonb_build_object('pen', pen, 'log', (select coalesce(jsonb_agg(x), '[]'::jsonb) from (select x from jsonb_array_elements(
+  st := st || jsonb_build_object('pen', pen, 'log', (select coalesce(jsonb_agg(x), '[]'::jsonb) from (select x from jsonb_array_elements(
       jsonb_build_array(jsonb_build_object('cas', now(), 'kdo', kdo, 'z', p_zmena, 'p', coalesce(p_pozn, ''))) || coalesce(st -> 'log', '[]'::jsonb)) x limit 60) q));
   insert into public.nastaveni (klic, hodnota, zmeneno) values ('pokladna', st, now()) on conflict (klic) do update set hodnota = excluded.hodnota, zmeneno = now();
   return st;
@@ -1058,7 +1058,8 @@ begin
       and not exists (select 1 from jsonb_each(x) e where char_length(e.key) > 60 or jsonb_typeof(e.value) <> 'number' or not public.mm_cislo(e.value, 0, 30)))
     when 'inv' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'array' and jsonb_array_length(x) <= 300 and not exists (
       select 1 from jsonb_array_elements(x) e where jsonb_typeof(e) <> 'object'
-        or exists (select 1 from jsonb_object_keys(e) k where k not in ('n', 'q', 'w', 'pripoutano', 'mag', 'obl', 'nab', 'v'))
+        or exists (select 1 from jsonb_object_keys(e) k where k not in ('n', 'q', 'w', 'pripoutano', 'mag', 'obl', 'nab', 'v', 'pozn'))
+        or (e ? 'pozn' and (jsonb_typeof(e -> 'pozn') <> 'string' or char_length(e ->> 'pozn') > 300))
         or (e ? 'v' and (jsonb_typeof(e -> 'v') <> 'string' or char_length(e ->> 'v') not between 1 and 80))
         or (e ? 'obl' and jsonb_typeof(e -> 'obl') <> 'boolean') or (e ? 'nab' and not public.mm_cislo(e -> 'nab', 0, 99))
         or jsonb_typeof(e -> 'n') is distinct from 'string' or char_length(e ->> 'n') not between 1 and 80 or not public.mm_cislo(e -> 'q', 0, 9999)
@@ -1151,6 +1152,122 @@ begin
     verze = verze + 1, zmeneno = now() where id = p_id returning verze into v;
   return v;
 end $$;
+
+-- ===== Věci mezi kartami a v pokladně (2026-10-19) =====
+-- vybavení karty: stav.inv, dokud ho nikdo nezměnil, platí karta.vybaveni z PDF
+-- (karty z obsahu webu nemají v databázi kartu, jen stav – výchozí vybavení pak pošle prohlížeč jako p_zaklad)
+create or replace function public.mm_inv(k text, p_zaklad jsonb default null) returns jsonb
+language sql stable security definer set search_path = public as $$
+  select coalesce((select coalesce(stav -> 'inv', karta -> 'vybaveni') from public.karty where id = k),
+    case when jsonb_typeof(p_zaklad) = 'array' and jsonb_array_length(p_zaklad) <= 300 then p_zaklad end, '[]'::jsonb)
+$$;
+-- odebere q kusů věci jménem n (bez ohledu na velikost písmen); vrátí {inv, vec} – vec je kopie předmětu s počtem q
+create or replace function public.mm_inv_uber(inv jsonb, n text, q int) returns jsonb
+language plpgsql immutable as $$
+declare i int := 0; e jsonb; m int;
+begin
+  if q is null or q < 1 then raise exception 'neplatný počet'; end if;
+  for e in select * from jsonb_array_elements(coalesce(inv, '[]'::jsonb)) loop
+    if lower(trim(e ->> 'n')) = lower(trim(n)) and coalesce((e ->> 'q')::int, 1) >= q then
+      m := coalesce((e ->> 'q')::int, 1) - q;
+      if m <= 0 then inv := inv - i; else inv := jsonb_set(inv, array[i::text, 'q'], to_jsonb(m)); end if;
+      return jsonb_build_object('inv', inv, 'vec', (e - 'pripoutano' - 'obl' - 'v') || jsonb_build_object('q', q));
+    end if;
+    i := i + 1;
+  end loop;
+  raise exception 'tolik kusů (%) nemáš', n;
+end $$;
+-- přidá věc: ke stejné věci (jméno, magický předmět, ne v batohu) se přičte počet, jinak nový řádek
+create or replace function public.mm_inv_pridej(inv jsonb, v jsonb) returns jsonb
+language plpgsql immutable as $$
+declare i int := 0; e jsonb;
+begin
+  for e in select * from jsonb_array_elements(coalesce(inv, '[]'::jsonb)) loop
+    if lower(trim(e ->> 'n')) = lower(trim(v ->> 'n')) and coalesce(e ->> 'mag', '') = coalesce(v ->> 'mag', '') and not (e ? 'v') then
+      return jsonb_set(inv, array[i::text, 'q'], to_jsonb(coalesce((e ->> 'q')::int, 1) + coalesce((v ->> 'q')::int, 1)));
+    end if;
+    i := i + 1;
+  end loop;
+  return coalesce(inv, '[]'::jsonb) || jsonb_build_array(v);
+end $$;
+create or replace function public.mm_vec_ok(v jsonb) returns boolean
+language sql immutable as $$
+  select jsonb_typeof(v) = 'object' and jsonb_typeof(v -> 'n') = 'string' and char_length(v ->> 'n') between 1 and 80
+    and jsonb_typeof(v -> 'q') = 'number' and public.mm_cislo(v -> 'q', 1, 9999)
+    and not exists (select 1 from jsonb_object_keys(v) k where k not in ('n', 'q', 'mag', 'w', 'pozn', 'nab'))
+    and (not v ? 'mag' or (jsonb_typeof(v -> 'mag') = 'string' and (v ->> 'mag') ~ '^[a-z0-9-]{1,60}$'))
+    and (not v ? 'w' or (jsonb_typeof(v -> 'w') = 'string' and char_length(v ->> 'w') <= 20))
+    and (not v ? 'pozn' or (jsonb_typeof(v -> 'pozn') = 'string' and char_length(v ->> 'pozn') <= 300))
+$$;
+-- dar spolubojovníkovi: hráč (za svou kartu p_od) nebo vypravěč přesune q kusů věci p_n na kartu p_komu
+drop function if exists public.mm_inv(text);
+drop function if exists public.mm_karta_dar(text, text, text, int, text);
+drop function if exists public.mm_pokladna_vec(jsonb, int, text, text);
+create or replace function public.mm_karta_dar(p_od text, p_komu text, p_n text, p_q int, p_token text default null, p_zaklad jsonb default null) returns bigint
+language plpgsql security definer set search_path = public as $$
+declare r jsonb; kn_od text; kn_komu text; v bigint;
+begin
+  if p_od is null or p_komu is null or p_od = p_komu or p_od !~ '^[a-z0-9-]{1,40}$' or p_komu !~ '^[a-z0-9-]{1,40}$' or char_length(coalesce(p_n, '')) not between 1 and 80 then
+    raise exception 'neplatný dar';
+  end if;
+  if not public.mm_hrac_ok(p_od, p_token) then raise exception 'karta je chráněná heslem – přihlas se' using errcode = '42501'; end if;
+  insert into public.karty (id, stav) values (p_od, '{}'::jsonb), (p_komu, '{}'::jsonb) on conflict (id) do nothing;
+  perform 1 from public.karty where id in (p_od, p_komu) order by id for update;
+  select coalesce(karta ->> 'n', id) into kn_od from public.karty where id = p_od;
+  select coalesce(karta ->> 'n', id) into kn_komu from public.karty where id = p_komu;
+  r := public.mm_inv_uber(public.mm_inv(p_od), p_n, p_q);
+  update public.karty set stav = jsonb_set(stav, '{inv}', r -> 'inv'), verze = verze + 1, zmeneno = now() where id = p_od;
+  update public.karty set stav = jsonb_set(stav, '{inv}', public.mm_inv_pridej(public.mm_inv(p_komu, p_zaklad), r -> 'vec')), verze = verze + 1, zmeneno = now() where id = p_komu returning verze into v;
+  insert into public.hody (data) values (jsonb_build_object('k', p_od, 'kdo', kn_od, 'co', 'Dar', 'txt', format('%s ×%s → %s', p_n, p_q, kn_komu))),
+    (jsonb_build_object('k', p_komu, 'kdo', kn_komu, 'co', 'Dar', 'txt', format('%s ×%s od %s', p_n, p_q, kn_od)));
+  return v;
+end $$;
+-- věci v pokladně družiny (stav.veci): p_smer 1 vloží (z karty p_karta, vypravěč i bez karty – kořist), −1 vybere (na kartu p_karta)
+create or replace function public.mm_pokladna_vec(p_vec jsonb, p_smer int, p_karta text default null, p_token text default null, p_zaklad jsonb default null) returns jsonb
+language plpgsql security definer set search_path = public as $$
+declare st jsonb; veci jsonb; r jsonb; vec jsonb; kdo text := 'Vypravěč'; n text := p_vec ->> 'n'; q int;
+begin
+  if not public.mm_je_gm() then
+    if p_karta is null or not public.mm_karta_chranena(p_karta) or not public.mm_hrac_ok(p_karta, p_token) then
+      raise exception 'pokladnu mění jen přihlášený hráč nebo vypravěč' using errcode = '42501';
+    end if;
+  end if;
+  if p_smer not in (1, -1) or jsonb_typeof(coalesce(p_vec, 'null'::jsonb)) <> 'object' or char_length(coalesce(n, '')) not between 1 and 80
+     or jsonb_typeof(p_vec -> 'q') is distinct from 'number' or not public.mm_cislo(p_vec -> 'q', 1, 9999) then
+    raise exception 'neplatná věc';
+  end if;
+  q := (p_vec ->> 'q')::int;
+  if p_karta is not null then
+    if p_karta !~ '^[a-z0-9-]{1,40}$' then raise exception 'neplatná karta'; end if;
+    insert into public.karty (id, stav) values (p_karta, '{}'::jsonb) on conflict (id) do nothing;
+    perform 1 from public.karty where id = p_karta for update;
+    select coalesce(karta ->> 'n', p_karta) into kdo from public.karty where id = p_karta;
+  end if;
+  select hodnota into st from public.nastaveni where klic = 'pokladna' for update;
+  st := coalesce(st, '{}'::jsonb); veci := coalesce(st -> 'veci', '[]'::jsonb);
+  if p_smer = 1 then
+    if p_karta is not null then
+      r := public.mm_inv_uber(public.mm_inv(p_karta, p_zaklad), n, q); vec := r -> 'vec';
+      update public.karty set stav = jsonb_set(stav, '{inv}', r -> 'inv'), verze = verze + 1, zmeneno = now() where id = p_karta;
+    else
+      if not public.mm_vec_ok(p_vec) then raise exception 'neplatná věc'; end if;
+      vec := p_vec;
+    end if;
+    veci := public.mm_inv_pridej(veci, vec);
+  else
+    r := public.mm_inv_uber(veci, n, q); veci := r -> 'inv'; vec := r -> 'vec';
+    if p_karta is not null then
+      update public.karty set stav = jsonb_set(stav, '{inv}', public.mm_inv_pridej(public.mm_inv(p_karta, p_zaklad), vec)), verze = verze + 1, zmeneno = now() where id = p_karta;
+    end if;
+  end if;
+  if jsonb_array_length(veci) > 200 then raise exception 'pokladna je plná'; end if;
+  st := st || jsonb_build_object('veci', veci, 'log', (select coalesce(jsonb_agg(x), '[]'::jsonb) from (select x from jsonb_array_elements(
+      jsonb_build_array(jsonb_build_object('cas', now(), 'kdo', kdo, 'vec', format('%s%s ×%s', case when p_smer = 1 then '+' else '−' end, n, q))) || coalesce(st -> 'log', '[]'::jsonb)) x limit 60) q));
+  insert into public.nastaveni (klic, hodnota, zmeneno) values ('pokladna', st, now()) on conflict (klic) do update set hodnota = excluded.hodnota, zmeneno = now();
+  return st;
+end $$;
+revoke all on function public.mm_inv(text, jsonb), public.mm_inv_uber(jsonb, text, int), public.mm_inv_pridej(jsonb, jsonb), public.mm_vec_ok(jsonb) from public, anon, authenticated;
+grant execute on function public.mm_karta_dar(text, text, text, int, text, jsonb), public.mm_pokladna_vec(jsonb, int, text, text, jsonb) to anon, authenticated;
 
 -- léčení spojence (2026-10-17): hráč za svou postavu (p_od) vyléčí jinou kartu – přičte životy do maxima (posílá ho klient,
 -- pravidla postavy počítá prohlížeč); umírající postavu v běžícím boji stabilizuje (Artikule: do konce boje mimo hru)

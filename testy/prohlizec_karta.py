@@ -163,7 +163,7 @@ async def main():
     await pl.click('.mmpop [data-ktxh]');await pl.wait_for_timeout(800);await pl.evaluate("mmPopX()")
     chk(hody()[0].get("co")=="Test Rys","hod z textu schopnosti v herním záznamu")
     # vybavení z nabídky: zbraň se zvolí a počítá jako útok, zbroj se oblékne, magická zbraň dostane bonus
-    await pl.evaluate("predNacti()");await pl.wait_for_timeout(800);await pl.keyboard.press('Escape');await pl.click('.bdmtabs [data-bdmsec="vyb"]');await pl.click('.bdmvse > summary');await pl.click('.kpool summary')
+    await pl.evaluate("predNacti()");await pl.wait_for_timeout(800);await pl.keyboard.press('Escape');await pl.click('.bdmtabs [data-bdmsec="vyb"]');await pl.click('.kvadd > summary');await pl.click('.kpool summary')
     L=await pl.evaluate("Object.keys(kPool())")
     async def pridej(pref,sel=None):
         lab=[l for l in L if l.startswith(pref)][0];await pl.fill('[data-kpoolq]',lab);await pl.dispatch_event('[data-kpoolq]','input')
@@ -176,6 +176,55 @@ async def main():
     await pridej("Weapon, +2 ",{"zakl":"Rapier"})
     chk(await pl.evaluate("(()=>{const U=kUtoky(KARTBY.balduin),a=U.find(x=>x.n==='Rapier +2');return !!a&&a.z.endsWith('+6')})()"),"magická zbraň +2 z nabídky: útok i zranění s bonusem")
     await pl.evaluate("kartaStavZmen('balduin',{inv:null},null,{bezZpet:true});delete KZBRV.balduin;kZbrvUloz()");await pl.wait_for_timeout(500)
+    # Vybavení (2026-10-19): skupiny, list věci, přejmenování a poznámka, sloučení, peníze, dar, pokladna, vrh
+    inv0=[{"n":"Dagger","q":1,"w":"1 lb."},{"n":"dagger","q":2},{"n":"Holy Water (flask)","q":2},{"n":"Rope, Hempen (50 feet)","q":1},{"n":"Breastplate","q":1,"obl":True},{"n":"Ruby","q":1}]
+    await pl.evaluate("kartaStavZmen('balduin',"+json.dumps({"inv":inv0,"pen":{"GP":10,"SP":3}})+",null,{bezZpet:true})");await pl.wait_for_timeout(700)
+    await pl.keyboard.press('Escape');await pl.click('.bdmtabs [data-bdmsec="vyb"]');await pl.wait_for_timeout(400)
+    sk=await pl.evaluate("[...document.querySelectorAll('.bdm [data-kvsk]')].map(d=>d.dataset.kvsk)")
+    chk(sk==["boj","spo","cen","vys"],"vybavení ve skupinách (zbraně a zbroj, spotřební, cennosti, výstroj): "+str(sk))
+    chk(await pl.evaluate("!document.querySelector('.bdm [data-kvsk=\"vys\"]').open"),"výstroj je sbalená")
+    chk(await pl.locator('.bdm [data-kvslouc]').count()==1,"nabídka sloučit stejné (Dagger, dagger)")
+    await pl.click('.bdm [data-kvslouc]');await pl.wait_for_timeout(800)
+    dg=[x for x in (stav().get("inv") or []) if x["n"].lower()=="dagger"];chk(len(dg)==1 and dg[0]["q"]==3,"sloučení: jedna dýka ×3 "+str(dg))
+    i=await pl.evaluate("kInv(KARTBY.balduin).findIndex(x=>x.n==='Ruby')")
+    await pl.click(f'.bdm .kvrb[data-i="{i}"]');await pl.wait_for_selector(".bdmlist [data-kvnaz]",timeout=5000)
+    await pl.fill(".bdmlist [data-kvnaz]","Rubín z kaple");await pl.locator(".bdmlist [data-kvnaz]").press("Tab");await pl.wait_for_timeout(700)
+    await pl.fill(".bdmlist [data-kvpozn]","od opata");await pl.locator(".bdmlist [data-kvpozn]").press("Tab");await pl.wait_for_timeout(700)
+    r=[x for x in (stav().get("inv") or []) if x["n"]=="Rubín z kaple"];chk(r and r[0].get("pozn")=="od opata","přejmenování a poznámka u věci")
+    # vrh mimo boj: svěcená voda ubude, hod v záznamu
+    await pl.keyboard.press('Escape');i=await pl.evaluate("kInv(KARTBY.balduin).findIndex(x=>/Holy Water/.test(x.n))")
+    await pl.evaluate("if(BOJ.s)BOJ.s.aktivni=false");await pl.click(f'.bdm .kvrb[data-i="{i}"]');await pl.wait_for_selector(".bdmlist [data-kvhod]",timeout=5000);await pl.click(".bdmlist [data-kvhod]");await pl.wait_for_timeout(800)
+    chk([x for x in stav()["inv"] if "Holy Water" in x["n"]][0]["q"]==1 and await pl.evaluate("HODY.some(h=>h.k==='balduin'&&/Holy Water/.test(h.co)&&/2d8/.test(h.txt))"),"hod svěcenou vodou: ubude kus, zranění 2d8 Radiant v záznamu "+str([x for x in stav()["inv"] if "Holy" in x["n"]])+str(await pl.evaluate("HODY.slice(0,2).map(h=>h.co+'|'+h.txt)"))+str(perr[-2:]))
+    # peníze: zaplatit s rozměněním, přijmout
+    await pl.keyboard.press('Escape');await pl.click('.bdm [data-bdmsh="pen"]');await pl.wait_for_selector(".bdmlist [data-kvpenf]",timeout=5000)
+    await pl.fill(".bdmlist [data-kvpenf] [name=v]","5");await pl.select_option(".bdmlist [data-kvpenf] [name=k]","SP");await pl.click('.bdmlist [data-kvpenf] button[value="z"]');await pl.wait_for_timeout(800)
+    chk(stav().get("pen")=={"GP":9,"SP":8},"zaplatit 5 SP z 3 SP a GP: rozmění 1 GP → 9 GP 8 SP "+str(stav().get("pen")))
+    await pl.fill(".bdmlist [data-kvpenf] [name=v]","2");await pl.select_option(".bdmlist [data-kvpenf] [name=k]","GP");await pl.click('.bdmlist [data-kvpenf] button[value="p"]');await pl.wait_for_timeout(800)
+    chk(stav().get("pen")=={"GP":11,"SP":8},"přijmout 2 GP "+str(stav().get("pen")))
+    # dar spolubojovníkovi a pokladna družiny
+    import subprocess
+    subprocess.run(os.environ.get("MM_PSQL","psql").split()+["-q","-d",os.environ.get("MM_DB","mm_testy"),"-c","insert into public.karty (id, karta) values ('zbynek', '{\"n\":\"Zbyněk\",\"id\":\"zbynek\"}') on conflict (id) do nothing"],capture_output=True)
+    await pl.evaluate("kartyNacti(true)");await pl.wait_for_timeout(1200)
+    await pl.keyboard.press('Escape');i=await pl.evaluate("kInv(KARTBY.balduin).findIndex(x=>x.n.toLowerCase()==='dagger')")
+    await pl.click(f'.bdm .kvrb[data-i="{i}"]');await pl.wait_for_selector(".bdmlist [data-kvkomu]",timeout=5000)
+    await pl.fill(".bdmlist [data-kvpq]","2");await pl.select_option(".bdmlist [data-kvkomu]","zbynek");await pl.click(".bdmlist [data-kvdar]");await pl.wait_for_timeout(1500)
+    zi=stav("zbynek").get("inv") or [];bi=stav().get("inv") or []
+    chk(any(x["n"].lower()=="dagger" and x["q"]>=2 for x in zi) and [x for x in bi if x["n"].lower()=="dagger"][0]["q"]==1,"dar: 2 dýky přejdou Zbyňkovi, Balduinovi zbude 1 "+str(zi)[:300]+str(bi)[:300]+str(await pl.evaluate("[...document.querySelectorAll('.mmhlas')].map(x=>x.textContent).join('|')")))
+    i=await pl.evaluate("kInv(KARTBY.balduin).findIndex(x=>x.n==='Rubín z kaple')")
+    await pl.click(f'.bdm .kvrb[data-i="{i}"]');await pl.wait_for_selector(".bdmlist [data-kvnaz]",timeout=5000)
+    chk(await pl.locator(".bdmlist [data-kvpokl]").count()==0,"pokladna družiny jen pro přihlášeného hráče (nepřihlášený ji nenabízí)")
+    # pokladna – věci: vypravěč vloží kořist, vydá ji Balduinovi (karta bez záznamu v databázi: výchozí vybavení pošle prohlížeč)
+    gt=json.loads(urllib.request.urlopen(urllib.request.Request(U+"/auth/v1/token?grant_type=password",data=json.dumps({"email":"gm@x.cz","password":"heslo"}).encode(),headers={"apikey":K,"Content-Type":"application/json"},method="POST")).read())["access_token"]
+    def rpcg(fn,body):
+        return json.loads(urllib.request.urlopen(urllib.request.Request(U+"/rest/v1/rpc/"+fn,data=json.dumps(body).encode(),headers={"apikey":K,"Content-Type":"application/json","Authorization":"Bearer "+gt},method="POST")).read() or b"null")
+    st=rpcg("mm_pokladna_vec",{"p_vec":{"n":"Stříbrný kalich","q":2},"p_smer":1})
+    chk(any(v["n"]=="Stříbrný kalich" and v["q"]==2 for v in st.get("veci",[])),"vypravěč vloží kořist do pokladny")
+    st=rpcg("mm_pokladna_vec",{"p_vec":{"n":"Stříbrný kalich","q":1},"p_smer":-1,"p_karta":"balduin"})
+    await pl.evaluate("kartyNacti(true)");await pl.wait_for_timeout(800)
+    chk(any(v["n"]=="Stříbrný kalich" and v["q"]==1 for v in st.get("veci",[])) and any(x["n"]=="Stříbrný kalich" for x in (stav().get("inv") or [])),"věc z pokladny na kartu, v pokladně zbude 1")
+    rpcg("mm_pokladna_vec",{"p_vec":{"n":"Stříbrný kalich","q":1},"p_smer":-1})
+    subprocess.run(os.environ.get("MM_PSQL","psql").split()+["-q","-d",os.environ.get("MM_DB","mm_testy"),"-c","delete from public.karty where id = 'zbynek'"],capture_output=True)
+    await pl.evaluate("kartaStavZmen('balduin',{inv:null,pen:null},null,{bezZpet:true}).then(()=>kartyNacti(true))");await pl.wait_for_timeout(800)
     # vlastnosti zbraně podle Artikulí nastavené hráčem (Šikovná s volbou typu zranění)
     await pl.keyboard.press('Escape');await pl.click('.bdmtabs [data-bdmsec="akce"]');await pl.wait_for_timeout(300)
     wn=await pl.evaluate("kUtoky(KARTBY.balduin).find(a=>!/eldritch|unarmed|beze/i.test(a.n)).n")

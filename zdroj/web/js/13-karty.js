@@ -258,7 +258,7 @@ document.addEventListener("change",async e=>{const v=e.target.closest&&e.target.
   if(t.matches("[data-kinsp]")){kartaStavZmen(K.id,{insp:t.checked||null});return}
   if(t.matches("[data-kpen]")){const S=kartaStav(K.id),pen=Object.assign({},S.pen||K.penize||{});pen[t.dataset.kpen]=Math.max(0,Math.min(9999999,Math.round(+t.value||0)));kartaStavZmen(K.id,{pen});return}});
 document.addEventListener("submit",e=>{if(!e.target.matches||!e.target.matches("#kartyview [data-kinvf],#hraview [data-kinvf],.bdm [data-kinvf]"))return;e.preventDefault();const K=kvK(e.target);if(!K)return;
-  const f=e.target.elements,n=f.n.value.trim().slice(0,80);if(!n)return;const inv=[...(kartaStav(K.id).inv||K.vybaveni||[])].map(x=>Object.assign({},x));inv.push({n,q:Math.max(1,Math.min(9999,Math.round(+f.q.value||1)))});kartaStavZmen(K.id,{inv})});
+  const f=e.target.elements,n=f.n.value.trim().slice(0,80);if(!n)return;const inv=[...(kartaStav(K.id).inv||K.vybaveni||[])].map(x=>Object.assign({},x));const q=Math.max(1,Math.min(9999,Math.round(+f.q.value||1))),st=inv.find(x=>!x.v&&String(x.n).toLowerCase().trim()===n.toLowerCase());if(st)st.q=Math.min(9999,(+st.q||0)+q);else inv.push({n,q});kartaStavZmen(K.id,{inv},st?`${st.n}: teď ${st.q} ks.`:null);e.target.reset()});
 document.addEventListener("click",async e=>{const v=e.target.closest&&e.target.closest("#kartyview,#hraview,.bjapanel,.bhkb");if(!v)return;const T=s=>e.target.closest(s),id=decodeURIComponent((location.hash.split("/")[1])||""),K=kvK(e.target);
   if(T("[data-kimpok]")&&KIMP){try{const i=await kartaUlozImport(KIMP);KIMP=null;navTo("#karty/"+i);mmHlasG("Karta uložena.",3000)}catch(err){mmHlasG("Uložení se nepodařilo: "+(err.message||err),6000)}return}
   if(T("[data-kimpx]")){KIMP=null;renderKarty("");return}

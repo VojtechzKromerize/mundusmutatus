@@ -3227,3 +3227,22 @@ button.btedch{cursor:pointer}button.btedch:hover{border-color:var(--gold,#b08d3a
 :root[data-theme="dark"] .bted{background:rgba(0,0,0,.25)}:root[data-theme="dark"] .btedch{background:rgba(255,255,255,.06)}:root[data-theme="dark"] .btedtah{background:rgba(176,141,58,.18)}
 /* společník hráče v boji */
 .kspolboj{display:flex;flex-wrap:wrap;gap:.35rem;align-items:center;margin:.3rem 0}.kspolvb{border-color:var(--gold)}
+/* Vybavení (2026-10-19): skupiny, řádek věci na klepnutí, list věci, peníze */
+.kvhl{display:flex;flex-wrap:wrap;gap:.4rem .9rem;align-items:baseline}
+.kvpenb{background:none;border:1px solid var(--rule);border-radius:.5rem;padding:.15rem .5rem;font:inherit;color:inherit;cursor:pointer}
+.kvhl2{display:flex;gap:.4rem;align-items:center;margin:.4rem 0}.kvhq{flex:1;min-width:0}
+.kvsk{margin:.35rem 0;border-bottom:1px solid var(--rule)}.kvsk>summary{cursor:pointer;padding:.3rem 0;list-style-position:inside}.kvsk>summary small{color:var(--muted);margin-left:.3em}
+.kvseznam{list-style:none;margin:0;padding:0}
+.kvr{display:flex;align-items:center;gap:.35rem;padding:.12rem 0;border-top:1px dotted var(--rule)}
+.kvrb{flex:1;min-width:0;display:flex;flex-wrap:wrap;align-items:baseline;gap:.25rem .4rem;background:none;border:0;padding:.35rem 0;text-align:left;font:inherit;color:inherit;cursor:pointer}
+.kvrn{font-weight:500}.kvq{font-weight:700}.kvrb .kvq{color:var(--gold)}
+.kvtg{font-style:normal;font-size:.78em;padding:0 .35em;border:1px solid var(--rule);border-radius:.6em;color:var(--muted)}
+.kvtg.kvon{border-color:var(--gold);color:var(--gold)}.kvtg.kvpri{border-color:var(--gold);color:var(--gold)}
+.kvsek{margin:.6rem 0;padding-top:.4rem;border-top:1px solid var(--rule)}
+.kvlab{display:flex;flex-direction:column;gap:.15rem;margin:.3rem 0;font-size:.9em}.kvlab input,.kvlab textarea,.kvlab select{font:inherit}
+.kvlabr{flex-direction:row;align-items:center;gap:.4rem;margin:0}
+.kvakce{flex-wrap:wrap;gap:.35rem}.kvx{margin-left:auto}
+.kvpozn{white-space:pre-wrap;font-style:italic}
+.kvpen{font-size:1.15em;font-weight:600;margin:.2rem 0 .5rem}.kvpenf{flex-wrap:wrap;gap:.35rem}
+.kvpzw{display:flex;flex-wrap:wrap;gap:.35rem}.kvpz{display:inline-flex;align-items:center;gap:.25rem;border:1px solid var(--rule);border-radius:.6rem;padding:.1rem .35rem}
+.kpokv{margin-top:.5rem}

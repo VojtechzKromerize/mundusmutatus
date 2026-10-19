@@ -38,6 +38,7 @@ JS = [
     ("12-boj-tah-postavy.js", "/* ===== automatizace tahu:"),
     ("13-karty.js", "/* ===== Karty postav: import listu z PDF"),
     ("14-karty-bojova-karta.js", "/* ===== Karta: vybavení z nabídky"),
+    ("14b-vybaveni.js", "/* ===== Vybavení (2026-10-19)"),
     ("15-karty-artikule.js", "/* ===== Karta postavy podle Artikulí"),
     ("16-srd-ukazky-sezeni-hrac.js", "/* ===== SRD 5.2.1: magické předměty"),
     ("17-karty-ii.js", "/* ===== Karta postavy II"),

@@ -466,6 +466,8 @@ window.MMDB={vetev:C.vetev,
   kartaTextyUloz(id,t){return rpc("mm_karta_texty_uloz",{p_id:id,p_texty:t,p_token:htok()})},
   pokladnaNacti(){return api("/rest/v1/rpc/mm_pokladna_nacti",{method:"POST",body:"{}"})},
   pokladna(z,p,k){return rpc("mm_pokladna",{p_zmena:z,p_pozn:p||null,p_karta:k||null,p_token:htok()})},
+  pokladnaVec(v,smer,k,zakl){return rpc("mm_pokladna_vec",{p_vec:v,p_smer:smer,p_karta:k||null,p_token:htok(),p_zaklad:zakl||null})},
+  kartaDar(od,komu,n,q,zakl){return rpc("mm_karta_dar",{p_od:od,p_komu:komu,p_n:n,p_q:q,p_token:htok(),p_zaklad:zakl||null})},
   discordNastav(u){return this.gm("mm_discord_nastav",{p_url:u||null})},
   discordStav(){return this.gm("mm_discord_stav")},
   async discordPrikazy(){const t=await token();if(!t)throw new Error("Přihlášení vypršelo – přihlaste se znovu.");const r=await fetch(`${C.url}/functions/v1/mm-discord?registrace`,{method:"POST",headers:{apikey:C.key,Authorization:"Bearer "+t}});let j={};try{j=await r.json()}catch(e){}if(!r.ok||!j.ok)throw new Error(j.chyba||("služba Discordu: "+r.status));return true},
@@ -550,6 +552,7 @@ const hraAkt=()=>api("/rest/v1/rpc/mm_hra",{method:"POST",body:"{}"}).then(h=>h&
 /*@vloz web/js/12-boj-tah-postavy.js*/
 /*@vloz web/js/13-karty.js*/
 /*@vloz web/js/14-karty-bojova-karta.js*/
+/*@vloz web/js/14b-vybaveni.js*/
 /*@vloz web/js/15-karty-artikule.js*/
 /*@vloz web/js/16-srd-ukazky-sezeni-hrac.js*/
 /*@vloz web/js/17-karty-ii.js*/
