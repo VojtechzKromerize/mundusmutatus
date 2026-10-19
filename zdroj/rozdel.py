@@ -45,6 +45,7 @@ JS = [
     ("22-vyprava.js", "/* ===== VÝPRAVA: cesta družiny"),
     ("23-potvrzovani.js", "/* ===== Potvrzování akcí hráčů"),
     ("24-boj-zaznam.js", "/* ===== Boj: herní záznam ve třetím sloupci"),
+    ("25-puls.js", "/* ===== Puls: jeden dotaz"),
 ]
 CSS = "styly.css"
 

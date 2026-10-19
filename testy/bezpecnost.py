@@ -24,6 +24,8 @@ for kdo, tok in (("anonym", None), ("hráč", hr)):
         chk(prazdne(r) or not ok(r[0]), f"{kdo} nečte tabulku {t}")
     chk(call("/rest/v1/snimek?select=verze", tok=tok)[0] == 200, f"{kdo} čte veřejný výřez")
     chk(call("/rest/v1/boj?select=verze", tok=tok)[0] == 200, f"{kdo} čte tracker iniciativy")
+    chk(ok(call("/rest/v1/rpc/mm_puls", "POST", {}, tok=tok)[0]) and ok(call("/rest/v1/rpc/mm_hra", "POST", {}, tok=tok)[0]), f"{kdo} čte puls a herní stav")
+    chk(not ok(call("/rest/v1/puls", "POST", {"druh": "boj"}, tok=tok)[0]), f"{kdo} nesmí zapisovat do pulsu")
     for t in ("karty", "hody", "vyzvy", "ukazky", "navrhy"):
         chk(call(f"/rest/v1/{t}?select=id&limit=1", tok=tok)[0] == 200, f"{kdo} čte veřejnou tabulku {t}")
     s, b = call("/rest/v1/rpc/mm_stavy", "POST", {}, tok=tok)

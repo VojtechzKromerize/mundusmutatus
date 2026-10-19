@@ -308,8 +308,8 @@ if(window.MMDB)kartyNacti().then(ch=>{if(ch&&curView==="boj")renderBoj()});
 setTimeout(()=>{try{ukStart()}catch(e){}try{hraStart()}catch(e){}},1500);
 /* karty a herní záznam se obnovují, když je stránka otevřená (nepřekreslí se, když hráč zrovna píše) */
 let KPOLL=null;
-function kartyStart(){if(KPOLL)return;KPOLL=setInterval(async()=>{if(document.visibilityState!=="visible"||curView!=="karty")return;const a=await kartyNacti(),b=await hodyNacti();
-  const ae=document.activeElement,pise=ae&&document.getElementById("kartyview").contains(ae)&&ae.matches("input,select,textarea");if((a||b)&&!pise)renderKarty(decodeURIComponent((location.hash.split("/")[1])||""))},4000)}
+/* obnovu karet a hodů obstarává puls (25-puls.js): jeden dotaz na všechno, s Realtime žádný */
+function kartyStart(){if(KPOLL)return;KPOLL=true;if(window.MMDB)pulsStart()}
 /* ===== Karta: úprava posledního hodu, kostky v textech schopností, Zpět, spodní lišta na telefonu (2026-10-17) ===== */
 /* ---- úprava hodu d20 po hodu: Bless / Guidance +1d4, Bane −1d4, Bardic Inspiration, přehození za hrdinskou inspiraci, Lucky ---- */
 const KPOSL={};let KBARD=(()=>{try{return +localStorage.getItem("mm-bard")||6}catch(e){return 6}})();

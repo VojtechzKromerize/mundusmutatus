@@ -54,6 +54,9 @@ async def main():
     await g.fill("#gmhra input[name=misto]","Praha");await g.select_option("#gmhra select[name=praha]","16");await g.click("#gmhra button[type=submit]");await g.wait_for_timeout(700)
     await pg.reload();await pg.wait_for_function("!document.documentElement.classList.contains('mmload')")
     chk(await pg.evaluate("pParty()&&pParty().druzina===16"),"družina na plánu Prahy (místo 16)")
+    # změna herního času se hráči pošle sama (puls), stránka se mu nepřenačte
+    await pg.evaluate("window.__beznacteni=1");await g.evaluate("hraUloz({hodina:7,$bezZpet:true})");await pg.wait_for_timeout(11000)
+    chk(await pg.evaluate("window.__beznacteni===1&&HRA.hodina===7"),"hráč dostane nový čas bez přenačtení stránky: "+str(await pg.evaluate("[window.__beznacteni,HRA&&HRA.hodina]")))
     await pg.screenshot(path=os.path.join(VYSTUP,"uvod-a.png"))
     chk(not errs and not gerr,"bez chyb JS "+str((errs+gerr)[:2]))
     await b.close()

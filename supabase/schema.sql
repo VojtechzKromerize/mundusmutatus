@@ -376,7 +376,7 @@ begin
   end if;
   insert into public.nastaveni (klic, hodnota, zmeneno) values ('hra', nova, now())
   on conflict (klic) do update set hodnota = excluded.hodnota, zmeneno = now();
-  perform public.mm_prepocitej(null);
+  -- výřez se nepřepočítává: hráči si herní stav načtou přes mm_hra, když jim puls ohlásí změnu (stránka se jim nepřenačte)
   return nova;
 end $$;
 
@@ -1340,6 +1340,64 @@ grant execute on function public.mm_potvrz() to anon, authenticated;
 revoke all on function public.mm_potvrz_nastav(jsonb) from anon;
 grant execute on function public.mm_potvrz_nastav(jsonb) to authenticated;
 
+-- puls (2026-10-19): co se kde změnilo – jen druh a pořadové číslo, žádný obsah. Telefony se ptají jedním dotazem
+-- (mm_puls) místo šesti, a s Realtime se neptají vůbec: nový řádek přijde sám. Jen vkládání, takže zápisy na sebe nečekají.
+create table if not exists public.puls (
+  id   bigserial primary key,
+  druh text not null,
+  cas  timestamptz not null default now()
+);
+create index if not exists puls_druh on public.puls (druh, id desc);
+alter table public.puls enable row level security;
+drop policy if exists "puls: čte každý" on public.puls;
+create policy "puls: čte každý" on public.puls for select to anon, authenticated using (true);
+revoke insert, update, delete, truncate on public.puls from anon, authenticated;
+grant select on public.puls to anon, authenticated;
+
+create or replace function public.mm_puls_tg() returns trigger
+language plpgsql security definer set search_path = public as $$
+declare
+  d text := tg_argv[0];
+begin
+  if tg_level = 'ROW' then
+    -- nastavení: jen klíče, které čtou hráči (herní stav, potvrzování, pokladna)
+    d := case when tg_op = 'DELETE' then old.klic else new.klic end;
+    if d not in ('hra', 'potvrz', 'pokladna') then return null; end if;
+    if tg_op = 'UPDATE' and old.hodnota is not distinct from new.hodnota then return null; end if;
+  end if;
+  insert into public.puls (druh) values (d);
+  if random() < 0.02 then
+    delete from public.puls p
+     where p.id < (select max(id) - 2000 from public.puls)
+       and p.id not in (select max(id) from public.puls group by druh);
+  end if;
+  return null;
+end $$;
+revoke all on function public.mm_puls_tg() from public, anon, authenticated;
+do $$
+declare
+  t text;
+begin
+  foreach t in array array['karty', 'hody', 'vyzvy', 'zpravy', 'ukazky', 'navrhy', 'boj', 'snimek'] loop
+    execute format('drop trigger if exists mm_puls on public.%I', t);
+    execute format('create trigger mm_puls after insert or update or delete on public.%I for each statement execute function public.mm_puls_tg(%L)', t, t);
+  end loop;
+end $$;
+drop trigger if exists mm_puls on public.nastaveni;
+create trigger mm_puls after insert or update or delete on public.nastaveni for each row execute function public.mm_puls_tg('nastaveni');
+
+create or replace function public.mm_puls() returns jsonb
+language sql stable security definer set search_path = public as $$
+  select coalesce(jsonb_object_agg(druh, m), '{}'::jsonb) from (select druh, max(id) as m from public.puls group by druh) q
+$$;
+-- herní stav zvlášť: změna času či polohy družiny se hráčům pošle sama, bez přepočtu výřezu a přenačtení stránky
+create or replace function public.mm_hra() returns jsonb
+language sql stable security definer set search_path = public as $$
+  select hodnota from public.nastaveni where klic = 'hra'
+$$;
+revoke all on function public.mm_puls(), public.mm_hra() from public;
+grant execute on function public.mm_puls(), public.mm_hra() to anon, authenticated;
+
 -- časová osa sezení: záznam změn karet (po polích, bez vypočtených bonusů), boje a herního stavu
 create or replace function public.mm_zmeny_karty() returns trigger
 language plpgsql security definer set search_path = public as $$
@@ -1807,6 +1865,10 @@ begin
   if exists (select 1 from pg_publication where pubname = 'supabase_realtime')
      and not exists (select 1 from pg_publication_tables where pubname = 'supabase_realtime' and schemaname = 'public' and tablename = 'boj') then
     execute 'alter publication supabase_realtime add table public.boj';
+  end if;
+  if exists (select 1 from pg_publication where pubname = 'supabase_realtime')
+     and not exists (select 1 from pg_publication_tables where pubname = 'supabase_realtime' and schemaname = 'public' and tablename = 'puls') then
+    execute 'alter publication supabase_realtime add table public.puls';
   end if;
 end $$;
 

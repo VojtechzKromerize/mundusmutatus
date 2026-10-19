@@ -296,7 +296,7 @@ const BKOSTRA=`<div class="bojakt bojgm"><div data-bk="hor"></div><div data-bk="
 const bojJaNeprihl=()=>`<span class="rsmall bjanep">Nejsi přihlášený za postavu. Na stránce <a href="#hra">Hra</a> se přihlas a zvol svou postavu – pak se tu objeví tvoje bojová karta.</span>`;
 /* záznam se u hráče i vypravěče obnovuje: hody z karet (i hody hráčů z telefonu) každé 4 s, dokud je Boj otevřený */
 let BGLP=null;
-function bojGlogPoll(){if(BGLP)return;hodyNacti().then(ch=>{if(ch&&curView==="boj")renderBoj()}).catch(()=>{});BGLP=setInterval(async()=>{if(curView!=="boj"||document.visibilityState!=="visible")return;try{if(await hodyNacti())renderBoj()}catch(e){}},4000)}
+function bojGlogPoll(){if(BGLP)return;BGLP=true;hodyNacti().then(ch=>{if(ch&&curView==="boj")renderBoj()}).catch(()=>{})}
 const BKOSTRA_H=`<div class="bojakt bojhrac"><div data-bk="hor"></div><div data-bk="head"></div><div data-bk="osa"></div><div data-bk="plos"></div><div data-bk="tabs"></div>
   <div class="bojcols"><section class="bcol bcolk bjamain" data-bcol="k" aria-label="Moje karta"><div data-bk="ja"></div></section>
   <section class="bcol bcolu bjaside" data-bcol="u" aria-label="Účastníci boje"><div class="bstrana bsn"><div data-bk="obt"></div><div data-bkl="npc"></div><div data-bk="addn"></div></div>
@@ -362,10 +362,8 @@ async function bojWake(){const chci=!GMV&&!!(BOJ.s&&BOJ.s.aktivni)&&curView==="b
   else if(!chci&&BWL.l){const l=BWL.l;BWL.l=null;try{await l.release()}catch(e){}}}
 document.addEventListener("visibilitychange",()=>{bojWake()});addEventListener("hashchange",()=>setTimeout(bojWake,50));
 function bojStart(){
-  bojRealtime();if(BOJ.poll)return;
-  BOJ.poll=setInterval(async()=>{if(document.visibilityState!=="visible"||curView!=="boj")return;bojRealtime();
-    if(((BOJ.s&&BOJ.s.hraci)||[]).some(h=>bojKartaH(h))&&await kartyNacti())renderBoj();
-    if(BRT.ok&&Date.now()-(BOJ.lp||0)<60000)return;if(await bojPoll())renderBoj()},2500);
+  /* boj, karty i hody hlídá puls (25-puls.js); na stránce Boj se bez Realtime ptá častěji */
+  if(BOJ.poll)return;BOJ.poll=true;pulsStart();
 }
 document.addEventListener("change",e=>{const t=e.target;if(t.matches&&t.matches("input[data-ju]")&&/^(hod|d)$/.test(t.dataset.ju)&&curView==="boj"){BJU[t.dataset.ju]=t.value;renderBoj()}});
 const bojJaZas=(c,hod,d,krit)=>!c||c.ac==null||hod===""||hod==null||isNaN(+hod)?null:krit?"kritický zásah":+d===1?"vedle":+hod>=c.ac?"zásah":"vedle";
@@ -655,7 +653,7 @@ document.addEventListener("click",async e=>{
   if(T("[data-bbes]")){bojZmen(s=>{let h=(s.npc||[]).find(x=>x.b==="houf-besu"&&!bojSpoj(x));if(h){h.pocet=(h.pocet||0)+1;h.max=Math.max(h.max||0,h.pocet)}else bojPridejNpc(s,[{n:"Běsi",druh:"houf",pocet:1,b:PROTBY["houf-besu"]?"houf-besu":"",pr:[]}])});mmHlasG("Ze Závoje se zhmotnil běs.");return}
   const zi=T("[data-bzdi]");if(zi){const zd=zi.closest("[data-bzd]"),nm=zd.dataset.bzd,j=+zi.dataset.bzdi,o=bojZdr.get(),u=(o[id]=o[id]||{});u[nm]=(u[nm]||0)>j?j:j+1;bojZdr.set(o);renderBoj();return}
 });
-if(bojDB){bojNacti().then(()=>bojNav());if(!GMV&&window.MMDB)setInterval(async()=>{if(document.visibilityState==="visible"&&curView!=="boj"){await bojPoll();bojNav()}},20000)}
+if(bojDB){bojNacti().then(()=>bojNav())}
 
 /* útok nepřítele z karty (i po volbě typu zranění u Šikovné zbraně) */
 function bojUtokKlik(o0,ai){const id=o0.id;if(BJR[id]){if(((BOJ.s||{}).reak||{})[id])mmHlasG(`${o0.n}: reakce už byla v tomto kole použita.`,3500);else bojZmen(z=>{(z.reak=z.reak||{})[id]=1});delete BJR[id]}

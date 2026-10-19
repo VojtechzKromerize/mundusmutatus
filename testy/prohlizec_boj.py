@@ -126,10 +126,10 @@ async def main():
     await g.evaluate(f"window.__karta=document.querySelector('[data-bnpc=\"{rid}\"]')")
     await g.click(f'[data-bnpc="{hid}"] [data-bpoc="1"]');await g.wait_for_timeout(400)
     chk(await g.evaluate(f"window.__karta===document.querySelector('[data-bnpc=\"{rid}\"]')"),"změna jedné karty nepřekreslí ostatní")
-    # hráč se dotazuje jen na verzi
-    await pl.wait_for_timeout(3000);rq=[];pl.on("request",lambda r:rq.append(r.url) if "/rest/v1/boj" in r.url else None)
+    # nečinný hráč se ptá jen pulsu (jeden dotaz), boj ani karty nestahuje
+    await pl.wait_for_timeout(3000);rq=[];pl.on("request",lambda r:rq.append(r.url.split("/rest/v1/")[1][:40]) if "/rest/v1/" in r.url else None)
     await pl.wait_for_timeout(6000)
-    chk(rq and all("select=verze" in u for u in rq),"hráč stahuje jen verzi, když se nic nemění: "+str(rq))
+    chk(rq and all(u.startswith("rpc/mm_puls") for u in rq),"nečinný hráč se ptá jen pulsu: "+str(rq))
     # prostředí: vítr dá střelci nevýhodu, úzký průchod omezí přesilu houfu
     await g.click('[data-bpros="vitr"]');await g.wait_for_timeout(400)
     chk(await g.evaluate("(BOJ.s.prostr||[]).includes('vitr')"),"prostředí: vypravěč zapne silný vítr")

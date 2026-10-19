@@ -670,7 +670,7 @@ async function bojUlozFrontu(){
     if(jinde){BOJ.s=BZ.q.length?prehraj(JSON.parse(JSON.stringify(s)),BZ.q):s;renderBoj();bojNav();setTimeout(bojUtokyNove,50)}}
   catch(e){mmHlasG("Nepodařilo se uložit: "+e.message,6000);BZ.q.length=0;try{BOJ.v=-1;await bojNacti();renderBoj();bojNav()}catch(x){}}
   finally{clearTimeout(busy);document.documentElement.classList.remove("gmbusy");BZ.beh=false;cek.forEach(r=>r())}}
-/* dotazování: nejdřív jen verze, celý stav až při změně; s Realtime jen záloha jednou za minutu */
+/* načtení boje: nejdřív jen verze, celý stav až při změně (o změně dá vědět puls – 25-puls.js) */
 async function bojPoll(){if(!bojDB||BZ.q.length||BZ.beh)return false;BOJ.lp=Date.now();
   try{if(bojDB.verze){const v=await bojDB.verze();if(v===BOJ.v)return false}}catch(e){return false}
   if(BZ.q.length||BZ.beh)return false;return bojNacti()}
@@ -678,11 +678,11 @@ const BRT={ok:false,ws:null,zkus:0};
 function bojRealtime(){const C=window.MMDB&&MMDB.cfg;if(!C||!C.url||!/\.supabase\.co$/i.test((()=>{try{return new URL(C.url).hostname}catch(e){return ""}})())||!window.WebSocket||BRT.ws||Date.now()<BRT.zkus)return;
   let ws;try{ws=new WebSocket(C.url.replace(/^http/,"ws")+"/realtime/v1/websocket?apikey="+encodeURIComponent(C.key)+"&vsn=1.0.0")}catch(e){return}
   BRT.ws=ws;let ref=0,hb=0;const send=(topic,event,payload)=>{try{ws.send(JSON.stringify({topic,event,payload,ref:String(++ref)}))}catch(e){}};
-  ws.onopen=()=>{send("realtime:mm-boj","phx_join",{config:{broadcast:{self:false},presence:{key:""},postgres_changes:[{event:"*",schema:"public",table:"boj"}]}});hb=setInterval(()=>send("phoenix","heartbeat",{}),25000)};
+  ws.onopen=()=>{send("realtime:mm-boj","phx_join",{config:{broadcast:{self:false},presence:{key:""},postgres_changes:[{event:"INSERT",schema:"public",table:"puls"}]}});hb=setInterval(()=>send("phoenix","heartbeat",{}),25000)};
   ws.onmessage=e=>{let m;try{m=JSON.parse(e.data)}catch(x){return}if(m.topic!=="realtime:mm-boj")return;
     if(m.event==="phx_reply")BRT.ok=!!(m.payload&&m.payload.status==="ok");
     else if(m.event==="system"&&m.payload)BRT.ok=m.payload.status==="ok"?BRT.ok:false;
-    else if(m.event==="postgres_changes")bojPoll().then(ch=>{if(ch){if(curView==="boj")renderBoj();bojNav()}})};
+    else if(m.event==="postgres_changes")pulsKrok()};
   ws.onclose=()=>{clearInterval(hb);BRT.ok=false;BRT.ws=null;BRT.zkus=Date.now()+60000}}
 function bojNav(){const a=document.getElementById("navboj");if(a)a.hidden=!(GMV||(BOJ.s&&BOJ.s.aktivni))}
 /* řádek nepřítele či spojence ve formuláři; skrytá pole nesou statblock, přívlastky a osobu */

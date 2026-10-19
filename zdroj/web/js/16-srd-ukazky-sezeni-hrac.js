@@ -50,7 +50,7 @@ async function ukNacti(prvni){if(!UKDB)return;try{const r=await UKDB.nacti();UKA
   if(!v&&prvni){ukVideno.set(Date.now()-new Date(top.cas).getTime()<10*60000?top.id-1:top.id)}
   const nove=UKAZKY.filter(u=>u.id>ukVideno.get());if(nove.length){ukVideno.set(top.id);if(!GMV){mmPop(ukHtml(nove[0]));mmNotif("Vypravěč ukazuje",nove[0].n||"")}}
   if(curView==="karty"&&!decodeURIComponent((location.hash.split("/")[1])||""))renderKarty("")}
-function ukStart(){if(!UKDB||UKPOLL)return;ukNacti(true);UKPOLL=setInterval(()=>{if(document.visibilityState==="visible")ukNacti()},7000)}
+function ukStart(){if(!UKDB||UKPOLL)return;ukNacti(true);UKPOLL=true}
 async function ukUkaz(o){o={n:String(o.n||"").slice(0,120),t:String(o.t||"").slice(0,4000),img:String(o.img||"").slice(0,500)};Object.keys(o).forEach(k=>{if(!o[k])delete o[k]});
   if(!o.n&&!o.t&&!o.img){mmHlasG("Ukázka je prázdná.",3000);return}
   if(!UKDB){mmPop(ukHtml(o));mmHlasG("Bez databáze se ukázka zobrazí jen tady.",4000);return}
@@ -261,16 +261,17 @@ const zprHtml=L=>L.length?`<ol class="zprl">${L.slice(-30).map(z=>`<li class="${
 async function zpravaPosli(kid,t){t=String(t||"").trim();if(!t)return;try{await MMDB.zprava(kid,t.slice(0,2000));await zpravyNacti();hraPrekresli()}catch(e){mmHlasG(e.message||String(e),5000)}}
 /* ---- pravidelné načítání pro hráče i vypravěče ---- */
 let HRAP=null;
-async function hraPoll(hned){if(!window.MMDB)return;const a=await vyzvyNacti(),b=await zpravyNacti();if(hned||!hraPoll.pt||Date.now()-hraPoll.pt>15000){hraPoll.pt=Date.now();await potvrzNacti()}
-  {const n0=navrhyCeka().length,zm=await navrhyNacti(),n1=navrhyCeka().length;if(zm){if(GMV&&n1>n0&&!hned)mmHlasG(`Hráč žádá o schválení: ${navrhyCeka()[0].data.popis||"návrh"}.`,5000);if(curView==="boj")renderBoj();if(curView==="karty"||curView==="hra")kartyPrekresli()}}if(curView==="hra"||curView==="karty"){const p0=JSON.stringify(POKL);await poklNacti();if(p0!==JSON.stringify(POKL))hraPrekresli()}
+/* co: množina druhů z pulsu (25-puls.js) – načte se jen to, co se změnilo; bez ní vše */
+async function hraPoll(hned,co){if(!window.MMDB)return;const chci=k=>!co||co.has(k);const a=chci("vyzvy")?await vyzvyNacti():false,b=chci("zpravy")?await zpravyNacti():false;if(co?co.has("potvrz"):(hned||!hraPoll.pt||Date.now()-hraPoll.pt>15000)){hraPoll.pt=Date.now();await potvrzNacti()}
+  if(chci("navrhy")){const n0=navrhyCeka().length,zm=await navrhyNacti(),n1=navrhyCeka().length;if(zm){if(GMV&&n1>n0&&!hned)mmHlasG(`Hráč žádá o schválení: ${navrhyCeka()[0].data.popis||"návrh"}.`,5000);if(curView==="boj")renderBoj();if(curView==="karty"||curView==="hra")kartyPrekresli()}}if((curView==="hra"||curView==="karty")&&chci("pokladna")){const p0=JSON.stringify(POKL);await poklNacti();if(p0!==JSON.stringify(POKL))hraPrekresli()}
   if(!GMV){const m=vyzvyMoje(),top=Math.max(0,...m.map(v=>v.id));if(top>VYZVID){VYZVID=top;try{navigator.vibrate&&navigator.vibrate([120,60,120])}catch(e){}mmNotif("Vypravěč žádá hod",vyzvaTxt(m[0].data));if(curView!=="hra")mmHlasG(`Vypravěč žádá: ${vyzvaTxt(m[0].data)}`,5000)}
     const nz=ZPR.filter(z=>z.gm&&z.id>zprVideno.get());if(nz.length){zprVideno.set(nz[nz.length-1].id);mmNotif("Zpráva od vypravěče",nz[nz.length-1].t);mmHlasG("Zpráva od vypravěče: "+nz[nz.length-1].t.slice(0,140),7000)}}
   else{try{bojVyzZpracuj()}catch(e){console.error(e)}const n=VYZVY.filter(v=>!v.zavrena).reduce((a,v)=>a+Object.keys(v.odpovedi||{}).length,0);if(n>VYZODP&&!hned){const v=VYZVY.find(x=>!x.zavrena&&Object.keys(x.odpovedi||{}).length);if(v&&curView!=="hra")mmHlasG(`Hráči odpovídají na výzvu (${vyzvaTxt(v.data)}) – výsledky na stránce Hra.`,4500)}VYZODP=n;
     const nz=ZPRG.filter(z=>!z.gm&&z.id>zprVideno.get());if(nz.length){zprVideno.set(nz[nz.length-1].id);if(!hned)mmHlasG(`Zpráva od ${(KARTBY[nz[nz.length-1].k]||{}).n||"hráče"}: ${nz[nz.length-1].t.slice(0,120)}`,7000)}}
   if(a||b||hned)hraPrekresli();vyzBar()}
-function hraStart(){if(HRAP||!window.MMDB)return;jaOver();jaDiscordInit();poklNacti();hraPoll(true);HRAP=setInterval(()=>{if(document.visibilityState!=="visible")return;hraPoll();if(curView==="hra"&&bojDB)bojNacti().then(()=>{})},5000);
+function hraStart(){if(HRAP||!window.MMDB)return;jaOver();jaDiscordInit();poklNacti();hraPoll(true);HRAP=true;pulsStart();
   /* skrytá záložka nedotazuje (upozornění v telefonu chodí i tak); po návratu hned načíst */
-  document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"){hraPoll();if(window.MMDB&&curView==="karty")kartyNacti().then(ch=>{if(ch)kartyPrekresli()})}})}
+  /* po návratu do záložky se puls zeptá hned (25-puls.js) */}
 function hraPrekresli(){if(curView!=="hra")return;const v=document.getElementById("hraview"),ae=document.activeElement;if(v&&ae&&v.contains(ae)&&ae.matches("input,textarea,select"))return;renderHra()}
 /* ---- úkoly družiny a postup na úroveň (v herním stavu, který čtou všichni) ---- */
 async function ukolyUloz(L){await hraUloz({ukoly:L});hraPrekresli()}

@@ -441,6 +441,8 @@ window.MMDB={vetev:C.vetev,
   zmeny(od){return this.gm("mm_zmeny",{p_od:od||null,p_limit:600})},
   zmena(id){return this.gm("mm_zmena",{p_id:id})},
   async potvrz(){return rpc("mm_potvrz",{})},
+  async puls(){return api("/rest/v1/rpc/mm_puls",{method:"POST",body:"{}"})},
+  async hra(){return api("/rest/v1/rpc/mm_hra",{method:"POST",body:"{}"})},
   potvrzNastav(p){return this.gm("mm_potvrz_nastav",{p_hodnota:p})},
   async kartaBardic(id,k,od){return rpc("mm_karta_bardic",{p_id:id,p_kostka:k,p_od:od,p_token:htok()})},
   async kartaHistorie(id){return rpc("mm_karta_historie",{p_id:id,p_token:htok()})},
@@ -498,23 +500,26 @@ function po(D){
   if(!D.GM&&MMV!==null){
     const kontrola=async()=>{if(document.visibilityState!=="visible")return;
       try{const v=await window.MMDB.verze();if(v!==null&&v!==MMV){try{sessionStorage.setItem("mm-obnova",JSON.stringify({h:location.hash,y:scrollY}))}catch(e){}location.reload()}}catch(e){}};
-    setInterval(kontrola,20000);document.addEventListener("visibilitychange",kontrola)}
+    /* s pulsem (25-puls.js) se verze ověří, jen když se výřez opravdu změnil */
+    window.mmKontrolaVerze=kontrola;if(!window.MMPULS){setInterval(kontrola,20000);document.addEventListener("visibilitychange",kontrola)}}
 }
 function hlas(t,ms){const d=document.createElement("div");d.className="mmhlas";d.setAttribute("role","status");d.textContent=t;document.body.appendChild(d);
   requestAnimationFrame(()=>d.classList.add("on"));setTimeout(()=>{d.classList.remove("on");setTimeout(()=>d.remove(),400)},ms||4500)}
 window.mmHlas=hlas;
+/* herní stav se ve výřezu nepřepočítává při každé změně času (mm_hra) – načte se zvlášť, se starší databází zůstane ten z výřezu */
+const hraAkt=()=>api("/rest/v1/rpc/mm_hra",{method:"POST",body:"{}"}).then(h=>h&&typeof h==="object"?h:null,()=>null);
 (async()=>{
   const S=window.__S||{};let D=null;
   if(relace()){
     try{const t=await token();
       if(t){const [o,st]=await Promise.all([api(`/rest/v1/obsah?vetev=eq.${V}&select=gm`,{tok:t}),api("/rest/v1/rpc/mm_stavy",{method:"POST",tok:t,body:"{}"})]);
         if(o&&o[0]){window.__GMRAW=o[0].gm;D=Object.assign({},S,JSON.parse(JSON.stringify(o[0].gm)),{GM:true,STAV:st||{}});
-          try{const x=await api(`/rest/v1/snimek?vetev=eq.${V}&select=hra:data->HRA,nov:data->NOVINKY`);if(x&&x[0]){D.HRA=x[0].hra;D.NOVINKY=x[0].nov}}catch(e){}}
+          try{const [x,h]=await Promise.all([api(`/rest/v1/snimek?vetev=eq.${V}&select=hra:data->HRA,nov:data->NOVINKY`),hraAkt()]);if(x&&x[0]){D.HRA=h||x[0].hra;D.NOVINKY=x[0].nov}}catch(e){}}
         else window.MMINFO="Tento účet nemá práva vypravěče, zobrazuji hráčskou verzi."}
       else window.MMINFO="Přihlášení vypršelo, zobrazuji hráčskou verzi."}
     catch(e){window.MMINFO="Vypravěčská data se nepodařilo načíst ("+e.message+"), zobrazuji hráčskou verzi.";if(e.status===401)smaz()}}
-  if(!D){try{const j=await api(`/rest/v1/snimek?vetev=eq.${V}&select=data,verze`);
-      if(j&&j[0]){D=Object.assign({},S,j[0].data);MMV=j[0].verze}else window.MMINFO="Zemské desky zatím nejsou v databázi."}
+  if(!D){try{const [j,h]=await Promise.all([api(`/rest/v1/snimek?vetev=eq.${V}&select=data,verze`),hraAkt()]);
+      if(j&&j[0]){D=Object.assign({},S,j[0].data);MMV=j[0].verze;if(h)D.HRA=h}else window.MMINFO="Zemské desky zatím nejsou v databázi."}
     catch(e){window.MMINFO="Zemské desky se nepodařilo načíst – zkuste stránku obnovit."}}
   spust(D||Object.assign({},S));
 })();
@@ -545,4 +550,5 @@ window.mmHlas=hlas;
 /*@vloz web/js/22-vyprava.js*/
 /*@vloz web/js/23-potvrzovani.js*/
 /*@vloz web/js/24-boj-zaznam.js*/
+/*@vloz web/js/25-puls.js*/
 </script>
