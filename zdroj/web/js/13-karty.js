@@ -44,9 +44,7 @@ async function kartaOdpocinek(K,dlouhy){const S=kartaStav(K.id),ch={},msg=[],poo
   if(dlouhy){if(!confirm(`${K.n}: dlouhý odpočinek (8 hodin)? Obnoví životy, sloty, zdroje a všechny kostky životů, vyčerpání −1.`))return;
     {const D=kDuse(K);if(D.sv>=1&&D.sv<=3){const n=Math.min(mx,cur+Math.floor(mx/2));ch.hp=n>=mx?null:n;msg.push("neklidné sny (Na scestí): jen polovina HP")}else ch.hp=null}ch.thp=null;ch.zdr=null;if(S.forma)ch.forma=null;const back=kzMax;ch.kz=null;if(S.vycerp)ch.vycerp=Math.max(0,S.vycerp-1)||null;
     if((K.rysy||[]).some(r=>/resourceful/i.test(r)))ch.insp=true;msg.push(`životy ${ch.hp??mx}/${mx}, sloty, Výdrž a zdroje obnoveny, kostky životů +${Math.min(back,spent)}${S.vycerp?", vyčerpání −1":""}${ch.insp?", hrdinská inspirace (Resourceful)":""}`)}
-  else{const zb=kzMax-spent;let n=0;if(cur<mx&&zb>0){const r=prompt(`${K.n}: krátký odpočinek (1 hodina). Kolik kostek životů utratíš? (zbývá ${zb}: ${pool.slice(spent).map(x=>"d"+x).join(" ")}, CON ${bsg(con)})`,String(Math.min(zb,Math.ceil((mx-cur)/((pool[spent]||8)/2+1+con)))));if(r===null)return;n=Math.max(0,Math.min(zb,Math.round(+r)||0))}
-    let heal=0;const hx=[];for(let i=0;i<n;i++){const s=pool[spent+i]||8,d=bK(s);heal+=Math.max(0,d+con);hx.push(`d${s} ${d}`)}
-    if(n){ch.kz=spent+n;ch.hp=Math.min(mx,cur+heal);if(ch.hp>=mx)ch.hp=null;msg.push(`kostky životů ${hx.join(", ")} ${bsg(con)}× = +${heal} HP`)}
+  else{const zb=kzMax-spent;if(cur<mx&&zb>0)msg.push(`kostky životů (zbývá ${zb}) utrať po jedné tlačítkem v Odpočinku`);
     kSloty(K).filter(q=>q.pakt).forEach(q=>{delete U[q.k]});kZdroje(K).forEach(q=>{if(q.kr1){if(U[q.n])U[q.n]=U[q.n]-1;if(!U[q.n])delete U[q.n]}else if(/krátk/.test(q.obn||""))delete U[q.n]});
     ch.zdr=Object.keys(U).length?U:null;msg.push("zdroje s obnovou krátkým odpočinkem a sloty paktu obnoveny")}
   {const P=kPri(K),zb=P.filter(n=>/^Bardic /.test(n)&&!dlouhy);if(P.length!==zb.length){ch.pri=zb.length?zb:null;msg.push(`skončilo: ${P.filter(n=>!zb.includes(n)).join(", ")}`)}}
@@ -212,7 +210,7 @@ function kartaDbHtml(K,o,o2){const {ef,invH,popH,ja,sec,ro,zat,pri,S,mx,cur,pr,k
       return vybT}
     if(id==="rysy")return kRysyHtml(K)||`<p class="kdbnote">Žádné rysy – nahraj list postavy z D&amp;D Beyond.</p>`;
     if(id==="duse")return `<div class="kgrid"><div>${kDuseHtml(K)}</div><div>${kRanyHtml(K)}${kUcHtml(K)}</div></div>`;
-    if(id==="denik")return `<div class="kgrid"><div><h4 class="kdbsh">Poznámky a deník</h4><textarea class="kpozn" data-kpozn rows="12" maxlength="4000" placeholder="Koho jsme potkali, co jsme slíbili, co si pamatovat…">${besc(S.pozn||"")}</textarea><p class="kdbnote">Ukládá se samo. Vidí je každý, kdo otevře kartu – tajnosti pošli vypravěči ze stránky Hra.</p></div><div><h4 class="kdbsh">Herní záznam</h4>${kHodyHtml(ja,30)}<p class="kdbnote"><a href="#karty">Celý záznam družiny →</a></p></div></div>`;
+    if(id==="denik")return `<div class="kgrid"><div><h4 class="kdbsh">Poznámky a deník</h4><textarea class="kpozn" data-kpozn rows="12" maxlength="4000" placeholder="Koho jsme potkali, co jsme slíbili, co si pamatovat…">${besc(S.pozn||"")}</textarea><p class="kdbnote">Ukládá se samo. Vidí je každý, kdo otevře kartu – tajnosti pošli vypravěči ze stránky Hra.</p></div></div>`;
     if(id==="spol")return kFormaHtml(K)+kSpolHtml(K);return ""};
   if(o2&&o2.jenTab)return telo(o2.jenTab);
   const tabsH=`<section class="kdbp kdbtabs"><nav class="ktabs" role="tablist">${tabs.map(([id,n])=>`<button type="button" role="tab" data-ktab="${id}" aria-selected="${tab===id}">${n}</button>`).join("")}</nav><section class="ktab" data-tab="${tab}">${telo(tab)}</section></section>`;
@@ -290,10 +288,28 @@ document.addEventListener("click",async e=>{const v=e.target.closest&&e.target.c
   const od=T("[data-kodp]");if(od){kartaOdpocinek(K,od.dataset.kodp==="d");return}
   if(T("[data-ksmaz]")&&GMV){if(!confirm(`Smazat kartu ${K.n}? Stav postavy se smaže taky.`))return;try{await KDB.smaz(K.id);const i=KARTY.findIndex(x=>x.id===K.id);if(i>=0)KARTY.splice(i,1);delete KARTBY[K.id];delete KST[K.id];navTo("#karty")}catch(err){mmHlasG("Nepodařilo se: "+(err.message||err),5000)}return}
   const kz=T("[data-kzrz]");if(kz){const zb=kz.closest(".kbar,.kdbhp,.kzrb")||v,val=Math.round(+((zb.querySelector("[data-kzrv]")||{}).value||0)),typ=(zb.querySelector("[data-kzrt]")||{}).value||"";if(!(val>0)){mmHlasG("Zadej počet HP.",2000);return}
-    const o={hp:S.hp,thp:S.thp},k=kz.dataset.kzrz;let m;
+    const o={hp:S.hp,thp:S.thp,ds:S.ds},k=kz.dataset.kzrz,hp0=S.hp!=null?+S.hp:mxHp(K);let m;
     if(k==="z"){const h0=((BOJ.s&&BOJ.s.aktivni&&BOJ.s.hraci)||[]).find(x=>bojKartaH(x)===K);const zr=(K.imu||[]).includes(typ)?0:kOdol(K).includes(typ)?Math.floor(val/2):val;if(h0){bojPCZmena(h0.id,x=>bojZranPC(x,K,val,typ,false),true);const hp=kartaStav(K.id).hp;if(zr>0&&kKonDrzi(K)&&(hp==null||hp>0)){KKON[K.id]=bojKonDC(zr);kartyPrekresli()}return}m=bojZranPC(o,K,val,typ,false);if(zr>0&&kKonDrzi(K)&&(o.hp==null||o.hp>0))KKON[K.id]=bojKonDC(zr);else if(o.hp===0&&kKonDrzi(K))kKonZtrata(K,"pád na 0 HP")}
-    else if(k==="l")m=bojLecPC(o,K,val);else{o.thp=Math.max(+S.thp||0,val);m=`dočasné HP ${o.thp}`}
-    kartaStavZmen(K.id,{hp:o.hp!=null&&o.hp<mxHp(K)?o.hp:null,thp:o.thp||null},`${K.n}: ${m}.`);return}});
+    else if(k==="l"){m=bojLecPC(o,K,val);if(o.ds&&o.ds.st!=="mrtev"&&o.hp>0){o.ds=null;m=`+${val} HP: probral se (${o.hp}/${mxHp(K)})`}}else{o.thp=Math.max(+S.thp||0,val);m=`dočasné HP ${o.thp}`}
+    const ch={hp:o.hp!=null&&o.hp<mxHp(K)?o.hp:null,thp:o.thp||null};if((o.ds||null)!==(S.ds||null))ch.ds=o.ds||null;
+    if(k==="z"&&o.hp===0&&hp0>0)ch.vycerp=Math.min(10,(+S.vycerp||0)+1);  // Artikule: pád na 0 HP = 1 úroveň vyčerpání
+    kartaStavZmen(K.id,ch,`${K.n}: ${m}.`);return}
+  /* hody proti smrti mimo boj (karta: ds) */
+  const kDs0=()=>({u:0,n:0});
+  const kds=T("[data-kds]");if(kds){const a=kds.dataset.kds,mx=mxHp(K);
+    if(a==="pad"){if(!confirm(`${K.n} padl na 0 HP? Bezvědomí, hody proti smrti a 1 úroveň vyčerpání.`))return;kartaStavZmen(K.id,{hp:0,thp:null,ds:kDs0(),vycerp:Math.min(10,(+S.vycerp||0)+1)},`${K.n}: padl na 0 HP.`);kHodZapis({k:K.id,kdo:K.n,co:"Padl na 0 HP",txt:"bezvědomí, hody proti smrti, vyčerpání +1"});if(kKonDrzi(K))kKonZtrata(K,"pád na 0 HP");return}
+    if(a==="x"){kartaStavZmen(K.id,{ds:null,hp:S.ds&&S.ds.st==="stab"?(mx>1?1:null):(S.hp??null)},`${K.n}: ${S.ds&&S.ds.st==="stab"?"probral se s 1 HP":"hody proti smrti zrušeny"}.`);return}
+    let d=null;if(a==="hod"){const r=await kartaHod(K,"Hod proti smrti",0,{adv:0});d=r.d}
+    const r=bojDs(S.ds,a==="hod"?"hod":a==="stab"?"u":a,a==="hod"?d:a==="stab"?3:1);const ch={};
+    if(a==="stab"){r.ds={u:3,n:(S.ds||{}).n||0,st:"stab"};r.m="stabilizován"}
+    if(!r.ds){ch.ds=null;ch.hp=mx>1?1:null}else ch.ds=r.ds;
+    if(a!=="hod")kHodZapis({k:K.id,kdo:K.n,co:"Hod proti smrti",txt:r.m||a});
+    kartaStavZmen(K.id,ch,`${K.n}: ${r.m||a}.`);return}
+  /* kostka životů po jedné (krátký odpočinek) */
+  const kzh=T("[data-kkzh]");if(kzh){const pool=kKostkyPool(K),kzMax=pool.length||kLv(K),spent=+S.kz||0,mx=mxHp(K),cur=S.hp!=null?+S.hp:mx;if(spent>=kzMax||cur>=mx)return;
+    const s=pool[spent]||8,d=bK(s),con=kMod((K.vl||{}).CON||10),heal=Math.max(0,d+con),hp=Math.min(mx,cur+heal);
+    kHodZapis({k:K.id,kdo:K.n,co:"Kostka životů",tot:heal,txt:`d${s} ${d} ${bsg(con)} CON → +${heal} HP (${hp}/${mx})`});
+    kartaStavZmen(K.id,{kz:spent+1,hp:hp>=mx?null:hp},`${K.n}: kostka životů d${s} ${d} ${bsg(con)} = +${heal} HP (${hp}/${mx}).`);return}});
 const mxHp=K=>kHPmax(K);
 /* boj: změna postavy s kartou – životy a zdroje do karty, hody proti smrti a stavy do boje; pád na 0 = 1 úroveň vyčerpání (Artikule) */
 function bojPCZmena(hid,fn,hlas){const S=BOJ.s||{},h0=(S.hraci||[]).find(x=>x.id===hid),K=bojKartaH(h0);if(!h0||!K)return;const ks=kartaStav(K.id);

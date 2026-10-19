@@ -1025,6 +1025,9 @@ begin
     when 'stavy' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'array' and jsonb_array_length(x) <= 16 and not exists (
         select 1 from jsonb_array_elements(x) e where jsonb_typeof(e) <> 'string' or not ((e #>> '{}') = any (array['krvácí k6','krvácí k8','sražen','omráčen','zadržen','chycen','oslepen','ohlušen','neviditelný','otrávený','vyděšený','okouzlen','neschopný','ochromen','zkamenělý','v bezvědomí','úhyb','soustředí']))))
     when 'bezstit' then jsonb_typeof(x) in ('boolean', 'null')
+    -- hody proti smrti mimo boj (2026-10-19): {u, n, st?}
+    when 'ds' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'object' and not exists (select 1 from jsonb_object_keys(x) k where k not in ('u', 'n', 'st'))
+        and public.mm_cislo(coalesce(x -> 'u', '0'::jsonb), 0, 3) and public.mm_cislo(coalesce(x -> 'n', '0'::jsonb), 0, 3) and (not x ? 'st' or x ->> 'st' in ('stab', 'mrtev')))
     when 'kpn' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'array' and jsonb_array_length(x) <= 80 and not exists (select 1 from jsonb_array_elements(x) e where jsonb_typeof(e) <> 'string' or char_length(e #>> '{}') not between 1 and 60))
     when 'kpx' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'array' and jsonb_array_length(x) <= 80 and not exists (select 1 from jsonb_array_elements(x) e where jsonb_typeof(e) <> 'string' or char_length(e #>> '{}') not between 1 and 60))
     when 'spol' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'array' and jsonb_array_length(x) <= 8 and octet_length(x::text) <= 30000 and not exists (

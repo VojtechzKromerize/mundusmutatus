@@ -233,10 +233,11 @@ const BDMI={
   duse:'<path d="M8 14s-5.4-3.2-5.4-7A2.9 2.9 0 0 1 8 5.2 2.9 2.9 0 0 1 13.4 7c0 3.8-5.4 7-5.4 7Z"/>',
   info:'<circle cx="8" cy="8" r="6.2"/><path d="M8 7.3v4M8 4.9v.1"/>',
   denik:'<path d="M3.2 2.4h7.6l2 2v9.2H3.2ZM5.6 6h4.8M5.6 8.6h4.8M5.6 11.2h3"/>',
+  zaznam:'<path d="M2.6 3.2h10.8v9.6H2.6Z"/><path d="M5 6.2h6M5 8.4h6M5 10.6h3.6"/><circle cx="11.4" cy="10.6" r=".6" fill="currentColor" stroke="none"/>',
   d20:'<path d="M8 1.4 13.8 4.7v6.6L8 14.6 2.2 11.3V4.7Z"/><path d="M8 1.4 4.6 9.4h6.8ZM2.2 4.7l2.4 4.7M13.8 4.7l-2.4 4.7M4.6 9.4 8 14.6l3.4-5.2"/>'
 };
 const bdmIc=(k,c)=>`<svg class="bdmic${c?" "+c:""}" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">${BDMI[k]||""}</svg>`;
-const BDMS=[["vl","Vlastnosti, záchrany a dovednosti","Vlastnosti"],["akce","Útok zbraní a tah","Útok"],["kouzla","Kouzla","Kouzla"],["vyb","Vybavení do boje","Vybavení"],["rysy","Rysy a schopnosti","Rysy"],["duse","Duše, rány a účinky","Duše"],["info","Obrana, smysly a zázemí","Info"],["denik","Poznámky a herní záznam","Poznámky"],["spol","Společníci","Společníci"]];
+const BDMS=[["vl","Vlastnosti, záchrany a dovednosti","Vlastnosti"],["akce","Útok zbraní a tah","Útok"],["kouzla","Kouzla","Kouzla"],["vyb","Vybavení do boje","Vybavení"],["rysy","Rysy a schopnosti","Rysy"],["duse","Duše, rány a účinky","Duše"],["info","Obrana, smysly a zázemí","Info"],["denik","Poznámky a deník","Poznámky"],["zaznam","Herní záznam: moje hody a záznam boje","Záznam"],["spol","Společníci","Společníci"]];
 const BDM={sec:{},sheet:null,hlo:new Set(),af:{},kf:{},fokus:null,utx:new Set()};
 try{Object.assign(BDM.sec,JSON.parse(localStorage.getItem("mm-bdmsec")||"{}"))}catch(e){}
 const bdmSecUloz=()=>{try{localStorage.setItem("mm-bdmsec",JSON.stringify(BDM.sec))}catch(e){}};
@@ -336,12 +337,20 @@ function bdmTelo(s,h,K,gm,X,id){const prof=K.zachProf||[],dp=K.dovProf||{};
   if(id==="vyb")return bdmVyb(K);
   if(id==="rysy")return bdmRysy(K);
   if(id==="duse"||id==="info"||id==="denik")return `<div class="kdb2 bdmkdb">${kartaDbHtml(K,kartaDbData(K),{jenTab:id})}</div>`;
+  if(id==="zaznam")return `<div class="kdb2 bdmkdb"><h4 class="kdbsh">Herní záznam</h4><p class="kdbnote">Tvoje hody z karty i z Boje a veřejný záznam boje. Klepnutím na kostku vpravo dole hodíš cokoli.</p>${kZaznamHtml(K)}</div>`;
   if(id==="spol")return kFormaHtml(K)+kSpolHtml(K);return ""}
+/* hody proti smrti mimo boj (2026-10-19): stav karty `ds` {u,n,st}; v boji je nese účastník boje (h.ds) */
+function kDsHtml(K,S,cur){const d=S.ds;
+  if(!d)return cur<=0?`<button type="button" class="bdmbtn" data-kds="pad">${bi("porazen")} Padl jsem (0 HP) – začít hody proti smrti</button>`:`<button type="button" class="bdmbtn ghost" data-kds="pad" ${btip("Pád na 0 HP mimo boj (pád, past, jed…): bezvědomí, hody proti smrti a 1 úroveň vyčerpání")}>${bi("porazen")} Padl jsem (0 HP)</button>`;
+  if(d.st==="mrtev")return `<p class="khl">${bojDsPip({ds:d})} <b>Tři neúspěchy – postava umírá.</b> Jen zázrak nebo vypravěč. <button type="button" class="gbtn ghost" data-kds="x">Zrušit</button></p>`;
+  if(d.st==="stab")return `<p class="khl">${bojDsPip({ds:d})} <b>Stabilizován</b> – v bezvědomí, probere se za 1k4 hodin s 1 HP, nebo dřív po léčení. <button type="button" class="gbtn" data-kds="x">Probral se (1 HP)</button></p>`;
+  return `<div class="khl kdsblok"><p>${bojDsPip({ds:d})} <b>Na prahu smrti</b> – na začátku každého tahu hod proti smrti: d20, 10+ úspěch, 1 = dva neúspěchy, 20 = probereš se s 1 HP.</p>
+    <p class="bdmrow"><button type="button" class="bdmbtn" data-kds="hod">🎲 Hod proti smrti</button><button type="button" class="gbtn ghost" data-kds="u" ${btip("Zapsat úspěch (hod u stolu)")}>úspěch</button><button type="button" class="gbtn ghost" data-kds="n" ${btip("Zapsat neúspěch (hod u stolu)")}>neúspěch</button><button type="button" class="gbtn ghost" data-kds="stab" ${btip("Někdo tě stabilizoval: Medicine DC 10, Spare the Dying nebo léčitelská brašna")}>stabilizován</button></p></div>`}
 /* vysouvací listy zespodu */
 function bdmList(s,h,K,gm,X,t){const S=kartaStav(K.id),D=kDuse(K),mx=kHPmax(K),cur=X.boj?bojHpPC(h,K):(S.hp!=null?+S.hp:mx),thp=+S.thp||0,ac=kAC(K)+(X.boj?(+h.kryt||0):0),zv=zavojInfo();
   if(t==="hp")return ["Životy",`${X.boj?`<div class="bdmhpz"><input type="number" name="bkzr-${h.id}" data-bkzrv min="0" max="300" inputmode="numeric" placeholder="HP" aria-label="Kolik HP"><button type="button" class="kdbdmg" data-bkzr="z">Zranit</button><button type="button" class="kdbheal" data-bkzr="l">Léčit</button><button type="button" class="bdmmini" data-bkzr="d" ${btip("Dočasné HP (nesčítají se – platí vyšší)")}>dočasné</button></div><label class="bdmtyp">Typ zranění <select data-bkzrt aria-label="Typ zranění">${BZTYPY.map(t=>`<option value="${t}">${BZRT[t]}</option>`).join("")}</select></label>`
       :`<div class="bdmhpz kzrb"><input type="number" min="0" max="999" data-kzrv inputmode="numeric" placeholder="HP" aria-label="Kolik HP"><button type="button" class="kdbdmg" data-kzrz="z">Zranit</button><button type="button" class="kdbheal" data-kzrz="l">Léčit</button><button type="button" class="bdmmini" data-kzrz="d">dočasné</button><select data-kzrt aria-label="Typ zranění"><option value="">typ</option>${BZTYPY.map(t=>`<option value="${t}">${BZRT[t]}</option>`).join("")}</select></div>`}
-      <p class="bdmnote">Teď <b>${cur}</b> z ${mx}${thp?` · dočasné ${thp}`:""}. Pád na 0 HP podle Artikulí: bezvědomí, hody proti smrti, hod na kritické zranění a 1 úroveň vyčerpání; léčení jen stabilizuje.</p>${X.boj&&!X.d?`<button type="button" class="bdmbtn" data-bhds="pad">${bi("porazen")} ${gm?"Padl na 0 HP":"Padl jsem (0 HP)"}</button>`:""}`];
+      <p class="bdmnote">Teď <b>${cur}</b> z ${mx}${thp?` · dočasné ${thp}`:""}. Pád na 0 HP podle Artikulí: bezvědomí, hody proti smrti, hod na kritické zranění a 1 úroveň vyčerpání; léčení jen stabilizuje.</p>${X.boj&&!X.d?`<button type="button" class="bdmbtn" data-bhds="pad">${bi("porazen")} ${gm?"Padl na 0 HP":"Padl jsem (0 HP)"}</button>`:X.boj?"":kDsHtml(K,S,cur)}`];
   if(t==="st"){const st0=X.boj?(h.stav||[]).filter(t=>BSTAVH.includes(t)):(S.stavy||[]),stv=kKonDrzi(K)&&!st0.includes("soustředí")?[...st0,"soustředí"]:st0;
     return ["Stavy",X.boj?kStavyTab(stv,BSTAVH,"data-bhst",+S.vycerp||0,kKonNazev(K)):kStavyTab(stv,KSTV,"data-kstav",+S.vycerp||0,kKonNazev(K))]}
   if(t==="ac"){const ZU=kZbrU(K),zuL=[ZU.z,ZU.s].filter(Boolean);
@@ -352,8 +361,10 @@ function bdmList(s,h,K,gm,X,t){const S=kartaStav(K.id),D=kDuse(K),mx=kHPmax(K),c
       <div class="bdmrow"><span class="kdusk">Skutek</span><button type="button" class="bdmbtn bdmsk" data-kdu="d1" ${btip("Jednání podle Ctnosti, které něco stojí: +1 bod dobrých skutků")}>+1 dobrý skutek</button><button type="button" class="bdmbtn bdmsk" data-kdu="v1" ${btip("Skutečná oběť nebo riziko života pro Ctnost: Svědomí +1 hned")}>velký skutek +1</button>${D.hr||D.sk?`<button type="button" class="bdmmini" data-kdu="op" ${btip("Ubrat poslední připsaný bod")}>oprava</button>`:""}</div>
       <p class="bdmnote">Body se sečtou při Zpytování svědomí na konci sezení. <button type="button" class="bdmlink" data-bdmsec="duse" data-bdmzav>Celá duše, rány a účinky →</button></p>`];
   if(t==="odp"){const kzMax=kKostkyPool(K).length||kLv(K);
-    return ["Odpočinek",`<div class="bdmrow"><button type="button" class="bdmbtn" data-kodp="k" ${btip("Krátký odpočinek (1 hodina): kostky životů, zdroje s krátkým odpočinkem, sloty paktu")}>☾ Krátký</button><button type="button" class="bdmbtn" data-kodp="d" ${btip(`Dlouhý odpočinek (8 hodin): životy, sloty, zdroje, Výdrž, polovina kostek životů, vyčerpání −1`)}>☾☾ Dlouhý</button></div>
-      <p class="kdbvy" ${btip(`Kostky životů ${kHDtxt(K)}: použité zaškrtni (krátký odpočinek je utratí sám)`)}><small>Kostky životů ${besc(kHDtxt(K))}</small>${[...Array(kzMax)].map((_,j)=>`<button type="button" class="${j<(+S.kz||0)?"on":""}" data-kkz="${j}" aria-label="Kostka životů ${j+1}"></button>`).join("")}</p>${D.sv>=1&&D.sv<=3?`<p class="bdmnote">Na scestí – Neklidné sny: dlouhý odpočinek vrátí jen polovinu životů.</p>`:""}`]}
+    const spent=+S.kz||0,zb=kzMax-spent,pool=kKostkyPool(K),dal=pool[spent]||8,con=kMod((K.vl||{}).CON||10),mxh=kHPmax(K),curh=S.hp!=null?+S.hp:mxh;
+    return ["Odpočinek",`<div class="bdmrow"><button type="button" class="bdmbtn" data-kodp="k" ${btip("Krátký odpočinek (1 hodina): zdroje s krátkým odpočinkem, sloty paktu; kostky životů pak utratíš po jedné")}>☾ Krátký</button><button type="button" class="bdmbtn" data-kodp="d" ${btip(`Dlouhý odpočinek (8 hodin): životy, sloty, zdroje, Výdrž, polovina kostek životů, vyčerpání −1`)}>☾☾ Dlouhý</button></div>
+      <p class="kdbvy" ${btip(`Kostky životů ${kHDtxt(K)}: použité zaškrtni (krátký odpočinek je utratí sám)`)}><small>Kostky životů ${besc(kHDtxt(K))}</small>${[...Array(kzMax)].map((_,j)=>`<button type="button" class="${j<(+S.kz||0)?"on":""}" data-kkz="${j}" aria-label="Kostka životů ${j+1}"></button>`).join("")}</p>
+      <p class="bdmrow"><button type="button" class="bdmbtn" data-kkzh ${zb>0&&curh<mxh?"":"disabled"} ${btip(zb>0?`Při krátkém odpočinku: hodí jednu kostku životů (d${dal} ${bsg(con)} CON) a přičte životy. Zbývá ${zb}.`:"Žádná kostka životů nezbývá – vrátí je dlouhý odpočinek")}>🎲 Utratit kostku životů d${dal} ${bsg(con)}</button><small class="bdmnote">zbývá ${zb}${curh>=mxh?" · životy jsou plné":""}</small></p>${D.sv>=1&&D.sv<=3?`<p class="bdmnote">Na scestí – Neklidné sny: dlouhý odpočinek vrátí jen polovinu životů.</p>`:""}`]}
   if(t==="zvl"){const wn=(BDM.sheet||{}).w,a=kUtoky(K).find(x=>x.n===wn);if(!a)return ["Vlastnosti zbraně",`<p class="bdmnote">Zbraň nenalezena.</p>`];
     const moje=bdmZvlMoje(a,K),L=bdmZvl(a,K),T0=(moje&&moje.t)||[a.t,BSIKALT[a.t]].filter(Boolean);
     return [`Vlastnosti · ${a.n}`,`<form data-bdmzvf data-w="${besc(a.n)}"><p class="bdmnote">${moje?"Vlastnosti nastavené ručně.":"Podle názvu zbraně"+(L.length?"":" žádné")+" – zaškrtni, co zbraň podle Artikulí má."}</p>
@@ -380,7 +391,7 @@ function bojDbm(s,h,K,gm,vzdy,X){X=X||{};const S=kartaStav(K.id),D=kDuse(K),mx=k
   const art=[zv.z||zv.fe.length?`<span class="bdmch bdmzav${zv.pravda?" bdmpravda":""}" ${btip(zv.pravda?"Hodina Pravdy: svátek a Hodina Závoje – kostka Závoje nezná neutrální výsledek":zv.z?`Hodina Závoje (${zv.z}): Pokušení padá již na 1–3`:`Svátek: ${zv.fe.map(x=>x.n).join(", ")}`)}>${bi("zavoj")}${zv.pravda?"Hodina Pravdy":zv.z?"Hodina Závoje":"Svátek"}</span>`:"",
     kr.length?`<a class="bdmch bdmrany" href="#karty/${besc(K.id)}" data-bdmsec="duse" ${btip(`Neléčené rány: ${kr.map(x=>x.t).join("; ")} – podrobnosti na hlavní kartě`)}>✚ ${kr.length} ${kr.length===1?"rána":kr.length<5?"rány":"ran"}</a>`:"",
     +S.vycerp?`<span class="bdmch bdmvy" ${btip(`Vyčerpání ${S.vycerp}: −${2*S.vycerp} k hodům d20, rychlost −${5*S.vycerp}`)}>vyčerpání ${S.vycerp}</span>`:"",
-    X.boj&&h.ds?bojDsPip(h):""].filter(Boolean).join("");
+    X.boj&&h.ds?bojDsPip(h):!X.boj&&S.ds?bojDsPip({ds:S.ds}):""].filter(Boolean).join("");
   /* hlavička */
   const head=`<header class="bdmh"><div class="bdmtop">${gm?`<button type="button" class="bdmback" data-bhrozb="${h.id}" aria-label="Sbalit kartu" ${btip("Sbalit")}>‹</button>`:`<span class="bdmback0"></span>`}<div class="bdmnm"><b>${besc(K.n)}</b><small>${besc(sub)}</small></div>${curView==="karty"?`<span class="bdmback0"></span>`:`<a class="bdmkl" href="#karty/${besc(K.id)}" aria-label="Karta na celou stránku" ${btip("Karta na celou stránku")}>${bdmIc("rysy")}</a>`}</div>
     <div class="bdmgrid">
@@ -417,7 +428,7 @@ document.addEventListener("click",e=>{const T=s=>e.target.closest&&e.target.clos
   const kt=T("[data-bdmktab]");if(kt){KTAB.set(kt.dataset.bdmktab)}
   if(!root)return;const key=root.dataset.kid,K=KARTBY[key];
   if(T("[data-bdmzav]")){bdmZavri();return}
-  if(BDM.sheet&&T("[data-bdmlist] [data-kodp],[data-bdmlist] [data-juposl]")){BDM.sheet=null;setTimeout(bdmPrekresli,0);return}
+  if(BDM.sheet&&T('[data-bdmlist] [data-kodp="d"],[data-bdmlist] [data-juposl]')){BDM.sheet=null;setTimeout(bdmPrekresli,0);return}
   if(BDM.sheet&&BDM.sheet.t==="sprava"&&T("[data-bdmlist] button:not(.bdmlx),[data-bdmlist] a")){BDM.sheet=null;setTimeout(bdmPrekresli,0)}
   const sh=T("[data-bdmsh]");if(sh){const t=sh.dataset.bdmsh;
     if(BDM.sheet&&BDM.sheet.k===key&&BDM.sheet.t===t&&t!=="utok"){bdmZavri();return}

@@ -211,8 +211,8 @@ async function kPrehledOdp(dl){if(!confirm(dl?"Dlouhý odpočinek celé družiny
       const P=(S.pri||[]).filter(n=>/^Bardic /.test(n));await kartaStavZmen(K.id,{zdr:Object.keys(U).length?U:null,...((S.pri||[]).length!==P.length?{pri:P.length?P:null}:{})});kHodZapis({k:K.id,kdo:K.n,co:"Krátký odpočinek",txt:"družina odpočívá; kostky životů na kartě"})}}
   if(HRA&&HRA.datum)await hraPosun(dl?8:1);mmHlasG(`${dl?"Dlouhý":"Krátký"} odpočinek celé družiny zapsán${HRA&&HRA.datum?`, herní čas +${dl?8:1} h`:""}.`,5000);kartyPrekresli()}
 /* ---- jeden záznam: hody z karet + veřejný záznam boje ---- */
-let KZFL="";
-function kZaznamHtml(){const boj=((BOJ.s&&BOJ.s.zaz)||[]).map(e=>({id:"b"+e.ts,cas:new Date(e.ts).toISOString(),kdo:e.a||"",co:`Boj, kolo ${e.k||1}: ${e.c?"→ "+e.c:""}${e.cim?" · "+e.cim:""}`,txt:e.v||"",boj:1,kn:[e.a,e.c]}));
+let KZFL=null;  // null = ještě nevybráno (hráči se napoprvé ukáže jeho postava), "" = vše
+function kZaznamHtml(K){if(K&&KZFL==null&&!GMV)KZFL=K.id;const boj=((BOJ.s&&BOJ.s.zaz)||[]).map(e=>({id:"b"+e.ts,cas:new Date(e.ts).toISOString(),kdo:e.a||"",co:`Boj, kolo ${e.k||1}: ${e.c?"→ "+e.c:""}${e.cim?" · "+e.cim:""}`,txt:e.v||"",boj:1,kn:[e.a,e.c]}));
   let L=[...HODY.map(h=>Object.assign({kn:[h.kdo]},h)),...boj].sort((a,b)=>String(b.cas).localeCompare(String(a.cas)));
   if(KZFL==="boj")L=L.filter(x=>x.boj);else if(KZFL)L=L.filter(x=>x.k===KZFL||(x.boj&&x.kn.includes((KARTBY[KZFL]||{}).n)));
   return `<p class="rsmall kzfil"><label>Zobrazit <select data-kzf><option value="">vše</option><option value="boj"${KZFL==="boj"?" selected":""}>jen boj</option>${KARTY.map(k=>`<option value="${besc(k.id)}"${KZFL===k.id?" selected":""}>${besc(k.n)}</option>`).join("")}</select></label></p>${kHodyHtml(L,80)}`}

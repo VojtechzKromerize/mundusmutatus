@@ -3204,3 +3204,7 @@ span.bzos{cursor:default}
 
 /* načítání (2026-10-19): patička je pod okrajem obrazovky, dokud se neobjeví obsah – nic neposkočí */
 .wrap>main{min-height:100vh}
+
+/* hody proti smrti mimo boj a kostky životů po jedné (2026-10-19) */
+.kdsblok p{margin:.2rem 0}
+.bdmrow .bdmnote{align-self:center;margin:0}
