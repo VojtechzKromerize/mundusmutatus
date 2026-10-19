@@ -550,8 +550,6 @@ function bojPripKarta(s,h,K){const r=bojPripominky(s,h).filter(x=>!/^Reakce je k
   if(sl.length)r.push(`Sloty: ${sl.map(q=>`${q.st}. st. ${q.max-q.u}/${q.max}`).join(", ")}.`);
   if((h.stav||[]).includes("sražen"))r.push("Vstát stojí polovinu pohybu.");return r}
 /* vypravěč: přehled družiny v jednom pruhu */
-function bojDruzPruh(s){const H=(s.hraci||[]).filter(h=>bojKartaH(h));if(!H.length)return "";
-  return `<div class="bdpruh" aria-label="Přehled družiny">${H.map(h=>{const K=bojKartaH(h),mx=kHPmax(K),c=bojHpPC(h,K),ks=kartaStav(K.id),rk=!!(s.reak||{})[h.id];return `<span class="bdp${c<=0?" bhp0":c<=mx/2?" bhp2":""}" ${btip(`${h.n}: AC ${kAC(K)+(+h.kryt||0)}, životy ${c}/${mx}${ks.thp?` +${ks.thp}`:""}, pasivní Vnímání ${kPas(K,"vnimani")}${kKonDrzi(K)?", soustředí se":""}${rk?", reakce použita":""}`)}>${bojMedH(h,"bmini")}<b>${besc(h.n)}</b><small>AC</small>${kAC(K)+(+h.kryt||0)}<small>HP</small>${c}${ks.thp?`<i>+${ks.thp}</i>`:""}<small>👁</small>${kPas(K,"vnimani")}${kKonDrzi(K)?`<span ${btip("Soustředění")}>◎</span>`:""}${rk?`<s ${btip("Reakce použita")}>R</s>`:""}</span>`}).join("")}</div>`}
 /* po boji: výzva k odpočinku */
 async function bojOdpVyzva(){const komu=[...new Set(((BOJ.s||{}).hraci||[]).map(h=>bojKartaH(h)).filter(Boolean).map(K=>K.id))];if(!komu.length||!window.MMDB)return;try{await MMDB.vyzva({typ:"odp",komu});await vyzvyNacti()}catch(e){}}
 /* skupinové ověření jedním klepnutím */

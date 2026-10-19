@@ -80,8 +80,9 @@ async def main():
     await g.click('[data-bstart]');await g.wait_for_selector(".bsloty");await g.wait_for_timeout(300)
     st=await g.evaluate("BOJ.s.npc.map(n=>[n.id,n.n,n.druh,n.b||'',(n.pr||[]).join('+'),n.str||'',n.os||''])");print(st)
     chk(any(x[5]=="h" for x in st),"spojenec je na straně družiny")
-    lay=await g.evaluate("(()=>{const r=q=>document.querySelector(q).getBoundingClientRect(),k=r('.bcolk'),u=r('.bcolu'),l=r('.bcoll'),t=r('.bsloty');return [k.left<u.left,u.left<l.left,t.bottom<=k.top+2]})()")
-    chk(lay==[True,True,True],"rozložení: osa nahoře, pod ní karta, účastníci a herní záznam vedle sebe: "+str(lay))
+    lay=await g.evaluate("(()=>{const r=q=>document.querySelector(q).getBoundingClientRect(),m=r('.bcolm'),l=r('.bcoll'),t=r('.bsloty');return [m.left<l.left,m.width>l.width,t.bottom<=m.top+2,!!document.querySelector('.bcolm .btabs [data-btab=\"n\"]')]})()")
+    chk(lay==[True,True,True,True],"rozložení: osa nahoře, pod ní široký sloupec se záložkami a vedle herní záznam: "+str(lay))
+    await g.click('.btabs [data-btab="h"]');await g.wait_for_timeout(200)
     chk(await g.locator(".bsh .bnpc.bspj").count()==1,"karta spojence v družině")
     # sok na tahu se rozbalí sám, ostatní karty zůstanou sbalené
     rot='[data-bnpc="n1"]';hf='[data-bnpc="n2"]'
@@ -128,10 +129,12 @@ async def main():
     chk(await g.locator(rot+' [data-bmdal]').count()==0 and "útok 2 z 2" in await g.locator(rot+" .blog li").first.inner_text(),"druhý útok uzavře celou akci")
     await g.evaluate("delete PROTBY[BOJ.s.npc.find(o=>o.id==='n1').b].multi;renderBoj()");await g.wait_for_timeout(100)
     # cíle boje
+    await g.click('.btabs [data-btab="h"]');await g.wait_for_timeout(150)
     await g.click(".bcld summary");await g.fill(".bclf [name=n]","Udržet bránu");await g.fill(".bclf [name=cil]","2");await g.click(".bclf button");await g.wait_for_timeout(500)
     await g.click("[data-bclp]");await g.wait_for_timeout(400)
     chk("1" in await g.locator(".bclp").inner_text(),"cíl boje: počitadlo")
     # útok houfu podle počtu v dosahu
+    await g.click('.btabs [data-btab="n"]');await g.wait_for_timeout(150)
     await g.click(hf+" .brozb");await g.wait_for_timeout(200)
     chk(await g.locator(hf+".bopen").count()==1,"kartu jde rozbalit ručně")
     await g.fill(hf+" [data-bdos]","3");await g.click(hf+' [data-but="0"]');await g.wait_for_timeout(150)
@@ -141,6 +144,8 @@ async def main():
     chk("přesila +5" in lg,"houf: útok s přesilou +5")
     # rozbalená je vždy jen jedna karta (v levém sloupci): ručně rozbalený houf rotmistra sbalil
     chk(await g.locator(rot+".bopen").count()==0 and await g.locator(".bcolk "+hf).count()==1,"rozbalená karta je jen jedna a je v levém sloupci")
+    chk(await g.evaluate("document.querySelector('.bojakt').dataset.btab")=="k","rozbalení nepřítele ze seznamu přepne na záložku Karta")
+    await g.click('.btabs [data-btab="n"]');await g.wait_for_timeout(150)
     await g.click(rot+" .bnn[data-brozb]");await g.wait_for_timeout(200)
     # Závoj samostatně
     n0=await g.locator(".bzl li.bz").count()
@@ -158,8 +163,10 @@ async def main():
     chk(await g.locator(rot+' [data-but="0"] b').inner_text()=="+8","Veterán: útok +6 → +8")
     chk(await g.locator(rot+' [data-bzd="Výdrž"] button').count()==3,"Veterán: Výdrž 2 → 3")
     # vazba sok–houf a morálka
+    await g.click('.btabs [data-btab="n"]');await g.wait_for_timeout(150)
     await g.click(hf+" .bnn[data-brozb]");await g.wait_for_timeout(200)
     await g.select_option(hf+" [data-bvelsok]","n1");await g.wait_for_timeout(400)
+    await g.click('.btabs [data-btab="n"]');await g.wait_for_timeout(150)
     await g.fill(rot+' [data-bhp]',"0");await g.press(rot+' [data-bhp]',"Enter");await g.wait_for_timeout(100)
     await g.evaluate("renderBoj()");await g.wait_for_timeout(100)
     chk("padl" in await g.locator(hf+" .bmor").inner_text(),"když sok padne, houf hlásí útěk")

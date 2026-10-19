@@ -10,6 +10,16 @@ def anon_rpc(fn,body):
     r=urllib.request.Request(U+"/rest/v1/rpc/"+fn,data=json.dumps(body).encode(),headers={"apikey":K,"Content-Type":"application/json"},method="POST")
     try: return 200,urllib.request.urlopen(r).read().decode()
     except urllib.error.HTTPError as e: return e.code,e.read().decode()[:120]
+# Boj má záložky Karta · Nepřátelé · Družina: před klepnutím na prvek ve skryté záložce ji test přepne (jako hráč prstem)
+from playwright.async_api import Page
+_ZAL="""s=>{let e;try{e=document.querySelector(s)}catch(x){return}if(!e||e.offsetParent)return;const c=e.closest('[data-bcol]'),r=c&&c.closest('.bojakt');if(!r)return;const t=r.querySelector('.btabs button[data-btab="'+c.dataset.bcol+'"]');if(t&&t.offsetParent)t.click();const d=e.closest('details:not([open])');if(d)d.open=true}"""
+def _sezal(f):
+    async def w(self,sel,*a,**k):
+        try: await self.evaluate(_ZAL,sel)
+        except Exception: pass
+        return await f(self,sel,*a,**k)
+    return w
+for _m in ("click","fill","select_option","press","check","hover"): setattr(Page,_m,_sezal(getattr(Page,_m)))
 fails=[]
 def chk(c,m):
     print(("OK  " if c else "FAIL"),m)
@@ -83,6 +93,8 @@ async def main():
     chk("n2" not in opts and "n1" in opts,"sok smí jen 2× za kolo: "+str(opts))
     for _ in range(3):
         await g.click('[data-bnpc="n1"] [data-bpoc="-1"]');await g.wait_for_timeout(500)
+    chk(await g.evaluate("!!document.querySelector('.bout [data-bnpc=\"n1\"]')&&!document.querySelector('.bout').open&&/Poražení a prchající/.test(document.querySelector('.bout>summary').textContent)"),"houf, kterému se zlomila morálka, se sbalí mezi poražené a prchající")
+    await g.click('.bout>summary');await g.wait_for_timeout(150)
     t=await g.inner_text('[data-bnpc="n1"]');chk("3/6" in t and "útok +2" in t and "Morálka" in t,"houf: počet, bonus a morálka")
     chk(await g.locator(".bkostka").count()==0,"kostka Závoje v Boji není (hází se fyzicky)")
     await g.click('.bnatahu [data-bact="dalsi"]');await g.wait_for_timeout(700)
@@ -202,8 +214,8 @@ async def main():
     mj=await pl.inner_text(".bjumoje");chk("zásah" in mj and "AC" not in mj,"hráč vidí zásah, ale ne AC: "+mj[:80])
     chk("Cyril" in await pl.inner_text(".bcoll .bzaz"),"hráč má herní záznam ve třetím sloupci (hody a veřejný záznam boje)")
     # tři sloupce u vypravěče (karta · účastníci · záznam), záložky na mobilu hráče
-    lay=await g.evaluate("(()=>{const r=q=>document.querySelector(q).getBoundingClientRect(),k=r('.bcolk'),u=r('.bcolu'),l=r('.bcoll');return [k.left<u.left,u.left<l.left,Math.abs(k.top-l.top)<4]})()")
-    chk(lay==[True,True,True],"vypravěč: karta, účastníci a herní záznam ve třech sloupcích: "+str(lay))
+    lay=await g.evaluate("(()=>{const r=q=>document.querySelector(q).getBoundingClientRect(),m=r('.bcolm'),l=r('.bcoll');return [m.left<l.left,Math.abs(m.top-l.top)<4,getComputedStyle(document.querySelector('.bcoln')).display==='none'||BTAB==='n']})()")
+    chk(lay==[True,True,True],"vypravěč: široký sloupec se záložkami a vedle herní záznam: "+str(lay))
     chk(await pl.locator(".btabs").is_visible() and not await pl.locator(".bcoll").is_visible(),"mobil: záložky, záznam je schovaný")
     await pl.click('[data-btab="l"]');await pl.wait_for_timeout(200)
     chk(await pl.locator(".bcoll").is_visible() and not await pl.locator(".bcolk").is_visible(),"mobil: záložka Záznam ukáže herní záznam místo karty")
