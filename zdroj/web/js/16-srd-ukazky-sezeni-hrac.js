@@ -175,6 +175,7 @@ document.addEventListener("click",async e=>{const v=e.target.closest&&e.target.c
     await kartaStavZmen(K.id,ch);kHodZapis({k:K.id,kdo:K.n,co:`Vypil ${x.en}`,tot:r?r.tot:undefined,txt:m.slice(0,290)});mmHlasG(`${K.n}: ${m}.`,6000);return}});
 document.addEventListener("change",async e=>{const v=e.target.closest&&e.target.closest("#kartyview,#hraview,.bdm");if(!v)return;const t=e.target,K=kvK(t);
   if(t.matches("[data-kzf]")){KZFL=t.value;kartyPrekresli();return}
+  if(t.matches("[data-kspolcil]")){const K=typeof jaK==="function"?jaK():null,el=t.closest("[data-kid]"),K2=el?KARTBY[el.dataset.kid]:K;if(K2)KSPOLC[kSpolId(K2,+t.dataset.kspolcil)]=t.value;return}
   if(!K)return;
   if(t.matches("[data-ktechadd]")&&t.value){kartaStavZmen(K.id,{tech:[...new Set([...kTech(K),t.value])].slice(0,30)});kHodZapis({k:K.id,kdo:K.n,co:"Naučil se",txt:(STBY[t.value]||{}).n||t.value});return}});
 document.addEventListener("submit",async e=>{const f=e.target;if(!f.matches||!f.closest("#kartyview,#hraview,.bdm"))return;const K=kvK(f),E=f.elements;

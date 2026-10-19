@@ -3225,3 +3225,5 @@ button.btedch{cursor:pointer}button.btedch:hover{border-color:var(--gold,#b08d3a
 .btedkon{border-color:var(--ink)}.btedkrv,.btedsmrt{border-color:var(--kal)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .bted{background:rgba(0,0,0,.25)}:root:not([data-theme="light"]) .btedch{background:rgba(255,255,255,.06)}:root:not([data-theme="light"]) .btedtah{background:rgba(176,141,58,.18)}}
 :root[data-theme="dark"] .bted{background:rgba(0,0,0,.25)}:root[data-theme="dark"] .btedch{background:rgba(255,255,255,.06)}:root[data-theme="dark"] .btedtah{background:rgba(176,141,58,.18)}
+/* společník hráče v boji */
+.kspolboj{display:flex;flex-wrap:wrap;gap:.35rem;align-items:center;margin:.3rem 0}.kspolvb{border-color:var(--gold)}

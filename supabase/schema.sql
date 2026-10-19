@@ -870,6 +870,40 @@ begin
     else
       raise exception 'neplatné zbraně';
     end if;
+  elsif p_pole = 'spol' then
+    -- společník hráče v boji (2026-10-19): familiár, vyvolaný tvor, oř – spojenec s vlastníkem (vl), životy hpc/hpm sdílené
+    -- s vypravěčem; {id, n, ac, hpc, hpm, ut, src?} přidá nebo přepíše (stavy a účinky od vypravěče zůstanou), {id, x: true} odebere
+    if jsonb_typeof(x) <> 'object' or jsonb_typeof(x -> 'id') is distinct from 'string' or (x ->> 'id') !~ '^s[A-Za-z0-9_-]{1,40}$' then
+      raise exception 'neplatný společník';
+    end if;
+    if exists (select 1 from jsonb_array_elements(coalesce(s -> 'npc', '[]'::jsonb)) q where q ->> 'id' = x ->> 'id' and coalesce(q ->> 'vl', '') <> p_hrac) then
+      raise exception 'cizí společník';
+    end if;
+    if coalesce((x ->> 'x')::boolean, false) then
+      s := jsonb_set(s, '{npc}', coalesce((select jsonb_agg(q) from jsonb_array_elements(coalesce(s -> 'npc', '[]'::jsonb)) q where q ->> 'id' <> x ->> 'id'), '[]'::jsonb));
+      if s ? 'obsazeni' then
+        s := jsonb_set(s, '{obsazeni}', coalesce((select jsonb_object_agg(kv.key, kv.value) from jsonb_each(s -> 'obsazeni') kv where kv.value #>> '{}' <> x ->> 'id'), '{}'::jsonb));
+      end if;
+    else
+      if exists (select 1 from jsonb_object_keys(x) k where k not in ('id', 'n', 'ac', 'hpc', 'hpm', 'ut', 'src'))
+         or jsonb_typeof(x -> 'n') is distinct from 'string' or char_length(x ->> 'n') not between 1 and 60
+         or jsonb_typeof(x -> 'hpc') is distinct from 'number' or jsonb_typeof(x -> 'hpm') is distinct from 'number'
+         or not public.mm_cislo(x -> 'ac', 0, 40) or not public.mm_cislo(x -> 'hpc', 0, 999) or not public.mm_cislo(x -> 'hpm', 1, 999)
+         or (x ? 'src' and (jsonb_typeof(x -> 'src') <> 'string' or char_length(x ->> 'src') > 60))
+         or (x ? 'ut' and (jsonb_typeof(x -> 'ut') <> 'array' or jsonb_array_length(x -> 'ut') > 8 or exists (
+            select 1 from jsonb_array_elements(x -> 'ut') e
+            where jsonb_typeof(e) <> 'object' or exists (select 1 from jsonb_object_keys(e) k where k not in ('n', 'b', 'z', 't'))
+              or jsonb_typeof(e -> 'n') is distinct from 'string' or char_length(e ->> 'n') not between 1 and 40
+              or not public.mm_cislo(e -> 'b', -5, 30)
+              or (e ? 'z' and (jsonb_typeof(e -> 'z') <> 'string' or (e ->> 'z') !~ '^[0-9]{0,2}d[0-9]{1,3}([+-][0-9]{1,2})?$'))
+              or (e ? 't' and coalesce(e ->> 't', '') not in ('Slashing','Piercing','Bludgeoning','Fire','Cold','Lightning','Thunder','Acid','Poison','Necrotic','Radiant','Psychic','Force'))))) then
+        raise exception 'neplatný společník';
+      end if;
+      s := jsonb_set(s, '{npc}', coalesce((select jsonb_agg(q) from jsonb_array_elements(coalesce(s -> 'npc', '[]'::jsonb)) q where q ->> 'id' <> x ->> 'id'), '[]'::jsonb)
+             || jsonb_build_array(coalesce((select q from jsonb_array_elements(coalesce(s -> 'npc', '[]'::jsonb)) q where q ->> 'id' = x ->> 'id'), '{}'::jsonb)
+               || jsonb_build_object('id', x ->> 'id', 'n', x ->> 'n', 'str', 'h', 'druh', 'pacholek', 'vl', p_hrac, 'spol', true, 'ac', x -> 'ac', 'hpc', x -> 'hpc', 'hpm', x -> 'hpm', 'ut', coalesce(x -> 'ut', '[]'::jsonb))
+               || case when x ? 'src' then jsonb_build_object('b', x ->> 'src') else '{}'::jsonb end));
+    end if;
   elsif p_pole = 'hotovo' then
     -- hráč ukončil tah: kolo × 100 + slot
     if jsonb_typeof(x) = 'null' then
@@ -912,8 +946,13 @@ begin
   if not exists (select 1 from jsonb_array_elements(coalesce(s -> 'hraci', '[]'::jsonb)) h where h ->> 'id' = p_hrac) then
     raise exception 'neznámá postava';
   end if;
-  if jsonb_typeof(x) <> 'object' or exists (select 1 from jsonb_object_keys(x) k where k not in ('ci', 'cim', 'hod', 'd', 'adv', 'dmg', 't', 'drt', 'pru', 'plos', 'kmin', 'sl')) then
+  if jsonb_typeof(x) <> 'object' or exists (select 1 from jsonb_object_keys(x) k where k not in ('ci', 'cim', 'hod', 'd', 'adv', 'dmg', 't', 'drt', 'pru', 'plos', 'kmin', 'sl', 'sid')) then
     raise exception 'neplatný útok';
+  end if;
+  -- útok společníka hráče (2026-10-19): sid = id spojence s vlastníkem p_hrac
+  if x ? 'sid' and (jsonb_typeof(x -> 'sid') <> 'string' or not exists (
+      select 1 from jsonb_array_elements(coalesce(s -> 'npc', '[]'::jsonb)) q where q ->> 'id' = x ->> 'sid' and q ->> 'vl' = p_hrac)) then
+    raise exception 'cizí společník';
   end if;
   ci := x -> 'ci';
   if jsonb_typeof(ci) is distinct from 'array' or jsonb_array_length(ci) not between 1 and 12 or exists (
@@ -952,6 +991,7 @@ begin
     u := u || jsonb_build_object('plos', jsonb_build_object('ab', pl -> 'ab', 'dc', pl -> 'dc', 'pol', coalesce(pl -> 'pol', 'false'::jsonb)));
   end if;
   if x ? 'sl' then u := u || jsonb_build_object('sl', x -> 'sl'); end if;
+  if x ? 'sid' then u := u || jsonb_build_object('sid', x -> 'sid'); end if;
   s := jsonb_set(s, '{utoky}', (select coalesce(jsonb_agg(e order by o), '[]'::jsonb) from (
       select e, o from jsonb_array_elements(coalesce(s -> 'utoky', '[]'::jsonb) || jsonb_build_array(u)) with ordinality t(e, o) order by o desc limit 30) w));
   update public.boj set stav = s, verze = verze + 1, zmeneno = now() where id = 'aktivni' returning verze into v;

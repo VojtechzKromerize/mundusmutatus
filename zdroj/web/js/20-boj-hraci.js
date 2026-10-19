@@ -26,7 +26,7 @@ const BUEF="Účinek: ",bojUtEf=u=>String((u&&u.cim)||"").startsWith(BUEF)?u.cim
 function bojEfZnac(z,n,sp,u){const nm=String(sp||"").replace(/\s*\(\d+\. st\.\)\s*$/,"").trim(),d=typeof kSp==="function"&&KSPD?kSp(nm):null,hh=d?kTrv(d.d):null;if(!hh)return false;
   const h=(z.hraci||[]).find(x=>x.id===u.h),ef={n:d.en||nm,kdy:"kola",k:Math.max(1,Math.round(hh*600)),kolo:z.kolo||1,tah:z.tah||0};if(u.h)ef.od=u.h;if(d.ko&&h&&(h.stav||[]).includes("soustředí"))ef.src=u.h;
   (n.ef||[]).filter(e=>e.n===ef.n&&!e.st).forEach(e=>bojEfDel(n,e));(n.ef=n.ef||[]).push(ef);return true}
-function bojUtokVyhodnot(s,u){const h=(s.hraci||[]).find(x=>x.id===u.h),an=h?h.n:"?",r=[],ef=bojUtEf(u);
+function bojUtokVyhodnot(s,u){const h=(s.hraci||[]).find(x=>x.id===u.h),sp=u.sid?(s.npc||[]).find(x=>x.id===u.sid):null,an=sp?`${sp.n} (${h?h.n:"?"})`:h?h.n:"?",r=[],ef=bojUtEf(u);
   (u.ci||[]).forEach(ci=>{const n=(s.npc||[]).find(x=>x.id===ci);if(!n)return;const E=bojEff(n),houf=n.druh==="houf",o={ci,n:n.n,houf};
     if(ef){Object.assign(o,{ef,gm:`${n.n}: ${ef} (účinek kouzla)`,vys:ef});r.push(o);return}
     if(u.plos){const P=u.plos;
@@ -459,8 +459,11 @@ document.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.matches&&e.
 /* zápis životů: číslo nastaví, „−12“ / „-12“ odečte, „+5“ přičte; jde přes Zpět, záznam boje i Concentration */
 function bojHpZapis(t){const card=t.closest("[data-bnpc]");if(!card||!BHP0)return;const id=card.dataset.bnpc,k=+t.dataset.bhp,mx=+t.dataset.max||1,old=BHP0.v,v=String(t.value).trim().replace(/−|–/g,"-");
   let nv;const r=v.match(/^([+-])\s*(\d+)$/),a=v.match(/^(\d+)$/);if(r)nv=old+(r[1]==="-"?-1:1)*+r[2];else if(a)nv=+a[1];else if(v==="")nv=mx;else{t.value=old;return}
-  t.value=nv;if(nv===old)return;const o=bojHp.get(),arr=o[id]||[];bojUndoPush({hp:BHP0.hp});arr[k]=nv;o[id]=arr;bojHp.set(o);
-  const n=((BOJ.s&&BOJ.s.npc)||[]).find(x=>x.id===id);if(n)bojLog(id,{n:"Životy",ai:null,ci:id,zt:`${old} → ${nv} (${nv-old>0?"+":"−"}${Math.abs(nv-old)})`},n.n);
+  t.value=nv;if(nv===old)return;const o=bojHp.get(),arr=o[id]||[];bojUndoPush({hp:BHP0.hp});
+  const n=((BOJ.s&&BOJ.s.npc)||[]).find(x=>x.id===id);
+  if(n&&n.spol)bojZmen(z=>{const q=(z.npc||[]).find(x=>x.id===id);if(q)q.hpc=nv});  // společník hráče: životy sdílené s jeho kartou
+  else{arr[k]=nv;o[id]=arr;bojHp.set(o)}
+  if(n)bojLog(id,{n:"Životy",ai:null,ci:id,zt:`${old} → ${nv} (${nv-old>0?"+":"−"}${Math.abs(nv-old)})`},n.n);
   bojHpZmena(id,k,old,nv);BHP0={hp:JSON.parse(JSON.stringify(o)),v:nv};renderBoj()}
 document.addEventListener("change",e=>{const t=e.target;if(t.matches&&t.matches("#bojview [data-bhp]"))bojHpZapis(t)});
 /* klávesy v Boji (vypravěč): mezerník další tah, Shift+mezerník zpět o slot, číslice + Enter zranění vybraného nepřítele, Ctrl+Z zpět */

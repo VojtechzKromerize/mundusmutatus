@@ -239,7 +239,10 @@ const bojKonecLS=()=>{BZAPT=null;BKORX.clear();BKRLOG.length=0;bojHp.set({});boj
 
 /* --- účinný statblock: základ + přívlastky --- */
 const bojMod=(z,d)=>{if(!d)return z;const m=String(z).match(/^(\d*)d(\d+)([+-]\d+)?$/i);if(!m)return z;const c=(m[3]?+m[3]:0)+d;return `${m[1]}d${m[2]}${c?(c>0?"+":"")+c:""}`};
-function bojEff(n){const p=PROTBY[n.b];if(!p)return null;const pr=(n.pr||[]).map(i=>PRIVBY[i]).filter(Boolean);
+/* společník hráče v boji (2026-10-19): bez statblocku ze SRD se statistiky vyrobí z údajů na kartě (AC, životy, útoky) */
+function bojSpolProt(n){if(!n||!n.spol)return null;const k=n.b&&PROTBY[n.b]?n.b:n.id;if(k===n.id&&!PROTBY[k])PROTBY[k]={id:k,n:n.n,u:"pacholek",ac:String(n.ac||10),hp:[{n:"",max:+n.hpm||1}],at:(n.ut||[]).map(a=>({n:a.n,b:+a.b||0,z:a.z||"",zt:a.t||"",p:""})),h:"",xp:0,spol:true};
+  else if(k===n.id){const p=PROTBY[k];p.n=n.n;p.ac=String(n.ac||10);p.hp=[{n:"",max:+n.hpm||1}];p.at=(n.ut||[]).map(a=>({n:a.n,b:+a.b||0,z:a.z||"",zt:a.t||"",p:""}))}return PROTBY[k]}
+function bojEff(n){const p=PROTBY[n.b]||bojSpolProt(n);if(!p)return null;const pr=(n.pr||[]).map(i=>PRIVBY[i]).filter(Boolean);
   const sum=k=>pr.reduce((a,x)=>a+(x[k]&&!x[k].pr?x[k].v:0),0),pct=k=>pr.reduce((a,x)=>a+(x[k]&&x[k].pr?x[k].v:0),0);
   const dAc=sum("ac"),dUt=sum("ut"),dZr=sum("zr"),houf=p.u==="houf";
   const ac=dAc?String(p.ac).replace(/\d+/g,m=>+m+dAc):p.ac;
@@ -437,7 +440,7 @@ function bojRefTxt(p,karta){const r=[];
   return r.join("")}
 const bojEdit=(p,druh)=>window.MMDB&&!p.$srd?`<button type="button" class="gbtn ghost bedit" data-bedit="${besc(p.id)}" data-bedruh="${druh||"protivnik"}">Upravit</button>`:"";
 /* životy soka v hlavičce karty: číslo k přepsání a pruh (pod polovinou Bloodied) */
-function bojHpHtml(n,E){if(!E||n.druh==="houf"||!E.hp.some(h=>h.max>1))return "";const hv=bojHp.get()[n.id]||[];
+function bojHpHtml(n,E){if(!E||n.druh==="houf"||!E.hp.some(h=>h.max>1))return "";const hv=n.spol?[n.hpc!=null?+n.hpc:(E.hp[0]||{}).max]:bojHp.get()[n.id]||[];
   return `<span class="bhpw">${E.hp.map((h,k)=>{const cur=hv[k]!=null?hv[k]:h.max,pr=Math.max(0,Math.min(100,Math.round(cur/h.max*100)));
     return `<label class="bhp${cur<=0?" bhp0":cur<=h.max/2?" bhp2":""}" ${btip(`Životy${h.n?" – "+h.n:""}: přepiš číslo. Pod polovinou je Bloodied.`)}><span class="${h.n?"":"vh"}">${h.n?besc(h.n):"HP"}</span><input type="text" autocomplete="off" enterkeyhint="done" name="hp-${n.id}-${k}" data-bhp="${k}" data-max="${h.max}" value="${cur}" ${btip("Životy: číslo nastaví, −12 odečte, +5 přičte (Enter)")} aria-label="Životy – ${besc(n.n)}${h.n?", "+besc(h.n):""}"><small>/${h.max}</small><i style="--p:${pr}%"></i></label>`}).join("")}</span>`}
 /* rozbalená část karty: stavy, znamení (Požehnání, Pokušení…), přívlastky, zdroje, útoky, poslední hod, statblock */

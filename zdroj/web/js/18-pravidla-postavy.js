@@ -272,12 +272,23 @@ function kPripHtml(K){if(!KSPD)return `<p class="rsmall">Načítám seznam kouze
 /* ---- společníci: familiár, Divoká podoba, oř, dračí posádka ---- */
 const kSpol=K=>kartaStav(K.id).spol||[];
 async function kSpolUloz(K,L){await kartaStavZmen(K.id,{spol:L.length?L:null})}
-function kSpolHtml(K){const L=kSpol(K);
-  return `<h3 class="uvh2">Společníci</h3><p class="rsmall">Familiár, Divoká podoba, oř, vyvolaný tvor nebo drak posádky – vlastní životy a útoky.</p>
-    ${L.map((s,i)=>{const pr=Math.max(0,Math.min(100,Math.round((+s.hp||0)/Math.max(1,+s.max||1)*100)));return `<div class="kspol"><div class="kspolh"><b>${besc(s.n)}</b> <small>${besc(s.druh||"")}</small> <button type="button" class="kx" data-kspolx="${i}" aria-label="Odebrat">×</button></div>
-      <div class="kstat"><span class="kbox"><small>AC</small><b>${besc(s.ac??"–")}</b></span><span class="kbox khp${s.hp<=s.max/2?" bhp2":""}"><small>Životy</small><b>${+s.hp||0}</b><span>/${+s.max||0}</span><i class="bkhpb" style="--p:${pr}%"></i></span>
+/* společník v boji (2026-10-19): hráč ho pošle do běžícího boje jako spojence (mm_boj_hrac 'spol'), útočí za něj z telefonu,
+   životy jsou sdílené s vypravěčem (hpc v boji); „Z boje“ zapíše životy zpět na kartu */
+const kSpolId=(K,i)=>`s${String(K.id).replace(/[^A-Za-z0-9_-]/g,"")}-${i}`.slice(0,41);
+const KSPOLC={};
+function kSpolBoj(K){const s=BOJ.s;if(!s||!s.aktivni||!window.MMDB||!bojDB||!bojDB.hrac||!kMuze(K))return null;const me=(s.hraci||[]).find(h=>bojKartaH(h)===K);return me?{s,me}:null}
+function kSpolHtml(K){const L=kSpol(K),B=kSpolBoj(K);
+  const cile=B?(B.s.npc||[]).filter(o=>!bojSpoj(o)&&!(o.stav||[]).some(t=>t==="poražen"||t==="prchá"||t==="vzdal se")&&(o.druh!=="houf"||o.pocet>0)):[];
+  return `<h3 class="uvh2">Společníci</h3><p class="rsmall">Familiár, Divoká podoba, oř, vyvolaný tvor nebo drak posádky – vlastní životy a útoky.${B?" Během boje ho pošli do boje: vypravěč ho uvidí jako spojence a útočíš za něj odsud.":""}</p>
+    ${L.map((s,i)=>{const sid=kSpolId(K,i),vb=B?(B.s.npc||[]).find(o=>o.id===sid):null,hp=vb?(+vb.hpc||0):(+s.hp||0),max=vb?(+vb.hpm||1):(+s.max||0),pr=Math.max(0,Math.min(100,Math.round(hp/Math.max(1,max)*100)));
+      const bojH=B?(vb?`<p class="kspolboj"><span class="kchip on">⚔ v boji${(vb.stav||[]).length?" · "+vb.stav.join(", "):""}</span> <label>Cíl <select data-kspolcil="${i}"><option value="">— vyber —</option>${cile.map(o=>`<option value="${o.id}"${KSPOLC[sid]===o.id?" selected":""}>${besc(o.n)}</option>`).join("")}</select></label>
+          ${(s.ut||[]).map((a,j)=>`<button type="button" class="gbtn" data-kspolut="${i}:${j}" ${btip(`${a.n}: d20 ${bsg(+a.b||0)}, zranění ${a.z||"–"} ${BZRT[a.t]||a.t||""} – útok se pošle vypravěči k potvrzení`)}>⚔ ${besc(a.n)} ${bsg(+a.b||0)}</button>`).join(" ")}
+          <button type="button" class="gbtn ghost" data-kspolz="${i}" ${btip("Odebere ho z boje a zapíše životy zpět na kartu")}>Z boje</button></p>`
+        :`<p class="kspolboj"><button type="button" class="gbtn ghost" data-kspolboj="${i}" ${btip("Přidá ho do běžícího boje jako spojence družiny")}>⚔ Do boje</button></p>`):"";
+      return `<div class="kspol${vb?" kspolvb":""}"><div class="kspolh"><b>${besc(s.n)}</b> <small>${besc(s.druh||"")}</small> <button type="button" class="kx" data-kspolx="${i}" aria-label="Odebrat">×</button></div>
+      <div class="kstat"><span class="kbox"><small>AC</small><b>${besc(s.ac??"–")}</b></span><span class="kbox khp${hp<=max/2?" bhp2":""}"><small>Životy${vb?" (v boji)":""}</small><b>${hp}</b><span>/${max}</span><i class="bkhpb" style="--p:${pr}%"></i></span>
         <span class="kbox kzrb"><input type="number" min="0" max="999" data-kspolv="${i}" inputmode="numeric" placeholder="HP" aria-label="Kolik HP"><button type="button" class="gbtn ghost" data-kspolh="${i}" data-d="-1">−</button><button type="button" class="gbtn ghost" data-kspolh="${i}" data-d="1">+</button></span></div>
-      ${(s.ut||[]).length?`<p>${s.ut.map((a,j)=>`<button type="button" class="gbtn ghost" data-kspolu="${i}:${j}">${besc(a.n)} ${a.b!=null?bsg(+a.b):""} · ${besc(a.z||"")} ${besc(BZRT[a.t]||a.t||"")}</button>`).join(" ")}</p>`:""}
+      ${bojH}${(s.ut||[]).length&&!vb?`<p>${s.ut.map((a,j)=>`<button type="button" class="gbtn ghost" data-kspolu="${i}:${j}">${besc(a.n)} ${a.b!=null?bsg(+a.b):""} · ${besc(a.z||"")} ${besc(BZRT[a.t]||a.t||"")}</button>`).join(" ")}</p>`:""}
       ${s.src&&PROTBY[s.src]?`<details class="bjapd"><summary>Statistiky</summary><div class="bsb srdtext">${PROTBY[s.src].h}</div></details>`:""}${s.pozn?`<p class="rsmall">${besc(s.pozn)}</p>`:""}</div>`}).join("")}
     <details class="bjapd"><summary>+ Přidat společníka</summary><form class="kvlh" data-kspolf><input name="n" placeholder="jméno (např. Havran Nevermore)" maxlength="60" required>
       <input name="srd" list="kspoll" placeholder="statistiky ze SRD (Owl, Riding Horse, Wolf…)" aria-label="Statistiky ze SRD"><input name="hp" type="number" min="1" max="999" placeholder="HP"><input name="ac" type="number" min="1" max="40" placeholder="AC">
