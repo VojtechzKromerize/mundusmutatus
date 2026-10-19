@@ -212,7 +212,7 @@ document.addEventListener("click",e=>{const T=s=>e.target.closest&&e.target.clos
   const pa=T("[data-bpadv]");if(pa){const [hid,v]=pa.dataset.bpadv.split("|"),zpet=pa.getAttribute("aria-pressed")==="true"&&v!=="0";if(GMV){(BGMU[hid]=BGMU[hid]||{}).adv=zpet?0:+v}else BJU.adv=zpet?"0":v;renderBoj();return}
   const pt=T("[data-bptyp]");if(pt){const [kid,wn,t]=pt.dataset.bptyp.split("|");BUTYP[kid+":"+wn]=t;renderBoj();return}
   const g=T("[data-bgmhod]");if(g){const k=g.dataset.bph||((g.closest("[data-bhpan]")||{}).dataset||{}).bhpan;if(k)bojGmHod(k,+g.dataset.bgmhod);return}
-  const j=T("[data-bjut]");if(j){const s=BOJ.s||{},me=(s.hraci||[]).find(h=>h.n===bojJa.get()),zb=me?bojZbrVse(s,me):[],w=zb[+j.dataset.bjut];if(!w)return;
+  const j=T("[data-bjut]");if(j){const s=BOJ.s||{},me=(s.hraci||[]).find(h=>h.n===bojJa.get());{const nes=me&&(bojNeschopny(me.stav)||kNeschopny(bojKartaH(me)));if(nes){mmHlasG(`Nemůžeš útočit – ${nes}.`,3500);return}}const zb=me?bojZbrVse(s,me):[],w=zb[+j.dataset.bjut];if(!w)return;
     BJU.ks=null;BJU.plos=false;if(BJU.adv==="auto")BJU.adv="0";BJU.zi=String(+j.dataset.bjut);BJU.t=bojUtTyp(bojKartaH(me),w)||BJU.t;BJU.drt=!!w.drt;BJU.pru=!!w.pru;BJU.dal=!!w.dal;const K=bojKartaH(me);if(K&&kJeZbran(K,w.n)){KZBRV[K.id]=w.n;BJU.zvAuto=w.n;kZbrvUloz()}bojJaHod();return}});
 /* ===== Boj: bojová karta postavy v rozvržení D&D Beyond na telefonu (2026-10-17) – úsporná: hlavička (AC s obětováním
    zbroje, zbývající obětování, portrét s hrdinskou inspirací a reakcí, životy, odpočinek, hlavní karta, stavy), pruh jen
@@ -408,8 +408,10 @@ function bojDbm(s,h,K,gm,vzdy,X){X=X||{};const S=kartaStav(K.id),D=kDuse(K),mx=k
     </div>${art?`<div class="bdmart">${art}</div>`:""}</header>`;
   /* hlášky v jednom proužku: první je vidět, ostatní po klepnutí */
   const hl=shOpen==="utok"&&X.hlS!=null?X.hlS:X.hl!=null?X.hl:kHlas([navrhyMojeHtml(K),postupBanner(K),kZavBox(K),KKON[K.id]&&kKonDrzi(K)?`<p class="khl kdbkon">${bi("soustredi")} <b>Soustředění:</b> CON záchrana SO ${KKON[K.id]} <button type="button" class="gbtn" data-kkonh>🎲 CON ${bsg(kZach(K,"CON"))}${K.konVyhoda?" s výhodou":""}</button><button type="button" class="kx" data-kkonx aria-label="Zavřít">×</button></p>`:"",kPoslBox(K)]);
+  /* stav, který bere akce: tlačítka tahu, útoků, kouzel a reakce ztlumené (CSS .bdmnesch) a hláška */
+  const nes=(X.boj?bojNeschopny(h.stav):"")||kNeschopny(K);
   const hlN=(hl.match(/<(?:p|div) class="khl/g)||[]).length,hlO=BDM.hlo.has(key);
-  const hlH=hl?`<div class="bdmhl${hlN>1&&!hlO?" bdmhlz":""}">${hl}${hlN>1?`<button type="button" class="bdmhlb" data-bdmhl aria-expanded="${hlO}">${hlO?"méně":`+${hlN-1}`}</button>`:""}</div>`:"";
+  const hlH=(hl||nes)?`<div class="bdmhl${hlN>1&&!hlO?" bdmhlz":""}">${nes?`<p class="khl bdmneshl">${BSTI[nes]?bi(BSTI[nes][0]):""} <b>${nes[0].toUpperCase()+nes.slice(1)}${SRDST[nes]?` (${SRDST[nes].en})`:""}:</b> nemůžeš provést akci, bonusovou akci ani reakci${/ochromen|zkamen|omráčen|chycen|zadržen/.test(nes)?", rychlost 0":""}. Stav zruší vypravěč nebo záchrana na konci tahu.</p>`:""}${hl}${hlN>1?`<button type="button" class="bdmhlb" data-bdmhl aria-expanded="${hlO}">${hlO?"méně":`+${hlN-1}`}</button>`:""}</div>`:"";
   /* lepkavý pruh: zúžená hlavička (při posunu) a záložky */
   const lep=`<div class="bdmlep"><div class="bdmmi"><span class="bdmmin">${besc(K.n)}</span><button type="button" class="bdmmac" data-bdmsh="ac" ${btip("AC – obětování zbroje")}>AC <b>${ac}</b></button>${hpB(" bdmmhp")}</div>
     <nav class="bdmtabs" role="tablist" aria-label="Oddíly karty">${sek.map(([id,n,k])=>`<button type="button" role="tab" data-bdmsec="${id}" aria-selected="${id===sec}" ${btip(n)}>${bdmIc(id)}<span>${besc(k)}</span></button>`).join("")}</nav></div>`;
@@ -417,7 +419,7 @@ function bojDbm(s,h,K,gm,vzdy,X){X=X||{};const S=kartaStav(K.id),D=kDuse(K),mx=k
   const konec=vzdy&&X.boj&&(s.obsazeni||{})[s.tah]===h.id?((s.hotovo||{})[h.id]===(s.kolo||1)*100+(s.tah||0)?`<p class="bdmnote">✓ Tah dohrán – vypravěč posune dál.</p>`:bojKonecBtn(h.id)):"";
   const list=shOpen?(()=>{const [tit,obs]=bdmList(s,h,K,gm,X,shOpen);return `<div class="bdmzavb" data-bdmzav aria-hidden="true"></div><div class="bdmlist" role="dialog" aria-label="${besc(tit)}" data-bdmlist><div class="bdmlh" data-bdmlh><i aria-hidden="true"></i><b>${besc(tit)}</b><button type="button" class="bdmlx" data-bdmzav aria-label="Zavřít">×</button></div><div class="bdmlb">${obs}</div></div>`})():"";
   const upr=`${!kMuze(K)&&X.karta?`<p class="kropozn">Tuto kartu upravuje přihlášený hráč. Ke své postavě se přihlas na stránce <a href="#hra">Hra</a>.</p>`:""}${kMuze(K)?kLvupHtml(K)+(KUPRO.has(K.id)?kUprHtml(K):""):""}`;
-  return `<div class="bdm kdb bhkb${kMuze(K)?"":" kro"}" data-kid="${besc(K.id)}">${head}${hlH}${upr}${lep}<div class="bdmbody" data-bdmsw="${besc(key)}">${body}</div>${konec}<button type="button" class="bdmd20" data-bdmsh="kost" aria-expanded="${shOpen==="kost"}" aria-label="Hod kostkou" ${btip("Hod kostkou: vlastní výraz se Závojem, výhoda a nevýhoda")}>${bdmIc("d20")}</button>${list}</div>`}
+  return `<div class="bdm kdb bhkb${kMuze(K)?"":" kro"}${nes?" bdmnesch":""}" data-kid="${besc(K.id)}">${head}${hlH}${upr}${lep}<div class="bdmbody" data-bdmsw="${besc(key)}">${body}</div>${konec}<button type="button" class="bdmd20" data-bdmsh="kost" aria-expanded="${shOpen==="kost"}" aria-label="Hod kostkou" ${btip("Hod kostkou: vlastní výraz se Závojem, výhoda a nevýhoda")}>${bdmIc("d20")}</button>${list}</div>`}
 /* jediná karta postavy (2026-10-18): stejná na stránce Karty, Hra i v Boji; mimo boj se životy a stavy zapisují rovnou do karty */
 function kartaJednaHtml(K){kModsSync(K);return bojDbm(null,{id:"_"+K.id,n:K.n},K,false,true,{boj:false,karta:true})}
 /* hráč mimo boj: jeho bojová karta i bez běžícího boje */

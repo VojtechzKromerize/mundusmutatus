@@ -326,6 +326,10 @@ const bojVidiTma=p=>/darkvision|vidění ve tmě|vidí ve tmě|truesight|blindsi
 const bojCilO=(s,id)=>id?((s.hraci||[]).find(h=>h.id===id)||(s.npc||[]).find(x=>x.id===id)||null):null;
 /* postava na prahu smrti: hody proti smrti běží, dokud není stabilizovaná nebo mrtvá */
 const bojDsAkt=h=>!!(h&&h.ds&&!h.ds.st);
+/* stavy, které berou akce (2026-10-19): Incapacitated a vše, co ho obsahuje – žádná akce, bonusová akce ani reakce */
+const BNESCH=["neschopný","ochromen","zkamenělý","omráčen","bezvědomí"];
+const bojNeschopny=st=>(st||[]).find(t=>BNESCH.includes(t))||"";
+const kNeschopny=K=>K?bojNeschopny(kStavy(K)):"";
 /* návrh výhody (D&D 2024): důvody pro výhodu i nevýhodu; když jsou obojí, ruší se */
 function bojAdvNavrh(s,n,a){const plus=[],minus=[],st=n.stav||[],dal=bojDalka(a);
   srdAdv(st,[],dal,plus,minus);
@@ -361,7 +365,7 @@ function bojUtokZrPo(nid){const L=BLOG[nid],o=L&&L[0],n=((BOJ.s||{}).npc||[]).fi
   const a=bojUtokV(n,o.zrPo.ai,a0),zr=bojUtokZr(n,a,o.zrPo.krit,BOJ.s||{});delete o.zrPo;if(zr)o.zr=zr;renderBoj()}
 const BNUT={};
 const bojUtokPocet=a=>{const m=String((a.p||"")+" "+(a.n||"")).match(/\b(dva|dvě|tři|čtyři|pět|\d+)\s*(?:×\s*)?útok/i);if(!m)return 1;const v={dva:2,"dvě":2,"tři":3,"čtyři":4,"pět":5}[m[1].toLowerCase()]||+m[1];return v>1&&v<9?v:1};
-function bojUtok(n,ai){const E=bojEff(n);if(!E)return;const a=E.at[ai]?bojUtokV(n,ai,E.at[ai]):null;if(!a)return;const houf=n.druh==="houf",p=E.p,o={n:a.n,p:a.p||""};
+function bojUtok(n,ai){const E=bojEff(n);if(!E)return;{const nes=bojNeschopny(n.stav);if(nes){mmHlasG(`${n.n} nemůže jednat – ${nes}. Nejdřív stav zruš.`,4000);return}}const a=E.at[ai]?bojUtokV(n,ai,E.at[ai]):null;if(!a)return;const houf=n.druh==="houf",p=E.p,o={n:a.n,p:a.p||""};
   let krit=false;
   const S=BOJ.s||{},cid=BCIL[n.id],cil=cid?((S.hraci||[]).find(h=>h.id===cid)||(S.npc||[]).find(x=>x.id===cid)):null;if(cil){o.cil=cil.n;o.ci=cid;if(String(cid)[0]==="h")o.cilPC=cil.n}
   const am=BADV[n.id]==null?"auto":BADV[n.id],nv0=bojAdvNavrh(S,n,a),av=am==="auto"?nv0:{v:+am,why:[]};

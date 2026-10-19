@@ -335,6 +335,12 @@ async def main():
     chk(r[5]==1 and r[3].count("d20 17 (ručně)")==1,"Zadat ručně platí pro jeden útok: "+str(r[3])[:160])
     await pl.evaluate("BJU.serie=null;BRUC.h4={d20:'25'};bojJaHod()");chk(await pl.evaluate("BJU.serie===null"),"Zadat ručně: d20 mimo 1–20 se nehodí, hráč dostane upozornění")
     await pl.evaluate("delete BRUC.h4;BJU.serie=null;BJU.info='';BJU.hod='';BJU.d='';BJU.dmg='';BJU.adv='auto';BDM.sheet=null;renderBoj()");await pl.wait_for_timeout(300)
+    # stav, který bere akce: omráčený hráč nemůže útočit, karta to ukáže a ztlumí tlačítka
+    await g.evaluate("bojZmen(z=>{const h=z.hraci.find(x=>x.id==='h4');h.stav=[...(h.stav||[]),'omráčen']})");await pl.wait_for_timeout(2500)
+    chk(await pl.locator('[data-bhcard="h4"] .bdmnesch').count()==1 and await pl.locator('[data-bhcard="h4"] .bdmneshl').count()==1,"omráčený hráč: karta ztlumená a hláška „nemůžeš jednat“")
+    await pl.evaluate(f"BJU.cil='{rid}';BJU.serie=null;bojJaHod()");await pl.wait_for_timeout(300)
+    chk(await pl.evaluate("BJU.serie===null"),"omráčený hráč nehodí útok")
+    await g.evaluate("bojZmen(z=>{const h=z.hraci.find(x=>x.id==='h4');h.stav=(h.stav||[]).filter(t=>t!=='omráčen')})");await pl.wait_for_timeout(2500)
     # Akce: bez kouzel a mistrovství zbraní, bez tlačítka krit, vlastnosti zbraně až po klepnutí
     await pl.evaluate("BDM.sec.balduin='akce';BDM.af.balduin='all';renderBoj()");await pl.wait_for_timeout(300)
     ak=await pl.inner_text('[data-bhcard="h4"] .bdmsec')
