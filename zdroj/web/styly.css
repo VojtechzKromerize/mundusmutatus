@@ -3246,3 +3246,4 @@ button.btedch{cursor:pointer}button.btedch:hover{border-color:var(--gold,#b08d3a
 .kvpen{font-size:1.15em;font-weight:600;margin:.2rem 0 .5rem}.kvpenf{flex-wrap:wrap;gap:.35rem}
 .kvpzw{display:flex;flex-wrap:wrap;gap:.35rem}.kvpz{display:inline-flex;align-items:center;gap:.25rem;border:1px solid var(--rule);border-radius:.6rem;padding:.1rem .35rem}
 .kpokv{margin-top:.5rem}
+.kvhq{padding:.35rem .5rem;border:1px solid var(--rule);border-radius:.5rem;background:transparent;color:inherit;font:inherit}

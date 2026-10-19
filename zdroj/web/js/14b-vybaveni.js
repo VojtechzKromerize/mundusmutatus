@@ -66,7 +66,8 @@ function bdmVecList(K,i){const inv=kInv(K),x=inv[i];if(!x)return ["Věc",`<p cla
   const cile=B?kInvCile(B.s):[];
   const hodH=hd?`<div class="kvsek"><h4 class="bdmgh">Hodit</h4><p class="bdmnote">Místo jednoho útoku akce Útok, cíl do 20 stop: záchrana AGI SO ${8+kMod(kVl(K,"AGI")||10)+kPB(K)}, jinak ${hd.z} ${besc(BZRT[hd.t]||hd.t)}${hd.p?` (${besc(hd.p)})`:""}.</p>
     <p class="bdmrow">${B?`<select data-kvcil aria-label="Cíl"><option value="">— cíl —</option>${cile.map(o=>`<option value="${o.id}"${KINVC[K.id]===o.id?" selected":""}>${besc(o.n)}</option>`).join("")}</select>`:""}<button type="button" class="bdmbtn" data-kvhod="${i}">🎲 Hodit${B?" – poslat vypravěči":""}</button></p></div>`:"";
-  const darH=`<div class="kvsek"><h4 class="bdmgh">Předat</h4><p class="bdmrow">${x.q>1?`<input type="number" data-kvpq min="1" max="${x.q}" value="1" inputmode="numeric" aria-label="Kolik kusů" style="width:4.2em">`:""}
+  const darOk=window.MMDB&&(komu.length||GMV||KZAM.has(K.id));
+  const darH=!darOk?"":`<div class="kvsek"><h4 class="bdmgh">Předat</h4><p class="bdmrow">${x.q>1?`<input type="number" data-kvpq min="1" max="${x.q}" value="1" inputmode="numeric" aria-label="Kolik kusů" style="width:4.2em">`:""}
       ${komu.length&&window.MMDB?`<select data-kvkomu aria-label="Komu"><option value="">— komu —</option>${komu.map(k=>`<option value="${besc(k.id)}">${besc(k.n)}</option>`).join("")}</select><button type="button" class="bdmbtn" data-kvdar="${i}">Dát</button>`:""}
       ${window.MMDB&&(GMV||KZAM.has(K.id))?`<button type="button" class="bdmbtn ghost" data-kvpokl="${i}" ${btip("Uloží věc do pokladny družiny – vezme si ji kdokoli z družiny na stránce Hra")}>Do pokladny družiny</button>`:""}</p></div>`;
   const upr=`<div class="kvsek"><h4 class="bdmgh">Upravit</h4>
