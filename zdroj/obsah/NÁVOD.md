@@ -24,7 +24,8 @@ Vše v této části vidí **jen vypravěč** – hráči nedostanou ani seznamy
   „jezdec 45, dráček 68“), `bonus` (útok houfu), `pozehnani`, `pokuseni`, `komplikace`, `nerest`, `stitky` (pro hledání),
   `zdroje` (k odškrtávání: „Výdrž 2, Náboje 3“), `vyznani` (kat / kal / old – svátky pro Závoj), `kriticka: drak`
   a `utoky` – každý řádek `Název | +6 | 1d8+3 Slashing | poznámka`, u houfu `| 3 za pacholka Slashing |`,
-  u schopnosti se záchranou `| AGI DC 15 | 2d8 Fire |`. Text pod hlavičkou je celý statblock; v boji se ukáže bez citátu,
+  u schopnosti se záchranou `| AGI DC 15 | 2d8 Fire |`; `multi` – věta jako Multiattack v SRD („provede dva útoky Meč a jeden
+  útok Kopnutí“) – v Boji z ní vznikne tlačítko Celá akce (útoky po jednom). Text pod hlavičkou je celý statblock; v boji se ukáže bez citátu,
   popisu (odstavců, které nezačínají **tučným slovem**) a bez **Výkupné a kořist** – ten odstavec se ale objeví
   ve shrnutí po boji.
   Bestiář obsahuje i netvory převedené z D&D 2024 (nemrtví, zvířata a obludy, čerti a bytosti z pověstí, lidé –

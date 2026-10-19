@@ -116,6 +116,17 @@ async def main():
     chk("Adam" in lg and "výhoda" in lg,"útok na zvolený cíl s výhodou (2d20)")
     chk(await g.evaluate("!!(BOJ.s.reak||{}).n1"),"útok jako reakce odškrtne R")
     await g.click(rot+' [data-badv="auto"]');await g.wait_for_timeout(100)
+    # celá akce (Multiattack): útoky po jednom proti vybranému cíli
+    await g.evaluate("PROTBY[BOJ.s.npc.find(o=>o.id==='n1').b].multi='Rotmistr provede dva útoky Dlouhý meč.';renderBoj()");await g.wait_for_timeout(200)
+    chk(await g.locator(rot+' [data-bmulti]').count()==1 and "2× Dlouhý meč" in await g.locator(rot+' [data-bmulti]').inner_text(),"tlačítko Celá akce se sledem útoků ze statblocku")
+    await g.click(rot+' [data-bmulti]');await g.wait_for_timeout(300)
+    if await g.locator(".mmpop [data-butsik]").count(): await g.click(".mmpop [data-butsik] >> nth=0");await g.wait_for_timeout(400)
+    chk(await g.locator(rot+' [data-bmdal]').count()==1 and "2/2" in await g.locator(rot+' [data-bmdal]').inner_text() and "útok 1 z 2" in await g.locator(rot+" .blog li").first.inner_text(),"první útok proběhl, plaketa nabízí Další útok 2/2")
+    if await g.locator(rot+' [data-bzrpo]').count(): await g.click(rot+' [data-bzrpo]');await g.wait_for_timeout(200)
+    await g.click(rot+' [data-bmdal]');await g.wait_for_timeout(300)
+    if await g.locator(".mmpop [data-butsik]").count(): await g.click(".mmpop [data-butsik] >> nth=0");await g.wait_for_timeout(400)
+    chk(await g.locator(rot+' [data-bmdal]').count()==0 and "útok 2 z 2" in await g.locator(rot+" .blog li").first.inner_text(),"druhý útok uzavře celou akci")
+    await g.evaluate("delete PROTBY[BOJ.s.npc.find(o=>o.id==='n1').b].multi;renderBoj()");await g.wait_for_timeout(100)
     # cíle boje
     await g.click(".bcld summary");await g.fill(".bclf [name=n]","Udržet bránu");await g.fill(".bclf [name=cil]","2");await g.click(".bclf button");await g.wait_for_timeout(500)
     await g.click("[data-bclp]");await g.wait_for_timeout(400)

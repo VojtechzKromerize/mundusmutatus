@@ -3211,3 +3211,5 @@ span.bzos{cursor:default}
 /* stav, který bere akce (Incapacitated…): tlačítka tahu, útoků, kouzel a reakce jsou ztlumená */
 .bdmnesch .bdmtahr button,.bdmnesch [data-bjut],.bdmnesch [data-bdmutx],.bdmnesch .bdmcil,.bdmnesch [data-kses],.bdmnesch [data-bhrk],.bdmnesch [data-bhrdy],.bdmnesch .bdmrk,.bdmnesch .bdmserm button{opacity:.35;pointer-events:none}
 .bdmneshl{border-color:var(--rubr,#8a1c1c)}
+/* celá akce nepřítele (Multiattack po jednom) */
+.bmulti{margin:.3rem 0}.bmultib{font-weight:600}.bmultib small{font-weight:400;opacity:.85;margin-left:.3em}

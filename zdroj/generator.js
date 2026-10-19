@@ -212,7 +212,7 @@ function generuj(soubory, manifest) {
       return { n: m[1].trim(), max: parseInt(m[2], 10) };
     });
     const o = { $gm: true, id: p.id, n: p.nazev, u, ac: p.ac || "", hp, ut: p.utok || "", poz: p.pozehnani || "", pok: p.pokuseni || "",
-      kom: p.komplikace || "", ner: p.nerest || "", zak: p.zakon || "", vy: p.vyzva || "", h: md(p._body), b: mdBoj(p._body),
+      kom: p.komplikace || "", ner: p.nerest || "", zak: p.zakon || "", vy: p.vyzva || "", multi: p.multi || "", h: md(p._body), b: mdBoj(p._body),
       at: utoky(p.utoky, w), zd: zdroje(p.zdroje, w), st: lst(p.stitky), xp: xpZ(p.vyzva), vk: vykupne(p._body) };
     if (/za\s+pacholka|za\s+kus/i.test(String(p.vyzva || ""))) o.xpp = 1;
     if (o.st.some(x => x.toLowerCase() === "relikt")) o.rel = 1; /* relikt: starší než Protržení, zažehnává se (bestiar/relikty.md) */

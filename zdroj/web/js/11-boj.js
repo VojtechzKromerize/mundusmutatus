@@ -364,6 +364,31 @@ function bojUtokZr(n,a,krit,S){
 function bojUtokZrPo(nid){const L=BLOG[nid],o=L&&L[0],n=((BOJ.s||{}).npc||[]).find(x=>x.id===nid);if(!o||!o.zrPo||!n)return;const E=bojEff(n),a0=E&&E.at[o.zrPo.ai];if(!a0)return;
   const a=bojUtokV(n,o.zrPo.ai,a0),zr=bojUtokZr(n,a,o.zrPo.krit,BOJ.s||{});delete o.zrPo;if(zr)o.zr=zr;renderBoj()}
 const BNUT={};
+/* ===== Celá akce nepřítele (2026-10-19): Multiattack ze statblocku jako sled útoků po jednom s předvybraným cílem =====
+   bojMulti(n,E) přečte text „Multiattack“ (SRD: <b>Multiattack.</b> …; vlastní protivník: pole `multi`) a sestaví pořadí útoků;
+   BMQ[n.id] = {seq, i, tk} je rozehraná akce – další útok tlačítkem na plaketě. */
+const BMQ={};
+const BMCIS={jeden:1,jednu:1,jednou:1,dva:2,dvě:2,dvakrát:2,tři:3,třikrát:3,čtyři:4,čtyřikrát:4,pět:5,pětkrát:5};
+const bmNum=w=>{const x=String(w||"").toLowerCase();return BMCIS[x]||(+x>0&&+x<9?+x:0)};
+function bojMulti(n,E){if(!E||!E.at||E.at.length<1)return null;const p=E.p;let T=String(p.multi||"");
+  if(!T){const m=String(p.h||"").match(/<b>(?:Multiattack|Vícenásobný útok)\.?<\/b>\s*([^<]+)/i);if(m)T=m[1]}
+  if(!T)return null;const esc=s=>s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),seq=[],cnt=[];
+  E.at.forEach((a,i)=>{const nm=esc(a.n);let c=0;
+    const r1=T.match(new RegExp(`(\\d+|${Object.keys(BMCIS).join("|")})\\s+útok\\w*\\s+(?:\\w+\\s+){0,2}?${nm}(?![\\wÀ-ž])`,"i"));
+    const r2=T.match(new RegExp(`${nm}\\s+(dvakrát|třikrát|čtyřikrát|pětkrát)`,"i"));
+    if(r1)c=bmNum(r1[1]);else if(r2)c=bmNum(r2[1]);else if(new RegExp(`(?<![\\wÀ-ž])${nm}(?![\\wÀ-ž])`,"i").test(T))c=1;
+    cnt[i]=c});
+  const tot=(T.match(/(\d+|dva|dvě|tři|čtyři|pět)\s+útok/i)||[])[1],N=bmNum(tot);
+  /* „provede dva útoky, a to X nebo Y v libovolné kombinaci“: jen celkový počet → první útok s hodem N× */
+  if(N>1&&cnt.every(c=>c<=1)&&cnt.filter(Boolean).length<=2&&/nebo|kombinac|libovoln/i.test(T)){const i0=E.at.findIndex(a=>a.b!=null);if(i0>=0){for(let k=0;k<N;k++)seq.push(i0);const i1=E.at.findIndex((a,i)=>cnt[i]&&i!==i0&&a.b==null);if(i1>=0)seq.push(i1)}}
+  else cnt.forEach((c,i)=>{for(let k=0;k<c;k++)seq.push(i)});
+  if(seq.length<2)return null;
+  const pop=[];seq.forEach(i=>{const q=pop.find(x=>x.i===i);if(q)q.c++;else pop.push({i,c:1})});
+  return {seq,txt:pop.map(x=>`${x.c>1?x.c+"× ":""}${E.at[x.i].n}`).join(" + "),T}}
+const bojMultiTk=()=>{const S=BOJ.s||{};return (S.kolo||1)*100+(S.tah||0)};
+function bojMultiDalsi(n){const q=BMQ[n.id];if(!q||q.i>=q.seq.length)return;const L=BLOG[n.id],o=L&&L[0];if(o&&o.zrPo&&q.i>0){mmHlasG("Nejdřív rozhodni předchozí útok (Zásah – hodit zranění, nebo minul).",3500);return}
+  const ai=q.seq[q.i];q.i++;const E=bojEff(n),a=E&&E.at[ai];if(a&&/šikov/i.test(a.p||"")&&bojTypy(a).length>1&&!(BUTT[n.id+":"+ai]||{}).t){q.i--;bojSikVolba(n,ai,a);return}
+  bojUtokKlik(n,ai);if(q.i>=q.seq.length)setTimeout(()=>{delete BMQ[n.id];renderBoj()},0)}
 const bojUtokPocet=a=>{const m=String((a.p||"")+" "+(a.n||"")).match(/\b(dva|dvě|tři|čtyři|pět|\d+)\s*(?:×\s*)?útok/i);if(!m)return 1;const v={dva:2,"dvě":2,"tři":3,"čtyři":4,"pět":5}[m[1].toLowerCase()]||+m[1];return v>1&&v<9?v:1};
 function bojUtok(n,ai){const E=bojEff(n);if(!E)return;{const nes=bojNeschopny(n.stav);if(nes){mmHlasG(`${n.n} nemůže jednat – ${nes}. Nejdřív stav zruš.`,4000);return}}const a=E.at[ai]?bojUtokV(n,ai,E.at[ai]):null;if(!a)return;const houf=n.druh==="houf",p=E.p,o={n:a.n,p:a.p||""};
   let krit=false;
@@ -389,6 +414,7 @@ function bojUtok(n,ai){const E=bojEff(n);if(!E)return;{const nes=bojNeschopny(n.
   {const ver=cil&&bojVerej(S,cid);const ze={a:n.n,ai:n.id,c:cil?cil.n:"",ci:cid||"",cim:a.n,v:o.hod?(o.hod.krit?"kritický zásah":o.hod.mis?"vedle":o.pcAC!=null?(o.pcHit?`zásah (${o.hod.tot})`:`vedle (${o.hod.tot})`):`útok ${o.hod.tot}`):o.dc?String(o.dc):"",z:ver&&o.zr&&!(o.hod&&o.hod.mis)&&o.pcHit!==false?o.zr.t:0,t:o.zr?o.zr.zt:""};if(o.hod&&o.pcAC!=null){ze.hod=o.hod.tot;ze.ac=o.pcAC;if(o.hod.krit)ze.kr=1}if(pz){ze.ph=pz.ph;ze.pt=pz.pt;if(pz.pd)ze.pd=1;if(pz.kv)ze.kv=1;if(pz.ob)ze.ob=pz.ob;if(pz.pd)o.pcPad=pz.pod}if(o.zav&&(o.zav.r==="pok"||o.zav.r==="poz")){ze.zv=o.zav.r;ze.zd=o.zav.d}bojZaz(ze)}
   if(bojRecharge(p).some(q=>q.n===a.n)){(BRCH[n.id]=BRCH[n.id]||{})[a.n]=1}
   {const N=bojUtokPocet(a);if(N>1){const S0=BOJ.s||{},tk=(S0.kolo||1)*100+(S0.tah||0),k=n.id+":"+ai,c=BNUT[k]&&BNUT[k].tk===tk?BNUT[k].i:0;o.un=`útok ${c+1} z ${N}`;BNUT[k]={tk,i:(c+1)%N}}}
+  {const q=BMQ[n.id];if(q&&q.tk===bojMultiTk()&&q.i>0)o.un=`útok ${q.i} z ${q.seq.length} (celá akce)`}
   bojLog(n.id,o,n.n)}
 /* plaketa posledního hodu: pečeť s výsledkem, zranění, pruh Závoje */
 function bojPlak(o){const h=o.hod,z=o.zav;
@@ -443,6 +469,10 @@ function bojRef(n,s,velH){const E=bojEff(n),houf=n.druh==="houf";
     if(ty.length<2&&!pul&&!(a.dc&&(a.z||a.zp)))return "";const cur=v.pul?"":(v.t&&ty.includes(v.t)?v.t:"");
     return `<span class="buttg" role="group" aria-label="Typ zranění – ${besc(a.n)}">${ty.length>1?ty.map(t=>`<button type="button" data-butt="${i}" data-t="${t}" aria-pressed="${cur===t}" ${btip(`${a.n}: zranění ${BZRT[t]} (${t})${/šikovn/i.test(a.p||"")?" – Šikovná: volí se před hodem":""}`)}>${bikZr(t)}</button>`).join(""):""}${a.dc&&(a.z||a.zp||bojAkceStav(a.n,a.p))?`<button type="button" class="bplb" data-bplos="${i}" ${btip(a.z||a.zp?`Plošně: ${a.n} na více cílů – jeden hod zranění, záchrany všech`:`${a.n}: záchrany cílů, při neúspěchu stav (postavám vyskočí výzva)`)}>☄</button>`:""}${pul?`<button type="button" data-butpul="${i}" aria-pressed="${!!v.pul}" ${btip(`Půlmeč: přehmat zbraně – Piercing s vlastností Průrazná, kostka zranění o stupeň níž (${besc(a.z||"")} → ${besc(bojKostkaDolu(a.z))})`)}>${bikZv("Půlmeč")}</button>`:""}</span>`})()}`).join("")}${dos}${zavB}</div>`:"";
   const L=BLOG[n.id]||[];
+  /* celá akce: tlačítko se sledem útoků; rozehraná akce ukáže na plaketě „Další útok“ */
+  const MU=E.at.length>1||E.at.some(a=>bojUtokPocet(a)>1)?bojMulti(n,E):null,MQ=BMQ[n.id]&&BMQ[n.id].tk===bojMultiTk()?BMQ[n.id]:null;
+  const muB=MU&&!MQ?`<p class="bmulti"><button type="button" class="gbtn but bmultib" data-bmulti ${btip(`Multiattack: ${MU.T.trim()} – útoky proběhnou po jednom proti vybranému cíli (cíl jde mezi útoky změnit)`)}>⚔ Celá akce <small>${besc(MU.txt)}</small></button></p>`:"";
+  const muD=MQ&&MQ.i<MQ.seq.length?`<p class="bmulti"><button type="button" class="gbtn but bmultib" data-bmdal>⚔ Další útok ${MQ.i+1}/${MQ.seq.length} <small>${besc(E.at[MQ.seq[MQ.i]].n)}</small></button><button type="button" class="bkoncx" data-bmx aria-label="Zrušit zbytek akce" ${btip("Zbytek akce nebude")}>×</button></p>`:"";
   const plak=L.length?`<ol class="blog"><li class="bplak${Date.now()-L[0].t<1500?" bnov":""}">${bojPlak(L[0])}</li></ol>`:"";
   const hpE=E.hp.length&&!houf,R=hpE?bojOdolnosti(E):null,tl=BZTL[n.id]||{t:"Slashing"};
   const odl=R?[["Odolá",new Set([...R.res,...R.resZ]),"res"],["Imunní",R.imu,"imu"],["Zranitelný",R.zra,"zra"]].filter(x=>x[1].size).map(([l,S,c])=>`<span class="bzro bzro-${c}"><small>${l}</small>${[...S].map(t=>bikZr(t)+(c==="res"&&R.resZ.has(t)&&!R.res.has(t)?`<sup ${btip("Resistance ze zbroje – Drtivá / Průrazná ji ignorují")}>z</sup>`:"")).join("")}</span>`).join(""):"";
@@ -474,7 +504,7 @@ function bojRef(n,s,velH){const E=bojEff(n),houf=n.druh==="houf";
     :np==="st"?`<div class="bnkp bnkpst">${kStavyTabN(n)}${efs?`<div class="befs">${efs}</div>`:""}${efF}</div>`:"";
   const vlH=`<div class="bnkvl">${BAB.map(a=>{const m=bojAbil(p,a),z=bojSaveB(p,a);return `<div class="bnkv"><span>${a}</span><button type="button" class="bnkvm" data-bover="${a}" ${btip(`Ověření ${a}: d20 ${bsg(m||0)} (s kostkou Závoje)`)}>${m==null?"–":bsg(m)}</button><button type="button" class="bnkvz" data-bzach="${a}" ${btip(`Záchrana ${a}: d20 ${bsg(z)}`)}><small>zách.</small>${bsg(z)}</button></div>`}).join("")}</div><p class="bnkdc">SO záchrany <input type="number" min="1" max="40" data-bzdc value="${BZDC[n.id]||""}" aria-label="SO záchrany" placeholder="–"> <small>(nepovinné – vyhodnotí úspěch)</small></p>`;
   const znH=p&&["zak","poz","pok","kom","ner"].some(k=>p[k])?`<div class="bnkzn">${[["zak","zakon","Zákon relikta",""],["poz","pozehnani","Požehnání","zb"],["pok","pokuseni","Pokušení","zp"],["kom","komplikace","Komplikace pro útočníka",""],["ner","nerest","Neřest",""]].filter(([k])=>p[k]).map(([k,ic,t,c])=>`<p class="brf">${bi(ic)}<b class="${c?"zv "+c:""}">${t}</b> ${besc(p[k])}</p>`).join("")}</div>`:"";
-  return `<div class="bref bnk">${tmsg}${nej}${vzd}${rdy?rdyB:""}${kon}${pad}${hd}${pan}${vlH}${znH}${ut}${kzB}${rcB}${zd}${plak}${rdy?"":rdyB}
+  return `<div class="bref bnk">${tmsg}${nej}${vzd}${rdy?rdyB:""}${kon}${pad}${hd}${pan}${vlH}${znH}${ut}${muB}${kzB}${rcB}${zd}${plak}${muD}${rdy?"":rdyB}
     <div class="bnkbar">${velH||""}${prC}${os}</div>
     <details class="bstat" data-otv="st-${n.id}"${bojOtv("st-"+n.id)}><summary>${bi("svitek")} Statblock</summary><div class="bsb" data-bsb="${besc(p.id)}">${BOTV.has("st-"+n.id)?bojStatHtml(p):""}</div>${bojEdit(p)}</details></div>`}
 /* statblock s vysvětlivkami se počítá až při prvním otevření a pamatuje se */

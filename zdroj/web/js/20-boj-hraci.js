@@ -645,6 +645,9 @@ document.addEventListener("click",async e=>{
   if(T("[data-but]")&&o0){const ai=+T("[data-but]").dataset.but,E0=bojEff(o0),a0=E0&&E0.at[ai];
     if(a0&&/šikov/i.test(a0.p||"")&&bojTypy(a0).length>1){bojSikVolba(o0,ai,a0);return}
     bojUtokKlik(o0,ai);return}
+  if(T("[data-bmulti]")&&o0){const E0=bojEff(o0),MU=bojMulti(o0,E0);if(!MU)return;if(!BCIL[id]&&!confirm(`${o0.n}: celá akce bez vybraného cíle? (cíl jde vybrat nahoře „Na koho“)`))return;BMQ[id]={seq:MU.seq,i:0,tk:bojMultiTk()};bojMultiDalsi(o0);return}
+  if(T("[data-bmdal]")&&o0){bojMultiDalsi(o0);return}
+  if(T("[data-bmx]")){delete BMQ[id];renderBoj();return}
   const adv=T("[data-badv]");if(adv){const k=adv.dataset.badv;if(k==="auto")delete BADV[id];else BADV[id]=+k;renderBoj();return}
   if(T("[data-brdyadd]")&&o0){const t=(prompt(`Připravená akce – ${o0.n}: co a kdy udělá?`,"zaútočí, až se někdo přiblíží")||"").trim();if(!t)return;bojZmen(z=>{(z.ready=z.ready||{})[id]=t});return}
   if(T("[data-brdyx]")){bojZmen(z=>{if(z.ready){delete z.ready[id];if(!Object.keys(z.ready).length)delete z.ready}});return}
