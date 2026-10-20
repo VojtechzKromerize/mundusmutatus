@@ -122,6 +122,10 @@ Hlavní orientační body:
 - Boj ukládá vypravěč s kontrolou verze (`mm_boj_uloz_v`), aby nepřepsal zápisy hráčů z telefonu. Tabulku `boj` čte přímo jen
   vypravěč; hráči přes `mm_boj_cti` (GET, kešuje ho service worker), která vyřízne účastníky `skryt` („hráči zatím nevidí“)
   i jejich řádky záznamu. Hráč mění jen svou postavu přes `mm_boj_hrac` (pole `spol` = jeho společník v boji) a útočí přes `mm_boj_utok`.
+- Hráči se přihlašují přes Supabase Auth – Discordem nebo účtem s heslem (Úvod / Hra, `MMDB.ucetZaloz` / `ucetPrihlas`, 08):
+  přezdívka se převede na umělou adresu `….hrac@mundusmutatus.netlify.app`, e-mail se nepotvrzuje (v Supabase musí být vypnuté
+  „Confirm email“). Obojí končí stejnou relací `mm-hrac-relace` a vazbou `hraci_ucty` (`mm_ja`, `mm_ja_karta`); starší heslo
+  přímo ke kartě (`mm_hrac_heslo`, `relace_hracu`) zůstává jako záloha.
 - Funkce mají předponu `mm_`. Nová tabulka = RLS + případ v `testy/bezpecnost.py` (anonym ani hráč nečtou
   obsah vypravěče a nic nemění; vypravěč nemá služební práva).
 - Bezplatný Supabase usíná; denní „Budíček databáze“ ho drží vzhůru.

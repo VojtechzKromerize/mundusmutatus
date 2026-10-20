@@ -3292,3 +3292,10 @@ button.btedch{cursor:pointer}button.btedch:hover{border-color:var(--gold,#b08d3a
 .vybart{margin:8px 0;padding:6px 8px;border-left:3px solid var(--gold);background:color-mix(in srgb,var(--gold) 8%,transparent)}.vybartv{display:inline-flex;align-items:center;gap:3px;margin-right:6px}.vybart .rl{margin:4px 0 0}
 .vybtab{font-size:.86rem;margin:6px 0}.vybtab th,.vybtab td{padding:3px 6px;vertical-align:top}
 @media (max-width:600px){.vybr{grid-template-columns:minmax(0,1fr) auto auto;grid-template-areas:"n ik a" "cz cz cz" "p p p" "w w c"}.vybr .vybcz{white-space:normal}.vybr .vybc{justify-self:end}}
+/* účet hráče s heslem (Úvod, stránka Hra) */
+.uvucet{margin:0 0 22px;padding:14px 16px;border:1px solid color-mix(in srgb,var(--gold) 55%,var(--rule));border-radius:3px;background:color-mix(in srgb,var(--gold) 7%,transparent)}
+.uvucet .uvh{margin-top:0}.uvucet a{color:var(--kal)}.uvucet>p{margin:.3em 0 .6em}
+.ucetakce{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:.5em 0}
+.ucetf{display:grid;gap:8px;max-width:26rem}.ucetf label{display:grid;gap:3px;font-family:var(--f-label);font-size:.9rem}
+.ucetf input{font:inherit;font-size:1rem;padding:7px 9px;border:1px solid var(--rule);border-radius:3px;background:var(--paper);color:var(--ink);min-width:0}
+.ucetmsg{margin:0;color:var(--kal);font-weight:600}.ucetmsg:empty{display:none}

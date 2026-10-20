@@ -312,14 +312,14 @@ function renderHra(){const box=document.getElementById("hraview");if(!box)return
       <section><h3 class="uvh2">Jak hrát na webu (pro hráče)</h3>${NAVOD}</section>`;pojZnac(box.querySelector(".kprehled"));return}
   const K=jaK();
   if(!K&&DCU.ok){box.innerHTML=`${hl}${hraStavHtml()}${jaBezKartyHtml()}<section><h3 class="uvh2">Jak hrát na webu</h3>${NAVOD}</section>${hraMinuleHtml()}`;return}
-  if(!K){box.innerHTML=`${hl}${hraStavHtml()}<section><h3 class="uvh2">Přihlásit se</h3>${jaDiscordBtn()}${window.MMDB&&MMDB.discordLogin?`<p class="rsmall">Jednou se přihlásíš přes Discord, nahraješ list postavy z D&amp;D Beyond a postava zůstane tvoje.</p><details class="bjapd"><summary>Bez Discordu – heslo ke kartě</summary>${jaForm()}</details>`:jaForm()}</section><section><h3 class="uvh2">Jak hrát na webu</h3>${NAVOD}</section>${hraMinuleHtml()}${hraUkolyHtml()}`;return}
+  if(!K){box.innerHTML=`${hl}${hraStavHtml()}<section><h3 class="uvh2">Přihlásit se</h3>${typeof ucetMuze==="function"&&ucetMuze()?`<p class="rsmall">Jednou si založíš účet (jméno a heslo, nebo Discord), nahraješ list postavy z D&amp;D Beyond a postava zůstane tvoje.</p><div data-ucetbox="hra">${ucetBoxHtml("hra")}</div><details class="bjapd"><summary>Starší způsob – heslo přímo ke kartě</summary>${jaForm()}</details>`:jaForm()}</section><section><h3 class="uvh2">Jak hrát na webu</h3>${NAVOD}</section>${hraMinuleHtml()}${hraUkolyHtml()}`;return}
   const u=UKAZKY[0];
   box.innerHTML=`${hl}${hraStavHtml()}${vyzvyHracHtml()}${hraJaHtml(K)}
     ${u?`<section><h3 class="uvh2">Od vypravěče</h3><button type="button" class="gbtn ghost" data-ukotevri="${u.id}">${besc(u.n||"Ukázka")}</button>${UKAZKY.length>1?`<details class="bjapd"><summary>Starší ukázky</summary>${ukSeznam()}</details>`:""}</section>`:""}
     ${hraMinuleHtml()}${hraUkolyHtml()}${poklHtml()}
     ${window.MMDB&&KZAM.has(K.id)?`<section><h3 class="uvh2">Tajně vypravěči</h3>${zprHtml(ZPR)}<form class="zprf" data-zprf="${besc(K.id)}"><textarea name="t" rows="2" maxlength="2000" placeholder="Co má vědět jen vypravěč" required></textarea><button class="gbtn ghost">Poslat</button></form></section>`:""}
     ${aplikaceHtml(K.id)}
-    <section class="hrakon"><details class="bjapd"><summary>Jak hrát na webu</summary>${NAVOD}</details><p class="bojbtn">${notifBtn()}${window.MMDB&&KZAM.has(K.id)?`<button type="button" class="gbtn ghost" data-jaheslo>Změnit heslo</button>`:""}${(JA.get()||{}).d?`<button type="button" class="gbtn ghost" data-discordx>Odhlásit Discord (${besc(K.n)})</button>`:`<button type="button" class="gbtn ghost" data-jaodhlas>Odhlásit (${besc(K.n)})</button>`}</p></section>`;
+    <section class="hrakon"><details class="bjapd"><summary>Jak hrát na webu</summary>${NAVOD}</details><p class="bojbtn">${notifBtn()}${window.MMDB&&KZAM.has(K.id)?`<button type="button" class="gbtn ghost" data-jaheslo>Změnit heslo</button>`:""}${(JA.get()||{}).d?`<button type="button" class="gbtn ghost" data-discordx>${jaOdhlasTxt()} (${besc(K.n)})</button>`:`<button type="button" class="gbtn ghost" data-jaodhlas>Odhlásit (${besc(K.n)})</button>`}</p></section>`;
   pojZnac(box.querySelector(".hraja"))}
 document.addEventListener("submit",async e=>{const f=e.target;if(!f.matches)return;
   if(f.matches("[data-jaf]")){e.preventDefault();const E=f.elements;if(await jaPrihlas(E.k.value,E.h?E.h.value:""))route();return}
@@ -336,6 +336,7 @@ document.addEventListener("click",async e=>{const T=s=>e.target.closest(s);
   const vx=T("[data-vyzx]");if(vx&&GMV){try{await MMDB.vyzvaZavri(+vx.dataset.vyzx);await vyzvyNacti();hraPrekresli()}catch(err){mmHlasG(err.message,4000)}return}
   if(T("[data-notif]")){try{await Notification.requestPermission()}catch(err){}hraPrekresli();return}
   if(T("[data-jaodhlas]")){jaOdhlas();return}
+  if(T("[data-jaheslo]")&&(JA.get()||{}).d&&DCU.typ==="email"){const h=prompt("Nové heslo k účtu (aspoň 6 znaků):");if(!h)return;try{await MMDB.ucetHeslo(h);mmHlasG("Heslo změněno.",3000)}catch(err){mmHlasG(err.message,5000)}return}
   if(T("[data-jaheslo]")){const K=jaK(),h=prompt("Nové heslo (aspoň 4 znaky):");if(!K||!h)return;try{const t=await MMDB.hracHeslo(K.id,h);JA.set({k:K.id,t,n:K.n});mmHlasG("Heslo změněno.",3000)}catch(err){mmHlasG(err.message,5000)}return}
   const ux=T("[data-hrukx]");if(ux&&GMV){const L=[...((HRA&&HRA.ukoly)||[])];L.splice(+ux.dataset.hrukx,1);ukolyUloz(L);return}
   const zr=T("[data-hrzrus]");if(zr&&GMV){if(!confirm("Uvolnit postavu? Zruší se vazba na hráčův Discord účet i heslo; postavu si pak může zvolit kdokoli."))return;try{await MMDB.hracZrus(zr.dataset.hrzrus);await MMDB.jaUvolni(zr.dataset.hrzrus);KZAM.delete(zr.dataset.hrzrus);await kartyNacti();hraPrekresli()}catch(err){mmHlasG(err.message,5000)}return}});

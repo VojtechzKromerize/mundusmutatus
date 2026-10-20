@@ -188,7 +188,7 @@ document.addEventListener("input",e=>{const t=e.target;if(t.matches&&t.matches("
 document.addEventListener("click",async e=>{const T=s=>e.target.closest(s);
   if(T("[data-discord]")){MMDB.discordLogin();return}
   if(T("[data-discprik]")&&GMV){try{await MMDB.discordPrikazy();mmHlasG("Příkaz /hod je na Discordu zaregistrovaný (může trvat pár minut, než se ukáže).",6000)}catch(err){mmHlasG(err.message||String(err),7000)}return}
-  if(T("[data-discordx]")){await MMDB.discordOdhlas();JA.set(null);DCU.ok=false;route();return}
+  if(T("[data-discordx]")){await MMDB.discordOdhlas();JA.set(null);DCU.ok=false;DCU.typ="";route();return}
   const jz=T("[data-jazvol]");if(jz){jaZvol(jz.dataset.jazvol);return}
   if(T("[data-kimpja]")&&KIMP){try{const K=Object.assign({},KIMP),i=await kartaUlozImport(K);await MMDB.jaKarta(i,DCU.jmeno);KIMP=null;JA.set({k:i,n:K.n,d:1});KZAM.add(i);await kartyNacti();mmHlasG(`Karta uložena – hraješ za ${K.n}.`,4000);hraPoll(true);renderHra()}catch(err){mmHlasG(err.message||String(err),6000)}return}
   const K=kvK(e.target);

@@ -161,6 +161,7 @@ function route(){
   {const nav=document.getElementById("sitenav");nav.classList.remove("open");document.getElementById("navtoggle").setAttribute("aria-expanded","false")}
   document.querySelectorAll(".view").forEach(v=>{v.hidden=v.dataset.view!==view});
   if(view==="uvod"&&kalHero)try{renderKal()}catch(e){console.warn(e)}
+  if(view==="uvod")try{renderUvodUcet()}catch(e){console.warn(e)}
   if(typeof vyVrat==="function")vyVrat(view);
   document.querySelectorAll("[data-nav]").forEach(n=>n.classList.toggle("on",n.dataset.nav===view));
   document.querySelectorAll("[data-navgrp]").forEach(n=>n.classList.toggle("on",n.dataset.navgrp.split(" ").includes(view)));
@@ -249,4 +250,33 @@ function ilum(root){(root||document).querySelectorAll(ILSEL).forEach(p=>{if(p.cl
   const rest=n.splitText(m[1].length);rest.nodeValue=rest.nodeValue.slice(1);p.insertBefore(sp,p.firstChild);/* na začátek odstavce: první slovo může být odkaz-tlačítko */
   const sr=document.createElement("span");sr.className="vh";sr.textContent=ch;rest.parentNode.insertBefore(sr,rest);p.classList.add("ilp")})}
 {let t=0;new MutationObserver(()=>{cancelAnimationFrame(t);t=requestAnimationFrame(()=>ilum())}).observe(document.querySelector("main")||document.body,{childList:true,subtree:true});ilum()}
-
+/* ===== Účet hráče s heslem (2026-10-20): založení a přihlášení na Úvodu i na stránce Hra; vedle Discordu ===== */
+let UCETR="";/* otevřený formulář: "" (jen tlačítka), "novy", "prihlas" */
+const ucetMuze=()=>!!(window.MMDB&&MMDB.ucetZaloz);
+const ucetPrihlasen=()=>{if(window.MMDB&&MMDB.hracPrihlasen&&MMDB.hracPrihlasen())return true;try{return !!(JSON.parse(localStorage.getItem("mm-hrac")||"null")||{}).k}catch(e){return false}};
+function ucetFormHtml(rez){const novy=rez==="novy";
+  return `<form class="ucetf" data-ucetf="${novy?"novy":"prihlas"}" autocomplete="on">
+    <label>Jméno hráče <input name="j" autocomplete="username" maxlength="60" required placeholder="${novy?"např. Jan Žižka":""}" autocapitalize="none" spellcheck="false"></label>
+    <label>Heslo <input name="h" type="password" autocomplete="${novy?"new-password":"current-password"}" minlength="6" maxlength="72" required></label>
+    ${novy?`<label>Heslo znovu <input name="h2" type="password" autocomplete="new-password" minlength="6" maxlength="72" required></label>`:""}
+    <p class="ucetakce"><button type="submit" class="gbtn">${novy?"Vytvořit účet":"Přihlásit"}</button><button type="button" class="gbtn ghost" data-ucetr="${novy?"prihlas":"novy"}">${novy?"Už mám účet":"Nemám účet – vytvořit"}</button></p>
+    <p class="ucetmsg" role="alert"></p>
+    ${novy?`<p class="rsmall">Jméno a heslo si zapamatuj – e-mail nepotřebuješ, a proto ani heslo nejde poslat znovu (zapomenuté heslo vyřeší vypravěč). Heslo má aspoň 6 znaků.</p>`:""}</form>`}
+/* tlačítka a případně rozbalený formulář; kde = "uvod" | "hra" */
+function ucetBoxHtml(kde){const disc=window.MMDB&&MMDB.discordLogin?`<button type="button" class="gbtn ghost ddisc" data-ucetdisc>Přihlásit přes Discord</button>`:"";
+  return `${UCETR?ucetFormHtml(UCETR):`<p class="ucetakce"><button type="button" class="gbtn" data-ucetr="novy">Vytvořit účet</button><button type="button" class="gbtn ghost" data-ucetr="prihlas">Přihlásit se</button>${disc}</p>`}
+    ${UCETR&&disc?`<p class="ucetakce ucetdisc"><span class="rsmall">nebo</span> ${disc}</p>`:""}`}
+function renderUvodUcet(){const b=document.getElementById("uvucet");if(!b)return;const ok=!GMV&&ucetMuze()&&!ucetPrihlasen();b.hidden=!ok;
+  b.innerHTML=ok?`<h2 class="uvh">Hrát za postavu</h2><p>Hráči si tu založí účet (jméno a heslo, nebo Discord), nahrají list postavy z D&amp;D Beyond a pak na stránce <a href="#hra">Hra</a> házejí, sledují boj a vedou kartu.</p><div data-ucetbox="uvod">${ucetBoxHtml("uvod")}</div>`:""}
+function ucetPrekresli(){document.querySelectorAll("[data-ucetbox]").forEach(b=>{b.innerHTML=ucetBoxHtml(b.dataset.ucetbox);const i=b.querySelector("input[name=j]");if(i)i.focus()})}
+document.addEventListener("click",e=>{const T=s=>e.target.closest(s);
+  const r=T("[data-ucetr]");if(r){UCETR=r.dataset.ucetr;ucetPrekresli();return}
+  if(T("[data-ucetdisc]")&&window.MMDB&&MMDB.discordLogin){MMDB.discordLogin();return}});
+document.addEventListener("submit",async e=>{const f=e.target;if(!f.matches||!f.matches("[data-ucetf]"))return;e.preventDefault();if(!ucetMuze())return;
+  const E=f.elements,novy=f.dataset.ucetf==="novy",msg=f.querySelector(".ucetmsg"),btn=f.querySelector("button[type=submit]"),j=E.j.value.trim(),h=E.h.value;
+  msg.textContent="";if(novy&&h!==E.h2.value){msg.textContent="Hesla se neshodují.";E.h2.focus();return}
+  btn.disabled=true;try{await (novy?MMDB.ucetZaloz(j,h):MMDB.ucetPrihlas(j,h));UCETR="";
+    if(typeof mmHlasG==="function")mmHlasG(novy?"Účet vytvořen – teď si nahraj nebo zvol postavu.":"Přihlášeno.",4000);
+    if(typeof jaDiscordInit==="function")await jaDiscordInit();
+    if(location.hash.replace(/^#/,"").split("/")[0]==="hra")route();else location.hash="#hra"}
+  catch(err){msg.textContent=err.message||String(err)}finally{btn.disabled=false}});

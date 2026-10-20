@@ -83,7 +83,7 @@
 <div class="view" data-view="uvod" hidden>
 <div class="herobox"><figure class="herofig"><span class="drstav" role="img" aria-label="Iluminace: bílý dráček ve zlatém kalichu plném vína pod hvězdnou oblohou. Dráček bdí – je den." title="Dráček bdí – je den."><img class="drsp" src="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 1 1%27/%3E" width="560" height="560" alt=""></span><figcaption>Sub utraque sunt dracones</figcaption></figure><section class="hero" id="hero"></section></div>
 <div class="uvgrid">
-  <section class="sec uvev"><h2 class="uvh">Poslední události</h2><div id="uvnovw" hidden><h3 class="uvh2">Nedávné kontakty</h3><div class="kontakty" id="uvnov"></div></div><div id="uvzap"></div><h3 class="uvh2">Ze světa</h3><dl class="tl" id="uvlet"></dl><a class="uvmore" href="#kronika/letopis">Celý letopis →</a></section>
+  <section class="sec uvev"><div id="uvucet" class="uvucet" hidden></div><h2 class="uvh">Poslední události</h2><div id="uvnovw" hidden><h3 class="uvh2">Nedávné kontakty</h3><div class="kontakty" id="uvnov"></div></div><div id="uvzap"></div><h3 class="uvh2">Ze světa</h3><dl class="tl" id="uvlet"></dl><a class="uvmore" href="#kronika/letopis">Celý letopis →</a></section>
   <aside class="kal" id="kal1" aria-label="Kalendárium"></aside>
 </div>
 </div>
@@ -459,6 +459,21 @@ window.MMDB={vetev:C.vetev,
   hracPrihlasen(){try{return !!JSON.parse(localStorage.getItem(HLS)||"null")}catch(e){return false}},
   async hracUzivatel(){const t=await htokenAuth();return t?api("/auth/v1/user",{tok:t}):null},
   async discordOdhlas(){const t=await htokenAuth();if(t)try{await api("/auth/v1/logout",{method:"POST",tok:t})}catch(e){}try{localStorage.removeItem(HLS)}catch(e){}},
+  /* účet hráče s heslem (Supabase Auth, e-mail se nepotvrzuje): přezdívka se převede na umělou adresu, skutečný e-mail projde beze změny;
+     relace je stejná jako u Discordu (mm-hrac-relace), takže volba postavy a zápisy jedou přes hraci_ucty */
+  ucetEmail(j){j=String(j||"").trim();if(j.includes("@"))return j.toLowerCase();const s=j.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,".").replace(/^\.+|\.+$/g,"").slice(0,40);return s.length>=2?`${s}.hrac@mundusmutatus.netlify.app`:""},
+  _ucetUloz(j){if(!j||!j.access_token)return false;try{localStorage.setItem(HLS,JSON.stringify({at:j.access_token,rt:j.refresh_token,exp:j.expires_at||Math.floor(Date.now()/1000)+(j.expires_in||3600)}))}catch(e){}return true},
+  _ucetChyba(e){const m=String((e&&e.message)||e||"");const T=[[/invalid login credentials/i,"Špatné jméno nebo heslo."],[/already registered|already exists/i,"Toto jméno už někdo používá – zvol jiné, nebo se přihlas."],
+      [/password should be at least (\d+)/i,(x,n)=>`Heslo musí mít aspoň ${n} znaků.`],[/signups? not allowed|signups? (are )?disabled/i,"Zakládání účtů je v nastavení databáze vypnuté – řekni vypravěči."],
+      [/confirm|sending.*email/i,"Účet čeká na potvrzení e-mailem, které tu nefunguje – řekni vypravěči (v Supabase vypnout „Confirm email“)."],[/rate limit|too many/i,"Příliš mnoho pokusů – zkus to za chvíli."],[/invalid.*email|unable to validate email/i,"Takové jméno nejde použít – zkus jiné (písmena a číslice)."]];
+    for(const [r,t] of T){const x=m.match(r);if(x)return new Error(typeof t==="function"?t(...x):t)}return new Error(m||"Přihlášení se nepovedlo.")},
+  async ucetZaloz(jmeno,heslo){const email=this.ucetEmail(jmeno);if(!email)throw new Error("Zadej jméno (aspoň 2 písmena).");let j;
+    try{j=await api("/auth/v1/signup",{method:"POST",body:JSON.stringify({email,password:heslo,data:{jmeno:String(jmeno).trim().slice(0,60)}})})}catch(e){throw this._ucetChyba(e)}
+    if(!this._ucetUloz(j))throw this._ucetChyba("confirm");return j},
+  async ucetPrihlas(jmeno,heslo){const email=this.ucetEmail(jmeno);if(!email)throw new Error("Zadej jméno.");let j;
+    try{j=await api("/auth/v1/token?grant_type=password",{method:"POST",body:JSON.stringify({email,password:heslo})})}catch(e){throw this._ucetChyba(e)}
+    this._ucetUloz(j);return j},
+  async ucetHeslo(h){const t=await htokenAuth();if(!t)throw new Error("Přihlášení vypršelo – přihlas se znovu.");try{await api("/auth/v1/user",{method:"PUT",tok:t,body:JSON.stringify({password:h})})}catch(e){throw this._ucetChyba(e)}},
   ja(){return rpc("mm_ja",{})},
   jaKarta(k,n){return rpc("mm_ja_karta",{p_karta:k,p_jmeno:n||null})},
   jaUvolni(k){return this.gm("mm_ja_uvolni",{p_karta:k})},

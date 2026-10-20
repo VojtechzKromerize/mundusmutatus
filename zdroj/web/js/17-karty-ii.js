@@ -1,9 +1,10 @@
 /* ===== Karta postavy II (2026-10-16): Discord, texty rysů jen pro vlastníka, kouzla se sloty a zraněním, akce podle času,
    stavy mimo boj, AC s efekty, střelivo, příprava kouzel, společníci, pokladna družiny, tisk a export, doplňky hráče ===== */
 /* ---- Discord: přihlášený účet a jeho postava ---- */
-const DCU={jmeno:"",ok:false};
+const DCU={jmeno:"",ok:false,typ:""};/* typ: "discord" nebo "email" (účet s heslem) */
+const jaOdhlasTxt=()=>DCU.typ==="email"?"Odhlásit":"Odhlásit Discord";
 async function jaDiscordInit(){if(!window.MMDB||!MMDB.hracPrihlasen||!MMDB.hracPrihlasen())return;
-  try{const [j,u]=await Promise.all([MMDB.ja(),MMDB.hracUzivatel().catch(()=>null)]);DCU.ok=true;DCU.jmeno=(u&&((u.user_metadata||{}).full_name||(u.user_metadata||{}).name||(u.user_metadata||{}).custom_claims&&u.user_metadata.custom_claims.global_name))||DCU.jmeno||"hráč";
+  try{const [j,u]=await Promise.all([MMDB.ja(),MMDB.hracUzivatel().catch(()=>null)]);DCU.ok=true;DCU.typ=(u&&(u.app_metadata||{}).provider)||DCU.typ||"";DCU.jmeno=(u&&((u.user_metadata||{}).jmeno||(u.user_metadata||{}).full_name||(u.user_metadata||{}).name||(u.user_metadata||{}).custom_claims&&u.user_metadata.custom_claims.global_name))||DCU.jmeno||"hráč";
     if(j&&j.karta){JA.set({k:j.karta,n:(KARTBY[j.karta]||{}).n||j.karta,d:1});bojJa.set((KARTBY[j.karta]||{}).n||"")}else{const o=JA.get();if(o&&o.d)JA.set(null)}
     if(curView==="hra"||curView==="karty")kartyPrekresli()}catch(e){DCU.ok=false}}
 async function jaZvol(kid){if(!confirm("Volba postavy je trvalá – změnit ji pak může jen vypravěč. Hrát za tuto postavu?"))return;
@@ -14,7 +15,7 @@ function jaBezKartyHtml(){const volne=KARTY.filter(k=>!KZAM.has(k.id)).sort((a,b
   return `<section><h3 class="uvh2">Vítej, ${besc(DCU.jmeno||"hráči")}</h3><p>Nahraj list své postavy z D&amp;D Beyond (postava → <i>Export to PDF</i>). Karta se vytvoří a zůstane tvoje.</p>
     <label class="gbtn"><input type="file" accept="application/pdf,.pdf" data-kimphra hidden>Nahrát PDF z D&amp;D Beyond…</label>${KIMP?kImpNahled(KIMP,true):""}
     ${volne.length?`<details class="bjapd"${KIMP?"":" open"}><summary>Nebo zvol kartu, kterou už nahrál vypravěč</summary><ul class="kfeat">${volne.map(k=>`<li><b>${besc(k.n)}</b> <small>${besc(k.povolani||"")}${k.test?" · zkušební":""}</small> <button type="button" class="gbtn ghost" data-jazvol="${besc(k.id)}">Hrát za tuto postavu</button></li>`).join("")}</ul></details>`:""}
-    <p class="bojbtn"><button type="button" class="gbtn ghost" data-discordx>Odhlásit Discord</button></p></section>`}
+    <p class="bojbtn"><button type="button" class="gbtn ghost" data-discordx>${jaOdhlasTxt()}</button></p></section>`}
 /* ---- texty rysů (soukromé) a rejstřík rysů SRD ---- */
 const KTX={},KTXP={};let SRDRY=null;
 let SRDRYP=null;const srdRysy=()=>SRDRY?Promise.resolve(SRDRY):(SRDRYP=SRDRYP||fetch("art/srd-rysy.json").then(r=>r.json()).then(d=>SRDRY=d).catch(()=>SRDRY={}));
