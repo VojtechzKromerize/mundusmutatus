@@ -188,7 +188,7 @@ function bojJaUtokHtml(s,me){const zb=bojZbrVse(s,me),K=bojKartaH(me),zv0=K&&KZB
     ${moje.length?`<ul class="bjumoje">${moje.map(u=>`<li>${besc(u.cim||"útok")} → ${besc((u.ci||[]).map(i=>bojJm(s,i)).join(", "))}: <b>${u.stav==="ceka"?"čeká na vypravěče":besc(u.vys||u.stav)}</b></li>`).join("")}</ul>`:""}</div></details>`}
 /* Hex a Hunter's Mark: přídavek se přičte sám proti nepříteli se značkou od této postavy (a jen proti němu, když postava nějakou značku má) */
 const BZNAC=["Hex","Hunter's Mark"];
-function bojEfZnacene(me,K,c,w){if(!K)return [];const E=kEfAkt(K,BJU.ef,w),s=BOJ.s||{},moje=n=>(s.npc||[]).some(o=>(o.ef||[]).some(e=>e.n===n&&e.od===me.id));
+function bojEfZnacene(me,K,c,w,sel){if(!K)return [];const E=kEfAkt(K,sel||BJU.ef,w),s=BOJ.s||{},moje=n=>(s.npc||[]).some(o=>(o.ef||[]).some(e=>e.n===n&&e.od===me.id));
   const naCili=n=>!!c&&(c.ef||[]).some(e=>e.n===n&&e.od===me.id);
   return [...E.filter(e=>!BZNAC.includes(e.n)||!moje(e.n)||naCili(e.n)),...kEfekty(K).filter(e=>BZNAC.includes(e.n)&&naCili(e.n)&&!E.some(x=>x.n===e.n))]}
 /* hráč: hod za zbraň (d20 + bonus, s výhodou či nevýhodou; zranění, při přirozené 20 dvojnásob kostek) */
@@ -242,9 +242,9 @@ function bojZbraneHtml(s,h){const zb=bojZbrH(s,h);
 function bojKonHtml(me){if(!(me.stav||[]).includes("soustředí"))return "";const d=BJK.d,dc=d?bojKonDC(d):null;
   return `<div class="bjkon">${bi("soustredi")} <b>Soustředění:</b> utržil jsem <input type="number" name="jukon" data-jukon min="0" max="300" value="${besc(d||"")}" inputmode="numeric" aria-label="Utržené zranění"> zranění${dc?` → <b>CON záchrana SO ${dc}</b> ${bojKartaH(me)?`<button type="button" class="gbtn" data-jukonh>🎲 Hodit</button>`:""}<button type="button" class="gbtn ghost" data-jukonx="ok">udržel</button><button type="button" class="gbtn ghost" data-jukonx="ne">ztratil soustředění</button>`:""}</div>`}
 const BJK={d:"",seen:0};
-/* hráč: přišlo zranění ze záznamu a drží soustředění → připomenout */
-function bojKonHlidej(s,me){if(!me||!(me.stav||[]).includes("soustředí"))return;const z=(s.zaz||[]).find(e=>e.ci===me.id&&e.z>0&&e.ts>BJK.seen);if(!z)return;BJK.seen=z.ts;BJK.d=z.z;
-  try{navigator.vibrate&&navigator.vibrate([90,60,90])}catch(e){}mmHlas(`Utržil jsi ${z.z} zranění a držíš soustředění: CON záchrana SO ${bojKonDC(z.z)}.`,8000)}
+/* hráč: přišlo zranění ze záznamu a drží soustředění → předvyplní záchranu na soustředění; hlášení zásahu (bojZasahHlidej) už SO záchrany uvádí.
+   Viděné zásahy si pamatuje i po obnovení stránky (2026-10-20: na telefonu se po každém načtení znovu hlásilo zranění z minulého kola) */
+function bojKonHlidej(s,me){if(!me||!(me.stav||[]).includes("soustředí"))return;BJK.seen=Math.max(BJK.seen,BZASV.get());const z=(s.zaz||[]).find(e=>e.ci===me.id&&e.z>0&&e.ts>BJK.seen);if(!z)return;BJK.seen=z.ts;BJK.d=z.z}
 /* statistika boje ze záznamu vypravěče */
 function bojStat(s){const D={},T={},K={};let kr=0,mi=0,ut=0;const jm=id=>{const c=bojCilO(s,id);return c?c.n:""};
   BLOGG.forEach(({id,kdo,o})=>{const a=o.ai!==undefined?(jm(o.ai)||o.an||""):(jm(id)||kdo),c=o.ci?jm(o.ci)||o.cn||"":"";

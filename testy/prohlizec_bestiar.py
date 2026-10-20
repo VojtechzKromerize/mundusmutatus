@@ -240,6 +240,15 @@ async def main():
       await bojZmen(z=>{z.npc[0].ef=[{n:'Bane',kdy:'kola',k:10,kolo:1,tah:0,od:'h1'}]});o.push(/Bane/.test(bojKzIkHtml(BOJ.s,'n1'))&&/Bane/.test(bojSlStav('n1')));
       return o})()""")
     chk(r2==[True]*8,"Heal, Lesser Restoration, Magic Weapon, Summon Undead (vznik i konec), reakce jen z kouzel postavy, Dispel Magic: "+str(r2))
+    # útok za hráče: jediný nepřítel je cílem sám, Hex na cíli přidá 1d6; připomínka soustředění se po obnovení neopakuje (2026-10-20)
+    r3=await k.evaluate("""(async()=>{const o=[],s=BOJ.s,n=s.npc[0];o.push(JSON.stringify(bojCileL({},[n]))===JSON.stringify([n.id])&&bojCileL({},[n,Object.assign({},n,{id:'zz'})]).length===0&&bojCileL({},[Object.assign({},n,{stav:['poražen']})]).length===0);
+      await bojZmen(z=>{z.npc.forEach((x,i)=>{x.ef=i?[]:[{n:'Hex',kdy:'kola',k:10,kolo:z.kolo||1,tah:0,od:'h1',src:'h1'}];if(i)x.stav=['poražen']});const h=z.hraci.find(x=>x.id==='h1');h.stav=['soustředí']});await new Promise(r=>setTimeout(r,300));
+      const h=BOJ.s.hraci.find(x=>x.id==='h1'),j=bojZbrVse(BOJ.s,h).findIndex(w=>w.n==='Nevermore');BGMU.h1={};const R=Math.random;Math.random=()=>0.9;try{bojGmHod('h1',j)}finally{Math.random=R}
+      const G=BGMU.h1,x=(G.serie||[])[0]||{};o.push(x.ci===n.id&&/\(Hex\)/.test((x.det||{}).zx||"")&&x.dmg>=12);
+      const u0=(BOJ.s.utoky||[]).length;bojGmZapisVse('h1');await new Promise(r=>setTimeout(r,900));o.push((BOJ.s.utoky||[]).length===u0+1);
+      BZASV.set(Date.now());BJK.seen=0;BJK.d='';bojKonHlidej({kolo:1,zaz:[{ci:'h1',z:5,k:1,ts:Date.now()-5000}]},{id:'h1',stav:['soustředí']});o.push(BJK.d==='');
+      return o})()""")
+    chk(r3==[True]*4,"útok za hráče: jediný nepřítel je cílem, Hex přidá 1d6, útok se zapíše, staré zranění se po obnovení znovu nehlásí: "+str(r3))
     await k.close()
     # hráč
     h=await b.new_page();h.on("pageerror",lambda e:err.append("hráč: "+str(e)[:300]))
