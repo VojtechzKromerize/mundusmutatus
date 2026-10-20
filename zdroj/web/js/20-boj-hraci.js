@@ -6,6 +6,11 @@ const BJU={zi:"",cil:"",cilL:[],cile:[],plos:false,adv:"auto",hod:"",d:"",dmg:""
    z jiné aplikace; hozené a neodeslané kostky, cíl, volby po zásahu, Závoj i otevřený list útoku se uloží v telefonu a po
    načtení vrátí, pokud jde o tutéž postavu, tentýž boj a kolo. Útok, který se právě odesílal, se nevrátí, když už dorazil. */
 const BJUK="mm-bju";
+/* formulář útoku a jeho postava: hráč na telefonu má BJU, vypravěč za hráče BGMU[hid] (2026-10-20 – úpravy hodu, volby po zásahu
+   a přesun Hexu umí od té doby i vypravěč, protože oba formuláře mají stejný tvar série) */
+function bojForm(hid){const s=BOJ.s||{};if(GMV&&hid){const me=(s.hraci||[]).find(h=>h.id===hid);return {O:BGMU[hid]=BGMU[hid]||{},me,K:me&&bojKartaH(me),gm:true,s}}
+  const me=(s.hraci||[]).find(h=>h.n===bojJa.get());return {O:BJU,me,K:me&&bojKartaH(me),gm:false,s}}
+const bojFormZbr=(F)=>F.me?bojZbrVse(F.s,F.me)[+F.O.zi]:null;
 function bojJaUloz(){if(GMV)return;const s=BOJ.s;if(!s||!s.aktivni||!bojJaObnov.hotovo)return;const ja=bojJa.get();if(!ja)return;const me=(s.hraci||[]).find(h=>h.n===ja),K=me&&bojKartaH(me);
   const o={ts:Date.now(),ja,kolo:s.kolo||1,bju:BJU,sheet:BDM.sheet&&BDM.sheet.t==="utok"?BDM.sheet:null,zav:K&&KZAV[K.id]?Object.assign({},KZAV[K.id],{_t:undefined}):null,kid:K&&K.id||null,zas:typeof BZAS!=="undefined"&&BZAS||null,rip:typeof BRIP!=="undefined"&&BRIP||null,tab:BTAB,jk:BJK.d||""};
   try{const t=JSON.stringify(o);if(t!==bojJaUloz.p){localStorage.setItem(BJUK,t);bojJaUloz.p=t}}catch(e){}}

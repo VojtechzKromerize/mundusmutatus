@@ -244,7 +244,7 @@ async def main():
     r3=await k.evaluate("""(async()=>{const o=[],s=BOJ.s,n=s.npc[0];o.push(JSON.stringify(bojCileL({},[n]))===JSON.stringify([n.id])&&bojCileL({},[n,Object.assign({},n,{id:'zz'})]).length===0&&bojCileL({},[Object.assign({},n,{stav:['poražen']})]).length===0);
       await bojZmen(z=>{z.npc.forEach((x,i)=>{x.ef=i?[]:[{n:'Hex',kdy:'kola',k:10,kolo:z.kolo||1,tah:0,od:'h1',src:'h1'}];if(i)x.stav=['poražen']});const h=z.hraci.find(x=>x.id==='h1');h.stav=['soustředí']});await new Promise(r=>setTimeout(r,300));
       const h=BOJ.s.hraci.find(x=>x.id==='h1'),j=bojZbrVse(BOJ.s,h).findIndex(w=>w.n==='Nevermore');BGMU.h1={};const R=Math.random;Math.random=()=>0.9;try{bojGmHod('h1',j)}finally{Math.random=R}
-      const G=BGMU.h1,x=(G.serie||[])[0]||{};o.push(x.ci===n.id&&/\(Hex\)/.test((x.det||{}).zx||"")&&x.dmg>=12);
+      const G=BGMU.h1,x=(G.serie||[])[0]||{};o.push(x.ci===n.id&&/\(Hex\)/.test(x.zx||"")&&x.dmg>=12);
       const u0=(BOJ.s.utoky||[]).length;bojGmZapisVse('h1');await new Promise(r=>setTimeout(r,900));o.push((BOJ.s.utoky||[]).length===u0+1);
       BVID.set(Date.now());BJK.d='';const g0=GMV;bojZazHlidej({kolo:1,zaz:[{ci:'h1',z:5,k:1,ts:Date.now()-5000}]},{id:'h1',stav:['soustředí']});o.push(BJK.d==='');
       return o})()""")
@@ -273,8 +273,14 @@ async def main():
       const s2=BOJ.s,n2=s2.npc.find((x,i)=>i>0);o.push(!!n2&&/data-juhexp/.test(bojJaHexHtml(s2,s2.hraci.find(x=>x.id==='h1'),K)));
       if(n2){await bojZmen(z=>{bojEfZnac(z,z.npc.find(x=>x.id===n2.id),'Hex (přesun)',{h:'h1'})});await new Promise(r=>setTimeout(r,300))}
       const N1=BOJ.s.npc[0],N2=n2&&BOJ.s.npc.find(x=>x.id===n2.id);o.push(!!N2&&!(N1.ef||[]).some(x=>x.n==='Hex')&&(N2.ef||[]).some(x=>x.n==='Hex'&&x.k===77&&x.od==='h1'));
+      /* vypravěč za hráče: volby po zásahu a úprava hodu na jeho formuláři (2026-10-20) */
+      await bojZmen(z=>{z.npc[0].stav=[];z.npc.slice(1).forEach(x=>x.stav=['poražen'])});await new Promise(r=>setTimeout(r,300));await kartaStavZmen(K.id,{zdr:{}});
+      const n=BOJ.s.npc[0];BGMU.h1={ci:n.id,cilL:[n.id]};{const R=Math.random;Math.random=()=>0.9;try{bojGmHod('h1',j)}finally{Math.random=R}}const G=BGMU.h1,q0=G.serie[0];
+      o.push(q0.vys!=='vedle'&&/data-jurid="es:slot3p"[^>]*data-bph="h1"/.test(bojJaRidHtml(K,q0,'h1'))&&/data-juupr="b4"[^>]*data-bph="h1"/.test(bojJaUprHtml(K,'h1')));
+      bojJaRid('es:slot3p','h1');await bojJaUprav('b4','h1');const q1=BGMU.h1.serie[0];o.push((q1.rid||[]).length===1&&(q1.upr||[]).length===1&&q1.dmg>q0.dmg-1);
+      const u1=(BOJ.s.utoky||[]).length;bojGmZapisVse('h1');await new Promise(r=>setTimeout(r,900));const U=(BOJ.s.utoky||[]).slice(-1)[0]||{};o.push((BOJ.s.utoky||[]).length===u1+1&&/Eldritch Smite/.test(U.cim||"")&&(kartaStav(K.id).zdr||{}).slot3p===1);
       return o})()""")
-    chk(r4==[True]*11,"volby po zásahu (Eldritch Smite, Trip Attack, jednou za tah, útrata), Parry jen proti útoku zblízka, Great Weapon Master, Precision Attack, přesun Hexu: "+str(r4))
+    chk(r4==[True]*14,"volby po zásahu (Eldritch Smite, Trip Attack, jednou za tah, útrata), Parry jen proti útoku zblízka, Great Weapon Master, Precision Attack, přesun Hexu, totéž za hráče u vypravěče: "+str(r4))
     await k.close()
     # hráč
     h=await b.new_page();h.on("pageerror",lambda e:err.append("hráč: "+str(e)[:300]))
