@@ -234,8 +234,9 @@ async def main():
     await pl.click(f'.ksdpop [data-ksdc="n:{nid}"]');await pl.click('.ksdpop .ksdok .gbtn:not(.ghost)');await pl.wait_for_timeout(1500)
     try:await g.wait_for_function("(BOJ.s.utoky||[]).some(u=>u.cim==='Účinek: Hex')",timeout=40000)
     except Exception:
-        print("DIAG hráč:",await pl.evaluate("JSON.stringify({hlas:[...document.querySelectorAll('.mmhlas,.ghlas')].map(e=>e.textContent.slice(0,120)),pop:!!document.querySelector('.ksdpop'),odklad:potvrz().odklad,ja:!!kBojJa(KARTBY.balduin),utoky:(BOJ.s.utoky||[]).map(u=>u.cim),hod:(kartaStav('balduin').hod||[]).slice(-3).map(h=>h.co+' '+h.txt)})"))
-        print("DIAG vypravěč:",await g.evaluate("JSON.stringify({utoky:(BOJ.s.utoky||[]).map(u=>u.cim+'/'+u.stav),v:BOJ.v})"));raise
+        d1=await pl.evaluate("JSON.stringify({hlas:[...document.querySelectorAll('.mmhlas,.ghlas')].map(e=>e.textContent.slice(0,120)),pop:!!document.querySelector('.ksdpop'),odklad:potvrz().odklad,ja:!!kBojJa(KARTBY.balduin),utoky:(BOJ.s.utoky||[]).map(u=>u.cim),hod:(kartaStav('balduin').hod||[]).slice(-3).map(h=>h.co+' '+h.txt)})")
+        d2=await g.evaluate("JSON.stringify({utoky:(BOJ.s.utoky||[]).map(u=>u.cim+'/'+u.stav),v:BOJ.v})")
+        raise RuntimeError(f"Hex z telefonu nedorazil vypravěči – hráč {d1} vypravěč {d2}")  # text chyby se dostane do anotace CI
     await g.evaluate("(BOJ.s.utoky||[]).filter(u=>u.stav==='ceka').forEach(u=>bojUtokPotvrd(u.id))");await g.wait_for_timeout(1500)
     n1=await g.evaluate(f"JSON.parse(JSON.stringify(BOJ.s.npc.find(n=>n.id==='{nid}')))")
     chk(any(e.get("n")=="Hex" and e.get("od")=="h4" for e in (n1.get("ef") or [])),"Hex od hráče: vypravěč potvrdí, nepřítel má značku od Balduina")
