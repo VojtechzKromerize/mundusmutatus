@@ -2918,6 +2918,7 @@ button.kdbs:hover{border-color:var(--kb-gold)}.kdbsac b{color:var(--kb-gold)}
 .bphadv button{padding:4px 10px}
 .bphnav{color:var(--kb-mu);font-size:.78rem}
 .bphnav.bphbez{color:var(--kb-ac);font-weight:600}
+.bphod .kzavbox,.bphod .kjuplak{background:#201914;color:var(--kb-tx);border:1px solid var(--kb-bd2);border-radius:6px;padding:6px 8px;margin:6px 0}.bphod .kzavbox b{color:var(--kb-gold)}.bphod .kzavbox.kpok b{color:#e88a7a}
 .bphod .bdmhod{align-self:flex-start;margin-top:2px}
 /* zbraň v Akcích: vlastnosti až po klepnutí na kartu zbraně; kouzlo na cíl */
 .bdmutn{cursor:pointer}.bdmutn:focus-visible{outline:2px solid var(--kb-gold);outline-offset:2px}
