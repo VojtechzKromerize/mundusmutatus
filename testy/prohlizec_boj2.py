@@ -228,10 +228,14 @@ async def main():
     await g.evaluate("bojZmen(s=>{const h=s.hraci.find(h=>h.id==='h4');h.stav=(h.stav||[]).filter(x=>x!=='soustředí');if(!h.stav.length)delete h.stav});kartaStavZmen('balduin',{zdr:null,uc:null})");await g.wait_for_timeout(1500)
     # hráč: Hex na nepřítele (bez záchrany) – vypravěč potvrdí značku, přídavek 1d6 jen proti označenému
     await pl.goto(BASE+"#boj");await pl.wait_for_selector(".bsloty");await pl.wait_for_function("typeof KSPD==='object'&&KSPD!==null",timeout=10000)
+    await pl.wait_for_function("!!kBojJa(KARTBY.balduin)&&!!(window.MMDB&&bojDB&&bojDB.utok)",timeout=20000)  # hráč je v boji a může posílat (na CI pomalejší)
     i_hx=await pl.evaluate("kSeznam(KARTBY.balduin).findIndex(x=>x.n==='Hex')")
     await pl.evaluate(f"kSesDlg(KARTBY.balduin,kSeznam(KARTBY.balduin)[{i_hx}],{i_hx})");await pl.wait_for_selector(".ksdpop")
     await pl.click(f'.ksdpop [data-ksdc="n:{nid}"]');await pl.click('.ksdpop .ksdok .gbtn:not(.ghost)');await pl.wait_for_timeout(1500)
-    await g.wait_for_function("(BOJ.s.utoky||[]).some(u=>u.cim==='Účinek: Hex')",timeout=40000)
+    try:await g.wait_for_function("(BOJ.s.utoky||[]).some(u=>u.cim==='Účinek: Hex')",timeout=40000)
+    except Exception:
+        print("DIAG hráč:",await pl.evaluate("JSON.stringify({hlas:[...document.querySelectorAll('.mmhlas,.ghlas')].map(e=>e.textContent.slice(0,120)),pop:!!document.querySelector('.ksdpop'),odklad:potvrz().odklad,ja:!!kBojJa(KARTBY.balduin),utoky:(BOJ.s.utoky||[]).map(u=>u.cim),hod:(kartaStav('balduin').hod||[]).slice(-3).map(h=>h.co+' '+h.txt)})"))
+        print("DIAG vypravěč:",await g.evaluate("JSON.stringify({utoky:(BOJ.s.utoky||[]).map(u=>u.cim+'/'+u.stav),v:BOJ.v})"));raise
     await g.evaluate("(BOJ.s.utoky||[]).filter(u=>u.stav==='ceka').forEach(u=>bojUtokPotvrd(u.id))");await g.wait_for_timeout(1500)
     n1=await g.evaluate(f"JSON.parse(JSON.stringify(BOJ.s.npc.find(n=>n.id==='{nid}')))")
     chk(any(e.get("n")=="Hex" and e.get("od")=="h4" for e in (n1.get("ef") or [])),"Hex od hráče: vypravěč potvrdí, nepřítel má značku od Balduina")

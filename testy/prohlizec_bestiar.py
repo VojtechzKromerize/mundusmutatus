@@ -282,6 +282,23 @@ async def main():
       return o})()""")
     chk(r4==[True]*14,"volby po zásahu (Eldritch Smite, Trip Attack, jednou za tah, útrata), Parry jen proti útoku zblízka, Great Weapon Master, Precision Attack, přesun Hexu, totéž za hráče u vypravěče: "+str(r4))
     await k.close()
+    # katalog vybavení (Vojtův přehled + Artikule), 2026-10-20
+    v=await b.new_page(viewport={"width":1200,"height":900});v.on("pageerror",lambda e:err.append("vybavení: "+str(e)[:300]))
+    v.on("dialog",lambda d:asyncio.ensure_future(d.accept("2")))
+    await v.goto(GM+"#pravidla/vybaveni");await v.wait_for_function("!!VYB&&document.querySelectorAll('.vybr').length>600",timeout=20000)
+    chk(await v.locator("section.vybsek").count()==11 and await v.locator(".vybr .bik-zv").count()>=30,"stránka Vybavení: 11 oddílů, zbraně s ikonami vlastností podle Artikulí")
+    await v.fill("[data-vybq]","Greatsword");await v.wait_for_timeout(400)
+    await v.locator(".vybr [data-vybpop]").first.click();await v.wait_for_timeout(300);pt=await v.locator(".mmpop").inner_text()
+    chk("Artikule" in pt and "Půlmeč" in pt and "Ostrá" in pt,"popis zbraně nese vlastnosti z Artikulí: "+pt[:120].replace("\n"," | "))
+    await v.evaluate("mmPopX()");await v.wait_for_timeout(200)
+    r5=await v.evaluate("""(async()=>{const o=[];const K=KARTBY[VYBK]||KARTY[0];const n0=kInv(K).length;
+      await kVybPridej(K,vybPoolVstup(VYBBY['crowbar']),2);const x=kInv(K).find(y=>y.n==='Crowbar');o.push(!!x&&x.q===2&&!x.kat);
+      o.push(!!vybNajdi({n:'Breastplate'})&&vybNajdi({n:'Breastplate'}).art==='Plátová');
+      o.push(JSON.stringify(bdmZvlAuto({n:'Longsword'}).slice().sort())===JSON.stringify(['Ostrá','Půlmeč','Šikovná']));
+      const [t,h]=bdmVecList(K,kInv(K).indexOf(x));o.push(/katalog vybavení/.test(h)&&/Crowbar/.test(h));
+      o.push(VYB.magicke.filter(m=>m.x).every(m=>!m.srd)&&VYB.magicke.some(m=>m.srd==='bag-of-holding'));return o})()""")
+    chk(r5==[True]*5,"katalog: přidání do vybavení, hledání podle jména, vlastnosti zbraně z katalogu, popis v listu věci, mimo SRD bez vazby: "+str(r5))
+    await v.close()
     # hráč
     h=await b.new_page();h.on("pageerror",lambda e:err.append("hráč: "+str(e)[:300]))
     await h.goto(HR+"#boj");await h.wait_for_timeout(1200)

@@ -164,9 +164,13 @@ async def main():
     chk(hody()[0].get("co")=="Test Rys","hod z textu schopnosti v herním záznamu")
     # vybavení z nabídky: zbraň se zvolí a počítá jako útok, zbroj se oblékne, magická zbraň dostane bonus
     await pl.evaluate("predNacti()");await pl.wait_for_timeout(800);await pl.keyboard.press('Escape');await pl.click('.bdmtabs [data-bdmsec="vyb"]');await pl.click('.kvadd > summary');await pl.click('.kpool summary')
-    L=await pl.evaluate("Object.keys(kPool())")
+    await pl.wait_for_function("typeof VYB!=='undefined'&&!!VYB",timeout=15000)  # katalog vybavení mění popisky nabídky
     async def pridej(pref,sel=None):
-        lab=[l for l in L if l.startswith(pref)][0];await pl.fill('[data-kpoolq]',lab);await pl.dispatch_event('[data-kpoolq]','input')
+        L=await pl.evaluate("Object.keys(kPool())");lab=[l for l in L if l.startswith(pref) or l.startswith(pref.rstrip(" –")+" (")][0];  # s katalogem vybavení má popisek český název v závorceawait pl.fill('[data-kpoolq]',lab);await pl.dispatch_event('[data-kpoolq]','input')
+        for _ in range(3):  # překreslení karty po uložení předchozí věci může formulář vyprázdnit – vyplň znovu
+            await pl.wait_for_timeout(400)
+            if await pl.evaluate("document.querySelector('[data-kpoolq]')?.value")==lab:break
+            await pl.fill('[data-kpoolq]',lab);await pl.dispatch_event('[data-kpoolq]','input')
         for k,v in (sel or {}).items(): await pl.select_option(f'[data-kpoolf] select[name={k}]',v)
         await pl.click('[data-kpoolf] button');await pl.wait_for_timeout(900)
     await pridej("Longsword –")

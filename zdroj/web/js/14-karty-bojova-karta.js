@@ -11,7 +11,11 @@ const KZBRV=(()=>{try{return JSON.parse(localStorage.getItem("mm-zbrv")||"{}")||
 const kZbrvUloz=()=>{try{localStorage.setItem("mm-zbrv",JSON.stringify(KZBRV))}catch(e){}};
 let KPOOLM=null,KPOOLO=false;
 document.addEventListener("toggle",e=>{const d=e.target;if(d.matches&&d.matches("details[data-kpoolw]"))KPOOLO=d.open},true);
-function kPool(){if(KPOOLM&&KPOOLM.$p===!!PRED)return KPOOLM;const M={$p:!!PRED},add=(l,o)=>{M[l]=o};
+function kPool(){if(KPOOLM&&KPOOLM.$p===!!PRED&&KPOOLM.$v===!!(typeof VYB!=="undefined"&&VYB))return KPOOLM;const M={$p:!!PRED,$v:!!(typeof VYB!=="undefined"&&VYB)},add=(l,o)=>{M[l]=o};
+  if(M.$v){/* katalog vybavení (2026-10-20): vše s českým názvem a cenou; magické předměty SRD navíc s pravidly z predmety.json */
+    VYBSK.forEach(([sk])=>(VYB[sk]||[]).forEach(x=>{const e=vybPoolVstup(x);if(e.mag&&PREDBY[e.mag])e.upr=PREDBY[e.mag].upr||"";add(vybPopisekPool(x),e)}));
+    (PRED||[]).forEach(x=>{if(!Object.values(M).some(e=>e&&e.mag===x.id))add(`${x.en}${x.cz&&x.cz.toLowerCase()!==x.en.toLowerCase()?` (${x.cz})`:""} – ${String(x.druh||"").toLowerCase()}, ${x.vz||""}${x.pr?", připoutání":""}`,{k:"mag",n:x.en,mag:x.id,upr:x.upr||""})});
+    return KPOOLM=M}
   KZBRAN.forEach(r=>add(`${r[1]} – ${r[5]==="S"?"jednoduchá":"válečná"} zbraň ${r[2]} ${BZRT[r[3]]||r[3]}${r[6]?", na dálku":""}`,{k:"zbr",n:r[1],w:KZBRW[r[1]]}));
   KZBRL.forEach(([n,w,d])=>{const i=kZbrInfo({n});add(`${n} – ${d} zbroj, AC ${i?i.ac:"?"}${i&&i.max!=null?` + AGI (nejvýš ${i.max>8?"bez omezení":"+"+i.max})`:i&&i.max==null?"":" + AGI"}`,{k:"zbroj",n,w})});
   add("Shield – štít, +2 AC",{k:"zbroj",n:"Shield",w:6});
@@ -27,25 +31,30 @@ function kPoolZaklady(e){if(!e||e.k!=="mag")return [];const u=String(e.upr||""),
   if(/na blízko/i.test(u))return KZBRAN.filter(r=>!r[6]).map(r=>r[1]);return W}
 function kPoolDopl(e){const Z=kPoolZaklady(e),bon=e&&e.k==="mag"&&/\+1, \+2, or \+3/.test(e.n);
   return `${Z.length?`<select name="zakl" aria-label="Základ předmětu">${Z.map(n=>`<option>${besc(n)}</option>`).join("")}</select>`:""}${bon?`<select name="bon" aria-label="Bonus"><option value="1">+1</option><option value="2">+2</option><option value="3">+3</option></select>`:""}`}
-function kPoolHtml(K){if(!kMuze(K))return "";const M=kPool();
+/* po načtení katalogu jen doplní nabídku (datalist) – nepřekresluje kartu, aby nezavřela rozepsaný formulář */
+function kPoolDatalist(){document.querySelectorAll("datalist[id^=kpooll-]").forEach(d=>{d.innerHTML=Object.keys(kPool()).filter(k=>k[0]!=="$").map(l=>`<option value="${besc(l)}"></option>`).join("")})}
+function kPoolHtml(K){if(!kMuze(K))return "";if(typeof vybNacti==="function"&&!VYB)vybNacti().then(kPoolDatalist).catch(()=>{});const M=kPool();
   return `<details class="bjapd kpool" data-kpoolw${KPOOLO?" open":""}><summary>Přidat z nabídky – zbraně, zbroj, výstroj, magické předměty</summary>
     <form class="kvlh kpoolf" data-kpoolf><input name="p" list="kpooll-${besc(K.id)}" placeholder="hledat: Longsword, Breastplate, Rope, Flame Tongue…" data-kpoolq autocomplete="off" required>
-      <datalist id="kpooll-${besc(K.id)}">${Object.keys(M).filter(k=>k!=="$p").map(l=>`<option value="${besc(l)}"></option>`).join("")}</datalist>
+      <datalist id="kpooll-${besc(K.id)}">${Object.keys(M).filter(k=>k[0]!=="$").map(l=>`<option value="${besc(l)}"></option>`).join("")}</datalist>
       <span class="kpoolx" data-kpoolx></span><input name="q" type="number" min="1" max="999" value="1" aria-label="Počet" style="width:4.5em"><button class="gbtn">Přidat</button></form>
-    <p class="kdbnote">Zbraň se rovnou zvolí k útoku (i v Boji), zbroj a štít si postava oblékne a AC se přepočítá, magický předmět se připoutá, je-li volné místo (nejvýš 3).${PRED?"":" Magické předměty se načítají…"}</p></details>`}
+    <p class="kdbnote">Zbraň se rovnou zvolí k útoku (i v Boji), zbroj a štít si postava oblékne a AC se přepočítá, magický předmět se připoutá, je-li volné místo (nejvýš 3). Celý přehled s cenami a popisy: <a href="#pravidla/vybaveni">Pravidla › Vybavení</a>.${PRED?"":" Magické předměty se načítají…"}</p></details>`}
 const kJeZbran=(K,n)=>!/beze zbraně|unarmed/i.test(n)&&!kSeznam(K).some(x=>String(x.n).toLowerCase()===String(n).toLowerCase());
 const kLbTxt=w=>w>0?`${String(Math.round(w*100)/100).replace(".",",")} lb.`:"";
 async function kPoolPridej(K,F){const f=F.elements,e=kPool()[f.p.value.trim()];if(!e){mmHlasG("Vyber položku z nabídky (začni psát a klepni na návrh).",3500);return}
-  const q=Math.max(1,Math.min(999,Math.round(+f.q.value||1))),zakl=f.zakl?f.zakl.value:"",bon=f.bon?+f.bon.value:0;let n=e.n,w1=e.w||0;
+  const q=Math.max(1,Math.min(999,Math.round(+f.q.value||1))),zakl=f.zakl?f.zakl.value:"",bon=f.bon?+f.bon.value:0;
+  await kVybPridej(K,e,q,{zakl,bon});f.p.value="";const x=F.querySelector("[data-kpoolx]");if(x)x.innerHTML="";f.q.value=1}
+/* přidání položky nabídky (zbraň, zbroj, výstroj, magický předmět, cokoli z katalogu) do vybavení postavy – 2026-10-20 společné
+   pro nabídku na kartě i stránku Pravidla › Vybavení */
+async function kVybPridej(K,e,q,o){o=o||{};const zakl=o.zakl||"",bon=+o.bon||0;let n=e.n,w1=e.w||0;
   if(e.k==="mag"){const x=PREDBY[e.mag]||{};if(zakl){w1=KZBRW[zakl]??(KZBRL.find(r=>r[0]===zakl)||[])[1]??0;const gn=x.en&&x.en.match(/^(Weapon|Armor|Shield|Ammunition), \+(\d)$/);n=bon?`${zakl} +${bon}`:gn?`${zakl} +${gn[2]}`:new RegExp("\\b"+zakl+"\\b","i").test(x.en)?x.en:`${x.en} (${zakl})`}else if(bon)n=x.en.replace(/,?\s*\+1, \+2, or \+3/,` +${bon}`)}
   n=n.slice(0,80);const S=kartaStav(K.id),inv=[...(S.inv||K.vybaveni||[])].map(y=>Object.assign({},y)),it={n,q},msg=[];if(w1)it.w=kLbTxt(w1*q);if(e.mag)it.mag=e.mag;
-  const P=e.mag?PREDBY[e.mag]:null;if(P&&P.pr){if(inv.filter(y=>y.pripoutano).length<3){it.pripoutano=true;msg.push("připoutáno")}else msg.push("připoutat nejde – už 3 předměty (uvolni jeden ◆)")}
+  const P=e.mag?PREDBY[e.mag]:null,pr=(P&&P.pr)||e.pr;/* položka katalogu se v inventáři pozná podle jména (databáze zná jen klíče n, q, w, mag…) */if(pr){if(inv.filter(y=>y.pripoutano).length<3){it.pripoutano=true;msg.push("připoutáno")}else msg.push("připoutat nejde – už 3 předměty (uvolni jeden ◆)")}
   const r=kZbrInfo(it);if(r){inv.forEach(y=>{const z=kZbrInfo(y);if(z&&z.k===r.k)y.obl=false});it.obl=true;msg.push(r.k==="s"?"štít v ruce":"zbroj na sobě")}
   const ex=!r&&!kZbranInfo(n)?inv.findIndex(y=>String(y.n).toLowerCase()===n.toLowerCase()&&(y.mag||"")===(it.mag||"")):-1;
   if(ex>=0){inv[ex].q=Math.min(9999,(+inv[ex].q||0)+q);if(w1)inv[ex].w=kLbTxt(w1*inv[ex].q)}else inv.push(it);
   const ac0=kAC(K);await kartaStavZmen(K.id,{inv});
   if(kZbranInfo(n)&&!/^(arrows|bolts|sling bullets)/i.test(n)){KZBRV[K.id]=n;kZbrvUloz();msg.push("zbraň zvolena k útoku");kartyPrekresli()}
-  f.p.value="";const x=F.querySelector("[data-kpoolx]");if(x)x.innerHTML="";f.q.value=1;
   mmHlasG(`${K.n}: ${n}${q>1?` ×${q}`:""} ve vybavení${msg.length?" – "+msg.join(", "):""}${kAC(K)!==ac0?` · AC ${ac0} → ${kAC(K)}`:""}.`,6000)}
 document.addEventListener("input",e=>{const t=e.target;if(!t.matches||!t.matches("[data-kpoolq]"))return;const x=t.form&&t.form.querySelector("[data-kpoolx]");if(!x)return;const en=kPool()[t.value.trim()];const h=en?kPoolDopl(en):"";if(x.innerHTML!==h)x.innerHTML=h});
 document.addEventListener("submit",e=>{if(!e.target.matches||!e.target.matches("[data-kpoolf]"))return;e.preventDefault();const K=kvK(e.target);if(K)kPoolPridej(K,e.target)});
@@ -302,7 +311,10 @@ const BDMZV={"Drtivá":/\b(mace|flail|war ?hammer)\b|palcát|cep|válečné klad
   "Šikovná":/\b(shortsword|longsword|greatsword|scimitar|war ?hammer|halberd)\b|meč|šavl/i,"Ostrá":/\b(shortsword|longsword|greatsword|scimitar)\b|meč|šavl/i,"Půlmeč":/\b(longsword|greatsword)\b|dlouhý meč|obouruční meč/i,
   "Do slabin!":/\bdagger\b|dýk/i,"Strhující":/\b(halberd|glaive)\b|halapartn/i,"Vpřed!":/\blance\b/i,"Štěpící":/\bgreataxe\b|obouruční sekyr/i,"Hrom a kouř!":/\b(musket|pistol|handgun)\b|píšťal|ručnic/i};
 /* vlastnosti zbraně podle Artikulí: podle názvu zbraně, nebo jak si je hráč u zbraně nastavil (stav karty zbrVl, 2026-10-18) */
-const bdmZvlAuto=a=>{const z=kZbranInfo(a.n),s=[a.n,z&&z[1],...(a.vl||[]),a.pozn].filter(Boolean).join(" ");if(/beze zbraně|unarmed|eldritch|kouzl/i.test(a.n))return [];return Object.keys(BDMZV).filter(k=>BDMZV[k].test(s))};
+const bdmZvlAuto=a=>{if(/beze zbraně|unarmed|eldritch|kouzl/i.test(a.n))return [];const z=kZbranInfo(a.n);
+  /* katalog vybavení zná vlastnosti podle Artikulí přesně (2026-10-20); bez něj odhad podle jména */
+  if(typeof VYB!=="undefined"&&VYB){const x=(z&&VYBN[vybKl(z[1])])||vybNajdi(a.n);if(x&&x.sk==="zbrane")return x.art||[]}
+  const s=[a.n,z&&z[1],...(a.vl||[]),a.pozn].filter(Boolean).join(" ");return Object.keys(BDMZV).filter(k=>BDMZV[k].test(s))};
 const bdmZvlMoje=(a,K)=>{const v=K&&((kartaStav(K.id).zbrVl)||{})[a.n];return v&&Array.isArray(v.vl)?v:null};
 const bdmZvl=(a,K)=>{const v=bdmZvlMoje(a,K);return v?v.vl.filter(k=>BDMZV[k]):bdmZvlAuto(a)};
 /* útoky: klepnutí na zásah otevře list s cílem (v boji), mimo boj rovnou hodí */

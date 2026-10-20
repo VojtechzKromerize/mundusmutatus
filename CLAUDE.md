@@ -38,6 +38,9 @@ zdroj/kouzla/        kouzla SRD (5e-bits, src/2024) + preklad.json + mimo-srd.js
                      která kouzla čtou pro automatiku dřívější text (ta/va), aby se nezměnilo chování karty a Boje
 zdroj/mimo-srd/      podtřídy, featy, zázemí, Aasimar z D&D 2024 mimo SRD – vlastní shrnutí mechaniky
                      → art/mimo-srd.json (sestav.py, ručně; kontroluje formát a délky textů)
+zdroj/vybaveni/      Vojtův Přehled vybavení (Word → katalog.py → katalog.json) + Artikule (vlastnosti zbraní ARTZV, druhy zbroje ARTZB)
+                     a vazba magických předmětů na SRD → art/vybaveni.json (sestav.py, ručně); stránka #pravidla/vybaveni (14d),
+                     věci z katalogu jdou přidat do vybavení karty (`kVybPridej`), v inventáři se najdou podle jména (`vybNajdi`)
 zdroj/sw.js          service worker (offline)    zdroj/zaloha.py  záloha textů z databáze do souborů
 supabase/schema.sql  celá databáze; idempotentní, spouští se celá znovu
 testy/               spustit.sh, prochazka.py, bezpecnost.py, prohlizec_*.py, supabase_mock.py
@@ -62,7 +65,7 @@ do kostry řádkem `/*@vloz web/js/NN-nazev.js*/` na správné místo (a do sezn
 Soubory skriptu: 01 základ (data z buildu, erby) · 02 mapa · 03 Artikule · 04 Praha · 05 Známý svět ·
 06 Draconomicon a rodokmeny · 07 Družina, Kronika, kalendář, odkazy, hledání · 08 navigace (`route()`),
 Pravidla · 09 vypravěč: odhalování, panel, herní čas · 10 Kouzla · 11 Boj: tracker, ikony, bestiář ·
-12 Boj: tah, postavy v boji · 13 Karty: import PDF, stav, stránka · 14 karta: vybavení, bojová karta · 14c Boj: zásahy do karty, reakce na telefonu, výzvy ·
+12 Boj: tah, postavy v boji · 13 Karty: import PDF, stav, stránka · 14 karta: vybavení, bojová karta · 14c Boj: zásahy do karty, reakce na telefonu, výzvy · 14d katalog vybavení (stránka, popis věci, Artikule) ·
 15 karta podle Artikulí · 16 SRD předměty, ukázky, příprava sezení, kořist, stránka Hra · 17 Karta II ·
 17b kouzla: posílení na cílech (KZEF), trvání v kolech, rituál, opakování bez slotu (KZOPAK), oblasti (KZOBL), Counterspell ·
 18 Pravidla postavy (D&D 2024) · 19 karta jako D&D Beyond · 20 Boj: hráč na telefonu (formulář útoku BJU, hod, odeslání) ·
@@ -154,7 +157,7 @@ Hlavní orientační body:
 
 - Smí se: SRD 5.2.1 (CC-BY-4.0) s uvedením zdroje – na úvodní stránce Pravidel a pod každou kapitolou;
   vlastní obsah; data z PDF, která nahraje hráč. Herní mechaniku (čísla, kostky, záchrany) lze převzít i mimo
-  SRD, ale **bez textu**: obsah mimo SRD (`zdroj/mimo-srd/`, kouzla s `x: 1`) má jen vlastní stručná shrnutí
+  SRD, ale **bez textu**: obsah mimo SRD (`zdroj/mimo-srd/`, kouzla a magické předměty s `x: 1`) má jen vlastní stručná shrnutí
   (rys/feat max. 350 znaků, kouzlo 1 000 – Vojtovo rozhodnutí 2026-10-20) a na webu upozornění, že nejde o oficiální text.
 - Na kartě se rys mimo SRD pozná podle názvu z PDF (`mimoNajdi`); počty použití, kostky a trvalé bonusy (`ef`)
   počítá `kMimoZdroje` / `kMimoEf`. Rysy, které pravidla už počítají jménem (Tough, Speedy, Lucky…), jsou v `MIMOSKIP`.

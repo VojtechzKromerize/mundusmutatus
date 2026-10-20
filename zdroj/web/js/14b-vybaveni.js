@@ -55,10 +55,10 @@ x.v?`<em class="kvtg kvbat" ${btip("V batohu")}>${besc(x.v)}</em>`:"",x.pozn?`<e
 
 /* --- list věci zespodu --- */
 function bdmVecList(K,i){const inv=kInv(K),x=inv[i];if(!x)return ["Věc",`<p class="bdmnote">Věc už ve vybavení není.</p>`];
-  const ro=!kMuze(K),p=kPred(x),r=kZbrInfo(x),NOS=kNoseno(inv),on=r&&((NOS.z&&NOS.z.i===i)||(NOS.s&&NOS.s.i===i)),sv=kInvSvitekI(K,i),hd=kInvHod(x),B=kBojJa(K);
+  const ro=!kMuze(K),p=kPred(x),v=typeof vybNajdi==="function"?vybNajdi(x):null,vH=v&&(!p||v.sk!=="magicke")?`<details class="bdmbez"><summary>Popis (katalog vybavení)</summary>${vybKarta(v,false)}</details>`:"",r=kZbrInfo(x),NOS=kNoseno(inv),on=r&&((NOS.z&&NOS.z.i===i)||(NOS.s&&NOS.s.i===i)),sv=kInvSvitekI(K,i),hd=kInvHod(x),B=kBojJa(K);
   const pri=inv.filter(y=>y.pripoutano).length,kont=kKont(inv).filter(([,j])=>j!==i),komu=KARTY.filter(k=>k.id!==K.id&&!k.test);
   const info=`${kNab(x)?`<p class="bdmnote">Náboje ${kNabHtml(x,i)}</p>`:""}<p class="bdmnote">${x.q>1?`<b>${x.q} ks</b> · `:""}${x.w?`${besc(x.w)} · `:""}${besc((KINVSK.find(s=>s[0]===kInvSkup(x,i,NOS))||[])[1]||"")}${x.v?` · v batohu ${besc(x.v)}`:""}</p>`;
-  if(ro)return [x.n,`${info}${x.pozn?`<p class="kvpozn">${besc(x.pozn)}</p>`:""}${p?predKarta(p):""}`];
+  if(ro)return [x.n,`${info}${x.pozn?`<p class="kvpozn">${besc(x.pozn)}</p>`:""}${p?predKarta(p):""}${vH}`];
   const akce=[r?`<button type="button" class="bdmbtn" data-kobl="${i}">${on?"Sundat":"Obléct"}</button>`:"",
     p&&(p.pr||x.pripoutano)?`<button type="button" class="bdmbtn" data-kpri="${i}" ${!x.pripoutano&&pri>=3?`disabled ${btip("Připoutané smíš mít nejvýš 3 předměty")}`:""}>${x.pripoutano?"Zrušit připoutání":"Připoutat"}</button>`:"",
     p&&p.ef&&(p.ef.lecit||p.ef.dhp)?`<button type="button" class="bdmbtn" data-kinvpij="${i}">Vypít</button>`:"",
@@ -76,7 +76,7 @@ function bdmVecList(K,i){const inv=kInv(K),x=inv[i];if(!x)return ["Věc",`<p cla
     <p class="bdmrow"><span class="kq"><button type="button" class="bdmmini" data-kinv="${i}" data-d="-1" aria-label="Ubrat">−</button><b>${x.q??1}</b><button type="button" class="bdmmini" data-kinv="${i}" data-d="1" aria-label="Přidat">+</button></span>
       ${kont.length?`<label class="kvlab kvlabr">V batohu <select data-kinvv="${i}"><option value="">— volně —</option>${kont.map(([c])=>`<option${x.v===c.n?" selected":""}>${besc(c.n)}</option>`).join("")}</select></label>`:""}
       <button type="button" class="bdmmini kvx" data-kvx="${i}">Zahodit</button></p></div>`;
-  return [x.n,`${info}${akce?`<div class="bdmrow kvakce">${akce}</div>`:""}${hodH}${darH}${upr}${p?`<details class="bdmbez"><summary>Popis (SRD)</summary>${predKarta(p)}</details>`:""}`]}
+  return [x.n,`${info}${akce?`<div class="bdmrow kvakce">${akce}</div>`:""}${hodH}${darH}${upr}${p?`<details class="bdmbez"><summary>Popis (SRD)</summary>${predKarta(p)}</details>`:""}${vH}`]}
 
 /* --- list Peníze --- */
 function bdmPenList(K){const S=kartaStav(K.id),pen=S.pen||K.penize||{},ro=!kMuze(K);

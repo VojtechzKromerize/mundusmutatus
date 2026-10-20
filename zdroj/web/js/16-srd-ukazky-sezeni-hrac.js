@@ -167,7 +167,7 @@ document.addEventListener("click",async e=>{const v=e.target.closest&&e.target.c
   const sp=T("[data-kspd]");if(sp){const x=kSeznam(K)[+sp.dataset.kspd];if(!x)return;await kSpNacti().catch(()=>{});let d=kSp(x.n);
     if(d&&d.t==null&&typeof kSpTexty==="function"){mmPop(`<h3>${besc(x.n)}</h3><p class="rsmall">Načítám popis…</p>`);await kSpTexty();d=kSp(x.n);if(d&&d.t==null){mmPop(`<h3>${besc(x.n)}</h3><p class="rsmall">Popis se nepodařilo načíst.</p>`);return}}
     mmPop(d?kzKarta(d,false):`<h3>${besc(x.n)}</h3>${kSpPopis(x)}`);return}
-  const ip=T("[data-kinvpop]");if(ip){const it=(kartaStav(K.id).inv||K.vybaveni||[])[+ip.dataset.kinvpop],x=kPred(it);if(x)mmPop(predKarta(x));return}
+  const ip=T("[data-kinvpop]");if(ip){const it=(kartaStav(K.id).inv||K.vybaveni||[])[+ip.dataset.kinvpop],x=kPred(it),v=typeof vybNajdi==="function"?vybNajdi(it):null;if(v&&(!x||v.sk!=="magicke"))mmPop(vybKarta(v,false));else if(x)mmPop(predKarta(x));else if(v)mmPop(vybKarta(v,false));return}
   const pj=T("[data-kinvpij]");if(pj){const S=kartaStav(K.id),inv=[...(S.inv||K.vybaveni||[])].map(y=>Object.assign({},y)),it=inv[+pj.dataset.kinvpij],x=kPred(it);if(!it||!x||!x.ef)return;
     const ef=x.ef,r=ef.lecit?kVyraz(ef.lecit):null,dh=ef.dhp?kVyraz(String(ef.dhp)):null;it.q=Math.max(0,(+it.q||1)-1);if(!it.q)inv.splice(+pj.dataset.kinvpij,1);
     const ch={inv},o={hp:S.hp,thp:S.thp};let m=`${x.en}`;
