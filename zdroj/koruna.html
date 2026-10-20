@@ -18,6 +18,20 @@
 <link rel="manifest" href="art/app.webmanifest">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Mundus Mutatus">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- spouštěcí obrazovky aplikace na iPhonu (art/img/spust, portrét) -->
+<link rel="apple-touch-startup-image" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="art/img/spust/430x932@3.png">
+<link rel="apple-touch-startup-image" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="art/img/spust/393x852@3.png">
+<link rel="apple-touch-startup-image" media="(device-width: 402px) and (device-height: 874px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="art/img/spust/402x874@3.png">
+<link rel="apple-touch-startup-image" media="(device-width: 440px) and (device-height: 956px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="art/img/spust/440x956@3.png">
+<link rel="apple-touch-startup-image" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="art/img/spust/428x926@3.png">
+<link rel="apple-touch-startup-image" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="art/img/spust/390x844@3.png">
+<link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="art/img/spust/375x812@3.png">
+<link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="art/img/spust/414x896@3.png">
+<link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="art/img/spust/414x896@2.png">
+<link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="art/img/spust/375x667@2.png">
+<link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="art/img/spust/414x736@3.png">
 <meta name="claude:viewport-fit-sides" content="cover">
 <!-- písma leží přímo na webu (art/pisma, licence SIL OFL): rychlejší načtení a žádné dotazy na Google -->
 <link rel="preload" href="art/pisma/alegreya-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -364,6 +378,8 @@ function zminky(D){
 }
 const C=window.MMCFG||null;
 window.MMDB=null;window.MMINFO="";
+/* nainstalovaná aplikace (ikona na ploše): třída pro vzhled – záložky boje u palce, bez „přetažení pro obnovení“ */
+try{if(matchMedia("(display-mode: standalone)").matches||navigator.standalone===true)document.documentElement.classList.add("mmapp")}catch(e){}
 /* offline režim: jen hráčská verze na webu (ne vypravěčský soubor ani náhled) */
 if("serviceWorker" in navigator&&(location.protocol==="https:"||location.hostname==="localhost"))
   addEventListener("load",()=>{if(document.querySelector("script#mmhlavni[src],script#mmhlavni[data-src]"))navigator.serviceWorker.register("sw.js").catch(()=>{})});
@@ -388,11 +404,27 @@ async function token(){
   return r.at}
 /* přihlášený hráč (heslo ke kartě postavy): token relace se posílá k zápisům za postavu */
 const htok=()=>{try{return (JSON.parse(localStorage.getItem("mm-hrac")||"null")||{}).t||null}catch(e){return null}};
-/* hráč přihlášený přes Discord (Supabase Auth): návrat z přihlášení nese tokeny v adrese za # */
-const HLS="mm-hrac-relace";
-{const q=new URLSearchParams(location.hash.slice(1));
-  if(q.get("access_token")&&q.get("refresh_token")){try{localStorage.setItem(HLS,JSON.stringify({at:q.get("access_token"),rt:q.get("refresh_token"),exp:+q.get("expires_at")||Math.floor(Date.now()/1000)+(+q.get("expires_in")||3600)}))}catch(e){}history.replaceState(null,"",location.pathname+location.search+"#hra")}
-  else if(q.get("error_description")){window.MMINFO="Přihlášení přes Discord se nepovedlo: "+q.get("error_description");history.replaceState(null,"",location.pathname+location.search+"#hra")}}
+/* hráč přihlášený přes Discord (Supabase Auth, PKCE): před odchodem na Discord si uložíme ověřovací klíč, návrat nese ?code=,
+   který vyměníme za tokeny. Klíč zůstává v prohlížeči (aplikaci), kde přihlášení začalo – tokeny proto nikdy neputují adresou
+   a přihlášení, které začalo v nainstalované aplikaci, v ní také skončí. Starý návrat s tokeny za # se ještě přijme. */
+const HLS="mm-hrac-relace",PKCE="mm-pkce";
+const hlsUloz=j=>{const r={at:j.access_token,rt:j.refresh_token,exp:j.expires_at||Math.floor(Date.now()/1000)+(j.expires_in||3600)};try{localStorage.setItem(HLS,JSON.stringify(r))}catch(e){}return r};
+const b64u=b=>btoa(String.fromCharCode(...new Uint8Array(b))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
+const nahlas=t=>{window.MMINFO=t;history.replaceState(null,"",location.pathname+"#hra")};
+let PKCEX=null;
+{const q=new URLSearchParams(location.hash.slice(1)),s=new URLSearchParams(location.search);
+  if(s.get("code")){const code=s.get("code");let ov=null;try{ov=localStorage.getItem(PKCE)||sessionStorage.getItem(PKCE)}catch(e){}
+    try{localStorage.removeItem(PKCE);sessionStorage.removeItem(PKCE)}catch(e){}
+    if(ov)PKCEX=api("/auth/v1/token?grant_type=pkce",{method:"POST",body:JSON.stringify({auth_code:code,code_verifier:ov})}).then(j=>{hlsUloz(j);nahlas("")},e=>nahlas("Přihlášení přes Discord se nepovedlo: "+(e.message||e)));
+    else nahlas("Přihlášení doběhlo v jiném prohlížeči, než kde začalo (nejspíš v Safari místo aplikace na ploše). Otevři aplikaci Mundus Mutatus a přihlas se znovu v ní.")}
+  else if(s.get("error_description")){nahlas("Přihlášení přes Discord se nepovedlo: "+s.get("error_description"))}
+  else if(q.get("access_token")&&q.get("refresh_token")){hlsUloz({access_token:q.get("access_token"),refresh_token:q.get("refresh_token"),expires_at:+q.get("expires_at")||0,expires_in:+q.get("expires_in")||3600});history.replaceState(null,"",location.pathname+location.search+"#hra")}
+  else if(q.get("error_description")){nahlas("Přihlášení přes Discord se nepovedlo: "+q.get("error_description"))}}
+async function discordPrihlas(){
+  const r=new Uint8Array(48);crypto.getRandomValues(r);const ov=b64u(r.buffer);
+  try{localStorage.setItem(PKCE,ov);sessionStorage.setItem(PKCE,ov)}catch(e){}
+  let ch=ov,m="plain";try{if(crypto.subtle){ch=b64u(await crypto.subtle.digest("SHA-256",new TextEncoder().encode(ov)));m="s256"}}catch(e){}
+  location.href=`${C.url}/auth/v1/authorize?provider=discord&redirect_to=${encodeURIComponent(location.origin+location.pathname)}&code_challenge=${ch}&code_challenge_method=${m}`}
 async function htokenAuth(){let r=null;try{r=JSON.parse(localStorage.getItem(HLS)||"null")}catch(e){}if(!r||!r.at)return null;
   if(r.exp-60<Date.now()/1000){try{const j=await api("/auth/v1/token?grant_type=refresh_token",{method:"POST",body:JSON.stringify({refresh_token:r.rt})});r={at:j.access_token,rt:j.refresh_token,exp:j.expires_at||Math.floor(Date.now()/1000)+(j.expires_in||3600)};localStorage.setItem(HLS,JSON.stringify(r))}
     catch(e){if(e.status>=400&&e.status<500)try{localStorage.removeItem(HLS)}catch(x){}return null}}
@@ -455,7 +487,7 @@ window.MMDB={vetev:C.vetev,
   kartaSmaz(id){return this.gm("mm_karta_smaz",{p_id:id})},
   async hodyNacti(){return api(`/rest/v1/hody?select=id,cas,data&order=id.desc&limit=100`)},
   async hodZapis(h){return rpc("mm_hod",{p_hod:h,p_token:htok()})},
-  discordLogin(){location.href=`${C.url}/auth/v1/authorize?provider=discord&redirect_to=${encodeURIComponent(location.origin+location.pathname)}`},
+  discordLogin(){return discordPrihlas()},
   hracPrihlasen(){try{return !!JSON.parse(localStorage.getItem(HLS)||"null")}catch(e){return false}},
   async hracUzivatel(){const t=await htokenAuth();return t?api("/auth/v1/user",{tok:t}):null},
   async discordOdhlas(){const t=await htokenAuth();if(t)try{await api("/auth/v1/logout",{method:"POST",tok:t})}catch(e){}try{localStorage.removeItem(HLS)}catch(e){}},
@@ -517,13 +549,20 @@ function spust(D){
   s.textContent=m.textContent;m.after(s);po(D)}
 function po(D){
   document.documentElement.classList.remove("mmload");
+  /* tečka na ikoně aplikace (Badging API) zmizí, jakmile je web vidět */
+  if(navigator.clearAppBadge){const cb=()=>{if(document.visibilityState==="visible")navigator.clearAppBadge().catch(()=>{})};cb();document.addEventListener("visibilitychange",cb)}
   if(navigator.onLine===false)setTimeout(()=>hlas("Jste bez připojení – zobrazuji naposledy uložený stav desek.",7000),300);
   let ob=null;try{ob=JSON.parse(sessionStorage.getItem("mm-obnova")||"null");sessionStorage.removeItem("mm-obnova")}catch(e){}
   if(ob&&ob.h===location.hash)setTimeout(()=>{scrollTo(0,ob.y);hlas(ob.t||"Zemské desky byly doplněny o nové poznatky.")},60);
   if(window.MMINFO&&!D.GM)hlas(window.MMINFO,8000);
   if(!D.GM&&MMV!==null){
+    /* nová verze desek: místo okamžitého obnovení lišta „Obnovit“; stránka se obnoví sama, až telefon půl minuty nikdo nedrží v ruce */
+    let NV=null,NVT=0;const kl=()=>{NVT=Date.now()};["pointerdown","keydown","scroll","touchstart"].forEach(t=>addEventListener(t,kl,{passive:true}));
+    const obnov=()=>{try{sessionStorage.setItem("mm-obnova",JSON.stringify({h:location.hash,y:scrollY}))}catch(e){}location.reload()};
+    const novaVerze=()=>{if(NV)return;NV=document.createElement("div");NV.className="mmhlas mmnova on";NV.setAttribute("role","status");NV.innerHTML='Zemské desky byly doplněny. <button type="button">Obnovit</button>';NV.querySelector("button").onclick=obnov;document.body.appendChild(NV);
+      const tik=()=>{if(document.visibilityState==="visible"&&Date.now()-NVT>30000&&(typeof window.mmObnovaMozna!=="function"||window.mmObnovaMozna()))obnov();else setTimeout(tik,5000)};NVT=Date.now();setTimeout(tik,5000)};
     const kontrola=async()=>{if(document.visibilityState!=="visible")return;
-      try{const v=await window.MMDB.verze();if(v!==null&&v!==MMV){try{sessionStorage.setItem("mm-obnova",JSON.stringify({h:location.hash,y:scrollY}))}catch(e){}location.reload()}}catch(e){}};
+      try{const v=await window.MMDB.verze();if(v!==null&&v!==MMV)novaVerze()}catch(e){}};
     /* s pulsem (25-puls.js) se verze ověří, jen když se výřez opravdu změnil */
     window.mmKontrolaVerze=kontrola;if(!window.MMPULS&&!(window.MMLINE||{}).hra){setInterval(kontrola,20000);document.addEventListener("visibilitychange",kontrola)}}
 }
@@ -534,6 +573,7 @@ window.mmHlas=hlas;
 const hraAkt=()=>api("/rest/v1/rpc/mm_hra",{method:"POST",body:"{}"}).then(h=>h&&typeof h==="object"?h:null,()=>null);
 (async()=>{
   const S=window.__S||{};let D=null;
+  if(PKCEX)try{await PKCEX}catch(e){}
   if(relace()){
     try{const t=await token();
       if(t){const [o,st]=await Promise.all([api(`/rest/v1/obsah?vetev=eq.${V}&select=gm`,{tok:t}),api("/rest/v1/rpc/mm_stavy",{method:"POST",tok:t,body:"{}"})]);

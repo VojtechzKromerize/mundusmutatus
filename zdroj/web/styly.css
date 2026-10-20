@@ -323,7 +323,7 @@ a.plinkp:hover,.infobox a:hover,.artmain a:hover{color:var(--kal)}
 /* ---------- Artikule ---------- */
 .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .alay{display:grid;grid-template-columns:250px minmax(0,1fr);gap:36px;align-items:start}
-.aside{position:sticky;top:calc(var(--navh) + 12px);max-height:calc(100vh - var(--navh) - 24px);overflow:auto;display:flex;flex-direction:column;gap:10px;background:var(--paper);border:1px solid var(--rule);box-shadow:inset 0 0 0 3px var(--paper),inset 0 0 0 4px var(--rule);padding:14px}
+.aside{position:sticky;top:calc(var(--navh) + 12px);max-height:calc(100vh - var(--navh) - 24px);max-height:calc(100dvh - var(--navh) - 24px);overflow:auto;display:flex;flex-direction:column;gap:10px;background:var(--paper);border:1px solid var(--rule);box-shadow:inset 0 0 0 3px var(--paper),inset 0 0 0 4px var(--rule);padding:14px}
 .atoc{display:flex;flex-direction:column;gap:2px}
 .atoc ol{list-style:none;margin:0;padding:0}
 .atoc a{display:block;padding:3px 8px;border-left:2px solid transparent;color:var(--ink);text-decoration:none;line-height:1.3}
@@ -356,7 +356,7 @@ a.plinkp:hover,.infobox a:hover,.artmain a:hover{color:var(--kal)}
 #drside .drthumb{border-color:rgba(214,170,90,.55)}
 /* obsah visí přímo z hlavní lišty */
 @media (min-width:861px){
-  .alay>.aside{margin-top:-20px;top:calc(var(--navh) + 4px);max-height:calc(100vh - var(--navh) - 16px);border-top:0;border-radius:0 0 3px 3px}
+  .alay>.aside{margin-top:-20px;top:calc(var(--navh) + 4px);max-height:calc(100vh - var(--navh) - 16px);max-height:calc(100dvh - var(--navh) - 16px);border-top:0;border-radius:0 0 3px 3px}
 }
 .asecs{padding-left:12px!important}
 .asecs a{font-size:.9rem;color:var(--muted);padding:1px 8px}
@@ -564,7 +564,7 @@ mark{background:color-mix(in srgb,var(--gold) 35%,transparent);color:inherit;pad
 /* ---------- Družina, Kronika, hledání ---------- */
 .gsearch{position:relative;display:flex;align-items:center}
 .gsearch input{font:inherit;font-size:.95rem;width:200px;background:var(--paper);color:var(--ink);border:1px solid var(--rule);border-radius:3px;padding:4px 10px}
-.gres{position:absolute;right:0;top:calc(100% + 6px);width:min(420px,92vw);max-height:70vh;overflow:auto;list-style:none;margin:0;padding:6px;background:var(--paper);border:1px solid var(--rule);box-shadow:0 8px 24px rgba(0,0,0,.25);z-index:40;text-align:left}
+.gres{position:absolute;right:0;top:calc(100% + 6px);width:min(420px,92vw);max-height:70vh;max-height:70dvh;overflow:auto;list-style:none;margin:0;padding:6px;background:var(--paper);border:1px solid var(--rule);box-shadow:0 8px 24px rgba(0,0,0,.25);z-index:40;text-align:left}
 .gres a,.gres button{display:grid;grid-template-columns:auto 1fr;column-gap:8px;width:100%;text-align:left;padding:6px 8px;border:0;border-radius:3px;background:none;color:var(--ink);text-decoration:none;font:inherit;cursor:pointer}
 .gres a:hover,.gres button:hover,.gres a:focus-visible,.gres button:focus-visible{background:var(--bg);outline:none}
 .gres .gk{grid-row:span 2;align-self:start;font-family:var(--f-label);font-weight:700;font-size:.72rem;letter-spacing:.06em;color:var(--paper);background:var(--gold);border-radius:3px;padding:1px 6px;margin-top:3px;text-transform:uppercase}
@@ -1073,10 +1073,10 @@ body.edopen{overflow:hidden}
 .ederr{color:var(--kal);min-height:1.2em;margin:6px 0 0;white-space:pre-wrap}
 .edbtns{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
 .edbar{display:inline-flex;flex-wrap:wrap;gap:8px;margin:6px 0 2px}
-.edhist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;max-height:70vh;overflow:auto}
+.edhist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;max-height:70vh;max-height:70dvh;overflow:auto}
 .edhr{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px}
 .edhr span{color:var(--muted);font-family:var(--f-label);font-size:.88rem;flex:1 1 140px}
-.edpre{white-space:pre-wrap;font-size:.85rem;background:var(--paper);border:1px solid var(--rule);padding:8px;max-height:40vh;overflow:auto}
+.edpre{white-space:pre-wrap;font-size:.85rem;background:var(--paper);border:1px solid var(--rule);padding:8px;max-height:40vh;max-height:40dvh;overflow:auto}
 .gmprl{margin:6px 0 0}
 /* ===== pečeť: rozpečetění nově poznaného, zapečetěné „jen slyšeli“ ===== */
 .pecfx-host{position:relative}
@@ -1101,6 +1101,9 @@ html.mmload .wrap>main{visibility:hidden}
 html.mmload body::after{content:"Načítám zemské desky…";position:fixed;left:50%;top:45%;transform:translateX(-50%);font-family:var(--f-label);letter-spacing:.06em;color:var(--muted)}
 .mmhlas{position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(8px);z-index:95;max-width:min(92vw,520px);background:var(--ink);color:var(--paper);font-family:var(--f-label);letter-spacing:.03em;padding:9px 16px;border-radius:4px;box-shadow:0 4px 14px rgba(0,0,0,.3);opacity:0;transition:opacity .25s,transform .25s;pointer-events:none}
 .mmhlas.on{opacity:1;transform:translateX(-50%)}
+.mmhlas.mmnova{pointer-events:auto;display:flex;gap:12px;align-items:center}.mmhlas.mmnova button{background:var(--paper);color:var(--ink);border:1px solid var(--gold,#b08a3c);border-radius:3px;font:inherit;padding:4px 12px;cursor:pointer}
+/* zápisy čekající na signál (fronta karty a boje) */
+#mmfronta{position:fixed;right:10px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:94;background:var(--ink);color:var(--paper);border:1px solid var(--gold,#b08a3c);border-radius:999px;font-family:var(--f-label);font-size:.85rem;padding:5px 11px;box-shadow:0 3px 10px rgba(0,0,0,.3);cursor:pointer}
 #uvnovw{margin:4px 0 14px}
 .kontakty{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:12px 8px;margin:8px 0 4px}
 .kontakt{display:flex;flex-direction:column;align-items:center;text-align:center;gap:3px;text-decoration:none;color:var(--ink);padding:4px 2px;border-radius:3px}
@@ -1197,7 +1200,7 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
 /* 2 mapy: větší mapa, panel drží při posunu */
 @media (min-width:861px){
   .mapgrid{grid-template-columns:minmax(0,2.1fr) minmax(280px,1fr)}
-  .mapgrid>.detail{position:sticky;top:calc(var(--navh) + 14px);max-height:calc(100vh - var(--navh) - 28px);overflow:auto}
+  .mapgrid>.detail{position:sticky;top:calc(var(--navh) + 14px);max-height:calc(100vh - var(--navh) - 28px);max-height:calc(100dvh - var(--navh) - 28px);overflow:auto}
 }
 .slistbox{background:var(--paper);border:1px solid var(--rule);padding:10px 14px}
 .slistbox[open]>summary{margin-bottom:12px}
@@ -1907,7 +1910,7 @@ abbr.btp{text-decoration:underline dotted color-mix(in srgb,var(--gold) 85%,tran
 .kzchk{display:inline-flex;gap:6px;align-items:center;font-family:var(--f-label);letter-spacing:.03em;color:var(--muted)}
 .kzpoc{margin-left:auto}
 .kzgrid{display:grid;grid-template-columns:minmax(240px,340px) 1fr;gap:18px;align-items:start}
-.kzlist{list-style:none;margin:0;padding:0;max-height:70vh;overflow:auto;border:1px solid color-mix(in srgb,var(--gold) 40%,var(--rule));border-radius:3px;background:var(--paper)}
+.kzlist{list-style:none;margin:0;padding:0;max-height:70vh;max-height:70dvh;overflow:auto;border:1px solid color-mix(in srgb,var(--gold) 40%,var(--rule));border-radius:3px;background:var(--paper)}
 .kzlist li+li{border-top:1px solid color-mix(in srgb,var(--gold) 20%,transparent)}
 .kzlist a{display:block;padding:6px 10px;text-decoration:none;color:var(--ink)}.kzlist a b{display:block;font-weight:600}.kzlist a small{color:var(--muted);font-size:.8rem}
 .kzlist a:hover,.kzlist a.on{background:color-mix(in srgb,var(--gold) 18%,var(--paper))}.kzlist a.on b{color:var(--kal)}
@@ -1934,7 +1937,7 @@ abbr.btp{text-decoration:underline dotted color-mix(in srgb,var(--gold) 85%,tran
 .kzakce{display:inline-flex;gap:6px;flex-wrap:wrap}.kzvl{color:var(--kal);font-style:italic}.kzpop .kzkarta{padding-right:38px}
 .kzx{position:absolute;right:8px;top:6px;font-size:1.4rem;line-height:1;background:none;border:0;color:var(--muted);cursor:pointer}
 a.kzodk{color:inherit;text-decoration:underline dotted color-mix(in srgb,var(--kal) 70%,transparent);text-underline-offset:2px}
-@media (max-width:760px){.kzgrid{grid-template-columns:1fr}.kzdet{position:static;order:-1}.kzlist{max-height:50vh}.kzpop{left:8px;right:8px;bottom:8px;width:auto}}
+@media (max-width:760px){.kzgrid{grid-template-columns:1fr}.kzdet{position:static;order:-1}.kzlist{max-height:50vh;max-height:50dvh}.kzpop{left:8px;right:8px;bottom:8px;width:auto}}
 /* malované ikony a rámečky trackeru boje (art/img/boj) */
 .bik{margin:0 2px 0 0}.biks{display:inline-flex;gap:1px;margin-left:4px;vertical-align:middle}.biks .bik{width:20px;height:20px}
 .bikzb{display:inline-flex;align-items:center;gap:1px;white-space:nowrap}.bikzb .bik-zb{margin-right:2px}.bikzb .bik-zr{width:20px;height:20px}
@@ -2186,7 +2189,7 @@ abbr.poj{text-decoration:underline dotted color-mix(in srgb,var(--kal) 60%,trans
 .mmpop{position:fixed;inset:0;z-index:110;background:rgba(20,14,8,.55);display:flex;align-items:flex-start;justify-content:center;padding:6vh 12px;overflow-y:auto}
 .mmpopin{position:relative;width:min(640px,100%);background:var(--paper);border-radius:4px;box-shadow:0 10px 40px rgba(0,0,0,.4);padding:18px 20px}
 .mmpopin .kzkarta{border:0;box-shadow:none;padding:0}
-.ukazka img{display:block;max-width:100%;max-height:70vh;margin:10px auto;border-radius:3px}
+.ukazka img{display:block;max-width:100%;max-height:70vh;max-height:70dvh;margin:10px auto;border-radius:3px}
 .ukf{display:flex;flex-direction:column;gap:6px;max-width:640px}.ukf textarea,.szsc textarea,.szpl textarea{width:100%;box-sizing:border-box;font:inherit}
 .prfil{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}.prfil input{flex:1 1 220px}
 .prlist{list-style:none;padding:0}.prlist>li{border-bottom:1px solid var(--rule);padding:4px 0}.prlist summary{cursor:pointer}.prmeta{color:var(--muted);font-size:.85rem}.prbody{padding:8px 0}
@@ -2801,7 +2804,7 @@ button.kdbs:hover{border-color:var(--kb-gold)}.kdbsac b{color:var(--kb-gold)}
 .bdmmhp b{font-size:1.1rem}.bdmmhp b i{font-size:.85rem}.bdmmhp .bdmhpbar{left:8px;right:8px;bottom:3px;height:3px}
 .bdmtabs{margin:0}
 .bdmzavb{position:fixed;inset:0;z-index:1000;background:rgba(8,5,3,.55)}
-.bdmlist{position:fixed;left:50%;bottom:0;transform:translateX(-50%);z-index:1001;width:min(560px,100%);max-height:78vh;overflow:auto;box-sizing:border-box;background:#1d1814;border:2px solid var(--kb-bd);border-bottom:0;border-radius:16px 16px 0 0;box-shadow:0 -10px 30px rgba(0,0,0,.6);padding:0 14px calc(16px + env(safe-area-inset-bottom,0px));color:var(--kb-tx);animation:bdmup .16s ease-out}
+.bdmlist{position:fixed;left:50%;bottom:0;transform:translateX(-50%);z-index:1001;width:min(560px,100%);max-height:78vh;max-height:78dvh;overflow:auto;box-sizing:border-box;background:#1d1814;border:2px solid var(--kb-bd);border-bottom:0;border-radius:16px 16px 0 0;box-shadow:0 -10px 30px rgba(0,0,0,.6);padding:0 14px calc(16px + env(safe-area-inset-bottom,0px));color:var(--kb-tx);animation:bdmup .16s ease-out}
 @keyframes bdmup{from{transform:translate(-50%,40px);opacity:.4}to{transform:translate(-50%,0);opacity:1}}
 .bdmlh{position:sticky;top:0;display:grid;grid-template-columns:1fr auto;align-items:center;padding:16px 0 8px;background:#1d1814;z-index:1;touch-action:none}
 .bdmlh i{position:absolute;top:6px;left:50%;width:42px;height:4px;margin-left:-21px;border-radius:2px;background:var(--kb-bd2)}
@@ -3103,7 +3106,7 @@ h4 .kspi{margin-right:5px}
 .bcolh .bhrks>*,.bcoln [data-bkl]>*,.bcolh [data-bkl]>*{margin:0 0 5px}
 .bout{margin:8px 0}.bout>summary{cursor:pointer;color:var(--muted);font:500 .85rem var(--f-label);letter-spacing:.04em;padding:4px 0}
 .bout[open]>summary{margin-bottom:6px}.bout [data-bkl]>*{opacity:.8}
-.bcoll{position:sticky;top:10px;max-height:calc(100vh - 20px);overflow:auto;overscroll-behavior:contain;padding-right:2px}
+.bcoll{position:sticky;top:10px;max-height:calc(100vh - 20px);max-height:calc(100dvh - 20px);overflow:auto;overscroll-behavior:contain;padding-right:2px}
 .btabs{display:flex;gap:4px;position:sticky;top:0;z-index:5;margin:0 0 10px;padding:6px 0;background:var(--bg)}
 .btabs button{flex:1;min-height:38px;padding:4px 6px;border:1px solid color-mix(in srgb,var(--gold) 60%,var(--rule));border-radius:4px;background:var(--paper);color:var(--ink);font:500 .8rem/1.15 var(--f-label);letter-spacing:.05em;text-transform:uppercase;cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .btabs button small{font-size:.75rem;opacity:.75;text-transform:none}
@@ -3126,7 +3129,16 @@ h4 .kspi{margin-right:5px}
   .btabs button[data-btab="l"]{display:block}
   .bojakt:not(.bojprip) .bcoll{display:none}
   .bojakt:not(.bojprip)[data-btab="l"] .bcoll{display:block}
-  .bojakt:not(.bojprip)[data-btab="l"] .bcolk{display:none}}
+  .bojakt:not(.bojprip)[data-btab="l"] .bcolk{display:none}
+  /* aplikace na ploše: hráčovy záložky boje dole u palce (vypravěč má dole ovládání tahu) */
+  html.mmapp .bojhrac.bojakt:not(.bojprip) .btabs{position:fixed;top:auto;left:0;right:0;bottom:0;z-index:86;margin:0;padding:6px max(8px,env(safe-area-inset-left,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-right,0px));background:var(--paper);border-top:2px solid var(--gold);box-shadow:0 -10px 20px -12px rgba(20,5,5,.5)}
+  html.mmapp .bojhrac.bojakt:not(.bojprip) .btabs button{min-height:44px}
+  html.mmapp .bojhrac.bojakt:not(.bojprip){padding-bottom:calc(64px + env(safe-area-inset-bottom,0px))}
+  html.mmapp body:has(.bojhrac.bojakt:not(.bojprip)) .phbtn{bottom:calc(78px + env(safe-area-inset-bottom,0px))}
+  html.mmapp body:has(.bojhrac.bojakt:not(.bojprip)) .mmhlas{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+  html.mmapp body:has(.bojhrac.bojakt:not(.bojprip)) #mmfronta{bottom:calc(78px + env(safe-area-inset-bottom,0px))}}
+/* aplikace na ploše: stažení stránky dolů ji nesmí obnovit uprostřed boje */
+html.mmapp body{overscroll-behavior-y:none}
 /* herní záznam: kdo · co · komu, výsledek, kostky, Závoj */
 .bzaz .uvh2{display:flex;align-items:center;gap:6px;font-size:1.05rem;margin:4px 0 6px;padding-bottom:3px;border-bottom:1px solid var(--rule)}
 .bzaz .uvh2 .bi{width:20px;height:20px}.bzaz .uvh2 small{margin-left:auto;font:400 .8rem var(--f-label);color:var(--muted)}
@@ -3225,7 +3237,7 @@ span.bzos{cursor:default}
 .ksdlv{align-items:center;margin:4px 0 8px}
 
 /* načítání (2026-10-19): patička je pod okrajem obrazovky, dokud se neobjeví obsah – nic neposkočí */
-.wrap>main{min-height:100vh}
+.wrap>main{min-height:100vh;min-height:100dvh}
 
 /* hody proti smrti mimo boj a kostky životů po jedné (2026-10-19) */
 .kdsblok p{margin:.2rem 0}

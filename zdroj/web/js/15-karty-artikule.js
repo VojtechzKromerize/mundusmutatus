@@ -181,15 +181,26 @@ function kRozdil(S,N){if(!S)return [];const o=[],ar=(a,b,f)=>{const A=new Set((a
 /* ---- offline: fronta zápisů karty a hodů, když chybí připojení ---- */
 const KFR={get(){try{return JSON.parse(localStorage.getItem("mm-fronta")||"[]")}catch(e){return []}},set(v){try{localStorage.setItem("mm-fronta",JSON.stringify(v.slice(-400)))}catch(e){}}};
 const kSitChyba=e=>navigator.onLine===false||(e&&(e.name==="TypeError"||/fetch|network|síť/i.test(e.message||"")));
-function kFrontaPridej(x){const F=KFR.get();F.push(x);KFR.set(F)}
+function kFrontaPridej(x){const F=KFR.get();F.push(x);KFR.set(F);if(typeof bojFrontaOdznak==="function")bojFrontaOdznak()}
 async function kFrontaOdesli(){if(kFrontaOdesli.b)return;const F=KFR.get();if(!F.length||!window.MMDB||navigator.onLine===false)return;const zb=[];kFrontaOdesli.b=1;try{
   for(const x of F){try{if(x.t==="s")await KDB.stav(x.id,x.k,x.v);else await KDB.hod(x.h)}catch(e){if(kSitChyba(e))zb.push(x);/* neplatné zápisy zahodí */}}
-  KFR.set(zb);if(!zb.length&&F.length){mmHlasG(`Připojeno – odesláno ${F.length} změn z doby bez signálu.`,4500);kFrontaOdesli.b=0;await kartyNacti();await hodyNacti();kartyPrekresli()}}finally{kFrontaOdesli.b=0}}
+  KFR.set(zb);if(!zb.length&&F.length){mmHlasG(`Připojeno – odesláno ${F.length} změn z doby bez signálu.`,4500);kFrontaOdesli.b=0;await kartyNacti();await hodyNacti();kartyPrekresli()}}finally{kFrontaOdesli.b=0;if(typeof bojFrontaOdznak==="function")bojFrontaOdznak()}}
 function kFrontaNaStav(){KFR.get().forEach(x=>{if(x.t==="s"){const o=KST[x.id]=Object.assign({},KST[x.id]||{});if(x.v==null)delete o[x.k];else o[x.k]=x.v}})}
 addEventListener("online",()=>kFrontaOdesli());
-/* kopie karet a záznamu pro režim bez připojení */
-const KCACHE={uloz(){try{localStorage.setItem("mm-karty-kopie",JSON.stringify({K:KARTY.filter(k=>!KSTAT.has(k.id)),S:KST,H:HODY.slice(0,60)}))}catch(e){}},
-  nacti(){try{const c=JSON.parse(localStorage.getItem("mm-karty-kopie")||"null");if(!c)return false;(c.K||[]).forEach(k=>{if(!KARTBY[k.id]){KARTY.push(k);KARTBY[k.id]=k}});Object.assign(KST,c.S||{});if(!HODY.length)HODY=(c.H||[]);kFrontaNaStav();return true}catch(e){return false}}};
+/* kopie karet a záznamu pro režim bez připojení: localStorage (rychlé, synchronní) a k tomu IndexedDB (2026-10-20) – větší limit
+   a druhá kopie, kdyby localStorage došel nebo ho prohlížeč vyčistil. V aplikaci na ploše se k tomu žádá o trvalé úložiště
+   (navigator.storage.persist), aby telefon kopii nevymazal mezi sezeními. */
+const MMIDB={db:null,open(){if(this.db)return this.db;if(!("indexedDB" in window))return this.db=Promise.resolve(null);
+    return this.db=new Promise(res=>{try{const r=indexedDB.open("mm",1);r.onupgradeneeded=()=>r.result.createObjectStore("kv");r.onsuccess=()=>res(r.result);r.onerror=()=>res(null);r.onblocked=()=>res(null)}catch(e){res(null)}})},
+  async set(k,v){const d=await this.open();if(!d)return;try{d.transaction("kv","readwrite").objectStore("kv").put(v,k)}catch(e){}},
+  async get(k){const d=await this.open();if(!d)return null;return new Promise(res=>{try{const r=d.transaction("kv").objectStore("kv").get(k);r.onsuccess=()=>res(r.result==null?null:r.result);r.onerror=()=>res(null)}catch(e){res(null)}})}};
+const KCACHE={uloz(){const c={K:KARTY.filter(k=>!KSTAT.has(k.id)),S:KST,H:HODY.slice(0,60)};try{localStorage.setItem("mm-karty-kopie",JSON.stringify(c))}catch(e){}MMIDB.set("karty-kopie",c);this.predkesuj()},
+  /* portréty družiny (odkazy, ne vložené obrázky) si service worker uloží, aby karta bez signálu nebyla bez tváří */
+  predkesuj(){if(this.pk||GMV||!("serviceWorker" in navigator)||!navigator.serviceWorker.controller)return;this.pk=1;(window.requestIdleCallback||setTimeout)(()=>{KARTY.forEach(K=>{try{const u=kImg(K);if(u&&!/^data:/.test(u))fetch(u,{mode:"no-cors"}).catch(()=>{})}catch(e){}})},1500)},
+  pouzij(c){if(!c)return false;(c.K||[]).forEach(k=>{if(!KARTBY[k.id]){KARTY.push(k);KARTBY[k.id]=k}});Object.assign(KST,c.S||{});if(!HODY.length)HODY=(c.H||[]);kFrontaNaStav();return true},
+  nacti(){try{return this.pouzij(JSON.parse(localStorage.getItem("mm-karty-kopie")||"null"))}catch(e){return false}},
+  async nactiIDB(){try{return this.pouzij(await MMIDB.get("karty-kopie"))}catch(e){return false}}};
+if(window.MMDB&&!GMV&&navigator.storage&&navigator.storage.persist&&(matchMedia("(display-mode: standalone)").matches||navigator.standalone===true))setTimeout(()=>{try{navigator.storage.persist().catch(()=>{})}catch(e){}},3000);
 /* ---- přehled družiny pro vypravěče ---- */
 const KPS={ab:"WIS",dc:"",dov:"Perception",vys:null};
 function kPrehledHtml(){if(!KARTY.length)return "";const t=kTed();

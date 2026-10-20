@@ -15,7 +15,7 @@ const KHRAC={};
 const KPEND={},KPENDT={};
 function kartyNastav(rows,t0){(rows||[]).forEach(r=>{if(r.zamceno)KZAM.add(r.id);else if(r.zamceno===false)KZAM.delete(r.id);if(r.hrac)KHRAC[r.id]=r.hrac;else if(r.hrac===null)delete KHRAC[r.id];if(r.karta&&r.karta.n){const i=KARTY.findIndex(k=>k.id===r.id);if(i>=0)KARTY[i]=r.karta;else KARTY.push(r.karta)}if(r.$beze||(t0&&KPENDT[r.id]>t0))return;let st=r.stav||{};const P=KPEND[r.id];if(P&&Object.keys(P).length){st=Object.assign({},st);Object.entries(P).forEach(([k,q])=>{if(q.v==null)delete st[k];else st[k]=q.v})}KST[r.id]=st});
   Object.keys(KARTBY).forEach(k=>delete KARTBY[k]);KARTY.forEach(k=>{KARTBY[k.id]=k});kFrontaNaStav()}
-async function kartyNacti(znovu){try{const t0=Date.now(),r=await KDB.nacti(znovu);const pred=JSON.stringify(KST)+KARTY.length;kartyNastav(r,t0);KLOAD=Date.now();KCACHE.uloz();if(KFR.get().length)kFrontaOdesli();return pred!==JSON.stringify(KST)+KARTY.length}catch(e){if(!KLOAD&&KCACHE.nacti()){KLOAD=Date.now();return true}return false}}
+async function kartyNacti(znovu){try{const t0=Date.now(),r=await KDB.nacti(znovu);const pred=JSON.stringify(KST)+KARTY.length;kartyNastav(r,t0);KLOAD=Date.now();KCACHE.uloz();if(KFR.get().length)kFrontaOdesli();return pred!==JSON.stringify(KST)+KARTY.length}catch(e){if(!KLOAD&&(KCACHE.nacti()||await KCACHE.nactiIDB())){KLOAD=Date.now();return true}return false}}
 async function hodyNacti(){try{const r=await KDB.hody();const top=(HODY[0]||{}).id;HODY=(r||[]).map(x=>Object.assign({id:x.id,cas:x.cas},x.data||{}));return (HODY[0]||{}).id!==top}catch(e){return false}}
 /* změna stavu karty: hned v prohlížeči, pak do databáze; ch = {pole: hodnota|null} */
 async function kartaStavZmen(id,ch,msg,op={}){if(!op.bezZpet)kZpetZapis(id,ch);const o=Object.assign({},kartaStav(id));Object.entries(ch).forEach(([k,v])=>{if(v==null)delete o[k];else o[k]=v});KST[id]=o;kartyPrekresli();const P=KPEND[id]=KPEND[id]||{};Object.entries(ch).forEach(([k,v])=>{P[k]={v:v??null,n:((P[k]||{}).n||0)+1}});
@@ -30,7 +30,9 @@ let KADV=0;
 async function kartaHod(K,co,b,o={}){const SV=kStavVliv(K,co),v=kAdvSum(o.adv!=null?o.adv:KADV,SV.r);if(SV.r.length)o.why=[o.why,...SV.r.map(x=>x[1])].filter(Boolean).join(", ");if(SV.fail)o.why=[o.why,"automaticky selhává (stav)"].filter(Boolean).join(", ");const d1=bK(20),d2=v?bK(20):null,d=v>0?Math.max(d1,d2):v<0?Math.min(d1,d2):d1,vy=2*kVycerp(K),PD=kPriHod(K,co),tot=d+(+b||0)-vy+PD.t,z=zavBezZach(co)?null:kZavoj(K);
   const krit=d>=(o.kmin||20)&&!!o.utok,mis=d===1&&!!o.utok;
   const txt=`d20 ${d1}${d2!=null?` / ${d2} (${v>0?"výhoda":"nevýhoda"})`:""} ${bsg(+b||0)}${vy?` −${vy} vyčerpání`:""}${PD.txt} = ${tot}${krit?" · kritický zásah":mis?" · minutí":""}${o.why?" · "+o.why:""}`;
-  const H={k:K.id,kdo:K.n,co,txt,tot,d};if(z){H.zav=z.d;H.zr=z.r||"0";KZAV[K.id]={co,d:z.d,r:z.r,hod:z.hod}}if(krit)H.krit=true;
+  const H={k:K.id,kdo:K.n,co,txt,tot,d};if(z){H.zav=z.d;H.zr=z.r||"0";KZAV[K.id]={co,d:z.d,r:z.r,hod:z.hod};
+    /* Závoj v ruce: Pokušení zabrní dlouze, Požehnání třikrát krátce (jen hráč na telefonu) */
+    if(!GMV)try{if(navigator.vibrate){if(z.r==="pok")navigator.vibrate([70,50,70,50,220]);else if(z.r==="poz")navigator.vibrate([25,40,25,40,25])}}catch(e){}}if(krit)H.krit=true;
   KPOSL[K.id]={co,d1,d2,v,b:(+b||0)-vy+PD.t,d,tot,kmin:o.kmin||20,utok:!!o.utok,krit,mis,ut:o.ut,skryty:!!o.skryty,cas:Date.now(),upr:[],mods:[],puv:tot,bylMis:mis,bylKrit:krit};if(mis)H.mis=true;if(v)H.adv=v;
   if(!o.skryty)kHodZapis(H);else{HODY.unshift(Object.assign({id:Date.now(),cas:new Date().toISOString(),skryty:true},H));kartyPrekresli()}
   mmHlasG(`${K.n}: ${co} ${tot} (${txt.replace(/ = \d+.*/,"")})${z?" · "+zavTxt(z):""}`,6500);return {tot,d,krit,mis,zav:z?z.d:undefined,zr:z?z.r:undefined,txt}}

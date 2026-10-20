@@ -649,7 +649,30 @@ function bojOsobaGM(pid){const o=OSPROT[pid];if(!o)return "";const p=PROTBY[o.b]
   return `<details class="gmres bosgm"><summary>Statblock v boji <span>jen pro vypravěče</span></summary><p><b>${besc(p.n)}</b>${(o.pr||[]).length?" · "+o.pr.map(i=>besc((PRIVBY[i]||{}).n||i)).join(", "):""} <button type="button" class="gbtn ghost" data-bosboj="${besc(pid)}">+ do boje</button></p>${bojRefTxt(p)}<div class="bsb">${p.b||p.h}</div></details>`}
 document.addEventListener("click",e=>{const b=e.target.closest("[data-bosboj]");if(!b)return;const o=OSPROT[b.dataset.bosboj];if(!o)return;bojPridejZvenku(bojRozvin([{os:o.id,pr:[]}]),`${o.n} – nepřítel ze Zemských desek.`)});
 const BOJ={s:null,v:-1,poll:null};
-const bojDB=window.MMDB?{nacti:()=>MMDB.bojNacti(),verze:()=>MMDB.bojVerze(),uloz:(s,v)=>MMDB.bojUloz(s,v),obsad:(i,h)=>MMDB.bojObsad(i,h),hod:(h,v)=>MMDB.bojHod(h,v),hrac:(h,p,v)=>MMDB.bojHrac(h,p,v),utok:(h,u)=>MMDB.bojUtok(h,u)}
+/* ---- fronta zápisů hráče bez signálu (2026-10-20): útok, změna postavy v boji, obsazení slotu, odpověď na výzvu ----
+   Když odeslání z telefonu selže kvůli síti, zápis se uloží v telefonu a odejde, až bude signál (událost online nebo další puls),
+   ve stejném pořadí. Volající dostane {$fronta:1} místo výsledku – karta funguje dál jako při úspěchu, jen s odznakem „čeká
+   na signál“. Zápis starší než dvě hodiny se zahodí (boj už bude dávno jinde). Vypravěč frontu nemá – ukládá s kontrolou verze. */
+const BFR={k:"mm-boj-fronta",h:0,get(){try{return JSON.parse(localStorage.getItem(this.k)||"[]")}catch(e){return []}},set(v){try{localStorage.setItem(this.k,JSON.stringify(v.slice(-200)))}catch(e){}},
+  delka(){return this.get().length},
+  pridej(x){const F=this.get();F.push(Object.assign({ts:Date.now()},x));this.set(F);bojFrontaOdznak();
+    if(Date.now()-this.h>4000){this.h=Date.now();mmHlas("Bez připojení – odeslání vypravěči počká na signál.",4500)}}};
+const bojSitChyba=e=>navigator.onLine===false||(e&&(e.name==="TypeError"||/fetch|network|failed|síť/i.test(e.message||"")));
+const bojFr=(fn,item)=>async(...a)=>{try{return await fn(...a)}catch(e){if(bojSitChyba(e)&&!GMV){BFR.pridej(item(...a));return {$fronta:1}}throw e}};
+async function bojFrontaOdesli(){if(bojFrontaOdesli.b||GMV||!window.MMDB||navigator.onLine===false)return;const F=BFR.get().filter(x=>Date.now()-(x.ts||0)<2*3600e3);if(!F.length){BFR.set([]);bojFrontaOdznak();return}
+  bojFrontaOdesli.b=1;const zb=[];let poslano=0;
+  try{for(const x of F){if(zb.length){zb.push(x);continue}/* po první síťové chybě zbytek počká, aby se nepřeházelo pořadí */
+      try{if(x.t==="u")await MMDB.bojUtok(x.h,x.u);else if(x.t==="p")await MMDB.bojHrac(x.h,x.k,x.v);else if(x.t==="o")await MMDB.bojObsad(x.i,x.h);else if(x.t==="v")await MMDB.vyzvaOdpoved(x.i,x.k,x.hod);poslano++}
+      catch(e){if(bojSitChyba(e))zb.push(x);else console.warn("fronta boje: zahozeno",x,e.message||e)}}
+    BFR.set(zb);if(poslano){mmHlas(`Připojeno – vypravěči odešlo ${poslano} ${poslano===1?"zápis":poslano<5?"zápisy":"zápisů"} z doby bez signálu.`,4500);BOJ.v=-2;await bojNacti();if(curView==="boj")renderBoj()}}
+  finally{bojFrontaOdesli.b=0;bojFrontaOdznak()}}
+/* odznak „čeká na signál“ dole na obrazovce (klepnutí zkusí odeslat hned) */
+function bojFrontaOdznak(){const n=BFR.delka()+(typeof KFR!=="undefined"?KFR.get().length:0);let el=document.getElementById("mmfronta");
+  if(!n){if(el)el.remove();return}if(!el){el=document.createElement("button");el.id="mmfronta";el.type="button";el.title="Zápisy čekají na signál – klepnutím zkusit odeslat";el.addEventListener("click",()=>{bojFrontaOdesli();if(typeof kFrontaOdesli==="function")kFrontaOdesli()});document.body.appendChild(el)}
+  el.textContent=`⏳ ${n}`;el.setAttribute("aria-label",`${n} zápisů čeká na signál`)}
+addEventListener("online",()=>setTimeout(bojFrontaOdesli,300));
+if(window.MMDB&&!GMV&&MMDB.vyzvaOdpoved){const f=MMDB.vyzvaOdpoved.bind(MMDB);MMDB.vyzvaOdpoved=bojFr(f,(i,k,hod)=>({t:"v",i,k,hod}))}
+const bojDB=window.MMDB?{nacti:()=>MMDB.bojNacti(),verze:()=>MMDB.bojVerze(),uloz:(s,v)=>MMDB.bojUloz(s,v),obsad:bojFr((i,h)=>MMDB.bojObsad(i,h),(i,h)=>({t:"o",i,h})),hod:(h,v)=>MMDB.bojHod(h,v),hrac:bojFr((h,p,v)=>MMDB.bojHrac(h,p,v),(h,k,v)=>({t:"p",h,k,v})),utok:bojFr((h,u)=>MMDB.bojUtok(h,u),(h,u)=>({t:"u",h,u}))}
   :GMV?{nacti:async()=>{try{return JSON.parse(localStorage.getItem("mm-boj")||"null")}catch(e){return null}},
         verze:async()=>{try{return (JSON.parse(localStorage.getItem("mm-boj")||"null")||{}).verze||0}catch(e){return 0}},
         uloz:async s=>{const v=(BOJ.v>0?BOJ.v:0)+1;try{localStorage.setItem("mm-boj",JSON.stringify({stav:s,verze:v}))}catch(e){}return v},obsad:null}:null;

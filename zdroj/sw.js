@@ -82,12 +82,17 @@ self.addEventListener("fetch", e => {
 self.addEventListener("push", e => {
   let d = {};
   try { d = e.data ? e.data.json() : {}; } catch (x) { d = { text: e.data && e.data.text() }; }
-  e.waitUntil(self.registration.showNotification(d.titul || "Mundus Mutatus", {
-    body: d.text || "", icon: "art/img/kostka-192.png", badge: "art/img/kostka-64.png", tag: d.tag || d.url || "mm", renotify: true, data: { url: d.url || "#hra" }
-  }));
+  const vib = /tahu/i.test(d.titul || "") ? [250, 120, 250, 120, 400] : [160, 80, 160];  // tah v boji vibruje jinak než výzva či zpráva
+  e.waitUntil(Promise.all([
+    self.registration.showNotification(d.titul || "Mundus Mutatus", {
+      body: d.text || "", icon: "art/img/kostka-192.png", badge: "art/img/kostka-64.png", tag: d.tag || d.url || "mm", renotify: true, vibrate: vib, data: { url: d.url || "#hra" }
+    }),
+    self.navigator.setAppBadge ? self.navigator.setAppBadge().catch(() => {}) : null  // tečka na ikoně aplikace, stránka ji smaže po otevření
+  ]));
 });
 self.addEventListener("notificationclick", e => {
   e.notification.close();
+  if (self.navigator.clearAppBadge) self.navigator.clearAppBadge().catch(() => {});
   const cil = new URL("./" + ((e.notification.data && e.notification.data.url) || ""), self.registration.scope).href;
   e.waitUntil(self.clients.matchAll({ type: "window", includeUncontrolled: true }).then(L => {
     const w = L.find(c => c.url.startsWith(self.registration.scope));

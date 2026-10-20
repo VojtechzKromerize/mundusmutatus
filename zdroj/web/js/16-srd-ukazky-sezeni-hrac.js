@@ -44,7 +44,11 @@ document.addEventListener("click",e=>{const a=e.target.closest("[data-predadd]")
 const UKDB=window.MMDB&&MMDB.ukazkyNacti?{nacti:()=>MMDB.ukazkyNacti(),uloz:o=>MMDB.ukaz(o),smaz:i=>MMDB.ukazSmaz(i)}:null;
 let UKAZKY=[],UKPOLL=null;
 const ukVideno={get(){try{return +localStorage.getItem("mm-ukaz-videno")||0}catch(e){return 0}},set(v){try{localStorage.setItem("mm-ukaz-videno",String(v))}catch(e){}}};
-const ukHtml=u=>`<article class="ukazka"><p class="rsmall">Vypravěč ukazuje</p>${u.n?`<h2 class="arttitle">${besc(u.n)}</h2>`:""}${u.img?`<img src="${besc(u.img)}" alt="${besc(u.n||"Ukázka")}">`:""}${u.t?`<div class="kron">${kzMd(u.t)}</div>`:""}</article>`;
+/* hráč si ukázku uloží nebo pošle dál (Sdílet v telefonu – obrázek jako soubor do Fotek, text jako text) */
+const ukHtml=u=>`<article class="ukazka"><p class="rsmall">Vypravěč ukazuje</p>${u.n?`<h2 class="arttitle">${besc(u.n)}</h2>`:""}${u.img?`<img src="${besc(u.img)}" alt="${besc(u.n||"Ukázka")}">`:""}${u.t?`<div class="kron">${kzMd(u.t)}</div>`:""}${!GMV&&navigator.share?`<p><button type="button" class="gbtn ghost" data-uksdil="${u.id}">Sdílet / uložit</button></p>`:""}</article>`;
+async function ukSdilej(u){const d={title:u.n||"Mundus Mutatus",text:[u.n,u.t].filter(Boolean).join("\n\n")};
+  try{if(u.img){try{const b=await (await fetch(u.img)).blob(),f=new File([b],(u.n||"ukazka").replace(/[^\w.-]+/g,"_")+"."+((b.type.split("/")[1]||"webp").replace("jpeg","jpg")),{type:b.type});if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share(Object.assign({files:[f]},d));return}}catch(e){}d.url=new URL(u.img,location.href).href}
+    await navigator.share(d)}catch(e){if(e&&e.name!=="AbortError")mmHlasG("Sdílení se nepovedlo: "+(e.message||e),4000)}}
 async function ukNacti(prvni){if(!UKDB)return;try{const r=await UKDB.nacti();UKAZKY=(r||[]).map(x=>Object.assign({id:x.id,cas:x.cas},x.data||{}));}catch(e){return}
   const top=UKAZKY[0];if(!top)return;const v=ukVideno.get();
   if(!v&&prvni){ukVideno.set(Date.now()-new Date(top.cas).getTime()<10*60000?top.id-1:top.id)}
@@ -65,6 +69,7 @@ document.addEventListener("submit",async e=>{if(!e.target.matches||!e.target.mat
 document.addEventListener("change",async e=>{if(!e.target.matches||!e.target.matches("[data-ukfile]")||!e.target.files[0])return;const f=e.target.closest("form");
   try{mmHlasG("Nahrávám obrázek…",2500);const u=await ukObrazek(e.target.files[0]);f.elements.img.value=u;f.elements.img.dispatchEvent(new Event("input",{bubbles:true}));mmHlasG("Obrázek nahrán.",2500)}catch(err){mmHlasG(err.message||String(err),6000)}});
 document.addEventListener("click",async e=>{const o=e.target.closest("[data-ukotevri]");if(o){const u=UKAZKY.find(x=>x.id==o.dataset.ukotevri);if(u)mmPop(ukHtml(u));return}
+  const sd=e.target.closest("[data-uksdil]");if(sd){const u=UKAZKY.find(x=>x.id==sd.dataset.uksdil);if(u)ukSdilej(u);return}
   const x=e.target.closest("[data-ukx]");if(x&&GMV&&UKDB){if(!confirm("Smazat ukázku?"))return;try{await UKDB.smaz(+x.dataset.ukx);await ukNacti()}catch(err){mmHlasG(err.message,5000)}if(curView==="sezeni")renderSezeni();return}
   const k=e.target.closest("[data-ukazat]");if(k&&GMV){const s=SEZ.d.s.find(q=>q.id===SEZ.cur),sc=s&&s.sc[+k.dataset.sc],u=sc&&(sc.uk||[])[+k.dataset.ukazat];if(u)ukUkaz(u);return}});
 

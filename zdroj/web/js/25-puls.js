@@ -22,6 +22,7 @@ async function pulsKrok(prvni){
   PULS.beh=true;PULS.t=Date.now();
   try{
     try{bojRealtime()}catch(e){}
+    if(typeof BFR!=="undefined"&&BFR.delka())bojFrontaOdesli();
     let p=null;
     if(!PULS.stary){try{p=await MMDB.puls()}catch(e){if(e.status===404||/mm_puls/.test(e.message||""))PULS.stary=true;else return}}
     const z=PULS.z;if(p&&typeof p==="object")PULS.z=p;
@@ -52,5 +53,7 @@ function pulsObnov(){if(GMV||typeof window.mmKontrolaVerze!=="function")return;
   const boj=curView==="boj"&&BOJ.s&&BOJ.s.aktivni;
   if(boj||pulsPise()){if(!PULS.obnov&&boj)mmHlasG("Zemské desky byly doplněny – stránka se obnoví, až odejdeš z boje.",6000);PULS.obnov=true;return}
   PULS.obnov=false;window.mmKontrolaVerze()}
+/* lišta „Obnovit“ (koruna.html) se ptá, jestli je bezpečné obnovit samo: ne v boji, ne při psaní, ne s rozehraným útokem nebo frontou */
+window.mmObnovaMozna=()=>!(curView==="boj"&&BOJ.s&&BOJ.s.aktivni)&&!pulsPise()&&!(typeof BJU!=="undefined"&&BJU.serie&&BJU.serie.length)&&!(typeof BFR!=="undefined"&&BFR.delka());
 /* první puls hned po načtení skriptu, souběžně s úvodním načítáním dat (co se změní mezi tím, nezapadne) */
 if(window.MMDB)pulsStart();
