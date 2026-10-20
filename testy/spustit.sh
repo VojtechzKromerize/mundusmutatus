@@ -91,7 +91,7 @@ KONF
   zkus "práva v databázi" python3 "$KOREN/testy/bezpecnost.py"
 
   krok "Testy v prohlížeči"
-  for t in ${MM_TESTY:-odhalovani herni_stav draci boj tah reakce potvrz karta karta_vse pecet editor zapisy vyprava}; do
+  for t in ${MM_TESTY:-odhalovani herni_stav draci boj boj2 tah reakce potvrz karta karta_vse pecet editor zapisy vyprava}; do
     zkus "prohlížeč: $t" python3 "$KOREN/testy/prohlizec_$t.py"
   done
 
