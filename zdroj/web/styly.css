@@ -3276,3 +3276,6 @@ button.btedch{cursor:pointer}button.btedch:hover{border-color:var(--gold,#b08d3a
 .bmomh{background:var(--kat)}.bmomn{background:var(--kal)}
 .bmom-h .bmoms{color:var(--kat)}.bmom-n .bmoms{color:var(--kal)}
 .bmomban{margin:.3rem 0;padding:.35rem .6rem;border-left:3px solid var(--gold)}.bmomban.bmom-n{border-left-color:var(--kal)}.bmomban.bmom-h{border-left-color:var(--kat)}
+/* volby po zásahu, přesun Hexu (2026-10-20) */
+.bjurid{align-items:center}.bjurid .gbtn.on{background:#2f6b3a;color:#fff;border-color:#4f8a3a}.bjurid .gbtn small{opacity:.85}.bjurgw{display:block;width:100%;color:var(--kb-gold)}
+.kjuhex .gbtn{margin:2px 4px 0 0}

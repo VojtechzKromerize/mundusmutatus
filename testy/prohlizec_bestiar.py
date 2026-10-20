@@ -107,7 +107,7 @@ async def main():
         chk(True,"Šikovná zbraň soka: před hodem nabídka typu zranění");await g.click(".mmpop [data-butsik] >> nth=0");await g.wait_for_timeout(250)
     # Závoj (Požehnání/Pokušení) může mít v záznamu vlastní řádek nad útokem – stačí poslední tři řádky
     lg="\n".join((await g.locator(rot+" .blog li").all_inner_texts())[:3]);print("log:",lg)
-    chk("Dlouhý meč" in lg and ("zranění" in lg.lower()) and ("Závoj" in lg or "Pokušení" in lg or "Požehnání" in lg),"útok soka: hod, zranění i Závoj")
+    chk("Dlouhý meč" in lg and ("zranění" in lg.lower() or "VEDLE" in lg) and ("Závoj" in lg or "Pokušení" in lg or "Požehnání" in lg),"útok soka: hod, zranění i Závoj")
     # cíl, výhoda a útok jako reakce
     await g.click(rot+' [data-bcilb="h1"]');await g.wait_for_timeout(150)
     await g.click(rot+' [data-badv="1"]');await g.check(rot+" [data-bjr]");await g.click(rot+' [data-but="0"]');await g.wait_for_timeout(300)
@@ -249,6 +249,27 @@ async def main():
       BZASV.set(Date.now());BJK.seen=0;BJK.d='';bojKonHlidej({kolo:1,zaz:[{ci:'h1',z:5,k:1,ts:Date.now()-5000}]},{id:'h1',stav:['soustředí']});o.push(BJK.d==='');
       return o})()""")
     chk(r3==[True]*4,"útok za hráče: jediný nepřítel je cílem, Hex přidá 1d6, útok se zapíše, staré zranění se po obnovení znovu nehlásí: "+str(r3))
+    # volby po zásahu, přesun Hexu, reakce bojovníka (2026-10-20)
+    r4=await k.evaluate("""(async()=>{const o=[],K=KARTBY.balduin,s=BOJ.s,me=s.hraci.find(x=>x.id==='h1');
+      K.rysy=[...(K.rysy||[]),'Eldritch Smite','Trip Attack','Parry','Riposte','Precision Attack','Great Weapon Master'];K.zdroje=[...(K.zdroje||[]),{n:'Combat Superiority',max:4,obn:'krátký nebo dlouhý odpočinek · kostka d8'}];
+      await kartaStavZmen(K.id,{zdr:{}});bojJa.set(K.n);const zb=bojZbrVse(s,me),j=zb.findIndex(w=>!w.dal&&w.z);BJU.zi=String(j);BJU.ef=[];BJU.ridT=null;
+      BJU.serie=[{ci:s.npc[0].id,hod:25,d:17,krit:false,vys:'zásah',dmg:10,zx:'1d8(5)+5'}];BJU.ui=0;const q=BJU.serie[0];
+      const R=bojJaRidery(K,me,zb[j],q,s);o.push(R.some(r=>r.k==='es:slot3p'&&r.zr==='4d8')&&R.some(r=>r.k==='m:Trip Attack'&&/STR SO \d+/.test(r.cim)));
+      bojJaRid('es:slot3p');const d1=q.dmg;o.push(q.rid.length===1&&d1>=14&&d1<=42&&/Eldritch Smite/.test(q.zx));
+      bojJaRid('es:slot3p');o.push(q.dmg===10&&!q.rid.length);
+      bojJaRid('es:slot3p');bojJaRid('m:Trip Attack');o.push(q.rid.length===2);
+      await bojJaRidPo(K,me,[q]);const Z=kartaStav(K.id).zdr||{};o.push(Z.slot3p===1&&Z['Combat Superiority']===1&&BJU.ridT.u.includes('es'));
+      o.push(!bojJaRidery(K,me,zb[j],{ci:q.ci,vys:'zásah',dmg:5},s).some(r=>r.g==='es'));
+      const e={hod:20,ac:18,d:15,ph:8,ai:s.npc[0].id,t:'Slashing'};o.push(kReakceNaZasah(K,me,s,e).o.some(r=>r.k==='parry')&&!kReakceNaZasah(K,me,s,Object.assign({},e,{dal:1})).o.some(r=>r.k==='parry'));
+      o.push(kEfAkt(K,[],{n:'Greatsword'}).some(x=>x.n==='Great Weapon Master'&&x.zr===kPB(K))&&!kEfAkt(K,[],{n:'Dagger'}).some(x=>x.n==='Great Weapon Master'));
+      const P=kUpravHod({d1:5,d2:null,v:0,b:6,mods:[],upr:[],utok:true,kmin:20},'prec',8);o.push(P.r.tot>=12&&P.r.tot<=19&&/Precision/.test(P.pop));
+      await kartaStavZmen(K.id,{uc:[{n:'Hex',h:1,kon:true}]});
+      await bojZmen(z=>{const n1=z.npc[0];n1.ef=[{n:'Hex',kdy:'kola',k:77,kolo:1,tah:0,od:'h1',src:'h1'}];n1.stav=['poražen'];const n2=z.npc.find((x,i)=>i>0);if(n2){n2.stav=[];n2.ef=[]}});await new Promise(r=>setTimeout(r,300));
+      const s2=BOJ.s,n2=s2.npc.find((x,i)=>i>0);o.push(!!n2&&/data-juhexp/.test(bojJaHexHtml(s2,s2.hraci.find(x=>x.id==='h1'),K)));
+      if(n2){await bojZmen(z=>{bojEfZnac(z,z.npc.find(x=>x.id===n2.id),'Hex (přesun)',{h:'h1'})});await new Promise(r=>setTimeout(r,300))}
+      const N1=BOJ.s.npc[0],N2=n2&&BOJ.s.npc.find(x=>x.id===n2.id);o.push(!!N2&&!(N1.ef||[]).some(x=>x.n==='Hex')&&(N2.ef||[]).some(x=>x.n==='Hex'&&x.k===77&&x.od==='h1'));
+      return o})()""")
+    chk(r4==[True]*11,"volby po zásahu (Eldritch Smite, Trip Attack, jednou za tah, útrata), Parry jen proti útoku zblízka, Great Weapon Master, Precision Attack, přesun Hexu: "+str(r4))
     await k.close()
     # hráč
     h=await b.new_page();h.on("pageerror",lambda e:err.append("hráč: "+str(e)[:300]))

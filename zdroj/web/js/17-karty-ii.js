@@ -206,8 +206,21 @@ function kEfekty(K){const c=kCtx(K),L=[...(K.efekty||[])],nm=new Set(kSeznam(K).
   if(has("Hunter's Mark"))L.push({n:"Hunter's Mark",zr:"1d6",t:"Force",pozn:"+1d6 Force proti označenému cíli"});
   if(has("Divine Favor"))L.push({n:"Divine Favor",zr:"1d4",t:"Radiant",pozn:"+1d4 Radiant k útokům zbraní"});
   if(has("Divine Smite")){const Q=kSloty(K).filter(z=>z.u<z.max).sort((a,b)=>a.st-b.st||(a.pakt?1:-1)),q=Q[0];if(q)L.push({n:`Divine Smite (${q.st}. st.)`,zr:`${1+q.st}d8`,t:"Radiant",slot:q.k,blizko:1,pozn:`+${1+q.st}d8 Radiant při zásahu zblízka (proti Fiend a Undead +1d8); spotřebuje slot ${q.st}. st.`})}
+  /* Great Weapon Master (D&D 2024): při zásahu zbraní Heavy + bonus zdatnosti ke zranění – započítá se sám (2026-10-20) */
+  if(kMaRys(K,/^great weapon master$/i)&&!L.some(e=>e.n==="Great Weapon Master"))L.push({n:"Great Weapon Master",zr:kPB(K),auto:1,jen:a=>kTezka(K,a),pozn:`+${kPB(K)} zranění při zásahu zbraní Heavy; po kritickém zásahu nebo srážce tvora na 0 HP můžeš bonusovou akcí zaútočit znovu`});
   if(typeof kEfKouzla==="function")kEfKouzla(K).forEach(e=>{if(!L.some(q=>q.n===e.n))L.push(e)});
   return L}
+/* ---- rysy z karty pro automatiku boje (2026-10-20): featy a manévry podle názvu z PDF, kostky převahy, Bardic Inspiration ---- */
+const kMaRys=(K,re)=>!!K&&[...(K.rysy||[]),...(K.rysy2||[]).map(r=>r&&r.n)].some(x=>x&&re.test(String(x).replace(/[’]/g,"'").trim()));
+const kTezka=(K,a)=>{if(!a)return false;const A=(kUtoky(K)||[]).find(x=>x.n===a.n)||a,z=typeof kZbranInfo==="function"?kZbranInfo(A.n):null;return /\bheavy\b/i.test([...(A.vl||[]),z&&z[4]||"",A.pozn||""].join(" "))};
+/* Battle Master: kostky převahy (zdroj „Combat Superiority“) a jejich velikost; SO manévrů = 8 + zdatnost + STR nebo AGI */
+function kSD(K){if(!K||typeof kZdrN!=="function")return null;const z=kZdrN(K,/combat superiority|superiority dic?e/i);if(!z)return null;const m=String(z.q.obn||"").match(/kostka (d\d+)/),f=kTrU(kCtx(K),"Fighter");return Object.assign(z,{k:m?m[1]:f>=18?"d12":f>=10?"d10":"d8"})}
+const kSDdc=K=>8+kPB(K)+Math.max(kMod(kVl(K,"STR")||10),kMod(kVl(K,"AGI")||10));
+/* manévry, které se přidávají k zásahu: [název, česky, záchrana cíle, následek při neúspěchu] */
+const BMAN=[["Trip Attack","Podražení","STR","Sražen (Prone)"],["Menacing Attack","Zastrašující útok","WIS","Vystrašen (Frightened)"],["Pushing Attack","Odhoz","STR","odstrčen o 15 stop"],["Disarming Attack","Odzbrojení","STR","upustí předmět"],["Goading Attack","Provokace","WIS","nevýhoda na útoky proti jiným"],["Distracting Strike","Rozptylující úder"],["Maneuvering Attack","Manévrovací útok"],["Lunging Attack","Výpad"],["Feinting Attack","Finta"]];
+const kManMa=(K,n)=>kMaRys(K,new RegExp("(^|[:,] ?)"+n.replace(/'/g,"'")+"$","i"));
+const kManevry=K=>BMAN.filter(m=>kManMa(K,m[0]));
+const kBardSt=K=>{const u=kTrU(kCtx(K),"Bard");return u>=15?12:u>=10?10:u>=5?8:6};
 const kEfAkt=(K,sel,a)=>kEfekty(K).map((e,i)=>[e,i]).filter(([e,i])=>(e.auto||(e.pri?kPri(K).includes(e.pri):(sel||[]).includes(i)))&&!(e.blizko&&a&&a.dal)&&!(e.jen&&a&&!e.jen(a))).map(([e])=>e.f&&a?Object.assign({},e,e.f(a)):e);
 const kEfUt=E=>(E||[]).reduce((s,e)=>s+(+e.ut||0),0);
 async function kEfPouzij(K,E,sel){const sm=E.filter(e=>e.slot);if(!sm.length)return;for(const e of sm){try{await kartaSeslat(K,{n:"Divine Smite",st:1,kon:false},e.slot)}catch(x){}}

@@ -335,6 +335,7 @@ const kLucky=K=>{const z=(typeof kZdroje==='function'?kZdroje(K):K.zdroje||[]).f
   return [...(K.rysy||[]),...(K.rysy2||[]).map(r=>r.n)].some(n=>/^lucky$/i.test(String(n).trim()))?{z:null,zb:1}:null};
 function kUpravHod(r,typ,arg){r=Object.assign({},r,{upr:[...(r.upr||[])],mods:[...(r.mods||[])]});let pop="";
   if(typ==="b4"||typ==="m4"||typ==="bard"){const st=typ==="bard"?(+arg||6):4,x=bK(st),zn=typ==="m4"?-1:1;r.mods.push(zn*x);pop=`${typ==="b4"?"Bless/Guidance +1d4":typ==="m4"?"Bane −1d4":`Bardic Inspiration +1d${st}`} (${x})`}
+  else if(typ==="prec"){const st=+arg||8,x=bK(st);r.mods.push(x);pop=`Precision Attack +1d${st} (${x})`}
   else if(typ==="insp"){const n=bK(20);if(!r.v||r.d2==null){pop=`hrdinská inspirace: přehozeno ${r.d1} → ${n}`;r.d1=n}
     else{const prvni=r.v>0?r.d1>=r.d2:r.d1<=r.d2;pop=`hrdinská inspirace: přehozena kostka ${prvni?r.d1:r.d2} → ${n}`;if(prvni)r.d1=n;else r.d2=n}}
   else if(typ==="luck"){if(r.v<0){r.v=0;pop=`Lucky: nevýhoda zrušena (platí ${r.d1})`}else{r.d2=bK(20);r.v=1;pop=`Lucky: výhoda, druhá kostka ${r.d2}`}}
@@ -404,11 +405,12 @@ document.addEventListener("click",async e=>{const T=s=>e.target.closest&&e.targe
 function bojJaUprHtml(K){const ser=BJU.serie||[],dice=ser.length&&ser[0].d1!=null,S=K?kartaStav(K.id):{},L=K?kLucky(K):null,i=Math.min(+BJU.ui||0,Math.max(0,ser.length-1)),x=ser[i];
   return `<div class="bjur bjupr" role="group" aria-label="Úprava hodu na útok"><small>Upravit hod${ser.length>1?`</small> <select data-juui aria-label="Který útok">${ser.map((q,j)=>`<option value="${j}"${j===i?" selected":""}>${j+1}. útok (${q.hod})</option>`).join("")}</select><small>`:""}:</small>
     <button type="button" class="gbtn ghost" data-juupr="b4" ${btip("Bless: přičte 1d4")}>+1d4 Bless</button><button type="button" class="gbtn ghost" data-juupr="m4" ${btip("Bane: odečte 1d4")}>−1d4 Bane</button>${kBardSel()}<button type="button" class="gbtn ghost" data-juupr="bard">+ Bardic</button>
-    ${dice&&S.insp?`<button type="button" class="gbtn ghost" data-juupr="insp" ${btip("Heroic Inspiration: přehodí d20, inspirace se spotřebuje")}>↻ Přehodit (inspirace)</button>`:""}${dice&&L&&L.zb>0&&x&&x.v<=0?`<button type="button" class="gbtn ghost" data-juupr="luck" ${btip("Lucky: výhoda za Luck Point")}>Lucky</button>`:""}</div>`}
+    ${dice&&S.insp?`<button type="button" class="gbtn ghost" data-juupr="insp" ${btip("Heroic Inspiration: přehodí d20, inspirace se spotřebuje")}>↻ Přehodit (inspirace)</button>`:""}${dice&&L&&L.zb>0&&x&&x.v<=0?`<button type="button" class="gbtn ghost" data-juupr="luck" ${btip("Lucky: výhoda za Luck Point")}>Lucky</button>`:""}${(()=>{const SD=x&&x.vys==="vedle"&&x.d!==1&&K?kSD(K):null;return SD&&SD.zb>0&&kManMa(K,"Precision Attack")?`<button type="button" class="gbtn ghost" data-juupr="prec" ${btip(`Precision Attack: přičte 1${SD.k} k hodu na útok (kostka převahy, zbývá ${SD.zb})`)}>+1${SD.k} Precision</button>`:""})()}</div>`}
 async function bojJaUprav(typ){const s=BOJ.s||{},me=(s.hraci||[]).find(h=>h.n===bojJa.get());if(!me)return;const K=bojKartaH(me),c=(s.npc||[]).find(o=>o.id===BJU.cil);
   if(!(BJU.serie&&BJU.serie.length)){if(BJU.hod===""||!/^(b4|m4|bard)$/.test(typ))return;const st=typ==="bard"?KBARD:4,x=bK(st),zn=typ==="m4"?-1:1;BJU.hod=String(+BJU.hod+zn*x);BJU.info=`${BJU.info?BJU.info+" · ":""}${typ==="b4"?"Bless +1d4":typ==="m4"?"Bane −1d4":`Bardic +1d${st}`} (${x}) → ${BJU.hod}`;renderBoj();return}
   const i=Math.min(+BJU.ui||0,BJU.serie.length-1),q=BJU.serie[i];if(typ==="insp"&&!(K&&kartaStav(K.id).insp))return;const L=typ==="luck"?(K&&kLucky(K)):null;if(typ==="luck"&&(!L||L.zb<=0))return;
-  if(q.d1==null&&/^(insp|luck)$/.test(typ))return;const {r,pop}=kUpravHod({d1:q.d1,d2:q.d2,v:q.v,b:q.b,mods:q.mods,upr:q.upr,utok:true,kmin:BJU.kmin||20},typ,KBARD),old=q.hod;
+  if(q.d1==null&&/^(insp|luck)$/.test(typ))return;const SDp=typ==="prec"&&K?kSD(K):null;if(typ==="prec"&&!(SDp&&SDp.zb>0))return;
+  const {r,pop}=kUpravHod({d1:q.d1,d2:q.d2,v:q.v,b:q.b,mods:q.mods,upr:q.upr,utok:true,kmin:BJU.kmin||20},typ,SDp?+SDp.k.slice(1):KBARD),old=q.hod;if(SDp)await kZdrUtrat(K,SDp);
   const n=Object.assign({},q,{d1:r.d1,d2:r.d2,v:r.v,mods:r.mods,upr:r.upr,d:r.d,hod:r.tot,krit:r.krit}),ct=(s.npc||[]).find(o=>o.id===q.ci)||c;n.vys=bojJaZas(ct,n.hod,n.d,n.krit);BJU.serie[i]=n;
   /* zbraň: zranění se hází jen po zásahu – když úprava změní minutí na zásah (nebo zásah na kritický), zranění se hodí teď; zásah na minutí ho vynuluje */
   let pz="";const misN=n.vys==="vedle",misQ=q.vys==="vedle";
