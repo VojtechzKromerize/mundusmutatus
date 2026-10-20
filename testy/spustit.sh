@@ -28,7 +28,7 @@ zkus(){ local jm="$1"; shift; local log="$PRAC/zkus-$RANDOM.log" st
   "$@" 2>&1 | tee "$log"; st=${PIPESTATUS[0]}
   if [ "$st" -eq 0 ]; then echo "✓ $jm"; echo "- ✓ $jm" >> "$SHRN"; else
     echo "✗ $jm"; echo "- ✗ **$jm**" >> "$SHRN"; CHYBY+=("$jm")
-    { grep -E '^FAIL|KONFLIKT|tajemství|Error:|Exception:' "$log" | head -8; grep -E '^[A-Za-z_.]+(Error|Exception)\b' "$log" | tail -1; } | awk 'NF&&!s[$0]++' > "$log.chyby"
+    { grep -E '^FAIL|KONFLIKT|tajemství|Error:|Exception:' "$log" | head -8; grep -E '^  File ".*(prohlizec|prochazka|bezpecnost)[a-z_0-9]*\.py", line [0-9]+' "$log" | tail -1 | sed 's/^ *//'; grep -E '^[A-Za-z_.]+(Error|Exception)\b' "$log" | tail -1; } | awk 'NF&&!s[$0]++' > "$log.chyby"
     [ -s "$log.chyby" ] || tail -3 "$log" > "$log.chyby"
     sed 's/^/    /' "$log.chyby" >> "$SHRN"
     if [ -n "${GITHUB_ACTIONS:-}" ]; then while IFS= read -r r; do r=${r//'%'/'%25'}; echo "::error title=${jm//[:,]/ }::${r:0:400}"; done < "$log.chyby"; fi
