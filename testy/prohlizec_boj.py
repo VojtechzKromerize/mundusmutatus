@@ -348,7 +348,7 @@ async def main():
     if await pl.locator('[data-bhcard="h4"] [data-bruc="h4|dmg"]').count(): await pl.fill('[data-bhcard="h4"] [data-bruc="h4|dmg"]',"5")
     await pl.evaluate(f"BJU.cil='{rid}';BJU.adv='1'");await pl.click('[data-bhcard="h4"] .bphod [data-bjut="0"]');await pl.wait_for_timeout(400)
     r=await pl.evaluate("[BJU.serie&&BJU.serie[0].d,BJU.serie&&BJU.serie[0].d2,(KZAV.balduin||{}).d,BJU.info,BRUC.h4===undefined,BJU.serie&&BJU.serie.length]")
-    chk(await pl.evaluate("(()=>{const b=document.querySelector('[data-bhcard=\"h4\"] .bphod [data-juposl]');return !!(b&&b.offsetParent)&&/ručně/.test(b.closest('.bphod').innerText)})()"),"hráč: výsledek hodu i Poslat vypravěči jsou přímo v listu útoku (2026-10-20)")
+    chk(await pl.evaluate("(()=>{const b=document.querySelector('[data-bhcard=\"h4\"] .bphod .bphhodp [data-juposl]');return !!(b&&b.offsetParent)&&/ručně/.test(b.closest('.bphod').innerText)&&!b.closest('.bphod').querySelector('[data-bjut]')})()"),"hráč: po hodu je hlavním tlačítkem listu Poslat vypravěči a výsledek je nad ním (2026-10-20)")
     chk(r[0]==17 and r[1] is None and r[2]==6 and "ručně" in r[3] and r[4],"Zadat ručně: d20 17 i s výhodou jen jednou, Závoj 6, pole se po hodu smažou: "+str(r))
     chk(r[5]==1 and r[3].count("d20 17 (ručně)")==1,"Zadat ručně platí pro jeden útok: "+str(r[3])[:160])
     await pl.evaluate("BJU.serie=null;BRUC.h4={d20:'25'};bojJaHod()");chk(await pl.evaluate("BJU.serie===null"),"Zadat ručně: d20 mimo 1–20 se nehodí, hráč dostane upozornění")

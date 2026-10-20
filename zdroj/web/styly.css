@@ -3039,6 +3039,10 @@ h4 .kspi{margin-right:5px}
 .bphgo{display:flex;flex-direction:column;justify-content:center;align-items:center;min-width:96px;padding:6px 14px;border-radius:8px;border:0;background:#c9353b;color:#fff;cursor:pointer;box-shadow:0 2px 0 #7a1f22}
 .bphgo b{font-family:var(--f-disp,serif);font-size:1.25rem;line-height:1.05}.bphgo small{font-size:.72rem;opacity:.9}
 .bphgo:active{transform:translateY(1px);box-shadow:none}
+.bdmlist .bphhodp{position:sticky;bottom:0;z-index:2;background:#1d1814;padding:8px 0;margin:4px 0 0;box-shadow:0 -6px 10px -6px rgba(0,0,0,.6)}
+.bphhodp .bphgo{flex:1 1 auto;min-height:56px}.bphgo.bphposl{background:#2f6b3a;box-shadow:0 2px 0 #183a1f}
+.bphodp-ved{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:3px;font-size:.8rem;color:var(--kb-tx)}.bphodp-ved li{display:flex;gap:6px;align-items:baseline;flex-wrap:wrap;padding:4px 8px;border-radius:6px;background:#201914;border-left:3px solid var(--kb-bd2)}
+.bphodp-ved li.bodz{border-left-color:var(--kb-ok)}.bphodp-ved li.bodm{border-left-color:var(--kb-mu);opacity:.85}.bphodp-ved li.bodc{border-left-color:var(--kb-gold)}
 
 /* kolo: číslo vlevo od přesýpacích hodin; stavy pod jménem v pruhu iniciativy */
 #bojview .bkolo2{display:inline-grid;grid-template-columns:auto auto;grid-template-rows:auto auto;align-items:center;column-gap:4px}
