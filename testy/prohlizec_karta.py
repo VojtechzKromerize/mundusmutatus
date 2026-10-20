@@ -362,10 +362,16 @@ async def main():
     chk(r!="ok","cizí prohlížeč nezmění kartu hráče s účtem")
     chk(await up.locator("[data-discordx]").first.inner_text()=="Odhlásit (Účetník)","odhlášení u účtu s heslem bez zmínky o Discordu")
     await up.evaluate("mmPopX()");await up.locator(".hrakon [data-discordx]").click();await up.wait_for_timeout(600);await up.goto(BASE+"#uvod");await up.wait_for_selector("#uvucet:not([hidden]) [data-ucetr=prihlas]",timeout=15000)
-    await up.click("#uvucet [data-ucetr=prihlas]");await up.fill("#uvucet [name=j]","jan žižka");await up.fill("#uvucet [name=h]","spatne-heslo");await up.click("#uvucet button[type=submit]")
+    async def uklik(sel):  # oznámení a lišta „Obnovit“ (mmhlas) mohou na úzkém displeji tlačítko překrýt
+        await up.evaluate("document.querySelectorAll('.mmhlas').forEach(e=>e.remove());mmPopX&&mmPopX()")
+        try: await up.click(sel,timeout=10000)
+        except Exception:
+            d=await up.evaluate("(s=>{const b=document.querySelector(s);if(!b)return 'není';const r=b.getBoundingClientRect(),e=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);return JSON.stringify({r:[r.x,r.y,r.width,r.height],nad:e&&(e.tagName+'.'+e.className),hidden:b.closest('[hidden]')?.id})})",sel)
+            raise RuntimeError(f"tlačítko {sel} nejde stisknout: {d}")
+    await uklik("#uvucet [data-ucetr=prihlas]");await up.fill("#uvucet [name=j]","jan žižka");await up.fill("#uvucet [name=h]","spatne-heslo");await uklik("#uvucet button[type=submit]")
     await up.wait_for_function("document.querySelector('#uvucet .ucetmsg')?.textContent.includes('Špatné')",timeout=10000)
     chk(True,"špatné heslo: srozumitelná chyba")
-    await up.fill("#uvucet [name=h]","kalich1420");await up.click("#uvucet button[type=submit]");await up.wait_for_selector(".hraja",timeout=20000)
+    await up.fill("#uvucet [name=h]","kalich1420");await uklik("#uvucet button[type=submit]");await up.wait_for_selector(".hraja",timeout=20000)
     chk(await up.evaluate("jaK()&&jaK().id")=="ucetnik","přihlášení jménem (bez ohledu na velikost písmen) vrátí hráče k jeho postavě")
     await up.goto(BASE+"#uvod");await up.wait_for_timeout(800)
     chk(await up.locator("#uvucet").is_hidden(),"přihlášenému hráči Úvod účet nenabízí")
