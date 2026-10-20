@@ -66,7 +66,7 @@ jobs:
       matrix:
         include:
           - cast: stránky a bestiář
-            testy: "odhalovani herni_stav draci"
+            testy: "odhalovani herni_stav draci zapisy vyprava"
             prohlidky: "staticka"
           - cast: boj
             testy: "boj boj2 tah"
@@ -75,7 +75,7 @@ jobs:
             testy: "reakce potvrz karta"
             prohlidky: ""
           - cast: ostatní a prohlídka
-            testy: "karta_vse pecet editor zapisy vyprava"
+            testy: "karta_vse pecet editor"
             prohlidky: "db"
     services:
       postgres:
