@@ -354,6 +354,7 @@ async def main():
     # rozehraný útok přežije obnovení stránky (telefon ji obnoví po nasazení nebo po návratu z jiné aplikace) – 2026-10-20
     h0=await pl.evaluate("BJU.serie&&BJU.serie[0].hod");await pl.reload();await pl.wait_for_selector(".bsloty");await pl.wait_for_timeout(2500)
     chk(await pl.evaluate("BJU.serie&&BJU.serie[0].hod")==h0 and await pl.locator('[data-bhcard="h4"] .bphod .bphhodp [data-juposl]').count()==1,"rozehraný útok i otevřený list útoku přežijí obnovení stránky")
+    await pl.evaluate("BOTV.add('ja-utok');renderBoj()")  # rozbalené části se po obnovení nepamatují – test s nimi dál počítá
     await pl.evaluate("BJU.serie=null;BRUC.h4={d20:'25'};bojJaHod()");chk(await pl.evaluate("BJU.serie===null"),"Zadat ručně: d20 mimo 1–20 se nehodí, hráč dostane upozornění")
     await pl.evaluate("delete BRUC.h4;BJU.serie=null;BJU.info='';BJU.hod='';BJU.d='';BJU.dmg='';BJU.adv='auto';BDM.sheet=null;renderBoj()");await pl.wait_for_timeout(300)
     # pruh „co teď“: na tahu, soustředění, krvácení, práh smrti
