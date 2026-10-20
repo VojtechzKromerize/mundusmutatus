@@ -801,7 +801,7 @@ begin
       s := s #- array['hraci', i::text, 'stav'];
     elsif jsonb_typeof(x) = 'array' and jsonb_array_length(x) <= 16 and not exists (
         select 1 from jsonb_array_elements(x) e
-        where jsonb_typeof(e) <> 'string' or not ((e #>> '{}') = any (array['krvácí k6','krvácí k8','sražen','omráčen','zadržen','chycen','oslepen','ohlušen','neviditelný','otrávený','vyděšený','okouzlen','neschopný','ochromen','zkamenělý','úhyb','soustředí']))) then
+        where jsonb_typeof(e) <> 'string' or not ((e #>> '{}') = any (array['krvácí k4','krvácí k6','krvácí k8','sražen','omráčen','zadržen','chycen','oslepen','ohlušen','neviditelný','otrávený','vyděšený','okouzlen','neschopný','ochromen','zkamenělý','úhyb','soustředí','zapřeno','zbraň uvízla','zbraň selhala']))) then
       s := jsonb_set(s, array['hraci', i::text, 'stav'], x);
     else
       raise exception 'neplatné stavy';
@@ -946,8 +946,17 @@ begin
   if not exists (select 1 from jsonb_array_elements(coalesce(s -> 'hraci', '[]'::jsonb)) h where h ->> 'id' = p_hrac) then
     raise exception 'neznámá postava';
   end if;
-  if jsonb_typeof(x) <> 'object' or exists (select 1 from jsonb_object_keys(x) k where k not in ('ci', 'cim', 'hod', 'd', 'adv', 'dmg', 't', 'drt', 'pru', 'plos', 'kmin', 'sl', 'sid')) then
+  if jsonb_typeof(x) <> 'object' or exists (select 1 from jsonb_object_keys(x) k where k not in ('ci', 'cim', 'hod', 'd', 'adv', 'dmg', 't', 'drt', 'pru', 'plos', 'kmin', 'sl', 'sid', 'zv')) then
     raise exception 'neplatný útok';
+  end if;
+  -- vlastnosti zbraně podle Artikulí (2026-10-20): kostka Závoje, zvolené a aktivní vlastnosti, Vpřed! / Půlmeč, SO záchrany
+  if x ? 'zv' and (jsonb_typeof(x -> 'zv') <> 'object' or exists (select 1 from jsonb_object_keys(x -> 'zv') k where k not in ('z', 'r', 'v', 'a', 'vp', 'pm', 'dc'))
+      or not public.mm_cislo(x -> 'zv' -> 'z', 0, 6) or not public.mm_cislo(x -> 'zv' -> 'dc', 1, 40)
+      or (x -> 'zv' ? 'r' and coalesce(x -> 'zv' ->> 'r', '') not in ('', 'pok', 'poz'))
+      or (x -> 'zv' ? 'vp' and jsonb_typeof(x -> 'zv' -> 'vp') <> 'boolean') or (x -> 'zv' ? 'pm' and jsonb_typeof(x -> 'zv' -> 'pm') <> 'boolean')
+      or exists (select 1 from (values (x -> 'zv' -> 'v'), (x -> 'zv' -> 'a')) q(l) where l is not null and (jsonb_typeof(l) <> 'array' or jsonb_array_length(l) > 8
+          or exists (select 1 from jsonb_array_elements(l) e where jsonb_typeof(e) <> 'string' or char_length(e #>> '{}') > 24)))) then
+    raise exception 'neplatné vlastnosti zbraně';
   end if;
   -- útok společníka hráče (2026-10-19): sid = id spojence s vlastníkem p_hrac
   if x ? 'sid' and (jsonb_typeof(x -> 'sid') <> 'string' or not exists (
@@ -992,6 +1001,7 @@ begin
   end if;
   if x ? 'sl' then u := u || jsonb_build_object('sl', x -> 'sl'); end if;
   if x ? 'sid' then u := u || jsonb_build_object('sid', x -> 'sid'); end if;
+  if x ? 'zv' then u := u || jsonb_build_object('zv', x -> 'zv'); end if;
   s := jsonb_set(s, '{utoky}', (select coalesce(jsonb_agg(e order by o), '[]'::jsonb) from (
       select e, o from jsonb_array_elements(coalesce(s -> 'utoky', '[]'::jsonb) || jsonb_build_array(u)) with ordinality t(e, o) order by o desc limit 30) w));
   update public.boj set stav = s, verze = verze + 1, zmeneno = now() where id = 'aktivni' returning verze into v;
@@ -1139,8 +1149,8 @@ begin
     when 'zbrVl' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'object' and octet_length(x::text) <= 6000 and not exists (
         select 1 from jsonb_each(x) e where char_length(e.key) > 80 or jsonb_typeof(e.value) <> 'object'
           or exists (select 1 from jsonb_object_keys(e.value) k where k not in ('vl', 't'))
-          or jsonb_typeof(e.value -> 'vl') is distinct from 'array' or jsonb_array_length(e.value -> 'vl') > 11
-          or exists (select 1 from jsonb_array_elements(e.value -> 'vl') q where coalesce(q #>> '{}', '') not in ('Drtivá', 'Průrazná', 'Šikovná', 'Ostrá', 'Půlmeč', 'Ratiště', 'Do slabin!', 'Strhující', 'Vpřed!', 'Štěpící', 'Hrom a kouř!'))
+          or jsonb_typeof(e.value -> 'vl') is distinct from 'array' or jsonb_array_length(e.value -> 'vl') > 17
+          or exists (select 1 from jsonb_array_elements(e.value -> 'vl') q where coalesce(q #>> '{}', '') not in ('Drtivá', 'Průrazná', 'Šikovná', 'Ostrá', 'Půlmeč', 'Ratiště', 'Do slabin!', 'Strhující', 'Vpřed!', 'Štěpící', 'Hrom a kouř!', 'Krvežíznivá', 'Omračující', 'Ničivá', 'Odvetná', 'Přibodnutí', 'Nepřímá'))
           or (e.value ? 't' and (jsonb_typeof(e.value -> 't') <> 'array' or jsonb_array_length(e.value -> 't') > 3
             or exists (select 1 from jsonb_array_elements(e.value -> 't') q where coalesce(q #>> '{}', '') not in ('Slashing', 'Piercing', 'Bludgeoning'))))))
     else false end;

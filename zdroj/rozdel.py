@@ -51,6 +51,7 @@ JS = [
     ("20b-boj-vypravec.js", "/* ===== Boj: vypravěč – vyhodnocení"),
     ("20c-boj-ridery.js", "/* ===== Boj: volby po zásahu"),
     ("20d-boj-render.js", "/* ===== Boj: vykreslení"),
+    ("20e-boj-vlastnosti.js", "/* ===== Boj: vlastnosti zbraní z Artikulí v boji"),
     ("21-editor-pecet.js", "/* ===== Vypravěč: úpravy textů a obrázků"),
     ("22-vyprava.js", "/* ===== VÝPRAVA: cesta družiny"),
     ("22b-vyprava.js", "/* ===== Výprava: stránka vypravěče"),

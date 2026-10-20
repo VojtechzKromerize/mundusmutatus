@@ -43,6 +43,7 @@ function bzZBlogg(s,x,i){const o=x.o,A0=o.ai!==undefined?(o.ai?bzOs(s,o.ai,o.an)
   if(o.zt&&!(o.zr&&o.zr.zt===o.zt)&&!U){if(bzMaKostky(o.zt))e.rows.push({l:"",h:bzTxt(o.zt)});else e.pozn.push(o.zt)}
   if(o.kon)e.pozn.push(o.kon);if(o.pcAuto)e.pozn.push("odečteno z karty: "+o.pcAuto);
   if(o.zav)e.zav={d:o.zav.d,r:o.zav.r,txt:o.zav.txt||""};
+  if(o.zvk&&!o.zvk.ok&&typeof bojZvKomHtml==="function")e.rows.push({l:"",h:bojZvKomHtml(i,o.zvk)});
   return e}
 /* --- hod z karty (HODY) → řádek; „Útok – Dlouhý meč → Rotmistr“: cíl za šipkou --- */
 function bzZHod(s,h){const m=String(h.co||"").match(/^(.*?)\s+→\s+(.+)$/),co=m?m[1]:String(h.co||""),C=m?bzOs(s,null,m[2]):null;

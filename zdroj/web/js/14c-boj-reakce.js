@@ -92,6 +92,7 @@ function bojVyzZpracuj(){if(!GMV||!BOJ.s||!(BOJ.s.aktivni||BOJ.s.priprava))retur
     const K=KARTBY[P.kid],h=(s.hraci||[]).find(x=>x.id===P.hid),ok=o.tot>=P.dc;if(!K)return;
     if(!ok)kKonZtrata(K,"neúspěšná záchrana").then(()=>{if(curView==="boj")renderBoj()}).catch(()=>{});
     if(h)bojLog(P.hid,{n:"Soustředění",ci:P.hid,zt:`CON ${o.tot} proti SO ${P.dc} – ${ok?"udrženo":"soustředění končí"}`},h.n);mmHlasG(`${K.n}: soustředění – CON ${o.tot} ${ok?"udrženo":"ztraceno"}.`,5000)});
+  try{if(typeof bojZvVyzvy==="function")bojZvVyzvy(s)}catch(e){console.error(e)}
   Object.keys(BOPV).forEach(id=>{const P=BOPV[id],v=VYZVY.find(x=>x.id===+id);if(!v)return;const o=(v.odpovedi||{})[P.kid];if(!o)return;delete BOPV[id];MMDB.vyzvaZavri(+id).catch(()=>{});
     const ok=o.tot>=P.dc,h=(s.hraci||[]).find(x=>x.id===P.hid);if(!h)return;
     if(ok)bojZmen(z=>{const hh=(z.hraci||[]).find(x=>x.id===P.hid);if(hh)(hh.ef||[]).filter(e=>e.n===P.n).forEach(e=>bojEfDel(hh,e))});

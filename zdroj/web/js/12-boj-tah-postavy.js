@@ -55,16 +55,16 @@ function bojKonecTahu(s,id){try{if(typeof bojOblTah==="function")bojOblTah(s,id,
   (n.ef||[]).slice().forEach(e=>{if(e.kdy==="konec"&&e.zac){bojEfDel(n,e);bojMsg(id,`Skončilo: ${e.n}.`)}})}
 /* postava: na konci tahu opakovaná záchrana stavu (výzva na telefon; bez karty připomínka), na začátku tahu odpočet kol */
 const BOPV={};
-function bojPcKonec(s,id){const h=(s.hraci||[]).find(x=>x.id===id);if(!h||!GMV)return;try{if(typeof bojBufKonecTahu==="function")bojBufKonecTahu(s,h)}catch(e){}const K=bojKartaH(h),hot=new Set();
+function bojPcKonec(s,id){const h=(s.hraci||[]).find(x=>x.id===id);if(!h||!GMV)return;(h.ef||[]).slice().forEach(e=>{if(e.kdy==="konec"&&e.zac){bojEfDel(h,e);bojMsg(id,`Skončilo: ${e.n}.`)}});try{if(typeof bojBufKonecTahu==="function")bojBufKonecTahu(s,h)}catch(e){}const K=bojKartaH(h),hot=new Set();
   (h.ef||[]).forEach(e=>{if(!e.op||hot.has(e.n))return;hot.add(e.n);const o={hid:h.id,n:e.n,ab:e.op.ab,dc:e.op.dc};
     if(K&&window.MMDB&&MMDB.vyzva)setTimeout(()=>MMDB.vyzva({typ:"zach",ab:o.ab,dc:o.dc,komu:[K.id],pozn:`${e.n}: opakovaná záchrana – úspěch ukončí ${e.st||"účinek"}`.slice(0,200)}).then(v=>{BOPV[+v]=Object.assign(o,{kid:K.id});vyzvyNacti()}).catch(()=>{}),0);
     else bojMsg(id,`${e.n}: na konci tahu záchrana ${o.ab} SO ${o.dc} – úspěch ukončí ${e.st||"účinek"}.`)})}
 /* krvácení z kritického zranění (stav „krvácí k6 / k8“): na začátku tahu k6 / k8 HP, bez odolností, jednou za kolo */
-function bojKrvaceni(s,n){const st=(n.stav||[]).find(t=>/^krvácí k[68]$/.test(t));if(!st||!GMV)return null;const kolo=s.kolo||1;if(n.krvK===kolo)return null;n.krvK=kolo;
+function bojKrvaceni(s,n){const st=(n.stav||[]).find(t=>/^krvácí k[468]$/.test(t));if(!st||!GMV)return null;const kolo=s.kolo||1;if(n.krvK===kolo)return null;n.krvK=kolo;
   const sd=+st.slice(-1),d=bK(sd);return {d,sd,txt:`krvácí: k${sd} = ${d}`}}
 function bojPcZac(s,id){const h=(s.hraci||[]).find(x=>x.id===id);if(!h)return;
   {const kv=bojKrvaceni(s,h);if(kv&&!h.ds){const K=bojKartaH(h);if(K)setTimeout(()=>{const m=bojPCZmena(id,x=>bojZranPC(x,K,kv.d,"",false),false);bojLog(id,{n:"Krvácení",ci:id,zt:`${kv.txt} → ${m||""}`},h.n);mmHlasG(`${h.n}: ${kv.txt} HP.`,4000)},0);
-    else{const m=bojZranPC(h,null,kv.d,"",false);bojMsg(id,`${kv.txt} → ${m}`)}}}(h.ef||[]).slice().forEach(e=>{if(e.kdy==="kola"){e.k=(e.k||1)-1;if(e.k<=0){bojEfDel(h,e);bojMsg(id,`Skončilo: ${e.n}.`)}}})}
+    else{const m=bojZranPC(h,null,kv.d,"",false);bojMsg(id,`${kv.txt} → ${m}`)}}}const kolo=s.kolo||1;(h.ef||[]).slice().forEach(e=>{if(e.kdy==="zacatek"&&!(e.kolo===kolo&&e.tah===(s.tah||0))){bojEfDel(h,e);bojMsg(id,`Skončilo: ${e.n}.`);return}if(e.kdy==="konec")e.zac=1;if(e.kdy==="kola"){e.k=(e.k||1)-1;if(e.k<=0){bojEfDel(h,e);bojMsg(id,`Skončilo: ${e.n}.`)}}})}
 function bojZacatekTahu(s,id){try{if(typeof bojOblTah==="function")bojOblTah(s,id,"zac")}catch(e){console.error(e)}const n=(s.npc||[]).find(x=>x.id===id);if(!n){bojPcZac(s,id);try{const h=(s.hraci||[]).find(x=>x.id===id);if(h&&typeof bojBufZacTahu==="function")bojBufZacTahu(s,h)}catch(e){}return}BTMSG[id]=[];const E=bojEff(n),kolo=s.kolo||1;
   {const kv=n.druh!=="houf"&&E&&E.hp.length?bojKrvaceni(s,n):null;if(kv){const hp=bojHp.get(),a=hp[id]||[],old=a[0]!=null?a[0]:E.hp[0].max;a[0]=old-kv.d;hp[id]=a;bojHp.set(hp);bojHpZmena(id,0,old,old-kv.d);bojMsg(id,`${kv.txt} → −${kv.d} HP (${old-kv.d}).`)}}
   (n.ef||[]).slice().forEach(e=>{
@@ -353,6 +353,7 @@ const BSTHP={"krvácí k6":"Krvácíš (kritické zranění): na začátku každ
   "otrávený":"Otrávený: nevýhoda na útoky a ověření.","vyděšený":"Vyděšený: nevýhoda na útoky a ověření, dokud vidíš zdroj strachu; nesmíš se k němu přiblížit.",
   "soustředí":"Držíš soustředění (Concentration): při zranění CON záchrana DC 10 nebo polovina zranění (nejvýš 30)."};
 Object.entries(SRDST).forEach(([k,v])=>{if(!BSTHP[k])BSTHP[k]=`${k[0].toUpperCase()+k.slice(1)} (${v.en}): ${v.t}.`});
+BSTHP["krvácí k4"]="Krvácíš (Krvežíznivá zbraň): na začátku každého tahu ztratíš k4 HP, dokud tě někdo neošetří (Medicine).";Object.entries(BZVST).forEach(([k,v])=>{if(!BSTHP[k])BSTHP[k]=`${k[0].toUpperCase()+k.slice(1)}: ${v.t}.`});
 /* připomínky na začátek tahu postavy */
 function bojPripominky(s,h){const r=[],d=h.ds;
   if(d&&!d.st)r.push("Jsi v bezvědomí: na začátku tahu hoď hod proti smrti (d20, 10+ úspěch).");
@@ -420,7 +421,7 @@ const bojKartaH=h=>h?(KARTBY[h.k]||(KARTY||[]).find(k=>k.n===h.n)||null):null;
 const bojHpPC=(h,K)=>{if(!K)return null;const ks=kartaStav(K.id);return ks.hp!=null?+ks.hp:kHPmax(K)};
 const hpO=(o,K)=>o.hp!=null?+o.hp:kHPmax(K);
 /* zbraně postavy: z karty + uložené ručně */
-const bojZbrVse=(s,h)=>{const K=bojKartaH(h);return [...(K?kUtoky(K).map(a=>({n:a.n,b:a.b,z:a.z,t:a.t,dal:!!a.dal,pocet:a.pocet||1,drt:(a.vl||[]).some(v=>/drtiv/i.test(v))||bdmZvl(a,K).includes("Drtivá"),pru:(a.vl||[]).some(v=>/průrazn/i.test(v))||bdmZvl(a,K).includes("Průrazná"),karta:1,pozn:a.pozn||""})):[]),...bojZbrH(s,h)]};
+const bojZbrVse=(s,h)=>{const K=bojKartaH(h);return [...(K?kUtoky(K).map(a=>({n:a.n,b:a.b,z:a.z,t:a.t,dal:!!a.dal,pocet:a.pocet||1,drt:(a.vl||[]).some(v=>/drtiv/i.test(v))||bdmZvl(a,K).includes("Drtivá"),pru:(a.vl||[]).some(v=>/průrazn/i.test(v))||bdmZvl(a,K).includes("Průrazná"),karta:1,pozn:a.pozn||"",vl:bdmZvl(a,K)})):[]),...bojZbrH(s,h).map(x=>Object.assign({},x,{vl:[...new Set([...(typeof bdmZvlAuto==="function"?bdmZvlAuto({n:x.n}):[]),...(x.drt?["Drtivá"]:[]),...(x.pru?["Průrazná"]:[])])]}))]};
 /* zranění postavy s kartou: Resistance/Immunity, dočasné HP, pád na 0, okamžitá smrt, hody proti smrti při zásahu na 0, soustředění */
 function bojZranEf(K,x,typ,opt){opt=opt||{};let v=+x||0;if(!K||v<=0)return {v,m:""};if((K.imu||[]).includes(typ))return {v:0,m:`Immunity (${BZRT[typ]||typ})`};
   if(kOdol(K).includes(typ)){const zbr=((BZBR[kOdolZ(K)]||[""])[0]||"").includes(typ),jinak=(K.odol||[]).includes(typ)||(kPri(K).includes("Rage")&&["Bludgeoning","Piercing","Slashing"].includes(typ));
