@@ -640,7 +640,7 @@ const BZVK={"Drtivá":"drtiva","Průrazná":"prurazna","Šikovná":"sikovna","Os
 const BZRT={Bludgeoning:"Drtivé",Piercing:"Bodné",Slashing:"Sečné",Fire:"Ohnivé",Cold:"Mrazivé",Lightning:"Bleskové",Thunder:"Hromové",Acid:"Kyselinové",Poison:"Jedové",Necrotic:"Prokleté",Radiant:"Svaté",Psychic:"Psychické",Force:"Silové"};
 const BZBK={"Vycpávaná":"vycpavana","Kroužková":"krouzkova","Plátová":"platova","Komplexní":"komplexni","Štít":"stit"};
 const bikE=t=>String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const bik=(f,tip,c)=>`<img class="bi bimg bik${c?" "+c:""}" src="art/img/boj/${f}-48.webp" srcset="art/img/boj/${f}-48.webp 48w, art/img/boj/${f}-96.webp 96w" sizes="24px" width="24" height="24" alt="${bikE(tip)}" aria-label="${bikE(tip)}" data-tip="${bikE(tip)}" decoding="async" loading="lazy">`;
+const bik=(f,tip,c)=>`<img class="bi bimg bik${c?" "+c:""}" src="art/img/boj/${f}-48.webp" srcset="art/img/boj/${f}-48.webp 48w, art/img/boj/${f}-96.webp 96w" sizes="24px" width="24" height="24" alt="${bikE(tip)}" aria-label="${bikE(tip)}" data-tip="${bikE(tip)}" loading="lazy" decoding="async" loading="lazy">`;
 const bikZvTip=k=>`${k} (vlastnost zbraně): ${BVLZ[k]}`;
 const bikZv=k=>BZVK[k]?bik("zv-"+BZVK[k],`${k} (vlastnost zbraně): ${BVLZ[k]}`,"bik-zv"):"";
 const bikZrTip=t=>t==="magicke"?"Magické zranění – Resistance a Immunity vůči nemagickým útokům na ně neplatí":t==="stribrne"?"Stříbrné zranění (silvered) – překoná ochranu, kterou má jen obyčejná zbraň":`${BZRT[t]} (${t})`;
