@@ -19,17 +19,27 @@ def maska_pozadi(a):
     kand = svetle & neutr
     lab, n = ndimage.label(kand)
     jas = (r + g + b) / 3
+    tmavy = jas < 240
+    H, W = kand.shape
+    okraj = set(np.unique(np.concatenate([lab[0], lab[-1], lab[:, 0], lab[:, -1]]))) - {0}
     out = np.zeros(kand.shape, bool)
+    for i in okraj:
+        out |= lab == i
+    # perioda šachovnice z pozadí u okraje: posun, při kterém se světlé a tmavé pole nejvíc střídají
+    def strid(m, p):
+        v = m[:, :-p] & m[:, p:]
+        return (tmavy[:, :-p][v] != tmavy[:, p:][v]).mean() if v.sum() > 500 else 0
+    per = max(range(4, 40), key=lambda p: strid(out, p)) if out.any() else 12
+    # uzavřené plochy (mezi listy věnce, uvnitř kompasu…) jen tehdy, když opravdu mají pravidelnou šachovnici –
+    # bílá mlha, pírko nebo šátek mají nepravidelnou texturu a zůstanou
     for i, sl in enumerate(ndimage.find_objects(lab), 1):
-        m = lab[sl] == i
-        cnt = m.sum()
-        if cnt < 40:
+        if i in okraj:
             continue
-        j = jas[sl][m]
-        svet = (j > 244).mean(); tmav = (j < 236).mean()
-        # šachovnice: oba odstíny zastoupené; malé uzavřené plochy taky, když jsou čistě šedobílé
-        if (svet > 0.12 and tmav > 0.12) or (cnt > 4000 and svet > 0.05 and tmav > 0.05):
-            out[sl] |= m
+        m = lab == i
+        if m[sl].sum() < 40:
+            continue
+        if strid(m, per) > 0.72 and strid(m, 2 * per) < 0.35:
+            out |= m
     return out
 
 def rez(arch, mrizka, jmena, cil):
