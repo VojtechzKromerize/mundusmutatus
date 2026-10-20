@@ -62,10 +62,12 @@ do kostry řádkem `/*@vloz web/js/NN-nazev.js*/` na správné místo (a do sezn
 Soubory skriptu: 01 základ (data z buildu, erby) · 02 mapa · 03 Artikule · 04 Praha · 05 Známý svět ·
 06 Draconomicon a rodokmeny · 07 Družina, Kronika, kalendář, odkazy, hledání · 08 navigace (`route()`),
 Pravidla · 09 vypravěč: odhalování, panel, herní čas · 10 Kouzla · 11 Boj: tracker, ikony, bestiář ·
-12 Boj: tah, postavy v boji · 13 Karty: import PDF, stav, stránka · 14 karta: vybavení, bojová karta ·
+12 Boj: tah, postavy v boji · 13 Karty: import PDF, stav, stránka · 14 karta: vybavení, bojová karta · 14c Boj: zásahy do karty, reakce na telefonu, výzvy ·
 15 karta podle Artikulí · 16 SRD předměty, ukázky, příprava sezení, kořist, stránka Hra · 17 Karta II ·
 17b kouzla: posílení na cílech (KZEF), trvání v kolech, rituál, opakování bez slotu (KZOPAK), oblasti (KZOBL), Counterspell ·
-18 Pravidla postavy (D&D 2024) · 19 karta jako D&D Beyond · 20 Boj: útoky hráčů z telefonu ·
+18 Pravidla postavy (D&D 2024) · 19 karta jako D&D Beyond · 20 Boj: hráč na telefonu (formulář útoku BJU, hod, odeslání) ·
+20b Boj: vypravěč (vyhodnocení a potvrzení útoků hráčů, veřejný záznam, pruh „co teď“, formuláře, klávesy, Zpět) · 20c volby po zásahu, přesun Hexu, Riposte ·
+20d Boj: vykreslení (kostra, záložky, renderBoj) ·
 21 editor textů · 22 Výprava (počasí, Zpět herního času) · 23 potvrzování akcí hráčů · 24 Boj: herní záznam (kdo · co · komu, kostky, Závoj) ·
 25 puls (jeden dotaz „co se změnilo“, Realtime) · 26 start: pečeť a první `route()`.
 

@@ -137,7 +137,7 @@ async def main():
     await g.click('.btabs [data-btab="n"]');await g.wait_for_timeout(150)
     await g.click(hf+" .brozb");await g.wait_for_timeout(200)
     chk(await g.locator(hf+".bopen").count()==1,"kartu jde rozbalit ručně")
-    await g.fill(hf+" [data-bdos]","3");await g.click(hf+' [data-but="0"]');await g.wait_for_timeout(150)
+    await g.fill(hf+" [data-bdos]","3");await g.evaluate("window.__R=Math.random;Math.random=()=>0.5");await g.click(hf+' [data-but="0"]');await g.evaluate("Math.random=window.__R");await g.wait_for_timeout(150)  # d20 bez přirozené 1 (test byl 1:20 nestálý)
     if await g.locator(hf+' [data-bzrpo]').count(): await g.click(hf+' [data-bzrpo]');await g.wait_for_timeout(150)
     lg="\n".join((await g.locator(hf+" .blog li").all_inner_texts())[:3]);print("houf:",lg)
     chk("zranění 9" in lg and "3 × 3 v dosahu" in lg,"houf: 3 zranění × 3 v dosahu = 9")

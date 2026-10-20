@@ -1,0 +1,137 @@
+/* ===== Boj: zásahy rovnou do karty, reakce na telefonu, plošné zásahy a iniciativa výzvou, začátek tahu,
+   přehled družiny, po boji, skupinové ověření (2026-10-17) ===== */
+const bojPcAuto={get(){try{return localStorage.getItem("mm-boj-pcauto")!=="0"}catch(e){return true}},set(v){try{localStorage.setItem("mm-boj-pcauto",v?"1":"0")}catch(e){}}};
+const kHpOf=(K,ks)=>ks.hp!=null?+ks.hp:kHPmax(K);
+/* vypravěč: zásah nepřítele odečte postavě s kartou životy hned (s odolnostmi, dočasnými HP, pádem na 0) */
+function bojPcZasah(o,cid,K){const S=BOJ.s||{},h0=(S.hraci||[]).find(x=>x.id===cid);if(!h0||!K||!o.zr||!(o.zr.t>0))return null;
+  const ks0=Object.assign({},kartaStav(K.id)),hp0=kHpOf(K,ks0),t0=+ks0.thp||0,ds0=!!h0.ds,typ=(bojTypy({zt:o.zr.zt})[0])||"Slashing",krit=!!(o.hod&&o.hod.krit);
+  const opt={drt:/drtiv/i.test(o.p||""),pru:/průrazn/i.test(o.p||"")};
+  const msg=bojPCZmena(cid,x=>bojZranPC(x,K,o.zr.t,typ,krit,opt),false)||"";const ks1=kartaStav(K.id),h1=((BOJ.s||{}).hraci||[]).find(x=>x.id===cid)||{};
+  const ph=Math.max(0,hp0-kHpOf(K,ks1)),pt=Math.max(0,t0-(+ks1.thp||0)),pd=!ds0&&!!h1.ds,pod=pd?BZRPOD:0;
+  /* obětování zbroje (Artikule): kritický zásah se změní v běžný – kolik HP by se vrátilo (rozdíl účinku kritického a běžného zranění) */
+  const ob=krit&&o.zr.t1!=null&&kZbrU(K)&&(()=>{const Z=kZbrU(K);return (Z.z&&Z.z.u<Z.z.max)||(Z.s&&Z.s.u<Z.s.max)})()?Math.max(0,Math.min(ph+pt,bojZranEf(K,o.zr.t,typ,opt).v-bojZranEf(K,o.zr.t1,typ,opt).v)):0;
+  /* pád na 0 HP: vyčerpání přičte karta, hod na kritické zranění se připraví vypravěči (neléčené rány, HP pod nulou) */
+  if(pd&&GMV){BKS.komu=h0.n;BKS.rany=(bojKritPC()[h0.n]||[]).length;BKS.pod=pod;BKS.vys="";BKS.kdo=h0.n+" padl";BKS.druh=bojKritDruh(typ)}
+  let kv=false;if(ph+pt>0&&kKonDrzi(K)&&!pd){if(GMV&&window.MMDB&&MMDB.vyzva){kv=true;bojKonVyzva(K,cid,bojKonDC(ph+pt))}else KKON[K.id]=bojKonDC(ph+pt)}
+  return {msg,ph,pt,pd,typ,kv,ob,pod}}
+/* soustředění postavy po zásahu (2026-10-18): hráči vyskočí výzva k CON záchraně, hodí si ji sám; neúspěch ukončí soustředění */
+const BKONV={};
+function bojKonVyzva(K,hid,dc){MMDB.vyzva({typ:"zach",ab:"CON",dc,komu:[K.id],adv:K.konVyhoda?1:undefined,pozn:`Soustředění: utržené zranění – neúspěch ukončí soustředění${K.konVyhoda?" (War Caster: s výhodou)":""}`.slice(0,200)})
+  .then(v=>{BKONV[+v]={kid:K.id,hid,dc};vyzvyNacti()}).catch(()=>{KKON[K.id]=dc})}
+/* hráč: nový zásah na mou postavu ve veřejném záznamu boje → hlášení, vibrace, soustředění, nabídka reakcí */
+let BZAS=null;const BZASV={m:0,get(){let v=0;try{v=+localStorage.getItem("mm-zas-seen")||0}catch(e){}return Math.max(v,this.m)},set(v){this.m=Math.max(this.m,+v||0);try{localStorage.setItem("mm-zas-seen",String(this.m))}catch(e){}}};
+function bojZasahHlidej(s,me){if(!me)return;const K=bojKartaH(me);const v0=BZASV.get(),L=(s.zaz||[]).filter(e=>e.ci===me.id&&e.ts>v0&&(v0||(+e.k||0)>=(s.kolo||1))/* nové zařízení: jen zásahy z tohoto kola */&&(e.z>0||e.ph>0||e.pt>0||/zásah|krit/.test(e.v||"")));if(!L.length)return;
+  const e=L[0];BZASV.set(Math.max(...L.map(x=>x.ts)));const ztr=(+e.ph||0)+(+e.pt||0);
+  try{navigator.vibrate&&navigator.vibrate([160,80,160])}catch(x){}
+  mmHlas(`${e.a||"Nepřítel"} tě zasáhl${e.cim?` (${e.cim})`:""}${ztr?` za ${ztr}${e.t?" "+String(e.t).replace(/\b(Bludgeoning|Piercing|Slashing|Fire|Cold|Lightning|Thunder|Acid|Poison|Necrotic|Radiant|Psychic|Force)\b/g,m=>BZRT[m]||m):""} – už odečteno z karty`:e.z?` za ${e.z}`:""}.${(me.stav||[]).includes("soustředí")&&(ztr||e.z)&&!e.pd?` Držíš soustředění: CON záchrana SO ${bojKonDC(ztr||e.z)}.`:""}`,8000);mmNotif("Zásah!",`${e.a||""} ${e.v||""}`);
+  if(K){if(ztr>0&&kKonDrzi(K)&&!e.pd&&!e.kv)KKON[K.id]=bojKonDC(ztr);BZAS={e,kid:K.id,hid:me.id,cas:Date.now()}}renderBoj()}
+/* reakce, které postava může použít na zásah */
+function kReakceNaZasah(K,h,s,e){const o=[],rk=!!(s.reak||{})[h.id],hod=+e.hod,AC=+e.ac,ztr=(+e.ph||0)+(+e.pt||0),ry=n=>[...(K.rysy||[]),...(K.rysy2||[]).map(r=>r.n)].some(x=>n.test(String(x)));
+  {const Z=kZbrU(K),zb=Z&&(Z.z&&Z.z.u<Z.z.max?Z.z:Z.s&&Z.s.u<Z.s.max?Z.s:null);if(e.kr&&zb)o.push({k:"obet",n:`Obětovat ${zb.k==="Štít"?"štít":zb.k.toLowerCase()+" zbroj"}${+e.ob?` – vrátí ${e.ob} HP`:""}`,t:`Kritický zásah se změní v běžný (Artikule): kostky zranění jen jednou${+e.ob?`, vrátí ${e.ob} HP`:""} a hod na kritické zranění odpadá. Není to reakce.`})}
+  /* reakční kouzla jen ta, která postava má (připravená, z předmětu či svitku) a na která jí zbývá slot nebo náboj (2026-10-20) */
+  if(rk)return {rk,o};const sez=kSeznam(K);
+  const o0=o.length;sez.forEach((x,i)=>{if(kCasKouzla(x)!=="R")return;const ok=x.st===0&&!x.pz||kSlX(K,x).length>0;if(!ok)return;
+    if(/^silvery barbs$/i.test(x.n)){const mz=!e.kr&&hod&&AC&&+e.d>0;o.push({k:"barbs",i,n:"Silvery Barbs – přehodit útok",t:mz?`Útočník přehodí d20 (${e.d}) a použije nižší: hod ${hod} proti AC ${AC}; když mine, vrátí ${ztr} HP`:"Útočník přehodí d20 a použije nižší výsledek"});return}
+    if(/^hellish rebuke$/i.test(x.n)){if(ztr>0&&e.ai)o.push({k:"rebuke",i,n:"Hellish Rebuke – oplatit",t:`Útočník: záchrana AGI proti tvému SO, 2d10 Fire (+1d10 za každý stupeň slotu nad 1), úspěch polovina – pošle se vypravěči`});return}
+    if(/^counterspell$/i.test(x.n))return;
+    if(/^shield$/i.test(x.n)){const pom=!e.kr&&hod&&AC&&hod<AC+5;o.push({k:"shield",i,n:`Shield${pom?" – útok mine":" (+5 AC)"}`,t:pom?`Útok ${hod} proti AC ${AC}+5 = vedle: vrátí ${ztr} HP, slot ${x.st}. st.`:`+5 AC do tvého dalšího tahu, tento útok to nezmění (${e.kr?"kritický zásah":`hod ${hod||"?"}`})`});return}
+    if(/^absorb elements$/i.test(x.n)){const el=/Acid|Cold|Fire|Lightning|Thunder/.test(e.t||"");o.push({k:"absorb",i,n:`Absorb Elements${el?" – polovina":""}`,t:el?`Resistance vůči ${e.t}: vrátí ${Math.ceil(ztr/2)} HP`:"Jen proti kyselinovému, mrazivému, ohnivému, bleskovému a hromovému zranění"});return}
+    o.push({k:"kz",i,n:x.n,t:`Sešle ${x.n} jako reakci`})});
+  o.forEach((r,j)=>{if(j<o0||r.i==null)return;const x=sez[r.i];if(x&&x.pz)r.n+=` (${x.pz.sv?"svitek":String(x.pz.p||"předmět").replace(/^(Wand|Staff) of (the )?/,"")})`});
+  if(ry(/^uncanny dodge$/i)&&ztr>0)o.push({k:"ud",n:"Uncanny Dodge – polovina",t:`Polovina zranění: vrátí ${Math.ceil(ztr/2)} HP`});
+  if(ry(/^deflect attacks?$/i)&&ztr>0&&/Bludgeoning|Piercing|Slashing/.test(e.t||""))o.push({k:"da",n:"Deflect Attacks",t:`Sníží zranění o 1d10 + AGI + úroveň mnicha`});
+  /* Battle Master Parry a Cutting Words (College of Lore) – 2026-10-20 */
+  {const SD=kSD(K);if(SD&&SD.zb>0&&kManMa(K,"Parry")&&ztr>0&&!e.dal){const m=Math.max(kMod(kVl(K,"STR")||10),kMod(kVl(K,"AGI")||10));o.push({k:"parry",n:"Parry – méně zranění",t:`Kostka převahy: zranění −(1${SD.k}+${m}), zbývá ${SD.zb} kostek`})}}
+  if(ry(/^cutting words$/i)){const B=kZdrN(K,/bardic inspiration/i);if(B&&B.zb>0){const st=kBardSt(K);o.push({k:"cw",n:"Cutting Words",t:!e.kr&&hod&&AC?`Odečte 1d${st} od útoku (${hod} proti AC ${AC}): když tím mine, vrátí ${ztr} HP, jinak sníží zranění`:`Sníží zranění o 1d${st} (Bardic Inspiration, zbývá ${B.zb})`})}}
+  if(ry(/^defensive duelist$/i)&&!e.dal&&!e.kr&&hod&&AC&&hod<AC+kPB(K))o.push({k:"dd",n:"Defensive Duelist – útok mine",t:`+${kPB(K)} AC proti útoku: vrátí ${ztr} HP`});
+  return {rk,o}}
+/* Riposte (Battle Master): nepřítel tě minul útokem na blízko → nabídka odvety; viděná minutí si telefon pamatuje (2026-10-20) */
+let BRIP=null;const BRIPV={m:0,get(){let v=0;try{v=+localStorage.getItem("mm-min-seen")||0}catch(e){}return Math.max(v,this.m)},set(v){this.m=Math.max(this.m,+v||0);try{localStorage.setItem("mm-min-seen",String(this.m))}catch(e){}}};
+function bojMinHlidej(s,me){if(!me)return;const K=bojKartaH(me);if(!K||!kManMa(K,"Riposte"))return;const v0=BRIPV.get(),L=(s.zaz||[]).filter(e=>e.ci===me.id&&e.ts>v0&&(v0||(+e.k||0)>=(s.kolo||1))&&/^vedle/.test(e.v||"")&&!e.dal&&e.ai);if(!L.length)return;
+  BRIPV.set(Math.max(...L.map(x=>x.ts)));const SD=kSD(K);if(!SD||SD.zb<=0||(s.reak||{})[me.id])return;BRIP={e:L[0],kid:K.id,hid:me.id,cas:Date.now()};mmHlas(`${L[0].a||"Nepřítel"} tě minul – můžeš reakcí oplatit (Riposte).`,6000);renderBoj()}
+function kRipHtml(K,h,s){if(!BRIP||BRIP.kid!==K.id||Date.now()-BRIP.cas>5*60e3||(s.reak||{})[h.id]||!(s.npc||[]).some(o=>o.id===BRIP.e.ai))return "";const e=BRIP.e,zb=bojZbrVse(s,h),j=zb.findIndex(w=>!w.dal&&w.z);if(j<0)return "";const SD=kSD(K);
+  return `<div class="khl kzas"><b>${besc(e.a||"Nepřítel")}</b> tě minul${e.cim?` · ${besc(e.cim)}`:""}. <button type="button" class="gbtn" data-bdmsh="utok" data-j="${j}" data-brip="${besc(e.ai)}" ${btip(`Reakce: útok na blízko (${zb[j].n}); při zásahu + 1${SD?SD.k:"d8"} (kostka převahy)`)}>Riposte – oplatit</button><button type="button" class="gbtn ghost" data-bripx>Nechat být</button></div>`}
+document.addEventListener("click",e=>{const T=q=>e.target.closest&&e.target.closest(q);if(T("[data-bripx]")){BRIP=null;renderBoj();return}
+  const r=T("[data-brip]");if(r&&BRIP){const s=BOJ.s||{},tk=(s.kolo||1)*100+(s.tah||0);BJU.ripo={ai:r.dataset.brip,tk};BJU.cilL=[r.dataset.brip];BJU.cil=r.dataset.brip;BJU.serie=null;BJU.info="Riposte: odveta reakcí – hoď a pošli.";BRIP=null;setTimeout(renderBoj,0)}});
+function kZasahHtml(K,h,s){if(!BZAS||BZAS.kid!==K.id||Date.now()-BZAS.cas>10*60e3)return "";const e=BZAS.e,ztr=(+e.ph||0)+(+e.pt||0),R=kReakceNaZasah(K,h,s,e);
+  return `<div class="khl kzas"><b>${besc(e.a||"Nepřítel")}</b> tě zasáhl${e.cim?` · ${besc(e.cim)}`:""}${e.hod?` · hod ${e.hod}${e.ac?` proti AC ${e.ac}`:""}`:""}${ztr?` · <b>−${ztr}</b> ${bikZrTxt(e.t)} <small>už odečteno</small>`:""}${e.pd?" · <b>padáš na 0</b>":""}
+    ${R.rk?`<small>Reakci už jsi v tomto kole použil.</small>`:R.o.map(r=>`<button type="button" class="gbtn" data-bzr="${r.k}"${r.i!=null?` data-i="${r.i}"`:""} ${btip(r.t)}>${besc(r.n)}</button>`).join("")}<button type="button" class="gbtn ghost" data-bzr="ok">${R.o.length&&!R.rk?"Bez reakce":"Rozumím"}</button></div>`}
+async function kZasahReakce(K,k,i){const z=BZAS;if(!z||z.kid!==K.id)return;const s=BOJ.s||{},h=(s.hraci||[]).find(x=>x.id===z.hid),e=z.e;BZAS=null;if(k==="ok"||!h){renderBoj();return}
+  const ztr=(+e.ph||0)+(+e.pt||0),vrat=async(n,proc)=>{if(n<=0)return;const ks=kartaStav(K.id),mx=kHPmax(K),ph=Math.min(+e.ph||0,n),pt=Math.min(+e.pt||0,n-ph),hp=Math.min(mx,kHpOf(K,ks)+ph+(n-ph-pt));
+    const ch={hp:hp>=mx?null:hp};if(pt)ch.thp=(+ks.thp||0)+pt;if(e.pd&&hp>0){ch.vycerp=Math.max(0,(+ks.vycerp||0)-1)||null;bojHracAkce(h.id,x=>{delete x.ds})}
+    await kartaStavZmen(K.id,ch,null);if(KKON[K.id]){const zb=ztr-n;if(zb>0)KKON[K.id]=bojKonDC(zb);else delete KKON[K.id]}kHodZapis({k:K.id,kdo:K.n,co:`Reakce: ${proc}`,txt:`zásah od ${e.a||"nepřítele"}${e.hod?` (${e.hod})`:""}: vráceno ${n} HP`})};
+  if(k==="obet"){await kObetujZbroj(K,h,e,vrat);renderBoj();return}/* obětování zbroje není reakce */
+  bojHracAkce(h.id,(x,zz)=>{(zz.reak=zz.reak||{})[h.id]=1});
+  if(k==="barbs"){const sp=kSeznam(K)[+i];if(!sp||await kartaSeslat(K,sp)===false)return;const d0=+e.d||0,d2=bK(20),nd=d0?Math.min(d0,d2):d2,tot=d0?+e.hod-d0+nd:null,kr=nd===20;
+    kHodZapis({k:K.id,kdo:K.n,co:"Reakce: Silvery Barbs",txt:`útočník přehazuje d20 ${d0||"?"} → ${d2}, platí ${nd}${tot!=null?` = ${tot} proti AC ${e.ac}`:""}`});
+    if(tot!=null&&!kr&&tot<+e.ac)await vrat(ztr,"Silvery Barbs – útok minul");else if(e.kr&&!kr)mmHlas(`Silvery Barbs: útok stále zasahuje (${tot}), ale už ne kriticky – vypravěč sníží zranění.`,6000);else mmHlas(`Silvery Barbs: útok stále zasahuje (${tot!=null?tot:"?"}).`,5000);renderBoj();return}
+  if(k==="rebuke"){const sp=kSeznam(K)[+i];if(!sp)return;const q=kSlX(K,sp).sort((a,b)=>a.st-b.st)[0],l=q?q.st:1;if(await kartaSeslat(K,sp)===false)return;const r=kVyraz(`${1+l}d10`),dc=kSpDC(K,sp);
+    try{if(bojDB&&bojDB.utok)await bojDB.utok(h.id,{ci:[e.ai],cim:`Hellish Rebuke${l>1?` (${l}. st.)`:""}`,t:"Fire",hod:0,dmg:r?r.tot:0,plos:{ab:"AGI",dc:dc||13,pol:true}});kHodZapis({k:K.id,kdo:K.n,co:"Reakce: Hellish Rebuke",txt:`${r?r.txt:""} Fire, AGI SO ${dc}`});mmHlas(`Hellish Rebuke: ${r?r.tot:0} Fire – útočník si hodí záchranu AGI u vypravěče.`,5000)}catch(err){mmHlas("Nepodařilo se poslat: "+(err.message||err),5000)}renderBoj();return}
+  if(k==="shield"||k==="absorb"||k==="kz"){const sp=kSeznam(K)[+i];if(!sp)return;await kartaSeslat(K,sp);
+    if(k==="shield"){const L=kUc(K).filter(x=>x.n!=="Shield");L.push({n:"Shield",ac:5,h:0.0017});await kartaStavZmen(K.id,{uc:L});if(!e.kr&&+e.hod<+e.ac+5)await vrat(ztr,"Shield – útok minul")}
+    if(k==="absorb"&&/Acid|Cold|Fire|Lightning|Thunder/.test(e.t||""))await vrat(Math.ceil(ztr/2),"Absorb Elements")}
+  else if(k==="ud")await vrat(Math.ceil(ztr/2),"Uncanny Dodge");
+  else if(k==="da"){const mk=kTrU(kCtx(K),"Monk")||kLv(K),r=bK(10)+kMod(kVl(K,"AGI")||10)+mk;await vrat(Math.min(ztr,r),`Deflect Attacks (${r})`)}
+  else if(k==="dd")await vrat(ztr,"Defensive Duelist – útok minul");
+  else if(k==="parry"){const z=kSD(K);if(!z)return;await kZdrUtrat(K,z);const x=bK(+z.k.slice(1)),m=Math.max(kMod(kVl(K,"STR")||10),kMod(kVl(K,"AGI")||10));await vrat(Math.min(ztr,x+m),`Parry (${x}+${m})`)}
+  else if(k==="cw"){const B=kZdrN(K,/bardic inspiration/i);if(!B)return;await kZdrUtrat(K,B);const x=bK(kBardSt(K));if(!e.kr&&+e.hod&&+e.ac&&+e.hod-x<+e.ac)await vrat(ztr,`Cutting Words (−${x}) – útok minul`);else await vrat(Math.min(ztr,x),`Cutting Words (−${x} ze zranění)`)}
+  mmHlas(`${K.n}: reakce použita.`,4000);renderBoj()}
+document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-bzr]");if(!b)return;const K=kvK(b);if(K)kZasahReakce(K,b.dataset.bzr,b.dataset.i)});
+/* plošný zásah a iniciativa výzvou: odpovědi hráčů zpracuje vypravěčovo zařízení samo */
+const BPLV={};let BINIV=new Set();
+function bojVyzZpracuj(){if(!GMV||!BOJ.s||!(BOJ.s.aktivni||BOJ.s.priprava))return;const s=BOJ.s;
+  Object.keys(BPLV).forEach(id=>{const P=BPLV[id],v=VYZVY.find(x=>x.id===+id);if(!v)return;Object.entries(v.odpovedi||{}).forEach(([kid,o])=>{if(P.hot.has(kid))return;P.hot.add(kid);
+    const hid=P.map[kid],h=(s.hraci||[]).find(x=>x.id===hid),K=bojKartaH(h);if(!h||!K)return;const ok=P.dc?o.tot>=P.dc:false,dmg=ok?(P.pol?Math.floor(P.dmg/2):0):P.dmg;
+    let r={ph:0,pt:0,pd:false,msg:"bez zranění"};if(dmg>0)r=bojPcZasah({zr:{t:dmg,zt:P.t}},hid,K)||r;
+    bojZaz({a:P.src||"",c:h.n,ci:hid,cim:P.cim||"plošný zásah",v:`${P.ab} ${o.tot} – ${ok?"úspěch":"neúspěch"}${dmg?`, ${dmg}`:""}`,z:dmg,t:P.t,ph:r.ph,pt:r.pt,pd:r.pd,kv:r.kv?1:undefined});
+    if(!ok&&(P.st||[]).length){bojZmen(z=>{const hh=(z.hraci||[]).find(x=>x.id===hid);if(hh)bojStavDej(z,hh,{n:P.cim||"Plošný zásah",st:P.st,op:P.op,k:P.k,ab:P.ab,dc:P.dc,src:P.kon||null})});r.msg+=` · ${P.st.join(", ")}`}
+    bojLog(hid,{n:P.cim||"Plošný zásah",ci:hid,zt:`${P.ab} ${o.tot} ${ok?"úspěch":"neúspěch"} → ${r.msg}`},h.n);mmHlasG(`${h.n}: ${P.ab} ${o.tot} ${ok?"úspěch":"neúspěch"} – ${r.msg}`,5000)});
+    if(Object.keys(P.map).every(k=>P.hot.has(k))){delete BPLV[id];MMDB.vyzvaZavri(+id).catch(()=>{})}});
+  Object.keys(BKONV).forEach(id=>{const P=BKONV[id],v=VYZVY.find(x=>x.id===+id);if(!v)return;const o=(v.odpovedi||{})[P.kid];if(!o)return;delete BKONV[id];MMDB.vyzvaZavri(+id).catch(()=>{});
+    const K=KARTBY[P.kid],h=(s.hraci||[]).find(x=>x.id===P.hid),ok=o.tot>=P.dc;if(!K)return;
+    if(!ok)kKonZtrata(K,"neúspěšná záchrana").then(()=>{if(curView==="boj")renderBoj()}).catch(()=>{});
+    if(h)bojLog(P.hid,{n:"Soustředění",ci:P.hid,zt:`CON ${o.tot} proti SO ${P.dc} – ${ok?"udrženo":"soustředění končí"}`},h.n);mmHlasG(`${K.n}: soustředění – CON ${o.tot} ${ok?"udrženo":"ztraceno"}.`,5000)});
+  Object.keys(BOPV).forEach(id=>{const P=BOPV[id],v=VYZVY.find(x=>x.id===+id);if(!v)return;const o=(v.odpovedi||{})[P.kid];if(!o)return;delete BOPV[id];MMDB.vyzvaZavri(+id).catch(()=>{});
+    const ok=o.tot>=P.dc,h=(s.hraci||[]).find(x=>x.id===P.hid);if(!h)return;
+    if(ok)bojZmen(z=>{const hh=(z.hraci||[]).find(x=>x.id===P.hid);if(hh)(hh.ef||[]).filter(e=>e.n===P.n).forEach(e=>bojEfDel(hh,e))});
+    bojLog(P.hid,{n:P.n,ci:P.hid,zt:`opakovaná záchrana ${P.ab} ${o.tot} – ${ok?"úspěch, účinek končí":"neúspěch, trvá dál"}`},h.n);mmHlasG(`${h.n}: ${P.n} – záchrana ${o.tot} ${ok?"uspěla, účinek končí":"neuspěla"}.`,5000)});
+  VYZVY.filter(v=>!v.zavrena&&v.data&&v.data.typ==="ini"&&BINIV.has(v.id)).forEach(v=>{const ch=[];Object.entries(v.odpovedi||{}).forEach(([kid,o])=>{const h=(s.hraci||[]).find(x=>bojKartaH(x)&&bojKartaH(x).id===kid);if(h&&h.hod!==o.tot)ch.push([h.id,o.tot])});
+    if(ch.length)bojZmen(z=>{ch.forEach(([id,t])=>{const h=(z.hraci||[]).find(x=>x.id===id);if(h)h.hod=t})});
+    const ids=(s.hraci||[]).map(h=>bojKartaH(h)).filter(Boolean).map(K=>K.id);if(ids.length&&ids.every(k=>(v.odpovedi||{})[k])){BINIV.delete(v.id);MMDB.vyzvaZavri(v.id).catch(()=>{})}})}
+async function bojIniVyzva(){const s=BOJ.s||{},komu=[...new Set((s.hraci||[]).map(h=>bojKartaH(h)).filter(Boolean).map(K=>K.id))];if(!komu.length){mmHlasG("V boji nejsou postavy s kartou.",3000);return}
+  if(!window.MMDB){mmHlasG("Výzvy fungují jen na webu s databází.",3500);return}
+  try{const id=await MMDB.vyzva({typ:"ini",komu});BINIV.add(+id);await vyzvyNacti();mmHlasG("Hráčům vyskočila výzva k iniciativě – hody se zapíšou samy.",4500)}catch(e){mmHlasG(e.message||String(e),5000)}}
+/* začátek tahu: připomínky z boje i z karty */
+function bojPripKarta(s,h,K){const r=bojPripominky(s,h).filter(x=>!/^Reakce je k dispozici/.test(x)),U=kUc(K),P=kPri(K),sl=kSloty(K);
+  if(U.length)r.push(`Trvá: ${U.map(x=>x.n+(x.kon?" ◎":"")).join(", ")}.`);if(P.length)r.push(`Zapnuto: ${P.join(", ")}.`);
+  if(sl.length)r.push(`Sloty: ${sl.map(q=>`${q.st}. st. ${q.max-q.u}/${q.max}`).join(", ")}.`);
+  if((h.stav||[]).includes("sražen"))r.push("Vstát stojí polovinu pohybu.");return r}
+/* vypravěč: přehled družiny v jednom pruhu */
+/* po boji: výzva k odpočinku */
+async function bojOdpVyzva(){const komu=[...new Set(((BOJ.s||{}).hraci||[]).map(h=>bojKartaH(h)).filter(Boolean).map(K=>K.id))];if(!komu.length||!window.MMDB)return;try{await MMDB.vyzva({typ:"odp",komu});await vyzvyNacti()}catch(e){}}
+/* skupinové ověření jedním klepnutím */
+async function vyzvaRychle(d,x){if(!window.MMDB){mmHlasG("Výzvy fungují jen na webu s databází.",3500);return}const komu=KARTY.filter(k=>!k.test||KHRAC[k.id]).map(k=>k.id);const o={komu:komu.length?komu:KARTY.map(k=>k.id)};
+  if(/^(STR|AGI|CON|INT|WIS|CHA)$/.test(d)){o.typ="zach";o.ab=d}else{o.typ="over";o.dov=d;o.ab=KDOVAB[d]||"WIS"}
+  if(x&&x.dc)o.dc=Math.max(1,Math.min(40,Math.round(x.dc)));if(x&&x.skryt)o.skryt=true;if(x&&x.pozn)o.pozn=String(x.pozn).slice(0,60);
+  try{await MMDB.vyzva(o);await vyzvyNacti();mmHlasG(`Všichni: ${o.typ==="zach"?"záchrana "+d:d}${o.dc?" SO "+o.dc:""} – hráčům vyskočilo na telefonu.`,3500);if(curView==="boj")renderBoj();else hraPrekresli()}catch(e){mmHlasG(e.message||String(e),5000)}}
+document.addEventListener("click",e=>{const T=s=>e.target.closest&&e.target.closest(s);
+  const r=T("[data-vyzrychle]");if(r){const p=r.closest(".bvyzp");vyzvaRychle(r.dataset.vyzrychle,p?{dc:+((p.querySelector("[data-bvyzdc]")||{}).value||0),skryt:!!((p.querySelector("[data-bvyzskr]")||{}).checked),pozn:((p.querySelector("[data-bvyzpozn]")||{}).value||"").trim()}:null);return}
+  if(T("[data-binivyz]")){bojIniVyzva();return}});
+document.addEventListener("change",e=>{const t=e.target;if(t.matches&&t.matches("[data-bpcauto]")){bojPcAuto.set(t.checked);renderBoj()}});
+
+/* uložení vlastností zbraně (stav karty zbrVl) */
+document.addEventListener("submit",async e=>{const f=e.target.closest&&e.target.closest("[data-bdmzvf]");if(!f)return;e.preventDefault();const K=kvK(f);if(!K||!kMuze(K))return;
+  const w=f.dataset.w,vl=[...f.querySelectorAll("[name=vl]:checked")].map(x=>x.value),t=[...f.querySelectorAll("[name=t]:checked")].map(x=>x.value);
+  if(vl.includes("Šikovná")&&t.length<2){mmHlasG("Šikovná zbraň potřebuje aspoň dva typy zranění.",3500);return}
+  const Z=Object.assign({},kartaStav(K.id).zbrVl||{});Z[w]=Object.assign({vl},vl.includes("Šikovná")?{t}:{});BDM.sheet=null;
+  await kartaStavZmen(K.id,{zbrVl:Z},`${K.n}: ${w} – vlastnosti ${vl.join(", ")||"žádné"}.`)});
+document.addEventListener("click",async e=>{const b=e.target.closest&&e.target.closest("[data-bdmzvx]");if(!b)return;const K=kvK(b);if(!K||!kMuze(K))return;
+  const Z=Object.assign({},kartaStav(K.id).zbrVl||{});delete Z[b.dataset.bdmzvx];BDM.sheet=null;await kartaStavZmen(K.id,{zbrVl:Object.keys(Z).length?Z:null},`${K.n}: ${b.dataset.bdmzvx} – vlastnosti podle názvu zbraně.`)});
+
+/* obětování zbroje či štítu při kritickém zásahu (Artikule › Zbroj): kritický zásah se změní v běžný – vrátí se rozdíl zranění (e.ob) */
+async function kObetujZbroj(K,h,e,vrat){const Z=kZbrU(K),z=Z&&(Z.z&&Z.z.u<Z.z.max?Z.z:Z.s&&Z.s.u<Z.s.max?Z.s:null);if(!z)return false;
+  if(await kOdklad(`obětovat ${z.k==="Štít"?"štít":z.k.toLowerCase()+" zbroj"}`,()=>true)===false)return false;
+  if(e&&+e.ob>0&&vrat)await vrat(+e.ob,"obětování zbroje");
+  const S=kartaStav(K.id),U=Object.assign({},S.zbrU||{}),ac0=kAC(K);U[z.k]=(+U[z.k]||0)+1;await kartaStavZmen(K.id,{zbrU:U},null);
+  const txt=`${z.k==="Štít"?"štít":z.k.toLowerCase()+" zbroj"} obětována – kritický zásah se mění v běžný${e&&+e.ob>0?`, vráceno ${e.ob} HP`:" (kostky zranění jen jednou)"}, hod na kritické zranění odpadá${kAC(K)!==ac0?`; AC ${ac0} → ${kAC(K)}`:""}`;
+  kHodZapis({k:K.id,kdo:K.n,co:"Obětování zbroje",txt});if(GMV&&h)bojLog(h.id,{n:"Obětování zbroje",ai:null,ci:h.id,zt:txt},h.n);mmHlasG(`${K.n}: ${txt}.`,6000);return true}
