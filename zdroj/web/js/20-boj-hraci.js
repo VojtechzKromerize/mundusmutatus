@@ -23,7 +23,11 @@ function bojHoufZachrany(n,E,dmg,t,ab,dc,pol,kolik,kouzlo){const b=bojSaveB(E&&E
    (ne ✦ – ten build z hráčské verze odstraňuje) */
 const BUEF="Účinek: ",bojUtEf=u=>String((u&&u.cim)||"").startsWith(BUEF)?u.cim.slice(BUEF.length).trim():null;
 /* značka účinku kouzla na nepříteli (trvání z kouzla v kolech; soustředěné kouzlo drží sesilatel) */
-function bojEfZnac(z,n,sp,u){const nm=String(sp||"").replace(/\s*\(\d+\. st\.\)\s*$/,"").trim(),d=typeof kSp==="function"&&KSPD?kSp(nm):null,hh=d?kTrv(d.d):null;if(!hh)return false;
+function bojEfZnac(z,n,sp,u){const nm=String(sp||"").replace(/\s*\(\d+\. st\.\)\s*$/,"").trim();
+  /* Dispel Magic: kouzla na cíli končí (účinky se zdrojem nebo pojmenované kouzlem) */
+  if(nm==="Dispel Magic"){const L=(n.ef||[]).filter(e=>e.src||(typeof kSp==="function"&&KSPD&&kSp(String(e.n).replace(/^Účinek:\s*/,""))));L.forEach(e=>bojEfDel(n,e));bojMsg(n.id,L.length?`Dispel Magic: končí ${[...new Set(L.map(e=>e.n))].join(", ")}.`:"Dispel Magic: na cíli není žádné kouzlo.");return true}
+  return bojEfZnac0(z,n,sp,u,nm)}
+function bojEfZnac0(z,n,sp,u,nm){const d=typeof kSp==="function"&&KSPD?kSp(nm):null,hh=d?kTrv(d.d):null;if(!hh)return false;
   const h=(z.hraci||[]).find(x=>x.id===u.h),ef={n:d.en||nm,kdy:"kola",k:Math.max(1,Math.round(hh*600)),kolo:z.kolo||1,tah:z.tah||0};if(u.h)ef.od=u.h;if(d.ko&&h&&(h.stav||[]).includes("soustředí"))ef.src=u.h;
   (n.ef||[]).filter(e=>e.n===ef.n&&!e.st).forEach(e=>bojEfDel(n,e));(n.ef=n.ef||[]).push(ef);return true}
 /* vyhodnocení útoku hráče se hází jen jednou (2026-10-19): náhled v panelu „k potvrzení“ i zápis používají tytéž kostky
@@ -192,7 +196,7 @@ function bojJaHod(){const s=BOJ.s||{},me=(s.hraci||[]).find(h=>h.n===bojJa.get()
   {const nes=me&&(bojNeschopny(me.stav)||kNeschopny(bojKartaH(me)));if(nes){mmHlas(`Nemůžeš jednat – ${nes}. Stav zruší vypravěč nebo záchrana na konci tahu.`,4000);return}}if(sp){bojJaHodKouzlo(s,me,sp);return}const w=bojZbrVse(s,me)[+BJU.zi];if(!me||!w||BJU.zi===""){mmHlas("Vyber zbraň s kostkou zranění.",2500);return}
   {const K0=bojKartaH(me),T0=K0&&bojSikTypy(K0,w);if(T0&&!BJU.sikOk){bojJaSikVolba(K0,w,T0);return}BJU.sikOk=false}
   const K=bojKartaH(me),TL=bojCileL(BJU,s.npc||[]).map(id=>(s.npc||[]).find(o=>o.id===id)),c=TL[0]||(s.npc||[]).find(o=>o.id===BJU.cil),E=bojEfZnacene(me,K,c,w),kmin=Math.min(20,...E.map(e=>+e.krit||20)),plus=E.reduce((a,e)=>a+(typeof e.zr==="string"?0:(+e.zr||0)),0);
-  const nav=bojAdvHrac(s,me,c,!!w.dal),v=BJU.adv==="auto"?nav.v:+BJU.adv,b=(+w.b||0)-(K?2*kVycerp(K):0),ser=[],txt=[];
+  const nav=bojAdvHrac(s,me,c,!!w.dal),v=BJU.adv==="auto"?nav.v:+BJU.adv,b=(+w.b||0)-(K?2*kVycerp(K):0)+(typeof kEfUt==="function"?kEfUt(E):0),ser=[],txt=[];
   /* Zadat ručně: kostky hozené u stolu nahradí hod webu (jen první útok); co chybí, hodí web */
   const R=BRUC[me.id]||{},r20=bRucN(R.d20,1,20),r6=bRucN(R.d6,1,6),rz=bRucN(R.dmg,0,300),pl=v=>String(v??"").trim()!=="";
   if((pl(R.d20)&&r20==null)||(pl(R.d6)&&r6==null)||(pl(R.dmg)&&rz==null)){mmHlas(pl(R.d20)&&r20==null?"d20 musí být 1–20.":pl(R.d6)&&r6==null?"Kostka Závoje musí být 1–6.":"Zranění zadej jako číslo.",3000);return}

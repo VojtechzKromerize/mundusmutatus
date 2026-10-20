@@ -157,6 +157,7 @@ async function kSesDlgOk(bez){const D=KSDLG;if(!D)return;KSDLG=null;mmPopX();con
     if(BJU.plos)BJU.cile=N.map(o=>o.id);else BJU.cil=N[0].id;if(curView==="boj")renderBoj();else location.hash="#boj";
     if(C.length)mmHlasG(`${x.n}: spojence k tomu nejde vybrat – kouzlo míří na nepřátele.`,4000);return}
   if(await kartaSeslat(K,x,KSLV[K.id+":"+i])===false)return;
+  if(typeof kSesSpec==="function"&&await kSesSpec(K,x,lvl,C,N))return;
   if(E&&E.k==="l"&&C.length){await kSpZraneni(K,x,lvl,false,{mass:C});return}
   const sp=KBUF[x.n]||(typeof KZEF!=="undefined"&&KZEF[x.n]&&!KZEF[x.n].thp)?C:C.filter(c=>c!==K);if(sp.length)await kBufNa(K,x,sp,kon,lvl);
   if(typeof kSesPoCile==="function")await kSesPoCile(K,x,lvl,C);
@@ -205,11 +206,13 @@ function kEfekty(K){const c=kCtx(K),L=[...(K.efekty||[])],nm=new Set(kSeznam(K).
   if(has("Hunter's Mark"))L.push({n:"Hunter's Mark",zr:"1d6",t:"Force",pozn:"+1d6 Force proti označenému cíli"});
   if(has("Divine Favor"))L.push({n:"Divine Favor",zr:"1d4",t:"Radiant",pozn:"+1d4 Radiant k útokům zbraní"});
   if(has("Divine Smite")){const Q=kSloty(K).filter(z=>z.u<z.max).sort((a,b)=>a.st-b.st||(a.pakt?1:-1)),q=Q[0];if(q)L.push({n:`Divine Smite (${q.st}. st.)`,zr:`${1+q.st}d8`,t:"Radiant",slot:q.k,blizko:1,pozn:`+${1+q.st}d8 Radiant při zásahu zblízka (proti Fiend a Undead +1d8); spotřebuje slot ${q.st}. st.`})}
+  if(typeof kEfKouzla==="function")kEfKouzla(K).forEach(e=>{if(!L.some(q=>q.n===e.n))L.push(e)});
   return L}
-const kEfAkt=(K,sel,a)=>kEfekty(K).filter((e,i)=>(e.pri?kPri(K).includes(e.pri):(sel||[]).includes(i))&&!(e.blizko&&a&&a.dal));
+const kEfAkt=(K,sel,a)=>kEfekty(K).map((e,i)=>[e,i]).filter(([e,i])=>(e.auto||(e.pri?kPri(K).includes(e.pri):(sel||[]).includes(i)))&&!(e.blizko&&a&&a.dal)&&!(e.jen&&a&&!e.jen(a))).map(([e])=>e.f&&a?Object.assign({},e,e.f(a)):e);
+const kEfUt=E=>(E||[]).reduce((s,e)=>s+(+e.ut||0),0);
 async function kEfPouzij(K,E,sel){const sm=E.filter(e=>e.slot);if(!sm.length)return;for(const e of sm){try{await kartaSeslat(K,{n:"Divine Smite",st:1,kon:false},e.slot)}catch(x){}}
   const L=kEfekty(K),ix=L.map((e,i)=>e.slot?i:-1).filter(i=>i>=0);if(sel)sel.splice(0,sel.length,...sel.filter(i=>!ix.includes(i)))}
-const kEfHtml=(K,sel,attr)=>kEfekty(K).map((e,i)=>`<label class="bzrk" ${btip(e.pozn||e.n)}><input type="checkbox" ${attr}="${i}"${e.pri?` data-pri="${besc(e.pri)}"`:""}${(e.pri?kPri(K).includes(e.pri):(sel||[]).includes(i))?" checked":""}> ${besc(e.n)}</label>`).join("");
+const kEfHtml=(K,sel,attr)=>kEfekty(K).map((e,i)=>`<label class="bzrk" ${btip(e.pozn||e.n)}><input type="checkbox" ${attr}="${i}"${e.pri?` data-pri="${besc(e.pri)}"`:""}${e.auto||(e.pri?kPri(K).includes(e.pri):(sel||[]).includes(i))?" checked":""}${e.auto?" disabled":""}> ${besc(e.n)}</label>`).join("");
 /* ---- náboje magických předmětů (2026-10-17): počet z popisu SRD, utracené v poli inv[].nab, obnova za úsvitu dlouhým odpočinkem ---- */
 const KNABC={};
 function kNab(x){const P=kPred(x);if(!P)return null;const id=P.id||P.en;if(KNABC[id]!==undefined)return KNABC[id];const t=String(P.t||"");let max=null;const re=/(\d+)\s+náboj/g;let m;
@@ -226,7 +229,8 @@ async function kKonZtrata(K,proc){const L=kUc(K),kon=L.filter(x=>x.kon),zb=L.fil
   if(kon.length)ch.uc=zb.length?zb:null;if((S.stavy||[]).includes("soustředí")){const st=S.stavy.filter(x=>x!=="soustředí");ch.stavy=st.length?st:null}
   if(Object.keys(ch).length)await kartaStavZmen(K.id,ch);
   const h=((BOJ.s&&BOJ.s.aktivni&&BOJ.s.hraci)||[]).find(x=>bojKartaH(x)===K);if(h&&(h.stav||[]).includes("soustředí"))bojHracAkce(h.id,x=>{x.stav=(x.stav||[]).filter(q=>q!=="soustředí");if(!x.stav.length)delete x.stav});
-  kHodZapis({k:K.id,kdo:K.n,co:"Soustředění ztraceno",txt:[proc,...kon.map(x=>x.n)].filter(Boolean).join(" · ").slice(0,290)})}
+  kHodZapis({k:K.id,kdo:K.n,co:"Soustředění ztraceno",txt:[proc,...kon.map(x=>x.n)].filter(Boolean).join(" · ").slice(0,290)});
+  if(typeof kSumKonec==="function")try{await kSumKonec(K,kon.map(x=>kzJm(x.n)))}catch(e){}}
 async function kKonHod(K,dc){delete KKON[K.id];const r=await kartaHod(K,`Záchrana CON (soustředění, SO ${dc})`,kZach(K,"CON"),K.konVyhoda?{adv:1,why:"War Caster"}:{});
   if(r&&r.tot>=dc&&!kStavVliv(K,"Záchrana CON").fail){mmHlasG(`${K.n}: soustředění udrženo (${r.tot} proti SO ${dc}).`,5000);kartyPrekresli();return true}
   await kKonZtrata(K,`záchrana ${r?r.tot:"?"} proti SO ${dc}`);mmHlasG(`${K.n}: soustředění ztraceno${kUc(K).length?"":" – soustředěné účinky skončily"}.`,6000);return false}

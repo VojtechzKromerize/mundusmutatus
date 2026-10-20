@@ -55,7 +55,7 @@ function bojKonecTahu(s,id){try{if(typeof bojOblTah==="function")bojOblTah(s,id,
   (n.ef||[]).slice().forEach(e=>{if(e.kdy==="konec"&&e.zac){bojEfDel(n,e);bojMsg(id,`Skončilo: ${e.n}.`)}})}
 /* postava: na konci tahu opakovaná záchrana stavu (výzva na telefon; bez karty připomínka), na začátku tahu odpočet kol */
 const BOPV={};
-function bojPcKonec(s,id){const h=(s.hraci||[]).find(x=>x.id===id);if(!h||!GMV)return;const K=bojKartaH(h),hot=new Set();
+function bojPcKonec(s,id){const h=(s.hraci||[]).find(x=>x.id===id);if(!h||!GMV)return;try{if(typeof bojBufKonecTahu==="function")bojBufKonecTahu(s,h)}catch(e){}const K=bojKartaH(h),hot=new Set();
   (h.ef||[]).forEach(e=>{if(!e.op||hot.has(e.n))return;hot.add(e.n);const o={hid:h.id,n:e.n,ab:e.op.ab,dc:e.op.dc};
     if(K&&window.MMDB&&MMDB.vyzva)setTimeout(()=>MMDB.vyzva({typ:"zach",ab:o.ab,dc:o.dc,komu:[K.id],pozn:`${e.n}: opakovaná záchrana – úspěch ukončí ${e.st||"účinek"}`.slice(0,200)}).then(v=>{BOPV[+v]=Object.assign(o,{kid:K.id});vyzvyNacti()}).catch(()=>{}),0);
     else bojMsg(id,`${e.n}: na konci tahu záchrana ${o.ab} SO ${o.dc} – úspěch ukončí ${e.st||"účinek"}.`)})}

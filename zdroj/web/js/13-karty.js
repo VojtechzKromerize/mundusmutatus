@@ -269,7 +269,7 @@ document.addEventListener("click",async e=>{const v=e.target.closest&&e.target.c
     else if(k==="za")await kartaHod(K,`Záchrana ${a}`,kZach(K,a),{skryty:skr});
     else if(k==="dv"){const r=kSvAdv(K,a);await kartaHod(K,a,kDov(K,a),{skryty:skr,adv:r.length?kAdvSum(KADV,r):undefined,why:r.map(x=>x[1]).join(", ")})}
     else if(k==="in")await kartaHod(K,"Iniciativa",kIni(K),{skryty:skr});
-    else if(k==="ut"){const at=kUtoky(K)[+a],E=kEfAkt(K,KEF[K.id],at),kmin=Math.min(20,...E.map(x=>+x.krit||20));if(at){kMunOdecti(K,at,1);const r=await kartaHod(K,`Útok – ${at.n}`,+at.b||0,{utok:true,kmin,skryty:skr,ut:+a});if(r.krit||!r.mis){const zr=kartaZraneni(K,at,r.krit,E);kEfPouzij(K,E,KEF[K.id]);kHodZapis({k:K.id,kdo:K.n,co:`Zranění – ${at.n}`,tot:zr.t,txt:`${zr.x}${r.krit?" (kritický zásah)":""} ${BZRT[at.t]||at.t||""}`})}}}
+    else if(k==="ut"){const at=kUtoky(K)[+a],E=kEfAkt(K,KEF[K.id],at),kmin=Math.min(20,...E.map(x=>+x.krit||20));if(at){kMunOdecti(K,at,1);const r=await kartaHod(K,`Útok – ${at.n}`,(+at.b||0)+(typeof kEfUt==="function"?kEfUt(E):0),{utok:true,kmin,skryty:skr,ut:+a});if(r.krit||!r.mis){const zr=kartaZraneni(K,at,r.krit,E);kEfPouzij(K,E,KEF[K.id]);kHodZapis({k:K.id,kdo:K.n,co:`Zranění – ${at.n}`,tot:zr.t,txt:`${zr.x}${r.krit?" (kritický zásah)":""} ${BZRT[at.t]||at.t||""}`})}}}
     else if(k==="ks"){const sp=kSeznam(K)[+a];if(sp)await kartaHod(K,`Útok kouzlem – ${sp.n}`,kSpU1(K,sp),{utok:true,skryty:skr})}
     return}
   const zr=T("[data-kzr]");if(zr){const at=kUtoky(K)[+zr.dataset.kzr],E=kEfAkt(K,KEF[K.id],at);if(!at)return;const r=kartaZraneni(K,at,!!zr.dataset.krit,E);kEfPouzij(K,E,KEF[K.id]);

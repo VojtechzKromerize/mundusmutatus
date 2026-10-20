@@ -29,7 +29,7 @@ const KZEF={
 const kzJm=n=>String(n||"").replace(/\s*\(\d+\. st\.\)\s*$/,"").trim();
 const kzSt=n=>+(String(n||"").match(/\((\d+)\. st\.\)\s*$/)||[])[1]||0;
 /* stupeň se zapíše do názvu účinku jen u kouzel, kde na něm závisí mechanika (Aid, opakované útoky a oblasti se zesílením) */
-const kzStPrip=(n,lv,st)=>lv>st&&st>0&&((KZEF[n]&&KZEF[n].hpmax)||(KZOPAK[n]&&KZOPAK[n].up)||(KZOBL[n]&&KZOBL[n].up))?` (${lv}. st.)`:"";
+const kzStPrip=(n,lv,st)=>lv>st&&st>0&&(n==="Magic Weapon"||n==="Elemental Weapon"||(KZEF[n]&&KZEF[n].hpmax)||(KZOPAK[n]&&KZOPAK[n].up)||(KZOBL[n]&&KZOBL[n].up))?` (${lv}. st.)`:"";
 /* všechna posílení na kartě: vlastní účinky (kouzlo na sebe) a účinky od jiných postav */
 const kBufAll=K=>[...kUc(K).filter(u=>!/ ⇒ /.test(u.n||"")).map(u=>({n:kzJm(u.n),l:kzSt(u.n),od:K.n,vl:1,u})),...(typeof kBufy==="function"?kBufy(K):[]).map(b=>({n:kzJm(b.n),l:kzSt(b.n),od:b.od}))];
 const kBufEf=K=>kBufAll(K).map(b=>Object.assign({e:KZEF[b.n]},b)).filter(b=>b.e);
@@ -48,7 +48,7 @@ function kBufHtml(K){const B=kBufEf(K);if(!B.length)return "";
   return `<ul class="kuc kbufl">${B.map(b=>`<li>${kKonI()} <b>${besc(b.n)}</b>${b.od!==K.n?` <small>od ${besc(b.od)}</small>`:""} <small>${besc(b.e.p||"")}</small></li>`).join("")}</ul>`}
 
 /* ---- seslání: dočasné HP na sebe (False Life, Armor of Agathys), maximum HP cílům (Aid) ---- */
-async function kSesPo(K,sp,lvl){const nm=kzJm(sp.n),e=KZEF[nm];if(!e)return;
+async function kSesPo(K,sp,lvl){const nm=kzJm(sp.n);if(typeof KZSUM!=="undefined"&&KZSUM[nm]){await kSumNovy(K,sp,lvl);return}const e=KZEF[nm];if(!e)return;
   if(e.thp){const v=e.thp(lvl),r=v.x?kVyraz(v.x):null,n=v.n!=null?v.n:r?r.tot:0;if(n>0){const S=kartaStav(K.id),ma=+S.thp||0;
     if(n>ma){await kartaStavZmen(K.id,{thp:n},`${K.n}: ${nm} – dočasné HP ${n}${r?` (${r.txt})`:""}.`)}else mmHlasG(`${K.n}: ${nm} – ${n} dočasných HP, máš už ${ma} (nesčítají se).`,4000);
     kHodZapis({k:K.id,kdo:K.n,co:`${nm} – dočasné HP`,tot:n,txt:r?r.txt:`${n}`})}}
@@ -62,7 +62,7 @@ function bojUcKola(s){if(!GMV||!s||!s.aktivni)return;const now={k:s.kolo||1,t:s.
   Object.keys(B).forEach(key=>{const v=B[key];if(!zive.has(key)){delete B[key];return}const upl=(now.k-v.k)-(now.t<v.t?1:0);if(upl>=v.r){const i=key.indexOf("|");(pryc[key.slice(0,i)]=pryc[key.slice(0,i)]||[]).push(key.slice(i+1));delete B[key]}});
   if(Object.keys(B).length)s.ucb=B;else delete s.ucb;
   Object.entries(pryc).forEach(([kid,L])=>setTimeout(()=>kUcKonci(KARTBY[kid],L,"vypršelo (kola boje)"),0))}
-async function kUcKonci(K,L,proc){if(!K)return;const U=kUc(K),ko=U.filter(u=>L.includes(u.n));if(!ko.length)return;
+async function kUcKonci(K,L,proc){if(!K)return;const U=kUc(K),ko=U.filter(u=>L.includes(u.n));if(!ko.length)return;try{await kSumKonec(K,ko.map(u=>kzJm(u.n)))}catch(e){}
   if(ko.some(u=>u.kon)){await kKonZtrata(K,`${ko.map(u=>u.n).join(", ")} ${proc}`);const zb=kUc(K).filter(u=>L.includes(u.n));if(zb.length)await kartaStavZmen(K.id,{uc:kUc(K).filter(u=>!L.includes(u.n)).length?kUc(K).filter(u=>!L.includes(u.n)):null},null,{bezZpet:true})}
   else{const zb=U.filter(u=>!L.includes(u.n));await kartaStavZmen(K.id,{uc:zb.length?zb:null},null,{bezZpet:true});kHodZapis({k:K.id,kdo:K.n,co:"Účinek skončil",txt:`${ko.map(u=>u.n).join(", ")} ${proc}`})}
   if(curView==="boj")renderBoj()}
@@ -91,17 +91,19 @@ const KZOPAK={
   "Flame Blade":{typ:"ut",z:"3d6",mod:1,up:[2,"1d6"],t:"Fire",cas:"A"},
   "Dragon's Breath":{typ:"zach",ab:"AGI",z:"3d6",up:[2,"1d6"],t:"Fire",pol:1,cas:"A"},
   "Sunbeam":{typ:"zach",ab:"CON",z:"6d8",t:"Radiant",pol:1,cas:"A"},
-  "Melf's Minute Meteors":{typ:"zach",ab:"AGI",z:"2d6",t:"Fire",pol:1,cas:"BA"}};
+  "Melf's Minute Meteors":{typ:"zach",ab:"AGI",z:"2d6",t:"Fire",pol:1,cas:"BA"},
+  "Healing Spirit":{typ:"lec",z:"1d6",up:[2,"1d6"],t:"",cas:"BA"}};
 /* zranění podle stupně: „1d8“ + (stupeň − základ) × „1d8“ */
 function kzZr(o,lvl,mod){let z=o.z;if(o.up&&lvl>o.up[0]){const [n,s]=o.up[1].split("d").map(Number),m=z.match(/^(\d+)d(\d+)/);const k=(lvl-o.up[0])*n;z=m&&+m[2]===s?z.replace(/^\d+d\d+/,`${+m[1]+k}d${s}`):`${z}+${k}d${s}`}
   if(o.mod&&mod)z+=(mod>0?"+":"")+mod;return z}
 /* aktivní opakovatelná kouzla postavy (vlastní účinek se stupněm) */
 const kOpakAkt=K=>kUc(K).filter(u=>!/ ⇒ /.test(u.n||"")&&KZOPAK[kzJm(u.n)]).map(u=>{const n=kzJm(u.n),o=KZOPAK[n],sp=kSeznam(K).find(x=>x.n===n),l=kzSt(u.n)||(sp&&sp.st)||(kSp(n)||{}).l||1;return {n,o,l}});
 function bojOpakHtml(K){const L=kOpakAkt(K);if(!L.length)return "";
-  return `<div class="bjur bopak"><span class="bkzlh">↻ Trvající kouzla</span>${L.map(q=>`<button type="button" class="gbtn ghost" data-bopak="${besc(q.n)}" ${btip(`${q.n}${q.l>1?` (${q.l}. st.)`:""}: ${q.o.typ==="ut"?"útok kouzlem":q.o.typ==="zach"?`záchrana ${q.o.ab}`:"zranění bez hodu"} · ${kzZr(q.o,q.l,kSpMod(K))} ${BZRT[q.o.t]||q.o.t} · ${q.o.cas==="BA"?"bonusová akce":"akce"} · bez slotu`)}>↻ ${besc(q.n)} <small>${q.o.cas==="BA"?"BA":"A"}</small></button>`).join("")}</div>`}
+  return `<div class="bjur bopak"><span class="bkzlh">↻ Trvající kouzla</span>${L.map(q=>`<button type="button" class="gbtn ghost" data-bopak="${besc(q.n)}" ${btip(`${q.n}${q.l>1?` (${q.l}. st.)`:""}: ${q.o.typ==="ut"?"útok kouzlem":q.o.typ==="zach"?`záchrana ${q.o.ab}`:q.o.typ==="lec"?"léčení":"zranění bez hodu"} · ${kzZr(q.o,q.l,kSpMod(K))} ${BZRT[q.o.t]||q.o.t} · ${q.o.cas==="BA"?"bonusová akce":"akce"} · bez slotu`)}>↻ ${besc(q.n)} <small>${q.o.cas==="BA"?"BA":"A"}</small></button>`).join("")}</div>`}
 /* připraví list útoku: hod se odešle vypravěči jako běžný útok (bez slotu, bez nového soustředění) */
 function bojOpak(n){const s=BOJ.s||{},me=(s.hraci||[]).find(h=>h.n===bojJa.get()),K=me&&bojKartaH(me);if(!K)return;const q=kOpakAkt(K).find(x=>x.n===n);if(!q)return;
   const o=q.o,z=kzZr(o,q.l,kSpMod(K)),c=(s.npc||[]).find(x=>x.id===BJU.cil);
+  if(o.typ==="lec"){const P=(s.hraci||[]).map(h=>bojKartaH(h)).filter(Boolean);kVyber(`${n}: koho vyléčit?`,P.map(k=>k.n)).then(async v=>{const C=P.find(k=>k.n===v);if(!C)return;const r=kVyraz(z);if(r&&r.tot>0){await kLecKarta(C,r.tot,K,n);kHodZapis({k:K.id,kdo:K.n,co:`${n} – léčení`,tot:r.tot,txt:`${r.txt} → ${C.n}`})}renderBoj()});return}
   Object.assign(BJU,{zi:"",ks:null,sl:"",cim:n,t:o.t,drt:false,pru:false,ef:[],kmin:null,serie:null,zav:null,dal:!!o.dal});
   if(o.typ==="zach"){const r=kVyraz(z);Object.assign(BJU,{plos:true,ab:o.ab,dc:String(kSpDC(K)||""),pol:!!o.pol,dmg:String(r?r.tot:0),hod:"",d:""});if(BJU.cil&&!BJU.cile.includes(BJU.cil))BJU.cile=[BJU.cil];
     BJU.info=`${n} (bez slotu): záchrana ${o.ab} SO ${BJU.dc}, zranění ${r?r.txt:z} = ${r?r.tot:0}${o.pol?" · úspěch = polovina":""}. Vyber cíle a odešli.`}
@@ -193,3 +195,87 @@ async function vyzvaProtiOdpoved(v,K,pouzit){let r={tot:0,txt:"nechal být"};
   if(pouzit){const x=kSeznam(K).find(q=>q.n==="Counterspell");if(!x||await kartaSeslat(K,x)===false)return null;const s=BOJ.s||{},h=(s.hraci||[]).find(q=>bojKartaH(q)===K);
     if(h)bojHracAkce(h.id,(hh,z)=>{z.reak=z.reak||{};z.reak[h.id]=1});r={tot:1,d:Math.max(0,Math.min(100,kSpDC(K,x)||0)),txt:`Counterspell, SO ${kSpDC(K,x)}`}}
   return r}
+
+/* ===== Další kouzla (2026-10-20 b): léčení a obnova, zbraňová kouzla, obrana a reakce, vyvolaní tvorové =====
+   kVyber – malá nabídka s tlačítky (podoba vyvolaného tvora, stav k ukončení); vrací Promise s volbou nebo null */
+function kVyber(nadpis,moznosti){return new Promise(res=>{let hot=false;const d=mmPop(`<div class="kvyb"><h3 class="uvh2">${besc(nadpis)}</h3><p>${moznosti.map((m,i)=>`<button type="button" class="gbtn" data-kvyb="${i}">${besc(m)}</button>`).join(" ")}</p></div>`);
+  const fin=v=>{if(hot)return;hot=true;document.removeEventListener("click",h,true);mmPopX();res(v)};
+  const h=e=>{const b=e.target.closest&&e.target.closest("[data-kvyb],[data-mmpopx]");if(!b){if(e.target.classList&&e.target.classList.contains("mmpop"))fin(null);return}e.preventDefault();e.stopPropagation();fin(b.dataset.kvyb!=null?moznosti[+b.dataset.kvyb]:null)};
+  document.addEventListener("click",h,true)})}
+/* ---- léčení a obnova (seslání s cíli z družiny) ---- */
+const KZLEC={"Heal":{hp:70,up:[6,10],st:["oslepen","ohlušen","otrávený"]},"Mass Heal":{hp:700,rozdel:1,st:["oslepen","ohlušen","otrávený"]},
+  "Power Word Heal":{hp:"max",st:["okouzlen","vyděšený","ochromen","otrávený","omráčen"]},"Prayer of Healing":{x:"2d8",up:[2,"1d8"]},
+  "Spare the Dying":{stab:1},"Revivify":{ozivit:1},"Lesser Restoration":{vyber:["oslepen","ohlušen","ochromen","otrávený"]},
+  "Greater Restoration":{vyber:["okouzlen","zkamenělý","vyčerpání −1"]},"Dispel Magic":{rozptyl:1}};
+const kBojH=K=>((BOJ.s&&BOJ.s.aktivni&&BOJ.s.hraci)||[]).find(x=>bojKartaH(x)===K);
+async function kStavyOdeber(C,L,od){const S=kartaStav(C.id),h=kBojH(C),ma=[...new Set([...(S.stavy||[]),...((h&&h.stav)||[])])].filter(x=>L.includes(x));if(!ma.length)return [];
+  if(!(GMV||kMuze(C))){mmHlasG(`${C.n}: ${ma.join(", ")} – stav zruší vypravěč nebo hráč postavy (k jeho kartě nemáš přístup).`,5000);return ma}
+  const st=(S.stavy||[]).filter(x=>!ma.includes(x));if((S.stavy||[]).length!==st.length)await kartaStavZmen(C.id,{stavy:st.length?st:null},null);
+  if(h)bojHracAkce(h.id,x=>{x.stav=(x.stav||[]).filter(q=>!ma.includes(q));if(!x.stav.length)delete x.stav;(x.ef||[]).filter(e=>ma.includes(e.st)).forEach(e=>bojEfDel(x,e))});
+  kHodZapis({k:C.id,kdo:C.n,co:`${od}: stav končí`,txt:ma.join(", ")});return ma}
+/* vrací true, když kouzlo obsloužilo celé (jinak pokračuje běžné seslání v kSesDlgOk) */
+async function kSesSpec(K,x,lvl,C,N){const nm=x.n,o=KZLEC[nm];
+  if(!o)return false;if(o.rozptyl){if(N&&N.length&&GMV){await bojZmen(z=>N.forEach(n0=>{const n=(z.npc||[]).find(q=>q.id===n0.id);if(n)bojEfZnac(z,n,"Dispel Magic",{h:null})}));mmHlasG(`${nm}: kouzla na cíli končí (u kouzel nad ${lvl}. stupněm ověř sesílací vlastnost proti SO 10 + stupeň).`,5000)}return !!(N&&N.length&&GMV)}
+  if(!C.length){mmHlasG(`${nm}: vyber cíl z družiny.`,3000);return true}
+  const zprava=[];
+  if(o.hp!=null||o.x){let zb=o.rozdel?o.hp:null;const r=o.x?kVyraz(kzZr({z:o.x,up:o.up},lvl,0)):null;
+    for(const c of C){const S=kartaStav(c.id),mx=kHPmax(c),cur=kHpOf(c,S),chybi=Math.max(0,mx-cur);let n=o.hp==="max"?chybi:o.rozdel?Math.min(chybi,zb):o.x?(r?r.tot:0):o.hp+(o.up&&lvl>o.up[0]?(lvl-o.up[0])*o.up[1]:0);
+      if(o.rozdel)zb-=n;if(n>0)await kLecKarta(c,n,K,nm);zprava.push(`${c.n} +${n}`);if(o.st)await kStavyOdeber(c,o.st,nm)}
+    if(r)kHodZapis({k:K.id,kdo:K.n,co:`${nm} – léčení`,tot:r.tot,txt:r.txt})}
+  if(o.stab||o.ozivit)for(const c of C){const h=kBojH(c);if(!h){mmHlasG(`${c.n}: ${o.stab?"stabilizaci":"oživení"} zapiš na kartě (mimo boj).`,4000);continue}
+    if(o.stab&&!(h.ds&&h.ds.st!=="mrtev")){mmHlasG(`${c.n} neleží v bezvědomí – ${nm} nemá účinek.`,3500);continue}
+    if(o.ozivit&&!(h.ds&&h.ds.st==="mrtev")){mmHlasG(`${c.n} není mrtvý – ${nm} nemá účinek.`,3500);continue}
+    if(GMV||kMuze(c)){if(o.stab)bojHracAkce(h.id,q=>{q.ds={u:3,n:(q.ds&&q.ds.n)||0,st:"stab"}});else bojPCZmena(h.id,q=>{q.ds=undefined;q.hp=1;return "oživen s 1 HP"});zprava.push(`${c.n}: ${o.stab?"stabilizován":"oživen s 1 HP"}`)}
+    else mmHlasG(`${c.n}: ${nm} – zapíše vypravěč.`,4000)}
+  if(o.vyber)for(const c of C){const S=kartaStav(c.id),h=kBojH(c),ma=[...new Set([...(S.stavy||[]),...((h&&h.stav)||[])])].filter(q=>o.vyber.includes(q));const vy=o.vyber.includes("vyčerpání −1")&&+S.vycerp>0;
+    const L=[...ma,...(vy?["vyčerpání −1"]:[])];if(!L.length){mmHlasG(`${c.n}: nemá žádný stav, který ${nm} ukončí.`,3500);continue}
+    const v=L.length===1?L[0]:await kVyber(`${nm}: co ukončit u ${c.n}?`,L);if(!v)continue;
+    if(v==="vyčerpání −1"){if(GMV||kMuze(c)){await kartaStavZmen(c.id,{vycerp:+S.vycerp>1?+S.vycerp-1:null},`${c.n}: vyčerpání −1.`);zprava.push(`${c.n}: vyčerpání −1`)}}else{await kStavyOdeber(c,[v],nm);zprava.push(`${c.n}: ${v} končí`)}}
+  if(zprava.length)mmHlasG(`${K.n} – ${nm}: ${zprava.join(" · ")}.`,5000);return true}
+
+/* ---- zbraňová kouzla jako přídavky k útoku zbraní (kEfekty): Magic Weapon a Elemental Weapon samy, dokud trvají;
+   True Strike, Shillelagh, Green-Flame Blade a Booming Blade se zaškrtnou k útoku (sesílací vlastnost místo STR/AGI, kostky podle úrovně) ---- */
+const kZbrAb=(K,a)=>{const vl=String((a&&a.vl||[]).join(" ")+" "+((a&&a.p)||"")),s=kMd(K,"STR"),g=kMd(K,"AGI");return a&&a.dal?g:/finesse|jemn/i.test(vl)?Math.max(s,g):s};
+function kEfKouzla(K){const L=[],nm=new Set(kSeznam(K).map(x=>String(x.n).toLowerCase())),zna=n=>nm.has(n.toLowerCase()),uc=kUc(K),akt=n=>uc.find(u=>kzJm(u.n)===n&&!/ ⇒ /.test(u.n||"")),ul=kLv(K),tier=ul>=17?3:ul>=11?2:ul>=5?1:0,sm=kSpMod(K);
+  {const u=akt("Magic Weapon");if(u){const l=kzSt(u.n)||2,b=l>=6?3:l>=3?2:1;L.push({n:`Magic Weapon +${b}`,ut:b,zr:b,auto:1,pozn:`kouzlo trvá: +${b} k útoku a zranění zbraní`})}}
+  {const u=akt("Elemental Weapon");if(u){const l=kzSt(u.n)||3,b=l>=7?3:l>=5?2:1;L.push({n:`Elemental Weapon +${b}`,ut:b,zr:`${b}d4`,auto:1,pozn:`kouzlo trvá: +${b} k útoku a +${b}d4 zvoleného typu (Acid, Cold, Fire, Lightning, Thunder)`})}}
+  if(zna("True Strike"))L.push({n:"True Strike",f:a=>({ut:sm-kZbrAb(K,a),zr:tier?`${tier}d6`:sm-kZbrAb(K,a)}),t:tier?"Radiant":"",pozn:`útok zbraní se sesílací vlastností místo STR/AGI${tier?`, +${tier}d6 Radiant`:""} (seslání triku je součástí útoku)`});
+  if(zna("Shillelagh")||akt("Shillelagh"))L.push({n:"Shillelagh",auto:!!akt("Shillelagh"),jen:a=>/club|quarterstaff|kyj|hůl|palice/i.test(String(a&&a.n||"")),f:a=>({ut:sm-kMd(K,"STR"),zr:sm-kMd(K,"STR")}),pozn:`kyj nebo hůl: útok a zranění se sesílací vlastností, kostka zranění ${ul>=17?"2d6":ul>=11?"d12":ul>=5?"d10":"d8"} (oprav, je-li zbraň menší)`});
+  if(zna("Green-Flame Blade"))L.push({n:"Green-Flame Blade",blizko:1,zr:tier?`${tier}d8`:0,t:"Fire",pozn:`zásah zblízka${tier?` +${tier}d8 Fire`:""}; jiná bytost do 5 stop od cíle utrpí ${tier?`${tier}d8 + `:""}${sm} Fire`});
+  if(zna("Booming Blade"))L.push({n:"Booming Blade",blizko:1,zr:tier?`${tier}d8`:0,t:"Thunder",pozn:`zásah zblízka${tier?` +${tier}d8 Thunder`:""}; pohne-li se cíl dobrovolně před tvým dalším tahem, utrpí ${tier+1}d8 Thunder`});
+  return L}
+
+/* ---- vyvolaní tvorové: seslání vytvoří společníka na kartě (AC, HP a útoky podle stupně, útok = tvůj útok kouzlem), v boji ho rovnou pošle do boje;
+   s koncem kouzla (soustředění, trvání) zmizí. ⌊L/2⌋ útoků za akci. ---- */
+const KZSUM={
+  "Summon Beast":{min:2,v:{"Pozemní":{hp:30},"Vzdušný":{hp:20},"Vodní":{hp:30}},ac:l=>11+l,hp:(b,l)=>b+5*(l-2),ut:[{n:"Rend",z:l=>`1d8+${4+l}`,t:"Piercing"}]},
+  "Summon Fey":{min:3,v:{"Rozzlobený":{},"Veselý":{},"Lstivý":{}},ac:l=>12+l,hp:(b,l)=>30+10*(l-3),ut:[{n:"Fey Blade",z:l=>`2d6+${3+l}`,t:"Force"}]},
+  "Summon Undead":{min:3,v:{"Přízračný":{hp:30,ut:[{n:"Deathly Touch",z:l=>`1d8+${3+l}`,t:"Necrotic"}]},"Hnilobný":{hp:30,ut:[{n:"Rotting Claw",z:l=>`1d6+${3+l}`,t:"Slashing"}]},"Kostlivý":{hp:20,ut:[{n:"Grave Bolt",z:l=>`2d4+${3+l}`,t:"Necrotic"}]}},ac:l=>11+l,hp:(b,l)=>b+10*(l-3)},
+  "Summon Aberration":{min:4,v:{"Beholderkin":{ut:[{n:"Eye Ray",z:l=>`1d8+${3+l}`,t:"Psychic"}]},"Slaad":{ut:[{n:"Claws",z:l=>`1d10+${3+l}`,t:"Slashing"}]},"Mind Flayer":{ut:[{n:"Psychic Slam",z:l=>`1d8+${3+l}`,t:"Psychic"}]}},ac:l=>11+l,hp:(b,l)=>40+10*(l-4)},
+  "Summon Construct":{min:4,v:{"Hliněný":{},"Kovový":{},"Kamenný":{}},ac:l=>13+l,hp:(b,l)=>40+15*(l-4),ut:[{n:"Slam",z:l=>`1d8+${4+l}`,t:"Bludgeoning"}]},
+  "Summon Elemental":{min:4,v:{"Zemní":{t:"Bludgeoning"},"Vodní":{t:"Cold"},"Vzdušný":{t:"Lightning"},"Ohnivý":{t:"Fire"}},ac:l=>11+l,hp:(b,l)=>50+10*(l-4),ut:[{n:"Slam",z:l=>`1d10+${4+l}`,t:"Bludgeoning"}]},
+  "Summon Celestial":{min:5,v:{"Mstitel":{ut:[{n:"Radiant Bow",z:l=>`2d6+${2+l}`,t:"Radiant"}]},"Obránce":{ac:2,ut:[{n:"Radiant Mace",z:l=>`1d10+${3+l}`,t:"Radiant"}]}},ac:l=>11+l,hp:(b,l)=>40+10*(l-5)},
+  "Summon Fiend":{min:6,v:{"Démon":{hp:50,ut:[{n:"Bite",z:l=>`1d12+${3+l}`,t:"Necrotic"}]},"Ďábel":{hp:40,ut:[{n:"Hurl Flame",z:l=>`2d6+${3+l}`,t:"Fire"}]},"Yugoloth":{hp:60,ut:[{n:"Claws",z:l=>`1d8+${3+l}`,t:"Slashing"}]}},ac:l=>12+l,hp:(b,l)=>b+15*(l-6)},
+  "Summon Dragon":{min:5,v:{"Drak":{}},ac:l=>14+l,hp:(b,l)=>50+10*(l-5),ut:[{n:"Rend",z:l=>`1d6+${4+l}`,t:"Piercing"}]},
+  "Summon Shadowspawn":{min:3,v:{"Hněv":{},"Zoufalství":{},"Strach":{}},ac:l=>11+l,hp:(b,l)=>35+15*(l-3),ut:[{n:"Chilling Rend",z:l=>`1d12+${3+l}`,t:"Cold"}]},
+  "Giant Insect":{min:4,v:{"Stonožka":{},"Pavouk":{},"Vosa":{}},ac:l=>11+l,hp:(b,l)=>30+10*(l-4),ut:[{n:"Poison Jab",z:l=>`1d6+${3+l}`,t:"Piercing"}]},
+  "Find Steed":{min:2,v:{"Nebešťan":{t:"Radiant"},"Víla":{t:"Psychic"},"Běs":{t:"Necrotic"}},ac:l=>10+l,hp:(b,l)=>5+10*l,ut:[{n:"Otherworldly Slam",z:l=>`1d8+${l}`,t:"Radiant"}],jeden:1}};
+async function kSumNovy(K,x,lvl){const D=KZSUM[x.n];if(!D)return;const l=Math.max(D.min,lvl||D.min),vs=Object.keys(D.v),vn=vs.length===1?vs[0]:await kVyber(`${x.n}: jaká podoba?`,vs);if(!vn)return;const V=D.v[vn];
+  const hp=Math.max(1,Math.round(D.hp(V.hp||0,l))),ac=D.ac(l)+(V.ac||0),ut=(V.ut||D.ut).map(a=>({n:a.n,b:Math.max(-5,Math.min(30,kSpUt(K))),z:a.z(l),t:V.t&&a.n!=="Rend"?V.t:a.t}));
+  const S=kartaStav(K.id),L=(S.spol||[]).filter(s=>s.kz!==x.n),n=`${x.n.replace(/^Summon |^Find /,"")} – ${vn}`.slice(0,60);
+  L.push({n,druh:"vyvolaný tvor",hp,max:hp,ac,ut,kz:x.n,pozn:`${x.n} (${l}. st.): útoků za akci ${D.jeden?1:Math.max(1,Math.floor(l/2))}; jedná hned po tobě. Zmizí s koncem kouzla.`});
+  await kartaStavZmen(K.id,{spol:L.slice(-8)},`${K.n}: ${n} – AC ${ac}, HP ${hp}.`);
+  const B=typeof kSpolBoj==="function"?kSpolBoj(K):null,i=L.length-1;
+  if(B){const sid=kSpolId(K,i),o={id:sid,n,ac,hpc:hp,hpm:hp,ut:ut.map(a=>Object.assign({n:a.n.slice(0,40),b:a.b},/^[0-9]{0,2}d[0-9]{1,3}([+-][0-9]{1,2})?$/.test(a.z)?{z:a.z}:{},BZTYPY.includes(a.t)?{t:a.t}:{}))};try{await bojDB.hrac(B.me.id,"spol",o);mmHlasG(`${n} je v boji jako spojenec.`,3500)}catch(e){}}
+  else if(GMV&&BOJ.s&&BOJ.s.aktivni&&kBojH(K)){const h=kBojH(K),sid=kSpolId(K,i);await bojZmen(z=>{z.npc=(z.npc||[]).filter(q=>q.id!==sid);z.npc.push({id:sid,n,str:"h",druh:"pacholek",vl:h.id,spol:true,ac,hpc:hp,hpm:hp,ut})})}}
+/* konec kouzla: vyvolaný tvor zmizí z karty i z boje */
+async function kSumKonec(K,jm){const S=kartaStav(K.id),L=S.spol||[],pryc=L.map((s,i)=>[s,i]).filter(([s])=>s.kz&&jm.includes(s.kz));if(!pryc.length)return;
+  const B=typeof kSpolBoj==="function"?kSpolBoj(K):null;for(const [,i] of pryc){const sid=kSpolId(K,i);try{if(B)await bojDB.hrac(B.me.id,"spol",{id:sid,x:true});else if(GMV&&BOJ.s&&BOJ.s.aktivni)await bojZmen(z=>{z.npc=(z.npc||[]).filter(q=>q.id!==sid)})}catch(e){}}
+  const zb=L.filter(s=>!(s.kz&&jm.includes(s.kz)));await kartaStavZmen(K.id,{spol:zb.length?zb:null},`${K.n}: ${pryc.map(([s])=>s.n).join(", ")} mizí – kouzlo skončilo.`)}
+
+/* ---- obranná kouzla: Blade Ward (útoky proti postavě −1d4), Blink (na konci tahu d6) ---- */
+Object.assign(KZEF,{"Blade Ward":{utMinus:1,p:"útoky proti tobě −1d4"},"Blink":{blink:1,p:"na konci každého tvého tahu d6: 4–6 odejdeš do Éteru do začátku dalšího tahu"},
+  "Enhance Ability":{p:"výhoda na ověření zvolené vlastnosti"},"Resistance":{p:"zranění zvoleného typu −1d4, jednou za tah"},"Magic Weapon":{p:"zbraň +1 k útoku a zranění (+2 ze slotu 3.–5., +3 ze slotu 6+)"},
+  "Elemental Weapon":{p:"zbraň +1 k útoku a +1d4 zvoleného typu (vyšší sloty víc)"},"Shillelagh":{p:"kyj nebo hůl: sesílací vlastnost, větší kostka zranění"}});
+const kBufUtMinus=K=>K&&kBufEf(K).some(b=>b.e.utMinus);
+function bojBufKonecTahu(s,h){if(!GMV)return;const K=bojKartaH(h);if(!K||!kBufEf(K).some(b=>b.e.blink))return;const d=bK(6);bojMsg(h.id,`Blink: d6 ${d} → ${d>=4?"odchází do Éteru do začátku svého dalšího tahu":"zůstává"}.`);bojLog(h.id,{n:"Blink",ci:h.id,zt:`d6 ${d} – ${d>=4?"v Éteru":"zůstává"}`},h.n)}

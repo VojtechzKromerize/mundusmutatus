@@ -417,10 +417,10 @@ function bojUtok(n,ai,a0){const E=bojEff(n);if(!E)return;{const nes=bojNeschopny
   const am=BADV[n.id]==null?"auto":BADV[n.id],nv0=bojAdvNavrh(S,n,a),av=am==="auto"?nv0:{v:+am,why:[]};
   if(nv0.bezv&&cil){o.bezv=cid;o.bezvZbl=!nv0.dal}
   /* Bless a Bane na NPC (značka z kouzla hráče): ±1d4 k útoku */
-  const bb=(n.ef||[]).some(e=>/^Bless\b/.test(e.n))?bK(4):0,bn=(n.ef||[]).some(e=>/^Bane\b/.test(e.n))?bK(4):0;
+  const bb=(n.ef||[]).some(e=>/^Bless\b/.test(e.n))?bK(4):0,bn=((n.ef||[]).some(e=>/^Bane\b/.test(e.n))?bK(4):0)+(cil&&!cil.druh&&typeof kBufUtMinus==="function"&&kBufUtMinus(bojKartaH(cil))?bK(4):0);
   if(a.b!=null){const pres=houf?bojPres(S,n):0,b=a.b+pres+bb-bn,d1=bK(20),d2=av.v?bK(20):null,d=av.v>0?Math.max(d1,d2):av.v<0?Math.min(d1,d2):d1;krit=d===20;
     const os19=d===19&&/ostr/i.test(a.p||"")&&bojTypy(a).length===1&&bojTypy(a)[0]==="Slashing"&&cil&&!bojMaRes(cil,"Slashing");if(os19)krit=true;
-    o.hod={tot:d+b,d,b,pres,krit,mis:d===1,adv:av.v,dd:d2!=null?[d1,d2]:null,advWhy:[...av.why,...(bb?[`Bless +${bb}`]:[]),...(bn?[`Bane −${bn}`]:[])].join(", "),kryt:nv0.kryt||0,o19:!krit&&d===19&&/ostr/i.test(a.p||"")&&!/^(Piercing|Bludgeoning)$/.test(String(a.zt||"").trim()),os19}}
+    o.hod={tot:d+b,d,b,pres,krit,mis:d===1,adv:av.v,dd:d2!=null?[d1,d2]:null,advWhy:[...av.why,...(bb?[`Bless +${bb}`]:[]),...(bn?[`Bane/Blade Ward −${bn}`]:[])].join(", "),kryt:nv0.kryt||0,o19:!krit&&d===19&&/ostr/i.test(a.p||"")&&!/^(Piercing|Bludgeoning)$/.test(String(a.zt||"").trim()),os19}}
   else if(a.dc)o.dc=a.dc;
   /* zranění se hází až po zásahu (2026-10-18): proti známé AC (postava s kartou, nepřítel s AC) jen při zásahu; bez cíle nebo AC
      se hodí až tlačítkem „Zásah – hodit zranění“; útok se záchranou (SO) hází zranění hned (polovina při úspěchu) */
@@ -434,7 +434,7 @@ function bojUtok(n,ai,a0){const E=bojEff(n);if(!E)return;{const nes=bojNeschopny
   {const K=cil&&!cil.druh?bojKartaH(cil):null;if(K&&o.hod){const AC=kAC(K)+(+cil.kryt||0);o.pcAC=AC;o.pcHit=o.hod.krit||(!o.hod.mis&&o.hod.tot>=AC);o.pcId=cid}else if(K&&a.auto){o.pcHit=true;o.pcId=cid}}
   if(cil&&!cil.druh&&(cil.stav||[]).includes("soustředí")&&o.zr&&o.pcHit!==false)o.kon=`${cil.n} drží soustředění: CON záchrana SO ${bojKonDC(o.zr.t)} – hráč si ji hodí sám`;
   let pz=null;{const K=cil&&!cil.druh?bojKartaH(cil):null;if(K&&o.pcHit&&o.zr&&o.zr.t>0&&bojPcAuto.get()&&GMV){pz=bojPcZasah(o,cid,K);if(pz){o.pcAuto=pz.msg||"bez zranění"}}}
-  {const ver=cil&&bojVerej(S,cid);const ze={a:n.n,ai:n.id,c:cil?cil.n:"",ci:cid||"",cim:a.n,v:o.hod?(o.hod.krit?"kritický zásah":o.hod.mis?"vedle":o.pcAC!=null?(o.pcHit?`zásah (${o.hod.tot})`:`vedle (${o.hod.tot})`):`útok ${o.hod.tot}`):o.dc?String(o.dc):"",z:ver&&o.zr&&!(o.hod&&o.hod.mis)&&o.pcHit!==false?o.zr.t:0,t:o.zr?o.zr.zt:""};if(o.hod&&o.pcAC!=null){ze.hod=o.hod.tot;ze.ac=o.pcAC;if(o.hod.krit)ze.kr=1}if(pz){ze.ph=pz.ph;ze.pt=pz.pt;if(pz.pd)ze.pd=1;if(pz.kv)ze.kv=1;if(pz.ob)ze.ob=pz.ob;if(pz.pd)o.pcPad=pz.pod}if(o.zav&&(o.zav.r==="pok"||o.zav.r==="poz")){ze.zv=o.zav.r;ze.zd=o.zav.d}bojZaz(ze)}
+  {const ver=cil&&bojVerej(S,cid);const ze={a:n.n,ai:n.id,c:cil?cil.n:"",ci:cid||"",cim:a.n,v:o.hod?(o.hod.krit?"kritický zásah":o.hod.mis?"vedle":o.pcAC!=null?(o.pcHit?`zásah (${o.hod.tot})`:`vedle (${o.hod.tot})`):`útok ${o.hod.tot}`):o.dc?String(o.dc):"",z:ver&&o.zr&&!(o.hod&&o.hod.mis)&&o.pcHit!==false?o.zr.t:0,t:o.zr?o.zr.zt:""};if(o.hod&&o.pcAC!=null){ze.hod=o.hod.tot;ze.ac=o.pcAC;ze.d=o.hod.d;if(o.hod.krit)ze.kr=1}if(pz){ze.ph=pz.ph;ze.pt=pz.pt;if(pz.pd)ze.pd=1;if(pz.kv)ze.kv=1;if(pz.ob)ze.ob=pz.ob;if(pz.pd)o.pcPad=pz.pod}if(o.zav&&(o.zav.r==="pok"||o.zav.r==="poz")){ze.zv=o.zav.r;ze.zd=o.zav.d}bojZaz(ze)}
   if(bojRecharge(p).some(q=>q.n===a.n)){(BRCH[n.id]=BRCH[n.id]||{})[a.n]=1}
   {const N=bojUtokPocet(a);if(N>1){const S0=BOJ.s||{},tk=(S0.kolo||1)*100+(S0.tah||0),k=n.id+":"+ai,c=BNUT[k]&&BNUT[k].tk===tk?BNUT[k].i:0;o.un=`útok ${c+1} z ${N}`;BNUT[k]={tk,i:(c+1)%N}}}
   {const q=BMQ[n.id];if(q&&q.tk===bojMultiTk()&&q.i>0)o.un=`útok ${q.i} z ${q.seq.length} (celá akce)`}

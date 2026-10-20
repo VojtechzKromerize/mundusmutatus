@@ -494,11 +494,16 @@ function bojZasahHlidej(s,me){if(!me)return;const K=bojKartaH(me);const L=(s.zaz
 /* reakce, které postava může použít na zásah */
 function kReakceNaZasah(K,h,s,e){const o=[],rk=!!(s.reak||{})[h.id],hod=+e.hod,AC=+e.ac,ztr=(+e.ph||0)+(+e.pt||0),ry=n=>[...(K.rysy||[]),...(K.rysy2||[]).map(r=>r.n)].some(x=>n.test(String(x)));
   {const Z=kZbrU(K),zb=Z&&(Z.z&&Z.z.u<Z.z.max?Z.z:Z.s&&Z.s.u<Z.s.max?Z.s:null);if(e.kr&&zb)o.push({k:"obet",n:`Obětovat ${zb.k==="Štít"?"štít":zb.k.toLowerCase()+" zbroj"}${+e.ob?` – vrátí ${e.ob} HP`:""}`,t:`Kritický zásah se změní v běžný (Artikule): kostky zranění jen jednou${+e.ob?`, vrátí ${e.ob} HP`:""} a hod na kritické zranění odpadá. Není to reakce.`})}
-  if(rk)return {rk,o};const sez=kSeznam(K),sl=kSloty(K).filter(q=>q.u<q.max);
-  sez.forEach((x,i)=>{if(kCasKouzla(x)!=="R")return;const ok=x.st===0||sl.some(q=>q.st>=x.st);if(!ok)return;
+  /* reakční kouzla jen ta, která postava má (připravená, z předmětu či svitku) a na která jí zbývá slot nebo náboj (2026-10-20) */
+  if(rk)return {rk,o};const sez=kSeznam(K);
+  const o0=o.length;sez.forEach((x,i)=>{if(kCasKouzla(x)!=="R")return;const ok=x.st===0&&!x.pz||kSlX(K,x).length>0;if(!ok)return;
+    if(/^silvery barbs$/i.test(x.n)){const mz=!e.kr&&hod&&AC&&+e.d>0;o.push({k:"barbs",i,n:"Silvery Barbs – přehodit útok",t:mz?`Útočník přehodí d20 (${e.d}) a použije nižší: hod ${hod} proti AC ${AC}; když mine, vrátí ${ztr} HP`:"Útočník přehodí d20 a použije nižší výsledek"});return}
+    if(/^hellish rebuke$/i.test(x.n)){if(ztr>0&&e.ai)o.push({k:"rebuke",i,n:"Hellish Rebuke – oplatit",t:`Útočník: záchrana AGI proti tvému SO, 2d10 Fire (+1d10 za každý stupeň slotu nad 1), úspěch polovina – pošle se vypravěči`});return}
+    if(/^counterspell$/i.test(x.n))return;
     if(/^shield$/i.test(x.n)){const pom=!e.kr&&hod&&AC&&hod<AC+5;o.push({k:"shield",i,n:`Shield${pom?" – útok mine":" (+5 AC)"}`,t:pom?`Útok ${hod} proti AC ${AC}+5 = vedle: vrátí ${ztr} HP, slot ${x.st}. st.`:`+5 AC do tvého dalšího tahu, tento útok to nezmění (${e.kr?"kritický zásah":`hod ${hod||"?"}`})`});return}
     if(/^absorb elements$/i.test(x.n)){const el=/Acid|Cold|Fire|Lightning|Thunder/.test(e.t||"");o.push({k:"absorb",i,n:`Absorb Elements${el?" – polovina":""}`,t:el?`Resistance vůči ${e.t}: vrátí ${Math.ceil(ztr/2)} HP`:"Jen proti kyselinovému, mrazivému, ohnivému, bleskovému a hromovému zranění"});return}
     o.push({k:"kz",i,n:x.n,t:`Sešle ${x.n} jako reakci`})});
+  o.forEach((r,j)=>{if(j<o0||r.i==null)return;const x=sez[r.i];if(x&&x.pz)r.n+=` (${x.pz.sv?"svitek":String(x.pz.p||"předmět").replace(/^(Wand|Staff) of (the )?/,"")})`});
   if(ry(/^uncanny dodge$/i)&&ztr>0)o.push({k:"ud",n:"Uncanny Dodge – polovina",t:`Polovina zranění: vrátí ${Math.ceil(ztr/2)} HP`});
   if(ry(/^deflect attacks?$/i)&&ztr>0&&/Bludgeoning|Piercing|Slashing/.test(e.t||""))o.push({k:"da",n:"Deflect Attacks",t:`Sníží zranění o 1d10 + AGI + úroveň mnicha`});
   if(ry(/^defensive duelist$/i)&&!e.kr&&hod&&AC&&hod<AC+kPB(K))o.push({k:"dd",n:"Defensive Duelist – útok mine",t:`+${kPB(K)} AC proti útoku: vrátí ${ztr} HP`});
@@ -512,6 +517,11 @@ async function kZasahReakce(K,k,i){const z=BZAS;if(!z||z.kid!==K.id)return;const
     await kartaStavZmen(K.id,ch,null);if(KKON[K.id]){const zb=ztr-n;if(zb>0)KKON[K.id]=bojKonDC(zb);else delete KKON[K.id]}kHodZapis({k:K.id,kdo:K.n,co:`Reakce: ${proc}`,txt:`zásah od ${e.a||"nepřítele"}${e.hod?` (${e.hod})`:""}: vráceno ${n} HP`})};
   if(k==="obet"){await kObetujZbroj(K,h,e,vrat);renderBoj();return}/* obětování zbroje není reakce */
   bojHracAkce(h.id,(x,zz)=>{(zz.reak=zz.reak||{})[h.id]=1});
+  if(k==="barbs"){const sp=kSeznam(K)[+i];if(!sp||await kartaSeslat(K,sp)===false)return;const d0=+e.d||0,d2=bK(20),nd=d0?Math.min(d0,d2):d2,tot=d0?+e.hod-d0+nd:null,kr=nd===20;
+    kHodZapis({k:K.id,kdo:K.n,co:"Reakce: Silvery Barbs",txt:`útočník přehazuje d20 ${d0||"?"} → ${d2}, platí ${nd}${tot!=null?` = ${tot} proti AC ${e.ac}`:""}`});
+    if(tot!=null&&!kr&&tot<+e.ac)await vrat(ztr,"Silvery Barbs – útok minul");else if(e.kr&&!kr)mmHlas(`Silvery Barbs: útok stále zasahuje (${tot}), ale už ne kriticky – vypravěč sníží zranění.`,6000);else mmHlas(`Silvery Barbs: útok stále zasahuje (${tot!=null?tot:"?"}).`,5000);renderBoj();return}
+  if(k==="rebuke"){const sp=kSeznam(K)[+i];if(!sp)return;const q=kSlX(K,sp).sort((a,b)=>a.st-b.st)[0],l=q?q.st:1;if(await kartaSeslat(K,sp)===false)return;const r=kVyraz(`${1+l}d10`),dc=kSpDC(K,sp);
+    try{if(bojDB&&bojDB.utok)await bojDB.utok(h.id,{ci:[e.ai],cim:`Hellish Rebuke${l>1?` (${l}. st.)`:""}`,t:"Fire",hod:0,dmg:r?r.tot:0,plos:{ab:"AGI",dc:dc||13,pol:true}});kHodZapis({k:K.id,kdo:K.n,co:"Reakce: Hellish Rebuke",txt:`${r?r.txt:""} Fire, AGI SO ${dc}`});mmHlas(`Hellish Rebuke: ${r?r.tot:0} Fire – útočník si hodí záchranu AGI u vypravěče.`,5000)}catch(err){mmHlas("Nepodařilo se poslat: "+(err.message||err),5000)}renderBoj();return}
   if(k==="shield"||k==="absorb"||k==="kz"){const sp=kSeznam(K)[+i];if(!sp)return;await kartaSeslat(K,sp);
     if(k==="shield"){const L=kUc(K).filter(x=>x.n!=="Shield");L.push({n:"Shield",ac:5,h:0.0017});await kartaStavZmen(K.id,{uc:L});if(!e.kr&&+e.hod<+e.ac+5)await vrat(ztr,"Shield – útok minul")}
     if(k==="absorb"&&/Acid|Cold|Fire|Lightning|Thunder/.test(e.t||""))await vrat(Math.ceil(ztr/2),"Absorb Elements")}

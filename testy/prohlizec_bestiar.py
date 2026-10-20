@@ -229,6 +229,16 @@ async def main():
       await kUcPridej(K,'Witch Bolt',1/60,true);bojJa.set(K.n);BJU.cil='n1';bojOpak('Witch Bolt');o.push(BJU.hod==='60'&&+BJU.dmg>=1&&+BJU.dmg<=12&&/bez slotu/.test(BJU.info));
       return o})()""")
     chk(r==[True]*12,"kouzla NPC (útok, Hold Person, záchrany ve stavu, Bane, oblast Spirit Guardians se soustředěním), Haste a Aid na kartě, trvání v kolech, Witch Bolt bez slotu: "+str(r))
+    r2=await k.evaluate("""(async()=>{const K=KARTBY.balduin,o=[];await kSpNacti();
+      await kartaStavZmen(K.id,{hp:10,stavy:['otrávený']});await kSesSpec(K,{n:'Heal',st:6},6,[K],[]);o.push(kartaStav(K.id).hp==null&&!(kartaStav(K.id).stavy||[]).length);
+      await kartaStavZmen(K.id,{stavy:['oslepen']});await kSesSpec(K,{n:'Lesser Restoration',st:2},2,[K],[]);o.push(!(kartaStav(K.id).stavy||[]).length);
+      await kUcPridej(K,'Magic Weapon (4. st.)',1,false);const at=kUtoky(K)[0],E=kEfAkt(K,[],at);o.push(E.some(e=>e.ut===2&&e.zr===2));
+      setTimeout(()=>{const b=document.querySelector('[data-kvyb]');b&&b.click()},400);await kSesPo(K,{n:'Summon Undead',st:3},4);const sp=(kartaStav(K.id).spol||[]).slice(-1)[0]||{};o.push(sp.ac===15&&sp.max===40&&sp.kz==='Summon Undead');
+      await kSumKonec(K,['Summon Undead']);o.push(!(kartaStav(K.id).spol||[]).some(s=>s.kz));
+      const R=kReakceNaZasah(K,BOJ.s.hraci[0],BOJ.s,{hod:17,ac:18,d:12,ph:5,ai:'n1',t:'Fire'});o.push(R.o.every(x=>!/Silvery|Hellish|Counterspell/.test(x.n))&&R.o.some(x=>/^Shield/.test(x.n)));
+      await bojZmen(z=>{z.npc[0].ef=[{n:'Hold Person',kdy:'kola',k:5,st:'ochromen',src:'h1'}];z.npc[0].stav=['ochromen']});await bojZmen(z=>{bojEfZnac(z,z.npc[0],'Dispel Magic',{h:null})});o.push(!(BOJ.s.npc[0].ef||[]).length&&!(BOJ.s.npc[0].stav||[]).includes('ochromen'));
+      return o})()""")
+    chk(r2==[True]*7,"Heal, Lesser Restoration, Magic Weapon, Summon Undead (vznik i konec), reakce jen z kouzel postavy, Dispel Magic: "+str(r2))
     await k.close()
     # hráč
     h=await b.new_page();h.on("pageerror",lambda e:err.append("hráč: "+str(e)[:300]))
