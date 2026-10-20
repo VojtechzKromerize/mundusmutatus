@@ -1,42 +1,36 @@
 ---
 id: chrlic
-nazev: Chrlič
-uroven: sok
-vyzva: 2 (450 XP)
+nazev: Chrliče
+uroven: houf
+pocet: 4
+vyzva: 450 XP za pacholka
 ac: 15
-hp: 67
-utok: Dva drápy +4, 2d4+2 · přelet: odletí bez Opportunity Attacks
-pozehnani: Strhne cíl ze střechy nebo hradby (AGI save DC 12, jinak spadne).
-pokuseni: Ztuhne: do konce kola je jen kamenem (AC 19, ale nejedná).
-nerest: Hlídání – neopustí stavbu, kterou hlídá. Kdo ji opustí, toho přestane pronásledovat.
-stitky: chrlič, katedrála, svatý Vít, kostel, střecha, kámen, Praha
+hp: 1
+utok: Drápy +4 · 4 Slashing za každého chrliče v dosahu cíle · let 60 stop · tuhý pacholek (kámen)
+bonus: 4
+komplikace: Chrlič útočníka strhne ze střechy, hradby nebo sedla: AGI save DC 12, jinak je Prone – a na římse padá.
+stitky: chrlič, chrliče, katedrála, svatý Vít, kostel, střecha, kámen, Praha, Kutná Hora
 utoky:
-  - Drápy | +4 | 2d4+2 Slashing | dva v jednom slotu
+  - Drápy | +4 | 4 za pacholka Slashing | dosah 5 stop; útočí z letu a odlétají bez Opportunity Attacks
 ---
-*„Chrliče na Svatém Vítu měly odvádět vodu. Od Noci Proměny odvádějí i zloděje.“*
+*„Chrliče na Svatém Vítu měly odvádět vodu. Od Noci Proměny odvádějí i zloděje – a nikdo neví, kolik jich na střeše skutečně žije.“*
 
-Kamenná zrůda ze střech katedrál a kostelů, kterou oživil Závoj. Ve dne sedí nehybně mezi ostatními chrliči a nikdo nepozná, který je živý.
+Kamenné zrůdy ze střech katedrál a kostelů, které oživil Závoj. Ve dne sedí nehybně mezi ostatními a nikdo nepozná, které jsou živé. V noci slétají ve smečce na toho, kdo leze, kde nemá.
 
-**Sok** · Medium bytost z kamene · **Sloty** 2 · **Výzva** 2 (450 XP)
+**Chrlič:** AC 15 · 1 HP · Rychlost 30 stop, let 60 stop · Imunita Poison; nedá se vyčerpat, zkamenět ani otrávit · Darkvision 60 stop, Stealth +4 · **Tuhý pacholek:** kámen – padá až na druhý zásah, ledaže zbraň je Drtivá nebo Průrazná
 
-**AC** 15 · **HP** 67 (9d8+27) · **Rychlost** 30 stop, let 60 stop · **Iniciativa** +0
+**Útok houfu – drápy:** +4 (+1 za každého dalšího chrliče, nejvýš +5), dosah 5 stop. **Zásah:** 4 Slashing za každého chrliče v dosahu cíle. Houf útočí z letu a po útoku odlétá, aniž by provokoval Opportunity Attacks.
 
-| STR | AGI | CON | INT | WIS | CHA |
-|:-:|:-:|:-:|:-:|:-:|:-:|
-| 15 (+2) | 11 (+0) | 16 (+3) | 6 (−2) | 11 (+0) | 7 (−2) |
-
-**Dovednosti** Stealth +4 · **Imunita** Poison; nedá se vyčerpat, zkamenět ani otrávit · **Smysly** Darkvision 60 stop · **Jazyky** mluví jazykem kamene
+**Záchrany houfu:** STR +2, CON +3, ostatní −1
 
 ## Vlastnosti
 
-- **Jako kámen.** Když se nehýbe, nedá se rozeznat od sochy.
-- **Přelet.** Když odlétá z dosahu nepřítele, neprovokuje Opportunity Attack.
+- **Jako kámen.** Houf, který se nehýbe, se nedá rozeznat od soch (Perception DC 18). V prvním kole útočí s výhodou.
+- **Střechy a římsy.** Na střeše, hradbě nebo věži mají domácí půdu: kdo tam s nimi bojuje, hází při každém Pokušení na pád (AGI save DC 12).
+- **Hlídači.** Neopustí stavbu, kterou hlídají. Kdo ji opustí, toho nepronásledují – a kdo se vrátí, toho čekají.
 
-## Akce (jedna v každém slotu)
+**Morálka.** Neprchají. Za svítání se vrátí na své místo a ztuhnou; palcát nebo kladivo z kamenické dílny (Drtivá) je zahání lépe než meč.
 
-- **Dva drápy.** Dvakrát sekne.
-- **Drápy.** +4, dosah 5 stop. **Zásah:** 2d4+2 Slashing.
-
-**Výkupné a kořist.** Nic než kámen. Kapitula ale ráda zaplatí za tichou střechu.
+**Kořist.** Nic než kámen. Kapitula ale ráda zaplatí za tichou střechu – a kameník za vzor.
 
 *Předloha: Gargoyle (D&D 2024), převedeno pro Mundus Mutatus.*
