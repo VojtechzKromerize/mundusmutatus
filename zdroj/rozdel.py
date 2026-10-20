@@ -42,6 +42,7 @@ JS = [
     ("15-karty-artikule.js", "/* ===== Karta postavy podle Artikulí"),
     ("16-srd-ukazky-sezeni-hrac.js", "/* ===== SRD 5.2.1: magické předměty"),
     ("17-karty-ii.js", "/* ===== Karta postavy II"),
+    ("17b-kouzla-ucinky.js", "/* ===== Kouzla: účinky na cílech"),
     ("18-pravidla-postavy.js", "/* ===== Pravidla postavy"),
     ("19-karty-beyond.js", "/* ===== karta jako D&D Beyond (2026-10-17 b)"),
     ("20-boj-hraci.js", "/* ===== útoky postav z telefonu"),

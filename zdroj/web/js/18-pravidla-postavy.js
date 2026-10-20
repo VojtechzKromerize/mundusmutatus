@@ -88,7 +88,8 @@ const KPDFV={zach:(K,a)=>(K.zach||{})[a],dov:(K,n)=>(K.dov||{})[n],ini:K=>K.ini,
 const KDLT=new WeakMap();
 function kDeltaRaw(K,t,a){const kk=K.vybaveni?K:(KST[K.id]||K);let M=KDLT.get(kk);if(!M||M.$p!==!!PRED||M.$m!==!!MIMO){M={$p:!!PRED,$m:!!MIMO};KDLT.set(kk,M)}const key=t+(a!=null?":"+a:"");if(!(key in M)){const p=KPDFV[t]?KPDFV[t](K,a):null;M[key]=p==null||p===""?0:(+p)-kSum(KR[t](kCtx(K,true),a))}return M[key]}
 function kDelta(K,t,a){const key=t+(a!=null?":"+a:"");return (kartaStav(K.id).pdfx||[]).includes(key)?0:kDeltaRaw(K,t,a)}
-function kHodn(K,t,a){const c=kCtx(K),L=KR[t](c,a).filter(x=>x[1]),d=kDelta(K,t,a);if(d)L.push(["z D&D Beyond",d]);return {v:kSum(L),L}}
+function kHodn(K,t,a){const c=kCtx(K),L=KR[t](c,a).filter(x=>x[1]),d=kDelta(K,t,a);if(d)L.push(["z D&D Beyond",d]);
+  if(!c.pdf&&(t==="zach"||t==="hp"||t==="rych")&&typeof kBufHodn==="function")L.push(...kBufHodn(K,t,a,L));return {v:kSum(L),L}}
 const kRozpis=L=>L.map(([l,v])=>`${l} ${bsg(v)}`).join(" · ");
 /* ---- veřejné funkce karty (stejná jména jako dřív) ---- */
 const kLv=K=>kCtx(K).lv;
@@ -189,10 +190,11 @@ function kACR(K){const S=kartaStav(K.id),H=kHodn(K,"ac"),N=kCtx(K).N,L=H.L.slice
   if(S.forma&&S.forma.ac)return {ac:+S.forma.ac,txt:`podoba ${S.forma.n} (AC zvířete)`,N};
   if(S.bezstit&&N.s){ac-=N.s.ac;L.push(["bez štítu",-N.s.ac])}else if(S.bezstit){ac-=2;L.push(["bez štítu",-2])}let min=0;
   (S.uc||[]).forEach(x=>{if(x.ac){ac+=+x.ac;L.push([x.n,+x.ac])}if(x.acmin)min=Math.max(min,+x.acmin)});
-  if(typeof kBufy==="function"&&!(S.uc||[]).some(x=>x.ac&&/^Shield of Faith$/.test(x.n))&&kBufy(K).some(b=>b.n==="Shield of Faith")){ac+=2;L.push(["Shield of Faith",2])}const txt=L.map(([l,v],i)=>i?`${l} ${bsg(v)}`:`${l} ${v}`).join(" · ")+(min>ac?` · aspoň ${min} (kouzlo)`:"");return {ac:Math.max(ac,min),txt,N}}
+  if(typeof kBufy==="function"&&!(S.uc||[]).some(x=>x.ac&&/^Shield of Faith$/.test(x.n))&&kBufy(K).some(b=>b.n==="Shield of Faith")){ac+=2;L.push(["Shield of Faith",2])}
+  if(typeof kBufAC==="function"){const B=kBufAC(K,N);ac+=B.ac;L.push(...B.L);if(B.min>min)min=B.min}const txt=L.map(([l,v],i)=>i?`${l} ${bsg(v)}`:`${l} ${v}`).join(" · ")+(min>ac?` · aspoň ${min} (kouzlo)`:"");return {ac:Math.max(ac,min),txt,N}}
 const kAC=K=>kACR(K).ac;
 /* Resistance: z karty (D&D Beyond) + ze zbroje, kterou postava nosí (Artikule, Zbroj) */
-const kOdol=K=>{const N=kCtx(K).N,r=[...(K.odol||[])];if(kPri(K).includes("Rage"))["Bludgeoning","Piercing","Slashing"].forEach(t=>{if(!r.includes(t))r.push(t)});if(N.z&&BZBR[N.z.dr])BZBR[N.z.dr][0].split(/,\s*/).forEach(t=>{if(t!=="—"&&!r.includes(t))r.push(t)});return r};
+const kOdol=K=>{const N=kCtx(K).N,r=[...(K.odol||[]),...(typeof kBufRes==="function"?kBufRes(K).filter(t=>!(K.odol||[]).includes(t)):[])];if(kPri(K).includes("Rage"))["Bludgeoning","Piercing","Slashing"].forEach(t=>{if(!r.includes(t))r.push(t)});if(N.z&&BZBR[N.z.dr])BZBR[N.z.dr][0].split(/,\s*/).forEach(t=>{if(t!=="—"&&!r.includes(t))r.push(t)});return r};
 const kOdolZ=K=>{const N=kCtx(K).N;return N.z&&BZBR[N.z.dr]?N.z.dr:""};
 /* ---- útoky: vlastnost, magický bonus a bonus ke zranění se z PDF zjistí jednou, pak se vše počítá ---- */
 const KUTI=new WeakMap();

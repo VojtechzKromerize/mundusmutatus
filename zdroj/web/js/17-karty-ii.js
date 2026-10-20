@@ -82,14 +82,16 @@ function kSlX(K,x){if(!x.pz)return kSloty(K).filter(q=>q.st>=x.st&&q.u<q.max);co
 const kMaSl=(K,x)=>x.pz?kSlX(K,x).length>0:(x.st===0||kSloty(K).some(q=>q.st>=x.st&&q.u<q.max));
 const kPzZn=x=>x.pz&&x.pz.sv?` <small class="kpzz kpzsv" ${btip(x.pz.na?`Svitek: seslání ho spotřebuje · SO ${x.pz.dc}, útok +${x.pz.ut}${x.pz.max>1?` · ve vybavení ${x.pz.max}`:""}`:"Kouzlo není na seznamu tvého povolání – svitek je nesrozumitelný")}>📜 svitek${x.pz.max>1?` ×${x.pz.max}`:""}${x.pz.na?"":" ✗"}</small>`:x.pz?` <small class="kpzz" ${btip(`Z předmětu ${x.pz.p}: ${x.pz.c===x.pz.mx?`${x.pz.c} ${x.pz.c===1?"náboj":"náboje"}`:`${x.pz.c}–${x.pz.mx} nábojů`}${x.pz.dc?`, SO ${x.pz.dc}`:", tvůj SO"} · zbývá ${x.pz.zb}/${x.pz.max}`)}>⟡ ${besc(x.pz.p.replace(/^(Wand|Staff) of (the )?/,""))} ${x.pz.zb}/${x.pz.max}</small>`:"";
 const kSpMod=K=>kSpUt(K)-kPB(K);
-function kSpUcinek(K,x,lvl){const d=kSpA(x.n);if(!d)return null;const t=String(d.t||""),TY="Acid|Bludgeoning|Cold|Fire|Force|Lightning|Necrotic|Piercing|Poison|Psychic|Radiant|Slashing|Thunder";
+function kSpUcinek(K,x,lvl){const d=kSpA(x.n);if(!d)return null;return kSpUcD(d,lvl,()=>kSpMod(K),()=>kLv(K))}
+/* účinek kouzla z jeho dat – společné pro postavy (kSpUcinek) i NPC (bojNpcKouzlo): mod() = modifikátor sesílací vlastnosti, ul() = úroveň pro triky */
+function kSpUcD(d,lvl,mod,ul){const t=String(d.t||""),TY="Acid|Bludgeoning|Cold|Fire|Force|Lightning|Necrotic|Piercing|Poison|Psychic|Radiant|Slashing|Thunder";
   let m=t.match(new RegExp(`(\\d+d\\d+(?:\\s*\\+\\s*\\d+)?)\\s+(?:[A-Za-zÁ-ž]+\\s+\\()?(${TY})`)),o=null;
   if(m)o={k:"z",x:m[1].replace(/\s/g,""),t:m[2]};else{m=t.match(new RegExp(`(${TY})\\)?\\s+zranění\\s+rovné\\s+(\\d+d\\d+)`));if(m)o={k:"z",x:m[2],t:m[1]}}
   const hm=t.match(/HP ve výši (\d+d\d+)/);if(!o&&hm)o={k:"l",x:hm[1]};if(!o)return null;
-  const zbytek=t.slice(t.indexOf(o.x.split("+")[0])).slice(0,140);if(/modifikátor(?:u)? (?:tvé )?sesílací|tvůj modifikátor sesílací/.test(zbytek))o.mod=kSpMod(K);
+  const zbytek=t.slice(t.indexOf(o.x.split("+")[0])).slice(0,140);if(/modifikátor(?:u)? (?:tvé )?sesílací|tvůj modifikátor sesílací/.test(zbytek))o.mod=mod();
   const v=String(d.v||""),up=v.match(/o (\d+)d(\d+) za každou úroveň slotu kouzla nad (\d+)/);
   if(up&&lvl>+up[3]){const [n,s]=o.x.split("+")[0].split("d").map(Number);if(+up[2]===s)o.x=o.x.replace(/^\d+d\d+/,`${n+(lvl-+up[3])*+up[1]}d${s}`);else o.x+=`+${(lvl-+up[3])*+up[1]}d${up[2]}`}
-  if(!d.l&&/Zesílení triku/.test(t)){const ul=kLv(K),tier=ul>=17?4:ul>=11?3:ul>=5?2:1;if(tier>1){if(/paprsk|šip/i.test(t.slice(t.indexOf("Zesílení triku"))))o.pocet=tier;else o.x=o.x.replace(/^(\d+)d/,(q,n)=>`${n*tier}d`)}}
+  if(!d.l&&/Zesílení triku/.test(t)){const u=ul(),tier=u>=17?4:u>=11?3:u>=5?2:1;if(tier>1){if(/paprsk|šip/i.test(t.slice(t.indexOf("Zesílení triku"))))o.pocet=tier;else o.x=o.x.replace(/^(\d+)d/,(q,n)=>`${n*tier}d`)}}
   const ms=v.match(/o jednu šipku|jeden paprsek navíc|o jeden paprsek/);if(ms&&d.l&&lvl>d.l)o.pocet=(/šip/.test(v)?3:/paprs/.test(t)?3:1)+(lvl-d.l);
   const zs=t.match(/(STR|AGI|CON|INT|WIS|CHA) záchrann/);if(zs)o.zach=zs[1];o.utok=/útok kouzlem/i.test(t);o.pol=/při úspěchu poloviční/i.test(t);return o}
 /* sesílání na vyšším stupni (upcasting): volba slotu kolečky se stupněm; co vyšší stupeň přidá, z popisu kouzla SRD */
@@ -106,7 +108,9 @@ function kSesHtml(K,x,i){const d=(x.st>0||x.pz)&&typeof kSp==="function"?kSp(x.n
   const bezUp=x.pz?sl.length<2:!!d&&!String(d.v||"").trim()&&x.st<9; /* kouzlo bez „Na vyšším stupni“ (Shield…): slot se vezme nejnižší volný, bez volby */
   const sel=x.st>0&&sl.length&&!bezUp?`<span class="kslv" role="group" aria-label="Stupeň seslání ${besc(x.n)}">${sl.map(q=>`<button type="button" class="kslvb${q===uc?" on":""}${q.pakt?" kslvp":""}" data-kslvb="${i}" data-k="${q.k}" aria-pressed="${q===uc}" ${btip(`${q.lab?`Seslat za ${q.lab} (${q.st}. stupeň)`:`Seslat se slotem ${q.st}. stupně${q.pakt?" (pakt)":""}`} – zbývá ${q.max-q.u}${q.st>x.st?` · vyšší stupeň${kSpVyssi(K,x,q.st)?": "+kSpVyssi(K,x,q.st):""}`:""}.${vt}`)}>${q.lab?q.nab+"⟡":KRIM[q.st]}</button>`).join("")}</span>${up?`<small class="kupc">${besc(up)}</small>`:""}`:"";
   const E=kSpUcinek(K,x,lvl),kz=K.kouzla||{};
-  return `${sel}<button type="button" class="gbtn ghost" data-kses="${i}" ${btip(kSesCil(x)?"Seslat – vybrat stupeň a cíle":"Seslat na sebe")}>Seslat</button>${x.utok!=null||(E&&E.utok)?`<button type="button" class="gbtn ghost" data-khod="ks:${i}">Útok ${bsg(kSpU1(K,x))}</button>`:""}${E&&E.k==="l"?(KMASS[x.n]?kCileChips(K,x,i):kCilHtml(K,i)):""}${E?`<button type="button" class="gbtn ghost" data-kspz="${i}" ${btip("Hod se počítá se stupněm vybraného slotu")}>${E.k==="l"?"Léčení":"Zranění"} ${besc(E.x)}${E.mod?bsg(E.mod):""}${E.t?" "+besc(BZRT[E.t]||E.t):""}${E.pocet>1?` ×${E.pocet}`:""}</button>${E.zach?`<small> · záchrana ${E.zach} SO ${kSpDC(K,x)||"?"}${E.pol?", úspěch = polovina":""}</small>`:""}`:""}`}
+  const rit=typeof kRitOk==="function"&&kRitOk(K,x)?`<button type="button" class="gbtn ghost" data-krit="${i}" ${btip("Seslat jako rituál: bez slotu, sesílání trvá o 10 minut déle")}>Rituál</button>`:"";
+  const op=typeof kOpakAkt==="function"?kOpakAkt(K).find(q=>q.n===x.n):null,opB=op?`<button type="button" class="gbtn ghost" data-kopak="${besc(x.n)}" ${btip(`${x.n} trvá: ${op.o.typ==="ut"?"útok kouzlem":op.o.typ==="zach"?`záchrana ${op.o.ab}`:"zranění bez hodu"} bez slotu (${op.o.cas==="BA"?"bonusová akce":"akce"})`)}>↻ Znovu</button>`:"";
+  return `${sel}<button type="button" class="gbtn ghost" data-kses="${i}" ${btip(kSesCil(x)?"Seslat – vybrat stupeň a cíle":"Seslat na sebe")}>Seslat</button>${rit}${opB}${x.utok!=null||(E&&E.utok)?`<button type="button" class="gbtn ghost" data-khod="ks:${i}">Útok ${bsg(kSpU1(K,x))}</button>`:""}${E&&E.k==="l"?(KMASS[x.n]?kCileChips(K,x,i):kCilHtml(K,i)):""}${E?`<button type="button" class="gbtn ghost" data-kspz="${i}" ${btip("Hod se počítá se stupněm vybraného slotu")}>${E.k==="l"?"Léčení":"Zranění"} ${besc(E.x)}${E.mod?bsg(E.mod):""}${E.t?" "+besc(BZRT[E.t]||E.t):""}${E.pocet>1?` ×${E.pocet}`:""}</button>${E.zach?`<small> · záchrana ${E.zach} SO ${kSpDC(K,x)||"?"}${E.pol?", úspěch = polovina":""}</small>`:""}`:""}`}
 /* ---- kouzla na spojence a léčení víc cílů (2026-10-17) ----
    Bless, Guidance a Shield of Faith se sešlou na vybrané postavy: u sesilatele vznikne soustředěný účinek „Bless ⇒ Adam“,
    karta cíle si ho přečte (kBufy) a se ztrátou soustředění sesilatele zmizí sám. Hromadné léčení: jeden hod pro všechny cíle. */
@@ -120,7 +124,7 @@ function kCileChips(K,x,i){const S=kCilM(K,i),mx=kCilMax(K,x,i),L=[K,...(KARTY||
   return `<span class="kcilm" role="group" aria-label="Na koho (nejvýš ${mx})">${L.map(k=>`<button type="button" class="kcilmb" data-kcilm="${i}|${besc(k.id)}" aria-pressed="${S.has(k.id)}" ${btip(k===K?"Na sebe":k.n)}>${k===K?"sebe":besc(k.n)}</button>`).join("")}<small>${S.size||"bez výběru = sebe"}${S.size?`/${mx}`:""}</small></span>`}
 const kCile=(K,i)=>{const S=[...kCilM(K,i)].filter(id=>KARTBY[id]);return S.length?S.map(id=>KARTBY[id]):[K]};
 /* účinky, které na postavě drží kouzla (její i ostatních postav) */
-function kBufy(K){const t=kTed(),R=[];(KARTY||[]).forEach(k=>{kUc(k).forEach(u=>{const m=String(u.n||"").match(/^(.+?) ⇒ (.+)$/);if(m&&m[2]===K.n&&!(u.do!=null&&t!=null&&u.do<=t))R.push({n:m[1],od:k.n})})});return R}
+function kBufy(K){const t=kTed(),R=[];(KARTY||[]).forEach(k=>{kUc(k).forEach(u=>{const m=String(u.n||"").match(/^(.+?) ⇒ (.+)$/);if(m&&m[2]===K.n&&!(u.do!=null&&t!=null&&u.do<=t))R.push({n:typeof kzJm==="function"?kzJm(m[1]):m[1],l:typeof kzSt==="function"?kzSt(m[1]):0,od:k.n})})});return R}
 /* ---- Seslat na koho (2026-10-17 b): kouzlo s dosahem (ne „Sebe“) se před sesláním zeptá na cíle – postavy družiny
    a v boji nepřátelé. Spojenci dostanou účinek „Kouzlo ⇒ Jméno“ (drží ho sesilatel, se soustředěním zmizí), léčivé kouzlo
    rovnou vyléčí vybrané. Nepřátelé v boji: hráč kouzlo se záchranou či útokem dohodí v listu útoku (vyhodnotí vypravěč),
@@ -142,8 +146,8 @@ function kSesDlgHtml(){const {K,x,i,c}=KSDLG,lvl=kSesLvl(K,x,i),d=kSp(x.n)||{},m
     <p class="ksdok"><button type="button" class="gbtn" data-ksdok>Seslat${c.size?` na ${c.size}`:""}</button> <button type="button" class="gbtn ghost" data-ksdok="bez" ${btip("Seslat bez výběru cíle (jen slot a soustředění)")}>bez cíle</button></p>`}
 function kSesDlg(K,x,i){KSDLG={K,x,i:String(i),c:new Set()};const d=mmPop(`<div class="ksdlg">${kSesDlgHtml()}</div>`);d.classList.add("ksdpop")}
 const kSesDlgKresli=()=>{const el=document.querySelector(".ksdpop .ksdlg");if(el&&KSDLG)el.innerHTML=kSesDlgHtml()};
-async function kBufNa(K,x,C,kon){const d=kSp(x.n),h=d?kTrv(d.d):null,t=kTed(),pre=x.n+" ⇒ ";if(!h||!C.length)return;
-  const L=kUc(K).filter(u=>!String(u.n||"").startsWith(pre));C.forEach(c=>{const o={n:(pre+c.n).slice(0,80)};if(kon)o.kon=true;o.h=Math.round(h*1000)/1000;if(t!=null)o.do=Math.round((t+h)*1000)/1000;L.push(o)});
+async function kBufNa(K,x,C,kon,lvl){const d=kSp(x.n),h=d?kTrv(d.d):null,t=kTed(),pre=`${x.n}${lvl&&typeof kzStPrip==="function"?kzStPrip(x.n,lvl,x.st):""} ⇒ `;if(!h||!C.length)return;
+  const L=kUc(K).filter(u=>!(String(u.n||"").startsWith(x.n+" ⇒ ")||String(u.n||"").startsWith(x.n+" (")&&/ ⇒ /.test(u.n)));C.forEach(c=>{const o={n:(pre+c.n).slice(0,80)};if(kon)o.kon=true;o.h=Math.round(h*1000)/1000;if(t!=null)o.do=Math.round((t+h)*1000)/1000;L.push(o)});
   await kartaStavZmen(K.id,{uc:L.slice(-30)})}
 async function kSesDlgOk(bez){const D=KSDLG;if(!D)return;KSDLG=null;mmPopX();const {K,x,i}=D,sel=bez?[]:[...D.c],s=BOJ.s||{};
   const C=sel.filter(v=>v.startsWith("k:")).map(v=>KARTBY[v.slice(2)]).filter(Boolean),N=sel.filter(v=>v.startsWith("n:")).map(v=>(s.npc||[]).find(o=>o.id===v.slice(2))).filter(Boolean);
@@ -154,7 +158,8 @@ async function kSesDlgOk(bez){const D=KSDLG;if(!D)return;KSDLG=null;mmPopX();con
     if(C.length)mmHlasG(`${x.n}: spojence k tomu nejde vybrat – kouzlo míří na nepřátele.`,4000);return}
   if(await kartaSeslat(K,x,KSLV[K.id+":"+i])===false)return;
   if(E&&E.k==="l"&&C.length){await kSpZraneni(K,x,lvl,false,{mass:C});return}
-  const sp=KBUF[x.n]?C:C.filter(c=>c!==K);if(sp.length)await kBufNa(K,x,sp,kon);
+  const sp=KBUF[x.n]||(typeof KZEF!=="undefined"&&KZEF[x.n]&&!KZEF[x.n].thp)?C:C.filter(c=>c!==K);if(sp.length)await kBufNa(K,x,sp,kon,lvl);
+  if(typeof kSesPoCile==="function")await kSesPoCile(K,x,lvl,C);
   if(N.length&&s.aktivni&&GMV)kSesGmNpc(K,x,lvl,N,me);
   else if(N.length&&s.aktivni&&me&&typeof bojDB!=="undefined"&&bojDB&&bojDB.utok){if(await kOdklad(`${x.n} → ${N.map(o=>o.n).join(", ")}`,()=>true)===false)return;try{await bojDB.utok(me.id,{ci:N.map(o=>o.id).slice(0,12),cim:(BUEF+x.n).slice(0,60),hod:0});kHodZapis({k:K.id,kdo:K.n,co:`${x.n} na nepřátele`,txt:N.map(o=>o.n).join(", ")});mmHlasG(`${K.n}: ${x.n} na ${N.map(o=>o.n).join(", ")} – vypravěč zapíše značku.`,4500);return}catch(err){mmHlasG("Účinek se nepodařilo poslat vypravěči: "+(err.message||err),5000)}}
   else if(N.length)kHodZapis({k:K.id,kdo:K.n,co:`${x.n} na nepřátele`,txt:N.map(o=>o.n).join(", ")});
@@ -241,6 +246,7 @@ function kStavVliv(K,co){const st=kStavy(K),r=[];let fail=false;const typ=/^Úto
     if(typ==="ov"&&(k==="otrávený"||k==="vyděšený"))r.push([-1,k]);
     if(typ==="in"&&(k==="neviditelný"))r.push([1,k]);if(typ==="in"&&k==="neschopný")r.push([-1,k]);
     if(typ==="za"&&d.zach&&ab&&d.zach[ab]){if(d.zach[ab]==="f")fail=true;else r.push([d.zach[ab]==="a"?1:-1,k])}});
+  if(typ==="za"&&ab&&typeof kBufAdv==="function")kBufAdv(K,ab).forEach(n=>r.push([1,n]));
   if(kPri(K).includes("Rage")&&(typ==="ov"||typ==="za")&&ab==="STR")r.push([1,"Rage"]);
   return {r,fail}}
 const kStavHtml=K=>{const S=kartaStav(K.id).stavy||[];return `<div class="kstavy" role="group" aria-label="Stavy">${KSTV.map(k=>{const on=S.includes(k),d=SRDST[k];return `<button type="button" class="bst${on?" on":""}" data-kstav="${besc(k)}" aria-pressed="${on}" ${btip(d?`${k} (${d.en}) – ${d.t}`:"soustředí se na kouzlo")}>${SRDIC[k]?bi(SRDIC[k]):""}<span>${k}</span></button>`}).join("")}</div>`};

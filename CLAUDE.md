@@ -64,6 +64,7 @@ Soubory skriptu: 01 základ (data z buildu, erby) · 02 mapa · 03 Artikule · 0
 Pravidla · 09 vypravěč: odhalování, panel, herní čas · 10 Kouzla · 11 Boj: tracker, ikony, bestiář ·
 12 Boj: tah, postavy v boji · 13 Karty: import PDF, stav, stránka · 14 karta: vybavení, bojová karta ·
 15 karta podle Artikulí · 16 SRD předměty, ukázky, příprava sezení, kořist, stránka Hra · 17 Karta II ·
+17b kouzla: posílení na cílech (KZEF), trvání v kolech, rituál, opakování bez slotu (KZOPAK), oblasti (KZOBL), Counterspell ·
 18 Pravidla postavy (D&D 2024) · 19 karta jako D&D Beyond · 20 Boj: útoky hráčů z telefonu ·
 21 editor textů · 22 Výprava (počasí, Zpět herního času) · 23 potvrzování akcí hráčů · 24 Boj: herní záznam (kdo · co · komu, kostky, Závoj) ·
 25 puls (jeden dotaz „co se změnilo“, Realtime) · 26 start: pečeť a první `route()`.

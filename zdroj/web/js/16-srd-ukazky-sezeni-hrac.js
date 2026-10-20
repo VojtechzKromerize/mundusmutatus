@@ -218,10 +218,11 @@ async function vyzvyNacti(){if(!window.MMDB||!MMDB.vyzvyNacti)return false;try{c
 const vyzvaPro=(v,kid)=>!v.zavrena&&(!((v.data||{}).komu||[]).length||v.data.komu.includes(kid));
 /* Zpytování svědomí jako výzva: typ „hod“ s touto poznámkou (bez změny databáze); hráč hodí d10 na své kartě (kZpyt) */
 const KZPYTV="Zpytování svědomí";
-const vyzvaTxt=d=>d.typ==="hod"&&d.pozn===KZPYTV?"Zpytování svědomí (d10)":d.typ==="zach"?`záchrana ${d.ab}`:d.typ==="over"?(d.dov||`ověření ${KSK[d.ab]||d.ab}`):d.typ==="ini"?"iniciativa":d.typ==="odp"?"krátký odpočinek":`hod ${d.pozn||"d20"}`;
+const vyzvaTxt=d=>typeof vyzvaProti==="function"&&vyzvaProti(d)?d.pozn+" – použiješ Counterspell?":d.typ==="hod"&&d.pozn===KZPYTV?"Zpytování svědomí (d10)":d.typ==="zach"?`záchrana ${d.ab}`:d.typ==="over"?(d.dov||`ověření ${KSK[d.ab]||d.ab}`):d.typ==="ini"?"iniciativa":d.typ==="odp"?"krátký odpočinek":`hod ${d.pozn||"d20"}`;
 const vyzvyMoje=()=>{const K=jaK();return K?VYZVY.filter(v=>vyzvaPro(v,K.id)&&!(v.odpovedi||{})[K.id]):[]};
-async function vyzvaHod(id){const v=VYZVY.find(x=>x.id===id),K=jaK();if(!v||!K)return;const d=v.data;let r;
-  if(d.typ==="odp"){await kartaOdpocinek(K,false);r={tot:0,txt:"odpočinul"}}
+async function vyzvaHod(id,ne){const v=VYZVY.find(x=>x.id===id),K=jaK();if(!v||!K)return;const d=v.data;let r;
+  if(typeof vyzvaProti==="function"&&vyzvaProti(d)){r=await vyzvaProtiOdpoved(v,K,!ne);if(!r)return}
+  else if(d.typ==="odp"){await kartaOdpocinek(K,false);r={tot:0,txt:"odpočinul"}}
   else if(d.typ==="hod"&&d.pozn===KZPYTV){const t=await kZpyt(K);r={tot:+(String(t).match(/^d10 (\d+)/)||[])[1]||0,txt:String(t).slice(0,200)}}
   else if(d.typ==="hod"){const x=await kVlastniHod(K.n,K.id,d.pozn||"d20",`Výzva: ${d.pozn||"d20"}`,false);if(!x)return;r={tot:Math.max(-50,Math.min(999,x.tot)),txt:x.txt.slice(0,200)}}
   else{let b=0,co="",why=[];
@@ -234,11 +235,11 @@ async function vyzvaHod(id){const v=VYZVY.find(x=>x.id===id),K=jaK();if(!v||!K)r
   r.n=K.n.slice(0,60);
   try{if(window.MMDB)await MMDB.vyzvaOdpoved(id,K.id,r);v.odpovedi=Object.assign({},v.odpovedi,{[K.id]:r});hraPrekresli();vyzBar()}catch(e){mmHlasG("Odpověď se nepodařilo poslat: "+(e.message||e),5000)}}
 function vyzvyHracHtml(){const L=vyzvyMoje();if(!L.length)return "";
-  return `<section class="vyzhr" aria-live="polite">${L.map(v=>`<div class="vyzk"><span>Vypravěč žádá: <b>${besc(vyzvaTxt(v.data))}</b>${v.data.dc&&!v.data.skryt?` · SO ${v.data.dc}`:""}${v.data.adv?(v.data.adv>0?" · s výhodou":" · s nevýhodou"):""}${v.data.pozn&&v.data.typ!=="hod"?` · ${besc(v.data.pozn)}`:""}</span><button type="button" class="gbtn" data-vyzhod="${v.id}">🎲 ${v.data.typ==="odp"?"Odpočinout":v.data.pozn===KZPYTV?"Zpytovat":"Hodit"}</button></div>`).join("")}</section>`}
+  return `<section class="vyzhr" aria-live="polite">${L.map(v=>`<div class="vyzk"><span>Vypravěč žádá: <b>${besc(vyzvaTxt(v.data))}</b>${v.data.dc&&!v.data.skryt?` · SO ${v.data.dc}`:""}${v.data.adv?(v.data.adv>0?" · s výhodou":" · s nevýhodou"):""}${v.data.pozn&&v.data.typ!=="hod"?` · ${besc(v.data.pozn)}`:""}</span>${typeof vyzvaProti==="function"&&vyzvaProti(v.data)?`<button type="button" class="gbtn" data-vyzhod="${v.id}">Použít Counterspell</button><button type="button" class="gbtn ghost" data-vyzne="${v.id}">Nechat být</button>`:`<button type="button" class="gbtn" data-vyzhod="${v.id}">🎲 ${v.data.typ==="odp"?"Odpočinout":v.data.pozn===KZPYTV?"Zpytovat":"Hodit"}</button>`}</div>`).join("")}</section>`}
 /* lišta s výzvou na kterékoli stránce */
 function vyzBar(){let b=document.getElementById("mmvyz");const L=GMV||curView==="hra"?[]:vyzvyMoje();
   if(!L.length){if(b)b.remove();return}if(!b){b=document.createElement("div");b.id="mmvyz";b.className="mmvyz";document.body.appendChild(b)}
-  b.innerHTML=`<span>Vypravěč žádá: <b>${besc(vyzvaTxt(L[0].data))}</b>${L[0].data.dc&&!L[0].data.skryt?` · SO ${L[0].data.dc}`:""}</span><button type="button" class="gbtn" data-vyzhod="${L[0].id}">🎲 Hodit</button>`}
+  b.innerHTML=`<span>Vypravěč žádá: <b>${besc(vyzvaTxt(L[0].data))}</b>${L[0].data.dc&&!L[0].data.skryt?` · SO ${L[0].data.dc}`:""}</span>${typeof vyzvaProti==="function"&&vyzvaProti(L[0].data)?`<button type="button" class="gbtn" data-vyzhod="${L[0].id}">Counterspell</button><button type="button" class="gbtn ghost" data-vyzne="${L[0].id}">Nechat</button>`:`<button type="button" class="gbtn" data-vyzhod="${L[0].id}">🎲 Hodit</button>`}`}
 const vyzvaForm=()=>`<p class="vyzrych"><span class="bkzlh">Všichni hned:</span>${["Perception","Insight","Investigation","Stealth","Survival","Athletics"].map(d=>`<button type="button" class="kchip" data-vyzrychle="${d}" ${btip(`Všem postavám vyskočí ověření ${d}`)}>${d}</button>`).join("")}${BAB.map(a=>`<button type="button" class="kchip" data-vyzrychle="${a}" ${btip(`Všem postavám vyskočí záchrana ${a}`)}>záchr. ${a}</button>`).join("")}</p><form class="kvlh vyzf" data-vyzf><label>Vyzvat k <select name="typ"><option value="zach">záchraně</option><option value="over">ověření</option><option value="ini">iniciativě</option><option value="odp">krátkému odpočinku</option><option value="hod">hodu výrazem</option></select></label>
   <select name="ab" aria-label="Vlastnost">${BAB.map(a=>`<option${a==="WIS"?" selected":""}>${a}</option>`).join("")}</select><select name="dov" aria-label="Dovednost"><option value="">— dovednost —</option>${Object.keys(KDOVAB).map(d=>`<option>${d}</option>`).join("")}</select>
   <input name="pozn" placeholder="výraz nebo poznámka" maxlength="60" aria-label="Výraz nebo poznámka"><label>SO <input name="dc" type="number" min="1" max="40" aria-label="Stupeň obtížnosti"></label><label><input type="checkbox" name="skryt"> SO jen pro mě</label>
@@ -267,7 +268,7 @@ async function hraPoll(hned,co){if(!window.MMDB)return;const chci=k=>!co||co.has
   if(chci("navrhy")){const n0=navrhyCeka().length,zm=await navrhyNacti(),n1=navrhyCeka().length;if(zm){if(GMV&&n1>n0&&!hned)mmHlasG(`Hráč žádá o schválení: ${navrhyCeka()[0].data.popis||"návrh"}.`,5000);if(curView==="boj")renderBoj();if(curView==="karty"||curView==="hra")kartyPrekresli()}}if((curView==="hra"||curView==="karty")&&chci("pokladna")){const p0=JSON.stringify(POKL);await poklNacti();if(p0!==JSON.stringify(POKL))hraPrekresli()}
   if(!GMV){const m=vyzvyMoje(),top=Math.max(0,...m.map(v=>v.id));if(top>VYZVID){VYZVID=top;try{navigator.vibrate&&navigator.vibrate([120,60,120])}catch(e){}mmNotif("Vypravěč žádá hod",vyzvaTxt(m[0].data));if(curView!=="hra")mmHlasG(`Vypravěč žádá: ${vyzvaTxt(m[0].data)}`,5000)}
     const nz=ZPR.filter(z=>z.gm&&z.id>zprVideno.get());if(nz.length){zprVideno.set(nz[nz.length-1].id);mmNotif("Zpráva od vypravěče",nz[nz.length-1].t);mmHlasG("Zpráva od vypravěče: "+nz[nz.length-1].t.slice(0,140),7000)}}
-  else{try{bojVyzZpracuj()}catch(e){console.error(e)}const n=VYZVY.filter(v=>!v.zavrena).reduce((a,v)=>a+Object.keys(v.odpovedi||{}).length,0);if(n>VYZODP&&!hned){const v=VYZVY.find(x=>!x.zavrena&&Object.keys(x.odpovedi||{}).length);if(v&&curView==="boj")renderBoj();else if(v&&curView!=="hra")mmHlasG(`Hráči odpovídají na výzvu (${vyzvaTxt(v.data)}) – výsledky na stránce Hra.`,4500)}else if(a&&curView==="boj")renderBoj();VYZODP=n;
+  else{try{bojVyzZpracuj()}catch(e){console.error(e)}try{if(typeof bojProtiZpracuj==="function")bojProtiZpracuj()}catch(e){console.error(e)}const n=VYZVY.filter(v=>!v.zavrena).reduce((a,v)=>a+Object.keys(v.odpovedi||{}).length,0);if(n>VYZODP&&!hned){const v=VYZVY.find(x=>!x.zavrena&&Object.keys(x.odpovedi||{}).length);if(v&&curView==="boj")renderBoj();else if(v&&curView!=="hra")mmHlasG(`Hráči odpovídají na výzvu (${vyzvaTxt(v.data)}) – výsledky na stránce Hra.`,4500)}else if(a&&curView==="boj")renderBoj();VYZODP=n;
     const nz=ZPRG.filter(z=>!z.gm&&z.id>zprVideno.get());if(nz.length){zprVideno.set(nz[nz.length-1].id);if(!hned)mmHlasG(`Zpráva od ${(KARTBY[nz[nz.length-1].k]||{}).n||"hráče"}: ${nz[nz.length-1].t.slice(0,120)}`,7000)}}
   if(a||b||hned)hraPrekresli();vyzBar()}
 function hraStart(){if(HRAP||!window.MMDB)return;jaOver();jaDiscordInit();poklNacti();hraPoll(true);HRAP=true;pulsStart();
@@ -330,6 +331,7 @@ document.addEventListener("change",e=>{const t=e.target;if(t.matches&&t.matches(
   if(t.matches&&t.matches("[data-hruk]")&&GMV){const L=[...((HRA&&HRA.ukoly)||[])].map(x=>Object.assign({},x)),u=L[+t.dataset.hruk];if(u){u.hot=t.checked;if(!u.hot)delete u.hot;ukolyUloz(L)}}});
 document.addEventListener("click",async e=>{const T=s=>e.target.closest(s);
   const vh=T("[data-vyzhod]");if(vh){vyzvaHod(+vh.dataset.vyzhod);return}
+  const vn=T("[data-vyzne]");if(vn){vyzvaHod(+vn.dataset.vyzne,true);return}
   const vx=T("[data-vyzx]");if(vx&&GMV){try{await MMDB.vyzvaZavri(+vx.dataset.vyzx);await vyzvyNacti();hraPrekresli()}catch(err){mmHlasG(err.message,4000)}return}
   if(T("[data-notif]")){try{await Notification.requestPermission()}catch(err){}hraPrekresli();return}
   if(T("[data-jaodhlas]")){jaOdhlas();return}

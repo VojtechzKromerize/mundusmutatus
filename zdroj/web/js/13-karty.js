@@ -66,7 +66,8 @@ async function kartaSeslat(K,sp,chce){
   else{if(q)U[q.k]=(U[q.k]||0)+1;if(q)await kartaStavZmen(K.id,{zdr:U})}
   const h=((BOJ.s&&BOJ.s.aktivni&&BOJ.s.hraci)||[]).find(x=>bojKartaH(x)===K);
   if(sp.kon&&h){if(window.MMDB&&!GMV)bojHracAkce(h.id,x=>{x.stav=[...new Set([...(x.stav||[]),"soustředí"])]});else if(GMV)bojHracAkce(h.id,x=>{x.stav=[...new Set([...(x.stav||[]),"soustředí"])]})}
-  await kSpNacti().catch(()=>{});{const d=kSp(sp.n),h=d?kTrv(d.d):null;if(h)await kUcPridej(K,sp.n,h,sp.kon||!!(d&&d.ko))}
+  await kSpNacti().catch(()=>{});const lv=q&&q.st?q.st:+sp.st||0;{const d=kSp(sp.n),h=d?kTrv(d.d):null;if(h)await kUcPridej(K,sp.n+(typeof kzStPrip==="function"?kzStPrip(sp.n,lv,+sp.st||0):""),h,sp.kon||!!(d&&d.ko))}
+  if(typeof kSesPo==="function")try{await kSesPo(K,sp,lv)}catch(e){}
   kHodZapis({k:K.id,kdo:K.n,co:`Seslal ${sp.n}`,txt:`${q&&q.lab!=null?`${sp.pz.p}, ${q.lab} (${q.st}. st.)`:q?`slot ${q.st}. st.${q.pakt?" (pakt)":""}`:"trik"}${sp.zach?` · záchrana ${sp.zach}`:""}${sp.kon?" · Concentration":""}`});
   mmHlasG(`${K.n} sesílá ${sp.n}${q&&q.lab!=null?(sp.pz.sv?` ze svitku`:` (${sp.pz.p}: ${q.lab}, zbývá ${q.max-q.nab})`):q?` (slot ${q.st}. st., zbývá ${q.max-q.u-1})`:""}${sp.kon?" – soustředění":""}${sp.zach?` · záchrana ${sp.zach}`:""}.`,5000);return true}
 /* ===== stránka Karty postav ===== */
@@ -274,6 +275,7 @@ document.addEventListener("click",async e=>{const v=e.target.closest&&e.target.c
   const zr=T("[data-kzr]");if(zr){const at=kUtoky(K)[+zr.dataset.kzr],E=kEfAkt(K,KEF[K.id],at);if(!at)return;const r=kartaZraneni(K,at,!!zr.dataset.krit,E);kEfPouzij(K,E,KEF[K.id]);
     const H={k:K.id,kdo:K.n,co:`Zranění – ${at.n}`,tot:r.t,txt:`${r.x}${zr.dataset.krit?" (kritický zásah)":""} ${BZRT[at.t]||at.t||""}`};if(skr){HODY.unshift(Object.assign({id:Date.now(),cas:new Date().toISOString(),skryty:true},H));renderKarty(id)}else kHodZapis(H);mmHlasG(`${K.n}: zranění ${r.t} (${r.x})`,4500);return}
   const cm=T("[data-kcilm]");if(cm){const [i,id]=cm.dataset.kcilm.split("|"),x=kSeznam(K)[+i];if(!x)return;const S=kCilM(K,i),mx=kCilMax(K,x,i);if(S.has(id))S.delete(id);else if(S.size<mx)S.add(id);else mmHlasG(`${x.n}: nejvýš ${mx} ${mx===1?"cíl":mx<5?"cíle":"cílů"}.`,3000);kartyPrekresli();return}
+  const rit=T("[data-krit]");if(rit){const sp=kSeznam(K)[+rit.dataset.krit];if(sp&&typeof kartaRitual==="function"){await kartaRitual(K,sp);kartyPrekresli()}return}
   const ses=T("[data-kses]");if(ses){const i=ses.dataset.kses,sp=kSeznam(K)[+i];{const nes=kNeschopny(K);if(nes){mmHlasG(`Nemůžeš sesílat – ${nes}.`,3500);return}}if(sp){await kSpNacti().catch(()=>{});if(kSesCil(sp)){kSesDlg(K,sp,i);return}await kartaSeslat(K,sp,KSLV[K.id+":"+i])}return}
   const zd=T("[data-kzd]");if(zd){const k=zd.dataset.kzd,j=+zd.dataset.j,U=Object.assign({},S.zdr||{}),u=U[k]||0;U[k]=u>j?j:j+1;if(!U[k])delete U[k];kartaStavZmen(K.id,{zdr:Object.keys(U).length?U:null});return}
   const kk=T("[data-kkz]");if(kk){const j=+kk.dataset.kkz,u=+S.kz||0;kartaStavZmen(K.id,{kz:(u>j?j:j+1)||null});return}

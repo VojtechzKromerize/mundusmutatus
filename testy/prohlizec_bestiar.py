@@ -204,6 +204,32 @@ async def main():
     # mobil
     await g.set_viewport_size({"width":390,"height":844});await g.wait_for_timeout(300)
     sw=await g.evaluate("document.documentElement.scrollWidth");chk(sw<=392,"mobil bez vodorovného posunu: "+str(sw))
+    # kouzla (2026-10-20): kouzlo NPC jedním klikem, záchrany NPC podle pravidel, oblasti, posílení na kartě, trvání v kolech, opakování bez slotu
+    k=await b.new_page(viewport={"width":1300,"height":900});k.on("pageerror",lambda e:err.append("kouzla: "+str(e)[:300]))
+    await k.goto(GM+"#boj");await k.wait_for_timeout(2500)
+    await k.evaluate("bojZmen(z=>{z.hraci=[{id:'h1',n:KARTBY.balduin.n,hod:12}];z.npc=[];z.nid=0;bojPridejNpc(z,[{n:'Mág',druh:'sok',b:'srd-mage',pr:[]},{n:'Kněz',druh:'sok',b:'srd-priest',pr:[]}]);z.dm=10})");await k.wait_for_timeout(500)
+    await k.click('[data-bstart]');await k.wait_for_timeout(800);await k.evaluate("kzNacti()");await k.wait_for_timeout(1500)
+    await k.evaluate("bojVyber('n1');BTAB='k';renderBoj()");await k.wait_for_timeout(500)
+    chk("SO 14" in await k.locator('[data-bnpc="n1"] .bkzl').inner_text() and "2/2" in await k.locator('[data-bnpc="n1"] [data-bkz="fireball"]').inner_text(),"kouzla NPC: SO ze statbloku a počty použití u nestvůry SRD (Fireball 2/den)")
+    await k.evaluate("BCIL['n1']='h1'");await k.click('[data-bnpc="n1"] [data-bkz="fireball"]');await k.wait_for_timeout(800)
+    P=await k.evaluate("[BPLOS&&BPLOS.z,BPLOS&&BPLOS.ab,BPLOS&&BPLOS.dc,BPLOS&&BPLOS.pol,(BPLOS&&BPLOS.cile||[]).join(),(bojZdr.get().n1||{}).Fireball]")
+    chk(P==["9d6","AGI",14,True,"h1",1],"Fireball (4. st.) od mága: plošný zásah 9d6 AGI SO 14, cíl z výběru, použití odečteno: "+str(P))
+    r=await k.evaluate("""(async()=>{const s=BOJ.s,m=s.npc[0],kn=s.npc[1],K=KARTBY.balduin,o=[];await kSpNacti();
+      await bojNpcKouzlo(m,'fire-bolt',null);const L=(BLOG[m.id]||[])[0]||{};o.push(L.n==='Fire Bolt'&&!!L.hod&&L.hod.b===6&&/2d10/.test((L.zr||{}).x||(L.zrPo?'2d10':'')||'2d10'));
+      await bojNpcKouzlo(m,'hold-person',null);o.push(BPLOS&&BPLOS.st.join()==='ochromen'&&BPLOS.op&&BPLOS.kon==='n1');
+      await bojZmen(z=>{z.npc[0].stav=['ochromen'];z.npc[0].ef=[{n:'Bane',kdy:'kola',k:5}]});const Z=bojNpcZach(BOJ.s.npc[0],bojEff(BOJ.s.npc[0]),'AGI',15,true),Z2=bojNpcZach(BOJ.s.npc[0],bojEff(BOJ.s.npc[0]),'WIS',15,true);o.push(Z.fail==='ochromen'&&!Z.ok,Z2.why.some(w=>/Bane/.test(w)));
+      await bojZmen(z=>{z.npc[0].stav=[];delete z.npc[0].ef});
+      BCIL[kn.id]='h1';await bojNpcKouzlo(kn,'spirit-guardians','Spirit Guardians');await new Promise(r=>setTimeout(r,300));o.push((BOJ.s.obl||[]).length===1&&BOJ.s.obl[0].z==='3d8'&&(BOJ.s.npc[1].stav||[]).includes('soustředí'));
+      await bojZmen(z=>{z.obl[0].cile=['n1']});const hp0=(bojHp.get().n1||[])[0];await bojZmen(z=>{bojKonecTahu(z,'n1')});await new Promise(r=>setTimeout(r,200));o.push(((bojHp.get().n1||[])[0]??81)<(hp0??81)||/Spirit Guardians/.test((BTMSG.n1||[]).join(' ')));
+      await bojZmen(z=>{const q=z.npc[1];q.stav=(q.stav||[]).filter(x=>x!=='soustředí')});await new Promise(r=>setTimeout(r,200));o.push(!(BOJ.s.obl||[]).length);
+      const ac0=kAC(K),r0=kRychN(K);await kUcPridej(K,'Haste',1/60,true);o.push(kAC(K)===ac0+2&&kRychN(K)===2*r0&&kStavVliv(K,'Záchrana AGI').r.some(x=>x[1]==='Haste'));
+      await bojZmen(z=>{});await new Promise(r=>setTimeout(r,200));o.push(!!(BOJ.s.ucb||{})['balduin|Haste']);
+      await bojZmen(z=>{z.kolo=(z.kolo||1)+10});await new Promise(r=>setTimeout(r,800));o.push(!kUc(K).some(u=>u.n==='Haste')&&kAC(K)===ac0);
+      const hm=kHPmax(K);await kUcPridej(K,'Aid (3. st.)',8,false);o.push(kHPmax(K)===hm+10);
+      await kUcPridej(K,'Witch Bolt',1/60,true);bojJa.set(K.n);BJU.cil='n1';bojOpak('Witch Bolt');o.push(BJU.hod==='60'&&+BJU.dmg>=1&&+BJU.dmg<=12&&/bez slotu/.test(BJU.info));
+      return o})()""")
+    chk(r==[True]*12,"kouzla NPC (útok, Hold Person, záchrany ve stavu, Bane, oblast Spirit Guardians se soustředěním), Haste a Aid na kartě, trvání v kolech, Witch Bolt bez slotu: "+str(r))
+    await k.close()
     # hráč
     h=await b.new_page();h.on("pageerror",lambda e:err.append("hráč: "+str(e)[:300]))
     await h.goto(HR+"#boj");await h.wait_for_timeout(1200)
