@@ -279,3 +279,19 @@ Object.assign(KZEF,{"Blade Ward":{utMinus:1,p:"útoky proti tobě −1d4"},"Blin
   "Elemental Weapon":{p:"zbraň +1 k útoku a +1d4 zvoleného typu (vyšší sloty víc)"},"Shillelagh":{p:"kyj nebo hůl: sesílací vlastnost, větší kostka zranění"}});
 const kBufUtMinus=K=>K&&kBufEf(K).some(b=>b.e.utMinus);
 function bojBufKonecTahu(s,h){if(!GMV)return;const K=bojKartaH(h);if(!K||!kBufEf(K).some(b=>b.e.blink))return;const d=bK(6);bojMsg(h.id,`Blink: d6 ${d} → ${d>=4?"odchází do Éteru do začátku svého dalšího tahu":"zůstává"}.`);bojLog(h.id,{n:"Blink",ci:h.id,zt:`d6 ${d} – ${d>=4?"v Éteru":"zůstává"}`},h.n)}
+
+/* ===== Kouzla na účastnících boje (2026-10-20 c): ikony pod slotem iniciativy, v kartě NPC a v seznamech =====
+   NPC: značky kouzel (n.ef bez stavu – Hex, Bane, Hunter's Mark…); postava: značky v boji, posílení od druhých (kBufy) a vlastní posílení (KZEF) */
+const KZIK={"Bless":"pozehnani","Guidance":"pozehnani","Heroism":"pozehnani","Aid":"pozehnani","Beacon of Hope":"pozehnani","Death Ward":"pozehnani","Bane":"pokuseni",
+  "Hex":"zr-necrotic","Hunter's Mark":"zr-force","Faerie Fire":"zr-radiant","Haste":"vyhoda","Longstrider":"vyhoda","Fly":"vyhoda","Enhance Ability":"vyhoda","Slow":"nevyhoda",
+  "Shield of Faith":"zb-stit","Warding Bond":"zb-stit","Blade Ward":"zb-stit","Protection from Evil and Good":"zb-stit","Resistance":"zb-stit","Mage Armor":"zb-vycpavana",
+  "Barkskin":"zb-platova","Stoneskin":"zb-platova","Blur":"neviditelny","Greater Invisibility":"neviditelny","Invisibility":"neviditelny","Mirror Image":"neviditelny","Blink":"neviditelny",
+  "Magic Weapon":"zr-magicke","Elemental Weapon":"zr-magicke","Shillelagh":"zr-magicke","Spirit Guardians":"zr-radiant","Moonbeam":"zr-radiant","Witch Bolt":"zr-lightning","Heat Metal":"zr-fire"};
+function bojKzEf(s,id){const R=[],add=(n,od,pozn,zb)=>{n=kzJm(String(n||"").replace(/^Účinek:\s*/,""));if(!n||R.some(r=>r.n===n))return;R.push({n,od:od||"",pozn:pozn||"",zb})};
+  const n=(s.npc||[]).find(x=>x.id===id);
+  if(n){(n.ef||[]).filter(e=>!e.st).forEach(e=>add(e.n,bojJm(s,e.od||e.src),e.z?`na začátku tahu ${e.z} ${BZRT[e.t]||e.t||""}`:"",e.kdy==="kola"?e.k:null));return R}
+  const h=(s.hraci||[]).find(x=>x.id===id);if(!h)return R;(h.ef||[]).filter(e=>!e.st).forEach(e=>add(e.n,bojJm(s,e.od||e.src),"",e.kdy==="kola"?e.k:null));
+  const K=bojKartaH(h);if(K){(typeof kBufy==="function"?kBufy(K):[]).forEach(b=>add(b.n,b.od,(KZEF[b.n]||{}).p||((typeof KPRID!=="undefined"&&KPRID.find(q=>q[0]===b.n))||[])[3]||""));kBufEf(K).filter(b=>b.vl).forEach(b=>add(b.n,"",b.e.p||""))}
+  return R}
+function bojKzIkHtml(s,id,tr){const L=s?bojKzEf(s,id):[];if(!L.length)return "";
+  return `<span class="bkzikw${tr?" "+tr:""}">${L.slice(0,3).map(e=>`<span class="bkzik" role="img" aria-label="${besc(e.n)}" ${btip(`Kouzlo ${e.n}${e.od?` – od ${e.od}`:""}${e.zb!=null?` · ještě ${e.zb} ${e.zb===1?"kolo":e.zb<5?"kola":"kol"}`:""}${e.pozn?` · ${e.pozn}`:""}`)}><img src="art/img/boj/${KZIK[e.n]||"zr-magicke"}-48.webp" width="24" height="24" alt="" aria-hidden="true" decoding="async"></span>`).join("")}${L.length>3?`<b ${btip(L.slice(3).map(e=>e.n).join(", "))}>+${L.length-3}</b>`:""}</span>`}

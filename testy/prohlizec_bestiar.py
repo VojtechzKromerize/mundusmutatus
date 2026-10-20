@@ -237,8 +237,9 @@ async def main():
       await kSumKonec(K,['Summon Undead']);o.push(!(kartaStav(K.id).spol||[]).some(s=>s.kz));
       const R=kReakceNaZasah(K,BOJ.s.hraci[0],BOJ.s,{hod:17,ac:18,d:12,ph:5,ai:'n1',t:'Fire'});o.push(R.o.every(x=>!/Silvery|Hellish|Counterspell/.test(x.n))&&R.o.some(x=>/^Shield/.test(x.n)));
       await bojZmen(z=>{z.npc[0].ef=[{n:'Hold Person',kdy:'kola',k:5,st:'ochromen',src:'h1'}];z.npc[0].stav=['ochromen']});await bojZmen(z=>{bojEfZnac(z,z.npc[0],'Dispel Magic',{h:null})});o.push(!(BOJ.s.npc[0].ef||[]).length&&!(BOJ.s.npc[0].stav||[]).includes('ochromen'));
+      await bojZmen(z=>{z.npc[0].ef=[{n:'Bane',kdy:'kola',k:10,kolo:1,tah:0,od:'h1'}]});o.push(/Bane/.test(bojKzIkHtml(BOJ.s,'n1'))&&/Bane/.test(bojSlStav('n1')));
       return o})()""")
-    chk(r2==[True]*7,"Heal, Lesser Restoration, Magic Weapon, Summon Undead (vznik i konec), reakce jen z kouzel postavy, Dispel Magic: "+str(r2))
+    chk(r2==[True]*8,"Heal, Lesser Restoration, Magic Weapon, Summon Undead (vznik i konec), reakce jen z kouzel postavy, Dispel Magic: "+str(r2))
     await k.close()
     # hráč
     h=await b.new_page();h.on("pageerror",lambda e:err.append("hráč: "+str(e)[:300]))
