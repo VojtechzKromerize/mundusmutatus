@@ -229,6 +229,7 @@ async def main():
     # hráč: Hex na nepřítele (bez záchrany) – vypravěč potvrdí značku, přídavek 1d6 jen proti označenému
     await pl.goto(BASE+"#boj");await pl.wait_for_selector(".bsloty");await pl.wait_for_function("typeof KSPD==='object'&&KSPD!==null",timeout=10000)
     await pl.wait_for_function("!!kBojJa(KARTBY.balduin)&&!!(window.MMDB&&bojDB&&bojDB.utok)",timeout=20000)  # hráč je v boji a může posílat (na CI pomalejší)
+    await pl.wait_for_function("!Object.keys(kartaStav('balduin').zdr||{}).length&&!(kartaStav('balduin').uc||[]).length",timeout=30000)  # telefon už má obnovené sloty (vypravěč je vrátil) – jinak dialog nenabídne seslání
     i_hx=await pl.evaluate("kSeznam(KARTBY.balduin).findIndex(x=>x.n==='Hex')")
     await pl.evaluate(f"kSesDlg(KARTBY.balduin,kSeznam(KARTBY.balduin)[{i_hx}],{i_hx})");await pl.wait_for_selector(".ksdpop")
     await pl.click(f'.ksdpop [data-ksdc="n:{nid}"]');await pl.click('.ksdpop .ksdok .gbtn:not(.ghost)');await pl.wait_for_timeout(1500)
