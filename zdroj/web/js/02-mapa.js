@@ -646,8 +646,7 @@ const BVLZ={"Krvežíznivá":"Požehnání: cíl bez Resistance vůči typu zran
   "Hrom a kouř!":"Požehnání: střelce zahalí dým a má na 1 kolo výhodu proti útokům zblízka. Pokušení: zbraň selže a před dalším výstřelem ji musíš vyčistit (bonusová akce); minul-li jsi a u cíle stojí spojenec, zasáhneš spojence; při 1 na d20 a 1 na Závoji zbraň vybuchne (2d8 Fire střelci)."};
 const BZBR={"Vycpávaná":["Bludgeoning","1×"],"Kroužková":["Bludgeoning, Slashing","2×"],"Plátová":["Slashing, Piercing","3×"],"Komplexní":["Bludgeoning, Slashing, Piercing","3×"],"Štít":["—","1×"]};
 /* malované ikony vlastností zbraní (zv-), typů zranění (zr-) a zbrojí (zb-) – art/img/boj, zadání vyvoj/ikony-boj.md */
-/* nové vlastnosti (Krvežíznivá, Omračující, Ničivá, Odvetná, Přibodnutí, Nepřímá) zatím ikonu nemají – zobrazí se jen jménem */
-const BZVK={"Drtivá":"drtiva","Průrazná":"prurazna","Šikovná":"sikovna","Ostrá":"ostra","Půlmeč":"pulmec","Do slabin!":"do-slabin","Ratiště":"ratiste","Strhující":"strhujici","Vpřed!":"vpred","Štěpící":"stepici","Hrom a kouř!":"hrom-a-kour"};
+const BZVK={"Krvežíznivá":"krvezizniva","Omračující":"omracujici","Ničivá":"niciva","Odvetná":"odvetna","Přibodnutí":"pribodnuti","Nepřímá":"neprima","Drtivá":"drtiva","Průrazná":"prurazna","Šikovná":"sikovna","Ostrá":"ostra","Půlmeč":"pulmec","Do slabin!":"do-slabin","Ratiště":"ratiste","Strhující":"strhujici","Vpřed!":"vpred","Štěpící":"stepici","Hrom a kouř!":"hrom-a-kour"};
 const BZRT={Bludgeoning:"Drtivé",Piercing:"Bodné",Slashing:"Sečné",Fire:"Ohnivé",Cold:"Mrazivé",Lightning:"Bleskové",Thunder:"Hromové",Acid:"Kyselinové",Poison:"Jedové",Necrotic:"Prokleté",Radiant:"Svaté",Psychic:"Psychické",Force:"Silové"};
 const BZBK={"Vycpávaná":"vycpavana","Kroužková":"krouzkova","Plátová":"platova","Komplexní":"komplexni","Štít":"stit"};
 const bikE=t=>String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
