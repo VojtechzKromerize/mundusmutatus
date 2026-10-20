@@ -574,8 +574,8 @@ function bojVysl(q){const t=bojNorm(q).trim();if(!t)return "";const sl=t.split(/
       ${tags}<div class="bsb">${bojTipy(body)}</div>${edit}</details></li>`;
   const r=[...S.map(x=>item("s",x.id,x.n,`Setkání · ${x.np.length} ${x.np.length<5?"skupiny":"skupin"}`,`<ul>${x.np.map(r=>`<li>${besc(bojRadekTxt(r))}</li>`).join("")}</ul>${x.h}`,st(x.st),bojEdit(x,"setkani"))),
     ...O.map(o=>{const p=PROTBY[o.b]||{};return item("o",o.id,o.n,`Osoba · ${besc(p.n||"")}${(o.pr||[]).length?" · "+(o.pr||[]).map(i=>besc((PRIVBY[i]||{}).n||i)).join(", "):""}`,`<p class="brf"><a href="#osoba/${o.id}">Zemské desky →</a></p>${bojRefTxt(p)}<hr>${p.h||""}`,"","")}),
-    ...P.map(p=>item("p",p.id,p.n,`${BDRUH[p.u]||p.u}${p.poc?` · ${p.poc}`:""}${p.vy?` · výzva ${besc(p.vy)}`:""}`,`${p.ac?`<p class="brf"><b>AC</b> ${besc(p.ac)}${p.hp.length?` · <b>HP</b> ${p.hp.map(h=>(h.n?h.n+" ":"")+h.max).join(", ")}`:""}</p>`:""}${bojRefTxt(p)}<hr>${p.h}`,st(p.st),bojEdit(p)))].slice(0,10);
-  return r.length?r.join(""):`<li class="bnic">Nic takového v bestiáři není.</li>`}
+    ...P.map(p=>item("p",p.id,p.n,`${BDRUH[p.u]||p.u}${p.poc?` · ${p.poc}`:""}${p.vy?` · výzva ${besc(p.vy)}`:""}`,`${p.ac?`<p class="brf"><b>AC</b> ${besc(p.ac)}${p.hp.length?` · <b>HP</b> ${p.hp.map(h=>(h.n?h.n+" ":"")+h.max).join(", ")}`:""}</p>`:""}${bojRefTxt(p)}<hr>${p.h}`,st(p.st),bojEdit(p)))],N=25;/* s rostoucím bestiářem: víc výsledků a upozornění, že další jsou skryté */
+  return r.length?r.slice(0,N).join("")+(r.length>N?`<li class="bnic">… a dalších ${r.length-N} – upřesni hledání (víc slov, např. „krkonoše drak“).</li>`:""):`<li class="bnic">Nic takového v bestiáři není.</li>`}
 function bojBestiar(){if(!PROTIVNICI.length||!GMV)return "";
   return `<div class="bhledej"><input type="search" name="bhledej" data-bhledej value="${besc(BHLED)}" placeholder="Hledat v bestiáři – jméno, zbraň, štítek (hory, Slezsko…), setkání, osoba" aria-label="Hledat v bestiáři protivníků" autocomplete="off"><ul class="bbl" data-bvysl>${bojVysl(BHLED)}</ul></div>`}
 

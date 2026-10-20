@@ -25,6 +25,7 @@ zdroj/web/styly.css  všechny styly (~2 800 řádků)
 zdroj/web/js/NN-*.js hlavní skript po oddílech (viz níže); dohromady jeden skript ve sdíleném
                      prostoru – pořadí podle čísla, funkce a konstanty jsou vidět ze všech souborů
 zdroj/build.py       sestaví public/ (hráč) nebo vypravec/ (--vypravec, NEPUBLIKOVAT); --staticky bez databáze;
+                     hráčské soubory v/ zmenší esbuildem (jména na nejvyšší úrovni zůstanou; MM_BEZ_ZMENSENI=1 vypne);
                      řádky /*@vloz …*/ nahradí obsahem souborů; vypravěčský soubor je jeden, hráčská verze
                      má skript v dílech v/*.js a samostatných částech v/cast-*.js (viz níže)
 zdroj/rozdel.py      --spoj spojí vše zpět do jednoho koruna.html; bez přepínače rozdělí jeden soubor znovu
@@ -132,14 +133,17 @@ Hlavní orientační body:
 
 ## Testy v tomto prostředí
 
-- K dispozici je Python, Node a Playwright. Bez databáze: `MM_BEZ_DB=1 bash testy/spustit.sh`
+- K dispozici je Python, Node a Playwright. Nejdřív `npm ci` (esbuild na zmenšení, ESLint na kontrolu kódu; web sám balíčky
+  nepotřebuje). **Po každé úpravě skriptu `node testy/kontrola_kodu.mjs`** (8 s): zdvojená a neznámá jména, čárka jako
+  operátor, jádro volající líné díly – chyby ukáže v souboru a řádku. Bez databáze: `MM_BEZ_DB=1 bash testy/spustit.sh`
   (sestavení, kontrola tajemství, prohlídka statické verze, bestiář).
 - S databází: nejdřív `eval "$(bash testy/priprav-prostredi.sh)"` (spustí PostgreSQL, stáhne PostgREST přes curl –
   `gh release download` tu nefunguje), pak rychle jen dotčené testy: `MM_TESTY="boj karta" bash testy/spustit.sh`
   (sestavení, schéma, práva a vybrané `prohlizec_*.py`, bez prohlídek všech stránek; pár minut).
   Jednotlivé `prohlizec_*.py` potřebují proměnné ze `spustit.sh`, pouštěj je přes něj.
 - Logy GitHub Actions se odsud stáhnout nedají (`--log-failed` selže). Chyby jsou v anotacích:
-  `gh run view <id>` → ANNOTATIONS (řádky FAIL a konec chyby Pythonu).
+  `gh run view <id>` → ANNOTATIONS (řádky FAIL a konec chyby Pythonu; při chybě i poslední zelený commit a změny od něj).
+  CI má rychlou kontrolu (~3 min, neruší se) a čtyři souběžné části v prohlížeči (`MM_TESTY` + `MM_PROHLIDKY` v matrixu).
 - Nové chování doplň do příslušného `prohlizec_*.py`. Vzhled kontroluj jako vypravěč i hráč, desktop i mobil,
   světlý i tmavý režim.
 

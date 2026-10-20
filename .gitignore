@@ -4,3 +4,4 @@ __pycache__/
 
 # snímky obrazovky z ladění nepatří do repozitáře
 /*.png
+node_modules/

@@ -294,6 +294,8 @@ function hraUkolyHtml(){const uk=(HRA&&HRA.ukoly)||[];
 function hraMinuleHtml(){const z=ZAPISY.length?ZAPISY[ZAPISY.length-1]:null;if(!z)return "";
   return `<section><h3 class="uvh2">Minule jsme…</h3><p><b>${besc(z.title)}</b> <small>${besc([z.n,z.date,z.place].filter(Boolean).join(" · "))}</small></p><p>${besc(strip(z.text).replace(/\s+/g," ").slice(0,340))}…</p><p class="rsmall"><a href="#kronika/${z.id}">Celý zápis v Kronice →</a></p></section>`}
 function hraJaHtml(K){return `<section class="hraja">${kartaJednaHtml(K)}</section>`}
+/* změny od posledního sezení: poprvé se načtou na pozadí a stránka se překreslí */
+function hraZmenyHtml(){if(!renderHra.zm){renderHra.zm=1;zmenyNacti().then(()=>{if(curView==="hra")renderHra()})}return zmenyHtml()}
 function renderHra(){const box=document.getElementById("hraview");if(!box)return;
   if(!KLOAD){KLOAD=1;Promise.all([kartyNacti(),hodyNacti()]).then(()=>{if(curView==="hra")renderHra()})}
   if(!BOJ.s&&bojDB&&!renderHra.b){renderHra.b=1;bojNacti().then(()=>{if(curView==="hra")renderHra()})}
@@ -302,7 +304,7 @@ function renderHra(){const box=document.getElementById("hraview");if(!box)return
     box.innerHTML=`${hl}${hraStavHtml()}
       <section><h3 class="uvh2">Výzva k hodu</h3>${vyzvaForm()}${vyzvyGmHtml()}</section>
       <section><h3 class="uvh2">Akce hráčů</h3><p class="kvlh">${potvrzHtml("hra")}</p>${navrhyGmHtml()||`<p class="rsmall">Nic nečeká na schválení. Útoky hráčů k potvrzení jsou v Boji.</p>`}</section>
-      ${(renderHra.zm||(renderHra.zm=1,zmenyNacti().then(()=>{if(curView==="hra")renderHra()})),zmenyHtml())}
+      ${hraZmenyHtml()}
       ${kPrehledHtml()}
       <section><h3 class="uvh2">Tajné zprávy</h3>${KARTY.length?`<p class="kvlh"><label>Postava <select data-zprk>${KARTY.map(k=>{const n=ZPRG.filter(z=>z.k===k.id&&!z.gm).length;return `<option value="${besc(k.id)}"${k.id===zk?" selected":""}>${besc(k.n)}${n?` (${n})`:""}</option>`}).join("")}</select></label></p>${zprHtml(zL.map(z=>Object.assign({},z,{gm:z.gm})))}
         <form class="zprf" data-zprf="${besc(zk)}"><textarea name="t" rows="2" maxlength="2000" placeholder="Zpráva jen pro tuto postavu" required></textarea><button class="gbtn ghost">Poslat</button></form>`:`<p class="rsmall">Bez karet postav.</p>`}</section>

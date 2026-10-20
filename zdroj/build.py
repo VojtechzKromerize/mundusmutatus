@@ -7,7 +7,7 @@
 Tajemství se ve zdroji značí  ⟦tajný text⟧  nebo  ⟦tajný text¦text pro hráče⟧.
 Obsah (rody, osoby, vazby, Praha, Kronika, Družina, objevená místa) je v zdroj/obsah/ jako Markdown
 s hlavičkou – viz zdroj/obsah/NÁVOD.md.
-Jen standardní knihovna Pythonu a Node.js pro zdroj/generator.js (obojí běží i na Netlify).
+Jen standardní knihovna Pythonu a Node.js pro zdroj/generator.js (obojí běží i na Netlify). Hráčské soubory v/ zmenší esbuild z package.json (npm ci; bez něj se nezmenšují).
 """
 import hashlib, json, os, re, shutil, subprocess, sys, urllib.error, urllib.request
 
@@ -441,6 +441,30 @@ if DB:
         ver = sb_rpc("mm_nahraj_obsah", _arg)
     print(f"supabase: obsah větve „{VETEV}“ nahrán, verze výřezu {ver}")
 
+# Zmenšení hráčských souborů v/ (2026-10-21): esbuild odstraní mezery a komentáře a zkrátí místní jména; jména na nejvyšší
+# úrovni (sdílená mezi díly) zůstanou, takže díly spolu dál mluví. Zdroj i vypravěčská verze zůstávají čitelné.
+# Potřebuje `npm ci` (Netlify ho spustí sám podle package.json); bez esbuildu nebo s MM_BEZ_ZMENSENI=1 se nezmenšuje.
+ESBUILD = os.path.join(ROOT, "node_modules", ".bin", "esbuild")
+def zmensi_vse(soubory):
+    if os.environ.get("MM_BEZ_ZMENSENI") or not os.path.exists(ESBUILD):
+        print("  (soubory v/ se nezmenšují – " + ("MM_BEZ_ZMENSENI" if os.environ.get("MM_BEZ_ZMENSENI") else "chybí esbuild, spusť npm ci") + ")")
+        return soubory
+    ven, pred, po = {}, 0, 0
+    for jm, t in soubory.items():
+        typ = "css" if jm.endswith(".css") else "js" if jm.endswith(".js") else None
+        if not typ:
+            ven[jm] = t
+            continue
+        r = subprocess.run([ESBUILD, "--minify", f"--loader={typ}", "--log-level=error", "--charset=utf8"], input=t, capture_output=True, text=True, encoding="utf-8")
+        if r.returncode != 0:
+            fail(f"zmenšení v/{jm} selhalo: {r.stderr.strip()[-600:]}")
+        # esbuild s --charset=utf8 přepíše \u27e6 a \u27e7 v řetězcích na znaky ⟦ ⟧ – ty ale kontrola tajemství hledá; vrátit jako escape
+        ven[jm] = r.stdout.replace("\u27e6", "\\u27e6").replace("\u27e7", "\\u27e7") if typ == "js" else r.stdout
+        pred += len(t.encode("utf-8"))
+        po += len(r.stdout.encode("utf-8"))
+    print(f"  zmenšeno: {pred // 1024} kB → {po // 1024} kB")
+    return ven
+
 shutil.rmtree(OUT, ignore_errors=True)
 os.makedirs(OUT)
 VSOUB = {}  # soubory s otiskem obsahu ve jménu: v/<jméno> -> obsah
@@ -508,6 +532,8 @@ if not GM:
     open(os.path.join(OUT, "sw.js"), "w", encoding="utf-8").write(sw)
 open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(page)
 os.makedirs(os.path.join(OUT, "v"), exist_ok=True)
+if VSOUB:
+    VSOUB = zmensi_vse(VSOUB)
 for jm, obsah in VSOUB.items():
     open(os.path.join(OUT, "v", jm), "w", encoding="utf-8").write(obsah)
 if DB:  # generátor si stáhne jen vypravěč, když upravuje texty na webu

@@ -11,12 +11,15 @@
 # Vše běží v dočasné kopii repozitáře, zdroj ani public/ se nemění.
 # Proměnné: MM_PSQL (příkaz psql, výchozí "psql"), PGHOST/PGUSER/PGPASSWORD, POSTGREST (cesta k programu),
 #           MM_BEZ_DB=1 přeskočí část s databází, MM_PORT (první z volných portů, výchozí 18700),
-#           MM_TESTY="boj karta" pustí jen tyto testy prohlizec_*.py (bez prohlídek všech stránek) – rychlá kontrola.
+#           MM_TESTY="boj karta" pustí jen tyto testy prohlizec_*.py (bez prohlídek všech stránek) – rychlá kontrola,
+#           MM_PROHLIDKY="staticka db" k nim přidá prohlídky (staticka = všechny stránky statické verze + bestiář,
+#           db = všechny stránky jako hráč a vypravěč), MM_RYCHLA=1 jen sestavení, kontrola kódu, schéma a práva (bez prohlížeče).
+#           GitHub Actions dělí plnou kontrolu na rychlou část a několik paralelních částí (.github/workflows/kontrola.yml).
 set -uo pipefail
 KOREN="$(cd "$(dirname "$0")/.." && pwd)"
 PRAC="$(mktemp -d)"; WEB="$PRAC/web"; VYSTUP="${MM_VYSTUP:-$PRAC/vystup}"; mkdir -p "$VYSTUP"
 P0="${MM_PORT:-18700}"; P_WEB=$P0; P_SB=$((P0+1)); P_PGRST=$((P0+2))
-PSQL="${MM_PSQL:-psql}"; DBN="mm_testy"; POSTGREST="${POSTGREST:-postgrest}"
+PSQL="${MM_PSQL:-psql}"; DBN="${MM_DBN:-mm_testy}"; POSTGREST="${POSTGREST:-postgrest}"
 PIDS=(); CHYBY=()
 uklid(){ for p in "${PIDS[@]:-}"; do [ -n "$p" ] && kill "$p" 2>/dev/null; done; rm -rf "$PRAC"; }
 trap uklid EXIT
@@ -24,10 +27,10 @@ krok(){ echo; echo "=== $*"; }
 SHRN="${GITHUB_STEP_SUMMARY:-/dev/null}"; echo "### Kontrola webu" >> "$SHRN"
 # zkus "název" příkaz…: výstup jde na obrazovku i do souboru; při chybě se řádky FAIL a konec chyby Pythonu
 # zapíšou jako anotace GitHubu (::error), takže jsou vidět v `gh run view` i bez stahování logů
-zkus(){ local jm="$1"; shift; local log="$PRAC/zkus-$RANDOM.log" st
-  "$@" 2>&1 | tee "$log"; st=${PIPESTATUS[0]}
-  if [ "$st" -eq 0 ]; then echo "✓ $jm"; echo "- ✓ $jm" >> "$SHRN"; else
-    echo "✗ $jm"; echo "- ✗ **$jm**" >> "$SHRN"; CHYBY+=("$jm")
+zkus(){ local jm="$1"; shift; local log="$PRAC/zkus-$RANDOM.log" st t0=$SECONDS
+  "$@" 2>&1 | tee "$log"; st=${PIPESTATUS[0]}; local dt="$((SECONDS-t0)) s"
+  if [ "$st" -eq 0 ]; then echo "✓ $jm ($dt)"; echo "- ✓ $jm ($dt)" >> "$SHRN"; else
+    echo "✗ $jm ($dt)"; echo "- ✗ **$jm** ($dt)" >> "$SHRN"; CHYBY+=("$jm")
     { grep -E '^FAIL|KONFLIKT|tajemství|Error:|Exception:' "$log" | head -8; grep -E '^  File ".*(prohlizec|prochazka|bezpecnost)[a-z_0-9]*\.py", line [0-9]+' "$log" | tail -1 | sed 's/^ *//'; grep -E '^[A-Za-z_.]+(Error|Exception)\b' "$log" | tail -1; } | awk 'NF&&!s[$0]++' > "$log.chyby"
     [ -s "$log.chyby" ] || tail -3 "$log" > "$log.chyby"
     sed 's/^/    /' "$log.chyby" >> "$SHRN"
@@ -38,20 +41,26 @@ server(){ (cd "$1" && exec python3 -m http.server "$2" --bind 127.0.0.1 >/dev/nu
 
 krok "Kopie repozitáře"
 mkdir -p "$WEB"
-tar -C "$KOREN" --exclude=.git --exclude=public --exclude=vypravec --exclude=__pycache__ -cf - . | tar -C "$WEB" -xf -
+tar -C "$KOREN" --exclude=.git --exclude=public --exclude=vypravec --exclude=__pycache__ --exclude=node_modules -cf - . | tar -C "$WEB" -xf -
+[ -d "$KOREN/node_modules" ] && ln -s "$KOREN/node_modules" "$WEB/node_modules"   # esbuild (zmenšení) a ESLint (kontrola kódu)
 cp -r "$KOREN/testy/data/." "$WEB/zdroj/obsah/"   # testovací záznamy (např. koncept Kroniky)
 
 krok "Sestavení"
 zkus "hráčská verze (statická) bez tajemství" python3 "$WEB/zdroj/build.py" --staticky
 zkus "vypravěčská verze" python3 "$WEB/zdroj/build.py" --vypravec
 zkus "service worker je platný JavaScript" node --check "$WEB/public/sw.js"
+if [ -d "$KOREN/node_modules/eslint" ]; then zkus "kontrola kódu (zdvojená a neznámá jména, jádro vs. díly)" node "$KOREN/testy/kontrola_kodu.mjs"
+else echo "(kontrola kódu přeskočena – chybí balíčky, spusť npm ci)"; echo "- (kontrola kódu přeskočena – chybí npm ci)" >> "$SHRN"; fi
 zkus "databáze přijme všechna pole stavu karty" python3 "$KOREN/testy/pole_stavu.py"
 zkus "žádná značka tajemství v hráčské verzi" python3 -c "
 import pathlib,sys
 z=[str(p) for p in pathlib.Path(sys.argv[1]).rglob('*') if p.suffix in ('.html','.js','.css','.json') and any(chr(c) in p.read_text(errors='ignore') for c in (0x27e6,0x27e7))]
 print(chr(10).join(z));sys.exit(1 if z or not (pathlib.Path(sys.argv[1])/'index.html').exists() else 0)" "$WEB/public"
 
-if [ -z "${MM_TESTY:-}" ]; then
+# které prohlídky: bez MM_TESTY všechny, s MM_TESTY jen ty v MM_PROHLIDKY, s MM_RYCHLA žádné
+PROHL="${MM_PROHLIDKY-}"; [ -z "${MM_TESTY:-}" ] && [ -z "${MM_PROHLIDKY+x}" ] && PROHL="staticka db"; [ -n "${MM_RYCHLA:-}" ] && PROHL=""
+ma(){ [[ " $PROHL " == *" $1 "* ]]; }
+if ma staticka; then
 krok "Prohlídka statické verze"
 server "$WEB/public" $P_WEB && zkus "statická verze: všechny stránky bez chyb" python3 "$KOREN/testy/prochazka.py" "http://127.0.0.1:$P_WEB/"
 server "$WEB/vypravec" $((P_WEB+4)) && MM_GMWEB="http://127.0.0.1:$((P_WEB+4))/" MM_HRWEB="http://127.0.0.1:$P_WEB/" MM_KOREN="$WEB" MM_VYSTUP="$VYSTUP" \
@@ -90,12 +99,11 @@ KONF
   krok "Práva v databázi"
   zkus "práva v databázi" python3 "$KOREN/testy/bezpecnost.py"
 
-  krok "Testy v prohlížeči"
-  for t in ${MM_TESTY:-odhalovani herni_stav draci boj boj2 tah reakce potvrz karta karta_vse pecet editor zapisy vyprava}; do
+  if [ -z "${MM_RYCHLA:-}" ]; then krok "Testy v prohlížeči"; for t in ${MM_TESTY-odhalovani herni_stav draci boj boj2 tah reakce potvrz karta karta_vse pecet editor zapisy vyprava}; do
     zkus "prohlížeč: $t" python3 "$KOREN/testy/prohlizec_$t.py"
-  done
+  done; fi
 
-  if [ -z "${MM_TESTY:-}" ]; then
+  if ma db; then
   krok "Prohlídka jako hráč a jako vypravěč"
   zkus "hráč: všechny stránky bez chyb" python3 "$KOREN/testy/prochazka.py" "$MM_WEB"
   python3 - "$PRAC/relace.json" <<PY
