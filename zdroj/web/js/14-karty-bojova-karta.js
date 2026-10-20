@@ -205,15 +205,10 @@ function bojGmHod(hid,i){const s=BOJ.s||{},h=(s.hraci||[]).find(x=>x.id===hid);i
   const G0=BGMU[hid]||{},v=+(G0.adv||0),typ=bojUtTyp(K,w),cL=bojCileL(G0,s.npc||[]),N=Math.max(1,+w.pocet||1),tk=(s.kolo||1)*100+(s.tah||0);
   if(!cL.length&&(s.npc||[]).filter(bojCilMoz).length>1){mmHlasG("Nejdřív vyber cíl útoku.",3000);return}
   if(G0.uw!==w.n||G0.utk!==tk){G0.ui=0;G0.uw=w.n;G0.utk=tk}const ui=Math.min(+G0.ui||0,N-1),ser=[],tx=[];
-  {const ci=cL.length?cL[ui%cL.length]:"",c=(s.npc||[]).find(o=>o.id===ci);
-    /* účinky jako u hráče (2026-10-20): Hex / Hunter's Mark na cíli, Magic Weapon, Bless… – vypravěč za hráče nehází slabší útok */
-    let EF=[];try{EF=K&&typeof bojEfZnacene==="function"?bojEfZnacene(h,K,c,w,[]):[]}catch(x){EF=[]}
-    const kmin=Math.min(20,...EF.map(e=>+e.krit||20)),plus=EF.reduce((a,e)=>a+(typeof e.zr==="string"?0:(+e.zr||0)),0),b=(+w.b||0)-(K?2*kVycerp(K):0)+(typeof kEfUt==="function"?kEfUt(EF):0);
-    const d1=bK(20),d2=v?bK(20):null,d=v>0?Math.max(d1,d2):v<0?Math.min(d1,d2):d1,krit=d>=kmin;
-    const E=c?bojEff(c):null,ZS=E?bojZbrStav(c,E):null,AC=ZS?ZS.ac+(bojSS(s,h,{cim:w.n})?0:(+c.kryt||0)):null,zas=d!==1&&(krit||AC==null||d+b>=AC),k=zas&&w.z?bojKostky(w.z,krit):null;
-    const ek=zas?EF.filter(e=>typeof e.zr==="string").map(e=>Object.assign(bojKostky(e.zr,krit)||{t:0,x:""},{n:e.n})).filter(q=>q.x):[],dmg=zas?(k?k.t:0)+(d===1?0:plus+ek.reduce((a,q)=>a+q.t,0)):0;
-    const zx=k?`${k.x}${plus?` +${plus}`:""}${ek.map(q=>` + ${q.x} (${q.n})`).join("")}`:"";
-    ser.push({ci,hod:d+b,d,dmg,det:{d1,d2,v,b,zx}});tx.push(`${c?besc(c.n)+": ":"<b>bez cíle</b> · "}d20 ${d1}${d2!=null?`/${d2}`:""} ${bsg(b)} = ${d+b}${krit?" · krit":d===1?" · přirozená 1":""}${AC!=null&&!zas?` · vedle (AC ${AC}) – zranění se nehází`:k?` · zranění ${besc(zx)} = ${dmg}`:""}`)}
+  {const ci=cL.length?cL[ui%cL.length]:"",c=(s.npc||[]).find(o=>o.id===ci),E=c?bojEff(c):null,ZS=E?bojZbrStav(c,E):null,AC=ZS?ZS.ac+(bojSS(s,h,{cim:w.n})?0:(+c.kryt||0)):null;
+    /* stejný hod jako z telefonu hráče (2026-10-20): Hex / Hunter's Mark na cíli, Magic Weapon, vyčerpání, Lucky; zranění jen po zásahu */
+    const P=bojUtokPriprav({s,h,K,w,c,v,ac:AC,sel:[]});
+    ser.push({ci,hod:P.hod,d:P.d,dmg:P.dmg,krit:P.krit,vys:P.vys,upr:[],det:{d1:P.d1,d2:P.d2,v:P.v,b:P.b,zx:P.zx},dz:P.dz});tx.push(`${c?besc(c.n)+": ":"<b>bez cíle</b> · "}${P.txtHod}${AC!=null&&!P.zas?` · vedle (AC ${AC}) – zranění se nehází`:P.txtZr.replace(/^, /," · ")}`)}
   G0.ui=ui+1>=N?0:ui+1;
   const G=BGMU[hid]=Object.assign(G0,{zi:i,ci:ser[0].ci||G0.ci,hod:ser[0].hod,d:ser[0].d,dmg:ser[0].dmg||"",t:typ&&typ!==w.t?typ:"",serie:ser,un:N>1?`útok ${ui+1} z ${N}`:""});let zv="";if(K){const z=kZavoj(K);KZAV[K.id]={co:`Útok – ${w.n}`,d:z.d,r:z.r,hod:z.hod};G.zav={d:z.d,r:z.r};zv=" · "+zavTxt(z)}
   G.info=`${w.n}${G.un?` · ${G.un}`:""}${v?` (${v>0?"výhoda":"nevýhoda"})`:""}: ${tx.join(" | ")}${typ?" · "+(BZRT[typ]||typ):""}${zv}${G.un&&G0.ui?" · další útok téže akce: Hodit! znovu (cíl jde změnit)":""}`;renderBoj()}
