@@ -107,6 +107,19 @@ function bojSeznam(el,items){const tpl=document.createElement("template");let pr
   for(const [id,h] of items){let cur=[...el.children].find(c=>c.dataset.bnpc===id);
     if(!cur||cur.__h!==h){tpl.innerHTML=h;const nw=tpl.content.firstElementChild;nw.__h=h;if(cur)cur.replaceWith(nw);cur=nw}
     const want=prev?prev.nextElementSibling:el.firstElementChild;if(want!==cur)el.insertBefore(cur,want);prev=cur}}
+/* překreslení jen otevřeného listu útoku a hlášek nad kartou (2026-10-20): klepnutí na cíl, výhodu, volbu po zásahu nebo
+   úpravu hodu mění jen BJU / BGMU – celá stránka Boje (pruh, nepřátelé, záznam) se překreslovat nemusí, telefon necukne
+   a list neztratí posuv. Když list otevřený není, překreslí se vše. */
+function bojListPrekresli(){const s=BOJ.s;if(curView!=="boj"||!s||!s.aktivni){bdmPrekresli();return}
+  const el=document.querySelector("#bojview .bdm [data-bdmlist]"),root=el&&el.closest(".bdm[data-kid]");if(!root){renderBoj();return}
+  const kid=root.dataset.kid,h=(s.hraci||[]).find(x=>{const K=bojKartaH(x);return K&&K.id===kid});if(!h){renderBoj();return}
+  let html="";try{html=bojHracKarta(s,h,GMV,!GMV)}catch(e){console.error(e);renderBoj();return}
+  const t=document.createElement("template");t.innerHTML=html;const nl=t.content.querySelector("[data-bdmlist]");if(!nl){renderBoj();return}
+  const swap=(sel,src)=>{const a=root.querySelector(sel),b=src.querySelector(sel);if(a&&b){if(a.innerHTML!==b.innerHTML)a.innerHTML=b.innerHTML}else if(a||b)return false;return true};
+  if(!swap("[data-bdmlist] .bdmlb",t.content)||!swap("[data-bdmlist] .bdmlh b",t.content)){renderBoj();return}
+  const h0=root.querySelector(".bdmhl"),h1=t.content.querySelector(".bdmhl");if(h0&&h1)h0.replaceWith(h1);else if(h0)h0.remove();else if(h1){const hd=root.querySelector("header.bdmh");if(hd)hd.after(h1);else{renderBoj();return}}
+  const b0=root.querySelector(".bdmbody"),b1=t.content.querySelector(".bdmbody");if(b0&&b1&&b0.innerHTML!==b1.innerHTML)b0.innerHTML=b1.innerHTML;
+  try{bojJaUloz()}catch(e){}}
 function renderBoj(){try{bojHistZapis()}catch(e){}try{bojJaObnov()}catch(e){}
   /* vypravěč: momentum se změnilo (životy postav na kartách) – zapsat do stavu boje, ať ho vidí i hráči */
   if(GMV&&BOJ.s&&BOJ.s.aktivni&&!renderBoj.mt){try{const M=bojMomentum0(BOJ.s),o=BOJ.s.mom;if(M.pH!=null&&M.pN!=null&&(!o||o.m!==M.m||o.h!==Math.round(M.pH*100)||o.n!==Math.round(M.pN*100))){renderBoj.mt=setTimeout(()=>{renderBoj.mt=0;bojZmen(()=>{},true)},400)}}catch(e){}}

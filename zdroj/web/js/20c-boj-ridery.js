@@ -22,7 +22,7 @@ function bojJaRid(k){const s=BOJ.s||{},me=(s.hraci||[]).find(h=>h.n===bojJa.get(
   if(j>=0){const r=q.rid[j];q.dmg=Math.max(0,(+q.dmg||0)-r.t);q.zx=String(q.zx||"").replace(r.x,"");q.rid.splice(j,1);txt=`${r.n} zrušeno → zranění ${q.dmg}`}
   else{const R=bojJaRidery(K,me,w,q,s).find(r=>r.k===k);if(!R||q.rid.some(r=>r.g===R.g))return;const kk=bojKostky(R.zr,q.krit);if(!kk)return;const x=` + ${kk.x} (${R.n})`;
     q.dmg=(+q.dmg||0)+kk.t;q.zx=(q.zx||"")+x;q.rid.push({k,g:R.g,n:R.n,t:kk.t,x,cena:R.cena||null,ba:R.ba||0,cim:R.cim||R.n});txt=`${R.n} ${kk.x} = ${kk.t} → zranění ${q.dmg}`}
-  if(ser.indexOf(q)===0)BJU.dmg=String(q.dmg);BJU.info=`${BJU.info?BJU.info+" · ":""}${txt}`;renderBoj()}
+  if(ser.indexOf(q)===0)BJU.dmg=String(q.dmg);BJU.info=`${BJU.info?BJU.info+" · ":""}${txt}`;bojListPrekresli()}
 /* po odeslání: utratit slot / kostku převahy / bonusovou akci a reakci odvety; „jednou za tah“ si pamatuje tento telefon */
 async function bojJaRidPo(K,me,SER){if(!K||!me)return;const s=BOJ.s||{},tk=(s.kolo||1)*100+(s.tah||0);if(!(BJU.ridT&&BJU.ridT.tk===tk))BJU.ridT={tk,u:[]};
   for(const q of (SER||[]))for(const r of (q.rid||[])){if(/^(ds|es|sa)$/.test(r.g))BJU.ridT.u.push(r.g);const c=r.cena;

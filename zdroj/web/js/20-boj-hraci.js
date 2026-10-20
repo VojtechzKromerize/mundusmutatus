@@ -117,7 +117,7 @@ function bojJaHod(){const s=BOJ.s||{},me=(s.hraci||[]).find(h=>h.n===bojJa.get()
   if(K&&w.karta){const a=kUtoky(K).find(x=>x.n===w.n);if(a)kMunOdecti(K,a,ser.length)}if(K)kEfPouzij(K,E,BJU.ef);
   BJU.hod=String(ser[0].hod);BJU.d=String(ser[0].d);BJU.dmg=String(ser[0].dmg);BJU.t=bojUtTyp(K,w)||w.t||BJU.t;BJU.drt=!!w.drt;BJU.pru=!!w.pru;BJU.kmin=kmin;BJU.serie=ser;
   let zv="";BJU.zav=null;if(K){const z=kZavoj(K,r6);KZAV[K.id]={co:`Útok – ${w.n}`,d:z.d,r:z.r,hod:z.hod};BJU.zav={d:z.d,r:z.r};zv=" · "+zavTxt(z)+(r6!=null?" (ručně)":"")}
-  BJU.info=(v&&r20==null?`${v>0?"Výhoda":"Nevýhoda"}. `:"")+txt.join(" · ")+zv;if(iU>=nU-1)bojBptOznac("A");renderBoj()}
+  BJU.info=(v&&r20==null?`${v>0?"Výhoda":"Nevýhoda"}. `:"")+txt.join(" · ")+zv;if(iU>=nU-1)bojBptOznac("A");bojListPrekresli()}
 /* hráč: poslat útok vypravěči */
 async function bojJaPosli(){const s=BOJ.s||{},me=(s.hraci||[]).find(h=>h.n===bojJa.get());if(!me||!bojDB||!bojDB.utok)return;const w=bojZbrVse(s,me)[+BJU.zi],ci=BJU.plos?BJU.cile.filter(id=>(s.npc||[]).some(o=>o.id===id)):bojCileL(BJU,s.npc||[]);
   if(!ci.length){mmHlas("Vyber cíl.",2500);return}const K=bojKartaH(me),sp=bojJaSp(s,me);
