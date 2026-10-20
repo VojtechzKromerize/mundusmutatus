@@ -351,6 +351,9 @@ async def main():
     chk(await pl.evaluate("(()=>{const b=document.querySelector('[data-bhcard=\"h4\"] .bphod .bphhodp [data-juposl]');return !!(b&&b.offsetParent)&&/ručně/.test(b.closest('.bphod').innerText)&&!b.closest('.bphod').querySelector('[data-bjut]')})()"),"hráč: po hodu je hlavním tlačítkem listu Poslat vypravěči a výsledek je nad ním (2026-10-20)")
     chk(r[0]==17 and r[1] is None and r[2]==6 and "ručně" in r[3] and r[4],"Zadat ručně: d20 17 i s výhodou jen jednou, Závoj 6, pole se po hodu smažou: "+str(r))
     chk(r[5]==1 and r[3].count("d20 17 (ručně)")==1,"Zadat ručně platí pro jeden útok: "+str(r[3])[:160])
+    # rozehraný útok přežije obnovení stránky (telefon ji obnoví po nasazení nebo po návratu z jiné aplikace) – 2026-10-20
+    h0=await pl.evaluate("BJU.serie&&BJU.serie[0].hod");await pl.reload();await pl.wait_for_selector(".bsloty");await pl.wait_for_timeout(2500)
+    chk(await pl.evaluate("BJU.serie&&BJU.serie[0].hod")==h0 and await pl.locator('[data-bhcard="h4"] .bphod .bphhodp [data-juposl]').count()==1,"rozehraný útok i otevřený list útoku přežijí obnovení stránky")
     await pl.evaluate("BJU.serie=null;BRUC.h4={d20:'25'};bojJaHod()");chk(await pl.evaluate("BJU.serie===null"),"Zadat ručně: d20 mimo 1–20 se nehodí, hráč dostane upozornění")
     await pl.evaluate("delete BRUC.h4;BJU.serie=null;BJU.info='';BJU.hod='';BJU.d='';BJU.dmg='';BJU.adv='auto';BDM.sheet=null;renderBoj()");await pl.wait_for_timeout(300)
     # pruh „co teď“: na tahu, soustředění, krvácení, práh smrti

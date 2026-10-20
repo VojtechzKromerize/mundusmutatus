@@ -130,6 +130,22 @@ function bojUtokyPanel(s){const P=(s.utoky||[]).filter(u=>u.stav==="ceka");
   return `${navrhyGmHtml()}<section class="butkp bmor bkonc"><b>Útoky hráčů k potvrzení</b>${tg}<ul>${P.map(u=>{const V=bojUtokVyhodnot(s,u);return `<li><b>${besc(V.an)}</b> · ${besc(u.cim||"útok")}${bojUtEf(u)?" · účinek kouzla bez hodu":`${u.plos?` · plošně ${u.plos.ab} SO ${u.plos.dc}`:` · útok ${u.hod}${u.d?` (d20 ${u.d})`:""}`} · zranění ${u.dmg} ${besc(bojZrCz(u.t))}`}<br><small>${V.r.map(o=>besc(o.gm)+(o.leg?` <button type="button" class="badd" data-bulr="${u.id}" data-ci="${o.ci}" ${btip("Nepřítel místo neúspěchu uspěje – spotřebuje jedno použití Legendární odolnosti")}>Legendární odolnost (${o.leg})</button>`:"")).join("<br>")}</small> <button type="button" class="gbtn" data-bupot="${u.id}">Zapsat</button><button type="button" class="gbtn ghost" data-buzam="${u.id}">Zamítnout</button></li>`}).join("")}</ul></section>`}
 /* hráč: formulář útoku (stav formuláře přežije překreslení) */
 const BJU={zi:"",cil:"",cilL:[],cile:[],plos:false,adv:"auto",hod:"",d:"",dmg:"",cim:"",t:"Slashing",drt:false,pru:false,dal:false,ab:"AGI",dc:"",pol:true,info:"",ef:[],serie:null,ks:null,sl:""};
+/* hráč: rozehraný útok přežije obnovení stránky (2026-10-20) – telefon stránku obnoví po nasazení nové verze nebo po návratu
+   z jiné aplikace; hozené a neodeslané kostky, cíl, volby po zásahu, Závoj i otevřený list útoku se uloží v telefonu a po
+   načtení vrátí, pokud jde o tutéž postavu, tentýž boj a kolo. Útok, který se právě odesílal, se nevrátí, když už dorazil. */
+const BJUK="mm-bju";
+function bojJaUloz(){if(GMV)return;const s=BOJ.s;if(!s||!s.aktivni||!bojJaObnov.hotovo)return;const ja=bojJa.get();if(!ja)return;const me=(s.hraci||[]).find(h=>h.n===ja),K=me&&bojKartaH(me);
+  const o={ts:Date.now(),ja,kolo:s.kolo||1,bju:BJU,sheet:BDM.sheet&&BDM.sheet.t==="utok"?BDM.sheet:null,zav:K&&KZAV[K.id]||null,kid:K&&K.id||null};
+  try{const t=JSON.stringify(o);if(t!==bojJaUloz.p){localStorage.setItem(BJUK,t);bojJaUloz.p=t}}catch(e){}}
+function bojJaObnov(){if(GMV||bojJaObnov.hotovo)return;const s=BOJ.s;if(!s)return;if(!s.aktivni){bojJaObnov.hotovo=true;return}const ja=bojJa.get();if(!ja)return;bojJaObnov.hotovo=true;
+  let o=null;try{o=JSON.parse(localStorage.getItem(BJUK)||"null")}catch(e){}if(!o||o.ja!==ja||o.kolo!==(s.kolo||1)||Date.now()-o.ts>45*60e3||!o.bju)return;
+  const B=o.bju,me=(s.hraci||[]).find(h=>h.n===ja);if(!me)return;
+  /* odesílání přerušené obnovením: když útok už u vypravěče je, nevracet ho (jinak by šel poslat dvakrát) */
+  if(B.posila&&B.serie&&B.serie.length&&(s.utoky||[]).some(u=>u.h===me.id&&(+u.k||0)===(s.kolo||1)&&+u.hod===+B.serie[0].hod&&(u.ci||[]).includes(B.serie[0].ci)))B.serie=null;
+  delete B.posila;const zn=(B.serie||[]).length;
+  Object.keys(BJU).forEach(k=>{if(k in B)BJU[k]=B[k]});["ripo","ridT","ui","uw","utk","un","zav","kmin","zvAuto","sikOk"].forEach(k=>{if(k in B)BJU[k]=B[k]});
+  if(o.zav&&o.kid&&!KZAV[o.kid])KZAV[o.kid]=o.zav;if(o.sheet&&KARTBY[o.sheet.k])BDM.sheet=o.sheet;
+  if(zn)setTimeout(()=>mmHlas("Rozehraný útok je zpátky – stačí ho poslat vypravěči.",4500),300)}
 /* hráč: kouzla ve formuláři útoku (2026-10-17) – útok kouzlem (i více paprsků), záchrana jednoho či více cílů, automatický zásah
    (Magic Missile); zranění se škáluje stupněm slotu a úrovní postavy; odesláním se odečte slot a začne soustředění */
 function kSpBoj(K,x,lvl){const d=kSpA(x.n);if(!d)return null;const E=kSpUcinek(K,x,lvl);if(E&&E.k==="l")return null;const t=String(d.t||"");
@@ -274,8 +290,9 @@ async function bojJaPosli(){const s=BOJ.s||{},me=(s.hraci||[]).find(h=>h.n===boj
   if(await kOdklad(`${zak.cim||"útok"} → ${cn}`,()=>true)===false){BJU.info="Zrušeno – nic se neodeslalo.";renderBoj();return}
   const sv=!!(sp&&sp.x.pz&&sp.x.pz.sv);if(sv&&await kartaSeslat(sp.K,sp.x,sp.q&&sp.q.k)===false){BJU.serie=null;BJU.info="Svitek selhal – nic se neodeslalo.";renderBoj();return}
   const SER=!BJU.plos&&BJU.serie&&BJU.serie.length===L.length?BJU.serie:null,ZV=BJU.zav;
+  BJU.posila=Date.now();try{bojJaUloz()}catch(e){}
   try{for(const u of L){try{await bojDB.utok(me.id,u)}catch(e){if(!u.sl||!/neplatný útok/.test(e.message||""))throw e;delete u.sl;await bojDB.utok(me.id,u)}}/* starší databáze bez 'sl' */bojJaHodyZapis(s,K,L,SER,ZV);try{await bojJaRidPo(K,me,SER)}catch(e){console.error(e)}if(sp&&!sv&&(sp.x.st>0||sp.x.kon||sp.x.pz)){try{await kartaSeslat(sp.K,sp.x,sp.q&&sp.q.k)}catch(e){}BJU.sl=""}BJU.hod=BJU.d=BJU.dmg="";BJU.serie=null;BJU.info=L.length>1?`Odesláno ${L.length} útoky – čekají na vypravěče.`:"Odesláno – čeká na vypravěče.";if(!sp&&(+BJU.un||1)>1){BJU.ui=(+BJU.ui||0)+1;if(BJU.ui<BJU.un)BJU.info=`Útok ${BJU.ui} z ${BJU.un} odeslán. Další útok téže akce: klidně změň cíl a hoď znovu.`;else BJU.ui=0}try{navigator.vibrate&&navigator.vibrate(40)}catch(e){}}catch(err){mmHlas("Nepodařilo se poslat: "+(err.message||err),5000)}
-  BOJ.v=-2;await bojNacti();renderBoj()}
+  delete BJU.posila;BOJ.v=-2;await bojNacti();renderBoj()}
 /* odeslaný útok hráče do herního záznamu: kostky d20, zranění a kostka Závoje (Závoj jen u prvního útoku – hází se jednou za akci);
    vypravěč ho v záznamu boje spojí se svým vyhodnocením (zásah proti AC) */
 function bojJaHodyZapis(s,K,L,SER,ZV){if(!K||!SER)return;L.forEach((u,i)=>{const x=SER[i]||{},c=bojJm(s,(u.ci||[])[0])||"",adv=x.d2!=null&&x.v?` / ${x.d2} (${x.v>0?"výhoda":"nevýhoda"})`:"";
@@ -423,7 +440,7 @@ function bojSeznam(el,items){const tpl=document.createElement("template");let pr
   for(const [id,h] of items){let cur=[...el.children].find(c=>c.dataset.bnpc===id);
     if(!cur||cur.__h!==h){tpl.innerHTML=h;const nw=tpl.content.firstElementChild;nw.__h=h;if(cur)cur.replaceWith(nw);cur=nw}
     const want=prev?prev.nextElementSibling:el.firstElementChild;if(want!==cur)el.insertBefore(cur,want);prev=cur}}
-function renderBoj(){try{bojHistZapis()}catch(e){}
+function renderBoj(){try{bojHistZapis()}catch(e){}try{bojJaObnov()}catch(e){}
   /* vypravěč: momentum se změnilo (životy postav na kartách) – zapsat do stavu boje, ať ho vidí i hráči */
   if(GMV&&BOJ.s&&BOJ.s.aktivni&&!renderBoj.mt){try{const M=bojMomentum0(BOJ.s),o=BOJ.s.mom;if(M.pH!=null&&M.pN!=null&&(!o||o.m!==M.m||o.h!==Math.round(M.pH*100)||o.n!==Math.round(M.pN*100))){renderBoj.mt=setTimeout(()=>{renderBoj.mt=0;bojZmen(()=>{},true)},400)}}catch(e){}}
   const box=document.getElementById("bojview");if(!box)return;if(GMV&&!KSPD)kSpNacti().catch(()=>{});bttHide();
@@ -448,7 +465,7 @@ function renderBoj(){try{bojHistZapis()}catch(e){}
   const tr=box.querySelector(".bsloty");if(tr){if(kk!==BOJ.rk){BOJ.rk=kk;const c=tr.querySelector(".btah");tr.scrollLeft=c?Math.max(0,c.offsetLeft-(tr.clientWidth-c.offsetWidth)/2):0}else tr.scrollLeft=sx}
   if(f&&!(ae&&ae.isConnected)){const e=box.querySelector(`[name="${f}"]`)||(/^[A-Za-z][\w-]*$/.test(f)?box.querySelector("#"+f):null);if(e){if(fv!=null&&e.value!==fv)e.value=fv;e.focus();if(ss!=null)try{e.setSelectionRange(ss,ss)}catch(x){}}}
   try{bdmLepky()}catch(e){}
-  bojUpozorni();bojWake();bojGlogPoll();if(!GMV&&s.aktivni){try{bojKonHlidej(s,(s.hraci||[]).find(h=>h.n===bojJa.get()))}catch(e){}try{bojMinHlidej(s,(s.hraci||[]).find(h=>h.n===bojJa.get()))}catch(e){}try{bojZasahHlidej(s,(s.hraci||[]).find(h=>h.n===bojJa.get()))}catch(e){}}
+  bojUpozorni();bojWake();bojGlogPoll();try{bojJaUloz()}catch(e){}if(!GMV&&s.aktivni){try{bojKonHlidej(s,(s.hraci||[]).find(h=>h.n===bojJa.get()))}catch(e){}try{bojMinHlidej(s,(s.hraci||[]).find(h=>h.n===bojJa.get()))}catch(e){}try{bojZasahHlidej(s,(s.hraci||[]).find(h=>h.n===bojJa.get()))}catch(e){}}
 }
 document.addEventListener("click",e=>{const b=e.target.closest("[data-bdruz]");if(!b)return;const fh=document.getElementById("bfh");if(!fh)return;
   const vzor=fh.querySelector(".bsr");fh.innerHTML="";PARTY.forEach(p=>{const r=vzor.cloneNode(true);r.querySelector('[name="hn"]').value=p.n;fh.appendChild(r)});bojObtForm()});
