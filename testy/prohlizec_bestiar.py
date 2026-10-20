@@ -249,6 +249,11 @@ async def main():
       BZASV.set(Date.now());BJK.seen=0;BJK.d='';bojKonHlidej({kolo:1,zaz:[{ci:'h1',z:5,k:1,ts:Date.now()-5000}]},{id:'h1',stav:['soustředí']});o.push(BJK.d==='');
       return o})()""")
     chk(r3==[True]*4,"útok za hráče: jediný nepřítel je cílem, Hex přidá 1d6, útok se zapíše, staré zranění se po obnovení znovu nehlásí: "+str(r3))
+    # malované ikony: každá použitá v BIMG, KZIK a stavech má soubory 48 i 96 px (2026-10-20)
+    ik=await k.evaluate("[...BIMG,...Object.values(KZIK),...Object.values(BSTI).map(x=>x[0]).filter(x=>BIMG.has(x))]")
+    koren=os.environ.get("MM_KOREN",os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    chyb=sorted({n for n in ik if not all(os.path.exists(os.path.join(koren,"art/img/boj",f"{n}-{px}.webp")) for px in (48,96))})
+    chk(not chyb and "bless" in ik and "krvaci" in ik,"malované ikony stavů a kouzel mají soubory 48/96 px: "+str(chyb))
     # volby po zásahu, přesun Hexu, reakce bojovníka (2026-10-20)
     r4=await k.evaluate("""(async()=>{const o=[],K=KARTBY.balduin,s=BOJ.s,me=s.hraci.find(x=>x.id==='h1');
       K.rysy=[...(K.rysy||[]),'Eldritch Smite','Trip Attack','Parry','Riposte','Precision Attack','Great Weapon Master'];K.zdroje=[...(K.zdroje||[]),{n:'Combat Superiority',max:4,obn:'krátký nebo dlouhý odpočinek · kostka d8'}];

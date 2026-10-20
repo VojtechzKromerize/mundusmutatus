@@ -282,11 +282,14 @@ function bojBufKonecTahu(s,h){if(!GMV)return;const K=bojKartaH(h);if(!K||!kBufEf
 
 /* ===== Kouzla na účastnících boje (2026-10-20 c): ikony pod slotem iniciativy, v kartě NPC a v seznamech =====
    NPC: značky kouzel (n.ef bez stavu – Hex, Bane, Hunter's Mark…); postava: značky v boji, posílení od druhých (kBufy) a vlastní posílení (KZEF) */
-const KZIK={"Bless":"pozehnani","Guidance":"pozehnani","Heroism":"pozehnani","Aid":"pozehnani","Beacon of Hope":"pozehnani","Death Ward":"pozehnani","Bane":"pokuseni",
-  "Hex":"zr-necrotic","Hunter's Mark":"zr-force","Faerie Fire":"zr-radiant","Haste":"vyhoda","Longstrider":"vyhoda","Fly":"vyhoda","Enhance Ability":"vyhoda","Slow":"nevyhoda",
-  "Shield of Faith":"zb-stit","Warding Bond":"zb-stit","Blade Ward":"zb-stit","Protection from Evil and Good":"zb-stit","Resistance":"zb-stit","Mage Armor":"zb-vycpavana",
-  "Barkskin":"zb-platova","Stoneskin":"zb-platova","Blur":"neviditelny","Greater Invisibility":"neviditelny","Invisibility":"neviditelny","Mirror Image":"neviditelny","Blink":"neviditelny",
-  "Magic Weapon":"zr-magicke","Elemental Weapon":"zr-magicke","Shillelagh":"zr-magicke","Spirit Guardians":"zr-radiant","Moonbeam":"zr-radiant","Witch Bolt":"zr-lightning","Heat Metal":"zr-fire"};
+const KZIK={"Bless":"bless","Guidance":"bless","Bane":"bane","Heroism":"posileni","Aid":"posileni","Beacon of Hope":"posileni",
+  "Death Ward":"ochrana","Shield of Faith":"ochrana","Warding Bond":"ochrana","Protection from Evil and Good":"ochrana","Holy Aura":"ochrana","Sanctuary":"ochrana",
+  "Hex":"hex","Hunter's Mark":"lovec","Faerie Fire":"faerie","Haste":"haste","Slow":"slow",
+  "Longstrider":"pohyb","Fly":"pohyb","Spider Climb":"pohyb","Freedom of Movement":"pohyb","Expeditious Retreat":"pohyb","Jump":"pohyb",
+  "Blur":"zmizeni","Mirror Image":"zmizeni","Blink":"zmizeni","Invisibility":"neviditelny","Greater Invisibility":"neviditelny",
+  "Barkskin":"kuze","Stoneskin":"kuze","Mage Armor":"kuze","Armor of Agathys":"kuze","False Life":"kuze","Enlarge/Reduce":"velikost",
+  "Enhance Ability":"vyhoda","Blade Ward":"zb-stit","Resistance":"zb-stit","Protection from Energy":"zb-stit",
+  "Spirit Guardians":"zr-radiant","Moonbeam":"zr-radiant","Magic Weapon":"zr-magicke","Elemental Weapon":"zr-magicke","Shillelagh":"zr-magicke","Witch Bolt":"zr-lightning","Heat Metal":"zr-fire"};
 function bojKzEf(s,id){const R=[],add=(n,od,pozn,zb)=>{n=kzJm(String(n||"").replace(/^Účinek:\s*/,""));if(!n||R.some(r=>r.n===n))return;R.push({n,od:od||"",pozn:pozn||"",zb})};
   const n=(s.npc||[]).find(x=>x.id===id);
   if(n){(n.ef||[]).filter(e=>!e.st).forEach(e=>add(e.n,bojJm(s,e.od||e.src),e.z?`na začátku tahu ${e.z} ${BZRT[e.t]||e.t||""}`:"",e.kdy==="kola"?e.k:null));return R}
