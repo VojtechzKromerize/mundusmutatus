@@ -19,7 +19,7 @@ async function kzVlUloz(){const d=KZVL.map(({vl,...x})=>x);
   try{localStorage.setItem("mm-kouzla",JSON.stringify(d))}catch(e){mmHlasG("Kouzlo se nepodařilo uložit ani v prohlížeči.",6000);return false}return true}
 /* art/kouzla.json se stáhne jednou (sdílí ho seznam kouzel vypravěče i karty postav); každý si ho přečte zvlášť */
 let KZTXTP=null;const kouzlaTxt=()=>KZTXTP=KZTXTP||fetch("art/kouzla.json").then(r=>{if(!r.ok)throw new Error(r.status);return r.text()}).catch(e=>{KZTXTP=null;throw e});
-/* hráč stahuje lehčí art/kouzla-karta.json (bez povolání a bez popisů, kde automatika čte starší text); vypravěč plný soubor */
+/* hráč stahuje lehčí art/kouzla-karta.json (bez popisů tam, kde automatika čte starší text); vypravěč plný soubor */
 let KZTXTKP=null;const kouzlaTxtKarta=()=>GMV?kouzlaTxt():(KZTXTKP=KZTXTKP||fetch("art/kouzla-karta.json").then(r=>{if(!r.ok)throw new Error(r.status);return r.text()}).catch(e=>{KZTXTKP=null;return kouzlaTxt()}));
 function kzNacti(){if(KZ)return Promise.resolve(KZ);
   if(!KZP)KZP=Promise.all([kouzlaTxt().then(t=>JSON.parse(t)),kzVlNacti().catch(()=>[])])
