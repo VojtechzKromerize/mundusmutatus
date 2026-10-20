@@ -117,7 +117,7 @@ function bojUtokyPanel(s){const P=(s.utoky||[]).filter(u=>u.stav==="ceka");
 const BJU={zi:"",cil:"",cilL:[],cile:[],plos:false,adv:"auto",hod:"",d:"",dmg:"",cim:"",t:"Slashing",drt:false,pru:false,dal:false,ab:"AGI",dc:"",pol:true,info:"",ef:[],serie:null,ks:null,sl:""};
 /* hráč: kouzla ve formuláři útoku (2026-10-17) – útok kouzlem (i více paprsků), záchrana jednoho či více cílů, automatický zásah
    (Magic Missile); zranění se škáluje stupněm slotu a úrovní postavy; odesláním se odečte slot a začne soustředění */
-function kSpBoj(K,x,lvl){const d=kSp(x.n);if(!d)return null;const E=kSpUcinek(K,x,lvl);if(E&&E.k==="l")return null;const t=String(d.t||"");
+function kSpBoj(K,x,lvl){const d=kSpA(x.n);if(!d)return null;const E=kSpUcinek(K,x,lvl);if(E&&E.k==="l")return null;const t=String(d.t||"");
   const utok=!!(E&&E.utok)||/útok kouzlem/i.test(t),zach=utok?null:((E&&E.zach)||(t.match(/(STR|AGI|CON|INT|WIS|CHA) záchrann/)||[])[1]||null),auto=!utok&&!zach&&!!E&&/šipka zasáhne|automaticky zasáh/i.test(t);
   if(!utok&&!zach&&!auto)return null;let pocet=E&&E.pocet||1;if(pocet===1&&/\btři\b[^.]{0,30}(šipk|paprsk)/i.test(t))pocet=3;
   return {utok,zach,auto,pol:!!(E&&E.pol),x:E?E.x:"",mod:E&&E.mod||0,t:E&&E.t||null,pocet}}

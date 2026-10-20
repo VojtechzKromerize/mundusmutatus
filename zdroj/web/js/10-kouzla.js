@@ -37,7 +37,7 @@ function kzKarta(x,pop){return `<article class="kzkarta">${pop?`<button type="bu
     <dt>Složky</dt><dd>${kzE((x.k||[]).join(", "))}${x.m?` (${kzE(x.m)})`:""}</dd><dt>Trvání</dt><dd>${kzE(x.d)}</dd>${x.p&&x.p.length?`<dt>Povolání</dt><dd>${kzE(x.p.join(", "))}</dd>`:""}</dl>
   <div class="kztext">${kzMd(x.t)}${x.v?`<p><b>Na vyšší úrovni.</b> ${kzIn(x.v)}</p>`:""}</div>
   ${x.vl?`<p class="kzsrc">Vlastní kouzlo vypravěče – vidíš ho jen ty.${pop?` <a href="#kouzla/${x.i}">v seznamu kouzel</a>`:` <span class="kzakce"><button type="button" class="gbtn" data-kzuprav="${kzE(x.i)}">Upravit</button> <button type="button" class="gbtn kzalt" data-kzsmaz="${kzE(x.i)}">Smazat</button></span>`}</p></article>`:
-  `<p class="kzsrc">${x.cs?"":"Zatím bez překladu – anglické znění SRD. "}<a href="https://www.aidedd.org/spell/${x.i}" target="_blank" rel="noopener">Anglicky na aidedd.org</a>${pop?` · <a href="#kouzla/${x.i}">v seznamu kouzel</a>`:""}</p></article>`}`}
+  `${x.x&&typeof MIMOPOZN==="string"?`<p class="kzsrc">${kzE(MIMOPOZN)}</p>`:""}<p class="kzsrc">${x.cs?"":"Zatím bez překladu – anglické znění SRD. "}<a href="https://www.aidedd.org/spell/${x.i}" target="_blank" rel="noopener">Anglicky na aidedd.org</a>${pop?` · <a href="#kouzla/${x.i}">v seznamu kouzel</a>`:""}</p></article>`}`}
 const KZK=["V","S","M"];
 function kzForm(x){const n=!x;x=x||{en:"",cz:"",l:1,s:"Evokace",p:[],ct:"Akce",r:"",k:["V","S"],m:"",d:"Okamžité",ko:0,ri:0,t:"",v:""};
   const inp=(k,l,ph)=>`<label class="kzfl"><span>${l}</span><input name="${k}" value="${kzE(x[k])}"${ph?` placeholder="${ph}"`:""}></label>`;
@@ -73,7 +73,7 @@ function kzFiltr(){const box=document.getElementById("kzview");if(!box||!KZ)retu
     :`<li class="kzmiss">${KZF.vl&&!KZVL.length?"Zatím nemáš žádné vlastní kouzlo.":"Nic takového tu není."} <button type="button" class="gbtn" data-kznove="${kzE(KZF.q.trim())}">Zapsat jako vlastní kouzlo</button>${KZF.q.trim()?` <a href="https://www.aidedd.org/spell/${encodeURIComponent(_nrm(KZF.q.trim()).replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,""))}" target="_blank" rel="noopener">Zkusit „${kzE(KZF.q.trim())}“ na aidedd.org</a> (anglický název kouzla z Player's Handbooku).`:""}</li>`}
 function renderKouzla(b){const box=document.getElementById("kzview");if(!box||!GMV)return;
   if(!box.dataset.hotovo){box.dataset.hotovo=1;
-    box.innerHTML=`<div class="kzhlav"><h2 class="arttitle">Kouzla</h2><p class="intro">Kouzla D&amp;D 2024 ze SRD 5.2.1 pro rychlé dohledání u stolu – česky, s anglickým názvem. Jen pro vypravěče. Kouzla z Player's Handbooku, která v SRD nejsou, si můžeš zapsat jako vlastní – uloží se jen pro vypravěče.</p>
+    box.innerHTML=`<div class="kzhlav"><h2 class="arttitle">Kouzla</h2><p class="intro">Kouzla D&amp;D 2024 pro rychlé dohledání u stolu – česky, s anglickým názvem: ze SRD 5.2.1 a z dalších příruček (u kouzel mimo SRD jen vlastní shrnutí mechaniky). Jen pro vypravěče. Kouzlo, které tu chybí, si můžeš zapsat jako vlastní – uloží se jen pro vypravěče.</p>
       <p><button type="button" class="gbtn" data-kznove="">+ Vlastní kouzlo</button></p></div>
       <div class="kzfil"><input type="search" class="kzq" placeholder="Hledat česky nebo anglicky, i v textu…" aria-label="Hledat kouzlo">
         <div class="kzur controls" role="group" aria-label="Úroveň"><button type="button" data-kzl="" aria-pressed="true">Vše</button>${[0,1,2,3,4,5,6,7,8,9].map(l=>`<button type="button" data-kzl="${l}" aria-pressed="false">${l?l:"Trik"}</button>`).join("")}</div>

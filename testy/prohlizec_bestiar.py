@@ -196,6 +196,11 @@ async def main():
     chk(txt.startswith("boj (kolo 1)") and "zajat" in txt,"podklad pro Kroniku")
     await g.click('[data-bkon="ok"]');await g.wait_for_timeout(400)
     await g.wait_for_timeout(500);chk(await g.locator(".bprip").count()==1 and await g.evaluate("BOJ.s.hraci.map(h=>h.n).join()")=="Adam,Bára,Cyril,Dora","po ukončení zpět příprava se stejnou družinou")
+    # kouzla z katalogu: jména z D&D Beyond (i s vlastním jménem a „(Ritual)“), rituál, automatika, kouzla mimo SRD
+    kz=await g.evaluate("""(async()=>{await kSpNacti();const K=Object.values(KARTBY)[0],u=kSpUcinek(K,{n:'Fireball',st:3},4);
+      return [kSp("Tasha’s Hideous Laughter")?.en,kSp('Detect Magic (Ritual)')?.ri,kSp("Bigby's Hand")?.en,u&&u.x,u&&u.t,u&&u.zach,u&&u.pol,kSp('Silvery Barbs')?.x,kSp('Silvery Barbs')?.cz,kSp('Feeblemind')?.en,
+        /1d6/.test(kSp('Acid Splash')?.t||'')&&!/1k6/.test(kSp('Acid Splash')?.t||'')]})()""")
+    chk(kz==["Hideous Laughter",1,"Arcane Hand","9d6","Fire","AGI",True,1,"Stříbrné šlehy","Befuddlement",True],"kouzla z katalogu: jména z D&D Beyond, rituál, automatika Fireballu, kouzla mimo SRD: "+str(kz))
     # mobil
     await g.set_viewport_size({"width":390,"height":844});await g.wait_for_timeout(300)
     sw=await g.evaluate("document.documentElement.scrollWidth");chk(sw<=392,"mobil bez vodorovného posunu: "+str(sw))

@@ -28,7 +28,7 @@ function bojTahHook(pre,s){const o0=pre.obsazeni||{},o1=s.obsazeni||{},t0=pre.ta
 /* stav z kouzla se záchranou (2026-10-17): Hold Person → ochromen (Paralyzed) apod. Při neúspěšné záchraně dostane cíl stav
    s trváním kouzla; když kouzlo říká „na konci každého tahu hod opakuje“, tracker ho na konci tahu nepřítele hodí sám.
    Soustředěné kouzlo skončí i tehdy, když sesilatel ztratí soustředění (bojAcSync). */
-function bojSpStav(cim){if(typeof kSp!=="function"||!KSPD)return null;const nm=String(cim||"").replace(/\s*\(\d+\. st\.\)\s*$/,"").trim(),d=kSp(nm);if(!d)return null;
+function bojSpStav(cim){if(typeof kSp!=="function"||!KSPD)return null;const nm=String(cim||"").replace(/\s*\(\d+\. st\.\)\s*$/,"").trim(),d=kSpA(nm);if(!d)return null;
   const t=String(d.t||""),EN=Object.fromEntries(Object.entries(SRDST).map(([k,v])=>[v.en,k])),st=[];
   t.split(/(?<=\.)\s+/).filter(v=>/neúspěch|jinak|musí uspět/i.test(v)).forEach(v=>{(v.match(/\b(Blinded|Charmed|Deafened|Frightened|Grappled|Incapacitated|Invisible|Paralyzed|Petrified|Poisoned|Prone|Restrained|Stunned|Unconscious)\b/g)||[]).forEach(e=>{const k=EN[e];if(k&&!st.includes(k))st.push(k)})});
   if(!st.length)return null;const h=kTrv(d.d);return {n:d.en||nm,st,op:/na konci každého (?:svého )?tahu[^.]{0,90}(?:opakuje|zopakuje)/i.test(t),k:h?Math.max(1,Math.round(h*600)):1,kon:!!d.ko}}

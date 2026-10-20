@@ -33,7 +33,9 @@ zdroj/obsah/         rody, osoby, vazby, Praha, místa, Kronika, Družina, Draco
                      přívlastky, setkání, karty – ZÁLOHA databáze (viz níže)
 zdroj/pravidla/      český překlad SRD 5.2.1 (NN-srd.md) → art/pravidla.json (sestav.py, volá ho build)
 zdroj/srd/           nestvůry a předměty SRD → art/netvori.json, predmety.json, pojmy.json (sestav.py)
-zdroj/kouzla/        kouzla SRD (5e-bits, src/2024) + preklad.json + mimo-srd.json → art/kouzla.json (sestav.py, ručně)
+zdroj/kouzla/        kouzla SRD (5e-bits, src/2024) + preklad.json + mimo-srd.json + katalog.json → art/kouzla.json (sestav.py, ručně);
+                     katalog.json = Vojtův katalog kouzel (Word → katalog.py), dává texty všem kouzlům; automatika.json říká,
+                     která kouzla čtou pro automatiku dřívější text (ta/va), aby se nezměnilo chování karty a Boje
 zdroj/mimo-srd/      podtřídy, featy, zázemí, Aasimar z D&D 2024 mimo SRD – vlastní shrnutí mechaniky
                      → art/mimo-srd.json (sestav.py, ručně; kontroluje formát a délky textů)
 zdroj/sw.js          service worker (offline)    zdroj/zaloha.py  záloha textů z databáze do souborů
@@ -150,7 +152,7 @@ Hlavní orientační body:
 - Smí se: SRD 5.2.1 (CC-BY-4.0) s uvedením zdroje – na úvodní stránce Pravidel a pod každou kapitolou;
   vlastní obsah; data z PDF, která nahraje hráč. Herní mechaniku (čísla, kostky, záchrany) lze převzít i mimo
   SRD, ale **bez textu**: obsah mimo SRD (`zdroj/mimo-srd/`, kouzla s `x: 1`) má jen vlastní stručná shrnutí
-  (rys/feat max. 350 znaků, kouzlo 450) a na webu upozornění, že nejde o oficiální text.
+  (rys/feat max. 350 znaků, kouzlo 1 000 – Vojtovo rozhodnutí 2026-10-20) a na webu upozornění, že nejde o oficiální text.
 - Na kartě se rys mimo SRD pozná podle názvu z PDF (`mimoNajdi`); počty použití, kostky a trvalé bonusy (`ef`)
   počítá `kMimoZdroje` / `kMimoEf`. Rysy, které pravidla už počítají jménem (Tough, Speedy, Lucky…), jsou v `MIMOSKIP`.
 - Nesmí se: texty z PHB/DMG/MM 2024 mimo SRD, vytěžování D&D Beyond, jiná zmínka o Wizards of the Coast

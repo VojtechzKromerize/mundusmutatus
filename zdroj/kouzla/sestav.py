@@ -1,5 +1,8 @@
-# Sestaví art/kouzla.json z anglických dat SRD 5.2.1 (zdroj/kouzla/srd-5.2.1-spells.json, z 5e-bits/5e-database, src/2024)
-# a českého překladu (zdroj/kouzla/preklad.json). Spouští se ručně při změně překladu:  python3 zdroj/kouzla/sestav.py
+# Sestaví art/kouzla.json z anglických dat SRD 5.2.1 (zdroj/kouzla/srd-5.2.1-spells.json, z 5e-bits/5e-database, src/2024),
+# českého překladu (zdroj/kouzla/preklad.json) a Vojtova katalogu (zdroj/kouzla/katalog.json, z Wordu přes katalog.py).
+# Text kouzla bere z katalogu; kde automatika karty a Boje čte z katalogového textu jiný výsledek než z dřívějšího
+# (zdroj/kouzla/automatika.json, hlídá test), dostane kouzlo dřívější text v polích ta/va jen pro automatiku.
+# Spouští se ručně při změně překladu nebo katalogu:  python3 zdroj/kouzla/sestav.py
 import json, os, re
 D = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(D))
@@ -43,25 +46,59 @@ SKOLY = {"Abjuration": "Abjurace", "Conjuration": "Vyvolávání", "Divination":
          "Evocation": "Evokace", "Illusion": "Iluze", "Necromancy": "Nekromancie", "Transmutation": "Přeměna"}
 POV = {"Bard": "Bard", "Cleric": "Klerik", "Druid": "Druid", "Paladin": "Paladin", "Ranger": "Hraničář",
        "Sorcerer": "Čaroděj", "Warlock": "Černokněžník", "Wizard": "Kouzelník"}
+kat = json.load(open(os.path.join(D, "katalog.json"), encoding="utf-8"))
+KAT = {x["en"].lower(): x for x in kat}
+AUT = json.load(open(os.path.join(D, "automatika.json"), encoding="utf-8")) if os.path.exists(os.path.join(D, "automatika.json")) else {}
+pouzite = set()
+def z_katalogu(o):
+    """text kouzla z katalogu; dřívější text zůstane pro automatiku (ta/va), když ho automatika potřebuje"""
+    k = KAT.get(o["en"].lower())
+    if not k: return o
+    pouzite.add(k["en"].lower())
+    if AUT.get(o["en"]) == "stary": o["ta"], o["va"] = o["t"], o["v"]
+    elif AUT.get(o["en"]) == "bez": o["ta"], o["va"] = "", ""
+    o["t"], o["v"] = k["t"], k["v"]
+    if k.get("m"): o["m"] = k["m"]
+    if k.get("a"): o["a"] = k["a"]
+    o["vt"] = 1
+    return o
 out, chybi = [], []
 for x in sorted(en, key=lambda q: (q["level"], q["name"])):
     t = cz.get(x["index"]) or {}
     if not t: chybi.append(x["index"])
     k = list(x.get("components") or [])
+    konc = bool(x.get("concentration")) or x["duration"].lower().startswith("concentration")  # data 5e-bits mají u pár kouzel příznak špatně
     out.append({"i": x["index"], "en": x["name"], "cz": t.get("cz") or "", "l": x["level"], "s": SKOLY.get(x["school"]["name"], x["school"]["name"]),
         "p": [POV.get(c["name"], c["name"]) for c in x.get("classes", [])], "ct": sesilani(x["casting_time"]), "r": dosah(x["range"]),
-        "k": k, "m": t.get("mat") or x.get("material") or "", "d": trvani(x["duration"], x.get("concentration")),
-        "ko": 1 if x.get("concentration") else 0, "ri": 1 if x.get("ritual") else 0,
+        "k": k, "m": t.get("mat") or x.get("material") or "", "d": trvani(x["duration"], konc),
+        "ko": 1 if konc else 0, "ri": 1 if x.get("ritual") else 0,
         "t": t.get("pop") or x["description"], "v": t.get("vys") or x.get("higher_level") or "", "cs": 1 if t else 0})
+    z_katalogu(out[-1])
 # kouzla D&D 2024 mimo SRD: vlastní stručné shrnutí mechaniky (pole x = 1), nikdy text příruček
 mimo = json.load(open(os.path.join(D, "mimo-srd.json"), encoding="utf-8"))
 znama = {x["en"].lower() for x in out}
 for x in mimo:
     if x["en"].lower() in znama:
         raise SystemExit(f"CHYBA: kouzlo {x['en']} je už v SRD")
-    if len(x.get("t", "")) > 450:
-        raise SystemExit(f"CHYBA: popis kouzla {x['en']} je delší než 450 znaků")
-    out.append(dict(x, x=1, cs=1))
+    k = KAT.get(x["en"].lower())
+    if k: x = dict(x, **{f: k[f] for f in ("l", "s", "ct", "r", "d", "ko", "ri", "k")})  # u kouzel mimo SRD platí údaje z katalogu
+    out.append(z_katalogu(dict(x, x=1, cs=1)))
+    znama.add(x["en"].lower())
+# kouzla z katalogu, která web dosud neznal (mimo SRD): vše z katalogu
+for k in kat:
+    if k["en"].lower() in znama: continue
+    if not k.get("cz") or not k.get("p"): raise SystemExit(f"CHYBA: kouzlo {k['en']} z katalogu nemá český název nebo povolání (katalog.py: CZ, POV)")
+    i = re.sub(r"[^a-z0-9]+", "-", k["en"].lower()).strip("-")
+    out.append({"i": i, "en": k["en"], "cz": k["cz"], "l": k["l"], "s": k["s"], "p": k["p"], "ct": k["ct"], "r": k["r"], "k": k["k"], "m": k["m"],
+                "d": k["d"], "ko": k["ko"], "ri": k["ri"], "t": k["t"], "v": k["v"], "cs": 1, "x": 1, "vt": 1, **({"a": k["a"]} if k.get("a") else {})})
+    if AUT.get(k["en"]) == "bez": out[-1]["ta"] = out[-1]["va"] = ""
+    pouzite.add(k["en"].lower())
+# licence: obsah mimo SRD jen jako vlastní shrnutí, nejvýš 1 000 znaků (CLAUDE.md, oddíl Licence)
+for x in out:
+    if x.get("x") and len(x.get("t", "")) > 1000:
+        raise SystemExit(f"CHYBA: popis kouzla {x['en']} mimo SRD je delší než 1 000 znaků")
+if len(pouzite) != len(kat): raise SystemExit("CHYBA: nepoužitá kouzla z katalogu: " + ", ".join(sorted(set(KAT) - pouzite)))
 out.sort(key=lambda q: (q["l"], q["en"]))
 json.dump(out, open(os.path.join(ROOT, "art", "kouzla.json"), "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
-print(f"art/kouzla.json: {len(out)} kouzel ({len(mimo)} mimo SRD), bez překladu {len(chybi)}")
+print(f"art/kouzla.json: {len(out)} kouzel ({sum(1 for x in out if x.get('x'))} mimo SRD, {sum(1 for x in out if x.get('vt'))} s textem z katalogu, "
+      f"{sum(1 for x in out if 'ta' in x)} s dřívějším textem pro automatiku), bez překladu {len(chybi)}")

@@ -82,7 +82,7 @@ function kSlX(K,x){if(!x.pz)return kSloty(K).filter(q=>q.st>=x.st&&q.u<q.max);co
 const kMaSl=(K,x)=>x.pz?kSlX(K,x).length>0:(x.st===0||kSloty(K).some(q=>q.st>=x.st&&q.u<q.max));
 const kPzZn=x=>x.pz&&x.pz.sv?` <small class="kpzz kpzsv" ${btip(x.pz.na?`Svitek: seslání ho spotřebuje · SO ${x.pz.dc}, útok +${x.pz.ut}${x.pz.max>1?` · ve vybavení ${x.pz.max}`:""}`:"Kouzlo není na seznamu tvého povolání – svitek je nesrozumitelný")}>📜 svitek${x.pz.max>1?` ×${x.pz.max}`:""}${x.pz.na?"":" ✗"}</small>`:x.pz?` <small class="kpzz" ${btip(`Z předmětu ${x.pz.p}: ${x.pz.c===x.pz.mx?`${x.pz.c} ${x.pz.c===1?"náboj":"náboje"}`:`${x.pz.c}–${x.pz.mx} nábojů`}${x.pz.dc?`, SO ${x.pz.dc}`:", tvůj SO"} · zbývá ${x.pz.zb}/${x.pz.max}`)}>⟡ ${besc(x.pz.p.replace(/^(Wand|Staff) of (the )?/,""))} ${x.pz.zb}/${x.pz.max}</small>`:"";
 const kSpMod=K=>kSpUt(K)-kPB(K);
-function kSpUcinek(K,x,lvl){const d=kSp(x.n);if(!d)return null;const t=String(d.t||""),TY="Acid|Bludgeoning|Cold|Fire|Force|Lightning|Necrotic|Piercing|Poison|Psychic|Radiant|Slashing|Thunder";
+function kSpUcinek(K,x,lvl){const d=kSpA(x.n);if(!d)return null;const t=String(d.t||""),TY="Acid|Bludgeoning|Cold|Fire|Force|Lightning|Necrotic|Piercing|Poison|Psychic|Radiant|Slashing|Thunder";
   let m=t.match(new RegExp(`(\\d+d\\d+(?:\\s*\\+\\s*\\d+)?)\\s+(?:[A-Za-zÁ-ž]+\\s+\\()?(${TY})`)),o=null;
   if(m)o={k:"z",x:m[1].replace(/\s/g,""),t:m[2]};else{m=t.match(new RegExp(`(${TY})\\)?\\s+zranění\\s+rovné\\s+(\\d+d\\d+)`));if(m)o={k:"z",x:m[2],t:m[1]}}
   const hm=t.match(/HP ve výši (\d+d\d+)/);if(!o&&hm)o={k:"l",x:hm[1]};if(!o)return null;
@@ -93,7 +93,7 @@ function kSpUcinek(K,x,lvl){const d=kSp(x.n);if(!d)return null;const t=String(d.
   const ms=v.match(/o jednu šipku|jeden paprsek navíc|o jeden paprsek/);if(ms&&d.l&&lvl>d.l)o.pocet=(/šip/.test(v)?3:/paprs/.test(t)?3:1)+(lvl-d.l);
   const zs=t.match(/(STR|AGI|CON|INT|WIS|CHA) záchrann/);if(zs)o.zach=zs[1];o.utok=/útok kouzlem/i.test(t);o.pol=/při úspěchu poloviční/i.test(t);return o}
 /* sesílání na vyšším stupni (upcasting): volba slotu kolečky se stupněm; co vyšší stupeň přidá, z popisu kouzla SRD */
-function kSpVyssi(K,x,lvl){const d=typeof kSp==="function"?kSp(x.n):null,v=String((d&&d.v)||""),n=lvl-x.st;if(!v||n<=0)return "";const o=[];let m;
+function kSpVyssi(K,x,lvl){const d=typeof kSpA==="function"?kSpA(x.n):null,v=String((d&&d.v)||""),n=lvl-x.st;if(!v||n<=0)return "";const o=[];let m;
   if((m=v.match(/o (\d+) za každou úroveň slotu kouzla nad (\d+)/))&&!/o \d+d\d+ za/.test(v))o.push(`${/dočasn/i.test(v)?"dočasné HP":""}${/zranění/i.test(v)&&/dočasn/i.test(v)?" i zranění":/zranění/i.test(v)?"zranění":""} +${n*+m[1]}`.trim());
   if((m=v.match(/získáš (\d+) dalších dočasných HP/)))o.push(`dočasné HP +${n*+m[1]}`);
   if((m=v.match(/HP každého cíle se zvýší o dalších (\d+)/)))o.push(`HP cílů +${n*+m[1]}`);
@@ -128,7 +128,7 @@ function kBufy(K){const t=kTed(),R=[];(KARTY||[]).forEach(k=>{kUc(k).forEach(u=>
 let KSDLG=null;
 const kSesCil=x=>{const d=typeof kSp==="function"?kSp(x.n):null,r=String((d&&d.r)||x.dosah||"").trim();return !!r&&!/^(sebe|self)\b/i.test(r)};
 /* počet cílů podle stupně: kouzlo, které na vyšším stupni zasáhne další tvory (Hold Person, Charm Person…), má na základním stupni 1 cíl */
-const kCilUp=(x,lvl)=>{const d=typeof kSp==="function"?kSp(x.n):null,v=String((d&&d.v)||"");if(!/(zacílit|zaměřit|ovlivnit|zvolit|zasáhnout)[^.]*?(jednoho|jedno|jednu|jednoho dalšího|o \d+)[^.]*?(navíc|víc|dalšího)|jednoho dalšího tvora/.test(v))return 0;
+const kCilUp=(x,lvl)=>{const d=typeof kSpA==="function"?kSpA(x.n):null,v=String((d&&d.v)||"");if(!/(zacílit|zaměřit|ovlivnit|zvolit|zasáhnout)[^.]*?(jednoho|jedno|jednu|jednoho dalšího|o \d+)[^.]*?(navíc|víc|dalšího)|jednoho dalšího tvora/.test(v))return 0;
   const k=+(v.match(/o (\d+) tvor/)||[])[1]||1;return 1+Math.max(0,(+lvl||0)-(+x.st||0))*k};
 const kSesMax=(K,x,i)=>{const m=kCilMax(K,x,i);if(m)return m;const up=kCilUp(x,kSesLvl(K,x,i));if(up)return up;const E=kSpUcinek(K,x,kSesLvl(K,x,i));return E&&E.k==="l"?1:0};
 function kSesNpc(){const s=BOJ.s||{};if(!s.aktivni)return [];return (s.npc||[]).filter(o=>!bojSpoj(o)&&!(o.stav||[]).some(t=>t==="poražen"||t==="prchá"||t==="vzdal se")&&(o.druh!=="houf"||o.pocet>0))}
