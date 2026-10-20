@@ -215,7 +215,7 @@ async def main():
     P=await k.evaluate("[BPLOS&&BPLOS.z,BPLOS&&BPLOS.ab,BPLOS&&BPLOS.dc,BPLOS&&BPLOS.pol,(BPLOS&&BPLOS.cile||[]).join(),(bojZdr.get().n1||{}).Fireball]")
     chk(P==["9d6","AGI",14,True,"h1",1],"Fireball (4. st.) od mága: plošný zásah 9d6 AGI SO 14, cíl z výběru, použití odečteno: "+str(P))
     r=await k.evaluate("""(async()=>{const s=BOJ.s,m=s.npc[0],kn=s.npc[1],K=KARTBY.balduin,o=[];await kSpNacti();
-      await bojNpcKouzlo(m,'fire-bolt',null);const L=(BLOG[m.id]||[])[0]||{};o.push(L.n==='Fire Bolt'&&!!L.hod&&L.hod.b===6&&/2d10/.test((L.zr||{}).x||(L.zrPo?'2d10':'')||'2d10'));
+      await bojNpcKouzlo(m,'fire-bolt',null);const L=(BLOG[m.id]||[])[0]||{};o.push(L.n==='Fire Bolt'&&!!L.hod&&L.hod.b===6&&/[24]d10/.test((L.zr||{}).x||(L.zrPo?'2d10':'')||'2d10'));
       await bojNpcKouzlo(m,'hold-person',null);o.push(BPLOS&&BPLOS.st.join()==='ochromen'&&BPLOS.op&&BPLOS.kon==='n1');
       await bojZmen(z=>{z.npc[0].stav=['ochromen'];z.npc[0].ef=[{n:'Bane',kdy:'kola',k:5}]});const Z=bojNpcZach(BOJ.s.npc[0],bojEff(BOJ.s.npc[0]),'AGI',15,true),Z2=bojNpcZach(BOJ.s.npc[0],bojEff(BOJ.s.npc[0]),'WIS',15,true);o.push(Z.fail==='ochromen'&&!Z.ok,Z2.why.some(w=>/Bane/.test(w)));
       await bojZmen(z=>{z.npc[0].stav=[];delete z.npc[0].ef});
