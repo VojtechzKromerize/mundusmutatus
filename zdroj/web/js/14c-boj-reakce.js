@@ -19,9 +19,10 @@ const BKONV={};
 function bojKonVyzva(K,hid,dc){MMDB.vyzva({typ:"zach",ab:"CON",dc,komu:[K.id],adv:K.konVyhoda?1:undefined,pozn:`Soustředění: utržené zranění – neúspěch ukončí soustředění${K.konVyhoda?" (War Caster: s výhodou)":""}`.slice(0,200)})
   .then(v=>{BKONV[+v]={kid:K.id,hid,dc};vyzvyNacti()}).catch(()=>{KKON[K.id]=dc})}
 /* hráč: nový zásah na mou postavu ve veřejném záznamu boje → hlášení, vibrace, soustředění, nabídka reakcí */
-let BZAS=null;const BZASV={m:0,get(){let v=0;try{v=+localStorage.getItem("mm-zas-seen")||0}catch(e){}return Math.max(v,this.m)},set(v){this.m=Math.max(this.m,+v||0);try{localStorage.setItem("mm-zas-seen",String(this.m))}catch(e){}}};
-function bojZasahHlidej(s,me){if(!me)return;const K=bojKartaH(me);const v0=BZASV.get(),L=(s.zaz||[]).filter(e=>e.ci===me.id&&e.ts>v0&&(v0||(+e.k||0)>=(s.kolo||1))/* nové zařízení: jen zásahy z tohoto kola */&&(e.z>0||e.ph>0||e.pt>0||/zásah|krit/.test(e.v||"")));if(!L.length)return;
-  const e=L[0];BZASV.set(Math.max(...L.map(x=>x.ts)));const ztr=(+e.ph||0)+(+e.pt||0);
+let BZAS=null;
+/* nový zásah na mě (seznam N dodá bojZazHlidej – jednou za překreslení, s pamětí viděného) */
+function bojZasahNovy(s,me,N){const K=bojKartaH(me),L=N.filter(e=>e.z>0||e.ph>0||e.pt>0||/zásah|krit/.test(e.v||""));if(!L.length)return;
+  const e=L[0],ztr=(+e.ph||0)+(+e.pt||0);
   try{navigator.vibrate&&navigator.vibrate([160,80,160])}catch(x){}
   mmHlas(`${e.a||"Nepřítel"} tě zasáhl${e.cim?` (${e.cim})`:""}${ztr?` za ${ztr}${e.t?" "+String(e.t).replace(/\b(Bludgeoning|Piercing|Slashing|Fire|Cold|Lightning|Thunder|Acid|Poison|Necrotic|Radiant|Psychic|Force)\b/g,m=>BZRT[m]||m):""} – už odečteno z karty`:e.z?` za ${e.z}`:""}.${(me.stav||[]).includes("soustředí")&&(ztr||e.z)&&!e.pd?` Držíš soustředění: CON záchrana SO ${bojKonDC(ztr||e.z)}.`:""}`,8000);mmNotif("Zásah!",`${e.a||""} ${e.v||""}`);
   if(K){if(ztr>0&&kKonDrzi(K)&&!e.pd&&!e.kv)KKON[K.id]=bojKonDC(ztr);BZAS={e,kid:K.id,hid:me.id,cas:Date.now()}}renderBoj()}
@@ -46,9 +47,9 @@ function kReakceNaZasah(K,h,s,e){const o=[],rk=!!(s.reak||{})[h.id],hod=+e.hod,A
   if(ry(/^defensive duelist$/i)&&!e.dal&&!e.kr&&hod&&AC&&hod<AC+kPB(K))o.push({k:"dd",n:"Defensive Duelist – útok mine",t:`+${kPB(K)} AC proti útoku: vrátí ${ztr} HP`});
   return {rk,o}}
 /* Riposte (Battle Master): nepřítel tě minul útokem na blízko → nabídka odvety; viděná minutí si telefon pamatuje (2026-10-20) */
-let BRIP=null;const BRIPV={m:0,get(){let v=0;try{v=+localStorage.getItem("mm-min-seen")||0}catch(e){}return Math.max(v,this.m)},set(v){this.m=Math.max(this.m,+v||0);try{localStorage.setItem("mm-min-seen",String(this.m))}catch(e){}}};
-function bojMinHlidej(s,me){if(!me)return;const K=bojKartaH(me);if(!K||!kManMa(K,"Riposte"))return;const v0=BRIPV.get(),L=(s.zaz||[]).filter(e=>e.ci===me.id&&e.ts>v0&&(v0||(+e.k||0)>=(s.kolo||1))&&/^vedle/.test(e.v||"")&&!e.dal&&e.ai);if(!L.length)return;
-  BRIPV.set(Math.max(...L.map(x=>x.ts)));const SD=kSD(K);if(!SD||SD.zb<=0||(s.reak||{})[me.id])return;BRIP={e:L[0],kid:K.id,hid:me.id,cas:Date.now()};mmHlas(`${L[0].a||"Nepřítel"} tě minul – můžeš reakcí oplatit (Riposte).`,6000);renderBoj()}
+let BRIP=null;
+function bojMinNovy(s,me,N){const K=bojKartaH(me);if(!K||!kManMa(K,"Riposte"))return;const L=N.filter(e=>/^vedle/.test(e.v||"")&&!e.dal&&e.ai);if(!L.length)return;
+  const SD=kSD(K);if(!SD||SD.zb<=0||(s.reak||{})[me.id])return;BRIP={e:L[0],kid:K.id,hid:me.id,cas:Date.now()};mmHlas(`${L[0].a||"Nepřítel"} tě minul – můžeš reakcí oplatit (Riposte).`,6000);renderBoj()}
 function kRipHtml(K,h,s){if(!BRIP||BRIP.kid!==K.id||Date.now()-BRIP.cas>5*60e3||(s.reak||{})[h.id]||!(s.npc||[]).some(o=>o.id===BRIP.e.ai))return "";const e=BRIP.e,zb=bojZbrVse(s,h),j=zb.findIndex(w=>!w.dal&&w.z);if(j<0)return "";const SD=kSD(K);
   return `<div class="khl kzas"><b>${besc(e.a||"Nepřítel")}</b> tě minul${e.cim?` · ${besc(e.cim)}`:""}. <button type="button" class="gbtn" data-bdmsh="utok" data-j="${j}" data-brip="${besc(e.ai)}" ${btip(`Reakce: útok na blízko (${zb[j].n}); při zásahu + 1${SD?SD.k:"d8"} (kostka převahy)`)}>Riposte – oplatit</button><button type="button" class="gbtn ghost" data-bripx>Nechat být</button></div>`}
 document.addEventListener("click",e=>{const T=q=>e.target.closest&&e.target.closest(q);if(T("[data-bripx]")){BRIP=null;renderBoj();return}

@@ -246,7 +246,7 @@ async def main():
       const h=BOJ.s.hraci.find(x=>x.id==='h1'),j=bojZbrVse(BOJ.s,h).findIndex(w=>w.n==='Nevermore');BGMU.h1={};const R=Math.random;Math.random=()=>0.9;try{bojGmHod('h1',j)}finally{Math.random=R}
       const G=BGMU.h1,x=(G.serie||[])[0]||{};o.push(x.ci===n.id&&/\(Hex\)/.test((x.det||{}).zx||"")&&x.dmg>=12);
       const u0=(BOJ.s.utoky||[]).length;bojGmZapisVse('h1');await new Promise(r=>setTimeout(r,900));o.push((BOJ.s.utoky||[]).length===u0+1);
-      BZASV.set(Date.now());BJK.seen=0;BJK.d='';bojKonHlidej({kolo:1,zaz:[{ci:'h1',z:5,k:1,ts:Date.now()-5000}]},{id:'h1',stav:['soustředí']});o.push(BJK.d==='');
+      BVID.set(Date.now());BJK.d='';const g0=GMV;bojZazHlidej({kolo:1,zaz:[{ci:'h1',z:5,k:1,ts:Date.now()-5000}]},{id:'h1',stav:['soustředí']});o.push(BJK.d==='');
       return o})()""")
     chk(r3==[True]*4,"útok za hráče: jediný nepřítel je cílem, Hex přidá 1d6, útok se zapíše, staré zranění se po obnovení znovu nehlásí: "+str(r3))
     # malované ikony: každá použitá v BIMG, KZIK a stavech má soubory 48 i 96 px (2026-10-20)

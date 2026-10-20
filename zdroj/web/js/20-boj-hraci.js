@@ -7,7 +7,7 @@ const BJU={zi:"",cil:"",cilL:[],cile:[],plos:false,adv:"auto",hod:"",d:"",dmg:""
    načtení vrátí, pokud jde o tutéž postavu, tentýž boj a kolo. Útok, který se právě odesílal, se nevrátí, když už dorazil. */
 const BJUK="mm-bju";
 function bojJaUloz(){if(GMV)return;const s=BOJ.s;if(!s||!s.aktivni||!bojJaObnov.hotovo)return;const ja=bojJa.get();if(!ja)return;const me=(s.hraci||[]).find(h=>h.n===ja),K=me&&bojKartaH(me);
-  const o={ts:Date.now(),ja,kolo:s.kolo||1,bju:BJU,sheet:BDM.sheet&&BDM.sheet.t==="utok"?BDM.sheet:null,zav:K&&KZAV[K.id]||null,kid:K&&K.id||null};
+  const o={ts:Date.now(),ja,kolo:s.kolo||1,bju:BJU,sheet:BDM.sheet&&BDM.sheet.t==="utok"?BDM.sheet:null,zav:K&&KZAV[K.id]?Object.assign({},KZAV[K.id],{_t:undefined}):null,kid:K&&K.id||null,zas:typeof BZAS!=="undefined"&&BZAS||null,rip:typeof BRIP!=="undefined"&&BRIP||null,tab:BTAB,jk:BJK.d||""};
   try{const t=JSON.stringify(o);if(t!==bojJaUloz.p){localStorage.setItem(BJUK,t);bojJaUloz.p=t}}catch(e){}}
 function bojJaObnov(){if(GMV||bojJaObnov.hotovo)return;const s=BOJ.s;if(!s)return;if(!s.aktivni){bojJaObnov.hotovo=true;return}const ja=bojJa.get();if(!ja)return;bojJaObnov.hotovo=true;
   let o=null;try{o=JSON.parse(localStorage.getItem(BJUK)||"null")}catch(e){}if(!o||o.ja!==ja||o.kolo!==(s.kolo||1)||Date.now()-o.ts>45*60e3||!o.bju)return;
@@ -17,6 +17,8 @@ function bojJaObnov(){if(GMV||bojJaObnov.hotovo)return;const s=BOJ.s;if(!s)retur
   delete B.posila;const zn=(B.serie||[]).length;
   Object.keys(BJU).forEach(k=>{if(k in B)BJU[k]=B[k]});["ripo","ridT","ui","uw","utk","un","zav","kmin","zvAuto","sikOk"].forEach(k=>{if(k in B)BJU[k]=B[k]});
   if(o.zav&&o.kid&&!KZAV[o.kid])KZAV[o.kid]=o.zav;if(o.sheet&&KARTBY[o.sheet.k])BDM.sheet=o.sheet;
+  /* nevyřízené výzvy (zásah s reakcí, Riposte), záložka a zranění pro záchranu soustředění přežijí obnovení taky */
+  if(o.zas&&o.zas.kid===o.kid&&!(s.reak||{})[me.id])BZAS=o.zas;if(o.rip&&o.rip.kid===o.kid&&!(s.reak||{})[me.id])BRIP=o.rip;if(/^[knld]$/.test(o.tab||""))BTAB=o.tab;if(o.jk)BJK.d=o.jk;
   if(zn)setTimeout(()=>mmHlas("Rozehraný útok je zpátky – stačí ho poslat vypravěči.",4500),300)}
 /* hráč: kouzla ve formuláři útoku (2026-10-17) – útok kouzlem (i více paprsků), záchrana jednoho či více cílů, automatický zásah
    (Magic Missile); zranění se škáluje stupněm slotu a úrovní postavy; odesláním se odečte slot a začne soustředění */
@@ -150,10 +152,18 @@ function bojZbraneHtml(s,h){const zb=bojZbrH(s,h);
 /* hráč: soustředění – DC záchrany ze zranění */
 function bojKonHtml(me){if(!(me.stav||[]).includes("soustředí"))return "";const d=BJK.d,dc=d?bojKonDC(d):null;
   return `<div class="bjkon">${bi("soustredi")} <b>Soustředění:</b> utržil jsem <input type="number" name="jukon" data-jukon min="0" max="300" value="${besc(d||"")}" inputmode="numeric" aria-label="Utržené zranění"> zranění${dc?` → <b>CON záchrana SO ${dc}</b> ${bojKartaH(me)?`<button type="button" class="gbtn" data-jukonh>🎲 Hodit</button>`:""}<button type="button" class="gbtn ghost" data-jukonx="ok">udržel</button><button type="button" class="gbtn ghost" data-jukonx="ne">ztratil soustředění</button>`:""}</div>`}
-const BJK={d:"",seen:0};
+const BJK={d:""};
 /* hráč: přišlo zranění ze záznamu a drží soustředění → předvyplní záchranu na soustředění; hlášení zásahu (bojZasahHlidej) už SO záchrany uvádí.
    Viděné zásahy si pamatuje i po obnovení stránky (2026-10-20: na telefonu se po každém načtení znovu hlásilo zranění z minulého kola) */
-function bojKonHlidej(s,me){if(!me||!(me.stav||[]).includes("soustředí"))return;BJK.seen=Math.max(BJK.seen,BZASV.get());const z=(s.zaz||[]).find(e=>e.ci===me.id&&e.z>0&&e.ts>BJK.seen);if(!z)return;BJK.seen=z.ts;BJK.d=z.z}
+function bojKonNovy(s,me,N){if(!(me.stav||[]).includes("soustředí"))return;const z=N.find(e=>e.z>0);if(z)BJK.d=z.z}
+/* ===== Paměť telefonu v boji (2026-10-20): co už hráč viděl a co má rozehrané =====
+   Jedno „viděno“ pro všechny hlídače záznamu (zásah, minutí pro Riposte, zranění při soustředění) místo tří klíčů; nové řádky
+   se vyberou jednou za překreslení a rozdají hlídačům, aby si je navzájem nesebrali. Na zařízení, které boj otevírá poprvé,
+   se hlásí jen řádky z tohoto kola. */
+const BVID={m:0,get(){let v=0;try{v=Math.max(+localStorage.getItem("mm-boj-videno")||0,+localStorage.getItem("mm-zas-seen")||0,+localStorage.getItem("mm-min-seen")||0)}catch(e){}return Math.max(v,this.m)},
+  set(v){this.m=Math.max(this.m,+v||0);try{localStorage.setItem("mm-boj-videno",String(this.m))}catch(e){}}};
+function bojZazHlidej(s,me){if(!me||GMV)return;const v0=BVID.get(),N=(s.zaz||[]).filter(e=>e.ci===me.id&&e.ts>v0&&(v0||(+e.k||0)>=(s.kolo||1)));if(!N.length)return;
+  BVID.set(Math.max(...N.map(x=>x.ts)));for(const f of [bojKonNovy,bojMinNovy,bojZasahNovy]){try{f(s,me,N)}catch(e){console.error(e)}}}
 /* hráč bez přihlášené postavy: postava se volí jednou na stránce Hra a pak je jeho */
 const bojJaNeprihl=()=>`<span class="rsmall bjanep">Nejsi přihlášený za postavu. Na stránce <a href="#hra">Hra</a> se přihlas a zvol svou postavu – pak se tu objeví tvoje bojová karta.</span>`;
 function bojJaKouzla(K){const kz=Object.assign({},K.kouzla||{},{seznam:kSeznam(K)});if(!(kz.seznam||[]).length)return "";const sl=kSloty(K);

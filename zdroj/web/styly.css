@@ -2810,7 +2810,8 @@ button.kdbs:hover{border-color:var(--kb-gold)}.kdbsac b{color:var(--kb-gold)}
 .bdmlb{display:flex;flex-direction:column;gap:10px}
 .bdmlb select,.bdmlb input{background:#14100d;color:var(--kb-tx);border:1px solid var(--kb-bd2);border-radius:4px}
 .bdmhod{justify-content:center;font-size:1rem!important;padding:12px!important;background:var(--kb-ac)!important;border-color:#f1a0a2!important;color:#fff!important}
-.bdmhl{position:relative;margin:8px 12px 0;padding-right:44px}
+.bdmhl{margin:8px 12px 0}.bdminfo{position:relative}.bdminfo.bdmvic{padding-right:44px}
+.bdmukol{margin:0 0 6px;padding:6px 8px 6px;border:1px solid var(--kb-ac);border-left:4px solid var(--kb-ac);border-radius:6px;background:color-mix(in srgb,var(--kb-ac) 10%,#201914)}.bdmukolh{display:block;font-family:var(--f-label);font-weight:700;font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;color:#f1a0a2;margin-bottom:4px}.bdmukol .khlas{border:0;background:none;padding:0}.bdmukol .khlas>*+*{border-top:1px dotted color-mix(in srgb,var(--kb-ac) 40%,transparent)}
 .bdm .bdmhl .khlas{margin:0;display:flex;flex-direction:column;gap:4px}
 .bdm .bdmhl .khl{margin:0;padding:5px 8px;font-size:.84rem;line-height:1.35;border-radius:6px}
 .bdm .bdmhl .khl .gbtn{padding:3px 8px;font-size:.78rem}

@@ -145,7 +145,7 @@ function renderBoj(){try{bojHistZapis()}catch(e){}try{bojJaObnov()}catch(e){}
   const tr=box.querySelector(".bsloty");if(tr){if(kk!==BOJ.rk){BOJ.rk=kk;const c=tr.querySelector(".btah");tr.scrollLeft=c?Math.max(0,c.offsetLeft-(tr.clientWidth-c.offsetWidth)/2):0}else tr.scrollLeft=sx}
   if(f&&!(ae&&ae.isConnected)){const e=box.querySelector(`[name="${f}"]`)||(/^[A-Za-z][\w-]*$/.test(f)?box.querySelector("#"+f):null);if(e){if(fv!=null&&e.value!==fv)e.value=fv;e.focus();if(ss!=null)try{e.setSelectionRange(ss,ss)}catch(x){}}}
   try{bdmLepky()}catch(e){}
-  bojUpozorni();bojWake();bojGlogPoll();try{bojJaUloz()}catch(e){}if(!GMV&&s.aktivni){try{bojKonHlidej(s,(s.hraci||[]).find(h=>h.n===bojJa.get()))}catch(e){}try{bojMinHlidej(s,(s.hraci||[]).find(h=>h.n===bojJa.get()))}catch(e){}try{bojZasahHlidej(s,(s.hraci||[]).find(h=>h.n===bojJa.get()))}catch(e){}}
+  bojUpozorni();bojWake();bojGlogPoll();try{bojJaUloz()}catch(e){}if(!GMV&&s.aktivni){try{bojZazHlidej(s,(s.hraci||[]).find(h=>h.n===bojJa.get()))}catch(e){}}
 }
 document.addEventListener("click",e=>{const b=e.target.closest("[data-bdruz]");if(!b)return;const fh=document.getElementById("bfh");if(!fh)return;
   const vzor=fh.querySelector(".bsr");fh.innerHTML="";PARTY.forEach(p=>{const r=vzor.cloneNode(true);r.querySelector('[name="hn"]').value=p.n;fh.appendChild(r)});bojObtForm()});
