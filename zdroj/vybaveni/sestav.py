@@ -9,11 +9,18 @@ ROOT = os.path.dirname(os.path.dirname(D))
 MAX_T = 1000  # nejdelší vlastní shrnutí (znaků) – jako u kouzel (Vojtovo rozhodnutí 2026-10-20)
 
 # Artikule › Výzbroj › Zbraně: vlastnost → zbraně (Handgun = Musket a Pistol)
-ARTZV = {"Drtivá": ["Mace", "Flail", "Warhammer"], "Ratiště": ["Halberd", "Pike", "Glaive", "Spear"],
-         "Průrazná": ["Musket", "Pistol", "Heavy Crossbow", "Lance", "Halberd", "War Pick"],
-         "Šikovná": ["Shortsword", "Longsword", "Greatsword", "Scimitar", "Warhammer", "Halberd"],
-         "Ostrá": ["Shortsword", "Longsword", "Greatsword", "Scimitar"], "Půlmeč": ["Longsword", "Greatsword"],
-         "Do slabin!": ["Dagger"], "Strhující": ["Halberd", "Glaive"], "Vpřed!": ["Lance"], "Štěpící": ["Greataxe"], "Hrom a kouř!": ["Musket", "Pistol"]}
+ARTZV = {"Krvežíznivá": ["Sickle", "Scimitar", "Glaive", "Longbow", "Shortbow"],
+         "Drtivá": ["Maul", "Mace", "Flail", "Warhammer"],
+         "Omračující": ["Club", "Greatclub", "Mace", "Flail", "Morningstar", "Maul", "Sling"],
+         "Ratiště": ["Halberd", "Pike", "Glaive", "Spear"],
+         "Ničivá": ["Warhammer", "War Pick", "Heavy Crossbow", "Musket"],
+         "Průrazná": ["Pistol", "Musket", "Heavy Crossbow", "Lance", "Halberd", "War Pick"],
+         "Odvetná": ["Shortsword", "Longsword", "Rapier", "Greatsword"],
+         "Šikovná": ["Shortsword", "Longsword", "Greatsword", "Halberd"],
+         "Přibodnutí": ["Spear", "Pike"],
+         "Ostrá": ["Shortsword", "Longsword", "Greatsword", "Scimitar", "Battleaxe"], "Půlmeč": ["Longsword", "Greatsword"],
+         "Do slabin!": ["Dagger"], "Strhující": ["Halberd"], "Vpřed!": ["Lance"], "Štěpící": ["Greataxe", "Handaxe", "Battleaxe"],
+         "Nepřímá": ["Longbow", "Shortbow", "Sling"], "Hrom a kouř!": ["Pistol", "Musket"]}
 # Artikule › Výzbroj › Zbroj: druh → zbroje
 ARTZB = {"Vycpávaná": ["Padded Armor", "Leather Armor", "Studded Leather Armor", "Hide Armor"],
          "Kroužková": ["Chain Shirt", "Scale Mail", "Ring Mail", "Chain Mail"],

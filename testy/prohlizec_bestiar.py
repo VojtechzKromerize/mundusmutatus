@@ -294,7 +294,7 @@ async def main():
     r5=await v.evaluate("""(async()=>{const o=[];const K=KARTBY[VYBK]||KARTY[0];const n0=kInv(K).length;
       await kVybPridej(K,vybPoolVstup(VYBBY['crowbar']),2);const x=kInv(K).find(y=>y.n==='Crowbar');o.push(!!x&&x.q===2&&!x.kat);
       o.push(!!vybNajdi({n:'Breastplate'})&&vybNajdi({n:'Breastplate'}).art==='Plátová');
-      o.push(JSON.stringify(bdmZvlAuto({n:'Longsword'}).slice().sort())===JSON.stringify(['Ostrá','Půlmeč','Šikovná']));
+      o.push(JSON.stringify(bdmZvlAuto({n:'Longsword'}).slice().sort())===JSON.stringify(['Odvetná','Ostrá','Půlmeč','Šikovná']));
       const [t,h]=bdmVecList(K,kInv(K).indexOf(x));o.push(/katalog vybavení/.test(h)&&/Crowbar/.test(h));
       o.push(VYB.magicke.filter(m=>m.x).every(m=>!m.srd)&&VYB.magicke.some(m=>m.srd==='bag-of-holding'));return o})()""")
     chk(r5==[True]*5,"katalog: přidání do vybavení, hledání podle jména, vlastnosti zbraně z katalogu, popis v listu věci, mimo SRD bez vazby: "+str(r5))

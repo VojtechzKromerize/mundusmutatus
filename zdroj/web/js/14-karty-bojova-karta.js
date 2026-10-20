@@ -307,9 +307,18 @@ document.addEventListener("click",async e=>{const T=s=>e.target.closest&&e.targe
     const txt=`${z.k==="Štít"?"štít":z.k.toLowerCase()+" zbroj"} obětována – kritický zásah se mění v běžný (kostky zranění jen jednou)${kAC(K)!==ac0?`; AC ${ac0} → ${kAC(K)}`:""}`;
     kHodZapis({k:K.id,kdo:K.n,co:"Obětování zbroje",txt});const h=((BOJ.s&&BOJ.s.hraci)||[]).find(x=>bojKartaH(x)===K);if(GMV&&h)bojLog(h.id,{n:"Obětování zbroje",ai:null,ci:h.id,zt:txt},h.n);mmHlasG(`${K.n}: ${txt}.`,6000);return}});
 /* vlastnosti zbraní podle Artikulí (Zbraně) – podle druhu zbraně v názvu útoku */
-const BDMZV={"Drtivá":/\b(mace|flail|war ?hammer)\b|palcát|cep|válečné kladivo/i,"Ratiště":/\b(halberd|pike|glaive|spear)\b|halapartn|píka|kopí/i,"Průrazná":/\b(heavy crossbow|lance|halberd|war ?pick|musket|pistol|handgun)\b|píšťal|ručnic|halapartn/i,
-  "Šikovná":/\b(shortsword|longsword|greatsword|scimitar|war ?hammer|halberd)\b|meč|šavl/i,"Ostrá":/\b(shortsword|longsword|greatsword|scimitar)\b|meč|šavl/i,"Půlmeč":/\b(longsword|greatsword)\b|dlouhý meč|obouruční meč/i,
-  "Do slabin!":/\bdagger\b|dýk/i,"Strhující":/\b(halberd|glaive)\b|halapartn/i,"Vpřed!":/\blance\b/i,"Štěpící":/\bgreataxe\b|obouruční sekyr/i,"Hrom a kouř!":/\b(musket|pistol|handgun)\b|píšťal|ručnic/i};
+const BDMZV={"Krvežíznivá":/\b(sickle|scimitar|glaive|longbow|shortbow)\b|srp|tesák|šavl|sudlic|kůs|luk\b|luku\b/i,
+  "Drtivá":/\b(maul|mace|flail|war ?hammer)\b|palcát|cep|válečné kladivo|obouruční kladivo/i,
+  "Omračující":/\b(club|greatclub|mace|flail|morningstar|maul|sling)\b|kyj|palic|palcát|cep|řemdih|kropáč|obouruční kladivo|prak/i,
+  "Ratiště":/\b(halberd|pike|glaive|spear)\b|halapartn|píka|kopí|sudlic/i,
+  "Ničivá":/\b(war ?hammer|war ?pick|heavy crossbow|musket)\b|válečné kladivo|čakan|těžká kuš|hákovnic/i,
+  "Průrazná":/\b(heavy crossbow|lance|halberd|war ?pick|musket|pistol|handgun)\b|píšťal|ručnic|hákovnic|halapartn|dřevec|čakan|těžká kuš/i,
+  "Odvetná":/\b(shortsword|longsword|rapier|greatsword)\b|meč|kord|rapír/i,
+  "Šikovná":/\b(shortsword|longsword|greatsword|halberd)\b|meč|halapartn/i,
+  "Přibodnutí":/\b(spear|pike)\b|píka|kopí/i,
+  "Ostrá":/\b(shortsword|longsword|greatsword|scimitar|battleaxe)\b|meč|šavl|tesák|bojová sekyr/i,"Půlmeč":/\b(longsword|greatsword)\b|dlouhý meč|obouruční meč/i,
+  "Do slabin!":/\bdagger\b|dýk/i,"Strhující":/\bhalberd\b|halapartn/i,"Vpřed!":/\blance\b|dřevec/i,"Štěpící":/\b(greataxe|handaxe|battleaxe)\b|sekyr|sekera/i,
+  "Nepřímá":/\b(longbow|shortbow|sling)\b|luk\b|luku\b|prak/i,"Hrom a kouř!":/\b(musket|pistol|handgun)\b|píšťal|ručnic|hákovnic/i};
 /* vlastnosti zbraně podle Artikulí: podle názvu zbraně, nebo jak si je hráč u zbraně nastavil (stav karty zbrVl, 2026-10-18) */
 const bdmZvlAuto=a=>{if(/beze zbraně|unarmed|eldritch|kouzl/i.test(a.n))return [];const z=kZbranInfo(a.n);
   /* katalog vybavení zná vlastnosti podle Artikulí přesně (2026-10-20); bez něj odhad podle jména */

@@ -628,14 +628,25 @@ const mapDrag={moved:false};
 document.getElementById("zin").addEventListener("click",()=>mapZoom(1/1.4));
 document.getElementById("zout").addEventListener("click",()=>mapZoom(1.4));
 
-const BVLZ={"Drtivá":"Ignoruje Resistance zbroje proti Bludgeoning.","Průrazná":"Ignoruje Resistance zbroje proti Piercing.","Šikovná":"Před hodem na útok si útočník zvolí typ zranění podle zbraně.",
+const BVLZ={"Krvežíznivá":"Požehnání: cíl bez Resistance vůči typu zranění zbraně krvácí d4 do ošetření. Pokušení: čepel uvízne v ráně, vytrhnout ji stojí bonusovou akci.",
+  "Drtivá":"Ignoruje Resistance zbroje proti Bludgeoning.",
+  "Omračující":"Požehnání: cíl hází CON save (SO 8 + proficiency bonus útočníka + STR), jinak je do konce svého příštího tahu bez Reakce a má nevýhodu na útoky. Pokušení: rána sklouzne po zbroji a do svého příštího tahu jsi bez Reakce ty.",
+  "Ratiště":"Když nepřítel vstoupí do dosahu zbraně (10 stop), smí udělat Opportunity Attack. V kontaktu (5 stop) má na útoky nevýhodu. Bonusovou akcí lze zbraň zapřít o zem: dokud se nepohne, Opportunity Attack proti útoku s Vpřed! je automatický kritický zásah a Vpřed! se neuplatní.",
+  "Ničivá":"Požehnání: zbroj cíle ztrácí jedno obětování. Pokušení: zbraň praská a ztrácí Ničivou až do opravy.",
+  "Průrazná":"Ignoruje Resistance zbroje proti Piercing.",
+  "Odvetná":"Požehnání: vazba – cíl na tebe do konce svého příštího tahu nemůže použít Reakci; mine-li tě nepřítel útokem na blízko s Pokušením, můžeš Reakcí provést protiútok. Pokušení: čepele se zaklesnou, ztrácíš Reakci.",
+  "Šikovná":"Před hodem na útok si útočník zvolí typ zranění podle zbraně.",
+  "Přibodnutí":"Požehnání: cíl je hrotem přidržen – do začátku tvého příštího tahu má rychlost 0, ty se nesmíš pohnout. Pokušení: hrot uvízne ve zbroji, cíl ti může Reakcí vytrhnout zbraň (STR save, SO 12).",
   "Ostrá":"Při Slashing proti cíli bez Resistance je kritický zásah už na 19–20.","Půlmeč":"Bonusovou akcí přehmat zbraně: Piercing útoky získají vlastnost Průrazná, kostka zranění klesne o stupeň (d8 na d6).",
-  "Ratiště":"Když nepřítel vstoupí do dosahu zbraně (10 stop), smí udělat Opportunity Attack. V kontaktu (5 stop) má na útoky nevýhodu.",
-  "Do slabin!":"Padne-li proti Restrained nebo Prone cíli Požehnání, jde o automatický kritický zásah.","Strhující":"Padne-li při útoku na jezdce Požehnání, může ho strhnout (cíl hází záchranu, zda bude Prone, nebo jen stržen z koně).",
-  "Vpřed!":"Po jízdě aspoň 15 stop rovně se zdvojnásobí kostky zranění (kritický zásah 4×).","Štěpící":"Padne-li při útoku na cíl se štítem Požehnání, může štít zničit.",
-  "Hrom a kouř!":"Pokušení: zbraň selže a před dalším užitím potřebuje opravu. Požehnání: střelce zahalí dým a má výhodu proti útokům zblízka."};
+  "Do slabin!":"Požehnání: proti Restrained nebo Prone cíli jde o automatický kritický zásah. Pokušení: dýka sklouzne po plátu, další útok proti tobě má výhodu.",
+  "Strhující":"Požehnání: umožňuje strhnout cíl k zemi (cíl hází CON save, zda bude Prone). Pokušení: hák se zasekne v postroji, cíl tě strhne o 5 stop k sobě a může Reakcí zaútočit.",
+  "Vpřed!":"Po jízdě aspoň 15 stop rovně se zdvojnásobí kostky zranění (kritický zásah 4×).",
+  "Štěpící":"Požehnání: zničí štít nepřítele, má-li štít. Pokušení: sekera uvízne ve štítu, cíl ji může Reakcí vytrhnout (STR save, SO 12).",
+  "Nepřímá":"Projektil letí obloukem: ignoruje bonus polovičního krytu.",
+  "Hrom a kouř!":"Požehnání: střelce zahalí dým a má na 1 kolo výhodu proti útokům zblízka. Pokušení: zbraň selže a před dalším výstřelem ji musíš vyčistit (bonusová akce); minul-li jsi a u cíle stojí spojenec, zasáhneš spojence; při 1 na d20 a 1 na Závoji zbraň vybuchne (2d8 Fire střelci)."};
 const BZBR={"Vycpávaná":["Bludgeoning","1×"],"Kroužková":["Bludgeoning, Slashing","2×"],"Plátová":["Slashing, Piercing","3×"],"Komplexní":["Bludgeoning, Slashing, Piercing","3×"],"Štít":["—","1×"]};
 /* malované ikony vlastností zbraní (zv-), typů zranění (zr-) a zbrojí (zb-) – art/img/boj, zadání vyvoj/ikony-boj.md */
+/* nové vlastnosti (Krvežíznivá, Omračující, Ničivá, Odvetná, Přibodnutí, Nepřímá) zatím ikonu nemají – zobrazí se jen jménem */
 const BZVK={"Drtivá":"drtiva","Průrazná":"prurazna","Šikovná":"sikovna","Ostrá":"ostra","Půlmeč":"pulmec","Do slabin!":"do-slabin","Ratiště":"ratiste","Strhující":"strhujici","Vpřed!":"vpred","Štěpící":"stepici","Hrom a kouř!":"hrom-a-kour"};
 const BZRT={Bludgeoning:"Drtivé",Piercing:"Bodné",Slashing:"Sečné",Fire:"Ohnivé",Cold:"Mrazivé",Lightning:"Bleskové",Thunder:"Hromové",Acid:"Kyselinové",Poison:"Jedové",Necrotic:"Prokleté",Radiant:"Svaté",Psychic:"Psychické",Force:"Silové"};
 const BZBK={"Vycpávaná":"vycpavana","Kroužková":"krouzkova","Plátová":"platova","Komplexní":"komplexni","Štít":"stit"};

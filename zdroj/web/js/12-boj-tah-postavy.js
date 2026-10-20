@@ -287,7 +287,7 @@ function bojOsud(s,o){const zaj=bojZaj.get(),st=o.stav||[],vz=st.includes("vzdal
   return {z,ut,roz,por,vz,osud:typeof zaj[o.id]==="string"?zaj[o.id]:"",t:z?"zajat":roz?"rozplynul se (vrátí se, dokud ho družina nezažehná)":por?"poražen":ut?"uprchl":"na nohou"}}
 /* kořist: zbroj z AC, zbraně z útoků (ne drápy a kouzla), u houfu krát padlí a zajatí; poškozená obětováním zbroj k opravě */
 const BZBRN=/meč|šavl|sekyr|kuš|luk|kopí|halapartn|sudlic|palcát|cep|řemdih|dýk|tesák|kord|kladiv|oštěp|píšťal|hák|biják|rohatin|kosa|vidle|prak|scimitar|sword|axe|bow|spear|mace|dagger/i;
-const BZVL=/Ostrá|Drtivá|Průrazná|Šikovná|Ratiště|Půlmeč|Štěpící|Strhující|Vpřed|Do slabin|Hrom a kouř|Lehká|Těžká|Obouruční|Vrhací|Nabíjení|Munice|Dosah/i;
+const BZVL=/Ostrá|Drtivá|Průrazná|Šikovná|Ratiště|Půlmeč|Štěpící|Strhující|Vpřed|Do slabin|Hrom a kouř|Krvežíznivá|Omračující|Ničivá|Odvetná|Přibodnutí|Nepřímá|Lehká|Těžká|Obouruční|Vrhací|Nabíjení|Munice|Dosah/i;
 function bojKorist(s){const it=[];
   (s.npc||[]).filter(o=>!bojSpoj(o)).forEach(o=>{const E=bojEff(o);if(!E)return;const O=bojOsud(s,o);if(O.roz)return;
     const ks=o.druh==="houf"?((o.max||0)-(o.pocet||0))+((o.stav||[]).includes("vzdal se")?(o.pocet||0):0):(O.por||O.z?1:0);if(!ks)return;

@@ -190,19 +190,25 @@ const ARTK=[
    <li>Spánek v Kroužkové a těžší zbroji neodstraní úroveň Exhaustion.</li>
    <li>Navléknout Plátovou a Komplexní zbroj trvá 20 minut (s panošem 10).</li></ul>`},
  {id:"zbrane",t:"Zbraně",h:`
-  <p>Weapon Mastery z D&amp;D 2024 funguje beze změny. Každá dobře vyrobená zbraň má ale navíc fyzické vlastnosti, které platí pro každého, kdo ji používá a má příslušnou zdatnost (proficiency):</p>
+  <p>Weapon Mastery z D&amp;D 2024 funguje beze změny. Každá dobře vyrobená zbraň má ale navíc fyzické vlastnosti, které platí pro každého, kdo ji používá a má příslušnou zdatnost (proficiency). <b>Pasivní</b> vlastnosti platí vždy; <b>aktivní</b> vlastnosti se projeví jen podle kostky Závoje – ${Z.B} dává výhodu, odmítnuté ${Z.P} Komplikaci. Žádná zbraň nemá víc než jednu pasivní a jednu aktivní vlastnost; výjimkou jsou meče, halapartna a hákovnice jako zbraně na všechno (u hákovnice si střelec při Požehnání vybere Ničivou, nebo dým – obojí naráz ne).</p>
   ${tb(["Vlastnost","Zbraně","Efekt"],[
-   [`${bikZv("Drtivá")}Drtivá`,"Mace, Flail, Warhammer","Ignoruje Resistance zbroje proti Bludgeoning."],
-   [`${bikZv("Ratiště")}Ratiště`,"Halberd, Pike, Glaive, Spear","Když nepřítel vstoupí do dosahu zbraně (10 stop), můžeš udělat Opportunity Attack. V kontaktním boji (5 stop) máš ale na útoky nevýhodu."],
-   [`${bikZv("Průrazná")}Průrazná`,"Handgun, Heavy Crossbow, Lance, Halberd, Warpick","Ignoruje Resistance zbroje proti Piercing."],
-   [`${bikZv("Šikovná")}Šikovná`,"Shortsword, Longsword, Greatsword, Scimitar, Warhammer, Halberd","Před hodem na útok umožňuje zvolit typ poškození podle zbraně."],
-   [`${bikZv("Ostrá")}Ostrá`,"Shortsword, Longsword, Greatsword, Scimitar","Při Slashing proti cíli bez Resistance critne na 19–20."],
+   [`${bikZv("Krvežíznivá")}Krvežíznivá`,"Sickle, Scimitar, Glaive, Longbow, Shortbow",`${Z.B} – cíl bez Resistance vůči typu zranění zbraně krvácí d4 do ošetření.<br>${Z.P} – čepel uvízne v ráně, vytrhnout ji stojí bonusovou akci.`],
+   [`${bikZv("Drtivá")}Drtivá`,"Maul, Mace, Flail, Warhammer","Ignoruje Resistance zbroje proti Bludgeoning."],
+   [`${bikZv("Omračující")}Omračující`,"Club, Greatclub, Mace, Flail, Morningstar, Maul, Sling",`${Z.B} – cíl hází CON save (SO 8 + proficiency bonus útočníka + STR), jinak je do konce svého příštího tahu bez Reakce a má nevýhodu na útoky.<br>${Z.P} – rána sklouzne po zbroji a do svého příštího tahu jsi bez Reakce ty.`],
+   [`${bikZv("Ratiště")}Ratiště`,"Halberd, Pike, Glaive, Spear","Když nepřítel vstoupí do dosahu zbraně (10 stop), můžeš udělat Opportunity Attack. V kontaktním boji (5 stop) máš ale na útoky nevýhodu.<br>Bonusovou akcí můžeš zbraň zapřít o zem: dokud se nepohneš, Opportunity Attack proti útoku s Vpřed! je automatický kritický zásah a Vpřed! se neuplatní."],
+   [`${bikZv("Ničivá")}Ničivá`,"Warhammer, War Pick, Heavy Crossbow, Musket (hákovnice)",`${Z.B} – zbroj cíle ztrácí jedno obětování.<br>${Z.P} – zbraň se poškodila a praská: ztrácí Ničivou až do opravy.`],
+   [`${bikZv("Průrazná")}Průrazná`,"Handgun (píšťala), Musket (hákovnice), Heavy Crossbow, Lance, Halberd, War Pick","Ignoruje Resistance zbroje proti Piercing."],
+   [`${bikZv("Odvetná")}Odvetná`,"Shortsword, Longsword, Rapier, Greatsword",`${Z.B} – vazba: cíl na tebe do konce svého příštího tahu nemůže použít Reakci. Navíc: když tě nepřítel mine útokem na blízko s Pokušením, můžeš Reakcí provést protiútok.<br>${Z.P} – čepele se zaklesnou: ztrácíš Reakci.`],
+   [`${bikZv("Šikovná")}Šikovná`,"Shortsword, Longsword, Greatsword, Halberd","Před hodem na útok umožňuje zvolit typ poškození podle zbraně."],
+   [`${bikZv("Přibodnutí")}Přibodnutí`,"Spear, Pike",`${Z.B} – cíl je hrotem přidržen: do začátku tvého příštího tahu má rychlost 0, ty se ale nesmíš pohnout.<br>${Z.P} – hrot uvízne ve zbroji: cíl ti může Reakcí vytrhnout zbraň (STR save, SO 12).`],
+   [`${bikZv("Ostrá")}Ostrá`,"Shortsword, Longsword, Greatsword, Scimitar, Battleaxe","Při Slashing proti cíli bez Resistance critne na 19–20."],
    [`${bikZv("Půlmeč")}Půlmeč`,"Longsword, Greatsword","Bonusovou akcí provedeš přehmat zbraně: Piercing útoky získávají vlastnost Průrazná, ale kostka poškození klesá o stupeň (<i>tj. d8 na d6</i>)."],
-   [`${bikZv("Do slabin!")}Do slabin!`,"Dagger","Pokud proti Restrained nebo Prone cíli padne Požehnání, jde o automatický crit."],
-   [`${bikZv("Strhující")}Strhující`,"Halberd, Glaive","Pokud při útoku na cíl na koni padne Požehnání, umožňuje strhnout cíl k zemi (cíl hází save, zda bude Prone, nebo jen stržen z koně)."],
+   [`${bikZv("Do slabin!")}Do slabin!`,"Dagger",`${Z.B} – pokud je cíl Restrained nebo Prone, jde o automatický kritický zásah.<br>${Z.P} – dýka sklouzne po plátu, další útok proti tobě má výhodu.`],
+   [`${bikZv("Strhující")}Strhující`,"Halberd",`${Z.B} – umožňuje strhnout cíl k zemi (cíl hází CON save, zda bude Prone).<br>${Z.P} – hák se zasekne v postroji: cíl tě strhne o 5 stop k sobě a může Reakcí zaútočit.`],
    [`${bikZv("Vpřed!")}Vpřed!`,"Lance","Po jízdě aspoň 15 stop rovně se zdvojnásobuje poškození na kostkách (crit 4×)."],
-   [`${bikZv("Štěpící")}Štěpící`,"Greataxe","Pokud při útoku na cíl se štítem padne Požehnání, umožňuje zničit soupeřův štít."],
-   [`${bikZv("Hrom a kouř!")}Hrom a kouř!`,"Handgun",`Pokud při útoku padne:<br>${Z.P} – zbraň selže a před dalším užitím vyžaduje opravu;<br>${Z.B} – zahalí střelce v dýmu a dá mu výhodu proti útokům zblízka.`]])}`}
+   [`${bikZv("Štěpící")}Štěpící`,"Greataxe, Handaxe, Battleaxe",`${Z.B} – zničí štít nepřítele, má-li štít.<br>${Z.P} – sekera uvízne ve štítu: cíl ji může Reakcí vytrhnout (STR save, SO 12).`],
+   [`${bikZv("Nepřímá")}Nepřímá`,"Longbow, Shortbow, Sling","Projektil je možné vystřelit obloukem: ignoruje bonus polovičního krytu."],
+   [`${bikZv("Hrom a kouř!")}Hrom a kouř!`,"Handgun (píšťala), Musket (hákovnice)",`${Z.B} – zahalí střelce v dýmu a dá mu na 1 kolo výhodu proti útokům zblízka.<br>${Z.P} – zbraň selže a před dalším výstřelem ji musíš vyčistit (bonusová akce); pokud jsi minul a u cíle stojí spojenec, zasáhneš spojence; při 1 na d20 a 1 na Závoji zbraň vybuchne a způsobí střelci 2d8 Fire.`]])}`}
  ]},
 {id:"serm",book:"boj",t:"Šerm a zápas",img:"serm.webp",
  sum:"Výdrž, šermířské techniky a zápasnické chvaty od mistrů.",
