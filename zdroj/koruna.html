@@ -494,7 +494,7 @@ window.MMDB={vetev:C.vetev,
   /* účet hráče s heslem (Supabase Auth, e-mail se nepotvrzuje): přezdívka se převede na umělou adresu, skutečný e-mail projde beze změny;
      relace je stejná jako u Discordu (mm-hrac-relace), takže volba postavy a zápisy jedou přes hraci_ucty */
   ucetEmail(j){j=String(j||"").trim();if(j.includes("@"))return j.toLowerCase();const s=j.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,".").replace(/^\.+|\.+$/g,"").slice(0,40);return s.length>=2?`${s}.hrac@mundusmutatus.netlify.app`:""},
-  _ucetUloz(j){if(!j||!j.access_token)return false;try{localStorage.setItem(HLS,JSON.stringify({at:j.access_token,rt:j.refresh_token,exp:j.expires_at||Math.floor(Date.now()/1000)+(j.expires_in||3600)}))}catch(e){}return true},
+  _ucetUloz(j){if(!j||!j.access_token)return false;hlsUloz(j);return true},
   _ucetChyba(e){const m=String((e&&e.message)||e||"");const T=[[/invalid login credentials/i,"Špatné jméno nebo heslo."],[/already registered|already exists/i,"Toto jméno už někdo používá – zvol jiné, nebo se přihlas."],
       [/password should be at least (\d+)/i,(x,n)=>`Heslo musí mít aspoň ${n} znaků.`],[/signups? not allowed|signups? (are )?disabled/i,"Zakládání účtů je v nastavení databáze vypnuté – řekni vypravěči."],
       [/confirm|sending.*email/i,"Účet čeká na potvrzení e-mailem, které tu nefunguje – řekni vypravěči (v Supabase vypnout „Confirm email“)."],[/rate limit|too many/i,"Příliš mnoho pokusů – zkus to za chvíli."],[/invalid.*email|unable to validate email/i,"Takové jméno nejde použít – zkus jiné (písmena a číslice)."]];
