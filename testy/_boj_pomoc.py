@@ -12,7 +12,7 @@ def anon_rpc(fn,body):
     except urllib.error.HTTPError as e: return e.code,e.read().decode()[:120]
 # Boj má záložky Karta · Nepřátelé · Družina a sbalené <details>: před klepnutím na prvek ve skryté záložce nebo v zavřeném
 # <details> test záložku přepne a details otevře (jako hráč prstem) – 2026-10-20 i details, test dřív padal po obnovení stránky
-_ZAL="""s=>{let e;try{e=document.querySelector(s)}catch(x){return}if(!e)return;let d=e.parentElement;while(d){if(d.tagName==='DETAILS'&&!d.open)d.open=true;d=d.parentElement}if(e.offsetParent)return;const c=e.closest('[data-bcol]'),r=c&&c.closest('.bojakt');if(!r)return;const t=r.querySelector('.btabs button[data-btab="'+c.dataset.bcol+'"]');if(t&&t.offsetParent)t.click()}"""
+_ZAL="""s=>{let e;try{e=document.querySelector(s)}catch(x){return}if(!e)return;let d=e.parentElement;while(d){if(d.tagName==='DETAILS'&&!d.open&&!(e.tagName==='SUMMARY'&&e.parentElement===d))d.open=true;d=d.parentElement}if(e.offsetParent)return;const c=e.closest('[data-bcol]'),r=c&&c.closest('.bojakt');if(!r)return;const t=r.querySelector('.btabs button[data-btab="'+c.dataset.bcol+'"]');if(t&&t.offsetParent)t.click()}"""
 def _sezal(f):
     async def w(self,sel,*a,**k):
         try: await self.evaluate(_ZAL,sel)

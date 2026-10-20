@@ -513,13 +513,13 @@ for jm, obsah in VSOUB.items():
 if DB:  # generátor si stáhne jen vypravěč, když upravuje texty na webu
     shutil.copyfile(GENERATOR, os.path.join(OUT, "v", f"generator-{GEN_VERZE}.js"))
 shutil.copytree(os.path.join(ROOT, "art"), os.path.join(OUT, "art"), ignore=shutil.ignore_patterns("portrety", "draci", "bestiar") if DB else None)
-# kouzla pro karty hráčů (2026-10-20): bez seznamu povolání a bez popisu tam, kde automatika čte starší text (ta) – popis
+# kouzla pro karty hráčů (2026-10-20): bez popisu tam, kde automatika čte starší text (ta) – popis
 # si karta dotáhne z plného art/kouzla.json, až hráč kouzlo rozklikne; plný soubor čte vypravěč (stránka Kouzla, kouzla NPC)
 try:
     _kz = json.load(open(os.path.join(ROOT, "art", "kouzla.json"), encoding="utf-8"))
     _lehka = []
     for _x in _kz:
-        _y = {k: v for k, v in _x.items() if k not in ("p", "cs", "vt")}
+        _y = {k: v for k, v in _x.items() if k not in ("cs", "vt")}  # povolání (p) karta potřebuje při učení kouzel
         if _y.get("ta") is not None:
             _y.pop("t", None)
         _lehka.append(_y)
