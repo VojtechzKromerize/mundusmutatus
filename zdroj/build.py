@@ -475,7 +475,9 @@ if not GM:
     # zbytek skriptu: díly podle čísel souborů – po nasazení se stáhne jen díl, který se změnil
     # jádro (zaklad, stav, start) se stáhne hned a stránka se ukáže; boj, karta a hra (soubory 10–25) tvoří
     # líně načítanou část „hra“ (MMLINE.hra, pořadí dílů zachované) – 26-start ji stáhne na pozadí po vykreslení
-    DILY = [("zaklad", 1, 8, 0), ("stav", 9, 9, 0), ("boj", 10, 12, 1), ("karta", 13, 19, 1), ("hra", 20, 25, 1), ("start", 26, 99, 0)]
+    # díly jsou menší (2026-10-20): po nasazení se stáhne jen ten, který se změnil – karta 13–19 byla jeden díl 180 kB (gz),
+    # a měnila se skoro každým nasazením
+    DILY = [("zaklad", 1, 8, 0), ("stav", 9, 9, 0), ("boj", 10, 12, 1), ("karta", 13, 15, 1), ("karta2", 16, 19, 1), ("hra", 20, 20, 1), ("hra2", 21, 25, 1), ("start", 26, 99, 0)]
     kusy = re.split(r"^/\*@soubor (\d\d)\*/\n", js, flags=re.M)
     obsah = {d[0]: "" for d in DILY}
     obsah[DILY[0][0]] += kusy[0]
@@ -511,6 +513,20 @@ for jm, obsah in VSOUB.items():
 if DB:  # generátor si stáhne jen vypravěč, když upravuje texty na webu
     shutil.copyfile(GENERATOR, os.path.join(OUT, "v", f"generator-{GEN_VERZE}.js"))
 shutil.copytree(os.path.join(ROOT, "art"), os.path.join(OUT, "art"), ignore=shutil.ignore_patterns("portrety", "draci", "bestiar") if DB else None)
+# kouzla pro karty hráčů (2026-10-20): bez seznamu povolání a bez popisu tam, kde automatika čte starší text (ta) – popis
+# si karta dotáhne z plného art/kouzla.json, až hráč kouzlo rozklikne; plný soubor čte vypravěč (stránka Kouzla, kouzla NPC)
+try:
+    _kz = json.load(open(os.path.join(ROOT, "art", "kouzla.json"), encoding="utf-8"))
+    _lehka = []
+    for _x in _kz:
+        _y = {k: v for k, v in _x.items() if k not in ("p", "cs", "vt")}
+        if _y.get("ta") is not None:
+            _y.pop("t", None)
+        _lehka.append(_y)
+    with open(os.path.join(OUT, "art", "kouzla-karta.json"), "w", encoding="utf-8") as _f:
+        json.dump(_lehka, _f, ensure_ascii=False, separators=(",", ":"))
+except FileNotFoundError:
+    pass
 if DB:
     for slozka, mapa, pripony in (("draci", MANIFEST["draci"], ("", "-h", "-m", "-t")), ("portrety", MANIFEST["portrety"], ("", "-m", "-s")), ("bestiar", MANIFEST.get("bestiar", {}), ("", "-96"))):
         src_d, dst_d = os.path.join(ROOT, "art", slozka), os.path.join(OUT, "art", slozka)

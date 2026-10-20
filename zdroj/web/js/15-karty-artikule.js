@@ -71,12 +71,14 @@ let KSPD=null;
 /* kouzla podle anglického jména z D&D Beyond; i jména s vlastním jménem (Tasha's Hideous Laughter → SRD Hideous Laughter) a starší jména (pole a).
    Přípona „(Ritual)“ se odstraní jen pro hledání – příznak rituálu nese kouzlo (ri) i karta. */
 const kSpKl=n=>String(n||"").toLowerCase().replace(/[\u2018\u2019`]/g,"'").replace(/\s*\((ritual|rituál)\)\s*$/,"").replace(/\s+/g," ").trim();
-let KSPDP=null;const kSpNacti=()=>KSPD?Promise.resolve(KSPD):(KSPDP=KSPDP||kouzlaTxt().then(t=>{const d=JSON.parse(t),M={};d.forEach(x=>{M[kSpKl(x.en)]=x});d.forEach(x=>(x.a||[]).forEach(a=>{const k=kSpKl(a);if(!M[k])M[k]=x}));return KSPD=M}).catch(e=>{KSPDP=null;throw e}));
+let KSPDP=null;const kSpNacti=()=>KSPD?Promise.resolve(KSPD):(KSPDP=KSPDP||kouzlaTxtKarta().then(t=>{const d=JSON.parse(t),M={};d.forEach(x=>{M[kSpKl(x.en)]=x});d.forEach(x=>(x.a||[]).forEach(a=>{const k=kSpKl(a);if(!M[k])M[k]=x}));return KSPD=M}).catch(e=>{KSPDP=null;throw e}));
 const kSp=n=>KSPD&&KSPD[kSpKl(n)]||null;
 /* automatika (zranění, záchrana, stavy, vyšší stupeň) čte dřívější text, pokud ho kouzlo nese (ta/va – viz zdroj/kouzla/sestav.py) */
 const kSpA=n=>{const d=kSp(n);return d&&(d.ta!=null||d.va!=null)?Object.assign({},d,{t:d.ta??d.t,v:d.va??d.v}):d};
 const KSPO=new Set();
-function kSpPopis(sp){const x=kSp(sp.n);if(!KSPD)return `<p class="rsmall">Načítám popis…</p>`;if(!x)return `<p class="rsmall">Kouzlo web nezná – popis najdeš v D&amp;D Beyond.</p>`;
+/* popisy, které v lehkém souboru nejsou (t chybí, automatika má ta): dotáhnout z plného souboru a překreslit */
+let KSPTP=null;function kSpTexty(){return KSPTP=KSPTP||kouzlaTxt().then(s=>{JSON.parse(s).forEach(x=>{const d=KSPD&&KSPD[kSpKl(x.en)];if(d&&d.t==null)d.t=x.t});kartyPrekresli()}).catch(e=>{KSPTP=null})}
+function kSpPopis(sp){const x=kSp(sp.n);if(!KSPD)return `<p class="rsmall">Načítám popis…</p>`;if(!x)return `<p class="rsmall">Kouzlo web nezná – popis najdeš v D&amp;D Beyond.</p>`;if(x.t==null){kSpTexty();return `<p class="rsmall">Načítám popis…</p>`}
   return `<div class="kspd${x.x?" kmimo":""}"><p class="rsmall"><b>${besc(x.cz||x.en)}</b> · ${kzUr(x.l)} · ${besc(x.s||"")} · ${besc(x.ct||"")} · ${besc(x.r||"")} · ${besc((x.k||[]).join(", "))}${x.m?` (${besc(x.m)})`:""} · ${besc(x.d||"")}${x.ri?" · rituál":""}</p>${kzMd(x.t)}${x.v?`<p><b>Na vyšší úrovni.</b> ${kzIn(x.v)}</p>`:""}${x.x&&typeof MIMOPOZN==="string"?`<p class="rsmall srdattr">${besc(MIMOPOZN)}</p>`:""}</div>`}
 /* ---- vlastní hod: 2d6+3, 4d6kh3, 2d20kl1, d%, s kostkou Závoje ---- */
 function kVyraz(v){const s=String(v||"").toLowerCase().replace(/\s+/g,"").replace(/d%/g,"d100").replace(/[−–]/g,"-");if(!s||s.length>60||!/^[+-]?(\d*d\d+(k[hl]\d+)?|\d+)([+-](\d*d\d+(k[hl]\d+)?|\d+))*$/.test(s))return null;

@@ -164,7 +164,8 @@ document.addEventListener("click",async e=>{const v=e.target.closest&&e.target.c
   const tx=T("[data-ktechx]");if(tx){if(!confirm("Odebrat techniku z karty?"))return;kartaStavZmen(K.id,{tech:kTech(K).filter(i=>i!==tx.dataset.ktechx)});return}
   const te=T("[data-ktech]");if(te){kTechPouzij(K,te.dataset.ktech);return}
   const ux=T("[data-kucx]");if(ux){const L=[...kUc(K)],x=L.splice(+ux.dataset.kucx,1)[0];await kartaStavZmen(K.id,{uc:L.length?L:null});if(x)kHodZapis({k:K.id,kdo:K.n,co:"Účinek skončil",txt:x.n});return}
-  const sp=T("[data-kspd]");if(sp){const x=kSeznam(K)[+sp.dataset.kspd];if(!x)return;await kSpNacti().catch(()=>{});const d=kSp(x.n);
+  const sp=T("[data-kspd]");if(sp){const x=kSeznam(K)[+sp.dataset.kspd];if(!x)return;await kSpNacti().catch(()=>{});let d=kSp(x.n);
+    if(d&&d.t==null&&typeof kSpTexty==="function"){mmPop(`<h3>${besc(x.n)}</h3><p class="rsmall">Načítám popis…</p>`);await kSpTexty();d=kSp(x.n);if(d&&d.t==null){mmPop(`<h3>${besc(x.n)}</h3><p class="rsmall">Popis se nepodařilo načíst.</p>`);return}}
     mmPop(d?kzKarta(d,false):`<h3>${besc(x.n)}</h3>${kSpPopis(x)}`);return}
   const ip=T("[data-kinvpop]");if(ip){const it=(kartaStav(K.id).inv||K.vybaveni||[])[+ip.dataset.kinvpop],x=kPred(it);if(x)mmPop(predKarta(x));return}
   const pj=T("[data-kinvpij]");if(pj){const S=kartaStav(K.id),inv=[...(S.inv||K.vybaveni||[])].map(y=>Object.assign({},y)),it=inv[+pj.dataset.kinvpij],x=kPred(it);if(!it||!x||!x.ef)return;
