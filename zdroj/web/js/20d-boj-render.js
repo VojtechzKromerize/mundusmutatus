@@ -425,6 +425,7 @@ function bojListPrekresli() {
   } catch (e) {}
 }
 function renderBoj() {
+  mmZrus("boj");
   try {
     bojHistZapis();
   } catch (e) {}

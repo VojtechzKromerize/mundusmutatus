@@ -164,10 +164,14 @@ async function kartaStavZmen(id, ch, msg, op = {}) {
     kartyPrekresli();
   }
 }
+/* po změně karty: stránka, kde je karta vidět, se překreslí jednou za dávku změn (mmPozdeji) */
 function kartyPrekresli() {
-  if (curView === "karty") renderKarty(decodeURIComponent(location.hash.split("/")[1] || ""));
-  if (curView === "boj") renderBoj();
-  if (curView === "hra") hraPrekresli();
+  if (curView === "karty")
+    mmPozdeji("karty", () => {
+      if (curView === "karty") renderKarty(decodeURIComponent(location.hash.split("/")[1] || ""));
+    });
+  if (curView === "boj") bojPrekresli();
+  if (curView === "hra") mmPozdeji("hra", hraPrekresli);
 }
 /* vyčerpání (D&D 2024): každá úroveň −2 ke všem hodům d20 */
 const kVycerp = K => +(kartaStav(K.id).vycerp || 0);
@@ -485,6 +489,7 @@ const kHodyHtml = (L, cap) =>
         .join("")}</ol>`
     : `<p class="rsmall">Zatím žádné hody.</p>`;
 function renderKarty(id) {
+  mmZrus("karty");
   const box = document.getElementById("kartyview");
   if (typeof vybNacti === "function" && !VYB && !VYBP)
     vybNacti()

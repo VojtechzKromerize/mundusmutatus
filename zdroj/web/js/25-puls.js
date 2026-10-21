@@ -120,7 +120,7 @@ async function pulsZpracuj(co) {
   }
   if (co.has("hra")) await pulsHra();
   if (co.has("snimek") || PULS.obnov) pulsObnov();
-  if (curView === "boj" && (kh || b)) renderBoj();
+  if (curView === "boj" && (kh || b)) bojPrekresli();
   else if (kh && !pulsPise()) kartyPrekresli();
   else if (b && curView === "hra") hraPrekresli();
 }

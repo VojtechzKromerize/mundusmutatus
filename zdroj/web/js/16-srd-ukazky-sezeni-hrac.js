@@ -1447,6 +1447,7 @@ function hraZmenyHtml() {
   return zmenyHtml();
 }
 function renderHra() {
+  mmZrus("hra");
   const box = document.getElementById("hraview");
   if (!box) return;
   if (!KLOAD) {

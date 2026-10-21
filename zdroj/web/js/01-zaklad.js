@@ -3,6 +3,19 @@ const REL = /*@REL@*/ [];
 /* zeměpis: královská města a sídla církevních vrchností jsou na mapě vždy, i když družina rod nezná */
 const ZEMEPIS = /*@ZEMEPIS@*/ [];
 const byId = Object.fromEntries(FAM.map(f => [f.id, f]));
+/* překreslení jednou za dávku změn (2026-10-21): když jedna obsluha změní data několikrát (zápis útoku, potvrzení, puls),
+   stránka se překreslí jen jednou – po doběhnutí obsluhy (mikroúloha). Okamžité překreslení (renderBoj…) čekající zruší. */
+const MMPREK = new Map();
+function mmPozdeji(klic, fn) {
+  if (MMPREK.has(klic)) return;
+  MMPREK.set(klic, fn);
+  queueMicrotask(() => {
+    const f = MMPREK.get(klic);
+    MMPREK.delete(klic);
+    if (f) f();
+  });
+}
+const mmZrus = klic => MMPREK.delete(klic);
 const CONFN = {kat: "katolíci", kal: "kališníci", mix: "smíšení", isl: "islám"};
 const FICON = {kat: "art/img/vira-kat.webp", kal: "art/img/vira-kal.webp", mix: "art/img/vira-mix.webp", isl: "art/img/vira-isl.webp"};
 const SFICON = {

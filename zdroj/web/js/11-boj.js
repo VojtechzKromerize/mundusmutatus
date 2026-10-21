@@ -2998,6 +2998,10 @@ function bojAcSync(s) {
     } catch (e) {}
   });
 }
+/* boj se překreslí jednou za dávku změn (víc zápisů v jedné obsluze = jedno překreslení) */
+function bojPrekresli() {
+  mmPozdeji("boj", renderBoj);
+}
 function bojZmen(fn0, bezUndo) {
   const fn = z => {
     fn0(z);
@@ -3023,7 +3027,7 @@ function bojZmen(fn0, bezUndo) {
   }
   s.sloty = bojSloty(s);
   BOJ.s = s;
-  renderBoj();
+  bojPrekresli();
   bojNav();
   BZ.q.push(fn);
   return new Promise(r => {
