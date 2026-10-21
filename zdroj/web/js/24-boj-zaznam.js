@@ -14,6 +14,28 @@ function bzPrepni(k) {
 }
 /* výsledek útoku jako ikonka: hvězda = zásah, X = vedle, v prstenci = přirozená 20 / 1; text zůstává v popisku */
 const BZVYS = {bzhit: "zasah", bzkr: "zasahkrit", bzmis: "vedle"};
+/* zbraň / kouzlo podle názvu útoku → ikonka (2026-10-21): v hlavičce místo textu, celý název zůstává v popisku.
+   Kouzlo: hod „Útok kouzlem“, známé kouzlo (kSp) nebo kouzlo s vlastní značkou (KZIK); zbraň podle klíčových slov názvu
+   (česky i anglicky, včetně útoků nestvůr: drápy, kousnutí…); nic z toho → text jako dřív */
+const BZZBR = [
+  ["kuse", /kuš|crossbow|samostříl/i],
+  ["luk", /\bluk|\bbow\b|longbow|shortbow|šíp/i],
+  ["pistal", /píšťal|hákovnic|handgun|mušket|pistol|arkebuz|ručnic|tarasnic|\bgun\b|firearm/i],
+  ["prak", /\bprak|sling|vrhací|\bdart|foukačk|blowgun|kámen|kamen/i],
+  ["sekera", /seker|sekyr|\baxe/i],
+  ["kopi", /kopí|spear|píka|\bpike|halapartn|halberd|glejv|glaive|oštěp|javelin|trojzub|trident|sudlic|lance|kůs/i],
+  ["palcat", /kladiv|hammer|maul|palcát|\bmace|\bkyj|club|řemdih|flail|jitřenk|morningstar|\bhůl|staff|\bcep\b/i],
+  ["mec", /meč|sword|rapír|rapier|šamšír|scimitar|dýk|dagger|šavl|sabre|tesák/i],
+  ["drap", /dráp|claw|kousnut|\bbite|fang|ocas|\btail|\broh|horn|pěst|fist|úder|slam|křídl|žihadl|sting|chapadl|kopyt/i],
+];
+function bzZbrIk(e) {
+  const n = String(e.co || "").replace(/^Útok( kouzlem)? – /, "");
+  if (!n) return "";
+  if (e.kouzlo || (typeof KZIK !== "undefined" && KZIK[n]) || (typeof kSp === "function" && kSp(n)))
+    return (typeof KZIK !== "undefined" && KZIK[n]) || "kouzlo";
+  const z = BZZBR.find(([, re]) => re.test(n));
+  return z ? z[0] : "";
+}
 /* jedna kostka: d20 s přirozenou 20 / 1 zvýrazněnou, zahozená kostka (výhoda, nevýhoda) přeškrtnutá, kostka Závoje vínová */
 const bzK = (s, v, c) =>
   `<span class="bzk bzk${s === 20 ? "20" : s === 6 && c && c.includes("bzkz") ? "z" : ""}${s === 20 && +v === 20 ? " bzkmax" : s === 20 && +v === 1 ? " bzkmin" : ""}${c ? " " + c : ""}" role="img" aria-label="k${s}: ${besc(v)}${c && c.includes("bzkx") ? " (nepočítá se)" : ""}">${besc(v)}</span>`;
@@ -157,6 +179,7 @@ function bzZHod(s, h) {
     src: "h",
     h,
     skryty: !!h.skryty,
+    kouzlo: /^Útok kouzlem/.test(co),
   };
   String(h.txt || "")
     .split(" · ")
@@ -234,6 +257,7 @@ function bzZaznam(s, gm) {
       ...e.rows.filter(r => r.l === "zranění" && !h.rows.some(q => q.l === "zranění")),
     ];
     if (!e.zav) e.zav = h.zav;
+    if (h.kouzlo) e.kouzlo = true;
     e.pozn = [...h.pozn, ...e.pozn];
     if (!e.C && h.C) e.C = h.C;
   });
@@ -317,11 +341,12 @@ function bzRadek(e, gm) {
       zik && (z.vol || z.txt)
         ? `<p class="bzzv${z.prij ? " bzzp" : ""}">${z.r === "pok" ? "Pokušení" : "Požehnání"}${z.vol ? ` ${besc(z.vol)}` : ""}${z.txt ? `<span class="bzzt">${besc(z.txt)}</span>` : ""}</p>`
         : "";
+  const zbr = bzZbrIk(e);
   const det = e.rows.length || e.pozn.length || zv,
     kl = bzKlic(e),
     open = e.prvni || BZOPEN.has(kl);
   const str = e.A && e.A.o ? (e.A.o.druh && !bojSpoj(e.A.o) ? " bz-n" : " bz-h") : "";
-  return `<li class="bz${str}${e.undone ? " blundone" : ""}${e.skryty ? " bzskr" : ""}${e.vys && e.vys[1] === "bzkr" ? " bzlkr" : ""}${det && !open ? " bzc" : ""}${det && !e.prvni ? " bzex" : ""}"><div class="bzh"${det && !e.prvni ? ` data-bzex="${besc(kl)}" ${btip(open ? "Sbalit podrobnosti" : "Rozbalit: kostky, hod a poznámky")}` : ""}>${os(e.A)}<span class="bzco">${besc(e.co)}</span>${e.C ? `<span class="bzcil"><i class="bzsip" aria-label="vůči">→</i>${os(e.C)}</span>` : ""}${vys || zr || hph || zh ? `<span class="bzr">${vys}${zr}${hph}${zh}</span>` : ""}<time>${e.skryty ? "skrytý · " : ""}${bzCas(e.t)}</time>${e.und || ""}${det && !e.prvni ? `<i class="bzchev" aria-hidden="true">${bi("sipka")}</i>` : ""}</div>
+  return `<li class="bz${str}${e.undone ? " blundone" : ""}${e.skryty ? " bzskr" : ""}${e.vys && e.vys[1] === "bzkr" ? " bzlkr" : ""}${det && !open ? " bzc" : ""}${det && !e.prvni ? " bzex" : ""}"><div class="bzh"${det && !e.prvni ? ` data-bzex="${besc(kl)}" ${btip(open ? "Sbalit podrobnosti" : "Rozbalit: kostky, hod a poznámky")}` : ""}>${os(e.A)}${zbr ? `<span class="bzzbr" role="img" aria-label="${besc(e.co)}" ${btip(e.co)}>${bi(zbr)}</span>` : `<span class="bzco">${besc(e.co)}</span>`}${e.C ? `<span class="bzcil"><i class="bzsip" aria-label="vůči">→</i>${os(e.C)}</span>` : ""}<span class="bzt">${vys || zr || hph || zh ? `<span class="bzr">${vys}${zr}${hph}${zh}</span>` : ""}<time>${e.skryty ? "skrytý · " : ""}${bzCas(e.t)}</time>${e.und || ""}${det && !e.prvni ? `<i class="bzchev" aria-hidden="true">${bi("sipka")}</i>` : ""}</span></div>
     ${e.rows.length ? `<div class="bzd">${e.rows.map(r => `<p>${r.l ? `<small class="bzdl">${r.l}</small>` : ""}<span>${r.h}</span></p>`).join("")}</div>` : ""}${e.pozn.length ? `<p class="bzp">${e.pozn.map(besc).join(" · ")}</p>` : ""}${zv}</li>`;
 }
 /* sloupec záznamu (vypravěč i hráč) */

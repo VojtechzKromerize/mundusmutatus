@@ -3156,11 +3156,13 @@ span.bzos{cursor:default}
 .bzos .bmed{flex:none}
 .bzco{font-style:italic;color:var(--ink)}.bzco:empty{display:none}
 .bzcil{display:inline-flex;align-items:center;gap:6px;max-width:100%}
+.bzzbr{display:inline-flex;flex:none;color:var(--muted)}.bzzbr .bi{width:18px;height:18px}
 .bzsip{font-style:normal;color:var(--muted)}
 .bzh time{font:400 .7rem var(--f-label);color:var(--muted);white-space:nowrap}
 .bzh .blund{margin-left:2px}
 .bzh[data-bzex]{cursor:pointer}.bzh[data-bzex]:hover .bzchev{color:var(--ink)}
-.bzr{display:inline-flex;flex-wrap:wrap;align-items:center;gap:3px 6px;margin-left:auto}
+.bzt{display:inline-flex;align-items:center;gap:3px 6px;margin-left:auto}
+.bzr{display:inline-flex;align-items:center;gap:3px 6px}
 .bzchev{display:inline-flex;flex:none;color:var(--muted);transition:transform .15s}.bzchev .bi{width:14px;height:14px}
 .bz.bzc .bzchev{transform:rotate(-90deg)}
 .bz.bzc .bzd,.bz.bzc .bzp,.bz.bzc .bzzv{display:none}
