@@ -205,7 +205,7 @@ function bojAktivni() {
       return h ? `<div class="bojhorni">${h}</div>` : "";
     })(),
     ja: jaH,
-    head: `<div class="bojhead"><div class="bojtit"><h2 class="arttitle">Boj</h2></div>${gm ? `<div class="bojbtn"><button type="button" class="gbtn ghost" data-bplosnew ${btip("Plošný zásah: jeden hod zranění, záchrana každého cíle, odolnosti")}>☄ Plošný zásah</button><button type="button" class="gbtn ghost" data-bundo ${btip("Vrátit poslední změnu (Ctrl+Z)")}${BUNDO.length ? "" : " disabled"}>↶ Zpět</button><button type="button" class="gbtn ghost" data-bact="kolo">Nové kolo</button><button type="button" class="gbtn ghost" data-bact="konec">Ukončit boj</button></div>` : ""}</div>
+    head: `<div class="bojhead"><div class="bojtit"><h2 class="arttitle">Boj</h2></div>${gm ? `<div class="bojbtn"><button type="button" class="gbtn ghost" data-bplosnew ${btip("Plošný zásah: jeden hod zranění, záchrana každého cíle, odolnosti")}>☄ Plošný zásah</button><button type="button" class="gbtn ghost" data-bundo ${btip("Vrátit poslední změnu (Ctrl+Z)")}${BUNDO.length ? "" : " disabled"}>↶ Zpět</button><button type="button" class="gbtn ghost" data-bact="kolo">Nové kolo</button><button type="button" class="gbtn ghost" data-bact="konec">Ukončit boj</button>${bojVyzPanel(s)}${bojNastHtml()}</div>` : ""}</div>
     ${
       sh
         ? `<section class="bkonsh"><h3 class="uvh2">Konec boje</h3>${sh.html}<p class="rsmall">Boj trval ${s.kolo || 1} ${(s.kolo || 1) === 1 ? "kolo" : (s.kolo || 1) < 5 ? "kola" : "kol"} (asi ${Math.max(1, Math.round(((s.kolo || 1) * 6) / 60))} min).${(s.cile || []).length ? " Cíle: " + (s.cile || []).map(c => `${c.n} ${(c.cil ? c.stav >= c.cil : c.stav) ? "✓" : "✗"}`).join(", ") + "." : ""}</p>
@@ -218,7 +218,6 @@ function bojAktivni() {
       ? bojTedHtml(s) +
         (typeof bojProtiHtml === "function" ? bojProtiHtml() : "") +
         bojUtokyPanel(s) +
-        bojVyzPanel(s) +
         bojPlosPanel(s) +
         (typeof bojOblHtml === "function" ? bojOblHtml(s, true) : "")
       : typeof bojOblHtml === "function"

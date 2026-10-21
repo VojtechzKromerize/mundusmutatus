@@ -3311,3 +3311,58 @@ button.btedch{cursor:pointer}button.btedch:hover{border-color:var(--gold,#b08d3a
 .ucetf{display:grid;gap:8px;max-width:26rem}.ucetf label{display:grid;gap:3px;font-family:var(--f-label);font-size:.9rem}
 .ucetf input{font:inherit;font-size:1rem;padding:7px 9px;border:1px solid var(--rule);border-radius:3px;background:var(--paper);color:var(--ink);min-width:0}
 .ucetmsg{margin:0;color:var(--kal);font-weight:600}.ucetmsg:empty{display:none}
+/* ===== Boj na širokém monitoru vypravěče (2026-10-21): počasí a prostředí v jednom řádku, Hromadný hod a nastavení v řádku
+   tlačítek, šipky tahu pod kolem, tři sloupce – účastníci · karta · záznam, karta nepřítele bez zdvojené hlavičky a ve dvou
+   sloupcích. Platí od 1400 px, telefon a tablet se nemění. ===== */
+.bojbtn>details.bpridej{margin-top:0}
+.bojbtn>details.bpridej>summary{min-height:33px;box-sizing:border-box;padding:4px 11px}
+.bojbtn>details.bpridej[open]{flex-basis:100%;order:9}
+.bnast>summary{font-size:1.1rem;line-height:1;padding:4px 9px}
+.bnastp{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;margin-top:6px;padding:8px 10px;border:1px solid var(--rule);border-radius:3px;background:var(--paper)}
+.bnastp .bauto{margin-left:0}
+.bnkvz .bi{width:12px;height:12px;margin-right:2px;vertical-align:-1px;color:var(--muted)}
+@media (min-width:1400px){
+  .bojgm .bojhorni{flex-direction:row;flex-wrap:wrap;align-items:center;gap:4px 12px;margin-bottom:8px}
+  .bojgm .bojhorni>*{flex:1 1 100%}
+  .bojgm .bojhorni>.bojpoc{flex:1 1 320px;padding:4px 12px}
+  .bojgm .bojhorni>.bpros{flex:0 1 auto;padding:0}
+  .bojgm .bojpoc ul{display:inline;margin:0 0 0 6px;padding:0}.bojgm .bojpoc li{display:inline}.bojgm .bojpoc li+li::before{content:" · "}
+  /* osa: šipky tahu pod kolem; kdo je na tahu, ukazuje zlatý prstenec na ose, ne pravá sekce */
+  #bojview .bojgm .bosa{grid-template-columns:auto minmax(0,1fr);grid-template-rows:auto auto;gap:4px 14px;align-items:start}
+  #bojview .bojgm .bosa .bleg{grid-area:1/1;justify-content:center}
+  #bojview .bojgm .bosa .bsloty{grid-area:1/2/3/3;align-self:center}
+  #bojview .bojgm .bosa .bctl{grid-area:2/1;justify-content:center;gap:4px}
+  #bojview .bojgm .bosa .bcur{min-width:0;max-width:none;padding:0;gap:4px}
+  #bojview .bojgm .bosa .bcur .bmed,#bojview .bojgm .bosa .bcur small,#bojview .bojgm .bosa:not(.bkon) .bcur>span>b{display:none}
+  #bojview .bojgm .bosa .bcur .bnavrh{margin:0;white-space:nowrap}
+  #bojview .bojgm .bosa .bhelp{display:none}
+  /* tři sloupce: vlevo nepřátelé a družina (seznam), uprostřed karta, vpravo záznam */
+  .bojgm.bojakt:not(.bojprip) .bojcols{grid-template-columns:minmax(260px,330px) minmax(0,1fr) minmax(280px,360px);grid-template-areas:"n k l" "h k l";grid-template-rows:auto 1fr;gap:14px}
+  .bojgm.bojakt:not(.bojprip) .bcolm{display:contents}
+  .bojgm.bojakt:not(.bojprip) .btabs{display:none}
+  .bojgm.bojakt:not(.bojprip) .bcolm>.bcol{display:block}
+  .bojgm.bojakt:not(.bojprip) .bcolk{grid-area:k}
+  .bojgm.bojakt:not(.bojprip) .bcoln{grid-area:n}
+  .bojgm.bojakt:not(.bojprip) .bcolh{grid-area:h}
+  .bojgm.bojakt:not(.bojprip) .bcoll{grid-area:l}
+  .bojgm.bojakt:not(.bojprip) .bcoln .bstrana{margin-bottom:6px}
+  .bojgm.bojakt:not(.bojprip) .bcoln .bnpc,.bojgm.bojakt:not(.bojprip) .bcolh .bnpc{padding:6px 8px}
+  .bojgm.bojakt:not(.bojprip) .bcoln .bnh,.bojgm.bojakt:not(.bojprip) .bcolh .bnh{gap:3px 7px}
+  .bojgm.bojakt:not(.bojprip) .bcoln .bnn b,.bojgm.bojakt:not(.bojprip) .bcolh .bnn b{font-size:1.05rem}
+  /* karta nepřítele: hlavička bez AC, životů a stavů (jsou v řádku pod ní), řádek AC · Životy · Stavy nízký */
+  #bojview .bojgm .bnpc.bopen>.bnh .bracw,#bojview .bojgm .bnpc.bopen>.bnh .bhpw,#bojview .bojgm .bnpc.bopen>.bnh .bstavy{display:none}
+  /* v seznamech vlevo jen to podstatné: přejmenování a skrytí před hráči jsou na rozbalené kartě */
+  #bojview .bojgm.bojakt:not(.bojprip) .bcoln .bnh .bskr,#bojview .bojgm.bojakt:not(.bojprip) .bcolh .bnh .bskr{display:none}
+  /* na širokém monitoru má Boj vypravěče širší stránku, ať se tři sloupce vejdou */
+  .wrap:has(.view[data-view=boj]:not([hidden]) .bojgm.bojakt:not(.bojprip)){max-width:1720px}
+  .bojgm .bnkh{grid-template-columns:auto minmax(0,1.4fr) minmax(0,1fr);gap:8px}
+  .bojgm .bnkb{flex-direction:row;flex-wrap:wrap;gap:2px 8px;min-height:40px;padding:4px 12px 9px}
+  .bojgm .bnkb b{font-size:1.2rem}
+  .bojgm .bnkb .bdmzk{margin:0}
+  .bojgm .bnkvl{gap:6px}
+  .bojgm .bnkv{flex-direction:row;justify-content:center;gap:6px;padding:3px 4px}
+  .bojgm .bnkvm{min-width:44px}
+  .bojgm .bnk2{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:10px 16px;align-items:start}
+  .bojgm .bnkl,.bojgm .bnkr{min-width:0;display:flex;flex-direction:column;gap:8px}
+  .bojgm .bnkl>*,.bojgm .bnkr>*{margin-top:0;margin-bottom:0}
+}

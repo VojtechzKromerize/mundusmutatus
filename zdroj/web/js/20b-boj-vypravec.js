@@ -572,11 +572,16 @@ function bojVyzPanel(s) {
     <p class="kvlh"><label>SO <input type="number" min="1" max="40" data-bvyzdc inputmode="numeric" placeholder="–" aria-label="Stupeň obtížnosti"></label><label><input type="checkbox" data-bvyzskr> SO jen pro mě</label><input data-bvyzpozn maxlength="60" placeholder="za co (dech draka, past…)" aria-label="Poznámka"><small class="rsmall">Vyber SO a klepni na dovednost nebo vlastnost. Zranění se záchranou řeší Plošný zásah.</small></p>
     ${L.length ? vyzvyGmHtml() : ""}</details>`;
 }
+/* nastavení boje (2026-10-21): potvrzování akcí hráčů, lhůta a automatické odečítání zásahů jsou za ozubeným kolečkem
+   v hlavičce Boje – nastavují se jednou na začátku boje, nemusí zabírat řádek na stránce */
+function bojNastHtml() {
+  if (!GMV) return "";
+  return `<details class="bpridej bnast" data-otv="nast"${bojOtv("nast")}><summary ${btip("Nastavení boje: potvrzování akcí hráčů, lhůta, odečítání zásahů")}>⚙<span class="vh">Nastavení boje</span></summary><div class="bnastp">${potvrzHtml("boj")}<label class="bauto" ${btip("Zásah nepřítele odečte postavě s kartou životy hned (s odolnostmi a dočasnými HP); hráč může reagovat (Shield…) a zranění se vrátí.")}><input type="checkbox" data-bpcauto${bojPcAuto.get() ? " checked" : ""}> zásahy nepřátel odečítat postavám rovnou</label></div></details>`;
+}
 function bojUtokyPanel(s) {
   const P = (s.utoky || []).filter(u => u.stav === "ceka");
-  const tg = `${potvrzHtml("boj")}<label class="bauto" ${btip("Zásah nepřítele odečte postavě s kartou životy hned (s odolnostmi a dočasnými HP); hráč může reagovat (Shield…) a zranění se vrátí.")}><input type="checkbox" data-bpcauto${bojPcAuto.get() ? " checked" : ""}> zásahy nepřátel odečítat postavám rovnou</label>`;
-  if (!P.length) return `${navrhyGmHtml()}<div class="butkp">${tg}</div>`;
-  return `${navrhyGmHtml()}<section class="butkp bmor bkonc"><b>Útoky hráčů k potvrzení</b>${tg}<ul>${P.map(u => {
+  if (!P.length) return navrhyGmHtml();
+  return `${navrhyGmHtml()}<section class="butkp bmor bkonc"><b>Útoky hráčů k potvrzení</b><ul>${P.map(u => {
     const V = bojUtokVyhodnot(s, u);
     return `<li><b>${besc(V.an)}</b> · ${besc(u.cim || "útok")}${bojUtEf(u) ? " · účinek kouzla bez hodu" : `${u.plos ? ` · plošně ${u.plos.ab} SO ${u.plos.dc}` : ` · útok ${u.hod}${u.d ? ` (d20 ${u.d})` : ""}`} · zranění ${u.dmg} ${besc(bojZrCz(u.t))}`}<br><small>${V.r.map(o => besc(o.gm) + (o.leg ? ` <button type="button" class="badd" data-bulr="${u.id}" data-ci="${o.ci}" ${btip("Nepřítel místo neúspěchu uspěje – spotřebuje jedno použití Legendární odolnosti")}>Legendární odolnost (${o.leg})</button>` : "")).join("<br>")}</small> <button type="button" class="gbtn" data-bupot="${u.id}">Zapsat</button><button type="button" class="gbtn ghost" data-buzam="${u.id}">Zamítnout</button></li>`;
   }).join("")}</ul></section>`;

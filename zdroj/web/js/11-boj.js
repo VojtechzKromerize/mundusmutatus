@@ -55,6 +55,7 @@ const BIC = {
     '<path d="M8 2.2c3.2 0 5.4 2.3 5.4 5.4 0 2-1 3.3-2.2 4.1v2.1H4.8v-2.1C3.6 10.9 2.6 9.6 2.6 7.6 2.6 4.5 4.8 2.2 8 2.2Z"/><path d="M5.6 7.6h.1M10.3 7.6h.1M6.6 10.7c.9-.9 1.9-.9 2.8 0"/>',
   vzdal: '<path d="M3.6 14.6V1.8"/><path d="M3.6 2.4c2.4-.9 4.2 1 6.4.2 1.4-.5 2.6-.4 3.6.1v6.1c-1-.5-2.2-.6-3.6-.1-2.2.8-4-1.1-6.4-.2"/>',
   kryt: '<path d="M1.6 14.2h12.8M2.6 14.2V8h10.8v6.2M2.6 11.1h10.8M6.2 8v3.1M9.8 11.1v3.1"/>',
+  stit: '<path d="M8 1.6 13.4 3.6v4.3c0 3.1-2.3 5.4-5.4 6.5C4.9 13.3 2.6 11 2.6 7.9V3.6Z"/>',
   zajat:
     '<circle cx="4.8" cy="9.6" r="2.6"/><circle cx="11.2" cy="9.6" r="2.6"/><path d="M7.2 8.4c.5-2.6 1.1-4.4.8-6.2M8.8 8.4c-.5-2.6-1.1-4.4-.8-6.2"/>',
   tma: '<path d="M12.6 10.4A5.6 5.6 0 0 1 5.6 3.4a5.6 5.6 0 1 0 7 7Z"/>',
@@ -1947,7 +1948,7 @@ function bojRef(n, s, velH) {
   const vlH = `<div class="bnkvl">${BAB.map(a => {
     const m = bojAbil(p, a),
       z = bojSaveB(p, a);
-    return `<div class="bnkv"><span>${a}</span><button type="button" class="bnkvm" data-bover="${a}" ${btip(`Ověření ${a}: d20 ${bsg(m || 0)} (s kostkou Závoje)`)}>${m == null ? "–" : bsg(m)}</button><button type="button" class="bnkvz" data-bzach="${a}" ${btip(`Záchrana ${a}: d20 ${bsg(z)}`)}><small>zách.</small>${bsg(z)}</button></div>`;
+    return `<div class="bnkv"><span>${a}</span><button type="button" class="bnkvm" data-bover="${a}" ${btip(`Ověření ${a}: d20 ${bsg(m || 0)} (s kostkou Závoje)`)}>${m == null ? "–" : bsg(m)}</button><button type="button" class="bnkvz" data-bzach="${a}" ${btip(`Záchrana ${a}: d20 ${bsg(z)}`)} aria-label="Záchrana ${a} ${bsg(z)}">${bi("stit")}${bsg(z)}</button></div>`;
   }).join(
     "",
   )}</div><p class="bnkdc">SO záchrany <input type="number" min="1" max="40" data-bzdc value="${BZDC[n.id] || ""}" aria-label="SO záchrany" placeholder="–"> <small>(nepovinné – vyhodnotí úspěch)</small></p>`;
@@ -1964,9 +1965,10 @@ function bojRef(n, s, velH) {
           .map(([k, ic, t, c]) => `<p class="brf">${bi(ic)}<b class="${c ? "zv " + c : ""}">${t}</b> ${besc(p[k])}</p>`)
           .join("")}</div>`
       : "";
-  return `<div class="bref bnk">${tmsg}${nej}${vzd}${rdy ? rdyB : ""}${kon}${pad}${hd}${pan}${vlH}${znH}${ut}${muB}${kzB}${rcB}${zd}${plak}${muD}${rdy ? "" : rdyB}
+  /* na širokém monitoru vypravěče (2026-10-21) jsou útoky a kouzla vlevo, znamení Závoje, zdroje a statblock vpravo */
+  return `<div class="bref bnk">${tmsg}${nej}${vzd}${rdy ? rdyB : ""}${kon}${pad}${hd}${pan}${vlH}<div class="bnk2"><div class="bnkl">${ut}${muB}${muD}${kzB}${plak}${rdy ? "" : rdyB}</div><div class="bnkr">${znH}${rcB}${zd}
     <div class="bnkbar">${velH || ""}${prC}${os}</div>
-    <details class="bstat" data-otv="st-${n.id}"${bojOtv("st-" + n.id)}><summary>${bi("svitek")} Statblock</summary><div class="bsb" data-bsb="${besc(p.id)}">${BOTV.has("st-" + n.id) ? bojStatHtml(p) : ""}</div>${bojEdit(p)}</details></div>`;
+    <details class="bstat" data-otv="st-${n.id}"${bojOtv("st-" + n.id)}><summary>${bi("svitek")} Statblock</summary><div class="bsb" data-bsb="${besc(p.id)}">${BOTV.has("st-" + n.id) ? bojStatHtml(p) : ""}</div>${bojEdit(p)}</details></div></div></div>`;
 }
 /* statblock s vysvětlivkami se počítá až při prvním otevření a pamatuje se */
 const BSTC = {};
