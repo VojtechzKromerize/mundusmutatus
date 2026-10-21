@@ -11,6 +11,15 @@
   SUPABASE_URL = "https://rzbflnwxpyepjcpndqyj.supabase.co"
   SUPABASE_KEY = "sb_publishable_kN6K2Na9lg-54Tt1EvmKjA_TRx6Xm_S"
 
+# Náhled dev a ostatní větve (2026-10-21) používají vývojovou databázi „Mundus Mutatus dev“ – zkoušky na náhledu
+# nemění živou hru. Její tajný klíč je v Netlify u SUPABASE_SECRET pro kontexty Branch deploys a Deploy Previews.
+[context.branch-deploy.environment]
+  SUPABASE_URL = "https://cjgyhzgirzhgiwjxuqvj.supabase.co"
+  SUPABASE_KEY = "sb_publishable_qRzEyAiSyY-mnUMMGar2Vg_c_4mIl0z"
+[context.deploy-preview.environment]
+  SUPABASE_URL = "https://cjgyhzgirzhgiwjxuqvj.supabase.co"
+  SUPABASE_KEY = "sb_publishable_qRzEyAiSyY-mnUMMGar2Vg_c_4mIl0z"
+
 # Mezipaměť prohlížeče. Stránka a service worker se vždy ověří na serveru (změny jsou vidět hned);
 # soubory s otiskem obsahu ve jménu (složka v/) se nemění nikdy; obrázky, písma a mapy platí den
 # a pak se na pozadí ověří (stale-while-revalidate), takže opakovaná návštěva je okamžitá.

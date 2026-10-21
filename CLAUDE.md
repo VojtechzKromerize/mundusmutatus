@@ -110,12 +110,17 @@ Hlavní orientační body:
 
 ## Databáze (Supabase)
 
-- Jeden projekt pro `main` i `dev` (data rozlišuje sloupec `vetev`) → **jakákoli změna schématu míří na ostrá
-  data.** `supabase/schema.sql` spouští Vojta v SQL Editoru; i když je k dispozici konektor Supabase,
-  před spuštěním migrace se ho zeptej.
-- Texty obsahu jsou v databázi (tabulka `zaznamy`, vypravěč je upravuje na webu). `zdroj/obsah/` je záloha:
-  změna souboru v `dev` se při buildu přenese do databáze, **pokud záznam mezitím nikdo neupravil na webu**
-  (jinak build vypíše KONFLIKT a vyhraje web). Před úpravou souborů obsahu spusť zálohu:
+- **Dvě databáze (od 2026-10-21):** ostrá „Mundus Mutatus“ (`rzbflnwxpyepjcpndqyj`, web `main`) a vývojová
+  „Mundus Mutatus dev“ (`cjgyhzgirzhgiwjxuqvj`, náhled `dev` a ostatní větve – `netlify.toml` kontexty branch-deploy/deploy-preview).
+  Na vývojové smíš zkoušet cokoli (i přes konektor Supabase); **ostrou jen číst** – změny schématu do ostré jen na Vojtův pokyn.
+- Workflow **Databáze**: změna `schema.sql` v `dev` se sama nahraje do vývojové; „[obnovit dev]“ ve zprávě commitu (nebo ručně
+  „obnovit vývojovou z ostré“) zkopíruje z ostré karty, odhalení, texty, ukázky, boj a nastavení hry (`supabase/obnov_dev.sh`;
+  bez účtů hráčů, hesel a upozornění); „schéma do ostré“ ručně s potvrzením NASADIT (schema.sql z `main`) – při „nasaď“, když se
+  schéma změnilo. Tajemství `SUPABASE_DB_DEV` / `SUPABASE_DB_MAIN` (Session pooler). Ruční spuštění funguje, až je workflow v `main`.
+- Texty obsahu jsou v ostré databázi (tabulka `zaznamy`, vypravěč je upravuje na **ostrém** webu). `zdroj/obsah/` je záloha:
+  změna souboru v `dev` se přenese do ostré databáze workflow **Texty do ostré databáze** (`build.py --jen-zaznamy`)
+  a při sestavení náhledu i do vývojové, **pokud záznam mezitím nikdo neupravil na webu** (jinak KONFLIKT, vyhraje web).
+  Hráči změnu uvidí po příštím nasazení `main`. Před úpravou souborů obsahu spusť zálohu:
   `gh workflow run "Záloha textů z webu"`, počkej a stáhni `dev`.
 - Supabase novým tabulkám nedává práva: veřejně čitelná tabulka potřebuje v schématu `grant select … to anon, authenticated`
   (testovací `priprava.sql` práva také nedává). Edge funkce (`supabase/functions/`: mm-push, mm-discord) nemají práva
@@ -129,7 +134,7 @@ Hlavní orientační body:
   přímo ke kartě (`mm_hrac_heslo`, `relace_hracu`) zůstává jako záloha.
 - Funkce mají předponu `mm_`. Nová tabulka = RLS + případ v `testy/bezpecnost.py` (anonym ani hráč nečtou
   obsah vypravěče a nic nemění; vypravěč nemá služební práva).
-- Bezplatný Supabase usíná; denní „Budíček databáze“ ho drží vzhůru.
+- Bezplatný Supabase usíná; denní „Budíček databáze“ drží vzhůru obě databáze.
 
 ## Testy v tomto prostředí
 
