@@ -3220,7 +3220,6 @@ span.bzos{cursor:default}
 .bnkvm,.bnkvz{border:1px solid var(--rule);border-radius:5px;background:var(--paper);color:var(--ink);font:inherit;cursor:pointer;padding:1px 4px;min-width:38px}
 .bnkvm{font-weight:700;font-size:1.05rem}.bnkvz{font-size:.8rem}.bnkvz small{font-size:.6rem;color:var(--muted);margin-right:2px}
 .bnkvm:hover,.bnkvz:hover{border-color:var(--gold)}
-.bnkdc{margin:0;font-size:.8rem;color:var(--muted)}.bnkdc input{width:3.6em}
 .bnkzn{display:flex;flex-direction:column;gap:3px;padding:6px 8px;border-left:3px solid var(--gold);background:color-mix(in srgb,var(--gold) 6%,transparent)}
 .bnkzn .brf{margin:0;display:flex;gap:6px;align-items:baseline}.bnkzn .brf .bi.bimg{width:18px;height:18px;align-self:center}
 .bnk .butc{display:flex;flex-wrap:wrap;gap:6px;align-items:center}

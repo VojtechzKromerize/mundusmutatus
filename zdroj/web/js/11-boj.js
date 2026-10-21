@@ -1907,7 +1907,6 @@ function bojRef(n, s, velH) {
     )
       .map(([en, cz]) => `<option value="${en}">${cz}</option>`)
       .join("")}</select><button class="gbtn">Přidat</button></form></details>`;
-  const zs = `<div class="bzach"><span class="bkzlh">Záchrana</span>${BAB.map(a => `<button type="button" class="gbtn ghost" data-bzach="${a}">${a} <b>${bsg(bojSaveB(p, a))}</b></button>`).join("")}<label>DC <input type="number" min="1" max="40" data-bzdc value="${BZDC[n.id] || ""}" aria-label="DC záchrany"></label>${bojLegMax(E) ? `<span class="bleg" ${btip("Legendární odolnost: neúspěšnou záchranu může změnit v úspěch")}>Leg. odolnost ${bojLegZb(n, E)}/${bojLegMax(E)}</span>` : ""}</div>`;
   const rc = bojRecharge(p),
     rcB = rc.length
       ? `<div class="bkzl"><span class="bkzlh">Dobíjení</span>${rc
@@ -1949,9 +1948,7 @@ function bojRef(n, s, velH) {
     const m = bojAbil(p, a),
       z = bojSaveB(p, a);
     return `<div class="bnkv"><span>${a}</span><button type="button" class="bnkvm" data-bover="${a}" ${btip(`Ověření ${a}: d20 ${bsg(m || 0)} (s kostkou Závoje)`)}>${m == null ? "–" : bsg(m)}</button><button type="button" class="bnkvz" data-bzach="${a}" ${btip(`Záchrana ${a}: d20 ${bsg(z)}`)} aria-label="Záchrana ${a} ${bsg(z)}">${bi("stit")}${bsg(z)}</button></div>`;
-  }).join(
-    "",
-  )}</div><p class="bnkdc">SO záchrany <input type="number" min="1" max="40" data-bzdc value="${BZDC[n.id] || ""}" aria-label="SO záchrany" placeholder="–"> <small>(nepovinné – vyhodnotí úspěch)</small></p>`;
+  }).join("")}</div>`;
   const znH =
     p && ["zak", "poz", "pok", "kom", "ner"].some(k => p[k])
       ? `<div class="bnkzn">${[
