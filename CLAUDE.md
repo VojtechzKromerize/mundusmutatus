@@ -100,7 +100,9 @@ Hlavní orientační body:
 - `route()` – hashový router; seznam stránek `VIEWS`, popisky `NAVNAME`. Stránky: uvod, hra, svet, mapa,
   praha, desky (#rod/…, #osoba/…), druzina, artikule, draconomicon, kronika, pravidla, karty, boj,
   vyprava, kouzla, sezeni, gm. `kouzla` a `sezeni` jen pro vypravěče.
-- Každá stránka má `render<Stránka>()` (renderBoj, renderKarty, renderVyprava, renderPravidla…).
+- Každá stránka má `render<Stránka>()` (renderBoj, renderKarty, renderVyprava, renderPravidla…). Po změně dat volej
+  **`bojPrekresli()` / `kartyPrekresli()`** – víc změn v jedné obsluze se překreslí jednou (`mmPozdeji` v 01);
+  `renderBoj()` přímo jen tam, kde hned potom sáhneš na nově vykreslený prvek (fokus, posun).
 - Boj: tracker slotové iniciativy, bestiář (jen vypravěč), automatizace tahu, postavy v boji, průvodce tahem.
   Rozvržení: pruh iniciativy nahoře, pod ním tři sloupce – karta (hráč: jeho; vypravěč: vybraný účastník, sám přepne na toho,
   kdo je na tahu – `bojVybranaKarta`, vždy jen jedna rozbalená), účastníci, herní záznam; na mobilu záložky (`BTAB`).
