@@ -3365,6 +3365,23 @@ button.btedch{cursor:pointer}button.btedch:hover{border-color:var(--gold,#b08d3a
   #bojview .bojgm.bojakt:not(.bojprip) :is(.bcoln,.bcolh) .bnpc:not(.bopen,.bhrk) .bnn{order:1}
   #bojview .bojgm.bojakt:not(.bojprip) :is(.bcoln,.bcolh) .bnpc:not(.bopen,.bhrk) .bdruh{order:3;margin-left:auto}
   #bojview .bojgm.bojakt:not(.bojprip) :is(.bcoln,.bcolh) .bnpc:not(.bopen,.bhrk) .btahy{order:4}
+  /* družina: u postavy jen medailon, jméno a kolikrát v kole jednala – zbytek je na rozbalené kartě */
+  #bojview .bojgm.bojakt:not(.bojprip) .bcolh .bnpc.bhrk:not(.bopen) .bnh>:is(.bracw,.bhpw,.bkrb,.bstavy,.bkrbd,.brdyh,.bkonbd,.btpips,.break,.brozb,.bkzikm){display:none}
+  #bojview .bojgm.bojakt:not(.bojprip) .bcolh .bnpc.bhrk:not(.bopen){padding:3px 8px;margin-bottom:3px}
+  #bojview .bojgm.bojakt:not(.bojprip) .bcolh .bnpc.bhrk:not(.bopen) .bnh{gap:2px 6px}
+  #bojview .bojgm.bojakt:not(.bojprip) .bcolh .bnpc.bhrk:not(.bopen) .bnh .bmed{--ms:28px}
+  #bojview .bojgm.bojakt:not(.bojprip) .bcolh .bnpc.bhrk:not(.bopen) .bnn b{font-size:1rem}
+  #bojview .bojgm.bojakt:not(.bojprip) .bcolh .bnpc.bhrk:not(.bopen) .btahy{margin-left:auto}
+  /* pruh „co teď“ není potřeba – kdo je na tahu, ukazuje osa a karta */
+  #bojview .bojgm .bted{display:none}
+  /* cíle boje v jednom řádku nad sloupci */
+  #bojview .bojgm .bcileh{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;margin:6px 0 0}
+  #bojview .bojgm .bcileh .bsph{margin:0}
+  #bojview .bojgm .bcileh .bcls{display:flex;flex-direction:row;flex-wrap:wrap;gap:4px 12px;margin:0;padding:0}
+  #bojview .bojgm .bcileh .bcl{flex-wrap:nowrap;padding:3px 8px}
+  #bojview .bojgm .bcileh .bcld{margin:0}
+  #bojview .bojgm .bcileh .bcld>summary{padding:2px 9px;font-size:.8rem}
+  #bojview .bojgm .bcileh .bcld[open]{flex-basis:100%}
   /* na širokém monitoru má Boj vypravěče širší stránku, ať se tři sloupce vejdou */
   .wrap:has(.view[data-view=boj]:not([hidden]) .bojgm.bojakt:not(.bojprip)){max-width:1720px}
   .bojgm .bnkh{grid-template-columns:auto minmax(0,1.4fr) minmax(0,1fr);gap:8px}

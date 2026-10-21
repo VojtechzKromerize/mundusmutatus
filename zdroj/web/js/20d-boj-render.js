@@ -275,9 +275,12 @@ const BRC = {};
    na mobilu je Záznam čtvrtá záložka. Poražení a prchající nepřátelé jsou sbalení pod seznamem. */
 const BNEPR = `<div class="bstrana bsn"><div data-bk="obt"></div><div data-bkl="npc"></div><details class="bout" data-bout hidden><summary><span data-bk="npcxh"></span></summary><div data-bkl="npcx"></div></details><div data-bk="addn"></div></div>`,
   BDRUZ = `<div class="bstrana bsh"><div data-bk="hr"></div><div data-bk="cile"></div><div data-bk="spojH"></div><div data-bkl="spoj"></div><div data-bk="adds"></div></div>`;
-const BKOSTRA = `<div class="bojakt bojgm"><div data-bk="hor"></div><div data-bk="ja"></div><div data-bk="head"></div><div data-bk="osa"></div><div data-bk="plos"></div>
+/* vypravěč (2026-10-21): cíle boje nahoře u plošného zásahu, přidávání nepřátel až pod družinou (po zahájení boje se používá málo) */
+const BNEPR_G = BNEPR.replace('<div data-bk="addn"></div>', ""),
+  BDRUZ_G = BDRUZ.replace('<div data-bk="cile"></div>', "").replace(/<\/div>$/, '<div data-bk="addn"></div></div>');
+const BKOSTRA = `<div class="bojakt bojgm"><div data-bk="hor"></div><div data-bk="ja"></div><div data-bk="head"></div><div data-bk="osa"></div><div data-bk="plos"></div><div class="bcileh" data-bk="cile"></div>
   <div class="bojcols"><div class="bcolm"><div data-bk="tabs"></div><section class="bcol bcolk" data-bcol="k" aria-label="Karta"><div data-bk="det"></div><div data-bkl="detl"></div></section>
-  <section class="bcol bcoln bjaside" data-bcol="n" aria-label="Nepřátelé">${BNEPR}</section><section class="bcol bcolh" data-bcol="h" aria-label="Družina">${BDRUZ}</section></div>
+  <section class="bcol bcoln bjaside" data-bcol="n" aria-label="Nepřátelé">${BNEPR_G}</section><section class="bcol bcolh" data-bcol="h" aria-label="Družina">${BDRUZ_G}</section></div>
   <section class="bcol bcoll" data-bcol="l" aria-label="Herní záznam"><div data-bk="glog"></div></section></div></div>`;
 /* záznam se u hráče i vypravěče obnovuje: hody z karet (i hody hráčů z telefonu) každé 4 s, dokud je Boj otevřený */
 let BGLP = null;

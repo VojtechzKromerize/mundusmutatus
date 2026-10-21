@@ -1779,9 +1779,6 @@ function bojRef(n, s, velH) {
     houf && E.at.some(a => a.zp != null)
       ? `<label class="bdos" ${btip("Kolik pacholků dosáhne na cíl – podle toho se počítá zranění")}>${bi("dosah")}<input type="number" min="1" max="${n.pocet || 1}" name="dos-${n.id}" data-bdos value="${Math.max(1, Math.min(n.pocet || 1, BDOS[n.id] != null ? BDOS[n.id] : n.pocet || 1))}" aria-label="Kolik pacholků dosáhne na cíl"></label>`
       : "";
-  const zavB = !houf
-    ? `<button type="button" class="gbtn ghost but bzavb" data-bzav ${btip("Hod kostkou Závoje za protivníka (testy, záchrany)")}>${bi("zavoj")} Závoj</button>`
-    : "";
   const S = BOJ.s || {},
     cile = [...(bojSpoj(n) ? [] : S.hraci || []), ...(S.npc || []).filter(x => x.id !== n.id && bojSpoj(x) !== bojSpoj(n))],
     am = BADV[n.id] == null ? "auto" : String(BADV[n.id]),
@@ -1817,34 +1814,33 @@ function bojRef(n, s, velH) {
   const rdyB = rdy
     ? `<p class="bmor bkonc brdy">${bi("pripravit")} <b>Připravená akce:</b> ${besc(rdy)} <button type="button" class="gbtn ghost" data-brdygo>Spustit (reakce)</button><button type="button" class="bkoncx" data-brdyx aria-label="Zrušit připravenou akci">×</button></p>`
     : `<button type="button" class="gbtn ghost brdyadd" data-brdyadd ${btip("Připravit akci (Ready): spustí se reakcí, propadne na začátku jeho dalšího tahu")}>${bi("pripravit")} Připravit akci</button>`;
-  const ut =
-    E.at.length || zavB
-      ? `${utc}<div class="butoky">${E.at
-          .map(
-            (a, i) =>
-              `<button type="button" class="gbtn ghost but" data-but="${i}" ${btip([a.dc ? "Záchrana " + a.dc : a.b != null ? "Útok " + bsg(a.b) : "", a.zp != null ? a.zp + " za pacholka " + (a.zt || "") : [a.z, a.zt].filter(Boolean).join(" "), a.p].filter(Boolean).join(" · ") || a.n)}>${besc(a.n)}${(() => {
-                const N = bojUtokPocet(a);
-                if (N < 2) return "";
-                const S0 = BOJ.s || {},
-                  tk = (S0.kolo || 1) * 100 + (S0.tah || 0),
-                  q = BNUT[n.id + ":" + i],
-                  c = q && q.tk === tk ? q.i : 0;
-                return ` <small class="bpun" ${btip(`${N} útoky v jedné akci – hází se po jednom`)}>${c + 1}/${N}</small>`;
-              })()} ${a.b != null ? `<b>${a.b >= 0 ? "+" : ""}${a.b}</b>` : a.dc ? `<b>${besc(a.dc)}</b>` : ""}${(() => {
-                const av = bojUtokV(n, i, a),
-                  ic = bikZvTxt(av.p) + bikZrTxt(av.zt);
-                return ic ? `<span class="biks">${ic}</span>` : "";
-              })()}</button>${(() => {
-                const ty = bojTypy(a),
-                  v = BUTT[n.id + ":" + i] || {},
-                  pul = /půlmeč/i.test(a.p || "") || (/meč/i.test(a.n) && !/půlmeč/i.test(a.n) && /Půlmeč/.test(String(E.p.b || E.p.h || "")));
-                if (ty.length < 2 && !pul && !(a.dc && (a.z || a.zp))) return "";
-                const cur = v.pul ? "" : v.t && ty.includes(v.t) ? v.t : "";
-                return `<span class="buttg" role="group" aria-label="Typ zranění – ${besc(a.n)}">${ty.length > 1 ? ty.map(t => `<button type="button" data-butt="${i}" data-t="${t}" aria-pressed="${cur === t}" ${btip(`${a.n}: zranění ${BZRT[t]} (${t})${/šikovn/i.test(a.p || "") ? " – Šikovná: volí se před hodem" : ""}`)}>${bikZr(t)}</button>`).join("") : ""}${a.dc && (a.z || a.zp || bojAkceStav(a.n, a.p)) ? `<button type="button" class="bplb" data-bplos="${i}" ${btip(a.z || a.zp ? `Plošně: ${a.n} na více cílů – jeden hod zranění, záchrany všech` : `${a.n}: záchrany cílů, při neúspěchu stav (postavám vyskočí výzva)`)}>☄</button>` : ""}${pul ? `<button type="button" data-butpul="${i}" aria-pressed="${!!v.pul}" ${btip(`Půlmeč: přehmat zbraně – Piercing s vlastností Průrazná, kostka zranění o stupeň níž (${besc(a.z || "")} → ${besc(bojKostkaDolu(a.z))})`)}>${bikZv("Půlmeč")}</button>` : ""}</span>`;
-              })()}`,
-          )
-          .join("")}${dos}${zavB}</div>`
-      : "";
+  const ut = E.at.length
+    ? `${utc}<div class="butoky">${E.at
+        .map(
+          (a, i) =>
+            `<button type="button" class="gbtn ghost but" data-but="${i}" ${btip([a.dc ? "Záchrana " + a.dc : a.b != null ? "Útok " + bsg(a.b) : "", a.zp != null ? a.zp + " za pacholka " + (a.zt || "") : [a.z, a.zt].filter(Boolean).join(" "), a.p].filter(Boolean).join(" · ") || a.n)}>${besc(a.n)}${(() => {
+              const N = bojUtokPocet(a);
+              if (N < 2) return "";
+              const S0 = BOJ.s || {},
+                tk = (S0.kolo || 1) * 100 + (S0.tah || 0),
+                q = BNUT[n.id + ":" + i],
+                c = q && q.tk === tk ? q.i : 0;
+              return ` <small class="bpun" ${btip(`${N} útoky v jedné akci – hází se po jednom`)}>${c + 1}/${N}</small>`;
+            })()} ${a.b != null ? `<b>${a.b >= 0 ? "+" : ""}${a.b}</b>` : a.dc ? `<b>${besc(a.dc)}</b>` : ""}${(() => {
+              const av = bojUtokV(n, i, a),
+                ic = bikZvTxt(av.p) + bikZrTxt(av.zt);
+              return ic ? `<span class="biks">${ic}</span>` : "";
+            })()}</button>${(() => {
+              const ty = bojTypy(a),
+                v = BUTT[n.id + ":" + i] || {},
+                pul = /půlmeč/i.test(a.p || "") || (/meč/i.test(a.n) && !/půlmeč/i.test(a.n) && /Půlmeč/.test(String(E.p.b || E.p.h || "")));
+              if (ty.length < 2 && !pul && !(a.dc && (a.z || a.zp))) return "";
+              const cur = v.pul ? "" : v.t && ty.includes(v.t) ? v.t : "";
+              return `<span class="buttg" role="group" aria-label="Typ zranění – ${besc(a.n)}">${ty.length > 1 ? ty.map(t => `<button type="button" data-butt="${i}" data-t="${t}" aria-pressed="${cur === t}" ${btip(`${a.n}: zranění ${BZRT[t]} (${t})${/šikovn/i.test(a.p || "") ? " – Šikovná: volí se před hodem" : ""}`)}>${bikZr(t)}</button>`).join("") : ""}${a.dc && (a.z || a.zp || bojAkceStav(a.n, a.p)) ? `<button type="button" class="bplb" data-bplos="${i}" ${btip(a.z || a.zp ? `Plošně: ${a.n} na více cílů – jeden hod zranění, záchrany všech` : `${a.n}: záchrany cílů, při neúspěchu stav (postavám vyskočí výzva)`)}>☄</button>` : ""}${pul ? `<button type="button" data-butpul="${i}" aria-pressed="${!!v.pul}" ${btip(`Půlmeč: přehmat zbraně – Piercing s vlastností Průrazná, kostka zranění o stupeň níž (${besc(a.z || "")} → ${besc(bojKostkaDolu(a.z))})`)}>${bikZv("Půlmeč")}</button>` : ""}</span>`;
+            })()}`,
+        )
+        .join("")}${dos}</div>`
+    : "";
   const L = BLOG[n.id] || [];
   /* celá akce: tlačítko se sledem útoků; rozehraná akce ukáže na plaketě „Další útok“ */
   const MU = E.at.length > 1 || E.at.some(a => bojUtokPocet(a) > 1) ? bojMulti(n, E) : null,

@@ -2682,13 +2682,6 @@ document.addEventListener("click", async e => {
     });
     return;
   }
-  if (T("[data-bzav]") && o0) {
-    const p = PROTBY[o0.b],
-      z = bojZavoj(Object.assign({}, p, {str: bojSpoj(o0) ? "h" : "n"}));
-    bojLog(id, {n: "Závoj", zav: bojZavObj(p, z), bes: z.r === "pok" && bojZatr(o0)}, o0.n);
-    renderBoj();
-    return;
-  }
   if (T("[data-bbes]")) {
     bojZmen(s => {
       let h = (s.npc || []).find(x => x.b === "houf-besu" && !bojSpoj(x));

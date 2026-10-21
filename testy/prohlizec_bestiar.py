@@ -147,10 +147,7 @@ async def main():
     chk(await g.evaluate("document.querySelector('.bojakt').dataset.btab")=="k","rozbalení nepřítele ze seznamu přepne na záložku Karta")
     await g.click('.btabs [data-btab="n"]');await g.wait_for_timeout(150)
     await g.click(rot+" .bnn[data-brozb]");await g.wait_for_timeout(200)
-    # Závoj samostatně
-    n0=await g.locator(".bzl li.bz").count()
-    await g.click(rot+" [data-bzav]");await g.wait_for_timeout(100)
-    chk(await g.locator(".bzl li.bz").count()==n0+1 and "Závoj" in await g.locator(rot+" .blog li").first.inner_text(),"samostatný hod Závoje se zapíše (karta i záznam boje)")
+    # samostatné tlačítko Závoj na kartě není (2026-10-21) – Závoj se hází s útokem a záchranou
     # zdroje
     await g.click(rot+' [data-bzd="Výdrž"] [data-bzdi="0"]');await g.wait_for_timeout(100)
     chk(await g.locator(rot+' [data-bzd="Výdrž"] button.on').count()==1,"Výdrž se odškrtne")
