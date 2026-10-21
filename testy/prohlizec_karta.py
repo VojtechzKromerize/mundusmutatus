@@ -304,7 +304,10 @@ async def main():
     await pl.click('.hraja [data-kranlec]');await pl.wait_for_timeout(1200)
     chk(await pl.evaluate("!((HRA||{}).krit||{}).Balduin"),"hráč ránu vyléčí sám (mm_rana_vylecena)")
     chk(any(h.get("co")=="Rána vyléčena" for h in hody()),"vyléčení rány je v herním záznamu")
-    await g.wait_for_timeout(5500);chk(await g.evaluate("!((HRA||{}).krit||{}).Balduin"),"vypravěč vidí vyléčenou ránu po pulsu")
+    # vypravěč je na stránce, kde se puls ptá jednou za 10 s
+    try: await g.wait_for_function("!((HRA||{}).krit||{}).Balduin",timeout=15000)
+    except Exception: pass
+    chk(await g.evaluate("!((HRA||{}).krit||{}).Balduin"),"vypravěč vidí vyléčenou ránu po pulsu")
     # výzva k hodu od vypravěče
     await g.goto(BASE+"#hra");await g.wait_for_selector("[data-vyzf]",timeout=15000)
     await g.select_option("[data-vyzf] [name=typ]","zach");await g.select_option("[data-vyzf] [name=ab]","CON");await g.fill("[data-vyzf] [name=dc]","13");await g.click("[data-vyzf] button")
