@@ -2952,6 +2952,9 @@ button.kdbs:hover{border-color:var(--kb-gold)}.kdbsac b{color:var(--kb-gold)}
 .bphinfo{margin:0;font-size:.88rem;color:var(--kb-tx)}
 .bphsp .bjupv{font-family:var(--f-disp);font-size:1.4rem}.bphsp .bjupv.bkr{color:var(--kal)}.bphsp .bjupv.bmis{color:var(--kb-mu)}
 .bdmcil{white-space:nowrap}
+/* jednotné tlačítko Seslat v řádcích kouzel i triků (2026-10-21): stejná velikost, ať jde o trik, kouzlo se slotem, nebo výběr cíle v boji */
+.bdmsp .bdmspa [data-kses],.bdmsp .bdmspa .bdmcil,.bdmsp .bdmspa .bdmmini{font-family:var(--f-label)!important;font-weight:700!important;font-size:.8rem!important;letter-spacing:.04em!important;text-transform:uppercase;line-height:1.2!important;min-height:32px;padding:4px 10px!important;border:1px solid var(--kb-bd)!important;border-radius:6px!important;background:#14100d!important;color:var(--kb-tx)!important;box-shadow:none!important;margin:0!important}
+.bdmsp .bdmspa [data-kses]:hover,.bdmsp .bdmspa .bdmcil:hover{border-color:var(--kb-gold)!important}
 /* hráč: Zadat ručně – kostky hozené u stolu */
 .bphruc{border-top:1px dashed var(--kb-bd2);padding-top:6px}
 .bphruc summary{cursor:pointer;font-family:var(--f-label);font-weight:700;font-size:.78rem;letter-spacing:.04em;color:var(--kb-tx)}
