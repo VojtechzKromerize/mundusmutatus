@@ -2170,6 +2170,7 @@ button.kbox{cursor:pointer}button.kbox:hover{border-color:var(--gold)}
 .kbod small{font-family:var(--f-label);font-size:.72rem;letter-spacing:.04em;color:var(--muted)}.kbod b{font-size:1.25rem}
 .kdub{display:flex;flex-wrap:wrap;align-items:center;gap:5px;margin:4px 0}.kdusk{font-family:var(--f-label);font-size:.78rem;color:var(--muted);min-width:52px}
 .gbtn.bhrich,.bhrich{color:var(--kal)}
+.kranlec{margin-left:6px;padding:1px 8px!important;font-size:.76rem!important;vertical-align:middle}
 .kfeat,.ktech,.kuc,.krany,.kdiff,.uklist{list-style:none;padding:0;margin:6px 0}.kfeat li,.ktech li,.kuc li,.krany li,.uklist li{margin:5px 0;line-height:1.35}
 .kfeat .bzd{vertical-align:middle}
 .kdusf{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:flex-end}.kdusf label{display:flex;flex-direction:column;gap:2px;font-size:.85rem}.kdusf label select+select{margin-top:3px}

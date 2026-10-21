@@ -1145,13 +1145,6 @@ document.addEventListener("submit", async e => {
   await kartaStavZmen(K.id, {upr: L}, `${K.n}: ${KUPRN[E.c.value] || E.c.value} ${bsg(v)}.`);
 });
 
-const KUCAC = [
-  ["Shield", 5, 0, 0.0017, "+5 AC do začátku tvého příštího tahu"],
-  ["Shield of Faith", 2, 0, 10 / 60, "+2 AC, soustředění 10 min"],
-  ["Haste", 2, 0, 1 / 60, "+2 AC, soustředění 1 min"],
-  ["Mage Armor", 0, "agi", 8, "AC 13 + Obratnost bez zbroje, 8 h"],
-  ["Barkskin", 0, 17, 1, "AC nejméně 17, soustředění 1 h"],
-];
 /* ---- střelivo ---- */
 const kMunNm = a =>
   /crossbow|kuš/i.test(a.n)

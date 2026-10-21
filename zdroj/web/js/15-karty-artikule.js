@@ -280,9 +280,13 @@ function kUcVyprsi(K) {
   });
   kHodZapis({k: K.id, kdo: K.n, co: "Účinek vypršel", txt: pr.map(x => x.n).join(", ")});
 }
+/* 2026-10-21: jen přehled běžících účinků (ukončit, znovu seslat); ruční přidávání a tlačítka AC zmizely – kouzla si účinky
+   přidávají sama při seslání. Bez účinků se oddíl neukazuje. */
 function kUcHtml(K) {
   const L = kUc(K),
-    t = kTed();
+    t = kTed(),
+    B = typeof kBufy === "function" ? kBufy(K).filter(b => b.od !== K.n) : [];
+  if (!L.length && !B.length && !(typeof kBufHtml === "function" && kBufHtml(K))) return "";
   return `<h3 class="uvh2">Účinky <small>${t != null ? `herní čas ${besc(partyDate())}, ${HRA && HRA.hodina != null ? HRA.hodina + ":00" : ""}` : "herní čas nenastaven"}</small></h3>
     ${
       L.length
@@ -290,16 +294,12 @@ function kUcHtml(K) {
             const z = x.do != null && t != null ? x.do - t : null;
             return `<li>${x.kon ? `${kKonI()} ` : ""}<b>${besc(x.n)}</b> <small>${z != null ? (z < 1 ? `méně než hodina (${kHodTxt(x.h || z)})` : `zbývá ${kHodTxt(z)}`) : x.h ? kHodTxt(x.h) : "do odvolání"}</small> ${typeof KZOPAK !== "undefined" && KZOPAK[kzJm(x.n)] && !/ ⇒ /.test(x.n) ? ` <button type="button" class="gbtn ghost" data-kopak="${besc(kzJm(x.n))}">↻ Znovu</button>` : ""} <button type="button" class="gbtn ghost" data-kucx="${i}" aria-label="Ukončit ${besc(x.n)}">ukončit</button></li>`;
           }).join("")}</ul>`
-        : `<p class="rsmall">Žádné účinky. Kouzla s trváním se přidají sama při seslání.</p>`
+        : ""
     }${typeof kBufHtml === "function" ? kBufHtml(K) : ""}${(() => {
-      const B = typeof kBufy === "function" ? kBufy(K).filter(b => b.od !== K.n) : [];
       return B.length
         ? `<ul class="kuc kucod">${B.map(b => `<li>${kKonI()} <b>${besc(b.n)}</b> <small>od ${besc(b.od)} · drží soustředění sesilatele</small></li>`).join("")}</ul>`
         : "";
-    })()}
-    <p class="kvlh"><span class="kdusk">AC</span>${KUCAC.map((p, i) => (GMV || kSeznam(K).some(x => x.n === p[0]) ? `<button type="button" class="gbtn ghost" data-kucac="${i}" ${btip(p[4])}>${p[0]}</button>` : "")).join("")}<label><input type="checkbox" data-kbezstit${kartaStav(K.id).bezstit ? " checked" : ""}> bez štítu (−2)</label> <b>AC ${kAC(K)}</b></p>
-    <form class="kucf" data-kucf><input name="n" placeholder="účinek (např. Mage Armor)" maxlength="80" required><select name="h" aria-label="Trvání"><option value="0.0167">1 minuta</option><option value="0.1667">10 minut</option><option value="1" selected>1 hodina</option><option value="8">8 hodin</option><option value="24">24 hodin</option><option value="0">do odvolání</option></select><label><input type="checkbox" name="kon"> soustředění</label><button class="gbtn ghost">Přidat</button></form>
-    <p class="rsmall">Vyprší podle herního času, který posouvá vypravěč (odpočinek družiny ho posune sám). Kratší účinky ukonči ručně.</p>`;
+    })()}`;
 }
 /* ---- popisy kouzel z art/kouzla.json (pro hráče jen kouzla jejich postavy) ---- */
 let KSPD = null;
@@ -693,8 +693,32 @@ async function kTechPouzij(K, id) {
 function kRanyHtml(K) {
   const R = kRany(K);
   if (!R.length) return "";
-  return `<h3 class="uvh2">Rány <a class="pmore" href="#artikule/kriticka">pravidla →</a></h3><ul class="krany">${R.map(x => `<li class="${/^Lehk/.test(x.t) ? "" : /^Těžk/.test(x.t) ? "bhp2" : "bhrich"}"><b>${besc(x.t)}</b>${x.d ? ` <small>${besc(x.d)}</small>` : ""}</li>`).join("")}</ul><p class="rsmall">Neléčená kritická zranění: každé přidá +1 k dalšímu hodu na kritické zranění. Vyléčení odškrtne vypravěč v Boji.</p>`;
+  /* 2026-10-21: vypravěč ránu vyléčí rovnou z karty (data-kranlec); hráč vidí jen seznam */
+  return `<h3 class="uvh2">Rány <a class="pmore" href="#artikule/kriticka">pravidla →</a></h3><ul class="krany" data-kranyk="${besc(K.id)}">${R.map(
+    (x, j) =>
+      `<li class="${/^Lehk/.test(x.t) ? "" : /^Těžk/.test(x.t) ? "bhp2" : "bhrich"}"><b>${besc(x.t)}</b>${x.d ? ` <small>${besc(x.d)}</small>` : ""}${GMV ? ` <button type="button" class="gbtn ghost kranlec" data-kranlec="${j}" ${btip("Rána je vyléčená – zmizí z karty i z Boje")}>vyléčeno</button>` : ""}</li>`,
+  ).join(
+    "",
+  )}</ul><p class="rsmall">Neléčená kritická zranění: každé přidá +1 k dalšímu hodu na kritické zranění.${GMV ? "" : " Vyléčení odškrtne vypravěč."}</p>`;
 }
+document.addEventListener("click", e => {
+  const b = e.target.closest && e.target.closest("[data-kranlec]");
+  if (!b || !GMV) return;
+  const ul = b.closest("[data-kranyk]"),
+    K = ul && KARTBY[ul.dataset.kranyk];
+  if (!K) return;
+  const jm = Object.keys(bojKritPC()).find(n => n === kJmeno(K) || n === K.n),
+    j = +b.dataset.kranlec;
+  if (!jm) return;
+  const Kr = Object.assign({}, bojKritPC()),
+    x = (Kr[jm] || [])[j];
+  Kr[jm] = (Kr[jm] || []).filter((_, i) => i !== j);
+  if (!Kr[jm].length) delete Kr[jm];
+  hraUloz({krit: Kr}).then(() => {
+    if (x) kHodZapis({k: K.id, kdo: K.n, co: "Rána vyléčena", txt: x.t});
+    kartyPrekresli();
+  });
+});
 /* ---- rozdíl po novém PDF (úroveň, životy, kouzla, útoky, předměty) ---- */
 function kRozdil(S, N) {
   if (!S) return [];

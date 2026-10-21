@@ -1016,11 +1016,6 @@ document.addEventListener("change", async e => {
     }
     return;
   }
-  if (t.matches("[data-kbezstit]")) {
-    const K = kvK(t);
-    if (K) kartaStavZmen(K.id, {bezstit: t.checked || null}, `${K.n}: AC ${t.checked ? "bez štítu" : "se štítem"}.`);
-    return;
-  }
 });
 document.addEventListener("input", e => {
   const t = e.target;
@@ -1121,28 +1116,6 @@ document.addEventListener("click", async e => {
     }
     await kartaStavZmen(K.id, {stavy: N.length ? N : null});
     kHodZapis({k: K.id, kdo: K.n, co: on ? "Stav skončil" : "Stav", txt: k});
-    return;
-  }
-  const ua = T("[data-kucac]");
-  if (ua) {
-    const p = KUCAC[+ua.dataset.kucac];
-    if (!p) return;
-    const o = {};
-    if (p[1]) o.ac = p[1];
-    if (p[2] === "agi") o.acmin = 13 + kMd(K, "AGI");
-    else if (p[2]) o.acmin = p[2];
-    const t = kTed(),
-      L = kUc(K).filter(x => x.n !== p[0]);
-    L.push(
-      Object.assign(
-        {n: p[0], h: p[3]},
-        t != null ? {do: Math.round((t + p[3]) * 1000) / 1000} : {},
-        o,
-        /Faith|Haste|Barkskin/.test(p[0]) ? {kon: true} : {},
-      ),
-    );
-    await kartaStavZmen(K.id, {uc: L.slice(-30)});
-    kHodZapis({k: K.id, kdo: K.n, co: p[0], txt: `${p[4]} → AC ${kAC(K)}`});
     return;
   }
   const pn = T("[data-kpn]");

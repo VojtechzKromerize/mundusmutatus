@@ -985,14 +985,6 @@ document.addEventListener("submit", async e => {
     if (sv !== D.sv) kHodZapis({k: K.id, kdo: K.n, co: "Svědomí upraveno", txt: `${D.sv} → ${sv} (${SVST(sv)})`});
     return;
   }
-  if (f.matches("[data-kucf]")) {
-    e.preventDefault();
-    const n = E.n.value.trim();
-    if (!n) return;
-    await kUcPridej(K, n, +E.h.value || 0, E.kon.checked);
-    kHodZapis({k: K.id, kdo: K.n, co: "Účinek", txt: `${n}${+E.h.value ? ` · ${kHodTxt(+E.h.value)}` : ""}`});
-    return;
-  }
 });
 /* ===== Hráč: přihlášení za postavu, stránka Hra, výzvy k hodu, tajné zprávy, upozornění, úkoly družiny, postup na úroveň (2026-10-16) ===== */
 const KZAM = new Set();
