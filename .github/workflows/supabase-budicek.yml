@@ -1,5 +1,5 @@
 name: Budíček databáze
-# Bezplatný projekt Supabase se po týdnu bez provozu uspí. Jednou denně se proto zeptáme na verzi
+# Bezplatné projekty Supabase (ostrý i vývojový) se po týdnu bez provozu uspí. Jednou denně se proto zeptáme na verzi
 # hráčského výřezu (stejný dotaz, jaký dělá web), aby databáze zůstala vzhůru i mezi sezeními.
 on:
   schedule:
@@ -9,7 +9,12 @@ jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
-      - name: Dotaz na Supabase
+      - name: Dotaz na ostrou databázi
         run: |
           curl -fsS "https://rzbflnwxpyepjcpndqyj.supabase.co/rest/v1/snimek?select=vetev,verze" \
             -H "apikey: sb_publishable_kN6K2Na9lg-54Tt1EvmKjA_TRx6Xm_S"
+      # vývojová databáze („Mundus Mutatus dev“, náhled dev) – usíná stejně; dokud nemá schéma, stačí jakákoli odpověď
+      - name: Dotaz na vývojovou databázi
+        run: |
+          curl -sS -o /dev/null -w "vývojová: HTTP %{http_code}\n" "https://cjgyhzgirzhgiwjxuqvj.supabase.co/rest/v1/snimek?select=vetev,verze" \
+            -H "apikey: sb_publishable_qRzEyAiSyY-mnUMMGar2Vg_c_4mIl0z"

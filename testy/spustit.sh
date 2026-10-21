@@ -94,6 +94,8 @@ KONF
   export MM_SB="http://127.0.0.1:$P_SB" MM_WEB="http://127.0.0.1:$((P_WEB+3))/" MM_VYSTUP="$VYSTUP" MM_VYPIS="$PRAC/vypis" MM_DB=$DBN MM_PSQL="$PSQL"
   SUPABASE_URL="$MM_SB" SUPABASE_KEY=sb_publishable_test SUPABASE_SECRET=sb_secret_test MM_VETEV=test MM_SYNC_VETVE=test \
     zkus "sestavení s databází (nahrání obsahu)" python3 "$WEB/zdroj/build.py" --vypis "$MM_VYPIS"
+  SUPABASE_URL="$MM_SB" SUPABASE_KEY=sb_publishable_test SUPABASE_SECRET=sb_secret_test MM_VETEV=test MM_SYNC_VETVE=test \
+    zkus "přenos textů do databáze bez sestavení (--jen-zaznamy, workflow Texty do ostré)" python3 "$WEB/zdroj/build.py" --jen-zaznamy
   server "$WEB/public" $((P_WEB+3))
 
   krok "Práva v databázi"

@@ -352,6 +352,8 @@ if DB:
             print(f"supabase: ze souborů nových {r['nove']}, změněných {r['zmenene']}, smazaných {r['smazane']}")
             for k in r.get("konflikty") or []:
                 print(f"supabase: KONFLIKT {k} – na webu upraveno od poslední zálohy, ponechávám verzi z webu")
+        if "--jen-zaznamy" in sys.argv:  # workflow „Texty do ostré databáze“: jen přenos souborů obsahu, bez sestavení webu
+            sys.exit(0 if VETEV in sync_vetve else fail(f"--jen-zaznamy: větev {VETEV} není v MM_SYNC_VETVE"))
         # 2) obsah se generuje z databáze (zdroj pravdy); nahrané obrázky mají přednost před soubory
         z = sb_rpc("mm_zaznamy_vse", {}, True)
         if z:
@@ -362,6 +364,8 @@ if DB:
         for typ in ("erby", "portrety", "draci"):
             MANIFEST[typ].update(nahrane.get(typ) or {})
     except ChybiFunkce as e:
+        if "--jen-zaznamy" in sys.argv:
+            fail(f"v databázi chybí funkce {e} – spusťte aktuální supabase/schema.sql")
         print(f"supabase: v databázi chybí funkce {e} – spusťte aktuální supabase/schema.sql; zatím sestavuji ze souborů")
 G = generuj(SOUBORY, MANIFEST)
 HRAC, GMD, SEED = G["hrac"], G["gm"], G["seed"]
