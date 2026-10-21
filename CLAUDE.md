@@ -140,6 +140,10 @@ Hlavní orientační body:
 - Boj ukládá vypravěč s kontrolou verze (`mm_boj_uloz_v`), aby nepřepsal zápisy hráčů z telefonu. Tabulku `boj` čte přímo jen
   vypravěč; hráči přes `mm_boj_cti` (GET, kešuje ho service worker), která vyřízne účastníky `skryt` („hráči zatím nevidí“)
   i jejich řádky záznamu. Hráč mění jen svou postavu přes `mm_boj_hrac` (pole `spol` = jeho společník v boji) a útočí přes `mm_boj_utok`.
+- **Stavy a hody proti smrti postavy s kartou jsou jen na kartě** (`kartaStav(id).stavy` / `.ds`, od 2026-10-22). Stav boje v prohlížeči
+  nese jen jejich obraz (`h.stav`, `h.ds`, značka `h._k`): `bojZmen` a `bojHracAkce` ho na začátku načtou z karty (`bojPcNaplnit`),
+  rozdíl zapíšou na kartu (`bojPcOdvod`) a do databáze boje se neukládá (`bojPcBez`); kód tedy dál čte a píše `h.stav` / `h.ds`.
+  Kryt (`h.kryt`) zůstává v boji. Postava bez karty má stavy v boji jako dřív. Seznam povolených stavů je jeden: `mm_stavy_pc_ok`.
 - Hráči se přihlašují přes Supabase Auth – Discordem nebo účtem s heslem (Úvod / Hra, `MMDB.ucetZaloz` / `ucetPrihlas`, 08):
   přezdívka se převede na umělou adresu `….hrac@mundusmutatus.netlify.app`, e-mail se nepotvrzuje (v Supabase musí být vypnuté
   „Confirm email“). Obojí končí stejnou relací `mm-hrac-relace` a vazbou `hraci_ucty` (`mm_ja`, `mm_ja_karta`); starší heslo

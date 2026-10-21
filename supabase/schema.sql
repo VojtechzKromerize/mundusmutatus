@@ -777,6 +777,17 @@ language sql immutable as $$
     or (jsonb_typeof(v) = 'number' and (v #>> '{}') ~ '^-?[0-9]{1,4}$' and (v #>> '{}')::int between lo and hi)
 $$;
 
+-- stavy postavy (2026-10-22): jeden seznam pro kartu i boj – stavy postavy s kartou se ukládají jen na kartě,
+-- včetně stavů, které jí v boji dá vypravěč (vlastnosti zbraní, účinky); s koncem boje je web z karty zase odebere
+create or replace function public.mm_stavy_pc_ok(x jsonb) returns boolean
+language sql immutable as $$
+  select jsonb_typeof(x) = 'array' and jsonb_array_length(x) <= 24 and not exists (
+    select 1 from jsonb_array_elements(x) e where jsonb_typeof(e) <> 'string' or not ((e #>> '{}') = any (array[
+      'krvácí k4','krvácí k6','krvácí k8','sražen','omráčen','zadržen','chycen','oslepen','ohlušen','neviditelný','otrávený','vyděšený',
+      'okouzlen','neschopný','ochromen','zkamenělý','v bezvědomí','úhyb','soustředí','zapřeno','zbraň uvízla','zbraň selhala','zbraň praská',
+      'odkrytý','zaskočen','přibodnut','ve vazbě','v dýmu','odzbrojen'])))
+$$;
+
 -- Boj: hráč z telefonu u své postavy – stavy, kryt, hody proti smrti, připravená akce, reakce (jen během přípravy nebo boje, jen povolené hodnoty)
 drop function if exists public.mm_boj_hrac(text, text, jsonb);
 create or replace function public.mm_boj_hrac(p_hrac text, p_pole text, p_hodnota jsonb, p_token text default null) returns bigint
@@ -799,9 +810,7 @@ begin
   if p_pole = 'stav' then
     if jsonb_typeof(x) = 'null' or x = '[]'::jsonb then
       s := s #- array['hraci', i::text, 'stav'];
-    elsif jsonb_typeof(x) = 'array' and jsonb_array_length(x) <= 16 and not exists (
-        select 1 from jsonb_array_elements(x) e
-        where jsonb_typeof(e) <> 'string' or not ((e #>> '{}') = any (array['krvácí k4','krvácí k6','krvácí k8','sražen','omráčen','zadržen','chycen','oslepen','ohlušen','neviditelný','otrávený','vyděšený','okouzlen','neschopný','ochromen','zkamenělý','úhyb','soustředí','zapřeno','zbraň uvízla','zbraň selhala']))) then
+    elsif public.mm_stavy_pc_ok(x) then
       s := jsonb_set(s, array['hraci', i::text, 'stav'], x);
     else
       raise exception 'neplatné stavy';
@@ -1102,8 +1111,7 @@ begin
         or (e ? 'do' and (jsonb_typeof(e -> 'do') <> 'number' or abs((e ->> 'do')::numeric) > 1e9))
         or (e ? 'kon' and jsonb_typeof(e -> 'kon') <> 'boolean')))
     -- stavy mimo boj, bez štítu, změny připravených kouzel, společníci a doplňky hráče
-    when 'stavy' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'array' and jsonb_array_length(x) <= 16 and not exists (
-        select 1 from jsonb_array_elements(x) e where jsonb_typeof(e) <> 'string' or not ((e #>> '{}') = any (array['krvácí k6','krvácí k8','sražen','omráčen','zadržen','chycen','oslepen','ohlušen','neviditelný','otrávený','vyděšený','okouzlen','neschopný','ochromen','zkamenělý','v bezvědomí','úhyb','soustředí']))))
+    when 'stavy' then jsonb_typeof(x) = 'null' or public.mm_stavy_pc_ok(x)
     when 'bezstit' then jsonb_typeof(x) in ('boolean', 'null')
     -- hody proti smrti mimo boj (2026-10-19): {u, n, st?}
     when 'ds' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'object' and not exists (select 1 from jsonb_object_keys(x) k where k not in ('u', 'n', 'st'))
@@ -1300,9 +1308,18 @@ begin
   end if;
   cur := case when jsonb_typeof(st -> 'hp') = 'number' then (st ->> 'hp')::int else p_max end;
   nov := least(p_max, greatest(0, cur) + p_hp);
-  update public.karty set stav = case when nov >= p_max then stav - 'hp' else jsonb_set(stav, '{hp}', to_jsonb(nov)) end,
-    verze = verze + 1, zmeneno = now() where id = p_id returning verze into v;
+  st := case when nov >= p_max then st - 'hp' else jsonb_set(st, '{hp}', to_jsonb(nov)) end;
   select stav into s from public.boj where id = 'aktivni' for update;
+  -- hody proti smrti jsou na kartě (2026-10-22): v běžícím boji léčení umírajícího stabilizuje, mimo boj se probere
+  if jsonb_typeof(st -> 'ds') = 'object' and coalesce(st -> 'ds' ->> 'st', '') <> 'mrtev' then
+    if s is not null and coalesce((s ->> 'aktivni')::boolean, false)
+        and exists (select 1 from jsonb_array_elements(coalesce(s -> 'hraci', '[]'::jsonb)) e where public.mm_boj_karta(e) = p_id) then
+      st := jsonb_set(st, '{ds}', jsonb_build_object('u', 3, 'n', coalesce(st -> 'ds' -> 'n', '0'::jsonb), 'st', 'stab'));
+    else
+      st := st - 'ds';
+    end if;
+  end if;
+  update public.karty set stav = st, verze = verze + 1, zmeneno = now() where id = p_id returning verze into v;
   if s is not null and coalesce((s ->> 'aktivni')::boolean, false) then
     for i in 0 .. coalesce(jsonb_array_length(s -> 'hraci'), 0) - 1 loop
       h := s -> 'hraci' -> i;
@@ -2060,6 +2077,7 @@ grant execute on function public.mm_nastav_hru(jsonb) to authenticated;
 grant execute on function public.mm_stavy() to authenticated;
 -- pomocné čisté funkce: pevná search_path (doporučení Supabase)
 alter function public.mm_cislo(jsonb, int, int) set search_path = pg_catalog, public;
+alter function public.mm_stavy_pc_ok(jsonb) set search_path = pg_catalog, public;
 alter function public.mm_uroven(jsonb, jsonb) set search_path = pg_catalog, public;
 alter function public.mm_zminky(text, jsonb) set search_path = pg_catalog, public;
 alter function public.mm_orez(jsonb, jsonb) set search_path = pg_catalog, public;

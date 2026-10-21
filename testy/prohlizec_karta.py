@@ -320,6 +320,38 @@ async def main():
     await pl.click(".vyzhr .vyzk:has-text('Zpytování') [data-vyzhod]");await pl.wait_for_timeout(1500)
     chk(any(h.get("co")=="Zpytování svědomí" for h in hody()) and "hr" not in stav(),"Zpytování jako výzva: hráč hodí d10 na své kartě, body hříchů se vynulují")
     await g.goto(BASE+"#hra");await g.wait_for_selector("[data-vyzf]",timeout=15000)
+    # krok 0 přestavby Hry (2026-10-22): co se bude stěhovat, má test nezávislý na místě na stránce
+    await g.evaluate("MMDB.vyzva({typ:'hod',pozn:KZPROT+'Hejtman sesílá Fireball',komu:['balduin']})")
+    await pl.wait_for_selector("[data-vyzne]",timeout=15000)
+    chk("Counterspell" in await pl.evaluate("document.querySelector('[data-vyzne]').parentElement.innerText"),"Counterspell jako výzva: hráč může kouzlo použít, nebo nechat být")
+    await pl.click("[data-vyzne]");await pl.wait_for_timeout(1500)
+    await g.evaluate("vyzvyNacti().then(()=>renderHra())");await g.wait_for_timeout(800)
+    r=await g.evaluate("(()=>{const v=VYZVY.find(x=>vyzvaProti(x.data)&&!x.zavrena);return v?JSON.stringify((v.odpovedi||{}).balduin||null):'bez výzvy'})()")
+    chk("nechal" in r,"Counterspell výzva: „Nechat být“ dorazí vypravěči: "+r)
+    vid=await g.evaluate("VYZVY.find(x=>vyzvaProti(x.data)&&!x.zavrena).id")
+    await g.click(f'[data-vyzx="{vid}"]');await g.wait_for_timeout(1200)
+    await g.evaluate("vyzvyNacti()");await g.wait_for_timeout(500)
+    chk(await g.evaluate(f"!VYZVY.some(x=>x.id==={vid}&&!x.zavrena)"),"vypravěč výzvu uzavře")
+    # úkoly družiny a postup na úroveň (vypravěč zapíše, hráč vidí)
+    await g.fill("[data-hrukf] [name=t]","Doručit dopis do Kutné Hory");await g.press("[data-hrukf] [name=t]","Enter");await g.wait_for_timeout(1200)
+    chk(await g.evaluate("((HRA||{}).ukoly||[]).some(u=>u.t==='Doručit dopis do Kutné Hory')"),"vypravěč přidá úkol družiny")
+    try: await pl.wait_for_function("((HRA||{}).ukoly||[]).some(u=>u.t==='Doručit dopis do Kutné Hory')",timeout=15000)
+    except Exception: pass
+    chk(await pl.evaluate("((HRA||{}).ukoly||[]).some(u=>u.t==='Doručit dopis do Kutné Hory')"),"hráč dostane úkol družiny bez přenačtení")
+    await g.fill("[data-hrpost] [name=u]","9");await g.press("[data-hrpost] [name=u]","Enter");await g.wait_for_timeout(1200)
+    try: await pl.wait_for_function("document.body.innerText.includes('Družina postupuje na 9. úroveň')",timeout=15000)
+    except Exception: pass
+    chk(await pl.evaluate("document.body.innerText.includes('Družina postupuje na 9. úroveň')"),"postup na úroveň: hráč s nižší úrovní to vidí na kartě")
+    await g.evaluate("hraUloz({postup:null,ukoly:[]})");await g.wait_for_timeout(600)
+    # pokladna družiny: přihlášený hráč vloží a vybere mince
+    await pl.evaluate("poklNacti&&poklNacti()");await pl.wait_for_timeout(600)
+    gp0=await pl.evaluate("+(((POKL||{}).pen||{}).GP||0)")
+    f=pl.locator("[data-poklf]").first
+    await f.locator("[name=k]").select_option("GP");await f.locator("[name=v]").fill("3");await f.locator('[data-pokl="1"]').click();await pl.wait_for_timeout(1500)
+    chk(await pl.evaluate("+(((POKL||{}).pen||{}).GP||0)")==gp0+3,"pokladna: hráč vloží 3 GP")
+    f=pl.locator("[data-poklf]").first
+    await f.locator("[name=k]").select_option("GP");await f.locator("[name=v]").fill("3");await f.locator('[data-pokl="-1"]').click();await pl.wait_for_timeout(1500)
+    chk(await pl.evaluate("+(((POKL||{}).pen||{}).GP||0)")==gp0,"pokladna: hráč 3 GP zase vybere")
     # tajné zprávy
     await pl.fill("[data-zprf] textarea","Přijímám Pokušení, ale tajně.");await pl.click("[data-zprf] button");await pl.wait_for_timeout(800)
     await g.wait_for_function("document.body.innerText.includes('Přijímám Pokušení, ale tajně.')",timeout=15000)

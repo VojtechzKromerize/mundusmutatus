@@ -172,6 +172,17 @@ async def main():
     await pl.evaluate(f"BJU.cil='{rid}';BJU.serie=null;bojJaHod()");await pl.wait_for_timeout(300)
     chk(await pl.evaluate("BJU.serie===null"),"omráčený hráč nehodí útok")
     await g.evaluate("bojZmen(z=>{const h=z.hraci.find(x=>x.id==='h4');h.stav=(h.stav||[]).filter(t=>t!=='omráčen')})");await pl.wait_for_timeout(2500)
+    # jeden zdroj stavů (2026-10-22): stavy postavy s kartou jsou jen na kartě – stav od vypravěče je na kartě, stav z karty vidí tracker
+    chk(await g.evaluate("!(kartaStav('balduin').stavy||[]).includes('omráčen')") and await pl.evaluate("!(kartaStav('balduin').stavy||[]).includes('omráčen')"),"stav od vypravěče v boji je na kartě a s ním i zmizí")
+    await pl.evaluate("kartaStavZmen('balduin',{stavy:[...(kartaStav('balduin').stavy||[]),'otrávený']})")
+    try: await g.wait_for_function("(BOJ.s.hraci.find(x=>x.id==='h4').stav||[]).includes('otrávený')",timeout=12000)
+    except Exception: pass
+    chk(await g.evaluate("(BOJ.s.hraci.find(x=>x.id==='h4').stav||[]).includes('otrávený')"),"stav zapsaný na kartě mimo bojová tlačítka vidí vypravěč v trackeru")
+    chk("otrávený" in await g.evaluate("BLOGG.slice(0,8).map(x=>(x.o.zt||'')).join('|')"),"změna stavu na kartě z telefonu je v záznamu vypravěče")
+    db=json.loads(urllib.request.urlopen(urllib.request.Request(U+"/rest/v1/rpc/mm_boj_cti",headers={"apikey":K})).read())["stav"]
+    h4=[h for h in db["hraci"] if h["id"]=="h4"][0]
+    chk("stav" not in h4 and "ds" not in h4 and "_k" not in h4,"do databáze boje se stavy postavy s kartou neukládají: "+str(sorted(h4.keys())))
+    await pl.evaluate("kartaStavZmen('balduin',{stavy:(kartaStav('balduin').stavy||[]).filter(t=>t!=='otrávený')})");await g.wait_for_timeout(2500)
     # Akce: bez kouzel a mistrovství zbraní, bez tlačítka krit, vlastnosti zbraně až po klepnutí
     await pl.evaluate("BDM.sec.balduin='akce';BDM.af.balduin='all';renderBoj()");await pl.wait_for_timeout(300)
     ak=await pl.inner_text('[data-bhcard="h4"] .bdmsec')

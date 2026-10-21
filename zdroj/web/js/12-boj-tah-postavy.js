@@ -1581,10 +1581,23 @@ async function bojHracAkce(id, fn, msg) {
   const z = JSON.parse(JSON.stringify(s)),
     h = (z.hraci || []).find(x => x.id === id);
   if (fn(h, z) === false) return;
-  const ch = [];
+  const ch = [],
+    naKarte = h._k && bojKartaH(h);
   ["stav", "kryt", "ds", "hp", "thp", "zdr"].forEach(k => {
+    if (naKarte && (k === "stav" || k === "ds")) return;
     if (JSON.stringify(h[k] ?? null) !== JSON.stringify(h0[k] ?? null)) ch.push([k, h[k] ?? null]);
   });
+  /* stavy a hody proti smrti postavy s kartou jdou na kartu */
+  if (naKarte) {
+    bojPcOdvod({hraci: [h]});
+    if (!ch.length) {
+      BOJ.s = z;
+      bojPcNaplnit(BOJ.s);
+      renderBoj();
+      if (msg) mmHlas(msg, 5000);
+      return;
+    }
+  }
   const rd0 = (s.ready || {})[id] || null,
     rd1 = (z.ready || {})[id] || null;
   if (rd0 !== rd1) ch.push(["ready", rd1]);
@@ -1688,6 +1701,15 @@ function bojHracKlik(T) {
     const k = ds.dataset.bhds;
     if (k === "pad") {
       if (!GMV && !confirm("Padl jsi na 0 HP? Vypravěč uvidí, že jsi v bezvědomí.")) return true;
+      {
+        /* Artikule: pád na 0 HP = 0 HP na kartě a 1 úroveň vyčerpání (jako tlačítko na kartě mimo boj) */
+        const h0 = (s.hraci || []).find(x => x.id === id),
+          K = bojKartaH(h0);
+        if (K && (GMV || kMuze(K)) && !bojDsAkt(h0)) {
+          const ks = kartaStav(K.id);
+          kartaStavZmen(K.id, {hp: 0, thp: null, vycerp: Math.min(10, (+ks.vycerp || 0) + 1)}, null, {bezZpet: true});
+        }
+      }
       if (GMV) {
         BKS.komu = hn;
         BKS.rany = (bojKritPC()[hn] || []).length;
@@ -1754,6 +1776,104 @@ function bojHracKlik(T) {
 const BPCZ = new Set();
 const KARTBY = Object.fromEntries((KARTY || []).map(k => [k.id, k]));
 const bojKartaH = h => (h ? KARTBY[h.k] || (KARTY || []).find(k => k.n === h.n) || null : null);
+/* ===== stavy a hody proti smrti postavy s kartou žijí jen na kartě (2026-10-22) =====
+   Stav boje v prohlížeči nese jen jejich obraz (h.stav, h.ds, značka h._k): každá změna boje ho na začátku načte z karty,
+   rozdíl na konci zapíše na kartu a do databáze boje se obraz neukládá (bojPcBez). Postava bez karty je má dál v boji. */
+function bojPcNaplnit(z) {
+  ((z && z.hraci) || []).forEach(h => {
+    const K = bojKartaH(h);
+    if (!K) return;
+    const ks = kartaStav(K.id);
+    if (ks.stavy && ks.stavy.length) h.stav = [...ks.stavy];
+    else delete h.stav;
+    if (ks.ds) h.ds = JSON.parse(JSON.stringify(ks.ds));
+    else delete h.ds;
+    h._k = 1;
+  });
+  return z;
+}
+/* rozdíl obrazu proti kartě → zápis na kartu; účastník bez značky (obnovený starší stav boje) kartu nemění */
+function bojPcOdvod(z) {
+  ((z && z.hraci) || []).forEach(h => {
+    const K = bojKartaH(h);
+    if (!K || !h._k) return;
+    const ks = kartaStav(K.id),
+      ch = {},
+      st = h.stav && h.stav.length ? [...new Set(h.stav)] : null;
+    if (JSON.stringify(st) !== JSON.stringify(ks.stavy && ks.stavy.length ? ks.stavy : null)) ch.stavy = st;
+    if (JSON.stringify(h.ds || null) !== JSON.stringify(ks.ds || null)) ch.ds = h.ds ? JSON.parse(JSON.stringify(h.ds)) : null;
+    if (Object.keys(ch).length) kartaStavZmen(K.id, ch, null, {bezZpet: true});
+  });
+}
+/* kopie stavu boje k uložení: bez obrazu stavů z karty */
+function bojPcBez(s) {
+  const c = JSON.parse(JSON.stringify(s || {}));
+  (c.hraci || []).forEach(h => {
+    if (!h._k) return;
+    delete h.stav;
+    delete h.ds;
+    delete h._k;
+  });
+  return c;
+}
+/* starší rozehraný boj (stavy a hody proti smrti uložené v boji): vypravěč je jednou připíše na karty; true = je co uložit */
+function bojPcPrevod(s) {
+  let zm = false;
+  ((s && s.hraci) || []).forEach(h => {
+    const K = bojKartaH(h);
+    if (!K || h._k || !(h.stav || h.ds)) return;
+    const ks = kartaStav(K.id),
+      st = [...new Set([...(ks.stavy || []), ...(h.stav || [])])],
+      ch = {};
+    if (st.length !== (ks.stavy || []).length) ch.stavy = st;
+    if (h.ds && !ks.ds) ch.ds = h.ds;
+    if (Object.keys(ch).length) kartaStavZmen(K.id, ch, null, {bezZpet: true});
+    delete h.stav;
+    delete h.ds;
+    zm = true;
+  });
+  return zm;
+}
+/* karta se změnila (načtení z databáze): obraz v boji se obnoví; vypravěči se změna z telefonu ukáže a zapíše do záznamu */
+function bojPcObnov(zaznam) {
+  const s = BOJ.s;
+  if (!s || !(s.hraci || []).length) return;
+  const vyrez = () => ({aktivni: true, hraci: s.hraci.filter(h => h._k).map(h => ({id: h.id, n: h.n, k: h.k, stav: h.stav, ds: h.ds}))});
+  if (GMV && bojPcPrevod(s)) setTimeout(() => bojZmen(() => {}, true), 0);
+  if (!(zaznam && GMV && s.aktivni)) {
+    bojPcNaplnit(s);
+    return;
+  }
+  /* snímek pro „Zpět“ u řádku záznamu: boj a karty před změnou (karta už je nová, stavy a hody proti smrti se vrátí z obrazu) */
+  const a = vyrez(),
+    pre = bojSnap();
+  a.hraci.forEach(o => {
+    const K = bojKartaH(o);
+    if (!K || !pre.k[K.id]) return;
+    const ks = JSON.parse(pre.k[K.id]);
+    if (o.stav) ks.stavy = o.stav;
+    else delete ks.stavy;
+    if (o.ds) ks.ds = o.ds;
+    else delete ks.ds;
+    pre.k[K.id] = JSON.stringify(ks);
+  });
+  bojPcNaplnit(s);
+  const b = vyrez();
+  if (JSON.stringify(a) !== JSON.stringify(b))
+    try {
+      bojHracDiff(a, b, pre);
+    } catch (e) {}
+}
+/* stavy, které platí jen v boji: s koncem boje z karty zmizí (i stavy z účinků boje) */
+const BJENBOJ = ["zapřeno", "zbraň uvízla", "zbraň selhala", "odkrytý", "zaskočen", "přibodnut", "ve vazbě", "v dýmu", "úhyb", "odzbrojen"];
+function bojPcKonecBoje(z) {
+  ((z && z.hraci) || []).forEach(h => {
+    if (!h._k || !h.stav) return;
+    const ef = (h.ef || []).map(e => e.st).filter(Boolean);
+    h.stav = h.stav.filter(x => !BJENBOJ.includes(x) && !ef.includes(x));
+    if (!h.stav.length) delete h.stav;
+  });
+}
 const bojHpPC = (h, K) => {
   if (!K) return null;
   const ks = kartaStav(K.id);

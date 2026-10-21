@@ -1283,7 +1283,7 @@ const bojCilO = (s, id) => (id ? (s.hraci || []).find(h => h.id === id) || (s.np
 /* postava na prahu smrti: hody proti smrti běží, dokud není stabilizovaná nebo mrtvá */
 const bojDsAkt = h => !!(h && h.ds && !h.ds.st);
 /* stavy, které berou akce (2026-10-19): Incapacitated a vše, co ho obsahuje – žádná akce, bonusová akce ani reakce */
-const BNESCH = ["neschopný", "ochromen", "zkamenělý", "omráčen", "bezvědomí"];
+const BNESCH = ["neschopný", "ochromen", "zkamenělý", "omráčen", "v bezvědomí"];
 const bojNeschopny = st => (st || []).find(t => BNESCH.includes(t)) || "";
 const kNeschopny = K => (K ? bojNeschopny(kStavy(K)) : "");
 /* návrh výhody (D&D 2024): důvody pro výhodu i nevýhodu; když jsou obojí, ruší se */
@@ -2682,13 +2682,18 @@ async function bojNacti() {
     if (BOJ.v > 0 && v < BOJ.v) return false;
     if (BOJ.v > 0 && (GMV ? BZ.q.length || BZ.beh : BOJ.zapis > 0)) return false;
     if (v !== BOJ.v) {
-      const old = BOJ.v > 0 ? BOJ.db : null;
-      BOJ.s = r ? r.stav : null;
-      BOJ.db = BOJ.s;
+      const old = BOJ.v > 0 ? BOJ.db : null,
+        db = r ? r.stav : null;
+      BOJ.db = db;
       BOJ.v = v;
       try {
-        bojHracDiff(old, BOJ.s);
+        bojHracDiff(old, db);
       } catch (e) {}
+      /* obraz stavů z karet (12); starší boj se stavy v sobě vypravěč jednou převede na karty a uloží bez nich */
+      const s = db ? JSON.parse(JSON.stringify(db)) : null,
+        prevod = GMV && s && bojPcPrevod(s);
+      BOJ.s = bojPcNaplnit(s);
+      if (prevod) setTimeout(() => bojZmen(() => {}, true), 0);
       if (GMV) setTimeout(bojUtokyNove, 0);
       return true;
     }
@@ -2696,7 +2701,7 @@ async function bojNacti() {
   return false;
 }
 /* vypravěč: co hráči změnili z telefonu (stavy, kryt, hody proti smrti, připravená akce) – hláška a záznam boje */
-function bojHracDiff(a, b) {
+function bojHracDiff(a, b, pre) {
   if (!GMV || !a || !b || !b.aktivni) return;
   (b.hraci || []).forEach(h => {
     const o = (a.hraci || []).find(x => x.id === h.id);
@@ -2761,7 +2766,7 @@ function bojHracDiff(a, b) {
     else if (r0 && !r1 && (b.reak || {})[h.id] && !(a.reak || {})[h.id]) t.push("spustil připravenou akci");
     if (t.length) {
       mmHlasG(`${h.n}: ${t.join(", ")}.`, 5000);
-      bojLog(h.id, {n: ds1 ? "Hod proti smrti" : "Z telefonu", zt: t.join(", "), pre: Object.assign(bojSnap(), {s: JSON.stringify(a)})}, h.n);
+      bojLog(h.id, {n: ds1 ? "Hod proti smrti" : "Z telefonu", zt: t.join(", "), pre: pre || Object.assign(bojSnap(), {s: JSON.stringify(a)})}, h.n);
     }
   });
 }
@@ -3028,9 +3033,13 @@ function bojPrekresli() {
   mmPozdeji("boj", renderBoj);
 }
 function bojZmen(fn0, bezUndo) {
+  /* stavy a hody proti smrti postav s kartou: před změnou z karty, po ní rozdíl na kartu (bojPcOdvod v 12) */
   const fn = z => {
+    bojPcNaplnit(z);
     fn0(z);
     bojAcSync(z);
+    bojPcOdvod(z);
+    bojPcNaplnit(z);
   };
   if (!bojDB) return Promise.resolve();
   const s = JSON.parse(JSON.stringify(BOJ.s || {})),
@@ -3102,7 +3111,7 @@ async function bojUlozFrontu() {
         BOJ.v = cur ? cur.verze : 0;
       }
       try {
-        nv = await bojDB.uloz(s, BOJ.v);
+        nv = await bojDB.uloz(bojPcBez(s), BOJ.v);
         break;
       } catch (e) {
         if (pokus < 3 && (e.status === 409 || /konflikt/i.test(e.message || ""))) continue;
@@ -3110,7 +3119,7 @@ async function bojUlozFrontu() {
       }
     }
     BOJ.v = nv;
-    BOJ.db = JSON.parse(JSON.stringify(s));
+    BOJ.db = bojPcBez(s);
     if (jinde) {
       BOJ.s = BZ.q.length ? prehraj(JSON.parse(JSON.stringify(s)), BZ.q) : s;
       renderBoj();

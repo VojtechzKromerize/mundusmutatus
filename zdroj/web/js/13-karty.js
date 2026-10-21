@@ -94,6 +94,8 @@ function kartyNastav(rows, t0) {
     KARTBY[k.id] = k;
   });
   kFrontaNaStav();
+  /* stavy a hody proti smrti z karet do obrazu v boji (vypravěči i se záznamem změny z telefonu) */
+  bojPcObnov(true);
 }
 async function kartyNacti(znovu) {
   try {
@@ -132,6 +134,7 @@ async function kartaStavZmen(id, ch, msg, op = {}) {
     else o[k] = v;
   });
   KST[id] = o;
+  bojPcObnov(false);
   kartyPrekresli();
   const P = (KPEND[id] = KPEND[id] || {});
   Object.entries(ch).forEach(([k, v]) => {
@@ -1444,7 +1447,9 @@ document.addEventListener("click", async e => {
       else if (o.hp === 0 && kKonDrzi(K)) kKonZtrata(K, "pád na 0 HP");
     } else if (k === "l") {
       m = bojLecPC(o, K, val);
-      if (o.ds && o.ds.st !== "mrtev" && o.hp > 0) {
+      /* v boji léčení umírajícího stabilizuje (Artikule: do konce boje mimo hru), mimo boj se probere */
+      const vBoji = ((BOJ.s && BOJ.s.aktivni && BOJ.s.hraci) || []).some(x => bojKartaH(x) === K);
+      if (!vBoji && o.ds && o.ds.st !== "mrtev" && o.hp > 0) {
         o.ds = null;
         m = `+${val} HP: probral se (${o.hp}/${mxHp(K)})`;
       }

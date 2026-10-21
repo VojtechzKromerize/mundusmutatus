@@ -258,3 +258,64 @@ test("kostky k hodům: Bane od nepřítele v boji (značka na postavě) se odeč
     S.ev(`BOJ.s = {}`);
   }
 });
+
+/* ---------- stavy a hody proti smrti postavy s kartou jsou jen na kartě, boj nese jejich obraz (2026-10-22) ---------- */
+test("boj: stavy a hody proti smrti postavy s kartou se čtou z karty a zapisují na kartu", async () => {
+  await S.ev(`kartaStavZmen("balduin", {stavy: ["sražen"], ds: {u: 1, n: 0}}, null, {bezZpet: true})`);
+  try {
+    const z = V(
+      `bojPcNaplnit({aktivni: true, hraci: [{id: "h1", n: "Balduin", k: "balduin", kryt: 2}, {id: "h2", n: "Bez karty", stav: ["omráčen"]}]})`,
+    );
+    assert.deepEqual(z.hraci[0].stav, ["sražen"], "obraz stavů z karty");
+    assert.deepEqual(z.hraci[0].ds, {u: 1, n: 0}, "obraz hodů proti smrti z karty");
+    assert.deepEqual(z.hraci[1].stav, ["omráčen"], "postava bez karty má stavy dál v boji");
+    assert.equal(z.hraci[1]._k, undefined);
+    await S.ev(`(() => {
+      const z = bojPcNaplnit({hraci: [{id: "h1", n: "Balduin", k: "balduin"}]});
+      z.hraci[0].stav.push("otrávený");
+      delete z.hraci[0].ds;
+      bojPcOdvod(z);
+    })()`);
+    assert.deepEqual(V(`kartaStav("balduin").stavy`), ["sražen", "otrávený"], "změna v boji se zapíše na kartu");
+    assert.equal(V(`kartaStav("balduin").ds || null`), null);
+    const ul = V(`bojPcBez(bojPcNaplnit({hraci: [{id: "h1", n: "Balduin", k: "balduin", kryt: 2}, {id: "h2", n: "Bez karty", stav: ["omráčen"]}]}))`);
+    assert.deepEqual(ul.hraci[0], {id: "h1", n: "Balduin", k: "balduin", kryt: 2}, "do databáze boje se obraz neuloží, kryt ano");
+    assert.deepEqual(ul.hraci[1].stav, ["omráčen"]);
+    assert.equal(
+      V(`(() => (bojPcOdvod({hraci: [{id: "h1", n: "Balduin", k: "balduin"}]}), kartaStav("balduin").stavy.length))()`),
+      2,
+      "obnovený starší stav boje (bez obrazu) kartu nesmaže",
+    );
+  } finally {
+    await S.ev(`kartaStavZmen("balduin", {stavy: null, ds: null}, null, {bezZpet: true})`);
+  }
+});
+
+test("boj: starší boj se stavy v sobě je převede na kartu; s koncem boje zmizí stavy jen pro boj", async () => {
+  try {
+    assert.deepEqual(
+      V(`(() => {
+      const s = {hraci: [{id: "h1", n: "Balduin", k: "balduin", stav: ["vyděšený"], ds: {u: 0, n: 1}}]};
+      return [bojPcPrevod(s), s.hraci[0].stav || null, s.hraci[0].ds || null];
+    })()`),
+      [true, null, null],
+    );
+    assert.deepEqual(V(`kartaStav("balduin").stavy`), ["vyděšený"]);
+    assert.deepEqual(V(`kartaStav("balduin").ds`), {u: 0, n: 1});
+    assert.deepEqual(
+      V(`(() => {
+      const z = {hraci: [{id: "h1", _k: 1, stav: ["zapřeno", "sražen", "ochromen"], ef: [{n: "Hold Person", st: "ochromen"}]}]};
+      bojPcKonecBoje(z);
+      return z.hraci[0].stav;
+    })()`),
+      ["sražen"],
+      "stavy z vlastností zbraní a z účinků boje s bojem končí",
+    );
+  } finally {
+    await S.ev(`kartaStavZmen("balduin", {stavy: null, ds: null}, null, {bezZpet: true})`);
+  }
+});
+
+test("boj: bezvědomí (v bezvědomí) bere akce", () => {
+  assert.equal(V(`bojNeschopny(["v bezvědomí"])`), "v bezvědomí");
+});

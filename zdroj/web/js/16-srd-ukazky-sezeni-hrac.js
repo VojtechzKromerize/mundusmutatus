@@ -1499,7 +1499,7 @@ function renderHra() {
     ${hraMinuleHtml()}${hraUkolyHtml()}${poklHtml()}
     ${window.MMDB && KZAM.has(K.id) ? `<section><h3 class="uvh2">Tajně vypravěči</h3>${zprHtml(ZPR)}<form class="zprf" data-zprf="${besc(K.id)}"><textarea name="t" rows="2" maxlength="2000" placeholder="Co má vědět jen vypravěč" required></textarea><button class="gbtn ghost">Poslat</button></form></section>` : ""}
     ${aplikaceHtml(K.id)}
-    <section class="hrakon"><details class="bjapd"><summary>Jak hrát na webu</summary>${NAVOD}</details><p class="bojbtn">${notifBtn()}${window.MMDB && KZAM.has(K.id) ? `<button type="button" class="gbtn ghost" data-jaheslo>Změnit heslo</button>` : ""}${(JA.get() || {}).d ? `<button type="button" class="gbtn ghost" data-discordx>${jaOdhlasTxt()} (${besc(K.n)})</button>` : `<button type="button" class="gbtn ghost" data-jaodhlas>Odhlásit (${besc(K.n)})</button>`}</p></section>`;
+    <section class="hrakon"><details class="bjapd"><summary>Jak hrát na webu</summary>${NAVOD}</details><p class="bojbtn">${notifBtn()}${window.MMDB && KZAM.has(K.id) && !((JA.get() || {}).d && DCU.typ !== "email") ? `<button type="button" class="gbtn ghost" data-jaheslo>Změnit heslo</button>` : ""}${(JA.get() || {}).d ? `<button type="button" class="gbtn ghost" data-discordx>${jaOdhlasTxt()} (${besc(K.n)})</button>` : `<button type="button" class="gbtn ghost" data-jaodhlas>Odhlásit (${besc(K.n)})</button>`}</p></section>`;
   pojZnac(box.querySelector(".hraja"));
 }
 document.addEventListener("submit", async e => {
@@ -1532,15 +1532,6 @@ document.addEventListener("submit", async e => {
     const n = Math.round(+f.elements.u.value) || null;
     await hraUloz({postup: n});
     hraPrekresli();
-    return;
-  }
-  if (f.matches("[data-hrdov]")) {
-    e.preventDefault();
-    const K = jaK();
-    if (!K) return;
-    const d = f.elements.d.value,
-      r = kSvAdv(K, d);
-    await kartaHod(K, d, kDov(K, d), {adv: r.length ? kAdvSum(KADV, r) : undefined, why: r.map(x => x[1]).join(", ")});
     return;
   }
 });

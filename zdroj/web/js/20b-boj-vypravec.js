@@ -1193,6 +1193,11 @@ document.addEventListener("change", async e => {
       h0 = (BOJ.s.hraci || []).find(x => x.id === id);
     if (!bojDsAkt(h0)) return;
     const r = bojDs(h0.ds, "hod", d);
+    /* přirozená 20: probere se s 1 HP (jako hod tlačítkem) */
+    if (!r.ds) {
+      const K = bojKartaH(h0);
+      if (K && kMuze(K)) kartaStavZmen(K.id, {hp: Math.max(1, +kartaStav(K.id).hp || 0)}, null);
+    }
     bojHracAkce(
       id,
       h => {
@@ -1613,6 +1618,7 @@ document.addEventListener("click", async e => {
         bojZmen(s => {
           s.aktivni = false;
           s.obsazeni = {};
+          bojPcKonecBoje(s);
         });
     }
     return;
@@ -1789,6 +1795,7 @@ document.addEventListener("click", async e => {
     await bojZmen(s => {
       s.aktivni = false;
       s.obsazeni = {};
+      bojPcKonecBoje(s);
     });
     bojKonecLS();
     if (k === "kron") {
