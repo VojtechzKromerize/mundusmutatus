@@ -12,7 +12,7 @@ function bzPrepni(k) {
   if (BZOPEN.has(k)) BZOPEN.delete(k);
   else BZOPEN.add(k);
 }
-/* výsledek útoku jako ikonka: zásah (terč), vedle (šíp míjí terč), kritický zásah (terč s paprsky); text zůstává v popisku */
+/* výsledek útoku jako ikonka: hvězda = zásah, X = vedle, v prstenci = přirozená 20 / 1; text zůstává v popisku */
 const BZVYS = {bzhit: "zasah", bzkr: "zasahkrit", bzmis: "vedle"};
 /* jedna kostka: d20 s přirozenou 20 / 1 zvýrazněnou, zahozená kostka (výhoda, nevýhoda) přeškrtnutá, kostka Závoje vínová */
 const bzK = (s, v, c) =>
@@ -301,7 +301,7 @@ function bzRadek(e, gm) {
           .replace(/^(kritický zásah|zásah|vedle)(\s*\(\d+\))?/, "")
           .replace(/^[\s,–-]+/, "")
           .replace(/^přirozená 1$/, "");
-      vys = `<span class="bzvys bzvi ${cls}${fum ? " bzfum" : ""}" role="img" ${btip(txt.charAt(0).toUpperCase() + txt.slice(1))}>${bi(ik)}</span>${zb ? `<span class="bzvys bzvt ${cls}">${besc(zb)}</span>` : ""}`;
+      vys = `<span class="bzvys bzvi ${cls}${fum ? " bzfum" : ""}" role="img" ${btip(txt.charAt(0).toUpperCase() + txt.slice(1))}>${bi(fum ? "vedlekrit" : ik)}</span>${zb ? `<span class="bzvys bzvt ${cls}">${besc(zb)}</span>` : ""}`;
     } else vys = `<span class="bzvys ${cls}">${besc(txt)}</span>`;
   }
   /* životy po odečtu z karty (jen vypravěč): „43/62“ z poznámky „odečteno z karty“ */

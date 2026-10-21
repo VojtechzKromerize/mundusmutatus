@@ -37,12 +37,14 @@ const BIC = {
   dosah: '<circle cx="8" cy="8" r="5.6"/><circle cx="8" cy="8" r="2.3"/><path d="M8 .8v2.4M8 12.8v2.4M.8 8h2.4M12.8 8h2.4"/>',
   svitek: '<path d="M4.3 2.5h8v10.2a1.3 1.3 0 0 1-1.3 1.3H4.5a1.6 1.6 0 0 1 0-3.2h6"/><path d="M6.5 5h3.8M6.5 7.5h3.8"/>',
   sipka: '<path d="M4 6l4 4 4-4"/>',
-  /* výsledek útoku v herním záznamu (2026-10-21): šíp do terče = zásah, šíp míjející terč = vedle, terč s paprsky = kritický zásah */
+  /* výsledek hodu v herním záznamu (2026-10-21, Vojtův návrh): hvězda = zásah, X = vedle, prstenec = kritické (přirozená 20 / 1) */
   zasah:
-    '<circle cx="9" cy="9" r="4.6"/><path d="M1.8 1.8 9 9M9 9l-3.4-.5M9 9l-.5-3.4"/><circle cx="9" cy="9" r=".9" fill="currentColor" stroke="none"/>',
+    '<path d="M8.0 0.4L9.6 4.2L13.4 2.6L11.8 6.4L15.6 8.0L11.8 9.6L13.4 13.4L9.6 11.8L8.0 15.6L6.4 11.8L2.6 13.4L4.2 9.6L0.4 8.0L4.2 6.4L2.6 2.6L6.4 4.2ZM10.4 8A2.4 2.4 0 1 1 5.6 8A2.4 2.4 0 1 1 10.4 8Z" fill="currentColor" stroke="none" fill-rule="evenodd"/>',
+  vedle: '<path d="M13.4 13.4L8.0 9.9L2.6 13.4L6.1 8.0L2.6 2.6L8.0 6.1L13.4 2.6L9.9 8.0Z" fill="currentColor" stroke="none"/>',
   zasahkrit:
-    '<circle cx="8.5" cy="8.5" r="3.4"/><path d="M1.6 1.6 8.5 8.5M8.5 8.5l-3.2-.5M8.5 8.5l-.5-3.2M8.5 2.2v1.9M14.8 8.5h-1.9M8.5 14.8v-1.9M13 4l-1.4 1.4M13 13l-1.4-1.4M4 13l1.4-1.4"/><circle cx="8.5" cy="8.5" r=".9" fill="currentColor" stroke="none"/>',
-  vedle: '<circle cx="10.4" cy="10.4" r="3.9"/><path d="M1.6 9.4 9.4 1.6M9.4 1.6l-3.3.6M9.4 1.6l-.6 3.3"/>',
+    '<circle cx="8" cy="8" r="6.9"/><path d="M8.0 3.0L9.0 5.5L11.5 4.5L10.5 7.0L13.0 8.0L10.5 9.0L11.5 11.5L9.0 10.5L8.0 13.0L7.0 10.5L4.5 11.5L5.5 9.0L3.0 8.0L5.5 7.0L4.5 4.5L7.0 5.5ZM9.5 8A1.5 1.5 0 1 1 6.5 8A1.5 1.5 0 1 1 9.5 8Z" fill="currentColor" stroke="none" fill-rule="evenodd"/>',
+  vedlekrit:
+    '<circle cx="8" cy="8" r="5.3"/><path d="M11.3 11.3L8.0 9.2L4.7 11.3L6.8 8.0L4.7 4.7L8.0 6.8L11.3 4.7L9.2 8.0ZM12.8 6.6L15.9 8.0L12.8 9.4ZM9.4 12.8L8.0 15.9L6.6 12.8ZM3.2 9.4L0.1 8.0L3.2 6.6ZM6.6 3.2L8.0 0.1L9.4 3.2Z" fill="currentColor" stroke="none"/>',
   plus: '<path d="M8 3v10M3 8h10"/>',
   hotovo: '<path d="M3 8.5 6.2 11.6 13 4.6"/>',
   krizek: '<path d="M4 4l8 8M12 4l-8 8"/>',

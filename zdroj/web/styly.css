@@ -3173,7 +3173,7 @@ span.bzos{cursor:default}
 .bzvys.bzkr{border-color:var(--gold);background:color-mix(in srgb,var(--gold) 28%,transparent);color:var(--ink);font-weight:700}
 .bzvys.bzvi.bzkr{box-shadow:0 0 0 2px color-mix(in srgb,var(--gold) 45%,transparent)}
 .bzvys.bzmis{color:var(--muted)}.bzvys.bzvt.bzmis{text-decoration:line-through;text-decoration-thickness:1px}
-.bzvys.bzvi.bzmis{border-style:dashed}
+.bzvys.bzvi.bzmis{border-style:dashed}.bzvys.bzvi .bi{stroke-width:1.3}
 .bzvys.bzvi.bzfum{color:var(--kal);border-color:color-mix(in srgb,var(--kal) 60%,transparent);border-style:solid;background:color-mix(in srgb,var(--kal) 14%,transparent)}
 .bzvys.bztotv{font:500 1.05rem/1.2 var(--f-disp);letter-spacing:0;text-transform:none;padding:0 8px}
 .bzvys.bzdc{text-transform:none}
