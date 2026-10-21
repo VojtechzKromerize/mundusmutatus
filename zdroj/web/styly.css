@@ -3315,7 +3315,8 @@ button.btedch{cursor:pointer}button.btedch:hover{border-color:var(--gold,#b08d3a
 .bojbtn>details.bpridej{margin-top:0}
 .bojbtn>details.bpridej>summary{min-height:33px;box-sizing:border-box;padding:4px 11px}
 .bojbtn>details.bpridej[open]{flex-basis:100%;order:9}
-.bnast>summary{font-size:1.1rem;line-height:1;padding:4px 9px}
+.bnast>summary{line-height:1;padding:4px 8px}
+.bojbtn .bi.bimg,.bmultib .bi.bimg{width:20px;height:20px;margin:-4px 2px -3px 0}
 .bnastp{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;margin-top:6px;padding:8px 10px;border:1px solid var(--rule);border-radius:3px;background:var(--paper)}
 .bnastp .bauto{margin-left:0}
 .bnkvz .bi{width:12px;height:12px;margin-right:2px;vertical-align:-1px;color:var(--muted)}

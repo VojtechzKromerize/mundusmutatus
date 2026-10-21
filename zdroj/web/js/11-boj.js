@@ -127,6 +127,11 @@ const BIMG = new Set([
   "dest",
   "uzky",
   "teren",
+  /* 2026-10-21: ovládání Boje místo emoji */ "nastaveni",
+  "zpet",
+  "plosny-zasah",
+  "hromadny-hod",
+  "boj",
 ]);
 const bi = (k, c) =>
   BIMG.has(k)
@@ -1838,11 +1843,11 @@ function bojRef(n, s, velH) {
     MQ = BMQ[n.id] && BMQ[n.id].tk === bojMultiTk() ? BMQ[n.id] : null;
   const muB =
     MU && !MQ
-      ? `<p class="bmulti"><button type="button" class="gbtn but bmultib" data-bmulti ${btip(`Multiattack: ${MU.T.trim()} – útoky proběhnou po jednom proti vybranému cíli (cíl jde mezi útoky změnit)`)}>⚔ Celá akce <small>${besc(MU.txt)}</small></button></p>`
+      ? `<p class="bmulti"><button type="button" class="gbtn but bmultib" data-bmulti ${btip(`Multiattack: ${MU.T.trim()} – útoky proběhnou po jednom proti vybranému cíli (cíl jde mezi útoky změnit)`)}>${bi("boj")} Celá akce <small>${besc(MU.txt)}</small></button></p>`
       : "";
   const muD =
     MQ && MQ.i < MQ.seq.length
-      ? `<p class="bmulti"><button type="button" class="gbtn but bmultib" data-bmdal>⚔ Další útok ${MQ.i + 1}/${MQ.seq.length} <small>${besc(E.at[MQ.seq[MQ.i]].n)}</small></button><button type="button" class="bkoncx" data-bmx aria-label="Zrušit zbytek akce" ${btip("Zbytek akce nebude")}>×</button></p>`
+      ? `<p class="bmulti"><button type="button" class="gbtn but bmultib" data-bmdal>${bi("boj")} Další útok ${MQ.i + 1}/${MQ.seq.length} <small>${besc(E.at[MQ.seq[MQ.i]].n)}</small></button><button type="button" class="bkoncx" data-bmx aria-label="Zrušit zbytek akce" ${btip("Zbytek akce nebude")}>×</button></p>`
       : "";
   const plak = L.length ? `<ol class="blog"><li class="bplak${Date.now() - L[0].t < 1500 ? " bnov" : ""}">${bojPlak(L[0])}</li></ol>` : "";
   const hpE = E.hp.length && !houf,

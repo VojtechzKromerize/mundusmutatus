@@ -566,7 +566,7 @@ function bojTedHtml(s) {
 function bojVyzPanel(s) {
   if (!GMV || !window.MMDB || !MMDB.vyzva) return "";
   const L = (typeof VYZVY !== "undefined" ? VYZVY : []).filter(v => !v.zavrena);
-  return `<details class="bpridej bvyzp" data-otv="vyzvy"${bojOtv("vyzvy")}><summary>📣 Hromadný hod družiny${L.length ? ` <b>(${L.length})</b>` : ""}</summary>
+  return `<details class="bpridej bvyzp" data-otv="vyzvy"${bojOtv("vyzvy")}><summary>${bi("hromadny-hod")} Hromadný hod družiny${L.length ? ` <b>(${L.length})</b>` : ""}</summary>
     <p class="vyzrych"><span class="bkzlh">Ověření:</span>${["Perception", "Stealth", "Insight", "Investigation", "Athletics", "Acrobatics", "Survival"].map(d => `<button type="button" class="kchip" data-vyzrychle="${d}" ${btip(`Všem postavám vyskočí ověření ${d}`)}>${d}</button>`).join("")}</p>
     <p class="vyzrych"><span class="bkzlh">Záchrana:</span>${BAB.map(a => `<button type="button" class="kchip" data-vyzrychle="${a}" ${btip(`Všem postavám vyskočí záchrana ${a} (dech, past, kouzlo)`)}>${a}</button>`).join("")}</p>
     <p class="kvlh"><label>SO <input type="number" min="1" max="40" data-bvyzdc inputmode="numeric" placeholder="–" aria-label="Stupeň obtížnosti"></label><label><input type="checkbox" data-bvyzskr> SO jen pro mě</label><input data-bvyzpozn maxlength="60" placeholder="za co (dech draka, past…)" aria-label="Poznámka"><small class="rsmall">Vyber SO a klepni na dovednost nebo vlastnost. Zranění se záchranou řeší Plošný zásah.</small></p>
@@ -576,7 +576,7 @@ function bojVyzPanel(s) {
    v hlavičce Boje – nastavují se jednou na začátku boje, nemusí zabírat řádek na stránce */
 function bojNastHtml() {
   if (!GMV) return "";
-  return `<details class="bpridej bnast" data-otv="nast"${bojOtv("nast")}><summary ${btip("Nastavení boje: potvrzování akcí hráčů, lhůta, odečítání zásahů")}>⚙<span class="vh">Nastavení boje</span></summary><div class="bnastp">${potvrzHtml("boj")}<label class="bauto" ${btip("Zásah nepřítele odečte postavě s kartou životy hned (s odolnostmi a dočasnými HP); hráč může reagovat (Shield…) a zranění se vrátí.")}><input type="checkbox" data-bpcauto${bojPcAuto.get() ? " checked" : ""}> zásahy nepřátel odečítat postavám rovnou</label></div></details>`;
+  return `<details class="bpridej bnast" data-otv="nast"${bojOtv("nast")}><summary ${btip("Nastavení boje: potvrzování akcí hráčů, lhůta, odečítání zásahů")}>${bi("nastaveni")}<span class="vh">Nastavení boje</span></summary><div class="bnastp">${potvrzHtml("boj")}<label class="bauto" ${btip("Zásah nepřítele odečte postavě s kartou životy hned (s odolnostmi a dočasnými HP); hráč může reagovat (Shield…) a zranění se vrátí.")}><input type="checkbox" data-bpcauto${bojPcAuto.get() ? " checked" : ""}> zásahy nepřátel odečítat postavám rovnou</label></div></details>`;
 }
 function bojUtokyPanel(s) {
   const P = (s.utoky || []).filter(u => u.stav === "ceka");
