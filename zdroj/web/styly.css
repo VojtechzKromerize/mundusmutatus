@@ -3150,8 +3150,8 @@ html.mmapp body{overscroll-behavior-y:none}
 .bz.bzlkr{box-shadow:inset 3px 0 0 var(--gold)}
 .bz.blundone{opacity:.5}.bz.blundone .bzdmg b{text-decoration:line-through}.bz.bzskr{opacity:.75}
 .bzh{display:flex;flex-wrap:wrap;align-items:center;gap:3px 6px}
-.bzos{display:inline-flex;align-items:center;gap:5px;max-width:100%;padding:0;border:0;background:none;color:inherit;font:inherit;cursor:pointer;text-align:left}
-span.bzos{cursor:default}
+.bzos{display:inline-flex;align-items:center;gap:5px;max-width:100%}
+.bzos .blfb{flex:none}
 .bzos b{font-family:var(--f-disp);font-weight:500;font-size:1.02rem;line-height:1.1}
 .bzos .bmed{flex:none}
 .bzco{font-style:italic;color:var(--ink)}.bzco:empty{display:none}

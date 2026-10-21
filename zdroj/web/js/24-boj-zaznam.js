@@ -302,11 +302,10 @@ function bzRadek(e, gm) {
   if (gm && e.tg && !e.undone && !e.und && e.co !== "Vráceno")
     e.und = `<button type="button" class="blund" data-bzvrat="${e.tg}" data-p="${besc([e.A && e.A.n, e.co].filter(Boolean).join(" – "))}" ${btip("Vrátit boj do stavu před tímto řádkem (i všechno pozdější)")}>↶</button>`;
   const med = q => (q && q.o ? (q.o.druh ? bojMedN(q.o, "bmini") : bojMedH(q.o, "bmini")) : "");
+  /* jméno rozbaluje řádek (klepnutí na hlavičku), filtr „jen akce této postavy“ je jen na medailonu */
   const os = q =>
     q && q.n
-      ? q.id
-        ? `<button type="button" class="bzos blfb" data-blf="${besc(q.id)}" ${btip("Jen akce: " + q.n)}>${med(q)}<b>${besc(q.n)}</b></button>`
-        : `<span class="bzos">${med(q)}<b>${besc(q.n)}</b></span>`
+      ? `<span class="bzos">${q.id && q.o ? `<button type="button" class="blfb" data-blf="${besc(q.id)}" ${btip("Jen akce: " + q.n)}>${med(q)}</button>` : med(q)}<b>${besc(q.n)}</b></span>`
       : "";
   const mis = e.vys && e.vys[1] === "bzmis";
   const zr =

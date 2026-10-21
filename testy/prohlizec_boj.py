@@ -109,7 +109,7 @@ async def main():
     await pl.click('[data-bhpan="h1"] [data-bhkr="2"]');await pl.wait_for_timeout(900)
     await g.wait_for_timeout(3200)
     chk(await g.evaluate("(BOJ.s.hraci[0].stav||[]).includes('sražen')&&BOJ.s.hraci[0].kryt===2"),"vypravěč vidí stav a kryt, které hráč nastavil z telefonu")
-    chk("sražen" in await g.inner_text(".bzl"),"změna z telefonu je v záznamu boje")
+    chk("sražen" in await g.evaluate("document.querySelector('.bzl').textContent"),"změna z telefonu je v záznamu boje (i ve sbaleném řádku)")
     chk(await g.evaluate(f"(()=>{{BCIL['{rid}']='h1';const r=bojAdvNavrh(BOJ.s,BOJ.s.npc.find(n=>n.id==='{rid}'),{{n:'Meč',b:5,p:'dosah 5 stop'}});delete BCIL['{rid}'];return r.v===1&&r.kryt===2}})()"),"návrh výhody počítá se stavem a krytem postavy")
     await pl.click('[data-bhpan="h1"] [data-bhds="pad"]');await pl.wait_for_timeout(900)
     await pl.click('[data-bhpan="h1"] [data-bhds="hod"]');await pl.wait_for_timeout(900)
@@ -191,6 +191,13 @@ async def main():
     chk(await g.evaluate(f"(bojHp.get()['{rid}']||[])[0]")==hp0 or hp0 is None,"Zpět v záznamu vrátí životy")
     chk(await g.locator(".bzaz li.bz:not(.blundone) [data-bzvrat], .bzaz li.bz:not(.blundone) [data-blzpet]").count()>=1 or await g.locator(".bzaz li.bz.blundone").count()>=1,"Zpět je u řádků herního záznamu")
     await g.click(".bzl [data-blf] >> nth=0");await g.wait_for_timeout(300);chk(await g.locator(".blfc").count()==1,"filtr záznamu podle žetonu");await g.click("[data-blfx]");await g.wait_for_timeout(300)
+    # sbalené řádky záznamu (2026-10-21): nejnovější rozbalený, starší se rozbalí klepnutím na hlavičku
+    chk(await g.locator(".bzl li.bz:first-child.bzc, .bzl li.bzkolo:first-child+li.bzc").count()==0,"nejnovější řádek záznamu je rozbalený")
+    if await g.locator(".bzl li.bz.bzc [data-bzex]").count():
+        k=await g.get_attribute(".bzl li.bz.bzc [data-bzex] >> nth=0","data-bzex")
+        await g.click(".bzl li.bz.bzc .bzh .bzos > b >> nth=0");await g.wait_for_timeout(400)
+        chk(await g.evaluate(f"!document.querySelector('.bzl [data-bzex=\"{k}\"]').closest('li').classList.contains('bzc')"),"klepnutí na hlavičku rozbalí starší řádek záznamu")
+    else: chk(False,"v záznamu není žádný sbalený řádek")
     await g.select_option("#bojview [data-potvrzr]","cast");await g.wait_for_timeout(1200)
     await pl.fill('[name="juhod"]',"5");await pl.fill('[name="jud"]',"1");await pl.fill('[name="judmg"]',"4");await pl.click("[data-juposl]");await pl.wait_for_timeout(800)
     await g.wait_for_timeout(3500)
