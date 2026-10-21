@@ -926,7 +926,7 @@ function kUtZInv(K) {
     pdfU = K.utoky || [],
     o = [],
     prof = t => {
-      const z = ((K.zd || {}).zbrane || []).join(" ");
+      const z = kZdSez(K, "zbrane").join(" ");
       return t === "S" ? true : /martial/i.test(z) || c.tr.some(x => KMARC.test(x.n));
     };
   c.inv.forEach(x => {

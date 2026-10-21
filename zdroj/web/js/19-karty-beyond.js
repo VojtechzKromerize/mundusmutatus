@@ -1417,19 +1417,28 @@ document.addEventListener("submit", async e => {
   }
 });
 document.addEventListener("click", async e => {
-  const x = e.target.closest("[data-kdoplx]");
+  const x = e.target.closest("[data-kdoplx],[data-kzdbez],[data-kzdvrat]");
   if (!x) return;
   const K = kvK(x);
   if (!K) return;
-  const [typ, i] = x.dataset.kdoplx.split(":"),
-    D = JSON.parse(JSON.stringify(kDopl(K)));
-  (D[typ] || []).splice(+i, 1);
-  if (!(D[typ] || []).length) delete D[typ];
+  const D = JSON.parse(JSON.stringify(kDopl(K)));
+  if (x.dataset.kdoplx) {
+    const [typ, i] = x.dataset.kdoplx.split(":");
+    (D[typ] || []).splice(+i, 1);
+    if (!(D[typ] || []).length) delete D[typ];
+  } else {
+    /* zdatnost nebo jazyk z PDF skrýt / vrátit (2026-10-21): `dopl.bez` = ["jazyky:Elvish", …] */
+    const k = x.dataset.kzdbez || x.dataset.kzdvrat,
+      bez = new Set(D.bez || []);
+    if (x.dataset.kzdbez) bez.add(k);
+    else bez.delete(k);
+    if (bez.size) D.bez = [...bez];
+    else delete D.bez;
+  }
   await kartaStavZmen(K.id, {dopl: Object.keys(D).length ? D : null});
 });
 function kDoplHtml(K) {
-  const D = kDopl(K),
-    zd = K.zd || {};
+  const D = kDopl(K);
   const sez = (typ, lab) =>
     `${(D[typ] || []).map((v, i) => `<span class="chip">${besc(typeof v === "string" ? v : v.n)} <button type="button" class="kx" data-kdoplx="${typ}:${i}" aria-label="Odebrat">×</button></span>`).join(" ")}`;
   return `<h3 class="uvh2">Zdatnosti a jazyky</h3><dl class="kpop">${[
@@ -1438,8 +1447,8 @@ function kDoplHtml(K) {
     ["nastroje", "Nástroje"],
     ["jazyky", "Jazyky"],
   ]
-    .filter(([k]) => (zd[k] || []).length)
-    .map(([k, l]) => `<dt>${l}</dt><dd>${besc(zd[k].join(", "))}</dd>`)
+    .filter(([k]) => kZdSez(K, k).length)
+    .map(([k, l]) => `<dt>${l}</dt><dd>${besc(kZdSez(K, k).join(", "))}</dd>`)
     .join(
       "",
     )}${(D.zdat || []).length ? `<dt>Doplněno</dt><dd>${sez("zdat")}</dd>` : ""}${(D.jazyky || []).length ? `<dt>Jazyky navíc</dt><dd>${sez("jazyky")}</dd>` : ""}</dl>

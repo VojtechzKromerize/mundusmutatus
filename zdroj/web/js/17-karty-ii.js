@@ -164,6 +164,11 @@ function kAkceHtml(K, bezUt) {
 }
 /* ---- útoky a doplňky hráče ---- */
 const kDopl = K => kartaStav(K.id).dopl || {};
+/* zdatnosti a jazyky z PDF bez těch, které hráč skryl (`dopl.bez`, 2026-10-21) */
+const kZdSez = (K, k) => {
+  const bez = new Set(kDopl(K).bez || []);
+  return ((K.zd || {})[k] || []).filter(v => !bez.has(k + ":" + v));
+};
 /* ---- kouzla: seznam (PDF + připravená − odebraná), sesílání se zvoleným slotem, zranění a léčení se škálováním ---- */
 function kSeznam(K) {
   const S = kartaStav(K.id),

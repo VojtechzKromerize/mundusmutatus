@@ -539,18 +539,6 @@ async function bojIniVyzva() {
     mmHlasG(e.message || String(e), 5000);
   }
 }
-/* začátek tahu: připomínky z boje i z karty */
-function bojPripKarta(s, h, K) {
-  const r = bojPripominky(s, h).filter(x => !/^Reakce je k dispozici/.test(x)),
-    U = kUc(K),
-    P = kPri(K),
-    sl = kSloty(K);
-  if (U.length) r.push(`Trvá: ${U.map(x => x.n + (x.kon ? " ◎" : "")).join(", ")}.`);
-  if (P.length) r.push(`Zapnuto: ${P.join(", ")}.`);
-  if (sl.length) r.push(`Sloty: ${sl.map(q => `${q.st}. st. ${q.max - q.u}/${q.max}`).join(", ")}.`);
-  if ((h.stav || []).includes("sražen")) r.push("Vstát stojí polovinu pohybu.");
-  return r;
-}
 /* vypravěč: přehled družiny v jednom pruhu */
 /* po boji: výzva k odpočinku */
 async function bojOdpVyzva() {

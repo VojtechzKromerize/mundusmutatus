@@ -519,7 +519,8 @@ function renderKarty(id) {
     pojZnac(box.querySelector(".kprehled"));
     return;
   }
-  box.innerHTML = kartaJednaHtml(K);
+  /* herní záznam postavy vedle karty (na telefonu pod ní) – dřív záložka Záznam na kartě (2026-10-21) */
+  box.innerHTML = `<div class="kjedna">${kartaJednaHtml(K)}<section class="kzazsec"><h3 class="uvh2">Herní záznam</h3>${kZaznamHtml(K)}</section></div>`;
   pojZnac(box);
 }
 /* ikony vlastností (2026-10-17): zvíře podle vlastnosti, nahoře (hnědé pole) skóre, vlevo dole (červené) modifikátor = ověření,
@@ -999,7 +1000,9 @@ function kartaDbHtml(K, o, o2) {
       return vybT;
     }
     if (id === "rysy") return kRysyHtml(K) || `<p class="kdbnote">Žádné rysy – nahraj list postavy z D&amp;D Beyond.</p>`;
-    if (id === "duse") return `<div class="kgrid"><div>${kDuseHtml(K)}</div><div>${kRanyHtml(K)}${kUcHtml(K)}</div></div>`;
+    if (id === "duse")
+      /* Duše nese i zázemí a popis postavy (dřív záložka Info, 2026-10-21) */
+      return `<div class="kgrid"><div>${kDuseHtml(K)}</div><div>${kRanyHtml(K)}${kUcHtml(K)}</div></div><section class="kdbp kdbzaz"><h4 class="kdbsh">Zázemí</h4><p class="kdbbig">${besc(K.pozadi || "–")}</p>${popH ? `<h4 class="kdbsh">O postavě</h4>${popH}` : `<p class="kdbnote">Popis postavy se načte z PDF.</p>`}</section>`;
     if (id === "denik")
       return `<div class="kgrid"><div><h4 class="kdbsh">Poznámky a deník</h4><textarea class="kpozn" data-kpozn rows="12" maxlength="4000" placeholder="Koho jsme potkali, co jsme slíbili, co si pamatovat…">${besc(S.pozn || "")}</textarea><p class="kdbnote">Ukládá se samo. Vidí je každý, kdo otevře kartu – tajnosti pošli vypravěči ze stránky Hra.</p></div></div>`;
     if (id === "spol") return kFormaHtml(K) + kSpolHtml(K);

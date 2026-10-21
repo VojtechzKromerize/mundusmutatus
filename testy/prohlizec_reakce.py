@@ -47,6 +47,8 @@ async def main():
     await pl.evaluate("bojJa.set('Balduin');renderBoj()");await pl.wait_for_timeout(1500)
     print("hráč tlačítka:",await pl.evaluate("[...document.querySelectorAll('[data-bhrk]')].map(b=>b.className+' in-bhpan:'+!!b.closest('[data-bhpan]'))"))
     for sel in ('.bdm .bdmrk[data-bhrk]','.bdm .bdmuse[data-bhrk]'):
+        await pl.evaluate("mmPopX()")  # ukázka vypravěče by překážela klepnutí
+        if await pl.locator('.bdm [data-bdmaf="R"]').count(): await pl.locator('.bdm [data-bdmaf="R"]').first.click();await pl.wait_for_timeout(300)  # pod-karta Reakce (2026-10-21)
         if not await pl.locator(sel).count(): print("chybí",sel);continue
         await pl.locator(sel).first.click();await pl.wait_for_timeout(600)
         a=await pl.evaluate("JSON.stringify(BOJ.s.reak||null)");await pl.wait_for_timeout(4000)
@@ -56,6 +58,8 @@ async def main():
     await g.evaluate("BKART.h1=true;renderBoj()");await g.wait_for_timeout(600)
     print("GM tlačítka:",await g.evaluate("[...document.querySelectorAll('[data-break=h1]')].map(b=>b.className+' bdm:'+!!b.closest('.bdm'))"))
     for sel in ('.bdm .bdmrk[data-break="h1"]','.bdm .bdmuse[data-break="h1"]'):
+        await g.evaluate("mmPopX()")
+        if await g.locator('.bdm [data-bdmaf="R"]').count(): await g.locator('.bdm [data-bdmaf="R"]').first.click();await g.wait_for_timeout(300)
         if not await g.locator(sel).count(): print("chybí",sel);continue
         await g.locator(sel).first.click();await g.wait_for_timeout(600)
         a=await g.evaluate("JSON.stringify(BOJ.s.reak||null)");await g.wait_for_timeout(4000)
