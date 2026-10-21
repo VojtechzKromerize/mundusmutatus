@@ -28,6 +28,6 @@ jobs:
           python-version: "3.12"
       - uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "22"
       - name: Přenést změněné soubory obsahu do ostré databáze
         run: python3 zdroj/build.py --jen-zaznamy

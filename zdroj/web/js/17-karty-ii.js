@@ -437,7 +437,8 @@ function kSpUcD(d, lvl, mod, ul) {
     }
   }
   const ms = v.match(/o jednu šipku|jeden paprsek navíc|o jeden paprsek/);
-  if (ms && d.l && lvl > d.l) o.pocet = (/šip/.test(v) ? 3 : /paprs/.test(t) ? 3 : 1) + (lvl - d.l);
+  /* šipky a paprsky: počet už na základním stupni (Magic Missile 3 šipky), navíc za každý vyšší stupeň */
+  if (ms && d.l && lvl >= d.l) o.pocet = (/šip/.test(v) ? 3 : /paprs/.test(t) ? 3 : 1) + (lvl - d.l);
   const zs = t.match(/(STR|AGI|CON|INT|WIS|CHA) záchrann/);
   if (zs) o.zach = zs[1];
   o.utok = /útok kouzlem/i.test(t);

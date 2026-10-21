@@ -143,7 +143,11 @@ Hlavní orientační body:
 
 - K dispozici je Python, Node a Playwright. Nejdřív `npm ci` (esbuild, ESLint, Prettier, jsdom; web sám balíčky
   nepotřebuje). **Po každé úpravě skriptu `npm run format && npm run kontrola`** (~10 s): formát, zdvojená a neznámá jména,
-  čárka jako operátor, jádro volající líné díly – chyby ukáže v souboru a řádku. Bez databáze: `MM_BEZ_DB=1 bash testy/spustit.sh`
+  čárka jako operátor, jádro volající líné díly – chyby ukáže v souboru a řádku.
+- **Rychlé testy výpočtů: `npm test`** (~6 s, `testy/jednotky/*.test.mjs`): skript stránky v jsdom (bez prohlížeče), volá
+  funkce přímo – pravidla postavy, útok (`bojUtokPriprav`), Artikule, kouzla (`kSpUcinek`), katalog vybavení, zápis útoku
+  vypravěče, generátor (tajemství, zmínky). Kostky: `S.kostky([[číslo, stěn], …])`; `const` skriptu se čtou přes `V("výraz")`.
+  Nová pravidla a výpočty testuj tady (rychlé, spolehlivé); `prohlizec_*.py` jen na tok obrazovek. Bez databáze: `MM_BEZ_DB=1 bash testy/spustit.sh`
   (sestavení, kontrola tajemství, prohlídka statické verze, bestiář).
 - S databází: nejdřív `eval "$(bash testy/priprav-prostredi.sh)"` (spustí PostgreSQL, stáhne PostgREST přes curl –
   `gh release download` tu nefunguje), pak rychle jen dotčené testy: `MM_TESTY="boj karta" bash testy/spustit.sh`

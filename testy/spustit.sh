@@ -50,6 +50,7 @@ zkus "hráčská verze (statická) bez tajemství" python3 "$WEB/zdroj/build.py"
 zkus "vypravěčská verze" python3 "$WEB/zdroj/build.py" --vypravec
 zkus "service worker je platný JavaScript" node --check "$WEB/public/sw.js"
 if [ -d "$KOREN/node_modules/eslint" ]; then zkus "kontrola kódu (zdvojená a neznámá jména, jádro vs. díly)" node "$KOREN/testy/kontrola_kodu.mjs"
+  MM_VYPRAVEC="$WEB/vypravec" zkus "rychlé testy výpočtů (pravidla, útok, Artikule, kouzla, vybavení, generátor)" bash -c "cd '$KOREN' && node --test testy/jednotky/*.test.mjs"
   zkus "formát kódu (Prettier; opraví npm run format)" bash -c "cd '$KOREN' && node_modules/.bin/prettier --check --log-level warn 'zdroj/web/js/*.js' zdroj/generator.js zdroj/sw.js 'testy/**/*.mjs'"
 else echo "(kontrola kódu přeskočena – chybí balíčky, spusť npm ci)"; echo "- (kontrola kódu přeskočena – chybí npm ci)" >> "$SHRN"; fi
 zkus "databáze přijme všechna pole stavu karty" python3 "$KOREN/testy/pole_stavu.py"

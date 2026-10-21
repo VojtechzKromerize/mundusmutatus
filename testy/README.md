@@ -7,6 +7,9 @@
    ESLint nad skriptem složeným jako v prohlížeči – zdvojená jména, neznámá jména (překlepy), zdvojené klíče, čárka
    jako operátor, nedosažitelný kód – a pravidlo, že jádro (01–09, 26) při načtení nevolá líně stahované díly 10–25.
    Chyby ukazuje v původním souboru a řádku. Potřebuje `npm ci` (balíčky z `package.json`; bez nich se přeskočí).
+   Hned potom **rychlé testy výpočtů** (`jednotky/*.test.mjs`, `npm test`, ~6 s): vypravěčská verze se načte do jsdom
+   a testy volají funkce přímo (pravidla postavy, útok, Artikule, kouzla, vybavení, zápis útoku vypravěče, generátor),
+   a **kontrola formátu** (Prettier; `npm run format` opraví).
 2. **Prohlídka statické verze** (`prochazka.py`): otevře všechny stránky odkaz po odkazu a hlásí chyby JavaScriptu,
    rozbité obrázky, prázdné stránky a přetečení do stran.
 3. **Databáze** (když je k dispozici PostgreSQL a PostgREST): založí čistou testovací databázi ze `supabase/schema.sql`,
