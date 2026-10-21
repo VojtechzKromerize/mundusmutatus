@@ -449,7 +449,7 @@ function bojTedHtml(s) {
         ch(
           "btedtah",
           o.druh ? "tah" : "tah",
-          `<b>${jm(o.id)}</b> na tahu${hot ? " · ✓ dohráno" : ""}${nes ? ` · <em>${nes} – nejedná</em>` : ""}${rk ? " · reakce použita" : " · reakce volná"}${lim > 1 ? ` · ${u}/${lim} tahů v kole` : ""}${rd ? ` · ⏳ ${besc(rd)}` : ""}`,
+          `<b>${jm(o.id)}</b> na tahu${hot ? ` · ${bi("hotovo")} dohráno` : ""}${nes ? ` · <em>${nes} – nejedná</em>` : ""}${rk ? " · reakce použita" : " · reakce volná"}${lim > 1 ? ` · ${u}/${lim} tahů v kole` : ""}${rd ? ` · ⏳ ${besc(rd)}` : ""}`,
           o.id,
           "Karta toho, kdo je na tahu",
         ),

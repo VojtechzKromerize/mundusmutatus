@@ -132,6 +132,14 @@ const BIMG = new Set([
   "plosny-zasah",
   "hromadny-hod",
   "boj",
+  "pripravit",
+  "hod",
+  "prejmenovat",
+  "vidi",
+  "nevidi",
+  "trvani",
+  "rana",
+  "hotovo",
 ]);
 const bi = (k, c) =>
   BIMG.has(k)
@@ -1807,8 +1815,8 @@ function bojRef(n, s, velH) {
     <label class="bjr${rk ? " brkusd" : ""}" ${btip(rk ? "Reakce už je v tomto kole použitá" : "Další útok proběhne jako reakce (příležitostný útok, Křížný sek…) a odškrtne R")}><input type="checkbox" data-bjr${BJR[n.id] ? " checked" : ""}> jako reakce</label>${znH}</div>`
     : znH;
   const rdyB = rdy
-    ? `<p class="bmor bkonc brdy">⏳ <b>Připravená akce:</b> ${besc(rdy)} <button type="button" class="gbtn ghost" data-brdygo>Spustit (reakce)</button><button type="button" class="bkoncx" data-brdyx aria-label="Zrušit připravenou akci">×</button></p>`
-    : `<button type="button" class="gbtn ghost brdyadd" data-brdyadd ${btip("Připravit akci (Ready): spustí se reakcí, propadne na začátku jeho dalšího tahu")}>⏳ Připravit akci</button>`;
+    ? `<p class="bmor bkonc brdy">${bi("pripravit")} <b>Připravená akce:</b> ${besc(rdy)} <button type="button" class="gbtn ghost" data-brdygo>Spustit (reakce)</button><button type="button" class="bkoncx" data-brdyx aria-label="Zrušit připravenou akci">×</button></p>`
+    : `<button type="button" class="gbtn ghost brdyadd" data-brdyadd ${btip("Připravit akci (Ready): spustí se reakcí, propadne na začátku jeho dalšího tahu")}>${bi("pripravit")} Připravit akci</button>`;
   const ut =
     E.at.length || zavB
       ? `${utc}<div class="butoky">${E.at
@@ -1909,7 +1917,7 @@ function bojRef(n, s, velH) {
   const efs = (n.ef || [])
     .map(
       (e, j) =>
-        `<span class="bprc bef" ${btip(`${e.n}: ${e.kdy === "zacatek" ? "do začátku příštího tahu" : e.kdy === "konec" ? "do konce příštího tahu" : `ještě ${e.k} ${e.k === 1 ? "kolo" : e.k < 5 ? "kola" : "kol"}`}${e.z ? ` · na začátku tahu ${e.z} ${BZRT[e.t] || ""}` : ""}`)}>⧗ ${besc(e.n)} <small>${e.kdy === "kola" ? e.k : e.kdy === "zacatek" ? "→ zač." : "→ konec"}</small><button type="button" data-befdel="${j}" aria-label="Zrušit účinek ${besc(e.n)}">×</button></span>`,
+        `<span class="bprc bef" ${btip(`${e.n}: ${e.kdy === "zacatek" ? "do začátku příštího tahu" : e.kdy === "konec" ? "do konce příštího tahu" : `ještě ${e.k} ${e.k === 1 ? "kolo" : e.k < 5 ? "kola" : "kol"}`}${e.z ? ` · na začátku tahu ${e.z} ${BZRT[e.t] || ""}` : ""}`)}>${bi("trvani")} ${besc(e.n)} <small>${e.kdy === "kola" ? e.k : e.kdy === "zacatek" ? "→ zač." : "→ konec"}</small><button type="button" data-befdel="${j}" aria-label="Zrušit účinek ${besc(e.n)}">×</button></span>`,
     )
     .join("");
   const efF = `<details class="befd"><summary>+ účinek s trváním</summary><form class="beff" data-beff><select name="st" aria-label="Stav">${BSTAV.filter(

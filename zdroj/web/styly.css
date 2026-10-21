@@ -2012,7 +2012,7 @@ a.kzodk{color:inherit;text-decoration:underline dotted color-mix(in srgb,var(--k
 .bplf input,.bplf select,.bplt input[type=number]{min-height:32px;font:inherit;padding:2px 6px;border:1px solid var(--rule);border-radius:3px;background:var(--paper);color:var(--ink)}.bplf input[name=pz]{width:90px}.bplf input[name=pdc]{width:60px}.bplt input[type=number]{width:52px}
 .bplt{display:inline-flex;gap:5px;align-items:center;padding:2px 8px 2px 4px;border:1px solid var(--rule);border-radius:16px}.bplt.bplh{border-color:color-mix(in srgb,var(--bh) 45%,var(--rule))}
 .bplv{margin:4px 0;padding-left:18px}.bkl{margin:6px 0}.bkl ul{margin:2px 0;padding-left:18px}.bkl .gbtn{padding:1px 8px;font-size:.78rem}
-.bkrb{font-family:var(--f-label);font-size:.72rem;color:#fff;background:var(--kal);border-radius:8px;padding:0 5px;line-height:16px}
+.bkrb{display:inline-flex;align-items:center;gap:1px;font-family:var(--f-label);font-weight:700;font-size:.78rem;color:var(--kal)}.bkrb .bi.bimg{width:18px;height:18px}
 [data-bk],[data-bkl]{display:contents}
 .bnn{position:relative}.bhpp{display:block;height:3px;margin-top:2px;max-width:180px;border-radius:2px;background:linear-gradient(90deg,#9e1b1b var(--p),color-mix(in srgb,var(--rule) 70%,transparent) var(--p))}
 .bhpp.bhpp4{background:linear-gradient(90deg,#4f0707 var(--p),color-mix(in srgb,var(--rule) 70%,transparent) var(--p));height:4px}
@@ -3247,7 +3247,7 @@ span.bzos{cursor:default}
 .bmulti{margin:.3rem 0}.bmultib{font-weight:600}.bmultib small{font-weight:400;opacity:.85;margin-left:.3em}
 /* skrytý nepřítel (hráči zatím nevidí) */
 .bnpc.bskryt{outline:2px dashed var(--gold,#b08d3a);outline-offset:-2px;opacity:.78}
-.bskr{background:none;border:0;cursor:pointer;font-size:.95em;padding:0 .2em;line-height:1}.bskr.on{filter:none}
+.bskr{background:none;border:0;cursor:pointer;font-size:.95em;padding:0 .2em;line-height:1}.bskr.on{filter:none}.bskr .bi.bimg{width:20px;height:20px}.bhotovo .bi.bimg,.btedch .bi.bimg{width:16px;height:16px}.bef .bi.bimg{width:16px;height:16px;margin:-2px 1px 0 0}.brdy .bi.bimg,.brdyadd .bi.bimg{width:18px;height:18px;margin:-3px 2px -2px 0}
 /* pruh „co teď“ v Boji (vypravěč) */
 .bted{display:flex;flex-wrap:wrap;gap:.35rem;margin:.4rem 0 .6rem;padding:.45rem .6rem;border:1px solid var(--gold,#b08d3a);border-radius:.6rem;background:var(--paper)}
 .btedch{display:inline-flex;align-items:center;gap:.3em;padding:.2em .6em;border-radius:1em;border:1px solid var(--rule);background:var(--paper);font:inherit;font-size:.86em;color:inherit;cursor:default}
