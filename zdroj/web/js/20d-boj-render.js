@@ -74,9 +74,9 @@ function bojAktivni() {
           if (!me || !bojDB.hrac) return "";
           const tahM = muj(s.tah),
             dal = Object.keys(ob).some(k => ob[k] === ja && +k === s.tah + 1),
-            pr = bojPripominky(s, me);
+            pr = bojPripominky(s, me).filter(x => !/^Reakce je k dispozici/.test(x)); /* reakci ukazuje karta */
           const KK = bojKartaH(me);
-          return `${tahM || dal || bojDsAkt(me) ? `<ul class="bjapr" aria-label="Připomínky na tah">${pr.map(x => `<li>${besc(x)}</li>`).join("")}</ul>` : ""}${KK ? bojHracKarta(s, me, false, true) : `${tahM && !me.ds ? bojPruvodce(s, me) : ""}<section class="bjapanel"><h3 class="uvh2">${besc(me.n)}</h3><p class="rsmall bjabezk">Tahle postava nemá kartu, proto se tu místo bojové karty ukazuje jen jednoduchý panel. Kartu vytvoří nahrání listu postavy z D&amp;D Beyond (PDF) v <a href="#karty">Kartách postav</a> – musí mít stejné jméno jako postava v boji.</p>${bojHracPanel(me, s, false)}</section>${bojDB.utok && !me.ds ? bojJaUtokHtml(s, me) : ""}`}`;
+          return `${(tahM || dal || bojDsAkt(me)) && pr.length ? `<ul class="bjapr" aria-label="Připomínky na tah">${pr.map(x => `<li>${besc(x)}</li>`).join("")}</ul>` : ""}${KK ? bojHracKarta(s, me, false, true) : `${tahM && !me.ds ? bojPruvodce(s, me) : ""}<section class="bjapanel"><h3 class="uvh2">${besc(me.n)}</h3><p class="rsmall bjabezk">Tahle postava nemá kartu, proto se tu místo bojové karty ukazuje jen jednoduchý panel. Kartu vytvoří nahrání listu postavy z D&amp;D Beyond (PDF) v <a href="#karty">Kartách postav</a> – musí mít stejné jméno jako postava v boji.</p>${bojHracPanel(me, s, false)}</section>${bojDB.utok && !me.ds ? bojJaUtokHtml(s, me) : ""}`}`;
         })()}</div>`
       : "";
   const konec = tah >= sl.length;

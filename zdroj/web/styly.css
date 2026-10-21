@@ -3456,3 +3456,30 @@ button.btedch{cursor:pointer}button.btedch:hover{border-color:var(--gold,#b08d3a
   .bojgm .bnkr .bzd>span{flex:1 1 auto;margin:0}
   .bojgm .bnkr .bzd button{margin:0 3px}
 }
+/* ===== Hráč na počítači (2026-10-21): jen jeho karta a záznam – bez počasí, bez záložek Nepřátelé a Družina, osa bez pravé sekce ===== */
+.bojhrac .bojhorni>.bojpoc{display:none}
+@media (min-width:1000px){
+  .wrap:has(.view[data-view=boj]:not([hidden]) .bojhrac.bojakt:not(.bojprip)){max-width:1600px}
+  .bojhrac.bojakt:not(.bojprip) .btabs{display:none}
+  .bojhrac.bojakt:not(.bojprip) .bcolm>.bcol{display:none}
+  .bojhrac.bojakt:not(.bojprip) .bcolm>.bcolk{display:block}
+  .bojhrac.bojakt:not(.bojprip) .bojcols{grid-template-columns:minmax(0,1fr) minmax(360px,.8fr);gap:22px}
+  .bojhrac .bcolk .bdm{max-width:820px;margin:0}
+  .bojhrac .bcolk .bdmport{max-width:96px}
+  .bojhrac .bja{margin-top:0}
+  #bojview .bojhrac .bosa{grid-template-columns:auto minmax(0,1fr);padding:4px 10px}
+  #bojview .bojhrac .bosa .bctl,#bojview .bojhrac .bosa .bhelp{display:none}
+  #bojview .bojhrac .bojhorni:empty{display:none}
+  /* zbraně v jednom řádku: jméno · dosah · zásah · zranění */
+  .bojhrac .bcolk .bdmut{grid-template-columns:24px minmax(0,1fr) 72px 64px minmax(96px,auto);grid-template-areas:"i n d h z" "i p p p p";padding:5px 0;row-gap:2px}
+  .bojhrac .bcolk .bdmuth{grid-template-columns:24px minmax(0,1fr) 72px 64px minmax(96px,auto)}
+  .bojhrac .bcolk .bdmuth span:nth-child(2){grid-column:3;text-align:center!important}
+  .bojhrac .bcolk .bdmuth span:nth-child(3){grid-column:4}
+  .bojhrac .bcolk .bdmuth span:nth-child(4){grid-column:5}
+  .bojhrac .bcolk .bdmdos{text-align:center}
+  .bojhrac .bcolk .bdmh{padding:6px 12px 8px}
+  .bojhrac .bcolk .bdmgrid{margin-top:6px;gap:6px}
+  .bojhrac .bcolk .bdmac b,.bojhrac .bcolk .bdmini b{font-size:1.6rem}
+  .bojhrac .bcolk .bdmhp b{font-size:1.45rem}
+  .bojhrac .bcolk .bdmsq,.bojhrac .bcolk .bdmst{min-height:36px}
+}
