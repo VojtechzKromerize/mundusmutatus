@@ -3220,8 +3220,7 @@ span.bzos{cursor:default}
 .bnkvm,.bnkvz{border:1px solid var(--rule);border-radius:5px;background:var(--paper);color:var(--ink);font:inherit;cursor:pointer;padding:1px 4px;min-width:38px}
 .bnkvm{font-weight:700;font-size:1.05rem}.bnkvz{font-size:.8rem}.bnkvz small{font-size:.6rem;color:var(--muted);margin-right:2px}
 .bnkvm:hover,.bnkvz:hover{border-color:var(--gold)}
-.bnkzn{display:flex;flex-direction:column;gap:3px;padding:6px 8px;border-left:3px solid var(--gold);background:color-mix(in srgb,var(--gold) 6%,transparent)}
-.bnkzn .brf{margin:0;display:flex;gap:6px;align-items:baseline}.bnkzn .brf .bi.bimg{width:18px;height:18px;align-self:center}
+.bnkzn{display:inline-flex;gap:4px;margin-left:auto}
 .bnk .butc{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .bnk .bnkcil{display:flex;flex-wrap:wrap;gap:4px}
 .bnk .bphcil{background:var(--paper);color:var(--ink);border-color:var(--rule)}
@@ -3370,4 +3369,22 @@ button.btedch{cursor:pointer}button.btedch:hover{border-color:var(--gold,#b08d3a
   .bojgm .bnk2{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:10px 16px;align-items:start}
   .bojgm .bnkl,.bojgm .bnkr{min-width:0;display:flex;flex-direction:column;gap:8px}
   .bojgm .bnkl>*,.bojgm .bnkr>*{margin-top:0;margin-bottom:0}
+  /* cíle útoku jen jako medailonky (jméno při najetí), výhoda a nevýhoda jako malé chipy, zdroje pod sebou s kosočtverci vpravo */
+  .bojgm .bnk .bnkcil .bphcil{padding:2px;background:none;border:0;border-radius:50%}
+  .bojgm .bnk .bnkcil .bphcil>span:not(.bmed){display:none}
+  .bojgm .bnk .bnkcil{gap:6px;margin-right:6px}
+  .bojgm .bnk .bnkcil .bphcil .bmini{--ms:30px;font-size:.8rem}
+  .bojgm .bnk .bnkcil .bphcil[aria-pressed=true]{box-shadow:none}
+  .bojgm .bnk .bnkcil .bphcil[aria-pressed=true] .bmini{--sc:var(--gold);box-shadow:0 0 0 2px var(--paper),0 0 0 4px var(--gold)}
+  .bojgm .bnk .bphadvi{gap:4px}
+  .bojgm .bnk .bphai{flex-direction:row;gap:4px;width:auto;padding:2px 8px 2px 3px;border-radius:999px;border:1px solid var(--rule);background:var(--paper);color:var(--muted)}
+  .bojgm .bnk .bphai .bimg{width:22px;height:22px;filter:none!important;opacity:.55}
+  .bojgm .bnk .bphai small{font-size:.6rem}
+  .bojgm .bnk .bphai[aria-pressed=true]{border-color:var(--kal);background:color-mix(in srgb,var(--gold) 28%,var(--paper));color:var(--ink);box-shadow:none}
+  .bojgm .bnk .bphai[aria-pressed=true] .bimg{opacity:1}
+  .bojgm .bnk .bphauto0{padding:2px 8px}
+  .bojgm .bnkr .bzdr{flex-direction:column;gap:3px}
+  .bojgm .bnkr .bzd{display:flex;justify-content:space-between;gap:8px}
+  .bojgm .bnkr .bzd>span{flex:1 1 auto;margin:0}
+  .bojgm .bnkr .bzd button{margin:0 3px}
 }

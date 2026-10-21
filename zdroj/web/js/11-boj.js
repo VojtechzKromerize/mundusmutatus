@@ -1753,7 +1753,7 @@ function bojRef(n, s, velH) {
         .map(k => k.z)
         .filter(Boolean),
     ),
-    zdV = E.zd.filter(z => !kzN.has(z.n)); /* počty kouzel ukazují tlačítka kouzel */
+    zdV = E.zd.filter(z => !kzN.has(z.n) && !/^zbroj$/i.test(z.n)); /* počty kouzel ukazují tlačítka kouzel; obětování zbroje je u AC */
   const zd = zdV.length
     ? `<div class="bzdr">${zdV
         .map(z => {
@@ -1775,8 +1775,19 @@ function bojRef(n, s, velH) {
     nav = E.at.length ? bojAdvNavrh(S, n, E.at[0]) : {v: 0, why: []};
   const rdy = (S.ready || {})[n.id],
     rk = !!(S.reak || {})[n.id];
+  /* znamení Závoje (2026-10-21): jen Požehnání a Pokušení, ikony s textem při najetí myší, v řádku s cíli útoku */
+  const znH =
+    p && (p.poz || p.pok)
+      ? `<span class="bnkzn">${[
+          ["poz", "pozehnani", "Požehnání"],
+          ["pok", "pokuseni", "Pokušení"],
+        ]
+          .filter(([k]) => p[k])
+          .map(([k, ic, t]) => `<span class="bzn bzn-${k}" role="img" aria-label="${t}: ${besc(p[k])}" ${btip(t + ": " + p[k])}>${bi(ic)}</span>`)
+          .join("")}</span>`
+      : "";
   const utc = E.at.length
-    ? `<div class="butc"><span class="bphl">Na koho</span><span class="bphc bnkcil">${cile.map(x => `<button type="button" class="bphcil" data-bcilb="${besc(x.id)}" aria-pressed="${BCIL[n.id] === x.id}">${x.druh ? bojMedN(x, "bmini") : bojMedH(x, "bmini")}<span>${besc(x.n)}</span></button>`).join("") || `<small>nikdo</small>`}</span>
+    ? `<div class="butc"><span class="bphl">Na koho</span><span class="bphc bnkcil">${cile.map(x => `<button type="button" class="bphcil" data-bcilb="${besc(x.id)}" aria-pressed="${BCIL[n.id] === x.id}" aria-label="${besc(x.n)}" ${btip(x.n)}>${x.druh ? bojMedN(x, "bmini") : bojMedH(x, "bmini")}<span>${besc(x.n)}</span></button>`).join("") || `<small>nikdo</small>`}</span>
     <span class="bphadvi" role="group" aria-label="Výhoda nebo nevýhoda">${[
       ["1", "vyhoda", "Výhoda"],
       ["-1", "nevyhoda", "Nevýhoda"],
@@ -1788,8 +1799,8 @@ function bojRef(n, s, velH) {
       .join(
         "",
       )}${am !== "auto" ? `<button type="button" class="bphai bphauto0" data-badv="auto" ${btip("Zpět na výhodu podle stavů útočníka a cíle")}><small>podle stavů</small></button>` : nav.v ? `<small class="bphnav">podle stavů</small>` : ""}</span>
-    <label class="bjr${rk ? " brkusd" : ""}" ${btip(rk ? "Reakce už je v tomto kole použitá" : "Další útok proběhne jako reakce (příležitostný útok, Křížný sek…) a odškrtne R")}><input type="checkbox" data-bjr${BJR[n.id] ? " checked" : ""}> jako reakce</label></div>`
-    : "";
+    <label class="bjr${rk ? " brkusd" : ""}" ${btip(rk ? "Reakce už je v tomto kole použitá" : "Další útok proběhne jako reakce (příležitostný útok, Křížný sek…) a odškrtne R")}><input type="checkbox" data-bjr${BJR[n.id] ? " checked" : ""}> jako reakce</label>${znH}</div>`
+    : znH;
   const rdyB = rdy
     ? `<p class="bmor bkonc brdy">⏳ <b>Připravená akce:</b> ${besc(rdy)} <button type="button" class="gbtn ghost" data-brdygo>Spustit (reakce)</button><button type="button" class="bkoncx" data-brdyx aria-label="Zrušit připravenou akci">×</button></p>`
     : `<button type="button" class="gbtn ghost brdyadd" data-brdyadd ${btip("Připravit akci (Ready): spustí se reakcí, propadne na začátku jeho dalšího tahu")}>⏳ Připravit akci</button>`;
@@ -1949,21 +1960,8 @@ function bojRef(n, s, velH) {
       z = bojSaveB(p, a);
     return `<div class="bnkv"><span>${a}</span><button type="button" class="bnkvm" data-bover="${a}" ${btip(`Ověření ${a}: d20 ${bsg(m || 0)} (s kostkou Závoje)`)}>${m == null ? "–" : bsg(m)}</button><button type="button" class="bnkvz" data-bzach="${a}" ${btip(`Záchrana ${a}: d20 ${bsg(z)}`)} aria-label="Záchrana ${a} ${bsg(z)}">${bi("stit")}${bsg(z)}</button></div>`;
   }).join("")}</div>`;
-  const znH =
-    p && ["zak", "poz", "pok", "kom", "ner"].some(k => p[k])
-      ? `<div class="bnkzn">${[
-          ["zak", "zakon", "Zákon relikta", ""],
-          ["poz", "pozehnani", "Požehnání", "zb"],
-          ["pok", "pokuseni", "Pokušení", "zp"],
-          ["kom", "komplikace", "Komplikace pro útočníka", ""],
-          ["ner", "nerest", "Neřest", ""],
-        ]
-          .filter(([k]) => p[k])
-          .map(([k, ic, t, c]) => `<p class="brf">${bi(ic)}<b class="${c ? "zv " + c : ""}">${t}</b> ${besc(p[k])}</p>`)
-          .join("")}</div>`
-      : "";
   /* na širokém monitoru vypravěče (2026-10-21) jsou útoky a kouzla vlevo, znamení Závoje, zdroje a statblock vpravo */
-  return `<div class="bref bnk">${tmsg}${nej}${vzd}${rdy ? rdyB : ""}${kon}${pad}${hd}${pan}${vlH}<div class="bnk2"><div class="bnkl">${ut}${muB}${muD}${kzB}${plak}${rdy ? "" : rdyB}</div><div class="bnkr">${znH}${rcB}${zd}
+  return `<div class="bref bnk">${tmsg}${nej}${vzd}${rdy ? rdyB : ""}${kon}${pad}${hd}${pan}${vlH}<div class="bnk2"><div class="bnkl">${ut}${muB}${muD}${kzB}${plak}${rdy ? "" : rdyB}</div><div class="bnkr">${rcB}${zd}
     <div class="bnkbar">${velH || ""}${prC}${os}</div>
     <details class="bstat" data-otv="st-${n.id}"${bojOtv("st-" + n.id)}><summary>${bi("svitek")} Statblock</summary><div class="bsb" data-bsb="${besc(p.id)}">${BOTV.has("st-" + n.id) ? bojStatHtml(p) : ""}</div>${bojEdit(p)}</details></div></div></div>`;
 }
