@@ -3,6 +3,9 @@
 import re, glob, os, sys
 K = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 src = "".join(open(f, encoding="utf-8").read() for f in sorted(glob.glob(os.path.join(K, "zdroj/web/js/*.js"))))
+# kód je formátovaný Prettierem (víc řádků, mezery) – pro hledání ho zhustíme zpět: bez mezer kolem , { } ( ) : = a bez koncových čárek
+src = re.sub(r"\s+", " ", src)
+src = re.sub(r"\s*([,{}():;=\[\]])\s*", r"\1", src).replace(",}", "}").replace(",)", ")")
 pole = set()
 for m in re.finditer(r'kartaStavZmen\([^,]+,\{([^}]*)\}', src):
     pole |= set(re.findall(r'(?:^|,)\s*([A-Za-z_]\w*)\s*:', m.group(1)))

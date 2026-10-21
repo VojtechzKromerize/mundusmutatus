@@ -60,8 +60,11 @@ použité v jiném souboru musí být definované v souboru s nižším číslem
 Nový kód dej do souboru, kam věcně patří; nový velký celek může dostat vlastní soubor – přidej ho
 do kostry řádkem `/*@vloz web/js/NN-nazev.js*/` na správné místo (a do seznamu `JS` v `rozdel.py`).
 
-Řádky jsou dlouhé: hledej grepem (`grep -n … zdroj/web/js/*.js`) a čti výřezy (`sed -n A,Bp | cut -c1-300`).
-Úpravy dělej Editem s jednoznačným úryvkem; nikdy nepřepisuj soubor z výstupu nástroje (může být oříznutý).
+Kód je formátovaný Prettierem (od 2026-10-21; `.prettierrc.json`, řádek do 150 znaků): **po úpravě skriptu spusť
+`npm run format`** – rychlá kontrola CI neformátovaný soubor odmítne. Piš běžné víceřádkové funkce, ne jednořádkové
+zhuštěniny (ty dřív dělaly konflikty mezi relacemi). Hledej grepem (`grep -n … zdroj/web/js/*.js`), soubory jsou delší
+(~48 000 řádků), čti výřezy. Úpravy dělej Editem s jednoznačným úryvkem; nikdy nepřepisuj soubor z výstupu nástroje.
+Značky dat pro build (`/*@FAM@*/ []`, `/*@GM@*/ false` …) smí mít mezeru – build ji snese.
 
 Soubory skriptu: 01 základ (data z buildu, erby) · 02 mapa · 03 Artikule · 04 Praha · 05 Známý svět ·
 06 Draconomicon a rodokmeny · 07 Družina, Kronika, kalendář, odkazy, hledání · 08 navigace (`route()`),
@@ -138,9 +141,9 @@ Hlavní orientační body:
 
 ## Testy v tomto prostředí
 
-- K dispozici je Python, Node a Playwright. Nejdřív `npm ci` (esbuild na zmenšení, ESLint na kontrolu kódu; web sám balíčky
-  nepotřebuje). **Po každé úpravě skriptu `node testy/kontrola_kodu.mjs`** (8 s): zdvojená a neznámá jména, čárka jako
-  operátor, jádro volající líné díly – chyby ukáže v souboru a řádku. Bez databáze: `MM_BEZ_DB=1 bash testy/spustit.sh`
+- K dispozici je Python, Node a Playwright. Nejdřív `npm ci` (esbuild, ESLint, Prettier, jsdom; web sám balíčky
+  nepotřebuje). **Po každé úpravě skriptu `npm run format && npm run kontrola`** (~10 s): formát, zdvojená a neznámá jména,
+  čárka jako operátor, jádro volající líné díly – chyby ukáže v souboru a řádku. Bez databáze: `MM_BEZ_DB=1 bash testy/spustit.sh`
   (sestavení, kontrola tajemství, prohlídka statické verze, bestiář).
 - S databází: nejdřív `eval "$(bash testy/priprav-prostredi.sh)"` (spustí PostgreSQL, stáhne PostgREST přes curl –
   `gh release download` tu nefunguje), pak rychle jen dotčené testy: `MM_TESTY="boj karta" bash testy/spustit.sh`

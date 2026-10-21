@@ -392,19 +392,20 @@ elif DB:
 else:
     DATA = {**rozbal(HRAC, SEED), **STAT_H}
 
-# značky ve zdroji → čtení z window.__D
+# značky ve zdroji → čtení z window.__D (formátovač píše „/*@KLIC@*/ []“ s mezerou – mezera smí být i nemusí)
+def znacka(key, vychozi):
+    return re.compile(r"/\*@" + key + r"@\*/\s*" + re.escape(vychozi))
 for key in ODH_KLICE + list(STAT):
     for empty in ("[]", "{}"):
-        tag = f"/*@{key}@*/{empty}"
-        if tag in s:
-            s = s.replace(tag, f"(__D.{key}||{empty})")
+        z = znacka(key, empty)
+        if z.search(s):
+            s = z.sub(lambda m, k=key, e=empty: f"(__D.{k}||{e})", s)
             break
     else:
         fail(f"ve zdroji chybí značka /*@{key}@*/")
-for tag in ("/*@GM@*/false", "/*@MMDATA@*/"):
-    if tag not in s:
-        fail(f"ve zdroji chybí značka {tag}")
-s = s.replace("/*@GM@*/false", "!!__D.GM")
+if not znacka("GM", "false").search(s) or "/*@MMDATA@*/" not in s:
+    fail("ve zdroji chybí značka /*@GM@*/false nebo /*@MMDATA@*/")
+s = znacka("GM", "false").sub("!!__D.GM", s)
 safe = lambda v: J(v).replace("</", "<\\/")
 if DB:
     s = s.replace("/*@MMDATA@*/", "window.MMCFG=" + safe({"url": SB_URL, "key": SB_KEY, "vetev": VETEV, "gen": GEN_VERZE}) + ";window.__S=" + safe(STAT_H) + ";/*@MMLINE@*/")
@@ -531,8 +532,9 @@ if not GM:
     js = "".join(obsah.values())
     # service worker: offline režim a rychlé opakované návštěvy (verze podle otisku stránky)
     sw = open(os.path.join(ROOT, "zdroj", "sw.js"), encoding="utf-8").read()
-    sw = (sw.replace("/*@VERZE@*/", otisk_v(css + js + page)).replace("/*@JADRO@*/[]", json.dumps(["./", f"v/{jm_css}"] + [f"v/{j}" for j in jm_jsy + line_hra]))
-          .replace("/*@SOUBORY@*/[]", json.dumps(["v/" + j for j in VSOUB])))
+    sw = sw.replace("/*@VERZE@*/", otisk_v(css + js + page))
+    sw = znacka("JADRO", "[]").sub(lambda m: json.dumps(["./", f"v/{jm_css}"] + [f"v/{j}" for j in jm_jsy + line_hra]), sw)
+    sw = znacka("SOUBORY", "[]").sub(lambda m: json.dumps(["v/" + j for j in VSOUB]), sw)
     open(os.path.join(OUT, "sw.js"), "w", encoding="utf-8").write(sw)
 open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(page)
 os.makedirs(os.path.join(OUT, "v"), exist_ok=True)
