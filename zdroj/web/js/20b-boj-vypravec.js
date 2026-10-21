@@ -1969,6 +1969,12 @@ document.addEventListener("click", async e => {
     renderBoj();
     return;
   }
+  const bzx = T("[data-bzex]");
+  if (bzx && !T("button,a,input,select")) {
+    bzPrepni(bzx.dataset.bzex);
+    renderBoj();
+    return;
+  }
   const blz = T("[data-blzpet]");
   if (blz) {
     bojLogZpetSem(+blz.dataset.blzpet);

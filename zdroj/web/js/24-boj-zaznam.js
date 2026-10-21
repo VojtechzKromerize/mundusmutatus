@@ -4,6 +4,16 @@
    i ve vyhodnocení vypravěče (zásah, vedle) – záznam je spojí do jednoho řádku. Volba u Pokušení (přijato / odmítnuto)
    se připíše k hodu, ke kterému patří. Hráč u nepřátel vidí jen výsledek: nikdy jejich kostky, Závoj, AC ani životy. */
 const BZ_OKNO = 10 * 60 * 1000;
+/* sbalené řádky (2026-10-21): nejnovější záznam je vždy rozbalený, starší ukazují jen hlavičku (kdo · co → komu, výsledek
+   ikonkou, zranění, ikonka Závoje); klepnutím na hlavičku se starší řádek rozbalí – klíče rozbalených si pamatujeme */
+const BZOPEN = new Set();
+const bzKlic = e => `${e.src}:${e.tg || e.t}:${e.A ? e.A.n : ""}:${e.co}`;
+function bzPrepni(k) {
+  if (BZOPEN.has(k)) BZOPEN.delete(k);
+  else BZOPEN.add(k);
+}
+/* výsledek útoku jako ikonka: zásah (terč), vedle (šíp míjí terč), kritický zásah (terč s paprsky); text zůstává v popisku */
+const BZVYS = {bzhit: "zasah", bzkr: "zasahkrit", bzmis: "vedle"};
 /* jedna kostka: d20 s přirozenou 20 / 1 zvýrazněnou, zahozená kostka (výhoda, nevýhoda) přeškrtnutá, kostka Závoje vínová */
 const bzK = (s, v, c) =>
   `<span class="bzk bzk${s === 20 ? "20" : s === 6 && c && c.includes("bzkz") ? "z" : ""}${s === 20 && +v === 20 ? " bzkmax" : s === 20 && +v === 1 ? " bzkmin" : ""}${c ? " " + c : ""}" role="img" aria-label="k${s}: ${besc(v)}${c && c.includes("bzkx") ? " (nepočítá se)" : ""}">${besc(v)}</span>`;
@@ -186,8 +196,14 @@ function bzZaznam(s, gm) {
   const H = (HODY || []).filter(h => (Date.parse(h.cas) || 0) >= zac - 60000).map(h => bzZHod(s, h));
   let L = [];
   if (gm) {
+    /* „Zranění“ zapsané automatickým odečtem z karty při útoku (pcAuto) jen opakuje řádek útoku – v záznamu se neukazuje;
+       ruční změna životů (karta, panel účastníka, kouzlo) svůj řádek má dál */
+    const auto = (o, i) =>
+      o.n === "Zranění" &&
+      o.ai === null &&
+      BLOGG.some((y, j) => j !== i && y.o.pcAuto && y.o.pcId === o.ci && Math.abs((y.o.t || 0) - (o.t || 0)) < 4000);
     const G = BLOGG.map((x, i) => [x, i])
-      .filter(([x]) => (x.o.t || 0) >= zac)
+      .filter(([x, i]) => (x.o.t || 0) >= zac && !auto(x.o, i))
       .map(([x, i]) => bzZBlogg(s, x, i));
     const t0 = G.length ? Math.min(...G.map(e => e.t)) : Infinity;
     L = [...G, ...(s.zaz || []).filter(z => (z.ts || 0) < t0 - 1000).map(z => bzZZaz(s, z, gm))];
@@ -268,23 +284,51 @@ function bzRadek(e, gm) {
         ? `<button type="button" class="bzos blfb" data-blf="${besc(q.id)}" ${btip("Jen akce: " + q.n)}>${med(q)}<b>${besc(q.n)}</b></button>`
         : `<span class="bzos">${med(q)}<b>${besc(q.n)}</b></span>`
       : "";
+  const mis = e.vys && e.vys[1] === "bzmis";
   const zr =
     e.zr && e.zr.t != null
-      ? `<span class="bzdmg${e.zr.lec ? " bzlec" : ""}${e.vys && e.vys[1] === "bzmis" ? " bzdmgx" : ""}"${e.vys && e.vys[1] === "bzmis" ? ` ${btip("Hozené zranění – útok minul")}` : ""}><b>${e.zr.lec ? "+" : ""}${e.zr.t}</b>${e.zr.zt ? ` ${bikZrTxt(e.zr.zt)}<small>${besc(bojZrCz(e.zr.zt))}</small>` : `<small>${e.zr.lec ? "léčení" : "zranění"}</small>`}</span>`
+      ? `<span class="bzdmg${e.zr.lec ? " bzlec" : ""}${mis ? " bzdmgx" : ""}" ${btip(mis ? "Hozené zranění – útok minul" : e.zr.zt ? `${e.zr.lec ? "Léčení" : "Zranění"} ${e.zr.t} – ${bojZrCz(e.zr.zt)}` : e.zr.lec ? "Léčení" : "Zranění")}><b>${e.zr.lec ? "+" : ""}${e.zr.t}</b>${e.zr.zt ? bikZrTxt(e.zr.zt) : ""}</span>`
       : "";
+  /* výsledek: zásah / vedle / kritický zásah ikonkou (text v popisku); „padl“ a jiné dodatky zůstávají jako text,
+     záchrana (SO) a prostý součet hodu jako štítek */
+  let vys = "";
+  if (e.vys) {
+    const [txt, cls] = e.vys,
+      ik = BZVYS[cls];
+    if (ik) {
+      const fum = /přirozená 1/.test(txt),
+        zb = txt
+          .replace(/^(kritický zásah|zásah|vedle)(\s*\(\d+\))?/, "")
+          .replace(/^[\s,–-]+/, "")
+          .replace(/^přirozená 1$/, "");
+      vys = `<span class="bzvys bzvi ${cls}${fum ? " bzfum" : ""}" role="img" ${btip(txt.charAt(0).toUpperCase() + txt.slice(1))}>${bi(ik)}</span>${zb ? `<span class="bzvys bzvt ${cls}">${besc(zb)}</span>` : ""}`;
+    } else vys = `<span class="bzvys ${cls}">${besc(txt)}</span>`;
+  }
+  /* životy po odečtu z karty (jen vypravěč): „43/62“ z poznámky „odečteno z karty“ */
+  const hp = gm && e.pozn.map(p => String(p).match(/\((\d+)\/(\d+)\)/)).find(Boolean);
+  const hph = hp ? `<small class="bzhp" ${btip(`Životy po zásahu: ${hp[1]} z ${hp[2]}`)}>${hp[1]}/${hp[2]}</small>` : "";
+  /* Závoj: jen ikonka Požehnání / Pokušení (kostka a text z bestiáře v popisku); bez vlivu se neukazuje */
   const z = e.zav,
-    zh = z
-      ? `<div class="bzz ${z.r === "pok" ? "zp" : z.r === "poz" ? "zb" : "zn"}"${z.txt ? " " + btip("Z bestiáře: " + z.txt) : ""}>${bi(z.r === "pok" ? "pokuseni" : z.r === "poz" ? "pozehnani" : "zavoj")}<span class="bzzl">Závoj</span>${z.d ? bzK(6, z.d, "bzkz") : ""}<b>${z.r === "pok" ? "Pokušení" : z.r === "poz" ? "Požehnání" : "bez vlivu"}</b>${z.vol ? `<span class="bzzv${z.prij ? " bzzp" : ""}">${besc(z.vol)}</span>` : ""}</div>`
-      : "";
+    zik = z && (z.r === "pok" || z.r === "poz") ? (z.r === "pok" ? "pokuseni" : "pozehnani") : "",
+    zh = zik
+      ? `<span class="bzzi ${z.r === "pok" ? "zp" : "zb"}" role="img" ${btip(`Závoj${z.d ? ` ${z.d}` : ""} – ${z.r === "pok" ? "Pokušení" : "Požehnání"}${z.vol ? `: ${z.vol}` : ""}${z.txt ? ` · z bestiáře: ${z.txt}` : ""}`)}>${bi(zik)}</span>`
+      : "",
+    zv =
+      zik && (z.vol || z.txt)
+        ? `<p class="bzzv${z.prij ? " bzzp" : ""}">${z.r === "pok" ? "Pokušení" : "Požehnání"}${z.vol ? ` ${besc(z.vol)}` : ""}${z.txt ? `<span class="bzzt">${besc(z.txt)}</span>` : ""}</p>`
+        : "";
+  const det = e.rows.length || e.pozn.length || zv,
+    kl = bzKlic(e),
+    open = e.prvni || BZOPEN.has(kl);
   const str = e.A && e.A.o ? (e.A.o.druh && !bojSpoj(e.A.o) ? " bz-n" : " bz-h") : "";
-  return `<li class="bz${str}${e.undone ? " blundone" : ""}${e.skryty ? " bzskr" : ""}${e.vys && e.vys[1] === "bzkr" ? " bzlkr" : ""}"><div class="bzh">${os(e.A)}<span class="bzco">${besc(e.co)}</span>${e.C ? `<i class="bzsip" aria-label="vůči">→</i>${os(e.C)}` : ""}<time>${e.skryty ? "skrytý · " : ""}${bzCas(e.t)}</time>${e.und || ""}</div>
-    ${e.vys || zr ? `<div class="bzv">${e.vys ? `<span class="bzvys ${e.vys[1]}">${besc(e.vys[0])}</span>` : ""}${zr}</div>` : ""}
-    ${e.rows.length ? `<div class="bzd">${e.rows.map(r => `<p>${r.l ? `<small class="bzdl">${r.l}</small>` : ""}<span>${r.h}</span></p>`).join("")}</div>` : ""}${e.pozn.length ? `<p class="bzp">${e.pozn.map(besc).join(" · ")}</p>` : ""}${zh}</li>`;
+  return `<li class="bz${str}${e.undone ? " blundone" : ""}${e.skryty ? " bzskr" : ""}${e.vys && e.vys[1] === "bzkr" ? " bzlkr" : ""}${det && !open ? " bzc" : ""}${det && !e.prvni ? " bzex" : ""}"><div class="bzh"${det && !e.prvni ? ` data-bzex="${besc(kl)}" ${btip(open ? "Sbalit podrobnosti" : "Rozbalit: kostky, hod a poznámky")}` : ""}>${os(e.A)}<span class="bzco">${besc(e.co)}</span>${e.C ? `<span class="bzcil"><i class="bzsip" aria-label="vůči">→</i>${os(e.C)}</span>` : ""}${vys || zr || hph || zh ? `<span class="bzr">${vys}${zr}${hph}${zh}</span>` : ""}<time>${e.skryty ? "skrytý · " : ""}${bzCas(e.t)}</time>${e.und || ""}${det && !e.prvni ? `<i class="bzchev" aria-hidden="true">${bi("sipka")}</i>` : ""}</div>
+    ${e.rows.length ? `<div class="bzd">${e.rows.map(r => `<p>${r.l ? `<small class="bzdl">${r.l}</small>` : ""}<span>${r.h}</span></p>`).join("")}</div>` : ""}${e.pozn.length ? `<p class="bzp">${e.pozn.map(besc).join(" · ")}</p>` : ""}${zv}</li>`;
 }
 /* sloupec záznamu (vypravěč i hráč) */
 function bojZaznamSloupec(s, gm) {
   const L0 = bzZaznam(s, gm),
     L = BLF ? L0.filter(e => (e.A && e.A.id === BLF) || (e.C && e.C.id === BLF)) : L0;
+  if (L.length) L[0].prvni = true;
   let k0;
   const li = L.map(e => {
     const hd = e.k != null && e.k !== k0 ? `<li class="bzkolo">${e.k}. kolo</li>` : "";
