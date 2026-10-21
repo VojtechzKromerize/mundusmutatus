@@ -3351,6 +3351,19 @@ button.btedch{cursor:pointer}button.btedch:hover{border-color:var(--gold,#b08d3a
   #bojview .bojgm .bnpc.bopen>.bnh .bracw,#bojview .bojgm .bnpc.bopen>.bnh .bhpw,#bojview .bojgm .bnpc.bopen>.bnh .bstavy{display:none}
   /* v seznamech vlevo jen to podstatné: přejmenování a skrytí před hráči jsou na rozbalené kartě */
   #bojview .bojgm.bojakt:not(.bojprip) .bcoln .bnh .bskr,#bojview .bojgm.bojakt:not(.bojprip) .bcolh .bnh .bskr{display:none}
+  /* seznam nepřátel a spojenců: jen medailon, jméno, druh, kolikrát v kole jednal a u houfu počet – zbytek je na rozbalené kartě */
+  #bojview .bojgm.bojakt:not(.bojprip) :is(.bcoln,.bcolh) .bnpc:not(.bopen,.bhrk) .bnh>:is(.bracw,.bhpw,.bstavy,.bkrbd,.break,.brozb,.bdel,.bkzikm,.brdyh),
+  #bojview .bojgm.bojakt:not(.bojprip) :is(.bcoln,.bcolh) .bnpc:not(.bopen,.bhrk) .bhouf :is(.bpm,.bbon){display:none}
+  #bojview .bojgm.bojakt:not(.bojprip) :is(.bcoln,.bcolh) .bnpc:not(.bopen,.bhrk){padding:3px 8px;margin-bottom:3px}
+  #bojview .bojgm.bojakt:not(.bojprip) :is(.bcoln,.bcolh) .bnpc:not(.bopen,.bhrk) .bnh{flex-wrap:nowrap;gap:2px 6px}
+  #bojview .bojgm.bojakt:not(.bojprip) :is(.bcoln,.bcolh) .bnpc:not(.bopen,.bhrk) .bnh .bmed{--ms:28px}
+  #bojview .bojgm.bojakt:not(.bojprip) :is(.bcoln,.bcolh) .bnpc:not(.bopen,.bhrk) .bnn{flex:1 1 auto;min-width:0}
+  #bojview .bojgm.bojakt:not(.bojprip) :is(.bcoln,.bcolh) .bnpc:not(.bopen,.bhrk) .bnn b{font-size:1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+  #bojview .bojgm.bojakt:not(.bojprip) :is(.bcoln,.bcolh) .bnpc:not(.bopen,.bhrk) .bnn small{display:none}
+  #bojview .bojgm.bojakt:not(.bojprip) :is(.bcoln,.bcolh) .bnpc:not(.bopen,.bhrk) .bhouf{display:inline-flex;align-items:center;margin:0;order:2}
+  #bojview .bojgm.bojakt:not(.bojprip) :is(.bcoln,.bcolh) .bnpc:not(.bopen,.bhrk) .bnn{order:1}
+  #bojview .bojgm.bojakt:not(.bojprip) :is(.bcoln,.bcolh) .bnpc:not(.bopen,.bhrk) .bdruh{order:3;margin-left:auto}
+  #bojview .bojgm.bojakt:not(.bojprip) :is(.bcoln,.bcolh) .bnpc:not(.bopen,.bhrk) .btahy{order:4}
   /* na širokém monitoru má Boj vypravěče širší stránku, ať se tři sloupce vejdou */
   .wrap:has(.view[data-view=boj]:not([hidden]) .bojgm.bojakt:not(.bojprip)){max-width:1720px}
   .bojgm .bnkh{grid-template-columns:auto minmax(0,1.4fr) minmax(0,1fr);gap:8px}
