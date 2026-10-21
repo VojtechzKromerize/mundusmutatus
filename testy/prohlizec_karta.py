@@ -27,6 +27,8 @@ async def main():
     await pl.wait_for_timeout(2500);await pl.evaluate("mmPopX()")  # starší ukázka z testu práv by překážela
     chk(await pl.evaluate("document.querySelectorAll('.bdm .bdmtabs [data-bdmsec]').length")>=7 and await pl.locator('.bdm .bdmtabs [data-bdmsec="info"], .bdm .bdmtabs [data-bdmsec="zaznam"]').count()==0,"jediná karta má všechny oddíly (Statistiky…Poznámky), bez Info a Záznamu")
     chk(await pl.evaluate("document.querySelectorAll('.bdm .bdmsec').length")==1,"karta kreslí jen otevřený oddíl")
+    # stavy jsou od 2026-10-22 jen na kartě – předchozí test boje (boj2) na ní mohl nechat stavy z rozehraného boje
+    await pl.evaluate("kartaStavZmen('balduin',{stavy:null,ds:null})");await pl.wait_for_timeout(700)
     await pl.click('.bdm [data-bdmsh="st"] >> nth=0');await pl.wait_for_timeout(300);await pl.click('.bdmlist [data-kstav] >> nth=0');await pl.wait_for_timeout(700)
     chk(len(stav().get("stavy") or [])==1,"stav ze seznamu se uloží")
     await pl.click('.bdmlist [data-kstav] >> nth=0');await pl.wait_for_timeout(700);chk(not stav().get("stavy"),"druhý klik stav zruší")
