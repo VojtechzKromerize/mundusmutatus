@@ -343,9 +343,7 @@ const kVl0 = (K, a) => {
   return v == null || v === "" ? null : +v;
 };
 const kVl = (K, a) => kCtx(K).vl[a];
-const kMd = (K, a) => kCtx(K).md(a),
-  kMd0 = (K, a) => kCtx(K, true).md(a);
-const kZnas = (p, pb) => (p === "E" ? 2 * pb : p === "H" ? Math.floor(pb / 2) : p ? pb : 0);
+const kMd = (K, a) => kCtx(K).md(a);
 const kZach = (K, a) => kHodn(K, "zach", a).v;
 const kDov = (K, n) => kHodn(K, "dov", n).v;
 const kOvB = (K, a) => kHodn(K, "ov", a).v;

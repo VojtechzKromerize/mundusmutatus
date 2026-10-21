@@ -80,7 +80,6 @@ const TOWNSEATS = new Set([
 ]); /* family seats that are towns rather than castles */
 const TOWNICO = "art/img/mesto.webp";
 const townImg = (c, cls) => `<img class="${cls || "townico"} t-${c}" src="${TOWNICO}" alt="" aria-hidden="true">`;
-const RTN = {rod: "krev", spoj: "spojenci", spor: "spor"};
 const RICON = {rod: "art/img/vazba-rod.webp", spoj: "art/img/vazba-spoj.webp", spor: "art/img/vazba-spor.webp"};
 const rIco = t => `<img class="rico" src="${RICON[t]}" alt="" aria-hidden="true">`;
 const RGL = {rod: "Krev", spoj: "Spojenectví", spor: "Spory"};

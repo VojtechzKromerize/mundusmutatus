@@ -1,6 +1,5 @@
 /* ---------- Draconomicon ---------- */
 const DRACI = /*@DRACI@*/ {};
-const DRTR = {L: "lehký", S: "střední", T: "těžký"};
 const drU = (img, k) =>
   !img
     ? ""

@@ -1919,43 +1919,6 @@ function bojKartaOvl(h, s, gm) {
   return zach + zdH;
 }
 /* celá karta ke čtení (vlastnosti, dovednosti, smysly, rysy, kouzla) */
-function bojKartaInfo(K) {
-  if (!K) return "";
-  const ab = a => {
-    const v = (K.vl || {})[a];
-    return v == null ? "" : `<span><small>${a}</small><b>${v}</b><i>${bsg(Math.floor((v - 10) / 2))}</i></span>`;
-  };
-  const kz = K.kouzla || {};
-  return `<details class="bjapd bkinfo" data-otv="karta-${K.id}"${BOTV.has("karta-" + K.id) ? " open" : ""}><summary>Karta postavy – ${besc(K.n)}${K.test ? " <small>(zkušební)</small>" : ""}</summary>
-    <p class="rsmall">${besc([K.druh, K.povolani, K.pozadi].filter(Boolean).join(" · "))}${K.hrac ? ` · hraje ${besc(K.hrac)}` : ""}</p>
-    <div class="bkvl">${BAB.map(ab).join("")}</div>
-    <p class="rsmall"><b>Iniciativa</b> ${bsg(kIni(K))} · <b>Zdatnost</b> ${bsg(kPB(K))} · <b>Rychlost</b> ${besc(K.rychlost || "")} · <b>Kostky životů</b> ${besc(kHDtxt(K))}${(K.odol || []).length ? ` · <b>Resistance</b> ${besc(K.odol.map(t => BZRT[t] || t).join(", "))}` : ""}</p>
-    <p class="rsmall"><b>Smysly</b> ${besc(K.smysly || "")}${K.pasiv ? ` · pasivní Vnímání ${K.pasiv.vnimani}, Vhled ${K.pasiv.vhled}, Pátrání ${K.pasiv.patrani}` : ""}</p>
-    ${(K.zachPozn || []).length ? `<p class="rsmall"><b>Záchrany:</b> ${besc(K.zachPozn.join("; "))}</p>` : ""}
-    ${
-      K.dov
-        ? `<p class="rsmall bkdov">${Object.entries(K.dov)
-            .map(([k, v]) => `${besc(k)} ${bsg(v)}`)
-            .join(" · ")}</p>`
-        : ""
-    }
-    ${(K.utoky || []).length ? `<ul class="bkut">${K.utoky.map(a => `<li><b>${besc(a.n)}</b> ${bsg(+a.b || 0)} · ${besc(a.z || "")} ${besc(BZRT[a.t] || a.t || "")}${a.pocet > 1 ? ` · ${a.pocet}×` : ""}${(a.vl || []).length ? ` · <small>${besc(a.vl.join(", "))}</small>` : ""}${a.pozn ? `<br><small>${besc(a.pozn)}</small>` : ""}</li>`).join("")}</ul>` : ""}
-    ${
-      (kz.seznam || []).length
-        ? `<p class="rsmall"><b>Kouzla</b> (${besc(kz.vl || "")}, SO ${kz.dc}, útok ${bsg(+kz.utok || 0)}): ${[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-            .filter(l => kz.seznam.some(x => x.st === l))
-            .map(
-              l =>
-                `<i>${l ? l + ". st." : "triky"}:</i> ${kz.seznam
-                  .filter(x => x.st === l)
-                  .map(x => besc(x.n) + (x.kon ? " ◎" : "") + (x.zach ? ` (${besc(x.zach)})` : ""))
-                  .join(", ")}`,
-            )
-            .join(" · ")} <small>◎ = Concentration</small></p>`
-        : ""
-    }
-    ${(K.rysy || []).length ? `<ul class="bkrys">${K.rysy.map(r => `<li>${besc(r)}</li>`).join("")}</ul>` : ""}</details>`;
-}
 /* list postavy z PDF D&D Beyond → karta postavy. F = pole formuláře z pdf.js (getAnnotations): {f:název, v:hodnota, p:strana, r:[x1,y1,x2,y2]} */
 function kartaZPdf(F) {
   const N = s =>

@@ -806,26 +806,6 @@ function bojZazHlidej(s, me) {
 /* hráč bez přihlášené postavy: postava se volí jednou na stránce Hra a pak je jeho */
 const bojJaNeprihl = () =>
   `<span class="rsmall bjanep">Nejsi přihlášený za postavu. Na stránce <a href="#hra">Hra</a> se přihlas a zvol svou postavu – pak se tu objeví tvoje bojová karta.</span>`;
-function bojJaKouzla(K) {
-  const kz = Object.assign({}, K.kouzla || {}, {seznam: kSeznam(K)});
-  if (!(kz.seznam || []).length) return "";
-  const sl = kSloty(K);
-  return `<details class="bjapd bjakz" data-otv="ja-kz"${BOTV.has("ja-kz") ? " open" : ""}><summary>Kouzla – ${sl.map(q => `${q.st}. st. ${q.max - q.u}/${q.max}`).join(", ") || "triky"} · SO ${kz.dc}, útok ${bsg(+kz.utok || 0)}</summary>
-    ${[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-      .filter(l => kz.seznam.some(x => x.st === l))
-      .map(
-        l =>
-          `<p class="bjakzl"><i>${l ? l + ". st." : "triky"}</i> ${kz.seznam
-            .map((x, i) => [x, i])
-            .filter(([x]) => x.st === l)
-            .map(
-              ([x, i]) =>
-                `<span class="bjakzs"><button type="button" class="kspn" data-kspd="${i}">${besc(x.n)}</button>${x.kon ? "◎" : ""}${kPzZn(x)}${kSesHtml(K, x, i)}</span>`,
-            )
-            .join("")}</p>`,
-      )
-      .join("")}</details>`;
-}
 /* upozornění hráče, když jeho postava přijde na tah: vibrace, zvýraznění, titulek a hláška */
 function bojUpozorni() {
   const s = BOJ.s;

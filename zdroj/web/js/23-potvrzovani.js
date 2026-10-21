@@ -4,7 +4,6 @@
    2) potvrzování vypravěčem podle nastavení (herní stav potvrz.rezim): „vse“ – útoky, kouzla i léčení a Bardic spojenců,
       „cast“ – útoky a kouzla na nepřátele, „nic“ – vše se zapíše samo; zamítnutí vrátí utracený slot / použití;
    3) vypravěč vidí každou změnu karet, boje a herního času (tabulka zmeny) a může ji vrátit – jednotlivě i vše od dané chvíle. ===== */
-var POTVRZ0 = {rezim: "cast", odklad: 6};
 /* nastavení je v herním stavu (hráč ho dostane při načtení stránky) a v boji (hráči ho mají hned – stav boje průběžně načítají) */
 var POTVRZDB = null; /* nastavení z databáze (nastaveni.potvrz) – hráči ho průběžně načítají, změna nepřenačte stránky jako změna herního stavu */
 function potvrz() {
@@ -24,11 +23,6 @@ async function potvrzNacti() {
     return false;
   }
 }
-var POTVRZR = [
-  ["vse", "vše potvrzuji (útoky, kouzla, léčení a Bardic spojenců)"],
-  ["cast", "jen útoky a kouzla na nepřátele"],
-  ["nic", "nic – vše se zapíše samo"],
-];
 async function potvrzNastav(ch) {
   const p = Object.assign(potvrz(), ch, {t: Date.now()});
   try {

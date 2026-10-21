@@ -1538,8 +1538,6 @@ function bdmKouzla(s, h, K, gm, X) {
   return `${hd}${sl}${chips}${triH}${lvH}${bezH}${!tri.length && !moz.length && !bez.length ? `<p class="bdmnote">Žádná kouzla.</p>` : ""}${kMuze(K) && !X.boj ? `<details class="bjapd kpripw"><summary>Připravit nebo vyměnit kouzla</summary>${kPripHtml(K)}</details>` : ""}`;
 }
 /* vybavení do boje: lektvary, střelivo a spotřební věci, předměty s náboji, zbraně, zbroj a připoutané předměty */
-const BDMVYB =
-  /potion|lektvar|elixír|elixir|scroll|svit|holy water|svěcen|oil|olej|acid|kyselin|alchemist|bomb|caltrop|ball bearing|net\b|síť|arrow|bolt|šíp|šipk|ammunition|munice|needle|bullet|kulk|dart|javelin|oštěp|torch|pochod|healer|obvaz|bandage|antitoxin/i;
 /* oddíl Vybavení: bdmVyb v 14b-vybaveni.js */
 /* rysy: nahoře ty s aktivací nebo počtem použití, ostatní sbalené */
 function bdmRysy(K) {

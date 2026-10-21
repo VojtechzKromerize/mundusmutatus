@@ -66,6 +66,13 @@ zhuštěniny (ty dřív dělaly konflikty mezi relacemi). Hledej grepem (`grep -
 (~48 000 řádků), čti výřezy. Úpravy dělej Editem s jednoznačným úryvkem; nikdy nepřepisuj soubor z výstupu nástroje.
 Značky dat pro build (`/*@FAM@*/ []`, `/*@GM@*/ false` …) smí mít mezeru – build ji snese.
 
+**Vazby mezi soubory hlídá kontrola kódu jako u modulů** (od 2026-10-21; skutečné moduly prohlížeče ne – rozbily by
+testy, které sahají na globální jména, a 53 vědomých sdílení): zapisovat do proměnné jiného souboru smí jen jména v `SDILENE`,
+přepsat (obalit) funkci jiného souboru jen jména v `OBALENE` (`testy/kontrola_kodu.mjs`); nepoužitá definice je chyba
+(smaž mrtvý kód); const/let se při načtení nesmí číst dřív, než jsou definované. **Orientace místo grepu:**
+`node testy/kontrola_kodu.mjs --kde bojUtokPriprav` (kde je definované, které soubory ho čtou a zapisují) a
+`--soubor 14d` (co soubor poskytuje ostatním a co odkud používá).
+
 Soubory skriptu: 01 základ (data z buildu, erby) · 02 mapa · 03 Artikule · 04 Praha · 05 Známý svět ·
 06 Draconomicon a rodokmeny · 07 Družina, Kronika, kalendář, odkazy, hledání · 08 navigace (`route()`),
 Pravidla · 09 vypravěč: odhalování, panel, herní čas · 10 Kouzla · 11 Boj: tracker, ikony, bestiář ·

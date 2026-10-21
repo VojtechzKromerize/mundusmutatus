@@ -4,15 +4,6 @@ const SVETMESTA = /*@SVETMESTA@*/ [];
 const SVETDRZ = /*@SVETDRZ@*/ [];
 const SVETCESTY = /*@SVETCESTY@*/ [];
 const SRCOL = {hanza: "#8b5a2b", benatky: "#b0302a", janov: "#2f5d9e", poutlod: "#7a4a9a", reka: "#3d7f8f", pout: "#7a4a9a", obchod: "#6b5a3a"};
-const SRNAME = {
-  hanza: "lodě Hanzy",
-  benatky: "benátské galéry",
-  janov: "janovské lodě",
-  poutlod: "poutní galéra",
-  reka: "říční plavba",
-  pout: "poutní cesty",
-  obchod: "obchodní cesty po souši",
-};
 const SRSEA = new Set(["hanza", "benatky", "janov", "poutlod", "reka"]);
 /* kurfiřtská knížectví – přibližné obrysy (zeměpisné souřadnice); sedmým kurfiřtem je český král */
 const SKURF = [
@@ -216,7 +207,6 @@ const SPORT = [
 ];
 /* hlavní obchodní trasy: složené z úseků cest v svet-cesty.md [název, směr, odkud, kam] */
 const SHCOL = {hanza: "#8b5a2b", benatky: "#b0302a", janov: "#2f5d9e", souse: "#a07a22"};
-const SHNAME = {hanza: "Hanza", benatky: "benátské galéry", janov: "janovské lodě", souse: "hlavní cesty po souši"};
 const SHLAVNI = [
   {
     k: "hanza",

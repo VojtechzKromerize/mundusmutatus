@@ -883,19 +883,6 @@ const ARTK = [
 ];
 const AK = Object.fromEntries(ARTK.map(k => [k.id, k]));
 /* fulltext index over sections */
-const ASIDX = ARTK.flatMap(k => [
-  {k, s: null, txt: norm(strip(k.t + " " + (k.intro || "")))},
-  ...k.secs.map(s => ({
-    k,
-    s,
-    raw: s.h
-      .replace(/<[^>]+>/g, " ")
-      .replace(/\s+/g, " ")
-      .replace(/ ([.,;:)])/g, "$1")
-      .trim(),
-    txt: norm(strip(s.t + " " + s.h)),
-  })),
-]);
 
 function artToc(cur) {
   return `<button type="button" class="atoggle" aria-expanded="false">Obsah artikulí ▾</button>
@@ -968,7 +955,6 @@ function hiliteIn(el, q) {
     } catch (e) {}
   });
 }
-let artQ = "";
 function renderArtikule(b, c) {
   const k = AK[b],
     main = document.getElementById("amain"),

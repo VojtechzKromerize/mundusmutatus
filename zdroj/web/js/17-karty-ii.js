@@ -43,8 +43,6 @@ async function jaZvol(kid) {
     mmHlasG(e.message || String(e), 6000);
   }
 }
-const jaDiscordBtn = () =>
-  window.MMDB && MMDB.discordLogin ? `<p><button type="button" class="gbtn ddisc" data-discord>Přihlásit přes Discord</button></p>` : "";
 /* volné karty: i zkušební (na nich si hráč může přihlášení vyzkoušet; vypravěč je pak uvolní na stránce Hra) */
 function jaBezKartyHtml() {
   const volne = KARTY.filter(k => !KZAM.has(k.id)).sort((a, b) => !!a.test - !!b.test || String(a.n).localeCompare(String(b.n), "cs"));
@@ -1202,11 +1200,3 @@ function kStavVliv(K, co) {
   if (kPri(K).includes("Rage") && (typ === "ov" || typ === "za") && ab === "STR") r.push([1, "Rage"]);
   return {r, fail};
 }
-const kStavHtml = K => {
-  const S = kartaStav(K.id).stavy || [];
-  return `<div class="kstavy" role="group" aria-label="Stavy">${KSTV.map(k => {
-    const on = S.includes(k),
-      d = SRDST[k];
-    return `<button type="button" class="bst${on ? " on" : ""}" data-kstav="${besc(k)}" aria-pressed="${on}" ${btip(d ? `${k} (${d.en}) – ${d.t}` : "soustředí se na kouzlo")}>${SRDIC[k] ? bi(SRDIC[k]) : ""}<span>${k}</span></button>`;
-  }).join("")}</div>`;
-};

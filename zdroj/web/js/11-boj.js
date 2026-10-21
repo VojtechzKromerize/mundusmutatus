@@ -3253,29 +3253,6 @@ const bojNpc = (x, id, str) =>
     x.os ? {os: x.os} : {},
     x.druh === "houf" ? {pocet: x.pocet || 1, max: x.pocet || 1, velitel: true} : {},
   );
-function bojSetup() {
-  const p = BOJ.s || {},
-    hr = (p.hraci && p.hraci.length ? p.hraci.map(h => h.n) : PARTY.map(x => x.n))
-      .concat(["", "", "", ""])
-      .slice(0, Math.max(4, (p.hraci || PARTY).length));
-  const hrow = n => `<li class="bsr"><input name="hn" placeholder="Jméno postavy" value="${besc(n)}" aria-label="Jméno postavy">${BX}</li>`;
-  const roll = (nm, t, s) =>
-    `<label class="broll"><span class="brt">${t}</span><span class="brd"><input name="${nm}" type="number" inputmode="numeric" required min="-10" max="50" placeholder="–"></span><small>${s}</small></label>`;
-  return `<div class="bojtit"><h2 class="arttitle">Boj</h2><p class="bojlead">Rozestav obě strany, zapiš hody iniciativy a vytrub do boje.</p></div>
-    <details class="bojjak"><summary>Jak se rozdělují sloty</summary><p>Hráči hodí <b>d20 + Obratnost</b>, vypravěč jednou za nepřítele s nejlepší iniciativou. Družina i nepřátelé dostanou tolik slotů, kolik je hráčů. Sloty se střídají – družina, nepřátelé, družina… – a začíná strana s vyšším hodem (při shodě družina). Houf pacholků i pacholek jednají 1× za kolo, sok až 2×, zhoubce až 3×.</p></details>
-    <form class="bojform" id="bojform">
-      <div class="bcamps">
-        <fieldset class="bcamp bch"><legend>Družina</legend>${roll("hod", "Nejlepší hod družiny", "d20 + Obratnost")}
-          <ol class="brows" id="bfh">${hr.map(hrow).join("")}</ol><button type="button" class="badd" data-badd="h">+ Přidat postavu</button>${PARTY.length ? `<button type="button" class="badd" data-bdruz title="Nahradí seznam postavami z karet družiny">Načíst družinu z karet</button>` : ""}
-          <div class="bspoj"><span class="bspt">Spojenci (NPC)</span><ol class="brows" id="bfs"></ol><button type="button" class="badd" data-badd="s">+ Přidat spojence</button></div></fieldset>
-        <div class="bvs" aria-hidden="true"><span>proti</span></div>
-        <fieldset class="bcamp bcn"><legend>Nepřátelé</legend>${roll("dm", "Tvůj hod za nejlepšího", "d20 + Obratnost")}<button type="button" class="badd bdmhod" data-bdmhod ${btip("Hodí d20 + nejlepší iniciativu ze statblocků nepřátel ve formuláři")}>🎲 Hodit za nepřátele</button>
-          <ol class="brows" id="bfn">${bojNrow()}${bojNrow()}</ol><button type="button" class="badd" data-badd="n">+ Přidat nepřítele</button>
-          <div class="bskup">${bojSkupSel("data-bskup", "Načíst setkání nebo skupinu…")}<button type="button" class="badd" data-bskupuloz>Uložit jako setkání</button>${Object.keys(bojSkup()).length ? `<button type="button" class="badd" data-bskupdel>Smazat skupinu z prohlížeče…</button>` : ""}</div>
-          ${PROTIVNICI.length ? `<div class="bobtw"><p class="bobt" id="bobt"></p>${bojUrSel()}</div>` : ""}</fieldset>
-      </div>
-      <button type="submit" class="gbtn bstart">⚔ Začít boj</button></form>${bojBestDl()}${bojBestiar()}${bojPravidla()}`;
-}
 
 /* stavy nepřítele jako seznam s přepínači – stejný jako u karty hráče (bez vyčerpání) */
 function kStavyTabN(n) {

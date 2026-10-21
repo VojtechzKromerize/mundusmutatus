@@ -696,37 +696,7 @@ function bojPocasi() {
   if (noc) d.push("noc: bez světla silně zastřeno");
   return `<div class="bojpoc"><span class="lbl">Počasí</span> ${hEsc(P.text)}${d.length ? `<ul>${d.map(x => `<li>${x}</li>`).join("")}</ul>` : ""}</div>`;
 }
-function bojHorni(box) {
-  const old = box.querySelector(".bojhorni");
-  if (old) old.remove();
-  const html = zavojBan() + bojPocasi();
-  if (html) box.insertAdjacentHTML("afterbegin", `<div class="bojhorni">${html}</div>`);
-}
 /* Boj: nepřátelé předaní z Výpravy (setkání) */
-function bojPred(box) {
-  let x = null;
-  try {
-    x = JSON.parse(sessionStorage.getItem("mm-boj-pred") || "null");
-    sessionStorage.removeItem("mm-boj-pred");
-  } catch (e) {}
-  if (!x || !x.npc || !x.npc.length) return;
-  const fn = box.querySelector("#bfn");
-  if (!fn) return;
-  fn.innerHTML = "";
-  x.npc.forEach(q => {
-    fn.insertAdjacentHTML("beforeend", bojNrow());
-    const r = fn.lastElementChild,
-      p = q.b ? null : bojBest(q.n);
-    bojPlnRadek(r, Object.assign({druh: "sok", pocet: 6}, q, p && !q.b ? {b: p.id, druh: p.u, pocet: p.poc || q.pocet} : {}));
-  });
-  if (x.z) box.querySelector(".bojlead").textContent = x.z;
-  bojObtForm();
-  const dm = box.querySelector('[name="dm"]');
-  if (dm && !dm.value) {
-    const b = box.querySelector("[data-bdmhod]");
-    if (b) b.click();
-  }
-}
 /* Při hře: herní čas, posun hodin a upozornění na Hodinu Závoje */
 if (GMV && STAV) {
   const P = document.querySelector(".phpanel"),

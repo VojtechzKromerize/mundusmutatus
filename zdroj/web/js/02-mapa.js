@@ -2417,10 +2417,6 @@ renderRels(document.getElementById("relcols2"), REL.filter(isForeign));
 
 /* search */
 const norm = s => String(s).normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
-const IDX = FAM.map(f => ({
-  f,
-  txt: norm([f.name, f.head, f.land, f.seats.map(s => s[0]).join(" "), f.stance, f.pos || "", f.hist || "", f.note].join(" ")),
-}));
 const CIDX = [];
 FAM.forEach(f => {
   if (f.city) f.seats.forEach(sd => CIDX.push({f, name: sd[0], conf: sd[3] || f.conf, txt: norm(sd[0] + " " + ((CITYINFO[sd[0]] || {}).n || ""))}));

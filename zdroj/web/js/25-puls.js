@@ -3,7 +3,7 @@
    poslal ~60 dotazů za minutu. Teď se ptá jen tabulky puls (mm_puls: druh → poslední číslo) a načte jen to, co se změnilo.
    S Realtime (Supabase) přijde nový řádek pulsu sám a dotaz běží jen jako záloha jednou za minutu.
    Starší databáze bez mm_puls: načítá se vše jako dřív (PULS.stary). */
-var MMPULS = (window.MMPULS = true);
+window.MMPULS = true; // koruna.html: puls běží, starý dotaz na verzi desek není potřeba
 var PULS = {z: null, beh: false, znovu: false, t: 0, tm: 0, obnov: false, start: false, stary: false};
 const PULS_HRA = ["vyzvy", "zpravy", "navrhy", "potvrz", "pokladna"];
 function pulsInterval() {

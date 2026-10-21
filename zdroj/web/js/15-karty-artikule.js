@@ -343,7 +343,6 @@ const kSpA = n => {
   const d = kSp(n);
   return d && (d.ta != null || d.va != null) ? Object.assign({}, d, {t: d.ta ?? d.t, v: d.va ?? d.v}) : d;
 };
-const KSPO = new Set();
 /* popisy, které v lehkém souboru nejsou (t chybí, automatika má ta): dotáhnout z plného souboru a překreslit */
 let KSPTP = null;
 function kSpTexty() {
