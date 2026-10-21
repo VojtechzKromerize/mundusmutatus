@@ -211,3 +211,50 @@ test("boj: vypravěč zapíše útok za hráče s cílem, zásahem a zraněním"
   assert.equal(U[0].dmg, 6 + 5);
   assert.equal(U[0].stav, "hotovo", "vypravěčův zápis se rovnou potvrdí");
 });
+
+/* ---------- Bless, Bane, Bardic Inspiration (2026-10-21): po hodu se nabídne jen to, co postava má ---------- */
+const stavPri = async pri => S.ev(`kartaStavZmen("balduin", {pri: ${JSON.stringify(pri)}})`);
+
+test("kostky k hodům: bez Bless/Bane/Bardic se po hodu nic nenabízí", async () => {
+  await stavPri(null);
+  assert.deepEqual(V(`kHodNabidka(KARTBY.balduin, "Útok", [])`), {bless: false, guid: false, bane: false, bard: null, st: 0});
+});
+
+test("kostky k hodům: Bless se k útoku a záchraně přičte sám, po hodu se znovu nenabízí; k ověření nepatří", async () => {
+  await stavPri(["Bless"]);
+  try {
+    const P = V(`kPriHod(KARTBY.balduin, "Záchrana WIS")`);
+    assert.deepEqual(P.n, ["Bless"]);
+    assert.ok(P.t >= 1 && P.t <= 4);
+    assert.equal(V(`kHodNabidka(KARTBY.balduin, "Záchrana WIS", ["Bless"]).bless`), false, "už je v hodu");
+    assert.equal(V(`kHodNabidka(KARTBY.balduin, "Záchrana WIS", []).bless`), true, "kdyby v hodu nebyl, nabídne se");
+    assert.deepEqual(V(`kPriHod(KARTBY.balduin, "Ověření Athletics")`).n, [], "ověření Bless nepřičítá");
+  } finally {
+    await stavPri(null);
+  }
+});
+
+test("kostky k hodům: Bardic Inspiration se nepřičte sama, nabídne se po hodu se správnou kostkou", async () => {
+  await stavPri(["Bardic d8"]);
+  try {
+    assert.deepEqual(V(`kPriHod(KARTBY.balduin, "Útok")`).n, []);
+    const N = V(`kHodNabidka(KARTBY.balduin, "Útok", [])`);
+    assert.equal(N.bard, "Bardic d8");
+    assert.equal(N.st, 8);
+    await S.ev(`kBardSpotrebuj(KARTBY.balduin, "Bardic d8")`);
+    assert.equal(V(`kartaStav("balduin").pri || null`), null, "po použití kostka zmizí");
+  } finally {
+    await stavPri(null);
+  }
+});
+
+test("kostky k hodům: Bane od nepřítele v boji (značka na postavě) se odečte", () => {
+  S.ev(`BOJ.s = {aktivni: true, kolo: 1, tah: 0, hraci: [{id: "h1", n: "Balduin", k: "balduin", ef: [{n: "Bane", od: "n1"}]}], npc: [], utoky: []}`);
+  try {
+    const P = V(`kPriHod(KARTBY.balduin, "Útok")`);
+    assert.deepEqual(P.n, ["Bane"]);
+    assert.ok(P.t <= -1 && P.t >= -4);
+  } finally {
+    S.ev(`BOJ.s = {}`);
+  }
+});

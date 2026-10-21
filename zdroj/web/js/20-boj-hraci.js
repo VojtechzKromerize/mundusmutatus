@@ -252,7 +252,7 @@ function bojJaHodKouzlo(s, me, sp) {
       PD = kPriHod(K, "Útok"),
       r = i === 0 && rz != null ? rucDmg(rz, 1) : bojJaSpDmg(B, krit),
       vys = bojJaZas(c, d + b + PD.t, d, krit);
-    ser.push({hod: d + b + PD.t, d, d1, d2, v, b: b + PD.t, dmg: r.tot, krit, vys, upr: [], pd: PD.txt, ru, zx: r.txt});
+    ser.push({hod: d + b + PD.t, d, d1, d2, v, b: b + PD.t, dmg: r.tot, krit, vys, upr: [], pd: PD.txt, pdn: PD.n || [], ru, zx: r.txt});
     txt.push(
       `d20 ${d1}${ru ? " (ručně)" : ""}${d2 != null ? `/${d2}` : ""} ${bsg(b)}${PD.txt} = ${d + b + PD.t}${krit ? " krit!" : d === 1 ? " (1)" : ""}${vys ? ` → ${vys.toUpperCase()}` : ""}, zranění ${r.txt} = ${r.tot}`,
     );
@@ -432,6 +432,7 @@ function bojUtokPriprav(o) {
     vys,
     ru,
     pd: PD.txt,
+    pdn: PD.n || [],
     kmin,
     plus,
     dmg,
@@ -541,6 +542,7 @@ function bojJaHod() {
       vys: P.vys,
       upr: [],
       pd: P.pd,
+      pdn: P.pdn,
       ru: P.ru,
       zx: P.zx,
       dz: P.dz,

@@ -957,10 +957,26 @@ function bojGmHod(hid, i) {
       c = (s.npc || []).find(o => o.id === ci),
       AC = bojCilAC(s, h, c, w);
     /* stejný hod jako z telefonu hráče (2026-10-20): Hex / Hunter's Mark na cíli, Magic Weapon, vyčerpání, Lucky; zranění jen po zásahu */
-    const P = bojUtokPriprav({s, h, K, w, c, v, ac: AC, sel: [], vp: !!ZT.vp, pm: !!ZT.pm});
+    /* Bless / Bane na postavě se přičtou i při hodu vypravěče (pd), jako na telefonu hráče */
+    const P = bojUtokPriprav({s, h, K, w, c, v, ac: AC, sel: [], pd: true, vp: !!ZT.vp, pm: !!ZT.pm});
     G0.kmin = P.kmin;
     if (ZT.pm) G0.pm = 1;
-    ser.push({ci, hod: P.hod, d: P.d, d1: P.d1, d2: P.d2, v: P.v, b: P.b, dmg: P.dmg, krit: P.krit, vys: P.vys, upr: [], zx: P.zx, dz: P.dz});
+    ser.push({
+      ci,
+      hod: P.hod,
+      d: P.d,
+      d1: P.d1,
+      d2: P.d2,
+      v: P.v,
+      b: P.b,
+      dmg: P.dmg,
+      krit: P.krit,
+      vys: P.vys,
+      upr: [],
+      zx: P.zx,
+      dz: P.dz,
+      pdn: P.pdn,
+    });
     tx.push(
       `${c ? besc(c.n) + ": " : "<b>bez cíle</b> · "}${P.txtHod}${AC != null && !P.zas ? ` · vedle (AC ${AC}) – zranění se nehází` : P.txtZr.replace(/^, /, " · ")}`,
     );

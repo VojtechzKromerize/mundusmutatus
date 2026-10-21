@@ -123,8 +123,10 @@ async def main():
     chk(stav().get("sk")==1 and await pl.evaluate("KFR.get().length")==0,"po připojení se fronta odešle")
     # úprava posledního hodu, Zpět, spodní lišta, kostky v textech
     await pl.evaluate("bojZavoj=()=>({d:4,r:'',hod:''})");await pl.keyboard.press('Escape');await pl.click('.bdmtabs [data-bdmsec="vl"]');await pl.click('.bdm [data-khod="za:WIS"]');await pl.wait_for_selector(".kposl")
-    t0=await pl.evaluate("KPOSL.balduin.tot");await pl.click('.kposl [data-kupr="b4"]');await pl.wait_for_timeout(700)
-    h=hody()[0];chk(h.get("co","").startswith("Úprava – Záchrana") and 1<=h.get("tot",0)-t0<=4,"Bless +1d4 k poslednímu hodu v herním záznamu")
+    chk(await pl.locator('.kposl [data-kupr="b4"],.kposl [data-kupr="m4"],.kposl [data-kupr="bard"]').count()==0,"bez Bless, Bane a Bardic Inspiration na postavě se po hodu nenabízejí")
+    await pl.evaluate("kartaStavZmen('balduin',{pri:['Bardic d6']})");await pl.wait_for_timeout(600)
+    t0=await pl.evaluate("KPOSL.balduin.tot");await pl.click('.kposl [data-kupr="bard"]');await pl.wait_for_timeout(700)
+    h=hody()[0];chk(h.get("co","").startswith("Úprava – Záchrana") and 1<=h.get("tot",0)-t0<=6 and not stav().get("pri"),"Bardic Inspiration po hodu přičte 1d6 a kostka se spotřebuje")
     await pl.evaluate("kartaStavZmen('balduin',{insp:true})");await pl.wait_for_timeout(600);await pl.click('.kposl [data-kupr="insp"]');await pl.wait_for_timeout(800)
     chk(not stav().get("insp") and "hrdinská inspirace" in hody()[0].get("txt",""),"přehození za inspiraci spotřebuje inspiraci")
     chk(await pl.evaluate("getComputedStyle(document.querySelector('.bdm .bdmlep')).position")=="sticky","lepkavá lišta karty (jméno, AC, životy, oddíly)")

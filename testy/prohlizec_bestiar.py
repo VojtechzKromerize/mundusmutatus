@@ -272,9 +272,12 @@ async def main():
       const N1=BOJ.s.npc[0],N2=n2&&BOJ.s.npc.find(x=>x.id===n2.id);o.push(!!N2&&!(N1.ef||[]).some(x=>x.n==='Hex')&&(N2.ef||[]).some(x=>x.n==='Hex'&&x.k===77&&x.od==='h1'));
       /* vypravěč za hráče: volby po zásahu a úprava hodu na jeho formuláři (2026-10-20) */
       await bojZmen(z=>{z.npc[0].stav=[];z.npc.slice(1).forEach(x=>x.stav=['poražen'])});await new Promise(r=>setTimeout(r,300));await kartaStavZmen(K.id,{zdr:{}});
+      /* úpravy hodu nabídne jen to, co postava má: bez Bless žádné +1d4, s kostkou Bardic Inspiration ji (2026-10-21) */
+      await kartaStavZmen(K.id,{pri:['Bardic d8']});
       const n=BOJ.s.npc[0];BGMU.h1={ci:n.id,cilL:[n.id]};{const R=Math.random;Math.random=()=>0.9;try{bojGmHod('h1',j)}finally{Math.random=R}}const G=BGMU.h1,q0=G.serie[0];
-      o.push(q0.vys!=='vedle'&&/data-jurid="es:slot3p"[^>]*data-bph="h1"/.test(bojJaRidHtml(K,q0,'h1'))&&/data-juupr="b4"[^>]*data-bph="h1"/.test(bojJaUprHtml(K,'h1')));
-      bojJaRid('es:slot3p','h1');await bojJaUprav('b4','h1');const q1=BGMU.h1.serie[0];o.push((q1.rid||[]).length===1&&(q1.upr||[]).length===1&&q1.dmg>q0.dmg-1);
+      const UH=bojJaUprHtml(K,'h1');
+      o.push(q0.vys!=='vedle'&&/data-jurid="es:slot3p"[^>]*data-bph="h1"/.test(bojJaRidHtml(K,q0,'h1'))&&/data-juupr="bard"[^>]*data-bph="h1"/.test(UH)&&!/data-juupr="b4"/.test(UH));
+      bojJaRid('es:slot3p','h1');await bojJaUprav('bard','h1');const q1=BGMU.h1.serie[0];o.push((q1.rid||[]).length===1&&(q1.upr||[]).length===1&&q1.dmg>q0.dmg-1&&!(kartaStav(K.id).pri||[]).length);
       const u1=(BOJ.s.utoky||[]).length;bojGmZapisVse('h1');await new Promise(r=>setTimeout(r,900));const U=(BOJ.s.utoky||[]).slice(-1)[0]||{};o.push((BOJ.s.utoky||[]).length===u1+1&&/Eldritch Smite/.test(U.cim||"")&&(kartaStav(K.id).zdr||{}).slot3p===1);
       return o})()""")
     chk(r4==[True]*14,"volby po zásahu (Eldritch Smite, Trip Attack, jednou za tah, útrata), Parry jen proti útoku zblízka, Great Weapon Master, Precision Attack, přesun Hexu, totéž za hráče u vypravěče: "+str(r4))

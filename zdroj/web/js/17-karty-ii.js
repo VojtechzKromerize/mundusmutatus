@@ -836,33 +836,63 @@ const KPRID = [
   ["Bardic d10", "1d10", "ut za ov", "", 1],
   ["Bardic d12", "1d12", "ut za ov", "", 1],
 ];
+const kHodTyp = co => (/^Útok/.test(co) ? "ut" : /^Záchrana/.test(co) ? "za" : /^Iniciativa/.test(co) ? "in" : "ov");
+/* kostky k hodům d20, které na postavě právě působí (2026-10-21): přepínače na kartě (pri), kouzla spojenců (Bless ⇒ postava)
+   a v boji značky účinků na postavě (Bane od nepřítele…) */
+function kKostkyNaSobe(K) {
+  const N = new Set([...kPri(K), ...kBufy(K).map(b => b.n)]),
+    s = typeof BOJ !== "undefined" && BOJ.s;
+  const h = s && s.aktivni ? (s.hraci || []).find(x => bojKartaH(x) === K) : null;
+  if (h) (h.ef || []).forEach(e => N.add(typeof kzJm === "function" ? kzJm(e.n) : e.n));
+  return new Set([...N].filter(n => KPRID.some(r => r[0] === n)));
+}
+/* Bless, Bane a Guidance se k hodu přičtou samy; Bardic Inspiration ne – hráč se rozhodne až po hodu (D&D 2024: při neúspěchu) */
 function kPriHod(K, co) {
-  const typ = /^Útok/.test(co) ? "ut" : /^Záchrana/.test(co) ? "za" : /^Iniciativa/.test(co) ? "in" : "ov",
-    P = [
-      ...new Set([
-        ...kPri(K),
-        ...kBufy(K)
-          .map(b => b.n)
-          .filter(n => KPRID.some(r => r[0] === n)),
-      ]),
-    ];
+  const typ = kHodTyp(co),
+    P = kKostkyNaSobe(K);
   let t = 0;
   const L = [],
-    sp = [];
-  KPRID.forEach(([n, x, ty, , jed]) => {
-    if (!P.includes(n) || !ty.split(" ").includes(typ)) return;
+    n = [];
+  KPRID.forEach(([nm, x, ty, , jed]) => {
+    if (jed || !P.has(nm) || !ty.split(" ").includes(typ)) return;
     const neg = x[0] === "-",
       r = kVyraz(x.replace(/^-/, ""));
     if (!r) return;
     t += neg ? -r.tot : r.tot;
-    L.push(`${neg ? "−" : "+"}${r.tot} ${n.replace(/^Bardic /, "Bardic Inspiration ")}`);
-    if (jed) sp.push(n);
+    L.push(`${neg ? "−" : "+"}${r.tot} ${nm}`);
+    n.push(nm);
   });
-  if (sp.length) {
-    const z = P.filter(n => !sp.includes(n));
-    kartaStavZmen(K.id, {pri: z.length ? z : null});
-  }
-  return {t, txt: L.length ? " " + L.join(" ") : ""};
+  return {t, txt: L.length ? " " + L.join(" ") : "", n};
+}
+/* co nabídnout po hodu: jen kostky, které postava má, k tomuto druhu hodu patří a v hodu ještě nejsou */
+function kHodNabidka(K, co, zapocteno) {
+  const N = K ? kKostkyNaSobe(K) : new Set(),
+    typ = kHodTyp(co),
+    z = new Set(zapocteno || []);
+  const ma = n =>
+    N.has(n) &&
+    !z.has(n) &&
+    KPRID.find(r => r[0] === n)[2]
+      .split(" ")
+      .includes(typ);
+  const bard = [...N].find(n => /^Bardic d\d+$/.test(n) && ma(n)) || null;
+  return {bless: ma("Bless"), guid: ma("Guidance"), bane: ma("Bane"), bard, st: bard ? +bard.match(/\d+$/)[0] : 0};
+}
+/* Bardic Inspiration použitá po hodu: kostka se spotřebuje */
+async function kBardSpotrebuj(K, bard) {
+  const z = kPri(K).filter(n => n !== bard);
+  await kartaStavZmen(K.id, {pri: z.length ? z : null}, null, {bezZpet: true});
+}
+/* tlačítka úprav po hodu (karta i list útoku); atributy a = data-… atribut, H = navíc (data-bph) */
+function kNabidkaHtml(N, a, H = "") {
+  return [
+    N.bless ? `<button type="button" class="gbtn ghost" ${a}="b4"${H} ${btip("Bless: přičte 1d4 (útok, záchrana)")}>+1d4 Bless</button>` : "",
+    N.guid ? `<button type="button" class="gbtn ghost" ${a}="b4"${H} ${btip("Guidance: přičte 1d4 (ověření)")}>+1d4 Guidance</button>` : "",
+    N.bane ? `<button type="button" class="gbtn ghost" ${a}="m4"${H} ${btip("Bane: odečte 1d4")}>−1d4 Bane</button>` : "",
+    N.bard
+      ? `<button type="button" class="gbtn ghost" ${a}="bard"${H} ${btip(`Bardic Inspiration: přičte 1d${N.st}, kostka se spotřebuje`)}>${bi("bard")}+1d${N.st} Bardic</button>`
+      : "",
+  ].join("");
 }
 async function kPriTog(K, n) {
   const P = kPri(K),

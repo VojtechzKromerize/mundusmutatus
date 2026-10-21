@@ -225,6 +225,7 @@ async function kartaHod(K, co, b, o = {}) {
     cas: Date.now(),
     upr: [],
     mods: [],
+    pri: PD.n,
     puv: tot,
     bylMis: mis,
     bylKrit: krit,
@@ -1566,13 +1567,6 @@ function kartyStart() {
 /* ===== Karta: úprava posledního hodu, kostky v textech schopností, Zpět, spodní lišta na telefonu (2026-10-17) ===== */
 /* ---- úprava hodu d20 po hodu: Bless / Guidance +1d4, Bane −1d4, Bardic Inspiration, přehození za hrdinskou inspiraci, Lucky ---- */
 const KPOSL = {};
-let KBARD = (() => {
-  try {
-    return +localStorage.getItem("mm-bard") || 6;
-  } catch (e) {
-    return 6;
-  }
-})();
 const kLucky = K => {
   const z = (typeof kZdroje === "function" ? kZdroje(K) : K.zdroje || []).find(q => /^luck(y| points?)\b/i.test(q.n));
   if (z) {
@@ -1623,17 +1617,13 @@ function kUpravHod(r, typ, arg) {
   r.upr.push(pop);
   return {r, pop};
 }
-function kBardSel() {
-  return `<select data-kbard aria-label="Kostka Bardic Inspiration">${[6, 8, 10, 12].map(n => `<option value="${n}"${KBARD === n ? " selected" : ""}>d${n}</option>`).join("")}</select>`;
-}
 function kPoslBox(K) {
   const P = KPOSL[K.id];
   if (!P || Date.now() - P.cas > 15 * 60e3 || !kMuze(K)) return "";
   const S = kartaStav(K.id),
     L = kLucky(K);
   return `<div class="kposl" role="group" aria-label="Úprava posledního hodu"><span class="kposlh"><small>Poslední hod</small> <b>${besc(P.co)}</b> <b class="khtot${P.krit ? " bkr" : P.mis ? " bmis" : ""}">${P.tot}</b>${P.upr.length ? ` <small>původně ${P.puv} · ${besc(P.upr.join(" · "))}</small>` : ""}</span>
-    <span class="bojbtn"><button type="button" class="gbtn ghost" data-kupr="b4" ${btip("Bless (útok, záchrana) nebo Guidance (ověření): přičte 1d4")}>+1d4 Bless / Guidance</button><button type="button" class="gbtn ghost" data-kupr="m4" ${btip("Bane: odečte 1d4")}>−1d4 Bane</button>
-      <span class="kbard">${kBardSel()}<button type="button" class="gbtn ghost" data-kupr="bard" ${btip("Bardic Inspiration od barda: přičte jeho kostku")}>+ Bardic Inspiration</button></span>
+    <span class="bojbtn">${kNabidkaHtml(kHodNabidka(K, P.co, P.pri), "data-kupr")}
       ${S.insp ? `<button type="button" class="gbtn ghost" data-kupr="insp" ${btip("Heroic Inspiration: přehodíš kostku d20 a platí nový hod; inspirace se spotřebuje")}>↻ Přehodit (inspirace)</button>` : ""}
       ${L && P.v <= 0 && L.zb > 0 ? `<button type="button" class="gbtn ghost" data-kupr="luck" ${btip(`Lucky: utratíš Luck Point a hod má výhodu${L.z ? ` (zbývá ${L.zb})` : ""}; proti nevýhodě ji zruší`)}>Lucky – výhoda</button>` : ""}
       <button type="button" class="kx" data-kposlx aria-label="Zavřít úpravy hodu">×</button></span></div>`;
@@ -1651,9 +1641,13 @@ async function kPoslUprav(K, typ) {
     mmHlasG("Lucky: nezbývá Luck Point.", 3000);
     return;
   }
-  const {r, pop} = kUpravHod(P, typ, KBARD),
+  const N = kHodNabidka(K, P.co, P.pri);
+  if (typ === "bard" && !N.bard) return;
+  const {r, pop} = kUpravHod(P, typ, N.st),
     old = P.tot;
   Object.assign(P, r);
+  P.pri = [...(P.pri || []), ...(typ === "bard" ? [N.bard] : typ === "m4" ? ["Bane"] : typ === "b4" ? [N.bless ? "Bless" : "Guidance"] : [])];
+  if (typ === "bard") await kBardSpotrebuj(K, N.bard);
   if (typ === "insp") await kartaStavZmen(K.id, {insp: null});
   if (L && L.z) {
     const U = Object.assign({}, kartaStav(K.id).zdr || {});
@@ -1836,15 +1830,6 @@ function kBarHtml(K) {
     ${k ? `<button type="button" class="kbarkon${KKON[K.id] ? " kbarkonq" : ""}" data-kbarkon ${btip(KKON[K.id] ? `Soustředění: záchrana CON SO ${KKON[K.id]} – klepni pro hod` : `Soustředění na ${k.n} – klepni pro ukončení`)}>◎ ${KKON[K.id] ? `SO ${KKON[K.id]}` : besc(k.n)}</button>` : ""}
     ${!ro && Z ? `<button type="button" class="gbtn ghost" data-kzpet aria-label="Zpět">↶</button>` : ""}</div>`;
 }
-document.addEventListener("change", e => {
-  const t = e.target;
-  if (t.matches && t.matches("[data-kbard]")) {
-    KBARD = +t.value || 6;
-    try {
-      localStorage.setItem("mm-bard", KBARD);
-    } catch (x) {}
-  }
-});
 document.addEventListener("click", async e => {
   const T = s => e.target.closest && e.target.closest(s);
   if (!T("#kartyview,#hraview,[data-kid]")) return;
@@ -1898,7 +1883,7 @@ function bojJaUprHtml(K, hid) {
     i = Math.min(+O.ui || 0, Math.max(0, ser.length - 1)),
     x = ser[i];
   return `<div class="bjur bjupr" role="group" aria-label="Úprava hodu na útok"><small>Upravit hod${ser.length > 1 ? `</small> <select data-juui${H} aria-label="Který útok">${ser.map((q, j) => `<option value="${j}"${j === i ? " selected" : ""}>${j + 1}. útok (${q.hod})</option>`).join("")}</select><small>` : ""}:</small>
-    <button type="button" class="gbtn ghost" data-juupr="b4"${H} ${btip("Bless: přičte 1d4")}>+1d4 Bless</button><button type="button" class="gbtn ghost" data-juupr="m4"${H} ${btip("Bane: odečte 1d4")}>−1d4 Bane</button>${kBardSel()}<button type="button" class="gbtn ghost" data-juupr="bard"${H}>${bi("bard")}+ Bardic</button>
+    ${kNabidkaHtml(kHodNabidka(K, "Útok", x ? x.pdn : []), "data-juupr", H)}
     ${dice && S.insp ? `<button type="button" class="gbtn ghost" data-juupr="insp"${H} ${btip("Heroic Inspiration: přehodí d20, inspirace se spotřebuje")}>↻ Přehodit (inspirace)</button>` : ""}${dice && L && L.zb > 0 && x && x.v <= 0 ? `<button type="button" class="gbtn ghost" data-juupr="luck"${H} ${btip("Lucky: výhoda za Luck Point")}>Lucky</button>` : ""}${(() => {
       const SD = x && x.vys === "vedle" && x.d !== 1 && K ? kSD(K) : null;
       return SD && SD.zb > 0 && kManMa(K, "Precision Attack")
@@ -1913,9 +1898,13 @@ async function bojJaUprav(typ, hid) {
   const K = F.K,
     c = (s.npc || []).find(o => o.id === (O.cil || O.ci));
   const BJU = O; /* dál pracuje s formulářem F.O – u vypravěče je to BGMU[hid] */
+  const i0 = Math.min(+BJU.ui || 0, Math.max(0, (BJU.serie || []).length - 1)),
+    N = kHodNabidka(K, "Útok", ((BJU.serie || [])[i0] || {}).pdn);
+  if (typ === "bard" && !N.bard) return;
+  if (typ === "bard") await kBardSpotrebuj(K, N.bard);
   if (!(BJU.serie && BJU.serie.length)) {
     if (BJU.hod === "" || !/^(b4|m4|bard)$/.test(typ)) return;
-    const st = typ === "bard" ? KBARD : 4,
+    const st = typ === "bard" ? N.st : 4,
       x = bK(st),
       zn = typ === "m4" ? -1 : 1;
     BJU.hod = String(+BJU.hod + zn * x);
@@ -1934,11 +1923,22 @@ async function bojJaUprav(typ, hid) {
   const {r, pop} = kUpravHod(
       {d1: q.d1, d2: q.d2, v: q.v, b: q.b, mods: q.mods, upr: q.upr, utok: true, kmin: BJU.kmin || 20},
       typ,
-      SDp ? +SDp.k.slice(1) : KBARD,
+      SDp ? +SDp.k.slice(1) : N.st,
     ),
     old = q.hod;
   if (SDp) await kZdrUtrat(K, SDp);
-  const n = Object.assign({}, q, {d1: r.d1, d2: r.d2, v: r.v, mods: r.mods, upr: r.upr, d: r.d, hod: r.tot, krit: r.krit}),
+  const pouz = typ === "bard" ? N.bard : typ === "m4" ? "Bane" : typ === "b4" ? "Bless" : null,
+    n = Object.assign({}, q, {
+      d1: r.d1,
+      d2: r.d2,
+      v: r.v,
+      mods: r.mods,
+      upr: r.upr,
+      d: r.d,
+      hod: r.tot,
+      krit: r.krit,
+      pdn: [...(q.pdn || []), ...(pouz ? [pouz] : [])],
+    }),
     ct = (s.npc || []).find(o => o.id === q.ci) || c;
   n.vys = F.gm
     ? n.d === 1
