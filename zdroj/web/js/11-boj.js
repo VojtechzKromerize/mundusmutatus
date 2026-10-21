@@ -1970,9 +1970,9 @@ function bojRef(n, s, velH) {
     return `<div class="bnkv"><span>${a}</span><button type="button" class="bnkvm" data-bover="${a}" ${btip(`Ověření ${a}: d20 ${bsg(m || 0)} (s kostkou Závoje)`)}>${m == null ? "–" : bsg(m)}</button><button type="button" class="bnkvz" data-bzach="${a}" ${btip(`Záchrana ${a}: d20 ${bsg(z)}`)} aria-label="Záchrana ${a} ${bsg(z)}">${bi("stit")}${bsg(z)}</button></div>`;
   }).join("")}</div>`;
   /* na širokém monitoru vypravěče (2026-10-21) jsou útoky a kouzla vlevo, znamení Závoje, zdroje a statblock vpravo */
-  return `<div class="bref bnk">${tmsg}${nej}${vzd}${rdy ? rdyB : ""}${kon}${pad}${hd}${pan}${vlH}<div class="bnk2"><div class="bnkl">${ut}${muB}${muD}${kzB}${plak}${rdy ? "" : rdyB}</div><div class="bnkr">${rcB}${zd}
-    <div class="bnkbar">${velH || ""}${prC}${os}</div>
-    <details class="bstat" data-otv="st-${n.id}"${bojOtv("st-" + n.id)}><summary>${bi("svitek")} Statblock</summary><div class="bsb" data-bsb="${besc(p.id)}">${BOTV.has("st-" + n.id) ? bojStatHtml(p) : ""}</div>${bojEdit(p)}</details></div></div></div>`;
+  /* patička přes celou šířku: vedlejší úkony – připravit akci, velitel houfu, přívlastky, osoba, statblock */
+  return `<div class="bref bnk">${tmsg}${nej}${vzd}${rdy ? rdyB : ""}${kon}${pad}${hd}${pan}${vlH}<div class="bnk2"><div class="bnkl">${ut}${muB}${muD}${kzB}${plak}</div><div class="bnkr">${rcB}${zd}</div></div>
+    <div class="bnkft">${rdy ? "" : rdyB}${velH || ""}${prC}${os}<details class="bstat" data-otv="st-${n.id}"${bojOtv("st-" + n.id)}><summary>${bi("svitek")} Statblock</summary><div class="bsb" data-bsb="${besc(p.id)}">${BOTV.has("st-" + n.id) ? bojStatHtml(p) : ""}</div>${bojEdit(p)}</details></div></div>`;
 }
 /* statblock s vysvětlivkami se počítá až při prvním otevření a pamatuje se */
 const BSTC = {};

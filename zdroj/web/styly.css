@@ -3227,6 +3227,11 @@ span.bzos{cursor:default}
 .bnk .bphcil[aria-pressed=true]{background:color-mix(in srgb,var(--gold) 18%,var(--paper));border-color:var(--gold)}
 .bnk .bphl{font-family:var(--f-label);font-weight:700;font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
 .bnkbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.bnkft{display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:center;gap:4px 12px;margin-top:2px;padding-top:6px;border-top:1px dashed var(--rule);font-size:.82rem;color:var(--muted)}
+.bnkft .gbtn,.bnkft .brdyadd{padding:2px 8px!important;font-size:.76rem!important}.bnkft .bstat{margin:0}.bnkft .bstat>summary{font-size:.8rem}
+.bnkft .bstat[open]{flex-basis:100%}.bnkft .bstat[open]>summary{text-align:right}.bnkft .bsb{text-align:left;color:var(--ink);font-size:.92rem}
+.bnkft .bvel{margin:0}.bnkft .bprv{display:inline-flex;flex-wrap:wrap;gap:4px;align-items:center}
+.bz.bz-n{box-shadow:inset 3px 0 0 var(--bn)}.bz.bz-h{box-shadow:inset 3px 0 0 var(--bh)}.bz.bz-n,.bz.bz-h{padding-left:9px}.bz.bzlkr{box-shadow:inset 3px 0 0 var(--gold)}
 @media (max-width:600px){.bnkvl{grid-template-columns:repeat(3,1fr)}}
 .kstrkon{color:var(--kb-gold,#c9a14a);font-weight:700}
 .bdmtahr{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0}
@@ -3382,6 +3387,28 @@ button.btedch{cursor:pointer}button.btedch:hover{border-color:var(--gold,#b08d3a
   #bojview .bojgm .bcileh .bcld{margin:0}
   #bojview .bojgm .bcileh .bcld>summary{padding:2px 9px;font-size:.8rem}
   #bojview .bojgm .bcileh .bcld[open]{flex-basis:100%}
+  /* ===== 2026-10-21 večer: barvy stran, hierarchie písma, tvary, banner Závoje ===== */
+  /* strana: nepřátelé vínová (--bn), družina a spojenci modrá (--bh) – nadpisy sloupců, pruh nad rozbalenou kartou, medailonky cílů, záznam */
+  #bojview .bojgm .bcoln .bstrana{--c:var(--bn)}
+  #bojview .bojgm .bnpc.bopen{border-top:3px solid var(--bn);border-left-color:var(--rule)}
+  #bojview .bojgm .bnpc.bopen.bspj,#bojview .bojgm .bnpc.bhrk.bopen{border-top-color:var(--bh)}
+  #bojview .bojgm .bnk .bnkcil .bphcil .bmed.bmen{--sc:var(--bn)}
+  #bojview .bojgm .bnk .bnkcil .bphcil .bmed:is(.bmk,.bmsp){--sc:var(--bh)}
+  /* písmo: nadpisy sloupců v kapitálkách, blackletter jen pro jméno bojujícího a čísla, která se čtou z dálky */
+  #bojview .bojgm :is(.bcoln,.bcolh) .uvh2,#bojview .bojgm .bcoll .uvh2,#bojview .bojgm .bsph{font-family:var(--f-label);font-weight:700;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  #bojview .bojgm .bcoll .uvh2 .bi{width:16px;height:16px;opacity:.8}
+  #bojview .bojgm .bnkb b{font-family:var(--f-disp);font-weight:500;font-size:1.55rem;line-height:1}
+  #bojview .bojgm .bnkb b i{font-family:var(--f-body);font-size:.85rem}
+  #bojview .bojgm .bnkvm{font-family:var(--f-disp);font-weight:500;font-size:1.2rem;line-height:1.1;padding:0 5px}
+  #bojview .bojgm .bhp input{font-size:1.35rem}
+  /* tvary: rámečky 4 px, chipy kulaté, nic mezi */
+  #bojview .bojgm :is(.bnpc,.bosa,.bnkb,.bnkv,.bnkp,.bcl,.bnav,.gbtn,.btabs button,.bpridej>summary,.bnkvm,.bnkvz,.bzrf input,.bzrf select,.beff input,.beff select,.bhp input,.bnadd input,.bnadd select,.bobl,.bdetnic,.bplos,.bmor){border-radius:4px}
+  #bojview .bojgm :is(.bprc,.bpros button,.bprosc,.btedch,.bphai,.bzd>span,.kchip,.bst){border-radius:999px}
+  /* banner Hodiny Závoje: tenký vínový proužek nad počasím */
+  #bojview .bojgm .bojhorni>.zavban{flex:1 1 100%;margin:0;padding:3px 12px;border:0;border-left:4px solid #a3232b;border-radius:0;background:none;font-size:.9rem}
+  #bojview .bojgm .bojhorni>.zavban b{font-size:1rem}
+  #bojview .bojgm .bojhorni>.zavban.pravda{box-shadow:none;background:color-mix(in srgb,#a3232b 10%,transparent)}
+  #bojview .bojgm .bojhorni>.zavban::before{content:"";display:inline-block;width:18px;height:18px;margin:-3px 6px -4px 0;background:url("art/img/boj/zavoj-48.webp") center/contain no-repeat}
   /* na širokém monitoru má Boj vypravěče širší stránku, ať se tři sloupce vejdou */
   .wrap:has(.view[data-view=boj]:not([hidden]) .bojgm.bojakt:not(.bojprip)){max-width:1720px}
   .bojgm .bnkh{grid-template-columns:auto minmax(0,1.4fr) minmax(0,1fr);gap:8px}

@@ -276,7 +276,8 @@ function bzRadek(e, gm) {
     zh = z
       ? `<div class="bzz ${z.r === "pok" ? "zp" : z.r === "poz" ? "zb" : "zn"}"${z.txt ? " " + btip("Z bestiáře: " + z.txt) : ""}>${bi(z.r === "pok" ? "pokuseni" : z.r === "poz" ? "pozehnani" : "zavoj")}<span class="bzzl">Závoj</span>${z.d ? bzK(6, z.d, "bzkz") : ""}<b>${z.r === "pok" ? "Pokušení" : z.r === "poz" ? "Požehnání" : "bez vlivu"}</b>${z.vol ? `<span class="bzzv${z.prij ? " bzzp" : ""}">${besc(z.vol)}</span>` : ""}</div>`
       : "";
-  return `<li class="bz${e.undone ? " blundone" : ""}${e.skryty ? " bzskr" : ""}${e.vys && e.vys[1] === "bzkr" ? " bzlkr" : ""}"><div class="bzh">${os(e.A)}<span class="bzco">${besc(e.co)}</span>${e.C ? `<i class="bzsip" aria-label="vůči">→</i>${os(e.C)}` : ""}<time>${e.skryty ? "skrytý · " : ""}${bzCas(e.t)}</time>${e.und || ""}</div>
+  const str = e.A && e.A.o ? (e.A.o.druh && !bojSpoj(e.A.o) ? " bz-n" : " bz-h") : "";
+  return `<li class="bz${str}${e.undone ? " blundone" : ""}${e.skryty ? " bzskr" : ""}${e.vys && e.vys[1] === "bzkr" ? " bzlkr" : ""}"><div class="bzh">${os(e.A)}<span class="bzco">${besc(e.co)}</span>${e.C ? `<i class="bzsip" aria-label="vůči">→</i>${os(e.C)}` : ""}<time>${e.skryty ? "skrytý · " : ""}${bzCas(e.t)}</time>${e.und || ""}</div>
     ${e.vys || zr ? `<div class="bzv">${e.vys ? `<span class="bzvys ${e.vys[1]}">${besc(e.vys[0])}</span>` : ""}${zr}</div>` : ""}
     ${e.rows.length ? `<div class="bzd">${e.rows.map(r => `<p>${r.l ? `<small class="bzdl">${r.l}</small>` : ""}<span>${r.h}</span></p>`).join("")}</div>` : ""}${e.pozn.length ? `<p class="bzp">${e.pozn.map(besc).join(" · ")}</p>` : ""}${zh}</li>`;
 }
