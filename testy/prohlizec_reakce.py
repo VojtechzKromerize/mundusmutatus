@@ -46,9 +46,9 @@ async def main():
     await pl.goto(BASE+"#boj");await pl.wait_for_selector(".bsloty")
     await pl.evaluate("bojJa.set('Balduin');renderBoj()");await pl.wait_for_timeout(1500)
     print("hráč tlačítka:",await pl.evaluate("[...document.querySelectorAll('[data-bhrk]')].map(b=>b.className+' in-bhpan:'+!!b.closest('[data-bhpan]'))"))
-    for sel in ('.bdm .bdmrk[data-bhrk]','.bdm .bdmuse[data-bhrk]'):
+    for sel in ('.bdm .bdmrk[data-bhrk]','.bdm .bdmsg[data-bhrk]'):
         await pl.evaluate("mmPopX()")  # ukázka vypravěče by překážela klepnutí
-        if await pl.locator('.bdm [data-bdmaf="R"]').count(): await pl.locator('.bdm [data-bdmaf="R"]').first.click();await pl.wait_for_timeout(300)  # pod-karta Reakce (2026-10-21)
+        if await pl.locator('.bdm [data-bdmaf="R"]:not([aria-selected="true"])').count(): await pl.locator('.bdm [data-bdmaf="R"]').first.click();await pl.wait_for_timeout(600)  # pod-karta Reakce (2026-10-21); zobrazená je zároveň přepínač
         if not await pl.locator(sel).count(): print("chybí",sel);continue
         await pl.locator(sel).first.click();await pl.wait_for_timeout(600)
         a=await pl.evaluate("JSON.stringify(BOJ.s.reak||null)");await pl.wait_for_timeout(4000)
@@ -57,9 +57,9 @@ async def main():
         chk(await pl.evaluate("!(BOJ.s.reak||{}).h1"),f"hráč {sel} odškrtne")
     await g.evaluate("BKART.h1=true;renderBoj()");await g.wait_for_timeout(600)
     print("GM tlačítka:",await g.evaluate("[...document.querySelectorAll('[data-break=h1]')].map(b=>b.className+' bdm:'+!!b.closest('.bdm'))"))
-    for sel in ('.bdm .bdmrk[data-break="h1"]','.bdm .bdmuse[data-break="h1"]'):
+    for sel in ('.bdm .bdmrk[data-break="h1"]','.bdm .bdmsg[data-break="h1"]'):
         await g.evaluate("mmPopX()")
-        if await g.locator('.bdm [data-bdmaf="R"]').count(): await g.locator('.bdm [data-bdmaf="R"]').first.click();await g.wait_for_timeout(300)
+        if await g.locator('.bdm [data-bdmaf="R"]:not([aria-selected="true"])').count(): await g.locator('.bdm [data-bdmaf="R"]').first.click();await g.wait_for_timeout(600)
         if not await g.locator(sel).count(): print("chybí",sel);continue
         await g.locator(sel).first.click();await g.wait_for_timeout(600)
         a=await g.evaluate("JSON.stringify(BOJ.s.reak||null)");await g.wait_for_timeout(4000)
@@ -69,7 +69,7 @@ async def main():
     # souběh: vypravěč klikne na reakci, zatímco se ještě načítá stav po zápisu hráče z telefonu
     await g.wait_for_timeout(1500);await pl.evaluate("bojHracAkce('h1',h=>{h.kryt=2})");await pl.wait_for_timeout(250)
     await g.evaluate("window.__puv=MMDB.bojNacti;MMDB.bojNacti=async()=>{const r=await window.__puv.call(MMDB);await new Promise(o=>setTimeout(o,1200));return r};window.__p=bojNacti()")
-    await g.wait_for_timeout(150);await g.locator('.bdm .bdmuse[data-break="h1"]').first.click()
+    await g.wait_for_timeout(150);await g.locator('.bdm .bdmsg[data-break="h1"]').first.click()
     await g.wait_for_timeout(200)
     chk(await g.evaluate("!!(BOJ.s.reak||{}).h1"),"souběh: pozdní načtení starší verze reakci nevrátí")
     await g.wait_for_timeout(4000);await g.evaluate("MMDB.bojNacti=window.__puv")

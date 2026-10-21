@@ -1319,6 +1319,36 @@ begin
 end $$;
 revoke all on function public.mm_karta_lecit(text, int, int, text, text) from public;
 grant execute on function public.mm_karta_lecit(text, int, int, text, text) to anon, authenticated;
+-- rána vyléčena (2026-10-21): přihlášený hráč (za svou postavu, p_od) nebo vypravěč odebere kritické zranění z herního stavu
+-- (hra.krit[jméno][p_j]); jako u léčení smí hráč ošetřit i spolubojovníka. Změna hra spustí puls, takže ji vypravěč i hráči uvidí hned.
+drop function if exists public.mm_rana_vylecena(text, text, int, text);
+create or replace function public.mm_rana_vylecena(p_od text, p_jmeno text, p_j int, p_token text default null) returns jsonb
+language plpgsql security definer set search_path = public as $$
+declare h jsonb; r jsonb; n jsonb;
+begin
+  if p_jmeno is null or char_length(p_jmeno) not between 1 and 80 or p_j is null or p_j not between 0 and 99 then
+    raise exception 'neplatná rána';
+  end if;
+  if not public.mm_je_gm() then
+    if p_od is null or p_od !~ '^[a-z0-9-]{1,40}$' or not public.mm_hrac_ok(p_od, p_token) then
+      raise exception 'rány léčí jen přihlášený hráč za svou postavu' using errcode = '42501';
+    end if;
+  end if;
+  select hodnota into h from public.nastaveni where klic = 'hra' for update;
+  r := coalesce(h, '{}'::jsonb) -> 'krit' -> p_jmeno;
+  if r is null or jsonb_typeof(r) <> 'array' or p_j >= jsonb_array_length(r) then
+    raise exception 'taková rána není';
+  end if;
+  n := coalesce(h, '{}'::jsonb) -> 'krit';
+  r := r - p_j;
+  n := case when jsonb_array_length(r) = 0 then n - p_jmeno else jsonb_set(n, array[p_jmeno], r) end;
+  n := coalesce(h, '{}'::jsonb) || jsonb_build_object('krit', n);
+  insert into public.nastaveni (klic, hodnota, zmeneno) values ('hra', n, now())
+  on conflict (klic) do update set hodnota = excluded.hodnota, zmeneno = now();
+  return n -> 'krit';
+end $$;
+revoke all on function public.mm_rana_vylecena(text, text, int, text) from public;
+grant execute on function public.mm_rana_vylecena(text, text, int, text) to anon, authenticated;
 
 -- Bardic Inspiration spojenci (2026-10-17): bard (p_od, přihlášený za svou postavu) dá kostku jiné kartě – nahradí předchozí kostku v pri
 create or replace function public.mm_karta_bardic(p_id text, p_kostka int, p_od text, p_token text default null) returns bigint

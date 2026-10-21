@@ -693,31 +693,47 @@ async function kTechPouzij(K, id) {
 function kRanyHtml(K) {
   const R = kRany(K);
   if (!R.length) return "";
-  /* 2026-10-21: vypravěč ránu vyléčí rovnou z karty (data-kranlec); hráč vidí jen seznam */
+  /* vypravěč i přihlášený hráč ránu vyléčí rovnou z karty (data-kranlec, 2026-10-21); hráč přes mm_rana_vylecena, jako u léčení životů
+     smí ošetřit i spolubojovníka */
+  const lec = GMV || (typeof jaK === "function" && jaK());
   return `<h3 class="uvh2">Rány <a class="pmore" href="#artikule/kriticka">pravidla →</a></h3><ul class="krany" data-kranyk="${besc(K.id)}">${R.map(
     (x, j) =>
-      `<li class="${/^Lehk/.test(x.t) ? "" : /^Těžk/.test(x.t) ? "bhp2" : "bhrich"}"><b>${besc(x.t)}</b>${x.d ? ` <small>${besc(x.d)}</small>` : ""}${GMV ? ` <button type="button" class="gbtn ghost kranlec" data-kranlec="${j}" ${btip("Rána je vyléčená – zmizí z karty i z Boje")}>vyléčeno</button>` : ""}</li>`,
+      `<li class="${/^Lehk/.test(x.t) ? "" : /^Těžk/.test(x.t) ? "bhp2" : "bhrich"}"><b>${besc(x.t)}</b>${x.d ? ` <small>${besc(x.d)}</small>` : ""}${lec ? ` <button type="button" class="gbtn ghost kranlec" data-kranlec="${j}" ${btip("Rána je vyléčená (Lesser Restoration, léčitel, odpočinek podle Artikulí) – zmizí z karty i z Boje")}>vyléčeno</button>` : ""}</li>`,
   ).join(
     "",
-  )}</ul><p class="rsmall">Neléčená kritická zranění: každé přidá +1 k dalšímu hodu na kritické zranění.${GMV ? "" : " Vyléčení odškrtne vypravěč."}</p>`;
+  )}</ul><p class="rsmall">Neléčená kritická zranění: každé přidá +1 k dalšímu hodu na kritické zranění.${lec ? "" : " Vyléčení odškrtne přihlášený hráč nebo vypravěč."}</p>`;
 }
-document.addEventListener("click", e => {
+document.addEventListener("click", async e => {
   const b = e.target.closest && e.target.closest("[data-kranlec]");
-  if (!b || !GMV) return;
+  if (!b) return;
   const ul = b.closest("[data-kranyk]"),
     K = ul && KARTBY[ul.dataset.kranyk];
   if (!K) return;
   const jm = Object.keys(bojKritPC()).find(n => n === kJmeno(K) || n === K.n),
     j = +b.dataset.kranlec;
   if (!jm) return;
-  const Kr = Object.assign({}, bojKritPC()),
-    x = (Kr[jm] || [])[j];
-  Kr[jm] = (Kr[jm] || []).filter((_, i) => i !== j);
-  if (!Kr[jm].length) delete Kr[jm];
-  hraUloz({krit: Kr}).then(() => {
-    if (x) kHodZapis({k: K.id, kdo: K.n, co: "Rána vyléčena", txt: x.t});
-    kartyPrekresli();
-  });
+  const x = (bojKritPC()[jm] || [])[j];
+  if (GMV) {
+    const Kr = Object.assign({}, bojKritPC());
+    Kr[jm] = (Kr[jm] || []).filter((_, i) => i !== j);
+    if (!Kr[jm].length) delete Kr[jm];
+    await hraUloz({krit: Kr});
+  } else {
+    const ja = jaK();
+    if (!ja || !window.MMDB) return;
+    b.disabled = true;
+    try {
+      const krit = await MMDB.ranaVylecena(ja.id, jm, j);
+      HRA = Object.assign({}, HRA || {}, {krit: krit || {}});
+      __D.HRA = HRA;
+    } catch (err) {
+      mmHlas(err.message || String(err), 5000);
+      b.disabled = false;
+      return;
+    }
+  }
+  if (x) kHodZapis({k: K.id, kdo: K.n, co: "Rána vyléčena", txt: x.t});
+  kartyPrekresli();
 });
 /* ---- rozdíl po novém PDF (úroveň, životy, kouzla, útoky, předměty) ---- */
 function kRozdil(S, N) {
