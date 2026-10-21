@@ -1,7 +1,8 @@
 name: Databáze
 # Dvě databáze Supabase (2026-10-21): ostrá (projekt „Mundus Mutatus“, web main) a vývojová („Mundus Mutatus dev“,
 # náhled dev a ostatní větve). Tento workflow do nich nahrává schéma a obnovuje vývojovou z ostré.
-#   - nahrání do dev se supabase/schema.sql změnou → schéma se samo nahraje do vývojové databáze
+#   - nahrání do dev se supabase/schema.sql změnou → schéma se samo nahraje do vývojové databáze;
+#     „[obnovit dev]“ ve zprávě commitu → navíc obnoví vývojovou z ostré (dokud workflow není v main, jinak to nejde spustit)
 #   - ručně (Actions → Databáze → Run workflow):
 #       „schéma do vývojové“          – totéž ručně
 #       „obnovit vývojovou z ostré“   – schéma + kopie herních dat (karty, odhalení, texty, boj…) z ostré; ostrá se jen čte
@@ -12,7 +13,7 @@ name: Databáze
 on:
   push:
     branches: [dev]
-    paths: ["supabase/schema.sql"]
+    paths: ["supabase/schema.sql", "supabase/obnov_dev.sh", ".github/workflows/databaze.yml"]
   workflow_dispatch:
     inputs:
       akce:
@@ -29,11 +30,12 @@ permissions:
 concurrency: databaze
 jobs:
   databaze:
-    name: ${{ github.event_name == 'push' && 'schéma do vývojové' || inputs.akce }}
+    name: ${{ github.event_name == 'push' && (contains(github.event.head_commit.message, '[obnovit dev]') && 'obnovit vývojovou z ostré' || 'schéma do vývojové') || inputs.akce }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
-      AKCE: ${{ github.event_name == 'push' && 'schéma do vývojové' || inputs.akce }}
+      # nahrání do dev: schéma; s „[obnovit dev]“ ve zprávě commitu i kopie dat z ostré (ruční spuštění jde až když je workflow v main)
+      AKCE: ${{ github.event_name == 'push' && (contains(github.event.head_commit.message, '[obnovit dev]') && 'obnovit vývojovou z ostré' || 'schéma do vývojové') || inputs.akce }}
       DB_DEV: ${{ secrets.SUPABASE_DB_DEV }}
       DB_MAIN: ${{ secrets.SUPABASE_DB_MAIN }}
       PGOPTIONS: "-c client_min_messages=warning"
