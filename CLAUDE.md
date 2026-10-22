@@ -205,9 +205,10 @@ Hlavní orientační body:
 - K dispozici je Python, Node a Playwright. Nejdřív `npm ci` (esbuild, ESLint, Prettier, jsdom; web sám balíčky
   nepotřebuje). **Po každé úpravě skriptu `npm run format && npm run kontrola`** (~10 s): formát, zdvojená a neznámá jména,
   čárka jako operátor, jádro volající líné díly – chyby ukáže v souboru a řádku.
-- **Rychlé testy výpočtů: `npm test`** (~6 s, `testy/jednotky/*.test.mjs`): skript stránky v jsdom (bez prohlížeče), volá
-  funkce přímo – pravidla postavy, útok (`bojUtokPriprav`), Artikule, kouzla (`kSpUcinek`), katalog vybavení, zápis útoku
-  vypravěče, generátor (tajemství, zmínky). Kostky: `S.kostky([[číslo, stěn], …])`; `const` skriptu se čtou přes `V("výraz")`.
+- **Rychlé testy výpočtů: `npm test`** (~20 s, `testy/jednotky/*.test.mjs`; jeden soubor `node --test testy/jednotky/kouzla.test.mjs` ~5 s):
+  skript stránky v jsdom (bez prohlížeče), volá funkce přímo – pravidla postavy (bonusy, HP, sloty, AC, záchrany, rysy mimo SRD),
+  útok (`bojUtokPriprav`), Artikule (zbroj, obětování, kritická zranění, Výdrž), stavy, kouzla (`kSpUcinek`, KZEF, oblasti, rituály),
+  katalog vybavení, zápis útoku vypravěče, kalendář a herní čas, Závoj, generátor (tajemství, zmínky) – přehled v `testy/README.md`. Kostky: `S.kostky([[číslo, stěn], …])`; `const` skriptu se čtou přes `V("výraz")`.
   Nová pravidla a výpočty testuj tady (rychlé, spolehlivé); `prohlizec_*.py` jen na tok obrazovek. Bez databáze: `MM_BEZ_DB=1 bash testy/spustit.sh`
   (sestavení, kontrola tajemství, prohlídka statické verze, bestiář).
 - S databází: nejdřív `eval "$(bash testy/priprav-prostredi.sh)"` (spustí PostgreSQL, stáhne PostgREST přes curl –

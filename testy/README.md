@@ -7,9 +7,28 @@
    ESLint nad skriptem složeným jako v prohlížeči – zdvojená jména, neznámá jména (překlepy), zdvojené klíče, čárka
    jako operátor, nedosažitelný kód – a pravidlo, že jádro (01–09, 26) při načtení nevolá líně stahované díly 10–25.
    Chyby ukazuje v původním souboru a řádku. Potřebuje `npm ci` (balíčky z `package.json`; bez nich se přeskočí).
-   Hned potom **rychlé testy výpočtů** (`jednotky/*.test.mjs`, `npm test`, ~6 s): vypravěčská verze se načte do jsdom
-   a testy volají funkce přímo (pravidla postavy, útok, Artikule, kouzla, vybavení, zápis útoku vypravěče, generátor),
-   a **kontrola formátu** (Prettier; `npm run format` opraví).
+   Hned potom **rychlé testy výpočtů** (`jednotky/*.test.mjs`, `npm test`, ~20 s): vypravěčská verze se načte do jsdom
+   (jednou na soubor, ~5 s) a testy volají funkce přímo, a **kontrola formátu** (Prettier; `npm run format` opraví).
+   Co rychlé testy pokrývají:
+   - `web.test.mjs` – modifikátory a bonus zdatnosti, útok (`bojUtokPriprav`: 1 a 20, výhoda, kritický rozsah, ruční kostky,
+     vyčerpání, Vpřed!), kostky zranění, vlastnosti zbraní a zbroje z katalogu vybavení, přidání věci do vybavení, kouzla
+     se zraněním a léčením (`kSpUcinek`: Fireball, Magic Missile, Eldritch Blast, Cure Wounds), zápis útoku vypravěče za hráče,
+     Bless / Bane / Bardic Inspiration k hodům, stavy a hody proti smrti postavy s kartou v boji.
+   - `pravidla.test.mjs` – pravidla postavy D&D 2024 (bonus zdatnosti, maximum HP, sloty i při více povoláních a pakt, AC ze
+     zbroje a Unarmored Defense, nošená zbroj, záchrany s Aura of Protection, Jack of All Trades, rychlost, počty použití,
+     rysy mimo SRD, zbraň podle názvu), Výdrž podle Artikulí, stavy SRD (nevýhody, automatický neúspěch, rychlost 0,
+     návrh výhody v boji), vyčerpání, Artikule zbroje v boji (druh z popisu AC, Resistance zbroje, Drtivá a Průrazná,
+     Immunity a Vulnerability, obětování a vyčerpaná zbroj), Půlmeč, kritická zranění (závažnost, místo na těle, druh).
+   - `kouzla.test.mjs` – účinky dalších kouzel z dat SRD (Guiding Bolt, Scorching Ray, triky podle úrovně, záchrany
+     s polovinou, Hex, Mass Healing Word), posílení na kartě (Shield, Haste, Mage Armor, Barkskin, Aid, Stoneskin),
+     posílení od jiné postavy (Warding Bond, Shield of Faith, Bless), trvání účinku v kolech boje, opakovaná kouzla bez slotu
+     (Spiritual Weapon, Call Lightning), oblasti (Spirit Guardians, Moonbeam, Grease, Web, Cloud of Daggers), rituály, trvání z textu.
+   - `cas.test.mjs` – juliánský kalendář (přestupné roky, Velikonoce 1458, svátky), věk osob k hernímu datu, posun herního času,
+     kostka Závoje (výsledky, bez záchran, svátky podle vyznání, Hodina Závoje a Hodina Pravdy, dopočet v záznamu boje),
+     okno putování podle ročního období.
+   - `generator.test.mjs` – tajemství vypravěče a zmínky podle odhalení (`zdroj/generator.js`, bez jsdom).
+   Kostky se nastaví `S.kostky([[číslo, stěn], …])`, konstanty skriptu se čtou výrazem `V("výraz")`; nové pravidlo dostane test
+   do souboru podle oblasti.
 2. **Prohlídka statické verze** (`prochazka.py`): otevře všechny stránky odkaz po odkazu a hlásí chyby JavaScriptu,
    rozbité obrázky, prázdné stránky a přetečení do stran.
 3. **Databáze** (když je k dispozici PostgreSQL a PostgREST): založí čistou testovací databázi ze `supabase/schema.sql`,
