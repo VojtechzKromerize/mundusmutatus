@@ -1305,7 +1305,7 @@ const BDMI = {
 };
 const bdmIc = (k, c) =>
   `<svg class="bdmic${c ? " " + c : ""}" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">${BDMI[k] || ""}</svg>`;
-/* oddíly (2026-10-22): Info i Duše jsou pryč – smysly a zdatnosti ve Statistikách, duše, rány a účinky v listu Svědomí; Herní záznam je vedle karty */
+/* oddíly (2026-10-22): Info i Duše jsou pryč – smysly a zdatnosti ve Statistikách, duše, rány a účinky v listu Svědomí; Záznam = hody hráče */
 const BDMS = [
   ["vl", "Statistiky: vlastnosti, záchrany, dovednosti, smysly, zdatnosti a jazyky", "Statistiky"],
   ["akce", "Akce: útoky, bonusové akce, reakce, omezené schopnosti", "Akce"],
@@ -1313,6 +1313,7 @@ const BDMS = [
   ["vyb", "Vybavení do boje", "Vybavení"],
   ["rysy", "Rysy a schopnosti", "Rysy"],
   ["denik", "Poznámky a deník", "Poznámky"],
+  ["zaznam", "Herní záznam: moje hody a záznam boje", "Záznam"],
   ["spol", "Společníci", "Společníci"],
 ];
 const BDM = {sec: {}, sheet: null, hlo: new Set(), af: {}, kf: {}, fokus: null, utx: new Set()};
@@ -1702,6 +1703,8 @@ function bdmTelo(s, h, K, gm, X, id) {
   if (id === "vyb") return bdmVyb(K);
   if (id === "rysy") return bdmRysy(K);
   if (id === "denik") return `<div class="kdb2 bdmkdb">${kartaDbHtml(K, kartaDbData(K), {jenTab: id})}</div>`;
+  if (id === "zaznam")
+    return `<div class="kdb2 bdmkdb"><p class="kdbnote">Tvoje hody z karty i z Boje a veřejný záznam boje. Klepnutím na kostku dole hodíš cokoli.</p>${kZaznamHtml(K)}</div>`;
   if (id === "spol") return kFormaHtml(K) + kSpolHtml(K);
   return "";
 }

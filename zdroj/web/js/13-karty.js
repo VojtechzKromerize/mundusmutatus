@@ -523,8 +523,7 @@ function renderKarty(id) {
     pojZnac(box.querySelector(".kprehled"));
     return;
   }
-  /* herní záznam postavy vedle karty (na telefonu pod ní) – dřív záložka Záznam na kartě (2026-10-21) */
-  box.innerHTML = `<div class="kjedna">${kartaJednaHtml(K)}<section class="kzazsec"><h3 class="uvh2">Herní záznam</h3>${kZaznamHtml(K)}</section></div>`;
+  box.innerHTML = kartaJednaHtml(K);
   pojZnac(box);
 }
 /* ikony vlastností (2026-10-17): zvíře podle vlastnosti, nahoře (hnědé pole) skóre, vlevo dole (červené) modifikátor = ověření,

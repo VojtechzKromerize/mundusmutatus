@@ -25,7 +25,7 @@ async def main():
     pl.on("dialog",lambda d:asyncio.ensure_future(d.accept()))
     await pl.goto(BASE+"#karty/balduin");await pl.wait_for_selector(".bdm",timeout=15000)
     await pl.wait_for_timeout(2500);await pl.evaluate("mmPopX()")  # starší ukázka z testu práv by překážela
-    chk(await pl.evaluate("document.querySelectorAll('.bdm .bdmtabs [data-bdmsec]').length")>=6 and await pl.locator('.bdm .bdmtabs [data-bdmsec="info"], .bdm .bdmtabs [data-bdmsec="zaznam"], .bdm .bdmtabs [data-bdmsec="duse"]').count()==0,"jediná karta má všechny oddíly (Statistiky…Poznámky), bez Info, Duše a Záznamu")
+    chk(await pl.evaluate("document.querySelectorAll('.bdm .bdmtabs [data-bdmsec]').length")>=6 and await pl.locator('.bdm .bdmtabs [data-bdmsec="info"], .bdm .bdmtabs [data-bdmsec="duse"]').count()==0,"jediná karta má všechny oddíly (Statistiky…Záznam), bez Info a Duše")
     chk(await pl.evaluate("document.querySelectorAll('.bdm .bdmsec').length")==1,"karta kreslí jen otevřený oddíl")
     # stavy jsou od 2026-10-22 jen na kartě – předchozí test boje (boj2) na ní mohl nechat stavy z rozehraného boje
     await pl.evaluate("kartaStavZmen('balduin',{stavy:null,ds:null})");await pl.wait_for_timeout(700)
@@ -158,9 +158,9 @@ async def main():
     await pl.click('.bdmlist [data-kkzh]');await pl.wait_for_timeout(900)
     chk(stav().get("kz")==1 and (stav().get("hp") or 999)>6,f"utracená kostka životů přičte životy: kz={stav().get('kz')} hp={stav().get('hp')}")
     chk(await pl.evaluate("HODY.some(h=>h.k==='balduin'&&h.co==='Kostka životů')"),"kostka životů je v záznamu")
-    # herní záznam je vedle karty, ne jako její záložka (2026-10-21)
-    await pl.keyboard.press("Escape");await pl.wait_for_timeout(300)
-    chk("Kostka životů" in await pl.inner_text('#kartyview'),"herní záznam vedle karty ukazuje hody postavy")
+    # záložka Záznam (zpět od 2026-10-22): hody hráče
+    await pl.keyboard.press("Escape");await pl.click('.bdm .bdmtabs [data-bdmsec="zaznam"]');await pl.wait_for_timeout(500)
+    chk("Kostka životů" in await pl.inner_text('.bdm .bdmsec'),"záložka Záznam ukazuje hody postavy")
     await pl.evaluate("BOJ.v=-1;kartaStavZmen('balduin',{hp:null,vycerp:null,ds:null,kz:null},null,{bezZpet:true})");await pl.wait_for_timeout(500)
     chk(await pl.evaluate("kTxtKostky(KARTBY.balduin,'regain 1d10 + your Fighter level hit points','X').includes('data-ktxh')"),"kostky v textu schopnosti jsou klikací")
     await pl.evaluate("KTX.balduin=Object.assign(KTX.balduin||{},{'Test Rys':'You deal 2d6 + your Strength modifier damage.'});mmPop(kRysPopis(KARTBY.balduin,'Test Rys'))")
