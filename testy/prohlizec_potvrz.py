@@ -54,7 +54,8 @@ async def main():
     await g.evaluate("navrhyNacti().then(()=>renderHra())");await g.wait_for_timeout(800)
     await g.click(".navrhy [data-navne]");await g.wait_for_timeout(1500)
     chk(stav("zbynek").get("hp")==15 and not (stav("balduin").get("zdr") or {}).get("slot1"),"zamítnutí nic nezapíše a vrátí slot: "+str(stav("balduin").get("zdr")))
-    # časová osa: vrácení změny karty
+    # časová osa: vrácení změny karty (řídicí pult › Sezení)
+    await g.goto(BASE+"#hra/sezeni");await g.wait_for_selector(".zmeny",timeout=15000)
     await g.evaluate("zmenyNacti().then(()=>renderHra())");await g.wait_for_timeout(1000)
     zid=await g.evaluate("(ZMENY.find(z=>z.druh==='karta'&&z.klic==='zbynek'&&z.pole==='hp'&&z.po===15)||{}).id")
     chk(bool(zid) and "Zbyněk" in await g.inner_text(".zmeny"),"časová osa ukazuje změnu životů Zbyňka")
