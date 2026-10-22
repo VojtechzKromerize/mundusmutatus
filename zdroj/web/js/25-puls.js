@@ -141,10 +141,11 @@ async function pulsHra() {
   } catch (e) {
     console.error(e);
   }
-  if (curView === "hra")
+  if (mmNaHre())
     try {
       hraPrekresli();
     } catch (e) {}
+  else if (curView === "kronika") kronikaPrekresli();
 }
 /* nové poznatky v deskách (odhalení, úprava textů) se bez přenačtení nedají doplnit – v boji a při psaní se přenačtení odloží */
 function pulsObnov() {

@@ -18,7 +18,7 @@ def stav(i="balduin"):
     j=json.loads(urllib.request.urlopen(r).read());return j[0]["stav"] if j else {}
 # co se neklikne: mazání, tisk a stažení souborů, nahrání obrázku/PDF, odhlášení, obnova z historie, odchod ze stránky
 SKIP=["data-ksmaz","data-ktisk","data-kexport","data-kimg","data-discordx","data-khist","data-kimgx","data-jaheslo","data-kimphra",
-      "data-kimpja","data-instal","data-pushon","data-pushoff","data-kpdf","data-kuplpdf","data-mmpopx"]
+      "data-kimpja","data-instal","data-pushon","data-pushoff","data-kpdf","data-kuplpdf","data-mmpopx","data-jaodhlas","data-notif"]
 JS_KLIK="""(a)=>{const [root,skip]=a;const R=document.querySelector(root);if(!R)return [];
   const ok=e=>{const r=e.getBoundingClientRect();return r.width>0&&r.height>0&&!e.disabled&&!e.closest('[hidden]')&&!skip.some(s=>e.hasAttribute(s)||e.closest('['+s+']'))&&e.tagName!=='A'};
   return [...R.querySelectorAll('button,summary,input[type=checkbox],input[type=radio],select,[role=tab],a[href]')].filter(ok).map((e,i)=>{e.dataset.__k=String(i);return i})}"""

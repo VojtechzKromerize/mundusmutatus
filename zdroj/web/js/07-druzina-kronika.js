@@ -94,6 +94,15 @@ function partyDate() {
   }
   return ZAPISY.length ? ZAPISY[ZAPISY.length - 1].date : "";
 }
+/* úkoly družiny (herní stav; vypravěč je upravuje – obsluha v 16): na Kronice, od 2026-10-22 i pro hráče */
+function hraUkolyHtml() {
+  const uk = (HRA && HRA.ukoly) || [];
+  return `<section><h3 class="uvh2">Úkoly družiny</h3>${uk.length ? `<ul class="hrauk">${uk.map((u, i) => `<li class="${u.hot ? "hot" : ""}">${GMV ? `<label><input type="checkbox" data-hruk="${i}"${u.hot ? " checked" : ""}> ${besc(u.t)}</label> <button type="button" class="kx" data-hrukx="${i}" aria-label="Smazat úkol">×</button>` : `${u.hot ? "✓" : "☐"} ${besc(u.t)}`}</li>`).join("")}</ul>` : `<p class="rsmall">Zatím žádné.</p>`}
+    ${GMV ? `<form class="kvlh" data-hrukf><input name="t" maxlength="160" placeholder="nový úkol, např. Doručit dopis do Kutné Hory" required><button class="gbtn ghost">Přidat</button></form>` : ""}</section>`;
+}
+const kronikaPrekresli = () => {
+  if (!location.hash.split("/")[1]) renderKronika("");
+};
 function renderKronika(b) {
   const sub = b === "clanky" ? "clanky" : b === "letopis" ? "letopis" : "zapisy";
   ["kzapisy", "kclanky", "letopis"].forEach(k => {
@@ -106,7 +115,7 @@ function renderKronika(b) {
   if (!z) {
     box.innerHTML = `<p class="intro">Zápisy z cest družiny, sezení po sezení. Praporec na mapě (vrstva <b>Družina</b>) ukazuje, kde družina právě je, a tečkovaná čára, kudy prošla.</p>
      <ol class="zlist">${ZAPISY.map(z => `<li><a class="zcard" href="#kronika/${z.id}"><small>${z.n} · ${z.date} · ${z.place}</small><b>${z.title}</b><span>${strip(z.text).replace(/\s+/g, " ").slice(0, 150)}…</span></a></li>`).join("")}</ol>
-     <p class="rsmall">Další zápisy přibudou po každém sezení.</p>`;
+     <p class="rsmall">Další zápisy přibudou po každém sezení.</p>${(HRA && (HRA.ukoly || []).length) || GMV ? hraUkolyHtml() : ""}`;
     return;
   }
   const i = ZAPISY.indexOf(z),

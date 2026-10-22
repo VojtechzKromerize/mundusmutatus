@@ -24,7 +24,7 @@ async function jaDiscordInit() {
       const o = JA.get();
       if (o && o.d) JA.set(null);
     }
-    if (curView === "hra" || curView === "karty") kartyPrekresli();
+    if (mmNaHre() || curView === "karty") kartyPrekresli();
   } catch (e) {
     DCU.ok = false;
   }

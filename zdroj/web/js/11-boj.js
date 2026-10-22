@@ -3217,8 +3217,12 @@ function bojRealtime() {
   };
 }
 function bojNav() {
-  const a = document.getElementById("navboj");
-  if (a) a.hidden = !(GMV || (BOJ.s && BOJ.s.aktivni));
+  const a = document.getElementById("navboj"),
+    bezi = !!(BOJ.s && BOJ.s.aktivni);
+  /* hráč má boj na stránce Hra (2026-10-22): v menu jen značka u Hry, že boj probíhá */
+  if (a) a.hidden = !GMV;
+  const h = document.querySelector(".navhra");
+  if (h) h.classList.toggle("bojbezi", !GMV && bezi);
 }
 /* řádek nepřítele či spojence ve formuláři; skrytá pole nesou statblock, přívlastky a osobu */
 const BX = `<button type="button" class="bx" data-bdelrow aria-label="Odebrat řádek">×</button>`;

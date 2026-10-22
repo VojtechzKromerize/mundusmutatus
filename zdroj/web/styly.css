@@ -2200,14 +2200,16 @@ abbr.poj{text-decoration:underline dotted color-mix(in srgb,var(--kal) 60%,trans
 .szsc>li.szhot{opacity:.65}.szrow{margin:6px 0;display:flex;flex-wrap:wrap;gap:6px;align-items:center}.szrow .chip{display:inline-flex;gap:4px;align-items:center}
 /* stránka Hra, přihlášení hráčů, výzvy, zprávy, průvodce tahem, záložky karty (2026-10-16) */
 .navhra{font-weight:700}
+.navhra.bojbezi::after{content:" ⚔";color:var(--gold,#c9a227)}
 .navodbar{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin:8px 0;padding:8px 12px;border:1px solid var(--gold);border-radius:4px;background:color-mix(in srgb,var(--gold) 12%,var(--paper))}.navodbar span{flex:1 1 240px}
 .hrastav{padding:8px 12px;border:1px solid var(--rule);border-radius:3px;background:var(--paper);margin:8px 0}.hrastav p{margin:4px 0}
 .hraboj{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .jaf{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:flex-end}.jaf label{display:flex;flex-direction:column;gap:2px}
 .navod{padding-left:20px}.navod li,.navod2 li{margin:6px 0;line-height:1.45}
-.vyzhr{margin:10px 0}.vyzk,.mmvyz{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between;padding:10px 12px;margin:6px 0;border:2px solid var(--gold);border-radius:4px;background:color-mix(in srgb,var(--gold) 14%,var(--paper))}
-.vyzk .gbtn,.mmvyz .gbtn{font-size:1.05rem}
-.mmvyz{position:fixed;left:8px;right:8px;bottom:calc(8px + env(safe-area-inset-bottom,0px));z-index:105;margin:0;box-shadow:0 6px 20px rgba(0,0,0,.3)}
+.vyzhr{margin:10px 0}.vyzk{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between;padding:10px 12px;margin:6px 0;border:2px solid var(--gold);border-radius:4px;background:color-mix(in srgb,var(--gold) 14%,var(--paper))}
+.vyzk .gbtn{font-size:1.05rem}
+.mmvyz{position:fixed;left:8px;right:8px;bottom:calc(8px + env(safe-area-inset-bottom,0px));z-index:105;display:flex;flex-direction:column;gap:6px}
+.mmvyz .vyzk{margin:0;box-shadow:0 6px 20px rgba(0,0,0,.3)}
 .vyzgm{margin:8px 0;padding:6px 10px;border:1px solid var(--rule);border-radius:3px;background:var(--paper)}.vyzgm ul{margin:4px 0;padding-left:18px}
 .vyzf select,.vyzf input[name=pozn]{max-width:12em}.vyzf input[name=dc]{width:4.5em}.vyzkomu{display:inline-flex;flex-wrap:wrap;gap:4px 10px}
 .hraja{border:1px solid color-mix(in srgb,var(--gold) 50%,var(--rule));border-radius:4px;padding:6px 12px 10px;margin:12px 0;background:color-mix(in srgb,var(--paper) 92%,var(--gold))}
@@ -2621,9 +2623,8 @@ button.kdbs:hover{border-color:var(--kb-gold)}.kdbsac b{color:var(--kb-gold)}
 /* ===== bojová karta v rozvržení D&D Beyond na telefonu (2026-10-17) ===== */
 .bdm{position:relative;gap:0!important;width:100%;max-width:560px;min-width:0;box-sizing:border-box;margin:0 auto;background:#14100d;border:2px solid var(--kb-bd);border-radius:14px;overflow:clip;box-shadow:0 10px 24px -14px rgba(0,0,0,.8)}
 .bnpc.bhrk.bopen:has(>.bdm){padding:0;background:none;border:0;box-shadow:none;flex:1 1 100%;min-width:0;max-width:100%}
-.bjamain,.bja:has(.bdm),.bdmmimo{min-width:0;max-width:100%}
+.bjamain,.bja:has(.bdm),.hraja{min-width:0;max-width:100%}
 .bdmchips,.bdmrow{max-width:100%}
-.bdmmimo{margin:10px 0 18px;min-width:0}
 .bdm>*,.bdmgrid>*,.bdmbody>*,.bdmsec>*{min-width:0}
 #bojview .bdm .kdice .bst{width:auto;height:auto;border-radius:4px;padding:3px 9px;background:#1e1915;border:1px solid var(--kb-bd2);color:var(--kb-tx);font-size:.78rem}
 #bojview .bdm .kdice .bst[aria-pressed=true]{background:#2f7fd0;border-color:#2f7fd0;color:#fff}
@@ -2658,6 +2659,9 @@ button.kdbs:hover{border-color:var(--kb-gold)}.kdbsac b{color:var(--kb-gold)}
 .bdmhpbar::after{content:"";position:absolute;inset:0 auto 0 0;width:var(--p);border-radius:2px;background:#3d8fe0}
 .bdmhp.bhp2 .bdmhpbar::after{background:#d39a3a}.bdmhp.bhp0 .bdmhpbar::after{background:#c33}.bdmhp.bhp0 b{color:#f0757a}
 .bdmbtns{grid-column:1;grid-row:2;display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.bdmbtns:has(.bdmvypr){grid-template-columns:1fr 1fr 1fr}
+.bdmvypr{position:relative;font-size:1.05rem}
+.bdmvyprn{position:absolute;top:-6px;right:-6px;min-width:16px;padding:0 4px;border-radius:8px;background:var(--kal);color:#fff;font-size:.7rem;line-height:16px}
 .bdmsq{display:grid;place-items:center;min-height:36px;background:#0e0b09;border:1px solid var(--kb-bd2);border-radius:6px;color:var(--kb-tx);text-decoration:none}
 .bdmsq .bdmic{width:20px;height:20px}
 .bdmst{grid-column:3;grid-row:2;min-height:36px;display:flex;align-items:center;justify-content:center;gap:4px;padding:0 6px;background:#0e0b09;border:1px solid var(--kb-bd2);border-radius:6px;color:var(--kb-tx);font-family:var(--f-label)!important;font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:.8rem}

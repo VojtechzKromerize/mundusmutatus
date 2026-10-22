@@ -1819,9 +1819,10 @@ function bdmList(s, h, K, gm, X, t) {
       )} · ${kLv(K)}. úroveň · zdatnost ${bsg(kPB(K))}${K.hrac ? ` · hraje ${besc(K.hrac)}` : ""}${K.test ? " · <i>zkušební</i>" : ""}</p>
       <div class="bdmrow">${kZpetBtn(K)}${m ? `<button type="button" class="bdmbtn${KUPRO.has(K.id) ? " on" : ""}" data-kuprt ${btip("Úpravy postavy: povolání a úrovně, vlastnosti, výpočty, předměty, vlastní úpravy")}>⚙ Úpravy</button><button type="button" class="bdmbtn" data-klvup ${btip("Postup na další úroveň: životy, nové rysy, vlastnosti nebo feat")}>⬆ Postup na úroveň</button>` : ""}</div>
       <div class="bdmrow">${m && window.MMDB ? `<label class="bdmbtn">Změnit portrét<input type="file" accept="image/*" data-kimg hidden></label>` : ""}${S2.img && m ? `<button type="button" class="bdmbtn" data-kimgx>Odebrat portrét</button>` : ""}${window.MMDB ? `<button type="button" class="bdmbtn" data-khistb ${btip("Předchozí stavy karty – lze obnovit")}>Historie</button>` : ""}<button type="button" class="bdmbtn" data-ktisk ${btip("Vytiskne kartu nebo ji uloží jako PDF")}>Tisk</button><button type="button" class="bdmbtn" data-kexport ${btip("Stáhne kartu a stav postavy jako JSON")}>Export</button>${GMV && !KSTAT.has(K.id) && !K.test ? `<button type="button" class="bdmbtn" data-ksmaz>Smazat kartu</button>` : ""}</div>
-      <p class="bdmnote"><a href="#karty">Všechny karty, nahrání PDF a herní záznam družiny →</a></p>`,
+      <p class="bdmnote"><a href="#karty">Všechny karty, nahrání PDF a herní záznam družiny →</a></p>${hraUcetHtml(K)}`,
     ];
   }
+  if (t === "vyprav") return hraVypravList(K);
   if (t === "vec") return bdmVecList(K, +(BDM.sheet || {}).i);
   if (t === "pen") return bdmPenList(K);
   if (t === "kost")
@@ -1920,7 +1921,7 @@ function bojDbm(s, h, K, gm, vzdy, X) {
       <button type="button" class="bdmini bdmsvh psv${sv}" data-bdmsh="sv" aria-expanded="${shOpen === "sv"}" ${btip(`Svědomí ${D.sv} – ${SVST(D.sv)}. Klikni: body hříchu a dobrých skutků`)}><small>Svědomí</small><b>${D.sv}</b>${D.hr || D.sk ? `<span class="bdmsvb" aria-label="Body hříchu ${D.hr}, dobré skutky ${D.sk}"><i class="bdmsvh1">${D.hr}</i><i class="bdmsvd1">${D.sk}</i></span>` : ""}</button></span></span>
       <span class="bdmportw"><button type="button" class="bdmport bdmsv${sv}${insp ? " on" : ""}" data-bdmins aria-pressed="${insp}" ${btip(`Svědomí ${D.sv} – ${SVST(D.sv)} (barva rámu). Hrdinská inspirace: ${insp ? "má ji – klikni a utrať" : "nemá – klikni, když ji získá"} (podle Artikulí za jednání podle Ctnosti nebo podlehnutí Neřesti).`)}>${IMG ? `<img src="${besc(IMG)}" alt="" width="96" height="96">` : `<span class="bdmpini">${besc((K.n || "?")[0])}</span>`}<span class="bdmsun" aria-label="Hrdinská inspirace">${bdmIc("slunce")}</span></button>${X.boj ? `<button type="button" class="bdmrk${X.rk ? " on" : ""}" ${gm ? `data-break="${h.id}"` : vzdy ? "data-bhrk" : "disabled"} aria-pressed="${!!X.rk}" ${btip(`Reakce: ${X.rk ? "v tomto kole použita" : "k dispozici"} – klikni`)}>R</button>` : ""}${krH}</span>
       ${hpB("")}
-      <span class="bdmbtns"><button type="button" class="bdmsq" data-bdmsh="odp" aria-expanded="${shOpen === "odp"}" aria-label="Odpočinek" ${btip("Krátký nebo dlouhý odpočinek, kostky životů")}>${bdmIc("ohen")}</button><button type="button" class="bdmsq" data-bdmsh="sprava" aria-expanded="${shOpen === "sprava"}" aria-label="Postava: úpravy, postup na úroveň, historie" ${btip("Postava: úpravy, postup na úroveň, portrét, historie, tisk")}>${bdmIc("kolo")}</button></span>
+      <span class="bdmbtns"><button type="button" class="bdmsq" data-bdmsh="odp" aria-expanded="${shOpen === "odp"}" aria-label="Odpočinek" ${btip("Krátký nebo dlouhý odpočinek, kostky životů")}>${bdmIc("ohen")}</button><button type="button" class="bdmsq" data-bdmsh="sprava" aria-expanded="${shOpen === "sprava"}" aria-label="Postava: úpravy, postup na úroveň, historie" ${btip("Postava: úpravy, postup na úroveň, portrét, historie, tisk")}>${bdmIc("kolo")}</button>${hraVypravBtn(K, shOpen)}</span>
       <button type="button" class="bdmst" data-bdmsh="st" aria-expanded="${shOpen === "st"}" ${btip(kd ? "Stavy – postava se soustředí (Concentration)" : "Stavy")}>Stavy${stIk}${stN ? ` <b>${stN}</b>` : ""}</button>
     </div></header>`;
   /* hlášky v jednom proužku: první je vidět, ostatní po klepnutí */
@@ -1973,13 +1974,6 @@ function bojDbm(s, h, K, gm, vzdy, X) {
 function kartaJednaHtml(K) {
   kModsSync(K);
   return bojDbm(null, {id: "_" + K.id, n: K.n}, K, false, true, {boj: false, karta: true});
-}
-/* hráč mimo boj: jeho bojová karta i bez běžícího boje */
-function bojDbmMimo() {
-  const ja = JA.get(),
-    K = ja && ja.k && KARTBY[ja.k];
-  if (!K || GMV) return "";
-  return `<section class="bdmmimo"><h3 class="uvh2">Moje karta</h3>${bojDbm(null, {id: "_" + K.id, n: K.n}, K, false, true, {boj: false})}</section>`;
 }
 const bdmPrekresli = () => {
   if (curView === "boj") renderBoj();

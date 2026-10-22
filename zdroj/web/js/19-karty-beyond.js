@@ -792,7 +792,7 @@ async function pushZapni(karta) {
     PUSHST = "on";
     mmHlasG("Upozornění zapnuta: výzvy k hodu, tah v boji a tajné zprávy přijdou i se zavřeným webem.", 5000);
     kartyPrekresli();
-    if (typeof renderHra === "function" && curView === "hra") renderHra();
+    if (typeof renderHra === "function" && mmNaHre()) renderHra();
   } catch (err) {
     mmHlasG("Upozornění se nepodařilo zapnout: " + (err.message || err), 6000);
   }
@@ -807,7 +807,7 @@ async function pushVypni() {
     }
     PUSHST = "off";
     mmHlasG("Upozornění vypnuta.", 3000);
-    if (typeof renderHra === "function" && curView === "hra") renderHra();
+    if (typeof renderHra === "function" && mmNaHre()) renderHra();
   } catch (err) {
     mmHlasG(err.message || String(err), 4000);
   }
@@ -822,7 +822,7 @@ function aplikaceHtml(karta) {
   if (!window.MMDB) return "";
   if (PUSHST == null && pushUmi())
     pushStav().then(s => {
-      if (s && typeof renderHra === "function" && curView === "hra") renderHra();
+      if (s && typeof renderHra === "function" && mmNaHre()) renderHra();
     });
   const ios = /iphone|ipad|ipod/i.test(navigator.userAgent);
   return `<section class="kapl"><h3 class="uvh2">Telefon</h3>
@@ -1342,7 +1342,7 @@ document.addEventListener("submit", async e => {
     try {
       POKL = await MMDB.pokladna({[E.k.value]: sm * v}, E.p.value.trim(), GMV ? null : K && K.id);
       mmHlasG("Pokladna upravena.", 2500);
-      if (curView === "hra") renderHra();
+      if (mmNaHre()) renderHra();
       else kartyPrekresli();
     } catch (err) {
       mmHlasG(err.message || String(err), 5000);

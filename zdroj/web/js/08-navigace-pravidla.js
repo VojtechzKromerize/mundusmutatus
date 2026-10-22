@@ -511,11 +511,23 @@ const NAVNAME = {
   boj: "Boj",
   vyprava: "Výprava",
 };
+/* je otevřená stránka Hra? (hráč ji má od 2026-10-22 uvnitř jako stránku Boj) */
+function mmNaHre() {
+  return curView === "hra" || (!GMV && curView === "boj");
+}
 function route() {
   const h = decodeURIComponent(location.hash.slice(1)) || "uvod";
   const [a, b, c] = h.split("/");
   let view = a === "rod" || a === "osoba" ? "desky" : a;
   if (!VIEWS.includes(view) || ((view === "kouzla" || view === "sezeni") && !GMV)) view = "uvod";
+  /* hráč (2026-10-22): Hra = jeho karta a boj na jedné stránce – uvnitř je to stránka Boj (#bojview, renderBoj),
+     v menu a v adrese Hra; starší odkazy a upozornění na #boj vedou na Hru */
+  if (!GMV && view === "boj") {
+    history.replaceState(null, "", "#hra");
+    view = "hra";
+  }
+  const navV = view;
+  if (!GMV && view === "hra") view = "boj";
   /* stránka s vlastní částí skriptu (mapy, Výprava): nejdřív ji stáhnout, pak vykreslit */
   if (!mmLinyHotove(view)) {
     document.querySelectorAll(".view").forEach(v => {
@@ -538,7 +550,7 @@ function route() {
   const changed = view !== curView;
   curView = view;
   document.body.classList.toggle("home", view === "uvod");
-  document.getElementById("navcur").textContent = NAVNAME[view] || "";
+  document.getElementById("navcur").textContent = NAVNAME[navV] || "";
   {
     const nav = document.getElementById("sitenav");
     nav.classList.remove("open");
@@ -560,8 +572,8 @@ function route() {
       console.warn(e);
     }
   if (typeof vyVrat === "function") vyVrat(view);
-  document.querySelectorAll("[data-nav]").forEach(n => n.classList.toggle("on", n.dataset.nav === view));
-  document.querySelectorAll("[data-navgrp]").forEach(n => n.classList.toggle("on", n.dataset.navgrp.split(" ").includes(view)));
+  document.querySelectorAll("[data-nav]").forEach(n => n.classList.toggle("on", n.dataset.nav === navV));
+  document.querySelectorAll("[data-navgrp]").forEach(n => n.classList.toggle("on", n.dataset.navgrp.split(" ").includes(navV)));
   document.querySelectorAll(".navdd").forEach(dd => {
     dd.classList.remove("open");
     dd.querySelector(".ddtop").setAttribute("aria-expanded", "false");
@@ -571,7 +583,7 @@ function route() {
   if (view === "druzina" || view === "karty")
     document.querySelectorAll("[data-ksub]").forEach(n => n.classList.toggle("on", n.dataset.ksub === view));
   queueMicrotask(navSync);
-  document.title = view === "uvod" ? "Mundus Mutatus" : "Mundus Mutatus · " + (TITL[view] || SUBT[view]);
+  document.title = view === "uvod" ? "Mundus Mutatus" : "Mundus Mutatus · " + (TITL[navV] || SUBT[navV]);
   if (view === "desky") {
     const art = document.getElementById("article"),
       subs = ["rody", "osoby", "sousede", "vazby"];

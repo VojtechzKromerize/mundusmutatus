@@ -558,7 +558,7 @@ function kartaDbData(K) {
   if (!PRED)
     predNacti()
       .then(() => {
-        if (curView === "karty" || curView === "hra") kartyPrekresli();
+        if (curView === "karty" || mmNaHre()) kartyPrekresli();
       })
       .catch(() => {});
   kUcVyprsi(K);
@@ -1191,7 +1191,7 @@ document.addEventListener("submit", e => {
   e.target.reset();
 });
 document.addEventListener("click", async e => {
-  const v = e.target.closest && e.target.closest("#kartyview,#hraview,.bjapanel,.bhkb");
+  const v = e.target.closest && e.target.closest("#kartyview,#hraview,.hrapri,.bjapanel,.bhkb");
   if (!v) return;
   const T = s => e.target.closest(s),
     id = decodeURIComponent(location.hash.split("/")[1] || ""),

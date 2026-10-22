@@ -807,7 +807,7 @@ function bojZazHlidej(s, me) {
 }
 /* hráč bez přihlášené postavy: postava se volí jednou na stránce Hra a pak je jeho */
 const bojJaNeprihl = () =>
-  `<span class="rsmall bjanep">Nejsi přihlášený za postavu. Na stránce <a href="#hra">Hra</a> se přihlas a zvol svou postavu – pak se tu objeví tvoje bojová karta.</span>`;
+  `<span class="rsmall bjanep">Nejsi přihlášený za postavu – přihlas se a zvol svou postavu, pak se tu objeví tvoje bojová karta.</span>${hraHracHtml()}`;
 /* upozornění hráče, když jeho postava přijde na tah: vibrace, zvýraznění, titulek a hláška */
 function bojUpozorni() {
   const s = BOJ.s;

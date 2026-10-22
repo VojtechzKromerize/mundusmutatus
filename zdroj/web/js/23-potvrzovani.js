@@ -35,7 +35,7 @@ async function potvrzNastav(ch) {
       z.potvrz = p;
     }, true);
   if (curView === "boj") renderBoj();
-  if (curView === "hra") renderHra();
+  if (mmNaHre()) renderHra();
 }
 function potvrzHtml(kde) {
   const POTVRZR = [
@@ -215,7 +215,7 @@ async function navrhVyrid(id, ok) {
   }
   await navrhyNacti();
   if (curView === "boj") renderBoj();
-  if (curView === "hra") renderHra();
+  if (mmNaHre()) renderHra();
 }
 document.addEventListener("click", async e => {
   const T = s => e.target.closest && e.target.closest(s);
@@ -448,7 +448,7 @@ async function zmVrat(id, vse) {
   await kartyNacti(true);
   kartyPrekresli();
   await zmenyNacti();
-  if (curView === "hra") renderHra();
+  if (mmNaHre()) renderHra();
   if (curView === "boj") renderBoj();
 }
 document.addEventListener("click", async e => {

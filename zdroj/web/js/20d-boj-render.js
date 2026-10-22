@@ -471,8 +471,10 @@ function renderBoj() {
   }
   if (!s || (!s.aktivni && !s.priprava)) {
     if (GMV) return;
+    /* hráčská Hra mimo boj (2026-10-22): jen karta, nebo přihlášení a volba postavy */
     const sy = window.scrollY;
-    box.innerHTML = `<h2 class="arttitle">Boj</h2><p class="intro">Právě neprobíhá žádný boj. Až ho vypravěč zahájí, objeví se tu sloty iniciativy.</p>${bojDbmMimo()}${bojPravidla()}`;
+    box.innerHTML = hraHracHtml();
+    pojZnac(box.querySelector(".hraja"));
     if (box.querySelector(".bdm")) {
       window.scrollTo(0, sy);
       try {

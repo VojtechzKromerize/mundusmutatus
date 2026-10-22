@@ -248,7 +248,7 @@ function bdmPenList(K) {
     <form class="bdmrow kvpenf" data-kvpenf><input name="v" type="number" min="1" max="9999999" inputmode="numeric" placeholder="částka" required aria-label="Částka" style="width:6em"><select name="k" aria-label="Mince">${["GP", "SP", "CP", "PP", "EP"].map(k => `<option>${k}</option>`).join("")}</select>
       <button class="bdmbtn" name="a" value="z" ${btip("Odečte částku; když nemáš přesné mince, rozmění větší")}>Zaplatit</button><button class="bdmbtn" name="a" value="p">Přijmout</button>
       ${window.MMDB && MMDB.pokladna && (GMV || KZAM.has(K.id)) ? `<button class="bdmbtn ghost" name="a" value="dp" ${btip("Vloží částku do pokladny družiny")}>Do pokladny</button><button class="bdmbtn ghost" name="a" value="zp" ${btip("Vybere částku z pokladny družiny")}>Z pokladny</button>` : ""}</form>
-    <details class="bdmbez"><summary>Mince jednotlivě a směna</summary><div class="kpen">${["PP", "GP", "EP", "SP", "CP"].map(k => `<label>${k} <input type="number" min="0" max="9999999" data-kpen="${k}" value="${+pen[k] || 0}"></label>`).join("")}</div>${kPenSmenHtml()}<p class="rsmall">1 PP = 10 GP = 20 EP = 100 SP = 1000 CP.</p></details>`,
+    <details class="bdmbez"><summary>Mince jednotlivě a směna</summary><div class="kpen">${["PP", "GP", "EP", "SP", "CP"].map(k => `<label>${k} <input type="number" min="0" max="9999999" data-kpen="${k}" value="${+pen[k] || 0}"></label>`).join("")}</div>${kPenSmenHtml()}<p class="rsmall">1 PP = 10 GP = 20 EP = 100 SP = 1000 CP.</p></details>${!GMV && window.MMDB && KZAM.has(K.id) ? poklHtml() : ""}`,
   ];
 }
 

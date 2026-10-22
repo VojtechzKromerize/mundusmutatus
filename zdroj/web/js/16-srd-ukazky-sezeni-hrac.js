@@ -1051,12 +1051,12 @@ function jaForm() {
   return `<form class="jaf" data-jaf><label>Hraji za <select name="k">${KARTY.map(k => `<option value="${besc(k.id)}">${besc(k.n)}${window.MMDB && !KZAM.has(k.id) ? " – zatím bez hesla" : ""}</option>`).join("")}</select></label>${window.MMDB ? `<label>Heslo <input name="h" type="password" minlength="4" maxlength="100" autocomplete="current-password" required></label>` : ""}<button class="gbtn">Hrát za tuto postavu</button></form>
     ${window.MMDB ? `<p class="rsmall">Kdo se ke kartě přihlásí jako první, zvolí si tím heslo – pak ji může měnit jen on a vypravěč. Zapomenuté heslo zruší vypravěč.</p>` : ""}`;
 }
-const NAVOD = `<ol class="navod"><li><b>Nahraj svou postavu.</b> V D&amp;D Beyond otevři postavu → <i>Export to PDF</i> a PDF nahraj na stránce <a href="#karty">Karty postav</a>.</li>
-  <li><b>Přihlas se za ni</b> na stránce <a href="#hra">Hra</a> a zvol si heslo. Telefon si tě zapamatuje.</li>
-  <li><b>Během sezení měj otevřenou stránku Hra.</b> Vyskočí na ní, když máš házet, co ti vypravěč ukazuje a kdy jsi v boji na tahu. Hody z karty se zapisují do společného záznamu.</li></ol>
+const NAVOD = `<ol class="navod"><li><b>Nahraj svou postavu.</b> V D&amp;D Beyond otevři postavu → <i>Export to PDF</i> a PDF nahraj tady na stránce <a href="#hra">Hra</a>, až se přihlásíš.</li>
+  <li><b>Přihlas se</b> účtem (jméno a heslo, nebo Discord). Telefon si tě zapamatuje.</li>
+  <li><b>Během sezení měj otevřenou stránku Hra.</b> Je na ní tvoje karta; vyskočí na ní, když máš házet, a když vypravěč připraví boj, objeví se na ní iniciativa a celý boj. Hody z karty se zapisují do společného záznamu.</li></ol>
   <ul class="navod2"><li>Ke každému hodu d20 web hodí i <b>kostku Závoje</b> (d6): 1–2 <b>Pokušení</b> – přijmeš bod hříchu, nebo nastane komplikace; 5–6 <b>Požehnání</b> – něco navíc (a šermířské techniky).</li>
   <li><b>Svědomí</b> (0–10) se mění na konci sezení při Zpytování podle bodů hříchu a dobrých skutků; jeho stav dává výhody i postihy.</li>
-  <li><b>V boji</b> si na stránce Boj obsadíš volný slot družiny. Až budeš na tahu, telefon zavibruje a web připomene pohyb, akci, bonusovou akci a reakci.</li></ul>`;
+  <li><b>V boji</b> si na stránce Hra obsadíš volný slot družiny. Až budeš na tahu, telefon zavibruje a web připomene pohyb, akci, bonusovou akci a reakci.</li></ul>`;
 /* ---- upozornění na pozadí (když je stránka otevřená, ale skrytá) ---- */
 function mmNotif(t, b) {
   if (!document.hidden) return;
@@ -1162,11 +1162,6 @@ async function vyzvaHod(id, ne) {
     mmHlasG("Odpověď se nepodařilo poslat: " + (e.message || e), 5000);
   }
 }
-function vyzvyHracHtml() {
-  const L = vyzvyMoje();
-  if (!L.length) return "";
-  return `<section class="vyzhr" aria-live="polite">${L.map(v => `<div class="vyzk"><span>Vypravěč žádá: <b>${besc(vyzvaTxt(v.data))}</b>${v.data.dc && !v.data.skryt ? ` · SO ${v.data.dc}` : ""}${v.data.adv ? (v.data.adv > 0 ? " · s výhodou" : " · s nevýhodou") : ""}${v.data.pozn && v.data.typ !== "hod" ? ` · ${besc(v.data.pozn)}` : ""}</span>${typeof vyzvaProti === "function" && vyzvaProti(v.data) ? `<button type="button" class="gbtn" data-vyzhod="${v.id}">Použít Counterspell</button><button type="button" class="gbtn ghost" data-vyzne="${v.id}">Nechat být</button>` : `<button type="button" class="gbtn" data-vyzhod="${v.id}">🎲 ${v.data.typ === "odp" ? "Odpočinout" : v.data.pozn === KZPYTV ? "Zpytovat" : "Hodit"}</button>`}</div>`).join("")}</section>`;
-}
 /* lišta s výzvou na kterékoli stránce */
 function vyzBar() {
   let b = document.getElementById("mmvyz");
@@ -1181,7 +1176,13 @@ function vyzBar() {
     b.className = "mmvyz";
     document.body.appendChild(b);
   }
-  b.innerHTML = `<span>Vypravěč žádá: <b>${besc(vyzvaTxt(L[0].data))}</b>${L[0].data.dc && !L[0].data.skryt ? ` · SO ${L[0].data.dc}` : ""}</span>${typeof vyzvaProti === "function" && vyzvaProti(L[0].data) ? `<button type="button" class="gbtn" data-vyzhod="${L[0].id}">Counterspell</button><button type="button" class="gbtn ghost" data-vyzne="${L[0].id}">Nechat</button>` : `<button type="button" class="gbtn" data-vyzhod="${L[0].id}">🎲 Hodit</button>`}`;
+  /* všechny čekající výzvy (na hráčské Hře je lišta jediné místo, kde je hráč vidí – 2026-10-22) */
+  b.innerHTML = L.slice(0, 4)
+    .map(
+      v =>
+        `<div class="vyzk"><span>Vypravěč žádá: <b>${besc(vyzvaTxt(v.data))}</b>${v.data.dc && !v.data.skryt ? ` · SO ${v.data.dc}` : ""}${v.data.adv ? (v.data.adv > 0 ? " · s výhodou" : " · s nevýhodou") : ""}${v.data.pozn && v.data.typ !== "hod" ? ` · ${besc(v.data.pozn)}` : ""}</span>${typeof vyzvaProti === "function" && vyzvaProti(v.data) ? `<button type="button" class="gbtn" data-vyzhod="${v.id}">Použít Counterspell</button><button type="button" class="gbtn ghost" data-vyzne="${v.id}">Nechat být</button>` : `<button type="button" class="gbtn" data-vyzhod="${v.id}">🎲 ${v.data.typ === "odp" ? "Odpočinout" : v.data.pozn === KZPYTV ? "Zpytovat" : "Hodit"}</button>`}</div>`,
+    )
+    .join("");
 }
 const vyzvaForm =
   () => `<p class="vyzrych"><span class="bkzlh">Všichni hned:</span>${["Perception", "Insight", "Investigation", "Stealth", "Survival", "Athletics"].map(d => `<button type="button" class="kchip" data-vyzrychle="${d}" ${btip(`Všem postavám vyskočí ověření ${d}`)}>${d}</button>`).join("")}${BAB.map(a => `<button type="button" class="kchip" data-vyzrychle="${a}" ${btip(`Všem postavám vyskočí záchrana ${a}`)}>záchr. ${a}</button>`).join("")}</p><form class="kvlh vyzf" data-vyzf><label>Vyzvat k <select name="typ"><option value="zach">záchraně</option><option value="over">ověření</option><option value="ini">iniciativě</option><option value="odp">krátkému odpočinku</option><option value="hod">hodu výrazem</option></select></label>
@@ -1324,10 +1325,10 @@ async function hraPoll(hned, co) {
     if (zm) {
       if (GMV && n1 > n0 && !hned) mmHlasG(`Hráč žádá o schválení: ${navrhyCeka()[0].data.popis || "návrh"}.`, 5000);
       if (curView === "boj") renderBoj();
-      if (curView === "karty" || curView === "hra") kartyPrekresli();
+      if (curView === "karty" || mmNaHre()) kartyPrekresli();
     }
   }
-  if ((curView === "hra" || curView === "karty") && chci("pokladna")) {
+  if ((mmNaHre() || curView === "karty") && chci("pokladna")) {
     const p0 = JSON.stringify(POKL);
     await poklNacti();
     if (p0 !== JSON.stringify(POKL)) hraPrekresli();
@@ -1341,7 +1342,7 @@ async function hraPoll(hned, co) {
         navigator.vibrate && navigator.vibrate([120, 60, 120]);
       } catch (e) {}
       mmNotif("Vypravěč žádá hod", vyzvaTxt(m[0].data));
-      if (curView !== "hra") mmHlasG(`Vypravěč žádá: ${vyzvaTxt(m[0].data)}`, 5000);
+      mmHlasG(`Vypravěč žádá: ${vyzvaTxt(m[0].data)}`, 5000);
     }
     const nz = ZPR.filter(z => z.gm && z.id > zprVideno.get());
     if (nz.length) {
@@ -1388,6 +1389,10 @@ function hraStart() {
   /* po návratu do záložky se puls zeptá hned (25-puls.js) */
 }
 function hraPrekresli() {
+  if (!GMV) {
+    hraHracPrekresli();
+    return;
+  }
   if (curView !== "hra") return;
   const v = document.getElementById("hraview"),
     ae = document.activeElement;
@@ -1398,6 +1403,7 @@ function hraPrekresli() {
 async function ukolyUloz(L) {
   await hraUloz({ukoly: L});
   hraPrekresli();
+  if (curView === "kronika") kronikaPrekresli();
 }
 function postupBanner(K) {
   const n = +((HRA && HRA.postup) || 0);
@@ -1415,43 +1421,105 @@ function hraStavHtml() {
   return `<div class="hrastav"><p><b>${besc(partyDate())}</b>${HRA && HRA.hodina != null ? `, ${HRA.hodina}:00` : ""}${partyPlace() ? ` · ${besc(partyPlace())}` : ""}</p>${zb}
     ${s && s.aktivni ? `<p class="hraboj"><b>Probíhá boj</b> – ${s.kolo || 1}. kolo. <a class="gbtn" href="#boj">Do boje ⚔</a></p>` : s && s.priprava ? `<p class="hraboj"><b>Chystá se boj</b> – na stránce Boj hoď iniciativu. <a class="gbtn" href="#boj">Do boje ⚔</a></p>` : ""}</div>`;
 }
-function hraUkolyHtml() {
-  const uk = (HRA && HRA.ukoly) || [];
-  return `<section><h3 class="uvh2">Úkoly družiny</h3>${uk.length ? `<ul class="hrauk">${uk.map((u, i) => `<li class="${u.hot ? "hot" : ""}">${GMV ? `<label><input type="checkbox" data-hruk="${i}"${u.hot ? " checked" : ""}> ${besc(u.t)}</label> <button type="button" class="kx" data-hrukx="${i}" aria-label="Smazat úkol">×</button>` : `${u.hot ? "✓" : "☐"} ${besc(u.t)}`}</li>`).join("")}</ul>` : `<p class="rsmall">Zatím žádné.</p>`}
-    ${GMV ? `<form class="kvlh" data-hrukf><input name="t" maxlength="160" placeholder="nový úkol, např. Doručit dopis do Kutné Hory" required><button class="gbtn ghost">Přidat</button></form>` : ""}</section>`;
-}
-function hraMinuleHtml() {
-  const z = ZAPISY.length ? ZAPISY[ZAPISY.length - 1] : null;
-  if (!z) return "";
-  return `<section><h3 class="uvh2">Minule jsme…</h3><p><b>${besc(z.title)}</b> <small>${besc([z.n, z.date, z.place].filter(Boolean).join(" · "))}</small></p><p>${besc(strip(z.text).replace(/\s+/g, " ").slice(0, 340))}…</p><p class="rsmall"><a href="#kronika/${z.id}">Celý zápis v Kronice →</a></p></section>`;
-}
-function hraJaHtml(K) {
-  return `<section class="hraja">${kartaJednaHtml(K)}</section>`;
-}
 /* změny od posledního sezení: poprvé se načtou na pozadí a stránka se překreslí */
 function hraZmenyHtml() {
   if (!renderHra.zm) {
     renderHra.zm = 1;
     zmenyNacti().then(() => {
-      if (curView === "hra") renderHra();
+      if (mmNaHre()) renderHra();
     });
   }
   return zmenyHtml();
 }
+/* ===== hráčská stránka Hra (2026-10-22): jen karta; iniciativa a boj se na ní objeví, až vypravěč boj připraví =====
+   Uvnitř je to stránka Boj (route: hráč #hra → renderBoj v 20d); mimo boj ukáže renderBoj tohle. */
+function hraPrihlasHtml() {
+  return `<section class="hrapri"><h2 class="arttitle">Hra</h2>${
+    typeof ucetMuze === "function" && ucetMuze()
+      ? `<p class="rsmall">Jednou si založíš účet (jméno a heslo, nebo Discord), nahraješ list postavy z D&amp;D Beyond a postava zůstane tvoje.</p><div data-ucetbox="hra">${ucetBoxHtml("hra")}</div><details class="bjapd"><summary>Starší způsob – heslo přímo ke kartě</summary>${jaForm()}</details>`
+      : jaForm()
+  }<details class="bjapd"><summary>Jak hrát na webu</summary>${NAVOD}</details></section>`;
+}
+function hraHracHtml() {
+  const K = jaK();
+  if (!K && DCU.ok) return `<section class="hrapri"><h2 class="arttitle">Hra</h2>${jaBezKartyHtml()}</section>`;
+  if (!K) return hraPrihlasHtml();
+  return `<section class="hraja">${kartaJednaHtml(K)}</section>`;
+}
+/* obnova na pozadí (výzvy, zprávy, pokladna…): nepřekreslí, když hráč zrovna píše – dokreslí se, až pole opustí */
+function hraHracPrekresli() {
+  if (curView !== "boj") return;
+  const v = document.getElementById("bojview"),
+    ae = document.activeElement;
+  if (v && ae && v.contains(ae) && ae.matches("input:not([type=checkbox]):not([type=radio]),textarea,select")) {
+    hraHracPrekresli.cek = 1;
+    return;
+  }
+  bojPrekresli();
+}
+document.addEventListener("focusout", () =>
+  setTimeout(() => {
+    if (!hraHracPrekresli.cek) return;
+    hraHracPrekresli.cek = 0;
+    hraHracPrekresli();
+  }, 0),
+);
+/* ===== nová místa oddílů dřívější hráčské Hry (2026-10-22): listy na vlastní kartě =====
+   ✉ Od vypravěče (tajné zprávy, ukázky) v hlavičce karty, pokladna družiny v listu Peníze, telefon a účet v listu Postava */
+const zprCteno = {
+  get() {
+    try {
+      return +localStorage.getItem("mm-zpr-cteno") || 0;
+    } catch (e) {
+      return 0;
+    }
+  },
+  set(v) {
+    try {
+      localStorage.setItem("mm-zpr-cteno", String(v));
+    } catch (e) {}
+  },
+};
+/* vlastní karta přihlášeného hráče (ne vypravěč, ne cizí karta ke čtení) */
+const hraMoje = K => !GMV && !!K && (JA.get() || {}).k === K.id;
+function hraVypravBtn(K, shOpen) {
+  if (!hraMoje(K) || !window.MMDB) return "";
+  const n = ZPR.filter(z => z.gm && z.id > zprCteno.get()).length;
+  return `<button type="button" class="bdmsq bdmvypr" data-bdmsh="vyprav" aria-expanded="${shOpen === "vyprav"}" aria-label="Od vypravěče: tajné zprávy a ukázky${n ? ` – nové: ${n}` : ""}" ${btip("Od vypravěče: tajné zprávy a ukázky")}>✉${n ? `<b class="bdmvyprn">${n}</b>` : ""}</button>`;
+}
+function hraVypravList(K) {
+  const z = ZPR.filter(x => x.gm);
+  if (z.length) zprCteno.set(Math.max(zprCteno.get(), ...z.map(x => x.id)));
+  const u = UKAZKY[0];
+  return [
+    "Od vypravěče",
+    `<p class="bdmnote"><b>Tajně vypravěči</b> – vidí jen vypravěč.</p>${zprHtml(ZPR)}<form class="zprf" data-zprf="${besc(K.id)}"><textarea name="t" rows="2" maxlength="2000" placeholder="Co má vědět jen vypravěč" required></textarea><button class="gbtn ghost">Poslat</button></form>
+    <p class="bdmnote"><b>Ukázky</b> – co vypravěč ukázal družině.</p>${u ? `<p class="bdmrow"><button type="button" class="bdmbtn" data-ukotevri="${u.id}">${besc(u.n || "Ukázka")}</button></p>${UKAZKY.length > 1 ? `<details class="bjapd"><summary>Starší ukázky</summary>${ukSeznam()}</details>` : ""}` : `<p class="bdmnote">Zatím žádné.</p>`}`,
+  ];
+}
+function hraUcetHtml(K) {
+  if (!hraMoje(K)) return "";
+  const ja = JA.get() || {};
+  return `${aplikaceHtml(K.id)}<p class="bojbtn">${notifBtn()}${window.MMDB && !(ja.d && DCU.typ !== "email") ? `<button type="button" class="gbtn ghost" data-jaheslo>Změnit heslo</button>` : ""}${ja.d ? `<button type="button" class="gbtn ghost" data-discordx>${jaOdhlasTxt()} (${besc(K.n)})</button>` : `<button type="button" class="gbtn ghost" data-jaodhlas>Odhlásit (${besc(K.n)})</button>`}</p>`;
+}
 function renderHra() {
+  if (!GMV) {
+    hraHracPrekresli();
+    return;
+  }
   mmZrus("hra");
   const box = document.getElementById("hraview");
   if (!box) return;
   if (!KLOAD) {
     KLOAD = 1;
     Promise.all([kartyNacti(), hodyNacti()]).then(() => {
-      if (curView === "hra") renderHra();
+      if (mmNaHre()) renderHra();
     });
   }
   if (!BOJ.s && bojDB && !renderHra.b) {
     renderHra.b = 1;
     bojNacti().then(() => {
-      if (curView === "hra") renderHra();
+      if (mmNaHre()) renderHra();
     });
   }
   const hl = `<div class="bojtit"><h2 class="arttitle">Hra</h2><p class="bojlead">${GMV ? "Řízení sezení: výzvy k hodům, zprávy hráčům, úkoly družiny a postup." : "Všechno, co hráč potřebuje během sezení, na jedné stránce."}</p></div>`;
@@ -1482,25 +1550,7 @@ function renderHra() {
       ${aplikaceHtml(null)}
       <section><h3 class="uvh2">Jak hrát na webu (pro hráče)</h3>${NAVOD}</section>`;
     pojZnac(box.querySelector(".kprehled"));
-    return;
   }
-  const K = jaK();
-  if (!K && DCU.ok) {
-    box.innerHTML = `${hl}${hraStavHtml()}${jaBezKartyHtml()}<section><h3 class="uvh2">Jak hrát na webu</h3>${NAVOD}</section>${hraMinuleHtml()}`;
-    return;
-  }
-  if (!K) {
-    box.innerHTML = `${hl}${hraStavHtml()}<section><h3 class="uvh2">Přihlásit se</h3>${typeof ucetMuze === "function" && ucetMuze() ? `<p class="rsmall">Jednou si založíš účet (jméno a heslo, nebo Discord), nahraješ list postavy z D&amp;D Beyond a postava zůstane tvoje.</p><div data-ucetbox="hra">${ucetBoxHtml("hra")}</div><details class="bjapd"><summary>Starší způsob – heslo přímo ke kartě</summary>${jaForm()}</details>` : jaForm()}</section><section><h3 class="uvh2">Jak hrát na webu</h3>${NAVOD}</section>${hraMinuleHtml()}${hraUkolyHtml()}`;
-    return;
-  }
-  const u = UKAZKY[0];
-  box.innerHTML = `${hl}${hraStavHtml()}${vyzvyHracHtml()}${hraJaHtml(K)}
-    ${u ? `<section><h3 class="uvh2">Od vypravěče</h3><button type="button" class="gbtn ghost" data-ukotevri="${u.id}">${besc(u.n || "Ukázka")}</button>${UKAZKY.length > 1 ? `<details class="bjapd"><summary>Starší ukázky</summary>${ukSeznam()}</details>` : ""}</section>` : ""}
-    ${hraMinuleHtml()}${hraUkolyHtml()}${poklHtml()}
-    ${window.MMDB && KZAM.has(K.id) ? `<section><h3 class="uvh2">Tajně vypravěči</h3>${zprHtml(ZPR)}<form class="zprf" data-zprf="${besc(K.id)}"><textarea name="t" rows="2" maxlength="2000" placeholder="Co má vědět jen vypravěč" required></textarea><button class="gbtn ghost">Poslat</button></form></section>` : ""}
-    ${aplikaceHtml(K.id)}
-    <section class="hrakon"><details class="bjapd"><summary>Jak hrát na webu</summary>${NAVOD}</details><p class="bojbtn">${notifBtn()}${window.MMDB && KZAM.has(K.id) && !((JA.get() || {}).d && DCU.typ !== "email") ? `<button type="button" class="gbtn ghost" data-jaheslo>Změnit heslo</button>` : ""}${(JA.get() || {}).d ? `<button type="button" class="gbtn ghost" data-discordx>${jaOdhlasTxt()} (${besc(K.n)})</button>` : `<button type="button" class="gbtn ghost" data-jaodhlas>Odhlásit (${besc(K.n)})</button>`}</p></section>`;
-  pojZnac(box.querySelector(".hraja"));
 }
 document.addEventListener("submit", async e => {
   const f = e.target;

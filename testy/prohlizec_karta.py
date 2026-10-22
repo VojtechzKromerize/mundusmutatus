@@ -285,8 +285,9 @@ async def main():
     chk(await pl.evaluate("!!JSON.parse(localStorage.getItem('mm-hrac')||'null')?.t"),"hráč přihlášen za Balduina (heslo nastaveno)")
     chk(await pl.locator('.hraja .bdm').count()==1,"na stránce Hra je stejná karta jako v Boji")
     await pl.evaluate("location.hash='#boj'");await pl.wait_for_timeout(4500)
+    chk(await pl.evaluate("location.hash")=="#hra","hráč: starší odkaz #boj vede na stránku Hra (2026-10-22)")
     if not await pl.evaluate("!!(BOJ.s&&(BOJ.s.aktivni||BOJ.s.priprava))"):
-        chk(await pl.locator(".bdmmimo .bdm").count()==1,"hráč mimo boj: v Boji má svou bojovou kartu (rozvržení D&D Beyond)")
+        chk(await pl.locator(".hraja .bdm").count()==1 and await pl.locator("#bojview .bsloty").count()==0,"hráč mimo boj: na Hře jen jeho karta (rozvržení D&D Beyond), bez iniciativy")
         await pl.click('.bdm .bdmtabs [data-bdmsec="kouzla"]');await pl.wait_for_timeout(300)
         chk(await pl.locator(".bdm .bdmsec[data-bdmid=kouzla]").count()==1,"bojová karta: záložka Kouzla")
     await pl.evaluate("location.hash='#hra'");await pl.wait_for_selector(".hraja",timeout=10000)
@@ -312,17 +313,18 @@ async def main():
     await g.goto(BASE+"#hra");await g.wait_for_selector("[data-vyzf]",timeout=15000)
     await g.select_option("[data-vyzf] [name=typ]","zach");await g.select_option("[data-vyzf] [name=ab]","CON");await g.fill("[data-vyzf] [name=dc]","13");await g.click("[data-vyzf] button")
     await pl.wait_for_selector("[data-vyzhod]",timeout=15000)
-    chk("záchrana CON" in await pl.inner_text(".vyzhr"),"hráči vyskočí výzva k záchraně")
+    chk("záchrana CON" in await pl.inner_text("#mmvyz"),"hráči vyskočí výzva k záchraně (lišta výzev i na Hře)")
     await pl.click("[data-vyzhod]");await pl.wait_for_timeout(1200)
     await g.wait_for_function("document.querySelector('.vyzgm') && /Balduin: \\d+/.test(document.querySelector('.vyzgm').innerText)",timeout=15000)
     chk(True,"vypravěč vidí výsledek výzvy")
-    await g.click('#hraview [data-vyzrychle="Perception"]');await pl.wait_for_function("document.querySelector('.vyzhr') && document.querySelector('.vyzhr').innerText.includes('Perception')",timeout=15000)
+    await g.click('#hraview [data-vyzrychle="Perception"]');await pl.wait_for_function("document.querySelector('#mmvyz') && document.querySelector('#mmvyz').innerText.includes('Perception')",timeout=15000)
     chk(True,"vypravěč jedním klepnutím vyzve všechny k ověření Perception")
     # Zpytování svědomí jako výzva: vypravěč vyzve, hráč hodí d10 na své kartě (2026-10-17 b)
     await pl.evaluate("kartaStavZmen('balduin',{hr:2})");await pl.wait_for_timeout(700)
     await g.goto(BASE+"#karty");await g.wait_for_selector("[data-kpzv]",timeout=15000);await g.click("[data-kpzv]")
-    await pl.wait_for_function("document.querySelector('.vyzhr') && document.querySelector('.vyzhr').innerText.includes('Zpytování')",timeout=15000)
-    await pl.click(".vyzhr .vyzk:has-text('Zpytování') [data-vyzhod]");await pl.wait_for_timeout(1500)
+    await pl.wait_for_function("document.querySelector('#mmvyz') && document.querySelector('#mmvyz').innerText.includes('Zpytování')",timeout=15000)
+    chk(await pl.locator("#mmvyz .vyzk").count()>=2,"lišta ukáže všechny čekající výzvy, ne jen první")
+    await pl.click("#mmvyz .vyzk:has-text('Zpytování') [data-vyzhod]");await pl.wait_for_timeout(1500)
     chk(any(h.get("co")=="Zpytování svědomí" for h in hody()) and "hr" not in stav(),"Zpytování jako výzva: hráč hodí d10 na své kartě, body hříchů se vynulují")
     await g.goto(BASE+"#hra");await g.wait_for_selector("[data-vyzf]",timeout=15000)
     # krok 0 přestavby Hry (2026-10-22): co se bude stěhovat, má test nezávislý na místě na stránce
@@ -350,6 +352,8 @@ async def main():
     await g.evaluate("hraUloz({postup:null,ukoly:[]})");await g.wait_for_timeout(600)
     # pokladna družiny: přihlášený hráč vloží a vybere mince
     await pl.evaluate("poklNacti&&poklNacti()");await pl.wait_for_timeout(600)
+    # pokladna je od 2026-10-22 v listu Peníze na kartě (oddíl Vybavení)
+    await pl.keyboard.press('Escape');await pl.click('.hraja .bdmtabs [data-bdmsec="vyb"]');await pl.click('.hraja [data-bdmsh="pen"]');await pl.wait_for_selector(".bdmlist [data-poklf]",timeout=8000)
     gp0=await pl.evaluate("+(((POKL||{}).pen||{}).GP||0)")
     f=pl.locator("[data-poklf]").first
     await f.locator("[name=k]").select_option("GP");await f.locator("[name=v]").fill("3");await f.locator('[data-pokl="1"]').click();await pl.wait_for_timeout(1500)
@@ -358,6 +362,8 @@ async def main():
     await f.locator("[name=k]").select_option("GP");await f.locator("[name=v]").fill("3");await f.locator('[data-pokl="-1"]').click();await pl.wait_for_timeout(1500)
     chk(await pl.evaluate("+(((POKL||{}).pen||{}).GP||0)")==gp0,"pokladna: hráč 3 GP zase vybere")
     # tajné zprávy
+    # tajné zprávy jsou od 2026-10-22 v listu ✉ Od vypravěče v hlavičce karty
+    await pl.keyboard.press('Escape');await pl.click('.hraja [data-bdmsh="vyprav"]');await pl.wait_for_selector(".bdmlist [data-zprf]",timeout=8000)
     await pl.fill("[data-zprf] textarea","Přijímám Pokušení, ale tajně.");await pl.click("[data-zprf] button");await pl.wait_for_timeout(800)
     await g.wait_for_function("document.body.innerText.includes('Přijímám Pokušení, ale tajně.')",timeout=15000)
     chk(True,"vypravěč dostal tajnou zprávu")
@@ -408,7 +414,7 @@ async def main():
     r=await cizi.evaluate("MMDB.kartaStav('ucetnik','sv',3).then(()=>'ok',e=>e.message)")
     chk(r!="ok","cizí prohlížeč nezmění kartu hráče s účtem")
     chk(await up.locator("[data-discordx]").first.inner_text()=="Odhlásit (Účetník)","odhlášení u účtu s heslem bez zmínky o Discordu")
-    await up.evaluate("mmPopX()");await up.locator(".hrakon [data-discordx]").click();await up.wait_for_timeout(600);await up.goto(BASE+"#uvod");await up.wait_for_selector("#uvucet:not([hidden]) [data-ucetr=prihlas]",timeout=15000)
+    await up.evaluate("mmPopX()");await up.click('.hraja [data-bdmsh="sprava"]');await up.locator(".bdmlist [data-discordx]").click();await up.wait_for_timeout(600);await up.goto(BASE+"#uvod");await up.wait_for_selector("#uvucet:not([hidden]) [data-ucetr=prihlas]",timeout=15000)
     async def uklik(sel):  # oznámení a lišta „Obnovit“ (mmhlas) mohou na úzkém displeji tlačítko překrýt
         await up.evaluate("document.querySelectorAll('.mmhlas').forEach(e=>e.remove());mmPopX&&mmPopX()")
         try: await up.click(sel,timeout=10000)
