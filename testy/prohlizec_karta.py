@@ -372,6 +372,7 @@ async def main():
     await g.fill("[data-zprf] textarea","Dobře, uvidíme.");await g.click("[data-zprf] button")
     await pl.wait_for_function("document.body.innerText.includes('Dobře, uvidíme.')",timeout=15000)
     chk(True,"hráč dostal odpověď vypravěče")
+    await pl.keyboard.press('Escape');await pl.wait_for_timeout(300)  # zavřít list Od vypravěče
     r=await cizi.evaluate("MMDB.zpravy('balduin').then(x=>JSON.stringify(x),e=>'chyba')")
     chk(r=="chyba","cizí prohlížeč zprávy nepřečte")
     h=await pl.evaluate("bojPruvodce({kolo:1,tah:0,reak:{}},{id:'h1',n:'Balduin',k:'balduin'})")
