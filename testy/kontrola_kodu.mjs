@@ -252,6 +252,109 @@ if (arg("--soubor") != null) {
   process.exit(0);
 }
 
+/* ---- docs/MAPA.md a docs/SLOVNIK.md: npm run mapa (orientace pro další relace; generované, neupravovat ručně) ---- */
+if (process.argv.includes("--mapa")) {
+  const DOCS = path.join(KOREN, "docs");
+  fs.mkdirSync(DOCS, {recursive: true});
+  const soubory = [...new Set(mapa.map(m => m[0]))].filter(f => f.startsWith("zdroj/web/js/"));
+  const zdroje = new Map(soubory.map(f => [f, fs.readFileSync(path.join(KOREN, f), "utf8").split("\n")]));
+  const cisti = s =>
+    s
+      .replace(/^\s*\/\*+\s*[=-]*\s*/, "")
+      .replace(/\s*[=-]*\s*\*+\/\s*$/, "")
+      .replace(/\s*[=-]{3,}\s*$/, "")
+      .replace(/^\s*\/\/\s*/, "")
+      .trim();
+  const hlavicka = f => {
+    const r = zdroje.get(f)[0] || "";
+    return /^\s*\/[/*]/.test(r) ? cisti(r) : "(bez hlavičky – doplň komentář na 1. řádek)";
+  };
+  const oddily = f =>
+    zdroje
+      .get(f)
+      .map((r, i) => [r, i + 1])
+      .filter(([r], i) => i > 0 && /^\/\* ?[=-]{3,}/.test(r) && !/^\/\*@/.test(r))
+      .map(([r, i]) => [cisti(r).slice(0, 110), i]);
+  const popisy = (() => {
+    try {
+      return JSON.parse(fs.readFileSync(path.join(DOCS, "slovnik.json"), "utf8"));
+    } catch {
+      return {};
+    }
+  })();
+
+  /* mapa souborů */
+  const M = [
+    "# Mapa souborů skriptu",
+    "",
+    "Generuje `npm run mapa` (testy/kontrola_kodu.mjs --mapa) – **neupravuj ručně**, po větší změně obnov. Pořadí souborů = pořadí ve",
+    "skriptu; jádro 01–09 + 26 se stahuje hned, díly 10–25 líně, části `02b 04b 05b 21 22b` až na své stránce (viz CLAUDE.md).",
+    "Podrobnosti k jednomu jménu nebo souboru: `node testy/kontrola_kodu.mjs --kde JMÉNO` / `--soubor NN`.",
+    "",
+  ];
+  const vsechDef = [...MAPA].filter(([, o]) => o.f.startsWith("zdroj/web/js/"));
+  for (const f of soubory) {
+    const vlastni = vsechDef.filter(([, o]) => o.f === f);
+    const posk = vlastni.filter(([, o]) => [...o.ctou].some(x => x !== f));
+    const pocetCtenaru = n => MAPA.get(n).ctou.size;
+    const poskJm = posk.map(([n]) => n).sort((a, b) => pocetCtenaru(b) - pocetCtenaru(a) || a.localeCompare(b));
+    const pouziva = new Map();
+    for (const [n, o] of vsechDef) if (o.f !== f && o.ctou.has(f)) pouziva.set(kratce(o.f), (pouziva.get(kratce(o.f)) || 0) + 1);
+    const pouzivaji = new Map();
+    for (const [, o] of vlastni)
+      for (const x of o.ctou) if (x !== f && x.startsWith("zdroj/web/js/")) pouzivaji.set(kratce(x), (pouzivaji.get(kratce(x)) || 0) + 1);
+    const seznam = m =>
+      [...m]
+        .sort()
+        .map(([k, v]) => `${k} (${v})`)
+        .join(", ") || "–";
+    M.push(`## ${kratce(f)}`, "", hlavicka(f), "");
+    M.push(`- ${zdroje.get(f).length} řádků, ${vlastni.length} definic na nejvyšší úrovni, z toho ${posk.length} používají jiné soubory`);
+    M.push(`- používá z: ${seznam(pouziva)}`);
+    M.push(`- používají ho: ${seznam(pouzivaji)}`);
+    M.push(`- poskytuje: ${poskJm.slice(0, 40).join(" ")}${poskJm.length > 40 ? ` … (+${poskJm.length - 40})` : ""}`);
+    const od = oddily(f);
+    if (od.length) M.push("- oddíly:", ...od.map(([t, i]) => `  - ř. ${i}: ${t}`));
+    M.push("");
+  }
+  fs.writeFileSync(path.join(DOCS, "MAPA.md"), M.join("\n"));
+
+  /* slovník zkratek a konstant */
+  const S = [
+    "# Slovník zkratek a globálních konstant",
+    "",
+    "Generuje `npm run mapa` – **neupravuj ručně**. Významy ručně psané jsou v `docs/slovnik.json` (jméno → význam; doplň, když něco",
+    "rozluštíš); ostatní popisy bere skript z komentáře u definice (ⓐ) nebo z jejího začátku (ⓘ). Jen jména VELKÝMI písmeny;",
+    "funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO` nebo grepem.",
+    "",
+    "| jméno | kde | druh | význam |",
+    "|---|---|---|---|",
+  ];
+  const komentar = r => {
+    const m = r.match(/\/\/\s*(.+?)\s*$/) || r.match(/\/\*\s*(?!@)(.+?)\s*\*\/\s*;?\s*$/);
+    return m ? m[1] : "";
+  };
+  const popis = (n, o) => {
+    if (popisy[n]) return popisy[n];
+    const L = zdroje.get(o.f),
+      i = (mapa[o.r - 1] || [0, 1])[1],
+      r = L[i - 1] || "",
+      pred = L[i - 2] || "";
+    let k = komentar(r.replace(/^.*?\b(const|let|var|function|class)\s+\w+/, ""));
+    if (!k && /^\s*(\/\/|\/\*)/.test(pred) && !/^\s*\/\*\s*[=-]{3,}/.test(pred) && !/^\s*\/\*@/.test(pred) && cisti(pred).length < 160)
+      k = cisti(pred);
+    if (k) return "ⓐ " + (k.length > 140 ? k.slice(0, 140) + "…" : k).replace(/\|/g, "\\|");
+    const z = ((r.match(new RegExp("\\b" + n + "\\s*=\\s*(.*)")) || [])[1] || r).replace(/\/\*@\w+@\*\/\s*/, "").trim();
+    return "ⓘ `" + z.slice(0, 70).replace(/\|/g, "\\|").replace(/`/g, "'") + (z.length > 70 ? "…" : "") + "`";
+  };
+  const velka = vsechDef.filter(([n]) => /^[A-Z][A-Z0-9_]+$/.test(n)).sort(([a], [b]) => a.localeCompare(b));
+  for (const [n, o] of velka) S.push(`| \`${n}\` | ${kratce(o.f)}:${(mapa[o.r - 1] || [0, "?"])[1]} | ${o.druh} | ${popis(n, o)} |`);
+  const chybi = velka.filter(([n]) => !popisy[n] && !popis(n, MAPA.get(n)).startsWith("ⓐ")).length;
+  fs.writeFileSync(path.join(DOCS, "SLOVNIK.md"), S.join("\n") + "\n");
+  console.log(`docs/MAPA.md (${soubory.length} souborů) a docs/SLOVNIK.md (${velka.length} jmen, ${chybi} bez komentáře i ručního významu)`);
+  process.exit(0);
+}
+
 if (chyb) {
   console.log(`\nKontrola kódu: ${chyb} ${chyb === 1 ? "chyba" : chyb < 5 ? "chyby" : "chyb"}`);
   process.exit(1);

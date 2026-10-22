@@ -16,6 +16,38 @@ v `zdroj/obsah/NÁVOD.md`, testy v `testy/README.md`. Tady je jen to, co ušetř
 - **Commity česky**, popisují, co se změnilo pro uživatele webu.
 - **Zdroj pravdy je kód.** Dokumenty v projektu claude.ai (`vyvoj/*.md`, audity, zadání) mohou zaostávat
   za `dev` – než něco označíš za chybějící, ověř to v kódu.
+- **Orientace bez průzkumu** (čti na začátku relace, ne celý kód):
+  - `docs/STAV.md` – živý stav vývoje: platná rozhodnutí Vojty, co je hotové, co je otevřené. **Po větší změně ho aktualizuj**
+    (jedna odrážka; datované snímky v projektu claude.ai jsou jen historie a nepřepisují se).
+  - `docs/MAPA.md` – každý soubor skriptu: k čemu je, oddíly s čísly řádků, co poskytuje a odkud bere.
+  - `docs/SLOVNIK.md` – zkratky a globální konstanty (BJU, KZEF, BDM…) s významem. Oba generuje `npm run mapa`
+    (neupravuj ručně; ruční významy do `docs/slovnik.json`, nový významný celek dostane komentář na 1. řádku souboru).
+  - Jedno jméno nebo soubor: `node testy/kontrola_kodu.mjs --kde JMÉNO` / `--soubor NN`.
+
+## Souběžné relace (na repozitáři často pracuje víc relací naráz)
+
+- **Jedna relace = jedna oblast.** Na začátku se podívej, co se v `dev` dělo za poslední hodiny: `git log origin/dev -15 --format='%h %ar %s'`.
+  Souborů, které jiná relace změnila před chvílí (poslední ~hodina), se nedotýkej, pokud to úkol nevyžaduje; když musíš, drž se
+  malých Editů s jednoznačným úryvkem a nahrávej hned.
+- **Malé commity, hned po ověření** (`npm run format && npm run kontrola && npm test`), vždy `git fetch origin dev && git rebase` těsně
+  před pushem. Nikdy ne velký balík změn po hodinách práce – to dělá konflikty a ruší cizí běhy CI.
+- **Po pushi zkontroluj rychlou kontrolu CI** (`gh run list -L 3`, ~3 min). Když je červená kvůli cizí změně, neopravuj ji potichu –
+  napiš Vojtovi, který commit ji rozbil, a oprav ji jen, pokud je zřejmá a malá.
+- **Nepřesouvej ani hromadně neupravuj cizí soubory**, když běží jiné relace (`npm run format` je bezpečný: už formátované
+  soubory nezmění; do commitu dávej jen soubory, na kterých jsi pracoval – `git add` jmenovitě, ne `-A`).
+- Rozdělané věci, které předáváš jiné relaci nebo necháváš na později, zapiš do `docs/STAV.md › Otevřené`, ne do commitu.
+
+## Zadání a „hotovo“
+
+- Úkol od Vojty bývá krátký. Než začneš, ujasni si (z kódu, `docs/STAV.md`, snímku obrazovky – ne otázkou, pokud to jde): **kde**
+  (stránka, hráč/vypravěč, telefon/PC), **co je špatně** nebo co chybí, **co znamená hotovo** a zda smíš sahat do databáze
+  (vývojová ano, ostrá jen číst). Když zadání připouští dva různé výsledky a volba je drahá, zeptej se jednou, konkrétně, s návrhem.
+- Hotovo = změna je v `dev`, rychlá kontrola CI zelená, nové pravidlo má test v `testy/jednotky`, vzhled ověřený jako hráč i vypravěč
+  (mobil i PC, pokud se změnil), `docs/STAV.md` aktualizovaný, a Vojta dostal **jednu větu** o tom, co uvidí na náhledu dev
+  a co má ověřit sám (ne výčet souborů).
+- Náhled: `https://dev--mundusmutatus.netlify.app` (vývojová databáze). Když je v relaci konektor Chrome, prohlédni si rozbitou
+  stránku sám, než se ptáš „jak to vypadá“. Přihlašovací údaje zkušebních účtů na vývojové databázi ti dá Vojta na začátku
+  relace (repozitář je veřejný – nikdy je nezapisuj do kódu, dokumentů ani commitů).
 
 ## Struktura
 

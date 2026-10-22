@@ -1,3 +1,4 @@
+/* ===== Základ: data z buildu (rody, vazby, zeměpis, erby), víry a ikony, odkazy mezi stránkami (mmLina), odložené překreslení (mmPozdeji) ===== */
 const FAM = /*@FAM@*/ [];
 const REL = /*@REL@*/ [];
 /* zeměpis: královská města a sídla církevních vrchností jsou na mapě vždy, i když družina rod nezná */
