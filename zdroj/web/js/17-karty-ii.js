@@ -43,7 +43,7 @@ async function jaZvol(kid) {
     mmHlasG(e.message || String(e), 6000);
   }
 }
-/* volné karty: i zkušební (na nich si hráč může přihlášení vyzkoušet; vypravěč je pak uvolní na stránce Hra) */
+/* volné karty: i zkušební (na nich si hráč může přihlášení vyzkoušet; vypravěč je pak uvolní v pultu › Sezení) */
 function jaBezKartyHtml() {
   const volne = KARTY.filter(k => !KZAM.has(k.id)).sort((a, b) => !!a.test - !!b.test || String(a.n).localeCompare(String(b.n), "cs"));
   return `<section><h3 class="uvh2">Vítej, ${besc(DCU.jmeno || "hráči")}</h3><p>Nahraj list své postavy z D&amp;D Beyond (postava → <i>Export to PDF</i>). Karta se vytvoří a zůstane tvoje.</p>

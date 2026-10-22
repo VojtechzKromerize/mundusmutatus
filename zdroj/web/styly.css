@@ -1032,10 +1032,8 @@ body{padding-top:38px;padding-bottom:48px;padding-left:max(38px,env(safe-area-in
 .bja{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;padding:8px 12px;margin:0 0 10px;border:1px solid var(--rule);border-radius:4px;background:var(--paper)}
 .bja label{display:flex;align-items:center;gap:8px;font-family:var(--f-label);letter-spacing:.03em;color:var(--muted)}
 .bja select{font:inherit;font-family:var(--f-body);color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:3px;padding:5px 8px;min-height:38px}
-.bjatah{color:var(--paper);background:var(--kal);border-radius:3px;padding:3px 10px;font-family:var(--f-label);letter-spacing:.05em;animation:bpuls 1s ease-in-out infinite}
-.bjadal{color:var(--kal);font-family:var(--f-label);letter-spacing:.03em}
 @keyframes bpuls{0%,100%{box-shadow:0 0 0 2px var(--gold)}50%{box-shadow:0 0 0 6px color-mix(in srgb,var(--kal) 70%,transparent)}}
-@media (prefers-reduced-motion:reduce){.bjatah,.bslot.bmujtah{animation:none;box-shadow:0 0 0 4px var(--kal)}}
+@media (prefers-reduced-motion:reduce){.bslot.bmujtah{animation:none;box-shadow:0 0 0 4px var(--kal)}}
 .bojside{display:flex;flex-direction:column;gap:14px}
 .bhr{list-style:none;margin:4px 0;padding:0}
 .bhr li{padding:3px 0;border-bottom:1px dotted var(--rule)}
@@ -2210,15 +2208,13 @@ abbr.poj{text-decoration:underline dotted color-mix(in srgb,var(--kal) 60%,trans
 .hraboj{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .jaf{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:flex-end}.jaf label{display:flex;flex-direction:column;gap:2px}
 .navod{padding-left:20px}.navod li,.navod2 li{margin:6px 0;line-height:1.45}
-.vyzhr{margin:10px 0}.vyzk{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between;padding:10px 12px;margin:6px 0;border:2px solid var(--gold);border-radius:4px;background:color-mix(in srgb,var(--gold) 14%,var(--paper))}
+.vyzk{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between;padding:10px 12px;margin:6px 0;border:2px solid var(--gold);border-radius:4px;background:color-mix(in srgb,var(--gold) 14%,var(--paper))}
 .vyzk .gbtn{font-size:1.05rem}
 .mmvyz{position:fixed;left:8px;right:8px;bottom:calc(8px + env(safe-area-inset-bottom,0px));z-index:105;display:flex;flex-direction:column;gap:6px}
 .mmvyz .vyzk{margin:0;box-shadow:0 6px 20px rgba(0,0,0,.3)}
 .vyzgm{margin:8px 0;padding:6px 10px;border:1px solid var(--rule);border-radius:3px;background:var(--paper)}.vyzgm ul{margin:4px 0;padding-left:18px}
 .vyzf select,.vyzf input[name=pozn]{max-width:12em}.vyzf input[name=dc]{width:4.5em}.vyzkomu{display:inline-flex;flex-wrap:wrap;gap:4px 10px}
 .hraja{border:1px solid color-mix(in srgb,var(--gold) 50%,var(--rule));border-radius:4px;padding:6px 12px 10px;margin:12px 0;background:color-mix(in srgb,var(--paper) 92%,var(--gold))}
-.hrajh{display:flex;justify-content:space-between;align-items:center;gap:8px}.hrares{display:flex;flex-wrap:wrap;gap:4px 12px;margin:6px 0}.hrasv{margin:6px 0}
-.hrahody{display:flex;flex-wrap:wrap;gap:5px}
 .hrauk{list-style:none;padding:0}.hrauk li{margin:5px 0}.hrauk li.hot{opacity:.6;text-decoration:line-through}
 .zprl{list-style:none;padding:0;margin:6px 0;max-height:320px;overflow-y:auto}.zprl li{margin:6px 0;padding:6px 10px;border-radius:6px;max-width:85%;background:var(--paper);border:1px solid var(--rule)}
 .zprl li small{display:block;color:var(--muted);font-size:.75rem}.zprl li.zja{margin-left:auto;background:color-mix(in srgb,var(--kat) 10%,var(--paper))}
@@ -2250,7 +2246,7 @@ abbr.poj{text-decoration:underline dotted color-mix(in srgb,var(--kal) 60%,trans
 .kpok{font-size:1.1rem}
 @media print{header.site,nav.subnav,.colophon,.ktabs,.bojbtn,.kzrb,.kvlh,.kucf,.kdub,.kdusf,.navodbar,.phbtn,.mmvyz,form,details>summary~*:not(.kspd){display:none!important}
   body,html{background:#fff!important}.kcard .ktab{display:block!important}.kcard{font-size:11pt}.kgrid{display:block}.wrap{box-shadow:none!important;border:0!important}}
-.bhotovo{font-size:.8rem;color:var(--kat);font-family:var(--f-label)}.bjaja{display:inline-flex;gap:6px;align-items:baseline}
+.bhotovo{font-size:.8rem;color:var(--kat);font-family:var(--f-label)}
 html:not(.gmv) .gmonly{display:none!important}
 @media (max-width:640px){.kdusk{min-width:0;width:100%}.mmpop{padding:2vh 6px}}
 

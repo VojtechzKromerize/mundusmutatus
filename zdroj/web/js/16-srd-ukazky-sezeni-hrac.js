@@ -151,7 +151,7 @@ function renderNetvori(main) {
   }
   const ty = [...new Set(NETV.map(x => x.st[1]).filter(Boolean))].sort();
   main.innerHTML = `<nav class="crumbs"><a href="#pravidla">Pravidla</a> › <b>Nestvůry a zvířata</b></nav><h2 class="arttitle">Nestvůry a zvířata (SRD 5.2.1)</h2>
-    <p class="intro">Statistiky nestvůr a zvířat ze SRD 5.2.1 s českými texty. Jsou i v bestiáři na stránce Boj – tlačítkem <b>+ do boje</b> je přidáš do přípravy nebo běžícího boje (nestvůra s legendárními akcemi jako zhoubce, ostatní jako sok).</p>
+    <p class="intro">Statistiky nestvůr a zvířat ze SRD 5.2.1 s českými texty. Jsou i v bestiáři boje (Hra › Boj) – tlačítkem <b>+ do boje</b> je přidáš do přípravy nebo běžícího boje (nestvůra s legendárními akcemi jako zhoubce, ostatní jako sok).</p>
     <div class="prfil"><input type="search" data-nvq value="${besc(NVF.q)}" placeholder="Hledat – goblin, dragon, vlk, CR 5…" aria-label="Hledat nestvůru"><select data-nvtyp aria-label="Typ"><option value="">všechny typy</option>${ty.map(d => `<option${NVF.typ === d ? " selected" : ""}>${besc(d)}</option>`).join("")}</select></div>
     <ul class="prlist" data-nvlist></ul><p class="rsmall srdattr">${besc(SRDP ? SRDP.attr : "")}</p>`;
   netvFiltr(main);
@@ -228,7 +228,7 @@ document.addEventListener("click", e => {
     const rows = bojRozvin([{id: n.dataset.netvadd, pr: []}]);
     if (rows.length) {
       bojPridejZvenku(rows, null);
-      if (!(BOJ.s && (BOJ.s.aktivni || BOJ.s.priprava))) mmHlasG(`${rows[0].n} – připraveno pro další boj (stránka Boj).`, 4500);
+      if (!(BOJ.s && (BOJ.s.aktivni || BOJ.s.priprava))) mmHlasG(`${rows[0].n} – připraveno pro další boj (Hra › Boj).`, 4500);
     }
   }
 });
@@ -1047,8 +1047,7 @@ async function jaOver() {
   } catch (e) {}
 }
 function jaForm() {
-  if (!KARTY.length)
-    return `<p class="rsmall">Zatím tu není žádná karta postavy. Nahraj list z D&amp;D Beyond na stránce <a href="#karty">Karty postav</a>.</p>`;
+  if (!KARTY.length) return `<p class="rsmall">Zatím tu není žádná karta postavy. Založ si účet a nahraj list z D&amp;D Beyond.</p>`;
   return `<form class="jaf" data-jaf><label>Hraji za <select name="k">${KARTY.map(k => `<option value="${besc(k.id)}">${besc(k.n)}${window.MMDB && !KZAM.has(k.id) ? " – zatím bez hesla" : ""}</option>`).join("")}</select></label>${window.MMDB ? `<label>Heslo <input name="h" type="password" minlength="4" maxlength="100" autocomplete="current-password" required></label>` : ""}<button class="gbtn">Hrát za tuto postavu</button></form>
     ${window.MMDB ? `<p class="rsmall">Kdo se ke kartě přihlásí jako první, zvolí si tím heslo – pak ji může měnit jen on a vypravěč. Zapomenuté heslo zruší vypravěč.</p>` : ""}`;
 }

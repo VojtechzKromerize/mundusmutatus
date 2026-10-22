@@ -491,7 +491,7 @@ function bojTedHtml(s) {
           "zdroj",
           `${nv} ${nv === 1 ? "návrh" : nv < 5 ? "návrhy" : "návrhů"} ke schválení`,
           null,
-          "Léčení spojence, Bardic… – schválit na stránce Hra",
+          "Léčení spojence, Bardic… – schválit v Hra › Družina",
         ),
       );
     if (vz)
@@ -562,7 +562,7 @@ function bojTedHtml(s) {
   return `<div class="bted" role="status" aria-label="Co teď">${R.join("")}</div>`;
 }
 /* hromadný hod v Boji (2026-10-19): celá družina hodí ověření nebo záchranu (dech draka, past, skrytí…) jedním klepnutím;
-   výsledky přijdou sem, do stejného panelu (výzvy jako na stránce Hra) */
+   výsledky přijdou sem, do stejného panelu (výzvy jako v pultu › Družina) */
 function bojVyzPanel(s) {
   if (!GMV || !window.MMDB || !MMDB.vyzva) return "";
   const L = (typeof VYZVY !== "undefined" ? VYZVY : []).filter(v => !v.zavrena);
@@ -2811,7 +2811,7 @@ async function bojObnovSnap(P) {
 async function bojVratCas(tr, popis) {
   const P = [...BHIST].reverse().find(x => x.t < tr - 30);
   if (!P) {
-    mmHlasG("Tak daleko web stav nezná – řádek je z doby před otevřením stránky Boj. Použij časovou osu na stránce Hra.", 6000);
+    mmHlasG("Tak daleko web stav nezná – řádek je z doby před otevřením Hry. Použij časovou osu v Hra › Sezení.", 6000);
     return;
   }
   const n = BLOGG.filter(y => (y.o.t || 0) >= tr && !y.o.undone).length;

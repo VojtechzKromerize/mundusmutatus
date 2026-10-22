@@ -170,7 +170,7 @@ function navrhyMojeHtml(K) {
   const L = navrhyCeka().filter(n => n.karta === K.id);
   return L.length ? `<p class="khl kdbnav">⏳ <b>Čeká na vypravěče:</b> ${L.map(n => besc(n.data.popis || "návrh")).join(" · ")}</p>` : "";
 }
-/* vypravěč: seznam ke schválení (v Boji i na stránce Hra) */
+/* vypravěč: seznam ke schválení (v pultu › Boj i › Družina) */
 function navrhyGmHtml() {
   const L = navrhyCeka();
   if (!L.length) return "";
