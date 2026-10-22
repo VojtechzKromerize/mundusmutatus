@@ -487,7 +487,7 @@ async def main():
     pp=await pi.value;await pp.wait_for_load_state()
     chk("?web=1#artikule/svedomi" in pp.url and await ap.evaluate("location.hash")=="#hra","aplikace: odkaz jinam otevře web zvlášť (?web=1), aplikace zůstane na Hře: "+pp.url)
     await pp.wait_for_function("!document.documentElement.classList.contains('mmload')");await pp.wait_for_timeout(1500)
-    chk(await pp.evaluate("location.hash").startswith("#artikule"),"web otevřený z aplikace není omezený na Hru")
+    chk((await pp.evaluate("location.hash")).startswith("#artikule"),"web otevřený z aplikace není omezený na Hru")
     await pp.close();await ap.close()
     chk(not perr,f"hráč bez chyb JS {perr[:3]}");chk(not gerr,f"vypravěč bez chyb JS {gerr[:3]}")
     await b.close()
