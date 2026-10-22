@@ -531,6 +531,10 @@ async function bojIniVyzva() {
     return;
   }
   try {
+    if ((BOJ.s || {}).ticha)
+      bojZmen(z => {
+        delete z.ticha;
+      });
     const id = await MMDB.vyzva({typ: "ini", komu});
     BINIV.add(+id);
     await vyzvyNacti();

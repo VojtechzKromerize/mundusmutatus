@@ -39,7 +39,7 @@ async def gm_strana(b):
 async def priprava(g,jmena,hody,dm,npc=(),spoj=()):
     """Příprava boje na stránce Boj: postavy s hody, nepřátelé a spojenci přes formuláře, hod nepřátel, Začít boj."""
     await g.wait_for_selector(".bprip")
-    await g.evaluate("bojZmen(z=>{z.hraci="+json.dumps([{"id":"h"+str(i+1),"n":"","hod":None} for i in range(len(jmena))])+";z.npc=[];z.nid=0;z.dm=null})")
+    await g.evaluate("bojZmen(z=>{z.hraci="+json.dumps([{"id":"h"+str(i+1),"n":"","hod":None} for i in range(len(jmena))])+";z.npc=[];z.nid=0;z.dm=null;delete z.ticha})")
     await g.wait_for_timeout(400)
     for i,(n,h) in enumerate(zip(jmena,hody)):
         f=g.locator(f'[data-bhn="h{i+1}"]');await f.fill(n);await f.press("Tab");await g.wait_for_timeout(150)

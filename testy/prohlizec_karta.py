@@ -256,6 +256,8 @@ async def main():
     g=await b.new_page(viewport={"width":1300,"height":1000});gerr=[];g.on("pageerror",lambda e:gerr.append(str(e)[:200]));g.on("dialog",lambda d:asyncio.ensure_future(d.accept()))
     await g.add_init_script("localStorage.setItem('mm-gm-relace',JSON.stringify("+json.dumps({"at":rel["access_token"],"rt":rel["refresh_token"],"exp":rel["expires_at"],"email":"gm@x.cz"})+"))")
     await g.goto(BASE+"#karty");await g.wait_for_function("!document.documentElement.classList.contains('mmload')");await g.wait_for_selector(".kprehled",timeout=15000)
+    # předchozí test mohl nechat rozehraný boj – hráč by pak na Hře viděl boj místo samotné karty
+    await g.evaluate("bojNacti().then(()=>BOJ.s&&(BOJ.s.aktivni||(BOJ.s.priprava&&!BOJ.s.ticha))?bojZmen(s=>{s.aktivni=false;s.priprava=false;s.obsazeni={}},true):0)");await g.wait_for_timeout(1500)
     await g.fill('[data-kpzach] input[name=dc]','12');await g.click('[data-kpzach] button');await g.wait_for_selector(".kpvys")
     chk("Balduin" in await g.inner_text(".kpvys"),"přehled družiny: skupinová záchrana")
     await g.goto(BASE+"#sezeni");await g.wait_for_selector("[data-sznove]");await g.click("[data-sznove]");await g.wait_for_selector(".szsc")

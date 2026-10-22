@@ -27,7 +27,8 @@ async def main():
         const txt=v?v.innerText.trim().length:0;
         return {view:v&&v.dataset.view,links,imgs,txt,ovf:document.documentElement.scrollWidth>innerWidth+2}}""")
       exp=h[1:].split('/')[0]; exp={'rod':'desky','osoba':'desky'}.get(exp,exp)
-      if r['view']!=exp: issues.append((h,'view',r['view']))
+      # hráčská Hra je od 2026-10-22 uvnitř stránka Boj (karta a boj na jedné stránce)
+      if r['view']!=exp and not (exp=='hra' and r['view']=='boj'): issues.append((h,'view',r['view']))
       if r['imgs']: issues.append((h,'img',r['imgs']))
       if r['txt']<40: issues.append((h,'empty',r['txt']))
       if r['ovf']: issues.append((h,'overflow'))

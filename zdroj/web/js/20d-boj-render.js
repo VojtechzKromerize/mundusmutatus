@@ -150,7 +150,7 @@ function bojAktivni() {
         return h ? `<div class="bojhorni">${h}</div>` : "";
       })(),
       ja: jaH,
-      head: `<div class="bojhead"><div class="bojtit"><h2 class="arttitle">Boj</h2><p class="bojlead">${besc(s.lead || (gm ? "Rozestav obě strany. Hráči mohou zapsat hod iniciativy ze svého telefonu, nebo ho doplň sám." : "Boj se připravuje. Vyber svou postavu a zapiš hod iniciativy."))}</p></div>${gm ? `<div class="bojbtn"><button type="button" class="gbtn ghost" data-binivyz ${btip("Hráčům s kartou vyskočí výzva k iniciativě; hody se zapíšou samy")}>${bi("hromadny-hod")} Hráči hodí iniciativu</button><button type="button" class="gbtn ghost" data-bdmhod ${btip("Hodí d20 + nejlepší iniciativu ze statblocků nepřátel")}>${bi("hod")} Hodit za nepřátele</button><button type="button" class="gbtn ghost" data-bskupuloz>Uložit jako setkání</button><button type="button" class="gbtn bstart" data-bstart>${bi("boj")} Začít boj</button></div>` : ""}</div>`,
+      head: `<div class="bojhead"><div class="bojtit"><h2 class="arttitle">Boj</h2><p class="bojlead">${besc(s.lead || (gm ? "Rozestav obě strany. Hráči mohou zapsat hod iniciativy ze svého telefonu, nebo ho doplň sám." : "Boj se připravuje. Vyber svou postavu a zapiš hod iniciativy."))}</p></div>${gm && s.ticha ? `<p class="rsmall bticha">Hráči přípravu zatím nevidí – na stránce Hra mají jen kartu. Uvidí ji po „Hráči hodí iniciativu“, „Ukázat hráčům“ nebo „Začít boj“.</p>` : ""}${gm ? `<div class="bojbtn">${s.ticha ? `<button type="button" class="gbtn ghost" data-bukaz ${btip("Hráči uvidí přípravu boje na stránce Hra a mohou si zapsat iniciativu")}>Ukázat hráčům</button>` : ""}<button type="button" class="gbtn ghost" data-binivyz ${btip("Hráčům s kartou vyskočí výzva k iniciativě; hody se zapíšou samy")}>${bi("hromadny-hod")} Hráči hodí iniciativu</button><button type="button" class="gbtn ghost" data-bdmhod ${btip("Hodí d20 + nejlepší iniciativu ze statblocků nepřátel")}>${bi("hod")} Hodit za nepřátele</button><button type="button" class="gbtn ghost" data-bskupuloz>Uložit jako setkání</button><button type="button" class="gbtn bstart" data-bstart>${bi("boj")} Začít boj</button></div>` : ""}</div>`,
       osa: `<section class="bosa bprip"><div class="bleg"><span class="bkolo2" role="img" aria-label="Příprava boje" ${btip(`Příprava · nejlepší hod družiny ${bh ?? "–"}, nepřátel ${s.dm ?? "–"}`)}><b>–</b><img class="bkolhg" src="art/img/boj/presypaci-64.webp" srcset="art/img/boj/presypaci-64.webp 64w, art/img/boj/presypaci-128.webp 128w" sizes="44px" width="44" height="44" alt="" aria-hidden="true"><small>příprava</small></span></div>
       <div class="bpripw"><p class="bpriph">${gm ? `<label class="bdml">Hod nepřátel <input type="number" inputmode="numeric" min="-10" max="50" data-bdm value="${s.dm ?? ""}" placeholder="hod" aria-label="Hod iniciativy nepřátel"></label> ` : ""}Družina i nepřátelé dostanou tolik slotů, kolik je postav. Sloty se střídají a začíná strana s vyšším hodem (při shodě družina).</p>
       ${
@@ -471,7 +471,7 @@ function renderBoj() {
     bojZmen(z => bojNovaPriprava(z), true);
     return;
   }
-  if (!s || (!s.aktivni && !s.priprava)) {
+  if (!s || (!s.aktivni && !s.priprava) || (!GMV && !s.aktivni && s.ticha)) {
     if (GMV) return;
     /* hráčská Hra mimo boj (2026-10-22): jen karta, nebo přihlášení a volba postavy */
     const sy = window.scrollY;

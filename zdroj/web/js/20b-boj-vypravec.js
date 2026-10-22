@@ -1699,6 +1699,13 @@ document.addEventListener("click", async e => {
     });
     return;
   }
+  if (T("[data-bukaz]")) {
+    bojZmen(z => {
+      delete z.ticha;
+    });
+    mmHlasG("Hráči teď vidí přípravu boje na stránce Hra.", 3500);
+    return;
+  }
   if (T("[data-bstart]")) {
     const s = BOJ.s || {},
       bh = bojBestHod(s),
@@ -1722,6 +1729,7 @@ document.addEventListener("click", async e => {
       z.hod = bojBestHod(z);
       z.aktivni = true;
       delete z.priprava;
+      delete z.ticha;
       delete z.lead;
       Object.assign(z, {kolo: 1, tah: 0, obsazeni: {}, zac: Date.now()});
     });

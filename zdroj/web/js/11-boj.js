@@ -2783,8 +2783,10 @@ function bojNovaPriprava(z) {
   Object.keys(z).forEach(k => delete z[k]);
   if (st.zbrane) z.zbrane = st.zbrane;
   const jm = (st.hraci && st.hraci.length ? st.hraci.map(h => h.n) : PARTY.map(p => p.n.replace(/^✦\s*/, ""))).filter(Boolean);
+  /* tichá příprava (2026-10-22): hráči ji na stránce Hra nevidí, dokud vypravěč nezavolá iniciativu, neukáže ji nebo nezačne boj */
   Object.assign(z, {
     priprava: true,
+    ticha: true,
     aktivni: false,
     kolo: 1,
     tah: 0,
