@@ -992,8 +992,7 @@ const jaK = () => {
   const j = JA.get();
   return j && j.k && KARTBY[j.k] ? KARTBY[j.k] : null;
 };
-/* cizí karta vybraná na Hře (HRAKAR) je jen ke čtení, i když ji zatím nikdo nezabral */
-const kMuze = K => GMV || !window.MMDB || (JA.get() || {}).k === K.id || (!KZAM.has(K.id) && HRAKAR !== K.id);
+const kMuze = K => GMV || !window.MMDB || (JA.get() || {}).k === K.id || !KZAM.has(K.id);
 async function jaPrihlas(kid, heslo) {
   const K = KARTBY[kid];
   if (!K) return false;
@@ -1436,30 +1435,13 @@ function hraPrihlasHtml() {
       : jaForm()
   }<details class="bjapd"><summary>Jak hrát na webu</summary>${NAVOD}</details></section>`;
 }
-/* karty ostatních ke čtení (2026-10-22): řádek postav družiny nad kartou; vybraná cizí karta je jen ke čtení (kMuze) */
-let HRAKAR = "";
-function hraDruzinaHtml(K) {
-  const L = (KARTY || []).filter(k => !k.test || k.id === (K || {}).id);
-  if (L.length < (K ? 2 : 1)) return "";
-  const vyb = HRAKAR && KARTBY[HRAKAR] ? HRAKAR : (K || {}).id;
-  return `<nav class="hradr" aria-label="Karty družiny">${L.map(k => `<button type="button" class="kchip${k.id === vyb ? " on" : ""}" data-hrakar="${k.id === (K || {}).id ? "" : besc(k.id)}" aria-pressed="${k.id === vyb}">${besc(k.n)}${k.id === (K || {}).id ? " (já)" : ""}</button>`).join("")}</nav>`;
-}
+/* hráč vidí na Hře jen svou kartu (karty ostatních hráčů na Hře nejsou – rozhodnutí 2026-10-22) */
 function hraHracHtml() {
-  const K = jaK(),
-    C = HRAKAR && KARTBY[HRAKAR] && HRAKAR !== (K || {}).id ? KARTBY[HRAKAR] : null;
-  if (C)
-    return `${hraDruzinaHtml(K)}<p class="rsmall hrakro">Karta postavy <b>${besc(C.n)}</b> – jen ke čtení. <button type="button" class="gbtn ghost" data-hrakar="">${K ? "Zpět na mou kartu" : "Zavřít"}</button></p><section class="hraja">${kartaJednaHtml(C)}</section>`;
-  if (!K && DCU.ok) return `<section class="hrapri"><h2 class="arttitle">Hra</h2>${jaBezKartyHtml()}</section>${hraDruzinaHtml(null)}`;
-  if (!K) return `${hraPrihlasHtml()}${hraDruzinaHtml(null)}`;
-  return `${hraDruzinaHtml(K)}<section class="hraja">${kartaJednaHtml(K)}</section>`;
+  const K = jaK();
+  if (!K && DCU.ok) return `<section class="hrapri"><h2 class="arttitle">Hra</h2>${jaBezKartyHtml()}</section>`;
+  if (!K) return hraPrihlasHtml();
+  return `<section class="hraja">${kartaJednaHtml(K)}</section>`;
 }
-document.addEventListener("click", e => {
-  const b = e.target.closest && e.target.closest("[data-hrakar]");
-  if (!b) return;
-  HRAKAR = b.dataset.hrakar || "";
-  renderBoj();
-  window.scrollTo(0, 0);
-});
 /* obnova na pozadí (výzvy, zprávy, pokladna…): nepřekreslí, když hráč zrovna píše – dokreslí se, až pole opustí */
 function hraHracPrekresli() {
   if (curView !== "boj") return;

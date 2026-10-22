@@ -104,9 +104,11 @@ Hlavní orientační body:
   na stránce Boj (`curView === "boj"`, `#bojview`, `renderBoj`); mimo boj vykreslí `hraHracHtml()` (16) jen kartu, nebo přihlášení
   a volbu postavy. `#boj` hráče přesměruje na `#hra`; „je otevřená Hra?“ = `mmNaHre()` (08). Výzvy k hodu ukazuje lišta `#mmvyz`.
   Tajné zprávy a ukázky = list ✉ „Od vypravěče“ na vlastní kartě, pokladna = list Peníze, telefon a odhlášení = list Postava,
-  úkoly družiny = Kronika. Nad kartou řádek postav družiny – cizí karta (`HRAKAR`) je jen ke čtení (`kMuze`).
+  úkoly družiny = Kronika. Hráč vidí jen svou kartu (karty ostatních hráčů na Hře nejsou – Vojta 2026-10-22).
   **Nainstalovaná aplikace** (`html.mmapp`) ukáže hráči jen Hru (`mmJenHra()`, třída `mmjenhra`: bez menu); odkaz jinam otevře
   web v prohlížeči s `?web=1` (tam omezení neplatí).
+  **Na telefonu** (šířka ≤ 700 px) je hráčova Hra karta přes celou obrazovku (`mmCela()`, třída `mmcela`, 08): bez záhlaví s logem,
+  rámu a patky; ☰ v rohu karty (`data-mmweb`) ukáže web s menu do odchodu ze stránky.
 - **Řídicí pult vypravěče** = jeho Hra: stránka Boj (`#bojview`) obalená záložkami (`pultObal`, 16) Boj `#hra`, Družina `#hra/druzina`
   (výzvy, návrhy, přehled družiny, zprávy, úkoly, postup) a Sezení `#hra/sezeni` (časová osa, ukázky, pokladna, hráči, Discord,
   telefon); záložka je v `PULTTAB` (08), obsah boje se kreslí do `#bojpult`. `#boj` vede na `#hra`; klávesy boje jen v záložce Boj.

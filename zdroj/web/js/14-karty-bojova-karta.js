@@ -1908,7 +1908,7 @@ function bojDbm(s, h, K, gm, vzdy, X) {
           .join("")}${I.length > 3 ? `<b>+${I.length - 3}</b>` : ""}</span>`
       : "";
   })();
-  const head = `<header class="bdmh"><div class="bdmtop">${gm ? `<button type="button" class="bdmback" data-bhrozb="${h.id}" aria-label="Sbalit kartu" ${btip("Sbalit")}>‹</button>` : `<span class="bdmback0"></span>`}<div class="bdmnm"><b>${besc(K.n)}</b><small>${besc(sub)}${zavH}</small></div>${curView === "karty" ? `<span class="bdmback0"></span>` : `<a class="bdmkl" href="#karty/${besc(K.id)}" aria-label="Karta na celou stránku" ${btip("Karta na celou stránku")}>${bdmIc("rysy")}</a>`}</div>
+  const head = `<header class="bdmh"><div class="bdmtop">${gm ? `<button type="button" class="bdmback" data-bhrozb="${h.id}" aria-label="Sbalit kartu" ${btip("Sbalit")}>‹</button>` : `<span class="bdmback0"><button type="button" class="bdmback bdmweb" data-mmweb aria-label="Menu webu" ${btip("Ukázat web s menu")}>☰</button></span>`}<div class="bdmnm"><b>${besc(K.n)}</b><small>${besc(sub)}${zavH}</small></div>${curView === "karty" ? `<span class="bdmback0"></span>` : `<a class="bdmkl" href="#karty/${besc(K.id)}" aria-label="Karta na celou stránku" ${btip("Karta na celou stránku")}>${bdmIc("rysy")}</a>`}</div>
     <div class="bdmgrid">
       <span class="bdmacw">${(() => {
         const R = kOdol(K),

@@ -2200,8 +2200,6 @@ abbr.poj{text-decoration:underline dotted color-mix(in srgb,var(--kal) 60%,trans
 .szsc>li.szhot{opacity:.65}.szrow{margin:6px 0;display:flex;flex-wrap:wrap;gap:6px;align-items:center}.szrow .chip{display:inline-flex;gap:4px;align-items:center}
 /* stránka Hra, přihlášení hráčů, výzvy, zprávy, průvodce tahem, záložky karty (2026-10-16) */
 .navhra{font-weight:700}
-.hradr{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 4px}
-.hrakro{margin:6px 0}
 .navhra.bojbezi::after{content:" ⚔";color:var(--gold,#c9a227)}
 .navodbar{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin:8px 0;padding:8px 12px;border:1px solid var(--gold);border-radius:4px;background:color-mix(in srgb,var(--gold) 12%,var(--paper))}.navodbar span{flex:1 1 240px}
 .hrastav{padding:8px 12px;border:1px solid var(--rule);border-radius:3px;background:var(--paper);margin:8px 0}.hrastav p{margin:4px 0}
@@ -2791,7 +2789,7 @@ button.kdbs:hover{border-color:var(--kb-gold)}.kdbsac b{color:var(--kb-gold)}
 .bdmkost{margin:0 12px 76px}
 .bdm .bkonecb{display:block;margin:8px 12px 0;width:calc(100% - 24px)}
 .bdm::after{content:"";display:block;clear:both}
-@media (max-width:420px){.bdmgrid{gap:6px;grid-template-columns:minmax(0,1fr) 104px minmax(0,1.2fr)}.bdmport{width:100px}.bdmh{padding:8px 8px 10px}.bdmbody{padding:6px 8px 70px}.bdmbar,.bdmmriz{margin-left:8px;margin-right:8px}.bdmac b,.bdmini b{font-size:1.3rem}.bdmhp b{font-size:1.3rem}.bdmuth,.bdmut{grid-template-columns:18px minmax(0,1fr) 56px minmax(90px,auto)}.bdmnm b{font-size:1.25rem}}
+@media (max-width:420px){.bdmgrid{gap:6px;grid-template-columns:minmax(0,1fr) 104px minmax(0,1.2fr)}.bdmport{width:100px}.bdmh{padding:8px 8px 10px}.bdmbody{padding:6px 8px 70px}.bdmbar,.bdmmriz{margin-left:8px;margin-right:8px}.bdmac b,.bdmini b{font-size:1.3rem}.bdmhp b{font-size:1.3rem}.bdmuth,.bdmut{grid-template-columns:18px minmax(0,1fr) 42px 50px minmax(84px,auto);gap:4px}.bdmnm b{font-size:1.25rem}}
 
 /* bojová karta 2 (2026-10-17): lepkavá zúžená hlavička, vysouvací listy, hlášky v proužku, úsporné oddíly */
 .bdmportw{grid-column:2;grid-row:1/3;position:relative;display:grid;place-items:center;padding:13px 0 12px}
@@ -2857,7 +2855,12 @@ button.kdbs:hover{border-color:var(--kb-gold)}.kdbsac b{color:var(--kb-gold)}
 @media (max-width:480px){.bdmdov2 .bdmdr span small{display:none}}
 .bdmdov2 .bdmdr .kdbdot{justify-self:center;opacity:0}.bdmdov2 .bdmdr.kprof .kdbdot{opacity:1}
 .bdmdov2 .bdmdr .bdmbox{min-width:2.6em;padding:1px 5px;font-size:.9rem}
-.bdmvlh{justify-content:center}.bdmvlh .bdmch{font:inherit;cursor:default}.bdmvlh button.bdmch{cursor:pointer}
+/* zdatnost · rychlost · iniciativa v jednom úzkém řádku (2026-10-22) */
+.bdmvlh{justify-content:center;flex-wrap:nowrap;gap:4px;margin-top:6px}
+.bdmvlh .bdmch{font:inherit;cursor:default;font-size:.68rem;padding:1px 7px;line-height:1.4;white-space:nowrap;flex:0 1 auto;min-width:0}
+.bdmvlh .bdmch b{font-size:.84rem}
+.bdmvlh button.bdmch{cursor:pointer}
+.bdmvlh+.bdmvl{margin-top:8px}
 .bdmzdat{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 8px;align-items:start;margin-top:6px}
 .bdmzl{font-family:var(--f-label);font-weight:700;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--kb-mu);padding-top:5px}
 .bdmzchs{display:flex;flex-wrap:wrap;gap:4px;align-items:center;min-width:0}
@@ -3167,6 +3170,20 @@ h4 .kspi{margin-right:5px}
   html.mmapp body:has(.bojhrac.bojakt:not(.bojprip)) #mmfronta{bottom:calc(78px + env(safe-area-inset-bottom,0px))}}
 /* aplikace na ploše: stažení stránky dolů ji nesmí obnovit uprostřed boje */
 html.mmapp body{overscroll-behavior-y:none}
+/* hráč na telefonu: Hra = karta přes celou obrazovku (2026-10-22) – bez záhlaví s logem, rámu a patky s draky;
+   ☰ v rohu karty ukáže web (menu). Třídu mmcela dává mmCelaUprav (08) podle stránky, šířky a volby hráče. */
+html.mmcela body{padding:0}
+html.mmcela .wrap{max-width:none;padding:0;gap:0;border-radius:0;box-shadow:none}
+html.mmcela .wrap::before,html.mmcela .wrap::after{display:none}
+html.mmcela header.site,html.mmcela .sitenav,html.mmcela footer.colophon{display:none!important}
+html.mmcela .sec{gap:0}
+html.mmcela #bojview{padding:0}
+html.mmcela .hraja{margin:0}
+html.mmcela .bdm{max-width:none;margin:0;border-left:0;border-right:0;border-top:0;border-radius:0}
+html.mmcela .bdmh{padding-top:max(8px,env(safe-area-inset-top,0px))}
+html.mmcela .bdmlep{top:0}
+.bdmweb{display:none}
+html.mmcela:not(.mmjenhra) .bdmweb{display:grid;font-size:1.2rem}
 /* aplikace hráče: jen Hra (2026-10-22) – bez menu a hledání */
 html.mmjenhra #navtoggle,html.mmjenhra .navlinks,html.mmjenhra header.site{display:none!important}
 html.mmjenhra .navmark{pointer-events:none}

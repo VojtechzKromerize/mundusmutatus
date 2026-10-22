@@ -286,15 +286,13 @@ async def main():
     await pl.wait_for_selector(".hraja",timeout=10000)
     chk(await pl.evaluate("!!JSON.parse(localStorage.getItem('mm-hrac')||'null')?.t"),"hráč přihlášen za Balduina (heslo nastaveno)")
     chk(await pl.locator('.hraja .bdm').count()==1,"na stránce Hra je stejná karta jako v Boji")
-    # krok 4 (2026-10-22): karty ostatních ke čtení na Hře
-    oth=await pl.evaluate("(KARTY.find(k=>k.id!=='balduin')||{}).id||''")
-    chk(oth!="","v testu je i jiná karta než Balduin")
-    if oth:
-        await pl.evaluate(f"HRAKAR='{oth}';renderBoj()");await pl.wait_for_timeout(500)
-        chk(await pl.locator('.hraja .bdm.kro').count()==1 and await pl.locator('[data-hrakar=""]').count()>=1,"hráč vidí kartu jiné postavy jen ke čtení a může se vrátit ke své")
-        chk(await pl.evaluate(f"!kMuze(KARTBY['{oth}'])"),"cizí kartu vybranou na Hře nejde upravit, i když ji nikdo nezabral")
-        await pl.click('.hrakro [data-hrakar=""]');await pl.wait_for_timeout(500)
-        chk(await pl.locator('.hraja .bdm.kro').count()==0 and await pl.evaluate("HRAKAR===''"),"zpět na vlastní kartu")
+    chk(await pl.locator('.hradr, [data-hrakar]').count()==0,"na Hře nejsou karty ostatních hráčů (2026-10-22)")
+    # hráč na telefonu: Hra = karta přes celou obrazovku, ☰ ukáže web s menu (2026-10-22)
+    chk(await pl.evaluate("document.documentElement.classList.contains('mmcela') && getComputedStyle(document.querySelector('header.site')).display==='none' && getComputedStyle(document.querySelector('footer.colophon')).display==='none'"),"Hra na telefonu: karta bez záhlaví a patky (mmcela)")
+    await pl.click('.hraja .bdmweb');await pl.wait_for_timeout(400)
+    chk(await pl.evaluate("!document.documentElement.classList.contains('mmcela') && document.getElementById('navtoggle').getAttribute('aria-expanded')==='true'"),"☰ na kartě ukáže web a otevře menu")
+    await pl.evaluate("location.hash='#artikule'");await pl.wait_for_timeout(600);await pl.evaluate("location.hash='#hra'");await pl.wait_for_selector(".hraja",timeout=10000);await pl.wait_for_timeout(300)
+    chk(await pl.evaluate("document.documentElement.classList.contains('mmcela')"),"po návratu na Hru je karta zase přes celou obrazovku")
     await pl.evaluate("location.hash='#boj'");await pl.wait_for_timeout(4500)
     chk(await pl.evaluate("location.hash")=="#hra","hráč: starší odkaz #boj vede na stránku Hra (2026-10-22)")
     if not await pl.evaluate("!!(BOJ.s&&(BOJ.s.aktivni||BOJ.s.priprava))"):

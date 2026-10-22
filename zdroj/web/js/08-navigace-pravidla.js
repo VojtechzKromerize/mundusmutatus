@@ -533,6 +533,24 @@ document.addEventListener(
 function mmNaHre() {
   return curView === "hra" || curView === "boj";
 }
+/* hráč na telefonu vidí Hru jako kartu přes celou obrazovku (2026-10-22): bez záhlaví s logem, rámu a patky s draky.
+   ☰ v rohu karty ukáže web s menu, dokud hráč ze stránky neodejde; v nainstalované aplikaci menu není (mmJenHra). */
+const MMCELA_MQ = matchMedia("(max-width:700px)");
+let MMCELA_WEB = false;
+const mmCela = () => !GMV && mmNaHre() && MMCELA_MQ.matches && !MMCELA_WEB;
+function mmCelaUprav() {
+  document.documentElement.classList.toggle("mmcela", mmCela());
+}
+MMCELA_MQ.addEventListener("change", mmCelaUprav);
+document.addEventListener("click", e => {
+  const b = e.target.closest && e.target.closest("[data-mmweb]");
+  if (!b) return;
+  MMCELA_WEB = true;
+  mmCelaUprav();
+  window.scrollTo(0, 0);
+  const t = document.getElementById("navtoggle");
+  if (t && t.getAttribute("aria-expanded") !== "true") t.click();
+});
 /* záložka řídicího pultu vypravěče: boj | druzina | sezeni (nastaví route podle adresy) */
 let PULTTAB = "boj";
 function route() {
@@ -541,6 +559,7 @@ function route() {
   let view = a === "rod" || a === "osoba" ? "desky" : a;
   if (!VIEWS.includes(view) || ((view === "kouzla" || view === "sezeni") && !GMV)) view = "uvod";
   document.documentElement.classList.toggle("mmjenhra", mmJenHra());
+  if (view !== "hra" && view !== "boj") MMCELA_WEB = false; /* po návratu na Hru je karta zase přes celou obrazovku */
   if (mmJenHra() && view !== "hra" && view !== "boj") {
     history.replaceState(null, "", "#hra");
     view = "hra";
@@ -578,6 +597,7 @@ function route() {
   }
   const changed = view !== curView;
   curView = view;
+  mmCelaUprav();
   document.body.classList.toggle("home", view === "uvod");
   document.getElementById("navcur").textContent = NAVNAME[navV] || "";
   {
