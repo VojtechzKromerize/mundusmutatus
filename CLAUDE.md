@@ -104,7 +104,12 @@ Hlavní orientační body:
   na stránce Boj (`curView === "boj"`, `#bojview`, `renderBoj`); mimo boj vykreslí `hraHracHtml()` (16) jen kartu, nebo přihlášení
   a volbu postavy. `#boj` hráče přesměruje na `#hra`; „je otevřená Hra?“ = `mmNaHre()` (08). Výzvy k hodu ukazuje lišta `#mmvyz`.
   Tajné zprávy a ukázky = list ✉ „Od vypravěče“ na vlastní kartě, pokladna = list Peníze, telefon a odhlášení = list Postava,
-  úkoly družiny = Kronika. Vypravěč má zatím Hru (`#hraview`, `renderHra`) a Boj zvlášť (sloučení do pultu: krok 6 plánu).
+  úkoly družiny = Kronika. Nad kartou řádek postav družiny – cizí karta (`HRAKAR`) je jen ke čtení (`kMuze`).
+  **Nainstalovaná aplikace** (`html.mmapp`) ukáže hráči jen Hru (`mmJenHra()`, třída `mmjenhra`: bez menu); odkaz jinam otevře
+  web v prohlížeči s `?web=1` (tam omezení neplatí).
+- **Řídicí pult vypravěče** = jeho Hra: stránka Boj (`#bojview`) obalená záložkami (`pultObal`, 16) Boj `#hra`, Družina `#hra/druzina`
+  (výzvy, návrhy, přehled družiny, zprávy, úkoly, postup) a Sezení `#hra/sezeni` (časová osa, ukázky, pokladna, hráči, Discord,
+  telefon); záložka je v `PULTTAB` (08), obsah boje se kreslí do `#bojpult`. `#boj` vede na `#hra`; klávesy boje jen v záložce Boj.
 - **Tichá příprava boje** (`s.ticha`): příprava založená otevřením Boje vypravěčem hráči nevidí; uvidí ji po „Hráči hodí
   iniciativu“, „Ukázat hráčům“ (`data-bukaz`) nebo „Začít boj“.
 - Každá stránka má `render<Stránka>()` (renderBoj, renderKarty, renderVyprava, renderPravidla…). Po změně dat volej
