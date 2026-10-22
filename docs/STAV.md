@@ -43,6 +43,7 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
 - 10-22 Protivníci podle rozhodnutí 22. 10.: `BPACH_HP = 5` s přetékáním (11), `sokKrit` (20b), slot navíc pro početnější stranu (`bojSloty`, 11), text Artikulí (03) a bestiář.
 - 10-22 Rešerše postav 1458 na webu: věk k hernímu datu (`07`), „Dosavadní život“ a GM sekce „Po březnu 1458“ (08, generator) – zadání `resers/zadani-pro-dev.md` splněno.
 - 10-22 Orientace: `docs/MAPA.md`, `docs/SLOVNIK.md` (`npm run mapa`), pravidla souběhu v `CLAUDE.md`.
+- 10-22 Aplikace po nasazení nabídne „Obnovit“ (díly skriptu `v/…` proti serveru při návratu do ní a po 10 min – `kontrolaKodu` v kostře); dřív otevřená aplikace jela se starým kódem.
 
 ## Otevřené
 
