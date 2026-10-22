@@ -1770,21 +1770,7 @@ document.addEventListener("click", async e => {
     mmHlasG(err.message || String(err), 5000);
   }
 });
-/* karta: záložky, poznámky, zátěž, připoutání */
-const KTAB = {
-  get() {
-    try {
-      return localStorage.getItem("mm-ktab") || "hody";
-    } catch (e) {
-      return "hody";
-    }
-  },
-  set(v) {
-    try {
-      localStorage.setItem("mm-ktab", v);
-    } catch (e) {}
-  },
-};
+/* karta: poznámky, zátěž, připoutání */
 const kLb = w => {
   const m = String(w || "")
     .replace(",", ".")

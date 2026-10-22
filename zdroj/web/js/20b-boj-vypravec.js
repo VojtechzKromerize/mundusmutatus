@@ -1309,12 +1309,6 @@ document.addEventListener("change", async e => {
     renderBoj();
     return;
   }
-  if (e.target.matches("[data-bauto]")) {
-    bojAuto.set(e.target.checked);
-    if (e.target.checked) bojUtokyNove();
-    renderBoj();
-    return;
-  }
   if (e.target.matches("[data-juplos]")) {
     BJU.plos = e.target.checked;
     renderBoj();
@@ -1432,21 +1426,6 @@ document.addEventListener("change", async e => {
     else delete o[e.target.dataset.bzaj];
     bojZaj.set(o);
     renderBoj();
-    return;
-  }
-  if (e.target.matches("[data-bja]")) {
-    bojJa.set(e.target.value);
-    bojHlasen = "";
-    renderBoj();
-    return;
-  }
-  if (e.target.matches("#bojview [data-bcil]")) {
-    const c = e.target.closest("[data-bnpc]");
-    if (c) {
-      if (e.target.value) BCIL[c.dataset.bnpc] = e.target.value;
-      else delete BCIL[c.dataset.bnpc];
-      renderBoj();
-    }
     return;
   }
   if (e.target.matches("#bojview [data-bjr]")) {
@@ -1610,22 +1589,6 @@ document.addEventListener("click", async e => {
         if (i.name !== "np") i.value = "";
       });
     bojObtForm();
-    return;
-  }
-  const add = T("[data-badd]");
-  if (add) {
-    const k = add.dataset.badd;
-    if (k === "h") {
-      const box = document.getElementById("bfh"),
-        r = box.lastElementChild.cloneNode(true);
-      r.querySelector("input").value = "";
-      box.appendChild(r);
-      r.querySelector("input").focus();
-    } else {
-      const box = document.getElementById(k === "s" ? "bfs" : "bfn");
-      box.insertAdjacentHTML("beforeend", bojNrow(k === "s" ? "Spojenec, např. Královský hejtman" : ""));
-      box.lastElementChild.querySelector("input").focus();
-    }
     return;
   }
   const a = T("[data-bact]");

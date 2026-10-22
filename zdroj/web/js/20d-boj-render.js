@@ -617,20 +617,6 @@ function renderBoj() {
     } catch (e) {}
   }
 }
-document.addEventListener("click", e => {
-  const b = e.target.closest("[data-bdruz]");
-  if (!b) return;
-  const fh = document.getElementById("bfh");
-  if (!fh) return;
-  const vzor = fh.querySelector(".bsr");
-  fh.innerHTML = "";
-  PARTY.forEach(p => {
-    const r = vzor.cloneNode(true);
-    r.querySelector('[name="hn"]').value = p.n;
-    fh.appendChild(r);
-  });
-  bojObtForm();
-});
 function bojStart() {
   /* boj, karty i hody hlídá puls (25-puls.js); na stránce Boj se bez Realtime ptá častěji */
   if (BOJ.poll) return;

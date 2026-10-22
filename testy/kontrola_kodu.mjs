@@ -6,6 +6,7 @@
 //    volat funkce z dílů 10–25, které se stahují líně.
 // 3. Vazby mezi soubory jako u modulů: zápis do cizí proměnné / přepsání cizí funkce jen u vědomě sdílených jmen (SDILENE,
 //    OBALENE), žádné nepoužité definice, žádné čtení const/let před definicí při načtení.
+// 4. Obsluhy prvků, které se nikde nekreslí: [data-X] v obsluze, ale žádná šablona data-X nevytváří (zbytek po odstraněném tlačítku).
 // Orientace: --kde JMÉNO (kde je definované, kdo ho čte a zapisuje), --soubor NN (co soubor poskytuje a co používá odjinud).
 // Potřebuje balíčky z package.json (npm ci). Výstup: řádky „soubor:řádek  pravidlo  zpráva“, návratový kód 1 při chybě.
 import fs from "node:fs";
@@ -215,6 +216,34 @@ for (const [rel, gl] of [
     chyb++;
     console.log(`${rel}:${z.line}  ${z.ruleId || "syntaxe"}  ${z.message}`);
   }
+}
+
+/* ---- 4. obsluha prvku, který se nikde nekreslí (2026-10-23): selektor [data-X] v obsluze nebo dotazu, ale žádná šablona,
+   kostra ani generátor atribut data-X nevytváří – zbytek po odstraněném tlačítku (mrtvý kód, který „nepoužitá definice“ nenajde).
+   Atribut skládaný za běhu (data-k${…}) uznává podle předpony; dataset.x = … se počítá jako vytvoření. ---- */
+const OSIRELE_OK = new Set([
+  "bzdc", // 20b záchrana nepřítele čte pole SO, které karta nepřítele od 2026-10-21 nemá (dc je vždy 0) – nechat, dokud se nerozhodne o SO
+]);
+{
+  const zdroje = [...[...new Set(mapa.map(([f]) => f))].filter(f => f.startsWith("zdroj/web/js/")), "zdroj/koruna.html", "zdroj/generator.js"].map(
+    f => [f, fs.readFileSync(path.join(KOREN, f), "utf8")],
+  );
+  const vytvari = new Set(),
+    predpony = [];
+  for (const [, t] of zdroje) {
+    for (const m of t.matchAll(/(?<![[\w-])data-([a-z][a-z0-9-]*)(?![\w-])/g)) vytvari.add(m[1]);
+    for (const m of t.matchAll(/data-([a-z0-9-]*)\$\{/g)) predpony.push(m[1]);
+    for (const m of t.matchAll(/\.dataset\.([A-Za-z0-9]+)\s*=(?!=)/g)) vytvari.add(m[1].replace(/[A-Z]/g, c => "-" + c.toLowerCase()));
+  }
+  for (const [f, t] of zdroje)
+    t.split("\n").forEach((r, i) => {
+      for (const m of r.matchAll(/\[data-([a-z][a-z0-9-]*)/g)) {
+        const a = m[1];
+        if (vytvari.has(a) || OSIRELE_OK.has(a) || predpony.some(p => a.startsWith(p))) continue;
+        chyb++;
+        console.log(`${f}:${i + 1}  osirela  [data-${a}] se hledá, ale žádná šablona ho nevytváří – smaž obsluhu (mrtvý kód) nebo vrať tlačítko`);
+      }
+    });
 }
 
 /* ---- mapa vazeb pro orientaci: node testy/kontrola_kodu.mjs --kde bojUtokPriprav | --soubor 20 ---- */

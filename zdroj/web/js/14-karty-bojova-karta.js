@@ -1995,10 +1995,6 @@ const bdmZavri = () => {
 document.addEventListener("click", e => {
   const T = s => e.target.closest && e.target.closest(s),
     root = T(".bdm");
-  const kt = T("[data-bdmktab]");
-  if (kt) {
-    KTAB.set(kt.dataset.bdmktab);
-  }
   if (!root) return;
   const key = root.dataset.kid,
     K = KARTBY[key];

@@ -1080,19 +1080,6 @@ document.addEventListener("change", async e => {
     if (K) KCIL[K.id + ":" + t.dataset.kcil] = t.value;
     return;
   }
-  if (t.matches("[data-kslot]")) {
-    const K = kvK(t);
-    if (K) KSLV[K.id + ":" + t.dataset.kslot] = t.value;
-    const b = t.parentElement && t.parentElement.querySelector(`[data-kspz="${t.dataset.kslot}"]`);
-    if (b && K) {
-      const x = kSeznam(K)[+t.dataset.kslot],
-        q = x && kSlX(K, x).find(z => z.k === t.value),
-        E = x && kSpUcinek(K, x, q ? q.st : x.st);
-      if (E)
-        b.textContent = `${E.k === "l" ? "Léčení" : "Zranění"} ${E.x}${E.mod ? bsg(E.mod).replace("−", "-") : ""}${E.t ? " " + (BZRT[E.t] || E.t) : ""}${E.pocet > 1 ? ` ×${E.pocet}` : ""}`;
-    }
-    return;
-  }
   if (t.matches("[data-kimphra]") && t.files[0]) {
     try {
       KIMP = await kartaImport(t.files[0]);
@@ -1118,10 +1105,6 @@ document.addEventListener("input", e => {
 });
 document.addEventListener("click", async e => {
   const T = s => e.target.closest(s);
-  if (T("[data-discord]")) {
-    MMDB.discordLogin();
-    return;
-  }
   if (T("[data-discprik]") && GMV) {
     try {
       await MMDB.discordPrikazy();
@@ -1213,18 +1196,6 @@ document.addEventListener("click", async e => {
       kpx: (S.kpx || []).filter(x => x !== n).length ? (S.kpx || []).filter(x => x !== n) : null,
     });
     kHodZapis({k: K.id, kdo: K.n, co: "Připravil kouzlo", txt: n});
-    return;
-  }
-  const px = T("[data-kpx]");
-  if (px) {
-    const S = kartaStav(K.id),
-      n = px.dataset.kpx;
-    const kpn = (S.kpn || []).filter(x => x !== n);
-    await kartaStavZmen(K.id, {
-      kpn: kpn.length ? kpn : null,
-      kpx: ((K.kouzla || {}).seznam || []).some(x => x.n === n) ? [...new Set([...(S.kpx || []), n])] : (S.kpx || []).length ? S.kpx : null,
-    });
-    kHodZapis({k: K.id, kdo: K.n, co: "Odebral kouzlo", txt: n});
     return;
   }
   const sx = T("[data-kspolx]");

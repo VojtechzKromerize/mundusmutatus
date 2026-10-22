@@ -663,10 +663,6 @@ document.addEventListener("change", async e => {
     kartaStavZmen(K.id, {pri: [...P, "Bardic " + t.value]});
     return;
   }
-  if (t.matches("[data-kinsp]")) {
-    kartaStavZmen(K.id, {insp: t.checked || null});
-    return;
-  }
   if (t.matches("[data-kpen]")) {
     const S = kartaStav(K.id),
       pen = Object.assign({}, S.pen || K.penize || {});
@@ -1343,17 +1339,6 @@ document.addEventListener("click", async e => {
   }
   if (T("[data-kposlx]")) {
     delete KPOSL[K.id];
-    kartyPrekresli();
-    return;
-  }
-  if (T("[data-kbarkon]")) {
-    if (KKON[K.id]) {
-      await kKonHod(K, KKON[K.id]);
-      return;
-    }
-    const k = kUc(K).find(x => x.kon);
-    if (!confirm(`Ukončit soustředění${k ? " na " + k.n : ""}?`)) return;
-    await kKonZtrata(K, "ukončeno");
     kartyPrekresli();
     return;
   }
