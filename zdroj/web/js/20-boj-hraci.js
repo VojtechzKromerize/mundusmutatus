@@ -110,7 +110,7 @@ function bojJaObnov() {
   /* nevyřízené výzvy (zásah s reakcí, Riposte), záložka a zranění pro záchranu soustředění přežijí obnovení taky */
   if (o.zas && o.zas.kid === o.kid && !(s.reak || {})[me.id]) BZAS = o.zas;
   if (o.rip && o.rip.kid === o.kid && !(s.reak || {})[me.id]) BRIP = o.rip;
-  if (/^[knld]$/.test(o.tab || "")) BTAB = o.tab;
+  if (/^[knldi]$/.test(o.tab || "")) BTAB = o.tab;
   if (o.jk) BJK.d = o.jk;
   if (zn) setTimeout(() => mmHlas("Rozehraný útok je zpátky – stačí ho poslat vypravěči.", 4500), 300);
 }

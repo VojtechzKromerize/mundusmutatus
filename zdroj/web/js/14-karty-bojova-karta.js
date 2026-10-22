@@ -1725,6 +1725,9 @@ function bdmTelo(s, h, K, gm, X, id) {
   if (id === "vyb") return bdmVyb(K);
   if (id === "rysy") return bdmRysy(K);
   if (id === "denik") return `<div class="kdb2 bdmkdb">${kartaDbHtml(K, kartaDbData(K), {jenTab: id})}</div>`;
+  /* hráč na telefonu v boji: záznam boje (jinak samostatná záložka Záznam) nahoře, pod ním jeho hody mimo boj */
+  if (id === "zaznam" && X.boj && !gm && mmCela() && s && s.aktivni)
+    return `<div class="bdmzaz">${bojZaznamSloupec(s, false)}</div><div class="kdb2 bdmkdb"><h4 class="bdmgh">Moje hody</h4>${kZaznamHtml(K, true)}</div>`;
   if (id === "zaznam")
     return `<div class="kdb2 bdmkdb"><p class="kdbnote">Tvoje hody z karty i z Boje a veřejný záznam boje. Klepnutím na kostku dole hodíš cokoli.</p>${kZaznamHtml(K)}</div>`;
   if (id === "spol") return kFormaHtml(K) + kSpolHtml(K);
@@ -1970,8 +1973,9 @@ function bojDbm(s, h, K, gm, vzdy, X) {
   const lep = `<div class="bdmlep"><div class="bdmmi"><span class="bdmmin">${besc(K.n)}</span><button type="button" class="bdmmac" data-bdmsh="ac" ${btip("AC – obětování zbroje")}>AC <b>${ac}</b></button>${hpB(" bdmmhp")}</div>
     <nav class="bdmtabs" role="tablist" aria-label="Oddíly karty">${sek.map(([id, n, k]) => `<button type="button" role="tab" data-bdmsec="${id}" aria-selected="${id === sec}" ${btip(n)}>${bdmIc(id)}<span>${besc(k)}</span></button>`).join("")}</nav></div>`;
   const body = `<section class="bdmsec" data-bdmid="${sec}">${bdmTelo(s, h, K, gm, X, sec)}</section>`;
+  /* na telefonu přes celou obrazovku je Ukončit tah v dolní liště (bojTabyHrac, 20d) */
   const konec =
-    vzdy && X.boj && (s.obsazeni || {})[s.tah] === h.id
+    vzdy && X.boj && !(!gm && mmCela()) && (s.obsazeni || {})[s.tah] === h.id
       ? (s.hotovo || {})[h.id] === (s.kolo || 1) * 100 + (s.tah || 0)
         ? `<p class="bdmnote">✓ Tah dohrán – vypravěč posune dál.</p>`
         : bojKonecBtn(h.id)

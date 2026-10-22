@@ -848,7 +848,9 @@ function kModsSync(K) {
 /* ---- upozornění v telefonu (Web Push) a instalace webu jako aplikace ---- */
 const VAPID_PUB = "BDxrqAYvVnuc6ZjBR_QsO4jNXbE9vCqZoLGyUtheNCRNRVtVBvtO6IYWzpkGl87UbgB-yCImJmb3tMaTYkn4Ibg";
 const pushUmi = () => "serviceWorker" in navigator && "PushManager" in window && "Notification" in window && !!window.MMDB;
-const pushIOS = () => /iphone|ipad|ipod/i.test(navigator.userAgent) && !(navigator.standalone || matchMedia("(display-mode: standalone)").matches);
+const pushIOS = () =>
+  /iphone|ipad|ipod/i.test(navigator.userAgent) &&
+  !(navigator.standalone || matchMedia("(display-mode: standalone), (display-mode: fullscreen)").matches);
 let PUSHST = null;
 async function pushStav() {
   if (!pushUmi()) return null;
@@ -907,7 +909,7 @@ addEventListener("beforeinstallprompt", e => {
   e.preventDefault();
   INSTP = e;
 });
-const jeAplikace = () => matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+const jeAplikace = () => matchMedia("(display-mode: standalone), (display-mode: fullscreen)").matches || navigator.standalone === true;
 function aplikaceHtml(karta) {
   if (!window.MMDB) return "";
   if (PUSHST == null && pushUmi())

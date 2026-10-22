@@ -18,7 +18,7 @@
 <link rel="manifest" href="art/app.webmanifest">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Mundus Mutatus">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="mobile-web-app-capable" content="yes">
 <!-- spouštěcí obrazovky aplikace na iPhonu (art/img/spust, portrét) -->
 <link rel="apple-touch-startup-image" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="art/img/spust/430x932@3.png">
@@ -375,7 +375,7 @@ function zminky(D){
 const C=window.MMCFG||null;
 window.MMDB=null;window.MMINFO="";
 /* nainstalovaná aplikace (ikona na ploše): třída pro vzhled – záložky boje u palce, bez „přetažení pro obnovení“ */
-try{if(matchMedia("(display-mode: standalone)").matches||navigator.standalone===true)document.documentElement.classList.add("mmapp")}catch(e){}
+try{if(matchMedia("(display-mode: standalone), (display-mode: fullscreen)").matches||navigator.standalone===true)document.documentElement.classList.add("mmapp")}catch(e){}
 /* offline režim: jen hráčská verze na webu (ne vypravěčský soubor ani náhled) */
 if("serviceWorker" in navigator&&(location.protocol==="https:"||location.hostname==="localhost"))
   addEventListener("load",()=>{if(document.querySelector("script#mmhlavni[src],script#mmhlavni[data-src]"))navigator.serviceWorker.register("sw.js").catch(()=>{})});

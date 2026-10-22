@@ -47,9 +47,9 @@ async def main():
     pl=await b.new_page(viewport={"width":390,"height":844});perr=[];pl.on("pageerror",lambda e:perr.append(str(e)[:200]))
     await pl.goto(BASE);await pl.wait_for_function("!document.documentElement.classList.contains('mmload')");await pl.wait_for_timeout(600)
     await pl.click("#navtoggle");chk(await pl.locator(".navhra.bojbezi").count()==1,"hráč má boj na stránce Hra: Boj v menu není, u Hry je značka, že boj probíhá")
-    await pl.goto(BASE+"#boj");await pl.wait_for_selector(".bsloty")
+    await pl.goto(BASE+"#boj");await pl.wait_for_selector(".bsloty",state="attached")
     chk(await pl.evaluate("location.hash")=="#hra","hráč: #boj vede na stránku Hra")
-    await pl.click('[data-bclaim="0"]');await pl.select_option('[data-bclaimsel="0"]',"h1");await pl.wait_for_timeout(800)
+    await pl.click('[data-btab="i"]');await pl.click('[data-bclaim="0"]');await pl.select_option('[data-bclaimsel="0"]',"h1");await pl.wait_for_timeout(800);await pl.click('[data-btab="k"]')
     chk("Adam" in await pl.inner_text(".bslot >> nth=0"),"hráč obsadil slot z telefonu")
     await puls(g,od=pl)
     chk(await g.eval_on_selector('[data-bslot="0"]',"e=>e.value")=="h1","vypravěč vidí obsazení živě")
@@ -186,10 +186,16 @@ async def main():
     # tři sloupce u vypravěče (karta · účastníci · záznam), záložky na mobilu hráče
     lay=await g.evaluate("(()=>{const r=q=>document.querySelector(q).getBoundingClientRect(),m=r('.bcolm'),l=r('.bcoll');return [m.left<l.left,Math.abs(m.top-l.top)<4,getComputedStyle(document.querySelector('.bcoln')).display==='none'||BTAB==='n']})()")
     chk(lay==[True,True,True],"vypravěč: široký sloupec se záložkami a vedle herní záznam: "+str(lay))
-    chk(await pl.locator(".btabs").is_visible() and not await pl.locator(".bcoll").is_visible(),"mobil: záložky, záznam je schovaný")
-    await pl.click('[data-btab="l"]');await pl.wait_for_timeout(200)
-    chk(await pl.locator(".bcoll").is_visible() and not await pl.locator(".bcolk").is_visible(),"mobil: záložka Záznam ukáže herní záznam místo karty")
+    # hráč na telefonu (2026-10-22): dole jen Moje karta · Iniciativa · Ukončit tah, bez nadpisu Boj, pruhu iniciativy a šuplíku Pravidla
+    r=await pl.evaluate("""(()=>{const v=q=>{const e=document.querySelector(q);return !!(e&&e.getClientRects().length)};
+      return [[...document.querySelectorAll('.btabs [data-btab]')].map(b=>b.dataset.btab).join(''),!!document.querySelector('.btabs .bkonecb'),
+        getComputedStyle(document.querySelector('.btabs')).position,v('.bojhead'),v('.bsloty'),v('.bprtg'),v('.bcoll')]})()""")
+    chk(r==["ki",True,"fixed",False,False,False,True],"mobil: dole Moje karta · Iniciativa · Ukončit tah, nahoře bez Boj a pruhu iniciativy, bez Pravidel: "+str(r))
+    await pl.click('[data-btab="i"]');await pl.wait_for_timeout(200)
+    chk(await pl.locator(".bsloty").is_visible() and not await pl.locator(".bcolk").is_visible(),"mobil: záložka Iniciativa ukáže pruh iniciativy místo karty")
     await pl.click('[data-btab="k"]');await pl.wait_for_timeout(200)
+    # postava bez karty (tady Cyril) nemá list Záznam – záznam boje je na telefonu pod jejím panelem v záložce Moje karta
+    chk(await pl.locator(".bcoll .bzaz").is_visible() and "Cyril" in await pl.inner_text(".bcoll .bzaz"),"mobil: postava bez karty má záznam boje pod panelem")
     # záznam: kostky jako žetony, spojení útoku z telefonu s vyhodnocením, Závoj s volbou Pokušení, nepřátelé jen výsledek
     r=await pl.evaluate("""(()=>{const t=bzTxt('d20 14 / 8 (výhoda) +5 = 19'),d=document.createElement('div');d.innerHTML=t;const a=[d.querySelectorAll('.bzk20').length,d.querySelector('.bzk20.bzkx')&&d.querySelector('.bzk20.bzkx').textContent];d.innerHTML=bzTxt('2d6(4+6)+3');a.push(d.querySelectorAll('.bzk').length);return a})()""")
     chk(r==[2,"8",2],"záznam: kostky jako žetony, zahozená kostka u výhody přeškrtnutá: "+str(r))

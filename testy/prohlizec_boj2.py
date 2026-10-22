@@ -15,7 +15,7 @@ async def main():
     rid=await g.evaluate("BOJ.s.npc.find(n=>n.n==='Rotmistr').id")
     await g.click('[data-bpros="vitr"]');await g.wait_for_timeout(400)  # silný vítr – návrh zápisu do Kroniky ho zmiňuje
     pl=await b.new_page(viewport={"width":390,"height":844});perr=[];pl.on("pageerror",lambda e:perr.append(str(e)[:200]))
-    await pl.goto(BASE+"#boj");await pl.wait_for_selector(".bsloty");await pl.wait_for_timeout(800)
+    await pl.goto(BASE+"#boj");await pl.wait_for_selector(".bsloty",state="attached");await pl.wait_for_timeout(800)
     # zkušební karta postavy (Balduin): AC, životy s odolností, útoky z karty, hráč nevidí detaily nepřátel
     chk(await pl.locator(".bnpch").count()>0 and await pl.locator(".bnpch .bpocet, .bnpch .break, .bnpch .bstavy").count()==0,"hráč u nepřátel vidí jen jméno a druh")
     chk(await pl.evaluate("KARTY.some(k=>k.id==='balduin')"),"karta Balduina je v datech webu")
@@ -119,7 +119,7 @@ async def main():
     chk(r[0]==17 and r[1] is None and r[2]==6 and "ručně" in r[3] and r[4],"Zadat ručně: d20 17 i s výhodou jen jednou, Závoj 6, pole se po hodu smažou: "+str(r))
     chk(r[5]==1 and r[3].count("d20 17 (ručně)")==1,"Zadat ručně platí pro jeden útok: "+str(r[3])[:160])
     # rozehraný útok přežije obnovení stránky (telefon ji obnoví po nasazení nebo po návratu z jiné aplikace) – 2026-10-20
-    h0=await pl.evaluate("BJU.serie&&BJU.serie[0].hod");await pl.reload();await pl.wait_for_selector(".bsloty");await pl.wait_for_timeout(2500)
+    h0=await pl.evaluate("BJU.serie&&BJU.serie[0].hod");await pl.reload();await pl.wait_for_selector(".bsloty",state="attached");await pl.wait_for_timeout(2500)
     chk(await pl.evaluate("BJU.serie&&BJU.serie[0].hod")==h0 and await pl.locator('[data-bhcard="h4"] .bphod .bphhodp [data-juposl]').count()==1,"rozehraný útok i otevřený list útoku přežijí obnovení stránky")
     await pl.evaluate("BOTV.add('ja-utok');renderBoj()")  # rozbalené části se po obnovení nepamatují – test s nimi dál počítá
     await pl.evaluate("BJU.serie=null;BRUC.h4={d20:'25'};bojJaHod()");chk(await pl.evaluate("BJU.serie===null"),"Zadat ručně: d20 mimo 1–20 se nehodí, hráč dostane upozornění")
@@ -264,7 +264,7 @@ async def main():
     await g.evaluate(f"bojHp.set(Object.assign(bojHp.get(),{{'{nid}':[{hp0}]}}));kartaStavZmen('balduin',{{kpn:null}})");await g.wait_for_timeout(600)
     await g.evaluate("bojZmen(s=>{const h=s.hraci.find(h=>h.id==='h4');h.stav=(h.stav||[]).filter(x=>x!=='soustředí');if(!h.stav.length)delete h.stav});kartaStavZmen('balduin',{zdr:null,uc:null})");await g.wait_for_timeout(1500)
     # hráč: Hex na nepřítele (bez záchrany) – vypravěč potvrdí značku, přídavek 1d6 jen proti označenému
-    await pl.goto(BASE+"#boj");await pl.wait_for_selector(".bsloty");await pl.wait_for_function("typeof KSPD==='object'&&KSPD!==null",timeout=10000)
+    await pl.goto(BASE+"#boj");await pl.wait_for_selector(".bsloty",state="attached");await pl.wait_for_function("typeof KSPD==='object'&&KSPD!==null",timeout=10000)
     await pl.wait_for_function("!!kBojJa(KARTBY.balduin)&&!!(window.MMDB&&bojDB&&bojDB.utok)",timeout=20000)  # hráč je v boji a může posílat (na CI pomalejší)
     await pl.wait_for_function("!Object.keys(kartaStav('balduin').zdr||{}).length&&!(kartaStav('balduin').uc||[]).length",timeout=30000)  # telefon už má obnovené sloty (vypravěč je vrátil) – jinak dialog nenabídne seslání
     i_hx=await pl.evaluate("kSeznam(KARTBY.balduin).findIndex(x=>x.n==='Hex')")
@@ -341,7 +341,7 @@ async def main():
     rqk=urllib.request.Request(U+"/rest/v1/karty",data=json.dumps({"id":"hack","karta":{}}).encode(),headers={"apikey":K,"Content-Type":"application/json"},method="POST")
     try: urllib.request.urlopen(rqk);chk(False,"anonym nesmí zapisovat do tabulky karet přímo")
     except urllib.error.HTTPError as e: chk(e.code>=400,"anonym nesmí zapisovat do tabulky karet přímo")
-    await pl.goto(BASE+"#boj");await pl.wait_for_selector(".bsloty")
+    await pl.goto(BASE+"#boj");await pl.wait_for_selector(".bsloty",state="attached")
     # zajatec, kořist a návrh zápisu
     if not await g.locator(f'[data-bnpc="{rid}"] [data-bstav="vzdal se"]').count():
         await g.click(f'[data-bnpc="{rid}"] [data-brozb]');await g.wait_for_timeout(300)

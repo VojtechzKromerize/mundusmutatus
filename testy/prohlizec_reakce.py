@@ -43,7 +43,7 @@ async def main():
     await g.evaluate("bojZmen(z=>{z.obsazeni=z.obsazeni||{};const i=z.sloty.findIndex(x=>x.t!=='n');z.tah=i;z.obsazeni[i]='h1'})");await g.wait_for_timeout(1500)
     pl=await b.new_page(viewport={"width":390,"height":844});err=[];pl.on("pageerror",lambda e:err.append(str(e)[:200]))
     pl.on("console",lambda m:m.type=="error" and err.append(m.text[:200]))
-    await pl.goto(BASE+"#boj");await pl.wait_for_selector(".bsloty")
+    await pl.goto(BASE+"#boj");await pl.wait_for_selector(".bsloty",state="attached")
     await pl.evaluate("bojJa.set('Balduin');renderBoj()");await pl.wait_for_timeout(1500)
     print("hráč tlačítka:",await pl.evaluate("[...document.querySelectorAll('[data-bhrk]')].map(b=>b.className+' in-bhpan:'+!!b.closest('[data-bhpan]'))"))
     for sel in ('.bdm .bdmrk[data-bhrk]','.bdm .bdmsg[data-bhrk]'):

@@ -931,7 +931,7 @@ if (
   !GMV &&
   navigator.storage &&
   navigator.storage.persist &&
-  (matchMedia("(display-mode: standalone)").matches || navigator.standalone === true)
+  (matchMedia("(display-mode: standalone), (display-mode: fullscreen)").matches || navigator.standalone === true)
 )
   setTimeout(() => {
     try {
@@ -1069,9 +1069,9 @@ async function kPrehledOdp(dl) {
 }
 /* ---- jeden záznam: hody z karet + veřejný záznam boje ---- */
 let KZFL = null; // null = ještě nevybráno (hráči se napoprvé ukáže jeho postava), "" = vše
-function kZaznamHtml(K) {
+function kZaznamHtml(K, bezBoje) {
   if (K && KZFL == null && !GMV) KZFL = K.id;
-  const boj = ((BOJ.s && BOJ.s.zaz) || []).map(e => ({
+  const boj = (bezBoje ? [] : (BOJ.s && BOJ.s.zaz) || []).map(e => ({
     id: "b" + e.ts,
     cas: new Date(e.ts).toISOString(),
     kdo: e.a || "",
