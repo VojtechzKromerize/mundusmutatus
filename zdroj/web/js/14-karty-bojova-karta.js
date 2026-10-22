@@ -1284,24 +1284,30 @@ document.addEventListener("click", e => {
    Vlastnosti · Akce · Kouzla · Vybavení · Rysy (· Společníci), které se při posunu přilepí i se zúženou hlavičkou,
    vysouvací listy zespodu (životy, stavy, AC, odpočinek, kostka, útok na cíl). Hráč ji má v Boji i mimo boj; vypravěč
    u každé postavy družiny. Stav postavy je jeden (karty.stav) – co se změní tady, ukáže hlavní karta a naopak. ===== */
+/* linkové ikonky karty (2026-10-22, středověké motivy): štít · meč · grimoár · truhla · kbelcová přilba · husí brk · otevřený
+   foliant · ohniště · klíč · vycházející slunce · list s pečetí · kostka s oky · svitek; u zbraní meč (zblízka) a šíp (na dálku) */
 const BDMI = {
-  vl: '<path d="M8 1.6 13.6 4v4.3c0 3.2-2.4 5.4-5.6 6.1C4.8 13.7 2.4 11.5 2.4 8.3V4Z"/><path d="M5.4 8.2 7.3 10l3.4-3.7"/>',
-  akce: '<path d="M3 13 11.6 4.4M10 2.8h3.2V6M2.4 10.6l3 3M4.2 12.8l-1.6 1.6"/>',
+  vl: '<path d="M8 1.8 13.4 3.6v4.4c0 3.3-2.4 5.3-5.4 6.4C5 13.3 2.6 11.3 2.6 8V3.6Z"/><path d="M4.8 9 8 5.8 11.2 9"/>',
+  akce: '<path d="M13 3 6.6 9.4" stroke-width="1.9"/><path d="M4.4 7.6 8.4 11.6M6.6 9.4 3.6 12.4"/><circle cx="3" cy="13" r=".9"/>',
   kouzla:
-    '<path d="M8 1.5c.9 2.6 2.4 4.1 5 5-2.6.9-4.1 2.4-5 5-.9-2.6-2.4-4.1-5-5 2.6-.9 4.1-2.4 5-5Z"/><path d="M12.8 11.2l.5 1.4 1.4.5-1.4.5-.5 1.4-.5-1.4-1.4-.5 1.4-.5Z"/>',
-  vyb: '<path d="M2.5 6.5h11v7h-11ZM2.5 6.5 4 3h8l1.5 3.5M6.3 9h3.4"/>',
-  rysy: '<circle cx="8" cy="5.4" r="2.7"/><path d="M2.8 14c.6-3 2.7-4.6 5.2-4.6s4.6 1.6 5.2 4.6"/>',
+    '<path d="M4.2 2.6h7.2a1.2 1.2 0 0 1 1.2 1.2v9.6H5.4a1.2 1.2 0 0 1-1.2-1.2Z"/><path d="M4.2 11.8a1.2 1.2 0 0 1 1.2-1.2h7.2"/><path d="M8.4 4.4l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7Z"/>',
+  vyb: '<path d="M2.6 7.2h10.8v6.4H2.6Z"/><path d="M2.6 7.2V6.4a3 3 0 0 1 3-3h4.8a3 3 0 0 1 3 3v.8M7 7.2v2.4h2V7.2"/>',
+  rysy: '<path d="M4.6 2.8h6.8v9.6l-1.2 1.4H5.8l-1.2-1.4Z"/><path d="M4.6 7h6.8M8 7v6.6M6.2 9.4h.6M9.2 9.4h.6"/>',
   spol: '<path d="M3 13.5c0-2.9 1.6-5 3.9-5.6L5.6 4.2 8 5.6l2.4-1.4-1.3 3.7c2.3.6 3.9 2.7 3.9 5.6"/><circle cx="6.6" cy="10.2" r=".5" fill="currentColor"/>',
   ohen: '<path d="M8 1.8c.4 2.2 2.8 3.4 2.8 6a2.8 2.8 0 0 1-5.6 0c0-1.4.8-2.2 1.4-3 .2 1 .7 1.6 1.2 1.8C7.6 5.2 7.4 3.4 8 1.8Z"/><path d="M2.4 14.2 13.6 11.6M2.4 11.6l11.2 2.6"/>',
-  kolo: '<circle cx="8" cy="8" r="2.4"/><path d="M8 1.6v2M8 12.4v2M1.6 8h2M12.4 8h2M3.5 3.5l1.4 1.4M11.1 11.1l1.4 1.4M3.5 12.5l1.4-1.4M11.1 4.9l1.4-1.4"/>',
+  kolo: '<circle cx="4.6" cy="8.4" r="2.6"/><path d="M7.2 8.4h6.4M11 8.4v2.6M13.6 8.4v2"/>',
   slunce:
     '<path d="M3 11.5a5 5 0 0 1 10 0Z" fill="currentColor" stroke="none"/><path d="M8 2.2v2M3.3 4.4l1.3 1.4M12.7 4.4l-1.3 1.4M1.6 8.6h1.8M12.6 8.6h1.8M1.6 13.2h12.8"/>',
-  info: '<circle cx="8" cy="8" r="6.2"/><path d="M8 7.3v4M8 4.9v.1"/>',
-  denik: '<path d="M3.2 2.4h7.6l2 2v9.2H3.2ZM5.6 6h4.8M5.6 8.6h4.8M5.6 11.2h3"/>',
-  dopis: '<path d="M2.2 4.2h11.6v8H2.2Z"/><path d="m2.2 4.6 5.8 4.4 5.8-4.4"/>',
+  denik:
+    '<path d="M3.6 10.6h5.2v2.8H3.6ZM2.9 10.6h6.6"/><path d="M6 10.6 12.6 2.6"/><path d="M12.8 2.4c-2.6.3-4.6 2-5.4 5l-.2 1.2c2.2-.3 4.2-2 4.8-5Z"/>',
+  dopis: '<path d="M2.4 4.2h11.2v8H2.4Z"/><path d="m2.4 4.6 5.6 4.2 5.6-4.2"/><circle cx="8" cy="9.4" r="1.7" fill="currentColor" stroke="none"/>',
   zaznam:
-    '<path d="M2.6 3.2h10.8v9.6H2.6Z"/><path d="M5 6.2h6M5 8.4h6M5 10.6h3.6"/><circle cx="11.4" cy="10.6" r=".6" fill="currentColor" stroke="none"/>',
-  d20: '<path d="M8 1.4 13.8 4.7v6.6L8 14.6 2.2 11.3V4.7Z"/><path d="M8 1.4 4.6 9.4h6.8ZM2.2 4.7l2.4 4.7M13.8 4.7l-2.4 4.7M4.6 9.4 8 14.6l3.4-5.2"/>',
+    '<path d="M8 4.4C6.4 3.2 4.6 3 2.6 3.2v9.4c2 0 3.8.2 5.4 1.2 1.6-1 3.4-1.2 5.4-1.2V3.2c-2-.2-3.8 0-5.4 1.2Z"/><path d="M8 4.4v9.4M11 3.3v4.2l-.9-.8-.9.8V3.4"/>',
+  d20: '<path d="M8 1.6 13.6 4.6v6.8L8 14.4 2.4 11.4V4.6Z"/><path d="M2.4 4.6 8 7.6l5.6-3M8 7.6v6.8"/><circle cx="8" cy="4.5" r=".7" fill="currentColor" stroke="none"/><circle cx="4.6" cy="9.1" r=".7" fill="currentColor" stroke="none"/><circle cx="6.2" cy="11.3" r=".7" fill="currentColor" stroke="none"/><circle cx="10" cy="9.3" r=".7" fill="currentColor" stroke="none"/><circle cx="11.4" cy="8.5" r=".7" fill="currentColor" stroke="none"/><circle cx="9.8" cy="11.5" r=".7" fill="currentColor" stroke="none"/><circle cx="11.2" cy="10.7" r=".7" fill="currentColor" stroke="none"/>',
+  svitek:
+    '<path d="M2.6 2.8h10.8a1.3 1.3 0 0 1 0 2.6H2.6a1.3 1.3 0 0 1 0-2.6ZM2.6 10.6h10.8a1.3 1.3 0 0 1 0 2.6H2.6a1.3 1.3 0 0 1 0-2.6Z"/><path d="M4.6 5.4v5.2M11.4 5.4v5.2M6.8 7.2h2.4M6.8 9h2.4"/>',
+  mec: '<path d="M13 3 6.6 9.4" stroke-width="1.9"/><path d="M4.4 7.6 8.4 11.6M6.6 9.4 3.6 12.4"/><circle cx="3" cy="13" r=".9"/>',
+  sip: '<path d="M2.8 13.2 12.8 3.2"/><path d="M9.6 3.2h3.2v3.2M3.2 9.6l2.8.2M6.2 12.8l.2-2.8"/>',
 };
 const bdmIc = (k, c) =>
   `<svg class="bdmic${c ? " " + c : ""}" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">${BDMI[k] || ""}</svg>`;
@@ -1458,7 +1464,7 @@ function bdmUtoky(s, h, K, gm, X) {
     const hit = X.boj && gm && j >= 0 ? `data-bdmsh="utok" data-j="${j}"` : ut && j >= 0 ? `data-bdmsh="utok" data-j="${j}"` : `data-khod="ut:${i}"`;
     const L = bdmZvl(a, K);
     const ox = BDM.utx.has(K.id + "|" + a.n);
-    return `<div class="bdmut${zv ? " bdmzv" : ""}${ox ? " bdmuto" : ""}"><span class="bdmuti" aria-hidden="true">${a.dal ? "➶" : "⚔"}</span><div class="bdmutn" role="button" tabindex="0" data-bdmutx="${besc(a.n)}" aria-expanded="${ox}" ${btip(ox ? "Skrýt vlastnosti zbraně" : "Ukázat vlastnosti zbraně")}><b>${besc(a.n)}</b>${zv ? ` <small class="bdmruk" ${btip("Zbraň v ruce")}>✋</small>` : ""}${ox ? `<small>${besc([a.dal ? "na dálku" : "zblízka", ...vl].join(" · "))}</small>${L.length ? `<span class="bdmzvs">${L.map(k => `<span ${btip(`${k}: ${BVLZ[k]}`)}>${bikZv(k)}<i>${besc(k)}</i></span>`).join("")}</span>` : ""}${kMuze(K) && !/beze zbraně|unarmed|eldritch|kouzl/i.test(a.n) ? `<button type="button" class="bdmmini bdmzvb" data-bdmsh="zvl" data-zvl="${besc(a.n)}" ${btip("Vlastnosti zbraně podle Artikulí (Šikovná, Ostrá, Drtivá…)")}>⚙ vlastnosti</button>` : ""}` : ""}</div>
+    return `<div class="bdmut${zv ? " bdmzv" : ""}${ox ? " bdmuto" : ""}"><span class="bdmuti" aria-hidden="true">${bdmIc(a.dal ? "sip" : "mec")}</span><div class="bdmutn" role="button" tabindex="0" data-bdmutx="${besc(a.n)}" aria-expanded="${ox}" ${btip(ox ? "Skrýt vlastnosti zbraně" : "Ukázat vlastnosti zbraně")}><b>${besc(a.n)}</b>${zv ? ` <small class="bdmruk" ${btip("Zbraň v ruce")}>✋</small>` : ""}${ox ? `<small>${besc([a.dal ? "na dálku" : "zblízka", ...vl].join(" · "))}</small>${L.length ? `<span class="bdmzvs">${L.map(k => `<span ${btip(`${k}: ${BVLZ[k]}`)}>${bikZv(k)}<i>${besc(k)}</i></span>`).join("")}</span>` : ""}${kMuze(K) && !/beze zbraně|unarmed|eldritch|kouzl/i.test(a.n) ? `<button type="button" class="bdmmini bdmzvb" data-bdmsh="zvl" data-zvl="${besc(a.n)}" ${btip("Vlastnosti zbraně podle Artikulí (Šikovná, Ostrá, Drtivá…)")}>⚙ vlastnosti</button>` : ""}` : ""}</div>
       <span class="bdmdos">${besc(a.dosah || (a.dal ? "dálka" : "5 st."))}</span><button type="button" class="bdmbox" ${hit} ${btip(`Útok ${a.n}: d20 ${bsg(+a.b || 0)}${a.pocet > 1 ? ` · ${a.pocet}× za akci` : ""}${ut && j >= 0 ? " – vyber cíl a hoď" : X.boj && gm ? " – hodí za hráče a otevře zápis" : ""}`)}>${bsg(+a.b || 0)}</button>
       <span class="bdmdmg">${a.z ? `<button type="button" class="bdmbox" data-kzr="${i}" ${btip(`Zranění ${a.z} ${BZRT[a.t] || a.t || ""}`)}>${besc(a.z)} ${bikZr(a.t)}</button>` : "–"}</span>${a.pozn || kMunTxt(K, a) ? `<small class="bdmutp">${besc(a.pozn || "")}${kMunTxt(K, a)}</small>` : ""}</div>`;
   }).join("");
@@ -1901,7 +1907,7 @@ function bojDbm(s, h, K, gm, vzdy, X) {
           .join("")}${I.length > 3 ? `<b>+${I.length - 3}</b>` : ""}</span>`
       : "";
   })();
-  const head = `<header class="bdmh"><div class="bdmtop">${gm ? `<button type="button" class="bdmback" data-bhrozb="${h.id}" aria-label="Sbalit kartu" ${btip("Sbalit")}>‹</button>` : `<span class="bdmback0"><button type="button" class="bdmback bdmweb" data-mmweb aria-label="Menu webu" ${btip("Ukázat web s menu")}>☰</button></span>`}<div class="bdmnm"><b>${besc(K.n)}</b><small>${besc(sub)}${zavH}</small></div>${curView === "karty" ? `<span class="bdmback0"></span>` : `<a class="bdmkl" href="#karty/${besc(K.id)}" aria-label="Karta na celou stránku" ${btip("Karta na celou stránku")}>${bdmIc("rysy")}</a>`}</div>
+  const head = `<header class="bdmh"><div class="bdmtop">${gm ? `<button type="button" class="bdmback" data-bhrozb="${h.id}" aria-label="Sbalit kartu" ${btip("Sbalit")}>‹</button>` : `<span class="bdmback0"><button type="button" class="bdmback bdmweb" data-mmweb aria-label="Menu webu" ${btip("Ukázat web s menu")}>☰</button></span>`}<div class="bdmnm"><b>${besc(K.n)}</b><small>${besc(sub)}${zavH}</small></div>${curView === "karty" ? `<span class="bdmback0"></span>` : `<a class="bdmkl" href="#karty/${besc(K.id)}" aria-label="Karta na celou stránku" ${btip("Karta na celou stránku")}>${bdmIc("svitek")}</a>`}</div>
     <div class="bdmgrid">
       <span class="bdmacw">${(() => {
         const R = kOdol(K),

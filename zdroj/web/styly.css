@@ -2746,7 +2746,7 @@ button.kdbs:hover{border-color:var(--kb-gold)}.kdbsac b{color:var(--kb-gold)}
 .bdmut{padding:5px 0;border-bottom:1px solid var(--kb-hd1);grid-template-areas:"i n d h z" "i p p p p";row-gap:2px}
 .bdmuth span:nth-child(2){text-align:left!important}
 .bdmut.bdmzv{background:linear-gradient(90deg,rgba(214,176,90,.08),transparent)}
-.bdmuti{grid-area:i;color:var(--kb-ac);font-size:1.1rem;text-align:center}
+.bdmuti{grid-area:i;color:var(--kb-ac);display:grid;place-items:center}.bdmuti .bdmic{width:16px;height:16px}
 .bdmutn{grid-area:n;min-width:0}.bdmutn b{color:#8cbcf0;font-style:italic;font-weight:600}.bdmutn small{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.03em}
 .bdmzvs{display:flex;flex-wrap:wrap;gap:2px 8px;margin-top:2px;color:var(--kb-gold);font-size:.74rem}.bdmzvs i{font-style:normal;margin-left:2px}.bdmzvs img,.bdmzvs .bik{width:16px;height:16px;vertical-align:middle}
 .bdmruk{font-size:.8rem}
