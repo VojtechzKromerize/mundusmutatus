@@ -1,0 +1,66 @@
+name: Databáze
+# Dvě databáze Supabase (2026-10-21): ostrá (projekt „Mundus Mutatus“, web main) a vývojová („Mundus Mutatus dev“,
+# náhled dev a ostatní větve). Tento workflow do nich nahrává schéma a obnovuje vývojovou z ostré.
+#   - nahrání do dev se supabase/schema.sql změnou → schéma se samo nahraje do vývojové databáze;
+#     „[obnovit dev]“ ve zprávě commitu → navíc obnoví vývojovou z ostré (dokud workflow není v main, jinak to nejde spustit)
+#   - ručně (Actions → Databáze → Run workflow):
+#       „schéma do vývojové“          – totéž ručně
+#       „obnovit vývojovou z ostré“   – schéma + kopie herních dat (karty, odhalení, texty, boj…) z ostré; ostrá se jen čte
+#       „schéma do ostré“             – při nasazení („nasaď“), vezme schema.sql z větve main; do potvrzení napiš NASADIT
+# Potřebuje tajemství repozitáře SUPABASE_DB_DEV a SUPABASE_DB_MAIN (Settings → Secrets and variables → Actions):
+# připojovací řetězec „Session pooler“ z Supabase (Connect → Session pooler, včetně hesla databáze).
+# Bez nich workflow jen upozorní a skončí.
+on:
+  push:
+    branches: [dev]
+    paths: ["supabase/schema.sql", "supabase/obnov_dev.sh", ".github/workflows/databaze.yml"]
+  workflow_dispatch:
+    inputs:
+      akce:
+        description: Co udělat
+        type: choice
+        options: ["schéma do vývojové", "obnovit vývojovou z ostré", "schéma do ostré"]
+        default: "schéma do vývojové"
+      potvrzeni:
+        description: "Jen pro „schéma do ostré“: napiš NASADIT"
+        required: false
+        default: ""
+permissions:
+  contents: read
+concurrency: databaze
+jobs:
+  databaze:
+    name: ${{ github.event_name == 'push' && (contains(github.event.head_commit.message, '[obnovit dev]') && 'obnovit vývojovou z ostré' || 'schéma do vývojové') || inputs.akce }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      # nahrání do dev: schéma; s „[obnovit dev]“ ve zprávě commitu i kopie dat z ostré (ruční spuštění jde až když je workflow v main)
+      AKCE: ${{ github.event_name == 'push' && (contains(github.event.head_commit.message, '[obnovit dev]') && 'obnovit vývojovou z ostré' || 'schéma do vývojové') || inputs.akce }}
+      DB_DEV: ${{ secrets.SUPABASE_DB_DEV }}
+      DB_MAIN: ${{ secrets.SUPABASE_DB_MAIN }}
+      PGOPTIONS: "-c client_min_messages=warning"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.akce == 'schéma do ostré' && 'main' || github.ref }}
+      - name: Kontrola nastavení
+        id: ok
+        run: |
+          chybi=""
+          if [ "$AKCE" != "schéma do ostré" ] && [ -z "$DB_DEV" ]; then chybi="$chybi SUPABASE_DB_DEV"; fi
+          if [ "$AKCE" != "schéma do vývojové" ] && [ -z "$DB_MAIN" ]; then chybi="$chybi SUPABASE_DB_MAIN"; fi
+          if [ -n "$chybi" ]; then echo "::warning title=Databáze::chybí tajemství repozitáře:$chybi – nic se nestalo"; echo "dal=0" >> "$GITHUB_OUTPUT"; exit 0; fi
+          if [ "$AKCE" = "schéma do ostré" ] && [ "$POTVRZENI" != "NASADIT" ]; then
+            echo "::error title=Databáze::schéma do ostré databáze jen s potvrzením NASADIT"; exit 1; fi
+          echo "dal=1" >> "$GITHUB_OUTPUT"
+        env:
+          POTVRZENI: ${{ inputs.potvrzeni }}
+      - name: Schéma do vývojové databáze
+        if: steps.ok.outputs.dal == '1' && env.AKCE != 'schéma do ostré'
+        run: psql "$DB_DEV" -X -q -v ON_ERROR_STOP=1 -f supabase/schema.sql && echo "✓ schéma nahráno do vývojové databáze"
+      - name: Kopie herních dat z ostré
+        if: steps.ok.outputs.dal == '1' && env.AKCE == 'obnovit vývojovou z ostré'
+        run: ZDROJ="$DB_MAIN" CIL="$DB_DEV" bash supabase/obnov_dev.sh
+      - name: Schéma do ostré databáze
+        if: steps.ok.outputs.dal == '1' && env.AKCE == 'schéma do ostré'
+        run: psql "$DB_MAIN" -X -q -v ON_ERROR_STOP=1 -f supabase/schema.sql && echo "✓ schéma z větve main nahráno do ostré databáze"

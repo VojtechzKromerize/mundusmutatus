@@ -55,8 +55,12 @@ async def main():
     await pg.goto(BASE+"#desky/osoby");await pg.wait_for_timeout(500)
     await pg.evaluate("scrollTo(0,400)")
     nastav({"zdenekst":2})
+    # od 2026-10-20 se stránka neobnoví hned: ukáže lištu „Obnovit“ (sama se obnoví, až telefon půl minuty nikdo nedrží)
+    await pg.wait_for_selector(".mmnova button",timeout=30000)
+    chk("doplněny" in await pg.inner_text(".mmnova"),"po odhalení hráč vidí lištu „Zemské desky byly doplněny – Obnovit“")
+    await pg.click(".mmnova button")
     await pg.wait_for_function("typeof PBY!=='undefined'&&!!PBY.zdenekst",timeout=30000)
-    chk(True,"po odhalení se hráčům stránka sama obnovila a osoba je vidět")
+    chk(True,"po Obnovit je nově odhalená osoba vidět")
     chk(await pg.evaluate("location.hash")=="#desky/osoby","obnova zachovala adresu")
     chk(not errs,"hráč bez chyb JS "+str(errs[:2]))
     # --- vypravěč ---

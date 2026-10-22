@@ -12,6 +12,7 @@ def jwt(claims):
 KEYS={"sb_publishable_test":jwt({"role":"anon","exp":4102444800}),"sb_secret_test":jwt({"role":"service_role","exp":4102444800})}
 USERS={"gm@x.cz":("heslo","11111111-1111-1111-1111-111111111111"),"hrac@x.cz":("heslo","22222222-2222-2222-2222-222222222222")}
 RT={}
+META={}
 STORE={}
 EXPIN=int(sys.argv[1]) if len(sys.argv)>1 else 3600
 LAT=float(os.environ.get("MM_SB_LAT","0"))/1000  # umělá síťová prodleva pro měření výkonu (ms)
@@ -21,7 +22,7 @@ class H(BaseHTTPRequestHandler):
     def cors(self):
         self.send_header("Access-Control-Allow-Origin","*")
         self.send_header("Access-Control-Allow-Headers","apikey, authorization, content-type, prefer, x-client-info, x-upsert, cache-control")
-        self.send_header("Access-Control-Allow-Methods","GET, POST, PATCH, DELETE, OPTIONS")
+        self.send_header("Access-Control-Allow-Methods","GET, POST, PUT, PATCH, DELETE, OPTIONS")
     def do_OPTIONS(self):
         self.send_response(204); self.cors(); self.end_headers()
     def out(self,code,obj):
@@ -50,6 +51,27 @@ class H(BaseHTTPRequestHandler):
             uid=USERS[email][1]; rt="rt-"+str(time.time()); RT[rt]=email
             return self.out(200,{"access_token":jwt({"sub":uid,"role":"authenticated","email":email,"exp":int(time.time())+EXPIN}),"token_type":"bearer",
                                  "expires_in":EXPIN,"expires_at":int(time.time())+EXPIN,"refresh_token":rt,"user":{"id":uid,"email":email}})
+        if self.path.startswith("/auth/v1/signup") and method=="POST":  # účet hráče s heslem (bez potvrzení e-mailem)
+            d=json.loads(self.body() or b"{}");email=str(d.get("email") or "").lower()
+            if "@" not in email: return self.out(400,{"code":400,"msg":"Unable to validate email address: invalid format"})
+            if email in USERS: return self.out(422,{"code":422,"error_code":"user_already_exists","msg":"User already registered"})
+            if len(d.get("password") or "")<6: return self.out(422,{"code":422,"error_code":"weak_password","msg":"Password should be at least 6 characters."})
+            import uuid; uid=str(uuid.uuid4()); USERS[email]=(d["password"],uid); META[email]=d.get("data") or {}
+            rt="rt-"+str(time.time()); RT[rt]=email
+            return self.out(200,{"access_token":jwt({"sub":uid,"role":"authenticated","email":email,"exp":int(time.time())+EXPIN}),"token_type":"bearer",
+                                 "expires_in":EXPIN,"expires_at":int(time.time())+EXPIN,"refresh_token":rt,"user":{"id":uid,"email":email,"user_metadata":META[email]}})
+        if self.path.startswith("/auth/v1/user"):
+            a=(self.headers.get("Authorization") or "")[7:]
+            try: claims=json.loads(base64.urlsafe_b64decode(a.split(".")[1]+"=="))
+            except Exception: return self.out(401,{"msg":"invalid JWT"})
+            email=claims.get("email")
+            if email not in USERS: return self.out(401,{"msg":"invalid JWT"})
+            if method=="PUT":
+                d=json.loads(self.body() or b"{}")
+                if d.get("password"):
+                    if len(d["password"])<6: return self.out(422,{"code":422,"msg":"Password should be at least 6 characters."})
+                    USERS[email]=(d["password"],USERS[email][1])
+            return self.out(200,{"id":USERS[email][1],"email":email,"user_metadata":META.get(email,{}),"app_metadata":{"provider":"email" if email in META else "discord"}})
         if self.path.startswith("/auth/v1/logout"): return self.out(204,None)
         if self.path.startswith("/storage/v1/object/obrazky/") and method=="POST":
             a=(self.headers.get("Authorization") or "")[7:]
@@ -72,4 +94,5 @@ class H(BaseHTTPRequestHandler):
         self.out(404,{"message":"not found"})
     def do_GET(self): self.handle_any("GET")
     def do_POST(self): self.handle_any("POST")
+    def do_PUT(self): self.handle_any("PUT")
 ThreadingHTTPServer(("127.0.0.1",PORT),H).serve_forever()

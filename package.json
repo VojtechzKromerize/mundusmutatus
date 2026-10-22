@@ -1,0 +1,17 @@
+{
+  "name": "mundusmutatus",
+  "private": true,
+  "description": "Nástroje pro sestavení a kontrolu webu (zmenšení skriptu a stylů, kontrola kódu). Web sám žádné balíčky nepotřebuje.",
+  "devDependencies": {
+    "esbuild": "0.28.2",
+    "eslint": "10.12.0",
+    "globals": "17.12.0",
+    "jsdom": "30.1.1",
+    "prettier": "3.9.9"
+  },
+  "scripts": {
+    "format": "prettier --write --log-level warn \"zdroj/web/js/*.js\" zdroj/generator.js zdroj/sw.js \"testy/**/*.mjs\"",
+    "kontrola": "node testy/kontrola_kodu.mjs && prettier --check --log-level warn \"zdroj/web/js/*.js\" zdroj/generator.js zdroj/sw.js \"testy/**/*.mjs\"",
+    "test": "node --test testy/jednotky/*.test.mjs"
+  }
+}

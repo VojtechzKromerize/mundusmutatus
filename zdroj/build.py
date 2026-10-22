@@ -7,7 +7,7 @@
 Tajemství se ve zdroji značí  ⟦tajný text⟧  nebo  ⟦tajný text¦text pro hráče⟧.
 Obsah (rody, osoby, vazby, Praha, Kronika, Družina, objevená místa) je v zdroj/obsah/ jako Markdown
 s hlavičkou – viz zdroj/obsah/NÁVOD.md.
-Jen standardní knihovna Pythonu a Node.js pro zdroj/generator.js (obojí běží i na Netlify).
+Jen standardní knihovna Pythonu a Node.js pro zdroj/generator.js (obojí běží i na Netlify). Hráčské soubory v/ zmenší esbuild z package.json (npm ci; bez něj se nezmenšují).
 """
 import hashlib, json, os, re, shutil, subprocess, sys, urllib.error, urllib.request
 
@@ -332,7 +332,10 @@ def vloz_soubory(t):
         p = os.path.join(ROOT, "zdroj", m.group(1))
         if not os.path.isfile(p):
             fail(f"chybí zdroj/{m.group(1)} (vkládá ho koruna.html)")
-        return open(p, encoding="utf-8").read()
+        t = open(p, encoding="utf-8").read()
+        # hranice souborů skriptu: hráčská verze podle nich dělí skript na díly s vlastním otiskem (viz níže)
+        mm = re.match(r"web/js/(\d\d)", m.group(1))
+        return (f"/*@soubor {mm.group(1)}*/\n" + t) if mm else t
     return re.sub(r"^/\*@vloz (web/[\w./-]+)\*/\n", rep, t, flags=re.M)
 s = vloz_soubory(open(SRC, encoding="utf-8").read())
 J = lambda v: json.dumps(v, ensure_ascii=False, separators=(",", ":"))
@@ -349,6 +352,8 @@ if DB:
             print(f"supabase: ze souborů nových {r['nove']}, změněných {r['zmenene']}, smazaných {r['smazane']}")
             for k in r.get("konflikty") or []:
                 print(f"supabase: KONFLIKT {k} – na webu upraveno od poslední zálohy, ponechávám verzi z webu")
+        if "--jen-zaznamy" in sys.argv:  # workflow „Texty do ostré databáze“: jen přenos souborů obsahu, bez sestavení webu
+            sys.exit(0 if VETEV in sync_vetve else fail(f"--jen-zaznamy: větev {VETEV} není v MM_SYNC_VETVE"))
         # 2) obsah se generuje z databáze (zdroj pravdy); nahrané obrázky mají přednost před soubory
         z = sb_rpc("mm_zaznamy_vse", {}, True)
         if z:
@@ -359,6 +364,8 @@ if DB:
         for typ in ("erby", "portrety", "draci"):
             MANIFEST[typ].update(nahrane.get(typ) or {})
     except ChybiFunkce as e:
+        if "--jen-zaznamy" in sys.argv:
+            fail(f"v databázi chybí funkce {e} – spusťte aktuální supabase/schema.sql")
         print(f"supabase: v databázi chybí funkce {e} – spusťte aktuální supabase/schema.sql; zatím sestavuji ze souborů")
 G = generuj(SOUBORY, MANIFEST)
 HRAC, GMD, SEED = G["hrac"], G["gm"], G["seed"]
@@ -385,30 +392,32 @@ elif DB:
 else:
     DATA = {**rozbal(HRAC, SEED), **STAT_H}
 
-# značky ve zdroji → čtení z window.__D
+# značky ve zdroji → čtení z window.__D (formátovač píše „/*@KLIC@*/ []“ s mezerou – mezera smí být i nemusí)
+def znacka(key, vychozi):
+    return re.compile(r"/\*@" + key + r"@\*/\s*" + re.escape(vychozi))
 for key in ODH_KLICE + list(STAT):
     for empty in ("[]", "{}"):
-        tag = f"/*@{key}@*/{empty}"
-        if tag in s:
-            s = s.replace(tag, f"(__D.{key}||{empty})")
+        z = znacka(key, empty)
+        if z.search(s):
+            s = z.sub(lambda m, k=key, e=empty: f"(__D.{k}||{e})", s)
             break
     else:
         fail(f"ve zdroji chybí značka /*@{key}@*/")
-for tag in ("/*@GM@*/false", "/*@MMDATA@*/"):
-    if tag not in s:
-        fail(f"ve zdroji chybí značka {tag}")
-s = s.replace("/*@GM@*/false", "!!__D.GM")
+if not znacka("GM", "false").search(s) or "/*@MMDATA@*/" not in s:
+    fail("ve zdroji chybí značka /*@GM@*/false nebo /*@MMDATA@*/")
+s = znacka("GM", "false").sub("!!__D.GM", s)
 safe = lambda v: J(v).replace("</", "<\\/")
 if DB:
-    s = s.replace("/*@MMDATA@*/", "window.MMCFG=" + safe({"url": SB_URL, "key": SB_KEY, "vetev": VETEV, "gen": GEN_VERZE}) + ";window.__S=" + safe(STAT_H) + ";")
+    s = s.replace("/*@MMDATA@*/", "window.MMCFG=" + safe({"url": SB_URL, "key": SB_KEY, "vetev": VETEV, "gen": GEN_VERZE}) + ";window.__S=" + safe(STAT_H) + ";/*@MMLINE@*/")
     if '<script id="mmhlavni">' not in s:
         fail('ve zdroji chybí <script id="mmhlavni">')
     s = s.replace('<script id="mmhlavni">', '<script type="text/x-mm" id="mmhlavni">')
 else:
-    s = s.replace("/*@MMDATA@*/", "window.__D=" + safe(DATA) + ";")
+    s = s.replace("/*@MMDATA@*/", "window.__D=" + safe(DATA) + ";/*@MMLINE@*/")
 
 if GM:
     s = show_secrets(s)
+    s = re.sub(r"^/\*@soubor \d\d\*/\n", "", s, flags=re.M)
 else:
     s, removed = strip_secrets(s)
     s = s.replace("✦ ", "").replace("✦", "")
@@ -437,6 +446,30 @@ if DB:
         ver = sb_rpc("mm_nahraj_obsah", _arg)
     print(f"supabase: obsah větve „{VETEV}“ nahrán, verze výřezu {ver}")
 
+# Zmenšení hráčských souborů v/ (2026-10-21): esbuild odstraní mezery a komentáře a zkrátí místní jména; jména na nejvyšší
+# úrovni (sdílená mezi díly) zůstanou, takže díly spolu dál mluví. Zdroj i vypravěčská verze zůstávají čitelné.
+# Potřebuje `npm ci` (Netlify ho spustí sám podle package.json); bez esbuildu nebo s MM_BEZ_ZMENSENI=1 se nezmenšuje.
+ESBUILD = os.path.join(ROOT, "node_modules", ".bin", "esbuild")
+def zmensi_vse(soubory):
+    if os.environ.get("MM_BEZ_ZMENSENI") or not os.path.exists(ESBUILD):
+        print("  (soubory v/ se nezmenšují – " + ("MM_BEZ_ZMENSENI" if os.environ.get("MM_BEZ_ZMENSENI") else "chybí esbuild, spusť npm ci") + ")")
+        return soubory
+    ven, pred, po = {}, 0, 0
+    for jm, t in soubory.items():
+        typ = "css" if jm.endswith(".css") else "js" if jm.endswith(".js") else None
+        if not typ:
+            ven[jm] = t
+            continue
+        r = subprocess.run([ESBUILD, "--minify", f"--loader={typ}", "--log-level=error", "--charset=utf8"], input=t, capture_output=True, text=True, encoding="utf-8")
+        if r.returncode != 0:
+            fail(f"zmenšení v/{jm} selhalo: {r.stderr.strip()[-600:]}")
+        # esbuild s --charset=utf8 přepíše \u27e6 a \u27e7 v řetězcích na znaky ⟦ ⟧ – ty ale kontrola tajemství hledá; vrátit jako escape
+        ven[jm] = r.stdout.replace("\u27e6", "\\u27e6").replace("\u27e7", "\\u27e7") if typ == "js" else r.stdout
+        pred += len(t.encode("utf-8"))
+        po += len(r.stdout.encode("utf-8"))
+    print(f"  zmenšeno: {pred // 1024} kB → {po // 1024} kB")
+    return ven
+
 shutil.rmtree(OUT, ignore_errors=True)
 os.makedirs(OUT)
 VSOUB = {}  # soubory s otiskem obsahu ve jménu: v/<jméno> -> obsah
@@ -454,21 +487,78 @@ if not GM:
     a = page.index(zn)
     b = page.index("</script>", a)
     js = page[a + len(zn):b]
-    jm_js = f"app-{otisk_v(js)}.js"
-    VSOUB[jm_js] = js
-    page = page[:a] + (f'<script type="text/x-mm" id="mmhlavni" data-src="v/{jm_js}"></script>' if DB else f'<script id="mmhlavni" src="v/{jm_js}"></script>') + page[b + 9:]
-    page = page.replace("</head>", f'<link rel="preload" href="v/{jm_js}" as="script">\n</head>', 1)
+    # samostatné části (/*@cast název{*/ … /*@cast}*/): stáhnou se, až je stránka potřebuje (mmLina v 01-zaklad.js)
+    CASTI = {}
+    def vyrizni(m):
+        CASTI[m.group(1)] = CASTI.get(m.group(1), "") + m.group(2)
+        return ""
+    js = re.sub(r"/\*@cast (\w+)\{\*/\n(.*?)/\*@cast\}\*/\n", vyrizni, js, flags=re.S)
+    if "/*@cast" in js:
+        fail("neuzavřená část /*@cast …*/ ve skriptu")
+    LINE = {}
+    for jm, t in CASTI.items():
+        t = re.sub(r"^/\*@soubor \d\d\*/\n", "", t, flags=re.M)
+        jmc = f"cast-{jm}-{otisk_v(t)}.js"
+        VSOUB[jmc] = t
+        LINE[jm] = f"v/{jmc}"
+    # zbytek skriptu: díly podle čísel souborů – po nasazení se stáhne jen díl, který se změnil
+    # jádro (zaklad, stav, start) se stáhne hned a stránka se ukáže; boj, karta a hra (soubory 10–25) tvoří
+    # líně načítanou část „hra“ (MMLINE.hra, pořadí dílů zachované) – 26-start ji stáhne na pozadí po vykreslení
+    # díly jsou menší (2026-10-20): po nasazení se stáhne jen ten, který se změnil – karta 13–19 byla jeden díl 180 kB (gz),
+    # a měnila se skoro každým nasazením
+    DILY = [("zaklad", 1, 8, 0), ("stav", 9, 9, 0), ("boj", 10, 12, 1), ("karta", 13, 15, 1), ("karta2", 16, 19, 1), ("hra", 20, 20, 1), ("hra2", 21, 25, 1), ("start", 26, 99, 0)]
+    kusy = re.split(r"^/\*@soubor (\d\d)\*/\n", js, flags=re.M)
+    obsah = {d[0]: "" for d in DILY}
+    obsah[DILY[0][0]] += kusy[0]
+    for i in range(1, len(kusy), 2):
+        n = int(kusy[i])
+        obsah[next(d[0] for d in DILY if d[1] <= n <= d[2])] += kusy[i + 1]
+    jm_jsy, line_hra = [], []
+    for d in DILY:
+        t = obsah[d[0]]
+        if t.strip():
+            jm = f"{d[0]}-{otisk_v(t)}.js"
+            VSOUB[jm] = t
+            (line_hra if d[3] else jm_jsy).append(jm)
+    if line_hra:
+        LINE["hra"] = ["v/" + j for j in line_hra]
+    if DB:
+        tag = f'<script type="text/x-mm" id="mmhlavni" data-src="{" ".join("v/" + j for j in jm_jsy)}"></script>'
+    else:
+        tag = f'<script id="mmhlavni" src="v/{jm_jsy[0]}"></script>' + "".join(f'\n<script src="v/{j}"></script>' for j in jm_jsy[1:])
+    page = page[:a] + tag + page[b + 9:]
+    page = page.replace("/*@MMLINE@*/", "window.MMLINE=" + safe(LINE) + ";", 1)  # až po vyříznutí (posunulo by indexy)
+    page = page.replace("</head>", "".join(f'<link rel="preload" href="v/{j}" as="script">\n' for j in jm_jsy) + "</head>", 1)
+    js = "".join(obsah.values())
     # service worker: offline režim a rychlé opakované návštěvy (verze podle otisku stránky)
     sw = open(os.path.join(ROOT, "zdroj", "sw.js"), encoding="utf-8").read()
-    sw = sw.replace("/*@VERZE@*/", otisk_v(css + js + page)).replace("/*@JADRO@*/[]", json.dumps(["./", f"v/{jm_css}", f"v/{jm_js}"]))
+    sw = sw.replace("/*@VERZE@*/", otisk_v(css + js + page))
+    sw = znacka("JADRO", "[]").sub(lambda m: json.dumps(["./", f"v/{jm_css}"] + [f"v/{j}" for j in jm_jsy + line_hra]), sw)
+    sw = znacka("SOUBORY", "[]").sub(lambda m: json.dumps(["v/" + j for j in VSOUB]), sw)
     open(os.path.join(OUT, "sw.js"), "w", encoding="utf-8").write(sw)
 open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(page)
 os.makedirs(os.path.join(OUT, "v"), exist_ok=True)
+if VSOUB:
+    VSOUB = zmensi_vse(VSOUB)
 for jm, obsah in VSOUB.items():
     open(os.path.join(OUT, "v", jm), "w", encoding="utf-8").write(obsah)
 if DB:  # generátor si stáhne jen vypravěč, když upravuje texty na webu
     shutil.copyfile(GENERATOR, os.path.join(OUT, "v", f"generator-{GEN_VERZE}.js"))
 shutil.copytree(os.path.join(ROOT, "art"), os.path.join(OUT, "art"), ignore=shutil.ignore_patterns("portrety", "draci", "bestiar") if DB else None)
+# kouzla pro karty hráčů (2026-10-20): bez popisu tam, kde automatika čte starší text (ta) – popis
+# si karta dotáhne z plného art/kouzla.json, až hráč kouzlo rozklikne; plný soubor čte vypravěč (stránka Kouzla, kouzla NPC)
+try:
+    _kz = json.load(open(os.path.join(ROOT, "art", "kouzla.json"), encoding="utf-8"))
+    _lehka = []
+    for _x in _kz:
+        _y = {k: v for k, v in _x.items() if k not in ("cs", "vt")}  # povolání (p) karta potřebuje při učení kouzel
+        if _y.get("ta") is not None:
+            _y.pop("t", None)
+        _lehka.append(_y)
+    with open(os.path.join(OUT, "art", "kouzla-karta.json"), "w", encoding="utf-8") as _f:
+        json.dump(_lehka, _f, ensure_ascii=False, separators=(",", ":"))
+except FileNotFoundError:
+    pass
 if DB:
     for slozka, mapa, pripony in (("draci", MANIFEST["draci"], ("", "-h", "-m", "-t")), ("portrety", MANIFEST["portrety"], ("", "-m", "-s")), ("bestiar", MANIFEST.get("bestiar", {}), ("", "-96"))):
         src_d, dst_d = os.path.join(ROOT, "art", slozka), os.path.join(OUT, "art", slozka)

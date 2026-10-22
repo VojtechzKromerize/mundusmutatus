@@ -14,8 +14,9 @@ faith: kal
 origin: Praha
 # portrét: nahraj do art/druzina/ a uveď cestu
 img: art/druzina/jan.webp
-ctnosti: Odvaha, Štědrost
-neresti: Hněv, Pýcha
+# jedna Ctnost a jedna Neřest ze seznamu víry (Artikule)
+ctnosti: Odvaha
+neresti: Hněv
 # Svědomí 0–10
 sv: 5
 # vazby: idRodu: popis, další…  (id rodů najdeš v adrese stránky rodu, např. #rod/ste)

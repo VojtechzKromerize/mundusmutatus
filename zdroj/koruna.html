@@ -18,6 +18,20 @@
 <link rel="manifest" href="art/app.webmanifest">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Mundus Mutatus">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- spouštěcí obrazovky aplikace na iPhonu (art/img/spust, portrét) -->
+<link rel="apple-touch-startup-image" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="art/img/spust/430x932@3.png">
+<link rel="apple-touch-startup-image" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="art/img/spust/393x852@3.png">
+<link rel="apple-touch-startup-image" media="(device-width: 402px) and (device-height: 874px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="art/img/spust/402x874@3.png">
+<link rel="apple-touch-startup-image" media="(device-width: 440px) and (device-height: 956px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="art/img/spust/440x956@3.png">
+<link rel="apple-touch-startup-image" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="art/img/spust/428x926@3.png">
+<link rel="apple-touch-startup-image" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="art/img/spust/390x844@3.png">
+<link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="art/img/spust/375x812@3.png">
+<link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="art/img/spust/414x896@3.png">
+<link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="art/img/spust/414x896@2.png">
+<link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="art/img/spust/375x667@2.png">
+<link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="art/img/spust/414x736@3.png">
 <meta name="claude:viewport-fit-sides" content="cover">
 <!-- písma leží přímo na webu (art/pisma, licence SIL OFL): rychlejší načtení a žádné dotazy na Google -->
 <link rel="preload" href="art/pisma/alegreya-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -72,7 +86,6 @@
       <div class="svitek"><div class="svlist"><a href="#kronika">Zápisy tažení<small>ze sezení družiny</small></a><a href="#kronika/clanky">Traktáty<small>o světě po protržení Závoje</small></a><a href="#kronika/letopis">Letopis<small>události Koruny a světa</small></a><a href="#druzina">Družina<small>hrdinové tažení a jejich Svědomí</small></a><a href="#karty">Karty postav<small>listy postav z D&amp;D Beyond, hody a odpočinky</small></a><a href="#sezeni" class="gmonly">Příprava sezení<small>scény, setkání a ukázky pro hráče</small></a></div></div></div>
     <div class="navdd" id="navdesky"><a href="#desky" class="ddtop" data-navgrp="desky mapa praha svet" aria-haspopup="true" aria-expanded="false">Zemské desky</a>
       <div class="svitek"><div class="svlist"><span class="svsep" aria-hidden="true">Rody</span><a href="#desky">Zemí Koruny České<small>panstvo, církev a města Koruny</small></a><a href="#desky/sousede">Zahraniční rody<small>okolní země a jejich vládci</small></a><span class="svsep" aria-hidden="true">Osoby</span><a href="#desky/osoby">Matriky<small>koho družina poznala</small></a><span class="svsep" aria-hidden="true">Mapy</span><a href="#mapa">Mapa Zemí Koruny České<small>Čechy, Morava, Slezsko a Lužice</small></a><a href="#svet">Známý svět<small>Evropa a Středomoří</small></a><a href="#praha">Praha<small>čtyři města pražská</small></a></div></div></div>
-    <a href="#boj" data-nav="boj" class="navgm navboj" id="navboj" title="Boj – iniciativa" aria-label="Boj" hidden><img class="navpecet" src="art/img/kostka.webp" alt="" width="40" height="40"><span class="navgmt">Boj</span></a>
     <a href="#vyprava" data-nav="vyprava" class="navgm navboj navvy" id="navvy" title="Výprava – cesta družiny" aria-label="Výprava" hidden><img class="navpecet" src="art/img/hul.webp" alt="" width="40" height="40"><span class="navgmt">Výprava</span></a>
     <div class="gsearch" role="search"><input type="search" id="gq" placeholder="Hledat v celé kronice…" aria-label="Hledat na celém webu" autocomplete="off"><ul class="gres" id="gres" hidden></ul></div>
     <a href="#gm" data-nav="gm" class="navgm" id="navgm" title="Vypravěč – přihlášení" aria-label="Vypravěč – přihlášení"><img class="navpecet" src="art/img/pecet.webp" alt="" width="40" height="40"><span class="navgmt">Vypravěč</span></a>
@@ -83,7 +96,7 @@
 <div class="view" data-view="uvod" hidden>
 <div class="herobox"><figure class="herofig"><span class="drstav" role="img" aria-label="Iluminace: bílý dráček ve zlatém kalichu plném vína pod hvězdnou oblohou. Dráček bdí – je den." title="Dráček bdí – je den."><img class="drsp" src="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 1 1%27/%3E" width="560" height="560" alt=""></span><figcaption>Sub utraque sunt dracones</figcaption></figure><section class="hero" id="hero"></section></div>
 <div class="uvgrid">
-  <section class="sec uvev"><h2 class="uvh">Poslední události</h2><div id="uvnovw" hidden><h3 class="uvh2">Nedávné kontakty</h3><div class="kontakty" id="uvnov"></div></div><div id="uvzap"></div><h3 class="uvh2">Ze světa</h3><dl class="tl" id="uvlet"></dl><a class="uvmore" href="#kronika/letopis">Celý letopis →</a></section>
+  <section class="sec uvev"><div id="uvucet" class="uvucet" hidden></div><h2 class="uvh">Poslední události</h2><div id="uvnovw" hidden><h3 class="uvh2">Nedávné kontakty</h3><div class="kontakty" id="uvnov"></div></div><div id="uvzap"></div><h3 class="uvh2">Ze světa</h3><dl class="tl" id="uvlet"></dl><a class="uvmore" href="#kronika/letopis">Celý letopis →</a></section>
   <aside class="kal" id="kal1" aria-label="Kalendárium"></aside>
 </div>
 </div>
@@ -328,9 +341,6 @@
 <div class="view" data-view="kouzla" hidden>
 <section class="sec" id="kzview"></section>
 </div>
-<div class="view" data-view="hra" hidden>
-<section class="sec" id="hraview"></section>
-</div>
 <div class="view" data-view="sezeni" hidden>
 <section class="sec" id="szview"></section>
 </div>
@@ -343,7 +353,7 @@
 </main>
 <footer class="colophon">
   <span class="corn" aria-hidden="true"></span>
-  <img class="cdrak" src="art/drak.webp" srcset="art/drak-450.webp 450w, art/drak.webp 900w" sizes="(max-width:600px) 64vw, 380px" alt="" aria-hidden="true" width="900" height="300" loading="lazy">
+  <img class="cdrak" src="art/drak.webp" srcset="art/drak-450.webp 450w, art/drak-600.webp 600w, art/drak.webp 900w" sizes="(max-width:600px) 64vw, 380px" alt="" aria-hidden="true" width="900" height="300" loading="lazy">
   <p class="cq">Sepsáno v Praze léta Páně 1458 · <i>Sub utraque sunt dracones</i></p>
   <button type="button" class="ctop" onclick="scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'})">↑ Zpět nahoru</button>
 </footer>
@@ -364,6 +374,8 @@ function zminky(D){
 }
 const C=window.MMCFG||null;
 window.MMDB=null;window.MMINFO="";
+/* nainstalovaná aplikace (ikona na ploše): třída pro vzhled – záložky boje u palce, bez „přetažení pro obnovení“ */
+try{if(matchMedia("(display-mode: standalone)").matches||navigator.standalone===true)document.documentElement.classList.add("mmapp")}catch(e){}
 /* offline režim: jen hráčská verze na webu (ne vypravěčský soubor ani náhled) */
 if("serviceWorker" in navigator&&(location.protocol==="https:"||location.hostname==="localhost"))
   addEventListener("load",()=>{if(document.querySelector("script#mmhlavni[src],script#mmhlavni[data-src]"))navigator.serviceWorker.register("sw.js").catch(()=>{})});
@@ -388,11 +400,27 @@ async function token(){
   return r.at}
 /* přihlášený hráč (heslo ke kartě postavy): token relace se posílá k zápisům za postavu */
 const htok=()=>{try{return (JSON.parse(localStorage.getItem("mm-hrac")||"null")||{}).t||null}catch(e){return null}};
-/* hráč přihlášený přes Discord (Supabase Auth): návrat z přihlášení nese tokeny v adrese za # */
-const HLS="mm-hrac-relace";
-{const q=new URLSearchParams(location.hash.slice(1));
-  if(q.get("access_token")&&q.get("refresh_token")){try{localStorage.setItem(HLS,JSON.stringify({at:q.get("access_token"),rt:q.get("refresh_token"),exp:+q.get("expires_at")||Math.floor(Date.now()/1000)+(+q.get("expires_in")||3600)}))}catch(e){}history.replaceState(null,"",location.pathname+location.search+"#hra")}
-  else if(q.get("error_description")){window.MMINFO="Přihlášení přes Discord se nepovedlo: "+q.get("error_description");history.replaceState(null,"",location.pathname+location.search+"#hra")}}
+/* hráč přihlášený přes Discord (Supabase Auth, PKCE): před odchodem na Discord si uložíme ověřovací klíč, návrat nese ?code=,
+   který vyměníme za tokeny. Klíč zůstává v prohlížeči (aplikaci), kde přihlášení začalo – tokeny proto nikdy neputují adresou
+   a přihlášení, které začalo v nainstalované aplikaci, v ní také skončí. Starý návrat s tokeny za # se ještě přijme. */
+const HLS="mm-hrac-relace",PKCE="mm-pkce";
+const hlsUloz=j=>{const r={at:j.access_token,rt:j.refresh_token,exp:j.expires_at||Math.floor(Date.now()/1000)+(j.expires_in||3600)};try{localStorage.setItem(HLS,JSON.stringify(r))}catch(e){}return r};
+const b64u=b=>btoa(String.fromCharCode(...new Uint8Array(b))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
+const nahlas=t=>{window.MMINFO=t;history.replaceState(null,"",location.pathname+"#hra")};
+let PKCEX=null;
+{const q=new URLSearchParams(location.hash.slice(1)),s=new URLSearchParams(location.search);
+  if(s.get("code")){const code=s.get("code");let ov=null;try{ov=localStorage.getItem(PKCE)||sessionStorage.getItem(PKCE)}catch(e){}
+    try{localStorage.removeItem(PKCE);sessionStorage.removeItem(PKCE)}catch(e){}
+    if(ov)PKCEX=api("/auth/v1/token?grant_type=pkce",{method:"POST",body:JSON.stringify({auth_code:code,code_verifier:ov})}).then(j=>{hlsUloz(j);nahlas("")},e=>nahlas("Přihlášení přes Discord se nepovedlo: "+(e.message||e)));
+    else nahlas("Přihlášení doběhlo v jiném prohlížeči, než kde začalo (nejspíš v Safari místo aplikace na ploše). Otevři aplikaci Mundus Mutatus a přihlas se znovu v ní.")}
+  else if(s.get("error_description")){nahlas("Přihlášení přes Discord se nepovedlo: "+s.get("error_description"))}
+  else if(q.get("access_token")&&q.get("refresh_token")){hlsUloz({access_token:q.get("access_token"),refresh_token:q.get("refresh_token"),expires_at:+q.get("expires_at")||0,expires_in:+q.get("expires_in")||3600});history.replaceState(null,"",location.pathname+location.search+"#hra")}
+  else if(q.get("error_description")){nahlas("Přihlášení přes Discord se nepovedlo: "+q.get("error_description"))}}
+async function discordPrihlas(){
+  const r=new Uint8Array(48);crypto.getRandomValues(r);const ov=b64u(r.buffer);
+  try{localStorage.setItem(PKCE,ov);sessionStorage.setItem(PKCE,ov)}catch(e){}
+  let ch=ov,m="plain";try{if(crypto.subtle){ch=b64u(await crypto.subtle.digest("SHA-256",new TextEncoder().encode(ov)));m="s256"}}catch(e){}
+  location.href=`${C.url}/auth/v1/authorize?provider=discord&redirect_to=${encodeURIComponent(location.origin+location.pathname)}&code_challenge=${ch}&code_challenge_method=${m}`}
 async function htokenAuth(){let r=null;try{r=JSON.parse(localStorage.getItem(HLS)||"null")}catch(e){}if(!r||!r.at)return null;
   if(r.exp-60<Date.now()/1000){try{const j=await api("/auth/v1/token?grant_type=refresh_token",{method:"POST",body:JSON.stringify({refresh_token:r.rt})});r={at:j.access_token,rt:j.refresh_token,exp:j.expires_at||Math.floor(Date.now()/1000)+(j.expires_in||3600)};localStorage.setItem(HLS,JSON.stringify(r))}
     catch(e){if(e.status>=400&&e.status<500)try{localStorage.removeItem(HLS)}catch(x){}return null}}
@@ -421,8 +449,11 @@ window.MMDB={vetev:C.vetev,
     if(!r.ok){let m="HTTP "+r.status;try{const j=await r.json();m=j.message||j.error||m}catch(e){}throw new Error("Nahrání obrázku selhalo: "+m)}
     return `${C.url}/storage/v1/object/public/obrazky/${cesta}`},
   cfg:C,
-  async bojNacti(){const j=await api(`/rest/v1/boj?id=eq.aktivni&select=stav,verze`);return j&&j[0]?j[0]:null},
-  async bojVerze(){const j=await api(`/rest/v1/boj?id=eq.aktivni&select=verze`);return j&&j[0]?j[0].verze:0},
+  /* boj čtou hráči přes mm_boj_cti (bez skrytých nepřátel), vypravěč s přihlášením dostane vše; GET, aby to service worker uměl podržet bez připojení */
+  async bojNacti(){const t=await token();try{const j=await api("/rest/v1/rpc/mm_boj_cti",{tok:t||undefined});return j&&j.stav?j:null}
+    catch(e){if(e.status!==404)throw e;const j=await api(`/rest/v1/boj?id=eq.aktivni&select=stav,verze`,{tok:t||undefined});return j&&j[0]?j[0]:null}},
+  async bojVerze(){const t=await token();try{const v=await api("/rest/v1/rpc/mm_boj_verze",{tok:t||undefined});return +v||0}
+    catch(e){if(e.status!==404)throw e;const j=await api(`/rest/v1/boj?id=eq.aktivni&select=verze`,{tok:t||undefined});return j&&j[0]?j[0].verze:0}},
   async bojUloz(s,v){const t=await token();if(!t)throw new Error("Přihlášení vypršelo – přihlaste se znovu.");
     if(v!=null&&v>0)return api("/rest/v1/rpc/mm_boj_uloz_v",{method:"POST",tok:t,body:JSON.stringify({p_stav:s,p_verze:v})});
     return api("/rest/v1/rpc/mm_boj_uloz",{method:"POST",tok:t,body:JSON.stringify({p_stav:s})})},
@@ -435,6 +466,16 @@ window.MMDB={vetev:C.vetev,
   async kartaUloz(k){return rpc("mm_karta_uloz",{p_karta:k,p_token:htok()})},
   async kartaStav(id,pole,hodnota){return rpc("mm_karta_stav",{p_id:id,p_pole:pole,p_hodnota:hodnota,p_token:htok()})},
   async kartaLecit(id,hp,max,od){return rpc("mm_karta_lecit",{p_id:id,p_hp:hp,p_max:max,p_od:od,p_token:htok()})},
+  async ranaVylecena(od,jmeno,j){return rpc("mm_rana_vylecena",{p_od:od,p_jmeno:jmeno,p_j:j,p_token:htok()})},
+  async navrh(od,data){return rpc("mm_navrh",{p_od:od,p_data:data,p_token:htok()})},
+  async navrhy(){return api(`/rest/v1/navrhy?select=id,cas,karta,data,stav,vys&order=id.desc&limit=40`)},
+  navrhVyrid(id,stav,vys){return this.gm("mm_navrh_vyrid",{p_id:id,p_stav:stav,p_vys:vys||null})},
+  zmeny(od){return this.gm("mm_zmeny",{p_od:od||null,p_limit:600})},
+  zmena(id){return this.gm("mm_zmena",{p_id:id})},
+  async potvrz(){return rpc("mm_potvrz",{})},
+  async puls(){return api("/rest/v1/rpc/mm_puls",{method:"POST",body:"{}"})},
+  async hra(){return api("/rest/v1/rpc/mm_hra",{method:"POST",body:"{}"})},
+  potvrzNastav(p){return this.gm("mm_potvrz_nastav",{p_hodnota:p})},
   async kartaBardic(id,k,od){return rpc("mm_karta_bardic",{p_id:id,p_kostka:k,p_od:od,p_token:htok()})},
   async kartaHistorie(id){return rpc("mm_karta_historie",{p_id:id,p_token:htok()})},
   async kartaObnov(id,n){return rpc("mm_karta_obnov",{p_id:id,p_n:n,p_token:htok()})},
@@ -443,10 +484,25 @@ window.MMDB={vetev:C.vetev,
   kartaSmaz(id){return this.gm("mm_karta_smaz",{p_id:id})},
   async hodyNacti(){return api(`/rest/v1/hody?select=id,cas,data&order=id.desc&limit=100`)},
   async hodZapis(h){return rpc("mm_hod",{p_hod:h,p_token:htok()})},
-  discordLogin(){location.href=`${C.url}/auth/v1/authorize?provider=discord&redirect_to=${encodeURIComponent(location.origin+location.pathname)}`},
+  discordLogin(){return discordPrihlas()},
   hracPrihlasen(){try{return !!JSON.parse(localStorage.getItem(HLS)||"null")}catch(e){return false}},
   async hracUzivatel(){const t=await htokenAuth();return t?api("/auth/v1/user",{tok:t}):null},
   async discordOdhlas(){const t=await htokenAuth();if(t)try{await api("/auth/v1/logout",{method:"POST",tok:t})}catch(e){}try{localStorage.removeItem(HLS)}catch(e){}},
+  /* účet hráče s heslem (Supabase Auth, e-mail se nepotvrzuje): přezdívka se převede na umělou adresu, skutečný e-mail projde beze změny;
+     relace je stejná jako u Discordu (mm-hrac-relace), takže volba postavy a zápisy jedou přes hraci_ucty */
+  ucetEmail(j){j=String(j||"").trim();if(j.includes("@"))return j.toLowerCase();const s=j.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,".").replace(/^\.+|\.+$/g,"").slice(0,40);return s.length>=2?`${s}.hrac@mundusmutatus.netlify.app`:""},
+  _ucetUloz(j){if(!j||!j.access_token)return false;hlsUloz(j);return true},
+  _ucetChyba(e){const m=String((e&&e.message)||e||"");const T=[[/invalid login credentials/i,"Špatné jméno nebo heslo."],[/already registered|already exists/i,"Toto jméno už někdo používá – zvol jiné, nebo se přihlas."],
+      [/password should be at least (\d+)/i,(x,n)=>`Heslo musí mít aspoň ${n} znaků.`],[/signups? not allowed|signups? (are )?disabled/i,"Zakládání účtů je v nastavení databáze vypnuté – řekni vypravěči."],
+      [/confirm|sending.*email/i,"Účet čeká na potvrzení e-mailem, které tu nefunguje – řekni vypravěči (v Supabase vypnout „Confirm email“)."],[/rate limit|too many/i,"Příliš mnoho pokusů – zkus to za chvíli."],[/invalid.*email|unable to validate email/i,"Takové jméno nejde použít – zkus jiné (písmena a číslice)."]];
+    for(const [r,t] of T){const x=m.match(r);if(x)return new Error(typeof t==="function"?t(...x):t)}return new Error(m||"Přihlášení se nepovedlo.")},
+  async ucetZaloz(jmeno,heslo){const email=this.ucetEmail(jmeno);if(!email)throw new Error("Zadej jméno (aspoň 2 písmena).");let j;
+    try{j=await api("/auth/v1/signup",{method:"POST",body:JSON.stringify({email,password:heslo,data:{jmeno:String(jmeno).trim().slice(0,60)}})})}catch(e){throw this._ucetChyba(e)}
+    if(!this._ucetUloz(j))throw this._ucetChyba("confirm");return j},
+  async ucetPrihlas(jmeno,heslo){const email=this.ucetEmail(jmeno);if(!email)throw new Error("Zadej jméno.");let j;
+    try{j=await api("/auth/v1/token?grant_type=password",{method:"POST",body:JSON.stringify({email,password:heslo})})}catch(e){throw this._ucetChyba(e)}
+    this._ucetUloz(j);return j},
+  async ucetHeslo(h){const t=await htokenAuth();if(!t)throw new Error("Přihlášení vypršelo – přihlas se znovu.");try{await api("/auth/v1/user",{method:"PUT",tok:t,body:JSON.stringify({password:h})})}catch(e){throw this._ucetChyba(e)}},
   ja(){return rpc("mm_ja",{})},
   jaKarta(k,n){return rpc("mm_ja_karta",{p_karta:k,p_jmeno:n||null})},
   jaUvolni(k){return this.gm("mm_ja_uvolni",{p_karta:k})},
@@ -454,6 +510,8 @@ window.MMDB={vetev:C.vetev,
   kartaTextyUloz(id,t){return rpc("mm_karta_texty_uloz",{p_id:id,p_texty:t,p_token:htok()})},
   pokladnaNacti(){return api("/rest/v1/rpc/mm_pokladna_nacti",{method:"POST",body:"{}"})},
   pokladna(z,p,k){return rpc("mm_pokladna",{p_zmena:z,p_pozn:p||null,p_karta:k||null,p_token:htok()})},
+  pokladnaVec(v,smer,k,zakl){return rpc("mm_pokladna_vec",{p_vec:v,p_smer:smer,p_karta:k||null,p_token:htok(),p_zaklad:zakl||null})},
+  kartaDar(od,komu,n,q,zakl){return rpc("mm_karta_dar",{p_od:od,p_komu:komu,p_n:n,p_q:q,p_token:htok(),p_zaklad:zakl||null})},
   discordNastav(u){return this.gm("mm_discord_nastav",{p_url:u||null})},
   discordStav(){return this.gm("mm_discord_stav")},
   async discordPrikazy(){const t=await token();if(!t)throw new Error("Přihlášení vypršelo – přihlaste se znovu.");const r=await fetch(`${C.url}/functions/v1/mm-discord?registrace`,{method:"POST",headers:{apikey:C.key,Authorization:"Bearer "+t}});let j={};try{j=await r.json()}catch(e){}if(!r.ok||!j.ok)throw new Error(j.chyba||("služba Discordu: "+r.status));return true},
@@ -480,34 +538,49 @@ let MMV=null;
 function spust(D){
   window.__D=D;zminky(D);
   const m=document.getElementById("mmhlavni"),s=document.createElement("script");
-  if(m.dataset.src){s.src=m.dataset.src;s.onload=()=>po(D);s.onerror=()=>{document.documentElement.classList.remove("mmload");hlas("Stránku se nepodařilo načíst – zkuste ji obnovit.",9000)};m.after(s);return}
+  /* hráčská verze: skript je v několika dílech (build.py) – spustí se v daném pořadí, po posledním se stránka ukáže */
+  if(m.dataset.src){const L=m.dataset.src.split(" ").filter(Boolean);let kde=m,chyba=false;
+    L.forEach((u,i)=>{const x=i?document.createElement("script"):s;x.src=u;x.async=false;
+      x.onerror=()=>{if(chyba)return;chyba=true;document.documentElement.classList.remove("mmload");hlas("Stránku se nepodařilo načíst – zkuste ji obnovit.",9000)};
+      if(i===L.length-1)x.onload=()=>{if(!chyba)po(D)};kde.after(x);kde=x});return}
   s.textContent=m.textContent;m.after(s);po(D)}
 function po(D){
   document.documentElement.classList.remove("mmload");
+  /* tečka na ikoně aplikace (Badging API) zmizí, jakmile je web vidět */
+  if(navigator.clearAppBadge){const cb=()=>{if(document.visibilityState==="visible")navigator.clearAppBadge().catch(()=>{})};cb();document.addEventListener("visibilitychange",cb)}
   if(navigator.onLine===false)setTimeout(()=>hlas("Jste bez připojení – zobrazuji naposledy uložený stav desek.",7000),300);
   let ob=null;try{ob=JSON.parse(sessionStorage.getItem("mm-obnova")||"null");sessionStorage.removeItem("mm-obnova")}catch(e){}
   if(ob&&ob.h===location.hash)setTimeout(()=>{scrollTo(0,ob.y);hlas(ob.t||"Zemské desky byly doplněny o nové poznatky.")},60);
   if(window.MMINFO&&!D.GM)hlas(window.MMINFO,8000);
   if(!D.GM&&MMV!==null){
+    /* nová verze desek: místo okamžitého obnovení lišta „Obnovit“; stránka se obnoví sama, až telefon půl minuty nikdo nedrží v ruce */
+    let NV=null,NVT=0;const kl=()=>{NVT=Date.now()};["pointerdown","keydown","scroll","touchstart"].forEach(t=>addEventListener(t,kl,{passive:true}));
+    const obnov=()=>{try{sessionStorage.setItem("mm-obnova",JSON.stringify({h:location.hash,y:scrollY}))}catch(e){}location.reload()};
+    const novaVerze=()=>{if(NV)return;NV=document.createElement("div");NV.className="mmhlas mmnova on";NV.setAttribute("role","status");NV.innerHTML='Zemské desky byly doplněny. <button type="button">Obnovit</button>';NV.querySelector("button").onclick=obnov;document.body.appendChild(NV);
+      const tik=()=>{if(document.visibilityState==="visible"&&Date.now()-NVT>30000&&(typeof window.mmObnovaMozna!=="function"||window.mmObnovaMozna()))obnov();else setTimeout(tik,5000)};NVT=Date.now();setTimeout(tik,5000)};
     const kontrola=async()=>{if(document.visibilityState!=="visible")return;
-      try{const v=await window.MMDB.verze();if(v!==null&&v!==MMV){try{sessionStorage.setItem("mm-obnova",JSON.stringify({h:location.hash,y:scrollY}))}catch(e){}location.reload()}}catch(e){}};
-    setInterval(kontrola,20000);document.addEventListener("visibilitychange",kontrola)}
+      try{const v=await window.MMDB.verze();if(v!==null&&v!==MMV)novaVerze()}catch(e){}};
+    /* s pulsem (25-puls.js) se verze ověří, jen když se výřez opravdu změnil */
+    window.mmKontrolaVerze=kontrola;if(!window.MMPULS&&!(window.MMLINE||{}).hra){setInterval(kontrola,20000);document.addEventListener("visibilitychange",kontrola)}}
 }
 function hlas(t,ms){const d=document.createElement("div");d.className="mmhlas";d.setAttribute("role","status");d.textContent=t;document.body.appendChild(d);
   requestAnimationFrame(()=>d.classList.add("on"));setTimeout(()=>{d.classList.remove("on");setTimeout(()=>d.remove(),400)},ms||4500)}
 window.mmHlas=hlas;
+/* herní stav se ve výřezu nepřepočítává při každé změně času (mm_hra) – načte se zvlášť, se starší databází zůstane ten z výřezu */
+const hraAkt=()=>api("/rest/v1/rpc/mm_hra",{method:"POST",body:"{}"}).then(h=>h&&typeof h==="object"?h:null,()=>null);
 (async()=>{
   const S=window.__S||{};let D=null;
+  if(PKCEX)try{await PKCEX}catch(e){}
   if(relace()){
     try{const t=await token();
       if(t){const [o,st]=await Promise.all([api(`/rest/v1/obsah?vetev=eq.${V}&select=gm`,{tok:t}),api("/rest/v1/rpc/mm_stavy",{method:"POST",tok:t,body:"{}"})]);
         if(o&&o[0]){window.__GMRAW=o[0].gm;D=Object.assign({},S,JSON.parse(JSON.stringify(o[0].gm)),{GM:true,STAV:st||{}});
-          try{const x=await api(`/rest/v1/snimek?vetev=eq.${V}&select=hra:data->HRA,nov:data->NOVINKY`);if(x&&x[0]){D.HRA=x[0].hra;D.NOVINKY=x[0].nov}}catch(e){}}
+          try{const [x,h]=await Promise.all([api(`/rest/v1/snimek?vetev=eq.${V}&select=hra:data->HRA,nov:data->NOVINKY`),hraAkt()]);if(x&&x[0]){D.HRA=h||x[0].hra;D.NOVINKY=x[0].nov}}catch(e){}}
         else window.MMINFO="Tento účet nemá práva vypravěče, zobrazuji hráčskou verzi."}
       else window.MMINFO="Přihlášení vypršelo, zobrazuji hráčskou verzi."}
     catch(e){window.MMINFO="Vypravěčská data se nepodařilo načíst ("+e.message+"), zobrazuji hráčskou verzi.";if(e.status===401)smaz()}}
-  if(!D){try{const j=await api(`/rest/v1/snimek?vetev=eq.${V}&select=data,verze`);
-      if(j&&j[0]){D=Object.assign({},S,j[0].data);MMV=j[0].verze}else window.MMINFO="Zemské desky zatím nejsou v databázi."}
+  if(!D){try{const [j,h]=await Promise.all([api(`/rest/v1/snimek?vetev=eq.${V}&select=data,verze`),hraAkt()]);
+      if(j&&j[0]){D=Object.assign({},S,j[0].data);MMV=j[0].verze;if(h)D.HRA=h}else window.MMINFO="Zemské desky zatím nejsou v databázi."}
     catch(e){window.MMINFO="Zemské desky se nepodařilo načíst – zkuste stránku obnovit."}}
   spust(D||Object.assign({},S));
 })();
@@ -516,9 +589,12 @@ window.mmHlas=hlas;
 <script id="mmhlavni">
 /*@vloz web/js/01-zaklad.js*/
 /*@vloz web/js/02-mapa.js*/
+/*@vloz web/js/02b-mapa-kresba.js*/
 /*@vloz web/js/03-artikule.js*/
 /*@vloz web/js/04-praha.js*/
+/*@vloz web/js/04b-praha-plan.js*/
 /*@vloz web/js/05-svet.js*/
+/*@vloz web/js/05b-svet-mapa.js*/
 /*@vloz web/js/06-draconomicon-rodokmeny.js*/
 /*@vloz web/js/07-druzina-kronika.js*/
 /*@vloz web/js/08-navigace-pravidla.js*/
@@ -528,12 +604,25 @@ window.mmHlas=hlas;
 /*@vloz web/js/12-boj-tah-postavy.js*/
 /*@vloz web/js/13-karty.js*/
 /*@vloz web/js/14-karty-bojova-karta.js*/
+/*@vloz web/js/14b-vybaveni.js*/
+/*@vloz web/js/14c-boj-reakce.js*/
+/*@vloz web/js/14d-vybaveni-katalog.js*/
 /*@vloz web/js/15-karty-artikule.js*/
 /*@vloz web/js/16-srd-ukazky-sezeni-hrac.js*/
 /*@vloz web/js/17-karty-ii.js*/
+/*@vloz web/js/17b-kouzla-ucinky.js*/
 /*@vloz web/js/18-pravidla-postavy.js*/
 /*@vloz web/js/19-karty-beyond.js*/
 /*@vloz web/js/20-boj-hraci.js*/
+/*@vloz web/js/20b-boj-vypravec.js*/
+/*@vloz web/js/20c-boj-ridery.js*/
+/*@vloz web/js/20d-boj-render.js*/
+/*@vloz web/js/20e-boj-vlastnosti.js*/
 /*@vloz web/js/21-editor-pecet.js*/
 /*@vloz web/js/22-vyprava.js*/
+/*@vloz web/js/22b-vyprava.js*/
+/*@vloz web/js/23-potvrzovani.js*/
+/*@vloz web/js/24-boj-zaznam.js*/
+/*@vloz web/js/25-puls.js*/
+/*@vloz web/js/26-start.js*/
 </script>

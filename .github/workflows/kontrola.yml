@@ -1,26 +1,34 @@
 name: Kontrola webu
-# Při každém nahrání (a u pull requestů) sestaví web a vyzkouší ho v prohlížeči: že do hráčské verze
-# neproteklo žádné tajemství, že databáze nepustí hráče k obsahu vypravěče, že funguje odhalování, herní stav,
-# tracker iniciativy, editor textů, zápisy Kroniky a pečeť a že všechny stránky jdou otevřít bez chyb.
-# Výsledek je vidět u commitu (✓ / ✗); při chybě jsou snímky obrazovky v příloze běhu („testy-snimky“).
+# Při každém nahrání (a u pull requestů) sestaví web a vyzkouší ho: že do hráčské verze neproteklo žádné tajemství,
+# že databáze nepustí hráče k obsahu vypravěče, že kód nemá zdvojená či neznámá jména a pak v prohlížeči odhalování,
+# herní stav, boj, karty, editor, zápisy Kroniky, pečeť a že všechny stránky jdou otevřít bez chyb.
+# Výsledek je vidět u commitu (✓ / ✗); chyby jsou v anotacích (`gh run view <id>`), snímky obrazovky v příloze běhu.
 # Nepotřebuje žádná tajemství – Supabase nahrazuje testovací databáze přímo v běhu.
-# Úspora minut: jen větve main a dev, ne při změně samotných poznámek a dokumentace; novější nahrání
-# do stejné větve zruší ještě běžící kontrolu staršího (výsledek stejně platí pro poslední stav).
+#
+# Rozdělení (2026-10-21): „Rychlá kontrola“ (sestavení, tajemství, kontrola kódu, schéma, práva; ~3 min) doběhne vždy –
+# novější nahrání ji neruší, takže každý commit má aspoň rychlý výsledek. Testy v prohlížeči běží ve čtyřech
+# souběžných částech; novější nahrání do stejné větve rozběhnuté části zruší (výsledek platí pro poslední stav).
+# Délky testů vypisuje testy/spustit.sh („✓ název (37 s)“) – podle nich se části vyvažují.
 on:
   push:
     branches: [main, dev]
     paths-ignore: ["README.md", "CLAUDE.md", "LICENSE", "testy/README.md", "zdroj/obsah/NÁVOD.md", "podklady/**", "supabase/functions/**"]
   pull_request:
   workflow_dispatch:
-concurrency:
-  group: kontrola-${{ github.ref }}
-  cancel-in-progress: true
 permissions:
   contents: read
+  actions: read
+env:
+  PGHOST: localhost
+  PGUSER: postgres
+  PGPASSWORD: postgres
+  POSTGREST: /tmp/postgrest
+  MM_VYSTUP: /tmp/testy-snimky
 jobs:
-  kontrola:
+  rychla:
+    name: Rychlá kontrola
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 10
     services:
       postgres:
         image: postgres:16
@@ -29,12 +37,6 @@ jobs:
         ports: ["5432:5432"]
         options: >-
           --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
-    env:
-      PGHOST: localhost
-      PGUSER: postgres
-      PGPASSWORD: postgres
-      POSTGREST: /tmp/postgrest
-      MM_VYSTUP: /tmp/testy-snimky
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -42,19 +44,94 @@ jobs:
           python-version: "3.12"
       - uses: actions/setup-node@v4
         with:
-          node-version: "20"
-      - name: Nástroje pro testy
+          node-version: "22"
+          cache: npm
+      - name: Nástroje
         run: |
-          sudo apt-get update -qq && sudo apt-get install -y -qq postgresql-client >/dev/null
+          npm ci --no-audit --no-fund
+          sudo apt-get install -y -qq postgresql-client >/dev/null
+          curl -sSL https://github.com/PostgREST/postgrest/releases/download/v12.2.3/postgrest-v12.2.3-linux-static-x64.tar.xz | tar -xJ -C /tmp
+      - name: Kontrola
+        run: MM_RYCHLA=1 bash testy/spustit.sh
+
+  prohlizec:
+    name: Prohlížeč – ${{ matrix.cast }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    concurrency:
+      group: kontrola-${{ github.ref }}-${{ matrix.cast }}
+      cancel-in-progress: true
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - cast: stránky a bestiář
+            testy: "odhalovani herni_stav draci zapisy vyprava"
+            prohlidky: "staticka"
+          - cast: boj
+            testy: "boj boj2 tah"
+            prohlidky: ""
+          - cast: karta
+            testy: "reakce potvrz karta"
+            prohlidky: ""
+          - cast: ostatní a prohlídka
+            testy: "karta_vse pecet editor"
+            prohlidky: "db"
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - name: Mezipaměť prohlížeče
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-v1
+      - name: Nástroje
+        run: |
+          npm ci --no-audit --no-fund
+          sudo apt-get install -y -qq postgresql-client >/dev/null
           curl -sSL https://github.com/PostgREST/postgrest/releases/download/v12.2.3/postgrest-v12.2.3-linux-static-x64.tar.xz | tar -xJ -C /tmp
           pip install -q playwright pillow
           python -m playwright install --with-deps chromium
       - name: Kontrola
+        env:
+          MM_TESTY: ${{ matrix.testy }}
+          MM_PROHLIDKY: ${{ matrix.prohlidky }}
         run: bash testy/spustit.sh
       - name: Snímky obrazovky při chybě
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: testy-snimky
+          name: testy-snimky-${{ strategy.job-index }}
           path: /tmp/testy-snimky
           if-no-files-found: ignore
+
+  souhrn:
+    name: Od posledního zeleného stavu
+    needs: [rychla, prohlizec]
+    if: failure()
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Poslední zelený commit a změny od něj
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          sha=$(gh run list -R "$GITHUB_REPOSITORY" --workflow kontrola.yml --branch "$GITHUB_REF_NAME" --status success -L 1 --json headSha -q '.[0].headSha' || true)
+          if [ -z "$sha" ]; then echo "::warning title=Poslední zelený commit::žádný úspěšný běh na větvi $GITHUB_REF_NAME"; exit 0; fi
+          zm=$(gh api "repos/$GITHUB_REPOSITORY/compare/$sha...$GITHUB_SHA" --jq '[.commits[] | (.sha[0:7] + " " + (.commit.message | split("\n")[0]))] | join(" · ")' | cut -c1-900)
+          echo "::error title=Poslední zelený commit ${sha:0:7}::změny od něj: $zm"
+          { echo "### Poslední zelený commit: \`${sha:0:7}\`"; echo; echo "$zm" | tr '·' '\n' | sed 's/^ */- /'; } >> "$GITHUB_STEP_SUMMARY"

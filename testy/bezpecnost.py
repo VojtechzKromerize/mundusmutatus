@@ -23,24 +23,36 @@ for kdo, tok in (("anonym", None), ("hráč", hr)):
         r = call(f"/rest/v1/{t}?select=*&limit=1", tok=tok)
         chk(prazdne(r) or not ok(r[0]), f"{kdo} nečte tabulku {t}")
     chk(call("/rest/v1/snimek?select=verze", tok=tok)[0] == 200, f"{kdo} čte veřejný výřez")
-    chk(call("/rest/v1/boj?select=verze", tok=tok)[0] == 200, f"{kdo} čte tracker iniciativy")
-    for t in ("karty", "hody", "vyzvy", "ukazky"):
+    chk(prazdne(call("/rest/v1/boj?select=verze", tok=tok)) or not ok(call("/rest/v1/boj?select=verze", tok=tok)[0]), f"{kdo} nečte tabulku boj přímo (skrytí nepřátelé)")
+    chk(ok(call("/rest/v1/rpc/mm_boj_cti", tok=tok)[0]), f"{kdo} čte boj přes mm_boj_cti")
+    chk(ok(call("/rest/v1/rpc/mm_puls", "POST", {}, tok=tok)[0]) and ok(call("/rest/v1/rpc/mm_hra", "POST", {}, tok=tok)[0]), f"{kdo} čte puls a herní stav")
+    chk(not ok(call("/rest/v1/puls", "POST", {"druh": "boj"}, tok=tok)[0]), f"{kdo} nesmí zapisovat do pulsu")
+    for t in ("karty", "hody", "vyzvy", "ukazky", "navrhy"):
         chk(call(f"/rest/v1/{t}?select=id&limit=1", tok=tok)[0] == 200, f"{kdo} čte veřejnou tabulku {t}")
     s, b = call("/rest/v1/rpc/mm_stavy", "POST", {}, tok=tok)
     chk(not ok(s) or b.strip() in ("null", ""), f"{kdo} nevidí stavy odhalení")
     for fn, body in (("mm_nastav_stavy", {"p_zmeny": {"slik": 1}}), ("mm_nastav_hru", {"p_hra": {}}),
                      ("mm_nahraj_obsah", {"p_vetev": "x", "p_hrac": {}, "p_gm": {}, "p_vychozi": {}}), ("mm_prepocitej", {}),
                      ("mm_uloz_zaznam", {"p_soubor": "osoby/x.md", "p_md": "x", "p_puvodni": None}), ("mm_zaznamy_gm", {}),
-                     ("mm_boj_uloz", {"p_stav": {}}), ("mm_boj_uloz_v", {"p_stav": {}, "p_verze": 1}), ("mm_vyprava_nacti", {}), ("mm_vyprava_uloz", {"p_stav": {}}), ("mm_kouzla_nacti", {}), ("mm_kouzla_uloz", {"p_kouzla": []}), ("mm_nastav_obrazek", {"p_typ": "erby", "p_klic": "x", "p_hodnota": {}}),
+                     ("mm_boj_uloz", {"p_stav": {}}), ("mm_boj_uloz_v", {"p_stav": {}, "p_verze": 1}), ("mm_zmeny", {"p_od": None}), ("mm_zmena", {"p_id": 1}), ("mm_navrh_vyrid", {"p_id": 1, "p_stav": "ok"}), ("mm_potvrz_nastav", {"p_hodnota": {"rezim": "nic"}}), ("mm_vyprava_nacti", {}), ("mm_vyprava_uloz", {"p_stav": {}}), ("mm_kouzla_nacti", {}), ("mm_kouzla_uloz", {"p_kouzla": []}), ("mm_nastav_obrazek", {"p_typ": "erby", "p_klic": "x", "p_hodnota": {}}),
                      ("mm_ukaz", {"p_ukazka": {"n": "x"}}), ("mm_ukaz_smaz", {"p_id": 1}), ("mm_sezeni_nacti", {}), ("mm_sezeni_uloz", {"p_sezeni": {"s": []}}),
                      ("mm_vyzva", {"p_vyzva": {"typ": "zach", "ab": "WIS"}}), ("mm_vyzva_zavri", {"p_id": None}), ("mm_hrac_zrus_heslo", {"p_karta": "balduin"}), ("mm_zpravy_gm", {}), ("mm_hrac_ok", {"p_karta": "x", "p_token": None}), ("mm_ja_uvolni", {"p_karta": "x"}), ("mm_discord_nastav", {"p_url": None}), ("mm_discord_postava", {"p_discord": "1"}), ("mm_push_data", {"p_karty": ["balduin"], "p_gm": True}), ("mm_discord_hod", {"p_hod": {"src": "discord"}}), ("mm_push_posli", {"p_karty": ["balduin"], "p_gm": True, "p_titul": "x", "p_text": "x", "p_url": "#hra"}), ("mm_push_prihlas", {"p_odber": {"endpoint": "https://x.cz/a", "keys": {"p256dh": "a", "auth": "b"}}, "p_karta": None})):
         chk(not ok(call(f"/rest/v1/rpc/{fn}", "POST", body, tok=tok)[0]), f"{kdo} nesmí volat {fn}")
-    for t in ("hesla", "relace_hracu", "zpravy", "hraci_ucty", "karty_texty", "karty_historie", "push_odbery"):
+    for t in ("hesla", "relace_hracu", "zpravy", "hraci_ucty", "karty_texty", "karty_historie", "push_odbery", "zmeny"):
         st, bd = call(f"/rest/v1/{t}?select=*", tok=tok)
         chk(not ok(st) or bd.strip() == "[]", f"{kdo} nečte tabulku {t}")
     for t, body in (("snimek", {"vetev": "zz", "data": {}}), ("stavy", {"id": "novy", "stav": 2}), ("gm", {"user_id": "22222222-2222-2222-2222-222222222222"})):
         chk(not ok(call(f"/rest/v1/{t}", "POST", body, tok=tok)[0]), f"{kdo} nesmí zapisovat do {t}")
 chk(json.loads(call("/rest/v1/obsah?select=vetev", tok=gm)[1]) != [], "vypravěč čte obsah")
+# skrytí nepřátelé: vypravěč čte boj celý, hráč bez účastníků skryt=true a bez jejich řádků záznamu
+chk(ok(call("/rest/v1/rpc/mm_boj_uloz", "POST", {"p_stav": {"aktivni": True, "npc": [{"id": "n1", "n": "Zjevný"}, {"id": "n2", "n": "Zálohář", "skryt": True}], "zaz": [{"a": "Zálohář", "c": "Adam", "v": "x"}, {"a": "Adam", "c": "Zjevný", "v": "y"}], "obsazeni": {"1": "n2", "2": "n1"}}}, tok=gm)[0]), "vypravěč uloží boj se skrytým nepřítelem")
+chk(ok(call("/rest/v1/boj?select=verze", tok=gm)[0]) and json.loads(call("/rest/v1/boj?select=verze", tok=gm)[1]) != [], "vypravěč čte tabulku boj")
+_g = json.loads(call("/rest/v1/rpc/mm_boj_cti", tok=gm)[1])["stav"]
+chk(len(_g["npc"]) == 2 and len(_g["zaz"]) == 2, "vypravěč dostane z mm_boj_cti i skrytého nepřítele")
+for kdo, tok in (("anonym", None), ("hráč", hr)):
+    _h = json.loads(call("/rest/v1/rpc/mm_boj_cti", tok=tok)[1])["stav"]
+    chk([o["n"] for o in _h["npc"]] == ["Zjevný"] and len(_h["zaz"]) == 1 and _h["obsazeni"] == {"2": "n1"} and "Zálohář" not in json.dumps(_h, ensure_ascii=False), f"{kdo} nedostane skrytého nepřítele ani jeho záznam a slot")
+chk(ok(call("/rest/v1/rpc/mm_boj_uloz", "POST", {"p_stav": {}}, tok=gm)[0]), "boj vrácen do výchozího stavu")
 chk(ok(call("/rest/v1/rpc/mm_nastav_stavy", "POST", {"p_zmeny": {"slik": 2}}, tok=gm)[0]), "vypravěč mění stavy")
 for fn, body in (("mm_nahraj_obsah", {"p_vetev": "x", "p_hrac": {}, "p_gm": {}, "p_vychozi": {}}), ("mm_zaznamy_vse", {}), ("mm_sync_zaznamy", {"p_soubory": {}, "p_uplny": False})):
     chk(not ok(call(f"/rest/v1/rpc/{fn}", "POST", body, tok=gm)[0]), f"vypravěč nesmí volat služební {fn}")

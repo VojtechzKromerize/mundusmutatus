@@ -55,6 +55,24 @@ mod = lambda v: (v - 10) // 2
 sg = lambda v: ("+" if v >= 0 else "−") + str(abs(v))
 
 
+def zdroje_srd(x):
+    """počty použití ze statbloku (2026-10-20): kouzla „2× za den každé: A, B“ / „1× za den: C“ a schopnosti „Název (3× za den)“
+       – každé kouzlo i schopnost má vlastní počitadlo; „Libovolně“ se nepočítá"""
+    zd = []
+    def pridej(n, mx):
+        n = re.sub(r"\s*\(.*?\)\s*$", "", n).strip(" .,:;")
+        if n and not any(z["n"] == n for z in zd): zd.append({"n": n, "max": mx})
+    for k in ("rysy", "akce", "bonus", "reakce"):
+        for a in x.get(k) or []:
+            m = re.search(r"\((\d+)\s*×\s*za den", a.get("n", ""))
+            if m: pridej(a["n"], int(m.group(1)))
+            t = re.sub(r"<[^>]+>|\*", " ", str(a.get("t", "")))
+            for m in re.finditer(r"(\d+)\s*×\s*za den(?: každé)?\s*:\s*(.*?)(?=\s*(?:\d+\s*×\s*za den|Libovolně\s*:|$))", t, re.S):
+                for s in re.split(r",\s*", m.group(2)):
+                    if s.strip(): pridej(s, int(m.group(1)))
+    return zd
+
+
 def netvor(x):
     leg = bool(x.get("leg"))
     u = "zhoubce" if leg else "sok"
@@ -95,7 +113,7 @@ def netvor(x):
     vy = f"{x.get('cr', '')} ({(x.get('xpt') or str(x.get('xp', ''))+' XP')})"
     st = ["SRD", re.sub(r"\s*\(.*", "", x.get("typ", ""))] + (["zvíře"] if x.get("zvire") else [])
     o = {"id": "srd-" + slug(x["en"]), "n": x["en"], "u": u, "ac": x.get("ac", ""), "hp": [{"n": "", "max": int(x.get("hp") or 1)}],
-         "ut": "", "poz": "", "pok": "", "kom": "", "ner": "", "zak": "", "vy": vy, "h": h, "at": at, "zd": [], "st": st,
+         "ut": "", "poz": "", "pok": "", "kom": "", "ner": "", "zak": "", "vy": vy, "h": h, "at": at, "zd": zdroje_srd(x), "st": st,
          "xp": int(x.get("xp") or 0), "vk": "", "srd": 1, "cr": str(x.get("cr", "")), "typ": x.get("typ", "")}
     if x.get("cz") and x["cz"].lower() != x["en"].lower():
         o["cz"] = x["cz"]

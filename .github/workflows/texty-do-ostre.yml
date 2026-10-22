@@ -1,0 +1,33 @@
+name: Texty do ostré databáze
+# Texty obsahu jsou v ostré databázi (vypravěč je upravuje na webu); zdroj/obsah je jejich záloha. Když se soubor
+# obsahu změní v repozitáři (větev dev), přenese se do ostré databáze – stejně jako dřív při sestavení náhledu dev,
+# dokud dev a ostrý web sdílely jednu databázi. Platí stejná pravidla: co vypravěč na webu upravil od poslední zálohy,
+# se nepřepíše (KONFLIKT, vyhraje web). Hodinová záloha z webu tento workflow nespouští (commit tokenem GitHubu).
+# Hráči změnu uvidí po příštím nasazení main (nebo hned, když vypravěč na webu uloží jakýkoli text).
+on:
+  push:
+    branches: [dev]
+    paths: ["zdroj/obsah/**"]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency: texty-ostra
+jobs:
+  texty:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      SUPABASE_URL: https://rzbflnwxpyepjcpndqyj.supabase.co
+      SUPABASE_KEY: sb_publishable_kN6K2Na9lg-54Tt1EvmKjA_TRx6Xm_S
+      SUPABASE_SECRET: ${{ secrets.SUPABASE_SECRET }}
+      MM_VETEV: dev
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Přenést změněné soubory obsahu do ostré databáze
+        run: python3 zdroj/build.py --jen-zaznamy
