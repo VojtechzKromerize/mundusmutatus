@@ -13,6 +13,8 @@ v `zdroj/obsah/NÁVOD.md`, testy v `testy/README.md`. Tady je jen to, co ušetř
   Před pushem vždy `git fetch origin dev` a rebase; nepřepisuj cizí commity.
 - **Testy:** úplnou kontrolu (hráč i vypravěč) spouštěj, jen když o ni Vojta požádá – zdržuje.
   CI ji stejně spustí při každém pushi: `gh run list -L 5`, chyby `gh run view <id> --log-failed`.
+  Kontrolu **na náhledu dev v prohlížeči Vojty** (hráč na telefonu, vypravěč na PC) dělá samostatný agent `tester`
+  (`.claude/agents/tester.md`): spusť ho s popisem změny a s přihlašovacími údaji zkušebních účtů; vrátí jen seznam nálezů.
 - **Commity česky**, popisují, co se změnilo pro uživatele webu.
 - **Zdroj pravdy je kód.** Dokumenty v projektu claude.ai (`vyvoj/*.md`, audity, zadání) mohou zaostávat
   za `dev` – než něco označíš za chybějící, ověř to v kódu.
