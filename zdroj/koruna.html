@@ -556,12 +556,20 @@ function po(D){
     /* nová verze desek: místo okamžitého obnovení lišta „Obnovit“; stránka se obnoví sama, až telefon půl minuty nikdo nedrží v ruce */
     let NV=null,NVT=0;const kl=()=>{NVT=Date.now()};["pointerdown","keydown","scroll","touchstart"].forEach(t=>addEventListener(t,kl,{passive:true}));
     const obnov=()=>{try{sessionStorage.setItem("mm-obnova",JSON.stringify({h:location.hash,y:scrollY}))}catch(e){}location.reload()};
-    const novaVerze=()=>{if(NV)return;NV=document.createElement("div");NV.className="mmhlas mmnova on";NV.setAttribute("role","status");NV.innerHTML='Zemské desky byly doplněny. <button type="button">Obnovit</button>';NV.querySelector("button").onclick=obnov;document.body.appendChild(NV);
+    const novaVerze=t=>{if(NV)return;NV=document.createElement("div");NV.className="mmhlas mmnova on";NV.setAttribute("role","status");NV.innerHTML=(t||"Zemské desky byly doplněny.")+' <button type="button">Obnovit</button>';NV.querySelector("button").onclick=obnov;document.body.appendChild(NV);
       const tik=()=>{if(document.visibilityState==="visible"&&Date.now()-NVT>30000&&(typeof window.mmObnovaMozna!=="function"||window.mmObnovaMozna()))obnov();else setTimeout(tik,5000)};NVT=Date.now();setTimeout(tik,5000)};
     const kontrola=async()=>{if(document.visibilityState!=="visible")return;
       try{const v=await window.MMDB.verze();if(v!==null&&v!==MMV)novaVerze()}catch(e){}};
     /* s pulsem (25-puls.js) se verze ověří, jen když se výřez opravdu změnil */
-    window.mmKontrolaVerze=kontrola;if(!window.MMPULS&&!(window.MMLINE||{}).hra){setInterval(kontrola,20000);document.addEventListener("visibilitychange",kontrola)}}
+    window.mmKontrolaVerze=kontrola;if(!window.MMPULS&&!(window.MMLINE||{}).hra){setInterval(kontrola,20000);document.addEventListener("visibilitychange",kontrola)}
+    /* nová verze webu (nasazení): aplikace v telefonu zůstává otevřená se starým kódem – při návratu do ní a každých 10 minut
+       se porovnají díly skriptu (v/…) s aktuální stránkou na serveru; jiné = stejná lišta Obnovit */
+    const dily=t=>[...new Set(String(t).match(/v\/[\w.-]+\.js/g)||[])].sort().join(" "),
+      dilyH=h=>dily(((h.match(/id="mmhlavni"[^>]*data-src="([^"]*)"/)||[])[1]||"")+((h.match(/MMLINE=(\{.*?\});/)||[])[1]||"")),
+      KOD=dilyH(document.documentElement.innerHTML);let KODT=0;
+    const kontrolaKodu=async()=>{if(!KOD||NV||document.visibilityState!=="visible"||Date.now()-KODT<60000)return;KODT=Date.now();
+      try{const r=await fetch("./",{cache:"no-store"});if(!r.ok)return;const n=dilyH(await r.text());if(n&&n!==KOD)novaVerze("Web má novou verzi.")}catch(e){}};
+    document.addEventListener("visibilitychange",kontrolaKodu);setInterval(kontrolaKodu,600000);setTimeout(kontrolaKodu,60000)}
 }
 function hlas(t,ms){const d=document.createElement("div");d.className="mmhlas";d.setAttribute("role","status");d.textContent=t;document.body.appendChild(d);
   requestAnimationFrame(()=>d.classList.add("on"));setTimeout(()=>{d.classList.remove("on");setTimeout(()=>d.remove(),400)},ms||4500)}
