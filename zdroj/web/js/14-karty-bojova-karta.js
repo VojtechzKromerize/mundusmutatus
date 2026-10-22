@@ -1724,7 +1724,7 @@ function bdmTelo(s, h, K, gm, X, id) {
   if (id === "kouzla") return bdmKouzla(s, h, K, gm, X);
   if (id === "vyb") return bdmVyb(K);
   if (id === "rysy") return bdmRysy(K);
-  if (id === "denik") return `<div class="kdb2 bdmkdb">${kartaDbHtml(K, kartaDbData(K), {jenTab: id})}</div>`;
+  if (id === "denik") return `<div class="kdb2 bdmkdb">${kDenikHtml(K)}</div>`;
   /* hráč na telefonu v boji: záznam boje (jinak samostatná záložka Záznam) nahoře, pod ním jeho hody mimo boj */
   if (id === "zaznam" && X.boj && !gm && mmCela() && s && s.aktivni)
     return `<div class="bdmzaz">${bojZaznamSloupec(s, false)}</div><div class="kdb2 bdmkdb"><h4 class="bdmgh">Moje hody</h4>${kZaznamHtml(K, true)}</div>`;

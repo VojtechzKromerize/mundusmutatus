@@ -1529,26 +1529,6 @@ document.addEventListener("click", async e => {
   }
   await kartaStavZmen(K.id, {dopl: Object.keys(D).length ? D : null});
 });
-function kDoplHtml(K) {
-  const D = kDopl(K);
-  const sez = (typ, lab) =>
-    `${(D[typ] || []).map((v, i) => `<span class="chip">${besc(typeof v === "string" ? v : v.n)} <button type="button" class="kx" data-kdoplx="${typ}:${i}" aria-label="Odebrat">×</button></span>`).join(" ")}`;
-  return `<h3 class="uvh2">Zdatnosti a jazyky</h3><dl class="kpop">${[
-    ["zbroj", "Zbroj"],
-    ["zbrane", "Zbraně"],
-    ["nastroje", "Nástroje"],
-    ["jazyky", "Jazyky"],
-  ]
-    .filter(([k]) => kZdSez(K, k).length)
-    .map(([k, l]) => `<dt>${l}</dt><dd>${besc(kZdSez(K, k).join(", "))}</dd>`)
-    .join(
-      "",
-    )}${(D.zdat || []).length ? `<dt>Doplněno</dt><dd>${sez("zdat")}</dd>` : ""}${(D.jazyky || []).length ? `<dt>Jazyky navíc</dt><dd>${sez("jazyky")}</dd>` : ""}</dl>
-    <form class="kvlh" data-kdoplf="zdat"><input name="v" placeholder="+ zdatnost (např. Smith's Tools)" maxlength="60"><button class="gbtn ghost">Přidat</button></form><form class="kvlh" data-kdoplf="jazyky"><input name="v" placeholder="+ jazyk (např. latina)" maxlength="60"><button class="gbtn ghost">Přidat</button></form>
-    <h3 class="uvh2">Doplnit, co v PDF chybí</h3><p class="rsmall">List z D&amp;D Beyond je základ; co v něm chybí, doplň sem.</p>
-    ${(D.utoky || []).length ? `<p>Vlastní útoky: ${sez("utoky")}</p>` : ""}<form class="kvlh" data-kdoplf="utoky"><input name="n" placeholder="útok (např. Halapartna)" maxlength="60" required><input name="b" type="number" min="-5" max="30" placeholder="+útok" aria-label="Bonus útoku"><input name="z" placeholder="1d10+3" maxlength="20" aria-label="Zranění"><select name="t" aria-label="Typ">${BZTYPY.map(t => `<option value="${t}">${BZRT[t]}</option>`).join("")}</select><select name="cas" aria-label="Čas"><option value="A">akce</option><option value="BA">bonusová akce</option><option value="R">reakce</option></select><button class="gbtn ghost">+ útok</button></form>
-    ${(D.rysy || []).length ? `<p>Vlastní schopnosti: ${sez("rysy")}</p>` : ""}<form class="kvlh" data-kdoplf="rysy"><input name="n" placeholder="schopnost" maxlength="60" required><select name="cas" aria-label="Čas"><option value="">–</option><option value="A">akce</option><option value="BA">bonusová akce</option><option value="R">reakce</option></select><input name="max" type="number" min="1" max="20" placeholder="× za odpočinek" aria-label="Počet použití"><input name="t" placeholder="co dělá (nepovinné)" maxlength="1500"><button class="gbtn ghost">+ schopnost</button></form>`;
-}
 /* rysy z PDF s texty a odkazy na SRD */
 function kRysyHtml(K) {
   const L = K.rysy2 || [];
@@ -1583,19 +1563,3 @@ const kRit = x =>
 const kRitI = () =>
   `<span class="kspi kspr" role="img" aria-label="Rituál" ${btip("Rituál (Ritual) – lze seslat o 10 minut déle bez slotu")}>${KIRIT}</span>`;
 const kSpZn = x => `${x.kon ? kKonI() : ""}${kRit(x) ? kRitI() : ""}`;
-function kSpListHtml(K) {
-  const L = kSeznam(K);
-  return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-    .filter(l => L.some(x => x.st === l))
-    .map(
-      l =>
-        `<h4 class="bsph">${kSpSt(l)} ${l ? l + ". stupeň" : "Triky"}</h4><ul class="kspl">${L.map((x, i) => [x, i])
-          .filter(([x]) => x.st === l)
-          .map(
-            ([x, i]) =>
-              `<li><button type="button" class="kspn" data-kspd="${i}" ${btip("Popis kouzla")}>${besc(x.n)}</button>${kSpZn(x) ? " " + kSpZn(x) : ""}${kPzZn(x)}${x.vzdy ? ` <small ${btip("Vždy připravené")}>P</small>` : ""}${x.nove ? ` <small ${btip("Připraveno na webu")}>+</small>` : ""} <small>${besc([x.cas, x.dosah, x.trvani].filter(Boolean).join(" · "))}</small> ${kSesHtml(K, x, i)}${!x.vzdy && !x.pz && l > 0 ? ` <button type="button" class="kx" data-kpx="${besc(x.n)}" aria-label="Odebrat z připravených">×</button>` : ""}</li>`,
-          )
-          .join("")}</ul>`,
-    )
-    .join("");
-}
