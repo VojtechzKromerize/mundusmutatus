@@ -404,11 +404,12 @@ async def main():
     await up.add_init_script("localStorage.setItem('mm-navod','1')")
     await up.goto(BASE+"#uvod");await up.wait_for_selector("#uvucet:not([hidden]) [data-ucetr=novy]",timeout=15000)
     await up.screenshot(path=os.path.join(VYSTUP,"ucet-uvod.png"))
+    await up.wait_for_timeout(2000);await up.evaluate("mmPopX()")  # ukázka od vypravěče vyskočí novému prohlížeči až po chvíli
     await up.click("#uvucet [data-ucetr=novy]");await up.fill("#uvucet [name=j]","Jan Žižka");await up.fill("#uvucet [name=h]","kalich1420");await up.fill("#uvucet [name=h2]","kalich1421")
     await up.click("#uvucet button[type=submit]");await up.wait_for_timeout(300)
     chk("neshodují" in await up.inner_text("#uvucet .ucetmsg"),"založení účtu: hesla se musí shodovat")
     await up.locator("#uvucet").screenshot(path=os.path.join(VYSTUP,"ucet-form.png"))
-    await up.fill("#uvucet [name=h2]","kalich1420");await up.click("#uvucet button[type=submit]")
+    await up.evaluate("mmPopX()");await up.fill("#uvucet [name=h2]","kalich1420");await up.click("#uvucet button[type=submit]")
     await up.wait_for_selector("[data-kimphra]",timeout=20000,state="attached")
     chk(await up.evaluate("location.hash")=="#hra" and await up.evaluate("DCU.typ")=="email" and await up.evaluate("DCU.jmeno")=="Jan Žižka","účet vytvořen na Úvodu, hráč je na stránce Hra a vítá ho jménem")
     await up.evaluate("(F)=>{const K=kartaZPdf(F);K.n='Účetník';K.id='ucetnik';KIMP=K;renderHra()}",pole)
