@@ -5,7 +5,7 @@ uroven: houf
 pocet: 8
 vyzva: 50 XP za pacholka
 ac: 14
-hp: 1
+hp: 5
 utok: Krátké meče nebo luky +5 · 3 Piercing za každého kostlivce v dosahu (luky: za každého, kdo vidí)
 bonus: 4
 komplikace: Kostlivec se rozpadne a znovu složí: útočník je do konce svého příštího tahu obklíčen – další houf na něj útočí s výhodou.
@@ -18,7 +18,7 @@ utoky:
 
 Holé kosti v rezavých kroužkových košilích, často ještě s kalichem nebo křížem na rozpadlém štítu. Bojují tak, jak bojovali za života.
 
-**Kostlivec:** AC 14 (zbytky zbroje) · 1 HP · Rychlost 30 stop · Imunita Poison · Zranitelnost Bludgeoning
+**Kostlivec:** AC 14 (zbytky zbroje) · 5 HP · Rychlost 30 stop · Imunita Poison · Zranitelnost Bludgeoning
 
 **Útok houfu – krátké meče a luky:** +5 (+1 za každého dalšího kostlivce, nejvýš +5), dosah 5 stop, nebo luky na 80/320 stop. **Zásah:** 3 Piercing za každého kostlivce v dosahu cíle (u luků za každého, kdo na cíl vidí).
 

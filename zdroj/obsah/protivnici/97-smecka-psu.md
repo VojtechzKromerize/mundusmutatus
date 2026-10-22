@@ -5,7 +5,7 @@ uroven: houf
 pocet: 6
 vyzva: 25 XP za pacholka
 ac: 12
-hp: 1
+hp: 5
 utok: Kousnutí +3 · 2 Piercing za každého psa v dosahu cíle · strhávají (Prone)
 bonus: 3
 komplikace: Pes se zakousne do lýtka a nepustí: útočník má do konce svého příštího tahu poloviční rychlost.
@@ -17,7 +17,7 @@ utoky:
 
 Hlídací a honicí psi z panského dvora, kláštera nebo biřicova dvorku. Štvou, obkličují, strhávají – a čekají na toho, kdo je přivolal.
 
-**Pes:** AC 12 · 1 HP · Rychlost 40 stop · Darkvision 60 stop, Perception +5 (čich)
+**Pes:** AC 12 · 5 HP · Rychlost 40 stop · Darkvision 60 stop, Perception +5 (čich)
 
 **Útok houfu – kousnutí:** +3 (+1 za každého dalšího psa, nejvýš +5), dosah 5 stop. **Zásah:** 2 Piercing za každého psa v dosahu cíle. Cíl velikosti Medium nebo menší, kterého zasáhli aspoň dva psi, si hodí STR save DC 11, jinak je Prone.
 

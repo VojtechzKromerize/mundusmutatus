@@ -5,7 +5,7 @@ uroven: houf
 pocet: 6
 vyzva: 100 XP za pacholka
 ac: 13
-hp: 1
+hp: 5
 utok: Dlouhé luky +5 · 3 Piercing za každého, kdo na cíl vidí · v lese neviditelní · krátké meče +5, 3 Piercing
 bonus: 5
 komplikace: Střelci zmizí v listí: do konce svého příštího tahu je útočník nevidí (nemůže na ně útočit, dokud nehodí Perception DC 16).
@@ -19,7 +19,7 @@ utoky:
 
 Lesní lovci a střelci elfího pána z Hazmburka: Proměněnci urození i poddaní, kteří slouží jedinému vysokému šlechtici v zemi, jenž je po Proměně nelidský a hrdý na to. Katolíci, které Řím trpí, protože Hazmburk platí. V lese jsou lepší než kdokoli.
 
-**Elfí střelec:** AC 13 (kožená) · 1 HP · Rychlost 35 stop · Darkvision 60 stop, Perception +5, Stealth +6 (v lese s výhodou) · výhoda proti Charmed
+**Elfí střelec:** AC 13 (kožená) · 5 HP · Rychlost 35 stop · Darkvision 60 stop, Perception +5, Stealth +6 (v lese s výhodou) · výhoda proti Charmed
 
 **Útok houfu – dlouhé luky:** +5 (+1 za každého dalšího střelce, nejvýš +5), dostřel 150/600 stop. **Zásah:** 3 Piercing za každého střelce, který na cíl vidí. **Krátké meče:** +5, dosah 5 stop, 3 Piercing za každého v dosahu.
 

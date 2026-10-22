@@ -5,8 +5,8 @@ uroven: houf
 pocet: 6
 vyzva: 50 XP za pacholka
 ac: 17
-hp: 1
-utok: Sek +4 · 3 Slashing za každý meč v dosahu cíle · tuhý pacholek (železo)
+hp: 5
+utok: Sek +4 · 3 Slashing za každý meč v dosahu cíle
 bonus: 4
 komplikace: Meč zachytí útočníkovu čepel a vymrští ji: STR save DC 12, jinak zbraň odletí o 10 stop.
 stitky: konstrukty, meče, zbrojnice, hrad, zbrojíř, kouzlo, mág, Závoj, Karlštejn
@@ -17,7 +17,7 @@ utoky:
 
 Meče ze zbrojnice, které sňaly ze stěn samy – kouzlem mága, nebo proto, že na hradě visely příliš dlouho poblíž něčeho, co ztenčilo Závoj. Létají ve smečce a sekají bez ruky.
 
-**Létající meč:** AC 17 · 1 HP · Rychlost 5 stop, let 50 stop · Imunita Poison, Psychic, Charmed, Frightened, Deafened, Paralyzed · Blindsight 60 stop · **Tuhý pacholek:** padá až na druhý zásah, ledaže zbraň je Drtivá nebo Průrazná
+**Létající meč:** AC 17 · 5 HP · Rychlost 5 stop, let 50 stop · Imunita Poison, Psychic, Charmed, Frightened, Deafened, Paralyzed · Blindsight 60 stop
 
 **Útok houfu – sek:** +4 (+1 za každý další meč, nejvýš +5), dosah 5 stop. **Zásah:** 3 Slashing za každý meč v dosahu cíle. Houf útočí z letu.
 

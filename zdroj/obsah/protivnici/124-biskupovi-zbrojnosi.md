@@ -5,8 +5,8 @@ uroven: houf
 pocet: 6
 vyzva: 25 XP za pacholka
 ac: 16
-hp: 1
-utok: Sudlice +3 · 3 Piercing za každého zbrojnoše v dosahu cíle · tuhý pacholek (kroužková košile a pavéza)
+hp: 5
+utok: Sudlice +3 · 3 Piercing za každého zbrojnoše v dosahu cíle
 bonus: 3
 komplikace: Zbrojnoši zavřou řadu pavéz: útočník je do konce svého příštího tahu odříznut od spojenců (nemůže k nim projít bez Athletics DC 12).
 stitky: Vratislav, Slezsko, biskup, Jošt z Rožmberka, zbrojnoši, katolíci, město, stráž, lidé
@@ -18,7 +18,7 @@ utoky:
 
 Vojsko vratislavského biskupa Jošta z Rožmberka: kroužkové košile, pavézy s křížem a sudlice. Hlídají biskupský dvůr, doprovázejí konšely a na jaře 1458 drží brány města před královými posly.
 
-**Zbrojnoš:** AC 16 (kroužková košile, pavéza) · 1 HP · Rychlost 30 stop · Resistance (zbroj) Bludgeoning, Slashing · **Tuhý pacholek:** za pavézou padá až na druhý zásah, ledaže zbraň je Drtivá nebo Průrazná
+**Zbrojnoš:** AC 16 (kroužková košile, pavéza) · 5 HP · Rychlost 30 stop · Resistance (zbroj) Bludgeoning, Slashing
 
 **Útok houfu – sudlice:** +3 (+1 za každého dalšího zbrojnoše, nejvýš +5), dosah 10 stop. **Zásah:** 3 Piercing za každého zbrojnoše v dosahu cíle.
 

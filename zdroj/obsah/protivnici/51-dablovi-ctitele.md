@@ -5,7 +5,7 @@ uroven: houf
 pocet: 8
 vyzva: 25 XP za pacholka
 ac: 12 (kožená)
-hp: 1
+hp: 5
 utok: Obětní srpy +3 · 2 za každého v dosahu (Slashing a Prokleté)
 bonus: 3
 komplikace: Ctitel zakřičí jméno démona: útočník hodí WIS save DC 10, jinak získá bod hříchu (něco v něm odpovědělo).
@@ -17,7 +17,7 @@ utoky:
 
 Měšťané, čeledíni, zklamaní kněží i drobná šlechta, kteří po Noci Proměny hledají moc u pekla. Bojují špatně, ale fanaticky.
 
-**Ctitel:** AC 12 (kožená) · 1 HP · Rychlost 30 stop · Resistance (zbroj) Bludgeoning
+**Ctitel:** AC 12 (kožená) · 5 HP · Rychlost 30 stop · Resistance (zbroj) Bludgeoning
 
 **Útok houfu – obětní srpy:** +3 (+1 za každého dalšího, nejvýš +5), dosah 5 stop. **Zásah:** 2 zranění za každého ctitele v dosahu cíle (Slashing a Prokleté).
 

@@ -5,7 +5,7 @@ uroven: houf
 pocet: 5
 vyzva: 100 XP za pacholka
 ac: 13
-hp: 1
+hp: 5
 utok: Mámivý dotek +4 · 3 za každou v dosahu (Psychic) · smrtící tanec (CON DC 12, 1 úroveň Exhaustion)
 bonus: 4
 komplikace: Rusalka chytí útočníka za ruku a strhne ho do kola: WIS save DC 12, jinak v příštím tahu tančí místo útoku.
@@ -19,7 +19,7 @@ utoky:
 
 Nevěsty, které zemřely před svatbou, a od nepaměti tančí na lukách u vody. Nejsou zlé ze zlé vůle: jen dotančí, co nestihly. Kdo se přidá do kola, už z něj nevystoupí.
 
-**Rusalka:** AC 13 · 1 HP · Rychlost 30 stop, plavání 30 stop · **Resistance** Bludgeoning, Piercing, Slashing z nemagických zbraní – ne však ze studeného železa (kované, nebroušené: podkova, hřeb, sekyra)
+**Rusalka:** AC 13 · 5 HP · Rychlost 30 stop, plavání 30 stop · **Resistance** Bludgeoning, Piercing, Slashing z nemagických zbraní – ne však ze studeného železa (kované, nebroušené: podkova, hřeb, sekyra)
 
 **Útok houfu – mámivý dotek:** +4 (+1 za každou další, nejvýš +5), dosah 5 stop. **Zásah:** 3 Psychic za každou rusalku v dosahu cíle.
 

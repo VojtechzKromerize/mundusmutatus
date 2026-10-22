@@ -5,7 +5,7 @@ uroven: houf
 pocet: 4
 vyzva: 700 XP za pacholka
 ac: 14
-hp: 1
+hp: 5
 utok: Pastýřské hole +4 · 4 (Slashing a Prokleté) za každého pastýře v dosahu cíle · luky +4 · ženou stáda mrtvých
 bonus: 4
 komplikace: Pastýř se útočníka dotkne holí: CON save DC 13, jinak ztratí 1d8 z maxima HP – Veles si ho zapsal do stáda.
@@ -19,7 +19,7 @@ utoky:
 
 Mrtví pastýři Velesa, Starého boha stád, podsvětí a přísah na dobytek. Od Protržení Závoje vycházejí z mohyl a ženou stáda: krávy, které sedláci neoželeli, a duše, které Veles dostal. Slouží žrecům, kteří mu obětují, a berou si, co jim bylo slíbeno.
 
-**Pastýř:** AC 14 (kožený plášť) · 1 HP · Rychlost 30 stop · Resistance Prokleté (Necrotic) · Imunita Poison, Exhaustion · Darkvision 60 stop, Stealth +4 · **Tuhý pacholek:** obyčejnou zbraní padá až na druhý zásah; svatá, stříbrná nebo ohnivá hned
+**Pastýř:** AC 14 (kožený plášť) · 5 HP · Rychlost 30 stop · Resistance Prokleté (Necrotic) · Imunita Poison, Exhaustion · Darkvision 60 stop, Stealth +4
 
 **Útok houfu – pastýřské hole:** +4 (+1 za každého dalšího pastýře, nejvýš +5), dosah 5 stop. **Zásah:** 4 za každého pastýře v dosahu cíle, Slashing a Prokleté (zbroj půlí jen Slashing: 2 + 2). **Luky:** +4, dostřel 150/600 stop, totéž za každého, kdo na cíl vidí.
 
@@ -27,7 +27,7 @@ Mrtví pastýři Velesa, Starého boha stád, podsvětí a přísah na dobytek. 
 
 ## Vlastnosti
 
-- **Stádo.** Chodí s houfem dobytka (zvířata, AC 10, 1 HP, útok houfu rohy +3, 3 Bludgeoning). Kdo vstoupí do stáda, je Grappled (STR save DC 13) a stádo ho nese s sebou.
+- **Stádo.** Chodí s houfem dobytka (zvířata, AC 10, 5 HP, útok houfu rohy +3, 3 Bludgeoning). Kdo vstoupí do stáda, je Grappled (STR save DC 13) a stádo ho nese s sebou.
 - **Slunce.** Za dne mají nevýhodu na útoky a schovávají se v mohylách. V noci mají na pastvinách výhodu na Stealth.
 - **Velesův zápis.** Kdo zemře zásahem houfu, vstane za 24 hodin jako umrlec v jejich stádu – ledaže ho někdo pohřbí s mincí v ústech, nebo spálí.
 

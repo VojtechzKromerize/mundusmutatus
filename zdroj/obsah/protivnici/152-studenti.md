@@ -5,7 +5,7 @@ uroven: houf
 pocet: 6
 vyzva: 25 XP za pacholka
 ac: 10
-hp: 1
+hp: 5
 utok: Jiskra +4 · 2 Fire za každého studenta, který na cíl vidí · hole +2, 2 Bludgeoning · latinské nadávky
 bonus: 4
 komplikace: Student sešle něco, co se mu nepovedlo: útočník i student hodí AGI save DC 11, jinak oba utrží 1d6 Fire – a hoří kabát.
@@ -19,7 +19,7 @@ utoky:
 
 Bakaláři a scholáři z Karolina, kteří se naučili první zaklínadlo a myslí si, že umějí všechna. Rvou se s tovaryši, s německými studenty z Lipska, s měšťany – a od Protržení Závoje ohněm. Mistři to zakazují. Mistři tam nejsou.
 
-**Student:** AC 10 (talár) · 1 HP · Rychlost 30 stop · Arcana +3
+**Student:** AC 10 (talár) · 5 HP · Rychlost 30 stop · Arcana +3
 
 **Útok houfu – jiskra:** +4 (+1 za každého dalšího studenta, nejvýš +5), dostřel 60 stop. **Zásah:** 2 Fire za každého studenta, který na cíl vidí. Zbroj nepomáhá. Co je hořlavé, chytá. **Hole:** +2, dosah 5 stop, 2 Bludgeoning za každého v dosahu.
 

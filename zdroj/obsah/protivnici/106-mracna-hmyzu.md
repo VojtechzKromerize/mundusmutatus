@@ -5,7 +5,7 @@ uroven: houf
 pocet: 4
 vyzva: 100 XP za pacholka
 ac: 11
-hp: 1
+hp: 5
 utok: Kousance +3 · 3 Poison za každé mračno v prostoru cíle · zbroj nepomáhá · obyčejnou zbraní padá na druhý zásah
 bonus: 3
 komplikace: Hmyz vletí útočníkovi do očí a úst: je Blinded do konce svého příštího tahu.
@@ -17,7 +17,7 @@ utoky:
 
 Mračna much nad morovou jámou, kobylky, které po Protržení přišly jako egyptská rána, roje včel z rozbitých úlů. Jedno mračno je jeden pacholek: nedá se probodnout, jen rozehnat.
 
-**Mračno:** AC 11 · 1 HP · Rychlost 20 stop, let 20 stop · Obyčejnou zbraní padá až na druhý zásah (označ si ho); oheň, kouř, plošný útok nebo rozmáchnutý plášť ho rozežene hned · Imunita Charmed, Frightened, Grappled, Prone, Restrained · Blindsight 30 stop
+**Mračno:** AC 11 · 5 HP · Rychlost 20 stop, let 20 stop · Obyčejnou zbraní padá až na druhý zásah (označ si ho); oheň, kouř, plošný útok nebo rozmáchnutý plášť ho rozežene hned · Imunita Charmed, Frightened, Grappled, Prone, Restrained · Blindsight 30 stop
 
 **Útok houfu – kousance:** +3 (+1 za každé další mračno, nejvýš +5). Mračno obsadí prostor cíle. **Zásah:** 3 Poison za každé mračno v prostoru cíle. Zbroj proti tomu nepomáhá.
 

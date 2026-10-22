@@ -5,7 +5,7 @@ uroven: houf
 pocet: 4
 vyzva: 200 XP za pacholka
 ac: 12
-hp: 1
+hp: 5
 utok: Drápy a trny +4 · 3 za každou v dosahu (Slashing) · mámení (WIS DC 12, Charmed)
 bonus: 4
 komplikace: Divoženka hodí útočníkovi do očí hrst koření: CON save DC 12, jinak je do konce příštího tahu Blinded.
@@ -19,7 +19,7 @@ utoky:
 
 Lesní ženy se zelenými vlasy a prsy přes rameno, staré jako hvozd. Kradou děti a podvrhují své, berou si lidské muže, umějí léčit i proklít. Na pozdrav odpovídají, a kdo je pozdraví správně, tomu neublíží.
 
-**Divoženka:** AC 12 · 1 HP · Rychlost 30 stop, šplhání 30 stop · **Resistance** Bludgeoning, Piercing, Slashing z nemagických zbraní – ne však ze studeného železa (kované, nebroušené: podkova, hřeb, sekyra)
+**Divoženka:** AC 12 · 5 HP · Rychlost 30 stop, šplhání 30 stop · **Resistance** Bludgeoning, Piercing, Slashing z nemagických zbraní – ne však ze studeného železa (kované, nebroušené: podkova, hřeb, sekyra)
 
 **Útok houfu – drápy a trny:** +4 (+1 za každou další, nejvýš +5), dosah 5 stop. **Zásah:** 3 Slashing za každou divoženku v dosahu cíle.
 

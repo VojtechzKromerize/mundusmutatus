@@ -5,7 +5,7 @@ uroven: houf
 pocet: 4
 vyzva: 25 XP za pacholka
 ac: 16
-hp: 1
+hp: 5
 utok: Sudlice a háky +3 · 3 Piercing za každého celníka v dosahu cíle · řetěz přes řeku · kuše z celnice
 bonus: 3
 komplikace: Celník zahákne loď nebo vor: plavidlo je do konce příštího kola přitažené k celnici a kdo na něm stojí, hodí AGI save DC 12, jinak je Prone.
@@ -18,7 +18,7 @@ utoky:
 
 Královští nebo panští celníci na řece: řetěz přes Labe nebo Vltavu, celnice na břehu, loď s háky. Vybírají clo, hledají pašované zboží – a dračí vejce – a za úplatek nevidí. Když je někdo projede, troubí na další celnici po proudu.
 
-**Celník:** AC 16 (kroužková košile, štít) · 1 HP · Rychlost 30 stop, na lodi po proudu 40 stop · Resistance (zbroj) Bludgeoning, Slashing · Perception +2
+**Celník:** AC 16 (kroužková košile, štít) · 5 HP · Rychlost 30 stop, na lodi po proudu 40 stop · Resistance (zbroj) Bludgeoning, Slashing · Perception +2
 
 **Útok houfu – sudlice a háky:** +3 (+1 za každého dalšího celníka, nejvýš +5), dosah 10 stop. **Zásah:** 3 Piercing za každého celníka v dosahu cíle. **Kuše z celnice:** +3, dostřel 80/320 stop, 3 Piercing za každého, kdo na cíl vidí (half cover).
 

@@ -5,7 +5,7 @@ uroven: houf
 vyzva: 100 XP za pacholka
 pocet: 8
 ac: 12 (prošívanice), za pavézou +2
-hp: 1
+hp: 5
 utok: Salva, dostřel 30/90 stop · 4 Piercing za každého střelce, který na cíl vidí (Průrazná); pak tah nabíjí
 bonus: 3
 komplikace: Zablýsknutí na pánvičce: polovina houfu (dolů) vypálí na útočníka mimořádnou salvu, i když nabíjí.
@@ -17,7 +17,7 @@ utoky:
 
 Střelci za pavézami nebo vozovou hradbou. Jedna salva a pak nabíjení; mezi tím musí stačit pavézníci.
 
-**Pacholek:** AC 12 (prošívanice), za pavézou +2 proti útokům na dálku zepředu · 1 HP · Rychlost 30 stop · Resistance (zbroj) Bludgeoning
+**Pacholek:** AC 12 (prošívanice), za pavézou +2 proti útokům na dálku zepředu · 5 HP · Rychlost 30 stop · Resistance (zbroj) Bludgeoning
 
 **Útok houfu – salva:** +3 (+1 za každého dalšího pacholka, nejvýš +5), dostřel 30/90 stop. **Zásah:** 4 Piercing za každého střelce, který na cíl vidí. Píšťaly i těžké kuše jsou **Průrazné**.
 

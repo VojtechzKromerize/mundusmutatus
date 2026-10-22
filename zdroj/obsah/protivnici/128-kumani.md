@@ -5,7 +5,7 @@ uroven: houf
 pocet: 6
 vyzva: 100 XP za pacholka
 ac: 13
-hp: 1
+hp: 5
 utok: Koňské luky +4 · 3 Piercing za každého, kdo na cíl vidí · jízdní, střílí a odjíždějí · šavle +4, 3 Slashing
 bonus: 4
 komplikace: Kumán se otočí v sedle a střelí za sebe: útočník, který se k houfu přiblížil, dostane šíp (3 Piercing) a jeho kůň se plaší (Animal Handling DC 12).
@@ -18,7 +18,7 @@ utoky:
 
 Lehká jízda uherského krále, potomci stepních nájezdníků usazených na Tise. Přijíždějí, vystřelí, zmizí; stojí, jen když mají přesilu. Na moravském pomezí se objevují, kdykoli má Matyáš s Jiřím spor – tedy skoro pořád.
 
-**Kumán:** AC 13 (kožený kabátec, kůň) · 1 HP · Rychlost 60 stop (kůň) · Perception +3
+**Kumán:** AC 13 (kožený kabátec, kůň) · 5 HP · Rychlost 60 stop (kůň) · Perception +3
 
 **Útok houfu – koňské luky:** +4 (+1 za každého dalšího, nejvýš +5), dostřel 80/320 stop. **Zásah:** 3 Piercing za každého, kdo na cíl vidí. Houf může střílet a potom se pohnout (nebo naopak) bez postihu. **Šavle:** +4, dosah 5 stop, 3 Slashing za každého v dosahu – jen když ho někdo dožene.
 

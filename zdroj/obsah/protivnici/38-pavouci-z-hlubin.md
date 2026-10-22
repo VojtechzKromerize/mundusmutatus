@@ -5,7 +5,7 @@ uroven: houf
 pocet: 5
 vyzva: 50 XP za pacholka
 ac: 13
-hp: 1
+hp: 5
 utok: Jedovaté kousnutí +5 · 4 Piercing a jed za každého v dosahu
 bonus: 5
 komplikace: Pavučina: útočník hodí AGI save DC 12, jinak je Restrained, dokud se nevyprostí (akce, STR DC 12).
@@ -17,7 +17,7 @@ utoky:
 
 Velcí lovečtí pavouci z jeskyní a opuštěných štol, kteří se po Noci Proměny rozlezli i do sklepení hradů.
 
-**Pavouk:** AC 13 · 1 HP · Rychlost 40 stop, šplhání 40 stop · Darkvision 60 stop, Stealth +7
+**Pavouk:** AC 13 · 5 HP · Rychlost 40 stop, šplhání 40 stop · Darkvision 60 stop, Stealth +7
 
 **Útok houfu – jedovaté kousnutí:** +5 (+1 za každého dalšího, nejvýš +5), dosah 5 stop. **Zásah:** 4 zranění za každého pavouka v dosahu cíle (Piercing a Poison).
 

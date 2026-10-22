@@ -5,7 +5,7 @@ uroven: houf
 vyzva: 100 XP za pacholka
 pocet: 6
 ac: 14 (kroužková košile)
-hp: 1
+hp: 5
 utok: Halapartny, dosah 10 stop · 3 Slashing nebo Piercing za každého pacholka v dosahu cíle (Průrazná)
 bonus: 4
 komplikace: Halapartna zahákne zbraň nebo štít: útočník do začátku svého příštího tahu nemůže tuto zbraň použít, nebo ztrácí AC ze štítu.
@@ -17,7 +17,7 @@ utoky:
 
 Sešikovaní halapartníci z kterékoli roty, která zrovna slouží tomu, kdo platí. Drží se v řadě a nepustí nikoho blízko.
 
-**Pacholek:** AC 14 (kroužková košile) · 1 HP · Rychlost 30 stop · Resistance (zbroj) Bludgeoning, Slashing
+**Pacholek:** AC 14 (kroužková košile) · 5 HP · Rychlost 30 stop · Resistance (zbroj) Bludgeoning, Slashing
 
 **Útok houfu – halapartny:** +4 (+1 za každého dalšího pacholka, nejvýš +5), dosah 10 stop. **Zásah:** 3 zranění za každého pacholka v dosahu cíle, Slashing nebo Piercing (volí se před hodem). Halapartna je **Průrazná**.
 

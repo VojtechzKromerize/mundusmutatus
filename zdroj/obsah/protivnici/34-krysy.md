@@ -5,7 +5,7 @@ uroven: houf
 pocet: 6
 vyzva: 50 XP za pacholka
 ac: 10
-hp: 1
+hp: 5
 utok: Kousnutí +2 · 3 Piercing za každý roj v dosahu (2 po polovině padlých)
 bonus: 2
 komplikace: Krysy vlezou do rukávů: útočník je do konce svého příštího tahu Poisoned (hnus a kousance).
@@ -17,7 +17,7 @@ utoky:
 
 Šedá vlna krys ze sklepů, stok a morových domů. Každý pacholek houfu je celý roj, který proteče každou škvírou.
 
-**Roj krys:** AC 10 · 1 HP · Rychlost 30 stop, šplhání 30 stop · Darkvision 30 stop · Roj: obyčejnou zbraní padá až na druhý zásah (označ si ho); plošný útok, oheň a pochodeň skolí hned.
+**Roj krys:** AC 10 · 5 HP · Rychlost 30 stop, šplhání 30 stop · Darkvision 30 stop · Roj: obyčejnou zbraní padá až na druhý zásah (označ si ho); plošný útok, oheň a pochodeň skolí hned.
 
 **Útok houfu – kousnutí:** +2 (+1 za každý další roj, nejvýš +5), dosah 5 stop. **Zásah:** 3 Piercing za každý roj v dosahu cíle; když padne polovina houfu, už jen 2.
 

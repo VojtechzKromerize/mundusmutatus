@@ -5,7 +5,7 @@ uroven: houf
 pocet: 8
 vyzva: 25 XP za pacholka
 ac: 12 (kožená)
-hp: 1
+hp: 5
 utok: Tesáky +3 · 3 za každého v dosahu · nebo kuše +3 · 4 za každého střelce
 bonus: 3
 komplikace: Lapka strhne útočníkovi měšec nebo zbraň z opasku a hodí ji dalšímu.
@@ -18,7 +18,7 @@ utoky:
 
 Propuštění žoldnéři, zběhlí čeledíni a vyhnanci, kteří žijí z cest. Útočí ze zálohy, v přesile a na unavené.
 
-**Lapka:** AC 12 (kožená) · 1 HP · Rychlost 30 stop · Resistance (zbroj) Bludgeoning
+**Lapka:** AC 12 (kožená) · 5 HP · Rychlost 30 stop · Resistance (zbroj) Bludgeoning
 
 **Útok houfu – tesáky nebo kuše:** +3 (+1 za každého dalšího, nejvýš +5). **Zásah:** tesáky 3 za každého lapku v dosahu (Slashing), kuše 4 za každého střelce (Piercing, dostřel 80/320 stop).
 

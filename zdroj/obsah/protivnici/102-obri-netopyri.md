@@ -5,7 +5,7 @@ uroven: houf
 pocet: 6
 vyzva: 50 XP za pacholka
 ac: 13
-hp: 1
+hp: 5
 utok: Kousnutí +5 · 3 Piercing za každého netopýra v dosahu cíle · let 60 stop
 bonus: 5
 komplikace: Netopýr se zaplete útočníkovi do vlasů nebo kapuce: do konce svého příštího tahu je Blinded.
@@ -17,7 +17,7 @@ utoky:
 
 Netopýři velcí jako pes, kteří vylétají z krasových jeskyní, z opuštěných štol a z věží hradů, kde sídlí strigoj. Slepí a přece neomylní: slyší tep srdce.
 
-**Obří netopýr:** AC 13 · 1 HP · Rychlost 10 stop, let 60 stop · Blindsight 120 stop
+**Obří netopýr:** AC 13 · 5 HP · Rychlost 10 stop, let 60 stop · Blindsight 120 stop
 
 **Útok houfu – kousnutí:** +5 (+1 za každého dalšího netopýra, nejvýš +5), dosah 5 stop. **Zásah:** 3 Piercing za každého netopýra v dosahu cíle. Houf útočí z letu a po útoku odlétá, aniž by provokoval Opportunity Attacks.
 

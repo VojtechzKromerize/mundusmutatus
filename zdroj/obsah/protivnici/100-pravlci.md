@@ -5,7 +5,7 @@ uroven: houf
 pocet: 5
 vyzva: 200 XP za pacholka
 ac: 14
-hp: 1
+hp: 5
 utok: Kousnutí +5 · 4 Piercing za každého vlka v dosahu cíle · strhávají (Prone, STR DC 13)
 bonus: 5
 komplikace: Vlk strhne útočníka za plášť nebo ze sedla: STR save DC 13, jinak je Prone (jezdec spadne z koně).
@@ -17,7 +17,7 @@ utoky:
 
 Vlci velcí jako tele, kteří se po Noci Proměny stáhli z hor do podhůří. Chodí za zimním vlkem, který mluví, nebo sami, když je hlad. Koně se jich bojí víc než draků.
 
-**Pravlk:** AC 14 · 1 HP · Rychlost 50 stop · Darkvision 60 stop, Perception +5, Stealth +4
+**Pravlk:** AC 14 · 5 HP · Rychlost 50 stop · Darkvision 60 stop, Perception +5, Stealth +4
 
 **Útok houfu – kousnutí:** +5 (+1 za každého dalšího vlka, nejvýš +5), dosah 5 stop. **Zásah:** 4 Piercing za každého vlka v dosahu cíle. Cíl velikosti Large nebo menší, kterého kousli aspoň dva vlci, si hodí STR save DC 13, jinak je Prone.
 

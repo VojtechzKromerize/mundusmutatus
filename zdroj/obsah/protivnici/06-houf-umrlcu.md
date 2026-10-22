@@ -5,7 +5,7 @@ uroven: houf
 vyzva: 50 XP za pacholka
 pocet: 3
 ac: 8
-hp: 1
+hp: 5
 utok: Zetlelé pěsti, dosah 5 stop · 3 Bludgeoning za každého umrlce v dosahu cíle
 bonus: 3
 komplikace: Umrlec se zakousne a nepustí: útočník je Grappled (únik DC 11), dokud umrlce neskolí.
@@ -17,7 +17,7 @@ utoky:
 
 Mrtví zvednutí kouzlem *Animate Dead*, obvykle po třech. Pomalí, tupí a neúnavní.
 
-**Umrlec:** AC 8 · 1 HP · Rychlost 20 stop · Imunita vůči Prokletému (Necrotic), Poisoned
+**Umrlec:** AC 8 · 5 HP · Rychlost 20 stop · Imunita vůči Prokletému (Necrotic), Poisoned
 
 **Útok houfu – zetlelé pěsti:** +3 (+1 za každého dalšího umrlce, nejvýš +5), dosah 5 stop. **Zásah:** 3 Bludgeoning za každého umrlce v dosahu cíle.
 

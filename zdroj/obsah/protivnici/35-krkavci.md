@@ -5,7 +5,7 @@ uroven: houf
 pocet: 6
 vyzva: 50 XP za pacholka
 ac: 12
-hp: 1
+hp: 5
 utok: Zobáky +4 · 3 Piercing za každý roj v dosahu · krákání (WIS DC 10) ohluší
 bonus: 4
 komplikace: Krkavec klovne do oka: útočník má do konce svého příštího tahu nevýhodu na útoky.
@@ -18,7 +18,7 @@ utoky:
 
 Hejna krkavců z bojišť a šibenic, která po Noci Proměny slouží tomu, kdo je umí zavolat: nemrtvým, čarodějnicím, divokému lovci.
 
-**Roj krkavců:** AC 12 · 1 HP · Rychlost 10 stop, let 50 stop · Perception +5 · Roj: obyčejnou zbraní padá až na druhý zásah (označ si ho); plošný útok, oheň a pochodeň skolí hned.
+**Roj krkavců:** AC 12 · 5 HP · Rychlost 10 stop, let 50 stop · Perception +5 · Roj: obyčejnou zbraní padá až na druhý zásah (označ si ho); plošný útok, oheň a pochodeň skolí hned.
 
 **Útok houfu – zobáky:** +4 (+1 za každý další roj, nejvýš +5), dosah 5 stop. **Zásah:** 3 Piercing za každý roj v dosahu cíle; když padne polovina houfu, už jen 2.
 

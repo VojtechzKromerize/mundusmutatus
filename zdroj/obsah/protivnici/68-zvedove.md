@@ -5,7 +5,7 @@ uroven: houf
 pocet: 5
 vyzva: 100 XP za pacholka
 ac: 13 (kožená)
-hp: 1
+hp: 5
 utok: Luky +4 · 5 za každého střelce · nebo krátké meče +4 · 5 za každého v dosahu
 bonus: 4
 komplikace: Zvěd zmizí v podrostu a za kolo se vrátí s posilou, nebo s jinou zprávou.
@@ -18,7 +18,7 @@ utoky:
 
 Pytláci, myslivci a hraničáři ve službě pánů, měst nebo vojsk. Hlídají průsmyky, stopují a střílejí z dálky.
 
-**Zvěd:** AC 13 (kožená) · 1 HP · Rychlost 30 stop · Perception +5, Stealth +6, Survival +5
+**Zvěd:** AC 13 (kožená) · 5 HP · Rychlost 30 stop · Perception +5, Stealth +6, Survival +5
 
 **Útok houfu – luky nebo krátké meče:** +4 (+1 za každého dalšího, nejvýš +5). **Zásah:** 5 zranění za každého zvěda, který střílí nebo je v dosahu (Piercing).
 

@@ -5,7 +5,7 @@ uroven: houf
 pocet: 6
 vyzva: 50 XP za pacholka
 ac: 13 (drátěná košile)
-hp: 1
+hp: 5
 utok: Palice +4 · 4 za každého v dosahu (Bludgeoning a Svaté)
 bonus: 4
 komplikace: Kajícník se zbičuje do krve a zpívá: všichni pacholci houfu mají do konce kola výhodu na záchrany.
@@ -18,7 +18,7 @@ utoky:
 
 Procesí bičujících se kajícníků, kteří po Noci Proměny vidí trest Boží v každé vsi. Někdy nesou kříž a pokoj. Častěji pochodně.
 
-**Kajícník:** AC 13 (drátěná košile) · 1 HP · Rychlost 30 stop · Religion +2, Medicine +4
+**Kajícník:** AC 13 (drátěná košile) · 5 HP · Rychlost 30 stop · Religion +2, Medicine +4
 
 **Útok houfu – palice:** +4 (+1 za každého dalšího, nejvýš +5), dosah 5 stop. **Zásah:** 4 zranění za každého kajícníka v dosahu (Bludgeoning a Svaté).
 

@@ -5,7 +5,7 @@ uroven: houf
 pocet: 6
 vyzva: 200 XP za pacholka
 ac: 14 (kožená)
-hp: 1
+hp: 5
 utok: Dýky +5 · 5 za každého v dosahu · jeden lotr může místo útoku okouzlit (WIS DC 12)
 bonus: 5
 komplikace: Lotr strčí útočníka přes bok vory do vody: STR (Athletics) DC 12, jinak je ve vodě a Prone.
@@ -18,7 +18,7 @@ utoky:
 
 Pašeráci a lotři z vorů a lodic na Vltavě a Labi. Mluví sladce, bodají rychle a v noci mizí po proudu.
 
-**Lotr:** AC 14 (kožená) · 1 HP · Rychlost 30 stop, plavání 30 stop
+**Lotr:** AC 14 (kožená) · 5 HP · Rychlost 30 stop, plavání 30 stop
 
 **Útok houfu – dýky:** +5 (+1 za každého dalšího, nejvýš +5), dosah 5 stop. **Zásah:** 5 zranění za každého lotra v dosahu (Piercing).
 
