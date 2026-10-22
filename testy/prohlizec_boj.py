@@ -55,6 +55,8 @@ async def main():
     chk(await g.eval_on_selector('[data-bslot="0"]',"e=>e.value")=="h1","vypravěč vidí obsazení živě")
     c,t=anon_rpc("mm_boj_obsad",{"p_slot":2,"p_hrac":"h1"});chk(c>=400 and "jednala" in t,"Adam nesmí jednat podruhé: "+t[:60])
     c,t=anon_rpc("mm_boj_obsad",{"p_slot":1,"p_hrac":"h2"});chk(c>=400 and "nepatří" in t,"hráč nesmí do slotu nepřátel")
+    # limit soka (2× za kolo) potřebuje 3 sloty nepřátel – družiny je víc, tak počty slotů pro tuto zkoušku nastavíme ručně
+    await g.evaluate("bojZmen(z=>{z.pocty={h:3,n:3}})");await g.wait_for_timeout(700)
     await g.select_option('[data-bslot="1"]',"n2");await g.wait_for_timeout(700)
     await g.select_option('[data-bslot="3"]',"n2");await g.wait_for_timeout(700)
     opts=await g.eval_on_selector('[data-bslot="5"]',"e=>[...e.options].map(o=>o.value)")
