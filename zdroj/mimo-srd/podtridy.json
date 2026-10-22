@@ -331,7 +331,7 @@
    {
     "en": "Balm of Peace",
     "cz": "Balzám míru",
-    "u": 4,
+    "u": 3,
     "cas": "A",
     "zdroj": "Channel Divinity",
     "t": "Akcí a za Channel Divinity se pohneš až o svou rychlost bez příležitostných útoků; každému tvoru, ke kterému se při tom dostaneš do 5 stop, vyléčíš 2d6 + WIS HP (min. 1), každému jen jednou."
@@ -342,12 +342,6 @@
     "u": 6,
     "cas": "R",
     "t": "Když má tvor spojený tvým Povzbuzujícím poutem utrpět zranění, jiný spojený tvor do 30 stop se může Reakcí teleportovat na volné místo do 5 stop od něj a zranění utrpí místo něj."
-   },
-   {
-    "en": "Potent Spellcasting",
-    "cz": "Účinné sesílání",
-    "u": 8,
-    "t": "Ke zranění klerických triků přičítáš WIS."
    },
    {
     "en": "Expansive Bond",
