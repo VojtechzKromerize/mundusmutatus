@@ -7,6 +7,7 @@ async function jaDiscordInit() {
   if (!window.MMDB || !MMDB.hracPrihlasen || !MMDB.hracPrihlasen()) return;
   try {
     const [j, u] = await Promise.all([MMDB.ja(), MMDB.hracUzivatel().catch(() => null)]);
+    if (!MMDB.hracPrihlasen()) return; // mezitím se odhlásil – odpověď z doby před odhlášením by ho přihlásila zpátky (2026-10-23)
     DCU.ok = true;
     DCU.typ = (u && (u.app_metadata || {}).provider) || DCU.typ || "";
     DCU.jmeno =

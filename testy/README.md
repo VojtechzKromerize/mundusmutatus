@@ -53,9 +53,12 @@ Testovací záznamy, které se přidají jen do testovací kopie, jsou v `testy/
 Co testy zdržuje a jak se tomu vyhnout (2026-10-22): prohlídka stránek (`prochazka.py`) prochází frontu odkazů
 v šesti záložkách najednou (`MM_ZALOZEK`) a na každé stránce počká na líný díl a na text, ne pevných 250 ms.
 Testy boje místo čekání na další tik pulsu (2,5–6 s) volají `puls(stránka, od=odesílatel)` z `testy/_puls.py`:
-počká, až odesílatel dopíše do databáze, a příjemce se pulsem zeptá hned. V nových testech používej `puls` a
-`wait_for_function` místo `wait_for_timeout` s vteřinami – pevných čekání je v testech přes tisíc a dělají
-většinu jejich délky.
+počká, až odesílatel dopíše do databáze, a příjemce se pulsem zeptá hned. Testy karty (`karta`, `karta_vse`) místo
+`wait_for_timeout(N)` volají `klid(stránka, N)` z `testy/_klid.py`: vrátí se, jakmile stránka nic nedělá (žádný fetch,
+krátký časovač, rozpracované uložení karty či boje), nejdéle po N ms – test nikdy není pomalejší než s pevným čekáním
+(karta 185 → 105 s). `MM_KLID=1` vypíše, co stránku drží v práci, když se čeká až do N. Před přechodem na jinou stránku
+(`goto`) a u věcí, které se mají stát „po čase“, zůstává pevné čekání nebo `wait_for_function` na podmínku.
+V nových testech používej `puls`, `klid` a `wait_for_function` místo `wait_for_timeout` s vteřinami.
 
 Ručně, např. na vlastním počítači s PostgreSQL:
 

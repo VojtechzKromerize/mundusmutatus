@@ -4,6 +4,7 @@
 # databáze nepřijala, by se jinak tiše vrátilo.
 import asyncio, json, os, urllib.request
 from playwright.async_api import async_playwright
+from _klid import klid  # čekání na klid stránky místo pevných ms (testy/_klid.py)
 U=os.environ.get("MM_SB","http://localhost:54321");K="sb_publishable_test";BASE=os.environ.get("MM_WEB","http://localhost:8765/")
 VYSTUP=os.environ.get("MM_VYSTUP","/tmp")
 fails=[];POSL=[""]
@@ -27,7 +28,7 @@ async def proklikej(pg,root,popis,hl,limit=260):
     hotovo=set();kliky=0;adresa=await pg.evaluate("location.hash")
     for _ in range(limit):
         if await pg.evaluate("location.hash")!=adresa:
-            await pg.evaluate(f"location.hash={json.dumps(adresa)}");await pg.wait_for_timeout(600)
+            await pg.evaluate(f"location.hash={json.dumps(adresa)}");await klid(pg,600)
         ids=await pg.evaluate(JS_KLIK,[root,SKIP])
         sig=await pg.evaluate("""(r)=>[...document.querySelectorAll(r+' [data-__k]')].map(e=>e.tagName+'|'+[...e.attributes].filter(a=>a.name.startsWith('data-')&&a.name!=='data-__k').map(a=>a.name+'='+a.value).join(',')+'|'+(e.textContent||'').trim().slice(0,30))""",root)
         dalsi=[i for i,sg in zip(ids,sig) if sg not in hotovo]
@@ -56,7 +57,7 @@ async def main():
     gt=login("gm@x.cz");g=await b.new_page(viewport={"width":1300,"height":1000});g.on("dialog",lambda d:asyncio.ensure_future(d.accept()))
     await g.add_init_script("localStorage.setItem('mm-gm-relace',JSON.stringify("+json.dumps({"at":gt["access_token"],"rt":gt["refresh_token"],"exp":gt["expires_at"],"email":"gm@x.cz"})+"))")
     # testovací účet hráče může mít postavu z předchozího testu (prohlizec_karta) – vypravěč ho uvolní
-    await g.goto(BASE+"#hra");await g.wait_for_function("!document.documentElement.classList.contains('mmload')");await g.wait_for_timeout(800)
+    await g.goto(BASE+"#hra");await g.wait_for_function("!document.documentElement.classList.contains('mmload')");await klid(g,800)
     await g.evaluate("Promise.all(['testovnik','balduin'].map(k=>MMDB.jaUvolni(k).catch(()=>{}).then(()=>MMDB.hracZrus(k).catch(()=>{}))))")
     # hráč přes Discord (účet hrac@x.cz) si zvolí Balduina
     ht=login("hrac@x.cz")
@@ -69,46 +70,46 @@ async def main():
     pl.on("response",resp)
     pl.on("dialog",lambda d:asyncio.ensure_future(d.accept(d.default_value or "1") if d.type=="prompt" else d.accept()))
     await pl.add_init_script("localStorage.setItem('mm-hrac-relace',JSON.stringify("+json.dumps({"at":ht["access_token"],"rt":ht["refresh_token"],"exp":ht["expires_at"]})+"));localStorage.setItem('mm-navod','1')")
-    await pl.goto(BASE+"#hra");await pl.wait_for_function("!document.documentElement.classList.contains('mmload')");await pl.wait_for_timeout(2500)
+    await pl.goto(BASE+"#hra");await pl.wait_for_function("!document.documentElement.classList.contains('mmload')");await klid(pl,2500)
     r=await pl.evaluate("MMDB.jaKarta('balduin','Hráč').then(()=>'ok',e=>e.message)")
     chk(r=="ok",f"hráč přes Discord si zvolí Balduina ({r})")
     await pl.evaluate("JA.set({k:'balduin',n:'Balduin',d:1});KZAM.add('balduin')")
     await pl.evaluate("window.__hl=[];const o=window.mmHlas;window.mmHlas=(t,ms)=>{window.__hl.push(String(t));return o&&o(t,ms)}")
-    await pl.goto(BASE+"#karty/balduin");await pl.wait_for_selector(".bdm",timeout=15000);await pl.wait_for_timeout(1500)
+    await pl.goto(BASE+"#karty/balduin");await pl.wait_for_selector(".bdm",timeout=15000);await klid(pl,1500)
     await pl.evaluate("window.__hl=window.__hl||[];if(!window.__mmw){window.__mmw=1;const o=window.mmHlas;window.mmHlas=(t,ms)=>{window.__hl.push(String(t));return o&&o(t,ms)}}")
     chk(await pl.evaluate("!document.querySelector('.bdm.kro')"),"hráč může svou kartu upravovat")
     # karta postavy: každá záložka a v ní všechno
     tabs=await pl.evaluate("[...document.querySelectorAll('.bdm .bdmtabs [data-bdmsec]')].map(t=>t.dataset.bdmsec)")
     for t in tabs:
         await pl.evaluate("typeof mmPopX==='function'&&mmPopX()")  # ukázka od vypravěče z předchozího testu
-        await pl.click(f'.bdm .bdmtabs [data-bdmsec="{t}"]');await pl.wait_for_timeout(500)
+        await pl.click(f'.bdm .bdmtabs [data-bdmsec="{t}"]');await klid(pl,500)
         await proklikej(pl,".bdm",f"karta – záložka {t}",None)
         await pl.click(f'.bdm .bdmtabs [data-bdmsec="{t}"]') if await pl.locator(f'.bdm .bdmtabs [data-bdmsec="{t}"]').count() else None
     # úpravy a postup na úroveň
-    await pl.click('.bdm [data-bdmsh="sprava"]');await pl.wait_for_timeout(300)
+    await pl.click('.bdm [data-bdmsh="sprava"]');await klid(pl,300)
     if await pl.locator(".bdmlist [data-kuprt]").count():
-        await pl.click(".bdmlist [data-kuprt]");await pl.wait_for_timeout(400);await proklikej(pl,".bdm",f"karta – úpravy",None,120)
-    await pl.evaluate("KLVUP.balduin={};srdUrovne().then(()=>kartyPrekresli())");await pl.wait_for_timeout(800);await proklikej(pl,".klvup","postup na úroveň",None,40)
-    await pl.wait_for_timeout(3500)
+        await pl.click(".bdmlist [data-kuprt]");await klid(pl,400);await proklikej(pl,".bdm",f"karta – úpravy",None,120)
+    await pl.evaluate("KLVUP.balduin={};srdUrovne().then(()=>kartyPrekresli())");await klid(pl,800);await proklikej(pl,".klvup","postup na úroveň",None,40)
+    await klid(pl,3500)
     # bojová karta v Boji
-    await g.goto(BASE+"#boj");await g.wait_for_function("!document.documentElement.classList.contains('mmload')");await g.wait_for_timeout(800)
-    await g.evaluate("bojZmen(z=>{Object.keys(z).forEach(k=>delete z[k]);z.hraci=[{id:'h1',n:'Balduin',k:'balduin',hod:15}];z.npc=[];z.nid=0;z.dm=10})");await g.wait_for_timeout(800)
-    await g.evaluate("bojZmen(z=>{z.aktivni=true;z.hod=15;Object.assign(z,{kolo:1,tah:0,obsazeni:{}})})");await g.wait_for_timeout(1500)
-    await g.evaluate("bojZmen(z=>{z.sloty=bojSloty(z);const i=z.sloty.findIndex(x=>x.t!=='n');z.tah=Math.max(0,i);z.obsazeni[z.tah]='h1'})");await g.wait_for_timeout(1500)
-    await pl.goto(BASE+"#boj");await pl.wait_for_timeout(2500);await pl.evaluate("bojJa.set('Balduin');renderBoj()");await pl.wait_for_timeout(1500)
+    await g.goto(BASE+"#boj");await g.wait_for_function("!document.documentElement.classList.contains('mmload')");await klid(g,800)
+    await g.evaluate("bojZmen(z=>{Object.keys(z).forEach(k=>delete z[k]);z.hraci=[{id:'h1',n:'Balduin',k:'balduin',hod:15}];z.npc=[];z.nid=0;z.dm=10})");await klid(g,800)
+    await g.evaluate("bojZmen(z=>{z.aktivni=true;z.hod=15;Object.assign(z,{kolo:1,tah:0,obsazeni:{}})})");await klid(g,1500)
+    await g.evaluate("bojZmen(z=>{z.sloty=bojSloty(z);const i=z.sloty.findIndex(x=>x.t!=='n');z.tah=Math.max(0,i);z.obsazeni[z.tah]='h1'})");await klid(g,1500)
+    await pl.goto(BASE+"#boj");await klid(pl,2500);await pl.evaluate("bojJa.set('Balduin');renderBoj()");await klid(pl,1500)
     print("  boj u hráče:",await pl.evaluate("JSON.stringify([!!(BOJ.s&&BOJ.s.aktivni),document.querySelectorAll('.bdm').length,document.querySelectorAll('.bdm button').length,bojJa.get()])"))
     await pl.screenshot(path=os.path.join(VYSTUP,"karta-vse-boj.png"))
     if await pl.locator(".bdm").count():
         btabs=await pl.evaluate("[...document.querySelectorAll('.bdm [data-bdmtab],.bdm [role=tab]')].map((t,i)=>i)")
         await proklikej(pl,".bdm","bojová karta",None,260)
     else: chk(False,"hráč má v Boji bojovou kartu")
-    await pl.wait_for_timeout(4000)
+    await klid(pl,4000)
     # vyhodnocení
     hl=[h for h in await pl.evaluate("window.__hl||[]") if "Nepodařilo" in h or "neplatn" in h.lower() or "chyb" in h.lower()]
     chk(not err,f"bez chyb JavaScriptu: {err[:6]}")
     chk(not bad,f"databáze nic neodmítla: {sorted(set(bad))[:8]}")
     chk(not hl,f"žádná hláška o neuložení: {hl[:6]}")
-    await pl.goto(BASE+"#karty/balduin");await pl.wait_for_timeout(3000)
+    await pl.goto(BASE+"#karty/balduin");await klid(pl,3000)
     loc=await pl.evaluate("JSON.stringify(kartaStav('balduin'))");loc=json.loads(loc);db=stav()
     rozdil=sorted(k for k in set(loc)|set(db) if k!="mods" and json.dumps(loc.get(k),sort_keys=True)!=json.dumps(db.get(k),sort_keys=True))
     chk(not rozdil,f"stav karty v prohlížeči = stav v databázi (rozdíly: {rozdil} {[ (k,loc.get(k),db.get(k)) for k in rozdil][:3]})")
