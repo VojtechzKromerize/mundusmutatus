@@ -2160,13 +2160,7 @@ document.addEventListener("click", async e => {
       S = BOJ.s || {},
       K = bojKartaH((S.hraci || []).find(x => x.id === id));
     if (!K) return;
-    const k = kzd.dataset.bkzd,
-      j = +kzd.dataset.j,
-      U = Object.assign({}, kartaStav(K.id).zdr || {}),
-      u = U[k] || 0;
-    U[k] = u > j ? j : j + 1;
-    if (!U[k]) delete U[k];
-    kartaStavZmen(K.id, {zdr: Object.keys(U).length ? U : null});
+    kartaStavZmen(K.id, {zdr: kPipyMapa(kartaStav(K.id).zdr, kzd.dataset.bkzd, +kzd.dataset.j)});
     return;
   }
   const pcz = T("[data-bpcz]");
@@ -2463,10 +2457,7 @@ document.addEventListener("click", async e => {
     const k = zbu.dataset.bzbu,
       j = +zbu.dataset.bzbj;
     upd(o => {
-      o.zbrU = o.zbrU || {};
-      const u = o.zbrU[k] || 0;
-      o.zbrU[k] = u > j ? j : j + 1;
-      if (!o.zbrU[k]) delete o.zbrU[k];
+      o.zbrU = kPipyMapa(o.zbrU, k, j) || {};
     });
     return;
   }

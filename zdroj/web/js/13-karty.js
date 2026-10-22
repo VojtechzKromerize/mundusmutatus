@@ -531,6 +531,16 @@ function renderKarty(id) {
   box.innerHTML = kartaJednaHtml(K);
   pojZnac(box);
 }
+/* puntíky použití (sloty, zdroje, kostky životů, zbroj): klepnutí na j-tý puntík nastaví počet použitých na j + 1,
+   klepnutí na už použitý ho vrátí na j */
+const kPipNa = (u, j) => (u > j ? j : j + 1);
+/* totéž v mapě počtů podle klíče ({Výdrž: 2, …}); vrací novou mapu, prázdnou jako null */
+function kPipyMapa(U0, k, j) {
+  const U = Object.assign({}, U0 || {});
+  U[k] = kPipNa(U[k] || 0, j);
+  if (!U[k]) delete U[k];
+  return Object.keys(U).length ? U : null;
+}
 /* před vykreslením oddílu karty (Vybavení, Poznámky): dočte předměty SRD a kouzla a nechá vypršet účinky,
    jejichž herní čas uplynul (dřív vedlejší účinek celé karty v rozvržení D&D Beyond, kterou nahradila bojová karta) */
 function kartaPriprav(K) {
@@ -819,20 +829,12 @@ document.addEventListener("click", async e => {
   }
   const zd = T("[data-kzd]");
   if (zd) {
-    const k = zd.dataset.kzd,
-      j = +zd.dataset.j,
-      U = Object.assign({}, S.zdr || {}),
-      u = U[k] || 0;
-    U[k] = u > j ? j : j + 1;
-    if (!U[k]) delete U[k];
-    kartaStavZmen(K.id, {zdr: Object.keys(U).length ? U : null});
+    kartaStavZmen(K.id, {zdr: kPipyMapa(S.zdr, zd.dataset.kzd, +zd.dataset.j)});
     return;
   }
   const kk = T("[data-kkz]");
   if (kk) {
-    const j = +kk.dataset.kkz,
-      u = +S.kz || 0;
-    kartaStavZmen(K.id, {kz: (u > j ? j : j + 1) || null});
+    kartaStavZmen(K.id, {kz: kPipNa(+S.kz || 0, +kk.dataset.kkz) || null});
     return;
   }
   const ob = T("[data-kobl]");

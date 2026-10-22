@@ -2044,12 +2044,7 @@ function bojKartaOvl(h, s, gm) {
         }${(K.imu || []).length ? ` · <b>Immunity</b> ${K.imu.map(t => besc(BZRT[t] || t)).join(", ")}` : ""}</p>`
       : ""
   }<h3 class="kdbpt">Záchranné hody</h3></section>`;
-  const sl = kSloty(K).map(q => ({k: q.k, n: `${q.pakt ? "Pakt" : "Sloty"} ${q.st}. st.`, max: q.max}));
-  const zd = [
-    ...sl,
-    ...kZdroje(K).map(q => ({k: q.n, n: q.n, max: q.max, obn: q.obn})),
-    ...(kVydMax(K) ? [{k: "Výdrž", n: "Výdrž", max: kVydMax(K), obn: "dlouhý odpočinek"}] : []),
-  ];
+  const zd = kOmezena(K);
   const zdH = zd.length
     ? `<section class="kdbp kdbzdrc"><ul class="kdbli kdbzdr">${zd
         .map(q => {

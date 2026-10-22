@@ -569,7 +569,7 @@ function bojHracRef(s, h, gm, K, vzdy, dbm) {
     const kz = Object.assign({}, K.kouzla || {}, {seznam: kSeznam(K)}),
       U = kartaStav(K.id).zdr || {};
     body = `<p class="kdbnote">${besc(kz.vl || "")} · SO ${kSpDC(K) || kz.dc || "–"} · útok kouzlem ${bsg(kSpUt(K))}</p>${kZdrChipy(
-      kSloty(K).map(q => ({k: q.k, n: `${q.pakt ? "Pakt" : "Sloty"} ${q.st}. st.`, max: q.max})),
+      kOmezena(K, {jenSloty: true}),
       U,
       "data-bkzd",
     )}
@@ -1397,13 +1397,10 @@ document.addEventListener("click", async e => {
     const K = kvK(zu);
     if (!K || !kMuze(K)) return;
     const k = zu.dataset.bdmzu,
-      j = +zu.dataset.j,
       S = kartaStav(K.id),
-      U = Object.assign({}, S.zbrU || {}),
-      u = +U[k] || 0,
+      u = +(S.zbrU || {})[k] || 0,
+      U = kPipyMapa(S.zbrU, k, +zu.dataset.j) || {},
       ac0 = kAC(K);
-    U[k] = u > j ? j : j + 1;
-    if (!U[k]) delete U[k];
     await kartaStavZmen(K.id, {zbrU: Object.keys(U).length ? U : null}, null);
     mmHlasG(
       `${K.n}: ${k === "Štít" ? "štít" : k.toLowerCase() + " zbroj"} ${U[k] > u ? "obětována" : "opravena"}${kAC(K) !== ac0 ? ` – AC ${ac0} → ${kAC(K)}` : ""}.`,
@@ -1514,18 +1511,10 @@ function bdmAkce(s, h, K, gm, X) {
     uB = T && X.BP.b,
     vmx = kVydMax(K),
     G = kAkceG(K, true, {bezKouzel: true}),
-    spBA = kSeznam(K).filter(x => kMaSl(K, x) && kCasKouzla(x) === "BA"),
-    spR = kSeznam(K).filter(x => kMaSl(K, x) && kCasKouzla(x) === "R"),
-    zdrL = [
-      ...kSloty(K).map(q => ({
-        k: q.k,
-        n: `${q.pakt ? "Pakt" : "Sloty"} ${q.st}. st.`,
-        max: q.max,
-        obn: q.pakt ? "krátký odpočinek" : "dlouhý odpočinek",
-      })),
-      ...kZdroje(K).map(q => ({k: q.n, n: q.n, max: q.max, obn: q.obn})),
-      ...(vmx ? [{k: "Výdrž", n: "Výdrž", max: vmx, obn: "dlouhý odpočinek"}] : []),
-    ],
+    spSl = kSeznam(K).filter(x => kMaSl(K, x)),
+    spBA = spSl.filter(x => kCasKouzla(x) === "BA"),
+    spR = spSl.filter(x => kCasKouzla(x) === "R"),
+    zdrL = kOmezena(K, {obnSlotu: true}),
     U = kartaStav(K.id).zdr || {};
   const af0 = BDM.af[K.id] || "A",
     af = BDMAF.some(([k]) => k === af0) ? af0 : "A";
