@@ -266,11 +266,14 @@ function bojJaHodKouzlo(s, me, sp) {
   renderBoj();
 }
 let BJSPN = 0;
+/* značky kouzel na nepříteli, které dávají výhodu na útoky proti němu (2026-10-22); Guiding Bolt se uloží zásahem (20b) */
+const BZNADV = {"Faerie Fire": "Faerie Fire (cíl svítí)", "Guiding Bolt": "Guiding Bolt (příští útok)"};
 function bojAdvHrac(s, me, c, dal) {
   const plus = [],
     minus = [],
     st = me.stav || [];
   srdAdv(st, [], dal, plus, minus, true);
+  if (c) (c.ef || []).forEach(e => BZNADV[e.n] && plus.push(BZNADV[e.n]));
   const P = bojPros(s);
   if (P.includes("mlha") && dal) minus.push("mlha");
   if (P.includes("vitr") && dal) minus.push("silný vítr");

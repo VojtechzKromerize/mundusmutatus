@@ -103,6 +103,13 @@ function bojHoufZachrany(n, E, dmg, t, ab, dc, pol, kolik, kouzlo) {
 const BUEF = "Účinek: ",
   bojUtEf = u => (String((u && u.cim) || "").startsWith(BUEF) ? u.cim.slice(BUEF.length).trim() : null);
 /* značka účinku kouzla na nepříteli (trvání z kouzla v kolech; soustředěné kouzlo drží sesilatel) */
+/* název kouzla z „čím“ útoku: bez přídavků a stupně („Guiding Bolt (2. st.) + Hex“ → Guiding Bolt) */
+const bojSpJm = cim =>
+  String(cim || "")
+    .split(" + ")[0]
+    .replace(/^(Riposte|Odveta): /, "")
+    .replace(/\s*\(\d+\. st\.\)\s*$/, "")
+    .trim();
 function bojEfZnac(z, n, sp, u) {
   const nm = String(sp || "")
     .replace(/\s*\(\d+\. st\.\)\s*$/, "")
@@ -408,6 +415,7 @@ function bojUtokProved(s, u, id) {
       if (o.ef) bojEfZnac(z, n, o.ef, u);
       else if (o.spst && u.plos) bojSpStavDej(z, n, o.spst, u);
       else if (o.fail && u.plos && !o.houf) bojEfZnac(z, n, u.cim, u);
+      else if (!u.plos && !o.houf && o.vys && o.vys !== "vedle" && BZNADV[bojSpJm(u.cim)]) bojEfZnac(z, n, bojSpJm(u.cim), u);
     });
     houfy.forEach(([ci, pad, hz]) => {
       const o = (z.npc || []).find(x => x.id === ci);

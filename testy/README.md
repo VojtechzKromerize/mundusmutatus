@@ -21,6 +21,8 @@
      Immunity a Vulnerability, obětování a vyčerpaná zbroj), Půlmeč, kritická zranění (závažnost, místo na těle, druh),
      podtřídy hráčů (Emboldening Bond, Otherworldly Glamour, Warrior of the Gods, Portent z dlouhého odpočinku, Expert Divination,
      přídavky Dreadful Strikes a Divine Fury, manévry k ověřením).
+   - `inventura_kouzel.mjs` (není test; `node testy/jednotky/inventura_kouzel.mjs [--vse]`) – TSV: co web umí s každým kouzlem
+     (zranění/léčení z textu, útok/záchrana, stav, tabulky KZEF/KZOPAK/KZOBL/KZLEC/KZSUM); bez `--vse` jen kouzla bez automatiky.
    - `kouzla.test.mjs` – účinky dalších kouzel z dat SRD (Guiding Bolt, Scorching Ray, triky podle úrovně, záchrany
      s polovinou, Hex, Mass Healing Word), posílení na kartě (Shield, Haste, Mage Armor, Barkskin, Aid, Stoneskin),
      posílení od jiné postavy (Warding Bond, Shield of Faith, Bless), trvání účinku v kolech boje, opakovaná kouzla bez slotu

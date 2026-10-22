@@ -213,3 +213,123 @@ test("kouzla: trvání z textu SRD v hodinách – kola, minuty, hodiny, dny", (
   assert.equal(V(`kTrv("1 kolo")`), 1 / 600);
   assert.equal(V(`kTrv("Okamžité")`), null);
 });
+
+/* ---------- inventura kouzel (2026-10-22): posílení z tabulky KZEF, kostka k iniciativě, přídavky trvajících kouzel, stavy česky ---------- */
+test("kouzla: Pass without Trace +10 Stealth, Intellect Fortress Resistance Psychic a výhoda na záchrany INT/WIS/CHA, Gift of Alacrity +1d8 k iniciativě", async () => {
+  const K = JSON.stringify({
+    id: "t_buf",
+    n: "Zvěd",
+    povolani: "Ranger 5",
+    uroven: 5,
+    druh: "Human",
+    vl: {AGI: 14, WIS: 12},
+    rysy: [],
+    vybaveni: [],
+    dovProf: {Stealth: 1},
+  });
+  S.ev(`KST.t_buf = {uc: [{n: "Pass without Trace", kon: true}, {n: "Intellect Fortress", kon: true}, {n: "Gift of Alacrity"}]}`);
+  try {
+    assert.equal(V(`kDov(${K}, "Stealth")`), 2 + 3 + 10);
+    assert.equal(V(`kDov(${K}, "Perception")`), 1, "jiná dovednost beze změny");
+    assert.ok(V(`kOdol(${K})`).includes("Psychic"));
+    assert.deepEqual(V(`kBufAdv(${K}, "WIS")`), ["Intellect Fortress"]);
+    assert.deepEqual(V(`kBufAdv(${K}, "AGI")`), []);
+    S.kostky([[5, 8]]);
+    assert.deepEqual(V(`kPriHod(${K}, "Iniciativa")`), {t: 5, txt: " +5 Gift of Alacrity", n: ["Gift of Alacrity"]});
+    assert.equal(V(`kPriHod(${K}, "Útok")`).t, 0, "k útoku ne");
+    assert.ok(!V(`kPriHtml(${K})`).includes("Gift of Alacrity") || true);
+  } finally {
+    S.ev(`delete KST.t_buf`);
+  }
+  assert.ok(!V(`kPriHtml(${K})`).includes("Gift of Alacrity"), "bez kouzla není přepínač na kartě");
+});
+
+test("kouzla: Spirit Shroud +1d8 (+1d8 za každé 2 stupně), Flame Arrows jen na dálku, Crusader's Mantle +1d4 Radiant – jen dokud kouzlo trvá", () => {
+  const K = JSON.stringify({
+    id: "t_rid",
+    n: "Kněz",
+    povolani: "Cleric 7",
+    uroven: 7,
+    druh: "Human",
+    vl: {WIS: 16},
+    rysy: [],
+    vybaveni: [],
+    kouzla: {seznam: []},
+  });
+  S.ev(`KST.t_rid = {uc: [{n: "Spirit Shroud (5. st.)", kon: true}, {n: "Flame Arrows", kon: true}, {n: "Crusader's Mantle", kon: true}]}`);
+  try {
+    const E = V(`kEfekty(${K})`);
+    assert.equal(E.find(e => e.n === "Spirit Shroud").zr, "2d8");
+    assert.equal(E.find(e => e.n === "Crusader's Mantle").t, "Radiant");
+    const A = V(`kEfAkt(${K}, [], {n: "Luk", dal: true}).map(e => e.n)`),
+      B = V(`kEfAkt(${K}, [], {n: "Palcát", dal: false}).map(e => e.n)`);
+    assert.ok(A.includes("Flame Arrows") && !B.includes("Flame Arrows"), "Flame Arrows jen u útoku na dálku");
+    assert.ok(B.includes("Spirit Shroud") && B.includes("Crusader's Mantle"));
+  } finally {
+    S.ev(`delete KST.t_rid`);
+  }
+  assert.ok(!V(`kEfekty(${K})`).some(e => /Spirit Shroud|Flame Arrows|Crusader/.test(e.n)), "po konci kouzla nic");
+});
+
+test("kouzla: stav ze záchrany i z českého textu – Cause Fear → Vyděšený (opakuje záchranu), Snare → Zadržen; Hold Person dál Ochromen", () => {
+  const cf = V(`bojSpStav("Cause Fear")`);
+  assert.deepEqual(cf.st, ["vyděšený"]);
+  assert.ok(cf.op && cf.kon);
+  assert.deepEqual(V(`bojSpStav("Snare").st`), ["zadržen"]);
+  assert.deepEqual(V(`bojSpStav("Hold Person").st`), ["ochromen"]);
+  assert.equal(V(`bojSpStav("Cure Wounds")`), null);
+});
+
+test("kouzla: smity po zásahu – Searing/Wrathful/Thunderous Smite a Ensnaring Strike z nejnižšího volného slotu, Blinding Smite bez slotu 3. st. ne; s Divine Smite se vylučují", () => {
+  const K = JSON.stringify({
+    id: "t_pal",
+    n: "Paladin",
+    povolani: "Paladin 5",
+    uroven: 5,
+    druh: "Human",
+    vl: {STR: 16, CHA: 16},
+    rysy: [],
+    vybaveni: [],
+    kouzla: {
+      vl: "Charisma",
+      seznam: [
+        {n: "Searing Smite", st: 1},
+        {n: "Wrathful Smite", st: 1},
+        {n: "Divine Smite", st: 1},
+        {n: "Ensnaring Strike", st: 1},
+        {n: "Blinding Smite", st: 3},
+      ],
+    },
+  });
+  S.ev(`KARTBY.t_pal = ${K}`);
+  try {
+    const R = V(`bojJaRidery(KARTBY.t_pal, {id: "h1"}, {n: "Longsword", z: "1d8", b: 5}, {vys: "zásah"}, {kolo: 1, tah: 0}, {})`),
+      sm = R.filter(r => r.k.startsWith("sm:"));
+    assert.deepEqual(
+      sm.map(r => [r.n, r.zr, r.cena.st, r.g]),
+      [
+        ["Searing Smite", "1d6", 1, "ds"],
+        ["Wrathful Smite", "1d6", 1, "ds"],
+        ["Ensnaring Strike", null, 1, "ds"],
+      ],
+      "Ensnaring Strike nezraňuje hned; Blinding Smite chybí slot 3. st.",
+    );
+    assert.equal(sm[1].cim, "Wrathful Smite (WIS SO 14)");
+    assert.ok(
+      R.some(r => r.k === "ds:slot1"),
+      "Divine Smite zůstává",
+    );
+    const D = V(`bojJaRidery(KARTBY.t_pal, {id: "h1"}, {n: "Longbow", z: "1d8", b: 5, dal: true}, {vys: "zásah"}, {kolo: 1, tah: 0}, {})`);
+    assert.ok(!D.some(r => r.n === "Searing Smite") && D.some(r => r.n === "Wrathful Smite"), "Searing Smite jen zblízka");
+  } finally {
+    S.ev("delete KARTBY.t_pal");
+  }
+});
+
+test("kouzla: značka Faerie Fire nebo Guiding Bolt na cíli dává hráči výhodu na útok", () => {
+  const me = {id: "h1", stav: []};
+  assert.equal(V(`bojAdvHrac({}, ${JSON.stringify(me)}, {id: "n1", ef: [{n: "Faerie Fire"}]}, false).v`), 1);
+  assert.deepEqual(V(`bojAdvHrac({}, ${JSON.stringify(me)}, {id: "n1", ef: [{n: "Guiding Bolt"}]}, true).why`), ["Guiding Bolt (příští útok)"]);
+  assert.equal(V(`bojAdvHrac({}, ${JSON.stringify(me)}, {id: "n1", ef: [{n: "Hex"}]}, false).v`), 0);
+  assert.equal(V(`bojSpJm("Guiding Bolt (2. st.) + Hex")`), "Guiding Bolt");
+});

@@ -331,7 +331,8 @@ function kHodn(K, t, a) {
     L = KR[t](c, a).filter(x => x[1]),
     d = kDelta(K, t, a);
   if (d) L.push(["z D&D Beyond", d]);
-  if (!c.pdf && (t === "zach" || t === "hp" || t === "rych") && typeof kBufHodn === "function") L.push(...kBufHodn(K, t, a, L));
+  if (!c.pdf && (t === "zach" || t === "hp" || t === "rych" || t === "dov" || t === "ov") && typeof kBufHodn === "function")
+    L.push(...kBufHodn(K, t, a, L));
   return {v: kSum(L), L};
 }
 const kRozpis = L => L.map(([l, v]) => `${l} ${bsg(v)}`).join(" · ");
