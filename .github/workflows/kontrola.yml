@@ -78,8 +78,8 @@ jobs:
           - cast: boj a reakce
             testy: "boj reakce"
             prohlidky: ""
-          - cast: karta – ostatní, potvrzování, editor
-            testy: "karta_vse potvrz editor pecet"
+          - cast: potvrzování, karta – ostatní, editor
+            testy: "potvrz karta_vse pecet editor" # potvrz před karta_vse: po něm zůstává stav, ve kterém potvrzování léčení neprojde
             prohlidky: ""
           - cast: statické stránky a bestiář
             testy: "odhalovani herni_stav draci zapisy"

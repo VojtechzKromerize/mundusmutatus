@@ -44,7 +44,7 @@
 
 Na GitHubu běží automaticky při každém nahrání (`.github/workflows/kontrola.yml`), výsledek je u commitu (✓ / ✗).
 Běh má **rychlou kontrolu** (sestavení, tajemství, kontrola kódu, schéma, práva; ~1 min, novější nahrání ji neruší)
-a **šest souběžných částí v prohlížeči** (karta · boj a tah · boj a reakce · karta – ostatní, potvrzování, editor ·
+a **šest souběžných částí v prohlížeči** (karta · boj a tah · boj a reakce · potvrzování, karta – ostatní, editor ·
 statické stránky a bestiář · prohlídka hráče a vypravěče), každou na 2–3 min; celý běh trvá kolem 4 minut. Při chybě úloha
 „Od posledního zeleného stavu“ vypíše poslední úspěšný commit a seznam změn od něj. Délky jednotlivých testů jsou
 ve výpisu („✓ prohlížeč: boj (107 s)“) – podle nich se části vyvažují v matrixu `kontrola.yml`.

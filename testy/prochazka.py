@@ -20,7 +20,7 @@ async def main():
       pg.on("console",lambda m:m.type=="error" and "TUNNEL" not in m.text and errs.append(("console",pg.url,m.text[:200])))
       pg.on("requestfailed",lambda r:"fonts.g" not in r.url and bad.append((r.url,r.failure)))
       pg.on("response",lambda r:r.status>=400 and bad.append((r.url,r.status)))
-      await pg.goto(BASE);await pg.wait_for_timeout(1500)
+      await pg.goto(BASE);await pg.wait_for_function("!document.documentElement.classList.contains('mmload')",timeout=60000);await pg.wait_for_timeout(1000)
       while len(seen)<STROP:
         if not queue:
           if not rozpracovano: break
@@ -31,7 +31,8 @@ async def main():
         try:
           await pg.evaluate(f"location.hash={json.dumps(h)}");await pg.wait_for_timeout(250)
           # stránka čekající na líný díl (html.mmlina) se vykreslí až po jeho stažení – v souběhu to trvá déle než 250 ms
-          await pg.wait_for_function("!document.documentElement.classList.contains('mmlina')&&!document.documentElement.classList.contains('mmload')",timeout=30000)
+          try: await pg.wait_for_function("!document.documentElement.classList.contains('mmlina')&&!document.documentElement.classList.contains('mmload')",timeout=60000)
+          except Exception: issues.append((h,'nedokresleno','líný díl stránky se nenačetl do 60 s'))
           # data stránky (pravidla.json, Hra, Výprava…) přicházejí až po vykreslení – na text počká nejvýš 5 s, pak platí „prázdná“
           try: await pg.wait_for_function("(()=>{const v=document.querySelector('.view:not([hidden])');return v&&v.innerText.trim().length>=40})()",timeout=5000)
           except Exception: pass
