@@ -70,7 +70,7 @@ async def main():
     r=await g.evaluate("(()=>{BPLV[999999]={dmg:10,pol:true,t:'Fire',ab:'AGI',dc:15,map:{balduin:'h4'},hot:new Set(),src:'',cim:'Test'};const V0=VYZVY;VYZVY=[{id:999999,data:{typ:'zach'},odpovedi:{balduin:{tot:5}}}];bojVyzZpracuj();VYZVY=V0;return kartaStav('balduin').hp})()")
     chk(r==52,"plošný zásah výzvou: neúspěšná záchrana hráče odečte zranění samo ("+str(r)+")")
     await g.evaluate("kartaStavZmen('balduin',{hp:null,thp:null},null,{bezZpet:true})");await g.wait_for_timeout(800)
-    await pl.wait_for_timeout(3000);await pl.evaluate("bojJa.set('Balduin');renderBoj()");await pl.wait_for_timeout(600)
+    await puls(pl,od=g);await pl.evaluate("bojJa.set('Balduin');renderBoj()");await pl.wait_for_timeout(600)
     try:
         await pl.wait_for_selector(".kzas",timeout=8000);chk(True,"hráči se ukáže zásah nepřítele s nabídkou reakce")
         chk(await pl.locator(".bdmukol .kzas [data-bzr]").count()>=1,"zásah s reakcí je v pruhu „Čeká na tebe“, který se nesbaluje (2026-10-20)")
@@ -91,7 +91,7 @@ async def main():
     i0=await pl.evaluate("!!kartaStav('balduin').insp");await pl.click('[data-bhcard="h4"] [data-bdmins]');await pl.wait_for_timeout(900)
     chk(await pl.evaluate("!!kartaStav('balduin').insp")!=i0,"hráč: hrdinská inspirace z portrétu se uloží do karty")
     await pl.click('[data-bhcard="h4"] [data-bdmins]');await pl.wait_for_timeout(600)
-    await g.wait_for_timeout(3200)
+    await puls(g,od=pl)
     chk(await g.evaluate("kartaStav('balduin').hp")==56,"hráč zapíše zranění z telefonu, karta započte Resistance (12 Cold → 6)")
     n0=await g.evaluate("(BOJ.s.utoky||[]).length")
     await pl.click('[data-bhcard="h4"] .bdmainf [data-bdmsh="utok"]');await pl.wait_for_timeout(300)
@@ -104,7 +104,7 @@ async def main():
     await pl.select_option('[name="jucil"]',rid);await pl.wait_for_timeout(300);await pl.select_option('[name="juzi"]',"0");await pl.wait_for_timeout(300)
     await pl.click("[data-juhod]");await pl.wait_for_timeout(300)
     chk("Útok 2 z 2" in await pl.evaluate("BJU.info") and await pl.evaluate("!!(KZAV.balduin||{}).d"),"druhý útok má vlastní d20 i kostku Závoje")
-    await pl.click("[data-juposl]");await pl.wait_for_timeout(1500);await g.wait_for_timeout(3200)
+    await pl.click("[data-juposl]");await puls(g,od=pl)
     chk(await g.evaluate("(BOJ.s.utoky||[]).length")-n0==2 and await pl.evaluate("BJU.ui")==0,"oba útoky dorazí vypravěči, akce je dohraná")
     # Zadat ručně: kostky hozené u stolu (d20, d6 Závoje, zranění); co chybí, hodí web
     await pl.evaluate("BDM.sheet=null;renderBoj()");await pl.wait_for_timeout(300)
@@ -133,14 +133,14 @@ async def main():
     chk(await pl.locator('[data-bhcard="h4"] [data-jurid="zv:Krvežíznivá"]').count()==1,"Požehnání: k zásahu jde přidat Krvežíznivou (jako Divine Smite)")
     await pl.click('[data-bhcard="h4"] [data-jurid="zv:Krvežíznivá"]');await pl.wait_for_timeout(300)
     chk(await pl.evaluate("(BJU.serie[0].rid||[]).some(r=>r.g==='zv')"),"Krvežíznivá přidána k zásahu")
-    await pl.click('[data-bhcard="h4"] .bphod .bphhodp [data-juposl]');await pl.wait_for_timeout(1500);await g.wait_for_timeout(3200)
+    await pl.click('[data-bhcard="h4"] .bphod .bphhodp [data-juposl]');await puls(g,od=pl)
     u=await g.evaluate("((BOJ.s.utoky||[]).slice(-1)[0]||{})")
     chk((u.get("zv") or {}).get("r")=="poz" and "Krvežíznivá" in ((u.get("zv") or {}).get("v") or []),"útok nese kostku Závoje a zvolenou vlastnost: "+str(u.get("zv")))
     chk(await g.evaluate(f"(BOJ.s.npc.find(o=>o.id==='{rid}').stav||[]).includes('krvácí k4')"),"vypravěč: Krvežíznivá → nepřítel krvácí k4")
     await pl.evaluate("BJU.serie=null;BJU.ui=0;BDM.sheet=null;renderBoj()");await pl.wait_for_timeout(300)
     await pl.click('[data-bhcard="h4"] [data-bdmsh="utok"][data-j="0"]');await pl.wait_for_timeout(400)
     await pl.evaluate(f"BRUC.h4={{d20:'19',d6:'1'}};BJU.cil='{rid}';bojJaHod()");await pl.wait_for_timeout(400)
-    await pl.click('[data-bhcard="h4"] .bphod .bphhodp [data-juposl]');await pl.wait_for_timeout(1500);await g.wait_for_timeout(3200)
+    await pl.click('[data-bhcard="h4"] .bphod .bphhodp [data-juposl]');await puls(g,od=pl)
     chk(await g.locator('[data-bzvk]').count()>=2,"vypravěč: po Pokušení jsou v záznamu tlačítka Komplikace podle vlastností zbraně")
     await g.click('[data-bzvk$="|Krvežíznivá"]');await g.wait_for_timeout(1500)
     chk(await g.evaluate("(BOJ.s.hraci.find(h=>h.id==='h4').stav||[]).includes('zbraň uvízla')") and await g.locator('[data-bzvk]').count()==0,"Komplikace: zbraň uvízla u útočníka, tlačítka zmizí")
@@ -168,11 +168,11 @@ async def main():
     except Exception: pass
     chk(await pl.evaluate(f"BOJ.s.npc.some(o=>o.id==='{rid}')"),"po odkrytí ho hráč zase vidí")
     # stav, který bere akce: omráčený hráč nemůže útočit, karta to ukáže a ztlumí tlačítka
-    await g.evaluate("bojZmen(z=>{const h=z.hraci.find(x=>x.id==='h4');h.stav=[...(h.stav||[]),'omráčen']})");await pl.wait_for_timeout(2500)
+    await g.evaluate("bojZmen(z=>{const h=z.hraci.find(x=>x.id==='h4');h.stav=[...(h.stav||[]),'omráčen']})");await puls(pl,od=g)
     chk(await pl.locator('[data-bhcard="h4"] .bdmnesch').count()==1 and await pl.locator('[data-bhcard="h4"] .bdmneshl').count()==1,"omráčený hráč: karta ztlumená a hláška „nemůžeš jednat“")
     await pl.evaluate(f"BJU.cil='{rid}';BJU.serie=null;bojJaHod()");await pl.wait_for_timeout(300)
     chk(await pl.evaluate("BJU.serie===null"),"omráčený hráč nehodí útok")
-    await g.evaluate("bojZmen(z=>{const h=z.hraci.find(x=>x.id==='h4');h.stav=(h.stav||[]).filter(t=>t!=='omráčen')})");await pl.wait_for_timeout(2500)
+    await g.evaluate("bojZmen(z=>{const h=z.hraci.find(x=>x.id==='h4');h.stav=(h.stav||[]).filter(t=>t!=='omráčen')})");await puls(pl,od=g)
     # jeden zdroj stavů (2026-10-22): stavy postavy s kartou jsou jen na kartě – stav od vypravěče je na kartě, stav z karty vidí tracker
     chk(await g.evaluate("!(kartaStav('balduin').stavy||[]).includes('omráčen')") and await pl.evaluate("!(kartaStav('balduin').stavy||[]).includes('omráčen')"),"stav od vypravěče v boji je na kartě a s ním i zmizí")
     await pl.evaluate("kartaStavZmen('balduin',{stavy:[...(kartaStav('balduin').stavy||[]),'otrávený']})")
@@ -183,7 +183,7 @@ async def main():
     db=json.loads(urllib.request.urlopen(urllib.request.Request(U+"/rest/v1/rpc/mm_boj_cti",headers={"apikey":K})).read())["stav"]
     h4=[h for h in db["hraci"] if h["id"]=="h4"][0]
     chk("stav" not in h4 and "ds" not in h4 and "_k" not in h4,"do databáze boje se stavy postavy s kartou neukládají: "+str(sorted(h4.keys())))
-    await pl.evaluate("kartaStavZmen('balduin',{stavy:(kartaStav('balduin').stavy||[]).filter(t=>t!=='otrávený')})");await g.wait_for_timeout(2500)
+    await pl.evaluate("kartaStavZmen('balduin',{stavy:(kartaStav('balduin').stavy||[]).filter(t=>t!=='otrávený')})");await puls(g,od=pl)
     # Akce: bez kouzel a mistrovství zbraní, bez tlačítka krit, vlastnosti zbraně až po klepnutí
     await pl.evaluate("BDM.sec.balduin='akce';BDM.af.balduin='all';renderBoj()");await pl.wait_for_timeout(300)
     ak=await pl.inner_text('[data-bhcard="h4"] .bdmsec')
@@ -220,7 +220,7 @@ async def main():
     await pl.select_option('[name="juzi"]',f"k{i_hp}");await pl.wait_for_timeout(300)
     chk(await pl.evaluate("BJU.plos&&BJU.ab==='WIS'&&+BJU.dc===kSpDC(KARTBY.balduin)&&BJU.cile.length===1"),"Hold Person: plošný útok se záchranou WIS a SO z karty")
     s0=await pl.evaluate("(kartaStav('balduin').zdr||{}).slot3p||0");n0=await g.evaluate("(BOJ.s.utoky||[]).length");z0=await pl.evaluate("JSON.stringify([kartaStav('balduin').zdr||null,kartaStav('balduin').uc||null])")
-    await pl.click("[data-juposl]");await pl.wait_for_timeout(1500);await g.wait_for_timeout(3200)
+    await pl.click("[data-juposl]");await puls(g,od=pl)
     chk(await g.evaluate("(BOJ.s.utoky||[]).length")-n0==1 and "Hold Person" in await g.evaluate("(BOJ.s.utoky||[]).slice(-1)[0].cim"),"kouzlo se záchranou dorazí vypravěči")
     chk(await pl.evaluate("(kartaStav('balduin').zdr||{}).slot3p||0")==s0+1,"odesláním kouzla se odečte slot paktu")
     chk("soustředí" in await g.evaluate("JSON.stringify(BOJ.s.hraci.find(h=>h.id==='h4').stav||[])"),"Hold Person zapne soustředění v boji")

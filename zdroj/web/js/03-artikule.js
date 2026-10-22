@@ -969,7 +969,13 @@ function renderArtikule(b, c) {
     tg.setAttribute("aria-expanded", o);
   });
   if (k && k.id !== "pojmy") autolink(main, "", v => v.g && v.g !== k.id);
-  if (k) pojZnac(main);
+  /* značky pojmů (pojZnac) jsou v dílu „hra“, který se hráči stahuje až na pozadí – Artikule jsou v jádru, tak na něj počkají
+     (2026-10-22, dřív při rychlém otevření kapitoly „pojZnac is not defined“) */
+  if (k)
+    mmLina("hra").then(
+      () => pojZnac(main),
+      () => {},
+    );
   if (k && c) {
     const el = document.getElementById("as-" + c);
     if (el) {

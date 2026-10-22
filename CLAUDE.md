@@ -217,7 +217,8 @@ Hlavní orientační body:
   Jednotlivé `prohlizec_*.py` potřebují proměnné ze `spustit.sh`, pouštěj je přes něj.
 - Logy GitHub Actions se odsud stáhnout nedají (`--log-failed` selže). Chyby jsou v anotacích:
   `gh run view <id>` → ANNOTATIONS (řádky FAIL a konec chyby Pythonu; při chybě i poslední zelený commit a změny od něj).
-  CI má rychlou kontrolu (~3 min, neruší se) a čtyři souběžné části v prohlížeči (`MM_TESTY` + `MM_PROHLIDKY` v matrixu).
+  CI má rychlou kontrolu (~1 min, neruší se) a šest souběžných částí v prohlížeči (`MM_TESTY` + `MM_PROHLIDKY` v matrixu), celkem ~4 min.
+  V testech nečekej pevně vteřiny na puls: `puls(stránka, od=odesílatel)` z `testy/_puls.py` se zeptá hned (viz testy/README.md).
 - Nové chování doplň do příslušného `prohlizec_*.py`. Vzhled kontroluj jako vypravěč i hráč, desktop i mobil,
   světlý i tmavý režim.
 

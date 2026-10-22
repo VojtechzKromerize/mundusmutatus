@@ -138,6 +138,25 @@ const el = (n, a, txt) => {
   if (txt != null) e.textContent = txt;
   return e;
 };
+/* řetězce cest pro tvary map se sestaví jen jednou; při přiblížení se jen znovu použijí. Kreslí s nimi mapa světa (05b)
+   i plán Prahy (04b) – plán se načítá bez mapy světa, proto jsou tady v jádru (2026-10-22, dřív „svPath is not defined“) */
+const SVPC = new WeakMap();
+const svPath = p => {
+  let v = SVPC.get(p);
+  if (v === undefined) {
+    v = p.map(r => "M" + r.map(q => q.join(",")).join("L") + "Z").join("");
+    SVPC.set(p, v);
+  }
+  return v;
+};
+const svLine = r => {
+  let v = SVPC.get(r);
+  if (v === undefined) {
+    v = "M" + r.map(q => q.join(",")).join("L");
+    SVPC.set(r, v);
+  }
+  return v;
+};
 /* skupiny se stejným filtrem jdoucí po sobě sdílí jeden filtrovaný obal: filtr se pak počítá jednou, ne pro každou vrstvu zvlášť */
 const svgG = (svg, a) => {
   a = a || {};

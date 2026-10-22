@@ -43,11 +43,19 @@
    - prohlídka všech stránek jako hráč i jako přihlášený vypravěč.
 
 Na GitHubu běží automaticky při každém nahrání (`.github/workflows/kontrola.yml`), výsledek je u commitu (✓ / ✗).
-Běh má **rychlou kontrolu** (sestavení, tajemství, kontrola kódu, schéma, práva; ~3 min, novější nahrání ji neruší)
-a **čtyři souběžné části v prohlížeči** (stránky a bestiář · boj · karta · ostatní a prohlídka). Při chybě úloha
+Běh má **rychlou kontrolu** (sestavení, tajemství, kontrola kódu, schéma, práva; ~1 min, novější nahrání ji neruší)
+a **šest souběžných částí v prohlížeči** (karta · boj a tah · boj a reakce · karta – ostatní, potvrzování, editor ·
+statické stránky a bestiář · prohlídka hráče a vypravěče), každou na 2–3 min; celý běh trvá kolem 4 minut. Při chybě úloha
 „Od posledního zeleného stavu“ vypíše poslední úspěšný commit a seznam změn od něj. Délky jednotlivých testů jsou
 ve výpisu („✓ prohlížeč: boj (107 s)“) – podle nich se části vyvažují v matrixu `kontrola.yml`.
 Testovací záznamy, které se přidají jen do testovací kopie, jsou v `testy/data/` (např. koncept Kroniky).
+
+Co testy zdržuje a jak se tomu vyhnout (2026-10-22): prohlídka stránek (`prochazka.py`) prochází frontu odkazů
+v šesti záložkách najednou (`MM_ZALOZEK`) a na každé stránce počká na líný díl a na text, ne pevných 250 ms.
+Testy boje místo čekání na další tik pulsu (2,5–6 s) volají `puls(stránka, od=odesílatel)` z `testy/_puls.py`:
+počká, až odesílatel dopíše do databáze, a příjemce se pulsem zeptá hned. V nových testech používej `puls` a
+`wait_for_function` místo `wait_for_timeout` s vteřinami – pevných čekání je v testech přes tisíc a dělají
+většinu jejich délky.
 
 Ručně, např. na vlastním počítači s PostgreSQL:
 
