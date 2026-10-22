@@ -8,8 +8,14 @@ async def main():
     g,gerr=await gm_strana(b)
     chk(await g.locator("#navboj").is_visible(),"vypravěč má v nabídce Boj")
     await priprava(g,["Adam","Bára","Cyril"],[15,9,None],None,[("Žoldnéři","houf",6),("Hejtman","sok",None)])
+    # tichá příprava (2026-10-22): dokud ji vypravěč neukáže, hráč na Hře přípravu ani iniciativu nevidí
+    await g.evaluate("bojZmen(z=>{z.ticha=true})");await g.wait_for_timeout(1200)
+    ph=await b.new_page(viewport={"width":390,"height":844});await ph.goto(BASE+"#hra");await ph.wait_for_function("!document.documentElement.classList.contains('mmload')");await ph.wait_for_timeout(2500)
+    chk(await ph.locator("#bojview .bprip, #bojview .bsloty").count()==0,"tichá příprava: hráč na Hře iniciativu nevidí")
+    chk(await g.locator("[data-bukaz]").count()==1 and await g.locator(".bticha").count()==1,"vypravěč vidí, že hráči přípravu nevidí, a tlačítko Ukázat hráčům")
+    await g.click("[data-bukaz]")
     # hráč zapíše svůj hod z telefonu během přípravy
-    ph=await b.new_page(viewport={"width":390,"height":844});await ph.goto(BASE+"#boj");await ph.wait_for_selector(".bprip")
+    await ph.wait_for_selector(".bprip",timeout=15000);chk(True,"po Ukázat hráčům se hráči na Hře objeví příprava boje")
     chk(await ph.locator(".bnpc").count()==0,"hráč v přípravě nevidí nepřátele")
     await ph.evaluate("bojJa.set('Cyril');renderBoj()");await ph.wait_for_timeout(300)
     await ph.fill("[data-bjahod]","11");await ph.press("[data-bjahod]","Tab");await ph.wait_for_timeout(800)
