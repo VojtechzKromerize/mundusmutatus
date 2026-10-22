@@ -683,6 +683,25 @@ const bRucN = (v, a, b) => {
   const n = Math.round(+v);
   return isFinite(n) && n >= a && n <= b ? n : null;
 };
+/* převezme ruční kostky hráče me před útokem nebo kouzlem: chybná hodnota = hláška a null (nic se nehází);
+   jinak vrátí {r20, r6, rz} (null = hodí web), smaže je z formuláře a spotřebuje zvolenou Předzvěst */
+function bRucPrevezmi(me, K, maxZr) {
+  const R = BRUC[me.id] || {},
+    r20 = bRucN(R.d20, 1, 20),
+    r6 = bRucN(R.d6, 1, 6),
+    rz = bRucN(R.dmg, 0, maxZr),
+    pl = v => String(v ?? "").trim() !== "";
+  if ((pl(R.d20) && r20 == null) || (pl(R.d6) && r6 == null) || (pl(R.dmg) && rz == null)) {
+    mmHlas(
+      pl(R.d20) && r20 == null ? "d20 musí být 1–20." : pl(R.d6) && r6 == null ? "Kostka Závoje musí být 1–6." : "Zranění zadej jako číslo.",
+      3000,
+    );
+    return null;
+  }
+  delete BRUC[me.id];
+  if (K) bojPortPouzit(K, me.id, r20);
+  return {r20, r6, rz};
+}
 /* Věštec – Portent (2026-10-22): předzvěst místo d20 se zvolí před hodem; chip ji vyplní jako ruční d20, hod ji pak z karty odebere */
 const BPORT = {};
 const bojPortHtml = (h, K) => {

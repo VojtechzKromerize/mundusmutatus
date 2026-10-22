@@ -1244,18 +1244,7 @@ document.addEventListener("change", async e => {
     if (!bojDsAkt(h0)) return;
     const r = bojDs(h0.ds, "hod", d);
     /* přirozená 20: probere se s 1 HP (jako hod tlačítkem) */
-    if (!r.ds) {
-      const K = bojKartaH(h0);
-      if (K && kMuze(K)) kartaStavZmen(K.id, {hp: Math.max(1, +kartaStav(K.id).hp || 0)}, null);
-    }
-    bojHracAkce(
-      id,
-      h => {
-        if (r.ds) h.ds = r.ds;
-        else delete h.ds;
-      },
-      `${h0.n}: hod proti smrti ${r.m}.`,
-    );
+    bojDsZapis(id, h0, r, true, `${h0.n}: hod proti smrti ${r.m}.`);
     return;
   }
   const sl = e.target.closest("[data-bslot]");
@@ -1574,6 +1563,16 @@ async function bojUlozSetkani() {
     `Skupina „${jm}“ uložena v tomto prohlížeči${rows.some(x => !x.b) ? " (do databáze jde jen setkání, kde má každý nepřítel statblock)" : ""}.`,
     6000,
   );
+}
+/* otevře rámeček Kritická zranění v pravidlech boje a posune na něj; s fokus i kurzor do první volby */
+function bojKritUkaz(v, fokus) {
+  BPRAV = true;
+  renderBoj();
+  const k = v.querySelector(".bkrit");
+  if (!k) return;
+  k.scrollIntoView({block: "center", behavior: "smooth"});
+  const i = fokus && k.querySelector("[data-bkr]");
+  if (i) i.focus();
 }
 document.addEventListener("click", async e => {
   const v = document.getElementById("bojview");
@@ -1958,14 +1957,7 @@ document.addEventListener("click", async e => {
       }
     }
     BKS.kdo = card ? "zásah od: " + (card.querySelector(".bnn b") || {}).textContent : "";
-    BPRAV = true;
-    renderBoj();
-    const k = v.querySelector(".bkrit");
-    if (k) {
-      k.scrollIntoView({block: "center", behavior: "smooth"});
-      const i = k.querySelector("[data-bkr]");
-      if (i) i.focus();
-    }
+    bojKritUkaz(v, true);
     return;
   }
   if (T("[data-bprav]")) {
@@ -2495,14 +2487,7 @@ document.addEventListener("click", async e => {
     BKS.pod = pd.pod;
     BKS.vys = "";
     BKS.kdo = o0 ? o0.n + " padl" : "";
-    BPRAV = true;
-    renderBoj();
-    const k = v.querySelector(".bkrit");
-    if (k) {
-      k.scrollIntoView({block: "center", behavior: "smooth"});
-      const i = k.querySelector("[data-bkr]");
-      if (i) i.focus();
-    }
+    bojKritUkaz(v, true);
     return;
   }
   {
@@ -2626,10 +2611,7 @@ document.addEventListener("click", async e => {
     return;
   }
   if (T("[data-bkritpc]")) {
-    BPRAV = true;
-    renderBoj();
-    const k = v.querySelector(".bkrit");
-    if (k) k.scrollIntoView({block: "center", behavior: "smooth"});
+    bojKritUkaz(v, false);
     return;
   }
   if (T("[data-bzrpo]") && o0) {

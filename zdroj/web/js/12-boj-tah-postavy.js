@@ -1776,21 +1776,26 @@ function bojHracKlik(T) {
     if (!h0 || !h0.ds) return true;
     const r = k === "hod" ? bojDs(h0.ds, "hod", bK(20)) : bojDs(h0.ds, k);
     if (GMV && k === "hod") bojLog(id, {n: "Hod proti smrti", zt: r.m}, hn);
-    if (k === "hod" && !r.ds) {
-      const K = bojKartaH(h0);
-      if (K && kMuze(K)) kartaStavZmen(K.id, {hp: Math.max(1, +kartaStav(K.id).hp || 0)}, null);
-    }
-    bojHracAkce(
-      id,
-      h => {
-        if (r.ds) h.ds = r.ds;
-        else delete h.ds;
-      },
-      k === "hod" ? `${hn}: hod proti smrti ${r.m}.` : r.m ? `${hn}: ${r.m}.` : "",
-    );
+    bojDsZapis(id, h0, r, k === "hod", k === "hod" ? `${hn}: hod proti smrti ${r.m}.` : r.m ? `${hn}: ${r.m}.` : "");
     return true;
   }
   return false;
+}
+/* výsledek hodu proti smrti r (z bojDs) zapíše postavě id do boje se zprávou txt; s probrat po hodu, který hody
+   ukončil (přirozená 20), dostane postava s kartou aspoň 1 HP */
+function bojDsZapis(id, h0, r, probrat, txt) {
+  if (probrat && !r.ds) {
+    const K = bojKartaH(h0);
+    if (K && kMuze(K)) kartaStavZmen(K.id, {hp: Math.max(1, +kartaStav(K.id).hp || 0)}, null);
+  }
+  bojHracAkce(
+    id,
+    h => {
+      if (r.ds) h.ds = r.ds;
+      else delete h.ds;
+    },
+    txt,
+  );
 }
 /* ===== karta postavy v boji (zatím zkušební karty v zdroj/obsah/karty, později import z PDF D&D Beyond) =====
    Karta zná AC, životy, záchrany, odolnosti, útoky, kouzla a zdroje; tracker z ní vyhodnocuje útoky nepřátel
