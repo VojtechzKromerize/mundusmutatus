@@ -1901,6 +1901,8 @@ abbr.btp{text-decoration:underline dotted color-mix(in srgb,var(--gold) 85%,tran
   .bnav{width:46px;height:42px}
   .bprtg{top:auto;bottom:96px}
   body:has(.view[data-view=boj]:not([hidden]) .bctl) .phbtn{bottom:74px}
+  /* posun k prvku (fokus, scrollIntoView, odkaz) ho nesmí schovat pod lepkavý pruh iniciativy se záložkami ani pod lištu tahu dole */
+  html:has(.view[data-view=boj]:not([hidden]) .bojakt:not(.bojprip)){scroll-padding-top:220px;scroll-padding-bottom:84px}
 }
 @media print{.bprtg,#bojview .bpravidla,#bojview .bctl{display:none!important}#bojview .bosa{position:static}}
 .kzfil{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin:8px 0 14px}
@@ -3192,6 +3194,8 @@ html.mmcela .wrap::before,html.mmcela .wrap::after{display:none}
 html.mmcela header.site,html.mmcela .sitenav,html.mmcela footer.colophon{display:none!important}
 html.mmcela .sec{gap:0}
 html.mmcela #bojview{padding:0}
+/* v boji je na telefonu dole pevná lišta tahu – obsah pod ní musí jít odsunout (jinak je „⚔ Útok“ pod lištou) */
+@media (max-width:820px){html.mmcela #bojview:has(.bctl){padding-bottom:calc(74px + env(safe-area-inset-bottom,0px))}}
 html.mmcela .hraja{margin:0}
 html.mmcela .bdm{max-width:none;margin:0;border-left:0;border-right:0;border-top:0;border-radius:0}
 html.mmcela .bdmh{padding-top:max(8px,env(safe-area-inset-top,0px))}
