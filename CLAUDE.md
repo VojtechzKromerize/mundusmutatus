@@ -100,6 +100,13 @@ Hlavní orientační body:
 - `route()` – hashový router; seznam stránek `VIEWS`, popisky `NAVNAME`. Stránky: uvod, hra, svet, mapa,
   praha, desky (#rod/…, #osoba/…), druzina, artikule, draconomicon, kronika, pravidla, karty, boj,
   vyprava, kouzla, sezeni, gm. `kouzla` a `sezeni` jen pro vypravěče.
+- **Hráčská Hra = karta a boj na jedné stránce** (od 2026-10-22, plán `vyvoj/hra-prestavba.md` v projektu): hráč na `#hra` je uvnitř
+  na stránce Boj (`curView === "boj"`, `#bojview`, `renderBoj`); mimo boj vykreslí `hraHracHtml()` (16) jen kartu, nebo přihlášení
+  a volbu postavy. `#boj` hráče přesměruje na `#hra`; „je otevřená Hra?“ = `mmNaHre()` (08). Výzvy k hodu ukazuje lišta `#mmvyz`.
+  Tajné zprávy a ukázky = list ✉ „Od vypravěče“ na vlastní kartě, pokladna = list Peníze, telefon a odhlášení = list Postava,
+  úkoly družiny = Kronika. Vypravěč má zatím Hru (`#hraview`, `renderHra`) a Boj zvlášť (sloučení do pultu: krok 6 plánu).
+- **Tichá příprava boje** (`s.ticha`): příprava založená otevřením Boje vypravěčem hráči nevidí; uvidí ji po „Hráči hodí
+  iniciativu“, „Ukázat hráčům“ (`data-bukaz`) nebo „Začít boj“.
 - Každá stránka má `render<Stránka>()` (renderBoj, renderKarty, renderVyprava, renderPravidla…). Po změně dat volej
   **`bojPrekresli()` / `kartyPrekresli()`** – víc změn v jedné obsluze se překreslí jednou (`mmPozdeji` v 01);
   `renderBoj()` přímo jen tam, kde hned potom sáhneš na nově vykreslený prvek (fokus, posun).
