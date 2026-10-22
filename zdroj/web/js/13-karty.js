@@ -552,11 +552,8 @@ function kartaZatez(K) {
   const S = kartaStav(K.id);
   return kZatez(K, S.inv || K.vybaveni || [], S.pen || K.penize || {});
 }
-/* ===== karta postavy v rozvržení D&D Beyond (2026-10-16): hlavička, vlastnosti, zdatnost, rychlost, inspirace,
-   Svědomí, životy; záchrany, smysly, zdatnosti; dovednosti a hod kostkou; iniciativa, AC, obrana a stavy;
-   záložky Akce · Kouzla · Vybavení · Rysy · Duše · Zázemí · Poznámky · Společníci. Používá pomocné funkce karty
-   (kAkceHtml, kSpListHtml, kStavHtml, kRysyHtml, kDoplHtml, kSpolHtml, kAC). ===== */
-const KDBFLT = {a: "all", q: ""};
+/* ===== části karty sdílené s bojovou kartou (14): české názvy vlastností, puntíky omezených použití, deník.
+   Celou kartu v rozvržení D&D Beyond (kartaDbHtml) nahradila 2026-10-18 bojová karta; odstraněna 2026-10-23. ===== */
 const KDBVL = {STR: "Síla", AGI: "Obratnost", CON: "Odolnost", INT: "Inteligence", WIS: "Moudrost", CHA: "Charisma"};
 function kdbPips(K, q) {
   const U = kartaStav(K.id).zdr || {},
@@ -578,33 +575,6 @@ document.addEventListener("click", e => {
   if (KUPRO.has(K.id)) KUPRO.delete(K.id);
   else KUPRO.add(K.id);
   kartyPrekresli();
-});
-/* filtr v záložce Akce a hledání kouzel – bez překreslení */
-document.addEventListener("click", e => {
-  const b = e.target.closest && e.target.closest("[data-kdbf]");
-  if (!b) return;
-  const [g, k] = b.dataset.kdbf.split(":");
-  KDBFLT[g] = k;
-  const c = b.closest(".ktab");
-  if (!c) return;
-  c.querySelectorAll(`[data-kdbf^="${g}:"]`).forEach(x => x.setAttribute("aria-pressed", x === b));
-  c.querySelectorAll("[data-kac]").forEach(s => {
-    s.hidden = k !== "all" && s.dataset.kac !== k;
-  });
-});
-document.addEventListener("input", e => {
-  const t = e.target;
-  if (!t.matches || !t.matches("[data-kdbq]")) return;
-  KDBFLT.q = t.value;
-  const q = t.value.trim().toLowerCase(),
-    c = t.closest(".ktab");
-  c.querySelectorAll(".kdbspl .kspl li").forEach(r => {
-    r.hidden = !!q && !r.textContent.toLowerCase().includes(q);
-  });
-  c.querySelectorAll(".kdbspl .bsph").forEach(h => {
-    const ul = h.nextElementSibling;
-    h.hidden = !!ul && ![...ul.children].some(li => !li.hidden);
-  });
 });
 /* import PDF: pdf.js z art/lib, pole formuláře → karta */
 async function kartaImport(file) {
@@ -688,27 +658,9 @@ document.addEventListener("change", async e => {
     return;
   }
   if (!K) return;
-  if (t.matches("[data-kadv]")) {
-    KADV = +t.dataset.kadv;
-    return;
-  }
-  if (t.matches("[data-kskr]")) {
-    window.KSKR = t.checked;
-    return;
-  }
-  if (t.matches("[data-kef][data-pri]")) {
-    kPriTog(K, t.dataset.pri);
-    return;
-  }
   if (t.matches("[data-kprib]")) {
     const P = kPri(K).filter(x => !/^Bardic /.test(x));
     kartaStavZmen(K.id, {pri: [...P, "Bardic " + t.value]});
-    return;
-  }
-  if (t.matches("[data-kef]")) {
-    const i = +t.dataset.kef,
-      E = (KEF[K.id] = KEF[K.id] || []);
-    KEF[K.id] = t.checked ? [...new Set([...E, i])] : E.filter(x => x !== i);
     return;
   }
   if (t.matches("[data-kinsp]")) {
@@ -885,13 +837,6 @@ document.addEventListener("click", async e => {
     const j = +kk.dataset.kkz,
       u = +S.kz || 0;
     kartaStavZmen(K.id, {kz: (u > j ? j : j + 1) || null});
-    return;
-  }
-  const vy = T("[data-kvy]");
-  if (vy) {
-    const j = +vy.dataset.kvy,
-      u = +S.vycerp || 0;
-    kartaStavZmen(K.id, {vycerp: (u > j ? j : j + 1) || null});
     return;
   }
   const ob = T("[data-kobl]");

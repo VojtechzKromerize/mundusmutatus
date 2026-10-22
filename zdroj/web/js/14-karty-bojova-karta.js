@@ -312,17 +312,6 @@ document.addEventListener("submit", e => {
   const K = kvK(e.target);
   if (K) kPoolPridej(K, e.target);
 });
-document.addEventListener("click", e => {
-  const b = e.target.closest && e.target.closest("[data-kzbrv]");
-  if (!b) return;
-  const K = kvK(b);
-  if (!K) return;
-  const n = b.dataset.kzbrv;
-  if (KZBRV[K.id] === n) delete KZBRV[K.id];
-  else KZBRV[K.id] = n;
-  kZbrvUloz();
-  kartyPrekresli();
-});
 /* ===== Boj: karta postavy hráče ve formátu karty NPC (2026-10-17) – hlavička (AC, životy, R), rozbalená část
    se stavy, krytem, útoky z karty, kouzly, zdroji, záchranami a akcemi. Vypravěč má rozbalenou postavu na tahu
    a může za hráče zapsat, co udělal (útok hozený fyzickými kostkami, zranění, záchrany). ===== */
@@ -2207,9 +2196,3 @@ addEventListener(
   },
   {passive: true},
 );
-/* z hlavní karty do Boje: otevře bojovou kartu této postavy */
-document.addEventListener("click", e => {
-  const a = e.target.closest && e.target.closest("[data-bdmgo]");
-  if (!a) return;
-  BDM.fokus = a.dataset.bdmgo;
-});
