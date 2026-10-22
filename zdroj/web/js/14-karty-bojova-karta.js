@@ -1296,23 +1296,22 @@ const BDMI = {
   kolo: '<circle cx="8" cy="8" r="2.4"/><path d="M8 1.6v2M8 12.4v2M1.6 8h2M12.4 8h2M3.5 3.5l1.4 1.4M11.1 11.1l1.4 1.4M3.5 12.5l1.4-1.4M11.1 4.9l1.4-1.4"/>',
   slunce:
     '<path d="M3 11.5a5 5 0 0 1 10 0Z" fill="currentColor" stroke="none"/><path d="M8 2.2v2M3.3 4.4l1.3 1.4M12.7 4.4l-1.3 1.4M1.6 8.6h1.8M12.6 8.6h1.8M1.6 13.2h12.8"/>',
-  duse: '<path d="M8 14s-5.4-3.2-5.4-7A2.9 2.9 0 0 1 8 5.2 2.9 2.9 0 0 1 13.4 7c0 3.8-5.4 7-5.4 7Z"/>',
   info: '<circle cx="8" cy="8" r="6.2"/><path d="M8 7.3v4M8 4.9v.1"/>',
   denik: '<path d="M3.2 2.4h7.6l2 2v9.2H3.2ZM5.6 6h4.8M5.6 8.6h4.8M5.6 11.2h3"/>',
+  dopis: '<path d="M2.2 4.2h11.6v8H2.2Z"/><path d="m2.2 4.6 5.8 4.4 5.8-4.4"/>',
   zaznam:
     '<path d="M2.6 3.2h10.8v9.6H2.6Z"/><path d="M5 6.2h6M5 8.4h6M5 10.6h3.6"/><circle cx="11.4" cy="10.6" r=".6" fill="currentColor" stroke="none"/>',
   d20: '<path d="M8 1.4 13.8 4.7v6.6L8 14.6 2.2 11.3V4.7Z"/><path d="M8 1.4 4.6 9.4h6.8ZM2.2 4.7l2.4 4.7M13.8 4.7l-2.4 4.7M4.6 9.4 8 14.6l3.4-5.2"/>',
 };
 const bdmIc = (k, c) =>
   `<svg class="bdmic${c ? " " + c : ""}" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">${BDMI[k] || ""}</svg>`;
-/* oddíly (2026-10-21): Info je rozpuštěné do Statistik (smysly, zdatnosti, jazyky) a Duše (zázemí); Herní záznam je vedle karty */
+/* oddíly (2026-10-22): Info i Duše jsou pryč – smysly a zdatnosti ve Statistikách, duše, rány a účinky v listu Svědomí; Herní záznam je vedle karty */
 const BDMS = [
   ["vl", "Statistiky: vlastnosti, záchrany, dovednosti, smysly, zdatnosti a jazyky", "Statistiky"],
   ["akce", "Akce: útoky, bonusové akce, reakce, omezené schopnosti", "Akce"],
   ["kouzla", "Kouzla", "Kouzla"],
   ["vyb", "Vybavení do boje", "Vybavení"],
   ["rysy", "Rysy a schopnosti", "Rysy"],
-  ["duse", "Duše, rány, účinky a zázemí", "Duše"],
   ["denik", "Poznámky a deník", "Poznámky"],
   ["spol", "Společníci", "Společníci"],
 ];
@@ -1329,13 +1328,6 @@ const bdmSekce = K =>
   BDMS.filter(([id]) => id !== "kouzla" || kSeznam(K).length || kSloty(K).length).filter(
     ([id]) => id !== "spol" || kSpol(K).length || kForma(K) || kZdroje(K).some(q => /wild shape/i.test(q.n)),
   );
-const BDMSV = [
-  [0, "Výhoda na Intimidation · Smlouva s ďáblem (1× za dlouhý odpočinek změní Závoj na Požehnání) · feat víry nefunguje"],
-  [3, "Výhoda na Deception · Neklidné sny: dlouhý odpočinek vrátí jen polovinu životů"],
-  [7, "Bez bonusu i postihu"],
-  [10, "Imunita vůči Vyděšený (Frightened) · výhoda na Insight · nevýhoda na Deception"],
-];
-const bdmSvTxt = v => (BDMSV.find(x => v <= x[0]) || BDMSV[3])[1];
 /* výdrž zbroje (Artikule › Zbroj): při kritickém zásahu lze obětovat zbroj nebo štít; vyčerpané přestanou dávat AC i Resistance */
 function kZbrUziti(c, S) {
   const U = (S && S.zbrU) || {},
@@ -1636,11 +1628,12 @@ function bdmKouzla(s, h, K, gm, X) {
 function bdmRysy(K) {
   const U = kartaStav(K.id).zdr || {},
     D = kDopl(K),
-    A = [...(K.rysy2 || []).filter(r => r.cas || r.max), ...(D.rysy || [])];
+    A = [...(K.rysy2 || []).filter(r => (r.cas || r.max) && !KMAST.test(String(r.n || "").trim())), ...(D.rysy || [])];
+  /* počet použití jako „zbývá 1/2“ s tečkami u jména (2026-10-22); mistrovství zbraní (Vex, Nick…) nejsou rysy s aktivací */
   const ak = A.length
     ? `<ul class="kakl bdmakl">${A.map(r => {
         const u = Math.min(r.max || 0, +(U[r.n] || 0));
-        return `<li><button type="button" class="kspn" data-krys="${besc(r.n)}">${besc(r.n)}</button>${r.cas ? ` <small class="kcas">${{A: "akce", BA: "bonusová akce", R: "reakce"}[r.cas] || ""}</small>` : ""}${r.max ? ` <span class="bzd">${[...Array(r.max)].map((_, j) => `<button type="button" class="${j < u ? "on" : ""}" data-kzd="${besc(r.n)}" data-j="${j}" aria-label="${besc(r.n)} ${j + 1}"></button>`).join("")}</span>` : ""}</li>`;
+        return `<li><button type="button" class="kspn" data-krys="${besc(r.n)}">${besc(r.n)}</button>${r.cas ? ` <small class="kcas">${{A: "akce", BA: "bonusová akce", R: "reakce"}[r.cas] || ""}</small>` : ""}${r.max ? ` <span class="bdmpoc" ${btip(`${r.n}: zbývá ${r.max - u} z ${r.max} použití – klikni na tečku, když použiješ`)}><small>zbývá</small><b>${r.max - u}/${r.max}</b><span class="bzd">${[...Array(r.max)].map((_, j) => `<button type="button" class="${j < u ? "on" : ""}" data-kzd="${besc(r.n)}" data-j="${j}" aria-label="${besc(r.n)} ${j + 1}"></button>`).join("")}</span></span>` : ""}</li>`;
       }).join("")}</ul>`
     : `<p class="bdmnote">Žádné rysy s aktivací nebo počtem použití.</p>`;
   const vse = kRysyHtml(K);
@@ -1688,7 +1681,11 @@ function bdmTelo(s, h, K, gm, X, id) {
     const zh = a => (X.boj ? `data-bkzh="${a}"` : `data-khod="za:${a}"`),
       edit = gm || kMuze(K);
     const ab = `<div class="bdmainf bdmvlh"><span class="bdmch" ${btip("Bonus zdatnosti")}>Zdatnost <b>${bsg(kPB(K))}</b></span><span class="bdmch" ${btip(kRychTxt(K))}>Rychlost <b>${kRychN(K)} st.</b></span><button type="button" class="bdmch" data-khod="in" ${btip(`Iniciativa: d20 ${bsg(kIni(K))} – klikni a hoď`)}>Iniciativa <b>${bsg(kIni(K))}</b></button></div><div class="bdmvl">${BAB.map(a => bdmVlRadek(K, a, zh(a), edit)).join("")}</div>`;
-    const za = `${K.konVyhoda ? `<p class="bdmnote"><button type="button" class="bdmmini" ${X.boj ? `data-bkzh="CON" data-adv="1"` : `data-khod="za:CON"`}>◎ soustředění ${bsg(kZach(K, "CON"))} s výhodou</button> War Caster</p>` : ""}${(K.zachPozn || []).length ? `<p class="bdmnote">${K.zachPozn.map(besc).join(" · ")}</p>` : ""}`;
+    /* poznámky k záchranám (War Caster, +1 ke všem…) jako jeden řádek chipů, podrobnost v nápovědě (2026-10-22) */
+    const za =
+      K.konVyhoda || (K.zachPozn || []).length
+        ? `<div class="bdmainf bdmvlh bdmzap">${K.konVyhoda ? `<button type="button" class="bdmch" ${X.boj ? `data-bkzh="CON" data-adv="1"` : `data-khod="za:CON"`} ${btip("War Caster: CON záchrana pro udržení soustředění s výhodou – klikni a hoď")}>◎ Soustředění <b>${bsg(kZach(K, "CON"))}</b> výh.</button>` : ""}${(K.zachPozn || []).map(t => `<span class="bdmch" ${btip(t)}>${besc(t.length > 28 ? t.slice(0, 26).replace(/\s+\S*$/, "") + "…" : t)}</span>`).join("")}</div>`
+        : "";
     const dov = `<h4 class="bdmgh">Dovednosti</h4><div class="bdmdov bdmdov2">${Object.keys(KDOVAB)
       .filter(n => (K.dov || {})[n] != null)
       .map(n => {
@@ -1704,7 +1701,7 @@ function bdmTelo(s, h, K, gm, X, id) {
   if (id === "kouzla") return bdmKouzla(s, h, K, gm, X);
   if (id === "vyb") return bdmVyb(K);
   if (id === "rysy") return bdmRysy(K);
-  if (id === "duse" || id === "denik") return `<div class="kdb2 bdmkdb">${kartaDbHtml(K, kartaDbData(K), {jenTab: id})}</div>`;
+  if (id === "denik") return `<div class="kdb2 bdmkdb">${kartaDbHtml(K, kartaDbData(K), {jenTab: id})}</div>`;
   if (id === "spol") return kFormaHtml(K) + kSpolHtml(K);
   return "";
 }
@@ -1757,15 +1754,8 @@ function bdmList(s, h, K, gm, X, t) {
       `<p class="bdmnote">${besc(kACR(K).txt)}${X.boj && h.kryt ? ` + kryt ${h.kryt}` : ""}</p>${zuL.length ? `<div class="bdmrow">${kZbrUHtml(K, true)}</div><p class="bdmnote">Při kritickém zásahu obětuj zbroj nebo štít – kritický zásah se změní v běžný. Vycpávaná a štít vydrží 1×, kroužková 2×, plátová a komplexní 3×; pak nedávají AC ani Resistance, dokud je kovář neopraví (klepnutím na kosočtverec).</p>` : `<p class="bdmnote">Postava nemá zbroj ani štít, které by šly obětovat.</p>`}${X.boj ? `<div class="bdmrow">${X.kry || ""}</div>` : ""}`,
     ];
   }
-  if (t === "sv")
-    return [
-      `Svědomí ${D.sv} · ${SVST(D.sv)}`,
-      `<p class="bdmnote">${besc(bdmSvTxt(D.sv))}</p>
-      <div class="bdmsvk"><span class="kbod"><small>Body hříchu</small><b>${D.hr}</b></span><span class="kbod"><small>Dobré skutky</small><b>${D.sk}</b></span></div>
-      <div class="bdmrow"><span class="kdusk">Hřích</span><button type="button" class="bdmbtn" data-kdu="h1" ${btip("Všední hřích, podlehnutí Neřesti nebo přijaté Pokušení: +1 bod hříchu")}>+1 hřích</button><button type="button" class="bdmbtn" data-kdu="h2" ${btip("Všední hřích proti vlastní Ctnosti: +2 body hříchu")}>+2 proti Ctnosti</button><button type="button" class="bdmbtn bhrich" data-kdu="s1" ${btip("Smrtelný hřích: Svědomí −1 hned")}>smrtelný −1</button><button type="button" class="bdmbtn bhrich" data-kdu="s2" ${btip("Smrtelný hřích proti vlastní Ctnosti: Svědomí −2 hned")}>smrtelný −2</button></div>
-      <div class="bdmrow"><span class="kdusk">Skutek</span><button type="button" class="bdmbtn bdmsk" data-kdu="d1" ${btip("Jednání podle Ctnosti, které něco stojí: +1 bod dobrých skutků")}>+1 dobrý skutek</button><button type="button" class="bdmbtn bdmsk" data-kdu="v1" ${btip("Skutečná oběť nebo riziko života pro Ctnost: Svědomí +1 hned")}>velký skutek +1</button>${D.hr || D.sk ? `<button type="button" class="bdmmini" data-kdu="op" ${btip("Ubrat poslední připsaný bod")}>oprava</button>` : ""}</div>
-      <p class="bdmnote">Body se sečtou při Zpytování svědomí na konci sezení. <button type="button" class="bdmlink" data-bdmsec="duse" data-bdmzav>Celá duše, rány a účinky →</button></p>`,
-    ];
+  /* Svědomí (2026-10-22): záložka Duše zmizela – celá duše (hřích a skutky, feat víry, nastavení), rány a účinky jsou v tomto listu */
+  if (t === "sv") return [`Svědomí ${D.sv} · ${SVST(D.sv)}`, `<div class="kdb2 bdmkdb bdmduse">${kDuseHtml(K)}${kRanyHtml(K)}${kUcHtml(K)}</div>`];
   if (t === "odp") {
     const kzMax = kKostkyPool(K).length || kLv(K);
     const spent = +S.kz || 0,
@@ -1894,7 +1884,7 @@ function bojDbm(s, h, K, gm, vzdy, X) {
       ? `<span class="bdmzavm${zv.pravda ? " bdmpravda" : ""}" ${btip(zv.pravda ? "Hodina Pravdy: svátek a Hodina Závoje – kostka Závoje nezná neutrální výsledek" : zv.z ? `Hodina Závoje (${zv.z}): Pokušení padá již na 1–3` : `Svátek: ${zv.fe.map(x => x.n).join(", ")}`)}>${bi("zavoj")}${zv.pravda ? "Hodina Pravdy" : zv.z ? "Hodina Závoje" : "Svátek"}</span>`
       : "";
   const krH = kr.length
-    ? `<a class="bdmkrb" href="#karty/${besc(K.id)}" data-bdmsec="duse" aria-label="Neléčené rány: ${kr.length}" ${btip(`Neléčené rány: ${kr.map(x => x.t).join("; ")} – podrobnosti v Duši`)}>${bi("rana")}${kr.length}</a>`
+    ? `<button type="button" class="bdmkrb" data-bdmsh="sv" aria-label="Neléčené rány: ${kr.length}" ${btip(`Neléčené rány: ${kr.map(x => x.t).join("; ")} – klikni: rány a léčení`)}>${bi("rana")}${kr.length}</button>`
     : "";
   const dsH = X.boj && h.ds ? bojDsPip(h) : !X.boj && S.ds ? bojDsPip({ds: S.ds}) : "";
   const stIk = (() => {

@@ -1481,7 +1481,7 @@ const hraMoje = K => !GMV && !!K && (JA.get() || {}).k === K.id;
 function hraVypravBtn(K, shOpen) {
   if (!hraMoje(K) || !window.MMDB) return "";
   const n = ZPR.filter(z => z.gm && z.id > zprCteno.get()).length;
-  return `<button type="button" class="bdmsq bdmvypr" data-bdmsh="vyprav" aria-expanded="${shOpen === "vyprav"}" aria-label="Od vypravěče: tajné zprávy a ukázky${n ? ` – nové: ${n}` : ""}" ${btip("Od vypravěče: tajné zprávy a ukázky")}>✉${n ? `<b class="bdmvyprn">${n}</b>` : ""}</button>`;
+  return `<button type="button" class="bdmsq bdmvypr" data-bdmsh="vyprav" aria-expanded="${shOpen === "vyprav"}" aria-label="Od vypravěče: tajné zprávy a ukázky${n ? ` – nové: ${n}` : ""}" ${btip("Od vypravěče: tajné zprávy a ukázky")}>${bdmIc("dopis")}${n ? `<b class="bdmvyprn">${n}</b>` : ""}</button>`;
 }
 function hraVypravList(K) {
   const z = ZPR.filter(x => x.gm);

@@ -74,6 +74,7 @@ async def main():
     try:
         await pl.wait_for_selector(".kzas",timeout=8000);chk(True,"hráči se ukáže zásah nepřítele s nabídkou reakce")
         chk(await pl.locator(".bdmukol .kzas [data-bzr]").count()>=1,"zásah s reakcí je v pruhu „Čeká na tebe“, který se nesbaluje (2026-10-20)")
+        await pl.evaluate("mmPopX()")  # ukázka vypravěče z jiného testu by překážela
         await pl.click('.kzas [data-bzr="ok"]');await pl.wait_for_timeout(300)
     except Exception as ex: chk(False,"hráči se ukáže zásah nepřítele s nabídkou reakce: "+str(ex)[:80])
     # bojová karta v rozvržení D&D Beyond: životy z hlavičky, oddíly přes mřížku, hrdinská inspirace
