@@ -3320,13 +3320,11 @@ html.mmjenhra .bdmkl{display:none}
 .kstrkon{color:var(--kb-gold,#c9a14a);font-weight:700}
 .bdmtahr{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0}
 /* Akce (2026-10-21): pod-karty Akce · Bonusová · Reakce · Připravit · Omezené; zlatá = zobrazená, šedá = v tahu vyčerpaná, modrá = reakce volná */
-.bdmseg{display:grid;grid-template-columns:repeat(auto-fit,minmax(60px,1fr));gap:3px;margin-top:8px;padding:3px;background:var(--kb-pan2);border:1px solid var(--kb-bd2);border-radius:10px}
-.bdmsg{display:flex;flex-direction:column;align-items:center;gap:1px;padding:5px 2px 4px;border:1.5px solid transparent;border-radius:7px;background:var(--kb-pan);color:var(--kb-tx);font-family:var(--f-label)!important;font-weight:700;font-size:.74rem;letter-spacing:.03em;text-transform:uppercase;line-height:1.15;cursor:pointer}
-.bdmsg small{font-family:var(--f-label);font-weight:500;font-size:.62rem;letter-spacing:.02em;text-transform:none;color:var(--kb-mu)}
-.bdmsg.bdmsgr{color:#8cbcf0}.bdmsg.bdmsgr small{color:#8cbcf0}
+.bdmseg{display:grid;grid-template-columns:repeat(auto-fit,minmax(60px,1fr));gap:3px;margin-top:6px;padding:2px;background:var(--kb-pan2);border:1px solid var(--kb-bd2);border-radius:10px}
+.bdmsg{display:flex;align-items:center;justify-content:center;padding:4px 2px;min-height:30px;border:1.5px solid transparent;border-radius:7px;background:var(--kb-pan);color:var(--kb-tx);font-family:var(--f-label)!important;font-weight:700;font-size:.7rem;letter-spacing:.03em;text-transform:uppercase;line-height:1.15;cursor:pointer}
+.bdmsg.bdmsgr{color:#8cbcf0}
 .bdmsg.bdmsgsel{border-color:var(--kb-gold);background:var(--kb-sel);color:var(--kb-gold);box-shadow:inset 0 0 0 1px rgba(214,176,90,.25)}
-.bdmsg.bdmsgsel small{color:var(--kb-gold)}
-.bdmsg.bdmsgu{background:var(--kb-off);color:var(--kb-dim);border-color:transparent}.bdmsg.bdmsgu small{color:var(--kb-dim);text-decoration:line-through}
+.bdmsg.bdmsgu{background:var(--kb-off);color:var(--kb-dim);border-color:transparent;text-decoration:line-through}
 .bdmsg.bdmsgu.bdmsgsel{border-color:var(--kb-dim);color:#8a7d6c}
 .bdmafb{margin-top:6px}
 .bdmzdr li{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;padding:6px 0;border-bottom:1px solid var(--kb-hd1)}

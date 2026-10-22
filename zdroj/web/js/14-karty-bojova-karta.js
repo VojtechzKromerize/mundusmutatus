@@ -1475,7 +1475,6 @@ const BDMAF = [
   ["A", "Akce"],
   ["BA", "Bonusová"],
   ["R", "Reakce"],
-  ["rd", "Připravit"],
   ["omez", "Omezené"],
 ];
 function bdmAkce(s, h, K, gm, X) {
@@ -1484,7 +1483,6 @@ function bdmAkce(s, h, K, gm, X) {
   const T = X.mojeTah && X.BP,
     uA = T && X.BP.a,
     uB = T && X.BP.b,
-    uP = T && X.BP.p,
     vmx = kVydMax(K),
     G = kAkceG(K, true, {bezKouzel: true}),
     spBA = kSeznam(K).filter(x => kMaSl(K, x) && kCasKouzla(x) === "BA"),
@@ -1499,77 +1497,55 @@ function bdmAkce(s, h, K, gm, X) {
       ...kZdroje(K).map(q => ({k: q.n, n: q.n, max: q.max, obn: q.obn})),
       ...(vmx ? [{k: "Výdrž", n: "Výdrž", max: vmx, obn: "dlouhý odpočinek"}] : []),
     ],
-    U = kartaStav(K.id).zdr || {},
-    volne = zdrL.reduce((a, q) => a + Math.max(0, q.max - Math.min(q.max, +(U[q.k] || 0))), 0);
+    U = kartaStav(K.id).zdr || {};
   const af0 = BDM.af[K.id] || "A",
-    af = BDMAF.some(([k]) => k === af0) && (af0 !== "rd" || X.boj) ? af0 : "A";
-  const seg = BDMAF.filter(([k]) => k !== "rd" || X.boj)
-    .map(([k, l]) => {
-      const used = (k === "A" && uA) || (k === "BA" && uB) || (k === "R" && X.boj && X.rk),
-        sub =
-          k === "A" || k === "BA"
-            ? T
-              ? used
-                ? "použita"
-                : "volná"
-              : ""
-            : k === "R"
-              ? X.boj
-                ? X.rk
-                  ? "použita"
-                  : "volná"
-                : ""
-              : k === "rd"
-                ? X.rd
-                  ? "připraveno"
-                  : "akci"
-                : zdrL.length
-                  ? `${volne} voln${volne === 1 ? "é" : volne >= 2 && volne <= 4 ? "é" : "ých"}`
-                  : "";
-      /* zobrazená pod-karta slouží i jako přepínač použito / volná: akce a bonusová v tahu, reakce v boji (2026-10-21) */
-      const prep =
-        k !== af
-          ? ""
-          : (k === "A" || k === "BA") && T
-            ? ` data-btp="${k === "A" ? "a" : "b"}" aria-pressed="${!!used}"`
-            : k === "R" && X.boj
-              ? ` ${gm ? `data-break="${h.id}"` : "data-bhrk"} aria-pressed="${!!X.rk}"`
-              : "";
-      const tipP = prep ? ` – klikni znovu: ${used ? "označit jako volnou" : "označit jako použitou"}` : "";
-      return `<button type="button" class="bdmsg${k === af ? " bdmsgsel" : ""}${used ? " bdmsgu" : ""}${k === "R" && X.boj && !X.rk ? " bdmsgr" : ""}" data-bdmaf="${k}"${prep} role="tab" aria-selected="${k === af}" ${btip(
-        (k === "A"
-          ? "Akce: útoky zbraní, použití předmětu, běžné akce a schopnosti za akci"
-          : k === "BA"
-            ? "Bonusová akce"
-            : k === "R"
-              ? "Reakce: příležitostný útok a schopnosti za reakci"
-              : k === "rd"
-                ? "Připravit akci (Ready): spouštěč a co uděláš; spustí se reakcí"
-                : "Omezené použití: sloty, schopnosti s počtem použití, Výdrž") + tipP,
-      )}>${l}${sub ? `<small>${sub}</small>` : ""}</button>`;
-    })
-    .join("");
-  const info = `<div class="bdmainf">${T ? `<button type="button" class="bdmch${uP ? " bdmchu" : ""}" data-btp="p" aria-pressed="${!!uP}" ${btip(`Pohyb: ${kRychTxt(K)} – klikni, když ho využiješ`)}>Pohyb ${kRychN(K)} st.</button>` : `<span class="bdmch" ${btip(kRychTxt(K))}>Pohyb ${kRychN(K)} st.</span>`}${vmx ? `<span class="bdmch" ${btip(`Výdrž na šermířské techniky a zápasnické chvaty: zbývá ${vmx - kVydU(K)} z ${vmx} (obnova dlouhým odpočinkem)`)}>Výdrž ${kdbPips(K, {k: "Výdrž", n: "Výdrž", max: vmx, obn: ""})}</span>` : ""}${X.boj ? `<button type="button" class="bdmch" data-bdmsh="utok" ${btip(gm ? "Zapsat za hráče: útok, kouzlo, plošný zásah" : "Útok na cíl jinak: ruční zadání, plošně")}>🎯 jiný útok</button>` : ""}</div>`;
+    af = BDMAF.some(([k]) => k === af0) ? af0 : "A";
+  const seg = BDMAF.map(([k, l]) => {
+    const used = (k === "A" && uA) || (k === "BA" && uB) || (k === "R" && X.boj && X.rk);
+    /* zobrazená pod-karta slouží i jako přepínač použito / volná: akce a bonusová v tahu, reakce v boji (2026-10-21) */
+    const prep =
+      k !== af
+        ? ""
+        : (k === "A" || k === "BA") && T
+          ? ` data-btp="${k === "A" ? "a" : "b"}" aria-pressed="${!!used}"`
+          : k === "R" && X.boj
+            ? ` ${gm ? `data-break="${h.id}"` : "data-bhrk"} aria-pressed="${!!X.rk}"`
+            : "";
+    const tipP = prep ? ` – klikni znovu: ${used ? "označit jako volnou" : "označit jako použitou"}` : "";
+    return `<button type="button" class="bdmsg${k === af ? " bdmsgsel" : ""}${used ? " bdmsgu" : ""}${k === "R" && X.boj && !X.rk ? " bdmsgr" : ""}" data-bdmaf="${k}"${prep} role="tab" aria-selected="${k === af}" ${btip(
+      (k === "A"
+        ? "Akce: útoky zbraní, použití předmětu, běžné akce a schopnosti za akci"
+        : k === "BA"
+          ? "Bonusová akce"
+          : k === "R"
+            ? "Reakce: příležitostný útok a schopnosti za reakci"
+            : "Omezené použití: sloty, schopnosti s počtem použití, Výdrž") + tipP,
+    )}>${l}</button>`;
+  }).join("");
+  /* řádek bez Pohybu (2026-10-22): rychlost je ve Statistikách; zůstává Výdrž a „jiný útok“ */
+  const info = `<div class="bdmainf">${vmx ? `<span class="bdmch" ${btip(`Výdrž na šermířské techniky a zápasnické chvaty: zbývá ${vmx - kVydU(K)} z ${vmx} (obnova dlouhým odpočinkem)`)}>Výdrž ${kdbPips(K, {k: "Výdrž", n: "Výdrž", max: vmx, obn: ""})}</span>` : ""}${X.boj ? `<button type="button" class="bdmch" data-bdmsh="utok" ${btip(gm ? "Zapsat za hráče: útok, kouzlo, plošný zásah" : "Útok na cíl jinak: ruční zadání, plošně")}>🎯 jiný útok</button>` : ""}</div>`;
   const spJm = L =>
     L.length
       ? `<p class="bdmnote">Kouzla: ${L.map(x => `<button type="button" class="kspn" data-kspd="${kSeznam(K).indexOf(x)}">${besc(x.n)}</button>`).join(" · ")} <small>(sesílání v Kouzlech)</small></p>`
       : "";
   const sez = (L, prazdne) => (L.length ? `<ul class="kakl bdmakl">${L.join("")}</ul>` : `<p class="bdmnote">${prazdne}</p>`);
+  /* připravená akce (Ready) je v boji možnost uvnitř Akce (2026-10-22), ne vlastní pod-karta */
+  const rdH = !X.boj
+    ? ""
+    : X.rd
+      ? `<p class="khl">⏳ <b>Připravená akce:</b> ${besc(X.rd)} <button type="button" class="bdmmini" data-bhrdygo>Spustit (reakce)</button><button type="button" class="bdmmini" data-bhrdyx>Zrušit</button></p>`
+      : `<div class="bdmtahr"><button type="button" class="bdmmini" data-bhrdy ${btip("Připravit akci (Ready): spotřebuje akci, určíš spouštěč a co uděláš; spustí se jako reakce, na začátku tvého dalšího tahu propadne")}>⏳ Připravit akci</button></div>`;
   let telo = "";
   if (af === "A") {
     const ut = UT.length
       ? `<section class="bdmgrp${uA ? " bdmused" : ""}"><h4 class="bdmgh">Zbraně <small>· útoků za akci: ${apa}</small></h4><div class="bdmuth"><span></span><span>Zbraň</span><span>Dosah</span><span>Zásah</span><span>Zranění</span></div>${bdmUtoky(s, h, K, gm, X)}</section>`
       : `<p class="bdmnote">Žádná zbraň – útok beze zbraně nebo kouzlem (oddíl Kouzla).</p>`;
     telo = `${kForma(K) ? kFormaHtml(K) : ""}${ut}${kInvPouzHtml(K)}${G.A.length ? `<section class="bdmgrp"><h4 class="bdmgh">Schopnosti za akci</h4>${sez(G.A, "")}</section>` : ""}${kSermHtml(K) ? `<section class="bdmgrp bdmserm">${kSermHtml(K)}</section>` : ""}
-    <details class="bdmstd"><summary>Běžné akce v boji</summary>${BAKCE.map(a => `<abbr ${btip(`${a[1]}: ${a[2]}`)}>${besc(a[0])}</abbr>`).join(", ")}</details>`;
+    <details class="bdmstd"><summary>Běžné akce v boji</summary>${BAKCE.map(a => `<abbr ${btip(`${a[1]}: ${a[2]}`)}>${besc(a[0])}</abbr>`).join(", ")}</details>${rdH}`;
   } else if (af === "BA") {
     telo = `<section class="bdmgrp${uB ? " bdmused" : ""}">${sez(G.BA, "Žádná schopnost za bonusovou akci.")}${spJm(spBA)}</section>`;
   } else if (af === "R") {
     telo = `<section class="bdmgrp${X.boj && X.rk ? " bdmused" : ""}">${sez(G.R, "")}${spJm(spR)}</section>`;
-  } else if (af === "rd") {
-    telo = X.rd
-      ? `<p class="khl">⏳ <b>Připravená akce:</b> ${besc(X.rd)}</p><div class="bdmtahr"><button type="button" class="bdmbtn" data-bhrdygo>Spustit (reakce)</button><button type="button" class="bdmmini" data-bhrdyx>Zrušit</button></div>`
-      : `<p class="bdmnote">Připravená akce (Ready) spotřebuje akci; určíš spouštěč a co uděláš. Spustí se jako reakce, nejpozději na začátku tvého dalšího tahu propadne.</p><div class="bdmtahr"><button type="button" class="bdmbtn" data-bhrdy>⏳ Připravit akci</button></div>`;
   } else {
     telo = `${zdrL.length ? `<ul class="kdbli kdbzdr bdmzdr">${zdrL.map(q => `<li><b>${besc(q.n)}</b>${kdbPips(K, q)}${q.obn ? `<small>${besc(q.obn)}</small>` : ""}</li>`).join("")}</ul>` : `<p class="bdmnote">Nic s omezeným počtem použití.</p>`}${kSchopHtml(K)}`;
   }
