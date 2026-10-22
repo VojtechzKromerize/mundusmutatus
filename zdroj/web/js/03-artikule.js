@@ -182,14 +182,14 @@ const GLOSS = [
     t: "Pacholci a houf",
     ch: "iniciativa",
     f: ["Pacholci", "pacholci", "pacholků", "houf", "houfu", "Houf"],
-    d: "Nejslabší protivníci: 1 HP, nehází Závoj. Bojují v houfech s jediným tahem a jediným hodem na útok; když padne polovina nebo velitel, prchají.",
+    d: "Nejslabší protivníci: 5 HP, zranění navíc přejde na dalšího pacholka; nehází Závoj. Bojují v houfech s jediným tahem a jediným hodem na útok; když padne polovina nebo velitel, prchají.",
   },
   {
     id: "sok",
     t: "Sok",
     ch: "iniciativa",
     f: ["Sok"],
-    d: "Protivník s běžnými statistikami, hází Závoj a může znát techniky. Kritický zásah ho porazí; smí poslat pacholka do rány místo sebe.",
+    d: "Protivník s běžnými statistikami, hází Závoj a může znát techniky. Při kritickém zásahu obětuje zbroj; když nemá co obětovat, je poražen. Smí poslat pacholka do rány místo sebe.",
   },
   {
     id: "zhoubce",
@@ -440,19 +440,20 @@ const ARTK = [
         h: `
   <p>Na začátku boje každý hráč hodí <b>d20 + Obratnost</b>. DM hodí za nepřítele s nejlepší iniciativou. Počítá se vždy nejlepší výsledek, který předurčuje <b>sloty</b> pro hráče a pro DM.</p>
   <p>V každém kole se hráči sami domluví, kdo slot obsadí. Nepřátelé jednají ve svých slotech. Obecně platí, že v rámci kola může každý hráč obsadit jen jeden slot.</p>
-  <p>Toto pravidlo ale neplatí pro DM, který může v rámci kola využít slot za konkrétní NPC i vícekrát, v závislosti na jeho postavení: <b>pacholek</b> 1×, <b>sok</b> až 2×, <b>zhoubce</b> až 3× za kolo.</p>`,
+  <p>Toto pravidlo ale neplatí pro DM, který může v rámci kola využít slot za konkrétní NPC i vícekrát, v závislosti na jeho postavení: <b>pacholek</b> 1×, <b>sok</b> až 2×, <b>zhoubce</b> až 3× za kolo.</p>
+  <p><b>Počet slotů:</b> strana, které je víc, má o jeden slot víc než ta menší. Družinu tvoří postavy a jejich spojenci, nepřátele každý houf, sok či zhoubce. Počty se určí na začátku boje a znovu na začátku každého kola.</p>`,
       },
       {
         id: "protivnici",
         t: "Protivníci",
         h: `<div class="foes">
   <article class="foe"><h4>Pacholci</h4><ul>
-   <li>Pacholek má <b>1 HP</b>, každý zásah jednoho skolí. Pacholci neházejí Závoj, nemají kritická zranění a neobětují zbroj.</li>
+   <li>Pacholek má <b>5 HP</b>. Zranění, které ho skolí, přejde na dalšího pacholka (zásah za 12 skolí dva a třetího raní za 2). Plošné kouzlo zraní každého pacholka v oblasti zvlášť. Pacholci neházejí Závoj, nemají kritická zranění a neobětují zbroj.</li>
    <li>Pacholci bojují v <b>houfech</b> po 3 až 12. Houf má jeden tah v iniciativě a útočí jedním hodem s bonusem +1 za každého dalšího pacholka (nejvýš +5).</li>
    <li><b>Morálka:</b> když padne polovina houfu nebo jeho velitel, houf prchá, pokud ho v boji nedrží sok.</li></ul></article>
   <article class="foe"><h4>Sok</h4><ul>
    <li>Má běžné statistiky, hází <b>Závoj</b> a může znát ${xl("serm", "", "šermířské a zápasnické techniky")}.</li>
-   <li>Kritický zásah ho automaticky porazí. Poražený sok umírá, vzdá se, uteče, nebo je zajat pro výkupné.</li>
+   <li>Sok může mít zbroj a při kritickém zásahu ji <b>obětovat</b> – kritický zásah se změní v běžný. Když už nemá co obětovat, kritický zásah ho automaticky porazí. Poražený sok umírá, vzdá se, uteče, nebo je zajat pro výkupné.</li>
    <li><b>„Za pána!“</b> Sok může jako reakci poslat do rány blízkého pacholka – zásah místo něj schytá pacholek ze sousedního pole.</li></ul></article>
   <article class="foe"><h4>Zhoubce</h4><ul>
    <li>Hraje podle <b>stejných pravidel jako hráči</b>. Může mít legendární akce a odolnosti.</li>

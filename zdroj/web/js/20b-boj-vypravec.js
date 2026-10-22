@@ -76,22 +76,26 @@ function bojHpUber(id, k, x) {
   bojHpZmena(id, k, old, old - x);
   return {id, k, old, nov: old - x};
 }
-/* záchrany houfu po jednom pacholkovi: každý svůj hod, padne, komu zbude aspoň 1 zranění */
+/* záchrany houfu po jednom pacholkovi: každý svůj hod a celé zranění (při záchraně polovinu); padne, komu dojde 5 HP
+   (Vojta 2026-10-22). První v oblasti je raněný přední pacholek (n.hz); zranění ostatních, kteří přežijí, se nepamatuje. */
 function bojHoufZachrany(n, E, dmg, t, ab, dc, pol, kolik, kouzlo) {
   const b = bojSaveB(E && E.p, ab),
     v = Math.max(0, Math.min(n.pocet || 0, kolik == null ? n.pocet || 0 : kolik)),
     h = [];
-  let pad = 0;
+  let pad = 0,
+    hz = +n.hz || 0;
   for (let i = 0; i < v; i++) {
     const Z = bojNpcZach(n, E, ab, dc, kouzlo),
-      d = Z.d,
       ok = Z.ok,
       base = ok ? (pol ? Math.floor(dmg / 2) : 0) : dmg,
-      x = E ? bojZasah(E, base, t, {}).x : base;
-    if (x >= 1) pad++;
+      x = (E ? bojZasah(E, base, t, {}).x : base) + (i === 0 ? +n.hz || 0 : 0);
+    if (x >= BPACH_HP) {
+      pad++;
+      if (i === 0) hz = 0;
+    } else if (i === 0) hz = x;
     h.push(Z.fail ? "✗" : `${Z.t}${ok ? "✓" : "✗"}`);
   }
-  return {pad, v, txt: `${ab} ${bsg(b)}: ${h.join(" ")}`};
+  return {pad, v, hz: pad >= (n.pocet || 0) ? 0 : hz, hz0: +n.hz || 0, txt: `${ab} ${bsg(b)}: ${h.join(" ")}`};
 }
 /* vyhodnocení útoku hráče proti nepřátelům (u vypravěče – zná AC a odolnosti) */
 /* účinek kouzla bez hodu (Hex, Hunter's Mark…) posílá hráč jako „útok“ s názvem „Účinek: …“ – vypravěč ho potvrdí a nepřítel dostane značku
@@ -177,7 +181,13 @@ function bojUtokVyhodnot0(s, u) {
       const kz = !!u.sl || bojJeKouzlo(u.cim);
       if (houf) {
         const H = bojHoufZachrany(n, E, u.dmg, u.t, P.ab, P.dc, P.pol, null, kz);
-        Object.assign(o, {pad: H.pad, gm: `${n.n}: záchrany ${H.txt} → padlo ${H.pad} z ${H.v}`, vys: H.pad ? `padlo ${H.pad}` : "všichni odolali"});
+        Object.assign(o, {
+          pad: H.pad,
+          hz: H.hz,
+          hz0: H.hz0,
+          gm: `${n.n}: záchrany ${H.txt} → padlo ${H.pad} z ${H.v}`,
+          vys: H.pad ? `padlo ${H.pad}` : "všichni odolali",
+        });
         r.push(o);
         return;
       }
@@ -236,10 +246,14 @@ function bojUtokVyhodnot0(s, u) {
       return;
     }
     if (houf) {
-      const z = E ? bojZasah(E, u.dmg, u.t, {drt: u.drt, pru: u.pru}) : {x: u.dmg, pozn: []};
-      o.pad = z.x >= 1 ? 1 : 0;
-      o.gm = `${n.n}: ${u.hod} proti ${o.acT} → zásah${o.pad ? ", padl pacholek" : " bez účinku" + (z.pozn.length ? " (" + z.pozn.join(", ") + ")" : "")}`;
-      o.vys = o.pad ? (krit ? "kritický zásah, pacholek padl" : "pacholek padl") : "zásah bez účinku";
+      const z = E ? bojZasah(E, u.dmg, u.t, {drt: u.drt, pru: u.pru}) : {x: u.dmg, pozn: []},
+        Hz = bojHoufZasah(n, z.x);
+      o.pad = Hz.pad;
+      o.hz = Hz.hz;
+      o.hz0 = Hz.hz0;
+      const pdT = o.pad === 1 ? "padl pacholek" : `padli ${o.pad} pacholci`;
+      o.gm = `${n.n}: ${u.hod} proti ${o.acT} → zásah ${z.x}${o.pad ? `, ${pdT}` : ""}${o.hz ? `, další pacholek raněn ${o.hz}/${BPACH_HP}` : ""}${!o.pad && !z.x ? " bez účinku" : ""}${z.pozn.length ? " (" + z.pozn.join(", ") + ")" : ""}`;
+      o.vys = o.pad ? `${krit ? "kritický zásah, " : ""}${pdT}` : z.x ? `pacholek raněn (${o.hz}/${BPACH_HP})` : "zásah bez účinku";
       r.push(o);
       return;
     }
@@ -247,9 +261,25 @@ function bojUtokVyhodnot0(s, u) {
     o.x = z.x;
     o.pozn = z.pozn;
     o.sokKrit = krit && n.druh === "sok";
+    /* sok se zbrojí (Vojta 2026-10-22): kritický zásah sám obětuje zbroj či štít a mění se v běžný zásah; kdo nemá co obětovat, je poražen */
+    const zb = o.sokKrit && ZS && ZS.d.find(q => q.u < q.max);
+    if (zb) {
+      const z1 = E && E.hp.length ? bojZasah(E, bojDmgBezKritu(u), u.t, {drt: u.drt, pru: u.pru, st: n.stav}) : {x: bojDmgBezKritu(u), pozn: []};
+      o.sokKrit = false;
+      o.obet = zb.k;
+      o.x = z1.x;
+      o.pozn = [...z1.pozn, `${zb.k === "Štít" ? "štít" : zb.k.toLowerCase() + " zbroj"} obětována – krit jako běžný zásah`];
+    }
     o.zve = bojZvVyhodnot(s, u, h, n, E, ZS, true, krit);
     o.gm = `${n.n}: ${u.hod} proti ${o.acT} → ${krit ? "kritický zásah" : "zásah"}${o.ostra != null ? ` (Ostrá: 19 seká cíl bez Resistance, přihozeno ${o.ostra})` : ""}${o.slabin != null ? ` (Do slabin!: ležící cíl, přihozeno ${o.slabin})` : ""}, ${u.dmg}${z.pozn.length ? " → " + z.x + " (" + z.pozn.join(", ") + ")" : ""}${o.sokKrit ? " · sok je kritickým zásahem poražen (Artikule) – ledaže pošle do rány pacholka („Za pána!“)" : ""}${krit && n.druh === "zhoubce" ? " · zhoubce smí obětovat zbroj" : ""}${o.zve.map(e => " · " + e.txt).join("")}`;
-    o.vys = o.sokKrit ? "kritický zásah – poražen" : krit ? "kritický zásah" : "zásah";
+    o.vys = o.sokKrit
+      ? "kritický zásah – poražen"
+      : o.obet
+        ? `kritický zásah – ${o.obet === "Štít" ? "štít" : "zbroj"} obětována`
+        : krit
+          ? "kritický zásah"
+          : "zásah";
+    if (o.obet) o.gm += ` · ${o.obet} obětována, zranění bez kritu ${o.x}`;
     r.push(o);
   });
   return {an, h, r};
@@ -332,11 +362,11 @@ function bojUtokProved(s, u, id) {
     };
     if (o.ef) {
     } else if (o.houf) {
-      if (o.pad) {
-        houfy.push([o.ci, o.pad]);
-        L.und = {id: o.ci, poc: o.pad};
+      if (o.pad || o.hz !== o.hz0) {
+        houfy.push([o.ci, o.pad, o.hz]);
+        L.und = {id: o.ci, poc: o.pad, hz0: o.hz0};
       }
-      L.zt += o.pad ? ` · padlo ${o.pad}` : "";
+      L.zt += (o.pad ? ` · padlo ${o.pad}` : "") + (o.hz ? ` · raněn ${o.hz}/${BPACH_HP}` : "");
       if (o.hit === false) L.res = "vedle";
       else {
         L.res = o.krit ? "krit" : "zasah";
@@ -354,7 +384,7 @@ function bojUtokProved(s, u, id) {
         L.und = U;
         L.zr = {
           t: x,
-          x: `z ${u.dmg}${(o.pozn || []).length ? " → " + o.pozn.join(", ") : ""}${o.sokKrit ? " · kritický zásah soka porazí" : ""}`,
+          x: `z ${u.dmg}${(o.pozn || []).length ? " → " + o.pozn.join(", ") : ""}${o.sokKrit ? " · kritický zásah soka porazí (nemá co obětovat)" : ""}`,
           zt: u.t,
         };
         L.ap = 1;
@@ -379,9 +409,18 @@ function bojUtokProved(s, u, id) {
       else if (o.spst && u.plos) bojSpStavDej(z, n, o.spst, u);
       else if (o.fail && u.plos && !o.houf) bojEfZnac(z, n, u.cim, u);
     });
-    houfy.forEach(([ci, pad]) => {
+    houfy.forEach(([ci, pad, hz]) => {
       const o = (z.npc || []).find(x => x.id === ci);
-      if (o) o.pocet = Math.max(0, (o.pocet || 0) - pad);
+      if (!o) return;
+      o.pocet = Math.max(0, (o.pocet || 0) - pad);
+      if (hz != null) o.hz = o.pocet > 0 ? hz : 0;
+      if (!o.hz) delete o.hz;
+    });
+    V.r.forEach(o => {
+      const n = o.obet && (z.npc || []).find(x => x.id === o.ci);
+      if (!n) return;
+      n.zbrU = n.zbrU || {};
+      n.zbrU[o.obet] = (n.zbrU[o.obet] || 0) + 1;
     });
     try {
       bojZvProved(z, u, V);
@@ -664,12 +703,15 @@ function bojLogZpet(i) {
   if (!x || !x.o.und || x.o.undone) return;
   const U = x.o.und;
   x.o.undone = 1;
-  if (U.poc) {
+  if (U.poc || U.hz0 != null) {
     bojZmen(z => {
       const o = (z.npc || []).find(q => q.id === U.id);
-      if (o) o.pocet = Math.min(o.max || 99, (o.pocet || 0) + U.poc);
+      if (!o) return;
+      o.pocet = Math.min(o.max || 99, (o.pocet || 0) + (U.poc || 0));
+      if (U.hz0) o.hz = U.hz0;
+      else delete o.hz;
     });
-    mmHlasG(`Vráceno: ${U.poc} ${U.poc === 1 ? "pacholek" : "pacholci"} zpět v houfu.`, 3000);
+    mmHlasG(U.poc ? `Vráceno: ${U.poc} ${U.poc === 1 ? "pacholek" : "pacholci"} zpět v houfu.` : "Vráceno zranění pacholka.", 3000);
     return;
   }
   const hp = bojHp.get(),
@@ -1600,6 +1642,7 @@ document.addEventListener("click", async e => {
         s.kolo = (s.kolo || 1) + 1;
         s.obsazeni = {};
         s.tah = 0;
+        s.pocty = bojPocty(s);
         (s.cile || []).forEach(c => {
           const hot = c.cil ? c.stav >= c.cil : !!c.stav;
           if (c.kolo && !hot) {
@@ -1732,6 +1775,7 @@ document.addEventListener("click", async e => {
       delete z.ticha;
       delete z.lead;
       Object.assign(z, {kolo: 1, tah: 0, obsazeni: {}, zac: Date.now()});
+      z.pocty = bojPocty(z);
     });
     return;
   }

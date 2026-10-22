@@ -319,3 +319,39 @@ test("boj: starší boj se stavy v sobě je převede na kartu; s koncem boje zmi
 test("boj: bezvědomí (v bezvědomí) bere akce", () => {
   assert.equal(V(`bojNeschopny(["v bezvědomí"])`), "v bezvědomí");
 });
+
+/* ---------- protivníci (Vojta 2026-10-22): pacholek 5 HP s přetékáním, sok obětuje zbroj, slot navíc pro početnější stranu ---------- */
+test("houf: pacholek má 5 HP, zranění přetéká na další", () => {
+  assert.deepEqual(V(`bojHoufZasah({pocet: 6}, 12)`), {pad: 2, hz: 2, hz0: 0}, "12 zranění skolí dva, třetí raněn za 2");
+  assert.deepEqual(V(`bojHoufZasah({pocet: 6, hz: 3}, 2)`), {pad: 1, hz: 0, hz0: 3}, "raněný za 3 padne po dalších 2");
+  assert.deepEqual(V(`bojHoufZasah({pocet: 2}, 40)`), {pad: 2, hz: 0, hz0: 0}, "víc padlých, než je pacholků, nejde");
+  assert.deepEqual(V(`bojHoufZasah({pocet: 4}, 3)`), {pad: 0, hz: 3, hz0: 0}, "malý zásah jen raní");
+});
+
+test("houf: plošné zranění zraní každého pacholka zvlášť", () => {
+  S.kostky([
+    [1, 20],
+    [1, 20],
+    [1, 20],
+  ]);
+  const r = V(`bojHoufZachrany({pocet: 3, hz: 2}, null, 4, "Fire", "AGI", 30, true, null, true)`);
+  assert.equal(r.pad, 1, "4 zranění skolí jen raněného (2 + 4 ≥ 5), zdravé ne");
+  assert.equal(r.hz, 0);
+});
+
+test("sok: zranění bez kritu z rozpisu kostek (při obětování zbroje)", () => {
+  assert.equal(V(`bojDmgBezKritu({dmg: 11, zx: "2d8(3+5)+3"})`), 6);
+  assert.equal(V(`bojDmgBezKritu({dmg: 20, zx: "2d8(3+5)+3 + 2d6(4+5) (Sneak Attack)"})`), 10);
+  assert.equal(V(`bojDmgBezKritu({dmg: 9, zx: "9 (ručně)"})`), 9, "ručně zadané zranění zůstane");
+});
+
+test("iniciativa: početnější strana má o slot víc", () => {
+  const sl = s => V(`bojSloty(${JSON.stringify(s)}).map(x => x.t).join("")`);
+  const npc = (k, druh = "sok") => Array.from({length: k}, (_, i) => ({id: "n" + i, druh, pocet: 4}));
+  assert.equal(sl({hraci: [{}, {}, {}], npc: npc(3), hod: 15, dm: 10}), "hnhnhn", "stejně: střídají se");
+  assert.equal(sl({hraci: [{}, {}, {}], npc: npc(5), hod: 15, dm: 10}), "hnhnhnn", "nepřátel víc: o slot víc na konci");
+  assert.equal(sl({hraci: [{}, {}, {}], npc: npc(1), hod: 8, dm: 10}), "nhnhh", "družiny víc: nepřátelé o slot méně");
+  assert.equal(sl({hraci: [{}, {}], npc: [{id: "s", str: "h"}, ...npc(2)], hod: 15, dm: 10}), "hnhnh", "spojenec se počítá do družiny");
+  assert.equal(sl({hraci: [{}, {}], npc: [...npc(2), {id: "x", druh: "sok", stav: ["poražen"]}], hod: 15, dm: 10}), "hnhn", "poražený se nepočítá");
+  assert.equal(sl({hraci: [{}, {}], npc: npc(4), pocty: {h: 2, n: 2}, hod: 15, dm: 10}), "hnhn", "během kola platí počty z jeho začátku");
+});

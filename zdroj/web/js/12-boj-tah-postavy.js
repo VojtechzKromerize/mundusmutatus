@@ -524,7 +524,7 @@ function bojPlosHod() {
       const H = bojHoufZachrany(n, E, dmg, P.t, P.ab, P.dc, P.pol, P.dos && P.dos[id] != null ? +P.dos[id] : null),
         pad = H.pad,
         v = H.v;
-      houfy.push([id, pad]);
+      houfy.push([id, pad, H.hz]);
       r.push(`<li>${besc(n.n)}: záchrany ${besc(H.txt)} – <b>padlo ${pad}</b> z ${v} v dosahu</li>`);
       bojZaz({
         a: P.src ? P.src.replace(/:.*$/, "") : "",
@@ -540,7 +540,7 @@ function bojPlosHod() {
           n: P.src ? P.src.replace(/^[^:]*:\s*/, "") : "Plošný zásah",
           ai: P.srcId || null,
           ci: id,
-          und: pad ? {id, poc: pad} : null,
+          und: pad || H.hz !== H.hz0 ? {id, poc: pad, hz0: H.hz0} : null,
           zt: `záchrany ${H.txt} · padlo ${pad}`,
         },
         n.n,
@@ -637,9 +637,12 @@ function bojPlosHod() {
   P.vys = `<p class="bkv"><b>${dmg}</b> ${besc(BZRT[P.t])} <small>${k ? k.x : ""}</small>${ST.length ? ` · při neúspěchu ${besc(ST.join(", "))}${stN.length ? ` (${stN.map(id => besc(bojJm(s, id))).join(", ")})` : ""}` : ""}</p>${vzt}<ul class="bplv">${r.join("")}</ul>`;
   if (houfy.length || stN.length)
     bojZmen(z => {
-      houfy.forEach(([id, pad]) => {
+      houfy.forEach(([id, pad, hz]) => {
         const o = (z.npc || []).find(x => x.id === id);
-        if (o) o.pocet = Math.max(0, (o.pocet || 0) - pad);
+        if (!o) return;
+        o.pocet = Math.max(0, (o.pocet || 0) - pad);
+        if (hz && o.pocet > 0) o.hz = hz;
+        else delete o.hz;
       });
       stN.forEach(id => {
         const n = (z.npc || []).find(x => x.id === id);
@@ -1152,7 +1155,7 @@ function bojKarta(s, n, gm) {
     acTip = E && E.ac ? `AC ${E.ac}${ZS.ac !== ZS.ac0 ? ` → nyní ${ZS.ac} (${ZS.pr.join("; ")})` : ""}` : "";
   const tah = `<span class="btahy" role="img" aria-label="Jednal ${u} z ${lim} v tomto kole" ${btip(`Jednal ${u}× z ${lim} v tomto kole`)}>${[...Array(lim)].map((_, j) => bi(j < u ? "tahok" : "tah", j < u ? "on" : "")).join("")}</span>`;
   const hf = houf
-    ? `<span class="bhouf"><span class="bpocet" ${btip(`Pacholků: ${n.pocet} z ${n.max}`)}><b>${n.pocet}</b>/${n.max}</span>${gm ? `<span class="bpm"><button type="button" class="gbtn ghost" data-bpoc="-1" aria-label="Ubrat pacholka" ${btip("Padl pacholek")}>−</button><button type="button" class="gbtn ghost" data-bpoc="1" aria-label="Přidat pacholka" ${btip("Vrátit pacholka")}>+</button></span>` : ""}<span class="bbon" ${btip(n.pocet ? (gm && E && E.bon != null ? `Útok houfu: základ +${E.bon}, přesila +${bon}` : `Útok houfu: přesila +${bon}`) : "Houf poražen")}>${n.pocet ? `útok +${gm && E && E.bon != null ? E.bon + bon : bon}` : "poražen"}</span></span>`
+    ? `<span class="bhouf"><span class="bpocet" ${btip(`Pacholků: ${n.pocet} z ${n.max}; každý má ${BPACH_HP} HP${n.hz ? `, přední pacholek raněn ${n.hz}/${BPACH_HP}` : ""}`)}><b>${n.pocet}</b>/${n.max}${gm && n.hz ? `<small class="bhz"> · raněn ${n.hz}/${BPACH_HP}</small>` : ""}</span>${gm ? `<span class="bpm"><button type="button" class="gbtn ghost" data-bpoc="-1" aria-label="Ubrat pacholka" ${btip("Padl pacholek")}>−</button><button type="button" class="gbtn ghost" data-bpoc="1" aria-label="Přidat pacholka" ${btip("Vrátit pacholka")}>+</button></span>` : ""}<span class="bbon" ${btip(n.pocet ? (gm && E && E.bon != null ? `Útok houfu: základ +${E.bon}, přesila +${bon}` : `Útok houfu: přesila +${bon}`) : "Houf poražen")}>${n.pocet ? `útok +${gm && E && E.bon != null ? E.bon + bon : bon}` : "poražen"}</span></span>`
     : "";
   /* hráč u nepřátel vidí jen jméno a druh (pacholek, houf, sok, zhoubce); spojence vidí celé */
   if (!gm && !bojSpoj(n))
