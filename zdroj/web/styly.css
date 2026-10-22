@@ -2200,6 +2200,8 @@ abbr.poj{text-decoration:underline dotted color-mix(in srgb,var(--kal) 60%,trans
 .szsc>li.szhot{opacity:.65}.szrow{margin:6px 0;display:flex;flex-wrap:wrap;gap:6px;align-items:center}.szrow .chip{display:inline-flex;gap:4px;align-items:center}
 /* stránka Hra, přihlášení hráčů, výzvy, zprávy, průvodce tahem, záložky karty (2026-10-16) */
 .navhra{font-weight:700}
+.hradr{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 4px}
+.hrakro{margin:6px 0}
 .navhra.bojbezi::after{content:" ⚔";color:var(--gold,#c9a227)}
 .navodbar{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin:8px 0;padding:8px 12px;border:1px solid var(--gold);border-radius:4px;background:color-mix(in srgb,var(--gold) 12%,var(--paper))}.navodbar span{flex:1 1 240px}
 .hrastav{padding:8px 12px;border:1px solid var(--rule);border-radius:3px;background:var(--paper);margin:8px 0}.hrastav p{margin:4px 0}
@@ -3167,6 +3169,10 @@ h4 .kspi{margin-right:5px}
   html.mmapp body:has(.bojhrac.bojakt:not(.bojprip)) #mmfronta{bottom:calc(78px + env(safe-area-inset-bottom,0px))}}
 /* aplikace na ploše: stažení stránky dolů ji nesmí obnovit uprostřed boje */
 html.mmapp body{overscroll-behavior-y:none}
+/* aplikace hráče: jen Hra (2026-10-22) – bez menu a hledání */
+html.mmjenhra #navtoggle,html.mmjenhra .navlinks,html.mmjenhra header.site{display:none!important}
+html.mmjenhra .navmark{pointer-events:none}
+html.mmjenhra .bdmkl{display:none}
 /* herní záznam: kdo · co · komu, výsledek, kostky, Závoj */
 .bzaz .uvh2{display:flex;align-items:center;gap:6px;font-size:1.05rem;margin:4px 0 6px;padding-bottom:3px;border-bottom:1px solid var(--rule)}
 .bzaz .uvh2 .bi{width:20px;height:20px}.bzaz .uvh2 small{margin-left:auto;font:400 .8rem var(--f-label);color:var(--muted)}

@@ -18,8 +18,6 @@
     {"src": "img/kostka-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
   ],
   "shortcuts": [
-    {"name": "Moje karta", "short_name": "Karta", "url": "../#karty", "icons": [{"src": "img/kostka-192.png", "sizes": "192x192"}]},
-    {"name": "Boj", "short_name": "Boj", "url": "../#boj", "icons": [{"src": "img/kostka-192.png", "sizes": "192x192"}]},
     {"name": "Hra", "short_name": "Hra", "url": "../#hra", "icons": [{"src": "img/kostka-192.png", "sizes": "192x192"}]}
   ]
 }

@@ -1491,7 +1491,7 @@ begin
   if hid is null then return new; end if;
   select e into h from jsonb_array_elements(coalesce(new.stav -> 'hraci', '[]'::jsonb)) e where e ->> 'id' = hid limit 1;
   k := public.mm_boj_karta(h);
-  if k is not null then perform public.mm_push_posli(array[k], false, 'Jsi na tahu', coalesce(h ->> 'n', '') || ' – ' || coalesce(new.stav ->> 'kolo', '?') || '. kolo', '#boj'); end if;
+  if k is not null then perform public.mm_push_posli(array[k], false, 'Jsi na tahu', coalesce(h ->> 'n', '') || ' – ' || coalesce(new.stav ->> 'kolo', '?') || '. kolo', '#hra'); end if;
   return new;
 end $$;
 drop trigger if exists vyzvy_push on public.vyzvy;
@@ -1550,7 +1550,7 @@ begin
   if (select count(*) from public.navrhy where karta = p_od and stav = 'ceka') >= 6 then raise exception 'příliš mnoho návrhů čeká na vypravěče'; end if;
   insert into public.navrhy (karta, data) values (p_od, p_data) returning id into i;
   delete from public.navrhy where id <= i - 300;
-  perform public.mm_push_posli('{}', true, 'Ke schválení', coalesce(p_data ->> 'popis', 'Návrh hráče'), '#boj');
+  perform public.mm_push_posli('{}', true, 'Ke schválení', coalesce(p_data ->> 'popis', 'Návrh hráče'), '#hra');
   return i;
 end $$;
 create or replace function public.mm_navrh_vyrid(p_id bigint, p_stav text, p_vys text default null) returns void

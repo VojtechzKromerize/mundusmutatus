@@ -511,6 +511,24 @@ const NAVNAME = {
   boj: "Boj",
   vyprava: "Výprava",
 };
+/* nainstalovaná aplikace na telefonu ukáže hráči jen Hru (2026-10-22); odkaz ven otevře web v prohlížeči s ?web=1 */
+const mmJenHra = () => !GMV && document.documentElement.classList.contains("mmapp") && !/[?&]web=1/.test(location.search);
+document.addEventListener(
+  "click",
+  e => {
+    if (!mmJenHra() || e.defaultPrevented) return;
+    const a = e.target.closest && e.target.closest('a[href^="#"]');
+    /* odkaz, který obsluhuje skript na místě (data-…, např. odznak rány → Duše), zůstává v aplikaci */
+    if (!a || [...a.attributes].some(x => x.name.startsWith("data-") && x.name !== "data-tip")) return;
+    const h = a.getAttribute("href"),
+      v = h.slice(1).split("/")[0];
+    if (!v || v === "hra" || v === "boj") return;
+    e.preventDefault();
+    e.stopPropagation();
+    window.open(location.origin + location.pathname + "?web=1" + h, "_blank", "noopener");
+  },
+  true,
+);
 /* je otevřená stránka Hra? (hráč ji má od 2026-10-22 uvnitř jako stránku Boj) */
 function mmNaHre() {
   return curView === "hra" || (!GMV && curView === "boj");
@@ -520,6 +538,11 @@ function route() {
   const [a, b, c] = h.split("/");
   let view = a === "rod" || a === "osoba" ? "desky" : a;
   if (!VIEWS.includes(view) || ((view === "kouzla" || view === "sezeni") && !GMV)) view = "uvod";
+  document.documentElement.classList.toggle("mmjenhra", mmJenHra());
+  if (mmJenHra() && view !== "hra" && view !== "boj") {
+    history.replaceState(null, "", "#hra");
+    view = "hra";
+  }
   /* hráč (2026-10-22): Hra = jeho karta a boj na jedné stránce – uvnitř je to stránka Boj (#bojview, renderBoj),
      v menu a v adrese Hra; starší odkazy a upozornění na #boj vedou na Hru */
   if (!GMV && view === "boj") {
