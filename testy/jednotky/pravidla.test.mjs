@@ -293,3 +293,116 @@ test("Artikule: typ zranění → druh kritického zranění (Force a Thunder ja
   );
   assert.equal(V(`bojKritDruh("Svaté (Radiant)")`), "svata", "česky s anglickým názvem v závorce");
 });
+
+/* ---------- podtřídy hráčů (2026-10-22): Doména míru, Cesta horlivce, Reliktní poutník, Věštec, Mistr boje ---------- */
+/* syntetická karta zapsaná do KARTBY (kartaStavZmen, kPri a spol. ji pak najdou); vrátí id */
+const kartaReg = o => {
+  const id = "t_" + Math.random().toString(36).slice(2, 8);
+  S.ev(`KARTBY[${JSON.stringify(id)}] = ${karta(Object.assign({id}, o))}`);
+  return id;
+};
+const Kid = id => `KARTBY[${JSON.stringify(id)}]`;
+
+test("podtřídy: Doména míru – Emboldening Bond = bonus zdatnosti použití, Balm of Peace jako Channel Divinity, Otherworldly Glamour přičítá WIS k ověřením CHA", () => {
+  const z = V(`kZdroje(${karta({povolani: "Cleric 5", uroven: 5, vl: {WIS: 16}, rysy: ["Peace Domain", "Emboldening Bond", "Balm of Peace"]})})`);
+  assert.equal(z.find(q => q.n === "Emboldening Bond").max, 3, "Cleric 5: bonus zdatnosti 3");
+  assert.ok(!z.some(q => q.n === "Balm of Peace"), "Balm of Peace čerpá Channel Divinity, není samostatný zdroj");
+  assert.equal(z.find(q => q.n === "Channel Divinity").max, 2);
+  const fw = karta({povolani: "Ranger 5", uroven: 5, vl: {WIS: 16, CHA: 10}, rysy: ["Fey Wanderer", "Otherworldly Glamour", "Dreadful Strikes"]});
+  assert.equal(V(`kOvB(${fw}, "CHA")`), 3, "CHA 0 + WIS 3");
+  const pe = V(`kHodn(${fw}, "dov", "Persuasion")`);
+  assert.equal(pe.v, 3);
+  assert.ok(
+    pe.L.some(([n, v]) => n === "Otherworldly Glamour" && v === 3),
+    "v rozpisu dovednosti",
+  );
+  assert.equal(V(`kOvB(${fw}, "WIS")`), 3, "jen ověření CHA");
+  const fw2 = karta({povolani: "Ranger 3", uroven: 3, vl: {WIS: 8, CHA: 10}, rysy: ["Fey Wanderer", "Otherworldly Glamour"]});
+  assert.equal(V(`kOvB(${fw2}, "CHA")`), 1, "WIS −1 → nejméně +1");
+});
+
+test("podtřídy: Cesta horlivce – Warrior of the Gods zásoba d12 podle úrovně; Věštec – Portent 2 hody, od 14. úrovně 3", () => {
+  const z = (o, n) => V(`kZdroje(${karta(o)})`).find(q => q.n === n);
+  const w3 = z({povolani: "Barbarian 3", uroven: 3, rysy: ["Path of the Zealot", "Warrior of the Gods"]}, "Warrior of the Gods");
+  assert.equal(w3.max, 4);
+  assert.match(w3.obn, /kostka d12/);
+  assert.equal(z({povolani: "Barbarian 12", uroven: 12, rysy: ["Path of the Zealot", "Warrior of the Gods"]}, "Warrior of the Gods").max, 6);
+  assert.equal(z({povolani: "Wizard 3", uroven: 3, rysy: ["Diviner", "Portent"]}, "Portent").max, 2);
+  assert.equal(z({povolani: "Wizard 14", uroven: 14, rysy: ["Diviner", "Portent", "Greater Portent"]}, "Portent").max, 3);
+});
+
+test("podtřídy: přídavky k zásahu – Dreadful Strikes 1d4 (od 11. úrovně 1d6) jednou za tah, Divine Fury jen v zuřivosti (1d6 + polovina úrovně, Radiant nebo Necrotic)", async () => {
+  const rid = (id, O) =>
+    V(`bojJaRidery(${Kid(id)}, {id: "h1"}, {n: "Longsword", z: "1d8", b: 5}, {vys: "zásah"}, {kolo: 1, tah: 0}, ${JSON.stringify(O || {})})`);
+  const r5 = kartaReg({povolani: "Ranger 5", uroven: 5, rysy: ["Fey Wanderer", "Dreadful Strikes"]}),
+    r11 = kartaReg({povolani: "Ranger 11", uroven: 11, rysy: ["Fey Wanderer", "Dreadful Strikes"]});
+  assert.equal(rid(r5).find(r => r.g === "dr").zr, "1d4");
+  assert.equal(rid(r11).find(r => r.g === "dr").zr, "1d6");
+  assert.ok(!rid(r5, {ridT: {tk: 100, u: ["dr"]}}).some(r => r.g === "dr"), "už použito v tomto tahu");
+  const b5 = kartaReg({povolani: "Barbarian 5", uroven: 5, rysy: ["Path of the Zealot", "Divine Fury"]});
+  assert.ok(!rid(b5).some(r => r.g === "df"), "bez zuřivosti se nenabízí");
+  await S.ev(`kartaStavZmen(${JSON.stringify(b5)}, {pri: ["Rage"]})`);
+  const df = rid(b5).filter(r => r.g === "df");
+  assert.deepEqual(
+    df.map(r => [r.n, r.zr]),
+    [
+      ["Divine Fury (Radiant)", "1d6+2"],
+      ["Divine Fury (Necrotic)", "1d6+2"],
+    ],
+  );
+  assert.ok(!rid(kartaReg({povolani: "Fighter 5", uroven: 5})).some(r => /^(dr|df)$/.test(r.g)), "cizí povolání nic");
+});
+
+test("podtřídy: Emboldening Bond +1d4 se přičte k útoku, záchraně i ověření, ale jen k prvnímu útoku v tahu", async () => {
+  const id = kartaReg({povolani: "Fighter 5", uroven: 5});
+  await S.ev(`kartaStavZmen(${JSON.stringify(id)}, {pri: ["Emboldening Bond"]})`);
+  S.kostky([
+    [3, 4],
+    [4, 4],
+    [2, 4],
+  ]);
+  assert.deepEqual(V(`kPriHod(${Kid(id)}, "Útok")`), {t: 3, txt: " +3 Emboldening Bond", n: ["Emboldening Bond"]});
+  assert.equal(V(`kPriHod(${Kid(id)}, "Záchrana WIS")`).t, 4);
+  assert.equal(V(`kPriHod(${Kid(id)}, "Persuasion")`).t, 2);
+  assert.deepEqual(V(`kPriHod(${Kid(id)}, "Útok", true)`), {t: 0, txt: "", n: []}, "druhý útok v tahu bez kostky");
+});
+
+test("podtřídy: Mistr boje – Commanding Presence k Persuasion, Tactical Assessment k Insight, k Athletics nic; kostka podle úrovně", () => {
+  const bm = karta({povolani: "Fighter 10", uroven: 10, rysy: ["Battle Master", "Combat Superiority", "Commanding Presence", "Tactical Assessment"]});
+  assert.deepEqual(V(`kHodNabidka(${bm}, "Persuasion", []).sd`), {n: "Commanding Presence", k: "d10", zb: 5});
+  assert.equal(V(`kHodNabidka(${bm}, "Insight", []).sd.n`), "Tactical Assessment");
+  assert.equal(V(`kHodNabidka(${bm}, "Athletics", []).sd`), null);
+  assert.equal(V(`kHodNabidka(${bm}, "Persuasion", ["sd"]).sd`), null, "po použití se znovu nenabízí");
+  const jen = karta({povolani: "Fighter 10", uroven: 10, rysy: ["Battle Master", "Combat Superiority", "Trip Attack"]});
+  assert.equal(V(`kHodNabidka(${jen}, "Persuasion", []).sd`), null, "bez naučeného manévru nic");
+});
+
+test("podtřídy: Věštec – Expert Divination vrátí po kouzlu Věštění ze slotu 2.+ stupně nejvyšší utracený nižší slot (nejvýš 5.)", async () => {
+  const id = kartaReg({povolani: "Wizard 9", uroven: 9, vl: {INT: 16}, rysy: ["Diviner", "Expert Divination"]});
+  await S.ev(`kartaStavZmen(${JSON.stringify(id)}, {zdr: {slot1: 2, slot2: 1, slot3: 1}})`);
+  assert.equal(await S.ev(`kExpertDiv(${Kid(id)}, "Augury", 2)`), 1, "Augury (Věštění) ze slotu 2. st. vrací slot 1. st.");
+  assert.deepEqual(V(`kartaStav(${JSON.stringify(id)}).zdr`), {slot1: 1, slot2: 1, slot3: 1});
+  assert.equal(await S.ev(`kExpertDiv(${Kid(id)}, "Clairvoyance", 3)`), 2, "ze slotu 3. st. vrací nejvyšší nižší utracený – 2.");
+  assert.equal(await S.ev(`kExpertDiv(${Kid(id)}, "Fireball", 3)`), null, "Evokace nic");
+  assert.equal(await S.ev(`kExpertDiv(${Kid(id)}, "Detect Magic", 1)`), null, "1. stupeň nic");
+  const bez = kartaReg({povolani: "Wizard 9", uroven: 9, rysy: ["Evoker"]});
+  await S.ev(`kartaStavZmen(${JSON.stringify(bez)}, {zdr: {slot1: 1}})`);
+  assert.equal(await S.ev(`kExpertDiv(${Kid(bez)}, "Augury", 2)`), null, "bez rysu nic");
+});
+
+test("podtřídy: dlouhý odpočinek Věštce hodí Předzvěst (2d20, s Greater Portent 3d20); jiné postavě nic", async () => {
+  S.ev("window.confirm = () => true");
+  const id = kartaReg({povolani: "Wizard 3", uroven: 3, rysy: ["Diviner", "Portent"]});
+  S.kostky([
+    [17, 20],
+    [3, 20],
+  ]);
+  await S.ev(`kartaOdpocinek(${Kid(id)}, true)`);
+  assert.deepEqual(V(`kartaStav(${JSON.stringify(id)}).port`), [17, 3]);
+  const id3 = kartaReg({povolani: "Wizard 14", uroven: 14, rysy: ["Diviner", "Portent", "Greater Portent"]});
+  await S.ev(`kartaOdpocinek(${Kid(id3)}, true)`);
+  assert.equal(V(`kartaStav(${JSON.stringify(id3)}).port`).length, 3);
+  const f = kartaReg({povolani: "Fighter 3", uroven: 3});
+  await S.ev(`kartaOdpocinek(${Kid(f)}, true)`);
+  assert.equal(V(`kartaStav(${JSON.stringify(f)}).port`), undefined);
+});

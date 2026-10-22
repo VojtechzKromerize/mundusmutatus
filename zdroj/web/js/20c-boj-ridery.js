@@ -1,7 +1,7 @@
 /* ===== Boj: volby po zásahu, přesun Hexu, Riposte, Sharpshooter (2026-10-20) ===== */
 /* ===== Volby po zásahu, přesun Hexu, odveta (2026-10-20) =====
    Po hodu, který zasáhl, nabídne list útoku to, co se k zásahu dá přidat: Divine Smite (slot), Eldritch Smite (pakt slot),
-   Sneak Attack, manévry Battle Mastera (kostka převahy) a u odvety Riposte. Kostky se hodí hned (při kritickém zásahu dvojnásob),
+   Sneak Attack, Dreadful Strikes (Fey Wanderer), Divine Fury (Zealot v zuřivosti), manévry Battle Mastera (kostka převahy) a u odvety Riposte. Kostky se hodí hned (při kritickém zásahu dvojnásob),
    slot / kostka převahy / bonusová akce se utratí až odesláním útoku vypravěči. */
 function bojJaRidery(K, me, w, q, s, O) {
   O = O || BJU;
@@ -53,6 +53,32 @@ function bojJaRidery(K, me, w, q, s, O) {
       zr: `${Math.ceil(ro / 2)}d6`,
       pozn: "jednou za tah: s výhodou, nebo když je u cíle tvůj spojenec; zbraň Finesse nebo na dálku",
     });
+  /* Fey Wanderer – Dreadful Strikes (2026-10-22): jednou za tah při zásahu zbraní +1d4 Psychic, od 11. úrovně hraničáře 1d6 */
+  const ra = kTrU(kCtx(K), "Ranger"),
+    drk = ra >= 11 ? "1d6" : "1d4";
+  if (ra && kMaRys(K, /^dreadful strikes$/i) && !uz("dr"))
+    R.push({
+      k: "dr",
+      g: "dr",
+      n: "Dreadful Strikes",
+      zr: drk,
+      cim: "Dreadful Strikes (Psychic)",
+      pozn: `+${drk} Psychic zranění, jednou za tah (zásah zbraní)`,
+    });
+  /* Path of the Zealot – Divine Fury (2026-10-22): v zuřivosti první zásah v tahu +1d6 + polovina úrovně barbara, Radiant nebo Necrotic */
+  const ba = kTrU(kCtx(K), "Barbarian"),
+    dfz = `1d6+${Math.floor(ba / 2)}`;
+  if (ba && kMaRys(K, /^divine fury$/i) && kPri(K).includes("Rage") && !uz("df"))
+    ["Radiant", "Necrotic"].forEach(t =>
+      R.push({
+        k: "df:" + t,
+        g: "df",
+        n: `Divine Fury (${t})`,
+        zr: dfz,
+        cim: `Divine Fury (${t})`,
+        pozn: `+${dfz} ${t} zranění: první zásah v tahu během zuřivosti`,
+      }),
+    );
   const SD = kSD(K);
   if (SD && SD.zb > 0) {
     const M = kManevry(K),
@@ -142,7 +168,7 @@ async function bojJaRidPo(K, me, SER, O) {
   if (!(O.ridT && O.ridT.tk === tk)) O.ridT = {tk, u: []};
   for (const q of SER || [])
     for (const r of q.rid || []) {
-      if (/^(ds|es|sa)$/.test(r.g)) O.ridT.u.push(r.g);
+      if (/^(ds|es|sa|dr|df)$/.test(r.g)) O.ridT.u.push(r.g);
       const c = r.cena;
       try {
         if (c && c.kz) await kartaSeslat(K, {n: c.kz, st: c.st, kon: false}, c.slot);

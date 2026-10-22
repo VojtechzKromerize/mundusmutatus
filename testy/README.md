@@ -18,7 +18,9 @@
      zbroje a Unarmored Defense, nošená zbroj, záchrany s Aura of Protection, Jack of All Trades, rychlost, počty použití,
      rysy mimo SRD, zbraň podle názvu), Výdrž podle Artikulí, stavy SRD (nevýhody, automatický neúspěch, rychlost 0,
      návrh výhody v boji), vyčerpání, Artikule zbroje v boji (druh z popisu AC, Resistance zbroje, Drtivá a Průrazná,
-     Immunity a Vulnerability, obětování a vyčerpaná zbroj), Půlmeč, kritická zranění (závažnost, místo na těle, druh).
+     Immunity a Vulnerability, obětování a vyčerpaná zbroj), Půlmeč, kritická zranění (závažnost, místo na těle, druh),
+     podtřídy hráčů (Emboldening Bond, Otherworldly Glamour, Warrior of the Gods, Portent z dlouhého odpočinku, Expert Divination,
+     přídavky Dreadful Strikes a Divine Fury, manévry k ověřením).
    - `kouzla.test.mjs` – účinky dalších kouzel z dat SRD (Guiding Bolt, Scorching Ray, triky podle úrovně, záchrany
      s polovinou, Hex, Mass Healing Word), posílení na kartě (Shield, Haste, Mage Armor, Barkskin, Aid, Stoneskin),
      posílení od jiné postavy (Warding Bond, Shield of Faith, Bless), trvání účinku v kolech boje, opakovaná kouzla bez slotu

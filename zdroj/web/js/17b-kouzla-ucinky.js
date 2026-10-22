@@ -134,8 +134,27 @@ function kBufHtml(K) {
 }
 
 /* ---- seslání: dočasné HP na sebe (False Life, Armor of Agathys), maximum HP cílům (Aid) ---- */
+/* Věštec – Expert Divination (2026-10-22): kouzlo Věštění ze slotu 2.+ stupně vrátí jeden utracený slot nižšího stupně (nejvýš 5.) */
+async function kExpertDiv(K, nm, lvl) {
+  const d = kSp(nm);
+  if (!d || d.s !== "Věštění" || !(lvl >= 2) || !kMaRys(K, /^expert divination$/i)) return null;
+  const q = kSloty(K)
+    .filter(z => !z.pakt && z.st < lvl && z.st <= 5 && z.u > 0)
+    .sort((a, b) => b.st - a.st)[0];
+  if (!q) return null;
+  const U = Object.assign({}, kartaStav(K.id).zdr || {});
+  U[q.k] = Math.max(0, (U[q.k] || 0) - 1);
+  if (!U[q.k]) delete U[q.k];
+  await kartaStavZmen(K.id, {zdr: Object.keys(U).length ? U : null}, null, {bezZpet: true});
+  kHodZapis({k: K.id, kdo: K.n, co: "Expert Divination", txt: `${nm} (${lvl}. st.) vrací slot ${q.st}. st.`});
+  mmHlasG(`${K.n}: Expert Divination – slot ${q.st}. st. se vrací.`, 4000);
+  return q.st;
+}
 async function kSesPo(K, sp, lvl) {
   const nm = kzJm(sp.n);
+  try {
+    await kExpertDiv(K, nm, lvl);
+  } catch (e) {}
   if (typeof KZSUM !== "undefined" && KZSUM[nm]) {
     await kSumNovy(K, sp, lvl);
     return;

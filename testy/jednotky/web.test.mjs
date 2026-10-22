@@ -217,7 +217,7 @@ const stavPri = async pri => S.ev(`kartaStavZmen("balduin", {pri: ${JSON.stringi
 
 test("kostky k hodům: bez Bless/Bane/Bardic se po hodu nic nenabízí", async () => {
   await stavPri(null);
-  assert.deepEqual(V(`kHodNabidka(KARTBY.balduin, "Útok", [])`), {bless: false, guid: false, bane: false, bard: null, st: 0});
+  assert.deepEqual(V(`kHodNabidka(KARTBY.balduin, "Útok", [])`), {bless: false, guid: false, bane: false, bard: null, st: 0, sd: null});
 });
 
 test("kostky k hodům: Bless se k útoku a záchraně přičte sám, po hodu se znovu nenabízí; k ověření nepatří", async () => {

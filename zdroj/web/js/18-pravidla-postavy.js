@@ -227,13 +227,13 @@ const KR = {
     if (p === "E") L.push(["Expertise", 2 * c.pb]);
     else if (p && p !== "H") L.push(["zdatnost", c.pb]);
     else if (p === "H" || kJoat(c)) L.push(["Jack of All Trades", Math.floor(c.pb / 2)]);
-    L.push(...kEfL(c, "ov"), ...kEfL(c, "dov"), ...kEfL(c, "dov:" + n));
+    L.push(...kEfL(c, "ov"), ...kEfL(c, "ov:" + ab), ...kEfL(c, "dov"), ...kEfL(c, "dov:" + n));
     return L;
   },
   ov: (c, a) => {
     const L = [[a, c.md(a)]];
     if (kJoat(c)) L.push(["Jack of All Trades", Math.floor(c.pb / 2)]);
-    L.push(...kEfL(c, "ov"));
+    L.push(...kEfL(c, "ov"), ...kEfL(c, "ov:" + a));
     return L;
   },
   ini: c => {
@@ -665,6 +665,13 @@ function kMimoEf(c) {
       c.E.push({c: "ini", v: ef.ini === "PB" ? c.pb : /^[A-Z]{3}$/.test(ef.ini) ? c.md(ef.ini === "DEX" ? "AGI" : ef.ini) : +ef.ini, n: nm});
     if (ef.hpU && m.typ === "rys") c.E.push({c: "hp", v: ef.hpU * kTrU(c, m.o.tr), n: nm});
     if (ef.hpL) c.E.push({c: "hp", v: ef.hpL * c.lv, n: nm});
+    /* ov: ["CHA", "WIS"] – k ověřením jedné vlastnosti přičti modifikátor jiné (min. 1), např. Otherworldly Glamour */
+    if (Array.isArray(ef.ov) && ef.ov.length === 2)
+      c.E.push({
+        c: "ov:" + (ef.ov[0] === "DEX" ? "AGI" : ef.ov[0]),
+        v: Math.max(1, ef.ov[1] === "PB" ? c.pb : c.md(ef.ov[1] === "DEX" ? "AGI" : ef.ov[1])),
+        n: nm,
+      });
   });
 }
 function kMimoSpab(c) {

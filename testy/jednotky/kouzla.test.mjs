@@ -37,6 +37,15 @@ test("kouzla: triky sílí s úrovní postavy (7. úroveň = 2 kostky): Fire Bol
   assert.equal(kouzlo("Toll the Dead", 0).zach, "WIS");
 });
 
+test("kouzla: Potent Spellcasting klerika přičítá WIS ke zranění triku, ne ke kouzlu ze slotu; bez rysu nic", () => {
+  const kl = r =>
+    JSON.stringify({id: "t_pot" + r.length, n: "Klerik", druh: "Human", povolani: "Cleric 8", uroven: 8, vl: {WIS: 16}, rysy: r, vybaveni: []});
+  const u = (K, n, st) => V(`kSpUcinek(${K}, {n: ${JSON.stringify(n)}}, ${st})`);
+  assert.equal(u(kl(["Peace Domain", "Potent Spellcasting"]), "Sacred Flame", 0).mod, 3);
+  assert.equal(u(kl(["Peace Domain", "Potent Spellcasting"]), "Guiding Bolt", 1).mod, undefined);
+  assert.equal(u(kl(["Peace Domain"]), "Sacred Flame", 0).mod, undefined);
+});
+
 test("kouzla: záchrana s poloviční škodou při úspěchu (Burning Hands, Lightning Bolt), bez poloviny (Thunderwave)", () => {
   assert.deepEqual(kouzlo("Burning Hands", 2), {k: "z", x: "4d6", t: "Fire", zach: "AGI", utok: false, pol: true});
   assert.equal(kouzlo("Lightning Bolt", 3).x, "8d6");
