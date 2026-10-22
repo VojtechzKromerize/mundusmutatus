@@ -19,7 +19,9 @@ async def main():
     chk(await ph.locator(".bnpc").count()==0,"hráč v přípravě nevidí nepřátele")
     await ph.evaluate("bojJa.set('Cyril');renderBoj()");await ph.wait_for_timeout(300)
     await ph.fill("[data-bjahod]","11");await ph.press("[data-bjahod]","Tab");await ph.wait_for_timeout(800)
-    await g.wait_for_timeout(3000)
+    # vypravěč v přípravě se ptá pulsu jednou za 6 s
+    try: await g.wait_for_function("document.querySelector('[data-bhhod=\"h3\"]')&&document.querySelector('[data-bhhod=\"h3\"]').value==='11'",timeout=15000)
+    except Exception: pass
     chk(await g.locator('[data-bhhod="h3"]').input_value()=="11","vypravěč vidí hod, který hráč zapsal z telefonu")
     c,t=anon_rpc("mm_boj_hod",{"p_hrac":"h9","p_hod":12});chk(c>=400,"neznámá postava nezapíše hod")
     await g.click('[data-bstart]');await g.wait_for_timeout(500)

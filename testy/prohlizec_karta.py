@@ -415,8 +415,9 @@ async def main():
     chk(await up.evaluate("MMDB.ja().then(j=>j.karta)")=="ucetnik","postava je navázaná na účet s heslem")
     r=await cizi.evaluate("MMDB.kartaStav('ucetnik','sv',3).then(()=>'ok',e=>e.message)")
     chk(r!="ok","cizí prohlížeč nezmění kartu hráče s účtem")
-    chk(await up.locator("[data-discordx]").first.inner_text()=="Odhlásit (Účetník)","odhlášení u účtu s heslem bez zmínky o Discordu")
-    await up.evaluate("mmPopX()");await up.click('.hraja [data-bdmsh="sprava"]');await up.locator(".bdmlist [data-discordx]").click();await up.wait_for_timeout(600);await up.goto(BASE+"#uvod");await up.wait_for_selector("#uvucet:not([hidden]) [data-ucetr=prihlas]",timeout=15000)
+    await up.evaluate("mmPopX()");await up.click('.hraja [data-bdmsh="sprava"]');await up.wait_for_selector(".bdmlist [data-discordx]",timeout=8000)
+    chk(await up.locator(".bdmlist [data-discordx]").first.inner_text()=="Odhlásit (Účetník)","odhlášení u účtu s heslem bez zmínky o Discordu (list Postava na kartě)")
+    await up.locator(".bdmlist [data-discordx]").click();await up.wait_for_timeout(600);await up.goto(BASE+"#uvod");await up.wait_for_selector("#uvucet:not([hidden]) [data-ucetr=prihlas]",timeout=15000)
     async def uklik(sel):  # oznámení a lišta „Obnovit“ (mmhlas) mohou na úzkém displeji tlačítko překrýt
         await up.evaluate("document.querySelectorAll('.mmhlas').forEach(e=>e.remove());mmPopX&&mmPopX()")
         try: await up.click(sel,timeout=10000)
