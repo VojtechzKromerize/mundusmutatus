@@ -19,14 +19,14 @@ async def main():
     g=await b.new_page(viewport={"width":1300,"height":1000});g.on("dialog",lambda d:asyncio.ensure_future(d.accept()))
     gerr=[];g.on("pageerror",lambda e:gerr.append(str(e)[:200]))
     await g.add_init_script("localStorage.setItem('mm-gm-relace',JSON.stringify("+json.dumps({"at":gt["access_token"],"rt":gt["refresh_token"],"exp":gt["expires_at"],"email":"gm@x.cz"})+"))")
-    await g.goto(BASE+"#hra");await g.wait_for_function("!document.documentElement.classList.contains('mmload')");await g.wait_for_timeout(1500)
+    await g.goto(BASE+"#hra/druzina");await g.wait_for_function("!document.documentElement.classList.contains('mmload')");await g.wait_for_timeout(1500)
     # druhá karta pro spojence
     await g.evaluate("MMDB.kartaUloz(Object.assign({},KARTBY.balduin,{id:'zbynek',n:'Zbyněk',test:true})).then(()=>kartyNacti(true))");await g.wait_for_timeout(800)
     await g.evaluate("kartaStavZmen('zbynek',{hp:10})");await g.wait_for_timeout(800)
     chk(stav("zbynek").get("hp")==10,"spojenec Zbyněk má 10 životů")
     # nastavení: vše potvrzuji, lhůta 3 s
-    await g.select_option("#hraview [data-potvrzr]","vse");await g.wait_for_timeout(1200)
-    await g.fill("#hraview [data-potvrzo]","3");await g.locator("#hraview [data-potvrzo]").press("Tab");await g.wait_for_timeout(1500)
+    await g.select_option("#bojpult [data-potvrzr]","vse");await g.wait_for_timeout(1200)
+    await g.fill("#bojpult [data-potvrzo]","3");await g.locator("#bojpult [data-potvrzo]").press("Tab");await g.wait_for_timeout(1500)
     chk(await g.evaluate("potvrz().rezim==='vse'&&potvrz().odklad===3"),"vypravěč nastaví potvrzování a lhůtu")
     pl=await b.new_page(viewport={"width":390,"height":844});perr=[];pl.on("pageerror",lambda e:perr.append(str(e)[:200]))
     await pl.goto(BASE+"#karty/balduin");await pl.wait_for_selector(".bdm",timeout=15000);await pl.wait_for_timeout(2000)
@@ -70,8 +70,8 @@ async def main():
         chk(await g.evaluate("(HRA||{}).datum")==d0,"„vše od sem“ vrátí herní čas: "+str(await g.evaluate("(HRA||{}).datum")))
     else: chk(False,"časová osa zachytí změnu herního času")
     # zpět na okamžitý zápis pro další testy
-    await g.goto(BASE+"#hra");await g.wait_for_timeout(1500)
-    await g.select_option("#hraview [data-potvrzr]","nic");await g.wait_for_timeout(1000);await g.fill("#hraview [data-potvrzo]","0");await g.locator("#hraview [data-potvrzo]").press("Tab");await g.wait_for_timeout(1200)
+    await g.goto(BASE+"#hra/druzina");await g.wait_for_timeout(1500)
+    await g.select_option("#bojpult [data-potvrzr]","nic");await g.wait_for_timeout(1000);await g.fill("#bojpult [data-potvrzo]","0");await g.locator("#bojpult [data-potvrzo]").press("Tab");await g.wait_for_timeout(1200)
     chk(await g.evaluate("potvrz().rezim==='nic'&&potvrz().odklad===0"),"nastavení vráceno")
     chk(await pl.evaluate("potvrzNacti().then(()=>potvrz().rezim==='nic'&&potvrz().odklad===0)"),"hráč se o změně nastavení dozví bez přenačtení stránky")
     await g.evaluate("MMDB.kartaSmaz('zbynek').catch(()=>{})");await g.wait_for_timeout(500)

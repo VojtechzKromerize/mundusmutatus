@@ -662,7 +662,7 @@ async function kSesDlgOk(bez) {
     if (BJU.plos) BJU.cile = N.map(o => o.id);
     else BJU.cil = N[0].id;
     if (curView === "boj") renderBoj();
-    else location.hash = "#boj";
+    else location.hash = "#hra";
     if (C.length) mmHlasG(`${x.n}: spojence k tomu nejde vybrat – kouzlo míří na nepřátele.`, 4000);
     return;
   }

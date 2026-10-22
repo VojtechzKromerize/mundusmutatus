@@ -529,10 +529,12 @@ document.addEventListener(
   },
   true,
 );
-/* je otevřená stránka Hra? (hráč ji má od 2026-10-22 uvnitř jako stránku Boj) */
+/* je otevřená stránka Hra? (od 2026-10-22 je uvnitř stránkou Boj) */
 function mmNaHre() {
-  return curView === "hra" || (!GMV && curView === "boj");
+  return curView === "hra" || curView === "boj";
 }
+/* záložka řídicího pultu vypravěče: boj | druzina | sezeni (nastaví route podle adresy) */
+let PULTTAB = "boj";
 function route() {
   const h = decodeURIComponent(location.hash.slice(1)) || "uvod";
   const [a, b, c] = h.split("/");
@@ -543,14 +545,18 @@ function route() {
     history.replaceState(null, "", "#hra");
     view = "hra";
   }
-  /* hráč (2026-10-22): Hra = jeho karta a boj na jedné stránce – uvnitř je to stránka Boj (#bojview, renderBoj),
-     v menu a v adrese Hra; starší odkazy a upozornění na #boj vedou na Hru */
-  if (!GMV && view === "boj") {
+  /* Hra (2026-10-22) – uvnitř je to stránka Boj (#bojview, renderBoj), v menu a v adrese Hra; starší odkazy na #boj vedou na Hru.
+     Hráč: jeho karta a boj. Vypravěč: řídicí pult se záložkami Boj (#hra), Družina (#hra/druzina) a Sezení (#hra/sezeni). */
+  if (view === "boj") {
     history.replaceState(null, "", "#hra");
     view = "hra";
   }
-  const navV = view;
-  if (!GMV && view === "hra") view = "boj";
+  const navV = view,
+    tab0 = PULTTAB;
+  if (view === "hra") {
+    if (GMV) PULTTAB = b === "druzina" || b === "sezeni" ? b : "boj";
+    view = "boj";
+  }
   /* stránka s vlastní částí skriptu (mapy, Výprava): nejdřív ji stáhnout, pak vykreslit */
   if (!mmLinyHotove(view)) {
     document.querySelectorAll(".view").forEach(v => {
@@ -688,15 +694,12 @@ function route() {
           if (curView === "boj") renderBoj();
         })
         .catch(() => {});
-    if (changed) window.scrollTo(0, 0);
+    if (changed || tab0 !== PULTTAB) window.scrollTo(0, 0);
   } else if (view === "vyprava") {
     renderVyprava();
     if (changed) window.scrollTo(0, 0);
   } else if (view === "kouzla") {
     renderKouzla(b);
-    if (changed) window.scrollTo(0, 0);
-  } else if (view === "hra") {
-    renderHra();
     if (changed) window.scrollTo(0, 0);
   } else if (view === "sezeni") {
     renderSezeni();

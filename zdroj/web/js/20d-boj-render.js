@@ -447,8 +447,16 @@ function renderBoj() {
       }
     } catch (e) {}
   }
-  const box = document.getElementById("bojview");
+  let box = document.getElementById("bojview");
   if (!box) return;
+  /* vypravěč: řídicí pult – záložky nad bojem; v záložce Družina/Sezení místo boje jejich obsah (16) */
+  if (GMV) {
+    box = pultObal(box);
+    if (PULTTAB !== "boj") {
+      pultVykresli(box);
+      return;
+    }
+  }
   if (GMV && !KSPD) kSpNacti().catch(() => {});
   bttHide();
   const pg0 = box.querySelector(".bpravidla .bprg"),

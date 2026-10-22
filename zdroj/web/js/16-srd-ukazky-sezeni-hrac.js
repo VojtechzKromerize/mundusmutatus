@@ -623,7 +623,7 @@ document.addEventListener("click", e => {
     if (!x) return;
     const rows = bojRozvin(x.np);
     bojPridejZvenku(rows, x.n + ". " + (x.x || ""));
-    navTo("#boj");
+    navTo("#hra");
     return;
   }
 });
@@ -730,7 +730,7 @@ const kvK = el => {
   return KARTBY[decodeURIComponent(location.hash.split("/")[1] || "")];
 };
 document.addEventListener("click", async e => {
-  const v = e.target.closest && e.target.closest("#kartyview,#hraview,[data-kid]");
+  const v = e.target.closest && e.target.closest("#kartyview,#bojpult,[data-kid]");
   if (!v) return;
   const T = s => e.target.closest(s),
     K = kvK(e.target);
@@ -908,7 +908,7 @@ document.addEventListener("click", async e => {
   }
 });
 document.addEventListener("change", async e => {
-  const v = e.target.closest && e.target.closest("#kartyview,#hraview,.bdm");
+  const v = e.target.closest && e.target.closest("#kartyview,#bojpult,.bdm");
   if (!v) return;
   const t = e.target,
     K = kvK(t);
@@ -933,7 +933,7 @@ document.addEventListener("change", async e => {
 });
 document.addEventListener("submit", async e => {
   const f = e.target;
-  if (!f.matches || !f.closest("#kartyview,#hraview,.bdm")) return;
+  if (!f.matches || !f.closest("#kartyview,#bojpult,.bdm")) return;
   const K = kvK(f),
     E = f.elements;
   if (f.matches("[data-kvlh]")) {
@@ -1366,7 +1366,7 @@ async function hraPoll(hned, co) {
     if (n > VYZODP && !hned) {
       const v = VYZVY.find(x => !x.zavrena && Object.keys(x.odpovedi || {}).length);
       if (v && curView === "boj") renderBoj();
-      else if (v && curView !== "hra") mmHlasG(`Hráči odpovídají na výzvu (${vyzvaTxt(v.data)}) – výsledky na stránce Hra.`, 4500);
+      else if (v && curView !== "hra") mmHlasG(`Hráči odpovídají na výzvu (${vyzvaTxt(v.data)}) – výsledky v Hře › Družina.`, 4500);
     } else if (a && curView === "boj") renderBoj();
     VYZODP = n;
     const nz = ZPRG.filter(z => !z.gm && z.id > zprVideno.get());
@@ -1394,10 +1394,6 @@ function hraPrekresli() {
     hraHracPrekresli();
     return;
   }
-  if (curView !== "hra") return;
-  const v = document.getElementById("hraview"),
-    ae = document.activeElement;
-  if (v && ae && v.contains(ae) && ae.matches("input,textarea,select")) return;
   renderHra();
 }
 /* ---- úkoly družiny a postup na úroveň (v herním stavu, který čtou všichni) ---- */
@@ -1420,7 +1416,7 @@ function hraStavHtml() {
     zb = zavojBan();
   } catch (e) {}
   return `<div class="hrastav"><p><b>${besc(partyDate())}</b>${HRA && HRA.hodina != null ? `, ${HRA.hodina}:00` : ""}${partyPlace() ? ` · ${besc(partyPlace())}` : ""}</p>${zb}
-    ${s && s.aktivni ? `<p class="hraboj"><b>Probíhá boj</b> – ${s.kolo || 1}. kolo. <a class="gbtn" href="#boj">Do boje ⚔</a></p>` : s && s.priprava ? `<p class="hraboj"><b>Chystá se boj</b> – na stránce Boj hoď iniciativu. <a class="gbtn" href="#boj">Do boje ⚔</a></p>` : ""}</div>`;
+    ${s && s.aktivni ? `<p class="hraboj"><b>Probíhá boj</b> – ${s.kolo || 1}. kolo. <a class="gbtn" href="#hra">Do boje ⚔</a></p>` : s && s.priprava ? `<p class="hraboj"><b>Chystá se boj</b> – v záložce Boj hoď iniciativu. <a class="gbtn" href="#hra">Do boje ⚔</a></p>` : ""}</div>`;
 }
 /* změny od posledního sezení: poprvé se načtou na pozadí a stránka se překreslí */
 function hraZmenyHtml() {
@@ -1521,34 +1517,37 @@ function hraUcetHtml(K) {
   const ja = JA.get() || {};
   return `${aplikaceHtml(K.id)}<p class="bojbtn">${notifBtn()}${window.MMDB && !(ja.d && DCU.typ !== "email") ? `<button type="button" class="gbtn ghost" data-jaheslo>Změnit heslo</button>` : ""}${ja.d ? `<button type="button" class="gbtn ghost" data-discordx>${jaOdhlasTxt()} (${besc(K.n)})</button>` : `<button type="button" class="gbtn ghost" data-jaodhlas>Odhlásit (${besc(K.n)})</button>`}</p>`;
 }
-function renderHra() {
-  if (!GMV) {
-    hraHracPrekresli();
-    return;
+/* ===== řídicí pult vypravěče (2026-10-22): Hra = Boj + záložky Družina a Sezení (dřívější stránka Hra vypravěče) =====
+   renderBoj (20d) obalí #bojview navigací (pultObal); v záložce Družina/Sezení vykreslí pultVykresli místo boje. */
+function pultNavHtml() {
+  const n = typeof navrhyCeka === "function" ? navrhyCeka().length : 0,
+    s = BOJ.s || {},
+    t = [
+      ["boj", "#hra", `⚔ Boj${s.aktivni ? ` <small>${s.kolo || 1}. kolo</small>` : s.priprava ? " <small>příprava</small>" : ""}`],
+      ["druzina", "#hra/druzina", `Družina${n ? ` <b class="pultn">${n}</b>` : ""}`],
+      ["sezeni", "#hra/sezeni", "Sezení"],
+    ];
+  return t
+    .map(([k, h, x]) => `<a href="${h}" class="pultt${PULTTAB === k ? " on" : ""}"${PULTTAB === k ? ' aria-current="page"' : ""}>${x}</a>`)
+    .join("");
+}
+function pultObal(outer) {
+  let inner = outer.querySelector(":scope > #bojpult");
+  if (!inner) {
+    outer.innerHTML = `<nav class="pultnav subnav" aria-label="Řídicí pult"></nav><div id="bojpult"></div>`;
+    inner = outer.querySelector(":scope > #bojpult");
   }
-  mmZrus("hra");
-  const box = document.getElementById("hraview");
-  if (!box) return;
-  if (!KLOAD) {
-    KLOAD = 1;
-    Promise.all([kartyNacti(), hodyNacti()]).then(() => {
-      if (mmNaHre()) renderHra();
-    });
-  }
-  if (!BOJ.s && bojDB && !renderHra.b) {
-    renderHra.b = 1;
-    bojNacti().then(() => {
-      if (mmNaHre()) renderHra();
-    });
-  }
-  const hl = `<div class="bojtit"><h2 class="arttitle">Hra</h2><p class="bojlead">${GMV ? "Řízení sezení: výzvy k hodům, zprávy hráčům, úkoly družiny a postup." : "Všechno, co hráč potřebuje během sezení, na jedné stránce."}</p></div>`;
-  if (GMV) {
-    const zk = ZPRK || (KARTY[0] || {}).id || "",
-      zL = ZPRG.filter(z => z.k === zk);
-    box.innerHTML = `${hl}${hraStavHtml()}
+  const nav = outer.querySelector(":scope > .pultnav"),
+    h = pultNavHtml();
+  if (nav.innerHTML !== h) nav.innerHTML = h;
+  return inner;
+}
+function pultDruzinaHtml() {
+  const zk = ZPRK || (KARTY[0] || {}).id || "",
+    zL = ZPRG.filter(z => z.k === zk);
+  return `${hraStavHtml()}
       <section><h3 class="uvh2">Výzva k hodu</h3>${vyzvaForm()}${vyzvyGmHtml()}</section>
-      <section><h3 class="uvh2">Akce hráčů</h3><p class="kvlh">${potvrzHtml("hra")}</p>${navrhyGmHtml() || `<p class="rsmall">Nic nečeká na schválení. Útoky hráčů k potvrzení jsou v Boji.</p>`}</section>
-      ${hraZmenyHtml()}
+      <section><h3 class="uvh2">Akce hráčů</h3><p class="kvlh">${potvrzHtml("hra")}</p>${navrhyGmHtml() || `<p class="rsmall">Nic nečeká na schválení. Útoky hráčů k potvrzení jsou v záložce Boj.</p>`}</section>
       ${kPrehledHtml()}
       <section><h3 class="uvh2">Tajné zprávy</h3>${
         KARTY.length
@@ -1560,7 +1559,10 @@ function renderHra() {
           : `<p class="rsmall">Bez karet postav.</p>`
       }</section>
       ${hraUkolyHtml()}
-      <section><h3 class="uvh2">Postup na úroveň</h3><form class="kvlh" data-hrpost><label>Družina má mít úroveň <input name="u" type="number" min="1" max="20" value="${+((HRA && HRA.postup) || 0) || ""}" aria-label="Úroveň"></label><button class="gbtn ghost">Oznámit postup</button></form><p class="rsmall">Hráčům s nižší úrovní se na kartě ukáže výzva nahrát nové PDF.</p></section>
+      <section><h3 class="uvh2">Postup na úroveň</h3><form class="kvlh" data-hrpost><label>Družina má mít úroveň <input name="u" type="number" min="1" max="20" value="${+((HRA && HRA.postup) || 0) || ""}" aria-label="Úroveň"></label><button class="gbtn ghost">Oznámit postup</button></form><p class="rsmall">Hráčům s nižší úrovní se na kartě ukáže výzva nahrát nové PDF.</p></section>`;
+}
+function pultSezeniHtml() {
+  return `${hraZmenyHtml()}
       <section><h3 class="uvh2">Ukázat hráčům</h3>${ukForm()}<p class="rsmall"><a href="#sezeni">Příprava sezení →</a></p></section>
       ${poklHtml()}
       <section><h3 class="uvh2">Hráči a postavy</h3><ul class="kfeat">${KARTY.map(k => `<li><b>${besc(k.n)}</b> ${KZAM.has(k.id) ? `– hraje ${besc(KHRAC[k.id] || "hráč s heslem")} <button type="button" class="gbtn ghost" data-hrzrus="${besc(k.id)}" ${btip("Uvolní postavu: zruší vazbu na Discord účet i heslo. Hráč si pak zvolí znovu.")}>uvolnit</button>` : "– volná (zabere ji první, kdo si ji zvolí)"}</li>`).join("")}</ul></section>
@@ -1568,8 +1570,35 @@ function renderHra() {
       <section><h3 class="uvh2">Příkaz /hod na Discordu</h3><p class="rsmall">Hráči házejí přímo z Discordu (<code>/hod Stealth</code>, <code>/hod záchrana CON</code>, <code>/hod 2d6+3</code>); hod se zapíše sem do záznamu za jejich postavu – podle účtu Discord, kterým se na webu přihlásili. Jednorázové nastavení: v Discord Developer Portal u aplikace vlož do <b>Interactions Endpoint URL</b> adresu <code>${besc(((window.MMDB && MMDB.cfg) || {}).url || "https://…supabase.co")}/functions/v1/mm-discord</code>; v Supabase (Edge Functions → Secrets) ulož <code>DISCORD_PUBLIC_KEY</code>, <code>DISCORD_APP_ID</code> a <code>DISCORD_TOKEN</code> (token bota nikomu neposílej). Pak klikni:</p><p><button type="button" class="gbtn ghost" data-discprik>Zaregistrovat příkaz /hod</button></p></section>
       ${aplikaceHtml(null)}
       <section><h3 class="uvh2">Jak hrát na webu (pro hráče)</h3>${NAVOD}</section>`;
-    pojZnac(box.querySelector(".kprehled"));
+}
+/* záložka Družina / Sezení; nepřekreslí, když vypravěč zrovna píše – dokreslí se po opuštění pole */
+function pultVykresli(box) {
+  const ae = document.activeElement;
+  if (box.firstElementChild && ae && box.contains(ae) && ae.matches("input:not([type=checkbox]):not([type=radio]),textarea,select")) {
+    pultVykresli.cek = 1;
+    return;
   }
+  pultVykresli.cek = 0;
+  if (!KLOAD) {
+    KLOAD = 1;
+    Promise.all([kartyNacti(), hodyNacti()]).then(() => {
+      if (curView === "boj") renderBoj();
+    });
+  }
+  box.innerHTML = PULTTAB === "druzina" ? pultDruzinaHtml() : pultSezeniHtml();
+  pojZnac(box.querySelector(".kprehled"));
+}
+document.addEventListener("focusout", () =>
+  setTimeout(() => {
+    if (pultVykresli.cek && curView === "boj" && PULTTAB !== "boj") renderBoj();
+  }, 0),
+);
+function renderHra() {
+  if (!GMV) {
+    hraHracPrekresli();
+    return;
+  }
+  if (curView === "boj" && PULTTAB !== "boj") renderBoj();
 }
 document.addEventListener("submit", async e => {
   const f = e.target;

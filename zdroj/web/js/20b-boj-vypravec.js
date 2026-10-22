@@ -1071,7 +1071,7 @@ function bojKlZraneni(v) {
   mmHlasG(`${n.n}: −${v} HP (${old - v}/${E.hp[0].max}).`, 2200);
 }
 document.addEventListener("keydown", e => {
-  if (curView !== "boj" || !GMV || !bojDB || !(BOJ.s && BOJ.s.aktivni)) return;
+  if (curView !== "boj" || PULTTAB !== "boj" || !GMV || !bojDB || !(BOJ.s && BOJ.s.aktivni)) return;
   const t = e.target;
   if (t && (t.isContentEditable || /^(INPUT|SELECT|TEXTAREA)$/.test(t.tagName))) return;
   if ((e.ctrlKey || e.metaKey) && !e.shiftKey && e.key.toLowerCase() === "z") {

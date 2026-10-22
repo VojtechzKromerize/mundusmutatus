@@ -747,7 +747,7 @@ function kartaDbHtml(K, o, o2) {
           )})</small>`
         : ""
     }${K.hrac ? ` · hraje ${besc(K.hrac)}` : ""}${K.test ? " · <i>zkušební</i>" : ""}</p></div>
-    <div class="kdbhb">${kZpetBtn(K)}<a class="kdbbtn" href="#boj" data-bdmgo="${besc(K.id)}" ${btip("Bojová karta v Boji – rozvržení jako D&D Beyond na telefonu; životy, sloty a stavy jsou společné s touto kartou")}>⚔ Bojová karta</a><button type="button" class="kdbbtn" data-kodp="k" ${btip("Krátký odpočinek (1 hodina): kostky životů, zdroje s krátkým odpočinkem, sloty paktu")}>☾ Krátký</button><button type="button" class="kdbbtn" data-kodp="d" ${btip("Dlouhý odpočinek (8 hodin): životy, sloty, zdroje, polovina kostek životů, vyčerpání −1")}>☾☾ Dlouhý</button>${kMuze(K) ? `<button type="button" class="kdbbtn${KUPRO.has(K.id) ? " on" : ""}" data-kuprt aria-expanded="${KUPRO.has(K.id)}" ${btip("Úpravy postavy: povolání a úrovně, vlastnosti, výpočty, předměty, vlastní úpravy")}>⚙ Úpravy</button>` : ""}<details class="kdbmenu"><summary class="kdbbtn" aria-label="Další volby">⋯</summary><div>${kMuze(K) ? `<button type="button" class="kdbbtn" data-klvup ${btip("Postup na další úroveň: životy, nové rysy, vlastnosti nebo feat")}>⬆ Postup na úroveň</button>` : ""}${window.MMDB ? `<button type="button" class="kdbbtn" data-khistb ${btip("Předchozí stavy karty – lze obnovit")}>Historie</button>` : ""}${S.img && kMuze(K) ? `<button type="button" class="kdbbtn" data-kimgx>Odebrat portrét</button>` : ""}<button type="button" class="kdbbtn" data-ktisk ${btip("Vytiskne celou kartu nebo ji uloží jako PDF")}>Tisk</button><button type="button" class="kdbbtn" data-kexport ${btip("Stáhne kartu a stav postavy jako JSON")}>Export</button>${GMV && !KSTAT.has(K.id) && !K.test ? `<button type="button" class="kdbbtn" data-ksmaz>Smazat kartu</button>` : ""}${o2 && o2.hra ? `<a class="kdbbtn" href="#karty/${besc(K.id)}">Samostatná karta →</a>` : `<a class="kdbbtn" href="#karty">Všechny karty</a>`}</div></details></div></div>`;
+    <div class="kdbhb">${kZpetBtn(K)}<a class="kdbbtn" href="#hra" data-bdmgo="${besc(K.id)}" ${btip("Bojová karta v Boji – rozvržení jako D&D Beyond na telefonu; životy, sloty a stavy jsou společné s touto kartou")}>⚔ Bojová karta</a><button type="button" class="kdbbtn" data-kodp="k" ${btip("Krátký odpočinek (1 hodina): kostky životů, zdroje s krátkým odpočinkem, sloty paktu")}>☾ Krátký</button><button type="button" class="kdbbtn" data-kodp="d" ${btip("Dlouhý odpočinek (8 hodin): životy, sloty, zdroje, polovina kostek životů, vyčerpání −1")}>☾☾ Dlouhý</button>${kMuze(K) ? `<button type="button" class="kdbbtn${KUPRO.has(K.id) ? " on" : ""}" data-kuprt aria-expanded="${KUPRO.has(K.id)}" ${btip("Úpravy postavy: povolání a úrovně, vlastnosti, výpočty, předměty, vlastní úpravy")}>⚙ Úpravy</button>` : ""}<details class="kdbmenu"><summary class="kdbbtn" aria-label="Další volby">⋯</summary><div>${kMuze(K) ? `<button type="button" class="kdbbtn" data-klvup ${btip("Postup na další úroveň: životy, nové rysy, vlastnosti nebo feat")}>⬆ Postup na úroveň</button>` : ""}${window.MMDB ? `<button type="button" class="kdbbtn" data-khistb ${btip("Předchozí stavy karty – lze obnovit")}>Historie</button>` : ""}${S.img && kMuze(K) ? `<button type="button" class="kdbbtn" data-kimgx>Odebrat portrét</button>` : ""}<button type="button" class="kdbbtn" data-ktisk ${btip("Vytiskne celou kartu nebo ji uloží jako PDF")}>Tisk</button><button type="button" class="kdbbtn" data-kexport ${btip("Stáhne kartu a stav postavy jako JSON")}>Export</button>${GMV && !KSTAT.has(K.id) && !K.test ? `<button type="button" class="kdbbtn" data-ksmaz>Smazat kartu</button>` : ""}${o2 && o2.hra ? `<a class="kdbbtn" href="#karty/${besc(K.id)}">Samostatná karta →</a>` : `<a class="kdbbtn" href="#karty">Všechny karty</a>`}</div></details></div></div>`;
   /* pruh: AC, životy, iniciativa, rychlost, zdatnost, inspirace, Svědomí */
   const acR = kACR(K),
     thp = S.thp || 0;
@@ -1121,7 +1121,7 @@ const kImpNahled = (
   }
   <p class="rsmall">Popisy schopností z PDF (texty příruček) uvidí jen hráč této postavy a vypravěč.</p>${ja ? `<button type="button" class="gbtn" data-kimpja>Uložit a hrát za tuto postavu</button>` : `<button type="button" class="gbtn" data-kimpok>Uložit kartu</button>`} <button type="button" class="gbtn ghost" data-kimpx>Zrušit</button></div>`;
 document.addEventListener("change", async e => {
-  const v = e.target.closest && e.target.closest("#kartyview,#hraview,.bdm");
+  const v = e.target.closest && e.target.closest("#kartyview,#bojpult,.bdm");
   if (!v) return;
   const t = e.target,
     K = kvK(t);
@@ -1175,7 +1175,7 @@ document.addEventListener("change", async e => {
   }
 });
 document.addEventListener("submit", e => {
-  if (!e.target.matches || !e.target.matches("#kartyview [data-kinvf],#hraview [data-kinvf],.bdm [data-kinvf]")) return;
+  if (!e.target.matches || !e.target.matches("#kartyview [data-kinvf],#bojpult [data-kinvf],.bdm [data-kinvf]")) return;
   e.preventDefault();
   const K = kvK(e.target);
   if (!K) return;
@@ -1191,7 +1191,7 @@ document.addEventListener("submit", e => {
   e.target.reset();
 });
 document.addEventListener("click", async e => {
-  const v = e.target.closest && e.target.closest("#kartyview,#hraview,.hrapri,.bjapanel,.bhkb");
+  const v = e.target.closest && e.target.closest("#kartyview,#bojpult,.hrapri,.bjapanel,.bhkb");
   if (!v) return;
   const T = s => e.target.closest(s),
     id = decodeURIComponent(location.hash.split("/")[1] || ""),
@@ -1837,7 +1837,7 @@ function kBarHtml(K) {
 }
 document.addEventListener("click", async e => {
   const T = s => e.target.closest && e.target.closest(s);
-  if (!T("#kartyview,#hraview,[data-kid]")) return;
+  if (!T("#kartyview,#bojpult,[data-kid]")) return;
   const tx = T("[data-ktxh]");
   if (tx) {
     const K = kvK(tx);

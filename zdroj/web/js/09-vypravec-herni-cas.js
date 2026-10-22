@@ -848,7 +848,7 @@ document.addEventListener("click", e => {
     bojPridejZvenku([{n, druh: T && T.n === "Krutý boj" ? "houf" : "sok", pocet: 4, pr: []}], "");
     return;
   }
-  navTo("#boj");
+  navTo("#hra");
 });
 /* ===== Mapa jako paměť tažení: posuvník po zápisech Kroniky ===== */
 {

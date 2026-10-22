@@ -6,7 +6,14 @@ async def main():
   async with async_playwright() as p:
     b=await p.chromium.launch()
     g,gerr=await gm_strana(b)
-    chk(await g.locator("#navboj").is_visible(),"vypravěč má v nabídce Boj")
+    chk(await g.evaluate("location.hash")=="#hra" and await g.locator(".pultnav a").count()==3,"vypravěč: #boj vede na Hru – řídicí pult se záložkami Boj, Družina, Sezení")
+    # řídicí pult (2026-10-22): záložky Družina a Sezení nesou dřívější stránku Hra vypravěče
+    await g.click('.pultnav a[href="#hra/druzina"]');await g.wait_for_selector("#bojpult [data-vyzf]",timeout=10000)
+    chk(await g.locator("#bojpult .bsloty, #bojpult .bprip").count()==0 and await g.locator("#bojpult [data-hrpost]").count()==1,"pult › Družina: výzvy k hodu, postup na úroveň, bez boje")
+    await g.click('.pultnav a[href="#hra/sezeni"]');await g.wait_for_selector("#bojpult [data-ukf]",timeout=10000)
+    chk(await g.locator("#bojpult [data-discordf]").count()==1,"pult › Sezení: ukázky, Discord")
+    await g.click('.pultnav a[href="#hra"]');await g.wait_for_selector("#bojpult .bprip, #bojpult .bsloty",timeout=10000)
+    chk(True,"pult › Boj: zpět u boje")
     await priprava(g,["Adam","Bára","Cyril"],[15,9,None],None,[("Žoldnéři","houf",6),("Hejtman","sok",None)])
     # tichá příprava (2026-10-22): dokud ji vypravěč neukáže, hráč na Hře přípravu ani iniciativu nevidí
     await g.evaluate("bojZmen(z=>{z.ticha=true})");await g.wait_for_timeout(1200)
@@ -39,7 +46,7 @@ async def main():
     chk(await g.evaluate("BOJ.s.hod")==15,"družina jde s nejlepším hodem 15")
     pl=await b.new_page(viewport={"width":390,"height":844});perr=[];pl.on("pageerror",lambda e:perr.append(str(e)[:200]))
     await pl.goto(BASE);await pl.wait_for_function("!document.documentElement.classList.contains('mmload')");await pl.wait_for_timeout(600)
-    await pl.click("#navtoggle");chk(not await pl.locator("#navboj").is_visible() and await pl.locator(".navhra.bojbezi").count()==1,"hráč má boj na stránce Hra: Boj v menu není, u Hry je značka, že boj probíhá")
+    await pl.click("#navtoggle");chk(await pl.locator(".navhra.bojbezi").count()==1,"hráč má boj na stránce Hra: Boj v menu není, u Hry je značka, že boj probíhá")
     await pl.goto(BASE+"#boj");await pl.wait_for_selector(".bsloty")
     chk(await pl.evaluate("location.hash")=="#hra","hráč: #boj vede na stránku Hra")
     await pl.click('[data-bclaim="0"]');await pl.select_option('[data-bclaimsel="0"]',"h1");await pl.wait_for_timeout(800)

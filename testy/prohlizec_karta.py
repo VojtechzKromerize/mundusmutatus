@@ -321,14 +321,14 @@ async def main():
     except Exception: pass
     chk(await g.evaluate("!((HRA||{}).krit||{}).Balduin"),"vypravěč vidí vyléčenou ránu po pulsu")
     # výzva k hodu od vypravěče
-    await g.goto(BASE+"#hra");await g.wait_for_selector("[data-vyzf]",timeout=15000)
+    await g.goto(BASE+"#hra/druzina");await g.wait_for_selector("[data-vyzf]",timeout=15000)
     await g.select_option("[data-vyzf] [name=typ]","zach");await g.select_option("[data-vyzf] [name=ab]","CON");await g.fill("[data-vyzf] [name=dc]","13");await g.click("[data-vyzf] button")
     await pl.wait_for_selector("[data-vyzhod]",timeout=15000)
     chk("záchrana CON" in await pl.inner_text("#mmvyz"),"hráči vyskočí výzva k záchraně (lišta výzev i na Hře)")
     await pl.click("[data-vyzhod]");await pl.wait_for_timeout(1200)
     await g.wait_for_function("document.querySelector('.vyzgm') && /Balduin: \\d+/.test(document.querySelector('.vyzgm').innerText)",timeout=15000)
     chk(True,"vypravěč vidí výsledek výzvy")
-    await g.click('#hraview [data-vyzrychle="Perception"]');await pl.wait_for_function("document.querySelector('#mmvyz') && document.querySelector('#mmvyz').innerText.includes('Perception')",timeout=15000)
+    await g.click('#bojpult [data-vyzrychle="Perception"]');await pl.wait_for_function("document.querySelector('#mmvyz') && document.querySelector('#mmvyz').innerText.includes('Perception')",timeout=15000)
     chk(True,"vypravěč jedním klepnutím vyzve všechny k ověření Perception")
     # Zpytování svědomí jako výzva: vypravěč vyzve, hráč hodí d10 na své kartě (2026-10-17 b)
     await pl.evaluate("kartaStavZmen('balduin',{hr:2})");await pl.wait_for_timeout(700)
@@ -337,7 +337,7 @@ async def main():
     chk(await pl.locator("#mmvyz .vyzk").count()>=2,"lišta ukáže všechny čekající výzvy, ne jen první")
     await pl.click("#mmvyz .vyzk:has-text('Zpytování') [data-vyzhod]");await pl.wait_for_timeout(1500)
     chk(any(h.get("co")=="Zpytování svědomí" for h in hody()) and "hr" not in stav(),"Zpytování jako výzva: hráč hodí d10 na své kartě, body hříchů se vynulují")
-    await g.goto(BASE+"#hra");await g.wait_for_selector("[data-vyzf]",timeout=15000)
+    await g.goto(BASE+"#hra/druzina");await g.wait_for_selector("[data-vyzf]",timeout=15000)
     # krok 0 přestavby Hry (2026-10-22): co se bude stěhovat, má test nezávislý na místě na stránce
     await g.evaluate("MMDB.vyzva({typ:'hod',pozn:KZPROT+'Hejtman sesílá Fireball',komu:['balduin']})")
     await pl.wait_for_selector("[data-vyzne]",timeout=15000)

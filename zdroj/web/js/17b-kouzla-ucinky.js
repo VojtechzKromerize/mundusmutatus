@@ -400,7 +400,7 @@ document.addEventListener("click", e => {
   if (k) {
     const n = k.dataset.kopak;
     if (curView !== "boj") {
-      location.hash = "#boj";
+      location.hash = "#hra";
       setTimeout(() => bojOpak(n), 900);
     } else bojOpak(n);
   }
