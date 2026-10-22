@@ -478,7 +478,7 @@ async def main():
     chk(not derr,f"hráč z Discordu bez chyb {derr[:3]}")
     chk(not cerr,f"cizí prohlížeč bez chyb {cerr[:3]}")
     # krok 5 (2026-10-22): v nainstalované aplikaci hráč vidí jen Hru, odkaz jinam otevře web v prohlížeči
-    ap=await cx.new_page();await ap.add_init_script("document.documentElement.classList.add('mmapp')")
+    ap=await cx.new_page();await ap.add_init_script("(()=>{const m=window.matchMedia.bind(window);window.matchMedia=q=>/display-mode: *standalone/.test(q)?{matches:true,media:q,addEventListener(){},removeEventListener(){},addListener(){},removeListener(){}}:m(q)})()")
     await ap.goto(BASE+"#kronika");await ap.wait_for_function("!document.documentElement.classList.contains('mmload')");await ap.wait_for_timeout(2500);await ap.evaluate("mmPopX()")
     chk(await ap.evaluate("location.hash")=="#hra" and await ap.evaluate("document.documentElement.classList.contains('mmjenhra')"),"aplikace: hráč je i z jiné adresy na Hře")
     chk(not await ap.locator("#navtoggle").is_visible() and not await ap.locator("#gq").is_visible(),"aplikace: bez menu a hledání")
