@@ -3182,6 +3182,17 @@ html.mmcela .hraja{margin:0}
 html.mmcela .bdm{max-width:none;margin:0;border-left:0;border-right:0;border-top:0;border-radius:0}
 html.mmcela .bdmh{padding-top:max(8px,env(safe-area-inset-top,0px))}
 html.mmcela .bdmlep{top:0}
+/* karta sahá až dolů i pod krátkým obsahem – kolem ní není vidět pergamen ani kůže */
+html.mmcela::before{background:#14100d}
+html.mmcela .wrap{background:#14100d}
+html.mmcela .papir{display:none}
+html.mmcela .hraja .bdm{min-height:100vh;min-height:100dvh}
+/* záložky karty se na telefonu vejdou všechny (iPhone kreslil „Poznámky“ oříznuté) */
+@media (max-width:480px){.bdmtabs button{flex:1 1 0;min-width:0;padding:7px 1px 6px;font-size:.58rem}.bdmtabs button span{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}
+/* tlačítko přidání zdatnosti: stačí Enter, křížek by se tlačil ven z rámečku */
+.bdmzf .bdmzx{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* šuplík pravidel v boji na telefonu: dole u palce, ne přes půl obrazovky nad tlačítky karty */
+@media (max-width:700px){.bprtg{top:auto;bottom:calc(150px + env(safe-area-inset-bottom,0px));padding:9px 6px;font-size:.78rem;opacity:.85}}
 .bdmweb{display:none}
 html.mmcela:not(.mmjenhra) .bdmweb{display:grid;font-size:1.2rem}
 /* aplikace hráče: jen Hra (2026-10-22) – bez menu a hledání */
