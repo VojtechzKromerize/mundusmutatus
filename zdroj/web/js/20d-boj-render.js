@@ -458,7 +458,9 @@ function renderBoj() {
       if (pg) pg.scrollTop = ps;
     };
   if (!bojDB) {
-    box.innerHTML = `<h2 class="arttitle">Boj</h2><p class="intro">Tracker iniciativy funguje na webu napojeném na databázi.</p>${bojPravidla()}`;
+    box.innerHTML = GMV
+      ? `<h2 class="arttitle">Boj</h2><p class="intro">Tracker iniciativy funguje na webu napojeném na databázi.</p>${bojPravidla()}`
+      : hraHracHtml();
     obnovPr();
     return;
   }
