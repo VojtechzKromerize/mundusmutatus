@@ -5,7 +5,7 @@ uroven: houf
 vyzva: 50 XP za pacholka
 pocet: 6
 ac: 12 (prošívanice)
-hp: 1
+hp: 5
 utok: Palcáty, dosah 5 stop · 3 Bludgeoning za každého pacholka v dosahu cíle (Drtivá)
 bonus: 3
 komplikace: Biřic zařve „Ve jménu práva!“ a chytí útočníka za rukáv: útočník je Grappled (únik DC 12).
@@ -17,7 +17,7 @@ utoky:
 
 Městská nebo církevní stráž: doprovod inkvizitora, purkmistra či rychtáře. Nejsou to vojáci, ale mají za sebou právo.
 
-**Pacholek:** AC 12 (prošívanice) · 1 HP · Rychlost 30 stop · Resistance (zbroj) Bludgeoning
+**Pacholek:** AC 12 (prošívanice) · 5 HP · Rychlost 30 stop · Resistance (zbroj) Bludgeoning
 
 **Útok houfu – palcáty:** +3 (+1 za každého dalšího pacholka, nejvýš +5), dosah 5 stop. **Zásah:** 3 Bludgeoning za každého pacholka v dosahu cíle. Palcát je **Drtivý**.
 

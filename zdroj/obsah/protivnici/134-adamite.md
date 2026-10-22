@@ -5,7 +5,7 @@ uroven: houf
 pocet: 8
 vyzva: 25 XP za pacholka
 ac: 10
-hp: 1
+hp: 5
 utok: Srpy a klacky +3 · 3 Slashing za každého adamitu v dosahu cíle · nahota: zbroj žádná, strach žádný
 bonus: 3
 komplikace: Adamita útočníka obejme a káže mu o ráji: útočník hodí WIS save DC 11, jinak je do konce svého příštího tahu Charmed (neútočí na adamity).
@@ -18,7 +18,7 @@ utoky:
 
 Sekta, která po Protržení Závoje věří, že ráj už nastal: žádný hřích, žádný majetek, žádné šaty, žádná Církev. Žijí na ostrovech, v lesích a v opuštěných dvorech, berou, co potřebují, a kážou každému, kdo projde. Nejsou to vojáci. Je jich hodně a nebojí se.
 
-**Adamita:** AC 10 · 1 HP · Rychlost 30 stop · Imunita Frightened (extáze)
+**Adamita:** AC 10 · 5 HP · Rychlost 30 stop · Imunita Frightened (extáze)
 
 **Útok houfu – srpy a klacky:** +3 (+1 za každého dalšího adamitu, nejvýš +5), dosah 5 stop. **Zásah:** 3 Slashing nebo Bludgeoning za každého adamitu v dosahu cíle.
 

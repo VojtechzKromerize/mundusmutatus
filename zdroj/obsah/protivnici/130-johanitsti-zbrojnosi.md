@@ -5,7 +5,7 @@ uroven: houf
 pocet: 6
 vyzva: 25 XP za pacholka
 ac: 16
-hp: 1
+hp: 5
 utok: Kopí +3 · 3 Piercing za každého zbrojnoše v dosahu cíle · bílý kříž na černém
 bonus: 3
 komplikace: Zbrojnoš zavolá komtura: v příštím kole se k houfu přidá sok (komtur) nebo další houf ze špitálu, pokud je v doslechu.
@@ -18,7 +18,7 @@ utoky:
 
 Služební bratři a zbrojnoši řádu svatého Jana ze strakonické komendy: černé kabátce s bílým křížem, kopí, štíty. Hlídají špitál, doprovázejí převora, a když velmistr v Rhodu nebo papež v Římě řekne, že kacíř není křesťan, jdou proti kališníkům.
 
-**Zbrojnoš:** AC 16 (kroužková košile, štít) · 1 HP · Rychlost 30 stop · Resistance (zbroj) Bludgeoning, Slashing
+**Zbrojnoš:** AC 16 (kroužková košile, štít) · 5 HP · Rychlost 30 stop · Resistance (zbroj) Bludgeoning, Slashing
 
 **Útok houfu – kopí:** +3 (+1 za každého dalšího zbrojnoše, nejvýš +5), dosah 5 stop nebo hod 20/60 stop. **Zásah:** 3 Piercing za každého zbrojnoše v dosahu cíle (při hodu za každého, kdo na cíl vidí).
 

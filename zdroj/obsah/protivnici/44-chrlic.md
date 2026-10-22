@@ -5,8 +5,8 @@ uroven: houf
 pocet: 4
 vyzva: 450 XP za pacholka
 ac: 15
-hp: 1
-utok: Drápy +4 · 4 Slashing za každého chrliče v dosahu cíle · let 60 stop · tuhý pacholek (kámen)
+hp: 5
+utok: Drápy +4 · 4 Slashing za každého chrliče v dosahu cíle · let 60 stop
 bonus: 4
 komplikace: Chrlič útočníka strhne ze střechy, hradby nebo sedla: AGI save DC 12, jinak je Prone – a na římse padá.
 stitky: chrlič, chrliče, katedrála, svatý Vít, kostel, střecha, kámen, Praha, Kutná Hora
@@ -17,7 +17,7 @@ utoky:
 
 Kamenné zrůdy ze střech katedrál a kostelů, které oživil Závoj. Ve dne sedí nehybně mezi ostatními a nikdo nepozná, které jsou živé. V noci slétají ve smečce na toho, kdo leze, kde nemá.
 
-**Chrlič:** AC 15 · 1 HP · Rychlost 30 stop, let 60 stop · Imunita Poison; nedá se vyčerpat, zkamenět ani otrávit · Darkvision 60 stop, Stealth +4 · **Tuhý pacholek:** kámen – padá až na druhý zásah, ledaže zbraň je Drtivá nebo Průrazná
+**Chrlič:** AC 15 · 5 HP · Rychlost 30 stop, let 60 stop · Imunita Poison; nedá se vyčerpat, zkamenět ani otrávit · Darkvision 60 stop, Stealth +4
 
 **Útok houfu – drápy:** +4 (+1 za každého dalšího chrliče, nejvýš +5), dosah 5 stop. **Zásah:** 4 Slashing za každého chrliče v dosahu cíle. Houf útočí z letu a po útoku odlétá, aniž by provokoval Opportunity Attacks.
 

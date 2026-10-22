@@ -694,16 +694,56 @@ const bRucN = (v, a, b) => {
   const n = Math.round(+v);
   return isFinite(n) && n >= a && n <= b ? n : null;
 };
+/* Věštec – Portent (2026-10-22): předzvěst místo d20 se zvolí před hodem; chip ji vyplní jako ruční d20, hod ji pak z karty odebere */
+const BPORT = {};
+const bojPortHtml = (h, K) => {
+  const P = K && typeof kMaRys === "function" && kMaRys(K, /^portent$/i) ? kartaStav(K.id).port || [] : [];
+  if (!P.length) return "";
+  return `<span class="bport" ${btip("Předzvěst: hod d20 z dlouhého odpočinku nahradí tuto kostku (rozhodnutí před hodem, jednou za tah)")}>Předzvěst: ${P.map(v => `<button type="button" class="gbtn ghost${BPORT[h.id] === v ? " on" : ""}" data-bport="${besc(h.id)}|${v}" aria-pressed="${BPORT[h.id] === v}">${v}</button>`).join("")}</span>`;
+};
+async function bojPortPouzit(K, hid, d20) {
+  const v = BPORT[hid];
+  delete BPORT[hid];
+  if (!K || v == null || d20 !== v) return;
+  const P = [...(kartaStav(K.id).port || [])],
+    i = P.indexOf(v);
+  if (i < 0) return;
+  P.splice(i, 1);
+  try {
+    await kartaStavZmen(K.id, {port: P.length ? P : null}, null, {bezZpet: true});
+    kHodZapis({
+      k: K.id,
+      kdo: K.n,
+      co: "Portent – použití",
+      tot: v,
+      txt: `d20 nahrazena předzvěstí ${v}${P.length ? ` (zbývá ${P.join(", ")})` : " (poslední)"}`,
+    });
+  } catch (e) {}
+}
+document.addEventListener("click", e => {
+  const b = e.target.closest && e.target.closest("[data-bport]");
+  if (!b) return;
+  const [hid, v] = b.dataset.bport.split("|");
+  if (BPORT[hid] === +v) {
+    delete BPORT[hid];
+    if (BRUC[hid]) delete BRUC[hid].d20;
+  } else {
+    BPORT[hid] = +v;
+    (BRUC[hid] = BRUC[hid] || {}).d20 = v;
+  }
+  bojListPrekresli();
+});
 const bojRucHtml = (h, w, o) => {
   o = o || {};
   const R = BRUC[h.id] || {},
-    kz = String(w.z || "").replace(/[+-]\d+$/, "") + (o.kus > 1 ? ` ×${o.kus}` : "");
+    kz = String(w.z || "").replace(/[+-]\d+$/, "") + (o.kus > 1 ? ` ×${o.kus}` : ""),
+    port = o.jenZr ? "" : bojPortHtml(h, typeof bojKartaH === "function" ? bojKartaH(h) : null);
   if (o.jenZr && !kz) return "";
-  return `<details class="bphruc" data-otv="ruc-${besc(h.id)}"${BOTV.has("ruc-" + h.id) || R.d20 || R.d6 || R.dmg ? " open" : ""}><summary>Zadat ručně <small>– hodil jsem kostkami u stolu</small></summary><div class="bphr">
+  return `<details class="bphruc" data-otv="ruc-${besc(h.id)}"${BOTV.has("ruc-" + h.id) || R.d20 || R.d6 || R.dmg || port ? " open" : ""}><summary>Zadat ručně <small>– hodil jsem kostkami u stolu${port ? ", předzvěst" : ""}</small></summary><div class="bphr">
     ${
       o.jenZr
         ? ""
-        : `<label ${btip("Kostka d20, jak padla (s výhodou či nevýhodou ta, která platí). Bonus k útoku se přičte sám.")}>d20 <input type="number" inputmode="numeric" min="1" max="20" data-bruc="${besc(h.id)}|d20" value="${besc(R.d20 ?? "")}" aria-label="Hozená d20"></label>
+        : `${port}<label ${btip("Kostka d20, jak padla (s výhodou či nevýhodou ta, která platí). Bonus k útoku se přičte sám.")}>d20 <input type="number" inputmode="numeric" min="1" max="20" data-bruc="${besc(h.id)}|d20" value="${besc(R.d20 ?? "")}" aria-label="Hozená d20"></label>
     <label ${btip("Kostka Závoje: 1–2 Pokušení, 5–6 Požehnání")}>d6 Závoje <input type="number" inputmode="numeric" min="1" max="6" data-bruc="${besc(h.id)}|d6" value="${besc(R.d6 ?? "")}" aria-label="Hozená kostka Závoje"></label>`
     }
     ${kz ? `<label ${btip(`Součet kostek zranění ${kz} (při kritickém zásahu dvojnásob kostek). Modifikátor se přičte sám.`)}>zranění ${besc(kz)} <input type="number" inputmode="numeric" min="0" max="300" data-bruc="${besc(h.id)}|dmg" value="${besc(R.dmg ?? "")}" aria-label="Součet kostek zranění"></label>` : ""}
@@ -1685,6 +1725,9 @@ function bdmTelo(s, h, K, gm, X, id) {
   if (id === "vyb") return bdmVyb(K);
   if (id === "rysy") return bdmRysy(K);
   if (id === "denik") return `<div class="kdb2 bdmkdb">${kartaDbHtml(K, kartaDbData(K), {jenTab: id})}</div>`;
+  /* hráč na telefonu v boji: záznam boje (jinak samostatná záložka Záznam) nahoře, pod ním jeho hody mimo boj */
+  if (id === "zaznam" && X.boj && !gm && mmCela() && s && s.aktivni)
+    return `<div class="bdmzaz">${bojZaznamSloupec(s, false)}</div><div class="kdb2 bdmkdb"><h4 class="bdmgh">Moje hody</h4>${kZaznamHtml(K, true)}</div>`;
   if (id === "zaznam")
     return `<div class="kdb2 bdmkdb"><p class="kdbnote">Tvoje hody z karty i z Boje a veřejný záznam boje. Klepnutím na kostku dole hodíš cokoli.</p>${kZaznamHtml(K)}</div>`;
   if (id === "spol") return kFormaHtml(K) + kSpolHtml(K);
@@ -1930,8 +1973,9 @@ function bojDbm(s, h, K, gm, vzdy, X) {
   const lep = `<div class="bdmlep"><div class="bdmmi"><span class="bdmmin">${besc(K.n)}</span><button type="button" class="bdmmac" data-bdmsh="ac" ${btip("AC – obětování zbroje")}>AC <b>${ac}</b></button>${hpB(" bdmmhp")}</div>
     <nav class="bdmtabs" role="tablist" aria-label="Oddíly karty">${sek.map(([id, n, k]) => `<button type="button" role="tab" data-bdmsec="${id}" aria-selected="${id === sec}" ${btip(n)}>${bdmIc(id)}<span>${besc(k)}</span></button>`).join("")}</nav></div>`;
   const body = `<section class="bdmsec" data-bdmid="${sec}">${bdmTelo(s, h, K, gm, X, sec)}</section>`;
+  /* na telefonu přes celou obrazovku je Ukončit tah v dolní liště (bojTabyHrac, 20d) */
   const konec =
-    vzdy && X.boj && (s.obsazeni || {})[s.tah] === h.id
+    vzdy && X.boj && !(!gm && mmCela()) && (s.obsazeni || {})[s.tah] === h.id
       ? (s.hotovo || {})[h.id] === (s.kolo || 1) * 100 + (s.tah || 0)
         ? `<p class="bdmnote">✓ Tah dohrán – vypravěč posune dál.</p>`
         : bojKonecBtn(h.id)

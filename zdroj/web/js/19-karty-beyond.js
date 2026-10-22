@@ -558,6 +558,11 @@ function kSchopHtml(K) {
       o.push(
         `<button type="button" class="gbtn ghost" data-kcd="turn" ${btip(`Nemrtví do 30 stop: WIS záchrana SO ${dc}, při neúspěchu Vyděšený (Frightened) a Neschopný (Incapacitated) na minutu`)}>Turn Undead · WIS SO ${dc}</button>`,
       );
+      /* Doména míru – Balm of Peace (2026-10-22): jedno použití léčí každého tvora, kolem kterého projdeš; další tvory téhož použití do 2 minut bez utracení */
+      if (kMaRys(K, /^balm of peace$/i))
+        o.push(
+          `<button type="button" class="gbtn ghost" data-kcd="balm" ${btip(`Akce: pohyb o rychlost bez příležitostných útoků, každý tvor do 5 stop cestou +2d6${bsg(kMd(K, "WIS"))} HP (vybraný výše; další tvory téhož použití přidáš do 2 minut bez utracení)`)}>Balm of Peace: léčení 2d6${bsg(kMd(K, "WIS"))}${KBALM[K.id] && Date.now() - KBALM[K.id] < 120e3 ? " (další tvor)" : ""}</button>`,
+        );
     }
     if (pa) {
       o.push(
@@ -578,16 +583,88 @@ function kSchopHtml(K) {
       `<div class="kschop"><b>Arcane Recovery</b> <small>po krátkém odpočinku · sloty do součtu ${lim}, nejvýš 5. stupně${ar.zb ? "" : " · už použito"}</small><span>${pou.length && ar.zb ? pou.map(q => `<label class="bst"><input type="number" min="0" max="${q.u}" value="0" data-karv="${q.k}" data-st="${q.st}" style="width:3.2em" aria-label="Kolik slotů ${q.st}. st."> ${q.st}. st. <small>(${q.u} použito)</small></label>`).join("") + `<button type="button" class="gbtn ghost" data-kar>Obnovit sloty</button>` : `<small>${ar.zb ? "žádný použitý slot" : ""}</small>`}</span></div>`,
     );
   }
+  /* Doména míru – Emboldening Bond (2026-10-22): utratí použití, sobě zapne kostku 1d4; spojenci si ji zapnou sami (jako Bless) */
+  const eb = kZdrN(K, /^emboldening bond$/i);
+  if (eb && kTrU(c, "Cleric"))
+    L.push(
+      `<div class="kschop"><b>Emboldening Bond</b> <small>akce · až ${kPB(K)} tvorů do 30 stop na 10 minut · zbývá ${eb.zb}/${eb.q.max}</small><span><button type="button" class="gbtn ghost" data-kemb${eb.zb ? "" : " disabled"} ${btip("Spojení tvoři si k jednomu hodu za tah přičtou 1d4; tobě se kostka zapne, spojenci si zapnou „Emboldening Bond“ v kostkách k hodům na své kartě")}>Vytvořit pouto</button></span></div>`,
+    );
+  /* Cesta horlivce – Warrior of the Gods (2026-10-22): zásoba d12 na vlastní léčení, bonusová akce */
+  const wg = kZdrN(K, /^warrior of the gods$/i);
+  if (wg && kTrU(c, "Barbarian"))
+    L.push(
+      `<div class="kschop"><b>Warrior of the Gods</b> <small>bonusová akce · léčivé d12 · zbývá ${wg.zb}/${wg.q.max}</small><span><input type="number" min="1" max="${wg.zb || 1}" value="1" data-kwgv inputmode="numeric" aria-label="Kolik kostek" style="width:3.5em"><button type="button" class="gbtn ghost" data-kwg${wg.zb ? "" : " disabled"} ${btip("Hodíš zvoleným počtem d12 a tolik HP si vyléčíš")}>Léčit se</button></span></div>`,
+    );
+  /* Věštec – Portent (2026-10-22): hody d20 z dlouhého odpočinku; „použít“ hod zapíše do záznamu a odebere */
+  if (kMaRys(K, /^portent$/i)) {
+    const P = kartaStav(K.id).port || [],
+      n = kMaRys(K, /^greater portent$/i) ? 3 : 2;
+    L.push(
+      `<div class="kschop"><b>Portent</b> <small>${n}d20 po dlouhém odpočinku · před hodem nahradí d20 tobě nebo tvoru, kterého vidíš (jednou za tah)</small><span>${P.map((v, i) => `<button type="button" class="gbtn ghost" data-kport="${i}" ${btip(`Použít předzvěst ${v} místo hodu d20 – zapíše se do záznamu`)}>Použít ${v}</button>`).join("")}${P.length ? "" : `<small>žádná předzvěst</small> <button type="button" class="gbtn ghost" data-kportn ${btip(`Hodit ${n}d20 (po dlouhém odpočinku se hází samy)`)}>Hodit ${n}d20</button>`}</span></div>`,
+    );
+  }
   return L.length ? `<section class="kdbsec kschopy" data-kac="X"><h4 class="kdbsh">Schopnosti povolání</h4>${L.join("")}</section>` : "";
 }
+const KBALM = {};
 document.addEventListener("click", async e => {
   const T = s => e.target.closest && e.target.closest(s);
-  const b = T("[data-kbardd],[data-kloh],[data-klohp],[data-klohr],[data-kcd],[data-kar]");
+  const b = T("[data-kbardd],[data-kloh],[data-klohp],[data-klohr],[data-kcd],[data-kar],[data-kemb],[data-kwg],[data-kport],[data-kportn]");
   if (!b) return;
   const K = kvK(b);
   if (!K || !kMuze(K)) return;
   const box = b.closest(".kschop") || document,
     S = kartaStav(K.id);
+  if (b.matches("[data-kemb]")) {
+    const z = kZdrN(K, /^emboldening bond$/i);
+    if (!z || !z.zb) return;
+    await kZdrUtrat(K, z);
+    const P = kPri(K).filter(n => n !== "Emboldening Bond");
+    await kartaStavZmen(K.id, {pri: [...P, "Emboldening Bond"]}, null, {bezZpet: true});
+    await kUcPridej(K, "Emboldening Bond", 1 / 6, false);
+    kHodZapis({
+      k: K.id,
+      kdo: K.n,
+      co: "Emboldening Bond",
+      txt: `pouto na 10 minut pro až ${kPB(K)} tvorů – spojenci si zapnou kostku Emboldening Bond na své kartě (zbývá ${z.zb - 1}/${z.q.max})`,
+    });
+    mmHlasG(`${K.n}: Emboldening Bond – spojenci si zapnou kostku na své kartě.`, 5000);
+    return;
+  }
+  if (b.matches("[data-kwg]")) {
+    const z = kZdrN(K, /^warrior of the gods$/i);
+    if (!z || !z.zb) return;
+    const n = Math.max(1, Math.min(z.zb, Math.round(+(box.querySelector("[data-kwgv]") || {}).value || 1))),
+      r = kVyraz(`${n}d12`);
+    if (!r) return;
+    await kZdrUtrat(K, z, n);
+    await kLecKarta(K, r.tot, K, "Warrior of the Gods");
+    kHodZapis({k: K.id, kdo: K.n, co: "Warrior of the Gods", tot: r.tot, txt: `${r.txt} → +${r.tot} HP (zbývá ${z.zb - n}/${z.q.max} d12)`});
+    return;
+  }
+  if (b.matches("[data-kport],[data-kportn]")) {
+    const P = [...(S.port || [])];
+    if (b.matches("[data-kportn]")) {
+      if (P.length) return;
+      const n = kMaRys(K, /^greater portent$/i) ? 3 : 2,
+        N = [...Array(n)].map(() => bK(20));
+      await kartaStavZmen(K.id, {port: N}, `${K.n}: Předzvěst ${N.join(", ")}.`);
+      kHodZapis({k: K.id, kdo: K.n, co: "Portent", txt: `předzvěst: ${N.join(", ")}`});
+      return;
+    }
+    const i = +b.dataset.kport,
+      v = P[i];
+    if (v == null) return;
+    P.splice(i, 1);
+    await kartaStavZmen(K.id, {port: P.length ? P : null}, `${K.n}: Předzvěst ${v} použita.`);
+    kHodZapis({
+      k: K.id,
+      kdo: K.n,
+      co: "Portent – použití",
+      tot: v,
+      txt: `d20 nahrazena předzvěstí ${v}${P.length ? ` (zbývá ${P.join(", ")})` : " (poslední)"}`,
+    });
+    return;
+  }
   if (b.matches("[data-kbardd]")) {
     const z = kZdrN(K, /bardic inspiration/i),
       id = (box.querySelector("[data-kbardk]") || {}).value,
@@ -662,6 +739,19 @@ document.addEventListener("click", async e => {
       dc = 8 + kPB(K) + kMd(K, "WIS"),
       n = kSparkK(K),
       w = kMd(K, "WIS");
+    if (t === "balm") {
+      const dal = KBALM[K.id] && Date.now() - KBALM[K.id] < 120e3,
+        K2 = KARTBY[(box.querySelector("[data-kcdk]") || {}).value] || K,
+        r = kVyraz(`2d6${w ? (w > 0 ? "+" : "") + w : ""}`),
+        hp = Math.max(1, r ? r.tot : 1);
+      if (!dal) await kZdrUtrat(K, z);
+      KBALM[K.id] = Date.now();
+      await kLecKarta(K2, hp, K, "Balm of Peace");
+      kHodZapis({k: K.id, kdo: K.n, co: "Balm of Peace", tot: hp, txt: `${K2.n}: ${r ? r.txt : "1"} → +${hp} HP${dal ? " (totéž použití)" : ""}`});
+      mmHlasG(`Balm of Peace: ${K2.n} +${hp} HP${dal ? "" : " – další tvory téhož použití přidej do 2 minut"}.`, 5000);
+      kartyPrekresli();
+      return;
+    }
     await kZdrUtrat(K, z);
     if (t === "spark-l" || t === "spark-z") {
       const r = kVyraz(`${n}d8${w ? (w > 0 ? "+" : "") + w : ""}`);
@@ -758,7 +848,9 @@ function kModsSync(K) {
 /* ---- upozornění v telefonu (Web Push) a instalace webu jako aplikace ---- */
 const VAPID_PUB = "BDxrqAYvVnuc6ZjBR_QsO4jNXbE9vCqZoLGyUtheNCRNRVtVBvtO6IYWzpkGl87UbgB-yCImJmb3tMaTYkn4Ibg";
 const pushUmi = () => "serviceWorker" in navigator && "PushManager" in window && "Notification" in window && !!window.MMDB;
-const pushIOS = () => /iphone|ipad|ipod/i.test(navigator.userAgent) && !(navigator.standalone || matchMedia("(display-mode: standalone)").matches);
+const pushIOS = () =>
+  /iphone|ipad|ipod/i.test(navigator.userAgent) &&
+  !(navigator.standalone || matchMedia("(display-mode: standalone), (display-mode: fullscreen)").matches);
 let PUSHST = null;
 async function pushStav() {
   if (!pushUmi()) return null;
@@ -817,7 +909,7 @@ addEventListener("beforeinstallprompt", e => {
   e.preventDefault();
   INSTP = e;
 });
-const jeAplikace = () => matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+const jeAplikace = () => matchMedia("(display-mode: standalone), (display-mode: fullscreen)").matches || navigator.standalone === true;
 function aplikaceHtml(karta) {
   if (!window.MMDB) return "";
   if (PUSHST == null && pushUmi())

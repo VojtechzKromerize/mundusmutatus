@@ -27,6 +27,22 @@ async def main():
     chk(await pg.locator('article.card[data-id="roz"] .pecfx').count()==1,"nový rod se rozpečetí")
     await pg.wait_for_timeout(400);await pg.screenshot(path=os.path.join(VYSTUP,"pec.png"))
     chk(not err,"bez chyb "+str(err[:2]))
+    # nová verze webu po nasazení: aplikace s otevřeným starým kódem ukáže lištu Obnovit, jakmile se server liší v dílech skriptu
+    import re
+    zmen={"on":False}
+    async def r(route):
+      if route.request.resource_type=="fetch" and zmen["on"]:
+        resp=await route.fetch();t=await resp.text()
+        await route.fulfill(response=resp,body=re.sub(r"v/zaklad-[0-9a-f]+\.js","v/zaklad-0000000000.js",t))
+      else: await route.continue_()
+    await pg.route(re.compile(re.escape(BASE.rstrip("/"))+r"/?(\?.*)?$"),r)
+    await pg.goto(BASE+"#desky");await pg.wait_for_timeout(1200)
+    vis="document.dispatchEvent(new Event('visibilitychange'))"
+    await pg.evaluate(vis);await pg.wait_for_timeout(1200)
+    chk(await pg.locator(".mmnova").count()==0,"stejná verze webu: bez lišty Obnovit")
+    zmen["on"]=True
+    await pg.evaluate("Date.now=(n=>()=>n()+120000)(Date.now.bind(Date))");await pg.evaluate(vis);await pg.wait_for_timeout(1200)
+    chk("novou verzi" in ((await pg.locator(".mmnova").first.text_content()) if await pg.locator(".mmnova").count() else ""),"po nasazení nové verze lišta Obnovit")
     await b.close()
 asyncio.run(main())
 print("SELHALO:",len(fails)) if fails else print("VŠE OK")

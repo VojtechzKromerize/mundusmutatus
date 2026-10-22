@@ -5,7 +5,7 @@ uroven: houf
 pocet: 6
 vyzva: 100 XP za pacholka
 ac: 12
-hp: 1
+hp: 5
 utok: Klacky, nože a džbány +4 · 3 Bludgeoning za každého rváče v dosahu cíle · těžké kuše +3, 4 Piercing
 bonus: 4
 komplikace: Někdo hodí džbánem: útočník má pivo v očích a do konce svého příštího tahu útočí s nevýhodou.
@@ -18,7 +18,7 @@ utoky:
 
 Tovaryši, řeznické pacholky, nosiči a podobná chasa, kterou si za pár grošů najme kdokoli – kníže zlodějů, měšťan se sporem, nebo hospodský, kterému družina nezaplatila. Nejsou to vojáci, ale je jich hodně a umějí se prát.
 
-**Rváč:** AC 12 (kožený kabátec) · 1 HP · Rychlost 30 stop · Resistance (zbroj, vycpávaná) Bludgeoning
+**Rváč:** AC 12 (kožený kabátec) · 5 HP · Rychlost 30 stop · Resistance (zbroj, vycpávaná) Bludgeoning
 
 **Útok houfu – klacky, nože a džbány:** +4 (+1 za každého dalšího rváče, nejvýš +5), dosah 5 stop. **Zásah:** 3 Bludgeoning (nebo Slashing) za každého rváče v dosahu cíle. Část houfu může mít těžké kuše: +3, dostřel 100/400 stop, 4 Piercing za každého střelce, který na cíl vidí.
 

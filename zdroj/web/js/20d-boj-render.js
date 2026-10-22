@@ -56,7 +56,7 @@ function bojAktivni() {
     } else if (!kdo && x.t === "h" && bojDB && bojDB.obsad)
       ctl = `<button type="button" class="bslclaim" data-bclaim="${i}" aria-label="Obsadit slot ${i + 1}"></button>`;
     const tip = `${i + 1}. slot · ${strana} (hod ${x.hod}) · ${nm || "volný"}${stav ? " · " + stav : ""}${!kdo && ctl ? (gm ? " – klikni a vyber, kdo jedná" : " – klikni a obsaď") : gm ? " – klikni pro změnu" : ""}`;
-    return `<li class="bslot b${x.t}${i === tah ? " btah" : ""}${i < tah ? " bdone" : ""}${i === tah + 1 ? " bdalsi" : ""}${kdo ? " bobs" : ""}${muj(i) ? " bmuj" : ""}${muj(i) && i === tah ? " bmujtah" : ""}" ${btip(tip)}><span class="bhod vh">${x.hod}</span>${kdo ? (i === tah ? `<span class="bmedw">${med(kdo)}<span class="bdrak ${(s.hraci || []).some(h => h.id === kdo) ? "bdrakh" : "bdrakn"}" aria-hidden="true"></span></span>` : med(kdo)) : `<span class="bmed bmprazd ${x.t === "h" ? "bmk" : "bmc"}">${bi("plus")}</span>`}${i < tah ? `<span class="bdoneic">${bi("hotovo")}</span>` : ""}<span class="bkdo">${nm ? besc(nm) : strana}</span>${kdo ? bojSlStav(kdo) : ""}${ctl}</li>`;
+    return `<li class="bslot b${x.t}${i === tah ? " btah" : ""}${i < tah ? " bdone" : ""}${i === tah + 1 ? " bdalsi" : ""}${kdo ? " bobs" : ""}${muj(i) ? " bmuj" : ""}${muj(i) && i === tah ? " bmujtah" : ""}" ${btip(tip)}><span class="bhod vh">${x.hod}</span>${kdo ? med(kdo) : `<span class="bmed bmprazd ${x.t === "h" ? "bmk" : "bmc"}">${bi("plus")}</span>`}${i < tah ? `<span class="bdoneic">${bi("hotovo")}</span>` : ""}<span class="bkdo">${nm ? besc(nm) : strana}</span>${kdo ? bojSlStav(kdo) : ""}${ctl}</li>`;
   };
   const jaHp =
     prip && !gm
@@ -299,7 +299,27 @@ const BKOSTRA_H = `<div class="bojakt bojhrac"><div data-bk="hor"></div><div dat
   <section class="bcol bcoll" data-bcol="l" aria-label="Herní záznam"><div data-bk="glog"></div></section></div></div>`;
 /* záložky na mobilu: Karta / Účastníci / Záznam (na širší obrazovce jsou sloupce vedle sebe a záložky schované) */
 let BTAB = "k";
+/* hráč na telefonu (karta přes celou obrazovku, 2026-10-22): dole jen Moje karta · Iniciativa · Ukončit tah;
+   pruh iniciativy je až v záložce Iniciativa, záznam boje v listu Záznam na kartě, Nepřátelé a Družina nejsou */
+const bojTabyCela = (s, gm) => !gm && mmCela();
+function bojTabyHrac(s) {
+  const ja = ((s.hraci || []).find(h => h.n === bojJa.get()) || {}).id,
+    naTahu = !!ja && (s.obsazeni || {})[s.tah] === ja,
+    dohral = naTahu && (s.hotovo || {})[ja] === (s.kolo || 1) * 100 + (s.tah || 0);
+  const kon = !naTahu
+    ? `<button type="button" class="bkonecb" disabled ${btip("Ukončit tah můžeš, až budeš na tahu")}>Ukončit tah</button>`
+    : dohral
+      ? `<button type="button" class="bkonecb" disabled ${btip("Tah je dohraný – vypravěč posune dál")}>✓ Dohráno</button>`
+      : bojKonecBtn(ja).replace("✓ Konec tahu", "✓ Ukončit tah");
+  return `<div class="btabs btabsc" role="tablist" aria-label="Části boje">${[
+    ["k", "Moje karta"],
+    ["i", "Iniciativa"],
+  ]
+    .map(([k, l]) => `<button type="button" role="tab" data-btab="${k}" aria-selected="${BTAB === k}">${l}</button>`)
+    .join("")}${kon}</div>`;
+}
 function bojTaby(s, gm, P0) {
+  if (bojTabyCela(s, gm)) return bojTabyHrac(s);
   const n = (P0.nepr || []).length + (P0.spoj || []).length + (s.hraci || []).length,
     sel = gm ? bojVybranaKarta(s) : null,
     c = sel ? bojJm(s, sel) : "";
@@ -323,6 +343,10 @@ document.addEventListener("click", e => {
   const r = document.querySelector("#bojview .bojakt");
   if (r) r.dataset.btab = BTAB;
   document.querySelectorAll("#bojview [data-btab]").forEach(x => x.setAttribute("aria-selected", x.dataset.btab === BTAB));
+  /* záložka Iniciativa (telefon): pruh byl schovaný, tak se teprve teď dá posunout na toho, kdo je na tahu */
+  const tr = BTAB === "i" && r && r.querySelector(".bsloty"),
+    c = tr && tr.querySelector(".btah");
+  if (c) tr.scrollLeft = Math.max(0, c.offsetLeft - (tr.clientWidth - c.offsetWidth) / 2);
   const tb = r && r.querySelector(".btabs"),
     y = tb ? tb.getBoundingClientRect().top : 0;
   if (y < 0) window.scrollTo({top: window.scrollY + y - 8});
@@ -522,6 +546,7 @@ function renderBoj() {
     const ja = ((s.hraci || []).find(h => h.n === bojJa.get()) || {}).id;
     if (!prvni && (GMV || (ja && (s.obsazeni || {})[s.tah] === ja)) && BTAB !== "l") BTAB = "k";
   }
+  if (bojTabyCela(s, GMV) ? !/^[ki]$/.test(BTAB) : BTAB === "i") BTAB = "k";
   const P = bojAktivni();
   P.cile = bojCile(s, GMV && !!bojDB);
   {

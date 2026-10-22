@@ -20,6 +20,7 @@ def _sezal(f):
         return await f(self,sel,*a,**k)
     return w
 for _m in ("click","fill","select_option","press","check","hover"): setattr(Page,_m,_sezal(getattr(Page,_m)))
+from _puls import puls
 fails=[]
 def chk(c,m):
     print(("OK  " if c else "FAIL"),m)

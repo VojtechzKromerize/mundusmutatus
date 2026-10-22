@@ -19,7 +19,7 @@ Hráčský web: https://mundusmutatus.netlify.app (větev `main`), náhled: http
   (Node.js) i v prohlížeči vypravěče. Soubory v `zdroj/obsah/` jsou záloha: GitHub Actions je jednou denně
   aktualizuje z databáze (`zdroj/zaloha.py`, potřebuje tajemství `SUPABASE_SECRET` v nastavení repozitáře)
   a změny souborů ve větvi `dev` se při sestavení přenesou do databáze (pokud záznam mezitím nikdo neupravil na webu).
-- **Hra** (`#hra`, od 2026-10-22): hráč na ní má svou kartu (a karty ostatních ke čtení); když vypravěč připraví boj,
+- **Hra** (`#hra`, od 2026-10-22): hráč na ní má svou kartu; když vypravěč připraví boj,
   objeví se na ní iniciativa a celý boj. V nainstalované aplikaci na telefonu vidí hráč jen Hru. Vypravěč má na stejné adrese
   řídicí pult se záložkami Boj, Družina (`#hra/druzina`) a Sezení (`#hra/sezeni`); starší adresa `#boj` vede na Hru.
 - Herní stav (datum, hodina, poloha družiny), Novinky a tracker iniciativy (na stránce Hra) jsou také v databázi.

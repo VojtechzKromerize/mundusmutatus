@@ -7,6 +7,7 @@ async function jaDiscordInit() {
   if (!window.MMDB || !MMDB.hracPrihlasen || !MMDB.hracPrihlasen()) return;
   try {
     const [j, u] = await Promise.all([MMDB.ja(), MMDB.hracUzivatel().catch(() => null)]);
+    if (!MMDB.hracPrihlasen()) return; // mezitím se odhlásil – odpověď z doby před odhlášením by ho přihlásila zpátky (2026-10-23)
     DCU.ok = true;
     DCU.typ = (u && (u.app_metadata || {}).provider) || DCU.typ || "";
     DCU.jmeno =
@@ -401,12 +402,15 @@ const kSpMod = K => kSpUt(K) - kPB(K);
 function kSpUcinek(K, x, lvl) {
   const d = kSpA(x.n);
   if (!d) return null;
-  return kSpUcD(
+  const o = kSpUcD(
     d,
     lvl,
     () => kSpMod(K),
     () => kLv(K),
   );
+  /* Potent Spellcasting klerika (Blessed Strikes i Doména míru, 2026-10-22): ke zranění triku + WIS */
+  if (o && o.k === "z" && !(d.l > 0) && kTrU(kCtx(K), "Cleric") && kMaRys(K, /^potent spellcasting$/i)) o.mod = (o.mod || 0) + kMd(K, "WIS");
+  return o;
 }
 /* účinek kouzla z jeho dat – společné pro postavy (kSpUcinek) i NPC (bojNpcKouzlo): mod() = modifikátor sesílací vlastnosti, ul() = úroveň pro triky */
 function kSpUcD(d, lvl, mod, ul) {
@@ -827,10 +831,21 @@ async function kLecKarta(K2, tot, od, co, vratit) {
 /* ===== přídavky (2026-10-17): přídavky ke zranění z povolání a kouzel (Sneak Attack, Rage, Hunter's Mark, Hex, Divine Favor,
    Divine Smite se slotem) a kostky k hodům d20 (Bless, Bane, Guidance, Bardic Inspiration); trvalé přepínače v poli karty pri ===== */
 const kPri = K => kartaStav(K.id).pri || [];
+/* řádek: [název, kostka, druhy hodů (ut útok, za záchrana, ov ověření, in iniciativa), nápověda, jen po hodu a spotřebuje se, jen jednou za tah,
+   bez přepínače na kartě (zapne se sám trvajícím kouzlem)] */
 const KPRID = [
   ["Bless", "1d4", "ut za", "+1d4 k útokům a záchranám"],
   ["Bane", "-1d4", "ut za", "−1d4 k útokům a záchranám"],
   ["Guidance", "1d4", "ov", "+1d4 k ověřením (zvolená dovednost)"],
+  [
+    "Emboldening Bond",
+    "1d4",
+    "ut za ov",
+    "Emboldening Bond (Doména míru): +1d4 k útoku, záchraně nebo ověření, jednou za tah, dokud jsi do 30 stop od jiného spojeného",
+    0,
+    1,
+  ],
+  ["Gift of Alacrity", "1d8", "in", "Gift of Alacrity: +1d8 k iniciativě", 0, 0, 1],
   ["Bardic d6", "1d6", "ut za ov", "kostka Bardic Inspiration – přičte se k dalšímu hodu d20 a spotřebuje", 1],
   ["Bardic d8", "1d8", "ut za ov", "", 1],
   ["Bardic d10", "1d10", "ut za ov", "", 1],
@@ -840,21 +855,22 @@ const kHodTyp = co => (/^Útok/.test(co) ? "ut" : /^Záchrana/.test(co) ? "za" :
 /* kostky k hodům d20, které na postavě právě působí (2026-10-21): přepínače na kartě (pri), kouzla spojenců (Bless ⇒ postava)
    a v boji značky účinků na postavě (Bane od nepřítele…) */
 function kKostkyNaSobe(K) {
-  const N = new Set([...kPri(K), ...kBufy(K).map(b => b.n)]),
+  const N = new Set([...kPri(K), ...(typeof kBufAll === "function" ? kBufAll(K) : kBufy(K)).map(b => b.n)]),
     s = typeof BOJ !== "undefined" && BOJ.s;
   const h = s && s.aktivni ? (s.hraci || []).find(x => bojKartaH(x) === K) : null;
   if (h) (h.ef || []).forEach(e => N.add(typeof kzJm === "function" ? kzJm(e.n) : e.n));
   return new Set([...N].filter(n => KPRID.some(r => r[0] === n)));
 }
-/* Bless, Bane a Guidance se k hodu přičtou samy; Bardic Inspiration ne – hráč se rozhodne až po hodu (D&D 2024: při neúspěchu) */
-function kPriHod(K, co) {
+/* Bless, Bane a Guidance se k hodu přičtou samy; Bardic Inspiration ne – hráč se rozhodne až po hodu (D&D 2024: při neúspěchu).
+   dalsi = další útok v témže tahu: kostky „jednou za tah“ (Emboldening Bond) se nepřičtou */
+function kPriHod(K, co, dalsi) {
   const typ = kHodTyp(co),
     P = kKostkyNaSobe(K);
   let t = 0;
   const L = [],
     n = [];
-  KPRID.forEach(([nm, x, ty, , jed]) => {
-    if (jed || !P.has(nm) || !ty.split(" ").includes(typ)) return;
+  KPRID.forEach(([nm, x, ty, , jed, tah]) => {
+    if (jed || !P.has(nm) || !ty.split(" ").includes(typ) || (dalsi && tah)) return;
     const neg = x[0] === "-",
       r = kVyraz(x.replace(/^-/, ""));
     if (!r) return;
@@ -876,7 +892,24 @@ function kHodNabidka(K, co, zapocteno) {
       .split(" ")
       .includes(typ);
   const bard = [...N].find(n => /^Bardic d\d+$/.test(n) && ma(n)) || null;
-  return {bless: ma("Bless"), guid: ma("Guidance"), bane: ma("Bane"), bard, st: bard ? +bard.match(/\d+$/)[0] : 0};
+  /* Battle Master (2026-10-22): Commanding Presence k ověření CHA dovedností, Tactical Assessment k History, Investigation a Insight */
+  const SD = K && typeof kSD === "function" && !z.has("sd") ? kSD(K) : null,
+    man =
+      SD && SD.zb > 0
+        ? /^(Intimidation|Performance|Persuasion)$/.test(co) && kManMa(K, "Commanding Presence")
+          ? "Commanding Presence"
+          : /^(History|Investigation|Insight)$/.test(co) && kManMa(K, "Tactical Assessment")
+            ? "Tactical Assessment"
+            : null
+        : null;
+  return {
+    bless: ma("Bless"),
+    guid: ma("Guidance"),
+    bane: ma("Bane"),
+    bard,
+    st: bard ? +bard.match(/\d+$/)[0] : 0,
+    sd: man ? {n: man, k: SD.k, zb: SD.zb} : null,
+  };
 }
 /* Bardic Inspiration použitá po hodu: kostka se spotřebuje */
 async function kBardSpotrebuj(K, bard) {
@@ -891,6 +924,9 @@ function kNabidkaHtml(N, a, H = "") {
     N.bane ? `<button type="button" class="gbtn ghost" ${a}="m4"${H} ${btip("Bane: odečte 1d4")}>−1d4 Bane</button>` : "",
     N.bard
       ? `<button type="button" class="gbtn ghost" ${a}="bard"${H} ${btip(`Bardic Inspiration: přičte 1d${N.st}, kostka se spotřebuje`)}>${bi("bard")}+1d${N.st} Bardic</button>`
+      : "",
+    N.sd
+      ? `<button type="button" class="gbtn ghost" ${a}="sd"${H} ${btip(`${N.sd.n}: přičte 1${N.sd.k} (kostka převahy, zbývá ${N.sd.zb})`)}>+1${N.sd.k} ${besc(N.sd.n)}</button>`
       : "",
   ].join("");
 }
@@ -915,7 +951,9 @@ async function kPriTog(K, n) {
 }
 const kPriHtml = K => {
   const P = kPri(K);
-  return `<p class="kdice" role="group" aria-label="Kostky k hodům">${KPRID.filter(([n]) => !/^Bardic d(8|10|12)$/.test(n) || P.includes(n))
+  return `<p class="kdice" role="group" aria-label="Kostky k hodům">${KPRID.filter(
+    ([n, , , , , , skryt]) => (!skryt && !/^Bardic d(8|10|12)$/.test(n)) || P.includes(n),
+  )
     .map(
       ([n, , , t]) =>
         `<button type="button" class="bst${P.includes(n) ? " on" : ""}" data-kdice="${besc(n)}" aria-pressed="${P.includes(n)}" ${btip(t || n)}>${besc(n === "Bardic d6" && !P.some(x => /^Bardic/.test(x)) ? "Bardic" : n)}</button>`,
@@ -978,6 +1016,29 @@ function kEfekty(K) {
     });
   return L;
 }
+/* kouzla sesílaná bonusovou akcí hned po zásahu zbraní (smity, 2026-10-22): ze seznamu kouzel postavy podle textu kouzla;
+   Divine Smite má vlastní nabídku. Vrací kouzla s příznaky blizko (jen útok na blízko), zach (záchrana cíle) a kon (soustředění). */
+function kSmity(K) {
+  if (!K || !KSPD) return [];
+  return kSeznam(K)
+    .filter(x => x.st > 0 && !/^divine smite$/i.test(kzJm(x.n)))
+    .map(x => {
+      const d = kSpA(x.n),
+        t = d ? String(d.t || "") : "",
+        ct = d ? String(d.ct || "") : "";
+      if (!d || !(/ smite$/i.test(d.en || "") || /hned poté, co zasáhneš/i.test(ct) || /bonusov\w+ akc\w+ ihned po zásahu|^zasažený cíl/i.test(t)))
+        return null;
+      return Object.assign({}, x, {
+        n: d.en || kzJm(x.n),
+        st: d.l || x.st,
+        blizko: /na blízko/i.test(ct) || /na blízko/i.test(t.slice(0, 120)),
+        zach: (t.match(/\b(STR|AGI|CON|INT|WIS|CHA) záchrann/) || [])[1] || null,
+        hned: /navíc|z útoku|\+\d+d\d+/i.test(t.split(/(?<=\.)\s+/)[0] || ""),
+        kon: !!d.ko,
+      });
+    })
+    .filter(Boolean);
+}
 /* ---- rysy z karty pro automatiku boje (2026-10-20): featy a manévry podle názvu z PDF, kostky převahy, Bardic Inspiration ---- */
 const kMaRys = (K, re) =>
   !!K && [...(K.rysy || []), ...(K.rysy2 || []).map(r => r && r.n)].some(x => x && re.test(String(x).replace(/[’]/g, "'").trim()));
@@ -999,15 +1060,15 @@ function kSD(K) {
 const kSDdc = K => 8 + kPB(K) + Math.max(kMod(kVl(K, "STR") || 10), kMod(kVl(K, "AGI") || 10));
 /* manévry, které se přidávají k zásahu: [název, česky, záchrana cíle, následek při neúspěchu] */
 const BMAN = [
-  ["Trip Attack", "Podražení", "STR", "Sražen (Prone)"],
-  ["Menacing Attack", "Zastrašující útok", "WIS", "Vystrašen (Frightened)"],
-  ["Pushing Attack", "Odhoz", "STR", "odstrčen o 15 stop"],
-  ["Disarming Attack", "Odzbrojení", "STR", "upustí předmět"],
-  ["Goading Attack", "Provokace", "WIS", "nevýhoda na útoky proti jiným"],
+  ["Trip Attack", "Útok s podražením", "STR", "Sražen (Prone)"],
+  ["Menacing Attack", "Hrozivý útok", "WIS", "Vystrašen (Frightened)"],
+  ["Pushing Attack", "Zatlačující útok", "STR", "odstrčen o 15 stop"],
+  ["Disarming Attack", "Odzbrojující útok", "STR", "upustí předmět"],
+  ["Goading Attack", "Provokující útok", "WIS", "nevýhoda na útoky proti jiným"],
   ["Distracting Strike", "Rozptylující úder"],
   ["Maneuvering Attack", "Manévrovací útok"],
-  ["Lunging Attack", "Výpad"],
-  ["Feinting Attack", "Finta"],
+  ["Lunging Attack", "Útok s výpadem"],
+  ["Feinting Attack", "Útok s fintou"],
 ];
 const kManMa = (K, n) => kMaRys(K, new RegExp("(^|[:,] ?)" + n.replace(/'/g, "'") + "$", "i"));
 const kManevry = K => BMAN.filter(m => kManMa(K, m[0]));

@@ -305,6 +305,11 @@ async function kartaOdpocinek(K, dlouhy) {
     ch.kz = null;
     if (S.vycerp) ch.vycerp = Math.max(0, S.vycerp - 1) || null;
     if ((K.rysy || []).some(r => /resourceful/i.test(r))) ch.insp = true;
+    /* Věštec – Portent (2026-10-22): po dlouhém odpočinku 2d20 (Greater Portent 3d20), nevyužité propadají */
+    if (typeof kMaRys === "function" && kMaRys(K, /^portent$/i)) {
+      ch.port = [...Array(kMaRys(K, /^greater portent$/i) ? 3 : 2)].map(() => bK(20));
+      msg.push(`předzvěst (Portent): ${ch.port.join(", ")}`);
+    } else if (S.port) ch.port = null;
     msg.push(
       `životy ${ch.hp ?? mx}/${mx}, sloty, Výdrž a zdroje obnoveny, kostky životů +${Math.min(back, spent)}${S.vycerp ? ", vyčerpání −1" : ""}${ch.insp ? ", hrdinská inspirace (Resourceful)" : ""}`,
     );
@@ -1593,6 +1598,11 @@ function kUpravHod(r, typ, arg) {
       x = bK(st);
     r.mods.push(x);
     pop = `Precision Attack +1d${st} (${x})`;
+  } else if (typ === "sd") {
+    const st = +String((arg && arg.k) || "d8").replace(/^d/, "") || 8,
+      x = bK(st);
+    r.mods.push(x);
+    pop = `${(arg && arg.n) || "kostka převahy"} +1d${st} (${x})`;
   } else if (typ === "insp") {
     const n = bK(20);
     if (!r.v || r.d2 == null) {
@@ -1647,11 +1657,16 @@ async function kPoslUprav(K, typ) {
   }
   const N = kHodNabidka(K, P.co, P.pri);
   if (typ === "bard" && !N.bard) return;
-  const {r, pop} = kUpravHod(P, typ, N.st),
+  if (typ === "sd" && !N.sd) return;
+  const {r, pop} = kUpravHod(P, typ, typ === "sd" ? N.sd : N.st),
     old = P.tot;
   Object.assign(P, r);
-  P.pri = [...(P.pri || []), ...(typ === "bard" ? [N.bard] : typ === "m4" ? ["Bane"] : typ === "b4" ? [N.bless ? "Bless" : "Guidance"] : [])];
+  P.pri = [
+    ...(P.pri || []),
+    ...(typ === "bard" ? [N.bard] : typ === "m4" ? ["Bane"] : typ === "b4" ? [N.bless ? "Bless" : "Guidance"] : typ === "sd" ? ["sd"] : []),
+  ];
   if (typ === "bard") await kBardSpotrebuj(K, N.bard);
+  if (typ === "sd") await kZdrUtrat(K, kSD(K));
   if (typ === "insp") await kartaStavZmen(K.id, {insp: null});
   if (L && L.z) {
     const U = Object.assign({}, kartaStav(K.id).zdr || {});
@@ -1777,6 +1792,7 @@ const KZPET = {},
     stavy: "stavy",
     inv: "vybavení",
     pri: "přídavky",
+    port: "předzvěst",
   };
 function kZpetZapis(id, ch) {
   const S = kartaStav(id),

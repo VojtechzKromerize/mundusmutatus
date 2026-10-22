@@ -5,7 +5,7 @@ uroven: houf
 pocet: 8
 vyzva: 100 XP za pacholka
 ac: 13
-hp: 1
+hp: 5
 utok: Luky +4 · 3 Piercing za každého, kdo na cíl vidí · ohnivé šípy zapalují · arkany (laso) · jízdní, střílí a odjíždějí
 bonus: 4
 komplikace: Arkan: útočníkovi padne na krk smyčka a kůň ho táhne – STR save DC 12, jinak je Prone a vlečen o 20 stop (1d6 Bludgeoning).
@@ -19,7 +19,7 @@ utoky:
 
 Nájezdníci Zlaté hordy a krymského chána: přicházejí přes Litvu a Polsko na Rus a do Haliče, a od Protržení Závoje občas i na Moravu, když je stepi příliš. Nechtějí zemi, chtějí lidi, koně a oheň. Kiril je zná. Oni znají jeho.
 
-**Tatar:** AC 13 (kožený kaftan, kůň) · 1 HP · Rychlost 60 stop (kůň) · Perception +3, Survival +4
+**Tatar:** AC 13 (kožený kaftan, kůň) · 5 HP · Rychlost 60 stop (kůň) · Perception +3, Survival +4
 
 **Útok houfu – luky:** +4 (+1 za každého dalšího, nejvýš +5), dostřel 80/320 stop. **Zásah:** 3 Piercing za každého, kdo na cíl vidí. **Ohnivé šípy:** 2 Fire za každého; cíl nebo stavba hoří. **Šavle:** +4, dosah 5 stop, 3 Slashing za každého v dosahu.
 

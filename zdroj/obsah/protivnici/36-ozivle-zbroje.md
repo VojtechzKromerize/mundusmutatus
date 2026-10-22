@@ -5,7 +5,7 @@ uroven: houf
 pocet: 4
 vyzva: 200 XP za pacholka
 ac: 18
-hp: 1
+hp: 5
 utok: Údery železnou pěstí +4 · 3 Bludgeoning za každou zbroj v dosahu
 bonus: 4
 komplikace: Zbroj sevře útočníkovu zbraň: útočník hodí STR save DC 12, jinak ji upustí.
@@ -17,7 +17,7 @@ utoky:
 
 Prázdné plátové zbroje, které oživil Závoj nebo kouzelník. Strážci zbrojnic, kaplí a pokladnic.
 
-**Oživlá zbroj:** AC 18 · 1 HP · Rychlost 25 stop · Imunita Poison, Psychic; nevidí, ale cítí na 60 stop · **Tuhý pacholek:** padá až na druhý zásah, ledaže zbraň je Drtivá nebo Průrazná
+**Oživlá zbroj:** AC 18 · 5 HP · Rychlost 25 stop · Imunita Poison, Psychic; nevidí, ale cítí na 60 stop
 
 **Útok houfu – železné pěsti:** +4 (+1 za každou další zbroj, nejvýš +5), dosah 5 stop. **Zásah:** 3 Bludgeoning za každou zbroj v dosahu cíle.
 

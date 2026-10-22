@@ -5,7 +5,7 @@ uroven: houf
 pocet: 5
 vyzva: 450 XP za pacholka
 ac: 13 (prošívanice)
-hp: 1
+hp: 5
 utok: Okované cepy +5 · 7 za každého v dosahu · zraněný houf útočí s výhodou
 bonus: 5
 komplikace: Cep se omotá kolem štítu nebo zbraně: útočník ji pustí, nebo je Prone.
@@ -18,7 +18,7 @@ utoky:
 
 Sedláci a řemeslníci s okovanými cepy, kteří se naučili bít rytíře za vozovou hradbou. Bojují s písní na rtech a nevzdávají se.
 
-**Cepník:** AC 13 (prošívanice) · 1 HP · Rychlost 30 stop · Resistance (zbroj) Slashing
+**Cepník:** AC 13 (prošívanice) · 5 HP · Rychlost 30 stop · Resistance (zbroj) Slashing
 
 **Útok houfu – cepy:** +5 (+1 za každého dalšího, nejvýš +5), dosah 5 stop. **Zásah:** 7 zranění za každého cepníka v dosahu (Bludgeoning).
 

@@ -5,7 +5,7 @@ uroven: houf
 pocet: 8
 vyzva: 100 XP za pacholka
 ac: 12
-hp: 1
+hp: 5
 utok: Kladiva, sekery a palice +4 · 3 Bludgeoning za každého v dosahu cíle · Drtivá (řemeslnické nářadí) · trpaslíci a půlobři vydrží
 bonus: 4
 komplikace: Tovaryš útočníka chytí za zbraň a zatne do ní kladivem: zbraň má do konce boje −1 k útoku (Mending ruší).
@@ -19,7 +19,7 @@ utoky:
 
 Řemeslničtí tovaryši a pacholci z měst, které Noc Proměny udělala trpaslíky, půlobry, orky a jinými, co se nevejdou do cechovních řádů. Kališníci, kteří Proměnu berou jako druhé přijímání pod obojí: rovnost pro všechny. Když konšelé zavřou cech pro Proměněnce, vyjdou s nářadím na rynk.
 
-**Tovaryš:** AC 12 (kožená zástěra, kabátec) · 1 HP · Rychlost 30 stop · Resistance (zbroj) Bludgeoning · **Trpaslíci a půlobři:** každý druhý v houfu je **tuhý pacholek** (padá na druhý zásah, ledaže Drtivá/Průrazná)
+**Tovaryš:** AC 12 (kožená zástěra, kabátec) · 5 HP · Rychlost 30 stop · Resistance (zbroj) Bludgeoning
 
 **Útok houfu – kladiva, sekery a palice:** +4 (+1 za každého dalšího tovaryše, nejvýš +5), dosah 5 stop. **Zásah:** 3 Bludgeoning (Drtivá) nebo Slashing za každého tovaryše v dosahu cíle.
 

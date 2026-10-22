@@ -5,8 +5,8 @@ uroven: houf
 pocet: 8
 vyzva: 50 XP za pacholka
 ac: 15
-hp: 1
-utok: Kopí a sekery +3 · 3 Piercing nebo Slashing za každého knechta v dosahu cíle · tuhý pacholek (plátové kusy)
+hp: 5
+utok: Kopí a sekery +3 · 3 Piercing nebo Slashing za každého knechta v dosahu cíle
 bonus: 3
 komplikace: Knechti sevřou šik a odříznou útočníka od spojenců: do konce svého příštího tahu se k nim nedostane bez Athletics DC 13.
 stitky: křižáci, Řád německých rytířů, Prusko, Malbork, Polsko, třináctiletá válka, knechti, Němci, lidé
@@ -19,7 +19,7 @@ utoky:
 
 Pěší zbrojnoši Řádu německých rytířů: šedé kabátce s půlkřížem, kopí, sekery, kusy plátů. Polovina jsou Němci z Pruska, polovina najatí Češi a Slezané. Drží hrady v Prusku proti polskému králi a doprovázejí řádové bratry, kam je velmistr pošle – i do Slezska.
 
-**Knecht:** AC 15 (kroužková košile, pláty) · 1 HP · Rychlost 30 stop · Resistance (zbroj) Bludgeoning, Slashing · **Tuhý pacholek:** padá až na druhý zásah, ledaže zbraň je Drtivá nebo Průrazná
+**Knecht:** AC 15 (kroužková košile, pláty) · 5 HP · Rychlost 30 stop · Resistance (zbroj) Bludgeoning, Slashing
 
 **Útok houfu – kopí a sekery:** +3 (+1 za každého dalšího knechta, nejvýš +5), kopí dosah 10 stop, sekery 5 stop. **Zásah:** 3 Piercing nebo Slashing za každého knechta v dosahu cíle.
 

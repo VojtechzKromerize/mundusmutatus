@@ -5,7 +5,7 @@ uroven: houf
 pocet: 4
 vyzva: 200 XP za pacholka
 ac: 12
-hp: 1
+hp: 5
 utok: Vysátí života +4 · 3 Prokleté za každého v dosahu a stejně se sníží max. HP cíle
 bonus: 4
 komplikace: Přízrak projde útočníkem: útočník hodí CON save DC 11, jinak ztrácí Reakci do konce svého příštího tahu (chlad v srdci).
@@ -17,7 +17,7 @@ utoky:
 
 Bledé tváře bez těl, ozvěny těch, které divoký lovec vytrhl ze života. Létají, procházejí zdmi a nemluví.
 
-**Přízrak:** AC 12 · 1 HP · Rychlost 30 stop, let 50 stop · Resistance Acid, Bludgeoning, Cold, Fire, Lightning, Piercing, Slashing, Thunder, Imunita Necrotic, Poison · Nehmotný: obyčejnou zbraní padá až na druhý zásah (označ si ho); svatá, stříbrná či magická zbraň a Svaté zranění ho skolí hned.
+**Přízrak:** AC 12 · 5 HP · Rychlost 30 stop, let 50 stop · Resistance Acid, Bludgeoning, Cold, Fire, Lightning, Piercing, Slashing, Thunder, Imunita Necrotic, Poison · Nehmotný: obyčejnou zbraní padá až na druhý zásah (označ si ho); svatá, stříbrná či magická zbraň a Svaté zranění ho skolí hned.
 
 **Útok houfu – vysátí života:** +4 (+1 za každého dalšího, nejvýš +5), dosah 5 stop. **Zásah:** 3 Prokleté (Necrotic) za každý přízrak v dosahu cíle a maximum HP cíle klesne o stejnou hodnotu až do dlouhého odpočinku.
 

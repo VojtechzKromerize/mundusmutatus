@@ -110,7 +110,7 @@ function bojJaObnov() {
   /* nevyřízené výzvy (zásah s reakcí, Riposte), záložka a zranění pro záchranu soustředění přežijí obnovení taky */
   if (o.zas && o.zas.kid === o.kid && !(s.reak || {})[me.id]) BZAS = o.zas;
   if (o.rip && o.rip.kid === o.kid && !(s.reak || {})[me.id]) BRIP = o.rip;
-  if (/^[knld]$/.test(o.tab || "")) BTAB = o.tab;
+  if (/^[knldi]$/.test(o.tab || "")) BTAB = o.tab;
   if (o.jk) BJK.d = o.jk;
   if (zn) setTimeout(() => mmHlas("Rozehraný útok je zpátky – stačí ho poslat vypravěči.", 4500), 300);
 }
@@ -198,6 +198,7 @@ function bojJaHodKouzlo(s, me, sp) {
     return;
   }
   delete BRUC[me.id];
+  if (K) bojPortPouzit(K, me.id, r20);
   const plusK = n => {
     const m = String(B.x || "").match(/([+-]\d+)$/);
     return (m ? +m[1] : 0) + (+B.mod || 0);
@@ -249,7 +250,7 @@ function bojJaHodKouzlo(s, me, sp) {
       d2 = v && !ru ? bK(20) : null,
       d = d2 == null ? d1 : v > 0 ? Math.max(d1, d2) : Math.min(d1, d2),
       krit = d === 20,
-      PD = kPriHod(K, "Útok"),
+      PD = kPriHod(K, "Útok", i > 0),
       r = i === 0 && rz != null ? rucDmg(rz, 1) : bojJaSpDmg(B, krit),
       vys = bojJaZas(c, d + b + PD.t, d, krit);
     ser.push({hod: d + b + PD.t, d, d1, d2, v, b: b + PD.t, dmg: r.tot, krit, vys, upr: [], pd: PD.txt, pdn: PD.n || [], ru, zx: r.txt});
@@ -265,11 +266,14 @@ function bojJaHodKouzlo(s, me, sp) {
   renderBoj();
 }
 let BJSPN = 0;
+/* značky kouzel na nepříteli, které dávají výhodu na útoky proti němu (2026-10-22); Guiding Bolt se uloží zásahem (20b) */
+const BZNADV = {"Faerie Fire": "Faerie Fire (cíl svítí)", "Guiding Bolt": "Guiding Bolt (příští útok)"};
 function bojAdvHrac(s, me, c, dal) {
   const plus = [],
     minus = [],
     st = me.stav || [];
   srdAdv(st, [], dal, plus, minus, true);
+  if (c) (c.ef || []).forEach(e => BZNADV[e.n] && plus.push(BZNADV[e.n]));
   const P = bojPros(s);
   if (P.includes("mlha") && dal) minus.push("mlha");
   if (P.includes("vitr") && dal) minus.push("silný vítr");
@@ -384,7 +388,7 @@ function bojUtokPriprav(o) {
     plus = E.reduce((a, e) => a + (typeof e.zr === "string" ? 0 : +e.zr || 0), 0),
     ez = E.filter(e => typeof e.zr === "string").map(e => e.zr);
   const b0 = (+w.b || 0) - (K ? 2 * kVycerp(K) : 0) + (typeof kEfUt === "function" ? kEfUt(E) : 0),
-    PD = o.pd && K ? kPriHod(K, "Útok") : {t: 0, txt: ""},
+    PD = o.pd && K ? kPriHod(K, "Útok", !!o.dalsi) : {t: 0, txt: ""},
     b = b0 + PD.t;
   const R = o.ruc || {},
     r20 = bRucN(R.d20, 1, 20),
@@ -503,6 +507,7 @@ function bojJaHod() {
     return;
   }
   delete BRUC[me.id];
+  if (K) bojPortPouzit(K, me.id, r20);
   /* útoky téže akce (Extra Attack) jeden po druhém (2026-10-18): každý zvlášť s vlastním d20, zraněním i kostkou Závoje; mezi nimi jde změnit cíl */
   const nU = BJU.ripo ? 1 : Math.max(1, +w.pocet || 1, TL.length),
     tk = (s.kolo || 1) * 100 + (s.tah || 0);
@@ -526,6 +531,7 @@ function bojJaHod() {
         ac: ci && ci.ac != null ? ci.ac : null,
         ruc: {d20: r20, dmg: rz},
         pd: true,
+        dalsi: i > 0,
         vp: !!ZT.vp,
         pm: !!ZT.pm,
       });

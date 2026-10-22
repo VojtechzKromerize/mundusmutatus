@@ -5,7 +5,7 @@ uroven: houf
 pocet: 8
 vyzva: 25 XP za pacholka
 ac: 12
-hp: 1
+hp: 5
 utok: Chňapnutí +4 · 2 Prokleté (Necrotic) za každou ruku v dosahu cíle · zbroj nepomáhá
 bonus: 4
 komplikace: Ruka chytne útočníka za kotník: AGI save DC 12, jinak je Prone a ruka mu leze po těle k hrdlu.
@@ -17,7 +17,7 @@ utoky:
 
 Uťaté ruce oběšenců a popravených, oživené nigromantem nebo samy od sebe v kostnici, kde Závoj ztenčel. Lezou po zemi, po stěnách i po stropě, tiché a vytrvalé; v klidu vypadají jako to, co jsou – mrtvé ruce.
 
-**Ruka umrlce:** AC 12 · 1 HP · Rychlost 20 stop, šplhání 20 stop · Imunita Prokleté (Necrotic), Poison, Frightened, Charmed, Prone · Blindsight 30 stop
+**Ruka umrlce:** AC 12 · 5 HP · Rychlost 20 stop, šplhání 20 stop · Imunita Prokleté (Necrotic), Poison, Frightened, Charmed, Prone · Blindsight 30 stop
 
 **Útok houfu – chňapnutí:** +4 (+1 za každou další ruku, nejvýš +5), dosah 5 stop. **Zásah:** 2 Prokleté (Necrotic) za každou ruku v dosahu cíle. Zbroj proti tomu nepomáhá – lezou pod ni. Cíl velikosti Medium nebo menší, kterého zasáhly aspoň tři ruce, je Prone.
 

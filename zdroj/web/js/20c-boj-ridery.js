@@ -1,7 +1,7 @@
 /* ===== Boj: volby po zásahu, přesun Hexu, Riposte, Sharpshooter (2026-10-20) ===== */
 /* ===== Volby po zásahu, přesun Hexu, odveta (2026-10-20) =====
    Po hodu, který zasáhl, nabídne list útoku to, co se k zásahu dá přidat: Divine Smite (slot), Eldritch Smite (pakt slot),
-   Sneak Attack, manévry Battle Mastera (kostka převahy) a u odvety Riposte. Kostky se hodí hned (při kritickém zásahu dvojnásob),
+   Sneak Attack, Dreadful Strikes (Fey Wanderer), Divine Fury (Zealot v zuřivosti), manévry Battle Mastera (kostka převahy) a u odvety Riposte. Kostky se hodí hned (při kritickém zásahu dvojnásob),
    slot / kostka převahy / bonusová akce se utratí až odesláním útoku vypravěči. */
 function bojJaRidery(K, me, w, q, s, O) {
   O = O || BJU;
@@ -31,6 +31,29 @@ function bojJaRidery(K, me, w, q, s, O) {
       }),
     );
   }
+  /* kouzla „bonusová akce ihned po zásahu“ (2026-10-22): Searing, Wrathful, Thunderous, Shining, Blinding, Staggering, Banishing Smite…
+     nabídnou se u zásahu zbraní (nejnižší volný slot); odesláním se kouzlo sešle (slot, trvání, soustředění). Jedno za útok, s Divine Smite se vylučují. */
+  if (!uz("ds") && !sel.some(e => e.slot) && typeof kSmity === "function")
+    kSmity(K).forEach(x => {
+      if (x.blizko && !blizko) return;
+      const q = kSlX(K, x).sort((a, b) => a.st - b.st || (a.pakt ? 1 : -1))[0];
+      if (!q) return;
+      const E = kSpUcinek(K, x, q.st),
+        hned = !!(E && E.k === "z" && E.x && x.hned);
+      const st = bojSpStav(x.n),
+        dc = kSpDC(K, x),
+        za = st && x.zach ? `${x.zach} SO ${dc}` : "";
+      R.push({
+        k: "sm:" + x.n,
+        g: "ds",
+        n: x.n,
+        zr: hned ? E.x : null,
+        cena: {slot: q.k, st: q.st, kz: x.n},
+        ba: 1,
+        cim: za ? `${x.n} (${za})` : x.n,
+        pozn: `${hned ? `+${E.x} ${E.t || ""} ` : ""}za slot ${q.st}. st.${q.pakt ? " (pakt)" : ""}, bonusová akce${za ? `; cíl: záchrana ${za}, při neúspěchu ${st.st.join(", ")}` : ""}${x.kon ? "; soustředění" : ""}`,
+      });
+    });
   if (kMaRys(K, /(^|: ?)eldritch smite$/i) && !uz("es")) {
     const z = kSloty(K).filter(z => z.pakt && z.u < z.max)[0];
     if (z)
@@ -53,6 +76,32 @@ function bojJaRidery(K, me, w, q, s, O) {
       zr: `${Math.ceil(ro / 2)}d6`,
       pozn: "jednou za tah: s výhodou, nebo když je u cíle tvůj spojenec; zbraň Finesse nebo na dálku",
     });
+  /* Fey Wanderer – Dreadful Strikes (2026-10-22): jednou za tah při zásahu zbraní +1d4 Psychic, od 11. úrovně hraničáře 1d6 */
+  const ra = kTrU(kCtx(K), "Ranger"),
+    drk = ra >= 11 ? "1d6" : "1d4";
+  if (ra && kMaRys(K, /^dreadful strikes$/i) && !uz("dr"))
+    R.push({
+      k: "dr",
+      g: "dr",
+      n: "Dreadful Strikes",
+      zr: drk,
+      cim: "Dreadful Strikes (Psychic)",
+      pozn: `+${drk} Psychic zranění, jednou za tah (zásah zbraní)`,
+    });
+  /* Path of the Zealot – Divine Fury (2026-10-22): v zuřivosti první zásah v tahu +1d6 + polovina úrovně barbara, Radiant nebo Necrotic */
+  const ba = kTrU(kCtx(K), "Barbarian"),
+    dfz = `1d6+${Math.floor(ba / 2)}`;
+  if (ba && kMaRys(K, /^divine fury$/i) && kPri(K).includes("Rage") && !uz("df"))
+    ["Radiant", "Necrotic"].forEach(t =>
+      R.push({
+        k: "df:" + t,
+        g: "df",
+        n: `Divine Fury (${t})`,
+        zr: dfz,
+        cim: `Divine Fury (${t})`,
+        pozn: `+${dfz} ${t} zranění: první zásah v tahu během zuřivosti`,
+      }),
+    );
   const SD = kSD(K);
   if (SD && SD.zb > 0) {
     const M = kManevry(K),
@@ -93,7 +142,7 @@ function bojJaRidHtml(K, q, hid) {
   const ap = new Set(A.map(r => r.k)),
     ag = new Set(A.map(r => r.g)),
     L = [...R, ...A.filter(r => !R.some(x => x.k === r.k))];
-  return `<div class="bjur bjurid" role="group" aria-label="Přidat k zásahu"><small>Přidat k zásahu${q.krit ? " (kritický – kostky dvakrát)" : ""}:</small>${L.map(r => `<button type="button" class="gbtn ghost${ap.has(r.k) ? " on" : ""}" data-jurid="${besc(r.k)}"${H} aria-pressed="${ap.has(r.k)}"${!ap.has(r.k) && ag.has(r.g) ? " disabled" : ""} ${btip(r.pozn || r.n)}>${r.g === "zv" ? bikZv(r.n) : ""}${besc(r.n)} <small>${ap.has(r.k) ? (r.g === "zv" ? "✓" : `${(A.find(x => x.k === r.k) || {}).t} ✓`) : r.zr ? "+" + besc(r.zr) : "Požehnání"}</small></button>`).join("")}${gw}</div>`;
+  return `<div class="bjur bjurid" role="group" aria-label="Přidat k zásahu"><small>Přidat k zásahu${q.krit ? " (kritický – kostky dvakrát)" : ""}:</small>${L.map(r => `<button type="button" class="gbtn ghost${ap.has(r.k) ? " on" : ""}" data-jurid="${besc(r.k)}"${H} aria-pressed="${ap.has(r.k)}"${!ap.has(r.k) && ag.has(r.g) ? " disabled" : ""} ${btip(r.pozn || r.n)}>${r.g === "zv" ? bikZv(r.n) : ""}${besc(r.n)} <small>${ap.has(r.k) ? (r.g === "zv" ? "✓" : `${(A.find(x => x.k === r.k) || {}).t} ✓`) : r.zr ? "+" + besc(r.zr) : r.g === "zv" ? "Požehnání" : "účinek"}</small></button>`).join("")}${gw}</div>`;
 }
 function bojJaRid(k, hid) {
   const F = bojForm(hid),
@@ -121,13 +170,13 @@ function bojJaRid(k, hid) {
       bojListPrekresli();
       return;
     }
-    const kk = bojKostky(R.zr, q.krit);
+    const kk = R.zr ? bojKostky(R.zr, q.krit) : {t: 0, x: ""};
     if (!kk) return;
-    const x = ` + ${kk.x} (${R.n})`;
+    const x = kk.x ? ` + ${kk.x} (${R.n})` : "";
     q.dmg = (+q.dmg || 0) + kk.t;
     q.zx = (q.zx || "") + x;
     q.rid.push({k, g: R.g, n: R.n, t: kk.t, x, cena: R.cena || null, ba: R.ba || 0, cim: R.cim || R.n});
-    txt = `${R.n} ${kk.x} = ${kk.t} → zranění ${q.dmg}`;
+    txt = kk.x ? `${R.n} ${kk.x} = ${kk.t} → zranění ${q.dmg}` : `${R.n} přidán`;
   }
   if (ser.indexOf(q) === 0) O.dmg = String(q.dmg);
   O.info = `${O.info ? O.info + " · " : ""}${txt}`;
@@ -142,7 +191,7 @@ async function bojJaRidPo(K, me, SER, O) {
   if (!(O.ridT && O.ridT.tk === tk)) O.ridT = {tk, u: []};
   for (const q of SER || [])
     for (const r of q.rid || []) {
-      if (/^(ds|es|sa)$/.test(r.g)) O.ridT.u.push(r.g);
+      if (/^(ds|es|sa|dr|df)$/.test(r.g)) O.ridT.u.push(r.g);
       const c = r.cena;
       try {
         if (c && c.kz) await kartaSeslat(K, {n: c.kz, st: c.st, kon: false}, c.slot);

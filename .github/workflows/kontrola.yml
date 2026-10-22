@@ -5,10 +5,14 @@ name: Kontrola webu
 # Výsledek je vidět u commitu (✓ / ✗); chyby jsou v anotacích (`gh run view <id>`), snímky obrazovky v příloze běhu.
 # Nepotřebuje žádná tajemství – Supabase nahrazuje testovací databáze přímo v běhu.
 #
-# Rozdělení (2026-10-21): „Rychlá kontrola“ (sestavení, tajemství, kontrola kódu, schéma, práva; ~3 min) doběhne vždy –
-# novější nahrání ji neruší, takže každý commit má aspoň rychlý výsledek. Testy v prohlížeči běží ve čtyřech
-# souběžných částech; novější nahrání do stejné větve rozběhnuté části zruší (výsledek platí pro poslední stav).
-# Délky testů vypisuje testy/spustit.sh („✓ název (37 s)“) – podle nich se části vyvažují.
+# Rozdělení (2026-10-21): „Rychlá kontrola“ (sestavení, tajemství, kontrola kódu, schéma, práva; ~1 min) doběhne vždy –
+# novější nahrání ji neruší, takže každý commit má aspoň rychlý výsledek. Testy v prohlížeči běží v šesti
+# souběžných částech (2026-10-22, dřív čtyři; každá ~2–3 min); novější nahrání do stejné větve rozběhnuté části zruší
+# (výsledek platí pro poslední stav). Délky testů vypisuje testy/spustit.sh („✓ název (37 s)“) – podle nich se části
+# vyvažují (místně 2026-10-22: karta 185 s, boj2 117, karta_vse 86, boj 75, reakce 57, potvrz 44, prohlídka db 105,
+# statická + bestiář 81, ostatní do 25 s).
+# Nástroje: psql i knihovny Chromu na runneru jsou (instalují se, jen když chybí) – apt-get při každém běhu dřív stál
+# ~30 s a jednou (zámek aptu) 9 minut.
 on:
   push:
     branches: [main, dev]
@@ -49,7 +53,7 @@ jobs:
       - name: Nástroje
         run: |
           npm ci --no-audit --no-fund
-          sudo apt-get install -y -qq postgresql-client >/dev/null
+          command -v psql >/dev/null || sudo apt-get install -y -qq postgresql-client >/dev/null
           curl -sSL https://github.com/PostgREST/postgrest/releases/download/v12.2.3/postgrest-v12.2.3-linux-static-x64.tar.xz | tar -xJ -C /tmp
       - name: Kontrola
         run: MM_RYCHLA=1 bash testy/spustit.sh
@@ -65,17 +69,23 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - cast: stránky a bestiář
-            testy: "odhalovani herni_stav draci zapisy vyprava"
-            prohlidky: "staticka"
-          - cast: boj
-            testy: "boj boj2 tah"
-            prohlidky: ""
           - cast: karta
-            testy: "reakce potvrz karta"
+            testy: "karta"
             prohlidky: ""
-          - cast: ostatní a prohlídka
-            testy: "karta_vse pecet editor"
+          - cast: boj a tah
+            testy: "boj2 tah"
+            prohlidky: ""
+          - cast: boj a reakce
+            testy: "boj reakce"
+            prohlidky: ""
+          - cast: potvrzování, karta – ostatní, editor
+            testy: "potvrz karta_vse pecet editor" # potvrz před karta_vse: po něm zůstává stav, ve kterém potvrzování léčení neprojde
+            prohlidky: ""
+          - cast: statické stránky a bestiář
+            testy: "odhalovani herni_stav draci zapisy"
+            prohlidky: "staticka"
+          - cast: prohlídka hráče a vypravěče
+            testy: "vyprava"
             prohlidky: "db"
     services:
       postgres:
@@ -94,18 +104,22 @@ jobs:
         with:
           node-version: "22"
           cache: npm
+      - name: Nástroje
+        id: nastroje
+        run: |
+          npm ci --no-audit --no-fund
+          command -v psql >/dev/null || sudo apt-get install -y -qq postgresql-client >/dev/null
+          curl -sSL https://github.com/PostgREST/postgrest/releases/download/v12.2.3/postgrest-v12.2.3-linux-static-x64.tar.xz | tar -xJ -C /tmp
+          pip install -q playwright pillow
+          echo "playwright=$(python -c 'import playwright; print(playwright.__version__)')" >> "$GITHUB_OUTPUT"
+      # klíč podle verze Playwrightu: s novou verzí se Chromium stáhne jednou a pak je zase z mezipaměti
       - name: Mezipaměť prohlížeče
         uses: actions/cache@v4
         with:
           path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-v1
-      - name: Nástroje
-        run: |
-          npm ci --no-audit --no-fund
-          sudo apt-get install -y -qq postgresql-client >/dev/null
-          curl -sSL https://github.com/PostgREST/postgrest/releases/download/v12.2.3/postgrest-v12.2.3-linux-static-x64.tar.xz | tar -xJ -C /tmp
-          pip install -q playwright pillow
-          python -m playwright install --with-deps chromium
+          key: playwright-${{ runner.os }}-${{ steps.nastroje.outputs.playwright }}
+      - name: Prohlížeč
+        run: python -m playwright install chromium
       - name: Kontrola
         env:
           MM_TESTY: ${{ matrix.testy }}

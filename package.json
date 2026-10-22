@@ -12,6 +12,7 @@
   "scripts": {
     "format": "prettier --write --log-level warn \"zdroj/web/js/*.js\" zdroj/generator.js zdroj/sw.js \"testy/**/*.mjs\"",
     "kontrola": "node testy/kontrola_kodu.mjs && prettier --check --log-level warn \"zdroj/web/js/*.js\" zdroj/generator.js zdroj/sw.js \"testy/**/*.mjs\"",
-    "test": "node --test testy/jednotky/*.test.mjs"
+    "test": "node --test testy/jednotky/*.test.mjs",
+    "mapa": "node testy/kontrola_kodu.mjs --mapa"
   }
 }

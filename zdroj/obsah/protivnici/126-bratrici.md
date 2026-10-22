@@ -5,7 +5,7 @@ uroven: houf
 pocet: 8
 vyzva: 25 XP za pacholka
 ac: 13
-hp: 1
+hp: 5
 utok: Sudlice a cepy +3 · 3 Piercing nebo Bludgeoning za každého bratříka v dosahu cíle · vozová hradba
 bonus: 3
 komplikace: Bratříci zpívají „Ktož jsú boží bojovníci“: kališnická postava, která na ně útočí, hodí WIS save DC 12, jinak do konce svého příštího tahu neútočí (postava s featem víry kališníka má výhodu).
@@ -19,7 +19,7 @@ utoky:
 
 Husitští veteráni v Horních Uhrách, které tam od čtyřicátých let vedl Jan Jiskra z Brandýsa. Na jaře 1458 je Matyáš Korvín rozpouští a kdo nechce domů, drží hrady a kostely na Spiši a v Šariši jako vlastní pán. Bojují po husitsku: vozy, sudlice, cepy, zpěv.
 
-**Bratřík:** AC 13 (prošívanice, pavéza) · 1 HP · Rychlost 30 stop · Resistance (zbroj) Bludgeoning
+**Bratřík:** AC 13 (prošívanice, pavéza) · 5 HP · Rychlost 30 stop · Resistance (zbroj) Bludgeoning
 
 **Útok houfu – sudlice a cepy:** +3 (+1 za každého dalšího bratříka, nejvýš +5), sudlice dosah 10 stop, cepy 5 stop (Drtivá). **Zásah:** 3 Piercing nebo Bludgeoning za každého bratříka v dosahu cíle.
 

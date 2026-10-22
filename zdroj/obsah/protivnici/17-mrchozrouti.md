@@ -5,7 +5,7 @@ uroven: houf
 pocet: 6
 vyzva: 200 XP za pacholka
 ac: 12
-hp: 1
+hp: 5
 utok: Kousnutí a drápy +4 · 4 za každého v dosahu (Piercing a Prokleté); 3+ v dosahu = CON DC 10, jinak Paralyzed
 bonus: 4
 komplikace: Drápy ochromí: útočník hodí CON save DC 10, jinak je Paralyzed do konce svého příštího tahu (elfové jsou imunní).
@@ -17,7 +17,7 @@ utoky:
 
 Šedé vychrtlé postavy s rozpraskanými rty, které se po setmění vracejí k morovým jámám a hřbitovům. Žerou mrtvé, a když mrtví dojdou, i živé.
 
-**Mrchožrout:** AC 12 · 1 HP · Rychlost 30 stop · Imunita Poison; nedají se okouzlit
+**Mrchožrout:** AC 12 · 5 HP · Rychlost 30 stop · Imunita Poison; nedají se okouzlit
 
 **Útok houfu – kousnutí a drápy:** +4 (+1 za každého dalšího, nejvýš +5), dosah 5 stop. **Zásah:** 4 zranění za každého mrchožrouta v dosahu cíle (Piercing a Prokleté). Jsou-li v dosahu aspoň 3, cíl hodí CON save DC 10, jinak je Paralyzed do konce svého příštího tahu; elfové jsou imunní.
 

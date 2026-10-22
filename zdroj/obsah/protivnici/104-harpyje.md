@@ -5,7 +5,7 @@ uroven: houf
 pocet: 4
 vyzva: 200 XP za pacholka
 ac: 11
-hp: 1
+hp: 5
 utok: Drápy +3 · 3 Slashing za každou harpyji v dosahu cíle · Lákavá píseň (WIS DC 11, Charmed – jde k nim)
 bonus: 3
 komplikace: Harpyje útočníka chytí a vynese o 10 stop výš a pustí: 1d6 Bludgeoning a Prone.
@@ -18,7 +18,7 @@ utoky:
 
 Ptačí ženy z bestiářů, které po Protržení Závoje zahnízdily na skalách nad řekami a průsmyky. Nebojují samy – zpívají, a ty, kdo za zpěvem dojdou až na kraj skály, rozsápou ve vzduchu.
 
-**Harpyje:** AC 11 · 1 HP · Rychlost 20 stop, let 40 stop
+**Harpyje:** AC 11 · 5 HP · Rychlost 20 stop, let 40 stop
 
 **Útok houfu – drápy:** +3 (+1 za každou další harpyji, nejvýš +5), dosah 5 stop. **Zásah:** 3 Slashing za každou harpyji v dosahu cíle. Houf útočí z letu.
 

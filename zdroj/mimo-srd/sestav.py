@@ -12,7 +12,7 @@ POV = {"Barbarian", "Bard", "Cleric", "Druid", "Fighter", "Monk", "Paladin", "Ra
 VL = {"STR", "AGI", "DEX", "CON", "INT", "WIS", "CHA"}
 CAS = {"A", "BA", "R"}
 KAT = {"origin", "general", "fightStyle", "epic"}
-EF = {"ac", "rych", "ini", "hpU", "hpL", "spab"}
+EF = {"ac", "rych", "ini", "hpU", "hpL", "spab", "ov"}  # ov: ["CHA", "WIS"] = k ověřením CHA přičti modifikátor WIS (min. 1)
 chyby = []
 
 
@@ -33,9 +33,11 @@ def rys(r, kde, max_t=350):
     if p is not None and not (isinstance(p, int) or (isinstance(p, str) and (p == "PB" or p in VL)) or
                               (isinstance(p, list) and all(isinstance(x, list) and len(x) == 2 for x in p))):
         chyba(k, f"neznámý počet {p!r}")
-    for e in (r.get("ef") or {}):
+    for e, v in (r.get("ef") or {}).items():
         if e not in EF:
             chyba(k, f"neznámý efekt {e}")
+        if e == "ov" and not (isinstance(v, list) and len(v) == 2 and v[0] in VL and (v[1] in VL or v[1] == "PB")):
+            chyba(k, f"efekt ov musí být [vlastnost ověření, vlastnost bonusu nebo PB], ne {v!r}")
 
 
 podtridy = nacti("podtridy.json")

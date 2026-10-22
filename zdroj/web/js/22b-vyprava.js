@@ -154,6 +154,7 @@ function vyMapaZapni() {
   if (m === "svet") {
     svInit();
     const go = () => {
+      if (curView !== "vyprava" || !VY || VY.mapa !== m) return; // mezitím odešel z Výpravy (čekání na data mapy, 2026-10-22)
       if (!SG) {
         setTimeout(go, 120);
         return;
@@ -177,6 +178,7 @@ function vyMapaZapni() {
   if (m === "praha") {
     praInit();
     const go = () => {
+      if (curView !== "vyprava" || !VY || VY.mapa !== m) return; // mezitím odešel z Výpravy (čekání na data mapy, 2026-10-22)
       if (!PG) {
         setTimeout(go, 120);
         return;
@@ -538,6 +540,9 @@ function renderVyprava() {
   if (!VY_NACTENO) {
     box.innerHTML = `<h2 class="arttitle">Výprava</h2><p class="intro">Načítám…</p>`;
     vyNacti().then(() => {
+      /* mezitím odešel jinam, nebo Výpravu otevřel dvakrát během načítání a první volání už ji vykreslilo: v boxu je přesunutá
+         mapa a smazání boxu by ji zničilo („Cannot set properties of null“ v CI, 2026-10-22) */
+      if (curView !== "vyprava" || box.querySelector("#vyslot")) return;
       box.innerHTML = "";
       renderVyprava();
       vyZverejniPocasi();

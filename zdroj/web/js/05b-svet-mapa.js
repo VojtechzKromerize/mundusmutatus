@@ -20,24 +20,6 @@ function svInit() {
       m.innerHTML = '<text x="500" y="386" text-anchor="middle" class="rivlbl" font-size="20">Mapu se nepodařilo načíst.</text>';
     });
 }
-/* řetězce cest pro tvary mapy se sestaví jen jednou; při přiblížení se jen znovu použijí */
-const SVPC = new WeakMap();
-const svPath = p => {
-  let v = SVPC.get(p);
-  if (v === undefined) {
-    v = p.map(r => "M" + r.map(q => q.join(",")).join("L") + "Z").join("");
-    SVPC.set(p, v);
-  }
-  return v;
-};
-const svLine = r => {
-  let v = SVPC.get(r);
-  if (v === undefined) {
-    v = "M" + r.map(q => q.join(",")).join("L");
-    SVPC.set(r, v);
-  }
-  return v;
-};
 function sDraw() {
   const svg = document.getElementById("smap"),
     vb = sst.vb || SVB0,

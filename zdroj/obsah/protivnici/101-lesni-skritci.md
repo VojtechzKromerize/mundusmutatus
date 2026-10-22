@@ -5,7 +5,7 @@ uroven: houf
 pocet: 6
 vyzva: 50 XP za pacholka
 ac: 15
-hp: 1
+hp: 5
 utok: Jehlové mečíky +6 · 2 Piercing za každého skřítka v dosahu · luky +6, 1 Piercing a Charmed
 bonus: 6
 komplikace: Skřítek útočníkovi sebere drobnost – klíč, prsten, šíp, hrst grošů: útočník ji nemá, dokud houf neskončí nebo ji nevykoupí.
@@ -18,7 +18,7 @@ utoky:
 
 Mužíčci velikosti dlaně s křídly vážky, kteří chodí za dryádou, hejkalem nebo starým dubem. Lidem spíš škodí než ubližují, ale koho poznají jako hříšníka, toho nenechají v lese na pokoji.
 
-**Skřítek:** AC 15 · 1 HP · Rychlost 10 stop, let 40 stop · Perception +3, Stealth +8
+**Skřítek:** AC 15 · 5 HP · Rychlost 10 stop, let 40 stop · Perception +3, Stealth +8
 
 **Útok houfu – jehlové mečíky:** +6 (+1 za každého dalšího skřítka, nejvýš +5), dosah 5 stop. **Zásah:** 2 Piercing za každého skřítka v dosahu cíle. **Luky:** +6, dostřel 40/160 stop, 1 Piercing za každého, kdo na cíl vidí; cíl zasažený aspoň dvěma šípy hodí WIS save DC 10, jinak je Charmed do konce příštího tahu houfu (nezaútočí na skřítky, jde, kam ho vedou).
 

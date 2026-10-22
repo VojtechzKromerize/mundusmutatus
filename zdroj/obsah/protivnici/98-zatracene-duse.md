@@ -5,7 +5,7 @@ uroven: houf
 pocet: 8
 vyzva: 10 XP za pacholka
 ac: 9
-hp: 1
+hp: 5
 utok: Hnilobný dotek +2 · 1 Poison za každou duši v dosahu cíle · zbroj nepomáhá
 bonus: 2
 komplikace: Duše promluví hlasem někoho, komu útočník ublížil: útočník je Frightened do konce svého příštího tahu (postava V milosti je imunní).
@@ -17,7 +17,7 @@ utoky:
 
 Duše hříšníků, které se při Protržení Závoje vydraly z pekla na zem: beztvaré hroudy masa s tváří, která se chvílemi podobá někomu z vesnice. Lezou z pekelných bran, z hrobů svatokrádežníků a za každým čertem, který jde po světě.
 
-**Zatracená duše:** AC 9 · 1 HP · Rychlost 20 stop · Resistance Cold · Imunita Fire, Poison, Frightened, Charmed · Darkvision 120 stop
+**Zatracená duše:** AC 9 · 5 HP · Rychlost 20 stop · Resistance Cold · Imunita Fire, Poison, Frightened, Charmed · Darkvision 120 stop
 
 **Útok houfu – hnilobný dotek:** +2 (+1 za každou další duši, nejvýš +5), dosah 5 stop. **Zásah:** 1 Poison za každou duši v dosahu cíle. Zbroj proti tomu nepomáhá.
 

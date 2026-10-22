@@ -3001,18 +3001,11 @@ button.kdbs:hover{border-color:var(--kb-gold)}.kdbsac b{color:var(--kb-gold)}
 .bdm .kzavbox{color:var(--kb-tx)}
 .bdm .kzavbox b{color:inherit}
 .bdm .kzavbox.kpok b{color:#f0757a}.bdm .kzavbox.kpoz b{color:var(--kb-gold)}
-/* na tahu: místo svíčky drak kolem žetonu – kulatý u postav, hranatý u NPC (2026-10-17) */
-.bmedw{position:relative;display:inline-grid;place-items:center}
-.bdrak{position:absolute;left:50%;top:50%;z-index:2;width:142%;height:142%;pointer-events:none;background:url("art/img/drak-ramec-kruh.webp") center/contain no-repeat;transform:translate(-50.8%,-52.4%);filter:drop-shadow(0 2px 3px rgba(40,10,0,.45))}
-.bdrakn{background-image:url("art/img/drak-ramec-ctverec.webp");width:138%;height:138%;transform:translate(-52%,-51.1%)}
-#bojview .bslot.btah .bmed{box-shadow:none;margin-top:2px}
+/* na tahu: větší žeton se zlatým lemem (dračí rám zrušen 2026-10-22) */
 #bojview .bslot.btah::after{display:none}
-#bojview .bslot.btah .bkdo{margin-top:10px}
-#bojview .bslot.btah{flex-basis:84px}
-#bojview .bslot.btah .bmed{--ms:50px;margin-top:6px}
-#bojview .bslot.btah .bdrak{width:152%;height:152%}
-#bojview .bslot.btah .bdrakn{width:146%;height:146%}
-#bojview .bslot.btah .bkdo{margin-top:14px}
+#bojview .bslot.btah{flex-basis:76px}
+#bojview .bslot.btah .bmed{--ms:50px;margin-top:4px;box-shadow:0 0 0 3px var(--gold),0 0 14px 3px color-mix(in srgb,var(--gold) 55%,transparent)}
+#bojview .bslot.btah .bkdo{margin-top:6px}
 
 /* ikonky kouzel: stupeň v kolečku (římsky), trik, soustředění, rituál */
 .kspi{display:inline-grid;place-items:center;flex:none;box-sizing:border-box;width:20px;height:20px;vertical-align:-5px;border-radius:50%;border:1.5px solid var(--gold);background:var(--kat);color:#fbf1d4;font-family:Georgia,"Times New Roman",serif;font-weight:700;font-size:12px;line-height:1;letter-spacing:-.02em;font-style:normal;text-transform:none}
@@ -3178,12 +3171,12 @@ h4 .kspi{margin-right:5px}
   .bojakt:not(.bojprip)[data-btab="l"] .bcoll{display:block}
   .bojakt:not(.bojprip)[data-btab="l"] .bcolk{display:none}
   /* aplikace na ploše: hráčovy záložky boje dole u palce (vypravěč má dole ovládání tahu) */
-  html.mmapp .bojhrac.bojakt:not(.bojprip) .btabs{position:fixed;top:auto;left:0;right:0;bottom:0;z-index:86;margin:0;padding:6px max(8px,env(safe-area-inset-left,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-right,0px));background:var(--paper);border-top:2px solid var(--gold);box-shadow:0 -10px 20px -12px rgba(20,5,5,.5)}
-  html.mmapp .bojhrac.bojakt:not(.bojprip) .btabs button{min-height:44px}
-  html.mmapp .bojhrac.bojakt:not(.bojprip){padding-bottom:calc(64px + env(safe-area-inset-bottom,0px))}
-  html.mmapp body:has(.bojhrac.bojakt:not(.bojprip)) .phbtn{bottom:calc(78px + env(safe-area-inset-bottom,0px))}
-  html.mmapp body:has(.bojhrac.bojakt:not(.bojprip)) .mmhlas{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
-  html.mmapp body:has(.bojhrac.bojakt:not(.bojprip)) #mmfronta{bottom:calc(78px + env(safe-area-inset-bottom,0px))}}
+  html:is(.mmapp,.mmcela) .bojhrac.bojakt:not(.bojprip) .btabs{position:fixed;top:auto;left:0;right:0;bottom:0;z-index:86;margin:0;padding:6px max(8px,env(safe-area-inset-left,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-right,0px));background:var(--paper);border-top:2px solid var(--gold);box-shadow:0 -10px 20px -12px rgba(20,5,5,.5)}
+  html:is(.mmapp,.mmcela) .bojhrac.bojakt:not(.bojprip) .btabs button{min-height:44px}
+  html:is(.mmapp,.mmcela) .bojhrac.bojakt:not(.bojprip){padding-bottom:calc(64px + env(safe-area-inset-bottom,0px))}
+  html:is(.mmapp,.mmcela) body:has(.bojhrac.bojakt:not(.bojprip)) .phbtn{bottom:calc(78px + env(safe-area-inset-bottom,0px))}
+  html:is(.mmapp,.mmcela) body:has(.bojhrac.bojakt:not(.bojprip)) .mmhlas{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+  html:is(.mmapp,.mmcela) body:has(.bojhrac.bojakt:not(.bojprip)) #mmfronta{bottom:calc(78px + env(safe-area-inset-bottom,0px))}}
 /* aplikace na ploše: stažení stránky dolů ji nesmí obnovit uprostřed boje */
 html.mmapp body{overscroll-behavior-y:none}
 /* hráč na telefonu: Hra = karta přes celou obrazovku (2026-10-22) – bez záhlaví s logem, rámu a patky s draky;
@@ -3198,7 +3191,26 @@ html.mmcela #bojview{padding:0}
 @media (max-width:820px){html.mmcela #bojview:has(.bctl){padding-bottom:calc(74px + env(safe-area-inset-bottom,0px))}}
 html.mmcela .hraja{margin:0}
 html.mmcela .bdm{max-width:none;margin:0;border-left:0;border-right:0;border-top:0;border-radius:0}
-html.mmcela .bdmh{padding-top:max(8px,env(safe-area-inset-top,0px))}
+html.mmcela:not(.mmapp) .bdmh{padding-top:max(8px,env(safe-area-inset-top,0px))}
+/* hráč na telefonu v boji (2026-10-22): bez nadpisu Boj a šuplíku Pravidla; pruh iniciativy jen v záložce Iniciativa,
+   dole lišta Moje karta · Iniciativa · Ukončit tah (bojTabyHrac, 20d); řádek „na tahu“ je pod pruhem, ne v pevné liště */
+html.mmcela .bojhrac .bojhead,html.mmcela .bprtg,html.mmcela #bojview .bpravidla{display:none}
+html.mmcela .bojhrac.bojakt:not(.bojprip):not([data-btab="i"]) [data-bk="osa"]{display:none}
+html.mmcela #bojview .bojhrac .bosa{position:static;margin:0;padding:10px 8px 14px;border-left:0;border-right:0;border-radius:0}
+html.mmcela #bojview .bojhrac .bctl{grid-column:1/-1;position:static;padding:8px 4px 0;border:0;box-shadow:none;background:none}
+html.mmcela #bojview .bojhrac .bosa .bhelp{display:none}
+/* karta v boji bez rámečku účastníka (modrý proužek a pergamen kolem) – jde až k okrajům */
+html.mmcela #bojview .bjamain .bhrk{margin:0;padding:0;border:0;border-radius:0;background:none;box-shadow:none;outline:0}
+/* postava bez karty nemá list Záznam: záznam boje je pod jejím panelem */
+html.mmcela .bojhrac.bojakt:not(.bojprip)[data-btab="k"]:not(:has(.bcolk .bdm)) .bcoll{display:block}
+.btabsc .bkonecb{flex:1.25;min-height:44px;margin:0;padding:4px 6px;border-radius:4px;font:600 .8rem/1.15 var(--f-label);letter-spacing:.04em;text-transform:uppercase;white-space:normal}
+.btabsc .bkonecb:not(:disabled){background:#2f5d34;border:1px solid #1f4224;color:#f6e7c1}
+.btabsc .bkonecb:disabled{background:var(--paper);border:1px dashed color-mix(in srgb,var(--gold) 50%,var(--rule));color:var(--muted);opacity:.8}
+/* nainstalovaná aplikace: obsah až k hornímu okraji (iPhone: průhledná lišta s hodinami, Android: celá obrazovka);
+   pruh pod hodinami drží barvu kůže, aby text nepřekrýval hodiny */
+html.mmapp body{padding-top:env(safe-area-inset-top,0px)}
+html.mmapp body::before{content:"";position:fixed;z-index:300;top:0;left:0;right:0;height:env(safe-area-inset-top,0px);background:#1f0c10;pointer-events:none}
+html.mmapp .bdmlep{top:env(safe-area-inset-top,0px)}
 html.mmcela .bdmlep{top:0}
 /* karta sahá až dolů i pod krátkým obsahem – kolem ní není vidět pergamen ani kůže */
 html.mmcela::before{background:#1f0c10}

@@ -2650,19 +2650,59 @@ let bojHlasen = "",
   BODP = false;
 const BHROTV = new Set();
 const besc = t => String(t ?? "").replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"})[c]);
+/* počty slotů (Vojta 2026-10-22): početnější strana má o slot víc než menší. Družina = postavy + spojenci a společníci,
+   nepřátelé = každý houf, sok či zhoubce za jednoho (bez poražených, prchajících a vzdaných). Určí se na začátku boje
+   a každého kola (s.pocty), aby se sloty uprostřed kola neposouvaly, když někdo padne. */
+const BMIMO = ["poražen", "prchá", "vzdal se", "rozplynul se"];
+function bojPocty(s) {
+  const npc = (s.npc || []).filter(n => !BMIMO.some(t => (n.stav || []).includes(t)) && !(n.druh === "houf" && !(+n.pocet > 0))),
+    h = Math.max(1, (s.hraci || []).length + npc.filter(bojSpoj).length),
+    e = npc.filter(n => !bojSpoj(n)).length;
+  return {h, n: Math.max(1, e > h ? h + 1 : e < h ? h - 1 : h)};
+}
 function bojSloty(s) {
-  /* sloty se střídají mezi družinou a vypravěčem; začíná strana s nejlepším hodem (při shodě družina) */
-  const n = (s.hraci || []).length,
+  /* sloty se střídají mezi družinou a vypravěčem; začíná strana s nejlepším hodem (při shodě družina); slot navíc je na konci */
+  const P = s.pocty || bojPocty(s),
     dm = +s.dm || 0,
     hod = s.hod != null ? +s.hod : Math.max(-99, ...(s.hraci || []).map(x => +x.hod || 0)),
-    a = [];
-  for (let i = 0; i < n; i++) {
-    const hs = {t: "h", hod},
-      ns = {t: "n", hod: dm};
-    if (hod >= dm) a.push(hs, ns);
-    else a.push(ns, hs);
+    a = [],
+    prvni = hod >= dm ? "h" : "n";
+  let zh = P.h,
+    zn = P.n,
+    t = prvni;
+  while (zh > 0 || zn > 0) {
+    if (t === "h" ? zh > 0 : zn <= 0) {
+      a.push({t: "h", hod});
+      zh--;
+    } else {
+      a.push({t: "n", hod: dm});
+      zn--;
+    }
+    t = t === "h" ? "n" : "h";
   }
   return a;
+}
+/* pacholek má 5 HP (Vojta 2026-10-22); zranění přetéká na dalšího – houf si pamatuje zranění předního pacholka (n.hz) */
+const BPACH_HP = 5;
+function bojHoufZasah(n, x) {
+  const poc = +n.pocet || 0,
+    hz0 = +n.hz || 0,
+    c = hz0 + Math.max(0, +x || 0),
+    pad = Math.min(poc, Math.floor(c / BPACH_HP));
+  return {pad, hz: pad >= poc ? 0 : c - pad * BPACH_HP, hz0};
+}
+/* zranění, jako by zásah nebyl kritický: z každé zdvojené skupiny kostek v rozpisu („2d8(3+5)+3“) se počítá jen první polovina */
+function bojDmgBezKritu(u) {
+  let x = +u.dmg || 0;
+  String(u.zx || "").replace(/\d*d\d+\(([^)]*)\)/g, (m, g) => {
+    const v = g
+      .split("+")
+      .map(Number)
+      .filter(q => !isNaN(q));
+    x -= v.slice(Math.ceil(v.length / 2)).reduce((a, b) => a + b, 0);
+    return m;
+  });
+  return Math.max(0, x);
 }
 const bojUzito = (s, id) => Object.values(s.obsazeni || {}).filter(x => x === id).length;
 const bojJm = (s, id) => {

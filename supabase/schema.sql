@@ -1139,6 +1139,9 @@ begin
     -- přídavky k útokům a hodům (2026-10-17): zapnuté přepínače (Rage, Bless…) – jen názvy
     when 'pri' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'array' and jsonb_array_length(x) <= 20 and not exists (
         select 1 from jsonb_array_elements(x) e where jsonb_typeof(e) <> 'string' or char_length(e #>> '{}') > 40))
+    -- Předzvěst věštce (Portent, 2026-10-22): hody d20 z dlouhého odpočinku, nejvýš 3
+    when 'port' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'array' and jsonb_array_length(x) <= 3 and not exists (
+        select 1 from jsonb_array_elements(x) e where not public.mm_cislo(e, 1, 20)))
     -- portrét (zmenšený obrázek jako data URL), podoba (Wild Shape, Polymorph), vypočtené bonusy pro hody z Discordu
     when 'img' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'string' and char_length(x #>> '{}') <= 60000 and (x #>> '{}') ~ '^data:image/(jpeg|webp|png);base64,[A-Za-z0-9+/=]+$')
     when 'forma' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'object' and octet_length(x::text) <= 4000

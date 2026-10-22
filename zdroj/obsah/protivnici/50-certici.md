@@ -5,7 +5,7 @@ uroven: houf
 pocet: 4
 vyzva: 200 XP za pacholka
 ac: 13
-hp: 1
+hp: 5
 utok: Žihadla +5 · 3 Piercing a jed za každého čertíka v dosahu
 bonus: 5
 komplikace: Čertík se zneviditelní a šeptne útočníkovi do ucha jeho Neřest: další hod Závoje mu padá Pokušení na 1–3.
@@ -17,7 +17,7 @@ utoky:
 
 Drobní čerti, posílaní z pekla na pochůzky: svádět, krást duše, sloužit čarodějnicím. Proměňují se v krysu, krkavce nebo pavouka.
 
-**Čertík:** AC 13 · 1 HP · Rychlost 20 stop, let 40 stop · Resistance Cold, Imunita Fire, Poison · Darkvision 120 stop (i přes magickou tmu)
+**Čertík:** AC 13 · 5 HP · Rychlost 20 stop, let 40 stop · Resistance Cold, Imunita Fire, Poison · Darkvision 120 stop (i přes magickou tmu)
 
 **Útok houfu – žihadla:** +5 (+1 za každého dalšího, nejvýš +5), dosah 5 stop. **Zásah:** 3 zranění za každého čertíka v dosahu cíle (Piercing a Poison).
 

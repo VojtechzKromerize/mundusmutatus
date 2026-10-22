@@ -5,7 +5,7 @@ uroven: houf
 vyzva: 100 XP za pacholka
 pocet: 6
 ac: 12
-hp: 1
+hp: 5
 utok: Spáry a šepot, dosah 5 stop · 2 Prokleté (Necrotic) za každého běsa v dosahu cíle; zbroj nepomáhá
 bonus: 4
 komplikace: Běs se zasměje útočníkovým hlasem: útočník je Frightened do konce svého příštího tahu (postava V milosti je imunní).
@@ -17,7 +17,7 @@ utoky:
 
 Nižší bytosti z druhé strany Závoje. Objevují se jen v Hodinách Závoje, na prokletých místech, nebo když je přivolá zhoubce. Nejsou silné, ale vracejí se a znají tvou Neřest.
 
-**Běs:** AC 12 · 1 HP · Rychlost 30 stop, let 30 stop · Imunita vůči Prokletému (Necrotic)
+**Běs:** AC 12 · 5 HP · Rychlost 30 stop, let 30 stop · Imunita vůči Prokletému (Necrotic)
 
 **Útok houfu – spáry a šepot:** +4 (+1 za každého dalšího běsa, nejvýš +5), dosah 5 stop. **Zásah:** 2 Prokleté (Necrotic) zranění za každého běsa v dosahu cíle. **Zbroj proti tomu nepomáhá.**
 

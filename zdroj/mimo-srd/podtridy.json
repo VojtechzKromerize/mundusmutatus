@@ -76,19 +76,19 @@
  {
   "id": "path-of-the-zealot",
   "en": "Path of the Zealot",
-  "cz": "Stezka Horlivce",
+  "cz": "Cesta horlivce",
   "tr": "Barbarian",
-  "t": "Barbar s božskou podporou: Radiant/Necrotic zranění navíc, zásoba léčivých kostek a návrat spojenců.",
+  "t": "Barbar v extatickém spojení s Bohem: Radiant/Necrotic zranění navíc, zásoba léčivých d12 a návrat spojenců ze smrti.",
   "rysy": [
    {
     "en": "Divine Fury",
-    "cz": "Božská zuřivost",
+    "cz": "Božská zběsilost",
     "u": 3,
     "t": "V zuřivosti utrpí první tvor, kterého v každém svém tahu zasáhneš zbraní nebo úderem beze zbraně, zranění navíc 1d6 + polovina úrovně barbara (dolů). Typ Necrotic nebo Radiant volíš pokaždé."
    },
    {
     "en": "Warrior of the Gods",
-    "cz": "Válečník bohů",
+    "cz": "Bojovník bohů",
     "u": 3,
     "cas": "BA",
     "pocet": [
@@ -130,7 +130,7 @@
    },
    {
     "en": "Rage of the Gods",
-    "cz": "Zuřivost bohů",
+    "cz": "Zuřivost boží",
     "u": 14,
     "pocet": 1,
     "obn": "dlouhý odpočinek",
@@ -265,6 +265,89 @@
     "u": 14,
     "cas": "BA",
     "t": "Po seslání kouzla se sesíláním 1 Akce můžeš Bonusovou akcí jednou zaútočit zbraní."
+   }
+  ]
+ },
+ {
+  "id": "peace-domain",
+  "en": "Peace Domain",
+  "cz": "Doména míru",
+  "tr": "Cleric",
+  "t": "Klerik smíru: pouto mezi spojenci přidává k hodům, léčivý balzám a ochrana druhých vlastním tělem.",
+  "rysy": [
+   {
+    "en": "Peace Domain Spells",
+    "cz": "Kouzla Domény míru",
+    "u": 3,
+    "t": "Tato kouzla máš vždy připravená.",
+    "kouzla": [
+     [
+      3,
+      [
+       "Heroism",
+       "Sanctuary",
+       "Aid",
+       "Warding Bond"
+      ]
+     ],
+     [
+      5,
+      [
+       "Beacon of Hope",
+       "Sending"
+      ]
+     ],
+     [
+      7,
+      [
+       "Aura of Purity",
+       "Otiluke's Resilient Sphere"
+      ]
+     ],
+     [
+      9,
+      [
+       "Greater Restoration",
+       "Rary's Telepathic Bond"
+      ]
+     ]
+    ]
+   },
+   {
+    "en": "Implement of Peace",
+    "cz": "Nástroj míru",
+    "u": 3,
+    "t": "Získáš zdatnost v jedné dovednosti dle volby: Insight, Performance nebo Persuasion."
+   },
+   {
+    "en": "Emboldening Bond",
+    "cz": "Povzbuzující pouto",
+    "u": 3,
+    "cas": "A",
+    "pocet": "PB",
+    "obn": "dlouhý odpočinek",
+    "t": "Akcí spojíš na 10 minut poutem až tolik ochotných tvorů do 30 stop (i sebe), kolik je tvůj bonus zdatnosti. Spojený tvor do 30 stop od jiného spojeného si jednou za tah přičte 1d4 k hodu na útok, ověření nebo záchraně (na kartě přepínač Emboldening Bond). Použití = bonus zdatnosti."
+   },
+   {
+    "en": "Balm of Peace",
+    "cz": "Balzám míru",
+    "u": 3,
+    "cas": "A",
+    "zdroj": "Channel Divinity",
+    "t": "Akcí a za Channel Divinity se pohneš až o svou rychlost bez příležitostných útoků; každému tvoru, ke kterému se při tom dostaneš do 5 stop, vyléčíš 2d6 + WIS HP (min. 1), každému jen jednou."
+   },
+   {
+    "en": "Protective Bond",
+    "cz": "Ochranné pouto",
+    "u": 6,
+    "cas": "R",
+    "t": "Když má tvor spojený tvým Povzbuzujícím poutem utrpět zranění, jiný spojený tvor do 30 stop se může Reakcí teleportovat na volné místo do 5 stop od něj a zranění utrpí místo něj."
+   },
+   {
+    "en": "Expansive Bond",
+    "cz": "Rozšířené pouto",
+    "u": 17,
+    "t": "Povzbuzující a Ochranné pouto fungují do 60 stop. Tvor, který Ochranným poutem převezme zranění, má vůči němu Resistance."
    }
   ]
  },
@@ -736,25 +819,18 @@
       "d12"
      ]
     ],
-    "t": "Získáš Superiority Dice (4 kostky d8; 5 od 7. úrovně, 6 od 15.), obnova krátkým nebo dlouhým odpočinkem. Naučíš se 3 manévry, další 2 na 7., 10. a 15. úrovni (přitom můžeš 1 vyměnit). Na jeden útok max. 1 manévr. SO manévrů = 8 + bonus zdatnosti + modifikátor STR nebo AGI."
-   },
-   {
-    "en": "Ambush",
-    "cz": "Léčka",
-    "u": 3,
-    "zdroj": "Superiority Dice",
-    "t": "Manévr. K ověření AGI (Stealth) nebo k hodu na iniciativu přičteš jednu Superiority Die."
+    "t": "Získáš Superiority Dice (4 kostky d8; 5 od 7. úrovně, 6 od 15.), obnova krátkým nebo dlouhým odpočinkem. Naučíš se 3 manévry, další 2 na 7., 10. a 15. úrovni (přitom můžeš 1 vyměnit). Na jeden útok max. 1 manévr. SO manévrů = 8 + bonus zdatnosti + STR nebo AGI (dle volby)."
    },
    {
     "en": "Bait and Switch",
-    "cz": "Výměna místa",
+    "cz": "Návnada a výměna",
     "u": 3,
     "zdroj": "Superiority Dice",
     "t": "Manévr. Ve svém tahu si vyměníš místo s ochotným tvorem do 5 stop (nesmí mít stav Incapacitated). Hodíš kostkou; ty nebo on získá AC + hozené číslo do začátku tvého dalšího tahu."
    },
    {
     "en": "Commander's Strike",
-    "cz": "Velitelský úder",
+    "cz": "Velitelův úder",
     "u": 3,
     "zdroj": "Superiority Dice",
     "t": "Manévr. Při Akci Útok vzdáš jeden útok a ochotný spojenec, který tě vidí nebo slyší, hned provede Reakcí jeden útok; ke zranění přičte Superiority Die."
@@ -768,7 +844,7 @@
    },
    {
     "en": "Disarming Attack",
-    "cz": "Odzbrojení",
+    "cz": "Odzbrojující útok",
     "u": 3,
     "zdroj": "Superiority Dice",
     "t": "Manévr. Při zásahu přičteš Superiority Die ke zranění; cíl si hází STR záchranný hod, při neúspěchu upustí jeden předmět dle tvé volby, který drží."
@@ -785,11 +861,12 @@
     "cz": "Úhybné kroky",
     "u": 3,
     "zdroj": "Superiority Dice",
-    "t": "Manévr. Při pohybu hodíš Superiority Die a přičteš ji k AC, dokud se nezastavíš. Navíc můžeš provést Disengage jako Bonusovou akci."
+    "t": "Manévr. Bonusovou akcí utratíš Superiority Die a provedeš Disengage; hodíš kostkou a výsledek přičteš k AC do začátku svého dalšího tahu.",
+    "cas": "BA"
    },
    {
     "en": "Feinting Attack",
-    "cz": "Finta",
+    "cz": "Útok s fintou",
     "u": 3,
     "cas": "BA",
     "zdroj": "Superiority Dice",
@@ -797,17 +874,18 @@
    },
    {
     "en": "Goading Attack",
-    "cz": "Provokace",
+    "cz": "Provokující útok",
     "u": 3,
     "zdroj": "Superiority Dice",
     "t": "Manévr. Při zásahu přičteš Superiority Die ke zranění; cíl si hází WIS záchranný hod, při neúspěchu má do začátku tvého dalšího tahu nevýhodu na útoky proti jiným cílům než tobě."
    },
    {
     "en": "Lunging Attack",
-    "cz": "Výpad",
+    "cz": "Útok s výpadem",
     "u": 3,
     "zdroj": "Superiority Dice",
-    "t": "Manévr. Útok na blízko ve tvém tahu má dosah +5 stop; při zásahu přičteš Superiority Die ke zranění."
+    "t": "Manévr. Bonusovou akcí utratíš Superiority Die a provedeš Dash. Pokud se v tomto tahu před zásahem útokem na blízko (Akce Útok) pohneš aspoň 5 stop přímo k cíli, přičteš kostku ke zranění.",
+    "cas": "BA"
    },
    {
     "en": "Maneuvering Attack",
@@ -818,7 +896,7 @@
    },
    {
     "en": "Menacing Attack",
-    "cz": "Zastrašující útok",
+    "cz": "Hrozivý útok",
     "u": 3,
     "zdroj": "Superiority Dice",
     "t": "Manévr. Při zásahu přičteš Superiority Die ke zranění; cíl si hází WIS záchranný hod, při neúspěchu má stav Frightened do začátku tvého dalšího tahu."
@@ -840,7 +918,7 @@
    },
    {
     "en": "Pushing Attack",
-    "cz": "Odhoz",
+    "cz": "Zatlačující útok",
     "u": 3,
     "zdroj": "Superiority Dice",
     "t": "Manévr. Při zásahu přičteš Superiority Die ke zranění; cíl velikosti Large či menší si hází STR záchranný hod, při neúspěchu ho odstrčíš až o 15 stop přímo od sebe."
@@ -855,7 +933,7 @@
    },
    {
     "en": "Riposte",
-    "cz": "Odveta",
+    "cz": "Protiútok",
     "u": 3,
     "cas": "R",
     "zdroj": "Superiority Dice",
@@ -863,34 +941,34 @@
    },
    {
     "en": "Sweeping Attack",
-    "cz": "Máchnutí",
+    "cz": "Rozmáchlý útok",
     "u": 3,
     "zdroj": "Superiority Dice",
     "t": "Manévr. Při zásahu útokem na blízko zvol jiného tvora do 5 stop od cíle a ve svém dosahu; pokud by ho tvůj hod na útok zasáhl, utrpí zranění = hod Superiority Die."
    },
    {
     "en": "Tactical Assessment",
-    "cz": "Taktický odhad",
+    "cz": "Taktické posouzení",
     "u": 3,
     "zdroj": "Superiority Dice",
     "t": "Manévr. K ověření INT (History nebo Investigation) nebo WIS (Insight) přičteš Superiority Die."
    },
    {
     "en": "Trip Attack",
-    "cz": "Podražení",
+    "cz": "Útok s podražením",
     "u": 3,
     "zdroj": "Superiority Dice",
     "t": "Manévr. Při zásahu přičteš Superiority Die ke zranění; cíl velikosti Large či menší si hází STR záchranný hod, při neúspěchu získá stav Prone."
    },
    {
     "en": "Student of War",
-    "cz": "Žák války",
+    "cz": "Student válečného umění",
     "u": 3,
     "t": "Získáš zdatnost s jednou řemeslnickou sadou nástrojů dle volby a v jedné dovednosti ze seznamu bojovníka na 1. úrovni."
    },
    {
     "en": "Know Your Enemy",
-    "cz": "Poznej nepřítele",
+    "cz": "Poznej svého nepřítele",
     "u": 7,
     "cas": "BA",
     "pocet": 1,
@@ -899,7 +977,7 @@
    },
    {
     "en": "Improved Combat Superiority",
-    "cz": "Vyšší bojová převaha",
+    "cz": "Zdokonalená bojová převaha",
     "u": 10,
     "t": "Tvé Superiority Dice jsou d10."
    },
@@ -911,7 +989,7 @@
    },
    {
     "en": "Ultimate Combat Superiority",
-    "cz": "Dokonalá bojová převaha",
+    "cz": "Vrcholná bojová převaha",
     "u": 18,
     "t": "Tvé Superiority Dice jsou d12."
    }
@@ -1545,13 +1623,13 @@
  {
   "id": "fey-wanderer",
   "en": "Fey Wanderer",
-  "cz": "Vílí poutník",
+  "cz": "Reliktní poutník",
   "tr": "Ranger",
-  "t": "Hraničář poznamenaný vílím světem: okouzluje, děsí a mizí v mlze.",
+  "t": "Hraničář poznamenaný Relikty zpoza Závoje: okouzluje, děsí a mizí v mlze.",
   "rysy": [
    {
     "en": "Fey Wanderer Spells",
-    "cz": "Kouzla Vílího poutníka",
+    "cz": "Kouzla reliktního poutníka",
     "u": 3,
     "t": "Tato kouzla máš vždy připravená.",
     "kouzla": [
@@ -1591,17 +1669,23 @@
     "en": "Dreadful Strikes",
     "cz": "Děsivé údery",
     "u": 3,
-    "t": "Jednou za tah při zásahu zbraní můžeš cíli přidat 1d4 Psychic zranění; od 11. úrovně Hraničáře 1d6."
+    "t": "Jednou za tah při zásahu zbraní můžeš cíli přidat 1d4 Psychic zranění; od 11. úrovně hraničáře 1d6. V boji z telefonu se nabídne po zásahu."
    },
    {
     "en": "Otherworldly Glamour",
-    "cz": "Vílí půvab",
+    "cz": "Nadpozemský půvab",
     "u": 3,
-    "t": "K ověřením CHA přičítáš WIS (min. +1). Získáš zdatnost v jedné dovednosti dle volby: Deception, Performance nebo Persuasion."
+    "t": "K ověřením CHA přičítáš WIS (min. +1) – karta to počítá sama. Získáš zdatnost v jedné dovednosti dle volby: Deception, Performance nebo Persuasion.",
+    "ef": {
+     "ov": [
+      "CHA",
+      "WIS"
+     ]
+    }
    },
    {
     "en": "Beguiling Twist",
-    "cz": "Svůdný zvrat",
+    "cz": "Mámivý zvrat",
     "u": 7,
     "t": "Máš výhodu na záchrany proti stavům Charmed a Frightened i na jejich ukončení. Uspěje-li viděný tvor do 120 stop v záchraně proti nim, můžeš Reakcí přimět jiného viděného tvora do 120 stop k WIS záchrannému hodu (SO tvých kouzel); při neúspěchu má na 1 minutu stav Charmed nebo Frightened, záchranu opakuje na konci tahů.",
     "cas": "R"
@@ -1630,6 +1714,9 @@
     "pocet": "WIS",
     "obn": "dlouhý odpočinek"
    }
+  ],
+  "al": [
+   "Reliktní poutník"
   ]
  },
  {
@@ -2489,7 +2576,7 @@
  {
   "id": "diviner",
   "en": "School of Divination",
-  "cz": "Škola věštění",
+  "cz": "Věštec",
   "tr": "Wizard",
   "t": "Kouzelník věštec: předem zná hody, šetří sloty a zbystřuje smysly.",
   "rysy": [
@@ -2514,13 +2601,13 @@
      ]
     ],
     "obn": "dlouhý odpočinek",
-    "t": "Po dlouhém odpočinku hodíš 2d20 a výsledky si zapíšeš. Před hodem můžeš kterýkoli test d20 svůj nebo tvora, kterého vidíš, nahradit jedním z nich; nejvýš jednou za tah. Každý výsledek jen jednou, nevyužité propadnou dalším dlouhým odpočinkem."
+    "t": "Po dlouhém odpočinku hodíš 2d20 a výsledky si zapíšeš (karta je hodí sama). Před hodem můžeš kterýkoli test d20 svůj nebo tvora, kterého vidíš, nahradit jedním z nich; nejvýš jednou za tah. Každý výsledek jen jednou, nevyužité propadnou dalším dlouhým odpočinkem."
    },
    {
     "en": "Expert Divination",
-    "cz": "Zkušené věštění",
+    "cz": "Mistrné věštění",
     "u": 6,
-    "t": "Když sešleš kouzlo Věštění slotem 2. či vyšší úrovně, obnovíš si jeden utracený slot nižší úrovně (nejvýš 5.)."
+    "t": "Když sešleš kouzlo Věštění slotem 2. či vyšší úrovně, obnovíš si jeden utracený slot nižší úrovně (nejvýš 5.) – karta to udělá sama."
    },
    {
     "en": "The Third Eye",
@@ -2533,10 +2620,13 @@
    },
    {
     "en": "Greater Portent",
-    "cz": "Větší předzvěst",
+    "cz": "Mocnější předzvěst",
     "u": 14,
     "t": "Pro Předzvěst házíš 3d20 místo 2d20."
    }
+  ],
+  "al": [
+   "Diviner"
   ]
  },
  {
