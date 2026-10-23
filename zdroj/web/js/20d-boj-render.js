@@ -82,10 +82,12 @@ function bojAktivni() {
         })()}</div>`
       : "";
   const konec = tah >= sl.length;
-  /* pruh ukazuje jen obsazené sloty a pro každou stranu nejbližší volný od aktuálního tahu; ostatní volné jsou shrnuté na konci */
+  /* pruh od aktuálního tahu ukazuje všechny sloty až po poslední obsazený (volné mezi nimi zůstanou vidět, aby bylo poznat
+     střídání družiny a nepřátel – 2026-10-23) a pro každou stranu nejbližší volný; volné za nimi jsou shrnuté na konci */
   const volH = sl.findIndex((x, i) => i >= tah && !ob[i] && x.t === "h"),
-    volN = sl.findIndex((x, i) => i >= tah && !ob[i] && x.t === "n");
-  const vid = sl.map((x, i) => !!ob[i] || i === volH || i === volN);
+    volN = sl.findIndex((x, i) => i >= tah && !ob[i] && x.t === "n"),
+    posl = Math.max(volH, volN, ...sl.map((x, i) => (ob[i] ? i : -1)));
+  const vid = sl.map((x, i) => !!ob[i] || (i >= tah && i <= posl));
   const skr = sl.filter((x, i) => !vid[i] && i >= tah),
     skH = skr.filter(x => x.t === "h").length,
     skN = skr.length - skH;
