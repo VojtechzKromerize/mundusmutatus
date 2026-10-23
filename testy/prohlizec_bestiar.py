@@ -199,7 +199,7 @@ async def main():
     txt=await g.evaluate("bojShrn(BOJ.s).txt");print(txt[:200])
     chk(txt.startswith("boj (kolo 1)") and "zajat" in txt,"podklad pro Kroniku")
     await g.click('[data-bkon="ok"]');await g.wait_for_timeout(400)
-    await g.wait_for_timeout(500);chk(await g.locator(".bprip").count()==1 and await g.evaluate("BOJ.s.hraci.map(h=>h.n).join()")=="Adam,Bára,Cyril,Dora","po ukončení zpět příprava se stejnou družinou")
+    await g.wait_for_timeout(500);chk(await g.locator(".bscena").count()==1 and await g.evaluate("BOJ.s.hraci.map(h=>h.n).join()")=="Adam,Bára,Cyril,Dora","po ukončení zpět ve scéně se stejnou družinou (2026-10-23)")
     # kouzla z katalogu: jména z D&D Beyond (i s vlastním jménem a „(Ritual)“), rituál, automatika, kouzla mimo SRD
     kz=await g.evaluate("""(async()=>{await kSpNacti();const K=Object.values(KARTBY)[0],u=kSpUcinek(K,{n:'Fireball',st:3},4);
       return [kSp("Tasha’s Hideous Laughter")?.en,kSp('Detect Magic (Ritual)')?.ri,kSp("Bigby's Hand")?.en,u&&u.x,u&&u.t,u&&u.zach,u&&u.pol,kSp('Silvery Barbs')?.x,kSp('Silvery Barbs')?.cz,kSp('Feeblemind')?.en,
@@ -210,7 +210,7 @@ async def main():
     sw=await g.evaluate("document.documentElement.scrollWidth");chk(sw<=392,"mobil bez vodorovného posunu: "+str(sw))
     # kouzla (2026-10-20): kouzlo NPC jedním klikem, záchrany NPC podle pravidel, oblasti, posílení na kartě, trvání v kolech, opakování bez slotu
     k=await b.new_page(viewport={"width":1300,"height":900});k.on("pageerror",lambda e:err.append("kouzla: "+str(e)[:300]))
-    await k.goto(GM+"#boj");await k.wait_for_timeout(2500)
+    await k.goto(GM+"#boj");await k.wait_for_timeout(2500);await do_pripravy(k)
     await k.evaluate("bojZmen(z=>{z.hraci=[{id:'h1',n:KARTBY.balduin.n,hod:12}];z.npc=[];z.nid=0;bojPridejNpc(z,[{n:'Mág',druh:'sok',b:'srd-mage',pr:[]},{n:'Kněz',druh:'sok',b:'srd-priest',pr:[]}]);z.dm=10})");await k.wait_for_timeout(500)
     await k.click('[data-bstart]');await k.wait_for_timeout(800);await k.evaluate("kzNacti()");await k.wait_for_timeout(1500)
     await k.evaluate("bojVyber('n1');BTAB='k';renderBoj()");await k.wait_for_timeout(500)
