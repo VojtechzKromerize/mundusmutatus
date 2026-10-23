@@ -3,6 +3,13 @@
 import asyncio, json, urllib.request
 from playwright.async_api import async_playwright
 import os, sys
+
+async def do_pripravy(g):
+    """Od 2026-10-23 je Hra vypravěče mimo boj scéna: tlačítko Boj z ní udělá přípravu boje (jako _boj_pomoc.do_pripravy)."""
+    await g.wait_for_selector(".bprip, .bscena")
+    if not await g.locator(".bprip").count():
+        await g.click("[data-bscboj]")
+    await g.wait_for_selector(".bprip")
 U=os.environ.get("MM_SB","http://localhost:54321");K="sb_publishable_test";BASE=os.environ.get("MM_WEB","http://localhost:8765/")
 VYSTUP=os.environ.get("MM_VYSTUP","/tmp")
 t=json.loads(urllib.request.urlopen(urllib.request.Request(U+"/auth/v1/token?grant_type=password",data=json.dumps({"email":"gm@x.cz","password":"heslo"}).encode(),headers={"apikey":K,"Content-Type":"application/json"},method="POST")).read())
@@ -13,7 +20,7 @@ def chk(c,m):
 
 async def priprava(g,jmena,hody,dm,npc=(),spoj=()):
     """Příprava boje na stránce Boj: postavy s hody, nepřátelé a spojenci přes formuláře, hod nepřátel, Začít boj."""
-    await g.wait_for_selector(".bprip")
+    await do_pripravy(g)
     await g.evaluate("bojZmen(z=>{z.hraci="+json.dumps([{"id":"h"+str(i+1),"n":"","hod":None} for i in range(len(jmena))])+";z.npc=[];z.nid=0;z.dm=null;delete z.ticha})")
     await g.wait_for_timeout(400)
     for i,(n,h) in enumerate(zip(jmena,hody)):

@@ -46,7 +46,7 @@ const bojKonDC = d => Math.min(30, Math.max(10, Math.floor((+d || 0) / 2)));
 const BZAZQ = [];
 function bojZaz(e) {
   if (!GMV || !bojDB || !(BOJ.s && BOJ.s.aktivni)) return;
-  e.k = BOJ.s.kolo || 1;
+  e.k = bojBezi(BOJ.s) ? BOJ.s.kolo || 1 : null;
   e.ts = Date.now();
   BZAZQ.push(e);
   clearTimeout(bojZaz.t);
@@ -470,7 +470,7 @@ function bojUtokyNove() {
 /* ===== Pruh „co teď“ (2026-10-19, jen vypravěč): kdo je na tahu a co mu zbývá, co čeká na vypravěče, kdo se soustředí,
    kdo krvácí, koho čeká záchrana na konci tahu, kdo je na prahu smrti. Klepnutí na účastníka otevře jeho kartu. ===== */
 function bojTedHtml(s) {
-  if (!GMV || !s || !s.aktivni) return "";
+  if (!GMV || !bojBezi(s)) return "";
   const tah = s.tah || 0,
     kolo = s.kolo || 1,
     sl = bojSloty(s),
@@ -1121,7 +1121,7 @@ function bojKlZraneni(v) {
   mmHlasG(`${n.n}: −${v} HP (${old - v}/${E.hp[0].max}).`, 2200);
 }
 document.addEventListener("keydown", e => {
-  if (curView !== "boj" || PULTTAB !== "boj" || !GMV || !bojDB || !(BOJ.s && BOJ.s.aktivni)) return;
+  if (curView !== "boj" || PULTTAB !== "boj" || !GMV || !bojDB || !bojBezi(BOJ.s)) return;
   const t = e.target;
   if (t && (t.isContentEditable || /^(INPUT|SELECT|TEXTAREA)$/.test(t.tagName))) return;
   if ((e.ctrlKey || e.metaKey) && !e.shiftKey && e.key.toLowerCase() === "z") {
@@ -1244,18 +1244,7 @@ document.addEventListener("change", async e => {
     if (!bojDsAkt(h0)) return;
     const r = bojDs(h0.ds, "hod", d);
     /* přirozená 20: probere se s 1 HP (jako hod tlačítkem) */
-    if (!r.ds) {
-      const K = bojKartaH(h0);
-      if (K && kMuze(K)) kartaStavZmen(K.id, {hp: Math.max(1, +kartaStav(K.id).hp || 0)}, null);
-    }
-    bojHracAkce(
-      id,
-      h => {
-        if (r.ds) h.ds = r.ds;
-        else delete h.ds;
-      },
-      `${h0.n}: hod proti smrti ${r.m}.`,
-    );
+    bojDsZapis(id, h0, r, true, `${h0.n}: hod proti smrti ${r.m}.`);
     return;
   }
   const sl = e.target.closest("[data-bslot]");
@@ -1306,12 +1295,6 @@ document.addEventListener("change", async e => {
     BKS.komu = e.target.value;
     BKS.vys = "";
     if (BKS.komu) BKS.rany = (bojKritPC()[BKS.komu] || []).length;
-    renderBoj();
-    return;
-  }
-  if (e.target.matches("[data-bauto]")) {
-    bojAuto.set(e.target.checked);
-    if (e.target.checked) bojUtokyNove();
     renderBoj();
     return;
   }
@@ -1432,21 +1415,6 @@ document.addEventListener("change", async e => {
     else delete o[e.target.dataset.bzaj];
     bojZaj.set(o);
     renderBoj();
-    return;
-  }
-  if (e.target.matches("[data-bja]")) {
-    bojJa.set(e.target.value);
-    bojHlasen = "";
-    renderBoj();
-    return;
-  }
-  if (e.target.matches("#bojview [data-bcil]")) {
-    const c = e.target.closest("[data-bnpc]");
-    if (c) {
-      if (e.target.value) BCIL[c.dataset.bnpc] = e.target.value;
-      else delete BCIL[c.dataset.bnpc];
-      renderBoj();
-    }
     return;
   }
   if (e.target.matches("#bojview [data-bjr]")) {
@@ -1596,6 +1564,16 @@ async function bojUlozSetkani() {
     6000,
   );
 }
+/* otevře rámeček Kritická zranění v pravidlech boje a posune na něj; s fokus i kurzor do první volby */
+function bojKritUkaz(v, fokus) {
+  BPRAV = true;
+  renderBoj();
+  const k = v.querySelector(".bkrit");
+  if (!k) return;
+  k.scrollIntoView({block: "center", behavior: "smooth"});
+  const i = fokus && k.querySelector("[data-bkr]");
+  if (i) i.focus();
+}
 document.addEventListener("click", async e => {
   const v = document.getElementById("bojview");
   if (!v || !v.contains(e.target)) return;
@@ -1610,22 +1588,6 @@ document.addEventListener("click", async e => {
         if (i.name !== "np") i.value = "";
       });
     bojObtForm();
-    return;
-  }
-  const add = T("[data-badd]");
-  if (add) {
-    const k = add.dataset.badd;
-    if (k === "h") {
-      const box = document.getElementById("bfh"),
-        r = box.lastElementChild.cloneNode(true);
-      r.querySelector("input").value = "";
-      box.appendChild(r);
-      r.querySelector("input").focus();
-    } else {
-      const box = document.getElementById(k === "s" ? "bfs" : "bfn");
-      box.insertAdjacentHTML("beforeend", bojNrow(k === "s" ? "Spojenec, např. Královský hejtman" : ""));
-      box.lastElementChild.querySelector("input").focus();
-    }
     return;
   }
   const a = T("[data-bact]");
@@ -1665,11 +1627,10 @@ document.addEventListener("click", async e => {
         renderBoj();
         const k = v.querySelector(".bkonsh");
         if (k) k.scrollIntoView({block: "start", behavior: "smooth"});
-      } else if (confirm("Ukončit boj? Sloty a přiřazení se smažou, jména hráčů zůstanou pro příští boj."))
+      } else if (confirm("Ukončit boj? Hra se vrátí do scény: sloty se smažou, postavy, NPC, kteří zůstali, a záznam zůstanou."))
         bojZmen(s => {
-          s.aktivni = false;
-          s.obsazeni = {};
           bojPcKonecBoje(s);
+          bojNaScenu(s);
         });
     }
     return;
@@ -1750,6 +1711,31 @@ document.addEventListener("click", async e => {
     });
     return;
   }
+  /* scéna (2026-10-23): Boj = příprava boje, kterou hráči vidí hned (hodí iniciativu); Nová scéna vyprázdní záznam a NPC */
+  if (T("[data-bscboj]")) {
+    bojZmen(z => {
+      const zach = {npc: z.npc || [], nid: z.nid || 0, zaz: z.zaz, zac: z.zac},
+        hr = (z.hraci || []).map(h => Object.assign({}, h, {hod: null}));
+      bojNovaPriprava(z);
+      delete z.ticha;
+      Object.assign(z, {npc: zach.npc, nid: zach.nid, zacSc: zach.zac});
+      if (zach.zaz) z.zaz = zach.zaz;
+      if (hr.length) z.hraci = hr;
+    });
+    mmHlasG("Příprava boje: hráči teď mohou hodit iniciativu.", 3500);
+    return;
+  }
+  if (T("[data-bscutok]")) {
+    bojZmen(z => {
+      z.utOk = Date.now();
+    });
+    return;
+  }
+  if (T("[data-bscnova]")) {
+    if (!confirm("Začít novou scénu? Záznam scény a NPC v ní se smažou, družina zůstane.")) return;
+    bojZmen(z => bojNovaScena(z));
+    return;
+  }
   if (T("[data-bukaz]")) {
     bojZmen(z => {
       delete z.ticha;
@@ -1773,7 +1759,8 @@ document.addEventListener("click", async e => {
       mmHlasG("Chybí hod nepřátel – zapiš ho, nebo klikni na Hodit za nepřátele.", 3500);
       return;
     }
-    bojKonecLS();
+    /* boj ze scény navazuje: záznam vypravěče a životy NPC ze scény zůstávají */
+    if (!s.zacSc) bojKonecLS();
     BKON = false;
     bojZmen(z => {
       z.hraci = (z.hraci || []).filter(h => String(h.n || "").trim());
@@ -1782,7 +1769,8 @@ document.addEventListener("click", async e => {
       delete z.priprava;
       delete z.ticha;
       delete z.lead;
-      Object.assign(z, {kolo: 1, tah: 0, obsazeni: {}, zac: Date.now()});
+      Object.assign(z, {kolo: 1, tah: 0, obsazeni: {}, zac: z.zacSc || Date.now()});
+      delete z.zacSc;
       z.pocty = bojPocty(z);
     });
     return;
@@ -1853,9 +1841,8 @@ document.addEventListener("click", async e => {
     BODP = false;
     BKON = false;
     await bojZmen(s => {
-      s.aktivni = false;
-      s.obsazeni = {};
       bojPcKonecBoje(s);
+      bojNaScenu(s);
     });
     bojKonecLS();
     if (k === "kron") {
@@ -1995,14 +1982,7 @@ document.addEventListener("click", async e => {
       }
     }
     BKS.kdo = card ? "zásah od: " + (card.querySelector(".bnn b") || {}).textContent : "";
-    BPRAV = true;
-    renderBoj();
-    const k = v.querySelector(".bkrit");
-    if (k) {
-      k.scrollIntoView({block: "center", behavior: "smooth"});
-      const i = k.querySelector("[data-bkr]");
-      if (i) i.focus();
-    }
+    bojKritUkaz(v, true);
     return;
   }
   if (T("[data-bprav]")) {
@@ -2163,6 +2143,26 @@ document.addEventListener("click", async e => {
       h0 = (S.hraci || []).find(x => x.id === id),
       K = bojKartaH(h0);
     if (!K) return;
+    /* hráč (2026-10-23): záchrana z karty se zapíše do hodů jako každý jiný hod (vypravěč ji vidí v záznamu, i ve scéně);
+       soustředění se vyhodnotí z výsledku */
+    if (!GMV) {
+      const ab = kzh.dataset.bkzh,
+        adv = !!kzh.dataset.adv;
+      kartaHod(K, `Záchrana ${ab}`, kZach(K, ab), adv ? {adv: 1, why: "soustředění s výhodou"} : {}).then(r => {
+        if (!adv || !BJK.d || !r) return;
+        const dc = bojKonDC(BJK.d),
+          ok = r.tot >= dc;
+        BJK.d = "";
+        mmHlas(`${h0.n}: záchrana ${ab} ${r.tot} → SO ${dc}: ${ok ? "soustředění udrženo" : "soustředění ztraceno"}`, 7000);
+        if (!ok)
+          bojHracAkce(id, h => {
+            h.stav = (h.stav || []).filter(x => x !== "soustředí");
+            if (!h.stav.length) delete h.stav;
+          });
+        else renderBoj();
+      });
+      return;
+    }
     const ab = kzh.dataset.bkzh,
       adv = !!kzh.dataset.adv,
       b = kZach(K, ab) - 2 * kVycerp(K),
@@ -2170,24 +2170,10 @@ document.addEventListener("click", async e => {
       d2 = adv ? bK(20) : null,
       d = adv ? Math.max(d1, d2) : d1,
       t = d + b;
-    let txt = `${h0.n}: záchrana ${ab} ${t} (d20 ${d1}${d2 != null ? ` / ${d2}, výhoda` : ""} ${bsg(b)})`;
-    if (adv && !GMV && BJK.d) {
-      const dc = bojKonDC(BJK.d),
-        ok = t >= dc;
-      txt += ` → SO ${dc}: ${ok ? "soustředění udrženo" : "soustředění ztraceno"}`;
-      BJK.d = "";
-      if (!ok)
-        bojHracAkce(id, h => {
-          h.stav = (h.stav || []).filter(x => x !== "soustředí");
-          if (!h.stav.length) delete h.stav;
-        });
-      else renderBoj();
-    }
-    if (GMV) {
-      bojLog(id, {n: `Záchrana ${ab}`, ai: id, zt: txt.replace(/^[^:]*:\s*/, "")}, h0.n);
-      renderBoj();
-    }
-    (GMV ? mmHlasG : mmHlas)(txt, 7000);
+    const txt = `${h0.n}: záchrana ${ab} ${t} (d20 ${d1}${d2 != null ? ` / ${d2}, výhoda` : ""} ${bsg(b)})`;
+    bojLog(id, {n: `Záchrana ${ab}`, ai: id, zt: txt.replace(/^[^:]*:\s*/, "")}, h0.n);
+    renderBoj();
+    mmHlasG(txt, 7000);
     return;
   }
   const kzd = T("[data-bkzd]");
@@ -2197,13 +2183,7 @@ document.addEventListener("click", async e => {
       S = BOJ.s || {},
       K = bojKartaH((S.hraci || []).find(x => x.id === id));
     if (!K) return;
-    const k = kzd.dataset.bkzd,
-      j = +kzd.dataset.j,
-      U = Object.assign({}, kartaStav(K.id).zdr || {}),
-      u = U[k] || 0;
-    U[k] = u > j ? j : j + 1;
-    if (!U[k]) delete U[k];
-    kartaStavZmen(K.id, {zdr: Object.keys(U).length ? U : null});
+    kartaStavZmen(K.id, {zdr: kPipyMapa(kartaStav(K.id).zdr, kzd.dataset.bkzd, +kzd.dataset.j)});
     return;
   }
   const pcz = T("[data-bpcz]");
@@ -2500,10 +2480,7 @@ document.addEventListener("click", async e => {
     const k = zbu.dataset.bzbu,
       j = +zbu.dataset.bzbj;
     upd(o => {
-      o.zbrU = o.zbrU || {};
-      const u = o.zbrU[k] || 0;
-      o.zbrU[k] = u > j ? j : j + 1;
-      if (!o.zbrU[k]) delete o.zbrU[k];
+      o.zbrU = kPipyMapa(o.zbrU, k, j) || {};
     });
     return;
   }
@@ -2541,14 +2518,7 @@ document.addEventListener("click", async e => {
     BKS.pod = pd.pod;
     BKS.vys = "";
     BKS.kdo = o0 ? o0.n + " padl" : "";
-    BPRAV = true;
-    renderBoj();
-    const k = v.querySelector(".bkrit");
-    if (k) {
-      k.scrollIntoView({block: "center", behavior: "smooth"});
-      const i = k.querySelector("[data-bkr]");
-      if (i) i.focus();
-    }
+    bojKritUkaz(v, true);
     return;
   }
   {
@@ -2672,10 +2642,7 @@ document.addEventListener("click", async e => {
     return;
   }
   if (T("[data-bkritpc]")) {
-    BPRAV = true;
-    renderBoj();
-    const k = v.querySelector(".bkrit");
-    if (k) k.scrollIntoView({block: "center", behavior: "smooth"});
+    bojKritUkaz(v, false);
     return;
   }
   if (T("[data-bzrpo]") && o0) {
@@ -2853,7 +2820,8 @@ async function bojObnovSnap(P) {
       C = kartaStav(kid) || {},
       ch = {};
     new Set([...Object.keys(A), ...Object.keys(C)]).forEach(k => {
-      if (k === "mods") return;
+      /* portrét snímek nenese (bojSnapKarta) – Zpět ho nemění */
+      if (k === "mods" || k === "img") return;
       if (JSON.stringify(A[k] ?? null) !== JSON.stringify(C[k] ?? null)) ch[k] = A[k] ?? null;
     });
     if (Object.keys(ch).length) await kartaStavZmen(kid, ch, null, {bezZpet: true});

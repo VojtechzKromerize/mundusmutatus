@@ -45,13 +45,14 @@ for kdo, tok in (("anonym", None), ("hráč", hr)):
         chk(not ok(call(f"/rest/v1/{t}", "POST", body, tok=tok)[0]), f"{kdo} nesmí zapisovat do {t}")
 chk(json.loads(call("/rest/v1/obsah?select=vetev", tok=gm)[1]) != [], "vypravěč čte obsah")
 # skrytí nepřátelé: vypravěč čte boj celý, hráč bez účastníků skryt=true a bez jejich řádků záznamu
-chk(ok(call("/rest/v1/rpc/mm_boj_uloz", "POST", {"p_stav": {"aktivni": True, "npc": [{"id": "n1", "n": "Zjevný"}, {"id": "n2", "n": "Zálohář", "skryt": True}], "zaz": [{"a": "Zálohář", "c": "Adam", "v": "x"}, {"a": "Adam", "c": "Zjevný", "v": "y"}], "obsazeni": {"1": "n2", "2": "n1"}}}, tok=gm)[0]), "vypravěč uloží boj se skrytým nepřítelem")
+chk(ok(call("/rest/v1/rpc/mm_boj_uloz", "POST", {"p_stav": {"aktivni": True, "npc": [{"id": "n1", "n": "Zjevný", "gm": {"vira": "TAJNÁ_VÍRA_NPC", "dc": 17}}, {"id": "n2", "n": "Zálohář", "skryt": True}], "zaz": [{"a": "Zálohář", "c": "Adam", "v": "x"}, {"a": "Adam", "c": "Zjevný", "v": "y"}], "obsazeni": {"1": "n2", "2": "n1"}}}, tok=gm)[0]), "vypravěč uloží boj se skrytým nepřítelem")
 chk(ok(call("/rest/v1/boj?select=verze", tok=gm)[0]) and json.loads(call("/rest/v1/boj?select=verze", tok=gm)[1]) != [], "vypravěč čte tabulku boj")
 _g = json.loads(call("/rest/v1/rpc/mm_boj_cti", tok=gm)[1])["stav"]
 chk(len(_g["npc"]) == 2 and len(_g["zaz"]) == 2, "vypravěč dostane z mm_boj_cti i skrytého nepřítele")
 for kdo, tok in (("anonym", None), ("hráč", hr)):
     _h = json.loads(call("/rest/v1/rpc/mm_boj_cti", tok=tok)[1])["stav"]
     chk([o["n"] for o in _h["npc"]] == ["Zjevný"] and len(_h["zaz"]) == 1 and _h["obsazeni"] == {"2": "n1"} and "Zálohář" not in json.dumps(_h, ensure_ascii=False), f"{kdo} nedostane skrytého nepřítele ani jeho záznam a slot")
+    chk("TAJNÁ_VÍRA_NPC" not in json.dumps(_h, ensure_ascii=False) and "gm" not in _h["npc"][0], f"{kdo} nedostane údaje NPC jen pro vypravěče (postoj, víra, cíle, DC)")
 chk(ok(call("/rest/v1/rpc/mm_boj_uloz", "POST", {"p_stav": {}}, tok=gm)[0]), "boj vrácen do výchozího stavu")
 chk(ok(call("/rest/v1/rpc/mm_nastav_stavy", "POST", {"p_zmeny": {"slik": 2}}, tok=gm)[0]), "vypravěč mění stavy")
 for fn, body in (("mm_nahraj_obsah", {"p_vetev": "x", "p_hrac": {}, "p_gm": {}, "p_vychozi": {}}), ("mm_zaznamy_vse", {}), ("mm_sync_zaznamy", {"p_soubory": {}, "p_uplny": False})):

@@ -148,11 +148,14 @@ async def main():
     chk(await g.evaluate("(BOJ.s.hraci[1].ds||{}).st")=="mrtev","tři neúspěchy hodu proti smrti: postava umírá")
     chk(await g.evaluate("bojDs({u:0,n:0},'hod',1).ds.n===2&&bojDs({u:2,n:0},'hod',12).ds.st==='stab'&&bojDs({u:1,n:1},'hod',20).ds===null"),"hody proti smrti: 1 = dva neúspěchy, třetí úspěch stabilizuje, 20 probudí")
     # hráč útočí z telefonu: zbraň uložená u postavy, hod, vyhodnocení u vypravěče (AC hráč nevidí), veřejný záznam, Zpět, filtr
+    # nejdřív dorazí zápisy vypravěče (hody proti smrti výše): překreslení po jeho uložení by jinak smazalo rozepsaný formulář zbraně
+    await puls(pl,od=g)
     await pl.evaluate("bojJa.set('Cyril');renderBoj()");await pl.wait_for_timeout(600)
     await pl.click('[data-otv="zb-h3"] summary');await pl.wait_for_timeout(200)
     await pl.fill('[data-bhpan="h3"] .bzbf [name=n]',"Dlouhý meč");await pl.fill('[data-bhpan="h3"] .bzbf [name=b]',"6");await pl.fill('[data-bhpan="h3"] .bzbf [name=z]',"1d8+3")
     await pl.check('[data-bhpan="h3"] .bzbf [name=pru]');await pl.click('[data-bhpan="h3"] .bzbf button');await puls(pl,od=pl)
-    chk("Dlouhý meč" in (await pl.evaluate("JSON.stringify((BOJ.s.zbrane||{}).Cyril||[])")),"hráč uloží zbraň ke své postavě")
+    zbr=await pl.evaluate("JSON.stringify((BOJ.s.zbrane||{}).Cyril||[])")
+    chk("Dlouhý meč" in zbr,"hráč uloží zbraň ke své postavě: "+zbr+" · formulář: "+str(await pl.evaluate("(()=>{const f=document.querySelector('[data-bhpan=\"h3\"] .bzbf');return f?f.elements.n.value||'(prázdný)':'(není)'})()")))
     # reakce hráče z telefonu a vypravěče u postavy: po uložení a dalším načtení zůstane zaškrtnutá
     rb=pl.locator('[data-bhpan="h3"] [data-bhrk]').first
     if await rb.count():
@@ -193,6 +196,7 @@ async def main():
     chk(r==["ki",True,"fixed",False,False,False,True],"mobil: dole Moje karta · Iniciativa · Ukončit tah, nahoře bez Boj a pruhu iniciativy, bez Pravidel: "+str(r))
     await pl.click('[data-btab="i"]');await pl.wait_for_timeout(200)
     chk(await pl.locator(".bsloty").is_visible() and not await pl.locator(".bcolk").is_visible(),"mobil: záložka Iniciativa ukáže pruh iniciativy místo karty")
+    chk(await pl.locator(".bosav .bsvkon").is_visible() and await pl.locator(".bosav .bcur").count()==0,"mobil: pruh iniciativy je svisle, končí pečetí příštího kola, bez řádku Na tahu")
     await pl.click('[data-btab="k"]');await pl.wait_for_timeout(200)
     # postava bez karty (tady Cyril) nemá list Záznam – záznam boje je na telefonu pod jejím panelem v záložce Moje karta
     chk(await pl.locator(".bcoll .bzaz").is_visible() and "Cyril" in await pl.inner_text(".bcoll .bzaz"),"mobil: postava bez karty má záznam boje pod panelem")

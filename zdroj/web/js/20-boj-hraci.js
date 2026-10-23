@@ -185,20 +185,9 @@ function bojJaHodKouzlo(s, me, sp) {
     c = (s.npc || []).find(o => o.id === BJU.cil),
     st = lvl ? `${lvl}. st.` : "trik";
   /* Zadat ručně: d20, kostka Závoje a součet kostek zranění hozené u stolu (u kouzla se záchranou jen zranění) */
-  const R = BRUC[me.id] || {},
-    r20 = bRucN(R.d20, 1, 20),
-    r6 = bRucN(R.d6, 1, 6),
-    rz = bRucN(R.dmg, 0, 500),
-    pl = v => String(v ?? "").trim() !== "";
-  if ((pl(R.d20) && r20 == null) || (pl(R.d6) && r6 == null) || (pl(R.dmg) && rz == null)) {
-    mmHlas(
-      pl(R.d20) && r20 == null ? "d20 musí být 1–20." : pl(R.d6) && r6 == null ? "Kostka Závoje musí být 1–6." : "Zranění zadej jako číslo.",
-      3000,
-    );
-    return;
-  }
-  delete BRUC[me.id];
-  if (K) bojPortPouzit(K, me.id, r20);
+  const RU = bRucPrevezmi(me, K, 500);
+  if (!RU) return;
+  const {r20, r6, rz} = RU;
   const plusK = n => {
     const m = String(B.x || "").match(/([+-]\d+)$/);
     return (m ? +m[1] : 0) + (+B.mod || 0);
@@ -494,20 +483,9 @@ function bojJaHod() {
     ser = [],
     txt = [];
   /* Zadat ručně: kostky hozené u stolu nahradí hod webu (jen první útok); co chybí, hodí web */
-  const R = BRUC[me.id] || {},
-    r20 = bRucN(R.d20, 1, 20),
-    r6 = bRucN(R.d6, 1, 6),
-    rz = bRucN(R.dmg, 0, 300),
-    pl = v => String(v ?? "").trim() !== "";
-  if ((pl(R.d20) && r20 == null) || (pl(R.d6) && r6 == null) || (pl(R.dmg) && rz == null)) {
-    mmHlas(
-      pl(R.d20) && r20 == null ? "d20 musí být 1–20." : pl(R.d6) && r6 == null ? "Kostka Závoje musí být 1–6." : "Zranění zadej jako číslo.",
-      3000,
-    );
-    return;
-  }
-  delete BRUC[me.id];
-  if (K) bojPortPouzit(K, me.id, r20);
+  const RU = bRucPrevezmi(me, K, 300);
+  if (!RU) return;
+  const {r20, r6, rz} = RU;
   /* útoky téže akce (Extra Attack) jeden po druhém (2026-10-18): každý zvlášť s vlastním d20, zraněním i kostkou Závoje; mezi nimi jde změnit cíl */
   const nU = BJU.ripo ? 1 : Math.max(1, +w.pocet || 1, TL.length),
     tk = (s.kolo || 1) * 100 + (s.tah || 0);
@@ -812,8 +790,17 @@ function bojZazHlidej(s, me) {
   }
 }
 /* hráč bez přihlášené postavy: postava se volí jednou na stránce Hra a pak je jeho */
-const bojJaNeprihl = () =>
-  `<span class="rsmall bjanep">Nejsi přihlášený za postavu – přihlas se a zvol svou postavu, pak se tu objeví tvoje bojová karta.</span>${hraHracHtml()}`;
+const bojJaNeprihl = () => {
+  const j = JA.get(),
+    sc = BOJ.s && BOJ.s.scena;
+  const t =
+    j && j.k
+      ? sc
+        ? "Tvoje postava se právě přidává do scény – za chvíli tu bude karta se všemi hody."
+        : "Tvoje postava v tomto boji není. Vypravěč ji může přidat; zatím hraješ ze své karty."
+      : "Nejsi přihlášený za postavu – přihlas se a zvol svou postavu, pak se tu objeví tvoje bojová karta.";
+  return `<span class="rsmall bjanep">${t}</span>${hraHracHtml()}`;
+};
 /* upozornění hráče, když jeho postava přijde na tah: vibrace, zvýraznění, titulek a hláška */
 function bojUpozorni() {
   const s = BOJ.s;
@@ -853,11 +840,7 @@ function bojUpozorni() {
 const BWL = {l: null, ceka: false};
 async function bojWake() {
   const chci =
-    !GMV &&
-    !!(BOJ.s && BOJ.s.aktivni) &&
-    curView === "boj" &&
-    document.visibilityState === "visible" &&
-    !!(navigator.wakeLock && navigator.wakeLock.request);
+    !GMV && bojBezi(BOJ.s) && curView === "boj" && document.visibilityState === "visible" && !!(navigator.wakeLock && navigator.wakeLock.request);
   if (chci && !BWL.l && !BWL.ceka) {
     BWL.ceka = true;
     try {

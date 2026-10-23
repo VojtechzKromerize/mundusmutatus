@@ -73,7 +73,7 @@ const bzCas = t => {
 function bzOs(s, id, n) {
   const o = id ? bojCilO(s, id) : null;
   if (o) return {id: o.id, o, n: o.n};
-  const h = n ? (s.hraci || []).find(x => x.n === n) : null;
+  const h = n ? (s.hraci || []).find(x => x.n === n) || (s.npc || []).find(x => x.n === n) : null;
   return h ? {id: h.id, o: h, n: h.n} : n ? {n} : null;
 }
 const bzNepr = (s, q) => !!(q && q.o && q.o.druh && !bojSpoj(q.o));
@@ -195,6 +195,7 @@ function bzZHod(s, h) {
   else if (h.mis) e.vys = ["vedle – přirozená 1", "bzmis"];
   else if (h.tot != null && !/^(Zranění|Léčení)/.test(co)) e.vys = [String(h.tot), "bztotv"];
   if (h.tot != null && /^(Zranění|Léčení)/.test(co)) e.zr = {t: h.tot, zt: "", lec: /^Léčení/.test(co)};
+  if (GMV && C && s && s.scena && typeof bzScPorovnej === "function") bzScPorovnej(e, s);
   if (h.zav) e.zav = bzZav(h.zav, h.zr);
   return e;
 }
@@ -293,7 +294,7 @@ function bzZaznam(s, gm) {
   let k0 = null;
   for (let j = L.length - 1; j >= 0; j--) {
     if (L[j].k != null) k0 = L[j].k;
-    else L[j].k = k0 != null ? k0 : s.aktivni ? 1 : null;
+    else L[j].k = k0 != null ? k0 : bojBezi(s) ? 1 : null;
   }
   return L.slice(0, 120);
 }
@@ -360,5 +361,5 @@ function bojZaznamSloupec(s, gm) {
     return hd + bzRadek(e, gm);
   }).join("");
   return `<section class="bzaz"><h3 class="uvh2">${bi("kniha")} Herní záznam${L0.length ? ` <small>${L0.length}</small>` : ""}</h3>${BLF ? `<p class="blfc">Jen: <b>${besc(bojJm(s, BLF) || "?")}</b> <button type="button" class="bx" data-blfx aria-label="Zrušit filtr">×</button></p>` : ""}
-    ${li ? `<ol class="bzl">${li}</ol>` : `<p class="rsmall bznic">Zatím prázdný. Sem se zapíše každý hod v boji – kdo, co a vůči komu, kostky s výsledky a kostka Závoje.</p>`}${gm ? "" : `<p class="rsmall bzhr">U nepřátel vidíš jen výsledek; jejich hody zná vypravěč.</p>`}</section>`;
+    ${li ? `<ol class="bzl">${li}</ol>` : `<p class="rsmall bznic">Zatím prázdný. Sem se zapíše každý hod ve scéně i v boji – kdo, co a vůči komu, kostky s výsledky a kostka Závoje.</p>`}${gm ? "" : `<p class="rsmall bzhr">U nepřátel vidíš jen výsledek; jejich hody zná vypravěč.</p>`}</section>`;
 }

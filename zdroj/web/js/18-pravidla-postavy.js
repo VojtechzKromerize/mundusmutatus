@@ -561,6 +561,22 @@ function kZdroje(K) {
   });
   return kMimoZdroje(c, o);
 }
+/* omezená použití postavy jedním seznamem pro puntíky a čipy {k, n, max, obn}: sloty kouzel (pakt zvlášť), zdroje povolání
+   a Výdrž z Artikulí; o.obnSlotu = i u slotů ukázat obnovu, o.jenSloty = bez zdrojů a Výdrže */
+function kOmezena(K, o = {}) {
+  const sl = kSloty(K).map(q =>
+    o.obnSlotu
+      ? {k: q.k, n: `${q.pakt ? "Pakt" : "Sloty"} ${q.st}. st.`, max: q.max, obn: q.pakt ? "krátký odpočinek" : "dlouhý odpočinek"}
+      : {k: q.k, n: `${q.pakt ? "Pakt" : "Sloty"} ${q.st}. st.`, max: q.max},
+  );
+  if (o.jenSloty) return sl;
+  const vmx = kVydMax(K);
+  return [
+    ...sl,
+    ...kZdroje(K).map(q => ({k: q.n, n: q.n, max: q.max, obn: q.obn})),
+    ...(vmx ? [{k: "Výdrž", n: "Výdrž", max: vmx, obn: "dlouhý odpočinek"}] : []),
+  ];
+}
 /* ---- zbroj, štít, AC ---- */
 /* ---- obsah D&D 2024 mimo SRD (art/mimo-srd.json): podtřídy, featy, zázemí, Aasimar – vlastní stručné shrnutí mechaniky.
    Postava má rys, když je jeho název mezi rysy z PDF; počty použití a trvalé bonusy (ef) se pak počítají samy. ---- */

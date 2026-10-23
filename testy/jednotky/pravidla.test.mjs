@@ -406,3 +406,42 @@ test("podtřídy: dlouhý odpočinek Věštce hodí Předzvěst (2d20, s Greater
   await S.ev(`kartaOdpocinek(${Kid(f)}, true)`);
   assert.equal(V(`kartaStav(${JSON.stringify(f)}).port`), undefined);
 });
+
+test("karta: puntíky použití – klepnutí na j-tý nastaví j + 1 použitých, na už použitý vrátí na j; prázdná mapa je null", () => {
+  assert.deepEqual([V("kPipNa(0, 0)"), V("kPipNa(1, 0)"), V("kPipNa(1, 2)"), V("kPipNa(3, 1)")], [1, 0, 3, 1]);
+  assert.deepEqual(V(`kPipyMapa({"Výdrž": 2}, "Rage", 0)`), {Výdrž: 2, Rage: 1});
+  assert.equal(V(`kPipyMapa({Rage: 1}, "Rage", 0)`), null, "vrácení posledního použití smaže klíč i mapu");
+  assert.deepEqual(V(`(() => { const U = {a: 1}; kPipyMapa(U, "a", 2); return U; })()`), {a: 1}, "původní mapa se nemění");
+});
+
+test("karta: omezená použití – sloty (pakt s krátkým odpočinkem), zdroje povolání a Výdrž v jednom seznamu", () => {
+  const k = karta({povolani: "Fighter 5", uroven: 5, vl: VL});
+  const L = V(`kOmezena(${k}, {obnSlotu: true})`);
+  assert.ok(
+    L.some(q => q.k === "Výdrž" && q.obn === "dlouhý odpočinek"),
+    "bojovník má Výdrž",
+  );
+  assert.deepEqual(V(`kOmezena(${k}, {jenSloty: true})`), [], "bojovník bez kouzel nemá sloty");
+  const w = karta({povolani: "Warlock 3 / Wizard 1", uroven: 4, vl: VL});
+  const sl = V(`kOmezena(${w}, {obnSlotu: true, jenSloty: true})`);
+  assert.ok(sl.some(q => q.n.startsWith("Pakt") && q.obn === "krátký odpočinek"));
+  assert.ok(sl.some(q => q.n.startsWith("Sloty") && q.obn === "dlouhý odpočinek"));
+  assert.ok(
+    V(`kOmezena(${w}, {jenSloty: true})`).every(q => !("obn" in q)),
+    "bez obnSlotu sloty obnovu neuvádějí",
+  );
+});
+
+test("boj: snímek pro Zpět nese kartu bez portrétu a obnova portrét nemění, ostatní stav karty vrátí", async () => {
+  const id = kartaReg({povolani: "Fighter 3", uroven: 3}),
+    jid = JSON.stringify(id);
+  S.ev(`KST[${jid}] = {hp: 20, img: "data:image/webp;base64,AAAA", zdr: {Rage: 1}}`);
+  const snap = S.ev(`bojSnapKarta(${jid})`);
+  assert.deepEqual(JSON.parse(snap), {hp: 20, zdr: {Rage: 1}}, "portrét ve snímku není, zbytek ano");
+  S.ev(`KST[${jid}] = {hp: 5, img: "data:image/webp;base64,BBBB"}`);
+  await S.ev(`bojObnovSnap({s: JSON.stringify(BOJ.s || {}), hp: "{}", k: {[${jid}]: ${JSON.stringify(snap)}}})`);
+  assert.equal(V(`kartaStav(${jid}).hp`), 20, "životy se vrátí");
+  assert.deepEqual(V(`kartaStav(${jid}).zdr`), {Rage: 1}, "zdroje se vrátí");
+  assert.equal(V(`kartaStav(${jid}).img`), "data:image/webp;base64,BBBB", "portrét zůstane");
+  assert.equal(S.ev(`bojSnapKarta("neexistuje")`), "{}");
+});

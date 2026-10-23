@@ -4,6 +4,13 @@ a že hráč nedostane nic z bestiáře ani tabulek setkání. Generátor navíc
 Spouští testy/spustit.sh: MM_GMWEB = vypravěčská statická verze, MM_HRWEB = hráčská statická verze, MM_KOREN = kopie webu."""
 import asyncio, re, os, json, subprocess, glob
 from playwright.async_api import async_playwright
+
+async def do_pripravy(g):
+    """Od 2026-10-23 je Hra vypravěče mimo boj scéna: tlačítko Boj z ní udělá přípravu boje (jako _boj_pomoc.do_pripravy)."""
+    await g.wait_for_selector(".bprip, .bscena")
+    if not await g.locator(".bprip").count():
+        await g.click("[data-bscboj]")
+    await g.wait_for_selector(".bprip")
 OUT=os.environ.get("MM_VYSTUP","/tmp")+"/"
 GM=os.environ.get("MM_GMWEB","http://127.0.0.1:18793/");HR=os.environ.get("MM_HRWEB","http://127.0.0.1:18794/");KOR=os.environ.get("MM_KOREN",".")
 fails=[]
@@ -26,7 +33,7 @@ chk(tc.get("cl")==["Zachránit rukojmí (3×, do 2. kola)","Zabít kněze (skryt
 
 async def priprava(g,jmena,hody,dm,npc=(),spoj=()):
     """Příprava boje na stránce Boj: postavy s hody, nepřátelé a spojenci přes formuláře, hod nepřátel, Začít boj."""
-    await g.wait_for_selector(".bprip")
+    await do_pripravy(g)
     await g.evaluate("bojZmen(z=>{z.hraci="+json.dumps([{"id":"h"+str(i+1),"n":"","hod":None} for i in range(len(jmena))])+";z.npc=[];z.nid=0;z.dm=null;delete z.ticha})")
     await g.wait_for_timeout(400)
     for i,(n,h) in enumerate(zip(jmena,hody)):
@@ -47,7 +54,7 @@ async def main():
     g=await b.new_page(viewport={"width":1300,"height":1100});err=[];g.on("pageerror",lambda e:err.append(str(e)[:300]))
     g.on("dialog",lambda d:asyncio.ensure_future(d.accept()))
     await g.goto(GM+"#boj");await g.wait_for_function("!document.documentElement.classList.contains('mmload')");await g.wait_for_timeout(600)
-    await g.wait_for_selector(".bprip")
+    await do_pripravy(g)
     chk(await g.locator(".bpravidla .bqr").count()==5,"rychlá pravidla v šuplíku (kritická zranění, stavy, akce, zbraně, zbroj)")
     chk(not await g.locator(".bpravidla").is_visible(),"šuplík s pravidly je zavřený")
     # hledání: štítek, setkání, osoba
@@ -192,7 +199,7 @@ async def main():
     txt=await g.evaluate("bojShrn(BOJ.s).txt");print(txt[:200])
     chk(txt.startswith("boj (kolo 1)") and "zajat" in txt,"podklad pro Kroniku")
     await g.click('[data-bkon="ok"]');await g.wait_for_timeout(400)
-    await g.wait_for_timeout(500);chk(await g.locator(".bprip").count()==1 and await g.evaluate("BOJ.s.hraci.map(h=>h.n).join()")=="Adam,Bára,Cyril,Dora","po ukončení zpět příprava se stejnou družinou")
+    await g.wait_for_timeout(500);chk(await g.locator(".bscena").count()==1 and await g.evaluate("BOJ.s.hraci.map(h=>h.n).join()")=="Adam,Bára,Cyril,Dora","po ukončení zpět ve scéně se stejnou družinou (2026-10-23)")
     # kouzla z katalogu: jména z D&D Beyond (i s vlastním jménem a „(Ritual)“), rituál, automatika, kouzla mimo SRD
     kz=await g.evaluate("""(async()=>{await kSpNacti();const K=Object.values(KARTBY)[0],u=kSpUcinek(K,{n:'Fireball',st:3},4);
       return [kSp("Tasha’s Hideous Laughter")?.en,kSp('Detect Magic (Ritual)')?.ri,kSp("Bigby's Hand")?.en,u&&u.x,u&&u.t,u&&u.zach,u&&u.pol,kSp('Silvery Barbs')?.x,kSp('Silvery Barbs')?.cz,kSp('Feeblemind')?.en,
@@ -203,7 +210,7 @@ async def main():
     sw=await g.evaluate("document.documentElement.scrollWidth");chk(sw<=392,"mobil bez vodorovného posunu: "+str(sw))
     # kouzla (2026-10-20): kouzlo NPC jedním klikem, záchrany NPC podle pravidel, oblasti, posílení na kartě, trvání v kolech, opakování bez slotu
     k=await b.new_page(viewport={"width":1300,"height":900});k.on("pageerror",lambda e:err.append("kouzla: "+str(e)[:300]))
-    await k.goto(GM+"#boj");await k.wait_for_timeout(2500)
+    await k.goto(GM+"#boj");await k.wait_for_timeout(2500);await do_pripravy(k)
     await k.evaluate("bojZmen(z=>{z.hraci=[{id:'h1',n:KARTBY.balduin.n,hod:12}];z.npc=[];z.nid=0;bojPridejNpc(z,[{n:'Mág',druh:'sok',b:'srd-mage',pr:[]},{n:'Kněz',druh:'sok',b:'srd-priest',pr:[]}]);z.dm=10})");await k.wait_for_timeout(500)
     await k.click('[data-bstart]');await k.wait_for_timeout(800);await k.evaluate("kzNacti()");await k.wait_for_timeout(1500)
     await k.evaluate("bojVyber('n1');BTAB='k';renderBoj()");await k.wait_for_timeout(500)

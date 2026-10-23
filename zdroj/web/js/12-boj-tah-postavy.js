@@ -1199,7 +1199,13 @@ function bojKarta(s, n, gm) {
       const rk = s.reak || {};
       return `<button type="button" class="break${rk[n.id] ? " on" : ""}" data-break="${n.id}" aria-pressed="${!!rk[n.id]}" ${gm ? "" : "disabled "}${btip(`Reakce: ${rk[n.id] ? "použita, obnoví se na začátku jeho tahu" : "k dispozici"}${gm ? " (klikni)" : ""}`)}>R</button>`;
     })()}${gm ? `<button type="button" class="bskr" data-bnren aria-label="Přejmenovat ${besc(n.n)}" ${btip("Přejmenovat (jméno uvidí i hráči)")}>${bi("prejmenovat")}</button><button type="button" class="bskr${n.skryt ? " on" : ""}" data-bskryt aria-pressed="${!!n.skryt}" aria-label="Hráči zatím nevidí" ${btip(n.skryt ? "Hráči ho zatím nevidí: není v jejich seznamu nepřátel, cílů ani v záznamu – klikni, až se ukáže" : "Skrýt před hráči (záloha, neviditelný, ještě nepřišel): nebude v jejich seznamu, cílech ani v záznamu")}>${bi(n.skryt ? "nevidi" : "vidi")}</button><button type="button" class="brozb" data-brozb aria-expanded="${open}" aria-label="${open ? "Sbalit" : "Rozbalit"} kartu" ${btip(open ? "Sbalit kartu" : "Rozbalit – stavy, útoky, zdroje, statblock")}>${bi("sipka")}</button><button type="button" class="bdel" data-bdel aria-label="Odebrat ${besc(n.n)}" ${btip("Odebrat z boje")}>${bi("krizek")}</button>` : ""}</div>
-    ${mor && gm ? `<p class="bmor">${bi("velitel")} ${mor}</p>` : ""}${open ? bojRef(n, s, velH) : ""}</div>`;
+    ${mor && gm ? `<p class="bmor">${bi("velitel")} ${mor}</p>` : ""}${
+      open
+        ? s.scena && gm && typeof bojScNpcHtml === "function"
+          ? `${bojScNpcHtml(s, n)}<details class="bscref"><summary>Statblok, útoky a stavy</summary>${bojRef(n, s, velH)}</details>`
+          : bojRef(n, s, velH)
+        : ""
+    }</div>`;
 }
 /* akce v boji (SRD 5.2.1, česky zkráceně) a doplnění z Artikulí */
 const BAKCE = [
@@ -1776,21 +1782,26 @@ function bojHracKlik(T) {
     if (!h0 || !h0.ds) return true;
     const r = k === "hod" ? bojDs(h0.ds, "hod", bK(20)) : bojDs(h0.ds, k);
     if (GMV && k === "hod") bojLog(id, {n: "Hod proti smrti", zt: r.m}, hn);
-    if (k === "hod" && !r.ds) {
-      const K = bojKartaH(h0);
-      if (K && kMuze(K)) kartaStavZmen(K.id, {hp: Math.max(1, +kartaStav(K.id).hp || 0)}, null);
-    }
-    bojHracAkce(
-      id,
-      h => {
-        if (r.ds) h.ds = r.ds;
-        else delete h.ds;
-      },
-      k === "hod" ? `${hn}: hod proti smrti ${r.m}.` : r.m ? `${hn}: ${r.m}.` : "",
-    );
+    bojDsZapis(id, h0, r, k === "hod", k === "hod" ? `${hn}: hod proti smrti ${r.m}.` : r.m ? `${hn}: ${r.m}.` : "");
     return true;
   }
   return false;
+}
+/* výsledek hodu proti smrti r (z bojDs) zapíše postavě id do boje se zprávou txt; s probrat po hodu, který hody
+   ukončil (přirozená 20), dostane postava s kartou aspoň 1 HP */
+function bojDsZapis(id, h0, r, probrat, txt) {
+  if (probrat && !r.ds) {
+    const K = bojKartaH(h0);
+    if (K && kMuze(K)) kartaStavZmen(K.id, {hp: Math.max(1, +kartaStav(K.id).hp || 0)}, null);
+  }
+  bojHracAkce(
+    id,
+    h => {
+      if (r.ds) h.ds = r.ds;
+      else delete h.ds;
+    },
+    txt,
+  );
 }
 /* ===== karta postavy v boji (zatím zkušební karty v zdroj/obsah/karty, později import z PDF D&D Beyond) =====
    Karta zná AC, životy, záchrany, odolnosti, útoky, kouzla a zdroje; tracker z ní vyhodnocuje útoky nepřátel
@@ -2044,12 +2055,7 @@ function bojKartaOvl(h, s, gm) {
         }${(K.imu || []).length ? ` · <b>Immunity</b> ${K.imu.map(t => besc(BZRT[t] || t)).join(", ")}` : ""}</p>`
       : ""
   }<h3 class="kdbpt">Záchranné hody</h3></section>`;
-  const sl = kSloty(K).map(q => ({k: q.k, n: `${q.pakt ? "Pakt" : "Sloty"} ${q.st}. st.`, max: q.max}));
-  const zd = [
-    ...sl,
-    ...kZdroje(K).map(q => ({k: q.n, n: q.n, max: q.max, obn: q.obn})),
-    ...(kVydMax(K) ? [{k: "Výdrž", n: "Výdrž", max: kVydMax(K), obn: "dlouhý odpočinek"}] : []),
-  ];
+  const zd = kOmezena(K);
   const zdH = zd.length
     ? `<section class="kdbp kdbzdrc"><ul class="kdbli kdbzdr">${zd
         .map(q => {

@@ -37,9 +37,15 @@ async def gm_strana(b):
         if await g.locator('[data-bkon="ok"]').count():  # se statblocky se nejdřív ukáže shrnutí boje
             await g.click('[data-bkon="ok"]');await g.wait_for_timeout(800)
     return g,gerr
+async def do_pripravy(g):
+    """Od 2026-10-23 je Hra vypravěče mimo boj scéna: tlačítko Boj z ní udělá přípravu boje (hráči ji vidí)."""
+    await g.wait_for_selector(".bprip, .bscena")
+    if not await g.locator(".bprip").count():
+        await g.click("[data-bscboj]")
+    await g.wait_for_selector(".bprip")
 async def priprava(g,jmena,hody,dm,npc=(),spoj=()):
     """Příprava boje na stránce Boj: postavy s hody, nepřátelé a spojenci přes formuláře, hod nepřátel, Začít boj."""
-    await g.wait_for_selector(".bprip")
+    await do_pripravy(g)
     await g.evaluate("bojZmen(z=>{z.hraci="+json.dumps([{"id":"h"+str(i+1),"n":"","hod":None} for i in range(len(jmena))])+";z.npc=[];z.nid=0;z.dm=null;delete z.ticha})")
     await g.wait_for_timeout(400)
     for i,(n,h) in enumerate(zip(jmena,hody)):

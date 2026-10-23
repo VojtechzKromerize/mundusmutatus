@@ -312,17 +312,6 @@ document.addEventListener("submit", e => {
   const K = kvK(e.target);
   if (K) kPoolPridej(K, e.target);
 });
-document.addEventListener("click", e => {
-  const b = e.target.closest && e.target.closest("[data-kzbrv]");
-  if (!b) return;
-  const K = kvK(b);
-  if (!K) return;
-  const n = b.dataset.kzbrv;
-  if (KZBRV[K.id] === n) delete KZBRV[K.id];
-  else KZBRV[K.id] = n;
-  kZbrvUloz();
-  kartyPrekresli();
-});
 /* ===== Boj: karta postavy hráče ve formátu karty NPC (2026-10-17) – hlavička (AC, životy, R), rozbalená část
    se stavy, krytem, útoky z karty, kouzly, zdroji, záchranami a akcemi. Vypravěč má rozbalenou postavu na tahu
    a může za hráče zapsat, co udělal (útok hozený fyzickými kostkami, zranění, záchrany). ===== */
@@ -580,7 +569,7 @@ function bojHracRef(s, h, gm, K, vzdy, dbm) {
     const kz = Object.assign({}, K.kouzla || {}, {seznam: kSeznam(K)}),
       U = kartaStav(K.id).zdr || {};
     body = `<p class="kdbnote">${besc(kz.vl || "")} · SO ${kSpDC(K) || kz.dc || "–"} · útok kouzlem ${bsg(kSpUt(K))}</p>${kZdrChipy(
-      kSloty(K).map(q => ({k: q.k, n: `${q.pakt ? "Pakt" : "Sloty"} ${q.st}. st.`, max: q.max})),
+      kOmezena(K, {jenSloty: true}),
       U,
       "data-bkzd",
     )}
@@ -694,6 +683,25 @@ const bRucN = (v, a, b) => {
   const n = Math.round(+v);
   return isFinite(n) && n >= a && n <= b ? n : null;
 };
+/* převezme ruční kostky hráče me před útokem nebo kouzlem: chybná hodnota = hláška a null (nic se nehází);
+   jinak vrátí {r20, r6, rz} (null = hodí web), smaže je z formuláře a spotřebuje zvolenou Předzvěst */
+function bRucPrevezmi(me, K, maxZr) {
+  const R = BRUC[me.id] || {},
+    r20 = bRucN(R.d20, 1, 20),
+    r6 = bRucN(R.d6, 1, 6),
+    rz = bRucN(R.dmg, 0, maxZr),
+    pl = v => String(v ?? "").trim() !== "";
+  if ((pl(R.d20) && r20 == null) || (pl(R.d6) && r6 == null) || (pl(R.dmg) && rz == null)) {
+    mmHlas(
+      pl(R.d20) && r20 == null ? "d20 musí být 1–20." : pl(R.d6) && r6 == null ? "Kostka Závoje musí být 1–6." : "Zranění zadej jako číslo.",
+      3000,
+    );
+    return null;
+  }
+  delete BRUC[me.id];
+  if (K) bojPortPouzit(K, me.id, r20);
+  return {r20, r6, rz};
+}
 /* Věštec – Portent (2026-10-22): předzvěst místo d20 se zvolí před hodem; chip ji vyplní jako ruční d20, hod ji pak z karty odebere */
 const BPORT = {};
 const bojPortHtml = (h, K) => {
@@ -1408,13 +1416,10 @@ document.addEventListener("click", async e => {
     const K = kvK(zu);
     if (!K || !kMuze(K)) return;
     const k = zu.dataset.bdmzu,
-      j = +zu.dataset.j,
       S = kartaStav(K.id),
-      U = Object.assign({}, S.zbrU || {}),
-      u = +U[k] || 0,
+      u = +(S.zbrU || {})[k] || 0,
+      U = kPipyMapa(S.zbrU, k, +zu.dataset.j) || {},
       ac0 = kAC(K);
-    U[k] = u > j ? j : j + 1;
-    if (!U[k]) delete U[k];
     await kartaStavZmen(K.id, {zbrU: Object.keys(U).length ? U : null}, null);
     mmHlasG(
       `${K.n}: ${k === "Štít" ? "štít" : k.toLowerCase() + " zbroj"} ${U[k] > u ? "obětována" : "opravena"}${kAC(K) !== ac0 ? ` – AC ${ac0} → ${kAC(K)}` : ""}.`,
@@ -1525,18 +1530,10 @@ function bdmAkce(s, h, K, gm, X) {
     uB = T && X.BP.b,
     vmx = kVydMax(K),
     G = kAkceG(K, true, {bezKouzel: true}),
-    spBA = kSeznam(K).filter(x => kMaSl(K, x) && kCasKouzla(x) === "BA"),
-    spR = kSeznam(K).filter(x => kMaSl(K, x) && kCasKouzla(x) === "R"),
-    zdrL = [
-      ...kSloty(K).map(q => ({
-        k: q.k,
-        n: `${q.pakt ? "Pakt" : "Sloty"} ${q.st}. st.`,
-        max: q.max,
-        obn: q.pakt ? "krátký odpočinek" : "dlouhý odpočinek",
-      })),
-      ...kZdroje(K).map(q => ({k: q.n, n: q.n, max: q.max, obn: q.obn})),
-      ...(vmx ? [{k: "Výdrž", n: "Výdrž", max: vmx, obn: "dlouhý odpočinek"}] : []),
-    ],
+    spSl = kSeznam(K).filter(x => kMaSl(K, x)),
+    spBA = spSl.filter(x => kCasKouzla(x) === "BA"),
+    spR = spSl.filter(x => kCasKouzla(x) === "R"),
+    zdrL = kOmezena(K, {obnSlotu: true}),
     U = kartaStav(K.id).zdr || {};
   const af0 = BDM.af[K.id] || "A",
     af = BDMAF.some(([k]) => k === af0) ? af0 : "A";
@@ -1724,7 +1721,7 @@ function bdmTelo(s, h, K, gm, X, id) {
   if (id === "kouzla") return bdmKouzla(s, h, K, gm, X);
   if (id === "vyb") return bdmVyb(K);
   if (id === "rysy") return bdmRysy(K);
-  if (id === "denik") return `<div class="kdb2 bdmkdb">${kartaDbHtml(K, kartaDbData(K), {jenTab: id})}</div>`;
+  if (id === "denik") return `<div class="kdb2 bdmkdb">${kDenikHtml(K)}</div>`;
   /* hráč na telefonu v boji: záznam boje (jinak samostatná záložka Záznam) nahoře, pod ním jeho hody mimo boj */
   if (id === "zaznam" && X.boj && !gm && mmCela() && s && s.aktivni)
     return `<div class="bdmzaz">${bojZaznamSloupec(s, false)}</div><div class="kdb2 bdmkdb"><h4 class="bdmgh">Moje hody</h4>${kZaznamHtml(K, true)}</div>`;
@@ -2006,10 +2003,6 @@ const bdmZavri = () => {
 document.addEventListener("click", e => {
   const T = s => e.target.closest && e.target.closest(s),
     root = T(".bdm");
-  const kt = T("[data-bdmktab]");
-  if (kt) {
-    KTAB.set(kt.dataset.bdmktab);
-  }
   if (!root) return;
   const key = root.dataset.kid,
     K = KARTBY[key];
@@ -2207,9 +2200,3 @@ addEventListener(
   },
   {passive: true},
 );
-/* z hlavní karty do Boje: otevře bojovou kartu této postavy */
-document.addEventListener("click", e => {
-  const a = e.target.closest && e.target.closest("[data-bdmgo]");
-  if (!a) return;
-  BDM.fokus = a.dataset.bdmgo;
-});

@@ -1065,7 +1065,7 @@ function bojKostky(z, krit) {
 /* hráči životy nepřátel neznají: vypravěč při každé změně boje zapíše výsledek do stavu (s.mom), hráči ho jen čtou */
 function bojMomentum(s) {
   s = s || BOJ.s;
-  if (!s || !s.aktivni) return {m: "", pH: null, pN: null};
+  if (!bojBezi(s)) return {m: "", pH: null, pN: null};
   if (GMV) return bojMomentum0(s);
   const M = s.mom;
   return M ? {m: M.m || "", pH: M.h / 100, pN: M.n / 100} : {m: "", pH: null, pN: null};
@@ -1176,9 +1176,15 @@ function bojSnap() {
       (S.hraci || [])
         .map(h => bojKartaH(h))
         .filter(Boolean)
-        .map(K => [K.id, JSON.stringify(kartaStav(K.id) || {})]),
+        .map(K => [K.id, bojSnapKarta(K.id)]),
     ),
   };
+}
+/* karta ve snímku bez portrétu (2026-10-23): data URL má desítky kB, boj ho nemění a historie drží až 250 snímků –
+   s portréty to byly desítky MB a ~1,5 ms při každém klepnutí vypravěče; obnova (bojObnovSnap) portrét nechá být */
+function bojSnapKarta(id) {
+  const S = kartaStav(id) || {};
+  return JSON.stringify(S.img ? Object.assign({}, S, {img: undefined}) : S);
 }
 let BSNAPC = null;
 /* průběžná historie stavů (vypravěč): po každé změně boje, karet či životů nepřátel snímek s časem – „Zpět“ u libovolného řádku záznamu
@@ -1233,7 +1239,7 @@ function bojLog(id, o, kdo) {
   o.t = Date.now();
   if (GMV && !o.pre && BSNAPC && Date.now() - BSNAPC.t < 1500) o.pre = BSNAPC.snap;
   if (GMV) bojLogUloz();
-  if (o.k == null && BOJ.s && BOJ.s.aktivni) o.k = BOJ.s.kolo || 1;
+  if (o.k == null && bojBezi(BOJ.s)) o.k = BOJ.s.kolo || 1;
   (BLOG[id] = BLOG[id] || []).unshift(o);
   BLOG[id].length = Math.min(BLOG[id].length, 4);
   BLOGG.unshift({id, kdo: kdo || "", o});
@@ -2662,6 +2668,7 @@ function bojPocty(s) {
 }
 function bojSloty(s) {
   /* sloty se střídají mezi družinou a vypravěčem; začíná strana s nejlepším hodem (při shodě družina); slot navíc je na konci */
+  if (s.scena) return []; /* scéna mimo boj: žádná iniciativa */
   const P = s.pocty || bojPocty(s),
     dm = +s.dm || 0,
     hod = s.hod != null ? +s.hod : Math.max(-99, ...(s.hraci || []).map(x => +x.hod || 0)),
@@ -2818,6 +2825,58 @@ const bojBestHod = s => {
     .map(Number);
   return v.length ? Math.max(...v) : null;
 };
+/* ===== Scéna (2026-10-23): Hra je pořád scéna, boj je jen její režim. Scéna je stav boje s `scena: true` a `aktivni: true`
+   (karty, útoky, kouzla, stavy a záznam fungují jako v boji), jen bez iniciativy, slotů a tahů. Opravdový boj = bojBezi(s). ===== */
+const bojBezi = s => !!(s && s.aktivni && !s.scena);
+function bojNovaScena(z) {
+  const st = JSON.parse(JSON.stringify(z || {}));
+  Object.keys(z).forEach(k => delete z[k]);
+  if (st.zbrane) z.zbrane = st.zbrane;
+  const jm = (st.hraci && st.hraci.length ? st.hraci.map(h => h.n) : PARTY.map(p => p.n.replace(/^✦\s*/, ""))).filter(Boolean);
+  Object.assign(z, {
+    scena: true,
+    aktivni: true,
+    priprava: false,
+    kolo: 1,
+    tah: 0,
+    sloty: [],
+    obsazeni: {},
+    npc: [],
+    nid: 0,
+    zac: Date.now(),
+    hraci: jm.map((n, i) => {
+      const K = (KARTY || []).find(k => k.n === n);
+      return Object.assign({id: "h" + (i + 1), n}, K ? {k: K.id} : {});
+    }),
+  });
+  bojScenaClenove(z);
+  return z;
+}
+/* konec boje (2026-10-23): zpátky do scény – stejné postavy, NPC, kteří zůstali (ne poražení a prchající), záznam pokračuje */
+function bojNaScenu(z) {
+  const out = o => (o.stav || []).some(t => BMIMO.includes(t)) || (o.druh === "houf" && !(+o.pocet > 0));
+  ["priprava", "ticha", "lead", "hod", "dm", "prekv", "pocty", "hotovo", "ready", "mom", "cile"].forEach(k => delete z[k]);
+  Object.assign(z, {scena: true, aktivni: true, kolo: 1, tah: 0, sloty: [], obsazeni: {}, utOk: Date.now()});
+  z.npc = (z.npc || []).filter(o => !out(o));
+  if (!z.zac) z.zac = Date.now();
+  return z;
+}
+/* ve scéně jsou všechny postavy, jejichž kartu má hráč (KHRAC, 13) – i ty, které se přihlásily až během scény */
+function bojScenaChybi(z) {
+  if (typeof KHRAC === "undefined") return [];
+  const maji = new Set((z.hraci || []).map(h => (bojKartaH(h) || {}).id).filter(Boolean));
+  return (KARTY || []).filter(k => KHRAC[k.id] && !maji.has(k.id));
+}
+function bojScenaClenove(z) {
+  const L = bojScenaChybi(z);
+  z.hraci = z.hraci || [];
+  L.forEach(k => {
+    let i = z.hraci.length + 1;
+    while (z.hraci.some(h => h.id === "h" + i)) i++;
+    z.hraci.push({id: "h" + i, n: k.n, k: k.id});
+  });
+  return L.length > 0;
+}
 function bojNovaPriprava(z) {
   const st = JSON.parse(JSON.stringify(z || {}));
   Object.keys(z).forEach(k => delete z[k]);
@@ -3084,8 +3143,9 @@ function bojZmen(fn0, bezUndo) {
     bojPcNaplnit(z);
   };
   if (!bojDB) return Promise.resolve();
-  const s = JSON.parse(JSON.stringify(BOJ.s || {})),
-    pre = JSON.stringify(s);
+  /* jedna serializace na kopii i na stav před změnou (dřív dvě) */
+  const pre = JSON.stringify(BOJ.s || {}),
+    s = JSON.parse(pre);
   if (!bezUndo) bojUndoPush({s: pre});
   try {
     fn(s);
@@ -3259,7 +3319,7 @@ function bojRealtime() {
   };
 }
 function bojNav() {
-  const bezi = !!(BOJ.s && BOJ.s.aktivni);
+  const bezi = bojBezi(BOJ.s);
   /* boj je na stránce Hra (2026-10-22, vypravěči v řídicím pultu): v menu značka u Hry, že boj probíhá */
   const h = document.querySelector(".navhra");
   if (h) h.classList.toggle("bojbezi", bezi);

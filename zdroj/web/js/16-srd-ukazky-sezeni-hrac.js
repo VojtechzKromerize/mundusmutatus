@@ -862,16 +862,6 @@ document.addEventListener("click", async e => {
     mmPop(d ? kzKarta(d, false) : `<h3>${besc(x.n)}</h3>${kSpPopis(x)}`);
     return;
   }
-  const ip = T("[data-kinvpop]");
-  if (ip) {
-    const it = (kartaStav(K.id).inv || K.vybaveni || [])[+ip.dataset.kinvpop],
-      x = kPred(it),
-      v = typeof vybNajdi === "function" ? vybNajdi(it) : null;
-    if (v && (!x || v.sk !== "magicke")) mmPop(vybKarta(v, false));
-    else if (x) mmPop(predKarta(x));
-    else if (v) mmPop(vybKarta(v, false));
-    return;
-  }
   const pj = T("[data-kinvpij]");
   if (pj) {
     const S = kartaStav(K.id),
@@ -1414,7 +1404,7 @@ function hraStavHtml() {
     zb = zavojBan();
   } catch (e) {}
   return `<div class="hrastav"><p><b>${besc(partyDate())}</b>${HRA && HRA.hodina != null ? `, ${HRA.hodina}:00` : ""}${partyPlace() ? ` · ${besc(partyPlace())}` : ""}</p>${zb}
-    ${s && s.aktivni ? `<p class="hraboj"><b>Probíhá boj</b> – ${s.kolo || 1}. kolo. <a class="gbtn" href="#hra">Do boje ⚔</a></p>` : s && s.priprava ? `<p class="hraboj"><b>Chystá se boj</b> – v záložce Boj hoď iniciativu. <a class="gbtn" href="#hra">Do boje ⚔</a></p>` : ""}</div>`;
+    ${bojBezi(s) ? `<p class="hraboj"><b>Probíhá boj</b> – ${s.kolo || 1}. kolo. <a class="gbtn" href="#hra">Do boje ⚔</a></p>` : s && s.priprava ? `<p class="hraboj"><b>Chystá se boj</b> – v záložce Boj hoď iniciativu. <a class="gbtn" href="#hra">Do boje ⚔</a></p>` : ""}</div>`;
 }
 /* změny od posledního sezení: poprvé se načtou na pozadí a stránka se překreslí */
 function hraZmenyHtml() {
@@ -1504,7 +1494,11 @@ function pultNavHtml() {
   const n = typeof navrhyCeka === "function" ? navrhyCeka().length : 0,
     s = BOJ.s || {},
     t = [
-      ["boj", "#hra", `⚔ Boj${s.aktivni ? ` <small>${s.kolo || 1}. kolo</small>` : s.priprava ? " <small>příprava</small>" : ""}`],
+      [
+        "boj",
+        "#hra",
+        s.scena && s.aktivni ? "Scéna" : `⚔ Boj${s.aktivni ? ` <small>${s.kolo || 1}. kolo</small>` : s.priprava ? " <small>příprava</small>" : ""}`,
+      ],
       ["druzina", "#hra/druzina", `Družina${n ? ` <b class="pultn">${n}</b>` : ""}`],
       ["sezeni", "#hra/sezeni", "Sezení"],
     ];
@@ -1780,21 +1774,7 @@ document.addEventListener("click", async e => {
     mmHlasG(err.message || String(err), 5000);
   }
 });
-/* karta: záložky, poznámky, zátěž, připoutání */
-const KTAB = {
-  get() {
-    try {
-      return localStorage.getItem("mm-ktab") || "hody";
-    } catch (e) {
-      return "hody";
-    }
-  },
-  set(v) {
-    try {
-      localStorage.setItem("mm-ktab", v);
-    } catch (e) {}
-  },
-};
+/* karta: poznámky, zátěž, připoutání */
 const kLb = w => {
   const m = String(w || "")
     .replace(",", ".")
@@ -1809,21 +1789,6 @@ function kZatez(K, inv, pen) {
     max = 15 * kVl(K, "STR") * (/goliath/i.test(K.druh || "") || (K.rysy2 || []).some(r => /powerful build/i.test(r.n)) ? 2 : 1);
   return {w, max, pret: w > max};
 }
-document.addEventListener("click", e => {
-  const t = e.target.closest("[data-ktab]");
-  if (!t) return;
-  const c = t.closest(".kcard");
-  if (!c) return;
-  KTAB.set(t.dataset.ktab);
-  if (c.classList.contains("kdb2")) {
-    kartyPrekresli();
-    return;
-  }
-  c.querySelectorAll("[data-ktab]").forEach(b => b.setAttribute("aria-selected", b === t));
-  c.querySelectorAll(".ktab").forEach(s => {
-    s.hidden = s.dataset.tab !== t.dataset.ktab;
-  });
-});
 document.addEventListener("click", async e => {
   const b = e.target.closest("[data-kpri]");
   if (!b) return;

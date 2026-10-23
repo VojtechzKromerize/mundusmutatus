@@ -125,7 +125,8 @@ const KINVC = {}; // vybraný cíl vrhu podle karty
 
 /* --- oddíl Vybavení v kartě --- */
 function bdmVyb(K) {
-  const o = kartaDbData(K),
+  kartaPriprav(K);
+  const zat = kartaZatez(K),
     S = kartaStav(K.id),
     inv = kInv(K),
     pen = S.pen || K.penize || {},
@@ -174,8 +175,8 @@ function bdmVyb(K) {
       return `<details class="kvsk kvsk-${k}" data-kvsk="${k}"${otv ? " open" : ""}><summary><b>${l}</b> <small>${G[k].length}${k === "pri" ? ` · ${pri}/3` : ""}</small></summary><ul class="kvseznam">${G[k].map(row).join("")}</ul></details>`;
     })
     .join("");
-  const W = o.zat.w ? String(Math.round(o.zat.w * 10) / 10).replace(".", ",") : "0";
-  return `<div class="bdmvyh kvhl"><span ${btip(o.zat.pret ? "Přetížen: rychlost −10 stop, nevýhoda na ověření, útoky a záchrany STR, AGI, CON" : "Nesená váha")}><small>Neseno</small> <b>${W} lb</b>${o.zat.pret ? ` <b class="bhrich">přetížen</b>` : ""}</span>
+  const W = zat.w ? String(Math.round(zat.w * 10) / 10).replace(".", ",") : "0";
+  return `<div class="bdmvyh kvhl"><span ${btip(zat.pret ? "Přetížen: rychlost −10 stop, nevýhoda na ověření, útoky a záchrany STR, AGI, CON" : "Nesená váha")}><small>Neseno</small> <b>${W} lb</b>${zat.pret ? ` <b class="bhrich">přetížen</b>` : ""}</span>
       <span ${btip("Připoutané magické předměty (Attunement), nejvýš 3")}><small>Připoutáno</small> <b>${pri}/3</b></span>
       <button type="button" class="kvpenb" data-bdmsh="pen" ${btip("Peníze: zaplatit, přijmout, pokladna družiny, směna")}><small>Peníze</small> <b>${besc(kPenTxt(pen))}</b></button></div>
     ${inv.length > 8 ? `<p class="kvhl2"><input type="search" class="kvhq" data-kvq value="${besc(q)}" placeholder="Hledat ve vybavení" aria-label="Hledat ve vybavení">${du ? `<button type="button" class="bdmmini" data-kvslouc ${btip("Sloučí stejné věci (stejné jméno, ne v jiném batohu) do jednoho řádku s počtem")}>Sloučit stejné (${du})</button>` : ""}</p>` : du ? `<p class="kvhl2"><button type="button" class="bdmmini" data-kvslouc>Sloučit stejné (${du})</button></p>` : ""}
