@@ -129,3 +129,23 @@ test("konec boje: hra se vrátí do scény – postavy, NPC, kteří zůstali, a
   assert.ok(z.utOk > 0, "útoky z boje už nenabízejí přepnutí do boje");
   assert.deepEqual(V(`bojSloty({scena: true, hraci: [{id: "h1", hod: 12}], npc: [{id: "n1"}]})`), [], "scéna nemá sloty iniciativy");
 });
+
+test("karta: účinky jsou v listu Stavy (záložka Účinky), list Svědomí je už nemá", () => {
+  const K0 = S.ev(`JSON.stringify(KST.balduin || null)`);
+  S.ev(`KST.balduin = Object.assign({}, KST.balduin || {}, {uc: [{n: "Armor of Agathys", h: 1}]})`);
+  try {
+    const list = t => V(`bdmList(null, {id: "_balduin", n: "Balduin"}, KARTBY.balduin, false, {boj: false, karta: true}, ${JSON.stringify(t)})`);
+    S.ev(`BDM.stt = "st"`);
+    let [tit, html] = list("st");
+    assert.equal(tit, "Stavy a účinky");
+    assert.match(html, /data-bdmstt="uc" aria-selected="false">Účinky <b>1<\/b>/, "záložka Účinky ukazuje počet");
+    assert.doesNotMatch(html, /Armor of Agathys/);
+    S.ev(`BDM.stt = "uc"`);
+    [tit, html] = list("st");
+    assert.match(html, /Armor of Agathys/);
+    [tit, html] = list("sv");
+    assert.doesNotMatch(html, /Armor of Agathys/, "Svědomí už účinky nemá");
+  } finally {
+    S.ev(`BDM.stt = "st"; KST.balduin = ${K0} || undefined`);
+  }
+});

@@ -3651,3 +3651,8 @@ button.btedch{cursor:pointer}button.btedch:hover{border-color:var(--gold,#b08d3a
 #bojview .bojgm .bnpc.bopen:not(.bhrk) .bscnpc{background:#15070a;border-color:#5a2a2a}
 #bojview .bojgm .bnpc.bopen:not(.bhrk) .bscab{background:#2a1216}
 #bojview .bojgm .bnpc.bopen:not(.bhrk) :is(.bi,.bdmic){filter:none}
+/* list Stavy: záložky Stavy · Účinky (2026-10-23) */
+.bdmstt{display:flex;gap:4px;margin:0 0 10px;border-bottom:1px solid var(--kb-bd2,#5a2a2a)}
+.bdmstt button{flex:1;padding:7px 6px 6px;border:0;border-bottom:2px solid transparent;background:none;color:var(--kb-mu,#b8a384);font:600 .78rem/1.1 var(--f-label);letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+.bdmstt button[aria-selected=true]{color:var(--kb-gold,#d9b45c);border-bottom-color:var(--kb-gold,#d9b45c)}
+.bdmstt button b{display:inline-block;min-width:1.2em;margin-left:4px;padding:0 4px;border-radius:999px;background:var(--kb-bar,#4a2228);color:var(--kb-tx,#efe3c8);font-size:.72rem}

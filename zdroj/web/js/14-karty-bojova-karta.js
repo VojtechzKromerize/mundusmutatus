@@ -1370,7 +1370,14 @@ const BDMS = [
   ["zaznam", "Herní záznam: moje hody a záznam boje", "Záznam"],
   ["spol", "Společníci", "Společníci"],
 ];
-const BDM = {sec: {}, sheet: null, hlo: new Set(), af: {}, kf: {}, fokus: null, utx: new Set()};
+const BDM = {sec: {}, sheet: null, hlo: new Set(), af: {}, kf: {}, fokus: null, utx: new Set(), stt: "st"};
+/* list Stavy: záložka Stavy / Účinky */
+document.addEventListener("click", e => {
+  const b = e.target.closest && e.target.closest("[data-bdmstt]");
+  if (!b) return;
+  BDM.stt = b.dataset.bdmstt;
+  bdmPrekresli();
+});
 try {
   Object.assign(BDM.sec, JSON.parse(localStorage.getItem("mm-bdmsec") || "{}"));
 } catch (e) {}
@@ -1763,12 +1770,29 @@ function bdmList(s, h, K, gm, X, t) {
       }
       <p class="bdmnote">Teď <b>${cur}</b> z ${mx}${thp ? ` · dočasné ${thp}` : ""}. Pád na 0 HP podle Artikulí: bezvědomí, hody proti smrti, hod na kritické zranění a 1 úroveň vyčerpání; léčení jen stabilizuje.</p>${X.boj && !X.d ? `<button type="button" class="bdmbtn" data-bhds="pad">${bi("prah-smrti")} ${gm ? "Padl na 0 HP" : "Padl jsem (0 HP)"}</button>` : X.boj ? "" : kDsHtml(K, S, cur)}`,
     ];
+  /* Stavy (2026-10-23): list má dvě záložky – Stavy a Účinky (kouzla a schopnosti s trváním; dřív v listu Svědomí) */
   if (t === "st") {
     const st0 = X.boj ? (h.stav || []).filter(t => BSTAVH.includes(t)) : S.stavy || [],
-      stv = kKonDrzi(K) && !st0.includes("soustředí") ? [...st0, "soustředí"] : st0;
+      stv = kKonDrzi(K) && !st0.includes("soustředí") ? [...st0, "soustředí"] : st0,
+      uc = kUcHtml(K),
+      ucN = kUc(K).length + (typeof kBufy === "function" ? kBufy(K).filter(b => b.od !== K.n).length : 0),
+      tab = BDM.stt === "uc" ? "uc" : "st";
+    const tabs = `<nav class="bdmstt" role="tablist" aria-label="Stavy a účinky">${[
+      ["st", "Stavy", stv.length + (+S.vycerp ? 1 : 0)],
+      ["uc", "Účinky", ucN],
+    ]
+      .map(([k, l, n]) => `<button type="button" role="tab" data-bdmstt="${k}" aria-selected="${tab === k}">${l}${n ? ` <b>${n}</b>` : ""}</button>`)
+      .join("")}</nav>`;
     return [
-      "Stavy",
-      X.boj ? kStavyTab(stv, BSTAVH, "data-bhst", +S.vycerp || 0, kKonNazev(K)) : kStavyTab(stv, KSTV, "data-kstav", +S.vycerp || 0, kKonNazev(K)),
+      "Stavy a účinky",
+      tabs +
+        (tab === "uc"
+          ? uc
+            ? `<div class="kdb2 bdmkdb">${uc}</div>`
+            : `<p class="bdmnote">Žádné účinky. Kouzla a schopnosti s trváním (Bless, Armor of Agathys, Rage…) se sem zapíšou samy, když je použiješ.</p>`
+          : X.boj
+            ? kStavyTab(stv, BSTAVH, "data-bhst", +S.vycerp || 0, kKonNazev(K))
+            : kStavyTab(stv, KSTV, "data-kstav", +S.vycerp || 0, kKonNazev(K))),
     ];
   }
   if (t === "ac") {
@@ -1779,8 +1803,8 @@ function bdmList(s, h, K, gm, X, t) {
       `<p class="bdmnote">${besc(kACR(K).txt)}${X.boj && h.kryt ? ` + kryt ${h.kryt}` : ""}</p>${zuL.length ? `<div class="bdmrow">${kZbrUHtml(K, true)}</div><p class="bdmnote">Při kritickém zásahu obětuj zbroj nebo štít – kritický zásah se změní v běžný. Vycpávaná a štít vydrží 1×, kroužková 2×, plátová a komplexní 3×; pak nedávají AC ani Resistance, dokud je kovář neopraví (klepnutím na kosočtverec).</p>` : `<p class="bdmnote">Postava nemá zbroj ani štít, které by šly obětovat.</p>`}${X.boj ? `<div class="bdmrow">${X.kry || ""}</div>` : ""}`,
     ];
   }
-  /* Svědomí (2026-10-22): záložka Duše zmizela – celá duše (hřích a skutky, feat víry, nastavení), rány a účinky jsou v tomto listu */
-  if (t === "sv") return [`Svědomí ${D.sv} · ${SVST(D.sv)}`, `<div class="kdb2 bdmkdb bdmduse">${kDuseHtml(K)}${kRanyHtml(K)}${kUcHtml(K)}</div>`];
+  /* Svědomí (2026-10-22): záložka Duše zmizela – celá duše (hřích a skutky, feat víry, nastavení) a rány jsou v tomto listu; účinky od 2026-10-23 v listu Stavy */
+  if (t === "sv") return [`Svědomí ${D.sv} · ${SVST(D.sv)}`, `<div class="kdb2 bdmkdb bdmduse">${kDuseHtml(K)}${kRanyHtml(K)}</div>`];
   if (t === "odp") {
     const kzMax = kKostkyPool(K).length || kLv(K);
     const spent = +S.kz || 0,
@@ -1897,7 +1921,7 @@ function bojDbm(s, h, K, gm, vzdy, X) {
     zv = zavojInfo(),
     kr = kRany(K),
     kd = kKonDrzi(K),
-    stN = stL0.length + (kd && !stL0.includes("soustředí") ? 1 : 0) + (+S.vycerp ? 1 : 0),
+    stN = stL0.length + (kd && !stL0.includes("soustředí") ? 1 : 0) + (+S.vycerp ? 1 : 0) + kUc(K).length,
     sv = kSvKl(D.sv),
     shOpen = BDM.sheet && BDM.sheet.k === key ? BDM.sheet.t : "";
   const hpB = c =>
