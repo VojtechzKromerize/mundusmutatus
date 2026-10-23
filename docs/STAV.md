@@ -78,6 +78,9 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
   ostatní reakční kouzla, Uncanny Dodge, Deflect Attacks, Parry, Cutting Words, Defensive Duelist, Riposte, Odvetná, Counterspell), společné pravidlo
   „reakce jednou za kolo, ne ve stavu bez akcí, ne na 0 HP“ (dřív jen u Counterspellu); vrácené HP počítá `reakceVysledek`. Obětování zbroje
   při kritu se nabídne i po použité reakci (dřív schované).
+- 10-23 **Vlastnosti na kartě** (`bdmVlRadek`, 14): mince se zkratkou (`art/img/atributy/<str|agi|…>-48/96.webp`, kamenný reliéf ve zlatém
+  okraji; prompty v projektu `grafika/ikony-atributu-prompty.md`) · skóre v pilulce · velký modifikátor (ověření) · záchrana ve štítku –
+  plný zlatý štítek = zdatnost (místo dřívější tečky u zkratky); výška řádku jako dřív. Test `testy/jednotky/karta-atributy.test.mjs`.
 
 ## Otevřené
 

@@ -1657,17 +1657,25 @@ function bdmRysy(K) {
   const vse = kRysyHtml(K);
   return `<h4 class="bdmgh">S aktivací a počtem použití</h4>${ak}${vse ? `<details class="bdmbez"><summary>Ostatní rysy</summary><div class="bdmrysy">${vse}</div></details>` : ""}`;
 }
-/* vlastnost v bojové kartě (2026-10-17): zkratka | skóre | nahoře modifikátor (ověření), dole záchrana – úsporný řádek */
+/* vlastnost v bojové kartě (2026-10-23): mince se zkratkou | skóre | modifikátor (ověření, velký) | záchrana ve štítku
+   (plný zlatý štítek = zdatnost v záchraně); mince `art/img/atributy/<str|agi|…>-48/96.webp`, prompty v projektu
+   `grafika/ikony-atributu-prompty.md` */
 const BDMVLZ = {STR: "STR", AGI: "DEX", CON: "CON", INT: "INT", WIS: "WIS", CHA: "CHA"};
+const BDMSTIT = `<svg viewBox="0 0 24 26" aria-hidden="true"><path d="M12 1.5l9 3.2v6.8c0 6-4.1 10-9 12.5-4.9-2.5-9-6.5-9-12.5V4.7z"/></svg>`;
 function bdmVlRadek(K, a, zAttr, edit) {
   const v = kVl(K, a);
   if (v == null) return "";
   const zm = (kartaStav(K.id).vlU || {})[a] != null,
     pf = (K.zachProf || []).includes(a),
-    zs = kZach(K, a);
-  return `<div class="bdmvlr${pf ? " kprof" : ""}${zm ? " bdmvlu" : ""}"><span class="bdmvlz" ${btip(`${KDBVL[a]}${pf ? " – zdatnost v záchraně" : ""}`)}>${BDMVLZ[a]}${pf ? `<i class="kdbdot" aria-hidden="true"></i>` : ""}</span>
-    <button type="button" class="bdmvls" ${edit ? `data-kvled="${a}"` : "disabled"} ${btip(`${KDBVL[a]}: skóre ${v}${zm ? ` (přepsáno, v PDF ${kVl0(K, a)})` : ""}${edit ? " – klikni pro změnu" : ""}`)}>${v}</button>
-    <span class="bdmvlmz"><button type="button" class="bdmvlm" data-khod="ov:${a}" ${btip(`Ověření ${KSK[a]}: d20 ${bsg(kOvB(K, a))} (s kostkou Závoje)`)}>${bsg(kMod(v))}</button><button type="button" class="bdmvlzh" ${zAttr} ${btip(`Záchrana ${KSK[a]}${pf ? " (zdatnost)" : ""}: d20 ${bsg(zs)}`)}>${bsg(zs)}</button></span></div>`;
+    zs = kZach(K, a),
+    ik = `art/img/atributy/${a.toLowerCase()}`,
+    tS = `${KDBVL[a]}: skóre ${v}${zm ? ` (přepsáno, v PDF ${kVl0(K, a)})` : ""}${edit ? " – klikni pro změnu" : ""}`,
+    tM = `Ověření ${KSK[a]}: d20 ${bsg(kOvB(K, a))} (s kostkou Závoje)`,
+    tZ = `Záchrana ${KSK[a]}${pf ? " (zdatnost)" : ""}: d20 ${bsg(zs)}`;
+  return `<div class="bdmvlr${pf ? " kprof" : ""}${zm ? " bdmvlu" : ""}"><span class="bdmvlz" ${btip(`${KDBVL[a]}${pf ? " – zdatnost v záchraně" : ""}`)}><img class="bdmvlik" src="${ik}-48.webp" srcset="${ik}-48.webp 48w, ${ik}-96.webp 96w" sizes="36px" width="36" height="36" alt="" aria-hidden="true" decoding="async" loading="lazy"><b>${BDMVLZ[a]}</b></span>
+    <button type="button" class="bdmvls" ${edit ? `data-kvled="${a}"` : "disabled"} aria-label="${besc(tS)}" ${btip(tS)}>${v}</button>
+    <button type="button" class="bdmvlm" data-khod="ov:${a}" aria-label="${besc(tM)}" ${btip(tM)}>${bsg(kMod(v))}</button>
+    <button type="button" class="bdmvlzh" ${zAttr} aria-label="${besc(tZ)}" ${btip(tZ)}>${BDMSTIT}<b>${bsg(zs)}</b></button></div>`;
 }
 /* zdatnosti a jazyky (2026-10-21): položky z PDF jde skrýt (např. elfština v tomto světě není) a doplnit vlastní (latina);
    skryté zůstávají škrtnuté s možností vrátit; skrytí i doplnění jsou úpravy karty (`dopl.bez`, `dopl.zbroj` / `zbrane` / `nastroje`,
