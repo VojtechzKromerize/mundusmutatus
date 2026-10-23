@@ -1453,7 +1453,7 @@ function bdmAkce(s, h, K, gm, X) {
   } else if (af === "R") {
     telo = `<section class="bdmgrp${X.boj && X.rk ? " bdmused" : ""}"${X.boj && X.rk ? " inert" : ""}>${sez(G.R, "")}${spJm(spR)}</section>`;
   } else {
-    telo = `${zdrL.length ? `<ul class="kdbli kdbzdr bdmzdr">${zdrL.map(q => `<li><b>${besc(q.n)}</b>${kdbPips(K, q)}${q.obn ? `<small>${besc(q.obn)}</small>` : ""}</li>`).join("")}</ul>` : `<p class="bdmnote">Nic s omezeným počtem použití.</p>`}${kSchopHtml(K)}`;
+    telo = `${zdrL.length ? `<ul class="kdbli kdbzdr bdmzdr">${zdrL.map(q => `<li><b>${besc(q.n)}</b>${kdbPips(K, q)}</li>`).join("")}</ul>` : `<p class="bdmnote">Nic s omezeným počtem použití.</p>`}${kSchopHtml(K)}`;
   }
   return `${info}<div class="bdmseg" role="tablist" aria-label="Druh akce">${seg}</div><div class="bdmafb" data-bdmafb="${af}">${telo}</div>`;
 }

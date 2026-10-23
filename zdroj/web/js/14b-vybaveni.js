@@ -88,7 +88,7 @@ const kPenHtml = pen =>
     .filter(k => +(pen || {})[k])
     .map(k =>
       KMINCJM[k]
-        ? `<span class="kpenm" ${btip(`${k} – ${KMINCJM[k]}`)}>${kMinceIk("mince-" + k.toLowerCase())}${besc(String(pen[k]))} <small>${k}</small></span>`
+        ? `<span class="kpenm" aria-label="${besc(`${pen[k]} ${k} (${KMINCJM[k]})`)}" ${btip(`${k} – ${KMINCJM[k]}`)}>${kMinceIk("mince-" + k.toLowerCase())}${besc(String(pen[k]))}</span>`
         : `<span class="kpenm">${besc(String(pen[k]))} <small>${k}</small></span>`,
     )
     .join(" ") || "bez peněz";
