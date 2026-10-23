@@ -1333,17 +1333,17 @@ function bojBufKonecTahu(s, h) {
    NPC: značky kouzel (n.ef bez stavu – Hex, Bane, Hunter's Mark…); postava: značky v boji, posílení od druhých (kBufy) a vlastní posílení (KZEF) */
 const KZIK = {
   Bless: "bless",
-  Guidance: "bless",
+  Guidance: "vedeni",
   Bane: "bane",
-  Heroism: "posileni",
+  Heroism: "hrdinstvi",
   Aid: "posileni",
   "Beacon of Hope": "posileni",
   "Death Ward": "ochrana",
   "Shield of Faith": "ochrana",
-  "Warding Bond": "ochrana",
+  "Warding Bond": "warding-bond",
   "Protection from Evil and Good": "ochrana",
   "Holy Aura": "ochrana",
-  Sanctuary: "ochrana",
+  Sanctuary: "utociste",
   Hex: "hex",
   "Hunter's Mark": "lovec",
   "Faerie Fire": "faerie",
@@ -1356,27 +1356,53 @@ const KZIK = {
   "Expeditious Retreat": "pohyb",
   Jump: "pohyb",
   Blur: "zmizeni",
-  "Mirror Image": "zmizeni",
+  "Mirror Image": "zrcadla",
   Blink: "zmizeni",
   Invisibility: "neviditelny",
   "Greater Invisibility": "neviditelny",
   Barkskin: "kuze",
   Stoneskin: "kuze",
   "Mage Armor": "kuze",
-  "Armor of Agathys": "kuze",
+  "Armor of Agathys": "agathys",
   "False Life": "kuze",
   "Enlarge/Reduce": "velikost",
   "Enhance Ability": "vyhoda",
   "Blade Ward": "zb-stit",
   Resistance: "zb-stit",
   "Protection from Energy": "zb-stit",
-  "Spirit Guardians": "zr-radiant",
+  "Spirit Guardians": "strazci",
   Moonbeam: "zr-radiant",
   "Magic Weapon": "zr-magicke",
   "Elemental Weapon": "zr-magicke",
   Shillelagh: "zr-magicke",
   "Witch Bolt": "zr-lightning",
   "Heat Metal": "zr-fire",
+  Shield: "stit-kouzlo",
+  /* schopnosti povolání a podtříd hráčů (2026-10-23, prompty v projektu grafika/ikony-ucinku-prompty.md) */
+  "Hexblade's Curse": "hexblade",
+  Rage: "zurivost",
+  "Reckless Attack": "bezohlednost",
+  "Bardic Inspiration": "bardska",
+  "Wild Shape": "podoba",
+  Polymorph: "podoba",
+  "Rage of the Gods": "bozska-podoba",
+  "Emboldening Bond": "pouto-miru",
+  "Protective Bond": "pouto-miru",
+  "Zealous Presence": "horlivost",
+  Portent: "predzvest",
+  "The Third Eye": "treti-oko",
+  "Distracting Strike": "rozptyleni",
+  "Goading Attack": "provokace",
+  "Evasive Footwork": "uhybne-kroky",
+  "Bait and Switch": "uhybne-kroky",
+};
+/* ikona účinku podle jména: přesná shoda, jinak začátek („Hexblade's Curse: Damaging Hex“, „Bardic d8“) */
+const kzIk = n => {
+  n = kzJm(String(n || "").replace(/^Účinek:\s*/, ""));
+  if (KZIK[n]) return KZIK[n];
+  if (/^Bardic /.test(n)) return KZIK["Bardic Inspiration"];
+  const k = Object.keys(KZIK).find(x => n.startsWith(x + ":") || n.startsWith(x + " ("));
+  return k ? KZIK[k] : null;
 };
 function bojKzEf(s, id) {
   const R = [],
@@ -1403,6 +1429,14 @@ function bojKzEf(s, id) {
     kBufEf(K)
       .filter(b => b.vl)
       .forEach(b => add(b.n, "", b.e.p || ""));
+    /* zapnuté schopnosti s vlastní ikonou (Rage, Emboldening Bond, kostka Bardic Inspiration), podoba a předzvěst Věštce */
+    (typeof kPri === "function" ? kPri(K) : []).forEach(p => {
+      if (kzIk(p)) add(/^Bardic /.test(p) ? "Bardic Inspiration" : p, "", /^Bardic /.test(p) ? `kostka ${p.slice(7)}` : "");
+    });
+    const F = typeof kForma === "function" ? kForma(K) : null;
+    if (F) add(F.typ === "ws" ? "Wild Shape" : "Polymorph", "", F.n || "");
+    const P = kartaStav(K.id).port;
+    if (P && P.length) add("Portent", "", `předzvěst ${P.join(", ")}`);
   }
   return R;
 }
@@ -1412,7 +1446,7 @@ function bojKzIkHtml(s, id, tr) {
   return `<span class="bkzikw${tr ? " " + tr : ""}">${L.slice(0, 3)
     .map(
       e =>
-        `<span class="bkzik" role="img" aria-label="${besc(e.n)}" ${btip(`Kouzlo ${e.n}${e.od ? ` – od ${e.od}` : ""}${e.zb != null ? ` · ještě ${e.zb} ${e.zb === 1 ? "kolo" : e.zb < 5 ? "kola" : "kol"}` : ""}${e.pozn ? ` · ${e.pozn}` : ""}`)}><img src="art/img/boj/${KZIK[e.n] || "zr-magicke"}-48.webp" width="24" height="24" alt="" aria-hidden="true" decoding="async" loading="lazy"></span>`,
+        `<span class="bkzik" role="img" aria-label="${besc(e.n)}" ${btip(`Kouzlo ${e.n}${e.od ? ` – od ${e.od}` : ""}${e.zb != null ? ` · ještě ${e.zb} ${e.zb === 1 ? "kolo" : e.zb < 5 ? "kola" : "kol"}` : ""}${e.pozn ? ` · ${e.pozn}` : ""}`)}><img src="art/img/boj/${kzIk(e.n) || "zr-magicke"}-48.webp" width="24" height="24" alt="" aria-hidden="true" decoding="async" loading="lazy"></span>`,
     )
     .join("")}${
     L.length > 3

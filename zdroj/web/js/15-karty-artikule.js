@@ -282,6 +282,13 @@ function kUcVyprsi(K) {
 }
 /* 2026-10-21: jen přehled běžících účinků (ukončit, znovu seslat); ruční přidávání a tlačítka AC zmizely – kouzla si účinky
    přidávají sama při seslání. Bez účinků se oddíl neukazuje. */
+/* ikona účinku v seznamu (2026-10-23): stejná jako na žetonu v boji (KZIK v 17b, načte se s kartou) */
+const kUcIk = n => {
+  const f = typeof kzIk === "function" ? kzIk(n) : null;
+  return f
+    ? `<img class="kucik" src="art/img/boj/${f}-48.webp" width="22" height="22" alt="" aria-hidden="true" decoding="async" loading="lazy"> `
+    : "";
+};
 function kUcHtml(K) {
   const L = kUc(K),
     t = kTed(),
@@ -292,12 +299,12 @@ function kUcHtml(K) {
       L.length
         ? `<ul class="kuc">${L.map((x, i) => {
             const z = x.do != null && t != null ? x.do - t : null;
-            return `<li>${x.kon ? `${kKonI()} ` : ""}<b>${besc(x.n)}</b> <small>${z != null ? (z < 1 ? `méně než hodina (${kHodTxt(x.h || z)})` : `zbývá ${kHodTxt(z)}`) : x.h ? kHodTxt(x.h) : "do odvolání"}</small> ${typeof KZOPAK !== "undefined" && KZOPAK[kzJm(x.n)] && !/ ⇒ /.test(x.n) ? ` <button type="button" class="gbtn ghost" data-kopak="${besc(kzJm(x.n))}">↻ Znovu</button>` : ""} <button type="button" class="gbtn ghost" data-kucx="${i}" aria-label="Ukončit ${besc(x.n)}">ukončit</button></li>`;
+            return `<li>${kUcIk(x.n)}${x.kon ? `${kKonI()} ` : ""}<b>${besc(x.n)}</b> <small>${z != null ? (z < 1 ? `méně než hodina (${kHodTxt(x.h || z)})` : `zbývá ${kHodTxt(z)}`) : x.h ? kHodTxt(x.h) : "do odvolání"}</small> ${typeof KZOPAK !== "undefined" && KZOPAK[kzJm(x.n)] && !/ ⇒ /.test(x.n) ? ` <button type="button" class="gbtn ghost" data-kopak="${besc(kzJm(x.n))}">↻ Znovu</button>` : ""} <button type="button" class="gbtn ghost" data-kucx="${i}" aria-label="Ukončit ${besc(x.n)}">ukončit</button></li>`;
           }).join("")}</ul>`
         : ""
     }${typeof kBufHtml === "function" ? kBufHtml(K) : ""}${(() => {
       return B.length
-        ? `<ul class="kuc kucod">${B.map(b => `<li>${kKonI()} <b>${besc(b.n)}</b> <small>od ${besc(b.od)} · drží soustředění sesilatele</small></li>`).join("")}</ul>`
+        ? `<ul class="kuc kucod">${B.map(b => `<li>${kUcIk(b.n)}${kKonI()} <b>${besc(b.n)}</b> <small>od ${besc(b.od)} · drží soustředění sesilatele</small></li>`).join("")}</ul>`
         : "";
     })()}`;
 }

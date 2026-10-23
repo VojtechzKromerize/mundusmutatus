@@ -1990,6 +1990,7 @@ a.kzodk{color:inherit;text-decoration:underline dotted color-mix(in srgb,var(--k
 .bzrobet{flex-basis:100%;display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:5px 0 0}.bzrobet[hidden]{display:none}.bzrobet .bik{width:20px;height:20px;vertical-align:-5px}
 .bkzl{display:flex;flex-wrap:wrap;align-items:center;gap:5px;margin:8px 0}.bkzlh{font-family:var(--f-label);font-size:.78rem;letter-spacing:.05em;color:var(--muted);display:inline-flex;align-items:center;gap:4px}
 .bkzikw{display:inline-flex;align-items:center;gap:2px;vertical-align:middle}.bkzik{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--paper);box-shadow:0 0 0 1.5px var(--gold);cursor:help}.bkzik img{width:22px;height:22px}.bkzikw b{font:600 .62rem var(--f-label);background:var(--paper);border-radius:6px;padding:0 2px}
+.kuc .kucik{vertical-align:-6px;margin-right:2px}
 .bkzikm .bkzik{width:20px;height:20px}.bkzikm .bkzik img{width:16px;height:16px}.bkzikm{margin:0 3px}
 #bojview .bslot .bslst .bkzikw{margin-right:2px}#bojview .bslot .bslst .bkzik{width:30px;height:30px;align-self:center}#bojview .bslot .bslst .bkzik img{width:26px;height:26px}
 @media (max-width:600px){#bojview .bslot .bslst .bkzik{width:24px;height:24px}#bojview .bslot .bslst .bkzik img{width:20px;height:20px}}
