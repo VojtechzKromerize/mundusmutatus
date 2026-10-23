@@ -55,51 +55,6 @@ const KZBRW = {
   Blowgun: 1,
   Shield: 6,
 };
-const KVYBS = [
-  ["Arrows (20)", 1],
-  ["Bolts (20)", 1.5],
-  ["Sling Bullets (20)", 1.5],
-  ["Firearm Bullets (10)", 2],
-  ["Backpack", 5],
-  ["Bedroll", 7],
-  ["Blanket", 3],
-  ["Candle", 0],
-  ["Chain (10 feet)", 10],
-  ["Crowbar", 5],
-  ["Flask", 1],
-  ["Grappling Hook", 4],
-  ["Healer's Kit", 3],
-  ["Holy Water (flask)", 1],
-  ["Holy Symbol", 1],
-  ["Hunting Trap", 25],
-  ["Lamp", 1],
-  ["Hooded Lantern", 2],
-  ["Manacles", 6],
-  ["Oil (flask)", 1],
-  ["Pouch", 1],
-  ["Rations (1 day)", 2],
-  ["Rope (50 feet)", 5],
-  ["Sack", 0.5],
-  ["Shovel", 5],
-  ["Iron Spikes (10)", 5],
-  ["Tinderbox", 1],
-  ["Torch", 1],
-  ["Waterskin", 5],
-  ["Component Pouch", 2],
-  ["Spellbook", 3],
-  ["Thieves' Tools", 1],
-  ["Climber's Kit", 12],
-  ["Herbalism Kit", 3],
-  ["Poisoner's Kit", 2],
-  ["Mirror", 0.5],
-  ["Ink", 0],
-  ["Paper (sheet)", 0],
-  ["Parchment (sheet)", 0],
-  ["Caltrops", 2],
-  ["Ball Bearings", 2],
-  ["Clothes, Traveler's", 4],
-  ["Clothes, Fine", 6],
-];
 const KZBRV = (() => {
   try {
     return JSON.parse(localStorage.getItem("mm-zbrv") || "{}") || {};
@@ -112,64 +67,6 @@ const kZbrvUloz = () => {
     localStorage.setItem("mm-zbrv", JSON.stringify(KZBRV));
   } catch (e) {}
 };
-let KPOOLM = null,
-  KPOOLO = false;
-document.addEventListener(
-  "toggle",
-  e => {
-    const d = e.target;
-    if (d.matches && d.matches("details[data-kpoolw]")) KPOOLO = d.open;
-  },
-  true,
-);
-function kPool() {
-  if (KPOOLM && KPOOLM.$p === !!PRED && KPOOLM.$v === !!(typeof VYB !== "undefined" && VYB)) return KPOOLM;
-  const M = {$p: !!PRED, $v: !!(typeof VYB !== "undefined" && VYB)},
-    add = (l, o) => {
-      M[l] = o;
-    };
-  if (M.$v) {
-    /* katalog vybavení (2026-10-20): vše s českým názvem a cenou; magické předměty SRD navíc s pravidly z predmety.json */
-    VYBSK.forEach(([sk]) =>
-      (VYB[sk] || []).forEach(x => {
-        const e = vybPoolVstup(x);
-        if (e.mag && PREDBY[e.mag]) e.upr = PREDBY[e.mag].upr || "";
-        add(vybPopisekPool(x), e);
-      }),
-    );
-    (PRED || []).forEach(x => {
-      if (!Object.values(M).some(e => e && e.mag === x.id))
-        add(
-          `${x.en}${x.cz && x.cz.toLowerCase() !== x.en.toLowerCase() ? ` (${x.cz})` : ""} – ${String(x.druh || "").toLowerCase()}, ${x.vz || ""}${x.pr ? ", připoutání" : ""}`,
-          {k: "mag", n: x.en, mag: x.id, upr: x.upr || ""},
-        );
-    });
-    return (KPOOLM = M);
-  }
-  KZBRAN.forEach(r =>
-    add(`${r[1]} – ${r[5] === "S" ? "jednoduchá" : "válečná"} zbraň ${r[2]} ${BZRT[r[3]] || r[3]}${r[6] ? ", na dálku" : ""}`, {
-      k: "zbr",
-      n: r[1],
-      w: KZBRW[r[1]],
-    }),
-  );
-  KZBRL.forEach(([n, w, d]) => {
-    const i = kZbrInfo({n});
-    add(
-      `${n} – ${d} zbroj, AC ${i ? i.ac : "?"}${i && i.max != null ? ` + AGI (nejvýš ${i.max > 8 ? "bez omezení" : "+" + i.max})` : i && i.max == null ? "" : " + AGI"}`,
-      {k: "zbroj", n, w},
-    );
-  });
-  add("Shield – štít, +2 AC", {k: "zbroj", n: "Shield", w: 6});
-  KVYBS.forEach(([n, w]) => add(`${n} – výstroj`, {k: "vyb", n, w}));
-  (PRED || []).forEach(x =>
-    add(
-      `${x.en}${x.cz && x.cz.toLowerCase() !== x.en.toLowerCase() ? ` (${x.cz})` : ""} – ${String(x.druh || "").toLowerCase()}, ${x.vz || ""}${x.pr ? ", připoutání" : ""}`,
-      {k: "mag", n: x.en, mag: x.id, upr: x.upr || ""},
-    ),
-  );
-  return (KPOOLM = M);
-}
 /* základ magické zbraně nebo zbroje podle „upr“ (Longsword, jakákoli zbraň na blízko, jakákoli střední nebo těžká…) */
 function kPoolZaklady(e) {
   if (!e || e.k !== "mag") return [];
@@ -196,49 +93,8 @@ function kPoolDopl(e) {
     bon = e && e.k === "mag" && /\+1, \+2, or \+3/.test(e.n);
   return `${Z.length ? `<select name="zakl" aria-label="Základ předmětu">${Z.map(n => `<option>${besc(n)}</option>`).join("")}</select>` : ""}${bon ? `<select name="bon" aria-label="Bonus"><option value="1">+1</option><option value="2">+2</option><option value="3">+3</option></select>` : ""}`;
 }
-/* po načtení katalogu jen doplní nabídku (datalist) – nepřekresluje kartu, aby nezavřela rozepsaný formulář */
-function kPoolDatalist() {
-  document.querySelectorAll("datalist[id^=kpooll-]").forEach(d => {
-    d.innerHTML = Object.keys(kPool())
-      .filter(k => k[0] !== "$")
-      .map(l => `<option value="${besc(l)}"></option>`)
-      .join("");
-  });
-}
-function kPoolHtml(K) {
-  if (!kMuze(K)) return "";
-  if (typeof vybNacti === "function" && !VYB)
-    vybNacti()
-      .then(kPoolDatalist)
-      .catch(() => {});
-  const M = kPool();
-  return `<details class="bjapd kpool" data-kpoolw${KPOOLO ? " open" : ""}><summary>Přidat z nabídky – zbraně, zbroj, výstroj, magické předměty</summary>
-    <form class="kvlh kpoolf" data-kpoolf><input name="p" list="kpooll-${besc(K.id)}" placeholder="hledat: Longsword, Breastplate, Rope, Flame Tongue…" data-kpoolq autocomplete="off" required>
-      <datalist id="kpooll-${besc(K.id)}">${Object.keys(M)
-        .filter(k => k[0] !== "$")
-        .map(l => `<option value="${besc(l)}"></option>`)
-        .join("")}</datalist>
-      <span class="kpoolx" data-kpoolx></span><input name="q" type="number" min="1" max="999" value="1" aria-label="Počet" style="width:4.5em"><button class="gbtn">Přidat</button></form>
-    <p class="kdbnote">Zbraň se rovnou zvolí k útoku (i v Boji), zbroj a štít si postava oblékne a AC se přepočítá, magický předmět se připoutá, je-li volné místo (nejvýš 3). Celý přehled s cenami a popisy: <a href="#pravidla/vybaveni">Pravidla › Vybavení</a>.${PRED ? "" : " Magické předměty se načítají…"}</p></details>`;
-}
 const kJeZbran = (K, n) => !/beze zbraně|unarmed/i.test(n) && !kSeznam(K).some(x => String(x.n).toLowerCase() === String(n).toLowerCase());
 const kLbTxt = w => (w > 0 ? `${String(Math.round(w * 100) / 100).replace(".", ",")} lb.` : "");
-async function kPoolPridej(K, F) {
-  const f = F.elements,
-    e = kPool()[f.p.value.trim()];
-  if (!e) {
-    mmHlasG("Vyber položku z nabídky (začni psát a klepni na návrh).", 3500);
-    return;
-  }
-  const q = Math.max(1, Math.min(999, Math.round(+f.q.value || 1))),
-    zakl = f.zakl ? f.zakl.value : "",
-    bon = f.bon ? +f.bon.value : 0;
-  await kVybPridej(K, e, q, {zakl, bon});
-  f.p.value = "";
-  const x = F.querySelector("[data-kpoolx]");
-  if (x) x.innerHTML = "";
-  f.q.value = 1;
-}
 /* přidání položky nabídky (zbraň, zbroj, výstroj, magický předmět, cokoli z katalogu) do vybavení postavy – 2026-10-20 společné
    pro nabídku na kartě i stránku Pravidla › Vybavení */
 async function kVybPridej(K, e, q, o) {
@@ -297,21 +153,6 @@ async function kVybPridej(K, e, q, o) {
     6000,
   );
 }
-document.addEventListener("input", e => {
-  const t = e.target;
-  if (!t.matches || !t.matches("[data-kpoolq]")) return;
-  const x = t.form && t.form.querySelector("[data-kpoolx]");
-  if (!x) return;
-  const en = kPool()[t.value.trim()];
-  const h = en ? kPoolDopl(en) : "";
-  if (x.innerHTML !== h) x.innerHTML = h;
-});
-document.addEventListener("submit", e => {
-  if (!e.target.matches || !e.target.matches("[data-kpoolf]")) return;
-  e.preventDefault();
-  const K = kvK(e.target);
-  if (K) kPoolPridej(K, e.target);
-});
 /* ===== Boj: karta postavy hráče ve formátu karty NPC (2026-10-17) – hlavička (AC, životy, R), rozbalená část
    se stavy, krytem, útoky z karty, kouzly, zdroji, záchranami a akcemi. Vypravěč má rozbalenou postavu na tahu
    a může za hráče zapsat, co udělal (útok hozený fyzickými kostkami, zranění, záchrany). ===== */
@@ -1908,6 +1749,7 @@ function bdmList(s, h, K, gm, X, t) {
   if (t === "vyprav") return hraVypravList(K);
   if (t === "vec") return bdmVecList(K, +(BDM.sheet || {}).i);
   if (t === "pen") return bdmPenList(K);
+  if (t === "inv") return bdmInvList(K);
   if (t === "kost") return ["Hod kostkou", bdmKostHtml(K, zv)];
   if (t === "utok") {
     const L = BDM.sheet || {},

@@ -190,7 +190,14 @@ async function navrhProved(n) {
     K2 = KARTBY[d.cil];
   if (!K2) throw new Error("cílová karta neexistuje");
   if (d.typ === "lec") await kLecKarta(K2, +d.hp || 0, null, d.co || "léčení");
-  else if (d.typ === "bardic") {
+  else if (d.typ === "vec") {
+    /* předmět z databáze do vybavení hráče (2026-10-23) */
+    if (typeof VYB !== "undefined" && !VYB) await vybNacti();
+    if (typeof predNacti === "function" && !PRED) await predNacti().catch(() => {});
+    const x = VYBBY[d.kat];
+    if (!x) throw new Error("předmět v databázi není");
+    await kVybPridej(K2, vybPoolVstup(x), Math.max(1, Math.min(999, +d.q || 1)), {zakl: d.zakl || "", bon: +d.bon || 0});
+  } else if (d.typ === "bardic") {
     const P = kPri(K2).filter(x => !/^Bardic /.test(x));
     await kartaStavZmen(K2.id, {pri: [...P, "Bardic d" + (+d.k || 6)]}, null, {bezZpet: true});
   }

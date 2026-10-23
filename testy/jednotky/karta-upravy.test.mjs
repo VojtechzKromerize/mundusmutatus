@@ -79,3 +79,42 @@ test("panel Kostky: klepnutí přidá kostku do výrazu, výhoda změní jedinou
   assert.match(h, /data-bdmadv="1"/);
   assert.doesNotMatch(h, /data-kdice/, "kostky kouzel (Bless, Bane, Guidance) panel už nemá");
 });
+
+test("vybavení: složky (Na sobě, Batoh, vlastní), nesená složka se nepočítá do nosnosti, druhy věcí a správa inventáře", async () => {
+  const inv = [
+    {n: "Longsword", q: 1, w: "3 lb."},
+    {n: "Rope, Hempen (50 feet)", q: 1, w: "10 lb.", v: "Batoh"},
+    {n: "Sedlová brašna", q: 1, w: "20 lb.", v: "Kůň", typ: "vys"},
+    {n: "Potion of Healing", q: 2, w: "1 lb."},
+  ];
+  sKartou({inv, pen: {}, slozky: [{n: "Batoh"}, {n: "Kůň", nen: true}]}, () => {
+    assert.deepEqual(V(`kSlozkyVse(KARTBY.balduin, kInv(KARTBY.balduin)).map(f => f.jm)`), ["Na sobě", "Batoh", "Kůň"]);
+    const z = V(`kartaZatez(KARTBY.balduin)`);
+    assert.equal(Math.round(z.w), 14, "brašna na koni se do nosnosti nepočítá (3 + 10 + 1)");
+    assert.equal(z.max, 15 * V(`kVl(KARTBY.balduin, "STR")`), "nosnost = Síla × 15 lb");
+    const h = V(`bdmVyb(KARTBY.balduin)`);
+    assert.match(h, /data-kvsk="s:Kůň"/);
+    assert.match(h, /nenese/);
+    assert.match(h, /data-kvt="[^"]*spo[^"]*"/, "lektvar je spotřební");
+    assert.match(h, /data-bdmsh="inv"/, "tlačítko Spravovat inventář");
+    assert.doesNotMatch(h, /GP\b.*cena|Cena/);
+    S.ev(`BDM.invd = {q: "longsw"}`);
+    const L = V(`bdmInvList(KARTBY.balduin)`);
+    assert.equal(L[0], "Spravovat inventář");
+    assert.match(L[1], /data-kvdadd="longsword"/);
+    assert.match(L[1], /data-kvvlf/);
+    assert.match(L[1], /data-kvslf/);
+  });
+  S.ev(`BDM.invd = {}`);
+});
+
+test("vybavení: předmět z databáze schválený vypravěčem (návrh „vec“) přibude do vybavení hráče", async () => {
+  const pred = V(`kartaStav("balduin").inv || KARTBY.balduin.vybaveni || []`);
+  try {
+    await S.ev(`navrhProved({data: {typ: "vec", cil: "balduin", kat: "crowbar", q: 2}})`);
+    const x = V(`kartaStav("balduin").inv`).find(y => y.n === "Crowbar");
+    assert.ok(x && x.q === 2, "páčidlo ×2 ve vybavení");
+  } finally {
+    await S.ev(`kartaStavZmen("balduin", {inv: ${JSON.stringify(pred)}})`);
+  }
+});

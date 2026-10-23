@@ -123,31 +123,92 @@ const kInvCile = s =>
   );
 const KINVC = {}; // vybraný cíl vrhu podle karty
 
-/* --- oddíl Vybavení v kartě --- */
+/* --- oddíl Vybavení v kartě (2026-10-23, Vojta: podle D&D Beyond, kompaktněji) ---
+   nahoře Moje výbava / Výbava družiny, nosnost (současná / limit), připoutání a peníze; hledání podle jména a přepínače druhu;
+   věci ve složkách (Na sobě, Batoh, vlastní – `slozky` na kartě, věc má složku v `v`); každá věc ukazuje váhu a počet, cenu ne.
+   Spravovat inventář (list „inv“): přidat z databáze předmětů (hráč s potvrzením vypravěče), vlastní předmět, složky. */
+const KSLOZ0 = [{n: "Batoh"}];
+const kSlozky = K => {
+  const L = kartaStav(K.id).slozky;
+  return Array.isArray(L) ? L : KSLOZ0;
+};
+/* složky k zobrazení: Na sobě (bez složky), uložené složky a starší batohy z inventáře (x.v bez složky) */
+function kSlozkyVse(K, inv) {
+  const L = [{n: "", jm: "Na sobě"}, ...kSlozky(K).map(x => ({n: x.n, jm: x.n, nen: !!x.nen}))];
+  (inv || []).forEach(x => {
+    if (x.v && !L.some(f => f.n === x.v)) L.push({n: x.v, jm: x.v, mag: KKONTM.test(x.v)});
+  });
+  return L;
+}
+/* druhy věcí pro přepínače nad seznamem (věc může mít víc: připoutaný magický prsten = Připoutané i Magické) */
+const KINVF = [
+  ["", "Vše"],
+  ["boj", "Zbraně a zbroj"],
+  ["mag", "Magické"],
+  ["spo", "Spotřební"],
+  ["vys", "Výstroj"],
+  ["cen", "Cennosti"],
+  ["pri", "Připoutané"],
+];
+const kInvDruhy = (x, i, NOS) => {
+  const g = new Set([x.typ && KINVSK.some(k => k[0] === x.typ) ? x.typ : kInvSkup(x, i, NOS)]);
+  if (x.pripoutano) {
+    g.add("pri");
+    g.add("mag");
+  }
+  if (kPred(x) || x.mag) g.add("mag");
+  if (g.has("pri") && !kPred(x) && !x.mag) g.delete("mag");
+  return [...g];
+};
+/* krátký popisek pod jménem: zranění zbraně, AC zbroje, druh a vzácnost magického předmětu, druh z katalogu */
+function kInvPodtitul(x) {
+  const p = kPred(x),
+    v = typeof vybNajdi === "function" ? vybNajdi(x) : null;
+  if (v && v.sk === "zbrane")
+    return `${v.z} ${BZRT[v.zt] || v.zt}${(v.vl || []).length ? " · " + v.vl.map(q => (typeof vybVl === "function" ? vybVl(q) : q)).join(", ") : ""}`;
+  if (v && v.sk === "zbroj") return v.typ === "štít" ? `štít, AC +${v.ac}` : `${v.typ} zbroj, AC ${v.ac}`;
+  if (p) return `${p.druh || ""}${p.vzt || p.vz ? `, ${p.vzt || p.vz}` : ""}`;
+  if (v) return (typeof VYBSKN !== "undefined" && VYBSKN[v.sk]) || "";
+  if (x.typ) return (KINVSK.find(k => k[0] === x.typ) || [])[1] || "";
+  return "";
+}
+const kLbF = w => (w > 0 ? `${String(Math.round(w * 10) / 10).replace(".", ",")} lb` : "–");
 function bdmVyb(K) {
   kartaPriprav(K);
+  const key = K.id,
+    tab = (BDM.invt || {})[key] || "ja";
+  const tabs = `<div class="kvtabs" role="tablist" aria-label="Výbava">${[
+    ["ja", "Moje výbava"],
+    ["dr", "Výbava družiny"],
+  ]
+    .map(([k, l]) => `<button type="button" role="tab" data-kvtab="${k}" aria-selected="${tab === k}">${l}</button>`)
+    .join("")}</div>`;
+  /* popisky řádků (zranění, AC, druh) bere z katalogu vybavení – po jeho načtení se oddíl překreslí */
+  if (typeof VYB !== "undefined" && !VYB && typeof vybNacti === "function")
+    vybNacti()
+      .then(() => bdmPrekresli())
+      .catch(() => {});
+  if (tab === "dr")
+    return `${tabs}<div class="kvdr">${typeof poklHtml === "function" && window.MMDB ? poklHtml() : `<p class="bdmnote">Výbava družiny je jen na webu s databází.</p>`}</div>`;
   const zat = kartaZatez(K),
     S = kartaStav(K.id),
     inv = kInv(K),
     pen = S.pen || K.penize || {},
     NOS = kNoseno(inv),
-    ro = !kMuze(K),
-    key = K.id;
+    ro = !kMuze(K);
   const pri = inv.filter(x => x.pripoutano).length,
     du = ro ? 0 : kInvDupl(inv),
-    q = (BDM.invq || {})[key] || "";
-  const G = {};
-  inv.forEach((x, i) => {
-    if (!(x.q > 0) && x.q != null) return;
-    (G[kInvSkup(x, i, NOS)] = G[kInvSkup(x, i, NOS)] || []).push([x, i]);
-  });
+    q = (BDM.invq || {})[key] || "",
+    f = (BDM.invf || {})[key] || "";
   const row = ([x, i]) => {
     const p = kPred(x),
       r = kZbrInfo(x),
       on = r && ((NOS.z && NOS.z.i === i) || (NOS.s && NOS.s.i === i)),
       N = kNab(x),
       sv = kInvSvitekI(K, i),
-      hd = kInvHod(x);
+      hd = kInvHod(x),
+      dr = kInvDruhy(x, i, NOS),
+      pt = kInvPodtitul(x);
     const tg = [
       on ? `<em class="kvtg kvon">na sobě</em>` : "",
       x.pripoutano
@@ -155,7 +216,6 @@ function bdmVyb(K) {
         : p && p.pr
           ? `<em class="kvtg" ${btip("Vyžaduje připoutání (Attunement)")}>◇</em>`
           : "",
-      x.v ? `<em class="kvtg kvbat" ${btip("V batohu")}>${besc(x.v)}</em>` : "",
       x.pozn ? `<em class="kvtg" ${btip(x.pozn)}>✎</em>` : "",
     ].join("");
     const rychle = ro
@@ -167,23 +227,68 @@ function bdmVyb(K) {
           : hd
             ? `<button type="button" class="bdmmini" data-bdmsh="vec" data-i="${i}" ${btip(`Hodit: ${hd.z} ${BZRT[hd.t] || hd.t}`)}>hodit</button>`
             : "";
-    return `<li class="kvr" data-kvn="${besc(String(x.n || "").toLowerCase())}"><button type="button" class="kvrb" data-bdmsh="vec" data-i="${i}" aria-label="${besc(x.n)} – podrobnosti a akce"><span class="kvrn">${besc(x.n)}</span>${x.q > 1 ? `<b class="kvq">×${x.q}</b>` : ""}${tg}</button>${N ? kNabHtml(x, i) : ""}${rychle}${x.q > 1 && !ro ? `<span class="kq"><button type="button" class="bdmmini" data-kinv="${i}" data-d="-1" aria-label="Ubrat">−</button><button type="button" class="bdmmini" data-kinv="${i}" data-d="1" aria-label="Přidat">+</button></span>` : ""}</li>`;
+    return `<li class="kvr" data-kvn="${besc(String(x.n || "").toLowerCase() + " " + pt.toLowerCase())}" data-kvt="${dr.join(" ")}"><button type="button" class="kvrb" data-bdmsh="vec" data-i="${i}" aria-label="${besc(x.n)} – podrobnosti a akce"><span class="kvrn">${besc(x.n)}${tg}</span>${pt ? `<small class="kvrs">${besc(pt)}</small>` : ""}</button>${N ? kNabHtml(x, i) : ""}${rychle}<span class="kvw">${kLbF(kLb(x.w))}</span><span class="kvqq">${x.q ?? 1}</span></li>`;
   };
-  const sk = KINVSK.filter(([k]) => (G[k] || []).length)
-    .map(([k, l]) => {
-      const otv = (BDM.invg = BDM.invg || {})[key + ":" + k] ?? (k !== "vys" || !!q);
-      return `<details class="kvsk kvsk-${k}" data-kvsk="${k}"${otv ? " open" : ""}><summary><b>${l}</b> <small>${G[k].length}${k === "pri" ? ` · ${pri}/3` : ""}</small></summary><ul class="kvseznam">${G[k].map(row).join("")}</ul></details>`;
+  const FS = kSlozkyVse(K, inv),
+    G = {};
+  inv.forEach((x, i) => {
+    if (!(x.q > 0) && x.q != null) return;
+    const k = FS.some(fl => fl.n === (x.v || "")) ? x.v || "" : "";
+    (G[k] = G[k] || []).push([x, i]);
+  });
+  const sk = FS.filter(fl => (G[fl.n] || []).length || fl.n === "")
+    .map(fl => {
+      const L = G[fl.n] || [],
+        w = L.reduce((a, [x]) => a + kLb(x.w), 0),
+        otv = (BDM.invg = BDM.invg || {})[key + ":s:" + fl.n] ?? true;
+      return `<details class="kvsk kvsl" data-kvsk="s:${besc(fl.n)}"${otv ? " open" : ""}><summary><b>${besc(fl.jm)}</b> <small>${L.length}</small>${fl.nen ? ` <em class="kvtg" ${btip("Tuhle složku postava nenese (kůň, vůz, úschovna) – nepočítá se do nosnosti")}>nenese</em>` : fl.mag ? ` <em class="kvtg" ${btip("Magický vak: obsah se nepočítá do nosnosti")}>✦</em>` : ""}<span class="kvslw">${kLbF(w)}</span></summary>${L.length ? `<ul class="kvseznam">${L.map(row).join("")}</ul>` : `<p class="bdmnote">Prázdné.</p>`}</details>`;
     })
     .join("");
-  const W = zat.w ? String(Math.round(zat.w * 10) / 10).replace(".", ",") : "0";
-  return `<div class="bdmvyh kvhl"><span ${btip(zat.pret ? "Přetížen: rychlost −10 stop, nevýhoda na ověření, útoky a záchrany STR, AGI, CON" : "Nesená váha")}><small>Neseno</small> <b>${W} lb</b>${zat.pret ? ` <b class="bhrich">přetížen</b>` : ""}</span>
-      <span ${btip("Připoutané magické předměty (Attunement), nejvýš 3")}><small>Připoutáno</small> <b>${pri}/3</b></span>
-      <button type="button" class="kvpenb" data-bdmsh="pen" ${btip("Peníze: zaplatit, přijmout, pokladna družiny, směna")}><small>Peníze</small> <b>${besc(kPenTxt(pen))}</b></button></div>
-    ${inv.length > 8 ? `<p class="kvhl2"><input type="search" class="kvhq" data-kvq value="${besc(q)}" placeholder="Hledat ve vybavení" aria-label="Hledat ve vybavení">${du ? `<button type="button" class="bdmmini" data-kvslouc ${btip("Sloučí stejné věci (stejné jméno, ne v jiném batohu) do jednoho řádku s počtem")}>Sloučit stejné (${du})</button>` : ""}</p>` : du ? `<p class="kvhl2"><button type="button" class="bdmmini" data-kvslouc>Sloučit stejné (${du})</button></p>` : ""}
-    <div class="kvsks" data-kvseznam>${sk || `<p class="bdmnote">Vybavení je prázdné.</p>`}</div>
-    ${ro ? "" : `<details class="bdmbez kvadd"${BOTV.has("vyb-" + K.id) ? " open" : ""} data-otv="vyb-${besc(K.id)}"><summary>+ Přidat věc</summary>${kPoolHtml(K)}<form class="kinvf" data-kinvf><input name="n" placeholder="vlastní předmět (např. Klíč od kaple)" required maxlength="80"><input name="q" type="number" min="1" max="9999" value="1" aria-label="Počet"><button class="gbtn ghost">Přidat</button></form></details>`}`;
+  const proc = zat.max ? Math.min(100, Math.round((zat.w / zat.max) * 100)) : 0;
+  return `${tabs}<div class="kvhlava">
+      <div class="kvzat${zat.pret ? " kvpret" : ""}" ${btip(zat.pret ? "Přetížen: nad nosností (Síla × 15 lb) je rychlost nejvýš 5 stop" : "Nesená váha a nosnost (Síla × 15 lb); složky, které postava nenese, a magické vaky se nepočítají")}><small>Neseno</small><b>${kLbF(zat.w)} <i>/ ${zat.max} lb</i></b><span class="kvbar"><i style="width:${proc}%"></i></span><small>${zat.pret ? "přetížen – rychlost nejvýš 5 stop" : "nezatížen"}</small></div>
+      <span class="kvatt" ${btip("Připoutané magické předměty (Attunement), nejvýš 3")}><small>Připoutáno</small><b>${pri}/3</b></span>
+      <button type="button" class="kvpenb" data-bdmsh="pen" ${btip("Peníze: zaplatit, přijmout, pokladna družiny, směna")}><small>Peníze</small><b>${besc(kPenTxt(pen))}</b></button></div>
+    <div class="kvfil"><input type="search" class="kvhq" data-kvq value="${besc(q)}" placeholder="Hledat podle jména nebo druhu" aria-label="Hledat ve vybavení">${ro ? "" : `<button type="button" class="bdmbtn kvspr" data-bdmsh="inv">Spravovat inventář</button>`}</div>
+    <div class="kvtyp" role="group" aria-label="Druh">${KINVF.map(([k, l]) => `<button type="button" data-kvf="${k}" aria-pressed="${f === k}">${l}</button>`).join("")}</div>
+    ${du ? `<p class="kvhl2"><button type="button" class="bdmmini" data-kvslouc ${btip("Sloučí stejné věci (stejné jméno i složka) do jednoho řádku s počtem")}>Sloučit stejné (${du})</button></p>` : ""}
+    <div class="kvthead" aria-hidden="true"><span>Předmět</span><span>Váha</span><span>Počet</span></div>
+    <div class="kvsks" data-kvseznam>${sk}</div>`;
 }
-
+/* filtr seznamu podle hledání a druhu – bez překreslení (rozepsané hledání zůstane) */
+function kInvFiltr(root) {
+  const id = root.dataset.kid,
+    q = ((BDM.invq || {})[id] || "").toLowerCase(),
+    f = (BDM.invf || {})[id] || "";
+  root.querySelectorAll("[data-kvseznam] .kvsk").forEach(d => {
+    let n = 0;
+    d.querySelectorAll(".kvr").forEach(li => {
+      const ok = (!q || li.dataset.kvn.includes(q)) && (!f || li.dataset.kvt.split(" ").includes(f));
+      li.hidden = !ok;
+      if (ok) n++;
+    });
+    d.hidden = !n && !!(q || f);
+    if ((q || f) && n) d.open = true;
+  });
+}
+document.addEventListener("click", e => {
+  const T = q => e.target.closest && e.target.closest(q),
+    root = T(".bdm");
+  if (!root) return;
+  const t = T("[data-kvtab]");
+  if (t) {
+    (BDM.invt = BDM.invt || {})[root.dataset.kid] = t.dataset.kvtab;
+    if (t.dataset.kvtab === "dr" && typeof poklNacti === "function" && window.MMDB) poklNacti().then(() => bdmPrekresli());
+    bdmPrekresli();
+    return;
+  }
+  const f = T("[data-kvf]");
+  if (f) {
+    (BDM.invf = BDM.invf || {})[root.dataset.kid] = f.dataset.kvf;
+    root.querySelectorAll("[data-kvf]").forEach(b => b.setAttribute("aria-pressed", String(b === f)));
+    kInvFiltr(root);
+  }
+});
 /* popis věci nahoře v listu (2026-10-23): rozbalený, klikem se sbalí; bez původu textu a překladu (licence je v patičce webu).
    Přednost má text z katalogu vybavení (Vojtovy popisy), jinak popis magického předmětu; cena se neukazuje – určuje ji vypravěč */
 const KVPOPZ = new Set();
@@ -235,9 +340,9 @@ function bdmVecList(K, i) {
     hd = kInvHod(x),
     B = kBojJa(K);
   const pri = inv.filter(y => y.pripoutano).length,
-    kont = kKont(inv).filter(([, j]) => j !== i),
+    sl = kSlozkyVse(K, inv).filter(fl => fl.n !== x.n),
     komu = KARTY.filter(k => k.id !== K.id && !k.test);
-  const info = `${kNab(x) ? `<p class="bdmnote">Náboje ${kNabHtml(x, i)}</p>` : ""}<p class="bdmnote">${x.q > 1 ? `<b>${x.q} ks</b> · ` : ""}${x.w ? `${besc(x.w)} · ` : ""}${besc((KINVSK.find(s => s[0] === kInvSkup(x, i, NOS)) || [])[1] || "")}${x.v ? ` · v batohu ${besc(x.v)}` : ""}</p>`;
+  const info = `${kNab(x) ? `<p class="bdmnote">Náboje ${kNabHtml(x, i)}</p>` : ""}<p class="bdmnote">${x.q > 1 ? `<b>${x.q} ks</b> · ` : ""}${x.w ? `${besc(x.w)} · ` : ""}${besc((KINVSK.find(s => s[0] === kInvSkup(x, i, NOS)) || [])[1] || "")}${x.v ? ` · ${besc(x.v)}` : ""}</p>`;
   if (ro) return [x.n, `${vH}${info}${x.pozn ? `<p class="kvpozn">${besc(x.pozn)}</p>` : ""}`];
   const akce = [
     r ? `<button type="button" class="bdmbtn" data-kobl="${i}">${on ? "Sundat" : "Obléct"}</button>` : "",
@@ -264,10 +369,208 @@ function bdmVecList(K, i) {
     <label class="kvlab">Název <input data-kvnaz="${i}" value="${besc(x.n)}" maxlength="80"></label>
     <label class="kvlab">Poznámka <textarea data-kvpozn="${i}" rows="2" maxlength="300" placeholder="odkud je, co dělá, komu patří…">${besc(x.pozn || "")}</textarea></label>
     <p class="bdmrow"><span class="kq"><button type="button" class="bdmmini" data-kinv="${i}" data-d="-1" aria-label="Ubrat">−</button><b>${x.q ?? 1}</b><button type="button" class="bdmmini" data-kinv="${i}" data-d="1" aria-label="Přidat">+</button></span>
-      ${kont.length ? `<label class="kvlab kvlabr">V batohu <select data-kinvv="${i}"><option value="">— volně —</option>${kont.map(([c]) => `<option${x.v === c.n ? " selected" : ""}>${besc(c.n)}</option>`).join("")}</select></label>` : ""}
+      <label class="kvlab kvlabr">Složka <select data-kinvv="${i}">${sl.map(fl => `<option value="${besc(fl.n)}"${(x.v || "") === fl.n ? " selected" : ""}>${besc(fl.jm)}</option>`).join("")}</select></label>
       <button type="button" class="bdmmini kvx" data-kvx="${i}">Zahodit</button></p></div>`;
   return [x.n, `${vH}${info}${akce ? `<div class="bdmrow kvakce">${akce}</div>` : ""}${hodH}${darH}${upr}`];
 }
+
+/* --- list Spravovat inventář (2026-10-23): přidat z databáze předmětů, vlastní předmět, složky --- */
+const KINVDB = [
+  ["zbroj", "Zbroj", x => x.sk === "zbroj"],
+  ["zbrane", "Zbraně", x => x.sk === "zbrane"],
+  ["strelivo", "Střelivo", x => x.sk === "strelivo"],
+  ["vybava", "Výstroj", x => x.sk === "vybava"],
+  ["naradi", "Nářadí", x => x.sk === "naradi"],
+  ["lektvar", "Lektvary", x => x.sk === "magicke" && /lektvar/i.test(x.druh || "")],
+  ["prsten", "Prsteny", x => x.sk === "magicke" && /prsten/i.test(x.druh || "")],
+  ["hul", "Hůlky, hole, žezla", x => x.sk === "magicke" && /hůl|žezl/i.test(x.druh || "")],
+  ["svitek", "Svitky", x => x.sk === "magicke" && /svit/i.test(x.druh || "")],
+  ["magzb", "Magické zbraně a zbroj", x => x.sk === "magicke" && /zbraň|zbroj/i.test(x.druh || "")],
+  ["div", "Divotvorné předměty", x => x.sk === "magicke" && /divotvor/i.test(x.druh || "")],
+  ["jedy", "Jedy", x => x.sk === "jedy"],
+  ["dopr", "Zvířata a doprava", x => /^(zvirata|sedla|vozy|plavidla)$/.test(x.sk)],
+];
+const KINVDBN = 40;
+function kInvDbHtml(K) {
+  if (typeof VYB === "undefined" || !VYB) {
+    if (typeof vybNacti === "function")
+      vybNacti()
+        .then(() => {
+          document.querySelectorAll("[data-kvdvys]").forEach(el => (el.innerHTML = kInvDbHtml(K)));
+        })
+        .catch(() => {});
+    return `<p class="bdmnote">Načítám databázi předmětů…</p>`;
+  }
+  /* základ magické zbraně a zbroje (Armor of Gleaming → Chain Mail…) zná až popis magických předmětů */
+  if (typeof PRED !== "undefined" && !PRED && typeof predNacti === "function")
+    predNacti()
+      .then(() => {
+        document.querySelectorAll("[data-kvdvys]").forEach(el => (el.innerHTML = kInvDbHtml(K)));
+      })
+      .catch(() => {});
+  const D = BDM.invd || {},
+    q = _nrm(String(D.q || "").trim()),
+    F = KINVDB.find(r => r[0] === D.f);
+  if (!q && !F) return `<p class="bdmnote">Začni psát název (česky i anglicky) nebo vyber druh.</p>`;
+  const L = [],
+    vid = new Set();
+  VYBSK.forEach(([sk]) =>
+    (VYB[sk] || []).forEach(x => {
+      if (F && !F[2](x)) return;
+      if (q && !_nrm(`${x.en} ${x.cz || ""} ${x.druh || ""}`).includes(q)) return;
+      /* stejná věc v katalogu dvakrát (Potion of Healing ve výbavě i mezi magickými) – jen jednou */
+      const k = String(x.en).toLowerCase();
+      if (vid.has(k)) return;
+      vid.add(k);
+      L.push(x);
+    }),
+  );
+  const gm = GMV || !window.MMDB;
+  return `${L.slice(0, KINVDBN)
+    .map(x => {
+      const e = vybPoolVstup(x);
+      if (e.mag && typeof PREDBY !== "undefined" && PREDBY[e.mag]) e.upr = PREDBY[e.mag].upr || "";
+      const dopl = typeof kPoolDopl === "function" ? kPoolDopl(e) : "";
+      const pod =
+        x.sk === "magicke"
+          ? `${x.druh || ""}${x.vz ? ", " + x.vz : ""}${x.pr ? ", připoutání" : ""}`
+          : (typeof VYBSKN !== "undefined" && VYBSKN[x.sk]) || "";
+      return `<li class="kvdr"><span class="kvdn"><b>${besc(x.en)}</b>${x.cz && x.cz.toLowerCase() !== x.en.toLowerCase() ? ` <small>${besc(x.cz)}</small>` : ""}<small class="kvrs">${besc(pod)}${x.w ? ` · ${kLbF(x.w)}` : ""}</small></span>
+        <form class="kvdf" data-kvdadd="${besc(x.id)}">${dopl}<input name="q" type="number" min="1" max="999" value="1" inputmode="numeric" aria-label="Počet"><button class="bdmbtn" ${btip(gm ? "Přidat do vybavení" : "Pošle vypravěči ke schválení – po potvrzení se věc objeví ve vybavení")}>${gm ? "Přidat" : "Požádat"}</button></form></li>`;
+    })
+    .join(
+      "",
+    )}${L.length > KINVDBN ? `<li class="bdmnote">… a dalších ${L.length - KINVDBN} – upřesni hledání.</li>` : L.length ? "" : `<li class="bdmnote">Nic nenalezeno.</li>`}`;
+}
+function bdmInvList(K) {
+  const inv = kInv(K),
+    D = BDM.invd || {},
+    FS = kSlozkyVse(K, inv),
+    gm = GMV || !window.MMDB;
+  const db = `<section class="kvsek kvdb"><h4 class="bdmgh">Přidat z databáze předmětů</h4>${gm ? "" : `<p class="bdmnote">Přidání z databáze potvrdí vypravěč.</p>`}
+    <input type="search" data-kvdq value="${besc(D.q || "")}" placeholder="Hledat: Longsword, lektvar, Bag of Holding…" aria-label="Hledat v databázi předmětů">
+    <div class="kvtyp" role="group" aria-label="Druh předmětu">${KINVDB.map(([k, l]) => `<button type="button" data-kvdf="${k}" aria-pressed="${D.f === k}">${l}</button>`).join("")}</div>
+    <ul class="kvdlist" data-kvdvys>${kInvDbHtml(K)}</ul></section>`;
+  const vl = `<details class="kvsek kvvl"><summary class="bdmgh">Vlastní předmět</summary>
+    <form class="kvvlf" data-kvvlf><label>Název <input name="n" required maxlength="80" placeholder="např. Klíč od kaple"></label>
+      <label>Počet <input name="q" type="number" min="1" max="9999" value="1" inputmode="numeric"></label>
+      <label>Váha za kus (lb) <input name="w" type="number" min="0" max="2000" step="0.1" inputmode="decimal" placeholder="0"></label>
+      <label>Druh <select name="typ">${KINVSK.filter(k => k[0] !== "pri")
+        .map(([k, l]) => `<option value="${k}"${k === "vys" ? " selected" : ""}>${l}</option>`)
+        .join("")}</select></label>
+      <label>Složka <select name="v">${FS.map(fl => `<option value="${besc(fl.n)}">${besc(fl.jm)}</option>`).join("")}</select></label>
+      <label class="kvvlp">Popis <textarea name="pozn" rows="2" maxlength="300" placeholder="co dělá, odkud je…"></textarea></label>
+      <button class="bdmbtn">Přidat</button></form></details>`;
+  const sl = `<details class="kvsek kvslz" open><summary class="bdmgh">Složky</summary><ul class="kvsllist">${FS.map(fl => {
+    const L = inv.filter(x => (x.v || "") === fl.n),
+      w = L.reduce((a, x) => a + kLb(x.w), 0),
+      vl = kSlozky(K).some(x => x.n === fl.n);
+    return `<li><b>${besc(fl.jm)}</b> <small>${L.length} · ${kLbF(w)}</small>${vl ? `<label class="kvslnen" ${btip("Složku postava nenese (kůň, vůz, úschovna) – nepočítá se do nosnosti")}><input type="checkbox" data-kvslnen="${besc(fl.n)}"${fl.nen ? " checked" : ""}> nenese</label><button type="button" class="bdmmini" data-kvslx="${besc(fl.n)}" aria-label="Smazat složku ${besc(fl.n)}" ${btip("Smaže složku, věci z ní budou Na sobě")}>×</button>` : ""}</li>`;
+  }).join("")}</ul>
+    <form class="bdmrow" data-kvslf><input name="n" required maxlength="40" placeholder="nová složka (Váček, Kůň, Vůz…)" aria-label="Název nové složky"><button class="bdmbtn ghost">Přidat složku</button></form></details>`;
+  return ["Spravovat inventář", `${db}${vl}${sl}`];
+}
+const kInvDbObnov = root => {
+  const K = root && KARTBY[root.dataset.kid];
+  if (!K) return;
+  root.querySelectorAll("[data-kvdvys]").forEach(el => (el.innerHTML = kInvDbHtml(K)));
+};
+document.addEventListener("input", e => {
+  const t = e.target;
+  if (!t.matches || !t.matches("[data-kvdq]")) return;
+  BDM.invd = Object.assign({}, BDM.invd, {q: t.value});
+  kInvDbObnov(t.closest(".bdm"));
+});
+/* přidání z databáze: vypravěč (a web bez databáze) rovnou, hráč pošle návrh vypravěči (typ „vec“) */
+async function kInvDbPridej(K, F) {
+  const x = VYBBY[F.dataset.kvdadd];
+  if (!x) return;
+  const E = F.elements,
+    q = Math.max(1, Math.min(999, Math.round(+E.q.value || 1))),
+    zakl = E.zakl ? E.zakl.value : "",
+    bon = E.bon ? +E.bon.value : 0;
+  if (GMV || !window.MMDB) {
+    const e = vybPoolVstup(x);
+    await kVybPridej(K, e, q, {zakl, bon});
+    return;
+  }
+  const d = {
+    typ: "vec",
+    cil: K.id,
+    kat: x.id,
+    q,
+    popis: `${x.en}${zakl ? ` (${zakl})` : ""}${bon ? ` +${bon}` : ""}${q > 1 ? ` ×${q}` : ""} do vybavení`,
+  };
+  if (zakl) d.zakl = zakl;
+  if (bon) d.bon = bon;
+  await navrhPosli(K, d);
+}
+document.addEventListener("submit", async e => {
+  const f = e.target;
+  if (!f.matches || !f.matches("[data-kvdadd],[data-kvvlf],[data-kvslf]")) return;
+  e.preventDefault();
+  const root = f.closest(".bdm"),
+    K = root && KARTBY[root.dataset.kid];
+  if (!K || !kMuze(K)) return;
+  if (f.matches("[data-kvdadd]")) {
+    await kInvDbPridej(K, f);
+    return;
+  }
+  const E = f.elements;
+  if (f.matches("[data-kvslf]")) {
+    const n = E.n.value.trim().slice(0, 40),
+      L = kSlozky(K);
+    if (!n || /^na sobě$/i.test(n) || L.some(x => x.n.toLowerCase() === n.toLowerCase())) {
+      f.reset();
+      return;
+    }
+    await kartaStavZmen(K.id, {slozky: [...L, {n}].slice(0, 20)}, `${K.n}: nová složka ${n}.`);
+    return;
+  }
+  const n = E.n.value.trim().slice(0, 80),
+    q = Math.max(1, Math.min(9999, Math.round(+E.q.value || 1))),
+    w = Math.max(0, +E.w.value || 0);
+  if (!n) return;
+  const it = {n, q};
+  if (w) it.w = kLbTxt(w * q);
+  if (E.typ.value && E.typ.value !== "vys") it.typ = E.typ.value;
+  if (E.v.value) it.v = E.v.value;
+  if (E.pozn.value.trim()) it.pozn = E.pozn.value.trim().slice(0, 300);
+  await kInvUloz(K, [...kInv(K).map(y => Object.assign({}, y)), it], `${K.n}: ${n}${q > 1 ? ` ×${q}` : ""} ve vybavení.`);
+  kHodZapis({k: K.id, kdo: K.n, co: "Vlastní předmět", txt: `${n}${q > 1 ? " ×" + q : ""}`});
+});
+document.addEventListener("click", async e => {
+  const T = q => e.target.closest && e.target.closest(q),
+    root = T(".bdm"),
+    K = root && KARTBY[root.dataset.kid];
+  if (!K) return;
+  const df = T("[data-kvdf]");
+  if (df) {
+    BDM.invd = Object.assign({}, BDM.invd, {f: (BDM.invd || {}).f === df.dataset.kvdf ? "" : df.dataset.kvdf});
+    root.querySelectorAll("[data-kvdf]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.kvdf === BDM.invd.f)));
+    kInvDbObnov(root);
+    return;
+  }
+  const sx = T("[data-kvslx]");
+  if (sx && kMuze(K)) {
+    const n = sx.dataset.kvslx,
+      inv = kInv(K).map(y => Object.assign({}, y)),
+      L = inv.filter(y => y.v === n);
+    if (L.length && !confirm(`Smazat složku ${n}? ${L.length} ${L.length === 1 ? "věc bude" : "věci budou"} Na sobě.`)) return;
+    L.forEach(y => delete y.v);
+    await kartaStavZmen(K.id, Object.assign({slozky: kSlozky(K).filter(x => x.n !== n)}, L.length ? {inv} : {}), `${K.n}: složka ${n} smazána.`);
+  }
+});
+document.addEventListener("change", async e => {
+  const t = e.target;
+  if (!t.matches || !t.matches("[data-kvslnen]")) return;
+  const root = t.closest(".bdm"),
+    K = root && KARTBY[root.dataset.kid];
+  if (!K || !kMuze(K)) return;
+  await kartaStavZmen(K.id, {
+    slozky: kSlozky(K).map(x => (x.n === t.dataset.kvslnen ? Object.assign({n: x.n}, t.checked ? {nen: true} : {}) : x)),
+  });
+});
 
 /* --- list Peníze --- */
 function bdmPenList(K) {
@@ -322,18 +625,8 @@ document.addEventListener("input", e => {
   if (!t.matches || !t.matches("[data-kvq]")) return;
   const root = t.closest(".bdm");
   if (!root) return;
-  const q = t.value.trim().toLowerCase();
-  (BDM.invq = BDM.invq || {})[root.dataset.kid] = q;
-  root.querySelectorAll("[data-kvseznam] .kvsk").forEach(d => {
-    let n = 0;
-    d.querySelectorAll(".kvr").forEach(li => {
-      const ok = !q || li.dataset.kvn.includes(q);
-      li.hidden = !ok;
-      if (ok) n++;
-    });
-    d.hidden = !n;
-    if (q && n) d.open = true;
-  });
+  (BDM.invq = BDM.invq || {})[root.dataset.kid] = t.value.trim().toLowerCase();
+  kInvFiltr(root);
 });
 document.addEventListener(
   "toggle",

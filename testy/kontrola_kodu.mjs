@@ -90,7 +90,7 @@ const DIL = /^zdroj\/web\/js\/(1\d|2[0-5])[a-z]?-/;
    před jejich definicí při načtení. Mapa vazeb: --kde JMÉNO, --soubor NN (viz konec souboru). */
 // sdílený stav: proměnné, do kterých zapisuje i jiný soubor než ten, který je definuje (nové přidávej s rozmyslem)
 const SDILENE = new Set(
-  "PG SG HRA BHLED bojHlasen BKON BODP BPLOS BKDO BPRAV BZAPT HODY KLOAD KADV KIMP KPOOLM BZAS BRIP KZFL KPRIP BTAB VY VYT VYS".split(" "),
+  "PG SG HRA BHLED bojHlasen BKON BODP BPLOS BKDO BPRAV BZAPT HODY KLOAD KADV KIMP BZAS BRIP KZFL KPRIP BTAB VY VYT VYS".split(" "),
 );
 // obalené funkce: jiný soubor je přepíše vlastní verzí (vypravěčské doplňky 09/21, líné části 22b, odkazy 08)
 const OBALENE = new Set(

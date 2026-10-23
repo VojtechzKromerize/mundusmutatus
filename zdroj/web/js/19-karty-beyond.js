@@ -44,9 +44,7 @@ document.addEventListener("change", async e => {
   }
 });
 /* ---- batohy: předmět může ležet v batohu, vaku nebo truhle; obsah magických vaků (Bag of Holding…) se do zátěže nepočítá ---- */
-const KKONT = /backpack|bag|sack|pouch|chest|haversack|portable hole|quiver|case|crate|barrel|basket|batoh|vak|pytel|měšec|truhl|toulec|kapsa|brašn/i,
-  KKONTM = /bag of holding|handy haversack|portable hole|heward/i;
-const kKont = inv => inv.map((x, i) => [x, i]).filter(([x]) => KKONT.test(x.n));
+const KKONTM = /bag of holding|handy haversack|portable hole|heward/i;
 /* směna mincí: 1 PP = 10 GP = 20 EP = 100 SP = 1000 CP */
 const KMINC = {CP: 1, SP: 10, EP: 50, GP: 100, PP: 1000};
 function kPenSmen(pen, z, na, q) {

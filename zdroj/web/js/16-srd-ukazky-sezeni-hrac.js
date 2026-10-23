@@ -1785,9 +1785,13 @@ const kLb = w => {
     .match(/(\d+(?:\.\d+)?)(?:\s*\/\s*(\d+))?/);
   return m ? (m[2] ? +m[1] / +m[2] : +m[1]) : 0;
 };
+/* nosnost (SRD 5.2.1): Síla × 15 lb; obsah magických vaků a složek, které postava nenese (kůň, vůz – 2026-10-23), se nepočítá */
 function kZatez(K, inv, pen) {
-  const mg = new Set((inv || []).filter(x => KKONTM.test(x.n)).map(x => x.n)),
-    w =
+  const mg = new Set((inv || []).filter(x => KKONTM.test(x.n)).map(x => x.n));
+  (typeof kSlozky === "function" ? kSlozky(K) : []).forEach(f => {
+    if (f.nen) mg.add(f.n);
+  });
+  const w =
       (inv || []).filter(x => !(x.v && mg.has(x.v))).reduce((a, x) => a + kLb(x.w), 0) +
       Object.values(pen || {}).reduce((a, v) => a + (+v || 0), 0) / 50,
     max = 15 * kVl(K, "STR") * (/goliath/i.test(K.druh || "") || (K.rysy2 || []).some(r => /powerful build/i.test(r.n)) ? 2 : 1);

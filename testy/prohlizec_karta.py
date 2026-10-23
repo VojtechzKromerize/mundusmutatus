@@ -108,7 +108,8 @@ async def main():
     await pl.evaluate("kartaHod=window._kh;0")
     chk(not any("Hold Monster" in x.get("n","") for x in (stav().get("inv") or [])) and not any(x.get("n")=="Hold Monster" for x in (stav().get("uc") or [])) and any(h.get("co")=="Svitek Hold Monster" for h in hody()),"svitek 5. stupně: neúspěšné ověření – svitek zmizí bez účinku")
     await pl.evaluate("KARTY=KARTY.filter(k=>k.id!=='adam');delete KARTBY.adam;kartaStavZmen('balduin',{kpn:null,uc:null,zdr:null,hp:null})");await klid(pl,700)
-    await pl.click('.bdm [data-bdmsh="kost"]');await klid(pl,300);await pl.click('[data-kdice="Bless"]');await pl.keyboard.press('Escape');await klid(pl,700)
+    # Bless zapíná kouzlo (od 2026-10-23 už ne panel Kostky); přepínač na kartě zůstává
+    await pl.evaluate("kartaStavZmen('balduin',{pri:['Bless']})");await klid(pl,700)
     chk(stav().get("pri")==["Bless"],"Bless zapnutý na kartě se uloží")
     await pl.keyboard.press('Escape');await pl.click('.bdmtabs [data-bdmsec="vl"]');await pl.click('[data-khod="za:WIS"]');await klid(pl,700)
     chk((lambda h:h.get("co","").startswith("Záchrana") and "zav" not in h)(hody()[0]),"záchranný hod je bez kostky Závoje")
@@ -168,21 +169,20 @@ async def main():
     await pl.click('.mmpop [data-ktxh]');await klid(pl,800);await pl.evaluate("mmPopX()")
     chk(hody()[0].get("co")=="Test Rys","hod z textu schopnosti v herním záznamu")
     # vybavení z nabídky: zbraň se zvolí a počítá jako útok, zbroj se oblékne, magická zbraň dostane bonus
-    await pl.evaluate("predNacti()");await klid(pl,800);await pl.keyboard.press('Escape');await pl.click('.bdmtabs [data-bdmsec="vyb"]');await pl.click('.kvadd > summary');await pl.click('.kpool summary')
-    await pl.wait_for_function("typeof VYB!=='undefined'&&!!VYB",timeout=15000)  # katalog vybavení mění popisky nabídky
-    async def pridej(pref,sel=None):
-        L=await pl.evaluate("Object.keys(kPool())");lab=[l for l in L if l.startswith(pref) or l.startswith(pref.rstrip(" –")+" (")][0];  # s katalogem vybavení má popisek český název v závorceawait pl.fill('[data-kpoolq]',lab);await pl.dispatch_event('[data-kpoolq]','input')
-        for _ in range(3):  # překreslení karty po uložení předchozí věci může formulář vyprázdnit – vyplň znovu
-            await klid(pl,400)
-            if await pl.evaluate("document.querySelector('[data-kpoolq]')?.value")==lab:break
-            await pl.fill('[data-kpoolq]',lab);await pl.dispatch_event('[data-kpoolq]','input')
-        for k,v in (sel or {}).items(): await pl.select_option(f'[data-kpoolf] select[name={k}]',v)
-        await pl.click('[data-kpoolf] button');await klid(pl,900)
-    await pridej("Longsword –")
+    await pl.evaluate("predNacti()");await klid(pl,800);await pl.keyboard.press('Escape');await pl.click('.bdmtabs [data-bdmsec="vyb"]')
+    await pl.wait_for_function("typeof VYB!=='undefined'&&!!VYB",timeout=15000)
+    # Spravovat inventář (2026-10-23): hledání v databázi předmětů; hráč místo Přidat posílá žádost vypravěči
+    await pl.click('.bdm [data-bdmsh="inv"]');await pl.wait_for_selector(".bdmlist [data-kvdq]",timeout=5000)
+    await pl.fill(".bdmlist [data-kvdq]","longsword");await klid(pl,400)
+    chk(await pl.locator('.bdmlist [data-kvdadd="longsword"]').count()==1,"správa inventáře: hledání v databázi najde Longsword")
+    await pl.keyboard.press('Escape');await klid(pl,300)
+    async def pridej(kat,sel=None):
+        await pl.evaluate(f"kVybPridej(KARTBY.balduin,vybPoolVstup(VYBBY[{json.dumps(kat)}]),1,{json.dumps(sel or {})})");await klid(pl,900)
+    await pridej("longsword")
     chk(any(x.get("n")=="Longsword" for x in (stav().get("inv") or [])) and await pl.evaluate("KZBRV.balduin")=="Longsword" and await pl.evaluate("kUtoky(KARTBY.balduin).some(a=>a.n==='Longsword')"),"zbraň z nabídky: ve vybavení, zvolená a mezi útoky")
-    await pridej("Plate Armor –")
+    await pridej("plate-armor")
     chk(await pl.evaluate("kAC(KARTBY.balduin)")==20 and any(x.get("n")=="Plate Armor" and x.get("obl") for x in (stav().get("inv") or [])),"zbroj z nabídky se oblékne a přepočítá AC")
-    await pridej("Weapon, +2 ",{"zakl":"Rapier"})
+    await pridej("weapon-plus1-plus2-or-plus3",{"zakl":"Rapier","bon":2})
     chk(await pl.evaluate("(()=>{const U=kUtoky(KARTBY.balduin),a=U.find(x=>x.n==='Rapier +2');return !!a&&a.z.endsWith('+6')})()"),"magická zbraň +2 z nabídky: útok i zranění s bonusem")
     await pl.evaluate("kartaStavZmen('balduin',{inv:null},null,{bezZpet:true});delete KZBRV.balduin;kZbrvUloz()");await klid(pl,500)
     # Vybavení (2026-10-19): skupiny, list věci, přejmenování a poznámka, sloučení, peníze, dar, pokladna, vrh
@@ -190,8 +190,11 @@ async def main():
     await pl.evaluate("kartaStavZmen('balduin',"+json.dumps({"inv":inv0,"pen":{"GP":10,"SP":3}})+",null,{bezZpet:true})");await klid(pl,700)
     await pl.keyboard.press('Escape');await pl.click('.bdmtabs [data-bdmsec="vyb"]');await klid(pl,400)
     sk=await pl.evaluate("[...document.querySelectorAll('.bdm [data-kvsk]')].map(d=>d.dataset.kvsk)")
-    chk(sk==["boj","spo","cen","vys"],"vybavení ve skupinách (zbraně a zbroj, spotřební, cennosti, výstroj): "+str(sk))
-    chk(await pl.evaluate("!document.querySelector('.bdm [data-kvsk=\"vys\"]').open"),"výstroj je sbalená")
+    chk(sk==["s:"],"vybavení ve složkách (bez složky = Na sobě): "+str(sk))
+    await pl.click('.bdm [data-kvf="spo"]');await klid(pl,200)
+    vid=await pl.evaluate("[...document.querySelectorAll('.bdm .kvr')].filter(li=>!li.hidden).map(li=>li.querySelector('.kvrn').textContent)")
+    chk(vid==["Holy Water (flask)"],"přepínač druhu Spotřební ukáže jen svěcenou vodu: "+str(vid))
+    await pl.click('.bdm [data-kvf=""]');await klid(pl,200)
     chk(await pl.locator('.bdm [data-kvslouc]').count()==1,"nabídka sloučit stejné (Dagger, dagger)")
     await pl.click('.bdm [data-kvslouc]');await klid(pl,800)
     dg=[x for x in (stav().get("inv") or []) if x["n"].lower()=="dagger"];chk(len(dg)==1 and dg[0]["q"]==3,"sloučení: jedna dýka ×3 "+str(dg))
