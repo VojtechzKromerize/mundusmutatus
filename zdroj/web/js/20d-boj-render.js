@@ -1,6 +1,6 @@
 /* ===== Boj: vykreslení – stavy na žetonech, aktivní boj, cíle boje, kostra stránky, záložky, renderBoj (2026-10-20 rozděleno z 20-boj-hraci.js) ===== */
-/* stavy NPC jako malé ikonky zavěšené na žetonu v pruhu iniciativy */
-function bojSlStav(kdo) {
+/* stavy NPC jako malé ikonky zavěšené na žetonu v pruhu iniciativy; vse = svislý pruh na telefonu: všechny stavy i připravená akce */
+function bojSlStav(kdo, vse) {
   const S = BOJ.s || {},
     n = (S.npc || []).find(x => x.id === kdo) || (S.hraci || []).find(x => x.id === kdo);
   if (!GMV && n && n.druh && !bojSpoj(n)) return "";
@@ -9,14 +9,16 @@ function bojSlStav(kdo) {
   const a = ((n && n.stav) || []).filter(t => BSTI[t]),
     rd = n && (BOJ.s.ready || {})[kdo],
     kz = typeof bojKzIkHtml === "function" ? bojKzIkHtml(S, kdo) : "";
-  if (!a.length && !kz) return rd ? `<span class="bslst"><b ${btip("Připravená akce")}>${bi("pripravit")}</b></span>` : "";
+  const rdH = rd ? `<b ${btip("Připravená akce")}>${bi("pripravit")}</b>` : "";
+  if (!a.length && !kz) return rdH ? `<span class="bslst">${rdH}</span>` : "";
+  const max = vse ? a.length : 4;
   return `<span class="bslst">${kz}${a
-    .slice(0, 4)
+    .slice(0, max)
     .map(
       t =>
         `<span class="bslsti" role="img" aria-label="${besc(t)}" ${btip((x => (x.toLowerCase().startsWith(t) ? x : `${t[0].toUpperCase() + t.slice(1)}${SRDST[t] ? ` (${SRDST[t].en})` : ""}: ${x}`))(BSTHP[t] || (BSTI[t] || [0, t])[1] || t))}>${bi(BSTI[t][0])}</span>`,
     )
-    .join("")}${a.length > 4 ? `<b ${btip(a.slice(4).join(", "))}>+${a.length - 4}</b>` : ""}</span>`;
+    .join("")}${a.length > max ? `<b ${btip(a.slice(max).join(", "))}>+${a.length - max}</b>` : ""}${vse ? rdH : ""}</span>`;
 }
 function bojAktivni() {
   const s = BOJ.s,
@@ -90,6 +92,24 @@ function bojAktivni() {
   const zbyt = skr.length
     ? `<li class="bslot bzbyt" ${btip(`Ještě ${skr.length} ${skr.length === 1 ? "volný slot" : skr.length < 5 ? "volné sloty" : "volných slotů"} v tomto kole${skH ? ` · družina ${skH}` : ""}${skN ? ` · nepřátelé ${skN}` : ""}`)}><span class="bzbytc">+${skr.length}</span><span class="bkdo">volné</span></li>`
     : "";
+  /* hráč na telefonu, záložka Iniciativa (2026-10-23): pruh svisle – medailony na zlatém pruhu, vedle jméno a všechny stavy;
+     kdo je na tahu, má větší medailon; místo řádku „na tahu“ pruh končí pečetí příštího kola */
+  const svis = bojTabyCela(s, gm);
+  const slotV = (x, i) => {
+    const kdo = ob[i],
+      naT = i === tah,
+      hot = kdo && naT && (s.hotovo || {})[kdo] === (s.kolo || 1) * 100 + tah,
+      claim = !kdo && x.t === "h" && bojDB && bojDB.obsad,
+      nm = kdo ? besc(bojJm(s, kdo)) : x.t === "h" ? "Družina" : "Nepřátelé";
+    const cls = `bslot b${x.t}${naT ? " btah" : ""}${i < tah ? " bdone" : ""}${i === tah + 1 ? " bdalsi" : ""}${kdo ? " bobs" : ""}${muj(i) ? " bmuj" : ""}${muj(i) && naT ? " bmujtah" : ""}`;
+    const zet = kdo ? med(kdo) : `<span class="bmed bmprazd ${x.t === "h" ? "bmk" : "bmc"}">${bi("plus")}</span>`;
+    const jm = `<span class="bkdo">${nm}${i < tah ? ` <span class="bsvok" role="img" aria-label="odehráno">${bi("hotovo")}</span>` : ""}${i === tah + 1 ? ` <small>další</small>` : ""}</span>`;
+    return `<li class="${cls}"><span class="bsvm">${zet}</span><span class="bsvt">${jm}${hot ? `<span class="bhotovo">${bi("hotovo")} dohráno</span>` : ""}${kdo ? bojSlStav(kdo, true) : ""}</span>${claim ? `<button type="button" class="bslclaim" data-bclaim="${i}" aria-label="Obsadit slot ${i + 1}"></button>` : ""}</li>`;
+  };
+  const zbytV = skr.length
+    ? `<li class="bslot bzbyt"><span class="bsvm"><span class="bzbytc">+${skr.length}</span></span><span class="bsvt"><span class="bkdo">volné${skH && skN ? ` · družina ${skH}, nepřátelé ${skN}` : skH ? " · družina" : " · nepřátelé"}</span></span></li>`
+    : "";
+  const pecet = `<li class="bsvkon${konec ? " bkonec" : ""}"><span class="bsvm"><span class="bsvpec" aria-hidden="true">${(s.kolo || 1) + 1}</span></span><span class="bsvt"><span class="bkdo">${konec ? "Kolo dobojováno · " : ""}kolo ${(s.kolo || 1) + 1}</span></span></li>`;
   const addF = (id, ph) =>
     `<form class="bnadd" id="${id}"><input name="nn" placeholder="${ph}" aria-label="${ph}" required${PROTIVNICI.length ? ' list="bbest" autocomplete="off"' : ""}><input type="hidden" name="nb"><input type="hidden" name="npr"><input type="hidden" name="nos"><select name="nd" aria-label="Druh">${Object.entries(
       BDRUH,
@@ -213,7 +233,9 @@ function bojAktivni() {
       <div class="bojbtn"><button type="button" class="gbtn" data-bkon="kron">Ukončit a zapsat do Kroniky</button><button type="button" class="gbtn ghost" data-bkon="ok">Ukončit bez zápisu</button><button type="button" class="gbtn ghost" data-bkon="zpet">Zpět do boje</button></div></section>`
         : ""
     }`,
-    osa: `<section class="bosa${konec ? " bkon" : ""}">${leg}<ol class="bsloty">${sl.map((x, i) => (vid[i] ? slot(x, i) : "")).join("")}${zbyt}</ol>${ctl}</section>`,
+    osa: svis
+      ? `<section class="bosa bosav${konec ? " bkon" : ""}">${leg}<ol class="bsloty">${sl.map((x, i) => (vid[i] ? slotV(x, i) : "")).join("")}${zbytV}${pecet}</ol></section>`
+      : `<section class="bosa${konec ? " bkon" : ""}">${leg}<ol class="bsloty">${sl.map((x, i) => (vid[i] ? slot(x, i) : "")).join("")}${zbyt}</ol>${ctl}</section>`,
     plos: gm
       ? bojTedHtml(s) +
         (typeof bojProtiHtml === "function" ? bojProtiHtml() : "") +

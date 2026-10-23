@@ -193,6 +193,7 @@ async def main():
     chk(r==["ki",True,"fixed",False,False,False,True],"mobil: dole Moje karta · Iniciativa · Ukončit tah, nahoře bez Boj a pruhu iniciativy, bez Pravidel: "+str(r))
     await pl.click('[data-btab="i"]');await pl.wait_for_timeout(200)
     chk(await pl.locator(".bsloty").is_visible() and not await pl.locator(".bcolk").is_visible(),"mobil: záložka Iniciativa ukáže pruh iniciativy místo karty")
+    chk(await pl.locator(".bosav .bsvkon").is_visible() and await pl.locator(".bosav .bcur").count()==0,"mobil: pruh iniciativy je svisle, končí pečetí příštího kola, bez řádku Na tahu")
     await pl.click('[data-btab="k"]');await pl.wait_for_timeout(200)
     # postava bez karty (tady Cyril) nemá list Záznam – záznam boje je na telefonu pod jejím panelem v záložce Moje karta
     chk(await pl.locator(".bcoll .bzaz").is_visible() and "Cyril" in await pl.inner_text(".bcoll .bzaz"),"mobil: postava bez karty má záznam boje pod panelem")

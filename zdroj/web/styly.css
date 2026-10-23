@@ -2261,10 +2261,11 @@ html:not(.gmv) .gmonly{display:none!important}
 .kmmk{font-family:var(--f-label);letter-spacing:.03em;font-size:.9rem;color:var(--muted);display:inline-flex;align-items:center;gap:4px}
 
 /* ===== karta postavy v rozvržení D&D Beyond (2026-10-16): tmavé panely s měděným rámem ===== */
-/* karta postavy: vínová kůže se zlatým kováním (2026-10-22, dřív hnědá) – všechny odstíny karty jsou tady, listy a hlavička je berou odsud */
-.kdb{--kb-bg:#1f0c10;--kb-pan:#2a1216;--kb-pan2:#15070a;--kb-pan3:#2f1519;--kb-hd1:#35161c;--kb-hd2:#230d11;--kb-port:#3d1c22;--kb-in:#15070a;--kb-bar:#4a2228;--kb-sel:#3a2016;--kb-off:#1a0b0e;--kb-dim:#7a6a62;--kb-btn:#3a171c;--kb-ink:#241a10;
-  --kb-bd:#8c4a3e;--kb-bd2:#5a2a2a;--kb-tx:#efe3c8;--kb-mu:#b8a384;--kb-ac:#d9534f;--kb-gold:#d9b45c;--kb-ok:#6aa85e;
-  display:flex;flex-direction:column;gap:12px;color:var(--kb-tx);font-family:var(--f-body)}
+/* karta postavy: vínová kůže se zlatým kováním (2026-10-22, dřív hnědá) – všechny odstíny karty jsou tady, listy a hlavička je berou odsud;
+   stejné barvy má svislý pruh iniciativy na telefonu (bosav) */
+.kdb,.bosav{--kb-bg:#1f0c10;--kb-pan:#2a1216;--kb-pan2:#15070a;--kb-pan3:#2f1519;--kb-hd1:#35161c;--kb-hd2:#230d11;--kb-port:#3d1c22;--kb-in:#15070a;--kb-bar:#4a2228;--kb-sel:#3a2016;--kb-off:#1a0b0e;--kb-dim:#7a6a62;--kb-btn:#3a171c;--kb-ink:#241a10;
+  --kb-bd:#8c4a3e;--kb-bd2:#5a2a2a;--kb-tx:#efe3c8;--kb-mu:#b8a384;--kb-ac:#d9534f;--kb-gold:#d9b45c;--kb-ok:#6aa85e}
+.kdb{display:flex;flex-direction:column;gap:12px;color:var(--kb-tx);font-family:var(--f-body)}
 .kdb small{color:var(--kb-mu)}
 .kdb .kdbp{position:relative;background:var(--kb-pan);border:2px solid var(--kb-bd);border-radius:12px;padding:12px 12px 30px;box-shadow:inset 0 0 0 2px var(--kb-pan),inset 0 0 0 3px var(--kb-bd2),0 6px 14px -8px rgba(0,0,0,.6)}
 .kdb .kdbpt{position:absolute;left:0;right:0;bottom:6px;margin:0;text-align:center;font-family:var(--f-label);font-weight:700;letter-spacing:.08em;font-size:.82rem;text-transform:uppercase;color:var(--kb-tx)}
@@ -3199,6 +3200,42 @@ html.mmcela .bojhrac.bojakt:not(.bojprip):not([data-btab="i"]) [data-bk="osa"]{d
 html.mmcela #bojview .bojhrac .bosa{position:static;margin:0;padding:10px 8px 14px;border-left:0;border-right:0;border-radius:0}
 html.mmcela #bojview .bojhrac .bctl{grid-column:1/-1;position:static;padding:8px 4px 0;border:0;box-shadow:none;background:none}
 html.mmcela #bojview .bojhrac .bosa .bhelp{display:none}
+/* záložka Iniciativa na telefonu (2026-10-23): pruh svisle ve vínové kůži karty – medailony na zlatém pruhu, vedle jméno
+   a všechny stavy, kdo je na tahu má větší medailon; pruh končí pečetí příštího kola (bosav, 20d) */
+html.mmcela .view:has(.bojhrac[data-btab="i"]){padding-top:0}
+html.mmcela .bojhrac.bojakt[data-btab="i"]{row-gap:0}
+html.mmcela .bojhrac.bojakt[data-btab="i"] .bojhorni{display:none}
+html.mmcela #bojview .bojhrac .bosa.bosav{--paper:var(--kb-pan);--ink:var(--kb-tx);--muted:var(--kb-mu);--rule:var(--kb-bd2);--gold:var(--kb-gold);
+  display:block;min-height:calc(100dvh - 72px - env(safe-area-inset-bottom,0px));padding:0 0 18px;color:var(--kb-tx);border:0;border-radius:0;box-shadow:none;
+  background:linear-gradient(var(--kb-bd2),var(--kb-bd2)) 0 66px/100% 1px no-repeat,linear-gradient(var(--kb-hd1),var(--kb-hd1)) 0 0/100% 66px no-repeat,var(--kb-pan)}
+#bojview .bosav .bleg{display:inline-flex;margin:9px 12px 10px;padding:2px 10px;border:1.5px solid var(--kb-gold);border-radius:10px;background:var(--kb-hd2)}
+html.mmcela #bojview .bosav .bsloty{display:block;overflow:visible;margin:0;padding:0 12px;background:none;-webkit-mask:none;mask:none}
+#bojview .bosav .bslot,#bojview .bosav .bsvkon{position:relative;display:flex;flex-direction:row;align-items:center;gap:12px;margin:0;padding:8px 0;border:0;border-bottom:1px solid color-mix(in srgb,var(--kb-bd2) 55%,transparent);border-radius:0;background:none;text-align:left;opacity:1;filter:none}
+#bojview .bosav .bslot::before,#bojview .bosav .bsvkon::before{content:"";display:block;position:absolute;top:0;bottom:0;left:20px;right:auto;width:20px;height:auto;box-sizing:border-box;background:var(--kb-bar);border:solid color-mix(in srgb,var(--kb-gold) 55%,transparent);border-width:0 1px}
+#bojview .bosav .bsvkon::before{bottom:50%}
+#bojview .bosav .bslot::after{display:none}
+.bsvm{position:relative;z-index:1;flex:none;width:60px;display:flex;justify-content:center}
+.bsvt{flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:3px}
+#bojview .bosav .bslot .bmed{--ms:38px;margin:0}
+#bojview .bosav .bslot.btah .bmed{--ms:60px;margin:0;box-shadow:0 0 0 3px var(--kb-pan),0 0 0 5px var(--kb-gold),0 0 14px 4px color-mix(in srgb,var(--kb-gold) 40%,transparent)}
+#bojview .bosav .bslot.bdone .bmed{filter:grayscale(.85) brightness(.55)}
+#bojview .bosav .bkdo{max-width:none;margin:0;padding:0;border:0;white-space:normal;font-size:.8rem;letter-spacing:.04em;color:var(--kb-tx)}
+#bojview .bosav .bslot.btah .bkdo{margin:0;font-size:1rem}
+#bojview .bosav .bslot.bdone .bkdo{color:var(--kb-dim)}
+#bojview .bosav .bkdo small{font-family:var(--f-label);font-size:.72rem;letter-spacing:.04em;text-transform:lowercase;color:var(--kb-gold)}
+.bsvok .bi.bimg{width:15px;height:15px;vertical-align:-2px}
+#bojview .bosav .bslst{position:static;display:flex;flex-wrap:wrap;align-items:center;gap:4px}
+#bojview .bosav .bslst .bi.bimg{width:26px;height:26px;margin:0;filter:drop-shadow(0 1px 1px #000)}
+#bojview .bosav .bslst .bi.bimg.bimg-neviditelny{filter:invert(.85) sepia(.3) drop-shadow(0 1px 1px #000)}
+#bojview .bosav .bslst b{background:none;font-size:.75rem;line-height:26px;color:var(--kb-mu)}
+#bojview .bosav .bslot .bslst .bkzik{width:26px;height:26px}#bojview .bosav .bslot .bslst .bkzik img{width:22px;height:22px}
+#bojview .bosav .bzbytc{margin:0}
+#bojview .bosav .bzbyt{cursor:default}
+#bojview .bosav .bslot [data-bclaimsel]{left:60px;top:50%;transform:translateY(-50%)}
+#bojview .bosav .bsvkon{border-bottom:0;padding:10px 0 0}
+.bsvpec{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:var(--kb-hd2);border:1.5px solid var(--kb-gold);font-family:var(--f-disp);font-size:1.25rem;line-height:1;color:var(--kb-ac)}
+#bojview .bosav .bsvkon .bkdo{font-style:italic;text-transform:uppercase;font-size:.72rem;color:var(--kb-mu)}
+#bojview .bosav .bsvkon.bkonec .bsvpec{box-shadow:0 0 0 3px var(--kb-pan),0 0 0 5px var(--kb-gold),0 0 14px 4px color-mix(in srgb,var(--kb-gold) 40%,transparent)}
 /* karta v boji bez rámečku účastníka (modrý proužek a pergamen kolem) – jde až k okrajům */
 html.mmcela #bojview .bjamain .bhrk{margin:0;padding:0;border:0;border-radius:0;background:none;box-shadow:none;outline:0}
 /* postava bez karty nemá list Záznam: záznam boje je pod jejím panelem */
