@@ -930,7 +930,9 @@ document.addEventListener("submit", async e => {
     e.preventDefault();
     const kid = f.dataset.k || (E.kdo && E.kdo.value) || "",
       KK = kid && KARTBY[kid];
-    await kVlastniHod(KK ? KK.n : "Vypravěč", kid, E.v.value, E.co.value.trim() || E.v.value, E.zav.checked);
+    /* panel Kostky na kartě: výhoda / nevýhoda platí i pro vlastní výraz s jednou d20, hod jen pro vypravěče (2026-10-23) */
+    const ve = f.closest(".kkpan") && typeof kKostAdv === "function" ? kKostAdv(E.v.value, KADV) : E.v.value;
+    await kVlastniHod(KK ? KK.n : "Vypravěč", kid, ve, E.co.value.trim() || E.v.value, E.zav.checked, f.closest(".kkpan") && KKOSTTAJ);
     return;
   }
   if (f.matches("[data-kpzach]")) {

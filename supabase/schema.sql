@@ -229,8 +229,17 @@ drop policy if exists "denik: čte vypravěč" on public.denik;
 create policy "denik: čte vypravěč" on public.denik for select to authenticated using (public.mm_je_gm());
 drop policy if exists "karty: čte každý" on public.karty;
 create policy "karty: čte každý" on public.karty for select to anon, authenticated using (true);
+-- karta přihlášeného hráče (účet Discordem nebo heslem); pro pravidla RLS, která nesmí číst hraci_ucty přímo
+create or replace function public.mm_moje_karta() returns text
+language sql stable security definer set search_path = public as $$
+  select karta from public.hraci_ucty where user_id = auth.uid()
+$$;
+grant execute on function public.mm_moje_karta() to anon, authenticated;
 drop policy if exists "hody: čte každý" on public.hody;
-create policy "hody: čte každý" on public.hody for select to anon, authenticated using (true);
+-- hod „jen vypravěči“ (data.taj, 2026-10-23): ostatní hráči ho nedostanou; vidí ho vypravěč a hráč přihlášený za tu postavu
+create policy "hody: čte každý" on public.hody for select to anon, authenticated using (
+  coalesce(data ->> 'taj', '') <> 'true' or public.mm_je_gm()
+  or (data ->> 'k') = public.mm_moje_karta());
 drop policy if exists "ukazky: čte každý" on public.ukazky;
 create policy "ukazky: čte každý" on public.ukazky for select to anon, authenticated using (true);
 drop policy if exists "vyzvy: čte každý" on public.vyzvy;
@@ -621,7 +630,7 @@ language plpgsql security definer set search_path = public as $$
 declare u text; d jsonb := new.data; m text;
 begin
   select hodnota ->> 'url' into u from public.nastaveni where klic = 'discord';
-  if d ->> 'src' = 'discord' then return new; end if;
+  if d ->> 'src' = 'discord' or d ->> 'taj' = 'true' then return new; end if;
   if u is null or to_regproc('net.http_post') is null then return new; end if;
   m := '**' || coalesce(d ->> 'kdo', '?') || '** · ' || coalesce(d ->> 'co', '') || coalesce(': **' || (d ->> 'tot') || '**', '')
     || coalesce(' — ' || left(d ->> 'txt', 300), '')
@@ -1721,7 +1730,8 @@ declare
   i bigint;
 begin
   if jsonb_typeof(x) <> 'object' or octet_length(x::text) > 2000
-     or exists (select 1 from jsonb_object_keys(x) k where k not in ('k', 'kdo', 'co', 'txt', 'tot', 'd', 'krit', 'mis', 'zav', 'zr', 'adv', 'typ'))
+     or exists (select 1 from jsonb_object_keys(x) k where k not in ('k', 'kdo', 'co', 'txt', 'tot', 'd', 'krit', 'mis', 'zav', 'zr', 'adv', 'typ', 'taj'))
+     or (x ? 'taj' and jsonb_typeof(x -> 'taj') <> 'boolean')
      or jsonb_typeof(x -> 'kdo') is distinct from 'string' or char_length(x ->> 'kdo') not between 1 and 60
      or jsonb_typeof(x -> 'co') is distinct from 'string' or char_length(x ->> 'co') not between 1 and 80
      or not public.mm_cislo(x -> 'tot', -50, 999) or not public.mm_cislo(x -> 'zav', 1, 6) then

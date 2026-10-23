@@ -479,7 +479,7 @@ const kHodyHtml = (L, cap) =>
     ? `<ol class="khody">${L.slice(0, cap || 40)
         .map(
           h =>
-            `<li${h.skryty ? ' class="kskr"' : ""}><b>${besc(h.kdo || "")}</b> · ${besc(h.co || "")}${h.tot != null ? ` <b class="khtot${h.krit ? " bkr" : h.mis ? " bmis" : ""}">${h.tot}</b>` : ""}${
+            `<li${h.skryty || h.taj ? ' class="kskr"' : ""}><b>${besc(h.kdo || "")}</b> · ${besc(h.co || "")}${h.tot != null ? ` <b class="khtot${h.krit ? " bkr" : h.mis ? " bmis" : ""}">${h.tot}</b>` : ""}${
               h.zav
                 ? (() => {
                     const r = h.zr ? (h.zr === "0" ? "" : h.zr) : h.zav <= 2 ? "pok" : h.zav >= 5 ? "poz" : "";

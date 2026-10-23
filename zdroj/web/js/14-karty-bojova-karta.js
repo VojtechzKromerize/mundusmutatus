@@ -1901,19 +1901,7 @@ function bdmList(s, h, K, gm, X, t) {
   if (t === "vyprav") return hraVypravList(K);
   if (t === "vec") return bdmVecList(K, +(BDM.sheet || {}).i);
   if (t === "pen") return bdmPenList(K);
-  if (t === "kost")
-    return [
-      "Hod kostkou",
-      `${kPriHtml(K)}<p class="kadv" role="radiogroup" aria-label="Další hod">${[
-        [0, "normálně"],
-        [1, "výhoda"],
-        [-1, "nevýhoda"],
-      ]
-        .map(([k, l]) => `<label><input type="radio" name="kadv-${besc(K.id)}" data-bdmadv="${k}"${KADV === k ? " checked" : ""}> ${l}</label>`)
-        .join(
-          "",
-        )}</p>${kHodForm(K)}<p class="bdmnote">Ke každému hodu se hází i kostka Závoje (d6): 1–2 Pokušení, 5–6 Požehnání${zv.z ? " – teď Hodina Závoje, Pokušení na 1–3" : ""}.</p>`,
-    ];
+  if (t === "kost") return ["Hod kostkou", bdmKostHtml(K, zv)];
   if (t === "utok") {
     const L = BDM.sheet || {},
       zb = X.boj ? bojZbrVse(s, h) : [],
@@ -2182,10 +2170,76 @@ document.addEventListener("click", e => {
 document.addEventListener("keydown", e => {
   if (e.key === "Escape" && BDM.sheet) bdmZavri();
 });
-document.addEventListener("change", e => {
-  const t = e.target;
-  if (t.matches && t.matches("[data-bdmadv]")) {
-    KADV = +t.dataset.bdmadv;
+/* panel Kostky (2026-10-23, Vojta): výhoda a nevýhoda jako přepínače (žádný = normálně), výběr kostek klepnutím do výrazu
+   (každé klepnutí přidá jednu kostku), Vynulovat, komu se hod ukáže (všem / jen vypravěči); Bless, Bane, Guidance… řeší kouzla */
+const KKOSTI = ["d20", "d12", "d100", "d10", "d8", "d6", "d4"];
+const KKOSTSVG = {
+  d20: '<path d="M12 2 21 7v10l-9 5-9-5V7z"/><path d="M12 2 7 12h10z M7 12l5 10 5-10 M3 7l4 5 M21 7l-4 5"/>',
+  d12: '<path d="M12 2l9 6.5-3.4 11H6.4L3 8.5z"/><path d="M12 6.5l4.3 3.1-1.6 5H9.3l-1.6-5z M12 2v4.5 M21 8.5l-4.7 1.1 M17.6 19.5l-2.9-4.9 M6.4 19.5l2.9-4.9 M3 8.5l4.7 1.1"/>',
+  d100: '<path d="M8 3l5 7-5 11-5-11z"/><path d="M16 3l5 7-5 11-3-6.6"/><path d="M3 10h10"/>',
+  d10: '<path d="M12 2l9 9-9 11-9-11z"/><path d="M3 11l9 3 9-3 M12 14v8 M12 2v12"/>',
+  d8: '<path d="M12 2l9 10-9 10-9-10z"/><path d="M3 12h18 M12 2 7 12l5 10 5-10z"/>',
+  d6: '<path d="M12 2l9 5v10l-9 5-9-5V7z"/><path d="M3 7l9 5 9-5 M12 12v10"/>',
+  d4: '<path d="M12 3l10 18H2z"/><path d="M12 3v18 M2 21l10-7 10 7"/>',
+};
+let KKOSTTAJ = false;
+function bdmKostHtml(K, zv) {
+  const adv = (k, n, ic, tip) =>
+    `<button type="button" class="kkadv${KADV === k ? " on" : ""}" data-bdmadv="${k}" aria-pressed="${KADV === k}" ${btip(tip)}><img src="art/img/boj/${ic}-48.webp" width="24" height="24" alt="" aria-hidden="true">${n}</button>`;
+  return `<div class="kkpan">
+    <p class="kkadvs" role="group" aria-label="Další hod">${adv(1, "Výhoda", "vyhoda", "Další hod d20 s výhodou (vyšší ze dvou). Klepni znovu pro normální hod.")}${adv(-1, "Nevýhoda", "nevyhoda", "Další hod d20 s nevýhodou (nižší ze dvou). Klepni znovu pro normální hod.")}<small>${KADV ? "platí pro další hod d20" : "nic nezvoleno = normální hod"}</small></p>
+    <div class="kkostky" role="group" aria-label="Přidat kostku do hodu">${KKOSTI.map(d => `<button type="button" class="kkk" data-kkost="${d}" aria-label="Přidat ${d}"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round">${KKOSTSVG[d]}</svg><span>${d}</span></button>`).join("")}</div>
+    <p class="kkovl"><button type="button" class="bdmbtn ghost" data-kkostx ${btip("Smaže zvolené kostky i výraz")}>Vynulovat</button>
+      <span class="kkkomu" role="group" aria-label="Komu se hod ukáže"><button type="button" class="kkkb${KKOSTTAJ ? "" : " on"}" data-kkosttaj="0" aria-pressed="${!KKOSTTAJ}" ${btip("Hod uvidí všichni v záznamu")}>👥 Všem</button><button type="button" class="kkkb${KKOSTTAJ ? " on" : ""}" data-kkosttaj="1" aria-pressed="${KKOSTTAJ}" ${btip("Hod uvidíš ty a vypravěč, ostatní hráči ne")}>👤 Jen vypravěči</button></span></p>
+    ${kHodForm(K)}<p class="bdmnote">Ke každému hodu se hází i kostka Závoje (d6): 1–2 Pokušení, 5–6 Požehnání${zv.z ? " – teď Hodina Závoje, Pokušení na 1–3" : ""}.</p></div>`;
+}
+/* klepnutí na kostku: ve výrazu zvýší počet stejné kostky, jinak ji přidá („2d6+1d8“) */
+const kKostPridej = (v, d) => {
+  const n = d.slice(1),
+    re = new RegExp(`(^|[+-])(\\d*)d${n}(?![\\d%])`),
+    m = String(v || "").match(re);
+  if (m) return v.replace(re, `${m[1]}${(+m[2] || 1) + 1}d${n}`);
+  return v ? `${v}+1d${n}` : `1d${n}`;
+};
+/* výhoda / nevýhoda u vlastního výrazu: jediná d20 se hodí dvakrát (2d20kh1 / 2d20kl1) */
+const kKostAdv = (v, a) => (a ? String(v).replace(/(^|[+-])1?d20(?![\d%k])/, `$12d20${a > 0 ? "kh1" : "kl1"}`) : v);
+document.addEventListener("click", e => {
+  const T = q => e.target.closest && e.target.closest(q);
+  /* přepínače se mění na místě (bez překreslení), aby nezmizel rozepsaný výraz */
+  const a = T("[data-bdmadv]");
+  if (a) {
+    const k = +a.dataset.bdmadv;
+    KADV = KADV === k ? 0 : k;
+    const P = a.closest(".kkadvs");
+    if (P) {
+      P.querySelectorAll("[data-bdmadv]").forEach(b => {
+        b.classList.toggle("on", +b.dataset.bdmadv === KADV);
+        b.setAttribute("aria-pressed", String(+b.dataset.bdmadv === KADV));
+      });
+      const sm = P.querySelector("small");
+      if (sm) sm.textContent = KADV ? "platí pro další hod d20" : "nic nezvoleno = normální hod";
+    }
+    return;
+  }
+  const d = T("[data-kkost]"),
+    x = T("[data-kkostx]"),
+    tj = T("[data-kkosttaj]");
+  if (tj) {
+    KKOSTTAJ = tj.dataset.kkosttaj === "1";
+    tj.parentElement.querySelectorAll("[data-kkosttaj]").forEach(b => {
+      b.classList.toggle("on", (b.dataset.kkosttaj === "1") === KKOSTTAJ);
+      b.setAttribute("aria-pressed", String((b.dataset.kkosttaj === "1") === KKOSTTAJ));
+    });
+    return;
+  }
+  if (!d && !x) return;
+  const L = (d || x).closest(".kkpan"),
+    inp = L && L.querySelector("form[data-kvlh] [name=v]");
+  if (!inp) return;
+  inp.value = d ? kKostPridej(inp.value.trim(), d.dataset.kkost) : "";
+  if (x) {
+    const co = L.querySelector("form[data-kvlh] [name=co]");
+    if (co) co.value = "";
   }
 });
 /* přejetí prstem: po těle karty další / předchozí záložka, po hlavě listu dolů zavře list */

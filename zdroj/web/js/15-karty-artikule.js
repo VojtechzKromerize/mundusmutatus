@@ -413,7 +413,7 @@ function kVyraz(v) {
   }
   return {tot, html: parts.join(" "), txt: parts.join(" ").replace(/<s>(\d+)<\/s>/g, "~$1")};
 }
-async function kVlastniHod(kdo, kid, vyr, co, zav) {
+async function kVlastniHod(kdo, kid, vyr, co, zav, taj) {
   const r = kVyraz(vyr);
   if (!r) {
     mmHlasG("Neznám výraz – zkus např. 2d6+3, 4d6kh3, d20+5, d%.", 4000);
@@ -428,6 +428,7 @@ async function kVlastniHod(kdo, kid, vyr, co, zav) {
     txt: `${vyr}: ${r.txt}`.slice(0, 300),
   };
   if (kid) H.k = kid;
+  if (taj) H.taj = true;
   if (z) {
     H.zav = z.d;
     H.zr = z.r || "0";

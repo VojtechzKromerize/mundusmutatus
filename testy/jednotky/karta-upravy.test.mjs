@@ -62,3 +62,20 @@ test("věc: popis je nahoře a rozbalený, bez původu SRD a bez ceny", () => {
   assert.match(h, /Celé znění/);
   assert.doesNotMatch(h, /SRD 5\.2\.1|GP/);
 });
+
+test("panel Kostky: klepnutí přidá kostku do výrazu, výhoda změní jedinou d20 na 2d20kh1; bez Bless, Bane a Guidance", () => {
+  assert.equal(V(`kKostPridej("", "d6")`), "1d6");
+  assert.equal(V(`kKostPridej("1d6", "d6")`), "2d6");
+  assert.equal(V(`kKostPridej("2d6", "d8")`), "2d6+1d8");
+  assert.equal(V(`kKostPridej("1d20+5", "d20")`), "2d20+5");
+  assert.equal(V(`kKostPridej("1d10", "d100")`), "1d10+1d100", "d100 nesplete s d10");
+  assert.equal(V(`kKostAdv("1d20+5", 1)`), "2d20kh1+5");
+  assert.equal(V(`kKostAdv("d20", -1)`), "2d20kl1");
+  assert.equal(V(`kKostAdv("2d6+3", 1)`), "2d6+3", "bez d20 se nic nemění");
+  assert.equal(V(`kKostAdv("1d20+5", 0)`), "1d20+5");
+  const h = V(`bdmKostHtml(KARTBY.balduin, {})`);
+  assert.match(h, /data-kkost="d20"/);
+  assert.match(h, /data-kkosttaj="1"/);
+  assert.match(h, /data-bdmadv="1"/);
+  assert.doesNotMatch(h, /data-kdice/, "kostky kouzel (Bless, Bane, Guidance) panel už nemá");
+});

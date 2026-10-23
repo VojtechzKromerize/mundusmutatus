@@ -2808,6 +2808,18 @@ button.kdbs:hover{border-color:var(--kb-gold)}.kdbsac b{color:var(--kb-gold)}
 .bdmduse .kduse{margin-top:0;border-top:0;padding-top:0}
 .bdmduse .kduse>.uvh2,.bdmduse .kduse .svl{display:none}
 /* list Svědomí (2026-10-23): nastavení duše přímo v listu, sbalitelné vysvětlení hříchů a skutků */
+/* panel Kostky (2026-10-23): výhoda/nevýhoda, výběr kostek, komu se hod ukáže – ve vínové kůži karty */
+.kkpan{display:flex;flex-direction:column;gap:10px}
+.kkadvs{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0}.kkadvs small{color:var(--kb-mu,var(--muted));font-size:.8rem}
+.kkadv,.kkkb{display:inline-flex;align-items:center;gap:6px;min-height:38px;padding:4px 12px 4px 6px;border:1px solid var(--kb-bd2,var(--rule));border-radius:20px;background:var(--kb-pan,var(--paper));color:var(--kb-tx,var(--ink));font:600 .8rem var(--f-label);letter-spacing:.04em;cursor:pointer}
+.kkkb{padding:4px 12px}
+.kkadv.on,.kkkb.on{border-color:var(--kb-gold,var(--gold));background:#3a2b1c;color:var(--kb-gold,var(--gold));box-shadow:0 0 0 1px var(--kb-gold,var(--gold)) inset}
+.kkadv img{width:24px;height:24px;filter:grayscale(.6);opacity:.75}.kkadv.on img{filter:none;opacity:1}
+.kkostky{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.kkk{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;border:1px solid var(--kb-bd2,var(--rule));border-radius:8px;background:var(--kb-pan,var(--paper));color:var(--kb-tx,var(--ink));cursor:pointer;font:600 .78rem var(--f-label)}
+.kkk svg{width:30px;height:30px;color:var(--kb-gold,var(--gold))}.kkk:active{transform:scale(.95)}.kkk:hover{border-color:var(--kb-gold,var(--gold))}
+.kkovl{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin:0}.kkkomu{display:inline-flex;gap:6px}
+@media (max-width:420px){.kkostky{grid-template-columns:repeat(4,minmax(0,1fr))}}
 .kvpop{margin:0 0 12px;padding:2px 0 8px;border-bottom:1px solid var(--kb-bd2,var(--rule))}
 .kvpop>summary{cursor:pointer;font:600 .78rem var(--f-label);letter-spacing:.06em;text-transform:uppercase;color:var(--kb-gold,var(--gold));padding:4px 0}
 .kvpop p{margin:4px 0 8px;line-height:1.45}.kvpop .kvpar{font-size:.86rem;color:var(--kb-mu,var(--muted))}
