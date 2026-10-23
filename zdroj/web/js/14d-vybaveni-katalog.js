@@ -211,7 +211,7 @@ function renderVybaveni(main, c) {
     <h3 class="uvh2" id="vyb-vlastnosti">Vlastnosti zbraní</h3><ul class="kfeat">${Object.entries(VYB.vlastnosti || {})
       .map(([k, v]) => `<li><b>${besc(k)}</b> <small>${besc(v.cz || "")}</small><br>${besc(v.t || "")}</li>`)
       .join("")}</ul>
-    <h3 class="uvh2" id="vyb-mistrovstvi">Mistrovství zbraní</h3><ul class="kfeat">${Object.entries(VYB.mistrovstvi || {})
+    <h3 class="uvh2" id="vyb-mistrovstvi">Mistrovství se zbraněmi</h3><ul class="kfeat">${Object.entries(VYB.mistrovstvi || {})
       .map(([k, v]) => `<li><b>${besc(k)}</b> <small>${besc(v.cz || "")}</small><br>${besc(v.t || "")}</li>`)
       .join("")}</ul>
     ${VYB.vyroba && VYB.vyroba.t ? `<h3 class="uvh2" id="vyb-vyroba">Výroba</h3>${VYB.vyroba.t.map(t => `<p>${besc(t)}</p>`).join("")}${VYB.vyroba.magicka ? `<table class="rtab vybtab"><thead><tr><th>Vzácnost</th><th>Pracovní dny</th><th>Materiál</th></tr></thead><tbody>${VYB.vyroba.magicka.map(r => `<tr><td>${besc(r.vz)}</td><td>${besc(r.dny)}</td><td>${besc(r.material)}</td></tr>`).join("")}</tbody></table>` : ""}` : ""}
