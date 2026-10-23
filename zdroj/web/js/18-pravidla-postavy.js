@@ -745,19 +745,20 @@ function mimoRysHtml(m, c) {
   const meta = mimoMeta(m, c);
   return `<div class="kmimo"><p><b>${besc(r.cz || r.en)}</b> <small>· ${besc(kde)}</small></p><p>${kzIn(r.t || "")}</p>${meta ? `<p class="rsmall">${besc(meta)}</p>` : ""}<p class="rsmall srdattr">${besc(MIMOPOZN)}</p></div>`;
 }
+/* [jméno, AC, nejvýš AGI, druh podle Artikulí, nevýhoda na Stealth (SRD, stejně jako katalog vybavení `plizeni`)] */
 const KZBRT = [
-  [/padded|prošívan|vycpávan|gambeson/i, 11, 9, "Vycpávaná"],
-  [/studded|pobíjen/i, 12, 9, "Vycpávaná"],
-  [/leather armou?r|kožená zbroj|kožený kabátec/i, 11, 9, "Vycpávaná"],
-  [/hide armou?r|kožešinov/i, 12, 2, "Vycpávaná"],
-  [/chain shirt|kroužková košile|drátěná košile|elven chain/i, 13, 2, "Kroužková"],
-  [/scale mail|šupinov|dragon scale/i, 14, 2, "Kroužková"],
-  [/breastplate|kyrys|brigantin/i, 14, 2, "Plátová"],
-  [/half.?plate|půlplát|poloplát/i, 15, 2, "Plátová"],
-  [/ring mail|kroužkovan/i, 14, null, "Kroužková"],
-  [/chain ?mail|kroužková zbroj|drátěná zbroj|drátěnk/i, 16, null, "Kroužková"],
-  [/splint|dlahov|šínov/i, 17, null, "Plátová"],
-  [/plate armou?r|^plate\b|plátová zbroj|plná zbroj|dwarven plate|demon armor/i, 18, null, "Komplexní"],
+  [/padded|prošívan|vycpávan|gambeson/i, 11, 9, "Vycpávaná", 1],
+  [/studded|pobíjen/i, 12, 9, "Vycpávaná", 0],
+  [/leather armou?r|kožená zbroj|kožený kabátec/i, 11, 9, "Vycpávaná", 0],
+  [/hide armou?r|kožešinov/i, 12, 2, "Vycpávaná", 0],
+  [/chain shirt|kroužková košile|drátěná košile|elven chain/i, 13, 2, "Kroužková", 0],
+  [/scale mail|šupinov|dragon scale/i, 14, 2, "Kroužková", 1],
+  [/breastplate|kyrys|brigantin/i, 14, 2, "Plátová", 0],
+  [/half.?plate|půlplát|poloplát/i, 15, 2, "Plátová", 1],
+  [/ring mail|kroužkovan/i, 14, null, "Kroužková", 1],
+  [/chain ?mail|kroužková zbroj|drátěná zbroj|drátěnk/i, 16, null, "Kroužková", 1],
+  [/splint|dlahov|šínov/i, 17, null, "Plátová", 1],
+  [/plate armou?r|^plate\b|plátová zbroj|plná zbroj|dwarven plate|demon armor/i, 18, null, "Komplexní", 1],
 ];
 function kZbrInfo(x) {
   const n = String((x && x.n) || "");
@@ -774,7 +775,8 @@ function kZbrInfo(x) {
     m = +(n.match(/\+\s*([1-3])\b/) || [])[1] || pe;
   if (/\bshield\b|štít|pavéz/i.test(n)) return {k: "s", ac: 2 + m, m};
   const t = KZBRT.find(r => r[0].test(n));
-  return t ? {k: "z", ac: t[1] + m, max: t[2], dr: t[3], m} : null;
+  /* mithrilová zbroj nevýhodu na Stealth nemá (SRD, Mithral Armor) */
+  return t ? {k: "z", ac: t[1] + m, max: t[2], dr: t[3], m, pl: t[4] && !/mithral|mithril/i.test(n) ? 1 : 0} : null;
 }
 function kNoseno(inv) {
   const o = {z: null, s: null};

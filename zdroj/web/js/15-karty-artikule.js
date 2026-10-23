@@ -42,7 +42,7 @@ const kJmeno = K => {
   const P = kParty(K);
   return P ? kNm(P.n) : K.n;
 };
-/* Svědomí mění některé hody (Artikule, Stavy svědomí) */
+/* Svědomí (Artikule, Stavy svědomí) a nasazená zbroj mění některé hody na dovednosti */
 function kSvAdv(K, dov) {
   const s = kDuse(K).sv,
     r = [];
@@ -52,6 +52,9 @@ function kSvAdv(K, dov) {
   }
   if (dov === "Insight" && s >= 8) r.push([1, "V milosti: výhoda na Insight"]);
   if (dov === "Intimidation" && s <= 0) r.push([1, "Zatracený: výhoda na Intimidation"]);
+  /* nasazená zbroj s nevýhodou na Stealth (SRD; 2026-10-23 – dřív ji karta nehlídala) */
+  const z = kCtx(K).N.z;
+  if (dov === "Stealth" && z && z.pl) r.push([-1, `Zbroj (${z.n}): nevýhoda na Stealth`]);
   return r;
 }
 /* kostka Závoje podle vyznání postavy (svátky) a Hodin Závoje */

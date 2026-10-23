@@ -81,6 +81,10 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
 - 10-23 **Vlastnosti na kartě** (`bdmVlRadek`, 14): mince se zkratkou (`art/img/atributy/<str|agi|…>-48/96.webp`, kamenný reliéf ve zlatém
   okraji; prompty v projektu `grafika/ikony-atributu-prompty.md`) · skóre v pilulce · velký modifikátor (ověření) · záchrana ve štítku –
   plný zlatý štítek = zdatnost (místo dřívější tečky u zkratky); výška řádku jako dřív. Test `testy/jednotky/karta-atributy.test.mjs`.
+- 10-23 **Dovednosti na kartě** bez teček: zdatnost ve štítku bonusu (tmavý = bez, zlatý obrys = zdatnost, plný zlatý = expertíza);
+  výhoda/nevýhoda jako ikona kostky před štítkem (`vyhoda`/`nevyhoda` z `art/img/boj`). **Zbroj s nevýhodou na Stealth** (SRD: Padded,
+  Scale, Half Plate, Ring, Chain Mail, Splint, Plate; mithril ne) – 5. sloupec `KZBRT` → `N.z.pl` (18), `kSvAdv` (15) ji přidá k hodu
+  i na kartu; dřív ji karta nehlídala.
 
 ## Otevřené
 

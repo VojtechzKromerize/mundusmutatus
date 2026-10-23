@@ -2737,7 +2737,6 @@ button.kdbs:hover{border-color:var(--kb-gold)}.kdbsac b{color:var(--kb-gold)}
 .bdmdr{padding:7px 0;border-bottom:1px solid var(--kb-hd1)}
 .bdmdr .kdbdot{justify-self:center}
 .bdmdr small{font-family:var(--f-label);font-weight:700;color:var(--kb-mu)}
-.bdmsva{font-style:normal;font-size:.7rem;color:var(--kb-gold);border:1px solid #6b5626;border-radius:3px;padding:0 4px;margin-left:4px}
 .bdmchips{display:flex;gap:6px;overflow-x:auto;padding:10px 0 4px;scrollbar-width:none}
 .bdmchips button{flex:none;padding:6px 12px;border-radius:5px;background:var(--kb-pan);border:1px solid var(--kb-bd2);color:#6db3f2;font-family:var(--f-label)!important;font-weight:700;font-size:.85rem}
 .bdmchips button[aria-pressed=true]{background:#2f7fd0;border-color:#2f7fd0;color:#fff}
@@ -2886,13 +2885,18 @@ button.kdbs:hover{border-color:var(--kb-gold)}.kdbsac b{color:var(--kb-gold)}
 .bdmdr span small{font-family:var(--f-label);font-weight:700;color:var(--kb-mu);font-size:.7rem;margin-left:3px}
 .bdmdr .bdmbox{min-width:2.8em;padding:2px 6px;font-size:.95rem}
 .bdmdov{display:grid;grid-template-columns:1fr;margin-top:4px}
-/* Statistiky (2026-10-21): dovednosti ve dvou sloupcích (bonus | název | tečka zdatnosti), zdatnosti a jazyky jako upravitelné štítky */
+/* Statistiky (2026-10-23): dovednosti ve dvou sloupcích (název | výhoda/nevýhoda | bonus); zdatnost ve štítku bonusu:
+   tmavý = bez zdatnosti, zlatý obrys = zdatnost, plný zlatý = expertíza; zdatnosti a jazyky jako upravitelné štítky */
 .bdmdov2{grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px}
-.bdmdov2 .bdmdr{grid-template-columns:12px minmax(0,1fr) auto!important;gap:5px;font-size:.9rem}
+.bdmdov2 .bdmdr{grid-template-columns:minmax(0,1fr) auto!important;gap:6px;font-size:.9rem}
 .bdmdov2 .bdmdr>span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bdmdov2 .bdmdr>.bdmdrv{display:flex;align-items:center;gap:5px;overflow:visible}
+.bdmdrik{display:block;width:22px;height:22px;flex:none}
 @media (max-width:480px){.bdmdov2 .bdmdr span small{display:none}}
-.bdmdov2 .bdmdr .kdbdot{justify-self:center;opacity:0}.bdmdov2 .bdmdr.kprof .kdbdot{opacity:1}
-.bdmdov2 .bdmdr .bdmbox{min-width:2.6em;padding:1px 5px;font-size:.9rem}
+.bdmdov2 .bdmdr .bdmbox{min-width:2.6em;padding:1px 5px;font-size:.9rem;background:var(--kb-pan2);border:2px solid var(--kb-bd2);color:var(--kb-mu)}
+.bdmdov2 .bdmdr.kprof .bdmbox{border-color:var(--kb-gold);color:var(--kb-gold)}
+.bdmdov2 .bdmdr.kexp .bdmbox{background:var(--kb-gold);border-color:var(--kb-gold);color:var(--kb-ink)}
+.bdmdov2 .bdmdr .bdmbox:focus-visible{outline:2px solid var(--kb-gold);outline-offset:1px}
 /* zdatnost · rychlost · iniciativa v jednom úzkém řádku (2026-10-22) */
 .bdmvlh{justify-content:center;flex-wrap:nowrap;gap:4px;margin-top:6px}
 .bdmvlh .bdmch{font:inherit;cursor:default;font-size:.68rem;padding:1px 7px;line-height:1.4;white-space:nowrap;flex:0 1 auto;min-width:0}

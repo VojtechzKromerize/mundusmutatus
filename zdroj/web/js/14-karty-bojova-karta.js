@@ -1753,8 +1753,15 @@ function bdmTelo(s, h, K, gm, X, id) {
     const dov = `<h4 class="bdmgh">Dovednosti</h4><div class="bdmdov bdmdov2">${Object.keys(KDOVAB)
       .filter(n => (K.dov || {})[n] != null)
       .map(n => {
-        const r = kSvAdv(K, n);
-        return `<div class="bdmdr${dp[n] ? " kprof" : ""}${dp[n] === "E" ? " kexp" : ""}"><i class="kdbdot" aria-hidden="true" ${btip(dp[n] === "E" ? "Expertise" : dp[n] ? "Zdatnost" : "")}></i><span>${besc(n)} <small>${KDOVAB[n]}</small>${r.length ? ` <em class="bdmsva" ${btip(r.map(x => x[1]).join(", "))}>${r[0][0] > 0 ? "výh." : "nevýh."}</em>` : ""}</span><button type="button" class="bdmbox" data-khod="dv:${besc(n)}" ${btip(`${n}: d20 ${bsg(kDov(K, n))}`)}>${bsg(kDov(K, n))}</button></div>`;
+        /* zdatnost a expertíza ve štítku hodnoty (2026-10-23: zlatý obrys = zdatnost, plný zlatý = expertíza, bez teček);
+           výhoda / nevýhoda (Svědomí, zbroj na Stealth) jako ikona kostky před štítkem – obě naráz se ruší (D&D 2024) */
+        const r = kSvAdv(K, n),
+          vy = r.some(x => x[0] > 0),
+          ne = r.some(x => x[0] < 0),
+          ik = vy !== ne ? (vy ? "vyhoda" : "nevyhoda") : "",
+          pr = dp[n] === "E" ? "expertíza" : dp[n] ? "zdatnost" : "",
+          tH = `${n}: d20 ${bsg(kDov(K, n))}${pr ? ` (${pr})` : ""}${r.length ? ` · ${r.map(x => x[1]).join(", ")}` : ""}`;
+        return `<div class="bdmdr${dp[n] ? " kprof" : ""}${dp[n] === "E" ? " kexp" : ""}"><span>${besc(n)} <small>${KDOVAB[n]}</small></span><span class="bdmdrv">${ik ? `<img class="bdmdrik" src="art/img/boj/${ik}-48.webp" width="22" height="22" alt="" aria-hidden="true" decoding="async" loading="lazy" ${btip(r.map(x => x[1]).join(", "))}>` : ""}<button type="button" class="bdmbox" data-khod="dv:${besc(n)}" aria-label="${besc(tH)}" ${btip(tH)}>${bsg(kDov(K, n))}</button></span></div>`;
       })
       .join("")}</div>`;
     const def = [["Vulnerability", K.zra]].filter(([, L]) => (L || []).length);
