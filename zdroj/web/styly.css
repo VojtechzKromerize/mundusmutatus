@@ -503,6 +503,7 @@ mark{background:color-mix(in srgb,var(--gold) 35%,transparent);color:inherit;pad
 .colophon .cdrak{display:block}.colophon .corn{display:none}
 .colophon .cq{font-family:var(--f-disp);font-size:1.15rem;color:var(--ink)}
 .colophon .cq i{color:var(--kal)}
+.colophon .clic{max-width:62em;margin:10px auto 0;padding:0 16px;font-size:.78rem;line-height:1.45;color:var(--muted);text-align:center}.colophon .clic a{color:inherit}
 .colophon nav{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 14px;font-family:var(--f-label);letter-spacing:.05em;font-size:.85rem}
 .colophon nav a{color:var(--muted)}
 .colophon .ctop{font-family:var(--f-label);letter-spacing:.06em;font-size:.85rem;color:var(--kal);background:none;border:0;padding:4px 8px}
@@ -2807,6 +2808,10 @@ button.kdbs:hover{border-color:var(--kb-gold)}.kdbsac b{color:var(--kb-gold)}
 .bdmduse .kduse{margin-top:0;border-top:0;padding-top:0}
 .bdmduse .kduse>.uvh2,.bdmduse .kduse .svl{display:none}
 /* list Svědomí (2026-10-23): nastavení duše přímo v listu, sbalitelné vysvětlení hříchů a skutků */
+.kvpop{margin:0 0 12px;padding:2px 0 8px;border-bottom:1px solid var(--kb-bd2,var(--rule))}
+.kvpop>summary{cursor:pointer;font:600 .78rem var(--f-label);letter-spacing:.06em;text-transform:uppercase;color:var(--kb-gold,var(--gold));padding:4px 0}
+.kvpop p{margin:4px 0 8px;line-height:1.45}.kvpop .kvpar{font-size:.86rem;color:var(--kb-mu,var(--muted))}
+.kvcele>summary{cursor:pointer;font-size:.82rem;color:var(--kb-mu,var(--muted))}
 .kdusin{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px 12px;margin:10px 0;padding:8px 10px;border:1px solid var(--kb-bd2,var(--rule));border-radius:6px;background:var(--kb-pan,var(--paper))}
 .kdusin label{display:flex;flex-direction:column;gap:3px;font:600 .68rem var(--f-label);letter-spacing:.05em;text-transform:uppercase;color:var(--kb-mu,var(--muted))}
 .kdusin select,.kdusin input{font:400 .95rem var(--f-body,inherit);text-transform:none;letter-spacing:0;min-height:34px}

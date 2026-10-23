@@ -184,6 +184,41 @@ function bdmVyb(K) {
     ${ro ? "" : `<details class="bdmbez kvadd"${BOTV.has("vyb-" + K.id) ? " open" : ""} data-otv="vyb-${besc(K.id)}"><summary>+ Přidat věc</summary>${kPoolHtml(K)}<form class="kinvf" data-kinvf><input name="n" placeholder="vlastní předmět (např. Klíč od kaple)" required maxlength="80"><input name="q" type="number" min="1" max="9999" value="1" aria-label="Počet"><button class="gbtn ghost">Přidat</button></form></details>`}`;
 }
 
+/* popis věci nahoře v listu (2026-10-23): rozbalený, klikem se sbalí; bez původu textu a překladu (licence je v patičce webu).
+   Přednost má text z katalogu vybavení (Vojtovy popisy), jinak popis magického předmětu; cena se neukazuje – určuje ji vypravěč */
+const KVPOPZ = new Set();
+function kVecPopis(x, p, v) {
+  const sk = v && typeof VYBSKN !== "undefined" ? VYBSKN[v.sk] || "" : "",
+    druh = p
+      ? `${p.druh || ""}${p.upr ? ` (${p.upr})` : ""}${p.vzt || p.vz ? `, ${p.vzt || p.vz}` : ""}${p.pr ? `, vyžaduje připoutání${typeof p.pr === "string" ? " (" + p.pr + ")" : ""}` : ""}`
+      : sk,
+    par = v && !(p && v.sk === "magicke") && typeof vybParam === "function" ? vybParam(v) : "",
+    txt = v && v.t ? `<p>${besc(v.t)}</p>` : p && p.t ? kzMd(p.t) : "",
+    tab =
+      v && v.tab
+        ? v.tab
+            .map(
+              T =>
+                `<table class="rtab vybtab"><thead><tr>${(T.h || []).map(h => `<th>${besc(h)}</th>`).join("")}</tr></thead><tbody>${(T.r || []).map(r => `<tr>${r.map(c => `<td>${besc(c)}</td>`).join("")}</tr>`).join("")}</tbody></table>`,
+            )
+            .join("")
+        : "",
+    art = v && typeof vybArtikule === "function" ? vybArtikule(v) : "",
+    cele = v && v.t && p && p.t ? `<details class="kvcele"><summary>Celé znění</summary>${kzMd(p.t)}</details>` : "";
+  if (!druh && !par && !txt && !tab && !art) return "";
+  const k = String(x.n || "").toLowerCase();
+  return `<details class="kvpop" data-kvpop="${besc(k)}"${KVPOPZ.has(k) ? "" : " open"}><summary>Popis</summary>${druh || par ? `<p class="kvpar"><i>${besc(druh)}</i>${druh && par ? " · " : ""}${par}</p>` : ""}${txt}${tab}${art}${cele}</details>`;
+}
+document.addEventListener(
+  "toggle",
+  e => {
+    const d = e.target;
+    if (!d.matches || !d.matches("[data-kvpop]")) return;
+    if (d.open) KVPOPZ.delete(d.dataset.kvpop);
+    else KVPOPZ.add(d.dataset.kvpop);
+  },
+  true,
+);
 /* --- list věci zespodu --- */
 function bdmVecList(K, i) {
   const inv = kInv(K),
@@ -192,7 +227,7 @@ function bdmVecList(K, i) {
   const ro = !kMuze(K),
     p = kPred(x),
     v = typeof vybNajdi === "function" ? vybNajdi(x) : null,
-    vH = v && (!p || v.sk !== "magicke") ? `<details class="bdmbez"><summary>Popis (katalog vybavení)</summary>${vybKarta(v, false)}</details>` : "",
+    vH = kVecPopis(x, p, v),
     r = kZbrInfo(x),
     NOS = kNoseno(inv),
     on = r && ((NOS.z && NOS.z.i === i) || (NOS.s && NOS.s.i === i)),
@@ -203,7 +238,7 @@ function bdmVecList(K, i) {
     kont = kKont(inv).filter(([, j]) => j !== i),
     komu = KARTY.filter(k => k.id !== K.id && !k.test);
   const info = `${kNab(x) ? `<p class="bdmnote">Náboje ${kNabHtml(x, i)}</p>` : ""}<p class="bdmnote">${x.q > 1 ? `<b>${x.q} ks</b> · ` : ""}${x.w ? `${besc(x.w)} · ` : ""}${besc((KINVSK.find(s => s[0] === kInvSkup(x, i, NOS)) || [])[1] || "")}${x.v ? ` · v batohu ${besc(x.v)}` : ""}</p>`;
-  if (ro) return [x.n, `${info}${x.pozn ? `<p class="kvpozn">${besc(x.pozn)}</p>` : ""}${p ? predKarta(p) : ""}${vH}`];
+  if (ro) return [x.n, `${vH}${info}${x.pozn ? `<p class="kvpozn">${besc(x.pozn)}</p>` : ""}`];
   const akce = [
     r ? `<button type="button" class="bdmbtn" data-kobl="${i}">${on ? "Sundat" : "Obléct"}</button>` : "",
     p && (p.pr || x.pripoutano)
@@ -231,10 +266,7 @@ function bdmVecList(K, i) {
     <p class="bdmrow"><span class="kq"><button type="button" class="bdmmini" data-kinv="${i}" data-d="-1" aria-label="Ubrat">−</button><b>${x.q ?? 1}</b><button type="button" class="bdmmini" data-kinv="${i}" data-d="1" aria-label="Přidat">+</button></span>
       ${kont.length ? `<label class="kvlab kvlabr">V batohu <select data-kinvv="${i}"><option value="">— volně —</option>${kont.map(([c]) => `<option${x.v === c.n ? " selected" : ""}>${besc(c.n)}</option>`).join("")}</select></label>` : ""}
       <button type="button" class="bdmmini kvx" data-kvx="${i}">Zahodit</button></p></div>`;
-  return [
-    x.n,
-    `${info}${akce ? `<div class="bdmrow kvakce">${akce}</div>` : ""}${hodH}${darH}${upr}${p ? `<details class="bdmbez"><summary>Popis (SRD)</summary>${predKarta(p)}</details>` : ""}${vH}`,
-  ];
+  return [x.n, `${vH}${info}${akce ? `<div class="bdmrow kvakce">${akce}</div>` : ""}${hodH}${darH}${upr}`];
 }
 
 /* --- list Peníze --- */
