@@ -1,7 +1,7 @@
 // Zlaté snímky karet (2026-10-23): spočítaná karta každé zkušební a vzorové postavy (AC, HP, záchrany, dovednosti, kouzla,
-// sloty, zdroje, útoky, přídavky, Výdrž) se porovná s uloženým snímkem v testy/data/zlate/<id>.json. Chrání před tím, že
+// sloty, zdroje, útoky, přídavky, Výdrž) se porovná s uloženým snímkem v testy/zlate/snimky/<id>.json. Chrání před tím, že
 // změna v jedné relaci tiše změní výpočet karty, který testuje jen prohlížeč.
-//   Karty: zdroj/obsah/karty/*.json (Balduin) + testy/data/karty/*.json (vzory podtříd družiny; další karta = další soubor).
+//   Karty: zdroj/obsah/karty/*.json (Balduin) + testy/zlate/karty/*.json (vzory podtříd družiny; další karta = další soubor).
 //   Varianty se stavem: VARIANTY níže (účinky na kartě, přepínače) – hlídají i sčítání účinků z 10u.
 //   Snímek se mění vědomě:  MM_ZLATE=obnov node --test testy/jednotky/zlate.test.mjs  → zkontroluj git diff a commitni s důvodem.
 import {test, before, after} from "node:test";
@@ -12,9 +12,9 @@ import {fileURLToPath} from "node:url";
 import {stranka} from "./stranka.mjs";
 
 const KOREN = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
-const ZLATE = path.join(KOREN, "testy", "data", "zlate");
+const ZLATE = path.join(KOREN, "testy", "zlate", "snimky");
 const OBNOV = process.env.MM_ZLATE === "obnov";
-const karty = [path.join(KOREN, "zdroj", "obsah", "karty"), path.join(KOREN, "testy", "data", "karty")].flatMap(d =>
+const karty = [path.join(KOREN, "zdroj", "obsah", "karty"), path.join(KOREN, "testy", "zlate", "karty")].flatMap(d =>
   fs.existsSync(d)
     ? fs
         .readdirSync(d)

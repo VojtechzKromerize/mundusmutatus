@@ -26,9 +26,9 @@
      sčítání účinků (různé ano, stejnojmenné ne), AC/HP/rychlost/záchrany z účinků, kostky k hodům a jednou za tah, akce v tahu,
      kdo smí reagovat a co reakce vrátí. Nové výpočty piš do čistého souboru a testuj tady.
    - `zlate.test.mjs` – **zlaté snímky karet**: spočítaná karta Balduina a vzorových postav podtříd družiny
-     (`testy/data/karty/*.json`; AC, HP, záchrany, dovednosti, odolnosti, kouzla, sloty, zdroje, útoky, přídavky, Výdrž, i se stavy)
-     se porovná se snímkem v `testy/data/zlate/`. Záměrná změna výpočtu: `MM_ZLATE=obnov node --test testy/jednotky/zlate.test.mjs`,
-     zkontrolovat `git diff testy/data/zlate` a commitnout s důvodem. Další karta = další soubor v `testy/data/karty/`.
+     (`testy/zlate/karty/*.json`; AC, HP, záchrany, dovednosti, odolnosti, kouzla, sloty, zdroje, útoky, přídavky, Výdrž, i se stavy)
+     se porovná se snímkem v `testy/zlate/snimky/`. Záměrná změna výpočtu: `MM_ZLATE=obnov node --test testy/jednotky/zlate.test.mjs`,
+     zkontrolovat `git diff testy/zlate/snimky` a commitnout s důvodem. Další karta = další soubor v `testy/zlate/karty/`.
    - `inventura_kouzel.mjs` (není test; `node testy/jednotky/inventura_kouzel.mjs [--vse]`) – TSV: co web umí s každým kouzlem
      (zranění/léčení z textu, útok/záchrana, stav, tabulky UCINKY/KZOPAK/KZOBL/KZLEC/KZSUM); bez `--vse` jen kouzla bez automatiky.
    - `kouzla.test.mjs` – účinky dalších kouzel z dat SRD (Guiding Bolt, Scorching Ray, triky podle úrovně, záchrany
