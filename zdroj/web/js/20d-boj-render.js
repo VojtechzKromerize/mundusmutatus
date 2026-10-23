@@ -450,6 +450,8 @@ function bojListPrekresli() {
     bojJaUloz();
   } catch (e) {}
 }
+/* hráčská Hra mimo boj: poslední vykreslené HTML karty a jeho prvek – stejné HTML se znovu nevkládá */
+const BHRAH = {h: "", el: null};
 function renderBoj() {
   mmZrus("boj");
   try {
@@ -506,8 +508,17 @@ function renderBoj() {
   if (!s || (!s.aktivni && !s.priprava) || (!GMV && !s.aktivni && s.ticha)) {
     if (GMV) return;
     /* hráčská Hra mimo boj (2026-10-22): jen karta, nebo přihlášení a volba postavy */
-    const sy = window.scrollY;
-    box.innerHTML = hraHracHtml();
+    const sy = window.scrollY,
+      h = hraHracHtml();
+    /* beze změny (typicky puls po hodu jiného hráče) se karta nepřepisuje: ušetří přestavbu stránky a značení pojmů
+       na telefonu a zůstane otevřený list, hledání ve vybavení i poloha (2026-10-23) */
+    if (h === BHRAH.h && BHRAH.el && box.firstChild === BHRAH.el && box.lastChild === BHRAH.el) {
+      bojWake();
+      return;
+    }
+    box.innerHTML = h;
+    BHRAH.h = h;
+    BHRAH.el = box.childNodes.length === 1 ? box.firstChild : null;
     pojZnac(box.querySelector(".hraja"));
     if (box.querySelector(".bdm")) {
       window.scrollTo(0, sy);

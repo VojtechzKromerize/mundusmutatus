@@ -300,6 +300,11 @@ async def main():
         chk(await pl.locator(".hraja .bdm").count()==1 and await pl.locator("#bojview .bsloty").count()==0,"hráč mimo boj: na Hře jen jeho karta (rozvržení D&D Beyond), bez iniciativy")
         await pl.click('.bdm .bdmtabs [data-bdmsec="kouzla"]');await klid(pl,300)
         chk(await pl.locator(".bdm .bdmsec[data-bdmid=kouzla]").count()==1,"bojová karta: záložka Kouzla")
+        # 2026-10-23: překreslení beze změny dat kartu nepřepíše (puls po hodu jiného hráče), změna ano
+        stejna=await pl.evaluate("(()=>{const a=document.querySelector('#bojview .hraja');a.__mm=1;renderBoj();renderBoj();const b=document.querySelector('#bojview .hraja');return a===b&&b.__mm===1})()")
+        chk(stejna,"hráč mimo boj: překreslení beze změny kartu nevymění")
+        jina=await pl.evaluate("(()=>{const a=document.querySelector('#bojview .hraja');BHRAH.h='';renderBoj();return document.querySelector('#bojview .hraja')!==a})()")
+        chk(jina,"hráč mimo boj: jiné HTML kartu vymění")
     await pl.evaluate("location.hash='#hra'");await pl.wait_for_selector(".hraja",timeout=10000)
     cizi=await b.new_page(viewport={"width":390,"height":844});cerr=[];cizi.on("pageerror",lambda e:cerr.append(str(e)[:200]))
     await cizi.goto(BASE+"#karty/balduin");await cizi.wait_for_selector(".bdm",timeout=15000);await klid(cizi,2600);await cizi.evaluate("mmPopX()")
