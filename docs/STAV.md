@@ -85,8 +85,10 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
   výhoda/nevýhoda jako ikona kostky před štítkem (`vyhoda`/`nevyhoda` z `art/img/boj`). **Zbroj s nevýhodou na Stealth** (SRD: Padded,
   Scale, Half Plate, Ring, Chain Mail, Splint, Plate; mithril ne) – 5. sloupec `KZBRT` → `N.z.pl` (18), `kSvAdv` (15) ji přidá k hodu
   i na kartu; dřív ji karta nehlídala.
+- 10-23 **Chyby z Vojtova seznamu (Bugy.docx)**: zdatnosti a jazyky – databáze odmítala `dopl.bez`, teď `dopl.zbroj/zbrane/nastroje/jazyky/bez` s nabídkou SRD (`bdmZdatHtml` 14, doplněné se počítají v `kZdSez` 17); karta hráče na PC v boji drží šířku ve všech záložkách (`.bjamain .bja>.hraja`); Svědomí – jedna Ctnost a jedna Neřest (`kDuse` bere první), nastavení duše přímo v listu (`data-kdusg`, ukládá hned), sbalitelné vysvětlení hříchů a skutků, bez políček bodů (15); věc ve vybavení – popis nahoře rozbalený (`kVecPopis` 14b), bez původu SRD a ceny, licence SRD v patičce webu (`.clic` v kostře); panel Kostky – výhoda/nevýhoda jako přepínače, výběr kostek do výrazu (`kKostPridej`, `kKostAdv`), hod jen vypravěči (`data.taj`, RLS tabulky hody přes `mm_moje_karta()`, do Discordu se neposílá), bez Bless/Bane/Guidance; **Vybavení** podle D&D Beyond (14b): Moje / Družiny, nosnost se složkami (`slozky` na kartě, `nen` = nenese), druhy `KINVF`, Spravovat inventář (`bdmInvList`: databáze `KINVDB` – hráč posílá návrh `vec`, vypravěč schvaluje; vlastní předmět s `typ`; složky). Staré „+ Přidat věc“ a nabídka `kPool` zrušeny.
 
 ## Otevřené
+- 10-23 Družina (#druzina) dál ukazuje Ctnosti a Neřesti z obsahu (u postav dvě) – po přechodu na jednu Ctnost a Neřest upravit `zdroj/obsah` (nejdřív záloha textů z webu). Mince ve Vybavení čekají na Vojtovy ikonky. Kostka Emboldening Bond pro ověření a záchrany se zapíná jen ve formuláři útoku (panel Kostky ji už nemá).
 
 - **Čistá pravidla – další přesuny**: `--ciste-kandidati` hlásí ~600 definic, které jdou do čistých souborů beze změny (karta 18: `kPocet`,
   `KZBRAN`…; boj 11/12; Výprava 22). Výpočty karty `kCtx`/`kHodn`/`kAC` čisté nejsou (čtou `kartaStav`, `KCX`) – chtělo by předávat stav karty
