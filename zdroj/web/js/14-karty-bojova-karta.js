@@ -1378,7 +1378,7 @@ function bdmUtoky(s, h, K, gm, X) {
     const hit = X.boj && gm && j >= 0 ? `data-bdmsh="utok" data-j="${j}"` : ut && j >= 0 ? `data-bdmsh="utok" data-j="${j}"` : `data-khod="ut:${i}"`;
     const L = bdmZvl(a, K);
     const ox = BDM.utx.has(K.id + "|" + a.n);
-    return `<div class="bdmut${zv ? " bdmzv" : ""}${ox ? " bdmuto" : ""}"><span class="bdmuti" aria-hidden="true">${bdmIc(a.dal ? "sip" : "mec")}</span><div class="bdmutn" role="button" tabindex="0" data-bdmutx="${besc(a.n)}" aria-expanded="${ox}" ${btip(ox ? "Skrýt vlastnosti zbraně" : "Ukázat vlastnosti zbraně")}><b>${besc(a.n)}</b>${zv ? ` <small class="bdmruk" ${btip("Zbraň v ruce")}>✋</small>` : ""}${ox ? `<small>${besc([a.dal ? "na dálku" : "zblízka", ...vl].join(" · "))}</small>${L.length ? `<span class="bdmzvs">${L.map(k => `<span ${btip(`${k}: ${BVLZ[k]}`)}>${bikZv(k)}<i>${besc(k)}</i></span>`).join("")}</span>` : ""}${kMuze(K) && !/beze zbraně|unarmed|eldritch|kouzl/i.test(a.n) ? `<button type="button" class="bdmmini bdmzvb" data-bdmsh="zvl" data-zvl="${besc(a.n)}" ${btip("Vlastnosti zbraně podle Artikulí (Šikovná, Ostrá, Drtivá…)")}>⚙ vlastnosti</button>` : ""}` : ""}</div>
+    return `<div class="bdmut${zv ? " bdmzv" : ""}${ox ? " bdmuto" : ""}"><span class="bdmuti" aria-hidden="true">${bdmIc(a.dal ? "sip" : "mec")}</span><div class="bdmutn" role="button" tabindex="0" data-bdmutx="${besc(a.n)}" aria-expanded="${ox}" ${btip(ox ? "Skrýt vlastnosti, mistrovství a perky zbraně" : "Ukázat vlastnosti, mistrovství a perky zbraně")}><b>${besc(a.n)}</b>${zv ? ` <small class="bdmruk" ${btip("Zbraň v ruce")}>✋</small>` : ""}${ox ? `<small>${besc([a.dal ? "na dálku" : "zblízka", ...vl].join(" · "))}</small>${L.length ? `<span class="bdmzvs">${L.map(k => `<span ${btip(`${k}: ${BVLZ[k]}`)}>${bikZv(k)}<i>${besc(k)}</i></span>`).join("")}</span>` : ""}${kMuze(K) && !/beze zbraně|unarmed|eldritch|kouzl/i.test(a.n) ? `<button type="button" class="bdmmini bdmzvb" data-bdmsh="zvl" data-zvl="${besc(a.n)}" ${btip("Perky zbraně podle Artikulí (Šikovná, Ostrá, Drtivá…)")}>⚙ perky</button>` : ""}` : ""}</div>
       <span class="bdmdos">${besc(a.dosah || (a.dal ? "dálka" : "5 st."))}</span><button type="button" class="bdmbox" ${hit} ${btip(`Útok ${a.n}: d20 ${bsg(+a.b || 0)}${a.pocet > 1 ? ` · ${a.pocet}× za akci` : ""}${ut && j >= 0 ? " – vyber cíl a hoď" : X.boj && gm ? " – hodí za hráče a otevře zápis" : ""}`)}>${bsg(+a.b || 0)}</button>
       <span class="bdmdmg">${a.z ? `<button type="button" class="bdmbox" data-kzr="${i}" ${btip(`Zranění ${a.z} ${BZRT[a.t] || a.t || ""}`)}>${besc(a.z)} ${bikZr(a.t)}</button>` : "–"}</span>${a.pozn || kMunTxt(K, a) ? `<small class="bdmutp">${besc(a.pozn || "")}${kMunTxt(K, a)}</small>` : ""}</div>`;
   }).join("");
@@ -1765,13 +1765,13 @@ function bdmList(s, h, K, gm, X, t) {
   if (t === "zvl") {
     const wn = (BDM.sheet || {}).w,
       a = kUtoky(K).find(x => x.n === wn);
-    if (!a) return ["Vlastnosti zbraně", `<p class="bdmnote">Zbraň nenalezena.</p>`];
+    if (!a) return ["Perky zbraně", `<p class="bdmnote">Zbraň nenalezena.</p>`];
     const moje = bdmZvlMoje(a, K),
       L = bdmZvl(a, K),
       T0 = (moje && moje.t) || [a.t, BSIKALT[a.t]].filter(Boolean);
     return [
-      `Vlastnosti · ${a.n}`,
-      `<form data-bdmzvf data-w="${besc(a.n)}"><p class="bdmnote">${moje ? "Vlastnosti nastavené ručně." : "Podle názvu zbraně" + (L.length ? "" : " žádné") + " – zaškrtni, co zbraň podle Artikulí má."}</p>
+      `Perky · ${a.n}`,
+      `<form data-bdmzvf data-w="${besc(a.n)}"><p class="bdmnote">${moje ? "Perky nastavené ručně." : "Podle názvu zbraně" + (L.length ? "" : " žádné") + " – zaškrtni, co zbraň podle Artikulí má."}</p>
       <div class="bdmzvlg">${Object.keys(BDMZV)
         .map(
           k =>

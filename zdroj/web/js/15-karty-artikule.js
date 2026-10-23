@@ -150,7 +150,7 @@ const STECH = [
     id: "mordschlag",
     n: "Vražedný úder (Mordschlag)",
     c: "1V + bonusová akce",
-    t: "Meč za čepel a úder záštitou: do konce tahu má zbraň Bludgeoning s vlastností Drtivá.",
+    t: "Meč za čepel a úder záštitou: do konce tahu má zbraň Bludgeoning s perkem Drtivá.",
   },
   {
     id: "ringen",

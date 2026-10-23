@@ -137,13 +137,13 @@ Používáš-li jako provizorní zbraň nějaký předmět – například nohu 
 | Musket (mušketa) | 1d12 Piercing | Ammunition (dostřel 40/120; kulka), Loading, Two-Handed | Slow | 10 lb. | 500 GP |
 | Pistol (pistole) | 1d10 Piercing | Ammunition (dostřel 30/90; kulka), Loading | Vex | 3 lb. | 250 GP |
 
-> **Artikule:** Vedle vlastností SRD mají zbraně fyzické vlastnosti, které platí pro každého, kdo má se zbraní zdatnost (Weapon Mastery se nemění):
+> **Artikule:** Vedle vlastností SRD mají zbraně perky, které platí pro každého, kdo má se zbraní zdatnost (Weapon Mastery se nemění):
 > - **Drtivá** (Mace, Flail, Warhammer) – ignoruje Resistance zbroje proti Bludgeoning zranění.
 > - **Průrazná** (Handgun, Heavy Crossbow, Lance, Halberd, War Pick) – ignoruje Resistance zbroje proti Piercing zranění.
 > - **Ratiště** (Halberd, Pike, Glaive, Spear) – příležitostný útok, když nepřítel vstoupí do dosahu 10 stop; v kontaktu na 5 stop nevýhoda.
 > - **Šikovná** (Shortsword, Longsword, Greatsword, Scimitar, Warhammer, Halberd) – typ zranění se volí před hodem.
 > - **Ostrá** (Shortsword, Longsword, Greatsword, Scimitar) – Slashing zásah proti cíli bez Resistance je kritický na 19–20.
-> - **Půlmeč** (Longsword, Greatsword) – bonusovou akcí přehmat: Piercing zranění s vlastností Průrazná, kostka zranění o stupeň níž.
+> - **Půlmeč** (Longsword, Greatsword) – bonusovou akcí přehmat: Piercing zranění s perkem Průrazná, kostka zranění o stupeň níž.
 > - **Do slabin!** (Dagger) – Požehnání na kostce Závoje proti Zadrženému (Restrained) nebo Sraženému (Prone) cíli = kritický zásah.
 > - **Strhující** (Halberd, Glaive) – Požehnání proti jezdci: strhne ho ze sedla.
 > - **Vpřed!** (Lance) – po 15 stopách jízdy dvojnásobek kostek zranění, kritický zásah 4×.

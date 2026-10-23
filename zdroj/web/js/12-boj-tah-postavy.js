@@ -1128,7 +1128,7 @@ function bojPravidla() {
         "",
       )}<dt>${bi("vycerpani")}Vyčerpání <small>Exhaustion</small></dt><dd>každá úroveň −2 ke všem testům d20 a −5 stop rychlosti; 6. úroveň = smrt; dlouhý odpočinek ubere 1 úroveň.</dd></dl></article>
     <article class="bqr"><h4>Akce v boji</h4><dl class="bdl">${BAKCE.map(([n, en, t]) => `<dt>${n} <small>${en}</small></dt><dd>${t}</dd>`).join("")}</dl><p class="rsmall"><a href="#pravidla">Pravidla SRD česky →</a></p></article>
-    <article class="bqr"><h4>Vlastnosti zbraní</h4><dl class="bdl">${Object.entries(BVLZ)
+    <article class="bqr"><h4>Perky zbraní</h4><dl class="bdl">${Object.entries(BVLZ)
       .map(([k, v]) => `<dt>${bikZv(k)}${k}</dt><dd>${v}</dd>`)
       .join("")}</dl>${L("vyzbroj", "Výzbroj")}</article>
     <article class="bqr"><h4>Zbroj</h4><dl class="bdl">${Object.entries(BZBR)

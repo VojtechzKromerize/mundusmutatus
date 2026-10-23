@@ -295,7 +295,7 @@ Na listu postavy je místo pro zaznamenání aktuálních životů, když utrpí
 
 Zranění a vlastnosti svých zbraní si vyhledej v kapitole „Vybavení“. K hodům na zranění zbraní přičítáš stejnou opravu vlastnosti, jakou používáš pro útoky s danou zbraní.
 
-> **Artikule:** Kromě vlastností SRD mají zbraně v Mundus Mutatus i fyzické vlastnosti (Drtivá, Průrazná, Ratiště, Šikovná, Ostrá, Půlmeč, Do slabin!, Strhující, Vpřed!, Štěpící, Hrom a kouř!), které platí pro každého, kdo má se zbraní zdatnost; poznamenej si je ke zbraním na listu postavy.
+> **Artikule:** Kromě vlastností SRD mají zbraně v Mundus Mutatus i perky (Drtivá, Průrazná, Ratiště, Šikovná, Ostrá, Půlmeč, Do slabin!, Strhující, Vpřed!, Štěpící, Hrom a kouř!), které platí pro každého, kdo má se zbraní zdatnost; poznamenej si je ke zbraním na listu postavy.
 
 ***Sesílání kouzel.*** Poznamenej si SO záchrany proti tvým kouzlům i bonus k útokům, které jimi provádíš, podle těchto vzorců:
 

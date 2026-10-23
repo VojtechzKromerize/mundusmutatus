@@ -89,7 +89,7 @@ Zasvětil ses jedné z následujících posvátných rolí podle své volby.
 
 **Thaumaturge.** Znáš jeden trik navíc ze seznamu kouzel povolání Cleric. Navíc ti tvé mystické spojení s božstvím dává bonus k ověřením Inteligence (Arcana nebo Religion). Bonus se rovná tvému modifikátoru Moudrosti (nejméně +1).
 
-> **Artikule:** Protector, který si díky výcviku v těžké zbroji obleče plátovou nebo komplexní zbroj, podléhá pravidlům zbroje z Artikulí (Resistance podle typu zbroje, obětování zbroje při kritickém zásahu, dvojnásobné vyčerpání z aktivit a 20 minut na navlečení). Válečné zbraně, s nimiž má zdatnost, mají fyzické vlastnosti podle Artikulí (Drtivá, Průrazná, Ratiště atd.).
+> **Artikule:** Protector, který si díky výcviku v těžké zbroji obleče plátovou nebo komplexní zbroj, podléhá pravidlům zbroje z Artikulí (Resistance podle typu zbroje, obětování zbroje při kritickém zásahu, dvojnásobné vyčerpání z aktivit a 20 minut na navlečení). Válečné zbraně, s nimiž má zdatnost, mají perky podle Artikulí (Drtivá, Průrazná, Ratiště atd.).
 
 ### Úroveň 2: Channel Divinity
 

@@ -91,7 +91,7 @@ Díky výcviku se zbraněmi můžeš používat vlastnosti mistrovství (mastery
 
 Když dosáhneš určitých úrovní Barbariana, získáš schopnost používat vlastnosti mistrovství dalších druhů zbraní, jak ukazuje sloupec Weapon Mastery tabulky Rysy Barbariana.
 
-> **Artikule:** Weapon Mastery funguje beze změny. Navíc platí fyzické vlastnosti zbraní (Drtivá, Průrazná, Ratiště, Šikovná, Ostrá, Půlmeč, Štěpící aj.) pro každého, kdo má se zbraní zdatnost – např. Greataxe je Štěpící (Požehnání proti cíli se štítem štít zničí).
+> **Artikule:** Weapon Mastery funguje beze změny. Navíc platí perky zbraní (Drtivá, Průrazná, Ratiště, Šikovná, Ostrá, Půlmeč, Štěpící aj.) pro každého, kdo má se zbraní zdatnost – např. Greataxe je Štěpící (Požehnání proti cíli se štítem štít zničí).
 
 ### Úroveň 2: Danger Sense
 

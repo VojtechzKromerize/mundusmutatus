@@ -70,7 +70,7 @@ const GLOSS = [
     t: "Požehnání",
     ch: "zavoj",
     f: ["Požehnání"],
-    d: "Výsledek 5–6 na kostce Závoje: dodatečný příznivý účinek. Na Požehnání se váží i některé šermířské techniky a vlastnosti zbraní.",
+    d: "Výsledek 5–6 na kostce Závoje: dodatečný příznivý účinek. Na Požehnání se váží i některé šermířské techniky a perky zbraní.",
   },
   {
     id: "hodiny",
@@ -467,7 +467,7 @@ const ARTK = [
     book: "boj",
     t: "Výzbroj",
     img: "vyzbroj.webp",
-    sum: "Zbroj dává odolnost a láme se místo kritických zásahů; vlastnosti zbraní.",
+    sum: "Zbroj dává odolnost a láme se místo kritických zásahů; perky zbraní.",
     q: ["Žádný voják by neměl jít do bitvy bez zbroje, a žádný člověk by neměl čelit životu bez naděje.", "Svatý Jeroným"],
     intro: `<p>V D&amp;D je zbraň jen kostka poškození a zbroj jen AC. V Mundus Mutatus mají fyzické postavy možnost učit se šermířské a zápasové techniky, zbraně odrážejí středověkou bojovou realitu a zbroj je skutečně účinná a život zachraňující.</p>`,
     secs: [
@@ -508,9 +508,9 @@ const ARTK = [
         id: "zbrane",
         t: "Zbraně",
         h: `
-  <p>Weapon Mastery z D&amp;D 2024 funguje beze změny. Každá dobře vyrobená zbraň má ale navíc fyzické vlastnosti, které platí pro každého, kdo ji používá a má příslušnou zdatnost (proficiency). <b>Pasivní</b> vlastnosti platí vždy; <b>aktivní</b> vlastnosti se projeví jen podle kostky Závoje – ${Z.B} dává výhodu, odmítnuté ${Z.P} Komplikaci. Žádná zbraň nemá víc než jednu pasivní a jednu aktivní vlastnost; výjimkou jsou meče, halapartna a hákovnice jako zbraně na všechno (u hákovnice si střelec při Požehnání vybere Ničivou, nebo dým – obojí naráz ne).</p>
+  <p>Weapon Mastery z D&amp;D 2024 funguje beze změny. Každá dobře vyrobená zbraň má ale navíc fyzické perky, které platí pro každého, kdo ji používá a má příslušnou zdatnost (proficiency). <b>Pasivní</b> perky platí vždy; <b>aktivní</b> perky se projeví jen podle kostky Závoje – ${Z.B} dává výhodu, odmítnuté ${Z.P} Komplikaci. Žádná zbraň nemá víc než jeden pasivní a jeden aktivní perk; výjimkou jsou meče, halapartna a hákovnice jako zbraně na všechno (u hákovnice si střelec při Požehnání vybere Ničivou, nebo dým – obojí naráz ne).</p>
   ${tb(
-    ["Vlastnost", "Zbraně", "Efekt"],
+    ["Perk", "Zbraně", "Efekt"],
     [
       [
         `${bikZv("Krvežíznivá")}Krvežíznivá`,
@@ -553,7 +553,7 @@ const ARTK = [
       [
         `${bikZv("Půlmeč")}Půlmeč`,
         "Longsword, Greatsword",
-        "Bonusovou akcí provedeš přehmat zbraně: Piercing útoky získávají vlastnost Průrazná, ale kostka poškození klesá o stupeň (<i>tj. d8 na d6</i>).",
+        "Bonusovou akcí provedeš přehmat zbraně: Piercing útoky získávají perk Průrazná, ale kostka poškození klesá o stupeň (<i>tj. d8 na d6</i>).",
       ],
       [
         `${bikZv("Do slabin!")}Do slabin!`,
@@ -634,7 +634,7 @@ const ARTK = [
       [
         "Vražedný úder <i>(Mordschlag)</i>",
         "1V + bonusová akce",
-        "Chytíš meč za čepel a udeříš nepřítele záštitou. Do konce tahu má zbraň Bludgeoning s vlastností Drtivá.",
+        "Chytíš meč za čepel a udeříš nepřítele záštitou. Do konce tahu má zbraň Bludgeoning s perkem Drtivá.",
       ],
     ],
   )}`,

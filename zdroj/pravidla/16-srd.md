@@ -77,7 +77,7 @@ Díky výcviku se zbraněmi můžeš využívat vlastnosti mistrovství (mastery
 
 Když dosáhneš určitých úrovní Fightera, získáš schopnost využívat vlastnosti mistrovství dalších druhů zbraní, jak ukazuje sloupec Weapon Mastery v tabulce Rysy Fightera.
 
-> **Artikule:** Weapon Mastery platí beze změny. Navíc ke každé zbrani, se kterou má postava zdatnost, patří její fyzické vlastnosti podle Artikulí (např. Drtivá, Průrazná, Ratiště, Šikovná, Ostrá, Půlmeč) – ty se nevybírají a nezapočítávají do počtu zbraní s mistrovstvím.
+> **Artikule:** Weapon Mastery platí beze změny. Navíc ke každé zbrani, se kterou má postava zdatnost, patří její perky podle Artikulí (např. Drtivá, Průrazná, Ratiště, Šikovná, Ostrá, Půlmeč) – ty se nevybírají a nezapočítávají do počtu zbraní s mistrovstvím.
 
 ### Úroveň 2: Action Surge
 

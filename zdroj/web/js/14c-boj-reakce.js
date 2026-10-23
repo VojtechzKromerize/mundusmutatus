@@ -559,7 +559,7 @@ document.addEventListener("submit", async e => {
   const Z = Object.assign({}, kartaStav(K.id).zbrVl || {});
   Z[w] = Object.assign({vl}, vl.includes("Šikovná") ? {t} : {});
   BDM.sheet = null;
-  await kartaStavZmen(K.id, {zbrVl: Z}, `${K.n}: ${w} – vlastnosti ${vl.join(", ") || "žádné"}.`);
+  await kartaStavZmen(K.id, {zbrVl: Z}, `${K.n}: ${w} – perky ${vl.join(", ") || "žádné"}.`);
 });
 document.addEventListener("click", async e => {
   const b = e.target.closest && e.target.closest("[data-bdmzvx]");
@@ -569,7 +569,7 @@ document.addEventListener("click", async e => {
   const Z = Object.assign({}, kartaStav(K.id).zbrVl || {});
   delete Z[b.dataset.bdmzvx];
   BDM.sheet = null;
-  await kartaStavZmen(K.id, {zbrVl: Object.keys(Z).length ? Z : null}, `${K.n}: ${b.dataset.bdmzvx} – vlastnosti podle názvu zbraně.`);
+  await kartaStavZmen(K.id, {zbrVl: Object.keys(Z).length ? Z : null}, `${K.n}: ${b.dataset.bdmzvx} – perky podle názvu zbraně.`);
 });
 
 /* obětování zbroje či štítu při kritickém zásahu (Artikule › Zbroj): kritický zásah se změní v běžný – vrátí se rozdíl zranění (e.ob) */
