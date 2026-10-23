@@ -78,7 +78,7 @@ function bojAktivni() {
             dal = Object.keys(ob).some(k => ob[k] === ja && +k === s.tah + 1),
             pr = bojPripominky(s, me).filter(x => !/^Reakce je k dispozici/.test(x)); /* reakci ukazuje karta */
           const KK = bojKartaH(me);
-          return `${(tahM || dal || bojDsAkt(me)) && pr.length ? `<ul class="bjapr" aria-label="Připomínky na tah">${pr.map(x => `<li>${besc(x)}</li>`).join("")}</ul>` : ""}${KK ? bojHracKarta(s, me, false, true) : `${tahM && !me.ds ? bojPruvodce(s, me) : ""}<section class="bjapanel"><h3 class="uvh2">${besc(me.n)}</h3><p class="rsmall bjabezk">Tahle postava nemá kartu, proto se tu místo bojové karty ukazuje jen jednoduchý panel. Kartu vytvoří nahrání listu postavy z D&amp;D Beyond (PDF) v <a href="#karty">Kartách postav</a> – musí mít stejné jméno jako postava v boji.</p>${bojHracPanel(me, s, false)}</section>${bojDB.utok && !me.ds ? bojJaUtokHtml(s, me) : ""}`}`;
+          return `${(tahM || dal || bojDsAkt(me)) && pr.length ? `<ul class="bjapr" aria-label="Připomínky na tah">${pr.map(x => `<li>${besc(x)}</li>`).join("")}</ul>` : ""}${KK ? `<section class="hraja">${s.scena && typeof bojScJednHtml === "function" ? bojScJednHtml(s, KK) : ""}${bojHracKarta(s, me, false, true)}</section>` : `${tahM && !me.ds ? bojPruvodce(s, me) : ""}<section class="bjapanel"><h3 class="uvh2">${besc(me.n)}</h3><p class="rsmall bjabezk">Tahle postava nemá kartu, proto se tu místo bojové karty ukazuje jen jednoduchý panel. Kartu vytvoří nahrání listu postavy z D&amp;D Beyond (PDF) v <a href="#karty">Kartách postav</a> – musí mít stejné jméno jako postava v boji.</p>${bojHracPanel(me, s, false)}</section>${bojDB.utok && !me.ds ? bojJaUtokHtml(s, me) : ""}`}`;
         })()}</div>`
       : "";
   const konec = tah >= sl.length;
@@ -219,7 +219,7 @@ function bojAktivni() {
         : "",
     };
   }
-  return {
+  const A = {
     hor: (() => {
       const h = zavojBan() + bojPocasi() + bojProsHtml(s, gm);
       return h ? `<div class="bojhorni">${h}</div>` : "";
@@ -273,6 +273,42 @@ function bojAktivni() {
       ? `<details class="bpridej" data-otv="pridej-n"${bojOtv("pridej-n")}><summary>${bi("plus")} Přidat nepřítele nebo setkání</summary>${addF("bnadd", "Přidat nepřítele")}<div class="bskup">${bojSkupSel("data-bskupadd", "+ přidat setkání nebo skupinu")}</div>${bojBestDl()}${bojBestiar()}</details>`
       : "",
   };
+  return s.scena ? bojScenaBloky(s, gm, A, med, addF) : A;
+}
+/* scéna (mimo boj, 2026-10-23): místo pruhu iniciativy kdo je přítomen, nahoře Scéna s tlačítky vypravěče; bez tahů,
+   kol, momenta a cílů boje. Karty, útoky, kouzla a záznam jsou stejné jako v boji. */
+function bojScenaBloky(s, gm, A, med, addF) {
+  const hraci = s.hraci || [],
+    npc = s.npc || [],
+    svis = bojTabyCela(s, gm),
+    kdo = [...hraci.map(h => [h.id, h.n, "h"]), ...npc.map(n => [n.id, n.n, bojSpoj(n) ? "h" : "n"])];
+  const li = ([id, n, t]) =>
+    svis
+      ? `<li class="bslot b${t} bobs"><span class="bsvm">${med(id)}</span><span class="bsvt"><span class="bkdo">${besc(n)}</span>${bojSlStav(id, true)}</span></li>`
+      : `<li class="bslot b${t} bobs" ${btip(n)}>${med(id)}<span class="bkdo">${besc(n)}</span>${bojSlStav(id)}</li>`;
+  /* útok ve scéně (hráč z karty, nebo vypravěč za NPC): nabídnout přepnutí do boje; „Zůstat ve scéně“ výzvu schová */
+  const utok = gm
+    ? [
+        ...(s.utoky || []).filter(u => u.stav === "ceka" || (u.ts || 0) > (s.utOk || 0)).map(u => bojJm(s, u.h) || "hráč"),
+        ...(s.zaz || []).filter(z => z.hod != null && (z.ts || 0) > (s.utOk || 0)).map(z => z.a),
+      ].filter(Boolean)
+    : [];
+  const utokH = utok.length
+    ? `<p class="bscutok" role="status">${bi("boj")} <b>Útok ve scéně</b> – ${besc([...new Set(utok)].join(", "))}. Vyhodnoť ho jako v boji, nebo přepni do boje. <button type="button" class="gbtn" data-bscboj>Přepnout do boje</button><button type="button" class="gbtn ghost" data-bscutok>Zůstat ve scéně</button></p>`
+    : "";
+  const leg = `<div class="bleg"><span class="bscleg"><b>Scéna</b><small>${hraci.length + npc.length} přítomn${hraci.length + npc.length === 1 ? "ý" : "ých"}</small></span></div>`;
+  return Object.assign({}, A, {
+    head: `<div class="bojhead"><div class="bojtit"><h2 class="arttitle">Scéna</h2>${gm ? `<p class="bojlead">Mimo boj: hráči hází z karet (dovednosti, záchrany, útoky, kouzla) a hody se zapisují do záznamu. Boj začneš tlačítkem Boj.</p>` : ""}</div>${
+      gm
+        ? `<div class="bojbtn"><button type="button" class="gbtn ghost" data-bplosnew ${btip("Plošný zásah: jeden hod zranění, záchrana každého cíle, odolnosti")}>${bi("plosny-zasah")} Plošný zásah</button><button type="button" class="gbtn ghost" data-bundo ${btip("Vrátit poslední změnu (Ctrl+Z)")}${BUNDO.length ? "" : " disabled"}>${bi("zpet")} Zpět</button><button type="button" class="gbtn ghost" data-bscnova ${btip("Začne novou scénu: vyprázdní záznam a odebere NPC")}>Nová scéna</button><button type="button" class="gbtn bstart" data-bscboj ${btip("Příprava boje: hráči hodí iniciativu, pak Začít boj")}>${bi("boj")} Boj</button>${bojVyzPanel(s)}${bojNastHtml()}</div>`
+        : ""
+    }</div>${utokH}`,
+    osa: `<section class="bosa bscena${svis ? " bosav" : ""}">${leg}<ol class="bsloty">${kdo.map(li).join("")}</ol></section>`,
+    obt: `<h3 class="uvh2">${gm ? "NPC ve scéně" : "Ve scéně"}</h3>${gm && !npc.length ? `<p class="rsmall">Přidej postavu, se kterou družina mluví – jménem z Zemských desek, statblokem z bestiáře, nebo obojím. Klepnutím na ni otevřeš její statistiky, postoj, víru a cíle a můžeš za ni házet.</p>` : ""}`,
+    addn: gm
+      ? `<details class="bpridej" data-otv="pridej-n" open><summary>${bi("plus")} Přidat NPC do scény</summary>${addF("bnadd", "Jméno NPC nebo statblok").replace('<option value="sok">', '<option value="sok" selected>')}${bojBestDl()}</details>`
+      : "",
+  });
 }
 /* cíle boje: počitadla (2/5), termín do kola N, viditelnost pro hráče */
 function bojCile(s, gm) {
@@ -333,6 +369,14 @@ function bojTabyHrac(s) {
     : dohral
       ? `<button type="button" class="bkonecb" disabled ${btip("Tah je dohraný – vypravěč posune dál")}>✓ Dohráno</button>`
       : bojKonecBtn(ja).replace("✓ Konec tahu", "✓ Ukončit tah");
+  /* ve scéně (mimo boj) bez tahů: Moje karta · Scéna (kdo je přítomen) */
+  if (s.scena)
+    return `<div class="btabs btabsc" role="tablist" aria-label="Části scény">${[
+      ["k", "Moje karta"],
+      ["i", "Scéna"],
+    ]
+      .map(([k, l]) => `<button type="button" role="tab" data-btab="${k}" aria-selected="${BTAB === k}">${l}</button>`)
+      .join("")}</div>`;
   return `<div class="btabs btabsc" role="tablist" aria-label="Části boje">${[
     ["k", "Moje karta"],
     ["i", "Iniciativa"],
@@ -349,7 +393,7 @@ function bojTaby(s, gm, P0) {
     nH = (s.hraci || []).length + (P0.spoj || []).length;
   return `<div class="btabs" role="tablist" aria-label="Části boje">${[
     ["k", gm ? (c ? besc(c) : "Karta") : "Moje karta"],
-    ["n", `Nepřátelé <small>${nN}</small>`],
+    ["n", `${s.scena ? "NPC" : "Nepřátelé"} <small>${nN}</small>`],
     ["h", `Družina <small>${nH}</small>`],
     ["l", "Záznam"],
   ]
@@ -524,7 +568,7 @@ function renderBoj() {
   if (s && (s.aktivni || s.priprava)) BOJ.prip = 0;
   if ((!s || (!s.aktivni && !s.priprava)) && GMV && !BOJ.prip && BOJ.v !== -1) {
     BOJ.prip = 1;
-    bojZmen(z => bojNovaPriprava(z), true);
+    bojZmen(z => bojNovaScena(z), true);
     return;
   }
   if (!s || (!s.aktivni && !s.priprava) || (!GMV && !s.aktivni && s.ticha)) {
@@ -552,6 +596,11 @@ function renderBoj() {
     bojWake();
     return;
   }
+  /* scéna: postava, kterou si hráč právě vzal, se přidá mezi přítomné */
+  if (GMV && s.scena && s.aktivni && bojScenaChybi(s).length) {
+    bojZmen(z => bojScenaClenove(z), true);
+    return;
+  }
   const ae = document.activeElement,
     f = ae && box.contains(ae) && ae.matches("input,select,textarea") ? ae.name || ae.id : null,
     ss = ae && ae.selectionStart != null && ae.type !== "number" ? ae.selectionStart : null,
@@ -573,7 +622,7 @@ function renderBoj() {
     }
   }
   /* nový tah: karta toho, kdo je na tahu, se ukáže (vypravěč; hráč, když je na tahu on) */
-  if (s.aktivni && BOJ.tk0 !== kk) {
+  if (bojBezi(s) && BOJ.tk0 !== kk) {
     const prvni = BOJ.tk0 == null;
     BOJ.tk0 = kk;
     const ja = ((s.hraci || []).find(h => h.n === bojJa.get()) || {}).id;
@@ -581,7 +630,7 @@ function renderBoj() {
   }
   if (bojTabyCela(s, GMV) ? !/^[ki]$/.test(BTAB) : BTAB === "i") BTAB = "k";
   const P = bojAktivni();
-  P.cile = bojCile(s, GMV && !!bojDB);
+  P.cile = s.scena ? "" : bojCile(s, GMV && !!bojDB);
   {
     const nx = (P.npcx || []).length;
     P.npcxh = nx ? `Poražení a prchající <small>${nx}</small>` : "";

@@ -388,7 +388,8 @@ create or replace function public.mm_boj_orez(s jsonb) returns jsonb
 language sql immutable as $$
   select case when s is null then null else
     (s - 'npc' - 'zaz' - 'obsazeni')
-    || jsonb_build_object('npc', coalesce((select jsonb_agg(e) from jsonb_array_elements(coalesce(s -> 'npc', '[]'::jsonb)) e
+    -- údaje NPC jen pro vypravěče (scéna 2026-10-23: postoj, DC, víra, cíle, statistiky) hráčům nechodí
+    || jsonb_build_object('npc', coalesce((select jsonb_agg(e - 'gm') from jsonb_array_elements(coalesce(s -> 'npc', '[]'::jsonb)) e
          where coalesce((e ->> 'skryt')::boolean, false) = false), '[]'::jsonb))
     || case when s ? 'zaz' then jsonb_build_object('zaz', coalesce((select jsonb_agg(z) from jsonb_array_elements(coalesce(s -> 'zaz', '[]'::jsonb)) z
          where not exists (select 1 from jsonb_array_elements(coalesce(s -> 'npc', '[]'::jsonb)) e where coalesce((e ->> 'skryt')::boolean, false)

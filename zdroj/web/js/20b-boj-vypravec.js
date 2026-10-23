@@ -46,7 +46,7 @@ const bojKonDC = d => Math.min(30, Math.max(10, Math.floor((+d || 0) / 2)));
 const BZAZQ = [];
 function bojZaz(e) {
   if (!GMV || !bojDB || !(BOJ.s && BOJ.s.aktivni)) return;
-  e.k = BOJ.s.kolo || 1;
+  e.k = bojBezi(BOJ.s) ? BOJ.s.kolo || 1 : null;
   e.ts = Date.now();
   BZAZQ.push(e);
   clearTimeout(bojZaz.t);
@@ -470,7 +470,7 @@ function bojUtokyNove() {
 /* ===== Pruh „co teď“ (2026-10-19, jen vypravěč): kdo je na tahu a co mu zbývá, co čeká na vypravěče, kdo se soustředí,
    kdo krvácí, koho čeká záchrana na konci tahu, kdo je na prahu smrti. Klepnutí na účastníka otevře jeho kartu. ===== */
 function bojTedHtml(s) {
-  if (!GMV || !s || !s.aktivni) return "";
+  if (!GMV || !bojBezi(s)) return "";
   const tah = s.tah || 0,
     kolo = s.kolo || 1,
     sl = bojSloty(s),
@@ -1121,7 +1121,7 @@ function bojKlZraneni(v) {
   mmHlasG(`${n.n}: −${v} HP (${old - v}/${E.hp[0].max}).`, 2200);
 }
 document.addEventListener("keydown", e => {
-  if (curView !== "boj" || PULTTAB !== "boj" || !GMV || !bojDB || !(BOJ.s && BOJ.s.aktivni)) return;
+  if (curView !== "boj" || PULTTAB !== "boj" || !GMV || !bojDB || !bojBezi(BOJ.s)) return;
   const t = e.target;
   if (t && (t.isContentEditable || /^(INPUT|SELECT|TEXTAREA)$/.test(t.tagName))) return;
   if ((e.ctrlKey || e.metaKey) && !e.shiftKey && e.key.toLowerCase() === "z") {
@@ -1627,11 +1627,10 @@ document.addEventListener("click", async e => {
         renderBoj();
         const k = v.querySelector(".bkonsh");
         if (k) k.scrollIntoView({block: "start", behavior: "smooth"});
-      } else if (confirm("Ukončit boj? Sloty a přiřazení se smažou, jména hráčů zůstanou pro příští boj."))
+      } else if (confirm("Ukončit boj? Hra se vrátí do scény: sloty se smažou, postavy, NPC, kteří zůstali, a záznam zůstanou."))
         bojZmen(s => {
-          s.aktivni = false;
-          s.obsazeni = {};
           bojPcKonecBoje(s);
+          bojNaScenu(s);
         });
     }
     return;
@@ -1712,6 +1711,31 @@ document.addEventListener("click", async e => {
     });
     return;
   }
+  /* scéna (2026-10-23): Boj = příprava boje, kterou hráči vidí hned (hodí iniciativu); Nová scéna vyprázdní záznam a NPC */
+  if (T("[data-bscboj]")) {
+    bojZmen(z => {
+      const zach = {npc: z.npc || [], nid: z.nid || 0, zaz: z.zaz, zac: z.zac},
+        hr = (z.hraci || []).map(h => Object.assign({}, h, {hod: null}));
+      bojNovaPriprava(z);
+      delete z.ticha;
+      Object.assign(z, {npc: zach.npc, nid: zach.nid, zacSc: zach.zac});
+      if (zach.zaz) z.zaz = zach.zaz;
+      if (hr.length) z.hraci = hr;
+    });
+    mmHlasG("Příprava boje: hráči teď mohou hodit iniciativu.", 3500);
+    return;
+  }
+  if (T("[data-bscutok]")) {
+    bojZmen(z => {
+      z.utOk = Date.now();
+    });
+    return;
+  }
+  if (T("[data-bscnova]")) {
+    if (!confirm("Začít novou scénu? Záznam scény a NPC v ní se smažou, družina zůstane.")) return;
+    bojZmen(z => bojNovaScena(z));
+    return;
+  }
   if (T("[data-bukaz]")) {
     bojZmen(z => {
       delete z.ticha;
@@ -1735,7 +1759,8 @@ document.addEventListener("click", async e => {
       mmHlasG("Chybí hod nepřátel – zapiš ho, nebo klikni na Hodit za nepřátele.", 3500);
       return;
     }
-    bojKonecLS();
+    /* boj ze scény navazuje: záznam vypravěče a životy NPC ze scény zůstávají */
+    if (!s.zacSc) bojKonecLS();
     BKON = false;
     bojZmen(z => {
       z.hraci = (z.hraci || []).filter(h => String(h.n || "").trim());
@@ -1744,7 +1769,8 @@ document.addEventListener("click", async e => {
       delete z.priprava;
       delete z.ticha;
       delete z.lead;
-      Object.assign(z, {kolo: 1, tah: 0, obsazeni: {}, zac: Date.now()});
+      Object.assign(z, {kolo: 1, tah: 0, obsazeni: {}, zac: z.zacSc || Date.now()});
+      delete z.zacSc;
       z.pocty = bojPocty(z);
     });
     return;
@@ -1815,9 +1841,8 @@ document.addEventListener("click", async e => {
     BODP = false;
     BKON = false;
     await bojZmen(s => {
-      s.aktivni = false;
-      s.obsazeni = {};
       bojPcKonecBoje(s);
+      bojNaScenu(s);
     });
     bojKonecLS();
     if (k === "kron") {
@@ -2118,6 +2143,26 @@ document.addEventListener("click", async e => {
       h0 = (S.hraci || []).find(x => x.id === id),
       K = bojKartaH(h0);
     if (!K) return;
+    /* hráč (2026-10-23): záchrana z karty se zapíše do hodů jako každý jiný hod (vypravěč ji vidí v záznamu, i ve scéně);
+       soustředění se vyhodnotí z výsledku */
+    if (!GMV) {
+      const ab = kzh.dataset.bkzh,
+        adv = !!kzh.dataset.adv;
+      kartaHod(K, `Záchrana ${ab}`, kZach(K, ab), adv ? {adv: 1, why: "soustředění s výhodou"} : {}).then(r => {
+        if (!adv || !BJK.d || !r) return;
+        const dc = bojKonDC(BJK.d),
+          ok = r.tot >= dc;
+        BJK.d = "";
+        mmHlas(`${h0.n}: záchrana ${ab} ${r.tot} → SO ${dc}: ${ok ? "soustředění udrženo" : "soustředění ztraceno"}`, 7000);
+        if (!ok)
+          bojHracAkce(id, h => {
+            h.stav = (h.stav || []).filter(x => x !== "soustředí");
+            if (!h.stav.length) delete h.stav;
+          });
+        else renderBoj();
+      });
+      return;
+    }
     const ab = kzh.dataset.bkzh,
       adv = !!kzh.dataset.adv,
       b = kZach(K, ab) - 2 * kVycerp(K),
@@ -2125,24 +2170,10 @@ document.addEventListener("click", async e => {
       d2 = adv ? bK(20) : null,
       d = adv ? Math.max(d1, d2) : d1,
       t = d + b;
-    let txt = `${h0.n}: záchrana ${ab} ${t} (d20 ${d1}${d2 != null ? ` / ${d2}, výhoda` : ""} ${bsg(b)})`;
-    if (adv && !GMV && BJK.d) {
-      const dc = bojKonDC(BJK.d),
-        ok = t >= dc;
-      txt += ` → SO ${dc}: ${ok ? "soustředění udrženo" : "soustředění ztraceno"}`;
-      BJK.d = "";
-      if (!ok)
-        bojHracAkce(id, h => {
-          h.stav = (h.stav || []).filter(x => x !== "soustředí");
-          if (!h.stav.length) delete h.stav;
-        });
-      else renderBoj();
-    }
-    if (GMV) {
-      bojLog(id, {n: `Záchrana ${ab}`, ai: id, zt: txt.replace(/^[^:]*:\s*/, "")}, h0.n);
-      renderBoj();
-    }
-    (GMV ? mmHlasG : mmHlas)(txt, 7000);
+    const txt = `${h0.n}: záchrana ${ab} ${t} (d20 ${d1}${d2 != null ? ` / ${d2}, výhoda` : ""} ${bsg(b)})`;
+    bojLog(id, {n: `Záchrana ${ab}`, ai: id, zt: txt.replace(/^[^:]*:\s*/, "")}, h0.n);
+    renderBoj();
+    mmHlasG(txt, 7000);
     return;
   }
   const kzd = T("[data-bkzd]");

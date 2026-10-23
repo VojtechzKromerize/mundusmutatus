@@ -73,7 +73,7 @@ jobs:
             testy: "karta"
             prohlidky: ""
           - cast: boj a tah
-            testy: "boj2 tah"
+            testy: "boj2 tah scena"
             prohlidky: ""
           - cast: boj a reakce
             testy: "boj reakce"

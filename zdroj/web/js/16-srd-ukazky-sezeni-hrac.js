@@ -1404,7 +1404,7 @@ function hraStavHtml() {
     zb = zavojBan();
   } catch (e) {}
   return `<div class="hrastav"><p><b>${besc(partyDate())}</b>${HRA && HRA.hodina != null ? `, ${HRA.hodina}:00` : ""}${partyPlace() ? ` · ${besc(partyPlace())}` : ""}</p>${zb}
-    ${s && s.aktivni ? `<p class="hraboj"><b>Probíhá boj</b> – ${s.kolo || 1}. kolo. <a class="gbtn" href="#hra">Do boje ⚔</a></p>` : s && s.priprava ? `<p class="hraboj"><b>Chystá se boj</b> – v záložce Boj hoď iniciativu. <a class="gbtn" href="#hra">Do boje ⚔</a></p>` : ""}</div>`;
+    ${bojBezi(s) ? `<p class="hraboj"><b>Probíhá boj</b> – ${s.kolo || 1}. kolo. <a class="gbtn" href="#hra">Do boje ⚔</a></p>` : s && s.priprava ? `<p class="hraboj"><b>Chystá se boj</b> – v záložce Boj hoď iniciativu. <a class="gbtn" href="#hra">Do boje ⚔</a></p>` : ""}</div>`;
 }
 /* změny od posledního sezení: poprvé se načtou na pozadí a stránka se překreslí */
 function hraZmenyHtml() {
@@ -1494,7 +1494,11 @@ function pultNavHtml() {
   const n = typeof navrhyCeka === "function" ? navrhyCeka().length : 0,
     s = BOJ.s || {},
     t = [
-      ["boj", "#hra", `⚔ Boj${s.aktivni ? ` <small>${s.kolo || 1}. kolo</small>` : s.priprava ? " <small>příprava</small>" : ""}`],
+      [
+        "boj",
+        "#hra",
+        s.scena && s.aktivni ? "Scéna" : `⚔ Boj${s.aktivni ? ` <small>${s.kolo || 1}. kolo</small>` : s.priprava ? " <small>příprava</small>" : ""}`,
+      ],
       ["druzina", "#hra/druzina", `Družina${n ? ` <b class="pultn">${n}</b>` : ""}`],
       ["sezeni", "#hra/sezeni", "Sezení"],
     ];

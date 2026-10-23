@@ -115,7 +115,7 @@ Pravidla · 09 vypravěč: odhalování, panel, herní čas · 10 Kouzla · 11 B
 17b kouzla: posílení na cílech (KZEF), trvání v kolech, rituál, opakování bez slotu (KZOPAK), oblasti (KZOBL), Counterspell ·
 18 Pravidla postavy (D&D 2024) · 19 karta jako D&D Beyond · 20 Boj: hráč na telefonu (formulář útoku BJU, hod, odeslání) ·
 20b Boj: vypravěč (vyhodnocení a potvrzení útoků hráčů, veřejný záznam, pruh „co teď“, formuláře, klávesy, Zpět) · 20c volby po zásahu, přesun Hexu, Riposte ·
-20d Boj: vykreslení (kostra, záložky, renderBoj) ·
+20d Boj: vykreslení (kostra, záložky, renderBoj) · 20f scéna mimo boj (NPC, jednání, protihody) ·
 21 editor textů · 22 Výprava (počasí, Zpět herního času) · 23 potvrzování akcí hráčů · 24 Boj: herní záznam (kdo · co · komu, kostky, Závoj) ·
 25 puls (jeden dotaz „co se změnilo“, Realtime) · 26 start: pečeť a první `route()`.
 
@@ -146,6 +146,10 @@ Hlavní orientační body:
 - **Řídicí pult vypravěče** = jeho Hra: stránka Boj (`#bojview`) obalená záložkami (`pultObal`, 16) Boj `#hra`, Družina `#hra/druzina`
   (výzvy, návrhy, přehled družiny, zprávy, úkoly, postup) a Sezení `#hra/sezeni` (časová osa, ukázky, pokladna, hráči, Discord,
   telefon); záložka je v `PULTTAB` (08), obsah boje se kreslí do `#bojpult`. `#boj` vede na `#hra`; klávesy boje jen v záložce Boj.
+- **Scéna** (od 2026-10-23): Hra je mimo boj pořád scéna – stav boje se `scena: true, aktivni: true` (`bojNovaScena`, 11), bez slotů
+  a tahů; opravdový boj = `bojBezi(s)` (kód o tazích, kolech, momentu a pulsu ho používá místo `s.aktivni`). Karty, útoky, kouzla a záznam
+  fungují jako v boji. NPC ve scéně a jednání: `20f-scena.js`; údaje jen pro vypravěče v `n.gm` (hráčům je vyřízne `mm_boj_orez`).
+  Tlačítko Boj udělá ze scény přípravu (NPC a záznam zůstanou), konec boje `bojNaScenu`.
 - **Tichá příprava boje** (`s.ticha`): příprava založená otevřením Boje vypravěčem hráči nevidí; uvidí ji po „Hráči hodí
   iniciativu“, „Ukázat hráčům“ (`data-bukaz`) nebo „Začít boj“.
 - Každá stránka má `render<Stránka>()` (renderBoj, renderKarty, renderVyprava, renderPravidla…). Po změně dat volej

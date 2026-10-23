@@ -4,6 +4,13 @@ a že hráč nedostane nic z bestiáře ani tabulek setkání. Generátor navíc
 Spouští testy/spustit.sh: MM_GMWEB = vypravěčská statická verze, MM_HRWEB = hráčská statická verze, MM_KOREN = kopie webu."""
 import asyncio, re, os, json, subprocess, glob
 from playwright.async_api import async_playwright
+
+async def do_pripravy(g):
+    """Od 2026-10-23 je Hra vypravěče mimo boj scéna: tlačítko Boj z ní udělá přípravu boje (jako _boj_pomoc.do_pripravy)."""
+    await g.wait_for_selector(".bprip, .bscena")
+    if not await g.locator(".bprip").count():
+        await g.click("[data-bscboj]")
+    await g.wait_for_selector(".bprip")
 OUT=os.environ.get("MM_VYSTUP","/tmp")+"/"
 GM=os.environ.get("MM_GMWEB","http://127.0.0.1:18793/");HR=os.environ.get("MM_HRWEB","http://127.0.0.1:18794/");KOR=os.environ.get("MM_KOREN",".")
 fails=[]
@@ -26,7 +33,7 @@ chk(tc.get("cl")==["Zachránit rukojmí (3×, do 2. kola)","Zabít kněze (skryt
 
 async def priprava(g,jmena,hody,dm,npc=(),spoj=()):
     """Příprava boje na stránce Boj: postavy s hody, nepřátelé a spojenci přes formuláře, hod nepřátel, Začít boj."""
-    await g.wait_for_selector(".bprip")
+    await do_pripravy(g)
     await g.evaluate("bojZmen(z=>{z.hraci="+json.dumps([{"id":"h"+str(i+1),"n":"","hod":None} for i in range(len(jmena))])+";z.npc=[];z.nid=0;z.dm=null;delete z.ticha})")
     await g.wait_for_timeout(400)
     for i,(n,h) in enumerate(zip(jmena,hody)):
@@ -47,7 +54,7 @@ async def main():
     g=await b.new_page(viewport={"width":1300,"height":1100});err=[];g.on("pageerror",lambda e:err.append(str(e)[:300]))
     g.on("dialog",lambda d:asyncio.ensure_future(d.accept()))
     await g.goto(GM+"#boj");await g.wait_for_function("!document.documentElement.classList.contains('mmload')");await g.wait_for_timeout(600)
-    await g.wait_for_selector(".bprip")
+    await do_pripravy(g)
     chk(await g.locator(".bpravidla .bqr").count()==5,"rychlá pravidla v šuplíku (kritická zranění, stavy, akce, zbraně, zbroj)")
     chk(not await g.locator(".bpravidla").is_visible(),"šuplík s pravidly je zavřený")
     # hledání: štítek, setkání, osoba

@@ -790,8 +790,17 @@ function bojZazHlidej(s, me) {
   }
 }
 /* hráč bez přihlášené postavy: postava se volí jednou na stránce Hra a pak je jeho */
-const bojJaNeprihl = () =>
-  `<span class="rsmall bjanep">Nejsi přihlášený za postavu – přihlas se a zvol svou postavu, pak se tu objeví tvoje bojová karta.</span>${hraHracHtml()}`;
+const bojJaNeprihl = () => {
+  const j = JA.get(),
+    sc = BOJ.s && BOJ.s.scena;
+  const t =
+    j && j.k
+      ? sc
+        ? "Tvoje postava se právě přidává do scény – za chvíli tu bude karta se všemi hody."
+        : "Tvoje postava v tomto boji není. Vypravěč ji může přidat; zatím hraješ ze své karty."
+      : "Nejsi přihlášený za postavu – přihlas se a zvol svou postavu, pak se tu objeví tvoje bojová karta.";
+  return `<span class="rsmall bjanep">${t}</span>${hraHracHtml()}`;
+};
 /* upozornění hráče, když jeho postava přijde na tah: vibrace, zvýraznění, titulek a hláška */
 function bojUpozorni() {
   const s = BOJ.s;
@@ -831,11 +840,7 @@ function bojUpozorni() {
 const BWL = {l: null, ceka: false};
 async function bojWake() {
   const chci =
-    !GMV &&
-    !!(BOJ.s && BOJ.s.aktivni) &&
-    curView === "boj" &&
-    document.visibilityState === "visible" &&
-    !!(navigator.wakeLock && navigator.wakeLock.request);
+    !GMV && bojBezi(BOJ.s) && curView === "boj" && document.visibilityState === "visible" && !!(navigator.wakeLock && navigator.wakeLock.request);
   if (chci && !BWL.l && !BWL.ceka) {
     BWL.ceka = true;
     try {

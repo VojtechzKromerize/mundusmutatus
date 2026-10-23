@@ -196,7 +196,7 @@ async function kartaHod(K, co, b, o = {}) {
   const krit = d >= (o.kmin || 20) && !!o.utok,
     mis = d === 1 && !!o.utok;
   const txt = `d20 ${d1}${d2 != null ? ` / ${d2} (${v > 0 ? "výhoda" : "nevýhoda"})` : ""} ${bsg(+b || 0)}${vy ? ` −${vy} vyčerpání` : ""}${PD.txt} = ${tot}${krit ? " · kritický zásah" : mis ? " · minutí" : ""}${o.why ? " · " + o.why : ""}`;
-  const H = {k: K.id, kdo: K.n, co, txt, tot, d};
+  const H = {k: K.id, kdo: K.n, co: typeof bojScCo === "function" ? bojScCo(K, co, o) : co, txt, tot, d};
   if (z) {
     H.zav = z.d;
     H.zr = z.r || "0";

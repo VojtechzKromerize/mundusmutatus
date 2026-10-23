@@ -3615,3 +3615,35 @@ button.btedch{cursor:pointer}button.btedch:hover{border-color:var(--gold,#b08d3a
   .bojhrac .bcolk .bdmhp b{font-size:1.45rem}
   .bojhrac .bcolk .bdmsq,.bojhrac .bcolk .bdmst{min-height:36px}
 }
+/* ===== Scéna mimo boj (2026-10-23): místo pruhu iniciativy přítomní ===== */
+.bscleg{display:flex;flex-direction:column;align-items:center;gap:1px;padding:4px 10px;border:1px solid var(--gold);border-radius:999px;background:var(--paper);font:500 .72rem/1.1 var(--f-label);letter-spacing:.04em;text-transform:uppercase}
+.bscleg b{font:600 .9rem/1.1 var(--f-label)}.bscleg small{color:var(--muted);text-transform:none;letter-spacing:0}
+.bscena .bsloty{min-height:56px}
+/* vypravěč: NPC ve scéně – postoj, DC, statistiky s hody, víra a cíle (20f) */
+.bscnpc{display:flex;flex-direction:column;gap:8px;margin:8px 0 6px;padding:10px 12px;border:1px solid color-mix(in srgb,var(--gold) 55%,var(--rule));border-radius:6px;background:color-mix(in srgb,var(--paper) 82%,#fff)}
+.bscrow{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:end}
+.bscf{display:flex;flex-direction:column;gap:2px;font:500 .7rem/1.2 var(--f-label);letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.bscf input,.bscf select,.bscf textarea,.bscab input{font:400 .95rem/1.3 var(--f-body);color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:4px;padding:4px 6px;text-transform:none;letter-spacing:0}
+.bscf input[type=number]{width:5.2em}
+.bscrow .bscf:nth-child(3) input{width:min(15em,60vw)}
+.bscver{flex-direction:row;align-items:center;gap:6px;color:var(--ink);text-transform:none;letter-spacing:0;font:400 .9rem var(--f-body)}
+.bsct{width:100%}.bsct textarea,.bsct input{width:100%;box-sizing:border-box;resize:vertical}
+.bscpas{margin:0;font-size:.9rem;color:var(--muted)}.bscpas b{color:var(--ink)}
+.bscabs{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:6px}
+.bscab{display:flex;align-items:center;gap:5px;padding:4px 6px;border:1px solid var(--rule);border-radius:4px;background:var(--paper)}
+.bscab label{display:flex;align-items:center;gap:4px;font:600 .72rem var(--f-label);letter-spacing:.04em}
+.bscab input{width:3.3em;padding:2px 4px}
+.bscdov{display:flex;flex-wrap:wrap;gap:4px}
+.bschod{display:inline-flex;gap:4px;align-items:baseline;padding:3px 8px;border:1px solid color-mix(in srgb,var(--gold) 55%,var(--rule));border-radius:999px;background:var(--paper);color:var(--ink);font:500 .76rem/1.2 var(--f-label);letter-spacing:.02em;cursor:pointer}
+.bschod b{font-weight:700}
+.bschod:hover,.bschod:focus-visible{background:color-mix(in srgb,var(--gold) 24%,var(--paper))}
+.bscab .bschod{padding:2px 6px}
+.bscref{margin-top:4px}.bscref>summary{cursor:pointer;color:var(--muted);font:500 .85rem var(--f-label);letter-spacing:.04em;padding:4px 0}
+.bscpor{display:inline-flex;flex-wrap:wrap;gap:4px 8px;align-items:center;font-size:.85rem}
+/* hráč ve scéně: s kým jedná (ověření a dovednosti jdou vůči zvolenému NPC) */
+.bscjed{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0;padding:8px 10px;background:#1f0c10;border-bottom:1px solid color-mix(in srgb,var(--gold) 45%,transparent)}
+.bscjl{color:#d9c79a;font:500 .72rem var(--f-label);letter-spacing:.06em;text-transform:uppercase}
+.bscjb{display:inline-flex;align-items:center;gap:6px;padding:3px 10px 3px 3px;border:1px solid color-mix(in srgb,var(--gold) 50%,transparent);border-radius:999px;background:transparent;color:#f6e7c1;font:500 .85rem var(--f-label);cursor:pointer}
+.bscjb .bmed{--ms:26px}
+.bscjb[aria-pressed=true]{background:#781421;border-color:#c9a227;box-shadow:0 0 0 1px #c9a227}
+.bscutok{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin:8px 0;padding:8px 12px;border:1px solid #9b2a2a;border-left:4px solid #9b2a2a;border-radius:4px;background:color-mix(in srgb,#9b2a2a 10%,var(--paper))}

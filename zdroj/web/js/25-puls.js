@@ -8,7 +8,7 @@ var PULS = {z: null, beh: false, znovu: false, t: 0, tm: 0, obnov: false, start:
 const PULS_HRA = ["vyzvy", "zpravy", "navrhy", "potvrz", "pokladna"];
 function pulsInterval() {
   if (typeof BRT !== "undefined" && BRT.ok) return 60000;
-  if (curView === "boj") return BOJ.s && BOJ.s.aktivni ? 2500 : 6000;
+  if (curView === "boj") return bojBezi(BOJ.s) ? 2500 : BOJ.s && BOJ.s.scena ? 4000 : 6000;
   if (curView === "karty" || curView === "hra") return 5000;
   return 10000;
 }
@@ -92,6 +92,8 @@ async function pulsZpracuj(co) {
     try {
       if (await kartyNacti()) kh = true;
     } catch (e) {}
+    /* scéna: postava, kterou si hráč právě vzal (KHRAC), se přidá mezi přítomné (11) */
+    if (GMV && BOJ.s && BOJ.s.scena && BOJ.s.aktivni && bojScenaChybi(BOJ.s).length) bojZmen(z => bojScenaClenove(z), true);
   }
   if (co.has("hody")) {
     try {
@@ -150,7 +152,7 @@ async function pulsHra() {
 /* nové poznatky v deskách (odhalení, úprava textů) se bez přenačtení nedají doplnit – v boji a při psaní se přenačtení odloží */
 function pulsObnov() {
   if (GMV || typeof window.mmKontrolaVerze !== "function") return;
-  const boj = curView === "boj" && BOJ.s && BOJ.s.aktivni;
+  const boj = curView === "boj" && bojBezi(BOJ.s);
   if (boj || pulsPise()) {
     if (!PULS.obnov && boj) mmHlasG("Zemské desky byly doplněny – stránka se obnoví, až odejdeš z boje.", 6000);
     PULS.obnov = true;
@@ -161,7 +163,7 @@ function pulsObnov() {
 }
 /* lišta „Obnovit“ (koruna.html) se ptá, jestli je bezpečné obnovit samo: ne v boji, ne při psaní, ne s rozehraným útokem nebo frontou */
 window.mmObnovaMozna = () =>
-  !(curView === "boj" && BOJ.s && BOJ.s.aktivni) &&
+  !(curView === "boj" && bojBezi(BOJ.s)) &&
   !pulsPise() &&
   !(typeof BJU !== "undefined" && BJU.serie && BJU.serie.length) &&
   !(typeof BFR !== "undefined" && BFR.delka());

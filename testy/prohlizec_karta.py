@@ -311,7 +311,7 @@ async def main():
     chk(await cizi.evaluate("!!document.querySelector('.bdm.kro')"),"cizí prohlížeč vidí kartu jen ke čtení")
     r=await cizi.evaluate("MMDB.kartaStav('balduin','sv',0).then(()=>'ok',e=>e.message)")
     chk(r!="ok","bez přihlášení nejde chráněnou kartu změnit ("+str(r)[:60]+")")
-    await pl.keyboard.press('Escape');await pl.click('.hraja .bdmtabs [data-bdmsec="vl"]');await pl.click('.hraja [data-khod="za:WIS"]');await klid(pl,800)
+    await pl.keyboard.press('Escape');await pl.click('.hraja .bdmtabs [data-bdmsec="vl"]');await pl.click('.hraja [data-khod="za:WIS"], .hraja [data-bkzh="WIS"]');await klid(pl,800)
     chk(any(h.get("co")=="Záchrana WIS" for h in hody()),"přihlášený hráč hází ze stránky Hra")
     # rána vyléčena přihlášeným hráčem (2026-10-21): vypravěč zapíše kritické zranění, hráč ho v Duši odškrtne
     await g.evaluate("hraUloz({krit:{Balduin:[{t:'Lehká rána',d:'test'}]}})");await klid(pl,5500)

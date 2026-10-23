@@ -1199,7 +1199,13 @@ function bojKarta(s, n, gm) {
       const rk = s.reak || {};
       return `<button type="button" class="break${rk[n.id] ? " on" : ""}" data-break="${n.id}" aria-pressed="${!!rk[n.id]}" ${gm ? "" : "disabled "}${btip(`Reakce: ${rk[n.id] ? "použita, obnoví se na začátku jeho tahu" : "k dispozici"}${gm ? " (klikni)" : ""}`)}>R</button>`;
     })()}${gm ? `<button type="button" class="bskr" data-bnren aria-label="Přejmenovat ${besc(n.n)}" ${btip("Přejmenovat (jméno uvidí i hráči)")}>${bi("prejmenovat")}</button><button type="button" class="bskr${n.skryt ? " on" : ""}" data-bskryt aria-pressed="${!!n.skryt}" aria-label="Hráči zatím nevidí" ${btip(n.skryt ? "Hráči ho zatím nevidí: není v jejich seznamu nepřátel, cílů ani v záznamu – klikni, až se ukáže" : "Skrýt před hráči (záloha, neviditelný, ještě nepřišel): nebude v jejich seznamu, cílech ani v záznamu")}>${bi(n.skryt ? "nevidi" : "vidi")}</button><button type="button" class="brozb" data-brozb aria-expanded="${open}" aria-label="${open ? "Sbalit" : "Rozbalit"} kartu" ${btip(open ? "Sbalit kartu" : "Rozbalit – stavy, útoky, zdroje, statblock")}>${bi("sipka")}</button><button type="button" class="bdel" data-bdel aria-label="Odebrat ${besc(n.n)}" ${btip("Odebrat z boje")}>${bi("krizek")}</button>` : ""}</div>
-    ${mor && gm ? `<p class="bmor">${bi("velitel")} ${mor}</p>` : ""}${open ? bojRef(n, s, velH) : ""}</div>`;
+    ${mor && gm ? `<p class="bmor">${bi("velitel")} ${mor}</p>` : ""}${
+      open
+        ? s.scena && gm && typeof bojScNpcHtml === "function"
+          ? `${bojScNpcHtml(s, n)}<details class="bscref"><summary>Statblok, útoky a stavy</summary>${bojRef(n, s, velH)}</details>`
+          : bojRef(n, s, velH)
+        : ""
+    }</div>`;
 }
 /* akce v boji (SRD 5.2.1, česky zkráceně) a doplnění z Artikulí */
 const BAKCE = [
