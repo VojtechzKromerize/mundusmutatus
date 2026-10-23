@@ -211,9 +211,7 @@ function bojWPopisHtml(K, a) {
   const R = bojWTr(K, a);
   if (!R) return "";
   const vl = Object.keys(R.vl).filter(k => k !== "Range" || !R.vl.Thrown);
-  const tx = vl.map(
-    k => `<span ${btip(bojWvlTip(k))}>${besc(ZBRVL[k][0])}${typeof R.vl[k] === "string" ? ` <small>${besc(R.vl[k])}</small>` : ""}</span>`,
-  );
+  const tx = vl.map(k => `<span ${btip(bojWvlTip(k))}>${besc(ZBRVL[k][0])}${typeof R.vl[k] === "string" ? ` <i>${besc(R.vl[k])}</i>` : ""}</span>`);
   const t = R.ma0;
   const ma = t
     ? `<span class="bdmwm${R.ma ? " on" : ""}" ${btip(`${bojWmJm(t)}: ${ZBRMS[t][1]}${R.ma ? "" : " – postava toto mistrovství nepoužívá"}`)}>${bi(BWMIK[t] || "boj")}${besc(ZBRMS[t][0])}</span>`

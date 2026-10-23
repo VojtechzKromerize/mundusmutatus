@@ -467,12 +467,14 @@ function kSpUcD(d, lvl, mod, ul) {
   const ms = v.match(/o jednu šipku|jeden paprsek navíc|o jeden paprsek/);
   /* šipky a paprsky: počet už na základním stupni (Magic Missile 3 šipky), navíc za každý vyšší stupeň */
   if (ms && d.l && lvl >= d.l) o.pocet = (/šip/.test(v) ? 3 : /paprs/.test(t) ? 3 : 1) + (lvl - d.l);
-  const zs = t.match(/(STR|AGI|CON|INT|WIS|CHA) záchrann/);
+  const zs = t.match(KZACHRE);
   if (zs) o.zach = zs[1];
   o.utok = /útok kouzlem/i.test(t);
   o.pol = /při úspěchu poloviční/i.test(t);
   return o;
 }
+/* záchrana cíle v textu kouzla; „výhoda na AGI záchranné hody“ (Haste, Beacon of Hope, Conjure Animals pro sesilatele) jí není */
+const KZACHRE = /(?<!výhod[uouě] na )(?<!výhod[uouě] k )\b(STR|AGI|CON|INT|WIS|CHA) záchrann/;
 /* sesílání na vyšším stupni (upcasting): volba slotu kolečky se stupněm; co vyšší stupeň přidá, z popisu kouzla SRD */
 function kSpVyssi(K, x, lvl) {
   const d = typeof kSpA === "function" ? kSpA(x.n) : null,
@@ -1036,7 +1038,7 @@ function kSmity(K) {
         n: d.en || kzJm(x.n),
         st: d.l || x.st,
         blizko: /na blízko/i.test(ct) || /na blízko/i.test(t.slice(0, 120)),
-        zach: (t.match(/\b(STR|AGI|CON|INT|WIS|CHA) záchrann/) || [])[1] || null,
+        zach: (t.match(KZACHRE) || [])[1] || null,
         hned: /navíc|z útoku|\+\d+d\d+/i.test(t.split(/(?<=\.)\s+/)[0] || ""),
         kon: !!d.ko,
       });

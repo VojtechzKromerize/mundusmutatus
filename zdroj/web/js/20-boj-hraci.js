@@ -123,7 +123,8 @@ function kSpBoj(K, x, lvl) {
   if (E && E.k === "l") return null;
   const t = String(d.t || "");
   const utok = !!(E && E.utok) || /útok kouzlem/i.test(t),
-    zach = utok ? null : (E && E.zach) || (t.match(/(STR|AGI|CON|INT|WIS|CHA) záchrann/) || [])[1] || null,
+    /* „výhoda na AGI záchranné hody“ (Haste, Protection from Energy…) není záchrana cíle – kouzlo pro spojence (2026-10-24) */
+    zach = utok ? null : (E && E.zach) || (t.match(KZACHRE) || [])[1] || null,
     auto = !utok && !zach && !!E && /šipka zasáhne|automaticky zasáh/i.test(t);
   if (!utok && !zach && !auto) return null;
   let pocet = (E && E.pocet) || 1;
