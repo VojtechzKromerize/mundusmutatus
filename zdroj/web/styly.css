@@ -2911,6 +2911,8 @@ button.kdbs:hover{border-color:var(--kb-gold)}.kdbsac b{color:var(--kb-gold)}
 /* bojová karta hráče přes celou šířku hlavního sloupce */
 .bjamain .bdm{max-width:none}
 .bjamain .bja:has(.bdm){padding:0;border:0;background:none}
+/* karta hráče v boji a ve scéně drží šířku sloupce ve všech záložkách (2026-10-23: dřív se zúžila podle obsahu, Statistiky byly širší než Kouzla) */
+.bjamain .bja:has(.bdm)>.hraja{flex:1 1 100%;min-width:0}
 .bjamain .bdmport{max-width:150px}
 @media (min-width:900px){.bjamain .bdmab.kvlr{grid-template-columns:repeat(6,minmax(0,1fr))}}
 /* herní záznam pod pruhem iniciativy */
