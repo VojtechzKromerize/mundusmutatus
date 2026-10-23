@@ -7,6 +7,7 @@
 // 3. Vazby mezi soubory jako u modulů: zápis do cizí proměnné / přepsání cizí funkce jen u vědomě sdílených jmen (SDILENE,
 //    OBALENE), žádné nepoužité definice, žádné čtení const/let před definicí při načtení.
 // 4. Obsluhy prvků, které se nikde nekreslí: [data-X] v obsluze, ale žádná šablona data-X nevytváří (zbytek po odstraněném tlačítku).
+// 5. Čistá pravidla: soubor s „@čisté“ na 1. řádku smí používat jen jazyk JS a jména jiných čistých souborů (testy/jednotky/ciste.mjs).
 // Orientace: --kde JMÉNO (kde je definované, kdo ho čte a zapisuje), --soubor NN (co soubor poskytuje a co používá odjinud).
 // Potřebuje balíčky z package.json (npm ci). Výstup: řádky „soubor:řádek  pravidlo  zpráva“, návratový kód 1 při chybě.
 import fs from "node:fs";
@@ -244,6 +245,26 @@ const OSIRELE_OK = new Set([
         console.log(`${f}:${i + 1}  osirela  [data-${a}] se hledá, ale žádná šablona ho nevytváří – smaž obsluhu (mrtvý kód) nebo vrať tlačítko`);
       }
     });
+}
+
+/* ---- 5. čistá pravidla (2026-10-23): soubor s „@čisté“ na 1. řádku smí používat jen jazyk JS a jména z ostatních čistých
+   souborů – žádnou stránku (document, window, localStorage, fetch, setTimeout…), stav ani funkce jiných souborů. Data dostává
+   jako argumenty. Takové soubory se spustí v čistém Node (testy/jednotky/ciste.mjs) a jejich výpočty se testují bez prohlížeče. ---- */
+const CISTE = [...new Set(mapa.map(([f]) => f))].filter(
+  f => f.startsWith("zdroj/web/js/") && /@čisté/.test(fs.readFileSync(path.join(KOREN, f), "utf8").split("\n")[0]),
+);
+{
+  const jmena = {};
+  for (const [n, o] of MAPA) if (CISTE.includes(o.f)) jmena[n] = "readonly";
+  for (const f of CISTE)
+    for (const z of linter.verify(
+      fs.readFileSync(path.join(KOREN, f), "utf8"),
+      [{languageOptions: {ecmaVersion: "latest", sourceType: "script", globals: {...globals.es2021, ...jmena}}, rules: {"no-undef": "error"}}],
+      {filename: f},
+    )) {
+      chyb++;
+      console.log(`${f}:${z.line}  ciste  ${z.message} – čistý soubor (@čisté) smí používat jen jazyk JS a jména jiných čistých souborů`);
+    }
 }
 
 /* ---- mapa vazeb pro orientaci: node testy/kontrola_kodu.mjs --kde bojUtokPriprav | --soubor 20 ---- */

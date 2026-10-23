@@ -1,55 +1,15 @@
 /* ===== Kouzla: účinky na cílech, dočasné HP, trvání v kolech, rituály, opakované útoky, oblasti, Counterspell (2026-10-20) =====
-   KZEF – mechanika posílení (AC, rychlost, záchrany, Resistance, maximum HP, dočasné HP); působí na kartě cíle, dokud trvá účinek
-   sesilatele („Kouzlo ⇒ Cíl“ v jeho účincích, viz kBufNa) nebo vlastní účinek postavy (kouzlo seslané na sebe).
+   UCINKY (čistý soubor 10u) – mechanika posílení a kostek k hodům v jednom formátu; působí na kartě cíle, dokud trvá účinek
+   sesilatele („Kouzlo ⇒ Cíl“ v jeho účincích, viz kBufNa) nebo vlastní účinek postavy (kouzlo seslané na sebe). Tady jen sběr
+   instancí z karty (kBufAll) a napojení na kartu; sčítání a výpočty jsou v 10u (ucSecti, ucAC, ucHodn, ucRes, ucAdv).
    KZOPAK – kouzla, která se po seslání opakují bez slotu (Spiritual Weapon, Witch Bolt, Call Lightning…).
    KZOBL – kouzla s oblastí, která zraňuje opakovaně (Spirit Guardians, Moonbeam, Cloud of Daggers…): v boji se z nich stane
    „oblast“ (s.obl), vypravěč klepnutím určí, kdo v ní je, a na začátku či konci tahu se záchrana a zranění hodí samy. */
-const KZEF = {
-  Haste: {
-    ac: 2,
-    rychX: 2,
-    adv: ["AGI"],
-    p: "+2 AC, dvojnásobná rychlost, výhoda na záchrany AGI, v každém tahu akce navíc (Útok jedním útokem, Sprint, Odpoutání, Skrytí nebo Použití předmětu)",
-  },
-  "Mage Armor": {acz: 13, p: "bez zbroje: AC 13 + AGI"},
-  Barkskin: {acmin: 17, p: "AC nejméně 17"},
-  "Warding Bond": {ac: 1, zach: 1, res: "vse", p: "+1 AC a k záchranám, Resistance vůči všemu zranění; sesilatel utrpí stejné zranění"},
-  Longstrider: {rych: 10, p: "rychlost +10 stop"},
-  Stoneskin: {res: ["Bludgeoning", "Piercing", "Slashing"], p: "Resistance vůči Bludgeoning, Piercing a Slashing"},
-  Heroism: {thpTah: 1, p: "imunní vůči stavu Vyděšen (Frightened); na začátku tahu dočasné HP = modifikátor sesílací vlastnosti sesilatele"},
-  Aid: {hpmax: l => 5 * Math.max(1, l - 1), p: "maximum i aktuální HP +5 (+5 za každou úroveň slotu nad 2)"},
-  "Beacon of Hope": {adv: ["WIS"], p: "výhoda na záchrany WIS a záchrany proti smrti; léčení vždy maximum"},
-  "Protection from Evil and Good": {
-    p: "aberace, nebešťané, elementálové, víly, běsi a nemrtví mají nevýhodu na útoky proti tobě a nemohou tě okouzlit, vyděsit ani posednout",
-  },
-  Blur: {p: "útoky proti tobě mají nevýhodu (ledaže útočník vidí skrz iluze)"},
-  "Death Ward": {p: "první pokles na 0 HP: zůstaneš na 1 HP a kouzlo skončí"},
-  "Freedom of Movement": {p: "obtížný terén ani kouzla tě nezpomalí, magie tě nemůže ochromit ani zadržet"},
-  "Enlarge/Reduce": {p: "zvětšení: výhoda na ověření a záchrany STR, zbraně +1d4 zranění · zmenšení: nevýhoda STR, zbraně −1d4"},
-  Fly: {p: "rychlost letu 60 stop"},
-  "Spider Climb": {p: "lezení po stěnách i stropě, rychlost lezení = rychlost chůze"},
-  "Greater Invisibility": {p: "neviditelný (Invisible) i při útoku a sesílání"},
-  Invisibility: {p: "neviditelný (Invisible), dokud nezaútočíš nebo nesešleš kouzlo"},
-  "Mirror Image": {p: "tři iluzorní dvojníci: zásah může zasáhnout dvojníka"},
-  "Holy Aura": {adv: ["STR", "AGI", "CON", "INT", "WIS", "CHA"], p: "výhoda na všechny záchrany, útoky proti tobě s nevýhodou"},
-  "Protection from Energy": {p: "Resistance vůči zvolenému typu zranění (Acid, Cold, Fire, Lightning nebo Thunder)"},
-  "False Life": {thp: l => ({x: "2d4+4" + (l > 1 ? `+${5 * (l - 1)}` : "")}), p: "dočasné HP 2d4 + 4 (+5 za každou úroveň slotu nad 1)"},
-  "Armor of Agathys": {
-    thp: l => ({n: 5 * Math.max(1, l)}),
-    p: "dočasné HP 5 za úroveň slotu; dokud je máš, útočník zblízka utrpí Cold zranění 5 za úroveň slotu",
-  },
-};
-/* kouzlo bez přípony stupně: „Aid (3. st.)“ → Aid */
-const kzJm = n =>
-  String(n || "")
-    .replace(/\s*\(\d+\. st\.\)\s*$/, "")
-    .trim();
-const kzSt = n => +(String(n || "").match(/\((\d+)\. st\.\)\s*$/) || [])[1] || 0;
 /* stupeň se zapíše do názvu účinku jen u kouzel, kde na něm závisí mechanika (Aid, opakované útoky a oblasti se zesílením) */
 const kzStPrip = (n, lv, st) =>
   lv > st &&
   st > 0 &&
-  (n === "Magic Weapon" || n === "Elemental Weapon" || (KZEF[n] && KZEF[n].hpmax) || (KZOPAK[n] && KZOPAK[n].up) || (KZOBL[n] && KZOBL[n].up))
+  (n === "Magic Weapon" || n === "Elemental Weapon" || (UCINKY[n] && UCINKY[n].hpmax) || (KZOPAK[n] && KZOPAK[n].up) || (KZOBL[n] && KZOBL[n].up))
     ? ` (${lv}. st.)`
     : "";
 /* všechna posílení na kartě: vlastní účinky (kouzlo na sebe) a účinky od jiných postav */
@@ -59,75 +19,19 @@ const kBufAll = K => [
     .map(u => ({n: kzJm(u.n), l: kzSt(u.n), od: K.n, vl: 1, u})),
   ...(typeof kBufy === "function" ? kBufy(K) : []).map(b => ({n: kzJm(b.n), l: kzSt(b.n), od: b.od})),
 ];
-const kBufEf = K =>
-  kBufAll(K)
-    .map(b => Object.assign({e: KZEF[b.n]}, b))
-    .filter(b => b.e);
-/* příspěvky posílení do hodnot karty (kHodn): záchrany, maximum HP, rychlost */
-function kBufHodn(K, t, a, L) {
-  const B = kBufEf(K),
-    R = [];
-  if (!B.length) return R;
-  B.forEach(b => {
-    const e = b.e;
-    if (t === "zach" && e.zach) R.push([b.n, e.zach]);
-    if (t === "hp" && e.hpmax) R.push([b.n, e.hpmax(b.l || 2)]);
-    if (t === "rych" && e.rych) R.push([b.n, e.rych]);
-    if (t === "dov" && e.dov && e.dov[a]) R.push([b.n, e.dov[a]]);
-    if ((t === "dov" || t === "ov") && e.ov) R.push([b.n, e.ov]);
-  });
-  if (t === "rych" && B.some(b => b.e.rychX)) {
-    const s = kSum([...L, ...R]);
-    R.push(["Haste ×2", s]);
-  }
-  return R;
-}
-/* AC z posílení (Mage Armor jen bez zbroje); ruční tlačítka AC (KUCAC) se nepočítají dvakrát */
-function kBufAC(K, N) {
-  const S = kartaStav(K.id),
-    uc = S.uc || [],
-    r = {ac: 0, min: 0, L: []};
-  kBufEf(K).forEach(b => {
-    const e = b.e;
-    if (b.vl && b.u && (b.u.ac != null || b.u.acmin != null)) return;
-    if (b.n === "Shield of Faith") return;
-    if (e.ac) {
-      r.ac += e.ac;
-      r.L.push([b.n, e.ac]);
-    }
-    if (e.acmin) r.min = Math.max(r.min, e.acmin);
-    if (e.acz && !(N && N.z)) r.min = Math.max(r.min, e.acz + kMd(K, "AGI"));
-  });
-  return r;
-}
-const kBufRes = K => {
-  const R = new Set();
-  kBufEf(K).forEach(b => {
-    const r = b.e.res;
-    if (r === "vse")
-      [
-        "Acid",
-        "Bludgeoning",
-        "Cold",
-        "Fire",
-        "Force",
-        "Lightning",
-        "Necrotic",
-        "Piercing",
-        "Poison",
-        "Psychic",
-        "Radiant",
-        "Slashing",
-        "Thunder",
-      ].forEach(t => R.add(t));
-    else (r || []).forEach(t => R.add(t));
-  });
-  return [...R];
-};
-const kBufAdv = (K, ab) =>
-  kBufEf(K)
-    .filter(b => (b.e.adv || []).includes(ab))
-    .map(b => b.n);
+/* platné účinky na postavě: stejnojmenné jen jednou (nejvyšší stupeň), různé se sčítají – ucSecti v 10u */
+const kBufEf = K => ucSecti(kBufAll(K));
+/* příspěvky posílení do hodnot karty (kHodn): záchrany, maximum HP, rychlost, dovednosti */
+const kBufHodn = (K, t, a, L) => ucHodn(kBufEf(K), t, a, kSum(L || []));
+/* AC z posílení (Mage Armor jen bez zbroje); ruční tlačítka AC (KUCAC) a Shield of Faith se nepočítají dvakrát */
+const kBufAC = (K, N) =>
+  ucAC(
+    kBufEf(K).filter(b => !(b.vl && b.u && (b.u.ac != null || b.u.acmin != null)) && b.n !== "Shield of Faith"),
+    !!(N && N.z),
+    kMd(K, "AGI"),
+  );
+const kBufRes = K => ucRes(kBufEf(K));
+const kBufAdv = (K, ab) => ucAdv(kBufEf(K), ab);
 /* přehled na kartě: co na postavě právě působí */
 function kBufHtml(K) {
   const B = kBufEf(K);
@@ -161,7 +65,7 @@ async function kSesPo(K, sp, lvl) {
     await kSumNovy(K, sp, lvl);
     return;
   }
-  const e = KZEF[nm];
+  const e = UCINKY[nm];
   if (!e) return;
   if (e.thp) {
     const v = e.thp(lvl),
@@ -179,7 +83,7 @@ async function kSesPo(K, sp, lvl) {
 }
 async function kSesPoCile(K, sp, lvl, cile) {
   const nm = kzJm(sp.n),
-    e = KZEF[nm];
+    e = UCINKY[nm];
   if (!e || !e.hpmax || !cile || !cile.length) return;
   const b = e.hpmax(lvl);
   for (const c of cile) {
@@ -792,7 +696,7 @@ const KZLEC = {
   "Dispel Magic": {rozptyl: 1},
   /* 2026-10-22 (inventura kouzel) */
   Regenerate: {x: "4d8+15"},
-  "Protection from Poison": {st: ["otrávený"], hp: 0, dal: 1} /* dal: po ukončení stavu pokračuje běžné seslání (posílení z KZEF) */,
+  "Protection from Poison": {st: ["otrávený"], hp: 0, dal: 1} /* dal: po ukončení stavu pokračuje běžné seslání (posílení z UCINKY) */,
   "Raise Dead": {ozivit: 1},
   Resurrection: {ozivit: 1},
   "True Resurrection": {ozivit: 1},
@@ -1198,127 +1102,8 @@ async function kSumKonec(K, jm) {
   await kartaStavZmen(K.id, {spol: zb.length ? zb : null}, `${K.n}: ${pryc.map(([s]) => s.n).join(", ")} mizí – kouzlo skončilo.`);
 }
 
-/* ---- obranná kouzla: Blade Ward (útoky proti postavě −1d4), Blink (na konci tahu d6) ---- */
-Object.assign(KZEF, {
-  "Blade Ward": {utMinus: 1, p: "útoky proti tobě −1d4"},
-  Blink: {blink: 1, p: "na konci každého tvého tahu d6: 4–6 odejdeš do Éteru do začátku dalšího tahu"},
-  "Enhance Ability": {p: "výhoda na ověření zvolené vlastnosti"},
-  Resistance: {p: "zranění zvoleného typu −1d4, jednou za tah"},
-  "Magic Weapon": {p: "zbraň +1 k útoku a zranění (+2 ze slotu 3.–5., +3 ze slotu 6+)"},
-  "Elemental Weapon": {p: "zbraň +1 k útoku a +1d4 zvoleného typu (vyšší sloty víc)"},
-  Shillelagh: {p: "kyj nebo hůl: sesílací vlastnost, větší kostka zranění"},
-});
 /* ---- posílení a ochrany (2026-10-22, inventura kouzel): co kouzlo dělá na kartě, dokud trvá; mechanika, kde ji karta umí
    (ac/acmin/acz, rych/rychX, zach, res, adv, thp/thpTah, hpmax, dov {dovednost: bonus}, ov = všechna ověření), jinak jen popis p ---- */
-Object.assign(KZEF, {
-  "Absorb Elements": {p: "do začátku tvého dalšího tahu Resistance vůči typu utrpěného zranění; první zásah zblízka v tomto tahu +1d6 téhož typu"},
-  "Expeditious Retreat": {p: "při seslání a každý další tah bonusovou akcí Dash"},
-  Jump: {p: "jednou za tah skok až 30 stop za 10 stop pohybu"},
-  "Feather Fall": {p: "padáš 60 stop za kolo, bez zranění pádem"},
-  Sanctuary: {
-    p: "kdo na tebe chce zaútočit nebo tě zacílit, hází WIS záchranu proti tvému SO kouzel; při neúspěchu musí zvolit jiný cíl; končí tvým útokem nebo škodlivým kouzlem",
-  },
-  "Gift of Alacrity": {p: "+1d8 k hodům na iniciativu (přičte se sám)"},
-  Goodberry: {p: "10 bobulí na 24 hodin: bonusová akce sněz = +1 HP a jídlo na den"},
-  "Zephyr Strike": {
-    p: "pohyb nevyvolává příležitostné útoky; jednou před koncem kouzla: výhoda na útok zbraní, při zásahu +1d8 Force a +30 stop rychlosti do konce tahu",
-  },
-  "Compelled Duel": {p: "cíl má nevýhodu na útoky proti jiným než tobě a nesmí se dobrovolně vzdálit víc než 30 stop; končí tvým útokem na jiného"},
-  "Faerie Fire": {p: "cíle světélkují: útoky proti nim s výhodou, neviditelnost jim nepomůže"},
-  "Silvery Barbs": {p: "reakce: přehození úspěšného hodu d20 nepřítele (nižší platí); jiná bytost dostane výhodu na příští hod d20 do minuty"},
-  Darkvision: {p: "vidění ve tmě 150 stop"},
-  "Pass without Trace": {dov: {Stealth: 10}, p: "+10 k ověřením AGI (Stealth), nezanecháváš stopy"},
-  "Protection from Poison": {res: ["Poison"], p: "Resistance vůči Poison, výhoda na záchrany proti otravě; otrava ukončena"},
-  "See Invisibility": {p: "vidíš neviditelné bytosti a předměty"},
-  Silence: {p: "v kouli ticho: hluchý, Immunity vůči Thunder, kouzla s verbální složkou nejdou seslat"},
-  Levitate: {p: "vznášíš se až 20 stop nad zemí, pohyb jen odrazem od pevných předmětů"},
-  "Alter Self": {p: "změna vzhledu, vodní dech, nebo přirozené zbraně 1d6 + sesílací vlastnost k útoku"},
-  "Kinetic Jaunt": {rych: 10, p: "rychlost +10 stop, pohyb nevyvolává příležitostné útoky, projdeš prostorem jiných"},
-  "Borrowed Knowledge": {p: "zdatnost v jedné zvolené dovednosti"},
-  "Air Bubble": {p: "zásoba vzduchu kolem hlavy na 24 hodin"},
-  "Fortune's Favor": {p: "jednou: hoď druhou d20 k útoku, ověření či záchraně (nebo proti příchozímu útoku) a vyber výsledek"},
-  "Ray of Enfeeblement": {p: "cíl po neúspěšné záchraně: nevýhoda na testy STR a −1d8 ze zranění útoky se STR"},
-  "Shadow Blade": {p: "čepel ze stínu: útok na blízko Finesse, 2d8 Psychic (vyšší sloty víc), vrh 20/60 stop, výhoda v šeru a tmě"},
-  "Aura of Vitality": {p: "bonusovou akcí vyléčíš tvora v auře (30 stop) o 2d6 HP"},
-  "Intellect Fortress": {res: ["Psychic"], adv: ["INT", "WIS", "CHA"], p: "Resistance vůči Psychic, výhoda na záchrany INT, WIS a CHA"},
-  "Gaseous Form": {
-    res: ["Bludgeoning", "Piercing", "Slashing"],
-    p: "mlha: Resistance vůči Bludgeoning, Piercing a Slashing, výhoda na záchrany STR, AGI a CON, let 10 stop, bez útoků a kouzel",
-  },
-  Catnap: {p: "spíš 10 minut; po nich jako po krátkém odpočinku"},
-  "Feign Death": {res: "vse", p: "zdánlivě mrtvý: Resistance vůči všemu kromě Psychic, Oslepen a Neschopný, rychlost 0"},
-  Daylight: {p: "jasné světlo 60 stop a šero dalších 60 stop; ruší magickou tmu nižšího stupně"},
-  Tongues: {p: "rozumíš každému jazyku a každý rozumí tobě"},
-  "Water Breathing": {p: "dýcháš pod vodou"},
-  "Water Walk": {p: "chůze po vodě, kyselině, lávě i sněhu"},
-  Nondetection: {p: "skrytý před věšteckou magií a magickým pozorováním"},
-  "Magic Circle": {p: "válec 10 stop: zvolený druh tvorů nemůže dovnitř (ven ano) a má nevýhodu na útoky na cíle uvnitř"},
-  "Crusader's Mantle": {p: "aura 30 stop: útoky zbraní spojenců +1d4 Radiant (tvoje se přičtou samy)"},
-  "Spirit Shroud": {p: "útoky na cíle do 10 stop +1d8 Radiant/Necrotic/Cold (přičte se sám); cíle se nehojí a mají o 10 stop nižší rychlost"},
-  "Flame Arrows": {p: "střely z toulce: zásah +1d6 Fire (přičte se sám u útoků na dálku)"},
-  "Motivational Speech": {adv: ["WIS"], p: "dočasné HP 5 (zapiš si), výhoda na záchrany WIS, nelze vyděsit; po zásahu kouzlo končí"},
-  "Tiny Hut": {p: "kupole 10 stop: dovnitř nic neprojde, uvnitř klid a stálá teplota"},
-  "Fire Shield": {p: "teplý (Resistance Cold) nebo chladný (Resistance Fire) štít: útočník zblízka utrpí 2d8 Fire/Cold; světlo 10 stop"},
-  "Aura of Life": {
-    res: ["Necrotic"],
-    p: "aura 30 stop: spojenci Resistance vůči Necrotic, maximum HP nejde snížit, kdo začne tah s 0 HP, získá 1 HP",
-  },
-  "Aura of Purity": {
-    res: ["Poison"],
-    p: "aura 30 stop: spojenci Resistance vůči Poison, nemohou být Otráveni, výhoda na záchrany proti stavům (ne Vyčerpání)",
-  },
-  "Resilient Sphere": {p: "koule síly: nic dovnitř ani ven, Immunity vůči všemu zranění; ven jen Disintegrate"},
-  "Elemental Bane": {p: "cíl po neúspěšné záchraně ztrácí Resistance vůči zvolenému typu a první zásah v tahu tím typem +2d6"},
-  Slow: {p: "zpomalení: rychlost poloviční, −2 AC a k záchranám AGI, bez reakcí, jen akce nebo bonusová akce, kouzlo s akcí se seslá až příští tah"},
-  "Swift Quiver": {p: "každou bonusovou akci dva útoky zbraní na dálku ze střel z toulce"},
-  "Skill Empowerment": {p: "Expertise v jedné dovednosti, ve které máš zdatnost"},
-  "Far Step": {p: "při seslání a každou další bonusovou akci teleport až 60 stop"},
-  Mislead: {p: "jsi neviditelný a tvůj iluzorní dvojník jde dál; vidíš jeho očima"},
-  "Antilife Shell": {p: "bariéra 10 stop: živé bytosti neprojdou ani skrz ni nezaútočí zblízka"},
-  "Circle of Power": {
-    adv: ["STR", "AGI", "CON", "INT", "WIS", "CHA"],
-    p: "aura 30 stop: spojenci výhoda na záchrany proti kouzlům, při úspěchu žádné zranění místo poloviny",
-  },
-  "Holy Weapon": {p: "zbraň +2d8 Radiant (přičte se sám), září 30 stop; ukončením výbuch 4d8 Radiant, Oslepen při neúspěchu CON"},
-  "Dispel Evil and Good": {
-    p: "nebešťané, elementálové, víly, běsi a nemrtví mají nevýhodu na útoky proti tobě; dotykem ukončíš okouzlení, vyděšení či posednutí nebo tvora vyženeš",
-  },
-  "Telepathic Bond": {p: "telepatie mezi spojenými na hodinu, bez omezení vzdálenosti na téže sféře"},
-  "Tree Stride": {p: "každý tah 5 stop pohybu na průchod stromem k jinému stromu stejného druhu do 500 stop"},
-  "Globe of Invulnerability": {p: "koule 10 stop: kouzla 5. a nižšího stupně zvenčí dovnitř nepůsobí"},
-  "Heroes' Feast": {
-    hpmax: () => 10,
-    adv: ["WIS"],
-    p: "hostina: maximum HP +2d10 (karta počítá 10), výhoda na záchrany WIS, nelze otrávit ani vyděsit, Immunity vůči Poison – do dalšího dlouhého odpočinku",
-  },
-  "True Seeing": {p: "pravé vidění 120 stop: vidíš skrz iluze, neviditelné, do Éteru"},
-  "Wind Walk": {
-    p: "oblak: let 300 stop, Resistance vůči Bludgeoning, Piercing a Slashing; proměna zpět trvá minutu",
-    res: ["Bludgeoning", "Piercing", "Slashing"],
-  },
-  "Primordial Ward": {
-    res: ["Acid", "Cold", "Fire", "Lightning", "Thunder"],
-    p: "Resistance vůči Acid, Cold, Fire, Lightning a Thunder; jednou můžeš mít místo toho Immunity do konce tahu, pak kouzlo končí",
-  },
-  "Fizban's Platinum Shield": {
-    ac: 2,
-    res: ["Acid", "Cold", "Fire", "Lightning", "Poison"],
-    p: "+2 AC, Resistance vůči Acid, Cold, Fire, Lightning a Poison, při úspěšné záchraně AGI žádné zranění místo poloviny",
-  },
-  "Tasha's Otherworldly Guise": {
-    ac: 2,
-    p: "+2 AC, let 40 stop, Immunity podle sféry (Fire a Poison, nebo Radiant a Necrotic), dva útoky akcí Útok se sesílací vlastností",
-  },
-  Regenerate: {p: "vyléčeno 4d8 + 15 HP a na začátku každého tahu +1 HP po hodinu; chybějící části těla dorostou"},
-  "Power Word Fortify": {p: "120 dočasných HP rozdělených mezi cíle (zapiš si svůj díl)"},
-  "Mind Blank": {res: ["Psychic"], p: "Immunity vůči Psychic, čtení myšlenek, věštění a stavu Okouzlen"},
-  "Antimagic Field": {p: "koule 10 stop bez magie: kouzla a magické předměty uvnitř nepůsobí"},
-  Foresight: {
-    adv: ["STR", "AGI", "CON", "INT", "WIS", "CHA"],
-    p: "výhoda na útoky, ověření a záchrany; útoky proti tobě s nevýhodou; nelze tě překvapit",
-  },
-  Invulnerability: {res: "vse", p: "Immunity vůči všemu zranění (karta počítá Resistance – zranění zapisuj jako 0)"},
-});
 const kBufUtMinus = K => K && kBufEf(K).some(b => b.e.utMinus);
 function bojBufKonecTahu(s, h) {
   if (!GMV) return;
@@ -1330,7 +1115,7 @@ function bojBufKonecTahu(s, h) {
 }
 
 /* ===== Kouzla na účastnících boje (2026-10-20 c): ikony pod slotem iniciativy, v kartě NPC a v seznamech =====
-   NPC: značky kouzel (n.ef bez stavu – Hex, Bane, Hunter's Mark…); postava: značky v boji, posílení od druhých (kBufy) a vlastní posílení (KZEF) */
+   NPC: značky kouzel (n.ef bez stavu – Hex, Bane, Hunter's Mark…); postava: značky v boji, posílení od druhých (kBufy) a vlastní posílení (UCINKY) */
 const KZIK = {
   Bless: "bless",
   Guidance: "vedeni",
@@ -1424,7 +1209,7 @@ function bojKzEf(s, id) {
   const K = bojKartaH(h);
   if (K) {
     (typeof kBufy === "function" ? kBufy(K) : []).forEach(b =>
-      add(b.n, b.od, (KZEF[b.n] || {}).p || ((typeof KPRID !== "undefined" && KPRID.find(q => q[0] === b.n)) || [])[3] || ""),
+      add(b.n, b.od, (UCINKY[b.n] || {}).p || ((typeof KPRID !== "undefined" && KPRID.find(q => q[0] === b.n)) || [])[3] || ""),
     );
     kBufEf(K)
       .filter(b => b.vl)

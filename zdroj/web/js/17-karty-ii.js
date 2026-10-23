@@ -676,7 +676,7 @@ async function kSesDlgOk(bez) {
     await kSpZraneni(K, x, lvl, false, {mass: C});
     return;
   }
-  const sp = KBUF[x.n] || (typeof KZEF !== "undefined" && KZEF[x.n] && !KZEF[x.n].thp) ? C : C.filter(c => c !== K);
+  const sp = KBUF[x.n] || (UCINKY[x.n] && !UCINKY[x.n].thp && !UCINKY[x.n].kostka) ? C : C.filter(c => c !== K);
   if (sp.length) await kBufNa(K, x, sp, kon, lvl);
   if (typeof kSesPoCile === "function") await kSesPoCile(K, x, lvl, C);
   if (N.length && s.aktivni && GMV) kSesGmNpc(K, x, lvl, N, me);
@@ -831,27 +831,8 @@ async function kLecKarta(K2, tot, od, co, vratit) {
 /* ===== přídavky (2026-10-17): přídavky ke zranění z povolání a kouzel (Sneak Attack, Rage, Hunter's Mark, Hex, Divine Favor,
    Divine Smite se slotem) a kostky k hodům d20 (Bless, Bane, Guidance, Bardic Inspiration); trvalé přepínače v poli karty pri ===== */
 const kPri = K => kartaStav(K.id).pri || [];
-/* řádek: [název, kostka, druhy hodů (ut útok, za záchrana, ov ověření, in iniciativa), nápověda, jen po hodu a spotřebuje se, jen jednou za tah,
-   bez přepínače na kartě (zapne se sám trvajícím kouzlem)] */
-const KPRID = [
-  ["Bless", "1d4", "ut za", "+1d4 k útokům a záchranám"],
-  ["Bane", "-1d4", "ut za", "−1d4 k útokům a záchranám"],
-  ["Guidance", "1d4", "ov", "+1d4 k ověřením (zvolená dovednost)"],
-  [
-    "Emboldening Bond",
-    "1d4",
-    "ut za ov",
-    "Emboldening Bond (Doména míru): +1d4 k útoku, záchraně nebo ověření, jednou za tah, dokud jsi do 30 stop od jiného spojeného",
-    0,
-    1,
-  ],
-  ["Gift of Alacrity", "1d8", "in", "Gift of Alacrity: +1d8 k iniciativě", 0, 0, 1],
-  ["Bardic d6", "1d6", "ut za ov", "kostka Bardic Inspiration – přičte se k dalšímu hodu d20 a spotřebuje", 1],
-  ["Bardic d8", "1d8", "ut za ov", "", 1],
-  ["Bardic d10", "1d10", "ut za ov", "", 1],
-  ["Bardic d12", "1d12", "ut za ov", "", 1],
-];
-const kHodTyp = co => (/^Útok/.test(co) ? "ut" : /^Záchrana/.test(co) ? "za" : /^Iniciativa/.test(co) ? "in" : "ov");
+/* kostky k hodům d20 jsou v UCINKY (čistý soubor 10u, pole kostka/na/jednou/poHodu); KPRID = jejich řádky pro přepínače */
+const kHodTyp = ucTyp;
 /* kostky k hodům d20, které na postavě právě působí (2026-10-21): přepínače na kartě (pri), kouzla spojenců (Bless ⇒ postava)
    a v boji značky účinků na postavě (Bane od nepřítele…) */
 function kKostkyNaSobe(K) {
@@ -864,19 +845,15 @@ function kKostkyNaSobe(K) {
 /* Bless, Bane a Guidance se k hodu přičtou samy; Bardic Inspiration ne – hráč se rozhodne až po hodu (D&D 2024: při neúspěchu).
    dalsi = další útok v témže tahu: kostky „jednou za tah“ (Emboldening Bond) se nepřičtou */
 function kPriHod(K, co, dalsi) {
-  const typ = kHodTyp(co),
-    P = kKostkyNaSobe(K);
+  const n = [],
+    L = [];
   let t = 0;
-  const L = [],
-    n = [];
-  KPRID.forEach(([nm, x, ty, , jed, tah]) => {
-    if (jed || !P.has(nm) || !ty.split(" ").includes(typ) || (dalsi && tah)) return;
-    const neg = x[0] === "-",
-      r = kVyraz(x.replace(/^-/, ""));
+  ucKostky(kKostkyNaSobe(K), kHodTyp(co), dalsi ? true : null).forEach(q => {
+    const r = kVyraz(q.x);
     if (!r) return;
-    t += neg ? -r.tot : r.tot;
-    L.push(`${neg ? "−" : "+"}${r.tot} ${nm}`);
-    n.push(nm);
+    t += q.neg ? -r.tot : r.tot;
+    L.push(`${q.neg ? "−" : "+"}${r.tot} ${q.n}`);
+    n.push(q.n);
   });
   return {t, txt: L.length ? " " + L.join(" ") : "", n};
 }
