@@ -205,8 +205,13 @@ async def main():
     i_eb=await pl.evaluate("kSeznam(KARTBY.balduin).findIndex(x=>x.n==='Eldritch Blast')")
     await pl.click(f'[data-bhcard="h4"] .bdmsec .bdmcil[data-ks="{i_eb}"]');await pl.wait_for_timeout(400)
     chk(await pl.locator('[data-bhcard="h4"] .bphsp [data-bpcil]').count()>=1 and await pl.locator('[data-bhcard="h4"] .bphsp [data-juhod]').count()==1,"Eldritch Blast: list s cílem a hodem útoku")
-    await pl.click('[data-bhcard="h4"] .bphsp [data-bpcil] >> nth=0');await pl.click('[data-bhcard="h4"] .bphsp [data-juhod]');await pl.wait_for_timeout(400)
+    # víc nepřátel: každý paprsek má svůj řádek cílů (2026-10-24) – 1. paprsek na prvního, 2. na druhého
+    if n_c>=2:
+        await pl.click('[data-bhcard="h4"] .bphsp [data-bppap^="0|"] >> nth=0');await pl.click('[data-bhcard="h4"] .bphsp [data-bppap^="1|"] >> nth=1')
+    else: await pl.click('[data-bhcard="h4"] .bphsp [data-bpcil] >> nth=0')
+    await pl.click('[data-bhcard="h4"] .bphsp [data-juhod]');await pl.wait_for_timeout(400)
     chk(await pl.evaluate("BJU.serie&&BJU.serie.length")==2 and await pl.locator('[data-bhcard="h4"] .bphsp [data-juposl]').count()==1,"Eldritch Blast: dva paprsky hozené, tlačítko Poslat vypravěči")
+    if n_c>=2: chk(await pl.evaluate("new Set(BJU.serie.map(x=>x.ci)).size")==2,"Eldritch Blast: každý paprsek na jiný cíl")
     await pl.evaluate("BDM.sheet=null;BJU.ks=null;BJU.serie=null;BJU.info='';BJU.hod='';BJU.d='';BJU.dmg='';BJU.cil='"+rid+"';BJU.cile=[];BJU.plos=false;BJU.adv='auto';BDM.sec.balduin='akce';renderBoj()");await pl.wait_for_timeout(300)
     # kouzla z karty ve formuláři útoku: Eldritch Blast (útok kouzlem, dva paprsky), Hold Person (záchrana WIS se SO z karty, slot paktu, soustředění)
     await pl.wait_for_function("typeof KSPD==='object'&&KSPD!==null",timeout=10000);await pl.evaluate("renderBoj()");await pl.wait_for_timeout(300)

@@ -622,6 +622,35 @@ function bojJaPlak(K, c, bezTl) {
       : "";
   })()}<small>${besc(BJU.info || "")}</small>${bojJaRidHtml(K, BJU.serie[Math.max(0, Math.min(+BJU.ui || 0, BJU.serie.length - 1))])}${bojJaUprHtml(K)}${!bezTl && bojDB && bojDB.utok ? `<button type="button" class="gbtn" data-juposl>${BJU.serie.length > 1 ? `Poslat ${BJU.serie.length} útoky` : "Poslat vypravěči"}</button>` : ""}</div>`;
 }
+/* triky ke zbrani (2026-10-24, Vojta): Booming Blade, Green-Flame Blade, True Strike a nepřetrvávající Shillelagh se v listu útoku zapnou
+   k útoku zbraní (kEfKouzla v 17b, výběr v O.ef); s trikem je to jeden útok akcí Magic, jméno triku jde do „čím“ (přídavek g "tr") */
+const KZBRTRIK = /^(True Strike|Booming Blade|Green-Flame Blade|Shillelagh)$/;
+const bojTrikIdx = K => (K ? kEfekty(K) : []).map((e, i) => [e, i]).filter(([e]) => KZBRTRIK.test(e.n) && !e.auto);
+/* zvolený trik pro hod (null = bez triku) */
+const bojTrikZvol = (K, O, w) => {
+  const T = bojTrikIdx(K).find(([e, i]) => (O.ef || []).includes(i) && !(e.blizko && w && w.dal) && !(e.jen && w && !e.jen(w)));
+  return T ? T[0].n : null;
+};
+/* přídavky pro „čím“ u útoku navíc (Light / Nick / Cleave) a u triku ke zbrani */
+const bojRidNavic = (NV, TR) => [
+  ...(NV ? [{k: "nv:" + NV.g, g: NV.g, n: `útok navíc (${NV.n})`, t: 0, x: "", ba: NV.ba, cim: `útok navíc (${NV.n})`}] : []),
+  ...(TR ? [{k: "tr:" + TR, g: "tr", n: TR, t: 0, x: "", cim: TR}] : []),
+];
+function bojTrikHtml(K, w, h, gm) {
+  const L = bojTrikIdx(K).filter(([e]) => !(e.blizko && w.dal) && !(e.jen && !e.jen(w)));
+  if (!L.length) return "";
+  const O = gm ? BGMU[h.id] || {} : BJU,
+    sel = O.ef || [];
+  return `<div class="bphr"><span class="bphl" ${btip("Trik ke zbrani: útok zbraní je součástí seslání (akce Magic, jeden útok)")}>Trik</span><span class="bphc">${L.map(([e, i]) => `<button type="button" class="bphtyp" data-bptrik="${besc(h.id)}|${i}" aria-pressed="${sel.includes(i)}" ${btip(e.pozn || e.n)}><span>${besc(e.n)}</span></button>`).join("")}</span></div>`;
+}
+document.addEventListener("click", e => {
+  const b = e.target.closest && e.target.closest("[data-bptrik]");
+  if (!b) return;
+  const [hid, i] = b.dataset.bptrik.split("|"),
+    O = GMV ? (BGMU[hid] = BGMU[hid] || {}) : BJU;
+  O.ef = (O.ef || []).includes(+i) ? [] : [+i];
+  bojListPrekresli();
+});
 function bojPredHod(s, h, K, gm, j) {
   const w = bojZbrVse(s, h)[+j];
   if (!w) return "";
@@ -638,7 +667,8 @@ function bojPredHod(s, h, K, gm, j) {
       !!w.dal,
       w,
     ),
-    n = Math.max(+w.pocet || 1, cL.length || 1);
+    jeden = !!bojTrikZvol(K, gm ? G : BJU, w) /* trik ke zbrani = jeden útok */,
+    n = jeden ? 1 : Math.max(+w.pocet || 1, cL.length || 1);
   const adv = gm ? String(G.adv || 0) : BJU.adv === "auto" ? "0" : String(BJU.adv);
   const T = bojSikTypy(K, w),
     typ = bojUtTyp(K, w);
@@ -657,7 +687,7 @@ function bojPredHod(s, h, K, gm, j) {
         ),
       );
   } catch (e) {}
-  const N = +w.pocet || 1,
+  const N = jeden ? 1 : +w.pocet || 1,
     tk = (s.kolo || 1) * 100 + (s.tah || 0),
     O = gm ? G : BJU,
     i0 = O.uw === w.n && O.utk === tk ? +O.ui || 0 : 0,
@@ -681,7 +711,8 @@ function bojPredHod(s, h, K, gm, j) {
     : "";
   const zvH =
     (typeof bojZvVolbyHtml === "function" ? bojZvVolbyHtml(K, w, h, gm) : "") +
-    (typeof bojWmVolbyHtml === "function" ? bojWmVolbyHtml(K, w, h, gm) : "");
+    (typeof bojWmVolbyHtml === "function" ? bojWmVolbyHtml(K, w, h, gm) : "") +
+    bojTrikHtml(K, w, h, gm);
   const ssH =
     w.dal && kMaRys(K, /^sharpshooter$/i)
       ? `<small class="bphnav">Sharpshooter: krytí cíle se nepočítá; dlouhý dostřel ani nepřítel vedle tebe nevýhodu nedávají.</small>`
@@ -705,12 +736,13 @@ function bojPredHod(s, h, K, gm, j) {
 }
 /* hráč: co vypravěč udělal s mými útoky v tomto kole (čeká / zásah a zranění / vedle / nezapsal) */
 function bojJaOdpoved(s, h) {
+  const sm = typeof bojJaSmityPo === "function" ? bojJaSmityPo(s, h) : "";
   const L = (s.utoky || [])
     .filter(u => u.h === h.id && !u.sid && (+u.k || 0) === (s.kolo || 1))
     .slice(-4)
     .reverse();
-  if (!L.length) return "";
-  return `<ul class="bphodp-ved">${L.map(u => {
+  if (!L.length) return sm;
+  return `${sm}<ul class="bphodp-ved">${L.map(u => {
     const ce = u.stav === "ceka",
       zam = u.stav === "zamitnuto",
       v = String(u.vys || ""),
@@ -768,11 +800,22 @@ function bojPredKouzlo(s, h, K) {
       ? `záchrana ${B.zach} SO ${kSpDC(K, x) || "?"}${B.pol ? ", při úspěchu polovina" : ""}`
       : `zasáhne bez hodu${B.pocet > 1 ? ` · ${B.pocet}×` : ""}`;
   const dmg = B.x ? `${B.x}${B.mod ? bsg(B.mod) : ""} ${BZRT[B.t] || B.t || ""}` : "";
+  /* paprsky a šipky (Eldritch Blast, Scorching Ray, Magic Missile – 2026-10-24): každý na svůj cíl, hod i zranění zvlášť */
+  const paps = !multi && B.pocet > 1 && c.length > 1,
+    pj = B.auto ? "šipka" : "paprsek",
+    papH = paps
+      ? [...Array(B.pocet)]
+          .map(
+            (_, i) =>
+              `<div class="bphr bphpap"><span class="bphl">${i + 1}. ${pj}</span><span class="bphc">${c.map(o => `<button type="button" class="bphcil" data-bppap="${i}|${besc(o.id)}" aria-pressed="${bojPapCil(i, c) === o.id}">${bojMedN(o, "bmini")}<span>${besc(o.n)}</span></button>`).join("")}</span></div>`,
+          )
+          .join("")
+      : "";
   const hodit = B.utok || B.auto || (B.zach && B.x),
     hoz = !!(BJU.serie && BJU.serie.length) || (!B.utok && BJU.info !== "");
   const v1 = B.utok && BJU.serie && BJU.serie.length === 1 ? BJU.serie[0].vys : "";
   return `<div class="bphod bphsp"><p class="bphinfo">${besc(x.n)} · ${sp.lvl ? sp.lvl + ". st." : "trik"} · ${besc(popis)}${dmg ? ` · ${besc(dmg)}` : ""}${x.kon ? " · ◎ soustředění" : ""}</p>
-    <div class="bphr"><span class="bphl">${multi ? `Cíle${bojJaCilMax() ? ` <small>(nejvýš ${bojJaCilMax()})</small>` : ""}` : "Cíl"}</span><span class="bphc">${c.map(o => `<button type="button" class="bphcil" ${multi ? `data-bpcile="${besc(o.id)}"` : `data-bpcil="${besc(h.id)}|${besc(o.id)}"`} aria-pressed="${on(o)}">${bojMedN(o, "bmini")}<span>${besc(o.n)}</span></button>`).join("") || `<small>žádný nepřítel</small>`}</span></div>
+    ${papH}<div class="bphr"${paps ? " hidden" : ""}><span class="bphl">${multi ? `Cíle${bojJaCilMax() ? ` <small>(nejvýš ${bojJaCilMax()})</small>` : ""}` : "Cíl"}</span><span class="bphc">${c.map(o => `<button type="button" class="bphcil" ${multi ? `data-bpcile="${besc(o.id)}"` : `data-bpcil="${besc(h.id)}|${besc(o.id)}"`} aria-pressed="${on(o)}">${bojMedN(o, "bmini")}<span>${besc(o.n)}</span></button>`).join("") || `<small>žádný nepřítel</small>`}</span></div>
     ${multi ? `<small class="bphnav">Plošné kouzlo: označ všechny, kdo jsou v oblasti.</small>` : ""}
     ${sls.length > 1 ? `<div class="bphr"><span class="bphl">Slot</span><span class="bphc">${sls.map(z => `<button type="button" class="bphtyp" data-bpsl="${besc(z.k)}" aria-pressed="${q && q.k === z.k}">${z.lab ? `${besc(z.lab)} <small>(${z.st}. st.)</small>` : `${z.pakt ? "pakt " : ""}${z.st}. st. <small>(${z.max - z.u})</small>`}</button>`).join("")}</span></div>` : ""}
     ${B.utok ? `<div class="bphr bphhod">${bojAdvIk(h.id, adv)}${nav.v && String(nav.v) !== adv ? `<small class="bphnav" ${btip(nav.why.join(", "))}>podle stavů by šla ${nav.v > 0 ? "výhoda" : "nevýhoda"}</small>` : ""}</div>` : ""}
@@ -781,8 +824,23 @@ function bojPredKouzlo(s, h, K) {
     ${hoz ? `${v1 ? `<b class="bjupv ${v1 === "vedle" ? "bmis" : "bkr"}">${v1 === "vedle" ? "Vedle" : v1 === "zásah" ? "Zásah!" : "Kritický zásah!"}</b>` : ""}<small class="bphnav">${besc(BJU.info || "")}</small>` : ""}
     ${hoz || !hodit ? `<button type="button" class="bdmbtn bdmhod" data-juposl>${hodit ? "Poslat vypravěči" : "✨ Seslat na cíle"}</button><small class="bphnav">Odesláním se ${x.st > 0 ? "odečte slot" : "kouzlo zapíše"}${x.kon ? " a začne soustředění" : ""}; zásah a záchrany vyhodnotí vypravěč.</small>` : ""}</div>`;
 }
+/* cíl paprsku i: zvolený, jinak cíl útoku, jinak první nepřítel */
+const bojPapCil = (i, c) => {
+  const id = (BJU.pap || [])[i] || BJU.cil;
+  return c.some(o => o.id === id) ? id : c[0] ? c[0].id : "";
+};
 document.addEventListener("click", e => {
   const T = s => e.target.closest && e.target.closest(s);
+  const pp = T("[data-bppap]");
+  if (pp) {
+    const [i, id] = pp.dataset.bppap.split("|");
+    BJU.pap = [...(BJU.pap || [])];
+    BJU.pap[+i] = id;
+    if (+i === 0) BJU.cil = id;
+    Object.assign(BJU, {serie: null, info: "", hod: "", dmg: ""});
+    bojListPrekresli();
+    return;
+  }
   const ce = T("[data-bpcile]");
   if (ce) {
     const id = ce.dataset.bpcile,
@@ -823,7 +881,8 @@ function bojGmHod(hid, i) {
     ZT = typeof bojZvVolby === "function" ? bojZvVolby(G0, w) : {},
     NV = typeof bojWmNavic === "function" ? bojWmNavic(K, w, ZT) : null,
     wH = typeof bojWUprav === "function" ? bojWUprav(K, w, ZT) : w,
-    N = NV ? 1 : Math.max(1, +w.pocet || 1),
+    TR = bojTrikZvol(K, G0, w),
+    N = NV || TR ? 1 : Math.max(1, +w.pocet || 1),
     tk = (s.kolo || 1) * 100 + (s.tah || 0);
   if (!cL.length && (s.npc || []).filter(bojCilMoz).length > 1) {
     mmHlasG("Nejdřív vyber cíl útoku.", 3000);
@@ -844,7 +903,7 @@ function bojGmHod(hid, i) {
       AC = bojCilAC(s, h, c, w);
     /* stejný hod jako z telefonu hráče (2026-10-20): Hex / Hunter's Mark na cíli, Magic Weapon, vyčerpání, Lucky; zranění jen po zásahu */
     /* Bless / Bane na postavě se přičtou i při hodu vypravěče (pd), jako na telefonu hráče */
-    const P = bojUtokPriprav({s, h, K, w: wH, c, v, ac: AC, sel: [], pd: true, vp: !!ZT.vp, pm: !!ZT.pm});
+    const P = bojUtokPriprav({s, h, K, w: wH, c, v, ac: AC, sel: TR ? G0.ef : [], pd: true, vp: !!ZT.vp, pm: !!ZT.pm});
     G0.kmin = P.kmin;
     if (ZT.pm) G0.pm = 1;
     ser.push({
@@ -862,7 +921,7 @@ function bojGmHod(hid, i) {
       zx: P.zx,
       dz: P.dz,
       pdn: P.pdn,
-      ...(NV ? {rid: [{k: "nv:" + NV.g, g: NV.g, n: `útok navíc (${NV.n})`, t: 0, x: "", ba: NV.ba, cim: `útok navíc (${NV.n})`}]} : {}),
+      ...(NV || TR ? {rid: bojRidNavic(NV, TR)} : {}),
     });
     tx.push(
       `${NV ? `Útok navíc (${NV.n}${NV.ba ? ", bonusová akce" : ""}) · ` : ""}${c ? besc(c.n) + ": " : "<b>bez cíle</b> · "}${P.txtHod}${AC != null && !P.zas ? ` · vedle (AC ${AC}) – zranění se nehází` : P.txtZr.replace(/^, /, " · ")}`,
@@ -1502,13 +1561,23 @@ function bdmKouzla(s, h, K, gm, X) {
       : "";
   /* akce, bonusová akce nebo reakce už v tomto tahu použitá: kouzla s tímto časem seslání zešednou a nejdou seslat (2026-10-23) */
   const pouz = c => (c === "A" && X.mojeTah && X.BP && X.BP.a) || (c === "BA" && X.mojeTah && X.BP && X.BP.b) || (c === "R" && X.boj && X.rk);
+  /* trik ke zbrani v boji: Seslat otevře útok zbraní s předvybraným trikem (2026-10-24) */
+  const zbT = X.boj ? bojZbrVse(s, h) : [],
+    trikB = x => {
+      if (!X.boj || !/^(True Strike|Booming Blade|Green-Flame Blade)$/.test(kzJm(x.n))) return "";
+      const T = bojTrikIdx(K).find(([e]) => e.n === kzJm(x.n)),
+        j = zbT.findIndex(w => w.karta && !kJeKouzloUt(K, {n: w.n, vl: []}) && !(T && T[0].blizko && w.dal));
+      return T && j >= 0
+        ? `<button type="button" class="bdmmini bdmcil" data-bdmsh="utok" data-j="${j}" data-bpef="${T[1]}" ${btip(`${kzJm(x.n)}: útok zbraní ${zbT[j].n} – vyber cíl a hoď`)}>Seslat</button>`
+        : "";
+    };
   const radek = (x, i) => {
     const c = kCasKouzla(x),
       pu = pouz(c),
       tri = !x.st; /* trik: bez volby slotu, jen Seslat (nebo výběr cíle v boji) – vejde se do řádku */
     return `<div class="bdmspr${pu ? " bdmspu" : ""}"${pu ? ` ${btip(c === "A" ? "Akci už jsi v tomto tahu použil" : c === "BA" ? "Bonusovou akci už jsi v tomto tahu použil" : "Reakci už jsi použil")}` : ""}><div class="bdmspn"><button type="button" class="kspn" data-kspd="${i}" ${btip("Popis kouzla")}>${besc(x.n)}</button>${kSpZn(x) ? " " + kSpZn(x) : ""}${kPzZn(x)}<small>${besc([{A: "1A", BA: "1BA", R: "1R", X: x.cas || ""}[c], x.dosah, x.trvani].filter(Boolean).join(" · "))}</small></div>
       <span class="bdmsph"${pu ? " inert" : ""}>${x.utok != null ? `<button type="button" class="bdmbox" ${bj(x) ? naCil(i) : `data-khod="ks:${i}"`} ${btip(bj(x) ? "Útok kouzlem – vyber cíl a hoď" : "Útok kouzlem")}>${bsg(kSpU1(K, x))}</button>` : x.zach ? `<span class="bdmso" ${btip("Záchrana cíle")}>${besc(String(x.zach).slice(0, 3).toUpperCase())} ${kSpDC(K, x) || ""}</span>` : ""}</span>
-      <span class="bdmspa${tri ? " bdmspa1" : ""}"${pu ? " inert" : ""}>${bj(x) ? cil(x, i) : tri ? `<button type="button" class="bdmmini" data-kses="${i}" ${btip(kSesCil(x) ? "Seslat – vybrat cíl" : "Seslat na sebe")}>Seslat</button>` : kSesHtml(K, x, i)}</span></div>`;
+      <span class="bdmspa${tri ? " bdmspa1" : ""}"${pu ? " inert" : ""}>${trikB(x) || (bj(x) ? cil(x, i) : tri ? `<button type="button" class="bdmmini" data-kses="${i}" ${btip(kSesCil(x) ? "Seslat – vybrat cíl" : "Seslat na sebe")}>Seslat</button>` : kSesHtml(K, x, i))}</span></div>`;
   };
   const I = L.map((x, i) => [x, i]).filter(([x]) => ok(x)),
     tri = I.filter(([x]) => x.st === 0),
@@ -2067,11 +2136,16 @@ document.addEventListener("click", e => {
         ks = sh.dataset.ks;
       if (j != null) {
         BDM.sheet.j = +j;
+        /* trik ke zbrani (Booming Blade, Green-Flame Blade, True Strike) z Kouzel: útok zbraní s předvybraným trikem (2026-10-24) */
+        const ef = sh.dataset.bpef != null ? [+sh.dataset.bpef] : [];
         if (GMV) {
           const hc = sh.closest("[data-bhcard]"),
-            G = hc && BGMU[hc.dataset.bhcard];
-          if (G) G.adv = 0;
-        }
+            G = hc && (BGMU[hc.dataset.bhcard] = BGMU[hc.dataset.bhcard] || {});
+          if (G) {
+            G.adv = 0;
+            G.ef = ef;
+          }
+        } else BJU.ef = ef;
         if (!GMV) {
           const s0 = BOJ.s || {},
             me = (s0.hraci || []).find(x => x.n === bojJa.get()),

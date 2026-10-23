@@ -9,11 +9,13 @@ function bojJaRidery(K, me, w, q, s, O) {
   const R = [],
     U = tahObnov(Object.assign({}, O.ridT), tahKlic(s)),
     uz = g => !tahJednouVolne(U, g),
-    blizko = !w.dal;
+    blizko = !w.dal,
+    /* hráč AC cíle nezná: smity (Divine, Eldritch, kouzla „ihned po zásahu“) se nabídnou až po potvrzeném zásahu (bojJaSmityPo, 2026-10-24) */
+    poPotvrzeni = !GMV && q.vys == null;
   const sez = new Set(kSeznam(K).map(x => String(x.n).toLowerCase())),
     EF = kEfekty(K),
     sel = (O.ef || []).map(i => EF[i]).filter(Boolean);
-  if (blizko && sez.has("divine smite") && !uz("ds") && !sel.some(e => e.slot)) {
+  if (!poPotvrzeni && blizko && sez.has("divine smite") && !uz("ds") && !sel.some(e => e.slot)) {
     const Q = kSloty(K)
       .filter(z => z.u < z.max)
       .sort((a, b) => a.st - b.st || (a.pakt ? 1 : -1));
@@ -25,6 +27,7 @@ function bojJaRidery(K, me, w, q, s, O) {
         zr: `${1 + z.st}d8`,
         cena: {slot: z.k, st: z.st, kz: "Divine Smite"},
         ba: 1,
+        t: "Radiant",
         cim: "Divine Smite",
         pozn: `+${1 + z.st}d8 Radiant (proti Fiend a Undead o 1d8 víc), slot ${z.st}. st.${z.pakt ? " (pakt)" : ""}, bonusová akce`,
       }),
@@ -32,7 +35,7 @@ function bojJaRidery(K, me, w, q, s, O) {
   }
   /* kouzla „bonusová akce ihned po zásahu“ (2026-10-22): Searing, Wrathful, Thunderous, Shining, Blinding, Staggering, Banishing Smite…
      nabídnou se u zásahu zbraní (nejnižší volný slot); odesláním se kouzlo sešle (slot, trvání, soustředění). Jedno za útok, s Divine Smite se vylučují. */
-  if (!uz("ds") && !sel.some(e => e.slot) && typeof kSmity === "function")
+  if (!poPotvrzeni && !uz("ds") && !sel.some(e => e.slot) && typeof kSmity === "function")
     kSmity(K).forEach(x => {
       if (x.blizko && !blizko) return;
       const q = kSlX(K, x).sort((a, b) => a.st - b.st || (a.pakt ? 1 : -1))[0];
@@ -49,11 +52,12 @@ function bojJaRidery(K, me, w, q, s, O) {
         zr: hned ? E.x : null,
         cena: {slot: q.k, st: q.st, kz: x.n},
         ba: 1,
+        t: (E && E.t) || "",
         cim: za ? `${x.n} (${za})` : x.n,
         pozn: `${hned ? `+${E.x} ${E.t || ""} ` : ""}za slot ${q.st}. st.${q.pakt ? " (pakt)" : ""}, bonusová akce${za ? `; cíl: záchrana ${za}, při neúspěchu ${st.st.join(", ")}` : ""}${x.kon ? "; soustředění" : ""}`,
       });
     });
-  if (kMaRys(K, /(^|: ?)eldritch smite$/i) && !uz("es")) {
+  if (!poPotvrzeni && kMaRys(K, /(^|: ?)eldritch smite$/i) && !uz("es")) {
     const z = kSloty(K).filter(z => z.pakt && z.u < z.max)[0];
     if (z)
       R.push({
@@ -62,6 +66,7 @@ function bojJaRidery(K, me, w, q, s, O) {
         n: "Eldritch Smite",
         zr: `${1 + z.st}d8`,
         cena: {slot: z.k, st: z.st},
+        t: "Force",
         cim: "Eldritch Smite",
         pozn: `+${1 + z.st}d8 Force za pakt slot ${z.st}. st.; cíl velikosti Huge a menší můžeš srazit (Sražen) – vypravěč to uvidí u útoku`,
       });
@@ -126,7 +131,7 @@ function bojJaRidery(K, me, w, q, s, O) {
   return R;
 }
 /* přídavky bez kostek (perk, mistrovství, útok navíc): u zvoleného jen ✓ */
-const BRIDBEZ = new Set(["zv", "wm", "nl", "cl"]);
+const BRIDBEZ = new Set(["zv", "wm", "nl", "cl", "tr"]);
 function bojJaRidHtml(K, q, hid) {
   if (!K || !q) return "";
   const F = bojForm(hid),
@@ -227,6 +232,79 @@ async function bojJaRidPo(K, me, SER, O) {
 document.addEventListener("click", e => {
   const b = e.target.closest && e.target.closest("[data-jurid]");
   if (b && !b.disabled) bojJaRid(b.dataset.jurid, b.dataset.bph);
+});
+/* ===== Smity po potvrzeném zásahu (2026-10-24, Vojta) =====
+   Na vlastním tahu, když vypravěč zapsal zásah zbraní z tohoto kola, nabídne karta Divine Smite, Eldritch Smite a kouzla „ihned po
+   zásahu“ (Wrathful, Shining…). Seslání pošle zranění smitu jako další útok s automatickým zásahem (hod 60) na tentýž cíl – při
+   kritickém zásahu kostky dvakrát – a utratí slot, bonusovou akci a „jednou za tah“ stejně jako přídavek před odesláním (bojJaRidPo). */
+const BSMPO = {};
+const bojJaSmitZasah = u => u && u.stav === "hotovo" && !/^(vedle|vypravěč|zásah bez účinku)|záchrana/.test(String(u.vys || ""));
+/* bezTahu: bez kontroly hráče na tahu (testy) */
+function bojJaSmitNabidka(s, h, bezTahu) {
+  if (!h || (!bezTahu && (GMV || (s.obsazeni || {})[s.tah] !== h.id))) return null;
+  const K = bojKartaH(h);
+  if (!K) return null;
+  const u = (s.utoky || []).filter(x => x.h === h.id && !x.sid && (+x.k || 0) === (s.kolo || 1)).slice(-1)[0];
+  if (!bojJaSmitZasah(u) || BSMPO[u.id] || / smite\b/i.test(u.cim || "")) return null;
+  const w = bojZbrVse(s, h).find(x => x.n === bojZvJm(u));
+  if (!w || !w.karta) return null;
+  const krit = /kritick/.test(u.vys || ""),
+    R = bojJaRidery(K, h, w, {vys: krit ? "kritický zásah" : "zásah", krit, ci: (u.ci || [])[0]}, s, BJU).filter(r => r.g === "ds" || r.g === "es");
+  return R.length ? {K, u, w, krit, R} : null;
+}
+function bojJaSmityPo(s, h) {
+  const N = bojJaSmitNabidka(s, h);
+  if (!N) return "";
+  return `<div class="bjur bjurid bjsmpo" role="group" aria-label="Po zásahu"><small>${N.krit ? "Kritický zásah" : "Zásah"} potvrzen – můžeš přidat${N.krit ? " (kostky dvakrát)" : ""}:</small>${N.R.map(r => `<button type="button" class="gbtn ghost" data-jsmpo="${besc(N.u.id)}|${besc(r.k)}" ${btip(r.pozn || r.n)}>${besc(r.n)} <small>${r.zr ? "+" + besc(r.zr) : "účinek"}</small></button>`).join("")}<button type="button" class="gbtn ghost" data-jsmpo="${besc(N.u.id)}|">nic</button></div>`;
+}
+async function bojJaSmitPo(uid, k) {
+  const s = BOJ.s || {},
+    me = (s.hraci || []).find(x => x.n === bojJa.get());
+  if (!k) {
+    BSMPO[uid] = 1;
+    renderBoj();
+    return;
+  }
+  const N = me && bojJaSmitNabidka(s, me),
+    R = N && N.u.id === uid && N.R.find(r => r.k === k);
+  if (!R || !bojDB || !bojDB.utok) return;
+  BSMPO[uid] = 1;
+  const kk = R.zr ? bojKostky(R.zr, N.krit) : {t: 0, x: ""},
+    ci = (N.u.ci || [])[0],
+    x = {rid: [{k, g: R.g, n: R.n, t: kk.t, x: kk.x ? ` + ${kk.x} (${R.n})` : "", cena: R.cena || null, ba: R.ba || 0, cim: R.cim || R.n}]};
+  try {
+    await bojDB.utok(me.id, {
+      ci: [ci],
+      cim: String(R.cim || R.n).slice(0, 60),
+      hod: 60,
+      dmg: kk.t,
+      adv: 0,
+      t: R.t || N.u.t || "Radiant",
+      drt: false,
+      pru: false,
+    });
+    kHodZapis({
+      k: N.K.id,
+      kdo: N.K.n,
+      co: `${R.n} → ${bojJm(s, ci)}`.slice(0, 80),
+      tot: kk.t,
+      txt: kk.x ? `${kk.x} = ${kk.t}` : "účinek bez zranění",
+    });
+    await bojJaRidPo(N.K, me, [x]);
+    mmHlas(`${R.n}${kk.x ? ` ${kk.x} = ${kk.t}` : ""} – odesláno vypravěči.`, 4000);
+  } catch (err) {
+    delete BSMPO[uid];
+    mmHlas("Nepodařilo se poslat: " + (err.message || err), 5000);
+  }
+  BOJ.v = -2;
+  await bojNacti();
+  renderBoj();
+}
+document.addEventListener("click", e => {
+  const b = e.target.closest && e.target.closest("[data-jsmpo]");
+  if (!b) return;
+  const [uid, k] = b.dataset.jsmpo.split("|");
+  bojJaSmitPo(uid, k);
 });
 /* Hex / Hunter's Mark: když označený cíl padne (nebo zmizí z boje), karta nabídne přenést značku bonusovou akcí na jiného nepřítele */
 const BZNACP = " (přesun)";
