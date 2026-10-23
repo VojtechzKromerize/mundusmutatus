@@ -142,6 +142,16 @@ function vybPridatBtn(x) {
   if (!K) return "";
   return `<button type="button" class="gbtn ghost vybadd" data-vybadd="${besc(x.id)}" ${btip(`Přidat do vybavení: ${K.n}`)}>+ Přidat</button>`;
 }
+/* mince v katalogu: jen mince tažení (GP, SP, CP) s dobovým jménem a ikonou; elektrum a platina se nepoužívají */
+const VYBMINC = {"Gold Piece": "GP", "Silver Piece": "SP", "Copper Piece": "CP"};
+const vybMinceHtml = () =>
+  (VYB.mince || [])
+    .filter(m => VYBMINC[m.n])
+    .map(m => {
+      const k = VYBMINC[m.n];
+      return `<span class="kpenm">${kMinceIk("mince-" + k.toLowerCase())}<b>${k}</b> ${besc(KMINCJM[k])} = ${besc(m.gp)} GP</span>`;
+    })
+    .join(" · ");
 /* ---- stránka Pravidla › Vybavení ---- */
 let VYBF = {q: "", sk: "", vz: ""};
 function renderVybaveni(main, c) {
@@ -205,7 +215,7 @@ function renderVybaveni(main, c) {
       .map(([k, v]) => `<li><b>${besc(k)}</b> <small>${besc(v.cz || "")}</small><br>${besc(v.t || "")}</li>`)
       .join("")}</ul>
     ${VYB.vyroba && VYB.vyroba.t ? `<h3 class="uvh2" id="vyb-vyroba">Výroba</h3>${VYB.vyroba.t.map(t => `<p>${besc(t)}</p>`).join("")}${VYB.vyroba.magicka ? `<table class="rtab vybtab"><thead><tr><th>Vzácnost</th><th>Pracovní dny</th><th>Materiál</th></tr></thead><tbody>${VYB.vyroba.magicka.map(r => `<tr><td>${besc(r.vz)}</td><td>${besc(r.dny)}</td><td>${besc(r.material)}</td></tr>`).join("")}</tbody></table>` : ""}` : ""}
-    ${VYB.mince && VYB.mince.length ? `<h3 class="uvh2" id="vyb-mince">Mince</h3><p class="rsmall">${VYB.mince.map(m => `${besc(m.n)} ${besc(m.cz ? "(" + m.cz + ")" : "")} = ${besc(m.gp)} GP`).join(" · ")}. ${VYB.uvod && VYB.uvod["1"] ? besc(VYB.uvod["1"].join(" ")) : ""}</p>` : ""}
+    ${VYB.mince && VYB.mince.length ? `<h3 class="uvh2" id="vyb-mince">Mince</h3><p class="rsmall">${vybMinceHtml()}. ${VYB.uvod && VYB.uvod["1"] ? besc(VYB.uvod["1"].join(" ")) : ""}</p>` : ""}
     <p class="rsmall srdattr">Přehled vybavení pro tažení Mundus Mutatus – vlastní shrnutí; položky SRD 5.2.1 odkazují na plné znění.${typeof MIMOPOZN === "string" ? " " + besc(MIMOPOZN) : ""}</p>`;
   const el = c && document.getElementById(c);
   if (el) el.scrollIntoView({block: "start"});

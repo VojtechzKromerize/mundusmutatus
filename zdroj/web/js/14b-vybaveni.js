@@ -75,6 +75,25 @@ const kPenTxt = pen =>
     .filter(k => +pen[k])
     .map(k => `${pen[k]} ${k}`)
     .join(" · ") || "bez peněz";
+/* mince tažení: jen GP, SP, CP (Vojta 2026-10-23) – uherský zlatý, pražský groš, haléř; PP a EP z PDF D&D Beyond se ukážou,
+   ale nenabízejí se a „Rozměnit na nejvyšší“ je převede. Ikony `art/img/boj/mince-*`, `mesec`, `pokladna` (prompty v projektu
+   `grafika/mince-prompty.md`) */
+const KMINCE = ["GP", "SP", "CP"],
+  KMINCJM = {GP: "uherský zlatý", SP: "pražský groš", CP: "haléř"};
+const kMinceIk = (f, t) =>
+  `<img class="kminik" src="art/img/boj/${f}-48.webp" width="18" height="18" alt="${besc(t || "")}"${t ? "" : ` aria-hidden="true"`} decoding="async" loading="lazy">`;
+/* částka s ikonami mincí (HTML); kPenTxt zůstává pro záznam a hlášky */
+const kPenHtml = pen =>
+  ["PP", "GP", "EP", "SP", "CP"]
+    .filter(k => +(pen || {})[k])
+    .map(k =>
+      KMINCJM[k]
+        ? `<span class="kpenm" ${btip(`${k} – ${KMINCJM[k]}`)}>${kMinceIk("mince-" + k.toLowerCase())}${besc(String(pen[k]))} <small>${k}</small></span>`
+        : `<span class="kpenm">${besc(String(pen[k]))} <small>${k}</small></span>`,
+    )
+    .join(" ") || "bez peněz";
+/* mince do nabídek: GP, SP, CP a navíc PP či EP, jen když je postava má */
+const kMinceNab = pen => KMINCE.concat(["PP", "EP"].filter(k => +(pen || {})[k]));
 /* zaplatit v mincích k: nejdřív stejnými, pak menšími, nakonec se rozmění větší mince (drobné zpět v GP, SP, CP) */
 function kPenZapl(pen, k, v) {
   const P = Object.assign({}, pen);
@@ -290,7 +309,7 @@ function bdmVyb(K) {
   return `${tabs}<div class="kvhlava">
       <div class="kvzat${zat.pret ? " kvpret" : ""}" ${btip(zat.pret ? "Přetížen: nad nosností (Síla × 15 lb) je rychlost nejvýš 5 stop" : "Nesená váha a nosnost (Síla × 15 lb); složky, které postava nenese, a magické vaky se nepočítají")}><small>Neseno</small><b>${kLbF(zat.w)} <i>/ ${zat.max} lb</i></b><span class="kvbar"><i style="width:${proc}%"></i></span><small>${zat.pret ? "přetížen – rychlost nejvýš 5 stop" : "nezatížen"}</small></div>
       <button type="button" class="kvatt" data-bdmsh="pri" ${btip("Připoutané magické předměty (Attunement), nejvýš 3 – klepni pro přehled")}><small>Připoutáno</small><b>${pri}/3</b></button>
-      <button type="button" class="kvpenb" data-bdmsh="pen" ${btip("Peníze: zaplatit, přijmout, pokladna družiny, směna")}><small>Peníze</small><b>${besc(kPenTxt(pen))}</b></button></div>
+      <button type="button" class="kvpenb" data-bdmsh="pen" ${btip("Peníze: zaplatit, přijmout, pokladna družiny, směna")}><small>${kMinceIk("mesec")}Peníze</small><b>${kPenHtml(pen)}</b></button></div>
     <div class="kvfil"><input type="search" class="kvhq" data-kvq value="${besc(q)}" placeholder="Hledat podle jména nebo druhu" aria-label="Hledat ve vybavení">${ro ? "" : `<button type="button" class="bdmbtn kvspr" data-bdmsh="inv">Spravovat inventář</button>`}</div>
     <div class="kvtyp" role="group" aria-label="Druh">${KINVF.map(([k, l]) => `<button type="button" data-kvf="${k}" aria-pressed="${f === k}">${l}</button>`).join("")}</div>
     ${du ? `<p class="kvhl2"><button type="button" class="bdmmini" data-kvslouc ${btip("Sloučí stejné věci (stejné jméno i složka) do jednoho řádku s počtem")}>Sloučit stejné (${du})</button></p>` : ""}
@@ -619,14 +638,23 @@ function bdmPenList(K) {
   const S = kartaStav(K.id),
     pen = S.pen || K.penize || {},
     ro = !kMuze(K);
-  if (ro) return ["Peníze", `<p class="kvpen">${besc(kPenTxt(pen))}</p>`];
+  if (ro) return ["Peníze", `<p class="kvpen">${kPenHtml(pen)}</p>`];
   return [
     "Peníze",
-    `<p class="kvpen">${besc(kPenTxt(pen))}</p>
-    <form class="bdmrow kvpenf" data-kvpenf><input name="v" type="number" min="1" max="9999999" inputmode="numeric" placeholder="částka" required aria-label="Částka" style="width:6em"><select name="k" aria-label="Mince">${["GP", "SP", "CP", "PP", "EP"].map(k => `<option>${k}</option>`).join("")}</select>
+    `<p class="kvpen">${kPenHtml(pen)}</p>
+    <form class="bdmrow kvpenf" data-kvpenf><input name="v" type="number" min="1" max="9999999" inputmode="numeric" placeholder="částka" required aria-label="Částka" style="width:6em"><select name="k" aria-label="Mince">${kMinceNab(
+      pen,
+    )
+      .map(k => `<option>${k}</option>`)
+      .join("")}</select>
       <button class="bdmbtn" name="a" value="z" ${btip("Odečte částku; když nemáš přesné mince, rozmění větší")}>Zaplatit</button><button class="bdmbtn" name="a" value="p">Přijmout</button>
       ${window.MMDB && MMDB.pokladna && (GMV || KZAM.has(K.id)) ? `<button class="bdmbtn ghost" name="a" value="dp" ${btip("Vloží částku do pokladny družiny")}>Do pokladny</button><button class="bdmbtn ghost" name="a" value="zp" ${btip("Vybere částku z pokladny družiny")}>Z pokladny</button>` : ""}</form>
-    <details class="bdmbez"><summary>Mince jednotlivě a směna</summary><div class="kpen">${["PP", "GP", "EP", "SP", "CP"].map(k => `<label>${k} <input type="number" min="0" max="9999999" data-kpen="${k}" value="${+pen[k] || 0}"></label>`).join("")}</div>${kPenSmenHtml()}<p class="rsmall">1 PP = 10 GP = 20 EP = 100 SP = 1000 CP.</p></details>${!GMV && window.MMDB && KZAM.has(K.id) ? poklHtml() : ""}`,
+    <details class="bdmbez"><summary>Mince jednotlivě a směna</summary><div class="kpen">${kMinceNab(pen)
+      .map(
+        k =>
+          `<label>${KMINCJM[k] ? kMinceIk("mince-" + k.toLowerCase()) : ""}${k} <input type="number" min="0" max="9999999" data-kpen="${k}" value="${+pen[k] || 0}"></label>`,
+      )
+      .join("")}</div>${kPenSmenHtml()}</details>${!GMV && window.MMDB && KZAM.has(K.id) ? poklHtml() : ""}`,
   ];
 }
 
