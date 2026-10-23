@@ -959,22 +959,28 @@ document.addEventListener("submit", async e => {
     return;
   }
   if (!K) return;
-  if (f.matches("[data-kdusf]")) {
-    e.preventDefault();
-    const ctn = [E.c1.value].filter(Boolean),
-      ner = [E.n1.value].filter(Boolean),
-      duse = {};
-    if (E.dr.value) duse.dr = E.dr.value;
-    if (E.vz.value) duse.vz = E.vz.value;
-    if (+E.fs.value > 1) duse.fs = +E.fs.value;
-    if (ctn.length) duse.ctn = ctn;
-    if (ner.length) duse.ner = ner;
-    const sv = Math.max(0, Math.min(10, Math.round(+E.sv.value)));
-    const D = kDuse(K);
-    await kartaStavZmen(K.id, {duse: Object.keys(duse).length ? duse : null, sv}, `${K.n}: duše uložena.`);
-    if (sv !== D.sv) kHodZapis({k: K.id, kdo: K.n, co: "Svědomí upraveno", txt: `${D.sv} → ${sv} (${SVST(sv)})`});
-    return;
-  }
+});
+/* nastavení duše v listu Svědomí (2026-10-23): každá změna se uloží hned */
+document.addEventListener("submit", e => {
+  if (e.target.matches && e.target.matches("[data-kdusf]")) e.preventDefault();
+});
+document.addEventListener("change", async e => {
+  const t = e.target;
+  if (!t.matches || !t.matches("[data-kdusg]")) return;
+  const f = t.closest("[data-kdusf]"),
+    K = f && kvK(f);
+  if (!K || !kMuze(K)) return;
+  const E = f.elements,
+    duse = {};
+  if (E.dr.value) duse.dr = E.dr.value;
+  if (E.vz.value) duse.vz = E.vz.value;
+  if (+E.fs.value > 1) duse.fs = +E.fs.value;
+  if (E.c1.value) duse.ctn = [E.c1.value];
+  if (E.n1.value) duse.ner = [E.n1.value];
+  const sv = Math.max(0, Math.min(10, Math.round(+E.sv.value || 0)));
+  const D = kDuse(K);
+  await kartaStavZmen(K.id, {duse: Object.keys(duse).length ? duse : null, sv}, `${K.n}: duše uložena.`);
+  if (sv !== D.sv) kHodZapis({k: K.id, kdo: K.n, co: "Svědomí upraveno", txt: `${D.sv} → ${sv} (${SVST(sv)})`});
 });
 /* ===== Hráč: přihlášení za postavu, stránka Hra, výzvy k hodu, tajné zprávy, upozornění, úkoly družiny, postup na úroveň (2026-10-16) ===== */
 const KZAM = new Set();

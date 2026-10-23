@@ -37,3 +37,18 @@ test("zdatnosti: skryté z PDF chybí, doplněné hráčem platí (zbraně i jaz
     assert.match(h, /<option value="Draconic">|Draconic/);
   });
 });
+
+test("Svědomí: jedna Ctnost a jedna Neřest, nastavení duše přímo v listu, vysvětlení hříchů a bez velkých políček bodů", () => {
+  sKartou({duse: {vz: "kal", ctn: ["Píle", "Štědrost"], ner: ["Závist", "Chtíč"]}, hr: 2, sk: 1}, () => {
+    const D = V(`kDuse(KARTBY.balduin)`);
+    assert.deepEqual([D.ctn, D.ner], [["Píle"], ["Závist"]], "starší data se dvěma berou první");
+    const h = V(`kDuseHtml(KARTBY.balduin)`);
+    assert.match(h, /<select name="c1" data-kdusg>/);
+    assert.match(h, /<option selected>Píle<\/option>/);
+    assert.doesNotMatch(h, /Štědrost<\/span>|chip ctn/, "Ctnosti se neukazují dvakrát");
+    assert.match(h, /data-kduvys/);
+    assert.match(h, /Všední hřích/);
+    assert.doesNotMatch(h, /class="kbod"/, "body hříchu a skutků jsou na kartě, v listu už ne");
+    assert.match(h, /data-kdu="zp"/, "Zpytování svědomí zůstává");
+  });
+});

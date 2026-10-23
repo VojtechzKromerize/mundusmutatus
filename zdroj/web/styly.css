@@ -2806,6 +2806,15 @@ button.kdbs:hover{border-color:var(--kb-gold)}.kdbsac b{color:var(--kb-gold)}
 .bdmkrb{cursor:pointer;font:inherit}
 .bdmduse .kduse{margin-top:0;border-top:0;padding-top:0}
 .bdmduse .kduse>.uvh2,.bdmduse .kduse .svl{display:none}
+/* list Svědomí (2026-10-23): nastavení duše přímo v listu, sbalitelné vysvětlení hříchů a skutků */
+.kdusin{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px 12px;margin:10px 0;padding:8px 10px;border:1px solid var(--kb-bd2,var(--rule));border-radius:6px;background:var(--kb-pan,var(--paper))}
+.kdusin label{display:flex;flex-direction:column;gap:3px;font:600 .68rem var(--f-label);letter-spacing:.05em;text-transform:uppercase;color:var(--kb-mu,var(--muted))}
+.kdusin select,.kdusin input{font:400 .95rem var(--f-body,inherit);text-transform:none;letter-spacing:0;min-height:34px}
+.kdusin .kdusc select{border-color:#3f6fae}.kdusin .kdusn select{border-color:#a8323e}
+.kduvys{margin:8px 0 10px;padding:4px 10px;border-left:3px solid var(--kb-gold,var(--gold));background:color-mix(in srgb,var(--kb-pan,var(--paper)) 70%,transparent);border-radius:0 6px 6px 0}
+.kduvys>summary{cursor:pointer;font:600 .78rem var(--f-label);letter-spacing:.05em;text-transform:uppercase;color:var(--kb-gold,var(--gold));padding:4px 0}
+.kduvys ul{margin:4px 0 6px;padding-left:18px;font-size:.9rem;line-height:1.4}.kduvys li{margin:3px 0}
+.bdmpan .kdub .kdusk,.bdmduse .kdusk{min-width:6.5em}
 .bdmpoc{display:inline-flex;align-items:center;gap:5px;margin-left:8px;font-size:.82rem}
 .bdmpoc .bzd{display:inline-flex;gap:3px}
 .bdmpoc small{color:var(--kb-mu);font-family:var(--f-label);font-weight:700;font-size:.64rem;letter-spacing:.05em;text-transform:uppercase}

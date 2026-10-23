@@ -27,8 +27,9 @@ function kDuse(K) {
     P = kParty(K) || {};
   return {
     vz: D.vz || P.faith || kVzPdf(K) || "",
-    ctn: D.ctn || P.ctn || [],
-    ner: D.ner || P.ner || [],
+    /* od 2026-10-23 má postava jen jednu Ctnost a jednu Neřest (Vojta); starší data se dvěma berou první */
+    ctn: (D.ctn || P.ctn || []).slice(0, 1),
+    ner: (D.ner || P.ner || []).slice(0, 1),
     fs: +D.fs || 1,
     sv: S.sv != null ? +S.sv : P.sv != null ? +P.sv : 5,
     hr: +S.hr || 0,
@@ -445,21 +446,63 @@ const kHodForm = (
 ) => `<form class="kvlh" data-kvlh${K ? ` data-k="${besc(K.id)}"` : ""}><label>${K ? "Vlastní hod" : "Hod kostkou"} <input name="v" placeholder="2d6+3" maxlength="60" required autocomplete="off" list="kvlhl"></label><input name="co" placeholder="za co (nepovinné)" maxlength="60">${K ? "" : `<select name="kdo" aria-label="Kdo hází">${GMV ? `<option value="">Vypravěč</option>` : ""}${KARTY.map(k => `<option value="${besc(k.id)}">${besc(k.n)}</option>`).join("")}</select>`}<label><input type="checkbox" name="zav"> + Závoj</label><button class="gbtn ghost">Hodit</button><label class="kmmk" ${btip("Hody se přehrají jako 3D kostky. Klepnutím kamkoli se animace přeskočí.")}><input type="checkbox" data-mmk${mmkZap() ? " checked" : ""}> 3D kostky</label></form>
   <datalist id="kvlhl"><option value="d20"><option value="2d20kh1"><option value="2d20kl1"><option value="4d6kh3"><option value="d%"><option value="2d6"><option value="d4"></datalist>`;
 /* ---- duše na kartě ---- */
+/* vysvětlení hříchů a dobrých skutků v listu Svědomí (Artikule › Hříchy a Dobré skutky); sbalení si pamatuje prohlížeč */
+const kDuVysOtv = () => {
+  try {
+    return localStorage.getItem("mm-duvys") !== "0";
+  } catch (e) {
+    return true;
+  }
+};
+document.addEventListener(
+  "toggle",
+  e => {
+    if (!e.target.matches || !e.target.matches("[data-kduvys]")) return;
+    try {
+      localStorage.setItem("mm-duvys", e.target.open ? "1" : "0");
+    } catch (x) {}
+  },
+  true,
+);
 function kDuseHtml(K) {
   const D = kDuse(K),
     s = D.sv,
     kr = D.vz === "old" ? "old" : "kr",
     feat = (KFEAT[D.vz] || []).filter(f => f[2] <= D.fs),
-    U = kartaStav(K.id).zdr || {};
+    U = kartaStav(K.id).zdr || {},
+    ed = kMuze(K);
   const opt = (L, sel) => L.map(x => `<option${sel === x ? " selected" : ""}>${besc(x)}</option>`).join("");
+  /* nastavení duše přímo v listu (2026-10-23): změna se uloží hned, bez tlačítka */
+  const nast = ed
+    ? `<form data-kdusf class="kdusf kdusin" aria-label="Duše postavy">
+        <label>Vyznání <select name="vz" data-kdusg><option value="">—</option>${Object.entries(KVZN)
+          .map(([k, v]) => `<option value="${k}"${D.vz === k ? " selected" : ""}>${v}</option>`)
+          .join("")}</select></label>
+        <label class="kdusc">Ctnost <select name="c1" data-kdusg><option value=""></option>${opt(KCTN[kr], D.ctn[0])}</select></label>
+        <label class="kdusn">Neřest <select name="n1" data-kdusg><option value=""></option>${opt(KNER[kr], D.ner[0])}</select></label>
+        <label>Svědomí <input type="number" name="sv" min="0" max="10" value="${s}" inputmode="numeric" data-kdusg></label>
+        <label>Feat víry <select name="fs" data-kdusg>${[1, 2, 3].map(i => `<option value="${i}"${D.fs === i ? " selected" : ""}>${i}. stupeň</option>`).join("")}</select></label>
+        <label>Postava v Družině <select name="dr" data-kdusg><option value="">— podle jména —</option>${PARTY.map(p => `<option value="${besc(p.id)}"${D.dr === p.id ? " selected" : ""}>${besc(kNm(p.n))}</option>`).join("")}</select></label>
+      </form>`
+    : `<p class="chips">${D.ctn.map(c => `<span class="chip ctn">${besc(c)}</span>`).join("")}${D.ner.map(c => `<span class="chip ner">${besc(c)}</span>`).join("")}</p>`;
+  const vys = `<details class="kduvys" data-kduvys${kDuVysOtv() ? " open" : ""}><summary>Jak fungují hříchy a dobré skutky</summary>
+      <ul>
+        <li><b>Všední hřích</b> – podlehneš své Neřesti, drobně se prohřešíš proti víře nebo přijmeš Pokušení na kostce Závoje: <b>+1 bod hříchu</b>, proti vlastní Ctnosti +2.</li>
+        <li><b>Smrtelný hřích</b> – vražda bezbranného, zrada, mučení, křivá přísaha: Svědomí <b>hned −1</b>, proti vlastní Ctnosti −2.</li>
+        <li><b>Dobrý skutek</b> – jednáš podle své Ctnosti a něco tě to stojí: <b>+1 bod dobrých skutků</b>.</li>
+        <li><b>Velký skutek</b> – pro svou Ctnost riskuješ život nebo přineseš skutečnou oběť: Svědomí <b>hned +1</b>.</li>
+        <li><b>Zpytování svědomí</b> na konci sezení: hoď d10. Body hříchu ≥ hod → Svědomí −1, dobré skutky ≥ hod → +1 (může platit obojí). Pak se body vynulují.</li>
+        <li>Když jednáš podle své Ctnosti nebo podlehneš své Neřesti, získáš <b>Heroic Inspiration</b>.</li>
+      </ul>
+      <p class="rsmall">Nasbírané body jsou na kartě u Svědomí: červené hříchy, zelené dobré skutky. <a class="pmore" href="#artikule/svedomi">Celá pravidla →</a></p></details>`;
   return `<section class="kduse"><h3 class="uvh2">Duše <a class="pmore" href="#artikule/svedomi">pravidla →</a></h3>
     <div class="kduhl">${D.vz ? pFaith(D.vz) : `<small>vyznání nezvoleno</small>`}${svMeter(s)}</div>
-    ${D.ctn.length || D.ner.length ? `<p class="chips">${D.ctn.map(c => `<span class="chip ctn">${besc(c)}</span>`).join("")}${D.ner.map(c => `<span class="chip ner">${besc(c)}</span>`).join("")}</p>` : ""}
+    ${nast}
     <p class="rsmall ksvst">${s >= 8 ? "Imunita vůči Frightened · výhoda na Insight · nevýhoda na Deception" : s >= 4 ? "Na vážkách – bez výhod i postihů" : s >= 1 ? "Výhoda na Deception · neklidné sny: dlouhý odpočinek obnoví jen polovinu HP" : "Výhoda na Intimidation · Smlouva s ďáblem (1× za dlouhý odpočinek Závoj → Požehnání) · feat víry nefunguje"}</p>
-    <div class="kbody"><span class="kbod"><small>Body hříchu</small><b>${D.hr}</b></span><span class="kbod"><small>Dobré skutky</small><b>${D.sk}</b></span>
-      <button type="button" class="gbtn" data-kdu="zp" ${btip("Na konci sezení: d10 – hříchy ≥ hod → Svědomí −1, dobré skutky ≥ hod → +1; body se pak vynulují")}>Zpytování svědomí</button></div>
+    ${vys}
     <div class="kdub"><span class="kdusk">Hřích</span><button type="button" class="gbtn ghost" data-kdu="h1" ${btip("Všední hřích, podlehnutí Neřesti nebo přijaté Pokušení: +1 bod hříchu")}>všední +1</button><button type="button" class="gbtn ghost" data-kdu="h2" ${btip("Všední hřích proti vlastní Ctnosti: +2 body hříchu")}>proti Ctnosti +2</button><button type="button" class="gbtn ghost bhrich" data-kdu="s1" ${btip("Smrtelný hřích (vražda bezbranného, zrada, mučení, křivá přísaha): Svědomí −1 hned")}>smrtelný −1</button><button type="button" class="gbtn ghost bhrich" data-kdu="s2" ${btip("Smrtelný hřích proti vlastní Ctnosti: Svědomí −2 hned")}>smrtelný proti Ctnosti −2</button></div>
     <div class="kdub"><span class="kdusk">Skutek</span><button type="button" class="gbtn ghost" data-kdu="d1" ${btip("Jednání podle Ctnosti, které něco stojí: +1 bod dobrých skutků")}>dobrý skutek +1</button><button type="button" class="gbtn ghost" data-kdu="v1" ${btip("Skutečná oběť nebo riziko života pro Ctnost: Svědomí +1 hned")}>velký skutek +1 Svědomí</button><button type="button" class="gbtn ghost" data-kdu="insp" ${btip("Jednání podle Ctnosti nebo podlehnutí Neřesti: Heroic Inspiration")}>Ctnost / Neřest → inspirace</button>${D.hr || D.sk ? `<button type="button" class="gbtn ghost" data-kdu="op" ${btip("Oprava: ubrat poslední připsaný bod")}>oprava</button>` : ""}</div>
+    <div class="kdub"><span class="kdusk">Konec sezení</span><button type="button" class="gbtn" data-kdu="zp" ${btip("d10 – hříchy ≥ hod → Svědomí −1, dobré skutky ≥ hod → +1; body se pak vynulují")}>Zpytování svědomí</button></div>
     ${
       feat.length
         ? `<h4 class="bsph">Feat víry <small>${D.vz ? KVZN[D.vz] : ""}, ${D.fs}. stupeň</small></h4>${s <= 0 ? `<p class="rsmall bhrich">Zatracený – feat víry nefunguje.</p>` : ""}<ul class="kfeat">${feat
@@ -469,17 +512,7 @@ function kDuseHtml(K) {
             })
             .join("")}</ul>`
         : ""
-    }
-    <details class="bjapd kdus"><summary>Nastavit duši postavy</summary>
-      <form data-kdusf class="kdusf"><label>Postava v Družině <select name="dr"><option value="">— podle jména —</option>${PARTY.map(p => `<option value="${besc(p.id)}"${D.dr === p.id ? " selected" : ""}>${besc(kNm(p.n))}</option>`).join("")}</select></label>
-        <label>Vyznání <select name="vz"><option value="">—</option>${Object.entries(KVZN)
-          .map(([k, v]) => `<option value="${k}"${D.vz === k ? " selected" : ""}>${v}</option>`)
-          .join("")}</select></label>
-        <label>Stupeň featu víry <select name="fs">${[1, 2, 3].map(i => `<option${D.fs === i ? " selected" : ""}>${i}</option>`).join("")}</select></label>
-        <label>Ctnost <select name="c1"><option value=""></option>${opt(KCTN[kr], D.ctn[0])}</select></label>
-        <label>Neřest <select name="n1"><option value=""></option>${opt(KNER[kr], D.ner[0])}</select></label>
-        <label>Svědomí <input type="number" name="sv" min="0" max="10" value="${s}"></label>
-        <button class="gbtn ghost">Uložit</button></form><p class="rsmall">Bez nastavení se bere postava z Družiny se stejným jménem a víra z PDF.</p></details></section>`;
+    }</section>`;
 }
 async function kDuseAkce(K, a) {
   const D = kDuse(K),
