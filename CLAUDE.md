@@ -110,7 +110,8 @@ přepsat (obalit) funkci jiného souboru jen jména v `OBALENE` (`testy/kontrola
 **Čistá pravidla (od 2026-10-23):** soubory s `@čisté` na 1. řádku – 02c druhy zbroje (v jádru), 10k import PDF, 10p pravidla boje
 a Artikulí (hody proti smrti, soustředění, zbroj, houfy, sloty), 10r okno reakce (`REAKCE`, `reakceOkno`, `reakceVysledek`; fakta
 z karty skládá `kReakceFakta` v 14c), 10t účet tahu (`tahObnov`, `tahOznac`, `tahJednouZapis` – BPT, KTAHJ, BJU.ridT), 10u účinky
-(`UCINKY` = dřívější KZEF + KPRID v jednom formátu, `ucSecti` a spol.). Smí používat jen jazyk JS a jména jiných čistých souborů
+(`UCINKY` = dřívější KZEF + KPRID v jednom formátu, `ucSecti` a spol.), 10w vlastnosti a mistrovství zbraní SRD
+(`ZBRVL`, `ZBRMS`, `ZBRMA`, `zbrRozbor`, `zbrMaMa` – napojení na boj v 20g). Smí používat jen jazyk JS a jména jiných čistých souborů
 (kontrola kódu je odmítne jinak), data dostávají argumentem; testy běží v čistém Node za milisekundy (`testy/jednotky/ciste.mjs`).
 **Nový výpočet pravidla patří do čistého souboru** (stránka ho jen volá s daty) a test do `testy/jednotky`. Co jde přesunout beze
 změny: `node testy/kontrola_kodu.mjs --ciste-kandidati [NN]`, co by se muselo vzít s sebou: `--ciste-uzaver A,B`. Pozor na pořadí:
@@ -126,7 +127,8 @@ Pravidla · 09 vypravěč: odhalování, panel, herní čas · 10 Kouzla · 11 B
 15 karta podle Artikulí · 16 SRD předměty, ukázky, příprava sezení, kořist, stránka Hra · 17 Karta II ·
 17b kouzla: posílení na cílech (sběr z karty pro UCINKY), trvání v kolech, rituál, opakování bez slotu (KZOPAK), oblasti (KZOBL), Counterspell ·
 18 Pravidla postavy (D&D 2024) · 19 karta jako D&D Beyond · 20 Boj: hráč na telefonu (formulář útoku BJU, hod, odeslání) ·
-20b Boj: vypravěč (vyhodnocení a potvrzení útoků hráčů, veřejný záznam, pruh „co teď“, formuláře, klávesy, Zpět) · 20c volby po zásahu, přesun Hexu, Riposte ·
+20b Boj: vypravěč (vyhodnocení a potvrzení útoků hráčů, veřejný záznam, pruh „co teď“, formuláře, klávesy, Zpět) · 20c volby po zásahu, přesun Hexu, Riposte · 20e perky zbraní z Artikulí v boji ·
+20g vlastnosti a mistrovství zbraní SRD v boji (Weapon Traits a Masteries: volby před hodem, nabídka po zásahu, `wm` u útoku, vyhodnocení vypravěče) ·
 20d Boj: vykreslení (kostra, záložky, renderBoj) · 20f scéna mimo boj (NPC, jednání, protihody) ·
 21 editor textů · 22 Výprava (počasí, Zpět herního času) · 23 potvrzování akcí hráčů · 24 Boj: herní záznam (kdo · co · komu, kostky, Závoj) ·
 25 puls (jeden dotaz „co se změnilo“, Realtime) · 26 start: pečeť a první `route()`.

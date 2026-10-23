@@ -368,6 +368,9 @@ const BZVST = {
   "zbraň uvízla": {ic: "komplikace", t: "Komplikace: zbraň uvízla v ráně nebo ve štítu – vytrhnout ji stojí bonusovou akci (pak stav zruš)"},
   "zbraň selhala": {ic: "komplikace", t: "Hrom a kouř!: zbraň selhala – před dalším výstřelem ji musíš bonusovou akcí vyčistit (pak stav zruš)"},
   "zbraň praská": {ic: "komplikace", t: "Ničivá: zbraň praská – ztrácí Ničivou až do opravy"},
+  /* mistrovství zbraní (Weapon Mastery, 2026-10-24, 20g): končí podle tahu útočníka */
+  oslaben: {ic: "nevyhoda", ut: -1, t: "Sap (Oslabení): nevýhoda na příští útok – do začátku tahu toho, kdo ho zasáhl"},
+  zpomalen: {ic: "slow", t: "Slow (Zpomalení): rychlost −10 stop – do začátku tahu toho, kdo ho zasáhl"},
 };
 Object.entries(BZVST).forEach(([k, v]) => {
   BIMG.add(v.ic);
@@ -375,7 +378,7 @@ Object.entries(BZVST).forEach(([k, v]) => {
 });
 BSTI["krvácí k4"] = ["krvaci", "Krvácí – na začátku tahu ztrácí k4 HP"];
 BSTAV.splice(1, 0, "krvácí k4");
-BSTAV.push("zaskočen", "přibodnut", "ve vazbě", "v dýmu", "odkrytý");
+BSTAV.push("zaskočen", "přibodnut", "ve vazbě", "v dýmu", "odkrytý", "oslaben", "zpomalen");
 BSTAVH.unshift("krvácí k4");
 BSTAVH.push("zapřeno", "zbraň uvízla", "zbraň selhala");
 /* výhoda/nevýhoda ze stavů útočníka (st) a cíle (ct); dal = útok z dálky */
@@ -1506,6 +1509,8 @@ function bojUtok(n, ai, a0) {
     if (q && q.tk === bojMultiTk() && q.i > 0) o.un = `útok ${q.i} z ${q.seq.length} (celá akce)`;
   }
   bojLog(n.id, o, n.n);
+  /* Sap (mistrovství, 20g): nevýhoda platí jen na příští útok – tímto se spotřebovala */
+  if (o.hod && (n.stav || []).includes("oslaben") && typeof bojWmSapPouzit === "function") bojWmSapPouzit(n.id);
 }
 /* plaketa posledního hodu: pečeť s výsledkem, zranění, pruh Závoje */
 function bojPlak(o) {
@@ -1776,7 +1781,7 @@ function bojRef(n, s, velH) {
   const efs = (n.ef || [])
     .map(
       (e, j) =>
-        `<span class="bprc bef" ${btip(`${e.n}: ${e.kdy === "zacatek" ? "do začátku příštího tahu" : e.kdy === "konec" ? "do konce příštího tahu" : `ještě ${e.k} ${e.k === 1 ? "kolo" : e.k < 5 ? "kola" : "kol"}`}${e.z ? ` · na začátku tahu ${e.z} ${BZRT[e.t] || ""}` : ""}`)}>${bi("trvani")} ${besc(e.n)} <small>${e.kdy === "kola" ? e.k : e.kdy === "zacatek" ? "→ zač." : "→ konec"}</small><button type="button" data-befdel="${j}" aria-label="Zrušit účinek ${besc(e.n)}">×</button></span>`,
+        `<span class="bprc bef" ${btip(`${e.n}: ${e.okdy ? `do ${e.okdy === "zacatek" ? "začátku" : "konce"} příštího tahu: ${bojJm(BOJ.s || {}, e.od) || "útočník"}` : e.kdy === "zacatek" ? "do začátku příštího tahu" : e.kdy === "konec" ? "do konce příštího tahu" : `ještě ${e.k} ${e.k === 1 ? "kolo" : e.k < 5 ? "kola" : "kol"}`}${e.z ? ` · na začátku tahu ${e.z} ${BZRT[e.t] || ""}` : ""}`)}>${bi("trvani")} ${besc(e.n)} <small>${e.kdy === "kola" ? e.k : (e.okdy || e.kdy) === "zacatek" ? "→ zač." : "→ konec"}</small><button type="button" data-befdel="${j}" aria-label="Zrušit účinek ${besc(e.n)}">×</button></span>`,
     )
     .join("");
   const efF = `<details class="befd"><summary>+ účinek s trváním</summary><form class="beff" data-beff><select name="st" aria-label="Stav">${BSTAV.filter(

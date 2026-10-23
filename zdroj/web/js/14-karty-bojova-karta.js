@@ -636,6 +636,7 @@ function bojPredHod(s, h, K, gm, j) {
       h,
       c.find(o => o.id === cil),
       !!w.dal,
+      w,
     ),
     n = Math.max(+w.pocet || 1, cL.length || 1);
   const adv = gm ? String(G.adv || 0) : BJU.adv === "auto" ? "0" : String(BJU.adv);
@@ -678,7 +679,9 @@ function bojPredHod(s, h, K, gm, j) {
   const typH = T
     ? `<div class="bphr"><span class="bphl" ${btip("Šikovná: před hodem si zvolíš typ zranění podle zbraně")}>Zranění</span><span class="bphc">${T.map(t => `<button type="button" class="bphtyp" data-bptyp="${besc(K.id)}|${besc(w.n)}|${t}" aria-pressed="${typ === t}" ${btip(BZRT[t] || t)}>${bikZr(t)}<span>${besc(BZRT[t] || t)}</span></button>`).join("")}</span></div>`
     : "";
-  const zvH = typeof bojZvVolbyHtml === "function" ? bojZvVolbyHtml(K, w, h, gm) : "";
+  const zvH =
+    (typeof bojZvVolbyHtml === "function" ? bojZvVolbyHtml(K, w, h, gm) : "") +
+    (typeof bojWmVolbyHtml === "function" ? bojWmVolbyHtml(K, w, h, gm) : "");
   const ssH =
     w.dal && kMaRys(K, /^sharpshooter$/i)
       ? `<small class="bphnav">Sharpshooter: krytí cíle se nepočítá; dlouhý dostřel ani nepřítel vedle tebe nevýhodu nedávají.</small>`
@@ -817,28 +820,31 @@ function bojGmHod(hid, i) {
     v = +(G0.adv || 0),
     typ = bojUtTyp(K, w),
     cL = bojCileL(G0, s.npc || []),
-    N = Math.max(1, +w.pocet || 1),
+    ZT = typeof bojZvVolby === "function" ? bojZvVolby(G0, w) : {},
+    NV = typeof bojWmNavic === "function" ? bojWmNavic(K, w, ZT) : null,
+    wH = typeof bojWUprav === "function" ? bojWUprav(K, w, ZT) : w,
+    N = NV ? 1 : Math.max(1, +w.pocet || 1),
     tk = (s.kolo || 1) * 100 + (s.tah || 0);
   if (!cL.length && (s.npc || []).filter(bojCilMoz).length > 1) {
     mmHlasG("Nejdřív vyber cíl útoku.", 3000);
     return;
   }
-  if (G0.uw !== w.n || G0.utk !== tk) {
+  if (!NV && (G0.uw !== w.n || G0.utk !== tk)) {
     G0.ui = 0;
     G0.uw = w.n;
     G0.utk = tk;
   }
-  const ui = Math.min(+G0.ui || 0, N - 1),
+  const ui0 = +G0.ui || 0,
+    ui = NV ? 0 : Math.min(ui0, N - 1),
     ser = [],
-    tx = [],
-    ZT = typeof bojZvVolby === "function" ? bojZvVolby(G0, w) : {};
+    tx = [];
   {
     const ci = cL.length ? cL[ui % cL.length] : "",
       c = (s.npc || []).find(o => o.id === ci),
       AC = bojCilAC(s, h, c, w);
     /* stejný hod jako z telefonu hráče (2026-10-20): Hex / Hunter's Mark na cíli, Magic Weapon, vyčerpání, Lucky; zranění jen po zásahu */
     /* Bless / Bane na postavě se přičtou i při hodu vypravěče (pd), jako na telefonu hráče */
-    const P = bojUtokPriprav({s, h, K, w, c, v, ac: AC, sel: [], pd: true, vp: !!ZT.vp, pm: !!ZT.pm});
+    const P = bojUtokPriprav({s, h, K, w: wH, c, v, ac: AC, sel: [], pd: true, vp: !!ZT.vp, pm: !!ZT.pm});
     G0.kmin = P.kmin;
     if (ZT.pm) G0.pm = 1;
     ser.push({
@@ -856,12 +862,13 @@ function bojGmHod(hid, i) {
       zx: P.zx,
       dz: P.dz,
       pdn: P.pdn,
+      ...(NV ? {rid: [{k: "nv:" + NV.g, g: NV.g, n: `útok navíc (${NV.n})`, t: 0, x: "", ba: NV.ba, cim: `útok navíc (${NV.n})`}]} : {}),
     });
     tx.push(
-      `${c ? besc(c.n) + ": " : "<b>bez cíle</b> · "}${P.txtHod}${AC != null && !P.zas ? ` · vedle (AC ${AC}) – zranění se nehází` : P.txtZr.replace(/^, /, " · ")}`,
+      `${NV ? `Útok navíc (${NV.n}${NV.ba ? ", bonusová akce" : ""}) · ` : ""}${c ? besc(c.n) + ": " : "<b>bez cíle</b> · "}${P.txtHod}${AC != null && !P.zas ? ` · vedle (AC ${AC}) – zranění se nehází` : P.txtZr.replace(/^, /, " · ")}`,
     );
   }
-  G0.ui = ui + 1 >= N ? 0 : ui + 1;
+  G0.ui = NV ? ui0 : ui + 1 >= N ? 0 : ui + 1;
   const G = (BGMU[hid] = Object.assign(G0, {
     zi: i,
     ci: ser[0].ci || G0.ci,
@@ -931,8 +938,9 @@ function bojGmZapisVse(hid) {
         stav: "ceka",
       },
       (() => {
-        const zv = w && typeof bojZvPayload === "function" ? bojZvPayload(K, w, x, G.zav, bojZvVolby(G, w)) : null;
-        return zv ? {zv} : {};
+        const zv = w && typeof bojZvPayload === "function" ? bojZvPayload(K, w, x, G.zav, bojZvVolby(G, w)) : null,
+          wm = w && typeof bojWmPayload === "function" ? bojWmPayload(K, w, x) : null;
+        return Object.assign(zv ? {zv} : {}, wm ? {wm} : {});
       })(),
     ),
   );
@@ -1361,6 +1369,14 @@ const bdmZvl = (a, K) => {
   const v = bdmZvlMoje(a, K);
   return v ? v.vl.filter(k => BDMZV[k]) : bdmZvlAuto(a);
 };
+/* vlastnost nebo mistrovství SRD ze seznamu z PDF (ukáže je česky bojWPopisHtml z 20g) */
+const bdmWZnamy = v => {
+  const n = String(v || "")
+    .replace(/\s*\(.*$/, "")
+    .trim()
+    .toLowerCase();
+  return [...Object.keys(ZBRVL), ...Object.keys(ZBRMS)].some(k => k.toLowerCase() === n);
+};
 /* útoky: klepnutí na zásah otevře list s cílem (v boji), mimo boj rovnou hodí */
 const kJeKouzloUt = (K, a) =>
   /eldritch|kouzl|cantrip|spell/i.test(String(a.n) + " " + (a.vl || []).join(" ")) ||
@@ -1378,7 +1394,7 @@ function bdmUtoky(s, h, K, gm, X) {
     const hit = X.boj && gm && j >= 0 ? `data-bdmsh="utok" data-j="${j}"` : ut && j >= 0 ? `data-bdmsh="utok" data-j="${j}"` : `data-khod="ut:${i}"`;
     const L = bdmZvl(a, K);
     const ox = BDM.utx.has(K.id + "|" + a.n);
-    return `<div class="bdmut${zv ? " bdmzv" : ""}${ox ? " bdmuto" : ""}"><span class="bdmuti" aria-hidden="true">${bdmIc(a.dal ? "sip" : "mec")}</span><div class="bdmutn" role="button" tabindex="0" data-bdmutx="${besc(a.n)}" aria-expanded="${ox}" ${btip(ox ? "Skrýt vlastnosti, mistrovství a perky zbraně" : "Ukázat vlastnosti, mistrovství a perky zbraně")}><b>${besc(a.n)}</b>${zv ? ` <small class="bdmruk" ${btip("Zbraň v ruce")}>✋</small>` : ""}${ox ? `<small>${besc([a.dal ? "na dálku" : "zblízka", ...vl].join(" · "))}</small>${L.length ? `<span class="bdmzvs">${L.map(k => `<span ${btip(`${k}: ${BVLZ[k]}`)}>${bikZv(k)}<i>${besc(k)}</i></span>`).join("")}</span>` : ""}${kMuze(K) && !/beze zbraně|unarmed|eldritch|kouzl/i.test(a.n) ? `<button type="button" class="bdmmini bdmzvb" data-bdmsh="zvl" data-zvl="${besc(a.n)}" ${btip("Perky zbraně podle Artikulí (Šikovná, Ostrá, Drtivá…)")}>⚙ perky</button>` : ""}` : ""}</div>
+    return `<div class="bdmut${zv ? " bdmzv" : ""}${ox ? " bdmuto" : ""}"><span class="bdmuti" aria-hidden="true">${bdmIc(a.dal ? "sip" : "mec")}</span><div class="bdmutn" role="button" tabindex="0" data-bdmutx="${besc(a.n)}" aria-expanded="${ox}" ${btip(ox ? "Skrýt vlastnosti, mistrovství a perky zbraně" : "Ukázat vlastnosti, mistrovství a perky zbraně")}><b>${besc(a.n)}</b>${zv ? ` <small class="bdmruk" ${btip("Zbraň v ruce")}>✋</small>` : ""}${ox ? `<small>${besc([a.dal ? "na dálku" : "zblízka", ...vl.filter(v => !bdmWZnamy(v))].join(" · "))}</small>${typeof bojWPopisHtml === "function" ? bojWPopisHtml(K, a) : ""}${L.length ? `<span class="bdmzvs">${L.map(k => `<span ${btip(`${k}: ${BVLZ[k]}`)}>${bikZv(k)}<i>${besc(k)}</i></span>`).join("")}</span>` : ""}${kMuze(K) && !/beze zbraně|unarmed|eldritch|kouzl/i.test(a.n) ? `<button type="button" class="bdmmini bdmzvb" data-bdmsh="zvl" data-zvl="${besc(a.n)}" ${btip("Perky zbraně podle Artikulí (Šikovná, Ostrá, Drtivá…)")}>⚙ perky</button>` : ""}` : ""}</div>
       <span class="bdmdos">${besc(a.dosah || (a.dal ? "dálka" : "5 st."))}</span><button type="button" class="bdmbox" ${hit} ${btip(`Útok ${a.n}: d20 ${bsg(+a.b || 0)}${a.pocet > 1 ? ` · ${a.pocet}× za akci` : ""}${ut && j >= 0 ? " – vyber cíl a hoď" : X.boj && gm ? " – hodí za hráče a otevře zápis" : ""}`)}>${bsg(+a.b || 0)}</button>
       <span class="bdmdmg">${a.z ? `<button type="button" class="bdmbox" data-kzr="${i}" ${btip(`Zranění ${a.z} ${BZRT[a.t] || a.t || ""}`)}>${besc(a.z)} ${bikZr(a.t)}</button>` : "–"}</span>${a.pozn || kMunTxt(K, a) ? `<small class="bdmutp">${besc(a.pozn || "")}${kMunTxt(K, a)}</small>` : ""}</div>`;
   }).join("");

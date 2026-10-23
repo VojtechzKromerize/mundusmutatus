@@ -215,6 +215,7 @@ function bojEfDel(n, e) {
 function bojKonecTahu(s, id) {
   try {
     if (typeof bojOblTah === "function") bojOblTah(s, id, "kon");
+    if (typeof bojWmTahVlastnika === "function") bojWmTahVlastnika(s, id, "kon");
   } catch (e) {
     console.error(e);
   }
@@ -332,6 +333,7 @@ function bojPcZac(s, id) {
 function bojZacatekTahu(s, id) {
   try {
     if (typeof bojOblTah === "function") bojOblTah(s, id, "zac");
+    if (typeof bojWmTahVlastnika === "function") bojWmTahVlastnika(s, id, "zac");
   } catch (e) {
     console.error(e);
   }

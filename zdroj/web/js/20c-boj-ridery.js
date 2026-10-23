@@ -122,8 +122,11 @@ function bojJaRidery(K, me, w, q, s, O) {
   if (O.ripo && !O.ripo.odv && SD && O.ripo.ai === q.ci)
     R.push({k: "rp", g: "rp", n: "Riposte", zr: "1" + SD.k, pozn: "odveta: kostka převahy ke zranění (utratí se odesláním)"});
   if (typeof bojZvRidery === "function") R.push(...bojZvRidery(K, me, w, q, s, O));
+  if (typeof bojWmRidery === "function") R.push(...bojWmRidery(K, me, w, q));
   return R;
 }
+/* přídavky bez kostek (perk, mistrovství, útok navíc): u zvoleného jen ✓ */
+const BRIDBEZ = new Set(["zv", "wm", "nl", "cl"]);
 function bojJaRidHtml(K, q, hid) {
   if (!K || !q) return "";
   const F = bojForm(hid),
@@ -141,7 +144,7 @@ function bojJaRidHtml(K, q, hid) {
   const ap = new Set(A.map(r => r.k)),
     ag = new Set(A.map(r => r.g)),
     L = [...R, ...A.filter(r => !R.some(x => x.k === r.k))];
-  return `<div class="bjur bjurid" role="group" aria-label="Přidat k zásahu"><small>Přidat k zásahu${q.krit ? " (kritický – kostky dvakrát)" : ""}:</small>${L.map(r => `<button type="button" class="gbtn ghost${ap.has(r.k) ? " on" : ""}" data-jurid="${besc(r.k)}"${H} aria-pressed="${ap.has(r.k)}"${!ap.has(r.k) && ag.has(r.g) ? " disabled" : ""} ${btip(r.pozn || r.n)}>${r.g === "zv" ? bikZv(r.n) : ""}${besc(r.n)} <small>${ap.has(r.k) ? (r.g === "zv" ? "✓" : `${(A.find(x => x.k === r.k) || {}).t} ✓`) : r.zr ? "+" + besc(r.zr) : r.g === "zv" ? "Požehnání" : "účinek"}</small></button>`).join("")}${gw}</div>`;
+  return `<div class="bjur bjurid" role="group" aria-label="Přidat k zásahu"><small>Přidat k zásahu${q.krit ? " (kritický – kostky dvakrát)" : ""}:</small>${L.map(r => `<button type="button" class="gbtn ghost${ap.has(r.k) ? " on" : ""}" data-jurid="${besc(r.k)}"${H} aria-pressed="${ap.has(r.k)}"${!ap.has(r.k) && ag.has(r.g) ? " disabled" : ""} ${btip(r.pozn || r.n)}>${r.g === "zv" ? bikZv(r.n) : r.g === "wm" && typeof BWMIK !== "undefined" ? bi(BWMIK[r.n] || "boj") : ""}${besc(r.n)} <small>${ap.has(r.k) ? (BRIDBEZ.has(r.g) ? "✓" : `${(A.find(x => x.k === r.k) || {}).t} ✓`) : r.zr ? "+" + besc(r.zr) : r.g === "zv" ? "Požehnání" : r.g === "wm" ? "mistrovství" : "účinek"}</small></button>`).join("")}${gw}</div>`;
 }
 function bojJaRid(k, hid) {
   const F = bojForm(hid),
@@ -163,8 +166,8 @@ function bojJaRid(k, hid) {
   } else {
     const R = bojJaRidery(K, me, w, q, s, O).find(r => r.k === k);
     if (!R || q.rid.some(r => r.g === R.g)) return;
-    if (R.g === "zv") {
-      q.rid.push({k, g: "zv", n: R.n, t: 0, x: "", cim: R.cim || R.n});
+    if (R.g === "zv" || R.g === "wm") {
+      q.rid.push({k, g: R.g, n: R.n, t: 0, x: "", cim: R.cim || R.n});
       O.info = `${O.info ? O.info + " · " : ""}${R.pozn}`;
       bojListPrekresli();
       return;
@@ -189,7 +192,8 @@ async function bojJaRidPo(K, me, SER, O) {
   O.ridT = tahObnov(O.ridT || {}, tahKlic(s));
   for (const q of SER || [])
     for (const r of q.rid || []) {
-      if (/^(ds|es|sa|dr|df)$/.test(r.g)) tahJednouZapis(O.ridT, r.g);
+      if (/^(ds|es|sa|dr|df|nl|cl)$/.test(r.g)) tahJednouZapis(O.ridT, r.g);
+      if (r.g === "nl" || r.g === "cl") Object.values(O.zvt || {}).forEach(T => delete T[r.g]);
       const c = r.cena;
       try {
         if (c && c.kz) await kartaSeslat(K, {n: c.kz, st: c.st, kon: false}, c.slot);

@@ -2757,6 +2757,9 @@ button.kdbs:hover{border-color:var(--kb-gold)}.kdbsac b{color:var(--kb-gold)}
 .bdmuti{grid-area:i;color:var(--kb-ac);display:grid;place-items:center}.bdmuti .bdmic{width:16px;height:16px}
 .bdmutn{grid-area:n;min-width:0}.bdmutn b{color:#8cbcf0;font-style:italic;font-weight:600}.bdmutn small{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.03em}
 .bdmzvs{display:flex;flex-wrap:wrap;gap:2px 8px;margin-top:2px;color:var(--kb-gold);font-size:.74rem}.bdmzvs i{font-style:normal;margin-left:2px}.bdmzvs img,.bdmzvs .bik{width:16px;height:16px;vertical-align:middle}
+/* vlastnosti a mistrovství zbraně SRD česky u rozbalené zbraně (20g bojWPopisHtml); mistrovství, které postava nepoužívá, ztlumené */
+.bdmwvl{display:flex;flex-wrap:wrap;gap:2px 10px;margin-top:2px;font-size:.74rem;color:var(--kb-tx2,var(--kb-tx))}.bdmwvl small{opacity:.75}
+.bdmwm{display:inline-flex;align-items:center;gap:3px;opacity:.55}.bdmwm.on{opacity:1;color:var(--kb-gold)}.bdmwm img,.bdmwm .bik{width:16px;height:16px}
 .bdmruk{font-size:.8rem}
 .bdmdos{grid-area:d;font-size:.84rem;color:var(--kb-mu);text-align:center}
 .bdmut>.bdmbox{grid-area:h;justify-self:center}
@@ -3072,6 +3075,8 @@ button.bdmsri{cursor:pointer}
 .bphc{display:flex;flex-wrap:wrap;gap:6px}
 .bphcil,.bphtyp{display:inline-flex;align-items:center;gap:6px;padding:3px 10px 3px 4px;background:var(--kb-bg);border:1px solid var(--kb-bd2);border-radius:999px;color:var(--kb-tx);font:inherit;font-size:.9rem;cursor:pointer}
 .bphtyp{padding:3px 10px 3px 6px}
+/* mistrovství zbraně v listu útoku (20g): štítek bez klepnutí, ikona + jméno */
+.bphwm{display:inline-flex;align-items:center;gap:5px;padding:3px 10px 3px 6px;border:1px dashed var(--kb-gold);border-radius:999px;color:var(--kb-gold);font-size:.85rem}.bphwm .bik,.bphwm img{width:18px;height:18px}
 .bphcil[aria-pressed=true],.bphtyp[aria-pressed=true]{border-color:var(--kb-gold);background:#2f2416;box-shadow:0 0 0 1px var(--kb-gold)}
 .bphadv button{padding:4px 10px}
 .bphnav{color:var(--kb-mu);font-size:.78rem}

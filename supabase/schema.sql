@@ -965,8 +965,14 @@ begin
   if not exists (select 1 from jsonb_array_elements(coalesce(s -> 'hraci', '[]'::jsonb)) h where h ->> 'id' = p_hrac) then
     raise exception 'neznámá postava';
   end if;
-  if jsonb_typeof(x) <> 'object' or exists (select 1 from jsonb_object_keys(x) k where k not in ('ci', 'cim', 'hod', 'd', 'adv', 'dmg', 't', 'drt', 'pru', 'plos', 'kmin', 'sl', 'sid', 'zv')) then
+  if jsonb_typeof(x) <> 'object' or exists (select 1 from jsonb_object_keys(x) k where k not in ('ci', 'cim', 'hod', 'd', 'adv', 'dmg', 't', 'drt', 'pru', 'plos', 'kmin', 'sl', 'sid', 'zv', 'wm')) then
     raise exception 'neplatný útok';
+  end if;
+  -- mistrovství zbraně (Weapon Mastery, 2026-10-24): jméno, SO Topple, zranění Graze
+  if x ? 'wm' and (jsonb_typeof(x -> 'wm') <> 'object' or exists (select 1 from jsonb_object_keys(x -> 'wm') k where k not in ('n', 'dc', 'x'))
+      or coalesce(x -> 'wm' ->> 'n', '') not in ('Cleave', 'Graze', 'Nick', 'Push', 'Sap', 'Slow', 'Topple', 'Vex')
+      or not public.mm_cislo(x -> 'wm' -> 'dc', 1, 40) or not public.mm_cislo(x -> 'wm' -> 'x', 0, 10)) then
+    raise exception 'neplatné mistrovství zbraně';
   end if;
   -- vlastnosti zbraně podle Artikulí (2026-10-20): kostka Závoje, zvolené a aktivní vlastnosti, Vpřed! / Půlmeč, SO záchrany
   if x ? 'zv' and (jsonb_typeof(x -> 'zv') <> 'object' or exists (select 1 from jsonb_object_keys(x -> 'zv') k where k not in ('z', 'r', 'v', 'a', 'vp', 'pm', 'dc'))
