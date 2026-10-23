@@ -118,3 +118,57 @@ test("vybavení: předmět z databáze schválený vypravěčem (návrh „vec�
     await S.ev(`kartaStavZmen("balduin", {inv: ${JSON.stringify(pred)}})`);
   }
 });
+
+test("karta 2026-10-23 b: skryté zdatnosti se nezobrazují, ruční účinek, ukončení soustředění v Kouzlech", () => {
+  const pdf = V(`KARTBY.balduin.zd.jazyky`) || [];
+  sKartou(
+    {
+      dopl: {bez: pdf.length ? ["jazyky:" + pdf[0]] : []},
+      uc: [
+        {n: "Hex", kon: true, h: 1},
+        {n: "Armor of Agathys", h: 1},
+      ],
+    },
+    () => {
+      const h = V(`bdmZdatHtml(KARTBY.balduin, true)`);
+      if (pdf.length) {
+        assert.doesNotMatch(h, new RegExp(`data-kzdvrat="jazyky:${pdf[0]}"`), "skrytý jazyk není vidět");
+        assert.match(h, /data-kzdskr/, "tlačítko skryté (1)");
+      }
+      assert.match(V(`kUcRucneHtml()`), /data-kucrf/);
+      const k = V(`kBufHtml(KARTBY.balduin, true)`);
+      assert.match(k, /data-kbufx="Armor of Agathys">ukončit</, "vlastní účinek jde ukončit");
+      assert.match(k, /data-kkonend>ukončit soustředění/, "soustředění na Hex jde přerušit");
+      assert.doesNotMatch(V(`kBufHtml(KARTBY.balduin)`), /data-kbufx/, "v listu Účinky bez tlačítek (mají vlastní ukončit)");
+    },
+  );
+});
+
+test("vybavení b: barva podle vzácnosti, ikona připoutání vlevo, přehled připoutání", () => {
+  const inv = [
+    {n: "Ring of Protection", q: 1, pripoutano: true},
+    {n: "Cloak of Protection", q: 1},
+    {n: "Breastplate", q: 1, obl: true},
+  ];
+  sKartou({inv}, () => {
+    assert.equal(V(`kInvVz({n: "Ring of Protection"})`), "kvz-vz");
+    assert.equal(V(`kInvVz({n: "Rope"})`), "");
+    const h = V(`bdmVyb(KARTBY.balduin)`);
+    assert.match(h, /class="kvik kvikpri on" data-kpri="0"/);
+    assert.match(h, /class="kvik kvikobl on" data-kobl="2"/);
+    assert.match(h, /data-bdmsh="pri"/);
+    const [t, b] = V(`bdmPriList(KARTBY.balduin)`);
+    assert.equal(t, "Připoutání · 1/3");
+    assert.match(b, /Ring of Protection[\s\S]*Zrušit připoutání/);
+    assert.match(b, /Cloak of Protection[\s\S]*Připoutat/);
+  });
+});
+
+test("kouzla: po použité akci zešednou kouzla za akci, bonusová zůstanou; reakce použitá – kouzla za reakci zešednou", () => {
+  const h = V(`bdmKouzla({}, {id: "h1"}, KARTBY.balduin, false, {boj: true, mojeTah: true, BP: {a: 1, b: 0}, rk: true})`);
+  const rows = h.split('<div class="bdmspr').slice(1);
+  const r = n => rows.find(x => x.includes(`>${n}</button>`)) || "";
+  assert.match(r("Eldritch Blast"), /^ bdmspu/, "Eldritch Blast (1A) po akci zešedne");
+  assert.doesNotMatch(r("Hex"), /^ bdmspu/, "Hex (1BA) zůstává");
+  assert.match(r("Shield"), /^ bdmspu/, "Shield (1R) po použité reakci zešedne");
+});

@@ -367,7 +367,14 @@ async function kartaSeslat(K, sp, chce) {
   try {
     const c = kCasKouzla(sp);
     const h0 = ((BOJ.s && BOJ.s.aktivni && BOJ.s.hraci) || []).find(x => bojKartaH(x) === K);
-    if (h0 && h0.n === bojJa.get()) bojBptOznac(c);
+    if (h0 && h0.n === bojJa.get()) {
+      bojBptOznac(c);
+      /* kouzlo za reakci (Shield, Absorb Elements…) spotřebuje reakci (2026-10-23) */
+      if (c === "R" && bojBezi(BOJ.s) && !(BOJ.s.reak || {})[h0.id])
+        bojHracAkce(h0.id, (h, z) => {
+          (z.reak = z.reak || {})[h0.id] = 1;
+        });
+    }
   } catch (e) {}
   const L = kSlX(K, sp).sort((a, b) => (chce && a.k === chce ? -1 : chce && b.k === chce ? 1 : a.st - b.st));
   if ((sp.st > 0 || sp.pz) && !L.length) {
