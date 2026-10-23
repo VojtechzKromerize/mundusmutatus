@@ -117,13 +117,9 @@ async def main():
     await pl.wait_for_timeout(3000);rq=[];pl.on("request",lambda r:rq.append(r.url.split("/rest/v1/")[1][:40]) if "/rest/v1/" in r.url else None)
     await pl.wait_for_timeout(6000)
     chk(rq and all(u.startswith("rpc/mm_puls") for u in rq),"nečinný hráč se ptá jen pulsu: "+str(rq))
-    # prostředí: vítr dá střelci nevýhodu, úzký průchod omezí přesilu houfu
-    await g.click('[data-bpros="vitr"]');await g.wait_for_timeout(400)
-    chk(await g.evaluate("(BOJ.s.prostr||[]).includes('vitr')"),"prostředí: vypravěč zapne silný vítr")
-    chk(await g.evaluate("bojAdvNavrh(BOJ.s,{id:'zz',stav:[]},{n:'Kuše',b:4,p:'dostřel 100/400'}).v")==-1,"silný vítr: útok z dálky s nevýhodou")
-    await g.click('[data-bpros="uzky"]');await g.wait_for_timeout(400)
-    chk(await g.evaluate("bojPres(BOJ.s,{pocet:6})")==1,"úzký průchod: přesila houfu nejvýš +1")
-    await g.click('[data-bpros="uzky"]');await g.wait_for_timeout(300)
+    # prostředí boje a počasí nahoře nejsou (2026-10-23: počasí je v panelu Při hře, prostředí hlídá vypravěč sám)
+    chk(await g.locator("#bojview .bpros, #bojview .bojpoc").count()==0 and await g.locator(".phpanel .phpoc").count()==1,"Boj bez prostředí a počasí; počasí je v panelu Při hře")
+    chk(await g.evaluate("bojPres(BOJ.s,{pocet:6})")==5,"přesila houfu nejvýš +5")
     # hráč u své postavy: stav, kryt a hody proti smrti z telefonu
     pl.on("dialog",lambda d:asyncio.ensure_future(d.accept()))
     await pl.evaluate("bojJa.set('Adam');renderBoj()");await pl.wait_for_timeout(500)

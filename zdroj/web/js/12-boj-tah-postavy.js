@@ -1415,10 +1415,6 @@ function bojZapisNavrh(s) {
   let v = `${hr.length ? `Družina (${bojSez(hr)})` : "Družina"}${spoj.length ? ` se spojenci (${bojSez(spoj.map(o => o.n))})` : ""} se střetla s protivníky: ${bojSez(nepr.map(o => (o.druh === "houf" ? `${o.n} (${o.max})` : o.n))) || "neznámými"}.`;
   if (s.prekv === "h") v += " Nepřítel družinu zaskočil.";
   else if (s.prekv === "n") v += " Družina nepřítele zaskočila.";
-  const pr = bojPros(s)
-    .map(x => BPROS[x] && BPROS[x][2])
-    .filter(Boolean);
-  if (pr.length) v += ` Bojovalo se ${bojSez(pr)}.`;
   v += ` Boj trval ${bojKolTxt(k)} (asi ${Math.max(1, Math.round((k * 6) / 60))} min).`;
   P.push(v);
   const v2 = [],
@@ -1538,10 +1534,6 @@ function bojPripominky(s, h) {
   const rd = (s.ready || {})[h.id];
   if (rd) r.push(`Připravená akce: ${rd} – spustíš ji reakcí, na začátku tvého tahu propadne.`);
   r.push((s.reak || {})[h.id] ? "Reakci jsi v tomto kole už použil." : "Reakce je k dispozici.");
-  bojPros(s).forEach(k => {
-    const p = BPROS[k];
-    if (p) r.push(p[3]);
-  });
   return r;
 }
 /* panel postavy: stejné ovládání pro hráče (svou postavu) i vypravěče (rozbalený řádek družiny) */

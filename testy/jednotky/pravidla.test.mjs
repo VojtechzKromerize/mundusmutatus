@@ -200,11 +200,6 @@ test("stavy: návrh výhody v boji – sražený cíl zblízka výhoda, z dálky
   } finally {
     S.ev(`delete BCIL.n1`);
   }
-  assert.equal(
-    V(`bojAdvNavrh({npc: [{id: "n1", b: "x"}], hraci: [], prostr: ["mlha"]}, {id: "n1"}, {n: "Luk", p: "dostřel 80/320 stop"}).v`),
-    -1,
-    "mlha: útok z dálky s nevýhodou",
-  );
   assert.equal(V(`kAdvSum(1, [[-1, "x"]])`), 0, "výhoda a nevýhoda se ruší");
   assert.equal(V(`kAdvSum(0, [[1, "a"], [1, "b"]])`), 1);
 });

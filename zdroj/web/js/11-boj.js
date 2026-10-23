@@ -707,9 +707,7 @@ const bojSkupRadky = v => {
   if (!v) return null;
   if (v.startsWith("s:")) {
     const x = SETBY[v.slice(2)];
-    return x
-      ? {rows: bojRozvin(x.np), z: x.x, n: x.n, cile: (x.cl || []).map(bojCilParse).filter(Boolean), prostr: bojProsParse(x.pro), prekv: x.pk || ""}
-      : null;
+    return x ? {rows: bojRozvin(x.np), z: x.x, n: x.n, cile: (x.cl || []).map(bojCilParse).filter(Boolean), prekv: x.pk || ""} : null;
   }
   const g0 = bojSkup()[v.startsWith("g:") ? v.slice(2) : v];
   if (!g0) return null;
@@ -718,7 +716,6 @@ const bojSkupRadky = v => {
     rows: (g.np || []).map(x => ({n: x.n, druh: x.druh, pocet: x.pocet || 1, b: x.b || "", pr: x.pr || [], os: x.os || ""})),
     z: g.lead || "",
     cile: (g.cile || []).map(c => Object.assign({}, c)),
-    prostr: (g.prostr || []).filter(k => BPROS[k]),
     prekv: g.prekv || "",
   };
 };
@@ -744,23 +741,6 @@ const bojCilTxt = c => {
   const a = [c.cil ? c.cil + "×" : "", c.kolo ? `do ${c.kolo}. kola` : "", c.ver === false ? "skrytý" : ""].filter(Boolean);
   return c.n + (a.length ? ` (${a.join(", ")})` : "");
 };
-function bojProsParse(a) {
-  const o = [],
-    R = {
-      tma: /tma|tmy|noc/,
-      mlha: /mlh|kour/,
-      vitr: /vitr|vich/,
-      dest: /dest|lijak|snez|sniz/,
-      uzky: /uzk|most|bran|souteska/,
-      teren: /teren|blat|bazin|sut/,
-    };
-  (Array.isArray(a) ? a : String(a || "").split(",")).forEach(x => {
-    const t = bojNorm(x);
-    const k = Object.keys(R).find(q => R[q].test(t));
-    if (k && !o.includes(k)) o.push(k);
-  });
-  return o;
-}
 /* setkání do boje: nepřátelé vždy, cíle taky; v přípravě i úvod, prostředí a přepadení */
 function bojSetkPouzij(z, R) {
   bojPridejNpc(z, R.rows);
@@ -773,7 +753,6 @@ function bojSetkPouzij(z, R) {
   }
   if (prip) {
     if ((R.z || R.n) && !z.lead) z.lead = (R.n ? R.n + ". " : "") + (R.z || "");
-    if ((R.prostr || []).length) z.prostr = [...new Set([...(z.prostr || []), ...R.prostr])];
     if (R.prekv && !z.prekv) z.prekv = R.prekv;
   }
 }
@@ -1254,37 +1233,6 @@ const BUTT = {},
   BJR = {};
 /* výhoda / nevýhoda: návrh podle stavu útočníka a cíle (Sražen: zblízka výhoda, z dálky nevýhoda; Omráčen: výhoda; útočník Sražen: nevýhoda) */
 const bojDalka = a => /dostřel|na dálku|střel|kuš|luk|píšťal|hák/i.test((a.n || "") + " " + (a.p || "")) && !/dosah 5 stop|zblízka/i.test(a.p || "");
-/* prostředí boje: [ikona, název, místo pro zápis, popis] – tma, mlha, vítr a úzký průchod mění návrh výhody a přesilu houfu */
-const BPROS = {
-  tma: [
-    "tma",
-    "Tma",
-    "ve tmě",
-    "Tma bez světla: kdo nemá vidění ve tmě (Darkvision), nevidí cíl a útočí s nevýhodou. Když družina svítí, nech vypnuté.",
-  ],
-  mlha: [
-    "mlha",
-    "Mlha nebo kouř",
-    "v mlze",
-    "Mlha nebo kouř (silně zastřeno): útoky na dálku s nevýhodou. Podle pravidel se výhoda a nevýhoda dvou stran, které se nevidí, ruší – návrh počítá jen s nevýhodou střelce.",
-  ],
-  vitr: ["vitr", "Silný vítr", "v silném větru", "Silný vítr: nevýhoda na útoky zbraněmi na dálku, otevřený oheň zhasíná, rozhání mlhu."],
-  dest: [
-    "dest",
-    "Liják nebo sněžení",
-    "v lijáku",
-    "Liják nebo husté sněžení: lehce zastřeno – nevýhoda na Vnímání (Perception), na útoky vliv nemá. Otevřený oheň zhasíná.",
-  ],
-  uzky: [
-    "uzky",
-    "Úzký průchod",
-    "v úzkém průchodu",
-    "Úzký průchod, most nebo brána: na jeden cíl dosáhnou nejvýš dva z houfu – přesila nejvýš +1 (domácí návrh).",
-  ],
-  teren: ["teren", "Obtížný terén", "v obtížném terénu", "Obtížný terén (bláto, hluboký sníh, suť, křoví): každý krok stojí dvojnásob pohybu."],
-};
-const bojPros = s => (s && s.prostr) || [];
-const bojVidiTma = p => /darkvision|vidění ve tmě|vidí ve tmě|truesight|blindsight|pravý zrak|slepý zrak/i.test(bojTxt(p));
 const bojCilO = (s, id) => (id ? (s.hraci || []).find(h => h.id === id) || (s.npc || []).find(x => x.id === id) || null : null);
 /* postava na prahu smrti: hody proti smrti běží, dokud není stabilizovaná nebo mrtvá */
 const bojDsAkt = h => !!(h && h.ds && !h.ds.st);
@@ -1299,11 +1247,6 @@ function bojAdvNavrh(s, n, a) {
     st = n.stav || [],
     dal = bojDalka(a);
   srdAdv(st, [], dal, plus, minus);
-  const P = bojPros(s),
-    p = PROTBY[n.b];
-  if (P.includes("tma") && !bojVidiTma(p)) minus.push("tma, nevidí");
-  if (P.includes("mlha") && dal) minus.push("mlha, útok z dálky");
-  if (P.includes("vitr") && dal && a.b != null) minus.push("silný vítr, útok z dálky");
   const cid = BCIL[n.id],
     c = bojCilO(s, cid);
   let kryt = 0,
@@ -1360,8 +1303,8 @@ function bojUtokV(n, ai, a) {
   }
   return b;
 }
-/* přesila houfu: +1 za každého dalšího pacholka, nejvýš +5; v úzkém průchodu nejvýš +1 */
-const bojPres = (s, n) => Math.min(Math.max((n.pocet || 0) - 1, 0), bojPros(s).includes("uzky") ? 1 : 5);
+/* přesila houfu: +1 za každého dalšího pacholka, nejvýš +5 */
+const bojPres = (s, n) => Math.min(Math.max((n.pocet || 0) - 1, 0), 5);
 function bojMaRes(c, typ) {
   if (!c) return false;
   if (!c.druh) {
@@ -1373,7 +1316,7 @@ function bojMaRes(c, typ) {
 }
 function bojUtokZr(n, a, krit, S) {
   if (a.zp != null) {
-    const dos = Math.max(1, Math.min(n.pocet || 1, bojPros(S).includes("uzky") ? 2 : 99, BDOS[n.id] != null ? BDOS[n.id] : n.pocet || 1));
+    const dos = Math.max(1, Math.min(n.pocet || 1, BDOS[n.id] != null ? BDOS[n.id] : n.pocet || 1));
     return {t: a.zp * dos, x: `${a.zp} × ${dos} v dosahu`, zt: a.zt || ""};
   }
   if (a.z) {
@@ -2895,10 +2838,6 @@ function bojNovaPriprava(z) {
     dm: null,
     hraci: (jm.length ? jm : ["", "", ""]).map((n, i) => ({id: "h" + (i + 1), n, hod: null})),
   });
-  {
-    const pr = bojProsPocasi();
-    if (pr.length) z.prostr = pr;
-  }
   let x = null;
   try {
     x = JSON.parse(sessionStorage.getItem("mm-boj-pred") || "null");
@@ -2915,38 +2854,6 @@ function bojNovaPriprava(z) {
     if (x.z) z.lead = x.z;
     bojDmHod(z);
   }
-}
-/* prostředí: vypravěč přepíná, hráči vidí zapnuté; nová příprava si vezme vítr, liják, ranní mlhu a hluboký sníh z počasí */
-function bojProsHtml(s, gm) {
-  const P = bojPros(s);
-  if (!gm && !P.length) return "";
-  return `<div class="bpros" role="group" aria-label="Prostředí boje"><span class="lbl">Prostředí</span>${(gm ? Object.keys(BPROS) : P)
-    .filter(k => BPROS[k])
-    .map(k => {
-      const p = BPROS[k],
-        on = P.includes(k);
-      return gm
-        ? `<button type="button" data-bpros="${k}" aria-pressed="${on}" ${btip(p[3])}>${bi(p[0])}<span>${p[1]}</span></button>`
-        : `<span class="bprosc" ${btip(p[3])}>${bi(p[0])}<span>${p[1]}</span></span>`;
-    })
-    .join("")}</div>`;
-}
-function bojProsPocasi() {
-  let X, P;
-  try {
-    X = hraX();
-    P = dialPoc(X.today);
-  } catch (e) {
-    return [];
-  }
-  if (!P) return [];
-  const h = X.H == null ? 12 : X.H % 24,
-    o = [];
-  if (P.mlha && h < 12) o.push("mlha");
-  if (P.v >= 3) o.push("vitr");
-  if (P.typ === "bourka" || (P.typ && P.int >= 3)) o.push("dest");
-  if (P.snih >= 3) o.push("teren");
-  return o;
 }
 /* hod za nepřátele: d20 + nejlepší iniciativa ze statblocků */
 function bojDmHod(z) {

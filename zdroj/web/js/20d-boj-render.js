@@ -168,7 +168,7 @@ function bojAktivni() {
           mb = M.m
             ? `<p class="bmomban bmom-${M.m}"><b>${M.m === "h" ? "Družina má momentum" : "Nepřátelé mají momentum"}</b> – ${M.m === "h" ? "Pokušení vám" : "Pokušení nepřátelům"} padá jen na ${zavojInfo().z ? "1–2" : "1"}.</p>`
             : "",
-          h = zavojBan() + mb + bojPocasi() + bojProsHtml(s, gm);
+          h = zavojBan() + mb;
         return h ? `<div class="bojhorni">${h}</div>` : "";
       })(),
       ja: jaH,
@@ -223,7 +223,7 @@ function bojAktivni() {
   }
   const A = {
     hor: (() => {
-      const h = zavojBan() + bojPocasi() + bojProsHtml(s, gm);
+      const h = zavojBan();
       return h ? `<div class="bojhorni">${h}</div>` : "";
     })(),
     ja: jaH,

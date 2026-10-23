@@ -2063,12 +2063,6 @@ a.kzodk{color:inherit;text-decoration:underline dotted color-mix(in srgb,var(--k
 #bojview .bnh .bpocet{font-family:var(--f-disp);font-size:1.05rem;color:var(--muted)}
 #bojview .bnh .bpocet b{font-size:1.25rem;color:var(--ink)}
 /* prostředí, kryt, postavy v boji, zajatci, kořist, návrh zápisu (2026-10-16) */
-.bpros{display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px;padding:5px 12px;font-family:var(--f-label);font-size:.82rem}
-.bpros .lbl{margin-right:4px}
-.bpros button,.bprosc{display:inline-flex;align-items:center;gap:4px;padding:2px 9px 2px 5px;border:1px solid var(--rule);border-radius:14px;background:var(--paper);color:var(--muted);font:inherit;cursor:pointer}
-.bprosc{cursor:default;color:var(--ink);border-color:var(--gold)}
-.bpros button[aria-pressed="true"]{background:color-mix(in srgb,var(--gold) 28%,var(--paper));border-color:var(--kal);color:var(--ink)}
-.bpros .bi{width:16px;height:16px}
 .bkrytb{display:inline-flex;align-items:center;gap:3px;height:32px;padding:0 8px 0 5px;border:1px solid var(--rule);border-radius:16px;background:var(--paper);color:var(--muted);font-family:var(--f-label);font-size:.78rem;cursor:pointer}
 .bkrytb.on{background:color-mix(in srgb,var(--gold) 30%,var(--paper));border-color:var(--kal);color:var(--ink)}
 .bkrbd{display:inline-flex;align-items:center;gap:1px;font-family:var(--f-label);font-size:.72rem;color:var(--ink)}.bkrbd .bi{width:16px;height:16px}
@@ -3476,9 +3470,6 @@ button.btedch{cursor:pointer}button.btedch:hover{border-color:var(--gold,#b08d3a
 @media (min-width:1400px){
   .bojgm .bojhorni{flex-direction:row;flex-wrap:wrap;align-items:center;gap:4px 12px;margin-bottom:8px}
   .bojgm .bojhorni>*{flex:1 1 100%}
-  .bojgm .bojhorni>.bojpoc{flex:1 1 320px;padding:4px 12px}
-  .bojgm .bojhorni>.bpros{flex:0 1 auto;padding:0}
-  .bojgm .bojpoc ul{display:inline;margin:0 0 0 6px;padding:0}.bojgm .bojpoc li{display:inline}.bojgm .bojpoc li+li::before{content:" · "}
   /* osa: šipky tahu pod kolem; kdo je na tahu, ukazuje zlatý prstenec na ose, ne pravá sekce */
   #bojview .bojgm .bosa{grid-template-columns:auto minmax(0,1fr);grid-template-rows:auto auto;gap:4px 14px;align-items:start}
   #bojview .bojgm .bosa .bleg{grid-area:1/1;justify-content:center}
@@ -3551,7 +3542,7 @@ button.btedch{cursor:pointer}button.btedch:hover{border-color:var(--gold,#b08d3a
   #bojview .bojgm .bhp input{font-size:1.35rem}
   /* tvary: rámečky 4 px, chipy kulaté, nic mezi */
   #bojview .bojgm :is(.bnpc,.bosa,.bnkb,.bnkv,.bnkp,.bcl,.bnav,.gbtn,.btabs button,.bpridej>summary,.bnkvm,.bnkvz,.bzrf input,.bzrf select,.beff input,.beff select,.bhp input,.bnadd input,.bnadd select,.bobl,.bdetnic,.bplos,.bmor){border-radius:4px}
-  #bojview .bojgm :is(.bprc,.bpros button,.bprosc,.btedch,.bphai,.bzd>span,.kchip,.bst){border-radius:999px}
+  #bojview .bojgm :is(.bprc,.btedch,.bphai,.bzd>span,.kchip,.bst){border-radius:999px}
   /* banner Hodiny Závoje: tenký vínový proužek nad počasím */
   #bojview .bojgm .bojhorni>.zavban{flex:1 1 100%;margin:0;padding:3px 12px;border:0;border-left:4px solid #a3232b;border-radius:0;background:none;font-size:.9rem}
   #bojview .bojgm .bojhorni>.zavban b{font-size:1rem}
@@ -3595,7 +3586,6 @@ button.btedch{cursor:pointer}button.btedch:hover{border-color:var(--gold,#b08d3a
   .bojgm .bnkr .bzd button{margin:0 3px}
 }
 /* ===== Hráč na počítači (2026-10-21): jen jeho karta a záznam – bez počasí, bez záložek Nepřátelé a Družina, osa bez pravé sekce ===== */
-.bojhrac .bojhorni>.bojpoc{display:none}
 @media (min-width:1000px){
   .wrap:has(.view[data-view=boj]:not([hidden]) .bojhrac.bojakt:not(.bojprip)){max-width:1600px}
   .bojhrac.bojakt:not(.bojprip) .btabs{display:none}
@@ -3647,3 +3637,17 @@ button.btedch{cursor:pointer}button.btedch:hover{border-color:var(--gold,#b08d3a
 .bscjb .bmed{--ms:26px}
 .bscjb[aria-pressed=true]{background:#781421;border-color:#c9a227;box-shadow:0 0 0 1px #c9a227}
 .bscutok{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin:8px 0;padding:8px 12px;border:1px solid #9b2a2a;border-left:4px solid #9b2a2a;border-radius:4px;background:color-mix(in srgb,#9b2a2a 10%,var(--paper))}
+.phpoc .bojpoc{margin:6px 0 0;font-size:.88rem}
+/* ===== Karta NPC u vypravěče ve vínové kůži jako karta hráče (2026-10-23): rozvržení zůstává kompaktní, mění se jen barvy –
+   proměnné papíru, inkoustu a linek se uvnitř rozbalené karty přepnou na paletu karty postavy (--kb-*, .kdb) ===== */
+#bojview .bojgm .bnpc.bopen:not(.bhrk){
+  --paper:#2a1216;--ink:#efe3c8;--muted:#b8a384;--rule:#5a2a2a;--gold:#d9b45c;--bg:#1f0c10;--kal:#d9b45c;
+  color:var(--ink);background:linear-gradient(180deg,#35161c 0,#230d11 90px,#1f0c10 100%);
+  border:2px solid #8c4a3e;border-top:3px solid var(--bn);border-radius:12px;box-shadow:0 10px 24px -14px rgba(0,0,0,.8);padding:8px 12px 10px}
+#bojview .bojgm .bnpc.bopen:not(.bhrk).bspj{border-top-color:var(--bh)}
+#bojview .bojgm .bnpc.bopen:not(.bhrk) .bnn b{font-family:var(--f-disp);font-weight:500;font-size:1.35rem;color:#f6e7c1}
+#bojview .bojgm .bnpc.bopen:not(.bhrk) :is(input,select,textarea){background:#15070a;color:var(--ink);border-color:#5a2a2a}
+#bojview .bojgm .bnpc.bopen:not(.bhrk) :is(.gbtn,.badd,button.bschod){color:var(--ink)}
+#bojview .bojgm .bnpc.bopen:not(.bhrk) .bscnpc{background:#15070a;border-color:#5a2a2a}
+#bojview .bojgm .bnpc.bopen:not(.bhrk) .bscab{background:#2a1216}
+#bojview .bojgm .bnpc.bopen:not(.bhrk) :is(.bi,.bdmic){filter:none}

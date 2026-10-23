@@ -13,7 +13,6 @@ async def main():
     await g.click('[data-bstart]');await g.wait_for_selector(".bsloty");await g.wait_for_timeout(600)
     await g.evaluate("bojZmen(s=>{bojPridejNpc(s,[{n:'Rotmistr',druh:'sok',b:'rotmistr-zoldneru',pr:[]},{n:'Žoldnéři 2',druh:'houf',pocet:6,b:'houf-zoldneru',pr:[]}])})");await g.wait_for_timeout(900)
     rid=await g.evaluate("BOJ.s.npc.find(n=>n.n==='Rotmistr').id")
-    await g.click('[data-bpros="vitr"]');await g.wait_for_timeout(400)  # silný vítr – návrh zápisu do Kroniky ho zmiňuje
     pl=await b.new_page(viewport={"width":390,"height":844});perr=[];pl.on("pageerror",lambda e:perr.append(str(e)[:200]))
     await pl.goto(BASE+"#boj");await pl.wait_for_selector(".bsloty",state="attached");await pl.wait_for_timeout(800)
     # zkušební karta postavy (Balduin): AC, životy s odolností, útoky z karty, hráč nevidí detaily nepřátel
@@ -356,7 +355,7 @@ async def main():
     chk(await g.locator(".bkor li").count()>0 and "štít" in sh,"kořist ze statblocků (zbroj, zbraně)")
     chk("rozdal zranění" in sh,"statistika po boji")
     zap=await g.input_value("[data-bzapt]")
-    chk("Družina (Adam, Bára, Cyril a Balduin)" in zap and "Rotmistr (popraven)" in zap and "silném větru" in zap,"návrh zápisu do Kroniky: "+zap[:160])
+    chk("Družina (Adam, Bára, Cyril a Balduin)" in zap and "Rotmistr (popraven)" in zap,"návrh zápisu do Kroniky: "+zap[:160])
     await g.click('[data-bkon="zpet"]');await g.wait_for_timeout(400)
     await g.screenshot(path=os.path.join(VYSTUP,"boj-gm.png"),full_page=True)
     await pl.wait_for_timeout(3000);await pl.screenshot(path=os.path.join(VYSTUP,"boj-m.png"),full_page=True)

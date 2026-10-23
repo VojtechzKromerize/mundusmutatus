@@ -263,9 +263,6 @@ function bojAdvHrac(s, me, c, dal) {
     st = me.stav || [];
   srdAdv(st, [], dal, plus, minus, true);
   if (c) (c.ef || []).forEach(e => BZNADV[e.n] && plus.push(BZNADV[e.n]));
-  const P = bojPros(s);
-  if (P.includes("mlha") && dal) minus.push("mlha");
-  if (P.includes("vitr") && dal) minus.push("silný vítr");
   if (c) srdAdv([], c.stav || [], dal, plus, minus);
   const v = plus.length && !minus.length ? 1 : minus.length && !plus.length ? -1 : 0;
   return {v, why: v > 0 ? plus : v < 0 ? minus : plus.length ? ["výhoda i nevýhoda se ruší"] : []};
@@ -830,7 +827,7 @@ function bojUpozorni() {
     navigator.vibrate && navigator.vibrate([250, 120, 250, 120, 400]);
   } catch (e) {}
   const me = (s.hraci || []).find(h => h.id === ja),
-    pr = me ? bojPripominky(s, me).filter(x => !/^Reakce je k dispozici/.test(x) && !Object.values(BPROS).some(q => q[3] === x)) : [];
+    pr = me ? bojPripominky(s, me).filter(x => !/^Reakce je k dispozici/.test(x)) : [];
   mmHlas(`${bojJa.get()}, jsi na tahu!${pr.length ? " " + pr.slice(0, 2).join(" ") : ""}`, pr.length ? 9000 : 6000);
   mmNotif("Jsi na tahu!", bojJa.get());
   const el = document.querySelector(".bslot.bmujtah");
