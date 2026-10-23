@@ -361,7 +361,8 @@ const BKOSTRA_H = `<div class="bojakt bojhrac"><div data-bk="hor"></div><div dat
 let BTAB = "k";
 /* hráč na telefonu (karta přes celou obrazovku, 2026-10-22): dole jen Moje karta · Iniciativa · Ukončit tah;
    pruh iniciativy je až v záložce Iniciativa, záznam boje v listu Záznam na kartě, Nepřátelé a Družina nejsou */
-const bojTabyCela = (s, gm) => !gm && mmCela();
+/* totéž hráč na širokém počítači (2026-10-24): přepínač je nahoře, karta přes celou šířku (bojPcHrac, 14) */
+const bojTabyCela = (s, gm) => !gm && (mmCela() || bojPcHrac());
 function bojTabyHrac(s) {
   const ja = ((s.hraci || []).find(h => h.n === bojJa.get()) || {}).id,
     naTahu = !!ja && (s.obsazeni || {})[s.tah] === ja,
@@ -667,6 +668,7 @@ function renderBoj() {
   }
   obnovPr();
   root.classList.toggle("bojprip", !s.aktivni);
+  root.classList.toggle("bojpc", bojPcHrac());
   if (BTAB === "u") BTAB = "n";
   root.dataset.btab = BTAB;
   const tr = box.querySelector(".bsloty");

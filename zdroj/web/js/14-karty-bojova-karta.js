@@ -1747,6 +1747,8 @@ function bdmTelo(s, h, K, gm, X, id) {
       .join("")}</div>`;
     const def = [["Vulnerability", K.zra]].filter(([, L]) => (L || []).length);
     const sm = `<h4 class="bdmgh">Smysly</h4><p class="bdmnote bdmpas">Pasivní: Vnímání <b>${kPas(K, "vnimani")}</b> · Pátrání <b>${kPas(K, "patrani")}</b> · Vhled <b>${kPas(K, "vhled")}</b></p>${K.smysly ? `<p class="bdmnote bdmpas">${besc(K.smysly)}</p>` : ""}${def.map(([l, L]) => `<p class="bdmdef"><b>${l}</b> ${L.map(t => `${bikZr(t)}<span>${besc(BZRT[t] || t)}</span>`).join(" ")}</p>`).join("")}`;
+    /* široký počítač: vlastnosti, smysly a zdatnosti v jednom sloupci, dovednosti ve druhém */
+    if (X.pc) return `<div class="bdmpcst">${ab}${za}${sm}${bdmZdatHtml(K, edit)}</div><div class="bdmpcdv">${dov}</div>`;
     return ab + za + dov + sm + bdmZdatHtml(K, edit);
   }
   if (id === "akce") return bdmAkce(s, h, K, gm, X);
@@ -1754,8 +1756,8 @@ function bdmTelo(s, h, K, gm, X, id) {
   if (id === "vyb") return bdmVyb(K);
   if (id === "rysy") return bdmRysy(K);
   if (id === "denik") return `<div class="kdb2 bdmkdb">${kDenikHtml(K)}</div>`;
-  /* hráč na telefonu v boji: záznam boje (jinak samostatná záložka Záznam) nahoře, pod ním jeho hody mimo boj */
-  if (id === "zaznam" && X.boj && !gm && mmCela() && s && s.aktivni)
+  /* hráč na telefonu a na širokém počítači v boji: záznam boje (jinak samostatný sloupec) nahoře, pod ním jeho hody mimo boj */
+  if (id === "zaznam" && X.boj && !gm && (mmCela() || X.pc) && s && s.aktivni)
     return `<div class="bdmzaz">${bojZaznamSloupec(s, false)}</div><div class="kdb2 bdmkdb"><h4 class="bdmgh">Moje hody</h4>${kZaznamHtml(K, true)}</div>`;
   if (id === "zaznam")
     return `<div class="kdb2 bdmkdb"><p class="kdbnote">Tvoje hody z karty i z Boje a veřejný záznam boje. Klepnutím na kostku dole hodíš cokoli.</p>${kZaznamHtml(K)}</div>`;
@@ -1970,6 +1972,14 @@ function bdmPusobiHtml(K, stL0) {
   if (!R.length && !C.length) return "";
   return `<div class="bdmpus" role="group" aria-label="Co na postavě právě působí">${R.join("")}${C.length ? `<div class="bdmpuscs">${C.join("")}</div>` : ""}</div>`;
 }
+/* hráč v boji na širokém počítači (2026-10-24, Vojta): nahoře přepínač Moje karta · Iniciativa · Ukončit tah (bojTabyHrac, 20d),
+   vlastní karta přes celou šířku – hlavička jako pás, Statistiky a Dovednosti stále vidět, vpravo ostatní listy; 1280–1599 px
+   totéž zmenšené (CSS zoom). Telefon (mmCela, ≤ 700 px) ani vypravěče se to netýká. */
+const BOJPC_MQ = matchMedia("(min-width:1280px)");
+const bojPcHrac = () => !GMV && mmNaHre() && BOJPC_MQ.matches;
+BOJPC_MQ.addEventListener("change", () => {
+  if (curView === "boj") bdmPrekresli();
+});
 function bojDbm(s, h, K, gm, vzdy, X) {
   X = X || {};
   const S = kartaStav(K.id),
@@ -1981,8 +1991,13 @@ function bojDbm(s, h, K, gm, vzdy, X) {
   const key = K.id,
     ac = kAC(K) + (X.boj ? +h.kryt || 0 : 0),
     IMG = kImg(K) || bojPortH(K.n),
-    sek = bdmSekce(K),
-    sec = sek.some(x => x[0] === BDM.sec[key]) ? BDM.sec[key] : "akce";
+    sek0 = bdmSekce(K),
+    sec0 = sek0.some(x => x[0] === BDM.sec[key]) ? BDM.sec[key] : "akce";
+  /* široký počítač: Statistiky jsou stále vidět vlevo, v záložkách vpravo zbývají ostatní listy */
+  const pc = !!X.boj && !gm && !!vzdy && !!(s && s.aktivni) && bojPcHrac(),
+    sek = pc ? sek0.filter(x => x[0] !== "vl") : sek0,
+    sec = pc && sec0 === "vl" ? "akce" : sec0;
+  if (pc) X = {...X, pc: true};
   const tr = kTridy(K),
     sub = [K.druh, tr.map(t => `${t.n} ${t.u}`).join(" • ") || K.povolani].filter(Boolean).join(" · ");
   const ZU = kZbrU(K),
@@ -2067,9 +2082,9 @@ function bojDbm(s, h, K, gm, vzdy, X) {
   const lep = `<div class="bdmlep"><div class="bdmmi"><span class="bdmmin">${besc(K.n)}</span><button type="button" class="bdmmac" data-bdmsh="ac" ${btip("AC – obětování zbroje")}>AC <b>${ac}</b></button>${hpB(" bdmmhp")}</div>
     <nav class="bdmtabs" role="tablist" aria-label="Oddíly karty">${sek.map(([id, n, k]) => `<button type="button" role="tab" data-bdmsec="${id}" aria-selected="${id === sec}" ${btip(n)}>${bdmZalIk(id)}<span>${besc(k)}</span></button>`).join("")}</nav></div>`;
   const body = `<section class="bdmsec" data-bdmid="${sec}">${bdmTelo(s, h, K, gm, X, sec)}</section>`;
-  /* na telefonu přes celou obrazovku je Ukončit tah v dolní liště (bojTabyHrac, 20d) */
+  /* na telefonu přes celou obrazovku je Ukončit tah v dolní liště, na širokém počítači v horní (bojTabyHrac, 20d) */
   const konec =
-    vzdy && X.boj && !(!gm && mmCela()) && (s.obsazeni || {})[s.tah] === h.id
+    vzdy && X.boj && !(!gm && (mmCela() || pc)) && (s.obsazeni || {})[s.tah] === h.id
       ? (s.hotovo || {})[h.id] === (s.kolo || 1) * 100 + (s.tah || 0)
         ? `<p class="bdmnote">✓ Tah dohrán – vypravěč posune dál.</p>`
         : bojKonecBtn(h.id)
@@ -2081,7 +2096,11 @@ function bojDbm(s, h, K, gm, vzdy, X) {
       })()
     : "";
   const upr = `${!kMuze(K) && X.karta ? `<p class="kropozn">Tuto kartu upravuje přihlášený hráč. Ke své postavě se přihlas na stránce <a href="#hra">Hra</a>.</p>` : ""}${kMuze(K) ? kLvupHtml(K) + (KUPRO.has(K.id) ? kUprHtml(K) : "") : ""}`;
-  return `<div class="bdm kdb bhkb${kMuze(K) ? "" : " kro"}${nes ? " bdmnesch" : ""}" data-kid="${besc(K.id)}">${head}${hlH}${upr}${lep}<div class="bdmbody" data-bdmsw="${besc(key)}">${body}</div>${konec}<button type="button" class="bdmd20" data-bdmsh="kost" aria-expanded="${shOpen === "kost"}" aria-label="Hod kostkou" ${btip("Hod kostkou: vlastní výraz se Závojem, výhoda a nevýhoda")}>${bdmIc("d20")}</button>${list}</div>`;
+  const d20 = `<button type="button" class="bdmd20" data-bdmsh="kost" aria-expanded="${shOpen === "kost"}" aria-label="Hod kostkou" ${btip("Hod kostkou: vlastní výraz se Závojem, výhoda a nevýhoda")}>${bdmIc("d20")}</button>`;
+  /* široký počítač: vlevo hlavička, hlášky a Statistiky s Dovednostmi, vpravo záložky a zvolený list přes celou výšku */
+  if (pc)
+    return `<div class="bdm kdb bhkb bdmpc${kMuze(K) ? "" : " kro"}${nes ? " bdmnesch" : ""}" data-kid="${besc(K.id)}"><div class="bdmpcl">${head}${hlH}${upr}<section class="bdmsec bdmpcvl" data-bdmid="vl">${bdmTelo(s, h, K, gm, X, "vl")}</section>${d20}</div><div class="bdmpcr">${lep}<div class="bdmbody" data-bdmsw="${besc(key)}">${body}</div></div>${list}</div>`;
+  return `<div class="bdm kdb bhkb${kMuze(K) ? "" : " kro"}${nes ? " bdmnesch" : ""}" data-kid="${besc(K.id)}">${head}${hlH}${upr}${lep}<div class="bdmbody" data-bdmsw="${besc(key)}">${body}</div>${konec}${d20}${list}</div>`;
 }
 /* jediná karta postavy (2026-10-18): stejná na stránce Karty, Hra i v Boji; mimo boj se životy a stavy zapisují rovnou do karty */
 function kartaJednaHtml(K) {
