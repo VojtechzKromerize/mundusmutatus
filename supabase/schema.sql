@@ -229,8 +229,17 @@ drop policy if exists "denik: čte vypravěč" on public.denik;
 create policy "denik: čte vypravěč" on public.denik for select to authenticated using (public.mm_je_gm());
 drop policy if exists "karty: čte každý" on public.karty;
 create policy "karty: čte každý" on public.karty for select to anon, authenticated using (true);
+-- karta přihlášeného hráče (účet Discordem nebo heslem); pro pravidla RLS, která nesmí číst hraci_ucty přímo
+create or replace function public.mm_moje_karta() returns text
+language sql stable security definer set search_path = public as $$
+  select karta from public.hraci_ucty where user_id = auth.uid()
+$$;
+grant execute on function public.mm_moje_karta() to anon, authenticated;
 drop policy if exists "hody: čte každý" on public.hody;
-create policy "hody: čte každý" on public.hody for select to anon, authenticated using (true);
+-- hod „jen vypravěči“ (data.taj, 2026-10-23): ostatní hráči ho nedostanou; vidí ho vypravěč a hráč přihlášený za tu postavu
+create policy "hody: čte každý" on public.hody for select to anon, authenticated using (
+  coalesce(data ->> 'taj', '') <> 'true' or public.mm_je_gm()
+  or (data ->> 'k') = public.mm_moje_karta());
 drop policy if exists "ukazky: čte každý" on public.ukazky;
 create policy "ukazky: čte každý" on public.ukazky for select to anon, authenticated using (true);
 drop policy if exists "vyzvy: čte každý" on public.vyzvy;
@@ -621,7 +630,7 @@ language plpgsql security definer set search_path = public as $$
 declare u text; d jsonb := new.data; m text;
 begin
   select hodnota ->> 'url' into u from public.nastaveni where klic = 'discord';
-  if d ->> 'src' = 'discord' then return new; end if;
+  if d ->> 'src' = 'discord' or d ->> 'taj' = 'true' then return new; end if;
   if u is null or to_regproc('net.http_post') is null then return new; end if;
   m := '**' || coalesce(d ->> 'kdo', '?') || '** · ' || coalesce(d ->> 'co', '') || coalesce(': **' || (d ->> 'tot') || '**', '')
     || coalesce(' — ' || left(d ->> 'txt', 300), '')
@@ -1078,13 +1087,18 @@ begin
       and not exists (select 1 from jsonb_each(x) e where char_length(e.key) > 60 or jsonb_typeof(e.value) <> 'number' or not public.mm_cislo(e.value, 0, 30)))
     when 'inv' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'array' and jsonb_array_length(x) <= 300 and not exists (
       select 1 from jsonb_array_elements(x) e where jsonb_typeof(e) <> 'object'
-        or exists (select 1 from jsonb_object_keys(e) k where k not in ('n', 'q', 'w', 'pripoutano', 'mag', 'obl', 'nab', 'v', 'pozn'))
+        or exists (select 1 from jsonb_object_keys(e) k where k not in ('n', 'q', 'w', 'pripoutano', 'mag', 'obl', 'nab', 'v', 'pozn', 'typ'))
+        or (e ? 'typ' and coalesce(e ->> 'typ', '') not in ('boj', 'spo', 'mag', 'cen', 'vys'))
         or (e ? 'pozn' and (jsonb_typeof(e -> 'pozn') <> 'string' or char_length(e ->> 'pozn') > 300))
         or (e ? 'v' and (jsonb_typeof(e -> 'v') <> 'string' or char_length(e ->> 'v') not between 1 and 80))
         or (e ? 'obl' and jsonb_typeof(e -> 'obl') <> 'boolean') or (e ? 'nab' and not public.mm_cislo(e -> 'nab', 0, 99))
         or jsonb_typeof(e -> 'n') is distinct from 'string' or char_length(e ->> 'n') not between 1 and 80 or not public.mm_cislo(e -> 'q', 0, 9999)
         or (e ? 'w' and (jsonb_typeof(e -> 'w') <> 'string' or char_length(e ->> 'w') > 20))
         or (e ? 'mag' and (jsonb_typeof(e -> 'mag') <> 'string' or (e ->> 'mag') !~ '^[a-z0-9-]{1,60}$'))))
+    -- složky vybavení (2026-10-23): [{n, nen?}] – nen = postava složku nenese (kůň, vůz), nepočítá se do nosnosti
+    when 'slozky' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'array' and jsonb_array_length(x) <= 20 and not exists (
+      select 1 from jsonb_array_elements(x) e where jsonb_typeof(e) <> 'object' or exists (select 1 from jsonb_object_keys(e) k where k not in ('n', 'nen'))
+        or jsonb_typeof(e -> 'n') is distinct from 'string' or char_length(e ->> 'n') not between 1 and 40 or (e ? 'nen' and jsonb_typeof(e -> 'nen') <> 'boolean')))
     when 'pen' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'object' and not exists (
       select 1 from jsonb_each(x) e where e.key not in ('CP', 'SP', 'EP', 'GP', 'PP') or jsonb_typeof(e.value) <> 'number' or (e.value #>> '{}') !~ '^[0-9]{1,7}$'))
     when 'pozn' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'string' and char_length(x #>> '{}') <= 4000)
@@ -1122,7 +1136,7 @@ begin
     when 'spol' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'array' and jsonb_array_length(x) <= 8 and octet_length(x::text) <= 30000 and not exists (
         select 1 from jsonb_array_elements(x) e where jsonb_typeof(e) <> 'object' or jsonb_typeof(e -> 'n') is distinct from 'string' or char_length(e ->> 'n') not between 1 and 60))
     when 'dopl' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'object' and octet_length(x::text) <= 30000
-        and not exists (select 1 from jsonb_each(x) e where e.key not in ('utoky', 'rysy', 'zdat', 'jazyky') or jsonb_typeof(e.value) <> 'array' or jsonb_array_length(e.value) > 40))
+        and not exists (select 1 from jsonb_each(x) e where e.key not in ('utoky', 'rysy', 'zdat', 'zbroj', 'zbrane', 'nastroje', 'jazyky', 'bez') or jsonb_typeof(e.value) <> 'array' or jsonb_array_length(e.value) > 80))
     when 'mun' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'object' and (select count(*) from jsonb_object_keys(x)) <= 20
         and not exists (select 1 from jsonb_each(x) e where char_length(e.key) > 60 or jsonb_typeof(e.value) <> 'string' or char_length(e.value #>> '{}') > 80))
     -- pravidla postavy (2026-10-17): povolání a úrovně, přepsaná skóre, odebrané rozdíly z PDF, vlastní úpravy
@@ -1547,11 +1561,11 @@ declare i bigint;
 begin
   if p_od is null or p_od !~ '^[a-z0-9-]{1,40}$' then raise exception 'neplatná karta'; end if;
   if not public.mm_hrac_ok(p_od, p_token) then raise exception 'návrh posílá jen přihlášený hráč za svou postavu' using errcode = '42501'; end if;
-  if jsonb_typeof(p_data) <> 'object' or octet_length(p_data::text) > 2000 or coalesce(p_data ->> 'typ', '') not in ('lec', 'bardic')
+  if jsonb_typeof(p_data) <> 'object' or octet_length(p_data::text) > 2000 or coalesce(p_data ->> 'typ', '') not in ('lec', 'bardic', 'vec')
      or (p_data ? 'cil' and coalesce(p_data ->> 'cil', '') !~ '^[a-z0-9-]{1,40}$') then
     raise exception 'neplatný návrh';
   end if;
-  if (select count(*) from public.navrhy where karta = p_od and stav = 'ceka') >= 6 then raise exception 'příliš mnoho návrhů čeká na vypravěče'; end if;
+  if (select count(*) from public.navrhy where karta = p_od and stav = 'ceka') >= 12 then raise exception 'příliš mnoho návrhů čeká na vypravěče'; end if;
   insert into public.navrhy (karta, data) values (p_od, p_data) returning id into i;
   delete from public.navrhy where id <= i - 300;
   perform public.mm_push_posli('{}', true, 'Ke schválení', coalesce(p_data ->> 'popis', 'Návrh hráče'), '#hra');
@@ -1721,7 +1735,8 @@ declare
   i bigint;
 begin
   if jsonb_typeof(x) <> 'object' or octet_length(x::text) > 2000
-     or exists (select 1 from jsonb_object_keys(x) k where k not in ('k', 'kdo', 'co', 'txt', 'tot', 'd', 'krit', 'mis', 'zav', 'zr', 'adv', 'typ'))
+     or exists (select 1 from jsonb_object_keys(x) k where k not in ('k', 'kdo', 'co', 'txt', 'tot', 'd', 'krit', 'mis', 'zav', 'zr', 'adv', 'typ', 'taj'))
+     or (x ? 'taj' and jsonb_typeof(x -> 'taj') <> 'boolean')
      or jsonb_typeof(x -> 'kdo') is distinct from 'string' or char_length(x ->> 'kdo') not between 1 and 60
      or jsonb_typeof(x -> 'co') is distinct from 'string' or char_length(x ->> 'co') not between 1 and 80
      or not public.mm_cislo(x -> 'tot', -50, 999) or not public.mm_cislo(x -> 'zav', 1, 6) then

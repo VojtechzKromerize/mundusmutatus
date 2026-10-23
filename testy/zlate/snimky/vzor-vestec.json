@@ -1,0 +1,120 @@
+{
+  "karta": {
+    "uroven": 7,
+    "zdatnost": 3,
+    "ac": 12,
+    "hp": 44,
+    "iniciativa": 2,
+    "rychlost": 30,
+    "odolnosti": [],
+    "zachrany": {
+      "STR": -1,
+      "AGI": 2,
+      "CON": 2,
+      "INT": 4,
+      "WIS": 1,
+      "CHA": 0
+    },
+    "dovednosti": {
+      "Acrobatics": 2,
+      "Animal Handling": 1,
+      "Arcana": 4,
+      "Athletics": -1,
+      "Deception": 0,
+      "History": 4,
+      "Insight": 1,
+      "Intimidation": 0,
+      "Investigation": 4,
+      "Medicine": 1,
+      "Nature": 4,
+      "Perception": 1,
+      "Performance": 0,
+      "Persuasion": 0,
+      "Religion": 4,
+      "Sleight of Hand": 2,
+      "Stealth": 2,
+      "Survival": 1
+    },
+    "kouzla": {
+      "so": 15,
+      "utok": 7
+    },
+    "sloty": [
+      "1×4",
+      "2×3",
+      "3×3",
+      "4×1"
+    ],
+    "zdroje": [
+      "Arcane Recovery 1",
+      "Portent 2"
+    ],
+    "utoky": [
+      "Quarterstaff: +2 1d6-1 Bludgeoning",
+      "Úder beze zbraně: +2 1 Bludgeoning"
+    ],
+    "pridavky": [],
+    "kostkyKHodum": [],
+    "vydrz": 0
+  },
+  "varianty": {
+    "Mage Armor (bez zbroje)": {
+      "uroven": 7,
+      "zdatnost": 3,
+      "ac": 15,
+      "hp": 44,
+      "iniciativa": 2,
+      "rychlost": 30,
+      "odolnosti": [],
+      "zachrany": {
+        "STR": -1,
+        "AGI": 2,
+        "CON": 2,
+        "INT": 4,
+        "WIS": 1,
+        "CHA": 0
+      },
+      "dovednosti": {
+        "Acrobatics": 2,
+        "Animal Handling": 1,
+        "Arcana": 4,
+        "Athletics": -1,
+        "Deception": 0,
+        "History": 4,
+        "Insight": 1,
+        "Intimidation": 0,
+        "Investigation": 4,
+        "Medicine": 1,
+        "Nature": 4,
+        "Perception": 1,
+        "Performance": 0,
+        "Persuasion": 0,
+        "Religion": 4,
+        "Sleight of Hand": 2,
+        "Stealth": 2,
+        "Survival": 1
+      },
+      "kouzla": {
+        "so": 15,
+        "utok": 7
+      },
+      "sloty": [
+        "1×4",
+        "2×3",
+        "3×3",
+        "4×1"
+      ],
+      "zdroje": [
+        "Arcane Recovery 1",
+        "Portent 2"
+      ],
+      "utoky": [
+        "Quarterstaff: +2 1d6-1 Bludgeoning",
+        "Úder beze zbraně: +2 1 Bludgeoning"
+      ],
+      "pridavky": [],
+      "kostkyKHodum": [],
+      "vydrz": 0
+    }
+  }
+}

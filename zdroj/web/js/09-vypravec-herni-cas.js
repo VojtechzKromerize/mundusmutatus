@@ -673,8 +673,8 @@ function hraPosun(k) {
   const [y, m, d] = fromJdn(j);
   return hraUloz({datum: `${y}-${p2(m)}-${p2(d)}`, hodina: h});
 }
-/* Boj: nahoře upozornění na Hodinu Závoje / Pravdy a počasí s dopadem na boj (pravidla D&D 2024) */
-function bojPocasi() {
+/* Při hře: počasí s dopadem na hru (pravidla D&D 2024) – 2026-10-23 přesunuto z horní části Boje do panelu Při hře */
+function phPocasi() {
   let X, P;
   try {
     X = hraX();
@@ -707,7 +707,7 @@ if (GMV && STAV) {
       `<div class="phcas"><div class="phted"></div><div class="phcasb" role="group" aria-label="Posun herního času">
     <button type="button" class="gbtn ghost" data-cas="-1" title="O hodinu zpět">−1 h</button><button type="button" class="gbtn ghost" data-cas="1">+1 h</button><button type="button" class="gbtn ghost" data-cas="3">+3 h</button>
     <button type="button" class="gbtn ghost" data-cas="vecer" title="Do západu slunce">Do večera</button><button type="button" class="gbtn ghost" data-cas="rano" title="Další den v 6 hodin">Další ráno</button>
-    <button type="button" class="gbtn ghost" data-cas="zapis" title="Nový zápis Kroniky s datem, hodinou, místem a deníkem putování">Nový zápis</button><button type="button" class="gbtn ghost" data-cas="zpet" title="Vrátit poslední změnu času, místa nebo cesty družiny">↶ Zpět</button></div><div class="phzav"></div></div>`,
+    <button type="button" class="gbtn ghost" data-cas="zapis" title="Nový zápis Kroniky s datem, hodinou, místem a deníkem putování">Nový zápis</button><button type="button" class="gbtn ghost" data-cas="zpet" title="Vrátit poslední změnu času, místa nebo cesty družiny">↶ Zpět</button></div><div class="phzav"></div><div class="phpoc"></div></div>`,
     );
     const kresli = () => {
       const X = hraX(),
@@ -716,6 +716,7 @@ if (GMV && STAV) {
       P.querySelector(".phted").innerHTML =
         `<b>${DNY[(X.today + 1) % 7]} ${X.D}. ${MES[X.M - 1]} ${X.Y}${X.H != null ? `, ${X.H}:00` : ""}</b><small>${c ? `na cestě ${hEsc(c.z)} → ${hEsc(c.do)}${pp ? " · " + hEsc(cKde(pp.lo, pp.la)) : ""}` : pp ? hEsc(pp.name) : ""}</small>`;
       P.querySelector(".phzav").innerHTML = zavojBan();
+      P.querySelector(".phpoc").innerHTML = phPocasi();
       if (B) {
         const I = zavojInfo();
         B.classList.toggle("phzv", !!I.z);

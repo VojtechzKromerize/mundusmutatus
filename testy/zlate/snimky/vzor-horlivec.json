@@ -1,0 +1,114 @@
+{
+  "karta": {
+    "uroven": 7,
+    "zdatnost": 3,
+    "ac": 15,
+    "hp": 82,
+    "iniciativa": 2,
+    "rychlost": 40,
+    "odolnosti": [],
+    "zachrany": {
+      "STR": 4,
+      "AGI": 2,
+      "CON": 3,
+      "INT": -1,
+      "WIS": 1,
+      "CHA": 0
+    },
+    "dovednosti": {
+      "Acrobatics": 2,
+      "Animal Handling": 1,
+      "Arcana": -1,
+      "Athletics": 4,
+      "Deception": 0,
+      "History": -1,
+      "Insight": 1,
+      "Intimidation": 0,
+      "Investigation": -1,
+      "Medicine": 1,
+      "Nature": -1,
+      "Perception": 1,
+      "Performance": 0,
+      "Persuasion": 0,
+      "Religion": -1,
+      "Sleight of Hand": 2,
+      "Stealth": 2,
+      "Survival": 1
+    },
+    "kouzla": null,
+    "sloty": [],
+    "zdroje": [
+      "Rage 4",
+      "Warrior of the Gods 5"
+    ],
+    "utoky": [
+      "Greataxe: +7 1d12+4 Slashing ×2",
+      "Handaxe: +7 1d6+4 Slashing ×2",
+      "Úder beze zbraně: +7 5 Bludgeoning ×2"
+    ],
+    "pridavky": [
+      "Rage 2"
+    ],
+    "kostkyKHodum": [],
+    "vydrz": 2
+  },
+  "varianty": {
+    "v zuřivosti": {
+      "uroven": 7,
+      "zdatnost": 3,
+      "ac": 15,
+      "hp": 82,
+      "iniciativa": 2,
+      "rychlost": 40,
+      "odolnosti": [
+        "Bludgeoning",
+        "Piercing",
+        "Slashing"
+      ],
+      "zachrany": {
+        "STR": 4,
+        "AGI": 2,
+        "CON": 3,
+        "INT": -1,
+        "WIS": 1,
+        "CHA": 0
+      },
+      "dovednosti": {
+        "Acrobatics": 2,
+        "Animal Handling": 1,
+        "Arcana": -1,
+        "Athletics": 4,
+        "Deception": 0,
+        "History": -1,
+        "Insight": 1,
+        "Intimidation": 0,
+        "Investigation": -1,
+        "Medicine": 1,
+        "Nature": -1,
+        "Perception": 1,
+        "Performance": 0,
+        "Persuasion": 0,
+        "Religion": -1,
+        "Sleight of Hand": 2,
+        "Stealth": 2,
+        "Survival": 1
+      },
+      "kouzla": null,
+      "sloty": [],
+      "zdroje": [
+        "Rage 4",
+        "Warrior of the Gods 5"
+      ],
+      "utoky": [
+        "Greataxe: +7 1d12+4 Slashing ×2",
+        "Handaxe: +7 1d6+4 Slashing ×2",
+        "Úder beze zbraně: +7 5 Bludgeoning ×2"
+      ],
+      "pridavky": [
+        "Rage 2"
+      ],
+      "kostkyKHodum": [],
+      "vydrz": 2
+    }
+  }
+}

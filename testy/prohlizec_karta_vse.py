@@ -46,7 +46,7 @@ async def proklikej(pg,root,popis,hl,limit=260):
         except Exception as ex:
             pass
         await pg.wait_for_timeout(220)
-        await pg.evaluate("mmPopX&&mmPopX();document.querySelectorAll('details.kdbmenu[open]').forEach(d=>d.open=false);if(typeof BDM!=='undefined'&&BDM.sheet){BDM.sheet=null;if(curView==='boj')renderBoj()}")
+        await pg.evaluate("mmPopX&&mmPopX();document.querySelectorAll('details.kdbmenu[open]').forEach(d=>d.open=false);if(typeof BDM!=='undefined'&&BDM.sheet){BDM.sheet=null;if(curView==='boj')renderBoj();else if(typeof bdmPrekresli==='function')bdmPrekresli()}")
         await pg.keyboard.press("Escape")
     print(f"  {popis}: proklikáno {kliky} prvků")
     return kliky

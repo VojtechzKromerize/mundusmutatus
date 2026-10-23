@@ -1,0 +1,85 @@
+{
+  "id": "vzor-klerik-miru",
+  "n": "Vzor: klerik Domény míru",
+  "druh": "Human",
+  "povolani": "Cleric 7",
+  "uroven": 7,
+  "vl": {
+    "STR": 12,
+    "AGI": 10,
+    "CON": 14,
+    "INT": 10,
+    "WIS": 18,
+    "CHA": 13
+  },
+  "rysy": [
+    "Peace Domain",
+    "Emboldening Bond",
+    "Balm of Peace",
+    "Channel Divinity",
+    "Divine Spark",
+    "Sear Undead",
+    "Blessed Strikes"
+  ],
+  "vybaveni": [
+    {
+      "n": "Chain Mail",
+      "q": 1
+    },
+    {
+      "n": "Shield",
+      "q": 1
+    },
+    {
+      "n": "Mace",
+      "q": 1
+    },
+    {
+      "n": "Holy Symbol",
+      "q": 1
+    }
+  ],
+  "kouzla": {
+    "vl": "WIS",
+    "trida": "Cleric",
+    "seznam": [
+      {
+        "n": "Guidance",
+        "st": 0
+      },
+      {
+        "n": "Sacred Flame",
+        "st": 0
+      },
+      {
+        "n": "Bless",
+        "st": 1
+      },
+      {
+        "n": "Shield of Faith",
+        "st": 1
+      },
+      {
+        "n": "Cure Wounds",
+        "st": 1
+      },
+      {
+        "n": "Spiritual Weapon",
+        "st": 2
+      },
+      {
+        "n": "Aid",
+        "st": 2
+      },
+      {
+        "n": "Spirit Guardians",
+        "st": 3
+      },
+      {
+        "n": "Guardian of Faith",
+        "st": 4
+      }
+    ]
+  },
+  "test": true
+}

@@ -2,7 +2,7 @@
 
 Živý stav vývoje – aktualizuj při každé větší změně; datované snímky v projektu claude.ai (`vyvoj/*.md`, audity, zadání)
 jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schema.sql`); orientace v něm: `docs/MAPA.md`,
-`docs/SLOVNIK.md`, `node testy/kontrola_kodu.mjs --kde JMÉNO`. Poslední revize: 2026-10-22 (dev `707bdaf`, main `5ec89a1`).
+`docs/SLOVNIK.md`, `node testy/kontrola_kodu.mjs --kde JMÉNO`. Poslední revize: 2026-10-23 (čistá pravidla, účinky, tah, reakce, zlaté snímky).
 
 ## Platná rozhodnutí
 
@@ -23,6 +23,10 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
 - 2026-10-22 **Doména míru v rozložení D&D 2024** (3.: kouzla, Nástroj míru, Povzbuzující pouto, Balzám míru; 6. Ochranné pouto; 17. Rozšířené pouto) – Potent Spellcasting není rys podtřídy, dává ho klerik na 7. úrovni (Blessed Strikes).
 - 2026-10-22 Stavy a hody proti smrti postavy s kartou žijí jen na kartě (boj nese jen obraz); hodnocení houfů: skupinoví netvoři jako houf, ne jako jednotliví sokové.
 - 2026-10-23 **Hra je pořád scéna, boj je jen její režim**: hráči i vypravěč hází i mimo boj (stejná karta s cíli, výhodou a ručním hodem, společný záznam); vypravěč má ve scéně NPC s kompletními statistikami (ze statbloku, upravitelné), postojem, DC, „Čemu věří“ a „Co chce“; hráč volí, s kým jedná, a vypravěč vidí hod proti DC a pasivnímu Vhledu a hází protihod. Útok ve scéně jde a nabídne přepnutí do boje; konec boje vrací do scény.
+
+- 2026-10-23 **Sčítání účinků podle D&D 2024**: různé účinky se sčítají (Bless + Emboldening Bond Domény míru, Haste + Shield of Faith),
+  stejnojmenné ne – platí nejsilnější (dva Bless = jednou 1d4, Aid jen nejvyšší stupeň). Výjimku umí pole `scit` v `UCINKY`.
+- 2026-10-23 **Čistá pravidla**: výpočty pravidel patří do souborů `@čisté` (bez stránky, testy v čistém Node); stránka je jen volá s daty.
 
 ## Hotovo
 
@@ -51,12 +55,55 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
 - 10-22 Aplikace po nasazení nabídne „Obnovit“ (díly skriptu `v/…` proti serveru při návratu do ní a po 10 min – `kontrolaKodu` v kostře); dřív otevřená aplikace jela se starým kódem.
 - 10-22 Hráč v boji na telefonu: dole jen Moje karta · Iniciativa · Ukončit tah (`bojTabyHrac`, 20d), bez nadpisu Boj, pruhu iniciativy (je v záložce Iniciativa), šuplíku Pravidla, Nepřátel a Družiny; záznam boje v listu Záznam karty (bez karty pod panelem); karta bez rámečku účastníka. Aplikace přes celou obrazovku (manifest `fullscreen`, iPhone průhledná lišta `black-translucent` + pruh pod hodinami). Žeton na tahu bez dračího rámu (zlatý lem).
 - 10-23 Scéna mimo boj: stav boje se `scena: true` (`bojNovaScena`, `bojBezi`, `bojNaScenu`, 11), vykreslení `bojScenaBloky` (20d), NPC ve scéně a jednání `20f-scena.js` (`bojScNpcHtml`, `scStat`, `scHodNpc`, `bzScPorovnej`, `bojScJednHtml`, `bojScCo`); údaje NPC jen pro vypravěče v `n.gm` vyřízne `mm_boj_orez`. Testy `testy/jednotky/scena.test.mjs`, `prohlizec_scena.py`.
+- 10-23 Pruh iniciativy ukazuje volné sloty mezi obsazenými (střídání družiny a nepřátel je vidět), shrnuté jsou jen volné za posledním obsazeným (20d).
+- 10-23 Boj bez Prostředí (tma, mlha, vítr, úzký průchod… zrušeno i s vlivem na výhodu a přesilu – Vojta je hlídá sám) a bez počasí nahoře; počasí je v panelu Při hře (`phPocasi`, 09). Rozbalená karta NPC u vypravěče ve vínové kůži jako karta hráče (přepnuté proměnné barev, styly.css).
+- 10-23 Ikony účinků: 21 nových (`art/img/boj/`, archy z ChatGPT, prompty v projektu `grafika/ikony-ucinku-prompty.md`) – kouzla (Guidance, Heroism, Shield, Sanctuary, Warding Bond, Mirror Image, Armor of Agathys, Spirit Guardians) a schopnosti (Rage, Bardic Inspiration, Wild Shape, Hexblade's Curse, Emboldening Bond, Portent, manévry…); jméno → ikona `kzIk` (17b), žeton postavy ukazuje i zapnuté přepínače (`kPri`), podobu a předzvěst, seznam Účinky má ikony (`kUcIk`, 15). Zatím bez značky na nepříteli: Hexblade's Curse, Distracting Strike, Goading Attack, Reckless Attack, Zealous Presence, The Third Eye – ikona se ukáže, až je bude něco zapisovat jako účinek.
+- 10-23 Účinky (kouzla a schopnosti s trváním) přesunuty z listu Svědomí do listu Stavy, který má záložky Stavy · Účinky (`BDM.stt`, 14); tlačítko Stavy počítá i účinky.
 - 10-23 **Výkon**: hráčova Hra mimo boj se při pulsu beze změny nepřepisuje (`BHRAH`, 20d – zůstane otevřený list i hledání); snímky pro Zpět v Boji bez portrétů (`bojSnapKarta`, 11; obnova portrét nemění) – historie až 250 snímků dřív nesla desítky MB portrétů; `bojZmen` o serializaci méně.
 - 10-23 **Úklid kódu beze změny chování**: pryč stará karta v rozvržení D&D Beyond (`kartaDbHtml`, ~500 řádků, od 10-18 jen pro Poznámky) a 25 obsluh tlačítek, která se už nikde nekreslí; Vybavení a Poznámky bojové karty nepočítají celou starou kartu (`kartaPriprav`, `kartaZatez`, `kDenikHtml`, 13). Jeden seznam omezených použití `kOmezena` (18), puntíky `kPipNa`/`kPipyMapa` (13), ruční kostky `bRucPrevezmi` (14), hod proti smrti `bojDsZapis` (12), `bojKritUkaz` (20b). Kontrola kódu nově hlásí „osirela“ – `[data-X]` v obsluze, ale žádná šablona ho nevytváří (`OSIRELE_OK` pro vědomé výjimky).
 
 - 10-23 **Iniciativa na telefonu hráče svisle** (záložka Iniciativa, `bosav` v 20d, styly u `html.mmcela`): barvy vínové karty, nahoře jen rámeček kola; medailony na svislém zlatém pruhu, vedle jméno (stejné písmo) a všechny stavy a kouzla (`bojSlStav(kdo, true)`, bez „+N“, i připravená akce); odehrané ztlumené s ✓, na tahu větší medailon se zlatým lemem a „dohráno“ (bez řádku Na tahu), „další“ u dalšího; volný slot družiny obsadí klepnutí na „+“; pruh končí pečetí příštího kola. Vypravěč a PC beze změny.
-## Otevřené
+- 10-23 **Čistá pravidla a zrychlení vývoje**: soubory `@čisté` (02c zbroj, 10k import PDF, 10p pravidla boje a Artikulí, 10r reakce,
+  10t tah, 10u účinky) hlídá kontrola kódu (jen jazyk JS a jména čistých souborů), testy v čistém Node přes `testy/jednotky/ciste.mjs`
+  (milisekundy místo ~5 s jsdom); `--ciste-kandidati [NN]` a `--ciste-uzaver A,B` v `kontrola_kodu.mjs`. Zlaté snímky karet
+  (`zlate.test.mjs`, Balduin + 5 vzorů podtříd družiny v `testy/zlate/`, i se stavy Haste/Bless, Mage Armor, zuřivost). Z prohlížečových testů
+  přesunuty čisté výpočty (sloty podle hodu, přesila, hody proti smrti, import PDF, zranění karty) do `pravidla-ciste`, `pdf`, `boj-pc`.
+- 10-23 **Účinky v jednom formátu** (`UCINKY`, 10u): data dřívějších KZEF (posílení) a KPRID (kostky k hodům) v jedné tabulce; `ucSecti`
+  (stejnojmenné jen jednou), `ucAC`, `ucHodn`, `ucRes`, `ucAdv`, `ucKostky`; karta (`kBufEf`, `kBufAC`, `kBufHodn`, `kPriHod` v 17/17b) je jen volá.
+  Seznam „Posílení“ na kartě nově ukazuje i Bless/Guidance od spojence.
+- 10-23 **Účet tahu** (10t): akce, bonusová akce, pohyb a „jednou za tah“ jedním kódem pro průvodce tahem, pipy karty (`BPT`), přídavky po zásahu
+  (`BJU.ridT` v novém tvaru `{k, jt}`) a kostky jednou za tah (`KTAHJ` v 17). Opraveno: Smite a přesun Hexu (`bojBptOznac("B")`) neodškrtly
+  bonusovou akci; Emboldening Bond se v boji přičte jen k prvnímu hodu v každém tahu (dřív znovu k záchraně či druhé akci v témže tahu).
+- 10-23 **Okno reakce** (10r): jedna tabulka `REAKCE` se spouštěči zásah / vedle / kouzlo (Silvery Barbs, Hellish Rebuke, Shield, Absorb Elements,
+  ostatní reakční kouzla, Uncanny Dodge, Deflect Attacks, Parry, Cutting Words, Defensive Duelist, Riposte, Odvetná, Counterspell), společné pravidlo
+  „reakce jednou za kolo, ne ve stavu bez akcí, ne na 0 HP“ (dřív jen u Counterspellu); vrácené HP počítá `reakceVysledek`. Obětování zbroje
+  při kritu se nabídne i po použité reakci (dřív schované).
+- 10-23 **Vlastnosti na kartě** (`bdmVlRadek`, 14): mince se zkratkou (`art/img/atributy/<str|agi|…>-48/96.webp`, kamenný reliéf ve zlatém
+  okraji; prompty v projektu `grafika/ikony-atributu-prompty.md`) · skóre v pilulce · velký modifikátor (ověření) · záchrana ve štítku –
+  plný zlatý štítek = zdatnost (místo dřívější tečky u zkratky); výška řádku jako dřív. Test `testy/jednotky/karta-atributy.test.mjs`.
+- 10-23 **Dovednosti na kartě** bez teček: zdatnost ve štítku bonusu (tmavý = bez, zlatý obrys = zdatnost, plný zlatý = expertíza);
+  výhoda/nevýhoda jako ikona kostky před štítkem (`vyhoda`/`nevyhoda` z `art/img/boj`). **Zbroj s nevýhodou na Stealth** (SRD: Padded,
+  Scale, Half Plate, Ring, Chain Mail, Splint, Plate; mithril ne) – 5. sloupec `KZBRT` → `N.z.pl` (18), `kSvAdv` (15) ji přidá k hodu
+  i na kartu; dřív ji karta nehlídala.
+- 10-23 **Chyby z Vojtova seznamu (Bugy.docx)**: zdatnosti a jazyky – databáze odmítala `dopl.bez`, teď `dopl.zbroj/zbrane/nastroje/jazyky/bez` s nabídkou SRD (`bdmZdatHtml` 14, doplněné se počítají v `kZdSez` 17); karta hráče na PC v boji drží šířku ve všech záložkách (`.bjamain .bja>.hraja`); Svědomí – jedna Ctnost a jedna Neřest (`kDuse` bere první), nastavení duše přímo v listu (`data-kdusg`, ukládá hned), sbalitelné vysvětlení hříchů a skutků, bez políček bodů (15); věc ve vybavení – popis nahoře rozbalený (`kVecPopis` 14b), bez původu SRD a ceny, licence SRD v patičce webu (`.clic` v kostře); panel Kostky – výhoda/nevýhoda jako přepínače, výběr kostek do výrazu (`kKostPridej`, `kKostAdv`), hod jen vypravěči (`data.taj`, RLS tabulky hody přes `mm_moje_karta()`, do Discordu se neposílá), bez Bless/Bane/Guidance; **Vybavení** podle D&D Beyond (14b): Moje / Družiny, nosnost se složkami (`slozky` na kartě, `nen` = nenese), druhy `KINVF`, Spravovat inventář (`bdmInvList`: databáze `KINVDB` – hráč posílá návrh `vec`, vypravěč schvaluje; vlastní předmět s `typ`; složky). Staré „+ Přidat věc“ a nabídka `kPool` zrušeny.
 
+## Otevřené
+- 10-23 Družina (#druzina) dál ukazuje Ctnosti a Neřesti z obsahu (u postav dvě) – po přechodu na jednu Ctnost a Neřest upravit `zdroj/obsah` (nejdřív záloha textů z webu). Mince ve Vybavení čekají na Vojtovy ikonky. Kostka Emboldening Bond pro ověření a záchrany se zapíná jen ve formuláři útoku (panel Kostky ji už nemá).
+
+- **Čistá pravidla – další přesuny**: `--ciste-kandidati` hlásí ~600 definic, které jdou do čistých souborů beze změny (karta 18: `kPocet`,
+  `KZBRAN`…; boj 11/12; Výprava 22). Výpočty karty `kCtx`/`kHodn`/`kAC` čisté nejsou (čtou `kartaStav`, `KCX`) – chtělo by předávat stav karty
+  argumentem; inline obsluhy s výpočtem (pád na 0 mimo boj 13, kostka životů, Potion, Holy Water, peníze) vytáhnout do funkcí a otestovat.
+- **Účinky – zbývá sjednotit**: léčení (`KZLEC`), opakovaná kouzla (`KZOPAK`), oblasti (`KZOBL`), stavy ze záchran (`BSPSTCZ`), smity (`kSmity`)
+  a přídavky povolání (`kEfekty`) mají dál vlastní tabulky; Bless/Bane zapnuté přepínačem na kartě nekončí se soustředěním sesilatele (seslané
+  přes dialog ano).
+- **Tah – zbývá**: účet tahu je jen na zařízení (vypravěč nevidí, co hráč v tahu použil, obnovení stránky ho smaže – chtělo by pole v `mm_boj_hrac`);
+  zbývající rychlost, Dash/Sprint, Action Surge a akce navíc z Haste se nepočítají; útok po seslání kouzla akcí nic neblokuje (jen značka).
+- **Reakce – zbývá**: příležitostný útok postav, Sentinel, Protective Bond, Warding Bond (sdílené zranění), Absorb Elements bez přídavku
+  k dalšímu zásahu; nabídky Riposte/Odvetná mají dál vlastní lišty (`BRIP`, `BODV`), Counterspell výzvu.
+- **Zlaté snímky – nález**: Favored Enemy hraničáře (Hunter's Mark bez slotu, 2024: 3× na 7. úrovni) se nepočítá jako zdroj (`vzor-poutnik`).
+  Skutečnou kartu hráče do veřejného repozitáře záměrně nedávám (jen Balduin a vzory) – rozhodne Vojta.
+- **Nespolehlivý test „Hold Person zapne soustředění v boji“** (prohlizec_boj2.py, část „boj a tah“): 10-23 jednou selhal i s „kouzlo se záchranou
+  dorazí vypravěči“ u commitu `2913652`, který kód webu neměnil (jen testovací data); další běh zelený. Nejspíš pevné čekání místo `puls`/`klid`.
 - **Rozepsaný formulář hráče v Boji** (10-23, zjištěno na nespolehlivém testu „hráč uloží zbraň“): když během psaní dorazí uložení vypravěče, překreslení smaže vyplněná pole formuláře (zachová se jen pole s kurzorem – `renderBoj` `fv`). Test teď na zápisy vypravěče počká; v aplikaci to zůstává.
 - **Výkon – nálezy průzkumu 10-23** (hotovo: 1 = `BHRAH` v 20d, 6 = snímky pro Zpět bez portrétů `bojSnapKarta`, 8 zčásti = `bojZmen` jedna serializace; zbytek otevřený): (1) hráčova karta mimo boj se při každém hodu kohokoli celá přepíše přes innerHTML + `pojZnac` + `kModsSync` (20d `hraHracHtml`) – porovnat s posledním HTML / `bojBlok`; (2) `kHodn`/`kBufy` (17, 17b, 18) bez paměti – desítky průchodů všemi kartami a účinky na kartu, `kAC` i `kACR` dvakrát; paměť podle (K.id, počítadlo změn); (3) `bdmKouzla` (14) volá `kSloty`/`kSpUcinek`/`kSeznam` opakovaně na každé kouzlo; (4) `bojHracKarta` (14) staví hlášky 3×; (5) na telefonu `bojAktivni` (20d) staví karty družiny a nepřátel, které hráč nevidí; (6) vypravěč: každé klepnutí v Boji `bojSnap` serializuje celý stav i portréty (11); (7) `kartyNacti`/`KCACHE.uloz` stringify celého stavu při každém pulsu; (8) `bojZmen` 3 serializace na změnu; (9) `bzZaznam` (24) kvadraticky při každém `renderBoj`; (11) `bojHp.get()`/`bojZdr.get()` = `JSON.parse(localStorage)` na každého nepřítele; (12) `bdmLepky` (14) prokládá čtení a zápis rozložení.
 - **Úklid po staré kartě (10-23)**: účinky s uplynulým herním časem vyprší (`kUcVyprsi` v `kartaPriprav`) jen při otevření Vybavení nebo Poznámek bojové karty – dřív stejně, ale patřilo by to do překreslení karty nebo pulsu (změna chování, nerozhodnuto). Obrázky `art/img/vl-*.webp` (zvířata vlastností staré karty) už nic nepoužívá; ve `styly.css` zůstaly třídy staré karty (`kdbstrip`, `kdbtabs`, `kdbhody`, `kdbinfo`, `kdbabr`…) – smazat, až se styly nebudou souběžně měnit. Záchrana nepřítele v 20b čte pole SO `[data-bzdc]`, které karta nepřítele od 10-21 nemá (SO je vždy 0).

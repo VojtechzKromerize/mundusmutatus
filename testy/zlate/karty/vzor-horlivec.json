@@ -1,0 +1,38 @@
+{
+  "id": "vzor-horlivec",
+  "n": "Vzor: barbar Cesty horlivce",
+  "druh": "Dwarf",
+  "povolani": "Barbarian 7",
+  "uroven": 7,
+  "vl": {
+    "STR": 18,
+    "AGI": 14,
+    "CON": 16,
+    "INT": 8,
+    "WIS": 12,
+    "CHA": 10
+  },
+  "rysy": [
+    "Path of the Zealot",
+    "Divine Fury",
+    "Warrior of the Gods",
+    "Rage",
+    "Unarmored Defense",
+    "Reckless Attack",
+    "Danger Sense",
+    "Extra Attack",
+    "Fast Movement",
+    "Feral Instinct"
+  ],
+  "vybaveni": [
+    {
+      "n": "Greataxe",
+      "q": 1
+    },
+    {
+      "n": "Handaxe",
+      "q": 2
+    }
+  ],
+  "test": true
+}

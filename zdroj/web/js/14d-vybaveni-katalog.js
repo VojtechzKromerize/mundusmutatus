@@ -39,7 +39,6 @@ const vybNacti = () =>
               }),
             );
             VYB = d;
-            KPOOLM = null;
             return d;
           })
           .catch(e => {
@@ -128,8 +127,6 @@ function vybPoolVstup(x) {
   }
   return e;
 }
-const vybPopisekPool = x =>
-  `${x.en}${x.cz && x.cz.toLowerCase() !== x.en.toLowerCase() ? ` (${x.cz})` : ""} – ${x.sk === "zbrane" ? `${x.kat || "zbraň"} ${x.z} ${BZRT[x.zt] || x.zt}` : x.sk === "zbroj" ? `${x.typ} zbroj${x.ac ? ", AC " + (x.typ === "štít" ? "+" : "") + x.ac : ""}` : x.sk === "magicke" ? `${x.druh || "magický předmět"}, ${x.vz || ""}${x.pr ? ", připoutání" : ""}` : VYBSKN[x.sk] || ""}${x.cena ? ` · ${x.cena}` : ""}`;
 /* postava, do které se na stránce Vybavení přidává: hráč svou, vypravěč vybranou */
 let VYBK = "";
 const vybCil = () => {

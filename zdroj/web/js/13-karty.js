@@ -178,7 +178,6 @@ function kartyPrekresli() {
 }
 /* vyčerpání (D&D 2024): každá úroveň −2 ke všem hodům d20 */
 const kVycerp = K => +(kartaStav(K.id).vycerp || 0);
-const kMod = v => Math.floor((+v - 10) / 2);
 /* hod d20 z karty; ověření a útoky hází i kostku Závoje a rovnou ji vyhodnotí, záchrany ne (Artikule › Kostka Závoje) */
 let KADV = 0;
 async function kartaHod(K, co, b, o = {}) {
@@ -480,7 +479,7 @@ const kHodyHtml = (L, cap) =>
     ? `<ol class="khody">${L.slice(0, cap || 40)
         .map(
           h =>
-            `<li${h.skryty ? ' class="kskr"' : ""}><b>${besc(h.kdo || "")}</b> · ${besc(h.co || "")}${h.tot != null ? ` <b class="khtot${h.krit ? " bkr" : h.mis ? " bmis" : ""}">${h.tot}</b>` : ""}${
+            `<li${h.skryty || h.taj ? ' class="kskr"' : ""}><b>${besc(h.kdo || "")}</b> · ${besc(h.co || "")}${h.tot != null ? ` <b class="khtot${h.krit ? " bkr" : h.mis ? " bmis" : ""}">${h.tot}</b>` : ""}${
               h.zav
                 ? (() => {
                     const r = h.zr ? (h.zr === "0" ? "" : h.zr) : h.zav <= 2 ? "pok" : h.zav >= 5 ? "poz" : "";
@@ -681,22 +680,6 @@ document.addEventListener("change", async e => {
     return;
   }
 });
-document.addEventListener("submit", e => {
-  if (!e.target.matches || !e.target.matches("#kartyview [data-kinvf],#bojpult [data-kinvf],.bdm [data-kinvf]")) return;
-  e.preventDefault();
-  const K = kvK(e.target);
-  if (!K) return;
-  const f = e.target.elements,
-    n = f.n.value.trim().slice(0, 80);
-  if (!n) return;
-  const inv = [...(kartaStav(K.id).inv || K.vybaveni || [])].map(x => Object.assign({}, x));
-  const q = Math.max(1, Math.min(9999, Math.round(+f.q.value || 1))),
-    st = inv.find(x => !x.v && String(x.n).toLowerCase().trim() === n.toLowerCase());
-  if (st) st.q = Math.min(9999, (+st.q || 0) + q);
-  else inv.push({n, q});
-  kartaStavZmen(K.id, {inv}, st ? `${st.n}: teď ${st.q} ks.` : null);
-  e.target.reset();
-});
 document.addEventListener("click", async e => {
   const v = e.target.closest && e.target.closest("#kartyview,#bojpult,.hrapri,.bjapanel,.bhkb");
   if (!v) return;
@@ -884,7 +867,10 @@ document.addEventListener("click", async e => {
     const i = +iv.dataset.kinv,
       inv = [...(S.inv || K.vybaveni || [])].map(x => Object.assign({}, x));
     if (!inv[i]) return;
+    const q0 = +inv[i].q || 1;
     inv[i].q = Math.max(0, inv[i].q + +iv.dataset.d);
+    /* váha je za celý počet: s počtem se přepočítá (2026-10-23) */
+    if (inv[i].w && inv[i].q > 0 && typeof kLb === "function") inv[i].w = kLbTxt((kLb(inv[i].w) / q0) * inv[i].q);
     if (!inv[i].q && confirm(`Odebrat ${inv[i].n} z vybavení?`)) inv.splice(i, 1);
     else inv[i].q = Math.max(inv[i].q, 0);
     kartaStavZmen(K.id, {inv});

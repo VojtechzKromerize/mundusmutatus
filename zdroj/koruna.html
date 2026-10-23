@@ -355,6 +355,7 @@
   <span class="corn" aria-hidden="true"></span>
   <img class="cdrak" src="art/drak.webp" srcset="art/drak-450.webp 450w, art/drak-600.webp 600w, art/drak.webp 900w" sizes="(max-width:600px) 64vw, 380px" alt="" aria-hidden="true" width="900" height="300" loading="lazy">
   <p class="cq">Sepsáno v Praze léta Páně 1458 · <i>Sub utraque sunt dracones</i></p>
+  <p class="clic">Tento web obsahuje materiál ze System Reference Document 5.2.1 („SRD 5.2.1“) od Wizards of the Coast LLC, dostupného na <a href="https://www.dndbeyond.com/srd" rel="noopener">dndbeyond.com/srd</a>, licencovaného pod <a href="https://creativecommons.org/licenses/by/4.0/legalcode" rel="noopener">Creative Commons Attribution 4.0 International</a>. Texty pravidel, kouzel a předmětů jsou přeložené a upravené pro Mundus Mutatus; popisy mimo SRD a vlastní předměty jsou naše shrnutí, nejde o oficiální text. Kompatibilní s 5. edicí (5E compatible).</p>
   <button type="button" class="ctop" onclick="scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'})">↑ Zpět nahoru</button>
 </footer>
 </div>
@@ -482,7 +483,8 @@ window.MMDB={vetev:C.vetev,
   async pushPrihlas(o,karta){return karta?rpc("mm_push_prihlas",{p_odber:o,p_karta:karta,p_token:htok()}):this.gm("mm_push_prihlas",{p_odber:o,p_karta:null})},
   async pushOdhlas(e){return rpc("mm_push_odhlas",{p_endpoint:e})},
   kartaSmaz(id){return this.gm("mm_karta_smaz",{p_id:id})},
-  async hodyNacti(){return api(`/rest/v1/hody?select=id,cas,data&order=id.desc&limit=100`)},
+  /* s přihlášením: hod „jen vypravěči“ (data.taj) vidí jen vypravěč a ten, kdo házel (RLS hody) */
+  async hodyNacti(){const t=(await token())||(await htokenAuth());return api(`/rest/v1/hody?select=id,cas,data&order=id.desc&limit=100`,{tok:t||undefined})},
   async hodZapis(h){return rpc("mm_hod",{p_hod:h,p_token:htok()})},
   discordLogin(){return discordPrihlas()},
   hracPrihlasen(){try{return !!JSON.parse(localStorage.getItem(HLS)||"null")}catch(e){return false}},
@@ -598,6 +600,7 @@ const hraAkt=()=>api("/rest/v1/rpc/mm_hra",{method:"POST",body:"{}"}).then(h=>h&
 /*@vloz web/js/01-zaklad.js*/
 /*@vloz web/js/02-mapa.js*/
 /*@vloz web/js/02b-mapa-kresba.js*/
+/*@vloz web/js/02c-zbroj.js*/
 /*@vloz web/js/03-artikule.js*/
 /*@vloz web/js/04-praha.js*/
 /*@vloz web/js/04b-praha-plan.js*/
@@ -608,6 +611,11 @@ const hraAkt=()=>api("/rest/v1/rpc/mm_hra",{method:"POST",body:"{}"}).then(h=>h&
 /*@vloz web/js/08-navigace-pravidla.js*/
 /*@vloz web/js/09-vypravec-herni-cas.js*/
 /*@vloz web/js/10-kouzla.js*/
+/*@vloz web/js/10k-import-pdf.js*/
+/*@vloz web/js/10p-pravidla.js*/
+/*@vloz web/js/10r-reakce.js*/
+/*@vloz web/js/10t-tah.js*/
+/*@vloz web/js/10u-ucinky.js*/
 /*@vloz web/js/11-boj.js*/
 /*@vloz web/js/12-boj-tah-postavy.js*/
 /*@vloz web/js/13-karty.js*/

@@ -3186,13 +3186,6 @@ const BVLZ = {
   "Hrom a kouř!":
     "Požehnání: střelce zahalí dým a má na 1 kolo výhodu proti útokům zblízka. Pokušení: zbraň selže a před dalším výstřelem ji musíš vyčistit (bonusová akce); minul-li jsi a u cíle stojí spojenec, zasáhneš spojence; při 1 na d20 a 1 na Závoji zbraň vybuchne (2d8 Fire střelci).",
 };
-const BZBR = {
-  Vycpávaná: ["Bludgeoning", "1×"],
-  Kroužková: ["Bludgeoning, Slashing", "2×"],
-  Plátová: ["Slashing, Piercing", "3×"],
-  Komplexní: ["Bludgeoning, Slashing, Piercing", "3×"],
-  Štít: ["—", "1×"],
-};
 /* malované ikony vlastností zbraní (zv-), typů zranění (zr-) a zbrojí (zb-) – art/img/boj, zadání vyvoj/ikony-boj.md */
 const BZVK = {
   Krvežíznivá: "krvezizniva",
@@ -3277,15 +3270,3 @@ const bikZvTxt = t =>
     .filter(k => new RegExp(`(?<![\\p{L}])${k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?![\\p{L}])`, "u").test(String(t || "")))
     .map(bikZv)
     .join("");
-/* druhy zbroje z popisu AC („kroužková košile, štít“, „kyrys a pavéza“, „plná zbroj“) */
-const bikZbDruhy = t => {
-  t = String(t || "").toLowerCase();
-  if (/kouzeln|přirozen|mage armor|zbytky/.test(t) && !/štít|pavéz/.test(t)) return [];
-  const d = [];
-  if (/plná zbroj|komplexn|\bplate\b/.test(t)) d.push("Komplexní");
-  else if (/plátov|kyrys|brigantin|půlplát|breastplate|half-plate|splint/.test(t)) d.push("Plátová");
-  else if (/kroužkov|drátěn|šupin|chain|scale|ring mail/.test(t)) d.push("Kroužková");
-  else if (/kožen|prošívan|vycpávan|gambeson|padded|leather|hide/.test(t)) d.push("Vycpávaná");
-  if (/štít|pavéz|shield/.test(t)) d.push("Štít");
-  return d;
-};

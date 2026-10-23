@@ -54,6 +54,11 @@ for kdo, tok in (("anonym", None), ("hráč", hr)):
     chk([o["n"] for o in _h["npc"]] == ["Zjevný"] and len(_h["zaz"]) == 1 and _h["obsazeni"] == {"2": "n1"} and "Zálohář" not in json.dumps(_h, ensure_ascii=False), f"{kdo} nedostane skrytého nepřítele ani jeho záznam a slot")
     chk("TAJNÁ_VÍRA_NPC" not in json.dumps(_h, ensure_ascii=False) and "gm" not in _h["npc"][0], f"{kdo} nedostane údaje NPC jen pro vypravěče (postoj, víra, cíle, DC)")
 chk(ok(call("/rest/v1/rpc/mm_boj_uloz", "POST", {"p_stav": {}}, tok=gm)[0]), "boj vrácen do výchozího stavu")
+# hod „jen vypravěči“ (2026-10-23): ostatní ho nedostanou, vypravěč ano
+chk(ok(call("/rest/v1/rpc/mm_hod", "POST", {"p_hod": {"kdo": "Vypravěč", "co": "TAJNÝ_HOD", "tot": 7, "taj": True}}, tok=gm)[0]), "vypravěč zapíše hod jen pro sebe")
+chk("TAJNÝ_HOD" in call("/rest/v1/hody?select=data", tok=gm)[1], "vypravěč čte hod jen pro vypravěče")
+for kdo, tok in (("anonym", None), ("hráč", hr)):
+    chk("TAJNÝ_HOD" not in call("/rest/v1/hody?select=data", tok=tok)[1], f"{kdo} nečte hod jen pro vypravěče")
 chk(ok(call("/rest/v1/rpc/mm_nastav_stavy", "POST", {"p_zmeny": {"slik": 2}}, tok=gm)[0]), "vypravěč mění stavy")
 for fn, body in (("mm_nahraj_obsah", {"p_vetev": "x", "p_hrac": {}, "p_gm": {}, "p_vychozi": {}}), ("mm_zaznamy_vse", {}), ("mm_sync_zaznamy", {"p_soubory": {}, "p_uplny": False})):
     chk(not ok(call(f"/rest/v1/rpc/{fn}", "POST", body, tok=gm)[0]), f"vypravěč nesmí volat služební {fn}")

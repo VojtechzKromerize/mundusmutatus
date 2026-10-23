@@ -105,14 +105,34 @@ function bojZasahNovy(s, me, N) {
   }
   renderBoj();
 }
-/* reakce, které postava může použít na zásah */
+/* fakta o postavě pro okno reakce (čistý 10r): co umí, co jí zbývá a zda smí reagovat; e = spouštěč (zásah, který ji právě srazil
+   na 0, reakci nebere – Shield ho může odvrátit) */
+function kReakceFakta(K, h, s, e) {
+  const sez = kSeznam(K),
+    SD = kSD(K),
+    B = kZdrN(K, /bardic inspiration/i),
+    st = [...new Set([...(kStavy(K) || []), ...((h && h.stav) || [])])];
+  return {
+    rk: !!(s.reak || {})[h.id],
+    ds: !!(h && h.ds) && !(e && e.pd),
+    nemuze: bojNeschopny(st) || (srdNejedna(st) ? "nejedná" : ""),
+    kouzla: sez
+      .map((x, i) => ({n: x.n, i, st: x.st, pz: x.pz}))
+      .filter((x, i) => kCasKouzla(sez[i]) === "R" && ((x.st === 0 && !x.pz) || kSlX(K, sez[i]).length > 0)),
+    rysy: [...(K.rysy || []), ...(K.rysy2 || []).map(r => r.n)].map(x => String(x).toLowerCase()),
+    man: ["Parry", "Riposte"].filter(n => kManMa(K, n)),
+    sd: SD ? {k: SD.k, zb: SD.zb} : null,
+    bi: B ? {st: kBardSt(K), zb: B.zb} : null,
+    str: kMod(kVl(K, "STR") || 10),
+    agi: kMod(kVl(K, "AGI") || 10),
+    pb: kPB(K),
+    mnich: kTrU(kCtx(K), "Monk") || kLv(K),
+    odv: bojZbrVse(s, h).some(w => !w.dal && w.z && (w.vl || []).includes("Odvetná")),
+  };
+}
+/* reakce, které postava může použít na zásah (okno reakce 10r) + obětování zbroje při kritu (Artikule – není to reakce) */
 function kReakceNaZasah(K, h, s, e) {
-  const o = [],
-    rk = !!(s.reak || {})[h.id],
-    hod = +e.hod,
-    AC = +e.ac,
-    ztr = (+e.ph || 0) + (+e.pt || 0),
-    ry = n => [...(K.rysy || []), ...(K.rysy2 || []).map(r => r.n)].some(x => n.test(String(x)));
+  const o = [];
   {
     const Z = kZbrU(K),
       zb = Z && (Z.z && Z.z.u < Z.z.max ? Z.z : Z.s && Z.s.u < Z.s.max ? Z.s : null);
@@ -123,106 +143,22 @@ function kReakceNaZasah(K, h, s, e) {
         t: `Kritický zásah se změní v běžný (Artikule): kostky zranění jen jednou${+e.ob ? `, vrátí ${e.ob} HP` : ""} a hod na kritické zranění odpadá. Není to reakce.`,
       });
   }
-  /* reakční kouzla jen ta, která postava má (připravená, z předmětu či svitku) a na která jí zbývá slot nebo náboj (2026-10-20) */
-  if (rk) return {rk, o};
-  const sez = kSeznam(K);
-  const o0 = o.length;
-  sez.forEach((x, i) => {
-    if (kCasKouzla(x) !== "R") return;
-    const ok = (x.st === 0 && !x.pz) || kSlX(K, x).length > 0;
-    if (!ok) return;
-    if (/^silvery barbs$/i.test(x.n)) {
-      const mz = !e.kr && hod && AC && +e.d > 0;
-      o.push({
-        k: "barbs",
-        i,
-        n: "Silvery Barbs – přehodit útok",
-        t: mz
-          ? `Útočník přehodí d20 (${e.d}) a použije nižší: hod ${hod} proti AC ${AC}; když mine, vrátí ${ztr} HP`
-          : "Útočník přehodí d20 a použije nižší výsledek",
-      });
-      return;
-    }
-    if (/^hellish rebuke$/i.test(x.n)) {
-      if (ztr > 0 && e.ai)
-        o.push({
-          k: "rebuke",
-          i,
-          n: "Hellish Rebuke – oplatit",
-          t: `Útočník: záchrana AGI proti tvému SO, 2d10 Fire (+1d10 za každý stupeň slotu nad 1), úspěch polovina – pošle se vypravěči`,
-        });
-      return;
-    }
-    if (/^counterspell$/i.test(x.n)) return;
-    if (/^shield$/i.test(x.n)) {
-      const pom = !e.kr && hod && AC && hod < AC + 5;
-      o.push({
-        k: "shield",
-        i,
-        n: `Shield${pom ? " – útok mine" : " (+5 AC)"}`,
-        t: pom
-          ? `Útok ${hod} proti AC ${AC}+5 = vedle: vrátí ${ztr} HP, slot ${x.st}. st.`
-          : `+5 AC do tvého dalšího tahu, tento útok to nezmění (${e.kr ? "kritický zásah" : `hod ${hod || "?"}`})`,
-      });
-      return;
-    }
-    if (/^absorb elements$/i.test(x.n)) {
-      const el = /Acid|Cold|Fire|Lightning|Thunder/.test(e.t || "");
-      o.push({
-        k: "absorb",
-        i,
-        n: `Absorb Elements${el ? " – polovina" : ""}`,
-        t: el
-          ? `Resistance vůči ${e.t}: vrátí ${Math.ceil(ztr / 2)} HP`
-          : "Jen proti kyselinovému, mrazivému, ohnivému, bleskovému a hromovému zranění",
-      });
-      return;
-    }
-    o.push({k: "kz", i, n: x.n, t: `Sešle ${x.n} jako reakci`});
-  });
-  o.forEach((r, j) => {
-    if (j < o0 || r.i == null) return;
-    const x = sez[r.i];
+  const f = kReakceFakta(K, h, s, e),
+    R = reakceOkno(f, e, "zasah"),
+    sez = kSeznam(K);
+  R.o.forEach(r => {
+    const x = r.i != null ? sez[r.i] : null;
     if (x && x.pz) r.n += ` (${x.pz.sv ? "svitek" : String(x.pz.p || "předmět").replace(/^(Wand|Staff) of (the )?/, "")})`;
   });
-  if (ry(/^uncanny dodge$/i) && ztr > 0) o.push({k: "ud", n: "Uncanny Dodge – polovina", t: `Polovina zranění: vrátí ${Math.ceil(ztr / 2)} HP`});
-  if (ry(/^deflect attacks?$/i) && ztr > 0 && /Bludgeoning|Piercing|Slashing/.test(e.t || ""))
-    o.push({k: "da", n: "Deflect Attacks", t: `Sníží zranění o 1d10 + AGI + úroveň mnicha`});
-  /* Battle Master Parry a Cutting Words (College of Lore) – 2026-10-20 */
-  {
-    const SD = kSD(K);
-    if (SD && SD.zb > 0 && kManMa(K, "Parry") && ztr > 0 && !e.dal) {
-      const m = Math.max(kMod(kVl(K, "STR") || 10), kMod(kVl(K, "AGI") || 10));
-      o.push({k: "parry", n: "Parry – méně zranění", t: `Kostka převahy: zranění −(1${SD.k}+${m}), zbývá ${SD.zb} kostek`});
-    }
-  }
-  if (ry(/^cutting words$/i)) {
-    const B = kZdrN(K, /bardic inspiration/i);
-    if (B && B.zb > 0) {
-      const st = kBardSt(K);
-      o.push({
-        k: "cw",
-        n: "Cutting Words",
-        t:
-          !e.kr && hod && AC
-            ? `Odečte 1d${st} od útoku (${hod} proti AC ${AC}): když tím mine, vrátí ${ztr} HP, jinak sníží zranění`
-            : `Sníží zranění o 1d${st} (Bardic Inspiration, zbývá ${B.zb})`,
-      });
-    }
-  }
-  if (ry(/^defensive duelist$/i) && !e.dal && !e.kr && hod && AC && hod < AC + kPB(K))
-    o.push({k: "dd", n: "Defensive Duelist – útok mine", t: `+${kPB(K)} AC proti útoku: vrátí ${ztr} HP`});
-  return {rk, o};
+  return {rk: !!R.proc, proc: R.proc, f, o: [...o, ...R.o]};
 }
 /* Riposte (Battle Master): nepřítel tě minul útokem na blízko → nabídka odvety; viděná minutí si telefon pamatuje (2026-10-20) */
 let BRIP = null;
 function bojMinNovy(s, me, N) {
   const K = bojKartaH(me);
   if (!K || !kManMa(K, "Riposte")) return;
-  const L = N.filter(e => /^vedle/.test(e.v || "") && !e.dal && e.ai);
+  const L = N.filter(e => /^vedle/.test(e.v || "") && reakceMa(kReakceFakta(K, me, s, e), e, "vedle", "riposte"));
   if (!L.length) return;
-  const SD = kSD(K);
-  if (!SD || SD.zb <= 0 || (s.reak || {})[me.id]) return;
   BRIP = {e: L[0], kid: K.id, hid: me.id, cas: Date.now()};
   mmHlas(`${L[0].a || "Nepřítel"} tě minul – můžeš reakcí oplatit (Riposte).`, 6000);
   renderBoj();
@@ -263,7 +199,7 @@ function kZasahHtml(K, h, s) {
     ztr = (+e.ph || 0) + (+e.pt || 0),
     R = kReakceNaZasah(K, h, s, e);
   return `<div class="khl kzas"><b>${besc(e.a || "Nepřítel")}</b> tě zasáhl${e.cim ? ` · ${besc(e.cim)}` : ""}${e.hod ? ` · hod ${e.hod}${e.ac ? ` proti AC ${e.ac}` : ""}` : ""}${ztr ? ` · <b>−${ztr}</b> ${bikZrTxt(e.t)} <small>už odečteno</small>` : ""}${e.pd ? " · <b>padáš na 0</b>" : ""}
-    ${R.rk ? `<small>Reakci už jsi v tomto kole použil.</small>` : R.o.map(r => `<button type="button" class="gbtn" data-bzr="${r.k}"${r.i != null ? ` data-i="${r.i}"` : ""} ${btip(r.t)}>${besc(r.n)}</button>`).join("")}<button type="button" class="gbtn ghost" data-bzr="ok">${R.o.length && !R.rk ? "Bez reakce" : "Rozumím"}</button></div>`;
+    ${R.rk ? `<small>${besc(R.proc)}</small>` : ""}${R.o.map(r => `<button type="button" class="gbtn" data-bzr="${r.k}"${r.i != null ? ` data-i="${r.i}"` : ""} ${btip(r.t)}>${besc(r.n)}</button>`).join("")}<button type="button" class="gbtn ghost" data-bzr="ok">${R.o.length ? (R.rk ? "Nechat být" : "Bez reakce") : "Rozumím"}</button></div>`;
 }
 async function kZasahReakce(K, k, i) {
   const z = BZAS;
@@ -312,17 +248,15 @@ async function kZasahReakce(K, k, i) {
     const sp = kSeznam(K)[+i];
     if (!sp || (await kartaSeslat(K, sp)) === false) return;
     const d0 = +e.d || 0,
-      d2 = bK(20),
-      nd = d0 ? Math.min(d0, d2) : d2,
-      tot = d0 ? +e.hod - d0 + nd : null,
-      kr = nd === 20;
+      V = reakceVysledek("barbs", e, {}, {d20: bK(20)}),
+      {d2, nd, tot, kr} = V;
     kHodZapis({
       k: K.id,
       kdo: K.n,
       co: "Reakce: Silvery Barbs",
       txt: `útočník přehazuje d20 ${d0 || "?"} → ${d2}, platí ${nd}${tot != null ? ` = ${tot} proti AC ${e.ac}` : ""}`,
     });
-    if (tot != null && !kr && tot < +e.ac) await vrat(ztr, "Silvery Barbs – útok minul");
+    if (V.n) await vrat(V.n, V.proc);
     else if (e.kr && !kr) mmHlas(`Silvery Barbs: útok stále zasahuje (${tot}), ale už ne kriticky – vypravěč sníží zranění.`, 6000);
     else mmHlas(`Silvery Barbs: útok stále zasahuje (${tot != null ? tot : "?"}).`, 5000);
     renderBoj();
@@ -362,29 +296,18 @@ async function kZasahReakce(K, k, i) {
       const L = kUc(K).filter(x => x.n !== "Shield");
       L.push({n: "Shield", ac: 5, h: 0.0017});
       await kartaStavZmen(K.id, {uc: L});
-      if (!e.kr && +e.hod < +e.ac + 5) await vrat(ztr, "Shield – útok minul");
     }
-    if (k === "absorb" && /Acid|Cold|Fire|Lightning|Thunder/.test(e.t || "")) await vrat(Math.ceil(ztr / 2), "Absorb Elements");
-  } else if (k === "ud") await vrat(Math.ceil(ztr / 2), "Uncanny Dodge");
-  else if (k === "da") {
-    const mk = kTrU(kCtx(K), "Monk") || kLv(K),
-      r = bK(10) + kMod(kVl(K, "AGI") || 10) + mk;
-    await vrat(Math.min(ztr, r), `Deflect Attacks (${r})`);
-  } else if (k === "dd") await vrat(ztr, "Defensive Duelist – útok minul");
-  else if (k === "parry") {
-    const z = kSD(K);
+  } else if (k === "parry" || k === "cw") {
+    const z = k === "parry" ? kSD(K) : kZdrN(K, /bardic inspiration/i);
     if (!z) return;
     await kZdrUtrat(K, z);
-    const x = bK(+z.k.slice(1)),
-      m = Math.max(kMod(kVl(K, "STR") || 10), kMod(kVl(K, "AGI") || 10));
-    await vrat(Math.min(ztr, x + m), `Parry (${x}+${m})`);
-  } else if (k === "cw") {
-    const B = kZdrN(K, /bardic inspiration/i);
-    if (!B) return;
-    await kZdrUtrat(K, B);
-    const x = bK(kBardSt(K));
-    if (!e.kr && +e.hod && +e.ac && +e.hod - x < +e.ac) await vrat(ztr, `Cutting Words (−${x}) – útok minul`);
-    else await vrat(Math.min(ztr, x), `Cutting Words (−${x} ze zranění)`);
+  }
+  /* kolik HP vrátit: okno reakce (čistý 10r) – kostky se hodí tady */
+  {
+    const f = kReakceFakta(K, h, s, e),
+      d = k === "da" ? bK(10) : k === "parry" ? bK(+String((f.sd || {}).k || "d8").slice(1)) : k === "cw" ? bK(kBardSt(K)) : 0,
+      V = reakceVysledek(k, e, f, {d});
+    if (V && V.n > 0) await vrat(V.n, V.proc);
   }
   mmHlas(`${K.n}: reakce použita.`, 4000);
   renderBoj();

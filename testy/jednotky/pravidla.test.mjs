@@ -200,11 +200,6 @@ test("stavy: návrh výhody v boji – sražený cíl zblízka výhoda, z dálky
   } finally {
     S.ev(`delete BCIL.n1`);
   }
-  assert.equal(
-    V(`bojAdvNavrh({npc: [{id: "n1", b: "x"}], hraci: [], prostr: ["mlha"]}, {id: "n1"}, {n: "Luk", p: "dostřel 80/320 stop"}).v`),
-    -1,
-    "mlha: útok z dálky s nevýhodou",
-  );
   assert.equal(V(`kAdvSum(1, [[-1, "x"]])`), 0, "výhoda a nevýhoda se ruší");
   assert.equal(V(`kAdvSum(0, [[1, "a"], [1, "b"]])`), 1);
 });
@@ -338,7 +333,7 @@ test("podtřídy: přídavky k zásahu – Dreadful Strikes 1d4 (od 11. úrovně
     r11 = kartaReg({povolani: "Ranger 11", uroven: 11, rysy: ["Fey Wanderer", "Dreadful Strikes"]});
   assert.equal(rid(r5).find(r => r.g === "dr").zr, "1d4");
   assert.equal(rid(r11).find(r => r.g === "dr").zr, "1d6");
-  assert.ok(!rid(r5, {ridT: {tk: 100, u: ["dr"]}}).some(r => r.g === "dr"), "už použito v tomto tahu");
+  assert.ok(!rid(r5, {ridT: {k: "1:0", jt: ["dr"]}}).some(r => r.g === "dr"), "už použito v tomto tahu");
   const b5 = kartaReg({povolani: "Barbarian 5", uroven: 5, rysy: ["Path of the Zealot", "Divine Fury"]});
   assert.ok(!rid(b5).some(r => r.g === "df"), "bez zuřivosti se nenabízí");
   await S.ev(`kartaStavZmen(${JSON.stringify(b5)}, {pri: ["Rage"]})`);

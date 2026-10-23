@@ -7,7 +7,9 @@
 // 3. Vazby mezi soubory jako u modulů: zápis do cizí proměnné / přepsání cizí funkce jen u vědomě sdílených jmen (SDILENE,
 //    OBALENE), žádné nepoužité definice, žádné čtení const/let před definicí při načtení.
 // 4. Obsluhy prvků, které se nikde nekreslí: [data-X] v obsluze, ale žádná šablona data-X nevytváří (zbytek po odstraněném tlačítku).
-// Orientace: --kde JMÉNO (kde je definované, kdo ho čte a zapisuje), --soubor NN (co soubor poskytuje a co používá odjinud).
+// 5. Čistá pravidla: soubor s „@čisté“ na 1. řádku smí používat jen jazyk JS a jména jiných čistých souborů (testy/jednotky/ciste.mjs).
+// Orientace: --kde JMÉNO (kde je definované, kdo ho čte a zapisuje), --soubor NN (co soubor poskytuje a co používá odjinud),
+// --ciste-kandidati [NN] (definice, které jdou beze změny přesunout do čistého souboru).
 // Potřebuje balíčky z package.json (npm ci). Výstup: řádky „soubor:řádek  pravidlo  zpráva“, návratový kód 1 při chybě.
 import fs from "node:fs";
 import path from "node:path";
@@ -88,7 +90,7 @@ const DIL = /^zdroj\/web\/js\/(1\d|2[0-5])[a-z]?-/;
    před jejich definicí při načtení. Mapa vazeb: --kde JMÉNO, --soubor NN (viz konec souboru). */
 // sdílený stav: proměnné, do kterých zapisuje i jiný soubor než ten, který je definuje (nové přidávej s rozmyslem)
 const SDILENE = new Set(
-  "PG SG HRA BHLED bojHlasen BKON BODP BPLOS BKDO BPRAV BZAPT HODY KLOAD KADV KIMP KPOOLM BZAS BRIP KZFL KPRIP BTAB VY VYT VYS".split(" "),
+  "PG SG HRA BHLED bojHlasen BKON BODP BPLOS BKDO BPRAV BZAPT HODY KLOAD KADV KIMP BZAS BRIP KZFL KPRIP BTAB VY VYT VYS".split(" "),
 );
 // obalené funkce: jiný soubor je přepíše vlastní verzí (vypravěčské doplňky 09/21, líné části 22b, odkazy 08)
 const OBALENE = new Set(
@@ -97,6 +99,7 @@ const OBALENE = new Set(
   ),
 );
 const MAPA = new Map(); // jméno → {f, r, druh, ctou: Set, pisou: Set}
+const ZAV = {def: new Map(), menene: new Set()}; // závislosti definic (pravidlo zavislosti, výpis --ciste-kandidati)
 const mm = {
   rules: {
     vazby: {
@@ -130,6 +133,72 @@ const mm = {
               if (!v.references.some(r => r.isRead()) && f.startsWith("zdroj/web/js/"))
                 ctx.report({node: d.name, message: `${v.name} se nikde nepoužívá – smaž ho (mrtvý kód)`});
             }
+          },
+        };
+      },
+    },
+    /* závislosti definic na nejvyšší úrovni (pro --ciste-kandidati): která jména každá definice čte a které proměnné se
+       odněkud mění (přiřazení, ++, delete, push/set/add… na proměnné nebo jejím členu) – ty jsou stav, ne data */
+    zavislosti: {
+      meta: {type: "suggestion", schema: []},
+      create(ctx) {
+        const koren = n => {
+          while (n && n.type === "MemberExpression") n = n.object;
+          return n && n.type === "Identifier" ? n.name : null;
+        };
+        const MENI = /^(push|pop|shift|unshift|splice|sort|reverse|fill|set|add|delete|clear)$/;
+        return {
+          AssignmentExpression(n) {
+            if (n.left.type === "MemberExpression") ZAV.menene.add(koren(n.left));
+          },
+          UpdateExpression(n) {
+            if (n.argument.type === "MemberExpression") ZAV.menene.add(koren(n.argument));
+          },
+          UnaryExpression(n) {
+            if (n.operator === "delete" && n.argument.type === "MemberExpression") ZAV.menene.add(koren(n.argument));
+          },
+          CallExpression(n) {
+            const c = n.callee;
+            if (c.type === "MemberExpression" && !c.computed && MENI.test(c.property.name) && c.object.type !== "ThisExpression")
+              ZAV.menene.add(koren(c.object));
+            if (c.type === "MemberExpression" && koren(c) === "Object" && c.property.name === "assign" && n.arguments[0])
+              ZAV.menene.add(koren(n.arguments[0]));
+          },
+          "Program:exit"(p) {
+            const g = ctx.sourceCode.getScope(p),
+              D = [];
+            for (const v of g.variables) {
+              const d = v.defs[0];
+              if (!d) continue;
+              const uzel = d.type === "FunctionName" ? d.node : d.type === "Variable" ? d.node : null;
+              if (!uzel) continue;
+              const druh = d.type === "FunctionName" ? "function" : d.parent.kind;
+              const init = d.type === "Variable" ? d.node.init : null;
+              const data = !!init && /^(ObjectExpression|ArrayExpression|NewExpression)$/.test(init.type);
+              ZAV.def.set(v.name, {a: uzel.range[0], b: uzel.range[1], druh, data, cte: new Set(), pise: false});
+              D.push([uzel.range[0], uzel.range[1], v.name]);
+            }
+            D.sort((x, y) => x[0] - y[0]);
+            const vKom = pos => {
+              let lo = 0,
+                hi = D.length - 1;
+              while (lo <= hi) {
+                const m = (lo + hi) >> 1;
+                if (D[m][1] < pos) lo = m + 1;
+                else if (D[m][0] > pos) hi = m - 1;
+                else return D[m][2];
+              }
+              return null;
+            };
+            for (const sc of ctx.sourceCode.scopeManager.scopes)
+              for (const r of sc.references) {
+                if (r.resolved && r.resolved.scope.type !== "global") continue;
+                const kdo = vKom(r.identifier.range[0]);
+                if (!kdo || kdo === r.identifier.name) continue;
+                const o = ZAV.def.get(kdo);
+                o.cte.add(r.identifier.name);
+                if (r.isWrite()) o.pise = true;
+              }
           },
         };
       },
@@ -184,6 +253,7 @@ const pravidla = {
   "valid-typeof": "error",
   "mm/jadro-vola-dil": "error",
   "mm/vazby": "error",
+  "mm/zavislosti": "error",
   /* čtení const/let/class při načtení dřív, než je definované (i z dřívějšího souboru) = ReferenceError a prázdná stránka */
   "no-use-before-define": ["error", {functions: false, classes: false, variables: false}],
   /* čárka jako operátor: ({…},(…)) vrátí jen poslední výraz – tak se 2026-10-20 ztratil celý zápis útoku vypravěče za hráče */
@@ -246,9 +316,84 @@ const OSIRELE_OK = new Set([
     });
 }
 
+/* ---- 5. čistá pravidla (2026-10-23): soubor s „@čisté“ na 1. řádku smí používat jen jazyk JS a jména z ostatních čistých
+   souborů – žádnou stránku (document, window, localStorage, fetch, setTimeout…), stav ani funkce jiných souborů. Data dostává
+   jako argumenty. Takové soubory se spustí v čistém Node (testy/jednotky/ciste.mjs) a jejich výpočty se testují bez prohlížeče. ---- */
+const CISTE = [...new Set(mapa.map(([f]) => f))].filter(
+  f => f.startsWith("zdroj/web/js/") && /@čisté/.test(fs.readFileSync(path.join(KOREN, f), "utf8").split("\n")[0]),
+);
+{
+  const jmena = {};
+  for (const [n, o] of MAPA) if (CISTE.includes(o.f)) jmena[n] = "readonly";
+  for (const f of CISTE)
+    for (const z of linter.verify(
+      fs.readFileSync(path.join(KOREN, f), "utf8"),
+      [{languageOptions: {ecmaVersion: "latest", sourceType: "script", globals: {...globals.es2021, ...jmena}}, rules: {"no-undef": "error"}}],
+      {filename: f},
+    )) {
+      chyb++;
+      console.log(`${f}:${z.line}  ciste  ${z.message} – čistý soubor (@čisté) smí používat jen jazyk JS a jména jiných čistých souborů`);
+    }
+}
+
 /* ---- mapa vazeb pro orientaci: node testy/kontrola_kodu.mjs --kde bojUtokPriprav | --soubor 20 ---- */
 const kratce = f => f.replace("zdroj/web/js/", "").replace(/\.js$/, "");
 const arg = (n, i = process.argv.indexOf(n)) => (i > 0 ? process.argv[i + 1] || "" : null);
+/* ---- kandidáti do čistých souborů: node testy/kontrola_kodu.mjs --ciste-kandidati [NN] ----
+   definice, které (i přes vše, co volají) čtou jen jazyk JS a jiné takové definice – žádnou stránku, proměnný stav (let/var,
+   objekty, které se někde mění) ani zápis do globálních jmen. Jdou přesunout do čistého souboru (@čisté) beze změny;
+   kontrola čistoty pak ověří, že opravdu nic jiného nepotřebují. */
+if (process.argv.includes("--ciste-kandidati") || arg("--ciste-uzaver") != null) {
+  const ES = new Set(Object.keys(globals.es2021)),
+    cisty = new Set();
+  const ok = n => {
+    const o = ZAV.def.get(n);
+    if (!o || o.pise || ZAV.menene.has(n) || (o.druh !== "function" && o.druh !== "const")) return false;
+    for (const x of o.cte) if (!(ES.has(x) && !ZAV.def.has(x)) && !cisty.has(x)) return false;
+    return true;
+  };
+  for (let zmena = true; zmena;) {
+    zmena = false;
+    for (const n of ZAV.def.keys())
+      if (!cisty.has(n) && ok(n)) {
+        cisty.add(n);
+        zmena = true;
+      }
+  }
+  /* --ciste-uzaver A,B: co všechno by se muselo přesunout spolu s A a B (čisté závislosti mimo čisté soubory) */
+  if (arg("--ciste-uzaver") != null) {
+    const U = new Set(),
+      fronta = arg("--ciste-uzaver").split(",");
+    while (fronta.length) {
+      const n = fronta.pop();
+      const o = MAPA.get(n);
+      if (U.has(n) || !o || CISTE.includes(o.f)) continue;
+      U.add(n);
+      for (const x of ZAV.def.get(n).cte) if (ZAV.def.has(x)) fronta.push(x);
+    }
+    for (const n of [...U].sort()) {
+      const o = MAPA.get(n);
+      console.log(`${cisty.has(n) ? "  " : "✗ "}${n}  ${kde(o.r)}`);
+    }
+    console.log("✗ = není čisté (stránka, stav nebo zápis) – takovou závislost předej argumentem");
+    process.exit(0);
+  }
+  const q = arg("--ciste-kandidati"),
+    po = new Map();
+  for (const n of cisty) {
+    const o = MAPA.get(n);
+    if (!o || !o.f.startsWith("zdroj/web/js/") || CISTE.includes(o.f) || (q && !kratce(o.f).startsWith(q))) continue;
+    po.set(o.f, [...(po.get(o.f) || []), n]);
+  }
+  let celkem = 0;
+  for (const [f, L] of [...po].sort()) {
+    celkem += L.length;
+    const ctenari = n => [...MAPA.get(n).ctou].filter(x => x !== f).length;
+    console.log(`${kratce(f)} (${L.length}): ${L.sort((a, b) => ctenari(b) - ctenari(a) || a.localeCompare(b)).join(" ")}`);
+  }
+  console.log(`\n${celkem} definic by šlo přesunout do čistých souborů (${cisty.size} čistých celkem včetně @čisté).`);
+  process.exit(0);
+}
 if (arg("--kde") != null) {
   for (const jm of arg("--kde").split(",")) {
     const o = MAPA.get(jm);

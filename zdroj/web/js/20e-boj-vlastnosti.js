@@ -253,9 +253,7 @@ let BODV = null;
 function bojOdvNovy(s, me, N) {
   const K = bojKartaH(me);
   if (!K || (s.reak || {})[me.id]) return;
-  const zb = bojZbrVse(s, me);
-  if (!zb.some(w => !w.dal && w.z && (w.vl || []).includes("Odvetná"))) return;
-  const L = N.filter(e => /^vedle/.test(e.v || "") && !e.dal && e.ai && e.zv === "pok");
+  const L = N.filter(e => /^vedle/.test(e.v || "") && reakceMa(kReakceFakta(K, me, s, e), e, "vedle", "odv"));
   if (!L.length) return;
   BODV = {e: L[0], kid: K.id, hid: me.id, cas: Date.now()};
   mmHlas(`${L[0].a || "Nepřítel"} tě minul s Pokušením – Odvetná: můžeš reakcí oplatit.`, 6000);

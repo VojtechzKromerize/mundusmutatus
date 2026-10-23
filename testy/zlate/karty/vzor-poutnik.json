@@ -1,0 +1,61 @@
+{
+  "id": "vzor-poutnik",
+  "n": "Vzor: hraničář Reliktní poutník",
+  "druh": "Elf",
+  "povolani": "Ranger 7",
+  "uroven": 7,
+  "vl": {
+    "STR": 10,
+    "AGI": 18,
+    "CON": 14,
+    "INT": 10,
+    "WIS": 16,
+    "CHA": 12
+  },
+  "rysy": [
+    "Fey Wanderer",
+    "Dreadful Strikes",
+    "Otherworldly Glamour",
+    "Beguiling Twist",
+    "Extra Attack",
+    "Favored Enemy",
+    "Archery"
+  ],
+  "vybaveni": [
+    {
+      "n": "Studded Leather Armor",
+      "q": 1
+    },
+    {
+      "n": "Longbow",
+      "q": 1
+    },
+    {
+      "n": "Shortsword",
+      "q": 2
+    }
+  ],
+  "kouzla": {
+    "vl": "WIS",
+    "trida": "Ranger",
+    "seznam": [
+      {
+        "n": "Hunter's Mark",
+        "st": 1
+      },
+      {
+        "n": "Cure Wounds",
+        "st": 1
+      },
+      {
+        "n": "Misty Step",
+        "st": 2
+      },
+      {
+        "n": "Pass without Trace",
+        "st": 2
+      }
+    ]
+  },
+  "test": true
+}

@@ -178,7 +178,7 @@ function bzZHod(s, h) {
     pozn: [],
     src: "h",
     h,
-    skryty: !!h.skryty,
+    skryty: !!(h.skryty || h.taj),
     kouzlo: /^Útok kouzlem/.test(co),
   };
   String(h.txt || "")

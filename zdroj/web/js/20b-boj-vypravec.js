@@ -41,7 +41,6 @@ const bojAuto = {
 };
 /* zbraně postavy (ukládají se k jménu postavy a přežijí do dalšího boje) */
 const bojZbrH = (s, h) => ((s && s.zbrane) || {})[h && h.n] || [];
-const bojKonDC = d => Math.min(30, Math.max(10, Math.floor((+d || 0) / 2)));
 /* veřejný záznam: kdo, komu, čím, výsledek; zranění jen u zásahů postav a spojenců, nikdy životy a AC nepřátel */
 const BZAZQ = [];
 function bojZaz(e) {
@@ -1225,7 +1224,6 @@ document.addEventListener("change", async e => {
       const x = [
         R.rows.length ? `${R.rows.length} ${R.rows.length === 1 ? "nepřítel" : R.rows.length < 5 ? "nepřátelé" : "nepřátel"}` : "",
         (R.cile || []).length ? `cíle ${R.cile.length}` : "",
-        (R.prostr || []).length && BOJ.s && BOJ.s.priprava ? "prostředí" : "",
         R.prekv && BOJ.s && BOJ.s.priprava ? "přepadení" : "",
       ].filter(Boolean);
       mmHlasG(`Načteno: ${x.join(", ")}.`, 3500);
@@ -1508,7 +1506,6 @@ const bojSetkExtra = () => {
       if (c.kolo) o.kolo = c.kolo;
       return o;
     }),
-    prostr: bojPros(s).filter(k => BPROS[k]),
     prekv: s.prekv || "",
     lead: String(s.lead || "").trim(),
   };
@@ -1540,7 +1537,7 @@ async function bojUlozSetkani() {
         .join("")}`;
     });
     const ex = bojSetkExtra();
-    const md = `---\nid: ${id}\nnazev: ${jm}\nstitky: \n${ex.prostr.length ? `prostredi: ${ex.prostr.map(k => BPROS[k][1].toLowerCase()).join(", ")}\n` : ""}${ex.prekv ? `prekvapeni: ${ex.prekv === "h" ? "družina" : "nepřátelé"}\n` : ""}nepratele:\n${lin.join("\n")}\n${ex.cile.length ? `cile:\n${ex.cile.map(c => "  - " + bojCilTxt(c)).join("\n")}\n` : ""}---\n${ex.lead || "Situace a taktika."}\n`,
+    const md = `---\nid: ${id}\nnazev: ${jm}\nstitky: \n${ex.prekv ? `prekvapeni: ${ex.prekv === "h" ? "družina" : "nepřátelé"}\n` : ""}nepratele:\n${lin.join("\n")}\n${ex.cile.length ? `cile:\n${ex.cile.map(c => "  - " + bojCilTxt(c)).join("\n")}\n` : ""}---\n${ex.lead || "Situace a taktika."}\n`,
       tpl = EDDRUH.setkani.tpl;
     EDDRUH.setkani.tpl = () => md;
     try {
@@ -1552,8 +1549,7 @@ async function bojUlozSetkani() {
   }
   const ex = bojSetkExtra(),
     g = bojSkup();
-  g[jm] =
-    ex.cile.length || ex.prostr.length || ex.prekv || ex.lead ? {np: rows, cile: ex.cile, prostr: ex.prostr, prekv: ex.prekv, lead: ex.lead} : rows;
+  g[jm] = ex.cile.length || ex.prekv || ex.lead ? {np: rows, cile: ex.cile, prekv: ex.prekv, lead: ex.lead} : rows;
   bojSkupUloz(g);
   const sel = document.querySelector("[data-bskup]");
   const box = document.querySelector("#bojform .bskup");
@@ -2288,16 +2284,6 @@ document.addEventListener("click", async e => {
       },
       `${h0.n}: zásah v bezvědomí – ${k === 1 ? "neúspěch" : "dva neúspěchy"} hodu proti smrti${r.m ? " → " + r.m : ""}.`,
     );
-    return;
-  }
-  const pro = T("[data-bpros]");
-  if (pro && GMV) {
-    const k = pro.dataset.bpros;
-    bojZmen(z => {
-      const a = z.prostr || [];
-      z.prostr = a.includes(k) ? a.filter(x => x !== k) : [...a, k];
-      if (!z.prostr.length) delete z.prostr;
-    });
     return;
   }
   const n = T("[data-bnpc]");

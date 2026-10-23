@@ -1,0 +1,118 @@
+{
+  "karta": {
+    "uroven": 7,
+    "zdatnost": 3,
+    "ac": 21,
+    "hp": 67,
+    "iniciativa": 1,
+    "rychlost": 30,
+    "odolnosti": [
+      "Bludgeoning",
+      "Slashing",
+      "Piercing"
+    ],
+    "zachrany": {
+      "STR": 4,
+      "AGI": 1,
+      "CON": 3,
+      "INT": 1,
+      "WIS": 0,
+      "CHA": 0
+    },
+    "dovednosti": {
+      "Acrobatics": 1,
+      "Animal Handling": 0,
+      "Arcana": 1,
+      "Athletics": 4,
+      "Deception": 0,
+      "History": 1,
+      "Insight": 0,
+      "Intimidation": 0,
+      "Investigation": 1,
+      "Medicine": 0,
+      "Nature": 1,
+      "Perception": 0,
+      "Performance": 0,
+      "Persuasion": 0,
+      "Religion": 1,
+      "Sleight of Hand": 1,
+      "Stealth": 1,
+      "Survival": 0
+    },
+    "kouzla": null,
+    "sloty": [],
+    "zdroje": [
+      "Second Wind 3",
+      "Action Surge 1",
+      "Combat Superiority 5"
+    ],
+    "utoky": [
+      "Longsword: +7 1d8+4 Slashing ×2",
+      "Heavy Crossbow: +4 1d10+1 Piercing ×2",
+      "Úder beze zbraně: +7 5 Bludgeoning ×2"
+    ],
+    "pridavky": [],
+    "kostkyKHodum": [],
+    "vydrz": 3
+  },
+  "varianty": {
+    "Haste, Longstrider a Bless (vlastní účinky)": {
+      "uroven": 7,
+      "zdatnost": 3,
+      "ac": 23,
+      "hp": 67,
+      "iniciativa": 1,
+      "rychlost": 80,
+      "odolnosti": [
+        "Bludgeoning",
+        "Slashing",
+        "Piercing"
+      ],
+      "zachrany": {
+        "STR": 4,
+        "AGI": 1,
+        "CON": 3,
+        "INT": 1,
+        "WIS": 0,
+        "CHA": 0
+      },
+      "dovednosti": {
+        "Acrobatics": 1,
+        "Animal Handling": 0,
+        "Arcana": 1,
+        "Athletics": 4,
+        "Deception": 0,
+        "History": 1,
+        "Insight": 0,
+        "Intimidation": 0,
+        "Investigation": 1,
+        "Medicine": 0,
+        "Nature": 1,
+        "Perception": 0,
+        "Performance": 0,
+        "Persuasion": 0,
+        "Religion": 1,
+        "Sleight of Hand": 1,
+        "Stealth": 1,
+        "Survival": 0
+      },
+      "kouzla": null,
+      "sloty": [],
+      "zdroje": [
+        "Second Wind 3",
+        "Action Surge 1",
+        "Combat Superiority 5"
+      ],
+      "utoky": [
+        "Longsword: +7 1d8+4 Slashing ×2",
+        "Heavy Crossbow: +4 1d10+1 Piercing ×2",
+        "Úder beze zbraně: +7 5 Bludgeoning ×2"
+      ],
+      "pridavky": [],
+      "kostkyKHodum": [
+        "Bless"
+      ],
+      "vydrz": 3
+    }
+  }
+}

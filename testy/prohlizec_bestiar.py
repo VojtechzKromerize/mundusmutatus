@@ -75,12 +75,12 @@ async def main():
     await g.fill("[data-bur]","8");await g.wait_for_timeout(200)
     ob=await g.locator(".bobt").first.inner_text();print(ob)
     chk("XP" in ob and "pro 4 postavy 8. úrovně" in ob,"odhad obtížnosti se ukáže")
-    r=await g.evaluate("(()=>{const c=bojCilParse('Zachránit rukojmí (3×, do 2. kola, skrytý)');return [c.n,c.cil,c.kolo,c.ver,bojProsParse('silný vítr, mlha').join(),bojCilTxt(c)]})()")
-    chk(r==["Zachránit rukojmí",3,2,False,"vitr,mlha","Zachránit rukojmí (3×, do 2. kola, skrytý)"],"cíl setkání jako text tam i zpět: "+str(r))
-    await g.evaluate("bojZmen(z=>bojSetkPouzij(z,{rows:[],cile:[{n:'Udržet bránu',kolo:3,ver:true}],prostr:['mlha'],prekv:'n'}))");await g.wait_for_timeout(400)
-    chk(await g.evaluate("BOJ.s.cile.some(c=>c.n==='Udržet bránu'&&c.kolo===3)&&BOJ.s.prostr.includes('mlha')&&BOJ.s.prekv==='n'"),"setkání v přípravě přidá cíle, prostředí a přepadení")
-    chk(await g.locator('[data-bpros="mlha"][aria-pressed="true"]').count()==1,"prostředí je vidět v přípravě")
-    await g.evaluate("bojZmen(z=>{delete z.prostr;delete z.prekv;z.cile=(z.cile||[]).filter(c=>c.n!=='Udržet bránu');if(!z.cile.length)delete z.cile})");await g.wait_for_timeout(300)
+    r=await g.evaluate("(()=>{const c=bojCilParse('Zachránit rukojmí (3×, do 2. kola, skrytý)');return [c.n,c.cil,c.kolo,c.ver,bojCilTxt(c)]})()")
+    chk(r==["Zachránit rukojmí",3,2,False,"Zachránit rukojmí (3×, do 2. kola, skrytý)"],"cíl setkání jako text tam i zpět: "+str(r))
+    await g.evaluate("bojZmen(z=>bojSetkPouzij(z,{rows:[],cile:[{n:'Udržet bránu',kolo:3,ver:true}],prekv:'n'}))");await g.wait_for_timeout(400)
+    chk(await g.evaluate("BOJ.s.cile.some(c=>c.n==='Udržet bránu'&&c.kolo===3)&&BOJ.s.prekv==='n'"),"setkání v přípravě přidá cíle a přepadení")
+    chk(await g.locator('[data-bpros], .bpros').count()==0,"prostředí boje v Boji není (2026-10-23)")
+    await g.evaluate("bojZmen(z=>{delete z.prekv;z.cile=(z.cile||[]).filter(c=>c.n!=='Udržet bránu');if(!z.cile.length)delete z.cile})");await g.wait_for_timeout(300)
     await g.click("[data-bdmhod]");await g.wait_for_timeout(400)
     chk(await g.evaluate("typeof BOJ.s.dm==='number'"),"hod za nepřátele zapíše iniciativu nepřátel")
     await g.evaluate("bojZmen(z=>{z.dm=12})");await g.wait_for_timeout(300)
@@ -267,7 +267,7 @@ async def main():
       bojJaRid('es:slot3p');const d1=q.dmg;o.push(q.rid.length===1&&d1>=14&&d1<=42&&/Eldritch Smite/.test(q.zx));
       bojJaRid('es:slot3p');o.push(q.dmg===10&&!q.rid.length);
       bojJaRid('es:slot3p');bojJaRid('m:Trip Attack');o.push(q.rid.length===2);
-      await bojJaRidPo(K,me,[q]);const Z=kartaStav(K.id).zdr||{};o.push(Z.slot3p===1&&Z['Combat Superiority']===1&&BJU.ridT.u.includes('es'));
+      await bojJaRidPo(K,me,[q]);const Z=kartaStav(K.id).zdr||{};o.push(Z.slot3p===1&&Z['Combat Superiority']===1&&BJU.ridT.jt.includes('es'));
       o.push(!bojJaRidery(K,me,zb[j],{ci:q.ci,vys:'zásah',dmg:5},s).some(r=>r.g==='es'));
       const e={hod:20,ac:18,d:15,ph:8,ai:s.npc[0].id,t:'Slashing'};o.push(kReakceNaZasah(K,me,s,e).o.some(r=>r.k==='parry')&&!kReakceNaZasah(K,me,s,Object.assign({},e,{dal:1})).o.some(r=>r.k==='parry'));
       o.push(kEfAkt(K,[],{n:'Greatsword'}).some(x=>x.n==='Great Weapon Master'&&x.zr===kPB(K))&&!kEfAkt(K,[],{n:'Dagger'}).some(x=>x.n==='Great Weapon Master'));
@@ -302,7 +302,7 @@ async def main():
       await kVybPridej(K,vybPoolVstup(VYBBY['crowbar']),2);const x=kInv(K).find(y=>y.n==='Crowbar');o.push(!!x&&x.q===2&&!x.kat);
       o.push(!!vybNajdi({n:'Breastplate'})&&vybNajdi({n:'Breastplate'}).art==='Plátová');
       o.push(JSON.stringify(bdmZvlAuto({n:'Longsword'}).slice().sort())===JSON.stringify(['Odvetná','Ostrá','Půlmeč','Šikovná']));
-      const [t,h]=bdmVecList(K,kInv(K).indexOf(x));o.push(/katalog vybavení/.test(h)&&/Crowbar/.test(h));
+      const [t,h]=bdmVecList(K,kInv(K).indexOf(x));o.push(/class="kvpop"/.test(h)&&/Crowbar/.test(h));
       o.push(VYB.magicke.filter(m=>m.x).every(m=>!m.srd)&&VYB.magicke.some(m=>m.srd==='bag-of-holding'));return o})()""")
     chk(r5==[True]*5,"katalog: přidání do vybavení, hledání podle jména, vlastnosti zbraně z katalogu, popis v listu věci, mimo SRD bez vazby: "+str(r5))
     await v.close()

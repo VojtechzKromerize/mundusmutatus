@@ -930,7 +930,9 @@ document.addEventListener("submit", async e => {
     e.preventDefault();
     const kid = f.dataset.k || (E.kdo && E.kdo.value) || "",
       KK = kid && KARTBY[kid];
-    await kVlastniHod(KK ? KK.n : "Vypravěč", kid, E.v.value, E.co.value.trim() || E.v.value, E.zav.checked);
+    /* panel Kostky na kartě: výhoda / nevýhoda platí i pro vlastní výraz s jednou d20, hod jen pro vypravěče (2026-10-23) */
+    const ve = f.closest(".kkpan") && typeof kKostAdv === "function" ? kKostAdv(E.v.value, KADV) : E.v.value;
+    await kVlastniHod(KK ? KK.n : "Vypravěč", kid, ve, E.co.value.trim() || E.v.value, E.zav.checked, f.closest(".kkpan") && KKOSTTAJ);
     return;
   }
   if (f.matches("[data-kpzach]")) {
@@ -959,22 +961,28 @@ document.addEventListener("submit", async e => {
     return;
   }
   if (!K) return;
-  if (f.matches("[data-kdusf]")) {
-    e.preventDefault();
-    const ctn = [E.c1.value].filter(Boolean),
-      ner = [E.n1.value].filter(Boolean),
-      duse = {};
-    if (E.dr.value) duse.dr = E.dr.value;
-    if (E.vz.value) duse.vz = E.vz.value;
-    if (+E.fs.value > 1) duse.fs = +E.fs.value;
-    if (ctn.length) duse.ctn = ctn;
-    if (ner.length) duse.ner = ner;
-    const sv = Math.max(0, Math.min(10, Math.round(+E.sv.value)));
-    const D = kDuse(K);
-    await kartaStavZmen(K.id, {duse: Object.keys(duse).length ? duse : null, sv}, `${K.n}: duše uložena.`);
-    if (sv !== D.sv) kHodZapis({k: K.id, kdo: K.n, co: "Svědomí upraveno", txt: `${D.sv} → ${sv} (${SVST(sv)})`});
-    return;
-  }
+});
+/* nastavení duše v listu Svědomí (2026-10-23): každá změna se uloží hned */
+document.addEventListener("submit", e => {
+  if (e.target.matches && e.target.matches("[data-kdusf]")) e.preventDefault();
+});
+document.addEventListener("change", async e => {
+  const t = e.target;
+  if (!t.matches || !t.matches("[data-kdusg]")) return;
+  const f = t.closest("[data-kdusf]"),
+    K = f && kvK(f);
+  if (!K || !kMuze(K)) return;
+  const E = f.elements,
+    duse = {};
+  if (E.dr.value) duse.dr = E.dr.value;
+  if (E.vz.value) duse.vz = E.vz.value;
+  if (+E.fs.value > 1) duse.fs = +E.fs.value;
+  if (E.c1.value) duse.ctn = [E.c1.value];
+  if (E.n1.value) duse.ner = [E.n1.value];
+  const sv = Math.max(0, Math.min(10, Math.round(+E.sv.value || 0)));
+  const D = kDuse(K);
+  await kartaStavZmen(K.id, {duse: Object.keys(duse).length ? duse : null, sv}, `${K.n}: duše uložena.`);
+  if (sv !== D.sv) kHodZapis({k: K.id, kdo: K.n, co: "Svědomí upraveno", txt: `${D.sv} → ${sv} (${SVST(sv)})`});
 });
 /* ===== Hráč: přihlášení za postavu, stránka Hra, výzvy k hodu, tajné zprávy, upozornění, úkoly družiny, postup na úroveň (2026-10-16) ===== */
 const KZAM = new Set();
@@ -1708,12 +1716,8 @@ document.addEventListener("click", async e => {
 /* ===== Průvodce tahem hráče v Boji ===== */
 const BPT = {k: null};
 function bojPruvodce(s, me) {
-  const K = bojKartaH(me),
-    k = `${s.kolo}:${s.tah}`;
-  if (BPT.k !== k) {
-    BPT.k = k;
-    BPT.p = BPT.a = BPT.b = 0;
-  }
+  const K = bojKartaH(me);
+  tahObnov(BPT, tahKlic(s));
   if (K && !KSPD)
     kSpNacti()
       .then(() => {
@@ -1754,7 +1758,7 @@ function bojPruvodce(s, me) {
 document.addEventListener("change", e => {
   const t = e.target;
   if (t.matches && t.matches("[data-bpt]")) {
-    BPT[t.dataset.bpt] = t.checked ? 1 : 0;
+    tahNastav(BPT, t.dataset.bpt, t.checked);
     t.closest("label").classList.toggle("on", t.checked);
   }
 });
@@ -1781,9 +1785,13 @@ const kLb = w => {
     .match(/(\d+(?:\.\d+)?)(?:\s*\/\s*(\d+))?/);
   return m ? (m[2] ? +m[1] / +m[2] : +m[1]) : 0;
 };
+/* nosnost (SRD 5.2.1): Síla × 15 lb; obsah magických vaků a složek, které postava nenese (kůň, vůz – 2026-10-23), se nepočítá */
 function kZatez(K, inv, pen) {
-  const mg = new Set((inv || []).filter(x => KKONTM.test(x.n)).map(x => x.n)),
-    w =
+  const mg = new Set((inv || []).filter(x => KKONTM.test(x.n)).map(x => x.n));
+  (typeof kSlozky === "function" ? kSlozky(K) : []).forEach(f => {
+    if (f.nen) mg.add(f.n);
+  });
+  const w =
       (inv || []).filter(x => !(x.v && mg.has(x.v))).reduce((a, x) => a + kLb(x.w), 0) +
       Object.values(pen || {}).reduce((a, v) => a + (+v || 0), 0) / 50,
     max = 15 * kVl(K, "STR") * (/goliath/i.test(K.druh || "") || (K.rysy2 || []).some(r => /powerful build/i.test(r.n)) ? 2 : 1);
@@ -1823,163 +1831,3 @@ document.addEventListener("input", e => {
     });
   }, 900);
 });
-/* rysy a akce z PDF D&D Beyond: názvy, čas aktivace (akce / bonusová akce / reakce), počty použití a texty.
-   Texty jsou texty příruček – ukládají se zvlášť a vidí je jen vlastník postavy a vypravěč. */
-function kRysyZPdf(F) {
-  const pole = re =>
-    F.filter(q => q && q.f && re.test(String(q.f).trim()))
-      .map(q => ({n: +(String(q.f).match(/(\d+)\s*$/) || [0, 0])[1], v: String(q.v || "").replace(/\r/g, "")}))
-      .sort((a, b) => a.n - b.n);
-  const spoj = L => L.map(x => x.v).join("\n");
-  const cas = t => (/\bBonus Action\b/i.test(t) ? "BA" : /\bReaction\b/i.test(t) ? "R" : /\b\d*\s*Action\b/i.test(t) ? "A" : "");
-  const cist = t =>
-    String(t || "")
-      .replace(/[’‘]/g, "'")
-      .replace(/\s*•\s*\d+\s*\/\s*(Long|Short)\s*Rest.*$/i, "")
-      .replace(/\s*•\s*(PHB|XGtE|TCoE|SCAG|EE|br|MotM|FToD|BGG|TBoMT|DMG|BMT|EGtW|VGtM|MToF|ERLW|GGtR|SRD|Basic)[^•]*$/i, "")
-      .replace(/\s*•\s*$/, "")
-      .trim();
-  const rysy = [],
-    texty = {},
-    akce = {A: [], BA: [], R: []};
-  let sek = "",
-    cur = null;
-  const pridej = (n, o) => {
-    n = cist(n);
-    if (!n) return null;
-    let r = rysy.find(x => x.n === n);
-    if (!r) {
-      r = Object.assign({n, s: sek}, o || {});
-      rysy.push(r);
-    }
-    return r;
-  };
-  spoj(pole(/^FeaturesTraits\d+$/i))
-    .split("\n")
-    .forEach(raw => {
-      const l = raw.replace(/\s+$/, ""),
-        t = l.trim();
-      if (!t) return;
-      const ms = t.match(/^===\s*(.+?)\s*===$/);
-      if (ms) {
-        sek = ms[1];
-        cur = null;
-        return;
-      }
-      const mf = t.match(/^\*\s*(.+)$/);
-      if (mf) {
-        cur = pridej(mf[1]);
-        return;
-      }
-      const mu = t.match(/^\|\s*(.+)$/);
-      if (mu) {
-        const x = mu[1];
-        const use = x.match(/^(\d+)\s*\/\s*(Long|Short)\s*Rest(?:\s*•\s*(.*))?$/i),
-          jen = x.match(/^(\d+\s+)?(Action|Bonus Action|Reaction)$/i),
-          pojm = x.match(/^(.+?):\s*(\d+\s+)?(Action|Bonus Action|Reaction)$/i);
-        if (use && cur) {
-          cur.max = +use[1];
-          cur.obn = /short/i.test(use[2]) ? "krátký odpočinek" : "dlouhý odpočinek";
-          if (use[3]) cur.cas = cas(use[3]);
-          return;
-        }
-        if (jen && cur) {
-          cur.cas = cas(x);
-          return;
-        }
-        if (pojm) {
-          const r = pridej(pojm[1], {sub: 1});
-          if (r) r.cas = cas(pojm[3]);
-          return;
-        }
-        cur = pridej(x, {sub: 1});
-        return;
-      }
-      if (cur) {
-        texty[cur.n] = (texty[cur.n] ? texty[cur.n] + "\n" : "") + t;
-      }
-    });
-  /* pole Actions: === ACTIONS === / === BONUS ACTIONS === / === REACTIONS === a položky s textem odsazeným pod nimi */
-  let ak = "",
-    ca = null;
-  const L = spoj(pole(/^Actions\d+$/i)).split("\n");
-  L.forEach((raw, i) => {
-    const t = raw.trim();
-    if (!t) return;
-    const ms = t.match(/^===\s*(.+?)\s*===$/);
-    if (ms) {
-      ak = /BONUS/i.test(ms[1]) ? "BA" : /REACTION/i.test(ms[1]) ? "R" : /^ACTIONS?$/i.test(ms[1]) ? "A" : "";
-      ca = null;
-      return;
-    }
-    const dal = L[i + 1] || "",
-      polozka = !/^\s/.test(raw) && (/•/.test(t) || (/^\s{5,}\S/.test(dal) && t.length < 70 && !/[.:]$/.test(t)));
-    if (polozka) {
-      const n = cist(t);
-      if (/^Standard Actions$/i.test(n)) {
-        ca = null;
-        return;
-      }
-      ca = n;
-      if (ak && !akce[ak].includes(n)) akce[ak].push(n);
-      const r = rysy.find(x => x.n === n);
-      if (r && ak && !r.cas) r.cas = ak;
-      const mu = t.match(/(\d+)\s*\/\s*(Long|Short)\s*Rest/i);
-      if (mu) {
-        const q = r || pridej(n);
-        if (q && !q.max) {
-          q.max = +mu[1];
-          q.obn = /short/i.test(mu[2]) ? "krátký odpočinek" : "dlouhý odpočinek";
-        }
-      }
-      return;
-    }
-    if (ca && !texty[ca]) texty[ca] = t;
-    else if (ca && texty[ca].length < 6000 && !rysy.some(x => x.n === ca && texty[ca].includes(t))) texty[ca] += "\n" + t;
-  });
-  /* zdatnosti a jazyky */
-  const pl = String((F.find(q => q && /^ProficienciesLang$/i.test(String(q.f).trim())) || {}).v || ""),
-    zd = {};
-  let s2 = "";
-  pl.replace(/\r/g, "")
-    .split("\n")
-    .forEach(l => {
-      const t = l.trim();
-      if (!t) return;
-      const m = t.match(/^===\s*(.+?)\s*===$/);
-      if (m) {
-        s2 = /ARMOR/i.test(m[1])
-          ? "zbroj"
-          : /WEAPON/i.test(m[1])
-            ? "zbrane"
-            : /TOOL/i.test(m[1])
-              ? "nastroje"
-              : /LANG/i.test(m[1])
-                ? "jazyky"
-                : "jine";
-        return;
-      }
-      if (s2)
-        zd[s2] = [
-          ...(zd[s2] || []),
-          ...t
-            .split(/,\s*/)
-            .map(x => x.trim())
-            .filter(Boolean),
-        ];
-    });
-  return {rysy: rysy.filter(x => !KRYSSUM.test(x.n)), texty, akce, zd};
-}
-/* nadpisy a souhrny z D&D Beyond, které nejsou samostatné rysy (velikost, rychlost, jazyky, volba vlastnosti…) */
-const KRYSSUM =
-  /^(core \w+ traits|size|speed|languages|creature type|ability score (increases?|improvements?)|increase .*scores?.*|special|expanded spell list|\w+ subclass|[\w' ]+ spells|strength|dexterity|constitution|intelligence|wisdom|charisma)$/i;
-/* poznámky k záchranám z D&D Beyond česky */
-function kZachPoznCz(t) {
-  let m;
-  if ((m = t.match(/^\+(\d+) Bonus on saves$/i))) return `+${m[1]} ke všem záchranám (předmět nebo rys, už započteno)`;
-  if (/^Advantage on CON saving throws (that )?you make to maintain/i.test(t)) return "výhoda na CON záchrany pro udržení soustředění (War Caster)";
-  if ((m = t.match(/^Advantage on saving throws against (.+?)\.?$/i))) return `výhoda na záchrany proti: ${m[1]}`;
-  if ((m = t.match(/^Advantage on (STR|DEX|CON|INT|WIS|CHA) saving throws( against (.+?))?\.?$/i)))
-    return `výhoda na ${m[1].toUpperCase() === "DEX" ? "AGI" : m[1].toUpperCase()} záchrany${m[3] ? " proti: " + m[3] : ""}`;
-  return t;
-}
