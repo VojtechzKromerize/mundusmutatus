@@ -596,6 +596,11 @@ function renderBoj() {
     bojWake();
     return;
   }
+  /* starší tichá příprava bez nepřátel (dřív ji založilo samo otevření Boje) = scéna */
+  if (GMV && s && s.priprava && s.ticha && !s.aktivni && !(s.npc || []).length) {
+    bojZmen(z => bojNovaScena(z), true);
+    return;
+  }
   /* scéna: postava, kterou si hráč právě vzal, se přidá mezi přítomné */
   if (GMV && s.scena && s.aktivni && bojScenaChybi(s).length) {
     bojZmen(z => bojScenaClenove(z), true);
