@@ -1,0 +1,47 @@
+{
+  "id": "vzor-mistr-boje",
+  "n": "Vzor: Mistr boje",
+  "druh": "Human",
+  "povolani": "Fighter 7",
+  "uroven": 7,
+  "vl": {
+    "STR": 18,
+    "AGI": 12,
+    "CON": 16,
+    "INT": 12,
+    "WIS": 10,
+    "CHA": 10
+  },
+  "rysy": [
+    "Battle Master",
+    "Combat Superiority",
+    "Parry",
+    "Riposte",
+    "Precision Attack",
+    "Commanding Presence",
+    "Tactical Assessment",
+    "Action Surge",
+    "Second Wind",
+    "Extra Attack",
+    "Defense"
+  ],
+  "vybaveni": [
+    {
+      "n": "Plate Armor",
+      "q": 1
+    },
+    {
+      "n": "Longsword",
+      "q": 1
+    },
+    {
+      "n": "Shield",
+      "q": 1
+    },
+    {
+      "n": "Heavy Crossbow",
+      "q": 1
+    }
+  ],
+  "test": true
+}

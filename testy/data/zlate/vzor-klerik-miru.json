@@ -1,0 +1,64 @@
+{
+  "karta": {
+    "uroven": 7,
+    "zdatnost": 3,
+    "ac": 18,
+    "hp": 52,
+    "iniciativa": 0,
+    "rychlost": 20,
+    "odolnosti": [
+      "Bludgeoning",
+      "Slashing"
+    ],
+    "zachrany": {
+      "STR": 1,
+      "AGI": 0,
+      "CON": 2,
+      "INT": 0,
+      "WIS": 4,
+      "CHA": 1
+    },
+    "dovednosti": {
+      "Acrobatics": 0,
+      "Animal Handling": 4,
+      "Arcana": 0,
+      "Athletics": 1,
+      "Deception": 1,
+      "History": 0,
+      "Insight": 4,
+      "Intimidation": 1,
+      "Investigation": 0,
+      "Medicine": 4,
+      "Nature": 0,
+      "Perception": 4,
+      "Performance": 1,
+      "Persuasion": 1,
+      "Religion": 0,
+      "Sleight of Hand": 0,
+      "Stealth": 0,
+      "Survival": 4
+    },
+    "kouzla": {
+      "so": 15,
+      "utok": 7
+    },
+    "sloty": [
+      "1×4",
+      "2×3",
+      "3×3",
+      "4×1"
+    ],
+    "zdroje": [
+      "Channel Divinity 3",
+      "Emboldening Bond 3"
+    ],
+    "utoky": [
+      "Mace: +4 1d6+1 Bludgeoning",
+      "Úder beze zbraně: +4 2 Bludgeoning"
+    ],
+    "pridavky": [],
+    "kostkyKHodum": [],
+    "vydrz": 0
+  },
+  "varianty": {}
+}

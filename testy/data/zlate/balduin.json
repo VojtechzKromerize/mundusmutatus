@@ -1,0 +1,71 @@
+{
+  "karta": {
+    "uroven": 7,
+    "zdatnost": 3,
+    "ac": 18,
+    "hp": 62,
+    "iniciativa": 2,
+    "rychlost": 30,
+    "odolnosti": [
+      "Cold",
+      "Slashing",
+      "Piercing"
+    ],
+    "zachrany": {
+      "STR": 0,
+      "AGI": 3,
+      "CON": 3,
+      "INT": 1,
+      "WIS": 5,
+      "CHA": 8
+    },
+    "dovednosti": {
+      "Acrobatics": 2,
+      "Animal Handling": 1,
+      "Arcana": 3,
+      "Athletics": -1,
+      "Deception": 10,
+      "History": 3,
+      "Insight": 1,
+      "Intimidation": 4,
+      "Investigation": 0,
+      "Medicine": 1,
+      "Nature": 0,
+      "Perception": 8,
+      "Performance": 4,
+      "Persuasion": 7,
+      "Religion": 3,
+      "Sleight of Hand": 2,
+      "Stealth": 5,
+      "Survival": 4
+    },
+    "kouzla": {
+      "so": 15,
+      "utok": 7
+    },
+    "sloty": [
+      "3p×2"
+    ],
+    "zdroje": [
+      "Hexblade's Curse 4",
+      "Magical Cunning 1",
+      "Second Wind 2"
+    ],
+    "utoky": [
+      "Nevermore: +8 1d8+5 Force ×2",
+      "Eldritch Blast: +7 1d10 Force ×2",
+      "Dagger of C.K.: +7 1d4+4 Piercing",
+      "Dagger: +7 1d4+4 Piercing",
+      "Úder beze zbraně: +2 1 Bludgeoning"
+    ],
+    "pridavky": [
+      "Hexblade's Curse: Damaging Hex 3",
+      "Hexblade's Curse: Striking Hex",
+      "Hex 1d6",
+      "Booming Blade 1d8"
+    ],
+    "kostkyKHodum": [],
+    "vydrz": 0
+  },
+  "varianty": {}
+}

@@ -1,0 +1,80 @@
+{
+  "id": "vzor-vestec",
+  "n": "Vzor: kouzelník Věštec",
+  "druh": "Human",
+  "povolani": "Wizard 7",
+  "uroven": 7,
+  "vl": {
+    "STR": 8,
+    "AGI": 14,
+    "CON": 14,
+    "INT": 18,
+    "WIS": 12,
+    "CHA": 10
+  },
+  "rysy": [
+    "School of Divination",
+    "Divination Savant",
+    "Portent",
+    "Expert Divination",
+    "Arcane Recovery",
+    "War Caster"
+  ],
+  "vybaveni": [
+    {
+      "n": "Quarterstaff",
+      "q": 1
+    },
+    {
+      "n": "Arcane Focus",
+      "q": 1
+    }
+  ],
+  "kouzla": {
+    "vl": "INT",
+    "trida": "Wizard",
+    "seznam": [
+      {
+        "n": "Fire Bolt",
+        "st": 0
+      },
+      {
+        "n": "Mage Hand",
+        "st": 0
+      },
+      {
+        "n": "Shield",
+        "st": 1
+      },
+      {
+        "n": "Mage Armor",
+        "st": 1
+      },
+      {
+        "n": "Magic Missile",
+        "st": 1
+      },
+      {
+        "n": "Absorb Elements",
+        "st": 1
+      },
+      {
+        "n": "Misty Step",
+        "st": 2
+      },
+      {
+        "n": "Counterspell",
+        "st": 3
+      },
+      {
+        "n": "Fireball",
+        "st": 3
+      },
+      {
+        "n": "Greater Invisibility",
+        "st": 4
+      }
+    ]
+  },
+  "test": true
+}
