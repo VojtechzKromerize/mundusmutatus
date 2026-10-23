@@ -1464,9 +1464,13 @@ document.addEventListener("submit", async e => {
       if (+E.max.value) r.max = Math.round(+E.max.value);
       D.rysy.push(r);
     } else {
-      const v = E.v.value.trim();
+      const v = E.v.value.trim().slice(0, 60);
       if (!v) return;
-      D[typ].push(v.slice(0, 60));
+      if (D[typ].some(x => x.toLowerCase() === v.toLowerCase())) {
+        f.reset();
+        return;
+      }
+      D[typ].push(v);
     }
     await kartaStavZmen(K.id, {dopl: D});
     f.reset();

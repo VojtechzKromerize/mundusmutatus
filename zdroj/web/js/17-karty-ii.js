@@ -165,10 +165,11 @@ function kAkceHtml(K, bezUt) {
 }
 /* ---- útoky a doplňky hráče ---- */
 const kDopl = K => kartaStav(K.id).dopl || {};
-/* zdatnosti a jazyky z PDF bez těch, které hráč skryl (`dopl.bez`, 2026-10-21) */
+/* zdatnosti a jazyky z PDF bez těch, které hráč skryl (`dopl.bez`, 2026-10-21), a s doplněnými (`dopl.zbrane`…, 2026-10-23) */
 const kZdSez = (K, k) => {
-  const bez = new Set(kDopl(K).bez || []);
-  return ((K.zd || {})[k] || []).filter(v => !bez.has(k + ":" + v));
+  const D = kDopl(K),
+    bez = new Set(D.bez || []);
+  return [...((K.zd || {})[k] || []).filter(v => !bez.has(k + ":" + v)), ...(D[k] || [])];
 };
 /* ---- kouzla: seznam (PDF + připravená − odebraná), sesílání se zvoleným slotem, zranění a léčení se škálováním ---- */
 function kSeznam(K) {

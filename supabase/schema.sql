@@ -1122,7 +1122,7 @@ begin
     when 'spol' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'array' and jsonb_array_length(x) <= 8 and octet_length(x::text) <= 30000 and not exists (
         select 1 from jsonb_array_elements(x) e where jsonb_typeof(e) <> 'object' or jsonb_typeof(e -> 'n') is distinct from 'string' or char_length(e ->> 'n') not between 1 and 60))
     when 'dopl' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'object' and octet_length(x::text) <= 30000
-        and not exists (select 1 from jsonb_each(x) e where e.key not in ('utoky', 'rysy', 'zdat', 'jazyky') or jsonb_typeof(e.value) <> 'array' or jsonb_array_length(e.value) > 40))
+        and not exists (select 1 from jsonb_each(x) e where e.key not in ('utoky', 'rysy', 'zdat', 'zbroj', 'zbrane', 'nastroje', 'jazyky', 'bez') or jsonb_typeof(e.value) <> 'array' or jsonb_array_length(e.value) > 80))
     when 'mun' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'object' and (select count(*) from jsonb_object_keys(x)) <= 20
         and not exists (select 1 from jsonb_each(x) e where char_length(e.key) > 60 or jsonb_typeof(e.value) <> 'string' or char_length(e.value #>> '{}') > 80))
     -- pravidla postavy (2026-10-17): povolání a úrovně, přepsaná skóre, odebrané rozdíly z PDF, vlastní úpravy

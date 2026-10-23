@@ -1670,25 +1670,63 @@ function bdmVlRadek(K, a, zAttr, edit) {
     <span class="bdmvlmz"><button type="button" class="bdmvlm" data-khod="ov:${a}" ${btip(`Ověření ${KSK[a]}: d20 ${bsg(kOvB(K, a))} (s kostkou Závoje)`)}>${bsg(kMod(v))}</button><button type="button" class="bdmvlzh" ${zAttr} ${btip(`Záchrana ${KSK[a]}${pf ? " (zdatnost)" : ""}: d20 ${bsg(zs)}`)}>${bsg(zs)}</button></span></div>`;
 }
 /* zdatnosti a jazyky (2026-10-21): položky z PDF jde skrýt (např. elfština v tomto světě není) a doplnit vlastní (latina);
-   skryté zůstávají škrtnuté s možností vrátit; skrytí i doplnění jsou úpravy karty (`dopl.bez`, `dopl.zdat`, `dopl.jazyky`) */
+   skryté zůstávají škrtnuté s možností vrátit; skrytí i doplnění jsou úpravy karty (`dopl.bez`, `dopl.zbroj` / `zbrane` / `nastroje`,
+   `dopl.jazyky`; starší společné `dopl.zdat` se ukazuje u nástrojů). Nabídka při psaní: seznam SRD (2026-10-23) */
+const KZDSRD = {
+  zbroj: ["Light Armor", "Medium Armor", "Heavy Armor", "Shields"],
+  zbrane: ["Simple Weapons", "Martial Weapons"],
+  jazyky: [
+    "Common",
+    "Common Sign Language",
+    "Draconic",
+    "Dwarvish",
+    "Elvish",
+    "Giant",
+    "Gnomish",
+    "Goblin",
+    "Halfling",
+    "Orc",
+    "Abyssal",
+    "Celestial",
+    "Deep Speech",
+    "Druidic",
+    "Infernal",
+    "Primordial",
+    "Sylvan",
+    "Thieves' Cant",
+    "Undercommon",
+  ],
+};
+const kZdNabidka = k => {
+  const V = typeof VYB !== "undefined" && VYB ? VYB : null,
+    z = k === "zbrane" ? (V ? V.zbrane || [] : []) : k === "nastroje" ? (V ? V.naradi || [] : []) : [];
+  return [...(KZDSRD[k] || []), ...z.map(x => x.en)];
+};
 function bdmZdatHtml(K, edit) {
   const D = kDopl(K),
     bez = new Set(D.bez || []),
     zd = K.zd || {};
+  if (edit && typeof vybNacti === "function" && typeof VYB !== "undefined" && !VYB) vybNacti().catch(() => {});
   const chip = (typ, v, i, x) =>
     `<span class="bdmzch${x ? " bdmzbez" : ""}">${besc(v)}${edit ? (x ? `<button type="button" class="bdmzx" data-kzdvrat="${besc(typ + ":" + v)}" aria-label="Vrátit ${besc(v)}" ${btip("Z PDF, skryto – klikni pro vrácení")}>↺</button>` : i != null ? `<button type="button" class="bdmzx" data-kdoplx="${typ}:${i}" aria-label="Odebrat ${besc(v)}" ${btip("Doplněno – odebrat")}>×</button>` : `<button type="button" class="bdmzx" data-kzdbez="${besc(typ + ":" + v)}" aria-label="Skrýt ${besc(v)}" ${btip("Z PDF – skrýt (v tomto světě neplatí)")}>×</button>`) : ""}</span>`;
-  const radek = (k, l, dopl) => {
+  const radek = (k, l) => {
     const L = zd[k] || [],
-      Dk = D[dopl] || [];
-    if (!L.length && !Dk.length && !edit) return "";
-    return `<span class="bdmzl">${l}</span><span class="bdmzchs">${L.map(v => chip(k, v, null, bez.has(k + ":" + v))).join("")}${Dk.map((v, i) => chip(dopl, v, i, false)).join("")}${edit ? `<form class="bdmzf" data-kdoplf="${dopl}"><input name="v" placeholder="+ přidat" maxlength="60" aria-label="${l} – přidat"><button type="submit" class="bdmzx" aria-label="Přidat">+</button></form>` : ""}</span>`;
+      Dk = D[k] || [],
+      St = k === "nastroje" ? D.zdat || [] : [],
+      dl = `kzdl-${besc(K.id)}-${k}`;
+    if (!L.length && !Dk.length && !St.length && !edit) return "";
+    return `<span class="bdmzl">${l}</span><span class="bdmzchs">${L.map(v => chip(k, v, null, bez.has(k + ":" + v))).join("")}${Dk.map((v, i) => chip(k, v, i, false)).join("")}${St.map((v, i) => chip("zdat", v, i, false)).join("")}${
+      edit
+        ? `<form class="bdmzf" data-kdoplf="${k}"><input name="v" placeholder="+ přidat" maxlength="60" aria-label="${l} – přidat" list="${dl}" autocomplete="off"><datalist id="${dl}">${kZdNabidka(
+            k,
+          )
+            .filter(v => !L.includes(v) && !Dk.includes(v))
+            .map(v => `<option value="${besc(v)}"></option>`)
+            .join("")}</datalist><button type="submit" class="bdmzx" aria-label="Přidat">+</button></form>`
+        : ""
+    }</span>`;
   };
-  const telo = [
-    radek("zbroj", "Zbroj", "zdat"),
-    radek("zbrane", "Zbraně", "zdat"),
-    radek("nastroje", "Nástroje", "zdat"),
-    radek("jazyky", "Jazyky", "jazyky"),
-  ].join("");
+  const telo = [radek("zbroj", "Zbroj"), radek("zbrane", "Zbraně"), radek("nastroje", "Nástroje"), radek("jazyky", "Jazyky")].join("");
   return telo ? `<h4 class="bdmgh">Zdatnosti a jazyky</h4><div class="bdmzdat">${telo}</div>` : "";
 }
 function bdmTelo(s, h, K, gm, X, id) {
