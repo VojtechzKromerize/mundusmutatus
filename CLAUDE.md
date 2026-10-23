@@ -261,7 +261,8 @@ Hlavní orientační body:
 - Smí se: SRD 5.2.1 (CC-BY-4.0) s uvedením zdroje – na úvodní stránce Pravidel a pod každou kapitolou;
   vlastní obsah; data z PDF, která nahraje hráč. Herní mechaniku (čísla, kostky, záchrany) lze převzít i mimo
   SRD, ale **bez textu**: obsah mimo SRD (`zdroj/mimo-srd/`, kouzla a magické předměty s `x: 1`) má jen vlastní stručná shrnutí
-  (rys/feat max. 350 znaků, kouzlo 1 000 – Vojtovo rozhodnutí 2026-10-20) a na webu upozornění, že nejde o oficiální text.
+  (rys/feat max. 350 znaků, kouzlo 1 000 – Vojtovo rozhodnutí 2026-10-20) a na webu upozornění, že nejde o oficiální text –
+  od 2026-10-23 (Vojta) v licenční doložce v patičce webu, ne u každého popisu kouzla, rysu či předmětu.
 - Na kartě se rys mimo SRD pozná podle názvu z PDF (`mimoNajdi`); počty použití, kostky a trvalé bonusy (`ef`)
   počítá `kMimoZdroje` / `kMimoEf`. Rysy, které pravidla už počítají jménem (Tough, Speedy, Lucky…), jsou v `MIMOSKIP`.
 - Nesmí se: texty z PHB/DMG/MM 2024 mimo SRD, vytěžování D&D Beyond, jiná zmínka o Wizards of the Coast

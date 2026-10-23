@@ -743,7 +743,7 @@ function mimoRysHtml(m, c) {
             ? m.o.cz || m.o.en
             : "zázemí";
   const meta = mimoMeta(m, c);
-  return `<div class="kmimo"><p><b>${besc(r.cz || r.en)}</b> <small>· ${besc(kde)}</small></p><p>${kzIn(r.t || "")}</p>${meta ? `<p class="rsmall">${besc(meta)}</p>` : ""}<p class="rsmall srdattr">${besc(MIMOPOZN)}</p></div>`;
+  return `<div class="kmimo"><p><b>${besc(r.cz || r.en)}</b> <small>· ${besc(kde)}</small></p><p>${kzIn(r.t || "")}</p>${meta ? `<p class="rsmall">${besc(meta)}</p>` : ""}</div>`;
 }
 /* [jméno, AC, nejvýš AGI, druh podle Artikulí, nevýhoda na Stealth (SRD, stejně jako katalog vybavení `plizeni`)] */
 const KZBRT = [

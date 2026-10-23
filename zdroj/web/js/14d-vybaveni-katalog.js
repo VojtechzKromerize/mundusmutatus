@@ -113,7 +113,7 @@ function vybKarta(x, pop) {
     <p class="rsmall"><i>${besc(VYBSKN[x.sk] || "")}</i>${vybParam(x) ? ` · ${vybParam(x)}` : ""}${x.w != null ? ` · ${vybLb(x.w)}` : x.wtxt ? ` · ${besc(x.wtxt)}` : ""}${x.cena ? ` · <b>${vybCena(x)}</b>` : ""}</p>
     ${x.t ? `<p>${besc(x.t)}</p>` : ""}${x.tab ? x.tab.map(T => `<table class="rtab vybtab"><thead><tr>${(T.h || []).map(h => `<th>${besc(h)}</th>`).join("")}</tr></thead><tbody>${(T.r || []).map(r => `<tr>${r.map(c => `<td>${besc(c)}</td>`).join("")}</tr>`).join("")}</tbody></table>`).join("") : ""}
     ${vybArtikule(x)}${srd ? `<details class="bjapd"><summary>Plné znění SRD 5.2.1</summary>${kzMd(srd.t)}<p class="rsmall">SRD 5.2.1, s. ${srd.str || ""}</p></details>` : ""}
-    ${x.x && typeof MIMOPOZN === "string" ? `<p class="rsmall srdattr">${besc(MIMOPOZN)}</p>` : ""}</article>`;
+</article>`;
 }
 /* ---- přidání do vybavení postavy (stránka Vybavení i nabídka na kartě) ---- */
 function vybPoolVstup(x) {

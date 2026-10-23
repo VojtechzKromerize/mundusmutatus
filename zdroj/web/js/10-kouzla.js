@@ -172,7 +172,8 @@ function kzKarta(x, pop) {
   ${
     x.vl
       ? `<p class="kzsrc">Vlastní kouzlo vypravěče – vidíš ho jen ty.${pop ? ` <a href="#kouzla/${x.i}">v seznamu kouzel</a>` : ` <span class="kzakce"><button type="button" class="gbtn" data-kzuprav="${kzE(x.i)}">Upravit</button> <button type="button" class="gbtn kzalt" data-kzsmaz="${kzE(x.i)}">Smazat</button></span>`}</p></article>`
-      : `${x.x && typeof MIMOPOZN === "string" ? `<p class="kzsrc">${kzE(MIMOPOZN)}</p>` : ""}<p class="kzsrc">${x.cs ? "" : "Zatím bez překladu – anglické znění SRD. "}<a href="https://www.aidedd.org/spell/${x.i}" target="_blank" rel="noopener">Anglicky na aidedd.org</a>${pop ? ` · <a href="#kouzla/${x.i}">v seznamu kouzel</a>` : ""}</p></article>`
+      : /* bez původu a překladu textu (Vojta 2026-10-23) – licence SRD a upozornění na vlastní shrnutí jsou v patičce webu */
+        `${pop && GMV ? `<p class="kzsrc"><a href="#kouzla/${x.i}">v seznamu kouzel</a></p>` : ""}</article>`
   }`;
 }
 const KZK = ["V", "S", "M"];
