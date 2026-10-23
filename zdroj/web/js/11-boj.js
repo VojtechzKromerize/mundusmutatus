@@ -1176,9 +1176,15 @@ function bojSnap() {
       (S.hraci || [])
         .map(h => bojKartaH(h))
         .filter(Boolean)
-        .map(K => [K.id, JSON.stringify(kartaStav(K.id) || {})]),
+        .map(K => [K.id, bojSnapKarta(K.id)]),
     ),
   };
+}
+/* karta ve snímku bez portrétu (2026-10-23): data URL má desítky kB, boj ho nemění a historie drží až 250 snímků –
+   s portréty to byly desítky MB a ~1,5 ms při každém klepnutí vypravěče; obnova (bojObnovSnap) portrét nechá být */
+function bojSnapKarta(id) {
+  const S = kartaStav(id) || {};
+  return JSON.stringify(S.img ? Object.assign({}, S, {img: undefined}) : S);
 }
 let BSNAPC = null;
 /* průběžná historie stavů (vypravěč): po každé změně boje, karet či životů nepřátel snímek s časem – „Zpět“ u libovolného řádku záznamu
@@ -3084,8 +3090,9 @@ function bojZmen(fn0, bezUndo) {
     bojPcNaplnit(z);
   };
   if (!bojDB) return Promise.resolve();
-  const s = JSON.parse(JSON.stringify(BOJ.s || {})),
-    pre = JSON.stringify(s);
+  /* jedna serializace na kopii i na stav před změnou (dřív dvě) */
+  const pre = JSON.stringify(BOJ.s || {}),
+    s = JSON.parse(pre);
   if (!bezUndo) bojUndoPush({s: pre});
   try {
     fn(s);

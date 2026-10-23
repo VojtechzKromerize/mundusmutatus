@@ -2789,7 +2789,8 @@ async function bojObnovSnap(P) {
       C = kartaStav(kid) || {},
       ch = {};
     new Set([...Object.keys(A), ...Object.keys(C)]).forEach(k => {
-      if (k === "mods") return;
+      /* portrét snímek nenese (bojSnapKarta) – Zpět ho nemění */
+      if (k === "mods" || k === "img") return;
       if (JSON.stringify(A[k] ?? null) !== JSON.stringify(C[k] ?? null)) ch[k] = A[k] ?? null;
     });
     if (Object.keys(ch).length) await kartaStavZmen(kid, ch, null, {bezZpet: true});

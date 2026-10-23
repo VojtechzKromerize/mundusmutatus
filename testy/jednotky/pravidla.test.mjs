@@ -431,3 +431,17 @@ test("karta: omezená použití – sloty (pakt s krátkým odpočinkem), zdroje
     "bez obnSlotu sloty obnovu neuvádějí",
   );
 });
+
+test("boj: snímek pro Zpět nese kartu bez portrétu a obnova portrét nemění, ostatní stav karty vrátí", async () => {
+  const id = kartaReg({povolani: "Fighter 3", uroven: 3}),
+    jid = JSON.stringify(id);
+  S.ev(`KST[${jid}] = {hp: 20, img: "data:image/webp;base64,AAAA", zdr: {Rage: 1}}`);
+  const snap = S.ev(`bojSnapKarta(${jid})`);
+  assert.deepEqual(JSON.parse(snap), {hp: 20, zdr: {Rage: 1}}, "portrét ve snímku není, zbytek ano");
+  S.ev(`KST[${jid}] = {hp: 5, img: "data:image/webp;base64,BBBB"}`);
+  await S.ev(`bojObnovSnap({s: JSON.stringify(BOJ.s || {}), hp: "{}", k: {[${jid}]: ${JSON.stringify(snap)}}})`);
+  assert.equal(V(`kartaStav(${jid}).hp`), 20, "životy se vrátí");
+  assert.deepEqual(V(`kartaStav(${jid}).zdr`), {Rage: 1}, "zdroje se vrátí");
+  assert.equal(V(`kartaStav(${jid}).img`), "data:image/webp;base64,BBBB", "portrét zůstane");
+  assert.equal(S.ev(`bojSnapKarta("neexistuje")`), "{}");
+});
