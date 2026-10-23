@@ -1708,12 +1708,8 @@ document.addEventListener("click", async e => {
 /* ===== Průvodce tahem hráče v Boji ===== */
 const BPT = {k: null};
 function bojPruvodce(s, me) {
-  const K = bojKartaH(me),
-    k = `${s.kolo}:${s.tah}`;
-  if (BPT.k !== k) {
-    BPT.k = k;
-    BPT.p = BPT.a = BPT.b = 0;
-  }
+  const K = bojKartaH(me);
+  tahObnov(BPT, tahKlic(s));
   if (K && !KSPD)
     kSpNacti()
       .then(() => {
@@ -1754,7 +1750,7 @@ function bojPruvodce(s, me) {
 document.addEventListener("change", e => {
   const t = e.target;
   if (t.matches && t.matches("[data-bpt]")) {
-    BPT[t.dataset.bpt] = t.checked ? 1 : 0;
+    tahNastav(BPT, t.dataset.bpt, t.checked);
     t.closest("label").classList.toggle("on", t.checked);
   }
 });

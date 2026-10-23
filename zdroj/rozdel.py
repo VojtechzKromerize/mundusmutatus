@@ -34,6 +34,7 @@ JS = [
     ("08-navigace-pravidla.js", "/* ---------- site navigation"),
     ("09-vypravec-herni-cas.js", "/* ===== Vypravěč: stavy odhalení"),
     ("10-kouzla.js", "/* ===== Kouzla: SRD 5.2.1 česky"),
+    ("10t-tah.js", "/* @čisté – Účet tahu"),
     ("10u-ucinky.js", "/* @čisté – Účinky v jednom formátu"),
     ("11-boj.js", "/* ===== BOJ: tracker slotové iniciativy"),
     ("12-boj-tah-postavy.js", "/* ===== automatizace tahu:"),

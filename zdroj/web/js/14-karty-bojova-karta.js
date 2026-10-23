@@ -403,20 +403,12 @@ document.addEventListener("click", e => {
   if (curView === "boj") renderBoj();
   else kartyPrekresli();
 });
-/* tah hráče: pohyb, akce, bonusová akce (na tomto zařízení), reakce (v boji) */
-function bojBpt(s) {
-  const k = `${s.kolo}:${s.tah}`;
-  if (BPT.k !== k) {
-    BPT.k = k;
-    BPT.p = BPT.a = BPT.b = 0;
-  }
-  return BPT;
-}
+/* tah hráče: pohyb, akce, bonusová akce (na tomto zařízení) – účet tahu z čistého 10t; reakce je ve stavu boje (s.reak) */
+const bojBpt = s => tahObnov(BPT, tahKlic(s));
+/* použití akce: "A", "BA" (i "B" – Smite, přesun Hexu); dřív "B" tiše nic neodškrtlo */
 function bojBptOznac(c) {
   if (!BOJ.s || !BOJ.s.aktivni) return;
-  bojBpt(BOJ.s);
-  if (c === "A") BPT.a = 1;
-  else if (c === "BA") BPT.b = 1;
+  tahOznac(bojBpt(BOJ.s), c);
 }
 function bojHracKarta(s, h, gm, vzdy) {
   const K = bojKartaH(h),
@@ -651,8 +643,7 @@ document.addEventListener("click", e => {
   }
   const bp = T("[data-btp]");
   if (bp && BOJ.s) {
-    bojBpt(BOJ.s);
-    BPT[bp.dataset.btp] = BPT[bp.dataset.btp] ? 0 : 1;
+    tahPrepni(bojBpt(BOJ.s), bp.dataset.btp);
     renderBoj();
     return;
   }

@@ -844,16 +844,22 @@ function kKostkyNaSobe(K) {
 }
 /* Bless, Bane a Guidance se k hodu přičtou samy; Bardic Inspiration ne – hráč se rozhodne až po hodu (D&D 2024: při neúspěchu).
    dalsi = další útok v témže tahu: kostky „jednou za tah“ (Emboldening Bond) se nepřičtou */
+/* kostky „jednou za tah“ (Emboldening Bond) podle karty: v běžícím boji účet tahu (10t) – kostka se přičte k prvnímu hodu
+   v každém tahu (i k záchraně v tahu nepřítele), další hod téhož tahu ji už nedostane; mimo boj (scéna) jen první útok série */
+const KTAHJ = {};
 function kPriHod(K, co, dalsi) {
   const n = [],
-    L = [];
+    L = [],
+    s = typeof BOJ !== "undefined" && BOJ.s,
+    U = s && bojBezi(s) ? tahObnov(KTAHJ[K.id] || (KTAHJ[K.id] = {}), tahKlic(s)) : null;
   let t = 0;
-  ucKostky(kKostkyNaSobe(K), kHodTyp(co), dalsi ? true : null).forEach(q => {
+  ucKostky(kKostkyNaSobe(K), kHodTyp(co), dalsi ? true : U ? U.jt : null).forEach(q => {
     const r = kVyraz(q.x);
     if (!r) return;
     t += q.neg ? -r.tot : r.tot;
     L.push(`${q.neg ? "−" : "+"}${r.tot} ${q.n}`);
     n.push(q.n);
+    if (U && q.jednou === "tah") tahJednouZapis(U, q.n);
   });
   return {t, txt: L.length ? " " + L.join(" ") : "", n};
 }

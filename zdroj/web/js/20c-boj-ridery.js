@@ -7,9 +7,8 @@ function bojJaRidery(K, me, w, q, s, O) {
   O = O || BJU;
   if (!K || !me || !w || !q || q.vys === "vedle") return [];
   const R = [],
-    tk = (s.kolo || 1) * 100 + (s.tah || 0),
-    U = O.ridT && O.ridT.tk === tk ? O.ridT.u : [],
-    uz = g => U.includes(g),
+    U = tahObnov(Object.assign({}, O.ridT), tahKlic(s)),
+    uz = g => !tahJednouVolne(U, g),
     blizko = !w.dal;
   const sez = new Set(kSeznam(K).map(x => String(x.n).toLowerCase())),
     EF = kEfekty(K),
@@ -186,12 +185,11 @@ function bojJaRid(k, hid) {
 async function bojJaRidPo(K, me, SER, O) {
   O = O || BJU;
   if (!K || !me) return;
-  const s = BOJ.s || {},
-    tk = (s.kolo || 1) * 100 + (s.tah || 0);
-  if (!(O.ridT && O.ridT.tk === tk)) O.ridT = {tk, u: []};
+  const s = BOJ.s || {};
+  O.ridT = tahObnov(O.ridT || {}, tahKlic(s));
   for (const q of SER || [])
     for (const r of q.rid || []) {
-      if (/^(ds|es|sa|dr|df)$/.test(r.g)) O.ridT.u.push(r.g);
+      if (/^(ds|es|sa|dr|df)$/.test(r.g)) tahJednouZapis(O.ridT, r.g);
       const c = r.cena;
       try {
         if (c && c.kz) await kartaSeslat(K, {n: c.kz, st: c.st, kon: false}, c.slot);
