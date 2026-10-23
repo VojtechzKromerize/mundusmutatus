@@ -30,7 +30,7 @@ async def main():
     chk(await pl.evaluate("document.querySelectorAll('.bdm .bdmsec').length")==1,"karta kreslí jen otevřený oddíl")
     # stavy jsou od 2026-10-22 jen na kartě – předchozí test boje (boj2) na ní mohl nechat stavy z rozehraného boje
     await pl.evaluate("kartaStavZmen('balduin',{stavy:null,ds:null})");await klid(pl,700)
-    await pl.click('.bdm [data-bdmsh="st"] >> nth=0');await klid(pl,300);await pl.click('.bdmlist [data-kstav] >> nth=0');await klid(pl,700)
+    await pl.click('.bdm button.bdmst');await klid(pl,300);await pl.click('.bdmlist [data-kstav] >> nth=0');await klid(pl,700)
     chk(len(stav().get("stavy") or [])==1,"stav ze seznamu se uloží")
     await pl.click('.bdmlist [data-kstav] >> nth=0');await klid(pl,700);chk(not stav().get("stavy"),"druhý klik stav zruší")
     await pl.keyboard.press("Escape");await klid(pl,300)
@@ -250,7 +250,7 @@ async def main():
     await pl.evaluate("kartaStavZmen('balduin',{zbrVl:null},null,{bezZpet:true})");await klid(pl,500)
     # soustředění: v seznamu stavů je vidět kouzlo; vypnutí ukončí i účinky kouzel se soustředěním
     await pl.evaluate("kartaStavZmen('balduin',{uc:[{n:'Hex',kon:true,h:1},{n:'Mage Armor',ac:3,h:8}]},null,{bezZpet:true})");await klid(pl,700)
-    await pl.keyboard.press('Escape');await pl.click('.bdm [data-bdmsh="st"] >> nth=0');await klid(pl,300)
+    await pl.keyboard.press('Escape');await pl.click('.bdm button.bdmst');await klid(pl,300)
     chk("Hex" in await pl.inner_text('.bdmlist'),"u soustředění je vidět, na jaké kouzlo se postava soustředí")
     await pl.click('.bdmlist [data-kstav="soustředí"]');await klid(pl,1000)
     uc=stav().get("uc") or []
