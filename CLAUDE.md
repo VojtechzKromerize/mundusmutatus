@@ -22,7 +22,7 @@ v `zdroj/obsah/NÁVOD.md`, testy v `testy/README.md`. Tady je jen to, co ušetř
   - `docs/STAV.md` – živý stav vývoje: platná rozhodnutí Vojty, co je hotové, co je otevřené. **Po větší změně ho aktualizuj**
     (jedna odrážka; datované snímky v projektu claude.ai jsou jen historie a nepřepisují se).
   - `docs/MAPA.md` – každý soubor skriptu: k čemu je, oddíly s čísly řádků, co poskytuje a odkud bere.
-  - `docs/SLOVNIK.md` – zkratky a globální konstanty (BJU, KZEF, BDM…) s významem. Oba generuje `npm run mapa`
+  - `docs/SLOVNIK.md` – zkratky a globální konstanty (BJU, UCINKY, BDM…) s významem. Oba generuje `npm run mapa`
     (neupravuj ručně; ruční významy do `docs/slovnik.json`, nový významný celek dostane komentář na 1. řádku souboru).
   - Jedno jméno nebo soubor: `node testy/kontrola_kodu.mjs --kde JMÉNO` / `--soubor NN`.
 
@@ -107,12 +107,24 @@ přepsat (obalit) funkci jiného souboru jen jména v `OBALENE` (`testy/kontrola
 `node testy/kontrola_kodu.mjs --kde bojUtokPriprav` (kde je definované, které soubory ho čtou a zapisují) a
 `--soubor 14d` (co soubor poskytuje ostatním a co odkud používá).
 
+**Čistá pravidla (od 2026-10-23):** soubory s `@čisté` na 1. řádku – 02c druhy zbroje (v jádru), 10k import PDF, 10p pravidla boje
+a Artikulí (hody proti smrti, soustředění, zbroj, houfy, sloty), 10r okno reakce (`REAKCE`, `reakceOkno`, `reakceVysledek`; fakta
+z karty skládá `kReakceFakta` v 14c), 10t účet tahu (`tahObnov`, `tahOznac`, `tahJednouZapis` – BPT, KTAHJ, BJU.ridT), 10u účinky
+(`UCINKY` = dřívější KZEF + KPRID v jednom formátu, `ucSecti` a spol.). Smí používat jen jazyk JS a jména jiných čistých souborů
+(kontrola kódu je odmítne jinak), data dostávají argumentem; testy běží v čistém Node za milisekundy (`testy/jednotky/ciste.mjs`).
+**Nový výpočet pravidla patří do čistého souboru** (stránka ho jen volá s daty) a test do `testy/jednotky`. Co jde přesunout beze
+změny: `node testy/kontrola_kodu.mjs --ciste-kandidati [NN]`, co by se muselo vzít s sebou: `--ciste-uzaver A,B`. Pozor na pořadí:
+co jádro (01–09) volá už při načtení (Artikule kreslí tabulku zbrojí přes `BZBR`), musí zůstat v čistém souboru v jádru (02c);
+chybu „before initialization“ chytí `npm test` (stránka se načte bez chyb).
+**Účinky se sčítají podle D&D 2024:** různé ano (Bless + Emboldening Bond + Guidance), stejnojmenné ne – platí nejsilnější (nejvyšší
+stupeň, `ucSecti`); výjimku dá pole `scit` u účinku. Nové posílení nebo kostka k hodům = řádek v `UCINKY` (10u), ne nová tabulka.
+
 Soubory skriptu: 01 základ (data z buildu, erby) · 02 mapa · 03 Artikule · 04 Praha · 05 Známý svět ·
 06 Draconomicon a rodokmeny · 07 Družina, Kronika, kalendář, odkazy, hledání · 08 navigace (`route()`),
 Pravidla · 09 vypravěč: odhalování, panel, herní čas · 10 Kouzla · 11 Boj: tracker, ikony, bestiář ·
 12 Boj: tah, postavy v boji · 13 Karty: import PDF, stav, stránka · 14 karta: vybavení, bojová karta · 14c Boj: zásahy do karty, reakce na telefonu, výzvy · 14d katalog vybavení (stránka, popis věci, Artikule) ·
 15 karta podle Artikulí · 16 SRD předměty, ukázky, příprava sezení, kořist, stránka Hra · 17 Karta II ·
-17b kouzla: posílení na cílech (KZEF), trvání v kolech, rituál, opakování bez slotu (KZOPAK), oblasti (KZOBL), Counterspell ·
+17b kouzla: posílení na cílech (sběr z karty pro UCINKY), trvání v kolech, rituál, opakování bez slotu (KZOPAK), oblasti (KZOBL), Counterspell ·
 18 Pravidla postavy (D&D 2024) · 19 karta jako D&D Beyond · 20 Boj: hráč na telefonu (formulář útoku BJU, hod, odeslání) ·
 20b Boj: vypravěč (vyhodnocení a potvrzení útoků hráčů, veřejný záznam, pruh „co teď“, formuláře, klávesy, Zpět) · 20c volby po zásahu, přesun Hexu, Riposte ·
 20d Boj: vykreslení (kostra, záložky, renderBoj) · 20f scéna mimo boj (NPC, jednání, protihody) ·
@@ -211,8 +223,11 @@ Hlavní orientační body:
   čárka jako operátor, jádro volající líné díly – chyby ukáže v souboru a řádku.
 - **Rychlé testy výpočtů: `npm test`** (~20 s, `testy/jednotky/*.test.mjs`; jeden soubor `node --test testy/jednotky/kouzla.test.mjs` ~5 s):
   skript stránky v jsdom (bez prohlížeče), volá funkce přímo – pravidla postavy (bonusy, HP, sloty, AC, záchrany, rysy mimo SRD),
-  útok (`bojUtokPriprav`), Artikule (zbroj, obětování, kritická zranění, Výdrž), stavy, kouzla (`kSpUcinek`, KZEF, oblasti, rituály),
+  útok (`bojUtokPriprav`), Artikule (zbroj, obětování, kritická zranění, Výdrž), stavy, kouzla (`kSpUcinek`, UCINKY, oblasti, rituály),
   katalog vybavení, zápis útoku vypravěče, kalendář a herní čas, Závoj, generátor (tajemství, zmínky) – přehled v `testy/README.md`. Kostky: `S.kostky([[číslo, stěn], …])`; `const` skriptu se čtou přes `V("výraz")`.
+  **Zlaté snímky karet** (`zlate.test.mjs`): spočítaná karta Balduina a vzorů podtříd družiny (`testy/zlate/karty`) proti snímkům
+  v `testy/zlate/snimky`; záměrná změna výpočtu = `MM_ZLATE=obnov node --test testy/jednotky/zlate.test.mjs`, zkontrolovat diff, commitnout
+  s důvodem (do `testy/data/` karty nedávej – kopíruje se do obsahu webu).
   Nová pravidla a výpočty testuj tady (rychlé, spolehlivé); `prohlizec_*.py` jen na tok obrazovek. Bez databáze: `MM_BEZ_DB=1 bash testy/spustit.sh`
   (sestavení, kontrola tajemství, prohlídka statické verze, bestiář).
 - S databází: nejdřív `eval "$(bash testy/priprav-prostredi.sh)"` (spustí PostgreSQL, stáhne PostgREST přes curl –
