@@ -41,7 +41,6 @@ const bojAuto = {
 };
 /* zbraně postavy (ukládají se k jménu postavy a přežijí do dalšího boje) */
 const bojZbrH = (s, h) => ((s && s.zbrane) || {})[h && h.n] || [];
-const bojKonDC = d => Math.min(30, Math.max(10, Math.floor((+d || 0) / 2)));
 /* veřejný záznam: kdo, komu, čím, výsledek; zranění jen u zásahů postav a spojenců, nikdy životy a AC nepřátel */
 const BZAZQ = [];
 function bojZaz(e) {

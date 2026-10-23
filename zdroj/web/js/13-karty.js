@@ -178,7 +178,6 @@ function kartyPrekresli() {
 }
 /* vyčerpání (D&D 2024): každá úroveň −2 ke všem hodům d20 */
 const kVycerp = K => +(kartaStav(K.id).vycerp || 0);
-const kMod = v => Math.floor((+v - 10) / 2);
 /* hod d20 z karty; ověření a útoky hází i kostku Závoje a rovnou ji vyhodnotí, záchrany ne (Artikule › Kostka Závoje) */
 let KADV = 0;
 async function kartaHod(K, co, b, o = {}) {

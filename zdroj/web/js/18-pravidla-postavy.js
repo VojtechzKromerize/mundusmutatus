@@ -146,7 +146,6 @@ function kTridyPdf(K) {
   return o;
 }
 const kTridy = K => kartaStav(K.id).tridy || kTridyPdf(K);
-const kTrU = (c, n) => (c.tr.find(t => t.n === n) || {}).u || 0;
 /* ---- kontext: vstupy modelu (aktuální stav, nebo stav PDF pro porovnání) ---- */
 const KCX = new WeakMap(),
   KCX0 = new WeakMap();
@@ -292,7 +291,6 @@ const KR = {
     return L;
   },
 };
-const kSum = L => L.reduce((a, x) => a + (+x[1] || 0), 0);
 /* PDF → co pravidla nevysvětlí; hráč to může odebrat (S.pdfx) */
 const KPDFV = {
   zach: (K, a) => (K.zach || {})[a],
@@ -911,13 +909,6 @@ function kUtInf(K, a) {
   return o;
 }
 const kUtMd = (c, i) => (i.fin ? Math.max(c.md("STR"), c.md("AGI")) : c.md(i.ab));
-const kPocet = (c, pakt) => {
-  const f = kTrU(c, "Fighter");
-  let n = f >= 20 ? 4 : f >= 11 ? 3 : f >= 5 ? 2 : 1;
-  if (["Barbarian", "Monk", "Paladin", "Ranger"].some(t => kTrU(c, t) >= 5)) n = Math.max(n, 2);
-  if (pakt && kTrU(c, "Warlock") >= 5 && c.maRys(/thirsting blade/)) n = Math.max(n, 2);
-  return n;
-};
 function kUtAdj(K, a) {
   if (a.b == null || a.b === "" || a.vlastni) return a;
   const c = kCtx(K),

@@ -53,12 +53,6 @@ function kSvAdv(K, dov) {
   if (dov === "Intimidation" && s <= 0) r.push([1, "Zatracený: výhoda na Intimidation"]);
   return r;
 }
-const kAdvSum = (base, r) => {
-  const a = [base, ...r.map(x => x[0])],
-    p = a.some(x => x > 0),
-    m = a.some(x => x < 0);
-  return p && m ? 0 : p ? 1 : m ? -1 : 0;
-};
 /* kostka Závoje podle vyznání postavy (svátky) a Hodin Závoje */
 const kZavoj = (K, d) => bojZavoj({vz: kDuse(K).vz, d, str: "h"});
 const KZAV = {};

@@ -46,8 +46,7 @@ async def main():
     pruh=await g.eval_on_selector_all(".bsloty .bslot:not(.bzbyt)","els=>els.map(e=>e.classList.contains('bh')?'h':'n').join('')")
     chk(pruh=="hnhn","pruh nepřeskočí volný slot družiny mezi nepřáteli: "+pruh)
     await g.evaluate("bojZmen(z=>{z.obsazeni={}})");await g.wait_for_timeout(500)
-    alt=await g.evaluate("bojSloty({hraci:[{},{}],npc:[{id:'a'},{id:'b'}],hod:10,dm:14}).map(x=>x.t).join('')");chk(alt=="nhnh","vyhraje-li vypravěč, začínají nepřátelé: "+alt)
-    alt=await g.evaluate("bojSloty({hraci:[{},{}],npc:[{id:'a'},{id:'b'}],hod:14,dm:14}).map(x=>x.t).join('')");chk(alt=="hnhn","shoda – začíná družina: "+alt)
+    # pořadí slotů podle hodu (vypravěč / družina / shoda) – rychlý test testy/jednotky/pravidla-ciste.test.mjs (2026-10-23)
     chk(await g.evaluate("BOJ.s.hod")==15,"družina jde s nejlepším hodem 15")
     pl=await b.new_page(viewport={"width":390,"height":844});perr=[];pl.on("pageerror",lambda e:perr.append(str(e)[:200]))
     await pl.goto(BASE);await pl.wait_for_function("!document.documentElement.classList.contains('mmload')");await pl.wait_for_timeout(600)
@@ -119,7 +118,7 @@ async def main():
     chk(rq and all(u.startswith("rpc/mm_puls") for u in rq),"nečinný hráč se ptá jen pulsu: "+str(rq))
     # prostředí boje a počasí nahoře nejsou (2026-10-23: počasí je v panelu Při hře, prostředí hlídá vypravěč sám)
     chk(await g.locator("#bojview .bpros, #bojview .bojpoc").count()==0 and await g.locator(".phpanel .phpoc").count()==1,"Boj bez prostředí a počasí; počasí je v panelu Při hře")
-    chk(await g.evaluate("bojPres(BOJ.s,{pocet:6})")==5,"přesila houfu nejvýš +5")
+    # přesila houfu nejvýš +5 – testy/jednotky/pravidla-ciste.test.mjs
     # hráč u své postavy: stav, kryt a hody proti smrti z telefonu
     pl.on("dialog",lambda d:asyncio.ensure_future(d.accept()))
     await pl.evaluate("bojJa.set('Adam');renderBoj()");await pl.wait_for_timeout(500)
@@ -147,7 +146,7 @@ async def main():
     for _ in range(3):
         await g.click('[data-bhpan="h2"] [data-bhds="n"]');await g.wait_for_timeout(350)
     chk(await g.evaluate("(BOJ.s.hraci[1].ds||{}).st")=="mrtev","tři neúspěchy hodu proti smrti: postava umírá")
-    chk(await g.evaluate("bojDs({u:0,n:0},'hod',1).ds.n===2&&bojDs({u:2,n:0},'hod',12).ds.st==='stab'&&bojDs({u:1,n:1},'hod',20).ds===null"),"hody proti smrti: 1 = dva neúspěchy, třetí úspěch stabilizuje, 20 probudí")
+    # pravidla hodu proti smrti (1, třetí úspěch, 20) – testy/jednotky/pravidla-ciste.test.mjs
     # hráč útočí z telefonu: zbraň uložená u postavy, hod, vyhodnocení u vypravěče (AC hráč nevidí), veřejný záznam, Zpět, filtr
     # nejdřív dorazí zápisy vypravěče (hody proti smrti výše): překreslení po jeho uložení by jinak smazalo rozepsaný formulář zbraně
     await puls(pl,od=g)

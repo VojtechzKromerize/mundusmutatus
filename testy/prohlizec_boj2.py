@@ -19,8 +19,7 @@ async def main():
     chk(await pl.locator(".bnpch").count()>0 and await pl.locator(".bnpch .bpocet, .bnpch .break, .bnpch .bstavy").count()==0,"hráč u nepřátel vidí jen jméno a druh")
     chk(await pl.evaluate("KARTY.some(k=>k.id==='balduin')"),"karta Balduina je v datech webu")
     await g.evaluate("bojZmen(z=>{z.hraci.push({id:'h4',n:'Balduin',k:'balduin',hod:10})})");await g.wait_for_timeout(900)
-    r=await g.evaluate("(()=>{const K=KARTBY.balduin,h={id:'x'};const a=bojZranPC(h,K,20,'Cold',false),b=h.hp;const h2={id:'y',thp:5};bojZranPC(h2,K,8,'Fire',false);const h3={id:'z',hp:10};bojZranPC(h3,K,80,'Fire',false);const h4={id:'w',hp:3};bojZranPC(h4,K,5,'Fire',false);const l=bojLecPC(h4,K,4);return [b,h2.hp,h3.ds&&h3.ds.st,h4.ds&&h4.ds.st]})()")
-    chk(r==[52,59,"mrtev","stab"],"karta: Resistance Cold, dočasné HP, okamžitá smrt přesahem, léčení na 0 jen stabilizuje: "+str(r))
+    # zranění a léčení karty (Resistance, dočasné HP, okamžitá smrt, stabilizace) – testy/jednotky/boj-pc.test.mjs (2026-10-23)
     await g.evaluate("BKART['h4']=true;renderBoj()");await g.wait_for_timeout(500)
     await g.click('[data-bhcard="h4"] [data-bdmsh="utok"][data-j="0"]');await g.wait_for_timeout(500)
     chk(await g.locator('[data-bhcard="h4"] .bphod').count()==1 and await g.input_value('[data-bhcard="h4"] [data-bgmut] [name=hod]')=="","vypravěč: klik na zásah nejdřív nabídne cíl a výhodu, hod ještě neproběhl")
@@ -330,9 +329,7 @@ async def main():
     s1=await pl.evaluate("(kartaStav('balduin').zdr||{}).slot3p||0")
     await pl.click('#kartyview .bdmtabs [data-bdmsec="kouzla"]');await pl.click('.bdmsec[data-bdmid="kouzla"] [data-kses="16"]');await pl.wait_for_selector(".ksdpop",timeout=5000);await pl.click('.ksdpop [data-ksdok="bez"]');await pl.wait_for_timeout(1200)
     chk(await pl.evaluate("(kartaStav('balduin').zdr||{}).slot3p||0")==s1+1,"seslání kouzla odečte slot paktu")
-    pole=json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)),"karta-pdf-pole.json"),encoding="utf-8"))
-    r=await pl.evaluate("F=>{const K=kartaZPdf(F);return [K.n,K.ac,K.hp,K.utoky.length,K.kouzla.seznam.length,K.kouzla.sloty[0].max,K.odol.join(),K.efekty.length]}",pole)
-    chk(r==["Balduin",18,62,2,20,2,"Cold",3],"import listu z D&D Beyond: pole PDF → karta: "+str(r))
+    # import listu z D&D Beyond (pole PDF → karta) – testy/jednotky/pdf.test.mjs v čistém Node (2026-10-23)
     for fn,body,m in (("mm_karta_uloz",{"p_karta":{"id":"Zlé ID","n":"x","ac":10,"hp":5}},"špatné id"),("mm_karta_uloz",{"p_karta":{"id":"x","n":"x","ac":10}},"chybí životy"),
                       ("mm_karta_stav",{"p_id":"balduin","p_pole":"hp","p_hodnota":"x"},"životy jako text"),("mm_karta_stav",{"p_id":"balduin","p_pole":"cokoli","p_hodnota":1},"neznámé pole"),
                       ("mm_hod",{"p_hod":{"kdo":"x","co":"y","tot":5,"hack":1}},"cizí pole hodu")):

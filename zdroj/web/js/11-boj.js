@@ -331,81 +331,6 @@ Object.assign(BSTI, {
   vyděšený: ["vydesen", "Vyděšený (Frightened) – nevýhoda na útoky a ověření, dokud vidí zdroj strachu"],
   "vzdal se": ["vzdal", "Vzdal se – bezbranný; zabít ho je vražda bezbranného (smrtelný hřích)"],
 });
-/* stavy podle SRD 5.2.1 (Rules Glossary): ut = vliv na útoky tvora (−1 nevýhoda, 1 výhoda), cil = útoky na něj
-   (1 výhoda, −1 nevýhoda, "blizko" zblízka výhoda a z dálky nevýhoda), zach = záchrany (f automaticky neúspěch, d nevýhoda,
-   a výhoda), nej = nemůže jednat (Incapacitated), k5 = zásah zblízka do 5 stop je kritický, res = Resistance vůči všemu */
-const SRDST = {
-  oslepen: {en: "Blinded", ut: -1, cil: 1, t: "nevidí, ověření vyžadující zrak automaticky selžou; útoky na něj s výhodou, jeho útoky s nevýhodou"},
-  okouzlen: {
-    en: "Charmed",
-    t: "nesmí zaútočit na toho, kdo ho okouzlil, ani ho zasáhnout škodlivou schopností; okouzlující má výhodu na společenská ověření vůči němu",
-  },
-  ohlušen: {en: "Deafened", t: "neslyší, ověření vyžadující sluch automaticky selžou"},
-  vyděšený: {en: "Frightened", ut: -1, t: "nevýhoda na ověření a útoky, dokud vidí zdroj strachu; nesmí se k němu dobrovolně přiblížit"},
-  chycen: {en: "Grappled", ut: -1, t: "rychlost 0; nevýhoda na útoky proti komukoli jinému než tomu, kdo ho drží; ten ho smí táhnout s sebou"},
-  neschopný: {
-    en: "Incapacitated",
-    nej: 1,
-    t: "nesmí provést akci, bonusovou akci ani reakci, nemluví, soustředění končí; při hodu iniciativy nevýhoda",
-  },
-  neviditelný: {
-    en: "Invisible",
-    ut: 1,
-    cil: -1,
-    t: "útoky na něj s nevýhodou, jeho útoky s výhodou (ne proti tomu, kdo ho vidí); výhoda na iniciativu",
-  },
-  ochromen: {
-    en: "Paralyzed",
-    cil: 1,
-    nej: 1,
-    zach: {STR: "f", AGI: "f"},
-    k5: 1,
-    t: "Incapacitated, rychlost 0, záchrany STR a AGI automaticky selžou; útoky na něj s výhodou a zásah zblízka do 5 stop je kritický",
-  },
-  zkamenělý: {
-    en: "Petrified",
-    cil: 1,
-    nej: 1,
-    zach: {STR: "f", AGI: "f"},
-    res: 1,
-    t: "proměněn v kámen: Incapacitated, rychlost 0, záchrany STR a AGI automaticky selžou, útoky na něj s výhodou, Resistance vůči všemu zranění, Immunity vůči otravě",
-  },
-  otrávený: {en: "Poisoned", ut: -1, t: "nevýhoda na útoky a ověření"},
-  sražen: {
-    en: "Prone",
-    ut: -1,
-    cil: "blizko",
-    t: "jen se plazí, vstát stojí polovinu rychlosti; jeho útoky s nevýhodou; útok na něj do 5 stop s výhodou, jinak s nevýhodou",
-  },
-  zadržen: {
-    en: "Restrained",
-    ut: -1,
-    cil: 1,
-    zach: {AGI: "d"},
-    t: "rychlost 0; útoky na něj s výhodou, jeho útoky s nevýhodou; nevýhoda na záchrany AGI",
-  },
-  omráčen: {
-    en: "Stunned",
-    cil: 1,
-    nej: 1,
-    zach: {STR: "f", AGI: "f"},
-    t: "Incapacitated, záchrany STR a AGI automaticky selžou, útoky na něj s výhodou",
-  },
-  "v bezvědomí": {
-    en: "Unconscious",
-    cil: 1,
-    nej: 1,
-    zach: {STR: "f", AGI: "f"},
-    k5: 1,
-    t: "Incapacitated a sražen, upustí, co drží; rychlost 0; záchrany STR a AGI automaticky selžou; útoky na něj s výhodou a zásah zblízka do 5 stop je kritický",
-  },
-  úhyb: {
-    en: "Dodge",
-    cil: -1,
-    zach: {AGI: "a"},
-    t: "akce Úhyb do začátku jeho příštího tahu: útoky na něj s nevýhodou (vidí-li útočníka), výhoda na záchrany AGI",
-  },
-};
 const SRDIC = {
   oslepen: "oslepen",
   okouzlen: "okouzlen",
@@ -475,7 +400,6 @@ function srdAdv(st, ct, dal, plus, minus, ja) {
   });
   return k5;
 }
-const srdNejedna = st => (st || []).some(k => SRDST[k] && SRDST[k].nej);
 const bojStavy = (n, gm, vse) => {
   const a = n.stav || [],
     I = t => BSTI[t] || ["komplikace", t];
@@ -756,8 +680,6 @@ function bojSetkPouzij(z, R) {
     if (R.prekv && !z.prekv) z.prekv = R.prekv;
   }
 }
-const BLIM = {houf: 1, pacholek: 1, sok: 2, zhoubce: 3},
-  BDRUH = {houf: "Houf pacholků", pacholek: "Pacholek", sok: "Sok", zhoubce: "Zhoubce"};
 /* ===== Bestiář v Boji – vše jen pro vypravěče; hráči dostanou prázdné seznamy =====
    PROTIVNICI: statblocky (zdroj/obsah/protivnici), PRIVLASTKY: úpravy statblocku (privlastky),
    SETKANI: hotová setkání (setkani), PROTOSOBY: osoby ze Zemských desek se statblokem (pole statblok). */
@@ -769,11 +691,6 @@ const PROTBY = Object.fromEntries(PROTIVNICI.map(p => [p.id, p])),
   PRIVBY = Object.fromEntries(PRIVLASTKY.map(p => [p.id, p])),
   SETBY = Object.fromEntries(SETKANI.map(p => [p.id, p])),
   OSPROT = Object.fromEntries(PROTOSOBY.map(p => [p.id, p]));
-const bojNorm = t =>
-  String(t || "")
-    .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "")
-    .toLowerCase();
 const bojBest = n => {
   const t = String(n || "")
     .trim()
@@ -1118,8 +1035,6 @@ function bojZavoj(p) {
       .join(", "),
   };
 }
-/* výsledek kostky Závoje slovy; Závoj se hází k ověřením (i iniciativě) a útokům, ne k záchranám (Artikule › Kostka Závoje) */
-const zavVys = r => (r === "pok" ? "Pokušení" : r === "poz" ? "Požehnání" : "bez vlivu Závoje");
 const zavBezZach = co => /^Záchrana|záchrann|proti smrti/i.test(String(co || ""));
 const zavTxt = z => (z ? `Závoj ${z.d}: ${zavVys(z.r)}${z.hod ? ` (${z.hod})` : ""}` : "");
 const bojZatr = n => {
@@ -1127,21 +1042,6 @@ const bojZatr = n => {
   return !!p && (p.id === "zatraceny-rytir" || (n.pr || []).includes("zatraceny"));
 };
 
-/* typ zranění → druh kritického zranění */
-const bojKritDruh = t => {
-  t = bojNorm(t);
-  return /fire|lightning|ohen|blesk/.test(t)
-    ? "ohen"
-    : /cold|mraz/.test(t)
-      ? "mraz"
-      : /acid|poison|kyselin|jed/.test(t)
-        ? "jed"
-        : /necrotic|radiant|prokl|svat/.test(t)
-          ? "svata"
-          : /psychic|psych/.test(t)
-            ? "psych"
-            : "fyz";
-};
 /* záznam hodů: u karty poslední hod jako plaketa, celý průběh v záznamu boje pod družinou */
 const BLOGG = [];
 /* „Zpět“ v herním záznamu (2026-10-18): každý krok vypravěče nese stav před sebou – boj, životy nepřátel a karty postav v boji.
@@ -1236,9 +1136,6 @@ const bojDalka = a => /dostřel|na dálku|střel|kuš|luk|píšťal|hák/i.test(
 const bojCilO = (s, id) => (id ? (s.hraci || []).find(h => h.id === id) || (s.npc || []).find(x => x.id === id) || null : null);
 /* postava na prahu smrti: hody proti smrti běží, dokud není stabilizovaná nebo mrtvá */
 const bojDsAkt = h => !!(h && h.ds && !h.ds.st);
-/* stavy, které berou akce (2026-10-19): Incapacitated a vše, co ho obsahuje – žádná akce, bonusová akce ani reakce */
-const BNESCH = ["neschopný", "ochromen", "zkamenělý", "omráčen", "v bezvědomí"];
-const bojNeschopny = st => (st || []).find(t => BNESCH.includes(t)) || "";
 const kNeschopny = K => (K ? bojNeschopny(kStavy(K)) : "");
 /* návrh výhody (D&D 2024): důvody pro výhodu i nevýhodu; když jsou obojí, ruší se */
 function bojAdvNavrh(s, n, a) {
@@ -1303,8 +1200,6 @@ function bojUtokV(n, ai, a) {
   }
   return b;
 }
-/* přesila houfu: +1 za každého dalšího pacholka, nejvýš +5 */
-const bojPres = (s, n) => Math.min(Math.max((n.pocet || 0) - 1, 0), 5);
 function bojMaRes(c, typ) {
   if (!c) return false;
   if (!c.druh) {
@@ -2599,69 +2494,12 @@ let bojHlasen = "",
   BODP = false;
 const BHROTV = new Set();
 const besc = t => String(t ?? "").replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"})[c]);
-/* počty slotů (Vojta 2026-10-22): početnější strana má o slot víc než menší. Družina = postavy + spojenci a společníci,
-   nepřátelé = každý houf, sok či zhoubce za jednoho (bez poražených, prchajících a vzdaných). Určí se na začátku boje
-   a každého kola (s.pocty), aby se sloty uprostřed kola neposouvaly, když někdo padne. */
-const BMIMO = ["poražen", "prchá", "vzdal se", "rozplynul se"];
-function bojPocty(s) {
-  const npc = (s.npc || []).filter(n => !BMIMO.some(t => (n.stav || []).includes(t)) && !(n.druh === "houf" && !(+n.pocet > 0))),
-    h = Math.max(1, (s.hraci || []).length + npc.filter(bojSpoj).length),
-    e = npc.filter(n => !bojSpoj(n)).length;
-  return {h, n: Math.max(1, e > h ? h + 1 : e < h ? h - 1 : h)};
-}
-function bojSloty(s) {
-  /* sloty se střídají mezi družinou a vypravěčem; začíná strana s nejlepším hodem (při shodě družina); slot navíc je na konci */
-  if (s.scena) return []; /* scéna mimo boj: žádná iniciativa */
-  const P = s.pocty || bojPocty(s),
-    dm = +s.dm || 0,
-    hod = s.hod != null ? +s.hod : Math.max(-99, ...(s.hraci || []).map(x => +x.hod || 0)),
-    a = [],
-    prvni = hod >= dm ? "h" : "n";
-  let zh = P.h,
-    zn = P.n,
-    t = prvni;
-  while (zh > 0 || zn > 0) {
-    if (t === "h" ? zh > 0 : zn <= 0) {
-      a.push({t: "h", hod});
-      zh--;
-    } else {
-      a.push({t: "n", hod: dm});
-      zn--;
-    }
-    t = t === "h" ? "n" : "h";
-  }
-  return a;
-}
-/* pacholek má 5 HP (Vojta 2026-10-22); zranění přetéká na dalšího – houf si pamatuje zranění předního pacholka (n.hz) */
-const BPACH_HP = 5;
-function bojHoufZasah(n, x) {
-  const poc = +n.pocet || 0,
-    hz0 = +n.hz || 0,
-    c = hz0 + Math.max(0, +x || 0),
-    pad = Math.min(poc, Math.floor(c / BPACH_HP));
-  return {pad, hz: pad >= poc ? 0 : c - pad * BPACH_HP, hz0};
-}
-/* zranění, jako by zásah nebyl kritický: z každé zdvojené skupiny kostek v rozpisu („2d8(3+5)+3“) se počítá jen první polovina */
-function bojDmgBezKritu(u) {
-  let x = +u.dmg || 0;
-  String(u.zx || "").replace(/\d*d\d+\(([^)]*)\)/g, (m, g) => {
-    const v = g
-      .split("+")
-      .map(Number)
-      .filter(q => !isNaN(q));
-    x -= v.slice(Math.ceil(v.length / 2)).reduce((a, b) => a + b, 0);
-    return m;
-  });
-  return Math.max(0, x);
-}
-const bojUzito = (s, id) => Object.values(s.obsazeni || {}).filter(x => x === id).length;
 const bojJm = (s, id) => {
   const h = (s.hraci || []).find(x => x.id === id);
   if (h) return h.n;
   const n = (s.npc || []).find(x => x.id === id);
   return n ? n.n : "";
 };
-const bojSpoj = o => o.str === "h";
 /* načtení stavu boje: starší odpověď (dotaz odešel před naším uložením) ani načtení během čekajícího uložení vypravěče
    nesmí přepsat novější stav v prohlížeči – jinak by se právě zaškrtnutá reakce, stav apod. na chvíli „vrátily“ */
 async function bojNacti() {
