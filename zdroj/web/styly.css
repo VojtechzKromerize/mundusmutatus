@@ -2697,6 +2697,11 @@ button.kdbs:hover{border-color:var(--kb-gold)}.kdbsac b{color:var(--kb-gold)}
 .bdmtabs::-webkit-scrollbar{display:none}
 .bdmtabs button{flex:1 0 auto;min-width:46px;display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 3px 6px;background:none;border:0;border-bottom:3px solid transparent;color:var(--kb-mu);font-family:var(--f-label)!important;font-weight:700;font-size:.68rem;letter-spacing:.02em}
 .bdmtabs button .bdmic{width:18px;height:18px}
+/* záložky jako malované štíty (2026-10-23): neaktivní ztlumené, aktivní natočený a rozsvícený */
+.bdmtabs button .bdmzik{width:auto;height:36px;filter:brightness(.62) saturate(.8);transition:transform .15s,filter .15s}
+.bdmtabs button:hover .bdmzik{filter:brightness(.85) saturate(.9)}
+.bdmtabs button[aria-selected=true] .bdmzik{filter:none;transform:rotate(-10deg) scale(1.06)}
+@media (prefers-reduced-motion:reduce){.bdmtabs button .bdmzik{transition:none}}
 .bdmtabs button[aria-selected=true]{color:var(--kb-tx);border-bottom-color:var(--kb-ac)}
 .bdmbar{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto auto;margin:12px 12px 0;background:var(--kb-hd1);border:1px solid var(--kb-bd2);border-radius:8px;overflow:hidden;box-shadow:0 6px 12px -8px rgba(0,0,0,.9)}
 .bdmcur{display:flex;align-items:center;gap:10px;padding:11px 12px;background:none;border:0;color:var(--kb-tx);font-family:var(--f-label)!important;font-weight:700;font-size:1.02rem;text-align:left;min-width:0}
@@ -2948,6 +2953,13 @@ button.kdbs:hover{border-color:var(--kb-gold)}.kdbsac b{color:var(--kb-gold)}
 .bdmvlh .bdmch b{font-size:.84rem}
 .bdmvlh button.bdmch{cursor:pointer}
 .bdmvlh+.bdmvl{margin-top:8px}
+/* Zdatnost · Rychlost · Iniciativa: stříbrné mince s hodnotou, sevřené uprostřed (2026-10-23) */
+.bdmsr{display:flex;justify-content:center;align-items:center;gap:26px;margin-top:8px}
+.bdmsri{display:inline-flex;align-items:center;gap:7px;padding:0;background:none;border:0;color:var(--kb-tx);font:inherit;cursor:default}
+button.bdmsri{cursor:pointer}
+.bdmsri img{width:28px;height:28px;filter:brightness(.86)}
+.bdmsri b{font-size:1.05rem;white-space:nowrap}
+.bdmsr+.bdmvl{margin-top:8px}
 .bdmzdat{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 8px;align-items:start;margin-top:6px}
 .bdmzl{font-family:var(--f-label);font-weight:700;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--kb-mu);padding-top:5px}
 .bdmzchs{display:flex;flex-wrap:wrap;gap:4px;align-items:center;min-width:0}
@@ -3331,7 +3343,7 @@ html.mmcela .wrap{background:#1f0c10}
 html.mmcela .papir{display:none}
 html.mmcela .hraja .bdm{min-height:100vh;min-height:100dvh}
 /* záložky karty se na telefonu vejdou všechny (iPhone kreslil „Poznámky“ oříznuté) */
-@media (max-width:480px){.bdmtabs button{flex:1 1 0;min-width:0;padding:7px 1px 6px;font-size:.58rem}.bdmtabs button span{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}
+@media (max-width:480px){.bdmtabs button .bdmzik{height:30px}.bdmsr{gap:18px}.bdmtabs button{flex:1 1 0;min-width:0;padding:7px 1px 6px;font-size:.58rem}.bdmtabs button span{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}
 /* tlačítko přidání zdatnosti: stačí Enter, křížek by se tlačil ven z rámečku */
 .bdmzf .bdmzx{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 /* šuplík pravidel v boji na telefonu: dole u palce, ne přes půl obrazovky nad tlačítky karty */

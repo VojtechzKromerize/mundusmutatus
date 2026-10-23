@@ -1167,22 +1167,12 @@ document.addEventListener("click", e => {
 /* linkové ikonky karty (2026-10-22, středověké motivy): štít · meč · grimoár · truhla · kbelcová přilba · husí brk · otevřený
    foliant · ohniště · klíč · vycházející slunce · list s pečetí · kostka s oky · svitek; u zbraní meč (zblízka) a šíp (na dálku) */
 const BDMI = {
-  vl: '<path d="M8 1.8 13.4 3.6v4.4c0 3.3-2.4 5.3-5.4 6.4C5 13.3 2.6 11.3 2.6 8V3.6Z"/><path d="M4.8 9 8 5.8 11.2 9"/>',
-  akce: '<path d="M13 3 6.6 9.4" stroke-width="1.9"/><path d="M4.4 7.6 8.4 11.6M6.6 9.4 3.6 12.4"/><circle cx="3" cy="13" r=".9"/>',
-  kouzla:
-    '<path d="M4.2 2.6h7.2a1.2 1.2 0 0 1 1.2 1.2v9.6H5.4a1.2 1.2 0 0 1-1.2-1.2Z"/><path d="M4.2 11.8a1.2 1.2 0 0 1 1.2-1.2h7.2"/><path d="M8.4 4.4l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7Z"/>',
-  vyb: '<path d="M2.6 7.2h10.8v6.4H2.6Z"/><path d="M2.6 7.2V6.4a3 3 0 0 1 3-3h4.8a3 3 0 0 1 3 3v.8M7 7.2v2.4h2V7.2"/>',
-  rysy: '<path d="M4.6 2.8h6.8v9.6l-1.2 1.4H5.8l-1.2-1.4Z"/><path d="M4.6 7h6.8M8 7v6.6M6.2 9.4h.6M9.2 9.4h.6"/>',
   spol: '<path d="M3 13.5c0-2.9 1.6-5 3.9-5.6L5.6 4.2 8 5.6l2.4-1.4-1.3 3.7c2.3.6 3.9 2.7 3.9 5.6"/><circle cx="6.6" cy="10.2" r=".5" fill="currentColor"/>',
   ohen: '<path d="M8 1.8c.4 2.2 2.8 3.4 2.8 6a2.8 2.8 0 0 1-5.6 0c0-1.4.8-2.2 1.4-3 .2 1 .7 1.6 1.2 1.8C7.6 5.2 7.4 3.4 8 1.8Z"/><path d="M2.4 14.2 13.6 11.6M2.4 11.6l11.2 2.6"/>',
   kolo: '<circle cx="4.6" cy="8.4" r="2.6"/><path d="M7.2 8.4h6.4M11 8.4v2.6M13.6 8.4v2"/>',
   slunce:
     '<path d="M3 11.5a5 5 0 0 1 10 0Z" fill="currentColor" stroke="none"/><path d="M8 2.2v2M3.3 4.4l1.3 1.4M12.7 4.4l-1.3 1.4M1.6 8.6h1.8M12.6 8.6h1.8M1.6 13.2h12.8"/>',
-  denik:
-    '<path d="M3.6 10.6h5.2v2.8H3.6ZM2.9 10.6h6.6"/><path d="M6 10.6 12.6 2.6"/><path d="M12.8 2.4c-2.6.3-4.6 2-5.4 5l-.2 1.2c2.2-.3 4.2-2 4.8-5Z"/>',
   dopis: '<path d="M2.4 4.2h11.2v8H2.4Z"/><path d="m2.4 4.6 5.6 4.2 5.6-4.2"/><circle cx="8" cy="9.4" r="1.7" fill="currentColor" stroke="none"/>',
-  zaznam:
-    '<path d="M8 4.4C6.4 3.2 4.6 3 2.6 3.2v9.4c2 0 3.8.2 5.4 1.2 1.6-1 3.4-1.2 5.4-1.2V3.2c-2-.2-3.8 0-5.4 1.2Z"/><path d="M8 4.4v9.4M11 3.3v4.2l-.9-.8-.9.8V3.4"/>',
   d20: '<path d="M8 1.6 13.6 4.6v6.8L8 14.4 2.4 11.4V4.6Z"/><path d="M2.4 4.6 8 7.6l5.6-3M8 7.6v6.8"/><circle cx="8" cy="4.5" r=".7" fill="currentColor" stroke="none"/><circle cx="4.6" cy="9.1" r=".7" fill="currentColor" stroke="none"/><circle cx="6.2" cy="11.3" r=".7" fill="currentColor" stroke="none"/><circle cx="10" cy="9.3" r=".7" fill="currentColor" stroke="none"/><circle cx="11.4" cy="8.5" r=".7" fill="currentColor" stroke="none"/><circle cx="9.8" cy="11.5" r=".7" fill="currentColor" stroke="none"/><circle cx="11.2" cy="10.7" r=".7" fill="currentColor" stroke="none"/>',
   svitek:
     '<path d="M2.6 2.8h10.8a1.3 1.3 0 0 1 0 2.6H2.6a1.3 1.3 0 0 1 0-2.6ZM2.6 10.6h10.8a1.3 1.3 0 0 1 0 2.6H2.6a1.3 1.3 0 0 1 0-2.6Z"/><path d="M4.6 5.4v5.2M11.4 5.4v5.2M6.8 7.2h2.4M6.8 9h2.4"/>',
@@ -1191,6 +1181,12 @@ const BDMI = {
 };
 const bdmIc = (k, c) =>
   `<svg class="bdmic${c ? " " + c : ""}" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">${BDMI[k] || ""}</svg>`;
+/* záložky karty jako malované kolčí štíty (2026-10-23, Vojta): art/img/zalozky/<id>-48/96.webp; Společníci štít zatím nemají (linková ikona) */
+const BDMSTITY = new Set(["vl", "akce", "kouzla", "vyb", "rysy", "denik", "zaznam"]);
+const bdmZalIk = id =>
+  BDMSTITY.has(id)
+    ? `<img class="bdmzik" src="art/img/zalozky/${id}-48.webp" srcset="art/img/zalozky/${id}-96.webp 2x" width="32" height="48" alt="" aria-hidden="true" decoding="async">`
+    : bdmIc(id);
 /* oddíly (2026-10-22): Info i Duše jsou pryč – smysly a zdatnosti ve Statistikách, duše, rány a účinky v listu Svědomí; Záznam = hody hráče */
 const BDMS = [
   ["vl", "Statistiky: vlastnosti, záchrany, dovednosti, smysly, zdatnosti a jazyky", "Statistiky"],
@@ -1540,6 +1536,12 @@ function bdmRysy(K) {
    `grafika/ikony-atributu-prompty.md` */
 const BDMVLZ = {STR: "STR", AGI: "DEX", CON: "CON", INT: "INT", WIS: "WIS", CHA: "CHA"};
 const BDMSTIT = `<svg viewBox="0 0 24 26" aria-hidden="true"><path d="M12 1.5l9 3.2v6.8c0 6-4.1 10-9 12.5-4.9-2.5-9-6.5-9-12.5V4.7z"/></svg>`;
+/* Zdatnost, Rychlost a Iniciativa nad vlastnostmi (2026-10-23, Vojta): stříbrná mince (art/img/atributy/pb|rych|ini) a hodnota,
+   bez rámečku a popisku; název nese alt mince (čtečka), podrobnost popisek data-tip (myš i dotyk) */
+function bdmSrPol(ik, nazev, tip, hodn, hod) {
+  const vnitrek = `<img src="art/img/atributy/${ik}-48.webp" srcset="art/img/atributy/${ik}-96.webp 2x" width="28" height="28" alt="${nazev}" decoding="async" loading="lazy"><b>${hodn}</b>`;
+  return hod ? `<button type="button" class="bdmsri" ${hod} ${btip(tip)}>${vnitrek}</button>` : `<span class="bdmsri" ${btip(tip)}>${vnitrek}</span>`;
+}
 function bdmVlRadek(K, a, zAttr, edit) {
   const v = kVl(K, a);
   if (v == null) return "";
@@ -1638,7 +1640,7 @@ function bdmTelo(s, h, K, gm, X, id) {
     /* Statistiky (2026-10-21): vlastnosti, dovednosti ve dvou sloupcích, smysly, zdatnosti a jazyky (upravitelné) */
     const zh = a => (X.boj ? `data-bkzh="${a}"` : `data-khod="za:${a}"`),
       edit = gm || kMuze(K);
-    const ab = `<div class="bdmainf bdmvlh"><span class="bdmch" ${btip("Bonus zdatnosti")}>Zdatnost <b>${bsg(kPB(K))}</b></span><span class="bdmch" ${btip(kRychTxt(K))}>Rychlost <b>${kRychN(K)} st.</b></span><button type="button" class="bdmch" data-khod="in" ${btip(`Iniciativa: d20 ${bsg(kIni(K))} – klikni a hoď`)}>Iniciativa <b>${bsg(kIni(K))}</b></button></div><div class="bdmvl">${BAB.map(a => bdmVlRadek(K, a, zh(a), edit)).join("")}</div>`;
+    const ab = `<div class="bdmsr">${bdmSrPol("pb", "Zdatnost", `Zdatnost: bonus zdatnosti ${bsg(kPB(K))}`, bsg(kPB(K)))}${bdmSrPol("rych", "Rychlost", `Rychlost: ${kRychTxt(K)}`, `${kRychN(K)} st.`)}${bdmSrPol("ini", "Iniciativa", `Iniciativa: d20 ${bsg(kIni(K))} – klikni a hoď`, bsg(kIni(K)), 'data-khod="in"')}</div><div class="bdmvl">${BAB.map(a => bdmVlRadek(K, a, zh(a), edit)).join("")}</div>`;
     /* poznámky k záchranám (War Caster, +1 ke všem…) jako jeden řádek chipů, podrobnost v nápovědě (2026-10-22) */
     const za =
       K.konVyhoda || (K.zachPozn || []).length
@@ -1921,7 +1923,7 @@ function bojDbm(s, h, K, gm, vzdy, X) {
       : "";
   /* lepkavý pruh: zúžená hlavička (při posunu) a záložky */
   const lep = `<div class="bdmlep"><div class="bdmmi"><span class="bdmmin">${besc(K.n)}</span><button type="button" class="bdmmac" data-bdmsh="ac" ${btip("AC – obětování zbroje")}>AC <b>${ac}</b></button>${hpB(" bdmmhp")}</div>
-    <nav class="bdmtabs" role="tablist" aria-label="Oddíly karty">${sek.map(([id, n, k]) => `<button type="button" role="tab" data-bdmsec="${id}" aria-selected="${id === sec}" ${btip(n)}>${bdmIc(id)}<span>${besc(k)}</span></button>`).join("")}</nav></div>`;
+    <nav class="bdmtabs" role="tablist" aria-label="Oddíly karty">${sek.map(([id, n, k]) => `<button type="button" role="tab" data-bdmsec="${id}" aria-selected="${id === sec}" ${btip(n)}>${bdmZalIk(id)}<span>${besc(k)}</span></button>`).join("")}</nav></div>`;
   const body = `<section class="bdmsec" data-bdmid="${sec}">${bdmTelo(s, h, K, gm, X, sec)}</section>`;
   /* na telefonu přes celou obrazovku je Ukončit tah v dolní liště (bojTabyHrac, 20d) */
   const konec =

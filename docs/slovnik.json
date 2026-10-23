@@ -15,7 +15,7 @@
   "BDM": "Bojová karta (bdm): stav rozložení – otevřené sekce (sec, localStorage), list útoku (sheet), rozbalené hlavičky (hlo), filtry akcí/kouzel (af, kf), fokus, rozbalené útoky (utx)",
   "BDMAF": "Bojová karta: pod-karty oddílu Akce – [klíč, popisek]: A Akce, BA Bonusová, R Reakce, omez Omezené",
   "BDMG": "Boj: poslední zranění nepřítele podle id – {k: kolo, t: [typy zranění]}; brání regeneraci po Fire/Radiant",
-  "BDMI": "Bojová karta: SVG cesty linkových ikonek sekcí (vl štít, akce meč, kouzla grimoár, vyb truhla…) podle klíče",
+  "BDMI": "Bojová karta: SVG cesty linkových ikonek (Společníci, dopis, oheň, kolo, slunce, d20, svitek, meč, šíp) podle klíče; ostatní záložky mají malované štíty (BDMSTITY)",
   "BDOS": "Boj: kolik pacholků houfu dosáhne na cíl podle id houfu (ovlivňuje zranění)",
   "BDRIC": "Boj: druh nepřítele (houf, pacholek, sok, zhoubce) → název jeho ikony",
   "BDRUH": "Boj: druh nepřítele → český popisek (Houf pacholků, Pacholek, Sok, Zhoubce)",
