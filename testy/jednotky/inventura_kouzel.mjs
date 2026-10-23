@@ -1,5 +1,5 @@
 // Inventura automatiky kouzel (2026-10-22): pro každé kouzlo z art/kouzla.json vypíše, co s ním web umí
-// (zranění/léčení z textu, útok/záchrana, stav ze záchrany, tabulky KZEF/KZOPAK/KZOBL/KZLEC/KZSUM/KBUF/KPRID…).
+// (zranění/léčení z textu, útok/záchrana, stav ze záchrany, tabulky UCINKY/KZOPAK/KZOBL/KZLEC/KZSUM/KBUF/KPRID…).
 //   node testy/jednotky/inventura_kouzel.mjs            – souhrn a seznam kouzel bez automatiky (TSV na stdout)
 //   node testy/jednotky/inventura_kouzel.mjs --vse      – všechna kouzla
 import {stranka} from "./stranka.mjs";
@@ -21,7 +21,7 @@ const J = S.ev(`JSON.stringify((() => {
     let st = null;
     try { st = bojSpStav(d.en); } catch (e) {}
     const T = [];
-    if (KZEF[d.en]) T.push("KZEF");
+    if (UCINKY[d.en] && !UCINKY[d.en].kostka) T.push("UCINKY");
     if (KZOPAK[d.en]) T.push("KZOPAK");
     if (KZOBL[d.en]) T.push("KZOBL");
     if (KZLEC[d.en]) T.push("KZLEC");

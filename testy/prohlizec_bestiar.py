@@ -267,7 +267,7 @@ async def main():
       bojJaRid('es:slot3p');const d1=q.dmg;o.push(q.rid.length===1&&d1>=14&&d1<=42&&/Eldritch Smite/.test(q.zx));
       bojJaRid('es:slot3p');o.push(q.dmg===10&&!q.rid.length);
       bojJaRid('es:slot3p');bojJaRid('m:Trip Attack');o.push(q.rid.length===2);
-      await bojJaRidPo(K,me,[q]);const Z=kartaStav(K.id).zdr||{};o.push(Z.slot3p===1&&Z['Combat Superiority']===1&&BJU.ridT.u.includes('es'));
+      await bojJaRidPo(K,me,[q]);const Z=kartaStav(K.id).zdr||{};o.push(Z.slot3p===1&&Z['Combat Superiority']===1&&BJU.ridT.jt.includes('es'));
       o.push(!bojJaRidery(K,me,zb[j],{ci:q.ci,vys:'zásah',dmg:5},s).some(r=>r.g==='es'));
       const e={hod:20,ac:18,d:15,ph:8,ai:s.npc[0].id,t:'Slashing'};o.push(kReakceNaZasah(K,me,s,e).o.some(r=>r.k==='parry')&&!kReakceNaZasah(K,me,s,Object.assign({},e,{dal:1})).o.some(r=>r.k==='parry'));
       o.push(kEfAkt(K,[],{n:'Greatsword'}).some(x=>x.n==='Great Weapon Master'&&x.zr===kPB(K))&&!kEfAkt(K,[],{n:'Dagger'}).some(x=>x.n==='Great Weapon Master'));

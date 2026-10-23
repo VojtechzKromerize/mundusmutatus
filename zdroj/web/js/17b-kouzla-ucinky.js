@@ -540,9 +540,7 @@ const BPROT = {};
 function bojProtiKdo(s) {
   return (s.hraci || []).filter(h => {
     const K = bojKartaH(h);
-    if (!K || h.ds || (s.reak || {})[h.id] || srdNejedna(h.stav)) return false;
-    const x = kSeznam(K).find(q => q.n === "Counterspell");
-    return !!x && kSlX(K, x).length > 0;
+    return !!K && reakceMa(kReakceFakta(K, h, s), null, "kouzlo", "counterspell");
   });
 }
 /* vrací true, když se čeká na hráče (kouzlo NPC se sešle až po odpovědi nebo „Pokračovat“) */

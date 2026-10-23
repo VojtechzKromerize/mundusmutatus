@@ -1,4 +1,4 @@
-// Rychlé testy kouzel: účinek z dat SRD (kSpUcinek, 17), posílení na kartě (KZEF), trvání v kolech boje, opakovaná kouzla
+// Rychlé testy kouzel: účinek z dat SRD (kSpUcinek, 17), posílení na kartě (UCINKY, 10u), trvání v kolech boje, opakovaná kouzla
 // (KZOPAK), oblasti (KZOBL) a rituály (17b) – bez prohlížeče. Postava Balduin je testovací karta (Warlock 6 / Fighter 1, CHA 18).
 import {test, before, after} from "node:test";
 import assert from "node:assert/strict";
@@ -62,7 +62,7 @@ test("kouzla: léčení víc cílů – Mass Healing Word 2d4 + modifikátor ses
   assert.deepEqual(kouzlo("Mass Healing Word", 3), {k: "l", x: "2d4", mod: 4, utok: false, pol: false});
 });
 
-/* ---------- posílení na kartě (KZEF) ---------- */
+/* ---------- posílení na kartě (UCINKY) ---------- */
 test("kouzla: Shield dává +5 AC do začátku dalšího tahu (účinek na kartě)", async () => {
   await ucinky([{n: "Shield", ac: 5, h: 0.0017}]);
   try {
@@ -214,7 +214,7 @@ test("kouzla: trvání z textu SRD v hodinách – kola, minuty, hodiny, dny", (
   assert.equal(V(`kTrv("Okamžité")`), null);
 });
 
-/* ---------- inventura kouzel (2026-10-22): posílení z tabulky KZEF, kostka k iniciativě, přídavky trvajících kouzel, stavy česky ---------- */
+/* ---------- inventura kouzel (2026-10-22): posílení z tabulky UCINKY, kostka k iniciativě, přídavky trvajících kouzel, stavy česky ---------- */
 test("kouzla: Pass without Trace +10 Stealth, Intellect Fortress Resistance Psychic a výhoda na záchrany INT/WIS/CHA, Gift of Alacrity +1d8 k iniciativě", async () => {
   const K = JSON.stringify({
     id: "t_buf",
