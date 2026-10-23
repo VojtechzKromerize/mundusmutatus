@@ -1829,6 +1829,62 @@ function bdmList(s, h, K, gm, X, t) {
   }
   return ["", ""];
 }
+/* co na postavě právě působí – v hlavičce pod jménem (2026-10-23, Vojta): stavy s dopadem na hody jako řádky (název česky
+   i anglicky a co znamenají), vyčerpání; pod nimi štítky soustředění, posílení od spojenců a vlastních účinků (kouzla,
+   Rage, kostka Bardic Inspiration, podoba). Klepnutí otevře list Stavy a účinky. */
+function bdmPusobiHtml(K, stL0) {
+  const S = kartaStav(K.id),
+    st = (stL0 || []).filter(t => t !== "soustředí"),
+    V = +S.vycerp || 0,
+    ic = t => (SRDIC[t] ? bi(SRDIC[t], "bdmpusi") : BSTI[t] ? bi(BSTI[t][0], "bdmpusi") : ""),
+    jm = t => {
+      const d = SRDST[t];
+      return `${t[0].toUpperCase() + t.slice(1)}${d && d.en ? ` (${d.en})` : ""}`;
+    },
+    tx = t => {
+      const d = SRDST[t];
+      if (d && d.t) return d.t;
+      const b = BSTI[t];
+      return b ? String(b[1]).replace(/^[^–]*–\s*/, "") : "";
+    };
+  const R = st.map(
+    t =>
+      `<button type="button" class="bdmpusr${/krvácí/.test(t) ? " bdmpusk" : ""}" data-bdmsh="st" data-stt="st">${ic(t)}<span><b>${besc(jm(t))}</b>${tx(t) ? ` · ${besc(tx(t))}` : ""}</span></button>`,
+  );
+  if (V)
+    R.push(
+      `<button type="button" class="bdmpusr" data-bdmsh="st" data-stt="st">${bi("vycerpani", "bdmpusi")}<span><b>Vyčerpání ${V} (Exhaustion)</b> · −${2 * V} ke všem hodům d20, rychlost −${5 * V} stop${V >= 6 ? " · smrt" : ""}</span></button>`,
+    );
+  const C = [],
+    vid = new Set();
+  const chip = (cls, n, t) => {
+    if (vid.has(n)) return;
+    vid.add(n);
+    const f = typeof kzIk === "function" ? kzIk(n) : null;
+    C.push(
+      `<button type="button" class="bdmpusc ${cls}" data-bdmsh="st" data-stt="uc">${f ? `<img src="art/img/boj/${f}-48.webp" width="16" height="16" alt="" aria-hidden="true" decoding="async" loading="lazy">` : ""}${besc(t)}</button>`,
+    );
+  };
+  if (kKonDrzi(K)) {
+    const kn = kKonNazev(K);
+    vid.add(kzJm(kn || ""));
+    C.push(
+      `<button type="button" class="bdmpusc bdmpuskon" data-bdmsh="st" data-stt="uc">${kKonI()} Soustředění${kn ? `: ${besc(kn)}` : ""}</button>`,
+    );
+  }
+  (typeof kBufEf === "function" ? kBufEf(K) : []).forEach(b =>
+    chip(b.od && b.od !== K.n ? "bdmpusod" : "bdmpusvl", b.n, b.od && b.od !== K.n ? `${b.n} · od ${b.od}` : b.n),
+  );
+  kUc(K).forEach(u => chip("bdmpusvl", kzJm(String(u.n).replace(/\s*⇒.*$/, "")), String(u.n).replace(/\s*⇒.*$/, "")));
+  kPri(K).forEach(p => {
+    if (/^Bardic /.test(p)) chip("bdmpusod", "Bardic Inspiration", `Bardic Inspiration ${p.slice(7)}`);
+    else if (UCINKY[p] || (typeof KZIK !== "undefined" && KZIK[p])) chip("bdmpusvl", p, p);
+  });
+  const F = typeof kForma === "function" ? kForma(K) : null;
+  if (F) chip("bdmpusvl", F.typ === "ws" ? "Wild Shape" : "Polymorph", `Podoba: ${F.n}`);
+  if (!R.length && !C.length) return "";
+  return `<div class="bdmpus" role="group" aria-label="Co na postavě právě působí">${R.join("")}${C.length ? `<div class="bdmpuscs">${C.join("")}</div>` : ""}</div>`;
+}
 function bojDbm(s, h, K, gm, vzdy, X) {
   X = X || {};
   const S = kartaStav(K.id),
@@ -1879,6 +1935,7 @@ function bojDbm(s, h, K, gm, vzdy, X) {
       : "";
   })();
   const head = `<header class="bdmh"><div class="bdmtop">${gm ? `<button type="button" class="bdmback" data-bhrozb="${h.id}" aria-label="Sbalit kartu" ${btip("Sbalit")}>‹</button>` : `<span class="bdmback0"><button type="button" class="bdmback bdmweb" data-mmweb aria-label="Menu webu" ${btip("Ukázat web s menu")}>☰</button></span>`}<div class="bdmnm"><b>${besc(K.n)}</b><small>${besc(sub)}${zavH}</small></div>${curView === "karty" ? `<span class="bdmback0"></span>` : `<a class="bdmkl" href="#karty/${besc(K.id)}" aria-label="Karta na celou stránku" ${btip("Karta na celou stránku")}>${bdmIc("svitek")}</a>`}</div>
+    ${bdmPusobiHtml(K, stL0)}
     <div class="bdmgrid">
       <span class="bdmacw">${(() => {
         const R = kOdol(K),
@@ -1986,6 +2043,7 @@ document.addEventListener("click", e => {
       return;
     }
     BDM.sheet = {k: key, t};
+    if (t === "st" && sh.dataset.stt) BDM.stt = sh.dataset.stt;
     if (t === "zvl") BDM.sheet.w = sh.dataset.zvl;
     if (t === "vec") BDM.sheet.i = +sh.dataset.i;
     if (t === "utok") {

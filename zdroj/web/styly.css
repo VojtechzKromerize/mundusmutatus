@@ -2872,6 +2872,21 @@ button.kdbs:hover{border-color:var(--kb-gold)}.kdbsac b{color:var(--kb-gold)}
 /* barvy vzácnosti na vínové kůži (kontrast ≥ 4.5 : 1 proti #2a1216) */
 .kvz-neo{color:#8fdc8a}.kvz-vz{color:#8ec2ff}.kvz-vvz{color:#d1a8ff}.kvz-leg{color:#ffb35c}.kvz-art{color:#ff8f7a}
 .kvprl{list-style:none;margin:4px 0 10px;padding:0}.kvprl li{display:flex;align-items:center;gap:8px;padding:6px 0;border-top:1px dotted var(--kb-bd2,var(--rule))}.kvprl li b{flex:1;min-width:0}
+/* co na postavě působí – v hlavičce karty (2026-10-23) */
+.bdmpus{display:flex;flex-direction:column;gap:5px;margin:8px 0 2px}
+.bdmpusr{display:flex;align-items:flex-start;gap:8px;width:100%;padding:6px 8px;border:1px solid #c9474f;border-radius:8px;background:#3a1418;color:var(--kb-tx);font:inherit;font-size:.86rem;line-height:1.3;text-align:left;cursor:pointer}
+.bdmpusr.bdmpusk{border-color:#a8323e;background:#2e1014}
+.bdmpusr b{font-weight:700}.bdmpusr .bdmpusi{flex:none;width:22px;height:22px;margin-top:-1px}
+.bdmpuscs{display:flex;flex-wrap:wrap;gap:5px}
+@media (max-width:480px){
+  .bdmpusr{font-size:.8rem}.bdmpusr>span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  /* stavy jsou teď vypsané nad hlavičkou – ikonky v tlačítku Stavy by se na telefonu nevešly */
+  .bdmst .bdmsti{display:none}
+}
+.bdmpusc{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border:1px solid var(--kb-bd2);border-radius:14px;background:var(--kb-pan2);color:var(--kb-mu);font:inherit;font-size:.8rem;cursor:pointer}
+.bdmpusc img{width:16px;height:16px}.bdmpusc .kspi{transform:scale(.85)}
+.bdmpusc.bdmpuskon{border-color:#6f82bf;background:#1c2038;color:#cdd7f6}
+.bdmpusc.bdmpusod{border-color:var(--kb-gold);background:#3a2b1c;color:#f2dfa6}
 .kvpop{margin:0 0 12px;padding:2px 0 8px;border-bottom:1px solid var(--kb-bd2,var(--rule))}
 .kvpop>summary{cursor:pointer;font:600 .78rem var(--f-label);letter-spacing:.06em;text-transform:uppercase;color:var(--kb-gold,var(--gold));padding:4px 0}
 .kvpop p{margin:4px 0 8px;line-height:1.45}.kvpop .kvpar{font-size:.86rem;color:var(--kb-mu,var(--muted))}

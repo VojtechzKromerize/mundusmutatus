@@ -172,3 +172,30 @@ test("kouzla: po použité akci zešednou kouzla za akci, bonusová zůstanou; r
   assert.doesNotMatch(r("Hex"), /^ bdmspu/, "Hex (1BA) zůstává");
   assert.match(r("Shield"), /^ bdmspu/, "Shield (1R) po použité reakci zešedne");
 });
+
+test("hlavička: stavy s dopadem, vyčerpání a štítky soustředění, posílení a účinků", () => {
+  sKartou(
+    {
+      stavy: ["sražen", "otrávený", "soustředí"],
+      vycerp: 1,
+      uc: [
+        {n: "Hex", kon: true, h: 1},
+        {n: "Armor of Agathys", h: 1},
+      ],
+      pri: ["Rage"],
+    },
+    () => {
+      const h = V(`bdmPusobiHtml(KARTBY.balduin, kartaStav("balduin").stavy)`);
+      assert.match(h, /<b>Sražen \(Prone\)<\/b> · /);
+      assert.match(h, /<b>Otrávený \(Poisoned\)<\/b>/);
+      assert.match(h, /Vyčerpání 1 \(Exhaustion\)<\/b> · −2 ke všem hodům d20/);
+      assert.match(h, /bdmpuskon[^>]*>[\s\S]*Soustředění: Hex/);
+      assert.match(h, /Armor of Agathys/);
+      assert.match(h, /zurivost-48\.webp[^<]*>Rage/);
+      assert.equal((h.match(/>Hex</g) || []).length, 0, "Hex jen u soustředění, ne podruhé");
+    },
+  );
+  sKartou({stavy: [], uc: [], pri: [], vycerp: 0}, () => {
+    assert.equal(V(`bdmPusobiHtml(KARTBY.balduin, [])`), "", "nic nepůsobí – nic se neukáže");
+  });
+});
