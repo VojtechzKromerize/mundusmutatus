@@ -1149,6 +1149,7 @@ document.addEventListener("click", async e => {
   const ry = T("[data-krys]");
   if (ry && K) {
     if (!SRDRY) await srdRysy();
+    if (!SRDRYT && kRysSrd(ry.dataset.krys)) await srdRysyTexty();
     mmPop(kRysPopis(K, ry.dataset.krys));
     return;
   }

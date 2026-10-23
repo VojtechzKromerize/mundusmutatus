@@ -135,6 +135,15 @@ if __name__ == "__main__":
                 R[nm] = [k["id"], t["id"]]
     json.dump(R, open(os.path.join(ROOT, "art", "srd-rysy.json"), "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
     print("srd-rysy.json:", len(R), "rysů")
+    # české texty rysů pro okno rysu na kartě (art/srd-rysy-texty.json, načte se až po klepnutí): {kotva: html oddílu bez nadpisu}
+    KH = {k["id"]: k["h"] for k in j["kap"]}
+    TX = {}
+    for kid, tid in R.values():
+        m = re.search(r'<h[1-6] id="' + re.escape(tid) + r'">.*?</h[1-6]>(.*?)(?=<h[1-6][ >]|\Z)', KH[kid], re.S)
+        if m and m.group(1).strip():
+            TX[tid] = m.group(1).strip()
+    json.dump(TX, open(os.path.join(ROOT, "art", "srd-rysy-texty.json"), "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
+    print("srd-rysy-texty.json:", len(TX), "textů")
     # tabulky povolání po úrovních (art/srd-urovne.json) pro postup na úroveň: {povolání: {"h": [sloupce], "r": [[buňky úrovně 1–20]]}}
     U = {}
     pv = next(k for k in j["kap"] if k["id"] == "povolani")["h"]

@@ -199,3 +199,19 @@ test("hlavička: stavy s dopadem, vyčerpání a štítky soustředění, posíl
     assert.equal(V(`bdmPusobiHtml(KARTBY.balduin, [])`), "", "nic nepůsobí – nic se neukáže");
   });
 });
+
+test("okno rysu: rys ze SRD má český text (Second Wind), text z listu D&D Beyond je pod ním sbalený", async () => {
+  const fs = await import("node:fs");
+  const R = JSON.parse(fs.readFileSync(new URL("../../art/srd-rysy.json", import.meta.url), "utf8"));
+  const T = JSON.parse(fs.readFileSync(new URL("../../art/srd-rysy-texty.json", import.meta.url), "utf8"));
+  assert.ok(R["Second Wind"], "Second Wind je v rejstříku SRD");
+  assert.match(T[R["Second Wind"][1]], /1d10 plus tvoje úroveň Fightera/, "český text Second Wind");
+  S.ev(`SRDRY = ${JSON.stringify(R)}; SRDRYT = ${JSON.stringify(T)}; KTX.balduin = {"Second Wind": "You have a limited well of stamina."}`);
+  const h = V(`kRysPopis(KARTBY.balduin, "Second Wind")`);
+  assert.match(h, /1d10 plus tvoje úroveň Fightera/);
+  assert.match(h, /<details class="krpdf"><summary>Text z listu D&amp;D Beyond<\/summary>/);
+  assert.match(h, /Celá kapitola v Pravidlech/);
+  S.ev(`delete KTX.balduin`);
+  const bez = V(`kRysPopis(KARTBY.balduin, "Second Wind")`);
+  assert.doesNotMatch(bez, /Popis z PDF tu zatím není/, "bez PDF textu stačí český text SRD");
+});
