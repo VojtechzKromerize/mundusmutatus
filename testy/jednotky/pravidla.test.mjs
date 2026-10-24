@@ -293,6 +293,19 @@ test("předměty z plného znění: hledání v inventáři, váha z tabulky, n�
   }
 });
 
+test("featy na kartě: okno rysu ukáže přihlášenému plné znění featu i s rámečkem Artikule (podle anglického i českého jména)", () => {
+  S.ev(`window.__mm0 = window.MMDB; window.MMDB = {pravidlaTexty() {}, prihlasen: () => true};
+    FEATY = [{en: "Alert", cz: "Ostražitý", kat: "origin", pred: "", t: "Úvod.\\n\\n> **Artikule – Pohotovost.** Jednou za boj."}]`);
+  try {
+    assert.match(V(`kRysPopis(KARTBY.balduin, "Alert")`), /Plné znění featu[\s\S]*Artikule<\/b> <b>Pohotovost/);
+    assert.match(V(`kRysPopis(KARTBY.balduin, "Ostražitý")`), /Plné znění featu/);
+    assert.doesNotMatch(V(`kRysPopis(KARTBY.balduin, "Second Wind")`), /Plné znění featu/);
+  } finally {
+    S.ev(`window.MMDB = window.__mm0; FEATY = null`);
+  }
+  assert.doesNotMatch(V(`kRysPopis(KARTBY.balduin, "Alert")`), /Plné znění featu/, "nepřihlášený plné znění nevidí");
+});
+
 test("kouzla z Vojtovy tabulky, která SRD ani katalog nezná: karta je pozná podle jména, bez textu (text je v plném znění)", () => {
   const x = V(`kSp("Aura of Evasion")`);
   assert.equal(x.l, 7);

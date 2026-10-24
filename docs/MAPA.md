@@ -137,10 +137,10 @@ Družina · Kronika tažení · automatické odkazy · hledání
 
 site navigation: views, house and person articles
 
-- 1046 řádků, 51 definic na nejvyšší úrovni, z toho 17 používají jiné soubory
+- 1046 řádků, 51 definic na nejvyšší úrovni, z toho 19 používají jiné soubory
 - používá z: 01-zaklad (12), 02-mapa (16), 03-artikule (3), 04-praha (5), 04b-praha-plan (2), 05-svet (4), 05b-svet-mapa (3), 06-draconomicon-rodokmeny (4), 07-druzina-kronika (7), 09-vypravec-herni-cas (1), 10-kouzla (4), 10q-plne-texty (1), 11-boj (4), 13-karty (2), 14d-vybaveni-katalog (1), 15-karty-artikule (4), 16-srd-ukazky-sezeni-hrac (5), 17-karty-ii (1), 18-pravidla-postavy (5), 20d-boj-render (2), 22b-vyprava (2)
-- používají ho: 02-mapa (2), 02b-mapa-kresba (1), 05b-svet-mapa (1), 06-draconomicon-rodokmeny (2), 07-druzina-kronika (3), 09-vypravec-herni-cas (4), 10-kouzla (2), 10q-plne-texty (3), 11-boj (4), 13-karty (3), 14-karty-bojova-karta (3), 14b-vybaveni (1), 14c-boj-reakce (1), 14d-vybaveni-katalog (1), 15-karty-artikule (1), 16-srd-ukazky-sezeni-hrac (8), 17-karty-ii (3), 17b-kouzla-ucinky (1), 19-karty-beyond (2), 20-boj-hraci (1), 20b-boj-vypravec (2), 20d-boj-render (4), 21-editor-pecet (2), 22-vyprava (1), 22b-vyprava (1), 23-potvrzovani (2), 25-puls (2), 26-start (2)
-- poskytuje: curView mmNaHre navTo route featyMuze PULTTAB mmCela PORTR portU renderPersonArticle renderRodArticle featyMd MMCELA_WEB pThumb SRDP ucetBoxHtml ucetMuze
+- používají ho: 02-mapa (2), 02b-mapa-kresba (1), 05b-svet-mapa (1), 06-draconomicon-rodokmeny (2), 07-druzina-kronika (3), 09-vypravec-herni-cas (4), 10-kouzla (2), 10q-plne-texty (3), 11-boj (4), 13-karty (3), 14-karty-bojova-karta (3), 14b-vybaveni (1), 14c-boj-reakce (1), 14d-vybaveni-katalog (1), 15-karty-artikule (1), 16-srd-ukazky-sezeni-hrac (8), 17-karty-ii (7), 17b-kouzla-ucinky (1), 19-karty-beyond (2), 20-boj-hraci (1), 20b-boj-vypravec (2), 20d-boj-render (4), 21-editor-pecet (2), 22-vyprava (1), 22b-vyprava (1), 23-potvrzovani (2), 25-puls (2), 26-start (2)
+- poskytuje: curView mmNaHre navTo featyMuze route PULTTAB featyMd mmCela PORTR portU renderPersonArticle renderRodArticle FEATY featyNacti MMCELA_WEB pThumb SRDP ucetBoxHtml ucetMuze
 - oddíly:
   - ř. 331: Pravidla: český překlad SRD 5.2.1 s poznámkami Artikulí (art/pravidla.json, načte se až při otevření)
   - ř. 925: Iluminované iniciály: první písmeno zápisu, oddílu Artikulí, kapitoly Draconomiconu a zápisu kronikáře o rodu
@@ -389,23 +389,23 @@ SRD 5.2.1: magické předměty (všichni) a nestvůry (vypravěč) – art/predm
 
 Karta postavy II (2026-10-16): Discord, texty rysů jen pro vlastníka, kouzla se sloty a zraněním, akce podle času,
 
-- 1305 řádků, 100 definic na nejvyšší úrovni, z toho 71 používají jiné soubory
-- používá z: 01-zaklad (1), 02-mapa (1), 04-praha (1), 07-druzina-kronika (1), 08-navigace-pravidla (3), 09-vypravec-herni-cas (1), 10p-pravidla (4), 10t-tah (3), 10u-ucinky (6), 11-boj (13), 12-boj-tah-postavy (5), 13-karty (11), 14-karty-bojova-karta (1), 15-karty-artikule (11), 16-srd-ukazky-sezeni-hrac (4), 17b-kouzla-ucinky (9), 18-pravidla-postavy (19), 19-karty-beyond (5), 20-boj-hraci (4), 20b-boj-vypravec (3), 20d-boj-render (1), 23-potvrzovani (3)
+- 1330 řádků, 104 definic na nejvyšší úrovni, z toho 71 používají jiné soubory
+- používá z: 01-zaklad (1), 02-mapa (1), 04-praha (1), 07-druzina-kronika (1), 08-navigace-pravidla (7), 09-vypravec-herni-cas (1), 10p-pravidla (4), 10t-tah (3), 10u-ucinky (6), 11-boj (13), 12-boj-tah-postavy (5), 13-karty (11), 14-karty-bojova-karta (1), 15-karty-artikule (11), 16-srd-ukazky-sezeni-hrac (4), 17b-kouzla-ucinky (9), 18-pravidla-postavy (19), 19-karty-beyond (5), 20-boj-hraci (4), 20b-boj-vypravec (3), 20d-boj-render (1), 23-potvrzovani (3)
 - používají ho: 08-navigace-pravidla (1), 11-boj (2), 12-boj-tah-postavy (4), 13-karty (25), 14-karty-bojova-karta (20), 14b-vybaveni (3), 14c-boj-reakce (10), 15-karty-artikule (2), 16-srd-ukazky-sezeni-hrac (9), 17b-kouzla-ucinky (9), 18-pravidla-postavy (6), 19-karty-beyond (24), 20-boj-hraci (16), 20b-boj-vypravec (4), 20c-boj-ridery (11), 20g-boj-mistrovstvi (2), 23-potvrzovani (2)
 - poskytuje: kSeznam kPri kKonZtrata kKonDrzi kMaRys kSlX kBufy kDopl KKON kKonNazev kCasKouzla kEfekty kLecKarta kSD kStavy DCU kCilM kEfUt kManMa kMaSl kNab kSesCil kSpMod kSpUcinek jaDiscordInit jaOdhlasTxt kAkceG KCIL kCilMax kCilUp kEfAkt kEfPouzij kKonHod KMASS KMAST kNabObnov kPriHod kPriTog kPzZn kRysSrd … (+31)
 - oddíly:
   - ř. 3: Discord: přihlášený účet a jeho postava
   - ř. 55: texty rysů (soukromé) a rejstřík rysů SRD
-  - ř. 139: čas aktivace a seznamy akcí
-  - ř. 186: útoky a doplňky hráče
-  - ř. 194: kouzla: seznam (PDF + připravená − odebraná), sesílání se zvoleným slotem, zranění a léčení se škálováním
-  - ř. 206: kouzla z předmětů (2026-10-17): hůlky a hole SRD 5.2.1. Seslání spotřebuje náboje předmětu (inv[].nab), ne slo
-  - ř. 533: kouzla na spojence a léčení víc cílů (2026-10-17)
-  - ř. 576: Seslat na koho (2026-10-17 b): kouzlo s dosahem (ne „Sebe“) se před sesláním zeptá na cíle – postavy družiny
-  - ř. 854: přídavky (2026-10-17): přídavky ke zranění z povolání a kouzel (Sneak Attack, Rage, Hunter's Mark, Hex, Divine
-  - ř. 1048: rysy z karty pro automatiku boje (2026-10-20): featy a manévry podle názvu z PDF, kostky převahy, Bardic Inspi
-  - ř. 1112: náboje magických předmětů (2026-10-17): počet z popisu SRD, utracené v poli inv[].nab, obnova za úsvitu dlouhý
-  - ř. 1253: stavy mimo boj (ovlivňují hody z karty)
+  - ř. 164: čas aktivace a seznamy akcí
+  - ř. 211: útoky a doplňky hráče
+  - ř. 219: kouzla: seznam (PDF + připravená − odebraná), sesílání se zvoleným slotem, zranění a léčení se škálováním
+  - ř. 231: kouzla z předmětů (2026-10-17): hůlky a hole SRD 5.2.1. Seslání spotřebuje náboje předmětu (inv[].nab), ne slo
+  - ř. 558: kouzla na spojence a léčení víc cílů (2026-10-17)
+  - ř. 601: Seslat na koho (2026-10-17 b): kouzlo s dosahem (ne „Sebe“) se před sesláním zeptá na cíle – postavy družiny
+  - ř. 879: přídavky (2026-10-17): přídavky ke zranění z povolání a kouzel (Sneak Attack, Rage, Hunter's Mark, Hex, Divine
+  - ř. 1073: rysy z karty pro automatiku boje (2026-10-20): featy a manévry podle názvu z PDF, kostky převahy, Bardic Inspi
+  - ř. 1137: náboje magických předmětů (2026-10-17): počet z popisu SRD, utracené v poli inv[].nab, obnova za úsvitu dlouhý
+  - ř. 1278: stavy mimo boj (ovlivňují hody z karty)
 
 ## 17b-kouzla-ucinky
 

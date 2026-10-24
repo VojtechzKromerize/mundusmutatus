@@ -122,7 +122,32 @@ const kRysSrd = n => {
     .trim();
   return SRDRY[c] || SRDRY[c.replace(/'/g, "’")] || null;
 };
-/* okno rysu: český text SRD (je-li rys v SRD), pod ním text z listu D&D Beyond; rys mimo SRD má vlastní shrnutí */
+/* plné znění featu (Vojtův překlad s rámečky Artikulí, databáze – jen přihlášení) v okně rysu na kartě (2026-10-24);
+   featy se načtou při prvním okně, pak se doplní do otevřeného okna */
+const kFeatJm = n =>
+  String(n || "")
+    .replace(/[’]/g, "'")
+    .replace(/\s*\(.*\)$/, "")
+    .trim()
+    .toLowerCase();
+const kFeatNajdi = n => (FEATY || []).find(f => f.en.toLowerCase() === kFeatJm(n) || String(f.cz || "").toLowerCase() === kFeatJm(n)) || null;
+const kFeatPlneHtml = f =>
+  `<details class="bjapd plne" open><summary>Plné znění featu <small>(vypravěčův překlad)</small></summary>${f.pred ? `<p class="rsmall"><i>Předpoklad: ${besc(f.pred)}</i></p>` : ""}${featyMd(f.t)}</details>`;
+function kFeatPlne(n) {
+  if (!featyMuze()) return "";
+  if (FEATY == null) {
+    featyNacti().then(j => {
+      const f = j && kFeatNajdi(n);
+      document.querySelectorAll("[data-kfplne]").forEach(el => {
+        if (f && el.dataset.kfplne === kFeatJm(n)) el.innerHTML = kFeatPlneHtml(f);
+      });
+    });
+    return `<div data-kfplne="${besc(kFeatJm(n))}"></div>`;
+  }
+  const f = kFeatNajdi(n);
+  return f ? kFeatPlneHtml(f) : "";
+}
+/* okno rysu: český text SRD (je-li rys v SRD), pod ním text z listu D&D Beyond; rys mimo SRD má vlastní shrnutí; feat i plné znění */
 function kRysPopis(K, n) {
   const T = KTX[K.id] || {},
     t = T[n],
@@ -134,7 +159,7 @@ function kRysPopis(K, n) {
   const telo = cz
     ? `<div class="kron">${cz}</div>${t ? `<details class="krpdf"><summary>Text z listu D&amp;D Beyond</summary>${pdf}</details>` : ""}`
     : pdf || `<p class="rsmall">${kMuze(K) ? "Popis z PDF tu zatím není – nahraj list znovu." : "Popis vidí jen hráč této postavy a vypravěč."}</p>`;
-  return `<div data-kid="${besc(K.id)}"><h3>${besc(n)}</h3>${telo}${s ? `<p><a class="gbtn ghost" href="#pravidla/${s[0]}/${s[1]}" data-mmpopx>${cz ? "Celá kapitola v Pravidlech →" : "Pravidla SRD česky →"}</a></p>` : MIMO ? mimoRysHtml(mimoNajdi(kCtx(K), n), kCtx(K)) : ""}</div>`;
+  return `<div data-kid="${besc(K.id)}"><h3>${besc(n)}</h3>${telo}${kFeatPlne(n)}${s ? `<p><a class="gbtn ghost" href="#pravidla/${s[0]}/${s[1]}" data-mmpopx>${cz ? "Celá kapitola v Pravidlech →" : "Pravidla SRD česky →"}</a></p>` : MIMO ? mimoRysHtml(mimoNajdi(kCtx(K), n), kCtx(K)) : ""}</div>`;
 }
 /* ---- čas aktivace a seznamy akcí ---- */
 const KCAS = {A: "Akce", BA: "Bonusové akce", R: "Reakce", X: "Ostatní"};
