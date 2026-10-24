@@ -5,7 +5,7 @@ uroven: zhoubce
 vyzva: 9 (5 000 XP)
 ac: 16
 hp: 138
-utok: Úder +10, 3d6+6 · krupobití kůry +10, 180 stop, 4d10+6 · oživí 2 stromy (1/den)
+utok: Úder +10, 3d6+6 · krupobití kůry +10, 180 stop, 4d10+6 · oživí 2 stromy (1/den) · chápavé kořeny (Bonusová akce)
 pozehnani: Zemi pod nepřáteli prorostou kořeny: tvorové do 15 stop hodí DEX save DC 18, jinak jsou Restrained.
 pokuseni: Zavrže a zamyslí se: jeden slot jen mluví – o čem, záleží na tom, kdo ho oslovil.
 nerest: Paměť – pamatuje pohanské bohy a nenávidí sekeru. Kdo mu donese obětinu Starým bohům, s tím mluví místo boje. Ctnosti: Respekt, Úcta k předkům. Neřest: Hamižnost (nedá z háje nic).
@@ -42,6 +42,10 @@ Posvátný dub Starých bohů, který po Noci Proměny procitl. Strážce háje,
 - **Krupobití kůry.** +10, dostřel 180 stop. **Zásah:** 4d10+6 Piercing.
 - **Oživit stromy (1/den).** Až dva stromy do 60 stop procitnou jako oživlé stromy (přidej soky) a jednají po něm.
 
+## Bonusová akce
+
+- **Chápavé kořeny.** Tvor velikosti Large nebo menší do 15 stop hodí STR save DC 18, jinak je přitažen o 10 stop a je Grappled (únik DC 16); na začátku každého svého tahu pak utrží 2d6+6 Bludgeoning.
+
 **Výkupné a kořist.** Žaludy, ze kterých vyroste háj. Kdo dub pokácí, porušil starověrskou svatyni – a má na krku Hazmburky i Krakonoše.
 
-*Předloha: Treant (D&D 2024), převedeno pro Mundus Mutatus.*
+*Předloha: Treant (D&D 2024); bonusová akce podle Tree Blight, převedeno pro Mundus Mutatus.*

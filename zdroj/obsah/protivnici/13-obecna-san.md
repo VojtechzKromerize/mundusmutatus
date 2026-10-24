@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 7 (2 900 XP)
 ac: 16 (přirozená)
 hp: 126
-utok: Kousnutí +8, 2d10+5 a drápy +8, 2d6+5 · ocas +8, dosah 15 stop, 1d8+5 a Prone (STR DC 16)
+utok: Kousnutí +8, 2d10+5 a drápy +8, 2d6+5 · ocas +8, dosah 15 stop, 1d8+5 a Prone (STR DC 16) · mávnutí křídel (Bonusová akce) · šlehnutí ocasem (Reakce)
 pozehnani: Kořist v drápech: po zásahu drápy cíl uchvátí a ihned vzlétne.
 pokuseni: Zaváhá a promluví. Pokud ji v tu chvíli někdo osloví, další slot nevyužije k útoku, ale k řeči.
 nerest: Hlad – nabídka dobytka (kráva za boj, Persuasion DC 12) ji přiměje odletět. Hladová jarní saň má nevýhodu, nasycená výhodu.
@@ -42,5 +42,13 @@ Nejběžnější drak Čech a Moravy. Bez ohně, bez jedu, jen dobře stavěné 
 - **Drápy.** +8, dosah 5 stop. **Zásah:** 2d6+5 Slashing.
 - **Ocas.** +8, dosah 15 stop. **Zásah:** 1d8+5 Bludgeoning a cíl je Prone (STR save DC 16).
 - **Vzlet s kořistí.** Uchvátí tvora velikosti Medium nebo menšího (Grappled, únik DC 16) a vzlétne s ním až o polovinu rychlosti letu.
+
+## Bonusová akce
+
+- **Mávnutí křídel (dobíjí se na 5–6).** Každý tvor do 10 stop hodí DEX save DC 16, jinak utrží 2d6+5 Bludgeoning a je Prone; saň pak vzlétne až o polovinu rychlosti letu.
+
+## Reakce
+
+- **Šlehnutí ocasem.** Když ji tvor do 15 stop zasáhne útokem zblízka, zaútočí na něj ocasem.
 
 **Kořist.** Žádná legální. Kdo divokou saň zabije, porušil zemský mír a zemská pokladna ho bude stíhat. Šupiny, krev a kosti na kušová lučiště lákají pytláky.

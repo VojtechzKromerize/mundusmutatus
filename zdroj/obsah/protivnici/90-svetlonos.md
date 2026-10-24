@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 3 (700 XP)
 ac: 13
 hp: 52
-utok: Hořící ruka +5, 2d6+3 Fire · oslnění (CON DC 12, Blinded) · nesení: odnese tvora rychle jako kůň
+utok: Hořící ruka +5, 2d6+3 Fire · oslnění (CON DC 12, Blinded) · nesení: odnese tvora rychle jako kůň · zhasnout (Bonusová akce)
 pozehnani: Vzplane: všichni do 10 stop utrží 2d6 Fire.
 pokuseni: Přejde přes mez: musí se v příštím slotu vrátit k mezníku.
 nerest: Dluh – za živa šidil sedláky na mezích. Kdo mu zaplatí modlitbou, s tím nebojuje.
@@ -41,6 +41,10 @@ Hořící muž, který chodí po mezích a doprovází zbloudilé. Za živa byl 
 - **Oslnění.** Tvor do 30 stop, který na něj hledí, hodí CON save DC 12, jinak je Blinded do konce svého příštího tahu.
 - **Nesení.** Vezme svolného nebo zmámeného tvora na záda a urazí s ním 120 stop; pak ho popálí podle zaplacené mzdy (0–3d6 Fire).
 
+## Bonusová akce
+
+- **Zhasnout.** Zhasne a ztratí se ve tmě: do začátku svého příštího tahu je Invisible, dokud nezaútočí.
+
 ## Relikt
 
 - **Znamení.** Hořící muž na mezi, za kterým zůstávají spálená stébla; pocestný s popálenými zády.
@@ -53,4 +57,4 @@ Hořící muž, který chodí po mezích a doprovází zbloudilé. Za živa byl 
 
 **Výkupné a kořist.** Zeměměřičský provázek a stará kniha mír. Pro spor o půdu cennější než zlato.
 
-*Předloha: lidová pověst; čísla podle Flaming Skeleton (D&D 2024), převedeno pro Mundus Mutatus.*
+*Předloha: lidová pověst; čísla podle Flaming Skeleton (D&D 2024); bonusová akce podle Will-o'-Wells, převedeno pro Mundus Mutatus.*

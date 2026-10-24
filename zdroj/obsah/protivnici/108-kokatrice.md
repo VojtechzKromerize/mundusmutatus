@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 1/2 (100 XP)
 ac: 11
 hp: 22
-utok: Zkameňující kousnutí +3, 1d4+1 Piercing · CON DC 11: Restrained, podruhé Petrified (24 hodin)
+utok: Zkameňující kousnutí +3, 1d4+1 Piercing · CON DC 11: Restrained, podruhé Petrified (24 hodin) · kohoutí skok (Reakce)
 pozehnani: Jed zabere hned: při neúspěchu je cíl rovnou Petrified.
 pokuseni: Uvidí se v lesklém štítu nebo v kaluži: sama hodí CON save DC 11, jinak je Restrained; podruhé zkamení.
 nerest: Kohoutí pýcha – na kohoutí zakokrhání (nebo napodobení, Performance DC 12) se zastaví a odpovídá; lasička ji zažene (Animal Handling DC 10, máš-li lasičku).
@@ -36,6 +36,10 @@ Had s kohoutí hlavou a křídly, vylíhlý z kohoutího vejce. Menší a hloup�
 
 - **Zkameňující kousnutí.** +3, dosah 5 stop. **Zásah:** 1d4+1 Piercing a cíl hodí CON save DC 11. Při prvním neúspěchu je Restrained; na konci svého příštího tahu hází znovu – při úspěchu účinek skončí, při druhém neúspěchu je 24 hodin Petrified.
 
+## Reakce
+
+- **Kohoutí skok.** Když ji zasáhne útok zblízka, vyskočí a odletí až o 10 stop, aniž by vyvolala Opportunity Attack.
+
 **Výkupné a kořist.** Zkamenělý se po 24 hodinách probere, pokud ho nikdo nerozbil. Vejce kokatrice koupí alchymista za 5 kop; hřebínek a jedový zub za 1 kopu. Kdo ji chytí živou (síť, pytel), má zbraň, kterou nikdo nechce mít v domě.
 
-*Předloha: Cockatrice (D&D 2024), převedeno pro Mundus Mutatus.*
+*Předloha: Cockatrice (D&D 2024); reakce podle Hippogriff (Průlet), převedeno pro Mundus Mutatus.*

@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 5 (1 800 XP)
 ac: 15
 hp: Starší 45, Prostřední 45, Nejmladší 45
-utok: Drápy +6, 2d6+3 · uspávání vyprávěním (WIS DC 14, Unconscious) · vyloupnutí očí spícímu (3d6 a trvale Blinded)
+utok: Drápy +6, 2d6+3 · uspávání vyprávěním (WIS DC 14, Unconscious) · vyloupnutí očí spícímu (3d6 a trvale Blinded) · sestry spolu (Reakce)
 pozehnani: Sestry se vystřídají: jedna z nich jedná v tomto slotu ještě jednou.
 pokuseni: Sestry se pohádají, čí jsou oči: příští slot neútočí.
 nerest: Chamtivost – každá chce oči pro sebe. Kdo je proti sobě poštve (Deception DC 14), ten má kolo klid.
@@ -42,6 +42,10 @@ Tři staré sestry v lesní chaloupce. Pocestného nakrmí, uspí vyprávěním 
 - **Drápy.** +6, dosah 5 stop. **Zásah:** 2d6+3 Slashing.
 - **Uspávání (2/den).** Každý, kdo je slyší do 30 stop, hodí WIS save DC 14, jinak je na minutu Unconscious (probudí ho zranění nebo jiný tvor akcí).
 - **Vyloupnutí očí.** +6 proti spícímu nebo Paralyzed tvoru do 5 stop. **Zásah:** 3d6 Slashing a cíl je trvale Blinded, dokud mu oči nevrátí.
+
+## Reakce
+
+- **Sestry spolu.** Když jedna sestra utrží zranění, jiná se přesune až o 15 stop k ní a sekne drápy útočníka.
 
 ## Relikt
 

@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 3 (700 XP)
 ac: 13
 hp: 58
-utok: Vousy +5, 1d8+3 a Poisoned · pekelné vidle +5, dosah 10 stop, 1d10+3 a pekelná rána (CON DC 12, 1d10 každý tah)
+utok: Vousy +5, 1d8+3 a Poisoned · pekelné vidle +5, dosah 10 stop, 1d10+3 a pekelná rána (CON DC 12, 1d10 každý tah) · posměšek (Bonusová akce)
 pozehnani: Nabídne smlouvu: cíl, který slyší, může přijmout Pokušení – za bod hříchu získá 2d10 dočasných HP.
 pokuseni: Zazvoní zvon nebo zakokrhá kohout: musí v příštím slotu couvnout o 30 stop.
 nerest: Smlouvání – čert musí dodržet uzavřenou smlouvu do písmene. Kdo ho přechytračí (Deception či Persuasion DC 14), ten ho zažene bez boje.
@@ -39,6 +39,10 @@ Rohatý pekelník s kozí bradkou, ocasem a vidlemi. Po Noci Proměny chodí po 
 - **Vousy.** +5, dosah 5 stop. **Zásah:** 1d8+3 Piercing; cíl je do začátku čertova příštího tahu Poisoned a nemůže se léčit.
 - **Pekelné vidle.** +5, dosah 10 stop. **Zásah:** 1d10+3 Slashing; cíl bez pekelné rány hodí CON save DC 12, jinak ztrácí 1d10 HP na začátku každého svého tahu. Rána se zavře po minutě, léčivým kouzlem nebo ošetřením (akce, Medicine DC 12).
 
+## Bonusová akce
+
+- **Posměšek.** Tvor do 30 stop, který ho slyší, hodí WIS save DC 12, jinak má do konce svého příštího tahu nevýhodu na útoky proti komukoli jinému než čertovi.
+
 **Výkupné a kořist.** Smlouvy podepsané krví, které čert nosí za pasem. Ne všechny jsou na cizí jména.
 
-*Předloha: Bearded Devil (D&D 2024), převedeno pro Mundus Mutatus.*
+*Předloha: Bearded Devil (D&D 2024); bonusová akce podle Bard, převedeno pro Mundus Mutatus.*

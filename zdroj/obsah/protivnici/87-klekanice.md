@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 3 (700 XP)
 ac: 13
 hp: 49
-utok: Studená ruka +5, 2d6+3 Necrotic a Grappled · hlas matky (WIS DC 13, Charmed, jde k ní) · ztracení (dítě zmizí)
+utok: Studená ruka +5, 2d6+3 Necrotic a Grappled · hlas matky (WIS DC 13, Charmed, jde k ní) · ztracení (dítě zmizí) · do mlhy (Reakce)
 pozehnani: Hlas matky se dobije: zmámený cíl jde k ní ještě v tomto kole.
 pokuseni: Na prahu je rozsypaný mák: příští slot počítá zrnka.
 nerest: Mateřský žal – hledá své dítě. Kdo jí přinese dětskou věc z vesnice, toho nechá být.
@@ -40,6 +40,10 @@ Hubená žena v šedém, která chodí po návsi po večerním zvonění. Volá 
 - **Hlas matky.** Tvor do 60 stop, který ji slyší, hodí WIS save DC 13, jinak je Charmed a v příštím tahu jde k ní; dítě má na záchranu nevýhodu.
 - **Ztracení.** Odnese tvora, kterého drží, a zmizí s ním do mlhy; vrátí se s ním za čtvrt hodiny (o rok starším), nebo vůbec.
 
+## Reakce
+
+- **Do mlhy.** Když ji zasáhne útok, rozplyne se v mlze a objeví se až o 30 stop dál na místě, které vidí – ne na posvěcené půdě. Tvorové do 5 stop od místa, kde stála, jsou do konce jejího příštího tahu Blinded mlhou.
+
 ## Relikt
 
 - **Znamení.** Po klekání skřípe závora, i když nikdo nejde; v trávě otisky bosých dětských nohou vedoucí ven z vesnice.
@@ -52,4 +56,4 @@ Hubená žena v šedém, která chodí po návsi po večerním zvonění. Volá 
 
 **Výkupné a kořist.** Dětské hračky a šátky schované v dutém stromě za vsí – a jména dětí, které se nevrátily.
 
-*Předloha: lidová pověst; čísla podle Sea Hag a Ghost (D&D 2024), převedeno pro Mundus Mutatus.*
+*Předloha: lidová pověst; čísla podle Sea Hag a Ghost (D&D 2024); reakce podle Mummy Lord, převedeno pro Mundus Mutatus.*

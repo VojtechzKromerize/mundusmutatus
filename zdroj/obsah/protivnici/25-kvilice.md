@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 4 (1 100 XP)
 ac: 12
 hp: 54
-utok: Dva zkažené doteky +5, 1d8+3 Prokleté a vyděšení (WIS DC 13) · kvílení 1/den: CON DC 13, do 25 HP = 0 HP, jinak 3d6 Psychic
+utok: Dva zkažené doteky +5, 1d8+3 Prokleté a vyděšení (WIS DC 13) · kvílení 1/den: CON DC 13, do 25 HP = 0 HP, jinak 3d6 Psychic · poslední vzlyk (Reakce)
 pozehnani: Kvílení se obnoví (může znovu, ne na slunci).
 pokuseni: Zahlédne v někom z družiny svého milého: jeden slot jen kvílí bez účinku.
 nerest: Žal – kdo jí vrátí, co ztratila (jméno, šátek, kosti dítěte), toho nechá být.
@@ -41,6 +41,10 @@ Duch ženy, která zemřela v žalu, nejčastěji u vody. Elfští Proměněnci 
 - **Zkažený dotek.** +5, dosah 5 stop. **Zásah:** 1d8+3 Prokleté (Necrotic).
 - **Vyděsit.** Tvor do 60 stop, který ji vidí, hodí WIS save DC 13, jinak je Frightened do začátku jejího příštího tahu; úspěch = na den imunní.
 - **Smrtelné kvílení (1/den, ne na slunci).** Každý živý tvor do 30 stop, který ji slyší, hodí CON save DC 13: kdo neuspěje a má 25 HP a méně, klesne na 0 HP; ostatní utrží 3d6 Psychic.
+
+## Reakce
+
+- **Poslední vzlyk.** Když tvor do 30 stop klesne na 0 HP, zakvílí nad ním: každý nepřítel do 30 stop, který ji slyší, hodí WIS save DC 13, jinak je Frightened do konce svého příštího tahu.
 
 **Výkupné a kořist.** Šátek, hřeben nebo kosti, které hledá. Kdo je pohřbí, ten ji vysvobodí.
 

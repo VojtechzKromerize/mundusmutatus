@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 4 (1 100 XP)
 ac: 18 (kyrys a pavéza)
 hp: 75
-utok: Dva útoky: dlouhý meč +6, 2d10+4, nebo sulice +6, 30/120 stop, 3d6+4
+utok: Dva útoky: dlouhý meč +6, 2d10+4, nebo sulice +6, 30/120 stop, 3d6+4 · rozkaz (Bonusová akce) · kryt (Reakce)
 pozehnani: Zavolá biřice: k houfu biřiců se přidají dva pacholci.
 pokuseni: Městská rada ho odvolá: příští slot váhá, jestli je tohle ještě jeho věc.
 nerest: Poctivost a Pýcha – slouží zákonu a městu. Kdo předloží list s pečetí (nebo Deception DC 15), s tím jedná. Úplatek ho urazí.
@@ -39,6 +39,14 @@ Velitel městských biřiců a strážných, který drží pořádek na rynku, u
 - **Dlouhý meč.** +6, dosah 5 stop. **Zásah:** 2d10+4 Slashing.
 - **Sulice.** +6, dosah 5 stop nebo dostřel 30/120 stop. **Zásah:** 3d6+4 Piercing.
 
+## Bonusová akce
+
+- **Rozkaz.** Jeden spojenec do 30 stop, který ho vidí a slyší, reakcí zaútočí zbraní s výhodou.
+
+## Reakce
+
+- **Kryt.** Když ho zasáhne útok zblízka a drží meč, přičte si k AC 2 – útok může minout.
+
 **Výkupné a kořist.** Klíče od bran a vězení. Zabití hejtmana stráže město nezapomene.
 
-*Předloha: Guard Captain (D&D 2024), převedeno pro Mundus Mutatus.*
+*Předloha: Guard Captain (D&D 2024); bonusová akce podle Warlord, reakce podle Guard Captain, převedeno pro Mundus Mutatus.*

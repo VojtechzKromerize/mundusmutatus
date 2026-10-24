@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 2 (450 XP)
 ac: 13
 hp: 36
-utok: Kousnutí +5, 1d8+3 a 2d8 Prokleté · drápy +5, 2d6+3, Paralyzed (CON DC 10)
+utok: Kousnutí +5, 1d8+3 a 2d8 Prokleté · drápy +5, 2d6+3, Paralyzed (CON DC 10) · hrůzná nekróza (Bonusová akce)
 pozehnani: Ze země vylezou další dva mrchožrouti a přidají se k jeho houfu.
 pokuseni: Zahlédne čerstvou mrtvolu: v příštím slotu jde žrát, místo aby útočil.
 nerest: Obžerství – kdo mu hodí mršinu nebo čerstvé maso, získá jeden slot klidu (Animal Handling nebo Deception DC 12).
@@ -38,6 +38,10 @@ Vůdce mrchožroutů. Páchne tak, že se člověku zvedá žaludek už na pět 
 - **Kousnutí.** +5, dosah 5 stop. **Zásah:** 1d8+3 Piercing a 2d8 Prokleté (Necrotic).
 - **Drápy.** +5, dosah 5 stop. **Zásah:** 2d6+3 Slashing; cíl, který není nemrtvý, hodí CON save DC 10, jinak je Paralyzed do konce svého příštího tahu.
 
+## Bonusová akce
+
+- **Hrůzná nekróza (dobíjí se na 5–6).** +5, dosah 5 stop nebo dostřel 120 stop. Zásah: 2d10+3 Prokleté (Necrotic) a cíl je Frightened do konce svého příštího tahu.
+
 **Výkupné a kořist.** Hrobníkův klíč od márnice a seznam mrtvých, kteří v jámě nejsou.
 
-*Předloha: Ghast (D&D 2024), převedeno pro Mundus Mutatus.*
+*Předloha: Ghast (D&D 2024); bonusová akce podle Ghast Gravecaller, převedeno pro Mundus Mutatus.*

@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 1 (200 XP)
 ac: 11
 hp: 27
-utok: Děsivý dráp +3, 2d4+1 a Frightened · děsivý pohled (WIS DC 11): Frightened a Paralyzed
+utok: Děsivý dráp +3, 2d4+1 a Frightened · děsivý pohled (WIS DC 11): Frightened a Paralyzed · krákorání (Bonusová akce)
 pozehnani: Pohled zasáhne dva cíle.
 pokuseni: Vítr ho otočí: jeden slot stojí zády.
 nerest: Oheň – strašák se bojí ohně víc než čehokoli. Pochodeň ho zažene (Intimidation s ohněm DC 10).
@@ -32,6 +32,10 @@ Panák ze slámy a hadrů, do kterého čarodějnice zaklela něčí zlost. Stoj
 
 - **Děsivý dráp.** +3, dosah 5 stop. **Zásah:** 2d4+1 Slashing a cíl je Frightened do konce strašákova příštího tahu.
 - **Děsivý pohled.** Tvor do 30 stop hodí WIS save DC 11, jinak je Frightened do konce strašákova příštího tahu a po tu dobu Paralyzed.
+
+## Bonusová akce
+
+- **Krákorání.** Zakráká na pole: houf krkavců v doslechu zaútočí na tvora, kterého strašák vyděsil.
 
 **Výkupné a kořist.** Uvnitř slámy uzlík s vlasy a jménem. Ten, kdo ho zaklel, je blízko.
 

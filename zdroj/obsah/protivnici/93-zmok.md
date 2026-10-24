@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 4 (1 100 XP)
 ac: 14
 hp: 60
-utok: Ohnivý zobák +6, 2d6+4 Fire · plamenná stopa (DEX DC 13, 4d6 Fire, přímka) · proměna v kohouta, kočku nebo ohnivého ptáka
+utok: Ohnivý zobák +6, 2d6+4 Fire · plamenná stopa (DEX DC 13, 4d6 Fire, přímka) · proměna v kohouta, kočku nebo ohnivého ptáka · komínem pryč (Reakce)
 pozehnani: Proletí komínem a podpálí střechu: dům hoří.
 pokuseni: Zahlédne smaženici: příští slot žere.
 nerest: Hlad – musí být nakrmen každou noc. Kdo mu dá smaženici, tomu chvíli slouží.
@@ -39,6 +39,10 @@ Ohnivý pták, který nosí svému pánovi peníze a obilí. Krmit se musí kaž
 
 - **Ohnivý zobák.** +6, dosah 5 stop. **Zásah:** 2d6+4 Fire.
 - **Plamenná stopa (2/den).** Při průletu: přímka 60 stop × 5 stop, DEX save DC 13, neúspěch 4d6 Fire, úspěch polovina.
+
+## Reakce
+
+- **Komínem pryč.** Když klesne pod polovinu HP, vyletí až o 60 stop, aniž by vyvolal Opportunity Attack – nejraději do komína.
 
 ## Relikt
 

@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 1 (200 XP)
 ac: 11
 hp: 22
-utok: Kousnutí +5, 1d8+3 a drápy +5, 1d4+3, cíl Large a menší padá Prone
+utok: Kousnutí +5, 1d8+3 a drápy +5, 1d4+3, cíl Large a menší padá Prone · vztyčit se a zařvat (Bonusová akce)
 pozehnani: Strhne cíl k zemi a postaví se nad něj: další útok proti ležícímu má s výhodou.
 pokuseni: Zaváhá a zařve: jeden slot jen hrozí a ustoupí o 10 stop.
 nerest: Hlad – na jaře a s mláďaty je zuřivý, jinak se dá zahnat ohněm a hlukem (Intimidation DC 12).
@@ -33,6 +33,10 @@ Medvěd z hlubokých hvozdů. Obyčejný medvěd je pro zkušenou družinu snadn
 - **Kousnutí a drápy.** Jednou kousne a jednou sekne.
 - **Kousnutí.** +5, dosah 5 stop. **Zásah:** 1d8+3 Piercing.
 - **Drápy.** +5, dosah 5 stop. **Zásah:** 1d4+3 Slashing a cíl velikosti Large a menší je Prone.
+
+## Bonusová akce
+
+- **Vztyčit se a zařvat (1/boj).** Postaví se na zadní: každý tvor do 30 stop, který ho vidí, hodí WIS save DC 11, jinak je Frightened do konce svého příštího tahu; koně se plaší.
 
 **Výkupné a kořist.** Kůže, sádlo na léky a tlapy pro panský stůl.
 
