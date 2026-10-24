@@ -67,8 +67,8 @@ POV = {"Absorb Elements": [Dr, H, C, Ko], "Ceremony": [K_, Pa], "Snare": [Dr, H,
  "Create Spelljamming Helm": [Ko], "Temporal Shunt": [Ko], "Transmute Rock": [Dr, Ko], "Create Homunculus": [Ko],
  "Tasha's Otherworldly Guise": [C, Ce, Ko], "Create Magen": [Ko], "Draconic Transformation": [Dr, C, Ko]}
 
-SKOLY = {"Abjuration": "Abjurace", "Conjuration": "Vyvolávání", "Divination": "Věštění", "Enchantment": "Očarování",
-         "Evocation": "Evokace", "Illusion": "Iluze", "Necromancy": "Nekromancie", "Transmutation": "Přeměna"}
+SKOLY = {"Abjuration": "Ochranná magie", "Conjuration": "Vyvolávání", "Divination": "Věštění", "Enchantment": "Očarování",
+         "Evocation": "Zaklínání", "Illusion": "Iluze", "Necromancy": "Nekromancie", "Transmutation": "Transmutace"}
 
 # ---- sjednocení výrazů s webem ----
 TYPY = [("kyselinov", "Acid"), ("chladn", "Cold"), ("ohniv", "Fire"), ("silov", "Force"), ("bleskov", "Lightning"), ("nekrotick", "Necrotic"),

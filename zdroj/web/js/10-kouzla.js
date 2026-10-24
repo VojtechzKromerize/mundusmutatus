@@ -160,7 +160,7 @@ const kzMd = t =>
       return a;
     }, [])
     .join("");
-const KZSK = ["Abjurace", "Vyvolávání", "Věštění", "Očarování", "Evokace", "Iluze", "Nekromancie", "Přeměna"],
+const KZSK = ["Ochranná magie", "Vyvolávání", "Věštění", "Očarování", "Zaklínání", "Iluze", "Nekromancie", "Transmutace"],
   KZPOV = ["Bard", "Klerik", "Druid", "Paladin", "Hraničář", "Čaroděj", "Černokněžník", "Kouzelník"];
 function kzKarta(x, pop) {
   return `<article class="kzkarta">${pop ? `<button type="button" class="kzx" data-kzzavri aria-label="Zavřít">×</button>` : ""}
@@ -179,7 +179,7 @@ function kzKarta(x, pop) {
 const KZK = ["V", "S", "M"];
 function kzForm(x) {
   const n = !x;
-  x = x || {en: "", cz: "", l: 1, s: "Evokace", p: [], ct: "Akce", r: "", k: ["V", "S"], m: "", d: "Okamžité", ko: 0, ri: 0, t: "", v: ""};
+  x = x || {en: "", cz: "", l: 1, s: "Zaklínání", p: [], ct: "Akce", r: "", k: ["V", "S"], m: "", d: "Okamžité", ko: 0, ri: 0, t: "", v: ""};
   const inp = (k, l, ph) =>
     `<label class="kzfl"><span>${l}</span><input name="${k}" value="${kzE(x[k])}"${ph ? ` placeholder="${ph}"` : ""}></label>`;
   return `<form class="kzkarta kzform" data-kzid="${n ? "" : kzE(x.i)}"><h3>${n ? "Nové vlastní kouzlo" : "Upravit kouzlo"}</h3>

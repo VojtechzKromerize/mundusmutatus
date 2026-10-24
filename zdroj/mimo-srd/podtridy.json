@@ -2525,15 +2525,15 @@
  {
   "id": "abjurer",
   "en": "School of Abjuration",
-  "cz": "Škola abjurace",
+  "cz": "Škola ochranné magie",
   "tr": "Wizard",
   "t": "Kouzelník ochranné magie: magický štít, rušení kouzel a odolnost vůči magii.",
   "rysy": [
    {
     "en": "Abjuration Savant",
-    "cz": "Znalec abjurace",
+    "cz": "Znalec ochranné magie",
     "u": 3,
-    "t": "Zdarma si do knihy kouzel zapíšeš dvě kouzla kouzelníka školy Abjurace nejvýš 2. úrovně. Při každém získání nové úrovně slotů si zdarma zapíšeš další kouzlo Abjurace úrovně, na kterou máš sloty."
+    "t": "Zdarma si do knihy kouzel zapíšeš dvě kouzla kouzelníka školy ochranné magie nejvýš 2. úrovně. Při každém získání nové úrovně slotů si zdarma zapíšeš další kouzlo ochranné magie úrovně, na kterou máš sloty."
    },
    {
     "en": "Arcane Ward",
@@ -2541,7 +2541,7 @@
     "u": 3,
     "pocet": 1,
     "obn": "dlouhý odpočinek",
-    "t": "Při seslání kouzla Abjurace slotem si vytvoříš štít s max. HP = 2× úroveň kouzelníka + INT (trvá do dlouhého odpočinku, 1× za něj). Zranění jde nejdřív do štítu (po uplatnění tvých Resistance/Vulnerability), přebytek utrpíš ty. Každé kouzlo Abjurace slotem štít doplní o 2× úroveň slotu; totéž Bonusovou akcí za utracený slot."
+    "t": "Při seslání kouzla ochranné magie slotem si vytvoříš štít s max. HP = 2× úroveň kouzelníka + INT (trvá do dlouhého odpočinku, 1× za něj). Zranění jde nejdřív do štítu (po uplatnění tvých Resistance/Vulnerability), přebytek utrpíš ty. Každé kouzlo ochranné magie slotem štít doplní o 2× úroveň slotu; totéž Bonusovou akcí za utracený slot."
    },
    {
     "en": "Projected Ward",

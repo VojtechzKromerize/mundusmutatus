@@ -189,11 +189,11 @@ Tento oddíl uvádí seznam kouzel Paladina. Kouzla jsou seřazena podle úrovn�
 | Detect Evil and Good | Věštění (Divination) | C |
 | Detect Magic | Věštění (Divination) | C, R |
 | Detect Poison and Disease | Věštění (Divination) | C, R |
-| Divine Favor | Přeměna (Transmutation) | — |
+| Divine Favor | Transmutace (Transmutation) | — |
 | Divine Smite | Zaklínání (Evocation) | — |
 | Heroism | Očarování (Enchantment) | C |
 | Protection from Evil and Good | Ochrana (Abjuration) | C, M |
-| Purify Food and Drink | Přeměna (Transmutation) | R |
+| Purify Food and Drink | Transmutace (Transmutation) | R |
 | Searing Smite | Zaklínání (Evocation) | — |
 | Shield of Faith | Ochrana (Abjuration) | C |
 
@@ -206,10 +206,10 @@ Tento oddíl uvádí seznam kouzel Paladina. Kouzla jsou seřazena podle úrovn�
 | Gentle Repose | Nekromancie (Necromancy) | R, M |
 | Lesser Restoration | Ochrana (Abjuration) | — |
 | Locate Object | Věštění (Divination) | C |
-| Magic Weapon | Přeměna (Transmutation) | — |
+| Magic Weapon | Transmutace (Transmutation) | — |
 | Prayer of Healing | Ochrana (Abjuration) | — |
 | Protection from Poison | Ochrana (Abjuration) | — |
-| Shining Smite | Přeměna (Transmutation) | C |
+| Shining Smite | Transmutace (Transmutation) | C |
 | Warding Bond | Ochrana (Abjuration) | M |
 | Zone of Truth | Očarování (Enchantment) | — |
 

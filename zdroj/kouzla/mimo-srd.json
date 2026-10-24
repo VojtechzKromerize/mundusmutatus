@@ -4,7 +4,7 @@
   "en": "Blade Ward",
   "cz": "Odvrácení čepelí",
   "l": 0,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "p": [
    "Bard",
    "Čaroděj",
@@ -80,7 +80,7 @@
   "en": "Thorn Whip",
   "cz": "Trnitý bič",
   "l": 0,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "p": [
    "Druid"
   ],
@@ -104,7 +104,7 @@
   "en": "Thunderclap",
   "cz": "Hromové tlesknutí",
   "l": 0,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "p": [
    "Bard",
    "Druid",
@@ -155,7 +155,7 @@
   "en": "Armor of Agathys",
   "cz": "Agathysina zbroj",
   "l": 1,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "p": [
    "Černokněžník"
   ],
@@ -246,7 +246,7 @@
   "en": "Thunderous Smite",
   "cz": "Hromový úder",
   "l": 1,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "p": [
    "Paladin"
   ],
@@ -268,7 +268,7 @@
   "en": "Witch Bolt",
   "cz": "Čarodějný blesk",
   "l": 1,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "p": [
    "Čaroděj",
    "Černokněžník",
@@ -316,7 +316,7 @@
   "en": "Arcane Vigor",
   "cz": "Arkánní vitalita",
   "l": 2,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "p": [
    "Čaroděj",
    "Kouzelník"
@@ -390,7 +390,7 @@
   "en": "Cordon of Arrows",
   "cz": "Hradba šípů",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "p": [
    "Hraničář"
   ],
@@ -440,7 +440,7 @@
   "en": "Earthbind",
   "cz": "Přikování k zemi",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "p": [
    "Druid",
    "Čaroděj",
@@ -539,7 +539,7 @@
   "en": "Skywrite",
   "cz": "Nebeské písmo",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "p": [
    "Bard",
    "Druid",
@@ -640,7 +640,7 @@
   "en": "Aura of Vitality",
   "cz": "Aura života",
   "l": 3,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "p": [
    "Klerik",
    "Druid",
@@ -713,7 +713,7 @@
   "en": "Elemental Weapon",
   "cz": "Živelná zbraň",
   "l": 3,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "p": [
    "Druid",
    "Paladin",
@@ -764,7 +764,7 @@
   "en": "Erupting Earth",
   "cz": "Vzedmutá zem",
   "l": 3,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "p": [
    "Druid",
    "Čaroděj",
@@ -865,7 +865,7 @@
   "en": "Intellect Fortress",
   "cz": "Pevnost mysli",
   "l": 3,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "p": [
    "Bard",
    "Čaroděj",
@@ -1039,7 +1039,7 @@
   "en": "Tiny Servant",
   "cz": "Drobný služebník",
   "l": 3,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "p": [
    "Kouzelník"
   ],
@@ -1062,7 +1062,7 @@
   "en": "Wall of Sand",
   "cz": "Písečná stěna",
   "l": 3,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "p": [
    "Kouzelník"
   ],
@@ -1086,7 +1086,7 @@
   "en": "Wall of Water",
   "cz": "Vodní stěna",
   "l": 3,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "p": [
    "Druid",
    "Čaroděj",
@@ -1112,7 +1112,7 @@
   "en": "Aura of Purity",
   "cz": "Aura čistoty",
   "l": 4,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "p": [
    "Klerik",
    "Paladin"
@@ -1135,7 +1135,7 @@
   "en": "Elemental Bane",
   "cz": "Živelná zhouba",
   "l": 4,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "p": [
    "Druid",
    "Černokněžník",
@@ -1160,7 +1160,7 @@
   "en": "Fount of Moonlight",
   "cz": "Pramen měsíčního svitu",
   "l": 4,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "p": [
    "Bard",
    "Druid"
@@ -1208,7 +1208,7 @@
   "en": "Sickening Radiance",
   "cz": "Chorobná záře",
   "l": 4,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "p": [
    "Čaroděj",
    "Černokněžník",
@@ -1233,7 +1233,7 @@
   "en": "Storm Sphere",
   "cz": "Bouřná koule",
   "l": 4,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "p": [
    "Čaroděj",
    "Kouzelník"
@@ -1380,7 +1380,7 @@
   "en": "Circle of Power",
   "cz": "Kruh moci",
   "l": 5,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "p": [
    "Klerik",
    "Paladin",
@@ -1404,7 +1404,7 @@
   "en": "Control Winds",
   "cz": "Vláda nad větry",
   "l": 5,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "p": [
    "Druid",
    "Čaroděj",
@@ -1429,7 +1429,7 @@
   "en": "Dawn",
   "cz": "Úsvit",
   "l": 5,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "p": [
    "Klerik",
    "Kouzelník"
@@ -1454,7 +1454,7 @@
   "en": "Destructive Wave",
   "cz": "Ničivá vlna",
   "l": 5,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "p": [
    "Klerik",
    "Paladin"
@@ -1477,7 +1477,7 @@
   "en": "Holy Weapon",
   "cz": "Svatá zbraň",
   "l": 5,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "p": [
    "Klerik",
    "Paladin"
@@ -1501,7 +1501,7 @@
   "en": "Immovable Object",
   "cz": "Nehybný předmět",
   "l": 5,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "p": [
    "Kouzelník"
   ],
@@ -1550,7 +1550,7 @@
   "en": "Maelstrom",
   "cz": "Vír",
   "l": 5,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "p": [
    "Druid"
   ],
@@ -1598,7 +1598,7 @@
   "en": "Skill Empowerment",
   "cz": "Posílení dovednosti",
   "l": 5,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "p": [
    "Bard",
    "Čaroděj",
@@ -1672,7 +1672,7 @@
   "en": "Swift Quiver",
   "cz": "Neúnavný toulec",
   "l": 5,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "p": [
    "Hraničář"
   ],
@@ -1722,7 +1722,7 @@
   "en": "Wall of Light",
   "cz": "Světelná stěna",
   "l": 5,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "p": [
    "Čaroděj",
    "Černokněžník",
@@ -1748,7 +1748,7 @@
   "en": "Wrath of Nature",
   "cz": "Hněv přírody",
   "l": 5,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "p": [
    "Druid",
    "Hraničář"
@@ -1797,7 +1797,7 @@
   "en": "Bones of the Earth",
   "cz": "Kosti země",
   "l": 6,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "p": [
    "Druid"
   ],
@@ -1820,7 +1820,7 @@
   "en": "Investiture of Flame",
   "cz": "Plamenný šat",
   "l": 6,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "p": [
    "Druid",
    "Čaroděj",
@@ -1846,7 +1846,7 @@
   "en": "Investiture of Ice",
   "cz": "Ledový šat",
   "l": 6,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "p": [
    "Druid",
    "Čaroděj",
@@ -1872,7 +1872,7 @@
   "en": "Investiture of Stone",
   "cz": "Kamenné roucho",
   "l": 6,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "p": [
    "Druid",
    "Čaroděj",
@@ -1898,7 +1898,7 @@
   "en": "Investiture of Wind",
   "cz": "Větrný šat",
   "l": 6,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "p": [
    "Druid",
    "Čaroděj",
@@ -1924,7 +1924,7 @@
   "en": "Jallarzi's Storm of Radiance",
   "cz": "Jallarzina bouře záře",
   "l": 6,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "p": [
    "Černokněžník",
    "Kouzelník"
@@ -2046,7 +2046,7 @@
   "en": "Tenser's Transformation",
   "cz": "Tenserova proměna",
   "l": 6,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "p": [
    "Kouzelník"
   ],
@@ -2070,7 +2070,7 @@
   "en": "Crown of Stars",
   "cz": "Hvězdná koruna",
   "l": 7,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "p": [
    "Čaroděj",
    "Černokněžník",
@@ -2118,7 +2118,7 @@
   "en": "Whirlwind",
   "cz": "Vichřice",
   "l": 7,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "p": [
    "Druid",
    "Čaroděj",
@@ -2190,7 +2190,7 @@
   "en": "Maddening Darkness",
   "cz": "Šílivá tma",
   "l": 8,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "p": [
    "Černokněžník",
    "Kouzelník"
@@ -2263,7 +2263,7 @@
   "en": "Invulnerability",
   "cz": "Nezranitelnost",
   "l": 9,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "p": [
    "Kouzelník"
   ],
@@ -2287,7 +2287,7 @@
   "en": "Mass Polymorph",
   "cz": "Hromadná proměna",
   "l": 9,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "p": [
    "Bard",
    "Čaroděj",

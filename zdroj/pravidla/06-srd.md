@@ -64,14 +64,14 @@ Každé kouzlo patří do určité školy magie. Školy jsou uvedeny v tabulce �
 
 | Škola | Typické účinky |
 |---|---|
-| Abjuration (Odvrácení) | Brání škodlivým účinkům nebo je ruší |
+| Abjuration (Ochranná magie) | Brání škodlivým účinkům nebo je ruší |
 | Conjuration (Vyvolávání) | Přenáší tvory nebo předměty |
 | Divination (Věštění) | Odhaluje informace |
 | Enchantment (Očarování) | Ovlivňuje mysl |
 | Evocation (Zaklínání) | Usměrňuje energii k vytváření účinků, které jsou často ničivé |
 | Illusion (Iluze) | Klame mysl nebo smysly |
 | Necromancy (Nekromancie) | Manipuluje životem a smrtí |
-| Transmutation (Přeměna) | Přeměňuje tvory nebo předměty |
+| Transmutation (Transmutace) | Přeměňuje tvory nebo předměty |
 
 #### Seznamy kouzel povolání
 

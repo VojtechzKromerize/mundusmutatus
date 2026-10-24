@@ -159,11 +159,11 @@ Tento oddíl uvádí seznam kouzel povolání Cleric. Kouzla jsou seřazena podl
 |---|---|---|
 | Guidance | Věštění | C |
 | Light | Zaklínání | — |
-| Mending | Přeměna | — |
-| Resistance | Odvrácení | C |
+| Mending | Transmutace | — |
+| Resistance | Ochranná magie | C |
 | Sacred Flame | Zaklínání | — |
 | Spare the Dying | Nekromancie | — |
-| Thaumaturgy | Přeměna | — |
+| Thaumaturgy | Transmutace | — |
 
 #### Kouzla 1. úrovně povolání Cleric
 
@@ -172,39 +172,39 @@ Tento oddíl uvádí seznam kouzel povolání Cleric. Kouzla jsou seřazena podl
 | Bane | Očarování | C |
 | Bless | Očarování | C, M |
 | Command | Očarování | — |
-| Create or Destroy Water | Přeměna | — |
-| Cure Wounds | Odvrácení | — |
+| Create or Destroy Water | Transmutace | — |
+| Cure Wounds | Ochranná magie | — |
 | Detect Evil and Good | Věštění | C |
 | Detect Magic | Věštění | C, R |
 | Detect Poison and Disease | Věštění | C, R |
 | Guiding Bolt | Zaklínání | — |
-| Healing Word | Odvrácení | — |
+| Healing Word | Ochranná magie | — |
 | Inflict Wounds | Nekromancie | — |
-| Protection from Evil and Good | Odvrácení | C, M |
-| Purify Food and Drink | Přeměna | R |
-| Sanctuary | Odvrácení | — |
-| Shield of Faith | Odvrácení | C |
+| Protection from Evil and Good | Ochranná magie | C, M |
+| Purify Food and Drink | Transmutace | R |
+| Sanctuary | Ochranná magie | — |
+| Shield of Faith | Ochranná magie | C |
 
 #### Kouzla 2. úrovně povolání Cleric
 
 | Kouzlo | Škola | Zvláštní |
 |---|---|---|
-| Aid | Odvrácení | — |
+| Aid | Ochranná magie | — |
 | Augury | Věštění | R, M |
-| Blindness/Deafness | Přeměna | — |
+| Blindness/Deafness | Transmutace | — |
 | Calm Emotions | Očarování | C |
 | Continual Flame | Zaklínání | M |
-| Enhance Ability | Přeměna | C |
+| Enhance Ability | Transmutace | C |
 | Find Traps | Věštění | — |
 | Gentle Repose | Nekromancie | R, M |
 | Hold Person | Očarování | C |
-| Lesser Restoration | Odvrácení | — |
+| Lesser Restoration | Ochranná magie | — |
 | Locate Object | Věštění | C |
-| Prayer of Healing | Odvrácení | — |
-| Protection from Poison | Odvrácení | — |
+| Prayer of Healing | Ochranná magie | — |
+| Protection from Poison | Ochranná magie | — |
 | Silence | Iluze | C, R |
 | Spiritual Weapon | Zaklínání | C |
-| Warding Bond | Odvrácení | M |
+| Warding Bond | Ochranná magie | M |
 | Zone of Truth | Očarování | — |
 
 #### Kouzla 3. úrovně povolání Cleric
@@ -212,38 +212,38 @@ Tento oddíl uvádí seznam kouzel povolání Cleric. Kouzla jsou seřazena podl
 | Kouzlo | Škola | Zvláštní |
 |---|---|---|
 | Animate Dead | Nekromancie | — |
-| Beacon of Hope | Odvrácení | C |
+| Beacon of Hope | Ochranná magie | C |
 | Bestow Curse | Nekromancie | C |
 | Clairvoyance | Věštění | C, M |
 | Create Food and Water | Vyvolávání | — |
 | Daylight | Zaklínání | — |
-| Dispel Magic | Odvrácení | — |
-| Glyph of Warding | Odvrácení | M |
-| Magic Circle | Odvrácení | M |
-| Mass Healing Word | Odvrácení | — |
-| Meld into Stone | Přeměna | R |
-| Protection from Energy | Odvrácení | C |
-| Remove Curse | Odvrácení | — |
+| Dispel Magic | Ochranná magie | — |
+| Glyph of Warding | Ochranná magie | M |
+| Magic Circle | Ochranná magie | M |
+| Mass Healing Word | Ochranná magie | — |
+| Meld into Stone | Transmutace | R |
+| Protection from Energy | Ochranná magie | C |
+| Remove Curse | Ochranná magie | — |
 | Revivify | Nekromancie | M |
 | Sending | Věštění | — |
 | Speak with Dead | Nekromancie | — |
 | Spirit Guardians | Vyvolávání | C |
 | Tongues | Věštění | — |
-| Water Walk | Přeměna | R |
+| Water Walk | Transmutace | R |
 
 #### Kouzla 4. úrovně povolání Cleric
 
 | Kouzlo | Škola | Zvláštní |
 |---|---|---|
-| Aura of Life | Odvrácení | C |
-| Banishment | Odvrácení | C |
-| Control Water | Přeměna | C |
-| Death Ward | Odvrácení | — |
+| Aura of Life | Ochranná magie | C |
+| Banishment | Ochranná magie | C |
+| Control Water | Transmutace | C |
+| Death Ward | Ochranná magie | — |
 | Divination | Věštění | R, M |
-| Freedom of Movement | Odvrácení | — |
+| Freedom of Movement | Ochranná magie | — |
 | Guardian of Faith | Vyvolávání | — |
 | Locate Creature | Věštění | C |
-| Stone Shape | Přeměna | — |
+| Stone Shape | Transmutace | — |
 
 #### Kouzla 5. úrovně povolání Cleric
 
@@ -251,15 +251,15 @@ Tento oddíl uvádí seznam kouzel povolání Cleric. Kouzla jsou seřazena podl
 |---|---|---|
 | Commune | Věštění | R |
 | Contagion | Nekromancie | — |
-| Dispel Evil and Good | Odvrácení | C |
+| Dispel Evil and Good | Ochranná magie | C |
 | Flame Strike | Zaklínání | — |
 | Geas | Očarování | — |
-| Greater Restoration | Odvrácení | M |
-| Hallow | Odvrácení | M |
+| Greater Restoration | Ochranná magie | M |
+| Hallow | Ochranná magie | M |
 | Insect Plague | Vyvolávání | C |
 | Legend Lore | Věštění | M |
-| Mass Cure Wounds | Odvrácení | — |
-| Planar Binding | Odvrácení | M |
+| Mass Cure Wounds | Ochranná magie | — |
+| Planar Binding | Ochranná magie | M |
 | Raise Dead | Nekromancie | M |
 | Scrying | Věštění | C, M |
 
@@ -270,9 +270,9 @@ Tento oddíl uvádí seznam kouzel povolání Cleric. Kouzla jsou seřazena podl
 | Blade Barrier | Zaklínání | C |
 | Create Undead | Nekromancie | M |
 | Find the Path | Věštění | C, M |
-| Forbiddance | Odvrácení | R, M |
+| Forbiddance | Ochranná magie | R, M |
 | Harm | Nekromancie | — |
-| Heal | Odvrácení | — |
+| Heal | Ochranná magie | — |
 | Heroes’ Feast | Vyvolávání | M |
 | Planar Ally | Vyvolávání | — |
 | Sunbeam | Zaklínání | C |
@@ -288,18 +288,18 @@ Tento oddíl uvádí seznam kouzel povolání Cleric. Kouzla jsou seřazena podl
 | Etherealness | Vyvolávání | — |
 | Fire Storm | Zaklínání | — |
 | Plane Shift | Vyvolávání | M |
-| Regenerate | Přeměna | — |
+| Regenerate | Transmutace | — |
 | Resurrection | Nekromancie | M |
-| Symbol | Odvrácení | M |
+| Symbol | Ochranná magie | M |
 
 #### Kouzla 8. úrovně povolání Cleric
 
 | Kouzlo | Škola | Zvláštní |
 |---|---|---|
-| Antimagic Field | Odvrácení | C |
-| Control Weather | Přeměna | C |
-| Earthquake | Přeměna | C |
-| Holy Aura | Odvrácení | C, M |
+| Antimagic Field | Ochranná magie | C |
+| Control Weather | Transmutace | C |
+| Earthquake | Transmutace | C |
+| Holy Aura | Ochranná magie | C, M |
 | Sunburst | Zaklínání | — |
 
 #### Kouzla 9. úrovně povolání Cleric
@@ -308,7 +308,7 @@ Tento oddíl uvádí seznam kouzel povolání Cleric. Kouzla jsou seřazena podl
 |---|---|---|
 | Astral Projection | Nekromancie | M |
 | Gate | Vyvolávání | C, M |
-| Mass Heal | Odvrácení | — |
+| Mass Heal | Ochranná magie | — |
 | Power Word Heal | Očarování | — |
 | True Resurrection | Nekromancie | M |
 

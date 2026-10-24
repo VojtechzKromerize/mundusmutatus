@@ -42,8 +42,8 @@ def trvani(t, konc):
             "special": "Zvláštní"}.get(s.lower()) or cas(s) or s
     if az: base = "až " + base.replace("minuta", "minutu").replace("hodina", "hodinu")
     return ("Concentration, " + base) if konc else base[0].upper() + base[1:]
-SKOLY = {"Abjuration": "Abjurace", "Conjuration": "Vyvolávání", "Divination": "Věštění", "Enchantment": "Očarování",
-         "Evocation": "Evokace", "Illusion": "Iluze", "Necromancy": "Nekromancie", "Transmutation": "Přeměna"}
+SKOLY = {"Abjuration": "Ochranná magie", "Conjuration": "Vyvolávání", "Divination": "Věštění", "Enchantment": "Očarování",
+         "Evocation": "Zaklínání", "Illusion": "Iluze", "Necromancy": "Nekromancie", "Transmutation": "Transmutace"}
 POV = {"Bard": "Bard", "Cleric": "Klerik", "Druid": "Druid", "Paladin": "Paladin", "Ranger": "Hraničář",
        "Sorcerer": "Čaroděj", "Warlock": "Černokněžník", "Wizard": "Kouzelník"}
 kat = json.load(open(os.path.join(D, "katalog.json"), encoding="utf-8"))
@@ -98,6 +98,18 @@ for x in out:
     if x.get("x") and len(x.get("t", "")) > 1000:
         raise SystemExit(f"CHYBA: popis kouzla {x['en']} mimo SRD je delší než 1 000 znaků")
 if len(pouzite) != len(kat): raise SystemExit("CHYBA: nepoužitá kouzla z katalogu: " + ", ".join(sorted(set(KAT) - pouzite)))
+# opravy údajů podle D&D 2024, které zdrojová data mají špatně (zjištěno proti Vojtově tabulce kouzel 2026-10-24)
+OPRAVY = {"Flaming Sphere": {"s": "Zaklínání"}, "Jallarzi's Storm of Radiance": {"l": 5},
+          "Contagion": {"k": ["V", "S"]}, "Divine Smite": {"k": ["V"]}, "Find Steed": {"k": ["V", "S"]}, "Guidance": {"k": ["V", "S"]},
+          "Power Word Heal": {"k": ["V", "S"]}, "Power Word Kill": {"k": ["V"]}, "Resistance": {"k": ["V", "S"]},
+          "Searing Smite": {"k": ["V"]}, "Sorcerous Burst": {"k": ["V", "S"]}}
+# české názvy kouzel zvolené při sjednocení s Vojtovou tabulkou (2026-10-24) – mají přednost před překladem i katalogem
+JMENA = json.load(open(os.path.join(D, "jmena.json"), encoding="utf-8"))
+for x in out:
+    x.update(OPRAVY.get(x["en"], {}))
+    if x["en"] in JMENA: x["cz"] = JMENA[x["en"]]
+if set(OPRAVY) - {x["en"] for x in out}: raise SystemExit("CHYBA: opravy neznámých kouzel: " + ", ".join(set(OPRAVY) - {x["en"] for x in out}))
+if set(JMENA) - {x["en"] for x in out}: raise SystemExit("CHYBA: jmena.json zná neznámá kouzla: " + ", ".join(sorted(set(JMENA) - {x["en"] for x in out})))
 out.sort(key=lambda q: (q["l"], q["en"]))
 json.dump(out, open(os.path.join(ROOT, "art", "kouzla.json"), "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
 print(f"art/kouzla.json: {len(out)} kouzel ({sum(1 for x in out if x.get('x'))} mimo SRD, {sum(1 for x in out if x.get('vt'))} s textem z katalogu, "

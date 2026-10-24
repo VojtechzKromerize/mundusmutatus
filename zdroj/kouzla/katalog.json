@@ -2,7 +2,7 @@
  {
   "en": "Acid Splash",
   "l": 0,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Okamžité",
@@ -19,7 +19,7 @@
  {
   "en": "Blade Ward",
   "l": 0,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 1 minutu",
@@ -36,7 +36,7 @@
  {
   "en": "Booming Blade",
   "l": 0,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe (poloměr 5 stop)",
   "d": "1 kolo",
@@ -76,7 +76,7 @@
  {
   "en": "Control Flames",
   "l": 0,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Okamžité nebo 1 hodina",
@@ -140,7 +140,7 @@
  {
   "en": "Druidcraft",
   "l": 0,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "30 stop",
   "d": "Okamžité",
@@ -157,7 +157,7 @@
  {
   "en": "Eldritch Blast",
   "l": 0,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Okamžité",
@@ -194,7 +194,7 @@
  {
   "en": "Fire Bolt",
   "l": 0,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Okamžité",
@@ -228,7 +228,7 @@
  {
   "en": "Frostbite",
   "l": 0,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Okamžité",
@@ -252,7 +252,7 @@
  {
   "en": "Green-Flame Blade",
   "l": 0,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe (poloměr 5 stop)",
   "d": "Okamžité",
@@ -292,7 +292,7 @@
  {
   "en": "Gust",
   "l": 0,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "30 stop",
   "d": "Okamžité",
@@ -340,7 +340,7 @@
  {
   "en": "Light",
   "l": 0,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "1 hodina",
@@ -357,7 +357,7 @@
  {
   "en": "Lightning Lure",
   "l": 0,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe (poloměr 15 stop)",
   "d": "Okamžité",
@@ -396,7 +396,7 @@
  {
   "en": "Magic Stone",
   "l": 0,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Bonusová akce",
   "r": "Dotyk",
   "d": "1 minuta",
@@ -418,7 +418,7 @@
  {
   "en": "Mending",
   "l": 0,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "1 minuta",
   "r": "Dotyk",
   "d": "Okamžité",
@@ -436,7 +436,7 @@
  {
   "en": "Message",
   "l": 0,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "120 stop",
   "d": "1 kolo",
@@ -486,7 +486,7 @@
  {
   "en": "Mold Earth",
   "l": 0,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "30 stop",
   "d": "Okamžité nebo 1 hodina",
@@ -525,7 +525,7 @@
  {
   "en": "Prestidigitation",
   "l": 0,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "10 stop",
   "d": "Až 1 hodinu",
@@ -542,7 +542,7 @@
  {
   "en": "Primal Savagery",
   "l": 0,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Okamžité",
@@ -579,7 +579,7 @@
  {
   "en": "Ray of Frost",
   "l": 0,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Okamžité",
@@ -596,7 +596,7 @@
  {
   "en": "Resistance",
   "l": 0,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "Concentration, až 1 minutu",
@@ -613,7 +613,7 @@
  {
   "en": "Sacred Flame",
   "l": 0,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Okamžité",
@@ -654,7 +654,7 @@
  {
   "en": "Shape Water",
   "l": 0,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "30 stop",
   "d": "Okamžité nebo 1 hodina",
@@ -676,7 +676,7 @@
  {
   "en": "Shillelagh",
   "l": 0,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Bonusová akce",
   "r": "Sebe",
   "d": "1 minuta",
@@ -694,7 +694,7 @@
  {
   "en": "Shocking Grasp",
   "l": 0,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "Okamžité",
@@ -750,7 +750,7 @@
  {
   "en": "Thaumaturgy",
   "l": 0,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "30 stop",
   "d": "Až 1 minutu",
@@ -766,7 +766,7 @@
  {
   "en": "Thorn Whip",
   "l": 0,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "30 stop",
   "d": "Okamžité",
@@ -784,7 +784,7 @@
  {
   "en": "Thunderclap",
   "l": 0,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Okamžité",
@@ -850,7 +850,7 @@
  {
   "en": "Word of Radiance",
   "l": 0,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Okamžité",
@@ -871,7 +871,7 @@
  {
   "en": "Absorb Elements",
   "l": 1,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Reakce",
   "r": "Sebe",
   "d": "1 kolo",
@@ -894,7 +894,7 @@
  {
   "en": "Alarm",
   "l": 1,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "1 minuta",
   "r": "30 stop",
   "d": "8 hodin",
@@ -930,7 +930,7 @@
  {
   "en": "Armor of Agathys",
   "l": 1,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Bonusová akce",
   "r": "Sebe",
   "d": "1 hodina",
@@ -1024,7 +1024,7 @@
  {
   "en": "Burning Hands",
   "l": 1,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Okamžité",
@@ -1041,7 +1041,7 @@
  {
   "en": "Catapult",
   "l": 1,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Okamžité",
@@ -1083,7 +1083,7 @@
  {
   "en": "Ceremony",
   "l": 1,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "1 hodina",
   "r": "Dotyk",
   "d": "Okamžité (viz účinek)",
@@ -1106,7 +1106,7 @@
  {
   "en": "Chaos Bolt",
   "l": 1,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Okamžité",
@@ -1144,7 +1144,7 @@
  {
   "en": "Chromatic Orb",
   "l": 1,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "90 stop",
   "d": "Okamžité",
@@ -1230,7 +1230,7 @@
  {
   "en": "Create or Destroy Water",
   "l": 1,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "30 stop",
   "d": "Okamžité",
@@ -1248,7 +1248,7 @@
  {
   "en": "Cure Wounds",
   "l": 1,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "Okamžité",
@@ -1372,7 +1372,7 @@
  {
   "en": "Divine Favor",
   "l": 1,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Bonusová akce",
   "r": "Sebe",
   "d": "1 minuta",
@@ -1389,7 +1389,7 @@
  {
   "en": "Earth Tremor",
   "l": 1,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe (poloměr 10 stop)",
   "d": "Okamžité",
@@ -1446,7 +1446,7 @@
  {
   "en": "Expeditious Retreat",
   "l": 1,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Bonusová akce",
   "r": "Sebe",
   "d": "Concentration, až 10 minut",
@@ -1463,7 +1463,7 @@
  {
   "en": "Faerie Fire",
   "l": 1,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Concentration, až 1 minutu",
@@ -1497,7 +1497,7 @@
  {
   "en": "Feather Fall",
   "l": 1,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Reakce",
   "r": "60 stop",
   "d": "1 minuta",
@@ -1570,7 +1570,7 @@
  {
   "en": "Frost Fingers",
   "l": 1,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe (kužel 15 stop)",
   "d": "Okamžité",
@@ -1651,7 +1651,7 @@
  {
   "en": "Guiding Bolt",
   "l": 1,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "120 stop",
   "d": "1 kolo",
@@ -1684,7 +1684,7 @@
  {
   "en": "Healing Word",
   "l": 1,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Bonusová akce",
   "r": "60 stop",
   "d": "Okamžité",
@@ -1700,7 +1700,7 @@
  {
   "en": "Hellish Rebuke",
   "l": 1,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Reakce",
   "r": "60 stop",
   "d": "Okamžité",
@@ -1858,7 +1858,7 @@
  {
   "en": "Jim's Magic Missile",
   "l": 1,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Okamžité",
@@ -1880,7 +1880,7 @@
  {
   "en": "Jump",
   "l": 1,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Bonusová akce",
   "r": "Dotyk",
   "d": "1 minuta",
@@ -1898,7 +1898,7 @@
  {
   "en": "Longstrider",
   "l": 1,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "1 hodina",
@@ -1916,7 +1916,7 @@
  {
   "en": "Mage Armor",
   "l": 1,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "8 hodin",
@@ -1934,7 +1934,7 @@
  {
   "en": "Magic Missile",
   "l": 1,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Okamžité",
@@ -1951,7 +1951,7 @@
  {
   "en": "Magnify Gravity",
   "l": 1,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "60 stop",
   "d": "1 kolo",
@@ -1975,7 +1975,7 @@
  {
   "en": "Protection from Evil and Good",
   "l": 1,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "Concentration, až 10 minut",
@@ -1993,7 +1993,7 @@
  {
   "en": "Purify Food and Drink",
   "l": 1,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "10 stop",
   "d": "Okamžité",
@@ -2027,7 +2027,7 @@
  {
   "en": "Sanctuary",
   "l": 1,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Bonusová akce",
   "r": "30 stop",
   "d": "1 minuta",
@@ -2045,7 +2045,7 @@
  {
   "en": "Searing Smite",
   "l": 1,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Bonusová akce",
   "r": "Sebe",
   "d": "1 minuta",
@@ -2061,7 +2061,7 @@
  {
   "en": "Shield",
   "l": 1,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Reakce",
   "r": "Sebe",
   "d": "1 kolo",
@@ -2078,7 +2078,7 @@
  {
   "en": "Shield of Faith",
   "l": 1,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Bonusová akce",
   "r": "60 stop",
   "d": "Concentration, až 10 minut",
@@ -2154,7 +2154,7 @@
  {
   "en": "Snare",
   "l": 1,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "1 minuta",
   "r": "Dotyk",
   "d": "8 hodin",
@@ -2194,7 +2194,7 @@
  {
   "en": "Tasha's Caustic Brew",
   "l": 1,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe (čára 30 stop)",
   "d": "Concentration, až 1 minutu",
@@ -2217,7 +2217,7 @@
  {
   "en": "Thunderous Smite",
   "l": 1,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Bonusová akce",
   "r": "Sebe",
   "d": "Okamžité",
@@ -2233,7 +2233,7 @@
  {
   "en": "Thunderwave",
   "l": 1,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Okamžité",
@@ -2268,7 +2268,7 @@
  {
   "en": "Witch Bolt",
   "l": 1,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Concentration, až 1 minutu",
@@ -2302,7 +2302,7 @@
  {
   "en": "Zephyr Strike",
   "l": 1,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Bonusová akce",
   "r": "Sebe",
   "d": "Concentration, až 1 minutu",
@@ -2322,7 +2322,7 @@
  {
   "en": "Acid Arrow",
   "l": 2,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "90 stop",
   "d": "Okamžité",
@@ -2343,7 +2343,7 @@
  {
   "en": "Aganazzar's Scorcher",
   "l": 2,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "30 stop",
   "d": "Okamžité",
@@ -2366,7 +2366,7 @@
  {
   "en": "Aid",
   "l": 2,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "30 stop",
   "d": "8 hodin",
@@ -2407,7 +2407,7 @@
  {
   "en": "Alter Self",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 1 hodinu",
@@ -2442,7 +2442,7 @@
  {
   "en": "Arcane Lock",
   "l": 2,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "Do rozptýlení",
@@ -2499,7 +2499,7 @@
  {
   "en": "Barkskin",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Bonusová akce",
   "r": "Dotyk",
   "d": "1 hodina",
@@ -2533,7 +2533,7 @@
  {
   "en": "Blindness/Deafness",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "120 stop",
   "d": "1 minuta",
@@ -2625,7 +2625,7 @@
  {
   "en": "Continual Flame",
   "l": 2,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "Do rozptýlení",
@@ -2643,7 +2643,7 @@
  {
   "en": "Cordon of Arrows",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "8 hodin",
@@ -2678,7 +2678,7 @@
  {
   "en": "Darkness",
   "l": 2,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Concentration, až 10 minut",
@@ -2695,7 +2695,7 @@
  {
   "en": "Darkvision",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "8 hodin",
@@ -2731,7 +2731,7 @@
  {
   "en": "Dragon's Breath",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Bonusová akce",
   "r": "Dotyk",
   "d": "Concentration, až 1 minutu",
@@ -2773,7 +2773,7 @@
  {
   "en": "Earthbind",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "300 stop",
   "d": "Concentration, až 1 minutu",
@@ -2789,7 +2789,7 @@
  {
   "en": "Enhance Ability",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "Concentration, až 1 hodinu",
@@ -2807,7 +2807,7 @@
  {
   "en": "Enlarge/Reduce",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "30 stop",
   "d": "Concentration, až 1 minutu",
@@ -2876,7 +2876,7 @@
  {
   "en": "Flame Blade",
   "l": 2,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Bonusová akce",
   "r": "Sebe",
   "d": "Concentration, až 10 minut",
@@ -2996,7 +2996,7 @@
  {
   "en": "Gust of Wind",
   "l": 2,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 1 minutu",
@@ -3036,7 +3036,7 @@
  {
   "en": "Heat Metal",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Concentration, až 1 minutu",
@@ -3072,7 +3072,7 @@
  {
   "en": "Immovable Object",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "1 hodina",
@@ -3135,7 +3135,7 @@
  {
   "en": "Kinetic Jaunt",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Bonusová akce",
   "r": "Sebe",
   "d": "Concentration, až 1 minutu",
@@ -3157,7 +3157,7 @@
  {
   "en": "Knock",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Okamžité",
@@ -3173,7 +3173,7 @@
  {
   "en": "Lesser Restoration",
   "l": 2,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Bonusová akce",
   "r": "Dotyk",
   "d": "Okamžité",
@@ -3190,7 +3190,7 @@
  {
   "en": "Levitate",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Concentration, až 10 minut",
@@ -3262,7 +3262,7 @@
  {
   "en": "Magic Weapon",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Bonusová akce",
   "r": "Dotyk",
   "d": "1 hodina",
@@ -3279,7 +3279,7 @@
  {
   "en": "Maximilian's Earthen Grasp",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "30 stop",
   "d": "Concentration, až 1 minutu",
@@ -3354,7 +3354,7 @@
  {
   "en": "Moonbeam",
   "l": 2,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Concentration, až 1 minutu",
@@ -3389,7 +3389,7 @@
  {
   "en": "Pass without Trace",
   "l": 2,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 1 hodinu",
@@ -3425,7 +3425,7 @@
  {
   "en": "Prayer of Healing",
   "l": 2,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "10 minut",
   "r": "30 stop",
   "d": "Okamžité",
@@ -3441,7 +3441,7 @@
  {
   "en": "Protection from Poison",
   "l": 2,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "1 hodina",
@@ -3458,7 +3458,7 @@
  {
   "en": "Pyrotechnics",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Okamžité",
@@ -3498,7 +3498,7 @@
  {
   "en": "Rime's Binding Ice",
   "l": 2,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe (kužel 30 stop)",
   "d": "Okamžité",
@@ -3520,7 +3520,7 @@
  {
   "en": "Rope Trick",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "1 hodina",
@@ -3538,7 +3538,7 @@
  {
   "en": "Scorching Ray",
   "l": 2,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Okamžité",
@@ -3590,7 +3590,7 @@
  {
   "en": "Shatter",
   "l": 2,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Okamžité",
@@ -3608,7 +3608,7 @@
  {
   "en": "Shining Smite",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Bonusová akce",
   "r": "Sebe",
   "d": "Concentration, až 1 minutu",
@@ -3644,7 +3644,7 @@
  {
   "en": "Skywrite",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Dohled",
   "d": "Concentration, až 1 den",
@@ -3661,7 +3661,7 @@
  {
   "en": "Snilloc's Snowball Swarm",
   "l": 2,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "90 stop",
   "d": "Okamžité",
@@ -3684,7 +3684,7 @@
  {
   "en": "Spider Climb",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "Concentration, až 1 hodinu",
@@ -3702,7 +3702,7 @@
  {
   "en": "Spike Growth",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "150 stop",
   "d": "Concentration, až 10 minut",
@@ -3720,7 +3720,7 @@
  {
   "en": "Spiritual Weapon",
   "l": 2,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Bonusová akce",
   "r": "60 stop",
   "d": "Concentration, až 1 minutu",
@@ -3835,7 +3835,7 @@
  {
   "en": "Warding Bond",
   "l": 2,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "1 hodina",
@@ -3853,7 +3853,7 @@
  {
   "en": "Warding Wind",
   "l": 2,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 10 minut",
@@ -4020,7 +4020,7 @@
  {
   "en": "Ashardalon's Stride",
   "l": 3,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Bonusová akce",
   "r": "Sebe",
   "d": "Concentration, až 1 minutu",
@@ -4043,7 +4043,7 @@
  {
   "en": "Aura of Vitality",
   "l": 3,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 1 minutu",
@@ -4059,7 +4059,7 @@
  {
   "en": "Beacon of Hope",
   "l": 3,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "30 stop",
   "d": "Concentration, až 1 minutu",
@@ -4093,7 +4093,7 @@
  {
   "en": "Blinding Smite",
   "l": 3,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Bonusová akce",
   "r": "Sebe",
   "d": "1 minuta",
@@ -4113,7 +4113,7 @@
  {
   "en": "Blink",
   "l": 3,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Sebe",
   "d": "1 minuta",
@@ -4217,7 +4217,7 @@
  {
   "en": "Counterspell",
   "l": 3,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Reakce",
   "r": "60 stop",
   "d": "Okamžité",
@@ -4250,7 +4250,7 @@
  {
   "en": "Crusader's Mantle",
   "l": 3,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 1 minutu",
@@ -4270,7 +4270,7 @@
  {
   "en": "Daylight",
   "l": 3,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "60 stop",
   "d": "1 hodina",
@@ -4287,7 +4287,7 @@
  {
   "en": "Dispel Magic",
   "l": 3,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Okamžité",
@@ -4304,7 +4304,7 @@
  {
   "en": "Elemental Weapon",
   "l": 3,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "Concentration, až 1 hodinu",
@@ -4338,7 +4338,7 @@
  {
   "en": "Erupting Earth",
   "l": 3,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Okamžité",
@@ -4408,7 +4408,7 @@
  {
   "en": "Fireball",
   "l": 3,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "150 stop",
   "d": "Okamžité",
@@ -4426,7 +4426,7 @@
  {
   "en": "Flame Arrows",
   "l": 3,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "Concentration, až 1 hodinu",
@@ -4450,7 +4450,7 @@
  {
   "en": "Fly",
   "l": 3,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "Concentration, až 10 minut",
@@ -4490,7 +4490,7 @@
  {
   "en": "Gaseous Form",
   "l": 3,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "Concentration, až 1 hodinu",
@@ -4508,7 +4508,7 @@
  {
   "en": "Glyph of Warding",
   "l": 3,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "1 hodina",
   "r": "Dotyk",
   "d": "Do rozptýlení nebo spuštění",
@@ -4526,7 +4526,7 @@
  {
   "en": "Haste",
   "l": 3,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "30 stop",
   "d": "Concentration, až 1 minutu",
@@ -4603,7 +4603,7 @@
  {
   "en": "Intellect Fortress",
   "l": 3,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "30 stop",
   "d": "Concentration, až 1 hodinu",
@@ -4636,7 +4636,7 @@
  {
   "en": "Lightning Arrow",
   "l": 3,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Bonusová akce",
   "r": "Sebe",
   "d": "Okamžité",
@@ -4657,7 +4657,7 @@
  {
   "en": "Lightning Bolt",
   "l": 3,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Okamžité",
@@ -4675,7 +4675,7 @@
  {
   "en": "Magic Circle",
   "l": 3,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "1 minuta",
   "r": "10 stop",
   "d": "1 hodina",
@@ -4711,7 +4711,7 @@
  {
   "en": "Mass Healing Word",
   "l": 3,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Bonusová akce",
   "r": "60 stop",
   "d": "Okamžité",
@@ -4727,7 +4727,7 @@
  {
   "en": "Meld into Stone",
   "l": 3,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "8 hodin",
@@ -4744,7 +4744,7 @@
  {
   "en": "Melf's Minute Meteors",
   "l": 3,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 10 minut",
@@ -4783,7 +4783,7 @@
  {
   "en": "Nondetection",
   "l": 3,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "8 hodin",
@@ -4818,7 +4818,7 @@
  {
   "en": "Plant Growth",
   "l": 3,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce (Overgrowth) nebo 8 hodin (Enrichment)",
   "r": "150 stop",
   "d": "Okamžité",
@@ -4835,7 +4835,7 @@
  {
   "en": "Protection from Energy",
   "l": 3,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "Concentration, až 1 hodinu",
@@ -4852,7 +4852,7 @@
  {
   "en": "Pulse Wave",
   "l": 3,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe (kužel 30 stop)",
   "d": "Okamžité",
@@ -4876,7 +4876,7 @@
  {
   "en": "Remove Curse",
   "l": 3,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "Okamžité",
@@ -4947,7 +4947,7 @@
  {
   "en": "Slow",
   "l": 3,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Concentration, až 1 minutu",
@@ -4983,7 +4983,7 @@
  {
   "en": "Speak with Plants",
   "l": 3,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Sebe",
   "d": "10 minut",
@@ -5176,7 +5176,7 @@
  {
   "en": "Tiny Hut",
   "l": 3,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "1 minuta",
   "r": "Sebe",
   "d": "8 hodin",
@@ -5197,7 +5197,7 @@
  {
   "en": "Tiny Servant",
   "l": 3,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "1 minuta",
   "r": "Dotyk",
   "d": "8 hodin",
@@ -5248,7 +5248,7 @@
  {
   "en": "Wall of Sand",
   "l": 3,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "90 stop",
   "d": "Concentration, až 10 minut",
@@ -5266,7 +5266,7 @@
  {
   "en": "Wall of Water",
   "l": 3,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Concentration, až 10 minut",
@@ -5284,7 +5284,7 @@
  {
   "en": "Water Breathing",
   "l": 3,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "30 stop",
   "d": "24 hodin",
@@ -5302,7 +5302,7 @@
  {
   "en": "Water Walk",
   "l": 3,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "30 stop",
   "d": "1 hodina",
@@ -5320,7 +5320,7 @@
  {
   "en": "Wind Wall",
   "l": 3,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Concentration, až 1 minutu",
@@ -5356,7 +5356,7 @@
  {
   "en": "Aura of Life",
   "l": 4,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 10 minut",
@@ -5372,7 +5372,7 @@
  {
   "en": "Aura of Purity",
   "l": 4,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 10 minut",
@@ -5388,7 +5388,7 @@
  {
   "en": "Banishment",
   "l": 4,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "30 stop",
   "d": "Concentration, až 1 minutu",
@@ -5530,7 +5530,7 @@
  {
   "en": "Control Water",
   "l": 4,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "300 stop",
   "d": "Concentration, až 10 minut",
@@ -5548,7 +5548,7 @@
  {
   "en": "Death Ward",
   "l": 4,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "8 hodin",
@@ -5616,7 +5616,7 @@
  {
   "en": "Elemental Bane",
   "l": 4,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "90 stop",
   "d": "Concentration, až 1 minutu",
@@ -5633,7 +5633,7 @@
  {
   "en": "Fabricate",
   "l": 4,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "10 minut",
   "r": "120 stop",
   "d": "Okamžité",
@@ -5692,7 +5692,7 @@
  {
   "en": "Fire Shield",
   "l": 4,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe",
   "d": "10 minut",
@@ -5710,7 +5710,7 @@
  {
   "en": "Freedom of Movement",
   "l": 4,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "1 hodina",
@@ -5751,7 +5751,7 @@
  {
   "en": "Gate Seal",
   "l": 4,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "1 minuta",
   "r": "60 stop",
   "d": "24 hodin",
@@ -5809,7 +5809,7 @@
  {
   "en": "Gravity Sinkhole",
   "l": 4,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Okamžité",
@@ -5867,7 +5867,7 @@
  {
   "en": "Guardian of Nature",
   "l": 4,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Bonusová akce",
   "r": "Sebe",
   "d": "Concentration, až 1 minutu",
@@ -5906,7 +5906,7 @@
  {
   "en": "Ice Storm",
   "l": 4,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "300 stop",
   "d": "Okamžité",
@@ -5959,7 +5959,7 @@
  {
   "en": "Polymorph",
   "l": 4,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Concentration, až 1 hodinu",
@@ -5977,7 +5977,7 @@
  {
   "en": "Private Sanctum",
   "l": 4,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "10 minut",
   "r": "120 stop",
   "d": "24 hodin",
@@ -6021,7 +6021,7 @@
  {
   "en": "Resilient Sphere",
   "l": 4,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "30 stop",
   "d": "Concentration, až 1 minutu",
@@ -6085,7 +6085,7 @@
  {
   "en": "Sickening Radiance",
   "l": 4,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Concentration, až 10 minut",
@@ -6146,7 +6146,7 @@
  {
   "en": "Stone Shape",
   "l": 4,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "Okamžité",
@@ -6164,7 +6164,7 @@
  {
   "en": "Stoneskin",
   "l": 4,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "Concentration, až 1 hodinu",
@@ -6182,7 +6182,7 @@
  {
   "en": "Storm Sphere",
   "l": 4,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "150 stop",
   "d": "Concentration, až 1 minutu",
@@ -6276,7 +6276,7 @@
  {
   "en": "Vitriolic Sphere",
   "l": 4,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "150 stop",
   "d": "Okamžité",
@@ -6294,7 +6294,7 @@
  {
   "en": "Wall of Fire",
   "l": 4,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Concentration, až 1 minutu",
@@ -6330,7 +6330,7 @@
  {
   "en": "Animate Objects",
   "l": 5,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Concentration, až 1 minutu",
@@ -6347,7 +6347,7 @@
  {
   "en": "Antilife Shell",
   "l": 5,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 1 hodinu",
@@ -6364,7 +6364,7 @@
  {
   "en": "Arcane Hand",
   "l": 5,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Concentration, až 1 minutu",
@@ -6385,7 +6385,7 @@
  {
   "en": "Awaken",
   "l": 5,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "8 hodin",
   "r": "Dotyk",
   "d": "Okamžité",
@@ -6419,7 +6419,7 @@
  {
   "en": "Circle of Power",
   "l": 5,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 10 minut",
@@ -6487,7 +6487,7 @@
  {
   "en": "Cone of Cold",
   "l": 5,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Okamžité",
@@ -6577,7 +6577,7 @@
  {
   "en": "Control Winds",
   "l": 5,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "300 stop",
   "d": "Concentration, až 1 hodinu",
@@ -6594,7 +6594,7 @@
  {
   "en": "Create Spelljamming Helm",
   "l": 5,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "Okamžité",
@@ -6656,7 +6656,7 @@
  {
   "en": "Dawn",
   "l": 5,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Concentration, až 1 minutu",
@@ -6674,7 +6674,7 @@
  {
   "en": "Destructive Wave",
   "l": 5,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Okamžité",
@@ -6690,7 +6690,7 @@
  {
   "en": "Dispel Evil and Good",
   "l": 5,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 1 minutu",
@@ -6788,7 +6788,7 @@
  {
   "en": "Flame Strike",
   "l": 5,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Okamžité",
@@ -6822,7 +6822,7 @@
  {
   "en": "Greater Restoration",
   "l": 5,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "Okamžité",
@@ -6840,7 +6840,7 @@
  {
   "en": "Hallow",
   "l": 5,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "24 hodin",
   "r": "Dotyk",
   "d": "Do rozptýlení",
@@ -6876,7 +6876,7 @@
  {
   "en": "Holy Weapon",
   "l": 5,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Bonusová akce",
   "r": "Dotyk",
   "d": "Concentration, až 1 hodinu",
@@ -6893,7 +6893,7 @@
  {
   "en": "Immolation",
   "l": 5,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "90 stop",
   "d": "Concentration, až 1 minutu",
@@ -6968,7 +6968,7 @@
  {
   "en": "Maelstrom",
   "l": 5,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Concentration, až 1 minutu",
@@ -6986,7 +6986,7 @@
  {
   "en": "Mass Cure Wounds",
   "l": 5,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Okamžité",
@@ -7053,7 +7053,7 @@
  {
   "en": "Passwall",
   "l": 5,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "30 stop",
   "d": "1 hodina",
@@ -7071,7 +7071,7 @@
  {
   "en": "Planar Binding",
   "l": 5,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "1 hodina",
   "r": "60 stop",
   "d": "24 hodin",
@@ -7160,7 +7160,7 @@
  {
   "en": "Skill Empowerment",
   "l": 5,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "Concentration, až 1 hodinu",
@@ -7233,7 +7233,7 @@
  {
   "en": "Swift Quiver",
   "l": 5,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Bonusová akce",
   "r": "Sebe",
   "d": "Concentration, až 1 minutu",
@@ -7268,7 +7268,7 @@
  {
   "en": "Telekinesis",
   "l": 5,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Concentration, až 10 minut",
@@ -7323,7 +7323,7 @@
  {
   "en": "Temporal Shunt",
   "l": 5,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Reakce",
   "r": "120 stop",
   "d": "1 kolo",
@@ -7347,7 +7347,7 @@
  {
   "en": "Transmute Rock",
   "l": 5,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Do rozptýlení",
@@ -7387,7 +7387,7 @@
  {
   "en": "Wall of Force",
   "l": 5,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Concentration, až 10 minut",
@@ -7405,7 +7405,7 @@
  {
   "en": "Wall of Light",
   "l": 5,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Concentration, až 10 minut",
@@ -7423,7 +7423,7 @@
  {
   "en": "Wall of Stone",
   "l": 5,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Concentration, až 10 minut",
@@ -7441,7 +7441,7 @@
  {
   "en": "Wrath of Nature",
   "l": 5,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Concentration, až 1 minutu",
@@ -7475,7 +7475,7 @@
  {
   "en": "Blade Barrier",
   "l": 6,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "90 stop",
   "d": "Concentration, až 10 minut",
@@ -7492,7 +7492,7 @@
  {
   "en": "Bones of the Earth",
   "l": 6,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Okamžité",
@@ -7509,7 +7509,7 @@
  {
   "en": "Chain Lightning",
   "l": 6,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "150 stop",
   "d": "Okamžité",
@@ -7562,7 +7562,7 @@
  {
   "en": "Contingency",
   "l": 6,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "10 minut",
   "r": "Sebe",
   "d": "10 dní",
@@ -7580,7 +7580,7 @@
  {
   "en": "Create Homunculus",
   "l": 6,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "1 hodina",
   "r": "Dotyk",
   "d": "Okamžité",
@@ -7620,7 +7620,7 @@
  {
   "en": "Disintegrate",
   "l": 6,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Okamžité",
@@ -7638,7 +7638,7 @@
  {
   "en": "Druid Grove",
   "l": 6,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "10 minut",
   "r": "Dotyk",
   "d": "24 hodin",
@@ -7695,7 +7695,7 @@
  {
   "en": "Fizban's Platinum Shield",
   "l": 6,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Bonusová akce",
   "r": "60 stop",
   "d": "Concentration, až 1 minutu",
@@ -7718,7 +7718,7 @@
  {
   "en": "Flesh to Stone",
   "l": 6,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Concentration, až 1 minutu",
@@ -7736,7 +7736,7 @@
  {
   "en": "Forbiddance",
   "l": 6,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "10 minut",
   "r": "Dotyk",
   "d": "1 den",
@@ -7754,7 +7754,7 @@
  {
   "en": "Freezing Sphere",
   "l": 6,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "300 stop",
   "d": "Okamžité",
@@ -7775,7 +7775,7 @@
  {
   "en": "Globe of Invulnerability",
   "l": 6,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 1 minutu",
@@ -7793,7 +7793,7 @@
  {
   "en": "Gravity Fissure",
   "l": 6,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe (čára 100 stop)",
   "d": "Okamžité",
@@ -7818,7 +7818,7 @@
  {
   "en": "Guards and Wards",
   "l": 6,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "1 hodina",
   "r": "Dotyk",
   "d": "24 hodin",
@@ -7853,7 +7853,7 @@
  {
   "en": "Heal",
   "l": 6,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Okamžité",
@@ -7909,7 +7909,7 @@
  {
   "en": "Investiture of Flame",
   "l": 6,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 10 minut",
@@ -7926,7 +7926,7 @@
  {
   "en": "Investiture of Ice",
   "l": 6,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 10 minut",
@@ -7943,7 +7943,7 @@
  {
   "en": "Investiture of Stone",
   "l": 6,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 10 minut",
@@ -7960,7 +7960,7 @@
  {
   "en": "Investiture of Wind",
   "l": 6,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 10 minut",
@@ -8047,7 +8047,7 @@
  {
   "en": "Move Earth",
   "l": 6,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Concentration, až 2 hodiny",
@@ -8082,7 +8082,7 @@
  {
   "en": "Primordial Ward",
   "l": 6,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 1 minutu",
@@ -8178,7 +8178,7 @@
  {
   "en": "Sunbeam",
   "l": 6,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 1 minutu",
@@ -8196,7 +8196,7 @@
  {
   "en": "Tasha's Otherworldly Guise",
   "l": 6,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Bonusová akce",
   "r": "Sebe",
   "d": "Concentration, až 1 minutu",
@@ -8220,7 +8220,7 @@
  {
   "en": "Tenser's Transformation",
   "l": 6,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 10 minut",
@@ -8273,7 +8273,7 @@
  {
   "en": "Wall of Ice",
   "l": 6,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Concentration, až 10 minut",
@@ -8309,7 +8309,7 @@
  {
   "en": "Wind Walk",
   "l": 6,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "1 minuta",
   "r": "30 stop",
   "d": "8 hodin",
@@ -8343,7 +8343,7 @@
  {
   "en": "Arcane Sword",
   "l": 7,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "90 stop",
   "d": "Concentration, až 1 minutu",
@@ -8381,7 +8381,7 @@
  {
   "en": "Create Magen",
   "l": 7,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "1 hodina",
   "r": "Dotyk",
   "d": "Okamžité",
@@ -8403,7 +8403,7 @@
  {
   "en": "Crown of Stars",
   "l": 7,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe",
   "d": "1 hodina",
@@ -8420,7 +8420,7 @@
  {
   "en": "Delayed Blast Fireball",
   "l": 7,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "150 stop",
   "d": "Concentration, až 1 minutu",
@@ -8438,7 +8438,7 @@
  {
   "en": "Divine Word",
   "l": 7,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Bonusová akce",
   "r": "30 stop",
   "d": "Okamžité",
@@ -8454,7 +8454,7 @@
  {
   "en": "Draconic Transformation",
   "l": 7,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Bonusová akce",
   "r": "Sebe",
   "d": "Concentration, až 1 minutu",
@@ -8537,7 +8537,7 @@
  {
   "en": "Fire Storm",
   "l": 7,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "150 stop",
   "d": "Okamžité",
@@ -8554,7 +8554,7 @@
  {
   "en": "Forcecage",
   "l": 7,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "100 stop",
   "d": "Concentration, až 1 hodinu",
@@ -8650,7 +8650,7 @@
  {
   "en": "Prismatic Spray",
   "l": 7,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Okamžité",
@@ -8685,7 +8685,7 @@
  {
   "en": "Regenerate",
   "l": 7,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "1 minuta",
   "r": "Dotyk",
   "d": "1 hodina",
@@ -8721,7 +8721,7 @@
  {
   "en": "Reverse Gravity",
   "l": 7,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "100 stop",
   "d": "Concentration, až 1 minutu",
@@ -8739,7 +8739,7 @@
  {
   "en": "Sequester",
   "l": 7,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "Do rozptýlení",
@@ -8775,7 +8775,7 @@
  {
   "en": "Symbol",
   "l": 7,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "1 minuta",
   "r": "Dotyk",
   "d": "Do rozptýlení nebo spuštění",
@@ -8856,7 +8856,7 @@
  {
   "en": "Whirlwind",
   "l": 7,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "300 stop",
   "d": "Concentration, až 1 minutu",
@@ -8891,7 +8891,7 @@
  {
   "en": "Animal Shapes",
   "l": 8,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "30 stop",
   "d": "24 hodin",
@@ -8908,7 +8908,7 @@
  {
   "en": "Antimagic Field",
   "l": 8,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 1 hodinu",
@@ -8983,7 +8983,7 @@
  {
   "en": "Control Weather",
   "l": 8,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "10 minut",
   "r": "Sebe",
   "d": "Concentration, až 8 hodin",
@@ -9001,7 +9001,7 @@
  {
   "en": "Dark Star",
   "l": 8,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "150 stop",
   "d": "Concentration, až 1 minutu",
@@ -9059,7 +9059,7 @@
  {
   "en": "Earthquake",
   "l": 8,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "500 stop",
   "d": "Concentration, až 1 minutu",
@@ -9093,7 +9093,7 @@
  {
   "en": "Holy Aura",
   "l": 8,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 1 minutu",
@@ -9144,7 +9144,7 @@
  {
   "en": "Maddening Darkness",
   "l": 8,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "150 stop",
   "d": "Concentration, až 10 minut",
@@ -9200,7 +9200,7 @@
  {
   "en": "Mind Blank",
   "l": 8,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "24 hodin",
@@ -9258,7 +9258,7 @@
  {
   "en": "Sunburst",
   "l": 8,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "150 stop",
   "d": "Okamžité",
@@ -9382,7 +9382,7 @@
  {
   "en": "Imprisonment",
   "l": 9,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "1 minuta",
   "r": "30 stop",
   "d": "Do rozptýlení",
@@ -9400,7 +9400,7 @@
  {
   "en": "Invulnerability",
   "l": 9,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 10 minut",
@@ -9418,7 +9418,7 @@
  {
   "en": "Mass Heal",
   "l": 9,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Okamžité",
@@ -9435,7 +9435,7 @@
  {
   "en": "Mass Polymorph",
   "l": 9,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Concentration, až 1 hodinu",
@@ -9453,7 +9453,7 @@
  {
   "en": "Meteor Swarm",
   "l": 9,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "1 míle",
   "d": "Okamžité",
@@ -9502,7 +9502,7 @@
  {
   "en": "Prismatic Wall",
   "l": 9,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "60 stop",
   "d": "10 minut",
@@ -9535,7 +9535,7 @@
  {
   "en": "Ravenous Void",
   "l": 9,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "1 000 stop",
   "d": "Concentration, až 1 minutu",
@@ -9560,7 +9560,7 @@
  {
   "en": "Shapechange",
   "l": 9,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 1 hodinu",
@@ -9620,7 +9620,7 @@
  {
   "en": "Time Stop",
   "l": 9,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Okamžité",
@@ -9636,7 +9636,7 @@
  {
   "en": "True Polymorph",
   "l": 9,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "30 stop",
   "d": "Concentration, až 1 hodinu",

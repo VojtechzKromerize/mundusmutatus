@@ -143,15 +143,15 @@ Tento oddíl uvádí seznam kouzel Wizarda. Kouzla jsou seřazena podle úrovně
 | *Acid Splash* | Zaklínání | — |
 | *Chill Touch* | Nekromancie | — |
 | *Dancing Lights* | Iluze | C |
-| *Elementalism* | Přeměna | — |
+| *Elementalism* | Transmutace | — |
 | *Fire Bolt* | Zaklínání | — |
 | *Light* | Zaklínání | — |
 | *Mage Hand* | Vyvolávání | — |
-| *Mending* | Přeměna | — |
-| *Message* | Přeměna | — |
+| *Mending* | Transmutace | — |
+| *Message* | Transmutace | — |
 | *Minor Illusion* | Iluze | — |
 | *Poison Spray* | Nekromancie | — |
-| *Prestidigitation* | Přeměna | — |
+| *Prestidigitation* | Transmutace | — |
 | *Ray of Frost* | Zaklínání | — |
 | *Shocking Grasp* | Zaklínání | — |
 | *True Strike* | Věštění | — |
@@ -160,7 +160,7 @@ Tento oddíl uvádí seznam kouzel Wizarda. Kouzla jsou seřazena podle úrovně
 
 | Kouzlo | Škola | Zvláštní |
 |---|---|---|
-| *Alarm* | Odvrácení | R |
+| *Alarm* | Ochranná magie | R |
 | *Burning Hands* | Zaklínání | — |
 | *Charm Person* | Očarování | — |
 | *Chromatic Orb* | Zaklínání | M |
@@ -168,9 +168,9 @@ Tento oddíl uvádí seznam kouzel Wizarda. Kouzla jsou seřazena podle úrovně
 | *Comprehend Languages* | Věštění | R |
 | *Detect Magic* | Věštění | C, R |
 | *Disguise Self* | Iluze | — |
-| *Expeditious Retreat* | Přeměna | C |
+| *Expeditious Retreat* | Transmutace | C |
 | *False Life* | Nekromancie | — |
-| *Feather Fall* | Přeměna | — |
+| *Feather Fall* | Transmutace | — |
 | *Find Familiar* | Vyvolávání | R, M |
 | *Floating Disk* | Vyvolávání | R |
 | *Fog Cloud* | Vyvolávání | C |
@@ -179,13 +179,13 @@ Tento oddíl uvádí seznam kouzel Wizarda. Kouzla jsou seřazena podle úrovně
 | *Ice Knife* | Vyvolávání | — |
 | *Identify* | Věštění | R, M |
 | *Illusory Script* | Iluze | R, M |
-| *Jump* | Přeměna | — |
-| *Longstrider* | Přeměna | — |
-| *Mage Armor* | Odvrácení | — |
+| *Jump* | Transmutace | — |
+| *Longstrider* | Transmutace | — |
+| *Mage Armor* | Ochranná magie | — |
 | *Magic Missile* | Zaklínání | — |
-| *Protection from Evil and Good* | Odvrácení | C, M |
+| *Protection from Evil and Good* | Ochranná magie | C, M |
 | *Ray of Sickness* | Nekromancie | — |
-| *Shield* | Odvrácení | — |
+| *Shield* | Ochranná magie | — |
 | *Silent Image* | Iluze | C |
 | *Sleep* | Očarování | C |
 | *Thunderwave* | Zaklínání | — |
@@ -196,38 +196,38 @@ Tento oddíl uvádí seznam kouzel Wizarda. Kouzla jsou seřazena podle úrovně
 | Kouzlo | Škola | Zvláštní |
 |---|---|---|
 | *Acid Arrow* | Zaklínání | — |
-| *Alter Self* | Přeměna | C |
-| *Arcane Lock* | Odvrácení | M |
+| *Alter Self* | Transmutace | C |
+| *Arcane Lock* | Ochranná magie | M |
 | *Arcanist's Magic Aura* | Iluze | — |
 | *Augury* | Věštění | R, M |
-| *Blindness/Deafness* | Přeměna | — |
+| *Blindness/Deafness* | Transmutace | — |
 | *Blur* | Iluze | C |
 | *Continual Flame* | Zaklínání | M |
 | *Darkness* | Zaklínání | C |
-| *Darkvision* | Přeměna | — |
+| *Darkvision* | Transmutace | — |
 | *Detect Thoughts* | Věštění | C |
-| *Dragon's Breath* | Přeměna | C |
-| *Enhance Ability* | Přeměna | C |
-| *Enlarge/Reduce* | Přeměna | C |
+| *Dragon's Breath* | Transmutace | C |
+| *Enhance Ability* | Transmutace | C |
+| *Enlarge/Reduce* | Transmutace | C |
 | *Flaming Sphere* | Zaklínání | C |
 | *Gentle Repose* | Nekromancie | R, M |
 | *Gust of Wind* | Zaklínání | C |
 | *Hold Person* | Očarování | C |
 | *Invisibility* | Iluze | C |
-| *Knock* | Přeměna | — |
-| *Levitate* | Přeměna | C |
+| *Knock* | Transmutace | — |
+| *Levitate* | Transmutace | C |
 | *Locate Object* | Věštění | C |
 | *Magic Mouth* | Iluze | R, M |
-| *Magic Weapon* | Přeměna | — |
+| *Magic Weapon* | Transmutace | — |
 | *Mind Spike* | Věštění | C |
 | *Mirror Image* | Iluze | — |
 | *Misty Step* | Vyvolávání | — |
 | *Ray of Enfeeblement* | Nekromancie | C |
-| *Rope Trick* | Přeměna | — |
+| *Rope Trick* | Transmutace | — |
 | *Scorching Ray* | Zaklínání | — |
 | *See Invisibility* | Věštění | — |
 | *Shatter* | Zaklínání | — |
-| *Spider Climb* | Přeměna | C |
+| *Spider Climb* | Transmutace | C |
 | *Suggestion* | Očarování | C |
 | *Web* | Vyvolávání | C |
 
@@ -237,49 +237,49 @@ Tento oddíl uvádí seznam kouzel Wizarda. Kouzla jsou seřazena podle úrovně
 |---|---|---|
 | *Animate Dead* | Nekromancie | — |
 | *Bestow Curse* | Nekromancie | C |
-| *Blink* | Přeměna | — |
+| *Blink* | Transmutace | — |
 | *Clairvoyance* | Věštění | C, M |
-| *Counterspell* | Odvrácení | — |
-| *Dispel Magic* | Odvrácení | — |
+| *Counterspell* | Ochranná magie | — |
+| *Dispel Magic* | Ochranná magie | — |
 | *Fear* | Iluze | C |
 | *Fireball* | Zaklínání | — |
-| *Fly* | Přeměna | C |
-| *Gaseous Form* | Přeměna | C |
-| *Glyph of Warding* | Odvrácení | M |
-| *Haste* | Přeměna | C |
+| *Fly* | Transmutace | C |
+| *Gaseous Form* | Transmutace | C |
+| *Glyph of Warding* | Ochranná magie | M |
+| *Haste* | Transmutace | C |
 | *Hypnotic Pattern* | Iluze | C |
 | *Lightning Bolt* | Zaklínání | — |
-| *Magic Circle* | Odvrácení | M |
+| *Magic Circle* | Ochranná magie | M |
 | *Major Image* | Iluze | C |
-| *Nondetection* | Odvrácení | M |
+| *Nondetection* | Ochranná magie | M |
 | *Phantom Steed* | Iluze | R |
-| *Protection from Energy* | Odvrácení | C |
-| *Remove Curse* | Odvrácení | — |
+| *Protection from Energy* | Ochranná magie | C |
+| *Remove Curse* | Ochranná magie | — |
 | *Sending* | Věštění | — |
 | *Sleet Storm* | Vyvolávání | C |
-| *Slow* | Přeměna | C |
+| *Slow* | Transmutace | C |
 | *Speak with Dead* | Nekromancie | — |
 | *Stinking Cloud* | Vyvolávání | C |
 | *Tiny Hut* | Zaklínání | R |
 | *Tongues* | Věštění | — |
 | *Vampiric Touch* | Nekromancie | C |
-| *Water Breathing* | Přeměna | R |
+| *Water Breathing* | Transmutace | R |
 
 #### Kouzla Wizarda 4. úrovně
 
 | Kouzlo | Škola | Zvláštní |
 |---|---|---|
 | *Arcane Eye* | Věštění | C |
-| *Banishment* | Odvrácení | C |
+| *Banishment* | Ochranná magie | C |
 | *Black Tentacles* | Vyvolávání | C |
 | *Blight* | Nekromancie | — |
 | *Charm Monster* | Očarování | — |
 | *Confusion* | Očarování | C |
 | *Conjure Minor Elementals* | Vyvolávání | C |
-| *Control Water* | Přeměna | C |
+| *Control Water* | Transmutace | C |
 | *Dimension Door* | Vyvolávání | — |
 | *Divination* | Věštění | R, M |
-| *Fabricate* | Přeměna | — |
+| *Fabricate* | Transmutace | — |
 | *Faithful Hound* | Vyvolávání | — |
 | *Fire Shield* | Zaklínání | — |
 | *Greater Invisibility* | Iluze | C |
@@ -287,12 +287,12 @@ Tento oddíl uvádí seznam kouzel Wizarda. Kouzla jsou seřazena podle úrovně
 | *Ice Storm* | Zaklínání | — |
 | *Locate Creature* | Věštění | C |
 | *Phantasmal Killer* | Iluze | C |
-| *Polymorph* | Přeměna | C |
-| *Private Sanctum* | Odvrácení | — |
-| *Resilient Sphere* | Odvrácení | C |
+| *Polymorph* | Transmutace | C |
+| *Private Sanctum* | Ochranná magie | — |
+| *Resilient Sphere* | Ochranná magie | C |
 | *Secret Chest* | Vyvolávání | M |
-| *Stone Shape* | Přeměna | — |
-| *Stoneskin* | Přeměna | C, M |
+| *Stone Shape* | Transmutace | — |
+| *Stoneskin* | Transmutace | C, M |
 | *Vitriolic Sphere* | Zaklínání | — |
 | *Wall of Fire* | Zaklínání | C |
 
@@ -300,7 +300,7 @@ Tento oddíl uvádí seznam kouzel Wizarda. Kouzla jsou seřazena podle úrovně
 
 | Kouzlo | Škola | Zvláštní |
 |---|---|---|
-| *Animate Objects* | Přeměna | C |
+| *Animate Objects* | Transmutace | C |
 | *Arcane Hand* | Zaklínání | C |
 | *Cloudkill* | Vyvolávání | C |
 | *Cone of Cold* | Zaklínání | — |
@@ -314,12 +314,12 @@ Tento oddíl uvádí seznam kouzel Wizarda. Kouzla jsou seřazena podle úrovně
 | *Legend Lore* | Věštění | M |
 | *Mislead* | Iluze | C |
 | *Modify Memory* | Očarování | C |
-| *Passwall* | Přeměna | — |
-| *Planar Binding* | Odvrácení | M |
+| *Passwall* | Transmutace | — |
+| *Planar Binding* | Ochranná magie | M |
 | *Scrying* | Věštění | C, M |
 | *Seeming* | Iluze | — |
 | *Summon Dragon* | Vyvolávání | C, M |
-| *Telekinesis* | Přeměna | C |
+| *Telekinesis* | Transmutace | C |
 | *Telepathic Bond* | Věštění | R |
 | *Teleportation Circle* | Vyvolávání | M |
 | *Wall of Force* | Zaklínání | C |
@@ -331,19 +331,19 @@ Tento oddíl uvádí seznam kouzel Wizarda. Kouzla jsou seřazena podle úrovně
 |---|---|---|
 | *Chain Lightning* | Zaklínání | — |
 | *Circle of Death* | Nekromancie | M |
-| *Contingency* | Odvrácení | M |
+| *Contingency* | Ochranná magie | M |
 | *Create Undead* | Nekromancie | M |
-| *Disintegrate* | Přeměna | — |
+| *Disintegrate* | Transmutace | — |
 | *Eyebite* | Nekromancie | C |
-| *Flesh to Stone* | Přeměna | C |
+| *Flesh to Stone* | Transmutace | C |
 | *Freezing Sphere* | Zaklínání | — |
-| *Globe of Invulnerability* | Odvrácení | C |
-| *Guards and Wards* | Odvrácení | M |
+| *Globe of Invulnerability* | Ochranná magie | C |
+| *Guards and Wards* | Ochranná magie | M |
 | *Instant Summons* | Vyvolávání | R, M |
 | *Irresistible Dance* | Očarování | C |
 | *Magic Jar* | Nekromancie | M |
 | *Mass Suggestion* | Očarování | — |
-| *Move Earth* | Přeměna | C |
+| *Move Earth* | Transmutace | C |
 | *Programmed Illusion* | Iluze | M |
 | *Sunbeam* | Zaklínání | C |
 | *True Seeing* | Věštění | M |
@@ -363,26 +363,26 @@ Tento oddíl uvádí seznam kouzel Wizarda. Kouzla jsou seřazena podle úrovně
 | *Plane Shift* | Vyvolávání | M |
 | *Prismatic Spray* | Zaklínání | — |
 | *Project Image* | Iluze | C, M |
-| *Reverse Gravity* | Přeměna | C |
-| *Sequester* | Přeměna | M |
+| *Reverse Gravity* | Transmutace | C |
+| *Sequester* | Transmutace | M |
 | *Simulacrum* | Iluze | M |
-| *Symbol* | Odvrácení | M |
+| *Symbol* | Ochranná magie | M |
 | *Teleport* | Vyvolávání | — |
 
 #### Kouzla Wizarda 8. úrovně
 
 | Kouzlo | Škola | Zvláštní |
 |---|---|---|
-| *Antimagic Field* | Odvrácení | C |
+| *Antimagic Field* | Ochranná magie | C |
 | *Antipathy/Sympathy* | Očarování | — |
 | *Befuddlement* | Očarování | — |
 | *Clone* | Nekromancie | M |
-| *Control Weather* | Přeměna | C |
+| *Control Weather* | Transmutace | C |
 | *Demiplane* | Vyvolávání | — |
 | *Dominate Monster* | Očarování | C |
 | *Incendiary Cloud* | Vyvolávání | C |
 | *Maze* | Vyvolávání | C |
-| *Mind Blank* | Odvrácení | — |
+| *Mind Blank* | Ochranná magie | — |
 | *Power Word Stun* | Očarování | — |
 | *Sunburst* | Zaklínání | — |
 
@@ -393,13 +393,13 @@ Tento oddíl uvádí seznam kouzel Wizarda. Kouzla jsou seřazena podle úrovně
 | *Astral Projection* | Nekromancie | M |
 | *Foresight* | Věštění | — |
 | *Gate* | Vyvolávání | C, M |
-| *Imprisonment* | Odvrácení | M |
+| *Imprisonment* | Ochranná magie | M |
 | *Meteor Swarm* | Zaklínání | — |
 | *Power Word Kill* | Očarování | — |
-| *Prismatic Wall* | Odvrácení | — |
-| *Shapechange* | Přeměna | C, M |
-| *Time Stop* | Přeměna | — |
-| *True Polymorph* | Přeměna | C |
+| *Prismatic Wall* | Ochranná magie | — |
+| *Shapechange* | Transmutace | C, M |
+| *Time Stop* | Transmutace | — |
+| *True Polymorph* | Transmutace | C |
 | *Weird* | Iluze | C |
 | *Wish* | Vyvolávání | — |
 
