@@ -203,7 +203,10 @@ function edGen() {
 }
 async function edNacti() {
   if (!ED.z) {
-    ED.z = (await MMDB.zaznamy()) || {};
+    const z = await MMDB.zaznamy();
+    /* prázdný výsledek = chyba: uložení by vygenerovalo obsah webu jen z jednoho záznamu a ostatní smazalo */
+    if (!z || typeof z !== "object" || !Object.keys(z).length) throw new Error("Záznamy z databáze nepřišly – nic neukládám, zkus to znovu.");
+    ED.z = z;
     ED.idx = null;
   }
   return ED.z;
