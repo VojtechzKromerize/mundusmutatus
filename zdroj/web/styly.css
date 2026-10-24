@@ -3807,3 +3807,70 @@ html.mmpc:not(.mmjenhra) .bdmweb{display:grid;font-size:1.2rem}
 .bdmstt button{flex:1;padding:7px 6px 6px;border:0;border-bottom:2px solid transparent;background:none;color:var(--kb-mu,#b8a384);font:600 .78rem/1.1 var(--f-label);letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
 .bdmstt button[aria-selected=true]{color:var(--kb-gold,#d9b45c);border-bottom-color:var(--kb-gold,#d9b45c)}
 .bdmstt button b{display:inline-block;min-width:1.2em;margin-left:4px;padding:0 4px;border-radius:999px;background:var(--kb-bar,#4a2228);color:var(--kb-tx,#efe3c8);font-size:.72rem}
+
+/* ===== Nebeské bojiště (2026-10-25): vzdušný boj draků, 22c-nebe.js ===== */
+#nbview{--nbz:#3d7a35;--nbc:var(--kal);--nbsky:color-mix(in srgb,var(--water) 24%,var(--paper))}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #nbview{--nbz:#7fbf6a}}
+:root[data-theme="dark"] #nbview{--nbz:#7fbf6a}
+.nbgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,380px);gap:16px;align-items:start}
+@media (max-width:900px){.nbgrid{grid-template-columns:1fr}}
+.nbdeska{position:sticky;top:calc(var(--navh) + 8px);max-width:min(100%,max(360px,calc(100vh - 230px)));width:100%;justify-self:center}
+.nbsvg{display:block;width:100%;height:auto;border:1px solid color-mix(in srgb,var(--gold) 55%,var(--rule));box-shadow:inset 0 0 0 3px var(--paper),inset 0 0 0 4px var(--rule);touch-action:none;user-select:none}
+.nbnebe{fill:var(--nbsky)}
+.nbnoc .nbnebe{fill:#141a2b}
+.nbmriz line{stroke:color-mix(in srgb,var(--ink) 9%,transparent);stroke-width:1}
+.nbnoc .nbmriz line{stroke:rgba(200,210,255,.08)}
+.nbpasmo{fill:none;stroke:color-mix(in srgb,var(--gold) 55%,transparent);stroke-width:1.2;stroke-dasharray:6 6}
+.nbstin rect{fill:#000}
+.nbdrak{cursor:grab}
+.nbdrak rect{fill:var(--paper);stroke:var(--nbbarva);stroke-width:4}
+.nbdrak line{stroke:var(--nbbarva);stroke-width:2}
+.nbdrak .nbnos{fill:var(--nbbarva)}
+.nbdrak .nboblouk{fill:var(--nbbarva);opacity:.1;stroke:none}
+.nbd{--nbbarva:var(--kat)}
+.nbn{--nbbarva:var(--kal)}
+.nbdrak.nbsel rect{stroke-width:6}
+.nbdrak.nbsel .nboblouk{opacity:.18}
+.nbstitek text{font-family:var(--f-label);font-size:19px;fill:var(--ink);paint-order:stroke;stroke:var(--nbsky);stroke-width:4px;stroke-linejoin:round}
+.nbnoc .nbstitek text{fill:#e7e2d4;stroke:#141a2b}
+.nbstitek .nbhl{font-size:14px;fill:var(--muted)}
+.nbdraha{fill:none;stroke-width:4;stroke-dasharray:10 7;stroke-linecap:round}
+.nbduch rect,.nbduch path{fill:none;stroke-width:2.5;stroke-dasharray:6 5}
+.nbvz{stroke:var(--nbz);--nbv:var(--nbz)}
+.nbvb{stroke:var(--ink);--nbv:var(--ink)}
+.nbvc{stroke:var(--nbc);--nbv:var(--nbc)}
+.nbnoc .nbvb{stroke:#e7e2d4}
+.nbstret{stroke:var(--gold);stroke-width:5;stroke-dasharray:3 6;stroke-linecap:round}
+.nbpanel{display:flex;flex-direction:column;gap:12px}
+.nbfaze{display:flex;align-items:baseline;gap:10px;border-bottom:1px solid var(--rule);padding-bottom:6px}
+.nbfaze h3{font-family:var(--f-disp);font-weight:500;font-size:1.5rem}
+.nbcis{border-collapse:collapse;font-size:.92rem}
+.nbcis th{font-family:var(--f-label);font-weight:500;color:var(--muted);text-align:left;padding:2px 6px 2px 0;white-space:nowrap}
+.nbcis thead th{text-align:center}
+.nbcis td{padding:2px;text-align:center;white-space:nowrap}
+.nbbtn{min-width:30px;height:30px;margin:1px;font:inherit;font-size:1rem;line-height:1;border-radius:3px;cursor:pointer;background:var(--paper);color:var(--nbv);border:2px solid var(--nbv)}
+.nbbtn.nbvz{background:color-mix(in srgb,var(--nbz) 14%,var(--paper))}
+.nbbtn.nbvc{background:color-mix(in srgb,var(--nbc) 12%,var(--paper))}
+.nbbtn.on{background:var(--nbv);color:var(--paper)}
+.nbbtn:disabled{opacity:.38;cursor:default}
+.nbkarta .nbbtn{min-width:24px;height:24px;font-size:.85rem}
+.nbzvol{font-weight:700}
+.nbhodiny{font-family:var(--f-disp);font-size:3rem;line-height:1;text-align:center;color:var(--ink)}
+.nbhodiny.nbmalo{color:var(--kal)}
+.nbtag{font-family:var(--f-label);font-size:.8rem;padding:0 6px;border:1px solid var(--nbv);color:var(--nbv);border-radius:2px}
+.nbodh{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px}
+.nbovl{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px;align-items:center}
+.nbovl .gbtn{font-size:.8rem;padding:1px 8px;align-self:center}
+.nbovl .gbtn.on{background:var(--ink);color:var(--paper)}
+.nbkarty{display:flex;flex-direction:column;gap:8px}
+.nbkarta{border:1px solid var(--rule);border-left:4px solid var(--nbbarva);padding:6px 10px;background:var(--paper)}
+.nbkarta summary{cursor:pointer}
+.nbkarta>*+*{margin-top:6px}
+.nbpopis{color:var(--muted);font-size:.9rem}
+.nbvl{margin:0;padding-left:18px;font-size:.9rem}
+.nbvar{color:var(--kal);font-weight:700}
+.nbutoky ul{margin:4px 0;padding-left:18px;display:flex;flex-direction:column;gap:4px}
+.nbutoky h3{font-size:1rem}
+.nbano{color:var(--nbz);font-weight:700}
+.nblog ul{margin:4px 0;padding-left:18px;font-size:.88rem;color:var(--muted)}
+.nbpor select{font:inherit;margin-left:4px}

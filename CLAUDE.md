@@ -111,7 +111,7 @@ přepsat (obalit) funkci jiného souboru jen jména v `OBALENE` (`testy/kontrola
 
 **Čistá pravidla (od 2026-10-23):** soubory s `@čisté` na 1. řádku – 02c druhy zbroje (v jádru), 10k import PDF, 10p pravidla boje
 a Artikulí (hody proti smrti, soustředění, zbroj, houfy, sloty), 10r okno reakce (`REAKCE`, `reakceOkno`, `reakceVysledek`; fakta
-z karty skládá `kReakceFakta` v 14c), 10t účet tahu (`tahObnov`, `tahOznac`, `tahJednouZapis` – BPT, KTAHJ, BJU.ridT), 10u účinky
+z karty skládá `kReakceFakta` v 14c), 10n vzdušný boj draků (`nebeKarta`, `nebeDraha`, `nebeStret` – stránka 22c), 10t účet tahu (`tahObnov`, `tahOznac`, `tahJednouZapis` – BPT, KTAHJ, BJU.ridT), 10u účinky
 (`UCINKY` = dřívější KZEF + KPRID v jednom formátu, `ucSecti` a spol.), 10w vlastnosti a mistrovství zbraní SRD
 (`ZBRVL`, `ZBRMS`, `ZBRMA`, `zbrRozbor`, `zbrMaMa` – napojení na boj v 20g). Smí používat jen jazyk JS a jména jiných čistých souborů
 (kontrola kódu je odmítne jinak), data dostávají argumentem; testy běží v čistém Node za milisekundy (`testy/jednotky/ciste.mjs`).
@@ -132,10 +132,10 @@ Pravidla · 09 vypravěč: odhalování, panel, herní čas · 10 Kouzla · 11 B
 20b Boj: vypravěč (vyhodnocení a potvrzení útoků hráčů, veřejný záznam, pruh „co teď“, formuláře, klávesy, Zpět) · 20c volby po zásahu, přesun Hexu, Riposte · 20e perky zbraní z Artikulí v boji ·
 20g vlastnosti a mistrovství zbraní SRD v boji (Weapon Traits a Masteries: volby před hodem, nabídka po zásahu, `wm` u útoku, vyhodnocení vypravěče) ·
 20d Boj: vykreslení (kostra, záložky, renderBoj) · 20f scéna mimo boj (NPC, jednání, protihody) ·
-21 editor textů · 22 Výprava (počasí, Zpět herního času) · 23 potvrzování akcí hráčů · 24 Boj: herní záznam (kdo · co · komu, kostky, Závoj) ·
+21 editor textů · 22 Výprava (počasí, Zpět herního času) · 22c Nebeské bojiště (vzdušný boj draků; pravidla v čistém 10n) · 23 potvrzování akcí hráčů · 24 Boj: herní záznam (kdo · co · komu, kostky, Závoj) ·
 25 puls (jeden dotaz „co se změnilo“, Realtime) · 26 start: pečeť a první `route()`.
 
-**Samostatné části (načtou se až na své stránce):** 02b kresba mapy, 04b plán Prahy, 05b mapa světa, 21 editor, 22b stránka Výprava –
+**Samostatné části (načtou se až na své stránce):** 02b kresba mapy, 04b plán Prahy, 05b mapa světa, 21 editor, 22b stránka Výprava, 22c Nebeské bojiště –
 obsah mezi `/*@cast název{*/ … /*@cast}*/` build vyřízne do `v/cast-…js`. Kód mimo část na její funkce sahá jen přes `route()`
 (`MMLINY_V` v 01, `mmLina()`), přes `typeof … === "function"` nebo přes zástupnou funkci (`drawMap` → `drawMapK`). Vypravěč dostane
 všechny části hned po startu. Zbytek skriptu build dělí na díly s otiskem podle čísel souborů, takže po nasazení se stáhne jen díl,
@@ -260,7 +260,7 @@ Hlavní orientační body:
   Aktuální text Artikulí je v projektu claude.ai (`pravidla/artikule-*.md`, nejnovější datum).
 - **Vzhled:** středověká kronika / iluminovaný kodex (vínová kůže, zlaté linky, iluminační modř).
   Mobil je hlavní zařízení hráčů. Pro hráče má srozumitelnost přednost před historickou přesností.
-- **Nebudou:** bojová mapa (hraje se s figurkami) a tvorba postavy (postavy se nahrávají z PDF D&D Beyond).
+- **Nebudou:** bojová mapa pro pozemní boj (hraje se s figurkami; výjimka: Nebeské bojiště pro vzdušný boj draků, `#nebe`) a tvorba postavy (postavy se nahrávají z PDF D&D Beyond).
 - Herní čas: tažení začíná 3. 3. 1458 (Jiří zvolen králem), juliánský kalendář; věk osob se počítá k hernímu datu.
 
 ## Licence (hlídej vždy)

@@ -27,6 +27,9 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
 - 2026-10-23 **Sčítání účinků podle D&D 2024**: různé účinky se sčítají (Bless + Emboldening Bond Domény míru, Haste + Shield of Faith),
   stejnojmenné ne – platí nejsilnější (dva Bless = jednou 1d4, Aid jen nejvyšší stupeň). Výjimku umí pole `scit` v `UCINKY`.
 - 2026-10-23 **Čistá pravidla**: výpočty pravidel patří do souborů `@čisté` (bez stránky, testy v čistém Node); stránka je jen volá s daty.
+- 2026-10-25 **Vzdušný boj draků** (návrh v projektu claude.ai `pravidla/vzdusny-boj-navrh.md`): manévry jako v deskovém X-Wingu, pohyb naráz,
+  střet zastaví čas, pět hladin, Napětí; plemena se liší jen letem (karta draka z Profilů plemen). Výjimka z „nebude bojová mapa“:
+  **Nebeské bojiště** na sdílené obrazovce u stolu; kapitán zadává manévr, ostatní hráči později jen prohlížejí na mobilech.
 
 ## Hotovo
 
@@ -114,8 +117,16 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
   s hodnotou, bez rámečku a popisku (`bdmSrPol` 14, `art/img/atributy/pb|rych|ini`); název v alt, podrobnost v `data-tip`. Prompty v projektu
   `grafika/zalozky-prompty.md`.
 - 10-23 **Mince jen GP, SP, CP** (uherský zlatý, pražský groš, haléř; 1 GP = 10 SP = 100 CP) s ikonami `art/img/boj/mince-*`, `mesec`, `pokladna` (14b `KMINCE`, `kPenHtml`, `kMinceNab`; 19 `kPenSloz` převádí PP a EP); prompty `grafika/mince-prompty.md` v projektu.
+- 10-25 **Nebeské bojiště, první verze** (Vojta): stránka `#nebe` jen pro vypravěče (Kronika › Nebeské bojiště), samostatná část `nebe`
+  (`22c-nebe.js`), pravidla v čistém `10n-nebe.js` (`nebeKarta`, `nebeDraha`, `nebeStret`, `nebePrekryv`, `nebeUtokDraka`, `nebeZavoj`,
+  `nebeNocniOci`; test `nebe.test.mjs`, prohlídka `prohlizec_nebe.py`). Soumračník (dospělý) proti Korutanskému lindwurmovi: příprava
+  (tažení, natočení, hladina), uzamčení manévru nepřítele, porada s hodinami a náhledem dráhy, odhalení se Závojem u červeného manévru
+  a Nočníma očima, současný pohyb s animací, střet se zastaveným časem (kdo smí útočit, pásmo a oblouk posádky), překryv, Napětí,
+  zranění draka jako škrtnuté manévry, den/noc. Stav jen v prohlížeči (`mm-nebe`), bez databáze.
 
 ## Otevřené
+- **Nebeské bojiště – další kroky**: kapitánovo zařízení a mobily hráčů jen ke čtení (Realtime, manévry nepřátel neodejdou ze zařízení
+  vypravěče), stav v databázi, další plemena a jejich podpisy, překážky s výškou, malé popisky na úzké obrazovce, žetony draků místo čtverců.
 - **Automatika podle karet družiny** (Vojta 10-24): až budou nahrané karty postav, projít, které jejich kouzla, featy, předměty a rysy automatika nezná, a doplnit je (návrhy: přehled „bez automatiky“ v Hra › Družina, pravidelné doplňování, formulář jednoduchých bonusů pro vypravěče). Dnes: ~207 kouzel se zraněním/léčením, 105 posílení, 78 stavů ze záchrany; 18 featů podle jména + 58 shrnutí; předměty jen z katalogu vybavení.
 - **Plné texty kouzel a předmětů v databázi**: vývojová i ostrá je musí nahrát vypravěč (Pravidla › Kouzla a Pravidla › Předměty › Nahrát, soubory kouzla.json a predmety.json z převodníku) – ze sandboxu se do databáze nedostanou. Nasazeno 10-24 (schéma v ostré), ostrá tabulka `pravidla_texty` je zatím prázdná – kouzla a předměty nahraje Vojta na ostrém webu, featy chybí (viz Featy). „Slot“ v automatice a rozhraní karty zůstal (texty pravidel mají „pozice kouzla“).
 - **Featy**: české názvy 24 featů se liší od shrnutí v `featy.json` – rozhoduje Vojta; plné znění nahrává vypravěč souborem featy.json (`featy_plne.py` z MD v projektu – převádí i pojmy a stavy) na stránce Pravidla › Kouzla › Nahrát plné znění; v ostré databázi zatím není; okno featu na kartě zatím ukazuje jen shrnutí.

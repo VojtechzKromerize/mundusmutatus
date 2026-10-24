@@ -179,6 +179,7 @@ const MMLINY_V = {
   praha: ["praha"],
   svet: ["praha", "svet"],
   vyprava: ["hra", "mapa", "praha", "svet", "editor", "vyprava"],
+  nebe: ["hra", "nebe"],
   pravidla: ["hra"],
   karty: ["hra"],
   boj: ["hra"],
