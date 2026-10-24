@@ -547,7 +547,7 @@ mark{background:color-mix(in srgb,var(--gold) 35%,transparent);color:inherit;pad
 }
 .atoggle{display:none;font-family:var(--f-label);font-weight:700;letter-spacing:.06em;background:var(--bg);color:var(--ink);border:1px solid var(--rule);border-radius:3px;padding:5px 10px;cursor:pointer;text-align:left}
 @media (max-width:640px){
-  
+
   .rtab:not(.narrow) thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
   .rtab:not(.narrow),.rtab:not(.narrow) tbody,.rtab:not(.narrow) tr,.rtab:not(.narrow) th,.rtab:not(.narrow) td{display:block;width:auto}
   .rtab:not(.narrow) tr{border-bottom:2px solid var(--rule);padding:6px 0}
@@ -2272,26 +2272,17 @@ html.mmapp .mmpop{padding-top:calc(env(safe-area-inset-top,0px) + 10px)}
 .kdb .kdbnote a{color:var(--kb-gold)}
 .kdb a{color:var(--kb-gold)}
 /* hlavička */
-.kdbhead{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;background:linear-gradient(180deg,#2a2420,#1a1512);border:2px solid var(--kb-bd);border-radius:12px;padding:10px 14px}
-.kdbport{width:72px;height:72px;border-radius:50%;object-fit:cover;object-position:50% 18%;border:3px solid var(--kb-gold);box-shadow:0 0 0 2px #1a1512,0 0 0 3px var(--kb-bd);background:var(--kb-port)}
-.kdbini{display:grid;place-items:center;font-family:var(--f-disp);font-size:2.2rem;color:var(--kb-gold)}
-.kdbnm{flex:1 1 200px;min-width:0}
-.kdbnm h2{margin:0;font-family:var(--f-disp);font-weight:500;font-size:1.9rem;line-height:1.05;color:var(--kb-tx)}
-.kdbnm p{margin:2px 0 0;color:var(--kb-mu);font-size:.92rem}
-.kdbnm .kdblv{font-family:var(--f-label);letter-spacing:.04em;font-size:.82rem}
-.kdbhb{display:flex;flex-wrap:wrap;gap:8px}
+
 .kdbbtn{font-family:var(--f-label)!important;font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:.8rem;color:var(--kb-tx);background:var(--kb-btn);border:1px solid var(--kb-ac);border-radius:3px;padding:6px 12px;text-decoration:none}
 .kdbbtn:hover{background:#45231d}
 /* horní řada */
-.kdbtop{display:grid;grid-template-columns:repeat(6,minmax(64px,1fr)) repeat(4,minmax(72px,.9fr)) minmax(260px,2.6fr);gap:8px;margin:0!important}
-.kdbab,.kdbsm,.kdbhp{position:relative;background:var(--kb-pan);border:2px solid var(--kb-bd);border-radius:10px;box-shadow:inset 0 0 0 2px var(--kb-pan),inset 0 0 0 3px var(--kb-bd2);text-align:center}
-.kdbab{display:flex;flex-direction:column;align-items:center;padding:6px 4px 0;min-height:104px}
-.kdbab small,.kdbsm small{font-family:var(--f-label);font-weight:700;letter-spacing:.05em;font-size:.68rem;text-transform:uppercase;color:var(--kb-tx)}
-.kdbab button{margin:4px 0 0;min-width:56px;padding:2px 8px;background:var(--kb-bg);border:1px solid var(--kb-bd);border-radius:5px;color:var(--kb-tx);font-family:var(--f-body);font-size:1.8rem;line-height:1.15}
-.kdbab button:hover,.kdb [data-khod]:hover{border-color:var(--kb-gold);color:#fff}
-.kdbab b{margin:4px 0 -12px;min-width:34px;padding:1px 8px;background:var(--kb-pan2);border:2px solid var(--kb-bd);border-radius:12px;font-weight:600;font-size:1rem}
-.kdbab button.kdbabs{margin:4px 0 -12px;min-width:34px;padding:1px 8px;background:var(--kb-pan2);border:2px solid var(--kb-bd);border-radius:12px;font-weight:600;font-size:1rem;line-height:1.3;cursor:pointer}
-.kdbabu button.kdbabs{border-color:var(--kb-gold);color:var(--kb-gold)}
+
+.kdbsm,.kdbhp{position:relative;background:var(--kb-pan);border:2px solid var(--kb-bd);border-radius:10px;box-shadow:inset 0 0 0 2px var(--kb-pan),inset 0 0 0 3px var(--kb-bd2);text-align:center}
+
+.kdbsm small{font-family:var(--f-label);font-weight:700;letter-spacing:.05em;font-size:.68rem;text-transform:uppercase;color:var(--kb-tx)}
+
+.kdb [data-khod]:hover{border-color:var(--kb-gold);color:#fff}
+
 .kobl{margin-left:4px;padding:0 6px;border:1px solid var(--rule);border-radius:3px;background:none;color:var(--muted);font-family:var(--f-label);font-size:.7rem;text-transform:uppercase;letter-spacing:.04em;cursor:pointer;vertical-align:1px}
 .kobl.on{color:var(--gold);border-color:var(--gold)}
 .kdb .kobl{background:var(--kb-bg);border-color:var(--kb-bd);color:var(--kb-mu)}.kdb .kobl.on{color:var(--kb-gold);border-color:var(--kb-gold)}
@@ -2306,10 +2297,7 @@ html.mmapp .mmpop{padding-top:calc(env(safe-area-inset-top,0px) + 10px)}
 .kdbsm{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:6px 4px}
 .kdbsm b{font-family:var(--f-body);font-size:1.7rem;line-height:1.1;font-weight:500}
 .kdbsm b i{font-style:normal;font-size:.9rem}
-.kdbinsp input{position:absolute;opacity:0;width:0;height:0}
-.kdbinsp span{width:42px;height:34px;border:2px solid var(--kb-bd);border-radius:6px;background:var(--kb-bg);display:block;cursor:pointer}
-.kdbinsp input:checked+span{background:radial-gradient(circle,var(--kb-gold) 0 30%,transparent 34%),var(--kb-bg);box-shadow:0 0 10px -2px var(--kb-gold)}
-.kdbinsp input:focus-visible+span{outline:2px solid var(--kb-gold)}
+
 .kdbhp{display:grid;grid-template-columns:auto 1fr;grid-template-rows:1fr auto;gap:4px 12px;padding:8px 10px 24px;text-align:left}
 .kdbhpz{display:flex;flex-direction:column;gap:3px;grid-row:span 1}
 .kdbhpz input{width:84px;text-align:center;background:var(--kb-in);color:var(--kb-tx);border:1px solid var(--kb-bd);border-radius:3px;padding:3px;font-size:1rem}
@@ -2324,90 +2312,55 @@ html.mmapp .mmpop{padding-top:calc(env(safe-area-inset-top,0px) + 10px)}
 .kdbhp.bhp2 .kdbhpc span:first-child b{color:var(--kb-gold)}.kdbhp.bhp0 .kdbhpc span:first-child b{color:var(--kb-ac)}
 .kdbhpo{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:6px}
 .kdbhpo select{background:var(--kb-in);color:var(--kb-tx);border:1px solid var(--kb-bd);border-radius:3px;font-size:.8rem;padding:2px}
-.kdbkz{display:inline-flex;align-items:center;gap:2px;font-family:var(--f-label);font-size:.72rem;color:var(--kb-mu);margin-left:auto}
-.kdbkz button,.kdbvy button,.kdbpips button{width:12px;height:12px;padding:0;border:1px solid var(--kb-mu);background:transparent;border-radius:2px}
-.kdbkz button.on,.kdbvy button.on,.kdbpips button.on{background:var(--kb-ac);border-color:var(--kb-ac)}
+
+.kdbvy button,.kdbpips button{width:12px;height:12px;padding:0;border:1px solid var(--kb-mu);background:transparent;border-radius:2px}
+.kdbvy button.on,.kdbpips button.on{background:var(--kb-ac);border-color:var(--kb-ac)}
 .kdbhpbar{position:absolute;left:12px;right:12px;bottom:4px;height:3px;border-radius:2px;background:linear-gradient(90deg,var(--kb-ok) var(--p),rgba(255,255,255,.1) var(--p))}
 .kdbhp .kdbpt{bottom:8px}
 .kdbmini{font-family:var(--f-label)!important;font-weight:600;letter-spacing:.04em;font-size:.75rem;color:var(--kb-tx);background:var(--kb-bg);border:1px solid var(--kb-bd);border-radius:3px;padding:2px 8px}
 .kdbmini:hover{border-color:var(--kb-gold)}
 /* hlavní mřížka */
-.kdbmain{display:grid;grid-template-columns:minmax(230px,.95fr) minmax(250px,1fr) minmax(0,2.6fr);gap:12px;align-items:start}
-.kdbc1,.kdbc2,.kdbc3{display:flex;flex-direction:column;gap:12px;min-width:0}
-@media (max-width:1180px){.kdbmain{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.kdbc3{grid-column:1/-1}.kdbtop{grid-template-columns:repeat(12,minmax(0,1fr))}.kdbtop .kdbab{grid-column:span 2}.kdbtop .kdbsm{grid-column:span 3}.kdbtop .kdbhp{grid-column:1/-1}}
-@media (max-width:640px){.kdbmain{grid-template-columns:1fr}.kdbtop{grid-template-columns:repeat(6,minmax(0,1fr))}.kdbtop .kdbab{grid-column:span 2}.kdbtop .kdbsm{grid-column:span 3}.kdbtop .kdbhp{grid-column:1/-1}.kdbab button{font-size:1.5rem}.kdbtab{font-size:.85rem}.kdbtab td,.kdbtab th{padding:4px 3px}.kdbhead .kdbhb{width:100%}}
+
 /* záchrany */
 .kdbzg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.kdbzr,.kdbdr{display:flex;align-items:center;gap:6px}
+.kdbzr{display:flex;align-items:center;gap:6px}
 .kdbzr{border:1px solid var(--kb-bd2);border-radius:20px;padding:3px 3px 3px 8px;background:var(--kb-pan2)}
 .kdbzr span{flex:1;font-family:var(--f-label);font-weight:700;letter-spacing:.05em;font-size:.85rem;text-decoration:underline dotted var(--kb-mu);text-underline-offset:3px}
-.kdbzr button,.kdbdr button{min-width:40px;padding:1px 6px;background:var(--kb-bg);border:1px solid var(--kb-bd);border-radius:14px;color:var(--kb-tx);font-size:1rem}
+.kdbzr button{min-width:40px;padding:1px 6px;background:var(--kb-bg);border:1px solid var(--kb-bd);border-radius:14px;color:var(--kb-tx);font-size:1rem}
 .kdbdot{width:9px;height:9px;border-radius:50%;border:1px solid var(--kb-mu);flex:none}
 .kprof>.kdbdot{background:var(--kb-bd);border-color:#c88762}
 .kexp>.kdbdot{background:var(--kb-gold);border-color:var(--kb-gold);box-shadow:0 0 0 2px var(--kb-pan),0 0 0 3px var(--kb-gold)}
 /* smysly */
-.kdbsr{display:flex;align-items:center;gap:10px;margin:0 0 6px;border:1px solid var(--kb-bd2);border-radius:20px;background:var(--kb-pan2);padding:2px 10px 2px 2px}
-.kdbsr b{min-width:36px;text-align:center;font-size:1.15rem;border-right:1px solid var(--kb-bd2);padding:2px 6px}
-.kdbsr span{font-family:var(--f-label);font-weight:700;letter-spacing:.05em;font-size:.75rem;text-transform:uppercase}
+
 /* zdatnosti */
-.kdbzdat dl{margin:0}.kdbzdat dt{font-family:var(--f-label);font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:.85rem;color:var(--kb-mu);margin-top:8px}
-.kdbzdat dd{margin:2px 0 6px;padding-bottom:8px;border-bottom:1px solid var(--kb-bd2);font-size:.92rem}
-.kdbzdat dd:last-child{border-bottom:0}
+
 /* dovednosti */
-.kdbdh{display:grid;grid-template-columns:22px 38px 1fr 46px;gap:4px;font-family:var(--f-label);font-weight:700;letter-spacing:.05em;font-size:.68rem;text-transform:uppercase;color:var(--kb-tx);padding:0 0 4px;border-bottom:1px solid var(--kb-bd2)}
-.kdbdh span:last-child{text-align:right}
-.kdbdr{display:grid;grid-template-columns:22px 38px 1fr 46px;gap:4px;padding:4px 0;border-bottom:1px solid var(--kb-bd2)}
-.kdbdr small{font-family:var(--f-label);font-weight:700;font-size:.72rem}
-.kdbdr span{font-size:.95rem}
-.kdbdr button{border-radius:3px;justify-self:end;min-width:42px}
-.kdbhod .kadv{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:.85rem;margin:0 0 6px}
-.kdbhod form.kvlh{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
-.kdbhod form.kvlh label{display:flex;align-items:center;gap:4px;font-size:.85rem}
+
 .kdb input[type=search],.kdb input:not([type]),.kdb input[type=text],.kdb input[type=number],.kdb select,.kdb textarea{background:var(--kb-in);color:var(--kb-tx);border:1px solid var(--kb-bd);border-radius:3px;font-family:var(--f-body)}
 .kdb textarea{width:100%;box-sizing:border-box;padding:6px 8px}
-.kdbhod form.kvlh input[name=v]{width:100px}.kdbhod form.kvlh input[name=co]{width:120px}
-.kdbhod .gbtn{background:var(--kb-btn)!important;border:1px solid var(--kb-ac)!important;color:var(--kb-tx)!important}
+
 /* iniciativa, AC, obrana, stavy */
-.kdbr1{display:grid;grid-template-columns:auto auto 1fr;gap:12px;align-items:stretch}
-@media (max-width:640px){.kdbr1{grid-template-columns:1fr 1fr}.kdbr1 .kdbdef{grid-column:1/-1}}
-.kdbini,.kdbac{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
-.kdbini small,.kdbac small{font-family:var(--f-label);font-weight:700;letter-spacing:.06em;font-size:.75rem;text-transform:uppercase;color:var(--ink)}
-.kdbini button{width:92px;height:66px;background:var(--kb-pan);border:2px solid var(--kb-bd);color:var(--kb-tx);font-size:1.8rem;clip-path:polygon(18% 0,82% 0,100% 50%,82% 100%,18% 100%,0 50%)}
+
+.kdbac{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.kdbac small{font-family:var(--f-label);font-weight:700;letter-spacing:.06em;font-size:.75rem;text-transform:uppercase;color:var(--ink)}
+
 .kdbac{width:96px;height:112px;background:var(--kb-pan);border:2px solid var(--kb-bd);clip-path:path("M0 0H96V58C96 86 70 102 48 112 26 102 0 86 0 58Z");color:var(--kb-tx);padding-bottom:10px;box-sizing:border-box}
 .kdbac small{color:var(--kb-tx)}.kdbac b{font-size:2.2rem;line-height:1;font-weight:500}
-.kdbdef{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-bottom:12px}
-.kdbdef h4{margin:0 0 4px;font-family:var(--f-label);font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:.82rem}
-.kdbdef>div+div{border-left:1px solid var(--kb-bd2);padding-left:10px}
-.kdbdef p{margin:2px 0;font-size:.9rem;display:flex;flex-wrap:wrap;align-items:center;gap:4px}
-.kdbst{gap:4px!important}
-.kdbsta{display:inline-flex;align-items:center;gap:4px;background:var(--kb-pan2);border:1px solid var(--kb-bd2);border-radius:14px;padding:1px 8px 1px 2px;color:var(--kb-tx);font-size:.82rem}
+
 .kdbvy{gap:3px!important}.kdbvy small{font-family:var(--f-label);font-size:.75rem;margin-right:4px}
-.kdbstp summary{cursor:pointer;font-family:var(--f-label);font-size:.8rem;color:var(--kb-gold);list-style:none}
-.kdbstp p{display:flex;flex-wrap:wrap;gap:3px}
-.kdbstp button{background:var(--kb-bg);border:1px solid var(--kb-bd2);border-radius:4px;padding:2px}
-.kdbstp button[aria-pressed=true]{border-color:var(--kb-gold);box-shadow:0 0 0 1px var(--kb-gold)}
+
 /* záložky */
-.kdbtabs{padding:6px 14px 16px}
+
 .kdb .ktabs{display:flex;flex-wrap:wrap;gap:2px 18px;border:0;margin:0 0 10px;padding:6px 0 0;background:none}
 .kdb .ktabs button{background:none;border:0;border-bottom:3px solid transparent;border-radius:0;padding:4px 0;font-family:var(--f-label);font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:.95rem;color:var(--kb-tx)}
 .kdb .ktabs button[aria-selected=true]{border-bottom-color:var(--kb-ac)}
-.kdbchips{display:flex;flex-wrap:wrap;gap:4px;margin:0 0 10px}
-.kdbchips button{font-family:var(--f-label);font-weight:700;letter-spacing:.05em;text-transform:uppercase;font-size:.74rem;color:var(--kb-tx);background:var(--kb-in);border:1px solid #000;border-radius:3px;padding:4px 9px}
-.kdbchips button[aria-pressed=true]{background:#7d2b22;border-color:var(--kb-ac)}
+
 .kdbsec{margin:0 0 14px}
 .kdbsh{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:6px 0 6px;font-family:var(--f-label);font-weight:700;letter-spacing:.07em;text-transform:uppercase;font-size:.82rem;color:#c98564;border-bottom:1px solid var(--kb-bd2);padding-bottom:4px}
 .kdbsh small{text-transform:none;letter-spacing:0;color:var(--kb-mu)}
-.kdbtab{width:100%;border-collapse:collapse;font-size:.92rem}
-.kdbtab th{font-family:var(--f-label);font-weight:700;letter-spacing:.05em;text-transform:uppercase;font-size:.7rem;text-align:left;color:var(--kb-tx);padding:4px 6px;border-bottom:1px solid var(--kb-bd2)}
-.kdbtab td{padding:6px;border-bottom:1px solid var(--kb-bd2);vertical-align:middle}
-.kdbtab td small{display:block;font-size:.75rem;line-height:1.25}
-.kdbtab td b{font-weight:600}
-.kdbbox{min-width:44px;padding:3px 8px;background:var(--kb-bg);border:1px solid var(--kb-bd);border-radius:3px;color:var(--kb-tx);font-size:1rem}
-.kdbz{display:inline-flex;align-items:center;gap:4px;margin-right:4px}
-.kdbdc{font-family:var(--f-label);font-weight:700;font-size:.85rem}
+
 .kdb .kspn{background:none;border:0;padding:0;color:var(--kb-tx);font-style:italic;text-decoration:underline dotted var(--kb-mu);text-underline-offset:3px;text-align:left}
-.kdbakce{border-left:2px solid var(--kb-bd);padding-left:10px;margin:4px 0}
-.kdbakce{font-size:.92rem;line-height:1.5}.kdbakce abbr{color:var(--kb-tx);text-decoration:none;border-bottom:1px dotted var(--kb-mu)}
+
 .kdbli li>b{font-size:.98rem}
 .kdbli{list-style:none;margin:0;padding:0}
 .kdbli li{padding:5px 0;border-bottom:1px solid var(--kb-bd2);display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px}
@@ -2415,37 +2368,13 @@ html.mmapp .mmpop{padding-top:calc(env(safe-area-inset-top,0px) + 10px)}
 .kdbpips{display:inline-flex;align-items:center;gap:3px}
 .kdbpips button{width:14px;height:14px}
 .kdbpips small{font-size:.75rem;margin-left:4px}
-.kdbslot{margin-left:auto;display:inline-flex;align-items:center;gap:4px}
-.kdbkzh{display:flex;justify-content:center;gap:28px;margin:0 0 10px}
-.kdbkzh span{display:flex;flex-direction:column;align-items:center}
-.kdbkzh b{font-size:1.25rem}.kdbkzh small{font-family:var(--f-label);font-weight:700;letter-spacing:.05em;text-transform:uppercase;font-size:.66rem;color:var(--kb-tx)}
-.kdbsrch input{width:100%;box-sizing:border-box;padding:7px 10px;margin:0 0 8px}
-.kdbinvh{display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px 24px;margin:0 0 10px}
-.kdbinvh>span{display:flex;flex-direction:column}
-.kdbinvh small{font-family:var(--f-label);font-weight:700;letter-spacing:.05em;text-transform:uppercase;font-size:.7rem}
-.kdb .kdbinvh .kpen{display:flex;flex-direction:row;flex-wrap:wrap;gap:6px;margin-left:auto;width:auto;grid-template-columns:none}
-.kdb .kdbinvh .kpen label{display:flex;flex-direction:column;align-items:center;width:auto;font-family:var(--f-label);font-weight:700;font-size:.72rem;color:var(--kb-gold)}
-.kdbrp summary{cursor:pointer;font-family:var(--f-label);font-size:.78rem;color:var(--kb-gold);list-style:none}
-.kdbab{justify-content:center}
+
 .kdb .kpen input{width:70px;text-align:right}
-.kdbinv td.kq,.kdbtab td.kq{white-space:nowrap}
-.kdbinv td.kq b,.kdbtab td.kq b{display:inline-block;min-width:26px;text-align:center}
+
 .kdb .kpri{background:var(--kb-bg);border:1px solid var(--kb-bd);color:var(--kb-mu);border-radius:3px;width:22px;height:22px;padding:0}
 .kdb .kpri.on{color:var(--kb-gold);border-color:var(--kb-gold)}
-.kdb .kinvf,.kdbexf{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-.kdbexf input{width:110px}
-.kdbrys{padding:6px 0 10px;border-bottom:1px solid var(--kb-bd2)}
-.kdbrys h5{margin:0 0 3px;font-family:var(--f-body);font-weight:700;font-size:1rem}
-.kdbrys h5 small{font-weight:400;font-style:italic}
-.kdbakt{font-family:var(--f-label)!important;font-style:normal!important;text-transform:uppercase;letter-spacing:.05em;font-size:.68rem!important;color:#c98564!important;border:1px solid var(--kb-bd2);border-radius:3px;padding:0 5px}
-.kdbrys p{margin:2px 0 4px;font-size:.92rem;line-height:1.4}
-.kdbrys textarea{font-size:.88rem;opacity:.85}
-.kdbbig{font-family:var(--f-body);font-weight:700;font-size:1.15rem;margin:4px 0}
-.kdbcar{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px 12px;margin:0}
-@media (max-width:640px){.kdbcar{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.kdbcar dt{font-family:var(--f-label);font-weight:700;letter-spacing:.05em;text-transform:uppercase;font-size:.75rem}
-.kdbcar dd{margin:0;color:var(--kb-mu)}
-.kdbpop{display:block;margin:0 0 10px}.kdbpop b{display:block;font-size:.95rem;margin-bottom:2px}
+.kdb .kinvf{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+
 .kdb .kgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
 .kdb .uvh2{color:#c98564}
 .kdb .rsmall{color:var(--kb-mu)}
@@ -2457,7 +2386,6 @@ html.mmapp .mmpop{padding-top:calc(env(safe-area-inset-top,0px) + 10px)}
 .kdb .gbtn.ghost{color:var(--kb-tx);border-color:var(--kb-bd);background:var(--kb-bg)}
 .kdb .bzrk{color:var(--kb-tx)}
 .knab{display:inline-flex;align-items:center;gap:3px;margin-left:4px;font-size:.85rem}.kdice{display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin:0 0 6px}.kdice .bst{font-size:.78rem}.kdice select{font-size:.8rem}.kdbkon{margin:4px 0}
-.kro .kdbtop button,.kro .kdbtop input,.kro .kdbmain button:not([data-kspd]):not([data-kinvpop]):not([data-ktab]):not([data-kdbf]),.kro .kdbmain input:not([data-kdbq]),.kro .kdbmain textarea,.kro .kdbmain select{pointer-events:none;opacity:.55}
 
 /* bojová karta hráče – zúžená karta ve stylu D&D Beyond */
 .kdbc{background:var(--kb-pan);border:2px solid var(--kb-bd);border-radius:12px;padding:10px 12px 12px;box-shadow:inset 0 0 0 2px var(--kb-pan),inset 0 0 0 3px var(--kb-bd2)}
@@ -2480,9 +2408,7 @@ html.mmapp .mmpop{padding-top:calc(env(safe-area-inset-top,0px) + 10px)}
 .kdbc .bhpkr{background:var(--kb-bg);border-color:var(--kb-bd2);color:var(--kb-tx)}.kdbc .bhpkr .bi{filter:invert(.85)}
 .kdbc .kdbzdr li{padding:4px 0}
 @media (max-width:640px){
-  .kdbut thead{display:none}.kdbut tr{display:grid;grid-template-columns:1fr auto auto auto;gap:4px 8px;align-items:center;border-bottom:1px solid var(--kb-bd2);padding:6px 0}
-  .kdbut td{border:0;padding:0}.kdbut td:nth-child(5){grid-column:1/-1}
-  .kdbspt th:nth-child(1),.kdbspt td:nth-child(1),.kdbspt th:nth-child(5),.kdbspt td:nth-child(5){display:none}
+
   .kdb .ktabs{gap:2px 12px}.kdb .ktabs button{font-size:.85rem}}
 
 /* karta Beyond: vnitřní části (akce, kouzla, stavy, vybavení, společníci, doplňky) v tmavém panelu */
@@ -2498,14 +2424,12 @@ html.mmapp .mmpop{padding-top:calc(env(safe-area-inset-top,0px) + 10px)}
 .kdb .kstavy{display:flex;flex-wrap:wrap;gap:3px;margin:4px 0}
 .kdb .kstavy .bst{display:inline-flex;align-items:center;gap:3px;background:var(--kb-bg);border:1px solid var(--kb-bd2);border-radius:12px;padding:1px 7px 1px 2px;color:var(--kb-mu);font-size:.78rem}
 .kdb .kstavy .bst.on{color:var(--kb-tx);border-color:var(--kb-gold);box-shadow:0 0 0 1px var(--kb-gold)}
-.kdbstp summary{color:var(--kb-tx);font-size:.85rem;font-family:var(--f-body)}
-.kdbstp[open] summary{color:var(--kb-gold)}
-.kdbdef h4 small{text-transform:none;letter-spacing:0;font-weight:400;color:var(--kb-mu)}
+
 .kdb .chip{display:inline-flex;align-items:center;gap:4px;background:var(--kb-pan2);border:1px solid var(--kb-bd2);border-radius:12px;padding:0 6px;font-size:.85rem}
 .kdb .kx{background:none;border:0;color:var(--kb-mu);font-size:1rem;padding:0 3px}
 .kdb .kpop dt{font-family:var(--f-label);font-weight:700;letter-spacing:.05em;text-transform:uppercase;font-size:.78rem;color:var(--kb-mu);margin-top:8px}
 .kdb .kpop dd{margin:2px 0 6px}
-.kdbzdat form.kvlh{display:flex;gap:4px;margin:4px 0}.kdbzdat form.kvlh input{flex:1;min-width:0;font-size:.85rem;padding:3px 6px}
+
 .kdb .krysy2{line-height:1.9}
 .kdb .kcas,.kdb .ksrd{font-family:var(--f-label);text-transform:uppercase;letter-spacing:.04em;font-size:.66rem;color:#c98564;border:1px solid var(--kb-bd2);border-radius:3px;padding:0 4px;margin-left:3px}
 .kdb .kspol{background:var(--kb-pan2);border:1px solid var(--kb-bd2);border-radius:8px;padding:8px 10px;margin:0 0 8px}
@@ -2515,14 +2439,13 @@ html.mmapp .mmpop{padding-top:calc(env(safe-area-inset-top,0px) + 10px)}
 .kdb details.bjapd{background:var(--kb-pan2);border:1px solid var(--kb-bd2);border-radius:8px;padding:6px 10px;margin:8px 0;color:var(--kb-tx)}
 .kdb details.bjapd summary{font-family:var(--f-label);font-weight:700;letter-spacing:.05em;text-transform:uppercase;font-size:.8rem;cursor:pointer}
 .kdb .kakce dt{font-weight:700}.kdb .kakce dd{color:var(--kb-mu);margin:0 0 6px}
-.kdb .kdbslots .bkzdr{display:flex;flex-wrap:wrap;gap:6px 16px}
-.kdb .kdbslots .bzd>span{font-family:var(--f-label);font-size:.8rem;margin-right:4px}
+
 .kdb .kspn.ksub{opacity:.85}
 .kdb select option{background:var(--kb-pan);color:var(--kb-tx)}
 .kdb .gbtn,.kdb .gbtn.ghost{font-family:var(--f-label)!important;font-weight:600!important;letter-spacing:.04em!important;font-size:.78rem!important;line-height:1.3!important;color:var(--kb-tx)!important;background:var(--kb-bg)!important;border:1px solid var(--kb-bd)!important;border-radius:3px!important;padding:3px 9px!important;box-shadow:none!important;min-height:0!important}
 .kdb .gbtn:hover{border-color:var(--kb-gold)!important}
 .kdb .uvh2{font-family:var(--f-label);font-weight:700;letter-spacing:.07em;text-transform:uppercase;font-size:.82rem;color:#c98564}
-.kdbdpl form.kvlh{display:flex;flex-wrap:wrap;gap:4px;margin:6px 0}
+
 .bhr .kdbc li,.kdbc li{background:none!important;border:0;border-bottom:1px solid var(--kb-bd2);border-radius:0!important;font-family:var(--f-body)!important;font-size:.92rem;padding:4px 0;text-decoration:none!important;color:var(--kb-tx)!important;display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px}
 .kdbc li b{font-family:var(--f-body)}
 /* obsah mimo SRD: vlastní shrnutí mechaniky (2026-10-17) */
@@ -2549,7 +2472,7 @@ html.mmapp .mmpop{padding-top:calc(env(safe-area-inset-top,0px) + 10px)}
 /* vybavení z nabídky, zbraň v ruce (2026-10-17) */
 .kpool{margin:8px 0}.kpoolf{display:flex;flex-wrap:wrap;gap:6px;align-items:center}.kpoolf input[name=p]{flex:1 1 16em;min-width:12em}.kpoolx{display:inline-flex;gap:4px}
 .kzvb{font:inherit;font-size:.85rem;line-height:1;padding:2px 4px;margin-right:4px;border:1px solid var(--kb-bd2,var(--rule));border-radius:3px;background:none;color:inherit;opacity:.45;cursor:pointer}.kzvb.on{opacity:1;border-color:var(--kb-gold,var(--gold));background:color-mix(in srgb,var(--kb-gold,var(--gold)) 22%,transparent)}
-tr.kdbzv td:first-child b{color:var(--kb-gold,var(--gold))}
+
 /* karta postavy v Boji ve formátu karty NPC (2026-10-17) */
 .bhrks{display:flex;flex-direction:column;gap:0;margin:2px 0 8px}
 .bnpc.bhrk{--mc:#2c517f}.bnpc.bhrk.bnatahu{box-shadow:0 0 0 2px color-mix(in srgb,var(--gold) 70%,transparent);border-left-color:var(--gold)}
@@ -2583,33 +2506,15 @@ tr.kdbzv td:first-child b{color:var(--kb-gold,var(--gold))}
 @media (max-width:640px){.bnpc.bhrk .bnn small{display:none}.bnpc.bhrk .bhp input{width:3.2em}.btpips{margin-left:0}}
 /* karta postavy – úsporné rozvržení (2026-10-17): pruh nahoře, vlastnosti v řádku, záložky Hody a Info */
 .kdb2{display:flex;flex-direction:column;gap:8px}.kdb2>*{margin:0}
-.kdb2 .kdbhead{padding:8px 12px;gap:8px 14px}.kdb2 .kdbport{width:56px;height:56px}.kdb2 .kdbnm h2{margin:0;font-size:1.5rem}.kdb2 .kdbnm p{margin:0}
-.kdb2 .kdbhb{margin-left:auto;align-items:center}.kdb2 .kdbbtn{padding:5px 10px}.kdb2 .kdbbtn.on{border-color:var(--kb-gold);color:var(--kb-gold)}
+
+.kdb2 .kdbbtn{padding:5px 10px}.kdb2 .kdbbtn.on{border-color:var(--kb-gold);color:var(--kb-gold)}
 .kdbmenu{position:relative}.kdbmenu summary{list-style:none;cursor:pointer}.kdbmenu summary::-webkit-details-marker{display:none}.kdbmenu>div{position:absolute;right:0;top:calc(100% + 4px);z-index:30;display:flex;flex-direction:column;gap:4px;padding:6px;background:#1a1512;border:1px solid var(--kb-bd);border-radius:6px;min-width:12em}
-.kdb2 .kdbstrip{display:flex!important;flex-wrap:wrap;gap:6px;align-items:stretch;padding:6px;background:var(--kb-pan);border:2px solid var(--kb-bd);border-radius:10px;position:sticky;top:0;z-index:20}
-.kdbs{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:64px;padding:3px 8px;border:1px solid var(--kb-bd2);border-radius:8px;background:var(--kb-bg);color:var(--kb-tx);position:relative}
-.kdbs small{font-family:var(--f-label);font-weight:700;font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;color:var(--kb-mu)}.kdbs b{font-family:var(--f-body);font-size:1.35rem;line-height:1.1;font-weight:600}.kdbs b i{font-style:normal;font-size:.8rem;color:var(--kb-mu)}.kdbs b em{font-style:normal;font-size:.8rem;color:#7fb6e6;margin-left:3px}
-button.kdbs:hover{border-color:var(--kb-gold)}.kdbsac b{color:var(--kb-gold)}
-.kdbshp{min-width:96px;padding-bottom:7px}.kdbshp.bhp2 b{color:var(--kb-gold)}.kdbshp.bhp0 b{color:var(--kb-ac)}.kdbshp .kdbhpbar{position:absolute;left:6px;right:6px;bottom:3px;height:3px;border-radius:2px;background:linear-gradient(90deg,var(--kb-ok) var(--p),#3a2c22 var(--p))}
-.kdbszr{display:inline-flex;align-items:center;gap:3px;padding:3px 4px;border:1px solid var(--kb-bd2);border-radius:8px;background:var(--kb-bg)}.kdbszr input{width:3.4em;padding:4px;background:var(--kb-pan2);color:var(--kb-tx);border:1px solid var(--kb-bd2);border-radius:4px;font:inherit}
-.kdbszr button{min-width:30px;height:30px;border-radius:5px;border:1px solid var(--kb-bd);background:var(--kb-btn);color:var(--kb-tx);font-size:1.05rem}.kdbszr .kdbdmg{color:#f08a7e}.kdbszr .kdbheal{color:#8fd18f}.kdbszr select{max-width:5.2em;background:var(--kb-pan2);color:var(--kb-tx);border:1px solid var(--kb-bd2);border-radius:4px;font-size:.78rem;padding:4px 2px}.kdbszr .kdbmini{font-size:.7rem}
-.kdbs.kdbinsp span{width:26px;height:22px}.kdbs.kdbinsp{cursor:pointer}
-.kdbabr{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
-.kdb2 .kdbab{min-height:0;padding:4px 2px 0;border-radius:8px}.kdb2 .kdbab small{font-size:.6rem}.kdb2 .kdbab button{font-size:1.25rem;min-width:0;width:calc(100% - 8px);padding:1px 2px;margin-top:2px}.kdb2 .kdbab b,.kdb2 .kdbab button.kdbabs{margin:3px 0 -9px;font-size:.8rem;padding:0 6px;width:auto}
-.kdb2 .kdbabr{padding-bottom:6px}
+
 .kdb2 .khlas{background:#201914;border-color:var(--kb-bd);border-left-color:var(--kb-gold);color:var(--kb-tx)}.kdb2 .khlas .kpostup{margin:0}
-.kdb2 .kdbstavy .kchip{color:var(--kb-tx);border-color:var(--kb-bd2);background:var(--kb-bg)}.kdb2 .kdbstavy .kchst{border-color:var(--kb-ac);background:#3a1a16}.kdb2 .kstpick{border-color:var(--kb-bd2);background:var(--kb-bg)}
-.kdb2 .kdbmain{display:block}.kdb2 .kdbtabs{padding-bottom:12px}
-.kdbhody{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:10px;align-items:start}.kdbhody>div{display:flex;flex-direction:column;gap:10px}
-.kdbinfo{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;align-items:start}
-.kdb2 .kdbdov .kdbdh{display:none}.kdb2 .kdbdov{display:grid;grid-template-columns:1fr 1fr;gap:2px 10px}.kdb2 .kdbdov .kdbpt{grid-column:1/-1}
-@media (max-width:760px){.kdbhody{grid-template-columns:1fr}.kdb2 .kdbhb{margin-left:0}.kdb2 .kdbhead{position:relative}
-  .kdbs{min-width:54px;padding:2px 6px}.kdbs b{font-size:1.15rem}.kdbshp{min-width:84px}.kdb2 .kdbstrip{gap:4px;padding:4px}
-  .kdb2 .kdbdov{grid-template-columns:1fr}.kdb2 .kdbport{width:44px;height:44px}.kdb2 .kdbnm h2{font-size:1.25rem}}
-@media (max-width:420px){.kdbabr{gap:3px}.kdb2 .kdbab small{font-size:.52rem;letter-spacing:0}.kdb2 .kdbab button{font-size:1.05rem}}
+.kdb2 .kstpick{border-color:var(--kb-bd2);background:var(--kb-bg)}
+
 .kdb2 .khlas .kzavbox,.kdb2 .khlas .kzavbox b,.kdb2 .khlas .kposl{color:var(--kb-tx)}.khlas .kzavbox.kpok b{color:#e88a7a}.khlas .kzavbox.kpoz b{color:var(--gold)}
-.kdb2 .kdbstavy{padding:5px 6px;background:var(--kb-pan);border:1px solid var(--kb-bd);border-radius:8px}
-@media (max-width:760px){.kdb2 .kdbdov{grid-template-columns:1fr 1fr;gap:0 6px}.kdb2 .kdbdov .kdbdr small,.kdb2 .kdbdov .kdbdot{display:none}.kdb2 .kdbdov .kdbdr{font-size:.82rem;grid-template-columns:1fr auto!important}}
+
 .kchip select{min-height:0!important;height:24px;padding:0 2px!important;margin:0;box-shadow:none}
 .bnpc.bhrk .bnh{flex-wrap:nowrap}.bnpc.bhrk .bnn{flex:1 1 auto;min-width:0;overflow:hidden}.bnpc.bhrk .bnn b,.bnpc.bhrk .bnn small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
 .bnpc.bhrk:not(.bopen) .bnn small{display:none}.bnpc.bhrk .btpips{flex:0 0 auto}
@@ -3002,28 +2907,14 @@ button.bdmsri{cursor:pointer}
 .bdmabm{font-size:1.6rem!important;min-width:56px!important}
 .bdmpas{margin-top:12px}.bdmpas b{color:var(--kb-tx)}
 /* ikony vlastností se zvířaty (2026-10-17): skóre nahoře, modifikátor (ověření) vlevo dole, záchrana vpravo dole */
-.kvlr{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px 8px;align-items:end}
-.bdmab.kvlr{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px 14px;margin-top:12px}
-.kvli{margin:0;display:flex;flex-direction:column;align-items:center;min-width:0}
-.kvlib{position:relative;width:100%;max-width:150px;container-type:inline-size}
-.kvlib img{display:block;width:100%;height:auto;filter:drop-shadow(0 3px 4px rgba(0,0,0,.45))}
-.kvlib button{position:absolute;display:grid;place-items:center;margin:0;padding:0;min-width:0;min-height:0;background:none;border:0;border-radius:5px;color:#fff;font-family:var(--f-body);font-weight:700;line-height:1;text-shadow:0 1px 2px #000,0 0 5px rgba(0,0,0,.85);cursor:pointer;box-shadow:none}
-.kvlib .kvlh{font-size:13cqw;color:#f7e9c4}
-.kvlib .kvlm,.kvlib .kvlz{font-size:15cqw}
-.kvlib button:hover,.kvlib button:focus-visible{outline:2px solid #e8c35a;outline-offset:-1px;background:rgba(255,255,255,.08)}
-.kvlib button:disabled{cursor:default;outline:0;background:none}
-.kvliu .kvlh{color:#ffcf5c}
-.kvlipf .kvlz::after{content:"";position:absolute;top:10%;right:9%;width:9cqw;height:9cqw;border-radius:50%;background:#f0cf6a;box-shadow:0 0 5px #f0cf6a}
-.kvli figcaption{margin-top:3px;font-family:var(--f-label);font-weight:700;font-size:.64rem;letter-spacing:.07em;text-transform:uppercase;color:var(--kb-mu,var(--muted));text-align:center}
-.kdbabr.kvlr{padding-bottom:4px}
-@media (max-width:640px){.kdbabr.kvlr{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 12px}.kvlib{max-width:120px}}
+
 /* bojová karta hráče přes celou šířku hlavního sloupce */
 .bjamain .bdm{max-width:none}
 .bjamain .bja:has(.bdm){padding:0;border:0;background:none}
 /* karta hráče v boji a ve scéně drží šířku sloupce ve všech záložkách (2026-10-23: dřív se zúžila podle obsahu, Statistiky byly širší než Kouzla) */
 .bjamain .bja:has(.bdm)>.hraja{flex:1 1 100%;min-width:0}
 .bjamain .bdmport{max-width:150px}
-@media (min-width:900px){.bjamain .bdmab.kvlr{grid-template-columns:repeat(6,minmax(0,1fr))}}
+
 /* herní záznam pod pruhem iniciativy */
 .bglogd{margin:8px 0 12px}
 .bglogd>summary small{color:var(--muted);font-weight:400}
@@ -3129,7 +3020,7 @@ button.bdmsri{cursor:pointer}
 .kspk{border-radius:4px;transform:rotate(45deg);width:16px;height:16px;background:#7a1f22;border-color:#c86a6a;color:#f6dcd2;margin:0 2px}.kspk svg{transform:rotate(-45deg)}
 .kspr{border-radius:4px;background:#3d3124;border-color:var(--gold);color:#e9c46a}
 h4 .kspi{margin-right:5px}
-.kdb .kspi,.bdm .kspi{border-color:#d9b45a;background:#2f5fae}.kdb .kspt,.bdm .kspt{background:#d9b45a;color:#2b2117}.kdb .kspk,.bdm .kspk{background:#8d2327;border-color:#e08a7a}.kdb .kspr,.bdm .kspr{background:#4a3a24}.kdb .kspl .kspi,.kdbspl .kspi{margin-left:2px}
+.kdb .kspi,.bdm .kspi{border-color:#d9b45a;background:#2f5fae}.kdb .kspt,.bdm .kspt{background:#d9b45a;color:#2b2117}.kdb .kspk,.bdm .kspk{background:#8d2327;border-color:#e08a7a}.kdb .kspr,.bdm .kspr{background:#4a3a24}.kdb .kspl .kspi{margin-left:2px}
 .bdmchips button.bdmchi{display:inline-flex;align-items:center;justify-content:center;min-width:2.6em;padding:5px 9px}
 
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .kspi{border-color:#c9a34a}}
@@ -3224,7 +3115,7 @@ h4 .kspi{margin-right:5px}
 .zmlist li{align-items:center}.zmlist li.zmgm span{opacity:.85}.zmlist i{color:var(--kal,#8a1f2b);font-style:normal;font-weight:600}
 .navrhy li{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 /* jediná karta (2026-10-18): oddíly z dřívější hlavní karty (Duše, Info, Poznámky) uvnitř bojové karty – jeden sloupec */
-.bdmkdb{padding:4px 0}.bdmkdb .kdbinfo,.bdmkdb .kgrid{display:flex;flex-direction:column;gap:10px}
+.bdmkdb{padding:4px 0}.bdmkdb .kgrid{display:flex;flex-direction:column;gap:10px}
 .bdmlink{background:none;border:0;padding:0;color:var(--gold,#c9a14a);text-decoration:underline;cursor:pointer;font:inherit}
 .bdmvse{margin-top:10px}
 /* barvy karty postavy (2026-10-18): každá barva jen jeden význam – zlatá = ovládání a zvolené, vínová/červená = škoda,
