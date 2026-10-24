@@ -3629,7 +3629,8 @@ button.btedch{cursor:pointer}button.btedch:hover{border-color:var(--gold,#b08d3a
 @media (min-width:1280px){
   .wrap:has(.view[data-view=boj]:not([hidden]) .bojpc.bojakt:not(.bojprip)){max-width:1840px}
   .bojpc.bojakt:not(.bojprip){--z:1;display:flex;flex-direction:column}
-  .bojpc.bojakt:not(.bojprip) [data-bk="osa"]{order:2}
+  /* osa je display:contents – pořadí musí mít až její obsah: přepínač zůstane nahoře, pruh iniciativy pod ním */
+  .bojpc.bojakt:not(.bojprip) [data-bk="osa"]>*{order:2}
   .bojpc.bojakt:not(.bojprip) .bojhead,.bojpc.bojakt:not(.bojprip) .bcoll{display:none}
   .bojpc.bojakt:not(.bojprip):not([data-btab="i"]) [data-bk="osa"]{display:none}
   .bojpc.bojakt:not(.bojprip) .bojcols{grid-template-columns:minmax(0,1fr);margin-top:0}
@@ -3688,6 +3689,25 @@ button.btedch{cursor:pointer}button.btedch:hover{border-color:var(--gold,#b08d3a
   .bdmpcdv .bdmgh:first-child{margin-top:14px}
   .bdmpcdv .bdmdov2 .bdmdr{padding:6px 0!important;font-size:.95rem}
 }
+/* bez rámu webu (2026-10-24, Vojta): jako mmcela na telefonu – bez záhlaví s logem, menu, rámu, patky a modrého proužku účastníka;
+   ☰ v rohu karty ukáže web s menu (data-mmweb, 08). Třídu mmpc dává renderBoj (20d). */
+html.mmpc body{padding:0}
+html.mmpc::before,html.mmpc .wrap{background:#1f0c10}
+html.mmpc .wrap{max-width:none!important;padding:0;gap:0;border-radius:0;box-shadow:none}
+html.mmpc .wrap::before,html.mmpc .wrap::after{display:none}
+html.mmpc header.site,html.mmpc .sitenav,html.mmpc footer.colophon,html.mmpc .papir,html.mmpc .bprtg,html.mmpc #bojview .bpravidla{display:none!important}
+html.mmpc .sec{gap:0}
+html.mmpc #bojview{padding:0}
+html.mmpc .view:has(.bojhrac){padding-top:0}
+html.mmpc #bojview .bjamain .bhrk{margin:0;padding:0;border:0;border-radius:0;background:none;box-shadow:none;outline:0}
+html.mmpc .bojpc .bcolk .bdm{margin:0;border:0;border-radius:0}
+html.mmpc .hraja,html.mmpc .bojpc .bjamain .bja{margin:0;padding:0;border:0;border-radius:0;background:none;box-shadow:none}
+html.mmpc .bojpc .bojcols,html.mmpc .bojpc .bcolm{gap:0;margin:0;padding:0}
+html.mmpc .bojpc.bojakt:not(.bojprip) .btabs{margin:0;padding:6px 10px;background:#1f0c10;border-bottom:1px solid var(--kb-bd2)}
+html.mmpc #bojview .bojpc .bosa.bosav{margin:14px auto}
+html.mmpc:not(.mmjenhra) .bdmpc .bdmtop{grid-template-columns:40px minmax(0,1fr) 40px}
+html.mmpc:not(.mmjenhra) .bdmpc .bdmtop .bdmback0{display:block}
+html.mmpc:not(.mmjenhra) .bdmweb{display:grid;font-size:1.2rem}
 @media (min-width:1280px) and (max-width:1599px){
   .bojpc.bojakt:not(.bojprip){--z:.85;zoom:.85}
   .bojpc .bcolk .bdm.bdmpc{grid-template-columns:minmax(0,1fr) minmax(370px,30%)}

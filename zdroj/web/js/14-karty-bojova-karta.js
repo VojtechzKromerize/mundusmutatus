@@ -1978,6 +1978,7 @@ function bdmPusobiHtml(K, stL0) {
 const BOJPC_MQ = matchMedia("(min-width:1280px)");
 const bojPcHrac = () => !GMV && mmNaHre() && BOJPC_MQ.matches;
 BOJPC_MQ.addEventListener("change", () => {
+  if (!BOJPC_MQ.matches) document.documentElement.classList.remove("mmpc");
   if (curView === "boj") bdmPrekresli();
 });
 function bojDbm(s, h, K, gm, vzdy, X) {

@@ -93,6 +93,8 @@ async def main():
     chk(await pw.locator(".bdmpc .bdmbody .bdmsec[data-bdmid='kouzla']").count()==1 and await pw.locator(".bdmpc .bdmpcvl .bdmdr").count()>=10,"PC hráč: přepnutí listu nechá Statistiky na místě")
     await pw.click('.bojpc .btabs [data-btab="i"]');await pw.wait_for_timeout(300)
     chk(await pw.locator(".bojpc .bosav").is_visible() and await pw.locator(".bojpc .bdmpc").is_hidden(),"PC hráč: záložka Iniciativa schová kartu a ukáže pořadí")
+    chk(await pw.evaluate("document.querySelector('.bojpc .btabs').getBoundingClientRect().top<document.querySelector('.bojpc .bosav').getBoundingClientRect().top"),"PC hráč: přepínač zůstane nahoře i v záložce Iniciativa")
+    chk(await pw.evaluate("document.documentElement.classList.contains('mmpc')") and await pw.locator("header.site").is_hidden(),"PC hráč: karta bez záhlaví a rámu webu (mmpc)")
     chk(not pwerr,"PC hráč bez chyb JavaScriptu: "+str(pwerr));await pw.close()
     await pl.click('[data-bhcard="h4"] .bdmh .bdmac');await pl.wait_for_timeout(300)
     chk(await pl.locator('[data-bhcard="h4"] .bdmlist [data-bdmzu]').count()>=1,"hráč: klik na AC otevře list s obětováním zbroje")

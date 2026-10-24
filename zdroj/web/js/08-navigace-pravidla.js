@@ -540,6 +540,8 @@ let MMCELA_WEB = false;
 const mmCela = () => !GMV && mmNaHre() && MMCELA_MQ.matches && !MMCELA_WEB;
 function mmCelaUprav() {
   document.documentElement.classList.toggle("mmcela", mmCela());
+  /* mmpc (hráč v boji na počítači) zapíná renderBoj (20d); mimo Hru nebo s webem z ☰ neplatí */
+  if (!mmNaHre() || MMCELA_WEB) document.documentElement.classList.remove("mmpc");
 }
 MMCELA_MQ.addEventListener("change", mmCelaUprav);
 document.addEventListener("click", e => {
