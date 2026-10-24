@@ -492,7 +492,7 @@ function bojOblSpust(s, a, id, rucne) {
             };
             vyzvyNacti();
           })
-          .catch(() => {}),
+          .catch(er => mmHlasG("Výzvu k záchraně se nepodařilo poslat: " + (er.message || er), 5000)),
       0,
     );
   else bojMsg(id, `${a.n}: záchrana ${o.ab} SO ${a.dc || "?"} – ${dmg} ${BZRT[o.t] || o.t}${o.pol ? ", úspěch polovina" : ""}.`);

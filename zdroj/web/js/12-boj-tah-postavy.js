@@ -277,7 +277,7 @@ function bojPcKonec(s, id) {
               BOPV[+v] = Object.assign(o, {kid: K.id});
               vyzvyNacti();
             })
-            .catch(() => {}),
+            .catch(er => mmHlasG("Výzvu k opakované záchraně se nepodařilo poslat: " + (er.message || er), 5000)),
         0,
       );
     else bojMsg(id, `${e.n}: na konci tahu záchrana ${o.ab} SO ${o.dc} – úspěch ukončí ${e.st || "účinek"}.`);
