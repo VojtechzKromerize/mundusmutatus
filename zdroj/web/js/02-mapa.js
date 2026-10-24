@@ -133,8 +133,12 @@ let st = {
 const svg = document.getElementById("map");
 /* podklad mapy pod #map (krajina, hranice, papír – drahé filtry); kreslí ho mapPodklad v 02b, jen když se změní výřez */
 const svgZ = document.getElementById("mapz");
-/* obal obou vrstev: při gestu se posouvá a zvětšuje jen on (mapGesto) */
+/* obaly vrstev (podklad #mapvz, sídla #mapvrstvy): při posunu se posouvají a zvětšují jen ony (mapPosun); mezi nimi je pevný
+   rám #mapr (rám a ztmavené rohy u okraje okna) a vše drží .mapplatno (rozměr okna mapy, ořez) */
 const mapVrstvy = document.getElementById("mapvrstvy");
+const mapVrstvyZ = document.getElementById("mapvz");
+const svgR = document.getElementById("mapr");
+const mapPlatno = document.getElementById("mapplatno");
 /* mapa přes celou šířku na počítači (2026-10-24, Vojta): v Mapě od 1100 px má svg výšku podle okna a výřez se roztáhne do šířky
    (mapFit); na telefonu a ve Výpravě zůstává pevný poměr 680 : 605. Svět mapy sahá od Bavor po Košice (MAPWB: x, y, šířka, výška). */
 const MAPW_MQ = matchMedia("(min-width:1100px)");
@@ -146,7 +150,7 @@ const mapPreset = () => (mapWide() && VBW[st.zoom]) || VB[st.zoom];
 const mapAsp = () => {
   if (!mapWide()) return 605 / 680;
   /* obal mapy: jeho rozměr se při gestu nemění (svg samo je posunuté a zvětšené transformací) */
-  const r = (svg.closest(".mapplatno") || svg).getBoundingClientRect();
+  const r = mapPlatno.getBoundingClientRect();
   return r.width > 0 && r.height > 0 ? Math.max(0.42, Math.min(0.95, r.height / r.width)) : 605 / 680;
 };
 /* výřez v poměru stran okna mapy: přidá šířku (nebo výšku) kolem středu a udrží ho ve světě mapy */
@@ -172,6 +176,45 @@ function mapFit(v) {
   x = Math.max(MAPWB[0], Math.min(MAPWB[0] + MAPWB[2] - w, x));
   y = h >= MAPWB[3] ? MAPWB[1] + (MAPWB[3] - h) / 2 : Math.max(MAPWB[1], Math.min(MAPWB[1] + MAPWB[3] - h, y));
   return [x, y, w, h];
+}
+/* posouvání bez překreslování (2026-10-24, Vojta): mapa se kreslí s okrajem MAPM (podíl výřezu na každé straně – odpovídá CSS
+   .mapvrstvy: left/top −40 %, šířka a výška 180 %, transform-origin v rohu okna). Posun, který zůstane v nakreslené oblasti
+   (mapKresba.d) a nezmění měřítko, jen posune hotový obraz (mapPosun); znovu se kreslí až při přiblížení nebo dalekém posunu. */
+const MAPM = 0.4;
+const mapKresba = {d: null, vd: null, s: 0};
+const mapVidim = () => st.vb || (mapWide() ? mapFit(mapPreset()) : VB[st.zoom]);
+const mapOkraj = v => [v[0] - MAPM * v[2], v[1] - MAPM * v[3], v[2] * (1 + 2 * MAPM), v[3] * (1 + 2 * MAPM)];
+/* měřítko kresby: na široké mapě podle skutečné šířky okna v pixelech, aby značky a písmo měly stejnou velikost jako dřív */
+const mapMeritko = v => (mapWide() ? (v[2] / Math.max(300, mapPlatno.getBoundingClientRect().width)) * (880 / 680) : v[2] / 680);
+/* stačí výřez v jen posunout? (stejná velikost a měřítko, celý uvnitř nakreslené oblasti) */
+function mapLzePosunout(v, s) {
+  const K = mapKresba,
+    D = K.d,
+    e = 1e-6 * v[2];
+  return (
+    !!D &&
+    Math.abs(K.s - s) < 1e-9 &&
+    Math.abs(K.vd[2] - v[2]) < e &&
+    Math.abs(K.vd[3] - v[3]) < e &&
+    v[0] >= D[0] - e &&
+    v[1] >= D[1] - e &&
+    v[0] + v[2] <= D[0] + D[2] + e &&
+    v[1] + v[3] <= D[1] + D[3] + e
+  );
+}
+/* posun a zvětšení obou vrstev z nakresleného výřezu na výřez v – jen CSS transformace obalů, prohlížeč nic nepřekresluje */
+function mapPosun(v) {
+  const a = mapKresba.vd,
+    r = mapPlatno.getBoundingClientRect();
+  let t = "";
+  if (a && r.width > 0 && (a[0] !== v[0] || a[1] !== v[1] || a[2] !== v[2] || a[3] !== v[3])) {
+    const kx = a[2] / v[2],
+      ky = a[3] / v[3],
+      tx = ((a[0] - v[0]) / v[2]) * r.width,
+      ty = ((a[1] - v[1]) / v[3]) * r.height;
+    t = `translate3d(${tx.toFixed(1)}px,${ty.toFixed(1)}px,0) scale(${kx.toFixed(4)},${ky.toFixed(4)})`;
+  }
+  mapVrstvy.style.transform = mapVrstvyZ.style.transform = t;
 }
 const NS = "http://www.w3.org/2000/svg";
 const el = (n, a, txt) => {
@@ -3173,7 +3216,7 @@ if (matchMedia("(max-width:700px)").matches)
   });
 
 /* zoom & pan: wheel, mouse drag, two-finger pinch; full redraw after the gesture settles.
-   Během gesta se mapa nekreslí znovu: obal obou vrstev (#mapz, #map) se jen posune a zvětší CSS transformací – prohlížeč
+   Během gesta se mapa nekreslí znovu: obaly vrstev (#mapz, #map) se jen posunou a zvětší CSS transformací – prohlížeč
    tak jen přesouvá hotový obraz a nepočítá znovu filtry papíru a inkoustu; drawMapK transformaci zruší a vykreslí nový výřez. */
 const mapDrag = {moved: false};
 (function () {
@@ -3181,19 +3224,8 @@ const mapDrag = {moved: false};
   let last = null,
     drawT = null;
   /* rozměr mapy bez transformace gesta (obal .mapplatno se nehýbe) */
-  const mapRect = () => (svg.closest(".mapplatno") || svg).getBoundingClientRect();
-  function mapGesto() {
-    const a = (svg.getAttribute("viewBox") || "").split(/\s+/).map(Number),
-      b = st.vb,
-      r = mapRect();
-    if (a.length !== 4 || !(a[2] > 0) || !(r.width > 0)) return drawMap();
-    const kx = a[2] / b[2],
-      ky = a[3] / b[3],
-      tx = ((a[0] - b[0]) / b[2]) * r.width,
-      ty = ((a[1] - b[1]) / b[3]) * r.height;
-    mapVrstvy.style.transform = `translate3d(${tx.toFixed(1)}px,${ty.toFixed(1)}px,0) scale(${kx.toFixed(4)},${ky.toFixed(4)})`;
-  }
-  const curVB = () => st.vb || (mapWide() ? mapFit(mapPreset()) : VB[st.zoom]);
+  const mapRect = () => mapPlatno.getBoundingClientRect();
+  const curVB = mapVidim;
   /* široká mapa: při změně velikosti okna se výřez přepočítá na nový poměr stran */
   let rsT = null;
   const naVelikost = () => {
@@ -3219,15 +3251,19 @@ const mapDrag = {moved: false};
   };
   function setVB(v) {
     st.vb = clampVB(v);
-    mapGesto();
+    if (mapKresba.d) mapPosun(st.vb);
+    else drawMap();
     clearTimeout(drawT);
     /* s prstem nebo tlačítkem na mapě se překreslí až po delší pauze, po puštění hned (end) */
     drawT = setTimeout(mapDokresli, pts.size ? 450 : 200);
   }
+  /* po gestu: posun v nakreslené oblasti zůstane jen posunem, jinak se mapa nakreslí znovu */
   function mapDokresli() {
     clearTimeout(drawT);
     drawT = null;
-    drawMap();
+    const v = mapVidim();
+    if (mapLzePosunout(v, mapMeritko(v))) mapPosun(v);
+    else drawMap();
   }
   function toUser(cx, cy) {
     const r = mapRect(),

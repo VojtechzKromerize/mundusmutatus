@@ -5772,14 +5772,11 @@ function mapIkEl(src, conf, nbr, zr, x, y, dy, s) {
 }
 /* podklad mapy (vrstva #mapz): vše pod sídly; drawMapK ho volá, jen když se změní výřez nebo vrstvy podkladu */
 function mapPodklad(Z, vb, s, k) {
+  /* vb je tu celá nakreslená oblast i s okrajem pro posouvání (mapOkraj v 02) */
   Z.setAttribute("viewBox", vb.join(" "));
   Z.innerHTML = "";
-  const R = {x: vb[0] - vb[2] * 0.6, y: vb[1] - vb[3] * 0.6, width: vb[2] * 2.2, height: vb[3] * 2.2};
+  const R = {x: vb[0] - vb[2] * 0.1, y: vb[1] - vb[3] * 0.1, width: vb[2] * 1.2, height: vb[3] * 1.2};
   const defs = el("defs", {});
-  const rg = el("radialGradient", {id: "vig", cx: "50%", cy: "50%", r: "72%"});
-  rg.appendChild(el("stop", {offset: "58%", "stop-color": "var(--rule)", "stop-opacity": "0"}));
-  rg.appendChild(el("stop", {offset: "100%", "stop-color": "var(--hill)", "stop-opacity": ".7"}));
-  defs.appendChild(rg);
   const mkF = (id, freq, scale, oct, seed, extra) => {
     const f = el("filter", {id, filterUnits: "userSpaceOnUse", x: R.x, y: R.y, width: R.width, height: R.height});
     f.appendChild(el("feTurbulence", {type: "fractalNoise", baseFrequency: (freq / s).toFixed(4), numOctaves: oct, seed, result: "n"}));
@@ -6225,50 +6222,73 @@ function mapPodklad(Z, vb, s, k) {
   /* paper grain, age stains and vignette */
   Z.appendChild(el("rect", {x: R.x, y: R.y, width: R.width, height: R.height, filter: "url(#stain)", opacity: ".22", "pointer-events": "none"}));
   Z.appendChild(el("rect", {x: R.x, y: R.y, width: R.width, height: R.height, filter: "url(#paper)", opacity: ".26", "pointer-events": "none"}));
-  Z.appendChild(el("rect", {x: vb[0], y: vb[1], width: vb[2], height: vb[3], fill: "url(#vig)", "pointer-events": "none"}));
+}
+/* rám a ztmavené rohy (vrstva #mapr mezi podkladem a sídly): drží se okraje okna mapy, při posouvání se nehýbou; kreslí se
+   znovu jen při změně velikosti výřezu nebo měřítka. Souřadnice: 0 0 až šířka × výška výřezu (měřítko jako v mapě). */
+function mapRam(w, h, s) {
+  const kr = JSON.stringify([w, h, s]);
+  if (svgR.dataset.k === kr) return;
+  svgR.dataset.k = kr;
+  svgR.setAttribute("viewBox", `0 0 ${w} ${h}`);
+  svgR.innerHTML = "";
+  const defs = el("defs", {});
+  const rg = el("radialGradient", {id: "vig", cx: "50%", cy: "50%", r: "72%"});
+  rg.appendChild(el("stop", {offset: "58%", "stop-color": "var(--rule)", "stop-opacity": "0"}));
+  rg.appendChild(el("stop", {offset: "100%", "stop-color": "var(--hill)", "stop-opacity": ".7"}));
+  defs.appendChild(rg);
+  /* chvění inkoustu jako filtr wob podkladu */
+  const f = el("filter", {id: "wobr", filterUnits: "userSpaceOnUse", x: -w * 0.1, y: -h * 0.1, width: w * 1.2, height: h * 1.2});
+  f.appendChild(el("feTurbulence", {type: "fractalNoise", baseFrequency: (0.04 / s).toFixed(4), numOctaves: 2, seed: 3, result: "n"}));
+  f.appendChild(el("feDisplacementMap", {in: "SourceGraphic", in2: "n", scale: (1.8 * s).toFixed(2), xChannelSelector: "R", yChannelSelector: "G"}));
+  defs.appendChild(f);
+  svgR.appendChild(defs);
+  svgR.appendChild(el("rect", {x: 0, y: 0, width: w, height: h, fill: "url(#vig)"}));
   /* double frame, hand-ruled */
-  const gfr = G({filter: "url(#wob)", "pointer-events": "none"});
+  const gfr = el("g", {filter: "url(#wobr)"});
   gfr.appendChild(
-    el("rect", {
-      x: vb[0] + 4 * s,
-      y: vb[1] + 4 * s,
-      width: vb[2] - 8 * s,
-      height: vb[3] - 8 * s,
-      fill: "none",
-      stroke: "var(--ink)",
-      "stroke-width": (1.6 * s).toFixed(2),
-    }),
+    el("rect", {x: 4 * s, y: 4 * s, width: w - 8 * s, height: h - 8 * s, fill: "none", stroke: "var(--ink)", "stroke-width": (1.6 * s).toFixed(2)}),
   );
   gfr.appendChild(
     el("rect", {
-      x: vb[0] + 8.5 * s,
-      y: vb[1] + 8.5 * s,
-      width: vb[2] - 17 * s,
-      height: vb[3] - 17 * s,
+      x: 8.5 * s,
+      y: 8.5 * s,
+      width: w - 17 * s,
+      height: h - 17 * s,
       fill: "none",
       stroke: "var(--kal)",
       "stroke-width": (0.7 * s).toFixed(2),
     }),
   );
+  svgR.appendChild(gfr);
 }
 function drawMapK() {
   MIKB = {};
-  svg.classList.toggle("mapw", mapWide());
-  /* konec gesta: obraz posunutý a zvětšený jen CSS transformací (mapGesto v 02) se nahradí novým vykreslením */
-  mapVrstvy.style.transform = "";
-  const vb = st.vb || (mapWide() ? mapFit(mapPreset()) : VB[st.zoom]);
-  svg.setAttribute("viewBox", vb.join(" "));
-  /* měřítko kresby: na široké mapě podle skutečné šířky v pixelech, aby značky a písmo měly stejnou velikost jako dřív */
-  const s = mapWide() ? (vb[2] / Math.max(300, mapVrstvy.getBoundingClientRect().width)) * (880 / 680) : vb[2] / 680,
+  mapPlatno.classList.toggle("mapw", mapWide());
+  const vb = mapVidim();
+  /* úzká mapa má poměr stran podle výřezu (předvolby Čechy, Morava… se liší), jako dřív svg s výškou podle viewBoxu */
+  mapPlatno.style.aspectRatio = mapWide() ? "" : `${vb[2]} / ${vb[3]}`;
+  const s = mapMeritko(vb),
     k = Math.max(s, 0.55);
+  /* nakreslená oblast: výřez s okrajem pro posouvání; je-li výřez stále uvnitř dřív nakreslené oblasti se stejným měřítkem
+     (po posunu bez překreslení), zůstane – podklad se pak nekreslí znovu a obraz se jen posune (mapPosun v 02) */
+  if (!mapLzePosunout(vb, s)) {
+    mapKresba.d = mapOkraj(vb);
+    mapKresba.vd = vb;
+    mapKresba.s = s;
+  }
+  const D = mapKresba.d;
+  svg.setAttribute("viewBox", D.join(" "));
+  svg.dataset.s = s;
+  mapPosun(vb);
+  mapRam(vb[2], vb[3], s);
   svg.innerHTML = "";
   svg.classList.toggle("measuring", !!st.measure);
   /* podklad – krajina, hranice, řeky, lesy, hory, popisky krajiny, papír a rám – je ve vlastní vrstvě #mapz pod mapou: jeho
      filtry (chvění inkoustu, akvarel, papír) jsou na kresbě nejdražší, a tak se kreslí znovu, jen když se změní výřez nebo vrstva,
      která ho mění; výběr rodu, sídla, jejich popisky, vazby a měření kreslí jen horní vrstva #map */
-  const kz = JSON.stringify([vb, s, st.dio, st.dom, st.dom ? st.sel : 0, st.duchy, st.kraje, st.roads]);
+  const kz = JSON.stringify([D, s, st.dio, st.dom, st.dom ? st.sel : 0, st.duchy, st.kraje, st.roads]);
   if (svgZ.dataset.k !== kz) {
-    mapPodklad(svgZ, vb, s, k);
+    mapPodklad(svgZ, D, s, k);
     svgZ.dataset.k = kz;
   }
   const defs = el("defs", {});

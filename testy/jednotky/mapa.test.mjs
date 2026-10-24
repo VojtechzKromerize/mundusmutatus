@@ -91,3 +91,19 @@ test("mapa: lem ikon sídel – roztažení čtvercem jako feMorphology, bez pl�
   );
   assert.ok(e[0] === "art/img/hrad.webp" ? e[1] === "url(#tout-kat)" : /^data:image\/png/.test(e[0]), "bez plátna filtr, jinak hotová ikona");
 });
+
+test("mapa: posun v nakreslené oblasti (okraj MAPM) se nepřekresluje, přiblížení a daleký posun ano", async () => {
+  await S.ev(`typeof drawMapK === "function" || mmLina("mapa")`);
+  if (V(`typeof drawMapK`) !== "function") return;
+  S.ev(`st.vb = [100, 100, 300, 300 * 605 / 680]; drawMapK()`);
+  const D = V(`mapKresba.d`);
+  assert.deepEqual(D.map(Math.round), [-20, -7, 540, 480], "kresba s okrajem 40 % výřezu na každé straně");
+  assert.equal(V(`mapLzePosunout([150, 140, 300, 300 * 605 / 680], 300 / 680)`), true, "kousek vedle: jen posun");
+  assert.equal(V(`mapLzePosunout([300, 140, 300, 300 * 605 / 680], 300 / 680)`), false, "za okraj nakreslené oblasti");
+  assert.equal(V(`mapLzePosunout([150, 140, 250, 250 * 605 / 680], 250 / 680)`), false, "přiblížení mění měřítko");
+  const z0 = S.ev(`document.getElementById("mapz").firstElementChild`);
+  S.ev(`st.vb = [150, 140, 300, 300 * 605 / 680]; drawMapK()`);
+  assert.equal(S.ev(`document.getElementById("mapz").firstElementChild`), z0, "vykreslení po posunu podklad nechá");
+  assert.deepEqual(V(`mapKresba.d`), D, "nakreslená oblast zůstává");
+  S.ev(`st.vb = null; drawMapK()`);
+});
