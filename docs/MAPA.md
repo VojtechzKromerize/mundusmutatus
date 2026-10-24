@@ -8,7 +8,7 @@ Podrobnosti k jednomu jménu nebo souboru: `node testy/kontrola_kodu.mjs --kde J
 
 Základ: data z buildu (rody, vazby, zeměpis, erby), víry a ikony, odkazy mezi stránkami (mmLina), odložené překreslení (mmPozdeji)
 
-- 195 řádků, 32 definic na nejvyšší úrovni, z toho 25 používají jiné soubory
+- 194 řádků, 32 definic na nejvyšší úrovni, z toho 25 používají jiné soubory
 - používá z: 02-mapa (1)
 - používají ho: 02-mapa (16), 02b-mapa-kresba (6), 03-artikule (1), 04b-praha-plan (7), 05b-svet-mapa (1), 06-draconomicon-rodokmeny (2), 07-druzina-kronika (5), 08-navigace-pravidla (12), 09-vypravec-herni-cas (2), 10-kouzla (2), 11-boj (2), 13-karty (3), 15-karty-artikule (1), 16-srd-ukazky-sezeni-hrac (1), 17-karty-ii (1), 20-boj-hraci (1), 20d-boj-render (1), 21-editor-pecet (1), 22-vyprava (1), 22b-vyprava (2), 26-start (3)
 - poskytuje: byId FAM mmDex armsImg FICON ARMS CONFN mmLina CARMS faith shield0 mmPozdeji mmZrus relGroups rIco TOWNICO ZEMEPIS CASTLEICO mmLinyHotove mmLinyPro REL SFICON shield townImg TOWNSEATS
@@ -68,7 +68,7 @@ Praha: plán města
 
 - 39 řádků, 15 definic na nejvyšší úrovni, z toho 15 používají jiné soubory
 - používá z: –
-- používají ho: 02-mapa (2), 04b-praha-plan (13), 05b-svet-mapa (1), 06-draconomicon-rodokmeny (1), 07-druzina-kronika (5), 08-navigace-pravidla (5), 09-vypravec-herni-cas (1), 10-kouzla (2), 10q-plne-texty (1), 11-boj (1), 12-boj-tah-postavy (1), 13-karty (1), 14-karty-bojova-karta (1), 14b-vybaveni (1), 14c-boj-reakce (1), 14d-vybaveni-katalog (1), 15-karty-artikule (1), 16-srd-ukazky-sezeni-hrac (1), 17-karty-ii (1), 17b-kouzla-ucinky (1), 19-karty-beyond (1), 20-boj-hraci (1), 20b-boj-vypravec (1), 20c-boj-ridery (1), 20d-boj-render (1), 20e-boj-vlastnosti (1), 20f-scena (1), 20g-boj-mistrovstvi (1), 21-editor-pecet (1), 22-vyprava (1), 22b-vyprava (4), 22c-nebe (1), 23-potvrzovani (1), 24-boj-zaznam (1), 25-puls (1), 26-start (1)
+- používají ho: 02-mapa (2), 04b-praha-plan (13), 05b-svet-mapa (1), 06-draconomicon-rodokmeny (1), 07-druzina-kronika (5), 08-navigace-pravidla (5), 09-vypravec-herni-cas (1), 10-kouzla (2), 10q-plne-texty (1), 11-boj (1), 12-boj-tah-postavy (1), 13-karty (1), 14-karty-bojova-karta (1), 14b-vybaveni (1), 14c-boj-reakce (1), 14d-vybaveni-katalog (1), 15-karty-artikule (1), 16-srd-ukazky-sezeni-hrac (1), 17-karty-ii (1), 17b-kouzla-ucinky (1), 19-karty-beyond (1), 20-boj-hraci (1), 20b-boj-vypravec (1), 20c-boj-ridery (1), 20d-boj-render (1), 20e-boj-vlastnosti (1), 20f-scena (1), 20g-boj-mistrovstvi (1), 21-editor-pecet (1), 22-vyprava (1), 22b-vyprava (4), 23-potvrzovani (1), 24-boj-zaznam (1), 25-puls (1), 26-start (1)
 - poskytuje: GMV PRAHA_PLACES PRB PG prLinks pcol PMA PRAHA_TOWNS pst PVB0 PAR pcolP PKIND PSTREETS pVis
 
 ## 04b-praha-plan
@@ -137,14 +137,14 @@ Družina · Kronika tažení · automatické odkazy · hledání
 
 site navigation: views, house and person articles
 
-- 1053 řádků, 51 definic na nejvyšší úrovni, z toho 19 používají jiné soubory
-- používá z: 01-zaklad (12), 02-mapa (16), 03-artikule (3), 04-praha (5), 04b-praha-plan (2), 05-svet (4), 05b-svet-mapa (3), 06-draconomicon-rodokmeny (4), 07-druzina-kronika (7), 09-vypravec-herni-cas (1), 10-kouzla (4), 10q-plne-texty (1), 11-boj (4), 13-karty (2), 14d-vybaveni-katalog (1), 15-karty-artikule (4), 16-srd-ukazky-sezeni-hrac (5), 17-karty-ii (1), 18-pravidla-postavy (5), 20d-boj-render (2), 22b-vyprava (2), 22c-nebe (1)
-- používají ho: 02-mapa (2), 02b-mapa-kresba (1), 05b-svet-mapa (1), 06-draconomicon-rodokmeny (2), 07-druzina-kronika (3), 09-vypravec-herni-cas (4), 10-kouzla (2), 10q-plne-texty (3), 11-boj (4), 13-karty (3), 14-karty-bojova-karta (3), 14b-vybaveni (1), 14c-boj-reakce (1), 14d-vybaveni-katalog (1), 15-karty-artikule (1), 16-srd-ukazky-sezeni-hrac (8), 17-karty-ii (7), 17b-kouzla-ucinky (1), 19-karty-beyond (2), 20-boj-hraci (1), 20b-boj-vypravec (2), 20d-boj-render (4), 21-editor-pecet (2), 22-vyprava (1), 22b-vyprava (1), 22c-nebe (1), 23-potvrzovani (2), 25-puls (2), 26-start (2)
+- 1046 řádků, 51 definic na nejvyšší úrovni, z toho 19 používají jiné soubory
+- používá z: 01-zaklad (12), 02-mapa (16), 03-artikule (3), 04-praha (5), 04b-praha-plan (2), 05-svet (4), 05b-svet-mapa (3), 06-draconomicon-rodokmeny (4), 07-druzina-kronika (7), 09-vypravec-herni-cas (1), 10-kouzla (4), 10q-plne-texty (1), 11-boj (4), 13-karty (2), 14d-vybaveni-katalog (1), 15-karty-artikule (4), 16-srd-ukazky-sezeni-hrac (5), 17-karty-ii (1), 18-pravidla-postavy (5), 20d-boj-render (2), 22b-vyprava (2)
+- používají ho: 02-mapa (2), 02b-mapa-kresba (1), 05b-svet-mapa (1), 06-draconomicon-rodokmeny (2), 07-druzina-kronika (3), 09-vypravec-herni-cas (4), 10-kouzla (2), 10q-plne-texty (3), 11-boj (4), 13-karty (3), 14-karty-bojova-karta (3), 14b-vybaveni (1), 14c-boj-reakce (1), 14d-vybaveni-katalog (1), 15-karty-artikule (1), 16-srd-ukazky-sezeni-hrac (8), 17-karty-ii (7), 17b-kouzla-ucinky (1), 19-karty-beyond (2), 20-boj-hraci (1), 20b-boj-vypravec (2), 20d-boj-render (4), 21-editor-pecet (2), 22-vyprava (1), 22b-vyprava (1), 23-potvrzovani (2), 25-puls (2), 26-start (2)
 - poskytuje: curView mmNaHre navTo featyMuze route PULTTAB featyMd mmCela PORTR portU renderPersonArticle renderRodArticle FEATY featyNacti MMCELA_WEB pThumb SRDP ucetBoxHtml ucetMuze
 - oddíly:
-  - ř. 334: Pravidla: český překlad SRD 5.2.1 s poznámkami Artikulí (art/pravidla.json, načte se až při otevření)
-  - ř. 932: Iluminované iniciály: první písmeno zápisu, oddílu Artikulí, kapitoly Draconomiconu a zápisu kronikáře o rodu
-  - ř. 966: Účet hráče s heslem (2026-10-20): založení a přihlášení na Úvodu i na stránce Hra; vedle Discordu
+  - ř. 331: Pravidla: český překlad SRD 5.2.1 s poznámkami Artikulí (art/pravidla.json, načte se až při otevření)
+  - ř. 925: Iluminované iniciály: první písmeno zápisu, oddílu Artikulí, kapitoly Draconomiconu a zápisu kronikáře o rodu
+  - ř. 959: Účet hráče s heslem (2026-10-20): založení a přihlášení na Úvodu i na stránce Hra; vedle Discordu
 
 ## 09-vypravec-herni-cas
 
@@ -234,17 +234,6 @@ Plné znění kouzel a předmětů (Vojtovy tabulky, 2026-10-24) – jen pro př
 - používá z: –
 - používají ho: 14-karty-bojova-karta (2), 20g-boj-mistrovstvi (10)
 - poskytuje: ZBRMS ZBRVL zbrBezMod ZBRMA zbrMaMa zbrMod zbrObour zbrRozbor zbrTezkaNev zbrVersKost
-
-## 10n-nebe
-
-@čisté – Vzdušný boj draků (2026-10-25, návrh v projektu claude.ai pravidla/vzdusny-boj-navrh.md)
-
-- 312 řádků, 30 definic na nejvyšší úrovni, z toho 22 používají jiné soubory
-- používá z: –
-- používají ho: 22c-nebe (22)
-- poskytuje: NEBE_HLADINY NEBE_KRIDLA NEBE_MANEVRY NEBE_OCASY NEBE_PASMO NEBE_PLEMENA nebeBarva nebeKlic nebeLzeZvolit nebeOblouk NEBE_DESKA NEBE_PODPISY NEBE_VLASTNOSTI NEBE_ZRANENI nebeDraha nebeKarta nebeNapeti nebeNocniOci nebePasmo nebePrekryv nebeUtokDraka nebeZavoj
-- oddíly:
-  - ř. 164: geometrie
 
 ## 11-boj
 
@@ -603,23 +592,6 @@ Výprava: stránka vypravěče (trasa, setkání, počasí na cestě, mapy) – 
   - ř. 532: vykreslení
   - ř. 867: ovládání
   - ř. 1452: Výprava 2: okolí trasy, draci, vlastní tabulky, noclehy, lidé na cestě, počasí pro hráče, režim u stolu
-
-## 22c-nebe
-
-Nebeské bojiště (2026-10-25): vzdušný boj draků na sdílené obrazovce vypravěče – samostatná část „nebe“, načte se až na stránce #nebe
-
-- 536 řádků, 32 definic na nejvyšší úrovni, z toho 1 používají jiné soubory
-- používá z: 04-praha (1), 08-navigace-pravidla (1), 10n-nebe (22)
-- používají ho: 08-navigace-pravidla (1)
-- poskytuje: renderNebe
-- oddíly:
-  - ř. 65: deska
-  - ř. 117: číselník
-  - ř. 159: konečný rozkaz po Závoji a Nočních očích
-  - ř. 166: panel
-  - ř. 310: hodiny porady: když doběhnou, rozhodne drak sám (rovně 2, nebo nejbližší, co umí)
-  - ř. 343: pohyb: všichni naráz, útoky až z konečných pozic
-  - ř. 404: ovládání
 
 ## 23-potvrzovani
 

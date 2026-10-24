@@ -209,9 +209,9 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `EDPOLE` | 21-editor-pecet:65 | const | Editor: české popisky polí frontmatteru (id, jmeno, rod, sidlo, vyznani…) ve formuláři |
 | `EMPTY` | 02-mapa:2313 | const | Zemské desky: HTML prázdného detailu („Vyberte rod na mapě…“), když není nic vybráno |
 | `FAM` | 01-zaklad:2 | const | rody z buildu (@FAM@) – základní data rodů (id, název, sídla, vyznání, texty) |
-| `FEATY` | 08-navigace-pravidla:355 | let | ⓘ `null,` |
-| `FEATYKAT` | 08-navigace-pravidla:367 | const | ⓘ `{` |
-| `FEATYP` | 08-navigace-pravidla:356 | let | ⓘ `null;` |
+| `FEATY` | 08-navigace-pravidla:352 | let | ⓘ `null,` |
+| `FEATYKAT` | 08-navigace-pravidla:364 | const | ⓘ `{` |
+| `FEATYP` | 08-navigace-pravidla:353 | let | ⓘ `null;` |
 | `FICON` | 01-zaklad:24 | const | vyznání (kat, kal, mix, isl) → cesta k ikoně víry |
 | `FORESTS` | 02-mapa:1868 | const | mapa: polygony lesů (lon/lat) pro vrstvu lesů |
 | `FORLBL` | 02b-mapa-kresba:5222 | const | kresba mapy: popisky lesů a pohoří ([název, lon, lat, natočení]) |
@@ -232,7 +232,7 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `HRA_PO` | 09-vypravec-herni-cas:619 | const | herní čas: funkce volané po změně herního stavu (překreslení plánu Prahy, synchronizace…) |
 | `HRAKL` | 22-vyprava:696 | const | Výprava: klíče stavu hry ukládané do kroků Zpět (datum, hodina, misto, praha, cesta, poloha, putovani) |
 | `HRAP` | 16-srd-ukazky-sezeni-hrac:1307 | let | Hra: příznak spuštěného pravidelného načítání (hraPoll) výzev, zpráv, potvrzení – jen jednou |
-| `ILSEL` | 08-navigace-pravidla:933 | const | iluminované iniciály: CSS selektory odstavců, které dostanou zdobené první písmeno |
+| `ILSEL` | 08-navigace-pravidla:926 | const | iluminované iniciály: CSS selektory odstavců, které dostanou zdobené první písmeno |
 | `INSTP` | 19-karty-beyond:902 | let | PWA: uložená událost beforeinstallprompt – tlačítko „Nainstalovat jako aplikaci“ ji vyvolá |
 | `JA` | 11-boj:2462 | const | ⓐ přihlášený hráč (stránka Hra): {k: karta, t: token relace, n: jméno} |
 | `KADV` | 13-karty:182 | let | ⓐ hod d20 z karty; ověření a útoky hází i kostku Závoje a rovnou ji vyhodnotí, záchrany ne (Artikule › Kostka Závoje) |
@@ -394,13 +394,13 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `MIKZ` | 02b-mapa-kresba:5648 | const | ⓐ zdrojové obrázky: adresa → načtený Image \| false (načítá se) \| null (nejde) |
 | `MIMO` | 18-pravidla-postavy:581 | let | Obsah D&D 2024 mimo SRD (art/mimo-srd.json): podtřídy, featy, zázemí – načtená data nebo null |
 | `MIMOCAS` | 18-pravidla-postavy:713 | const | Mimo SRD: popisky času aktivace rysu – A Akce, BA Bonusová akce, R Reakce |
-| `MIMOKAT` | 08-navigace-pravidla:421 | const | ⓐ Doplňky mimo SRD: podtřídy podle povolání, featy podle druhu, zázemí, druhy a kouzla (vlastní shrnutí mechaniky) |
+| `MIMOKAT` | 08-navigace-pravidla:418 | const | ⓐ Doplňky mimo SRD: podtřídy podle povolání, featy podle druhu, zázemí, druhy a kouzla (vlastní shrnutí mechaniky) |
 | `MIMOP` | 18-pravidla-postavy:582 | let | Mimo SRD: probíhající Promise načítání MIMO (mimoNacti) |
 | `MIMOPOZN` | 18-pravidla-postavy:732 | const | Mimo SRD: text upozornění, že jde o vlastní shrnutí mechaniky, ne oficiální text pravidel |
 | `MIMOR` | 18-pravidla-postavy:583 | let | Mimo SRD: rejstřík rysů podle normalizovaného názvu (mimoN) → záznam s mechanikou (počty použití, ef) |
 | `MIMOSKIP` | 18-pravidla-postavy:670 | const | ⓐ rysy, které pravidla už počítají jménem (Tough, Speedy, Lucky…), tu nesčítat podruhé |
-| `MMCELA_MQ` | 08-navigace-pravidla:624 | const | navigace: media query šířky ≤ 700 px – hráčova Hra na telefonu přes celou obrazovku |
-| `MMCELA_WEB` | 08-navigace-pravidla:625 | let | navigace: hráč na telefonu kliknul ☰ a chce vidět web s menu (vypne celoobrazovkovou Hru) |
+| `MMCELA_MQ` | 08-navigace-pravidla:620 | const | navigace: media query šířky ≤ 700 px – hráčova Hra na telefonu přes celou obrazovku |
+| `MMCELA_WEB` | 08-navigace-pravidla:621 | let | navigace: hráč na telefonu kliknul ☰ a chce vidět web s menu (vypne celoobrazovkovou Hru) |
 | `MMIDB` | 15-karty-artikule:881 | const | Karty: obal IndexedDB „mm“ (store kv) – get/set – druhá offline kopie karet vedle localStorage |
 | `MMK` | 11-boj:819 | const | Mundus Mutatus kostky: stav 3D animace hodů (fronta, časovač, dice-box, prvek, index zvýraznění) |
 | `MMLINY` | 01-zaklad:129 | const | líné části skriptu: název části → promise jejího načtení (mmLina), aby se stáhla jen jednou |
@@ -411,27 +411,11 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `MTZ` | 02-mapa:885 | const | ⓘ `[21, 17, 14, 12];` |
 | `NAMEPTS` | 02-mapa:2884 | const | mapa: body se jménem (sídla z PLACES + města TOWNS) – pojmenování nejbližšího místa |
 | `NAVMOJE` | 23-potvrzovani:126 | var | Potvrzování: id návrhů odeslaných tímto hráčem – po rozhodnutí vypravěče se mu ohlásí výsledek |
-| `NAVNAME` | 08-navigace-pravidla:580 | const | navigace: id stránky → název v menu (Hra, Úvod, Artikule…) |
+| `NAVNAME` | 08-navigace-pravidla:577 | const | navigace: id stránky → název v menu (Hra, Úvod, Artikule…) |
 | `NAVOD` | 16-srd-ukazky-sezeni-hrac:1051 | const | Hra: HTML návod pro hráče „Jak hrát na webu“ (nahrát PDF, přihlásit, kostka Závoje, Svědomí, boj) |
 | `NAVRHY` | 23-potvrzovani:125 | var | Potvrzování: návrhy hráčů ke schválení vypravěčem (léčení, Bardic spojenců) načtené z databáze |
-| `NB` | 22c-nebe:16 | let | ⓘ `null;` |
-| `NB_FAZE` | 22c-nebe:8 | const | ⓘ `{` |
-| `NB_LS` | 22c-nebe:7 | const | ⓘ `"mm-nebe";` |
-| `NBANIM` | 22c-nebe:17 | let | ⓘ `null;` |
-| `NBHOD` | 22c-nebe:311 | let | ⓘ `0;` |
 | `NBR_LANDS` | 02-mapa:2527 | const | Zemské desky: názvy sousedních zemí (Braniborsko, Polsko…) pro záložky cizích rodů |
 | `NBRS` | 02b-mapa-kresba:694 | const | kresba mapy: polygony sousedních zemí ([id, prstence]) kolem Koruny |
-| `NEBE_DESKA` | 10n-nebe:12 | const | ⓘ `900;` |
-| `NEBE_HLADINY` | 10n-nebe:15 | const | ⓘ `["Přízemí", "Nízko", "Středně", "Vysoko", "Výšiny"];` |
-| `NEBE_KRIDLA` | 10n-nebe:32 | const | ⓐ („*:r“ se Náletu netýká – ten má klíč podle poklesu) |
-| `NEBE_MANEVRY` | 10n-nebe:19 | const | ⓘ `{` |
-| `NEBE_OCASY` | 10n-nebe:42 | const | ⓐ ocas: letová úprava číselníku, nebo útok ocasem do zadního oblouku (kyj, osten, ostny, hák – podle bestiáře) |
-| `NEBE_PASMO` | 10n-nebe:14 | const | ⓐ pásmo 1–3 jako pravítko X-Wingu: po 100 mm od okraje podstavce |
-| `NEBE_PLEMENA` | 10n-nebe:70 | const | ⓐ plemena v první verzi bojiště (údaje z Profilů plemen v bestiáři; lindwurmové „létají pomaleji, ale vytrvale“) |
-| `NEBE_PODPISY` | 10n-nebe:63 | const | ⓘ `{` |
-| `NEBE_VLASTNOSTI` | 10n-nebe:53 | const | ⓘ `{` |
-| `NEBE_ZAKLAD` | 10n-nebe:29 | const | ⓐ podstavec podle třídy: malý, střední, velký |
-| `NEBE_ZRANENI` | 10n-nebe:75 | const | ⓐ zranění draka podle kostky Závoje (k6) |
 | `NEDELE` | 07-druzina-kronika:424 | const | kalendář: neděle liturgického roku ([dny od Velikonoc, název, tvary]) pro starou dataci |
 | `NETV` | 16-srd-ukazky-sezeni-hrac:112 | let | ⓐ nestvůry: připojí se k protivníkům (bestiář v Boji, přidání do boje) |
 | `NETVP` | 16-srd-ukazky-sezeni-hrac:113 | let | Nestvůry: probíhající Promise načítání art/netvori.json (NETV) |
@@ -480,8 +464,8 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `POJZR` | 02d-pojmy:6 | const | ⓘ `{` |
 | `POJZRRE` | 02d-pojmy:45 | const | ⓘ `new RegExp('(?<![\\p{L}'’-])(?:${POJTYPY})(?:${POJSEP}(?:${POJTYPY}))*…` |
 | `POKL` | 19-karty-beyond:992 | let | Pokladna družiny: data z databáze – {pen peníze, veci, log pohyby} nebo null |
-| `PORTR` | 08-navigace-pravidla:108 | const | množina id osob, které mají portrét (klíče PORTRH) |
-| `PORTRH` | 08-navigace-pravidla:107 | const | portréty osob z buildu (@PORTR@): id osoby → soubor nebo {f, m} s cestami |
+| `PORTR` | 08-navigace-pravidla:105 | const | množina id osob, které mají portrét (klíče PORTRH) |
+| `PORTRH` | 08-navigace-pravidla:104 | const | portréty osob z buildu (@PORTR@): id osoby → soubor nebo {f, m} s cestami |
 | `POSL` | 02-mapa:2357 | const | pomocná funkce: první písmeno řetězce velké |
 | `POTVRZDB` | 23-potvrzovani:8 | var | ⓐ nastavení z databáze (nastaveni.potvrz) – hráči ho průběžně načítají, změna nepřenačte stránky jako změna herního stavu |
 | `PRAHA_PLACES` | 04-praha:23 | const | ⓐ n = číslo na plánu, k = druh (dvur/urad/cirkev/hospoda), t = město, c = vyznání (kat/kal/mix/""), r = rod, p = osoba |
@@ -503,7 +487,7 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `PSTREETS` | 04-praha:37 | const | ⓐ názvy ulic, trhů a bran: [název, x, y, natočení] |
 | `PULS` | 25-puls:7 | var | Puls: stav pravidelného dotazu na změny v databázi – z poslední verze, beh běží, znovu, t, obnov, start, stary (databáze bez pulsu) |
 | `PULS_HRA` | 25-puls:8 | const | Puls: druhy změn pro stránku Hra (vyzvy, zpravy, navrhy, potvrz, pokladna) – spustí hraPoll |
-| `PULTTAB` | 08-navigace-pravidla:643 | let | ⓐ záložka řídicího pultu vypravěče: boj \| druzina \| sezeni (nastaví route podle adresy) |
+| `PULTTAB` | 08-navigace-pravidla:639 | let | ⓐ záložka řídicího pultu vypravěče: boj \| druzina \| sezeni (nastaví route podle adresy) |
 | `PUSHST` | 19-karty-beyond:849 | let | Web Push: stav odběru upozornění – „on“, „off“ nebo null (nezjištěno) |
 | `PVB0` | 04-praha:33 | const | plán Prahy: výchozí viewBox SVG [x, y, šířka, výška] |
 | `PZID` | 04b-praha-plan:148 | const | plán Prahy: body obrysu Židovského Města (tečkovaná hranice čtvrti) |
@@ -550,9 +534,9 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `SPORT` | 05-svet:201 | const | mapa světa: středy portulánových růžic ([lon, lat, velká]) pro síť větrů |
 | `SRCOL` | 05-svet:6 | const | mapa světa: druh cesty (hanza, benatky, janov, reka, pout…) → barva |
 | `SRDIC` | 11-boj:334 | const | Boj: český stav SRD (oslepen, okouzlen…) → název ikony (bez diakritiky) |
-| `SRDKAP` | 08-navigace-pravidla:197 | const | Pravidla: kapitoly SRD ([id, název]) pro rozcestník stránky Pravidla |
-| `SRDP` | 08-navigace-pravidla:335 | let | Pravidla: načtený překlad SRD (art/pravidla.json), null do načtení |
-| `SRDPP` | 08-navigace-pravidla:336 | let | Pravidla: probíhající promise načítání art/pravidla.json – jedno načtení |
+| `SRDKAP` | 08-navigace-pravidla:194 | const | Pravidla: kapitoly SRD ([id, název]) pro rozcestník stránky Pravidla |
+| `SRDP` | 08-navigace-pravidla:332 | let | Pravidla: načtený překlad SRD (art/pravidla.json), null do načtení |
+| `SRDPP` | 08-navigace-pravidla:333 | let | Pravidla: probíhající promise načítání art/pravidla.json – jedno načtení |
 | `SRDRY` | 17-karty-ii:58 | let | SRD rysy: rejstřík rysů povolání a featů z art/srd-rysy.json (null = nenačteno) |
 | `SRDRYP` | 17-karty-ii:59 | let | SRD rysy: probíhající Promise načítání SRDRY (srdRysy) |
 | `SRDRYT` | 17-karty-ii:106 | let | ⓐ české texty rysů SRD (art/srd-rysy-texty.json): načtou se až s prvním oknem rysu |
@@ -567,7 +551,7 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `STBY` | 15-karty-artikule:218 | const | Šerm: index technik a chvatů STECH podle id (zornhau…) → {n název, cena, poz, účinek} |
 | `STECH` | 15-karty-artikule:123 | const | ⓐ techniky a chvaty: id, název, cena, Požehnání (1) / reakce (r) / bonusová akce (b), účinek |
 | `STLBL` | 09-vypravec-herni-cas:3 | const | vypravěč: popisky stupňů odhalení (Skryté, Slyšeli, Potkali) |
-| `SUBT` | 08-navigace-pravidla:22 | const | navigace: id stránky → podtitul hlavičky („Koruna česká k 3. březnu…“) |
+| `SUBT` | 08-navigace-pravidla:21 | const | navigace: id stránky → podtitul hlavičky („Koruna česká k 3. březnu…“) |
 | `SVATKYD` | 07-druzina-kronika:371 | const | ⓐ datování po středověku: svátek dne a neděle církevního roku (juliánský kalendář, Velikonoce podle starého výpočtu) |
 | `SVB` | 05-svet:109 | const | Známý svět: mocnosti podle id (z SVET) – rychlé hledání |
 | `SVB0` | 05-svet:310 | const | mapa světa: výchozí viewBox SVG [0, 0, 1024, 790] |
@@ -582,7 +566,7 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `SVST` | 07-druzina-kronika:24 | const | Svědomí: hodnota 0–10 → stupeň (Zatracený, Na scestí, Na vážkách, V milosti) |
 | `SZDB` | 16-srd-ukazky-sezeni-hrac:418 | const | Příprava sezení: přístup k uložení – nacti/uloz přes MMDB.gm (mm_sezeni_*), bez databáze lokálně (SEZ.lok) |
 | `TAHDRUH` | 10t-tah:13 | const | ⓐ druhy akcí: A akce, BA (i B) bonusová akce, P pohyb; přijímá i jména polí a / b / p |
-| `TITL` | 08-navigace-pravidla:38 | const | navigace: id stránky → titulek okna (document.title) |
+| `TITL` | 08-navigace-pravidla:36 | const | navigace: id stránky → titulek okna (document.title) |
 | `TOWNICO` | 01-zaklad:98 | const | mapa: cesta k ikoně města pro sídla rodů, která jsou městy |
 | `TOWNS` | 02-mapa:2795 | const | ⓐ routing: roads become a graph; off-road legs and forest/mountain terrain cost more time |
 | `TOWNSEATS` | 01-zaklad:34 | const | mapa: názvy sídel rodů, která jsou města (ne hrady) – kreslí se ikonou města |
@@ -590,7 +574,7 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `TREES` | 06-draconomicon-rodokmeny:83 | const | ⓐ p = osoba v zemských deskách, r = rod, d = data, m = z kterého manželství, note = poznámka |
 | `TRIBS` | 02b-mapa-kresba:5246 | const | kresba mapy: linie přítoků (menší řeky, lon/lat) kreslené tenčí čárou |
 | `TSTAV` | 06-draconomicon-rodokmeny:271 | const | ⓐ stav rodokmenů: zaostřená osoba, vybrané manželství, historie procházení |
-| `UCETR` | 08-navigace-pravidla:967 | let | ⓐ otevřený formulář: "" (jen tlačítka), "novy", "prihlas" |
+| `UCETR` | 08-navigace-pravidla:960 | let | ⓐ otevřený formulář: "" (jen tlačítka), "novy", "prihlas" |
 | `UCINKY` | 10u-ucinky:18 | const | Účinky v jednom formátu (10u, čisté): jméno → posílení (ac, rych, zach, res, hpmax…) a kostky k hodům (kostka, na, jednou, poHodu); dřív KZEF + KPRID |
 | `UCTYPY` | 10u-ucinky:264 | const | Účinky (10u): všech 13 typů zranění pro Resistance „vse“ (Warding Bond, Feign Death…) |
 | `UKAZKY` | 16-srd-ukazky-sezeni-hrac:238 | let | Ukázky od vypravěče (obrázek, dopis, mapka) načtené z databáze, nejnovější první |

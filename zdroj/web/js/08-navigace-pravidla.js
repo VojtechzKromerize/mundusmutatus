@@ -17,7 +17,6 @@ const VIEWS = [
   "karty",
   "pravidla",
   "sezeni",
-  "nebe",
 ];
 const SUBT = {
   hra: "Hra · sezení",
@@ -33,7 +32,6 @@ const SUBT = {
   gm: "Vypravěč · odhalování",
   boj: "Boj · sloty iniciativy",
   vyprava: "Výprava · cesta družiny",
-  nebe: "Nebeské bojiště · vzdušný boj draků",
 };
 const TITL = {
   hra: "Hra",
@@ -51,7 +49,6 @@ const TITL = {
   gm: "Vypravěč",
   boj: "Boj",
   vyprava: "Výprava",
-  nebe: "Nebeské bojiště",
 };
 let curView = null;
 function navTo(h) {
@@ -595,7 +592,6 @@ const NAVNAME = {
   gm: "Vypravěč",
   boj: "Boj",
   vyprava: "Výprava",
-  nebe: "Nebeské bojiště",
 };
 /* nainstalovaná aplikace na telefonu ukáže hráči jen Hru (2026-10-22); odkaz ven otevře web v prohlížeči s ?web=1 */
 const mmJenHra = () => !GMV && document.documentElement.classList.contains("mmapp") && !/[?&]web=1/.test(location.search);
@@ -645,7 +641,7 @@ function route() {
   const h = decodeURIComponent(location.hash.slice(1)) || "uvod";
   const [a, b, c] = h.split("/");
   let view = a === "rod" || a === "osoba" ? "desky" : a;
-  if (!VIEWS.includes(view) || ((view === "kouzla" || view === "sezeni" || view === "nebe") && !GMV)) view = "uvod";
+  if (!VIEWS.includes(view) || ((view === "kouzla" || view === "sezeni") && !GMV)) view = "uvod";
   document.documentElement.classList.toggle("mmjenhra", mmJenHra());
   if (view !== "hra" && view !== "boj") MMCELA_WEB = false; /* po návratu na Hru je karta zase přes celou obrazovku */
   if (mmJenHra() && view !== "hra" && view !== "boj") {
@@ -808,9 +804,6 @@ function route() {
     if (changed) window.scrollTo(0, 0);
   } else if (view === "kouzla") {
     renderKouzla(b);
-    if (changed) window.scrollTo(0, 0);
-  } else if (view === "nebe") {
-    renderNebe();
     if (changed) window.scrollTo(0, 0);
   } else if (view === "sezeni") {
     renderSezeni();
