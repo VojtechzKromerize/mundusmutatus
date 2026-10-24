@@ -27,7 +27,7 @@ Všichni tvorové – postavy i nestvůry – mají šest vlastností, které m�
 | Vlastnost | Hodnota měří… |
 |---|---|
 | Síla (STR) | Tělesnou sílu |
-| Obratnost (AGI) | Hbitost, reflexy a rovnováhu |
+| Obratnost (DEX) | Hbitost, reflexy a rovnováhu |
 | Odolnost (CON) | Zdraví a výdrž |
 | Inteligence (INT) | Uvažování a paměť |
 | Moudrost (WIS) | Vnímavost a duševní odolnost |

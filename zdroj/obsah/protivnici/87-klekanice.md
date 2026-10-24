@@ -23,7 +23,7 @@ Hubená žena v šedém, která chodí po návsi po večerním zvonění. Volá 
 
 **AC** 13 · **HP** 49 (9d8+9) · **Rychlost** 30 stop · **Iniciativa** +3
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 12 (+1) | 16 (+3) | 12 (+1) | 11 (+0) | 14 (+2) | 15 (+2) |
 

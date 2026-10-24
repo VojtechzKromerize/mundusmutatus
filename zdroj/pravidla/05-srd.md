@@ -34,7 +34,7 @@ Batoh pojme až 30 liber v objemu 1 krychlové stopy. Může sloužit i jako sed
 
 #### Ball Bearings (kuličky, 1 GP)
 
-Akcí Použití můžeš z váčku vysypat kuličky. Rozkutálejí se a pokryjí rovnou čtvercovou oblast o straně 10 stop do 10 stop od tebe. Tvor, který do této oblasti během tahu poprvé vstoupí, musí uspět v záchranném hodu na Obratnost (AGI) se SO 10, jinak získá stav Sražen (Prone). Posbírat kuličky trvá 10 minut.
+Akcí Použití můžeš z váčku vysypat kuličky. Rozkutálejí se a pokryjí rovnou čtvercovou oblast o straně 10 stop do 10 stop od tebe. Tvor, který do této oblasti během tahu poprvé vstoupí, musí uspět v záchranném hodu na Obratnost (DEX) se SO 10, jinak získá stav Sražen (Prone). Posbírat kuličky trvá 10 minut.
 
 #### Barrel (sud, 2 GP)
 
@@ -78,7 +78,7 @@ Výbava lupiče obsahuje tyto předměty: Backpack (batoh), Ball Bearings (kuli�
 
 #### Caltrops (ostnaté ježky, 1 GP)
 
-Akcí Použití můžeš z pytlíku rozházet ostnaté ježky tak, že pokryjí čtvercovou oblast o straně 5 stop do 5 stop od tebe. Tvor, který do této oblasti během tahu poprvé vstoupí, musí uspět v záchranném hodu na Obratnost (AGI) se SO 15, jinak utrpí 1 Piercing zranění a jeho rychlost klesne na 0 až do začátku jeho příštího tahu. Posbírat ježky trvá 10 minut.
+Akcí Použití můžeš z pytlíku rozházet ostnaté ježky tak, že pokryjí čtvercovou oblast o straně 5 stop do 5 stop od tebe. Tvor, který do této oblasti během tahu poprvé vstoupí, musí uspět v záchranném hodu na Obratnost (DEX) se SO 15, jinak utrpí 1 Piercing zranění a jeho rychlost klesne na 0 až do začátku jeho příštího tahu. Posbírat ježky trvá 10 minut.
 
 #### Candle (svíčka, 1 CP)
 
@@ -94,7 +94,7 @@ Pouzdro na mapy či svitky pojme až 10 listů papíru nebo 5 listů pergamenu.
 
 #### Chain (řetěz, 5 GP)
 
-Akcí Použití můžeš ovinout řetěz kolem nedobrovolného tvora do 5 stop od tebe, který má stav Chycen (Grappled), Neschopný (Incapacitated) nebo Zadržen (Restrained), pokud uspěješ v ověření Síly (STR) (Athletics) se SO 13. Jsou-li tvorovi spoutány nohy, má stav Zadržen, dokud se nevyprostí. Aby se z řetězu vyprostil, musí tvor akcí uspět v ověření Obratnosti (AGI) (Acrobatics) se SO 18. Přetrhnout řetěz vyžaduje akcí úspěšné ověření Síly (STR) (Athletics) se SO 20.
+Akcí Použití můžeš ovinout řetěz kolem nedobrovolného tvora do 5 stop od tebe, který má stav Chycen (Grappled), Neschopný (Incapacitated) nebo Spoután (Restrained), pokud uspěješ v ověření Síly (STR) (Athletics) se SO 13. Jsou-li tvorovi spoutány nohy, má stav Spoután, dokud se nevyprostí. Aby se z řetězu vyprostil, musí tvor akcí uspět v ověření Obratnosti (DEX) (Acrobatics) se SO 18. Přetrhnout řetěz vyžaduje akcí úspěšné ověření Síly (STR) (Athletics) se SO 20.
 
 #### Chest (truhla, 5 GP)
 
@@ -158,7 +158,7 @@ Lahev pojme až 1 pintu.
 
 #### Grappling Hook (kotvička, 2 GP)
 
-Akcí Použití můžeš hodit kotvičku na zábradlí, římsu nebo jiný úchyt do 50 stop od tebe; kotvička se zachytí, pokud uspěješ v ověření Obratnosti (AGI) (Acrobatics) se SO 13. Pokud jsi ke kotvičce přivázal provaz (Rope), můžeš po něm poté šplhat.
+Akcí Použití můžeš hodit kotvičku na zábradlí, římsu nebo jiný úchyt do 50 stop od tebe; kotvička se zachytí, pokud uspěješ v ověření Obratnosti (DEX) (Acrobatics) se SO 13. Pokud jsi ke kotvičce přivázal provaz (Rope), můžeš po něm poté šplhat.
 
 #### Healer's Kit (felčarská brašna, 5 GP)
 
@@ -180,13 +180,13 @@ Tabulka uvádí, zda se svatý symbol musí držet, nosit na sobě, nebo být vy
 
 #### Holy Water (svěcená voda, 25 GP)
 
-Když použiješ akci Útok, můžeš jeden ze svých útoků nahradit hozením lahve svěcené vody. Zaměř jednoho tvora, kterého vidíš, do 20 stop od sebe. Cíl musí uspět v záchranném hodu na Obratnost (AGI) (SO 8 plus tvůj modifikátor Obratnosti a bonus zdatnosti), jinak utrpí 2d8 Radiant zranění, pokud je to Fiend nebo Undead.
+Když použiješ akci Útok, můžeš jeden ze svých útoků nahradit hozením lahve svěcené vody. Zaměř jednoho tvora, kterého vidíš, do 20 stop od sebe. Cíl musí uspět v záchranném hodu na Obratnost (DEX) (SO 8 plus tvůj modifikátor Obratnosti a bonus zdatnosti), jinak utrpí 2d8 Radiant zranění, pokud je to Fiend nebo Undead.
 
 #### Hunting Trap (lovecká past, 5 GP)
 
 Akcí Použití můžeš nastražit loveckou past, což je ocelový kruh s pilovitými zuby, který sklapne, když tvor šlápne na nášlapnou destičku uprostřed.
 
-Past je těžkým řetězem připevněna k nepohyblivému předmětu, například ke stromu nebo ke kolíku zaraženému do země. Tvor, který šlápne na destičku, musí uspět v záchranném hodu na Obratnost (AGI) se SO 13, jinak utrpí 1d4 Piercing zranění a jeho rychlost klesne na 0 až do začátku jeho příštího tahu. Poté, dokud se tvor z pasti nevyprostí, je jeho pohyb omezen délkou řetězu (obvykle 3 stopy). Tvor může svou akcí provést ověření Síly (STR) (Athletics) se SO 13; při úspěchu vyprostí sebe nebo jiného tvora ve svém dosahu. Každé neúspěšné ověření způsobí chycenému tvorovi 1 Piercing zranění.
+Past je těžkým řetězem připevněna k nepohyblivému předmětu, například ke stromu nebo ke kolíku zaraženému do země. Tvor, který šlápne na destičku, musí uspět v záchranném hodu na Obratnost (DEX) se SO 13, jinak utrpí 1d4 Piercing zranění a jeho rychlost klesne na 0 až do začátku jeho příštího tahu. Poté, dokud se tvor z pasti nevyprostí, je jeho pohyb omezen délkou řetězu (obvykle 3 stopy). Tvor může svou akcí provést ověření Síly (STR) (Athletics) se SO 13; při úspěchu vyprostí sebe nebo jiného tvora ve svém dosahu. Každé neúspěšné ověření způsobí chycenému tvorovi 1 Piercing zranění.
 
 #### Ink (inkoust, 10 GP)
 
@@ -218,7 +218,7 @@ Lucerna s clonou spaluje olej jako palivo a vrhá jasné světlo v okruhu 30 sto
 
 #### Lock (zámek, 10 GP)
 
-K zámku patří klíč. Bez klíče může tvor zámek otevřít pomocí zlodějského náčiní (Thieves' Tools) úspěšným ověřením Obratnosti (AGI) (Sleight of Hand) se SO 15.
+K zámku patří klíč. Bez klíče může tvor zámek otevřít pomocí zlodějského náčiní (Thieves' Tools) úspěšným ověřením Obratnosti (DEX) (Sleight of Hand) se SO 15.
 
 #### Magnifying Glass (lupa, 100 GP)
 
@@ -226,9 +226,9 @@ Lupa poskytuje výhodu na každé ověření vlastnosti, kterým oceňuješ nebo
 
 #### Manacles (okovy, 2 GP)
 
-Akcí Použití můžeš okovy spoutat nedobrovolného Malého nebo Středního tvora do 5 stop od sebe, který má stav Chycen (Grappled), Neschopný (Incapacitated) nebo Zadržen (Restrained), pokud uspěješ v ověření Obratnosti (AGI) (Sleight of Hand) se SO 13. Spoutaný tvor má nevýhodu na hody na útok a je Zadržen, pokud jsou okovy připevněny k řetězu nebo háku upevněnému na místě. Vyprostit se z okovů vyžaduje akcí úspěšné ověření Obratnosti (AGI) (Sleight of Hand) se SO 20. Roztrhnout je vyžaduje akcí úspěšné ověření Síly (STR) (Athletics) se SO 25.
+Akcí Použití můžeš okovy spoutat nedobrovolného Malého nebo Středního tvora do 5 stop od sebe, který má stav Chycen (Grappled), Neschopný (Incapacitated) nebo Spoután (Restrained), pokud uspěješ v ověření Obratnosti (DEX) (Sleight of Hand) se SO 13. Spoutaný tvor má nevýhodu na hody na útok a je Spoután, pokud jsou okovy připevněny k řetězu nebo háku upevněnému na místě. Vyprostit se z okovů vyžaduje akcí úspěšné ověření Obratnosti (DEX) (Sleight of Hand) se SO 20. Roztrhnout je vyžaduje akcí úspěšné ověření Síly (STR) (Athletics) se SO 25.
 
-Ke každým okovům patří klíč. Bez klíče může tvor zámek okovů otevřít pomocí zlodějského náčiní (Thieves' Tools) úspěšným ověřením Obratnosti (AGI) (Sleight of Hand) se SO 15.
+Ke každým okovům patří klíč. Bez klíče může tvor zámek okovů otevřít pomocí zlodějského náčiní (Thieves' Tools) úspěšným ověřením Obratnosti (DEX) (Sleight of Hand) se SO 15.
 
 #### Map (mapa, 1 GP)
 
@@ -240,15 +240,15 @@ Ruční ocelové zrcátko se hodí k péči o vzhled, ale také k nahlížení z
 
 #### Net (síť, 1 GP)
 
-Když použiješ akci Útok, můžeš jeden ze svých útoků nahradit hozením sítě. Zaměř tvora, kterého vidíš, do 15 stop od sebe. Cíl musí uspět v záchranném hodu na Obratnost (AGI) (SO 8 plus tvůj modifikátor Obratnosti a bonus zdatnosti), jinak získá stav Zadržen (Restrained), dokud se nevyprostí. Je-li cíl Obrovský nebo větší, uspěje automaticky.
+Když použiješ akci Útok, můžeš jeden ze svých útoků nahradit hozením sítě. Zaměř tvora, kterého vidíš, do 15 stop od sebe. Cíl musí uspět v záchranném hodu na Obratnost (DEX) (SO 8 plus tvůj modifikátor Obratnosti a bonus zdatnosti), jinak získá stav Spoután (Restrained), dokud se nevyprostí. Je-li cíl Obrovský nebo větší, uspěje automaticky.
 
-Aby se cíl vyprostil, musí on sám nebo tvor do 5 stop od něj použít akci a provést ověření Síly (STR) (Athletics) se SO 10; při úspěchu Zadrženého tvora vysvobodí. Zničení sítě (AC 10; 5 HP; Immunity vůči Bludgeoning, Poison a Psychic zranění) také cíl vysvobodí a ukončí účinek.
+Aby se cíl vyprostil, musí on sám nebo tvor do 5 stop od něj použít akci a provést ověření Síly (STR) (Athletics) se SO 10; při úspěchu Spoutaného tvora vysvobodí. Zničení sítě (AC 10; 5 HP; Immunity vůči Bludgeoning, Poison a Psychic zranění) také cíl vysvobodí a ukončí účinek.
 
 #### Oil (olej, 1 SP)
 
 Olejem můžeš polít tvora, předmět nebo prostor, nebo ho použít jako palivo, jak je popsáno níže.
 
-***Polití tvora nebo předmětu.*** Když použiješ akci Útok, můžeš jeden ze svých útoků nahradit hozením lahve oleje. Zaměř jednoho tvora nebo předmět do 20 stop od sebe. Cíl musí uspět v záchranném hodu na Obratnost (AGI) (SO 8 plus tvůj modifikátor Obratnosti a bonus zdatnosti), jinak je pokryt olejem. Pokud cíl utrpí Fire zranění dřív, než olej uschne (po 1 minutě), utrpí navíc 5 Fire zranění od hořícího oleje.
+***Polití tvora nebo předmětu.*** Když použiješ akci Útok, můžeš jeden ze svých útoků nahradit hozením lahve oleje. Zaměř jednoho tvora nebo předmět do 20 stop od sebe. Cíl musí uspět v záchranném hodu na Obratnost (DEX) (SO 8 plus tvůj modifikátor Obratnosti a bonus zdatnosti), jinak je pokryt olejem. Pokud cíl utrpí Fire zranění dřív, než olej uschne (po 1 minutě), utrpí navíc 5 Fire zranění od hořícího oleje.
 
 ***Polití prostoru.*** Můžeš použít akci Použití a vylít lahev oleje na rovnou zem tak, aby pokryl čtvercovou oblast o straně 5 stop do 5 stop od tebe. Je-li olej zapálen, hoří až do konce tahu 2 kola od okamžiku, kdy byl zapálen (neboli 12 sekund), a způsobí 5 Fire zranění každému tvorovi, který do oblasti vstoupí nebo v ní ukončí svůj tah. Tvor může toto zranění utrpět jen jednou za tah.
 
@@ -310,9 +310,9 @@ Roucho má profesní nebo obřadní význam. Na některé události a místa maj
 
 #### Rope (provaz, 1 GP)
 
-Akcí Použití můžeš na provazu uvázat uzel, pokud uspěješ v ověření Obratnosti (AGI) (Sleight of Hand) se SO 10. Provaz lze přetrhnout úspěšným ověřením Síly (STR) (Athletics) se SO 20.
+Akcí Použití můžeš na provazu uvázat uzel, pokud uspěješ v ověření Obratnosti (DEX) (Sleight of Hand) se SO 10. Provaz lze přetrhnout úspěšným ověřením Síly (STR) (Athletics) se SO 20.
 
-Provazem můžeš spoutat nedobrovolného tvora jen tehdy, má-li stav Chycen (Grappled), Neschopný (Incapacitated) nebo Zadržen (Restrained). Jsou-li tvorovi spoutány nohy, má stav Zadržen, dokud se nevyprostí. Aby se z provazu vyprostil, musí tvor akcí uspět v ověření Obratnosti (AGI) (Acrobatics) se SO 15.
+Provazem můžeš spoutat nedobrovolného tvora jen tehdy, má-li stav Chycen (Grappled), Neschopný (Incapacitated) nebo Spoután (Restrained). Jsou-li tvorovi spoutány nohy, má stav Spoután, dokud se nevyprostí. Aby se z provazu vyprostil, musí tvor akcí uspět v ověření Obratnosti (DEX) (Acrobatics) se SO 15.
 
 #### Sack (pytel, 1 CP)
 

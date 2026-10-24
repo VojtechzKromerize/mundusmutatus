@@ -25,11 +25,11 @@ Slezský lovec, který ví, kudy chodí dračí matky, kdy hladoví a kdy spí. 
 
 **AC** 15 (kožená s cvočky) · **HP** 60 (11d8+11) · **Rychlost** 30 stop, šplhání 30 stop · **Iniciativa** +3
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 13 (+1) | 16 (+3) | 12 (+1) | 12 (+1) | 15 (+2) | 10 (+0) |
 
-**Záchrany** AGI +6, WIS +5 · **Dovednosti** Athletics +4, Perception +5, Stealth +6, Survival +8 · **Resistance (zbroj, vycpávaná)** Bludgeoning · **Smysly** pasivní Perception 15 · **Jazyky** česky, německy, polsky · **Výdrž** 1 · **Chvat** Zápas o zbraň
+**Záchrany** DEX +6, WIS +5 · **Dovednosti** Athletics +4, Perception +5, Stealth +6, Survival +8 · **Resistance (zbroj, vycpávaná)** Bludgeoning · **Smysly** pasivní Perception 15 · **Jazyky** česky, německy, polsky · **Výdrž** 1 · **Chvat** Zápas o zbraň
 
 ## Vlastnosti
 

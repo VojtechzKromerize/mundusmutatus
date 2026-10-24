@@ -23,7 +23,7 @@ Vítr, kterému šaman dal jméno a tvar. Neviditelný, bez těla, protáhne se 
 
 **AC** 14 · **HP** 97 (13d10+26) · **Rychlost** 50 stop, let 50 stop (vznáší se) · **Iniciativa** +7
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 16 (+3) | 19 (+4) | 14 (+2) | 10 (+0) | 15 (+2) | 11 (+0) |
 

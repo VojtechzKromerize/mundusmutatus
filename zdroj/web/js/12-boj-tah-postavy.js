@@ -1,5 +1,5 @@
 /* ===== automatizace tahu: iniciativa, návrh, začátek a konec tahu, účinky s trváním, záchrany, plošný zásah ===== */
-const BAB = ["STR", "AGI", "CON", "INT", "WIS", "CHA"];
+const BAB = ["STR", "DEX", "CON", "INT", "WIS", "CHA"];
 /* Legendární odolnost: ze zdrojů, jinak z textu „Legendární odolnost 1/den“ */
 const bojLegMax = E => {
   if (!E) return 0;
@@ -16,8 +16,8 @@ const bojLegN = E => {
   const z = E && E.zd.find(q => /legendární odolnost|legendary resistance/i.test(q.n));
   return z ? z.n : "Legendární odolnost";
 };
-/* záchrana NPC podle pravidel (2026-10-20): stavy (Paralyzed, Stunned, Unconscious, Petrified → STR a AGI automaticky selžou;
-   Restrained → nevýhoda na AGI; Dodge → výhoda na AGI) a Magic Resistance (výhoda proti kouzlům). Legendární odolnost volí vypravěč tlačítkem. */
+/* záchrana NPC podle pravidel (2026-10-20): stavy (Paralyzed, Stunned, Unconscious, Petrified → STR a DEX automaticky selžou;
+   Restrained → nevýhoda na DEX; Dodge → výhoda na DEX) a Magic Resistance (výhoda proti kouzlům). Legendární odolnost volí vypravěč tlačítkem. */
 const bojMagRes = p => /Magic Resistance|Odolnost (?:vůči|proti) magii|Magická odolnost/i.test(bojTxt(p));
 const bojJeKouzlo = nm =>
   !!(
@@ -140,21 +140,21 @@ function bojTahHook(pre, s) {
     bojZacatekTahu(s, id1);
   }
 }
-/* stav z kouzla se záchranou (2026-10-17): Hold Person → ochromen (Paralyzed) apod. Při neúspěšné záchraně dostane cíl stav
+/* stav z kouzla se záchranou (2026-10-17): Hold Person → paralyzovaný (Paralyzed) apod. Při neúspěšné záchraně dostane cíl stav
    s trváním kouzla; když kouzlo říká „na konci každého tahu hod opakuje“, tracker ho na konci tahu nepřítele hodí sám.
    Soustředěné kouzlo skončí i tehdy, když sesilatel ztratí soustředění (bojAcSync). */
 const BSPSTCZ = [
   [/\boslep[eě]n/i, "oslepen"],
-  [/\bokouzl[eě]n/i, "okouzlen"],
+  [/\b(okouzl[eě]n|zmámen)/i, "okouzlen"],
   [/\bohluš[eě]n/i, "ohlušen"],
-  [/\b(vyděšen|vystrašen)/i, "vyděšený"],
-  [/\bchycen/i, "chycen"],
+  [/\b(vyděšen|vystrašen)/i, "vyděšen"],
+  [/\b(chycen|uchvácen)/i, "chycen"],
   [/\bneschopn/i, "neschopný"],
-  [/\bochromen/i, "ochromen"],
+  [/\bparalyzov/i, "paralyzovaný"],
   [/\bzkameněl/i, "zkamenělý"],
-  [/\botráven/i, "otrávený"],
+  [/\botráven/i, "otráven"],
   [/\bsražen|\bsrazí|\bk zemi/i, "sražen"],
-  [/\bzadržen/i, "zadržen"],
+  [/\b(spoután|spoutan|zadržen)/i, "spoután"],
   [/\bomráčen/i, "omráčen"],
   [/\bv bezvědomí|\bbezvědom/i, "v bezvědomí"],
 ];
@@ -179,7 +179,7 @@ function bojSpStav(cim) {
         const k = EN[e];
         if (k && !st.includes(k)) st.push(k);
       });
-      /* česky bez anglického názvu (Vojtův katalog kouzel, 2026-10-22): „jinak vystrašen“, „je zadržená“, „sražen k zemi“ */
+      /* česky bez anglického názvu (Vojtův katalog kouzel, 2026-10-22): „jinak vystrašen“, „je spoutaná“, „sražen k zemi“ */
       BSPSTCZ.forEach(([re, k]) => {
         if (re.test(v) && !st.includes(k)) st.push(k);
       });
@@ -784,10 +784,10 @@ function bojZbrStav(n, E) {
   const st = d.find(x => x.k === "Štít"),
     tel = d.find(x => x.k !== "Štít");
   if (tel && tel.u >= tel.max) {
-    const dx = bojAbil(E.p, "AGI");
+    const dx = bojAbil(E.p, "DEX");
     ac = 10 + (dx != null ? dx : 0) + (st && st.u < st.max ? 2 : 0);
     pr.push(
-      `${tel.k.toLowerCase()} zbroj vyčerpána – AC bez zbroje ${dx != null ? `10 ${bsg(dx)} AGI` : "10 + AGI (neznámá, počítám +0)"}${st && st.u < st.max ? " + 2 štít" : ""}`,
+      `${tel.k.toLowerCase()} zbroj vyčerpána – AC bez zbroje ${dx != null ? `10 ${bsg(dx)} DEX` : "10 + DEX (neznámá, počítám +0)"}${st && st.u < st.max ? " + 2 štít" : ""}`,
     );
   } else if (st && st.u >= st.max) {
     ac = ac0 - 2;
@@ -911,7 +911,7 @@ async function bojNpcKouzloProved(n, x, zn) {
       () => S.ul,
     );
   const utok = !!(U && U.utok) || /útok kouzlem/i.test(t),
-    zach = utok ? null : (U && U.zach) || (t.match(/(STR|AGI|CON|INT|WIS|CHA) záchrann/) || [])[1] || null,
+    zach = utok ? null : (U && U.zach) || (t.match(/(STR|DEX|CON|INT|WIS|CHA) záchrann/) || [])[1] || null,
     auto = !utok && !zach && !!U && U.k === "z" && /šipka zasáhne|automaticky (?:současně )?zasah|automaticky zasáh/i.test(t);
   const s = BOJ.s || {},
     sp = bojSpoj(n),
@@ -1090,13 +1090,13 @@ const BAKCE = [
   [
     "Úhyb",
     "Dodge",
-    "do začátku tvého příštího tahu útoky na tebe s nevýhodou (vidíš-li útočníka) a záchrany AGI s výhodou; ne když jsi Incapacitated nebo máš rychlost 0.",
+    "do začátku tvého příštího tahu útoky na tebe s nevýhodou (vidíš-li útočníka) a záchrany DEX s výhodou; ne když jsi Incapacitated nebo máš rychlost 0.",
   ],
   ["Pomoc", "Help", "spojenec má výhodu na příští ověření, které mu pomáháš, nebo na příští útok proti tvorovi do 5 stop od tebe."],
   [
     "Skrytí",
     "Hide",
-    "AGI (Stealth) SO 15, když jsi silně zastřený nebo za tříčtvrtečním či úplným krytem a mimo dohled; při úspěchu jsi Neviditelný.",
+    "DEX (Stealth) SO 15, když jsi silně zastřený nebo za tříčtvrtečním či úplným krytem a mimo dohled; při úspěchu jsi Neviditelný.",
   ],
   ["Ovlivnění", "Influence", "CHA nebo WIS ověření, kterým nestvůru přemlouváš k něčemu, co by jinak neudělala."],
   ["Magie", "Magic", "sešleš kouzlo, použiješ magický předmět nebo magickou schopnost."],
@@ -1109,7 +1109,7 @@ const BAKCE = [
     "Opportunity Attack",
     "reakcí zaútočíš zblízka, když tvor, kterého vidíš, opustí tvůj dosah. Artikule: Ratiště i když nepřítel vstoupí do dosahu 10 stop.",
   ],
-  ["Chvat", "Grapple (Unarmed Strike)", "cíl nejvýš o velikost větší hodí STR nebo AGI záchranu proti SO 8 + STR + zdatnost; neúspěch = Chycen."],
+  ["Chvat", "Grapple (Unarmed Strike)", "cíl nejvýš o velikost větší hodí STR nebo DEX záchranu proti SO 8 + STR + zdatnost; neúspěch = Chycen."],
   ["Strčení", "Shove (Unarmed Strike)", "stejná záchrana; neúspěch = odstrčen o 5 stop, nebo Sražen."],
   [
     "Techniky a chvaty",
@@ -1352,11 +1352,11 @@ const BSTHP = {
   "krvácí k8": "Krvácíš (kritické zranění): na začátku každého tahu ztratíš k8 HP, dokud tě někdo neošetří (Medicine).",
   sražen: "Ležíš: vstát stojí polovinu rychlosti; útoky zblízka na tebe mají výhodu, z dálky nevýhodu; tvé útoky mají nevýhodu.",
   omráčen: "Omráčen: nemůžeš jednat ani se pohnout, záchrany na Sílu a Obratnost automaticky selžou, útoky na tebe mají výhodu.",
-  zadržen: "Zadržen: rychlost 0, tvé útoky mají nevýhodu, útoky na tebe výhodu; vyprostíš se akcí.",
+  spoután: "Spoután: rychlost 0, tvé útoky mají nevýhodu, útoky na tebe výhodu; vyprostíš se akcí.",
   oslepen: "Oslepen: tvé útoky mají nevýhodu, útoky na tebe výhodu.",
   neviditelný: "Neviditelný: tvé útoky mají výhodu, útoky na tebe nevýhodu.",
-  otrávený: "Otrávený: nevýhoda na útoky a ověření.",
-  vyděšený: "Vyděšený: nevýhoda na útoky a ověření, dokud vidíš zdroj strachu; nesmíš se k němu přiblížit.",
+  otráven: "Otráven: nevýhoda na útoky a ověření.",
+  vyděšen: "Vyděšen: nevýhoda na útoky a ověření, dokud vidíš zdroj strachu; nesmíš se k němu přiblížit.",
   soustředí: "Držíš soustředění (Concentration): při zranění CON záchrana DC 10 nebo polovina zranění (nejvýš 30).",
 };
 Object.entries(SRDST).forEach(([k, v]) => {
@@ -1423,8 +1423,8 @@ async function bojHracAkce(id, fn, msg) {
       const f0 = fn;
       fn = (h, z) => {
         const r = f0(h, z);
-        if (h && (h.stav || []).includes("vyděšený")) {
-          h.stav = h.stav.filter(x => x !== "vyděšený");
+        if (h && (h.stav || []).includes("vyděšen")) {
+          h.stav = h.stav.filter(x => x !== "vyděšen");
           if (!h.stav.length) delete h.stav;
           mmHlasG(`${h.n} je V milosti – imunní vůči Frightened.`, 4500);
         }

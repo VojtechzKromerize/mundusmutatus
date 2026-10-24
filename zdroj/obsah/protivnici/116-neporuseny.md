@@ -23,7 +23,7 @@ Tělo, které v hrobě nezetlelo – a Církev je proto vystavila jako ostatky s
 
 **AC** 11 · **HP** 58 (9d8+18) · **Rychlost** 20 stop · **Iniciativa** −1
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 16 (+3) | 8 (−1) | 15 (+2) | 6 (−2) | 12 (+1) | 12 (+1) |
 

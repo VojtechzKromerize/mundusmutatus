@@ -168,8 +168,8 @@ test("vybavení: věc z katalogu přibude do vybavení postavy", async () => {
 /* ---------- kouzla ---------- */
 const kouzlo = (n, st) => V(`kSpUcinek(KARTBY.balduin, {n: ${JSON.stringify(n)}}, ${st})`);
 
-test("kouzla: Fireball 8d6 Fire, záchrana AGI, na vyšším stupni +1d6", () => {
-  assert.deepEqual(kouzlo("Fireball", 3), {k: "z", x: "8d6", t: "Fire", zach: "AGI", utok: false, pol: true});
+test("kouzla: Fireball 8d6 Fire, záchrana DEX, na vyšším stupni +1d6", () => {
+  assert.deepEqual(kouzlo("Fireball", 3), {k: "z", x: "8d6", t: "Fire", zach: "DEX", utok: false, pol: true});
   assert.equal(kouzlo("Fireball", 5).x, "10d6");
 });
 
@@ -272,11 +272,11 @@ test("boj: stavy a hody proti smrti postavy s kartou se čtou z karty a zapisuj�
     assert.equal(z.hraci[1]._k, undefined);
     await S.ev(`(() => {
       const z = bojPcNaplnit({hraci: [{id: "h1", n: "Balduin", k: "balduin"}]});
-      z.hraci[0].stav.push("otrávený");
+      z.hraci[0].stav.push("otráven");
       delete z.hraci[0].ds;
       bojPcOdvod(z);
     })()`);
-    assert.deepEqual(V(`kartaStav("balduin").stavy`), ["sražen", "otrávený"], "změna v boji se zapíše na kartu");
+    assert.deepEqual(V(`kartaStav("balduin").stavy`), ["sražen", "otráven"], "změna v boji se zapíše na kartu");
     assert.equal(V(`kartaStav("balduin").ds || null`), null);
     const ul = V(`bojPcBez(bojPcNaplnit({hraci: [{id: "h1", n: "Balduin", k: "balduin", kryt: 2}, {id: "h2", n: "Bez karty", stav: ["omráčen"]}]}))`);
     assert.deepEqual(ul.hraci[0], {id: "h1", n: "Balduin", k: "balduin", kryt: 2}, "do databáze boje se obraz neuloží, kryt ano");
@@ -295,16 +295,16 @@ test("boj: starší boj se stavy v sobě je převede na kartu; s koncem boje zmi
   try {
     assert.deepEqual(
       V(`(() => {
-      const s = {hraci: [{id: "h1", n: "Balduin", k: "balduin", stav: ["vyděšený"], ds: {u: 0, n: 1}}]};
+      const s = {hraci: [{id: "h1", n: "Balduin", k: "balduin", stav: ["vyděšen"], ds: {u: 0, n: 1}}]};
       return [bojPcPrevod(s), s.hraci[0].stav || null, s.hraci[0].ds || null];
     })()`),
       [true, null, null],
     );
-    assert.deepEqual(V(`kartaStav("balduin").stavy`), ["vyděšený"]);
+    assert.deepEqual(V(`kartaStav("balduin").stavy`), ["vyděšen"]);
     assert.deepEqual(V(`kartaStav("balduin").ds`), {u: 0, n: 1});
     assert.deepEqual(
       V(`(() => {
-      const z = {hraci: [{id: "h1", _k: 1, stav: ["zapřeno", "sražen", "ochromen"], ef: [{n: "Hold Person", st: "ochromen"}]}]};
+      const z = {hraci: [{id: "h1", _k: 1, stav: ["zapřeno", "sražen", "paralyzovaný"], ef: [{n: "Hold Person", st: "paralyzovaný"}]}]};
       bojPcKonecBoje(z);
       return z.hraci[0].stav;
     })()`),
@@ -334,7 +334,7 @@ test("houf: plošné zranění zraní každého pacholka zvlášť", () => {
     [1, 20],
     [1, 20],
   ]);
-  const r = V(`bojHoufZachrany({pocet: 3, hz: 2}, null, 4, "Fire", "AGI", 30, true, null, true)`);
+  const r = V(`bojHoufZachrany({pocet: 3, hz: 2}, null, 4, "Fire", "DEX", 30, true, null, true)`);
   assert.equal(r.pad, 1, "4 zranění skolí jen raněného (2 + 4 ≥ 5), zdravé ne");
   assert.equal(r.hz, 0);
 });
@@ -354,4 +354,15 @@ test("iniciativa: početnější strana má o slot víc", () => {
   assert.equal(sl({hraci: [{}, {}], npc: [{id: "s", str: "h"}, ...npc(2)], hod: 15, dm: 10}), "hnhnh", "spojenec se počítá do družiny");
   assert.equal(sl({hraci: [{}, {}], npc: [...npc(2), {id: "x", druh: "sok", stav: ["poražen"]}], hod: 15, dm: 10}), "hnhn", "poražený se nepočítá");
   assert.equal(sl({hraci: [{}, {}], npc: npc(4), pocty: {h: 2, n: 2}, hod: 15, dm: 10}), "hnhn", "během kola platí počty z jeho začátku");
+});
+
+test("pojmy česky: zobrazený text se převede, pole formuláře ne", async () => {
+  S.ev(
+    `(()=>{const d=document.createElement("div");d.id="pojtest";d.innerHTML='<p>utrpí 2d6 Fire zranění</p><textarea>2d6 Fire zranění</textarea><p lang="en">Resistance to Fire</p>';document.body.appendChild(d)})()`,
+  );
+  await new Promise(r => setTimeout(r, 20));
+  assert.equal(V(`document.querySelector("#pojtest p").textContent`), "utrpí 2d6 ohnivého zranění");
+  assert.equal(V(`document.querySelector("#pojtest textarea").value`), "2d6 Fire zranění");
+  assert.equal(V(`document.querySelector("#pojtest p[lang]").textContent`), "Resistance to Fire");
+  S.ev(`document.getElementById("pojtest").remove()`);
 });

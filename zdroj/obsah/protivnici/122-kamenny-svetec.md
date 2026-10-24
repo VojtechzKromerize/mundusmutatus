@@ -24,7 +24,7 @@ Kamenná socha světce z průčelí katedrály nebo z hrobky, kterou oživil Zá
 
 **AC** 18 · **HP** 220 (21d10+105) · **Rychlost** 30 stop · **Iniciativa** +3
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 22 (+6) | 9 (−1) | 20 (+5) | 3 (−4) | 11 (+0) | 1 (−5) |
 
@@ -44,7 +44,7 @@ Kamenná socha světce z průčelí katedrály nebo z hrobky, kterou oživil Zá
 
 ## Bonusová akce
 
-- **Tíha (dobíjí se na 5–6).** *Slow* (CON save DC 17) na až 6 tvorů do 120 stop: poloviční rychlost, AC −2, nevýhoda na AGI saves, jedna akce místo dvou slotů.
+- **Tíha (dobíjí se na 5–6).** *Slow* (CON save DC 17) na až 6 tvorů do 120 stop: poloviční rychlost, AC −2, nevýhoda na DEX saves, jedna akce místo dvou slotů.
 
 **Výkupné a kořist.** Kámen – a šém: pergamen s příkazem psaný rukou toho, kdo sochu oživil. Kapitula zaplatí 30 kop za to, že se o soše nebude mluvit. Pod soklem bývá to, co socha hlídala.
 

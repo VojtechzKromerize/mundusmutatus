@@ -22,7 +22,7 @@ Vůdce mrchožroutů. Páchne tak, že se člověku zvedá žaludek už na pět 
 
 **AC** 13 · **HP** 36 (8d8) · **Rychlost** 30 stop · **Iniciativa** +3
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 16 (+3) | 17 (+3) | 10 (+0) | 11 (+0) | 10 (+0) | 8 (−1) |
 

@@ -24,7 +24,7 @@ Zchudlý zeman s hradem na pomezí – Moravy, Slezska, Rakous – který z husi
 
 **AC** 18 (plátová zbroj po otci) · **HP** 52 (8d8+16) · **Rychlost** 30 stop · **Iniciativa** +0
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 16 (+3) | 11 (+0) | 14 (+2) | 11 (+0) | 11 (+0) | 15 (+2) |
 

@@ -829,7 +829,8 @@ function vyZnacky(m) {
   const svg = document.getElementById(m === "koruna" ? "map" : m === "svet" ? "smap" : "pmap");
   if (!svg) return;
   const vb = (svg.getAttribute("viewBox") || "0 0 680 605").split(/\s+/).map(Number);
-  const s = m === "koruna" ? vb[2] / 680 : m === "svet" ? (vb[2] / 1024) * 1.3 : (vb[2] / 1160) * 1.6,
+  /* mapa Koruny je nakreslená s okrajem pro posouvání (viewBox je větší než výřez): měřítko si drawMapK ukládá do data-s */
+  const s = m === "koruna" ? +svg.dataset.s || vb[2] / 680 : m === "svet" ? (vb[2] / 1024) * 1.3 : (vb[2] / 1160) * 1.6,
     g = el("g", {class: "vyzn", "pointer-events": "none"});
   VY.setk.forEach((x, i) => {
     if (!x._q) return;

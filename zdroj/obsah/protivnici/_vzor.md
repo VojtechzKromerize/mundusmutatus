@@ -21,7 +21,7 @@ Krátký popis protivníka.
 
 **AC** 15 · **HP** 60 · **Rychlost** 30 stop
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 10 (+0) | 10 (+0) | 10 (+0) | 10 (+0) | 10 (+0) | 10 (+0) |
 

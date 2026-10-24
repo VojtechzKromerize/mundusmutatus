@@ -17,7 +17,7 @@ const BZVAKT = {
     poz: "cíl je přidržen hrotem (rychlost 0 do začátku tvého příštího tahu), ty se nesmíš pohnout",
     kom: "hrot uvízl ve zbroji – cíl ti může Reakcí vytrhnout zbraň (STR záchrana SO 12)",
   },
-  "Do slabin!": {poz: "proti ležícímu nebo zadrženému cíli je zásah kritický", kom: "dýka sklouzla po plátu – další útok na tebe má výhodu"},
+  "Do slabin!": {poz: "proti sraženému nebo spoutanému cíli je zásah kritický", kom: "dýka sklouzla po plátu – další útok na tebe má výhodu"},
   Strhující: {poz: "cíl hází CON záchranu, jinak je sražen k zemi", kom: "hák se zasekl – cíl tě strhne o 5 stop k sobě a může Reakcí zaútočit"},
   Štěpící: {poz: "štít cíle je zničen", kom: "sekera uvízla ve štítu – cíl ji může Reakcí vytrhnout (STR záchrana SO 12)"},
   "Hrom a kouř!": {

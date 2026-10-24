@@ -16,7 +16,7 @@ const BJU = {
   drt: false,
   pru: false,
   dal: false,
-  ab: "AGI",
+  ab: "DEX",
   dc: "",
   pol: true,
   info: "",
@@ -83,7 +83,7 @@ function bojJaObnov() {
   bojJaObnov.hotovo = true;
   let o = null;
   try {
-    o = JSON.parse(localStorage.getItem(BJUK) || "null");
+    o = JSON.parse(mmDex(localStorage.getItem(BJUK)) || "null");
   } catch (e) {}
   if (!o || o.ja !== ja || o.kolo !== (s.kolo || 1) || Date.now() - o.ts > 45 * 60e3 || !o.bju) return;
   const B = o.bju,
@@ -123,7 +123,7 @@ function kSpBoj(K, x, lvl) {
   if (E && E.k === "l") return null;
   const t = String(d.t || "");
   const utok = !!(E && E.utok) || /útok kouzlem/i.test(t),
-    /* „výhoda na AGI záchranné hody“ (Haste, Protection from Energy…) není záchrana cíle – kouzlo pro spojence (2026-10-24) */
+    /* „výhoda na DEX záchranné hody“ (Haste, Protection from Energy…) není záchrana cíle – kouzlo pro spojence (2026-10-24) */
     zach = utok ? null : (E && E.zach) || (t.match(KZACHRE) || [])[1] || null,
     auto = !utok && !zach && !!E && /šipka zasáhne|automaticky zasáh/i.test(t);
   if (!utok && !zach && !auto) return null;

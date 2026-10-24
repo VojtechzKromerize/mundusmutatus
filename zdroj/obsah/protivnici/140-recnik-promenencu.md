@@ -24,7 +24,7 @@ Kališnický kazatel nebo písař, kterého Proměna udělala orkem, půlobrem n
 
 **AC** 13 (kroužková košile pod šubou) · **HP** 38 (7d8+7) · **Rychlost** 30 stop · **Iniciativa** +0
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 16 (+3) | 10 (+0) | 12 (+1) | 13 (+1) | 16 (+3) | 13 (+1) |
 

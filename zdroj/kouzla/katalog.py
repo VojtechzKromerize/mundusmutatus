@@ -1,6 +1,6 @@
 # Převede Vojtův katalog kouzel (Word) do zdroj/kouzla/katalog.json, ze kterého sestav.py bere texty kouzel.
 #   python3 zdroj/kouzla/katalog.py Katalog_Kouzel.docx      (potřebuje pandoc)
-# Texty jsou Vojtova vlastní shrnutí; převod jen sjednotí výrazy s webem (1k6 → 1d6, DEX → AGI, typy zranění anglicky,
+# Texty jsou Vojtova vlastní shrnutí; převod jen sjednotí výrazy s webem (1k6 → 1d6, typy zranění anglicky,
 # odolnost → Resistance, oprava → modifikátor, pozice → slot), aby na ně navázala automatika karty a Boje.
 import json, os, re, subprocess, sys
 D = os.path.dirname(os.path.abspath(__file__))
@@ -67,8 +67,8 @@ POV = {"Absorb Elements": [Dr, H, C, Ko], "Ceremony": [K_, Pa], "Snare": [Dr, H,
  "Create Spelljamming Helm": [Ko], "Temporal Shunt": [Ko], "Transmute Rock": [Dr, Ko], "Create Homunculus": [Ko],
  "Tasha's Otherworldly Guise": [C, Ce, Ko], "Create Magen": [Ko], "Draconic Transformation": [Dr, C, Ko]}
 
-SKOLY = {"Abjuration": "Abjurace", "Conjuration": "Vyvolávání", "Divination": "Věštění", "Enchantment": "Očarování",
-         "Evocation": "Evokace", "Illusion": "Iluze", "Necromancy": "Nekromancie", "Transmutation": "Přeměna"}
+SKOLY = {"Abjuration": "Ochranná magie", "Conjuration": "Vyvolávání", "Divination": "Věštění", "Enchantment": "Očarování",
+         "Evocation": "Zaklínání", "Illusion": "Iluze", "Necromancy": "Nekromancie", "Transmutation": "Transmutace"}
 
 # ---- sjednocení výrazů s webem ----
 TYPY = [("kyselinov", "Acid"), ("chladn", "Cold"), ("ohniv", "Fire"), ("silov", "Force"), ("bleskov", "Lightning"), ("nekrotick", "Necrotic"),
@@ -106,23 +106,22 @@ OPR = [(r"\btvá oprava sesílací vlastnosti", "tvůj modifikátor sesílací v
        (r"\btvé opravy sesílací vlastnosti", "tvého modifikátoru sesílací vlastnosti"), (r"\boprava sesílací vlastnosti", "modifikátor sesílací vlastnosti"),
        (r"\bopravu sesílací vlastnosti", "modifikátor sesílací vlastnosti"), (r"\bopravy sesílací vlastnosti", "modifikátoru sesílací vlastnosti"),
        (r"\bopravě sesílací vlastnosti", "modifikátoru sesílací vlastnosti"), (r"\bopravou sesílací vlastnosti", "modifikátorem sesílací vlastnosti"),
-       (r"\btvou opravou\b", "tvým modifikátorem sesílací vlastnosti"), (r"\bopravu tvé (STR|AGI|CON|INT|WIS|CHA)\b", r"modifikátor tvé \1"),
+       (r"\btvou opravou\b", "tvým modifikátorem sesílací vlastnosti"), (r"\bopravu tvé (STR|DEX|CON|INT|WIS|CHA)\b", r"modifikátor tvé \1"),
        (r"\boprava útoku kouzlem\b", "bonus k útoku kouzlem"), (r"\bopravy se přičtou\b", "modifikátory se přičtou"),
        (r"\btvé sesílací opravě\b", "tvému modifikátoru sesílací vlastnosti"), (r"\btvou sesílací opravu\b", "tvůj modifikátor sesílací vlastnosti"),
        (r"\btvou útočnou opravou\b", "tvým bonusem k útoku kouzlem"), (r"\bběžná oprava vlastnosti\b", "běžný modifikátor vlastnosti"),
-       (r"\boprava (STR|AGI|CON|INT|WIS|CHA)\b", r"modifikátor \1"), (r"\+oprava (STR|AGI|CON|INT|WIS|CHA)\b", r"+modifikátor \1"),
+       (r"\boprava (STR|DEX|CON|INT|WIS|CHA)\b", r"modifikátor \1"), (r"\+oprava (STR|DEX|CON|INT|WIS|CHA)\b", r"+modifikátor \1"),
        (r"\+oprava\b", "+modifikátor sesílací vlastnosti"), (r"\btvá oprava\b", "tvůj bonus k útoku kouzlem")]
 def sjednot(t):
     if not t: return t
     t = t.replace("\\'", "'").replace("’", "'").replace("\\\n", "\n").replace("--", "–")
     t = re.sub(r"\b(\d*)k(4|6|8|10|12|20|100)\b", r"\1d\2", t)              # 1k6 → 1d6, k20 → d20
-    t = re.sub(r"\bDEX\b", "AGI", t)
     t = re.sub(r"\bOČ(?=\b|\d)", "AC", t)
-    # záchranný hod na DEX → AGI záchranný hod (tak ho čte automatika i zbytek webu)
+    # záchranný hod na DEX → DEX záchranný hod (tak ho čte automatika i zbytek webu)
     # (u „výhoda na záchranné hody na CON“ pořadí zůstane – nejde o záchranu proti kouzlu)
-    t = re.sub(r"(\b(?:ne)?výhod\w*\s+(?:na|při|k|ke|ve)\s+)?\b(záchrann\w*\s+hod\w*)\s+na\s+(STR|AGI|CON|INT|WIS|CHA)\b",
+    t = re.sub(r"(\b(?:ne)?výhod\w*\s+(?:na|při|k|ke|ve)\s+)?\b(záchrann\w*\s+hod\w*)\s+na\s+(STR|DEX|CON|INT|WIS|CHA)\b",
                lambda m: m.group(0) if m.group(1) else f"{m.group(3)} {m.group(2)}", t)
-    t = re.sub(r"\b(záchrann\w*)\s+na\s+(STR|AGI|CON|INT|WIS|CHA)\b", r"\2 \1", t)
+    t = re.sub(r"\b(záchrann\w*)\s+na\s+(STR|DEX|CON|INT|WIS|CHA)\b", r"\2 \1", t)
     t = typy(t)
     t = re.sub(r"\bodolnost(i?)\b", r"Resistance", t)
     t = re.sub(r"\bzranitelnost(i?)\b", "Vulnerability", t)

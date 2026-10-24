@@ -14,7 +14,7 @@ const SRDST = {
     t: "nesmí zaútočit na toho, kdo ho okouzlil, ani ho zasáhnout škodlivou schopností; okouzlující má výhodu na společenská ověření vůči němu",
   },
   ohlušen: {en: "Deafened", t: "neslyší, ověření vyžadující sluch automaticky selžou"},
-  vyděšený: {en: "Frightened", ut: -1, t: "nevýhoda na ověření a útoky, dokud vidí zdroj strachu; nesmí se k němu dobrovolně přiblížit"},
+  vyděšen: {en: "Frightened", ut: -1, t: "nevýhoda na ověření a útoky, dokud vidí zdroj strachu; nesmí se k němu dobrovolně přiblížit"},
   chycen: {en: "Grappled", ut: -1, t: "rychlost 0; nevýhoda na útoky proti komukoli jinému než tomu, kdo ho drží; ten ho smí táhnout s sebou"},
   neschopný: {
     en: "Incapacitated",
@@ -27,56 +27,56 @@ const SRDST = {
     cil: -1,
     t: "útoky na něj s nevýhodou, jeho útoky s výhodou (ne proti tomu, kdo ho vidí); výhoda na iniciativu",
   },
-  ochromen: {
+  paralyzovaný: {
     en: "Paralyzed",
     cil: 1,
     nej: 1,
-    zach: {STR: "f", AGI: "f"},
+    zach: {STR: "f", DEX: "f"},
     k5: 1,
-    t: "Incapacitated, rychlost 0, záchrany STR a AGI automaticky selžou; útoky na něj s výhodou a zásah zblízka do 5 stop je kritický",
+    t: "Incapacitated, rychlost 0, záchrany STR a DEX automaticky selžou; útoky na něj s výhodou a zásah zblízka do 5 stop je kritický",
   },
   zkamenělý: {
     en: "Petrified",
     cil: 1,
     nej: 1,
-    zach: {STR: "f", AGI: "f"},
+    zach: {STR: "f", DEX: "f"},
     res: 1,
-    t: "proměněn v kámen: Incapacitated, rychlost 0, záchrany STR a AGI automaticky selžou, útoky na něj s výhodou, Resistance vůči všemu zranění, Immunity vůči otravě",
+    t: "proměněn v kámen: Incapacitated, rychlost 0, záchrany STR a DEX automaticky selžou, útoky na něj s výhodou, Resistance vůči všemu zranění, Immunity vůči otravě",
   },
-  otrávený: {en: "Poisoned", ut: -1, t: "nevýhoda na útoky a ověření"},
+  otráven: {en: "Poisoned", ut: -1, t: "nevýhoda na útoky a ověření"},
   sražen: {
     en: "Prone",
     ut: -1,
     cil: "blizko",
     t: "jen se plazí, vstát stojí polovinu rychlosti; jeho útoky s nevýhodou; útok na něj do 5 stop s výhodou, jinak s nevýhodou",
   },
-  zadržen: {
+  spoután: {
     en: "Restrained",
     ut: -1,
     cil: 1,
-    zach: {AGI: "d"},
-    t: "rychlost 0; útoky na něj s výhodou, jeho útoky s nevýhodou; nevýhoda na záchrany AGI",
+    zach: {DEX: "d"},
+    t: "rychlost 0; útoky na něj s výhodou, jeho útoky s nevýhodou; nevýhoda na záchrany DEX",
   },
   omráčen: {
     en: "Stunned",
     cil: 1,
     nej: 1,
-    zach: {STR: "f", AGI: "f"},
-    t: "Incapacitated, záchrany STR a AGI automaticky selžou, útoky na něj s výhodou",
+    zach: {STR: "f", DEX: "f"},
+    t: "Incapacitated, záchrany STR a DEX automaticky selžou, útoky na něj s výhodou",
   },
   "v bezvědomí": {
     en: "Unconscious",
     cil: 1,
     nej: 1,
-    zach: {STR: "f", AGI: "f"},
+    zach: {STR: "f", DEX: "f"},
     k5: 1,
-    t: "Incapacitated a sražen, upustí, co drží; rychlost 0; záchrany STR a AGI automaticky selžou; útoky na něj s výhodou a zásah zblízka do 5 stop je kritický",
+    t: "Incapacitated a sražen, upustí, co drží; rychlost 0; záchrany STR a DEX automaticky selžou; útoky na něj s výhodou a zásah zblízka do 5 stop je kritický",
   },
   úhyb: {
     en: "Dodge",
     cil: -1,
-    zach: {AGI: "a"},
-    t: "akce Úhyb do začátku jeho příštího tahu: útoky na něj s nevýhodou (vidí-li útočníka), výhoda na záchrany AGI",
+    zach: {DEX: "a"},
+    t: "akce Úhyb do začátku jeho příštího tahu: útoky na něj s nevýhodou (vidí-li útočníka), výhoda na záchrany DEX",
   },
 };
 
@@ -117,7 +117,7 @@ const bojKritDruh = t => {
 
 /* z 11-boj */
 /* stavy, které berou akce (2026-10-19): Incapacitated a vše, co ho obsahuje – žádná akce, bonusová akce ani reakce */
-const BNESCH = ["neschopný", "ochromen", "zkamenělý", "omráčen", "v bezvědomí"];
+const BNESCH = ["neschopný", "paralyzovaný", "zkamenělý", "omráčen", "v bezvědomí"];
 
 /* z 11-boj */
 const bojNeschopny = st => (st || []).find(t => BNESCH.includes(t)) || "";
@@ -210,7 +210,7 @@ const bojTxt = p =>
 const bojIniB = p => {
   const m = bojTxt(p).match(/Iniciativa\s*([+-]\d+)/);
   if (m) return +m[1];
-  const a = bojAbil(p, "AGI");
+  const a = bojAbil(p, "DEX");
   return a != null ? a : 0;
 };
 

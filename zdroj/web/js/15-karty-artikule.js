@@ -112,9 +112,11 @@ function kVydMax(K) {
   const pb = kPB(K),
     T = (kTridy(K) || []).slice().sort((a, b) => b.u - a.u),
     h = T[0];
-  if (!h) return 0;
+  /* Martial Adept (Artikule 2026-10-24): +1 Výdrž, i postavě bez Výdrže z povolání */
+  const ma = kCtx(K).maRys(/^martial adept$/) ? 1 : 0;
+  if (!h) return ma;
   const p = KVYDP.find(([c]) => c === h.n);
-  return p ? Math.max(1, Math.ceil(pb * p[1])) : 0;
+  return (p ? Math.max(1, Math.ceil(pb * p[1])) : 0) + ma;
 }
 const kVydU = K => Math.min(kVydMax(K), +((kartaStav(K.id).zdr || {})["Výdrž"] || 0));
 /* techniky a chvaty: id, název, cena, Požehnání (1) / reakce (r) / bonusová akce (b), účinek */
@@ -158,7 +160,7 @@ const STECH = [
     c: "1V + Požehnání",
     poz: 1,
     ch: 1,
-    t: "Po zásahu zbraní jdeš nepříteli do těla: STR/AGI záchrana – při neúspěchu Restrained nebo Prone (volíš ty).",
+    t: "Po zásahu zbraní jdeš nepříteli do těla: STR/DEX záchrana – při neúspěchu Restrained nebo Prone (volíš ty).",
   },
   {
     id: "hodbok",
@@ -166,7 +168,7 @@ const STECH = [
     c: "1V + Požehnání",
     poz: 1,
     ch: 1,
-    t: "Po zásahu Unarmed útokem: STR/AGI záchrana – při neúspěchu Restrained a Prone.",
+    t: "Po zásahu Unarmed útokem: STR/DEX záchrana – při neúspěchu Restrained a Prone.",
   },
   {
     id: "mordstosse",
@@ -182,7 +184,7 @@ const STECH = [
     c: "1V + Požehnání",
     poz: 1,
     ch: 1,
-    t: "Cíl Prone nebo Restrained hází AGI záchranu: při neúspěchu je znehybněn do konce tvého příštího tahu.",
+    t: "Cíl Prone nebo Restrained hází DEX záchranu: při neúspěchu je znehybněn do konce tvého příštího tahu.",
   },
   {
     id: "bruch",
@@ -203,7 +205,7 @@ const STECH = [
     n: "Zápas o zbraň",
     c: "1V + reakce",
     ch: 1,
-    t: "Útočí-li na tebe někdo lehkou zbraní (dýka): STR/AGI záchrana – při neúspěchu útok mine a zbraň máš ty.",
+    t: "Útočí-li na tebe někdo lehkou zbraní (dýka): STR/DEX záchrana – při neúspěchu útok mine a zbraň máš ty.",
   },
   {
     id: "harnisch",
@@ -373,7 +375,7 @@ function kSpPopis(sp) {
     kSpTexty();
     return `<p class="rsmall">Načítám popis…</p>`;
   }
-  return `<div class="kspd${x.x ? " kmimo" : ""}"><p class="rsmall"><b>${besc(x.cz || x.en)}</b> · ${kzUr(x.l)} · ${besc(x.s || "")} · ${besc(x.ct || "")} · ${besc(x.r || "")} · ${besc((x.k || []).join(", "))}${x.m ? ` (${besc(x.m)})` : ""} · ${besc(x.d || "")}${x.ri ? " · rituál" : ""}</p>${kzMd(x.t)}${x.v ? `<p><b>Na vyšší úrovni.</b> ${kzIn(x.v)}</p>` : ""}</div>`;
+  return `<div class="kspd${x.x ? " kmimo" : ""}"><p class="rsmall"><b>${besc(x.cz || x.en)}</b> · ${kzUr(x.l)} · ${besc(x.s || "")} · ${besc(x.ct || "")} · ${besc(x.r || "")} · ${besc((x.k || []).join(", "))}${x.m ? ` (${besc(x.m)})` : ""} · ${besc(x.d || "")}${x.ri ? " · rituál" : ""}</p>${kzMd(x.t)}${x.v ? `<p><b>Na vyšším stupni.</b> ${kzIn(x.v)}</p>` : ""}${plneTag("kouzla", x.en)}</div>`;
 }
 /* ---- vlastní hod: 2d6+3, 4d6kh3, 2d20kl1, d%, s kostkou Závoje ---- */
 function kVyraz(v) {
@@ -817,7 +819,7 @@ function kRozdil(S, N) {
 const KFR = {
   get() {
     try {
-      return JSON.parse(localStorage.getItem("mm-fronta") || "[]");
+      return JSON.parse(mmDex(localStorage.getItem("mm-fronta")) || "[]");
     } catch (e) {
       return [];
     }
@@ -951,14 +953,15 @@ const KCACHE = {
   },
   nacti() {
     try {
-      return this.pouzij(JSON.parse(localStorage.getItem("mm-karty-kopie") || "null"));
+      return this.pouzij(JSON.parse(mmDex(localStorage.getItem("mm-karty-kopie")) || "null"));
     } catch (e) {
       return false;
     }
   },
   async nactiIDB() {
     try {
-      return this.pouzij(await MMIDB.get("karty-kopie"));
+      const c = await MMIDB.get("karty-kopie");
+      return this.pouzij(c && JSON.parse(mmDex(JSON.stringify(c))));
     } catch (e) {
       return false;
     }

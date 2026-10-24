@@ -12,7 +12,7 @@ nerest: Hlad – nevstoupí do domu bez pozvání a nepřejde tekoucí vodu. Roz
 stitky: nemrtví, upír, vampýr, Morava, Slezsko, hřbitov, noc
 utoky:
   - Dráp | +6 | 2d4+3 Slashing | Medium cíl Grappled (únik DC 13); dva v jednom slotu spolu s kousnutím
-  - Kousnutí | CON DC 14 | 1d4+3 Piercing a 3d6 Prokleté (Necrotic) | jen sevřený, ochromený či svolný cíl; max. HP klesne, upír se léčí
+  - Kousnutí | CON DC 14 | 1d4+3 Piercing a 3d6 Prokleté (Necrotic) | jen chycený, neschopný, spoutaný či svolný cíl; max. HP klesne, upír se léčí
 ---
 *„Kopali ho třikrát. Pokaždé ležel na břiše, s krví na rtech a nehty delšími než minule.“*
 
@@ -22,11 +22,11 @@ Mrtvý, který po pohřbu vychází z hrobu a pije krev svých blízkých. Na Mo
 
 **AC** 16 · **HP** 90 (12d8+36) · **Rychlost** 30 stop, šplhání 30 stop · **Iniciativa** +3
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 16 (+3) | 16 (+3) | 16 (+3) | 11 (+0) | 10 (+0) | 12 (+1) |
 
-**Záchrany** AGI +6, WIS +3 · **Dovednosti** Perception +3, Stealth +6 · **Resistance** Prokleté (Necrotic) · **Smysly** Darkvision 60 stop · **Jazyky** česky, německy
+**Záchrany** DEX +6, WIS +3 · **Dovednosti** Perception +3, Stealth +6 · **Resistance** Prokleté (Necrotic) · **Smysly** Darkvision 60 stop · **Jazyky** česky, německy
 
 ## Vlastnosti
 

@@ -227,15 +227,15 @@ Tento oddíl uvádí seznam kouzel povolání Sorcerer. Kouzla jsou seřazena po
 | *Acid Splash* | Zaklínání (Evocation) | — |
 | *Chill Touch* | Nekromancie (Necromancy) | — |
 | *Dancing Lights* | Iluze (Illusion) | C |
-| *Elementalism* | Přeměna (Transmutation) | — |
+| *Elementalism* | Transmutace (Transmutation) | — |
 | *Fire Bolt* | Zaklínání (Evocation) | — |
 | *Light* | Zaklínání (Evocation) | — |
 | *Mage Hand* | Vyvolávání (Conjuration) | — |
-| *Mending* | Přeměna (Transmutation) | — |
-| *Message* | Přeměna (Transmutation) | — |
+| *Mending* | Transmutace (Transmutation) | — |
+| *Message* | Transmutace (Transmutation) | — |
 | *Minor Illusion* | Iluze (Illusion) | — |
 | *Poison Spray* | Nekromancie (Necromancy) | — |
-| *Prestidigitation* | Přeměna (Transmutation) | — |
+| *Prestidigitation* | Transmutace (Transmutation) | — |
 | *Ray of Frost* | Zaklínání (Evocation) | — |
 | *Shocking Grasp* | Zaklínání (Evocation) | — |
 | *Sorcerous Burst* | Zaklínání (Evocation) | — |
@@ -252,13 +252,13 @@ Tento oddíl uvádí seznam kouzel povolání Sorcerer. Kouzla jsou seřazena po
 | *Comprehend Languages* | Věštění (Divination) | R |
 | *Detect Magic* | Věštění (Divination) | C, R |
 | *Disguise Self* | Iluze (Illusion) | — |
-| *Expeditious Retreat* | Přeměna (Transmutation) | C |
+| *Expeditious Retreat* | Transmutace (Transmutation) | C |
 | *False Life* | Nekromancie (Necromancy) | — |
-| *Feather Fall* | Přeměna (Transmutation) | — |
+| *Feather Fall* | Transmutace (Transmutation) | — |
 | *Fog Cloud* | Vyvolávání (Conjuration) | C |
 | *Grease* | Vyvolávání (Conjuration) | — |
 | *Ice Knife* | Vyvolávání (Conjuration) | — |
-| *Jump* | Přeměna (Transmutation) | — |
+| *Jump* | Transmutace (Transmutation) | — |
 | *Mage Armor* | Ochrana (Abjuration) | — |
 | *Magic Missile* | Zaklínání (Evocation) | — |
 | *Ray of Sickness* | Nekromancie (Necromancy) | — |
@@ -271,29 +271,29 @@ Tento oddíl uvádí seznam kouzel povolání Sorcerer. Kouzla jsou seřazena po
 
 | Kouzlo | Škola | Zvláštní |
 |---|---|---|
-| *Alter Self* | Přeměna (Transmutation) | C |
-| *Blindness/Deafness* | Přeměna (Transmutation) | — |
+| *Alter Self* | Transmutace (Transmutation) | C |
+| *Blindness/Deafness* | Transmutace (Transmutation) | — |
 | *Blur* | Iluze (Illusion) | C |
 | *Darkness* | Zaklínání (Evocation) | C |
-| *Darkvision* | Přeměna (Transmutation) | — |
+| *Darkvision* | Transmutace (Transmutation) | — |
 | *Detect Thoughts* | Věštění (Divination) | C |
-| *Dragon’s Breath* | Přeměna (Transmutation) | C |
-| *Enhance Ability* | Přeměna (Transmutation) | C |
-| *Enlarge/Reduce* | Přeměna (Transmutation) | C |
+| *Dragon’s Breath* | Transmutace (Transmutation) | C |
+| *Enhance Ability* | Transmutace (Transmutation) | C |
+| *Enlarge/Reduce* | Transmutace (Transmutation) | C |
 | *Flame Blade* | Zaklínání (Evocation) | C |
 | *Flaming Sphere* | Zaklínání (Evocation) | C |
 | *Gust of Wind* | Zaklínání (Evocation) | C |
 | *Hold Person* | Očarování (Enchantment) | C |
 | *Invisibility* | Iluze (Illusion) | C |
-| *Knock* | Přeměna (Transmutation) | — |
-| *Levitate* | Přeměna (Transmutation) | C |
-| *Magic Weapon* | Přeměna (Transmutation) | — |
+| *Knock* | Transmutace (Transmutation) | — |
+| *Levitate* | Transmutace (Transmutation) | C |
+| *Magic Weapon* | Transmutace (Transmutation) | — |
 | *Mirror Image* | Iluze (Illusion) | — |
 | *Misty Step* | Vyvolávání (Conjuration) | — |
 | *Scorching Ray* | Zaklínání (Evocation) | — |
 | *See Invisibility* | Věštění (Divination) | — |
 | *Shatter* | Zaklínání (Evocation) | — |
-| *Spider Climb* | Přeměna (Transmutation) | C |
+| *Spider Climb* | Transmutace (Transmutation) | C |
 | *Suggestion* | Očarování (Enchantment) | C |
 | *Web* | Vyvolávání (Conjuration) | C |
 
@@ -301,27 +301,27 @@ Tento oddíl uvádí seznam kouzel povolání Sorcerer. Kouzla jsou seřazena po
 
 | Kouzlo | Škola | Zvláštní |
 |---|---|---|
-| *Blink* | Přeměna (Transmutation) | — |
+| *Blink* | Transmutace (Transmutation) | — |
 | *Clairvoyance* | Věštění (Divination) | C, M |
 | *Counterspell* | Ochrana (Abjuration) | — |
 | *Daylight* | Zaklínání (Evocation) | — |
 | *Dispel Magic* | Ochrana (Abjuration) | — |
 | *Fear* | Iluze (Illusion) | C |
 | *Fireball* | Zaklínání (Evocation) | — |
-| *Fly* | Přeměna (Transmutation) | C |
-| *Gaseous Form* | Přeměna (Transmutation) | C |
-| *Haste* | Přeměna (Transmutation) | C |
+| *Fly* | Transmutace (Transmutation) | C |
+| *Gaseous Form* | Transmutace (Transmutation) | C |
+| *Haste* | Transmutace (Transmutation) | C |
 | *Hypnotic Pattern* | Iluze (Illusion) | C |
 | *Lightning Bolt* | Zaklínání (Evocation) | — |
 | *Major Image* | Iluze (Illusion) | C |
 | *Protection from Energy* | Ochrana (Abjuration) | C |
 | *Sleet Storm* | Vyvolávání (Conjuration) | C |
-| *Slow* | Přeměna (Transmutation) | C |
+| *Slow* | Transmutace (Transmutation) | C |
 | *Stinking Cloud* | Vyvolávání (Conjuration) | C |
 | *Tongues* | Věštění (Divination) | — |
 | *Vampiric Touch* | Nekromancie (Necromancy) | C |
-| *Water Breathing* | Přeměna (Transmutation) | R |
-| *Water Walk* | Přeměna (Transmutation) | R |
+| *Water Breathing* | Transmutace (Transmutation) | R |
+| *Water Walk* | Transmutace (Transmutation) | R |
 
 #### Kouzla povolání Sorcerer 4. úrovně
 
@@ -336,8 +336,8 @@ Tento oddíl uvádí seznam kouzel povolání Sorcerer. Kouzla jsou seřazena po
 | *Fire Shield* | Zaklínání (Evocation) | — |
 | *Greater Invisibility* | Iluze (Illusion) | C |
 | *Ice Storm* | Zaklínání (Evocation) | — |
-| *Polymorph* | Přeměna (Transmutation) | C |
-| *Stoneskin* | Přeměna (Transmutation) | C, M |
+| *Polymorph* | Transmutace (Transmutation) | C |
+| *Stoneskin* | Transmutace (Transmutation) | C, M |
 | *Vitriolic Sphere* | Zaklínání (Evocation) | — |
 | *Wall of Fire* | Zaklínání (Evocation) | C |
 
@@ -345,7 +345,7 @@ Tento oddíl uvádí seznam kouzel povolání Sorcerer. Kouzla jsou seřazena po
 
 | Kouzlo | Škola | Zvláštní |
 |---|---|---|
-| *Animate Objects* | Přeměna (Transmutation) | C |
+| *Animate Objects* | Transmutace (Transmutation) | C |
 | *Arcane Hand* | Zaklínání (Evocation) | C |
 | *Cloudkill* | Vyvolávání (Conjuration) | C |
 | *Cone of Cold* | Zaklínání (Evocation) | — |
@@ -354,7 +354,7 @@ Tento oddíl uvádí seznam kouzel povolání Sorcerer. Kouzla jsou seřazena po
 | *Hold Monster* | Očarování (Enchantment) | C |
 | *Insect Plague* | Vyvolávání (Conjuration) | C |
 | *Seeming* | Iluze (Illusion) | — |
-| *Telekinesis* | Přeměna (Transmutation) | C |
+| *Telekinesis* | Transmutace (Transmutation) | C |
 | *Teleportation Circle* | Vyvolávání (Conjuration) | M |
 | *Wall of Stone* | Zaklínání (Evocation) | C |
 
@@ -364,13 +364,13 @@ Tento oddíl uvádí seznam kouzel povolání Sorcerer. Kouzla jsou seřazena po
 |---|---|---|
 | *Chain Lightning* | Zaklínání (Evocation) | — |
 | *Circle of Death* | Nekromancie (Necromancy) | M |
-| *Disintegrate* | Přeměna (Transmutation) | — |
+| *Disintegrate* | Transmutace (Transmutation) | — |
 | *Eyebite* | Nekromancie (Necromancy) | C |
-| *Flesh to Stone* | Přeměna (Transmutation) | C |
+| *Flesh to Stone* | Transmutace (Transmutation) | C |
 | *Freezing Sphere* | Zaklínání (Evocation) | — |
 | *Globe of Invulnerability* | Ochrana (Abjuration) | C |
 | *Mass Suggestion* | Očarování (Enchantment) | — |
-| *Move Earth* | Přeměna (Transmutation) | C |
+| *Move Earth* | Transmutace (Transmutation) | C |
 | *Sunbeam* | Zaklínání (Evocation) | C |
 | *True Seeing* | Věštění (Divination) | M |
 
@@ -384,7 +384,7 @@ Tento oddíl uvádí seznam kouzel povolání Sorcerer. Kouzla jsou seřazena po
 | *Fire Storm* | Zaklínání (Evocation) | — |
 | *Plane Shift* | Vyvolávání (Conjuration) | M |
 | *Prismatic Spray* | Zaklínání (Evocation) | — |
-| *Reverse Gravity* | Přeměna (Transmutation) | C |
+| *Reverse Gravity* | Transmutace (Transmutation) | C |
 | *Teleport* | Vyvolávání (Conjuration) | — |
 
 #### Kouzla povolání Sorcerer 8. úrovně
@@ -393,7 +393,7 @@ Tento oddíl uvádí seznam kouzel povolání Sorcerer. Kouzla jsou seřazena po
 |---|---|---|
 | *Demiplane* | Vyvolávání (Conjuration) | — |
 | *Dominate Monster* | Očarování (Enchantment) | C |
-| *Earthquake* | Přeměna (Transmutation) | C |
+| *Earthquake* | Transmutace (Transmutation) | C |
 | *Incendiary Cloud* | Vyvolávání (Conjuration) | C |
 | *Power Word Stun* | Očarování (Enchantment) | — |
 | *Sunburst* | Zaklínání (Evocation) | — |
@@ -405,7 +405,7 @@ Tento oddíl uvádí seznam kouzel povolání Sorcerer. Kouzla jsou seřazena po
 | *Gate* | Vyvolávání (Conjuration) | C, M |
 | *Meteor Swarm* | Zaklínání (Evocation) | — |
 | *Power Word Kill* | Očarování (Enchantment) | — |
-| *Time Stop* | Přeměna (Transmutation) | — |
+| *Time Stop* | Transmutace (Transmutation) | — |
 | *Wish* | Vyvolávání (Conjuration) | — |
 
 ### Podtřída povolání Sorcerer: Draconic Sorcery
@@ -418,7 +418,7 @@ Tvá vrozená magie pochází z daru draka. Možná starobylý drak tváří v t
 
 Magie ve tvém těle se projevuje fyzickými rysy tvého dračího daru. Tvé maximum životů (HP) se zvyšuje o 3 a pokaždé, když získáš další úroveň povolání Sorcerer, se zvýší o 1.
 
-Části tvého těla jsou navíc pokryty dračími šupinami. Dokud nemáš na sobě zbroj, tvé základní AC se rovná 10 plus tvé modifikátory Obratnosti (AGI) a Charismy (CHA).
+Části tvého těla jsou navíc pokryty dračími šupinami. Dokud nemáš na sobě zbroj, tvé základní AC se rovná 10 plus tvé modifikátory Obratnosti (DEX) a Charismy (CHA).
 
 #### Úroveň 3: Draconic Spells
 

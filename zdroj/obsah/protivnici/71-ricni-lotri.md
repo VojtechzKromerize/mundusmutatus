@@ -22,7 +22,7 @@ Pašeráci a lotři z vorů a lodic na Vltavě a Labi. Mluví sladce, bodají ry
 
 **Útok houfu – dýky:** +5 (+1 za každého dalšího, nejvýš +5), dosah 5 stop. **Zásah:** 5 zranění za každého lotra v dosahu (Piercing).
 
-**Záchrany houfu:** AGI +3, CHA +2, ostatní +0
+**Záchrany houfu:** DEX +3, CHA +2, ostatní +0
 
 ## Vlastnosti
 

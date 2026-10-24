@@ -26,11 +26,11 @@ Strážkyně krkonošských hřebenů; v celých Čechách jich žije sotva dvac
 
 **AC** 17 (přirozená) · **HP** 217 (14d20+70) · **Rychlost** 30 stop, let 120 stop · **Iniciativa** +2
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 22 (+6) | 14 (+2) | 20 (+5) | 14 (+2) | 16 (+3) | 12 (+1) |
 
-**Záchrany** AGI +7, CON +10, WIS +8 · **Dovednosti** Insight +8, Perception +13 · **Imunita** Lightning · **Smysly** Elektrocit 60 stop, Darkvision 120 stop, pasivní Perception 23 · **Jazyky** česky, staročesky; mluví málo, pomalu a s dlouhými pauzami
+**Záchrany** DEX +7, CON +10, WIS +8 · **Dovednosti** Insight +8, Perception +13 · **Imunita** Lightning · **Smysly** Elektrocit 60 stop, Darkvision 120 stop, pasivní Perception 23 · **Jazyky** česky, staročesky; mluví málo, pomalu a s dlouhými pauzami
 
 ## Vlastnosti
 
@@ -61,7 +61,7 @@ Strážkyně krkonošských hřebenů; v celých Čechách jich žije sotva dvac
 | Hlava (6) | Ohlušení – bez Reakce do konce příštího tahu | Rozštípnutý čelní štít – nevýhoda na Perception | Vypíchnuté oko – nevýhoda na Perception (zrak) a útoky na dálku | Proražená lebka |
 | Trup (3–5) | Vyražený dech – zvláštní schopnost nelze použít do konce příštího tahu | Proražený vzdušný vak – poloviční rychlost letu, nemůže plachtit; po minutě letu 1 úroveň Exhaustion | Prolomený hrudník – krvácení 2D8 | Probodené srdce |
 | Křídla (2) | Roztřepená blána – poloviční rychlost letu do konce příštího tahu | Roztržená blána – nemůže vzlétnout, za letu klesá o 30 stop za tah | Zlomená dutá kost – uzemněna, hojí se měsíce | Utržené křídlo – zřítí se |
-| Nohy a ocas (1) | Podražení – Prone | Přeťatá šlacha – poloviční pohyb, vzlet jen ze svahu nebo skály | Uťatý ocas – ztrácí útok ocasem, nevýhoda na AGI saves | Rozdrcená pánev |
+| Nohy a ocas (1) | Podražení – Prone | Přeťatá šlacha – poloviční pohyb, vzlet jen ze svahu nebo skály | Uťatý ocas – ztrácí útok ocasem, nevýhoda na DEX saves | Rozdrcená pánev |
 
 **Mířená rána do vaků.** Útok s nevýhodou; kritický zásah ale automaticky padá na trup.
 

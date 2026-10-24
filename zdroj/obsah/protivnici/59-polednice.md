@@ -23,7 +23,7 @@ Shrbená bába v bílém se srpem a pokřivenou tváří. Chodí v poledne po po
 
 **AC** 17 · **HP** 82 (11d8+33) · **Rychlost** 30 stop, plavání 30 stop · **Iniciativa** +1
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 18 (+4) | 12 (+1) | 16 (+3) | 13 (+1) | 14 (+2) | 14 (+2) |
 

@@ -21,7 +21,7 @@ Hladová smečka z pohraničních hvozdů. Po Noci Proměny jsou vlci odvážně
 
 **Útok houfu – kousnutí:** +4 (+1 za každého dalšího vlka, nejvýš +5), dosah 5 stop. **Zásah:** 4 Piercing za každého vlka v dosahu cíle a cíl velikosti Medium a menší je Prone. Jsou-li u cíle aspoň dva vlci, útočí houf s výhodou (smečka).
 
-**Záchrany houfu:** AGI +2, WIS +1, ostatní −2
+**Záchrany houfu:** DEX +2, WIS +1, ostatní −2
 
 ## Vlastnosti
 

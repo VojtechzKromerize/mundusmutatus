@@ -669,6 +669,8 @@ function renderBoj() {
   obnovPr();
   root.classList.toggle("bojprip", !s.aktivni);
   root.classList.toggle("bojpc", bojPcHrac());
+  /* hráč v boji na širokém počítači: karta přes celou šířku okna bez záhlaví, rámu a patky (jako mmcela na telefonu, 2026-10-24) */
+  document.documentElement.classList.toggle("mmpc", bojPcHrac() && !!s.aktivni && !MMCELA_WEB);
   if (BTAB === "u") BTAB = "n";
   root.dataset.btab = BTAB;
   const tr = box.querySelector(".bsloty");

@@ -7,7 +7,7 @@ ac: 13
 hp: 68
 utok: Kopyta +6, 2d8+4 a 3d6 Fire · přejde s jezdcem za Závoj
 pozehnani: Přeskočí přes cíl a podupe ho: cíl je Prone.
-pokuseni: Zařehtá a vzepne se: jezdec hodí AGI save DC 12, jinak spadne.
+pokuseni: Zařehtá a vzepne se: jezdec hodí DEX save DC 12, jinak spadne.
 nerest: Pán – poslouchá jen jezdce. Bez jezdce letí k nejbližší bouři.
 stitky: pekelníci, kůň, divoký hon, noc, bouře, oheň
 utoky:
@@ -21,7 +21,7 @@ utoky:
 
 **AC** 13 · **HP** 68 (8d10+24) · **Rychlost** 60 stop, let 90 stop · **Iniciativa** +2
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 18 (+4) | 15 (+2) | 16 (+3) | 10 (+0) | 13 (+1) | 15 (+2) |
 

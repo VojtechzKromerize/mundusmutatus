@@ -23,7 +23,7 @@ Učený muž z Krakova, Vídně nebo Prahy, který zjistil, že po Protržení Z
 
 **AC** 12 (15 s Mage Armor) · **HP** 49 (11d8) · **Rychlost** 30 stop · **Iniciativa** +2
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 9 (−1) | 14 (+2) | 10 (+0) | 18 (+4) | 13 (+1) | 12 (+1) |
 

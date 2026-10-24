@@ -23,7 +23,7 @@ Lesní ženy se zelenými vlasy a prsy přes rameno, staré jako hvozd. Kradou d
 
 **Útok houfu – drápy a trny:** +4 (+1 za každou další, nejvýš +5), dosah 5 stop. **Zásah:** 3 Slashing za každou divoženku v dosahu cíle.
 
-**Záchrany houfu:** AGI +2, WIS +2, ostatní +0
+**Záchrany houfu:** DEX +2, WIS +2, ostatní +0
 
 ## Vlastnosti
 

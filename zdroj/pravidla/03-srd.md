@@ -18,8 +18,8 @@ Cíl může těžit z krytu, jen když útok nebo jiný účinek vychází z opa
 
 | Stupeň | Výhoda pro cíl | Poskytuje… |
 |---|---|---|
-| Poloviční | +2 k AC a záchranným hodům na Obratnost (AGI) | Jiný tvor nebo předmět, který kryje alespoň polovinu cíle |
-| Tříčtvrteční | +5 k AC a záchranným hodům na Obratnost (AGI) | Předmět, který kryje alespoň tři čtvrtiny cíle |
+| Poloviční | +2 k AC a záchranným hodům na Obratnost (DEX) | Jiný tvor nebo předmět, který kryje alespoň polovinu cíle |
+| Tříčtvrteční | +5 k AC a záchranným hodům na Obratnost (DEX) | Předmět, který kryje alespoň tři čtvrtiny cíle |
 | Úplný | Nemůže být přímo zvolen za cíl | Předmět, který kryje celý cíl |
 
 ### Útoky na dálku
@@ -76,7 +76,7 @@ Naproti tomu nezávislé jízdní zvíře – takové, které tě nechá jet, al
 
 #### Pád ze sedla
 
-Pokud se tvé jízdní zvíře má proti své vůli přemístit nějakým účinkem, zatímco na něm sedíš, musíš uspět v záchranném hodu na Obratnost (AGI) se SO 10, jinak spadneš a dopadneš se stavem Sražen (k zemi) (Prone; viz „Glosář pravidel“) na neobsazené místo do 5 stop od zvířete.
+Pokud se tvé jízdní zvíře má proti své vůli přemístit nějakým účinkem, zatímco na něm sedíš, musíš uspět v záchranném hodu na Obratnost (DEX) se SO 10, jinak spadneš a dopadneš se stavem Sražen (k zemi) (Prone; viz „Glosář pravidel“) na neobsazené místo do 5 stop od zvířete.
 
 Když jsi v sedle, musíš si hodit stejnou záchranu, pokud jsi sražen k zemi ty nebo tvé jízdní zvíře.
 
@@ -124,7 +124,7 @@ Když útočíš zbraní, přičteš k hodu na zranění svůj modifikátor vlas
 
 Když dosáhneš kritického zásahu, způsobíš dodatečné zranění. Hoď kostkami zranění útoku dvakrát, sečti je a přičti příslušné modifikátory jako obvykle. Pokud například dosáhneš kritického zásahu zbraní Dagger, hoď na zranění 2d4 místo 1d4 a přičti příslušný modifikátor vlastnosti. Pokud útok zahrnuje i jiné kostky zranění, například ze schopnosti Sneak Attack povolání Rogue, hodíš dvakrát i těmito kostkami.
 
-> **Artikule:** Při každém kritickém zásahu hází zasažený navíc na kritické zranění: d10 + 1 za každé neléčené kritické zranění + 1 za každých 5 HP pod 0. Výsledek 1–5 Lehká (do konce příštího tahu), 6–9 Těžká (do vyléčení – Medicine), 10–12 Vážná (trvalá, není-li včas vyléčena zkušeným mágem či felčarem), 13+ Smrtelná (bezvědomí a 2 neúspěšné hody proti smrti; přežije-li, následek je trvalý). Místo zásahu určí Kostka Závoje: 6 hlava, 3–5 trup, 2 paže, 1 nohy. Krvácení pokračuje každé kolo až do ošetření; zahojená Vážná či Smrtelná rána zanechá jizvu (výhoda na Intimidation, nevýhoda na Persuasion při svádění). Force a Thunder zranění mají fyzická kritická zranění. Při kritickém zásahu smí postava **obětovat zbroj nebo štít** a kritický zásah se změní v běžný (vycpávaná zbroj a štít 1×, kroužková 2×, plátová a komplexní 3×); zbroj pak nedává AC, dokud ji kovář neopraví (nebo postava s kovářským nářadím během dlouhého odpočinku). Zbraně s perkem Ostrá (Shortsword, Longsword, Greatsword, Scimitar) způsobí kritický zásah na 19–20, způsobují-li Slashing zranění cíli bez Resistance; Dagger (Do slabin!) způsobí kritický zásah při Požehnání proti cíli ve stavu Zadržen (Restrained) nebo Sražen (Prone). Pacholci kritická zranění nemají; sok je kritickým zásahem poražen (umírá, vzdá se, uteče nebo je zajat).
+> **Artikule:** Při každém kritickém zásahu hází zasažený navíc na kritické zranění: d10 + 1 za každé neléčené kritické zranění + 1 za každých 5 HP pod 0. Výsledek 1–5 Lehká (do konce příštího tahu), 6–9 Těžká (do vyléčení – Medicine), 10–12 Vážná (trvalá, není-li včas vyléčena zkušeným mágem či felčarem), 13+ Smrtelná (bezvědomí a 2 neúspěšné hody proti smrti; přežije-li, následek je trvalý). Místo zásahu určí Kostka Závoje: 6 hlava, 3–5 trup, 2 paže, 1 nohy. Krvácení pokračuje každé kolo až do ošetření; zahojená Vážná či Smrtelná rána zanechá jizvu (výhoda na Intimidation, nevýhoda na Persuasion při svádění). Force a Thunder zranění mají fyzická kritická zranění. Při kritickém zásahu smí postava **obětovat zbroj nebo štít** a kritický zásah se změní v běžný (vycpávaná zbroj a štít 1×, kroužková 2×, plátová a komplexní 3×); zbroj pak nedává AC, dokud ji kovář neopraví (nebo postava s kovářským nářadím během dlouhého odpočinku). Zbraně s perkem Ostrá (Shortsword, Longsword, Greatsword, Scimitar) způsobí kritický zásah na 19–20, způsobují-li Slashing zranění cíli bez Resistance; Dagger (Do slabin!) způsobí kritický zásah při Požehnání proti cíli ve stavu Spoután (Restrained) nebo Sražen (Prone). Pacholci kritická zranění nemají; sok je kritickým zásahem poražen (umírá, vzdá se, uteče nebo je zajat).
 
 ### Záchranné hody a zranění
 

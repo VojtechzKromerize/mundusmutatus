@@ -23,7 +23,7 @@ Hastrman z rybníků a jezů. Na suchu je to podivný chlapík v zeleném kabát
 
 **AC** 14 · **HP** 52 (7d8+21) · **Rychlost** 30 stop, plavání 40 stop · **Iniciativa** +1
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 16 (+3) | 13 (+1) | 16 (+3) | 12 (+1) | 12 (+1) | 13 (+1) |
 

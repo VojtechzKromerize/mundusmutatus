@@ -235,8 +235,8 @@ function bojUtokVyhodnot0(s, u) {
         r.ostra = 1;
       }
     }
-    /* Do slabin! (Artikule): dýka proti ležícímu nebo zadrženému cíli s Požehnáním = kritický zásah – web přihodí kostky zranění */
-    if (!krit && !mis && bojZvMa(u, "Do slabin!") && u.zv && u.zv.r === "poz" && (n.stav || []).some(t => t === "sražen" || t === "zadržen")) {
+    /* Do slabin! (Artikule): dýka proti sraženému nebo spoutanému cíli s Požehnáním = kritický zásah – web přihodí kostky zranění */
+    if (!krit && !mis && bojZvMa(u, "Do slabin!") && u.zv && u.zv.r === "poz" && (n.stav || []).some(t => t === "sražen" || t === "spoután")) {
       const q = bojZvZbrKostky(h, u);
       krit = true;
       if (q) u = Object.assign({}, u, {dmg: (+u.dmg || 0) + q.t});
@@ -1660,7 +1660,7 @@ document.addEventListener("click", async e => {
     BPLOS =
       BPLOS && !BPLOS.src
         ? null
-        : {src: "", z: "", t: "Fire", ab: "AGI", dc: "", pol: true, cile: (s.npc || []).filter(x => !bojSpoj(x)).map(x => x.id), vys: ""};
+        : {src: "", z: "", t: "Fire", ab: "DEX", dc: "", pol: true, cile: (s.npc || []).filter(x => !bojSpoj(x)).map(x => x.id), vys: ""};
     renderBoj();
     return;
   }
@@ -2448,7 +2448,7 @@ document.addEventListener("click", async e => {
       a = E && E.at[+pls.dataset.bplos];
     if (!a) return;
     const av = bojUtokV(o0, +pls.dataset.bplos, a),
-      m = String(av.dc || "").match(/(STR|AGI|CON|INT|WIS|CHA)\D*(\d+)/),
+      m = String(av.dc || "").match(/(STR|DEX|CON|INT|WIS|CHA)\D*(\d+)/),
       ty = bojTypy(av);
     const s = BOJ.s,
       sp = bojSpoj(o0);
@@ -2458,7 +2458,7 @@ document.addEventListener("click", async e => {
       srcId: id,
       z: av.z || "",
       t: ty[0] || "Fire",
-      ab: m ? m[1] : "AGI",
+      ab: m ? m[1] : "DEX",
       dc: m ? +m[2] : "",
       pol: !!av.z && (/polovin/i.test((av.p || "") + (av.zt || "")) || !!av.dc),
       st: AS ? AS.st : [],

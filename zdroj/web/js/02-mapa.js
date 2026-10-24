@@ -131,6 +131,91 @@ let st = {
   tb: null,
 };
 const svg = document.getElementById("map");
+/* podklad mapy pod #map (krajina, hranice, papír – drahé filtry); kreslí ho mapPodklad v 02b, jen když se změní výřez */
+const svgZ = document.getElementById("mapz");
+/* obaly vrstev (podklad #mapvz, sídla #mapvrstvy): při posunu se posouvají a zvětšují jen ony (mapPosun); mezi nimi je pevný
+   rám #mapr (rám a ztmavené rohy u okraje okna) a vše drží .mapplatno (rozměr okna mapy, ořez) */
+const mapVrstvy = document.getElementById("mapvrstvy");
+const mapVrstvyZ = document.getElementById("mapvz");
+const svgR = document.getElementById("mapr");
+const mapPlatno = document.getElementById("mapplatno");
+/* mapa přes celou šířku na počítači (2026-10-24, Vojta): v Mapě od 1100 px má svg výšku podle okna a výřez se roztáhne do šířky
+   (mapFit); na telefonu a ve Výpravě zůstává pevný poměr 680 : 605. Svět mapy sahá od Bavor po Košice (MAPWB: x, y, šířka, výška). */
+const MAPW_MQ = matchMedia("(min-width:1100px)");
+const MAPWB = [-80, -40, 890, 705];
+const mapWide = () => MAPW_MQ.matches && !!svg.closest("#mapa");
+/* výchozí výřezy široké mapy: „Se sousedy“ od Lužice po Budín a od Bavor po Košice */
+const VBW = {all: [-80, 40, 890, 560]};
+const mapPreset = () => (mapWide() && VBW[st.zoom]) || VB[st.zoom];
+const mapAsp = () => {
+  if (!mapWide()) return 605 / 680;
+  /* obal mapy: jeho rozměr se při gestu nemění (svg samo je posunuté a zvětšené transformací) */
+  const r = mapPlatno.getBoundingClientRect();
+  return r.width > 0 && r.height > 0 ? Math.max(0.42, Math.min(0.95, r.height / r.width)) : 605 / 680;
+};
+/* výřez v poměru stran okna mapy: přidá šířku (nebo výšku) kolem středu a udrží ho ve světě mapy */
+function mapFit(v) {
+  const A = mapAsp();
+  let [x, y, w, h] = v;
+  if (h / w > A) {
+    const w2 = h / A;
+    x -= (w2 - w) / 2;
+    w = w2;
+  } else {
+    const h2 = w * A;
+    y -= (h2 - h) / 2;
+    h = h2;
+  }
+  if (w > MAPWB[2]) {
+    x += (w - MAPWB[2]) / 2;
+    w = MAPWB[2];
+    const h2 = w * A;
+    y += (h - h2) / 2;
+    h = h2;
+  }
+  x = Math.max(MAPWB[0], Math.min(MAPWB[0] + MAPWB[2] - w, x));
+  y = h >= MAPWB[3] ? MAPWB[1] + (MAPWB[3] - h) / 2 : Math.max(MAPWB[1], Math.min(MAPWB[1] + MAPWB[3] - h, y));
+  return [x, y, w, h];
+}
+/* posouvání bez překreslování (2026-10-24, Vojta): mapa se kreslí s okrajem MAPM (podíl výřezu na každé straně – odpovídá CSS
+   .mapvrstvy: left/top −40 %, šířka a výška 180 %, transform-origin v rohu okna). Posun, který zůstane v nakreslené oblasti
+   (mapKresba.d) a nezmění měřítko, jen posune hotový obraz (mapPosun); znovu se kreslí až při přiblížení nebo dalekém posunu. */
+const MAPM = 0.4;
+const mapKresba = {d: null, vd: null, s: 0};
+const mapVidim = () => st.vb || (mapWide() ? mapFit(mapPreset()) : VB[st.zoom]);
+const mapOkraj = v => [v[0] - MAPM * v[2], v[1] - MAPM * v[3], v[2] * (1 + 2 * MAPM), v[3] * (1 + 2 * MAPM)];
+/* měřítko kresby: na široké mapě podle skutečné šířky okna v pixelech, aby značky a písmo měly stejnou velikost jako dřív */
+const mapMeritko = v => (mapWide() ? (v[2] / Math.max(300, mapPlatno.getBoundingClientRect().width)) * (880 / 680) : v[2] / 680);
+/* stačí výřez v jen posunout? (stejná velikost a měřítko, celý uvnitř nakreslené oblasti) */
+function mapLzePosunout(v, s) {
+  const K = mapKresba,
+    D = K.d,
+    e = 1e-6 * v[2];
+  return (
+    !!D &&
+    Math.abs(K.s - s) < 1e-9 &&
+    Math.abs(K.vd[2] - v[2]) < e &&
+    Math.abs(K.vd[3] - v[3]) < e &&
+    v[0] >= D[0] - e &&
+    v[1] >= D[1] - e &&
+    v[0] + v[2] <= D[0] + D[2] + e &&
+    v[1] + v[3] <= D[1] + D[3] + e
+  );
+}
+/* posun a zvětšení obou vrstev z nakresleného výřezu na výřez v – jen CSS transformace obalů, prohlížeč nic nepřekresluje */
+function mapPosun(v) {
+  const a = mapKresba.vd,
+    r = mapPlatno.getBoundingClientRect();
+  let t = "";
+  if (a && r.width > 0 && (a[0] !== v[0] || a[1] !== v[1] || a[2] !== v[2] || a[3] !== v[3])) {
+    const kx = a[2] / v[2],
+      ky = a[3] / v[3],
+      tx = ((a[0] - v[0]) / v[2]) * r.width,
+      ty = ((a[1] - v[1]) / v[3]) * r.height;
+    t = `translate3d(${tx.toFixed(1)}px,${ty.toFixed(1)}px,0) scale(${kx.toFixed(4)},${ky.toFixed(4)})`;
+  }
+  mapVrstvy.style.transform = mapVrstvyZ.style.transform = t;
+}
 const NS = "http://www.w3.org/2000/svg";
 const el = (n, a, txt) => {
   const e = document.createElementNS(NS, n);
@@ -791,7 +876,56 @@ const MAJOR_PLACES = new Set([
   "Magdeburk",
   "Erfurt",
   "Mnichov",
+  "Košice",
 ]);
+/* význam místa na mapě (2026-10-24, Vojta): 0 metropole, 1 hlavní město (MAJOR_PLACES), 2 ostatní město, 3 hrad a sídlo rodu.
+   Podle toho velikost značky (MTZ, násobek měřítka) a od jakého přiblížení se ukáže jméno (mistoPopisek: s = šířka výřezu / 680) */
+const METRO = new Set(["Praha", "Vídeň", "Vratislav", "Krakov", "Budín", "Norimberk"]);
+const mistoTier = (n, mesto) => (METRO.has(n) ? 0 : MAJOR_PLACES.has(n) ? 1 : mesto ? 2 : 3);
+const MTZ = [21, 17, 14, 12];
+const mistoPopisek = (tier, s) => tier <= 1 || (tier === 2 && s < 0.9) || s < 0.62;
+/* kraje Čech v 15. století a landfrídy kolem roku 1450 (2026-10-24, Vojta): kraj = oblast kolem svého středu (lo, la) ořezaná hranicí
+   Čech (kresba v 02b, krajeBunky) – hranice jsou schematické. Landfrídy vznikly po smrti krále Albrechta (1439–1440); od roku 1452
+   je Jiří jako zemský správce sjednocoval. lf: id landfrídu (LANDFR), bez něj kraj vlastní landfríd neměl nebo není doložen. */
+const KRAJE = [
+  {n: "Litoměřický", lo: 14.3, la: 50.62},
+  {n: "Žatecký", lo: 13.55, la: 50.35, lf: "zat"},
+  {n: "Loketsko", lo: 12.8, la: 50.25},
+  {n: "Chebsko", lo: 12.4, la: 50.07},
+  {n: "Slánský", lo: 14.15, la: 50.28},
+  {n: "Rakovnický", lo: 13.7, la: 50.05},
+  {n: "Plzeňský", lo: 13.2, la: 49.7, lf: "plz"},
+  {n: "Podbrdský", lo: 14.05, la: 49.85},
+  {n: "Prácheňský", lo: 13.9, la: 49.15, lf: "pra"},
+  {n: "Bechyňský", lo: 14.6, la: 49.1},
+  {n: "Vltavský", lo: 14.8, la: 49.62},
+  {n: "Kouřimský", lo: 14.95, la: 50.0, lf: "vych"},
+  {n: "Čáslavský", lo: 15.45, la: 49.68, lf: "vych"},
+  {n: "Chrudimský", lo: 16.05, la: 49.85, lf: "vych"},
+  {n: "Hradecký", lo: 15.9, la: 50.4, lf: "vych"},
+  {n: "Boleslavský", lo: 14.95, la: 50.6, lf: "bol"},
+];
+const LANDFR = {
+  vych: {
+    n: "Východočeské landfrídy",
+    c: "kal",
+    lab: [15.62, 49.55],
+    t: "Spojené landfrídy kouřimský, čáslavský, hradecký a chrudimský – kališnické. Do své smrti (1444) je vedl Hynek Ptáček z Pirkštejna, po něm Jiří z Poděbrad, jehož roku 1448 zvolily správcem.",
+  },
+  bol: {n: "Boleslavský landfríd", c: "mix", t: "Jedním z hejtmanů byl Jiří z Poděbrad; v kraji se drželi páni obojí víry."},
+  zat: {n: "Žatecký landfríd", c: "kal", t: "Kališnická města Žatec a Louny s okolní šlechtou."},
+  plz: {
+    n: "Plzeňský landfríd",
+    c: "kat",
+    t: "Katolický: Plzeň, Švamberkové, Kolovratové, Rýzmberkové a nižší šlechta – nejstarší z landfrídů (od roku 1420).",
+  },
+  pra: {
+    n: "Prácheňský landfríd",
+    c: "kat",
+    lab: [13.78, 49.38],
+    t: "Katolický, v dosahu Rožmberků; roku 1449 se katolíci jihu spojili ve Strakonicích proti Jiřímu.",
+  },
+};
 const DIO = [
   {
     id: "dpr",
@@ -2191,7 +2325,8 @@ function renderDetail() {
   d.classList.remove("empty");
   const rels = relsFor(f.id);
   const prev = HIST[HIST.length - 1];
-  const back = prev ? `<button type="button" class="backbtn" id="backbtn">← Zpět: ${histName(prev)}</button>` : "";
+  /* na široké mapě je panel vysouvací okno přes mapu – × ho zavře (zruší výběr) */
+  const back = `<button type="button" class="detx" data-detx aria-label="Zavřít panel" title="Zavřít">×</button>${prev ? `<button type="button" class="backbtn" id="backbtn">← Zpět: ${histName(prev)}</button>` : ""}`;
   if (st.city) {
     const sd = f.seats.find(x => x[0] === st.city) || f.seats[0],
       conf = sd[3] || f.conf,
@@ -2245,6 +2380,9 @@ function show(id) {
 function showCity(id, name) {
   setSel(id, true, name);
 }
+document.addEventListener("click", e => {
+  if (e.target.closest && e.target.closest("[data-detx]")) setSel(null, false);
+});
 function goBack() {
   const h = HIST.pop();
   if (h) setSel(h.id, false, h.city);
@@ -2985,6 +3123,7 @@ toggleBtn("lyDio", "dio", () => {
   if (st.dio) {
     layerOff("duchy", "lyDuchy", duchLeg);
     layerOff("dom", "lyDom", domLeg);
+    layerOff("kraje", "lyKraje", krajLeg);
   }
   dioLeg.hidden = !st.dio;
 });
@@ -2992,6 +3131,7 @@ toggleBtn("lyDuchy", "duchy", () => {
   if (st.duchy) {
     layerOff("dio", "lyDio", dioLeg);
     layerOff("dom", "lyDom", domLeg);
+    layerOff("kraje", "lyKraje", krajLeg);
   }
   duchLeg.hidden = !st.duchy;
 });
@@ -2999,8 +3139,30 @@ toggleBtn("lyDom", "dom", () => {
   if (st.dom) {
     layerOff("dio", "lyDio", dioLeg);
     layerOff("duchy", "lyDuchy", duchLeg);
+    layerOff("kraje", "lyKraje", krajLeg);
   }
   domLeg.hidden = !st.dom;
+});
+const krajLeg = document.getElementById("krajlegend");
+krajLeg.innerHTML = `<span class="lbl">Landfrídy kolem roku 1450</span><ul>${Object.values(LANDFR)
+  .map(
+    l =>
+      `<li><span class="dsw" style="border-color:var(--${l.c});background:var(--${l.c});opacity:.7"></span><b>${l.n}</b> (${KRAJE.filter(
+        k => LANDFR[k.lf] === l,
+      )
+        .map(k => k.n)
+        .join(", ")}) — ${l.t}</li>`,
+  )
+  .join(
+    "",
+  )}</ul><p class="lbl">Kraje bez barvy vlastní landfríd neměly, nebo není doložen. Hranice krajů jsou schematické – kreslené kolem jejich středů.</p>`;
+toggleBtn("lyKraje", "kraje", () => {
+  if (st.kraje) {
+    layerOff("dio", "lyDio", dioLeg);
+    layerOff("duchy", "lyDuchy", duchLeg);
+    layerOff("dom", "lyDom", domLeg);
+  }
+  krajLeg.hidden = !st.kraje;
 });
 toggleBtn("lyParty", "party");
 toggleBtn("lyRings", "rings", () => {
@@ -3053,15 +3215,34 @@ if (matchMedia("(max-width:700px)").matches)
     d.open = false;
   });
 
-/* zoom & pan: wheel, mouse drag, two-finger pinch; full redraw after the gesture settles */
+/* zoom & pan: wheel, mouse drag, two-finger pinch; full redraw after the gesture settles.
+   Během gesta se mapa nekreslí znovu: obaly vrstev (#mapz, #map) se jen posunou a zvětší CSS transformací – prohlížeč
+   tak jen přesouvá hotový obraz a nepočítá znovu filtry papíru a inkoustu; drawMapK transformaci zruší a vykreslí nový výřez. */
 const mapDrag = {moved: false};
 (function () {
   const pts = new Map();
   let last = null,
     drawT = null;
-  const curVB = () => st.vb || VB[st.zoom];
+  /* rozměr mapy bez transformace gesta (obal .mapplatno se nehýbe) */
+  const mapRect = () => mapPlatno.getBoundingClientRect();
+  const curVB = mapVidim;
+  /* široká mapa: při změně velikosti okna se výřez přepočítá na nový poměr stran */
+  let rsT = null;
+  const naVelikost = () => {
+    if (curView !== "mapa") return;
+    clearTimeout(rsT);
+    rsT = setTimeout(() => {
+      if (st.vb) st.vb = clampVB(st.vb);
+      drawMap();
+    }, 150);
+  };
+  MAPW_MQ.addEventListener("change", naVelikost);
+  addEventListener("resize", () => {
+    if (mapWide()) naVelikost();
+  });
   const clampVB = v => {
     let [x, y, w, h] = v;
+    if (mapWide()) return mapFit([x, y, Math.min(MAPWB[2], Math.max(80, w)), Math.max(60, h)]);
     w = Math.min(680, Math.max(80, w));
     h = (w * 605) / 680;
     x = Math.max(-40, Math.min(720 - w, x));
@@ -3070,19 +3251,29 @@ const mapDrag = {moved: false};
   };
   function setVB(v) {
     st.vb = clampVB(v);
-    svg.setAttribute("viewBox", st.vb.join(" "));
+    if (mapKresba.d) mapPosun(st.vb);
+    else drawMap();
     clearTimeout(drawT);
-    drawT = setTimeout(drawMap, 180);
+    /* s prstem nebo tlačítkem na mapě se překreslí až po delší pauze, po puštění hned (end) */
+    drawT = setTimeout(mapDokresli, pts.size ? 450 : 200);
+  }
+  /* po gestu: posun v nakreslené oblasti zůstane jen posunem, jinak se mapa nakreslí znovu */
+  function mapDokresli() {
+    clearTimeout(drawT);
+    drawT = null;
+    const v = mapVidim();
+    if (mapLzePosunout(v, mapMeritko(v))) mapPosun(v);
+    else drawMap();
   }
   function toUser(cx, cy) {
-    const r = svg.getBoundingClientRect(),
+    const r = mapRect(),
       v = curVB();
     return [v[0] + ((cx - r.left) / r.width) * v[2], v[1] + ((cy - r.top) / r.height) * v[3]];
   }
   function zoomAt(f, ux, uy) {
     const v = curVB(),
       w = v[2] * f,
-      h = (w * 605) / 680;
+      h = w * mapAsp();
     setVB([ux - ((ux - v[0]) * w) / v[2], uy - ((uy - v[1]) * h) / v[3], w, h]);
   }
   window.mapZoom = f => {
@@ -3092,10 +3283,9 @@ const mapDrag = {moved: false};
   window.mapCenter = (x, y, maxW) => {
     const v = curVB(),
       w = Math.min(v[2], maxW),
-      h = (w * 605) / 680;
+      h = w * mapAsp();
     st.vb = clampVB([x - w / 2, y - h / 2, w, h]);
-    clearTimeout(drawT);
-    drawMap();
+    mapDokresli();
   };
   svg.addEventListener(
     "wheel",
@@ -3115,7 +3305,7 @@ const mapDrag = {moved: false};
     if (!pts.has(e.pointerId)) return;
     const prev = pts.get(e.pointerId);
     pts.set(e.pointerId, [e.clientX, e.clientY]);
-    const r = svg.getBoundingClientRect(),
+    const r = mapRect(),
       v = curVB();
     if (pts.size === 1 && e.pointerType === "mouse" && e.buttons === 1) {
       const dx = ((e.clientX - prev[0]) / r.width) * v[2],
@@ -3149,6 +3339,10 @@ const mapDrag = {moved: false};
   const end = e => {
     pts.delete(e.pointerId);
     if (pts.size < 2) last = null;
+    if (!pts.size && drawT) {
+      clearTimeout(drawT);
+      drawT = setTimeout(mapDokresli, 30);
+    }
     setTimeout(() => {
       if (!pts.size) mapDrag.moved = false;
     }, 0);

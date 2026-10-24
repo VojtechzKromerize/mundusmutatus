@@ -346,6 +346,74 @@ const srdNacti = () =>
             SRDPP = null;
             throw e;
           }));
+/* Plné znění featů (Vojtův překlad, 2026-10-24) – jen pro přihlášené z databáze (mm_pravidla_texty), nikdy ve veřejných
+   souborech webu; nepřihlášený vidí vlastní shrnutí z art/mimo-srd.json. Text je Markdown: odstavce, **tučně**, ## podnadpis,
+   tabulky „| … |“ a odstavce „> **Artikule – …**“ (úpravy z Artikulí, rámeček jako v Pravidlech). */
+let FEATY = null,
+  FEATYP = null;
+const featyMuze = () => !!(window.MMDB && MMDB.pravidlaTexty && ((MMDB.prihlasen && MMDB.prihlasen()) || ucetPrihlasen()));
+const featyNacti = () =>
+  (FEATYP =
+    FEATYP ||
+    MMDB.pravidlaTexty("featy")
+      .then(j => (FEATY = Array.isArray(j) ? j : []))
+      .catch(() => {
+        FEATYP = null;
+        return null;
+      }));
+const FEATYKAT = {
+  origin: "Featy původu",
+  general: "Obecné featy",
+  fightStyle: "Bojové styly",
+  epic: "Epické dary",
+  darkGift: "Temné dary",
+  dragonmark: "Dračí znamení",
+};
+function featyMd(t) {
+  const bunky = r =>
+    r
+      .trim()
+      .replace(/^\||\|$/g, "")
+      .split("|")
+      .map(x => kzIn(x.trim().replace(/^\*\*(.*)\*\*$/, "$1")));
+  return String(t || "")
+    .replace(/\r/g, "")
+    .split(/\n\s*\n/)
+    .map(b => b.trim())
+    .filter(Boolean)
+    .map(b => {
+      if (/^## /.test(b)) return `<h5>${kzIn(b.slice(3))}</h5>`;
+      if (/^\|/.test(b)) {
+        const R = b.split("\n").filter(r => !/^\|[\s|:-]+\|$/.test(r.trim()));
+        const [h, ...d] = R.map(bunky);
+        return `<div class="srdtab"><table><thead><tr>${h.map(x => `<th>${x}</th>`).join("")}</tr></thead><tbody>${d.map(r => `<tr>${r.map(x => `<td>${x}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+      }
+      const q = b.match(/^>\s*\*\*Artikule\s*[–-]\s*(.+?)\*\*\s*([\s\S]*)$/);
+      if (q) return `<div class="srdart"><b>Artikule</b> <b>${kzIn(q[1])}</b> ${kzIn(q[2].replace(/\n>\s*/g, " "))}</div>`;
+      return `<p>${kzIn(b.replace(/^>\s*/, "")).replace(/\n/g, "<br>")}</p>`;
+    })
+    .join("");
+}
+const featyPrihlasHtml = () =>
+  `<p class="rsmall">${featyMuze() ? (FEATY == null ? "Načítám plné znění featů…" : "Plné znění featů se nepodařilo načíst.") : "Plné znění featů (Vojtův překlad i s úpravami z Artikulí) uvidíš po přihlášení. Tady je jen stručné shrnutí."}</p>`;
+function featyPlneHtml() {
+  const kat = {};
+  FEATY.forEach(f => (kat[f.kat] = kat[f.kat] || []).push(f));
+  return `<p class="rsmall">Plné znění featů – Vojtův překlad pro tažení, jen pro přihlášené. Rámečky Artikule jsou domácí úpravy a mají přednost.</p>${Object.keys(
+    FEATYKAT,
+  )
+    .filter(k => kat[k])
+    .map(
+      k =>
+        `<h4>${FEATYKAT[k]} <small>(${kat[k].length})</small></h4>${kat[k]
+          .map(
+            f =>
+              `<details class="bjapd" id="mimo-${besc(slugMimo(f.en))}"><summary><b>${besc(f.cz || f.en)}</b> <small lang="en">${besc(f.en)}</small>${f.pred ? ` <small>· ${besc(f.pred)}</small>` : ""}</summary>${featyMd(f.t)}</details>`,
+          )
+          .join("")}`,
+    )
+    .join("")}`;
+}
 /* Doplňky mimo SRD: podtřídy podle povolání, featy podle druhu, zázemí, druhy a kouzla (vlastní shrnutí mechaniky) */
 const MIMOKAT = {origin: "Featy původu", general: "Obecné featy", fightStyle: "Bojové styly", epic: "Epická požehnání"};
 function renderMimo(main, c) {
@@ -363,6 +431,10 @@ function renderMimo(main, c) {
       })
       .catch(() => {});
   }
+  if (FEATY == null && featyMuze())
+    featyNacti().then(j => {
+      if (j && j.length && curView === "pravidla") renderMimo(main, c);
+    });
   const rys = (r, m) =>
     `<li id="mimo-${besc(slugMimo(r.en))}"><b>${besc(r.cz || r.en)}</b> <small lang="en">${besc(r.en)}</small>${(() => {
       const t = mimoMeta({r, typ: m, o: {}}, null);
@@ -394,21 +466,26 @@ function renderMimo(main, c) {
         `<h4>${besc(KTR[k].cz)}</h4>${tr[k].map(p => `<details class="bjapd" id="mimo-${besc(p.id)}"><summary><b>${besc(p.cz || p.en)}</b> <small lang="en">${besc(p.en)}</small></summary><p>${besc(p.t || "")}</p><ul class="kfeat">${(p.rysy || []).map(r => rys(r, "rys")).join("")}</ul></details>`).join("")}`,
     )
     .join("")}
-  <h3 class="uvh2" id="mimo-featy">Featy</h3>${Object.keys(MIMOKAT)
-    .filter(k => kat[k])
-    .map(
-      k =>
-        `<h4>${MIMOKAT[k]}</h4><ul class="kfeat">${kat[k]
+  <h3 class="uvh2" id="mimo-featy">Featy</h3>${
+    FEATY && FEATY.length
+      ? featyPlneHtml()
+      : featyPrihlasHtml() +
+        Object.keys(MIMOKAT)
+          .filter(k => kat[k])
           .map(
-            f =>
-              `<li id="mimo-${besc(slugMimo(f.en))}"><b>${besc(f.cz || f.en)}</b> <small lang="en">${besc(f.en)}</small>${f.pred ? ` <small>· předpoklad: ${besc(f.pred)}</small>` : ""}${f.vl && f.vl.length ? ` <small>· +1 ${besc(f.vl.join("/"))}</small>` : ""}${(() => {
-                const t = mimoMeta({r: f, typ: "feat", o: {}}, null);
-                return t ? ` <small>· ${besc(t)}</small>` : "";
-              })()}<br>${kzIn(f.t || "")}</li>`,
+            k =>
+              `<h4>${MIMOKAT[k]}</h4><ul class="kfeat">${kat[k]
+                .map(
+                  f =>
+                    `<li id="mimo-${besc(slugMimo(f.en))}"><b>${besc(f.cz || f.en)}</b> <small lang="en">${besc(f.en)}</small>${f.pred ? ` <small>· předpoklad: ${besc(f.pred)}</small>` : ""}${f.vl && f.vl.length ? ` <small>· +1 ${besc(f.vl.join("/"))}</small>` : ""}${(() => {
+                      const t = mimoMeta({r: f, typ: "feat", o: {}}, null);
+                      return t ? ` <small>· ${besc(t)}</small>` : "";
+                    })()}<br>${kzIn(f.t || "")}</li>`,
+                )
+                .join("")}</ul>`,
           )
-          .join("")}</ul>`,
-    )
-    .join("")}
+          .join("")
+  }
   <h3 class="uvh2" id="mimo-zazemi">Zázemí</h3><ul class="kfeat">${(MIMO.zazemi || []).map(z => `<li><b>${besc(z.cz || z.en)}</b> <small lang="en">${besc(z.en)}</small><br>${z.t ? besc(z.t) + "<br>" : ""}<small>Vlastnosti ${besc((z.vl || []).join(", "))} · feat ${besc(z.feat || "")} · dovednosti ${besc((z.dov || []).join(", "))}${z.nastroj ? ` · nástroj: ${besc(z.nastroj)}` : ""}${z.vybava ? ` · výbava: ${besc(z.vybava)}` : ""}</small></li>`).join("")}</ul>
   <h3 class="uvh2" id="mimo-druhy">Druhy</h3>${(MIMO.druhy || []).map(d => `<h4>${besc(d.cz || d.en)}</h4><p>${besc(d.t || "")} <small>Rychlost ${d.rych} stop · velikost ${besc(d.vel || "")}</small></p><ul class="kfeat">${(d.rysy || []).map(r => rys(r, "druh")).join("")}</ul>`).join("")}
   <h3 class="uvh2" id="mimo-kouzla">Kouzla</h3>${sp.length ? `<ul class="kfeat">${sp.map(x => `<li><details><summary><b>${besc(x.cz || x.en)}</b> <small lang="en">${besc(x.en)}</small> <small>· ${kzUr(x.l)} · ${besc((x.p || []).join(", "))}</small></summary>${kSpPopis({n: x.en})}</details></li>`).join("")}</ul>` : `<p class="rsmall">Načítám kouzla…</p>`}
@@ -443,7 +520,7 @@ function renderPravidla(b, c) {
     return;
   }
   const K = SRDP.kap.find(k => k.id === b);
-  side.innerHTML = `<nav class="atoc srdtoc" aria-label="Obsah pravidel"><a class="atop${K || b === "predmety" || b === "netvori" || b === "mimo" || b === "vybaveni" ? "" : " on"}" href="#pravidla">Úvod</a>${SRDP.kap
+  side.innerHTML = `<nav class="atoc srdtoc" aria-label="Obsah pravidel"><a class="atop${K || b === "predmety" || b === "netvori" || b === "mimo" || b === "vybaveni" || b === "kouzla" || b === "predmety-plne" ? "" : " on"}" href="#pravidla">Úvod</a>${SRDP.kap
     .map(
       k =>
         `<p class="abook"><a href="#pravidla/${k.id}"${K && K.id === k.id ? ' class="on"' : ""}>${k.n}</a></p>${
@@ -457,9 +534,14 @@ function renderPravidla(b, c) {
     )
     .join(
       "",
-    )}<p class="abook"><a href="#pravidla/predmety"${b === "predmety" ? ' class="on"' : ""}>Magické předměty</a></p><p class="abook"><a href="#pravidla/vybaveni"${b === "vybaveni" ? ' class="on"' : ""}>Vybavení</a></p><p class="abook"><a href="#pravidla/mimo"${b === "mimo" ? ' class="on"' : ""}>Doplňky mimo SRD</a></p>${GMV ? `<p class="abook"><a href="#pravidla/netvori"${b === "netvori" ? ' class="on"' : ""}>Nestvůry a zvířata</a></p>` : ""}</nav>`;
+    )}<p class="abook"><a href="#pravidla/predmety"${b === "predmety" ? ' class="on"' : ""}>Magické předměty</a></p><p class="abook"><a href="#pravidla/vybaveni"${b === "vybaveni" ? ' class="on"' : ""}>Vybavení</a></p><p class="abook"><a href="#pravidla/mimo"${b === "mimo" ? ' class="on"' : ""}>Doplňky mimo SRD</a></p><p class="abook"><a href="#pravidla/kouzla"${b === "kouzla" ? ' class="on"' : ""}>Kouzla</a></p><p class="abook"><a href="#pravidla/predmety-plne"${b === "predmety-plne" ? ' class="on"' : ""}>Předměty</a></p>${GMV ? `<p class="abook"><a href="#pravidla/netvori"${b === "netvori" ? ' class="on"' : ""}>Nestvůry a zvířata</a></p>` : ""}</nav>`;
   if (b === "mimo") {
     renderMimo(main, c);
+    return;
+  }
+  if (b === "kouzla" || b === "predmety-plne" || b === "plne") {
+    if (typeof renderPlne === "function") renderPlne(main, b === "predmety-plne" || c === "predmety" ? "predmety" : "kouzla");
+    else main.innerHTML = `<p class="rsmall">Načítám…</p>`;
     return;
   }
   if (b === "vybaveni") {
@@ -479,7 +561,7 @@ function renderPravidla(b, c) {
   }
   if (!K) {
     main.innerHTML = `<h2 class="arttitle">Pravidla</h2><p class="intro">Základní pravidla D&amp;D 2024 podle System Reference Document 5.2.1, přeložená do češtiny. Kde Mundus Mutatus hraje jinak, stojí u pravidla rámeček <b>Artikule</b> – ten platí přednostně. Celá domácí pravidla jsou v <a href="#artikule">Artikulích</a>.</p>
-    <ul class="srdkap">${SRDP.kap.map(k => `<li><a href="#pravidla/${k.id}"><b>${k.n}</b><small>${besc(k.p)}</small></a></li>`).join("")}<li><a href="#pravidla/predmety"><b>Magické předměty</b><small>lektvary, prsteny, zbraně a divotvorné předměty s českým popisem</small></a></li><li><a href="#pravidla/vybaveni"><b>Vybavení</b><small>zbroj, zbraně, výbava, nářadí, zvířata, doprava, jedy a magické předměty s cenami – i do vybavení postavy</small></a></li><li><a href="#pravidla/mimo"><b>Doplňky mimo SRD</b><small>další podtřídy, featy, zázemí, Aasimar a kouzla – stručně vlastními slovy</small></a></li>${GMV ? `<li><a href="#pravidla/netvori"><b>Nestvůry a zvířata</b><small>statistiky SRD pro bestiář a Boj (jen vypravěč)</small></a></li>` : ""}</ul>
+    <ul class="srdkap">${SRDP.kap.map(k => `<li><a href="#pravidla/${k.id}"><b>${k.n}</b><small>${besc(k.p)}</small></a></li>`).join("")}<li><a href="#pravidla/predmety"><b>Magické předměty</b><small>lektvary, prsteny, zbraně a divotvorné předměty s českým popisem</small></a></li><li><a href="#pravidla/vybaveni"><b>Vybavení</b><small>zbroj, zbraně, výbava, nářadí, zvířata, doprava, jedy a magické předměty s cenami – i do vybavení postavy</small></a></li><li><a href="#pravidla/mimo"><b>Doplňky mimo SRD</b><small>další podtřídy, featy, zázemí, Aasimar a kouzla – stručně vlastními slovy</small></a></li><li><a href="#pravidla/kouzla"><b>Kouzla</b><small>plné znění všech kouzel ve vypravěčově překladu – po přihlášení</small></a></li><li><a href="#pravidla/predmety-plne"><b>Předměty</b><small>plné znění všech kouzelných předmětů ve vypravěčově překladu – po přihlášení</small></a></li>${GMV ? `<li><a href="#pravidla/netvori"><b>Nestvůry a zvířata</b><small>statistiky SRD pro bestiář a Boj (jen vypravěč)</small></a></li>` : ""}</ul>
     <p class="rsmall">Kouzla SRD česky má vypravěč v části Kouzla; hráči je vidí u kouzel na své kartě.</p>
     <p class="rsmall srdattr">${besc(SRDP.attr)} Překlad do češtiny a doplnění pravidly Artikulí: Mundus Mutatus. Kompatibilní s 5. edicí (5E compatible).</p>
     <p class="rsmall srdattr" lang="en">${besc(SRDP.attr_en)}</p>`;
@@ -540,6 +622,8 @@ let MMCELA_WEB = false;
 const mmCela = () => !GMV && mmNaHre() && MMCELA_MQ.matches && !MMCELA_WEB;
 function mmCelaUprav() {
   document.documentElement.classList.toggle("mmcela", mmCela());
+  /* mmpc (hráč v boji na počítači) zapíná renderBoj (20d); mimo Hru nebo s webem z ☰ neplatí */
+  if (!mmNaHre() || MMCELA_WEB) document.documentElement.classList.remove("mmpc");
 }
 MMCELA_MQ.addEventListener("change", mmCelaUprav);
 document.addEventListener("click", e => {

@@ -25,7 +25,7 @@ Italský žoldnéřský velitel s lancí: on, zbrojnoš a páže, a za nimi toli
 
 **AC** 17 (milánská plátová) · **HP** 65 (10d8+20) · **Rychlost** 30 stop (kůň 60 stop) · **Iniciativa** +3
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 16 (+3) | 13 (+1) | 14 (+2) | 12 (+1) | 11 (+0) | 14 (+2) |
 

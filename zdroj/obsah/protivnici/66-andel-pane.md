@@ -22,7 +22,7 @@ Posel Boží, který po Noci Proměny přichází skrze Závoj. Ne vždy jako sp
 
 **AC** 17 · **HP** 229 (27d8+108) · **Rychlost** 30 stop, let 90 stop · **Iniciativa** +4
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 18 (+4) | 18 (+4) | 18 (+4) | 17 (+3) | 20 (+5) | 20 (+5) |
 

@@ -6,7 +6,7 @@ vyzva: 3 (700 XP)
 ac: 13
 hp: 75
 utok: Kousnutí +6, 2d6+4 Piercing a Prone · mrazivý dech (CON DC 12, 4d8 Cold, dobíjí se na 5–6)
-pozehnani: Dech zmrazí zem: oblast kužele je do konce příštího kola kluzká – kdo se v ní pohne, hodí AGI save DC 12, jinak je Prone.
+pozehnani: Dech zmrazí zem: oblast kužele je do konce příštího kola kluzká – kdo se v ní pohne, hodí DEX save DC 12, jinak je Prone.
 pokuseni: Dech zamrzne v hrdle: do konce příštího kola nemůže dýchat mráz a kašle.
 nerest: Nenasytnost – mluví, a když mluví, nežere. Kdo mu nabídne velkou kořist (kůň, kráva; Persuasion DC 12), toho nechá projít. Pýcha: kdo ho nazve psem, toho zabije první.
 stitky: zvěř, netvor, vlk, zimní vlk, pravlci, Krkonoše, Jeseníky, zima, mráz, smečka, Krakonoš, mluví
@@ -23,7 +23,7 @@ Bílý vlk velký jako kůň, který mluví lidskou řečí a vede smečku pravl
 
 **AC** 13 · **HP** 75 (10d10+20) · **Rychlost** 50 stop · **Iniciativa** +1
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 18 (+4) | 13 (+1) | 14 (+2) | 7 (−2) | 12 (+1) | 8 (−1) |
 

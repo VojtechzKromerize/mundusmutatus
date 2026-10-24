@@ -5,7 +5,7 @@ uroven: zhoubce
 vyzva: 10 (5 900 XP)
 ac: 17
 hp: 229
-utok: Sekera hromu +8, 1d6+4 Bludgeoning a 4d8 Lightning · hrom z nebe (AGI DC 17, 8d6 Lightning, 1/kolo) · Perunova milost 2/den: léčení, Lesser Restoration, sejmutí kletby
+utok: Sekera hromu +8, 1d6+4 Bludgeoning a 4d8 Lightning · hrom z nebe (DEX DC 17, 8d6 Lightning, 1/kolo) · Perunova milost 2/den: léčení, Lesser Restoration, sejmutí kletby
 pozehnani: Blesk z čistého nebe: každý nepřítel do 30 stop v kovové zbroji hodí CON save DC 17, jinak je do konce kola Stunned.
 pokuseni: Hrom bez blesku: do konce kola nemůže kouzlit ani udeřit hromem – Perun mlčí.
 nerest: Spravedlnost – nemá Neřest, má zákon: trestá křivopřísežníky a ty, kdo porušili úmluvu. Kdo prokáže, že svou přísahu dodržel (svědek, Persuasion DC 17 před dubem), toho nesmí napadnout. Pýcha boha: nesnese, aby ho někdo nazval ďáblem – katolík, který to udělá, je cíl číslo jedna.
@@ -14,7 +14,7 @@ vyznani: old
 zdroje: Perunova milost 2, Hrom z nebe 3, Ďáblovo štěstí 1
 utoky:
   - Sekera hromu | +8 | 1d6+4 Bludgeoning a 4d8 Lightning | Drtivá
-  - Hrom z nebe | AGI DC 17 | 8d6 Lightning | válec o poloměru 10 stop pod oblohou; úspěch polovina; kovová zbroj nevýhoda; 3/den
+  - Hrom z nebe | DEX DC 17 | 8d6 Lightning | válec o poloměru 10 stop pod oblohou; úspěch polovina; kovová zbroj nevýhoda; 3/den
 ---
 *„Na Radhošti udeřil blesk do dubu, u kterého přísahali, a z dubu vyšel muž se sekerou. Ptal se, kdo z nich lhal. Jeden se přiznal. Toho nechal. Toho druhého jsme pak našli.“*
 
@@ -24,7 +24,7 @@ Posel Peruna, Starého boha hromu a přísahy – bojovník s vousy z blesků, k
 
 **AC** 17 (kůže a bronz) · **HP** 229 (27d8+108) · **Rychlost** 30 stop, let 90 stop (na bouřkovém mraku) · **Iniciativa** +4
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 18 (+4) | 18 (+4) | 18 (+4) | 17 (+3) | 20 (+5) | 20 (+5) |
 
@@ -40,7 +40,7 @@ Posel Peruna, Starého boha hromu a přísahy – bojovník s vousy z blesků, k
 ## Akce (jedna v každém slotu)
 
 - **Sekera hromu.** +8, dosah 5 stop. **Zásah:** 1d6+4 Bludgeoning (Drtivá) a 4d8 Lightning.
-- **Hrom z nebe (3/den, za bouře 1/kolo).** Válec o poloměru 10 stop pod otevřeným nebem: AGI save DC 17, jinak 8d6 Lightning (v kovové zbroji s nevýhodou); při úspěchu polovina.
+- **Hrom z nebe (3/den, za bouře 1/kolo).** Válec o poloměru 10 stop pod otevřeným nebem: DEX save DC 17, jinak 8d6 Lightning (v kovové zbroji s nevýhodou); při úspěchu polovina.
 - **Kouzla** (CHA, DC 17). Libovolně: *Detect Evil and Good* (pozná, kdo lže), podoba zvířete (orel, býk). 1/den: *Commune* (ptá se Peruna), *Raise Dead* (jen toho, kdo zemřel pro přísahu).
 
 ## Bonusová akce

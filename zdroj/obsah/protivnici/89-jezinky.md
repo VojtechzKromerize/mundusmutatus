@@ -25,7 +25,7 @@ Tři staré sestry v lesní chaloupce. Pocestného nakrmí, uspí vyprávěním 
 
 **AC** 15 · **HP** 3 × 45 (7d8+14) · **Rychlost** 30 stop · **Iniciativa** +2
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 16 (+3) | 14 (+2) | 14 (+2) | 13 (+1) | 15 (+2) | 14 (+2) |
 

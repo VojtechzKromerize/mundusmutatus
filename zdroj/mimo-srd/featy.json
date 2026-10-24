@@ -11,7 +11,7 @@
   "cz": "Felčar",
   "kat": "origin",
   "pred": "",
-  "t": "Akcí Utilize spotřebuješ 1 použití Healer's Kit u tvora do 5 stop: ten utratí 1 kostku HP, ty ji hodíš a tvor získá zpět HP ve výši hodu + tvůj bonus zdatnosti. Když hážeš kostkou léčení (kouzlo nebo tento feat) a padne 1, smíš ji jednou přehodit a platí nový hod.",
+  "t": "Akcí Utilize spotřebuješ 1 použití Healer's Kit u tvora do 5 stop: utratí 1 kostku HP, ty ji hodíš a získá HP = hod + bonus zdatnosti. Jedničku na kostce léčení smíš jednou přehodit. Artikule: jsi felčar (výhoda na CON záchranu po Těžkém kritickém zranění), krvácení zastavíš akcí Utilize; postavu na 0 HP jen stabilizuješ.",
   "cas": "A"
  },
  {
@@ -25,7 +25,7 @@
  },
  {
   "en": "Musician",
-  "cz": "Muzikant",
+  "cz": "Hudebník",
   "kat": "origin",
   "pred": "",
   "t": "Zdatnost se 3 hudebními nástroji dle volby. Na konci krátkého nebo dlouhého odpočinku můžeš zahrát na nástroj, s nímž máš zdatnost, a dát Heroic Inspiration spojencům, kteří tě slyší; počet spojenců = bonus zdatnosti."
@@ -61,10 +61,10 @@
   "en": "Athlete",
   "cz": "Atlet",
   "kat": "general",
-  "pred": "4. úroveň, STR nebo AGI 13+",
+  "pred": "4. úroveň, STR nebo DEX 13+",
   "vl": [
    "STR",
-   "AGI"
+   "DEX"
   ],
   "t": "Získáš rychlost šplhu rovnou své rychlosti. Vstát ze stavu Prone tě stojí jen 5 stop pohybu. Skok do dálky či výšky s rozběhem zvládneš už po 5 stopách pohybu."
  },
@@ -72,12 +72,12 @@
   "en": "Charger",
   "cz": "Útočník z rozběhu",
   "kat": "general",
-  "pred": "4. úroveň, STR nebo AGI 13+",
+  "pred": "4. úroveň, STR nebo DEX 13+",
   "vl": [
    "STR",
-   "AGI"
+   "DEX"
   ],
-  "t": "Při akci Dash máš rychlost +10 stop. Jednou za tah, když se těsně před zásahem útokem na blízko (v akci Útok) posuneš aspoň 10 stop přímo k cíli, vyber: +1d8 ke zranění, nebo odstrčení cíle až o 10 stop (cíl nejvýš o 1 velikost větší než ty)."
+  "t": "Při akci Dash máš rychlost +10 stop. Jednou za tah, když se těsně před zásahem útokem na blízko (v akci Útok) posuneš aspoň 10 stop přímo k cíli, vyber: +1d8 ke zranění, nebo odstrčení cíle až o 10 stop (cíl nejvýš o 1 velikost větší než ty). Artikule: 1d8 se perkem Vpřed! nezdvojnásobuje."
  },
  {
   "en": "Chef",
@@ -94,9 +94,9 @@
   "en": "Crossbow Expert",
   "cz": "Mistr kuše",
   "kat": "general",
-  "pred": "4. úroveň, AGI 13+",
+  "pred": "4. úroveň, DEX 13+",
   "vl": [
-   "AGI"
+   "DEX"
   ],
   "t": "U kuší ignoruješ vlastnost Loading a nabíjíš je i bez volné ruky. Nepřítel do 5 stop ti nedává nevýhodu na útoky kuší. Při extra útoku z vlastnosti Light kuší s vlastností Light přičteš ke zranění modifikátor vlastnosti (pokud ho už nepřičítáš)."
  },
@@ -113,11 +113,11 @@
  },
  {
   "en": "Defensive Duelist",
-  "cz": "Obranný šermíř",
+  "cz": "Duelant",
   "kat": "general",
-  "pred": "4. úroveň, AGI 13+",
+  "pred": "4. úroveň, DEX 13+",
   "vl": [
-   "AGI"
+   "DEX"
   ],
   "t": "Držíš-li zbraň s vlastností Finesse a zasáhne tě útok na blízko, můžeš Reakcí přičíst bonus zdatnosti k AC (útok tak může minout). Bonus platí proti útokům na blízko do začátku tvého dalšího tahu.",
   "cas": "R"
@@ -126,10 +126,10 @@
   "en": "Dual Wielder",
   "cz": "Boj se dvěma zbraněmi",
   "kat": "general",
-  "pred": "4. úroveň, STR nebo AGI 13+",
+  "pred": "4. úroveň, STR nebo DEX 13+",
   "vl": [
    "STR",
-   "AGI"
+   "DEX"
   ],
   "t": "Když v akci Útok zaútočíš zbraní s vlastností Light, můžeš později v tahu Bonusovou akcí zaútočit jinou zbraní na blízko bez vlastnosti Two-Handed (bez kladného modifikátoru ke zranění). Zbraně bez Two-Handed taseš a schováváš po dvou.",
   "cas": "BA"
@@ -142,7 +142,7 @@
   "vl": [
    "CON"
   ],
-  "t": "Máš výhodu na záchranné hody proti smrti. Bonusovou akcí můžeš utratit 1 kostku HP, hodit jí a získat zpět HP ve výši hodu.",
+  "t": "Máš výhodu na záchranné hody proti smrti. Bonusovou akcí můžeš utratit 1 kostku HP, hodit jí a získat zpět HP ve výši hodu. Artikule: výhoda i na CON záchranu proti vyčerpání po Těžkém kritickém zranění.",
   "cas": "BA"
  },
  {
@@ -159,7 +159,7 @@
  },
  {
   "en": "Fey Touched",
-  "cz": "Políbený vílami",
+  "cz": "Dotek víl",
   "kat": "general",
   "pred": "4. úroveň",
   "vl": [
@@ -210,7 +210,7 @@
    "CON",
    "STR"
   ],
-  "t": "V těžké zbroji si od Bludgeoning, Piercing a Slashing zranění z každého útoku, který tě zasáhne, odečteš bonus zdatnosti."
+  "t": "V těžké zbroji si od Bludgeoning, Piercing a Slashing zranění z každého útoku, který tě zasáhne, odečteš bonus zdatnosti. Artikule: těžká zbroj snese o 1 obětování víc, únava se v ní nezdvojnásobuje, obléká se za polovinu času."
  },
  {
   "en": "Inspiring Leader",
@@ -225,7 +225,7 @@
  },
  {
   "en": "Keen Mind",
-  "cz": "Bystrý rozum",
+  "cz": "Bystrá mysl",
   "kat": "general",
   "pred": "4. úroveň, INT 13+",
   "vl": [
@@ -241,7 +241,7 @@
   "pred": "4. úroveň",
   "vl": [
    "STR",
-   "AGI"
+   "DEX"
   ],
   "t": "Získáš výcvik v lehké zbroji a štítech."
  },
@@ -252,7 +252,7 @@
   "pred": "4. úroveň",
   "vl": [
    "STR",
-   "AGI"
+   "DEX"
   ],
   "t": "Tvor, kterému způsobíš zranění během Concentration, má nevýhodu na záchranný hod k jejímu udržení. Když neuspěješ v INT, WIS nebo CHA záchranném hodu, můžeš ho změnit na úspěch; 1×, obnova krátkým nebo dlouhým odpočinkem.",
   "pocet": 1,
@@ -265,7 +265,7 @@
   "pred": "4. úroveň",
   "vl": [
    "STR",
-   "AGI"
+   "DEX"
   ],
   "t": "Získáš zdatnost s válečnými (Martial) zbraněmi."
  },
@@ -276,9 +276,9 @@
   "pred": "4. úroveň, výcvik ve střední zbroji",
   "vl": [
    "STR",
-   "AGI"
+   "DEX"
   ],
-  "t": "Ve střední zbroji si při AGI 16+ přičítáš k AC až +3 z AGI místo +2."
+  "t": "Ve střední zbroji si při DEX 16+ přičítáš k AC až +3 z DEX místo +2."
  },
  {
   "en": "Moderately Armored",
@@ -287,21 +287,21 @@
   "pred": "4. úroveň, výcvik v lehké zbroji",
   "vl": [
    "STR",
-   "AGI"
+   "DEX"
   ],
   "t": "Získáš výcvik ve střední zbroji."
  },
  {
   "en": "Mounted Combatant",
-  "cz": "Jezdecký bojovník",
+  "cz": "Jízdní bojovník",
   "kat": "general",
   "pred": "4. úroveň",
   "vl": [
    "STR",
-   "AGI",
+   "DEX",
    "WIS"
   ],
-  "t": "V sedle máš výhodu na útoky proti nejezdícím tvorům do 5 stop od zvířete, kteří jsou aspoň o 1 velikost menší než ono. Když tvé zvíře hází AGI záchranný hod na poloviční zranění, při úspěchu neutrpí nic a při neúspěchu polovinu. Útok, který zasáhne tvé zvíře, můžeš přesměrovat na sebe. Nesmíš mít stav Incapacitated."
+  "t": "V sedle máš výhodu na útoky proti nejezdícím tvorům do 5 stop od zvířete, kteří jsou aspoň o 1 velikost menší než ono. Když tvé zvíře hází DEX záchranný hod na poloviční zranění, při úspěchu neutrpí nic a při neúspěchu polovinu. Útok, který zasáhne tvé zvíře, můžeš přesměrovat na sebe. Nesmíš mít stav Incapacitated."
  },
  {
   "en": "Observant",
@@ -322,7 +322,7 @@
   "pred": "4. úroveň",
   "vl": [
    "STR",
-   "AGI"
+   "DEX"
   ],
   "t": "Jednou za tah při zásahu útokem s Piercing zraněním smíš přehodit jednu kostku zranění (platí nový hod). Při kritickém zásahu s Piercing zraněním hodíš navíc jednu kostku zranění."
  },
@@ -332,7 +332,7 @@
   "kat": "general",
   "pred": "4. úroveň",
   "vl": [
-   "AGI",
+   "DEX",
    "INT"
   ],
   "t": "Tvé Poison zranění ignoruje Resistance. Zdatnost s Poisoner's Kit: 1 h + 50 zl = dávky jedu v počtu bonusu zdatnosti. Bonusovou akcí natřeš dávku na zbraň/střelu (1 min nebo do prvního zranění). Zraněný: CON záchranný hod (SO 8 + mod. zvýšené vl. + bonus zdatnosti), jinak utrpí 2d8 Poison zranění a stav Poisoned do konce tvého dalšího tahu.",
@@ -342,21 +342,21 @@
   "en": "Polearm Master",
   "cz": "Mistr dřevcových zbraní",
   "kat": "general",
-  "pred": "4. úroveň, STR nebo AGI 13+",
+  "pred": "4. úroveň, STR nebo DEX 13+",
   "vl": [
    "STR",
-   "AGI"
+   "DEX"
   ],
-  "t": "Platí pro Quarterstaff, Spear a zbraně s vlastnostmi Heavy i Reach. Hned po útoku touto zbraní v rámci Akce Útok můžeš Bonusovou akcí zaútočit druhým koncem: kostka zranění d4, Bludgeoning. Když nepřítel vstoupí do tvého dosahu s takovou zbraní, můžeš Reakcí provést jeden útok na blízko."
+  "t": "Quarterstaff, Spear a zbraně Heavy i Reach: po útoku v Akci Útok udeříš Bonusovou akcí druhým koncem (d4, Bludgeoning); Reakcí zaútočíš na nepřítele, který vstoupí do dosahu. Artikule: u zbraní s perkem Ratiště místo té reakce – bez nevýhody v kontaktním boji, zapření proti Vpřed! reakcí."
  },
  {
   "en": "Resilient",
-  "cz": "Odolný",
+  "cz": "Nezdolný",
   "kat": "general",
   "pred": "4. úroveň",
   "vl": [
    "STR",
-   "AGI",
+   "DEX",
    "CON",
    "INT",
    "WIS",
@@ -382,10 +382,10 @@
   "en": "Sentinel",
   "cz": "Strážce",
   "kat": "general",
-  "pred": "4. úroveň, STR nebo AGI 13+",
+  "pred": "4. úroveň, STR nebo DEX 13+",
   "vl": [
    "STR",
-   "AGI"
+   "DEX"
   ],
   "t": "Tvor do 5 stop od tebe, který provede Akci Odpoutání nebo zasáhne útokem někoho jiného než tebe, si od tebe hned vyslouží příležitostný útok. Zasáhneš-li tvora příležitostným útokem, jeho rychlost klesne na 0 do konce aktuálního tahu.",
   "cas": "R"
@@ -416,9 +416,9 @@
   "en": "Sharpshooter",
   "cz": "Ostrostřelec",
   "kat": "general",
-  "pred": "4. úroveň, AGI 13+",
+  "pred": "4. úroveň, DEX 13+",
   "vl": [
-   "AGI"
+   "DEX"
   ],
   "t": "Tvé útoky zbraněmi na dálku ignorují poloviční a tříčtvrteční krytí. Útoky zbraněmi na dálku nemají nevýhodu kvůli nepříteli do 5 stop ani kvůli dlouhému dostřelu."
  },
@@ -430,7 +430,7 @@
   "vl": [
    "STR"
   ],
-  "t": "Jednou za tah, když v rámci Akce Útok zasáhneš zbraní na blízko tvora do 5 stop, můžeš ho udeřit štítem: STR záchranný hod (SO 8 + STR + bonus zdatnosti), při neúspěchu ho odstrčíš o 5 stop nebo mu způsobíš stav Prone. Držíš-li štít a uspěješ v AGI záchranném hodu proti efektu s polovičním zraněním, můžeš Reakcí neutrpět nic.",
+  "t": "Jednou za tah, když v rámci Akce Útok zasáhneš zbraní na blízko tvora do 5 stop, můžeš ho udeřit štítem: STR záchranný hod (SO 8 + STR + bonus zdatnosti), při neúspěchu ho odstrčíš o 5 stop nebo mu způsobíš stav Prone. Držíš-li štít a uspěješ v DEX záchranném hodu proti efektu s polovičním zraněním, můžeš Reakcí neutrpět nic.",
   "cas": "R"
  },
  {
@@ -440,7 +440,7 @@
   "pred": "4. úroveň",
   "vl": [
    "STR",
-   "AGI",
+   "DEX",
    "CON",
    "INT",
    "WIS",
@@ -452,11 +452,11 @@
   "en": "Skulker",
   "cz": "Plíživec",
   "kat": "general",
-  "pred": "4. úroveň, AGI 13+",
+  "pred": "4. úroveň, DEX 13+",
   "vl": [
-   "AGI"
+   "DEX"
   ],
-  "t": "Máš Blindsight 10 stop. V boji máš výhodu na ověření AGI (Stealth) při Akci Skrytí. Minul-li tvůj útok, když jsi skrytý, tvá pozice se tím neprozradí."
+  "t": "Máš Blindsight 10 stop. V boji máš výhodu na ověření DEX (Stealth) při Akci Skrytí. Minul-li tvůj útok, když jsi skrytý, tvá pozice se tím neprozradí."
  },
  {
   "en": "Slasher",
@@ -465,7 +465,7 @@
   "pred": "4. úroveň",
   "vl": [
    "STR",
-   "AGI"
+   "DEX"
   ],
   "t": "Jednou za tah, když zasáhneš útokem se Slashing zraněním, můžeš cíli snížit rychlost o 10 stop do začátku svého příštího tahu. Kritický zásah se Slashing zraněním dá cíli nevýhodu na hody na útok do začátku tvého příštího tahu."
  },
@@ -473,9 +473,9 @@
   "en": "Speedy",
   "cz": "Rychlonohý",
   "kat": "general",
-  "pred": "4. úroveň, AGI nebo CON 13+",
+  "pred": "4. úroveň, DEX nebo CON 13+",
   "vl": [
-   "AGI",
+   "DEX",
    "CON"
   ],
   "t": "Rychlost +10 stop. Po Akci Sprint tě do konce tahu obtížný terén nezpomaluje. Příležitostné útoky proti tobě mají nevýhodu.",
@@ -485,7 +485,7 @@
  },
  {
   "en": "Spell Sniper",
-  "cz": "Kouzelný ostrostřelec",
+  "cz": "Kouzlostřelec",
   "kat": "general",
   "pred": "4. úroveň, rys Spellcasting nebo Pact Magic",
   "vl": [
@@ -558,13 +558,13 @@
   "pred": "4. úroveň",
   "vl": [
    "STR",
-   "AGI"
+   "DEX"
   ],
   "t": "Můžeš používat vlastnost mistrovství (mastery) jednoho druhu jednoduché nebo válečné zbraně, se kterou máš zdatnost. Po každém dlouhém odpočinku můžeš druh zbraně změnit."
  },
  {
   "en": "Blind Fighting",
-  "cz": "Boj naslepo",
+  "cz": "Boj poslepu",
   "kat": "fightStyle",
   "pred": "rys Fighting Style",
   "t": "Máš Blindsight 10 stop."
@@ -613,13 +613,13 @@
   "pred": "19. úroveň",
   "vl": [
    "STR",
-   "AGI",
+   "DEX",
    "CON",
    "INT",
    "WIS",
    "CHA"
   ],
-  "t": "Získáš Resistance vůči 2 typům z Acid, Cold, Fire, Lightning, Necrotic, Poison, Psychic, Radiant, Thunder (změna po dlouhém odpočinku). Utrpíš-li zranění zvoleného typu, můžeš Reakcí zasáhnout viditelného tvora do 60 stop bez úplného krytí: AGI záchranný hod (SO 8 + CON + bonus zdatnosti), jinak utrpí 2d12 + CON zranění téhož typu.",
+  "t": "Získáš Resistance vůči 2 typům z Acid, Cold, Fire, Lightning, Necrotic, Poison, Psychic, Radiant, Thunder (změna po dlouhém odpočinku). Utrpíš-li zranění zvoleného typu, můžeš Reakcí zasáhnout viditelného tvora do 60 stop bez úplného krytí: DEX záchranný hod (SO 8 + CON + bonus zdatnosti), jinak utrpí 2d12 + CON zranění téhož typu.",
   "cas": "R"
  },
  {
@@ -629,7 +629,7 @@
   "pred": "19. úroveň",
   "vl": [
    "STR",
-   "AGI",
+   "DEX",
    "CON",
    "INT",
    "WIS",
@@ -644,7 +644,7 @@
   "pred": "19. úroveň",
   "vl": [
    "STR",
-   "AGI",
+   "DEX",
    "CON",
    "INT",
    "WIS",
@@ -662,7 +662,7 @@
   "pred": "19. úroveň",
   "vl": [
    "STR",
-   "AGI",
+   "DEX",
    "CON",
    "INT",
    "WIS",
@@ -677,7 +677,7 @@
   "pred": "19. úroveň",
   "vl": [
    "STR",
-   "AGI",
+   "DEX",
    "CON",
    "INT",
    "WIS",

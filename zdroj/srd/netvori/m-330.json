@@ -12,7 +12,7 @@
   "rych": "40 stop",
   "vl": {
    "STR": 23,
-   "AGI": 15,
+   "DEX": 15,
    "CON": 20,
    "INT": 10,
    "WIS": 12,
@@ -20,7 +20,7 @@
   },
   "zach": {
    "STR": "+6",
-   "AGI": "+5",
+   "DEX": "+5",
    "CON": "+8",
    "INT": "+0",
    "WIS": "+4",
@@ -70,7 +70,7 @@
    },
    {
     "n": "Deflect Missile",
-    "dc": "AGI SO 17",
+    "dc": "DEX SO 17",
     "z": "1d10+6",
     "zt": "Force",
     "p": "reakce, obnova 5–6; jeden tvor do 60 stop, jen při snížení zranění na 0"
@@ -91,7 +91,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 22,
-   "AGI": 9,
+   "DEX": 9,
    "CON": 20,
    "INT": 3,
    "WIS": 11,
@@ -99,13 +99,13 @@
   },
   "zach": {
    "STR": "+6",
-   "AGI": "-1",
+   "DEX": "-1",
    "CON": "+5",
    "INT": "-4",
    "WIS": "+0",
    "CHA": "-5"
   },
-  "imu": "Poison, Psychic; Okouzlen (Charmed), Vyčerpání (Exhaustion), Vyděšen (Frightened), Ochromen (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned)",
+  "imu": "Poison, Psychic; Okouzlen (Charmed), Vyčerpání (Exhaustion), Vyděšen (Frightened), Paralyzovaný (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned)",
   "smysly": "Darkvision 120 stop; pasivní Perception 10",
   "jaz": "rozumí Common a dvěma dalším jazykům, ale nemluví",
   "cr": "10",
@@ -173,7 +173,7 @@
   "rych": "50 stop, let 25 stop (vznáší se), plavání 50 stop",
   "vl": {
    "STR": 29,
-   "AGI": 14,
+   "DEX": 14,
    "CON": 20,
    "INT": 16,
    "WIS": 20,
@@ -181,7 +181,7 @@
   },
   "zach": {
    "STR": "+14",
-   "AGI": "+2",
+   "DEX": "+2",
    "CON": "+10",
    "INT": "+3",
    "WIS": "+10",
@@ -241,7 +241,7 @@
    },
    {
     "n": "Lightning Storm",
-    "dc": "AGI SO 18",
+    "dc": "DEX SO 18",
     "z": "10d10",
     "zt": "Lightning",
     "p": "válec o poloměru 10 stop, výška 40 stop, do 500 stop; polovina při úspěchu, obnova 5–6"
@@ -262,7 +262,7 @@
   "rych": "30 stop, let 60 stop",
   "vl": {
    "STR": 8,
-   "AGI": 17,
+   "DEX": 17,
    "CON": 13,
    "INT": 15,
    "WIS": 12,
@@ -270,7 +270,7 @@
   },
   "zach": {
    "STR": "-1",
-   "AGI": "+3",
+   "DEX": "+3",
    "CON": "+1",
    "INT": "+2",
    "WIS": "+1",
@@ -345,7 +345,7 @@
   "rych": "60 stop, hrabání 40 stop, šplhání 60 stop",
   "vl": {
    "STR": 30,
-   "AGI": 11,
+   "DEX": 11,
    "CON": 30,
    "INT": 3,
    "WIS": 11,
@@ -353,7 +353,7 @@
   },
   "zach": {
    "STR": "+10",
-   "AGI": "+9",
+   "DEX": "+9",
    "CON": "+10",
    "INT": "+5",
    "WIS": "+9",
@@ -361,7 +361,7 @@
   },
   "dov": "Perception +9",
   "odol": "Bludgeoning, Piercing, Slashing",
-  "imu": "Fire, Poison; Okouzlen (Charmed), Ohlušen (Deafened), Vyděšen (Frightened), Ochromen (Paralyzed), Otráven (Poisoned)",
+  "imu": "Fire, Poison; Okouzlen (Charmed), Ohlušen (Deafened), Vyděšen (Frightened), Paralyzovaný (Paralyzed), Otráven (Poisoned)",
   "smysly": "Blindsight 120 stop; pasivní Perception 19",
   "jaz": "žádné",
   "cr": "30",
@@ -393,7 +393,7 @@
    },
    {
     "n": "Bite",
-    "t": "*Hod na útok na blízko:* +19, dosah 15 stop. *Zásah:* 36 (4d12 + 10) Piercing zranění a cíl je Chycen (Grappled) (únik SO 20). Dokud chvat neskončí, je cíl Zadržen (Restrained) a nemůže se teleportovat."
+    "t": "*Hod na útok na blízko:* +19, dosah 15 stop. *Zásah:* 36 (4d12 + 10) Piercing zranění a cíl je Chycen (Grappled) (únik SO 20). Dokud chvat neskončí, je cíl Spoután (Restrained) a nemůže se teleportovat."
    },
    {
     "n": "Claw",
@@ -411,7 +411,7 @@
   "bonus": [
    {
     "n": "Swallow",
-    "t": "*Záchrana Síly:* SO 27, jeden Velký nebo menší tvor Chycený (Grappled) taraskou (taraska může mít najednou spolknutých až šest tvorů). *Neúspěch:* Cíl je spolknut a stav Chycen končí. Spolknutý tvor je Oslepen (Blinded) a Zadržen (Restrained), nemůže se teleportovat, má úplný kryt (Total Cover) proti útokům a jiným účinkům zvenčí tarasky a na začátku každého tahu tarasky utrpí 56 (16d6) Acid zranění.\nPokud taraska během jednoho tahu utrpí od tvora uvnitř sebe 60 nebo více zranění, musí na konci toho tahu uspět v záchranném hodu na Odolnost se SO 20, jinak vyvrhne všechny spolknuté tvory; každý z nich dopadne do prostoru do 10 stop od tarasky a je Sražen (Prone). Pokud taraska zemře, spolknutý tvor už není Zadržen a může z mrtvoly uniknout za 20 stop pohybu, přičemž vyleze Sražený."
+    "t": "*Záchrana Síly:* SO 27, jeden Velký nebo menší tvor Chycený (Grappled) taraskou (taraska může mít najednou spolknutých až šest tvorů). *Neúspěch:* Cíl je spolknut a stav Chycen končí. Spolknutý tvor je Oslepen (Blinded) a Spoután (Restrained), nemůže se teleportovat, má úplný kryt (Total Cover) proti útokům a jiným účinkům zvenčí tarasky a na začátku každého tahu tarasky utrpí 56 (16d6) Acid zranění.\nPokud taraska během jednoho tahu utrpí od tvora uvnitř sebe 60 nebo více zranění, musí na konci toho tahu uspět v záchranném hodu na Odolnost se SO 20, jinak vyvrhne všechny spolknuté tvory; každý z nich dopadne do prostoru do 10 stop od tarasky a je Sražen (Prone). Pokud taraska zemře, spolknutý tvor už není Spoután a může z mrtvoly uniknout za 20 stop pohybu, přičemž vyleze Sražený."
    }
   ],
   "legT": "Počet legendárních akcí: 3. Bezprostředně po tahu jiného tvora může taraska utratit jedno použití a provést jednu z následujících akcí. Na začátku každého svého tahu obnoví všechna utracená použití.",
@@ -431,7 +431,7 @@
     "b": 19,
     "z": "4d12+10",
     "zt": "Piercing",
-    "p": "dosah 15 stop; Chycen (únik SO 20) a Zadržen"
+    "p": "dosah 15 stop; Chycen (únik SO 20) a Spoután"
    },
    {
     "n": "Claw",
@@ -477,7 +477,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 15,
-   "AGI": 12,
+   "DEX": 12,
    "CON": 14,
    "INT": 10,
    "WIS": 10,
@@ -485,7 +485,7 @@
   },
   "zach": {
    "STR": "+2",
-   "AGI": "+1",
+   "DEX": "+1",
    "CON": "+2",
    "INT": "+0",
    "WIS": "+0",
@@ -545,7 +545,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 17,
-   "AGI": 14,
+   "DEX": 14,
    "CON": 16,
    "INT": 11,
    "WIS": 10,
@@ -553,7 +553,7 @@
   },
   "zach": {
    "STR": "+5",
-   "AGI": "+2",
+   "DEX": "+2",
    "CON": "+5",
    "INT": "+0",
    "WIS": "+0",
@@ -617,7 +617,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 23,
-   "AGI": 8,
+   "DEX": 8,
    "CON": 21,
    "INT": 12,
    "WIS": 16,
@@ -625,7 +625,7 @@
   },
   "zach": {
    "STR": "+6",
-   "AGI": "-1",
+   "DEX": "-1",
    "CON": "+5",
    "INT": "+1",
    "WIS": "+3",
@@ -694,7 +694,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 18,
-   "AGI": 13,
+   "DEX": 13,
    "CON": 20,
    "INT": 7,
    "WIS": 9,
@@ -702,7 +702,7 @@
   },
   "zach": {
    "STR": "+4",
-   "AGI": "+1",
+   "DEX": "+1",
    "CON": "+5",
    "INT": "-2",
    "WIS": "-1",
@@ -765,7 +765,7 @@
   "rych": "20 stop",
   "vl": {
    "STR": 18,
-   "AGI": 12,
+   "DEX": 12,
    "CON": 10,
    "INT": 1,
    "WIS": 9,
@@ -773,7 +773,7 @@
   },
   "zach": {
    "STR": "+4",
-   "AGI": "+1",
+   "DEX": "+1",
    "CON": "+0",
    "INT": "-5",
    "WIS": "-1",
@@ -825,7 +825,7 @@
   "rych": "50 stop",
   "vl": {
    "STR": 18,
-   "AGI": 14,
+   "DEX": 14,
    "CON": 15,
    "INT": 11,
    "WIS": 17,
@@ -833,13 +833,13 @@
   },
   "zach": {
    "STR": "+4",
-   "AGI": "+2",
+   "DEX": "+2",
    "CON": "+2",
    "INT": "+0",
    "WIS": "+3",
    "CHA": "+3"
   },
-  "imu": "Poison; Okouzlen (Charmed), Ochromen (Paralyzed), Otráven (Poisoned)",
+  "imu": "Poison; Okouzlen (Charmed), Paralyzovaný (Paralyzed), Otráven (Poisoned)",
   "smysly": "Darkvision 60 stop; pasivní Perception 13",
   "jaz": "Celestial, Elvish, Sylvan; telepatie 120 stop",
   "cr": "5",
@@ -922,7 +922,7 @@
   "rych": "30 stop, šplhání 30 stop",
   "vl": {
    "STR": 17,
-   "AGI": 16,
+   "DEX": 16,
    "CON": 15,
    "INT": 10,
    "WIS": 10,
@@ -930,7 +930,7 @@
   },
   "zach": {
    "STR": "+3",
-   "AGI": "+5",
+   "DEX": "+5",
    "CON": "+2",
    "INT": "+0",
    "WIS": "+2",
@@ -959,7 +959,7 @@
    },
    {
     "n": "Umbral Dagger",
-    "t": "*Hod na útok na blízko nebo na dálku:* +5, dosah 5 stop nebo dostřel 20/60 stop. *Zásah:* 5 (1d4 + 3) Piercing zranění plus 7 (3d4) Necrotic zranění. Pokud je cíl tímto útokem snížen na 0 životů, stane se stabilizovaným, ale je na 1 hodinu Otráven (Poisoned). Dokud je Otráven, je zároveň Ochromen (Paralyzed)."
+    "t": "*Hod na útok na blízko nebo na dálku:* +5, dosah 5 stop nebo dostřel 20/60 stop. *Zásah:* 5 (1d4 + 3) Piercing zranění plus 7 (3d4) Necrotic zranění. Pokud je cíl tímto útokem snížen na 0 životů, stane se stabilizovaným, ale je na 1 hodinu Otráven (Poisoned). Dokud je Otráven, je zároveň Paralyzovaný (Paralyzed)."
    }
   ],
   "bonus": [
@@ -992,7 +992,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 16,
-   "AGI": 16,
+   "DEX": 16,
    "CON": 16,
    "INT": 11,
    "WIS": 10,
@@ -1000,7 +1000,7 @@
   },
   "zach": {
    "STR": "+3",
-   "AGI": "+6",
+   "DEX": "+6",
    "CON": "+3",
    "INT": "+0",
    "WIS": "+3",
@@ -1035,7 +1035,7 @@
    },
    {
     "n": "Bite",
-    "t": "*Záchrana Odolnosti:* SO 14, jeden tvor do 5 stop, který je ochotný nebo je Chycen (Grappled), Neschopný (Incapacitated) nebo Zadržen (Restrained). *Neúspěch:* 5 (1d4 + 3) Piercing zranění plus 10 (3d6) Necrotic zranění. Maximum životů cíle se sníží o hodnotu rovnou utrpěnému Necrotic zranění a upír obnoví stejný počet životů."
+    "t": "*Záchrana Odolnosti:* SO 14, jeden tvor do 5 stop, který je ochotný nebo je Chycen (Grappled), Neschopný (Incapacitated) nebo Spoután (Restrained). *Neúspěch:* 5 (1d4 + 3) Piercing zranění plus 10 (3d6) Necrotic zranění. Maximum životů cíle se sníží o hodnotu rovnou utrpěnému Necrotic zranění a upír obnoví stejný počet životů."
    }
   ],
   "bonus": [
@@ -1057,7 +1057,7 @@
     "dc": "CON SO 14",
     "z": "1d4+3",
     "zt": "Piercing",
-    "p": "+ 3d6 Necrotic; ochotný, Chycený, Neschopný nebo Zadržený tvor do 5 stop; snižuje maximum životů, upír se léčí"
+    "p": "+ 3d6 Necrotic; ochotný, Chycený, Neschopný nebo Spoutaný tvor do 5 stop; snižuje maximum životů, upír se léčí"
    }
   ],
   "str": 334
@@ -1075,7 +1075,7 @@
   "rych": "40 stop, šplhání 40 stop",
   "vl": {
    "STR": 18,
-   "AGI": 18,
+   "DEX": 18,
    "CON": 18,
    "INT": 17,
    "WIS": 15,
@@ -1083,7 +1083,7 @@
   },
   "zach": {
    "STR": "+4",
-   "AGI": "+9",
+   "DEX": "+9",
    "CON": "+9",
    "INT": "+3",
    "WIS": "+7",
@@ -1104,7 +1104,7 @@
    },
    {
     "n": "Misty Escape",
-    "t": "Pokud upír klesne na 0 životů mimo své místo odpočinku, použije Shape-Shift a promění se v mlhu (nevyžaduje akci). Pokud Shape-Shift použít nemůže, je zničen.\nDokud má v podobě mlhy 0 životů, nemůže se vrátit do upíří podoby a musí do 2 hodin dosáhnout svého místa odpočinku, jinak je zničen. Jakmile je na místě odpočinku, vrátí se do upíří podoby a je Ochromen (Paralyzed), dokud neobnoví nějaké životy; po 1 hodině strávené tam obnoví 1 život."
+    "t": "Pokud upír klesne na 0 životů mimo své místo odpočinku, použije Shape-Shift a promění se v mlhu (nevyžaduje akci). Pokud Shape-Shift použít nemůže, je zničen.\nDokud má v podobě mlhy 0 životů, nemůže se vrátit do upíří podoby a musí do 2 hodin dosáhnout svého místa odpočinku, jinak je zničen. Jakmile je na místě odpočinku, vrátí se do upíří podoby a je Paralyzovaný (Paralyzed), dokud neobnoví nějaké životy; po 1 hodině strávené tam obnoví 1 život."
    },
    {
     "n": "Spider Climb",
@@ -1112,7 +1112,7 @@
    },
    {
     "n": "Vampire Weakness",
-    "t": "Upír má tyto slabiny:\n- **Forbiddance.** Upír nemůže vstoupit do obydlí bez pozvání od některého z jeho obyvatel.\n- **Running Water.** Upír utrpí 20 Acid zranění, pokud ukončí svůj tah v tekoucí vodě.\n- **Stake to the Heart.** Pokud je upírovi do srdce vražena zbraň způsobující Piercing zranění, zatímco je na svém místě odpočinku Neschopný (Incapacitated), je upír Ochromen (Paralyzed), dokud zbraň není vytažena.\n- **Sunlight.** Upír utrpí 20 Radiant zranění, pokud začne svůj tah na slunečním světle. Na slunečním světle má nevýhodu na hody na útok a ověření vlastností."
+    "t": "Upír má tyto slabiny:\n- **Forbiddance.** Upír nemůže vstoupit do obydlí bez pozvání od některého z jeho obyvatel.\n- **Running Water.** Upír utrpí 20 Acid zranění, pokud ukončí svůj tah v tekoucí vodě.\n- **Stake to the Heart.** Pokud je upírovi do srdce vražena zbraň způsobující Piercing zranění, zatímco je na svém místě odpočinku Neschopný (Incapacitated), je upír Paralyzovaný (Paralyzed), dokud zbraň není vytažena.\n- **Sunlight.** Upír utrpí 20 Radiant zranění, pokud začne svůj tah na slunečním světle. Na slunečním světle má nevýhodu na hody na útok a ověření vlastností."
    }
   ],
   "akce": [
@@ -1126,7 +1126,7 @@
    },
    {
     "n": "Bite (jen v podobě netopýra nebo upíra)",
-    "t": "*Záchrana Odolnosti:* SO 17, jeden tvor do 5 stop, který je ochotný nebo je Chycen (Grappled), Neschopný (Incapacitated) nebo Zadržen (Restrained). *Neúspěch:* 6 (1d4 + 4) Piercing zranění plus 13 (3d8) Necrotic zranění. Maximum životů cíle se sníží o hodnotu rovnou utrpěnému Necrotic zranění a upír obnoví stejný počet životů. Humanoid snížený tímto zraněním na 0 životů a poté pohřbený povstane při následujícím západu slunce jako **Vampire Spawn** pod upírovou kontrolou."
+    "t": "*Záchrana Odolnosti:* SO 17, jeden tvor do 5 stop, který je ochotný nebo je Chycen (Grappled), Neschopný (Incapacitated) nebo Spoután (Restrained). *Neúspěch:* 6 (1d4 + 4) Piercing zranění plus 13 (3d8) Necrotic zranění. Maximum životů cíle se sníží o hodnotu rovnou utrpěnému Necrotic zranění a upír obnoví stejný počet životů. Humanoid snížený tímto zraněním na 0 životů a poté pohřbený povstane při následujícím západu slunce jako **Vampire Spawn** pod upírovou kontrolou."
    }
   ],
   "bonus": [
@@ -1163,7 +1163,7 @@
     "dc": "CON SO 17",
     "z": "1d4+4",
     "zt": "Piercing",
-    "p": "+ 3d8 Necrotic; ochotný, Chycený, Neschopný nebo Zadržený tvor do 5 stop; snižuje maximum životů, upír se léčí"
+    "p": "+ 3d8 Necrotic; ochotný, Chycený, Neschopný nebo Spoutaný tvor do 5 stop; snižuje maximum životů, upír se léčí"
    }
   ],
   "str": 335
@@ -1180,7 +1180,7 @@
   "rych": "40 stop, let 60 stop",
   "vl": {
    "STR": 17,
-   "AGI": 15,
+   "DEX": 15,
    "CON": 18,
    "INT": 8,
    "WIS": 13,
@@ -1188,7 +1188,7 @@
   },
   "zach": {
    "STR": "+3",
-   "AGI": "+5",
+   "DEX": "+5",
    "CON": "+4",
    "INT": "-1",
    "WIS": "+4",
@@ -1268,7 +1268,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 13,
-   "AGI": 11,
+   "DEX": 11,
    "CON": 11,
    "INT": 8,
    "WIS": 11,
@@ -1276,7 +1276,7 @@
   },
   "zach": {
    "STR": "+1",
-   "AGI": "+0",
+   "DEX": "+0",
    "CON": "+0",
    "INT": "-1",
    "WIS": "+0",
@@ -1325,7 +1325,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 16,
-   "AGI": 13,
+   "DEX": 13,
    "CON": 14,
    "INT": 10,
    "WIS": 11,
@@ -1333,7 +1333,7 @@
   },
   "zach": {
    "STR": "+3",
-   "AGI": "+1",
+   "DEX": "+1",
    "CON": "+2",
    "INT": "+0",
    "WIS": "+0",
@@ -1398,7 +1398,7 @@
   "rych": "30 stop, plavání 90 stop",
   "vl": {
    "STR": 18,
-   "AGI": 14,
+   "DEX": 14,
    "CON": 18,
    "INT": 5,
    "WIS": 10,
@@ -1406,14 +1406,14 @@
   },
   "zach": {
    "STR": "+4",
-   "AGI": "+2",
+   "DEX": "+2",
    "CON": "+4",
    "INT": "-3",
    "WIS": "+0",
    "CHA": "-1"
   },
   "odol": "Acid, Fire",
-  "imu": "Poison; Vyčerpání (Exhaustion), Chycen (Grappled), Ochromen (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned), Sražen (Prone), Zadržen (Restrained), V bezvědomí (Unconscious)",
+  "imu": "Poison; Vyčerpání (Exhaustion), Chycen (Grappled), Paralyzovaný (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned), Sražen (Prone), Spoután (Restrained), V bezvědomí (Unconscious)",
   "smysly": "Darkvision 60 stop; pasivní Perception 10",
   "jaz": "Primordial (Aquan)",
   "cr": "5",
@@ -1441,7 +1441,7 @@
    },
    {
     "n": "Whelm (obnova 4–6)",
-    "t": "*Záchrana Síly:* SO 15, každý tvor v prostoru elementála. *Neúspěch:* 22 (4d8 + 4) Bludgeoning zranění. Je-li cílem Velký nebo menší tvor, je Chycen (Grappled) (únik SO 14). Dokud chvat neskončí, je cíl Zadržen (Restrained), dusí se, pokud nemůže dýchat vodu, a na začátku každého tahu elementála utrpí 9 (2d8) Bludgeoning zranění. Elementál může pomocí Whelm najednou držet jednoho Velkého tvora nebo až dva Střední či menší tvory. Tvor do 5 stop od elementála může akcí vytáhnout tvora z elementála, pokud uspěje v ověření Síly (Athletics) se SO 14. *Úspěch:* Jen poloviční zranění."
+    "t": "*Záchrana Síly:* SO 15, každý tvor v prostoru elementála. *Neúspěch:* 22 (4d8 + 4) Bludgeoning zranění. Je-li cílem Velký nebo menší tvor, je Chycen (Grappled) (únik SO 14). Dokud chvat neskončí, je cíl Spoután (Restrained), dusí se, pokud nemůže dýchat vodu, a na začátku každého tahu elementála utrpí 9 (2d8) Bludgeoning zranění. Elementál může pomocí Whelm najednou držet jednoho Velkého tvora nebo až dva Střední či menší tvory. Tvor do 5 stop od elementála může akcí vytáhnout tvora z elementála, pokud uspěje v ověření Síly (Athletics) se SO 14. *Úspěch:* Jen poloviční zranění."
    }
   ],
   "utoky": [
@@ -1457,7 +1457,7 @@
     "dc": "STR SO 15",
     "z": "4d8+4",
     "zt": "Bludgeoning",
-    "p": "tvorové v prostoru elementála; Chycen (únik SO 14), Zadržen, 2d8 Bludgeoning na začátku každého tahu elementála; polovina při úspěchu, obnova 4–6"
+    "p": "tvorové v prostoru elementála; Chycen (únik SO 14), Spoután, 2d8 Bludgeoning na začátku každého tahu elementála; polovina při úspěchu, obnova 4–6"
    }
   ],
   "str": 337
@@ -1475,7 +1475,7 @@
   "rych": "30 stop, 40 stop (jen v medvědí podobě), šplhání 30 stop (jen v medvědí podobě)",
   "vl": {
    "STR": 19,
-   "AGI": 10,
+   "DEX": 10,
    "CON": 17,
    "INT": 11,
    "WIS": 12,
@@ -1483,7 +1483,7 @@
   },
   "zach": {
    "STR": "+4",
-   "AGI": "+0",
+   "DEX": "+0",
    "CON": "+3",
    "INT": "+0",
    "WIS": "+1",

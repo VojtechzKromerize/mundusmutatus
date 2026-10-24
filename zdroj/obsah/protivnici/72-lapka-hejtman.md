@@ -23,11 +23,11 @@ Velitel lapků, bývalý žoldnéř nebo vyhnaný zeman. Má píšťalu, zdravý
 
 **AC** 15 (kožená s cvočky) · **HP** 52 (8d8+16) · **Rychlost** 30 stop · **Iniciativa** +3
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 15 (+2) | 16 (+3) | 14 (+2) | 14 (+2) | 11 (+0) | 14 (+2) |
 
-**Záchrany** STR +4, AGI +5, WIS +2 · **Dovednosti** Athletics +4, Deception +4 · **Jazyky** česky, německy, hantýrkou
+**Záchrany** STR +4, DEX +5, WIS +2 · **Dovednosti** Athletics +4, Deception +4 · **Jazyky** česky, německy, hantýrkou
 
 ## Vlastnosti
 

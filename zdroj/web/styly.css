@@ -88,6 +88,14 @@ h2::before{content:"¶ ";color:var(--kal);font-family:var(--f-body);font-weight:
 .controls select{max-width:100%}
 button:focus-visible,select:focus-visible,.card:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 svg#map{width:100%;height:auto;display:block;touch-action:pan-y;cursor:grab}
+/* mapa Koruny ve vrstvách: podklad #mapz (krajina s drahými filtry), pevný rám #mapr (rám a ztmavené rohy u okraje okna)
+   a nahoře #map (sídla, popisky, výběr). Podklad i sídla jsou nakreslené s okrajem 40 % výřezu na každé straně (MAPM v 02):
+   obal .mapvrstvy přesahuje okno .mapplatno, které ho ořízne; posun a přiblížení jen posune a zvětší obaly (transformace
+   samotného svg by nutila prohlížeč počítat filtry v každém snímku), za okrajem nakreslené oblasti je barva sousedních zemí */
+.mapplatno{position:relative;overflow:hidden;background:var(--nbr);width:100%;min-width:0;aspect-ratio:680/605;-webkit-user-select:none;user-select:none}
+.mapvrstvy{position:absolute;left:-40%;top:-40%;width:180%;height:180%;will-change:transform;transform-origin:22.2222% 22.2222%}
+.mapvrstvy>svg#mapz,.mapvrstvy>svg#map,.mapplatno>svg#mapr{position:absolute;inset:0;width:100%;height:100%;display:block}
+#mapvz,svg#mapr{pointer-events:none}
 svg#map:active{cursor:grabbing}
 .maplegend{border-top:1px solid var(--rule);padding-top:8px;font-size:.9rem}
 .maplegend summary{cursor:pointer;font-family:var(--f-label);font-weight:700;letter-spacing:.06em;color:var(--muted)}
@@ -674,7 +682,7 @@ a.pchar:hover{border-color:var(--kal)}
 /* mobil: mapa nad ovládáním, kratší úvod */
 @media (max-width:640px){
   .lyrleg{display:flex}
-  .mapbox>svg#map{order:-1}
+  .mapbox>.mapplatno{order:-1}
 }
 
 /* úvod */
@@ -707,7 +715,7 @@ a.pchar:hover{border-color:var(--kal)}
 /* Praha */
 #pmap{width:100%;height:auto;display:block;touch-action:none;background:var(--land)}
 /* mapy s filtry se vykreslí jednou do vlastní vrstvy; posouvání stránky je pak jen přesune */
-svg#map,svg#pmap,svg#smap{will-change:transform;transform:translateZ(0);contain:paint}
+svg#map,svg#mapz,svg#mapr,svg#pmap,svg#smap{will-change:transform;transform:translateZ(0);contain:paint}
 .pdet a{color:var(--kal)}
 .pmk{cursor:pointer}.pmk:focus-visible circle{stroke:var(--gold)}
 .pmkn{font-family:var(--f-label);font-weight:700;pointer-events:none}
@@ -1202,6 +1210,17 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
 @media (min-width:861px){
   .mapgrid{grid-template-columns:minmax(0,2.1fr) minmax(280px,1fr)}
   .mapgrid>.detail{position:sticky;top:calc(var(--navh) + 14px);max-height:calc(100vh - var(--navh) - 28px);max-height:calc(100dvh - var(--navh) - 28px);overflow:auto}
+}
+/* mapa Zemí Koruny přes celou šířku na počítači (2026-10-24, Vojta): výška podle okna, výřez do šířky (mapFit, 02),
+   panel rodu jako vysouvací okno vlevo přes mapu (× zavře); bez výběru se panel neukazuje */
+.detx{display:none}
+@media (min-width:1100px){
+  .wrap:has(.view[data-view=mapa]:not([hidden])){max-width:1840px}
+  #mapa .mapgrid{display:block;position:relative}
+  #mapa .mapplatno.mapw{aspect-ratio:890/565;max-height:calc(100vh - 110px);max-height:calc(100dvh - 110px);min-height:480px}
+  #mapa .mapgrid>.detail{position:absolute;top:70px;left:22px;z-index:5;width:min(390px,34%);max-height:calc(100vh - var(--navh) - 230px);max-height:calc(100dvh - var(--navh) - 230px);overflow:auto;box-shadow:0 12px 30px -12px rgba(30,10,5,.55)}
+  #mapa .mapgrid>.detail.empty{display:none}
+  #mapa .detx{display:grid;place-items:center;position:sticky;top:0;float:right;width:30px;height:30px;margin:-6px -6px 0 8px;border:1px solid var(--rule);border-radius:50%;background:var(--paper);color:var(--ink);font-size:1.2rem;line-height:1;cursor:pointer;z-index:1}
 }
 .slistbox{background:var(--paper);border:1px solid var(--rule);padding:10px 14px}
 .slistbox[open]>summary{margin-bottom:12px}
@@ -3629,7 +3648,8 @@ button.btedch{cursor:pointer}button.btedch:hover{border-color:var(--gold,#b08d3a
 @media (min-width:1280px){
   .wrap:has(.view[data-view=boj]:not([hidden]) .bojpc.bojakt:not(.bojprip)){max-width:1840px}
   .bojpc.bojakt:not(.bojprip){--z:1;display:flex;flex-direction:column}
-  .bojpc.bojakt:not(.bojprip) [data-bk="osa"]{order:2}
+  /* osa je display:contents – pořadí musí mít až její obsah: přepínač zůstane nahoře, pruh iniciativy pod ním */
+  .bojpc.bojakt:not(.bojprip) [data-bk="osa"]>*{order:2}
   .bojpc.bojakt:not(.bojprip) .bojhead,.bojpc.bojakt:not(.bojprip) .bcoll{display:none}
   .bojpc.bojakt:not(.bojprip):not([data-btab="i"]) [data-bk="osa"]{display:none}
   .bojpc.bojakt:not(.bojprip) .bojcols{grid-template-columns:minmax(0,1fr);margin-top:0}
@@ -3688,6 +3708,25 @@ button.btedch{cursor:pointer}button.btedch:hover{border-color:var(--gold,#b08d3a
   .bdmpcdv .bdmgh:first-child{margin-top:14px}
   .bdmpcdv .bdmdov2 .bdmdr{padding:6px 0!important;font-size:.95rem}
 }
+/* bez rámu webu (2026-10-24, Vojta): jako mmcela na telefonu – bez záhlaví s logem, menu, rámu, patky a modrého proužku účastníka;
+   ☰ v rohu karty ukáže web s menu (data-mmweb, 08). Třídu mmpc dává renderBoj (20d). */
+html.mmpc body{padding:0}
+html.mmpc::before,html.mmpc .wrap{background:#1f0c10}
+html.mmpc .wrap{max-width:none!important;padding:0;gap:0;border-radius:0;box-shadow:none}
+html.mmpc .wrap::before,html.mmpc .wrap::after{display:none}
+html.mmpc header.site,html.mmpc .sitenav,html.mmpc footer.colophon,html.mmpc .papir,html.mmpc .bprtg,html.mmpc #bojview .bpravidla{display:none!important}
+html.mmpc .sec{gap:0}
+html.mmpc #bojview{padding:0}
+html.mmpc .view:has(.bojhrac){padding-top:0}
+html.mmpc #bojview .bjamain .bhrk{margin:0;padding:0;border:0;border-radius:0;background:none;box-shadow:none;outline:0}
+html.mmpc .bojpc .bcolk .bdm{margin:0;border:0;border-radius:0}
+html.mmpc .hraja,html.mmpc .bojpc .bjamain .bja{margin:0;padding:0;border:0;border-radius:0;background:none;box-shadow:none}
+html.mmpc .bojpc .bojcols,html.mmpc .bojpc .bcolm{gap:0;margin:0;padding:0}
+html.mmpc .bojpc.bojakt:not(.bojprip) .btabs{margin:0;padding:6px 10px;background:#1f0c10;border-bottom:1px solid var(--kb-bd2)}
+html.mmpc #bojview .bojpc .bosa.bosav{margin:14px auto}
+html.mmpc:not(.mmjenhra) .bdmpc .bdmtop{grid-template-columns:40px minmax(0,1fr) 40px}
+html.mmpc:not(.mmjenhra) .bdmpc .bdmtop .bdmback0{display:block}
+html.mmpc:not(.mmjenhra) .bdmweb{display:grid;font-size:1.2rem}
 @media (min-width:1280px) and (max-width:1599px){
   .bojpc.bojakt:not(.bojprip){--z:.85;zoom:.85}
   .bojpc .bcolk .bdm.bdmpc{grid-template-columns:minmax(0,1fr) minmax(370px,30%)}

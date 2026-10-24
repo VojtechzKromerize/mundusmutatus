@@ -73,6 +73,8 @@ zdroj/kouzla/        kouzla SRD (5e-bits, src/2024) + preklad.json + mimo-srd.js
                      která kouzla čtou pro automatiku dřívější text (ta/va), aby se nezměnilo chování karty a Boje
 zdroj/mimo-srd/      podtřídy, featy, zázemí, Aasimar z D&D 2024 mimo SRD – vlastní shrnutí mechaniky
                      → art/mimo-srd.json (sestav.py, ručně; kontroluje formát a délky textů)
+                     featy_plne.py: plné znění featů (Vojtův překlad) z MD v projektu claude.ai → databáze pravidla_texty
+                     (jen přihlášení, mm_pravidla_texty) – text NIKDY do repozitáře ani art/
 zdroj/vybaveni/      Vojtův Přehled vybavení (Word → katalog.py → katalog.json) + Artikule (vlastnosti zbraní ARTZV, druhy zbroje ARTZB)
                      a vazba magických předmětů na SRD → art/vybaveni.json (sestav.py, ručně); stránka #pravidla/vybaveni (14d),
                      věci z katalogu jdou přidat do vybavení karty (`kVybPridej`), v inventáři se najdou podle jména (`vybNajdi`)
@@ -248,9 +250,12 @@ Hlavní orientační body:
 
 - **Jazyk:** celé rozhraní česky; pojmy a názvy kategorií pro hráče česky, hráči neumí latinu.
   Lore a Kronika jsou psané jako kronika Vojtěcha z Kroměříže – čeština evokující 15. století, ale čtivá.
-- **Terminologie pravidel** (jako v art/pravidla.json): dovednosti, typy zranění, Resistance / Vulnerability /
-  Immunity, názvy kouzel a magických předmětů **anglicky**; stavy česky s anglickým názvem v závorce
-  („Sražen (Prone)“); vlastnosti STR/AGI/CON/INT/WIS/CHA; v datech protivníků `AGI DC 15`.
+- **Terminologie pravidel** (jako v art/pravidla.json): v **datech** dovednosti, typy zranění, Resistance / Vulnerability /
+  Immunity, Versatile anglicky (čte je automatika); **zobrazí se česky** (Vojta 2026-10-24) – `pojmyCz` (02d-pojmy.js, @čisté)
+  převádí zobrazený text a `pojmyStrana` + MutationObserver (26) ho pouští na stránku (ne formuláře, `[lang=en]`, `.bezpojmu`):
+  Fire → ohnivé (skloňuje podle okolí), Cold mrazivé, Necrotic prokleté, Radiant svaté, Resistance → odolnost, Sleight of Hand
+  Kapsářství, Versatile Univerzální. Názvy kouzel, předmětů a schopností (Fire Bolt, Magic Resistance) zůstávají anglicky; stavy česky s anglickým názvem v závorce
+  („Sražen (Prone)“); vlastnosti STR/DEX/CON/INT/WIS/CHA (od 2026-10-24 DEX, ne AGI – starší data převede při čtení `mmDex` a `api()` v koruna.html); v datech protivníků `DEX DC 15`.
 - **Domácí pravidla (Artikule) mají přednost před SRD.** V Pravidlech jsou jako rámečky „Artikule“.
   Aktuální text Artikulí je v projektu claude.ai (`pravidla/artikule-*.md`, nejnovější datum).
 - **Vzhled:** středověká kronika / iluminovaný kodex (vínová kůže, zlaté linky, iluminační modř).

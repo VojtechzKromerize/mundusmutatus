@@ -149,7 +149,7 @@
     "en": "Dazzling Footwork",
     "cz": "Oslnivé kroky",
     "u": 3,
-    "t": "Bez zbroje a štítu: výhoda na ověření CHA (Performance) při tanci; základní AC = 10 + AGI + CHA; utratíš-li Bardic Inspiration v rámci akce, Bonusové akce či Reakce, provedeš v ní i úder beze zbraně. Údery beze zbraně můžou používat AGI a působit Bludgeoning zranění = hod kostkou Bardic Inspiration + AGI (kostka se neutratí)."
+    "t": "Bez zbroje a štítu: výhoda na ověření CHA (Performance) při tanci; základní AC = 10 + DEX + CHA; utratíš-li Bardic Inspiration v rámci akce, Bonusové akce či Reakce, provedeš v ní i úder beze zbraně. Údery beze zbraně můžou používat DEX a působit Bludgeoning zranění = hod kostkou Bardic Inspiration + DEX (kostka se neutratí)."
    },
    {
     "en": "Inspiring Movement",
@@ -170,7 +170,7 @@
     "en": "Leading Evasion",
     "cz": "Vedené uhnutí",
     "u": 14,
-    "t": "U efektu s AGI záchranným hodem na poloviční zranění neutrpíš při úspěchu nic a při neúspěchu polovinu. Tvorové do 5 stop od tebe, kteří hází tutéž záchranu, mohou tuto výhodu sdílet. Nefunguje ve stavu Incapacitated."
+    "t": "U efektu s DEX záchranným hodem na poloviční zranění neutrpíš při úspěchu nic a při neúspěchu polovinu. Tvorové do 5 stop od tebe, kteří hází tutéž záchranu, mohou tuto výhodu sdílet. Nefunguje ve stavu Incapacitated."
    }
   ]
  },
@@ -442,7 +442,7 @@
     "cz": "Požehnání šibala",
     "u": 3,
     "cas": "A",
-    "t": "Akcí dáš sobě nebo ochotnému tvoru do 30 stop výhodu na ověření AGI (Stealth). Platí do tvého dlouhého odpočinku nebo do dalšího použití."
+    "t": "Akcí dáš sobě nebo ochotnému tvoru do 30 stop výhodu na ověření DEX (Stealth). Platí do tvého dlouhého odpočinku nebo do dalšího použití."
    },
    {
     "en": "Trickery Domain Spells",
@@ -819,7 +819,7 @@
       "d12"
      ]
     ],
-    "t": "Získáš Superiority Dice (4 kostky d8; 5 od 7. úrovně, 6 od 15.), obnova krátkým nebo dlouhým odpočinkem. Naučíš se 3 manévry, další 2 na 7., 10. a 15. úrovni (přitom můžeš 1 vyměnit). Na jeden útok max. 1 manévr. SO manévrů = 8 + bonus zdatnosti + STR nebo AGI (dle volby)."
+    "t": "Získáš Superiority Dice (4 kostky d8; 5 od 7. úrovně, 6 od 15.), obnova krátkým nebo dlouhým odpočinkem. Naučíš se 3 manévry, další 2 na 7., 10. a 15. úrovni (přitom můžeš 1 vyměnit). Na jeden útok max. 1 manévr. SO manévrů = 8 + bonus zdatnosti + STR nebo DEX (dle volby)."
    },
    {
     "en": "Bait and Switch",
@@ -907,7 +907,7 @@
     "u": 3,
     "cas": "R",
     "zdroj": "Superiority Dice",
-    "t": "Manévr. Když tě zraní útok na blízko, Reakcí snížíš zranění o hod Superiority Die + modifikátor STR nebo AGI."
+    "t": "Manévr. Když tě zraní útok na blízko, Reakcí snížíš zranění o hod Superiority Die + modifikátor STR nebo DEX."
    },
    {
     "en": "Precision Attack",
@@ -1176,7 +1176,7 @@
   "en": "Warrior of Mercy",
   "cz": "Válečník milosrdenství",
   "tr": "Monk",
-  "t": "Mnich léčitel i kat: dotykem hojí rány, nebo vhání do těla nekrotickou energii.",
+  "t": "Mnich léčitel i kat: dotykem hojí rány, nebo vhání do těla prokletou energii.",
   "rysy": [
    {
     "en": "Hand of Harm",
@@ -1309,7 +1309,7 @@
     "u": 6,
     "cas": "A",
     "zdroj": "Focus Points",
-    "t": "Akcí a za 2 Focus Points vyvoláš kouli o poloměru 20 stop v bodě do 120 stop. Zvol Acid, Cold, Fire, Lightning nebo Thunder. Každý tvor v ní si hází AGI záchranný hod; při neúspěchu utrpí zranění = 3 hody kostkou Martial Arts, při úspěchu poloviční."
+    "t": "Akcí a za 2 Focus Points vyvoláš kouli o poloměru 20 stop v bodě do 120 stop. Zvol Acid, Cold, Fire, Lightning nebo Thunder. Každý tvor v ní si hází DEX záchranný hod; při neúspěchu utrpí zranění = 3 hody kostkou Martial Arts, při úspěchu poloviční."
    },
    {
     "en": "Stride of the Elements",
@@ -1389,7 +1389,7 @@
     "en": "Peerless Athlete",
     "cz": "Nepřekonatelný atlet",
     "u": 3,
-    "t": "Na 1 hodinu máš výhodu na ověření STR (Athletics) a AGI (Acrobatics) a délka i výška skoku se ti zvýší o 10 stop (stojí běžný pohyb).",
+    "t": "Na 1 hodinu máš výhodu na ověření STR (Athletics) a DEX (Acrobatics) a délka i výška skoku se ti zvýší o 10 stop (stojí běžný pohyb).",
     "cas": "BA",
     "zdroj": "Channel Divinity"
    },
@@ -1830,7 +1830,7 @@
     "en": "Mage Hand Legerdemain",
     "cz": "Kejklířská ruka",
     "u": 3,
-    "t": "*Mage Hand* můžeš seslat Bonusovou akcí a ruku učinit neviditelnou. Ovládáš ji Bonusovou akcí a skrze ni můžeš provádět ověření AGI (Sleight of Hand).",
+    "t": "*Mage Hand* můžeš seslat Bonusovou akcí a ruku učinit neviditelnou. Ovládáš ji Bonusovou akcí a skrze ni můžeš provádět ověření DEX (Sleight of Hand).",
     "cas": "BA"
    },
    {
@@ -1891,7 +1891,7 @@
     "en": "Death Strike",
     "cz": "Smrtící úder",
     "u": 17,
-    "t": "Zasáhneš-li v prvním kole boje Sneak Attack, cíl si hází CON záchranný hod (SO 8 + AGI + bonus zdatnosti); při neúspěchu je zranění tohoto útoku dvojnásobné."
+    "t": "Zasáhneš-li v prvním kole boje Sneak Attack, cíl si hází CON záchranný hod (SO 8 + DEX + bonus zdatnosti); při neúspěchu je zranění tohoto útoku dvojnásobné."
    }
   ]
  },
@@ -1975,7 +1975,7 @@
     "en": "Rend Mind",
     "cz": "Trhání mysli",
     "u": 17,
-    "t": "Když čepelí způsobíš Sneak Attack zranění, cíl si hází WIS záchranný hod (SO 8 + AGI + bonus zdatnosti); při neúspěchu má stav Stunned na 1 minutu, záchranu opakuje na konci každého tahu. Použití obnovíš i utracením 3 Psionic Energy Dice.",
+    "t": "Když čepelí způsobíš Sneak Attack zranění, cíl si hází WIS záchranný hod (SO 8 + DEX + bonus zdatnosti); při neúspěchu má stav Stunned na 1 minutu, záchranu opakuje na konci každého tahu. Použití obnovíš i utracením 3 Psionic Energy Dice.",
     "pocet": 1,
     "obn": "dlouhý odpočinek"
    }
@@ -2281,7 +2281,7 @@
   "en": "Celestial Patron",
   "cz": "Nebeský patron",
   "tr": "Warlock",
-  "t": "Černokněžník ve službě nebeské bytosti: léčení a zářivá i ohnivá moc.",
+  "t": "Černokněžník ve službě nebeské bytosti: léčení a svatá i ohnivá moc.",
   "rysy": [
    {
     "en": "Celestial Spells",
@@ -2525,15 +2525,15 @@
  {
   "id": "abjurer",
   "en": "School of Abjuration",
-  "cz": "Škola abjurace",
+  "cz": "Škola ochranné magie",
   "tr": "Wizard",
   "t": "Kouzelník ochranné magie: magický štít, rušení kouzel a odolnost vůči magii.",
   "rysy": [
    {
     "en": "Abjuration Savant",
-    "cz": "Znalec abjurace",
+    "cz": "Znalec ochranné magie",
     "u": 3,
-    "t": "Zdarma si do knihy kouzel zapíšeš dvě kouzla kouzelníka školy Abjurace nejvýš 2. úrovně. Při každém získání nové úrovně slotů si zdarma zapíšeš další kouzlo Abjurace úrovně, na kterou máš sloty."
+    "t": "Zdarma si do knihy kouzel zapíšeš dvě kouzla kouzelníka školy ochranné magie nejvýš 2. úrovně. Při každém získání nové úrovně slotů si zdarma zapíšeš další kouzlo ochranné magie úrovně, na kterou máš sloty."
    },
    {
     "en": "Arcane Ward",
@@ -2541,7 +2541,7 @@
     "u": 3,
     "pocet": 1,
     "obn": "dlouhý odpočinek",
-    "t": "Při seslání kouzla Abjurace slotem si vytvoříš štít s max. HP = 2× úroveň kouzelníka + INT (trvá do dlouhého odpočinku, 1× za něj). Zranění jde nejdřív do štítu (po uplatnění tvých Resistance/Vulnerability), přebytek utrpíš ty. Každé kouzlo Abjurace slotem štít doplní o 2× úroveň slotu; totéž Bonusovou akcí za utracený slot."
+    "t": "Při seslání kouzla ochranné magie slotem si vytvoříš štít s max. HP = 2× úroveň kouzelníka + INT (trvá do dlouhého odpočinku, 1× za něj). Zranění jde nejdřív do štítu (po uplatnění tvých Resistance/Vulnerability), přebytek utrpíš ty. Každé kouzlo ochranné magie slotem štít doplní o 2× úroveň slotu; totéž Bonusovou akcí za utracený slot."
    },
    {
     "en": "Projected Ward",

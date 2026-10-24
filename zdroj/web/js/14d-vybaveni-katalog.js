@@ -71,7 +71,7 @@ function vybParam(x) {
   if (sk === "zbroj")
     return x.typ === "štít"
       ? "+2 AC"
-      : `AC ${x.ac}${x.typ !== "těžká" ? ` + AGI${x.agi === 2 ? " (nejvýš +2)" : ""}` : ""}${x.str ? ` · STR ${x.str}` : ""}${x.plizeni ? " · nevýhoda na plížení" : ""} · ${besc(x.typ)} zbroj`;
+      : `AC ${x.ac}${x.typ !== "těžká" ? ` + DEX${x.agi === 2 ? " (nejvýš +2)" : ""}` : ""}${x.str ? ` · STR ${x.str}` : ""}${x.plizeni ? " · nevýhoda na plížení" : ""} · ${besc(x.typ)} zbroj`;
   if (sk === "strelivo") return `${x.pocet} ks`;
   if (sk === "naradi") return `${besc(x.sk2 || "")}${x.vl ? ` · ověření ${besc(x.vl)}` : ""}`;
   if (sk === "zvirata") return `nosnost ${besc(x.nosnost || "")}`;
@@ -112,7 +112,7 @@ function vybKarta(x, pop) {
   return `<article class="kzkarta vybk${x.x ? " kmimo" : ""}">${pop ? `<button type="button" class="kzx" data-kzzavri aria-label="Zavřít">×</button>` : ""}<h3>${besc(x.en)}${x.cz && x.cz.toLowerCase() !== x.en.toLowerCase() ? ` <small>${besc(x.cz)}</small>` : ""}</h3>
     <p class="rsmall"><i>${besc(VYBSKN[x.sk] || "")}</i>${vybParam(x) ? ` · ${vybParam(x)}` : ""}${x.w != null ? ` · ${vybLb(x.w)}` : x.wtxt ? ` · ${besc(x.wtxt)}` : ""}${x.cena ? ` · <b>${vybCena(x)}</b>` : ""}</p>
     ${x.t ? `<p>${besc(x.t)}</p>` : ""}${x.tab ? x.tab.map(T => `<table class="rtab vybtab"><thead><tr>${(T.h || []).map(h => `<th>${besc(h)}</th>`).join("")}</tr></thead><tbody>${(T.r || []).map(r => `<tr>${r.map(c => `<td>${besc(c)}</td>`).join("")}</tr>`).join("")}</tbody></table>`).join("") : ""}
-    ${vybArtikule(x)}${srd ? `<details class="bjapd"><summary>Plné znění SRD 5.2.1</summary>${kzMd(srd.t)}<p class="rsmall">SRD 5.2.1, s. ${srd.str || ""}</p></details>` : ""}
+    ${vybArtikule(x)}${srd ? `<details class="bjapd"><summary>Plné znění SRD 5.2.1</summary>${kzMd(srd.t)}<p class="rsmall">SRD 5.2.1, s. ${srd.str || ""}</p></details>` : ""}${x.sk === "magicke" ? plneTag("predmety", x.en) : ""}
 </article>`;
 }
 /* ---- přidání do vybavení postavy (stránka Vybavení i nabídka na kartě) ---- */

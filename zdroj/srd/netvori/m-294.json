@@ -12,7 +12,7 @@
   "rych": "40 stop, let 80 stop, plavání 40 stop",
   "vl": {
    "STR": 23,
-   "AGI": 12,
+   "DEX": 12,
    "CON": 21,
    "INT": 18,
    "WIS": 15,
@@ -20,7 +20,7 @@
   },
   "zach": {
    "STR": "+6",
-   "AGI": "+6",
+   "DEX": "+6",
    "CON": "+5",
    "INT": "+4",
    "WIS": "+7",
@@ -115,7 +115,7 @@
   "rych": "40 stop, let 80 stop, plavání 40 stop",
   "vl": {
    "STR": 27,
-   "AGI": 12,
+   "DEX": 12,
    "CON": 25,
    "INT": 20,
    "WIS": 17,
@@ -123,7 +123,7 @@
   },
   "zach": {
    "STR": "+8",
-   "AGI": "+8",
+   "DEX": "+8",
    "CON": "+7",
    "INT": "+5",
    "WIS": "+10",
@@ -218,7 +218,7 @@
   "rych": "30 stop, plavání 30 stop",
   "vl": {
    "STR": 18,
-   "AGI": 12,
+   "DEX": 12,
    "CON": 16,
    "INT": 13,
    "WIS": 14,
@@ -226,7 +226,7 @@
   },
   "zach": {
    "STR": "+4",
-   "AGI": "+1",
+   "DEX": "+1",
    "CON": "+3",
    "INT": "+1",
    "WIS": "+2",
@@ -290,7 +290,7 @@
   "rych": "30 stop, šplhání 30 stop",
   "vl": {
    "STR": 14,
-   "AGI": 14,
+   "DEX": 14,
    "CON": 11,
    "INT": 3,
    "WIS": 14,
@@ -298,7 +298,7 @@
   },
   "zach": {
    "STR": "+2",
-   "AGI": "+2",
+   "DEX": "+2",
    "CON": "+0",
    "INT": "-4",
    "WIS": "+2",
@@ -356,7 +356,7 @@
   "rych": "30 stop, let 80 stop",
   "vl": {
    "STR": 18,
-   "AGI": 15,
+   "DEX": 15,
    "CON": 16,
    "INT": 2,
    "WIS": 13,
@@ -364,7 +364,7 @@
   },
   "zach": {
    "STR": "+4",
-   "AGI": "+2",
+   "DEX": "+2",
    "CON": "+3",
    "INT": "-4",
    "WIS": "+1",
@@ -410,7 +410,7 @@
   "rych": "30 stop, šplhání 30 stop",
   "vl": {
    "STR": 16,
-   "AGI": 12,
+   "DEX": 12,
    "CON": 12,
    "INT": 9,
    "WIS": 8,
@@ -418,7 +418,7 @@
   },
   "zach": {
    "STR": "+3",
-   "AGI": "+1",
+   "DEX": "+1",
    "CON": "+1",
    "INT": "-1",
    "WIS": "-1",
@@ -461,7 +461,7 @@
   "rych": "40 stop, šplhání 40 stop, plavání 40 stop",
   "vl": {
    "STR": 19,
-   "AGI": 18,
+   "DEX": 18,
    "CON": 16,
    "INT": 16,
    "WIS": 19,
@@ -469,14 +469,14 @@
   },
   "zach": {
    "STR": "+4",
-   "AGI": "+8",
+   "DEX": "+8",
    "CON": "+7",
    "INT": "+7",
    "WIS": "+8",
    "CHA": "+8"
   },
   "dov": "Arcana +11, History +11, Religion +11",
-  "imu": "Poison; Okouzlen (Charmed), Ochromen (Paralyzed), Otráven (Poisoned), Zadržen (Restrained)",
+  "imu": "Poison; Okouzlen (Charmed), Paralyzovaný (Paralyzed), Otráven (Poisoned), Spoután (Restrained)",
   "smysly": "Darkvision 60 stop; pasivní Perception 14",
   "jaz": "Celestial, Common",
   "cr": "10",
@@ -538,7 +538,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 13,
-   "AGI": 12,
+   "DEX": 12,
    "CON": 12,
    "INT": 10,
    "WIS": 11,
@@ -546,7 +546,7 @@
   },
   "zach": {
    "STR": "+1",
-   "AGI": "+1",
+   "DEX": "+1",
    "CON": "+1",
    "INT": "+0",
    "WIS": "+0",
@@ -590,7 +590,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 18,
-   "AGI": 14,
+   "DEX": 14,
    "CON": 16,
    "INT": 12,
    "WIS": 14,
@@ -598,7 +598,7 @@
   },
   "zach": {
    "STR": "+4",
-   "AGI": "+2",
+   "DEX": "+2",
    "CON": "+3",
    "INT": "+1",
    "WIS": "+2",
@@ -657,7 +657,7 @@
   "rych": "40 stop",
   "vl": {
    "STR": 19,
-   "AGI": 14,
+   "DEX": 14,
    "CON": 16,
    "INT": 10,
    "WIS": 15,
@@ -665,7 +665,7 @@
   },
   "zach": {
    "STR": "+4",
-   "AGI": "+5",
+   "DEX": "+5",
    "CON": "+3",
    "INT": "+0",
    "WIS": "+5",
@@ -715,7 +715,7 @@
    },
    {
     "n": "Dragon’s Breath",
-    "dc": "AGI SO 14",
+    "dc": "DEX SO 14",
     "z": "8d6",
     "zt": "typ z Draconic Origin",
     "p": "kužel 30 stop, polovina při úspěchu, obnova 5–6"
@@ -736,7 +736,7 @@
   "rych": "20 stop, let 40 stop",
   "vl": {
    "STR": 12,
-   "AGI": 13,
+   "DEX": 13,
    "CON": 12,
    "INT": 7,
    "WIS": 10,
@@ -744,7 +744,7 @@
   },
   "zach": {
    "STR": "+1",
-   "AGI": "+1",
+   "DEX": "+1",
    "CON": "+1",
    "INT": "-2",
    "WIS": "+0",
@@ -790,7 +790,7 @@
   "rych": "50 stop",
   "vl": {
    "STR": 17,
-   "AGI": 12,
+   "DEX": 12,
    "CON": 14,
    "INT": 6,
    "WIS": 13,
@@ -798,7 +798,7 @@
   },
   "zach": {
    "STR": "+3",
-   "AGI": "+1",
+   "DEX": "+1",
    "CON": "+2",
    "INT": "-2",
    "WIS": "+1",
@@ -842,7 +842,7 @@
    },
    {
     "n": "Fire Breath",
-    "dc": "AGI SO 12",
+    "dc": "DEX SO 12",
     "z": "5d6",
     "zt": "Fire",
     "p": "kužel 15 stop, polovina při úspěchu, obnova 5–6"
@@ -862,7 +862,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 19,
-   "AGI": 17,
+   "DEX": 17,
    "CON": 20,
    "INT": 5,
    "WIS": 12,
@@ -870,7 +870,7 @@
   },
   "zach": {
    "STR": "+7",
-   "AGI": "+3",
+   "DEX": "+3",
    "CON": "+8",
    "INT": "-3",
    "WIS": "+4",
@@ -938,7 +938,7 @@
   "rych": "40 stop",
   "vl": {
    "STR": 21,
-   "AGI": 8,
+   "DEX": 8,
    "CON": 19,
    "INT": 5,
    "WIS": 9,
@@ -946,7 +946,7 @@
   },
   "zach": {
    "STR": "+5",
-   "AGI": "-1",
+   "DEX": "-1",
    "CON": "+4",
    "INT": "-3",
    "WIS": "-1",
@@ -1004,7 +1004,7 @@
   "rych": "40 stop, let 60 stop",
   "vl": {
    "STR": 17,
-   "AGI": 13,
+   "DEX": 13,
    "CON": 13,
    "INT": 2,
    "WIS": 12,
@@ -1012,7 +1012,7 @@
   },
   "zach": {
    "STR": "+3",
-   "AGI": "+1",
+   "DEX": "+1",
    "CON": "+1",
    "INT": "-4",
    "WIS": "+1",
@@ -1065,7 +1065,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 13,
-   "AGI": 12,
+   "DEX": 12,
    "CON": 12,
    "INT": 10,
    "WIS": 10,
@@ -1073,7 +1073,7 @@
   },
   "zach": {
    "STR": "+1",
-   "AGI": "+1",
+   "DEX": "+1",
    "CON": "+1",
    "INT": "+0",
    "WIS": "+0",
@@ -1133,7 +1133,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 15,
-   "AGI": 14,
+   "DEX": 14,
    "CON": 14,
    "INT": 12,
    "WIS": 10,
@@ -1141,7 +1141,7 @@
   },
   "zach": {
    "STR": "+2",
-   "AGI": "+2",
+   "DEX": "+2",
    "CON": "+2",
    "INT": "+1",
    "WIS": "+0",
@@ -1205,7 +1205,7 @@
   "rych": "20 stop, let 40 stop",
   "vl": {
    "STR": 4,
-   "AGI": 15,
+   "DEX": 15,
    "CON": 14,
    "INT": 10,
    "WIS": 10,
@@ -1213,7 +1213,7 @@
   },
   "zach": {
    "STR": "-3",
-   "AGI": "+2",
+   "DEX": "+2",
    "CON": "+2",
    "INT": "+0",
    "WIS": "+2",
@@ -1262,7 +1262,7 @@
   "rych": "30 stop, let 60 stop",
   "vl": {
    "STR": 22,
-   "AGI": 17,
+   "DEX": 17,
    "CON": 21,
    "INT": 12,
    "WIS": 16,
@@ -1270,7 +1270,7 @@
   },
   "zach": {
    "STR": "+10",
-   "AGI": "+7",
+   "DEX": "+7",
    "CON": "+5",
    "INT": "+1",
    "WIS": "+7",
@@ -1329,7 +1329,7 @@
    },
    {
     "n": "Infernal Tail",
-    "dc": "AGI SO 17",
+    "dc": "DEX SO 17",
     "z": "1d8+6",
     "zt": "Necrotic",
     "p": "jeden tvor do 10 stop, pekelná rána: ztráta 3d6 HP na začátku každého tahu"
@@ -1350,7 +1350,7 @@
   "rych": "40 stop, plavání 40 stop",
   "vl": {
    "STR": 20,
-   "AGI": 12,
+   "DEX": 12,
    "CON": 20,
    "INT": 2,
    "WIS": 10,
@@ -1358,7 +1358,7 @@
   },
   "zach": {
    "STR": "+5",
-   "AGI": "+1",
+   "DEX": "+1",
    "CON": "+5",
    "INT": "-4",
    "WIS": "+0",
@@ -1420,7 +1420,7 @@
   "rych": "40 stop",
   "vl": {
    "STR": 21,
-   "AGI": 14,
+   "DEX": 14,
    "CON": 18,
    "INT": 18,
    "WIS": 15,
@@ -1428,7 +1428,7 @@
   },
   "zach": {
    "STR": "+5",
-   "AGI": "+7",
+   "DEX": "+7",
    "CON": "+9",
    "INT": "+4",
    "WIS": "+7",
@@ -1501,7 +1501,7 @@
   "rych": "20 stop, let 40 stop",
   "vl": {
    "STR": 6,
-   "AGI": 17,
+   "DEX": 17,
    "CON": 13,
    "INT": 11,
    "WIS": 12,
@@ -1509,7 +1509,7 @@
   },
   "zach": {
    "STR": "-2",
-   "AGI": "+3",
+   "DEX": "+3",
    "CON": "+1",
    "INT": "+0",
    "WIS": "+1",
@@ -1568,7 +1568,7 @@
   "rych": "30 stop, let 60 stop",
   "vl": {
    "STR": 8,
-   "AGI": 17,
+   "DEX": 17,
    "CON": 13,
    "INT": 15,
    "WIS": 12,
@@ -1576,7 +1576,7 @@
   },
   "zach": {
    "STR": "-1",
-   "AGI": "+3",
+   "DEX": "+3",
    "CON": "+1",
    "INT": "+2",
    "WIS": "+1",
@@ -1647,7 +1647,7 @@
   "rych": "50 stop, let 50 stop (vznáší se)",
   "vl": {
    "STR": 16,
-   "AGI": 19,
+   "DEX": 19,
    "CON": 14,
    "INT": 10,
    "WIS": 15,
@@ -1655,7 +1655,7 @@
   },
   "zach": {
    "STR": "+3",
-   "AGI": "+4",
+   "DEX": "+4",
    "CON": "+2",
    "INT": "+0",
    "WIS": "+2",
@@ -1663,7 +1663,7 @@
   },
   "dov": "Perception +8, Stealth +10",
   "odol": "Bludgeoning, Piercing, Slashing",
-  "imu": "Poison; Vyčerpání (Exhaustion), Chycen (Grappled), Ochromen (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned), Sražen (Prone), Zadržen (Restrained), V bezvědomí (Unconscious)",
+  "imu": "Poison; Vyčerpání (Exhaustion), Chycen (Grappled), Paralyzovaný (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned), Sražen (Prone), Spoután (Restrained), V bezvědomí (Unconscious)",
   "smysly": "Darkvision 60 stop; pasivní Perception 18",
   "jaz": "Common, Primordial (Auran)",
   "cr": "6",
@@ -1725,7 +1725,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 24,
-   "AGI": 9,
+   "DEX": 9,
    "CON": 20,
    "INT": 3,
    "WIS": 11,
@@ -1733,13 +1733,13 @@
   },
   "zach": {
    "STR": "+7",
-   "AGI": "-1",
+   "DEX": "-1",
    "CON": "+5",
    "INT": "-4",
    "WIS": "+0",
    "CHA": "-5"
   },
-  "imu": "Fire, Poison, Psychic; Okouzlen (Charmed), Vyčerpání (Exhaustion), Vyděšen (Frightened), Ochromen (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned)",
+  "imu": "Fire, Poison, Psychic; Okouzlen (Charmed), Vyčerpání (Exhaustion), Vyděšen (Frightened), Paralyzovaný (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned)",
   "smysly": "Darkvision 120 stop; pasivní Perception 10",
   "jaz": "rozumí Common a dvěma dalším jazykům, ale nemluví",
   "cr": "16",
@@ -1816,7 +1816,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 16,
-   "AGI": 11,
+   "DEX": 11,
    "CON": 14,
    "INT": 11,
    "WIS": 11,
@@ -1824,7 +1824,7 @@
   },
   "zach": {
    "STR": "+3",
-   "AGI": "+0",
+   "DEX": "+0",
    "CON": "+4",
    "INT": "+0",
    "WIS": "+2",
@@ -1889,7 +1889,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 7,
-   "AGI": 15,
+   "DEX": 15,
    "CON": 9,
    "INT": 8,
    "WIS": 7,
@@ -1897,7 +1897,7 @@
   },
   "zach": {
    "STR": "-2",
-   "AGI": "+2",
+   "DEX": "+2",
    "CON": "-1",
    "INT": "-1",
    "WIS": "-2",

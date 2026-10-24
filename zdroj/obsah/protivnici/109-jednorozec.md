@@ -23,7 +23,7 @@ Bílý kůň s jediným rohem, který po Protržení Závoje vyšel z bestiář�
 
 **AC** 12 · **HP** 97 (13d10+26) · **Rychlost** 50 stop · **Iniciativa** +8
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 18 (+4) | 14 (+2) | 15 (+2) | 11 (+0) | 17 (+3) | 16 (+3) |
 

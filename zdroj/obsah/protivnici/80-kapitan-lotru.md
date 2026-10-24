@@ -7,7 +7,7 @@ ac: 17
 hp: 84
 utok: Tři útoky: kord +7, 2d8+4 (výhoda na další), nebo píšťala +7, 30/90 stop, 2d10+4 · šarm (WIS DC 14, Charmed) · odvetný výpad
 pozehnani: Odvetný výpad nic nestojí a zasáhne automaticky.
-pokuseni: Proud strhne vor: všichni hodí AGI save DC 12, i on.
+pokuseni: Proud strhne vor: všichni hodí DEX save DC 12, i on.
 nerest: Pýcha – kavalír, který si zakládá na slově. Kdo ho vyzve na souboj jeden na jednoho, toho nesmí odmítnout.
 stitky: lotři, voraři, Vltava, Labe, řeka, pašeráci, kapitán, lidé
 zdroje: Náboje 3
@@ -24,11 +24,11 @@ Pán vorů a lodic mezi Prahou a Míšní. Pašuje sůl, víno a lidi, má kord 
 
 **AC** 17 · **HP** 84 (13d8+26) · **Rychlost** 30 stop, plavání 30 stop · **Iniciativa** +4
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 10 (+0) | 18 (+4) | 14 (+2) | 10 (+0) | 14 (+2) | 17 (+3) |
 
-**Záchrany** STR +3, AGI +7, WIS +5, CHA +6 · **Dovednosti** Acrobatics +7, Perception +5 · **Jazyky** česky, německy, hantýrkou
+**Záchrany** STR +3, DEX +7, WIS +5, CHA +6 · **Dovednosti** Acrobatics +7, Perception +5 · **Jazyky** česky, německy, hantýrkou
 
 ## Vlastnosti
 

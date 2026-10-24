@@ -24,7 +24,7 @@ Bledá žena v bílém s rudým šátkem, která chodí před morem. Sama do vsi
 
 **AC** 13 · **HP** 90 (12d8+36) · **Rychlost** 30 stop · **Iniciativa** +2
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 12 (+1) | 14 (+2) | 16 (+3) | 13 (+1) | 16 (+3) | 16 (+3) |
 

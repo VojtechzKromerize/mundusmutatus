@@ -22,7 +22,7 @@ Medvěd z hlubokých hvozdů. Obyčejný medvěd je pro zkušenou družinu snadn
 
 **AC** 11 · **HP** 22 (3d10+6) · **Rychlost** 40 stop, šplhání 30 stop · **Iniciativa** +1
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 17 (+3) | 12 (+1) | 15 (+2) | 2 (−4) | 13 (+1) | 7 (−2) |
 

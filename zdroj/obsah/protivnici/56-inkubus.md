@@ -23,7 +23,7 @@ Mužská podoba téhož pekelníka, který přichází ve snech a odnáší z ni
 
 **AC** 15 · **HP** 66 (12d8+12) · **Rychlost** 30 stop, let 60 stop · **Iniciativa** +3
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 8 (−1) | 17 (+3) | 13 (+1) | 15 (+2) | 12 (+1) | 20 (+5) |
 

@@ -1,7 +1,7 @@
 /* ===== Scéna mimo boj: NPC ve scéně (statistiky, víra, cíle), jednání hráčů s NPC a protihody vypravěče (2026-10-23) =====
    Scéna je stav boje se `scena: true` (11: bojNovaScena, bojBezi). Údaje NPC jen pro vypravěče jsou v `n.gm` – databáze je
    hráčům vyřízne (mm_boj_orez). Statistiky se předvyplní ze statbloku (SRD i vlastní bestiář), vypravěč je může přepsat. */
-const SCAB = ["STR", "AGI", "CON", "INT", "WIS", "CHA"];
+const SCAB = ["STR", "DEX", "CON", "INT", "WIS", "CHA"];
 const SCPOST = [
   ["pratelsky", "přátelský"],
   ["lhostejny", "lhostejný"],

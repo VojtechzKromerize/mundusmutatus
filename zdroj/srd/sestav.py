@@ -50,7 +50,7 @@ def nacti(sl):
     return o
 
 
-AB = ["STR", "AGI", "CON", "INT", "WIS", "CHA"]
+AB = ["STR", "DEX", "CON", "INT", "WIS", "CHA"]
 mod = lambda v: (v - 10) // 2
 sg = lambda v: ("+" if v >= 0 else "−") + str(abs(v))
 
@@ -120,7 +120,12 @@ def netvor(x):
     return o
 
 
+JMENAP = {k.lower(): v for k, v in json.load(open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "vybaveni", "jmena.json"), encoding="utf-8")).items()}
+
+
 def predmet(x):
+    if x["en"].lower() in JMENAP:  # české názvy z Vojtovy tabulky předmětů (2026-10-24)
+        x = dict(x, cz=JMENAP[x["en"].lower()])
     o = {"id": slug(x["en"]), "en": x["en"], "druh": x.get("druh", ""), "vz": x.get("vz", ""), "pr": x.get("pr", False), "t": x.get("t", ""), "str": x.get("str")}
     for k in ("cz", "upr", "vzt", "ef"):
         if x.get(k):

@@ -21,7 +21,7 @@ Lidé, kterým strigoj dal pít ze své krve, ale nedovolil jim zemřít. Vidí 
 
 **Útok houfu – stínové dýky:** +5 (+1 za každého dalšího služebníka, nejvýš +5), dosah 5 stop nebo hod 20/60 stop (za každého, kdo na cíl vidí). **Zásah:** 4 za každého služebníka v dosahu cíle, Piercing a Prokleté (Necrotic); zbroj půlí jen Piercing část (počítej 2 Piercing + 2 Prokleté). Kdo tímto útokem klesne na 0 HP, je stabilizovaný, ale 1 hodinu Poisoned a po tu dobu Paralyzed.
 
-**Záchrany houfu:** AGI +5, WIS +2, ostatní +2
+**Záchrany houfu:** DEX +5, WIS +2, ostatní +2
 
 ## Vlastnosti
 

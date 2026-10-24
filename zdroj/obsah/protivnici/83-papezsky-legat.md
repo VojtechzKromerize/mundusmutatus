@@ -15,7 +15,7 @@ zdroje: Legendární odolnost 1, Svaté slovo 1, Boží pomoc 3, Plamenný sloup
 utoky:
   - Svatý výbuch | +9 | 4d10+5 Svaté (Radiant) | dosah 5 stop nebo dostřel 60 stop; jeden v každém slotu (předloha má tři)
   - Svaté slovo | WIS DC 17 | 6d6 Svaté (Radiant) | každý nepřítel do 20 stop; neúspěch Stunned do konce jeho tahu; úspěch polovina; dobíjí se na 4–6
-  - Plamenný sloup | AGI DC 17 | 5d6 Fire a 5d6 Svaté | Flame Strike (6. úroveň), 1/den
+  - Plamenný sloup | DEX DC 17 | 5d6 Fire a 5d6 Svaté | Flame Strike (6. úroveň), 1/den
 ---
 *„Do Prahy přijel legát s křížem a dvěma sty jezdci. Kalich na Týně se ještě ten večer zachvěl.“*
 
@@ -25,7 +25,7 @@ Vyslanec Svatého stolce, který má rozhodnout, zda Čechy dostanou milost, neb
 
 **AC** 16 (drátěná zbroj) · **HP** 240 (32d8+96) · **Rychlost** 30 stop · **Iniciativa** +1
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 16 (+3) | 12 (+1) | 17 (+3) | 14 (+2) | 21 (+5) | 14 (+2) |
 

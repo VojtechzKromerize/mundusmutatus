@@ -204,7 +204,7 @@ async def main():
     kz=await g.evaluate("""(async()=>{await kSpNacti();const K=Object.values(KARTBY)[0],u=kSpUcinek(K,{n:'Fireball',st:3},4);
       return [kSp("Tasha’s Hideous Laughter")?.en,kSp('Detect Magic (Ritual)')?.ri,kSp("Bigby's Hand")?.en,u&&u.x,u&&u.t,u&&u.zach,u&&u.pol,kSp('Silvery Barbs')?.x,kSp('Silvery Barbs')?.cz,kSp('Feeblemind')?.en,
         /1d6/.test(kSp('Acid Splash')?.t||'')&&!/1k6/.test(kSp('Acid Splash')?.t||'')]})()""")
-    chk(kz==["Hideous Laughter",1,"Arcane Hand","9d6","Fire","AGI",True,1,"Stříbrné šlehy","Befuddlement",True],"kouzla z katalogu: jména z D&D Beyond, rituál, automatika Fireballu, kouzla mimo SRD: "+str(kz))
+    chk(kz==["Hideous Laughter",1,"Arcane Hand","9d6","Fire","DEX",True,1,"Stříbrné šlehy","Befuddlement",True],"kouzla z katalogu: jména z D&D Beyond, rituál, automatika Fireballu, kouzla mimo SRD: "+str(kz))
     # mobil
     await g.set_viewport_size({"width":390,"height":844});await g.wait_for_timeout(300)
     sw=await g.evaluate("document.documentElement.scrollWidth");chk(sw<=392,"mobil bez vodorovného posunu: "+str(sw))
@@ -217,16 +217,16 @@ async def main():
     chk("SO 14" in await k.locator('[data-bnpc="n1"] .bkzl').inner_text() and "2/2" in await k.locator('[data-bnpc="n1"] [data-bkz="fireball"]').inner_text(),"kouzla NPC: SO ze statbloku a počty použití u nestvůry SRD (Fireball 2/den)")
     await k.evaluate("BCIL['n1']='h1'");await k.click('[data-bnpc="n1"] [data-bkz="fireball"]');await k.wait_for_timeout(800)
     P=await k.evaluate("[BPLOS&&BPLOS.z,BPLOS&&BPLOS.ab,BPLOS&&BPLOS.dc,BPLOS&&BPLOS.pol,(BPLOS&&BPLOS.cile||[]).join(),(bojZdr.get().n1||{}).Fireball]")
-    chk(P==["9d6","AGI",14,True,"h1",1],"Fireball (4. st.) od mága: plošný zásah 9d6 AGI SO 14, cíl z výběru, použití odečteno: "+str(P))
+    chk(P==["9d6","DEX",14,True,"h1",1],"Fireball (4. st.) od mága: plošný zásah 9d6 DEX SO 14, cíl z výběru, použití odečteno: "+str(P))
     r=await k.evaluate("""(async()=>{const s=BOJ.s,m=s.npc[0],kn=s.npc[1],K=KARTBY.balduin,o=[];await kSpNacti();
       await bojNpcKouzlo(m,'fire-bolt',null);const L=(BLOG[m.id]||[])[0]||{};o.push(L.n==='Fire Bolt'&&!!L.hod&&L.hod.b===6&&/[24]d10/.test((L.zr||{}).x||(L.zrPo?'2d10':'')||'2d10'));
-      await bojNpcKouzlo(m,'hold-person',null);o.push(BPLOS&&BPLOS.st.join()==='ochromen'&&BPLOS.op&&BPLOS.kon==='n1');
-      await bojZmen(z=>{z.npc[0].stav=['ochromen'];z.npc[0].ef=[{n:'Bane',kdy:'kola',k:5}]});const Z=bojNpcZach(BOJ.s.npc[0],bojEff(BOJ.s.npc[0]),'AGI',15,true),Z2=bojNpcZach(BOJ.s.npc[0],bojEff(BOJ.s.npc[0]),'WIS',15,true);o.push(Z.fail==='ochromen'&&!Z.ok,Z2.why.some(w=>/Bane/.test(w)));
+      await bojNpcKouzlo(m,'hold-person',null);o.push(BPLOS&&BPLOS.st.join()==='paralyzovaný'&&BPLOS.op&&BPLOS.kon==='n1');
+      await bojZmen(z=>{z.npc[0].stav=['paralyzovaný'];z.npc[0].ef=[{n:'Bane',kdy:'kola',k:5}]});const Z=bojNpcZach(BOJ.s.npc[0],bojEff(BOJ.s.npc[0]),'DEX',15,true),Z2=bojNpcZach(BOJ.s.npc[0],bojEff(BOJ.s.npc[0]),'WIS',15,true);o.push(Z.fail==='paralyzovaný'&&!Z.ok,Z2.why.some(w=>/Bane/.test(w)));
       await bojZmen(z=>{z.npc[0].stav=[];delete z.npc[0].ef});
       BCIL[kn.id]='h1';await bojNpcKouzlo(kn,'spirit-guardians','Spirit Guardians');await new Promise(r=>setTimeout(r,300));o.push((BOJ.s.obl||[]).length===1&&BOJ.s.obl[0].z==='3d8'&&(BOJ.s.npc[1].stav||[]).includes('soustředí'));
       await bojZmen(z=>{z.obl[0].cile=['n1']});const hp0=(bojHp.get().n1||[])[0];await bojZmen(z=>{bojKonecTahu(z,'n1')});await new Promise(r=>setTimeout(r,200));o.push(((bojHp.get().n1||[])[0]??81)<(hp0??81)||/Spirit Guardians/.test((BTMSG.n1||[]).join(' ')));
       await bojZmen(z=>{const q=z.npc[1];q.stav=(q.stav||[]).filter(x=>x!=='soustředí')});await new Promise(r=>setTimeout(r,200));o.push(!(BOJ.s.obl||[]).length);
-      const ac0=kAC(K),r0=kRychN(K);await kUcPridej(K,'Haste',1/60,true);o.push(kAC(K)===ac0+2&&kRychN(K)===2*r0&&kStavVliv(K,'Záchrana AGI').r.some(x=>x[1]==='Haste'));
+      const ac0=kAC(K),r0=kRychN(K);await kUcPridej(K,'Haste',1/60,true);o.push(kAC(K)===ac0+2&&kRychN(K)===2*r0&&kStavVliv(K,'Záchrana DEX').r.some(x=>x[1]==='Haste'));
       await bojZmen(z=>{});await new Promise(r=>setTimeout(r,200));o.push(!!(BOJ.s.ucb||{})['balduin|Haste']);
       await bojZmen(z=>{z.kolo=(z.kolo||1)+10});await new Promise(r=>setTimeout(r,800));o.push(!kUc(K).some(u=>u.n==='Haste')&&kAC(K)===ac0);
       const hm=kHPmax(K);await kUcPridej(K,'Aid (3. st.)',8,false);o.push(kHPmax(K)===hm+10);
@@ -234,13 +234,13 @@ async def main():
       return o})()""")
     chk(r==[True]*12,"kouzla NPC (útok, Hold Person, záchrany ve stavu, Bane, oblast Spirit Guardians se soustředěním), Haste a Aid na kartě, trvání v kolech, Witch Bolt bez slotu: "+str(r))
     r2=await k.evaluate("""(async()=>{const K=KARTBY.balduin,o=[];await kSpNacti();
-      await kartaStavZmen(K.id,{hp:10,stavy:['otrávený']});await kSesSpec(K,{n:'Heal',st:6},6,[K],[]);o.push(kartaStav(K.id).hp==null&&!(kartaStav(K.id).stavy||[]).length);
+      await kartaStavZmen(K.id,{hp:10,stavy:['otráven']});await kSesSpec(K,{n:'Heal',st:6},6,[K],[]);o.push(kartaStav(K.id).hp==null&&!(kartaStav(K.id).stavy||[]).length);
       await kartaStavZmen(K.id,{stavy:['oslepen']});await kSesSpec(K,{n:'Lesser Restoration',st:2},2,[K],[]);o.push(!(kartaStav(K.id).stavy||[]).length);
       await kUcPridej(K,'Magic Weapon (4. st.)',1,false);const at=kUtoky(K)[0],E=kEfAkt(K,[],at);o.push(E.some(e=>e.ut===2&&e.zr===2));
       setTimeout(()=>{const b=document.querySelector('[data-kvyb]');b&&b.click()},400);await kSesPo(K,{n:'Summon Undead',st:3},4);const sp=(kartaStav(K.id).spol||[]).slice(-1)[0]||{};o.push(sp.ac===15&&sp.max===40&&sp.kz==='Summon Undead');
       await kSumKonec(K,['Summon Undead']);o.push(!(kartaStav(K.id).spol||[]).some(s=>s.kz));
       const R=kReakceNaZasah(K,BOJ.s.hraci[0],BOJ.s,{hod:17,ac:18,d:12,ph:5,ai:'n1',t:'Fire'});o.push(R.o.every(x=>!/Silvery|Hellish|Counterspell/.test(x.n))&&R.o.some(x=>/^Shield/.test(x.n)));
-      await bojZmen(z=>{z.npc[0].ef=[{n:'Hold Person',kdy:'kola',k:5,st:'ochromen',src:'h1'}];z.npc[0].stav=['ochromen']});await bojZmen(z=>{bojEfZnac(z,z.npc[0],'Dispel Magic',{h:null})});o.push(!(BOJ.s.npc[0].ef||[]).length&&!(BOJ.s.npc[0].stav||[]).includes('ochromen'));
+      await bojZmen(z=>{z.npc[0].ef=[{n:'Hold Person',kdy:'kola',k:5,st:'paralyzovaný',src:'h1'}];z.npc[0].stav=['paralyzovaný']});await bojZmen(z=>{bojEfZnac(z,z.npc[0],'Dispel Magic',{h:null})});o.push(!(BOJ.s.npc[0].ef||[]).length&&!(BOJ.s.npc[0].stav||[]).includes('paralyzovaný'));
       await bojZmen(z=>{z.npc[0].ef=[{n:'Bane',kdy:'kola',k:10,kolo:1,tah:0,od:'h1'}]});o.push(/Bane/.test(bojKzIkHtml(BOJ.s,'n1'))&&/Bane/.test(bojSlStav('n1')));
       return o})()""")
     chk(r2==[True]*8,"Heal, Lesser Restoration, Magic Weapon, Summon Undead (vznik i konec), reakce jen z kouzel postavy, Dispel Magic: "+str(r2))

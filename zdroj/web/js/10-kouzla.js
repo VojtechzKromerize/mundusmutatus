@@ -42,7 +42,7 @@ async function kzVlNacti() {
   let s = null,
     loc = [];
   try {
-    loc = JSON.parse(localStorage.getItem("mm-kouzla") || "[]") || [];
+    loc = JSON.parse(mmDex(localStorage.getItem("mm-kouzla")) || "[]") || [];
   } catch (e) {}
   if (window.MMDB && MMDB.prihlasen()) {
     try {
@@ -135,7 +135,7 @@ function kzNacti() {
       });
   return KZP;
 }
-const kzUr = l => (l ? `${l}. úroveň` : "trik");
+const kzUr = l => (l ? `${l}. stupeň` : "trik");
 const kzE = t => String(t ?? "").replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"})[c]);
 const kzIn = t =>
   kzE(t)
@@ -160,7 +160,7 @@ const kzMd = t =>
       return a;
     }, [])
     .join("");
-const KZSK = ["Abjurace", "Vyvolávání", "Věštění", "Očarování", "Evokace", "Iluze", "Nekromancie", "Přeměna"],
+const KZSK = ["Ochranná magie", "Vyvolávání", "Věštění", "Očarování", "Zaklínání", "Iluze", "Nekromancie", "Transmutace"],
   KZPOV = ["Bard", "Klerik", "Druid", "Paladin", "Hraničář", "Čaroděj", "Černokněžník", "Kouzelník"];
 function kzKarta(x, pop) {
   return `<article class="kzkarta">${pop ? `<button type="button" class="kzx" data-kzzavri aria-label="Zavřít">×</button>` : ""}
@@ -168,7 +168,7 @@ function kzKarta(x, pop) {
   <p class="kzmeta">${x.l ? kzUr(x.l) : "Trik"} · ${kzE(x.s)}${x.ri ? " · rituál" : ""}${x.ko ? " · Concentration" : ""}</p>
   <dl class="kzkv"><dt>Sesílání</dt><dd>${kzE(x.ct)}${x.ri ? ", nebo jako rituál" : ""}</dd><dt>Dosah</dt><dd>${kzE(x.r)}</dd>
     <dt>Složky</dt><dd>${kzE((x.k || []).join(", "))}${x.m ? ` (${kzE(x.m)})` : ""}</dd><dt>Trvání</dt><dd>${kzE(x.d)}</dd>${x.p && x.p.length ? `<dt>Povolání</dt><dd>${kzE(x.p.join(", "))}</dd>` : ""}</dl>
-  <div class="kztext">${kzMd(x.t)}${x.v ? `<p><b>Na vyšší úrovni.</b> ${kzIn(x.v)}</p>` : ""}</div>
+  <div class="kztext">${kzMd(x.t)}${x.v ? `<p><b>Na vyšším stupni.</b> ${kzIn(x.v)}</p>` : ""}</div>${x.vl ? "" : plneTag("kouzla", x.en)}
   ${
     x.vl
       ? `<p class="kzsrc">Vlastní kouzlo vypravěče – vidíš ho jen ty.${pop ? ` <a href="#kouzla/${x.i}">v seznamu kouzel</a>` : ` <span class="kzakce"><button type="button" class="gbtn" data-kzuprav="${kzE(x.i)}">Upravit</button> <button type="button" class="gbtn kzalt" data-kzsmaz="${kzE(x.i)}">Smazat</button></span>`}</p></article>`
@@ -179,7 +179,7 @@ function kzKarta(x, pop) {
 const KZK = ["V", "S", "M"];
 function kzForm(x) {
   const n = !x;
-  x = x || {en: "", cz: "", l: 1, s: "Evokace", p: [], ct: "Akce", r: "", k: ["V", "S"], m: "", d: "Okamžité", ko: 0, ri: 0, t: "", v: ""};
+  x = x || {en: "", cz: "", l: 1, s: "Zaklínání", p: [], ct: "Akce", r: "", k: ["V", "S"], m: "", d: "Okamžité", ko: 0, ri: 0, t: "", v: ""};
   const inp = (k, l, ph) =>
     `<label class="kzfl"><span>${l}</span><input name="${k}" value="${kzE(x[k])}"${ph ? ` placeholder="${ph}"` : ""}></label>`;
   return `<form class="kzkarta kzform" data-kzid="${n ? "" : kzE(x.i)}"><h3>${n ? "Nové vlastní kouzlo" : "Upravit kouzlo"}</h3>

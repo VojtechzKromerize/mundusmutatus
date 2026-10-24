@@ -21,7 +21,7 @@ Hlídací a honicí psi z panského dvora, kláštera nebo biřicova dvorku. Št
 
 **Útok houfu – kousnutí:** +3 (+1 za každého dalšího psa, nejvýš +5), dosah 5 stop. **Zásah:** 2 Piercing za každého psa v dosahu cíle. Cíl velikosti Medium nebo menší, kterého zasáhli aspoň dva psi, si hodí STR save DC 11, jinak je Prone.
 
-**Záchrany houfu:** AGI +2, ostatní +1
+**Záchrany houfu:** DEX +2, ostatní +1
 
 ## Vlastnosti
 

@@ -22,7 +22,7 @@ Rohatý pekelník s kozí bradkou, ocasem a vidlemi. Po Noci Proměny chodí po 
 
 **AC** 13 · **HP** 58 (9d8+18) · **Rychlost** 30 stop · **Iniciativa** +2
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 16 (+3) | 15 (+2) | 15 (+2) | 9 (−1) | 11 (+0) | 14 (+2) |
 

@@ -22,7 +22,7 @@ Propuštění žoldnéři, zběhlí čeledíni a vyhnanci, kteří žijí z cest
 
 **Útok houfu – tesáky nebo kuše:** +3 (+1 za každého dalšího, nejvýš +5). **Zásah:** tesáky 3 za každého lapku v dosahu (Slashing), kuše 4 za každého střelce (Piercing, dostřel 80/320 stop).
 
-**Záchrany houfu:** AGI +1, ostatní +0
+**Záchrany houfu:** DEX +1, ostatní +0
 
 ## Vlastnosti
 

@@ -21,7 +21,7 @@ Napůl orel, napůl lev, zvíře z erbů a bestiářů. Po Noci Proměny se gryf
 
 **AC** 12 · **HP** 59 (7d10+21) · **Rychlost** 30 stop, let 80 stop · **Iniciativa** +2
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 18 (+4) | 15 (+2) | 16 (+3) | 2 (−4) | 13 (+1) | 8 (−1) |
 

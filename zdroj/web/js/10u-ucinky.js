@@ -4,7 +4,7 @@
 
    UCINKY[jméno] – jeden záznam na účinek (kouzlo, rys, kostka). Všechna pole jsou nepovinná:
      p        popis na kartě (co účinek dělá, dokud trvá)
-     hodnoty karty: ac (+AC) · acmin (AC nejméně) · acz (bez zbroje AC = acz + AGI) · rych (+stop) · rychX (násobek rychlosti)
+     hodnoty karty: ac (+AC) · acmin (AC nejméně) · acz (bez zbroje AC = acz + DEX) · rych (+stop) · rychX (násobek rychlosti)
               zach (+ ke všem záchranám) · adv [vlastnosti] výhoda na záchrany · res [typy] | "vse" Resistance
               hpmax l => + maximum HP podle stupně · thp l => dočasné HP při seslání ({x: výraz} | {n: číslo}) · thpTah dočasné HP
               na začátku tahu · dov {dovednost: bonus} · ov + ke všem ověřením · utMinus útoky proti tobě −1d4 · blink d6 na konci tahu
@@ -19,10 +19,10 @@ const UCINKY = {
   Haste: {
     ac: 2,
     rychX: 2,
-    adv: ["AGI"],
-    p: "+2 AC, dvojnásobná rychlost, výhoda na záchrany AGI, v každém tahu akce navíc (Útok jedním útokem, Sprint, Odpoutání, Skrytí nebo Použití předmětu)",
+    adv: ["DEX"],
+    p: "+2 AC, dvojnásobná rychlost, výhoda na záchrany DEX, v každém tahu akce navíc (Útok jedním útokem, Sprint, Odpoutání, Skrytí nebo Použití předmětu)",
   },
-  "Mage Armor": {acz: 13, p: "bez zbroje: AC 13 + AGI"},
+  "Mage Armor": {acz: 13, p: "bez zbroje: AC 13 + DEX"},
   Barkskin: {acmin: 17, p: "AC nejméně 17"},
   "Warding Bond": {ac: 1, zach: 1, res: "vse", p: "+1 AC a k záchranám, Resistance vůči všemu zranění; sesilatel utrpí stejné zranění"},
   Longstrider: {rych: 10, p: "rychlost +10 stop"},
@@ -42,7 +42,7 @@ const UCINKY = {
   "Greater Invisibility": {p: "neviditelný (Invisible) i při útoku a sesílání"},
   Invisibility: {p: "neviditelný (Invisible), dokud nezaútočíš nebo nesešleš kouzlo"},
   "Mirror Image": {p: "tři iluzorní dvojníci: zásah může zasáhnout dvojníka"},
-  "Holy Aura": {adv: ["STR", "AGI", "CON", "INT", "WIS", "CHA"], p: "výhoda na všechny záchrany, útoky proti tobě s nevýhodou"},
+  "Holy Aura": {adv: ["STR", "DEX", "CON", "INT", "WIS", "CHA"], p: "výhoda na všechny záchrany, útoky proti tobě s nevýhodou"},
   "Protection from Energy": {p: "Resistance vůči zvolenému typu zranění (Acid, Cold, Fire, Lightning nebo Thunder)"},
   "False Life": {thp: l => ({x: "2d4+4" + (l > 1 ? `+${5 * (l - 1)}` : "")}), p: "dočasné HP 2d4 + 4 (+5 za každou úroveň slotu nad 1)"},
   "Armor of Agathys": {
@@ -73,7 +73,7 @@ const UCINKY = {
   "Faerie Fire": {p: "cíle světélkují: útoky proti nim s výhodou, neviditelnost jim nepomůže"},
   "Silvery Barbs": {p: "reakce: přehození úspěšného hodu d20 nepřítele (nižší platí); jiná bytost dostane výhodu na příští hod d20 do minuty"},
   Darkvision: {p: "vidění ve tmě 150 stop"},
-  "Pass without Trace": {dov: {Stealth: 10}, p: "+10 k ověřením AGI (Stealth), nezanecháváš stopy"},
+  "Pass without Trace": {dov: {Stealth: 10}, p: "+10 k ověřením DEX (Stealth), nezanecháváš stopy"},
   "Protection from Poison": {res: ["Poison"], p: "Resistance vůči Poison, výhoda na záchrany proti otravě; otrava ukončena"},
   "See Invisibility": {p: "vidíš neviditelné bytosti a předměty"},
   Silence: {p: "v kouli ticho: hluchý, Immunity vůči Thunder, kouzla s verbální složkou nejdou seslat"},
@@ -89,7 +89,7 @@ const UCINKY = {
   "Intellect Fortress": {res: ["Psychic"], adv: ["INT", "WIS", "CHA"], p: "Resistance vůči Psychic, výhoda na záchrany INT, WIS a CHA"},
   "Gaseous Form": {
     res: ["Bludgeoning", "Piercing", "Slashing"],
-    p: "mlha: Resistance vůči Bludgeoning, Piercing a Slashing, výhoda na záchrany STR, AGI a CON, let 10 stop, bez útoků a kouzel",
+    p: "mlha: Resistance vůči Bludgeoning, Piercing a Slashing, výhoda na záchrany STR, DEX a CON, let 10 stop, bez útoků a kouzel",
   },
   Catnap: {p: "spíš 10 minut; po nich jako po krátkém odpočinku"},
   "Feign Death": {res: "vse", p: "zdánlivě mrtvý: Resistance vůči všemu kromě Psychic, Oslepen a Neschopný, rychlost 0"},
@@ -115,14 +115,14 @@ const UCINKY = {
   },
   "Resilient Sphere": {p: "koule síly: nic dovnitř ani ven, Immunity vůči všemu zranění; ven jen Disintegrate"},
   "Elemental Bane": {p: "cíl po neúspěšné záchraně ztrácí Resistance vůči zvolenému typu a první zásah v tahu tím typem +2d6"},
-  Slow: {p: "zpomalení: rychlost poloviční, −2 AC a k záchranám AGI, bez reakcí, jen akce nebo bonusová akce, kouzlo s akcí se seslá až příští tah"},
+  Slow: {p: "zpomalení: rychlost poloviční, −2 AC a k záchranám DEX, bez reakcí, jen akce nebo bonusová akce, kouzlo s akcí se seslá až příští tah"},
   "Swift Quiver": {p: "každou bonusovou akci dva útoky zbraní na dálku ze střel z toulce"},
   "Skill Empowerment": {p: "Expertise v jedné dovednosti, ve které máš zdatnost"},
   "Far Step": {p: "při seslání a každou další bonusovou akci teleport až 60 stop"},
   Mislead: {p: "jsi neviditelný a tvůj iluzorní dvojník jde dál; vidíš jeho očima"},
   "Antilife Shell": {p: "bariéra 10 stop: živé bytosti neprojdou ani skrz ni nezaútočí zblízka"},
   "Circle of Power": {
-    adv: ["STR", "AGI", "CON", "INT", "WIS", "CHA"],
+    adv: ["STR", "DEX", "CON", "INT", "WIS", "CHA"],
     p: "aura 30 stop: spojenci výhoda na záchrany proti kouzlům, při úspěchu žádné zranění místo poloviny",
   },
   "Holy Weapon": {p: "zbraň +2d8 Radiant (přičte se sám), září 30 stop; ukončením výbuch 4d8 Radiant, Oslepen při neúspěchu CON"},
@@ -149,7 +149,7 @@ const UCINKY = {
   "Fizban's Platinum Shield": {
     ac: 2,
     res: ["Acid", "Cold", "Fire", "Lightning", "Poison"],
-    p: "+2 AC, Resistance vůči Acid, Cold, Fire, Lightning a Poison, při úspěšné záchraně AGI žádné zranění místo poloviny",
+    p: "+2 AC, Resistance vůči Acid, Cold, Fire, Lightning a Poison, při úspěšné záchraně DEX žádné zranění místo poloviny",
   },
   "Tasha's Otherworldly Guise": {
     ac: 2,
@@ -160,7 +160,7 @@ const UCINKY = {
   "Mind Blank": {res: ["Psychic"], p: "Immunity vůči Psychic, čtení myšlenek, věštění a stavu Okouzlen"},
   "Antimagic Field": {p: "koule 10 stop bez magie: kouzla a magické předměty uvnitř nepůsobí"},
   Foresight: {
-    adv: ["STR", "AGI", "CON", "INT", "WIS", "CHA"],
+    adv: ["STR", "DEX", "CON", "INT", "WIS", "CHA"],
     p: "výhoda na útoky, ověření a záchrany; útoky proti tobě s nevýhodou; nelze tě překvapit",
   },
   Invulnerability: {res: "vse", p: "Immunity vůči všemu zranění (karta počítá Resistance – zranění zapisuj jako 0)"},

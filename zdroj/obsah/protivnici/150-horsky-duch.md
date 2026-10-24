@@ -6,7 +6,7 @@ vyzva: 5 (1 800 XP)
 ac: 17
 hp: 147
 utok: Úder +8, dosah 10 stop, 2d8+5 Bludgeoning · vržený balvan +8, 1d6+5 a Prone · prochází skálou · boří stavby dvojnásobně
-pozehnani: Zával: oblast 15 stop se sesype – každý v ní hodí AGI save DC 15, jinak 3d8 Bludgeoning a je Restrained pod kamením.
+pozehnani: Zával: oblast 15 stop se sesype – každý v ní hodí DEX save DC 15, jinak 3d8 Bludgeoning a je Restrained pod kamením.
 pokuseni: Hrom ho rozechvěje: do konce kola má Vulnerability Thunder (dvojnásobek) a nemůže procházet skálou.
 nerest: Klid – nemá Neřest, má úmluvu: hlídá horu, dokud ji někdo neruší. Kdo přestane kopat, střílet a kácet (a slíbí to; Persuasion DC 13, starověrec s výhodou), toho nechá; kdo kope dál, je nepřítel. Permoníci s ním umějí mluvit.
 stitky: elementál, duch, hory, Krušné hory, Jeseníky, Krkonoše, doly, skála, zával, permoníci, Krakonoš, starověrci
@@ -23,7 +23,7 @@ Hora, která má tvar a vůli: kamenný muž ze skály, kterého probudilo Protr
 
 **AC** 17 · **HP** 147 (14d10+70) · **Rychlost** 30 stop, skálou 30 stop · **Iniciativa** −1
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 20 (+5) | 8 (−1) | 20 (+5) | 5 (−3) | 10 (+0) | 5 (−3) |
 

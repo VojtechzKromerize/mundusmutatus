@@ -24,7 +24,7 @@ Duch ženy, která zemřela v žalu, nejčastěji u vody. Elfští Proměněnci 
 
 **AC** 12 · **HP** 54 (12d8) · **Rychlost** 5 stop, let 40 stop · **Iniciativa** +2
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 1 (−5) | 14 (+2) | 10 (+0) | 12 (+1) | 11 (+0) | 17 (+3) |
 

@@ -174,7 +174,7 @@ function kStavyTab(akt, vse, attr, vy, konN) {
         : t === "soustředí"
           ? "Soustředíš se na kouzlo (Concentration). Zranění = CON záchrana (SO 10 nebo polovina zranění, víc z obou), stav Neschopný soustředění ukončí; najednou jen jedno kouzlo."
           : t === "úhyb"
-            ? "Úhyb (Dodge): útoky na tebe mají nevýhodu, AGI záchrany máš s výhodou – do začátku tvého příštího tahu."
+            ? "Úhyb (Dodge): útoky na tebe mají nevýhodu, DEX záchrany máš s výhodou – do začátku tvého příštího tahu."
             : "";
     return `<details class="kstr${on ? " on" : ""}"><summary><span class="kstri">${ic}</span><span class="kstrn">${besc(cap(t))}${d ? ` <small>${besc(d.en)}</small>` : t === "soustředí" ? ` <small>Concentration</small>${konN && on ? ` <b class="kstrkon">· ${besc(konN)}</b>` : ""}` : ""}</span><button type="button" class="kstrs" role="switch" ${attr}="${besc(t)}" aria-checked="${on}" aria-label="${besc(cap(t))}: ${on ? "zapnuto" : "vypnuto"}"><i></i></button><span class="kstrv" aria-hidden="true"></span></summary>${txt ? `<p>${besc(cap(txt))}.</p>`.replace(/\.\.<\/p>$/, ".</p>") : ""}</details>`;
   };
@@ -1325,7 +1325,12 @@ function kZbrUziti(c, S) {
     N = c.N,
     o = {};
   if (N.z && BZBR[N.z.dr]) {
-    const mx = parseInt(BZBR[N.z.dr][1], 10) || 1;
+    /* Mistr těžké zbroje (Artikule 2026-10-24): těžká zbroj snese o 1 obětování víc; adamantinová a mizziová zbroj
+       o 2 víc (Artikule › Kouzla a předměty, místo změny každého kritu v běžný zásah) */
+    const mx =
+      (parseInt(BZBR[N.z.dr][1], 10) || 1) +
+      (N.z.max == null && c.maRys && c.maRys(/^heavy armor master$/) ? 1 : 0) +
+      (/\b(adamantine|mizzium|adamantinov\p{L}*|mizziov\p{L}*)\b/iu.test(N.z.n || "") ? 2 : 0);
     o.z = {k: N.z.dr, n: N.z.n, max: mx, u: Math.min(mx, +U[N.z.dr] || 0)};
     if (o.z.u >= mx) N.z = null;
   }
@@ -1617,9 +1622,9 @@ function bdmRysy(K) {
   return `<h4 class="bdmgh">S aktivací a počtem použití</h4>${ak}${vse ? `<details class="bdmbez"><summary>Ostatní rysy</summary><div class="bdmrysy">${vse}</div></details>` : ""}`;
 }
 /* vlastnost v bojové kartě (2026-10-23): mince se zkratkou | skóre | modifikátor (ověření, velký) | záchrana ve štítku
-   (plný zlatý štítek = zdatnost v záchraně); mince `art/img/atributy/<str|agi|…>-48/96.webp`, prompty v projektu
+   (plný zlatý štítek = zdatnost v záchraně); mince `art/img/atributy/<str|dex|…>-48/96.webp`, prompty v projektu
    `grafika/ikony-atributu-prompty.md` */
-const BDMVLZ = {STR: "STR", AGI: "DEX", CON: "CON", INT: "INT", WIS: "WIS", CHA: "CHA"};
+const BDMVLZ = {STR: "STR", DEX: "DEX", CON: "CON", INT: "INT", WIS: "WIS", CHA: "CHA"};
 const BDMSTIT = `<svg viewBox="0 0 24 26" aria-hidden="true"><path d="M12 1.5l9 3.2v6.8c0 6-4.1 10-9 12.5-4.9-2.5-9-6.5-9-12.5V4.7z"/></svg>`;
 /* Zdatnost, Rychlost a Iniciativa nad vlastnostmi (2026-10-23, Vojta): stříbrná mince (art/img/atributy/pb|rych|ini) a hodnota,
    bez rámečku a popisku; název nese alt mince (čtečka), podrobnost popisek data-tip (myš i dotyk) */
@@ -1978,6 +1983,7 @@ function bdmPusobiHtml(K, stL0) {
 const BOJPC_MQ = matchMedia("(min-width:1280px)");
 const bojPcHrac = () => !GMV && mmNaHre() && BOJPC_MQ.matches;
 BOJPC_MQ.addEventListener("change", () => {
+  if (!BOJPC_MQ.matches) document.documentElement.classList.remove("mmpc");
   if (curView === "boj") bdmPrekresli();
 });
 function bojDbm(s, h, K, gm, vzdy, X) {
@@ -2076,7 +2082,7 @@ function bojDbm(s, h, K, gm, vzdy, X) {
     hlN = HU.info.length;
   const hlH =
     hl || nes
-      ? `<div class="bdmhl">${nes ? `<p class="khl bdmneshl">${BSTI[nes] ? bi(BSTI[nes][0]) : ""} <b>${nes[0].toUpperCase() + nes.slice(1)}${SRDST[nes] ? ` (${SRDST[nes].en})` : ""}:</b> nemůžeš provést akci, bonusovou akci ani reakci${/ochromen|zkamen|omráčen|chycen|zadržen/.test(nes) ? ", rychlost 0" : ""}. Stav zruší vypravěč nebo záchrana na konci tahu.</p>` : ""}${HU.ukol.length ? `<div class="bdmukol" role="region" aria-label="Čeká na tebe"><small class="bdmukolh">${bi("tah")} Čeká na tebe${HU.ukol.length > 1 ? ` · ${HU.ukol.length}` : ""}</small><div class="khlas">${HU.ukol.join("")}</div></div>` : ""}${hlN ? `<div class="bdminfo${hlN > 1 ? " bdmvic" : ""}${hlN > 1 && !hlO ? " bdmhlz" : ""}"><div class="khlas">${HU.info.join("")}</div>${hlN > 1 ? `<button type="button" class="bdmhlb" data-bdmhl aria-expanded="${hlO}">${hlO ? "méně" : `+${hlN - 1}`}</button>` : ""}</div>` : ""}</div>`
+      ? `<div class="bdmhl">${nes ? `<p class="khl bdmneshl">${BSTI[nes] ? bi(BSTI[nes][0]) : ""} <b>${nes[0].toUpperCase() + nes.slice(1)}${SRDST[nes] ? ` (${SRDST[nes].en})` : ""}:</b> nemůžeš provést akci, bonusovou akci ani reakci${/paralyzovan|zkamen|omráčen|chycen|spoután/.test(nes) ? ", rychlost 0" : ""}. Stav zruší vypravěč nebo záchrana na konci tahu.</p>` : ""}${HU.ukol.length ? `<div class="bdmukol" role="region" aria-label="Čeká na tebe"><small class="bdmukolh">${bi("tah")} Čeká na tebe${HU.ukol.length > 1 ? ` · ${HU.ukol.length}` : ""}</small><div class="khlas">${HU.ukol.join("")}</div></div>` : ""}${hlN ? `<div class="bdminfo${hlN > 1 ? " bdmvic" : ""}${hlN > 1 && !hlO ? " bdmhlz" : ""}"><div class="khlas">${HU.info.join("")}</div>${hlN > 1 ? `<button type="button" class="bdmhlb" data-bdmhl aria-expanded="${hlO}">${hlO ? "méně" : `+${hlN - 1}`}</button>` : ""}</div>` : ""}</div>`
       : "";
   /* lepkavý pruh: zúžená hlavička (při posunu) a záložky */
   const lep = `<div class="bdmlep"><div class="bdmmi"><span class="bdmmin">${besc(K.n)}</span><button type="button" class="bdmmac" data-bdmsh="ac" ${btip("AC – obětování zbroje")}>AC <b>${ac}</b></button>${hpB(" bdmmhp")}</div>

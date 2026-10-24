@@ -207,12 +207,14 @@ const GCH = {
   iniciativa: "Iniciativa a protivníci",
   vyzbroj: "Výzbroj",
   serm: "Šerm a zápas",
+  featy: "Featy",
+  kouzla: "Kouzla a předměty",
   zraneni: "Zranění a smrt",
   kriticka: "Kritická zranění",
 };
 const ARTB = [
   {id: "vira", t: "Kniha první", n: "Víra", d: "Ctnosti a hříchy, Závoj, Svědomí a Vyznání – co se děje s duší postavy."},
-  {id: "boj", t: "Kniha druhá", n: "Boj", d: "Iniciativa a protivníci, zbroj a zbraně, šerm a zápas."},
+  {id: "boj", t: "Kniha druhá", n: "Boj", d: "Iniciativa a protivníci, zbroj a zbraně, šerm a zápas, featy, kouzla a předměty."},
   {id: "rany", t: "Kniha třetí", n: "Rány", d: "Zranění, smrt, návrat a kritická zranění."},
   {id: "rejstrik", t: "Dodatek", n: "Rejstřík", d: "Slovníček pojmů, které Artikule používají."},
 ];
@@ -595,7 +597,7 @@ const ARTK = [
         id: "vydrz",
         t: "Výdrž a učení",
         h: `
-  <p>Podobně jako mágové sesílají kouzla za spellsloty, válečníci využívají pro techniky a chvaty <b>Výdrž (V)</b>. Fighter má Výdrž rovnou svému proficiency bonusu, ostatní uvedená povolání polovině proficiency bonusu. Výdrž se obnovuje Long Restem.</p>
+  <p>Podobně jako mágové sesílají kouzla za spellsloty, válečníci využívají pro techniky a chvaty <b>Výdrž (V)</b>. Fighter má Výdrž rovnou svému proficiency bonusu, ostatní uvedená povolání polovině proficiency bonusu. Výdrž se obnovuje Long Restem. Feat Martial Adept přidává 1 Výdrž (i postavě bez Výdrže z povolání).</p>
   <p>Učení techniky nebo chvatu vyžaduje nalezení šermířského mistra a úhradu poplatku. Každý mistr učí jen svou školu a jen toho, koho přijme.</p>
   ${note("Cena.", "„1V + Požehnání“ znamená, že techniku smíš použít, když na kostce Závoje padne Požehnání, a zaplatíš 1 bod Výdrže. „Pokušení nepřítele“ znamená, že Pokušení padlo soupeři.")}`,
       },
@@ -649,15 +651,15 @@ const ARTK = [
       [
         "Zápas s mečem <i>(Ringen am Schwert)</i>",
         "1V + Požehnání",
-        "Po zásahu zbraní jdeš nepříteli do těla. Cíl hází STR/AGI save: při neúspěchu je Restrained nebo Prone podle tvé volby.",
+        "Po zásahu zbraní jdeš nepříteli do těla. Cíl hází STR/DEX save: při neúspěchu je Restrained nebo Prone podle tvé volby.",
       ],
-      ["Hod přes bok", "1V + Požehnání", "Po zásahu Unarmed útokem hází cíl STR/AGI save: při neúspěchu je Restrained a Prone."],
+      ["Hod přes bok", "1V + Požehnání", "Po zásahu Unarmed útokem hází cíl STR/DEX save: při neúspěchu je Restrained a Prone."],
       [
         "Mordstösse",
         "1V + Požehnání",
         "Unarmed úder do hrdla nebo spánku: do konce svého příštího tahu cíl nemůže mluvit (nemůže kouzlit verbálně) a přichází o reakci.",
       ],
-      ["Zůstaň!", "1V + Požehnání", "Pokud je cíl Prone nebo Restrained, hází AGI save: při neúspěchu je znehybněn do konce tvého příštího tahu."],
+      ["Zůstaň!", "1V + Požehnání", "Pokud je cíl Prone nebo Restrained, hází DEX save: při neúspěchu je znehybněn do konce tvého příštího tahu."],
       [
         "Zlom <i>(Bruch)</i>",
         "1V + reakce",
@@ -671,7 +673,7 @@ const ARTK = [
       [
         "Zápas o zbraň",
         "1V + reakce",
-        "Když na tebe někdo útočí lehkou zbraní (dýka), hází STR/AGI save: při neúspěchu útok mine a zbraň máš ve svých rukou.",
+        "Když na tebe někdo útočí lehkou zbraní (dýka), hází STR/DEX save: při neúspěchu útok mine a zbraň máš ve svých rukou.",
       ],
       [
         "Zápas ve zbroji <i>(Ringen im Harnisch)</i>",
@@ -685,6 +687,118 @@ const ARTK = [
     ],
   },
   /* ======== KNIHA III · RÁNY ======== */
+  {
+    id: "featy",
+    book: "boj",
+    t: "Featy",
+    sum: "Úpravy featů z D&D 2024 a dalších příruček pro tažení.",
+    intro: `<p>Featy platí tak, jak jsou psané, s úpravami níže. Plné znění všech featů (i s těmito úpravami v rámečcích) najdeš po přihlášení v Pravidlech › <a href="#pravidla/mimo/mimo-featy">Doplňky › Featy</a>.</p>`,
+    secs: [
+      {
+        id: "featy-zasady",
+        t: "Obecné zásady",
+        h: `
+  <ul>
+    <li><b>Přehoz k20 nepřehazuje Závoj.</b> Když feat dovolí hod k20 opakovat (Lucky, Bountiful Luck, Second Chance, Survivor, Boon of Fortune's Favor, Elven Accuracy…), kostka Závoje zůstává z prvního hodu.</li>
+    <li><b>Zrušený krit nic nespouští.</b> Kritický zásah, který cíl obětováním zbroje či štítu změnil v běžný, nespouští přínosy navázané na kritický zásah (Crusher, Piercer, Slasher, Lords' Alliance Agent…).</li>
+    <li><b>Temné dary a Pokušení.</b> Když máš kvůli jedničce na k20 házet záchranný hod temného daru, smíš místo něj přijmout ${Z.P}: získáš bod hříchu a účinek nenastane.</li>
+  </ul>`,
+      },
+      {
+        id: "featy-upravy",
+        t: "Upravené featy",
+        h: `
+  ${tb(
+    ["Feat", "Úprava"],
+    [
+      [
+        "Alert",
+        "Výměnu iniciativy nahrazuje <b>Pohotovost</b>: jednou za boj uskutečníš svůj tah před tahem libovolného nepřítele; nepřítel jedná až po tobě.",
+      ],
+      [
+        "Heavy Armor Master",
+        "Těžká zbroj snese o 1 obětování víc, únava se ti v ní nezdvojnásobuje a obléknout ji zvládneš za polovinu času (10 minut, s panošem 5).",
+      ],
+      [
+        "Delicious Pain",
+        "<b>Zocelené tělo</b>: jednou za krátký či dlouhý odpočinek změníš kritický zásah v běžný, aniž bys obětoval zbroj nebo štít.",
+      ],
+      ["Polearm Master", "U zbraní s perkem Ratiště místo Pohotového úderu: bez nevýhody v kontaktním boji a zapření proti Vpřed! reakcí."],
+      ["Charger", "Bonus 1k8 se perkem Vpřed! nezdvojnásobuje."],
+      [
+        "Gunner",
+        "Zdatnost s píšťalou a hákovnicí; Nabíjení tě neomezuje, ale každé nabití stojí bonusovou akci; čištění po Pokušení u Hrom a kouř! tě nestojí akci.",
+      ],
+      [
+        "Healer (Felčar)",
+        "Počítáš se jako felčar (výhoda na CON záchranu po Těžkém kritickém zranění), krvácení zastavíš akcí Použití; postavu na 0 HP jen stabilizuješ.",
+      ],
+      ["Durable", "Výhoda i na CON záchranu proti vyčerpání po Těžkém či horším kritickém zranění."],
+      ["Martial Adept", "Místo manévrů dvě šermířské techniky nebo zápasnické chvaty (bez hledání mistra) a +1 Výdrž, i bez Výdrže z povolání."],
+      ["Boon of Irresistible Offense", "Ignoruje i Resistance zbroje."],
+    ],
+  )}
+  ${note("Vyřazeno.", "Revenant Blade (jméno patří featu Revenant pro Navrácené) a Fighting Initiate (bojové styly jsou v D&amp;D 2024 samy featy).")}`,
+      },
+    ],
+  },
+  {
+    id: "kouzla",
+    book: "boj",
+    t: "Kouzla a předměty",
+    sum: "Jak kouzla a kouzelné předměty z D&D sedí na Artikule.",
+    intro: `<p>Kouzla a kouzelné předměty platí tak, jak jsou psané, se zásadami a úpravami níže. Plné znění všech kouzel a předmětů (i s těmito úpravami v rámečcích) najdeš po přihlášení v Pravidlech › <a href="#pravidla/kouzla">Kouzla</a> a <a href="#pravidla/predmety-plne">Předměty</a>.</p>`,
+    secs: [
+      {
+        id: "kouzla-zasady",
+        t: "Obecné zásady",
+        h: `
+  <ul>
+    <li><b>Léčení na 0 HP jen stabilizuje.</b> Platí pro všechna kouzla, lektvary i předměty (Healing Word, Potion of Healing…). Do boje vrací jen Lesser a Greater Restoration a kouzla 9. stupně, která to výslovně dělají (Power Word Heal, Mass Heal, Wish).</li>
+    <li><b>Každý návrat z mrtvých je vzkříšení.</b> Smí se jen jednou a zanechá Znamení návratu – i Revivify, Reincarnate, Clone, Wish a předměty jako Rod of Resurrection. Oživený Revivify je do konce boje mimo hru. Ani True Resurrection nepřekoná druhé vzkříšení ani Rozervanou duši; to umí jen zázrak.</li>
+    <li><b>Pohlcená či zničená duše je Rozervaná duše.</b> Koho pohltí Blackrazor, Soul Coin či podobný předmět, toho běžná kouzla nevzkřísí.</li>
+    <li><b>Okamžitá smrt nezabíjí postavy ani soky.</b> Power Word Kill, Vorpal Sword, Snicker-Snack a podobné: místo smrti Smrtelné kritické zranění. Pacholek umírá.</li>
+    <li><b>Zabránění pádu na 0 HP</b> (Death Ward, Lifewell Tattoo…): zůstaneš na 1 HP a při vědomí, ale hod na kritické zranění a úroveň vyčerpání platí.</li>
+    <li><b>Zrušený krit nic nespouští.</b> Účinky kritického zásahu či přirozené 20 nenastanou, když cíl krit obětováním zbroje či štítu změní v běžný. Rozšířený rozsah kritu se s perkem Ostrá nesčítá (nejvýš 19–20); nastavená 20 není přirozená 20.</li>
+    <li><b>Kritická zranění a magie.</b> Lesser Restoration vyléčí Těžké zranění, Greater Restoration a Heal Vážné, Regenerate obnoví ztracenou končetinu. Raise Dead trvalé následky nehojí, Resurrection ano. Protézy vyrobí a nasadí jen mistr.</li>
+    <li><b>Odolnost a zbroj.</b> Odolnost vůči drtivému, bodnému a sečnému zranění z kouzla či předmětu (Stoneskin, Armor of Invulnerability…) se se zbrojí nesčítá; kdo ji už má ze zbroje, získá místo ní toto: na jeho odolnost nepůsobí perky Drtivá a Průrazná. Zbraně, které ignorují odolnost vůči sečnému zranění, prorazí i zbroj. Magické typy zranění zbroj nepůlí.</li>
+    <li><b>AC bez zbroje</b> (Mage Armor, Barkskin, Bracers of Defense…) dává jen AC – žádnou odolnost a nic, co by šlo obětovat.</li>
+    <li><b>Iniciativa.</b> Výhoda či bonus k iniciativě z předmětů a kouzel je <b>Pohotovost</b> jako u Alertu: jednou za boj uskutečníš svůj tah před tahem libovolného nepřítele. Přivolaní tvorové jednají ve slotu svého pána hned po něm; vymknou-li se, ve slotech vypravěče.</li>
+    <li><b>Kostka Závoje.</b> Přehoz či úprava hodu k20 (Silvery Barbs, Luck Blade, „považuj za 10“…) Závoj nemění – platí výsledek z původního hodu.</li>
+    <li><b>Vyčerpání.</b> Imunita vůči vyčerpání z předmětu chrání jen před vyčerpáním z námahy a ze zbroje, ne ze zranění a z pádu na 0 HP.</li>
+    <li><b>Houfy.</b> Tři a víc stejných přivolaných či oživených tvorů (Animate Dead, Summon Lesser Demons…) jedná jako houf pacholků; kouzlo na víc cílů (Mass Suggestion) bere houf jako jeden cíl.</li>
+    <li><b>Kosmologie.</b> Sféry jsou místa za Závojem: Horní sféry jsou Nebe; Devět pekel, Propast a Avernus jsou Peklo; Vílí divočina a Stínopád jsou říše víl a mrtvých. Na Commune, Divination či Planar Ally odpovídá ten, ke komu se postava modlí podle vyznání. Vyvolat ďábla či démona je všední hřích. Bohové jiných světů jsou Staří bohové starověrců; přínosy podmíněné zbožností dostane postava se Svědomím V milosti.</li>
+    <li><b>Draci</b> jsou plemena podle živlu, ne barvy: oheň (červený, zlatý, mosazný) plivník či etnský drak, kyselina (černý, měděný) bojištník, jed (zelený) ostnatka či lindwurm, blesk (modrý, bronzový) hromová saň, mráz (bílý, stříbrný) firnový drak.</li>
+    <li><b>Doba 1458.</b> Pistol je píšťala, Musket hákovnice; jiné palné zbraně, lodě do vesmíru, vzducholodě a moderní technika v tažení nejsou. Střelný prach je obyčejná nemagická věc. Platina a elektrum nejsou ani v cenách, ani ve složkách kouzel.</li>
+  </ul>`,
+      },
+      {
+        id: "kouzla-upravy",
+        t: "Upravená kouzla a předměty",
+        h: `
+  ${tb(
+    ["Kouzlo či předmět", "Úprava"],
+    [
+      ["Adamantine Armor, Mizzium Armor", "Místo změny každého kritického zásahu snese zbroj o 2 obětování víc."],
+      ["Guardian Emblem", "Jednou denně reakcí změníš krit proti sobě či spojenci do 30 stop v běžný zásah bez obětování zbroje."],
+      [
+        "Mithral Armor, Elven Chain",
+        "Ruší i postihy těžké zbroje z Artikulí (dvojité vyčerpání, spánek ve zbroji, dlouhé oblékání); odolnost a obětování zůstávají.",
+      ],
+      ["Spiked Armor", "Kroužková zbroj: odolnost vůči drtivému a sečnému zranění, obětování 2×."],
+      ["Mending", "Obětovanou zbroj ani štít neopraví – jen kovář."],
+      ["Gift of Alacrity", "Místo +1k8 k iniciativě Pohotovost (jednou za dobu trvání)."],
+      ["Shield of the Tortoise", "Kletba: prokletý hraje vždy v posledním slotu kola."],
+      ["Periapt of Wound Closure", "Hod proti smrti 9 a nižší smíš změnit na 10 jen jednou denně."],
+      ["Blade of Disaster", "Krit na 18–20 je výjimka kouzla 9. stupně."],
+      ["Charlatan's Die", "Nelze ji použít jako Kostku Závoje."],
+      ["Repeating Shot, Sniper's Bracelet", "Píšťala a hákovnice se nabíjejí podle Artikulí i s kouzelným střelivem."],
+    ],
+  )}
+  ${note("Vyřazeno.", "Lodě do vesmíru a jejich kormidla (Spelljammer), vzducholodě, vysílačka Fargab, granáty s granátometem a platina jako zboží; ze seznamů základních zbraní pušky, revolvery, brokovnice a laserové zbraně.")}`,
+      },
+    ],
+  },
   {
     id: "zraneni",
     book: "rany",
@@ -799,7 +913,7 @@ const ARTK = [
       [
         "Paže",
         "<b>Rána přes prsty</b> – upustíš, co držíš",
-        "<b>Zlomenina</b> – nevýhoda na STR/AGI skillchecky",
+        "<b>Zlomenina</b> – nevýhoda na STR/DEX skillchecky",
         "<b>Rozdrcené předloktí</b> – nevýhoda na útoky + krvácení d8",
         "<b>Useknutá paže</b>",
       ],
@@ -832,7 +946,7 @@ const ARTK = [
       [
         "Mráz",
         "<b>Ztuhlé údy</b> – poloviční pohyb",
-        "<b>Zkřehlé údy</b> – nevýhoda na AGI saves",
+        "<b>Zkřehlé údy</b> – nevýhoda na DEX saves",
         "<b>Prsty z ledu</b> – nevýhoda na attack rolls",
         "<b>Zamrzlé srdce</b>",
       ],

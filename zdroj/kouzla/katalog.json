@@ -2,7 +2,7 @@
  {
   "en": "Acid Splash",
   "l": 0,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Okamžité",
@@ -13,13 +13,13 @@
    "S"
   ],
   "m": "",
-  "t": "Koule poloměru 5 stop se středem v bodě dosahu. Každá bytost uvnitř AGI záchranný hod, jinak 1d6 Acid zranění.\n\n**Zesílení triku.** Zranění se zvýší na 2d6 na 5. úrovni postavy, na 3d6 na 11. a na 4d6 na 17. úrovni.",
+  "t": "Koule poloměru 5 stop se středem v bodě dosahu. Každá bytost uvnitř DEX záchranný hod, jinak 1d6 Acid zranění.\n\n**Zesílení triku.** Zranění se zvýší na 2d6 na 5. úrovni postavy, na 3d6 na 11. a na 4d6 na 17. úrovni.",
   "v": ""
  },
  {
   "en": "Blade Ward",
   "l": 0,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 1 minutu",
@@ -36,7 +36,7 @@
  {
   "en": "Booming Blade",
   "l": 0,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe (poloměr 5 stop)",
   "d": "1 kolo",
@@ -76,7 +76,7 @@
  {
   "en": "Control Flames",
   "l": 0,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Okamžité nebo 1 hodina",
@@ -109,7 +109,7 @@
    "S"
   ],
   "m": "",
-  "t": "Viditelná krychle na zemi o hraně 5 stop. Při vytvoření, prvním vstupu v tahu nebo konci tahu uvnitř: AGI záchranný hod, jinak 1d8 Fire zranění. Zapaluje hořlavé nenesené a nenošené předměty.\n\n**Zesílení triku.** Zranění se zvýší na 2d8 na 5. úrovni postavy, na 3d8 na 11. a na 4d8 na 17. úrovni.",
+  "t": "Viditelná krychle na zemi o hraně 5 stop. Při vytvoření, prvním vstupu v tahu nebo konci tahu uvnitř: DEX záchranný hod, jinak 1d8 Fire zranění. Zapaluje hořlavé nenesené a nenošené předměty.\n\n**Zesílení triku.** Zranění se zvýší na 2d8 na 5. úrovni postavy, na 3d8 na 11. a na 4d8 na 17. úrovni.",
   "v": "",
   "cz": "Vatra",
   "p": [
@@ -140,7 +140,7 @@
  {
   "en": "Druidcraft",
   "l": 0,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "30 stop",
   "d": "Okamžité",
@@ -157,7 +157,7 @@
  {
   "en": "Eldritch Blast",
   "l": 0,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Okamžité",
@@ -194,7 +194,7 @@
  {
   "en": "Fire Bolt",
   "l": 0,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Okamžité",
@@ -222,13 +222,13 @@
    "M"
   ],
   "m": "líčidla",
-  "t": "Viditelný cíl WIS záchranný hod, jinak tebou zmámen. Automaticky uspěje nehumanoid, cíl v boji s tebou nebo cíl tohoto kouzla od tebe za posledních 24 hodin. Konec při zranění cíle nebo když ty hodíš útok, způsobíš zranění či vynutíš komukoli záchranu. Po konci cíl ví o zmámení.",
+  "t": "Viditelný cíl WIS záchranný hod, jinak tebou okouzlen. Automaticky uspěje nehumanoid, cíl v boji s tebou nebo cíl tohoto kouzla od tebe za posledních 24 hodin. Konec při zranění cíle nebo když ty hodíš útok, způsobíš zranění či vynutíš komukoli záchranu. Po konci cíl ví o okouzlení.",
   "v": ""
  },
  {
   "en": "Frostbite",
   "l": 0,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Okamžité",
@@ -252,7 +252,7 @@
  {
   "en": "Green-Flame Blade",
   "l": 0,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe (poloměr 5 stop)",
   "d": "Okamžité",
@@ -292,7 +292,7 @@
  {
   "en": "Gust",
   "l": 0,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "30 stop",
   "d": "Okamžité",
@@ -340,7 +340,7 @@
  {
   "en": "Light",
   "l": 0,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "1 hodina",
@@ -357,7 +357,7 @@
  {
   "en": "Lightning Lure",
   "l": 0,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe (poloměr 15 stop)",
   "d": "Okamžité",
@@ -396,7 +396,7 @@
  {
   "en": "Magic Stone",
   "l": 0,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Bonusová akce",
   "r": "Dotyk",
   "d": "1 minuta",
@@ -418,7 +418,7 @@
  {
   "en": "Mending",
   "l": 0,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "1 minuta",
   "r": "Dotyk",
   "d": "Okamžité",
@@ -436,7 +436,7 @@
  {
   "en": "Message",
   "l": 0,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "120 stop",
   "d": "1 kolo",
@@ -486,7 +486,7 @@
  {
   "en": "Mold Earth",
   "l": 0,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "30 stop",
   "d": "Okamžité nebo 1 hodina",
@@ -525,7 +525,7 @@
  {
   "en": "Prestidigitation",
   "l": 0,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "10 stop",
   "d": "Až 1 hodinu",
@@ -542,7 +542,7 @@
  {
   "en": "Primal Savagery",
   "l": 0,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Okamžité",
@@ -579,7 +579,7 @@
  {
   "en": "Ray of Frost",
   "l": 0,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Okamžité",
@@ -596,7 +596,7 @@
  {
   "en": "Resistance",
   "l": 0,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "Concentration, až 1 minutu",
@@ -613,7 +613,7 @@
  {
   "en": "Sacred Flame",
   "l": 0,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Okamžité",
@@ -624,7 +624,7 @@
    "S"
   ],
   "m": "",
-  "t": "Viditelný cíl: AGI bez výhody z krytu, jinak 1d8 Radiant zranění.\n\n**Zesílení triku.** Zranění se zvýší na 2d8 na 5. úrovni postavy, na 3d8 na 11. a na 4d8 na 17. úrovni.",
+  "t": "Viditelný cíl: DEX bez výhody z krytu, jinak 1d8 Radiant zranění.\n\n**Zesílení triku.** Zranění se zvýší na 2d8 na 5. úrovni postavy, na 3d8 na 11. a na 4d8 na 17. úrovni.",
   "v": ""
  },
  {
@@ -654,7 +654,7 @@
  {
   "en": "Shape Water",
   "l": 0,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "30 stop",
   "d": "Okamžité nebo 1 hodina",
@@ -676,7 +676,7 @@
  {
   "en": "Shillelagh",
   "l": 0,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Bonusová akce",
   "r": "Sebe",
   "d": "1 minuta",
@@ -694,7 +694,7 @@
  {
   "en": "Shocking Grasp",
   "l": 0,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "Okamžité",
@@ -738,7 +738,7 @@
    "V"
   ],
   "m": "",
-  "t": "Všechny ostatní bytosti do 5 stop: AGI záchranný hod, jinak 1d6 Force zranění.\n\n**Zesílení triku.** Zranění se zvýší na 2d6 na 5. úrovni postavy, na 3d6 na 11. a na 4d6 na 17. úrovni.",
+  "t": "Všechny ostatní bytosti do 5 stop: DEX záchranný hod, jinak 1d6 Force zranění.\n\n**Zesílení triku.** Zranění se zvýší na 2d6 na 5. úrovni postavy, na 3d6 na 11. a na 4d6 na 17. úrovni.",
   "v": "",
   "cz": "Výbuch mečů",
   "p": [
@@ -750,7 +750,7 @@
  {
   "en": "Thaumaturgy",
   "l": 0,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "30 stop",
   "d": "Až 1 minutu",
@@ -766,7 +766,7 @@
  {
   "en": "Thorn Whip",
   "l": 0,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "30 stop",
   "d": "Okamžité",
@@ -784,7 +784,7 @@
  {
   "en": "Thunderclap",
   "l": 0,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Okamžité",
@@ -828,7 +828,7 @@
    "M"
   ],
   "m": "zbraň, s níž jsi zdatný a která má hodnotu alespoň 1 md.",
-  "t": "Součástí seslání zaútočíš jednou použitou zbraní. Pro útok i zranění používáš sesílací vlastnost místo STR/AGI. Při zranění volíš zářivé nebo běžný typ zbraně.",
+  "t": "Součástí seslání zaútočíš jednou použitou zbraní. Pro útok i zranění používáš sesílací vlastnost místo STR/DEX. Při zranění volíš zářivé nebo běžný typ zbraně.",
   "v": "Úroveň postavy 5/11/17 přidá 1/2/3d6 Radiant zranění bez ohledu na zvolený základní typ."
  },
  {
@@ -850,7 +850,7 @@
  {
   "en": "Word of Radiance",
   "l": 0,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Okamžité",
@@ -871,7 +871,7 @@
  {
   "en": "Absorb Elements",
   "l": 1,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Reakce",
   "r": "Sebe",
   "d": "1 kolo",
@@ -894,7 +894,7 @@
  {
   "en": "Alarm",
   "l": 1,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "1 minuta",
   "r": "30 stop",
   "d": "8 hodin",
@@ -924,13 +924,13 @@
    "M"
   ],
   "m": "sousto jídla",
-  "t": "Viditelné zvíře WIS záchranný hod, jinak tebou zmámeno po dobu kouzla. Zranění tebou nebo spojencem účinek ukončí.",
+  "t": "Viditelné zvíře WIS záchranný hod, jinak tebou okouzleno po dobu kouzla. Zranění tebou nebo spojencem účinek ukončí.",
   "v": "+1 zvíře za každou úroveň slotu kouzla nad 1."
  },
  {
   "en": "Armor of Agathys",
   "l": 1,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Bonusová akce",
   "r": "Sebe",
   "d": "1 hodina",
@@ -995,7 +995,7 @@
    "M"
   ],
   "m": "kousek srsti zabalený v látce",
-  "t": "Dotčené přátelské či tebou zmámené zvíře s INT≤3 naváže telepatii, dokud na sebe vidíte. Rozumí tvým zprávám, odpovídá jednoduchými emocemi a pojmy. Má výhodu proti bytostem do 5 stop od tebe, které vidíš.",
+  "t": "Dotčené přátelské či tebou okouzlené zvíře s INT≤3 naváže telepatii, dokud na sebe vidíte. Rozumí tvým zprávám, odpovídá jednoduchými emocemi a pojmy. Má výhodu proti bytostem do 5 stop od tebe, které vidíš.",
   "v": "",
   "cz": "Pouto se zvířetem",
   "p": [
@@ -1024,7 +1024,7 @@
  {
   "en": "Burning Hands",
   "l": 1,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Okamžité",
@@ -1035,13 +1035,13 @@
    "S"
   ],
   "m": "",
-  "t": "Kužel 15 stop: AGI záchranný hod; při neúspěchu utrpí 3d6 Fire zranění, při úspěchu poloviční zranění. Zapaluje nenesené a nenošené hořlaviny.",
+  "t": "Kužel 15 stop: DEX záchranný hod; při neúspěchu utrpí 3d6 Fire zranění, při úspěchu poloviční zranění. Zapaluje nenesené a nenošené hořlaviny.",
   "v": "Zranění se zvýší o 1d6 za každou úroveň slotu kouzla nad 1."
  },
  {
   "en": "Catapult",
   "l": 1,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Okamžité",
@@ -1051,7 +1051,7 @@
    "S"
   ],
   "m": "",
-  "t": "Nenesený předmět 1–5 liber vystřelí až 90 stop přímým směrem od svého místa. Pevný povrch jej zastaví; bytost v cestě AGI, při úspěchu let pokračuje. Při nárazu předmět i zasažený cíl 3d8 Bludgeoning zranění a konec letu.",
+  "t": "Nenesený předmět 1–5 liber vystřelí až 90 stop přímým směrem od svého místa. Pevný povrch jej zastaví; bytost v cestě DEX, při úspěchu let pokračuje. Při nárazu předmět i zasažený cíl 3d8 Bludgeoning zranění a konec letu.",
   "v": "Maximální hmotnost +5 liber a zranění +1d8 za každou úroveň slotu kouzla nad 1.",
   "cz": "Katapult",
   "p": [
@@ -1072,7 +1072,7 @@
    "V"
   ],
   "m": "",
-  "t": "Viditelný cíl kromě nemrtvého/výtvoru: WIS záchranný hod, jinak vystrašen tebou; opakuje na konci každého svého tahu, úspěch končí.",
+  "t": "Viditelný cíl kromě nemrtvého/výtvoru: WIS záchranný hod, jinak vyděšen tebou; opakuje na konci každého svého tahu, úspěch končí.",
   "v": "Můžeš zacílit jednoho dalšího tvora za každou úroveň slotu kouzla nad 1, vzájemně do 30 stop.",
   "cz": "Nahnání strachu",
   "p": [
@@ -1083,7 +1083,7 @@
  {
   "en": "Ceremony",
   "l": 1,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "1 hodina",
   "r": "Dotyk",
   "d": "Okamžité (viz účinek)",
@@ -1106,7 +1106,7 @@
  {
   "en": "Chaos Bolt",
   "l": 1,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Okamžité",
@@ -1138,13 +1138,13 @@
    "S"
   ],
   "m": "",
-  "t": "Viditelný humanoid WIS s výhodou při boji s tebou/spojenci; neúspěch zmámen tebou a přátelský. Zranění tebou/spojenci ukončí. Po konci ví o zmámení.",
+  "t": "Viditelný humanoid WIS s výhodou při boji s tebou/spojenci; neúspěch okouzlen tebou a přátelský. Zranění tebou/spojenci ukončí. Po konci ví o okouzlení.",
   "v": "Můžeš zacílit jednoho dalšího tvora za každou úroveň slotu kouzla nad 1; cíle nemusí být do 30 stop od sebe."
  },
  {
   "en": "Chromatic Orb",
   "l": 1,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "90 stop",
   "d": "Okamžité",
@@ -1230,7 +1230,7 @@
  {
   "en": "Create or Destroy Water",
   "l": 1,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "30 stop",
   "d": "Okamžité",
@@ -1248,7 +1248,7 @@
  {
   "en": "Cure Wounds",
   "l": 1,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "Okamžité",
@@ -1372,7 +1372,7 @@
  {
   "en": "Divine Favor",
   "l": 1,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Bonusová akce",
   "r": "Sebe",
   "d": "1 minuta",
@@ -1389,7 +1389,7 @@
  {
   "en": "Earth Tremor",
   "l": 1,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe (poloměr 10 stop)",
   "d": "Okamžité",
@@ -1400,7 +1400,7 @@
    "S"
   ],
   "m": "",
-  "t": "Ostatní bytosti na zemi do 10 stop: AGI záchranný hod, jinak 1d6 Bludgeoning zranění a pád. Sypká hlína/kámen se stane obtížným terénem do odklizení.",
+  "t": "Ostatní bytosti na zemi do 10 stop: DEX záchranný hod, jinak 1d6 Bludgeoning zranění a pád. Sypká hlína/kámen se stane obtížným terénem do odklizení.",
   "v": "Zranění se zvýší o 1d6 za každou úroveň slotu kouzla nad 1.",
   "cz": "Otřes země",
   "p": [
@@ -1423,7 +1423,7 @@
    "V"
   ],
   "m": "",
-  "t": "Bonusová akce ihned po zásahu bytosti zbraní. Cíl STR (Large a větší výhoda), jinak zadržen a na začátku každého svého tahu 1d6 Piercing zranění. Úspěch kouzlo ukončí. Cíl či někdo v dosahu jej akcí a STR (Atletika) proti tvému SO kouzel osvobodí a ukončí kouzlo.",
+  "t": "Bonusová akce ihned po zásahu bytosti zbraní. Cíl STR (Large a větší výhoda), jinak spoután a na začátku každého svého tahu 1d6 Piercing zranění. Úspěch kouzlo ukončí. Cíl či někdo v dosahu jej akcí a STR (Atletika) proti tvému SO kouzel osvobodí a ukončí kouzlo.",
   "v": "Opakované zranění +1d6 za každou úroveň slotu kouzla nad 1."
  },
  {
@@ -1440,13 +1440,13 @@
    "S"
   ],
   "m": "",
-  "t": "Čtverec země 20 stop je obtížný terén. Přítomné bytosti kromě tebe STR záchranný hod, jinak zadrženy. Zadržený se akcí a STR (Atletika) proti tvému SO kouzel osvobodí. Rostliny koncem kouzla zmizí.",
+  "t": "Čtverec země 20 stop je obtížný terén. Přítomné bytosti kromě tebe STR záchranný hod, jinak spoutány. Spoutaný se akcí a STR (Atletika) proti tvému SO kouzel osvobodí. Rostliny koncem kouzla zmizí.",
   "v": ""
  },
  {
   "en": "Expeditious Retreat",
   "l": 1,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Bonusová akce",
   "r": "Sebe",
   "d": "Concentration, až 10 minut",
@@ -1463,7 +1463,7 @@
  {
   "en": "Faerie Fire",
   "l": 1,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Concentration, až 1 minutu",
@@ -1473,7 +1473,7 @@
    "V"
   ],
   "m": "",
-  "t": "Krychle 20 stop: předměty automaticky a bytosti při neúspěšné AGI obrysově svítí 10 stop slabě. Vidí-li útočník obrysový cíl, má výhodu; cíl netěží z neviditelnosti.",
+  "t": "Krychle 20 stop: předměty automaticky a bytosti při neúspěšné DEX obrysově svítí 10 stop slabě. Vidí-li útočník obrysový cíl, má výhodu; cíl netěží z neviditelnosti.",
   "v": ""
  },
  {
@@ -1497,7 +1497,7 @@
  {
   "en": "Feather Fall",
   "l": 1,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Reakce",
   "r": "60 stop",
   "d": "1 minuta",
@@ -1570,7 +1570,7 @@
  {
   "en": "Frost Fingers",
   "l": 1,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe (kužel 15 stop)",
   "d": "Okamžité",
@@ -1645,13 +1645,13 @@
    "M"
   ],
   "m": "kousek vepřové kůže nebo másla",
-  "t": "Nehořlavá mastnota pokryje čtverec země 10 stop a učiní jej obtížným terénem. Při vzniku, vstupu bytosti nebo konci jejího tahu uvnitř AGI záchranný hod, jinak ležení. Bez soustředění.",
+  "t": "Nehořlavá mastnota pokryje čtverec země 10 stop a učiní jej obtížným terénem. Při vzniku, vstupu bytosti nebo konci jejího tahu uvnitř DEX záchranný hod, jinak ležení. Bez soustředění.",
   "v": ""
  },
  {
   "en": "Guiding Bolt",
   "l": 1,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "120 stop",
   "d": "1 kolo",
@@ -1678,13 +1678,13 @@
    "V"
   ],
   "m": "",
-  "t": "Bonusová akce ihned po zásahu bytosti zbraní na dálku. Cíl a každá bytost do 5 stop od něj AGI záchranný hod; při neúspěchu utrpí 1d10 Piercing zranění, při úspěchu poloviční zranění.",
+  "t": "Bonusová akce ihned po zásahu bytosti zbraní na dálku. Cíl a každá bytost do 5 stop od něj DEX záchranný hod; při neúspěchu utrpí 1d10 Piercing zranění, při úspěchu poloviční zranění.",
   "v": "Zranění se zvýší o 1d10 za každou úroveň slotu kouzla nad 1; bez dřívějšího stropu 6d10."
  },
  {
   "en": "Healing Word",
   "l": 1,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Bonusová akce",
   "r": "60 stop",
   "d": "Okamžité",
@@ -1700,7 +1700,7 @@
  {
   "en": "Hellish Rebuke",
   "l": 1,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Reakce",
   "r": "60 stop",
   "d": "Okamžité",
@@ -1711,7 +1711,7 @@
    "S"
   ],
   "m": "",
-  "t": "Reakce na zranění od viditelné bytosti do 60 stop. Její AGI záchranný hod; při neúspěchu utrpí 2d10 Fire zranění, při úspěchu poloviční zranění.",
+  "t": "Reakce na zranění od viditelné bytosti do 60 stop. Její DEX záchranný hod; při neúspěchu utrpí 2d10 Fire zranění, při úspěchu poloviční zranění.",
   "v": "Zranění se zvýší o 1d10 za každou úroveň slotu kouzla nad 1."
  },
  {
@@ -1800,7 +1800,7 @@
    "M"
   ],
   "m": "kapka vody nebo kousek ledu",
-  "t": "Útok kouzlem na dálku: zásah 1d10 Piercing zranění. Bez ohledu na zásah vybuchne: cíl a bytosti do 5 stop od výbuchu AGI záchranný hod, jinak 2d6 Cold zranění; úspěch bez chladu.",
+  "t": "Útok kouzlem na dálku: zásah 1d10 Piercing zranění. Bez ohledu na zásah vybuchne: cíl a bytosti do 5 stop od výbuchu DEX záchranný hod, jinak 2d6 Cold zranění; úspěch bez chladu.",
   "v": "Pouze chlad +1d6 za každou úroveň slotu kouzla nad 1."
  },
  {
@@ -1858,7 +1858,7 @@
  {
   "en": "Jim's Magic Missile",
   "l": 1,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Okamžité",
@@ -1880,7 +1880,7 @@
  {
   "en": "Jump",
   "l": 1,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Bonusová akce",
   "r": "Dotyk",
   "d": "1 minuta",
@@ -1898,7 +1898,7 @@
  {
   "en": "Longstrider",
   "l": 1,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "1 hodina",
@@ -1916,7 +1916,7 @@
  {
   "en": "Mage Armor",
   "l": 1,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "8 hodin",
@@ -1928,13 +1928,13 @@
    "M"
   ],
   "m": "kousek vydělané kůže",
-  "t": "Dotkneš se ochotné bytosti, která nenosí zbroj. Její základní AC se změní na 13 + modifikátor AGI. Pokud si oblékne zbroj, kouzlo skončí.",
+  "t": "Dotkneš se ochotné bytosti, která nenosí zbroj. Její základní AC se změní na 13 + modifikátor DEX. Pokud si oblékne zbroj, kouzlo skončí.",
   "v": ""
  },
  {
   "en": "Magic Missile",
   "l": 1,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Okamžité",
@@ -1951,7 +1951,7 @@
  {
   "en": "Magnify Gravity",
   "l": 1,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "60 stop",
   "d": "1 kolo",
@@ -1975,7 +1975,7 @@
  {
   "en": "Protection from Evil and Good",
   "l": 1,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "Concentration, až 10 minut",
@@ -1993,7 +1993,7 @@
  {
   "en": "Purify Food and Drink",
   "l": 1,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "10 stop",
   "d": "Okamžité",
@@ -2027,7 +2027,7 @@
  {
   "en": "Sanctuary",
   "l": 1,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Bonusová akce",
   "r": "30 stop",
   "d": "1 minuta",
@@ -2045,7 +2045,7 @@
  {
   "en": "Searing Smite",
   "l": 1,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Bonusová akce",
   "r": "Sebe",
   "d": "1 minuta",
@@ -2061,7 +2061,7 @@
  {
   "en": "Shield",
   "l": 1,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Reakce",
   "r": "Sebe",
   "d": "1 kolo",
@@ -2078,7 +2078,7 @@
  {
   "en": "Shield of Faith",
   "l": 1,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Bonusová akce",
   "r": "60 stop",
   "d": "Concentration, až 10 minut",
@@ -2154,7 +2154,7 @@
  {
   "en": "Snare",
   "l": 1,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "1 minuta",
   "r": "Dotyk",
   "d": "8 hodin",
@@ -2165,7 +2165,7 @@
    "M"
   ],
   "m": "25 stop lana, které kouzlo spotřebuje",
-  "t": "Past na zemi s poloměrem 5 stop. Vstoupivší Small až Large bytost: AGI záchranný hod, jinak visí hlavou dolů 3 stopy nad zemí a je zadržená. Záchranu opakuje na konci každého svého tahu. Ona nebo dosažitelný pomocník může akcí ověřit INT (Mystika) proti tvému SO kouzel a osvobodit ji. Odhalení vyžaduje INT (Pátrání) proti tvému SO kouzel. Po spuštění skončí, jakmile nikoho nedrží.",
+  "t": "Past na zemi s poloměrem 5 stop. Vstoupivší Small až Large bytost: DEX záchranný hod, jinak visí hlavou dolů 3 stopy nad zemí a je spoutaná. Záchranu opakuje na konci každého svého tahu. Ona nebo dosažitelný pomocník může akcí ověřit INT (Mystika) proti tvému SO kouzel a osvobodit ji. Odhalení vyžaduje INT (Pátrání) proti tvému SO kouzel. Po spuštění skončí, jakmile nikoho nedrží.",
   "v": "",
   "cz": "Léčka",
   "p": [
@@ -2194,7 +2194,7 @@
  {
   "en": "Tasha's Caustic Brew",
   "l": 1,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe (čára 30 stop)",
   "d": "Concentration, až 1 minutu",
@@ -2206,7 +2206,7 @@
    "M"
   ],
   "m": "kousek zkaženého jídla",
-  "t": "Čára 30 × 5 stop: AGI záchranný hod, jinak pokrytí kyselinou, 2d4 Acid zranění na začátku každého svého tahu. Akcí lze kyselinu odstranit sobě či jiné bytosti.",
+  "t": "Čára 30 × 5 stop: DEX záchranný hod, jinak pokrytí kyselinou, 2d4 Acid zranění na začátku každého svého tahu. Akcí lze kyselinu odstranit sobě či jiné bytosti.",
   "v": "Zranění se zvýší o 2d4 za každou úroveň slotu kouzla nad 1.",
   "cz": "Tašin leptavý odvar",
   "p": [
@@ -2217,7 +2217,7 @@
  {
   "en": "Thunderous Smite",
   "l": 1,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Bonusová akce",
   "r": "Sebe",
   "d": "Okamžité",
@@ -2233,7 +2233,7 @@
  {
   "en": "Thunderwave",
   "l": 1,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Okamžité",
@@ -2268,7 +2268,7 @@
  {
   "en": "Witch Bolt",
   "l": 1,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Concentration, až 1 minutu",
@@ -2296,13 +2296,13 @@
    "V"
   ],
   "m": "",
-  "t": "Bonusová akce ihned po zásahu bytosti zbraní na blízko/neozbrojeným úderem: +1d6 Necrotic zranění a WIS záchranný hod, jinak vystrašení. Koncem svých tahů opakuje WIS záchranný hod pro ukončení účinku. Bez soustředění.",
+  "t": "Bonusová akce ihned po zásahu bytosti zbraní na blízko/neozbrojeným úderem: +1d6 Necrotic zranění a WIS záchranný hod, jinak vyděšení. Koncem svých tahů opakuje WIS záchranný hod pro ukončení účinku. Bez soustředění.",
   "v": "Zranění se zvýší o 1d6 za každou úroveň slotu kouzla nad 1."
  },
  {
   "en": "Zephyr Strike",
   "l": 1,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Bonusová akce",
   "r": "Sebe",
   "d": "Concentration, až 1 minutu",
@@ -2322,7 +2322,7 @@
  {
   "en": "Acid Arrow",
   "l": 2,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "90 stop",
   "d": "Okamžité",
@@ -2343,7 +2343,7 @@
  {
   "en": "Aganazzar's Scorcher",
   "l": 2,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "30 stop",
   "d": "Okamžité",
@@ -2355,7 +2355,7 @@
    "M"
   ],
   "m": "šupina červeného draka",
-  "t": "Čára 30 × 5 stop od tebe: AGI záchranný hod; při neúspěchu utrpí 3d8 Fire zranění, při úspěchu poloviční zranění.",
+  "t": "Čára 30 × 5 stop od tebe: DEX záchranný hod; při neúspěchu utrpí 3d8 Fire zranění, při úspěchu poloviční zranění.",
   "v": "Zranění se zvýší o 1d8 za každou úroveň slotu kouzla nad 2.",
   "cz": "Aganazzarův sežeh",
   "p": [
@@ -2366,7 +2366,7 @@
  {
   "en": "Aid",
   "l": 2,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "30 stop",
   "d": "8 hodin",
@@ -2407,7 +2407,7 @@
  {
   "en": "Alter Self",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 1 hodinu",
@@ -2442,7 +2442,7 @@
  {
   "en": "Arcane Lock",
   "l": 2,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "Do rozptýlení",
@@ -2499,7 +2499,7 @@
  {
   "en": "Barkskin",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Bonusová akce",
   "r": "Dotyk",
   "d": "1 hodina",
@@ -2533,7 +2533,7 @@
  {
   "en": "Blindness/Deafness",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "120 stop",
   "d": "1 minuta",
@@ -2601,7 +2601,7 @@
    "S"
   ],
   "m": "",
-  "t": "Humanoidi v kouli poloměru 20 stop CHA. Pro každého neúspěšného volíš: imunita zmámení/strachu a potlačení již existujících stavů; nebo lhostejnost vůči zvoleným bytostem, k nimž byl nepřátelský. Lhostejnost končí zraněním cíle či spatřením zranění jeho spojenců; koncem kouzla se postoj vrací.",
+  "t": "Humanoidi v kouli poloměru 20 stop CHA. Pro každého neúspěšného volíš: imunita okouzlení/strachu a potlačení již existujících stavů; nebo lhostejnost vůči zvoleným bytostem, k nimž byl nepřátelský. Lhostejnost končí zraněním cíle či spatřením zranění jeho spojenců; koncem kouzla se postoj vrací.",
   "v": ""
  },
  {
@@ -2625,7 +2625,7 @@
  {
   "en": "Continual Flame",
   "l": 2,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "Do rozptýlení",
@@ -2643,7 +2643,7 @@
  {
   "en": "Cordon of Arrows",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "8 hodin",
@@ -2655,7 +2655,7 @@
    "M"
   ],
   "m": "ozdobný cop",
-  "t": "Dotkneš se až čtyř nemagických šípů/šipek a zapíchneš je do svého prostoru; nejdou fyzicky vytrhnout. První vstup jiné nevyjmuté bytosti do 30 stop v tahu či konec tahu tam spotřebuje jeden kus: AGI záchranný hod, jinak 2d4 Piercing zranění. Ty a určené výjimky nespouštíte. Bez zbývající munice konec.",
+  "t": "Dotkneš se až čtyř nemagických šípů/šipek a zapíchneš je do svého prostoru; nejdou fyzicky vytrhnout. První vstup jiné nevyjmuté bytosti do 30 stop v tahu či konec tahu tam spotřebuje jeden kus: DEX záchranný hod, jinak 2d4 Piercing zranění. Ty a určené výjimky nespouštíte. Bez zbývající munice konec.",
   "v": "+2 kusy munice za každou úroveň slotu kouzla nad 2."
  },
  {
@@ -2672,13 +2672,13 @@
    "S"
   ],
   "m": "",
-  "t": "Viditelný cíl WIS, nehumanoid automaticky uspěje. Jinak zmámen a před pohybem musí akcí útok na blízko proti tebou mentálně zvolené jiné bytosti. Bez vybraného cíle nebo bez cíle v dosahu jedná normálně. Koncem svých tahů opakuje WIS záchranný hod pro ukončení účinku. V dalších svých tazích musíš akcí Magie udržovat kontrolu, jinak kouzlo končí.",
+  "t": "Viditelný cíl WIS, nehumanoid automaticky uspěje. Jinak okouzlen a před pohybem musí akcí útok na blízko proti tebou mentálně zvolené jiné bytosti. Bez vybraného cíle nebo bez cíle v dosahu jedná normálně. Koncem svých tahů opakuje WIS záchranný hod pro ukončení účinku. V dalších svých tazích musíš akcí Magie udržovat kontrolu, jinak kouzlo končí.",
   "v": ""
  },
  {
   "en": "Darkness",
   "l": 2,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Concentration, až 10 minut",
@@ -2695,7 +2695,7 @@
  {
   "en": "Darkvision",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "8 hodin",
@@ -2731,7 +2731,7 @@
  {
   "en": "Dragon's Breath",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Bonusová akce",
   "r": "Dotyk",
   "d": "Concentration, až 1 minutu",
@@ -2743,7 +2743,7 @@
    "M"
   ],
   "m": "pálivá paprička",
-  "t": "Ochotný dotčený s ústy může akcí dýchat kužel 15 stop Acid/Cold/Fire/Lightning/Poison zvoleného při seslání. AGI záchranný hod; při neúspěchu utrpí 3d6, při úspěchu poloviční zranění.",
+  "t": "Ochotný dotčený s ústy může akcí dýchat kužel 15 stop Acid/Cold/Fire/Lightning/Poison zvoleného při seslání. DEX záchranný hod; při neúspěchu utrpí 3d6, při úspěchu poloviční zranění.",
   "v": "Zranění se zvýší o 1d6 za každou úroveň slotu kouzla nad 2."
  },
  {
@@ -2773,7 +2773,7 @@
  {
   "en": "Earthbind",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "300 stop",
   "d": "Concentration, až 1 minutu",
@@ -2789,7 +2789,7 @@
  {
   "en": "Enhance Ability",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "Concentration, až 1 hodinu",
@@ -2801,13 +2801,13 @@
    "M"
   ],
   "m": "srst nebo pero",
-  "t": "Dotčenému zvol STR, AGI, INT, WIS nebo CHA; má výhodu ověření zvolené vlastnosti. Varianta CON a další výhody z roku 2014 se nepoužívají.",
+  "t": "Dotčenému zvol STR, DEX, INT, WIS nebo CHA; má výhodu ověření zvolené vlastnosti. Varianta CON a další výhody z roku 2014 se nepoužívají.",
   "v": "+1 dotčený cíl za každou úroveň slotu kouzla nad 2; vlastnost může být pro každý jiná."
  },
  {
   "en": "Enlarge/Reduce",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "30 stop",
   "d": "Concentration, až 1 minutu",
@@ -2876,7 +2876,7 @@
  {
   "en": "Flame Blade",
   "l": 2,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Bonusová akce",
   "r": "Sebe",
   "d": "Concentration, až 10 minut",
@@ -2906,7 +2906,7 @@
    "M"
   ],
   "m": "kulička vosku",
-  "t": "Na volném místě vytvoříš kouli o průměru 5 stop. Bytost, která ukončí tah do 5 stop od koule, provede AGI záchranný hod. Při neúspěchu utrpí 2d6 Fire zranění, při úspěchu poloviční zranění. Bonusovou akcí můžeš kouli posunout až o 30 stop. Náraz do bytosti vyvolá stejný záchranný hod a zastaví pohyb koule pro tento tah. Koule překoná překážku vysokou až 5 stop a mezeru širokou až 10 stop. Zapaluje nenesené hořlavé předměty. Vydává jasné světlo do 20 stop a slabé světlo dalších 20 stop.",
+  "t": "Na volném místě vytvoříš kouli o průměru 5 stop. Bytost, která ukončí tah do 5 stop od koule, provede DEX záchranný hod. Při neúspěchu utrpí 2d6 Fire zranění, při úspěchu poloviční zranění. Bonusovou akcí můžeš kouli posunout až o 30 stop. Náraz do bytosti vyvolá stejný záchranný hod a zastaví pohyb koule pro tento tah. Koule překoná překážku vysokou až 5 stop a mezeru širokou až 10 stop. Zapaluje nenesené hořlavé předměty. Vydává jasné světlo do 20 stop a slabé světlo dalších 20 stop.",
   "v": "Zranění se zvýší o 1d6 za každou úroveň slotu kouzla nad 2."
  },
  {
@@ -2996,7 +2996,7 @@
  {
   "en": "Gust of Wind",
   "l": 2,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 1 minutu",
@@ -3036,7 +3036,7 @@
  {
   "en": "Heat Metal",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Concentration, až 1 minutu",
@@ -3072,7 +3072,7 @@
  {
   "en": "Immovable Object",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "1 hodina",
@@ -3135,7 +3135,7 @@
  {
   "en": "Kinetic Jaunt",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Bonusová akce",
   "r": "Sebe",
   "d": "Concentration, až 1 minutu",
@@ -3157,7 +3157,7 @@
  {
   "en": "Knock",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Okamžité",
@@ -3173,7 +3173,7 @@
  {
   "en": "Lesser Restoration",
   "l": 2,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Bonusová akce",
   "r": "Dotyk",
   "d": "Okamžité",
@@ -3190,7 +3190,7 @@
  {
   "en": "Levitate",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Concentration, až 10 minut",
@@ -3262,7 +3262,7 @@
  {
   "en": "Magic Weapon",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Bonusová akce",
   "r": "Dotyk",
   "d": "1 hodina",
@@ -3279,7 +3279,7 @@
  {
   "en": "Maximilian's Earthen Grasp",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "30 stop",
   "d": "Concentration, až 1 minutu",
@@ -3291,7 +3291,7 @@
    "M"
   ],
   "m": "miniaturní ruka vymodelovaná z hlíny",
-  "t": "Medium ruka na viditelné volné zemi 5 × 5 stop. Viditelný cíl do 5 stop od ní STR záchranný hod, jinak 2d6 Bludgeoning zranění a zadržen. Akcí drcení: STR záchranný hod; při neúspěchu utrpí 2d6, při úspěchu poloviční zranění. Vězeň akcí ověření STR proti tvému SO kouzel pro únik. Tvou akcí nový pokus o jiný cíl NEBO přesun ruky do volného místa v dosahu, obojí pustí starého.",
+  "t": "Medium ruka na viditelné volné zemi 5 × 5 stop. Viditelný cíl do 5 stop od ní STR záchranný hod, jinak 2d6 Bludgeoning zranění a spoután. Akcí drcení: STR záchranný hod; při neúspěchu utrpí 2d6, při úspěchu poloviční zranění. Vězeň akcí ověření STR proti tvému SO kouzel pro únik. Tvou akcí nový pokus o jiný cíl NEBO přesun ruky do volného místa v dosahu, obojí pustí starého.",
   "v": "",
   "a": [
    "Maximillian's Earthen Grasp"
@@ -3354,7 +3354,7 @@
  {
   "en": "Moonbeam",
   "l": 2,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Concentration, až 1 minutu",
@@ -3383,13 +3383,13 @@
    "M"
   ],
   "m": "kousek kůrky jablečného koláče",
-  "t": "Viditelná krychle 20 stop, při seslání a na začátku každého tvého tahu 1d4; před dalším hodem můžeš posunout 10 stop. 1 WIS záchranný hod proti zmámení tebou; 2 AGI záchranný hod proti slepotě; 3 WIS proti neschopnosti akcí a všemu pohybu náhodným směrem; 4 obtížný terén. Každý účinek do začátku tvého dalšího tahu.",
+  "t": "Viditelná krychle 20 stop, při seslání a na začátku každého tvého tahu 1d4; před dalším hodem můžeš posunout 10 stop. 1 WIS záchranný hod proti okouzlení tebou; 2 DEX záchranný hod proti slepotě; 3 WIS proti neschopnosti akcí a všemu pohybu náhodným směrem; 4 obtížný terén. Každý účinek do začátku tvého dalšího tahu.",
   "v": ""
  },
  {
   "en": "Pass without Trace",
   "l": 2,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 1 hodinu",
@@ -3401,7 +3401,7 @@
    "M"
   ],
   "m": "popel ze spáleného jmelí",
-  "t": "Vytvoříš kolem sebe emanaci s poloměrem 30 stop. Ty a vybrané bytosti uvnitř získáte bonus +10 k ověřením AGI (Nenápadnost) a nezanecháváte stopy.",
+  "t": "Vytvoříš kolem sebe emanaci s poloměrem 30 stop. Ty a vybrané bytosti uvnitř získáte bonus +10 k ověřením DEX (Nenápadnost) a nezanecháváte stopy.",
   "v": ""
  },
  {
@@ -3425,7 +3425,7 @@
  {
   "en": "Prayer of Healing",
   "l": 2,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "10 minut",
   "r": "30 stop",
   "d": "Okamžité",
@@ -3441,7 +3441,7 @@
  {
   "en": "Protection from Poison",
   "l": 2,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "1 hodina",
@@ -3458,7 +3458,7 @@
  {
   "en": "Pyrotechnics",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Okamžité",
@@ -3498,7 +3498,7 @@
  {
   "en": "Rime's Binding Ice",
   "l": 2,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe (kužel 30 stop)",
   "d": "Okamžité",
@@ -3509,7 +3509,7 @@
    "M"
   ],
   "m": "lahvička vody z rozpuštěného sněhu nebo ledu",
-  "t": "Kužel 30 stop: CON záchranný hod; při neúspěchu utrpí 3d8 Cold zranění; neúspěch navíc rychlost 0 na minutu nebo do akce cíle/dosažitelného pomocníka k rozbití ledu. Při úspěchu poloviční zranění bez omezení. Neuděluje stav zadržený.",
+  "t": "Kužel 30 stop: CON záchranný hod; při neúspěchu utrpí 3d8 Cold zranění; neúspěch navíc rychlost 0 na minutu nebo do akce cíle/dosažitelného pomocníka k rozbití ledu. Při úspěchu poloviční zranění bez omezení. Neuděluje stav spoutaný.",
   "v": "Zranění se zvýší o 1d8 za každou úroveň slotu kouzla nad 2.",
   "cz": "Rimeův poutající led",
   "p": [
@@ -3520,7 +3520,7 @@
  {
   "en": "Rope Trick",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "1 hodina",
@@ -3538,7 +3538,7 @@
  {
   "en": "Scorching Ray",
   "l": 2,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Okamžité",
@@ -3590,7 +3590,7 @@
  {
   "en": "Shatter",
   "l": 2,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Okamžité",
@@ -3608,7 +3608,7 @@
  {
   "en": "Shining Smite",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Bonusová akce",
   "r": "Sebe",
   "d": "Concentration, až 1 minutu",
@@ -3644,7 +3644,7 @@
  {
   "en": "Skywrite",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Dohled",
   "d": "Concentration, až 1 den",
@@ -3661,7 +3661,7 @@
  {
   "en": "Snilloc's Snowball Swarm",
   "l": 2,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "90 stop",
   "d": "Okamžité",
@@ -3673,7 +3673,7 @@
    "M"
   ],
   "m": "kousek ledu nebo úštěpek bílého kamene",
-  "t": "Koule poloměru 5 stop: AGI záchranný hod; při neúspěchu utrpí 3d6 Cold zranění, při úspěchu poloviční zranění.",
+  "t": "Koule poloměru 5 stop: DEX záchranný hod; při neúspěchu utrpí 3d6 Cold zranění, při úspěchu poloviční zranění.",
   "v": "Zranění se zvýší o 1d6 za každou úroveň slotu kouzla nad 2.",
   "cz": "Snillocův roj sněhových koulí",
   "p": [
@@ -3684,7 +3684,7 @@
  {
   "en": "Spider Climb",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "Concentration, až 1 hodinu",
@@ -3702,7 +3702,7 @@
  {
   "en": "Spike Growth",
   "l": 2,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "150 stop",
   "d": "Concentration, až 10 minut",
@@ -3720,7 +3720,7 @@
  {
   "en": "Spiritual Weapon",
   "l": 2,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Bonusová akce",
   "r": "60 stop",
   "d": "Concentration, až 1 minutu",
@@ -3749,7 +3749,7 @@
    "M"
   ],
   "m": "balíček karet",
-  "t": "Kužel 15 stop: AGI záchranný hod; při neúspěchu utrpí 2d10 Force zranění a slepota do konce příštího tahu cíle; při úspěchu poloviční zranění a bez slepoty.",
+  "t": "Kužel 15 stop: DEX záchranný hod; při neúspěchu utrpí 2d10 Force zranění a slepota do konce příštího tahu cíle; při úspěchu poloviční zranění a bez slepoty.",
   "v": "Zranění se zvýší o 1d10 za každou úroveň slotu kouzla nad 2.",
   "cz": "Sprška karet",
   "p": [
@@ -3773,7 +3773,7 @@
    "M"
   ],
   "m": "kapka medu",
-  "t": "Viditelnému, který tě slyší a rozumí, navrhneš dosažitelný postup do 25 slov bez zjevného zranění jeho či spojenců. WIS záchranný hod, jinak zmámen a plní postup co nejlépe. Končí dokončením úkolu nebo zraněním cíle tebou či spojenci, nejpozději koncem soustředění.",
+  "t": "Viditelnému, který tě slyší a rozumí, navrhneš dosažitelný postup do 25 slov bez zjevného zranění jeho či spojenců. WIS záchranný hod, jinak okouzlen a plní postup co nejlépe. Končí dokončením úkolu nebo zraněním cíle tebou či spojenci, nejpozději koncem soustředění.",
   "v": ""
  },
  {
@@ -3835,7 +3835,7 @@
  {
   "en": "Warding Bond",
   "l": 2,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "1 hodina",
@@ -3853,7 +3853,7 @@
  {
   "en": "Warding Wind",
   "l": 2,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 10 minut",
@@ -3912,7 +3912,7 @@
    "M"
   ],
   "m": "kousek pavučiny",
-  "t": "Krychle pavučin 20 stop, obtížný terén a lehké zahalení; na ploše hloubka 5. Bez ukotvení mezi pevnými objekty či na ploše se zhroutí začátkem tvého příštího tahu. První vstup v libovolném tahu nebo začátek tahu uvnitř AGI záchranný hod, jinak zadržení do odchodu nebo osvobození akcí a STR (Atletika) proti tvému SO kouzel. Hořící krychle 5 stop shoří za kolo; kdo začíná tah v ohni, 2d4 Fire zranění.",
+  "t": "Krychle pavučin 20 stop, obtížný terén a lehké zahalení; na ploše hloubka 5. Bez ukotvení mezi pevnými objekty či na ploše se zhroutí začátkem tvého příštího tahu. První vstup v libovolném tahu nebo začátek tahu uvnitř DEX záchranný hod, jinak spoutání do odchodu nebo osvobození akcí a STR (Atletika) proti tvému SO kouzel. Hořící krychle 5 stop shoří za kolo; kdo začíná tah v ohni, 2d4 Fire zranění.",
   "v": ""
  },
  {
@@ -4020,7 +4020,7 @@
  {
   "en": "Ashardalon's Stride",
   "l": 3,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Bonusová akce",
   "r": "Sebe",
   "d": "Concentration, až 1 minutu",
@@ -4043,7 +4043,7 @@
  {
   "en": "Aura of Vitality",
   "l": 3,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 1 minutu",
@@ -4059,7 +4059,7 @@
  {
   "en": "Beacon of Hope",
   "l": 3,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "30 stop",
   "d": "Concentration, až 1 minutu",
@@ -4093,7 +4093,7 @@
  {
   "en": "Blinding Smite",
   "l": 3,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Bonusová akce",
   "r": "Sebe",
   "d": "1 minuta",
@@ -4113,7 +4113,7 @@
  {
   "en": "Blink",
   "l": 3,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Sebe",
   "d": "1 minuta",
@@ -4141,7 +4141,7 @@
    "S"
   ],
   "m": "",
-  "t": "Nad tebou v dosahu na viditelném bodě vznikne mrak poloměru 60 a výšky 10 stop. Při seslání a později akcí Magie zvol viditelný bod pod ním: bytosti do 5 stop AGI záchranný hod; při neúspěchu utrpí 3d10 Lightning zranění, při úspěchu poloviční zranění. Venku při bouři převezmeš existující bouři a zranění je +1d10.",
+  "t": "Nad tebou v dosahu na viditelném bodě vznikne mrak poloměru 60 a výšky 10 stop. Při seslání a později akcí Magie zvol viditelný bod pod ním: bytosti do 5 stop DEX záchranný hod; při neúspěchu utrpí 3d10 Lightning zranění, při úspěchu poloviční zranění. Venku při bouři převezmeš existující bouři a zranění je +1d10.",
   "v": "Zranění se zvýší o 1d10 za každou úroveň slotu kouzla nad 3."
  },
  {
@@ -4193,7 +4193,7 @@
    "S"
   ],
   "m": "",
-  "t": "Large nehmotná smečka ve viditelném volném prostoru. Do 5 stop od ní máš výhodu k záchranným hodům STR; při svém pohybu v tahu ji můžeš přesunout až 30 stop na viditelné volné místo. Když se přiblíží do 10 stop od viditelné bytosti, ta vstoupí do této vzdálenosti nebo tam skončí tah, můžeš vynutit AGI: neúspěch 3d10 Slashing zranění, úspěch nic; jen jednou za tah.",
+  "t": "Large nehmotná smečka ve viditelném volném prostoru. Do 5 stop od ní máš výhodu k záchranným hodům STR; při svém pohybu v tahu ji můžeš přesunout až 30 stop na viditelné volné místo. Když se přiblíží do 10 stop od viditelné bytosti, ta vstoupí do této vzdálenosti nebo tam skončí tah, můžeš vynutit DEX: neúspěch 3d10 Slashing zranění, úspěch nic; jen jednou za tah.",
   "v": "Zranění se zvýší o 1d10 za každou úroveň slotu kouzla nad 3."
  },
  {
@@ -4211,13 +4211,13 @@
    "M"
   ],
   "m": "zbraň na blízko nebo na dálku v hodnotě alespoň 1 md.",
-  "t": "Vybrané viditelné bytosti v kuželu 60 stop AGI záchranný hod; při neúspěchu utrpí 5d8 Force zranění, při úspěchu poloviční zranění. Použitou zbraní vykouzlíš spektrální střely.",
+  "t": "Vybrané viditelné bytosti v kuželu 60 stop DEX záchranný hod; při neúspěchu utrpí 5d8 Force zranění, při úspěchu poloviční zranění. Použitou zbraní vykouzlíš spektrální střely.",
   "v": "Zranění se zvýší o 1d8 za každou úroveň slotu kouzla nad 3."
  },
  {
   "en": "Counterspell",
   "l": 3,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Reakce",
   "r": "60 stop",
   "d": "Okamžité",
@@ -4250,7 +4250,7 @@
  {
   "en": "Crusader's Mantle",
   "l": 3,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 1 minutu",
@@ -4270,7 +4270,7 @@
  {
   "en": "Daylight",
   "l": 3,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "60 stop",
   "d": "1 hodina",
@@ -4287,7 +4287,7 @@
  {
   "en": "Dispel Magic",
   "l": 3,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Okamžité",
@@ -4304,7 +4304,7 @@
  {
   "en": "Elemental Weapon",
   "l": 3,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "Concentration, až 1 hodinu",
@@ -4338,7 +4338,7 @@
  {
   "en": "Erupting Earth",
   "l": 3,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Okamžité",
@@ -4350,7 +4350,7 @@
    "M"
   ],
   "m": "kousek obsidiánu",
-  "t": "Viditelná zem, krychle 20 stop: AGI záchranný hod; při neúspěchu utrpí 3d12 Bludgeoning zranění, při úspěchu poloviční zranění; obtížný terén do odklizení, ručně alespoň minuta za pole 5 × 5 stop.",
+  "t": "Viditelná zem, krychle 20 stop: DEX záchranný hod; při neúspěchu utrpí 3d12 Bludgeoning zranění, při úspěchu poloviční zranění; obtížný terén do odklizení, ručně alespoň minuta za pole 5 × 5 stop.",
   "v": "Zranění se zvýší o 1d12 za každou úroveň slotu kouzla nad 3."
  },
  {
@@ -4366,7 +4366,7 @@
    "V"
   ],
   "m": "",
-  "t": "Humanoid, který tě vidí, slyší a rozumí: WIS záchranný hod, jinak zmámen a přátelsky plní služby. Úkoly lze měnit. Možná újma či rozpor s běžným jednáním/tužbami dovolí novou WIS, s výhodou bojuje-li s tebou/družinou. Jistá smrt kouzlo ukončí. Po konci si zmámení uvědomí.",
+  "t": "Humanoid, který tě vidí, slyší a rozumí: WIS záchranný hod, jinak okouzlen a přátelsky plní služby. Úkoly lze měnit. Možná újma či rozpor s běžným jednáním/tužbami dovolí novou WIS, s výhodou bojuje-li s tebou/družinou. Jistá smrt kouzlo ukončí. Po konci si okouzlení uvědomí.",
   "v": "Můžeš zacílit jednoho dalšího tvora za každou úroveň slotu kouzla nad 3."
  },
  {
@@ -4384,7 +4384,7 @@
    "M"
   ],
   "m": "bílé pero",
-  "t": "Kužel 30 stop: WIS záchranný hod, jinak upustí držené věci a je vystrašen. Ve svých tazích musí Dash a nejbezpečněji pryč od tebe, má-li kam. Na konci tahu bez přímého výhledu na tebe nový WIS záchranný hod pro ukončení účinku.",
+  "t": "Kužel 30 stop: WIS záchranný hod, jinak upustí držené věci a je vyděšen. Ve svých tazích musí Dash a nejbezpečněji pryč od tebe, má-li kam. Na konci tahu bez přímého výhledu na tebe nový WIS záchranný hod pro ukončení účinku.",
   "v": ""
  },
  {
@@ -4408,7 +4408,7 @@
  {
   "en": "Fireball",
   "l": 3,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "150 stop",
   "d": "Okamžité",
@@ -4420,13 +4420,13 @@
    "M"
   ],
   "m": "kulička z netopýřího guána a síry",
-  "t": "Koule poloměru 20 stop: AGI záchranný hod; při neúspěchu utrpí 8d6 Fire zranění, při úspěchu poloviční zranění. Nenesené/nenošené hořlavé předměty vzplanou.",
+  "t": "Koule poloměru 20 stop: DEX záchranný hod; při neúspěchu utrpí 8d6 Fire zranění, při úspěchu poloviční zranění. Nenesené/nenošené hořlavé předměty vzplanou.",
   "v": "Zranění se zvýší o 1d6 za každou úroveň slotu kouzla nad 3."
  },
  {
   "en": "Flame Arrows",
   "l": 3,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "Concentration, až 1 hodinu",
@@ -4450,7 +4450,7 @@
  {
   "en": "Fly",
   "l": 3,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "Concentration, až 10 minut",
@@ -4490,7 +4490,7 @@
  {
   "en": "Gaseous Form",
   "l": 3,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "Concentration, až 1 hodinu",
@@ -4502,13 +4502,13 @@
    "M"
   ],
   "m": "kousek gázy",
-  "t": "Dotčený ochotný i výstroj jako mlha: jen let 10 se vznášením; prochází úzkými otvory i prostory bytostí, kapaliny jsou pevný povrch. Odolnost Bludgeoning, Piercing a Slashing zranění, imunita ležení, výhoda STR/AGI/CON záchran. Nemluví, nemanipuluje, neodkládá výstroj, neútočí a nekouzlí. Při 0 HP nebo akcí Magie cíle konec.",
+  "t": "Dotčený ochotný i výstroj jako mlha: jen let 10 se vznášením; prochází úzkými otvory i prostory bytostí, kapaliny jsou pevný povrch. Odolnost Bludgeoning, Piercing a Slashing zranění, imunita ležení, výhoda STR/DEX/CON záchran. Nemluví, nemanipuluje, neodkládá výstroj, neútočí a nekouzlí. Při 0 HP nebo akcí Magie cíle konec.",
   "v": "+1 dotčená bytost za každou úroveň slotu kouzla nad 3."
  },
  {
   "en": "Glyph of Warding",
   "l": 3,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "1 hodina",
   "r": "Dotyk",
   "d": "Do rozptýlení nebo spuštění",
@@ -4520,13 +4520,13 @@
    "M"
   ],
   "m": "diamantový prášek v hodnotě alespoň 200 zl., který kouzlo spotřebuje",
-  "t": "Glyf do průměru 10 stop na povrchu či v uzavíratelném předmětu; přesun o více než 10 stop jej zruší. Odhalení WIS (Vnímání) proti tvému SO kouzel. Určíš spouštěč, typové výjimky/heslo. Exploze: koule poloměru 20, AGI záchranný hod; při neúspěchu utrpí 5d8 Acid/Cold/Fire/Lightning/Thunder, při úspěchu poloviční zranění. Nebo uložíš připravené kouzlo nejvýše 3. úrovně pro jednu bytost či oblast a sešleš je při tvorbě. Spouštěč je cíl/střed oblasti; škodlivé výtvory se objeví co nejblíž a útočí. Koncentrační uložené kouzlo trvá celou dobu bez tvé soustředění.",
+  "t": "Glyf do průměru 10 stop na povrchu či v uzavíratelném předmětu; přesun o více než 10 stop jej zruší. Odhalení WIS (Vnímání) proti tvému SO kouzel. Určíš spouštěč, typové výjimky/heslo. Exploze: koule poloměru 20, DEX záchranný hod; při neúspěchu utrpí 5d8 Acid/Cold/Fire/Lightning/Thunder, při úspěchu poloviční zranění. Nebo uložíš připravené kouzlo nejvýše 3. úrovně pro jednu bytost či oblast a sešleš je při tvorbě. Spouštěč je cíl/střed oblasti; škodlivé výtvory se objeví co nejblíž a útočí. Koncentrační uložené kouzlo trvá celou dobu bez tvé soustředění.",
   "v": "Exploze +1d8 za každou úroveň slotu kouzla nad 3; uložené kouzlo může mít úroveň až použitého slotu glyfu."
  },
  {
   "en": "Haste",
   "l": 3,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "30 stop",
   "d": "Concentration, až 1 minutu",
@@ -4538,7 +4538,7 @@
    "M"
   ],
   "m": "hoblinka kořene lékořice",
-  "t": "Viditelný ochotný: dvojnásobná rychlost, AC +2, výhoda k záchranným hodůmných hodů na AGI a další akce každý tah pouze Attack s jedním útokem, Dash, Disengage, Hide nebo Utilize. Po konci neschopnost akcí a rychlost 0 do konce jeho příštího tahu.",
+  "t": "Viditelný ochotný: dvojnásobná rychlost, AC +2, výhoda k záchranným hodůmných hodů na DEX a další akce každý tah pouze Attack s jedním útokem, Dash, Disengage, Hide nebo Utilize. Po konci neschopnost akcí a rychlost 0 do konce jeho příštího tahu.",
   "v": ""
  },
  {
@@ -4556,7 +4556,7 @@
    "M"
   ],
   "m": "konzervované chapadlo",
-  "t": "Koule poloměru 20 stop, obtížný terén, žádné světlo ji neosvětlí; plně uvnitř slepota. Zvuky do 30 stop. Začátek tahu uvnitř 2d6 Cold zranění bez záchrany; konec tahu uvnitř AGI záchranný hod, jinak 2d6 Acid.",
+  "t": "Koule poloměru 20 stop, obtížný terén, žádné světlo ji neosvětlí; plně uvnitř slepota. Zvuky do 30 stop. Začátek tahu uvnitř 2d6 Cold zranění bez záchrany; konec tahu uvnitř DEX záchranný hod, jinak 2d6 Acid.",
   "v": "Zvol Cold NEBO Acid zranění; vybrané +1d6 za každou úroveň slotu kouzla nad 3."
  },
  {
@@ -4573,7 +4573,7 @@
    "M"
   ],
   "m": "špetka konfet",
-  "t": "Krychle 30 stop, kdo vzor vidí: WIS záchranný hod, jinak zmámen, neschopný akcí a rychlost 0. Každé zranění či budící akce jiné bytosti končí pro daný cíl; žádná automatická opakovaná záchrana.",
+  "t": "Krychle 30 stop, kdo vzor vidí: WIS záchranný hod, jinak okouzlen, neschopný akcí a rychlost 0. Každé zranění či budící akce jiné bytosti končí pro daný cíl; žádná automatická opakovaná záchrana.",
   "v": ""
  },
  {
@@ -4591,7 +4591,7 @@
    "M"
   ],
   "m": "drahokam v hodnotě alespoň 50 zl.",
-  "t": "Libovolní vybraní, kteří tě vidí: WIS záchranný hod, jinak zmámeni do konce kouzla či ublížení tebou/společníky. Mohou jen bezpečně jít k tobě; do 5 stop stojí a hledí na drahokam. Na konci každého tahu nová WIS, úspěch končí.",
+  "t": "Libovolní vybraní, kteří tě vidí: WIS záchranný hod, jinak okouzleni do konce kouzla či ublížení tebou/společníky. Mohou jen bezpečně jít k tobě; do 5 stop stojí a hledí na drahokam. Na konci každého tahu nová WIS, úspěch končí.",
   "v": "",
   "cz": "Podnícení chamtivosti",
   "p": [
@@ -4603,7 +4603,7 @@
  {
   "en": "Intellect Fortress",
   "l": 3,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "30 stop",
   "d": "Concentration, až 1 hodinu",
@@ -4636,7 +4636,7 @@
  {
   "en": "Lightning Arrow",
   "l": 3,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Bonusová akce",
   "r": "Sebe",
   "d": "Okamžité",
@@ -4647,7 +4647,7 @@
    "S"
   ],
   "m": "",
-  "t": "Bonusová akce ihned po zásahu či minutí útokem zbraní na dálku. Místo veškerého zranění a jiných účinků původního útoku cíl utrpí 4d8 Lightning zranění při zásahu, polovinu při minutí. Každá bytost do 10 stop od něj pak AGI záchranný hod; při neúspěchu utrpí 2d8 Lightning zranění, při úspěchu poloviční zranění. Zbraň/munice se vrátí do normálu.",
+  "t": "Bonusová akce ihned po zásahu či minutí útokem zbraní na dálku. Místo veškerého zranění a jiných účinků původního útoku cíl utrpí 4d8 Lightning zranění při zásahu, polovinu při minutí. Každá bytost do 10 stop od něj pak DEX záchranný hod; při neúspěchu utrpí 2d8 Lightning zranění, při úspěchu poloviční zranění. Zbraň/munice se vrátí do normálu.",
   "v": "Oba účinky +1d8 za každou úroveň slotu kouzla nad 3.",
   "cz": "Bleskový šíp",
   "p": [
@@ -4657,7 +4657,7 @@
  {
   "en": "Lightning Bolt",
   "l": 3,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Okamžité",
@@ -4669,13 +4669,13 @@
    "M"
   ],
   "m": "kousek srsti a křišťálová hůlka",
-  "t": "Čára 100 × 5 stop: AGI záchranný hod; při neúspěchu utrpí 8d6 Lightning zranění, při úspěchu poloviční zranění. Kouzlo nezapaluje předměty.",
+  "t": "Čára 100 × 5 stop: DEX záchranný hod; při neúspěchu utrpí 8d6 Lightning zranění, při úspěchu poloviční zranění. Kouzlo nezapaluje předměty.",
   "v": "Zranění se zvýší o 1d6 za každou úroveň slotu kouzla nad 3."
  },
  {
   "en": "Magic Circle",
   "l": 3,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "1 minuta",
   "r": "10 stop",
   "d": "1 hodina",
@@ -4711,7 +4711,7 @@
  {
   "en": "Mass Healing Word",
   "l": 3,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Bonusová akce",
   "r": "60 stop",
   "d": "Okamžité",
@@ -4727,7 +4727,7 @@
  {
   "en": "Meld into Stone",
   "l": 3,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "8 hodin",
@@ -4744,7 +4744,7 @@
  {
   "en": "Melf's Minute Meteors",
   "l": 3,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 10 minut",
@@ -4756,7 +4756,7 @@
    "M"
   ],
   "m": "kulička z ledku, síry a borovicového dehtu",
-  "t": "Šest meteorů. Při seslání a bonusovou akcí v dalších tazích vypustíš 1–2 k bodům do 120 stop. Každý při dopadu na bod/pevný povrch vybuchne: bytosti do 5 stop AGI záchranný hod; při neúspěchu utrpí 2d6 Fire zranění, při úspěchu poloviční zranění.",
+  "t": "Šest meteorů. Při seslání a bonusovou akcí v dalších tazích vypustíš 1–2 k bodům do 120 stop. Každý při dopadu na bod/pevný povrch vybuchne: bytosti do 5 stop DEX záchranný hod; při neúspěchu utrpí 2d6 Fire zranění, při úspěchu poloviční zranění.",
   "v": "+2 meteory za každou úroveň slotu kouzla nad 3.",
   "cz": "Melfovy drobné meteory",
   "p": [
@@ -4783,7 +4783,7 @@
  {
   "en": "Nondetection",
   "l": 3,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "8 hodin",
@@ -4818,7 +4818,7 @@
  {
   "en": "Plant Growth",
   "l": 3,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce (Overgrowth) nebo 8 hodin (Enrichment)",
   "r": "150 stop",
   "d": "Okamžité",
@@ -4835,7 +4835,7 @@
  {
   "en": "Protection from Energy",
   "l": 3,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "Concentration, až 1 hodinu",
@@ -4852,7 +4852,7 @@
  {
   "en": "Pulse Wave",
   "l": 3,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe (kužel 30 stop)",
   "d": "Okamžité",
@@ -4876,7 +4876,7 @@
  {
   "en": "Remove Curse",
   "l": 3,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "Okamžité",
@@ -4941,13 +4941,13 @@
    "M"
   ],
   "m": "miniaturní deštník",
-  "t": "Válec poloměru 20 a výšky 40 stop: silně zahalený, hasí otevřené plameny a země je obtížný terén. První vstup v tahu či začátek tahu uvnitř AGI záchranný hod, jinak ležení a ztráta soustředění.",
+  "t": "Válec poloměru 20 a výšky 40 stop: silně zahalený, hasí otevřené plameny a země je obtížný terén. První vstup v tahu či začátek tahu uvnitř DEX záchranný hod, jinak ležení a ztráta soustředění.",
   "v": ""
  },
  {
   "en": "Slow",
   "l": 3,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Concentration, až 1 minutu",
@@ -4959,7 +4959,7 @@
    "M"
   ],
   "m": "kapka melasy",
-  "t": "Až šest cílů v krychli 40 stop WIS. Neúspěch: půl rychlosti, −2 AC a AGI záchranné hody, žádné reakce; akce nebo bonusová akce, nikoli obojí; při Attack nejvýše jeden útok. Kouzlo se somatickou složkou má 25 % šanci selhat. Koncem svých tahů WIS záchranný hod pro ukončení účinku.",
+  "t": "Až šest cílů v krychli 40 stop WIS. Neúspěch: půl rychlosti, −2 AC a DEX záchranné hody, žádné reakce; akce nebo bonusová akce, nikoli obojí; při Attack nejvýše jeden útok. Kouzlo se somatickou složkou má 25 % šanci selhat. Koncem svých tahů WIS záchranný hod pro ukončení účinku.",
   "v": ""
  },
  {
@@ -4983,7 +4983,7 @@
  {
   "en": "Speak with Plants",
   "l": 3,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Sebe",
   "d": "10 minut",
@@ -5072,7 +5072,7 @@
    "M"
   ],
   "m": "pozlacená květina v hodnotě alespoň 300 zl.",
-  "t": "Small víla, AC 12+L, HP 30+10×(L−3), chůze/let 30, vlastnosti 13/16/14/14/11/16, imunita zmámení, vidění ve tmě 60, pasivní Vnímání 10, sylvan a rozumí tvým jazykům. Jedná bezprostředně po tobě; rozkazy mu dáváš bez použití akce, jinak použije akci Uhýbání nebo ustoupí; pokles na 0 HP nebo konec kouzla kouzla zruší. ⌊L/2⌋ útoků tvým modifikátorem sesílací vlastnosti, dosah 5, 2d6+3+L Force zranění. Bonusovou akcí teleport 30 a dle nálady: Fuming výhoda příštího útoku do konce tohoto tahu; Mirthful viditelný cíl do 10 WIS proti tvému SO kouzel, jinak zmámen tebou i duchem minutu/do zranění; Tricksy magická tma v krychli 10 do 5 stop od ducha do konce jeho dalšího tahu.",
+  "t": "Small víla, AC 12+L, HP 30+10×(L−3), chůze/let 30, vlastnosti 13/16/14/14/11/16, imunita okouzlení, vidění ve tmě 60, pasivní Vnímání 10, sylvan a rozumí tvým jazykům. Jedná bezprostředně po tobě; rozkazy mu dáváš bez použití akce, jinak použije akci Uhýbání nebo ustoupí; pokles na 0 HP nebo konec kouzla kouzla zruší. ⌊L/2⌋ útoků tvým modifikátorem sesílací vlastnosti, dosah 5, 2d6+3+L Force zranění. Bonusovou akcí teleport 30 a dle nálady: Fuming výhoda příštího útoku do konce tohoto tahu; Mirthful viditelný cíl do 10 WIS proti tvému SO kouzel, jinak okouzlen tebou i duchem minutu/do zranění; Tricksy magická tma v krychli 10 do 5 stop od ducha do konce jeho dalšího tahu.",
   "v": "L označuje úroveň použité sloty kouzel (nejméně 3)."
  },
  {
@@ -5108,7 +5108,7 @@
    "M"
   ],
   "m": "slzy v křišťálové lahvičce v hodnotě alespoň 300 zl.",
-  "t": "Medium monstrosity, AC 11+L, HP 35+15×(L−3), pohyb 40, vlastnosti 13/16/15/4/10/16, Resistance vůči Necrotic, imunita strach, tma 120, pasivní Vnímání 10, tvé jazyky a zdatnost. Rozkazy/pořadí jako Summon Fey. ⌊L/2⌋ útoků, tvůj bonus k útoku kouzlem, dosah 5, 1d12+3+L Cold zranění. Jednou denně výkřik: všichni do 30 stop WIS proti tvému SO kouzel, jinak minutu vystrašení; opakují na koncích tahů. Fury má výhodu na útoky proti vystrašeným. Despair sníží jiným než tobě rychlost o 20 stop, začnou-li tah do 5 stop, do začátku jejich dalšího tahu. Fear se bonusovou akcí skrývá v šeru/tmě.",
+  "t": "Medium monstrosity, AC 11+L, HP 35+15×(L−3), pohyb 40, vlastnosti 13/16/15/4/10/16, Resistance vůči Necrotic, imunita strach, tma 120, pasivní Vnímání 10, tvé jazyky a zdatnost. Rozkazy/pořadí jako Summon Fey. ⌊L/2⌋ útoků, tvůj bonus k útoku kouzlem, dosah 5, 1d12+3+L Cold zranění. Jednou denně výkřik: všichni do 30 stop WIS proti tvému SO kouzel, jinak minutu vyděšení; opakují na koncích tahů. Fury má výhodu na útoky proti vyděšeným. Despair sníží jiným než tobě rychlost o 20 stop, začnou-li tah do 5 stop, do začátku jejich dalšího tahu. Fear se bonusovou akcí skrývá v šeru/tmě.",
   "v": "L označuje úroveň použité sloty kouzel (nejméně 3).",
   "cz": "Vyvolání stínozplozence",
   "p": [
@@ -5170,13 +5170,13 @@
    "M"
   ],
   "m": "kapka vody",
-  "t": "Oblast až 30 × 10 × 10 stop: AGI záchranný hod; při neúspěchu utrpí 4d8 Bludgeoning zranění a pád; při úspěchu poloviční zranění bez pádu. Voda hasí nechráněné plameny uvnitř a do 30 stop kolem.",
+  "t": "Oblast až 30 × 10 × 10 stop: DEX záchranný hod; při neúspěchu utrpí 4d8 Bludgeoning zranění a pád; při úspěchu poloviční zranění bez pádu. Voda hasí nechráněné plameny uvnitř a do 30 stop kolem.",
   "v": ""
  },
  {
   "en": "Tiny Hut",
   "l": 3,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "1 minuta",
   "r": "Sebe",
   "d": "8 hodin",
@@ -5197,7 +5197,7 @@
  {
   "en": "Tiny Servant",
   "l": 3,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "1 minuta",
   "r": "Dotyk",
   "d": "8 hodin",
@@ -5208,7 +5208,7 @@
    "S"
   ],
   "m": "",
-  "t": "Tiny nenesený nemagický nepřipevněný předmět jako výtvor. AC15, HP 10 (4d4), pohyb/šplh 30, vlastnosti 4/16/10/2/10/1, Immunity vůči Poison/Psychic a slepota/zmámení/hluchota/únava/strach/paralýza/zkamenění/otrávení. Slepozrak 60, mimo něj slepý, pasivní Vnímání 10, bez jazyků. Úder +5, dosah 5, 1d4+3 Bludgeoning zranění. Bonusovou akcí společný mentální pokyn vybraným do 120 stop, plní do dokončení, jinak sebeobrana. Při 0 návrat do předmětu a přebytek zranění přechází.",
+  "t": "Tiny nenesený nemagický nepřipevněný předmět jako výtvor. AC15, HP 10 (4d4), pohyb/šplh 30, vlastnosti 4/16/10/2/10/1, Immunity vůči Poison/Psychic a slepota/okouzlení/hluchota/únava/strach/paralýza/zkamenění/otrávení. Slepozrak 60, mimo něj slepý, pasivní Vnímání 10, bez jazyků. Úder +5, dosah 5, 1d4+3 Bludgeoning zranění. Bonusovou akcí společný mentální pokyn vybraným do 120 stop, plní do dokončení, jinak sebeobrana. Při 0 návrat do předmětu a přebytek zranění přechází.",
   "v": "+2 předměty za každou úroveň slotu kouzla nad 3."
  },
  {
@@ -5248,7 +5248,7 @@
  {
   "en": "Wall of Sand",
   "l": 3,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "90 stop",
   "d": "Concentration, až 10 minut",
@@ -5266,7 +5266,7 @@
  {
   "en": "Wall of Water",
   "l": 3,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Concentration, až 10 minut",
@@ -5284,7 +5284,7 @@
  {
   "en": "Water Breathing",
   "l": 3,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "30 stop",
   "d": "24 hodin",
@@ -5302,7 +5302,7 @@
  {
   "en": "Water Walk",
   "l": 3,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "30 stop",
   "d": "1 hodina",
@@ -5320,7 +5320,7 @@
  {
   "en": "Wind Wall",
   "l": 3,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Concentration, až 1 minutu",
@@ -5356,7 +5356,7 @@
  {
   "en": "Aura of Life",
   "l": 4,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 10 minut",
@@ -5372,7 +5372,7 @@
  {
   "en": "Aura of Purity",
   "l": 4,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 10 minut",
@@ -5382,13 +5382,13 @@
    "V"
   ],
   "m": "",
-  "t": "Vytvoříš emanaci s poloměrem 30 stop. Ty a spojenci uvnitř máte Resistance vůči Poison zranění a výhodu k záchranným hodům, které brání slepotě, zmámení, hluchotě, vystrašení, paralýze, otrávení nebo omráčení, případně některý z těchto stavů ukončují.",
+  "t": "Vytvoříš emanaci s poloměrem 30 stop. Ty a spojenci uvnitř máte Resistance vůči Poison zranění a výhodu k záchranným hodům, které brání slepotě, okouzlení, hluchotě, vyděšení, paralýze, otrávení nebo omráčení, případně některý z těchto stavů ukončují.",
   "v": ""
  },
  {
   "en": "Banishment",
   "l": 4,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "30 stop",
   "d": "Concentration, až 1 minutu",
@@ -5418,7 +5418,7 @@
    "M"
   ],
   "m": "chapadlo",
-  "t": "Čtverec země 20 stop je obtížný terén. Při vzniku, vstupu nebo konci tahu uvnitř STR záchranný hod; při neúspěchu utrpí 3d6 Bludgeoning zranění a zadržení, úspěch nic; jen jednou za tah. Zadržený se akcí a STR (Atletika) proti tvému SO kouzel osvobodí.",
+  "t": "Čtverec země 20 stop je obtížný terén. Při vzniku, vstupu nebo konci tahu uvnitř STR záchranný hod; při neúspěchu utrpí 3d6 Bludgeoning zranění a spoutání, úspěch nic; jen jednou za tah. Spoutaný se akcí a STR (Atletika) proti tvému SO kouzel osvobodí.",
   "v": "",
   "a": [
    "Evard's Black Tentacles"
@@ -5455,7 +5455,7 @@
    "S"
   ],
   "m": "",
-  "t": "Viditelná bytost WIS s výhodou v boji s tebou/spojenci. Neúspěch tebou zmámena a přátelská, zranění tebou/spojenci účinek ukončí. Po konci ví o zmámení.",
+  "t": "Viditelná bytost WIS s výhodou v boji s tebou/spojenci. Neúspěch tebou okouzlena a přátelská, zranění tebou/spojenci účinek ukončí. Po konci ví o okouzlení.",
   "v": "Můžeš zacílit jednoho dalšího tvora za každou úroveň slotu kouzla nad 4; cíle nemusí být do 30 stop od sebe."
  },
  {
@@ -5472,7 +5472,7 @@
    "S"
   ],
   "m": "",
-  "t": "Vybrané viditelné bytosti WIS záchranný hod, jinak zmámeny. Bonusovou akcí určíš vodorovný směr; každý zmámený příští tah použije co nejvíc pohybu tím směrem nejbezpečnější cestou. Potom opakuje WIS záchranný hod pro ukončení účinku.",
+  "t": "Vybrané viditelné bytosti WIS záchranný hod, jinak okouzleny. Bonusovou akcí určíš vodorovný směr; každý okouzlený příští tah použije co nejvíc pohybu tím směrem nejbezpečnější cestou. Potom opakuje WIS záchranný hod pro ukončení účinku.",
   "v": ""
  },
  {
@@ -5530,7 +5530,7 @@
  {
   "en": "Control Water",
   "l": 4,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "300 stop",
   "d": "Concentration, až 10 minut",
@@ -5548,7 +5548,7 @@
  {
   "en": "Death Ward",
   "l": 4,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "8 hodin",
@@ -5610,13 +5610,13 @@
    "S"
   ],
   "m": "",
-  "t": "Viditelné zvíře WIS (výhoda v boji s tebou/spojenci), jinak zmámeno; při zranění nová WIS záchranný hod pro ukončení účinku. Telepatické pokyny ve stejné sféře v tvém tahu bez akce. Splněné rozkazy bez dalšího pokynu vystřídá vlastní jednání se sebeobranou. Vynucená reakce cíle spotřebuje i tvou reakci.",
+  "t": "Viditelné zvíře WIS (výhoda v boji s tebou/spojenci), jinak okouzleno; při zranění nová WIS záchranný hod pro ukončení účinku. Telepatické pokyny ve stejné sféře v tvém tahu bez akce. Splněné rozkazy bez dalšího pokynu vystřídá vlastní jednání se sebeobranou. Vynucená reakce cíle spotřebuje i tvou reakci.",
   "v": "Slot 5. úrovně až 10 minut, 6. hodinu, 7+ osm hodin soustředění."
  },
  {
   "en": "Elemental Bane",
   "l": 4,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "90 stop",
   "d": "Concentration, až 1 minutu",
@@ -5633,7 +5633,7 @@
  {
   "en": "Fabricate",
   "l": 4,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "10 minut",
   "r": "120 stop",
   "d": "Okamžité",
@@ -5662,7 +5662,7 @@
    "M"
   ],
   "m": "stříbrná píšťalka",
-  "t": "Nehmotný nezranitelný hlídací pes, viditelný jen tobě; zanikne dál než 300 stop od tebe. Small či větší do 30 stop bez hesla spustí štěkot. Pravé vidění 30. Začátkem tvého tahu jeden nepřítel do 5 stop AGI záchranný hod, jinak 4d8 Force zranění. Akcí Magie v dalších tazích pohyb až 30 stop.",
+  "t": "Nehmotný nezranitelný hlídací pes, viditelný jen tobě; zanikne dál než 300 stop od tebe. Small či větší do 30 stop bez hesla spustí štěkot. Pravé vidění 30. Začátkem tvého tahu jeden nepřítel do 5 stop DEX záchranný hod, jinak 4d8 Force zranění. Akcí Magie v dalších tazích pohyb až 30 stop.",
   "v": "",
   "a": [
    "Mordenkainen's Faithful Hound"
@@ -5692,7 +5692,7 @@
  {
   "en": "Fire Shield",
   "l": 4,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe",
   "d": "10 minut",
@@ -5710,7 +5710,7 @@
  {
   "en": "Freedom of Movement",
   "l": 4,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "1 hodina",
@@ -5722,7 +5722,7 @@
    "M"
   ],
   "m": "kožený řemínek",
-  "t": "Dotčený ochotný ignoruje obtížný terén; magie mu nemůže snížit rychlost ani způsobit paralýzu/zadržení. Získá plavání jako rychlost. Za 5 stop pohybu automaticky unikne nemagickým poutům i uchvácení bytostí.",
+  "t": "Dotčený ochotný ignoruje obtížný terén; magie mu nemůže snížit rychlost ani způsobit paralýzu/spoutání. Získá plavání jako rychlost. Za 5 stop pohybu automaticky unikne nemagickým poutům i chycení bytostí.",
   "v": "+1 dotčená bytost za každou úroveň slotu kouzla nad 4."
  },
  {
@@ -5751,7 +5751,7 @@
  {
   "en": "Gate Seal",
   "l": 4,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "1 minuta",
   "r": "60 stop",
   "d": "24 hodin",
@@ -5803,13 +5803,13 @@
    "S"
   ],
   "m": "",
-  "t": "Réva ve viditelném volném místě. Útok kouzlem na blízko proti cíli do 30 stop od ní: 4d8 Bludgeoning zranění, přitažení až 30 stop k révě; Huge či menší uchvácen, SO úniku tvůj SO. Drží jeden cíl, pustí bez akce. V dalších tazích bonusovou akcí opakuješ útok.",
-  "v": "Počet současně uchvácených +1 za každou úroveň slotu kouzla nad 4."
+  "t": "Réva ve viditelném volném místě. Útok kouzlem na blízko proti cíli do 30 stop od ní: 4d8 Bludgeoning zranění, přitažení až 30 stop k révě; Huge či menší chycen, SO úniku tvůj SO. Drží jeden cíl, pustí bez akce. V dalších tazích bonusovou akcí opakuješ útok.",
+  "v": "Počet současně chycených +1 za každou úroveň slotu kouzla nad 4."
  },
  {
   "en": "Gravity Sinkhole",
   "l": 4,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Okamžité",
@@ -5861,13 +5861,13 @@
    "V"
   ],
   "m": "",
-  "t": "Large nezranitelný přízračný strážce zabírá volný viditelný prostor. Nepřítel při prvním přesunu do 10 stop v tahu nebo začátku tahu tam AGI záchranný hod; při neúspěchu utrpí 20 Radiant zranění, při úspěchu utrpí 10 zranění. Po celkem 60 způsobených zmizí.",
+  "t": "Large nezranitelný přízračný strážce zabírá volný viditelný prostor. Nepřítel při prvním přesunu do 10 stop v tahu nebo začátku tahu tam DEX záchranný hod; při neúspěchu utrpí 20 Radiant zranění, při úspěchu utrpí 10 zranění. Po celkem 60 způsobených zmizí.",
   "v": ""
  },
  {
   "en": "Guardian of Nature",
   "l": 4,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Bonusová akce",
   "r": "Sebe",
   "d": "Concentration, až 1 minutu",
@@ -5877,7 +5877,7 @@
    "V"
   ],
   "m": "",
-  "t": "Zvol: Primal Beast chůze+10, tma 120, výhoda na útoky STR, zásahy zbraní na blízko +1d6 Force zranění. Great Tree 10 dočasných HP, výhoda na záchranné hody na CON a útoky AGI/WIS; stojíš-li na zemi, do 15 stop obtížný terén pro nepřátele.",
+  "t": "Zvol: Primal Beast chůze+10, tma 120, výhoda na útoky STR, zásahy zbraní na blízko +1d6 Force zranění. Great Tree 10 dočasných HP, výhoda na záchranné hody na CON a útoky DEX/WIS; stojíš-li na zemi, do 15 stop obtížný terén pro nepřátele.",
   "v": "",
   "cz": "Strážce přírody",
   "p": [
@@ -5906,7 +5906,7 @@
  {
   "en": "Ice Storm",
   "l": 4,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "300 stop",
   "d": "Okamžité",
@@ -5918,7 +5918,7 @@
    "M"
   ],
   "m": "palčák",
-  "t": "Válec poloměru 20 a výšky 40 stop: AGI záchranný hod; při neúspěchu utrpí 2d10 Bludgeoning zranění +4d6 Cold zranění, při úspěchu poloviční zranění. Země je obtížný terén do konce tvého dalšího tahu.",
+  "t": "Válec poloměru 20 a výšky 40 stop: DEX záchranný hod; při neúspěchu utrpí 2d10 Bludgeoning zranění +4d6 Cold zranění, při úspěchu poloviční zranění. Země je obtížný terén do konce tvého dalšího tahu.",
   "v": "Drtivé zranění +1d10 za každou úroveň slotu kouzla nad 4."
  },
  {
@@ -5959,7 +5959,7 @@
  {
   "en": "Polymorph",
   "l": 4,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Concentration, až 1 hodinu",
@@ -5977,7 +5977,7 @@
  {
   "en": "Private Sanctum",
   "l": 4,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "10 minut",
   "r": "120 stop",
   "d": "24 hodin",
@@ -6021,7 +6021,7 @@
  {
   "en": "Resilient Sphere",
   "l": 4,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "30 stop",
   "d": "Concentration, až 1 minutu",
@@ -6033,7 +6033,7 @@
    "M"
   ],
   "m": "skleněná koule",
-  "t": "Large či menší bytost/předmět uzavře beztížná nezranitelná koule, neochotný odolá AGI. Fyzické věci, energie a kouzla neprojdou, dýchat lze; nelze zraňovat přes bariéru oběma směry. Uvnitř akcí kutálení poloviční rychlostí, jiní ji mohou přenášet. Disintegrate zničí kouli bez újmy uvnitř.",
+  "t": "Large či menší bytost/předmět uzavře beztížná nezranitelná koule, neochotný odolá DEX. Fyzické věci, energie a kouzla neprojdou, dýchat lze; nelze zraňovat přes bariéru oběma směry. Uvnitř akcí kutálení poloviční rychlostí, jiní ji mohou přenášet. Disintegrate zničí kouli bez újmy uvnitř.",
   "v": "",
   "a": [
    "Otiluke's Resilient Sphere"
@@ -6085,7 +6085,7 @@
  {
   "en": "Sickening Radiance",
   "l": 4,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Concentration, až 10 minut",
@@ -6114,7 +6114,7 @@
    "M"
   ],
   "m": "pozlacená hrací karta s vyobrazením avatara smrti v hodnotě alespoň 400 zl.",
-  "t": "Medium undead, AC 11+L, HP 40+10×(L−4), pohyb/let 30 s vznášením, všechny vlastnosti 16, Immunity vůči Necrotic/Poison a zmámení/únava/strach/paralýza/otrávení, vidění ve tmě 60, pasivní Vnímání 13, tvé jazyky/zdatnost. Jedná bezprostředně po tobě; rozkazy mu dáváš bez použití akce, jinak použije akci Uhýbání nebo ustoupí, 0 jej zruší. ⌊L/2⌋ útoků s tvým modifikátorem sesílací vlastnosti a výhodou, dosah 5, 1d8+3+L Necrotic zranění.\n\nProjde bytostmi/objekty jako obtížným terénem; konec v objektu vytlačí, 1d10 Force zranění za 5 stop. Bonusovou akcí označí viditelný cíl do 10 stop: ty i duch znáte směr/vzdálenost ve stejné sféře; začátek tahu cíle do 10 stop WIS proti tvému SO kouzel nebo strach do jeho dalšího tahu. Označení končí smrtí cíle, zmizením ducha či novým označením.",
+  "t": "Medium undead, AC 11+L, HP 40+10×(L−4), pohyb/let 30 s vznášením, všechny vlastnosti 16, Immunity vůči Necrotic/Poison a okouzlení/únava/strach/paralýza/otrávení, vidění ve tmě 60, pasivní Vnímání 13, tvé jazyky/zdatnost. Jedná bezprostředně po tobě; rozkazy mu dáváš bez použití akce, jinak použije akci Uhýbání nebo ustoupí, 0 jej zruší. ⌊L/2⌋ útoků s tvým modifikátorem sesílací vlastnosti a výhodou, dosah 5, 1d8+3+L Necrotic zranění.\n\nProjde bytostmi/objekty jako obtížným terénem; konec v objektu vytlačí, 1d10 Force zranění za 5 stop. Bonusovou akcí označí viditelný cíl do 10 stop: ty i duch znáte směr/vzdálenost ve stejné sféře; začátek tahu cíle do 10 stop WIS proti tvému SO kouzel nebo strach do jeho dalšího tahu. Označení končí smrtí cíle, zmizením ducha či novým označením.",
   "v": "L označuje úroveň použité sloty kouzel (nejméně 4).",
   "cz": "Duch smrti",
   "p": [
@@ -6146,7 +6146,7 @@
  {
   "en": "Stone Shape",
   "l": 4,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "Okamžité",
@@ -6164,7 +6164,7 @@
  {
   "en": "Stoneskin",
   "l": 4,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "Concentration, až 1 hodinu",
@@ -6182,7 +6182,7 @@
  {
   "en": "Storm Sphere",
   "l": 4,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "150 stop",
   "d": "Concentration, až 1 minutu",
@@ -6229,7 +6229,7 @@
    "M"
   ],
   "m": "uzamykatelná skříňka v hodnotě alespoň 400 zl.",
-  "t": "Medium výtvor, AC 13+L, HP 40+15×(L−4), pohyb 30. Vlastnosti 18/10/18/14/11/5, Resistance vůči Poison, imunita zmámení/únavě/strachu/paralýze/otrávení, vidění ve tmě 60, pasivní Vnímání 10, rozumí tvým jazykům. Jedná bezprostředně po tobě; rozkazy mu dáváš bez použití akce, jinak použije akci Uhýbání nebo ustoupí; při poklesu na 0 HP nebo skončení kouzla zmizí. ⌊L/2⌋ útoků tvým modifikátorem sesílací vlastnosti, dosah 5, 1d8+4+L Bludgeoning zranění.\n\nMetal: zásah útokem na blízko nebo začátek tahu v uchvácení s duchem způsobí útočníkovi 1d10 Fire zranění. Stone: viditelný cíl začínající tah do 10 WIS proti tvému SO kouzel, jinak půl rychlosti a bez příležitostných útoků do začátku svého dalšího tahu. Clay reakcí na zranění bytostí úder proti ní, nebo půl pohybu k ní bez příležitostných útoků.",
+  "t": "Medium výtvor, AC 13+L, HP 40+15×(L−4), pohyb 30. Vlastnosti 18/10/18/14/11/5, Resistance vůči Poison, imunita okouzlení/únavě/strachu/paralýze/otrávení, vidění ve tmě 60, pasivní Vnímání 10, rozumí tvým jazykům. Jedná bezprostředně po tobě; rozkazy mu dáváš bez použití akce, jinak použije akci Uhýbání nebo ustoupí; při poklesu na 0 HP nebo skončení kouzla zmizí. ⌊L/2⌋ útoků tvým modifikátorem sesílací vlastnosti, dosah 5, 1d8+4+L Bludgeoning zranění.\n\nMetal: zásah útokem na blízko nebo začátek tahu v chycení s duchem způsobí útočníkovi 1d10 Fire zranění. Stone: viditelný cíl začínající tah do 10 WIS proti tvému SO kouzel, jinak půl rychlosti a bez příležitostných útoků do začátku svého dalšího tahu. Clay reakcí na zranění bytostí úder proti ní, nebo půl pohybu k ní bez příležitostných útoků.",
   "v": "L označuje úroveň použité sloty kouzel (nejméně 4)."
  },
  {
@@ -6276,7 +6276,7 @@
  {
   "en": "Vitriolic Sphere",
   "l": 4,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "150 stop",
   "d": "Okamžité",
@@ -6288,13 +6288,13 @@
    "M"
   ],
   "m": "kapka žluči",
-  "t": "Koule poloměru 20 stop: AGI, neúspěch 10d4 Acid zranění hned a 5d4 na konci příštího tahu; při úspěchu poloviční zranění počátečního a žádné pozdější.",
+  "t": "Koule poloměru 20 stop: DEX, neúspěch 10d4 Acid zranění hned a 5d4 na konci příštího tahu; při úspěchu poloviční zranění počátečního a žádné pozdější.",
   "v": "Pouze počáteční +2d4 za každou úroveň slotu kouzla nad 4."
  },
  {
   "en": "Wall of Fire",
   "l": 4,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Concentration, až 1 minutu",
@@ -6306,7 +6306,7 @@
    "M"
   ],
   "m": "kousek dřevěného uhlí",
-  "t": "Na pevném povrchu vytvoříš neprůhlednou ohnivou stěnu o rozměrech až 60 × 20 × 1 stopa, nebo prstenec o průměru až 20 stop, výšce 20 stop a tloušťce 1 stopa. Při vzniku stěny provede zasažená bytost AGI záchranný hod. Při neúspěchu utrpí 5d8 Fire zranění, při úspěchu poloviční zranění.\nZvolíš jednu horkou stranu stěny; druhá strana nezraňuje. Bez záchranného hodu utrpí bytost 5d8 Fire zranění při prvním vstupu do stěny v tahu nebo při ukončení tahu uvnitř stěny či do 10 stop od její horké strany.",
+  "t": "Na pevném povrchu vytvoříš neprůhlednou ohnivou stěnu o rozměrech až 60 × 20 × 1 stopa, nebo prstenec o průměru až 20 stop, výšce 20 stop a tloušťce 1 stopa. Při vzniku stěny provede zasažená bytost DEX záchranný hod. Při neúspěchu utrpí 5d8 Fire zranění, při úspěchu poloviční zranění.\nZvolíš jednu horkou stranu stěny; druhá strana nezraňuje. Bez záchranného hodu utrpí bytost 5d8 Fire zranění při prvním vstupu do stěny v tahu nebo při ukončení tahu uvnitř stěny či do 10 stop od její horké strany.",
   "v": "Zranění se zvýší o 1d8 za každou úroveň slotu kouzla nad 4."
  },
  {
@@ -6324,13 +6324,13 @@
    "M"
   ],
   "m": "kapička vody",
-  "t": "Koule poloměru 5 stop nejvýše 10 stop nad zemí. Uvnitř STR (Huge a větší automaticky uspějí); úspěch vytlačí do nejbližšího volného místa venku, neúspěch zadrží pod vodou. Opakování na konci každého svého tahu. Kapacita 4 Medium či menší nebo 1 Large; přebytečný zadržený vytlačí náhodného původního na zem do 5 stop, sraženého. Akcí pohyb 30 stop přímo včetně nárazu (záchrana nejvýše jednou za tah), nese vězně; nad propastí bezpečně sestoupí do 10 stop nad zemí. Po konci klesne, vězně srazí a uhasí běžné plameny do 30 stop.",
+  "t": "Koule poloměru 5 stop nejvýše 10 stop nad zemí. Uvnitř STR (Huge a větší automaticky uspějí); úspěch vytlačí do nejbližšího volného místa venku, neúspěch zadrží pod vodou. Opakování na konci každého svého tahu. Kapacita 4 Medium či menší nebo 1 Large; přebytečný spoutaný vytlačí náhodného původního na zem do 5 stop, sraženého. Akcí pohyb 30 stop přímo včetně nárazu (záchrana nejvýše jednou za tah), nese vězně; nad propastí bezpečně sestoupí do 10 stop nad zemí. Po konci klesne, vězně srazí a uhasí běžné plameny do 30 stop.",
   "v": ""
  },
  {
   "en": "Animate Objects",
   "l": 5,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Concentration, až 1 minutu",
@@ -6341,13 +6341,13 @@
    "S"
   ],
   "m": "",
-  "t": "Rozpočet počtu předmětů je tvůj modifikátor sesílací vlastnosti; Medium či menší stojí 1, Large 2, Huge 3. Nemagické, nenesené, nepřipevněné; Gargantuan nelze. Výtvory jednají po tobě; bonusovou akcí společný rozkaz do 500 stop, jinak použije akci Uhýbání nebo ustoupí. AC 15, pohyb 30, vlastnosti 16/10/10/3/3/1, Immunity vůči Poison/Psychic a zmámení/únava/strach/paralýza/otrávení, slepozrak 30, pasivní Vnímání 6, rozumí tvým jazykům. Životy dle velikosti 10/20/40. Útok tvým modifikátorem sesílací vlastnosti, dosah 5, silové: menší 1d4+3, Large 2d6+3+tvůj modifikátor sesílací vlastnosti, Huge 2d12+3+modifikátor sesílací vlastnosti. Při 0 návrat do předmětu, přebytek přejde.",
+  "t": "Rozpočet počtu předmětů je tvůj modifikátor sesílací vlastnosti; Medium či menší stojí 1, Large 2, Huge 3. Nemagické, nenesené, nepřipevněné; Gargantuan nelze. Výtvory jednají po tobě; bonusovou akcí společný rozkaz do 500 stop, jinak použije akci Uhýbání nebo ustoupí. AC 15, pohyb 30, vlastnosti 16/10/10/3/3/1, Immunity vůči Poison/Psychic a okouzlení/únava/strach/paralýza/otrávení, slepozrak 30, pasivní Vnímání 6, rozumí tvým jazykům. Životy dle velikosti 10/20/40. Útok tvým modifikátorem sesílací vlastnosti, dosah 5, silové: menší 1d4+3, Large 2d6+3+tvůj modifikátor sesílací vlastnosti, Huge 2d12+3+modifikátor sesílací vlastnosti. Při 0 návrat do předmětu, přebytek přejde.",
   "v": "Zranění každého úderu +1d4 menší/+1d6 Large/+1d12 Huge za každou úroveň slotu kouzla nad 5; počet objektů neroste."
  },
  {
   "en": "Antilife Shell",
   "l": 5,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 1 hodinu",
@@ -6364,7 +6364,7 @@
  {
   "en": "Arcane Hand",
   "l": 5,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Concentration, až 1 minutu",
@@ -6376,7 +6376,7 @@
    "M"
   ],
   "m": "vaječná skořápka a rukavice",
-  "t": "Vytvoříš předmět ve tvaru ruky velikosti Large s AC 20 a počtem HP rovným tvému maximu. Ruka nezabírá svůj prostor a při poklesu na 0 HP zanikne. Při seslání a později bonusovou akcí ji můžeš posunout až o 60 stop a zvolit jeden z následujících účinků.\nPěst: provedeš útok kouzlem na blízko proti cíli do 5 stop od ruky. Zásah způsobí 5d8 Force zranění.\nTlak: bytost velikosti Huge nebo menší do 5 stop od ruky provede STR záchranný hod. Při neúspěchu ji odsuneš až o 5 + 5 × tvůj modifikátor sesílací vlastnosti stop. Ruka se pohybuje spolu s ní.\nUchvácení: bytost velikosti Huge nebo menší do 5 stop od ruky provede AGI záchranný hod. Při neúspěchu je uchvácena; SO úniku se rovná tvému SO kouzel. Bonusovou akcí můžeš uchvácený cíl drtit a způsobit mu 4d6 + tvůj modifikátor sesílací vlastnosti Bludgeoning zranění.\nKryt: ruka poskytuje půlkryt proti účinkům přicházejícím z jejího prostoru nebo skrz něj. Její prostor je pro nepřátele obtížným terénem.",
+  "t": "Vytvoříš předmět ve tvaru ruky velikosti Large s AC 20 a počtem HP rovným tvému maximu. Ruka nezabírá svůj prostor a při poklesu na 0 HP zanikne. Při seslání a později bonusovou akcí ji můžeš posunout až o 60 stop a zvolit jeden z následujících účinků.\nPěst: provedeš útok kouzlem na blízko proti cíli do 5 stop od ruky. Zásah způsobí 5d8 Force zranění.\nTlak: bytost velikosti Huge nebo menší do 5 stop od ruky provede STR záchranný hod. Při neúspěchu ji odsuneš až o 5 + 5 × tvůj modifikátor sesílací vlastnosti stop. Ruka se pohybuje spolu s ní.\nUchvácení: bytost velikosti Huge nebo menší do 5 stop od ruky provede DEX záchranný hod. Při neúspěchu je chycena; SO úniku se rovná tvému SO kouzel. Bonusovou akcí můžeš chycený cíl drtit a způsobit mu 4d6 + tvůj modifikátor sesílací vlastnosti Bludgeoning zranění.\nKryt: ruka poskytuje půlkryt proti účinkům přicházejícím z jejího prostoru nebo skrz něj. Její prostor je pro nepřátele obtížným terénem.",
   "v": "Pěst +2d8 a drcení +2d6 za každou úroveň slotu kouzla nad 5.",
   "a": [
    "Bigby's Hand"
@@ -6385,7 +6385,7 @@
  {
   "en": "Awaken",
   "l": 5,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "8 hodin",
   "r": "Dotyk",
   "d": "Okamžité",
@@ -6397,7 +6397,7 @@
    "M"
   ],
   "m": "achát v hodnotě alespoň 1 000 zl., který kouzlo spotřebuje",
-  "t": "Dotčené zvíře/rostlinná bytost s INT nejvýše 3 nebo přírodní rostlina nebytost získá INT 10 a tvůj jazyk. Přírodní rostlina se stane rostlinnou bytostí s pohybem a lidskými smysly; statistiky PJ. Zmámení 30 dní nebo do zranění tebou/spojenci; potom si postoj zvolí sama.",
+  "t": "Dotčené zvíře/rostlinná bytost s INT nejvýše 3 nebo přírodní rostlina nebytost získá INT 10 a tvůj jazyk. Přírodní rostlina se stane rostlinnou bytostí s pohybem a lidskými smysly; statistiky PJ. Okouzlení 30 dní nebo do zranění tebou/spojenci; potom si postoj zvolí sama.",
   "v": ""
  },
  {
@@ -6419,7 +6419,7 @@
  {
   "en": "Circle of Power",
   "l": 5,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 10 minut",
@@ -6487,7 +6487,7 @@
  {
   "en": "Cone of Cold",
   "l": 5,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Okamžité",
@@ -6516,7 +6516,7 @@
    "S"
   ],
   "m": "",
-  "t": "Large nehmotný duch ve volném místě; typ vzduch=blesk, země=hrom, oheň=oheň, voda=chlad. Nemá-li zadrženého, při vstupu viditelné bytosti do jeho prostoru nebo začátku jejího tahu do 5 stop můžeš vynutit AGI: neúspěch 8d8 typu a zadržení. Zadržený na začátku každého svého tahu opakuje; neúspěch 4d8, úspěch osvobodí.",
+  "t": "Large nehmotný duch ve volném místě; typ vzduch=blesk, země=hrom, oheň=oheň, voda=chlad. Nemá-li spoutaného, při vstupu viditelné bytosti do jeho prostoru nebo začátku jejího tahu do 5 stop můžeš vynutit DEX: neúspěch 8d8 typu a spoutání. Spoutaný na začátku každého svého tahu opakuje; neúspěch 4d8, úspěch osvobodí.",
   "v": "Počáteční i opakované zranění +1d8 za každou úroveň slotu kouzla nad 5."
  },
  {
@@ -6534,7 +6534,7 @@
    "M"
   ],
   "m": "zbraň na blízko nebo na dálku v hodnotě alespoň 1 md.",
-  "t": "Vybrané viditelné bytosti ve válci poloměru 40 a výšky 20 stop AGI záchranný hod; při neúspěchu utrpí 8d8 Force zranění, při úspěchu poloviční zranění.",
+  "t": "Vybrané viditelné bytosti ve válci poloměru 40 a výšky 20 stop DEX záchranný hod; při neúspěchu utrpí 8d8 Force zranění, při úspěchu poloviční zranění.",
   "v": "",
   "cz": "Vyčarovaná salva",
   "p": [
@@ -6577,7 +6577,7 @@
  {
   "en": "Control Winds",
   "l": 5,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "300 stop",
   "d": "Concentration, až 1 hodinu",
@@ -6594,7 +6594,7 @@
  {
   "en": "Create Spelljamming Helm",
   "l": 5,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "Okamžité",
@@ -6656,7 +6656,7 @@
  {
   "en": "Dawn",
   "l": 5,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Concentration, až 1 minutu",
@@ -6674,7 +6674,7 @@
  {
   "en": "Destructive Wave",
   "l": 5,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Okamžité",
@@ -6690,7 +6690,7 @@
  {
   "en": "Dispel Evil and Good",
   "l": 5,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 1 minutu",
@@ -6702,7 +6702,7 @@
    "M"
   ],
   "m": "stříbrný a železný prášek",
-  "t": "Nebešťané/elementálové/víly/běsi/nemrtví mají nevýhodu k hodům na útok proti tobě. Akcí Magie a koncem kouzla zvolíš: dotykem ukončit jejich posednutí/zmámení/strach na bytosti; nebo viditelný cíl těchto typů do 5 CHA záchranný hod, jinak návrat do domovské sféry, není-li už doma. Nemrtví do Stínopádu, víly do Vílí divočiny, pokud se tam již nenacházejí.",
+  "t": "Nebešťané/elementálové/víly/běsi/nemrtví mají nevýhodu k hodům na útok proti tobě. Akcí Magie a koncem kouzla zvolíš: dotykem ukončit jejich posednutí/okouzlení/strach na bytosti; nebo viditelný cíl těchto typů do 5 CHA záchranný hod, jinak návrat do domovské sféry, není-li už doma. Nemrtví do Stínopádu, víly do Vílí divočiny, pokud se tam již nenacházejí.",
   "v": ""
  },
  {
@@ -6719,7 +6719,7 @@
    "S"
   ],
   "m": "",
-  "t": "Viditelný humanoid WIS (výhoda v boji s tebou/spojenci), jinak zmámen; při zranění opakuje pro konec. Ve stejné sféře telepatické rozkazy v tvém tahu bez akce. Bez dalšího rozkazu po dokončení jedná sám se sebeobranou. Příkaz k reakci spotřebuje i tvou reakci.",
+  "t": "Viditelný humanoid WIS (výhoda v boji s tebou/spojenci), jinak okouzlen; při zranění opakuje pro konec. Ve stejné sféře telepatické rozkazy v tvém tahu bez akce. Bez dalšího rozkazu po dokončení jedná sám se sebeobranou. Příkaz k reakci spotřebuje i tvou reakci.",
   "v": "Slot 6. úrovně soustředění až 10 minut, 7. hodinu, 8+ osm hodin."
  },
  {
@@ -6754,7 +6754,7 @@
    "S"
   ],
   "m": "",
-  "t": "Viditelný cíl AGI: neúspěch 6d8 Necrotic zranění, při úspěchu poloviční zranění a konec. Po neúspěchu v dalších svých tazích bonusovou akcí automaticky 2d8. Mimo dosah či úplný kryt končí. Při každém zranění obnovíš polovinu skutečně způsobeného Necrotic zranění HP.",
+  "t": "Viditelný cíl DEX: neúspěch 6d8 Necrotic zranění, při úspěchu poloviční zranění a konec. Po neúspěchu v dalších svých tazích bonusovou akcí automaticky 2d8. Mimo dosah či úplný kryt končí. Při každém zranění obnovíš polovinu skutečně způsobeného Necrotic zranění HP.",
   "v": "Pouze počáteční zranění +1d8 za každou úroveň slotu kouzla nad 5.",
   "cz": "Vysílení",
   "p": [
@@ -6788,7 +6788,7 @@
  {
   "en": "Flame Strike",
   "l": 5,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Okamžité",
@@ -6800,7 +6800,7 @@
    "M"
   ],
   "m": "špetka síry",
-  "t": "Válec poloměru 10 a výšky 40 stop: AGI záchranný hod; při neúspěchu utrpí 5d6 Fire zranění +5d6 Radiant zranění, při úspěchu poloviční zranění.",
+  "t": "Válec poloměru 10 a výšky 40 stop: DEX záchranný hod; při neúspěchu utrpí 5d6 Fire zranění +5d6 Radiant zranění, při úspěchu poloviční zranění.",
   "v": "Oba typy zranění +1d6 za každou úroveň slotu kouzla nad 5."
  },
  {
@@ -6816,13 +6816,13 @@
    "V"
   ],
   "m": "",
-  "t": "Viditelný cíl WIS, nerozumějící automaticky uspěje. Jinak zmámen 30 dní a přímé porušení pokynu způsobí 5d10 Psychic zranění nejvýše jednou denně. Sebevražedný příkaz kouzlo ukončí. Ukončí Remove Curse, Greater Restoration nebo Wish.",
+  "t": "Viditelný cíl WIS, nerozumějící automaticky uspěje. Jinak okouzlen 30 dní a přímé porušení pokynu způsobí 5d10 Psychic zranění nejvýše jednou denně. Sebevražedný příkaz kouzlo ukončí. Ukončí Remove Curse, Greater Restoration nebo Wish.",
   "v": ""
  },
  {
   "en": "Greater Restoration",
   "l": 5,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "Okamžité",
@@ -6834,13 +6834,13 @@
    "M"
   ],
   "m": "diamantový prach v hodnotě alespoň 100 zl., který kouzlo spotřebuje",
-  "t": "Zvol jeden účinek: snížení únavy o 1 stupeň; ukončení jednoho zmámení či zkamenění; jedné kletby včetně sladění s prokletým předmětem; jednoho snížení hodnoty vlastnosti; jednoho účinku snižujícího maximum HP.",
+  "t": "Zvol jeden účinek: snížení únavy o 1 stupeň; ukončení jednoho okouzlení či zkamenění; jedné kletby včetně sladění s prokletým předmětem; jednoho snížení hodnoty vlastnosti; jednoho účinku snižujícího maximum HP.",
   "v": ""
  },
  {
   "en": "Hallow",
   "l": 5,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "24 hodin",
   "r": "Dotyk",
   "d": "Do rozptýlení",
@@ -6852,7 +6852,7 @@
    "M"
   ],
   "m": "kadidlo v hodnotě alespoň 1 000 zl., které kouzlo spotřebuje",
-  "t": "Oblast poloměru až 60 stop, nesmí překrývat jiný Hallow. Zvolené typy aberace, nebešťan, elementál, víla, běs nebo nemrtvý nemohou dobrovolně vstoupit; jejich posednutí/zmámení/strach je uvnitř potlačeno. Navíc jeden účinek: imunita strachu; tma odolná světelným kouzlům nižší úrovně; jas odolný nižším kouzlům tmy; pohřbené ostatky nejdou změnit v nemrtvé; zákaz teleportu/mezisférického cestování dovnitř/ven; strach; Resistance jednomu typu; ticho dovnitř/ven; vzájemné porozumění; Vulnerability jednomu typu. Kde účinek volí typy bytostí, určíš je při seslání.",
+  "t": "Oblast poloměru až 60 stop, nesmí překrývat jiný Hallow. Zvolené typy aberace, nebešťan, elementál, víla, běs nebo nemrtvý nemohou dobrovolně vstoupit; jejich posednutí/okouzlení/strach je uvnitř potlačeno. Navíc jeden účinek: imunita strachu; tma odolná světelným kouzlům nižší úrovně; jas odolný nižším kouzlům tmy; pohřbené ostatky nejdou změnit v nemrtvé; zákaz teleportu/mezisférického cestování dovnitř/ven; strach; Resistance jednomu typu; ticho dovnitř/ven; vzájemné porozumění; Vulnerability jednomu typu. Kde účinek volí typy bytostí, určíš je při seslání.",
   "v": ""
  },
  {
@@ -6876,7 +6876,7 @@
  {
   "en": "Holy Weapon",
   "l": 5,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Bonusová akce",
   "r": "Dotyk",
   "d": "Concentration, až 1 hodinu",
@@ -6893,7 +6893,7 @@
  {
   "en": "Immolation",
   "l": 5,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "90 stop",
   "d": "Concentration, až 1 minutu",
@@ -6903,7 +6903,7 @@
    "V"
   ],
   "m": "",
-  "t": "Viditelný cíl: AGI záchranný hod; při neúspěchu utrpí 8d6 Fire zranění, při úspěchu poloviční zranění a konec. Neúspěšný hoří, svítí jasně 30/slabě dalších 30; na konci každého svého tahu opakuje AGI, neúspěch 4d6, úspěch konec. Nemagické hašení nepomůže. Zabitý tímto kouzlem se změní na popel.",
+  "t": "Viditelný cíl: DEX záchranný hod; při neúspěchu utrpí 8d6 Fire zranění, při úspěchu poloviční zranění a konec. Neúspěšný hoří, svítí jasně 30/slabě dalších 30; na konci každého svého tahu opakuje DEX, neúspěch 4d6, úspěch konec. Nemagické hašení nepomůže. Zabitý tímto kouzlem se změní na popel.",
   "v": "",
   "cz": "Upálení",
   "p": [
@@ -6968,7 +6968,7 @@
  {
   "en": "Maelstrom",
   "l": 5,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Concentration, až 1 minutu",
@@ -6986,7 +6986,7 @@
  {
   "en": "Mass Cure Wounds",
   "l": 5,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Okamžité",
@@ -7053,7 +7053,7 @@
  {
   "en": "Passwall",
   "l": 5,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "30 stop",
   "d": "1 hodina",
@@ -7071,7 +7071,7 @@
  {
   "en": "Planar Binding",
   "l": 5,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "1 hodina",
   "r": "60 stop",
   "d": "24 hodin",
@@ -7160,7 +7160,7 @@
  {
   "en": "Skill Empowerment",
   "l": 5,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "Concentration, až 1 hodinu",
@@ -7206,7 +7206,7 @@
    "M"
   ],
   "m": "relikviář v hodnotě alespoň 500 zl.",
-  "t": "Large nebešťan, AC 11+L (Defender +2), HP 40+10×(L−5), chůze 30/let 40, vlastnosti 16/14/16/10/14/16. Odolnost zářivému, imunita zmámení/strachu, vidění ve tmě 60, pasivní Vnímání 12, Celestial a rozumí tvým jazykům. Jedná bezprostředně po tobě; rozkazy mu dáváš bez použití akce, jinak použije akci Uhýbání nebo ustoupí; při poklesu na 0 HP nebo skončení kouzla zmizí. ⌊L/2⌋ útoků tvým modifikátorem sesílací vlastnosti: Avenger dálka 600, 2d6+2+L Radiant zranění; Defender dosah 5, 1d10+3+L Radiant zranění a sobě nebo viditelnému do 10 od cíle 1d10 dočasných HP. Jednou denně dotykem jiné bytosti obnoví 2d8+L HP.",
+  "t": "Large nebešťan, AC 11+L (Defender +2), HP 40+10×(L−5), chůze 30/let 40, vlastnosti 16/14/16/10/14/16. Odolnost zářivému, imunita okouzlení/strachu, vidění ve tmě 60, pasivní Vnímání 12, Celestial a rozumí tvým jazykům. Jedná bezprostředně po tobě; rozkazy mu dáváš bez použití akce, jinak použije akci Uhýbání nebo ustoupí; při poklesu na 0 HP nebo skončení kouzla zmizí. ⌊L/2⌋ útoků tvým modifikátorem sesílací vlastnosti: Avenger dálka 600, 2d6+2+L Radiant zranění; Defender dosah 5, 1d10+3+L Radiant zranění a sobě nebo viditelnému do 10 od cíle 1d10 dočasných HP. Jednou denně dotykem jiné bytosti obnoví 2d8+L HP.",
   "v": "L označuje úroveň použité sloty kouzel (nejméně 5)."
  },
  {
@@ -7224,7 +7224,7 @@
    "M"
   ],
   "m": "předmět s vyrytým obrazem draka v hodnotě alespoň 500 zl.",
-  "t": "Large drak, AC 14+L, HP 50+10×(L−5), pohyb/plavání 30/let 60. Vlastnosti 19/14/17/10/14/14, Resistance vůči Acid/Cold/Fire/Lightning/Poison; jednu z nich získáš i ty. Imunita zmámení/strachu/otrávení, slepozrak 30, vidění ve tmě 60, pasivní Vnímání 12, Draconic a rozumí tvým jazykům. Jedná bezprostředně po tobě; rozkazy mu dáváš bez použití akce, jinak použije akci Uhýbání nebo ustoupí; při poklesu na 0 HP nebo skončení kouzla zmizí. ⌊L/2⌋ útoků tvým modifikátorem sesílací vlastnosti, dosah 10, 1d6+4+L Piercing zranění, a dech kuželem 30: AGI proti tvému SO kouzel za 2d6 zvoleného odolávaného typu, při úspěchu poloviční zranění.",
+  "t": "Large drak, AC 14+L, HP 50+10×(L−5), pohyb/plavání 30/let 60. Vlastnosti 19/14/17/10/14/14, Resistance vůči Acid/Cold/Fire/Lightning/Poison; jednu z nich získáš i ty. Imunita okouzlení/strachu/otrávení, slepozrak 30, vidění ve tmě 60, pasivní Vnímání 12, Draconic a rozumí tvým jazykům. Jedná bezprostředně po tobě; rozkazy mu dáváš bez použití akce, jinak použije akci Uhýbání nebo ustoupí; při poklesu na 0 HP nebo skončení kouzla zmizí. ⌊L/2⌋ útoků tvým modifikátorem sesílací vlastnosti, dosah 10, 1d6+4+L Piercing zranění, a dech kuželem 30: DEX proti tvému SO kouzel za 2d6 zvoleného odolávaného typu, při úspěchu poloviční zranění.",
   "v": "L označuje úroveň použité sloty kouzel (nejméně 5).",
   "a": [
    "Summon Draconic Spirit"
@@ -7233,7 +7233,7 @@
  {
   "en": "Swift Quiver",
   "l": 5,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Bonusová akce",
   "r": "Sebe",
   "d": "Concentration, až 1 minutu",
@@ -7268,7 +7268,7 @@
  {
   "en": "Telekinesis",
   "l": 5,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Concentration, až 10 minut",
@@ -7279,7 +7279,7 @@
    "S"
   ],
   "m": "",
-  "t": "Při seslání a později akcí Magie jeden viditelný cíl; změna cíle pustí starý. Huge či menší bytost STR záchranný hod, jinak přesun až 30 libovolně v dosahu a zadržení do konce tvého dalšího tahu; v letu visí, potom padá, pokud znovu neovlivníš a neselže. Huge/menší nenesený předmět automaticky přesuneš 30, nošený nebo držený vytrhneš při neúspěšné STR držitele. Umožní jemnou manipulaci.",
+  "t": "Při seslání a později akcí Magie jeden viditelný cíl; změna cíle pustí starý. Huge či menší bytost STR záchranný hod, jinak přesun až 30 libovolně v dosahu a spoutání do konce tvého dalšího tahu; v letu visí, potom padá, pokud znovu neovlivníš a neselže. Huge/menší nenesený předmět automaticky přesuneš 30, nošený nebo držený vytrhneš při neúspěšné STR držitele. Umožní jemnou manipulaci.",
   "v": ""
  },
  {
@@ -7323,7 +7323,7 @@
  {
   "en": "Temporal Shunt",
   "l": 5,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Reakce",
   "r": "120 stop",
   "d": "1 kolo",
@@ -7347,7 +7347,7 @@
  {
   "en": "Transmute Rock",
   "l": 5,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Do rozptýlení",
@@ -7359,7 +7359,7 @@
    "M"
   ],
   "m": "hlína a voda",
-  "t": "Viditelná krychle 40 stop. Nemagický kámen na bláto: stopa pohybu stojí 4, při vytvoření/prvním vstupu v tahu/konci tahu STR záchranný hod proti zadržení; akcí se vytáhne bez ověření. Ze stropu padající bláto AGI záchranný hod; při neúspěchu utrpí 4d8 Bludgeoning zranění, při úspěchu poloviční zranění. Bláto/tekutý písek do hloubky 10 na kámen: AGI, úspěch bezpečně vytlačí na povrch, neúspěch zadrží; akcí STR SO 20 nebo 25 zranění okolnímu kameni osvobodí.",
+  "t": "Viditelná krychle 40 stop. Nemagický kámen na bláto: stopa pohybu stojí 4, při vytvoření/prvním vstupu v tahu/konci tahu STR záchranný hod proti spoutání; akcí se vytáhne bez ověření. Ze stropu padající bláto DEX záchranný hod; při neúspěchu utrpí 4d8 Bludgeoning zranění, při úspěchu poloviční zranění. Bláto/tekutý písek do hloubky 10 na kámen: DEX, úspěch bezpečně vytlačí na povrch, neúspěch zadrží; akcí STR SO 20 nebo 25 zranění okolnímu kameni osvobodí.",
   "v": "",
   "cz": "Přeměna skály",
   "p": [
@@ -7387,7 +7387,7 @@
  {
   "en": "Wall of Force",
   "l": 5,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Concentration, až 10 minut",
@@ -7405,7 +7405,7 @@
  {
   "en": "Wall of Light",
   "l": 5,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Concentration, až 10 minut",
@@ -7423,7 +7423,7 @@
  {
   "en": "Wall of Stone",
   "l": 5,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Concentration, až 10 minut",
@@ -7435,13 +7435,13 @@
    "M"
   ],
   "m": "žulová kostka",
-  "t": "Deset navazujících panelů 10 ×10 stop, tloušťka 6 palců, nebo 10 ×20 a 3 palce. AC 15, 30 HP na palec, Immunity vůči Poison/Psychic; 0 zničí panel a případně sousední dle PJ. Pevná podpora existujícím kamenem; nelze obsadit předmět/bytost, překrytou vytlačíš. Uzavřená bytost AGI, úspěch dovolí reakcí pohyb do rychlosti ven. Rozpětí nad 20 stop půlí panely pro podpěry. Celá doba soustředění vytvoří trvalou nerozptýlitelnou zeď; jinak zmizí.",
+  "t": "Deset navazujících panelů 10 ×10 stop, tloušťka 6 palců, nebo 10 ×20 a 3 palce. AC 15, 30 HP na palec, Immunity vůči Poison/Psychic; 0 zničí panel a případně sousední dle PJ. Pevná podpora existujícím kamenem; nelze obsadit předmět/bytost, překrytou vytlačíš. Uzavřená bytost DEX, úspěch dovolí reakcí pohyb do rychlosti ven. Rozpětí nad 20 stop půlí panely pro podpěry. Celá doba soustředění vytvoří trvalou nerozptýlitelnou zeď; jinak zmizí.",
   "v": ""
  },
  {
   "en": "Wrath of Nature",
   "l": 5,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Concentration, až 1 minutu",
@@ -7452,7 +7452,7 @@
    "S"
   ],
   "m": "",
-  "t": "Viditelná krychle 60 stop. Tráva/podrost tvoří nepřátelům obtížný terén. Na začátku tvých tahů nepřátelé do 10 stop od stromu v krychli AGI záchranný hod, jinak 4d6 Slashing zranění. Na konci tvých tahů jeden zvolený na zemi STR záchranný hod, jinak zadržen; akcí Atletika proti tvému SO kouzel se osvobodí. Bonusovou akcí volný kámen proti viditelnému v krychli: útok kouzlem na dálku, 3d8 nemagického Bludgeoning zranění a STR záchranný hod proti pádu.",
+  "t": "Viditelná krychle 60 stop. Tráva/podrost tvoří nepřátelům obtížný terén. Na začátku tvých tahů nepřátelé do 10 stop od stromu v krychli DEX záchranný hod, jinak 4d6 Slashing zranění. Na konci tvých tahů jeden zvolený na zemi STR záchranný hod, jinak spoután; akcí Atletika proti tvému SO kouzel se osvobodí. Bonusovou akcí volný kámen proti viditelnému v krychli: útok kouzlem na dálku, 3d8 nemagického Bludgeoning zranění a STR záchranný hod proti pádu.",
   "v": ""
  },
  {
@@ -7475,7 +7475,7 @@
  {
   "en": "Blade Barrier",
   "l": 6,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "90 stop",
   "d": "Concentration, až 10 minut",
@@ -7486,13 +7486,13 @@
    "S"
   ],
   "m": "",
-  "t": "Stěna až 100 × 20 × 5 stop nebo kruh průměru 60, výšky 20 a tloušťky 5. Tříčtvrteční kryt a obtížný terén. Při vzniku, vstupu nebo konci tahu uvnitř AGI záchranný hod; při neúspěchu utrpí 6d10 Force zranění, při úspěchu poloviční zranění; jen jednou za tah.",
+  "t": "Stěna až 100 × 20 × 5 stop nebo kruh průměru 60, výšky 20 a tloušťky 5. Tříčtvrteční kryt a obtížný terén. Při vzniku, vstupu nebo konci tahu uvnitř DEX záchranný hod; při neúspěchu utrpí 6d10 Force zranění, při úspěchu poloviční zranění; jen jednou za tah.",
   "v": ""
  },
  {
   "en": "Bones of the Earth",
   "l": 6,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Okamžité",
@@ -7503,13 +7503,13 @@
    "S"
   ],
   "m": "",
-  "t": "Až šest pilířů na viditelné zemi, průměr 5, výška≤30 stop, AC5/30 HP. Při 0 suť tvoří obtížný terén poloměru 10 do odklizení. Pod Medium/menší bytostí AGI (lze dobrovolně selhat) proti vyzdvižení. Nedosáhne-li kvůli stropu plné výšky, bytost nahoře 6d6 Bludgeoning zranění a zadržení; akcí STR/AGI proti tvému SO kouzel pro únik, pak musí odejít či spadnout.",
+  "t": "Až šest pilířů na viditelné zemi, průměr 5, výška≤30 stop, AC5/30 HP. Při 0 suť tvoří obtížný terén poloměru 10 do odklizení. Pod Medium/menší bytostí DEX (lze dobrovolně selhat) proti vyzdvižení. Nedosáhne-li kvůli stropu plné výšky, bytost nahoře 6d6 Bludgeoning zranění a spoutání; akcí STR/DEX proti tvému SO kouzel pro únik, pak musí odejít či spadnout.",
   "v": "+2 pilíře za každou úroveň slotu kouzla nad 6."
  },
  {
   "en": "Chain Lightning",
   "l": 6,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "150 stop",
   "d": "Okamžité",
@@ -7521,7 +7521,7 @@
    "M"
   ],
   "m": "tři stříbrné jehlice",
-  "t": "První viditelný cíl a až tři další do 30 stop od prvního; bytosti i předměty, každý nejvýše jednou. AGI záchranný hod; při neúspěchu utrpí 10d8 Lightning zranění, při úspěchu poloviční zranění.",
+  "t": "První viditelný cíl a až tři další do 30 stop od prvního; bytosti i předměty, každý nejvýše jednou. DEX záchranný hod; při neúspěchu utrpí 10d8 Lightning zranění, při úspěchu poloviční zranění.",
   "v": "+1 další cíl od prvního za každou úroveň slotu kouzla nad 6."
  },
  {
@@ -7562,7 +7562,7 @@
  {
   "en": "Contingency",
   "l": 6,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "10 minut",
   "r": "Sebe",
   "d": "10 dní",
@@ -7580,7 +7580,7 @@
  {
   "en": "Create Homunculus",
   "l": 6,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "1 hodina",
   "r": "Dotyk",
   "d": "Okamžité",
@@ -7620,7 +7620,7 @@
  {
   "en": "Disintegrate",
   "l": 6,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Okamžité",
@@ -7632,13 +7632,13 @@
    "M"
   ],
   "m": "magnetovec a prach",
-  "t": "Viditelný cíl: bytost AGI záchranný hod, jinak 10d6+40 Force zranění; při úspěchu neutrpí žádné zranění. Zůstane-li po tomto zranění na 0, rozpadne se i s nemagickou výstrojí na prach; návrat jen True Resurrection/Wish. Nemagický předmět či silová bariéra Large/menší automaticky zničena, Huge/větší krychle 10 stop. Magické předměty neovlivní.",
+  "t": "Viditelný cíl: bytost DEX záchranný hod, jinak 10d6+40 Force zranění; při úspěchu neutrpí žádné zranění. Zůstane-li po tomto zranění na 0, rozpadne se i s nemagickou výstrojí na prach; návrat jen True Resurrection/Wish. Nemagický předmět či silová bariéra Large/menší automaticky zničena, Huge/větší krychle 10 stop. Magické předměty neovlivní.",
   "v": "Zranění se zvýší o 3d6 za každou úroveň slotu kouzla nad 6."
  },
  {
   "en": "Druid Grove",
   "l": 6,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "10 minut",
   "r": "Dotyk",
   "d": "24 hodin",
@@ -7695,7 +7695,7 @@
  {
   "en": "Fizban's Platinum Shield",
   "l": 6,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Bonusová akce",
   "r": "60 stop",
   "d": "Concentration, až 1 minutu",
@@ -7707,7 +7707,7 @@
    "M"
   ],
   "m": "dračí šupina potažená platinou v hodnotě alespoň 500 zl.",
-  "t": "Jedna bytost získá poloviční kryt (+2 AC a k záchranám na AGI), Resistance vůči Acid, chladu, ohni, blesku a jedu. Proti účinkům s AGI za polovinu utrpí při úspěchu 0 a při neúspěchu polovinu. Slabě svítí 5 stop. V dalších tazích přeneseš ochranu bonusovou akcí na jinou bytost do 60 stop od chráněného.",
+  "t": "Jedna bytost získá poloviční kryt (+2 AC a k záchranám na DEX), Resistance vůči Acid, chladu, ohni, blesku a jedu. Proti účinkům s DEX za polovinu utrpí při úspěchu 0 a při neúspěchu polovinu. Slabě svítí 5 stop. V dalších tazích přeneseš ochranu bonusovou akcí na jinou bytost do 60 stop od chráněného.",
   "v": "",
   "cz": "Fizbanův platinový štít",
   "p": [
@@ -7718,7 +7718,7 @@
  {
   "en": "Flesh to Stone",
   "l": 6,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Concentration, až 1 minutu",
@@ -7730,13 +7730,13 @@
    "M"
   ],
   "m": "pero kokatrice",
-  "t": "Viditelný cíl CON; výtvor automaticky uspěje. Úspěch rychlost 0 do začátku tvého dalšího tahu. Neúspěch zadržen a na konci každého svého tahu CON: tři úspěchy konec, tři neúspěchy zkamenění, počítají se i nesousedící výsledky. Celá minuta soustředění ponechá zkamenění do Greater Restoration nebo obdobné magie.",
+  "t": "Viditelný cíl CON; výtvor automaticky uspěje. Úspěch rychlost 0 do začátku tvého dalšího tahu. Neúspěch spoután a na konci každého svého tahu CON: tři úspěchy konec, tři neúspěchy zkamenění, počítají se i nesousedící výsledky. Celá minuta soustředění ponechá zkamenění do Greater Restoration nebo obdobné magie.",
   "v": ""
  },
  {
   "en": "Forbiddance",
   "l": 6,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "10 minut",
   "r": "Dotyk",
   "d": "1 den",
@@ -7754,7 +7754,7 @@
  {
   "en": "Freezing Sphere",
   "l": 6,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "300 stop",
   "d": "Okamžité",
@@ -7766,7 +7766,7 @@
    "M"
   ],
   "m": "miniaturní křišťálová koule",
-  "t": "Koule poloměru 60 stop: CON záchranný hod; při neúspěchu utrpí 10d6 Cold zranění, při úspěchu poloviční zranění. Na vodě zmrazí čtverec 30 stop do hloubky 6 palců na minutu; plavci na hladině zadrženi, únik akcí STR (Atletika) proti tvému SO kouzel. Lze ponechat malou kouli v ruce, dát ji jinému, vrhnout do 40 stop či vystřelit prakem na běžný dostřel; náraz vybuchne, jinak po minutě. Lze i položit.",
+  "t": "Koule poloměru 60 stop: CON záchranný hod; při neúspěchu utrpí 10d6 Cold zranění, při úspěchu poloviční zranění. Na vodě zmrazí čtverec 30 stop do hloubky 6 palců na minutu; plavci na hladině spoutáni, únik akcí STR (Atletika) proti tvému SO kouzel. Lze ponechat malou kouli v ruce, dát ji jinému, vrhnout do 40 stop či vystřelit prakem na běžný dostřel; náraz vybuchne, jinak po minutě. Lze i položit.",
   "v": "Zranění se zvýší o 1d6 za každou úroveň slotu kouzla nad 6.",
   "a": [
    "Otiluke's Freezing Sphere"
@@ -7775,7 +7775,7 @@
  {
   "en": "Globe of Invulnerability",
   "l": 6,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 1 minutu",
@@ -7793,7 +7793,7 @@
  {
   "en": "Gravity Fissure",
   "l": 6,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe (čára 100 stop)",
   "d": "Okamžité",
@@ -7818,7 +7818,7 @@
  {
   "en": "Guards and Wards",
   "l": 6,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "1 hodina",
   "r": "Dotyk",
   "d": "24 hodin",
@@ -7853,7 +7853,7 @@
  {
   "en": "Heal",
   "l": 6,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Okamžité",
@@ -7909,7 +7909,7 @@
  {
   "en": "Investiture of Flame",
   "l": 6,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 10 minut",
@@ -7920,13 +7920,13 @@
    "S"
   ],
   "m": "",
-  "t": "Immunity vůči Fire, Resistance vůči Cold, jasně 30/slabě dalších 30 stop. Jiná bytost při prvním pohybu do 5 stop v tahu nebo konci tahu tam 1d10 Fire zranění bez záchrany. Akcí čára 15 ×5 stop: AGI záchranný hod; při neúspěchu utrpí 4d8 Fire zranění, při úspěchu poloviční zranění.",
+  "t": "Immunity vůči Fire, Resistance vůči Cold, jasně 30/slabě dalších 30 stop. Jiná bytost při prvním pohybu do 5 stop v tahu nebo konci tahu tam 1d10 Fire zranění bez záchrany. Akcí čára 15 ×5 stop: DEX záchranný hod; při neúspěchu utrpí 4d8 Fire zranění, při úspěchu poloviční zranění.",
   "v": ""
  },
  {
   "en": "Investiture of Ice",
   "l": 6,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 10 minut",
@@ -7943,7 +7943,7 @@
  {
   "en": "Investiture of Stone",
   "l": 6,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 10 minut",
@@ -7954,13 +7954,13 @@
    "S"
   ],
   "m": "",
-  "t": "Odolnost Bludgeoning, Piercing a Slashing zranění z nemagických zbraní. Akcí ostatní na zemi do 15 stop AGI záchranný hod proti pádu. Ignoruješ obtížnou zem/kámen a procházíš pevnou zemí/kamenem bez narušení; nesmíš tam ukončit pohyb, jinak vytlačení na nejbližší volné místo, konec kouzla a omráčení do konce tvého příštího tahu.",
+  "t": "Odolnost Bludgeoning, Piercing a Slashing zranění z nemagických zbraní. Akcí ostatní na zemi do 15 stop DEX záchranný hod proti pádu. Ignoruješ obtížnou zem/kámen a procházíš pevnou zemí/kamenem bez narušení; nesmíš tam ukončit pohyb, jinak vytlačení na nejbližší volné místo, konec kouzla a omráčení do konce tvého příštího tahu.",
   "v": ""
  },
  {
   "en": "Investiture of Wind",
   "l": 6,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 10 minut",
@@ -7987,7 +7987,7 @@
    "V"
   ],
   "m": "",
-  "t": "Viditelný cíl WIS. Úspěch tanec na místě se spotřebou všeho pohybu do konce jeho dalšího tahu. Neúspěch zmámen po dobu kouzla, tanec spotřebuje všechen pohyb, nevýhoda k záchranným hodůmných hodů na AGI/útoků a útoky proti němu s výhodou. Akcí může opakovat WIS pro ukončení.",
+  "t": "Viditelný cíl WIS. Úspěch tanec na místě se spotřebou všeho pohybu do konce jeho dalšího tahu. Neúspěch okouzlen po dobu kouzla, tanec spotřebuje všechen pohyb, nevýhoda k záchranným hodůmných hodů na DEX/útoků a útoky proti němu s výhodou. Akcí může opakovat WIS pro ukončení.",
   "v": "",
   "a": [
    "Otto's Irresistible Dance"
@@ -8008,7 +8008,7 @@
    "M"
   ],
   "m": "drahokam, krystal nebo relikviář v hodnotě alespoň 500 zl.",
-  "t": "Duše vstoupí do nádoby, tělo v katatonii. Z nádoby vnímáš, nehýbeš se/nereaguješ; jediná akce návrat do živého těla do 100 stop a konec, nebo posednutí viditelného humanoida do 100: CHA, úspěch imunita tvým pokusům 24 hodin, neúspěch výměna duší. Protection from Evil and Good/Magic Circle chrání. V hostiteli převezmeš jen jeho HP/kostky HP/STR/AGI/CON/rychlost/smysly, ostatní statistiky zachováš. Akcí Magie návrat do nádoby do 100 osvobodí hostitele. Jeho smrt: tvé CHA proti vlastnímu SO, úspěch návrat do nádoby do 100, jinak smrt. Zničení nádoby/konec vrací duše do živých těl do 100, jinak smrt; konec nádobu zničí.",
+  "t": "Duše vstoupí do nádoby, tělo v katatonii. Z nádoby vnímáš, nehýbeš se/nereaguješ; jediná akce návrat do živého těla do 100 stop a konec, nebo posednutí viditelného humanoida do 100: CHA, úspěch imunita tvým pokusům 24 hodin, neúspěch výměna duší. Protection from Evil and Good/Magic Circle chrání. V hostiteli převezmeš jen jeho HP/kostky HP/STR/DEX/CON/rychlost/smysly, ostatní statistiky zachováš. Akcí Magie návrat do nádoby do 100 osvobodí hostitele. Jeho smrt: tvé CHA proti vlastnímu SO, úspěch návrat do nádoby do 100, jinak smrt. Zničení nádoby/konec vrací duše do živých těl do 100, jinak smrt; konec nádobu zničí.",
   "v": ""
  },
  {
@@ -8025,7 +8025,7 @@
    "M"
   ],
   "m": "hadí jazyk",
-  "t": "Až dvanáct viditelných, kteří slyší a rozumí: dosažitelný pokyn do 25 slov bez zjevného zranění cíle/spojenců. WIS záchranný hod, jinak zmámen a plní co nejlépe. Končí dokončením postupu či zraněním tebou/spojenci, nejpozději koncem doby.",
+  "t": "Až dvanáct viditelných, kteří slyší a rozumí: dosažitelný pokyn do 25 slov bez zjevného zranění cíle/spojenců. WIS záchranný hod, jinak okouzlen a plní co nejlépe. Končí dokončením postupu či zraněním tebou/spojenci, nejpozději koncem doby.",
   "v": "Slot 7. úrovně 10 dní, 8. 30 dní, 9. 366 dní."
  },
  {
@@ -8041,13 +8041,13 @@
    "S"
   ],
   "m": "",
-  "t": "Viditelný cíl: INT, imunní ke zmámení automaticky. Úspěch 5d10 Psychic zranění a konec. Neúspěch stejných 5d10, navíc zadržen a nevidí/neslyší za iluzorní okolní vězení. Přemístění ven, útok na blízko skrz nebo prostrčení části těla způsobí dalších 10d10 Psychic zranění a konec.",
+  "t": "Viditelný cíl: INT, imunní ke okouzlení automaticky. Úspěch 5d10 Psychic zranění a konec. Neúspěch stejných 5d10, navíc spoután a nevidí/neslyší za iluzorní okolní vězení. Přemístění ven, útok na blízko skrz nebo prostrčení části těla způsobí dalších 10d10 Psychic zranění a konec.",
   "v": ""
  },
  {
   "en": "Move Earth",
   "l": 6,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Concentration, až 2 hodiny",
@@ -8082,7 +8082,7 @@
  {
   "en": "Primordial Ward",
   "l": 6,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 1 minutu",
@@ -8167,7 +8167,7 @@
    "M"
   ],
   "m": "lahvička s krví v hodnotě alespoň 600 zl.",
-  "t": "Large běs, AC 12+L, HP Demon 50/Devil 40/Yugoloth 60 +15×(L−6), pohyb 40, Demon šplh 40, Devil let 60. Vlastnosti 13/16/15/10/10/16, Resistance vůči Fire, Immunity vůči Poison/otrávení, vidění ve tmě 60, pasivní Vnímání 10, Abyssal/Infernal/telepatie 60, výhoda k záchranným hodům proti magii. Jedná bezprostředně po tobě; rozkazy mu dáváš bez použití akce, jinak použije akci Uhýbání nebo ustoupí. ⌊L/2⌋ útoků tvým modifikátorem sesílací vlastnosti: Demon dosah 5, 1d12+3+L Necrotic zranění; Yugoloth dosah 5, 1d8+3+L Slashing zranění a po zásahu/minutí teleport 30; Devil dosah 5 či dálka 150, 2d6+3+L ohně a vidí magickou tmu. Při 0 HP/konce zaniká; Demon vybuchne v emanaci 10, AGI proti tvému SO kouzel za 2d10+L ohně, při úspěchu poloviční zranění.",
+  "t": "Large běs, AC 12+L, HP Demon 50/Devil 40/Yugoloth 60 +15×(L−6), pohyb 40, Demon šplh 40, Devil let 60. Vlastnosti 13/16/15/10/10/16, Resistance vůči Fire, Immunity vůči Poison/otrávení, vidění ve tmě 60, pasivní Vnímání 10, Abyssal/Infernal/telepatie 60, výhoda k záchranným hodům proti magii. Jedná bezprostředně po tobě; rozkazy mu dáváš bez použití akce, jinak použije akci Uhýbání nebo ustoupí. ⌊L/2⌋ útoků tvým modifikátorem sesílací vlastnosti: Demon dosah 5, 1d12+3+L Necrotic zranění; Yugoloth dosah 5, 1d8+3+L Slashing zranění a po zásahu/minutí teleport 30; Devil dosah 5 či dálka 150, 2d6+3+L ohně a vidí magickou tmu. Při 0 HP/konce zaniká; Demon vybuchne v emanaci 10, DEX proti tvému SO kouzel za 2d10+L ohně, při úspěchu poloviční zranění.",
   "v": "L označuje úroveň použité sloty kouzel (nejméně 6).",
   "cz": "Vyvolání běsa",
   "p": [
@@ -8178,7 +8178,7 @@
  {
   "en": "Sunbeam",
   "l": 6,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 1 minutu",
@@ -8196,7 +8196,7 @@
  {
   "en": "Tasha's Otherworldly Guise",
   "l": 6,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Bonusová akce",
   "r": "Sebe",
   "d": "Concentration, až 1 minutu",
@@ -8208,7 +8208,7 @@
    "M"
   ],
   "m": "předmět s vyrytým symbolem Vnějších sfér v hodnotě alespoň 500 zl.",
-  "t": "Dolní sféry: Immunity vůči Fire/Poison a otrávení; Horní: Immunity vůči Radiant/Necrotic a zmámení. Obě: let 40, AC+2, magické útoky zbraněmi, možnost modifikátoru sesílací vlastnosti místo STR/AGI pro útok i zranění. Akcí Útok dvakrát místo jednou, nesčítá se s Extra Attack.",
+  "t": "Dolní sféry: Immunity vůči Fire/Poison a otrávení; Horní: Immunity vůči Radiant/Necrotic a okouzlení. Obě: let 40, AC+2, magické útoky zbraněmi, možnost modifikátoru sesílací vlastnosti místo STR/DEX pro útok i zranění. Akcí Útok dvakrát místo jednou, nesčítá se s Extra Attack.",
   "v": "",
   "cz": "Tašina jinosvětská podoba",
   "p": [
@@ -8220,7 +8220,7 @@
  {
   "en": "Tenser's Transformation",
   "l": 6,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 10 minut",
@@ -8273,7 +8273,7 @@
  {
   "en": "Wall of Ice",
   "l": 6,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Concentration, až 10 minut",
@@ -8285,7 +8285,7 @@
    "M"
   ],
   "m": "kousek křemene",
-  "t": "Na pevné ploše koule/polokoule poloměru 10 nebo deset navazujících panelů 10 ×10 stop, tloušťka 1 stopa. Překrytou bytost vytlačí, AGI záchranný hod; při neúspěchu utrpí 10d6 Cold zranění, při úspěchu poloviční zranění. Sekce 10 stop AC 12, 30 HP, Immunity vůči Cold/Poison/Psychic a Vulnerability vůči Fire. Zničená ponechá ledový vzduch: první průchod v tahu CON záchranný hod; při neúspěchu utrpí 5d6 Cold zranění, při úspěchu poloviční zranění.",
+  "t": "Na pevné ploše koule/polokoule poloměru 10 nebo deset navazujících panelů 10 ×10 stop, tloušťka 1 stopa. Překrytou bytost vytlačí, DEX záchranný hod; při neúspěchu utrpí 10d6 Cold zranění, při úspěchu poloviční zranění. Sekce 10 stop AC 12, 30 HP, Immunity vůči Cold/Poison/Psychic a Vulnerability vůči Fire. Zničená ponechá ledový vzduch: první průchod v tahu CON záchranný hod; při neúspěchu utrpí 5d6 Cold zranění, při úspěchu poloviční zranění.",
   "v": "Vznik +2d6, vzduch +1d6 za každou úroveň slotu kouzla nad 6."
  },
  {
@@ -8303,13 +8303,13 @@
    "M"
   ],
   "m": "hrst trnů",
-  "t": "Neprůhledná zeď až 60 × 10 × 5 nebo kruh průměru 20, výšky 20 a tloušťky 5. Při vzniku AGI záchranný hod; při neúspěchu utrpí 7d8 Piercing zranění, při úspěchu poloviční zranění. Pohyb stojí 4 za 1 stopu. První vstup v tahu nebo konec tahu uvnitř AGI záchranný hod; při neúspěchu utrpí 7d8 Slashing zranění, při úspěchu poloviční zranění; tato záchrana nejvýše jednou za tah.",
+  "t": "Neprůhledná zeď až 60 × 10 × 5 nebo kruh průměru 20, výšky 20 a tloušťky 5. Při vzniku DEX záchranný hod; při neúspěchu utrpí 7d8 Piercing zranění, při úspěchu poloviční zranění. Pohyb stojí 4 za 1 stopu. První vstup v tahu nebo konec tahu uvnitř DEX záchranný hod; při neúspěchu utrpí 7d8 Slashing zranění, při úspěchu poloviční zranění; tato záchrana nejvýše jednou za tah.",
   "v": "Oba typy +1d8 za každou úroveň slotu kouzla nad 6."
  },
  {
   "en": "Wind Walk",
   "l": 6,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "1 minuta",
   "r": "30 stop",
   "d": "8 hodin",
@@ -8343,7 +8343,7 @@
  {
   "en": "Arcane Sword",
   "l": 7,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "90 stop",
   "d": "Concentration, až 1 minutu",
@@ -8375,13 +8375,13 @@
    "S"
   ],
   "m": "",
-  "t": "Jasný válec poloměru 10 a výšky 40 stop. Každé viditelné bytosti uvnitř při vzniku a při dalších spouštěčích volíš léčení 4d12+modifikátor sesílací vlastnosti, nebo AGI záchranný hod; při neúspěchu utrpí 6d12 Radiant zranění, při úspěchu poloviční zranění. Při svém pohybu v tahu posuneš válec až 30 stop. Spouští přesun válce do prostoru viditelné bytosti, její vstup nebo konec tahu uvnitř; bytost lze ovlivnit jen jednou za tah.",
+  "t": "Jasný válec poloměru 10 a výšky 40 stop. Každé viditelné bytosti uvnitř při vzniku a při dalších spouštěčích volíš léčení 4d12+modifikátor sesílací vlastnosti, nebo DEX záchranný hod; při neúspěchu utrpí 6d12 Radiant zranění, při úspěchu poloviční zranění. Při svém pohybu v tahu posuneš válec až 30 stop. Spouští přesun válce do prostoru viditelné bytosti, její vstup nebo konec tahu uvnitř; bytost lze ovlivnit jen jednou za tah.",
   "v": "Léčení i zranění +1d12 za každou úroveň slotu kouzla nad 7."
  },
  {
   "en": "Create Magen",
   "l": 7,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "1 hodina",
   "r": "Dotyk",
   "d": "Okamžité",
@@ -8403,7 +8403,7 @@
  {
   "en": "Crown of Stars",
   "l": 7,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe",
   "d": "1 hodina",
@@ -8420,7 +8420,7 @@
  {
   "en": "Delayed Blast Fireball",
   "l": 7,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "150 stop",
   "d": "Concentration, až 1 minutu",
@@ -8432,13 +8432,13 @@
    "M"
   ],
   "m": "kulička z netopýřího guána a síry",
-  "t": "Světelná perla koncem kouzla vybuchne v kouli poloměru 20: AGI záchranný hod; při neúspěchu utrpí 12d6 Fire zranění, při úspěchu poloviční zranění. Každý konec tvého tahu před koncem přidá 1d6. Dotyk perly AGI: neúspěch výbuch, úspěch dovolí vrhnout až 40 stop; vstup do prostoru bytosti či náraz do pevného objektu vybuchne. Nenesené/nenošené hořlavé věci ve výbuchu vzplanou.",
+  "t": "Světelná perla koncem kouzla vybuchne v kouli poloměru 20: DEX záchranný hod; při neúspěchu utrpí 12d6 Fire zranění, při úspěchu poloviční zranění. Každý konec tvého tahu před koncem přidá 1d6. Dotyk perly DEX: neúspěch výbuch, úspěch dovolí vrhnout až 40 stop; vstup do prostoru bytosti či náraz do pevného objektu vybuchne. Nenesené/nenošené hořlavé věci ve výbuchu vzplanou.",
   "v": "Základ +1d6 za každou úroveň slotu kouzla nad 7."
  },
  {
   "en": "Divine Word",
   "l": 7,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Bonusová akce",
   "r": "30 stop",
   "d": "Okamžité",
@@ -8454,7 +8454,7 @@
  {
   "en": "Draconic Transformation",
   "l": 7,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Bonusová akce",
   "r": "Sebe",
   "d": "Concentration, až 1 minutu",
@@ -8466,7 +8466,7 @@
    "M"
   ],
   "m": "soška draka v hodnotě alespoň 500 zl.",
-  "t": "Slepozrak 30 včetně neviditelného, který se úspěšně neskryl, ne přes úplný kryt; let 60. Při seslání a bonusovou akcí v dalších tazích dech kuželem 60: AGI záchranný hod; při neúspěchu utrpí 6d8 Force zranění, při úspěchu poloviční zranění.",
+  "t": "Slepozrak 30 včetně neviditelného, který se úspěšně neskryl, ne přes úplný kryt; let 60. Při seslání a bonusovou akcí v dalších tazích dech kuželem 60: DEX záchranný hod; při neúspěchu utrpí 6d8 Force zranění, při úspěchu poloviční zranění.",
   "v": "",
   "cz": "Dračí proměna",
   "p": [
@@ -8537,7 +8537,7 @@
  {
   "en": "Fire Storm",
   "l": 7,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "150 stop",
   "d": "Okamžité",
@@ -8548,13 +8548,13 @@
    "S"
   ],
   "m": "",
-  "t": "Až deset krychlí 10 stop, každá sousedí s alespoň jednou další. AGI záchranný hod; při neúspěchu utrpí 7d10 Fire zranění, při úspěchu poloviční zranění. Nenesené/nenošené hořlavé předměty vzplanou; rostliny nelze vyjmout z účinku kouzla.",
+  "t": "Až deset krychlí 10 stop, každá sousedí s alespoň jednou další. DEX záchranný hod; při neúspěchu utrpí 7d10 Fire zranění, při úspěchu poloviční zranění. Nenesené/nenošené hořlavé předměty vzplanou; rostliny nelze vyjmout z účinku kouzla.",
   "v": ""
  },
  {
   "en": "Forcecage",
   "l": 7,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "100 stop",
   "d": "Concentration, až 1 hodinu",
@@ -8638,7 +8638,7 @@
    "V"
   ],
   "m": "",
-  "t": "Viditelný cíl utrpí 6d8 Force zranění bez úvodní záchrany; při nejvýše 100 HP je navíc zmámen. Zmámený rychlost nejvýše 10, nevýhoda všech testů d20 kromě CON záchran. Před sesláním kouzla CON záchranný hod, jinak promarní akci, bonusovou akci nebo reakci, ale slot zůstane. Koncem svých tahů CON pro konec zmámení.",
+  "t": "Viditelný cíl utrpí 6d8 Force zranění bez úvodní záchrany; při nejvýše 100 HP je navíc okouzlen. Okouzlený rychlost nejvýše 10, nevýhoda všech testů d20 kromě CON záchran. Před sesláním kouzla CON záchranný hod, jinak promarní akci, bonusovou akci nebo reakci, ale slot zůstane. Koncem svých tahů CON pro konec okouzlení.",
   "v": "",
   "cz": "Slovo moci: bolest",
   "p": [
@@ -8650,7 +8650,7 @@
  {
   "en": "Prismatic Spray",
   "l": 7,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Okamžité",
@@ -8661,7 +8661,7 @@
    "S"
   ],
   "m": "",
-  "t": "Kužel 60 stop: každý AGI a vlastní d8. 1–5 při neúspěchu 12d6 Fire/Acid/Lightning/Poison/Cold, při úspěchu poloviční zranění. 6 neúspěch zadržen; na konci každého tahu CON do tří úspěchů pro konec nebo tří neúspěchů pro zkamenění do Greater Restoration či podobného. 7 neúspěch slepota a začátkem tvého dalšího tahu WIS; úspěch konec, neúspěch konec slepoty a teleport na sféru dle PJ. 8 dva paprsky, další osmičky přehodit. Úspěšná úvodní AGI zabrání 6/7.",
+  "t": "Kužel 60 stop: každý DEX a vlastní d8. 1–5 při neúspěchu 12d6 Fire/Acid/Lightning/Poison/Cold, při úspěchu poloviční zranění. 6 neúspěch spoután; na konci každého tahu CON do tří úspěchů pro konec nebo tří neúspěchů pro zkamenění do Greater Restoration či podobného. 7 neúspěch slepota a začátkem tvého dalšího tahu WIS; úspěch konec, neúspěch konec slepoty a teleport na sféru dle PJ. 8 dva paprsky, další osmičky přehodit. Úspěšná úvodní DEX zabrání 6/7.",
   "v": ""
  },
  {
@@ -8685,7 +8685,7 @@
  {
   "en": "Regenerate",
   "l": 7,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "1 minuta",
   "r": "Dotyk",
   "d": "1 hodina",
@@ -8721,7 +8721,7 @@
  {
   "en": "Reverse Gravity",
   "l": 7,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "100 stop",
   "d": "Concentration, až 1 minutu",
@@ -8733,13 +8733,13 @@
    "M"
   ],
   "m": "magnetovec a železné piliny",
-  "t": "Válec poloměru 50 a výšky 100 stop. Neukotvené bytosti/předměty padají vzhůru; dostupný pevný objekt umožní AGI pro zachycení. Náraz do stropu jako běžný pád, bez překážky se zastaví na vrcholu. Po konci padají dolů.",
+  "t": "Válec poloměru 50 a výšky 100 stop. Neukotvené bytosti/předměty padají vzhůru; dostupný pevný objekt umožní DEX pro zachycení. Náraz do stropu jako běžný pád, bez překážky se zastaví na vrcholu. Po konci padají dolů.",
   "v": ""
  },
  {
   "en": "Sequester",
   "l": 7,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "Do rozptýlení",
@@ -8775,7 +8775,7 @@
  {
   "en": "Symbol",
   "l": 7,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "1 minuta",
   "r": "Dotyk",
   "d": "Do rozptýlení nebo spuštění",
@@ -8856,7 +8856,7 @@
  {
   "en": "Whirlwind",
   "l": 7,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "300 stop",
   "d": "Concentration, až 1 minutu",
@@ -8867,7 +8867,7 @@
    "M"
   ],
   "m": "stéblo slámy",
-  "t": "Válec poloměru 10 a výšky 30 stop, akcí pohyb po zemi 30. Nasává volné nenesené Medium a menší předměty. První vstup bytosti či víru do jejího prostoru za tah, i vznik: AGI záchranný hod; při neúspěchu utrpí 10d6 Bludgeoning zranění, při úspěchu poloviční zranění. Large a menší neúspěšný navíc STR záchranný hod proti zadržení; při začátku tahu vynesen o 5 stop až k vrcholu. Zadržení cestují s vírem, po konci padají. Akcí STR/AGI proti tvému SO kouzel osvobodí a vymrští 3d6×10 stop náhodně.",
+  "t": "Válec poloměru 10 a výšky 30 stop, akcí pohyb po zemi 30. Nasává volné nenesené Medium a menší předměty. První vstup bytosti či víru do jejího prostoru za tah, i vznik: DEX záchranný hod; při neúspěchu utrpí 10d6 Bludgeoning zranění, při úspěchu poloviční zranění. Large a menší neúspěšný navíc STR záchranný hod proti spoutání; při začátku tahu vynesen o 5 stop až k vrcholu. Spoutání cestují s vírem, po konci padají. Akcí STR/DEX proti tvému SO kouzel osvobodí a vymrští 3d6×10 stop náhodně.",
   "v": ""
  },
  {
@@ -8891,7 +8891,7 @@
  {
   "en": "Animal Shapes",
   "l": 8,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "30 stop",
   "d": "24 hodin",
@@ -8908,7 +8908,7 @@
  {
   "en": "Antimagic Field",
   "l": 8,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 1 hodinu",
@@ -8938,7 +8938,7 @@
    "M"
   ],
   "m": "směs octa a medu",
-  "t": "Cíl Huge či menší bytost/předmět; určíš druh přitahovaných/odpuzovaných bytostí. Při přiblížení do 120 WIS záchranný hod, jinak Antipathy strach a co nejdál bezpečnou cestou, nebo Sympathy zmámení a co nejblíž; do 5 nelze dobrovolně pryč, zranění cílem dovolí novou WIS. Konec tahu dál než 120 dovolí WIS záchranný hod pro ukončení účinku. Úspěšný je imunní minutu.",
+  "t": "Cíl Huge či menší bytost/předmět; určíš druh přitahovaných/odpuzovaných bytostí. Při přiblížení do 120 WIS záchranný hod, jinak Antipathy strach a co nejdál bezpečnou cestou, nebo Sympathy okouzlení a co nejblíž; do 5 nelze dobrovolně pryč, zranění cílem dovolí novou WIS. Konec tahu dál než 120 dovolí WIS záchranný hod pro ukončení účinku. Úspěšný je imunní minutu.",
   "v": ""
  },
  {
@@ -8983,7 +8983,7 @@
  {
   "en": "Control Weather",
   "l": 8,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "10 minut",
   "r": "Sebe",
   "d": "Concentration, až 8 hodin",
@@ -9001,7 +9001,7 @@
  {
   "en": "Dark Star",
   "l": 8,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "150 stop",
   "d": "Concentration, až 1 minutu",
@@ -9053,13 +9053,13 @@
    "S"
   ],
   "m": "",
-  "t": "Viditelná bytost WIS (výhoda v boji s tebou/spojenci), jinak zmámena; při zranění opakuje pro konec. Ve stejné sféře telepatické rozkazy v tvém tahu bez akce. Bez dalšího rozkazu po dokončení jedná sama se sebeobranou. Vynucená reakce spotřebuje i tvou reakci.",
+  "t": "Viditelná bytost WIS (výhoda v boji s tebou/spojenci), jinak okouzlena; při zranění opakuje pro konec. Ve stejné sféře telepatické rozkazy v tvém tahu bez akce. Bez dalšího rozkazu po dokončení jedná sama se sebeobranou. Vynucená reakce spotřebuje i tvou reakci.",
   "v": "Slot 9. úrovně soustředění až 8 hodin."
  },
  {
   "en": "Earthquake",
   "l": 8,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "500 stop",
   "d": "Concentration, až 1 minutu",
@@ -9071,7 +9071,7 @@
    "M"
   ],
   "m": "prasklý kámen",
-  "t": "Kruh země poloměru 100 stop je obtížný terén. Při seslání a na konci každého tvého tahu přítomní na zemi AGI záchranný hod, jinak ležení a ztráta soustředění. Volitelně d6 trhlin mimo stavby, šířka 10, hloubka d10×10, napříč oblastí; přítomní AGI pro vyhnutí pádu. Stavby při seslání/na konci každého tvého tahu 50 Bludgeoning zranění. Zhroucení do poloviny výšky stavby od ní: AGI záchranný hod; při neúspěchu utrpí 12d6 Bludgeoning zranění, ležení a zasypání; při úspěchu poloviční zranění. Únik akcí STR (Atletika) SO 20.",
+  "t": "Kruh země poloměru 100 stop je obtížný terén. Při seslání a na konci každého tvého tahu přítomní na zemi DEX záchranný hod, jinak ležení a ztráta soustředění. Volitelně d6 trhlin mimo stavby, šířka 10, hloubka d10×10, napříč oblastí; přítomní DEX pro vyhnutí pádu. Stavby při seslání/na konci každého tvého tahu 50 Bludgeoning zranění. Zhroucení do poloviny výšky stavby od ní: DEX záchranný hod; při neúspěchu utrpí 12d6 Bludgeoning zranění, ležení a zasypání; při úspěchu poloviční zranění. Únik akcí STR (Atletika) SO 20.",
   "v": ""
  },
  {
@@ -9093,7 +9093,7 @@
  {
   "en": "Holy Aura",
   "l": 8,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 1 minutu",
@@ -9138,13 +9138,13 @@
    "S"
   ],
   "m": "",
-  "t": "Silně zahalená koule poloměru 20 stop. Při vzniku, přesunu koule do prostoru bytosti, vstupu bytosti nebo konci tahu uvnitř AGI záchranný hod; při neúspěchu utrpí 10d8 Fire zranění, při úspěchu poloviční zranění; jen jednou za tah. Začátkem tvých tahů se posune 10 stop od tebe zvoleným směrem; silný vítr ji rozptýlí.",
+  "t": "Silně zahalená koule poloměru 20 stop. Při vzniku, přesunu koule do prostoru bytosti, vstupu bytosti nebo konci tahu uvnitř DEX záchranný hod; při neúspěchu utrpí 10d8 Fire zranění, při úspěchu poloviční zranění; jen jednou za tah. Začátkem tvých tahů se posune 10 stop od tebe zvoleným směrem; silný vítr ji rozptýlí.",
   "v": ""
  },
  {
   "en": "Maddening Darkness",
   "l": 8,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "150 stop",
   "d": "Concentration, až 10 minut",
@@ -9200,7 +9200,7 @@
  {
   "en": "Mind Blank",
   "l": 8,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Dotyk",
   "d": "24 hodin",
@@ -9211,7 +9211,7 @@
    "S"
   ],
   "m": "",
-  "t": "Ochotná bytost, které se dotkneš, získá Immunity vůči Psychic zranění a zmámení. Nelze vnímat její emoce ani přesvědčení, číst jí myšlenky nebo magicky zjišťovat její polohu. Žádné kouzlo, ani Wish, o ní nezíská informace, nemůže ji sledovat na dálku ani ovládnout její mysl.",
+  "t": "Ochotná bytost, které se dotkneš, získá Immunity vůči Psychic zranění a okouzlení. Nelze vnímat její emoce ani přesvědčení, číst jí myšlenky nebo magicky zjišťovat její polohu. Žádné kouzlo, ani Wish, o ní nezíská informace, nemůže ji sledovat na dálku ani ovládnout její mysl.",
   "v": ""
  },
  {
@@ -9245,7 +9245,7 @@
    "M"
   ],
   "m": "křišťálový hranol",
-  "t": "WIS záchranný hod, jinak zákaz reakcí a na začátku každého tahu 1d10: 1–2 = 6d12 Psychic zranění a omráčení do konce tahu; 3–5 = AGI záchranný hod; při neúspěchu utrpí 8d12 Force zranění, při úspěchu poloviční zranění; 6–8 = teleport s výstrojí až 30 stop na tebou viděné volné místo, 10d12 Force zranění a pád; 9–10 = 10d12 Cold zranění a slepota do konce tahu. WIS opakuje na koncích tahů, úspěch končí účinek.",
+  "t": "WIS záchranný hod, jinak zákaz reakcí a na začátku každého tahu 1d10: 1–2 = 6d12 Psychic zranění a omráčení do konce tahu; 3–5 = DEX záchranný hod; při neúspěchu utrpí 8d12 Force zranění, při úspěchu poloviční zranění; 6–8 = teleport s výstrojí až 30 stop na tebou viděné volné místo, 10d12 Force zranění a pád; 9–10 = 10d12 Cold zranění a slepota do konce tahu. WIS opakuje na koncích tahů, úspěch končí účinek.",
   "v": "",
   "zn": [
    "DC"
@@ -9258,7 +9258,7 @@
  {
   "en": "Sunburst",
   "l": 8,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "150 stop",
   "d": "Okamžité",
@@ -9382,7 +9382,7 @@
  {
   "en": "Imprisonment",
   "l": 9,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "1 minuta",
   "r": "30 stop",
   "d": "Do rozptýlení",
@@ -9394,13 +9394,13 @@
    "M"
   ],
   "m": "soška cíle v hodnotě alespoň 5 000 zl.",
-  "t": "Viditelný cíl WIS; úspěch imunita tomuto kouzlu 24 hodin. Uvězněný nestárne/nepotřebuje jídlo, vodu ani vzduch, věštění jej nenajde ani nevnímá a neteleportuje. Zvol: Burial podzemní silová koule nic nepropouští; Chaining zadržen a nepřemístitelný; Hedged Prison polosféra blokující teleport/cestování; Minimus palcový v nezničitelném drahokamu propouštějícím jen světlo; Slumber neprobuditelné bezvědomí. Při seslání stanovíš pozorovatelný spouštěč ukončení, dle PJ s vysokou šancí nastat během desetiletí. Dispel Magic jen z slot 9. úrovně na vězení či složku.",
+  "t": "Viditelný cíl WIS; úspěch imunita tomuto kouzlu 24 hodin. Uvězněný nestárne/nepotřebuje jídlo, vodu ani vzduch, věštění jej nenajde ani nevnímá a neteleportuje. Zvol: Burial podzemní silová koule nic nepropouští; Chaining spoután a nepřemístitelný; Hedged Prison polosféra blokující teleport/cestování; Minimus palcový v nezničitelném drahokamu propouštějícím jen světlo; Slumber neprobuditelné bezvědomí. Při seslání stanovíš pozorovatelný spouštěč ukončení, dle PJ s vysokou šancí nastat během desetiletí. Dispel Magic jen z slot 9. úrovně na vězení či složku.",
   "v": ""
  },
  {
   "en": "Invulnerability",
   "l": 9,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 10 minut",
@@ -9418,7 +9418,7 @@
  {
   "en": "Mass Heal",
   "l": 9,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "60 stop",
   "d": "Okamžité",
@@ -9435,7 +9435,7 @@
  {
   "en": "Mass Polymorph",
   "l": 9,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "120 stop",
   "d": "Concentration, až 1 hodinu",
@@ -9453,7 +9453,7 @@
  {
   "en": "Meteor Swarm",
   "l": 9,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "1 míle",
   "d": "Okamžité",
@@ -9464,7 +9464,7 @@
    "S"
   ],
   "m": "",
-  "t": "Čtyři různé viditelné body, každá koule poloměru 40 stop. AGI záchranný hod; při neúspěchu utrpí 20d6 Fire zranění +20d6 Bludgeoning zranění, při úspěchu poloviční zranění; bytost v překryvu jen jednou. Nenesené/nenošené nemagické předměty uvnitř také utrpí zranění a hořlavé vzplanou.",
+  "t": "Čtyři různé viditelné body, každá koule poloměru 40 stop. DEX záchranný hod; při neúspěchu utrpí 20d6 Fire zranění +20d6 Bludgeoning zranění, při úspěchu poloviční zranění; bytost v překryvu jen jednou. Nenesené/nenošené nemagické předměty uvnitř také utrpí zranění a hořlavé vzplanou.",
   "v": ""
  },
  {
@@ -9480,7 +9480,7 @@
    "V"
   ],
   "m": "",
-  "t": "Viditelná bytost obnoví všechny HP a končí její zmámení, strach, paralýza, otrávení a omráčení. Ležící může reakcí vstát.",
+  "t": "Viditelná bytost obnoví všechny HP a končí její okouzlení, strach, paralýza, otrávení a omráčení. Ležící může reakcí vstát.",
   "v": ""
  },
  {
@@ -9502,7 +9502,7 @@
  {
   "en": "Prismatic Wall",
   "l": 9,
-  "s": "Abjurace",
+  "s": "Ochranná magie",
   "ct": "Akce",
   "r": "60 stop",
   "d": "10 minut",
@@ -9513,7 +9513,7 @@
    "S"
   ],
   "m": "",
-  "t": "Neprůhledná stěna až 90 ×30 stop, tloušťka palec, nebo koule průměru 30; vznik přes bytost selže. Jas 100 a šero dalších 100. Ty/určení neovlivněni. Ostatní vidící při přiblížení do 20 nebo začátku tahu tam CON záchranný hod, jinak slepota minutu. Průchod postupně všemi vrstvami, každá AGI. Červená/oranžová/žlutá/zelená/modrá: neúspěch 12d6 Fire/Acid/Lightning/Poison/Cold, při úspěchu poloviční zranění.\n\nIndigo: zadržení, na konci každého tahu CON; tři úspěchy konec, tři neúspěchy zkamenění. Fialová: slepota, začátkem tvého dalšího tahu WIS; úspěch konec, neúspěch navíc teleport na sféru dle PJ. AC stěny 10; vrstvy se ničí pořadím: červená 25 Cold a blokuje nemagické dálkové útoky; oranžová silný vítr a blokuje magické dálkové; žlutá 60 Force zranění; zelená Passwall či alespoň stejně silné portálové kouzlo; modrá 25 Fire; indigo Daylight a blokuje kouzla skrz; fialová Dispel Magic.\n\nAntimagic Field neúčinkuje.",
+  "t": "Neprůhledná stěna až 90 ×30 stop, tloušťka palec, nebo koule průměru 30; vznik přes bytost selže. Jas 100 a šero dalších 100. Ty/určení neovlivněni. Ostatní vidící při přiblížení do 20 nebo začátku tahu tam CON záchranný hod, jinak slepota minutu. Průchod postupně všemi vrstvami, každá DEX. Červená/oranžová/žlutá/zelená/modrá: neúspěch 12d6 Fire/Acid/Lightning/Poison/Cold, při úspěchu poloviční zranění.\n\nIndigo: spoutání, na konci každého tahu CON; tři úspěchy konec, tři neúspěchy zkamenění. Fialová: slepota, začátkem tvého dalšího tahu WIS; úspěch konec, neúspěch navíc teleport na sféru dle PJ. AC stěny 10; vrstvy se ničí pořadím: červená 25 Cold a blokuje nemagické dálkové útoky; oranžová silný vítr a blokuje magické dálkové; žlutá 60 Force zranění; zelená Passwall či alespoň stejně silné portálové kouzlo; modrá 25 Fire; indigo Daylight a blokuje kouzla skrz; fialová Dispel Magic.\n\nAntimagic Field neúčinkuje.",
   "v": ""
  },
  {
@@ -9535,7 +9535,7 @@
  {
   "en": "Ravenous Void",
   "l": 9,
-  "s": "Evokace",
+  "s": "Zaklínání",
   "ct": "Akce",
   "r": "1 000 stop",
   "d": "Concentration, až 1 minutu",
@@ -9547,7 +9547,7 @@
    "M"
   ],
   "m": "malá železná devíticípá hvězda",
-  "t": "Viditelný střed, koule poloměru 20 stop a okolí do 100 stop od jejího okraje jsou obtížný terén. Nenesené nemagické předměty plně uvnitř zničí. Při vzniku a na začátku každého tvého tahu přitáhne volné předměty do 100 stop co nejblíže středu. Bytost začínající tah do 100 stop STR proti stejnému přitažení. První vstup v tahu či začátek tahu v kouli: 5d10 Force zranění bez záchrany, zadržení do odchodu, ve vzduchu vznášení. Akcí ověření STR proti tvému SO kouzel zbaví zadržení sebe či dosažitelnou bytost. Pokles na 0 tímto kouzlem zničí cíl i jeho nemagické věci.",
+  "t": "Viditelný střed, koule poloměru 20 stop a okolí do 100 stop od jejího okraje jsou obtížný terén. Nenesené nemagické předměty plně uvnitř zničí. Při vzniku a na začátku každého tvého tahu přitáhne volné předměty do 100 stop co nejblíže středu. Bytost začínající tah do 100 stop STR proti stejnému přitažení. První vstup v tahu či začátek tahu v kouli: 5d10 Force zranění bez záchrany, spoutání do odchodu, ve vzduchu vznášení. Akcí ověření STR proti tvému SO kouzel zbaví spoutání sebe či dosažitelnou bytost. Pokles na 0 tímto kouzlem zničí cíl i jeho nemagické věci.",
   "v": "",
   "zn": [
    "DG"
@@ -9560,7 +9560,7 @@
  {
   "en": "Shapechange",
   "l": 9,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Concentration, až 1 hodinu",
@@ -9589,7 +9589,7 @@
    "S"
   ],
   "m": "",
-  "t": "Mrak poloměru 300 stop. Při vzniku pod ním CON záchranný hod, jinak 2d6 Thunder a hluchota po dobu kouzla. Začátkem tvých dalších tahů: 2. bytosti i předměty 4d6 Acid; 3. šest různých cílů AGI záchranný hod; při neúspěchu utrpí 10d6 Lightning, při úspěchu poloviční zranění; 4. bytosti 2d6 Bludgeoning zranění; 5.–10. bytosti 1d6 Cold a oblast obtížný terén/silně zahalená, silný vítr a nemožné dálkové útoky zbraněmi. Účinky bez uvedené záchrany jsou automatické.",
+  "t": "Mrak poloměru 300 stop. Při vzniku pod ním CON záchranný hod, jinak 2d6 Thunder a hluchota po dobu kouzla. Začátkem tvých dalších tahů: 2. bytosti i předměty 4d6 Acid; 3. šest různých cílů DEX záchranný hod; při neúspěchu utrpí 10d6 Lightning, při úspěchu poloviční zranění; 4. bytosti 2d6 Bludgeoning zranění; 5.–10. bytosti 1d6 Cold a oblast obtížný terén/silně zahalená, silný vítr a nemožné dálkové útoky zbraněmi. Účinky bez uvedené záchrany jsou automatické.",
   "v": ""
  },
  {
@@ -9620,7 +9620,7 @@
  {
   "en": "Time Stop",
   "l": 9,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "Sebe",
   "d": "Okamžité",
@@ -9636,7 +9636,7 @@
  {
   "en": "True Polymorph",
   "l": 9,
-  "s": "Přeměna",
+  "s": "Transmutace",
   "ct": "Akce",
   "r": "30 stop",
   "d": "Concentration, až 1 hodinu",
@@ -9683,7 +9683,7 @@
    "S"
   ],
   "m": "",
-  "t": "Vybrané bytosti v kouli poloměru 30 stop WIS: neúspěch 10d10 Psychic zranění a strach, při úspěchu poloviční zranění. Vystrašený na konci každého svého tahu opakuje; neúspěch 5d10 Psychic zranění, úspěch ukončí pro něj.",
+  "t": "Vybrané bytosti v kouli poloměru 30 stop WIS: neúspěch 10d10 Psychic zranění a strach, při úspěchu poloviční zranění. Vyděšený na konci každého svého tahu opakuje; neúspěch 5d10 Psychic zranění, úspěch ukončí pro něj.",
   "v": ""
  },
  {

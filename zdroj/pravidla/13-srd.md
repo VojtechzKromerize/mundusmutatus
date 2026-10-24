@@ -8,7 +8,7 @@
 |---|---|
 | Primární vlastnost | Charisma (CHA) |
 | Kostka životů | D8 za každou úroveň Barda |
-| Zdatnost v záchranných hodech | Obratnost (AGI) a Charisma (CHA) |
+| Zdatnost v záchranných hodech | Obratnost (DEX) a Charisma (CHA) |
 | Zdatnost v dovednostech | Zvol si libovolné 3 dovednosti (viz „Hraní hry“) |
 | Zdatnost se zbraněmi | Jednoduché zbraně |
 | Zdatnost s nástroji | Zvol si 3 hudební nástroje (Musical Instruments; viz „Vybavení“) |
@@ -149,10 +149,10 @@ Tento oddíl uvádí seznam kouzel Barda. Kouzla jsou seřazena podle úrovně a
 | Dancing Lights | Iluze | C |
 | Light | Zaklínání | — |
 | Mage Hand | Vyvolávání | — |
-| Mending | Přeměna | — |
-| Message | Přeměna | — |
+| Mending | Transmutace | — |
+| Message | Transmutace | — |
 | Minor Illusion | Iluze | — |
-| Prestidigitation | Přeměna | — |
+| Prestidigitation | Transmutace | — |
 | Starry Wisp | Zaklínání | — |
 | True Strike | Věštění | — |
 | Vicious Mockery | Očarování | — |
@@ -167,18 +167,18 @@ Tento oddíl uvádí seznam kouzel Barda. Kouzla jsou seřazena podle úrovně a
 | Color Spray | Iluze | — |
 | Command | Očarování | — |
 | Comprehend Languages | Věštění | R |
-| Cure Wounds | Odvrácení | — |
+| Cure Wounds | Ochranná magie | — |
 | Detect Magic | Věštění | C, R |
 | Disguise Self | Iluze | — |
 | Dissonant Whispers | Očarování | — |
 | Faerie Fire | Zaklínání | C |
-| Feather Fall | Přeměna | — |
-| Healing Word | Odvrácení | — |
+| Feather Fall | Transmutace | — |
+| Healing Word | Ochranná magie | — |
 | Heroism | Očarování | C |
 | Hideous Laughter | Očarování | C |
 | Identify | Věštění | R, M |
 | Illusory Script | Iluze | R, M |
-| Longstrider | Přeměna | — |
+| Longstrider | Transmutace | — |
 | Silent Image | Iluze | C |
 | Sleep | Očarování | C |
 | Speak with Animals | Věštění | R |
@@ -189,19 +189,19 @@ Tento oddíl uvádí seznam kouzel Barda. Kouzla jsou seřazena podle úrovně a
 
 | Kouzlo | Škola | Zvláštní |
 |---|---|---|
-| Aid | Odvrácení | — |
+| Aid | Ochranná magie | — |
 | Animal Messenger | Očarování | R |
-| Blindness/Deafness | Přeměna | — |
+| Blindness/Deafness | Transmutace | — |
 | Calm Emotions | Očarování | C |
 | Detect Thoughts | Věštění | C |
-| Enhance Ability | Přeměna | C |
-| Enlarge/Reduce | Přeměna | C |
+| Enhance Ability | Transmutace | C |
+| Enlarge/Reduce | Transmutace | C |
 | Enthrall | Očarování | C |
-| Heat Metal | Přeměna | C |
+| Heat Metal | Transmutace | C |
 | Hold Person | Očarování | C |
 | Invisibility | Iluze | C |
-| Knock | Přeměna | — |
-| Lesser Restoration | Odvrácení | — |
+| Knock | Transmutace | — |
+| Lesser Restoration | Ochranná magie | — |
 | Locate Animals or Plants | Věštění | R |
 | Locate Object | Věštění | C |
 | Magic Mouth | Iluze | R, M |
@@ -218,18 +218,18 @@ Tento oddíl uvádí seznam kouzel Barda. Kouzla jsou seřazena podle úrovně a
 |---|---|---|
 | Bestow Curse | Nekromancie | C |
 | Clairvoyance | Věštění | C, M |
-| Dispel Magic | Odvrácení | — |
+| Dispel Magic | Ochranná magie | — |
 | Fear | Iluze | C |
-| Glyph of Warding | Odvrácení | M |
+| Glyph of Warding | Ochranná magie | M |
 | Hypnotic Pattern | Iluze | C |
 | Major Image | Iluze | C |
-| Mass Healing Word | Odvrácení | — |
-| Nondetection | Odvrácení | M |
-| Plant Growth | Přeměna | — |
+| Mass Healing Word | Ochranná magie | — |
+| Nondetection | Ochranná magie | M |
+| Plant Growth | Transmutace | — |
 | Sending | Věštění | — |
-| Slow | Přeměna | C |
+| Slow | Transmutace | C |
 | Speak with Dead | Nekromancie | — |
-| Speak with Plants | Přeměna | — |
+| Speak with Plants | Transmutace | — |
 | Stinking Cloud | Vyvolávání | C |
 | Tiny Hut | Zaklínání | R |
 | Tongues | Věštění | — |
@@ -242,29 +242,29 @@ Tento oddíl uvádí seznam kouzel Barda. Kouzla jsou seřazena podle úrovně a
 | Compulsion | Očarování | C |
 | Confusion | Očarování | C |
 | Dimension Door | Vyvolávání | — |
-| Freedom of Movement | Odvrácení | — |
+| Freedom of Movement | Ochranná magie | — |
 | Greater Invisibility | Iluze | C |
 | Hallucinatory Terrain | Iluze | — |
 | Locate Creature | Věštění | C |
 | Phantasmal Killer | Iluze | C |
-| Polymorph | Přeměna | C |
+| Polymorph | Transmutace | C |
 
 #### Kouzla Barda 5. úrovně
 
 | Kouzlo | Škola | Zvláštní |
 |---|---|---|
-| Animate Objects | Přeměna | C |
-| Awaken | Přeměna | M |
+| Animate Objects | Transmutace | C |
+| Awaken | Transmutace | M |
 | Dominate Person | Očarování | C |
 | Dream | Iluze | — |
 | Geas | Očarování | — |
-| Greater Restoration | Odvrácení | M |
+| Greater Restoration | Ochranná magie | M |
 | Hold Monster | Očarování | C |
 | Legend Lore | Věštění | M |
-| Mass Cure Wounds | Odvrácení | — |
+| Mass Cure Wounds | Ochranná magie | — |
 | Mislead | Iluze | C |
 | Modify Memory | Očarování | C |
-| Planar Binding | Odvrácení | M |
+| Planar Binding | Ochranná magie | M |
 | Raise Dead | Nekromancie | M |
 | Scrying | Věštění | C, M |
 | Seeming | Iluze | — |
@@ -277,7 +277,7 @@ Tento oddíl uvádí seznam kouzel Barda. Kouzla jsou seřazena podle úrovně a
 |---|---|---|
 | Eyebite | Nekromancie | C |
 | Find the Path | Věštění | C, M |
-| Guards and Wards | Odvrácení | M |
+| Guards and Wards | Ochranná magie | M |
 | Heroes' Feast | Vyvolávání | M |
 | Irresistible Dance | Očarování | C |
 | Mass Suggestion | Očarování | — |
@@ -295,9 +295,9 @@ Tento oddíl uvádí seznam kouzel Barda. Kouzla jsou seřazena podle úrovně a
 | Mirage Arcane | Iluze | — |
 | Prismatic Spray | Zaklínání | — |
 | Project Image | Iluze | C, M |
-| Regenerate | Přeměna | — |
+| Regenerate | Transmutace | — |
 | Resurrection | Nekromancie | M |
-| Symbol | Odvrácení | M |
+| Symbol | Ochranná magie | M |
 | Teleport | Vyvolávání | — |
 
 #### Kouzla Barda 8. úrovně
@@ -308,7 +308,7 @@ Tento oddíl uvádí seznam kouzel Barda. Kouzla jsou seřazena podle úrovně a
 | Befuddlement | Očarování | — |
 | Dominate Monster | Očarování | C |
 | Glibness | Očarování | — |
-| Mind Blank | Odvrácení | — |
+| Mind Blank | Ochranná magie | — |
 | Power Word Stun | Očarování | — |
 
 #### Kouzla Barda 9. úrovně
@@ -318,8 +318,8 @@ Tento oddíl uvádí seznam kouzel Barda. Kouzla jsou seřazena podle úrovně a
 | Foresight | Věštění | — |
 | Power Word Heal | Očarování | — |
 | Power Word Kill | Očarování | — |
-| Prismatic Wall | Odvrácení | — |
-| True Polymorph | Přeměna | C |
+| Prismatic Wall | Ochranná magie | — |
+| True Polymorph | Transmutace | C |
 
 ### Bard Subclass: College of Lore
 

@@ -760,8 +760,8 @@ const NBRS = [
         [11.9, 50.4],
         [11.5, 50.42],
         [11.0, 50.36],
-        [10.6, 50.36],
-        [10.6, 52.303],
+        [9.9, 50.36],
+        [9.9, 52.303],
         [11.2, 52.32],
         [11.9, 52.28],
         [12.3, 52.1],
@@ -797,9 +797,9 @@ const NBRS = [
         [12.3, 52.1],
         [11.9, 52.28],
         [11.2, 52.32],
-        [10.6, 52.303],
-        [10.6, 53.0],
-        [16.029, 53.0],
+        [9.9, 52.303],
+        [9.9, 53.2],
+        [16.029, 53.2],
       ],
     ],
   ],
@@ -885,9 +885,9 @@ const NBRS = [
         [15.75, 52.3],
         [15.82, 52.45],
         [15.95, 52.62],
-        [16.029, 53.0],
-        [20.7, 53.0],
-        [20.7, 49.393],
+        [16.029, 53.2],
+        [22.0, 53.2],
+        [22.0, 49.393],
       ],
       [
         [15.0, 51.97],
@@ -1019,9 +1019,9 @@ const NBRS = [
         [20.569, 49.376],
         [20.605, 49.4],
         [20.673, 49.402],
-        [20.7, 49.393],
-        [20.7, 47.0],
-        [16.212, 47.0],
+        [22.0, 49.393],
+        [22.0, 46.8],
+        [16.212, 46.8],
       ],
     ],
   ],
@@ -1048,8 +1048,8 @@ const NBRS = [
         [16.35, 47.7],
         [16.42, 47.55],
         [16.25, 47.3],
-        [16.212, 47.0],
-        [12.116, 47.0],
+        [16.212, 46.8],
+        [12.116, 46.8],
         [12.123, 47.011],
         [12.181, 47.034],
         [12.202, 47.053],
@@ -1059,12 +1059,12 @@ const NBRS = [
         [12.015, 47.041],
         [11.943, 47.038],
         [11.9, 47.027],
-        [11.833, 47.0],
-        [11.498, 47.0],
+        [11.833, 46.8],
+        [11.498, 46.8],
         [11.472, 47.007],
-        [11.453, 47.0],
-        [10.6, 47.0],
-        [10.6, 47.563],
+        [11.453, 46.8],
+        [9.9, 46.8],
+        [9.9, 47.563],
         [10.741, 47.529],
         [10.762, 47.514],
         [10.831, 47.529],
@@ -1256,8 +1256,8 @@ const NBRS = [
         [11.3, 49.3],
         [11.15, 49.1],
         [11.0, 48.95],
-        [10.6, 48.99],
-        [10.6, 50.36],
+        [9.9, 48.99],
+        [9.9, 50.36],
         [11.0, 50.36],
       ],
     ],
@@ -1346,8 +1346,8 @@ const NBRS = [
         [10.831, 47.529],
         [10.762, 47.514],
         [10.741, 47.529],
-        [10.6, 47.563],
-        [10.6, 48.99],
+        [9.9, 47.563],
+        [9.9, 48.99],
         [11.0, 48.95],
         [11.15, 49.1],
         [11.3, 49.3],
@@ -5558,19 +5558,225 @@ function meander(line, amp, seed) {
   return out;
 }
 const HIGHLAND_FOREST = new Set([0, 1, 2, 3, 4, 5, 6, 7, 12, 18, 19, 21, 22, 26, 28, 31, 35, 45, 47, 49, 51, 56]);
-function drawMapK() {
-  const vb = st.vb || VB[st.zoom];
-  svg.setAttribute("viewBox", vb.join(" "));
-  const s = vb[2] / 680,
-    k = Math.max(s, 0.55);
-  svg.innerHTML = "";
-  svg.classList.toggle("measuring", !!st.measure);
-  const R = {x: vb[0] - vb[2] * 0.6, y: vb[1] - vb[3] * 0.6, width: vb[2] * 2.2, height: vb[3] * 2.2};
+/* kraje Čech (KRAJE v 02): každý kraj = část Čech blíž jeho středu než středům ostatních (ořez hranice Čech polorovinami);
+   barva podle landfrídu kolem roku 1450 (LANDFR), jména krajů a landfrídů */
+function polyPolorovina(poly, a, b) {
+  /* ponechá body blíž bodu a než b (Sutherland–Hodgman pro jednu polorovinu) */
+  const mx = (a[0] + b[0]) / 2,
+    my = (a[1] + b[1]) / 2,
+    dx = b[0] - a[0],
+    dy = b[1] - a[1],
+    uvnitr = p => (p[0] - mx) * dx + (p[1] - my) * dy <= 0,
+    out = [];
+  for (let i = 0; i < poly.length; i++) {
+    const p = poly[i],
+      q = poly[(i + 1) % poly.length],
+      ip = uvnitr(p),
+      iq = uvnitr(q);
+    if (ip) out.push(p);
+    if (ip !== iq) {
+      const dp = (p[0] - mx) * dx + (p[1] - my) * dy,
+        dq = (q[0] - mx) * dx + (q[1] - my) * dy,
+        t = dp / (dp - dq);
+      out.push([p[0] + (q[0] - p[0]) * t, p[1] + (q[1] - p[1]) * t]);
+    }
+  }
+  return out;
+}
+let KRAJEB = null;
+function krajeBunky() {
+  if (KRAJEB) return KRAJEB;
+  const S = KRAJE.map(q => P(q.lo, q.la)),
+    rings = DUCHY_POLY.kcz.map(r => r.map(c => P(c[0], c[1])));
+  KRAJEB = KRAJE.map((q, i) =>
+    rings
+      .map(r => S.reduce((poly, sj, j) => (j === i || poly.length < 3 ? poly : polyPolorovina(poly, S[i], sj)), r))
+      .filter(poly => poly.length >= 3),
+  );
+  return KRAJEB;
+}
+function krajeKresli(G, s, k) {
+  const B = krajeBunky(),
+    gk = G({filter: "url(#wob)"});
+  KRAJE.forEach((q, i) => {
+    const L = LANDFR[q.lf];
+    for (const poly of B[i])
+      gk.appendChild(
+        el("polygon", {
+          points: poly.map(p => p.map(v => v.toFixed(1)).join(",")).join(" "),
+          fill: L ? `var(--${L.c})` : "none",
+          "fill-opacity": L ? ".2" : "0",
+          stroke: "var(--ink)",
+          "stroke-width": (0.9 * s).toFixed(2),
+          "stroke-opacity": ".55",
+          "stroke-dasharray": `${4 * s} ${2.5 * s}`,
+          "stroke-linejoin": "round",
+        }),
+      );
+  });
+}
+/* jména krajů a landfrídů až nad městy (s lemem papíru), aby je nepřekryly popisky měst */
+function krajeJmena(svg, s, k) {
+  const gl = svgG(svg, {"pointer-events": "none"}),
+    t = (x, y, fs, sw, style, txt) =>
+      gl.appendChild(
+        el(
+          "text",
+          {x, y, class: "duchlbl", "font-size": (fs * k).toFixed(1), "stroke-width": (sw * s).toFixed(2), "text-anchor": "middle", style},
+          txt,
+        ),
+      );
+  for (const q of KRAJE) {
+    const [x, y] = P(q.lo, q.la - 0.07);
+    t(x, y, 9, 3, "fill:var(--ink);opacity:.8", q.n);
+  }
+  /* jméno landfrídu doprostřed jeho krajů (nebo na místo lab) */
+  for (const [id, L] of Object.entries(LANDFR)) {
+    const K = KRAJE.filter(q => q.lf === id);
+    if (!K.length) continue;
+    const [x, y] = L.lab ? P(...L.lab) : P(K.reduce((a, q) => a + q.lo, 0) / K.length, K.reduce((a, q) => a + q.la, 0) / K.length - 0.16);
+    t(x, y, 11, 3.4, `fill:var(--${L.c});font-style:italic`, L.n);
+  }
+}
+/* ikony sídel s barevným lemem předem nakreslené na plátně (2026-10-24): lem dřív počítal filtr (feMorphology) u každé
+   ze stovek ikon při každém vykreslení; teď se každá kombinace obrázku, barvy vyznání, druhu lemu a velikosti spočítá jednou
+   v barvách motivu (tmavý motiv má jiné barvy → vlastní ikony) a dál se jen použije. Lem má na obrazovce stejnou tloušťku
+   jako dřív: sídlo 1,1 px, sídlo souseda inkoust 1,75 px a pod ním barva 0,95 px. Než se obrázky načtou (a bez plátna
+   v testech), kreslí se ikona s filtrem jako dřív. */
+const MIKR = 4; /* pixelů plátna na jeden pixel kresby: stačí pro displej 3× i širokou mapu */
+const MIKP = 2; /* okraj kolem ikony pro lem, v pixelech kresby */
+const MIKZ = {}; /* zdrojové obrázky: adresa → načtený Image | false (načítá se) | null (nejde) */
+const MIKC = new Map(); /* hotové ikony: klíč → data URL; barvy jsou součástí klíče */
+let MIKB = {}; /* barvy motivu pro jedno vykreslení (drawMapK je na začátku vynuluje) – čtení stylu je drahé, ikon jsou stovky */
+/* lem ikon má barvy upečené v obrázku: když systém přepne světlý / tmavý režim, mapa se překreslí v nových barvách */
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+  if (curView === "mapa" || curView === "vyprava") drawMap();
+});
+function mapIkZdroj(src) {
+  if (MIKZ[src] || MIKZ[src] === false || MIKZ[src] === null) return MIKZ[src] || null;
+  MIKZ[src] = null;
+  try {
+    const im = new Image();
+    if (typeof im.decode !== "function" || !document.createElement("canvas").getContext("2d")) return null;
+    MIKZ[src] = false;
+    im.src = src;
+    im.decode()
+      .then(() => {
+        MIKZ[src] = im;
+        if (curView === "mapa" || curView === "vyprava") drawMap();
+      })
+      .catch(() => {
+        MIKZ[src] = null;
+      });
+  } catch {
+    MIKZ[src] = null;
+  }
+  return null;
+}
+/* barva proměnné motivu jako [r, g, b] (čte se z mapy, kde proměnné platí) */
+function mikBarva(c) {
+  if (MIKB[c]) return MIKB[c];
+  const v = getComputedStyle(svg)
+    .getPropertyValue("--" + c)
+    .trim();
+  const cv = document.createElement("canvas");
+  cv.width = cv.height = 1;
+  const x = cv.getContext("2d");
+  x.fillStyle = "#000";
+  x.fillStyle = v || "#000";
+  x.fillRect(0, 0, 1, 1);
+  return (MIKB[c] = [...x.getImageData(0, 0, 1, 1).data.slice(0, 3)]);
+}
+/* roztažení průhlednosti čtvercem o poloměru r (jako feMorphology dilate): po řádcích, pak po sloupcích */
+function mikRoztahni(A, w, r) {
+  if (r < 1) return A;
+  const B = new Uint8ClampedArray(A.length),
+    C = new Uint8ClampedArray(A.length);
+  for (let y = 0; y < w; y++)
+    for (let x = 0; x < w; x++) {
+      let m = 0;
+      for (let d = Math.max(0, x - r); d <= Math.min(w - 1, x + r); d++) m = Math.max(m, A[y * w + d]);
+      B[y * w + x] = m;
+    }
+  for (let x = 0; x < w; x++)
+    for (let y = 0; y < w; y++) {
+      let m = 0;
+      for (let d = Math.max(0, y - r); d <= Math.min(w - 1, y + r); d++) m = Math.max(m, B[d * w + x]);
+      C[y * w + x] = m;
+    }
+  return C;
+}
+/* data URL ikony s lemem, nebo null (obrázek se ještě načítá / neznámé vyznání / bez plátna) */
+function mapIkona(src, conf, nbr, zr) {
+  if (!["kat", "kal", "mix"].includes(conf)) return null;
+  const im = mapIkZdroj(src);
+  if (!im) return null;
+  const col = mikBarva(conf),
+    ink = nbr ? mikBarva("ink") : null,
+    key = [src, conf, nbr ? 1 : 0, zr, col, ink].join("|");
+  if (MIKC.has(key)) return MIKC.get(key);
+  const W = Math.round((zr + 2 * MIKP) * MIKR),
+    o = MIKP * MIKR,
+    z = zr * MIKR,
+    cv = document.createElement("canvas");
+  cv.width = cv.height = W;
+  const cx = cv.getContext("2d");
+  cx.drawImage(im, o, o, z, z);
+  const S = cx.getImageData(0, 0, W, W).data,
+    A = new Uint8ClampedArray(W * W);
+  for (let i = 0; i < A.length; i++) A[i] = S[i * 4 + 3];
+  const out = cx.createImageData(W, W),
+    D = out.data;
+  /* vrstva barvy s průhledností M přes to, co už v D je */
+  const vrstva = (M, rgb) => {
+    for (let i = 0; i < M.length; i++) {
+      const a = M[i] / 255;
+      if (!a) continue;
+      const b = D[i * 4 + 3] / 255,
+        ao = a + b * (1 - a);
+      for (let ch = 0; ch < 3; ch++) D[i * 4 + ch] = (rgb[ch] * a + D[i * 4 + ch] * b * (1 - a)) / ao;
+      D[i * 4 + 3] = ao * 255;
+    }
+  };
+  if (nbr) {
+    vrstva(mikRoztahni(A, W, Math.round(1.75 * MIKR)), ink);
+    vrstva(mikRoztahni(A, W, Math.round(0.95 * MIKR)), col);
+  } else vrstva(mikRoztahni(A, W, Math.round(1.1 * MIKR)), col);
+  cx.putImageData(out, 0, 0);
+  cx.drawImage(im, o, o, z, z);
+  const u = cv.toDataURL("image/png");
+  MIKC.set(key, u);
+  return u;
+}
+/* prvek ikony sídla: velikost zr v pixelech kresby, střed x, dolní část posunutá o dy (podíl výšky) */
+function mapIkEl(src, conf, nbr, zr, x, y, dy, s) {
+  const z = zr * s,
+    u = mapIkona(src, conf, nbr, zr);
+  if (!u)
+    return el("image", {
+      href: src,
+      x: (x - z / 2).toFixed(2),
+      y: (y - z * dy).toFixed(2),
+      width: z.toFixed(2),
+      height: z.toFixed(2),
+      filter: `url(#${nbr ? "nout" : "tout"}-${conf})`,
+    });
+  const p = MIKP * s;
+  return el("image", {
+    href: u,
+    x: (x - z / 2 - p).toFixed(2),
+    y: (y - z * dy - p).toFixed(2),
+    width: (z + 2 * p).toFixed(2),
+    height: (z + 2 * p).toFixed(2),
+  });
+}
+/* podklad mapy (vrstva #mapz): vše pod sídly; drawMapK ho volá, jen když se změní výřez nebo vrstvy podkladu */
+function mapPodklad(Z, vb, s, k) {
+  /* vb je tu celá nakreslená oblast i s okrajem pro posouvání (mapOkraj v 02) */
+  Z.setAttribute("viewBox", vb.join(" "));
+  Z.innerHTML = "";
+  const R = {x: vb[0] - vb[2] * 0.1, y: vb[1] - vb[3] * 0.1, width: vb[2] * 1.2, height: vb[3] * 1.2};
   const defs = el("defs", {});
-  const rg = el("radialGradient", {id: "vig", cx: "50%", cy: "50%", r: "72%"});
-  rg.appendChild(el("stop", {offset: "58%", "stop-color": "var(--rule)", "stop-opacity": "0"}));
-  rg.appendChild(el("stop", {offset: "100%", "stop-color": "var(--hill)", "stop-opacity": ".7"}));
-  defs.appendChild(rg);
   const mkF = (id, freq, scale, oct, seed, extra) => {
     const f = el("filter", {id, filterUnits: "userSpaceOnUse", x: R.x, y: R.y, width: R.width, height: R.height});
     f.appendChild(el("feTurbulence", {type: "fractalNoise", baseFrequency: (freq / s).toFixed(4), numOctaves: oct, seed, result: "n"}));
@@ -5606,31 +5812,9 @@ function drawMapK() {
     f2.appendChild(el("feColorMatrix", {in: "n", type: "matrix", values: "0 0 0 0 0.45  0 0 0 0 0.33  0 0 0 0 0.16  0 0 0 -3 1.6"}));
     defs.appendChild(f2);
   }
-  for (const c of ["kat", "kal", "mix"]) {
-    const f = el("filter", {id: "tout-" + c, x: "-40%", y: "-40%", width: "180%", height: "180%"});
-    f.appendChild(el("feMorphology", {in: "SourceAlpha", operator: "dilate", radius: (1.1 * s).toFixed(2), result: "d"}));
-    f.appendChild(el("feFlood", {style: `flood-color:var(--${c})`}));
-    f.appendChild(el("feComposite", {in2: "d", operator: "in", result: "o"}));
-    const mg = el("feMerge", {});
-    mg.appendChild(el("feMergeNode", {in: "o"}));
-    mg.appendChild(el("feMergeNode", {in: "SourceGraphic"}));
-    f.appendChild(mg);
-    defs.appendChild(f);
-    const n = el("filter", {id: "nout-" + c, x: "-50%", y: "-50%", width: "200%", height: "200%"});
-    n.appendChild(el("feMorphology", {in: "SourceAlpha", operator: "dilate", radius: (1.75 * s).toFixed(2), result: "d2"}));
-    n.appendChild(el("feFlood", {style: "flood-color:var(--ink)"}));
-    n.appendChild(el("feComposite", {in2: "d2", operator: "in", result: "o2"}));
-    n.appendChild(el("feMorphology", {in: "SourceAlpha", operator: "dilate", radius: (0.95 * s).toFixed(2), result: "d1"}));
-    n.appendChild(el("feFlood", {style: `flood-color:var(--${c})`}));
-    n.appendChild(el("feComposite", {in2: "d1", operator: "in", result: "o1"}));
-    const m2 = el("feMerge", {});
-    for (const k of ["o2", "o1", "SourceGraphic"]) m2.appendChild(el("feMergeNode", {in: k}));
-    n.appendChild(m2);
-    defs.appendChild(n);
-  }
-  svg.appendChild(defs);
-  const G = attrs => svgG(svg, attrs);
-  svg.appendChild(el("rect", {x: R.x, y: R.y, width: R.width, height: R.height, fill: "var(--nbr)"}));
+  Z.appendChild(defs);
+  const G = attrs => svgG(Z, attrs);
+  Z.appendChild(el("rect", {x: R.x, y: R.y, width: R.width, height: R.height, fill: "var(--nbr)"}));
   /* neighbouring countries: watercolour washes, dotted inked borders */
   const gw = G({filter: "url(#wash)", opacity: ".85"});
   for (const [c, rs] of NBRS)
@@ -5708,7 +5892,7 @@ function drawMapK() {
       );
       pd.appendChild(pat);
     }
-    svg.appendChild(pd);
+    Z.appendChild(pd);
     const DBY = Object.fromEntries(DIO.map(d => [d.id, d]));
     const gd = G({filter: "url(#wob)"});
     for (const id of DIO_ORDER)
@@ -5730,7 +5914,7 @@ function drawMapK() {
       el("line", {x1: 0, y1: 0, x2: 0, y2: 5 * s, stroke: "var(--city)", "stroke-width": (1.1 * s).toFixed(2), "stroke-opacity": ".5"}),
     );
     pd.appendChild(pat);
-    svg.appendChild(pd);
+    Z.appendChild(pd);
     const gm = G({filter: "url(#wob)"});
     for (const u of DOMAIN) {
       const f = byId[u.id];
@@ -5740,19 +5924,12 @@ function drawMapK() {
       for (const poly of DOMAIN_POLY[u.id]) {
         const pg = el("polygon", {
           points: rpts(poly),
-          class: "dompoly",
           fill: isC ? "url(#h_city)" : "none",
           stroke: isC ? "var(--city)" : "none",
           "stroke-width": ((on ? 2.4 : 1.1) * s).toFixed(2),
           "stroke-opacity": ".8",
           "stroke-linejoin": "round",
           style: isC ? "" : `fill:${domCol(u.c, on ? 0.5 : 0.3)};stroke:${domCol(u.c)};stroke-width:${((on ? 2.6 : 1.2) * s).toFixed(2)}`,
-        });
-        pg.appendChild(el("title", {}, f.name));
-        pg.addEventListener("click", e => {
-          if (mapDrag && mapDrag.moved) return;
-          e.stopPropagation();
-          show(u.id);
         });
         gm.appendChild(pg);
       }
@@ -5775,6 +5952,7 @@ function drawMapK() {
           }),
         );
   }
+  if (st.kraje) krajeKresli(G, s, k);
   /* rivers: tapering double stroke, meandering */
   const gr = G({});
   TRIBS.forEach((r, i) =>
@@ -5934,7 +6112,7 @@ function drawMapK() {
         if (ang < -90) ang += 180;
         const mx = (x1 + x2) / 2,
           my = (y1 + y2) / 2;
-        svg.appendChild(
+        Z.appendChild(
           el(
             "text",
             {
@@ -5954,7 +6132,7 @@ function drawMapK() {
   }
   for (const [t, lo, la, rot] of RIVLBL) {
     const [x, y] = P(lo, la);
-    svg.appendChild(
+    Z.appendChild(
       el(
         "text",
         {
@@ -5972,7 +6150,7 @@ function drawMapK() {
   }
   for (const [t, lo, la, rot] of FORLBL) {
     const [x, y] = P(lo, la);
-    svg.appendChild(
+    Z.appendChild(
       el(
         "text",
         {
@@ -5991,7 +6169,7 @@ function drawMapK() {
   }
   for (const [t, lo, la] of NLBL) {
     const [x, y] = P(lo, la);
-    svg.appendChild(
+    Z.appendChild(
       el(
         "text",
         {x, y, class: "maplbl", "font-size": (15 * k).toFixed(1), "text-anchor": "middle", opacity: ".6"},
@@ -6001,7 +6179,7 @@ function drawMapK() {
   }
   for (const [t, lo, la, kk] of LLBL) {
     const [x, y] = P(lo, la);
-    svg.appendChild(
+    Z.appendChild(
       el(
         "text",
         {x, y, class: "maplbl", "font-size": (22 * kk * k).toFixed(1), "text-anchor": "middle", fill: "var(--kal)", opacity: ".85"},
@@ -6032,8 +6210,8 @@ function drawMapK() {
       }),
     );
     g.appendChild(el("rect", {x: x + 10, y: y + 5, width: w - 20, height: h - 10, fill: "none", stroke: "var(--kal)", "stroke-width": ".8"}));
-    svg.appendChild(el("text", {x: x + w / 2, y: y + 23, class: "cart", "font-size": "18", "text-anchor": "middle"}, "Koruna česká"));
-    svg.appendChild(
+    Z.appendChild(el("text", {x: x + w / 2, y: y + 23, class: "cart", "font-size": "18", "text-anchor": "middle"}, "Koruna česká"));
+    Z.appendChild(
       el(
         "text",
         {x: x + w / 2, y: y + 37, class: "rivlbl", "font-size": "10.5", "text-anchor": "middle", style: "fill:var(--ink)", stroke: "none"},
@@ -6042,33 +6220,117 @@ function drawMapK() {
     );
   }
   /* paper grain, age stains and vignette */
-  svg.appendChild(el("rect", {x: R.x, y: R.y, width: R.width, height: R.height, filter: "url(#stain)", opacity: ".22", "pointer-events": "none"}));
-  svg.appendChild(el("rect", {x: R.x, y: R.y, width: R.width, height: R.height, filter: "url(#paper)", opacity: ".26", "pointer-events": "none"}));
-  svg.appendChild(el("rect", {x: vb[0], y: vb[1], width: vb[2], height: vb[3], fill: "url(#vig)", "pointer-events": "none"}));
+  Z.appendChild(el("rect", {x: R.x, y: R.y, width: R.width, height: R.height, filter: "url(#stain)", opacity: ".22", "pointer-events": "none"}));
+  Z.appendChild(el("rect", {x: R.x, y: R.y, width: R.width, height: R.height, filter: "url(#paper)", opacity: ".26", "pointer-events": "none"}));
+}
+/* rám a ztmavené rohy (vrstva #mapr mezi podkladem a sídly): drží se okraje okna mapy, při posouvání se nehýbou; kreslí se
+   znovu jen při změně velikosti výřezu nebo měřítka. Souřadnice: 0 0 až šířka × výška výřezu (měřítko jako v mapě). */
+function mapRam(w, h, s) {
+  const kr = JSON.stringify([w, h, s]);
+  if (svgR.dataset.k === kr) return;
+  svgR.dataset.k = kr;
+  svgR.setAttribute("viewBox", `0 0 ${w} ${h}`);
+  svgR.innerHTML = "";
+  const defs = el("defs", {});
+  const rg = el("radialGradient", {id: "vig", cx: "50%", cy: "50%", r: "72%"});
+  rg.appendChild(el("stop", {offset: "58%", "stop-color": "var(--rule)", "stop-opacity": "0"}));
+  rg.appendChild(el("stop", {offset: "100%", "stop-color": "var(--hill)", "stop-opacity": ".7"}));
+  defs.appendChild(rg);
+  /* chvění inkoustu jako filtr wob podkladu */
+  const f = el("filter", {id: "wobr", filterUnits: "userSpaceOnUse", x: -w * 0.1, y: -h * 0.1, width: w * 1.2, height: h * 1.2});
+  f.appendChild(el("feTurbulence", {type: "fractalNoise", baseFrequency: (0.04 / s).toFixed(4), numOctaves: 2, seed: 3, result: "n"}));
+  f.appendChild(el("feDisplacementMap", {in: "SourceGraphic", in2: "n", scale: (1.8 * s).toFixed(2), xChannelSelector: "R", yChannelSelector: "G"}));
+  defs.appendChild(f);
+  svgR.appendChild(defs);
+  svgR.appendChild(el("rect", {x: 0, y: 0, width: w, height: h, fill: "url(#vig)"}));
   /* double frame, hand-ruled */
-  const gfr = G({filter: "url(#wob)", "pointer-events": "none"});
+  const gfr = el("g", {filter: "url(#wobr)"});
   gfr.appendChild(
-    el("rect", {
-      x: vb[0] + 4 * s,
-      y: vb[1] + 4 * s,
-      width: vb[2] - 8 * s,
-      height: vb[3] - 8 * s,
-      fill: "none",
-      stroke: "var(--ink)",
-      "stroke-width": (1.6 * s).toFixed(2),
-    }),
+    el("rect", {x: 4 * s, y: 4 * s, width: w - 8 * s, height: h - 8 * s, fill: "none", stroke: "var(--ink)", "stroke-width": (1.6 * s).toFixed(2)}),
   );
   gfr.appendChild(
     el("rect", {
-      x: vb[0] + 8.5 * s,
-      y: vb[1] + 8.5 * s,
-      width: vb[2] - 17 * s,
-      height: vb[3] - 17 * s,
+      x: 8.5 * s,
+      y: 8.5 * s,
+      width: w - 17 * s,
+      height: h - 17 * s,
       fill: "none",
       stroke: "var(--kal)",
       "stroke-width": (0.7 * s).toFixed(2),
     }),
   );
+  svgR.appendChild(gfr);
+}
+function drawMapK() {
+  MIKB = {};
+  mapPlatno.classList.toggle("mapw", mapWide());
+  const vb = mapVidim();
+  /* úzká mapa má poměr stran podle výřezu (předvolby Čechy, Morava… se liší), jako dřív svg s výškou podle viewBoxu */
+  mapPlatno.style.aspectRatio = mapWide() ? "" : `${vb[2]} / ${vb[3]}`;
+  const s = mapMeritko(vb),
+    k = Math.max(s, 0.55);
+  /* nakreslená oblast: výřez s okrajem pro posouvání; je-li výřez stále uvnitř dřív nakreslené oblasti se stejným měřítkem
+     (po posunu bez překreslení), zůstane – podklad se pak nekreslí znovu a obraz se jen posune (mapPosun v 02) */
+  if (!mapLzePosunout(vb, s)) {
+    mapKresba.d = mapOkraj(vb);
+    mapKresba.vd = vb;
+    mapKresba.s = s;
+  }
+  const D = mapKresba.d;
+  svg.setAttribute("viewBox", D.join(" "));
+  svg.dataset.s = s;
+  mapPosun(vb);
+  mapRam(vb[2], vb[3], s);
+  svg.innerHTML = "";
+  svg.classList.toggle("measuring", !!st.measure);
+  /* podklad – krajina, hranice, řeky, lesy, hory, popisky krajiny, papír a rám – je ve vlastní vrstvě #mapz pod mapou: jeho
+     filtry (chvění inkoustu, akvarel, papír) jsou na kresbě nejdražší, a tak se kreslí znovu, jen když se změní výřez nebo vrstva,
+     která ho mění; výběr rodu, sídla, jejich popisky, vazby a měření kreslí jen horní vrstva #map */
+  const kz = JSON.stringify([D, s, st.dio, st.dom, st.dom ? st.sel : 0, st.duchy, st.kraje, st.roads]);
+  if (svgZ.dataset.k !== kz) {
+    mapPodklad(svgZ, D, s, k);
+    svgZ.dataset.k = kz;
+  }
+  const defs = el("defs", {});
+  for (const c of ["kat", "kal", "mix"]) {
+    const f = el("filter", {id: "tout-" + c, x: "-40%", y: "-40%", width: "180%", height: "180%"});
+    f.appendChild(el("feMorphology", {in: "SourceAlpha", operator: "dilate", radius: (1.1 * s).toFixed(2), result: "d"}));
+    f.appendChild(el("feFlood", {style: `flood-color:var(--${c})`}));
+    f.appendChild(el("feComposite", {in2: "d", operator: "in", result: "o"}));
+    const mg = el("feMerge", {});
+    mg.appendChild(el("feMergeNode", {in: "o"}));
+    mg.appendChild(el("feMergeNode", {in: "SourceGraphic"}));
+    f.appendChild(mg);
+    defs.appendChild(f);
+    const n = el("filter", {id: "nout-" + c, x: "-50%", y: "-50%", width: "200%", height: "200%"});
+    n.appendChild(el("feMorphology", {in: "SourceAlpha", operator: "dilate", radius: (1.75 * s).toFixed(2), result: "d2"}));
+    n.appendChild(el("feFlood", {style: "flood-color:var(--ink)"}));
+    n.appendChild(el("feComposite", {in2: "d2", operator: "in", result: "o2"}));
+    n.appendChild(el("feMorphology", {in: "SourceAlpha", operator: "dilate", radius: (0.95 * s).toFixed(2), result: "d1"}));
+    n.appendChild(el("feFlood", {style: `flood-color:var(--${c})`}));
+    n.appendChild(el("feComposite", {in2: "d1", operator: "in", result: "o1"}));
+    const m2 = el("feMerge", {});
+    for (const k of ["o2", "o1", "SourceGraphic"]) m2.appendChild(el("feMergeNode", {in: k}));
+    n.appendChild(m2);
+    defs.appendChild(n);
+  }
+  svg.appendChild(defs);
+  /* Panství rodů: plochy jsou v podkladu, klepnout se dá na jejich neviditelnou kopii v horní vrstvě */
+  if (st.dom)
+    for (const u of DOMAIN) {
+      const f = byId[u.id];
+      if (!f) continue;
+      for (const poly of DOMAIN_POLY[u.id]) {
+        const pg = el("polygon", {points: rpts(poly), class: "dompoly", fill: "#000", "fill-opacity": "0"});
+        pg.appendChild(el("title", {}, f.name));
+        pg.addEventListener("click", e => {
+          if (mapDrag && mapDrag.moved) return;
+          e.stopPropagation();
+          show(u.id);
+        });
+        svg.appendChild(pg);
+      }
+    }
   const sel = st.sel,
     labels = [];
   const relT = {};
@@ -6101,30 +6363,11 @@ function drawMapK() {
       const r = (isSel ? 6.5 : 4.8) * s,
         sw = (1 * s).toFixed(2);
       g.appendChild(el("circle", {cx: x, cy: y, r: (12 * s).toFixed(1), fill: "transparent"}));
+      const tier = mistoTier(sd[0], f.city || TOWNSEATS.has(sd[0]));
       if (f.city || TOWNSEATS.has(sd[0])) {
-        const z = (isSel ? 19 : 15) * s;
-        g.appendChild(
-          el("image", {
-            href: TOWNICO,
-            x: (x - z / 2).toFixed(2),
-            y: (y - z * 0.62).toFixed(2),
-            width: z.toFixed(2),
-            height: z.toFixed(2),
-            filter: `url(#${f.nbr && !f.city ? "nout" : "tout"}-${conf})`,
-          }),
-        );
+        g.appendChild(mapIkEl(TOWNICO, conf, !!f.nbr && !f.city, isSel ? 19 : MTZ[tier], x, y, 0.62, s));
       } else {
-        const z = (isSel ? 18 : 14) * s;
-        g.appendChild(
-          el("image", {
-            href: CASTLEICO,
-            x: (x - z / 2).toFixed(2),
-            y: (y - z * 0.66).toFixed(2),
-            width: z.toFixed(2),
-            height: z.toFixed(2),
-            filter: `url(#${f.nbr ? "nout" : "tout"}-${conf})`,
-          }),
-        );
+        g.appendChild(mapIkEl(CASTLEICO, conf, !!f.nbr, isSel ? 18 : MTZ[tier], x, y, 0.66, s));
       }
       if (rt && !dim) {
         let ri = 0;
@@ -6163,8 +6406,8 @@ function drawMapK() {
       g.appendChild(el("title", {}, `${sd[0]} — ${f.name}`));
       svg.appendChild(g);
       if (!dim) {
-        const pri = isSel ? 0 : MAJOR_PLACES.has(sd[0]) ? 1 : 2;
-        if (pri < 2 || s < 0.62) labels.push([x, y, sd[0], pri]);
+        const pri = isSel ? 0 : tier + 1;
+        if (mistoPopisek(tier, s) || isSel) labels.push([x, y, sd[0], pri]);
       }
     }
   }
@@ -6187,23 +6430,13 @@ function drawMapK() {
         mmHlasZem(n);
       });
       g.appendChild(el("circle", {cx: x, cy: y, r: (12 * s).toFixed(1), fill: "transparent"}));
-      const z = (typ === "mesto" ? 15 : 14) * s;
+      const tier = mistoTier(n, typ === "mesto");
       g.appendChild(
-        el("image", {
-          href: typ === "mesto" ? TOWNICO : CASTLEICO,
-          x: (x - z / 2).toFixed(2),
-          y: (y - z * 0.64).toFixed(2),
-          width: z.toFixed(2),
-          height: z.toFixed(2),
-          filter: `url(#tout-${["kat", "kal", "mix"].includes(conf) ? conf : "mix"})`,
-        }),
+        mapIkEl(typ === "mesto" ? TOWNICO : CASTLEICO, ["kat", "kal", "mix"].includes(conf) ? conf : "mix", false, MTZ[tier], x, y, 0.64, s),
       );
       g.appendChild(el("title", {}, n));
       svg.appendChild(g);
-      if (!dim) {
-        const pri = MAJOR_PLACES.has(n) ? 1 : 2;
-        if (pri < 2 || s < 0.62) labels.push([x, y, n, pri]);
-      }
+      if (!dim && mistoPopisek(tier, s)) labels.push([x, y, n, tier + 1]);
     }
   }
   if (st.dom)
@@ -6340,7 +6573,7 @@ function drawMapK() {
   for (const [x, y, t, pri] of labels) {
     if (seenLbl.has(t)) continue;
     seenLbl.add(t);
-    const fs = (pri === 0 ? 13.5 : pri === 1 ? 11.5 : 10) * k,
+    const fs = [13.5, 13.5, 11.5, 10, 9.5][pri] * k,
       w = t.length * fs * 0.62,
       h = fs * 1.1;
     const pref = x < vb[0] + vb[2] * 0.72;
@@ -6375,12 +6608,13 @@ function drawMapK() {
           "font-size": fs.toFixed(1),
           "stroke-width": (3.4 * s).toFixed(2),
           "text-anchor": pick[0] ? "start" : "end",
-          style: pri === 0 ? "" : `font-weight:${pri === 1 ? 700 : 600};opacity:${pri === 1 ? 0.95 : 0.85}`,
+          style: pri === 0 ? "" : `font-weight:${pri <= 2 ? 700 : 600};opacity:${pri <= 2 ? 0.95 : pri === 3 ? 0.88 : 0.8}`,
         },
         t,
       ),
     );
   }
+  if (st.kraje) krajeJmena(svg, s, k);
 }
 
 /*@cast}*/

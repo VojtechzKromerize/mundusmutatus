@@ -23,7 +23,7 @@ Vůdce divokého honu. Nikdo neví, kým byl: podle jedněch pánem, který lovi
 
 **AC** 13 · **HP** 67 (9d8+27) · **Rychlost** 5 stop, let 60 stop · **Iniciativa** +3
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 6 (−2) | 16 (+3) | 16 (+3) | 12 (+1) | 14 (+2) | 15 (+2) |
 

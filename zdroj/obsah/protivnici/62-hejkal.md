@@ -25,7 +25,7 @@ Duch hlubokých lesů, kterého je víc slyšet než vidět. Po Noci Proměny se
 
 **AC** 16 · **HP** 22 (5d8) · **Rychlost** 30 stop · **Iniciativa** +1
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 10 (+0) | 12 (+1) | 11 (+0) | 14 (+2) | 15 (+2) | 18 (+4) |
 

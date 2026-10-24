@@ -13,7 +13,7 @@
     ],
     "zachrany": {
       "STR": 4,
-      "AGI": 1,
+      "DEX": 1,
       "CON": 3,
       "INT": 1,
       "WIS": 0,
@@ -70,7 +70,7 @@
       ],
       "zachrany": {
         "STR": 4,
-        "AGI": 1,
+        "DEX": 1,
         "CON": 3,
         "INT": 1,
         "WIS": 0,

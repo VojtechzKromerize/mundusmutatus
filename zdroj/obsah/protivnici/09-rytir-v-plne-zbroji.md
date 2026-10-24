@@ -24,7 +24,7 @@ Pán z erbovního rodu, vycvičený od dětství, s koněm, panošem a zbrojí, 
 
 **AC** 18 (plná zbroj) · **HP** 85 (10d8+40) · **Rychlost** 30 stop (válečný kůň 60 stop) · **Iniciativa** +1
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 18 (+4) | 12 (+1) | 18 (+4) | 11 (+0) | 13 (+1) | 15 (+2) |
 

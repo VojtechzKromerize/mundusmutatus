@@ -342,7 +342,7 @@ Tento oddíl obsahuje seznam kouzel Warlocka. Kouzla jsou seřazena podle úrovn
 | Mage Hand | Vyvolávání | — |
 | Minor Illusion | Iluze | — |
 | Poison Spray | Nekromancie | — |
-| Prestidigitation | Přeměna | — |
+| Prestidigitation | Transmutace | — |
 | True Strike | Věštění | — |
 
 #### Kouzla Warlocka 1. úrovně
@@ -353,12 +353,12 @@ Tento oddíl obsahuje seznam kouzel Warlocka. Kouzla jsou seřazena podle úrovn
 | Charm Person | Očarování | — |
 | Comprehend Languages | Věštění | R |
 | Detect Magic | Věštění | C, R |
-| Expeditious Retreat | Přeměna | C |
+| Expeditious Retreat | Transmutace | C |
 | Hellish Rebuke | Zaklínání | — |
 | Hex | Očarování | C |
 | Hideous Laughter | Očarování | C |
 | Illusory Script | Iluze | R, M |
-| Protection from Evil and Good | Odvrácení | C, M |
+| Protection from Evil and Good | Ochranná magie | C, M |
 | Speak with Animals | Věštění | R |
 | Unseen Servant | Vyvolávání | R |
 
@@ -374,22 +374,22 @@ Tento oddíl obsahuje seznam kouzel Warlocka. Kouzla jsou seřazena podle úrovn
 | Mirror Image | Iluze | — |
 | Misty Step | Vyvolávání | — |
 | Ray of Enfeeblement | Nekromancie | C |
-| Spider Climb | Přeměna | C |
+| Spider Climb | Transmutace | C |
 | Suggestion | Očarování | C |
 
 #### Kouzla Warlocka 3. úrovně
 
 | Kouzlo | Škola | Zvláštní |
 |---|---|---|
-| Counterspell | Odvrácení | — |
-| Dispel Magic | Odvrácení | — |
+| Counterspell | Ochranná magie | — |
+| Dispel Magic | Ochranná magie | — |
 | Fear | Iluze | C |
-| Fly | Přeměna | C |
-| Gaseous Form | Přeměna | C |
+| Fly | Transmutace | C |
+| Gaseous Form | Transmutace | C |
 | Hypnotic Pattern | Iluze | C |
-| Magic Circle | Odvrácení | M |
+| Magic Circle | Ochranná magie | M |
 | Major Image | Iluze | C |
-| Remove Curse | Odvrácení | — |
+| Remove Curse | Ochranná magie | — |
 | Tongues | Věštění | — |
 | Vampiric Touch | Nekromancie | C |
 
@@ -397,7 +397,7 @@ Tento oddíl obsahuje seznam kouzel Warlocka. Kouzla jsou seřazena podle úrovn
 
 | Kouzlo | Škola | Zvláštní |
 |---|---|---|
-| Banishment | Odvrácení | C |
+| Banishment | Ochranná magie | C |
 | Blight | Nekromancie | — |
 | Charm Monster | Očarování | — |
 | Dimension Door | Vyvolávání | — |
@@ -411,7 +411,7 @@ Tento oddíl obsahuje seznam kouzel Warlocka. Kouzla jsou seřazena podle úrovn
 | Dream | Iluze | — |
 | Hold Monster | Očarování | C |
 | Mislead | Iluze | C |
-| Planar Binding | Odvrácení | M |
+| Planar Binding | Ochranná magie | M |
 | Scrying | Věštění | C, M |
 | Teleportation Circle | Vyvolávání | M |
 
@@ -450,9 +450,9 @@ Tento oddíl obsahuje seznam kouzel Warlocka. Kouzla jsou seřazena podle úrovn
 | Astral Projection | Nekromancie | M |
 | Foresight | Věštění | — |
 | Gate | Vyvolávání | C, M |
-| Imprisonment | Odvrácení | M |
+| Imprisonment | Ochranná magie | M |
 | Power Word Kill | Očarování | — |
-| True Polymorph | Přeměna | C |
+| True Polymorph | Transmutace | C |
 | Weird | Iluze | C |
 
 ### Podtřída Warlocka: Fiend Patron

@@ -6,7 +6,7 @@
 
 | Rys | Fighter |
 |---|---|
-| Hlavní vlastnost | Síla (STR) nebo Obratnost (AGI) |
+| Hlavní vlastnost | Síla (STR) nebo Obratnost (DEX) |
 | Kostka životů | k10 za každou úroveň Fightera (D10) |
 | Záchranné hody | Síla (STR) a Odolnost (CON) |
 | Zdatnost v dovednostech | Vyber 2: Acrobatics, Animal Handling, Athletics, History, Insight, Intimidation, Persuasion, Perception nebo Survival |

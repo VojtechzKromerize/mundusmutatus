@@ -22,7 +22,7 @@ Pytláci, myslivci a hraničáři ve službě pánů, měst nebo vojsk. Hlídaj�
 
 **Útok houfu – luky nebo krátké meče:** +4 (+1 za každého dalšího, nejvýš +5). **Zásah:** 5 zranění za každého zvěda, který střílí nebo je v dosahu (Piercing).
 
-**Záchrany houfu:** AGI +2, WIS +1, ostatní +0
+**Záchrany houfu:** DEX +2, WIS +1, ostatní +0
 
 ## Vlastnosti
 

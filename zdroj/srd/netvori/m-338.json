@@ -12,7 +12,7 @@
   "rych": "30 stop, 40 stop (jen v kančí podobě)",
   "vl": {
    "STR": 17,
-   "AGI": 10,
+   "DEX": 10,
    "CON": 15,
    "INT": 10,
    "WIS": 11,
@@ -20,7 +20,7 @@
   },
   "zach": {
    "STR": "+3",
-   "AGI": "+0",
+   "DEX": "+0",
    "CON": "+2",
    "INT": "+0",
    "WIS": "+0",
@@ -96,7 +96,7 @@
   "rych": "30 stop, šplhání 30 stop",
   "vl": {
    "STR": 10,
-   "AGI": 16,
+   "DEX": 16,
    "CON": 12,
    "INT": 11,
    "WIS": 10,
@@ -104,7 +104,7 @@
   },
   "zach": {
    "STR": "+0",
-   "AGI": "+3",
+   "DEX": "+3",
    "CON": "+1",
    "INT": "+0",
    "WIS": "+0",
@@ -180,7 +180,7 @@
   "rych": "30 stop, 40 stop (jen v tygří podobě)",
   "vl": {
    "STR": 17,
-   "AGI": 15,
+   "DEX": 15,
    "CON": 16,
    "INT": 10,
    "WIS": 13,
@@ -188,7 +188,7 @@
   },
   "zach": {
    "STR": "+3",
-   "AGI": "+2",
+   "DEX": "+2",
    "CON": "+3",
    "INT": "+0",
    "WIS": "+1",
@@ -268,7 +268,7 @@
   "rych": "30 stop, 40 stop (jen ve vlčí podobě)",
   "vl": {
    "STR": 16,
-   "AGI": 14,
+   "DEX": 14,
    "CON": 14,
    "INT": 10,
    "WIS": 11,
@@ -276,7 +276,7 @@
   },
   "zach": {
    "STR": "+3",
-   "AGI": "+2",
+   "DEX": "+2",
    "CON": "+2",
    "INT": "+0",
    "WIS": "+0",
@@ -358,7 +358,7 @@
   "rych": "30 stop, hrabání 15 stop, let 60 stop, plavání 30 stop",
   "vl": {
    "STR": 14,
-   "AGI": 10,
+   "DEX": 10,
    "CON": 14,
    "INT": 5,
    "WIS": 10,
@@ -366,7 +366,7 @@
   },
   "zach": {
    "STR": "+2",
-   "AGI": "+2",
+   "DEX": "+2",
    "CON": "+2",
    "INT": "-3",
    "WIS": "+2",
@@ -431,7 +431,7 @@
   "rych": "40 stop, hrabání 20 stop, let 80 stop, plavání 40 stop",
   "vl": {
    "STR": 18,
-   "AGI": 10,
+   "DEX": 10,
    "CON": 18,
    "INT": 6,
    "WIS": 11,
@@ -439,7 +439,7 @@
   },
   "zach": {
    "STR": "+4",
-   "AGI": "+3",
+   "DEX": "+3",
    "CON": "+4",
    "INT": "-2",
    "WIS": "+3",
@@ -504,7 +504,7 @@
   "rych": "40 stop, hrabání 30 stop, let 80 stop, plavání 40 stop",
   "vl": {
    "STR": 22,
-   "AGI": 10,
+   "DEX": 10,
    "CON": 22,
    "INT": 8,
    "WIS": 12,
@@ -512,7 +512,7 @@
   },
   "zach": {
    "STR": "+6",
-   "AGI": "+5",
+   "DEX": "+5",
    "CON": "+6",
    "INT": "-1",
    "WIS": "+6",
@@ -603,7 +603,7 @@
   "rych": "40 stop, hrabání 40 stop, let 80 stop, plavání 40 stop",
   "vl": {
    "STR": 26,
-   "AGI": 10,
+   "DEX": 10,
    "CON": 26,
    "INT": 10,
    "WIS": 13,
@@ -611,7 +611,7 @@
   },
   "zach": {
    "STR": "+8",
-   "AGI": "+6",
+   "DEX": "+6",
    "CON": "+8",
    "INT": "+0",
    "WIS": "+7",
@@ -701,7 +701,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 15,
-   "AGI": 14,
+   "DEX": 14,
    "CON": 16,
    "INT": 10,
    "WIS": 13,
@@ -709,7 +709,7 @@
   },
   "zach": {
    "STR": "+2",
-   "AGI": "+2",
+   "DEX": "+2",
    "CON": "+3",
    "INT": "+0",
    "WIS": "+1",
@@ -787,7 +787,7 @@
   "rych": "5 stop, let 50 stop (vznáší se)",
   "vl": {
    "STR": 1,
-   "AGI": 28,
+   "DEX": 28,
    "CON": 10,
    "INT": 13,
    "WIS": 14,
@@ -795,14 +795,14 @@
   },
   "zach": {
    "STR": "-5",
-   "AGI": "+9",
+   "DEX": "+9",
    "CON": "+0",
    "INT": "+1",
    "WIS": "+2",
    "CHA": "+0"
   },
   "odol": "Acid, Bludgeoning, Cold, Fire, Necrotic, Piercing, Slashing",
-  "imu": "Lightning, Poison; Vyčerpání (Exhaustion), Chycen (Grappled), Ochromen (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned), Sražen (Prone), Zadržen (Restrained), V bezvědomí (Unconscious)",
+  "imu": "Lightning, Poison; Vyčerpání (Exhaustion), Chycen (Grappled), Paralyzovaný (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned), Sražen (Prone), Spoután (Restrained), V bezvědomí (Unconscious)",
   "smysly": "Darkvision 120 stop; pasivní Perception 12",
   "jaz": "Common a jeden další jazyk",
   "cr": "2",
@@ -863,7 +863,7 @@
   "rych": "50 stop",
   "vl": {
    "STR": 18,
-   "AGI": 13,
+   "DEX": 13,
    "CON": 14,
    "INT": 7,
    "WIS": 12,
@@ -871,7 +871,7 @@
   },
   "zach": {
    "STR": "+4",
-   "AGI": "+1",
+   "DEX": "+1",
    "CON": "+2",
    "INT": "-2",
    "WIS": "+1",
@@ -931,7 +931,7 @@
   "rych": "50 stop",
   "vl": {
    "STR": 16,
-   "AGI": 13,
+   "DEX": 13,
    "CON": 13,
    "INT": 7,
    "WIS": 11,
@@ -939,7 +939,7 @@
   },
   "zach": {
    "STR": "+3",
-   "AGI": "+1",
+   "DEX": "+1",
    "CON": "+1",
    "INT": "-2",
    "WIS": "+0",
@@ -982,7 +982,7 @@
   "rych": "5 stop, let 60 stop (vznáší se)",
   "vl": {
    "STR": 6,
-   "AGI": 16,
+   "DEX": 16,
    "CON": 16,
    "INT": 12,
    "WIS": 14,
@@ -990,14 +990,14 @@
   },
   "zach": {
    "STR": "-2",
-   "AGI": "+3",
+   "DEX": "+3",
    "CON": "+3",
    "INT": "+1",
    "WIS": "+2",
    "CHA": "+2"
   },
   "odol": "Acid, Bludgeoning, Cold, Fire, Piercing, Slashing",
-  "imu": "Necrotic, Poison; Okouzlen (Charmed), Vyčerpání (Exhaustion), Chycen (Grappled), Ochromen (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned), Sražen (Prone), Zadržen (Restrained), V bezvědomí (Unconscious)",
+  "imu": "Necrotic, Poison; Okouzlen (Charmed), Vyčerpání (Exhaustion), Chycen (Grappled), Paralyzovaný (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned), Sražen (Prone), Spoután (Restrained), V bezvědomí (Unconscious)",
   "smysly": "Darkvision 60 stop; pasivní Perception 12",
   "jaz": "Common a dva další jazyky",
   "cr": "5",
@@ -1048,7 +1048,7 @@
   "rych": "30 stop, let 80 stop",
   "vl": {
    "STR": 19,
-   "AGI": 10,
+   "DEX": 10,
    "CON": 16,
    "INT": 5,
    "WIS": 12,
@@ -1056,7 +1056,7 @@
   },
   "zach": {
    "STR": "+4",
-   "AGI": "+0",
+   "DEX": "+0",
    "CON": "+3",
    "INT": "-3",
    "WIS": "+1",
@@ -1113,7 +1113,7 @@
   "rych": "20 stop, hrabání 20 stop",
   "vl": {
    "STR": 17,
-   "AGI": 10,
+   "DEX": 10,
    "CON": 22,
    "INT": 11,
    "WIS": 10,
@@ -1121,14 +1121,14 @@
   },
   "zach": {
    "STR": "+3",
-   "AGI": "+0",
+   "DEX": "+0",
    "CON": "+6",
    "INT": "+0",
    "WIS": "+0",
    "CHA": "+0"
   },
   "dov": "Perception +6, Stealth +6",
-  "imu": "Poison; Ochromen (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned)",
+  "imu": "Poison; Paralyzovaný (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned)",
   "smysly": "Darkvision 60 stop, Tremorsense 60 stop; pasivní Perception 16",
   "jaz": "Primordial (Terran)",
   "cr": "5",
@@ -1196,7 +1196,7 @@
   "rych": "20 stop",
   "vl": {
    "STR": 13,
-   "AGI": 6,
+   "DEX": 6,
    "CON": 16,
    "INT": 3,
    "WIS": 6,
@@ -1204,7 +1204,7 @@
   },
   "zach": {
    "STR": "+1",
-   "AGI": "-2",
+   "DEX": "-2",
    "CON": "+3",
    "INT": "-4",
    "WIS": "+0",
@@ -1253,7 +1253,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 19,
-   "AGI": 6,
+   "DEX": 6,
    "CON": 18,
    "INT": 3,
    "WIS": 6,
@@ -1261,7 +1261,7 @@
   },
   "zach": {
    "STR": "+4",
-   "AGI": "-2",
+   "DEX": "-2",
    "CON": "+4",
    "INT": "-4",
    "WIS": "+0",
@@ -1309,7 +1309,7 @@
   "rych": "60 stop",
   "vl": {
    "STR": 19,
-   "AGI": 13,
+   "DEX": 13,
    "CON": 17,
    "INT": 2,
    "WIS": 12,
@@ -1317,7 +1317,7 @@
   },
   "zach": {
    "STR": "+4",
-   "AGI": "+1",
+   "DEX": "+1",
    "CON": "+3",
    "INT": "-4",
    "WIS": "+1",
@@ -1372,7 +1372,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 19,
-   "AGI": 11,
+   "DEX": 11,
    "CON": 15,
    "INT": 2,
    "WIS": 12,
@@ -1380,7 +1380,7 @@
   },
   "zach": {
    "STR": "+6",
-   "AGI": "+0",
+   "DEX": "+0",
    "CON": "+2",
    "INT": "-4",
    "WIS": "+1",
@@ -1427,7 +1427,7 @@
   "rych": "30 stop, šplhání 30 stop",
   "vl": {
    "STR": 16,
-   "AGI": 14,
+   "DEX": 14,
    "CON": 14,
    "INT": 6,
    "WIS": 12,
@@ -1435,7 +1435,7 @@
   },
   "zach": {
    "STR": "+3",
-   "AGI": "+2",
+   "DEX": "+2",
    "CON": "+2",
    "INT": "-2",
    "WIS": "+1",
@@ -1494,7 +1494,7 @@
   "rych": "20 stop, plavání 80 stop",
   "vl": {
    "STR": 18,
-   "AGI": 16,
+   "DEX": 16,
    "CON": 13,
    "INT": 4,
    "WIS": 14,
@@ -1502,7 +1502,7 @@
   },
   "zach": {
    "STR": "+4",
-   "AGI": "+3",
+   "DEX": "+3",
    "CON": "+1",
    "INT": "-3",
    "WIS": "+2",
@@ -1556,7 +1556,7 @@
   "rych": "30 stop, šplhání 30 stop",
   "vl": {
    "STR": 8,
-   "AGI": 14,
+   "DEX": 14,
    "CON": 11,
    "INT": 4,
    "WIS": 12,
@@ -1564,7 +1564,7 @@
   },
   "zach": {
    "STR": "-1",
-   "AGI": "+2",
+   "DEX": "+2",
    "CON": "+0",
    "INT": "-3",
    "WIS": "+1",
@@ -1613,7 +1613,7 @@
   "rych": "20 stop, hrabání 5 stop",
   "vl": {
    "STR": 10,
-   "AGI": 11,
+   "DEX": 11,
    "CON": 16,
    "INT": 2,
    "WIS": 12,
@@ -1621,7 +1621,7 @@
   },
   "zach": {
    "STR": "+0",
-   "AGI": "+0",
+   "DEX": "+0",
    "CON": "+3",
    "INT": "-4",
    "WIS": "+1",
@@ -1666,7 +1666,7 @@
   "rych": "5 stop, let 30 stop",
   "vl": {
    "STR": 2,
-   "AGI": 15,
+   "DEX": 15,
    "CON": 8,
    "INT": 2,
    "WIS": 12,
@@ -1674,7 +1674,7 @@
   },
   "zach": {
    "STR": "-4",
-   "AGI": "+2",
+   "DEX": "+2",
    "CON": "-1",
    "INT": "-4",
    "WIS": "+1",
@@ -1717,7 +1717,7 @@
   "rych": "30 stop, šplhání 30 stop, plavání 30 stop",
   "vl": {
    "STR": 15,
-   "AGI": 12,
+   "DEX": 12,
    "CON": 14,
    "INT": 2,
    "WIS": 12,
@@ -1725,7 +1725,7 @@
   },
   "zach": {
    "STR": "+2",
-   "AGI": "+1",
+   "DEX": "+1",
    "CON": "+2",
    "INT": "-4",
    "WIS": "+1",
@@ -1773,7 +1773,7 @@
   "rych": "10 stop, let 60 stop",
   "vl": {
    "STR": 6,
-   "AGI": 14,
+   "DEX": 14,
    "CON": 10,
    "INT": 3,
    "WIS": 14,
@@ -1781,7 +1781,7 @@
   },
   "zach": {
    "STR": "-2",
-   "AGI": "+2",
+   "DEX": "+2",
    "CON": "+0",
    "INT": "-4",
    "WIS": "+2",

@@ -24,7 +24,7 @@ Glosář používá následující konvence:
 | CP | Copper Piece(s) – měďák(y) |
 | CR | Challenge Rating (stupeň výzvy) |
 | SO (DC) | stupeň obtížnosti (Difficulty Class) |
-| AGI (Dex.) | Obratnost (Dexterity) |
+| DEX (Dex.) | Obratnost (Dexterity) |
 | EP | Electrum Piece(s) – elektrum |
 | GM | Game Master – vypravěč |
 | GP | Gold Piece(s) – zlaťák(y) |
@@ -58,7 +58,7 @@ Ověření vlastnosti je test d20, který představuje použití jedné ze šest
 
 #### Ability Score and Modifier (hodnota vlastnosti a opravná hodnota)
 
-Tvor má šest hodnot vlastností – Síla (STR), Obratnost (AGI), Odolnost (CON), Inteligence (INT), Moudrost (WIS) a Charisma (CHA) – a ke každé z nich patří odpovídající opravná hodnota. Opravnou hodnotu přičítáš, když děláš test d20 s odpovídající vlastností nebo když to pravidlo vyžaduje. *Viz také* „Hraní hry“ („Šest vlastností“).
+Tvor má šest hodnot vlastností – Síla (STR), Obratnost (DEX), Odolnost (CON), Inteligence (INT), Moudrost (WIS) a Charisma (CHA) – a ke každé z nich patří odpovídající opravná hodnota. Opravnou hodnotu přičítáš, když děláš test d20 s odpovídající vlastností nebo když to pravidlo vyžaduje. *Viz také* „Hraní hry“ („Šest vlastností“).
 
 #### Action (akce)
 
@@ -266,8 +266,8 @@ Stav je dočasný herní stav. Definice stavu uvádí, jak působí na toho, kdo
 | --- | --- | --- |
 | Oslepen (Blinded) | Chycen (Grappled) | Otráven (Poisoned) |
 | Okouzlen (Charmed) | Neschopný (Incapacitated) | Sražen (Prone) |
-| Ohlušen (Deafened) | Neviditelný (Invisible) | Zadržen (Restrained) |
-| Vyčerpání (Exhaustion) | Ochromen (Paralyzed) | Omráčen (Stunned) |
+| Ohlušen (Deafened) | Neviditelný (Invisible) | Spoután (Restrained) |
+| Vyčerpání (Exhaustion) | Paralyzovaný (Paralyzed) | Omráčen (Stunned) |
 | Vyděšen (Frightened) | Zkamenělý (Petrified) | V bezvědomí (Unconscious) |
 
 Stav se sám se sebou nesčítá; ten, kdo jím trpí, ho buď má, nebo nemá. Výjimkou z tohoto pravidla je stav Vyčerpání (Exhaustion).

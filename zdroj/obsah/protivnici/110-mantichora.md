@@ -23,7 +23,7 @@ Netvor z Physiologu: lví tělo, lidská tvář, ocas plný ostnů, které vyst�
 
 **AC** 14 · **HP** 68 (8d10+24) · **Rychlost** 30 stop, let 50 stop · **Iniciativa** +3
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 17 (+3) | 16 (+3) | 17 (+3) | 7 (−2) | 12 (+1) | 8 (−1) |
 

@@ -22,7 +22,7 @@ Mužíčci velikosti dlaně s křídly vážky, kteří chodí za dryádou, hejk
 
 **Útok houfu – jehlové mečíky:** +6 (+1 za každého dalšího skřítka, nejvýš +5), dosah 5 stop. **Zásah:** 2 Piercing za každého skřítka v dosahu cíle. **Luky:** +6, dostřel 40/160 stop, 1 Piercing za každého, kdo na cíl vidí; cíl zasažený aspoň dvěma šípy hodí WIS save DC 10, jinak je Charmed do konce příštího tahu houfu (nezaútočí na skřítky, jde, kam ho vedou).
 
-**Záchrany houfu:** AGI +4, INT +2, ostatní −2
+**Záchrany houfu:** DEX +4, INT +2, ostatní −2
 
 ## Vlastnosti
 

@@ -22,7 +22,7 @@ test("import PDF: jméno, AC, HP, útoky, kouzla, sloty paktu, Resistance a př�
 test("import PDF: povolání, vlastnosti, záchrany, zdatnost a kouzelná vlastnost", () => {
   assert.equal(K.povolani, "Warlock 6 / Fighter 1");
   assert.equal(K.uroven, 7);
-  assert.deepEqual(K.vl, {STR: 9, AGI: 14, CON: 14, INT: 10, WIS: 12, CHA: 18});
+  assert.deepEqual(K.vl, {STR: 9, DEX: 14, CON: 14, INT: 10, WIS: 12, CHA: 18});
   assert.deepEqual(K.zachProf, ["WIS", "CHA"]);
   assert.equal(K.zdatnost, 3);
   assert.equal(K.kouzla.vl, "CHA");

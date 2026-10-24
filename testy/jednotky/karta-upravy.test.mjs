@@ -176,7 +176,7 @@ test("kouzla: po použité akci zešednou kouzla za akci, bonusová zůstanou; r
 test("hlavička: stavy s dopadem, vyčerpání a štítky soustředění, posílení a účinků", () => {
   sKartou(
     {
-      stavy: ["sražen", "otrávený", "soustředí"],
+      stavy: ["sražen", "otráven", "soustředí"],
       vycerp: 1,
       uc: [
         {n: "Hex", kon: true, h: 1},
@@ -187,7 +187,7 @@ test("hlavička: stavy s dopadem, vyčerpání a štítky soustředění, posíl
     () => {
       const h = V(`bdmPusobiHtml(KARTBY.balduin, kartaStav("balduin").stavy)`);
       assert.match(h, /<b>Sražen \(Prone\)<\/b> · /);
-      assert.match(h, /<b>Otrávený \(Poisoned\)<\/b>/);
+      assert.match(h, /<b>Otráven \(Poisoned\)<\/b>/);
       assert.match(h, /Vyčerpání 1 \(Exhaustion\)<\/b> · −2 ke všem hodům d20/);
       assert.match(h, /bdmpuskon[^>]*>[\s\S]*Soustředění: Hex/);
       assert.match(h, /Armor of Agathys/);

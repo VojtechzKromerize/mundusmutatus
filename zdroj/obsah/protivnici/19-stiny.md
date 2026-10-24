@@ -21,7 +21,7 @@ Tma ve tvaru člověka, chladná na dotek. Vysávají sílu a kdo jim podlehne, 
 
 **Útok houfu – vysávající dotek:** +4 (+1 za každého dalšího, nejvýš +5), dosah 5 stop. **Zásah:** 2 Prokleté (Necrotic) za každý stín v dosahu cíle a cíl ztratí 1 STR (1k4 STR, jsou-li v dosahu aspoň 3). Kdo klesne na STR 0, umírá; člověk, kterého stíny zabijí, se do 1k4 hodin přidá k houfu. Síla se vrací krátkým odpočinkem.
 
-**Záchrany houfu:** AGI +2, ostatní +0
+**Záchrany houfu:** DEX +2, ostatní +0
 
 ## Vlastnosti
 

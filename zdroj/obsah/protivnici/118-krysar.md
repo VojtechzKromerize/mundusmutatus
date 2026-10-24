@@ -23,7 +23,7 @@ Krysař, kterého město podvedlo a který se ze msty a z Protržení stal napů
 
 **AC** 13 · **HP** 60 (11d8+11) · **Rychlost** 30 stop, šplhání 30 stop · **Iniciativa** +3
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 10 (+0) | 16 (+3) | 12 (+1) | 11 (+0) | 10 (+0) | 8 (−1) |
 

@@ -6,8 +6,8 @@
    Heavy pod 13. Boj je volá z 20g-boj-mistrovstvi.js. Perky zbraní z Artikulí (Šikovná, Ostrá…) jsou jinde (20e). */
 const ZBRVL = {
   Ammunition: ["Střelivo", "útok na dálku jen se střelivem; každý útok spotřebuje kus, po boji najdeš polovinu"],
-  Finesse: ["Obratná", "k útoku i zranění STR, nebo AGI – pro oba hody stejnou"],
-  Heavy: ["Těžká", "nevýhoda k útoku: zblízka se STR pod 13, na dálku s AGI pod 13"],
+  Finesse: ["Obratná", "k útoku i zranění STR, nebo DEX – pro oba hody stejnou"],
+  Heavy: ["Těžká", "nevýhoda k útoku: zblízka se STR pod 13, na dálku s DEX pod 13"],
   Light: ["Lehká", "po akci Útok s lehkou zbraní můžeš bonusovou akcí zaútočit jinou lehkou zbraní, bez kladného modifikátoru ke zranění"],
   Loading: ["Nabíjení", "jeden výstřel za akci, bonusovou akci nebo reakci, i když máš víc útoků"],
   Range: ["Dostřel", "za běžným dostřelem nevýhoda, za maximálním nelze útočit"],
@@ -137,5 +137,5 @@ const zbrVersKost = z => {
     d = m && {6: 8, 8: 10, 10: 12}[+m[2]];
   return d ? `${m[1] || 1}d${d}` : null;
 };
-/* Heavy: nevýhoda zblízka se STR pod 13, na dálku s AGI pod 13 */
+/* Heavy: nevýhoda zblízka se STR pod 13, na dálku s DEX pod 13 */
 const zbrTezkaNev = (vl, dal, str, agi) => !!(vl && vl.Heavy) && (dal ? +agi < 13 : +str < 13);

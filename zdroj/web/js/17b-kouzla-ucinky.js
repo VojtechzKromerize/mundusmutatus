@@ -28,7 +28,7 @@ const kBufAC = (K, N) =>
   ucAC(
     kBufEf(K).filter(b => !(b.vl && b.u && (b.u.ac != null || b.u.acmin != null)) && b.n !== "Shield of Faith"),
     !!(N && N.z),
-    kMd(K, "AGI"),
+    kMd(K, "DEX"),
   );
 const kBufRes = K => ucRes(kBufEf(K));
 const kBufAdv = (K, ab) => ucAdv(kBufEf(K), ab);
@@ -222,16 +222,16 @@ async function kartaRitual(K, sp) {
 const KZOPAK = {
   "Spiritual Weapon": {typ: "ut", z: "1d8", mod: 1, up: [2, "1d8"], t: "Force", cas: "BA", dal: 0},
   "Witch Bolt": {typ: "auto", z: "1d12", t: "Lightning", cas: "BA"},
-  "Call Lightning": {typ: "zach", ab: "AGI", z: "3d10", up: [3, "1d10"], t: "Lightning", pol: 1, cas: "A"},
+  "Call Lightning": {typ: "zach", ab: "DEX", z: "3d10", up: [3, "1d10"], t: "Lightning", pol: 1, cas: "A"},
   "Vampiric Touch": {typ: "ut", z: "3d6", up: [3, "1d6"], t: "Necrotic", cas: "A", lec: 1},
-  "Flaming Sphere": {typ: "zach", ab: "AGI", z: "2d6", up: [2, "1d6"], t: "Fire", pol: 1, cas: "BA"},
+  "Flaming Sphere": {typ: "zach", ab: "DEX", z: "2d6", up: [2, "1d6"], t: "Fire", pol: 1, cas: "BA"},
   "Heat Metal": {typ: "auto", z: "2d8", up: [2, "1d8"], t: "Fire", cas: "BA"},
   "Arcane Hand": {typ: "ut", z: "5d8", up: [5, "2d8"], t: "Force", cas: "BA"},
   "Arcane Sword": {typ: "ut", z: "4d12", mod: 1, t: "Force", cas: "BA"},
   "Flame Blade": {typ: "ut", z: "3d6", mod: 1, up: [2, "1d6"], t: "Fire", cas: "A"},
-  "Dragon's Breath": {typ: "zach", ab: "AGI", z: "3d6", up: [2, "1d6"], t: "Fire", pol: 1, cas: "A"},
+  "Dragon's Breath": {typ: "zach", ab: "DEX", z: "3d6", up: [2, "1d6"], t: "Fire", pol: 1, cas: "A"},
   Sunbeam: {typ: "zach", ab: "CON", z: "6d8", t: "Radiant", pol: 1, cas: "A"},
-  "Melf's Minute Meteors": {typ: "zach", ab: "AGI", z: "2d6", t: "Fire", pol: 1, cas: "BA"},
+  "Melf's Minute Meteors": {typ: "zach", ab: "DEX", z: "2d6", t: "Fire", pol: 1, cas: "BA"},
   "Healing Spirit": {typ: "lec", z: "1d6", up: [2, "1d6"], t: "", cas: "BA"},
   "Aura of Vitality": {typ: "lec", z: "2d6", t: "", cas: "BA"},
 };
@@ -362,16 +362,16 @@ const KZOBL = {
   "Spirit Guardians": {ab: "WIS", z: "3d8", up: [3, "1d8"], t: "Radiant", pol: 1, kdy: "kon", ko: 1},
   Moonbeam: {ab: "CON", z: "2d10", up: [2, "1d10"], t: "Radiant", pol: 1, kdy: "kon", ko: 1},
   "Cloud of Daggers": {ab: null, z: "4d4", up: [2, "2d4"], t: "Slashing", kdy: "kon", ko: 1},
-  "Wall of Fire": {ab: "AGI", z: "5d8", up: [4, "1d8"], t: "Fire", pol: 1, kdy: "kon", ko: 1},
+  "Wall of Fire": {ab: "DEX", z: "5d8", up: [4, "1d8"], t: "Fire", pol: 1, kdy: "kon", ko: 1},
   Cloudkill: {ab: "CON", z: "5d8", up: [5, "1d8"], t: "Poison", pol: 1, kdy: "kon", ko: 1},
   "Insect Plague": {ab: "CON", z: "4d10", up: [5, "1d10"], t: "Piercing", pol: 1, kdy: "kon", ko: 1},
-  "Incendiary Cloud": {ab: "AGI", z: "10d8", t: "Fire", pol: 1, kdy: "kon", ko: 1},
-  "Blade Barrier": {ab: "AGI", z: "6d10", t: "Slashing", pol: 1, kdy: "kon", ko: 1},
-  "Flaming Sphere": {ab: "AGI", z: "2d6", up: [2, "1d6"], t: "Fire", pol: 1, kdy: "kon", ko: 1},
-  "Stinking Cloud": {ab: "CON", z: "", t: "Poison", st: ["otrávený"], kdy: "zac", ko: 1},
-  Web: {ab: "AGI", z: "", t: "", st: ["zadržen"], kdy: "zac", ko: 1},
-  Grease: {ab: "AGI", z: "", t: "", st: ["sražen"], kdy: "kon", ko: 0},
-  "Black Tentacles": {ab: "STR", z: "3d6", up: [4, "1d6"], t: "Bludgeoning", st: ["zadržen"], kdy: "zac", ko: 1},
+  "Incendiary Cloud": {ab: "DEX", z: "10d8", t: "Fire", pol: 1, kdy: "kon", ko: 1},
+  "Blade Barrier": {ab: "DEX", z: "6d10", t: "Slashing", pol: 1, kdy: "kon", ko: 1},
+  "Flaming Sphere": {ab: "DEX", z: "2d6", up: [2, "1d6"], t: "Fire", pol: 1, kdy: "kon", ko: 1},
+  "Stinking Cloud": {ab: "CON", z: "", t: "Poison", st: ["otráven"], kdy: "zac", ko: 1},
+  Web: {ab: "DEX", z: "", t: "", st: ["spoután"], kdy: "zac", ko: 1},
+  Grease: {ab: "DEX", z: "", t: "", st: ["sražen"], kdy: "kon", ko: 0},
+  "Black Tentacles": {ab: "STR", z: "3d6", up: [4, "1d6"], t: "Bludgeoning", st: ["spoután"], kdy: "zac", ko: 1},
   "Sickening Radiance": {ab: "CON", z: "4d10", t: "Radiant", kdy: "zac", ko: 1},
   "Hunger of Hadar": {ab: null, z: "2d6", t: "Cold", kdy: "zac", ko: 1},
 };
@@ -707,18 +707,18 @@ function kVyber(nadpis, moznosti) {
 }
 /* ---- léčení a obnova (seslání s cíli z družiny) ---- */
 const KZLEC = {
-  Heal: {hp: 70, up: [6, 10], st: ["oslepen", "ohlušen", "otrávený"]},
-  "Mass Heal": {hp: 700, rozdel: 1, st: ["oslepen", "ohlušen", "otrávený"]},
-  "Power Word Heal": {hp: "max", st: ["okouzlen", "vyděšený", "ochromen", "otrávený", "omráčen"]},
+  Heal: {hp: 70, up: [6, 10], st: ["oslepen", "ohlušen", "otráven"]},
+  "Mass Heal": {hp: 700, rozdel: 1, st: ["oslepen", "ohlušen", "otráven"]},
+  "Power Word Heal": {hp: "max", st: ["okouzlen", "vyděšen", "paralyzovaný", "otráven", "omráčen"]},
   "Prayer of Healing": {x: "2d8", up: [2, "1d8"]},
   "Spare the Dying": {stab: 1},
   Revivify: {ozivit: 1},
-  "Lesser Restoration": {vyber: ["oslepen", "ohlušen", "ochromen", "otrávený"]},
+  "Lesser Restoration": {vyber: ["oslepen", "ohlušen", "paralyzovaný", "otráven"]},
   "Greater Restoration": {vyber: ["okouzlen", "zkamenělý", "vyčerpání −1"]},
   "Dispel Magic": {rozptyl: 1},
   /* 2026-10-22 (inventura kouzel) */
   Regenerate: {x: "4d8+15"},
-  "Protection from Poison": {st: ["otrávený"], hp: 0, dal: 1} /* dal: po ukončení stavu pokračuje běžné seslání (posílení z UCINKY) */,
+  "Protection from Poison": {st: ["otráven"], hp: 0, dal: 1} /* dal: po ukončení stavu pokračuje běžné seslání (posílení z UCINKY) */,
   "Raise Dead": {ozivit: 1},
   Resurrection: {ozivit: 1},
   "True Resurrection": {ozivit: 1},
@@ -848,11 +848,11 @@ async function kSesSpec(K, x, lvl, C, N) {
 }
 
 /* ---- zbraňová kouzla jako přídavky k útoku zbraní (kEfekty): Magic Weapon a Elemental Weapon samy, dokud trvají;
-   True Strike, Shillelagh, Green-Flame Blade a Booming Blade se zaškrtnou k útoku (sesílací vlastnost místo STR/AGI, kostky podle úrovně) ---- */
+   True Strike, Shillelagh, Green-Flame Blade a Booming Blade se zaškrtnou k útoku (sesílací vlastnost místo STR/DEX, kostky podle úrovně) ---- */
 const kZbrAb = (K, a) => {
   const vl = String(((a && a.vl) || []).join(" ") + " " + ((a && a.p) || "")),
     s = kMd(K, "STR"),
-    g = kMd(K, "AGI");
+    g = kMd(K, "DEX");
   return a && a.dal ? g : /finesse|jemn/i.test(vl) ? Math.max(s, g) : s;
 };
 function kEfKouzla(K) {
@@ -918,7 +918,7 @@ function kEfKouzla(K) {
       n: "True Strike",
       f: a => ({ut: sm - kZbrAb(K, a), zr: tier ? `${tier}d6` : sm - kZbrAb(K, a)}),
       t: tier ? "Radiant" : "",
-      pozn: `útok zbraní se sesílací vlastností místo STR/AGI${tier ? `, +${tier}d6 Radiant` : ""} (seslání triku je součástí útoku)`,
+      pozn: `útok zbraní se sesílací vlastností místo STR/DEX${tier ? `, +${tier}d6 Radiant` : ""} (seslání triku je součástí útoku)`,
     });
   if (zna("Shillelagh") || akt("Shillelagh"))
     L.push({

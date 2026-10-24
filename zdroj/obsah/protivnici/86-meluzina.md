@@ -25,7 +25,7 @@ utoky:
 
 **AC** 14 · **HP** 66 (12d8+12) · **Rychlost** 0 stop, let 80 stop (vznáší se) · **Iniciativa** +4
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 10 (+0) | 18 (+4) | 13 (+1) | 12 (+1) | 14 (+2) | 16 (+3) |
 

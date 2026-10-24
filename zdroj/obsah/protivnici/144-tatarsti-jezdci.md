@@ -23,12 +23,12 @@ Nájezdníci Zlaté hordy a krymského chána: přicházejí přes Litvu a Polsk
 
 **Útok houfu – luky:** +4 (+1 za každého dalšího, nejvýš +5), dostřel 80/320 stop. **Zásah:** 3 Piercing za každého, kdo na cíl vidí. **Ohnivé šípy:** 2 Fire za každého; cíl nebo stavba hoří. **Šavle:** +4, dosah 5 stop, 3 Slashing za každého v dosahu.
 
-**Záchrany houfu:** AGI +2, CON +1, ostatní +0
+**Záchrany houfu:** DEX +2, CON +1, ostatní +0
 
 ## Vlastnosti
 
 - **Střílej a jeď.** Po střelbě houf odjede o 30 stop bez Opportunity Attacks. Dva houfy Tatarů se střídají: jeden střílí, druhý jede.
-- **Arkany.** Místo střelby hodí houf lasa: cíl Medium nebo menší hodí AGI save DC 12, jinak je Restrained (únik DC 12) a vlečen za koňmi o 30 stop za tah.
+- **Arkany.** Místo střelby hodí houf lasa: cíl Medium nebo menší hodí DEX save DC 12, jinak je Restrained (únik DC 12) a vlečen za koňmi o 30 stop za tah.
 - **Step, ne les.** V lese, v bažině nebo za vozovou hradbou ztrácejí jízdu: rychlost 30 stop, bez Střílej a jeď. Do města nejedou – město zapálí zvenku.
 - **Zajatci.** Nezabíjejí, pokud nemusí – zajatec je zboží. Kdo padne na 0 HP, je svázaný na koni.
 

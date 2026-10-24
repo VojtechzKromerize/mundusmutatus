@@ -17,6 +17,9 @@ function mmPozdeji(klic, fn) {
   });
 }
 const mmZrus = klic => MMPREK.delete(klic);
+/* starší data z prohlížeče (kopie karet, boj, výprava…) se při čtení převedou jako data z databáze (mmStare v koruna.html):
+   DEX (dřív AGI) a názvy stavů podle Vojty 2026-10-24 (paralyzovaný, spoután, vyděšen, otráven) */
+const mmDex = s => (typeof window.mmStare === "function" ? window.mmStare(s) : s);
 const CONFN = {kat: "katolíci", kal: "kališníci", mix: "smíšení", isl: "islám"};
 const FICON = {kat: "art/img/vira-kat.webp", kal: "art/img/vira-kal.webp", mix: "art/img/vira-mix.webp", isl: "art/img/vira-isl.webp"};
 const SFICON = {

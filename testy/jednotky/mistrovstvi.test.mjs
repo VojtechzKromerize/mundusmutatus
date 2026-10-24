@@ -35,7 +35,7 @@ test("čisté: modifikátor útoku, zranění bez modifikátoru, obouruč, Heavy
   assert.equal(C.ev(`zbrObour("1d8+3", "1d10")`), "1d10+3");
   assert.equal(C.ev(`zbrVersKost("1d8+5")`), "1d10", "Versatile bez kostky z PDF: o stupeň výš");
   assert.equal(C.ev(`zbrTezkaNev({Heavy: true}, false, 12, 18)`), true, "zblízka STR pod 13");
-  assert.equal(C.ev(`zbrTezkaNev({Heavy: true}, true, 8, 13)`), false, "na dálku rozhoduje AGI");
+  assert.equal(C.ev(`zbrTezkaNev({Heavy: true}, true, 8, 13)`), false, "na dálku rozhoduje DEX");
   assert.equal(C.ev(`zbrTezkaNev({Light: true}, false, 8, 8)`), false);
 });
 

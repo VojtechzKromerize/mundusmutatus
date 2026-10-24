@@ -12,7 +12,7 @@
   "rych": "40 stop, hrabání 40 stop, let 80 stop",
   "vl": {
    "STR": 29,
-   "AGI": 10,
+   "DEX": 10,
    "CON": 27,
    "INT": 18,
    "WIS": 17,
@@ -20,7 +20,7 @@
   },
   "zach": {
    "STR": "+9",
-   "AGI": "+7",
+   "DEX": "+7",
    "CON": "+8",
    "INT": "+4",
    "WIS": "+10",
@@ -83,7 +83,7 @@
    },
    {
     "n": "Lightning Breath",
-    "dc": "AGI SO 23",
+    "dc": "DEX SO 23",
     "z": "16d10",
     "zt": "Lightning",
     "p": "čára 120 × 10 stop, polovina při úspěchu, obnova 5–6"
@@ -104,7 +104,7 @@
   "rych": "40 stop, let 40 stop",
   "vl": {
    "STR": 18,
-   "AGI": 16,
+   "DEX": 16,
    "CON": 18,
    "INT": 13,
    "WIS": 14,
@@ -112,7 +112,7 @@
   },
   "zach": {
    "STR": "+8",
-   "AGI": "+3",
+   "DEX": "+3",
    "CON": "+4",
    "INT": "+5",
    "WIS": "+6",
@@ -182,7 +182,7 @@
   "rych": "30 stop, hrabání 15 stop, let 60 stop",
   "vl": {
    "STR": 15,
-   "AGI": 10,
+   "DEX": 10,
    "CON": 13,
    "INT": 10,
    "WIS": 11,
@@ -190,7 +190,7 @@
   },
   "zach": {
    "STR": "+2",
-   "AGI": "+2",
+   "DEX": "+2",
    "CON": "+1",
    "INT": "+0",
    "WIS": "+2",
@@ -228,7 +228,7 @@
    },
    {
     "n": "Fire Breath",
-    "dc": "AGI SO 11",
+    "dc": "DEX SO 11",
     "z": "4d6",
     "zt": "Fire",
     "p": "čára 20 × 5 stop, polovina při úspěchu, obnova 5–6"
@@ -249,7 +249,7 @@
   "rych": "40 stop, hrabání 20 stop, let 80 stop",
   "vl": {
    "STR": 19,
-   "AGI": 10,
+   "DEX": 10,
    "CON": 17,
    "INT": 12,
    "WIS": 11,
@@ -257,7 +257,7 @@
   },
   "zach": {
    "STR": "+4",
-   "AGI": "+3",
+   "DEX": "+3",
    "CON": "+3",
    "INT": "+1",
    "WIS": "+3",
@@ -299,7 +299,7 @@
    },
    {
     "n": "Fire Breath",
-    "dc": "AGI SO 14",
+    "dc": "DEX SO 14",
     "z": "11d6",
     "zt": "Fire",
     "p": "čára 40 × 5 stop, polovina při úspěchu, obnova 5–6"
@@ -320,7 +320,7 @@
   "rych": "40 stop, hrabání 30 stop, let 80 stop",
   "vl": {
    "STR": 23,
-   "AGI": 10,
+   "DEX": 10,
    "CON": 21,
    "INT": 14,
    "WIS": 13,
@@ -328,7 +328,7 @@
   },
   "zach": {
    "STR": "+6",
-   "AGI": "+5",
+   "DEX": "+5",
    "CON": "+5",
    "INT": "+2",
    "WIS": "+6",
@@ -395,14 +395,14 @@
    },
    {
     "n": "Fire Breath",
-    "dc": "AGI SO 18",
+    "dc": "DEX SO 18",
     "z": "10d8",
     "zt": "Fire",
     "p": "čára 60 × 5 stop, polovina při úspěchu, obnova 5–6"
    },
    {
     "n": "Scorching Sands",
-    "dc": "AGI SO 16",
+    "dc": "DEX SO 16",
     "z": "6d8",
     "zt": "Fire",
     "p": "legendární akce, jeden tvor do 120 stop, rychlost poloviční do konce jeho příštího tahu"
@@ -423,7 +423,7 @@
   "rych": "40 stop, hrabání 40 stop, let 80 stop",
   "vl": {
    "STR": 27,
-   "AGI": 10,
+   "DEX": 10,
    "CON": 25,
    "INT": 16,
    "WIS": 15,
@@ -431,7 +431,7 @@
   },
   "zach": {
    "STR": "+8",
-   "AGI": "+6",
+   "DEX": "+6",
    "CON": "+7",
    "INT": "+3",
    "WIS": "+8",
@@ -498,14 +498,14 @@
    },
    {
     "n": "Fire Breath",
-    "dc": "AGI SO 21",
+    "dc": "DEX SO 21",
     "z": "13d8",
     "zt": "Fire",
     "p": "čára 90 × 5 stop, polovina při úspěchu, obnova 5–6"
    },
    {
     "n": "Scorching Sands",
-    "dc": "AGI SO 20",
+    "dc": "DEX SO 20",
     "z": "8d8",
     "zt": "Fire",
     "p": "legendární akce, jeden tvor do 120 stop, rychlost poloviční do konce jeho příštího tahu"
@@ -526,7 +526,7 @@
   "rych": "30 stop, let 60 stop, plavání 30 stop",
   "vl": {
    "STR": 17,
-   "AGI": 10,
+   "DEX": 10,
    "CON": 15,
    "INT": 12,
    "WIS": 11,
@@ -534,7 +534,7 @@
   },
   "zach": {
    "STR": "+3",
-   "AGI": "+2",
+   "DEX": "+2",
    "CON": "+2",
    "INT": "+1",
    "WIS": "+2",
@@ -582,7 +582,7 @@
    },
    {
     "n": "Lightning Breath",
-    "dc": "AGI SO 12",
+    "dc": "DEX SO 12",
     "z": "3d10",
     "zt": "Lightning",
     "p": "čára 40 × 5 stop, polovina při úspěchu, obnova 5–6"
@@ -603,7 +603,7 @@
   "rych": "40 stop, let 80 stop, plavání 40 stop",
   "vl": {
    "STR": 21,
-   "AGI": 10,
+   "DEX": 10,
    "CON": 19,
    "INT": 14,
    "WIS": 13,
@@ -611,7 +611,7 @@
   },
   "zach": {
    "STR": "+5",
-   "AGI": "+3",
+   "DEX": "+3",
    "CON": "+4",
    "INT": "+2",
    "WIS": "+4",
@@ -659,7 +659,7 @@
    },
    {
     "n": "Lightning Breath",
-    "dc": "AGI SO 15",
+    "dc": "DEX SO 15",
     "z": "9d10",
     "zt": "Lightning",
     "p": "čára 60 × 5 stop, polovina při úspěchu, obnova 5–6"
@@ -680,7 +680,7 @@
   "rych": "40 stop, let 80 stop, plavání 40 stop",
   "vl": {
    "STR": 25,
-   "AGI": 10,
+   "DEX": 10,
    "CON": 23,
    "INT": 16,
    "WIS": 15,
@@ -688,7 +688,7 @@
   },
   "zach": {
    "STR": "+7",
-   "AGI": "+5",
+   "DEX": "+5",
    "CON": "+6",
    "INT": "+3",
    "WIS": "+7",
@@ -759,7 +759,7 @@
    },
    {
     "n": "Lightning Breath",
-    "dc": "AGI SO 19",
+    "dc": "DEX SO 19",
     "z": "10d10",
     "zt": "Lightning",
     "p": "čára 90 × 5 stop, polovina při úspěchu, obnova 5–6"
@@ -787,7 +787,7 @@
   "rych": "40 stop, let 80 stop, plavání 40 stop",
   "vl": {
    "STR": 29,
-   "AGI": 10,
+   "DEX": 10,
    "CON": 27,
    "INT": 18,
    "WIS": 17,
@@ -795,7 +795,7 @@
   },
   "zach": {
    "STR": "+9",
-   "AGI": "+7",
+   "DEX": "+7",
    "CON": "+8",
    "INT": "+4",
    "WIS": "+10",
@@ -866,7 +866,7 @@
    },
    {
     "n": "Lightning Breath",
-    "dc": "AGI SO 23",
+    "dc": "DEX SO 23",
     "z": "15d10",
     "zt": "Lightning",
     "p": "čára 120 × 10 stop, polovina při úspěchu, obnova 5–6"
@@ -893,7 +893,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 17,
-   "AGI": 14,
+   "DEX": 14,
    "CON": 14,
    "INT": 11,
    "WIS": 12,
@@ -901,7 +901,7 @@
   },
   "zach": {
    "STR": "+3",
-   "AGI": "+2",
+   "DEX": "+2",
    "CON": "+4",
    "INT": "+0",
    "WIS": "+3",
@@ -971,7 +971,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 15,
-   "AGI": 14,
+   "DEX": 14,
    "CON": 13,
    "INT": 8,
    "WIS": 11,
@@ -979,7 +979,7 @@
   },
   "zach": {
    "STR": "+2",
-   "AGI": "+2",
+   "DEX": "+2",
    "CON": "+1",
    "INT": "-1",
    "WIS": "+0",
@@ -1039,7 +1039,7 @@
   "rych": "40 stop, hrabání 40 stop",
   "vl": {
    "STR": 19,
-   "AGI": 11,
+   "DEX": 11,
    "CON": 21,
    "INT": 2,
    "WIS": 10,
@@ -1047,7 +1047,7 @@
   },
   "zach": {
    "STR": "+4",
-   "AGI": "+0",
+   "DEX": "+0",
    "CON": "+5",
    "INT": "-4",
    "WIS": "+0",
@@ -1090,7 +1090,7 @@
    },
    {
     "n": "Deadly Leap",
-    "dc": "AGI SO 15",
+    "dc": "DEX SO 15",
     "z": "3d12",
     "zt": "Bludgeoning",
     "p": "tvorové v cílovém prostoru skoku, při neúspěchu Sražen; při úspěchu polovina a odstrčení o 5 stop"
@@ -1111,7 +1111,7 @@
   "rych": "50 stop",
   "vl": {
    "STR": 18,
-   "AGI": 14,
+   "DEX": 14,
    "CON": 14,
    "INT": 9,
    "WIS": 13,
@@ -1119,7 +1119,7 @@
   },
   "zach": {
    "STR": "+4",
-   "AGI": "+2",
+   "DEX": "+2",
    "CON": "+2",
    "INT": "-1",
    "WIS": "+1",
@@ -1191,7 +1191,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 18,
-   "AGI": 15,
+   "DEX": 15,
    "CON": 18,
    "INT": 11,
    "WIS": 12,
@@ -1199,7 +1199,7 @@
   },
   "zach": {
    "STR": "+4",
-   "AGI": "+2",
+   "DEX": "+2",
    "CON": "+7",
    "INT": "+0",
    "WIS": "+4",
@@ -1230,11 +1230,11 @@
    },
    {
     "n": "Chain",
-    "t": "*Hod na útok na blízko:* +7, dosah 10 stop. *Zásah:* 11 (2d6 + 4) Slashing zranění. Je-li cíl Velký nebo menší tvor, má stav Chycen (Grappled) (únik SO 14) jedním ze dvou řetězů a dokud chvat neskončí, má stav Zadržen (Restrained)."
+    "t": "*Hod na útok na blízko:* +7, dosah 10 stop. *Zásah:* 11 (2d6 + 4) Slashing zranění. Je-li cíl Velký nebo menší tvor, má stav Chycen (Grappled) (únik SO 14) jedním ze dvou řetězů a dokud chvat neskončí, má stav Spoután (Restrained)."
    },
    {
     "n": "Conjure Infernal Chain",
-    "t": "Ďábel vyvolá ohnivý řetěz, kterým spoutá tvora. *Záchrana Obratnosti:* SO 15, jeden tvor, kterého ďábel vidí do 60 stop. *Neúspěch:* 9 (2d4 + 4) Fire zranění a cíl má stav Zadržen (Restrained) do konce ďáblova příštího tahu, kdy řetěz zmizí. Je-li cíl Velký nebo menší, ďábel ho přitáhne až o 30 stop přímo k sobě. *Úspěch:* Řetěz zmizí."
+    "t": "Ďábel vyvolá ohnivý řetěz, kterým spoutá tvora. *Záchrana Obratnosti:* SO 15, jeden tvor, kterého ďábel vidí do 60 stop. *Neúspěch:* 9 (2d4 + 4) Fire zranění a cíl má stav Spoután (Restrained) do konce ďáblova příštího tahu, kdy řetěz zmizí. Je-li cíl Velký nebo menší, ďábel ho přitáhne až o 30 stop přímo k sobě. *Úspěch:* Řetěz zmizí."
    }
   ],
   "reakce": [
@@ -1249,14 +1249,14 @@
     "b": 7,
     "z": "2d6+4",
     "zt": "Slashing",
-    "p": "dosah 10 stop, Velký nebo menší cíl Chycen (únik SO 14) a Zadržen"
+    "p": "dosah 10 stop, Velký nebo menší cíl Chycen (únik SO 14) a Spoután"
    },
    {
     "n": "Conjure Infernal Chain",
-    "dc": "AGI SO 15",
+    "dc": "DEX SO 15",
     "z": "2d4+4",
     "zt": "Fire",
-    "p": "jeden tvor do 60 stop, Zadržen a přitažen o 30 stop, při úspěchu nic"
+    "p": "jeden tvor do 60 stop, Spoután a přitažen o 30 stop, při úspěchu nic"
    }
   ],
   "str": 272
@@ -1274,7 +1274,7 @@
   "rych": "30 stop, let 60 stop",
   "vl": {
    "STR": 19,
-   "AGI": 11,
+   "DEX": 11,
    "CON": 19,
    "INT": 3,
    "WIS": 14,
@@ -1282,7 +1282,7 @@
   },
   "zach": {
    "STR": "+4",
-   "AGI": "+0",
+   "DEX": "+0",
    "CON": "+4",
    "INT": "-4",
    "WIS": "+2",
@@ -1341,7 +1341,7 @@
    },
    {
     "n": "Fire Breath",
-    "dc": "AGI SO 15",
+    "dc": "DEX SO 15",
     "z": "7d8",
     "zt": "Fire",
     "p": "kužel 15 stop, polovina při úspěchu, obnova 5–6"
@@ -1361,7 +1361,7 @@
   "rych": "30 stop, plavání 30 stop",
   "vl": {
    "STR": 19,
-   "AGI": 10,
+   "DEX": 10,
    "CON": 16,
    "INT": 5,
    "WIS": 11,
@@ -1369,7 +1369,7 @@
   },
   "zach": {
    "STR": "+4",
-   "AGI": "+0",
+   "DEX": "+0",
    "CON": "+3",
    "INT": "-3",
    "WIS": "+0",
@@ -1404,7 +1404,7 @@
    },
    {
     "n": "Paralyzing Tentacles",
-    "t": "*Záchrana Odolnosti:* SO 13, jeden tvor, kterého chuul drží v chvatu. *Neúspěch:* Cíl má stav Otráven (Poisoned) a na konci každého svého tahu záchranu opakuje; při úspěchu účinek na sobě ukončí. Po 1 minutě uspěje automaticky. Dokud je cíl Otráven, má stav Ochromen (Paralyzed)."
+    "t": "*Záchrana Odolnosti:* SO 13, jeden tvor, kterého chuul drží v chvatu. *Neúspěch:* Cíl má stav Otráven (Poisoned) a na konci každého svého tahu záchranu opakuje; při úspěchu účinek na sobě ukončí. Po 1 minutě uspěje automaticky. Dokud je cíl Otráven, má stav Paralyzovaný (Paralyzed)."
    }
   ],
   "utoky": [
@@ -1431,7 +1431,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 20,
-   "AGI": 9,
+   "DEX": 9,
    "CON": 18,
    "INT": 3,
    "WIS": 8,
@@ -1439,14 +1439,14 @@
   },
   "zach": {
    "STR": "+5",
-   "AGI": "-1",
+   "DEX": "-1",
    "CON": "+4",
    "INT": "-4",
    "WIS": "-1",
    "CHA": "-5"
   },
   "odol": "Bludgeoning, Piercing, Slashing",
-  "imu": "Acid, Poison, Psychic; Okouzlen (Charmed), Vyčerpání (Exhaustion), Vyděšen (Frightened), Ochromen (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned)",
+  "imu": "Acid, Poison, Psychic; Okouzlen (Charmed), Vyčerpání (Exhaustion), Vyděšen (Frightened), Paralyzovaný (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned)",
   "smysly": "Darkvision 60 stop; pasivní Perception 9",
   "jaz": "Common a jeden další jazyk",
   "cr": "9",
@@ -1510,7 +1510,7 @@
   "rych": "10 stop, let 40 stop",
   "vl": {
    "STR": 17,
-   "AGI": 15,
+   "DEX": 15,
    "CON": 12,
    "INT": 13,
    "WIS": 14,
@@ -1518,7 +1518,7 @@
   },
   "zach": {
    "STR": "+3",
-   "AGI": "+2",
+   "DEX": "+2",
    "CON": "+1",
    "INT": "+1",
    "WIS": "+2",
@@ -1593,7 +1593,7 @@
   "rych": "40 stop, let 20 stop (vznáší se)",
   "vl": {
    "STR": 27,
-   "AGI": 10,
+   "DEX": 10,
    "CON": 22,
    "INT": 12,
    "WIS": 16,
@@ -1601,7 +1601,7 @@
   },
   "zach": {
    "STR": "+8",
-   "AGI": "+0",
+   "DEX": "+0",
    "CON": "+10",
    "INT": "+1",
    "WIS": "+7",
@@ -1669,7 +1669,7 @@
   "rych": "20 stop, let 40 stop",
   "vl": {
    "STR": 6,
-   "AGI": 12,
+   "DEX": 12,
    "CON": 12,
    "INT": 2,
    "WIS": 13,
@@ -1677,7 +1677,7 @@
   },
   "zach": {
    "STR": "-2",
-   "AGI": "+1",
+   "DEX": "+1",
    "CON": "+1",
    "INT": "-4",
    "WIS": "+1",
@@ -1693,7 +1693,7 @@
   "akce": [
    {
     "n": "Petrifying Bite",
-    "t": "*Hod na útok na blízko:* +3, dosah 5 stop. *Zásah:* 3 (1d4 + 1) Piercing zranění. Je-li cíl tvor, je vystaven následujícímu účinku. *Záchrana Odolnosti:* SO 11. *První neúspěch:* Cíl má stav Zadržen (Restrained). Na konci svého příštího tahu cíl záchranu zopakuje, je-li stále Zadržen; při úspěchu účinek na sobě ukončí. *Druhý neúspěch:* Cíl má na 24 hodin stav Zkamenělý (Petrified) místo stavu Zadržen."
+    "t": "*Hod na útok na blízko:* +3, dosah 5 stop. *Zásah:* 3 (1d4 + 1) Piercing zranění. Je-li cíl tvor, je vystaven následujícímu účinku. *Záchrana Odolnosti:* SO 11. *První neúspěch:* Cíl má stav Spoután (Restrained). Na konci svého příštího tahu cíl záchranu zopakuje, je-li stále Spoután; při úspěchu účinek na sobě ukončí. *Druhý neúspěch:* Cíl má na 24 hodin stav Zkamenělý (Petrified) místo stavu Spoután."
    }
   ],
   "utoky": [
@@ -1702,7 +1702,7 @@
     "b": 3,
     "z": "1d4+1",
     "zt": "Piercing",
-    "p": "dosah 5 stop, pak CON SO 11: Zadržen, při druhém neúspěchu Zkamenělý na 24 hodin"
+    "p": "dosah 5 stop, pak CON SO 11: Spoután, při druhém neúspěchu Zkamenělý na 24 hodin"
    }
   ],
   "str": 275
@@ -1720,7 +1720,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 10,
-   "AGI": 10,
+   "DEX": 10,
    "CON": 10,
    "INT": 10,
    "WIS": 10,
@@ -1728,7 +1728,7 @@
   },
   "zach": {
    "STR": "+0",
-   "AGI": "+0",
+   "DEX": "+0",
    "CON": "+0",
    "INT": "+0",
    "WIS": "+0",
@@ -1777,7 +1777,7 @@
   "rych": "30 stop, šplhání 30 stop, let 60 stop",
   "vl": {
    "STR": 15,
-   "AGI": 12,
+   "DEX": 12,
    "CON": 13,
    "INT": 14,
    "WIS": 11,
@@ -1785,7 +1785,7 @@
   },
   "zach": {
    "STR": "+2",
-   "AGI": "+3",
+   "DEX": "+3",
    "CON": "+1",
    "INT": "+2",
    "WIS": "+2",
@@ -1823,7 +1823,7 @@
    },
    {
     "n": "Acid Breath",
-    "dc": "AGI SO 11",
+    "dc": "DEX SO 11",
     "z": "4d8",
     "zt": "Acid",
     "p": "čára 20 × 5 stop, polovina při úspěchu, obnova 5–6"

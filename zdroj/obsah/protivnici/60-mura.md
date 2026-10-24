@@ -25,7 +25,7 @@ Noční ježibaba, která chodí za Závojem a sedá spícím na hruď. Krade de
 
 **AC** 17 · **HP** 112 (15d8+45) · **Rychlost** 30 stop · **Iniciativa** +5
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 18 (+4) | 15 (+2) | 16 (+3) | 16 (+3) | 14 (+2) | 16 (+3) |
 

@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 8 (3 900 XP)
 ac: 16 (kyrys)
 hp: 127
-utok: Tři údery smluvní sekerou +7, 1d12+4 a 3d8 Fire · spalující paprsek (5. úroveň) · ohnivá koule 2/den (6. úroveň, AGI DC 15)
+utok: Tři údery smluvní sekerou +7, 1d12+4 a 3d8 Fire · spalující paprsek (5. úroveň) · ohnivá koule 2/den (6. úroveň, DEX DC 15)
 pozehnani: Pekelný odvet zasáhne každého, kdo ho v kole zranil.
 pokuseni: Pán za Závojem chce víc: ztratí 2d6 HP a jeden ctitel padne mrtvý jako obětina.
 nerest: Chtíč po moci – slouží peklu pro moc. Kdo mu nabídne větší moc nebo jeho smlouvu přečte nahlas (Religion DC 15), toho musí vyslechnout.
@@ -14,7 +14,7 @@ zdroje: Ohnivá koule 2, Pekelný odvet 1
 utoky:
   - Smluvní sekera | +7 | 1d12+4 Slashing a 3d8 Fire | tři údery v jednom slotu
   - Spalující paprsek | +7 | 2d6 Fire | 5. úroveň: čtyři paprsky po 2d6
-  - Ohnivá koule | AGI DC 15 | 9d6 Fire | 6. úroveň, poloměr 20 stop, 2/den; úspěch polovina
+  - Ohnivá koule | DEX DC 15 | 9d6 Fire | 6. úroveň, poloměr 20 stop, 2/den; úspěch polovina
 ---
 *„Pán, který na sabatu nosí kozí masku, sedí ve dne v zemském soudu.“*
 
@@ -24,7 +24,7 @@ utoky:
 
 **AC** 16 (kyrys) · **HP** 127 (17d8+51) · **Rychlost** 30 stop · **Iniciativa** +5
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 19 (+4) | 15 (+2) | 16 (+3) | 12 (+1) | 18 (+4) | 10 (+0) |
 

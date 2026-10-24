@@ -56,7 +56,7 @@ async def main():
     t=await g.inner_text(".bzaz")
     chk("Purkmistr" in t and "DC 15" in t and "pasivní Vhled 14" in t,"vypravěč vidí v záznamu hod proti DC a pasivnímu Vhledu")
     await g.click("[data-bscprot]");await g.wait_for_timeout(600)
-    chk("Protihod Insight" in await g.inner_text(".bzaz"),"protihod Purkmistra (Insight) je v záznamu vypravěče")
+    chk("Protihod Vhled" in await g.inner_text(".bzaz"),"protihod Purkmistra (Insight) je v záznamu vypravěče")
     await pl.screenshot(path=os.path.join(VYSTUP,"scena-m.png"));await g.screenshot(path=os.path.join(VYSTUP,"scena-gm.png"))
     # útok ve scéně → výzva k boji; Boj převezme NPC; konec boje vrátí scénu i s NPC
     await g.evaluate(f"bojZmen(z=>{{z.zaz=[{{a:'Purkmistr',ai:'{nid}',c:'Balduin',ci:'h1',cim:'Rapier',v:'vedle',hod:5,ts:Date.now()}},...(z.zaz||[])]}})");await g.wait_for_timeout(700)

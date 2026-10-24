@@ -1,6 +1,6 @@
 # Převede Vojtův Přehled vybavení (Word) do zdroj/vybaveni/katalog.json; sestav.py z něj (a z Artikulí) vyrobí art/vybaveni.json.
 #   python3 zdroj/vybaveni/katalog.py Prehled_Vybaveni.docx      (potřebuje pandoc)
-# Texty jsou Vojtova vlastní shrnutí (žádný text z PHB/DMG mimo SRD); převod jen sjednotí výrazy s webem (DEX → AGI,
+# Texty jsou Vojtova vlastní shrnutí (žádný text z PHB/DMG mimo SRD); převod jen sjednotí výrazy s webem (
 # typy zranění anglicky, kostky), aby na ně navázala karta postavy a Boj.
 import json, os, re, subprocess, sys
 D = os.path.dirname(os.path.abspath(__file__))
@@ -49,10 +49,9 @@ def norm(s):
 
 
 def sjednot(s):
-    """Výrazy jako na webu: kostky, vlastnosti AGI, typy zranění anglicky, DC → SO zůstává (web používá SO i DC)."""
+    """Výrazy jako na webu: kostky, vlastnosti DEX, typy zranění anglicky, DC → SO zůstává (web používá SO i DC)."""
     s = norm(s)
     s = re.sub(r"\b(\d*)k(\d+)\b", r"\1d\2", s)
-    s = re.sub(r"\bDEX\b", "AGI", s)
     for cz, en in TYPZR.items():
         s = re.sub(r"\b" + cz + r"(ho|mu|m|)\s+zranění", en, s)
         s = re.sub(r"\b" + cz + r"ho\b", en, s)

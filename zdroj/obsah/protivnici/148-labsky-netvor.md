@@ -6,7 +6,7 @@ vyzva: 2 (450 XP)
 ac: 13
 hp: 68
 utok: Kousnutí +6, dosah 10 stop, 2d6+4 Piercing · stáhne pod vodu · zadrží dech hodinu
-pozehnani: Převrátí loď nebo vor: každý na palubě hodí AGI save DC 13, jinak je ve vodě a Prone.
+pozehnani: Převrátí loď nebo vor: každý na palubě hodí DEX save DC 13, jinak je ve vodě a Prone.
 pokuseni: Uvízne na mělčině: do konce příštího tahu je na suchu (rychlost 20 stop, útoky proti němu s výhodou).
 nerest: Hlad – ryby ze sítí. Kdo mu hodí úlovek nebo prase (Akce), toho nechá projet; kdo ho krmí týden, má na řece spojence, který převrací cizí lodě.
 stitky: zvěř, netvor, Labe, Vltava, řeka, tůň, voraři, rybáři, Mělník, Litoměřice, Děčín, voda
@@ -21,7 +21,7 @@ Dlouhokrký vodní ještěr, který po Protržení Závoje žije v hlubokých t�
 
 **AC** 13 · **HP** 68 (8d10+24) · **Rychlost** 20 stop, plavání 40 stop · **Iniciativa** +2
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 18 (+4) | 15 (+2) | 16 (+3) | 2 (−4) | 12 (+1) | 5 (−3) |
 
@@ -36,7 +36,7 @@ Dlouhokrký vodní ještěr, který po Protržení Závoje žije v hlubokých t�
 ## Akce (jedna v každém slotu)
 
 - **Kousnutí.** +6, dosah 10 stop. **Zásah:** 2d6+4 Piercing; tvor velikosti Medium nebo menší ve vodě je Grappled (únik DC 14) a stažen pod hladinu.
-- **Vlna.** Ocasem udeří do hladiny: loď do 10 stop se zhoupne – každý na palubě hodí AGI save DC 12, jinak je Prone; vor se rozpojí (Athletics DC 13 na spojení).
+- **Vlna.** Ocasem udeří do hladiny: loď do 10 stop se zhoupne – každý na palubě hodí DEX save DC 12, jinak je Prone; vor se rozpojí (Athletics DC 13 na spojení).
 
 **Kořist.** Kůže (kožešník ji nechce, alchymista ano – 5 kop), vejce v rákosí (král by je chtěl do obory), v tůni vor, dvě truhly a kupcova pečeť.
 

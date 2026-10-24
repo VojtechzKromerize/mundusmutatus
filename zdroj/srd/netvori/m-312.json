@@ -12,7 +12,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 11,
-   "AGI": 12,
+   "DEX": 12,
    "CON": 11,
    "INT": 12,
    "WIS": 14,
@@ -20,7 +20,7 @@
   },
   "zach": {
    "STR": "+0",
-   "AGI": "+1",
+   "DEX": "+1",
    "CON": "+0",
    "INT": "+1",
    "WIS": "+2",
@@ -69,7 +69,7 @@
   "rych": "20 stop, šplhání 20 stop",
   "vl": {
    "STR": 15,
-   "AGI": 6,
+   "DEX": 6,
    "CON": 14,
    "INT": 2,
    "WIS": 6,
@@ -77,14 +77,14 @@
   },
   "zach": {
    "STR": "+2",
-   "AGI": "-2",
+   "DEX": "-2",
    "CON": "+2",
    "INT": "-4",
    "WIS": "-2",
    "CHA": "-5"
   },
   "odol": "Acid",
-  "imu": "Lightning, Slashing; Okouzlen (Charmed), Ohlušen (Deafened), Vyčerpání (Exhaustion), Vyděšen (Frightened), Chycen (Grappled), Sražen (Prone), Zadržen (Restrained)",
+  "imu": "Lightning, Slashing; Okouzlen (Charmed), Ohlušen (Deafened), Vyčerpání (Exhaustion), Vyděšen (Frightened), Chycen (Grappled), Sražen (Prone), Spoután (Restrained)",
   "smysly": "Blindsight 60 stop; pasivní Perception 8",
   "jaz": "žádné",
   "cr": "2",
@@ -136,7 +136,7 @@
   "rych": "40 stop",
   "vl": {
    "STR": 19,
-   "AGI": 8,
+   "DEX": 8,
    "CON": 16,
    "INT": 5,
    "WIS": 7,
@@ -144,7 +144,7 @@
   },
   "zach": {
    "STR": "+4",
-   "AGI": "-1",
+   "DEX": "-1",
    "CON": "+3",
    "INT": "-3",
    "WIS": "-2",
@@ -196,7 +196,7 @@
   "rych": "30 stop, let 30 stop (vznáší se)",
   "vl": {
    "STR": 19,
-   "AGI": 11,
+   "DEX": 11,
    "CON": 16,
    "INT": 14,
    "WIS": 12,
@@ -204,7 +204,7 @@
   },
   "zach": {
    "STR": "+4",
-   "AGI": "+3",
+   "DEX": "+3",
    "CON": "+6",
    "INT": "+2",
    "WIS": "+4",
@@ -282,7 +282,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 16,
-   "AGI": 11,
+   "DEX": 11,
    "CON": 19,
    "INT": 6,
    "WIS": 13,
@@ -290,7 +290,7 @@
   },
   "zach": {
    "STR": "+3",
-   "AGI": "+0",
+   "DEX": "+0",
    "CON": "+7",
    "INT": "-2",
    "WIS": "+1",
@@ -357,7 +357,7 @@
   "rych": "40 stop, šplhání 40 stop",
   "vl": {
    "STR": 20,
-   "AGI": 12,
+   "DEX": 12,
    "CON": 17,
    "INT": 3,
    "WIS": 12,
@@ -365,7 +365,7 @@
   },
   "zach": {
    "STR": "+5",
-   "AGI": "+1",
+   "DEX": "+1",
    "CON": "+3",
    "INT": "-4",
    "WIS": "+1",
@@ -411,7 +411,7 @@
   "rych": "60 stop, let 90 stop",
   "vl": {
    "STR": 18,
-   "AGI": 15,
+   "DEX": 15,
    "CON": 16,
    "INT": 10,
    "WIS": 15,
@@ -419,7 +419,7 @@
   },
   "zach": {
    "STR": "+4",
-   "AGI": "+4",
+   "DEX": "+4",
    "CON": "+5",
    "INT": "+0",
    "WIS": "+4",
@@ -461,7 +461,7 @@
   "rych": "30 stop, šplhání 30 stop",
   "vl": {
    "STR": 15,
-   "AGI": 16,
+   "DEX": 16,
    "CON": 12,
    "INT": 6,
    "WIS": 10,
@@ -469,7 +469,7 @@
   },
   "zach": {
    "STR": "+2",
-   "AGI": "+3",
+   "DEX": "+3",
    "CON": "+1",
    "INT": "-2",
    "WIS": "+0",
@@ -502,7 +502,7 @@
    },
    {
     "n": "Bite",
-    "t": "*Hod na útok na blízko:* +5, dosah 5 stop. *Zásah:* 8 (1d10 + 3) Piercing zranění plus 9 (2d8) Poison zranění. Pokud toto zranění sníží HP cíle na 0, cíl se stane stabilizovaným a na 1 hodinu má stav Otráven (Poisoned). Dokud je Otráven, má cíl také stav Ochromen (Paralyzed)."
+    "t": "*Hod na útok na blízko:* +5, dosah 5 stop. *Zásah:* 8 (1d10 + 3) Piercing zranění plus 9 (2d8) Poison zranění. Pokud toto zranění sníží HP cíle na 0, cíl se stane stabilizovaným a na 1 hodinu má stav Otráven (Poisoned). Dokud je Otráven, má cíl také stav Paralyzovaný (Paralyzed)."
    }
   ],
   "bonus": [
@@ -535,7 +535,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 10,
-   "AGI": 16,
+   "DEX": 16,
    "CON": 12,
    "INT": 8,
    "WIS": 12,
@@ -543,7 +543,7 @@
   },
   "zach": {
    "STR": "+0",
-   "AGI": "+5",
+   "DEX": "+5",
    "CON": "+1",
    "INT": "-1",
    "WIS": "+1",
@@ -593,7 +593,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 10,
-   "AGI": 18,
+   "DEX": 18,
    "CON": 14,
    "INT": 10,
    "WIS": 14,
@@ -601,7 +601,7 @@
   },
   "zach": {
    "STR": "+3",
-   "AGI": "+7",
+   "DEX": "+7",
    "CON": "+2",
    "INT": "+0",
    "WIS": "+5",
@@ -671,7 +671,7 @@
   "rych": "30 stop, let 60 stop",
   "vl": {
    "STR": 26,
-   "AGI": 14,
+   "DEX": 14,
    "CON": 24,
    "INT": 22,
    "WIS": 18,
@@ -679,7 +679,7 @@
   },
   "zach": {
    "STR": "+8",
-   "AGI": "+8",
+   "DEX": "+8",
    "CON": "+7",
    "INT": "+6",
    "WIS": "+10",
@@ -757,7 +757,7 @@
    },
    {
     "n": "Hellfire Spellcasting (Fireball ×2)",
-    "dc": "AGI SO 21",
+    "dc": "DEX SO 21",
     "z": "10d6",
     "zt": "Fire",
     "p": "2× Fireball (5. úroveň), koule o poloměru 20 stop, polovina při úspěchu, obnova 4–6"
@@ -778,7 +778,7 @@
   "rych": "40 stop, let 120 stop (vznáší se)",
   "vl": {
    "STR": 24,
-   "AGI": 20,
+   "DEX": 20,
    "CON": 24,
    "INT": 19,
    "WIS": 22,
@@ -786,7 +786,7 @@
   },
   "zach": {
    "STR": "+12",
-   "AGI": "+5",
+   "DEX": "+5",
    "CON": "+12",
    "INT": "+4",
    "WIS": "+11",
@@ -848,7 +848,7 @@
    },
    {
     "n": "Holy Burst",
-    "dc": "AGI SO 20",
+    "dc": "DEX SO 20",
     "z": "7d6",
     "zt": "Radiant",
     "p": "koule o poloměru 20 stop do 120 stop, jen nepřátelé, polovina při úspěchu"
@@ -869,7 +869,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 14,
-   "AGI": 10,
+   "DEX": 10,
    "CON": 12,
    "INT": 10,
    "WIS": 14,
@@ -877,7 +877,7 @@
   },
   "zach": {
    "STR": "+2",
-   "AGI": "+0",
+   "DEX": "+0",
    "CON": "+1",
    "INT": "+0",
    "WIS": "+2",
@@ -941,7 +941,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 16,
-   "AGI": 10,
+   "DEX": 10,
    "CON": 12,
    "INT": 13,
    "WIS": 16,
@@ -949,7 +949,7 @@
   },
   "zach": {
    "STR": "+3",
-   "AGI": "+0",
+   "DEX": "+0",
    "CON": "+1",
    "INT": "+1",
    "WIS": "+3",
@@ -1017,7 +1017,7 @@
   "rych": "15 stop, let 60 stop",
   "vl": {
    "STR": 6,
-   "AGI": 15,
+   "DEX": 15,
    "CON": 13,
    "INT": 10,
    "WIS": 12,
@@ -1025,7 +1025,7 @@
   },
   "zach": {
    "STR": "-2",
-   "AGI": "+2",
+   "DEX": "+2",
    "CON": "+1",
    "INT": "+0",
    "WIS": "+1",
@@ -1088,7 +1088,7 @@
   "rych": "50 stop, hrabání 50 stop",
   "vl": {
    "STR": 28,
-   "AGI": 7,
+   "DEX": 7,
    "CON": 22,
    "INT": 1,
    "WIS": 8,
@@ -1096,7 +1096,7 @@
   },
   "zach": {
    "STR": "+9",
-   "AGI": "-2",
+   "DEX": "-2",
    "CON": "+11",
    "INT": "-5",
    "WIS": "+4",
@@ -1120,7 +1120,7 @@
    },
    {
     "n": "Bite",
-    "t": "*Hod na útok na blízko:* +14, dosah 10 stop. *Zásah:* 22 (3d8 + 9) Piercing zranění. Je-li cíl Velký nebo menší tvor, má stav Chycen (Grappled) (únik SO 19) a dokud chvat neskončí, má stav Zadržen (Restrained)."
+    "t": "*Hod na útok na blízko:* +14, dosah 10 stop. *Zásah:* 22 (3d8 + 9) Piercing zranění. Je-li cíl Velký nebo menší tvor, má stav Chycen (Grappled) (únik SO 19) a dokud chvat neskončí, má stav Spoután (Restrained)."
    },
    {
     "n": "Tail Stinger",
@@ -1130,7 +1130,7 @@
   "bonus": [
    {
     "n": "Swallow",
-    "t": "*Záchrana Síly:* SO 19, jeden Velký nebo menší tvor, kterého červ drží jako Chyceného (Grappled) (červ může mít spolknuté až tři tvory současně). *Neúspěch:* Cíl je červem spolknut a stav Chycen skončí. Spolknutý tvor má stavy Oslepen (Blinded) a Zadržen (Restrained), má úplný kryt proti útokům a jiným účinkům zvenčí červa a na začátku každého tahu červa utrpí 17 (5d6) Acid zranění.\nPokud červ během jediného tahu utrpí od tvora uvnitř sebe 30 nebo více zranění, musí na konci tohoto tahu uspět v záchranném hodu na Odolnost se SO 21, jinak vyvrhne všechny spolknuté tvory; každý z nich dopadne na prostor do 5 stop od červa a má stav Sražen (Prone). Pokud červ zemře, spolknutý tvor už nemá stav Zadržen a může z mrtvoly uniknout za 20 stop pohybu, přičemž opustí stav Sražen."
+    "t": "*Záchrana Síly:* SO 19, jeden Velký nebo menší tvor, kterého červ drží jako Chyceného (Grappled) (červ může mít spolknuté až tři tvory současně). *Neúspěch:* Cíl je červem spolknut a stav Chycen skončí. Spolknutý tvor má stavy Oslepen (Blinded) a Spoután (Restrained), má úplný kryt proti útokům a jiným účinkům zvenčí červa a na začátku každého tahu červa utrpí 17 (5d6) Acid zranění.\nPokud červ během jediného tahu utrpí od tvora uvnitř sebe 30 nebo více zranění, musí na konci tohoto tahu uspět v záchranném hodu na Odolnost se SO 21, jinak vyvrhne všechny spolknuté tvory; každý z nich dopadne na prostor do 5 stop od červa a má stav Sražen (Prone). Pokud červ zemře, spolknutý tvor už nemá stav Spoután a může z mrtvoly uniknout za 20 stop pohybu, přičemž opustí stav Sražen."
    }
   ],
   "utoky": [
@@ -1139,7 +1139,7 @@
     "b": 14,
     "z": "3d8+9",
     "zt": "Piercing",
-    "p": "dosah 10 stop; Velký nebo menší Chycen (únik SO 19) a Zadržen"
+    "p": "dosah 10 stop; Velký nebo menší Chycen (únik SO 19) a Spoután"
    },
    {
     "n": "Tail Stinger",
@@ -1171,7 +1171,7 @@
   "rych": "40 stop",
   "vl": {
    "STR": 5,
-   "AGI": 17,
+   "DEX": 17,
    "CON": 10,
    "INT": 7,
    "WIS": 10,
@@ -1179,7 +1179,7 @@
   },
   "zach": {
    "STR": "-3",
-   "AGI": "+3",
+   "DEX": "+3",
    "CON": "+0",
    "INT": "-2",
    "WIS": "+0",
@@ -1241,7 +1241,7 @@
   "rych": "40 stop",
   "vl": {
    "STR": 14,
-   "AGI": 17,
+   "DEX": 17,
    "CON": 18,
    "INT": 13,
    "WIS": 16,
@@ -1249,7 +1249,7 @@
   },
   "zach": {
    "STR": "+2",
-   "AGI": "+3",
+   "DEX": "+3",
    "CON": "+4",
    "INT": "+1",
    "WIS": "+3",
@@ -1322,7 +1322,7 @@
   "rych": "30 stop, šplhání 30 stop, let 60 stop",
   "vl": {
    "STR": 19,
-   "AGI": 10,
+   "DEX": 10,
    "CON": 17,
    "INT": 12,
    "WIS": 11,
@@ -1330,7 +1330,7 @@
   },
   "zach": {
    "STR": "+4",
-   "AGI": "+2",
+   "DEX": "+2",
    "CON": "+3",
    "INT": "+1",
    "WIS": "+2",
@@ -1367,7 +1367,7 @@
    },
    {
     "n": "Fire Breath",
-    "dc": "AGI SO 13",
+    "dc": "DEX SO 13",
     "z": "7d6",
     "zt": "Fire",
     "p": "kužel 15 stop, polovina při úspěchu, obnova 5–6"
@@ -1388,7 +1388,7 @@
   "rych": "40 stop, šplhání 40 stop, let 80 stop",
   "vl": {
    "STR": 23,
-   "AGI": 10,
+   "DEX": 10,
    "CON": 21,
    "INT": 14,
    "WIS": 11,
@@ -1396,7 +1396,7 @@
   },
   "zach": {
    "STR": "+6",
-   "AGI": "+4",
+   "DEX": "+4",
    "CON": "+5",
    "INT": "+2",
    "WIS": "+4",
@@ -1433,7 +1433,7 @@
    },
    {
     "n": "Fire Breath",
-    "dc": "AGI SO 17",
+    "dc": "DEX SO 17",
     "z": "16d6",
     "zt": "Fire",
     "p": "kužel 30 stop, polovina při úspěchu, obnova 5–6"
@@ -1454,7 +1454,7 @@
   "rych": "40 stop, šplhání 40 stop, let 80 stop",
   "vl": {
    "STR": 27,
-   "AGI": 10,
+   "DEX": 10,
    "CON": 25,
    "INT": 16,
    "WIS": 13,
@@ -1462,7 +1462,7 @@
   },
   "zach": {
    "STR": "+8",
-   "AGI": "+6",
+   "DEX": "+6",
    "CON": "+7",
    "INT": "+3",
    "WIS": "+7",
@@ -1525,7 +1525,7 @@
    },
    {
     "n": "Fire Breath",
-    "dc": "AGI SO 21",
+    "dc": "DEX SO 21",
     "z": "17d6",
     "zt": "Fire",
     "p": "kužel 60 stop, polovina při úspěchu, obnova 5–6"
@@ -1546,7 +1546,7 @@
   "rych": "40 stop, šplhání 40 stop, let 80 stop",
   "vl": {
    "STR": 30,
-   "AGI": 10,
+   "DEX": 10,
    "CON": 29,
    "INT": 18,
    "WIS": 15,
@@ -1554,7 +1554,7 @@
   },
   "zach": {
    "STR": "+10",
-   "AGI": "+7",
+   "DEX": "+7",
    "CON": "+9",
    "INT": "+4",
    "WIS": "+9",
@@ -1617,7 +1617,7 @@
    },
    {
     "n": "Fire Breath",
-    "dc": "AGI SO 24",
+    "dc": "DEX SO 24",
     "z": "26d6",
     "zt": "Fire",
     "p": "kužel 90 stop, polovina při úspěchu, obnova 5–6"
@@ -1637,7 +1637,7 @@
   "rych": "40 stop, hrabání 30 stop",
   "vl": {
    "STR": 24,
-   "AGI": 13,
+   "DEX": 13,
    "CON": 21,
    "INT": 4,
    "WIS": 10,
@@ -1645,7 +1645,7 @@
   },
   "zach": {
    "STR": "+7",
-   "AGI": "+1",
+   "DEX": "+1",
    "CON": "+5",
    "INT": "-3",
    "WIS": "+0",
@@ -1666,13 +1666,13 @@
   "akce": [
    {
     "n": "Bite",
-    "t": "*Hod na útok na blízko:* +11, dosah 10 stop. *Zásah:* 18 (2d10 + 7) Piercing zranění plus 14 (4d6) Fire zranění. Je-li cíl Velký nebo menší tvor, má stav Chycen (Grappled) (únik SO 17) a dokud chvat neskončí, má stav Zadržen (Restrained)."
+    "t": "*Hod na útok na blízko:* +11, dosah 10 stop. *Zásah:* 18 (2d10 + 7) Piercing zranění plus 14 (4d6) Fire zranění. Je-li cíl Velký nebo menší tvor, má stav Chycen (Grappled) (únik SO 17) a dokud chvat neskončí, má stav Spoután (Restrained)."
    }
   ],
   "bonus": [
    {
     "n": "Swallow",
-    "t": "*Záchrana Síly:* SO 19, jeden Velký nebo menší tvor, kterého remorhaz drží jako Chyceného (Grappled) (remorhaz může mít spolknuté až dva tvory současně). *Neúspěch:* Cíl je remorhazem spolknut a stav Chycen skončí. Spolknutý tvor má stavy Oslepen (Blinded) a Zadržen (Restrained), má úplný kryt proti útokům a jiným účinkům zvenčí remorhaze a na začátku každého tahu remorhaze utrpí 10 (3d6) Acid zranění plus 10 (3d6) Fire zranění.\nPokud remorhaz během jediného tahu utrpí od tvora uvnitř sebe 30 nebo více zranění, musí na konci tohoto tahu uspět v záchranném hodu na Odolnost se SO 15, jinak vyvrhne všechny spolknuté tvory; každý z nich dopadne na prostor do 5 stop od remorhaze a má stav Sražen (Prone). Pokud remorhaz zemře, spolknutý tvor už nemá stav Zadržen a může z mrtvoly uniknout za 15 stop pohybu, přičemž opustí stav Sražen."
+    "t": "*Záchrana Síly:* SO 19, jeden Velký nebo menší tvor, kterého remorhaz drží jako Chyceného (Grappled) (remorhaz může mít spolknuté až dva tvory současně). *Neúspěch:* Cíl je remorhazem spolknut a stav Chycen skončí. Spolknutý tvor má stavy Oslepen (Blinded) a Spoután (Restrained), má úplný kryt proti útokům a jiným účinkům zvenčí remorhaze a na začátku každého tahu remorhaze utrpí 10 (3d6) Acid zranění plus 10 (3d6) Fire zranění.\nPokud remorhaz během jediného tahu utrpí od tvora uvnitř sebe 30 nebo více zranění, musí na konci tohoto tahu uspět v záchranném hodu na Odolnost se SO 15, jinak vyvrhne všechny spolknuté tvory; každý z nich dopadne na prostor do 5 stop od remorhaze a má stav Sražen (Prone). Pokud remorhaz zemře, spolknutý tvor už nemá stav Spoután a může z mrtvoly uniknout za 15 stop pohybu, přičemž opustí stav Sražen."
    }
   ],
   "utoky": [
@@ -1681,7 +1681,7 @@
     "b": 11,
     "z": "2d10+7",
     "zt": "Piercing",
-    "p": "dosah 10 stop; + 4d6 Fire; Velký nebo menší Chycen (únik SO 17) a Zadržen"
+    "p": "dosah 10 stop; + 4d6 Fire; Velký nebo menší Chycen (únik SO 17) a Spoután"
    },
    {
     "n": "Heat Aura",
@@ -1712,7 +1712,7 @@
   "rych": "20 stop, let 120 stop",
   "vl": {
    "STR": 28,
-   "AGI": 10,
+   "DEX": 10,
    "CON": 20,
    "INT": 3,
    "WIS": 10,
@@ -1720,7 +1720,7 @@
   },
   "zach": {
    "STR": "+9",
-   "AGI": "+4",
+   "DEX": "+4",
    "CON": "+5",
    "INT": "-4",
    "WIS": "+4",
@@ -1743,7 +1743,7 @@
    },
    {
     "n": "Talons",
-    "t": "*Hod na útok na blízko:* +13, dosah 5 stop. *Zásah:* 23 (4d6 + 9) Slashing zranění. Je-li cíl Obrovský nebo menší tvor, má stav Chycen (Grappled) (únik SO 19) oběma pařáty a dokud chvat neskončí, má stav Zadržen (Restrained)."
+    "t": "*Hod na útok na blízko:* +13, dosah 5 stop. *Zásah:* 23 (4d6 + 9) Slashing zranění. Je-li cíl Obrovský nebo menší tvor, má stav Chycen (Grappled) (únik SO 19) oběma pařáty a dokud chvat neskončí, má stav Spoután (Restrained)."
    }
   ],
   "bonus": [
@@ -1765,7 +1765,7 @@
     "b": 13,
     "z": "4d6+9",
     "zt": "Slashing",
-    "p": "dosah 5 stop; Obrovský nebo menší Chycen (únik SO 19) a Zadržen"
+    "p": "dosah 5 stop; Obrovský nebo menší Chycen (únik SO 19) a Spoután"
    }
   ],
   "str": 320
@@ -1783,7 +1783,7 @@
   "rych": "10 stop, šplhání 20 stop",
   "vl": {
    "STR": 18,
-   "AGI": 8,
+   "DEX": 8,
    "CON": 17,
    "INT": 7,
    "WIS": 16,
@@ -1791,7 +1791,7 @@
   },
   "zach": {
    "STR": "+4",
-   "AGI": "-1",
+   "DEX": "-1",
    "CON": "+3",
    "INT": "-2",
    "WIS": "+3",
@@ -1857,7 +1857,7 @@
   "rych": "40 stop",
   "vl": {
    "STR": 13,
-   "AGI": 12,
+   "DEX": 12,
    "CON": 13,
    "INT": 2,
    "WIS": 13,
@@ -1865,7 +1865,7 @@
   },
   "zach": {
    "STR": "+1",
-   "AGI": "+1",
+   "DEX": "+1",
    "CON": "+1",
    "INT": "-4",
    "WIS": "+1",

@@ -23,7 +23,7 @@ Rytíř na výpravě, kterou mu svěřil Bůh, dáma nebo slib nad hrobem. Po No
 
 **AC** 18 (plná zbroj) · **HP** 202 (27d8+81) · **Rychlost** 30 stop · **Iniciativa** +3
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 20 (+5) | 16 (+3) | 16 (+3) | 11 (+0) | 12 (+1) | 18 (+4) |
 

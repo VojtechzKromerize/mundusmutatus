@@ -23,7 +23,7 @@ utoky:
 
 **AC** 15 · **HP** 110 (13d8+52) · **Rychlost** 30 stop, šplhání 30 stop · **Iniciativa** +3
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 16 (+3) | 17 (+3) | 18 (+4) | 12 (+1) | 14 (+2) | 14 (+2) |
 

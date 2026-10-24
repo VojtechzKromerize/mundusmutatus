@@ -24,7 +24,7 @@ Dítě pekelníka (sukuby či inkuba) a smrtelníka. Často levoboček z dobréh
 
 **AC** 19 · **HP** 105 (14d8+42) · **Rychlost** 30 stop, let 60 stop · **Iniciativa** +4
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 18 (+4) | 18 (+4) | 16 (+3) | 14 (+2) | 12 (+1) | 16 (+3) |
 

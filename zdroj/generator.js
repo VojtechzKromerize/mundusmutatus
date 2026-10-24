@@ -263,7 +263,7 @@
         if (!m || !m[1].trim()) fail(`${w}: zdroj „${x}“ má mít tvar  Název počet  (např. Výdrž 2)`);
         return {n: m[1].trim(), max: parseInt(m[2], 10)};
       });
-    /* útok: „Název | +6 | 1d8+3 | poznámka“, „Název | AGI DC 15 | 2d8 Svaté“, u houfu „Název | +4 | 3 za pacholka | …“ */
+    /* útok: „Název | +6 | 1d8+3 | poznámka“, „Název | DEX DC 15 | 2d8 Svaté“, u houfu „Název | +4 | 3 za pacholka | …“ */
     const utoky = (v, w) =>
       (Array.isArray(v) ? v : v ? [v] : []).map(x => {
         const a = x.split("|").map(y => y.trim());

@@ -4,7 +4,7 @@
 
    Spouštěče: "zasah" – nepřítel mě zasáhl (řádek záznamu boje e: hod, ac, d, kr, ph/pt, t, dal, ai)
               "vedle" – nepřítel mě minul útokem (e: dal, ai, zv = pok/poz)   "kouzlo" – nepřítel sesílá kouzlo (Counterspell)
-   Fakta f: rk reakce v tomto kole použita · nemuze stav, který bere reakce (omráčen, ochromen…) · ds na 0 HP (hody proti smrti)
+   Fakta f: rk reakce v tomto kole použita · nemuze stav, který bere reakce (omráčen, paralyzovaný…) · ds na 0 HP (hody proti smrti)
             kouzla [{n, i, st, pz}] reakční kouzla se slotem / nábojem · rysy [jména malými písmeny] · man [manévry Battle Mastera]
             sd {k: "d8", zb} kostky převahy · bi {st, zb} Bardic Inspiration · str, agi modifikátory · pb zdatnost · mnich úroveň
             odv zbraň zblízka s vlastností Odvetná
@@ -54,7 +54,7 @@ const REAKCE = [
         ? {
             i: x.i,
             n: "Hellish Rebuke – oplatit",
-            t: "Útočník: záchrana AGI proti tvému SO, 2d10 Fire (+1d10 za každý stupeň slotu nad 1), úspěch polovina – pošle se vypravěči",
+            t: "Útočník: záchrana DEX proti tvému SO, 2d10 Fire (+1d10 za každý stupeň slotu nad 1), úspěch polovina – pošle se vypravěči",
           }
         : null;
     },
@@ -115,7 +115,7 @@ const REAKCE = [
     "zasah",
     (f, e) =>
       rkRys(f, /^deflect attacks?$/i) && rkZtr(e) > 0 && /Bludgeoning|Piercing|Slashing/.test(e.t || "")
-        ? {n: "Deflect Attacks", t: "Sníží zranění o 1d10 + AGI + úroveň mnicha"}
+        ? {n: "Deflect Attacks", t: "Sníží zranění o 1d10 + DEX + úroveň mnicha"}
         : null,
   ],
   [

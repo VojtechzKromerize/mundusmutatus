@@ -24,7 +24,7 @@ Hejtman bratříků: Čech nebo Moravan, který prošel Lipany, Jiskrovou služb
 
 **AC** 17 (šupinová zbroj) · **HP** 65 (10d8+20) · **Rychlost** 30 stop · **Iniciativa** +3
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 16 (+3) | 13 (+1) | 14 (+2) | 10 (+0) | 11 (+0) | 10 (+0) |
 

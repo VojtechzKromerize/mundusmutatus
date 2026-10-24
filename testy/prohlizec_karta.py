@@ -336,7 +336,7 @@ async def main():
     await pl.click("[data-vyzhod]");await klid(pl,1200)
     await g.wait_for_function("document.querySelector('.vyzgm') && /Balduin: \\d+/.test(document.querySelector('.vyzgm').innerText)",timeout=15000)
     chk(True,"vypravěč vidí výsledek výzvy")
-    await g.click('#bojpult [data-vyzrychle="Perception"]');await pl.wait_for_function("document.querySelector('#mmvyz') && document.querySelector('#mmvyz').innerText.includes('Perception')",timeout=15000)
+    await g.click('#bojpult [data-vyzrychle="Perception"]');await pl.wait_for_function("document.querySelector('#mmvyz') && document.querySelector('#mmvyz').innerText.includes('Vnímání')",timeout=15000)
     chk(True,"vypravěč jedním klepnutím vyzve všechny k ověření Perception")
     # Zpytování svědomí jako výzva: vypravěč vyzve, hráč hodí d10 na své kartě (2026-10-17 b)
     await pl.evaluate("kartaStavZmen('balduin',{hr:2})");await klid(pl,700)

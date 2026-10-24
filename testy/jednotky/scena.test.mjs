@@ -42,7 +42,7 @@ test("scéna: je to stav boje bez tahů – bojBezi rozliší opravdový boj; no
 
 test("NPC: statistiky ze statbloku – vlastnosti, záchrany, dovednosti, pasivní Vnímání a zdatnost", () => {
   const z = V(`scZeStatbloku({h: ${JSON.stringify(NOBLE)}})`);
-  assert.deepEqual(z.ab, {STR: 11, AGI: 12, CON: 11, INT: 12, WIS: 14, CHA: 16});
+  assert.deepEqual(z.ab, {STR: 11, DEX: 12, CON: 11, INT: 12, WIS: 14, CHA: 16});
   assert.equal(z.zach.CHA, 3);
   assert.deepEqual(z.dov, {Deception: 5, Insight: 4, Persuasion: 5});
   assert.equal(z.pv, 12);

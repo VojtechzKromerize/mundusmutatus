@@ -24,11 +24,11 @@ Lehký jezdec uherského krále: štít, kopí, šavle, kůň rychlejší než �
 
 **AC** 16 (kroužková košile, štít) · **HP** 52 (8d8+16) · **Rychlost** 30 stop (kůň 60 stop) · **Iniciativa** +2
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 16 (+3) | 14 (+2) | 14 (+2) | 10 (+0) | 11 (+0) | 14 (+2) |
 
-**Záchrany** AGI +4, CON +4 · **Dovednosti** Animal Handling +4, Athletics +5 · **Resistance (zbroj, kroužková)** Bludgeoning, Slashing · **Imunita** Frightened · **Jazyky** maďarsky, latinsky, trochu německy · **Výdrž** 1 · **Technika** Křivý sek
+**Záchrany** DEX +4, CON +4 · **Dovednosti** Animal Handling +4, Athletics +5 · **Resistance (zbroj, kroužková)** Bludgeoning, Slashing · **Imunita** Frightened · **Jazyky** maďarsky, latinsky, trochu německy · **Výdrž** 1 · **Technika** Křivý sek
 
 ## Vlastnosti
 

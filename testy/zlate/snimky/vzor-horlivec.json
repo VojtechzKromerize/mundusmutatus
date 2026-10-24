@@ -9,7 +9,7 @@
     "odolnosti": [],
     "zachrany": {
       "STR": 4,
-      "AGI": 2,
+      "DEX": 2,
       "CON": 3,
       "INT": -1,
       "WIS": 1,
@@ -67,7 +67,7 @@
       ],
       "zachrany": {
         "STR": 4,
-        "AGI": 2,
+        "DEX": 2,
         "CON": 3,
         "INT": -1,
         "WIS": 1,

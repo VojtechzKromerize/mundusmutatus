@@ -42,7 +42,7 @@ Akcí Ovlivnění se snažíš nestvůru přimět, aby něco udělala. Popiš ne
 
 Iniciativa určuje pořadí tahů během boje. Jak házet na iniciativu, vysvětlují pravidla boje v kapitole „Hraní hry“ („Playing the Game“).
 
-Někdy může vypravěč nechat bojovníky místo hodu na iniciativu použít jejich hodnotu iniciativy. Tvoje hodnota iniciativy se rovná 10 plus tvůj opravný bonus Obratnosti (AGI). Pokud máš na hody na iniciativu výhodu, zvyš svou hodnotu iniciativy o 5. Pokud máš na tyto hody nevýhodu, sniž tuto hodnotu o 5. *Viz též* „Hraní hry“ („Boj“).
+Někdy může vypravěč nechat bojovníky místo hodu na iniciativu použít jejich hodnotu iniciativy. Tvoje hodnota iniciativy se rovná 10 plus tvůj opravný bonus Obratnosti (DEX). Pokud máš na hody na iniciativu výhodu, zvyš svou hodnotu iniciativy o 5. Pokud máš na tyto hody nevýhodu, sniž tuto hodnotu o 5. *Viz též* „Hraní hry“ („Boj“).
 
 > **Artikule:** Iniciativa je slotová. Hráči hodí d20 + Obratnost, vypravěč jednou za nepřítele s nejlepší iniciativou; nejlepší výsledek každé strany určí sloty. Družina i nepřátelé mají tolik slotů, kolik je hráčů; sloty se střídají a začíná strana s vyšším hodem (při shodě družina). Hráči si v každém kole sloty rozdělují sami, každý jen jeden; vypravěč smí jedno NPC použít vícekrát (pacholek 1×, sok až 2×, zhoubce až 3× za kolo). Překvapená strana hází iniciativu s nevýhodou.
 
@@ -156,9 +156,9 @@ Příležitostný útok můžeš provést, když tvor, kterého vidíš, opustí
 
 > **Artikule:** Zbraně s perkem Ratiště (Halberd, Pike, Glaive, Spear) umožňují příležitostný útok i tehdy, když nepřítel vstoupí do jejich dosahu 10 stop; v kontaktu na 5 stop má jejich nositel nevýhodu.
 
-#### Paralyzed [Condition] (Ochromen [stav])
+#### Paralyzed [Condition] (Paralyzovaný [stav])
 
-Dokud máš stav Ochromen (Paralyzed), platí pro tebe následující účinky.
+Dokud máš stav Paralyzovaný (Paralyzed), platí pro tebe následující účinky.
 
 ***Neschopnost.*** Máš stav Neschopný (Incapacitated).
 
@@ -250,9 +250,9 @@ Pokud máš Resistance vůči určitému typu zranění, zranění tohoto typu s
 
 > **Artikule:** Zbroj dává Resistance: vycpávaná (Padded, Leather, Studded Leather, Hide) proti Bludgeoning; kroužková (Chain Shirt, Scale Mail, Ring Mail, Chain Mail) proti Bludgeoning a Slashing; plátová (Breastplate, Half Plate, Splint) proti Slashing a Piercing; komplexní (Plate) proti Bludgeoning, Slashing a Piercing. Zbraně s perkem Drtivá (Mace, Flail, Warhammer) ignorují Resistance zbroje proti Bludgeoning, s perkem Průrazná (Handgun, Heavy Crossbow, Lance, Halberd, War Pick) Resistance zbroje proti Piercing.
 
-#### Restrained [Condition] (Zadržen [stav])
+#### Restrained [Condition] (Spoután [stav])
 
-Dokud máš stav Zadržen (Restrained), platí pro tebe následující účinky.
+Dokud máš stav Spoután (Restrained), platí pro tebe následující účinky.
 
 ***Rychlost 0.*** Tvoje rychlost je 0 a nemůže se zvýšit.
 

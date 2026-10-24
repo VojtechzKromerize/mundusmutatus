@@ -24,11 +24,11 @@ Podvodník, který po Noci Proměny přičichl k magii Závoje. Chodí v rouchu 
 
 **AC** 16 (kouzelná zbroj) · **HP** 130 (20d8+40) · **Rychlost** 30 stop · **Iniciativa** +3
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 8 (−1) | 16 (+3) | 14 (+2) | 17 (+3) | 12 (+1) | 16 (+3) |
 
-**Záchrany** AGI +6, INT +6 · **Dovednosti** Acrobatics +6, Perception +4, Stealth +9 · **Jazyky** česky, německy, latinsky, hantýrkou
+**Záchrany** DEX +6, INT +6 · **Dovednosti** Acrobatics +6, Perception +4, Stealth +9 · **Jazyky** česky, německy, latinsky, hantýrkou
 
 ## Vlastnosti
 

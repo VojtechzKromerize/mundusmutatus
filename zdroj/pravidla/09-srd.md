@@ -63,7 +63,7 @@ Tento oddíl krok za krokem popisuje, jak můžeš vytvářet původy šité na 
 
 Zvol tři vlastnosti, které se k původu hodí:
 
-- **Síla (STR) nebo Obratnost (AGI).** Tyto vlastnosti se ideálně hodí k původu, který zahrnuje fyzickou námahu.
+- **Síla (STR) nebo Obratnost (DEX).** Tyto vlastnosti se ideálně hodí k původu, který zahrnuje fyzickou námahu.
 - **Odolnost (CON).** Tato vlastnost se ideálně hodí k původu, který zahrnuje vytrvalost nebo dlouhé hodiny činnosti.
 - **Inteligence (INT) nebo Moudrost (WIS).** Jedna nebo obě tyto vlastnosti se ideálně hodí k původu zaměřenému na duševní nebo duchovní záležitosti.
 - **Charisma (CHA).** Tato vlastnost se ideálně hodí k původu, který zahrnuje vystupování nebo společenský styk.
@@ -206,7 +206,7 @@ Tvorové si mohou na velkou nadmořskou výšku zvyknout, pokud v této výšce 
 
 #### Kluzký led
 
-Kluzký led je obtížný terén. Tvor, který během tahu poprvé vstoupí na kluzký led nebo na něm začne svůj tah, musí uspět v záchranném hodu na Obratnost (AGI) se SO 10, jinak má stav Sražen (k zemi) (Prone).
+Kluzký led je obtížný terén. Tvor, který během tahu poprvé vstoupí na kluzký led nebo na něm začne svůj tah, musí uspět v záchranném hodu na Obratnost (DEX) se SO 10, jinak má stav Sražen (k zemi) (Prone).
 
 #### Silný vítr
 
@@ -309,7 +309,7 @@ Tvor vystavený Burnt Othur Fumes musí uspět v záchranném hodu na Odolnost s
 
 *Kontaktní jed*
 
-Tvor vystavený Crawler Mucus musí uspět v záchranném hodu na Odolnost se SO 13, jinak má na 1 minutu stav Otráven (Poisoned). Dokud je takto otráven, má tvor také stav Ochromen (Paralyzed). Tvor si záchranu opakuje na konci každého svého tahu a při úspěchu na sebe účinek ukončí.
+Tvor vystavený Crawler Mucus musí uspět v záchranném hodu na Odolnost se SO 13, jinak má na 1 minutu stav Otráven (Poisoned). Dokud je takto otráven, má tvor také stav Paralyzovaný (Paralyzed). Tvor si záchranu opakuje na konci každého svého tahu a při úspěchu na sebe účinek ukončí.
 
 ##### Essence of Ether (300 GP)
 

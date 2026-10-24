@@ -385,7 +385,7 @@ const kFormaZ = p => {
     vl = {};
   if (tb) {
     const c = [...tb[1].matchAll(/<td[^>]*>\s*(\d+)/g)].map(x => +x[1]);
-    ["STR", "AGI", "CON"].forEach((a, i) => {
+    ["STR", "DEX", "CON"].forEach((a, i) => {
       if (c[i]) vl[a] = c[i];
     });
   }
@@ -423,7 +423,7 @@ function kFormaHtml(K) {
         : ""
     }</p>
     ${(F.ut || []).length ? `<p>${F.ut.map((a, j) => `<button type="button" class="gbtn ghost" data-kforu="${j}">${besc(a.n)} ${bsg(+a.b || 0)} · ${besc(a.z)} ${besc(BZRT[a.t] || a.t || "")}</button>`).join(" ")}</p>` : ""}
-    <p class="rsmall">${F.typ === "ws" ? "Ponecháváš si životy, INT, WIS, CHA, rysy povolání a featy; STR, AGI a CON, AC, rychlost a útoky má zvíře. Dočasné HP = úroveň druida. Kouzla sesílat nejde (kromě rysů, které to dovolují)." : "Statistiky nahrazuje zvíře; podoba skončí, když dojdou dočasné HP (= životy zvířete), nebo po hodině (Concentration)."}</p>
+    <p class="rsmall">${F.typ === "ws" ? "Ponecháváš si životy, INT, WIS, CHA, rysy povolání a featy; STR, DEX a CON, AC, rychlost a útoky má zvíře. Dočasné HP = úroveň druida. Kouzla sesílat nejde (kromě rysů, které to dovolují)." : "Statistiky nahrazuje zvíře; podoba skončí, když dojdou dočasné HP (= životy zvířete), nebo po hodině (Concentration)."}</p>
     <button type="button" class="gbtn" data-kforx>Ukončit podobu</button>${PROTBY[F.src] ? `<details class="bjapd"><summary>Statistiky zvířete</summary><div class="bsb srdtext">${PROTBY[F.src].h}</div></details>` : ""}</section>`;
   const zb = ws ? ws.max - Math.min(ws.max, (kartaStav(K.id).zdr || {})[ws.n] || 0) : 0,
     L = (NETV || [])
@@ -535,7 +535,7 @@ function kSchopHtml(K) {
     const u = Math.min(lm, (kartaStav(K.id).zdr || {})["Lay on Hands"] || 0),
       zb = lm - u;
     L.push(
-      `<div class="kschop"><b>Lay on Hands</b> <small>zásoba ${zb}/${lm} HP · bonusová akce</small><span><input type="number" min="1" max="${zb || 1}" value="${Math.min(zb, 5) || 1}" data-klohv inputmode="numeric" aria-label="Kolik HP" style="width:4.5em">${kSpojSel(K, "data-klohk", true)}<button type="button" class="gbtn ghost" data-kloh${zb ? "" : " disabled"}>Léčit</button><button type="button" class="gbtn ghost" data-klohp${zb >= 5 ? "" : " disabled"} ${btip("Za 5 bodů ze zásoby ukončí stav Otrávený (Poisoned)")}>Otrava −5</button>${u ? `<button type="button" class="kzdv" data-klohr aria-label="Vrátit 1 bod" ${btip("Vrátit 1 bod do zásoby")}>↺</button>` : ""}</span></div>`,
+      `<div class="kschop"><b>Lay on Hands</b> <small>zásoba ${zb}/${lm} HP · bonusová akce</small><span><input type="number" min="1" max="${zb || 1}" value="${Math.min(zb, 5) || 1}" data-klohv inputmode="numeric" aria-label="Kolik HP" style="width:4.5em">${kSpojSel(K, "data-klohk", true)}<button type="button" class="gbtn ghost" data-kloh${zb ? "" : " disabled"}>Léčit</button><button type="button" class="gbtn ghost" data-klohp${zb >= 5 ? "" : " disabled"} ${btip("Za 5 bodů ze zásoby ukončí stav Otráven (Poisoned)")}>Otrava −5</button>${u ? `<button type="button" class="kzdv" data-klohr aria-label="Vrátit 1 bod" ${btip("Vrátit 1 bod do zásoby")}>↺</button>` : ""}</span></div>`,
     );
   }
   const cd = kZdrN(K, /channel divinity/i);
@@ -551,7 +551,7 @@ function kSchopHtml(K) {
         `<button type="button" class="gbtn ghost" data-kcd="spark-z" ${btip(`Cíl do 30 stop: CON záchrana SO ${dc}, úspěch = polovina`)}>Divine Spark: zranění ${kSparkK(K)}d8${bsg(kMd(K, "WIS"))} Radiant/Necrotic</button>`,
       );
       o.push(
-        `<button type="button" class="gbtn ghost" data-kcd="turn" ${btip(`Nemrtví do 30 stop: WIS záchrana SO ${dc}, při neúspěchu Vyděšený (Frightened) a Neschopný (Incapacitated) na minutu`)}>Turn Undead · WIS SO ${dc}</button>`,
+        `<button type="button" class="gbtn ghost" data-kcd="turn" ${btip(`Nemrtví do 30 stop: WIS záchrana SO ${dc}, při neúspěchu Vyděšen (Frightened) a Neschopný (Incapacitated) na minutu`)}>Turn Undead · WIS SO ${dc}</button>`,
       );
       /* Doména míru – Balm of Peace (2026-10-22): jedno použití léčí každého tvora, kolem kterého projdeš; další tvory téhož použití do 2 minut bez utracení */
       if (kMaRys(K, /^balm of peace$/i))
@@ -707,7 +707,7 @@ document.addEventListener("click", async e => {
       U["Lay on Hands"] = u + 5;
       await kartaStavZmen(K.id, {zdr: U});
       if (K2 === K) {
-        const st = (S.stavy || []).filter(x => x !== "otrávený");
+        const st = (S.stavy || []).filter(x => x !== "otráven");
         await kartaStavZmen(K.id, {stavy: st.length ? st : null}, null, {bezZpet: true});
       }
       kHodZapis({k: K.id, kdo: K.n, co: "Lay on Hands", txt: `${K2.n}: konec otravy (−5 ze zásoby)`});
@@ -767,7 +767,7 @@ document.addEventListener("click", async e => {
       return;
     }
     const tx = {
-      turn: `nemrtví do 30 stop: WIS záchrana SO ${dc}; neúspěch = Vyděšený (Frightened) a Neschopný (Incapacitated) 1 minutu nebo do zranění`,
+      turn: `nemrtví do 30 stop: WIS záchrana SO ${dc}; neúspěch = Vyděšen (Frightened) a Neschopný (Incapacitated) 1 minutu nebo do zranění`,
       sense: "10 minut cítí Celestial, Fiend a Undead do 60 stop",
       sacred: `zbraň září, +${kMd(K, "CHA")} k útokům na 10 minut`,
     }[t];
@@ -1181,7 +1181,7 @@ document.addEventListener("click", async e => {
       kHodZapis({k: K.id, kdo: K.n, co: "Stav", txt: k});
       return;
     }
-    if (!on && k === "vyděšený" && kDuse(K).sv >= 8) {
+    if (!on && k === "vyděšen" && kDuse(K).sv >= 8) {
       mmHlasG(`${K.n} je V milosti – imunní vůči Frightened.`, 4000);
       return;
     }

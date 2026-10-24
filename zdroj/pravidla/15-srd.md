@@ -189,15 +189,15 @@ Tento oddíl uvádí seznam kouzel Druida. Kouzla jsou seřazena podle úrovně 
 
 | Kouzlo | Škola | Zvláštní |
 |---|---|---|
-| Druidcraft | Přeměna | — |
-| Elementalism | Přeměna | — |
+| Druidcraft | Transmutace | — |
+| Elementalism | Transmutace | — |
 | Guidance | Věštění | C |
-| Mending | Přeměna | — |
-| Message | Přeměna | — |
+| Mending | Transmutace | — |
+| Message | Transmutace | — |
 | Poison Spray | Nekromancie | — |
 | Produce Flame | Vyvolávání | — |
-| Resistance | Odvrácení | C |
-| Shillelagh | Přeměna | — |
+| Resistance | Ochranná magie | C |
+| Shillelagh | Transmutace | — |
 | Spare the Dying | Nekromancie | — |
 | Starry Wisp | Zaklínání | — |
 
@@ -207,20 +207,20 @@ Tento oddíl uvádí seznam kouzel Druida. Kouzla jsou seřazena podle úrovně 
 |---|---|---|
 | Animal Friendship | Očarování | — |
 | Charm Person | Očarování | — |
-| Create or Destroy Water | Přeměna | — |
-| Cure Wounds | Odvrácení | — |
+| Create or Destroy Water | Transmutace | — |
+| Cure Wounds | Ochranná magie | — |
 | Detect Magic | Věštění | C, R |
 | Detect Poison and Disease | Věštění | C, R |
 | Entangle | Vyvolávání | C |
 | Faerie Fire | Zaklínání | C |
 | Fog Cloud | Vyvolávání | C |
 | Goodberry | Vyvolávání | — |
-| Healing Word | Odvrácení | — |
+| Healing Word | Ochranná magie | — |
 | Ice Knife | Vyvolávání | — |
-| Jump | Přeměna | — |
-| Longstrider | Přeměna | — |
-| Protection from Evil and Good | Odvrácení | C, M |
-| Purify Food and Drink | Přeměna | R |
+| Jump | Transmutace | — |
+| Longstrider | Transmutace | — |
+| Protection from Evil and Good | Ochranná magie | C, M |
+| Purify Food and Drink | Transmutace | R |
 | Speak with Animals | Věštění | R |
 | Thunderwave | Zaklínání | — |
 
@@ -228,27 +228,27 @@ Tento oddíl uvádí seznam kouzel Druida. Kouzla jsou seřazena podle úrovně 
 
 | Kouzlo | Škola | Zvláštní |
 |---|---|---|
-| Aid | Odvrácení | — |
+| Aid | Ochranná magie | — |
 | Animal Messenger | Očarování | R |
 | Augury | Věštění | R, M |
-| Barkskin | Přeměna | — |
+| Barkskin | Transmutace | — |
 | Continual Flame | Zaklínání | M |
-| Darkvision | Přeměna | — |
-| Enhance Ability | Přeměna | C |
-| Enlarge/Reduce | Přeměna | C |
+| Darkvision | Transmutace | — |
+| Enhance Ability | Transmutace | C |
+| Enlarge/Reduce | Transmutace | C |
 | Find Traps | Věštění | — |
 | Flame Blade | Zaklínání | C |
 | Flaming Sphere | Zaklínání | C |
 | Gust of Wind | Zaklínání | C |
-| Heat Metal | Přeměna | C |
+| Heat Metal | Transmutace | C |
 | Hold Person | Očarování | C |
-| Lesser Restoration | Odvrácení | — |
+| Lesser Restoration | Ochranná magie | — |
 | Locate Animals or Plants | Věštění | R |
 | Locate Object | Věštění | C |
 | Moonbeam | Zaklínání | C |
-| Pass without Trace | Odvrácení | C |
-| Protection from Poison | Odvrácení | — |
-| Spike Growth | Přeměna | C |
+| Pass without Trace | Ochranná magie | C |
+| Protection from Poison | Ochranná magie | — |
+| Spike Growth | Transmutace | C |
 
 #### Kouzla Druida 3. úrovně
 
@@ -257,15 +257,15 @@ Tento oddíl uvádí seznam kouzel Druida. Kouzla jsou seřazena podle úrovně 
 | Call Lightning | Vyvolávání | C |
 | Conjure Animals | Vyvolávání | C |
 | Daylight | Zaklínání | — |
-| Dispel Magic | Odvrácení | — |
-| Meld into Stone | Přeměna | R |
-| Plant Growth | Přeměna | — |
-| Protection from Energy | Odvrácení | C |
+| Dispel Magic | Ochranná magie | — |
+| Meld into Stone | Transmutace | R |
+| Plant Growth | Transmutace | — |
+| Protection from Energy | Ochranná magie | C |
 | Revivify | Nekromancie | M |
 | Sleet Storm | Vyvolávání | C |
-| Speak with Plants | Přeměna | — |
-| Water Breathing | Přeměna | R |
-| Water Walk | Přeměna | R |
+| Speak with Plants | Transmutace | — |
+| Water Breathing | Transmutace | R |
+| Water Walk | Transmutace | R |
 | Wind Wall | Zaklínání | C |
 
 #### Kouzla Druida 4. úrovně
@@ -277,35 +277,35 @@ Tento oddíl uvádí seznam kouzel Druida. Kouzla jsou seřazena podle úrovně 
 | Confusion | Očarování | C |
 | Conjure Minor Elementals | Vyvolávání | C |
 | Conjure Woodland Beings | Vyvolávání | C |
-| Control Water | Přeměna | C |
+| Control Water | Transmutace | C |
 | Divination | Věštění | R, M |
 | Dominate Beast | Očarování | C |
 | Fire Shield | Zaklínání | — |
-| Freedom of Movement | Odvrácení | — |
+| Freedom of Movement | Ochranná magie | — |
 | Giant Insect | Vyvolávání | C |
 | Hallucinatory Terrain | Iluze | — |
 | Ice Storm | Zaklínání | — |
 | Locate Creature | Věštění | C |
-| Polymorph | Přeměna | C |
-| Stone Shape | Přeměna | — |
-| Stoneskin | Přeměna | C, M |
+| Polymorph | Transmutace | C |
+| Stone Shape | Transmutace | — |
+| Stoneskin | Transmutace | C, M |
 | Wall of Fire | Zaklínání | C |
 
 #### Kouzla Druida 5. úrovně
 
 | Kouzlo | Škola | Zvláštní |
 |---|---|---|
-| Antilife Shell | Odvrácení | C |
-| Awaken | Přeměna | M |
+| Antilife Shell | Ochranná magie | C |
+| Awaken | Transmutace | M |
 | Commune with Nature | Věštění | R |
 | Cone of Cold | Zaklínání | — |
 | Conjure Elemental | Vyvolávání | C |
 | Contagion | Nekromancie | — |
 | Geas | Očarování | — |
-| Greater Restoration | Odvrácení | M |
+| Greater Restoration | Ochranná magie | M |
 | Insect Plague | Vyvolávání | C |
-| Mass Cure Wounds | Odvrácení | — |
-| Planar Binding | Odvrácení | M |
+| Mass Cure Wounds | Ochranná magie | — |
+| Planar Binding | Ochranná magie | M |
 | Reincarnate | Nekromancie | M |
 | Scrying | Věštění | C, M |
 | Tree Stride | Vyvolávání | C |
@@ -317,14 +317,14 @@ Tento oddíl uvádí seznam kouzel Druida. Kouzla jsou seřazena podle úrovně 
 |---|---|---|
 | Conjure Fey | Vyvolávání | C |
 | Find the Path | Věštění | C, M |
-| Flesh to Stone | Přeměna | C |
-| Heal | Odvrácení | — |
+| Flesh to Stone | Transmutace | C |
+| Heal | Ochranná magie | — |
 | Heroes' Feast | Vyvolávání | M |
-| Move Earth | Přeměna | C |
+| Move Earth | Transmutace | C |
 | Sunbeam | Zaklínání | C |
 | Transport via Plants | Vyvolávání | — |
 | Wall of Thorns | Vyvolávání | C |
-| Wind Walk | Přeměna | — |
+| Wind Walk | Transmutace | — |
 
 #### Kouzla Druida 7. úrovně
 
@@ -333,19 +333,19 @@ Tento oddíl uvádí seznam kouzel Druida. Kouzla jsou seřazena podle úrovně 
 | Fire Storm | Zaklínání | — |
 | Mirage Arcane | Iluze | — |
 | Plane Shift | Vyvolávání | M |
-| Regenerate | Přeměna | — |
-| Reverse Gravity | Přeměna | C |
-| Symbol | Odvrácení | M |
+| Regenerate | Transmutace | — |
+| Reverse Gravity | Transmutace | C |
+| Symbol | Ochranná magie | M |
 
 #### Kouzla Druida 8. úrovně
 
 | Kouzlo | Škola | Zvláštní |
 |---|---|---|
-| Animal Shapes | Přeměna | — |
+| Animal Shapes | Transmutace | — |
 | Antipathy/Sympathy | Očarování | — |
 | Befuddlement | Očarování | — |
-| Control Weather | Přeměna | C |
-| Earthquake | Přeměna | C |
+| Control Weather | Transmutace | C |
+| Earthquake | Transmutace | C |
 | Incendiary Cloud | Vyvolávání | C |
 | Sunburst | Zaklínání | — |
 | Tsunami | Vyvolávání | C |
@@ -355,7 +355,7 @@ Tento oddíl uvádí seznam kouzel Druida. Kouzla jsou seřazena podle úrovně 
 | Kouzlo | Škola | Zvláštní |
 |---|---|---|
 | Foresight | Věštění | — |
-| Shapechange | Přeměna | C, M |
+| Shapechange | Transmutace | C, M |
 | Storm of Vengeance | Vyvolávání | C |
 | True Resurrection | Nekromancie | M |
 

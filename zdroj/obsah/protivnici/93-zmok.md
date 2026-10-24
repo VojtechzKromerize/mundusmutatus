@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 4 (1 100 XP)
 ac: 14
 hp: 60
-utok: Ohnivý zobák +6, 2d6+4 Fire · plamenná stopa (AGI DC 13, 4d6 Fire, přímka) · proměna v kohouta, kočku nebo ohnivého ptáka
+utok: Ohnivý zobák +6, 2d6+4 Fire · plamenná stopa (DEX DC 13, 4d6 Fire, přímka) · proměna v kohouta, kočku nebo ohnivého ptáka
 pozehnani: Proletí komínem a podpálí střechu: dům hoří.
 pokuseni: Zahlédne smaženici: příští slot žere.
 nerest: Hlad – musí být nakrmen každou noc. Kdo mu dá smaženici, tomu chvíli slouží.
@@ -14,7 +14,7 @@ stitky: relikt, bytosti z pověstí, zmok, raroh, oheň, mlýn, hospoda, bohatst
 zdroje: Plamenná stopa 2
 utoky:
   - Ohnivý zobák | +6 | 2d6+4 Fire
-  - Plamenná stopa | AGI DC 13 | 4d6 Fire | přímka 60 stop × 5 stop při průletu; úspěch polovina; 2/den
+  - Plamenná stopa | DEX DC 13 | 4d6 Fire | přímka 60 stop × 5 stop při průletu; úspěch polovina; 2/den
 ---
 *„V noci letí do komína ohnivý pruh. Mlynář bohatne, ves chudne. Když jednou zapomene na smaženici, vyhoří celý mlýn.“*
 
@@ -24,7 +24,7 @@ Ohnivý pták, který nosí svému pánovi peníze a obilí. Krmit se musí kaž
 
 **AC** 14 · **HP** 60 (11d8+11) · **Rychlost** 20 stop, let 80 stop · **Iniciativa** +4
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 12 (+1) | 18 (+4) | 12 (+1) | 10 (+0) | 13 (+1) | 14 (+2) |
 
@@ -38,7 +38,7 @@ Ohnivý pták, který nosí svému pánovi peníze a obilí. Krmit se musí kaž
 ## Akce (jedna v každém slotu)
 
 - **Ohnivý zobák.** +6, dosah 5 stop. **Zásah:** 2d6+4 Fire.
-- **Plamenná stopa (2/den).** Při průletu: přímka 60 stop × 5 stop, AGI save DC 13, neúspěch 4d6 Fire, úspěch polovina.
+- **Plamenná stopa (2/den).** Při průletu: přímka 60 stop × 5 stop, DEX save DC 13, neúspěch 4d6 Fire, úspěch polovina.
 
 ## Relikt
 

@@ -6,7 +6,7 @@ vyzva: 9 (5 000 XP)
 ac: 16
 hp: 138
 utok: Úder +10, 3d6+6 · krupobití kůry +10, 180 stop, 4d10+6 · oživí 2 stromy (1/den)
-pozehnani: Zemi pod nepřáteli prorostou kořeny: tvorové do 15 stop hodí AGI save DC 18, jinak jsou Restrained.
+pozehnani: Zemi pod nepřáteli prorostou kořeny: tvorové do 15 stop hodí DEX save DC 18, jinak jsou Restrained.
 pokuseni: Zavrže a zamyslí se: jeden slot jen mluví – o čem, záleží na tom, kdo ho oslovil.
 nerest: Paměť – pamatuje pohanské bohy a nenávidí sekeru. Kdo mu donese obětinu Starým bohům, s tím mluví místo boje. Ctnosti: Respekt, Úcta k předkům. Neřest: Hamižnost (nedá z háje nic).
 stitky: rostlina, strom, dub, háj, starověrci, Staří bozi, les, elfové, Hazmburkové
@@ -23,7 +23,7 @@ Posvátný dub Starých bohů, který po Noci Proměny procitl. Strážce háje,
 
 **AC** 16 · **HP** 138 (12d12+60) · **Rychlost** 30 stop · **Iniciativa** −1
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 23 (+6) | 8 (−1) | 21 (+5) | 12 (+1) | 16 (+3) | 12 (+1) |
 

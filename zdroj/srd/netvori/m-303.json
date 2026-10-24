@@ -12,7 +12,7 @@
   "rych": "30 stop, plavání 120 stop",
   "vl": {
    "STR": 30,
-   "AGI": 11,
+   "DEX": 11,
    "CON": 26,
    "INT": 22,
    "WIS": 18,
@@ -20,14 +20,14 @@
   },
   "zach": {
    "STR": "+17",
-   "AGI": "+7",
+   "DEX": "+7",
    "CON": "+15",
    "INT": "+6",
    "WIS": "+11",
    "CHA": "+5"
   },
   "dov": "History +13, Perception +11",
-  "imu": "Cold, Lightning; Vyděšen (Frightened), Chycen (Grappled), Ochromen (Paralyzed), Zadržen (Restrained)",
+  "imu": "Cold, Lightning; Vyděšen (Frightened), Chycen (Grappled), Paralyzovaný (Paralyzed), Spoután (Restrained)",
   "smysly": "Truesight 120 stop; pasivní Perception 21",
   "jaz": "rozumí Abyssal, Celestial, Infernal a Primordial, ale nemluví; telepatie 120 stop",
   "cr": "23",
@@ -55,7 +55,7 @@
    },
    {
     "n": "Tentacle",
-    "t": "*Hod na útok na blízko:* +17, dosah 30 stop. *Zásah:* 24 (4d6 + 10) Bludgeoning zranění. Cíl má stav Chycen (Grappled) (únik SO 20) jedním z deseti chapadel a dokud chvat neskončí, má stav Zadržen (Restrained)."
+    "t": "*Hod na útok na blízko:* +17, dosah 30 stop. *Zásah:* 24 (4d6 + 10) Bludgeoning zranění. Cíl má stav Chycen (Grappled) (únik SO 20) jedním z deseti chapadel a dokud chvat neskončí, má stav Spoután (Restrained)."
    },
    {
     "n": "Fling",
@@ -67,7 +67,7 @@
    },
    {
     "n": "Swallow",
-    "t": "*Záchrana Obratnosti:* SO 25, jeden tvor chycený krakenem (kraken může mít spolknuté až čtyři tvory současně). *Neúspěch:* 23 (3d8 + 10) Piercing zranění. Je-li cíl Velký nebo menší, je spolknut a přestává být chycen. Spolknutý tvor má stav Zadržen, má úplný kryt proti útokům a jiným účinkům zvenčí krakena a na začátku každého svého tahu utrží 24 (7d6) Acid zranění.\nPokud kraken během jednoho tahu utrží od tvora uvnitř sebe 50 nebo více zranění, musí na konci toho tahu uspět v záchranném hodu na Odolnost se SO 25, jinak vyvrhne všechny spolknuté tvory; každý z nich dopadne do prostoru do 10 stop od krakena a má stav Sražen. Pokud kraken zemře, žádný spolknutý tvor už nemá stav Zadržen a může z mrtvoly uniknout za 15 stop pohybu, přičemž vyleze se stavem Sražen."
+    "t": "*Záchrana Obratnosti:* SO 25, jeden tvor chycený krakenem (kraken může mít spolknuté až čtyři tvory současně). *Neúspěch:* 23 (3d8 + 10) Piercing zranění. Je-li cíl Velký nebo menší, je spolknut a přestává být chycen. Spolknutý tvor má stav Spoután, má úplný kryt proti útokům a jiným účinkům zvenčí krakena a na začátku každého svého tahu utrží 24 (7d6) Acid zranění.\nPokud kraken během jednoho tahu utrží od tvora uvnitř sebe 50 nebo více zranění, musí na konci toho tahu uspět v záchranném hodu na Odolnost se SO 25, jinak vyvrhne všechny spolknuté tvory; každý z nich dopadne do prostoru do 10 stop od krakena a má stav Sražen. Pokud kraken zemře, žádný spolknutý tvor už nemá stav Spoután a může z mrtvoly uniknout za 15 stop pohybu, přičemž vyleze se stavem Sražen."
    }
   ],
   "legT": "Počet použití legendárních akcí: 3 (4 v doupěti). Bezprostředně po tahu jiného tvora může kraken utratit jedno použití a provést jednu z následujících akcí. Kraken obnoví všechna utracená použití na začátku každého svého tahu.",
@@ -87,25 +87,25 @@
     "b": 17,
     "z": "4d6+10",
     "zt": "Bludgeoning",
-    "p": "dosah 30 stop, chycen (únik SO 20) a zadržen"
+    "p": "dosah 30 stop, chycen (únik SO 20) a spoután"
    },
    {
     "n": "Fling",
-    "dc": "AGI SO 25",
+    "dc": "DEX SO 25",
     "z": "4d8",
     "zt": "Bludgeoning",
     "p": "vržený tvor a tvorové v cílovém prostoru, sražen, polovina při úspěchu"
    },
    {
     "n": "Lightning Strike",
-    "dc": "AGI SO 23",
+    "dc": "DEX SO 23",
     "z": "6d10",
     "zt": "Lightning",
     "p": "jeden tvor do 120 stop, polovina při úspěchu"
    },
    {
     "n": "Swallow",
-    "dc": "AGI SO 25",
+    "dc": "DEX SO 25",
     "z": "3d8+10",
     "zt": "Piercing",
     "p": "jeden chycený tvor; spolknutý utrží 7d6 Acid na začátku každého svého tahu"
@@ -126,7 +126,7 @@
   "rych": "40 stop",
   "vl": {
    "STR": 16,
-   "AGI": 13,
+   "DEX": 13,
    "CON": 15,
    "INT": 14,
    "WIS": 15,
@@ -134,7 +134,7 @@
   },
   "zach": {
    "STR": "+3",
-   "AGI": "+1",
+   "DEX": "+1",
    "CON": "+2",
    "INT": "+2",
    "WIS": "+2",
@@ -202,7 +202,7 @@
   "rych": "20 stop",
   "vl": {
    "STR": 10,
-   "AGI": 5,
+   "DEX": 5,
    "CON": 11,
    "INT": 1,
    "WIS": 11,
@@ -210,7 +210,7 @@
   },
   "zach": {
    "STR": "+0",
-   "AGI": "-3",
+   "DEX": "-3",
    "CON": "+0",
    "INT": "-5",
    "WIS": "+0",
@@ -260,7 +260,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 11,
-   "AGI": 16,
+   "DEX": 16,
    "CON": 16,
    "INT": 21,
    "WIS": 14,
@@ -268,7 +268,7 @@
   },
   "zach": {
    "STR": "+0",
-   "AGI": "+10",
+   "DEX": "+10",
    "CON": "+10",
    "INT": "+12",
    "WIS": "+9",
@@ -276,7 +276,7 @@
   },
   "dov": "Arcana +19, History +12, Insight +9, Perception +9",
   "odol": "Cold, Lightning",
-  "imu": "Necrotic, Poison; Okouzlen (Charmed), Vyčerpání (Exhaustion), Vyděšen (Frightened), Ochromen (Paralyzed), Otráven (Poisoned)",
+  "imu": "Necrotic, Poison; Okouzlen (Charmed), Vyčerpání (Exhaustion), Vyděšen (Frightened), Paralyzovaný (Paralyzed), Otráven (Poisoned)",
   "vyb": "Component Pouch",
   "smysly": "Truesight 120 stop; pasivní Perception 19",
   "jaz": "všechny",
@@ -305,7 +305,7 @@
    },
    {
     "n": "Paralyzing Touch",
-    "t": "*Hod na útok na blízko:* +12, dosah 5 stop. *Zásah:* 15 (3d6 + 5) Cold zranění a cíl má stav Ochromen (Paralyzed) do začátku příštího tahu licha."
+    "t": "*Hod na útok na blízko:* +12, dosah 5 stop. *Zásah:* 15 (3d6 + 5) Cold zranění a cíl má stav Paralyzovaný (Paralyzed) do začátku příštího tahu licha."
    },
    {
     "n": "Spellcasting",
@@ -346,7 +346,7 @@
     "b": 12,
     "z": "3d6+5",
     "zt": "Cold",
-    "p": "dosah 5 stop, ochromen do začátku příštího tahu licha"
+    "p": "dosah 5 stop, paralyzován do začátku příštího tahu licha"
    },
    {
     "n": "Disrupt Life",
@@ -371,7 +371,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 9,
-   "AGI": 14,
+   "DEX": 14,
    "CON": 11,
    "INT": 17,
    "WIS": 12,
@@ -379,7 +379,7 @@
   },
   "zach": {
    "STR": "-1",
-   "AGI": "+2",
+   "DEX": "+2",
    "CON": "+0",
    "INT": "+6",
    "WIS": "+4",
@@ -443,7 +443,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 10,
-   "AGI": 14,
+   "DEX": 14,
    "CON": 12,
    "INT": 20,
    "WIS": 15,
@@ -451,7 +451,7 @@
   },
   "zach": {
    "STR": "+0",
-   "AGI": "+2",
+   "DEX": "+2",
    "CON": "+1",
    "INT": "+9",
    "WIS": "+6",
@@ -521,7 +521,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 7,
-   "AGI": 15,
+   "DEX": 15,
    "CON": 12,
    "INT": 8,
    "WIS": 11,
@@ -529,7 +529,7 @@
   },
   "zach": {
    "STR": "-2",
-   "AGI": "+2",
+   "DEX": "+2",
    "CON": "+1",
    "INT": "-1",
    "WIS": "+0",
@@ -570,7 +570,7 @@
    },
    {
     "n": "Death Burst",
-    "dc": "AGI SO 11",
+    "dc": "DEX SO 11",
     "z": "2d6",
     "zt": "Fire",
     "p": "při smrti, 10stopé vyzařování, polovina při úspěchu"
@@ -591,7 +591,7 @@
   "rych": "30 stop, let 50 stop",
   "vl": {
    "STR": 17,
-   "AGI": 16,
+   "DEX": 16,
    "CON": 17,
    "INT": 7,
    "WIS": 12,
@@ -599,7 +599,7 @@
   },
   "zach": {
    "STR": "+3",
-   "AGI": "+3",
+   "DEX": "+3",
    "CON": "+3",
    "INT": "-2",
    "WIS": "+1",
@@ -655,7 +655,7 @@
   "rych": "40 stop, šplhání 40 stop",
   "vl": {
    "STR": 18,
-   "AGI": 20,
+   "DEX": 20,
    "CON": 20,
    "INT": 18,
    "WIS": 16,
@@ -663,7 +663,7 @@
   },
   "zach": {
    "STR": "+9",
-   "AGI": "+5",
+   "DEX": "+5",
    "CON": "+10",
    "INT": "+4",
    "WIS": "+8",
@@ -703,7 +703,7 @@
    },
    {
     "n": "Constrict",
-    "t": "*Záchrana Síly:* SO 17, jeden Střední nebo menší tvor, kterého marilith vidí do 5 stop. *Neúspěch:* 15 (2d10 + 4) Bludgeoning zranění. Cíl má stav Chycen (Grappled) (únik SO 14) a dokud chvat neskončí, má stav Zadržen (Restrained)."
+    "t": "*Záchrana Síly:* SO 17, jeden Střední nebo menší tvor, kterého marilith vidí do 5 stop. *Neúspěch:* 15 (2d10 + 4) Bludgeoning zranění. Cíl má stav Chycen (Grappled) (únik SO 14) a dokud chvat neskončí, má stav Spoután (Restrained)."
    }
   ],
   "bonus": [
@@ -731,7 +731,7 @@
     "dc": "STR SO 17",
     "z": "2d10+4",
     "zt": "Bludgeoning",
-    "p": "jeden Střední nebo menší tvor do 5 stop; chycen (únik SO 14) a zadržen"
+    "p": "jeden Střední nebo menší tvor do 5 stop; chycen (únik SO 14) a spoután"
    }
   ],
   "str": 306
@@ -749,7 +749,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 10,
-   "AGI": 17,
+   "DEX": 17,
    "CON": 16,
    "INT": 12,
    "WIS": 13,
@@ -757,7 +757,7 @@
   },
   "zach": {
    "STR": "+0",
-   "AGI": "+3",
+   "DEX": "+3",
    "CON": "+3",
    "INT": "+1",
    "WIS": "+4",
@@ -791,7 +791,7 @@
   "bonus": [
    {
     "n": "Petrifying Gaze (obnova 5–6)",
-    "t": "*Záchrana Odolnosti:* SO 13, každý tvor ve 30stopém kuželu. Pokud medúza v kuželu uvidí svůj odraz, musí tento záchranný hod provést i ona. *První neúspěch:* Cíl má stav Zadržen (Restrained) a na konci svého příštího tahu záchranu opakuje, pokud je stále zadržen; při úspěchu účinek na sobě ukončí. *Druhý neúspěch:* Cíl má místo stavu Zadržen stav Zkamenělý (Petrified)."
+    "t": "*Záchrana Odolnosti:* SO 13, každý tvor ve 30stopém kuželu. Pokud medúza v kuželu uvidí svůj odraz, musí tento záchranný hod provést i ona. *První neúspěch:* Cíl má stav Spoután (Restrained) a na konci svého příštího tahu záchranu opakuje, pokud je stále spoután; při úspěchu účinek na sobě ukončí. *Druhý neúspěch:* Cíl má místo stavu Spoután stav Zkamenělý (Petrified)."
    }
   ],
   "utoky": [
@@ -832,7 +832,7 @@
   "rych": "30 stop, let 30 stop",
   "vl": {
    "STR": 5,
-   "AGI": 14,
+   "DEX": 14,
    "CON": 10,
    "INT": 9,
    "WIS": 11,
@@ -840,7 +840,7 @@
   },
   "zach": {
    "STR": "-3",
-   "AGI": "+2",
+   "DEX": "+2",
    "CON": "+0",
    "INT": "-1",
    "WIS": "+0",
@@ -885,7 +885,7 @@
    },
    {
     "n": "Death Burst",
-    "dc": "AGI SO 10",
+    "dc": "DEX SO 10",
     "z": "2d4",
     "zt": "Bludgeoning",
     "p": "při smrti, 5stopé vyzařování, polovina při úspěchu"
@@ -906,7 +906,7 @@
   "rych": "30 stop, let 30 stop",
   "vl": {
    "STR": 7,
-   "AGI": 13,
+   "DEX": 13,
    "CON": 10,
    "INT": 9,
    "WIS": 11,
@@ -914,7 +914,7 @@
   },
   "zach": {
    "STR": "-2",
-   "AGI": "+1",
+   "DEX": "+1",
    "CON": "+0",
    "INT": "-1",
    "WIS": "+0",
@@ -987,7 +987,7 @@
   "rych": "30 stop, let 30 stop",
   "vl": {
    "STR": 8,
-   "AGI": 12,
+   "DEX": 12,
    "CON": 12,
    "INT": 7,
    "WIS": 10,
@@ -995,7 +995,7 @@
   },
   "zach": {
    "STR": "-1",
-   "AGI": "+1",
+   "DEX": "+1",
    "CON": "+1",
    "INT": "-2",
    "WIS": "+0",
@@ -1036,14 +1036,14 @@
    },
    {
     "n": "Fire Breath",
-    "dc": "AGI SO 11",
+    "dc": "DEX SO 11",
     "z": "2d6",
     "zt": "Fire",
     "p": "kužel 15 stop, polovina při úspěchu, obnova 6"
    },
    {
     "n": "Death Burst",
-    "dc": "AGI SO 11",
+    "dc": "DEX SO 11",
     "z": "2d6",
     "zt": "Fire",
     "p": "při smrti, 5stopé vyzařování, polovina při úspěchu"
@@ -1064,7 +1064,7 @@
   "rych": "30 stop, let 30 stop",
   "vl": {
    "STR": 5,
-   "AGI": 11,
+   "DEX": 11,
    "CON": 10,
    "INT": 11,
    "WIS": 10,
@@ -1072,7 +1072,7 @@
   },
   "zach": {
    "STR": "-3",
-   "AGI": "+0",
+   "DEX": "+0",
    "CON": "+0",
    "INT": "+0",
    "WIS": "+0",
@@ -1123,7 +1123,7 @@
    },
    {
     "n": "Death Burst",
-    "dc": "AGI SO 10",
+    "dc": "DEX SO 10",
     "z": "2d4",
     "zt": "Fire",
     "p": "při smrti, 5stopé vyzařování, polovina při úspěchu"
@@ -1144,7 +1144,7 @@
   "rych": "10 stop, plavání 40 stop",
   "vl": {
    "STR": 10,
-   "AGI": 13,
+   "DEX": 13,
    "CON": 12,
    "INT": 11,
    "WIS": 14,
@@ -1152,7 +1152,7 @@
   },
   "zach": {
    "STR": "+0",
-   "AGI": "+1",
+   "DEX": "+1",
    "CON": "+1",
    "INT": "+0",
    "WIS": "+2",
@@ -1199,7 +1199,7 @@
   "rych": "10 stop, plavání 40 stop",
   "vl": {
    "STR": 18,
-   "AGI": 15,
+   "DEX": 15,
    "CON": 15,
    "INT": 8,
    "WIS": 10,
@@ -1207,7 +1207,7 @@
   },
   "zach": {
    "STR": "+4",
-   "AGI": "+2",
+   "DEX": "+2",
    "CON": "+2",
    "INT": "-1",
    "WIS": "+0",
@@ -1281,7 +1281,7 @@
   "rych": "20 stop",
   "vl": {
    "STR": 17,
-   "AGI": 12,
+   "DEX": 12,
    "CON": 15,
    "INT": 5,
    "WIS": 13,
@@ -1289,7 +1289,7 @@
   },
   "zach": {
    "STR": "+3",
-   "AGI": "+1",
+   "DEX": "+1",
    "CON": "+2",
    "INT": "-3",
    "WIS": "+1",
@@ -1356,7 +1356,7 @@
   "rych": "40 stop",
   "vl": {
    "STR": 18,
-   "AGI": 11,
+   "DEX": 11,
    "CON": 16,
    "INT": 6,
    "WIS": 16,
@@ -1364,7 +1364,7 @@
   },
   "zach": {
    "STR": "+4",
-   "AGI": "+0",
+   "DEX": "+0",
    "CON": "+3",
    "INT": "-2",
    "WIS": "+3",
@@ -1418,7 +1418,7 @@
   "rych": "20 stop",
   "vl": {
    "STR": 16,
-   "AGI": 8,
+   "DEX": 8,
    "CON": 15,
    "INT": 6,
    "WIS": 12,
@@ -1426,14 +1426,14 @@
   },
   "zach": {
    "STR": "+3",
-   "AGI": "-1",
+   "DEX": "-1",
    "CON": "+2",
    "INT": "-2",
    "WIS": "+3",
    "CHA": "+1"
   },
   "zra": "Fire",
-  "imu": "Necrotic, Poison; Okouzlen (Charmed), Vyčerpání (Exhaustion), Vyděšen (Frightened), Ochromen (Paralyzed), Otráven (Poisoned)",
+  "imu": "Necrotic, Poison; Okouzlen (Charmed), Vyčerpání (Exhaustion), Vyděšen (Frightened), Paralyzovaný (Paralyzed), Otráven (Poisoned)",
   "smysly": "Darkvision 60 stop; pasivní Perception 11",
   "jaz": "Common a dva další jazyky",
   "cr": "3",
@@ -1478,7 +1478,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 18,
-   "AGI": 10,
+   "DEX": 10,
    "CON": 17,
    "INT": 11,
    "WIS": 19,
@@ -1486,7 +1486,7 @@
   },
   "zach": {
    "STR": "+4",
-   "AGI": "+0",
+   "DEX": "+0",
    "CON": "+3",
    "INT": "+5",
    "WIS": "+9",
@@ -1494,7 +1494,7 @@
   },
   "dov": "History +5, Perception +9, Religion +5",
   "zra": "Fire",
-  "imu": "Necrotic, Poison; Okouzlen (Charmed), Vyčerpání (Exhaustion), Vyděšen (Frightened), Ochromen (Paralyzed), Otráven (Poisoned)",
+  "imu": "Necrotic, Poison; Okouzlen (Charmed), Vyčerpání (Exhaustion), Vyděšen (Frightened), Paralyzovaný (Paralyzed), Otráven (Poisoned)",
   "smysly": "Truesight 60 stop; pasivní Perception 19",
   "jaz": "Common a tři další jazyky",
   "cr": "15",
@@ -1530,7 +1530,7 @@
    },
    {
     "n": "Dreadful Glare",
-    "t": "*Záchrana Moudrosti:* SO 17, jeden tvor, kterého mumie vidí do 60 stop. *Neúspěch:* 25 (6d6 + 4) Psychic zranění a cíl má stav Ochromen (Paralyzed) do konce příštího tahu mumie."
+    "t": "*Záchrana Moudrosti:* SO 17, jeden tvor, kterého mumie vidí do 60 stop. *Neúspěch:* 25 (6d6 + 4) Psychic zranění a cíl má stav Paralyzovaný (Paralyzed) do konce příštího tahu mumie."
    },
    {
     "n": "Spellcasting",
@@ -1578,7 +1578,7 @@
     "dc": "WIS SO 17",
     "z": "6d6+4",
     "zt": "Psychic",
-    "p": "jeden tvor do 60 stop, ochromen do konce příštího tahu mumie"
+    "p": "jeden tvor do 60 stop, paralyzován do konce příštího tahu mumie"
    }
   ],
   "str": 309
@@ -1595,7 +1595,7 @@
   "rych": "20 stop, let 30 stop",
   "vl": {
    "STR": 21,
-   "AGI": 10,
+   "DEX": 10,
    "CON": 22,
    "INT": 19,
    "WIS": 12,
@@ -1603,7 +1603,7 @@
   },
   "zach": {
    "STR": "+5",
-   "AGI": "+0",
+   "DEX": "+0",
    "CON": "+11",
    "INT": "+9",
    "WIS": "+6",
@@ -1684,7 +1684,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 18,
-   "AGI": 15,
+   "DEX": 15,
    "CON": 16,
    "INT": 16,
    "WIS": 14,
@@ -1692,7 +1692,7 @@
   },
   "zach": {
    "STR": "+4",
-   "AGI": "+2",
+   "DEX": "+2",
    "CON": "+3",
    "INT": "+3",
    "WIS": "+2",
@@ -1769,7 +1769,7 @@
   "rych": "60 stop, let 90 stop (vznáší se)",
   "vl": {
    "STR": 18,
-   "AGI": 15,
+   "DEX": 15,
    "CON": 16,
    "INT": 10,
    "WIS": 13,
@@ -1777,7 +1777,7 @@
   },
   "zach": {
    "STR": "+4",
-   "AGI": "+2",
+   "DEX": "+2",
    "CON": "+3",
    "INT": "+0",
    "WIS": "+1",

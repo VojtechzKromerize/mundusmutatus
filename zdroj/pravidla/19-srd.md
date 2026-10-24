@@ -6,9 +6,9 @@
 
 | Rys | Hodnota |
 |---|---|
-| Hlavní vlastnost | Obratnost (AGI) a Moudrost (WIS) |
+| Hlavní vlastnost | Obratnost (DEX) a Moudrost (WIS) |
 | Kostka životů | d10 za každou úroveň Rangera |
-| Zdatnost v záchranných hodech | Síla (STR) a Obratnost (AGI) |
+| Zdatnost v záchranných hodech | Síla (STR) a Obratnost (DEX) |
 | Zdatnost v dovednostech | Vyber 3: Animal Handling, Athletics, Insight, Investigation, Nature, Perception, Stealth nebo Survival |
 | Zdatnost se zbraněmi | Jednoduché a válečné zbraně |
 | Výcvik se zbrojí | Lehká a střední zbroj a štíty |
@@ -167,9 +167,9 @@ Tento oddíl uvádí seznam kouzel Rangera. Kouzla jsou seřazena podle úrovně
 
 | Kouzlo | Škola | Zvláštní |
 |---|---|---|
-| Alarm | Odvrácení | R |
+| Alarm | Ochranná magie | R |
 | Animal Friendship | Očarování | — |
-| Cure Wounds | Odvrácení | — |
+| Cure Wounds | Ochranná magie | — |
 | Detect Magic | Věštění | C, R |
 | Detect Poison and Disease | Věštění | C, R |
 | Ensnaring Strike | Vyvolávání | C |
@@ -177,29 +177,29 @@ Tento oddíl uvádí seznam kouzel Rangera. Kouzla jsou seřazena podle úrovně
 | Fog Cloud | Vyvolávání | C |
 | Goodberry | Vyvolávání | — |
 | Hunter's Mark | Věštění | C |
-| Jump | Přeměna | — |
-| Longstrider | Přeměna | — |
+| Jump | Transmutace | — |
+| Longstrider | Transmutace | — |
 | Speak with Animals | Věštění | R |
 
 #### Kouzla Rangera 2. úrovně
 
 | Kouzlo | Škola | Zvláštní |
 |---|---|---|
-| Aid | Odvrácení | — |
+| Aid | Ochranná magie | — |
 | Animal Messenger | Očarování | R |
-| Barkskin | Přeměna | — |
-| Darkvision | Přeměna | — |
-| Enhance Ability | Přeměna | C |
+| Barkskin | Transmutace | — |
+| Darkvision | Transmutace | — |
+| Enhance Ability | Transmutace | C |
 | Find Traps | Věštění | — |
 | Gust of Wind | Zaklínání | C |
-| Lesser Restoration | Odvrácení | — |
+| Lesser Restoration | Ochranná magie | — |
 | Locate Animals or Plants | Věštění | R |
 | Locate Object | Věštění | C |
-| Magic Weapon | Přeměna | — |
-| Pass without Trace | Odvrácení | C |
-| Protection from Poison | Odvrácení | — |
+| Magic Weapon | Transmutace | — |
+| Pass without Trace | Ochranná magie | C |
+| Protection from Poison | Ochranná magie | — |
 | Silence | Iluze | C, R |
-| Spike Growth | Přeměna | C |
+| Spike Growth | Transmutace | C |
 
 #### Kouzla Rangera 3. úrovně
 
@@ -207,15 +207,15 @@ Tento oddíl uvádí seznam kouzel Rangera. Kouzla jsou seřazena podle úrovně
 |---|---|---|
 | Conjure Animals | Vyvolávání | C |
 | Daylight | Zaklínání | — |
-| Dispel Magic | Odvrácení | — |
-| Meld into Stone | Přeměna | R |
-| Nondetection | Odvrácení | M |
-| Plant Growth | Přeměna | — |
-| Protection from Energy | Odvrácení | C |
+| Dispel Magic | Ochranná magie | — |
+| Meld into Stone | Transmutace | R |
+| Nondetection | Ochranná magie | M |
+| Plant Growth | Transmutace | — |
+| Protection from Energy | Ochranná magie | C |
 | Revivify | Nekromancie | M |
-| Speak with Plants | Přeměna | — |
-| Water Breathing | Přeměna | R |
-| Water Walk | Přeměna | R |
+| Speak with Plants | Transmutace | — |
+| Water Breathing | Transmutace | R |
+| Water Walk | Transmutace | R |
 | Wind Wall | Zaklínání | C |
 
 #### Kouzla Rangera 4. úrovně
@@ -224,16 +224,16 @@ Tento oddíl uvádí seznam kouzel Rangera. Kouzla jsou seřazena podle úrovně
 |---|---|---|
 | Conjure Woodland Beings | Vyvolávání | C |
 | Dominate Beast | Očarování | C |
-| Freedom of Movement | Odvrácení | — |
+| Freedom of Movement | Ochranná magie | — |
 | Locate Creature | Věštění | C |
-| Stoneskin | Přeměna | C, M |
+| Stoneskin | Transmutace | C, M |
 
 #### Kouzla Rangera 5. úrovně
 
 | Kouzlo | Škola | Zvláštní |
 |---|---|---|
 | Commune with Nature | Věštění | R |
-| Greater Restoration | Odvrácení | M |
+| Greater Restoration | Ochranná magie | M |
 | Tree Stride | Vyvolávání | C |
 
 ### Podtřída Rangera: Hunter

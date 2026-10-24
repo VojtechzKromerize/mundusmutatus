@@ -37,6 +37,7 @@ JS = [
     ("10-kouzla.js", "/* ===== Kouzla: SRD 5.2.1 česky"),
     ("10k-import-pdf.js", "/* @čisté – Import listu postavy z PDF"),
     ("10p-pravidla.js", "/* @čisté – Pravidla boje a Artikulí"),
+    ("10q-plne-texty.js", "/* ===== Plné znění kouzel a předmětů"),
     ("10r-reakce.js", "/* @čisté – Okno reakce"),
     ("10t-tah.js", "/* @čisté – Účet tahu"),
     ("10u-ucinky.js", "/* @čisté – Účinky v jednom formátu"),

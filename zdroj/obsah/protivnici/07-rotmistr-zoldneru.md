@@ -22,7 +22,7 @@ Velitel roty, který prošel třemi válkami a dvěma pány. Zná šermířskou 
 
 **AC** 18 (kyrys, štít) · **HP** 75 (10d8+30) · **Rychlost** 30 stop · **Iniciativa** +2
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 16 (+3) | 14 (+2) | 16 (+3) | 11 (+0) | 12 (+1) | 14 (+2) |
 
