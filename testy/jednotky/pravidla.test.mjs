@@ -212,6 +212,29 @@ test("Artikule: druh zbroje z popisu AC statbloku", () => {
   assert.deepEqual(V(`bikZbDruhy("přirozená zbroj")`), [], "přirozená zbroj se neobětuje a nedává Resistance");
 });
 
+test("Artikule › featy: Martial Adept dává +1 Výdrž i kouzelníkovi; Mistr těžké zbroje +1 obětování jen těžké zbroje", () => {
+  assert.equal(V(`kVydMax(${karta({povolani: "Wizard 5", uroven: 5, rysy: ["Martial Adept"]})})`), 1);
+  assert.equal(V(`kVydMax(${karta({povolani: "Fighter 9", uroven: 9, rysy: ["Martial Adept"]})})`), 5);
+  const pl = r => V(`kZbrU(${karta({povolani: "Paladin 6", uroven: 6, vl: VL, rysy: r, vybaveni: [{n: "Plate Armor"}]})}).z.max`);
+  assert.equal(pl([]), 3, "komplexní zbroj 3×");
+  assert.equal(pl(["Heavy Armor Master"]), 4, "s Mistrem těžké zbroje 4×");
+  const ks = V(`kZbrU(${karta({povolani: "Paladin 6", uroven: 6, vl: VL, rysy: ["Heavy Armor Master"], vybaveni: [{n: "Chain Shirt"}]})}).z.max`);
+  assert.equal(ks, 2, "kroužková košile je střední zbroj – bez navýšení");
+});
+
+test("featy: plné znění – rámeček Artikule, tabulka, podnadpis a escapování HTML", () => {
+  const h = V(
+    `featyMd("Úvod <script>x</script>\\n\\n> **Artikule – Pohotovost.** Jednou za boj.\\n\\n## Tabulka\\n\\n| **k4** | **Výboj** |\\n|---|---|\\n| 1 | **Vztek.** Útok |")`,
+  );
+  assert.match(h, /&lt;script&gt;/);
+  assert.doesNotMatch(h, /<script>/);
+  assert.match(h, /<div class="srdart"><b>Artikule<\/b> <b>Pohotovost\.<\/b> Jednou za boj\.<\/div>/);
+  assert.match(h, /<h5>Tabulka<\/h5>/);
+  assert.match(h, /<th>k4<\/th><th>Výboj<\/th>/);
+  assert.match(h, /<td>1<\/td><td><b>Vztek\.<\/b> Útok<\/td>/);
+  assert.doesNotMatch(h, /---/);
+});
+
 test("Artikule: Resistance zbroje půlí zranění; Drtivá / Průrazná ji ignorují; Immunity 0, Vulnerability ×2", () => {
   const E = JSON.stringify({ac: "16 (kroužková zbroj)", p: {b: ""}});
   assert.deepEqual(V(`bojZasah(${E}, 10, "Slashing", {})`), {x: 5, pozn: ["Resistance zbroje"]});

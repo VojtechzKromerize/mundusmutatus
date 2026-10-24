@@ -112,9 +112,11 @@ function kVydMax(K) {
   const pb = kPB(K),
     T = (kTridy(K) || []).slice().sort((a, b) => b.u - a.u),
     h = T[0];
-  if (!h) return 0;
+  /* Martial Adept (Artikule 2026-10-24): +1 Výdrž, i postavě bez Výdrže z povolání */
+  const ma = kCtx(K).maRys(/^martial adept$/) ? 1 : 0;
+  if (!h) return ma;
   const p = KVYDP.find(([c]) => c === h.n);
-  return p ? Math.max(1, Math.ceil(pb * p[1])) : 0;
+  return (p ? Math.max(1, Math.ceil(pb * p[1])) : 0) + ma;
 }
 const kVydU = K => Math.min(kVydMax(K), +((kartaStav(K.id).zdr || {})["Výdrž"] || 0));
 /* techniky a chvaty: id, název, cena, Požehnání (1) / reakce (r) / bonusová akce (b), účinek */

@@ -511,6 +511,8 @@ window.MMDB={vetev:C.vetev,
   jaKarta(k,n){return rpc("mm_ja_karta",{p_karta:k,p_jmeno:n||null})},
   jaUvolni(k){return this.gm("mm_ja_uvolni",{p_karta:k})},
   kartaTexty(id){return rpc("mm_karta_texty",{p_id:id,p_token:htok()})},
+  /* plné znění pravidel mimo SRD (featy – Vojtův překlad) jen pro přihlášené: vypravěč, hráč s účtem nebo s heslem ke kartě */
+  pravidlaTexty(k){return rpc("mm_pravidla_texty",{p_klic:k,p_token:htok()})},
   kartaTextyUloz(id,t){return rpc("mm_karta_texty_uloz",{p_id:id,p_texty:t,p_token:htok()})},
   pokladnaNacti(){return api("/rest/v1/rpc/mm_pokladna_nacti",{method:"POST",body:"{}"})},
   pokladna(z,p,k){return rpc("mm_pokladna",{p_zmena:z,p_pozn:p||null,p_karta:k||null,p_token:htok()})},

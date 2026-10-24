@@ -207,12 +207,13 @@ const GCH = {
   iniciativa: "Iniciativa a protivníci",
   vyzbroj: "Výzbroj",
   serm: "Šerm a zápas",
+  featy: "Featy",
   zraneni: "Zranění a smrt",
   kriticka: "Kritická zranění",
 };
 const ARTB = [
   {id: "vira", t: "Kniha první", n: "Víra", d: "Ctnosti a hříchy, Závoj, Svědomí a Vyznání – co se děje s duší postavy."},
-  {id: "boj", t: "Kniha druhá", n: "Boj", d: "Iniciativa a protivníci, zbroj a zbraně, šerm a zápas."},
+  {id: "boj", t: "Kniha druhá", n: "Boj", d: "Iniciativa a protivníci, zbroj a zbraně, šerm a zápas, featy."},
   {id: "rany", t: "Kniha třetí", n: "Rány", d: "Zranění, smrt, návrat a kritická zranění."},
   {id: "rejstrik", t: "Dodatek", n: "Rejstřík", d: "Slovníček pojmů, které Artikule používají."},
 ];
@@ -595,7 +596,7 @@ const ARTK = [
         id: "vydrz",
         t: "Výdrž a učení",
         h: `
-  <p>Podobně jako mágové sesílají kouzla za spellsloty, válečníci využívají pro techniky a chvaty <b>Výdrž (V)</b>. Fighter má Výdrž rovnou svému proficiency bonusu, ostatní uvedená povolání polovině proficiency bonusu. Výdrž se obnovuje Long Restem.</p>
+  <p>Podobně jako mágové sesílají kouzla za spellsloty, válečníci využívají pro techniky a chvaty <b>Výdrž (V)</b>. Fighter má Výdrž rovnou svému proficiency bonusu, ostatní uvedená povolání polovině proficiency bonusu. Výdrž se obnovuje Long Restem. Feat Martial Adept přidává 1 Výdrž (i postavě bez Výdrže z povolání).</p>
   <p>Učení techniky nebo chvatu vyžaduje nalezení šermířského mistra a úhradu poplatku. Každý mistr učí jen svou školu a jen toho, koho přijme.</p>
   ${note("Cena.", "„1V + Požehnání“ znamená, že techniku smíš použít, když na kostce Závoje padne Požehnání, a zaplatíš 1 bod Výdrže. „Pokušení nepřítele“ znamená, že Pokušení padlo soupeři.")}`,
       },
@@ -685,6 +686,61 @@ const ARTK = [
     ],
   },
   /* ======== KNIHA III · RÁNY ======== */
+  {
+    id: "featy",
+    book: "boj",
+    t: "Featy",
+    sum: "Úpravy featů z D&D 2024 a dalších příruček pro tažení.",
+    intro: `<p>Featy platí tak, jak jsou psané, s úpravami níže. Plné znění všech featů (i s těmito úpravami v rámečcích) najdeš po přihlášení v Pravidlech › <a href="#pravidla/mimo/mimo-featy">Doplňky › Featy</a>.</p>`,
+    secs: [
+      {
+        id: "featy-zasady",
+        t: "Obecné zásady",
+        h: `
+  <ul>
+    <li><b>Přehoz k20 nepřehazuje Závoj.</b> Když feat dovolí hod k20 opakovat (Lucky, Bountiful Luck, Second Chance, Survivor, Boon of Fortune's Favor, Elven Accuracy…), kostka Závoje zůstává z prvního hodu.</li>
+    <li><b>Zrušený krit nic nespouští.</b> Kritický zásah, který cíl obětováním zbroje či štítu změnil v běžný, nespouští přínosy navázané na kritický zásah (Crusher, Piercer, Slasher, Lords' Alliance Agent…).</li>
+    <li><b>Temné dary a Pokušení.</b> Když máš kvůli jedničce na k20 házet záchranný hod temného daru, smíš místo něj přijmout ${Z.P}: získáš bod hříchu a účinek nenastane.</li>
+  </ul>`,
+      },
+      {
+        id: "featy-upravy",
+        t: "Upravené featy",
+        h: `
+  ${tb(
+    ["Feat", "Úprava"],
+    [
+      [
+        "Alert",
+        "Výměnu iniciativy nahrazuje <b>Pohotovost</b>: jednou za boj uskutečníš svůj tah před tahem libovolného nepřítele; nepřítel jedná až po tobě.",
+      ],
+      [
+        "Heavy Armor Master",
+        "Těžká zbroj snese o 1 obětování víc, únava se ti v ní nezdvojnásobuje a obléknout ji zvládneš za polovinu času (10 minut, s panošem 5).",
+      ],
+      [
+        "Delicious Pain",
+        "<b>Zocelené tělo</b>: jednou za krátký či dlouhý odpočinek změníš kritický zásah v běžný, aniž bys obětoval zbroj nebo štít.",
+      ],
+      ["Polearm Master", "U zbraní s perkem Ratiště místo Pohotového úderu: bez nevýhody v kontaktním boji a zapření proti Vpřed! reakcí."],
+      ["Charger", "Bonus 1k8 se perkem Vpřed! nezdvojnásobuje."],
+      [
+        "Gunner",
+        "Zdatnost s píšťalou a hákovnicí; Nabíjecí tě neomezuje, ale každé nabití stojí bonusovou akci; čištění po Pokušení u Hrom a kouř! tě nestojí akci.",
+      ],
+      [
+        "Healer (Felčar)",
+        "Počítáš se jako felčar (výhoda na CON záchranu po Těžkém kritickém zranění), krvácení zastavíš akcí Použití; postavu na 0 HP jen stabilizuješ.",
+      ],
+      ["Durable", "Výhoda i na CON záchranu proti vyčerpání po Těžkém či horším kritickém zranění."],
+      ["Martial Adept", "Místo manévrů dvě šermířské techniky nebo zápasnické chvaty (bez hledání mistra) a +1 Výdrž, i bez Výdrže z povolání."],
+      ["Boon of Irresistible Offense", "Ignoruje i Resistance zbroje."],
+    ],
+  )}
+  ${note("Vyřazeno.", "Revenant Blade (jméno patří featu Revenant pro Navrácené) a Fighting Initiate (bojové styly jsou v D&amp;D 2024 samy featy).")}`,
+      },
+    ],
+  },
   {
     id: "zraneni",
     book: "rany",

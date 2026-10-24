@@ -2159,5 +2159,23 @@ begin
   end if;
 end $$;
 
+-- Plné znění pravidel mimo SRD (Vojtův překlad featů, 2026-10-24): jen pro přihlášené (vypravěč, hráč s účtem
+-- nebo s heslem ke kartě), nikdy ve veřejných souborech webu. Zapisuje se SQL (vývojová hned, ostrá s nasazením).
+create table if not exists public.pravidla_texty (
+  klic    text primary key,
+  data    jsonb not null,
+  zmeneno timestamptz not null default now()
+);
+alter table public.pravidla_texty enable row level security;
+revoke all on public.pravidla_texty from anon, authenticated;
+create or replace function public.mm_pravidla_texty(p_klic text, p_token text default null) returns jsonb
+language plpgsql stable security definer set search_path = public as $$
+begin
+  if auth.uid() is null and public.mm_hrac_kdo(p_token) is null then return null; end if;
+  return (select data from public.pravidla_texty where klic = p_klic);
+end $$;
+revoke all on function public.mm_pravidla_texty(text, text) from public;
+grant execute on function public.mm_pravidla_texty(text, text) to anon, authenticated;
+
 -- ▼ Doplňte svůj e‑mail (účet založený v Authentication → Users) a spusťte:
 -- insert into public.gm (user_id) select id from auth.users where email = 'VAS@EMAIL.CZ' on conflict do nothing;

@@ -1325,7 +1325,8 @@ function kZbrUziti(c, S) {
     N = c.N,
     o = {};
   if (N.z && BZBR[N.z.dr]) {
-    const mx = parseInt(BZBR[N.z.dr][1], 10) || 1;
+    /* Mistr těžké zbroje (Artikule 2026-10-24): těžká zbroj snese o 1 obětování víc */
+    const mx = (parseInt(BZBR[N.z.dr][1], 10) || 1) + (N.z.max == null && c.maRys && c.maRys(/^heavy armor master$/) ? 1 : 0);
     o.z = {k: N.z.dr, n: N.z.n, max: mx, u: Math.min(mx, +U[N.z.dr] || 0)};
     if (o.z.u >= mx) N.z = null;
   }

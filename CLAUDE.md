@@ -73,6 +73,8 @@ zdroj/kouzla/        kouzla SRD (5e-bits, src/2024) + preklad.json + mimo-srd.js
                      která kouzla čtou pro automatiku dřívější text (ta/va), aby se nezměnilo chování karty a Boje
 zdroj/mimo-srd/      podtřídy, featy, zázemí, Aasimar z D&D 2024 mimo SRD – vlastní shrnutí mechaniky
                      → art/mimo-srd.json (sestav.py, ručně; kontroluje formát a délky textů)
+                     featy_plne.py: plné znění featů (Vojtův překlad) z MD v projektu claude.ai → databáze pravidla_texty
+                     (jen přihlášení, mm_pravidla_texty) – text NIKDY do repozitáře ani art/
 zdroj/vybaveni/      Vojtův Přehled vybavení (Word → katalog.py → katalog.json) + Artikule (vlastnosti zbraní ARTZV, druhy zbroje ARTZB)
                      a vazba magických předmětů na SRD → art/vybaveni.json (sestav.py, ručně); stránka #pravidla/vybaveni (14d),
                      věci z katalogu jdou přidat do vybavení karty (`kVybPridej`), v inventáři se najdou podle jména (`vybNajdi`)
