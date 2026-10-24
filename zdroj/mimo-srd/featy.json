@@ -25,7 +25,7 @@
  },
  {
   "en": "Musician",
-  "cz": "Muzikant",
+  "cz": "Hudebník",
   "kat": "origin",
   "pred": "",
   "t": "Zdatnost se 3 hudebními nástroji dle volby. Na konci krátkého nebo dlouhého odpočinku můžeš zahrát na nástroj, s nímž máš zdatnost, a dát Heroic Inspiration spojencům, kteří tě slyší; počet spojenců = bonus zdatnosti."
@@ -113,7 +113,7 @@
  },
  {
   "en": "Defensive Duelist",
-  "cz": "Obranný šermíř",
+  "cz": "Duelant",
   "kat": "general",
   "pred": "4. úroveň, AGI 13+",
   "vl": [
@@ -159,7 +159,7 @@
  },
  {
   "en": "Fey Touched",
-  "cz": "Políbený vílami",
+  "cz": "Dotek víl",
   "kat": "general",
   "pred": "4. úroveň",
   "vl": [
@@ -225,7 +225,7 @@
  },
  {
   "en": "Keen Mind",
-  "cz": "Bystrý rozum",
+  "cz": "Bystrá mysl",
   "kat": "general",
   "pred": "4. úroveň, INT 13+",
   "vl": [
@@ -293,7 +293,7 @@
  },
  {
   "en": "Mounted Combatant",
-  "cz": "Jezdecký bojovník",
+  "cz": "Jízdní bojovník",
   "kat": "general",
   "pred": "4. úroveň",
   "vl": [
@@ -351,7 +351,7 @@
  },
  {
   "en": "Resilient",
-  "cz": "Odolný",
+  "cz": "Nezdolný",
   "kat": "general",
   "pred": "4. úroveň",
   "vl": [
@@ -485,7 +485,7 @@
  },
  {
   "en": "Spell Sniper",
-  "cz": "Kouzelný ostrostřelec",
+  "cz": "Kouzlostřelec",
   "kat": "general",
   "pred": "4. úroveň, rys Spellcasting nebo Pact Magic",
   "vl": [
@@ -564,7 +564,7 @@
  },
  {
   "en": "Blind Fighting",
-  "cz": "Boj naslepo",
+  "cz": "Boj poslepu",
   "kat": "fightStyle",
   "pred": "rys Fighting Style",
   "t": "Máš Blindsight 10 stop."
