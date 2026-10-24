@@ -88,6 +88,13 @@ h2::before{content:"¶ ";color:var(--kal);font-family:var(--f-body);font-weight:
 .controls select{max-width:100%}
 button:focus-visible,select:focus-visible,.card:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 svg#map{width:100%;height:auto;display:block;touch-action:pan-y;cursor:grab}
+/* mapa Koruny ve dvou vrstvách: podklad #mapz (krajina s drahými filtry, kreslí se jen při změně výřezu) a nad ním #map
+   (sídla, popisky, výběr); při tažení a přibližování se jen posune a zvětší jejich obal .mapvrstvy (transformace samotného svg
+   by prohlížeč nutila překreslit filtry v každém snímku), okraj zatím ukáže barvu sousedních zemí */
+.mapplatno{position:relative;overflow:hidden;background:var(--nbr);min-width:0}
+.mapvrstvy{position:relative;will-change:transform;transform-origin:0 0;-webkit-user-select:none;user-select:none}
+.mapvrstvy>svg#mapz{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none}
+.mapvrstvy>svg#map{position:relative}
 svg#map:active{cursor:grabbing}
 .maplegend{border-top:1px solid var(--rule);padding-top:8px;font-size:.9rem}
 .maplegend summary{cursor:pointer;font-family:var(--f-label);font-weight:700;letter-spacing:.06em;color:var(--muted)}
@@ -674,7 +681,7 @@ a.pchar:hover{border-color:var(--kal)}
 /* mobil: mapa nad ovládáním, kratší úvod */
 @media (max-width:640px){
   .lyrleg{display:flex}
-  .mapbox>svg#map{order:-1}
+  .mapbox>.mapplatno{order:-1}
 }
 
 /* úvod */
@@ -707,7 +714,7 @@ a.pchar:hover{border-color:var(--kal)}
 /* Praha */
 #pmap{width:100%;height:auto;display:block;touch-action:none;background:var(--land)}
 /* mapy s filtry se vykreslí jednou do vlastní vrstvy; posouvání stránky je pak jen přesune */
-svg#map,svg#pmap,svg#smap{will-change:transform;transform:translateZ(0);contain:paint}
+svg#map,svg#mapz,svg#pmap,svg#smap{will-change:transform;transform:translateZ(0);contain:paint}
 .pdet a{color:var(--kal)}
 .pmk{cursor:pointer}.pmk:focus-visible circle{stroke:var(--gold)}
 .pmkn{font-family:var(--f-label);font-weight:700;pointer-events:none}

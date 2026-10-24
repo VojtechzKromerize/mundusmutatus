@@ -59,3 +59,19 @@ test("mapa: kraje Čech a landfrídy – každý kraj má svou oblast uvnitř Č
     );
   }
 });
+
+test("mapa: podklad (#mapz) se při výběru rodu nekreslí znovu, při změně vrstvy podkladu ano", async () => {
+  await S.ev(`typeof drawMapK === "function" || mmLina("mapa")`);
+  if (V(`typeof drawMapK`) !== "function") return;
+  S.ev(`drawMapK()`);
+  const prvni = () => S.ev(`document.getElementById("mapz").firstElementChild`);
+  const z0 = prvni();
+  assert.ok(z0, "podklad je nakreslený");
+  assert.ok(V(`document.querySelectorAll("#map .seat").length`) > 50, "sídla jsou v horní vrstvě");
+  assert.equal(V(`document.querySelectorAll("#mapz .seat").length`), 0);
+  S.ev(`setSel(FAM.find(f => !f.nbr && f.seats.length).id, false)`);
+  assert.equal(prvni(), z0, "výběr rodu podklad nepřekreslí");
+  S.ev(`st.duchy = true; drawMapK()`);
+  assert.notEqual(prvni(), z0, "vrstva Země a knížectví je v podkladu");
+  S.ev(`st.duchy = false; setSel(null, false)`);
+});

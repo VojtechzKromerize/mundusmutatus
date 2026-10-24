@@ -5638,15 +5638,10 @@ function krajeJmena(svg, s, k) {
     t(x, y, 11, 3.4, `fill:var(--${L.c});font-style:italic`, L.n);
   }
 }
-function drawMapK() {
-  svg.classList.toggle("mapw", mapWide());
-  const vb = st.vb || (mapWide() ? mapFit(mapPreset()) : VB[st.zoom]);
-  svg.setAttribute("viewBox", vb.join(" "));
-  /* měřítko kresby: na široké mapě podle skutečné šířky v pixelech, aby značky a písmo měly stejnou velikost jako dřív */
-  const s = mapWide() ? (vb[2] / Math.max(300, svg.getBoundingClientRect().width)) * (880 / 680) : vb[2] / 680,
-    k = Math.max(s, 0.55);
-  svg.innerHTML = "";
-  svg.classList.toggle("measuring", !!st.measure);
+/* podklad mapy (vrstva #mapz): vše pod sídly; drawMapK ho volá, jen když se změní výřez nebo vrstvy podkladu */
+function mapPodklad(Z, vb, s, k) {
+  Z.setAttribute("viewBox", vb.join(" "));
+  Z.innerHTML = "";
   const R = {x: vb[0] - vb[2] * 0.6, y: vb[1] - vb[3] * 0.6, width: vb[2] * 2.2, height: vb[3] * 2.2};
   const defs = el("defs", {});
   const rg = el("radialGradient", {id: "vig", cx: "50%", cy: "50%", r: "72%"});
@@ -5688,31 +5683,9 @@ function drawMapK() {
     f2.appendChild(el("feColorMatrix", {in: "n", type: "matrix", values: "0 0 0 0 0.45  0 0 0 0 0.33  0 0 0 0 0.16  0 0 0 -3 1.6"}));
     defs.appendChild(f2);
   }
-  for (const c of ["kat", "kal", "mix"]) {
-    const f = el("filter", {id: "tout-" + c, x: "-40%", y: "-40%", width: "180%", height: "180%"});
-    f.appendChild(el("feMorphology", {in: "SourceAlpha", operator: "dilate", radius: (1.1 * s).toFixed(2), result: "d"}));
-    f.appendChild(el("feFlood", {style: `flood-color:var(--${c})`}));
-    f.appendChild(el("feComposite", {in2: "d", operator: "in", result: "o"}));
-    const mg = el("feMerge", {});
-    mg.appendChild(el("feMergeNode", {in: "o"}));
-    mg.appendChild(el("feMergeNode", {in: "SourceGraphic"}));
-    f.appendChild(mg);
-    defs.appendChild(f);
-    const n = el("filter", {id: "nout-" + c, x: "-50%", y: "-50%", width: "200%", height: "200%"});
-    n.appendChild(el("feMorphology", {in: "SourceAlpha", operator: "dilate", radius: (1.75 * s).toFixed(2), result: "d2"}));
-    n.appendChild(el("feFlood", {style: "flood-color:var(--ink)"}));
-    n.appendChild(el("feComposite", {in2: "d2", operator: "in", result: "o2"}));
-    n.appendChild(el("feMorphology", {in: "SourceAlpha", operator: "dilate", radius: (0.95 * s).toFixed(2), result: "d1"}));
-    n.appendChild(el("feFlood", {style: `flood-color:var(--${c})`}));
-    n.appendChild(el("feComposite", {in2: "d1", operator: "in", result: "o1"}));
-    const m2 = el("feMerge", {});
-    for (const k of ["o2", "o1", "SourceGraphic"]) m2.appendChild(el("feMergeNode", {in: k}));
-    n.appendChild(m2);
-    defs.appendChild(n);
-  }
-  svg.appendChild(defs);
-  const G = attrs => svgG(svg, attrs);
-  svg.appendChild(el("rect", {x: R.x, y: R.y, width: R.width, height: R.height, fill: "var(--nbr)"}));
+  Z.appendChild(defs);
+  const G = attrs => svgG(Z, attrs);
+  Z.appendChild(el("rect", {x: R.x, y: R.y, width: R.width, height: R.height, fill: "var(--nbr)"}));
   /* neighbouring countries: watercolour washes, dotted inked borders */
   const gw = G({filter: "url(#wash)", opacity: ".85"});
   for (const [c, rs] of NBRS)
@@ -5790,7 +5763,7 @@ function drawMapK() {
       );
       pd.appendChild(pat);
     }
-    svg.appendChild(pd);
+    Z.appendChild(pd);
     const DBY = Object.fromEntries(DIO.map(d => [d.id, d]));
     const gd = G({filter: "url(#wob)"});
     for (const id of DIO_ORDER)
@@ -5812,7 +5785,7 @@ function drawMapK() {
       el("line", {x1: 0, y1: 0, x2: 0, y2: 5 * s, stroke: "var(--city)", "stroke-width": (1.1 * s).toFixed(2), "stroke-opacity": ".5"}),
     );
     pd.appendChild(pat);
-    svg.appendChild(pd);
+    Z.appendChild(pd);
     const gm = G({filter: "url(#wob)"});
     for (const u of DOMAIN) {
       const f = byId[u.id];
@@ -5822,19 +5795,12 @@ function drawMapK() {
       for (const poly of DOMAIN_POLY[u.id]) {
         const pg = el("polygon", {
           points: rpts(poly),
-          class: "dompoly",
           fill: isC ? "url(#h_city)" : "none",
           stroke: isC ? "var(--city)" : "none",
           "stroke-width": ((on ? 2.4 : 1.1) * s).toFixed(2),
           "stroke-opacity": ".8",
           "stroke-linejoin": "round",
           style: isC ? "" : `fill:${domCol(u.c, on ? 0.5 : 0.3)};stroke:${domCol(u.c)};stroke-width:${((on ? 2.6 : 1.2) * s).toFixed(2)}`,
-        });
-        pg.appendChild(el("title", {}, f.name));
-        pg.addEventListener("click", e => {
-          if (mapDrag && mapDrag.moved) return;
-          e.stopPropagation();
-          show(u.id);
         });
         gm.appendChild(pg);
       }
@@ -6017,7 +5983,7 @@ function drawMapK() {
         if (ang < -90) ang += 180;
         const mx = (x1 + x2) / 2,
           my = (y1 + y2) / 2;
-        svg.appendChild(
+        Z.appendChild(
           el(
             "text",
             {
@@ -6037,7 +6003,7 @@ function drawMapK() {
   }
   for (const [t, lo, la, rot] of RIVLBL) {
     const [x, y] = P(lo, la);
-    svg.appendChild(
+    Z.appendChild(
       el(
         "text",
         {
@@ -6055,7 +6021,7 @@ function drawMapK() {
   }
   for (const [t, lo, la, rot] of FORLBL) {
     const [x, y] = P(lo, la);
-    svg.appendChild(
+    Z.appendChild(
       el(
         "text",
         {
@@ -6074,7 +6040,7 @@ function drawMapK() {
   }
   for (const [t, lo, la] of NLBL) {
     const [x, y] = P(lo, la);
-    svg.appendChild(
+    Z.appendChild(
       el(
         "text",
         {x, y, class: "maplbl", "font-size": (15 * k).toFixed(1), "text-anchor": "middle", opacity: ".6"},
@@ -6084,7 +6050,7 @@ function drawMapK() {
   }
   for (const [t, lo, la, kk] of LLBL) {
     const [x, y] = P(lo, la);
-    svg.appendChild(
+    Z.appendChild(
       el(
         "text",
         {x, y, class: "maplbl", "font-size": (22 * kk * k).toFixed(1), "text-anchor": "middle", fill: "var(--kal)", opacity: ".85"},
@@ -6115,8 +6081,8 @@ function drawMapK() {
       }),
     );
     g.appendChild(el("rect", {x: x + 10, y: y + 5, width: w - 20, height: h - 10, fill: "none", stroke: "var(--kal)", "stroke-width": ".8"}));
-    svg.appendChild(el("text", {x: x + w / 2, y: y + 23, class: "cart", "font-size": "18", "text-anchor": "middle"}, "Koruna česká"));
-    svg.appendChild(
+    Z.appendChild(el("text", {x: x + w / 2, y: y + 23, class: "cart", "font-size": "18", "text-anchor": "middle"}, "Koruna česká"));
+    Z.appendChild(
       el(
         "text",
         {x: x + w / 2, y: y + 37, class: "rivlbl", "font-size": "10.5", "text-anchor": "middle", style: "fill:var(--ink)", stroke: "none"},
@@ -6125,9 +6091,9 @@ function drawMapK() {
     );
   }
   /* paper grain, age stains and vignette */
-  svg.appendChild(el("rect", {x: R.x, y: R.y, width: R.width, height: R.height, filter: "url(#stain)", opacity: ".22", "pointer-events": "none"}));
-  svg.appendChild(el("rect", {x: R.x, y: R.y, width: R.width, height: R.height, filter: "url(#paper)", opacity: ".26", "pointer-events": "none"}));
-  svg.appendChild(el("rect", {x: vb[0], y: vb[1], width: vb[2], height: vb[3], fill: "url(#vig)", "pointer-events": "none"}));
+  Z.appendChild(el("rect", {x: R.x, y: R.y, width: R.width, height: R.height, filter: "url(#stain)", opacity: ".22", "pointer-events": "none"}));
+  Z.appendChild(el("rect", {x: R.x, y: R.y, width: R.width, height: R.height, filter: "url(#paper)", opacity: ".26", "pointer-events": "none"}));
+  Z.appendChild(el("rect", {x: vb[0], y: vb[1], width: vb[2], height: vb[3], fill: "url(#vig)", "pointer-events": "none"}));
   /* double frame, hand-ruled */
   const gfr = G({filter: "url(#wob)", "pointer-events": "none"});
   gfr.appendChild(
@@ -6152,6 +6118,66 @@ function drawMapK() {
       "stroke-width": (0.7 * s).toFixed(2),
     }),
   );
+}
+function drawMapK() {
+  svg.classList.toggle("mapw", mapWide());
+  /* konec gesta: obraz posunutý a zvětšený jen CSS transformací (mapGesto v 02) se nahradí novým vykreslením */
+  mapVrstvy.style.transform = "";
+  const vb = st.vb || (mapWide() ? mapFit(mapPreset()) : VB[st.zoom]);
+  svg.setAttribute("viewBox", vb.join(" "));
+  /* měřítko kresby: na široké mapě podle skutečné šířky v pixelech, aby značky a písmo měly stejnou velikost jako dřív */
+  const s = mapWide() ? (vb[2] / Math.max(300, mapVrstvy.getBoundingClientRect().width)) * (880 / 680) : vb[2] / 680,
+    k = Math.max(s, 0.55);
+  svg.innerHTML = "";
+  svg.classList.toggle("measuring", !!st.measure);
+  /* podklad – krajina, hranice, řeky, lesy, hory, popisky krajiny, papír a rám – je ve vlastní vrstvě #mapz pod mapou: jeho
+     filtry (chvění inkoustu, akvarel, papír) jsou na kresbě nejdražší, a tak se kreslí znovu, jen když se změní výřez nebo vrstva,
+     která ho mění; výběr rodu, sídla, jejich popisky, vazby a měření kreslí jen horní vrstva #map */
+  const kz = JSON.stringify([vb, s, st.dio, st.dom, st.dom ? st.sel : 0, st.duchy, st.kraje, st.roads]);
+  if (svgZ.dataset.k !== kz) {
+    mapPodklad(svgZ, vb, s, k);
+    svgZ.dataset.k = kz;
+  }
+  const defs = el("defs", {});
+  for (const c of ["kat", "kal", "mix"]) {
+    const f = el("filter", {id: "tout-" + c, x: "-40%", y: "-40%", width: "180%", height: "180%"});
+    f.appendChild(el("feMorphology", {in: "SourceAlpha", operator: "dilate", radius: (1.1 * s).toFixed(2), result: "d"}));
+    f.appendChild(el("feFlood", {style: `flood-color:var(--${c})`}));
+    f.appendChild(el("feComposite", {in2: "d", operator: "in", result: "o"}));
+    const mg = el("feMerge", {});
+    mg.appendChild(el("feMergeNode", {in: "o"}));
+    mg.appendChild(el("feMergeNode", {in: "SourceGraphic"}));
+    f.appendChild(mg);
+    defs.appendChild(f);
+    const n = el("filter", {id: "nout-" + c, x: "-50%", y: "-50%", width: "200%", height: "200%"});
+    n.appendChild(el("feMorphology", {in: "SourceAlpha", operator: "dilate", radius: (1.75 * s).toFixed(2), result: "d2"}));
+    n.appendChild(el("feFlood", {style: "flood-color:var(--ink)"}));
+    n.appendChild(el("feComposite", {in2: "d2", operator: "in", result: "o2"}));
+    n.appendChild(el("feMorphology", {in: "SourceAlpha", operator: "dilate", radius: (0.95 * s).toFixed(2), result: "d1"}));
+    n.appendChild(el("feFlood", {style: `flood-color:var(--${c})`}));
+    n.appendChild(el("feComposite", {in2: "d1", operator: "in", result: "o1"}));
+    const m2 = el("feMerge", {});
+    for (const k of ["o2", "o1", "SourceGraphic"]) m2.appendChild(el("feMergeNode", {in: k}));
+    n.appendChild(m2);
+    defs.appendChild(n);
+  }
+  svg.appendChild(defs);
+  /* Panství rodů: plochy jsou v podkladu, klepnout se dá na jejich neviditelnou kopii v horní vrstvě */
+  if (st.dom)
+    for (const u of DOMAIN) {
+      const f = byId[u.id];
+      if (!f) continue;
+      for (const poly of DOMAIN_POLY[u.id]) {
+        const pg = el("polygon", {points: rpts(poly), class: "dompoly", fill: "#000", "fill-opacity": "0"});
+        pg.appendChild(el("title", {}, f.name));
+        pg.addEventListener("click", e => {
+          if (mapDrag && mapDrag.moved) return;
+          e.stopPropagation();
+          show(u.id);
+        });
+        svg.appendChild(pg);
+      }
+    }
   const sel = st.sel,
     labels = [];
   const relT = {};

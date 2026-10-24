@@ -131,6 +131,10 @@ let st = {
   tb: null,
 };
 const svg = document.getElementById("map");
+/* podklad mapy pod #map (krajina, hranice, papír – drahé filtry); kreslí ho mapPodklad v 02b, jen když se změní výřez */
+const svgZ = document.getElementById("mapz");
+/* obal obou vrstev: při gestu se posouvá a zvětšuje jen on (mapGesto) */
+const mapVrstvy = document.getElementById("mapvrstvy");
 /* mapa přes celou šířku na počítači (2026-10-24, Vojta): v Mapě od 1100 px má svg výšku podle okna a výřez se roztáhne do šířky
    (mapFit); na telefonu a ve Výpravě zůstává pevný poměr 680 : 605. Svět mapy sahá od Bavor po Košice (MAPWB: x, y, šířka, výška). */
 const MAPW_MQ = matchMedia("(min-width:1100px)");
@@ -141,7 +145,8 @@ const VBW = {all: [-80, 40, 890, 560]};
 const mapPreset = () => (mapWide() && VBW[st.zoom]) || VB[st.zoom];
 const mapAsp = () => {
   if (!mapWide()) return 605 / 680;
-  const r = svg.getBoundingClientRect();
+  /* obal mapy: jeho rozměr se při gestu nemění (svg samo je posunuté a zvětšené transformací) */
+  const r = (svg.closest(".mapplatno") || svg).getBoundingClientRect();
   return r.width > 0 && r.height > 0 ? Math.max(0.42, Math.min(0.95, r.height / r.width)) : 605 / 680;
 };
 /* výřez v poměru stran okna mapy: přidá šířku (nebo výšku) kolem středu a udrží ho ve světě mapy */
@@ -3167,12 +3172,27 @@ if (matchMedia("(max-width:700px)").matches)
     d.open = false;
   });
 
-/* zoom & pan: wheel, mouse drag, two-finger pinch; full redraw after the gesture settles */
+/* zoom & pan: wheel, mouse drag, two-finger pinch; full redraw after the gesture settles.
+   Během gesta se mapa nekreslí znovu: obal obou vrstev (#mapz, #map) se jen posune a zvětší CSS transformací – prohlížeč
+   tak jen přesouvá hotový obraz a nepočítá znovu filtry papíru a inkoustu; drawMapK transformaci zruší a vykreslí nový výřez. */
 const mapDrag = {moved: false};
 (function () {
   const pts = new Map();
   let last = null,
     drawT = null;
+  /* rozměr mapy bez transformace gesta (obal .mapplatno se nehýbe) */
+  const mapRect = () => (svg.closest(".mapplatno") || svg).getBoundingClientRect();
+  function mapGesto() {
+    const a = (svg.getAttribute("viewBox") || "").split(/\s+/).map(Number),
+      b = st.vb,
+      r = mapRect();
+    if (a.length !== 4 || !(a[2] > 0) || !(r.width > 0)) return drawMap();
+    const kx = a[2] / b[2],
+      ky = a[3] / b[3],
+      tx = ((a[0] - b[0]) / b[2]) * r.width,
+      ty = ((a[1] - b[1]) / b[3]) * r.height;
+    mapVrstvy.style.transform = `translate3d(${tx.toFixed(1)}px,${ty.toFixed(1)}px,0) scale(${kx.toFixed(4)},${ky.toFixed(4)})`;
+  }
   const curVB = () => st.vb || (mapWide() ? mapFit(mapPreset()) : VB[st.zoom]);
   /* široká mapa: při změně velikosti okna se výřez přepočítá na nový poměr stran */
   let rsT = null;
@@ -3199,12 +3219,18 @@ const mapDrag = {moved: false};
   };
   function setVB(v) {
     st.vb = clampVB(v);
-    svg.setAttribute("viewBox", st.vb.join(" "));
+    mapGesto();
     clearTimeout(drawT);
-    drawT = setTimeout(drawMap, 180);
+    /* s prstem nebo tlačítkem na mapě se překreslí až po delší pauze, po puštění hned (end) */
+    drawT = setTimeout(mapDokresli, pts.size ? 450 : 200);
+  }
+  function mapDokresli() {
+    clearTimeout(drawT);
+    drawT = null;
+    drawMap();
   }
   function toUser(cx, cy) {
-    const r = svg.getBoundingClientRect(),
+    const r = mapRect(),
       v = curVB();
     return [v[0] + ((cx - r.left) / r.width) * v[2], v[1] + ((cy - r.top) / r.height) * v[3]];
   }
@@ -3223,8 +3249,7 @@ const mapDrag = {moved: false};
       w = Math.min(v[2], maxW),
       h = w * mapAsp();
     st.vb = clampVB([x - w / 2, y - h / 2, w, h]);
-    clearTimeout(drawT);
-    drawMap();
+    mapDokresli();
   };
   svg.addEventListener(
     "wheel",
@@ -3244,7 +3269,7 @@ const mapDrag = {moved: false};
     if (!pts.has(e.pointerId)) return;
     const prev = pts.get(e.pointerId);
     pts.set(e.pointerId, [e.clientX, e.clientY]);
-    const r = svg.getBoundingClientRect(),
+    const r = mapRect(),
       v = curVB();
     if (pts.size === 1 && e.pointerType === "mouse" && e.buttons === 1) {
       const dx = ((e.clientX - prev[0]) / r.width) * v[2],
@@ -3278,6 +3303,10 @@ const mapDrag = {moved: false};
   const end = e => {
     pts.delete(e.pointerId);
     if (pts.size < 2) last = null;
+    if (!pts.size && drawT) {
+      clearTimeout(drawT);
+      drawT = setTimeout(mapDokresli, 30);
+    }
     setTimeout(() => {
       if (!pts.size) mapDrag.moved = false;
     }, 0);
