@@ -54,8 +54,8 @@ v `zdroj/obsah/NÁVOD.md`, testy v `testy/README.md`. Tady je jen to, co ušetř
 ## Struktura
 
 ```
-zdroj/koruna.html    kostra stránky (~53 kB): hlavička, HTML pohledů, zavaděč dat, řádky /*@vloz web/…*/
-zdroj/web/styly.css  všechny styly (~2 800 řádků)
+zdroj/koruna.html    kostra stránky (~69 kB): hlavička, HTML pohledů, zavaděč dat, řádky /*@vloz web/…*/
+zdroj/web/styly.css  všechny styly (~3 700 řádků)
 zdroj/web/js/NN-*.js hlavní skript po oddílech (viz níže); dohromady jeden skript ve sdíleném
                      prostoru – pořadí podle čísla, funkce a konstanty jsou vidět ze všech souborů
 zdroj/build.py       sestaví public/ (hráč) nebo vypravec/ (--vypravec, NEPUBLIKOVAT); --staticky bez databáze;
@@ -97,7 +97,7 @@ do kostry řádkem `/*@vloz web/js/NN-nazev.js*/` na správné místo (a do sezn
 Kód je formátovaný Prettierem (od 2026-10-21; `.prettierrc.json`, řádek do 150 znaků): **po úpravě skriptu spusť
 `npm run format`** – rychlá kontrola CI neformátovaný soubor odmítne. Piš běžné víceřádkové funkce, ne jednořádkové
 zhuštěniny (ty dřív dělaly konflikty mezi relacemi). Hledej grepem (`grep -n … zdroj/web/js/*.js`), soubory jsou delší
-(~48 000 řádků), čti výřezy. Úpravy dělej Editem s jednoznačným úryvkem; nikdy nepřepisuj soubor z výstupu nástroje.
+(~50 000 řádků), čti výřezy. Úpravy dělej Editem s jednoznačným úryvkem; nikdy nepřepisuj soubor z výstupu nástroje.
 Značky dat pro build (`/*@FAM@*/ []`, `/*@GM@*/ false` …) smí mít mezeru – build ji snese.
 
 **Vazby mezi soubory hlídá kontrola kódu jako u modulů** (od 2026-10-21; skutečné moduly prohlížeče ne – rozbily by
@@ -223,7 +223,7 @@ Hlavní orientační body:
 - K dispozici je Python, Node a Playwright. Nejdřív `npm ci` (esbuild, ESLint, Prettier, jsdom; web sám balíčky
   nepotřebuje). **Po každé úpravě skriptu `npm run format && npm run kontrola`** (~10 s): formát, zdvojená a neznámá jména,
   čárka jako operátor, jádro volající líné díly – chyby ukáže v souboru a řádku.
-- **Rychlé testy výpočtů: `npm test`** (~20 s, `testy/jednotky/*.test.mjs`; jeden soubor `node --test testy/jednotky/kouzla.test.mjs` ~5 s):
+- **Rychlé testy výpočtů: `npm test`** (~1 min, každý soubor se stránkou ~5 s, `testy/jednotky/*.test.mjs`; jeden soubor `node --test testy/jednotky/kouzla.test.mjs` ~5 s):
   skript stránky v jsdom (bez prohlížeče), volá funkce přímo – pravidla postavy (bonusy, HP, sloty, AC, záchrany, rysy mimo SRD),
   útok (`bojUtokPriprav`), Artikule (zbroj, obětování, kritická zranění, Výdrž), stavy, kouzla (`kSpUcinek`, UCINKY, oblasti, rituály),
   katalog vybavení, zápis útoku vypravěče, kalendář a herní čas, Závoj, generátor (tajemství, zmínky) – přehled v `testy/README.md`. Kostky: `S.kostky([[číslo, stěn], …])`; `const` skriptu se čtou přes `V("výraz")`.
