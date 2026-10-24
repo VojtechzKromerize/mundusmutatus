@@ -290,7 +290,7 @@ var ZMPOLE = {
   img: "portrét",
   forma: "podoba",
   zbrU: "obětování zbroje",
-  zbrVl: "vlastnosti zbraní",
+  zbrVl: "perky zbraní",
 };
 var zmV = v =>
   v == null

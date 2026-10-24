@@ -40,7 +40,7 @@ jobs:
       DB_MAIN: ${{ secrets.SUPABASE_DB_MAIN }}
       PGOPTIONS: "-c client_min_messages=warning"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ref: ${{ inputs.akce == 'schéma do ostré' && 'main' || github.ref }}
       - name: Kontrola nastavení

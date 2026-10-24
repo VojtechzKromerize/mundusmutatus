@@ -3175,7 +3175,7 @@ const BVLZ = {
   Přibodnutí:
     "Požehnání: cíl je hrotem přidržen – do začátku tvého příštího tahu má rychlost 0, ty se nesmíš pohnout. Pokušení: hrot uvízne ve zbroji, cíl ti může Reakcí vytrhnout zbraň (STR save, SO 12).",
   Ostrá: "Při Slashing proti cíli bez Resistance je kritický zásah už na 19–20.",
-  Půlmeč: "Bonusovou akcí přehmat zbraně: Piercing útoky získají vlastnost Průrazná, kostka zranění klesne o stupeň (d8 na d6).",
+  Půlmeč: "Bonusovou akcí přehmat zbraně: Piercing útoky získají perk Průrazná, kostka zranění klesne o stupeň (d8 na d6).",
   "Do slabin!":
     "Požehnání: proti Restrained nebo Prone cíli jde o automatický kritický zásah. Pokušení: dýka sklouzne po plátu, další útok proti tobě má výhodu.",
   Strhující:
@@ -3225,8 +3225,8 @@ const BZBK = {Vycpávaná: "vycpavana", Kroužková: "krouzkova", Plátová: "pl
 const bikE = t => String(t).replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"})[c]);
 const bik = (f, tip, c) =>
   `<img class="bi bimg bik${c ? " " + c : ""}" src="art/img/boj/${f}-48.webp" srcset="art/img/boj/${f}-48.webp 48w, art/img/boj/${f}-96.webp 96w" sizes="24px" width="24" height="24" alt="${bikE(tip)}" aria-label="${bikE(tip)}" data-tip="${bikE(tip)}" loading="lazy" decoding="async" loading="lazy">`;
-const bikZvTip = k => `${k} (vlastnost zbraně): ${BVLZ[k]}`;
-const bikZv = k => (BZVK[k] ? bik("zv-" + BZVK[k], `${k} (vlastnost zbraně): ${BVLZ[k]}`, "bik-zv") : "");
+const bikZvTip = k => `${k} (perk zbraně): ${BVLZ[k]}`;
+const bikZv = k => (BZVK[k] ? bik("zv-" + BZVK[k], `${k} (perk zbraně): ${BVLZ[k]}`, "bik-zv") : "");
 const bikZrTip = t =>
   t === "magicke"
     ? "Magické zranění – Resistance a Immunity vůči nemagickým útokům na ně neplatí"

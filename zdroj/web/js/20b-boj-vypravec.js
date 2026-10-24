@@ -246,8 +246,10 @@ function bojUtokVyhodnot0(s, u) {
     Object.assign(o, {hit, krit, AC, acT: AC != null ? `AC ${AC}${kr ? ` s krytem +${kr}` : ""}` : "AC neznámé"});
     if (!hit) {
       o.zve = bojZvVyhodnot(s, u, h, n, E, ZS, false, false);
-      o.gm = `${n.n}: ${u.hod}${mis ? " (přirozená 1)" : ""} proti ${o.acT}${o.neprima ? " (Nepřímá: poloviční kryt neplatí)" : ""} → vedle${o.zve.map(e => " · " + e.txt).join("")}`;
-      o.vys = "vedle";
+      /* Graze (mistrovství, 20g): při minutí zranění ve výši modifikátoru */
+      const gr = typeof bojWmMinuti === "function" ? bojWmMinuti(o, u, n, E) : "";
+      o.gm = `${n.n}: ${u.hod}${mis ? " (přirozená 1)" : ""} proti ${o.acT}${o.neprima ? " (Nepřímá: poloviční kryt neplatí)" : ""} → vedle${gr}${o.zve.map(e => " · " + e.txt).join("")}`;
+      o.vys = gr ? `vedle, škrábnutí ${o.graze}` : "vedle";
       r.push(o);
       return;
     }
@@ -277,6 +279,8 @@ function bojUtokVyhodnot0(s, u) {
       o.pozn = [...z1.pozn, `${zb.k === "Štít" ? "štít" : zb.k.toLowerCase() + " zbroj"} obětována – krit jako běžný zásah`];
     }
     o.zve = bojZvVyhodnot(s, u, h, n, E, ZS, true, krit);
+    /* mistrovství zbraně (20g): Topple, Sap, Slow, Vex, Push – přidá se k vyhodnocení perků */
+    if (typeof bojWmVyhodnot === "function") o.wme = bojWmVyhodnot(u, h, n, E, o);
     o.gm = `${n.n}: ${u.hod} proti ${o.acT} → ${krit ? "kritický zásah" : "zásah"}${o.ostra != null ? ` (Ostrá: 19 seká cíl bez Resistance, přihozeno ${o.ostra})` : ""}${o.slabin != null ? ` (Do slabin!: ležící cíl, přihozeno ${o.slabin})` : ""}, ${u.dmg}${z.pozn.length ? " → " + z.x + " (" + z.pozn.join(", ") + ")" : ""}${o.sokKrit ? " · sok je kritickým zásahem poražen (Artikule) – ledaže pošle do rány pacholka („Za pána!“)" : ""}${krit && n.druh === "zhoubce" ? " · zhoubce smí obětovat zbroj" : ""}${o.zve.map(e => " · " + e.txt).join("")}`;
     o.vys = o.sokKrit
       ? "kritický zásah – poražen"
@@ -286,6 +290,7 @@ function bojUtokVyhodnot0(s, u) {
           ? "kritický zásah"
           : "zásah";
     if (o.obet) o.gm += ` · ${o.obet} obětována, zranění bez kritu ${o.x}`;
+    if ((o.wme || []).length) o.gm += o.wme.map(e => " · " + e.txt).join("");
     r.push(o);
   });
   return {an, h, r};
@@ -396,7 +401,8 @@ function bojUtokProved(s, u, id) {
         L.ap = 1;
         if (U.nov <= 0) mrtvi.push(o.n);
       }
-      L.res = o.krit ? "krit" : "zasah";
+      L.res = o.hit === false ? "vedle" : o.krit ? "krit" : "zasah";
+      if (o.graze) L.zt += ` · Graze ${o.graze}`;
     } else L.res = "vedle";
     if (u.zv && u.zv.r === "pok" && (u.zv.a || []).length && !o.houf) L.zvk = {h: u.h, ci: o.ci, a: u.zv.a.slice(), w: bojZvJm(u)};
     bojLog(o.ci, L, o.n);
@@ -431,6 +437,11 @@ function bojUtokProved(s, u, id) {
     });
     try {
       bojZvProved(z, u, V);
+    } catch (e) {
+      console.error(e);
+    }
+    try {
+      if (typeof bojWmProved === "function") bojWmProved(z, u, V);
     } catch (e) {
       console.error(e);
     }

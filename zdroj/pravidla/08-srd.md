@@ -154,7 +154,7 @@ Prostor je obsazený, pokud se v něm nachází tvor, nebo pokud je zcela vypln�
 
 Příležitostný útok můžeš provést, když tvor, kterého vidíš, opustí tvůj dosah pomocí své akce, bonusové akce, reakce nebo některé ze svých rychlostí. Abys provedl příležitostný útok, použij reakci k jednomu útoku na blízko zbraní nebo úderem beze zbraně proti tvoru, který útok vyprovokoval. Útok proběhne těsně předtím, než tvor opustí tvůj dosah. *Viz též* „Hraní hry“ („Boj“).
 
-> **Artikule:** Zbraně s vlastností Ratiště (Halberd, Pike, Glaive, Spear) umožňují příležitostný útok i tehdy, když nepřítel vstoupí do jejich dosahu 10 stop; v kontaktu na 5 stop má jejich nositel nevýhodu.
+> **Artikule:** Zbraně s perkem Ratiště (Halberd, Pike, Glaive, Spear) umožňují příležitostný útok i tehdy, když nepřítel vstoupí do jejich dosahu 10 stop; v kontaktu na 5 stop má jejich nositel nevýhodu.
 
 #### Paralyzed [Condition] (Ochromen [stav])
 
@@ -248,7 +248,7 @@ Když si připravíš kouzlo, sešleš ho normálně (a spotřebuješ všechny p
 
 Pokud máš Resistance vůči určitému typu zranění, zranění tohoto typu se ti snižuje na polovinu (zaokrouhleno dolů). Resistance se na jeden zdroj zranění uplatní jen jednou. *Viz též* „Hraní hry“ („Zranění a léčení“).
 
-> **Artikule:** Zbroj dává Resistance: vycpávaná (Padded, Leather, Studded Leather, Hide) proti Bludgeoning; kroužková (Chain Shirt, Scale Mail, Ring Mail, Chain Mail) proti Bludgeoning a Slashing; plátová (Breastplate, Half Plate, Splint) proti Slashing a Piercing; komplexní (Plate) proti Bludgeoning, Slashing a Piercing. Zbraně s vlastností Drtivá (Mace, Flail, Warhammer) ignorují Resistance zbroje proti Bludgeoning, s vlastností Průrazná (Handgun, Heavy Crossbow, Lance, Halberd, War Pick) Resistance zbroje proti Piercing.
+> **Artikule:** Zbroj dává Resistance: vycpávaná (Padded, Leather, Studded Leather, Hide) proti Bludgeoning; kroužková (Chain Shirt, Scale Mail, Ring Mail, Chain Mail) proti Bludgeoning a Slashing; plátová (Breastplate, Half Plate, Splint) proti Slashing a Piercing; komplexní (Plate) proti Bludgeoning, Slashing a Piercing. Zbraně s perkem Drtivá (Mace, Flail, Warhammer) ignorují Resistance zbroje proti Bludgeoning, s perkem Průrazná (Handgun, Heavy Crossbow, Lance, Halberd, War Pick) Resistance zbroje proti Piercing.
 
 #### Restrained [Condition] (Zadržen [stav])
 

@@ -301,7 +301,7 @@ Postava získává zdatnost s různými zbraněmi a nástroji ze svého povolán
 - **Zbraně.** Zbraní může vládnout kdokoli, ale zdatnost ti umožňuje vládnout jí lépe. Máš-li zdatnost se zbraní, přičítáš svůj bonus zdatnosti k hodům na útok, které s ní provádíš.
 - **Nástroje.** Máš-li zdatnost s nástrojem, můžeš přičíst svůj bonus zdatnosti ke každému ověření vlastnosti, které s tímto nástrojem provádíš. Máš-li navíc zdatnost v dovednosti, která se při tomto ověření také používá, máš na ověření i výhodu. To znamená, že při jednom ověření vlastnosti můžeš těžit ze zdatnosti v dovednosti i ze zdatnosti s nástrojem zároveň.
 
-> **Artikule:** Kdo má se zbraní zdatnost, využívá i její fyzické vlastnosti podle Artikulí (např. Drtivá, Průrazná, Ratiště, Šikovná, Ostrá, Půlmeč); Weapon Mastery (mistrovství zbraní) se nemění.
+> **Artikule:** Kdo má se zbraní zdatnost, využívá i její perky podle Artikulí (např. Drtivá, Průrazná, Ratiště, Šikovná, Ostrá, Půlmeč); Weapon Mastery (mistrovství zbraní) se nemění.
 
 ### Akce
 

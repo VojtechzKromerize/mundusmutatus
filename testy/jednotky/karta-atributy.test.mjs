@@ -65,3 +65,29 @@ test("dovednosti: nevýhoda na Stealth z nasazené zbroje jde do hodu i na kartu
   if (pr) assert.ok(h.includes(`<div class="bdmdr kprof"><span>${pr} <small>`), `${pr}: řádek se zdatností`);
   if (ex) assert.ok(h.includes(`<div class="bdmdr kprof kexp"><span>${ex} <small>`), `${ex}: řádek s expertízou`);
 });
+
+test("nad vlastnostmi Zdatnost, Rychlost a Iniciativa jako stříbrné mince s hodnotou; Iniciativa hází", () => {
+  const h = V(`bdmTelo({}, {}, KARTBY.balduin, false, {}, "vl")`);
+  const sr = h.slice(h.indexOf('<div class="bdmsr">'), h.indexOf('<div class="bdmvl">'));
+  assert.ok(sr.length > 0, "řada nad vlastnostmi");
+  for (const [ik, n] of [
+    ["pb", "Zdatnost"],
+    ["rych", "Rychlost"],
+    ["ini", "Iniciativa"],
+  ]) {
+    assert.ok(sr.includes(`src="art/img/atributy/${ik}-48.webp"`) && sr.includes(`alt="${n}"`), `${n}: mince s názvem pro čtečku`);
+    for (const s of [48, 96]) assert.ok(existsSync(new URL(`../../art/img/atributy/${ik}-${s}.webp`, import.meta.url)), `${n}: soubor ${s} px`);
+    assert.ok(sr.includes(`data-tip="${n}:`), `${n}: popisek při najetí`);
+  }
+  assert.ok(sr.includes(`<b>${V(`bsg(kPB(KARTBY.balduin))`)}</b>`), "hodnota zdatnosti");
+  assert.ok(/<button type="button" class="bdmsri" data-khod="in"/.test(sr), "Iniciativa je tlačítko hodu");
+  assert.ok(!sr.includes("bdmch"), "bez dřívějších bublin");
+});
+
+test("záložky karty: malované štíty pro sedm oddílů, Společníci linková ikona", () => {
+  for (const id of ["vl", "akce", "kouzla", "vyb", "rysy", "denik", "zaznam"]) {
+    assert.ok(V(`bdmZalIk(${JSON.stringify(id)})`).includes(`src="art/img/zalozky/${id}-48.webp"`), `${id}: štít`);
+    for (const s of [48, 96]) assert.ok(existsSync(new URL(`../../art/img/zalozky/${id}-${s}.webp`, import.meta.url)), `${id}: soubor ${s} px`);
+  }
+  assert.ok(V(`bdmZalIk("spol")`).startsWith("<svg"), "Společníci zatím bez štítu");
+});

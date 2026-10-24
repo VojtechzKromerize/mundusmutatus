@@ -215,6 +215,7 @@ function bojEfDel(n, e) {
 function bojKonecTahu(s, id) {
   try {
     if (typeof bojOblTah === "function") bojOblTah(s, id, "kon");
+    if (typeof bojWmTahVlastnika === "function") bojWmTahVlastnika(s, id, "kon");
   } catch (e) {
     console.error(e);
   }
@@ -276,7 +277,7 @@ function bojPcKonec(s, id) {
               BOPV[+v] = Object.assign(o, {kid: K.id});
               vyzvyNacti();
             })
-            .catch(() => {}),
+            .catch(er => mmHlasG("Výzvu k opakované záchraně se nepodařilo poslat: " + (er.message || er), 5000)),
         0,
       );
     else bojMsg(id, `${e.n}: na konci tahu záchrana ${o.ab} SO ${o.dc} – úspěch ukončí ${e.st || "účinek"}.`);
@@ -332,6 +333,7 @@ function bojPcZac(s, id) {
 function bojZacatekTahu(s, id) {
   try {
     if (typeof bojOblTah === "function") bojOblTah(s, id, "zac");
+    if (typeof bojWmTahVlastnika === "function") bojWmTahVlastnika(s, id, "zac");
   } catch (e) {
     console.error(e);
   }
@@ -1128,7 +1130,7 @@ function bojPravidla() {
         "",
       )}<dt>${bi("vycerpani")}Vyčerpání <small>Exhaustion</small></dt><dd>každá úroveň −2 ke všem testům d20 a −5 stop rychlosti; 6. úroveň = smrt; dlouhý odpočinek ubere 1 úroveň.</dd></dl></article>
     <article class="bqr"><h4>Akce v boji</h4><dl class="bdl">${BAKCE.map(([n, en, t]) => `<dt>${n} <small>${en}</small></dt><dd>${t}</dd>`).join("")}</dl><p class="rsmall"><a href="#pravidla">Pravidla SRD česky →</a></p></article>
-    <article class="bqr"><h4>Vlastnosti zbraní</h4><dl class="bdl">${Object.entries(BVLZ)
+    <article class="bqr"><h4>Perky zbraní</h4><dl class="bdl">${Object.entries(BVLZ)
       .map(([k, v]) => `<dt>${bikZv(k)}${k}</dt><dd>${v}</dd>`)
       .join("")}</dl>${L("vyzbroj", "Výzbroj")}</article>
     <article class="bqr"><h4>Zbroj</h4><dl class="bdl">${Object.entries(BZBR)

@@ -32,12 +32,36 @@ const kBufAC = (K, N) =>
   );
 const kBufRes = K => ucRes(kBufEf(K));
 const kBufAdv = (K, ab) => ucAdv(kBufEf(K), ab);
-/* přehled na kartě: co na postavě právě působí */
-function kBufHtml(K) {
-  const B = kBufEf(K);
-  if (!B.length) return "";
-  return `<ul class="kuc kbufl">${B.map(b => `<li>${kKonI()} <b>${besc(b.n)}</b>${b.od !== K.n ? ` <small>od ${besc(b.od)}</small>` : ""} <small>${besc(b.e.p || "")}</small></li>`).join("")}</ul>`;
+/* přehled na kartě: co na postavě právě působí. Značka soustředění jen u kouzel, která ho drží; v oddílu Kouzla (akce = true)
+   jde vlastní účinek ukončit a soustředění přerušit – s ním skončí i účinky toho kouzla (2026-10-23) */
+function kBufHtml(K, akce) {
+  const B = kBufEf(K),
+    U = kUc(K),
+    ed = akce && kMuze(K),
+    kn = kKonDrzi(K) ? kKonNazev(K) : "",
+    uc = b => (b.vl ? U.find(x => kzJm(String(x.n).replace(/\s*⇒.*$/, "")) === b.n) : null);
+  const R = B.map(b => {
+    const u = uc(b),
+      kon = u ? !!u.kon : false;
+    return `<li>${kon ? kKonI() + " " : ""}<b>${besc(b.n)}</b>${b.od !== K.n ? ` <small>od ${besc(b.od)}</small>` : ""} <small>${besc(b.e.p || "")}</small>${ed && u ? ` <button type="button" class="bdmmini" data-kbufx="${besc(u.n)}">${kon ? "ukončit soustředění" : "ukončit"}</button>` : ""}</li>`;
+  });
+  /* soustředění na kouzlo bez posílení na sobě (Hex, Hold Person…) */
+  if (ed && kn && !B.some(b => b.n === kzJm(kn)))
+    R.unshift(
+      `<li>${kKonI()} <b>${besc(kn)}</b> <small>soustředění</small> <button type="button" class="bdmmini" data-kkonend>ukončit soustředění</button></li>`,
+    );
+  return R.length ? `<ul class="kuc kbufl">${R.join("")}</ul>` : "";
 }
+document.addEventListener("click", async e => {
+  const b = e.target.closest && e.target.closest("[data-kbufx],[data-kkonend]");
+  if (!b) return;
+  const root = b.closest(".bdm"),
+    K = root && KARTBY[root.dataset.kid];
+  if (!K || !kMuze(K)) return;
+  if (b.dataset.kbufx) await kUcKonci(K, [b.dataset.kbufx], "– ukončeno na kartě");
+  else await kKonZtrata(K, "ukončeno na kartě");
+  kartyPrekresli();
+});
 
 /* ---- seslání: dočasné HP na sebe (False Life, Armor of Agathys), maximum HP cílům (Aid) ---- */
 /* Věštec – Expert Divination (2026-10-22): kouzlo Věštění ze slotu 2.+ stupně vrátí jeden utracený slot nižšího stupně (nejvýš 5.) */
@@ -468,7 +492,7 @@ function bojOblSpust(s, a, id, rucne) {
             };
             vyzvyNacti();
           })
-          .catch(() => {}),
+          .catch(er => mmHlasG("Výzvu k záchraně se nepodařilo poslat: " + (er.message || er), 5000)),
       0,
     );
   else bojMsg(id, `${a.n}: záchrana ${o.ab} SO ${a.dc || "?"} – ${dmg} ${BZRT[o.t] || o.t}${o.pol ? ", úspěch polovina" : ""}.`);

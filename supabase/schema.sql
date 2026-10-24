@@ -394,7 +394,7 @@ end $$;
 -- Tracker iniciativy: vypravěč ukládá celý stav boje (sloty, přiřazení, nepřátelé, kostka)
 -- stav boje pro hráče: bez účastníků se skryt=true, bez jejich řádků záznamu a bez jejich obsazení slotů
 create or replace function public.mm_boj_orez(s jsonb) returns jsonb
-language sql immutable as $$
+language sql immutable set search_path = public as $$
   select case when s is null then null else
     (s - 'npc' - 'zaz' - 'obsazeni')
     -- údaje NPC jen pro vypravěče (scéna 2026-10-23: postoj, DC, víra, cíle, statistiky) hráčům nechodí
@@ -965,8 +965,14 @@ begin
   if not exists (select 1 from jsonb_array_elements(coalesce(s -> 'hraci', '[]'::jsonb)) h where h ->> 'id' = p_hrac) then
     raise exception 'neznámá postava';
   end if;
-  if jsonb_typeof(x) <> 'object' or exists (select 1 from jsonb_object_keys(x) k where k not in ('ci', 'cim', 'hod', 'd', 'adv', 'dmg', 't', 'drt', 'pru', 'plos', 'kmin', 'sl', 'sid', 'zv')) then
+  if jsonb_typeof(x) <> 'object' or exists (select 1 from jsonb_object_keys(x) k where k not in ('ci', 'cim', 'hod', 'd', 'adv', 'dmg', 't', 'drt', 'pru', 'plos', 'kmin', 'sl', 'sid', 'zv', 'wm')) then
     raise exception 'neplatný útok';
+  end if;
+  -- mistrovství zbraně (Weapon Mastery, 2026-10-24): jméno, SO Topple, zranění Graze
+  if x ? 'wm' and (jsonb_typeof(x -> 'wm') <> 'object' or exists (select 1 from jsonb_object_keys(x -> 'wm') k where k not in ('n', 'dc', 'x'))
+      or coalesce(x -> 'wm' ->> 'n', '') not in ('Cleave', 'Graze', 'Nick', 'Push', 'Sap', 'Slow', 'Topple', 'Vex')
+      or not public.mm_cislo(x -> 'wm' -> 'dc', 1, 40) or not public.mm_cislo(x -> 'wm' -> 'x', 0, 10)) then
+    raise exception 'neplatné mistrovství zbraně';
   end if;
   -- vlastnosti zbraně podle Artikulí (2026-10-20): kostka Závoje, zvolené a aktivní vlastnosti, Vpřed! / Půlmeč, SO záchrany
   if x ? 'zv' and (jsonb_typeof(x -> 'zv') <> 'object' or exists (select 1 from jsonb_object_keys(x -> 'zv') k where k not in ('z', 'r', 'v', 'a', 'vp', 'pm', 'dc'))
@@ -1199,7 +1205,7 @@ language sql stable security definer set search_path = public as $$
 $$;
 -- odebere q kusů věci jménem n (bez ohledu na velikost písmen); vrátí {inv, vec} – vec je kopie předmětu s počtem q
 create or replace function public.mm_inv_uber(inv jsonb, n text, q int) returns jsonb
-language plpgsql immutable as $$
+language plpgsql immutable set search_path = public as $$
 declare i int := 0; e jsonb; m int;
 begin
   if q is null or q < 1 then raise exception 'neplatný počet'; end if;
@@ -1215,7 +1221,7 @@ begin
 end $$;
 -- přidá věc: ke stejné věci (jméno, magický předmět, ne v batohu) se přičte počet, jinak nový řádek
 create or replace function public.mm_inv_pridej(inv jsonb, v jsonb) returns jsonb
-language plpgsql immutable as $$
+language plpgsql immutable set search_path = public as $$
 declare i int := 0; e jsonb;
 begin
   for e in select * from jsonb_array_elements(coalesce(inv, '[]'::jsonb)) loop
@@ -1227,7 +1233,7 @@ begin
   return coalesce(inv, '[]'::jsonb) || jsonb_build_array(v);
 end $$;
 create or replace function public.mm_vec_ok(v jsonb) returns boolean
-language sql immutable as $$
+language sql immutable set search_path = public as $$
   select jsonb_typeof(v) = 'object' and jsonb_typeof(v -> 'n') = 'string' and char_length(v ->> 'n') between 1 and 80
     and jsonb_typeof(v -> 'q') = 'number' and public.mm_cislo(v -> 'q', 1, 9999)
     and not exists (select 1 from jsonb_object_keys(v) k where k not in ('n', 'q', 'mag', 'w', 'pozn', 'nab'))
@@ -2077,6 +2083,7 @@ grant execute on function public.mm_boj_hrac(text, text, jsonb, text) to anon, a
 grant execute on function public.mm_boj_utok(text, jsonb, text) to anon, authenticated;
 grant execute on function public.mm_karta_uloz(jsonb, text) to anon, authenticated;
 grant execute on function public.mm_karta_stav(text, text, jsonb, text) to anon, authenticated;
+revoke all on function public.mm_karta_smaz(text) from public, anon;
 grant execute on function public.mm_karta_smaz(text) to authenticated;
 grant execute on function public.mm_hod(jsonb, text) to anon, authenticated;
 revoke all on function public.mm_ukaz(jsonb) from public, anon;

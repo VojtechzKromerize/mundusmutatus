@@ -76,11 +76,9 @@ function kPenSloz(pen) {
   Object.entries(pen || {}).forEach(([k, v]) => {
     if (KMINC[k]) cu += (+v || 0) * KMINC[k];
   });
-  const P = {},
-    ep = +(pen || {}).EP || 0;
-  cu -= ep * 50;
-  if (ep) P.EP = ep;
-  ["PP", "GP", "SP", "CP"].forEach(k => {
+  /* jen mince tažení: PP i EP se rozmění na zlaté a groše (2026-10-23) */
+  const P = {};
+  KMINCE.forEach(k => {
     const n = Math.floor(cu / KMINC[k]);
     if (n) {
       P[k] = n;
@@ -90,7 +88,7 @@ function kPenSloz(pen) {
   return P;
 }
 const kPenSmenHtml = () =>
-  `<details class="bjapd kpens"><summary>Směnit mince</summary><form class="kvlh" data-kpenf><input name="q" type="number" min="1" max="9999999" value="10" aria-label="Kolik"><select name="z" aria-label="Z mincí">${["CP", "SP", "EP", "GP", "PP"].map(k => `<option${k === "SP" ? " selected" : ""}>${k}</option>`).join("")}</select> → <select name="na" aria-label="Na mince">${["CP", "SP", "EP", "GP", "PP"].map(k => `<option${k === "GP" ? " selected" : ""}>${k}</option>`).join("")}</select><button class="gbtn ghost">Směnit</button><button type="button" class="gbtn ghost" data-kpensloz ${btip("Drobné rozmění na co nejméně mincí (elektrum nechá)")}>Rozměnit na nejvyšší</button></form><p class="rsmall">1 PP = 10 GP = 20 EP = 100 SP = 1000 CP.</p></details>`;
+  `<details class="bjapd kpens"><summary>Směnit mince</summary><form class="kvlh" data-kpenf><input name="q" type="number" min="1" max="9999999" value="10" aria-label="Kolik"><select name="z" aria-label="Z mincí">${["CP", "SP", "GP"].map(k => `<option${k === "SP" ? " selected" : ""}>${k}</option>`).join("")}</select> → <select name="na" aria-label="Na mince">${["CP", "SP", "GP"].map(k => `<option${k === "GP" ? " selected" : ""}>${k}</option>`).join("")}</select><button class="gbtn ghost">Směnit</button><button type="button" class="gbtn ghost" data-kpensloz ${btip("Drobné rozmění na co nejméně mincí: zlaté, groše, haléře")}>Rozměnit na nejvyšší</button></form><p class="rsmall">1 GP (uherský zlatý) = 10 SP (pražských grošů) = 100 CP (haléřů).</p></details>`;
 /* ---- historie karty: předchozí stavy z databáze (snímek nejvýš jednou za 10 minut), obnovení ---- */
 const kHistShrn = s => {
   const L = [];
@@ -1002,13 +1000,18 @@ function poklHtml() {
   const P = (POKL && POKL.pen) || {},
     K = jaK(),
     muze = GMV || (K && KZAM.has(K.id));
-  return `<section><h3 class="uvh2">Pokladna družiny</h3><p class="kpok">${
-    ["PP", "GP", "EP", "SP", "CP"]
-      .filter(k => P[k])
-      .map(k => `<b>${P[k]}</b> ${k}`)
-      .join(" · ") || "prázdná"
+  return `<section><h3 class="uvh2">${kMinceIk("pokladna")}Pokladna družiny</h3><p class="kpok">${
+    ["PP", "GP", "EP", "SP", "CP"].some(k => +P[k]) ? kPenHtml(P) : "prázdná"
   }</p>
-    ${muze && window.MMDB ? `<form class="kvlh" data-poklf><select name="k" aria-label="Mince">${["GP", "SP", "CP", "PP", "EP"].map(k => `<option>${k}</option>`).join("")}</select><input name="v" type="number" min="1" max="1000000" placeholder="kolik" required><input name="p" placeholder="za co (nepovinné)" maxlength="100"><button class="gbtn ghost" data-pokl="1" name="smer" value="1">Vložit</button><button class="gbtn ghost" data-pokl="-1" name="smer" value="-1">Vybrat</button></form>` : ""}
+    ${
+      muze && window.MMDB
+        ? `<form class="kvlh" data-poklf><select name="k" aria-label="Mince">${kMinceNab(P)
+            .map(k => `<option>${k}</option>`)
+            .join(
+              "",
+            )}</select><input name="v" type="number" min="1" max="1000000" placeholder="kolik" required><input name="p" placeholder="za co (nepovinné)" maxlength="100"><button class="gbtn ghost" data-pokl="1" name="smer" value="1">Vložit</button><button class="gbtn ghost" data-pokl="-1" name="smer" value="-1">Vybrat</button></form>`
+        : ""
+    }
     ${typeof poklVeciHtml === "function" ? poklVeciHtml() : ""}
     ${
       ((POKL && POKL.log) || []).length
@@ -1146,6 +1149,7 @@ document.addEventListener("click", async e => {
   const ry = T("[data-krys]");
   if (ry && K) {
     if (!SRDRY) await srdRysy();
+    if (!SRDRYT && kRysSrd(ry.dataset.krys)) await srdRysyTexty();
     mmPop(kRysPopis(K, ry.dataset.krys));
     return;
   }

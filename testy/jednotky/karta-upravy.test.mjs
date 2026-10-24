@@ -118,3 +118,100 @@ test("vybavení: předmět z databáze schválený vypravěčem (návrh „vec�
     await S.ev(`kartaStavZmen("balduin", {inv: ${JSON.stringify(pred)}})`);
   }
 });
+
+test("karta 2026-10-23 b: skryté zdatnosti se nezobrazují, ruční účinek, ukončení soustředění v Kouzlech", () => {
+  const pdf = V(`KARTBY.balduin.zd.jazyky`) || [];
+  sKartou(
+    {
+      dopl: {bez: pdf.length ? ["jazyky:" + pdf[0]] : []},
+      uc: [
+        {n: "Hex", kon: true, h: 1},
+        {n: "Armor of Agathys", h: 1},
+      ],
+    },
+    () => {
+      const h = V(`bdmZdatHtml(KARTBY.balduin, true)`);
+      if (pdf.length) {
+        assert.doesNotMatch(h, new RegExp(`data-kzdvrat="jazyky:${pdf[0]}"`), "skrytý jazyk není vidět");
+        assert.match(h, /data-kzdskr/, "tlačítko skryté (1)");
+      }
+      assert.match(V(`kUcRucneHtml()`), /data-kucrf/);
+      const k = V(`kBufHtml(KARTBY.balduin, true)`);
+      assert.match(k, /data-kbufx="Armor of Agathys">ukončit</, "vlastní účinek jde ukončit");
+      assert.match(k, /data-kkonend>ukončit soustředění/, "soustředění na Hex jde přerušit");
+      assert.doesNotMatch(V(`kBufHtml(KARTBY.balduin)`), /data-kbufx/, "v listu Účinky bez tlačítek (mají vlastní ukončit)");
+    },
+  );
+});
+
+test("vybavení b: barva podle vzácnosti, ikona připoutání vlevo, přehled připoutání", () => {
+  const inv = [
+    {n: "Ring of Protection", q: 1, pripoutano: true},
+    {n: "Cloak of Protection", q: 1},
+    {n: "Breastplate", q: 1, obl: true},
+  ];
+  sKartou({inv}, () => {
+    assert.equal(V(`kInvVz({n: "Ring of Protection"})`), "kvz-vz");
+    assert.equal(V(`kInvVz({n: "Rope"})`), "");
+    const h = V(`bdmVyb(KARTBY.balduin)`);
+    assert.match(h, /class="kvik kvikpri on" data-kpri="0"/);
+    assert.match(h, /class="kvik kvikobl on" data-kobl="2"/);
+    assert.match(h, /data-bdmsh="pri"/);
+    const [t, b] = V(`bdmPriList(KARTBY.balduin)`);
+    assert.equal(t, "Připoutání · 1/3");
+    assert.match(b, /Ring of Protection[\s\S]*Zrušit připoutání/);
+    assert.match(b, /Cloak of Protection[\s\S]*Připoutat/);
+  });
+});
+
+test("kouzla: po použité akci zešednou kouzla za akci, bonusová zůstanou; reakce použitá – kouzla za reakci zešednou", () => {
+  const h = V(`bdmKouzla({}, {id: "h1"}, KARTBY.balduin, false, {boj: true, mojeTah: true, BP: {a: 1, b: 0}, rk: true})`);
+  const rows = h.split('<div class="bdmspr').slice(1);
+  const r = n => rows.find(x => x.includes(`>${n}</button>`)) || "";
+  assert.match(r("Eldritch Blast"), /^ bdmspu/, "Eldritch Blast (1A) po akci zešedne");
+  assert.doesNotMatch(r("Hex"), /^ bdmspu/, "Hex (1BA) zůstává");
+  assert.match(r("Shield"), /^ bdmspu/, "Shield (1R) po použité reakci zešedne");
+});
+
+test("hlavička: stavy s dopadem, vyčerpání a štítky soustředění, posílení a účinků", () => {
+  sKartou(
+    {
+      stavy: ["sražen", "otrávený", "soustředí"],
+      vycerp: 1,
+      uc: [
+        {n: "Hex", kon: true, h: 1},
+        {n: "Armor of Agathys", h: 1},
+      ],
+      pri: ["Rage"],
+    },
+    () => {
+      const h = V(`bdmPusobiHtml(KARTBY.balduin, kartaStav("balduin").stavy)`);
+      assert.match(h, /<b>Sražen \(Prone\)<\/b> · /);
+      assert.match(h, /<b>Otrávený \(Poisoned\)<\/b>/);
+      assert.match(h, /Vyčerpání 1 \(Exhaustion\)<\/b> · −2 ke všem hodům d20/);
+      assert.match(h, /bdmpuskon[^>]*>[\s\S]*Soustředění: Hex/);
+      assert.match(h, /Armor of Agathys/);
+      assert.match(h, /zurivost-48\.webp[^<]*>Rage/);
+      assert.equal((h.match(/>Hex</g) || []).length, 0, "Hex jen u soustředění, ne podruhé");
+    },
+  );
+  sKartou({stavy: [], uc: [], pri: [], vycerp: 0}, () => {
+    assert.equal(V(`bdmPusobiHtml(KARTBY.balduin, [])`), "", "nic nepůsobí – nic se neukáže");
+  });
+});
+
+test("okno rysu: rys ze SRD má český text (Second Wind), text z listu D&D Beyond je pod ním sbalený", async () => {
+  const fs = await import("node:fs");
+  const R = JSON.parse(fs.readFileSync(new URL("../../art/srd-rysy.json", import.meta.url), "utf8"));
+  const T = JSON.parse(fs.readFileSync(new URL("../../art/srd-rysy-texty.json", import.meta.url), "utf8"));
+  assert.ok(R["Second Wind"], "Second Wind je v rejstříku SRD");
+  assert.match(T[R["Second Wind"][1]], /1d10 plus tvoje úroveň Fightera/, "český text Second Wind");
+  S.ev(`SRDRY = ${JSON.stringify(R)}; SRDRYT = ${JSON.stringify(T)}; KTX.balduin = {"Second Wind": "You have a limited well of stamina."}`);
+  const h = V(`kRysPopis(KARTBY.balduin, "Second Wind")`);
+  assert.match(h, /1d10 plus tvoje úroveň Fightera/);
+  assert.match(h, /<details class="krpdf"><summary>Text z listu D&amp;D Beyond<\/summary>/);
+  assert.match(h, /Celá kapitola v Pravidlech/);
+  S.ev(`delete KTX.balduin`);
+  const bez = V(`kRysPopis(KARTBY.balduin, "Second Wind")`);
+  assert.doesNotMatch(bez, /Popis z PDF tu zatím není/, "bez PDF textu stačí český text SRD");
+});

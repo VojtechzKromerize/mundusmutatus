@@ -55,6 +55,11 @@ def main():
             srd.setdefault(norm("+1 " + m.group(1)), p["id"])
     V = {k: K[k] for k in ("zbroj", "zbrane", "strelivo", "vybava", "naradi", "zvirata", "sedla", "vozy", "plavidla", "jedy", "magicke",
                             "vlastnosti", "mistrovstvi", "mince", "vyroba", "uvod")}
+    # vlastnosti a mistrovství zbraní: plné znění z Pravidel (zdroj/pravidla/04-srd.md, Vojtův překlad 2026-10-24) místo shrnutí z Wordu
+    md = open(os.path.join(ROOT, "zdroj", "pravidla", "04-srd.md"), encoding="utf-8").read()
+    for klic, nadpis in (("vlastnosti", "Weapon Traits"), ("mistrovstvi", "Weapon Masteries")):
+        oddil = re.search(r"#### " + nadpis + r".*?\n(.*?)(?=\n#### )", md, re.S).group(1)
+        V[klic] = {m.group(1): {"cz": m.group(2), "t": m.group(3).strip()} for m in re.finditer(r"\*\*([A-Za-z-]+) \(([^)]+)\)\.\*\* (.+)", oddil)}
     for z in V["zbrane"]:
         z["art"] = [v for v, L in ARTZV.items() if z["en"] in L]
         z["id"] = slug(z["en"])

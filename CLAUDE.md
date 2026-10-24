@@ -54,8 +54,8 @@ v `zdroj/obsah/NÁVOD.md`, testy v `testy/README.md`. Tady je jen to, co ušetř
 ## Struktura
 
 ```
-zdroj/koruna.html    kostra stránky (~53 kB): hlavička, HTML pohledů, zavaděč dat, řádky /*@vloz web/…*/
-zdroj/web/styly.css  všechny styly (~2 800 řádků)
+zdroj/koruna.html    kostra stránky (~69 kB): hlavička, HTML pohledů, zavaděč dat, řádky /*@vloz web/…*/
+zdroj/web/styly.css  všechny styly (~3 700 řádků)
 zdroj/web/js/NN-*.js hlavní skript po oddílech (viz níže); dohromady jeden skript ve sdíleném
                      prostoru – pořadí podle čísla, funkce a konstanty jsou vidět ze všech souborů
 zdroj/build.py       sestaví public/ (hráč) nebo vypravec/ (--vypravec, NEPUBLIKOVAT); --staticky bez databáze;
@@ -97,7 +97,7 @@ do kostry řádkem `/*@vloz web/js/NN-nazev.js*/` na správné místo (a do sezn
 Kód je formátovaný Prettierem (od 2026-10-21; `.prettierrc.json`, řádek do 150 znaků): **po úpravě skriptu spusť
 `npm run format`** – rychlá kontrola CI neformátovaný soubor odmítne. Piš běžné víceřádkové funkce, ne jednořádkové
 zhuštěniny (ty dřív dělaly konflikty mezi relacemi). Hledej grepem (`grep -n … zdroj/web/js/*.js`), soubory jsou delší
-(~48 000 řádků), čti výřezy. Úpravy dělej Editem s jednoznačným úryvkem; nikdy nepřepisuj soubor z výstupu nástroje.
+(~50 000 řádků), čti výřezy. Úpravy dělej Editem s jednoznačným úryvkem; nikdy nepřepisuj soubor z výstupu nástroje.
 Značky dat pro build (`/*@FAM@*/ []`, `/*@GM@*/ false` …) smí mít mezeru – build ji snese.
 
 **Vazby mezi soubory hlídá kontrola kódu jako u modulů** (od 2026-10-21; skutečné moduly prohlížeče ne – rozbily by
@@ -110,7 +110,8 @@ přepsat (obalit) funkci jiného souboru jen jména v `OBALENE` (`testy/kontrola
 **Čistá pravidla (od 2026-10-23):** soubory s `@čisté` na 1. řádku – 02c druhy zbroje (v jádru), 10k import PDF, 10p pravidla boje
 a Artikulí (hody proti smrti, soustředění, zbroj, houfy, sloty), 10r okno reakce (`REAKCE`, `reakceOkno`, `reakceVysledek`; fakta
 z karty skládá `kReakceFakta` v 14c), 10t účet tahu (`tahObnov`, `tahOznac`, `tahJednouZapis` – BPT, KTAHJ, BJU.ridT), 10u účinky
-(`UCINKY` = dřívější KZEF + KPRID v jednom formátu, `ucSecti` a spol.). Smí používat jen jazyk JS a jména jiných čistých souborů
+(`UCINKY` = dřívější KZEF + KPRID v jednom formátu, `ucSecti` a spol.), 10w vlastnosti a mistrovství zbraní SRD
+(`ZBRVL`, `ZBRMS`, `ZBRMA`, `zbrRozbor`, `zbrMaMa` – napojení na boj v 20g). Smí používat jen jazyk JS a jména jiných čistých souborů
 (kontrola kódu je odmítne jinak), data dostávají argumentem; testy běží v čistém Node za milisekundy (`testy/jednotky/ciste.mjs`).
 **Nový výpočet pravidla patří do čistého souboru** (stránka ho jen volá s daty) a test do `testy/jednotky`. Co jde přesunout beze
 změny: `node testy/kontrola_kodu.mjs --ciste-kandidati [NN]`, co by se muselo vzít s sebou: `--ciste-uzaver A,B`. Pozor na pořadí:
@@ -126,7 +127,8 @@ Pravidla · 09 vypravěč: odhalování, panel, herní čas · 10 Kouzla · 11 B
 15 karta podle Artikulí · 16 SRD předměty, ukázky, příprava sezení, kořist, stránka Hra · 17 Karta II ·
 17b kouzla: posílení na cílech (sběr z karty pro UCINKY), trvání v kolech, rituál, opakování bez slotu (KZOPAK), oblasti (KZOBL), Counterspell ·
 18 Pravidla postavy (D&D 2024) · 19 karta jako D&D Beyond · 20 Boj: hráč na telefonu (formulář útoku BJU, hod, odeslání) ·
-20b Boj: vypravěč (vyhodnocení a potvrzení útoků hráčů, veřejný záznam, pruh „co teď“, formuláře, klávesy, Zpět) · 20c volby po zásahu, přesun Hexu, Riposte ·
+20b Boj: vypravěč (vyhodnocení a potvrzení útoků hráčů, veřejný záznam, pruh „co teď“, formuláře, klávesy, Zpět) · 20c volby po zásahu, přesun Hexu, Riposte · 20e perky zbraní z Artikulí v boji ·
+20g vlastnosti a mistrovství zbraní SRD v boji (Weapon Traits a Masteries: volby před hodem, nabídka po zásahu, `wm` u útoku, vyhodnocení vypravěče) ·
 20d Boj: vykreslení (kostra, záložky, renderBoj) · 20f scéna mimo boj (NPC, jednání, protihody) ·
 21 editor textů · 22 Výprava (počasí, Zpět herního času) · 23 potvrzování akcí hráčů · 24 Boj: herní záznam (kdo · co · komu, kostky, Závoj) ·
 25 puls (jeden dotaz „co se změnilo“, Realtime) · 26 start: pečeť a první `route()`.
@@ -221,7 +223,7 @@ Hlavní orientační body:
 - K dispozici je Python, Node a Playwright. Nejdřív `npm ci` (esbuild, ESLint, Prettier, jsdom; web sám balíčky
   nepotřebuje). **Po každé úpravě skriptu `npm run format && npm run kontrola`** (~10 s): formát, zdvojená a neznámá jména,
   čárka jako operátor, jádro volající líné díly – chyby ukáže v souboru a řádku.
-- **Rychlé testy výpočtů: `npm test`** (~20 s, `testy/jednotky/*.test.mjs`; jeden soubor `node --test testy/jednotky/kouzla.test.mjs` ~5 s):
+- **Rychlé testy výpočtů: `npm test`** (~1 min, každý soubor se stránkou ~5 s, `testy/jednotky/*.test.mjs`; jeden soubor `node --test testy/jednotky/kouzla.test.mjs` ~5 s):
   skript stránky v jsdom (bez prohlížeče), volá funkce přímo – pravidla postavy (bonusy, HP, sloty, AC, záchrany, rysy mimo SRD),
   útok (`bojUtokPriprav`), Artikule (zbroj, obětování, kritická zranění, Výdrž), stavy, kouzla (`kSpUcinek`, UCINKY, oblasti, rituály),
   katalog vybavení, zápis útoku vypravěče, kalendář a herní čas, Závoj, generátor (tajemství, zmínky) – přehled v `testy/README.md`. Kostky: `S.kostky([[číslo, stěn], …])`; `const` skriptu se čtou přes `V("výraz")`.
@@ -261,7 +263,8 @@ Hlavní orientační body:
 - Smí se: SRD 5.2.1 (CC-BY-4.0) s uvedením zdroje – na úvodní stránce Pravidel a pod každou kapitolou;
   vlastní obsah; data z PDF, která nahraje hráč. Herní mechaniku (čísla, kostky, záchrany) lze převzít i mimo
   SRD, ale **bez textu**: obsah mimo SRD (`zdroj/mimo-srd/`, kouzla a magické předměty s `x: 1`) má jen vlastní stručná shrnutí
-  (rys/feat max. 350 znaků, kouzlo 1 000 – Vojtovo rozhodnutí 2026-10-20) a na webu upozornění, že nejde o oficiální text.
+  (rys/feat max. 350 znaků, kouzlo 1 000 – Vojtovo rozhodnutí 2026-10-20) a na webu upozornění, že nejde o oficiální text –
+  od 2026-10-23 (Vojta) v licenční doložce v patičce webu, ne u každého popisu kouzla, rysu či předmětu.
 - Na kartě se rys mimo SRD pozná podle názvu z PDF (`mimoNajdi`); počty použití, kostky a trvalé bonusy (`ef`)
   počítá `kMimoZdroje` / `kMimoEf`. Rysy, které pravidla už počítají jménem (Tough, Speedy, Lucky…), jsou v `MIMOSKIP`.
 - Nesmí se: texty z PHB/DMG/MM 2024 mimo SRD, vytěžování D&D Beyond, jiná zmínka o Wizards of the Coast

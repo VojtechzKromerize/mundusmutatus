@@ -16,10 +16,10 @@ jobs:
       SUPABASE_URL: https://rzbflnwxpyepjcpndqyj.supabase.co
       SUPABASE_SECRET: ${{ secrets.SUPABASE_SECRET }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ref: dev
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
       - name: Stáhnout texty upravené na webu

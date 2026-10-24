@@ -113,7 +113,7 @@ function vybKarta(x, pop) {
     <p class="rsmall"><i>${besc(VYBSKN[x.sk] || "")}</i>${vybParam(x) ? ` · ${vybParam(x)}` : ""}${x.w != null ? ` · ${vybLb(x.w)}` : x.wtxt ? ` · ${besc(x.wtxt)}` : ""}${x.cena ? ` · <b>${vybCena(x)}</b>` : ""}</p>
     ${x.t ? `<p>${besc(x.t)}</p>` : ""}${x.tab ? x.tab.map(T => `<table class="rtab vybtab"><thead><tr>${(T.h || []).map(h => `<th>${besc(h)}</th>`).join("")}</tr></thead><tbody>${(T.r || []).map(r => `<tr>${r.map(c => `<td>${besc(c)}</td>`).join("")}</tr>`).join("")}</tbody></table>`).join("") : ""}
     ${vybArtikule(x)}${srd ? `<details class="bjapd"><summary>Plné znění SRD 5.2.1</summary>${kzMd(srd.t)}<p class="rsmall">SRD 5.2.1, s. ${srd.str || ""}</p></details>` : ""}
-    ${x.x && typeof MIMOPOZN === "string" ? `<p class="rsmall srdattr">${besc(MIMOPOZN)}</p>` : ""}</article>`;
+</article>`;
 }
 /* ---- přidání do vybavení postavy (stránka Vybavení i nabídka na kartě) ---- */
 function vybPoolVstup(x) {
@@ -142,6 +142,16 @@ function vybPridatBtn(x) {
   if (!K) return "";
   return `<button type="button" class="gbtn ghost vybadd" data-vybadd="${besc(x.id)}" ${btip(`Přidat do vybavení: ${K.n}`)}>+ Přidat</button>`;
 }
+/* mince v katalogu: jen mince tažení (GP, SP, CP) s dobovým jménem a ikonou; elektrum a platina se nepoužívají */
+const VYBMINC = {"Gold Piece": "GP", "Silver Piece": "SP", "Copper Piece": "CP"};
+const vybMinceHtml = () =>
+  (VYB.mince || [])
+    .filter(m => VYBMINC[m.n])
+    .map(m => {
+      const k = VYBMINC[m.n];
+      return `<span class="kpenm">${kMinceIk("mince-" + k.toLowerCase())}<b>${k}</b> ${besc(KMINCJM[k])} = ${besc(m.gp)} GP</span>`;
+    })
+    .join(" · ");
 /* ---- stránka Pravidla › Vybavení ---- */
 let VYBF = {q: "", sk: "", vz: ""};
 function renderVybaveni(main, c) {
@@ -182,11 +192,11 @@ function renderVybaveni(main, c) {
             : sk === "magicke"
               ? PRVZ.filter(v => L.some(x => x.vz === v)).map(v => [v[0].toUpperCase() + v.slice(1), L.filter(x => x.vz === v)])
               : [["", L]];
-    return `<section class="vybsek" id="vyb-${sk}"><h3 class="uvh2">${n} <small>${L.length}</small></h3>${sk === "zbrane" ? `<p class="rsmall">Vlastnosti zbraní podle Artikulí (ikony) platí každému, kdo má se zbraní zdatnost. ${VYB.uvod && VYB.uvod["3"] ? besc(VYB.uvod["3"].join(" ")) : ""}</p>` : sk === "zbroj" ? `<p class="rsmall">Druh zbroje podle Artikulí dává Resistance a počet obětování – podrobnosti v <a href="#artikule/vyzbroj">Artikulích › Výzbroj</a>. ${VYB.uvod && VYB.uvod["2"] ? besc(VYB.uvod["2"].join(" ")) : ""}</p>` : sk === "jedy" && VYB.uvod && VYB.uvod["7"] ? `<p class="rsmall">${besc(VYB.uvod["7"].join(" "))}</p>` : ""}
+    return `<section class="vybsek" id="vyb-${sk}"><h3 class="uvh2">${n} <small>${L.length}</small></h3>${sk === "zbrane" ? `<p class="rsmall">Perky zbraní podle Artikulí (ikony) platí každému, kdo má se zbraní zdatnost. ${VYB.uvod && VYB.uvod["3"] ? besc(VYB.uvod["3"].join(" ")) : ""}</p>` : sk === "zbroj" ? `<p class="rsmall">Druh zbroje podle Artikulí dává Resistance a počet obětování – podrobnosti v <a href="#artikule/vyzbroj">Artikulích › Výzbroj</a>. ${VYB.uvod && VYB.uvod["2"] ? besc(VYB.uvod["2"].join(" ")) : ""}</p>` : sk === "jedy" && VYB.uvod && VYB.uvod["7"] ? `<p class="rsmall">${besc(VYB.uvod["7"].join(" "))}</p>` : ""}
       ${sub.map(([t, M]) => `${t ? `<h4>${besc(t[0].toUpperCase() + t.slice(1))}</h4>` : ""}<ul class="vybl">${M.map(radek).join("")}</ul>`).join("")}</section>`;
   }).join("");
   main.innerHTML = `<nav class="crumbs"><a href="#pravidla">Pravidla</a> › <b>Vybavení</b></nav><h2 class="arttitle">Vybavení</h2>
-    <p class="intro">Zbroj, zbraně, výbava, nářadí, zvířata, doprava, jedy a magické předměty s cenami a stručným popisem. U zbraní a zbroje jsou vlastnosti podle <a href="#artikule/vyzbroj">Artikulí</a>. Klepnutím na název se ukáže popis; ${K ? `<b>+ Přidat</b> dá věc do vybavení postavy <b>${besc(K.n)}</b>` : GMV ? "vyber postavu, do které se má přidávat" : "přihlas se ke své postavě na stránce Hra a věci si rovnou přidáš do vybavení"}.</p>
+    <p class="intro">Zbroj, zbraně, výbava, nářadí, zvířata, doprava, jedy a magické předměty s cenami a stručným popisem. U zbraní jsou perky a u zbroje druh podle <a href="#artikule/vyzbroj">Artikulí</a>. Klepnutím na název se ukáže popis; ${K ? `<b>+ Přidat</b> dá věc do vybavení postavy <b>${besc(K.n)}</b>` : GMV ? "vyber postavu, do které se má přidávat" : "přihlas se ke své postavě na stránce Hra a věci si rovnou přidáš do vybavení"}.</p>
     <form class="kvlh vybf" data-vybf><input type="search" name="q" value="${besc(VYBF.q)}" placeholder="hledat: meč, Rope, lektvar…" data-vybq autocomplete="off"><select name="sk" data-vybsk aria-label="Kategorie"><option value="">vše</option>${VYBSK.map(([sk, n]) => `<option value="${sk}"${VYBF.sk === sk ? " selected" : ""}>${n}</option>`).join("")}</select>
       ${
         !VYBF.sk || VYBF.sk === "magicke"
@@ -201,11 +211,11 @@ function renderVybaveni(main, c) {
     <h3 class="uvh2" id="vyb-vlastnosti">Vlastnosti zbraní</h3><ul class="kfeat">${Object.entries(VYB.vlastnosti || {})
       .map(([k, v]) => `<li><b>${besc(k)}</b> <small>${besc(v.cz || "")}</small><br>${besc(v.t || "")}</li>`)
       .join("")}</ul>
-    <h3 class="uvh2" id="vyb-mistrovstvi">Mistrovství zbraní</h3><ul class="kfeat">${Object.entries(VYB.mistrovstvi || {})
+    <h3 class="uvh2" id="vyb-mistrovstvi">Mistrovství se zbraněmi</h3><ul class="kfeat">${Object.entries(VYB.mistrovstvi || {})
       .map(([k, v]) => `<li><b>${besc(k)}</b> <small>${besc(v.cz || "")}</small><br>${besc(v.t || "")}</li>`)
       .join("")}</ul>
     ${VYB.vyroba && VYB.vyroba.t ? `<h3 class="uvh2" id="vyb-vyroba">Výroba</h3>${VYB.vyroba.t.map(t => `<p>${besc(t)}</p>`).join("")}${VYB.vyroba.magicka ? `<table class="rtab vybtab"><thead><tr><th>Vzácnost</th><th>Pracovní dny</th><th>Materiál</th></tr></thead><tbody>${VYB.vyroba.magicka.map(r => `<tr><td>${besc(r.vz)}</td><td>${besc(r.dny)}</td><td>${besc(r.material)}</td></tr>`).join("")}</tbody></table>` : ""}` : ""}
-    ${VYB.mince && VYB.mince.length ? `<h3 class="uvh2" id="vyb-mince">Mince</h3><p class="rsmall">${VYB.mince.map(m => `${besc(m.n)} ${besc(m.cz ? "(" + m.cz + ")" : "")} = ${besc(m.gp)} GP`).join(" · ")}. ${VYB.uvod && VYB.uvod["1"] ? besc(VYB.uvod["1"].join(" ")) : ""}</p>` : ""}
+    ${VYB.mince && VYB.mince.length ? `<h3 class="uvh2" id="vyb-mince">Mince</h3><p class="rsmall">${vybMinceHtml()}. ${VYB.uvod && VYB.uvod["1"] ? besc(VYB.uvod["1"].join(" ")) : ""}</p>` : ""}
     <p class="rsmall srdattr">Přehled vybavení pro tažení Mundus Mutatus – vlastní shrnutí; položky SRD 5.2.1 odkazují na plné znění.${typeof MIMOPOZN === "string" ? " " + besc(MIMOPOZN) : ""}</p>`;
   const el = c && document.getElementById(c);
   if (el) el.scrollIntoView({block: "start"});

@@ -368,6 +368,9 @@ const BZVST = {
   "zbraň uvízla": {ic: "komplikace", t: "Komplikace: zbraň uvízla v ráně nebo ve štítu – vytrhnout ji stojí bonusovou akci (pak stav zruš)"},
   "zbraň selhala": {ic: "komplikace", t: "Hrom a kouř!: zbraň selhala – před dalším výstřelem ji musíš bonusovou akcí vyčistit (pak stav zruš)"},
   "zbraň praská": {ic: "komplikace", t: "Ničivá: zbraň praská – ztrácí Ničivou až do opravy"},
+  /* mistrovství zbraní (Weapon Mastery, 2026-10-24, 20g): končí podle tahu útočníka */
+  oslaben: {ic: "nevyhoda", ut: -1, t: "Sap (Oslabení): nevýhoda na příští útok – do začátku tahu toho, kdo ho zasáhl"},
+  zpomalen: {ic: "slow", t: "Slow (Zpomalení): rychlost −10 stop – do začátku tahu toho, kdo ho zasáhl"},
 };
 Object.entries(BZVST).forEach(([k, v]) => {
   BIMG.add(v.ic);
@@ -375,7 +378,7 @@ Object.entries(BZVST).forEach(([k, v]) => {
 });
 BSTI["krvácí k4"] = ["krvaci", "Krvácí – na začátku tahu ztrácí k4 HP"];
 BSTAV.splice(1, 0, "krvácí k4");
-BSTAV.push("zaskočen", "přibodnut", "ve vazbě", "v dýmu", "odkrytý");
+BSTAV.push("zaskočen", "přibodnut", "ve vazbě", "v dýmu", "odkrytý", "oslaben", "zpomalen");
 BSTAVH.unshift("krvácí k4");
 BSTAVH.push("zapřeno", "zbraň uvízla", "zbraň selhala");
 /* výhoda/nevýhoda ze stavů útočníka (st) a cíle (ct); dal = útok z dálky */
@@ -463,7 +466,7 @@ const BTEC = {
     "1 Výdrž + reakce na Pokušení útočníka: sek do rukou. Útočník hází STR save – neúspěch: upustí zbraň a útok se neuskuteční; úspěch: poloviční zranění.",
   "Šilhavý sek": "1 Výdrž + Požehnání: zlomí soupeřův sek – ten má do konce svého příštího tahu nevýhodu na útoky.",
   "Dělný sek": "1 Výdrž + reakce: když nepřítel vstoupí do dosahu, zaútočí dřív a ustoupí jako při Dodge.",
-  "Vražedný úder": "1 Výdrž + bonusová akce: úder záštitou – do konce tahu má zbraň Bludgeoning s vlastností Drtivá.",
+  "Vražedný úder": "1 Výdrž + bonusová akce: úder záštitou – do konce tahu má zbraň Bludgeoning s perkem Drtivá.",
   "Zápas s mečem": "1 Výdrž + Požehnání: po zásahu do těla – cíl hází STR/AGI save, jinak je Restrained nebo Prone.",
   "Hod přes bok": "1 Výdrž + Požehnání: po zásahu beze zbraně hází cíl STR/AGI save, jinak je Restrained a Prone.",
   Mordstösse: "1 Výdrž + Požehnání: úder do hrdla nebo spánku – cíl do konce svého příštího tahu nemluví (nekouzlí verbálně) a nemá reakci.",
@@ -493,7 +496,7 @@ const BSTAVD = {
 };
 const BTIP = Object.assign(
   {},
-  ...Object.entries(BVLZ).map(([k, v]) => ({[k]: `${k} (vlastnost zbraně): ${v}`})),
+  ...Object.entries(BVLZ).map(([k, v]) => ({[k]: `${k} (perk zbraně): ${v}`})),
   ...Object.entries(BTEC).map(([k, v]) => ({[k]: `${k}: ${v}`})),
   ...Object.entries(BSTAVD).map(([k, v]) => ({[k]: `${k} – ${v}`})),
 );
@@ -1506,6 +1509,8 @@ function bojUtok(n, ai, a0) {
     if (q && q.tk === bojMultiTk() && q.i > 0) o.un = `útok ${q.i} z ${q.seq.length} (celá akce)`;
   }
   bojLog(n.id, o, n.n);
+  /* Sap (mistrovství, 20g): nevýhoda platí jen na příští útok – tímto se spotřebovala */
+  if (o.hod && (n.stav || []).includes("oslaben") && typeof bojWmSapPouzit === "function") bojWmSapPouzit(n.id);
 }
 /* plaketa posledního hodu: pečeť s výsledkem, zranění, pruh Závoje */
 function bojPlak(o) {
@@ -1699,7 +1704,7 @@ function bojRef(n, s, velH) {
                 pul = /půlmeč/i.test(a.p || "") || (/meč/i.test(a.n) && !/půlmeč/i.test(a.n) && /Půlmeč/.test(String(E.p.b || E.p.h || "")));
               if (ty.length < 2 && !pul && !(a.dc && (a.z || a.zp))) return "";
               const cur = v.pul ? "" : v.t && ty.includes(v.t) ? v.t : "";
-              return `<span class="buttg" role="group" aria-label="Typ zranění – ${besc(a.n)}">${ty.length > 1 ? ty.map(t => `<button type="button" data-butt="${i}" data-t="${t}" aria-pressed="${cur === t}" ${btip(`${a.n}: zranění ${BZRT[t]} (${t})${/šikovn/i.test(a.p || "") ? " – Šikovná: volí se před hodem" : ""}`)}>${bikZr(t)}</button>`).join("") : ""}${a.dc && (a.z || a.zp || bojAkceStav(a.n, a.p)) ? `<button type="button" class="bplb" data-bplos="${i}" ${btip(a.z || a.zp ? `Plošně: ${a.n} na více cílů – jeden hod zranění, záchrany všech` : `${a.n}: záchrany cílů, při neúspěchu stav (postavám vyskočí výzva)`)}>☄</button>` : ""}${pul ? `<button type="button" data-butpul="${i}" aria-pressed="${!!v.pul}" ${btip(`Půlmeč: přehmat zbraně – Piercing s vlastností Průrazná, kostka zranění o stupeň níž (${besc(a.z || "")} → ${besc(bojKostkaDolu(a.z))})`)}>${bikZv("Půlmeč")}</button>` : ""}</span>`;
+              return `<span class="buttg" role="group" aria-label="Typ zranění – ${besc(a.n)}">${ty.length > 1 ? ty.map(t => `<button type="button" data-butt="${i}" data-t="${t}" aria-pressed="${cur === t}" ${btip(`${a.n}: zranění ${BZRT[t]} (${t})${/šikovn/i.test(a.p || "") ? " – Šikovná: volí se před hodem" : ""}`)}>${bikZr(t)}</button>`).join("") : ""}${a.dc && (a.z || a.zp || bojAkceStav(a.n, a.p)) ? `<button type="button" class="bplb" data-bplos="${i}" ${btip(a.z || a.zp ? `Plošně: ${a.n} na více cílů – jeden hod zranění, záchrany všech` : `${a.n}: záchrany cílů, při neúspěchu stav (postavám vyskočí výzva)`)}>☄</button>` : ""}${pul ? `<button type="button" data-butpul="${i}" aria-pressed="${!!v.pul}" ${btip(`Půlmeč: přehmat zbraně – Piercing s perkem Průrazná, kostka zranění o stupeň níž (${besc(a.z || "")} → ${besc(bojKostkaDolu(a.z))})`)}>${bikZv("Půlmeč")}</button>` : ""}</span>`;
             })()}`,
         )
         .join("")}${dos}</div>`
@@ -1776,7 +1781,7 @@ function bojRef(n, s, velH) {
   const efs = (n.ef || [])
     .map(
       (e, j) =>
-        `<span class="bprc bef" ${btip(`${e.n}: ${e.kdy === "zacatek" ? "do začátku příštího tahu" : e.kdy === "konec" ? "do konce příštího tahu" : `ještě ${e.k} ${e.k === 1 ? "kolo" : e.k < 5 ? "kola" : "kol"}`}${e.z ? ` · na začátku tahu ${e.z} ${BZRT[e.t] || ""}` : ""}`)}>${bi("trvani")} ${besc(e.n)} <small>${e.kdy === "kola" ? e.k : e.kdy === "zacatek" ? "→ zač." : "→ konec"}</small><button type="button" data-befdel="${j}" aria-label="Zrušit účinek ${besc(e.n)}">×</button></span>`,
+        `<span class="bprc bef" ${btip(`${e.n}: ${e.okdy ? `do ${e.okdy === "zacatek" ? "začátku" : "konce"} příštího tahu: ${bojJm(BOJ.s || {}, e.od) || "útočník"}` : e.kdy === "zacatek" ? "do začátku příštího tahu" : e.kdy === "konec" ? "do konce příštího tahu" : `ještě ${e.k} ${e.k === 1 ? "kolo" : e.k < 5 ? "kola" : "kol"}`}${e.z ? ` · na začátku tahu ${e.z} ${BZRT[e.t] || ""}` : ""}`)}>${bi("trvani")} ${besc(e.n)} <small>${e.kdy === "kola" ? e.k : (e.okdy || e.kdy) === "zacatek" ? "→ zač." : "→ konec"}</small><button type="button" data-befdel="${j}" aria-label="Zrušit účinek ${besc(e.n)}">×</button></span>`,
     )
     .join("");
   const efF = `<details class="befd"><summary>+ účinek s trváním</summary><form class="beff" data-beff><select name="st" aria-label="Stav">${BSTAV.filter(

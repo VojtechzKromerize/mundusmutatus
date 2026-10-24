@@ -91,7 +91,7 @@ Díky výcviku se zbraněmi můžeš používat vlastnosti mistrovství (mastery
 
 Kdykoli dokončíš dlouhý odpočinek, můžeš zvolené druhy zbraní změnit. Můžeš například přejít na používání vlastností mistrovství Halberds a Flails.
 
-> **Artikule:** Weapon Mastery platí beze změny. Vedle něj mají zbraně v Mundus Mutatus fyzické vlastnosti, které může využít každý, kdo je se zbraní zdatný (např. Drtivá, Průrazná, Ratiště, Ostrá, Půlmeč – viz Artikule).
+> **Artikule:** Weapon Mastery platí beze změny. Vedle něj mají zbraně v Mundus Mutatus perky, které může využít každý, kdo je se zbraní zdatný (např. Drtivá, Průrazná, Ratiště, Ostrá, Půlmeč – viz Artikule).
 
 ### Úroveň 2: Fighting Style
 

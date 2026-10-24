@@ -42,49 +42,49 @@ Vybavení se při prodeji prodá za polovinu své ceny. Naproti tomu obchodní z
 
 Zbraň může třímat kdokoli, ale abys k hodu na útok, který s ní provádíš, mohl přičíst svůj bonus zdatnosti, musíš s ní mít zdatnost. Zdatnost se zbraněmi mohou postavě hráče poskytnout její schopnosti. Nestvůra má zdatnost se všemi zbraněmi ve svém bloku statistik.
 
-#### Vlastnosti
+#### Weapon Traits (Vlastnosti zbraní)
 
 Zde jsou vysvětleny vlastnosti uvedené ve sloupci Vlastnosti tabulky Zbraně.
 
-**Ammunition (Munice).** Zbraní s vlastností Ammunition můžeš provést útok na dálku, jen pokud máš munici, kterou z ní můžeš vystřelit. Potřebný typ munice je uveden spolu s dostřelem zbraně. Každý útok spotřebuje jeden kus munice. Vytažení munice je součástí útoku (k nabití jednoruční zbraně potřebuješ volnou ruku). Po boji můžeš strávit 1 minutu sbíráním a získat zpět polovinu munice (zaokrouhleno dolů), kterou jsi v boji použil; zbytek je ztracen.
+**Ammunition (Střelivo).** Zbraní s touto vlastností můžeš provést útok na dálku pouze tehdy, máš-li pro ni střelivo. Potřebný druh střeliva je uveden u dostřelu zbraně. Každý útok spotřebuje jeden kus střeliva. Vytažení střeliva je součástí útoku; k nabití jednoruční zbraně potřebuješ volnou ruku. Po boji můžeš strávit 1 minutu sbíráním použitého střeliva a získat zpět polovinu kusů, které jsi v boji spotřeboval (zaokrouhleno dolů). Zbytek je ztracen.
 
-**Finesse (Finesa).** Když útočíš zbraní s vlastností Finesse, použij pro hod na útok i hod na zranění podle své volby buď modifikátor Síly, nebo Obratnosti. Pro oba hody musíš použít stejný modifikátor.
+**Finesse (Obratná).** Při útoku touto zbraní si můžeš pro hody na útok a na zranění zvolit modifikátor STR nebo AGI. Pro oba hody musíš použít stejný modifikátor.
 
-**Heavy (Těžká).** Na hody na útok těžkou zbraní máš nevýhodu, pokud jde o zbraň na blízko a tvoje hodnota Síly není alespoň 13, nebo pokud jde o zbraň na dálku a tvoje hodnota Obratnosti není alespoň 13.
+**Heavy (Těžká).** K hodům na útok touto zbraní máš nevýhodu, pokud jde o zbraň na blízko a tvá hodnota STR je nižší než 13, nebo pokud jde o zbraň na dálku a tvá hodnota AGI je nižší než 13.
 
-**Light (Lehká).** Když ve svém tahu provedeš akci Útok a zaútočíš lehkou zbraní, můžeš později v tomtéž tahu provést bonusovou akcí jeden útok navíc. Tento útok navíc musíš provést jinou lehkou zbraní a k jeho zranění nepřičítáš modifikátor vlastnosti, ledaže je tento modifikátor záporný. Můžeš například zaútočit akcí Útok krátkým mečem (Shortsword) v jedné ruce a bonusovou akcí dýkou (Dagger) v druhé ruce, ale k hodu na zranění z bonusové akce nepřičteš modifikátor Síly ani Obratnosti, ledaže je tento modifikátor záporný.
+**Light (Lehká).** Když ve svém tahu provedeš akci Útok a zaútočíš lehkou zbraní, můžeš později v témže tahu provést jeden dodatečný útok jako bonusovou akci. Tento dodatečný útok musíš provést jinou lehkou zbraní. K jeho zranění nepřičítáš modifikátor vlastnosti, pokud není záporný. Například můžeš zaútočit krátkým mečem v jedné ruce a dýkou ve druhé pomocí akce Útok a bonusové akce. Ke zranění útoku provedeného bonusovou akcí však nepřičítáš modifikátor STR ani AGI, pokud není záporný.
 
-**Loading (Nabíjení).** Ze zbraně s vlastností Loading můžeš vystřelit jen jeden kus munice, když k výstřelu použiješ akci, bonusovou akci nebo reakci, bez ohledu na to, kolik útoků můžeš normálně provést.
+**Loading (Nabíjení).** Když z této zbraně střílíš pomocí akce, bonusové akce nebo reakce, můžeš v rámci dané akce, bonusové akce či reakce vystřelit pouze jeden kus střeliva bez ohledu na počet útoků, které běžně můžeš provést.
 
-**Range (Dostřel).** Zbraň s vlastností Range má za vlastností Ammunition nebo Thrown v závorce uveden dostřel. Dostřel tvoří dvě čísla. První je normální dostřel zbraně ve stopách, druhé je maximální dostřel zbraně. Když útočíš na cíl za normálním dostřelem, máš na hod na útok nevýhodu. Na cíl za maximálním dostřelem útočit nemůžeš.
+**Range (Dostřel).** U zbraně s touto vlastností je za vlastností Ammunition (Střelivo) nebo Thrown (Vrhací) uveden v závorce dostřel. Tvoří jej dvě čísla: první udává běžný dostřel zbraně ve stopách a druhé její maximální dostřel. Při útoku na cíl za hranicí běžného dostřelu máš nevýhodu k hodu na útok. Na cíl za hranicí maximálního dostřelu nemůžeš zaútočit.
 
-**Reach (Dosah).** Zbraň s vlastností Reach ti při útoku s ní prodlužuje dosah o 5 stop; totéž platí, když určuješ svůj dosah pro příležitostné útoky s touto zbraní.
+**Reach (Dlouhý dosah).** Tato zbraň prodlužuje tvůj dosah o 5 stop, když s ní útočíš, a také při určování dosahu pro příležitostné útoky touto zbraní.
 
-**Thrown (Vrhací).** Má-li zbraň vlastnost Thrown, můžeš ji vrhnout a provést tak útok na dálku; zbraň přitom můžeš tasit jako součást útoku. Je-li zbraň zbraní na blízko, použij pro hod na útok a hod na zranění stejný modifikátor vlastnosti, jaký používáš pro útok na blízko touto zbraní.
+**Thrown (Vrhací).** Zbraň s touto vlastností můžeš vrhnout a provést tak útok na dálku. Zbraň můžeš tasit jako součást tohoto útoku. Jde-li o zbraň na blízko, použiješ pro hody na útok a na zranění stejný modifikátor vlastnosti, jaký používáš při útoku touto zbraní na blízko.
 
-**Two-Handed (Obouruční).** Obouruční zbraň při útoku vyžaduje obě ruce.
+**Two-Handed (Obouruční).** Při útoku touto zbraní ji musíš držet oběma rukama.
 
-**Versatile (Univerzální).** Univerzální zbraň lze používat jednou nebo oběma rukama. U vlastnosti je v závorce uvedena hodnota zranění. Tuto hodnotu zranění zbraň způsobí, když ji při útoku na blízko držíš oběma rukama.
+**Versatile (Univerzální).** Tuto zbraň můžeš používat jednou i oběma rukama. U vlastnosti je v závorce uvedena hodnota zranění. Toto zranění zbraň způsobuje, když ji při útoku na blízko držíš oběma rukama.
 
-#### Vlastnosti mistrovství
+#### Weapon Masteries (Mistrovství se zbraněmi)
 
 Každá zbraň má vlastnost mistrovství, kterou může používat jen postava se schopností, jež jí tuto vlastnost zpřístupňuje, například se schopností Weapon Mastery (mistrovství zbraní). Vlastnosti jsou vysvětleny níže.
 
-**Cleave.** Zasáhneš-li tvora hodem na útok na blízko touto zbraní, můžeš touto zbraní provést hod na útok na blízko proti druhému tvorovi, který je do 5 stop od prvního a zároveň v tvém dosahu. Při zásahu utrpí druhý tvor zranění zbraně, ale k tomuto zranění nepřičítáš modifikátor vlastnosti, ledaže je tento modifikátor záporný. Tento útok navíc můžeš provést jen jednou za tah.
+**Cleave (Rozmáchnutí).** Pokud touto zbraní zasáhneš tvora hodem na útok na blízko, můžeš touto zbraní provést hod na útok na blízko proti druhému tvorovi, který se nachází do 5 stop od prvního a zároveň ve tvém dosahu. Při zásahu utrpí druhý tvor zranění způsobené zbraní, ale k tomuto zranění nepřičítáš modifikátor vlastnosti, pokud není záporný. Tento dodatečný útok můžeš provést pouze jednou za tah.
 
-**Graze.** Mine-li tvůj hod na útok touto zbraní tvora, můžeš tomuto tvorovi způsobit zranění rovné modifikátoru vlastnosti, který jsi pro hod na útok použil. Toto zranění je stejného typu, jaký způsobuje zbraň, a zvýšit je lze jedině zvýšením modifikátoru vlastnosti.
+**Graze (Škrábnutí).** Pokud tvůj hod na útok touto zbraní tvora mine, můžeš mu způsobit zranění rovné modifikátoru vlastnosti, který jsi použil pro tento hod na útok. Jde o stejný typ zranění, jaký způsobuje zbraň. Toto zranění lze zvýšit pouze zvýšením daného modifikátoru vlastnosti.
 
-**Nick.** Útok navíc z vlastnosti Light můžeš provést jako součást akce Útok místo bonusové akce. Tento útok navíc můžeš provést jen jednou za tah.
+**Nick (Rychlé seknutí).** Dodatečný útok, který ti umožňuje vlastnost Light (Lehká), můžeš provést jako součást akce Útok namísto bonusové akce. Tento dodatečný útok můžeš provést pouze jednou za tah.
 
-**Push.** Zasáhneš-li touto zbraní tvora, můžeš ho odstrčit až o 10 stop přímo od sebe, je-li Velký nebo menší.
+**Push (Odstrčení).** Pokud touto zbraní zasáhneš tvora, můžeš jej od sebe odstrčit přímo vzad až o 10 stop, pokud je Velký nebo menší.
 
-**Sap.** Zasáhneš-li touto zbraní tvora, má tento tvor nevýhodu na svůj příští hod na útok před začátkem tvého příštího tahu.
+**Sap (Oslabení).** Pokud touto zbraní zasáhneš tvora, má nevýhodu k příštímu hodu na útok, který provede před začátkem tvého příštího tahu.
 
-**Slow.** Zasáhneš-li touto zbraní tvora a způsobíš mu zranění, můžeš mu do začátku svého příštího tahu snížit rychlost o 10 stop. Je-li tvor zasažen zbraněmi s touto vlastností vícekrát, snížení rychlosti nepřesáhne 10 stop.
+**Slow (Zpomalení).** Pokud touto zbraní zasáhneš tvora a způsobíš mu zranění, můžeš snížit jeho rychlost o 10 stop do začátku svého příštího tahu. I když je tvor vícekrát zasažen zbraněmi s touto vlastností, snížení rychlosti nepřesáhne 10 stop.
 
-**Topple.** Zasáhneš-li touto zbraní tvora, můžeš ho přinutit k záchrannému hodu na Odolnost (stupeň obtížnosti (SO, Difficulty Class) 8 + modifikátor vlastnosti použitý pro hod na útok + tvůj bonus zdatnosti). Při neúspěšné záchraně získá tvor stav Sražen (k zemi) (Prone).
+**Topple (Sražení).** Pokud touto zbraní zasáhneš tvora, můžeš jej přinutit k záchrannému hodu na CON (SO = 8 + modifikátor vlastnosti použitý pro hod na útok + tvůj zdatnostní bonus). Při neúspěchu je tvor sražen k zemi a získává stav Sražen (Prone).
 
-**Vex.** Zasáhneš-li touto zbraní tvora a způsobíš mu zranění, máš výhodu na svůj příští hod na útok proti tomuto tvorovi před koncem svého příštího tahu.
+**Vex (Vyvedení z rovnováhy).** Pokud touto zbraní zasáhneš tvora a způsobíš mu zranění, máš výhodu k příštímu hodu na útok proti tomuto tvorovi, který provedeš před koncem svého příštího tahu.
 
 #### Improvizované zbraně
 
@@ -137,13 +137,13 @@ Používáš-li jako provizorní zbraň nějaký předmět – například nohu 
 | Musket (mušketa) | 1d12 Piercing | Ammunition (dostřel 40/120; kulka), Loading, Two-Handed | Slow | 10 lb. | 500 GP |
 | Pistol (pistole) | 1d10 Piercing | Ammunition (dostřel 30/90; kulka), Loading | Vex | 3 lb. | 250 GP |
 
-> **Artikule:** Vedle vlastností SRD mají zbraně fyzické vlastnosti, které platí pro každého, kdo má se zbraní zdatnost (Weapon Mastery se nemění):
+> **Artikule:** Vedle vlastností SRD mají zbraně perky, které platí pro každého, kdo má se zbraní zdatnost (Weapon Mastery se nemění):
 > - **Drtivá** (Mace, Flail, Warhammer) – ignoruje Resistance zbroje proti Bludgeoning zranění.
 > - **Průrazná** (Handgun, Heavy Crossbow, Lance, Halberd, War Pick) – ignoruje Resistance zbroje proti Piercing zranění.
 > - **Ratiště** (Halberd, Pike, Glaive, Spear) – příležitostný útok, když nepřítel vstoupí do dosahu 10 stop; v kontaktu na 5 stop nevýhoda.
 > - **Šikovná** (Shortsword, Longsword, Greatsword, Scimitar, Warhammer, Halberd) – typ zranění se volí před hodem.
 > - **Ostrá** (Shortsword, Longsword, Greatsword, Scimitar) – Slashing zásah proti cíli bez Resistance je kritický na 19–20.
-> - **Půlmeč** (Longsword, Greatsword) – bonusovou akcí přehmat: Piercing zranění s vlastností Průrazná, kostka zranění o stupeň níž.
+> - **Půlmeč** (Longsword, Greatsword) – bonusovou akcí přehmat: Piercing zranění s perkem Průrazná, kostka zranění o stupeň níž.
 > - **Do slabin!** (Dagger) – Požehnání na kostce Závoje proti Zadrženému (Restrained) nebo Sraženému (Prone) cíli = kritický zásah.
 > - **Strhující** (Halberd, Glaive) – Požehnání proti jezdci: strhne ho ze sedla.
 > - **Vpřed!** (Lance) – po 15 stopách jízdy dvojnásobek kostek zranění, kritický zásah 4×.

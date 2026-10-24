@@ -150,7 +150,7 @@ const STECH = [
     id: "mordschlag",
     n: "Vražedný úder (Mordschlag)",
     c: "1V + bonusová akce",
-    t: "Meč za čepel a úder záštitou: do konce tahu má zbraň Bludgeoning s vlastností Drtivá.",
+    t: "Meč za čepel a úder záštitou: do konce tahu má zbraň Bludgeoning s perkem Drtivá.",
   },
   {
     id: "ringen",
@@ -373,7 +373,7 @@ function kSpPopis(sp) {
     kSpTexty();
     return `<p class="rsmall">Načítám popis…</p>`;
   }
-  return `<div class="kspd${x.x ? " kmimo" : ""}"><p class="rsmall"><b>${besc(x.cz || x.en)}</b> · ${kzUr(x.l)} · ${besc(x.s || "")} · ${besc(x.ct || "")} · ${besc(x.r || "")} · ${besc((x.k || []).join(", "))}${x.m ? ` (${besc(x.m)})` : ""} · ${besc(x.d || "")}${x.ri ? " · rituál" : ""}</p>${kzMd(x.t)}${x.v ? `<p><b>Na vyšší úrovni.</b> ${kzIn(x.v)}</p>` : ""}${x.x && typeof MIMOPOZN === "string" ? `<p class="rsmall srdattr">${besc(MIMOPOZN)}</p>` : ""}</div>`;
+  return `<div class="kspd${x.x ? " kmimo" : ""}"><p class="rsmall"><b>${besc(x.cz || x.en)}</b> · ${kzUr(x.l)} · ${besc(x.s || "")} · ${besc(x.ct || "")} · ${besc(x.r || "")} · ${besc((x.k || []).join(", "))}${x.m ? ` (${besc(x.m)})` : ""} · ${besc(x.d || "")}${x.ri ? " · rituál" : ""}</p>${kzMd(x.t)}${x.v ? `<p><b>Na vyšší úrovni.</b> ${kzIn(x.v)}</p>` : ""}</div>`;
 }
 /* ---- vlastní hod: 2d6+3, 4d6kh3, 2d20kl1, d%, s kostkou Závoje ---- */
 function kVyraz(v) {

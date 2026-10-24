@@ -123,7 +123,8 @@ function kSpBoj(K, x, lvl) {
   if (E && E.k === "l") return null;
   const t = String(d.t || "");
   const utok = !!(E && E.utok) || /útok kouzlem/i.test(t),
-    zach = utok ? null : (E && E.zach) || (t.match(/(STR|AGI|CON|INT|WIS|CHA) záchrann/) || [])[1] || null,
+    /* „výhoda na AGI záchranné hody“ (Haste, Protection from Energy…) není záchrana cíle – kouzlo pro spojence (2026-10-24) */
+    zach = utok ? null : (E && E.zach) || (t.match(KZACHRE) || [])[1] || null,
     auto = !utok && !zach && !!E && /šipka zasáhne|automaticky zasáh/i.test(t);
   if (!utok && !zach && !auto) return null;
   let pocet = (E && E.pocet) || 1;
@@ -160,7 +161,7 @@ function bojJaZvolKouzlo(i) {
     me = (s.hraci || []).find(h => h.n === bojJa.get()),
     K = bojKartaH(me);
   if (!K) return;
-  Object.assign(BJU, {ks: i, zi: "", sl: "", serie: null, hod: "", d: "", dmg: "", info: "", drt: false, pru: false, ef: [], kmin: null});
+  Object.assign(BJU, {ks: i, zi: "", sl: "", serie: null, hod: "", d: "", dmg: "", info: "", drt: false, pru: false, ef: [], kmin: null, pap: []});
   const sp = bojJaSp(s, me);
   if (!sp) {
     BJU.ks = null;
@@ -182,8 +183,13 @@ function bojJaZvolKouzlo(i) {
 }
 function bojJaHodKouzlo(s, me, sp) {
   const {K, x, B, lvl} = sp,
-    c = (s.npc || []).find(o => o.id === BJU.cil),
     st = lvl ? `${lvl}. st.` : "trik";
+  /* paprsky a šipky na různé cíle (2026-10-24): cíl každého z BJU.pap (bojPapCil v 14) */
+  const CL = (s.npc || []).filter(bojCilMoz),
+    papy = B.pocet > 1 && CL.length > 1 && !B.zach,
+    pc = i => (s.npc || []).find(o => o.id === (papy ? bojPapCil(i, CL) : BJU.cil)),
+    c = pc(0);
+  if (papy && c) BJU.cil = c.id;
   /* Zadat ručně: d20, kostka Závoje a součet kostek zranění hozené u stolu (u kouzla se záchranou jen zranění) */
   const RU = bRucPrevezmi(me, K, 500);
   if (!RU) return;
@@ -201,6 +207,28 @@ function bojJaHodKouzlo(s, me, sp) {
     BJU.dmg = String(r.tot);
     BJU.serie = null;
     BJU.info = `${x.n} (${st}): zranění ${r.txt} = ${r.tot}${B.pol ? " · při úspěšné záchraně polovina" : ""}`;
+    renderBoj();
+    return;
+  }
+  if (B.auto && papy) {
+    const M = new Map();
+    for (let i = 0; i < B.pocet; i++) {
+      const ci = pc(i),
+        r = i === 0 && rz != null ? rucDmg(rz, 1) : bojJaSpDmg(B, false),
+        q = M.get(ci.id) || {ci: ci.id, n: ci.n, dmg: 0, L: []};
+      q.dmg += r.tot;
+      q.L.push(r.txt);
+      M.set(ci.id, q);
+    }
+    const ser = [...M.values()].map(q => ({ci: q.ci, hod: 60, d: "", dmg: q.dmg, upr: [], zx: q.L.join(" + ")}));
+    Object.assign(BJU, {
+      hod: "60",
+      d: "",
+      dmg: String(ser[0].dmg),
+      serie: ser,
+      kmin: null,
+      info: `${x.n} (${st}): automatický zásah – ${[...M.values()].map(q => `${q.n} ${q.L.length}× = ${q.dmg}`).join(" · ")}`,
+    });
     renderBoj();
     return;
   }
@@ -228,12 +256,13 @@ function bojJaHodKouzlo(s, me, sp) {
     renderBoj();
     return;
   }
-  const nav = bojAdvHrac(s, me, c, BJU.dal),
-    v = BJU.adv === "auto" ? nav.v : +BJU.adv,
-    b = kSpU1(K, x) - 2 * kVycerp(K),
+  const b = kSpU1(K, x) - 2 * kVycerp(K),
     ser = [],
     txt = [];
+  let v = 0;
   for (let i = 0; i < Math.max(1, B.pocet); i++) {
+    const ci = pc(i);
+    v = BJU.adv === "auto" ? bojAdvHrac(s, me, ci, BJU.dal).v : +BJU.adv;
     const ru = i === 0 && r20 != null,
       d1 = ru ? r20 : bK(20),
       d2 = v && !ru ? bK(20) : null,
@@ -241,10 +270,26 @@ function bojJaHodKouzlo(s, me, sp) {
       krit = d === 20,
       PD = kPriHod(K, "Útok", i > 0),
       r = i === 0 && rz != null ? rucDmg(rz, 1) : bojJaSpDmg(B, krit),
-      vys = bojJaZas(c, d + b + PD.t, d, krit);
-    ser.push({hod: d + b + PD.t, d, d1, d2, v, b: b + PD.t, dmg: r.tot, krit, vys, upr: [], pd: PD.txt, pdn: PD.n || [], ru, zx: r.txt});
+      vys = bojJaZas(ci, d + b + PD.t, d, krit);
+    ser.push({
+      ci: ci ? ci.id : "",
+      hod: d + b + PD.t,
+      d,
+      d1,
+      d2,
+      v,
+      b: b + PD.t,
+      dmg: r.tot,
+      krit,
+      vys,
+      upr: [],
+      pd: PD.txt,
+      pdn: PD.n || [],
+      ru,
+      zx: r.txt,
+    });
     txt.push(
-      `d20 ${d1}${ru ? " (ručně)" : ""}${d2 != null ? `/${d2}` : ""} ${bsg(b)}${PD.txt} = ${d + b + PD.t}${krit ? " krit!" : d === 1 ? " (1)" : ""}${vys ? ` → ${vys.toUpperCase()}` : ""}, zranění ${r.txt} = ${r.tot}`,
+      `${papy && ci ? ci.n + ": " : ""}d20 ${d1}${ru ? " (ručně)" : ""}${d2 != null ? `/${d2}` : ""} ${bsg(b)}${PD.txt} = ${d + b + PD.t}${krit ? " krit!" : d === 1 ? " (1)" : ""}${vys ? ` → ${vys.toUpperCase()}` : ""}, zranění ${r.txt} = ${r.tot}`,
     );
   }
   Object.assign(BJU, {hod: String(ser[0].hod), d: String(ser[0].d), dmg: String(ser[0].dmg), kmin: null, serie: ser});
@@ -257,12 +302,15 @@ function bojJaHodKouzlo(s, me, sp) {
 let BJSPN = 0;
 /* značky kouzel na nepříteli, které dávají výhodu na útoky proti němu (2026-10-22); Guiding Bolt se uloží zásahem (20b) */
 const BZNADV = {"Faerie Fire": "Faerie Fire (cíl svítí)", "Guiding Bolt": "Guiding Bolt (příští útok)"};
-function bojAdvHrac(s, me, c, dal) {
+/* w (nepovinná) = zbraň útoku: Heavy pod 13 a „za dostřelem“ (20g); Vex na cíli od této postavy dává výhodu na její příští útok */
+function bojAdvHrac(s, me, c, dal, w) {
   const plus = [],
     minus = [],
     st = me.stav || [];
   srdAdv(st, [], dal, plus, minus, true);
   if (c) (c.ef || []).forEach(e => BZNADV[e.n] && plus.push(BZNADV[e.n]));
+  if (c && (c.ef || []).some(e => e.n === "Vex" && e.od === me.id)) plus.push("Vex (příští útok)");
+  if (w && typeof bojWAdv === "function") bojWAdv(me, w, plus, minus);
   if (c) srdAdv([], c.stav || [], dal, plus, minus);
   const v = plus.length && !minus.length ? 1 : minus.length && !plus.length ? -1 : 0;
   return {v, why: v > 0 ? plus : v < 0 ? minus : plus.length ? ["výhoda i nevýhoda se ruší"] : []};
@@ -475,7 +523,7 @@ function bojJaHod() {
     mmHlas("Nejdřív vyber cíl útoku – bez cíle se útok nedá poslat.", 3500);
     return;
   }
-  const nav = bojAdvHrac(s, me, c, !!w.dal),
+  const nav = bojAdvHrac(s, me, c, !!w.dal, w),
     v = BJU.adv === "auto" ? nav.v : +BJU.adv,
     ser = [],
     txt = [];
@@ -484,23 +532,27 @@ function bojJaHod() {
   if (!RU) return;
   const {r20, r6, rz} = RU;
   /* útoky téže akce (Extra Attack) jeden po druhém (2026-10-18): každý zvlášť s vlastním d20, zraněním i kostkou Závoje; mezi nimi jde změnit cíl */
-  const nU = BJU.ripo ? 1 : Math.max(1, +w.pocet || 1, TL.length),
+  /* útok navíc (Light / Nick / Cleave, 20g): jeden hod mimo pořadí útoků akce, zranění bez kladného modifikátoru */
+  const ZT = bojZvVolby(BJU, w),
+    NV = typeof bojWmNavic === "function" ? bojWmNavic(K, w, ZT) : null,
+    wH = typeof bojWUprav === "function" ? bojWUprav(K, w, ZT) : w,
+    TR = typeof bojTrikZvol === "function" ? bojTrikZvol(K, BJU, w) : null;
+  const nU = BJU.ripo || NV || TR ? 1 : Math.max(1, +w.pocet || 1, TL.length),
     tk = (s.kolo || 1) * 100 + (s.tah || 0);
-  if (BJU.uw !== w.n || BJU.utk !== tk) {
+  if (!NV && (BJU.uw !== w.n || BJU.utk !== tk)) {
     BJU.ui = 0;
     BJU.uw = w.n;
     BJU.utk = tk;
   }
-  const iU = Math.min(+BJU.ui || 0, nU - 1);
+  const iU = NV ? 0 : Math.min(+BJU.ui || 0, nU - 1);
   BJU.un = nU;
-  const ZT = bojZvVolby(BJU, w);
   for (let i = iU; i <= iU; i++) {
     const ci = TL.length ? TL[i % TL.length] : c,
       P = bojUtokPriprav({
         s,
         h: me,
         K,
-        w,
+        w: wH,
         c: ci,
         v,
         ac: ci && ci.ac != null ? ci.ac : null,
@@ -527,9 +579,10 @@ function bojJaHod() {
       ru: P.ru,
       zx: P.zx,
       dz: P.dz,
+      ...(NV || TR ? {rid: bojRidNavic(NV, TR)} : {}),
     });
     txt.push(
-      `${nU > 1 ? `Útok ${i + 1} z ${nU}: ` : ""}${TL.length > 1 && ci ? ci.n + ": " : ""}${P.txtHod}${P.vys ? ` → ${P.vys.toUpperCase()}` : ""}${P.txtZr}`,
+      `${NV ? `Útok navíc (${NV.n}${NV.ba ? ", bonusová akce" : ""}): ` : ""}${nU > 1 ? `Útok ${i + 1} z ${nU}: ` : ""}${TL.length > 1 && ci ? ci.n + ": " : ""}${P.txtHod}${P.vys ? ` → ${P.vys.toUpperCase()}` : ""}${P.txtZr}`,
     );
   }
   if (K && w.karta) {
@@ -558,7 +611,7 @@ function bojJaHod() {
     zv = " · " + zavTxt(z) + (r6 != null ? " (ručně)" : "");
   }
   BJU.info = (v && r20 == null ? `${v > 0 ? "Výhoda" : "Nevýhoda"}. ` : "") + txt.join(" · ") + zv;
-  if (iU >= nU - 1) bojBptOznac("A");
+  if (!NV && iU >= nU - 1) bojBptOznac("A");
   bojListPrekresli();
 }
 /* hráč: poslat útok vypravěči */
@@ -597,7 +650,7 @@ async function bojJaPosli() {
     L.push(Object.assign({}, zak, {dmg: Math.max(0, Math.min(300, Math.round(+BJU.dmg || 0))), plos: {ab: BJU.ab, dc, pol: !!BJU.pol}}));
   } else {
     const c = (s.npc || []).find(o => o.id === ci[0]),
-      nv = bojAdvHrac(s, me, c, w ? !!w.dal : BJU.dal),
+      nv = bojAdvHrac(s, me, c, w ? !!w.dal : BJU.dal, w),
       adv = BJU.adv === "auto" ? nv.v : +BJU.adv,
       km = BJU.kmin && BJU.kmin < 20 ? {kmin: BJU.kmin} : {};
     const ser = BJU.serie && BJU.serie.length ? BJU.serie : [{hod: BJU.hod, d: BJU.d, dmg: BJU.dmg}];
@@ -609,7 +662,7 @@ async function bojJaPosli() {
       const u = Object.assign({}, zak, km, x.ci ? {ci: [x.ci]} : {ci: [ci[0]]}, {
         hod: Math.max(-10, Math.min(60, Math.round(+x.hod))),
         dmg: Math.max(0, Math.min(300, Math.round(+x.dmg || 0))),
-        adv,
+        adv: x.v === 1 || x.v === -1 ? x.v : adv,
       });
       if ((x.rid || []).length || BJU.ripo)
         u.cim = `${BJU.ripo ? (BJU.ripo.odv ? "Odveta: " : "Riposte: ") : ""}${zak.cim}${(x.rid || [])
@@ -620,6 +673,8 @@ async function bojJaPosli() {
       if (!sp && w && BJU.zi !== "") {
         const zv = bojZvPayload(K, w, x, BJU.zav, bojZvVolby(BJU, w));
         if (zv) u.zv = zv;
+        const wm = typeof bojWmPayload === "function" ? bojWmPayload(K, w, x) : null;
+        if (wm) u.wm = wm;
       }
       L.push(u);
     }
@@ -660,9 +715,10 @@ async function bojJaPosli() {
         const r = await bojDB.utok(me.id, u);
         if (r && r.$fronta) fr = true;
       } catch (e) {
-        if (!(u.sl || u.zv) || !/neplatný útok/.test(e.message || "")) throw e;
+        if (!(u.sl || u.zv || u.wm) || !/neplatný útok/.test(e.message || "")) throw e;
         delete u.sl;
         delete u.zv;
+        delete u.wm;
         await bojDB.utok(me.id, u);
       }
     }

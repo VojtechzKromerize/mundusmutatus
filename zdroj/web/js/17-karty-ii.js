@@ -102,6 +102,18 @@ async function kTextyUloz(id, t) {
     } catch (e) {}
   }
 }
+/* české texty rysů SRD (art/srd-rysy-texty.json): načtou se až s prvním oknem rysu */
+let SRDRYT = null;
+let SRDRYTP = null;
+const srdRysyTexty = () =>
+  SRDRYT
+    ? Promise.resolve(SRDRYT)
+    : (SRDRYTP =
+        SRDRYTP ||
+        fetch("art/srd-rysy-texty.json")
+          .then(r => r.json())
+          .then(d => (SRDRYT = d))
+          .catch(() => (SRDRYT = {})));
 const kRysSrd = n => {
   if (!SRDRY) return null;
   const c = String(n || "")
@@ -110,11 +122,19 @@ const kRysSrd = n => {
     .trim();
   return SRDRY[c] || SRDRY[c.replace(/'/g, "’")] || null;
 };
+/* okno rysu: český text SRD (je-li rys v SRD), pod ním text z listu D&D Beyond; rys mimo SRD má vlastní shrnutí */
 function kRysPopis(K, n) {
   const T = KTX[K.id] || {},
     t = T[n],
-    s = kRysSrd(n);
-  return `<div data-kid="${besc(K.id)}"><h3>${besc(n)}</h3>${t ? `<div class="kron">${kTxtKostky(K, t, n)}</div><p class="rsmall">Text z tvého listu D&amp;D Beyond – vidíš ho jen ty a vypravěč.</p>` : `<p class="rsmall">${kMuze(K) ? "Popis z PDF tu zatím není – nahraj list znovu." : "Popis vidí jen hráč této postavy a vypravěč."}</p>`}${s ? `<p><a class="gbtn ghost" href="#pravidla/${s[0]}/${s[1]}" data-mmpopx>Pravidla SRD česky →</a></p>` : MIMO ? mimoRysHtml(mimoNajdi(kCtx(K), n), kCtx(K)) : ""}</div>`;
+    s = kRysSrd(n),
+    cz = s && SRDRYT ? SRDRYT[s[1]] : "";
+  const pdf = t
+    ? `<div class="kron">${kTxtKostky(K, t, n)}</div><p class="rsmall">Text z tvého listu D&amp;D Beyond – vidíš ho jen ty a vypravěč.</p>`
+    : "";
+  const telo = cz
+    ? `<div class="kron">${cz}</div>${t ? `<details class="krpdf"><summary>Text z listu D&amp;D Beyond</summary>${pdf}</details>` : ""}`
+    : pdf || `<p class="rsmall">${kMuze(K) ? "Popis z PDF tu zatím není – nahraj list znovu." : "Popis vidí jen hráč této postavy a vypravěč."}</p>`;
+  return `<div data-kid="${besc(K.id)}"><h3>${besc(n)}</h3>${telo}${s ? `<p><a class="gbtn ghost" href="#pravidla/${s[0]}/${s[1]}" data-mmpopx>${cz ? "Celá kapitola v Pravidlech →" : "Pravidla SRD česky →"}</a></p>` : MIMO ? mimoRysHtml(mimoNajdi(kCtx(K), n), kCtx(K)) : ""}</div>`;
 }
 /* ---- čas aktivace a seznamy akcí ---- */
 const KCAS = {A: "Akce", BA: "Bonusové akce", R: "Reakce", X: "Ostatní"};
@@ -447,12 +467,14 @@ function kSpUcD(d, lvl, mod, ul) {
   const ms = v.match(/o jednu šipku|jeden paprsek navíc|o jeden paprsek/);
   /* šipky a paprsky: počet už na základním stupni (Magic Missile 3 šipky), navíc za každý vyšší stupeň */
   if (ms && d.l && lvl >= d.l) o.pocet = (/šip/.test(v) ? 3 : /paprs/.test(t) ? 3 : 1) + (lvl - d.l);
-  const zs = t.match(/(STR|AGI|CON|INT|WIS|CHA) záchrann/);
+  const zs = t.match(KZACHRE);
   if (zs) o.zach = zs[1];
   o.utok = /útok kouzlem/i.test(t);
   o.pol = /při úspěchu poloviční/i.test(t);
   return o;
 }
+/* záchrana cíle v textu kouzla; „výhoda na AGI záchranné hody“ (Haste, Beacon of Hope, Conjure Animals pro sesilatele) jí není */
+const KZACHRE = /(?<!výhod[uouě] na )(?<!výhod[uouě] k )\b(STR|AGI|CON|INT|WIS|CHA) záchrann/;
 /* sesílání na vyšším stupni (upcasting): volba slotu kolečky se stupněm; co vyšší stupeň přidá, z popisu kouzla SRD */
 function kSpVyssi(K, x, lvl) {
   const d = typeof kSpA === "function" ? kSpA(x.n) : null,
@@ -1016,7 +1038,7 @@ function kSmity(K) {
         n: d.en || kzJm(x.n),
         st: d.l || x.st,
         blizko: /na blízko/i.test(ct) || /na blízko/i.test(t.slice(0, 120)),
-        zach: (t.match(/\b(STR|AGI|CON|INT|WIS|CHA) záchrann/) || [])[1] || null,
+        zach: (t.match(KZACHRE) || [])[1] || null,
         hned: /navíc|z útoku|\+\d+d\d+/i.test(t.split(/(?<=\.)\s+/)[0] || ""),
         kon: !!d.ko,
       });
