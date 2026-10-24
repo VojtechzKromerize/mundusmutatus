@@ -83,6 +83,6 @@ test("drobné výpočty: modifikátor, výhoda a nevýhoda se ruší, počet út
     "fyz",
   ]);
   assert.equal(V(`bojNeschopny(["sražen", "omráčen"])`), "omráčen");
-  assert.equal(V(`srdNejedna(["ochromen"])`), true);
+  assert.equal(V(`srdNejedna(["paralyzovaný"])`), true);
   assert.equal(V(`srdNejedna(["sražen"])`), false);
 });

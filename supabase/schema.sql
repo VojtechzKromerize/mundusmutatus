@@ -787,14 +787,16 @@ language sql immutable as $$
     or (jsonb_typeof(v) = 'number' and (v #>> '{}') ~ '^-?[0-9]{1,4}$' and (v #>> '{}')::int between lo and hi)
 $$;
 
--- stavy postavy (2026-10-22): jeden seznam pro kartu i boj – stavy postavy s kartou se ukládají jen na kartě,
+-- stavy postavy (2026-10-22): jeden seznam pro kartu i boj (názvy od 2026-10-24: paralyzovaný, spoután, otráven, vyděšen;
+-- dřívější ochromen, zadržen, otrávený, vyděšený zůstávají pro starší data – web je při čtení převede) – stavy postavy s kartou se ukládají jen na kartě,
 -- včetně stavů, které jí v boji dá vypravěč (vlastnosti zbraní, účinky); s koncem boje je web z karty zase odebere
 create or replace function public.mm_stavy_pc_ok(x jsonb) returns boolean
 language sql immutable as $$
   select jsonb_typeof(x) = 'array' and jsonb_array_length(x) <= 24 and not exists (
     select 1 from jsonb_array_elements(x) e where jsonb_typeof(e) <> 'string' or not ((e #>> '{}') = any (array[
-      'krvácí k4','krvácí k6','krvácí k8','sražen','omráčen','zadržen','chycen','oslepen','ohlušen','neviditelný','otrávený','vyděšený',
-      'okouzlen','neschopný','ochromen','zkamenělý','v bezvědomí','úhyb','soustředí','zapřeno','zbraň uvízla','zbraň selhala','zbraň praská',
+      'krvácí k4','krvácí k6','krvácí k8','sražen','omráčen','spoután','chycen','oslepen','ohlušen','neviditelný','otráven','vyděšen',
+      'okouzlen','neschopný','paralyzovaný','zkamenělý',
+      'zadržen','otrávený','vyděšený','ochromen','v bezvědomí','úhyb','soustředí','zapřeno','zbraň uvízla','zbraň selhala','zbraň praská',
       'odkrytý','zaskočen','přibodnut','ve vazbě','v dýmu','odzbrojen'])))
 $$;
 

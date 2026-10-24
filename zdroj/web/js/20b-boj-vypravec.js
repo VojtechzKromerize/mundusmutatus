@@ -235,8 +235,8 @@ function bojUtokVyhodnot0(s, u) {
         r.ostra = 1;
       }
     }
-    /* Do slabin! (Artikule): dýka proti ležícímu nebo zadrženému cíli s Požehnáním = kritický zásah – web přihodí kostky zranění */
-    if (!krit && !mis && bojZvMa(u, "Do slabin!") && u.zv && u.zv.r === "poz" && (n.stav || []).some(t => t === "sražen" || t === "zadržen")) {
+    /* Do slabin! (Artikule): dýka proti sraženému nebo spoutanému cíli s Požehnáním = kritický zásah – web přihodí kostky zranění */
+    if (!krit && !mis && bojZvMa(u, "Do slabin!") && u.zv && u.zv.r === "poz" && (n.stav || []).some(t => t === "sražen" || t === "spoután")) {
       const q = bojZvZbrKostky(h, u);
       krit = true;
       if (q) u = Object.assign({}, u, {dmg: (+u.dmg || 0) + q.t});

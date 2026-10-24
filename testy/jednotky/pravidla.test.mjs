@@ -136,29 +136,29 @@ test("Artikule: Výdrž má jen bojové povolání – Fighter bonus zdatnosti, 
 /* ---------- stavy postavy (SRD) a vyčerpání ---------- */
 const stavy = async L => S.ev(`kartaStavZmen("balduin", {stavy: ${JSON.stringify(L)}}, null, {bezZpet: true})`);
 
-test("stavy: Sražen a Otrávený dávají nevýhodu na útok, Otrávený i na ověření; Zadržen nevýhodu na záchranu DEX", async () => {
-  await stavy(["sražen", "otrávený"]);
+test("stavy: Sražen a Otráven dávají nevýhodu na útok, Otráven i na ověření; Spoután nevýhodu na záchranu DEX", async () => {
+  await stavy(["sražen", "otráven"]);
   try {
     assert.deepEqual(V(`kStavVliv(KARTBY.balduin, "Útok").r`), [
       [-1, "sražen"],
-      [-1, "otrávený"],
+      [-1, "otráven"],
     ]);
-    assert.deepEqual(V(`kStavVliv(KARTBY.balduin, "Ověření Athletics").r`), [[-1, "otrávený"]]);
+    assert.deepEqual(V(`kStavVliv(KARTBY.balduin, "Ověření Athletics").r`), [[-1, "otráven"]]);
     assert.deepEqual(V(`kStavVliv(KARTBY.balduin, "Záchrana DEX").r`), [], "Sražen záchranu nemění");
-    await stavy(["zadržen"]);
-    assert.deepEqual(V(`kStavVliv(KARTBY.balduin, "Záchrana DEX").r`), [[-1, "zadržen"]]);
+    await stavy(["spoután"]);
+    assert.deepEqual(V(`kStavVliv(KARTBY.balduin, "Záchrana DEX").r`), [[-1, "spoután"]]);
   } finally {
     await stavy(null);
   }
 });
 
-test("stavy: Ochromen – rychlost 0, záchrany STR a DEX automaticky selžou, nemůže jednat", async () => {
-  await stavy(["ochromen"]);
+test("stavy: Paralyzovaný – rychlost 0, záchrany STR a DEX automaticky selžou, nemůže jednat", async () => {
+  await stavy(["paralyzovaný"]);
   try {
     assert.equal(V(`kRychN(KARTBY.balduin)`), 0);
     assert.equal(V(`kStavVliv(KARTBY.balduin, "Záchrana STR").fail`), true);
     assert.equal(V(`kStavVliv(KARTBY.balduin, "Záchrana WIS").fail`), false);
-    assert.equal(V(`kNeschopny(KARTBY.balduin)`), "ochromen");
+    assert.equal(V(`kNeschopny(KARTBY.balduin)`), "paralyzovaný");
     assert.equal(V(`srdNejedna(["omráčen"])`), true);
     assert.equal(V(`srdNejedna(["sražen"])`), false);
   } finally {
@@ -180,12 +180,12 @@ test("stavy: návrh výhody v boji – sražený cíl zblízka výhoda, z dálky
     V(`(() => { const p = [], m = []; const k5 = srdAdv(${JSON.stringify(st)}, ${JSON.stringify(ct)}, ${dal}, p, m); return [p, m, k5]; })()`);
   assert.deepEqual(adv([], ["sražen"], false), [["cíl sražen, útok zblízka"], [], false]);
   assert.deepEqual(adv([], ["sražen"], true), [[], ["cíl sražen, útok z dálky"], false]);
-  assert.deepEqual(adv(["otrávený"], ["ochromen"], false), [["cíl ochromen"], ["útočník otrávený"], true]);
-  assert.equal(adv([], ["ochromen"], true)[2], false, "z dálky kritický zásah není");
+  assert.deepEqual(adv(["otráven"], ["paralyzovaný"], false), [["cíl paralyzovaný"], ["útočník otráven"], true]);
+  assert.equal(adv([], ["paralyzovaný"], true)[2], false, "z dálky kritický zásah není");
   const s = {
     npc: [
       {id: "n1", b: "x", stav: []},
-      {id: "n2", b: "x", stav: ["zadržen"], kryt: 2},
+      {id: "n2", b: "x", stav: ["spoután"], kryt: 2},
     ],
     hraci: [],
   };
@@ -194,7 +194,7 @@ test("stavy: návrh výhody v boji – sražený cíl zblízka výhoda, z dálky
     const n = V(`bojAdvNavrh(${JSON.stringify(s)}, {id: "n1", stav: []}, {n: "Kousnutí", p: "dosah 5 stop"})`);
     assert.equal(n.v, 1);
     assert.equal(n.kryt, 2, "kryt cíle se předá k AC");
-    const r = V(`bojAdvNavrh(${JSON.stringify(s)}, {id: "n1", stav: ["otrávený"]}, {n: "Kousnutí", p: "dosah 5 stop"})`);
+    const r = V(`bojAdvNavrh(${JSON.stringify(s)}, {id: "n1", stav: ["otráven"]}, {n: "Kousnutí", p: "dosah 5 stop"})`);
     assert.equal(r.v, 0);
     assert.match(r.why[0], /ruší/);
   } finally {
@@ -222,6 +222,17 @@ test("pojmy: Obratnost je DEX – starší data s AGI se při čtení převedou 
   assert.deepEqual(K.zachProf, ["DEX"]);
   assert.equal(V(`kMod(kVl(${JSON.stringify(K)}, "DEX"))`), 3);
   assert.equal(V(`mmDex("STRAGIL a AGI DC 15")`), "STRAGIL a DEX DC 15", "jen celé slovo AGI");
+});
+
+test("stavy podle Vojty (2026-10-24): paralyzovaný, spoután, vyděšen, otráven – starší názvy v datech se při čtení převedou", () => {
+  const S = JSON.parse(
+    V(`mmDex(${JSON.stringify(JSON.stringify({stavy: ["ochromen", "zadržen", "vyděšený", "otrávený", "sražen"], t: "je zadržen"}))})`),
+  );
+  assert.deepEqual(S.stavy, ["paralyzovaný", "spoután", "vyděšen", "otráven", "sražen"]);
+  assert.equal(S.t, "je zadržen", "souvislý text se nemění, jen celé hodnoty");
+  for (const k of ["paralyzovaný", "spoután", "vyděšen", "otráven", "chycen", "omráčen"]) assert.ok(V(`!!SRDST[${JSON.stringify(k)}]`), k);
+  assert.equal(V(`SRDST["paralyzovaný"].en`), "Paralyzed");
+  assert.equal(V(`SRDST["omráčen"].en`), "Stunned");
 });
 
 test("Artikule › featy: Martial Adept dává +1 Výdrž i kouzelníkovi; Mistr těžké zbroje +1 obětování jen těžké zbroje", () => {

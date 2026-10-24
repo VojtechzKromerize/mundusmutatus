@@ -368,10 +368,10 @@ const KZOBL = {
   "Incendiary Cloud": {ab: "DEX", z: "10d8", t: "Fire", pol: 1, kdy: "kon", ko: 1},
   "Blade Barrier": {ab: "DEX", z: "6d10", t: "Slashing", pol: 1, kdy: "kon", ko: 1},
   "Flaming Sphere": {ab: "DEX", z: "2d6", up: [2, "1d6"], t: "Fire", pol: 1, kdy: "kon", ko: 1},
-  "Stinking Cloud": {ab: "CON", z: "", t: "Poison", st: ["otrávený"], kdy: "zac", ko: 1},
-  Web: {ab: "DEX", z: "", t: "", st: ["zadržen"], kdy: "zac", ko: 1},
+  "Stinking Cloud": {ab: "CON", z: "", t: "Poison", st: ["otráven"], kdy: "zac", ko: 1},
+  Web: {ab: "DEX", z: "", t: "", st: ["spoután"], kdy: "zac", ko: 1},
   Grease: {ab: "DEX", z: "", t: "", st: ["sražen"], kdy: "kon", ko: 0},
-  "Black Tentacles": {ab: "STR", z: "3d6", up: [4, "1d6"], t: "Bludgeoning", st: ["zadržen"], kdy: "zac", ko: 1},
+  "Black Tentacles": {ab: "STR", z: "3d6", up: [4, "1d6"], t: "Bludgeoning", st: ["spoután"], kdy: "zac", ko: 1},
   "Sickening Radiance": {ab: "CON", z: "4d10", t: "Radiant", kdy: "zac", ko: 1},
   "Hunger of Hadar": {ab: null, z: "2d6", t: "Cold", kdy: "zac", ko: 1},
 };
@@ -707,18 +707,18 @@ function kVyber(nadpis, moznosti) {
 }
 /* ---- léčení a obnova (seslání s cíli z družiny) ---- */
 const KZLEC = {
-  Heal: {hp: 70, up: [6, 10], st: ["oslepen", "ohlušen", "otrávený"]},
-  "Mass Heal": {hp: 700, rozdel: 1, st: ["oslepen", "ohlušen", "otrávený"]},
-  "Power Word Heal": {hp: "max", st: ["okouzlen", "vyděšený", "ochromen", "otrávený", "omráčen"]},
+  Heal: {hp: 70, up: [6, 10], st: ["oslepen", "ohlušen", "otráven"]},
+  "Mass Heal": {hp: 700, rozdel: 1, st: ["oslepen", "ohlušen", "otráven"]},
+  "Power Word Heal": {hp: "max", st: ["okouzlen", "vyděšen", "paralyzovaný", "otráven", "omráčen"]},
   "Prayer of Healing": {x: "2d8", up: [2, "1d8"]},
   "Spare the Dying": {stab: 1},
   Revivify: {ozivit: 1},
-  "Lesser Restoration": {vyber: ["oslepen", "ohlušen", "ochromen", "otrávený"]},
+  "Lesser Restoration": {vyber: ["oslepen", "ohlušen", "paralyzovaný", "otráven"]},
   "Greater Restoration": {vyber: ["okouzlen", "zkamenělý", "vyčerpání −1"]},
   "Dispel Magic": {rozptyl: 1},
   /* 2026-10-22 (inventura kouzel) */
   Regenerate: {x: "4d8+15"},
-  "Protection from Poison": {st: ["otrávený"], hp: 0, dal: 1} /* dal: po ukončení stavu pokračuje běžné seslání (posílení z UCINKY) */,
+  "Protection from Poison": {st: ["otráven"], hp: 0, dal: 1} /* dal: po ukončení stavu pokračuje běžné seslání (posílení z UCINKY) */,
   "Raise Dead": {ozivit: 1},
   Resurrection: {ozivit: 1},
   "True Resurrection": {ozivit: 1},

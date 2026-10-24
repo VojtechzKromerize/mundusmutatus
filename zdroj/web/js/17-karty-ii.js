@@ -576,7 +576,7 @@ function kBufy(K) {
 /* ---- Seslat na koho (2026-10-17 b): kouzlo s dosahem (ne „Sebe“) se před sesláním zeptá na cíle – postavy družiny
    a v boji nepřátelé. Spojenci dostanou účinek „Kouzlo ⇒ Jméno“ (drží ho sesilatel, se soustředěním zmizí), léčivé kouzlo
    rovnou vyléčí vybrané. Nepřátelé v boji: hráč kouzlo se záchranou či útokem dohodí v listu útoku (vyhodnotí vypravěč),
-   vypravěč nepříteli hodí záchranu sám a uloží stav (Hold Person → Ochromen) nebo značku účinku. */
+   vypravěč nepříteli hodí záchranu sám a uloží stav (Hold Person → Paralyzovaný) nebo značku účinku. */
 let KSDLG = null;
 const kSesCil = x => {
   const d = typeof kSp === "function" ? kSp(x.n) : null,
@@ -1254,17 +1254,17 @@ async function kSpZraneni(K, x, lvl, krit, cil) {
 const KSTV = [
   "krvácí k6",
   "krvácí k8",
-  "otrávený",
-  "vyděšený",
+  "otráven",
+  "vyděšen",
   "neviditelný",
   "sražen",
-  "zadržen",
+  "spoután",
   "chycen",
   "oslepen",
   "ohlušen",
   "okouzlen",
   "neschopný",
-  "ochromen",
+  "paralyzovaný",
   "omráčen",
   "zkamenělý",
   "v bezvědomí",
@@ -1290,7 +1290,7 @@ function kStavVliv(K, co) {
     const d = SRDST[k];
     if (!d) return;
     if (typ === "ut" && d.ut) r.push([d.ut, `${k}`]);
-    if (typ === "ov" && (k === "otrávený" || k === "vyděšený")) r.push([-1, k]);
+    if (typ === "ov" && (k === "otráven" || k === "vyděšen")) r.push([-1, k]);
     if (typ === "in" && k === "neviditelný") r.push([1, k]);
     if (typ === "in" && k === "neschopný") r.push([-1, k]);
     if (typ === "za" && d.zach && ab && d.zach[ab]) {

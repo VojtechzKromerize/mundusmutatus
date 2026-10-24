@@ -272,11 +272,11 @@ test("boj: stavy a hody proti smrti postavy s kartou se čtou z karty a zapisuj�
     assert.equal(z.hraci[1]._k, undefined);
     await S.ev(`(() => {
       const z = bojPcNaplnit({hraci: [{id: "h1", n: "Balduin", k: "balduin"}]});
-      z.hraci[0].stav.push("otrávený");
+      z.hraci[0].stav.push("otráven");
       delete z.hraci[0].ds;
       bojPcOdvod(z);
     })()`);
-    assert.deepEqual(V(`kartaStav("balduin").stavy`), ["sražen", "otrávený"], "změna v boji se zapíše na kartu");
+    assert.deepEqual(V(`kartaStav("balduin").stavy`), ["sražen", "otráven"], "změna v boji se zapíše na kartu");
     assert.equal(V(`kartaStav("balduin").ds || null`), null);
     const ul = V(`bojPcBez(bojPcNaplnit({hraci: [{id: "h1", n: "Balduin", k: "balduin", kryt: 2}, {id: "h2", n: "Bez karty", stav: ["omráčen"]}]}))`);
     assert.deepEqual(ul.hraci[0], {id: "h1", n: "Balduin", k: "balduin", kryt: 2}, "do databáze boje se obraz neuloží, kryt ano");
@@ -295,16 +295,16 @@ test("boj: starší boj se stavy v sobě je převede na kartu; s koncem boje zmi
   try {
     assert.deepEqual(
       V(`(() => {
-      const s = {hraci: [{id: "h1", n: "Balduin", k: "balduin", stav: ["vyděšený"], ds: {u: 0, n: 1}}]};
+      const s = {hraci: [{id: "h1", n: "Balduin", k: "balduin", stav: ["vyděšen"], ds: {u: 0, n: 1}}]};
       return [bojPcPrevod(s), s.hraci[0].stav || null, s.hraci[0].ds || null];
     })()`),
       [true, null, null],
     );
-    assert.deepEqual(V(`kartaStav("balduin").stavy`), ["vyděšený"]);
+    assert.deepEqual(V(`kartaStav("balduin").stavy`), ["vyděšen"]);
     assert.deepEqual(V(`kartaStav("balduin").ds`), {u: 0, n: 1});
     assert.deepEqual(
       V(`(() => {
-      const z = {hraci: [{id: "h1", _k: 1, stav: ["zapřeno", "sražen", "ochromen"], ef: [{n: "Hold Person", st: "ochromen"}]}]};
+      const z = {hraci: [{id: "h1", _k: 1, stav: ["zapřeno", "sražen", "paralyzovaný"], ef: [{n: "Hold Person", st: "paralyzovaný"}]}]};
       bojPcKonecBoje(z);
       return z.hraci[0].stav;
     })()`),

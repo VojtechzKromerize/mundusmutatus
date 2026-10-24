@@ -186,15 +186,15 @@ async def main():
     await g.evaluate("bojZmen(z=>{const h=z.hraci.find(x=>x.id==='h4');h.stav=(h.stav||[]).filter(t=>t!=='omráčen')})");await puls(pl,od=g)
     # jeden zdroj stavů (2026-10-22): stavy postavy s kartou jsou jen na kartě – stav od vypravěče je na kartě, stav z karty vidí tracker
     chk(await g.evaluate("!(kartaStav('balduin').stavy||[]).includes('omráčen')") and await pl.evaluate("!(kartaStav('balduin').stavy||[]).includes('omráčen')"),"stav od vypravěče v boji je na kartě a s ním i zmizí")
-    await pl.evaluate("kartaStavZmen('balduin',{stavy:[...(kartaStav('balduin').stavy||[]),'otrávený']})")
-    try: await g.wait_for_function("(BOJ.s.hraci.find(x=>x.id==='h4').stav||[]).includes('otrávený')",timeout=12000)
+    await pl.evaluate("kartaStavZmen('balduin',{stavy:[...(kartaStav('balduin').stavy||[]),'otráven']})")
+    try: await g.wait_for_function("(BOJ.s.hraci.find(x=>x.id==='h4').stav||[]).includes('otráven')",timeout=12000)
     except Exception: pass
-    chk(await g.evaluate("(BOJ.s.hraci.find(x=>x.id==='h4').stav||[]).includes('otrávený')"),"stav zapsaný na kartě mimo bojová tlačítka vidí vypravěč v trackeru")
-    chk("otrávený" in await g.evaluate("BLOGG.slice(0,8).map(x=>(x.o.zt||'')).join('|')"),"změna stavu na kartě z telefonu je v záznamu vypravěče")
+    chk(await g.evaluate("(BOJ.s.hraci.find(x=>x.id==='h4').stav||[]).includes('otráven')"),"stav zapsaný na kartě mimo bojová tlačítka vidí vypravěč v trackeru")
+    chk("otráven" in await g.evaluate("BLOGG.slice(0,8).map(x=>(x.o.zt||'')).join('|')"),"změna stavu na kartě z telefonu je v záznamu vypravěče")
     db=json.loads(urllib.request.urlopen(urllib.request.Request(U+"/rest/v1/rpc/mm_boj_cti",headers={"apikey":K})).read())["stav"]
     h4=[h for h in db["hraci"] if h["id"]=="h4"][0]
     chk("stav" not in h4 and "ds" not in h4 and "_k" not in h4,"do databáze boje se stavy postavy s kartou neukládají: "+str(sorted(h4.keys())))
-    await pl.evaluate("kartaStavZmen('balduin',{stavy:(kartaStav('balduin').stavy||[]).filter(t=>t!=='otrávený')})");await puls(g,od=pl)
+    await pl.evaluate("kartaStavZmen('balduin',{stavy:(kartaStav('balduin').stavy||[]).filter(t=>t!=='otráven')})");await puls(g,od=pl)
     # Akce: bez kouzel a mistrovství zbraní, bez tlačítka krit, vlastnosti zbraně až po klepnutí
     await pl.evaluate("BDM.sec.balduin='akce';BDM.af.balduin='all';renderBoj()");await pl.wait_for_timeout(300)
     ak=await pl.inner_text('[data-bhcard="h4"] .bdmsec')
@@ -253,13 +253,13 @@ async def main():
     chk(await drz(0),"Seslat na koho: v boji nabídne družinu i nepřátele")
     n1=await g.evaluate(f"JSON.parse(JSON.stringify(BOJ.s.npc.find(n=>n.id==='{nid}')))")
     ef=[e for e in (n1.get("ef") or []) if e.get("n")=="Hold Person"]
-    chk("ochromen" in (n1.get("stav") or []) and ef and ef[0].get("op",{}).get("ab")=="WIS" and ef[0].get("src")=="h4","Hold Person: neúspěšná záchrana → Ochromen, opakovaná záchrana WIS, drží soustředění Balduina: "+str(ef)[:160])
+    chk("paralyzovaný" in (n1.get("stav") or []) and ef and ef[0].get("op",{}).get("ab")=="WIS" and ef[0].get("src")=="h4","Hold Person: neúspěšná záchrana → Ochromen, opakovaná záchrana WIS, drží soustředění Balduina: "+str(ef)[:160])
     await g.evaluate("bojZmen(z=>{const h=z.hraci.find(h=>h.id==='h4');h.stav=(h.stav||[]).filter(x=>x!=='soustředí')})");await g.wait_for_timeout(900)
     n1=await g.evaluate(f"JSON.parse(JSON.stringify(BOJ.s.npc.find(n=>n.id==='{nid}')))")
-    chk("ochromen" not in (n1.get("stav") or []) and not any(e.get("n")=="Hold Person" for e in (n1.get("ef") or [])),"ztráta soustředění sesilatele ukončí Hold Person na nepříteli")
+    chk("paralyzovaný" not in (n1.get("stav") or []) and not any(e.get("n")=="Hold Person" for e in (n1.get("ef") or [])),"ztráta soustředění sesilatele ukončí Hold Person na nepříteli")
     await drz(0);await g.evaluate(f"window._mr=Math.random;Math.random=()=>0.999;bojZmen(z=>bojKonecTahu(z,'{nid}'));Math.random=window._mr;0");await g.wait_for_timeout(900)
     n1=await g.evaluate(f"JSON.parse(JSON.stringify(BOJ.s.npc.find(n=>n.id==='{nid}')))")
-    chk("ochromen" not in (n1.get("stav") or []),"opakovaná záchrana na konci tahu: úspěch Hold Person ukončí")
+    chk("paralyzovaný" not in (n1.get("stav") or []),"opakovaná záchrana na konci tahu: úspěch Hold Person ukončí")
     chk(await g.evaluate(f"[kCilUp(kSeznam(KARTBY.balduin)[{i_hp}],2),kCilUp(kSeznam(KARTBY.balduin)[{i_hp}],3)].join()")=="1,2","Hold Person: 1 cíl na 2. stupni, 2 cíle na 3. stupni")
     # vypravěč za hráče: Fireball se záchranami i zraněním, Eldritch Blast proti AC
     await g.evaluate("kartaStavZmen('balduin',{kpn:['Fireball'],zdr:null})");await g.wait_for_timeout(1200)
@@ -300,15 +300,15 @@ async def main():
     await g.evaluate(f"bojZmen(z=>{{const n=z.npc.find(n=>n.id==='{nid}');(n.ef||[]).slice().forEach(e=>bojEfDel(n,e));const h=z.hraci.find(h=>h.id==='h4');h.stav=(h.stav||[]).filter(x=>x!=='soustředí');if(!h.stav.length)delete h.stav}});kartaStavZmen('balduin',{{zdr:null,uc:null}})");await g.wait_for_timeout(1500)
     # schopnost nepřítele se stavem: postavě vyskočí výzva, neúspěch = Vyděšený, na konci tahu opakovaná záchrana
     await pl.evaluate("window._ja=JA.get();JA.set(Object.assign({},window._ja||{},{k:'balduin'}));window._kh=kartaHod;kartaHod=async()=>({tot:1,d:1,txt:'1'});0")
-    await g.evaluate("BPLOS={src:'Rotmistr: Děsivý pohled',z:'',t:'Psychic',ab:'WIS',dc:15,pol:false,st:['vyděšený'],op:true,k:10,cile:['h4'],vys:''};bojPlosHod()")
+    await g.evaluate("BPLOS={src:'Rotmistr: Děsivý pohled',z:'',t:'Psychic',ab:'WIS',dc:15,pol:false,st:['vyděšen'],op:true,k:10,cile:['h4'],vys:''};bojPlosHod()")
     await pl.wait_for_selector("#mmvyz [data-vyzhod]",timeout=40000);await pl.click("#mmvyz [data-vyzhod]")
-    await g.wait_for_function("(BOJ.s.hraci.find(h=>h.id==='h4').stav||[]).includes('vyděšený')",timeout=20000)
+    await g.wait_for_function("(BOJ.s.hraci.find(h=>h.id==='h4').stav||[]).includes('vyděšen')",timeout=20000)
     ef=await g.evaluate("JSON.parse(JSON.stringify(BOJ.s.hraci.find(h=>h.id==='h4').ef||[]))")
-    chk(any(e.get("st")=="vyděšený" and e.get("op",{}).get("dc")==15 for e in ef),"schopnost nepřítele: neúspěšná záchrana z telefonu → postava Vyděšená s opakovanou záchranou")
+    chk(any(e.get("st")=="vyděšen" and e.get("op",{}).get("dc")==15 for e in ef),"schopnost nepřítele: neúspěšná záchrana z telefonu → postava Vyděšená s opakovanou záchranou")
     await pl.evaluate("kartaHod=async()=>({tot:30,d:20,txt:'30'});0")
     await g.evaluate("bojZmen(z=>bojKonecTahu(z,'h4'))")
     await pl.wait_for_selector("#mmvyz [data-vyzhod]",timeout=40000);await pl.click("#mmvyz [data-vyzhod]")
-    await g.wait_for_function("!(BOJ.s.hraci.find(h=>h.id==='h4').stav||[]).includes('vyděšený')",timeout=20000)
+    await g.wait_for_function("!(BOJ.s.hraci.find(h=>h.id==='h4').stav||[]).includes('vyděšen')",timeout=20000)
     chk(True,"opakovaná záchrana postavy na konci tahu (výzva) stav ukončí")
     await pl.evaluate("kartaHod=window._kh;JA.set(window._ja||null);0");await g.evaluate("BPLOS=null;renderBoj()")
     # společník hráče v boji: do boje jako spojenec, útok z telefonu k potvrzení, životy sdílené, z boje

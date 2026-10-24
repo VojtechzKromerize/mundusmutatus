@@ -140,21 +140,21 @@ function bojTahHook(pre, s) {
     bojZacatekTahu(s, id1);
   }
 }
-/* stav z kouzla se záchranou (2026-10-17): Hold Person → ochromen (Paralyzed) apod. Při neúspěšné záchraně dostane cíl stav
+/* stav z kouzla se záchranou (2026-10-17): Hold Person → paralyzovaný (Paralyzed) apod. Při neúspěšné záchraně dostane cíl stav
    s trváním kouzla; když kouzlo říká „na konci každého tahu hod opakuje“, tracker ho na konci tahu nepřítele hodí sám.
    Soustředěné kouzlo skončí i tehdy, když sesilatel ztratí soustředění (bojAcSync). */
 const BSPSTCZ = [
   [/\boslep[eě]n/i, "oslepen"],
-  [/\bokouzl[eě]n/i, "okouzlen"],
+  [/\b(okouzl[eě]n|zmámen)/i, "okouzlen"],
   [/\bohluš[eě]n/i, "ohlušen"],
-  [/\b(vyděšen|vystrašen)/i, "vyděšený"],
-  [/\bchycen/i, "chycen"],
+  [/\b(vyděšen|vystrašen)/i, "vyděšen"],
+  [/\b(chycen|uchvácen)/i, "chycen"],
   [/\bneschopn/i, "neschopný"],
-  [/\bochromen/i, "ochromen"],
+  [/\bparalyzov/i, "paralyzovaný"],
   [/\bzkameněl/i, "zkamenělý"],
-  [/\botráven/i, "otrávený"],
+  [/\botráven/i, "otráven"],
   [/\bsražen|\bsrazí|\bk zemi/i, "sražen"],
-  [/\bzadržen/i, "zadržen"],
+  [/\b(spoután|spoutan|zadržen)/i, "spoután"],
   [/\bomráčen/i, "omráčen"],
   [/\bv bezvědomí|\bbezvědom/i, "v bezvědomí"],
 ];
@@ -179,7 +179,7 @@ function bojSpStav(cim) {
         const k = EN[e];
         if (k && !st.includes(k)) st.push(k);
       });
-      /* česky bez anglického názvu (Vojtův katalog kouzel, 2026-10-22): „jinak vystrašen“, „je zadržená“, „sražen k zemi“ */
+      /* česky bez anglického názvu (Vojtův katalog kouzel, 2026-10-22): „jinak vystrašen“, „je spoutaná“, „sražen k zemi“ */
       BSPSTCZ.forEach(([re, k]) => {
         if (re.test(v) && !st.includes(k)) st.push(k);
       });
@@ -1352,11 +1352,11 @@ const BSTHP = {
   "krvácí k8": "Krvácíš (kritické zranění): na začátku každého tahu ztratíš k8 HP, dokud tě někdo neošetří (Medicine).",
   sražen: "Ležíš: vstát stojí polovinu rychlosti; útoky zblízka na tebe mají výhodu, z dálky nevýhodu; tvé útoky mají nevýhodu.",
   omráčen: "Omráčen: nemůžeš jednat ani se pohnout, záchrany na Sílu a Obratnost automaticky selžou, útoky na tebe mají výhodu.",
-  zadržen: "Zadržen: rychlost 0, tvé útoky mají nevýhodu, útoky na tebe výhodu; vyprostíš se akcí.",
+  spoután: "Spoután: rychlost 0, tvé útoky mají nevýhodu, útoky na tebe výhodu; vyprostíš se akcí.",
   oslepen: "Oslepen: tvé útoky mají nevýhodu, útoky na tebe výhodu.",
   neviditelný: "Neviditelný: tvé útoky mají výhodu, útoky na tebe nevýhodu.",
-  otrávený: "Otrávený: nevýhoda na útoky a ověření.",
-  vyděšený: "Vyděšený: nevýhoda na útoky a ověření, dokud vidíš zdroj strachu; nesmíš se k němu přiblížit.",
+  otráven: "Otráven: nevýhoda na útoky a ověření.",
+  vyděšen: "Vyděšen: nevýhoda na útoky a ověření, dokud vidíš zdroj strachu; nesmíš se k němu přiblížit.",
   soustředí: "Držíš soustředění (Concentration): při zranění CON záchrana DC 10 nebo polovina zranění (nejvýš 30).",
 };
 Object.entries(SRDST).forEach(([k, v]) => {
@@ -1423,8 +1423,8 @@ async function bojHracAkce(id, fn, msg) {
       const f0 = fn;
       fn = (h, z) => {
         const r = f0(h, z);
-        if (h && (h.stav || []).includes("vyděšený")) {
-          h.stav = h.stav.filter(x => x !== "vyděšený");
+        if (h && (h.stav || []).includes("vyděšen")) {
+          h.stav = h.stav.filter(x => x !== "vyděšen");
           if (!h.stav.length) delete h.stav;
           mmHlasG(`${h.n} je V milosti – imunní vůči Frightened.`, 4500);
         }

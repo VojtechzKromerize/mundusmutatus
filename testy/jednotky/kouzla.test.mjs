@@ -271,12 +271,12 @@ test("kouzla: Spirit Shroud +1d8 (+1d8 za každé 2 stupně), Flame Arrows jen n
   assert.ok(!V(`kEfekty(${K})`).some(e => /Spirit Shroud|Flame Arrows|Crusader/.test(e.n)), "po konci kouzla nic");
 });
 
-test("kouzla: stav ze záchrany i z českého textu – Cause Fear → Vyděšený (opakuje záchranu), Snare → Zadržen; Hold Person dál Ochromen", () => {
+test("kouzla: stav ze záchrany i z českého textu – Cause Fear → Vyděšen (opakuje záchranu), Snare → Spoután; Hold Person dál Paralyzovaný", () => {
   const cf = V(`bojSpStav("Cause Fear")`);
-  assert.deepEqual(cf.st, ["vyděšený"]);
+  assert.deepEqual(cf.st, ["vyděšen"]);
   assert.ok(cf.op && cf.kon);
-  assert.deepEqual(V(`bojSpStav("Snare").st`), ["zadržen"]);
-  assert.deepEqual(V(`bojSpStav("Hold Person").st`), ["ochromen"]);
+  assert.deepEqual(V(`bojSpStav("Snare").st`), ["spoután"]);
+  assert.deepEqual(V(`bojSpStav("Hold Person").st`), ["paralyzovaný"]);
   assert.equal(V(`bojSpStav("Cure Wounds")`), null);
 });
 

@@ -379,7 +379,7 @@ const kRychN = K => {
   const vy = +S.vycerp || 0;
   if (vy) v -= 5 * vy;
   const st = kStavy(K);
-  if (st.some(x => /chycen|zadržen|ochromen|omráčen|zkamen|bezvědomí/.test(x))) v = 0;
+  if (st.some(x => /chycen|spoután|paralyzovan|omráčen|zkamen|bezvědomí/.test(x))) v = 0;
   return Math.max(0, v);
 };
 const kRychTxt = K => {

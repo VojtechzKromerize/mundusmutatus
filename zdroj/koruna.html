@@ -375,6 +375,9 @@ function zminky(D){
     if(v&&typeof v==="object"){for(const k in v)v[k]=walk(v[k]);return v}return v};
   for(const k in D)if(k!=="STAV"&&k!=="GM")D[k]=walk(D[k]);
 }
+/* starší data se při čtení převedou: Obratnost = DEX (dřív AGI); stavy (2026-10-24) paralyzovaný (dřív ochromen), spoután (zadržen), vyděšen (vyděšený), otráven (otrávený) */
+const MMSTST={ochromen:"paralyzovaný",zadržen:"spoután",otrávený:"otráven",vyděšený:"vyděšen"};
+window.mmStare=s=>typeof s==="string"?s.replace(/\bAGI\b/g,"DEX").replace(/"(ochromen|zadržen|otrávený|vyděšený)"/g,(m,k)=>'"'+MMSTST[k]+'"'):s;
 const C=window.MMCFG||null;
 window.MMDB=null;window.MMINFO="";
 /* nainstalovaná aplikace (ikona na ploše): třída pro vzhled – záložky boje u palce, bez „přetažení pro obnovení“ */
@@ -388,7 +391,7 @@ const LS="mm-gm-relace",V=encodeURIComponent(C.vetev);
 const hdr=tok=>{const h={apikey:C.key},b=tok||(C.key.startsWith("eyJ")?C.key:null);if(b)h.Authorization="Bearer "+b;return h};
 async function api(path,o={}){
   const r=await fetch(C.url+path,{method:o.method||"GET",body:o.body,cache:"no-store",headers:{...hdr(o.tok),...(o.body?{"Content-Type":"application/json"}:{})}});
-  const t=(await r.text()).replace(/\bAGI\b/g,"DEX");let j=null;/* Obratnost = DEX (dřív AGI) i ve starších datech */try{j=t?JSON.parse(t):null}catch(e){}
+  const t=window.mmStare(await r.text());let j=null;/* starší data: DEX (dřív AGI), stavy podle Vojty 2026-10-24 (mmStare) */try{j=t?JSON.parse(t):null}catch(e){}
   if(!r.ok){const e=new Error((j&&(j.msg||j.message||j.error_description||j.error))||("HTTP "+r.status));e.status=r.status;throw e}
   return j}
 const relace=()=>{try{return JSON.parse(localStorage.getItem(LS)||"null")}catch(e){return null}};

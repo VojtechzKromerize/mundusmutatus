@@ -18,7 +18,7 @@ test("reakce jednou za kolo, ne ve stavu, který ji bere, a ne na 0 HP – pro v
   assert.equal(ok({...f, rk: true}, ZAS, "zasah").proc, "Reakci jsi už v tomto kole použil.");
   assert.equal(ok({...f, nemuze: "omráčen"}, ZAS, "zasah").proc, "Nemůžeš reagovat (omráčen).");
   assert.deepEqual(ok({...f, ds: true}, ZAS, "zasah").o, []);
-  assert.equal(V(`reakceMa(${F({kouzla: [{n: "Counterspell", i: 3, st: 3}], nemuze: "ochromen"})}, null, "kouzlo", "counterspell")`), false);
+  assert.equal(V(`reakceMa(${F({kouzla: [{n: "Counterspell", i: 3, st: 3}], nemuze: "paralyzovaný"})}, null, "kouzlo", "counterspell")`), false);
   assert.equal(V(`reakceMa(${F({kouzla: [{n: "Counterspell", i: 3, st: 3}]})}, null, "kouzlo", "counterspell")`), true);
 });
 

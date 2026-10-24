@@ -4,7 +4,7 @@
 
    Spouštěče: "zasah" – nepřítel mě zasáhl (řádek záznamu boje e: hod, ac, d, kr, ph/pt, t, dal, ai)
               "vedle" – nepřítel mě minul útokem (e: dal, ai, zv = pok/poz)   "kouzlo" – nepřítel sesílá kouzlo (Counterspell)
-   Fakta f: rk reakce v tomto kole použita · nemuze stav, který bere reakce (omráčen, ochromen…) · ds na 0 HP (hody proti smrti)
+   Fakta f: rk reakce v tomto kole použita · nemuze stav, který bere reakce (omráčen, paralyzovaný…) · ds na 0 HP (hody proti smrti)
             kouzla [{n, i, st, pz}] reakční kouzla se slotem / nábojem · rysy [jména malými písmeny] · man [manévry Battle Mastera]
             sd {k: "d8", zb} kostky převahy · bi {st, zb} Bardic Inspiration · str, agi modifikátory · pb zdatnost · mnich úroveň
             odv zbraň zblízka s vlastností Odvetná
