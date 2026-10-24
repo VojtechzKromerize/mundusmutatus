@@ -250,8 +250,11 @@ Hlavní orientační body:
 
 - **Jazyk:** celé rozhraní česky; pojmy a názvy kategorií pro hráče česky, hráči neumí latinu.
   Lore a Kronika jsou psané jako kronika Vojtěcha z Kroměříže – čeština evokující 15. století, ale čtivá.
-- **Terminologie pravidel** (jako v art/pravidla.json): dovednosti, typy zranění, Resistance / Vulnerability /
-  Immunity, názvy kouzel a magických předmětů **anglicky**; stavy česky s anglickým názvem v závorce
+- **Terminologie pravidel** (jako v art/pravidla.json): v **datech** dovednosti, typy zranění, Resistance / Vulnerability /
+  Immunity, Versatile anglicky (čte je automatika); **zobrazí se česky** (Vojta 2026-10-24) – `pojmyCz` (02d-pojmy.js, @čisté)
+  převádí zobrazený text a `pojmyStrana` + MutationObserver (26) ho pouští na stránku (ne formuláře, `[lang=en]`, `.bezpojmu`):
+  Fire → ohnivé (skloňuje podle okolí), Cold mrazivé, Necrotic prokleté, Radiant svaté, Resistance → odolnost, Sleight of Hand
+  Kapsářství, Versatile Univerzální. Názvy kouzel, předmětů a schopností (Fire Bolt, Magic Resistance) zůstávají anglicky; stavy česky s anglickým názvem v závorce
   („Sražen (Prone)“); vlastnosti STR/DEX/CON/INT/WIS/CHA (od 2026-10-24 DEX, ne AGI – starší data převede při čtení `mmDex` a `api()` v koruna.html); v datech protivníků `DEX DC 15`.
 - **Domácí pravidla (Artikule) mají přednost před SRD.** V Pravidlech jsou jako rámečky „Artikule“.
   Aktuální text Artikulí je v projektu claude.ai (`pravidla/artikule-*.md`, nejnovější datum).

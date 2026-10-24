@@ -441,10 +441,18 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `PMU` | 04b-praha-plan:1386 | const | ⓐ metrů na jednotku plánu (podle délky Kamenného mostu) |
 | `POC_N` | 07-druzina-kronika:748 | const | počasí: klíč (jasno, dest, snih…) → český název pro ikonu na Úvodu |
 | `POJ` | 15-karty-artikule:1130 | let | Glosář SRD: pojmy z art/pojmy.json podle tvaru slova → {id, en, cz, d} pro popisky v textu (null = nenačteno) |
+| `POJDOV` | 02d-pojmy:21 | const | ⓘ `{` |
+| `POJKOST` | 02d-pojmy:46 | const | ⓘ `/(\d+\s*(?:[dk]\d+)?(?:\s*[+−-]\s*\d+)?\)?\|\d+\s*\(\d+[dk]\d+(?:\s*[+−…` |
+| `POJOBR` | 02d-pojmy:47 | const | ⓘ `POJOBR =` |
 | `POJP` | 15-karty-artikule:1131 | let | Glosář SRD: probíhající Promise načítání pojmů (pojNacti) |
 | `POJRE` | 15-karty-artikule:1132 | let | Glosář SRD: regex všech tvarů pojmů pro označení v textových uzlech (pojZnac) |
+| `POJSEP` | 02d-pojmy:44 | const | ⓘ `"(?:\\s*,\\s*(?:(?:a\|nebo\|či\|and\|or)\\s+)?\|\\s*/\\s*\|\\s+(?:a\|nebo\|či\|…` |
 | `POJSKIP` | 15-karty-artikule:1162 | const | Glosář SRD: názvy HTML značek (A, BUTTON, INPUT, H1–H4, CODE…), v nichž se pojmy neoznačují |
 | `POJT` | 15-karty-artikule:1200 | let | Glosář SRD: právě zobrazený popisek pojmu (div.pojtip) nebo null |
+| `POJTYPY` | 02d-pojmy:43 | const | ⓘ `Object.keys(POJZR).join("\|"),` |
+| `POJVELKE` | 02d-pojmy:49 | const | ⓘ `/(^\|[.!?\|])\s*(\*\*)?\s*$/u;` |
+| `POJZR` | 02d-pojmy:6 | const | ⓘ `{` |
+| `POJZRRE` | 02d-pojmy:45 | const | ⓘ `new RegExp('(?<![\\p{L}'’-])(?:${POJTYPY})(?:${POJSEP}(?:${POJTYPY}))*…` |
 | `POKL` | 19-karty-beyond:992 | let | Pokladna družiny: data z databáze – {pen peníze, veci, log pohyby} nebo null |
 | `PORTR` | 08-navigace-pravidla:105 | const | množina id osob, které mají portrét (klíče PORTRH) |
 | `PORTRH` | 08-navigace-pravidla:104 | const | portréty osob z buildu (@PORTR@): id osoby → soubor nebo {f, m} s cestami |

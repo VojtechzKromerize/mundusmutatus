@@ -42,6 +42,15 @@ Mapa zemí: kresba (geometrie zemí, diecézí, panství, lesů a hor a funkce d
 - používají ho: 02-mapa (1), 10p-pravidla (2), 11-boj (2), 12-boj-tah-postavy (2), 14-karty-bojova-karta (1), 14d-vybaveni-katalog (1), 18-pravidla-postavy (1), 20e-boj-vlastnosti (1)
 - poskytuje: BZBR bikZbDruhy
 
+## 02d-pojmy
+
+@čisté – Pojmy pro zobrazení česky (Vojta 2026-10-24): typy zranění, odolnost / imunita / zranitelnost, dovednosti a Univerzální.
+
+- 109 řádků, 12 definic na nejvyšší úrovni, z toho 1 používají jiné soubory
+- používá z: –
+- používají ho: 26-start (1)
+- poskytuje: pojmyCz
+
 ## 03-artikule
 
 Artikule: pravidla tažení, rozdělená do knih a kapitol
@@ -615,8 +624,8 @@ Puls: jeden dotaz „co se změnilo“ místo samostatných dotazů (2026-10-19)
 
 Pečeť: co družina nově pozná, se při prvním zobrazení „rozpečetí“; o čem jen slyšela, je zapečetěné
 
-- 143 řádků, 5 definic na nejvyšší úrovni, z toho 0 používají jiné soubory
-- používá z: 01-zaklad (3), 02-mapa (2), 04-praha (1), 06-draconomicon-rodokmeny (2), 07-druzina-kronika (2), 08-navigace-pravidla (2), 21-editor-pecet (1)
+- 171 řádků, 6 definic na nejvyšší úrovni, z toho 0 používají jiné soubory
+- používá z: 01-zaklad (3), 02-mapa (2), 02d-pojmy (1), 04-praha (1), 06-draconomicon-rodokmeny (2), 07-druzina-kronika (2), 08-navigace-pravidla (2), 21-editor-pecet (1)
 - používají ho: –
 - poskytuje: 
 - oddíly:

@@ -1176,7 +1176,7 @@
   "en": "Warrior of Mercy",
   "cz": "Válečník milosrdenství",
   "tr": "Monk",
-  "t": "Mnich léčitel i kat: dotykem hojí rány, nebo vhání do těla nekrotickou energii.",
+  "t": "Mnich léčitel i kat: dotykem hojí rány, nebo vhání do těla prokletou energii.",
   "rysy": [
    {
     "en": "Hand of Harm",
@@ -2281,7 +2281,7 @@
   "en": "Celestial Patron",
   "cz": "Nebeský patron",
   "tr": "Warlock",
-  "t": "Černokněžník ve službě nebeské bytosti: léčení a zářivá i ohnivá moc.",
+  "t": "Černokněžník ve službě nebeské bytosti: léčení a svatá i ohnivá moc.",
   "rysy": [
    {
     "en": "Celestial Spells",

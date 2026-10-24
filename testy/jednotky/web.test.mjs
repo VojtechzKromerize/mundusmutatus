@@ -355,3 +355,14 @@ test("iniciativa: početnější strana má o slot víc", () => {
   assert.equal(sl({hraci: [{}, {}], npc: [...npc(2), {id: "x", druh: "sok", stav: ["poražen"]}], hod: 15, dm: 10}), "hnhn", "poražený se nepočítá");
   assert.equal(sl({hraci: [{}, {}], npc: npc(4), pocty: {h: 2, n: 2}, hod: 15, dm: 10}), "hnhn", "během kola platí počty z jeho začátku");
 });
+
+test("pojmy česky: zobrazený text se převede, pole formuláře ne", async () => {
+  S.ev(
+    `(()=>{const d=document.createElement("div");d.id="pojtest";d.innerHTML='<p>utrpí 2d6 Fire zranění</p><textarea>2d6 Fire zranění</textarea><p lang="en">Resistance to Fire</p>';document.body.appendChild(d)})()`,
+  );
+  await new Promise(r => setTimeout(r, 20));
+  assert.equal(V(`document.querySelector("#pojtest p").textContent`), "utrpí 2d6 ohnivého zranění");
+  assert.equal(V(`document.querySelector("#pojtest textarea").value`), "2d6 Fire zranění");
+  assert.equal(V(`document.querySelector("#pojtest p[lang]").textContent`), "Resistance to Fire");
+  S.ev(`document.getElementById("pojtest").remove()`);
+});

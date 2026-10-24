@@ -5693,7 +5693,7 @@
 "pr": true,
 "cenatxt": "Rare (vzácný): B+4,000 GP",
 "cena": "B+4,000 GP",
-"t": "Bonusovou akcí vysuneš či skryješ zářivou čepel. Funguje jako Longsword (dlouhý meč) s Finesse (obratná), +2 k útoku i zranění; místo Slashing působí zářivé, proti nemrtvým navíc 1d8 Radiant. Stačí zdatnost s dlouhými nebo krátkými meči. Vydává sluneční světlo: jasné 15 stop a slabé dalších 15. Akcí Magic měníš oba poloměry o 5 stop, nejméně 10 a nejvýše 30 stop každý."
+"t": "Bonusovou akcí vysuneš či skryješ zářivou čepel. Funguje jako Longsword (dlouhý meč) s Finesse (obratná), +2 k útoku i zranění; místo Slashing působí svaté, proti nemrtvým navíc 1d8 Radiant. Stačí zdatnost s dlouhými nebo krátkými meči. Vydává sluneční světlo: jasné 15 stop a slabé dalších 15. Akcí Magic měníš oba poloměry o 5 stop, nejméně 10 a nejvýše 30 stop každý."
 },
 {
 "en": "Sword of Life Stealing",
@@ -7284,7 +7284,7 @@
 "pr": true,
 "cenatxt": "Legendary (legendární): 200,000 GP",
 "cena": "200,000 GP",
-"t": "Hůl +3; při držení odolání nekrotickému. Jednou do úsvitu akcí Magic (magie) aura 30 stop na hodinu: zvolení tvorové uvnitř mají odolání chladu, nekrotickému a psychickému, výhodu k záchranám proti strachu; nemrtví proti nim útočí s nevýhodou. Bonusovou akcí rozsvítíš oči hlavice: 15 stop jasného a 15 slabého světla, v obou jsou neviditelní tvorové i věci vidět. Zhasnutí nevyžaduje akci."
+"t": "Hůl +3; při držení odolání prokletému. Jednou do úsvitu akcí Magic (magie) aura 30 stop na hodinu: zvolení tvorové uvnitř mají odolání mrazivému, prokletému a psychickému, výhodu k záchranám proti strachu; nemrtví proti nim útočí s nevýhodou. Bonusovou akcí rozsvítíš oči hlavice: 15 stop jasného a 15 slabého světla, v obou jsou neviditelní tvorové i věci vidět. Zhasnutí nevyžaduje akci."
 },
 {
 "en": "Sword of Answering",
@@ -7441,7 +7441,7 @@
 "pr": true,
 "cenatxt": "Artifact (artefakt): Priceless",
 "cena": "Priceless",
-"t": "Imunita nekrotickému. Akcí Magic (magie) kužel 60 stop: CON DC 18 proti 4d8 Necrotic, úspěch polovina; zabitý humanoid povstane jako ovládaný Specter (přízrak). Aura 60 stop vyžaduje při prvním vstupu za tah či začátku tahu WIS DC 16 proti strachu a nucenému útěku; další záchrana po tvém zranění cíle nebo ukončení jeho tahu nad 120 stop. Úspěch chrání minutu; bonusovou akcí auru přepínáš. Jednou do úsvitu Power Word Kill (slovo moci zabij), DC 18; zabitý humanoid povstane jako Wraith (stínový přízrak). Teleport (teleportace) jednou za sedm dní. Prokletí mění přesvědčení na neutrální zlo, brání odložení i ukončení připoutání. Za 365 dní proměna v licha pod PJ; každé použití kuželu či smrtícího slova přidává kumulativní 10% riziko okamžité proměny. Kletbu ruší jen Wish (přání) či Myrkul. Má náhodné vlastnosti."
+"t": "Imunita vůči prokletému. Akcí Magic (magie) kužel 60 stop: CON DC 18 proti 4d8 Necrotic, úspěch polovina; zabitý humanoid povstane jako ovládaný Specter (přízrak). Aura 60 stop vyžaduje při prvním vstupu za tah či začátku tahu WIS DC 16 proti strachu a nucenému útěku; další záchrana po tvém zranění cíle nebo ukončení jeho tahu nad 120 stop. Úspěch chrání minutu; bonusovou akcí auru přepínáš. Jednou do úsvitu Power Word Kill (slovo moci zabij), DC 18; zabitý humanoid povstane jako Wraith (stínový přízrak). Teleport (teleportace) jednou za sedm dní. Prokletí mění přesvědčení na neutrální zlo, brání odložení i ukončení připoutání. Za 365 dní proměna v licha pod PJ; každé použití kuželu či smrtícího slova přidává kumulativní 10% riziko okamžité proměny. Kletbu ruší jen Wish (přání) či Myrkul. Má náhodné vlastnosti."
 },
 {
 "en": "Demonomicon of Iggwilv",
@@ -7605,7 +7605,7 @@
 "pr": true,
 "cenatxt": "Artifact (artefakt): Priceless",
 "cena": "Priceless",
-"t": "Dlouhý meč +3; kritický zásah na 19–20, proti nemrtvým +2d10 Slashing. Při nošení +1d10 k iniciativě a odolání nekrotickému. Při akci útoku lze část či celý útočný bonus přesunout do AC do dalšího tahu. Jednou do úsvitu každé kouzlo DC 18: Call Lightning (přivolej blesky), Divine Word (božské slovo), Finger of Death (prst smrti). Neochutná-li krev do minuty od tasení, CHA DC 15: úspěch přesto 3d6 Psychic, neúspěch ovládnutí jako Dominate Monster (ovládni nestvůru), dokud nesplníš krvavý požadavek. Inteligentní zbraň; po jedné drobné i velké náhodné výhodě a nevýhodě."
+"t": "Dlouhý meč +3; kritický zásah na 19–20, proti nemrtvým +2d10 Slashing. Při nošení +1d10 k iniciativě a odolání prokletému. Při akci útoku lze část či celý útočný bonus přesunout do AC do dalšího tahu. Jednou do úsvitu každé kouzlo DC 18: Call Lightning (přivolej blesky), Divine Word (božské slovo), Finger of Death (prst smrti). Neochutná-li krev do minuty od tasení, CHA DC 15: úspěch přesto 3d6 Psychic, neúspěch ovládnutí jako Dominate Monster (ovládni nestvůru), dokud nesplníš krvavý požadavek. Inteligentní zbraň; po jedné drobné i velké náhodné výhodě a nevýhodě."
 },
 {
 "en": "Universal Pantograph",

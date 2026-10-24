@@ -140,3 +140,31 @@ if (window.MMLINE) {
   else if (document.readyState === "complete") klid();
   else addEventListener("load", klid, {once: true});
 }
+
+/* Pojmy česky (02d-pojmy.js, Vojta 2026-10-24): typy zranění, odolnost, dovednosti a Univerzální se v datech drží
+   anglicky a česky se ukazují až v zobrazeném textu – při startu a pak u každého nově vloženého či změněného textu.
+   Formuláře, kód a úpravy textu (contenteditable) se nepřepisují. */
+function pojmyStrana(koren) {
+  const NE = /^(SCRIPT|STYLE|TEXTAREA|INPUT|SELECT|OPTION|CODE|PRE|NOSCRIPT)$/;
+  const prelož = n => {
+    const t = n.data;
+    if (t.length < 4) return;
+    const p = n.parentElement;
+    if (!p || NE.test(p.nodeName) || p.closest("[contenteditable=''],[contenteditable='true'],[lang='en'],.bezpojmu")) return;
+    const o = pojmyCz(t);
+    if (o !== t) n.data = o;
+  };
+  if (koren.nodeType === 3) return prelož(koren);
+  if (koren.nodeType !== 1 && koren.nodeType !== 9) return;
+  const w = document.createTreeWalker(koren, NodeFilter.SHOW_TEXT);
+  for (let n; (n = w.nextNode());) prelož(n);
+}
+if (typeof pojmyCz === "function" && document.body) {
+  pojmyStrana(document.body);
+  new MutationObserver(zm => {
+    for (const z of zm) {
+      if (z.type === "characterData") pojmyStrana(z.target);
+      else for (const n of z.addedNodes) pojmyStrana(n);
+    }
+  }).observe(document.body, {childList: true, subtree: true, characterData: true});
+}
