@@ -760,8 +760,8 @@ const NBRS = [
         [11.9, 50.4],
         [11.5, 50.42],
         [11.0, 50.36],
-        [10.6, 50.36],
-        [10.6, 52.303],
+        [9.9, 50.36],
+        [9.9, 52.303],
         [11.2, 52.32],
         [11.9, 52.28],
         [12.3, 52.1],
@@ -797,9 +797,9 @@ const NBRS = [
         [12.3, 52.1],
         [11.9, 52.28],
         [11.2, 52.32],
-        [10.6, 52.303],
-        [10.6, 53.0],
-        [16.029, 53.0],
+        [9.9, 52.303],
+        [9.9, 53.2],
+        [16.029, 53.2],
       ],
     ],
   ],
@@ -885,9 +885,9 @@ const NBRS = [
         [15.75, 52.3],
         [15.82, 52.45],
         [15.95, 52.62],
-        [16.029, 53.0],
-        [20.7, 53.0],
-        [20.7, 49.393],
+        [16.029, 53.2],
+        [22.0, 53.2],
+        [22.0, 49.393],
       ],
       [
         [15.0, 51.97],
@@ -1019,9 +1019,9 @@ const NBRS = [
         [20.569, 49.376],
         [20.605, 49.4],
         [20.673, 49.402],
-        [20.7, 49.393],
-        [20.7, 47.0],
-        [16.212, 47.0],
+        [22.0, 49.393],
+        [22.0, 46.8],
+        [16.212, 46.8],
       ],
     ],
   ],
@@ -1048,8 +1048,8 @@ const NBRS = [
         [16.35, 47.7],
         [16.42, 47.55],
         [16.25, 47.3],
-        [16.212, 47.0],
-        [12.116, 47.0],
+        [16.212, 46.8],
+        [12.116, 46.8],
         [12.123, 47.011],
         [12.181, 47.034],
         [12.202, 47.053],
@@ -1059,12 +1059,12 @@ const NBRS = [
         [12.015, 47.041],
         [11.943, 47.038],
         [11.9, 47.027],
-        [11.833, 47.0],
-        [11.498, 47.0],
+        [11.833, 46.8],
+        [11.498, 46.8],
         [11.472, 47.007],
-        [11.453, 47.0],
-        [10.6, 47.0],
-        [10.6, 47.563],
+        [11.453, 46.8],
+        [9.9, 46.8],
+        [9.9, 47.563],
         [10.741, 47.529],
         [10.762, 47.514],
         [10.831, 47.529],
@@ -1256,8 +1256,8 @@ const NBRS = [
         [11.3, 49.3],
         [11.15, 49.1],
         [11.0, 48.95],
-        [10.6, 48.99],
-        [10.6, 50.36],
+        [9.9, 48.99],
+        [9.9, 50.36],
         [11.0, 50.36],
       ],
     ],
@@ -1346,8 +1346,8 @@ const NBRS = [
         [10.831, 47.529],
         [10.762, 47.514],
         [10.741, 47.529],
-        [10.6, 47.563],
-        [10.6, 48.99],
+        [9.9, 47.563],
+        [9.9, 48.99],
         [11.0, 48.95],
         [11.15, 49.1],
         [11.3, 49.3],
@@ -5559,9 +5559,11 @@ function meander(line, amp, seed) {
 }
 const HIGHLAND_FOREST = new Set([0, 1, 2, 3, 4, 5, 6, 7, 12, 18, 19, 21, 22, 26, 28, 31, 35, 45, 47, 49, 51, 56]);
 function drawMapK() {
-  const vb = st.vb || VB[st.zoom];
+  svg.classList.toggle("mapw", mapWide());
+  const vb = st.vb || (mapWide() ? mapFit(mapPreset()) : VB[st.zoom]);
   svg.setAttribute("viewBox", vb.join(" "));
-  const s = vb[2] / 680,
+  /* měřítko kresby: na široké mapě podle skutečné šířky v pixelech, aby značky a písmo měly stejnou velikost jako dřív */
+  const s = mapWide() ? (vb[2] / Math.max(300, svg.getBoundingClientRect().width)) * (880 / 680) : vb[2] / 680,
     k = Math.max(s, 0.55);
   svg.innerHTML = "";
   svg.classList.toggle("measuring", !!st.measure);
@@ -6101,8 +6103,9 @@ function drawMapK() {
       const r = (isSel ? 6.5 : 4.8) * s,
         sw = (1 * s).toFixed(2);
       g.appendChild(el("circle", {cx: x, cy: y, r: (12 * s).toFixed(1), fill: "transparent"}));
+      const tier = mistoTier(sd[0], f.city || TOWNSEATS.has(sd[0]));
       if (f.city || TOWNSEATS.has(sd[0])) {
-        const z = (isSel ? 19 : 15) * s;
+        const z = (isSel ? 19 : MTZ[tier]) * s;
         g.appendChild(
           el("image", {
             href: TOWNICO,
@@ -6114,7 +6117,7 @@ function drawMapK() {
           }),
         );
       } else {
-        const z = (isSel ? 18 : 14) * s;
+        const z = (isSel ? 18 : MTZ[tier]) * s;
         g.appendChild(
           el("image", {
             href: CASTLEICO,
@@ -6163,8 +6166,8 @@ function drawMapK() {
       g.appendChild(el("title", {}, `${sd[0]} — ${f.name}`));
       svg.appendChild(g);
       if (!dim) {
-        const pri = isSel ? 0 : MAJOR_PLACES.has(sd[0]) ? 1 : 2;
-        if (pri < 2 || s < 0.62) labels.push([x, y, sd[0], pri]);
+        const pri = isSel ? 0 : tier + 1;
+        if (mistoPopisek(tier, s) || isSel) labels.push([x, y, sd[0], pri]);
       }
     }
   }
@@ -6187,7 +6190,8 @@ function drawMapK() {
         mmHlasZem(n);
       });
       g.appendChild(el("circle", {cx: x, cy: y, r: (12 * s).toFixed(1), fill: "transparent"}));
-      const z = (typ === "mesto" ? 15 : 14) * s;
+      const tier = mistoTier(n, typ === "mesto"),
+        z = MTZ[tier] * s;
       g.appendChild(
         el("image", {
           href: typ === "mesto" ? TOWNICO : CASTLEICO,
@@ -6200,10 +6204,7 @@ function drawMapK() {
       );
       g.appendChild(el("title", {}, n));
       svg.appendChild(g);
-      if (!dim) {
-        const pri = MAJOR_PLACES.has(n) ? 1 : 2;
-        if (pri < 2 || s < 0.62) labels.push([x, y, n, pri]);
-      }
+      if (!dim && mistoPopisek(tier, s)) labels.push([x, y, n, tier + 1]);
     }
   }
   if (st.dom)
@@ -6340,7 +6341,7 @@ function drawMapK() {
   for (const [x, y, t, pri] of labels) {
     if (seenLbl.has(t)) continue;
     seenLbl.add(t);
-    const fs = (pri === 0 ? 13.5 : pri === 1 ? 11.5 : 10) * k,
+    const fs = [13.5, 13.5, 11.5, 10, 9.5][pri] * k,
       w = t.length * fs * 0.62,
       h = fs * 1.1;
     const pref = x < vb[0] + vb[2] * 0.72;
@@ -6375,7 +6376,7 @@ function drawMapK() {
           "font-size": fs.toFixed(1),
           "stroke-width": (3.4 * s).toFixed(2),
           "text-anchor": pick[0] ? "start" : "end",
-          style: pri === 0 ? "" : `font-weight:${pri === 1 ? 700 : 600};opacity:${pri === 1 ? 0.95 : 0.85}`,
+          style: pri === 0 ? "" : `font-weight:${pri <= 2 ? 700 : 600};opacity:${pri <= 2 ? 0.95 : pri === 3 ? 0.88 : 0.8}`,
         },
         t,
       ),

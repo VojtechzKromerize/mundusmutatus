@@ -1203,6 +1203,17 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
   .mapgrid{grid-template-columns:minmax(0,2.1fr) minmax(280px,1fr)}
   .mapgrid>.detail{position:sticky;top:calc(var(--navh) + 14px);max-height:calc(100vh - var(--navh) - 28px);max-height:calc(100dvh - var(--navh) - 28px);overflow:auto}
 }
+/* mapa Zemí Koruny přes celou šířku na počítači (2026-10-24, Vojta): výška podle okna, výřez do šířky (mapFit, 02),
+   panel rodu jako vysouvací okno vlevo přes mapu (× zavře); bez výběru se panel neukazuje */
+.detx{display:none}
+@media (min-width:1100px){
+  .wrap:has(.view[data-view=mapa]:not([hidden])){max-width:1840px}
+  #mapa .mapgrid{display:block;position:relative}
+  #mapa svg#map.mapw{height:auto;aspect-ratio:890/565;max-height:calc(100vh - 110px);max-height:calc(100dvh - 110px);min-height:480px}
+  #mapa .mapgrid>.detail{position:absolute;top:70px;left:22px;z-index:5;width:min(390px,34%);max-height:calc(100vh - var(--navh) - 230px);max-height:calc(100dvh - var(--navh) - 230px);overflow:auto;box-shadow:0 12px 30px -12px rgba(30,10,5,.55)}
+  #mapa .mapgrid>.detail.empty{display:none}
+  #mapa .detx{display:grid;place-items:center;position:sticky;top:0;float:right;width:30px;height:30px;margin:-6px -6px 0 8px;border:1px solid var(--rule);border-radius:50%;background:var(--paper);color:var(--ink);font-size:1.2rem;line-height:1;cursor:pointer;z-index:1}
+}
 .slistbox{background:var(--paper);border:1px solid var(--rule);padding:10px 14px}
 .slistbox[open]>summary{margin-bottom:12px}
 .slistbox .pgrps{display:block;columns:4 220px;column-gap:24px}

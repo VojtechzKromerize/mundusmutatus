@@ -131,6 +131,43 @@ let st = {
   tb: null,
 };
 const svg = document.getElementById("map");
+/* mapa přes celou šířku na počítači (2026-10-24, Vojta): v Mapě od 1100 px má svg výšku podle okna a výřez se roztáhne do šířky
+   (mapFit); na telefonu a ve Výpravě zůstává pevný poměr 680 : 605. Svět mapy sahá od Bavor po Košice (MAPWB: x, y, šířka, výška). */
+const MAPW_MQ = matchMedia("(min-width:1100px)");
+const MAPWB = [-80, -40, 890, 705];
+const mapWide = () => MAPW_MQ.matches && !!svg.closest("#mapa");
+/* výchozí výřezy široké mapy: „Se sousedy“ od Lužice po Budín a od Bavor po Košice */
+const VBW = {all: [-80, 40, 890, 560]};
+const mapPreset = () => (mapWide() && VBW[st.zoom]) || VB[st.zoom];
+const mapAsp = () => {
+  if (!mapWide()) return 605 / 680;
+  const r = svg.getBoundingClientRect();
+  return r.width > 0 && r.height > 0 ? Math.max(0.42, Math.min(0.95, r.height / r.width)) : 605 / 680;
+};
+/* výřez v poměru stran okna mapy: přidá šířku (nebo výšku) kolem středu a udrží ho ve světě mapy */
+function mapFit(v) {
+  const A = mapAsp();
+  let [x, y, w, h] = v;
+  if (h / w > A) {
+    const w2 = h / A;
+    x -= (w2 - w) / 2;
+    w = w2;
+  } else {
+    const h2 = w * A;
+    y -= (h2 - h) / 2;
+    h = h2;
+  }
+  if (w > MAPWB[2]) {
+    x += (w - MAPWB[2]) / 2;
+    w = MAPWB[2];
+    const h2 = w * A;
+    y += (h - h2) / 2;
+    h = h2;
+  }
+  x = Math.max(MAPWB[0], Math.min(MAPWB[0] + MAPWB[2] - w, x));
+  y = h >= MAPWB[3] ? MAPWB[1] + (MAPWB[3] - h) / 2 : Math.max(MAPWB[1], Math.min(MAPWB[1] + MAPWB[3] - h, y));
+  return [x, y, w, h];
+}
 const NS = "http://www.w3.org/2000/svg";
 const el = (n, a, txt) => {
   const e = document.createElementNS(NS, n);
@@ -791,7 +828,14 @@ const MAJOR_PLACES = new Set([
   "Magdeburk",
   "Erfurt",
   "Mnichov",
+  "Košice",
 ]);
+/* význam místa na mapě (2026-10-24, Vojta): 0 metropole, 1 hlavní město (MAJOR_PLACES), 2 ostatní město, 3 hrad a sídlo rodu.
+   Podle toho velikost značky (MTZ, násobek měřítka) a od jakého přiblížení se ukáže jméno (mistoPopisek: s = šířka výřezu / 680) */
+const METRO = new Set(["Praha", "Vídeň", "Vratislav", "Krakov", "Budín", "Norimberk"]);
+const mistoTier = (n, mesto) => (METRO.has(n) ? 0 : MAJOR_PLACES.has(n) ? 1 : mesto ? 2 : 3);
+const MTZ = [21, 17, 14, 12];
+const mistoPopisek = (tier, s) => tier <= 1 || (tier === 2 && s < 0.9) || s < 0.62;
 const DIO = [
   {
     id: "dpr",
@@ -2191,7 +2235,8 @@ function renderDetail() {
   d.classList.remove("empty");
   const rels = relsFor(f.id);
   const prev = HIST[HIST.length - 1];
-  const back = prev ? `<button type="button" class="backbtn" id="backbtn">← Zpět: ${histName(prev)}</button>` : "";
+  /* na široké mapě je panel vysouvací okno přes mapu – × ho zavře (zruší výběr) */
+  const back = `<button type="button" class="detx" data-detx aria-label="Zavřít panel" title="Zavřít">×</button>${prev ? `<button type="button" class="backbtn" id="backbtn">← Zpět: ${histName(prev)}</button>` : ""}`;
   if (st.city) {
     const sd = f.seats.find(x => x[0] === st.city) || f.seats[0],
       conf = sd[3] || f.conf,
@@ -2245,6 +2290,9 @@ function show(id) {
 function showCity(id, name) {
   setSel(id, true, name);
 }
+document.addEventListener("click", e => {
+  if (e.target.closest && e.target.closest("[data-detx]")) setSel(null, false);
+});
 function goBack() {
   const h = HIST.pop();
   if (h) setSel(h.id, false, h.city);
@@ -3059,9 +3107,24 @@ const mapDrag = {moved: false};
   const pts = new Map();
   let last = null,
     drawT = null;
-  const curVB = () => st.vb || VB[st.zoom];
+  const curVB = () => st.vb || (mapWide() ? mapFit(mapPreset()) : VB[st.zoom]);
+  /* široká mapa: při změně velikosti okna se výřez přepočítá na nový poměr stran */
+  let rsT = null;
+  const naVelikost = () => {
+    if (curView !== "mapa") return;
+    clearTimeout(rsT);
+    rsT = setTimeout(() => {
+      if (st.vb) st.vb = clampVB(st.vb);
+      drawMap();
+    }, 150);
+  };
+  MAPW_MQ.addEventListener("change", naVelikost);
+  addEventListener("resize", () => {
+    if (mapWide()) naVelikost();
+  });
   const clampVB = v => {
     let [x, y, w, h] = v;
+    if (mapWide()) return mapFit([x, y, Math.min(MAPWB[2], Math.max(80, w)), Math.max(60, h)]);
     w = Math.min(680, Math.max(80, w));
     h = (w * 605) / 680;
     x = Math.max(-40, Math.min(720 - w, x));
@@ -3082,7 +3145,7 @@ const mapDrag = {moved: false};
   function zoomAt(f, ux, uy) {
     const v = curVB(),
       w = v[2] * f,
-      h = (w * 605) / 680;
+      h = w * mapAsp();
     setVB([ux - ((ux - v[0]) * w) / v[2], uy - ((uy - v[1]) * h) / v[3], w, h]);
   }
   window.mapZoom = f => {
@@ -3092,7 +3155,7 @@ const mapDrag = {moved: false};
   window.mapCenter = (x, y, maxW) => {
     const v = curVB(),
       w = Math.min(v[2], maxW),
-      h = (w * 605) / 680;
+      h = w * mapAsp();
     st.vb = clampVB([x - w / 2, y - h / 2, w, h]);
     clearTimeout(drawT);
     drawMap();
