@@ -13,7 +13,7 @@ stitky: nemrtví, upír, vampýr, Valašsko, Karpaty, Sedmihradsko, Dračí řá
 zdroje: Legendární odolnost 3, Okouzlení 1
 utoky:
   - Hrobová rána | +9 | 1d8+4 Bludgeoning a 2d6 Prokleté (Necrotic) | Large a menší Grappled (únik DC 14); jeden útok v každém slotu
-  - Kousnutí | CON DC 17 | 1d4+4 Piercing a 3d8 Prokleté (Necrotic) | jen sevřený, ochromený či svolný; max. HP klesne, strigoj se léčí; zabitý vstane jako upír
+  - Kousnutí | CON DC 17 | 1d4+4 Piercing a 3d8 Prokleté (Necrotic) | jen chycený, neschopný, spoutaný či svolný; max. HP klesne, strigoj se léčí; zabitý vstane jako upír
   - Okouzlení | CHA DC 17 | | Charm Person na 24 h; dobíjí se na 5–6
   - Rozkaz | WIS DC 17 | | Command; jednou za kolo
 ---
@@ -34,7 +34,7 @@ Prastarý upír z karpatských hradů, šlechtic, který zemřel a odmítl odej�
 ## Vlastnosti
 
 - **Sloty.** V každém slotu jeden útok nebo schopnost; legendární akce předlohy jsou rozložené do slotů.
-- **Mlhou z boje.** Na 0 HP mimo svůj hrob se promění v mlhu a do 2 hodin musí doputovat do hrobu; jinak je zničen. V hrobě leží ochromený, dokud nezíská HP (1 HP za hodinu).
+- **Mlhou z boje.** Na 0 HP mimo svůj hrob se promění v mlhu a do 2 hodin musí doputovat do hrobu; jinak je zničen. V hrobě leží paralyzovaný, dokud nezíská HP (1 HP za hodinu).
 - **Šplhá jako pavouk.**
 - **Slabiny.** Bez pozvání nevstoupí do domu; tekoucí voda 20 Acid na konci tahu; slunce 20 Svatého na začátku tahu a nevýhoda; kůl do srdce v hrobě ho ochromí, dokud kůl drží.
 - **Ďáblovo štěstí.** Něco za Závojem ho ještě potřebuje.

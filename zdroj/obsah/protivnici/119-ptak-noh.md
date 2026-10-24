@@ -44,7 +44,7 @@ Pták tak velký, že zastíní slunce, z pohádek, které se po Protržení Zá
 
 ## Bonusová akce
 
-- **Vzlet s kořistí (dobíjí se na 5–6).** S uchváceným tvorem uletí až o 60 stop, aniž by provokoval Opportunity Attacks, a pustí ho.
+- **Vzlet s kořistí (dobíjí se na 5–6).** S chyceným tvorem uletí až o 60 stop, aniž by provokoval Opportunity Attacks, a pustí ho.
 
 **Kritická zranění.** Jako draci (`kriticka: drak`): hlava, trup, křídla, nohy. Zlomené křídlo ho uzemní.
 

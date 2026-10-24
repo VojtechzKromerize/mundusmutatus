@@ -12,7 +12,7 @@ nerest: Hlad – nevstoupí do domu bez pozvání a nepřejde tekoucí vodu. Roz
 stitky: nemrtví, upír, vampýr, Morava, Slezsko, hřbitov, noc
 utoky:
   - Dráp | +6 | 2d4+3 Slashing | Medium cíl Grappled (únik DC 13); dva v jednom slotu spolu s kousnutím
-  - Kousnutí | CON DC 14 | 1d4+3 Piercing a 3d6 Prokleté (Necrotic) | jen sevřený, ochromený či svolný cíl; max. HP klesne, upír se léčí
+  - Kousnutí | CON DC 14 | 1d4+3 Piercing a 3d6 Prokleté (Necrotic) | jen chycený, neschopný, spoutaný či svolný cíl; max. HP klesne, upír se léčí
 ---
 *„Kopali ho třikrát. Pokaždé ležel na břiše, s krví na rtech a nehty delšími než minule.“*
 

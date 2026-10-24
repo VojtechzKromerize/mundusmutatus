@@ -197,6 +197,9 @@ def _stavy(t):
     t = _pricesti(t, "[Zz]adrž", "spoután", "spoutan")
     t = re.sub(r"\b(stav|stavu|stavy|stavem|[Jj]e|[Jj]si|[Jj]sem|je tvor|tvor|zůstane|zůstává|zůstaneš|byl|byla|bude|budeš)( ležící)\b", r"\1 sražený", t)
     t = re.sub(r"\b(jsou|byli|budou)( ležící)\b", r"\1 sražení", t)
+    t = re.sub(r"\b(je cíl|dopadne|padne|zůstane) ležící\b", r"\1 sražený", t)
+    t = re.sub(r"\bstane ležícím\b", "stane sraženým", t)
+    t = t.replace("do ležícího stavu", "do stavu sražený").replace("do ležící polohy", "k zemi")
     return t
 
 
@@ -241,6 +244,7 @@ if __name__ == "__main__":
         ("upadne do stavu ležící. Pokud je tvor ležící, může", "upadne do stavu sražený. Pokud je tvor sražený, může"),
         ("předmět ležící na zemi", "předmět ležící na zemi"),
         ("| 7–8 | Jsi ležící a", "| 7–8 | Jsi sražený a"),
+        ("je sražen do ležící polohy, je cíl ležící", "je sražen k zemi, je cíl sražený"),
         ("STR proti zadržení. Zadržení dechu nepomůže.", "STR proti spoutání. Zadržení dechu nepomůže."),
         ("Ochromující úder", "Ochromující úder"),
     ]

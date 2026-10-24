@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 2 (450 XP)
 ac: 13 (kožená)
 hp: 44
-utok: Smluvní čepel +4, 1d8+2 a 2d6 Prokleté · rozkaz (WIS DC 12) · ochromení (Hold Person) · přízračná zbraň
+utok: Smluvní čepel +4, 1d8+2 a 2d6 Prokleté · rozkaz (WIS DC 12) · znehybnění (Hold Person) · přízračná zbraň
 pozehnani: Ctitelé v doslechu zaútočí s výhodou.
 pokuseni: Zakoktá se v zaklínání: kouzlo selže a slot propadne.
 nerest: Pýcha – myslí si, že ďábel ho vyvolil. Kdo mu dokáže, že je jen nástroj (Insight a Persuasion DC 13), toho nechá promluvit.

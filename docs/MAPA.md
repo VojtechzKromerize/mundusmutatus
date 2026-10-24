@@ -8,12 +8,12 @@ Podrobnosti k jednomu jménu nebo souboru: `node testy/kontrola_kodu.mjs --kde J
 
 Základ: data z buildu (rody, vazby, zeměpis, erby), víry a ikony, odkazy mezi stránkami (mmLina), odložené překreslení (mmPozdeji)
 
-- 193 řádků, 32 definic na nejvyšší úrovni, z toho 25 používají jiné soubory
+- 194 řádků, 32 definic na nejvyšší úrovni, z toho 25 používají jiné soubory
 - používá z: 02-mapa (1)
 - používají ho: 02-mapa (16), 02b-mapa-kresba (6), 03-artikule (1), 04b-praha-plan (7), 05b-svet-mapa (1), 06-draconomicon-rodokmeny (2), 07-druzina-kronika (5), 08-navigace-pravidla (12), 09-vypravec-herni-cas (2), 10-kouzla (2), 11-boj (2), 13-karty (3), 15-karty-artikule (1), 16-srd-ukazky-sezeni-hrac (1), 17-karty-ii (1), 20-boj-hraci (1), 20d-boj-render (1), 21-editor-pecet (1), 22-vyprava (1), 22b-vyprava (2), 26-start (3)
 - poskytuje: byId FAM mmDex armsImg FICON ARMS CONFN mmLina CARMS faith shield0 mmPozdeji mmZrus relGroups rIco TOWNICO ZEMEPIS CASTLEICO mmLinyHotove mmLinyPro REL SFICON shield townImg TOWNSEATS
 - oddíly:
-  - ř. 125: Samostatné části skriptu (2026-10-19): kresba map, plán Prahy, mapa světa, Výprava a editor textů se stahují,
+  - ř. 126: Samostatné části skriptu (2026-10-19): kresba map, plán Prahy, mapa světa, Výprava a editor textů se stahují,
 
 ## 02-mapa
 
