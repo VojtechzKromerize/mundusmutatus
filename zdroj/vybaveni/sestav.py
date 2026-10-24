@@ -77,7 +77,11 @@ def main():
         if p.get("druh") == "vzducholoď":
             p["x"] = 1  # Eberron – mimo SRD
     dlouhe, mimo = [], 0
+    # české názvy zvolené při sjednocení s Vojtovou tabulkou předmětů (2026-10-24) – i pro art/predmety.json (zdroj/srd/sestav.py)
+    JMENA = {k.lower(): v for k, v in json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "jmena.json"), encoding="utf-8")).items()}
     for m in V["magicke"]:
+        if m["en"].lower() in JMENA:
+            m["cz"] = JMENA[m["en"].lower()]
         key = norm(m["en"])
         sid = SRDJM.get(key) or srd.get(key) or srd.get(re.sub(r"^\+\d\s+", "", key))
         if sid:
