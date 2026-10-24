@@ -4,6 +4,8 @@
    položce (mm_pravidla_text, data jsou ~2 MB) a seznam bez textů (mm_pravidla_seznam). plneTag() je rozbalovací „Plné znění“
    u kouzla či předmětu kdekoli na webu – text se načte až při rozbalení. Stránky #pravidla/kouzla a #pravidla/predmety-plne (renderPlne). */
 const PLNEKL = {kouzla: "Kouzla", predmety: "Kouzelné předměty"};
+/* co jde nahrát (featy se ukazují v Pravidlech › Featy, 08; nahrávají se tady u kouzel) – data: kouzla a předměty objekt, featy seznam */
+const PLNEUP = {...PLNEKL, featy: "Featy"};
 const PLNES = {},
   PLNESP = {},
   PLNET = {};
@@ -104,7 +106,12 @@ function plneFiltrHtml(k) {
 function plneNahratHtml(k) {
   return MMDB.prihlasen && MMDB.prihlasen()
     ? `<details class="bjapd"><summary>Nahrát plné znění (vypravěč)</summary><p class="rsmall">Soubor <b>${k}.json</b> z převodníku (zdroj/mimo-srd/kouzla_predmety_plne.py) – nahradí ${k === "kouzla" ? "kouzla" : "předměty"} v této databázi.</p>
-      <p><input type="file" accept=".json" data-plneup="${k}" aria-label="Soubor ${k}.json"></p><p class="rsmall" id="plneupst"></p></details>`
+      <p><input type="file" accept=".json" data-plneup="${k}" aria-label="Soubor ${k}.json"></p>${
+        k === "kouzla"
+          ? `<p class="rsmall">Featy: soubor <b>featy.json</b> (zdroj/mimo-srd/featy_plne.py z Markdownu v projektu) – nahradí plné znění featů.</p>
+      <p><input type="file" accept=".json" data-plneup="featy" aria-label="Soubor featy.json"></p>`
+          : ""
+      }<p class="rsmall" id="plneupst"></p></details>`
     : "";
 }
 /* stránky Pravidla › Kouzla (#pravidla/kouzla) a Pravidla › Předměty (#pravidla/predmety-plne) */
@@ -160,14 +167,18 @@ document.addEventListener("input", e => {
 document.addEventListener("change", e => {
   const t = e.target,
     k = t.dataset && t.dataset.plneup;
-  if (!k || !t.files || !t.files[0]) return;
+  if (!k || !PLNEUP[k] || !t.files || !t.files[0]) return;
   const st = document.getElementById("plneupst");
   if (st) st.textContent = "Nahrávám…";
   t.files[0]
     .text()
-    .then(s => MMDB.pravidlaUloz(k, JSON.parse(s)))
+    .then(s => {
+      const d = JSON.parse(s);
+      if ((k === "featy") !== Array.isArray(d)) throw new Error(`soubor nevypadá jako ${k}.json`);
+      return MMDB.pravidlaUloz(k, d);
+    })
     .then(n => {
-      if (st) st.textContent = `Nahráno: ${PLNEKL[k]} – ${n} položek.`;
+      if (st) st.textContent = `Nahráno: ${PLNEUP[k]} – ${n} položek.`;
       delete PLNES[k];
       delete PLNESP[k];
       Object.keys(PLNET)

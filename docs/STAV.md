@@ -114,7 +114,7 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
 
 ## Otevřené
 - **Plné texty kouzel a předmětů v databázi**: vývojová i ostrá je musí nahrát vypravěč (Pravidla › Kouzla a Pravidla › Předměty › Nahrát, soubory kouzla.json a predmety.json z převodníku) – ze sandboxu se do databáze nedostanou. Nasazeno 10-24 (schéma v ostré), ostrá tabulka `pravidla_texty` je zatím prázdná – kouzla a předměty nahraje Vojta na ostrém webu, featy chybí (viz Featy). „Slot“ v automatice a rozhraní karty zůstal (texty pravidel mají „pozice kouzla“).
-- **Featy**: české názvy 24 featů se liší od shrnutí v `featy.json` – rozhoduje Vojta; plné znění v ostré databázi zatím není (SQL z `featy_plne.py --sql`, z MD v projektu – převádí i pojmy a stavy; zapsat jen na pokyn Vojty); okno featu na kartě zatím ukazuje jen shrnutí.
+- **Featy**: české názvy 24 featů se liší od shrnutí v `featy.json` – rozhoduje Vojta; plné znění nahrává vypravěč souborem featy.json (`featy_plne.py` z MD v projektu – převádí i pojmy a stavy) na stránce Pravidla › Kouzla › Nahrát plné znění; v ostré databázi zatím není; okno featu na kartě zatím ukazuje jen shrnutí.
 - 10-23 Družina (#druzina) dál ukazuje Ctnosti a Neřesti z obsahu (u postav dvě) – po přechodu na jednu Ctnost a Neřest upravit `zdroj/obsah` (nejdřív záloha textů z webu). Kostka Emboldening Bond pro ověření a záchrany se zapíná jen ve formuláři útoku (panel Kostky ji už nemá).
 
 - **Čistá pravidla – další přesuny**: `--ciste-kandidati` hlásí ~600 definic, které jdou do čistých souborů beze změny (karta 18: `kPocet`,
