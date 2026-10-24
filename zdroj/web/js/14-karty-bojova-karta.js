@@ -1325,8 +1325,12 @@ function kZbrUziti(c, S) {
     N = c.N,
     o = {};
   if (N.z && BZBR[N.z.dr]) {
-    /* Mistr těžké zbroje (Artikule 2026-10-24): těžká zbroj snese o 1 obětování víc */
-    const mx = (parseInt(BZBR[N.z.dr][1], 10) || 1) + (N.z.max == null && c.maRys && c.maRys(/^heavy armor master$/) ? 1 : 0);
+    /* Mistr těžké zbroje (Artikule 2026-10-24): těžká zbroj snese o 1 obětování víc; adamantinová a mizziová zbroj
+       o 2 víc (Artikule › Kouzla a předměty, místo změny každého kritu v běžný zásah) */
+    const mx =
+      (parseInt(BZBR[N.z.dr][1], 10) || 1) +
+      (N.z.max == null && c.maRys && c.maRys(/^heavy armor master$/) ? 1 : 0) +
+      (/\b(adamantine|mizzium|adamantinov\p{L}*|mizziov\p{L}*)\b/iu.test(N.z.n || "") ? 2 : 0);
     o.z = {k: N.z.dr, n: N.z.n, max: mx, u: Math.min(mx, +U[N.z.dr] || 0)};
     if (o.z.u >= mx) N.z = null;
   }

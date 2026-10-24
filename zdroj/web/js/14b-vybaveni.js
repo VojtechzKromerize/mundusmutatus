@@ -370,7 +370,9 @@ function kVecPopis(x, p, v) {
             .join("")
         : "",
     art = v && typeof vybArtikule === "function" ? vybArtikule(v) : "",
-    cele = v && v.t && p && p.t ? `<details class="kvcele"><summary>Celé znění</summary>${kzMd(p.t)}</details>` : "";
+    cele =
+      (v && v.t && p && p.t ? `<details class="kvcele"><summary>Celé znění</summary>${kzMd(p.t)}</details>` : "") +
+      ((p && p.en) || (v && v.sk === "magicke") ? plneTag("predmety", (p && p.en) || v.en) : "");
   if (!druh && !par && !txt && !tab && !art) return "";
   const k = String(x.n || "").toLowerCase();
   return `<details class="kvpop" data-kvpop="${besc(k)}"${KVPOPZ.has(k) ? "" : " open"}><summary>Popis</summary>${druh || par ? `<p class="kvpar"><i>${besc(druh)}</i>${druh && par ? " · " : ""}${par}</p>` : ""}${txt}${tab}${art}${cele}</details>`;

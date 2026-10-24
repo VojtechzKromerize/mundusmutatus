@@ -234,6 +234,28 @@ test("Artikule › featy: Martial Adept dává +1 Výdrž i kouzelníkovi; Mistr
   assert.equal(ks, 2, "kroužková košile je střední zbroj – bez navýšení");
 });
 
+test("Artikule › kouzla a předměty: adamantinová a mizziová zbroj snese o 2 obětování víc", () => {
+  const z = n => V(`kZbrU(${karta({povolani: "Fighter 5", uroven: 5, vl: VL, rysy: [], vybaveni: [{n}]})}).z.max`);
+  assert.equal(z("Chain Mail"), 2, "kroužková zbroj 2×");
+  assert.equal(z("Adamantine Chain Mail"), 4, "adamantinová kroužková 4×");
+  assert.equal(z("Mizzium Breastplate"), 5, "mizziový kyrys (plátová) 5×");
+});
+
+test("plné znění kouzel a předmětů: rozbalovací blok jen přihlášeným, text s rámečkem Artikule a vyšším stupněm", () => {
+  assert.equal(V(`plneTag("kouzla", "Fireball")`), "", "nepřihlášený nic nevidí");
+  const h = V(
+    `plneTelo("kouzla", {en: "Cure Wounds", l: 1, s: "Ochranná magie", ct: "Akce", r: "Dotyk", k: "V, S", d: "Okamžité", t: "Tvor si obnoví 2k8.\\n\\n> **Artikule – Léčení na 0 HP.** Jen stabilizuje.", v: "Použití pozice kouzla vyššího stupně. Léčení se zvýší o 2k8."})`,
+  );
+  assert.match(h, /Kouzlo 1\. stupně · Ochranná magie · Akce/);
+  assert.match(h, /class="srdart"><b>Artikule<\/b> <b>Léčení na 0 HP\.<\/b>/);
+  assert.match(h, /<b>Použití pozice kouzla vyššího stupně\.<\/b> Léčení/);
+  assert.match(V(`plneTelo("predmety", null)`), /není/);
+  const f = V(
+    `(PLNEF.kouzla.q = "ohniv", plneFiltr("kouzla", [{en: "Fireball", cz: "Ohnivá koule", l: 3}, {en: "Shield", cz: "Štít", l: 1}]).map(x => x.en).join())`,
+  );
+  assert.equal(f, "Fireball", "hledání bez diakritiky i v českém názvu");
+});
+
 test("featy: plné znění – rámeček Artikule, tabulka, podnadpis a escapování HTML", () => {
   const h = V(
     `featyMd("Úvod <script>x</script>\\n\\n> **Artikule – Pohotovost.** Jednou za boj.\\n\\n## Tabulka\\n\\n| **k4** | **Výboj** |\\n|---|---|\\n| 1 | **Vztek.** Útok |")`,

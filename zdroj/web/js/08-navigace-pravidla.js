@@ -520,7 +520,7 @@ function renderPravidla(b, c) {
     return;
   }
   const K = SRDP.kap.find(k => k.id === b);
-  side.innerHTML = `<nav class="atoc srdtoc" aria-label="Obsah pravidel"><a class="atop${K || b === "predmety" || b === "netvori" || b === "mimo" || b === "vybaveni" ? "" : " on"}" href="#pravidla">Úvod</a>${SRDP.kap
+  side.innerHTML = `<nav class="atoc srdtoc" aria-label="Obsah pravidel"><a class="atop${K || b === "predmety" || b === "netvori" || b === "mimo" || b === "vybaveni" || b === "plne" ? "" : " on"}" href="#pravidla">Úvod</a>${SRDP.kap
     .map(
       k =>
         `<p class="abook"><a href="#pravidla/${k.id}"${K && K.id === k.id ? ' class="on"' : ""}>${k.n}</a></p>${
@@ -534,9 +534,14 @@ function renderPravidla(b, c) {
     )
     .join(
       "",
-    )}<p class="abook"><a href="#pravidla/predmety"${b === "predmety" ? ' class="on"' : ""}>Magické předměty</a></p><p class="abook"><a href="#pravidla/vybaveni"${b === "vybaveni" ? ' class="on"' : ""}>Vybavení</a></p><p class="abook"><a href="#pravidla/mimo"${b === "mimo" ? ' class="on"' : ""}>Doplňky mimo SRD</a></p>${GMV ? `<p class="abook"><a href="#pravidla/netvori"${b === "netvori" ? ' class="on"' : ""}>Nestvůry a zvířata</a></p>` : ""}</nav>`;
+    )}<p class="abook"><a href="#pravidla/predmety"${b === "predmety" ? ' class="on"' : ""}>Magické předměty</a></p><p class="abook"><a href="#pravidla/vybaveni"${b === "vybaveni" ? ' class="on"' : ""}>Vybavení</a></p><p class="abook"><a href="#pravidla/mimo"${b === "mimo" ? ' class="on"' : ""}>Doplňky mimo SRD</a></p><p class="abook"><a href="#pravidla/plne"${b === "plne" ? ' class="on"' : ""}>Kouzla a předměty</a></p>${GMV ? `<p class="abook"><a href="#pravidla/netvori"${b === "netvori" ? ' class="on"' : ""}>Nestvůry a zvířata</a></p>` : ""}</nav>`;
   if (b === "mimo") {
     renderMimo(main, c);
+    return;
+  }
+  if (b === "plne") {
+    if (typeof renderPlne === "function") renderPlne(main, c);
+    else main.innerHTML = `<p class="rsmall">Načítám…</p>`;
     return;
   }
   if (b === "vybaveni") {
@@ -556,7 +561,7 @@ function renderPravidla(b, c) {
   }
   if (!K) {
     main.innerHTML = `<h2 class="arttitle">Pravidla</h2><p class="intro">Základní pravidla D&amp;D 2024 podle System Reference Document 5.2.1, přeložená do češtiny. Kde Mundus Mutatus hraje jinak, stojí u pravidla rámeček <b>Artikule</b> – ten platí přednostně. Celá domácí pravidla jsou v <a href="#artikule">Artikulích</a>.</p>
-    <ul class="srdkap">${SRDP.kap.map(k => `<li><a href="#pravidla/${k.id}"><b>${k.n}</b><small>${besc(k.p)}</small></a></li>`).join("")}<li><a href="#pravidla/predmety"><b>Magické předměty</b><small>lektvary, prsteny, zbraně a divotvorné předměty s českým popisem</small></a></li><li><a href="#pravidla/vybaveni"><b>Vybavení</b><small>zbroj, zbraně, výbava, nářadí, zvířata, doprava, jedy a magické předměty s cenami – i do vybavení postavy</small></a></li><li><a href="#pravidla/mimo"><b>Doplňky mimo SRD</b><small>další podtřídy, featy, zázemí, Aasimar a kouzla – stručně vlastními slovy</small></a></li>${GMV ? `<li><a href="#pravidla/netvori"><b>Nestvůry a zvířata</b><small>statistiky SRD pro bestiář a Boj (jen vypravěč)</small></a></li>` : ""}</ul>
+    <ul class="srdkap">${SRDP.kap.map(k => `<li><a href="#pravidla/${k.id}"><b>${k.n}</b><small>${besc(k.p)}</small></a></li>`).join("")}<li><a href="#pravidla/predmety"><b>Magické předměty</b><small>lektvary, prsteny, zbraně a divotvorné předměty s českým popisem</small></a></li><li><a href="#pravidla/vybaveni"><b>Vybavení</b><small>zbroj, zbraně, výbava, nářadí, zvířata, doprava, jedy a magické předměty s cenami – i do vybavení postavy</small></a></li><li><a href="#pravidla/mimo"><b>Doplňky mimo SRD</b><small>další podtřídy, featy, zázemí, Aasimar a kouzla – stručně vlastními slovy</small></a></li><li><a href="#pravidla/plne"><b>Kouzla a předměty</b><small>plné znění všech kouzel a kouzelných předmětů ve vypravěčově překladu – po přihlášení</small></a></li>${GMV ? `<li><a href="#pravidla/netvori"><b>Nestvůry a zvířata</b><small>statistiky SRD pro bestiář a Boj (jen vypravěč)</small></a></li>` : ""}</ul>
     <p class="rsmall">Kouzla SRD česky má vypravěč v části Kouzla; hráči je vidí u kouzel na své kartě.</p>
     <p class="rsmall srdattr">${besc(SRDP.attr)} Překlad do češtiny a doplnění pravidly Artikulí: Mundus Mutatus. Kompatibilní s 5. edicí (5E compatible).</p>
     <p class="rsmall srdattr" lang="en">${besc(SRDP.attr_en)}</p>`;

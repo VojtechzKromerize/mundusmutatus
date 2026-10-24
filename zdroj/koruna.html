@@ -513,6 +513,9 @@ window.MMDB={vetev:C.vetev,
   kartaTexty(id){return rpc("mm_karta_texty",{p_id:id,p_token:htok()})},
   /* plné znění pravidel mimo SRD (featy – Vojtův překlad) jen pro přihlášené: vypravěč, hráč s účtem nebo s heslem ke kartě */
   pravidlaTexty(k){return rpc("mm_pravidla_texty",{p_klic:k,p_token:htok()})},
+  pravidlaText(k,id){return rpc("mm_pravidla_text",{p_klic:k,p_id:id,p_token:htok()})},
+  pravidlaSeznam(k){return rpc("mm_pravidla_seznam",{p_klic:k,p_token:htok()})},
+  pravidlaUloz(k,d){return this.gm("mm_pravidla_texty_uloz",{p_klic:k,p_data:d})},
   kartaTextyUloz(id,t){return rpc("mm_karta_texty_uloz",{p_id:id,p_texty:t,p_token:htok()})},
   pokladnaNacti(){return api("/rest/v1/rpc/mm_pokladna_nacti",{method:"POST",body:"{}"})},
   pokladna(z,p,k){return rpc("mm_pokladna",{p_zmena:z,p_pozn:p||null,p_karta:k||null,p_token:htok()})},
@@ -618,6 +621,7 @@ const hraAkt=()=>api("/rest/v1/rpc/mm_hra",{method:"POST",body:"{}"}).then(h=>h&
 /*@vloz web/js/10-kouzla.js*/
 /*@vloz web/js/10k-import-pdf.js*/
 /*@vloz web/js/10p-pravidla.js*/
+/*@vloz web/js/10q-plne-texty.js*/
 /*@vloz web/js/10r-reakce.js*/
 /*@vloz web/js/10t-tah.js*/
 /*@vloz web/js/10u-ucinky.js*/

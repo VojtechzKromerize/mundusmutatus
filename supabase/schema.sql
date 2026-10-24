@@ -2176,6 +2176,43 @@ begin
 end $$;
 revoke all on function public.mm_pravidla_texty(text, text) from public;
 grant execute on function public.mm_pravidla_texty(text, text) to anon, authenticated;
+-- Kouzla a předměty (Vojtovy tabulky, 2026-10-24): data = objekt id → položka (~2 MB u předmětů), proto se čtou po jedné
+-- (mm_pravidla_text) a seznam bez textů (mm_pravidla_seznam: id, název, úroveň/vzácnost…, bez polí t a v).
+create or replace function public.mm_pravidla_text(p_klic text, p_id text, p_token text default null) returns jsonb
+language plpgsql stable security definer set search_path = public as $$
+begin
+  if auth.uid() is null and public.mm_hrac_kdo(p_token) is null then return null; end if;
+  return (select data -> lower(p_id) from public.pravidla_texty where klic = p_klic);
+end $$;
+revoke all on function public.mm_pravidla_text(text, text, text) from public;
+grant execute on function public.mm_pravidla_text(text, text, text) to anon, authenticated;
+create or replace function public.mm_pravidla_seznam(p_klic text, p_token text default null) returns jsonb
+language plpgsql stable security definer set search_path = public as $$
+begin
+  if auth.uid() is null and public.mm_hrac_kdo(p_token) is null then return null; end if;
+  return (select coalesce(jsonb_agg((e.value - 't' - 'v') || jsonb_build_object('id', e.key) order by e.key), '[]'::jsonb)
+            from public.pravidla_texty p, jsonb_each(p.data) e where p.klic = p_klic and jsonb_typeof(p.data) = 'object');
+end $$;
+revoke all on function public.mm_pravidla_seznam(text, text) from public;
+grant execute on function public.mm_pravidla_seznam(text, text) to anon, authenticated;
+-- nahrání plných textů vypravěčem z webu (Pravidla › Kouzla a předměty: soubory JSON z převodníku zdroj/mimo-srd/kouzla_predmety_plne.py);
+-- texty nejsou v repozitáři, tak je do databáze (vývojové i ostré) nahraje vypravěč sám
+create or replace function public.mm_pravidla_texty_uloz(p_klic text, p_data jsonb) returns integer
+language plpgsql security definer set search_path = public as $$
+begin
+  if not public.mm_je_gm() then
+    raise exception 'jen pro vypravěče' using errcode = '42501';
+  end if;
+  if p_klic not in ('kouzla', 'predmety', 'featy') then
+    raise exception 'neznámý klíč %', p_klic using errcode = '22023';
+  end if;
+  insert into public.pravidla_texty (klic, data, zmeneno) values (p_klic, p_data, now())
+    on conflict (klic) do update set data = excluded.data, zmeneno = now();
+  return case jsonb_typeof(p_data) when 'object' then (select count(*) from jsonb_object_keys(p_data))::integer
+                                   when 'array' then jsonb_array_length(p_data) else 0 end;
+end $$;
+revoke all on function public.mm_pravidla_texty_uloz(text, jsonb) from public, anon;
+grant execute on function public.mm_pravidla_texty_uloz(text, jsonb) to authenticated;
 
 -- ▼ Doplňte svůj e‑mail (účet založený v Authentication → Users) a spusťte:
 -- insert into public.gm (user_id) select id from auth.users where email = 'VAS@EMAIL.CZ' on conflict do nothing;
