@@ -2195,7 +2195,7 @@ begin
 end $$;
 revoke all on function public.mm_pravidla_seznam(text, text) from public;
 grant execute on function public.mm_pravidla_seznam(text, text) to anon, authenticated;
--- nahrání plných textů vypravěčem z webu (Pravidla › Kouzla a předměty: soubory JSON z převodníku zdroj/mimo-srd/kouzla_predmety_plne.py);
+-- nahrání plných textů vypravěčem z webu (Pravidla › Kouzla a Pravidla › Předměty: soubory JSON z převodníku zdroj/mimo-srd/kouzla_predmety_plne.py);
 -- texty nejsou v repozitáři, tak je do databáze (vývojové i ostré) nahraje vypravěč sám
 create or replace function public.mm_pravidla_texty_uloz(p_klic text, p_data jsonb) returns integer
 language plpgsql security definer set search_path = public as $$

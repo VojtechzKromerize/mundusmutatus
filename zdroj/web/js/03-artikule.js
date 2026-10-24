@@ -747,7 +747,7 @@ const ARTK = [
     book: "boj",
     t: "Kouzla a předměty",
     sum: "Jak kouzla a kouzelné předměty z D&D sedí na Artikule.",
-    intro: `<p>Kouzla a kouzelné předměty platí tak, jak jsou psané, se zásadami a úpravami níže. Plné znění všech kouzel a předmětů (i s těmito úpravami v rámečcích) najdeš po přihlášení v <a href="#pravidla/plne">Pravidlech › Kouzla a předměty</a>.</p>`,
+    intro: `<p>Kouzla a kouzelné předměty platí tak, jak jsou psané, se zásadami a úpravami níže. Plné znění všech kouzel a předmětů (i s těmito úpravami v rámečcích) najdeš po přihlášení v Pravidlech › <a href="#pravidla/kouzla">Kouzla</a> a <a href="#pravidla/predmety-plne">Předměty</a>.</p>`,
     secs: [
       {
         id: "kouzla-zasady",

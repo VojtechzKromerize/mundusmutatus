@@ -192,7 +192,7 @@ Kouzla: SRD 5.2.1 česky (art/kouzla.json, načítá se až při potřebě) – 
 
 Plné znění kouzel a předmětů (Vojtovy tabulky, 2026-10-24) – jen pro přihlášené, z databáze
 
-- 168 řádků, 18 definic na nejvyšší úrovni, z toho 2 používají jiné soubory
+- 181 řádků, 19 definic na nejvyšší úrovni, z toho 2 používají jiné soubory
 - používá z: 08-navigace-pravidla (3), 10-kouzla (1), 11-boj (1)
 - používají ho: 08-navigace-pravidla (1), 10-kouzla (1), 14b-vybaveni (1), 14d-vybaveni-katalog (1), 15-karty-artikule (1), 16-srd-ukazky-sezeni-hrac (1)
 - poskytuje: plneTag renderPlne

@@ -1,8 +1,8 @@
 /* ===== Plné znění kouzel a předmětů (Vojtovy tabulky, 2026-10-24) – jen pro přihlášené, z databáze =====
    Texty nejsou v repozitáři ani v art/: převodník zdroj/mimo-srd/kouzla_predmety_plne.py z nich udělá JSON (sjednocené pojmy
-   a rámečky Artikulí) a vypravěč je nahraje na stránce Pravidla › Kouzla a předměty (mm_pravidla_texty_uloz). Čte se po jedné
+   a rámečky Artikulí) a vypravěč je nahraje na stránkách Pravidla › Kouzla a Pravidla › Předměty (mm_pravidla_texty_uloz). Čte se po jedné
    položce (mm_pravidla_text, data jsou ~2 MB) a seznam bez textů (mm_pravidla_seznam). plneTag() je rozbalovací „Plné znění“
-   u kouzla či předmětu kdekoli na webu – text se načte až při rozbalení. Stránka #pravidla/plne/kouzla | predmety (renderPlne). */
+   u kouzla či předmětu kdekoli na webu – text se načte až při rozbalení. Stránky #pravidla/kouzla a #pravidla/predmety-plne (renderPlne). */
 const PLNEKL = {kouzla: "Kouzla", predmety: "Kouzelné předměty"};
 const PLNES = {},
   PLNESP = {},
@@ -101,36 +101,49 @@ function plneFiltrHtml(k) {
     .map(([v, n]) => `<option value="${v}"${f.l === v ? " selected" : ""}>${n}</option>`)
     .join("")}</select></div>`;
 }
-function plneNahratHtml() {
+function plneNahratHtml(k) {
   return MMDB.prihlasen && MMDB.prihlasen()
-    ? `<details class="bjapd"><summary>Nahrát plné texty (vypravěč)</summary><p class="rsmall">Soubory <b>kouzla.json</b> a <b>predmety.json</b> z převodníku (zdroj/mimo-srd/kouzla_predmety_plne.py) – nahradí texty v této databázi.</p>
-      <p><label>Kouzla <input type="file" accept=".json" data-plneup="kouzla"></label></p><p><label>Předměty <input type="file" accept=".json" data-plneup="predmety"></label></p><p class="rsmall" id="plneupst"></p></details>`
+    ? `<details class="bjapd"><summary>Nahrát plné znění (vypravěč)</summary><p class="rsmall">Soubor <b>${k}.json</b> z převodníku (zdroj/mimo-srd/kouzla_predmety_plne.py) – nahradí ${k === "kouzla" ? "kouzla" : "předměty"} v této databázi.</p>
+      <p><input type="file" accept=".json" data-plneup="${k}" aria-label="Soubor ${k}.json"></p><p class="rsmall" id="plneupst"></p></details>`
     : "";
 }
+/* stránky Pravidla › Kouzla (#pravidla/kouzla) a Pravidla › Předměty (#pravidla/predmety-plne) */
+const PLNESTR = {
+  kouzla: {
+    h: "#pravidla/kouzla",
+    n: "Kouzla",
+    t: "Kouzla – plné znění",
+    i: "Vypravěčův překlad všech kouzel D&amp;D se sjednocenými pojmy, s hledáním podle názvu a filtrem podle stupně.",
+  },
+  predmety: {
+    h: "#pravidla/predmety-plne",
+    n: "Předměty",
+    t: "Kouzelné předměty – plné znění",
+    i: "Vypravěčův překlad všech kouzelných předmětů D&amp;D se sjednocenými pojmy, s hledáním podle názvu a filtrem podle vzácnosti.",
+  },
+};
 function renderPlne(main, c) {
-  const k = PLNEKL[c] ? c : "kouzla";
-  const hlava = `<nav class="crumbs"><a href="#pravidla">Pravidla</a> › <b>Kouzla a předměty</b></nav><h2 class="arttitle">Kouzla a předměty – plné znění</h2>
-  <p class="intro">Vypravěčův překlad všech kouzel a kouzelných předmětů D&amp;D se sjednocenými pojmy. Rámečky <b>Artikule</b> jsou domácí úpravy a mají přednost; obecné zásady jsou v <a href="#artikule">Artikulích</a> › Kouzla a předměty.</p>
-  <p class="rsmall">${Object.keys(PLNEKL)
-    .map(x => (x === k ? `<b>${PLNEKL[x]}</b>` : `<a href="#pravidla/plne/${x}">${PLNEKL[x]}</a>`))
-    .join(" · ")}</p>`;
+  const k = PLNEKL[c] ? c : "kouzla",
+    S = PLNESTR[k];
+  const hlava = `<nav class="crumbs"><a href="#pravidla">Pravidla</a> › <b>${S.n}</b></nav><h2 class="arttitle">${S.t}</h2>
+  <p class="intro">${S.i} Rámečky <b>Artikule</b> jsou domácí úpravy a mají přednost; obecné zásady jsou v <a href="#artikule">Artikulích</a> › Kouzla a předměty.</p>`;
   if (!featyMuze()) {
     main.innerHTML = hlava + `<p class="rsmall">Plné znění uvidíš po přihlášení (Úvod nebo Hra).</p>`;
     return;
   }
   if (!PLNES[k]) {
-    main.innerHTML = hlava + plneNahratHtml() + `<p class="rsmall">Načítám…</p>`;
+    main.innerHTML = hlava + plneNahratHtml(k) + `<p class="rsmall">Načítám…</p>`;
     plneSeznam(k).then(j => {
-      if (curView === "pravidla" && (location.hash || "").startsWith("#pravidla/plne")) {
-        if (j) renderPlne(main, c);
-        else main.innerHTML = hlava + plneNahratHtml() + `<p class="rsmall">Plné znění se nepodařilo načíst.</p>`;
+      if (curView === "pravidla" && (location.hash || "").startsWith(S.h)) {
+        if (j) renderPlne(main, k);
+        else main.innerHTML = hlava + plneNahratHtml(k) + `<p class="rsmall">Plné znění se nepodařilo načíst.</p>`;
       }
     });
     return;
   }
   main.innerHTML =
     hlava +
-    plneNahratHtml() +
+    plneNahratHtml(k) +
     (PLNES[k].length
       ? `${plneFiltrHtml(k)}<div id="plneseznam">${plneSeznamHtml(k)}</div>`
       : `<p class="rsmall">V databázi zatím plné znění není – vypravěč ho nahraje výše.</p>`);

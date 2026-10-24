@@ -441,6 +441,7 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `PLNEMAX` | 10q-plne-texty:78 | const | ⓘ `120;` |
 | `PLNES` | 10q-plne-texty:7 | const | ⓘ `{},` |
 | `PLNESP` | 10q-plne-texty:8 | const | ⓘ `{},` |
+| `PLNESTR` | 10q-plne-texty:111 | const | ⓐ stránky Pravidla › Kouzla (#pravidla/kouzla) a Pravidla › Předměty (#pravidla/predmety-plne) |
 | `PLNET` | 10q-plne-texty:9 | const | ⓘ `{};` |
 | `PM` | 04b-praha-plan:1385 | const | plán Prahy: stav měření cesty (zapnuto, body a/b, nalezená cesta, mřížka pro A*) |
 | `PMA` | 04-praha:35 | const | plán Prahy: cesta ke složce obrázků plánu ("art/mapa/") |
