@@ -1984,7 +1984,7 @@ const BOJPC_MQ = matchMedia("(min-width:1280px)");
 const bojPcHrac = () => !GMV && mmNaHre() && BOJPC_MQ.matches;
 BOJPC_MQ.addEventListener("change", () => {
   if (!BOJPC_MQ.matches) document.documentElement.classList.remove("mmpc");
-  if (curView === "boj") bdmPrekresli();
+  if (curView === "boj" || curView === "karty") bdmPrekresli();
 });
 function bojDbm(s, h, K, gm, vzdy, X) {
   X = X || {};
@@ -1999,8 +1999,9 @@ function bojDbm(s, h, K, gm, vzdy, X) {
     IMG = kImg(K) || bojPortH(K.n),
     sek0 = bdmSekce(K),
     sec0 = sek0.some(x => x[0] === BDM.sec[key]) ? BDM.sec[key] : "akce";
-  /* široký počítač: Statistiky jsou stále vidět vlevo, v záložkách vpravo zbývají ostatní listy */
-  const pc = !!X.boj && !gm && !!vzdy && !!(s && s.aktivni) && bojPcHrac(),
+  /* široký počítač: Statistiky jsou stále vidět vlevo, v záložkách vpravo zbývají ostatní listy. V boji jen hráč na Hře
+     (bojPcHrac), mimo boj karta na stránce Karty (Kronika › Karty) pro kohokoli od 1280 px (Vojta 2026-10-24) */
+  const pc = (!!X.boj && !gm && !!vzdy && !!(s && s.aktivni) && bojPcHrac()) || (!!X.karta && curView === "karty" && BOJPC_MQ.matches),
     sek = pc ? sek0.filter(x => x[0] !== "vl") : sek0,
     sec = pc && sec0 === "vl" ? "akce" : sec0;
   if (pc) X = {...X, pc: true};
