@@ -2175,6 +2175,11 @@ button.kbox{cursor:pointer}button.kbox:hover{border-color:var(--gold)}
 /* pravidla SRD */
 .srdtext h3{margin:1.6em 0 .4em}.srdtext h4{margin:1.2em 0 .3em}.srdtext h5,.srdtext h6{margin:1em 0 .2em;font-size:1rem}
 .srdtext h3,.srdtext h4,.srdtext h5{scroll-margin-top:80px}
+/* dlouhé stránky (2026-10-25): oddíly mimo obrazovku prohlížeč nerozkládá ani nekreslí, dokud k nim čtenář nedojede
+   (kapitoly Pravidel po h3 – srdOddily v 08, Vybavení, seznamy Doplňků mimo SRD). Oddíl nenechá splynout okraje sousedů:
+   dolní okraj posledního prvku kapitoly se vynuluje (nadpis dalšího oddílu má větší horní okraj). */
+.srdsek,.vybsek,#srdmain ul.kfeat{content-visibility:auto;contain-intrinsic-size:auto 1200px}
+.srdsek>:last-child{margin-bottom:0}
 .srdtab{overflow-x:auto;margin:.6em 0 1em}.srdtab table{border-collapse:collapse;font-size:.92rem;min-width:60%}.srdtab th,.srdtab td{border-bottom:1px solid var(--rule);padding:4px 10px 4px 0;text-align:left;vertical-align:top}.srdtab th{font-family:var(--f-label);font-size:.78rem;color:var(--muted)}
 .srdart{margin:.6em 0 1em;padding:8px 12px;border-left:4px solid var(--kal);background:color-mix(in srgb,var(--kal) 7%,var(--paper));font-size:.95rem}.srdart>b:first-child{font-family:var(--f-label);letter-spacing:.06em;color:var(--kal);margin-right:6px;text-transform:uppercase;font-size:.78rem}
 .srdkap{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px}.srdkap a{display:flex;flex-direction:column;padding:10px 12px;border:1px solid var(--rule);border-radius:4px;background:var(--paper);text-decoration:none;color:var(--ink)}.srdkap a:hover{border-color:var(--gold)}.srdkap b{font-family:var(--f-disp);font-size:1.15rem}.srdkap small{color:var(--muted)}

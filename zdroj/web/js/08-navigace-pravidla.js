@@ -568,11 +568,31 @@ function renderPravidla(b, c) {
     window.scrollTo(0, 0);
     return;
   }
-  main.innerHTML = `<nav class="crumbs"><a href="#pravidla">Pravidla</a> › <b>${K.n}</b></nav><h2 class="arttitle">${K.n}</h2><div class="srdtext">${K.h}</div><p class="rsmall srdattr">${besc(SRDP.attr)}</p>`;
+  main.innerHTML = `<nav class="crumbs"><a href="#pravidla">Pravidla</a> › <b>${K.n}</b></nav><h2 class="arttitle">${K.n}</h2><div class="srdtext"></div><p class="rsmall srdattr">${besc(SRDP.attr)}</p>`;
+  main.querySelector(".srdtext").appendChild(srdOddily(K.h, K.id !== "glosar"));
   if (K.id !== "glosar") pojZnac(main.querySelector(".srdtext"));
   const el = c && document.getElementById(c);
   if (el) el.scrollIntoView({block: "start"});
   else window.scrollTo(0, 0);
+}
+/* kapitola Pravidel rozdělená na oddíly podle nadpisů h3 (2026-10-25): oddíly mimo obrazovku prohlížeč nerozkládá ani nekreslí
+   (.srdsek, content-visibility v CSS) – dlouhé kapitoly (Povolání ~9 000 prvků) se pak otevřou mnohem rychleji. Skládá se
+   mimo stránku, aby se do ní vložila jednou. Glosář ne: má stovky drobných hesel pod h3 a režie oddílů by převážila. */
+function srdOddily(h, delit) {
+  const t = document.createElement("template");
+  t.innerHTML = h;
+  const F = t.content;
+  if (!delit || F.children.length < 30) return F;
+  let sek = null;
+  for (const e of [...F.childNodes]) {
+    if (!sek || e.nodeName === "H3") {
+      sek = document.createElement("section");
+      sek.className = "srdsek";
+      F.insertBefore(sek, e);
+    }
+    sek.appendChild(e);
+  }
+  return F;
 }
 const NAVNAME = {
   hra: "Hra",

@@ -1267,8 +1267,12 @@ function autolink(root, self, filter) {
   });
 }
 /* --- HLEDÁNÍ NA CELÉM WEBU --- */
+/* rejstřík se sestaví až při prvním hledání (2026-10-25): normalizace textů celého webu stála start stránky ~20 ms na telefonu */
 const GIDX = [];
-(function () {
+let GIDXH = false;
+function gIndex() {
+  if (GIDXH) return;
+  GIDXH = true;
   FAM.forEach(f =>
     GIDX.push({
       k: "Rod",
@@ -1341,7 +1345,7 @@ const GIDX = [];
       b: norm(dd.textContent),
     });
   });
-})();
+}
 const gq = document.getElementById("gq"),
   gres = document.getElementById("gres");
 function gSearch() {
@@ -1351,6 +1355,7 @@ function gSearch() {
     gres.innerHTML = "";
     return;
   }
+  gIndex();
   const ws = q.split(/\s+/);
   const hits = GIDX.map(r => {
     const inT = ws.every(w => r.t.includes(w)),

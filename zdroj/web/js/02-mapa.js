@@ -1682,7 +1682,9 @@ const PLACES = [];
     seen.add(z[0]);
     PLACES.push({name: z[0], lo: z[1], la: z[2], fam: ""});
   }
-  PLACES.sort((a, b) => a.name.localeCompare(b.name, "cs"));
+  /* Intl.Collator je při řazení stovek jmen mnohonásobně rychlejší než localeCompare (start webu) */
+  const cmp = new Intl.Collator("cs").compare;
+  PLACES.sort((a, b) => cmp(a.name, b.name));
 })();
 const rpts = poly => pts(poly);
 const MOUNTAINS = [
@@ -2940,24 +2942,32 @@ function rLink(i, j, km, eff, road) {
   RADJ[i].push({to: j, km, eff, road});
   RADJ[j].push({to: i, km, eff, road});
 }
-for (const [, line] of ROADS)
-  for (let i = 0; i < line.length - 1; i++) {
-    const a = rNode(line[i]),
-      b = rNode(line[i + 1]);
-    if (a === b) continue;
-    const km = haversine(RN[a], RN[b]) * 1.15,
-      t = terrain(RN[a], RN[b]);
-    rLink(a, b, km, km * (1 + (t - 1) * 0.35), true);
-  }
-for (let i = 0; i < RN.length; i++)
-  for (let j = i + 1; j < RN.length; j++) {
-    const d = haversine(RN[i], RN[j]);
-    if (d < 30 && !RADJ[i].some(e => e.to === j)) {
-      const km = d * 1.3;
-      rLink(i, j, km, km * terrain(RN[i], RN[j]) * OFF, false);
+/* síť cest pro měření trasy se spočítá až při prvním měření (2026-10-25): odhad terénu každého úseku je na startu webu
+   nejdražší výpočet jádra (~0,1 s na telefonu) a většina návštěv mapu neměří */
+let RSIT = false;
+function cestySit() {
+  if (RSIT) return;
+  RSIT = true;
+  for (const [, line] of ROADS)
+    for (let i = 0; i < line.length - 1; i++) {
+      const a = rNode(line[i]),
+        b = rNode(line[i + 1]);
+      if (a === b) continue;
+      const km = haversine(RN[a], RN[b]) * 1.15,
+        t = terrain(RN[a], RN[b]);
+      rLink(a, b, km, km * (1 + (t - 1) * 0.35), true);
     }
-  }
+  for (let i = 0; i < RN.length; i++)
+    for (let j = i + 1; j < RN.length; j++) {
+      const d = haversine(RN[i], RN[j]);
+      if (d < 30 && !RADJ[i].some(e => e.to === j)) {
+        const km = d * 1.3;
+        rLink(i, j, km, km * terrain(RN[i], RN[j]) * OFF, false);
+      }
+    }
+}
 function computeRoute(A, B) {
+  cestySit();
   const a = [A.lo, A.la],
     b = [B.lo, B.la],
     N = RN.length,
