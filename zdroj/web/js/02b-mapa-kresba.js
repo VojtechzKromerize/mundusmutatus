@@ -5558,6 +5558,86 @@ function meander(line, amp, seed) {
   return out;
 }
 const HIGHLAND_FOREST = new Set([0, 1, 2, 3, 4, 5, 6, 7, 12, 18, 19, 21, 22, 26, 28, 31, 35, 45, 47, 49, 51, 56]);
+/* kraje Čech (KRAJE v 02): každý kraj = část Čech blíž jeho středu než středům ostatních (ořez hranice Čech polorovinami);
+   barva podle landfrídu kolem roku 1450 (LANDFR), jména krajů a landfrídů */
+function polyPolorovina(poly, a, b) {
+  /* ponechá body blíž bodu a než b (Sutherland–Hodgman pro jednu polorovinu) */
+  const mx = (a[0] + b[0]) / 2,
+    my = (a[1] + b[1]) / 2,
+    dx = b[0] - a[0],
+    dy = b[1] - a[1],
+    uvnitr = p => (p[0] - mx) * dx + (p[1] - my) * dy <= 0,
+    out = [];
+  for (let i = 0; i < poly.length; i++) {
+    const p = poly[i],
+      q = poly[(i + 1) % poly.length],
+      ip = uvnitr(p),
+      iq = uvnitr(q);
+    if (ip) out.push(p);
+    if (ip !== iq) {
+      const dp = (p[0] - mx) * dx + (p[1] - my) * dy,
+        dq = (q[0] - mx) * dx + (q[1] - my) * dy,
+        t = dp / (dp - dq);
+      out.push([p[0] + (q[0] - p[0]) * t, p[1] + (q[1] - p[1]) * t]);
+    }
+  }
+  return out;
+}
+let KRAJEB = null;
+function krajeBunky() {
+  if (KRAJEB) return KRAJEB;
+  const S = KRAJE.map(q => P(q.lo, q.la)),
+    rings = DUCHY_POLY.kcz.map(r => r.map(c => P(c[0], c[1])));
+  KRAJEB = KRAJE.map((q, i) =>
+    rings
+      .map(r => S.reduce((poly, sj, j) => (j === i || poly.length < 3 ? poly : polyPolorovina(poly, S[i], sj)), r))
+      .filter(poly => poly.length >= 3),
+  );
+  return KRAJEB;
+}
+function krajeKresli(G, s, k) {
+  const B = krajeBunky(),
+    gk = G({filter: "url(#wob)"});
+  KRAJE.forEach((q, i) => {
+    const L = LANDFR[q.lf];
+    for (const poly of B[i])
+      gk.appendChild(
+        el("polygon", {
+          points: poly.map(p => p.map(v => v.toFixed(1)).join(",")).join(" "),
+          fill: L ? `var(--${L.c})` : "none",
+          "fill-opacity": L ? ".2" : "0",
+          stroke: "var(--ink)",
+          "stroke-width": (0.9 * s).toFixed(2),
+          "stroke-opacity": ".55",
+          "stroke-dasharray": `${4 * s} ${2.5 * s}`,
+          "stroke-linejoin": "round",
+        }),
+      );
+  });
+}
+/* jména krajů a landfrídů až nad městy (s lemem papíru), aby je nepřekryly popisky měst */
+function krajeJmena(svg, s, k) {
+  const gl = svgG(svg, {"pointer-events": "none"}),
+    t = (x, y, fs, sw, style, txt) =>
+      gl.appendChild(
+        el(
+          "text",
+          {x, y, class: "duchlbl", "font-size": (fs * k).toFixed(1), "stroke-width": (sw * s).toFixed(2), "text-anchor": "middle", style},
+          txt,
+        ),
+      );
+  for (const q of KRAJE) {
+    const [x, y] = P(q.lo, q.la - 0.07);
+    t(x, y, 9, 3, "fill:var(--ink);opacity:.8", q.n);
+  }
+  /* jméno landfrídu doprostřed jeho krajů (nebo na místo lab) */
+  for (const [id, L] of Object.entries(LANDFR)) {
+    const K = KRAJE.filter(q => q.lf === id);
+    if (!K.length) continue;
+    const [x, y] = L.lab ? P(...L.lab) : P(K.reduce((a, q) => a + q.lo, 0) / K.length, K.reduce((a, q) => a + q.la, 0) / K.length - 0.16);
+    t(x, y, 11, 3.4, `fill:var(--${L.c});font-style:italic`, L.n);
+  }
+}
 function drawMapK() {
   svg.classList.toggle("mapw", mapWide());
   const vb = st.vb || (mapWide() ? mapFit(mapPreset()) : VB[st.zoom]);
@@ -5777,6 +5857,7 @@ function drawMapK() {
           }),
         );
   }
+  if (st.kraje) krajeKresli(G, s, k);
   /* rivers: tapering double stroke, meandering */
   const gr = G({});
   TRIBS.forEach((r, i) =>
@@ -6382,6 +6463,7 @@ function drawMapK() {
       ),
     );
   }
+  if (st.kraje) krajeJmena(svg, s, k);
 }
 
 /*@cast}*/

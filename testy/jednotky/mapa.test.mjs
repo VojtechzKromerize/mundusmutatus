@@ -39,3 +39,23 @@ test("mapa: význam místa – metropole a hlavní města mají jméno vždy, m�
     true,
   ]);
 });
+
+test("mapa: kraje Čech a landfrídy – každý kraj má svou oblast uvnitř Čech, landfrídy odkazují na existující kraje", async () => {
+  assert.equal(V(`KRAJE.length`), 16);
+  assert.deepEqual(V(`KRAJE.filter(q => q.lf && !LANDFR[q.lf]).map(q => q.n)`), []);
+  assert.deepEqual(V(`KRAJE.filter(q => q.lf === "vych").map(q => q.n)`), ["Kouřimský", "Čáslavský", "Chrudimský", "Hradecký"]);
+  await S.ev(`typeof drawMapK === "function" || mmLina("mapa")`);
+  if (V(`typeof krajeBunky`) === "function") {
+    const B = V(`krajeBunky().map(c => c.reduce((a, p) => a + p.length, 0))`);
+    assert.ok(
+      B.every(n => n >= 3),
+      "každý kraj má oblast: " + B,
+    );
+    assert.ok(
+      V(
+        `(() => { const [x, y] = P(14.95, 50.0); return krajeBunky()[11].some(p => { let c = false; for (let i = 0, j = p.length - 1; i < p.length; j = i++) if ((p[i][1] > y) !== (p[j][1] > y) && x < ((p[j][0] - p[i][0]) * (y - p[i][1])) / (p[j][1] - p[i][1]) + p[i][0]) c = !c; return c; }); })()`,
+      ),
+      "Kouřim leží v Kouřimském kraji",
+    );
+  }
+});

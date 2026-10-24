@@ -836,6 +836,48 @@ const METRO = new Set(["Praha", "Vídeň", "Vratislav", "Krakov", "Budín", "Nor
 const mistoTier = (n, mesto) => (METRO.has(n) ? 0 : MAJOR_PLACES.has(n) ? 1 : mesto ? 2 : 3);
 const MTZ = [21, 17, 14, 12];
 const mistoPopisek = (tier, s) => tier <= 1 || (tier === 2 && s < 0.9) || s < 0.62;
+/* kraje Čech v 15. století a landfrídy kolem roku 1450 (2026-10-24, Vojta): kraj = oblast kolem svého středu (lo, la) ořezaná hranicí
+   Čech (kresba v 02b, krajeBunky) – hranice jsou schematické. Landfrídy vznikly po smrti krále Albrechta (1439–1440); od roku 1452
+   je Jiří jako zemský správce sjednocoval. lf: id landfrídu (LANDFR), bez něj kraj vlastní landfríd neměl nebo není doložen. */
+const KRAJE = [
+  {n: "Litoměřický", lo: 14.3, la: 50.62},
+  {n: "Žatecký", lo: 13.55, la: 50.35, lf: "zat"},
+  {n: "Loketsko", lo: 12.8, la: 50.25},
+  {n: "Chebsko", lo: 12.4, la: 50.07},
+  {n: "Slánský", lo: 14.15, la: 50.28},
+  {n: "Rakovnický", lo: 13.7, la: 50.05},
+  {n: "Plzeňský", lo: 13.2, la: 49.7, lf: "plz"},
+  {n: "Podbrdský", lo: 14.05, la: 49.85},
+  {n: "Prácheňský", lo: 13.9, la: 49.15, lf: "pra"},
+  {n: "Bechyňský", lo: 14.6, la: 49.1},
+  {n: "Vltavský", lo: 14.8, la: 49.62},
+  {n: "Kouřimský", lo: 14.95, la: 50.0, lf: "vych"},
+  {n: "Čáslavský", lo: 15.45, la: 49.68, lf: "vych"},
+  {n: "Chrudimský", lo: 16.05, la: 49.85, lf: "vych"},
+  {n: "Hradecký", lo: 15.9, la: 50.4, lf: "vych"},
+  {n: "Boleslavský", lo: 14.95, la: 50.6, lf: "bol"},
+];
+const LANDFR = {
+  vych: {
+    n: "Východočeské landfrídy",
+    c: "kal",
+    lab: [15.62, 49.55],
+    t: "Spojené landfrídy kouřimský, čáslavský, hradecký a chrudimský – kališnické. Do své smrti (1444) je vedl Hynek Ptáček z Pirkštejna, po něm Jiří z Poděbrad, jehož roku 1448 zvolily správcem.",
+  },
+  bol: {n: "Boleslavský landfríd", c: "mix", t: "Jedním z hejtmanů byl Jiří z Poděbrad; v kraji se drželi páni obojí víry."},
+  zat: {n: "Žatecký landfríd", c: "kal", t: "Kališnická města Žatec a Louny s okolní šlechtou."},
+  plz: {
+    n: "Plzeňský landfríd",
+    c: "kat",
+    t: "Katolický: Plzeň, Švamberkové, Kolovratové, Rýzmberkové a nižší šlechta – nejstarší z landfrídů (od roku 1420).",
+  },
+  pra: {
+    n: "Prácheňský landfríd",
+    c: "kat",
+    lab: [13.78, 49.38],
+    t: "Katolický, v dosahu Rožmberků; roku 1449 se katolíci jihu spojili ve Strakonicích proti Jiřímu.",
+  },
+};
 const DIO = [
   {
     id: "dpr",
@@ -3033,6 +3075,7 @@ toggleBtn("lyDio", "dio", () => {
   if (st.dio) {
     layerOff("duchy", "lyDuchy", duchLeg);
     layerOff("dom", "lyDom", domLeg);
+    layerOff("kraje", "lyKraje", krajLeg);
   }
   dioLeg.hidden = !st.dio;
 });
@@ -3040,6 +3083,7 @@ toggleBtn("lyDuchy", "duchy", () => {
   if (st.duchy) {
     layerOff("dio", "lyDio", dioLeg);
     layerOff("dom", "lyDom", domLeg);
+    layerOff("kraje", "lyKraje", krajLeg);
   }
   duchLeg.hidden = !st.duchy;
 });
@@ -3047,8 +3091,30 @@ toggleBtn("lyDom", "dom", () => {
   if (st.dom) {
     layerOff("dio", "lyDio", dioLeg);
     layerOff("duchy", "lyDuchy", duchLeg);
+    layerOff("kraje", "lyKraje", krajLeg);
   }
   domLeg.hidden = !st.dom;
+});
+const krajLeg = document.getElementById("krajlegend");
+krajLeg.innerHTML = `<span class="lbl">Landfrídy kolem roku 1450</span><ul>${Object.values(LANDFR)
+  .map(
+    l =>
+      `<li><span class="dsw" style="border-color:var(--${l.c});background:var(--${l.c});opacity:.7"></span><b>${l.n}</b> (${KRAJE.filter(
+        k => LANDFR[k.lf] === l,
+      )
+        .map(k => k.n)
+        .join(", ")}) — ${l.t}</li>`,
+  )
+  .join(
+    "",
+  )}</ul><p class="lbl">Kraje bez barvy vlastní landfríd neměly, nebo není doložen. Hranice krajů jsou schematické – kreslené kolem jejich středů.</p>`;
+toggleBtn("lyKraje", "kraje", () => {
+  if (st.kraje) {
+    layerOff("dio", "lyDio", dioLeg);
+    layerOff("duchy", "lyDuchy", duchLeg);
+    layerOff("dom", "lyDom", domLeg);
+  }
+  krajLeg.hidden = !st.kraje;
 });
 toggleBtn("lyParty", "party");
 toggleBtn("lyRings", "rings", () => {
