@@ -1,5 +1,5 @@
-// Vzdušný boj draků (10n-nebe.js, čistý soubor): karta draka z profilu plemene, šablony manévrů, současný pohyb, střet,
-// překryv, oblouky, pásma, Napětí, Závoj, Noční oči a zranění – návrh pravidla/vzdusny-boj-navrh.md v projektu claude.ai.
+// Vzdušný boj draků (10n-nebe.js, čistý soubor): karta draka z profilu plemene, šablony manévrů, změna výšky, Nálet,
+// překryv, oblouky, pásma, útoky (i ocasem), Napětí, Závoj, Noční oči a zranění – návrh pravidla/vzdusny-boj-navrh.md v projektu claude.ai.
 import {test} from "node:test";
 import assert from "node:assert/strict";
 import {ciste} from "./ciste.mjs";
@@ -12,7 +12,6 @@ test("karta soumračníka: široká zaoblená křídla + vějíř z peří, bez 
   assert.equal(K.d["ostra:1"], "z", "ostrá zatáčka 1 zelená (křídla)");
   assert.equal(K.d["mirna:3"], "z", "mírné zatáčky zelené");
   assert.equal(K.d["rovne:1"], "z", "vějíř: rychlost 1 zelená");
-  assert.equal(K.d["stoupani:1"], "z");
   assert.equal(K.d["rovne:2"], "b");
   assert.equal(K.d["zvrat:3"], "c", "Zvrat červený");
   assert.equal(K.d["rovne:4"], undefined, "bez rychlosti 4");
@@ -20,6 +19,7 @@ test("karta soumračníka: široká zaoblená křídla + vějíř z peří, bez 
   assert.equal(K.zaklad, 60);
   assert.equal(K.maxNap, 3);
   assert.equal(K.tichy, true);
+  assert.equal(K.ocas, false, "vějíř neútočí");
   assert.equal(K.podpis, "nocni_oci");
 });
 
@@ -35,25 +35,55 @@ test("karta korutanského lindwurmu: široká prstnatá křídla, zelené rovně
   assert.equal(K.ponor, true, "veslo: ponor nad vodou");
 });
 
-test("zranění draka škrtá manévry: křídlo bez ostrých zatáček, ocas bez Zvratu, trup červené Stoupání", () => {
-  const K = V(`nebeKarta("soumracnik", {h: 2, zr: {kridlo: true, ocas: true, trup: true}})`);
-  assert.equal(K.d["ostra:1"], undefined);
-  assert.equal(K.d["zvrat:3"], undefined);
+test("o 2 hladiny většina draků jen s námahou: Prudké stoupání a Nálet o 2 červené, Nálet o 3 jen střemhlaví", () => {
+  const K = V(`nebeKarta("soumracnik", {h: 2})`);
   assert.equal(K.d["stoupani:1"], "c");
-  assert.equal(K.d["mirna:1"], "z", "ostatní beze změny");
+  assert.equal(K.d["nalet:1"], "b");
+  assert.equal(K.d["nalet:2"], "c");
+  assert.equal(K.d["nalet:3"], undefined);
+  const S = V(`nebeKarta({n: "Zkouška", tr: "L", kr: "spicata", oc: "bicovity", vl: ["stremhlavy"]}, {h: 4})`);
+  assert.equal(S.d["nalet:2"], "z", "špičatá křídla: Nálet zelený");
+  assert.equal(S.d["nalet:3"], "b", "střemhlavý let: Nálet o 3");
+  const P = V(`nebeKarta({n: "Zkouška", tr: "S", kr: "kratka_siroka", oc: "krátký", vl: []}, {h: 0})`);
+  assert.equal(P.d["stoupani:1"], "z", "krátká široká křídla: prudký vzlet");
+  const T = V(`nebeKarta({n: "Zkouška", tr: "T", kr: "siroka_prstnata", oc: "kyj", vl: []}, {h: 2})`);
+  assert.equal(T.d["stoupani:1"], undefined, "těžký drak prudce nestoupá");
 });
 
-test("volba manévru: s Napětím ne červený, Nálet jen do výše a nejvýš o 2 hladiny, ne výš než Výšiny", () => {
+test("jednoduché manévry mění hladinu o 1; těžký drak a proražené vaky stoupají o barvu hůř; složité manévry výšku nemění", () => {
+  const L = s =>
+    V(`(() => { const K = nebeKarta(${s}); return [nebeBarva(K, {m: "rovne", r: 2, v: 1}), nebeBarva(K, {m: "rovne", r: 2, v: -1})]; })()`);
+  assert.deepEqual(L(`"korutansky_lindwurm", {h: 2}`), ["z", "z"]);
+  assert.deepEqual(L(`"korutansky_lindwurm", {h: 2, zr: {trup: true}}`), ["b", "z"], "proražené vaky: stoupání o barvu hůř");
+  assert.deepEqual(L(`{n: "Zkouška", tr: "T", kr: "siroka_prstnata", oc: "kyj", vl: []}, {h: 2}`), ["b", "z"], "těžký drak");
+  const Z = s => V(`(() => { const K = nebeKarta("soumracnik", {h: 2}); return nebeLzeZvolit(K, ${s}, {nap: 0, h: 2}).ok; })()`);
+  assert.equal(Z(`{m: "mirna", r: 2, s: "L", v: 1}`), true);
+  assert.equal(Z(`{m: "ostra", r: 1, s: "L", v: 1}`), false, "ostrá zatáčka výšku nemění");
+  const H = V(`nebeDraha({x: 450, y: 600, u: 0, h: 2}, {m: "mirna", r: 2, s: "P", v: -1}, nebeKarta("soumracnik", {h: 2})).konec.h`);
+  assert.equal(H, 1);
+});
+
+test("volba manévru: s Napětím ne červený, ne pod Přízemí ani nad Výšiny, ze země dlouhokřídlý jen s rozběhem", () => {
   const L = V(`(() => { const K = nebeKarta("korutansky_lindwurm", {h: 2}); return [
     nebeLzeZvolit(K, {m: "ostra", r: 1, s: "L"}, {nap: 0, h: 2}).ok,
     nebeLzeZvolit(K, {m: "ostra", r: 1, s: "L"}, {nap: 1, h: 2}).ok,
-    nebeLzeZvolit(K, {m: "nalet", r: 3, p: 2}, {nap: 0, h: 2}).ok,
-    nebeLzeZvolit(K, {m: "nalet", r: 3, p: 3}, {nap: 0, h: 4}).ok,
-    nebeLzeZvolit(K, {m: "nalet", r: 3, p: 2}, {nap: 0, h: 1}).ok,
-    nebeLzeZvolit(K, {m: "stoupani", r: 1}, {nap: 0, h: 4}).ok,
+    nebeLzeZvolit(K, {m: "nalet", p: 1}, {nap: 0, h: 2}).ok,
+    nebeLzeZvolit(K, {m: "nalet", p: 2}, {nap: 0, h: 1}).ok,
+    nebeLzeZvolit(K, {m: "rovne", r: 2, v: 1}, {nap: 0, h: 4}).ok,
+    nebeLzeZvolit(K, {m: "stoupani", r: 1}, {nap: 0, h: 3}).ok,
     nebeLzeZvolit(K, {m: "rovne", r: 4}, {nap: 0, h: 2}).ok,
   ]; })()`);
   assert.deepEqual(L, [true, false, true, false, false, false, false]);
+  const R = V(`(() => { const K = nebeKarta({n: "Zkouška", tr: "S", kr: "dlouha_uzka", oc: "bicovity", vl: ["start_z_rozbehu"]}, {h: 0});
+    return [nebeLzeZvolit(K, {m: "rovne", r: 2, v: 1}, {nap: 0, h: 0}).ok, nebeLzeZvolit(K, {m: "mirna", r: 2, s: "L", v: 1}, {nap: 0, h: 0}).ok]; })()`);
+  assert.deepEqual(R, [true, true]);
+  assert.equal(
+    V(
+      `nebeLzeZvolit(nebeKarta({n: "Z", tr: "S", kr: "siroka_zaoblena", oc: "x", vl: ["start_z_rozbehu"]}, {h: 0}), {m: "rovne", r: 1, v: 1}, {nap: 0, h: 0}).ok`,
+    ),
+    false,
+    "rozběh: ze země ne rychlostí 1",
+  );
 });
 
 test("šablony: rovně 3 posune střed o podstavec + 120, ostrá zatáčka doprava otočí o 90°", () => {
@@ -71,42 +101,17 @@ test("šablony: rovně 3 posune střed o podstavec + 120, ostrá zatáčka dopra
   assert.ok(l.x < 450, "mírná doleva jde doleva");
 });
 
-test("Zvrat otočí draka o 180° až na konci, Nálet a Stoupání mění hladinu plynule", () => {
+test("Zvrat otočí draka o 180° až na konci; Nálet letí rovně o pokles + 1 a klesá plynule", () => {
   const z = V(
     `(() => { const H = nebeDraha({x: 450, y: 600, u: 0, h: 2}, {m: "zvrat", r: 3}, nebeKarta("korutansky_lindwurm", {h: 2})); return [H.bod(0.5).u, H.konec.u]; })()`,
   );
   assert.deepEqual(z, [0, 180]);
   const n = V(
-    `(() => { const H = nebeDraha({x: 450, y: 600, u: 0, h: 3}, {m: "nalet", r: 3, p: 2}, nebeKarta("soumracnik", {h: 3})); return [H.bod(0.5).h, H.konec.h]; })()`,
+    `(() => { const H = nebeDraha({x: 450, y: 600, u: 0, h: 3}, {m: "nalet", p: 2}, nebeKarta("soumracnik", {h: 3})); return [H.bod(0.5).h, H.konec.h, H.konec.y]; })()`,
   );
-  assert.deepEqual(n, [2, 1]);
-});
-
-test("střet: čelní průlet se zastaví v okamžiku přiblížení, i když konečné pozice jsou daleko od sebe", () => {
-  const S = V(`(() => {
-    const Ks = nebeKarta("soumracnik", {h: 2}), Kl = nebeKarta("korutansky_lindwurm", {h: 2});
-    const D = [{strana: "d", K: Ks}, {strana: "n", K: Kl}];
-    const H = [nebeDraha({x: 440, y: 650, u: 0, h: 2}, {m: "rovne", r: 3}, Ks), nebeDraha({x: 460, y: 250, u: 180, h: 2}, {m: "rovne", r: 3}, Kl)];
-    const s = nebeStret(D, H);
-    return {s, konec: nebeOkraje(H[0].konec, H[1].konec, Ks, Kl)};
-  })()`);
-  assert.ok(S.s, "střet nastal");
-  assert.ok(S.s.t > 0 && S.s.t < 1, "uprostřed pohybu");
-  assert.equal(S.s.a, 0);
-  assert.equal(S.s.b, 1);
-  assert.ok(S.konec <= 100, "konečné pozice: v tomto případě blízko");
-  const daleko = V(`(() => {
-    const Ks = nebeKarta("soumracnik", {h: 2}), Kl = nebeKarta("korutansky_lindwurm", {h: 2});
-    const D = [{strana: "d", K: Ks}, {strana: "n", K: Kl}];
-    return nebeStret(D, [nebeDraha({x: 300, y: 700, u: 0, h: 2}, {m: "rovne", r: 1}, Ks), nebeDraha({x: 600, y: 200, u: 180, h: 2}, {m: "rovne", r: 1}, Kl)]);
-  })()`);
-  assert.equal(daleko, null, "daleko od sebe – bez střetu");
-  const vyska = V(`(() => {
-    const Ks = nebeKarta("soumracnik", {h: 0}), Kl = nebeKarta("korutansky_lindwurm", {h: 4});
-    const D = [{strana: "d", K: Ks}, {strana: "n", K: Kl}];
-    return nebeStret(D, [nebeDraha({x: 440, y: 650, u: 0, h: 0}, {m: "rovne", r: 3}, Ks), nebeDraha({x: 460, y: 250, u: 180, h: 4}, {m: "rovne", r: 3}, Kl)]);
-  })()`);
-  assert.equal(vyska, null, "rozdíl dvou a víc hladin – minou se");
+  assert.equal(n[0], 2);
+  assert.equal(n[1], 1);
+  blizko(n[2], 600 - 60 - 120, 0.01);
 });
 
 test("překryv na stejné hladině rozestoupí draky, na jiné hladině ne", () => {
@@ -135,17 +140,29 @@ test("oblouky a pásma: vpředu, za ocasem, na boku; rozdíl dvou hladin = o pá
   assert.equal(P(`{x: 0, y: 0, h: 2}, {x: 0, y: 450, h: 2}`), 0);
 });
 
-test("útok draka: přední oblouk a stejná hladina; Nálet na nižší cíl dá +1k6 za hladinu, Tichý let výhodu; hlava neútočí", () => {
+test("útok draka z konečných pozic: přední oblouk a stejná hladina; Nálet +1k6 za hladinu pádu, Tichý let výhodu; hlava neútočí", () => {
   const U = s =>
     V(`(() => { const Ks = nebeKarta("soumracnik", {h: 2}), Kl = nebeKarta("korutansky_lindwurm", {h: 2}); return nebeUtokDraka(${s}); })()`);
-  assert.equal(U(`{x: 0, y: 0, u: 0, h: 2}, {x: 0, y: -100, u: 180, h: 2}, Ks, Kl, {m: "rovne", r: 2}`).muze, true);
-  assert.equal(U(`{x: 0, y: 0, u: 0, h: 2}, {x: 0, y: -100, u: 180, h: 1}, Ks, Kl, {m: "rovne", r: 2}`).muze, false);
-  const n = U(`{x: 0, y: 0, u: 0, h: 1, h0: 3}, {x: 0, y: -100, u: 180, h: 1}, Ks, Kl, {m: "nalet", r: 3, p: 2}`);
+  assert.equal(U(`{x: 0, y: 0, u: 0, h: 2}, {x: 0, y: -100, u: 180, h: 2}, Ks, Kl, {m: "rovne", r: 2}`).kousnuti.muze, true);
+  assert.equal(U(`{x: 0, y: 0, u: 0, h: 2}, {x: 0, y: -100, u: 180, h: 1}, Ks, Kl, {m: "rovne", r: 2}`).kousnuti.muze, false);
+  const n = U(`{x: 0, y: 0, u: 0, h: 1}, {x: 0, y: -100, u: 180, h: 1}, Ks, Kl, {m: "nalet", p: 2}`).kousnuti;
   assert.equal(n.muze, true);
   assert.equal(n.bonus, 2);
   assert.equal(n.vyhoda, true, "soumračník: Tichý let");
-  assert.equal(U(`{x: 0, y: 0, u: 0, h: 2}, {x: 0, y: 100, u: 180, h: 2}, Ks, Kl, {m: "rovne", r: 2}`).muze, false, "za zády");
-  assert.equal(U(`{x: 0, y: 0, u: 0, h: 2}, {x: 0, y: -100, u: 180, h: 2}, Ks, Kl, {m: "rovne", r: 2}, {hlava: true}`).muze, false);
+  assert.equal(U(`{x: 0, y: 0, u: 0, h: 2}, {x: 0, y: 100, u: 180, h: 2}, Ks, Kl, {m: "rovne", r: 2}`).kousnuti.muze, false, "za zády");
+  assert.equal(U(`{x: 0, y: 0, u: 0, h: 2}, {x: 0, y: -100, u: 180, h: 2}, Ks, Kl, {m: "rovne", r: 2}, {hlava: true}`).kousnuti.muze, false);
+  assert.equal(U(`{x: 0, y: 0, u: 0, h: 2}, {x: 0, y: -100, u: 180, h: 2}, Ks, Kl, {m: "rovne", r: 2}`).ocas, null, "soumračník ocasem neútočí");
+});
+
+test("útok ocasem: jen plemena s kyjem, ostnem, ostny nebo hákem, do zadního oblouku na pásmo 1; zraněný ocas ne", () => {
+  const U = (zr = "{}") =>
+    V(`(() => { const Kk = nebeKarta({n: "Kyj", tr: "T", kr: "siroka_prstnata", oc: "kyj", vl: []}, {h: 2, zr: ${zr}}), Ks = nebeKarta("soumracnik", {h: 2});
+      return nebeUtokDraka({x: 0, y: 0, u: 0, h: 2}, {x: 0, y: 110, u: 0, h: 2}, Kk, Ks, {m: "rovne", r: 1}); })()`);
+  const u = U();
+  assert.equal(u.ocas.muze, true);
+  assert.equal(u.kousnuti.muze, false, "vpředu nikdo není");
+  assert.equal(U(`{ocas: true}`).ocas, null, "zraněný ocas: bez útoku ocasem");
+  assert.equal(V(`nebeKarta({n: "Bič", tr: "S", kr: "siroka_prstnata", oc: "bicovity", vl: []}, {h: 2}).ocas`), false, "bičovitý ocas neútočí");
 });
 
 test("Napětí: zelená −1, červená +1, Výšiny bez Výškového letu +1, nikdy pod nulu", () => {
@@ -159,7 +176,7 @@ test("Napětí: zelená −1, červená +1, Výšiny bez Výškového letu +1, n
 test("Závoj u červeného manévru: Pokušení = drak letí rovně, Požehnání = bez Napětí, bílý manévr se nehází", () => {
   const Z = s => V(`(() => { const K = nebeKarta("korutansky_lindwurm", {h: 2}); return nebeZavoj(K, ${s}); })()`);
   const p = Z(`{m: "ostra", r: 2, s: "L"}, 1`);
-  assert.deepEqual(p.r, {m: "rovne", r: 2});
+  assert.deepEqual(p.r, {m: "rovne", r: 2, v: 0});
   assert.equal(p.barva, "z", "rovně 2 je u lindwurmu zelené");
   assert.equal(Z(`{m: "ostra", r: 2, s: "L"}, 6`).barva, "b");
   assert.equal(Z(`{m: "ostra", r: 2, s: "L"}, 3`).barva, "c");

@@ -1,30 +1,34 @@
 /* @čisté – Vzdušný boj draků (2026-10-25, návrh v projektu claude.ai pravidla/vzdusny-boj-navrh.md) =====
    ČISTÝ SOUBOR (viz 10u): karta draka z profilu plemene (tvar křídel → číselník, ocas, letové vlastnosti, třída, podpis),
-   manévry jako šablony deskové hry X-Wing, současný pohyb všech draků, střet (první přiblížení na pásmo 1 během pohybu),
-   překryv podstavců, oblouky, pásma s hladinami, Napětí, Závoj u červeného manévru, Noční oči soumračníka a zranění draka.
+   manévry jako šablony deskové hry X-Wing, současný pohyb všech draků (útoky až z konečných pozic), překryv podstavců,
+   oblouky, pásma s hladinami, útok ocasem, Napětí, Závoj u červeného manévru, Noční oči soumračníka a zranění draka.
    Stránka Nebeské bojiště (22c, samostatná část „nebe“) jen drží stav a kreslí.
 
    Souřadnice: deska 900 × 900 (milimetry jako u X-Wingu), y roste dolů. Natočení `u` ve stupních: 0 = drak hledí nahoru,
-   kladně po směru hodin. Draci: {x, y, u, h: hladina 0–4}. Rozkaz: {m: manévr, r: rychlost, s: "L"/"P" u zatáček, p: pokles u Náletu}.
+   kladně po směru hodin. Draci: {x, y, u, h: hladina 0–4}. Rozkaz: {m: manévr, r: rychlost, s: "L"/"P" u zatáček,
+   v: −1/0/+1 změna hladiny u jednoduchých manévrů (Rovně, Mírná zatáčka), p: pokles u Náletu (letí rovně p + 1)}.
    Barvy manévru: "z" zelená (−1 Napětí), "b" bílá, "c" červená (+1 Napětí); chybějící manévr v číselníku není. ===== */
 
 const NEBE_DESKA = 900;
 /* pásmo 1–3 jako pravítko X-Wingu: po 100 mm od okraje podstavce */
 const NEBE_PASMO = 100;
 const NEBE_HLADINY = ["Přízemí", "Nízko", "Středně", "Vysoko", "Výšiny"];
-/* manévry: rychlosti, šablona (rovně / oblouk s poloměrem podle rychlosti a úhlem), změna hladiny */
+/* manévry: rychlosti, šablona (rovně / oblouk s poloměrem podle rychlosti a úhlem); „vyska“ = jednoduchý manévr, smí změnit
+   hladinu o 1 (Vojta 2026-10-25); o 2 hladiny jen Prudké stoupání a Nálet, které má většina draků omezené (červené nebo chybí).
+   Nálet má místo rychlosti pokles p (1–3) a letí rovně p + 1 – čím hlubší pád, tím dál. */
 const NEBE_MANEVRY = {
-  rovne: {n: "Rovně", r: [1, 2, 3, 4]},
-  mirna: {n: "Mírná zatáčka", r: [1, 2, 3], uhel: 45, R: {1: 80, 2: 130, 3: 180}},
+  rovne: {n: "Rovně", r: [1, 2, 3, 4], vyska: true},
+  mirna: {n: "Mírná zatáčka", r: [1, 2, 3], uhel: 45, R: {1: 80, 2: 130, 3: 180}, vyska: true},
   ostra: {n: "Ostrá zatáčka", r: [1, 2], uhel: 90, R: {1: 35, 2: 62.5}},
   zvrat: {n: "Zvrat", r: [3, 4]},
-  stoupani: {n: "Stoupání", r: [1, 2]},
-  nalet: {n: "Nálet", r: [3, 4]},
+  stoupani: {n: "Prudké stoupání", r: [1, 2]},
+  nalet: {n: "Nálet", p: [1, 2, 3]},
   viseni: {n: "Visení", r: [0]},
 };
 /* podstavec podle třídy: malý, střední, velký */
 const NEBE_ZAKLAD = {L: 40, S: 60, T: 80};
 /* tvar křídel → číselník: zelené, červené a chybějící manévry („m“ = všechny rychlosti, „m:r“ = jedna, „*:r“ = rychlost u všech) */
+/* („*:r“ se Náletu netýká – ten má klíč podle poklesu) */
 const NEBE_KRIDLA = {
   dlouha_uzka: {n: "dlouhá úzká", z: ["rovne:3", "rovne:4"], c: ["ostra"], x: ["*:1", "zvrat"]},
   siroka_prstnata: {n: "široká prstnatá", z: ["rovne:2", "rovne:3"], c: ["ostra", "zvrat"], x: ["*:4"]},
@@ -34,21 +38,27 @@ const NEBE_KRIDLA = {
   lomena: {n: "lomená", z: ["ostra"], c: ["rovne:4"], x: []},
   kratka_siroka: {n: "krátká široká", z: ["rovne:1", "stoupani"], c: ["rovne:3"], x: ["*:4"]},
 };
+/* ocas: letová úprava číselníku, nebo útok ocasem do zadního oblouku (kyj, osten, ostny, hák – podle bestiáře) */
 const NEBE_OCASY = {
   vidlicovity: {n: "vidlicovitý", lepsi: ["ostra"]},
   dvojity: {n: "dvojitý", lepsi: ["zvrat"]},
-  vejir: {n: "vějíř", z: ["*:1"]},
+  vejir: {n: "vějíř", z: ["rovne:1", "mirna:1", "ostra:1"]},
   veslo: {n: "veslo", ponor: true},
+  kyj: {n: "kyj", utok: true},
+  osten: {n: "osten", utok: true},
+  ostnaty: {n: "ostnatý", utok: true},
+  hak: {n: "hák", utok: true},
+  bicovity: {n: "bičovitý"},
 };
 const NEBE_VLASTNOSTI = {
   plachteni: "Plachtění: na hladinách Vysoko a Výšiny jsou Rovně a mírné zatáčky zelené.",
   vytrvaly: "Vytrvalý let: přistává až při 4 Napětí.",
-  stremhlavy: "Střemhlavý let: Nálet až o 3 hladiny, nikdy červený.",
+  stremhlavy: "Střemhlavý let: Nálet o 2 hladiny bílý, umí i Nálet o 3 hladiny.",
   viseni: "Visení: manévr Visení je zelený.",
   tichy: "Tichý let: Nálet na nižší cíl s výhodou; Sledovat proti němu nefunguje.",
   vyskovy: "Výškový let: Výšiny bez Napětí.",
-  start_z_mista: "Start z místa: z Přízemí Stoupání o 2 hladiny.",
-  start_z_rozbehu: "Start z rozběhu: z Přízemí stoupá jen rychlostí 2.",
+  start_z_mista: "Start z místa: Prudké stoupání bílé.",
+  start_z_rozbehu: "Start z rozběhu: z Přízemí stoupá jen rychlostí 2 a víc.",
 };
 const NEBE_PODPISY = {
   nocni_oci: {
@@ -64,13 +74,16 @@ const NEBE_PLEMENA = {
 /* zranění draka podle kostky Závoje (k6) */
 const NEBE_ZRANENI = {
   hlava: {n: "Hlava", k: [6], t: "příští kolo neútočí"},
-  trup: {n: "Trup a vzdušné vaky", k: [3, 4, 5], t: "Stoupání červené"},
+  trup: {n: "Trup a vzdušné vaky", k: [3, 4, 5], t: "každé stoupání o barvu horší"},
   kridlo: {n: "Křídlo a blána", k: [2], t: "bez ostrých zatáček"},
-  ocas: {n: "Ocas", k: [1], t: "bez Zvratu, nemůže uchvátit"},
+  ocas: {n: "Ocas", k: [1], t: "bez Zvratu a útoku ocasem, nemůže uchvátit"},
 };
 
-const nebeKlic = r => `${r.m}:${r.r}`;
+const nebeKlic = r => (r.m === "nalet" ? `nalet:${r.p || 1}` : `${r.m}:${r.r}`);
 const nebeLepsi = b => ({c: "b", b: "z", z: "z"})[b];
+const nebeHorsi = b => ({z: "b", b: "c", c: "c"})[b];
+/* změna hladiny manévrem */
+const nebeDh = r => (r.m === "nalet" ? -(r.p || 1) : r.m === "stoupani" ? 2 : NEBE_MANEVRY[r.m].vyska ? r.v || 0 : 0);
 
 /* karta draka pro chvíli boje: číselník (klíč „manévr:rychlost“ → barva) podle plemene, hladiny a zranění */
 function nebeKarta(pl, k = {}) {
@@ -80,10 +93,14 @@ function nebeKarta(pl, k = {}) {
     V = new Set(P.vl || []),
     zr = k.zr || {},
     d = {};
-  for (const m in NEBE_MANEVRY) if (m !== "viseni") for (const r of NEBE_MANEVRY[m].r) d[`${m}:${r}`] = "b";
+  for (const m in NEBE_MANEVRY) if (m !== "viseni" && m !== "nalet") for (const r of NEBE_MANEVRY[m].r) d[`${m}:${r}`] = "b";
+  /* o 2 hladiny většina draků jen s námahou: Prudké stoupání a Nálet o 2 červené, Nálet o 3 jen střemhlaví lovci */
+  d["stoupani:1"] = d["stoupani:2"] = "c";
+  d["nalet:1"] = "b";
+  d["nalet:2"] = "c";
   const kryje = (vzor, klic) => {
     const [m, r] = klic.split(":");
-    if (vzor.startsWith("*:")) return vzor.slice(2) === r;
+    if (vzor.startsWith("*:")) return m !== "nalet" && vzor.slice(2) === r;
     return vzor.includes(":") ? vzor === klic : vzor === m;
   };
   const nastav = (vzory, f) => {
@@ -96,12 +113,12 @@ function nebeKarta(pl, k = {}) {
   nastav(O.z || [], x => (d[x] = "z"));
   if (V.has("viseni")) d["viseni:0"] = "z";
   if (V.has("plachteni") && k.h >= 3) nastav(["rovne", "mirna"], x => (d[x] = "z"));
-  if (V.has("stremhlavy")) nastav(["nalet"], x => d[x] === "c" && (d[x] = "b"));
-  if (P.tr === "T") {
-    nastav(["stoupani"], x => (d[x] = "c"));
-    delete d["stoupani:2"];
+  if (V.has("stremhlavy")) {
+    if (d["nalet:2"] === "c") d["nalet:2"] = "b";
+    d["nalet:3"] = d["nalet:3"] || "b";
   }
-  if (V.has("start_z_rozbehu") && k.h === 0) delete d["stoupani:1"];
+  if (V.has("start_z_mista")) nastav(["stoupani"], x => d[x] === "c" && (d[x] = "b"));
+  if (P.tr === "T") nastav(["stoupani"], x => delete d[x]);
   if (zr.trup) nastav(["stoupani"], x => (d[x] = "c"));
   if (zr.kridlo) nastav(["ostra"], x => delete d[x]);
   if (zr.ocas) nastav(["zvrat"], x => delete d[x]);
@@ -112,8 +129,10 @@ function nebeKarta(pl, k = {}) {
     zaklad: NEBE_ZAKLAD[P.tr] || 60,
     d,
     maxNap: V.has("vytrvaly") ? 4 : 3,
-    maxPokles: V.has("stremhlavy") ? 3 : 2,
-    stoupa: V.has("start_z_mista") && k.h === 0 ? 2 : 1,
+    /* stoupání o 1 jednoduchým manévrem: těžký drak a proražené vaky o barvu hůř */
+    stoupaHur: P.tr === "T" || !!zr.trup,
+    rozbeh: V.has("start_z_rozbehu"),
+    ocas: !!O.utok && !zr.ocas,
     tichy: V.has("tichy"),
     vyskovy: V.has("vyskovy"),
     ponor: !!O.ponor,
@@ -123,20 +142,22 @@ function nebeKarta(pl, k = {}) {
   };
 }
 
-/* barva rozkazu na kartě (null = drak ho neumí) */
-const nebeBarva = (K, r) => K.d[nebeKlic(r)] || null;
+/* barva rozkazu na kartě (null = drak ho neumí); stoupání o 1 může být o barvu horší (stoupaHur) */
+function nebeBarva(K, r) {
+  const b = K.d[nebeKlic(r)] || null;
+  return b && r.v === 1 && K.stoupaHur ? nebeHorsi(b) : b;
+}
 
-/* smí drak rozkaz zvolit? (chybí v číselníku, červený s Napětím, Nálet bez výšky, Stoupání nad Výšiny) */
+/* smí drak rozkaz zvolit? (chybí v číselníku, výška u složitého manévru, červený s Napětím, mimo hladiny, rozběh ze země) */
 function nebeLzeZvolit(K, r, st) {
+  if (r.v && !NEBE_MANEVRY[r.m].vyska) return {ok: false, proc: "u tohoto manévru nelze měnit výšku"};
   const b = nebeBarva(K, r);
   if (!b) return {ok: false, proc: "drak tento manévr neumí"};
   if (b === "c" && st.nap > 0) return {ok: false, proc: "s Napětím nelze červený manévr"};
-  if (r.m === "nalet") {
-    const p = r.p || 1;
-    if (p < 1 || p > K.maxPokles) return {ok: false, proc: `Nálet nejvýš o ${K.maxPokles} hladiny`};
-    if (st.h - p < 0) return {ok: false, proc: "tak nízko už nelze klesnout"};
-  }
-  if (r.m === "stoupani" && st.h >= NEBE_HLADINY.length - 1) return {ok: false, proc: "výš než Výšiny nelze"};
+  const h = st.h + nebeDh(r);
+  if (h < 0) return {ok: false, proc: "tak nízko už nelze klesnout"};
+  if (h > NEBE_HLADINY.length - 1) return {ok: false, proc: "výš než Výšiny nelze"};
+  if (K.rozbeh && st.h === 0 && h > 0 && (r.r || 0) < 2) return {ok: false, proc: "ze země jen s rozběhem (rychlost 2 a víc)"};
   return {ok: true, b};
 }
 
@@ -187,10 +208,10 @@ function nebeDraha(a, r, K) {
       x = cx - zn * R * px;
       y = cy - zn * R * py;
       u = u0 + zn * fi;
-    } else rovne(40 * r.r);
+    } else rovne(40 * (r.m === "nalet" ? (r.p || 1) + 1 : r.r));
     rovne(b / 2);
   }
-  const dh = r.m === "stoupani" ? K.stoupa : r.m === "nalet" ? -(r.p || 1) : 0,
+  const dh = nebeDh(r),
     otoc = r.m === "zvrat" ? 180 : 0,
     L = usek.reduce((s, q) => s + q.L, 0);
   const bod = t => {
@@ -224,20 +245,6 @@ function nebeOblouk(a, b) {
   return Math.abs(rel) <= 45 ? "predni" : Math.abs(rel) >= 135 ? "zadni" : "bok";
 }
 
-/* střet: první okamžik pohybu, kdy je drak družiny od nepřítele na pásmu 1 (rozdíl hladin nejvýš 1) */
-function nebeStret(D, H) {
-  const N = 60;
-  for (let k = 0; k <= N; k++) {
-    const t = k / N,
-      P = D.map((d, i) => H[i].bod(t));
-    for (let i = 0; i < D.length; i++)
-      for (let j = 0; j < D.length; j++)
-        if (D[i].strana === "d" && D[j].strana === "n" && Math.abs(P[i].h - P[j].h) < 2 && nebeOkraje(P[i], P[j], D[i].K, D[j].K) <= NEBE_PASMO)
-          return {t, a: i, b: j};
-  }
-  return null;
-}
-
 /* překryv podstavců na stejné hladině po pohybu a odsunutí: oba draci se rozestoupí po spojnici středů, až se dotknou */
 function nebePrekryv(a, b, Ka, Kb) {
   const d = Math.hypot(a.x - b.x, a.y - b.y),
@@ -248,18 +255,28 @@ function nebePrekryv(a, b, Ka, Kb) {
   return {a: {...a, x: a.x + ex * o, y: a.y + ey * o}, b: {...b, x: b.x - ex * o, y: b.y - ey * o}};
 }
 
-/* útok draka (drápy, kousnutí): přední oblouk, pásmo 1 a stejná hladina, nebo Náletem na nižší cíl (+1k6 za hladinu pádu);
-   a.h0 = hladina útočníka na začátku kola (Nálet se počítá z ní) */
+/* útoky draka z konečných pozic (Vojta 2026-10-25: střet až na konci pohybu):
+   kousnutí a drápy – přední oblouk, pásmo 1, stejná hladina; po Náletu +1k6 za každou hladinu pádu (Tichý let s výhodou);
+   ocas (jen plemena s kyjem, ostnem, ostny nebo hákem) – zadní oblouk, pásmo 1, stejná hladina. Zraněná hlava = drak neútočí. */
 function nebeUtokDraka(a, b, Ka, Kb, r, zr = {}) {
-  if (zr.hlava) return {muze: false, proc: "zraněná hlava – toto kolo neútočí"};
-  if (nebeOblouk(a, b) !== "predni") return {muze: false, proc: "cíl není v předním oblouku"};
-  if (nebeOkraje(a, b, Ka, Kb) > NEBE_PASMO) return {muze: false, proc: "cíl je dál než pásmo 1"};
-  const nalet = r && r.m === "nalet",
-    ha = Math.round(a.h),
-    hb = Math.round(b.h);
-  if (nalet && (a.h0 ?? ha) > hb) return {muze: true, bonus: r.p || 1, vyhoda: Ka.tichy, proc: "Nálet shora"};
-  if (ha !== hb) return {muze: false, proc: "cíl je na jiné hladině"};
-  return {muze: true, bonus: 0, vyhoda: false, proc: "stejná hladina"};
+  const blizko = nebeOkraje(a, b, Ka, Kb) <= NEBE_PASMO,
+    stejna = Math.round(a.h) === Math.round(b.h),
+    obl = nebeOblouk(a, b);
+  const dosah = chci => {
+    if (zr.hlava) return "zraněná hlava – toto kolo neútočí";
+    if (obl !== chci) return chci === "predni" ? "cíl není v předním oblouku" : "cíl není za ocasem";
+    if (!blizko) return "cíl je dál než pásmo 1";
+    if (!stejna) return "cíl je na jiné hladině";
+    return "";
+  };
+  const k = dosah("predni"),
+    nalet = !k && r && r.m === "nalet";
+  const kousnuti = k
+    ? {muze: false, proc: k}
+    : {muze: true, bonus: nalet ? r.p || 1 : 0, vyhoda: !!(nalet && Ka.tichy), proc: nalet ? "Nálet shora" : "stejná hladina"};
+  if (!Ka.ocas) return {kousnuti, ocas: null};
+  const o = dosah("zadni");
+  return {kousnuti, ocas: o ? {muze: false, proc: o} : {muze: true, proc: "cíl za ocasem"}};
 }
 
 /* Napětí po manévru (barva po Závoji): zelená −1, červená +1; kolo ve Výšinách bez Výškového letu +1 */
@@ -275,7 +292,7 @@ function nebeZavoj(K, r, k6) {
   if (nebeBarva(K, r) !== "c" || !k6) return {r, barva: nebeBarva(K, r), t: ""};
   if (k6 <= 2) {
     const rr = [1, 2, 3, 4].filter(x => K.d[`rovne:${x}`]).sort((p, q) => Math.abs(p - r.r) - Math.abs(q - r.r))[0];
-    const n = {m: "rovne", r: rr || 1};
+    const n = {m: "rovne", r: rr || 1, v: 0};
     return {r: n, barva: nebeBarva(K, n) || "b", t: "Pokušení – drak neposlechl a letí rovně"};
   }
   if (k6 >= 5) return {r, barva: "b", t: "Požehnání – manévr bez Napětí"};
@@ -286,8 +303,9 @@ function nebeZavoj(K, r, k6) {
 function nebeNocniOci(K, r, st) {
   if (K.podpis !== "nocni_oci" || !st.noc) return [];
   const moz = [];
+  if (r.m === "nalet") return [];
   for (const dr of [-1, 1]) moz.push({...r, r: r.r + dr});
-  if (r.m === "mirna") moz.push({...r, m: "ostra"});
+  if (r.m === "mirna") moz.push({...r, m: "ostra", v: 0});
   if (r.m === "ostra") moz.push({...r, m: "mirna"});
   return moz.filter(x => NEBE_MANEVRY[x.m].r.includes(x.r) && nebeLzeZvolit(K, x, st).ok);
 }

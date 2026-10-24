@@ -28,7 +28,8 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
   stejnojmenné ne – platí nejsilnější (dva Bless = jednou 1d4, Aid jen nejvyšší stupeň). Výjimku umí pole `scit` v `UCINKY`.
 - 2026-10-23 **Čistá pravidla**: výpočty pravidel patří do souborů `@čisté` (bez stránky, testy v čistém Node); stránka je jen volá s daty.
 - 2026-10-25 **Vzdušný boj draků** (návrh v projektu claude.ai `pravidla/vzdusny-boj-navrh.md`): manévry jako v deskovém X-Wingu, pohyb naráz,
-  střet zastaví čas, pět hladin, Napětí; plemena se liší jen letem (karta draka z Profilů plemen). Výjimka z „nebude bojová mapa“:
+  útoky až z konečných pozic, pět hladin (Rovně a Mírná zatáčka mění hladinu o 1, o 2 jen omezené Prudké stoupání a Nálet, který letí
+  rovně o pokles + 1), útok ocasem u plemen s kyjem, ostnem, ostny nebo hákem, Napětí; plemena se liší jen letem (karta draka z Profilů plemen). Výjimka z „nebude bojová mapa“:
   **Nebeské bojiště** na sdílené obrazovce u stolu; kapitán zadává manévr, ostatní hráči později jen prohlížejí na mobilech.
 
 ## Hotovo
@@ -121,7 +122,7 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
   (`22c-nebe.js`), pravidla v čistém `10n-nebe.js` (`nebeKarta`, `nebeDraha`, `nebeStret`, `nebePrekryv`, `nebeUtokDraka`, `nebeZavoj`,
   `nebeNocniOci`; test `nebe.test.mjs`, prohlídka `prohlizec_nebe.py`). Soumračník (dospělý) proti Korutanskému lindwurmovi: příprava
   (tažení, natočení, hladina), uzamčení manévru nepřítele, porada s hodinami a náhledem dráhy, odhalení se Závojem u červeného manévru
-  a Nočníma očima, současný pohyb s animací, střet se zastaveným časem (kdo smí útočit, pásmo a oblouk posádky), překryv, Napětí,
+  a Nočníma očima, současný pohyb s animací, konec kola (kdo smí útočit zepředu i ocasem, pásmo a oblouk posádky), překryv, Napětí,
   zranění draka jako škrtnuté manévry, den/noc. Stav jen v prohlížeči (`mm-nebe`), bez databáze.
 
 ## Otevřené

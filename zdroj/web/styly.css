@@ -3840,7 +3840,6 @@ html.mmpc:not(.mmjenhra) .bdmweb{display:grid;font-size:1.2rem}
 .nbvb{stroke:var(--ink);--nbv:var(--ink)}
 .nbvc{stroke:var(--nbc);--nbv:var(--nbc)}
 .nbnoc .nbvb{stroke:#e7e2d4}
-.nbstret{stroke:var(--gold);stroke-width:5;stroke-dasharray:3 6;stroke-linecap:round}
 .nbpanel{display:flex;flex-direction:column;gap:12px}
 .nbfaze{display:flex;align-items:baseline;gap:10px;border-bottom:1px solid var(--rule);padding-bottom:6px}
 .nbfaze h3{font-family:var(--f-disp);font-weight:500;font-size:1.5rem}
@@ -3854,6 +3853,7 @@ html.mmpc:not(.mmjenhra) .bdmweb{display:grid;font-size:1.2rem}
 .nbbtn.on{background:var(--nbv);color:var(--paper)}
 .nbbtn:disabled{opacity:.38;cursor:default}
 .nbkarta .nbbtn{min-width:24px;height:24px;font-size:.85rem}
+.nbbtn.nbvys{padding:0 10px;font-family:var(--f-label);font-size:.85rem}
 .nbzvol{font-weight:700}
 .nbhodiny{font-family:var(--f-disp);font-size:3rem;line-height:1;text-align:center;color:var(--ink)}
 .nbhodiny.nbmalo{color:var(--kal)}

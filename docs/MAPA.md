@@ -239,12 +239,12 @@ Plné znění kouzel a předmětů (Vojtovy tabulky, 2026-10-24) – jen pro př
 
 @čisté – Vzdušný boj draků (2026-10-25, návrh v projektu claude.ai pravidla/vzdusny-boj-navrh.md)
 
-- 294 řádků, 29 definic na nejvyšší úrovni, z toho 23 používají jiné soubory
+- 312 řádků, 30 definic na nejvyšší úrovni, z toho 22 používají jiné soubory
 - používá z: –
-- používají ho: 22c-nebe (23)
-- poskytuje: NEBE_HLADINY NEBE_KRIDLA NEBE_MANEVRY NEBE_OCASY NEBE_PASMO NEBE_PLEMENA nebeBarva nebeKlic nebeLzeZvolit nebeOblouk NEBE_DESKA NEBE_PODPISY NEBE_VLASTNOSTI NEBE_ZRANENI nebeDraha nebeKarta nebeNapeti nebeNocniOci nebePasmo nebePrekryv nebeStret nebeUtokDraka nebeZavoj
+- používají ho: 22c-nebe (22)
+- poskytuje: NEBE_HLADINY NEBE_KRIDLA NEBE_MANEVRY NEBE_OCASY NEBE_PASMO NEBE_PLEMENA nebeBarva nebeKlic nebeLzeZvolit nebeOblouk NEBE_DESKA NEBE_PODPISY NEBE_VLASTNOSTI NEBE_ZRANENI nebeDraha nebeKarta nebeNapeti nebeNocniOci nebePasmo nebePrekryv nebeUtokDraka nebeZavoj
 - oddíly:
-  - ř. 143: geometrie
+  - ř. 164: geometrie
 
 ## 11-boj
 
@@ -608,18 +608,18 @@ Výprava: stránka vypravěče (trasa, setkání, počasí na cestě, mapy) – 
 
 Nebeské bojiště (2026-10-25): vzdušný boj draků na sdílené obrazovce vypravěče – samostatná část „nebe“, načte se až na stránce #nebe
 
-- 529 řádků, 30 definic na nejvyšší úrovni, z toho 1 používají jiné soubory
-- používá z: 04-praha (1), 08-navigace-pravidla (1), 10n-nebe (23)
+- 536 řádků, 32 definic na nejvyšší úrovni, z toho 1 používají jiné soubory
+- používá z: 04-praha (1), 08-navigace-pravidla (1), 10n-nebe (22)
 - používají ho: 08-navigace-pravidla (1)
 - poskytuje: renderNebe
 - oddíly:
-  - ř. 62: deska
-  - ř. 120: číselník
-  - ř. 151: konečný rozkaz po Závoji a Nočních očích
-  - ř. 158: panel
-  - ř. 301: hodiny porady: když doběhnou, rozhodne drak sám (rovně 2, nebo nejbližší, co umí)
-  - ř. 334: pohyb: všichni naráz; zastaví se v prvním střetu
-  - ř. 407: ovládání
+  - ř. 65: deska
+  - ř. 117: číselník
+  - ř. 159: konečný rozkaz po Závoji a Nočních očích
+  - ř. 166: panel
+  - ř. 310: hodiny porady: když doběhnou, rozhodne drak sám (rovně 2, nebo nejbližší, co umí)
+  - ř. 343: pohyb: všichni naráz, útoky až z konečných pozic
+  - ř. 404: ovládání
 
 ## 23-potvrzovani
 

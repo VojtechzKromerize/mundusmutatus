@@ -3,7 +3,7 @@
 /* Pravidla počítá čistý soubor 10n-nebe.js; tady je jen stav kola, kresba desky a ovládání. První verze: jedna obrazovka
    (vypravěčův počítač u televize), bez databáze – stav drží prohlížeč (localStorage, pohodlí jednoho zařízení).
    Kolo: Uzamčení manévrů nepřátel → Porada družiny nad hodinami (náhled dráhy) → Odhalení (Závoj, Noční oči) → současný
-   pohyb → Střet (zastavený čas, útoky a posádka) → dokončení pohybu → Konec kola (překryv, Napětí). */
+   pohyb → Konec kola (překryv, Napětí, útoky draků a posádka z konečných pozic). */
 const NB_LS = "mm-nebe";
 const NB_FAZE = {
   priprava: "Příprava",
@@ -11,7 +11,6 @@ const NB_FAZE = {
   porada: "Porada družiny",
   odhaleni: "Odhalení",
   pohyb: "Pohyb",
-  stret: "Střet",
   konec: "Konec kola",
 };
 let NB = null;
@@ -38,8 +37,8 @@ function nbNacti() {
     NB = null;
   }
   if (!NB || !Array.isArray(NB.draci)) NB = nbVychozi();
-  /* rozehraný pohyb nebo střet po obnovení stránky (dráhy se neukládají): vrátit draky před pohyb a znovu k odhalení */
-  if ((NB.faze === "pohyb" || NB.faze === "stret") && NB.pred) {
+  /* rozehraný pohyb po obnovení stránky (dráhy se neukládají): vrátit draky před pohyb a znovu k odhalení */
+  if (NB.faze === "pohyb" && NB.pred) {
     for (const p of NB.pred) Object.assign(nbDrak(p.id) || {}, p);
     NB.faze = "odhaleni";
   }
@@ -53,10 +52,14 @@ const nbDrak = id => NB.draci.find(d => d.id === id);
 const nbK = d => nebeKarta(d.pl, {h: d.h, zr: d.zr});
 const nbZr = d => ({...d.zr, hlava: d.zr.hlava === NB.kolo});
 const nbLog = t => NB.log.unshift(`Kolo ${NB.kolo}: ${t}`);
-const nbRozkazText = r =>
-  !r
-    ? "—"
-    : `${NEBE_MANEVRY[r.m].n}${r.s ? (r.s === "L" ? " vlevo" : " vpravo") : ""}${r.m === "viseni" ? "" : " " + r.r}${r.m === "nalet" ? ` (o ${r.p || 1} hl.)` : ""}`;
+function nbRozkazText(r) {
+  if (!r) return "—";
+  if (r.m === "nalet") return `Nálet o ${r.p || 1} hl. (rovně ${(r.p || 1) + 1})`;
+  const smer = r.s ? (r.s === "L" ? " vlevo" : " vpravo") : "",
+    rych = r.m === "viseni" ? "" : " " + r.r,
+    vys = r.m === "stoupani" ? " (+2 hl.)" : r.v === 1 ? ", stoupá o 1" : r.v === -1 ? ", klesá o 1" : "";
+  return `${NEBE_MANEVRY[r.m].n}${smer}${rych}${vys}`;
+}
 const nbBarvaJm = {z: "zelený", b: "bílý", c: "červený"};
 
 /* ---- deska ---- */
@@ -106,14 +109,8 @@ function nbDeska() {
   /* náhled dráhy jen při poradě družiny – manévr nepřátel se na sdílené obrazovce nekreslí */
   if (NB.faze === "porada") for (const d of NB.draci) if (d.strana === "d") nahled += nbNahled(d, d.rozkaz);
   if (NB.faze === "odhaleni") for (const d of NB.draci) nahled += nbNahled(d, nbKonecny(d).r);
-  let stret = "";
-  if (NB.faze === "stret" && NB.stret && tik) {
-    const a = tik[NB.draci[NB.stret.a].id],
-      b = tik[NB.draci[NB.stret.b].id];
-    stret = `<line class="nbstret" x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}"/>`;
-  }
   return `<svg class="nbsvg${NB.noc ? " nbnoc" : ""}" viewBox="0 0 ${W} ${W}" role="img" aria-label="Nebeské bojiště">
-    <rect class="nbnebe" width="${W}" height="${W}"/><g class="nbmriz">${mriz.join("")}</g>${pasma}${nahled}${stret}
+    <rect class="nbnebe" width="${W}" height="${W}"/><g class="nbmriz">${mriz.join("")}</g>${pasma}${nahled}
     ${NB.draci.map(d => nbDrakSvg(d, poz(d))).join("")}</svg>`;
 }
 
@@ -126,26 +123,37 @@ function nbCiselnik(d, aktivni) {
     const lz = nebeLzeZvolit(K, r, st),
       b = nebeBarva(K, r),
       zn = r.s ? (r.s === "L" ? "↰" : "↱") : r.m === "nalet" ? `−${r.p}` : {zvrat: "⟲", stoupani: "⤴", viseni: "◦"}[r.m] || "↑",
-      zvol = r0 && nebeKlic(r0) === nebeKlic(r) && (r0.s || "") === (r.s || "") && (r0.p || 0) === (r.p || 0);
+      zvol = r0 && nebeKlic(r0) === nebeKlic(r) && (r0.s || "") === (r.s || "");
     return `<button type="button" class="nbbtn nbv${b}${zvol ? " on" : ""}" data-nb="rozkaz" data-nbr='${JSON.stringify(r)}'${aktivni && lz.ok ? "" : " disabled"} title="${lz.ok ? nbBarvaJm[b] : lz.proc}">${zn}</button>`;
   };
   const radky = Object.keys(NEBE_MANEVRY).map(m => {
     const M = NEBE_MANEVRY[m];
+    /* Nálet o p hladin letí rovně p + 1 – tlačítko stojí ve sloupci té délky */
     const sl = [0, 1, 2, 3, 4].map(r => {
+      if (m === "nalet") return K.d[`nalet:${r - 1}`] ? `<td>${bunka({m, p: r - 1})}</td>` : "<td></td>";
       if (!M.r.includes(r) || !K.d[`${m}:${r}`]) return "<td></td>";
-      let t;
-      if (M.uhel) t = bunka({m, r, s: "L"}) + bunka({m, r, s: "P"});
-      else if (m === "nalet")
-        t = [1, 2, 3]
-          .filter(p => p <= K.maxPokles)
-          .map(p => bunka({m, r, p}))
-          .join("");
-      else t = bunka({m, r});
-      return `<td>${t}</td>`;
+      return `<td>${M.uhel ? bunka({m, r, s: "L"}) + bunka({m, r, s: "P"}) : bunka({m, r})}</td>`;
     });
     return sl.some(x => x !== "<td></td>") ? `<tr><th>${M.n}</th>${sl.join("")}</tr>` : "";
   });
   return `<table class="nbcis"><thead><tr><th></th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th></tr></thead><tbody>${radky.join("")}</tbody></table>`;
+}
+/* výška u jednoduchého manévru (Rovně, Mírná zatáčka): klesnout / držet / stoupat o 1 */
+function nbVyska(d) {
+  const r = d.rozkaz,
+    K = nbK(d),
+    jde = r && NEBE_MANEVRY[r.m].vyska;
+  const tl = [
+    [-1, "↓ klesnout"],
+    [0, "držet"],
+    [1, "↑ stoupat"],
+  ].map(([v, t]) => {
+    const x = jde && {...r, v},
+      lz = x && nebeLzeZvolit(K, x, {nap: d.nap, h: d.h}),
+      b = x && nebeBarva(K, x);
+    return `<button type="button" class="nbbtn nbvys nbv${b || "b"}${jde && (r.v || 0) === v ? " on" : ""}" data-nb="vyska" data-nbo="${v}"${lz && lz.ok ? "" : " disabled"} title="${lz ? (lz.ok ? nbBarvaJm[b] : lz.proc) : "výšku mění jen Rovně a Mírná zatáčka"}">${t}</button>`;
+  });
+  return `<div class="nbovl"><span class="lbl">Výška</span>${tl.join("")}</div>`;
 }
 
 /* ---- konečný rozkaz po Závoji a Nočních očích ---- */
@@ -181,6 +189,10 @@ function nbKartaDraka(d) {
     <p class="lbl">Zranění (místo podle kostky Závoje)</p><div class="nbovl">${zr}</div>${prip}</details>`;
 }
 
+const nbUtokText = (co, u) =>
+  u.muze
+    ? `${co} <span class="nbano">ano</span>${u.bonus ? ` +${u.bonus}k6` : ""}${u.vyhoda ? " s výhodou" : ""} (${u.proc})`
+    : `${co} ne (${u.proc})`;
 function nbUtoky(P, zaklad) {
   const radky = [];
   NB.draci.forEach((a, i) =>
@@ -190,13 +202,13 @@ function nbUtoky(P, zaklad) {
         Kb = nbK(b),
         pa = {...P[a.id], h0: a.h0 ?? a.h},
         pb = P[b.id],
-        U = nebeUtokDraka(pa, pb, Ka, Kb, nbKonecny(a).r, nbZr(a)),
+        U = nebeUtokDraka(pa, pb, Ka, Kb, (NB.kon && NB.kon[a.id] ? NB.kon[a.id] : nbKonecny(a)).r, nbZr(a)),
         pas = nebePasmo(pa, pb, Ka, Kb),
         obl = nebeOblouk(pa, pb),
         poz = pas === 0 ? "mimo dosah" : obl === "zadni" ? "za ocasem vlastního draka – nelze" : `pásmo ${pas}`,
         noc = NB.noc && Kb.podpis === "nocni_oci" && pas > 1 ? " · nelze Zaměřit (noc)" : "";
       radky.push(
-        `<li><b>${a.jm} → ${b.jm}</b>: drak ${U.muze ? `<span class="nbano">útočí</span>${U.bonus ? ` +${U.bonus}k6` : ""}${U.vyhoda ? " s výhodou" : ""} (${U.proc})` : `neútočí (${U.proc})`}; posádka: ${poz}${noc}</li>`,
+        `<li><b>${a.jm} → ${b.jm}</b>: ${nbUtokText("kousnutí a drápy", U.kousnuti)}${U.ocas ? "; " + nbUtokText("ocas", U.ocas) : ""}; posádka: ${poz}${noc}</li>`,
       );
     }),
   );
@@ -214,12 +226,12 @@ function nbPanel() {
   else if (F === "rozkazy") {
     const d = bez[0];
     hlavni = d
-      ? `<p><b>${d.jm}</b>: vypravěč zvolí manévr (hráči se nedívají) a uzamkne ho.</p>${nbCiselnik(d, true)}
+      ? `<p><b>${d.jm}</b>: vypravěč zvolí manévr (hráči se nedívají) a uzamkne ho.</p>${nbCiselnik(d, true)}${nbVyska(d)}
         <p class="nbzvol">${nbRozkazText(d.rozkaz)}</p><button type="button" class="gbtn" data-nb="zamkni" data-nbd="${d.id}"${d.rozkaz ? "" : " disabled"}>Uzamknout</button>`
       : "";
   } else if (F === "porada") {
     hlavni = `<div class="nbhodiny" id="nbhodiny" aria-live="polite"></div>
-      <p><b>${druz.jm}</b>: družina se radí, manévr zadává kapitán. Dráha se kreslí na desku jako náhled.</p>${nbCiselnik(druz, true)}
+      <p><b>${druz.jm}</b>: družina se radí, manévr zadává kapitán. Dráha se kreslí na desku jako náhled.</p>${nbCiselnik(druz, true)}${nbVyska(druz)}
       <p class="nbzvol">${nbRozkazText(druz.rozkaz)}</p><button type="button" class="gbtn" data-nb="potvrd"${druz.rozkaz ? "" : " disabled"}>Potvrdit manévr</button>`;
   } else if (F === "odhaleni") {
     const ri = NB.draci
@@ -255,11 +267,8 @@ function nbPanel() {
     const ceka = NB.draci.some(d => nebeBarva(nbK(d), d.oci || d.rozkaz) === "c" && !d.zavoj);
     hlavni = `<ul class="nbodh">${ri}</ul><button type="button" class="gbtn" data-nb="let"${ceka ? " disabled title='Nejdřív Závoj u červeného manévru'" : ""}>Letět!</button>`;
   } else if (F === "pohyb") hlavni = `<p>Draci letí…</p>`;
-  else if (F === "stret")
-    hlavni = `<p><b>Střet!</b> Čas se zastavil uprostřed pohybu. Útočí draci a jedná posádka ve slotech.</p>${nbUtoky(NB.tik, "Co se dá v tomto okamžiku")}
-      <button type="button" class="gbtn" data-nb="dokonci">Dokončit pohyb</button>`;
   else if (F === "konec")
-    hlavni = `${NB.stret ? "<p>Útoky proběhly při střetu.</p>" : nbUtoky(Object.fromEntries(NB.draci.map(d => [d.id, d])), "Útoky a posádka z konečných pozic")}
+    hlavni = `${nbUtoky(Object.fromEntries(NB.draci.map(d => [d.id, d])), "Útoky draků a posádka z konečných pozic")}
       <button type="button" class="gbtn" data-nb="dalsi">Další kolo</button>`;
   return `<div class="nbfaze"><span class="lbl">Kolo ${NB.kolo}</span><h3>${NB_FAZE[F]}</h3></div>${hlavni}
     <div class="nbkarty">${NB.draci.map(nbKartaDraka).join("")}</div>
@@ -316,7 +325,7 @@ function nbHodiny() {
     const d = NB.draci.find(x => x.strana === "d");
     if (!d.rozkaz) {
       const K = nbK(d),
-        r = [2, 1, 3, 4].map(x => ({m: "rovne", r: x})).find(x => nebeLzeZvolit(K, x, {nap: d.nap, h: d.h}).ok) || {m: "rovne", r: 2};
+        r = [2, 1, 3, 4].map(x => ({m: "rovne", r: x, v: 0})).find(x => nebeLzeZvolit(K, x, {nap: d.nap, h: d.h}).ok) || {m: "rovne", r: 2};
       d.rozkaz = r;
       nbLog(`porada nestihla – ${d.jm} se rozhodl sám: ${nbRozkazText(r)}`);
     }
@@ -331,7 +340,7 @@ function nbOdhal() {
   nbPrekresli();
 }
 
-/* ---- pohyb: všichni naráz; zastaví se v prvním střetu ---- */
+/* ---- pohyb: všichni naráz, útoky až z konečných pozic ---- */
 function nbLet() {
   NB.pred = NB.draci.map(d => ({id: d.id, x: d.x, y: d.y, u: d.u, h: d.h, nap: d.nap}));
   const D = NB.draci.map(d => ({...d, K: nbK(d)}));
@@ -348,24 +357,17 @@ function nbLet() {
     d.nap = nebeNapeti(d.nap, k.barva, D[i].K, H[i].konec.h);
     nbLog(`${d.jm}: ${nbRozkazText(k.r)} (${nbBarvaJm[k.barva] || "bílý"})${k.t ? " – " + k.t : ""}`);
   });
-  NB.stret = nebeStret(D, H);
   NB.drahy = H;
-  nbAnimuj(0, NB.stret ? NB.stret.t : 1, () => {
-    if (NB.stret) {
-      NB.faze = "stret";
-      nbLog(`střet: ${NB.draci[NB.stret.a].jm} a ${NB.draci[NB.stret.b].jm}`);
-      nbPrekresli();
-    } else nbDokonci();
-  });
+  nbAnimuj(nbDokonci);
 }
-function nbAnimuj(t0, t1, hotovo) {
+function nbAnimuj(hotovo) {
   NB.faze = "pohyb";
   const H = NB.drahy,
     start = performance.now(),
-    ms = 1400 * Math.max(0.15, t1 - t0);
+    ms = 1400;
   const krok = ted => {
     const q = Math.min(1, (ted - start) / ms),
-      t = t0 + (t1 - t0) * (q < 0.5 ? 2 * q * q : 1 - Math.pow(-2 * q + 2, 2) / 2);
+      t = q < 0.5 ? 2 * q * q : 1 - Math.pow(-2 * q + 2, 2) / 2;
     NB.tik = Object.fromEntries(NB.draci.map((d, i) => [d.id, H[i].bod(t)]));
     nbJenDeska();
     if (q < 1) NBANIM = requestAnimationFrame(krok);
@@ -377,31 +379,26 @@ function nbAnimuj(t0, t1, hotovo) {
   NBANIM = requestAnimationFrame(krok);
 }
 function nbDokonci() {
-  const t0 = NB.stret ? NB.stret.t : 1;
-  const zaver = () => {
-    NB.draci.forEach((d, i) => {
-      const e = NB.drahy[i].konec;
-      Object.assign(d, {x: e.x, y: e.y, u: e.u, h: Math.max(0, Math.min(4, Math.round(e.h)))});
-      if (e.x < 0 || e.y < 0 || e.x > NEBE_DESKA || e.y > NEBE_DESKA) nbLog(`${d.jm} vyletěl z bojiště`);
-    });
-    for (let i = 0; i < NB.draci.length; i++)
-      for (let j = i + 1; j < NB.draci.length; j++) {
-        const a = NB.draci[i],
-          b = NB.draci[j],
-          p = nebePrekryv(a, b, nbK(a), nbK(b));
-        if (!p) continue;
-        Object.assign(a, {x: p.a.x, y: p.a.y});
-        Object.assign(b, {x: p.b.x, y: p.b.y});
-        a.nap += 1;
-        b.nap += 1;
-        nbLog(`překryv: ${a.jm} a ${b.jm} se rozestoupili, oba +1 Napětí`);
-      }
-    NB.tik = null;
-    NB.faze = "konec";
-    nbPrekresli();
-  };
-  if (t0 >= 1) zaver();
-  else nbAnimuj(t0, 1, zaver);
+  NB.draci.forEach((d, i) => {
+    const e = NB.drahy[i].konec;
+    Object.assign(d, {x: e.x, y: e.y, u: e.u, h: Math.max(0, Math.min(4, Math.round(e.h)))});
+    if (e.x < 0 || e.y < 0 || e.x > NEBE_DESKA || e.y > NEBE_DESKA) nbLog(`${d.jm} vyletěl z bojiště`);
+  });
+  for (let i = 0; i < NB.draci.length; i++)
+    for (let j = i + 1; j < NB.draci.length; j++) {
+      const a = NB.draci[i],
+        b = NB.draci[j],
+        p = nebePrekryv(a, b, nbK(a), nbK(b));
+      if (!p) continue;
+      Object.assign(a, {x: p.a.x, y: p.a.y});
+      Object.assign(b, {x: p.b.x, y: p.b.y});
+      a.nap += 1;
+      b.nap += 1;
+      nbLog(`překryv: ${a.jm} a ${b.jm} se rozestoupili, oba +1 Napětí`);
+    }
+  NB.tik = null;
+  NB.faze = "konec";
+  nbPrekresli();
 }
 
 /* ---- ovládání ---- */
@@ -433,6 +430,9 @@ document.addEventListener("click", e => {
     const r = JSON.parse(el.dataset.nbr),
       cil = NB.faze === "rozkazy" ? NB.draci.find(x => x.strana === "n" && !x.zamceno) : NB.draci.find(x => x.strana === "d");
     if (!cil) return;
+    /* zvolená výška zůstane, pokud ji nový manévr dovolí */
+    const v = (cil.rozkaz && cil.rozkaz.v) || 0;
+    if (NEBE_MANEVRY[r.m].vyska && v && nebeLzeZvolit(nbK(cil), {...r, v}, {nap: cil.nap, h: cil.h}).ok) r.v = v;
     cil.rozkaz = r;
     NB.vyber = cil.id;
     nbUloz();
@@ -460,8 +460,15 @@ document.addEventListener("click", e => {
   } else if (k === "let") {
     nbLet();
     return;
-  } else if (k === "dokonci") {
-    nbDokonci();
+  } else if (k === "vyska") {
+    const cil = NB.faze === "rozkazy" ? NB.draci.find(x => x.strana === "n" && !x.zamceno) : NB.draci.find(x => x.strana === "d");
+    if (!cil || !cil.rozkaz) return;
+    cil.rozkaz = {...cil.rozkaz, v: o};
+    nbUloz();
+    nbJenDeska();
+    const p = document.getElementById("nbpanel");
+    if (p) p.innerHTML = nbPanel();
+    if (NB.faze === "porada") nbHodiny();
     return;
   } else if (k === "dalsi") {
     NB.draci.forEach(x => {
@@ -472,7 +479,7 @@ document.addEventListener("click", e => {
       }
     });
     NB.kolo += 1;
-    NB.stret = null;
+    NB.kon = null;
     NB.faze = "rozkazy";
   }
   nbPrekresli();

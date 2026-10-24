@@ -1,5 +1,5 @@
 """Nebeské bojiště (statická vypravěčská verze, bez databáze): kolo vzdušného boje od uzamčení manévru nepřítele přes poradu
-s náhledem dráhy, odhalení a Závoj u červeného manévru až po střet a konec kola; hráč na #nebe nesmí (zatím jen vypravěč).
+s náhledem dráhy a změnou výšky, odhalení a Závoj u červeného manévru až po konec kola; hráč na #nebe nesmí (zatím jen vypravěč).
 Pravidla (karta draka, šablony, střet, Napětí) testuje testy/jednotky/nebe.test.mjs.
 Spouští testy/spustit.sh: MM_GMWEB = vypravěčská statická verze, MM_HRWEB = hráčská statická verze."""
 import asyncio, os
@@ -36,6 +36,8 @@ async def main():
         await g.click('[data-nb="start"]')
         await g.wait_for_function(f"{FAZE} === 'Uzamčení manévrů nepřátel'")
         await rozkaz(g, '{"m":"rovne","r":3}')
+        await g.click('[data-nb="vyska"][data-nbo="1"]')
+        chk("stoupá o 1" in await g.inner_text(".nbzvol"), "jednoduchý manévr smí změnit výšku o 1")
         chk(await g.locator(".nbdraha").count() == 0, "manévr nepřítele se na sdílené obrazovce nekreslí")
         await g.click('[data-nb="zamkni"]')
         await g.wait_for_selector("#nbhodiny")
@@ -47,10 +49,8 @@ async def main():
         chk(await g.locator('[data-nb="let"][disabled]').count() == 1, "červený manévr: nejdřív Závoj")
         await g.click('[data-nb="zavoj"][data-nbo="5"]')
         await g.click('[data-nb="let"]')
-        await g.wait_for_function(f"['Střet', 'Konec kola'].includes({FAZE})", timeout=10000)
-        if await g.evaluate(FAZE) == "Střet":
-            await g.click('[data-nb="dokonci"]')
-            await g.wait_for_function(f"{FAZE} === 'Konec kola'", timeout=10000)
+        await g.wait_for_function(f"{FAZE} === 'Konec kola'", timeout=10000)
+        chk("kousnutí a drápy" in await g.inner_text(".nbutoky"), "konec kola: útoky draků z konečných pozic")
         stav = await g.evaluate("JSON.parse(localStorage.getItem('mm-nebe'))")
         s = next(d for d in stav["draci"] if d["id"] == "s")
         chk(s["u"] == 180 and s["nap"] == 0, "Zvrat otočil draka o 180°, Požehnání = bez Napětí")

@@ -414,24 +414,24 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `NAVNAME` | 08-navigace-pravidla:580 | const | navigace: id stránky → název v menu (Hra, Úvod, Artikule…) |
 | `NAVOD` | 16-srd-ukazky-sezeni-hrac:1051 | const | Hra: HTML návod pro hráče „Jak hrát na webu“ (nahrát PDF, přihlásit, kostka Závoje, Svědomí, boj) |
 | `NAVRHY` | 23-potvrzovani:125 | var | Potvrzování: návrhy hráčů ke schválení vypravěčem (léčení, Bardic spojenců) načtené z databáze |
-| `NB` | 22c-nebe:17 | let | ⓘ `null;` |
+| `NB` | 22c-nebe:16 | let | ⓘ `null;` |
 | `NB_FAZE` | 22c-nebe:8 | const | ⓘ `{` |
 | `NB_LS` | 22c-nebe:7 | const | ⓘ `"mm-nebe";` |
-| `NBANIM` | 22c-nebe:18 | let | ⓘ `null;` |
-| `NBHOD` | 22c-nebe:302 | let | ⓘ `0;` |
+| `NBANIM` | 22c-nebe:17 | let | ⓘ `null;` |
+| `NBHOD` | 22c-nebe:311 | let | ⓘ `0;` |
 | `NBR_LANDS` | 02-mapa:2527 | const | Zemské desky: názvy sousedních zemí (Braniborsko, Polsko…) pro záložky cizích rodů |
 | `NBRS` | 02b-mapa-kresba:694 | const | kresba mapy: polygony sousedních zemí ([id, prstence]) kolem Koruny |
-| `NEBE_DESKA` | 10n-nebe:11 | const | ⓘ `900;` |
-| `NEBE_HLADINY` | 10n-nebe:14 | const | ⓘ `["Přízemí", "Nízko", "Středně", "Vysoko", "Výšiny"];` |
-| `NEBE_KRIDLA` | 10n-nebe:28 | const | ⓐ tvar křídel → číselník: zelené, červené a chybějící manévry („m“ = všechny rychlosti, „m:r“ = jedna, „*:r“ = rychlost u všech) |
-| `NEBE_MANEVRY` | 10n-nebe:16 | const | ⓐ manévry: rychlosti, šablona (rovně / oblouk s poloměrem podle rychlosti a úhlem), změna hladiny |
-| `NEBE_OCASY` | 10n-nebe:37 | const | ⓘ `{` |
-| `NEBE_PASMO` | 10n-nebe:13 | const | ⓐ pásmo 1–3 jako pravítko X-Wingu: po 100 mm od okraje podstavce |
-| `NEBE_PLEMENA` | 10n-nebe:60 | const | ⓐ plemena v první verzi bojiště (údaje z Profilů plemen v bestiáři; lindwurmové „létají pomaleji, ale vytrvale“) |
-| `NEBE_PODPISY` | 10n-nebe:53 | const | ⓘ `{` |
-| `NEBE_VLASTNOSTI` | 10n-nebe:43 | const | ⓘ `{` |
-| `NEBE_ZAKLAD` | 10n-nebe:26 | const | ⓐ podstavec podle třídy: malý, střední, velký |
-| `NEBE_ZRANENI` | 10n-nebe:65 | const | ⓐ zranění draka podle kostky Závoje (k6) |
+| `NEBE_DESKA` | 10n-nebe:12 | const | ⓘ `900;` |
+| `NEBE_HLADINY` | 10n-nebe:15 | const | ⓘ `["Přízemí", "Nízko", "Středně", "Vysoko", "Výšiny"];` |
+| `NEBE_KRIDLA` | 10n-nebe:32 | const | ⓐ („*:r“ se Náletu netýká – ten má klíč podle poklesu) |
+| `NEBE_MANEVRY` | 10n-nebe:19 | const | ⓘ `{` |
+| `NEBE_OCASY` | 10n-nebe:42 | const | ⓐ ocas: letová úprava číselníku, nebo útok ocasem do zadního oblouku (kyj, osten, ostny, hák – podle bestiáře) |
+| `NEBE_PASMO` | 10n-nebe:14 | const | ⓐ pásmo 1–3 jako pravítko X-Wingu: po 100 mm od okraje podstavce |
+| `NEBE_PLEMENA` | 10n-nebe:70 | const | ⓐ plemena v první verzi bojiště (údaje z Profilů plemen v bestiáři; lindwurmové „létají pomaleji, ale vytrvale“) |
+| `NEBE_PODPISY` | 10n-nebe:63 | const | ⓘ `{` |
+| `NEBE_VLASTNOSTI` | 10n-nebe:53 | const | ⓘ `{` |
+| `NEBE_ZAKLAD` | 10n-nebe:29 | const | ⓐ podstavec podle třídy: malý, střední, velký |
+| `NEBE_ZRANENI` | 10n-nebe:75 | const | ⓐ zranění draka podle kostky Závoje (k6) |
 | `NEDELE` | 07-druzina-kronika:424 | const | kalendář: neděle liturgického roku ([dny od Velikonoc, název, tvary]) pro starou dataci |
 | `NETV` | 16-srd-ukazky-sezeni-hrac:112 | let | ⓐ nestvůry: připojí se k protivníkům (bestiář v Boji, přidání do boje) |
 | `NETVP` | 16-srd-ukazky-sezeni-hrac:113 | let | Nestvůry: probíhající Promise načítání art/netvori.json (NETV) |
