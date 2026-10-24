@@ -23,7 +23,7 @@ utoky:
 
 **AC** 15 · **HP** 71 (11d8+22) · **Rychlost** 30 stop (40 stop jako vlk) · **Iniciativa** +2
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 16 (+3) | 14 (+2) | 14 (+2) | 10 (+0) | 11 (+0) | 10 (+0) |
 

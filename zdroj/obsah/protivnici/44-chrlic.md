@@ -8,7 +8,7 @@ ac: 15
 hp: 5
 utok: Drápy +4 · 4 Slashing za každého chrliče v dosahu cíle · let 60 stop
 bonus: 4
-komplikace: Chrlič útočníka strhne ze střechy, hradby nebo sedla: AGI save DC 12, jinak je Prone – a na římse padá.
+komplikace: Chrlič útočníka strhne ze střechy, hradby nebo sedla: DEX save DC 12, jinak je Prone – a na římse padá.
 stitky: chrlič, chrliče, katedrála, svatý Vít, kostel, střecha, kámen, Praha, Kutná Hora
 utoky:
   - Drápy | +4 | 4 za pacholka Slashing | dosah 5 stop; útočí z letu a odlétají bez Opportunity Attacks
@@ -26,7 +26,7 @@ Kamenné zrůdy ze střech katedrál a kostelů, které oživil Závoj. Ve dne s
 ## Vlastnosti
 
 - **Jako kámen.** Houf, který se nehýbe, se nedá rozeznat od soch (Perception DC 18). V prvním kole útočí s výhodou.
-- **Střechy a římsy.** Na střeše, hradbě nebo věži mají domácí půdu: kdo tam s nimi bojuje, hází při každém Pokušení na pád (AGI save DC 12).
+- **Střechy a římsy.** Na střeše, hradbě nebo věži mají domácí půdu: kdo tam s nimi bojuje, hází při každém Pokušení na pád (DEX save DC 12).
 - **Hlídači.** Neopustí stavbu, kterou hlídají. Kdo ji opustí, toho nepronásledují – a kdo se vrátí, toho čekají.
 
 **Morálka.** Neprchají. Za svítání se vrátí na své místo a ztuhnou; palcát nebo kladivo z kamenické dílny (Drtivá) je zahání lépe než meč.

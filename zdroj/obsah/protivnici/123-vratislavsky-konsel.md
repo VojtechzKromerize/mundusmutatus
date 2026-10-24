@@ -22,7 +22,7 @@ Patricij z vratislavské rady, která na jaře 1458 odmítla uznat Jiřího z Po
 
 **AC** 15 (kyrys pod šubou) · **HP** 9 (2d8) · **Rychlost** 30 stop · **Iniciativa** +1
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 11 (+0) | 12 (+1) | 11 (+0) | 12 (+1) | 14 (+2) | 16 (+3) |
 

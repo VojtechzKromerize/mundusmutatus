@@ -25,7 +25,7 @@ utoky:
 
 **AC** 15 · **HP** 127 (17d8+51) · **Rychlost** 30 stop · **Iniciativa** +6
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 10 (+0) | 17 (+3) | 16 (+3) | 12 (+1) | 13 (+1) | 15 (+2) |
 

@@ -24,7 +24,7 @@ Mladší syn nebo družiník elfího pána, Proměněnec, který Proměnu vzal j
 
 **AC** 18 (plátová zbroj, lehká milánská) · **HP** 52 (8d8+16) · **Rychlost** 35 stop · **Iniciativa** +2
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 16 (+3) | 14 (+2) | 14 (+2) | 12 (+1) | 13 (+1) | 16 (+3) |
 

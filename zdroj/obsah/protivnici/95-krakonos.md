@@ -5,7 +5,7 @@ uroven: zhoubce
 vyzva: 13 (10 000 XP)
 ac: 17
 hp: 230
-utok: Hůl +13, 3d8+8 Bludgeoning · blesk z hory (AGI DC 18, 8d8 Lightning) · mlha a vichřice v celých horách · proměna (poutník, havran, kořen)
+utok: Hůl +13, 3d8+8 Bludgeoning · blesk z hory (DEX DC 18, 8d8 Lightning) · mlha a vichřice v celých horách · proměna (poutník, havran, kořen)
 pozehnani: Přivolá hromovou saň: na bojiště přiletí na konci kola.
 pokuseni: Někdo se mu posmívá: v příštím slotu musí trestat posměváčka, i kdyby stál jinde.
 nerest: Spravedlnost a uraženost – odmění poctivého, potrestá posměváčka. S Krakonošem se nebojuje, s Krakonošem se vyjednává. Ctnosti: Poctivost, Věrnost úmluvě. Neřest: Hněv.
@@ -14,7 +14,7 @@ stitky: relikt, bytosti z pověstí, Krakonoš, Rýbrcoul, Krkonoše, hory, poč
 zdroje: Legendární odolnost 3, Blesk 3, Proměna 1
 utoky:
   - Hůl | +13 | 3d8+8 Bludgeoning | dosah 10 stop; jeden útok v každém slotu
-  - Blesk z hory | AGI DC 18 | 8d8 Lightning | bod do 300 stop, poloměr 10 stop; úspěch polovina; 3/den
+  - Blesk z hory | DEX DC 18 | 8d8 Lightning | bod do 300 stop, poloměr 10 stop; úspěch polovina; 3/den
   - Vichřice | STR DC 18 | | všichni do 60 stop: neúspěch odhození 15 stop a Prone; letci padají
 ---
 *„Poutník s holí ukázal cestu přes hřeben a řekl, ať se na zpáteční cestě poděkujeme. Nepoděkovali jsme. Dodnes bloudíme.“*
@@ -25,7 +25,7 @@ Pán Krkonoš, starší než jakýkoli rod v Čechách. Chodí v podobě poutní
 
 **AC** 17 · **HP** 230 (20d12+100) · **Rychlost** 40 stop · **Iniciativa** +6
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 26 (+8) | 13 (+1) | 20 (+5) | 16 (+3) | 22 (+6) | 20 (+5) |
 
@@ -41,7 +41,7 @@ Pán Krkonoš, starší než jakýkoli rod v Čechách. Chodí v podobě poutní
 ## Akce (jedna v každém slotu)
 
 - **Hůl.** +13, dosah 10 stop. **Zásah:** 3d8+8 Bludgeoning.
-- **Blesk z hory (3/den).** Bod do 300 stop: každý v poloměru 10 stop hodí AGI save DC 18, neúspěch 8d8 Lightning, úspěch polovina.
+- **Blesk z hory (3/den).** Bod do 300 stop: každý v poloměru 10 stop hodí DEX save DC 18, neúspěch 8d8 Lightning, úspěch polovina.
 - **Vichřice.** Každý do 60 stop hodí STR save DC 18, jinak je odhozen o 15 stop a Prone; letci padají o 60 stop.
 - **Proměna.** Poutník, havran, kořen, nebo zpět.
 

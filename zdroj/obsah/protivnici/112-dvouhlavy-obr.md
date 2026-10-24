@@ -22,7 +22,7 @@ Obr se dvěma hlavami, jaký se vypráví dětem na Šumavě – a jaký od Prot
 
 **AC** 12 (kůže a kožešiny) · **HP** 85 (10d10+30) · **Rychlost** 40 stop · **Iniciativa** −1
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 21 (+5) | 8 (−1) | 17 (+3) | 6 (−2) | 10 (+0) | 8 (−1) |
 

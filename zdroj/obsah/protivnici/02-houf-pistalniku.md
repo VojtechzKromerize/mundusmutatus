@@ -21,7 +21,7 @@ Střelci za pavézami nebo vozovou hradbou. Jedna salva a pak nabíjení; mezi t
 
 **Útok houfu – salva:** +3 (+1 za každého dalšího pacholka, nejvýš +5), dostřel 30/90 stop. **Zásah:** 4 Piercing za každého střelce, který na cíl vidí. Píšťaly i těžké kuše jsou **Průrazné**.
 
-**Záchrany houfu:** AGI +1, ostatní +0
+**Záchrany houfu:** DEX +1, ostatní +0
 
 ## Vlastnosti
 

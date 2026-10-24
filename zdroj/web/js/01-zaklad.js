@@ -17,6 +17,8 @@ function mmPozdeji(klic, fn) {
   });
 }
 const mmZrus = klic => MMPREK.delete(klic);
+/* Obratnost se od 2026-10-24 píše DEX (dřív AGI) – starší data z prohlížeče (kopie karet, boj, výprava…) se při čtení převedou */
+const mmDex = s => (typeof s === "string" && s.includes("AGI") ? s.replace(/\bAGI\b/g, "DEX") : s);
 const CONFN = {kat: "katolíci", kal: "kališníci", mix: "smíšení", isl: "islám"};
 const FICON = {kat: "art/img/vira-kat.webp", kal: "art/img/vira-kal.webp", mix: "art/img/vira-mix.webp", isl: "art/img/vira-isl.webp"};
 const SFICON = {

@@ -657,7 +657,7 @@ begin
   if jsonb_typeof(x) <> 'object' or octet_length(x::text) > 3000
      or exists (select 1 from jsonb_object_keys(x) k where k not in ('typ', 'ab', 'dov', 'dc', 'skryt', 'komu', 'pozn', 'adv'))
      or coalesce(x ->> 'typ', '') not in ('zach', 'over', 'ini', 'odp', 'hod')
-     or (x ? 'ab' and coalesce(x ->> 'ab', '') not in ('STR', 'AGI', 'CON', 'INT', 'WIS', 'CHA'))
+     or (x ? 'ab' and coalesce(x ->> 'ab', '') not in ('STR', 'DEX', 'AGI', 'CON', 'INT', 'WIS', 'CHA'))
      or (x ? 'dov' and (jsonb_typeof(x -> 'dov') <> 'string' or char_length(x ->> 'dov') > 40))
      or not public.mm_cislo(x -> 'dc', 1, 40) or not public.mm_cislo(x -> 'adv', -1, 1)
      or (x ? 'skryt' and jsonb_typeof(x -> 'skryt') <> 'boolean')
@@ -1004,7 +1004,7 @@ begin
   pl := x -> 'plos';
   if pl is not null and jsonb_typeof(pl) <> 'null' then
     if jsonb_typeof(pl) <> 'object' or exists (select 1 from jsonb_object_keys(pl) k where k not in ('ab', 'dc', 'pol'))
-       or coalesce(pl ->> 'ab', '') not in ('STR', 'AGI', 'CON', 'INT', 'WIS', 'CHA') or jsonb_typeof(pl -> 'dc') is distinct from 'number' or not public.mm_cislo(pl -> 'dc', 1, 40)
+       or coalesce(pl ->> 'ab', '') not in ('STR', 'DEX', 'AGI', 'CON', 'INT', 'WIS', 'CHA') or jsonb_typeof(pl -> 'dc') is distinct from 'number' or not public.mm_cislo(pl -> 'dc', 1, 40)
        or (pl ? 'pol' and jsonb_typeof(pl -> 'pol') <> 'boolean') then
       raise exception 'neplatný plošný útok';
     end if;
@@ -1150,7 +1150,7 @@ begin
         select 1 from jsonb_array_elements(x) e where jsonb_typeof(e) <> 'object' or exists (select 1 from jsonb_object_keys(e) k where k not in ('n', 'u'))
           or jsonb_typeof(e -> 'n') is distinct from 'string' or char_length(e ->> 'n') not between 1 and 40 or jsonb_typeof(e -> 'u') is distinct from 'number' or not public.mm_cislo(e -> 'u', 1, 20)))
     when 'vlU' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'object' and not exists (
-        select 1 from jsonb_each(x) e where e.key not in ('STR', 'AGI', 'CON', 'INT', 'WIS', 'CHA') or jsonb_typeof(e.value) <> 'number' or not public.mm_cislo(e.value, 1, 30)))
+        select 1 from jsonb_each(x) e where e.key not in ('STR', 'DEX', 'AGI', 'CON', 'INT', 'WIS', 'CHA') or jsonb_typeof(e.value) <> 'number' or not public.mm_cislo(e.value, 1, 30)))
     when 'pdfx' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'array' and jsonb_array_length(x) <= 80 and not exists (
         select 1 from jsonb_array_elements(x) e where jsonb_typeof(e) <> 'string' or char_length(e #>> '{}') > 60))
     when 'upr' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'array' and jsonb_array_length(x) <= 30 and not exists (
@@ -1171,7 +1171,7 @@ begin
         and (not x ? 'src' or (jsonb_typeof(x -> 'src') = 'string' and (x ->> 'src') ~ '^[a-z0-9-]{1,60}$'))
         and (not x ? 'ac' or public.mm_cislo(x -> 'ac', 1, 40)) and (not x ? 'hp' or public.mm_cislo(x -> 'hp', 1, 999))
         and (not x ? 'ut' or (jsonb_typeof(x -> 'ut') = 'array' and jsonb_array_length(x -> 'ut') <= 8))
-        and (not x ? 'vl' or (jsonb_typeof(x -> 'vl') = 'object' and not exists (select 1 from jsonb_each(x -> 'vl') e where e.key not in ('STR', 'AGI', 'CON') or not public.mm_cislo(e.value, 1, 30)))))
+        and (not x ? 'vl' or (jsonb_typeof(x -> 'vl') = 'object' and not exists (select 1 from jsonb_each(x -> 'vl') e where e.key not in ('STR', 'DEX', 'AGI', 'CON') or not public.mm_cislo(e.value, 1, 30)))))
     when 'mods' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'object' and octet_length(x::text) <= 3000
         and not exists (select 1 from jsonb_object_keys(x) k where k not in ('ov', 'za', 'dv', 'in', 'n')))
     -- obětování zbroje (Artikule › Zbroj): kolikrát byla zbroj / štít obětována

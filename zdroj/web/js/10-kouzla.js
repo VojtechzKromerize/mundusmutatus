@@ -42,7 +42,7 @@ async function kzVlNacti() {
   let s = null,
     loc = [];
   try {
-    loc = JSON.parse(localStorage.getItem("mm-kouzla") || "[]") || [];
+    loc = JSON.parse(mmDex(localStorage.getItem("mm-kouzla")) || "[]") || [];
   } catch (e) {}
   if (window.MMDB && MMDB.prihlasen()) {
     try {

@@ -22,7 +22,7 @@ Malí horští duchové z hlubin, kteří od Noci Proměny mluví a mají vlastn
 
 **Útok houfu – dýky:** +4 (+1 za každého dalšího, nejvýš +5), dosah 5 stop, nebo hozené na 20/60 stop. **Zásah:** 2 Piercing za každého permoníka v dosahu cíle (při hodu za každého, kdo na cíl vidí). Jsou-li u cíle aspoň dva, útočí s výhodou.
 
-**Záchrany houfu:** AGI +2, ostatní −1
+**Záchrany houfu:** DEX +2, ostatní −1
 
 ## Vlastnosti
 

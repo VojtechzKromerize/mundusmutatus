@@ -24,7 +24,7 @@ Vyhnaný kněz nebo potulný kazatel, který po Noci Proměny našel nového pá
 
 **AC** 13 (kožená) · **HP** 44 (8d8+8) · **Rychlost** 30 stop · **Iniciativa** +2
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 11 (+0) | 14 (+2) | 12 (+1) | 10 (+0) | 14 (+2) | 13 (+1) |
 

@@ -8,7 +8,7 @@ ac: 12
 hp: 5
 utok: Chňapnutí +4 · 2 Prokleté (Necrotic) za každou ruku v dosahu cíle · zbroj nepomáhá
 bonus: 4
-komplikace: Ruka chytne útočníka za kotník: AGI save DC 12, jinak je Prone a ruka mu leze po těle k hrdlu.
+komplikace: Ruka chytne útočníka za kotník: DEX save DC 12, jinak je Prone a ruka mu leze po těle k hrdlu.
 stitky: nemrtví, ruce, nigromant, kostnice, šibenice, kat, dílna, Závoj
 utoky:
   - Chňapnutí | +4 | 2 za pacholka Prokleté (Necrotic) | dosah 5 stop; zbroj nepomáhá; cíl Medium nebo menší zasažený aspoň třemi rukama je Prone
@@ -21,7 +21,7 @@ Uťaté ruce oběšenců a popravených, oživené nigromantem nebo samy od sebe
 
 **Útok houfu – chňapnutí:** +4 (+1 za každou další ruku, nejvýš +5), dosah 5 stop. **Zásah:** 2 Prokleté (Necrotic) za každou ruku v dosahu cíle. Zbroj proti tomu nepomáhá – lezou pod ni. Cíl velikosti Medium nebo menší, kterého zasáhly aspoň tři ruce, je Prone.
 
-**Záchrany houfu:** AGI +2, ostatní −1
+**Záchrany houfu:** DEX +2, ostatní −1
 
 ## Vlastnosti
 

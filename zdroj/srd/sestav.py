@@ -50,7 +50,7 @@ def nacti(sl):
     return o
 
 
-AB = ["STR", "AGI", "CON", "INT", "WIS", "CHA"]
+AB = ["STR", "DEX", "CON", "INT", "WIS", "CHA"]
 mod = lambda v: (v - 10) // 2
 sg = lambda v: ("+" if v >= 0 else "−") + str(abs(v))
 

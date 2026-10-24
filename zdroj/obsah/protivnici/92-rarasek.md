@@ -22,7 +22,7 @@ utoky:
 
 **AC** 14 · **HP** 36 (8d6+8) · **Rychlost** 30 stop, let 40 stop · **Iniciativa** +4
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 8 (−1) | 18 (+4) | 12 (+1) | 12 (+1) | 12 (+1) | 15 (+2) |
 

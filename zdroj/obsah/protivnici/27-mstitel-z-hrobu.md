@@ -23,7 +23,7 @@ Zavražděný, kterého Závoj vrátil, aby se pomstil. Nemá s živými žádn�
 
 **AC** 13 · **HP** 127 (15d8+60) · **Rychlost** 30 stop · **Iniciativa** +2
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 18 (+4) | 14 (+2) | 18 (+4) | 13 (+1) | 16 (+3) | 18 (+4) |
 

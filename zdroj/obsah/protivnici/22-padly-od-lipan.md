@@ -24,7 +24,7 @@ Hejtman táborských polních vojsk, který zemřel u Lipan roku 1434 a vstal po
 
 **AC** 14 (kožená s cvočky) · **HP** 82 (11d8+33) · **Rychlost** 30 stop · **Iniciativa** +4
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 15 (+2) | 14 (+2) | 16 (+3) | 10 (+0) | 13 (+1) | 15 (+2) |
 

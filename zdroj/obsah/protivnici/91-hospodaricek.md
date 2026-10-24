@@ -22,7 +22,7 @@ Domácí had, ochránce rodu a statku. Varuje před ohněm, zlodějem a zlou du�
 
 **AC** 13 · **HP** 13 (3d6+3) · **Rychlost** 20 stop, šplhání 20 stop · **Iniciativa** +3
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 6 (−2) | 16 (+3) | 12 (+1) | 10 (+0) | 14 (+2) | 12 (+1) |
 

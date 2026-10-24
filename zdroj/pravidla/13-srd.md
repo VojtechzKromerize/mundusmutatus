@@ -8,7 +8,7 @@
 |---|---|
 | Primární vlastnost | Charisma (CHA) |
 | Kostka životů | D8 za každou úroveň Barda |
-| Zdatnost v záchranných hodech | Obratnost (AGI) a Charisma (CHA) |
+| Zdatnost v záchranných hodech | Obratnost (DEX) a Charisma (CHA) |
 | Zdatnost v dovednostech | Zvol si libovolné 3 dovednosti (viz „Hraní hry“) |
 | Zdatnost se zbraněmi | Jednoduché zbraně |
 | Zdatnost s nástroji | Zvol si 3 hudební nástroje (Musical Instruments; viz „Vybavení“) |

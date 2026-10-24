@@ -21,7 +21,7 @@ Netopýři velcí jako pes, kteří vylétají z krasových jeskyní, z opuště
 
 **Útok houfu – kousnutí:** +5 (+1 za každého dalšího netopýra, nejvýš +5), dosah 5 stop. **Zásah:** 3 Piercing za každého netopýra v dosahu cíle. Houf útočí z letu a po útoku odlétá, aniž by provokoval Opportunity Attacks.
 
-**Záchrany houfu:** AGI +3, ostatní −1
+**Záchrany houfu:** DEX +3, ostatní −1
 
 ## Vlastnosti
 

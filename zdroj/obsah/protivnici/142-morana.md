@@ -25,7 +25,7 @@ Stará bohyně zimy a smrti, kterou po Protržení Závoje nestačí vynést ze 
 
 **AC** 17 (led) · **HP** 150 (20d8+60) · **Rychlost** 30 stop, po ledu a sněhu 60 stop · **Iniciativa** +5
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 18 (+4) | 15 (+2) | 16 (+3) | 16 (+3) | 14 (+2) | 16 (+3) |
 

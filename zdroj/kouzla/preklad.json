@@ -9,7 +9,7 @@
  {
   "index": "acid-splash",
   "cz": "Kyselý výstřik",
-  "pop": "Vytvoříš kyselinovou bublinu v bodě v dosahu, kde exploduje v kouli o poloměru 5 stop. Každý tvor v této kouli musí uspět v AGI záchranném hodu, jinak utrpí 1d6 Acid zranění.\n\n**Zesílení triku.** Zranění se zvýší o 1d6, když dosáhneš úrovně 5 (2d6), 11 (3d6) a 17 (4d6).",
+  "pop": "Vytvoříš kyselinovou bublinu v bodě v dosahu, kde exploduje v kouli o poloměru 5 stop. Každý tvor v této kouli musí uspět v DEX záchranném hodu, jinak utrpí 1d6 Acid zranění.\n\n**Zesílení triku.** Zranění se zvýší o 1d6, když dosáhneš úrovně 5 (2d6), 11 (3d6) a 17 (4d6).",
   "vys": "",
   "mat": ""
  },
@@ -65,7 +65,7 @@
  {
   "index": "animate-objects",
   "cz": "Oživení předmětů",
-  "pop": "Předměty na tvůj povel ožijí. Vyber počet nemagických předmětů v dosahu, které nikdo nenosí na sobě ani u sebe, nejsou připevněny k povrchu a nejsou velikosti Gargantuan. Nejvyšší počet předmětů se rovná modifikátoru tvé sesílací vlastnosti; pro tento počet se cíl velikosti Medium nebo menší počítá jako jeden předmět, cíl velikosti Large jako dva a cíl velikosti Huge jako tři.\n\nKaždý cíl ožije, vyraší mu nohy a stane se výtvorem (Construct), který používá statblok Oživený předmět; tento tvor je pod tvou kontrolou, dokud kouzlo neskončí nebo dokud neklesne na 0 HP. Každý tvor vytvořený tímto kouzlem je spojencem tvým i tvých spojenců. V boji sdílí tvou Iniciativu a svůj tah provádí bezprostředně po tobě.\n\nDokud kouzlo neskončí, můžeš Bonusovou akcí v duchu přikázat kterémukoli tvoru vytvořenému tímto kouzlem, pokud je do 500 stop od tebe (ovládáš-li více tvorů, můžeš přikázat kterémukoli z nich současně a vydat každému stejný příkaz). Pokud nevydáš žádný příkaz, tvor provede akci Dodge a pohybuje se jen proto, aby se vyhnul nebezpečí. Když tvor klesne na 0 HP, vrátí se do podoby předmětu a veškeré zbývající zranění se přenese na tuto podobu.\n\n**Oživený předmět** – výtvor velikosti Huge nebo menší, bez přesvědčení\n- **AC** 15 · **HP** 10 (Medium nebo menší), 20 (Large), 40 (Huge) · **Rychlost** 30 stop\n- **STR** 16 (+3, záchrana +3) · **AGI** 10 (+0, +0) · **CON** 10 (+0, +0) · **INT** 3 (−4, −4) · **WIS** 3 (−4, −4) · **CHA** 1 (−5, −5)\n- **Immunity:** Poison, Psychic; Charmed, Exhaustion, Frightened, Paralyzed, Poisoned\n- **Smysly:** Blindsight 30 stop; pasivní Perception 6\n- **Jazyky:** rozumí jazykům, které znáš\n- **CR** žádný (XP 0; PB se rovná tvému Proficiency Bonus)\n- **Akce – Úder (Slam).** Hod na útok na blízko: bonus se rovná tvému modifikátoru útoku kouzlem, dosah 5 stop. Zásah: Force zranění rovné 1d4 + 3 (Medium nebo menší), 2d6 + 3 + modifikátor tvé sesílací vlastnosti (Large), nebo 2d12 + 3 + modifikátor tvé sesílací vlastnosti (Huge).",
+  "pop": "Předměty na tvůj povel ožijí. Vyber počet nemagických předmětů v dosahu, které nikdo nenosí na sobě ani u sebe, nejsou připevněny k povrchu a nejsou velikosti Gargantuan. Nejvyšší počet předmětů se rovná modifikátoru tvé sesílací vlastnosti; pro tento počet se cíl velikosti Medium nebo menší počítá jako jeden předmět, cíl velikosti Large jako dva a cíl velikosti Huge jako tři.\n\nKaždý cíl ožije, vyraší mu nohy a stane se výtvorem (Construct), který používá statblok Oživený předmět; tento tvor je pod tvou kontrolou, dokud kouzlo neskončí nebo dokud neklesne na 0 HP. Každý tvor vytvořený tímto kouzlem je spojencem tvým i tvých spojenců. V boji sdílí tvou Iniciativu a svůj tah provádí bezprostředně po tobě.\n\nDokud kouzlo neskončí, můžeš Bonusovou akcí v duchu přikázat kterémukoli tvoru vytvořenému tímto kouzlem, pokud je do 500 stop od tebe (ovládáš-li více tvorů, můžeš přikázat kterémukoli z nich současně a vydat každému stejný příkaz). Pokud nevydáš žádný příkaz, tvor provede akci Dodge a pohybuje se jen proto, aby se vyhnul nebezpečí. Když tvor klesne na 0 HP, vrátí se do podoby předmětu a veškeré zbývající zranění se přenese na tuto podobu.\n\n**Oživený předmět** – výtvor velikosti Huge nebo menší, bez přesvědčení\n- **AC** 15 · **HP** 10 (Medium nebo menší), 20 (Large), 40 (Huge) · **Rychlost** 30 stop\n- **STR** 16 (+3, záchrana +3) · **DEX** 10 (+0, +0) · **CON** 10 (+0, +0) · **INT** 3 (−4, −4) · **WIS** 3 (−4, −4) · **CHA** 1 (−5, −5)\n- **Immunity:** Poison, Psychic; Charmed, Exhaustion, Frightened, Paralyzed, Poisoned\n- **Smysly:** Blindsight 30 stop; pasivní Perception 6\n- **Jazyky:** rozumí jazykům, které znáš\n- **CR** žádný (XP 0; PB se rovná tvému Proficiency Bonus)\n- **Akce – Úder (Slam).** Hod na útok na blízko: bonus se rovná tvému modifikátoru útoku kouzlem, dosah 5 stop. Zásah: Force zranění rovné 1d4 + 3 (Medium nebo menší), 2d6 + 3 + modifikátor tvé sesílací vlastnosti (Large), nebo 2d12 + 3 + modifikátor tvé sesílací vlastnosti (Huge).",
   "vys": "Zranění Úderem (Slam) se zvýší o 1d4 (Medium nebo menší), 1d6 (Large) nebo 1d12 (Huge) za každou úroveň slotu kouzla nad 5.",
   "mat": ""
  },
@@ -100,7 +100,7 @@
  {
   "index": "arcane-hand",
   "cz": "Tajemná ruka",
-  "pop": "Vytvoříš ruku velikosti Large z třpytivé magické energie v neobsazeném prostoru, který vidíš v dosahu. Ruka trvá po dobu trvání kouzla a pohybuje se na tvůj povel, přičemž napodobuje pohyby tvé vlastní ruky.\n\nRuka je předmět s AC 20 a HP rovnými tvému maximu HP. Pokud klesne na 0 HP, kouzlo skončí. Ruka svůj prostor neobsazuje.\n\nPři seslání kouzla a Bonusovou akcí ve svých pozdějších tazích můžeš ruku přesunout až o 60 stop a poté vyvolat jeden z následujících účinků:\n\n**Sevřená pěst.** Ruka udeří cíl do 5 stop od sebe. Proveď útok kouzlem na blízko. Při zásahu utrpí cíl 5d8 Force zranění.\n\n**Mocná ruka.** Ruka se pokusí odstrčit tvora velikosti Huge nebo menšího do 5 stop od sebe. Cíl musí uspět v STR záchranném hodu, jinak ho ruka odstrčí až o 5 stop plus počet stop rovný pětinásobku modifikátoru tvé sesílací vlastnosti. Ruka se pohybuje s cílem a zůstává do 5 stop od něj.\n\n**Svírající ruka.** Ruka se pokusí sevřít tvora velikosti Huge nebo menšího do 5 stop od sebe. Cíl musí uspět v AGI záchranném hodu, jinak má stav Grappled, přičemž DC úniku se rovná DC záchrany proti tvým kouzlům. Dokud ruka cíl svírá, můžeš Bonusovou akcí přimět ruku, aby ho drtila, a způsobit mu Bludgeoning zranění rovné 4d6 plus modifikátor tvé sesílací vlastnosti.\n\n**Bránící ruka.** Ruka ti poskytuje Half Cover proti útokům a jiným účinkům, které vycházejí z jejího prostoru nebo jím procházejí. Navíc se její prostor pro tvé nepřátele počítá jako Difficult Terrain.",
+  "pop": "Vytvoříš ruku velikosti Large z třpytivé magické energie v neobsazeném prostoru, který vidíš v dosahu. Ruka trvá po dobu trvání kouzla a pohybuje se na tvůj povel, přičemž napodobuje pohyby tvé vlastní ruky.\n\nRuka je předmět s AC 20 a HP rovnými tvému maximu HP. Pokud klesne na 0 HP, kouzlo skončí. Ruka svůj prostor neobsazuje.\n\nPři seslání kouzla a Bonusovou akcí ve svých pozdějších tazích můžeš ruku přesunout až o 60 stop a poté vyvolat jeden z následujících účinků:\n\n**Sevřená pěst.** Ruka udeří cíl do 5 stop od sebe. Proveď útok kouzlem na blízko. Při zásahu utrpí cíl 5d8 Force zranění.\n\n**Mocná ruka.** Ruka se pokusí odstrčit tvora velikosti Huge nebo menšího do 5 stop od sebe. Cíl musí uspět v STR záchranném hodu, jinak ho ruka odstrčí až o 5 stop plus počet stop rovný pětinásobku modifikátoru tvé sesílací vlastnosti. Ruka se pohybuje s cílem a zůstává do 5 stop od něj.\n\n**Svírající ruka.** Ruka se pokusí sevřít tvora velikosti Huge nebo menšího do 5 stop od sebe. Cíl musí uspět v DEX záchranném hodu, jinak má stav Grappled, přičemž DC úniku se rovná DC záchrany proti tvým kouzlům. Dokud ruka cíl svírá, můžeš Bonusovou akcí přimět ruku, aby ho drtila, a způsobit mu Bludgeoning zranění rovné 4d6 plus modifikátor tvé sesílací vlastnosti.\n\n**Bránící ruka.** Ruka ti poskytuje Half Cover proti útokům a jiným účinkům, které vycházejí z jejího prostoru nebo jím procházejí. Navíc se její prostor pro tvé nepřátele počítá jako Difficult Terrain.",
   "vys": "Zranění Sevřené pěsti se zvýší o 2d8 a zranění Svírající ruky o 2d6 za každou úroveň slotu kouzla nad 5.",
   "mat": "skořápka vejce a rukavice"
  },
@@ -205,7 +205,7 @@
  {
   "index": "blade-barrier",
   "cz": "Bariéra čepelí",
-  "pop": "Vytvoříš stěnu vířících čepelí z magické energie. Stěna se objeví v dosahu a trvá po dobu trvání kouzla. Vytvoříš rovnou stěnu dlouhou až 100 stop, vysokou 20 stop a silnou 5 stop, nebo kruhovou stěnu o průměru až 60 stop, vysokou 20 stop a silnou 5 stop. Stěna poskytuje Three-Quarters Cover a její prostor je Difficult Terrain.\n\nKaždý tvor v prostoru stěny si hodí AGI záchranný hod; při neúspěchu utrpí 6d10 Force zranění, při úspěchu poloviční zranění. Tvor si tento záchranný hod hází také tehdy, když vstoupí do prostoru stěny nebo v něm ukončí svůj tah. Tvor si tento hod hází jen jednou za tah.",
+  "pop": "Vytvoříš stěnu vířících čepelí z magické energie. Stěna se objeví v dosahu a trvá po dobu trvání kouzla. Vytvoříš rovnou stěnu dlouhou až 100 stop, vysokou 20 stop a silnou 5 stop, nebo kruhovou stěnu o průměru až 60 stop, vysokou 20 stop a silnou 5 stop. Stěna poskytuje Three-Quarters Cover a její prostor je Difficult Terrain.\n\nKaždý tvor v prostoru stěny si hodí DEX záchranný hod; při neúspěchu utrpí 6d10 Force zranění, při úspěchu poloviční zranění. Tvor si tento záchranný hod hází také tehdy, když vstoupí do prostoru stěny nebo v něm ukončí svůj tah. Tvor si tento hod hází jen jednou za tah.",
   "vys": "",
   "mat": ""
  },
@@ -247,14 +247,14 @@
  {
   "index": "burning-hands",
   "cz": "Hořící ruce",
-  "pop": "Vyšlehne z tebe tenký jazyk plamenů. Každý tvor v kuželu o délce 15 stop si hodí AGI záchranný hod; při neúspěchu utrpí 3d6 Fire zranění, při úspěchu poloviční zranění.\n\nHořlavé předměty v kuželu, které nikdo nenosí na sobě ani u sebe, začnou hořet.",
+  "pop": "Vyšlehne z tebe tenký jazyk plamenů. Každý tvor v kuželu o délce 15 stop si hodí DEX záchranný hod; při neúspěchu utrpí 3d6 Fire zranění, při úspěchu poloviční zranění.\n\nHořlavé předměty v kuželu, které nikdo nenosí na sobě ani u sebe, začnou hořet.",
   "vys": "Zranění se zvýší o 1d6 za každou úroveň slotu kouzla nad 1.",
   "mat": ""
  },
  {
   "index": "call-lightning",
   "cz": "Přivolání blesku",
-  "pop": "V bodě v dosahu, který vidíš nad sebou, se objeví bouřkový mrak. Má tvar válce vysokého 10 stop o poloměru 60 stop.\n\nKdyž kouzlo sešleš, zvol bod pod mrakem, který vidíš. Z mraku do tohoto bodu udeří blesk. Každý tvor do 5 stop od tohoto bodu si hodí AGI záchranný hod; při neúspěchu utrpí 3d10 Lightning zranění, při úspěchu poloviční zranění.\n\nDokud kouzlo neskončí, můžeš akcí Magie tímto způsobem přivolat blesk znovu, a to do stejného nebo jiného bodu.\n\nPokud jsi při seslání kouzla venku za bouře, kouzlo ti místo vytvoření nové bouře dá vládu nad touto bouří. Za takových okolností se zranění kouzla zvýší o 1d10.",
+  "pop": "V bodě v dosahu, který vidíš nad sebou, se objeví bouřkový mrak. Má tvar válce vysokého 10 stop o poloměru 60 stop.\n\nKdyž kouzlo sešleš, zvol bod pod mrakem, který vidíš. Z mraku do tohoto bodu udeří blesk. Každý tvor do 5 stop od tohoto bodu si hodí DEX záchranný hod; při neúspěchu utrpí 3d10 Lightning zranění, při úspěchu poloviční zranění.\n\nDokud kouzlo neskončí, můžeš akcí Magie tímto způsobem přivolat blesk znovu, a to do stejného nebo jiného bodu.\n\nPokud jsi při seslání kouzla venku za bouře, kouzlo ti místo vytvoření nové bouře dá vládu nad touto bouří. Za takových okolností se zranění kouzla zvýší o 1d10.",
   "vys": "Zranění se zvýší o 1d10 za každou úroveň slotu kouzla nad 3.",
   "mat": ""
  },
@@ -268,7 +268,7 @@
  {
   "index": "chain-lightning",
   "cz": "Řetězový blesk",
-  "pop": "Vyšleš blesk k cíli, který vidíš v dosahu. Z tohoto cíle pak přeskočí tři blesky až na tři další cíle dle tvé volby, z nichž každý musí být do 30 stop od prvního cíle. Cílem může být tvor nebo předmět a každý cíl může zasáhnout jen jeden z blesků.\n\nKaždý cíl si hodí AGI záchranný hod; při neúspěchu utrpí 10d8 Lightning zranění, při úspěchu poloviční zranění.",
+  "pop": "Vyšleš blesk k cíli, který vidíš v dosahu. Z tohoto cíle pak přeskočí tři blesky až na tři další cíle dle tvé volby, z nichž každý musí být do 30 stop od prvního cíle. Cílem může být tvor nebo předmět a každý cíl může zasáhnout jen jeden z blesků.\n\nKaždý cíl si hodí DEX záchranný hod; při neúspěchu utrpí 10d8 Lightning zranění, při úspěchu poloviční zranění.",
   "vys": "Za každou úroveň slotu kouzla nad 6 přeskočí z prvního cíle na další cíl o jeden blesk navíc.",
   "mat": "tři stříbrné jehlice"
  },
@@ -387,21 +387,21 @@
  {
   "index": "conjure-animals",
   "cz": "Vyvolání zvířat",
-  "pop": "Vyvoláš duchy přírody, kteří se zjeví jako Large smečka přízračných, nehmotných zvířat v neobsazeném prostoru, který vidíš v dosahu. Smečka trvá po dobu trvání kouzla a zvířecí podobu duchů volíš ty, například vlci, hadi nebo ptáci.\n\nDokud jsi do 5 stop od smečky, máš výhodu na STR záchranné hody, a když se ve svém tahu pohneš, můžeš také přesunout smečku až o 30 stop do neobsazeného prostoru, který vidíš.\n\nKdykoli se smečka přesune do 10 stop od tvora, kterého vidíš, a kdykoli tvor, kterého vidíš, vstoupí do prostoru do 10 stop od smečky nebo tam ukončí svůj tah, můžeš tohoto tvora přinutit k AGI záchrannému hodu. Při neúspěchu utrpí 3d10 Slashing zranění. Tvor si tento záchranný hod hází nejvýše jednou za tah.",
+  "pop": "Vyvoláš duchy přírody, kteří se zjeví jako Large smečka přízračných, nehmotných zvířat v neobsazeném prostoru, který vidíš v dosahu. Smečka trvá po dobu trvání kouzla a zvířecí podobu duchů volíš ty, například vlci, hadi nebo ptáci.\n\nDokud jsi do 5 stop od smečky, máš výhodu na STR záchranné hody, a když se ve svém tahu pohneš, můžeš také přesunout smečku až o 30 stop do neobsazeného prostoru, který vidíš.\n\nKdykoli se smečka přesune do 10 stop od tvora, kterého vidíš, a kdykoli tvor, kterého vidíš, vstoupí do prostoru do 10 stop od smečky nebo tam ukončí svůj tah, můžeš tohoto tvora přinutit k DEX záchrannému hodu. Při neúspěchu utrpí 3d10 Slashing zranění. Tvor si tento záchranný hod hází nejvýše jednou za tah.",
   "vys": "Zranění se zvyšuje o 1d10 za každou úroveň slotu kouzla nad 3.",
   "mat": ""
  },
  {
   "index": "conjure-celestial",
   "cz": "Vyvolání nebeské bytosti",
-  "pop": "Vyvoláš ducha z Horních sfér, který se projeví jako sloup světla ve válci o poloměru 10 stop a výšce 40 stop se středem v bodě v dosahu. Pro každého tvora, kterého ve válci vidíš, zvol, které z těchto světel na něj dopadne:\n\n- **Léčivé světlo.** Cíl získá zpět HP ve výši 4d12 plus tvůj modifikátor sesílací vlastnosti.\n- **Spalující světlo.** Cíl si hází AGI záchranný hod; při neúspěchu utrpí 6d12 Svaté (Radiant) zranění, při úspěchu poloviční zranění.\n\nDokud kouzlo neskončí, válec vyplňuje jasné světlo (Bright Light), a když se ve svém tahu pohneš, můžeš také přesunout válec až o 30 stop.\n\nKdykoli se válec přesune do prostoru tvora, kterého vidíš, a kdykoli tvor, kterého vidíš, do válce vstoupí nebo v něm ukončí svůj tah, můžeš ho zalít jedním ze světel. Tvor může být tímto kouzlem ovlivněn nejvýše jednou za tah.",
+  "pop": "Vyvoláš ducha z Horních sfér, který se projeví jako sloup světla ve válci o poloměru 10 stop a výšce 40 stop se středem v bodě v dosahu. Pro každého tvora, kterého ve válci vidíš, zvol, které z těchto světel na něj dopadne:\n\n- **Léčivé světlo.** Cíl získá zpět HP ve výši 4d12 plus tvůj modifikátor sesílací vlastnosti.\n- **Spalující světlo.** Cíl si hází DEX záchranný hod; při neúspěchu utrpí 6d12 Svaté (Radiant) zranění, při úspěchu poloviční zranění.\n\nDokud kouzlo neskončí, válec vyplňuje jasné světlo (Bright Light), a když se ve svém tahu pohneš, můžeš také přesunout válec až o 30 stop.\n\nKdykoli se válec přesune do prostoru tvora, kterého vidíš, a kdykoli tvor, kterého vidíš, do válce vstoupí nebo v něm ukončí svůj tah, můžeš ho zalít jedním ze světel. Tvor může být tímto kouzlem ovlivněn nejvýše jednou za tah.",
   "vys": "Léčení i zranění se zvyšují o 1d12 za každou úroveň slotu kouzla nad 7.",
   "mat": ""
  },
  {
   "index": "conjure-elemental",
   "cz": "Vyvolání elementála",
-  "pop": "Vyvoláš Large nehmotného ducha z elementálních sfér, který se zjeví v neobsazeném prostoru v dosahu. Zvol živel ducha, který určuje typ jeho zranění: vzduch (Lightning), země (Thunder), oheň (Fire) nebo voda (Cold). Duch trvá po dobu trvání kouzla.\n\nKdykoli tvor, kterého vidíš, vstoupí do prostoru ducha nebo začne svůj tah do 5 stop od ducha, můžeš tohoto tvora přinutit k AGI záchrannému hodu, pokud duch zrovna nedrží žádného tvora Restrained. Při neúspěchu utrpí cíl 8d8 zranění typu ducha a je Restrained, dokud kouzlo neskončí. Na začátku každého svého tahu si Restrained cíl záchranný hod zopakuje. Při neúspěchu utrpí 4d8 zranění typu ducha. Při úspěchu už cíl není duchem Restrained.",
+  "pop": "Vyvoláš Large nehmotného ducha z elementálních sfér, který se zjeví v neobsazeném prostoru v dosahu. Zvol živel ducha, který určuje typ jeho zranění: vzduch (Lightning), země (Thunder), oheň (Fire) nebo voda (Cold). Duch trvá po dobu trvání kouzla.\n\nKdykoli tvor, kterého vidíš, vstoupí do prostoru ducha nebo začne svůj tah do 5 stop od ducha, můžeš tohoto tvora přinutit k DEX záchrannému hodu, pokud duch zrovna nedrží žádného tvora Restrained. Při neúspěchu utrpí cíl 8d8 zranění typu ducha a je Restrained, dokud kouzlo neskončí. Na začátku každého svého tahu si Restrained cíl záchranný hod zopakuje. Při neúspěchu utrpí 4d8 zranění typu ducha. Při úspěchu už cíl není duchem Restrained.",
   "vys": "Zranění se zvyšuje o 1d8 za každou úroveň slotu kouzla nad 5.",
   "mat": ""
  },
@@ -548,7 +548,7 @@
  {
   "index": "delayed-blast-fireball",
   "cz": "Opožděná ohnivá koule",
-  "pop": "Z tebe vyšlehne paprsek žlutého světla a ve zvoleném bodě v dosahu se zhustí v zářící kuličku, která tam po dobu trvání setrvá. Když kouzlo skončí, kulička vybuchne a každý tvor v kouli o poloměru 20 stop se středem v tomto bodě si hází AGI záchranný hod. Při neúspěchu utrpí Fire zranění ve výši celkového nastřádaného zranění, při úspěchu poloviční zranění.\n\nZákladní zranění kouzla je 12d6 a zvyšuje se o 1d6 pokaždé, když skončí tvůj tah a kouzlo ještě neskončilo.\n\nDotkne-li se zářící kuličky před koncem kouzla nějaký tvor, hází si AGI záchranný hod. Při neúspěchu kouzlo skončí a kulička vybuchne. Při úspěchu může tvor kuličku hodit až na 40 stop. Vletí-li hozená kulička do prostoru tvora nebo narazí-li do pevného předmětu, kouzlo skončí a kulička vybuchne.\n\nKdyž kulička vybuchne, hořlavé předměty v dosahu výbuchu, které nikdo nemá na sobě ani u sebe, začnou hořet.",
+  "pop": "Z tebe vyšlehne paprsek žlutého světla a ve zvoleném bodě v dosahu se zhustí v zářící kuličku, která tam po dobu trvání setrvá. Když kouzlo skončí, kulička vybuchne a každý tvor v kouli o poloměru 20 stop se středem v tomto bodě si hází DEX záchranný hod. Při neúspěchu utrpí Fire zranění ve výši celkového nastřádaného zranění, při úspěchu poloviční zranění.\n\nZákladní zranění kouzla je 12d6 a zvyšuje se o 1d6 pokaždé, když skončí tvůj tah a kouzlo ještě neskončilo.\n\nDotkne-li se zářící kuličky před koncem kouzla nějaký tvor, hází si DEX záchranný hod. Při neúspěchu kouzlo skončí a kulička vybuchne. Při úspěchu může tvor kuličku hodit až na 40 stop. Vletí-li hozená kulička do prostoru tvora nebo narazí-li do pevného předmětu, kouzlo skončí a kulička vybuchne.\n\nKdyž kulička vybuchne, hořlavé předměty v dosahu výbuchu, které nikdo nemá na sobě ani u sebe, začnou hořet.",
   "vys": "Základní zranění se zvyšuje o 1d6 za každou úroveň slotu kouzla nad 7.",
   "mat": "kulička z netopýřího trusu a síry"
  },
@@ -604,7 +604,7 @@
  {
   "index": "disintegrate",
   "cz": "Rozpad",
-  "pop": "Vyšleš zelený paprsek na cíl, kterého v dosahu vidíš. Cílem může být tvor, nemagický předmět nebo výtvor z magické síly, třeba stěna vytvořená kouzlem *Wall of Force*.\n\nTvor zasažený tímto kouzlem si hází AGI záchranný hod. Při neúspěchu utrpí 10d6 + 40 Force zranění. Pokud ho toto zranění sníží na 0 HP, on i vše nemagické, co má na sobě a nese, se rozpadne v šedý prach. Takový cíl lze oživit jedině kouzlem *True Resurrection* nebo *Wish*.\n\nNemagický předmět velikosti Large či menší nebo výtvor z magické síly toto kouzlo rozloží automaticky. Je-li takový cíl Huge či větší, kouzlo z něj rozloží část o velikosti krychle o hraně 10 stop.",
+  "pop": "Vyšleš zelený paprsek na cíl, kterého v dosahu vidíš. Cílem může být tvor, nemagický předmět nebo výtvor z magické síly, třeba stěna vytvořená kouzlem *Wall of Force*.\n\nTvor zasažený tímto kouzlem si hází DEX záchranný hod. Při neúspěchu utrpí 10d6 + 40 Force zranění. Pokud ho toto zranění sníží na 0 HP, on i vše nemagické, co má na sobě a nese, se rozpadne v šedý prach. Takový cíl lze oživit jedině kouzlem *True Resurrection* nebo *Wish*.\n\nNemagický předmět velikosti Large či menší nebo výtvor z magické síly toto kouzlo rozloží automaticky. Je-li takový cíl Huge či větší, kouzlo z něj rozloží část o velikosti krychle o hraně 10 stop.",
   "vys": "Zranění se zvýší o 3d6 za každou úroveň slotu kouzla nad 6.",
   "mat": "magnetovec a prach"
  },
@@ -681,7 +681,7 @@
  {
   "index": "dragons-breath",
   "cz": "Dračí dech",
-  "pop": "Dotkneš se jednoho ochotného tvora a zvolíš Acid, Cold, Fire, Lightning nebo Poison. Dokud kouzlo neskončí, může cíl provést akci Magie a vydechnout kužel o délce 15 stop. Každý tvor v této oblasti si hází AGI záchranný hod; při neúspěchu utrpí 3d6 zranění zvoleného typu, při úspěchu poloviční.",
+  "pop": "Dotkneš se jednoho ochotného tvora a zvolíš Acid, Cold, Fire, Lightning nebo Poison. Dokud kouzlo neskončí, může cíl provést akci Magie a vydechnout kužel o délce 15 stop. Každý tvor v této oblasti si hází DEX záchranný hod; při neúspěchu utrpí 3d6 zranění zvoleného typu, při úspěchu poloviční.",
   "vys": "Zranění se zvýší o 1d6 za každou úroveň slotu kouzla nad 2.",
   "mat": "pálivá paprika"
  },
@@ -702,7 +702,7 @@
  {
   "index": "earthquake",
   "cz": "Zemětřesení",
-  "pop": "Vyber bod na zemi, který v dosahu vidíš. Po dobu trvání se zemí v kruhu o poloměru 100 stop se středem v tomto bodě valí mocné otřesy. Země tam je Difficult Terrain.\n\nKdyž kouzlo sešleš, a pak na konci každého svého tahu po dobu trvání, si každý tvor na zemi v oblasti hází AGI záchranný hod. Při neúspěchu má tvor stav Prone a jeho Concentration je přerušena. Můžeš také vyvolat níže uvedené účinky.\n\n**Trhliny.** Na konci tahu, v němž kouzlo sešleš, se v jeho oblasti otevře celkem 1d6 trhlin. Jejich umístění volíš ty; nemohou být pod stavbami. Každá trhlina je 1d10 × 10 stop hluboká a 10 stop široká a vede od jednoho okraje oblasti kouzla k druhému. Tvor, který je na stejném prostoru jako trhlina, musí uspět v AGI záchranném hodu, jinak do ní spadne. Tvor, který uspěje, se při otevírání trhliny posune s jejím okrajem.\n\n**Stavby.** Otřesy způsobí 50 Bludgeoning zranění každé stavbě, která se v oblasti dotýká země, a to při seslání kouzla a na konci každého tvého tahu, dokud kouzlo neskončí. Klesne-li stavba na 0 HP, zřítí se.\n\nTvor, který je od hroutící se stavby ve vzdálenosti rovné nejvýše polovině její výšky, si hází AGI záchranný hod. Při neúspěchu utrpí 12d6 Bludgeoning zranění, má stav Prone a je zasypán sutí; vyprostit se může akcí a úspěšným ověřením STR (Athletics) s DC 20. Při úspěchu utrpí pouze poloviční zranění.",
+  "pop": "Vyber bod na zemi, který v dosahu vidíš. Po dobu trvání se zemí v kruhu o poloměru 100 stop se středem v tomto bodě valí mocné otřesy. Země tam je Difficult Terrain.\n\nKdyž kouzlo sešleš, a pak na konci každého svého tahu po dobu trvání, si každý tvor na zemi v oblasti hází DEX záchranný hod. Při neúspěchu má tvor stav Prone a jeho Concentration je přerušena. Můžeš také vyvolat níže uvedené účinky.\n\n**Trhliny.** Na konci tahu, v němž kouzlo sešleš, se v jeho oblasti otevře celkem 1d6 trhlin. Jejich umístění volíš ty; nemohou být pod stavbami. Každá trhlina je 1d10 × 10 stop hluboká a 10 stop široká a vede od jednoho okraje oblasti kouzla k druhému. Tvor, který je na stejném prostoru jako trhlina, musí uspět v DEX záchranném hodu, jinak do ní spadne. Tvor, který uspěje, se při otevírání trhliny posune s jejím okrajem.\n\n**Stavby.** Otřesy způsobí 50 Bludgeoning zranění každé stavbě, která se v oblasti dotýká země, a to při seslání kouzla a na konci každého tvého tahu, dokud kouzlo neskončí. Klesne-li stavba na 0 HP, zřítí se.\n\nTvor, který je od hroutící se stavby ve vzdálenosti rovné nejvýše polovině její výšky, si hází DEX záchranný hod. Při neúspěchu utrpí 12d6 Bludgeoning zranění, má stav Prone a je zasypán sutí; vyprostit se může akcí a úspěšným ověřením STR (Athletics) s DC 20. Při úspěchu utrpí pouze poloviční zranění.",
   "vys": "",
   "mat": "úlomek rozpukané skály"
  },
@@ -723,7 +723,7 @@
  {
   "index": "enhance-ability",
   "cz": "Posílení vlastnosti",
-  "pop": "Dotkneš se tvora a zvolíš STR, AGI, INT, WIS nebo CHA. Po dobu trvání má cíl výhodu na ověření zvolené vlastnosti.",
+  "pop": "Dotkneš se tvora a zvolíš STR, DEX, INT, WIS nebo CHA. Po dobu trvání má cíl výhodu na ověření zvolené vlastnosti.",
   "vys": "Za každou úroveň slotu kouzla nad 2 můžeš zaměřit jednoho dalšího tvora. Pro každý cíl můžeš zvolit jinou vlastnost.",
   "mat": "srst nebo pero"
  },
@@ -786,14 +786,14 @@
  {
   "index": "faerie-fire",
   "cz": "Vílí oheň",
-  "pop": "Předměty v krychli o hraně 20 stop v dosahu obklopí modrá, zelená nebo fialová záře (dle tvé volby). Každého tvora v krychli záře obklopí také, pokud neuspěje v AGI záchranném hodu. Po dobu trvání vydávají předměty a zasažení tvorové šero (Dim Light) v poloměru 10 stop a nemohou těžit ze stavu Invisible.\n\nHody na útok proti zasaženému tvoru či předmětu mají výhodu, pokud ho útočník vidí.",
+  "pop": "Předměty v krychli o hraně 20 stop v dosahu obklopí modrá, zelená nebo fialová záře (dle tvé volby). Každého tvora v krychli záře obklopí také, pokud neuspěje v DEX záchranném hodu. Po dobu trvání vydávají předměty a zasažení tvorové šero (Dim Light) v poloměru 10 stop a nemohou těžit ze stavu Invisible.\n\nHody na útok proti zasaženému tvoru či předmětu mají výhodu, pokud ho útočník vidí.",
   "vys": "",
   "mat": ""
  },
  {
   "index": "faithful-hound",
   "cz": "Věrný pes",
-  "pop": "Vyvoláš přízračného hlídacího psa na volném místě, které v dosahu vidíš. Pes zůstane po dobu trvání nebo dokud se od sebe nevzdálíte o více než 300 stop.\n\nNikdo kromě tebe psa nevidí a je nehmotný a nezranitelný. Když se k němu tvor velikosti Small či větší přiblíží na 30 stop, aniž by nejprve vyslovil heslo, které určíš při seslání kouzla, pes začne hlasitě štěkat. Pes má Truesight s dosahem 30 stop.\n\nNa začátku každého tvého tahu se pes pokusí kousnout jednoho nepřítele do 5 stop od sebe. Ten musí uspět v AGI záchranném hodu, jinak utrpí 4d8 Force zranění.\n\nV dalších tazích můžeš akcí Magie psa přesunout až o 30 stop.",
+  "pop": "Vyvoláš přízračného hlídacího psa na volném místě, které v dosahu vidíš. Pes zůstane po dobu trvání nebo dokud se od sebe nevzdálíte o více než 300 stop.\n\nNikdo kromě tebe psa nevidí a je nehmotný a nezranitelný. Když se k němu tvor velikosti Small či větší přiblíží na 30 stop, aniž by nejprve vyslovil heslo, které určíš při seslání kouzla, pes začne hlasitě štěkat. Pes má Truesight s dosahem 30 stop.\n\nNa začátku každého tvého tahu se pes pokusí kousnout jednoho nepřítele do 5 stop od sebe. Ten musí uspět v DEX záchranném hodu, jinak utrpí 4d8 Force zranění.\n\nV dalších tazích můžeš akcí Magie psa přesunout až o 30 stop.",
   "vys": "",
   "mat": "stříbrná píšťalka"
  },
@@ -829,7 +829,7 @@
   "index": "find-steed",
   "cz": "Přivolání oře",
   "pop": "Přivoláš bytost z jiného světa, která se objeví jako věrný oř na volném místě dle tvé volby v dosahu. Tento tvor používá statblok Oř z jiného světa (Otherworldly Steed). Máš-li už od tohoto kouzla oře, nahradí ho nový.\n\nOř připomíná zvíře velikosti Large dle tvé volby, na kterém lze jet, například koně, velblouda, obřího vlka nebo losa. Při každém seslání kouzla zvol typ oře – nebešťan (Celestial), víla (Fey) nebo ďábel (Fiend) –, který určuje některé rysy ve statbloku.\n\n**Boj.** Oř je spojencem tvým i tvých spojenců. V boji sdílí tvou iniciativu, a když na něm jedeš, funguje jako ovládaný jezdecký tvor (podle pravidel boje v sedle). Máš-li stav Incapacitated, oř provede svůj tah hned po tobě a jedná samostatně, přičemž se soustředí na tvou ochranu.\n\n**Zmizení oře.** Oř zmizí, klesne-li na 0 HP nebo zemřeš-li. Když zmizí, zanechá po sobě vše, co měl na sobě či nesl. Sešleš-li toto kouzlo znovu, rozhodneš, zda přivoláš oře, který zmizel, nebo jiného.",
-  "vys": "Jako úroveň kouzla ve statbloku použij úroveň slotu kouzla.\n\n**Oř z jiného světa (Otherworldly Steed)**\n\n*Large nebešťan, víla nebo ďábel (dle tvé volby), Neutral*\n\n- **AC** 10 + 1 za úroveň kouzla\n- **HP** 5 + 10 za úroveň kouzla (oř má počet Kostek životů (Hit Point Dice) [d10] rovný úrovni kouzla)\n- **Rychlost** 60 stop, let 60 stop (vyžaduje kouzlo 4.+ úrovně)\n- **STR** 18 (mod +4, záchrana +4) · **AGI** 12 (+1, +1) · **CON** 14 (+2, +2) · **INT** 6 (-2, -2) · **WIS** 12 (+1, +1) · **CHA** 8 (-1, -1)\n- **Smysly** pasivní Perception 11\n- **Jazyky** telepatie na 1 míli (funguje jen s tebou)\n- **CR** žádný (XP 0; zdatnostní bonus se rovná tvému)\n\n**Rysy**\n\n**Životní pouto.** Když získáš zpět HP z kouzla 1.+ úrovně, oř získá zpět stejný počet HP, pokud jsi do 5 stop od něj.\n\n**Akce**\n\n**Nadpozemský náraz.** *Hod na útok na blízko:* bonus rovný tvému modifikátoru útoku kouzlem, dosah 5 stop. *Zásah:* 1d8 plus úroveň kouzla zranění typu Svaté (Radiant) (nebešťan), Psychic (víla) nebo Prokleté (Necrotic) (ďábel).\n\n**Bonusové akce**\n\n**Zlověstný pohled (jen ďábel; obnoví se po Long Rest).** *WIS záchranný hod:* DC rovno DC záchrany proti tvým kouzlům, jeden tvor do 60 stop, kterého oř vidí. *Neúspěch:* Cíl má stav Frightened do konce tvého příštího tahu.\n\n**Vílí krok (jen víla; obnoví se po Long Rest).** Oř se i se svým jezdcem teleportuje na volné místo dle tvé volby až 60 stop od sebe.\n\n**Léčivý dotek (jen nebešťan; obnoví se po Long Rest).** Jeden tvor do 5 stop od oře získá zpět počet HP rovný 2d8 plus úroveň kouzla.",
+  "vys": "Jako úroveň kouzla ve statbloku použij úroveň slotu kouzla.\n\n**Oř z jiného světa (Otherworldly Steed)**\n\n*Large nebešťan, víla nebo ďábel (dle tvé volby), Neutral*\n\n- **AC** 10 + 1 za úroveň kouzla\n- **HP** 5 + 10 za úroveň kouzla (oř má počet Kostek životů (Hit Point Dice) [d10] rovný úrovni kouzla)\n- **Rychlost** 60 stop, let 60 stop (vyžaduje kouzlo 4.+ úrovně)\n- **STR** 18 (mod +4, záchrana +4) · **DEX** 12 (+1, +1) · **CON** 14 (+2, +2) · **INT** 6 (-2, -2) · **WIS** 12 (+1, +1) · **CHA** 8 (-1, -1)\n- **Smysly** pasivní Perception 11\n- **Jazyky** telepatie na 1 míli (funguje jen s tebou)\n- **CR** žádný (XP 0; zdatnostní bonus se rovná tvému)\n\n**Rysy**\n\n**Životní pouto.** Když získáš zpět HP z kouzla 1.+ úrovně, oř získá zpět stejný počet HP, pokud jsi do 5 stop od něj.\n\n**Akce**\n\n**Nadpozemský náraz.** *Hod na útok na blízko:* bonus rovný tvému modifikátoru útoku kouzlem, dosah 5 stop. *Zásah:* 1d8 plus úroveň kouzla zranění typu Svaté (Radiant) (nebešťan), Psychic (víla) nebo Prokleté (Necrotic) (ďábel).\n\n**Bonusové akce**\n\n**Zlověstný pohled (jen ďábel; obnoví se po Long Rest).** *WIS záchranný hod:* DC rovno DC záchrany proti tvým kouzlům, jeden tvor do 60 stop, kterého oř vidí. *Neúspěch:* Cíl má stav Frightened do konce tvého příštího tahu.\n\n**Vílí krok (jen víla; obnoví se po Long Rest).** Oř se i se svým jezdcem teleportuje na volné místo dle tvé volby až 60 stop od sebe.\n\n**Léčivý dotek (jen nebešťan; obnoví se po Long Rest).** Jeden tvor do 5 stop od oře získá zpět počet HP rovný 2d8 plus úroveň kouzla.",
   "mat": ""
  },
  {
@@ -870,14 +870,14 @@
  {
   "index": "fire-storm",
   "cz": "Ohnivá bouře",
-  "pop": "V dosahu se objeví ohnivá bouře. Oblast bouře tvoří až deset krychlí o hraně 10 stop, které rozmístíš, jak chceš. Každá krychle musí sousedit alespoň s jednou další krychlí. Každý tvor v oblasti si hází AGI záchranný hod; při neúspěchu utrpí 7d10 Fire zranění, při úspěchu poloviční.\n\nHořlavé předměty v oblasti, které nikdo nemá na sobě ani nenese, začnou hořet.",
+  "pop": "V dosahu se objeví ohnivá bouře. Oblast bouře tvoří až deset krychlí o hraně 10 stop, které rozmístíš, jak chceš. Každá krychle musí sousedit alespoň s jednou další krychlí. Každý tvor v oblasti si hází DEX záchranný hod; při neúspěchu utrpí 7d10 Fire zranění, při úspěchu poloviční.\n\nHořlavé předměty v oblasti, které nikdo nemá na sobě ani nenese, začnou hořet.",
   "vys": "",
   "mat": ""
  },
  {
   "index": "fireball",
   "cz": "Ohnivá koule",
-  "pop": "Od tebe k bodu v dosahu, který si zvolíš, šlehne jasný paprsek a s hlubokým hukotem se rozvine v ohnivý výbuch. Každý tvor v kouli o poloměru 20 stop se středem v tomto bodě si hází AGI záchranný hod; při neúspěchu utrpí 8d6 Fire zranění, při úspěchu poloviční.\n\nHořlavé předměty v oblasti, které nikdo nemá na sobě ani nenese, začnou hořet.",
+  "pop": "Od tebe k bodu v dosahu, který si zvolíš, šlehne jasný paprsek a s hlubokým hukotem se rozvine v ohnivý výbuch. Každý tvor v kouli o poloměru 20 stop se středem v tomto bodě si hází DEX záchranný hod; při neúspěchu utrpí 8d6 Fire zranění, při úspěchu poloviční.\n\nHořlavé předměty v oblasti, které nikdo nemá na sobě ani nenese, začnou hořet.",
   "vys": "Zranění se zvýší o 1d6 za každou úroveň slotu kouzla nad 3.",
   "mat": "kulička z netopýřího trusu a síry"
  },
@@ -891,14 +891,14 @@
  {
   "index": "flame-strike",
   "cz": "Plamenný sloup",
-  "pop": "Shora se s burácením snese svislý sloup zářivého ohně. Každý tvor ve válci o poloměru 10 stop a výšce 40 stop se středem v bodě v dosahu si hází AGI záchranný hod; při neúspěchu utrpí 5d6 Fire zranění a 5d6 Svaté (Radiant) zranění, při úspěchu poloviční.",
+  "pop": "Shora se s burácením snese svislý sloup zářivého ohně. Každý tvor ve válci o poloměru 10 stop a výšce 40 stop se středem v bodě v dosahu si hází DEX záchranný hod; při neúspěchu utrpí 5d6 Fire zranění a 5d6 Svaté (Radiant) zranění, při úspěchu poloviční.",
   "vys": "Fire i Svaté zranění se zvýší o 1d6 za každou úroveň slotu kouzla nad 5.",
   "mat": "špetka síry"
  },
  {
   "index": "flaming-sphere",
   "cz": "Plápolající koule",
-  "pop": "Na volném místě na zemi v dosahu vytvoříš ohnivou kouli o průměru 5 stop. Trvá po dobu trvání kouzla. Každý tvor, který ukončí tah do 5 stop od koule, si hází AGI záchranný hod; při neúspěchu utrpí 2d6 Fire zranění, při úspěchu poloviční.\n\nBonusovou akcí můžeš kouli přesunout až o 30 stop tak, že ji kutálíš po zemi. Přesuneš-li kouli do prostoru tvora, hází si tento tvor proti kouli záchranný hod a koule se pro tento tah zastaví.\n\nPři přesouvání můžeš kouli vést přes překážky vysoké až 5 stop a přeskakovat s ní jámy široké až 10 stop. Hořlavé předměty, které nikdo nemá na sobě ani nenese, začnou hořet, když se jich koule dotkne, a koule vydává jasné světlo (Bright Light) v poloměru 20 stop a šero (Dim Light) dalších 20 stop.",
+  "pop": "Na volném místě na zemi v dosahu vytvoříš ohnivou kouli o průměru 5 stop. Trvá po dobu trvání kouzla. Každý tvor, který ukončí tah do 5 stop od koule, si hází DEX záchranný hod; při neúspěchu utrpí 2d6 Fire zranění, při úspěchu poloviční.\n\nBonusovou akcí můžeš kouli přesunout až o 30 stop tak, že ji kutálíš po zemi. Přesuneš-li kouli do prostoru tvora, hází si tento tvor proti kouli záchranný hod a koule se pro tento tah zastaví.\n\nPři přesouvání můžeš kouli vést přes překážky vysoké až 5 stop a přeskakovat s ní jámy široké až 10 stop. Hořlavé předměty, které nikdo nemá na sobě ani nenese, začnou hořet, když se jich koule dotkne, a koule vydává jasné světlo (Bright Light) v poloměru 20 stop a šero (Dim Light) dalších 20 stop.",
   "vys": "Zranění se zvýší o 1d6 za každou úroveň slotu kouzla nad 2.",
   "mat": "vosková kulička"
  },
@@ -968,7 +968,7 @@
  {
   "index": "gaseous-form",
   "cz": "Plynná podoba",
-  "pop": "Ochotný tvor, jehož se dotkneš, se i se vším, co má na sobě a nese, promění po dobu trvání v mlžný oblak. Kouzlo na cíli končí, pokud klesne na 0 HP, nebo pokud použije akci Magie, aby kouzlo na sobě ukončil.\n\nV této podobě se cíl může pohybovat jen rychlostí letu 10 stop a může se vznášet na místě. Cíl může vstoupit do prostoru jiného tvora a obsadit ho. Má Resistance vůči Bludgeoning, Piercing a Slashing zranění, Immunity vůči stavu Prone a výhodu na STR, AGI a CON záchranné hody. Cíl dokáže projít úzkými otvory, ale s tekutinami zachází, jako by šlo o pevný povrch.\n\nCíl nemůže mluvit ani manipulovat s předměty a předměty, které nesl nebo držel, nelze upustit, použít ani s nimi jinak zacházet. Cíl také nemůže útočit ani sesílat kouzla.",
+  "pop": "Ochotný tvor, jehož se dotkneš, se i se vším, co má na sobě a nese, promění po dobu trvání v mlžný oblak. Kouzlo na cíli končí, pokud klesne na 0 HP, nebo pokud použije akci Magie, aby kouzlo na sobě ukončil.\n\nV této podobě se cíl může pohybovat jen rychlostí letu 10 stop a může se vznášet na místě. Cíl může vstoupit do prostoru jiného tvora a obsadit ho. Má Resistance vůči Bludgeoning, Piercing a Slashing zranění, Immunity vůči stavu Prone a výhodu na STR, DEX a CON záchranné hody. Cíl dokáže projít úzkými otvory, ale s tekutinami zachází, jako by šlo o pevný povrch.\n\nCíl nemůže mluvit ani manipulovat s předměty a předměty, které nesl nebo držel, nelze upustit, použít ani s nimi jinak zacházet. Cíl také nemůže útočit ani sesílat kouzla.",
   "vys": "Za každou úroveň slotu kouzla nad 3 můžeš zacílit o jednoho tvora navíc.",
   "mat": "kousek gázy"
  },
@@ -997,7 +997,7 @@
   "index": "giant-insect",
   "cz": "Obří hmyz",
   "pop": "Vyvoláš obří stonožku, pavouka, nebo vosu (zvolíš při seslání kouzla). Zjeví se v neobsazeném prostoru, který vidíš v dosahu, a používá statblok Obří hmyz. Zvolená podoba určuje některé údaje v jejím statbloku. Tvor zmizí, když klesne na 0 HP nebo když kouzlo skončí.\n\nTvor je spojencem tobě i tvým spojencům. V boji sdílí tvou iniciativu, ale svůj tah provede hned po tvém. Poslouchá tvé slovní příkazy (nevyžaduje to od tebe žádnou akci). Pokud mu žádné nevydáš, použije akci Dodge a svůj pohyb využije k vyhnutí se nebezpečí.",
-  "vys": "Ve statbloku použij jako úroveň kouzla úroveň použitého slotu kouzla.\n\n**Obří hmyz**\nLarge zvíře (Beast), bez přesvědčení\n\n- **AC** 11 + úroveň kouzla\n- **HP** 30 + 10 za každou úroveň kouzla nad 4\n- **Rychlost** 40 stop, šplh 40 stop, let 40 stop (jen vosa)\n- **STR** 17 (+3, záchrana +3) · **AGI** 13 (+1, záchrana +1) · **CON** 15 (+2, záchrana +2) · **INT** 4 (−3, záchrana −3) · **WIS** 14 (+2, záchrana +2) · **CHA** 3 (−4, záchrana −4)\n- **Smysly** Darkvision 60 stop; pasivní Perception 12\n- **Jazyky** rozumí jazykům, které znáš ty\n- **CR** žádný (XP 0; zdatnostní bonus se rovná tvému zdatnostnímu bonusu)\n\n**Vlastnosti**\n**Pavoučí šplhání.** Hmyz dokáže šplhat po obtížných površích, včetně stropů, aniž by si musel házet ověření vlastnosti.\n\n**Akce**\n**Vícenásobný útok.** Hmyz provede počet útoků rovný polovině úrovně tohoto kouzla (zaokrouhleno dolů).\n**Jedovaté bodnutí.** Hod na útok na blízko: bonus rovný tvému modifikátoru útoku kouzlem, dosah 10 stop. Zásah: 1d6 + 3 plus úroveň kouzla Piercing zranění plus 1d4 Poison zranění.\n**Pavučinová střela (jen pavouk).** Hod na útok na dálku: bonus rovný tvému modifikátoru útoku kouzlem, dostřel 60 stop. Zásah: 1d10 + 3 plus úroveň kouzla Bludgeoning zranění a rychlost cíle se sníží na 0 až do začátku příštího tahu hmyzu.\n\n**Bonusové akce**\n**Jedovatý chrlič (jen stonožka).** CON záchranný hod: DC záchrany proti tvým kouzlům, jeden tvor, kterého hmyz vidí do 10 stop. Neúspěch: Cíl je ve stavu Poisoned až do začátku příštího tahu hmyzu.",
+  "vys": "Ve statbloku použij jako úroveň kouzla úroveň použitého slotu kouzla.\n\n**Obří hmyz**\nLarge zvíře (Beast), bez přesvědčení\n\n- **AC** 11 + úroveň kouzla\n- **HP** 30 + 10 za každou úroveň kouzla nad 4\n- **Rychlost** 40 stop, šplh 40 stop, let 40 stop (jen vosa)\n- **STR** 17 (+3, záchrana +3) · **DEX** 13 (+1, záchrana +1) · **CON** 15 (+2, záchrana +2) · **INT** 4 (−3, záchrana −3) · **WIS** 14 (+2, záchrana +2) · **CHA** 3 (−4, záchrana −4)\n- **Smysly** Darkvision 60 stop; pasivní Perception 12\n- **Jazyky** rozumí jazykům, které znáš ty\n- **CR** žádný (XP 0; zdatnostní bonus se rovná tvému zdatnostnímu bonusu)\n\n**Vlastnosti**\n**Pavoučí šplhání.** Hmyz dokáže šplhat po obtížných površích, včetně stropů, aniž by si musel házet ověření vlastnosti.\n\n**Akce**\n**Vícenásobný útok.** Hmyz provede počet útoků rovný polovině úrovně tohoto kouzla (zaokrouhleno dolů).\n**Jedovaté bodnutí.** Hod na útok na blízko: bonus rovný tvému modifikátoru útoku kouzlem, dosah 10 stop. Zásah: 1d6 + 3 plus úroveň kouzla Piercing zranění plus 1d4 Poison zranění.\n**Pavučinová střela (jen pavouk).** Hod na útok na dálku: bonus rovný tvému modifikátoru útoku kouzlem, dostřel 60 stop. Zásah: 1d10 + 3 plus úroveň kouzla Bludgeoning zranění a rychlost cíle se sníží na 0 až do začátku příštího tahu hmyzu.\n\n**Bonusové akce**\n**Jedovatý chrlič (jen stonožka).** CON záchranný hod: DC záchrany proti tvým kouzlům, jeden tvor, kterého hmyz vidí do 10 stop. Neúspěch: Cíl je ve stavu Poisoned až do začátku příštího tahu hmyzu.",
   "mat": ""
  },
  {
@@ -1017,7 +1017,7 @@
  {
   "index": "glyph-of-warding",
   "cz": "Ochranný glyf",
-  "pop": "Vepíšeš glyf, který později rozpoutá magický účinek. Vepíšeš ho buď na povrch (třeba stůl nebo kus podlahy), nebo do předmětu, který lze zavřít (třeba kniha nebo truhla), aby byl glyf skryt. Glyf může pokrývat plochu o průměru nejvýše 10 stop. Je-li povrch nebo předmět přemístěn o víc než 10 stop od místa, kde jsi kouzlo seslal, glyf se poruší a kouzlo skončí, aniž by se spustilo.\n\nGlyf je téměř nepostřehnutelný; k jeho odhalení je třeba uspět v ověření WIS (Perception) proti DC záchrany proti tvým kouzlům.\n\nPři vepsání glyfu stanovíš jeho spouštěč a zvolíš, zda jde o výbušnou runu, nebo glyf kouzla, jak je popsáno níže.\n\n**Stanovení spouštěče.** O tom, co glyf spustí, rozhodneš při seslání kouzla. U glyfů vepsaných na povrch jsou obvyklými spouštěči dotek glyfu či šlápnutí na něj, odstranění jiného předmětu, který ho zakrývá, nebo přiblížení se k němu na určitou vzdálenost. U glyfů vepsaných do předmětu jsou obvyklými spouštěči otevření předmětu nebo spatření glyfu. Jakmile se glyf spustí, kouzlo končí.\n\nSpouštěč můžeš upřesnit tak, aby ho aktivovali jen tvorové určitých druhů (glyf může například působit na aberace (Aberration)). Můžeš také určit podmínky pro tvory, kteří glyf nespustí, například ty, kdo vysloví určité heslo.\n\n**Výbušná runa.** Po spuštění glyf vybuchne magickou energií v kouli o poloměru 20 stop se středem v glyfu. Každý tvor v oblasti si hází AGI záchranný hod. Při neúspěchu utrží 5d8 Acid, Cold, Fire, Lightning nebo Thunder zranění (zvolíš při vytvoření glyfu), při úspěchu polovinu.\n\n**Glyf kouzla.** Do glyfu můžeš uložit připravené kouzlo úrovně 3 či nižší tím, že ho sešleš jako součást vytváření glyfu. Kouzlo musí cílit na jediného tvora nebo na oblast. Takto seslané ukládané kouzlo nemá žádný okamžitý účinek.\n\nKdyž se glyf spustí, uložené kouzlo začne působit. Má-li kouzlo cíl, zacílí na tvora, který glyf spustil. Působí-li kouzlo na oblast, má oblast střed v tomto tvoru. Pokud kouzlo vyvolává nepřátelské (Hostile) tvory nebo vytváří škodlivé předměty či pasti, objeví se co nejblíže vetřelci a zaútočí na něj. Vyžaduje-li kouzlo Concentration, trvá až do konce svého plného trvání.",
+  "pop": "Vepíšeš glyf, který později rozpoutá magický účinek. Vepíšeš ho buď na povrch (třeba stůl nebo kus podlahy), nebo do předmětu, který lze zavřít (třeba kniha nebo truhla), aby byl glyf skryt. Glyf může pokrývat plochu o průměru nejvýše 10 stop. Je-li povrch nebo předmět přemístěn o víc než 10 stop od místa, kde jsi kouzlo seslal, glyf se poruší a kouzlo skončí, aniž by se spustilo.\n\nGlyf je téměř nepostřehnutelný; k jeho odhalení je třeba uspět v ověření WIS (Perception) proti DC záchrany proti tvým kouzlům.\n\nPři vepsání glyfu stanovíš jeho spouštěč a zvolíš, zda jde o výbušnou runu, nebo glyf kouzla, jak je popsáno níže.\n\n**Stanovení spouštěče.** O tom, co glyf spustí, rozhodneš při seslání kouzla. U glyfů vepsaných na povrch jsou obvyklými spouštěči dotek glyfu či šlápnutí na něj, odstranění jiného předmětu, který ho zakrývá, nebo přiblížení se k němu na určitou vzdálenost. U glyfů vepsaných do předmětu jsou obvyklými spouštěči otevření předmětu nebo spatření glyfu. Jakmile se glyf spustí, kouzlo končí.\n\nSpouštěč můžeš upřesnit tak, aby ho aktivovali jen tvorové určitých druhů (glyf může například působit na aberace (Aberration)). Můžeš také určit podmínky pro tvory, kteří glyf nespustí, například ty, kdo vysloví určité heslo.\n\n**Výbušná runa.** Po spuštění glyf vybuchne magickou energií v kouli o poloměru 20 stop se středem v glyfu. Každý tvor v oblasti si hází DEX záchranný hod. Při neúspěchu utrží 5d8 Acid, Cold, Fire, Lightning nebo Thunder zranění (zvolíš při vytvoření glyfu), při úspěchu polovinu.\n\n**Glyf kouzla.** Do glyfu můžeš uložit připravené kouzlo úrovně 3 či nižší tím, že ho sešleš jako součást vytváření glyfu. Kouzlo musí cílit na jediného tvora nebo na oblast. Takto seslané ukládané kouzlo nemá žádný okamžitý účinek.\n\nKdyž se glyf spustí, uložené kouzlo začne působit. Má-li kouzlo cíl, zacílí na tvora, který glyf spustil. Působí-li kouzlo na oblast, má oblast střed v tomto tvoru. Pokud kouzlo vyvolává nepřátelské (Hostile) tvory nebo vytváří škodlivé předměty či pasti, objeví se co nejblíže vetřelci a zaútočí na něj. Vyžaduje-li kouzlo Concentration, trvá až do konce svého plného trvání.",
   "vys": "Zranění výbušné runy se zvýší o 1d8 za každou úroveň slotu kouzla nad 3. Vytváříš-li glyf kouzla, můžeš do něj uložit jakékoli kouzlo až do úrovně slotu kouzla, který použiješ na *Glyph of Warding*.",
   "mat": "diamantový prach v hodnotě alespoň 200 zl., který kouzlo spotřebuje"
  },
@@ -1031,7 +1031,7 @@
  {
   "index": "grease",
   "cz": "Mazivo",
-  "pop": "Nehořlavý tuk pokryje zem ve čtverci o straně 10 stop se středem v bodě v dosahu a po dobu trvání z něj udělá Difficult Terrain.\n\nKdyž se tuk objeví, každý tvor stojící v jeho oblasti musí uspět v AGI záchranném hodu, jinak je ve stavu Prone. Tvor, který do oblasti vstoupí nebo v ní ukončí svůj tah, musí v tomto hodu rovněž uspět, jinak upadne (Prone).",
+  "pop": "Nehořlavý tuk pokryje zem ve čtverci o straně 10 stop se středem v bodě v dosahu a po dobu trvání z něj udělá Difficult Terrain.\n\nKdyž se tuk objeví, každý tvor stojící v jeho oblasti musí uspět v DEX záchranném hodu, jinak je ve stavu Prone. Tvor, který do oblasti vstoupí nebo v ní ukončí svůj tah, musí v tomto hodu rovněž uspět, jinak upadne (Prone).",
   "vys": "",
   "mat": "kousek vepřové kůže nebo másla"
  },
@@ -1052,7 +1052,7 @@
  {
   "index": "guardian-of-faith",
   "cz": "Strážce víry",
-  "pop": "Po dobu trvání se v neobsazeném prostoru, který vidíš v dosahu, objeví a vznáší přízračný strážce velikosti Large. Strážce tento prostor zabírá, je nezranitelný a zjeví se v podobě odpovídající tvému božstvu či panteonu.\n\nKaždý nepřítel, který se během tahu poprvé přesune do prostoru do 10 stop od strážce nebo tam začne svůj tah, si hází AGI záchranný hod; při neúspěchu utrží 20 Svaté (Radiant) zranění, při úspěchu polovinu. Strážce zmizí, jakmile způsobí zranění v celkové výši 60.",
+  "pop": "Po dobu trvání se v neobsazeném prostoru, který vidíš v dosahu, objeví a vznáší přízračný strážce velikosti Large. Strážce tento prostor zabírá, je nezranitelný a zjeví se v podobě odpovídající tvému božstvu či panteonu.\n\nKaždý nepřítel, který se během tahu poprvé přesune do prostoru do 10 stop od strážce nebo tam začne svůj tah, si hází DEX záchranný hod; při neúspěchu utrží 20 Svaté (Radiant) zranění, při úspěchu polovinu. Strážce zmizí, jakmile způsobí zranění v celkové výši 60.",
   "vys": "",
   "mat": ""
  },
@@ -1108,7 +1108,7 @@
  {
   "index": "haste",
   "cz": "Zrychlení",
-  "pop": "Zvol ochotného tvora, kterého vidíš v dosahu. Dokud kouzlo neskončí, je rychlost cíle zdvojnásobena, získá bonus +2 k Armor Class, má výhodu na AGI záchranné hody a v každém svém tahu získá akci navíc. Tuto akci lze použít jen na akci Attack (jen jeden útok), Dash, Disengage, Hide nebo Utilize.\n\nKdyž kouzlo skončí, zachvátí cíl vlna malátnosti a až do konce svého příštího tahu je Incapacitated a má rychlost 0.",
+  "pop": "Zvol ochotného tvora, kterého vidíš v dosahu. Dokud kouzlo neskončí, je rychlost cíle zdvojnásobena, získá bonus +2 k Armor Class, má výhodu na DEX záchranné hody a v každém svém tahu získá akci navíc. Tuto akci lze použít jen na akci Attack (jen jeden útok), Dash, Disengage, Hide nebo Utilize.\n\nKdyž kouzlo skončí, zachvátí cíl vlna malátnosti a až do konce svého příštího tahu je Incapacitated a má rychlost 0.",
   "vys": "",
   "mat": "hobliny lékořicového kořene"
  },
@@ -1136,7 +1136,7 @@
  {
   "index": "hellish-rebuke",
   "cz": "Pekelná odplata",
-  "pop": "Tvora, který ti způsobil zranění, na okamžik obklopí zelené plameny. Hází si AGI záchranný hod; při neúspěchu utrží 2d10 Fire zranění, při úspěchu polovinu.",
+  "pop": "Tvora, který ti způsobil zranění, na okamžik obklopí zelené plameny. Hází si DEX záchranný hod; při neúspěchu utrží 2d10 Fire zranění, při úspěchu polovinu.",
   "vys": "Zranění se zvýší o 1d10 za každou úroveň slotu kouzla nad 1.",
   "mat": ""
  },
@@ -1206,14 +1206,14 @@
  {
   "index": "ice-knife",
   "cz": "Ledová dýka",
-  "pop": "Vytvoříš ledový střep a vrhneš ho na jednoho tvora v dosahu. Proveď proti cíli útok kouzlem na dálku. Při zásahu utrpí cíl 1d10 Piercing zranění. Ať zasáhneš, či mineš, střep poté vybuchne. Cíl a každý tvor do 5 stop od něj musí uspět v AGI záchranném hodu, jinak utrpí 2d6 Cold zranění.",
+  "pop": "Vytvoříš ledový střep a vrhneš ho na jednoho tvora v dosahu. Proveď proti cíli útok kouzlem na dálku. Při zásahu utrpí cíl 1d10 Piercing zranění. Ať zasáhneš, či mineš, střep poté vybuchne. Cíl a každý tvor do 5 stop od něj musí uspět v DEX záchranném hodu, jinak utrpí 2d6 Cold zranění.",
   "vys": "Cold zranění se zvyšuje o 1d6 za každou úroveň slotu kouzla nad 1.",
   "mat": "kapka vody nebo kousek ledu"
  },
  {
   "index": "ice-storm",
   "cz": "Ledová bouře",
-  "pop": "Ve válci o poloměru 20 stop a výšce 40 stop se středem v bodě v dosahu padají kroupy. Každý tvor ve válci si hází AGI záchranný hod. Při neúspěchu utrpí 2d10 Bludgeoning zranění a 4d6 Cold zranění, při úspěchu poloviční zranění.\n\nKroupy promění zem ve válci v Difficult Terrain až do konce tvého příštího tahu.",
+  "pop": "Ve válci o poloměru 20 stop a výšce 40 stop se středem v bodě v dosahu padají kroupy. Každý tvor ve válci si hází DEX záchranný hod. Při neúspěchu utrpí 2d10 Bludgeoning zranění a 4d6 Cold zranění, při úspěchu poloviční zranění.\n\nKroupy promění zem ve válci v Difficult Terrain až do konce tvého příštího tahu.",
   "vys": "Bludgeoning zranění se zvyšuje o 1d10 za každou úroveň slotu kouzla nad 4.",
   "mat": "palčák"
  },
@@ -1241,7 +1241,7 @@
  {
   "index": "incendiary-cloud",
   "cz": "Žhoucí mračno",
-  "pop": "Kouli o poloměru 20 stop se středem v bodě v dosahu vyplní vířící mračno žhavých uhlíků a dýmu. Prostor mračna je Heavily Obscured. Trvá po dobu trvání kouzla, nebo dokud je nerozežene silný vítr (například vyvolaný kouzlem *Gust of Wind*).\n\nKdyž se mračno objeví, hází si každý tvor v něm AGI záchranný hod; při neúspěchu utrpí 10d8 Fire zranění, při úspěchu poloviční. Tento záchranný hod si tvor musí hodit také tehdy, když se koule přesune do jeho prostoru, a když do koule vstoupí nebo v ní ukončí svůj tah. Tvor si tento záchranný hod hází nejvýše jednou za tah.\n\nNa začátku každého tvého tahu se mračno posune o 10 stop směrem od tebe, kterým směrem zvolíš.",
+  "pop": "Kouli o poloměru 20 stop se středem v bodě v dosahu vyplní vířící mračno žhavých uhlíků a dýmu. Prostor mračna je Heavily Obscured. Trvá po dobu trvání kouzla, nebo dokud je nerozežene silný vítr (například vyvolaný kouzlem *Gust of Wind*).\n\nKdyž se mračno objeví, hází si každý tvor v něm DEX záchranný hod; při neúspěchu utrpí 10d8 Fire zranění, při úspěchu poloviční. Tento záchranný hod si tvor musí hodit také tehdy, když se koule přesune do jeho prostoru, a když do koule vstoupí nebo v ní ukončí svůj tah. Tvor si tento záchranný hod hází nejvýše jednou za tah.\n\nNa začátku každého tvého tahu se mračno posune o 10 stop směrem od tebe, kterým směrem zvolíš.",
   "vys": "",
   "mat": ""
  },
@@ -1276,7 +1276,7 @@
  {
   "index": "irresistible-dance",
   "cz": "Neodolatelný tanec",
-  "pop": "Jeden tvor, kterého vidíš v dosahu, si musí hodit WIS záchranný hod. Při úspěchu cíl až do konce svého příštího tahu komicky tančí a během toho tahu musí veškerý svůj pohyb spotřebovat na tanec na místě.\n\nPři neúspěchu má cíl po dobu trvání kouzla stav Charmed. Dokud je Charmed, komicky tančí, musí veškerý svůj pohyb spotřebovat na tanec na místě, má nevýhodu na AGI záchranné hody a hody na útok a ostatní tvorové mají proti němu výhodu na hody na útok. V každém svém tahu může cíl použít akci, aby se sebral, a zopakovat záchranný hod; při úspěchu kouzlo na něm skončí.",
+  "pop": "Jeden tvor, kterého vidíš v dosahu, si musí hodit WIS záchranný hod. Při úspěchu cíl až do konce svého příštího tahu komicky tančí a během toho tahu musí veškerý svůj pohyb spotřebovat na tanec na místě.\n\nPři neúspěchu má cíl po dobu trvání kouzla stav Charmed. Dokud je Charmed, komicky tančí, musí veškerý svůj pohyb spotřebovat na tanec na místě, má nevýhodu na DEX záchranné hody a hody na útok a ostatní tvorové mají proti němu výhodu na hody na útok. V každém svém tahu může cíl použít akci, aby se sebral, a zopakovat záchranný hod; při úspěchu kouzlo na něm skončí.",
   "vys": "",
   "mat": ""
  },
@@ -1325,7 +1325,7 @@
  {
   "index": "lightning-bolt",
   "cz": "Blesk",
-  "pop": "Z tebe vyšlehne zvoleným směrem blesk v podobě přímky dlouhé 100 stop a široké 5 stop. Každý tvor v přímce si hází AGI záchranný hod; při neúspěchu utrpí 8d6 Lightning zranění, při úspěchu poloviční.",
+  "pop": "Z tebe vyšlehne zvoleným směrem blesk v podobě přímky dlouhé 100 stop a široké 5 stop. Každý tvor v přímce si hází DEX záchranný hod; při neúspěchu utrpí 8d6 Lightning zranění, při úspěchu poloviční.",
   "vys": "Zranění se zvyšuje o 1d6 za každou úroveň slotu kouzla nad 3.",
   "mat": "kousek kožešiny a křišťálová tyčinka"
  },
@@ -1360,7 +1360,7 @@
  {
   "index": "mage-armor",
   "cz": "Mágova zbroj",
-  "pop": "Dotkneš se ochotného tvora, který nemá na sobě zbroj. Dokud kouzlo neskončí, je základní AC cíle 13 plus jeho modifikátor AGI. Kouzlo předčasně skončí, pokud si cíl oblékne zbroj.",
+  "pop": "Dotkneš se ochotného tvora, který nemá na sobě zbroj. Dokud kouzlo neskončí, je základní AC cíle 13 plus jeho modifikátor DEX. Kouzlo předčasně skončí, pokud si cíl oblékne zbroj.",
   "vys": "",
   "mat": "kus vydělané kůže"
  },
@@ -1381,7 +1381,7 @@
  {
   "index": "magic-jar",
   "cz": "Magická nádoba",
-  "pop": "Tvé tělo upadne do strnulosti, neboť je tvá duše opustí a vstoupí do nádoby, kterou jsi použil jako materiální složku kouzla. Dokud tvá duše přebývá v nádobě, vnímáš okolí, jako bys byl v prostoru nádoby. Nemůžeš se pohybovat ani používat Reakce. Jedinou akcí, kterou můžeš provést, je vyslat svou duši až 100 stop z nádoby – buď se vrátit do svého živého těla (a ukončit kouzlo), nebo se pokusit posednout tělo tvora typu humanoid (Humanoid).\n\nMůžeš se pokusit posednout libovolného tvora typu humanoid do 100 stop od tebe, kterého vidíš (tvory chráněné kouzlem *Protection from Evil and Good* nebo *Magic Circle* posednout nelze). Cíl si hází CHA záchranný hod. Při neúspěchu tvá duše vstoupí do těla cíle a duše cíle uvízne v nádobě. Při úspěchu cíl tvé snaze o posednutí odolá a další pokus o jeho posednutí můžeš učinit až po 24 hodinách.\n\nJakmile tělo tvora posedneš, ovládáš ho. Tvé HP, Kostky životů (Hit Point Dice), STR, AGI, CON, Rychlost a smysly jsou nahrazeny těmi tvorovými. Ostatní své herní hodnoty si ponecháváš.\n\nDuše posednutého tvora mezitím může z nádoby vnímat vlastními smysly, nemůže se však pohybovat a je Incapacitated.\n\nDokud ovládáš cizí tělo, můžeš se akcí Magie vrátit z hostitelského těla do nádoby, je-li do 100 stop od tebe, čímž se duše hostitele vrátí do jeho těla. Zemře-li hostitelské tělo, zatímco jsi v něm, tvor zemře a ty si hodíš CHA záchranný hod proti DC záchrany proti tvým kouzlům. Při úspěchu se vrátíš do nádoby, je-li do 100 stop od tebe. Jinak zemřeš.\n\nJe-li nádoba zničena nebo kouzlo skončí, tvá duše se vrátí do tvého těla. Je-li tvé tělo dál než 100 stop od tebe nebo je mrtvé, zemřeš. Je-li v nádobě v okamžiku jejího zničení duše jiného tvora, vrátí se do svého těla, je-li tělo živé a do 100 stop. Jinak tento tvor zemře. Když kouzlo skončí, nádoba je zničena.",
+  "pop": "Tvé tělo upadne do strnulosti, neboť je tvá duše opustí a vstoupí do nádoby, kterou jsi použil jako materiální složku kouzla. Dokud tvá duše přebývá v nádobě, vnímáš okolí, jako bys byl v prostoru nádoby. Nemůžeš se pohybovat ani používat Reakce. Jedinou akcí, kterou můžeš provést, je vyslat svou duši až 100 stop z nádoby – buď se vrátit do svého živého těla (a ukončit kouzlo), nebo se pokusit posednout tělo tvora typu humanoid (Humanoid).\n\nMůžeš se pokusit posednout libovolného tvora typu humanoid do 100 stop od tebe, kterého vidíš (tvory chráněné kouzlem *Protection from Evil and Good* nebo *Magic Circle* posednout nelze). Cíl si hází CHA záchranný hod. Při neúspěchu tvá duše vstoupí do těla cíle a duše cíle uvízne v nádobě. Při úspěchu cíl tvé snaze o posednutí odolá a další pokus o jeho posednutí můžeš učinit až po 24 hodinách.\n\nJakmile tělo tvora posedneš, ovládáš ho. Tvé HP, Kostky životů (Hit Point Dice), STR, DEX, CON, Rychlost a smysly jsou nahrazeny těmi tvorovými. Ostatní své herní hodnoty si ponecháváš.\n\nDuše posednutého tvora mezitím může z nádoby vnímat vlastními smysly, nemůže se však pohybovat a je Incapacitated.\n\nDokud ovládáš cizí tělo, můžeš se akcí Magie vrátit z hostitelského těla do nádoby, je-li do 100 stop od tebe, čímž se duše hostitele vrátí do jeho těla. Zemře-li hostitelské tělo, zatímco jsi v něm, tvor zemře a ty si hodíš CHA záchranný hod proti DC záchrany proti tvým kouzlům. Při úspěchu se vrátíš do nádoby, je-li do 100 stop od tebe. Jinak zemřeš.\n\nJe-li nádoba zničena nebo kouzlo skončí, tvá duše se vrátí do tvého těla. Je-li tvé tělo dál než 100 stop od tebe nebo je mrtvé, zemřeš. Je-li v nádobě v okamžiku jejího zničení duše jiného tvora, vrátí se do svého těla, je-li tělo živé a do 100 stop. Jinak tento tvor zemře. Když kouzlo skončí, nádoba je zničena.",
   "vys": "",
   "mat": "drahokam, křišťál nebo relikviář v hodnotě alespoň 500 zl."
  },
@@ -1479,7 +1479,7 @@
  {
   "index": "meteor-swarm",
   "cz": "Roj meteorů",
-  "pop": "Ve čtyřech různých bodech, které vidíš v dosahu, se k zemi řítí planoucí ohnivé koule. Každý tvor v kouli o poloměru 40 stop se středem v kterémkoli z těchto bodů si hází AGI záchranný hod. Při neúspěchu utrpí 20d6 Fire zranění a 20d6 Bludgeoning zranění, při úspěchu poloviční. Tvor, který se nachází v oblasti více než jedné ohnivé koule, je zasažen jen jednou.\n\nZranění utrpí i nemagický předmět, který nikdo nenosí ani nedrží, pokud je v oblasti kouzla; je-li hořlavý, začne hořet.",
+  "pop": "Ve čtyřech různých bodech, které vidíš v dosahu, se k zemi řítí planoucí ohnivé koule. Každý tvor v kouli o poloměru 40 stop se středem v kterémkoli z těchto bodů si hází DEX záchranný hod. Při neúspěchu utrpí 20d6 Fire zranění a 20d6 Bludgeoning zranění, při úspěchu poloviční. Tvor, který se nachází v oblasti více než jedné ohnivé koule, je zasažen jen jednou.\n\nZranění utrpí i nemagický předmět, který nikdo nenosí ani nedrží, pokud je v oblasti kouzla; je-li hořlavý, začne hořet.",
   "vys": "",
   "mat": ""
  },
@@ -1563,7 +1563,7 @@
  {
   "index": "pass-without-trace",
   "cz": "Beze stopy",
-  "pop": "Po dobu trvání z tebe vyzařuje zastírající aura v podobě Vyzařování (Emanation) o dosahu 30 stop. Dokud jste v auře, ty a každý tvor, kterého si zvolíš, máte bonus +10 k ověřením AGI (Stealth) a nezanecháváte žádné stopy.",
+  "pop": "Po dobu trvání z tebe vyzařuje zastírající aura v podobě Vyzařování (Emanation) o dosahu 30 stop. Dokud jste v auře, ty a každý tvor, kterého si zvolíš, máte bonus +10 k ověřením DEX (Stealth) a nezanecháváte žádné stopy.",
   "vys": "",
   "mat": "popel ze spáleného jmelí"
  },
@@ -1675,14 +1675,14 @@
  {
   "index": "prismatic-spray",
   "cz": "Duhový paprsek",
-  "pop": "Z tebe vyšlehne osm paprsků světla v kuželu o délce 60 stop. Každý tvor v kuželu si hází AGI záchranný hod. Pro každý cíl hoď 1d8, abys určil, který barevný paprsek ho zasáhne, podle tabulky Duhové paprsky.\n\n**Duhové paprsky** (1d8)\n- 1: *Neúspěšná záchrana:* 12d6 Fire zranění. *Úspěšná záchrana:* poloviční zranění.\n- 2: *Neúspěšná záchrana:* 12d6 Acid zranění. *Úspěšná záchrana:* poloviční zranění.\n- 3: *Neúspěšná záchrana:* 12d6 Lightning zranění. *Úspěšná záchrana:* poloviční zranění.\n- 4: *Neúspěšná záchrana:* 12d6 Poison zranění. *Úspěšná záchrana:* poloviční zranění.\n- 5: *Neúspěšná záchrana:* 12d6 Cold zranění. *Úspěšná záchrana:* poloviční zranění.\n- 6: *Neúspěšná záchrana:* Cíl má stav Restrained a na konci každého svého tahu si hází CON záchranný hod. Uspěje-li třikrát, stav skončí. Selže-li třikrát, má stav Petrified, dokud ho neosvobodí účinek jako kouzlo *Greater Restoration*. Úspěchy a neúspěchy nemusí jít po sobě; sleduj obojí, dokud cíl nenasbírá tři stejné.\n- 7: *Neúspěšná záchrana:* Cíl má stav Blinded a na začátku tvého příštího tahu si hází WIS záchranný hod. Při úspěchu stav skončí. Při neúspěchu stav skončí a tvor se teleportuje na jinou sféru (Plane) bytí (dle volby vypravěče).\n- 8: Cíl zasáhnou dva paprsky. Hoď dvakrát a každou 8 přehoď.",
+  "pop": "Z tebe vyšlehne osm paprsků světla v kuželu o délce 60 stop. Každý tvor v kuželu si hází DEX záchranný hod. Pro každý cíl hoď 1d8, abys určil, který barevný paprsek ho zasáhne, podle tabulky Duhové paprsky.\n\n**Duhové paprsky** (1d8)\n- 1: *Neúspěšná záchrana:* 12d6 Fire zranění. *Úspěšná záchrana:* poloviční zranění.\n- 2: *Neúspěšná záchrana:* 12d6 Acid zranění. *Úspěšná záchrana:* poloviční zranění.\n- 3: *Neúspěšná záchrana:* 12d6 Lightning zranění. *Úspěšná záchrana:* poloviční zranění.\n- 4: *Neúspěšná záchrana:* 12d6 Poison zranění. *Úspěšná záchrana:* poloviční zranění.\n- 5: *Neúspěšná záchrana:* 12d6 Cold zranění. *Úspěšná záchrana:* poloviční zranění.\n- 6: *Neúspěšná záchrana:* Cíl má stav Restrained a na konci každého svého tahu si hází CON záchranný hod. Uspěje-li třikrát, stav skončí. Selže-li třikrát, má stav Petrified, dokud ho neosvobodí účinek jako kouzlo *Greater Restoration*. Úspěchy a neúspěchy nemusí jít po sobě; sleduj obojí, dokud cíl nenasbírá tři stejné.\n- 7: *Neúspěšná záchrana:* Cíl má stav Blinded a na začátku tvého příštího tahu si hází WIS záchranný hod. Při úspěchu stav skončí. Při neúspěchu stav skončí a tvor se teleportuje na jinou sféru (Plane) bytí (dle volby vypravěče).\n- 8: Cíl zasáhnou dva paprsky. Hoď dvakrát a každou 8 přehoď.",
   "vys": "",
   "mat": ""
  },
  {
   "index": "prismatic-wall",
   "cz": "Duhová stěna",
-  "pop": "Třpytivá, mnohobarevná plocha světla vytvoří svislou neprůhlednou stěnu – až 90 stop dlouhou, 30 stop vysokou a 1 palec tlustou – se středem v bodě v dosahu. Místo toho můžeš stěnu zformovat do koule o průměru až 30 stop se středem v bodě v dosahu. Stěna trvá po dobu trvání kouzla. Umístíš-li stěnu do prostoru, který zabírá nějaký tvor, kouzlo okamžitě skončí bez účinku.\n\nStěna vydává jasné světlo (Bright Light) v okruhu 100 stop a šero (Dim Light) v dalších 100 stopách. Ty a tvorové, které určíš při seslání kouzla, můžete stěnou procházet a pobývat v její blízkosti bez úhony. Pokud se jiný tvor, který stěnu vidí, přiblíží na 20 stop od ní nebo tam začne svůj tah, musí uspět v CON záchranném hodu, jinak má na 1 minutu stav Blinded.\n\nStěna se skládá ze sedmi vrstev, každá jiné barvy. Když tvor do stěny sáhne nebo jí prochází, činí tak postupně, vrstvu po vrstvě, skrze všechny vrstvy. Každá vrstva tvora přinutí k AGI záchrannému hodu; při neúspěchu na něj působí vlastnosti dané vrstvy podle tabulky Duhové vrstvy.\n\nStěnu, která má AC 10, lze ničit po jednotlivých vrstvách, v pořadí od červené po fialovou, způsoby specifickými pro každou vrstvu. Zničená vrstva zmizí na celou dobu trvání kouzla. *Antimagic Field* na stěnu nemá vliv a *Dispel Magic* může zasáhnout pouze fialovou vrstvu.\n\n**Duhové vrstvy** (1d7)\n- 1: *Neúspěšná záchrana:* 12d6 Fire zranění. *Úspěšná záchrana:* poloviční zranění. *Další účinky:* Nemagické útoky na dálku touto vrstvou neprojdou; vrstva je zničena, utrpí-li alespoň 25 Cold zranění.\n- 2: *Neúspěšná záchrana:* 12d6 Acid zranění. *Úspěšná záchrana:* poloviční zranění. *Další účinky:* Magické útoky na dálku touto vrstvou neprojdou; vrstvu zničí silný vítr (například ten, který vytvoří *Gust of Wind*).\n- 3: *Neúspěšná záchrana:* 12d6 Lightning zranění. *Úspěšná záchrana:* poloviční zranění. *Další účinky:* Vrstva je zničena, utrpí-li alespoň 60 Force zranění.\n- 4: *Neúspěšná záchrana:* 12d6 Poison zranění. *Úspěšná záchrana:* poloviční zranění. *Další účinky:* Tuto vrstvu zničí kouzlo *Passwall* nebo jiné kouzlo stejné či vyšší úrovně, které dokáže otevřít průchod v pevném povrchu.\n- 5: *Neúspěšná záchrana:* 12d6 Cold zranění. *Úspěšná záchrana:* poloviční zranění. *Další účinky:* Vrstva je zničena, utrpí-li alespoň 25 Fire zranění.\n- 6: *Neúspěšná záchrana:* Cíl má stav Restrained a na konci každého svého tahu si hází CON záchranný hod. Uspěje-li třikrát, stav skončí. Selže-li třikrát, má stav Petrified, dokud ho neosvobodí účinek jako kouzlo *Greater Restoration*. Úspěchy a neúspěchy nemusí jít po sobě; sleduj obojí, dokud cíl nenasbírá tři stejné. *Další účinky:* Skrze tuto vrstvu nelze sesílat kouzla; vrstvu zničí jasné světlo vydávané kouzlem *Daylight*.\n- 7: *Neúspěšná záchrana:* Cíl má stav Blinded a na začátku tvého příštího tahu si hází WIS záchranný hod. Při úspěchu stav skončí. Při neúspěchu stav skončí a tvor se teleportuje na jinou sféru (Plane) bytí (dle volby vypravěče). *Další účinky:* Tuto vrstvu zničí *Dispel Magic*.",
+  "pop": "Třpytivá, mnohobarevná plocha světla vytvoří svislou neprůhlednou stěnu – až 90 stop dlouhou, 30 stop vysokou a 1 palec tlustou – se středem v bodě v dosahu. Místo toho můžeš stěnu zformovat do koule o průměru až 30 stop se středem v bodě v dosahu. Stěna trvá po dobu trvání kouzla. Umístíš-li stěnu do prostoru, který zabírá nějaký tvor, kouzlo okamžitě skončí bez účinku.\n\nStěna vydává jasné světlo (Bright Light) v okruhu 100 stop a šero (Dim Light) v dalších 100 stopách. Ty a tvorové, které určíš při seslání kouzla, můžete stěnou procházet a pobývat v její blízkosti bez úhony. Pokud se jiný tvor, který stěnu vidí, přiblíží na 20 stop od ní nebo tam začne svůj tah, musí uspět v CON záchranném hodu, jinak má na 1 minutu stav Blinded.\n\nStěna se skládá ze sedmi vrstev, každá jiné barvy. Když tvor do stěny sáhne nebo jí prochází, činí tak postupně, vrstvu po vrstvě, skrze všechny vrstvy. Každá vrstva tvora přinutí k DEX záchrannému hodu; při neúspěchu na něj působí vlastnosti dané vrstvy podle tabulky Duhové vrstvy.\n\nStěnu, která má AC 10, lze ničit po jednotlivých vrstvách, v pořadí od červené po fialovou, způsoby specifickými pro každou vrstvu. Zničená vrstva zmizí na celou dobu trvání kouzla. *Antimagic Field* na stěnu nemá vliv a *Dispel Magic* může zasáhnout pouze fialovou vrstvu.\n\n**Duhové vrstvy** (1d7)\n- 1: *Neúspěšná záchrana:* 12d6 Fire zranění. *Úspěšná záchrana:* poloviční zranění. *Další účinky:* Nemagické útoky na dálku touto vrstvou neprojdou; vrstva je zničena, utrpí-li alespoň 25 Cold zranění.\n- 2: *Neúspěšná záchrana:* 12d6 Acid zranění. *Úspěšná záchrana:* poloviční zranění. *Další účinky:* Magické útoky na dálku touto vrstvou neprojdou; vrstvu zničí silný vítr (například ten, který vytvoří *Gust of Wind*).\n- 3: *Neúspěšná záchrana:* 12d6 Lightning zranění. *Úspěšná záchrana:* poloviční zranění. *Další účinky:* Vrstva je zničena, utrpí-li alespoň 60 Force zranění.\n- 4: *Neúspěšná záchrana:* 12d6 Poison zranění. *Úspěšná záchrana:* poloviční zranění. *Další účinky:* Tuto vrstvu zničí kouzlo *Passwall* nebo jiné kouzlo stejné či vyšší úrovně, které dokáže otevřít průchod v pevném povrchu.\n- 5: *Neúspěšná záchrana:* 12d6 Cold zranění. *Úspěšná záchrana:* poloviční zranění. *Další účinky:* Vrstva je zničena, utrpí-li alespoň 25 Fire zranění.\n- 6: *Neúspěšná záchrana:* Cíl má stav Restrained a na konci každého svého tahu si hází CON záchranný hod. Uspěje-li třikrát, stav skončí. Selže-li třikrát, má stav Petrified, dokud ho neosvobodí účinek jako kouzlo *Greater Restoration*. Úspěchy a neúspěchy nemusí jít po sobě; sleduj obojí, dokud cíl nenasbírá tři stejné. *Další účinky:* Skrze tuto vrstvu nelze sesílat kouzla; vrstvu zničí jasné světlo vydávané kouzlem *Daylight*.\n- 7: *Neúspěšná záchrana:* Cíl má stav Blinded a na začátku tvého příštího tahu si hází WIS záchranný hod. Při úspěchu stav skončí. Při neúspěchu stav skončí a tvor se teleportuje na jinou sféru (Plane) bytí (dle volby vypravěče). *Další účinky:* Tuto vrstvu zničí *Dispel Magic*.",
   "vys": "",
   "mat": ""
  },
@@ -1794,7 +1794,7 @@
  {
   "index": "resilient-sphere",
   "cz": "Odolná koule",
-  "pop": "Třpytivá koule uzavře tvora nebo předmět velikosti Large či menší v dosahu. Nesouhlasící tvor musí uspět v AGI záchranném hodu, jinak je po dobu trvání uzavřen.\n\nNic – ani hmotné předměty, energie či účinky jiných kouzel – nemůže bariérou projít, dovnitř ani ven, ale tvor v kouli v ní může dýchat. Koule má Immunity vůči veškerému zranění a tvor či předmět uvnitř nemůže být zraněn útoky ani účinky pocházejícími zvenčí, stejně jako tvor uvnitř koule nemůže zranit nic venku.\n\nKoule je beztížná a právě tak velká, aby pojala tvora nebo předmět uvnitř. Uzavřený tvor může akcí tlačit do stěn koule a valit ji tak rychlostí až poloviny své rychlosti (Speed). Obdobně mohou kouli zvednout a přenášet jiní tvorové.\n\nKouzlo *Disintegrate* zaměřené na kouli ji zničí, aniž by ublížilo čemukoli uvnitř.",
+  "pop": "Třpytivá koule uzavře tvora nebo předmět velikosti Large či menší v dosahu. Nesouhlasící tvor musí uspět v DEX záchranném hodu, jinak je po dobu trvání uzavřen.\n\nNic – ani hmotné předměty, energie či účinky jiných kouzel – nemůže bariérou projít, dovnitř ani ven, ale tvor v kouli v ní může dýchat. Koule má Immunity vůči veškerému zranění a tvor či předmět uvnitř nemůže být zraněn útoky ani účinky pocházejícími zvenčí, stejně jako tvor uvnitř koule nemůže zranit nic venku.\n\nKoule je beztížná a právě tak velká, aby pojala tvora nebo předmět uvnitř. Uzavřený tvor může akcí tlačit do stěn koule a valit ji tak rychlostí až poloviny své rychlosti (Speed). Obdobně mohou kouli zvednout a přenášet jiní tvorové.\n\nKouzlo *Disintegrate* zaměřené na kouli ji zničí, aniž by ublížilo čemukoli uvnitř.",
   "vys": "",
   "mat": "skleněná koule"
  },
@@ -1815,7 +1815,7 @@
  {
   "index": "reverse-gravity",
   "cz": "Obrácená tíže",
-  "pop": "Kouzlo obrátí tíži ve válci o poloměru 50 stop a výšce 100 stop se středem v bodě v dosahu. Všechny bytosti a předměty v této oblasti, které nejsou ukotveny k zemi, padají vzhůru až k vrcholu válce. Bytost si může hodit AGI záchranný hod, aby se zachytila pevného předmětu, na který dosáhne, a vyhnula se tak pádu vzhůru.\n\nNarazí-li bytosti a předměty při pádu vzhůru na strop nebo ukotvený předmět, udeří do něj stejně, jako by padaly dolů. Dosáhne-li zasažená bytost či předmět vrcholu válce, aniž by do něčeho narazil, zůstane tam po dobu trvání viset ve vzduchu. Když kouzlo skončí, zasažené předměty a bytosti spadnou dolů.",
+  "pop": "Kouzlo obrátí tíži ve válci o poloměru 50 stop a výšce 100 stop se středem v bodě v dosahu. Všechny bytosti a předměty v této oblasti, které nejsou ukotveny k zemi, padají vzhůru až k vrcholu válce. Bytost si může hodit DEX záchranný hod, aby se zachytila pevného předmětu, na který dosáhne, a vyhnula se tak pádu vzhůru.\n\nNarazí-li bytosti a předměty při pádu vzhůru na strop nebo ukotvený předmět, udeří do něj stejně, jako by padaly dolů. Dosáhne-li zasažená bytost či předmět vrcholu válce, aniž by do něčeho narazil, zůstane tam po dobu trvání viset ve vzduchu. Když kouzlo skončí, zasažené předměty a bytosti spadnou dolů.",
   "vys": "",
   "mat": "magnetovec a železné piliny"
  },
@@ -1836,7 +1836,7 @@
  {
   "index": "sacred-flame",
   "cz": "Posvátný plamen",
-  "pop": "Na bytost, kterou vidíš v dosahu, sestoupí záře podobná plameni. Cíl musí uspět v AGI záchranném hodu, jinak utrpí 1d8 Svaté (Radiant) zranění. Při tomto záchranném hodu nemá cíl žádný prospěch z Half Cover ani Three-Quarters Cover.\n\n**Zesílení triku.** Zranění se zvýší o 1d8, když dosáhneš úrovně 5 (2d8), 11 (3d8) a 17 (4d8).",
+  "pop": "Na bytost, kterou vidíš v dosahu, sestoupí záře podobná plameni. Cíl musí uspět v DEX záchranném hodu, jinak utrpí 1d8 Svaté (Radiant) zranění. Při tomto záchranném hodu nemá cíl žádný prospěch z Half Cover ani Three-Quarters Cover.\n\n**Zesílení triku.** Zranění se zvýší o 1d8, když dosáhneš úrovně 5 (2d8), 11 (3d8) a 17 (4d8).",
   "vys": "",
   "mat": ""
  },
@@ -1983,14 +1983,14 @@
  {
   "index": "sleet-storm",
   "cz": "Plískanice",
-  "pop": "Dokud kouzlo neskončí, padá plískanice ve válci vysokém 40 stop o poloměru 20 stop se středem v bodě dle tvé volby v dosahu. Oblast je Heavily Obscured a nekrytý oheň v ní uhasne.\n\nZemě ve válci je Difficult Terrain. Když bytost během tahu poprvé vstoupí do válce nebo v něm začne svůj tah, musí uspět v AGI záchranném hodu, jinak má stav Prone a ztratí Concentration.",
+  "pop": "Dokud kouzlo neskončí, padá plískanice ve válci vysokém 40 stop o poloměru 20 stop se středem v bodě dle tvé volby v dosahu. Oblast je Heavily Obscured a nekrytý oheň v ní uhasne.\n\nZemě ve válci je Difficult Terrain. Když bytost během tahu poprvé vstoupí do válce nebo v něm začne svůj tah, musí uspět v DEX záchranném hodu, jinak má stav Prone a ztratí Concentration.",
   "vys": "",
   "mat": "maličký deštník"
  },
  {
   "index": "slow",
   "cz": "Zpomalení",
-  "pop": "Změníš běh času kolem až šesti bytostí dle své volby v krychli o hraně 40 stop v dosahu. Každý cíl musí uspět ve WIS záchranném hodu, jinak na něj kouzlo po dobu trvání působí.\n\nZasaženému cíli se sníží rychlost na polovinu, má postih -2 k AC a k AGI záchranným hodům a nemůže provádět Reakce. Ve svých tazích může provést buď akci, nebo Bonusovou akci, ne obojí, a provede-li akci Attack, může zaútočit jen jednou. Sešle-li kouzlo se somatickou složkou, je 25% šance, že kouzlo selže, protože cíl provádí gesta kouzla příliš pomalu.\n\nZasažený cíl opakuje záchranný hod na konci každého svého tahu; při úspěchu kouzlo na sobě ukončí.",
+  "pop": "Změníš běh času kolem až šesti bytostí dle své volby v krychli o hraně 40 stop v dosahu. Každý cíl musí uspět ve WIS záchranném hodu, jinak na něj kouzlo po dobu trvání působí.\n\nZasaženému cíli se sníží rychlost na polovinu, má postih -2 k AC a k DEX záchranným hodům a nemůže provádět Reakce. Ve svých tazích může provést buď akci, nebo Bonusovou akci, ne obojí, a provede-li akci Attack, může zaútočit jen jednou. Sešle-li kouzlo se somatickou složkou, je 25% šance, že kouzlo selže, protože cíl provádí gesta kouzla příliš pomalu.\n\nZasažený cíl opakuje záchranný hod na konci každého svého tahu; při úspěchu kouzlo na sobě ukončí.",
   "vys": "",
   "mat": "kapka melasy"
  },
@@ -2088,7 +2088,7 @@
  {
   "index": "storm-of-vengeance",
   "cz": "Bouře pomsty",
-  "pop": "Po dobu trvání se vytvoří vířící bouřkový mrak se středem v bodě v dosahu, který se rozprostře do poloměru 300 stop. Každá bytost pod mrakem ve chvíli, kdy se objeví, musí uspět v CON záchranném hodu, jinak utrpí 2d6 Thunder zranění a po dobu trvání má stav Deafened.\n\nNa začátku každého tvého dalšího tahu vyvolá bouře různé účinky, jak je popsáno níže.\n\n**Tah 2.** Padá leptavý déšť. Každá bytost a předmět pod mrakem utrpí 4d6 Acid zranění.\n\n**Tah 3.** Z mraku přivoláš šest blesků, které udeří do šesti různých bytostí nebo předmětů pod ním. Každý cíl si hází AGI záchranný hod; při neúspěchu utrpí 10d6 Lightning zranění, při úspěchu poloviční zranění.\n\n**Tah 4.** Padají kroupy. Každá bytost pod mrakem utrpí 2d6 Bludgeoning zranění.\n\n**Tahy 5–10.** Oblast pod mrakem bičují poryvy větru a mrznoucí déšť. Každá bytost tam utrpí 1d6 Cold zranění. Dokud kouzlo neskončí, je oblast Difficult Terrain a Heavily Obscured, útoky zbraněmi na dálku jsou v ní nemožné a oblastí vane silný vítr.",
+  "pop": "Po dobu trvání se vytvoří vířící bouřkový mrak se středem v bodě v dosahu, který se rozprostře do poloměru 300 stop. Každá bytost pod mrakem ve chvíli, kdy se objeví, musí uspět v CON záchranném hodu, jinak utrpí 2d6 Thunder zranění a po dobu trvání má stav Deafened.\n\nNa začátku každého tvého dalšího tahu vyvolá bouře různé účinky, jak je popsáno níže.\n\n**Tah 2.** Padá leptavý déšť. Každá bytost a předmět pod mrakem utrpí 4d6 Acid zranění.\n\n**Tah 3.** Z mraku přivoláš šest blesků, které udeří do šesti různých bytostí nebo předmětů pod ním. Každý cíl si hází DEX záchranný hod; při neúspěchu utrpí 10d6 Lightning zranění, při úspěchu poloviční zranění.\n\n**Tah 4.** Padají kroupy. Každá bytost pod mrakem utrpí 2d6 Bludgeoning zranění.\n\n**Tahy 5–10.** Oblast pod mrakem bičují poryvy větru a mrznoucí déšť. Každá bytost tam utrpí 1d6 Cold zranění. Dokud kouzlo neskončí, je oblast Difficult Terrain a Heavily Obscured, útoky zbraněmi na dálku jsou v ní nemožné a oblastí vane silný vítr.",
   "vys": "",
   "mat": ""
  },
@@ -2103,7 +2103,7 @@
   "index": "summon-dragon",
   "cz": "Přivolání draka",
   "pop": "Přivoláš dračího ducha. Zhmotní se na neobsazeném místě, které vidíš v dosahu, a používá statblok Dračí duch (Draconic Spirit). Bytost zmizí, když klesne na 0 HP nebo když kouzlo skončí.\n\nBytost je spojencem tobě i tvým spojencům. V boji sdílí tvou iniciativu, ale svůj tah provádí ihned po tobě. Poslouchá tvé vyslovené příkazy (nevyžaduje to od tebe žádnou akci). Pokud jí žádné nedáš, provede akci Dodge a pohyb použije k vyhýbání se nebezpečí.",
-  "vys": "Jako úroveň kouzla ve statbloku použij úroveň slotu kouzla.\n\n**Dračí duch (Draconic Spirit)**\n*Large drak (Dragon), Neutral*\n\n- **AC** 14 + úroveň kouzla\n- **HP** 50 + 10 za každou úroveň kouzla nad 5\n- **Rychlost** 30 stop, let 60 stop, plavání 30 stop\n- **STR** 19 (+4, záchrana +4) · **AGI** 14 (+2, záchrana +2) · **CON** 17 (+3, záchrana +3) · **INT** 10 (+0, záchrana +0) · **WIS** 14 (+2, záchrana +2) · **CHA** 14 (+2, záchrana +2)\n- **Resistance** Acid, Cold, Fire, Lightning, Poison\n- **Immunity** Charmed, Frightened, Poisoned\n- **Smysly** Blindsight 30 stop, Darkvision 60 stop; pasivní Perception 12\n- **Jazyky** dračí (Draconic), rozumí jazykům, které znáš\n- **CR** žádný (XP 0; zdatnostní bonus se rovná tvému)\n\n**Vlastnosti**\n\n**Sdílené odolnosti.** Když ducha přivoláš, zvol jednu z jeho Resistance. Dokud kouzlo neskončí, máš Resistance vůči zvolenému typu zranění.\n\n**Akce**\n\n**Vícenásobný útok.** Duch provede tolik útoků Rozervání, kolik činí polovina úrovně kouzla (zaokrouhleno dolů), a použije Dech.\n\n**Rozervání.** *Hod na útok na blízko:* bonus se rovná modifikátoru tvého útoku kouzlem, dosah 10 stop. *Zásah:* 1d6 + 4 + úroveň kouzla Piercing zranění.\n\n**Dech.** *AGI záchranný hod:* DC se rovná DC záchrany proti tvým kouzlům, každá bytost v kuželu o délce 30 stop. *Neúspěch:* 2d6 zranění typu, vůči němuž má duch Resistance (zvolíš při seslání kouzla). *Úspěch:* poloviční zranění.",
+  "vys": "Jako úroveň kouzla ve statbloku použij úroveň slotu kouzla.\n\n**Dračí duch (Draconic Spirit)**\n*Large drak (Dragon), Neutral*\n\n- **AC** 14 + úroveň kouzla\n- **HP** 50 + 10 za každou úroveň kouzla nad 5\n- **Rychlost** 30 stop, let 60 stop, plavání 30 stop\n- **STR** 19 (+4, záchrana +4) · **DEX** 14 (+2, záchrana +2) · **CON** 17 (+3, záchrana +3) · **INT** 10 (+0, záchrana +0) · **WIS** 14 (+2, záchrana +2) · **CHA** 14 (+2, záchrana +2)\n- **Resistance** Acid, Cold, Fire, Lightning, Poison\n- **Immunity** Charmed, Frightened, Poisoned\n- **Smysly** Blindsight 30 stop, Darkvision 60 stop; pasivní Perception 12\n- **Jazyky** dračí (Draconic), rozumí jazykům, které znáš\n- **CR** žádný (XP 0; zdatnostní bonus se rovná tvému)\n\n**Vlastnosti**\n\n**Sdílené odolnosti.** Když ducha přivoláš, zvol jednu z jeho Resistance. Dokud kouzlo neskončí, máš Resistance vůči zvolenému typu zranění.\n\n**Akce**\n\n**Vícenásobný útok.** Duch provede tolik útoků Rozervání, kolik činí polovina úrovně kouzla (zaokrouhleno dolů), a použije Dech.\n\n**Rozervání.** *Hod na útok na blízko:* bonus se rovná modifikátoru tvého útoku kouzlem, dosah 10 stop. *Zásah:* 1d6 + 4 + úroveň kouzla Piercing zranění.\n\n**Dech.** *DEX záchranný hod:* DC se rovná DC záchrany proti tvým kouzlům, každá bytost v kuželu o délce 30 stop. *Neúspěch:* 2d6 zranění typu, vůči němuž má duch Resistance (zvolíš při seslání kouzla). *Úspěch:* poloviční zranění.",
   "mat": "předmět s vyrytým obrazem draka v hodnotě alespoň 500 zl."
  },
  {
@@ -2228,7 +2228,7 @@
  {
   "index": "true-strike",
   "cz": "Jistá rána",
-  "pop": "Veden zábleskem magického vhledu provedeš jeden útok zbraní použitou při sesílání kouzla. Pro hod na útok a zranění tohoto útoku použiješ svou sesílací vlastnost místo STR nebo AGI. Pokud útok způsobí zranění, může jít o Svaté (Radiant) zranění, nebo o běžný typ zranění zbraně (dle tvé volby).\n\n**Zesílení triku.** Ať způsobíš Svaté zranění, nebo běžný typ zranění zbraně, útok způsobí navíc Svaté zranění, když dosáhneš úrovně 5 (1d6), 11 (2d6) a 17 (3d6).",
+  "pop": "Veden zábleskem magického vhledu provedeš jeden útok zbraní použitou při sesílání kouzla. Pro hod na útok a zranění tohoto útoku použiješ svou sesílací vlastnost místo STR nebo DEX. Pokud útok způsobí zranění, může jít o Svaté (Radiant) zranění, nebo o běžný typ zranění zbraně (dle tvé volby).\n\n**Zesílení triku.** Ať způsobíš Svaté zranění, nebo běžný typ zranění zbraně, útok způsobí navíc Svaté zranění, když dosáhneš úrovně 5 (1d6), 11 (2d6) a 17 (3d6).",
   "vys": "",
   "mat": "zbraň, se kterou jsi zdatný a jejíž hodnota je alespoň 1 měď"
  },
@@ -2263,14 +2263,14 @@
  {
   "index": "vitriolic-sphere",
   "cz": "Leptavá koule",
-  "pop": "Ukážeš na místo v dosahu a zářící koule kyseliny o průměru 1 stopy tam vylétne a vybuchne v kouli o poloměru 20 stop. Každý tvor v této oblasti si hází AGI záchranný hod. Při neúspěchu utrpí 10d4 Acid zranění a dalších 5d4 Acid zranění na konci svého příštího tahu. Při úspěchu utrpí pouze polovinu počátečního zranění.",
+  "pop": "Ukážeš na místo v dosahu a zářící koule kyseliny o průměru 1 stopy tam vylétne a vybuchne v kouli o poloměru 20 stop. Každý tvor v této oblasti si hází DEX záchranný hod. Při neúspěchu utrpí 10d4 Acid zranění a dalších 5d4 Acid zranění na konci svého příštího tahu. Při úspěchu utrpí pouze polovinu počátečního zranění.",
   "vys": "Počáteční zranění se zvyšuje o 2d4 za každou úroveň slotu kouzla nad 4.",
   "mat": "kapka žluči"
  },
  {
   "index": "wall-of-fire",
   "cz": "Ohnivá stěna",
-  "pop": "Na pevném povrchu v dosahu vytvoříš ohnivou stěnu. Stěna může být až 60 stop dlouhá, 20 stop vysoká a 1 stopu silná, anebo může tvořit kruhovou stěnu o průměru až 20 stop, 20 stop vysokou a 1 stopu silnou. Stěna je neprůhledná a trvá po dobu trvání kouzla.\n\nKdyž se stěna objeví, každý tvor v její oblasti si hází AGI záchranný hod; při neúspěchu utrpí 5d8 Fire zranění, při úspěchu poloviční zranění.\n\nJedna strana stěny, kterou zvolíš při seslání kouzla, způsobí 5d8 Fire zranění každému tvoru, který ukončí tah do 10 stop od této strany nebo uvnitř stěny. Stejné zranění utrpí tvor, když v daném tahu poprvé vstoupí do stěny nebo v ní ukončí tah. Druhá strana stěny nezraňuje.",
+  "pop": "Na pevném povrchu v dosahu vytvoříš ohnivou stěnu. Stěna může být až 60 stop dlouhá, 20 stop vysoká a 1 stopu silná, anebo může tvořit kruhovou stěnu o průměru až 20 stop, 20 stop vysokou a 1 stopu silnou. Stěna je neprůhledná a trvá po dobu trvání kouzla.\n\nKdyž se stěna objeví, každý tvor v její oblasti si hází DEX záchranný hod; při neúspěchu utrpí 5d8 Fire zranění, při úspěchu poloviční zranění.\n\nJedna strana stěny, kterou zvolíš při seslání kouzla, způsobí 5d8 Fire zranění každému tvoru, který ukončí tah do 10 stop od této strany nebo uvnitř stěny. Stejné zranění utrpí tvor, když v daném tahu poprvé vstoupí do stěny nebo v ní ukončí tah. Druhá strana stěny nezraňuje.",
   "vys": "Zranění se zvyšuje o 1d8 za každou úroveň slotu kouzla nad 4.",
   "mat": "kousek dřevěného uhlí"
  },
@@ -2284,21 +2284,21 @@
  {
   "index": "wall-of-ice",
   "cz": "Ledová stěna",
-  "pop": "Na pevném povrchu v dosahu vytvoříš stěnu z ledu. Můžeš jí dát tvar polokulovité klenby nebo koule o poloměru až 10 stop, anebo z ní utvořit plochu složenou z deseti čtvercových dílů o straně 10 stop. Každý díl musí přiléhat k jinému dílu. V jakékoli podobě je stěna silná 1 stopu a trvá po dobu trvání kouzla.\n\nPokud stěna při svém objevení protne prostor nějakého tvora, je tvor odsunut na jednu stranu stěny (kterou, zvolíš ty) a hází si AGI záchranný hod; při neúspěchu utrpí 10d6 Cold zranění, při úspěchu poloviční zranění.\n\nStěna je předmět, který lze poškodit, a tím prorazit. Má AC 12 a 30 HP na každý 10stopý úsek, má Immunity vůči Cold, Poison a Psychic zranění a Vulnerability vůči Fire zranění. Snížením HP 10stopého úseku stěny na 0 se úsek zničí a v prostoru, který stěna zabírala, po něm zůstane clona mrazivého vzduchu.\n\nTvor, který clonou mrazivého vzduchu v daném tahu prochází poprvé, si hází CON záchranný hod; při neúspěchu utrpí 5d6 Cold zranění, při úspěchu poloviční zranění.",
+  "pop": "Na pevném povrchu v dosahu vytvoříš stěnu z ledu. Můžeš jí dát tvar polokulovité klenby nebo koule o poloměru až 10 stop, anebo z ní utvořit plochu složenou z deseti čtvercových dílů o straně 10 stop. Každý díl musí přiléhat k jinému dílu. V jakékoli podobě je stěna silná 1 stopu a trvá po dobu trvání kouzla.\n\nPokud stěna při svém objevení protne prostor nějakého tvora, je tvor odsunut na jednu stranu stěny (kterou, zvolíš ty) a hází si DEX záchranný hod; při neúspěchu utrpí 10d6 Cold zranění, při úspěchu poloviční zranění.\n\nStěna je předmět, který lze poškodit, a tím prorazit. Má AC 12 a 30 HP na každý 10stopý úsek, má Immunity vůči Cold, Poison a Psychic zranění a Vulnerability vůči Fire zranění. Snížením HP 10stopého úseku stěny na 0 se úsek zničí a v prostoru, který stěna zabírala, po něm zůstane clona mrazivého vzduchu.\n\nTvor, který clonou mrazivého vzduchu v daném tahu prochází poprvé, si hází CON záchranný hod; při neúspěchu utrpí 5d6 Cold zranění, při úspěchu poloviční zranění.",
   "vys": "Zranění, které stěna způsobí při svém objevení, se zvyšuje o 2d6 a zranění z průchodu clonou mrazivého vzduchu se zvyšuje o 1d6 za každou úroveň slotu kouzla nad 6.",
   "mat": "kousek křemene"
  },
  {
   "index": "wall-of-stone",
   "cz": "Kamenná stěna",
-  "pop": "V bodě, který si zvolíš v dosahu, se objeví nemagická stěna z pevného kamene. Stěna je silná 6 palců a skládá se z deseti dílů o rozměrech 10 × 10 stop. Každý díl musí přiléhat k jinému dílu. Místo toho můžeš vytvořit díly o rozměrech 10 × 20 stop, silné jen 3 palce.\n\nPokud stěna při svém objevení protne prostor nějakého tvora, je tvor odsunut na jednu stranu stěny (kterou, zvolíš ty). Pokud by byl tvor ze všech stran obklopen stěnou (nebo stěnou a jiným pevným povrchem), může si hodit AGI záchranný hod. Při úspěchu se může svou Reakcí přesunout až o svou rychlost tak, aby už nebyl stěnou uzavřen.\n\nStěna může mít jakýkoli tvar, jaký si přeješ, nemůže však zabírat stejný prostor jako tvor či předmět. Stěna nemusí být svislá ani spočívat na pevném základu. Musí však srůst s existujícím kamenem a být jím pevně podepřena. Tímto kouzlem tak můžeš přemostit propast nebo vytvořit rampu.\n\nVytvoříš-li rozpětí delší než 20 stop, musíš velikost každého dílu zmenšit na polovinu, abys vytvořil podpěry. Stěnu můžeš hrubě tvarovat, například do podoby cimbuří a podobně. Stěna je kamenný předmět, který lze poškodit, a tím prorazit. Každý díl má AC 15 a 30 HP na každý palec tloušťky a má Immunity vůči Poison a Psychic zranění. Snížením HP dílu na 0 se díl zničí a podle uvážení vypravěče se mohou zřítit i díly s ním spojené.\n\nPokud udržíš Concentration na toto kouzlo po celou dobu trvání, stěna se stane trvalou a nelze ji rozptýlit. Jinak stěna zmizí, když kouzlo skončí.",
+  "pop": "V bodě, který si zvolíš v dosahu, se objeví nemagická stěna z pevného kamene. Stěna je silná 6 palců a skládá se z deseti dílů o rozměrech 10 × 10 stop. Každý díl musí přiléhat k jinému dílu. Místo toho můžeš vytvořit díly o rozměrech 10 × 20 stop, silné jen 3 palce.\n\nPokud stěna při svém objevení protne prostor nějakého tvora, je tvor odsunut na jednu stranu stěny (kterou, zvolíš ty). Pokud by byl tvor ze všech stran obklopen stěnou (nebo stěnou a jiným pevným povrchem), může si hodit DEX záchranný hod. Při úspěchu se může svou Reakcí přesunout až o svou rychlost tak, aby už nebyl stěnou uzavřen.\n\nStěna může mít jakýkoli tvar, jaký si přeješ, nemůže však zabírat stejný prostor jako tvor či předmět. Stěna nemusí být svislá ani spočívat na pevném základu. Musí však srůst s existujícím kamenem a být jím pevně podepřena. Tímto kouzlem tak můžeš přemostit propast nebo vytvořit rampu.\n\nVytvoříš-li rozpětí delší než 20 stop, musíš velikost každého dílu zmenšit na polovinu, abys vytvořil podpěry. Stěnu můžeš hrubě tvarovat, například do podoby cimbuří a podobně. Stěna je kamenný předmět, který lze poškodit, a tím prorazit. Každý díl má AC 15 a 30 HP na každý palec tloušťky a má Immunity vůči Poison a Psychic zranění. Snížením HP dílu na 0 se díl zničí a podle uvážení vypravěče se mohou zřítit i díly s ním spojené.\n\nPokud udržíš Concentration na toto kouzlo po celou dobu trvání, stěna se stane trvalou a nelze ji rozptýlit. Jinak stěna zmizí, když kouzlo skončí.",
   "vys": "",
   "mat": "kostka žuly"
  },
  {
   "index": "wall-of-thorns",
   "cz": "Trnitá stěna",
-  "pop": "Vytvoříš stěnu ze spletitého křoví, ježící se trny ostrými jako jehly. Stěna se objeví v dosahu na pevném povrchu a trvá po dobu trvání kouzla. Můžeš ji vytvořit až 60 stop dlouhou, 10 stop vysokou a 5 stop silnou, nebo jako kruh o průměru 20 stop, až 20 stop vysoký a 5 stop silný. Stěna brání ve výhledu.\n\nKdyž se stěna objeví, každý tvor v její oblasti si hází AGI záchranný hod; při neúspěchu utrpí 7d8 Piercing zranění, při úspěchu poloviční zranění.\n\nTvor se může stěnou prodírat, byť pomalu a bolestivě. Za každou 1 stopu, kterou se tvor stěnou pohne, musí spotřebovat 4 stopy pohybu. Navíc když tvor v daném tahu poprvé vstoupí do prostoru ve stěně nebo v něm ukončí tah, hází si AGI záchranný hod; při neúspěchu utrpí 7d8 Slashing zranění, při úspěchu poloviční zranění. Tento záchranný hod si tvor hází jen jednou za tah.",
+  "pop": "Vytvoříš stěnu ze spletitého křoví, ježící se trny ostrými jako jehly. Stěna se objeví v dosahu na pevném povrchu a trvá po dobu trvání kouzla. Můžeš ji vytvořit až 60 stop dlouhou, 10 stop vysokou a 5 stop silnou, nebo jako kruh o průměru 20 stop, až 20 stop vysoký a 5 stop silný. Stěna brání ve výhledu.\n\nKdyž se stěna objeví, každý tvor v její oblasti si hází DEX záchranný hod; při neúspěchu utrpí 7d8 Piercing zranění, při úspěchu poloviční zranění.\n\nTvor se může stěnou prodírat, byť pomalu a bolestivě. Za každou 1 stopu, kterou se tvor stěnou pohne, musí spotřebovat 4 stopy pohybu. Navíc když tvor v daném tahu poprvé vstoupí do prostoru ve stěně nebo v něm ukončí tah, hází si DEX záchranný hod; při neúspěchu utrpí 7d8 Slashing zranění, při úspěchu poloviční zranění. Tento záchranný hod si tvor hází jen jednou za tah.",
   "vys": "Oba typy zranění se zvyšují o 1d8 za každou úroveň slotu kouzla nad 6.",
   "mat": "hrst trnů"
  },
@@ -2326,7 +2326,7 @@
  {
   "index": "web",
   "cz": "Pavučina",
-  "pop": "V bodě v dosahu vyčaruješ změť lepkavých pavučin. Pavučiny tam po dobu trvání vyplní krychli o hraně 20 stop. Pavučiny jsou Difficult Terrain a prostor v nich je Lightly Obscured.\n\nPokud pavučiny nejsou ukotveny mezi dvěma pevnými hmotami (například zdmi či stromy) nebo rozprostřeny po podlaze, zdi či stropu, pavučina se zhroutí sama do sebe a kouzlo skončí na začátku tvého příštího tahu. Pavučiny rozprostřené po rovném povrchu mají hloubku 5 stop.\n\nKdyž tvor v daném tahu poprvé vstoupí do pavučin nebo v nich začne tah, musí uspět v AGI záchranném hodu, jinak je Restrained, dokud je v pavučinách nebo dokud se nevyprostí.\n\nTvor, který je pavučinami Restrained, může akcí provést ověření STR (Athletics) proti DC záchrany proti tvým kouzlům. Pokud uspěje, přestane být Restrained.\n\nPavučiny jsou hořlavé. Každá krychle pavučin o hraně 5 stop vystavená ohni shoří za 1 kolo a způsobí 2d4 Fire zranění každému tvoru, který v ohni začne tah.",
+  "pop": "V bodě v dosahu vyčaruješ změť lepkavých pavučin. Pavučiny tam po dobu trvání vyplní krychli o hraně 20 stop. Pavučiny jsou Difficult Terrain a prostor v nich je Lightly Obscured.\n\nPokud pavučiny nejsou ukotveny mezi dvěma pevnými hmotami (například zdmi či stromy) nebo rozprostřeny po podlaze, zdi či stropu, pavučina se zhroutí sama do sebe a kouzlo skončí na začátku tvého příštího tahu. Pavučiny rozprostřené po rovném povrchu mají hloubku 5 stop.\n\nKdyž tvor v daném tahu poprvé vstoupí do pavučin nebo v nich začne tah, musí uspět v DEX záchranném hodu, jinak je Restrained, dokud je v pavučinách nebo dokud se nevyprostí.\n\nTvor, který je pavučinami Restrained, může akcí provést ověření STR (Athletics) proti DC záchrany proti tvým kouzlům. Pokud uspěje, přestane být Restrained.\n\nPavučiny jsou hořlavé. Každá krychle pavučin o hraně 5 stop vystavená ohni shoří za 1 kolo a způsobí 2d4 Fire zranění každému tvoru, který v ohni začne tah.",
   "vys": "",
   "mat": "kousek pavučiny"
  },

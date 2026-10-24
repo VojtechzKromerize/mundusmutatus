@@ -22,7 +22,7 @@ Ptačí ženy z bestiářů, které po Protržení Závoje zahnízdily na skalá
 
 **Útok houfu – drápy:** +3 (+1 za každou další harpyji, nejvýš +5), dosah 5 stop. **Zásah:** 3 Slashing za každou harpyji v dosahu cíle. Houf útočí z letu.
 
-**Záchrany houfu:** AGI +1, CON +1, ostatní −1
+**Záchrany houfu:** DEX +1, CON +1, ostatní −1
 
 ## Vlastnosti
 

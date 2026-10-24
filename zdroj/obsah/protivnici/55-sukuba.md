@@ -23,7 +23,7 @@ Pekelnice, která svádí mocné a odnáší jim duši po kouscích. Na dvoře v
 
 **AC** 15 · **HP** 71 (13d8+13) · **Rychlost** 30 stop, let 60 stop · **Iniciativa** +3
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 8 (−1) | 17 (+3) | 13 (+1) | 15 (+2) | 12 (+1) | 20 (+5) |
 

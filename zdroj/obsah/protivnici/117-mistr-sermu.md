@@ -23,11 +23,11 @@ Mistr šermířské školy, vyučený v Norimberku nebo Augsburgu podle Liechten
 
 **AC** 16 (kožený kabátec s cvočky, hbitost) · **HP** 112 (15d8+45) · **Rychlost** 30 stop · **Iniciativa** +5
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 18 (+4) | 15 (+2) | 16 (+3) | 10 (+0) | 12 (+1) | 15 (+2) |
 
-**Záchrany** STR +7, AGI +5, CON +6, WIS +4 · **Dovednosti** Athletics +10, Performance +5 · **Resistance (zbroj, vycpávaná)** Bludgeoning · **Smysly** pasivní Perception 11 · **Jazyky** česky, německy · **Výdrž** 3 · **Techniky** Křižný sek, Křivý sek, Šilhavý sek, Zápas s mečem, Lámání paže
+**Záchrany** STR +7, DEX +5, CON +6, WIS +4 · **Dovednosti** Athletics +10, Performance +5 · **Resistance (zbroj, vycpávaná)** Bludgeoning · **Smysly** pasivní Perception 11 · **Jazyky** česky, německy · **Výdrž** 3 · **Techniky** Křižný sek, Křivý sek, Šilhavý sek, Zápas s mečem, Lámání paže
 
 ## Vlastnosti
 

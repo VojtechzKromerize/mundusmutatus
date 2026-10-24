@@ -23,7 +23,7 @@ Had z živého ohně, bytost, kterou alchymisté znali z knih – a po Protržen
 
 **AC** 15 · **HP** 90 (12d10+24) · **Rychlost** 30 stop, šplhání 30 stop · **Iniciativa** +2
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 18 (+4) | 14 (+2) | 15 (+2) | 11 (+0) | 10 (+0) | 12 (+1) |
 

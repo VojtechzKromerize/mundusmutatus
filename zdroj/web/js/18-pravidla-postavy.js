@@ -236,7 +236,7 @@ const KR = {
     return L;
   },
   ini: c => {
-    const L = [["AGI", c.md("AGI")]];
+    const L = [["DEX", c.md("DEX")]];
     if (c.maRys(/^alert$/)) L.push(["Alert", c.pb]);
     if (kJoat(c)) L.push(["Jack of All Trades", Math.floor(c.pb / 2)]);
     L.push(...kEfL(c, "ov"), ...kEfL(c, "ini"));
@@ -362,7 +362,7 @@ const kSpAbPdf = K => {
           : /con|odo/i.test(v)
             ? "CON"
             : /dex|agi|obr/i.test(v)
-              ? "AGI"
+              ? "DEX"
               : /str|síl/i.test(v)
                 ? "STR"
                 : null;
@@ -644,7 +644,7 @@ function mimoPocet(c, m) {
   if (p == null) return 0;
   if (typeof p === "number") return p;
   if (p === "PB") return c.pb;
-  if (/^(STR|AGI|DEX|CON|INT|WIS|CHA)$/.test(p)) return Math.max(1, c.md(p === "DEX" ? "AGI" : p));
+  if (/^(STR|DEX|AGI|CON|INT|WIS|CHA)$/.test(p)) return Math.max(1, c.md(p === "AGI" ? "DEX" : p));
   if (Array.isArray(p)) {
     const u = m.typ === "rys" ? kTrU(c, m.o.tr) : c.lv;
     let v = 0;
@@ -677,14 +677,14 @@ function kMimoEf(c) {
     if (ef.ac) c.E.push({c: "ac", v: +ef.ac, n: nm});
     if (ef.rych) c.E.push({c: "rych", v: +ef.rych, n: nm});
     if (ef.ini)
-      c.E.push({c: "ini", v: ef.ini === "PB" ? c.pb : /^[A-Z]{3}$/.test(ef.ini) ? c.md(ef.ini === "DEX" ? "AGI" : ef.ini) : +ef.ini, n: nm});
+      c.E.push({c: "ini", v: ef.ini === "PB" ? c.pb : /^[A-Z]{3}$/.test(ef.ini) ? c.md(ef.ini === "AGI" ? "DEX" : ef.ini) : +ef.ini, n: nm});
     if (ef.hpU && m.typ === "rys") c.E.push({c: "hp", v: ef.hpU * kTrU(c, m.o.tr), n: nm});
     if (ef.hpL) c.E.push({c: "hp", v: ef.hpL * c.lv, n: nm});
     /* ov: ["CHA", "WIS"] – k ověřením jedné vlastnosti přičti modifikátor jiné (min. 1), např. Otherworldly Glamour */
     if (Array.isArray(ef.ov) && ef.ov.length === 2)
       c.E.push({
-        c: "ov:" + (ef.ov[0] === "DEX" ? "AGI" : ef.ov[0]),
-        v: Math.max(1, ef.ov[1] === "PB" ? c.pb : c.md(ef.ov[1] === "DEX" ? "AGI" : ef.ov[1])),
+        c: "ov:" + (ef.ov[0] === "AGI" ? "DEX" : ef.ov[0]),
+        v: Math.max(1, ef.ov[1] === "PB" ? c.pb : c.md(ef.ov[1] === "AGI" ? "DEX" : ef.ov[1])),
         n: nm,
       });
   });
@@ -745,7 +745,7 @@ function mimoRysHtml(m, c) {
   const meta = mimoMeta(m, c);
   return `<div class="kmimo"><p><b>${besc(r.cz || r.en)}</b> <small>· ${besc(kde)}</small></p><p>${kzIn(r.t || "")}</p>${meta ? `<p class="rsmall">${besc(meta)}</p>` : ""}</div>`;
 }
-/* [jméno, AC, nejvýš AGI, druh podle Artikulí, nevýhoda na Stealth (SRD, stejně jako katalog vybavení `plizeni`)] */
+/* [jméno, AC, nejvýš DEX, druh podle Artikulí, nevýhoda na Stealth (SRD, stejně jako katalog vybavení `plizeni`)] */
 const KZBRT = [
   [/padded|prošívan|vycpávan|gambeson/i, 11, 9, "Vycpávaná", 1],
   [/studded|pobíjen/i, 12, 9, "Vycpávaná", 0],
@@ -791,20 +791,20 @@ function kNoseno(inv) {
 }
 KR.ac = c => {
   const N = c.N,
-    dx = c.md("AGI"),
+    dx = c.md("DEX"),
     L = [];
   if (N.z) {
     const b = N.z.max == null ? 0 : Math.min(dx, N.z.max);
     L.push([N.z.n, N.z.ac]);
-    if (N.z.max != null) L.push([N.z.max < 9 ? `AGI (nejvýš +${N.z.max})` : "AGI", b]);
+    if (N.z.max != null) L.push([N.z.max < 9 ? `DEX (nejvýš +${N.z.max})` : "DEX", b]);
     if (c.maRys(/^defense$|fighting style: defense/)) L.push(["Defense", 1]);
   } else {
     const az = c.E.filter(e => e.c === "acz").reduce((a, e) => Math.max(a, e.v), 0),
-      U = [[10 + dx, "bez zbroje 10 + AGI"]];
-    if (kTrU(c, "Barbarian")) U.push([10 + dx + c.md("CON"), "Unarmored Defense (10 + AGI + CON)"]);
-    if (kTrU(c, "Monk") && !N.s) U.push([10 + dx + c.md("WIS"), "Unarmored Defense (10 + AGI + WIS)"]);
-    if (c.maRys(/draconic resilience/)) U.push([10 + dx + c.md("CHA"), "Draconic Resilience (10 + AGI + CHA)"]);
-    if (az) U.push([az + dx, "Robe of the Archmagi (15 + AGI)"]);
+      U = [[10 + dx, "bez zbroje 10 + DEX"]];
+    if (kTrU(c, "Barbarian")) U.push([10 + dx + c.md("CON"), "Unarmored Defense (10 + DEX + CON)"]);
+    if (kTrU(c, "Monk") && !N.s) U.push([10 + dx + c.md("WIS"), "Unarmored Defense (10 + DEX + WIS)"]);
+    if (c.maRys(/draconic resilience/)) U.push([10 + dx + c.md("CHA"), "Draconic Resilience (10 + DEX + CHA)"]);
+    if (az) U.push([az + dx, "Robe of the Archmagi (15 + DEX)"]);
     U.sort((a, b) => b[0] - a[0]);
     L.push([U[0][1], U[0][0]]);
     c.inv.forEach(x => {
@@ -897,20 +897,20 @@ function kUtInf(K, a) {
     const w = kZbranInfo(a.n) || kZbranInfo(vl),
       fin = /finesse|jemn/i.test(vl + " " + (w ? w[4] : "")),
       dal = a.dal && !/thrown|vrh/i.test(vl + " " + (w ? w[4] : "")),
-      rule = dal ? "AGI" : fin ? (c.md("AGI") >= c.md("STR") ? "AGI" : "STR") : "STR",
+      rule = dal ? "DEX" : fin ? (c.md("DEX") >= c.md("STR") ? "DEX" : "STR") : "STR",
       arch = dal && c.maRys(/^archery$/) ? 2 : 0;
-    const C = [rule, "STR", "AGI", "CHA", "WIS", "INT", "CON"]
+    const C = [rule, "STR", "DEX", "CHA", "WIS", "INT", "CON"]
       .map((x, i) => ({x, i, m: +a.b - pb - arch - c.md(x)}))
       .filter(q => q.m >= 0 && q.m <= 3 && (zm == null || (zm - c.md(q.x) >= q.m && zm - c.md(q.x) <= q.m + 4)))
       .sort((p, q) => p.m - q.m || p.i - q.i);
     const ab = C.length ? C[0].x : rule,
       m = C.length ? C[0].m : +a.b - pb - arch - c.md(ab);
-    o = {ab, fin: fin && /STR|AGI/.test(ab), m, arch: !!arch, dm: zm == null ? null : zm - c.md(ab), w, dal};
+    o = {ab, fin: fin && /STR|DEX/.test(ab), m, arch: !!arch, dm: zm == null ? null : zm - c.md(ab), w, dal};
   }
   M.set(a, o);
   return o;
 }
-const kUtMd = (c, i) => (i.fin ? Math.max(c.md("STR"), c.md("AGI")) : c.md(i.ab));
+const kUtMd = (c, i) => (i.fin ? Math.max(c.md("STR"), c.md("DEX")) : c.md(i.ab));
 function kUtAdj(K, a) {
   if (a.b == null || a.b === "" || a.vlastni) return a;
   const c = kCtx(K),
@@ -934,7 +934,7 @@ function kUtAdj(K, a) {
       }),
     );
   if ((a.pocet || 1) > 1 || kPocet(c, true) > 1) o.pocet = kPocet(c, true);
-  o.rozpis = `${i.fin ? "STR/AGI" : i.ab} ${bsg(md)} · zdatnost ${bsg(c.pb)}${i.m ? ` · magie ${bsg(i.m)}` : ""}${i.arch ? " · Archery +2" : ""}`;
+  o.rozpis = `${i.fin ? "STR/DEX" : i.ab} ${bsg(md)} · zdatnost ${bsg(c.pb)}${i.m ? ` · magie ${bsg(i.m)}` : ""}${i.arch ? " · Archery +2" : ""}`;
   return o;
 }
 /* zbraně z vybavení, které v PDF nejsou (koupené, nalezené), a úder beze zbraně */
@@ -961,7 +961,7 @@ function kUtZInv(K) {
       m = +(String(x.n).match(/\+\s*([1-3])\b/) || [])[1] || +((p && p.ef && p.ef.utok) || 0),
       fin = /Finesse/.test(w[4]),
       dal = !!w[6],
-      ab0 = dal ? "AGI" : fin ? (c.md("AGI") >= c.md("STR") ? "AGI" : "STR") : "STR",
+      ab0 = dal ? "DEX" : fin ? (c.md("DEX") >= c.md("STR") ? "DEX" : "STR") : "STR",
       chx = !dal && !/Two-Handed/.test(w[4]) && c.maRys(/^hex warrior$|^pact of the blade$/) && c.md("CHA") > c.md(ab0),
       ab = chx ? "CHA" : ab0,
       md = c.md(ab),
@@ -982,7 +982,7 @@ function kUtZInv(K) {
   });
   if (![...pdfU, ...(kDopl(K).utoky || [])].some(a => /unarmed|beze zbraně/i.test(a.n))) {
     const mk = kTrU(c, "Monk"),
-      ab = mk && c.md("AGI") > c.md("STR") ? "AGI" : "STR",
+      ab = mk && c.md("DEX") > c.md("STR") ? "DEX" : "STR",
       md = c.md(ab),
       dd = mk ? (mk >= 17 ? "1d12" : mk >= 11 ? "1d10" : mk >= 5 ? "1d8" : "1d6") : "";
     o.push({

@@ -33,7 +33,7 @@ test("kouzla: Scorching Ray – tři paprsky 2d6, další paprsek za každý vy�
 
 test("kouzla: triky sílí s úrovní postavy (7. úroveň = 2 kostky): Fire Bolt, Sacred Flame, Toll the Dead", () => {
   assert.deepEqual(kouzlo("Fire Bolt", 0), {k: "z", x: "2d10", t: "Fire", utok: true, pol: false});
-  assert.deepEqual(kouzlo("Sacred Flame", 0), {k: "z", x: "2d8", t: "Radiant", zach: "AGI", utok: false, pol: false});
+  assert.deepEqual(kouzlo("Sacred Flame", 0), {k: "z", x: "2d8", t: "Radiant", zach: "DEX", utok: false, pol: false});
   assert.equal(kouzlo("Toll the Dead", 0).zach, "WIS");
 });
 
@@ -47,7 +47,7 @@ test("kouzla: Potent Spellcasting klerika přičítá WIS ke zranění triku, ne
 });
 
 test("kouzla: záchrana s poloviční škodou při úspěchu (Burning Hands, Lightning Bolt), bez poloviny (Thunderwave)", () => {
-  assert.deepEqual(kouzlo("Burning Hands", 2), {k: "z", x: "4d6", t: "Fire", zach: "AGI", utok: false, pol: true});
+  assert.deepEqual(kouzlo("Burning Hands", 2), {k: "z", x: "4d6", t: "Fire", zach: "DEX", utok: false, pol: true});
   assert.equal(kouzlo("Lightning Bolt", 3).x, "8d6");
   assert.equal(kouzlo("Thunderwave", 1).pol, false);
   assert.equal(kouzlo("Thunderwave", 1).zach, "CON");
@@ -93,26 +93,26 @@ test("kouzla: Shield trvá 1 kolo – s dalším kolem boje účinek skončí a 
   }
 });
 
-test("kouzla: Haste +2 AC, dvojnásobná rychlost a výhoda na záchrany AGI", async () => {
+test("kouzla: Haste +2 AC, dvojnásobná rychlost a výhoda na záchrany DEX", async () => {
   await ucinky([{n: "Haste", kon: true}]);
   try {
     assert.equal(V(`kACR(KARTBY.balduin).ac`), 20);
     assert.equal(V(`kRychN(KARTBY.balduin)`), 60);
-    assert.deepEqual(V(`kStavVliv(KARTBY.balduin, "Záchrana AGI").r`), [[1, "Haste"]]);
+    assert.deepEqual(V(`kStavVliv(KARTBY.balduin, "Záchrana DEX").r`), [[1, "Haste"]]);
     assert.deepEqual(V(`kStavVliv(KARTBY.balduin, "Záchrana WIS").r`), []);
   } finally {
     await ucinky(null);
   }
 });
 
-test("kouzla: Mage Armor dává AC 13 + AGI jen bez zbroje; Barkskin AC nejméně 17", async () => {
+test("kouzla: Mage Armor dává AC 13 + DEX jen bez zbroje; Barkskin AC nejméně 17", async () => {
   await ucinky([{n: "Mage Armor"}]);
   try {
     assert.equal(V(`kACR(KARTBY.balduin).ac`), 18, "Balduin má Breastplate – Mage Armor nic nepřidá");
   } finally {
     await ucinky(null);
   }
-  const mag = JSON.stringify({id: "t_mag", n: "Mág", povolani: "Wizard 5", uroven: 5, druh: "Human", vl: {AGI: 14}, rysy: [], vybaveni: []});
+  const mag = JSON.stringify({id: "t_mag", n: "Mág", povolani: "Wizard 5", uroven: 5, druh: "Human", vl: {DEX: 14}, rysy: [], vybaveni: []});
   S.ev(`KST.t_mag = {uc: [{n: "Mage Armor"}]}`);
   try {
     const a = V(`kACR(${mag})`);
@@ -222,7 +222,7 @@ test("kouzla: Pass without Trace +10 Stealth, Intellect Fortress Resistance Psyc
     povolani: "Ranger 5",
     uroven: 5,
     druh: "Human",
-    vl: {AGI: 14, WIS: 12},
+    vl: {DEX: 14, WIS: 12},
     rysy: [],
     vybaveni: [],
     dovProf: {Stealth: 1},
@@ -233,7 +233,7 @@ test("kouzla: Pass without Trace +10 Stealth, Intellect Fortress Resistance Psyc
     assert.equal(V(`kDov(${K}, "Perception")`), 1, "jiná dovednost beze změny");
     assert.ok(V(`kOdol(${K})`).includes("Psychic"));
     assert.deepEqual(V(`kBufAdv(${K}, "WIS")`), ["Intellect Fortress"]);
-    assert.deepEqual(V(`kBufAdv(${K}, "AGI")`), []);
+    assert.deepEqual(V(`kBufAdv(${K}, "DEX")`), []);
     S.kostky([[5, 8]]);
     assert.deepEqual(V(`kPriHod(${K}, "Iniciativa")`), {t: 5, txt: " +5 Gift of Alacrity", n: ["Gift of Alacrity"]});
     assert.equal(V(`kPriHod(${K}, "Útok")`).t, 0, "k útoku ne");

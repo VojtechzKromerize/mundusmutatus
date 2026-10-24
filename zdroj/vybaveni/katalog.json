@@ -717,7 +717,7 @@
 "w": 1,
 "wtxt": "1 lb.",
 "cena": "25 GP",
-"t": "Nahradí jeden útok; dosah 20 stop, AGI DC 8 + AGI + zdatnost proti 2d6 Acid."
+"t": "Nahradí jeden útok; dosah 20 stop, DEX DC 8 + DEX + zdatnost proti 2d6 Acid."
 },
 {
 "en": "Alchemist's Fire",
@@ -725,7 +725,7 @@
 "w": 1,
 "wtxt": "1 lb.",
 "cena": "50 GP",
-"t": "Nahradí jeden útok; dosah 20 stop, AGI DC 8 + AGI + zdatnost proti 1d4 Fire a zapálení."
+"t": "Nahradí jeden útok; dosah 20 stop, DEX DC 8 + DEX + zdatnost proti 1d4 Fire a zapálení."
 },
 {
 "en": "Ammunition",
@@ -765,7 +765,7 @@
 "w": 2,
 "wtxt": "2 lb.",
 "cena": "1 GP",
-"t": "Akcí Utilize pokryjí čtverec 10 stop; při vstupu poprvé za tah AGI DC 10 proti pádu. Sběr deset minut."
+"t": "Akcí Utilize pokryjí čtverec 10 stop; při vstupu poprvé za tah DEX DC 10 proti pádu. Sběr deset minut."
 },
 {
 "en": "Barrel",
@@ -861,7 +861,7 @@
 "w": 2,
 "wtxt": "2 lb.",
 "cena": "1 GP",
-"t": "Akcí Utilize pokryjí čtverec 5 stop; AGI DC 15 proti jednomu Piercing a rychlosti 0 do začátku dalšího tahu."
+"t": "Akcí Utilize pokryjí čtverec 5 stop; DEX DC 15 proti jednomu Piercing a rychlosti 0 do začátku dalšího tahu."
 },
 {
 "en": "Candle",
@@ -893,7 +893,7 @@
 "w": 10,
 "wtxt": "10 lb.",
 "cena": "5 GP",
-"t": "Svázání způsobilého cíle: STR (Athletics) DC 13; únik AGI (Acrobatics) DC 18; přetržení STR (Athletics) DC 20."
+"t": "Svázání způsobilého cíle: STR (Athletics) DC 13; únik DEX (Acrobatics) DC 18; přetržení STR (Athletics) DC 20."
 },
 {
 "en": "Chest",
@@ -1037,7 +1037,7 @@
 "w": 4,
 "wtxt": "4 lb.",
 "cena": "5 GP",
-"t": "Akcí Utilize zachytíš výstupek do 50 stop: AGI (Acrobatics) DC 13; s lanem umožňuje lezení."
+"t": "Akcí Utilize zachytíš výstupek do 50 stop: DEX (Acrobatics) DC 13; s lanem umožňuje lezení."
 },
 {
 "en": "Healer's Kit",
@@ -1061,7 +1061,7 @@
 "w": 1,
 "wtxt": "1 lb.",
 "cena": "25 GP",
-"t": "Nahradí útok; dosah 20 stop, AGI DC 8 + AGI + zdatnost proti 2d8 Radiant běsovi či nemrtvému."
+"t": "Nahradí útok; dosah 20 stop, DEX DC 8 + DEX + zdatnost proti 2d8 Radiant běsovi či nemrtvému."
 },
 {
 "en": "Hunting Trap",
@@ -1069,7 +1069,7 @@
 "w": 25,
 "wtxt": "25 lb.",
 "cena": "5 GP",
-"t": "AGI DC 13 proti 1d4 Piercing a zastavení; následně omezuje řetězem. Osvobození STR (Athletics) DC 13, neúspěch zraní za 1."
+"t": "DEX DC 13 proti 1d4 Piercing a zastavení; následně omezuje řetězem. Osvobození STR (Athletics) DC 13, neúspěch zraní za 1."
 },
 {
 "en": "Ink",
@@ -1133,7 +1133,7 @@
 "w": 1,
 "wtxt": "1 lb.",
 "cena": "10 GP",
-"t": "S klíčem; bez něj zlodějské náčiní a AGI (Sleight of Hand) DC 15."
+"t": "S klíčem; bez něj zlodějské náčiní a DEX (Sleight of Hand) DC 15."
 },
 {
 "en": "Locking Spellbook",
@@ -1141,7 +1141,7 @@
 "w": null,
 "wtxt": "-",
 "cena": "35 GP",
-"t": "Sto stran; zámek bez klíče vyžaduje zlodějské náčiní a AGI (Sleight of Hand) DC 15."
+"t": "Sto stran; zámek bez klíče vyžaduje zlodějské náčiní a DEX (Sleight of Hand) DC 15."
 },
 {
 "en": "Magnifying Glass",
@@ -1157,7 +1157,7 @@
 "w": 6,
 "wtxt": "6 lb.",
 "cena": "2 GP",
-"t": "Nasazení způsobilému cíli AGI (Sleight of Hand) DC 13. Únik DC 20, přetržení STR (Athletics) DC 25; zámek DC 15."
+"t": "Nasazení způsobilému cíli DEX (Sleight of Hand) DC 13. Únik DC 20, přetržení STR (Athletics) DC 25; zámek DC 15."
 },
 {
 "en": "Map",
@@ -1189,7 +1189,7 @@
 "w": 3,
 "wtxt": "3 lb.",
 "cena": "1 GP",
-"t": "Nahradí útok; dosah 15 stop, AGI DC 8 + AGI + zdatnost proti spoutání. Huge a větší automaticky uspějí; únik STR (Athletics) DC 10."
+"t": "Nahradí útok; dosah 15 stop, DEX DC 8 + DEX + zdatnost proti spoutání. Huge a větší automaticky uspějí; únik STR (Athletics) DC 10."
 },
 {
 "en": "Oil",
@@ -1309,7 +1309,7 @@
 "w": 5,
 "wtxt": "5 lb.",
 "cena": "1 GP",
-"t": "Uzel AGI (Sleight of Hand) DC 10; přetržení STR (Athletics) DC 20; únik ze svázání AGI (Acrobatics) DC 15."
+"t": "Uzel DEX (Sleight of Hand) DC 10; přetržení STR (Athletics) DC 20; únik ze svázání DEX (Acrobatics) DC 15."
 },
 {
 "en": "Sack",
@@ -1437,7 +1437,7 @@
 "w": null,
 "wtxt": "-",
 "cena": "50 GP",
-"t": "V odpovídajícím prostředí poskytuje výhodu k AGI (Stealth)."
+"t": "V odpovídajícím prostředí poskytuje výhodu k DEX (Stealth)."
 }
 ],
 "naradi": [
@@ -2428,7 +2428,7 @@
 "druh": "divotvorný předmět",
 "cenatxt": "Common (běžný): 100 GP",
 "cena": "100 GP",
-"t": "Pokusy vypáčit jej pomocí AGI mají nevýhodu."
+"t": "Pokusy vypáčit jej pomocí DEX mají nevýhodu."
 },
 {
 "en": "Lucky Foot",
@@ -3039,7 +3039,7 @@
 "druh": "divotvorný předmět",
 "cenatxt": "Uncommon (neobvyklý): 400 GP",
 "cena": "400 GP",
-"t": "Kroky nevydávají zvuk a získáváš výhodu k AGI (Stealth)."
+"t": "Kroky nevydávají zvuk a získáváš výhodu k DEX (Stealth)."
 },
 {
 "en": "Boots of Striding and Springing",
@@ -3146,7 +3146,7 @@
 "pr": true,
 "cenatxt": "Uncommon (neobvyklý): 400 GP",
 "cena": "400 GP",
-"t": "Výhoda k AGI (Stealth); pokusy vnímat tě pomocí WIS (Perception) mají nevýhodu."
+"t": "Výhoda k DEX (Stealth); pokusy vnímat tě pomocí WIS (Perception) mají nevýhodu."
 },
 {
 "en": "Cloak of Protection",
@@ -3580,7 +3580,7 @@
 "pr": true,
 "cenatxt": "Uncommon (neobvyklý): 400 GP",
 "cena": "400 GP",
-"t": "Reakcí s volnou rukou snížíš zranění střelnou či vrženou zbraní o 1d10 + AGI; při snížení na nulu lze střelu chytit."
+"t": "Reakcí s volnou rukou snížíš zranění střelnou či vrženou zbraní o 1d10 + DEX; při snížení na nulu lze střelu chytit."
 },
 {
 "en": "Gloves of Swimming and Climbing",
@@ -3599,7 +3599,7 @@
 "druh": "divotvorný předmět",
 "cenatxt": "Uncommon (neobvyklý): 400 GP",
 "cena": "400 GP",
-"t": "Při nošení nejsou vidět; poskytují +5 k AGI (Sleight of Hand)."
+"t": "Při nošení nejsou vidět; poskytují +5 k DEX (Sleight of Hand)."
 },
 {
 "en": "Goading Ammunition",
@@ -3780,7 +3780,7 @@
 "druh": "zbraň",
 "cenatxt": "Uncommon (neobvyklý): B+400 GP",
 "cena": "B+400 GP",
-"t": "Při zásahu může místo Piercing způsobit Lightning. Jednou do úsvitu vrh na cíl do 120 stop nahradíš bleskem: linie k cíli široká 5 stop, všichni kromě tebe AGI DC 13 proti 4d6 Lightning, při úspěchu polovina. Oštěp se ihned vrátí do ruky."
+"t": "Při zásahu může místo Piercing způsobit Lightning. Jednou do úsvitu vrh na cíl do 120 stop nahradíš bleskem: linie k cíli široká 5 stop, všichni kromě tebe DEX DC 13 proti 4d6 Lightning, při úspěchu polovina. Oštěp se ihned vrátí do ruky."
 },
 {
 "en": "Keoghtom's Ointment",
@@ -3799,7 +3799,7 @@
 "pr": true,
 "cenatxt": "Uncommon (neobvyklý): Varies (liší se); Rare (vzácný): Varies (liší se); Very Rare (velmi vzácný): Varies (liší se)",
 "cena": "Varies (liší se)",
-"t": "Three (tři dírky), Uncommon (neobvyklá): +1 k útoku a zranění, při akci Attack (útok) proměna na ruční sekeru či palcát do začátku dalšího tahu. Ve všech podobách volíš pro útok i zranění STR nebo AGI. Ten (deset), Rare (vzácná): bonus +2 a proměna v libovolnou jednoduchou zbraň na blízko. Many (mnoho), Very Rare (velmi vzácná): bonus +3, navíc proměna ve válečnou sekeru, dlouhý meč, rapír, šamšír či válečné kladivo; jednou do úsvitu přehodíš minutý útok, nový výsledek platí."
+"t": "Three (tři dírky), Uncommon (neobvyklá): +1 k útoku a zranění, při akci Attack (útok) proměna na ruční sekeru či palcát do začátku dalšího tahu. Ve všech podobách volíš pro útok i zranění STR nebo DEX. Ten (deset), Rare (vzácná): bonus +2 a proměna v libovolnou jednoduchou zbraň na blízko. Many (mnoho), Very Rare (velmi vzácná): bonus +3, navíc proměna ve válečnou sekeru, dlouhý meč, rapír, šamšír či válečné kladivo; jednou do úsvitu přehodíš minutý útok, nový výsledek platí."
 },
 {
 "en": "Lantern of Revealing",
@@ -4030,7 +4030,7 @@
 "druh": "lektvar",
 "cenatxt": "Uncommon (neobvyklý): 200 GP",
 "cena": "200 GP",
-"t": "Až třikrát do hodiny vydechneš bonusovou akcí oheň na cíl do 30 stop: 4d6, AGI DC 13 na polovinu."
+"t": "Až třikrát do hodiny vydechneš bonusovou akcí oheň na cíl do 30 stop: 4d6, DEX DC 13 na polovinu."
 },
 {
 "en": "Potion of Giant Strength",
@@ -4371,7 +4371,7 @@
 "pr": true,
 "cenatxt": "Uncommon (neobvyklý): B+400 GP",
 "cena": "B+400 GP",
-"t": "V rámci Attack (útok) můžeš jeden útok provést štítem na cíl do 5 stop: zdatnost + STR k zásahu, zranění 2d6 + STR Piercing. Jednou do úsvitu akcí Magic (magie) vystřelí bodce v kuželu 30 stop: AGI DC 13 proti 3d6 Piercing, úspěch polovina."
+"t": "V rámci Attack (útok) můžeš jeden útok provést štítem na cíl do 5 stop: zdatnost + STR k zásahu, zranění 2d6 + STR Piercing. Jednou do úsvitu akcí Magic (magie) vystřelí bodce v kuželu 30 stop: DEX DC 13 proti 3d6 Piercing, úspěch polovina."
 },
 {
 "en": "Staff of Skulls",
@@ -4681,7 +4681,7 @@
 "druh": "divotvorný předmět",
 "cenatxt": "Rare (vzácný): 2,000 GP",
 "cena": "2,000 GP",
-"t": "Obsahuje 3d4 jednorázových fazolí. Vysypané explodují v okruhu 10 stop: AGI DC 15 proti 5d4 Force, úspěch polovina. Jednotlivou lze zasadit a zalít; za minutu vyvolá výsledek z tabulky. Mezi účinky jsou magické houby, gejzír, ent, pomlouvající socha, oheň, houby shriekers, proměnlivé ropuchy, útočící bulette, strom s lektvarovým ovocem, nebezpečná posilující vejce, pohřební pyramida nebo obří fazolový stonek. Přesná rozdělení a parametry výsledků jsou v tabulce u tohoto záznamu.",
+"t": "Obsahuje 3d4 jednorázových fazolí. Vysypané explodují v okruhu 10 stop: DEX DC 15 proti 5d4 Force, úspěch polovina. Jednotlivou lze zasadit a zalít; za minutu vyvolá výsledek z tabulky. Mezi účinky jsou magické houby, gejzír, ent, pomlouvající socha, oheň, houby shriekers, proměnlivé ropuchy, útočící bulette, strom s lektvarovým ovocem, nebezpečná posilující vejce, pohřební pyramida nebo obří fazolový stonek. Přesná rozdělení a parametry výsledků jsou v tabulce u tohoto záznamu.",
 "tab": [
 {
 "h": [
@@ -4748,7 +4748,7 @@
 "druh": "divotvorný předmět",
 "cenatxt": "Rare (vzácný): 2,000 GP",
 "cena": "2,000 GP",
-"t": "Akcí Magic (magie) hod do 60 stop; výbuch v okruhu 10 stop. Neúspěšná AGI DC 15 znamená 5d4 Force a pro plně zasažené tvory uvěznění v průhledné sféře na minutu. Ostatní se vytlačí ven. Stěnou projde pouze dýchatelný vzduch, nikoli útoky či účinky. Vězeň ji akcí Utilize (použití předmětu) posouvá až polovinou rychlosti; celá sféra váží jednu libru bez ohledu na obsah."
+"t": "Akcí Magic (magie) hod do 60 stop; výbuch v okruhu 10 stop. Neúspěšná DEX DC 15 znamená 5d4 Force a pro plně zasažené tvory uvěznění v průhledné sféře na minutu. Ostatní se vytlačí ven. Stěnou projde pouze dýchatelný vzduch, nikoli útoky či účinky. Vězeň ji akcí Utilize (použití předmětu) posouvá až polovinou rychlosti; celá sféra váží jednu libru bez ohledu na obsah."
 },
 {
 "en": "Bellows of Strangulation",
@@ -4902,7 +4902,7 @@
 "pr": true,
 "cenatxt": "Rare (vzácný): 4,000 GP",
 "cena": "4,000 GP",
-"t": "Výhoda k AGI (Stealth). V šeru či tmě získáš při držení okrajů pláště let 40 stop; uvolnění okrajů nebo opuštění šera či tmy let ukončí. Jednou do úsvitu můžeš v šeru či tmě seslat Polymorph (proměna) na sebe do netopýra; ponecháš si INT, WIS a CHA."
+"t": "Výhoda k DEX (Stealth). V šeru či tmě získáš při držení okrajů pláště let 40 stop; uvolnění okrajů nebo opuštění šera či tmy let ukončí. Jednou do úsvitu můžeš v šeru či tmě seslat Polymorph (proměna) na sebe do netopýra; ponecháš si INT, WIS a CHA."
 },
 {
 "en": "Cube of Force",
@@ -5203,7 +5203,7 @@
 "druh": "divotvorný předmět",
 "cenatxt": "Rare (vzácný): 4,000 GP",
 "cena": "4,000 GP",
-"t": "Jednou do úsvitu akcí Magic (magie) hod na tvora Huge (obrovský) či menšího do 60 stop. Útok na dálku používá AGI + zdatnost; zásah způsobí Restrained (spoutaný), dokud jej bonusovou akcí nepustíš. Zlomení je akce a STR (Athletics) DC 20; úspěch zničí předmět, neúspěch znemožní danému tvorovi další úspěšný pokus 24 hodin."
+"t": "Jednou do úsvitu akcí Magic (magie) hod na tvora Huge (obrovský) či menšího do 60 stop. Útok na dálku používá DEX + zdatnost; zásah způsobí Restrained (spoutaný), dokud jej bonusovou akcí nepustíš. Zlomení je akce a STR (Athletics) DC 20; úspěch zničí předmět, neúspěch znemožní danému tvorovi další úspěšný pokus 24 hodin."
 },
 {
 "en": "Life-Sapping Blade",
@@ -5260,7 +5260,7 @@
 "druh": "divotvorný předmět",
 "cenatxt": "Rare (vzácný): 4,000 GP",
 "cena": "4,000 GP",
-"t": "Akcí Magic připoutá uchopeného či neschopného tvora až na osm hodin: AGI DC 15. Omezeno na velikost Large nebo menší; jednou do úsvitu."
+"t": "Akcí Magic připoutá uchopeného či neschopného tvora až na osm hodin: DEX DC 15. Omezeno na velikost Large nebo menší; jednou do úsvitu."
 },
 {
 "en": "Magen Handbell",
@@ -5447,7 +5447,7 @@
 "pr": true,
 "cenatxt": "Rare (vzácný): 4,000 GP",
 "cena": "4,000 GP",
-"t": "Při neúspěšné záchraně AGI reakcí utratíš jeden náboj a místo neúspěchu uspěješ. Tři náboje; za úsvitu se obnoví 1d3."
+"t": "Při neúspěšné záchraně DEX reakcí utratíš jeden náboj a místo neúspěchu uspěješ. Tři náboje; za úsvitu se obnoví 1d3."
 },
 {
 "en": "Ring of Feather Falling",
@@ -5545,7 +5545,7 @@
 "druh": "divotvorný předmět",
 "cenatxt": "Rare (vzácný): 4,000 GP",
 "cena": "4,000 GP",
-"t": "Držíš-li konec, akcí Magic (magie) spoutáš viditelného tvora do 20 stop, AGI DC 15. Únik akcí: STR (Athletics) nebo AGI (Acrobatics) DC 15. Pustíš-li lano nebo použiješ bonusovou akci s povelem, cíl uvolníš. Lano má AC 20, 20 životů, imunitu k jedovému a Psychic; pokud přežilo, obnovuje jeden život za pět minut."
+"t": "Držíš-li konec, akcí Magic (magie) spoutáš viditelného tvora do 20 stop, DEX DC 15. Únik akcí: STR (Athletics) nebo DEX (Acrobatics) DC 15. Pustíš-li lano nebo použiješ bonusovou akci s povelem, cíl uvolníš. Lano má AC 20, 20 životů, imunitu k jedovému a Psychic; pokud přežilo, obnovuje jeden život za pět minut."
 },
 {
 "en": "Salubrious Armor",
@@ -5723,7 +5723,7 @@
 "pr": true,
 "cenatxt": "Rare (vzácný): 4,000 GP",
 "cena": "4,000 GP",
-"t": "Akcí Magic (magie) provedeš tři útoky chapadly na viditelné cíle do 15 stop; každý má +9 k zásahu a 1d6 Psychic. Zasáhnou-li všechna stejný cíl, AGI DC 15 proti spoutání. Spoutaný na začátku tahů utrpí 3d6 Psychic a na jejich konci opakuje záchranu. Účinek skončí také tvou neschopností jednat, vzdálením nad 15 stop nebo uvolněním bonusovou akcí."
+"t": "Akcí Magic (magie) provedeš tři útoky chapadly na viditelné cíle do 15 stop; každý má +9 k zásahu a 1d6 Psychic. Zasáhnou-li všechna stejný cíl, DEX DC 15 proti spoutání. Spoutaný na začátku tahů utrpí 3d6 Psychic a na jejich konci opakuje záchranu. Účinek skončí také tvou neschopností jednat, vzdálením nad 15 stop nebo uvolněním bonusovou akcí."
 },
 {
 "en": "Thayan Sword",
@@ -5782,7 +5782,7 @@
 "pr": "ano; Spellcaster (sesilatel kouzel)",
 "cenatxt": "Rare (vzácný): 4,000 GP",
 "cena": "4,000 GP",
-"t": "Za jeden až tři náboje sesíláš Fireball (ohnivá koule), DC 15, ve 3. až 5. úrovni: 8d6, 9d6 nebo 10d6 Fire, úspěšná záchrana AGI půlí. Sedm nábojů; obnova 1d6 + 1 za úsvitu. Při utracení posledního d20, na 1 se hůlka zničí."
+"t": "Za jeden až tři náboje sesíláš Fireball (ohnivá koule), DC 15, ve 3. až 5. úrovni: 8d6, 9d6 nebo 10d6 Fire, úspěšná záchrana DEX půlí. Sedm nábojů; obnova 1d6 + 1 za úsvitu. Při utracení posledního d20, na 1 se hůlka zničí."
 },
 {
 "en": "Wand of Lightning Bolts",
@@ -5792,7 +5792,7 @@
 "pr": "ano; Spellcaster (sesilatel kouzel)",
 "cenatxt": "Rare (vzácný): 4,000 GP",
 "cena": "4,000 GP",
-"t": "Za jeden až tři náboje sesíláš Lightning Bolt (blesk), DC 15, ve 3. až 5. úrovni: 8d6, 9d6 nebo 10d6 Lightning, úspěšná záchrana AGI půlí. Sedm nábojů; obnova 1d6 + 1 za úsvitu. Při posledním náboji d20, na 1 zničení."
+"t": "Za jeden až tři náboje sesíláš Lightning Bolt (blesk), DC 15, ve 3. až 5. úrovni: 8d6, 9d6 nebo 10d6 Lightning, úspěšná záchrana DEX půlí. Sedm nábojů; obnova 1d6 + 1 za úsvitu. Při posledním náboji d20, na 1 zničení."
 },
 {
 "en": "Wand of Misdirection",
@@ -5831,7 +5831,7 @@
 "druh": "hůlka",
 "cenatxt": "Rare (vzácný): 4,000 GP",
 "cena": "4,000 GP",
-"t": "Za 1 až 3 náboje kužel 30 stop: 1d8 Piercing za náboj a krátká otrava; AGI DC 15 na polovinu bez otravy. Deset nábojů, obnova 1d10."
+"t": "Za 1 až 3 náboje kužel 30 stop: 1d8 Piercing za náboj a krátká otrava; DEX DC 15 na polovinu bez otravy. Deset nábojů, obnova 1d10."
 },
 {
 "en": "Wand of Wonder",
@@ -6190,7 +6190,7 @@
 "pr": true,
 "cenatxt": "Very Rare (velmi vzácný): 20,000 GP",
 "cena": "20,000 GP",
-"t": "Obsahuje 1d10 diamantů, 2d10 rubínů, 3d10 ohnivých opálů a 4d10 opálů. Alespoň jeden diamant: nemrtví začínající tah do 30 stop utrpí 1d6 Radiant. Ohnivý opál dovolí akcí Magic (magie) zapálit drženou zbraň, při zásahu +1d6 Fire; končí odložením či bonusovou akcí. Rubín dává odolání ohni. Kouzla DC 18 spotřebují drahokam: Daylight (denní světlo) opál; Fireball (ohnivá koule) ohnivý opál; Prismatic Spray (prizmatická sprška) diamant; Wall of Fire (ohnivá zeď) rubín. Utrpíš-li Fire po neúspěšné záchraně proti kouzlu, hod d20: na 1 přilba vybuchne a tvorové do 60 stop AGI DC 17 proti Radiant rovnému zbývajícím kamenům. Vyjmutý kámen se rozpadne; bez kamenů ztrácí magii."
+"t": "Obsahuje 1d10 diamantů, 2d10 rubínů, 3d10 ohnivých opálů a 4d10 opálů. Alespoň jeden diamant: nemrtví začínající tah do 30 stop utrpí 1d6 Radiant. Ohnivý opál dovolí akcí Magic (magie) zapálit drženou zbraň, při zásahu +1d6 Fire; končí odložením či bonusovou akcí. Rubín dává odolání ohni. Kouzla DC 18 spotřebují drahokam: Daylight (denní světlo) opál; Fireball (ohnivá koule) ohnivý opál; Prismatic Spray (prizmatická sprška) diamant; Wall of Fire (ohnivá zeď) rubín. Utrpíš-li Fire po neúspěšné záchraně proti kouzlu, hod d20: na 1 přilba vybuchne a tvorové do 60 stop DEX DC 17 proti Radiant rovnému zbývajícím kamenům. Vyjmutý kámen se rozpadne; bez kamenů ztrácí magii."
 },
 {
 "en": "Horseshoes of a Zephyr",
@@ -6244,7 +6244,7 @@
 "druh": "divotvorný předmět",
 "cenatxt": "Very Rare (velmi vzácný): 20,000 GP",
 "cena": "20,000 GP",
-"t": "Pokud během nejvýše šesti dní věnuješ 48 hodin studiu a cvičení podle knihy, zvýší se AGI o 2, nejvýše na 30. Kniha pak na sto let ztratí magii. Jde o zvýšení hodnoty vlastnosti do uvedeného limitu, nikoli samostatný bonus k jejímu maximu."
+"t": "Pokud během nejvýše šesti dní věnuješ 48 hodin studiu a cvičení podle knihy, zvýší se DEX o 2, nejvýše na 30. Kniha pak na sto let ztratí magii. Jde o zvýšení hodnoty vlastnosti do uvedeného limitu, nikoli samostatný bonus k jejímu maximu."
 },
 {
 "en": "Mirror of Life Trapping",
@@ -6337,7 +6337,7 @@
 "druh": "lektvar",
 "cenatxt": "Very Rare (velmi vzácný): 20,000 GP",
 "cena": "20,000 GP",
-"t": "Po vypití Haste (spěch) na minutu bez soustředění: zdvojená rychlost, +2 AC, výhoda k záchranám AGI a omezená dodatečná akce podle kouzla. Po skončení nenastane obvyklá letargie."
+"t": "Po vypití Haste (spěch) na minutu bez soustředění: zdvojená rychlost, +2 AC, výhoda k záchranám DEX a omezená dodatečná akce podle kouzla. Po skončení nenastane obvyklá letargie."
 },
 {
 "en": "Potion of Vitality",
@@ -6356,7 +6356,7 @@
 "pr": true,
 "cenatxt": "Very Rare (velmi vzácný): B+40,000 GP",
 "cena": "B+40,000 GP",
-"t": "Hůl +2; bonusovou akcí ji měníš na šestipalcovou tyčku, desetistopou tyč či zpět. Hůl a dlouhá tyč dávají výhodu k AGI (Acrobatics). V podobě hole vrh 30/120 stop s návratem po útoku. Reakcí při zásahu získáš proti danému útoku +5 AC, případně jej změníš na minutí; obnova za krátký či dlouhý odpočinek. Bonusovou akcí nebo při iniciativě ji rozsvítíš slabě 10 stop."
+"t": "Hůl +2; bonusovou akcí ji měníš na šestipalcovou tyčku, desetistopou tyč či zpět. Hůl a dlouhá tyč dávají výhodu k DEX (Acrobatics). V podobě hole vrh 30/120 stop s návratem po útoku. Reakcí při zásahu získáš proti danému útoku +5 AC, případně jej změníš na minutí; obnova za krátký či dlouhý odpočinek. Bonusovou akcí nebo při iniciativě ji rozsvítíš slabě 10 stop."
 },
 {
 "en": "Ring of Regeneration",
@@ -6376,7 +6376,7 @@
 "pr": true,
 "cenatxt": "Very Rare (velmi vzácný): 40,000 GP",
 "cena": "40,000 GP",
-"t": "Zdarma sesílá Dancing Lights (tančící světla) a Light (světlo). Šest nábojů, obnova 1d6 za úsvitu; Faerie Fire (vílí oheň) stojí jeden. Za dva náboje a akci Magic vytvoříš jednu až čtyři bleskové koule do 120 stop, soustředění nejvýše minutu; bonusovou akcí každou přesuneš 30 stop. Při přiblížení do 5 stop od jiného nechráněného tvora koule vybuchne: AGI DC 15 na polovinu; při vytvoření jedné koule 4d12, dvou 5d4, tří 2d6, čtyř 2d4 Lightning na kouli. Další režim za jeden až tři náboje vystřelí stejně jisker na body do 60 stop; každá zasáhne krychli 15 stop za 5d4 Radiant, AGI DC 15 na polovinu."
+"t": "Zdarma sesílá Dancing Lights (tančící světla) a Light (světlo). Šest nábojů, obnova 1d6 za úsvitu; Faerie Fire (vílí oheň) stojí jeden. Za dva náboje a akci Magic vytvoříš jednu až čtyři bleskové koule do 120 stop, soustředění nejvýše minutu; bonusovou akcí každou přesuneš 30 stop. Při přiblížení do 5 stop od jiného nechráněného tvora koule vybuchne: DEX DC 15 na polovinu; při vytvoření jedné koule 4d12, dvou 5d4, tří 2d6, čtyř 2d4 Lightning na kouli. Další režim za jeden až tři náboje vystřelí stejně jisker na body do 60 stop; každá zasáhne krychli 15 stop za 5d4 Radiant, DEX DC 15 na polovinu."
 },
 {
 "en": "Ring of Telekinesis",
@@ -6524,7 +6524,7 @@
 "pr": "ano; Sorcerer (čaroděj), Warlock (černokněžník) nebo Wizard (kouzelník)",
 "cenatxt": "Very Rare (velmi vzácný): 40,000 GP",
 "cena": "40,000 GP",
-"t": "Hůl +2 k útoku i zranění; při držení +2 AC, k záchranám i útokům kouzly. Dvacet nábojů, obnova 2d8 + 4 za úsvitu. Kouzla s vlastním DC: Cone of Cold (kužel chladu) 5, Fireball (ohnivá koule) v 5. úrovni 5, Globe of Invulnerability (koule nezranitelnosti) 6, Hold Monster (zadrž nestvůru) 5, Levitate (levitace) 2, Lightning Bolt (blesk) v 5. úrovni 5, Magic Missile (magická střela) 1, Ray of Enfeeblement (paprsek slabosti) 1, Wall of Force (silová zeď) 5 nábojů. Poslední náboj: d20; na 1 zůstane jen hůl +2, na 20 obnoví 1d8 + 2 nábojů. Akcí Magic ji lze zlomit: 50% šance uniknout do náhodné sféry, jinak utrpíš 16 × zbývající náboje Force; ostatní do 30 stop AGI DC 17 proti 4 × náboje, úspěch polovina."
+"t": "Hůl +2 k útoku i zranění; při držení +2 AC, k záchranám i útokům kouzly. Dvacet nábojů, obnova 2d8 + 4 za úsvitu. Kouzla s vlastním DC: Cone of Cold (kužel chladu) 5, Fireball (ohnivá koule) v 5. úrovni 5, Globe of Invulnerability (koule nezranitelnosti) 6, Hold Monster (zadrž nestvůru) 5, Levitate (levitace) 2, Lightning Bolt (blesk) v 5. úrovni 5, Magic Missile (magická střela) 1, Ray of Enfeeblement (paprsek slabosti) 1, Wall of Force (silová zeď) 5 nábojů. Poslední náboj: d20; na 1 zůstane jen hůl +2, na 20 obnoví 1d8 + 2 nábojů. Akcí Magic ji lze zlomit: 50% šance uniknout do náhodné sféry, jinak utrpíš 16 × zbývající náboje Force; ostatní do 30 stop DEX DC 17 proti 4 × náboje, úspěch polovina."
 },
 {
 "en": "Staff of Striking",
@@ -6554,7 +6554,7 @@
 "pr": true,
 "cenatxt": "Very Rare (velmi vzácný): 40,000 GP",
 "cena": "40,000 GP",
-"t": "Hůl +2. Každou následující schopnost lze použít jednou do úsvitu: při zásahu +2d6 Lightning bez akce; při zásahu CON DC 17 proti omráčení do konce tvého dalšího tahu; bonusovou akcí po zásahu oba účinky současně, aniž spotřebuješ jejich samostatná použití. Akcí Magic (magie) vyšleš linii 120 × 5 stop za 9d6 Lightning, AGI DC 17 na polovinu. Jinou akcí Magic hrom do 60 stop: CON DC 17 proti 2d6 Thunder a minutové hluchotě, úspěch jen polovina zranění."
+"t": "Hůl +2. Každou následující schopnost lze použít jednou do úsvitu: při zásahu +2d6 Lightning bez akce; při zásahu CON DC 17 proti omráčení do konce tvého dalšího tahu; bonusovou akcí po zásahu oba účinky současně, aniž spotřebuješ jejich samostatná použití. Akcí Magic (magie) vyšleš linii 120 × 5 stop za 9d6 Lightning, DEX DC 17 na polovinu. Jinou akcí Magic hrom do 60 stop: CON DC 17 proti 2d6 Thunder a minutové hluchotě, úspěch jen polovina zranění."
 },
 {
 "en": "Sword of Sharpness",
@@ -6574,7 +6574,7 @@
 "pr": true,
 "cenatxt": "Very Rare (velmi vzácný): B+40,000 GP",
 "cena": "B+40,000 GP",
-"t": "Nastaví STR na 20, nemáš-li ji už vyšší. Zásah tvora přidává 1d8 Thunder, nedrženého předmětu 3d8 Thunder. Akcí Magic úderem do pevného povrchu vytvoříš kužel 30 stop: STR DC 15 proti Prone (ležící); nedržené nemagické předměty utrpí 3d8 Thunder. Jednou do úsvitu akcí Magic zemětřesení v kruhu o poloměru 50 stop: stavby na zemi 50 Bludgeoning, tvorové na zemi AGI DC 20 proti pádu; soustředící navíc CON DC 20 proti ztrátě soustředění. Můžeš otevřít trhlinu hlubokou 30 a širokou 10 stop; AGI DC 20 proti pádu dovnitř, stavby nad ní se zřítí."
+"t": "Nastaví STR na 20, nemáš-li ji už vyšší. Zásah tvora přidává 1d8 Thunder, nedrženého předmětu 3d8 Thunder. Akcí Magic úderem do pevného povrchu vytvoříš kužel 30 stop: STR DC 15 proti Prone (ležící); nedržené nemagické předměty utrpí 3d8 Thunder. Jednou do úsvitu akcí Magic zemětřesení v kruhu o poloměru 50 stop: stavby na zemi 50 Bludgeoning, tvorové na zemi DEX DC 20 proti pádu; soustředící navíc CON DC 20 proti ztrátě soustředění. Můžeš otevřít trhlinu hlubokou 30 a širokou 10 stop; DEX DC 20 proti pádu dovnitř, stavby nad ní se zřítí."
 },
 {
 "en": "Tome of Clear Thought",
@@ -6630,7 +6630,7 @@
 "druh": "divotvorný předmět",
 "cenatxt": "Very Rare (velmi vzácný): 40,000 GP",
 "cena": "40,000 GP",
-"t": "Jednou do úsvitu akcí Magic (magie) aktivuješ na minutu; povelem do 30 stop ji vypneš bez akce. Při aktivaci a na začátku tvých tahů zasáhne všechny tvory i nenesené nemagické předměty v uzavřeném prostoru: krychle do 15 stop AGI DC 18 proti 6d6 + 5 Bludgeoning; do 30 stop DC 17 proti 4d6 + 4; do 50 stop DC 15 proti 2d6 + 2; do 100 stop DC 14 proti 1d6 + 1. Úspěch nezpůsobí zranění; větší prostor má zanedbatelný účinek. Venku odletí náhodným směrem 300 stop za kolo."
+"t": "Jednou do úsvitu akcí Magic (magie) aktivuješ na minutu; povelem do 30 stop ji vypneš bez akce. Při aktivaci a na začátku tvých tahů zasáhne všechny tvory i nenesené nemagické předměty v uzavřeném prostoru: krychle do 15 stop DEX DC 18 proti 6d6 + 5 Bludgeoning; do 30 stop DC 17 proti 4d6 + 4; do 50 stop DC 15 proti 2d6 + 2; do 100 stop DC 14 proti 1d6 + 1. Úspěch nezpůsobí zranění; větší prostor má zanedbatelný účinek. Venku odletí náhodným směrem 300 stop za kolo."
 },
 {
 "en": "Apparatus of Kwalish",
@@ -7121,7 +7121,7 @@
 "pr": "ano; Sorcerer (čaroděj), Warlock (černokněžník) nebo Wizard (kouzelník)",
 "cenatxt": "Legendary (legendární): 200,000 GP",
 "cena": "200,000 GP",
-"t": "Bez zbroje základní AC 15 + AGI. Výhoda k záchranám proti kouzlům i dalším magickým účinkům. DC tvých kouzel i bonus útoků kouzly se zvyšují o 2. Zdroj u této verze neuvádí barevné omezení podle přesvědčení."
+"t": "Bez zbroje základní AC 15 + DEX. Výhoda k záchranám proti kouzlům i dalším magickým účinkům. DC tvých kouzel i bonus útoků kouzly se zvyšují o 2. Zdroj u této verze neuvádí barevné omezení podle přesvědčení."
 },
 {
 "en": "Rod of Lordly Might",
@@ -7178,7 +7178,7 @@
 "druh": "divotvorný předmět",
 "cenatxt": "Legendary (legendární): 200,000 GP",
 "cena": "200,000 GP",
-"t": "Koule o průměru dvě stopy ničí plně pohlcenou hmotu s výjimkou odolných artefaktů; částečný dotyk působí 8d10 Force. Akcí Magic (magie) do 60 stop ověříš INT (Arcana) DC 25: úspěch dá kontrolu do začátku dalšího tahu, neúspěch ji posune 10 stop k tobě. Při kontrole bonusovou akcí pohyb přímo jedním směrem o 5 × INT stop, nejméně 5. Tvor, do jehož prostoru vstoupí: AGI DC 19 proti dotyku. Sražení na 0 tímto zraněním vymaže tělo, věci zůstanou. Kontakt s portálem či mimoprostorem: 50 % zničení koule, 35 % průchod, 15 % přesun koule a všeho do 180 stop do náhodné sféry."
+"t": "Koule o průměru dvě stopy ničí plně pohlcenou hmotu s výjimkou odolných artefaktů; částečný dotyk působí 8d10 Force. Akcí Magic (magie) do 60 stop ověříš INT (Arcana) DC 25: úspěch dá kontrolu do začátku dalšího tahu, neúspěch ji posune 10 stop k tobě. Při kontrole bonusovou akcí pohyb přímo jedním směrem o 5 × INT stop, nejméně 5. Tvor, do jehož prostoru vstoupí: DEX DC 19 proti dotyku. Sražení na 0 tímto zraněním vymaže tělo, věci zůstanou. Kontakt s portálem či mimoprostorem: 50 % zničení koule, 35 % průchod, 15 % přesun koule a všeho do 180 stop do náhodné sféry."
 },
 {
 "en": "Staff of the Magi",
@@ -7188,7 +7188,7 @@
 "pr": "ano; Sorcerer (čaroděj), Warlock (černokněžník) nebo Wizard (kouzelník)",
 "cenatxt": "Legendary (legendární): 200,000 GP",
 "cena": "200,000 GP",
-"t": "Hůl +2 k útoku i zranění; při držení +2 k útokům kouzly a výhoda k záchranám proti kouzlům. Reakcí pohltíš kouzlo jiného tvora mířící jen na tebe; zruší se a obnoví tolik nábojů, kolik mělo úrovní. Nad maximum 50 vybuchne. Obnova 4d6 + 2 za úsvitu; při posledním náboji d20, na 20 dalších 1d12 + 1. Široký seznam kouzel s cenami je v doplňkové tabulce. Akcí Magic (magie) ji můžeš zlomit: 50% šance uniknout do náhodné sféry, jinak utrpíš 16 × zbývající náboje Force; ostatní do 30 stop AGI DC 17 proti 6 × náboje, úspěch polovina.",
+"t": "Hůl +2 k útoku i zranění; při držení +2 k útokům kouzly a výhoda k záchranám proti kouzlům. Reakcí pohltíš kouzlo jiného tvora mířící jen na tebe; zruší se a obnoví tolik nábojů, kolik mělo úrovní. Nad maximum 50 vybuchne. Obnova 4d6 + 2 za úsvitu; při posledním náboji d20, na 20 dalších 1d12 + 1. Široký seznam kouzel s cenami je v doplňkové tabulce. Akcí Magic (magie) ji můžeš zlomit: 50% šance uniknout do náhodné sféry, jinak utrpíš 16 × zbývající náboje Force; ostatní do 30 stop DEX DC 17 proti 6 × náboje, úspěch polovina.",
 "tab": [
 {
 "h": [
@@ -7304,7 +7304,7 @@
 "pr": "ano; Cleric (klerik) nebo Paladin (paladin)",
 "cenatxt": "Legendary (legendární): 100,000 GP",
 "cena": "100,000 GP",
-"t": "Jako svatý symbol dává při nošení či držení +2 k útokům kouzly. Dotyk běsa či nemrtvého působí 8d6 Radiant a znovu na konci každého jeho tahu při držení. Sedm neobnovovaných nábojů: akcí Magic (magie) za jeden zvolíš viditelného tvora na zemi do 120 stop; AGI DC 20, běs či nemrtvý s nevýhodou. Neúspěch cíl bez ostatků zničí; úspěch přesto způsobí 4d6 Psychic. Poslední náboj talisman zničí."
+"t": "Jako svatý symbol dává při nošení či držení +2 k útokům kouzly. Dotyk běsa či nemrtvého působí 8d6 Radiant a znovu na konci každého jeho tahu při držení. Sedm neobnovovaných nábojů: akcí Magic (magie) za jeden zvolíš viditelného tvora na zemi do 120 stop; DEX DC 20, běs či nemrtvý s nevýhodou. Neúspěch cíl bez ostatků zničí; úspěch přesto způsobí 4d6 Psychic. Poslední náboj talisman zničí."
 },
 {
 "en": "Talisman of the Sphere",
@@ -7324,7 +7324,7 @@
 "pr": true,
 "cenatxt": "Legendary (legendární): 100,000 GP",
 "cena": "100,000 GP",
-"t": "Jako svatý symbol poskytuje +2 k útokům kouzly. Tvor kromě běsa či nemrtvého při dotyku utrpí 8d6 Necrotic a znovu na konci tahů při držení. Šest neobnovovaných nábojů: akcí Magic (magie) za jeden zvolíš viditelného tvora na zemi do 120 stop; AGI DC 20, nebešťan s nevýhodou. Neúspěch cíl beze zbytku zničí; úspěch přesto způsobí 4d6 Psychic. Poslední náboj talisman zničí."
+"t": "Jako svatý symbol poskytuje +2 k útokům kouzly. Tvor kromě běsa či nemrtvého při dotyku utrpí 8d6 Necrotic a znovu na konci tahů při držení. Šest neobnovovaných nábojů: akcí Magic (magie) za jeden zvolíš viditelného tvora na zemi do 120 stop; DEX DC 20, nebešťan s nevýhodou. Neúspěch cíl beze zbytku zničí; úspěch přesto způsobí 4d6 Psychic. Poslední náboj talisman zničí."
 },
 {
 "en": "Tome of the Dragon",
@@ -7431,7 +7431,7 @@
 "pr": true,
 "cenatxt": "Artifact (artefakt): Priceless",
 "cena": "Priceless",
-"t": "Arkánové ohnisko, let 30 stop s vznášením; sesílá Create or Destroy Water (stvoř či znič vodu), Enlarge/Reduce (zvětšení či zmenšení), Invisibility (neviditelnost) jen na sebe a Major Image (velká iluze), DC 18. Chladová aura 20 stop zraňuje ostatní za 2d6 při vstupu, najetí aury či ukončení tahu, nejvýše jednou za tah; akcí Magic (magie) ji vypneš či zapneš. Jednou do úsvitu akcí Magic šest paprsků do 60 stop, každý léčí 2d6 + 2, nebo způsobí 6d6 + 6 Radiant, AGI DC 18 na polovinu. Po jedné drobné i velké náhodné výhodě a nevýhodě. Zničí jej přání sladěného tvora, čímž se vypustí věznění džinové."
+"t": "Arkánové ohnisko, let 30 stop s vznášením; sesílá Create or Destroy Water (stvoř či znič vodu), Enlarge/Reduce (zvětšení či zmenšení), Invisibility (neviditelnost) jen na sebe a Major Image (velká iluze), DC 18. Chladová aura 20 stop zraňuje ostatní za 2d6 při vstupu, najetí aury či ukončení tahu, nejvýše jednou za tah; akcí Magic (magie) ji vypneš či zapneš. Jednou do úsvitu akcí Magic šest paprsků do 60 stop, každý léčí 2d6 + 2, nebo způsobí 6d6 + 6 Radiant, DEX DC 18 na polovinu. Po jedné drobné i velké náhodné výhodě a nevýhodě. Zničí jej přání sladěného tvora, čímž se vypustí věznění džinové."
 },
 {
 "en": "Crown Of Horns",
@@ -7565,7 +7565,7 @@
 "pr": true,
 "cenatxt": "Artifact (artefakt): Priceless",
 "cena": "Priceless",
-"t": "Let 60 stop s vznášením. Akcí Magic (magie) dech v kuželu 15 stop: 6d6 zvolené kyseliny, chladu, ohně, blesku či jedu; AGI DC 18 na polovinu. Nepřátelé začínající tah v auře 20 stop WIS DC 18 proti strachu do dalšího tahu; úspěch chrání 24 hodin. Šest nábojů, obnova 1d4 + 2 za úsvitu, DC 18 a útok +10: Disguise Self (přestrojení) 0, Fire Shield (ohnivý štít) 2, Hold Person (zadrž osobu) 1, See Invisibility (vidění neviditelného) 1, Summon Dragon (přivolej draka) v 9. úrovni 4. Spolknutí tě trvale změní v dospělého chromatického draka pod PJ; po smrti se vrátí tělo i koule. Dvě drobné náhodné výhody a dvě nevýhody."
+"t": "Let 60 stop s vznášením. Akcí Magic (magie) dech v kuželu 15 stop: 6d6 zvolené kyseliny, chladu, ohně, blesku či jedu; DEX DC 18 na polovinu. Nepřátelé začínající tah v auře 20 stop WIS DC 18 proti strachu do dalšího tahu; úspěch chrání 24 hodin. Šest nábojů, obnova 1d4 + 2 za úsvitu, DC 18 a útok +10: Disguise Self (přestrojení) 0, Fire Shield (ohnivý štít) 2, Hold Person (zadrž osobu) 1, See Invisibility (vidění neviditelného) 1, Summon Dragon (přivolej draka) v 9. úrovni 4. Spolknutí tě trvale změní v dospělého chromatického draka pod PJ; po smrti se vrátí tělo i koule. Dvě drobné náhodné výhody a dvě nevýhody."
 },
 {
 "en": "Orb of Dragonkind",
@@ -7654,11 +7654,11 @@
 },
 "Finesse": {
 "cz": "obratná",
-"t": "Pro útok i zranění zvolíš STR nebo AGI; pro oba hody stejnou vlastnost."
+"t": "Pro útok i zranění zvolíš STR nebo DEX; pro oba hody stejnou vlastnost."
 },
 "Heavy": {
 "cz": "těžká",
-"t": "Nevýhoda k útoku na blízko při STR pod 13; u zbraně na dálku při AGI pod 13."
+"t": "Nevýhoda k útoku na blízko při STR pod 13; u zbraně na dálku při DEX pod 13."
 },
 "Light": {
 "cz": "lehká",
@@ -7725,7 +7725,7 @@
 },
 "uvod": {
 "J": [
-"V zápisu DC 8 + AGI + zdatnost se AGI rozumí modifikátor vlastnosti, nikoli její celková hodnota. Stejně se čtou modifikátory zranění. Pojem obnova za úsvitu znamená návrat uvedeného počtu nábojů, nejvýše do maxima předmětu."
+"V zápisu DC 8 + DEX + zdatnost se DEX rozumí modifikátor vlastnosti, nikoli její celková hodnota. Stejně se čtou modifikátory zranění. Pojem obnova za úsvitu znamená návrat uvedeného počtu nábojů, nejvýše do maxima předmětu."
 ],
 "O": [
 "1 Currency a obchod",
@@ -7743,7 +7743,7 @@
 ],
 "2": [
 "Lehké zbroje se oblékají i svlékají jednu minutu; střední pět minut oblékají a jednu svlékají; těžké deset minut oblékají a pět svlékají. Štít vyžaduje akci Utilize (použití předmětu).",
-"Nedostatečná STR u zbroje s požadavkem snižuje rychlost o 10 stop. Bez výcviku ve zbroji máš nevýhodu k testům d20 zahrnujícím STR či AGI a nemůžeš sesílat kouzla. Bonus štítu získáš pouze s odpovídajícím výcvikem."
+"Nedostatečná STR u zbroje s požadavkem snižuje rychlost o 10 stop. Bez výcviku ve zbroji máš nevýhodu k testům d20 zahrnujícím STR či DEX a nemůžeš sesílat kouzla. Bonus štítu získáš pouze s odpovídajícím výcvikem."
 ],
 "3": [
 "Číselné vzdálenosti u zbraní jsou ve stopách. První údaj je běžný dostřel, druhý maximální; nad běžným dostřelem má útok nevýhodu. Vlastnost Weapon Mastery (mistrovství ve zbrani) využije pouze postava, které ji odemyká příslušná schopnost.",

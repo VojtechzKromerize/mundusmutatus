@@ -13,7 +13,7 @@ const KINVSPO =
   /potion|lektvar|elixír|elixir|scroll|svit|holy water|svěcen|\boil\b|olej|\bacid\b|kyselin|alchemist|bomb|caltrop|ball bearing|antitoxin|ration|dávk|healer'?s kit|torch|pochodn|arrows?\b|bolts?\b|šíp|šipk|bullets?\b|needles?\b|ammunition|munice/i;
 const KINVCEN =
   /\bgems?\b|diamond|ruby|rubín|emerald|smaragd|sapphire|safír|\bpearl\b(?! of power)|perl[aiy]\b|jewel|šperk|statuette|soška|\bidol\b|art object|cennost|\bjade\b|nefrit|\bonyx\b|\bopal\b|\bamber\b|jantar|zlat[ýá] (prsten|řetěz)|šupin/i;
-/* vrhací spotřební věci podle SRD 5.2.1 (výstroj): místo jednoho útoku akce Útok; cíl do 20 stop, záchrana AGI SO 8 + AGI + zdatnost */
+/* vrhací spotřební věci podle SRD 5.2.1 (výstroj): místo jednoho útoku akce Útok; cíl do 20 stop, záchrana DEX SO 8 + DEX + zdatnost */
 const KINVHOD = [
   [/holy water|svěcen/i, {z: "2d8", t: "Radiant", p: "jen proti Fiend a Undead"}],
   [/\bacid\b|kyselin/i, {z: "2d6", t: "Acid"}],
@@ -417,7 +417,7 @@ function bdmVecList(K, i) {
     .join("");
   const cile = B ? kInvCile(B.s) : [];
   const hodH = hd
-    ? `<div class="kvsek"><h4 class="bdmgh">Hodit</h4><p class="bdmnote">Místo jednoho útoku akce Útok, cíl do 20 stop: záchrana AGI SO ${8 + kMod(kVl(K, "AGI") || 10) + kPB(K)}, jinak ${hd.z} ${besc(BZRT[hd.t] || hd.t)}${hd.p ? ` (${besc(hd.p)})` : ""}.</p>
+    ? `<div class="kvsek"><h4 class="bdmgh">Hodit</h4><p class="bdmnote">Místo jednoho útoku akce Útok, cíl do 20 stop: záchrana DEX SO ${8 + kMod(kVl(K, "DEX") || 10) + kPB(K)}, jinak ${hd.z} ${besc(BZRT[hd.t] || hd.t)}${hd.p ? ` (${besc(hd.p)})` : ""}.</p>
     <p class="bdmrow">${B ? `<select data-kvcil aria-label="Cíl"><option value="">— cíl —</option>${cile.map(o => `<option value="${o.id}"${KINVC[K.id] === o.id ? " selected" : ""}>${besc(o.n)}</option>`).join("")}</select>` : ""}<button type="button" class="bdmbtn" data-kvhod="${i}">🎲 Hodit${B ? " – poslat vypravěči" : ""}</button></p></div>`
     : "";
   const darOk = window.MMDB && (komu.length || GMV || KZAM.has(K.id));
@@ -829,7 +829,7 @@ document.addEventListener("click", async e => {
       H = kInvHod(x);
     if (!x || !H) return;
     const B = kBojJa(K),
-      dc = 8 + kMod(kVl(K, "AGI") || 10) + kPB(K),
+      dc = 8 + kMod(kVl(K, "DEX") || 10) + kPB(K),
       z = bojKostky(H.z, false) || {t: 0, x: H.z};
     let c = null;
     if (B) {
@@ -851,7 +851,7 @@ document.addEventListener("click", async e => {
           cim: String(x.n).slice(0, 60),
           dmg: Math.max(0, Math.min(300, z.t)),
           t: H.t,
-          plos: {ab: "AGI", dc, pol: false},
+          plos: {ab: "DEX", dc, pol: false},
         });
       } catch (err) {
         mmHlasG("Nepodařilo se poslat: " + (err.message || err), 5000);
@@ -868,9 +868,9 @@ document.addEventListener("click", async e => {
       kdo: K.n,
       co: `Hod – ${x.n}${c ? " → " + c.n : ""}`,
       tot: z.t,
-      txt: `${z.x} ${BZRT[H.t] || H.t} · záchrana AGI SO ${dc}${H.p ? " · " + H.p : ""}`,
+      txt: `${z.x} ${BZRT[H.t] || H.t} · záchrana DEX SO ${dc}${H.p ? " · " + H.p : ""}`,
     });
-    await kInvUloz(K, inv, `${K.n}: ${x.n}${c ? ` → ${c.n} – čeká na vypravěče` : ""} (zranění ${z.t}, záchrana AGI SO ${dc}).`);
+    await kInvUloz(K, inv, `${K.n}: ${x.n}${c ? ` → ${c.n} – čeká na vypravěče` : ""} (zranění ${z.t}, záchrana DEX SO ${dc}).`);
     if (B) {
       BOJ.v = -2;
       await bojNacti();

@@ -71,7 +71,7 @@ function vybParam(x) {
   if (sk === "zbroj")
     return x.typ === "štít"
       ? "+2 AC"
-      : `AC ${x.ac}${x.typ !== "těžká" ? ` + AGI${x.agi === 2 ? " (nejvýš +2)" : ""}` : ""}${x.str ? ` · STR ${x.str}` : ""}${x.plizeni ? " · nevýhoda na plížení" : ""} · ${besc(x.typ)} zbroj`;
+      : `AC ${x.ac}${x.typ !== "těžká" ? ` + DEX${x.agi === 2 ? " (nejvýš +2)" : ""}` : ""}${x.str ? ` · STR ${x.str}` : ""}${x.plizeni ? " · nevýhoda na plížení" : ""} · ${besc(x.typ)} zbroj`;
   if (sk === "strelivo") return `${x.pocet} ks`;
   if (sk === "naradi") return `${besc(x.sk2 || "")}${x.vl ? ` · ověření ${besc(x.vl)}` : ""}`;
   if (sk === "zvirata") return `nosnost ${besc(x.nosnost || "")}`;

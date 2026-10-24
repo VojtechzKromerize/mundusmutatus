@@ -24,11 +24,11 @@ Nejběžnější drak Čech a Moravy. Bez ohně, bez jedu, jen dobře stavěné 
 
 **AC** 16 (přirozená) · **HP** 126 (12d12+48) · **Rychlost** 40 stop, let 80 stop · **Iniciativa** +1
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 21 (+5) | 12 (+1) | 19 (+4) | 7 (−2) | 13 (+1) | 10 (+0) |
 
-**Záchrany** AGI +4, CON +7, WIS +4 · **Dovednosti** Perception +7, Stealth +4 · **Smysly** Darkvision 60 stop, pasivní Perception 17 · **Jazyky** mluví jazykem, který slyšela ve vejci (obvykle česky); jednoduše a doslova
+**Záchrany** DEX +4, CON +7, WIS +4 · **Dovednosti** Perception +7, Stealth +4 · **Smysly** Darkvision 60 stop, pasivní Perception 17 · **Jazyky** mluví jazykem, který slyšela ve vejci (obvykle česky); jednoduše a doslova
 
 ## Vlastnosti
 

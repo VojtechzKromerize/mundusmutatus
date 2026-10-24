@@ -683,7 +683,7 @@ async function vyNacti() {
   }
   if (!s) {
     try {
-      s = JSON.parse(localStorage.getItem("mm-vyprava") || "null");
+      s = JSON.parse(mmDex(localStorage.getItem("mm-vyprava")) || "null");
     } catch (e) {}
   }
   VY = Object.assign(VY_NOVA(), s || {});

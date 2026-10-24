@@ -18,8 +18,8 @@ Cíl může těžit z krytu, jen když útok nebo jiný účinek vychází z opa
 
 | Stupeň | Výhoda pro cíl | Poskytuje… |
 |---|---|---|
-| Poloviční | +2 k AC a záchranným hodům na Obratnost (AGI) | Jiný tvor nebo předmět, který kryje alespoň polovinu cíle |
-| Tříčtvrteční | +5 k AC a záchranným hodům na Obratnost (AGI) | Předmět, který kryje alespoň tři čtvrtiny cíle |
+| Poloviční | +2 k AC a záchranným hodům na Obratnost (DEX) | Jiný tvor nebo předmět, který kryje alespoň polovinu cíle |
+| Tříčtvrteční | +5 k AC a záchranným hodům na Obratnost (DEX) | Předmět, který kryje alespoň tři čtvrtiny cíle |
 | Úplný | Nemůže být přímo zvolen za cíl | Předmět, který kryje celý cíl |
 
 ### Útoky na dálku
@@ -76,7 +76,7 @@ Naproti tomu nezávislé jízdní zvíře – takové, které tě nechá jet, al
 
 #### Pád ze sedla
 
-Pokud se tvé jízdní zvíře má proti své vůli přemístit nějakým účinkem, zatímco na něm sedíš, musíš uspět v záchranném hodu na Obratnost (AGI) se SO 10, jinak spadneš a dopadneš se stavem Sražen (k zemi) (Prone; viz „Glosář pravidel“) na neobsazené místo do 5 stop od zvířete.
+Pokud se tvé jízdní zvíře má proti své vůli přemístit nějakým účinkem, zatímco na něm sedíš, musíš uspět v záchranném hodu na Obratnost (DEX) se SO 10, jinak spadneš a dopadneš se stavem Sražen (k zemi) (Prone; viz „Glosář pravidel“) na neobsazené místo do 5 stop od zvířete.
 
 Když jsi v sedle, musíš si hodit stejnou záchranu, pokud jsi sražen k zemi ty nebo tvé jízdní zvíře.
 

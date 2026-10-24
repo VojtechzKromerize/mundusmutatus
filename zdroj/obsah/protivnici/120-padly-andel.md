@@ -23,11 +23,11 @@ Anděl, který padl s Luciferem a od Protržení Závoje chodí po světě jako 
 
 **AC** 18 (plátová zbroj z černé oceli) · **HP** 178 (21d8+84) · **Rychlost** 30 stop, let 60 stop · **Iniciativa** +7
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 18 (+4) | 16 (+3) | 18 (+4) | 14 (+2) | 14 (+2) | 18 (+4) |
 
-**Záchrany** AGI +7, CON +8, CHA +8 · **Dovednosti** Perception +6, Persuasion +8 · **Resistance** Cold; (zbroj, komplexní) Bludgeoning, Slashing, Piercing · **Imunita** Fire, Poison, Poisoned · **Smysly** Truesight 120 stop; pasivní Perception 16 · **Jazyky** všechny; mluví do mysli na 120 stop · **Odolnost vůči kouzlům:** výhoda na záchrany proti kouzlům
+**Záchrany** DEX +7, CON +8, CHA +8 · **Dovednosti** Perception +6, Persuasion +8 · **Resistance** Cold; (zbroj, komplexní) Bludgeoning, Slashing, Piercing · **Imunita** Fire, Poison, Poisoned · **Smysly** Truesight 120 stop; pasivní Perception 16 · **Jazyky** všechny; mluví do mysli na 120 stop · **Odolnost vůči kouzlům:** výhoda na záchrany proti kouzlům
 
 ## Vlastnosti
 

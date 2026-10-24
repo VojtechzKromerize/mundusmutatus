@@ -8,7 +8,7 @@ ac: 13
 hp: 5
 utok: Jedovaté kousnutí +5 · 4 Piercing a jed za každého v dosahu
 bonus: 5
-komplikace: Pavučina: útočník hodí AGI save DC 12, jinak je Restrained, dokud se nevyprostí (akce, STR DC 12).
+komplikace: Pavučina: útočník hodí DEX save DC 12, jinak je Restrained, dokud se nevyprostí (akce, STR DC 12).
 stitky: zvěř, pavouci, doly, jeskyně, kras, Moravský kras, tma
 utoky:
   - Jedovaté kousnutí | +5 | 4 za pacholka Piercing a Poison
@@ -21,7 +21,7 @@ Velcí lovečtí pavouci z jeskyní a opuštěných štol, kteří se po Noci Pr
 
 **Útok houfu – jedovaté kousnutí:** +5 (+1 za každého dalšího, nejvýš +5), dosah 5 stop. **Zásah:** 4 zranění za každého pavouka v dosahu cíle (Piercing a Poison).
 
-**Záchrany houfu:** AGI +3, ostatní +0
+**Záchrany houfu:** DEX +3, ostatní +0
 
 ## Vlastnosti
 

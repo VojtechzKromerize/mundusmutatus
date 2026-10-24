@@ -168,8 +168,8 @@ test("vybavení: věc z katalogu přibude do vybavení postavy", async () => {
 /* ---------- kouzla ---------- */
 const kouzlo = (n, st) => V(`kSpUcinek(KARTBY.balduin, {n: ${JSON.stringify(n)}}, ${st})`);
 
-test("kouzla: Fireball 8d6 Fire, záchrana AGI, na vyšším stupni +1d6", () => {
-  assert.deepEqual(kouzlo("Fireball", 3), {k: "z", x: "8d6", t: "Fire", zach: "AGI", utok: false, pol: true});
+test("kouzla: Fireball 8d6 Fire, záchrana DEX, na vyšším stupni +1d6", () => {
+  assert.deepEqual(kouzlo("Fireball", 3), {k: "z", x: "8d6", t: "Fire", zach: "DEX", utok: false, pol: true});
   assert.equal(kouzlo("Fireball", 5).x, "10d6");
 });
 
@@ -334,7 +334,7 @@ test("houf: plošné zranění zraní každého pacholka zvlášť", () => {
     [1, 20],
     [1, 20],
   ]);
-  const r = V(`bojHoufZachrany({pocet: 3, hz: 2}, null, 4, "Fire", "AGI", 30, true, null, true)`);
+  const r = V(`bojHoufZachrany({pocet: 3, hz: 2}, null, 4, "Fire", "DEX", 30, true, null, true)`);
   assert.equal(r.pad, 1, "4 zranění skolí jen raněného (2 + 4 ≥ 5), zdravé ne");
   assert.equal(r.hz, 0);
 });

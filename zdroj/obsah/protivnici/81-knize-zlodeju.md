@@ -24,16 +24,16 @@ Pán zlodějů, pašeráků a vrahů, který z kanálů a sklepů pod Prahou ř�
 
 **AC** 17 (kožená s cvočky) · **HP** 169 (26d8+52) · **Rychlost** 30 stop · **Iniciativa** +5
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 10 (+0) | 20 (+5) | 14 (+2) | 18 (+4) | 14 (+2) | 15 (+2) |
 
-**Záchrany** AGI +9, CON +6 · **Dovednosti** Acrobatics +9, Perception +10, Stealth +13 · **Jazyky** česky, německy, italsky, latinsky, hantýrkou
+**Záchrany** DEX +9, CON +6 · **Dovednosti** Acrobatics +9, Perception +10, Stealth +13 · **Jazyky** česky, německy, italsky, latinsky, hantýrkou
 
 ## Vlastnosti
 
 - **Sloty.** V každém slotu jeden útok nebo schopnost.
-- **Úhyb.** Při AGI save na poloviční zranění: úspěch 0, neúspěch polovina.
+- **Úhyb.** Při DEX save na poloviční zranění: úspěch 0, neúspěch polovina.
 - **Ďáblovo štěstí.** Vždycky má ještě jednu chodbu.
 
 ## Akce (jedna v každém slotu)

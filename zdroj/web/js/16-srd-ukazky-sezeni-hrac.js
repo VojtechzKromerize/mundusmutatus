@@ -425,7 +425,7 @@ const SZDB = {
       }
     } else SEZ.lok = true;
     try {
-      return JSON.parse(localStorage.getItem("mm-sezeni") || "null");
+      return JSON.parse(mmDex(localStorage.getItem("mm-sezeni")) || "null");
     } catch (e) {
       return null;
     }

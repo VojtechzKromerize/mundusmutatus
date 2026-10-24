@@ -23,15 +23,15 @@ Vrah na objednávku, často z Itálie, kde to umějí nejlépe. Na dvorech v Pra
 
 **AC** 16 (kožená s cvočky) · **HP** 97 (15d8+30) · **Rychlost** 30 stop · **Iniciativa** +4
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 11 (+0) | 18 (+4) | 14 (+2) | 16 (+3) | 11 (+0) | 10 (+0) |
 
-**Záchrany** AGI +7, INT +6 · **Dovednosti** Acrobatics +7, Perception +6, Stealth +10 · **Resistance** Poison · **Jazyky** česky, italsky, hantýrkou
+**Záchrany** DEX +7, INT +6 · **Dovednosti** Acrobatics +7, Perception +6, Stealth +10 · **Resistance** Poison · **Jazyky** česky, italsky, hantýrkou
 
 ## Vlastnosti
 
-- **Úhyb.** Při AGI save na poloviční zranění: úspěch 0, neúspěch polovina.
+- **Úhyb.** Při DEX save na poloviční zranění: úspěch 0, neúspěch polovina.
 - **Ďáblovo štěstí.** Když padne a nejde o jistou smrt, hodí Závoj; při Pokušení přežije (utekl, zajat, ležel mezi mrtvými).
 
 ## Akce (jedna v každém slotu)

@@ -8,7 +8,7 @@ hp: 123
 utok: Úder +9, 1d10+5 a 1d12 Acid, max. HP klesne · zrychlení: Dash a Disengage a tři údery
 pozehnani: Zrychlení se dobije hned.
 pokuseni: Šém se v jeho ústech pohne: do konce kola nejedná.
-nerest: Šém – na čele nebo pod jazykem má napsané slovo. Kdo ho smaže nebo vytáhne (akce v dosahu, AGI nebo STR proti DC 17), ten ho zastaví.
+nerest: Šém – na čele nebo pod jazykem má napsané slovo. Kdo ho smaže nebo vytáhne (akce v dosahu, DEX nebo STR proti DC 17), ten ho zastaví.
 stitky: konstrukt, golem, Praha, Židovské město, hlína, kabala, Vltava
 zdroje: Zrychlení 1
 utoky:
@@ -22,7 +22,7 @@ Hliněný obr, kterého oživil šém – slovo s božím jménem. Strážce pra
 
 **AC** 14 · **HP** 123 (13d10+52) · **Rychlost** 20 stop · **Iniciativa** −1
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 20 (+5) | 9 (−1) | 18 (+4) | 3 (−4) | 8 (−1) | 1 (−5) |
 

@@ -11,7 +11,7 @@ const hex = (s: string) => new Uint8Array((s.match(/../g) ?? []).map((b) => pars
 const db = () => createClient(env("SUPABASE_URL"), env("SUPABASE_SERVICE_ROLE_KEY"), { auth: { persistSession: false } });
 const CORS = { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Headers": "authorization, content-type, apikey", "Access-Control-Allow-Methods": "POST, OPTIONS" };
 
-const VL: Record<string, string> = { STR: "STR", SIL: "STR", AGI: "AGI", DEX: "AGI", OBR: "AGI", CON: "CON", ODO: "CON", INT: "INT", WIS: "WIS", MOU: "WIS", CHA: "CHA", CHR: "CHA" };
+const VL: Record<string, string> = { STR: "STR", SIL: "STR", DEX: "DEX", AGI: "DEX", OBR: "DEX", CON: "CON", ODO: "CON", INT: "INT", WIS: "WIS", MOU: "WIS", CHA: "CHA", CHR: "CHA" };
 const DOV = ["Acrobatics", "Animal Handling", "Arcana", "Athletics", "Deception", "History", "Insight", "Intimidation", "Investigation",
   "Medicine", "Nature", "Perception", "Performance", "Persuasion", "Religion", "Sleight of Hand", "Stealth", "Survival"];
 const DOVCZ: Record<string, string> = { akrobacie: "Acrobatics", zvirata: "Animal Handling", arkana: "Arcana", atletika: "Athletics", klam: "Deception",

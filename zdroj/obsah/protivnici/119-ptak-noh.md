@@ -23,11 +23,11 @@ Pták tak velký, že zastíní slunce, z pohádek, které se po Protržení Zá
 
 **AC** 15 · **HP** 248 (16d20+80) · **Rychlost** 20 stop, let 120 stop · **Iniciativa** +8
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 28 (+9) | 10 (+0) | 20 (+5) | 3 (−4) | 10 (+0) | 9 (−1) |
 
-**Záchrany** AGI +4, WIS +4 · **Dovednosti** Perception +8 · **Smysly** pasivní Perception 18; vidí zajíce z míle · **Jazyky** žádné
+**Záchrany** DEX +4, WIS +4 · **Dovednosti** Perception +8 · **Smysly** pasivní Perception 18; vidí zajíce z míle · **Jazyky** žádné
 
 ## Vlastnosti
 

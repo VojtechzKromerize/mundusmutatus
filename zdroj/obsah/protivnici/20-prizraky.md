@@ -21,7 +21,7 @@ Bledé tváře bez těl, ozvěny těch, které divoký lovec vytrhl ze života. 
 
 **Útok houfu – vysátí života:** +4 (+1 za každého dalšího, nejvýš +5), dosah 5 stop. **Zásah:** 3 Prokleté (Necrotic) za každý přízrak v dosahu cíle a maximum HP cíle klesne o stejnou hodnotu až do dlouhého odpočinku.
 
-**Záchrany houfu:** AGI +2, ostatní +0
+**Záchrany houfu:** DEX +2, ostatní +0
 
 ## Vlastnosti
 

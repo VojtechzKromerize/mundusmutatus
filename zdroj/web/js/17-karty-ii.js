@@ -77,7 +77,7 @@ function kTexty(K) {
       } catch (e) {}
     } else {
       try {
-        t = (JSON.parse(localStorage.getItem("mm-karty-texty") || "{}") || {})[K.id] || null;
+        t = (JSON.parse(mmDex(localStorage.getItem("mm-karty-texty")) || "{}") || {})[K.id] || null;
       } catch (e) {}
     }
     KTX[K.id] = t || {};
@@ -96,7 +96,7 @@ async function kTextyUloz(id, t) {
     }
   } else {
     try {
-      const o = JSON.parse(localStorage.getItem("mm-karty-texty") || "{}") || {};
+      const o = JSON.parse(mmDex(localStorage.getItem("mm-karty-texty")) || "{}") || {};
       o[id] = t;
       localStorage.setItem("mm-karty-texty", JSON.stringify(o));
     } catch (e) {}
@@ -473,8 +473,8 @@ function kSpUcD(d, lvl, mod, ul) {
   o.pol = /při úspěchu poloviční/i.test(t);
   return o;
 }
-/* záchrana cíle v textu kouzla; „výhoda na AGI záchranné hody“ (Haste, Beacon of Hope, Conjure Animals pro sesilatele) jí není */
-const KZACHRE = /(?<!výhod[uouě] na )(?<!výhod[uouě] k )\b(STR|AGI|CON|INT|WIS|CHA) záchrann/;
+/* záchrana cíle v textu kouzla; „výhoda na DEX záchranné hody“ (Haste, Beacon of Hope, Conjure Animals pro sesilatele) jí není */
+const KZACHRE = /(?<!výhod[uouě] na )(?<!výhod[uouě] k )\b(STR|DEX|CON|INT|WIS|CHA) záchrann/;
 /* sesílání na vyšším stupni (upcasting): volba slotu kolečky se stupněm; co vyšší stupeň přidá, z popisu kouzla SRD */
 function kSpVyssi(K, x, lvl) {
   const d = typeof kSpA === "function" ? kSpA(x.n) : null,
@@ -1054,7 +1054,7 @@ const kTezka = (K, a) => {
     z = typeof kZbranInfo === "function" ? kZbranInfo(A.n) : null;
   return /\bheavy\b/i.test([...(A.vl || []), (z && z[4]) || "", A.pozn || ""].join(" "));
 };
-/* Battle Master: kostky převahy (zdroj „Combat Superiority“) a jejich velikost; SO manévrů = 8 + zdatnost + STR nebo AGI */
+/* Battle Master: kostky převahy (zdroj „Combat Superiority“) a jejich velikost; SO manévrů = 8 + zdatnost + STR nebo DEX */
 function kSD(K) {
   if (!K || typeof kZdrN !== "function") return null;
   const z = kZdrN(K, /combat superiority|superiority dic?e/i);
@@ -1063,7 +1063,7 @@ function kSD(K) {
     f = kTrU(kCtx(K), "Fighter");
   return Object.assign(z, {k: m ? m[1] : f >= 18 ? "d12" : f >= 10 ? "d10" : "d8"});
 }
-const kSDdc = K => 8 + kPB(K) + Math.max(kMod(kVl(K, "STR") || 10), kMod(kVl(K, "AGI") || 10));
+const kSDdc = K => 8 + kPB(K) + Math.max(kMod(kVl(K, "STR") || 10), kMod(kVl(K, "DEX") || 10));
 /* manévry, které se přidávají k zásahu: [název, česky, záchrana cíle, následek při neúspěchu] */
 const BMAN = [
   ["Trip Attack", "Útok s podražením", "STR", "Sražen (Prone)"],
@@ -1285,7 +1285,7 @@ function kStavVliv(K, co) {
     r = [];
   let fail = false;
   const typ = /^Útok/.test(co) ? "ut" : /^Záchrana/.test(co) ? "za" : /^Iniciativa/.test(co) ? "in" : "ov",
-    ab = (co.match(/(STR|AGI|CON|INT|WIS|CHA)/) || [])[1];
+    ab = (co.match(/(STR|DEX|CON|INT|WIS|CHA)/) || [])[1];
   st.forEach(k => {
     const d = SRDST[k];
     if (!d) return;

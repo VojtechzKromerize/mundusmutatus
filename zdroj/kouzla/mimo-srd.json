@@ -237,7 +237,7 @@
   "d": "Okamžité",
   "ko": 0,
   "ri": 0,
-  "t": "Zasažený cíl a každý tvor do 5 stop od něj si hází AGI záchranný hod; při neúspěchu utrpí 1d10 Piercing zranění, při úspěchu poloviční.",
+  "t": "Zasažený cíl a každý tvor do 5 stop od něj si hází DEX záchranný hod; při neúspěchu utrpí 1d10 Piercing zranění, při úspěchu poloviční.",
   "v": "Zranění se zvýší o 1d10 za každou úroveň slotu kouzla nad 1.",
   "x": 1
  },
@@ -405,7 +405,7 @@
   "d": "8 hodin",
   "ko": 0,
   "ri": 0,
-  "t": "Zabodneš 4 nemagické šípy či šipky do země v dosahu. Kdykoli jiný tvor poprvé v tahu vstoupí do 30 stop od nich nebo tam skončí tah, jeden projektil na něj vyletí: tvor si hází AGI záchranný hod, při neúspěchu utrpí 1d6 Piercing zranění. Projektil se tím zničí; kouzlo končí, když žádný nezbývá. Při seslání můžeš určit tvory, které kouzlo ignoruje.",
+  "t": "Zabodneš 4 nemagické šípy či šipky do země v dosahu. Kdykoli jiný tvor poprvé v tahu vstoupí do 30 stop od nich nebo tam skončí tah, jeden projektil na něj vyletí: tvor si hází DEX záchranný hod, při neúspěchu utrpí 1d6 Piercing zranění. Projektil se tím zničí; kouzlo končí, když žádný nezbývá. Při seslání můžeš určit tvory, které kouzlo ignoruje.",
   "v": "Za každou úroveň slotu kouzla nad 2 můžeš použít o 2 projektily víc.",
   "x": 1
  },
@@ -704,7 +704,7 @@
   "d": "Okamžité",
   "ko": 0,
   "ri": 0,
-  "t": "Každý tvor v kuželu si hází AGI záchranný hod; při neúspěchu utrpí 5d8 zranění stejného typu jako zbraň či munice použitá jako složka, při úspěchu poloviční.",
+  "t": "Každý tvor v kuželu si hází DEX záchranný hod; při neúspěchu utrpí 5d8 zranění stejného typu jako zbraň či munice použitá jako složka, při úspěchu poloviční.",
   "v": "Zranění se zvýší o 1d8 za každou úroveň slotu kouzla nad 3.",
   "x": 1
  },
@@ -781,7 +781,7 @@
   "d": "Okamžité",
   "ko": 0,
   "ri": 0,
-  "t": "Krychle o hraně 20 stop se středem v bodě na zemi v dosahu. Tvorové v ní si hází AGI záchranný hod; při neúspěchu utrpí 3d12 Bludgeoning zranění, při úspěchu poloviční. Oblast se stane těžkým terénem; ruční vyčištění každého čtverce 5×5 stop trvá aspoň 1 minutu.",
+  "t": "Krychle o hraně 20 stop se středem v bodě na zemi v dosahu. Tvorové v ní si hází DEX záchranný hod; při neúspěchu utrpí 3d12 Bludgeoning zranění, při úspěchu poloviční. Oblast se stane těžkým terénem; ruční vyčištění každého čtverce 5×5 stop trvá aspoň 1 minutu.",
   "v": "Zranění se zvýší o 1d12 za každou úroveň slotu kouzla nad 3.",
   "x": 1
  },
@@ -856,7 +856,7 @@
   "d": "Concentration, až 1 minutu",
   "ko": 1,
   "ri": 0,
-  "t": "Koule tmy o poloměru 20 stop v dosahu; oblast je silně zastřená. Tvor, který v ní začne tah, utrpí 2d6 Cold zranění. Tvor, který v ní tah ukončí, si hází AGI záchranný hod; při neúspěchu utrpí 2d6 Acid zranění. Kouzlo nepůsobí v jasném světle z kouzla 3. úrovně nebo nižší.",
+  "t": "Koule tmy o poloměru 20 stop v dosahu; oblast je silně zastřená. Tvor, který v ní začne tah, utrpí 2d6 Cold zranění. Tvor, který v ní tah ukončí, si hází DEX záchranný hod; při neúspěchu utrpí 2d6 Acid zranění. Kouzlo nepůsobí v jasném světle z kouzla 3. úrovně nebo nižší.",
   "v": "",
   "x": 1
  },
@@ -1030,7 +1030,7 @@
   "d": "Okamžité",
   "ko": 0,
   "ri": 0,
-  "t": "Oblast v dosahu (až 30 stop dlouhou, 10 širokou a 10 vysokou) zasáhne vlna. Každý tvor v ní si hází AGI záchranný hod; při neúspěchu utrpí 4d8 Bludgeoning zranění a získá stav Prone, při úspěchu poloviční zranění a nepadá. Voda pak uhasí nechráněné plameny v oblasti a do 30 stop od ní a zmizí.",
+  "t": "Oblast v dosahu (až 30 stop dlouhou, 10 širokou a 10 vysokou) zasáhne vlna. Každý tvor v ní si hází DEX záchranný hod; při neúspěchu utrpí 4d8 Bludgeoning zranění a získá stav Prone, při úspěchu poloviční zranění a nepadá. Voda pak uhasí nechráněné plameny v oblasti a do 30 stop od ní a zmizí.",
   "v": "",
   "x": 1
  },
@@ -1199,7 +1199,7 @@
   "d": "Concentration, až 1 minutu",
   "ko": 1,
   "ri": 0,
-  "t": "Na volném místě v dosahu vyroste liána. Při seslání a pak Bonusovou akcí v každém tvém tahu může šlehnout po tvoru do 30 stop od sebe: AGI záchranný hod, při neúspěchu je přitažen o 20 stop přímo k liáně.",
+  "t": "Na volném místě v dosahu vyroste liána. Při seslání a pak Bonusovou akcí v každém tvém tahu může šlehnout po tvoru do 30 stop od sebe: DEX záchranný hod, při neúspěchu je přitažen o 20 stop přímo k liáně.",
   "v": "",
   "x": 1
  },
@@ -1763,7 +1763,7 @@
   "d": "Concentration, až 1 minutu",
   "ko": 1,
   "ri": 0,
-  "t": "Oživíš přírodu v krychli 60 stop v dosahu. Tráva: obtížný terén pro nepřátele. Stromy: na začátku tvého tahu si nepřátelé do 10 stop od stromu hází AGI záchranný hod, jinak utrpí 4d6 Slashing zranění. Kořeny: na konci tvého tahu jeden tvor na zemi hází STR záchranný hod, jinak stav Restrained (Akcí ověření STR proti SO). Kameny: Bonusovou akcí proveď útok kouzlem na dálku, zásah 3d8 Bludgeoning zranění a STR záchrana proti stavu Prone.",
+  "t": "Oživíš přírodu v krychli 60 stop v dosahu. Tráva: obtížný terén pro nepřátele. Stromy: na začátku tvého tahu si nepřátelé do 10 stop od stromu hází DEX záchranný hod, jinak utrpí 4d6 Slashing zranění. Kořeny: na konci tvého tahu jeden tvor na zemi hází STR záchranný hod, jinak stav Restrained (Akcí ověření STR proti SO). Kameny: Bonusovou akcí proveď útok kouzlem na dálku, zásah 3d8 Bludgeoning zranění a STR záchrana proti stavu Prone.",
   "v": "",
   "x": 1
  },
@@ -1837,7 +1837,7 @@
   "d": "Concentration, až 10 minut",
   "ko": 1,
   "ri": 0,
-  "t": "Po dobu kouzla vydáváš jasné světlo na 30 stop a šero na dalších 30. Máš Immunity vůči Fire zranění a Resistance vůči Cold zranění. Tvor, který se poprvé v tahu přiblíží do 5 stop od tebe nebo tam skončí tah, utrpí 1d10 Fire zranění. Akcí můžeš vytvořit linii ohně 15 × 5 stop: tvorové v ní si hází AGI záchranný hod, při neúspěchu utrpí 4d8 Fire zranění, při úspěchu poloviční.",
+  "t": "Po dobu kouzla vydáváš jasné světlo na 30 stop a šero na dalších 30. Máš Immunity vůči Fire zranění a Resistance vůči Cold zranění. Tvor, který se poprvé v tahu přiblíží do 5 stop od tebe nebo tam skončí tah, utrpí 1d10 Fire zranění. Akcí můžeš vytvořit linii ohně 15 × 5 stop: tvorové v ní si hází DEX záchranný hod, při neúspěchu utrpí 4d8 Fire zranění, při úspěchu poloviční.",
   "v": "",
   "x": 1
  },
@@ -1889,7 +1889,7 @@
   "d": "Concentration, až 10 minut",
   "ko": 1,
   "ri": 0,
-  "t": "Dokud kouzlo trvá: máš Resistance vůči Bludgeoning, Piercing a Slashing zranění z nemagických útoků. Akcí vyvoláš otřes v okruhu 15 stop; ostatní tvorové na zemi si hází AGI záchranný hod, při neúspěchu mají stav Prone a poloviční rychlost do konce tvého příštího tahu. Hlína a kámen tě nezpomalují a můžeš jimi procházet, ale neskonči v nich pohyb (vyvrhne tě, kouzlo skončí a máš stav Stunned do konce příštího tahu).",
+  "t": "Dokud kouzlo trvá: máš Resistance vůči Bludgeoning, Piercing a Slashing zranění z nemagických útoků. Akcí vyvoláš otřes v okruhu 15 stop; ostatní tvorové na zemi si hází DEX záchranný hod, při neúspěchu mají stav Prone a poloviční rychlost do konce tvého příštího tahu. Hlína a kámen tě nezpomalují a můžeš jimi procházet, ale neskonči v nich pohyb (vyvrhne tě, kouzlo skončí a máš stav Stunned do konce příštího tahu).",
   "v": "",
   "x": 1
  },
@@ -2134,7 +2134,7 @@
   "d": "Concentration, až 1 minutu",
   "ko": 1,
   "ri": 0,
-  "t": "Válec větru (poloměr 10 stop, výška 30 stop) na zemi v dosahu; Akcí ho posuneš až o 30 stop. Tvor si hází AGI záchranný hod poprvé v tahu, kdy se s vichrem střetne; při neúspěchu utrpí 10d6 Bludgeoning zranění, při úspěchu poloviční. Neuspěvší tvor Large či menší si hází i STR záchranný hod, jinak má stav Restrained a stoupá v něm. Vyprostí se Akcí ověřením STR nebo AGI proti tvému SO a odletí 3d6×10 stop.",
+  "t": "Válec větru (poloměr 10 stop, výška 30 stop) na zemi v dosahu; Akcí ho posuneš až o 30 stop. Tvor si hází DEX záchranný hod poprvé v tahu, kdy se s vichrem střetne; při neúspěchu utrpí 10d6 Bludgeoning zranění, při úspěchu poloviční. Neuspěvší tvor Large či menší si hází i STR záchranný hod, jinak má stav Restrained a stoupá v něm. Vyprostí se Akcí ověřením STR nebo DEX proti tvému SO a odletí 3d6×10 stop.",
   "v": "",
   "x": 1
  },

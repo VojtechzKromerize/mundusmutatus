@@ -21,7 +21,7 @@ Plaz s kohoutím hřebenem, vylíhlý z vejce, které snesl kohout a vyseděla r
 
 **AC** 15 · **HP** 52 (8d8+16) · **Rychlost** 20 stop · **Iniciativa** −1
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 16 (+3) | 8 (−1) | 15 (+2) | 2 (−4) | 8 (−1) | 7 (−2) |
 

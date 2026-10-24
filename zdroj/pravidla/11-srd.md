@@ -169,7 +169,7 @@ Pokud používáš možnost Standardní sada, nahlédni do tabulky Standardní s
 
 **Standardní sada podle povolání**
 
-| Povolání | STR | AGI | CON | INT | WIS | CHA |
+| Povolání | STR | DEX | CON | INT | WIS | CHA |
 |---|---|---|---|---|---|---|
 | Barbarian | 15 | 13 | 14 | 10 | 12 | 8 |
 | Bard | 8 | 14 | 12 | 13 | 10 | 15 |

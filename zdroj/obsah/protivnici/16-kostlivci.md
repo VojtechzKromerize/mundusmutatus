@@ -22,7 +22,7 @@ Holé kosti v rezavých kroužkových košilích, často ještě s kalichem nebo
 
 **Útok houfu – krátké meče a luky:** +5 (+1 za každého dalšího kostlivce, nejvýš +5), dosah 5 stop, nebo luky na 80/320 stop. **Zásah:** 3 Piercing za každého kostlivce v dosahu cíle (u luků za každého, kdo na cíl vidí).
 
-**Záchrany houfu:** AGI +3, CON +2, ostatní −1
+**Záchrany houfu:** DEX +3, CON +2, ostatní −1
 
 ## Vlastnosti
 

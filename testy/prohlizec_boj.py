@@ -236,7 +236,7 @@ async def main():
     for body,m in (({"p_hrac":"h3","p_utok":{"ci":["n99"],"hod":10}},"neznámý cíl"),({"p_hrac":"h3","p_utok":{"ci":[rid]}},"chybí hod"),({"p_hrac":"h3","p_utok":{"ci":[rid],"hod":10,"stav":"hotovo"}},"cizí pole"),
                    ({"p_hrac":"h3","p_utok":{"ci":[rid],"hod":10,"dmg":5000}},"přehnané zranění")):
         c,t=anon_rpc("mm_boj_utok",body);chk(c>=400,"mm_boj_utok odmítne: "+m)
-    r=await g.evaluate(f"(()=>{{const n=BOJ.s.npc.find(x=>x.id==='{hid}');const H=bojHoufZachrany(n,bojEff(n),12,'Fire','AGI',30,true);return [H.pad,H.v]}})()")
+    r=await g.evaluate(f"(()=>{{const n=BOJ.s.npc.find(x=>x.id==='{hid}');const H=bojHoufZachrany(n,bojEff(n),12,'Fire','DEX',30,true);return [H.pad,H.v]}})()")
     chk(r[0]==r[1] and r[1]>0,"záchrany houfu po pacholcích (SO 30: padnou všichni v dosahu): "+str(r))
     await g.screenshot(path=os.path.join(VYSTUP,"boj-gm-1.png"),full_page=True)
     chk(not gerr and not perr,"bez chyb JS "+str((gerr+perr)[:2]))

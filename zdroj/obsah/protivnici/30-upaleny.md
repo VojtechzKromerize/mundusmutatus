@@ -22,7 +22,7 @@ Kostra v plamenech, která nikdy nedohoří. Upálený kacíř, čarodějnice ne
 
 **AC** 15 · **HP** 65 (10d8+20) · **Rychlost** 30 stop · **Iniciativa** +2
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 10 (+0) | 14 (+2) | 15 (+2) | 10 (+0) | 15 (+2) | 8 (−1) |
 
@@ -30,7 +30,7 @@ Kostra v plamenech, která nikdy nedohoří. Upálený kacíř, čarodějnice ne
 
 ## Vlastnosti
 
-- **Výbuch.** Když zemře, vybuchne: tvorové do 10 stop hodí AGI save DC 12, neúspěch 4d6 Fire, úspěch polovina.
+- **Výbuch.** Když zemře, vybuchne: tvorové do 10 stop hodí DEX save DC 12, neúspěch 4d6 Fire, úspěch polovina.
 - **Světlo.** Svítí jasně na 15 stop a slabě na dalších 15.
 
 ## Akce (jedna v každém slotu)

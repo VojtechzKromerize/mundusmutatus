@@ -22,7 +22,7 @@ Hejna krkavců z bojišť a šibenic, která po Noci Proměny slouží tomu, kdo
 
 **Útok houfu – zobáky:** +4 (+1 za každý další roj, nejvýš +5), dosah 5 stop. **Zásah:** 3 Piercing za každý roj v dosahu cíle; když padne polovina houfu, už jen 2.
 
-**Záchrany houfu:** AGI +2, WIS +1, ostatní −2
+**Záchrany houfu:** DEX +2, WIS +1, ostatní −2
 
 ## Vlastnosti
 

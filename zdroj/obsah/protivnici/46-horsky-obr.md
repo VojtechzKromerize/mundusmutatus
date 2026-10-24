@@ -6,7 +6,7 @@ vyzva: 5 (1 800 XP)
 ac: 13
 hp: 105
 utok: Dva útoky: kmen +8, dosah 10 stop, 3d8+5 a Prone, nebo vržené haraburdí 60/240 stop, 2d10+5 a Poisoned
-pozehnani: Udeří kmenem do země: všichni do 10 stop hodí AGI save DC 15, jinak jsou Prone.
+pozehnani: Udeří kmenem do země: všichni do 10 stop hodí DEX save DC 15, jinak jsou Prone.
 pokuseni: Uklouzne na suti a sám padá Prone.
 nerest: Lakota – sbírá lesklé věci a dobytek. Výměnou za stádo nebo kotel mincí odtáhne (Persuasion DC 13).
 stitky: obr, hory, Krkonoše, Šumava, kámen, dobytek
@@ -22,7 +22,7 @@ Obr z hor, velký jako věž, který rve stromy i s kořeny a hází kamením i 
 
 **AC** 13 · **HP** 105 (10d12+40) · **Rychlost** 40 stop · **Iniciativa** −1
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 21 (+5) | 8 (−1) | 19 (+4) | 5 (−3) | 9 (−1) | 6 (−2) |
 

@@ -48,11 +48,11 @@ Zde jsou vysvětleny vlastnosti uvedené ve sloupci Vlastnosti tabulky Zbraně.
 
 **Ammunition (Střelivo).** Zbraní s touto vlastností můžeš provést útok na dálku pouze tehdy, máš-li pro ni střelivo. Potřebný druh střeliva je uveden u dostřelu zbraně. Každý útok spotřebuje jeden kus střeliva. Vytažení střeliva je součástí útoku; k nabití jednoruční zbraně potřebuješ volnou ruku. Po boji můžeš strávit 1 minutu sbíráním použitého střeliva a získat zpět polovinu kusů, které jsi v boji spotřeboval (zaokrouhleno dolů). Zbytek je ztracen.
 
-**Finesse (Obratná).** Při útoku touto zbraní si můžeš pro hody na útok a na zranění zvolit modifikátor STR nebo AGI. Pro oba hody musíš použít stejný modifikátor.
+**Finesse (Obratná).** Při útoku touto zbraní si můžeš pro hody na útok a na zranění zvolit modifikátor STR nebo DEX. Pro oba hody musíš použít stejný modifikátor.
 
-**Heavy (Těžká).** K hodům na útok touto zbraní máš nevýhodu, pokud jde o zbraň na blízko a tvá hodnota STR je nižší než 13, nebo pokud jde o zbraň na dálku a tvá hodnota AGI je nižší než 13.
+**Heavy (Těžká).** K hodům na útok touto zbraní máš nevýhodu, pokud jde o zbraň na blízko a tvá hodnota STR je nižší než 13, nebo pokud jde o zbraň na dálku a tvá hodnota DEX je nižší než 13.
 
-**Light (Lehká).** Když ve svém tahu provedeš akci Útok a zaútočíš lehkou zbraní, můžeš později v témže tahu provést jeden dodatečný útok jako bonusovou akci. Tento dodatečný útok musíš provést jinou lehkou zbraní. K jeho zranění nepřičítáš modifikátor vlastnosti, pokud není záporný. Například můžeš zaútočit krátkým mečem v jedné ruce a dýkou ve druhé pomocí akce Útok a bonusové akce. Ke zranění útoku provedeného bonusovou akcí však nepřičítáš modifikátor STR ani AGI, pokud není záporný.
+**Light (Lehká).** Když ve svém tahu provedeš akci Útok a zaútočíš lehkou zbraní, můžeš později v témže tahu provést jeden dodatečný útok jako bonusovou akci. Tento dodatečný útok musíš provést jinou lehkou zbraní. K jeho zranění nepřičítáš modifikátor vlastnosti, pokud není záporný. Například můžeš zaútočit krátkým mečem v jedné ruce a dýkou ve druhé pomocí akce Útok a bonusové akce. Ke zranění útoku provedeného bonusovou akcí však nepřičítáš modifikátor STR ani DEX, pokud není záporný.
 
 **Loading (Nabíjení).** Když z této zbraně střílíš pomocí akce, bonusové akce nebo reakce, můžeš v rámci dané akce, bonusové akce či reakce vystřelit pouze jeden kus střeliva bez ohledu na počet útoků, které běžně můžeš provést.
 
@@ -179,15 +179,15 @@ Tvor může mít na sobě najednou jen jednu zbroj a třímat najednou jen jeden
 | Zbroj | Třída zbroje (AC) | Síla | Stealth | Váha | Cena |
 |---|---|---|---|---|---|
 | *Lehká zbroj (obléknutí nebo svléknutí 1 minuta)* | | | | | |
-| Padded Armor (prošívanice) | 11 + modifikátor AGI | — | nevýhoda | 8 lb. | 5 GP |
-| Leather Armor (kožená zbroj) | 11 + modifikátor AGI | — | — | 10 lb. | 10 GP |
-| Studded Leather Armor (pobíjená kožená zbroj) | 12 + modifikátor AGI | — | — | 13 lb. | 45 GP |
+| Padded Armor (prošívanice) | 11 + modifikátor DEX | — | nevýhoda | 8 lb. | 5 GP |
+| Leather Armor (kožená zbroj) | 11 + modifikátor DEX | — | — | 10 lb. | 10 GP |
+| Studded Leather Armor (pobíjená kožená zbroj) | 12 + modifikátor DEX | — | — | 13 lb. | 45 GP |
 | *Střední zbroj (obléknutí 5 minut, svléknutí 1 minuta)* | | | | | |
-| Hide Armor (kožešinová zbroj) | 12 + modifikátor AGI (max. 2) | — | — | 12 lb. | 10 GP |
-| Chain Shirt (kroužková košile) | 13 + modifikátor AGI (max. 2) | — | — | 20 lb. | 50 GP |
-| Scale Mail (šupinová zbroj) | 14 + modifikátor AGI (max. 2) | — | nevýhoda | 45 lb. | 50 GP |
-| Breastplate (kyrys) | 14 + modifikátor AGI (max. 2) | — | — | 20 lb. | 400 GP |
-| Half Plate Armor (poloviční plátová zbroj) | 15 + modifikátor AGI (max. 2) | — | nevýhoda | 40 lb. | 750 GP |
+| Hide Armor (kožešinová zbroj) | 12 + modifikátor DEX (max. 2) | — | — | 12 lb. | 10 GP |
+| Chain Shirt (kroužková košile) | 13 + modifikátor DEX (max. 2) | — | — | 20 lb. | 50 GP |
+| Scale Mail (šupinová zbroj) | 14 + modifikátor DEX (max. 2) | — | nevýhoda | 45 lb. | 50 GP |
+| Breastplate (kyrys) | 14 + modifikátor DEX (max. 2) | — | — | 20 lb. | 400 GP |
+| Half Plate Armor (poloviční plátová zbroj) | 15 + modifikátor DEX (max. 2) | — | nevýhoda | 40 lb. | 750 GP |
 | *Těžká zbroj (obléknutí 10 minut, svléknutí 5 minut)* | | | | | |
 | Ring Mail (kroužkovaná kožená zbroj) | 14 | — | nevýhoda | 40 lb. | 30 GP |
 | Chain Mail (kroužková zbroj) | 16 | STR 13 | nevýhoda | 55 lb. | 75 GP |
@@ -237,7 +237,7 @@ Každý z řemeslnických nástrojů (Artisan's Tools) slouží k výrobě před
 - **Výroba:** Antitoxin
 
 **Calligrapher's Supplies (kaligrafické potřeby) (10 GP)**
-- **Vlastnost:** Obratnost (AGI)
+- **Vlastnost:** Obratnost (DEX)
 - **Váha:** 5 lb.
 - **Použití:** Napsat text s působivými ozdobami, které chrání před paděláním (SO 15)
 - **Výroba:** Ink, *Spell Scroll*
@@ -255,7 +255,7 @@ Každý z řemeslnických nástrojů (Artisan's Tools) slouží k výrobě před
 - **Výroba:** Map
 
 **Cobbler's Tools (ševcovské nářadí) (5 GP)**
-- **Vlastnost:** Obratnost (AGI)
+- **Vlastnost:** Obratnost (DEX)
 - **Váha:** 5 lb.
 - **Použití:** Upravit obuv tak, aby nositel měl výhodu na své příští ověření Obratnosti (Acrobatics) (SO 10)
 - **Výroba:** Climber's Kit
@@ -279,7 +279,7 @@ Každý z řemeslnických nástrojů (Artisan's Tools) slouží k výrobě před
 - **Výroba:** Arcane Focus, Holy Symbol
 
 **Leatherworker's Tools (koželužské nářadí) (5 GP)**
-- **Vlastnost:** Obratnost (AGI)
+- **Vlastnost:** Obratnost (DEX)
 - **Váha:** 5 lb.
 - **Použití:** Opatřit kožený předmět ozdobným vzorem (SO 10)
 - **Výroba:** Sling, Whip, Hide Armor, Leather Armor, Studded Leather Armor, Backpack, Crossbow Bolt Case, Map or Scroll Case, Parchment, Pouch, Quiver, Waterskin
@@ -311,19 +311,19 @@ Každý z řemeslnických nástrojů (Artisan's Tools) slouží k výrobě před
 > **Artikule:** Postava se zdatností s kovářským nářadím může během dlouhého odpočinku opravit obětovanou zbroj nebo štít (viz Artikule u oddílu Zbroj).
 
 **Tinker's Tools (dráteníkovo nářadí) (50 GP)**
-- **Vlastnost:** Obratnost (AGI)
+- **Vlastnost:** Obratnost (DEX)
 - **Váha:** 10 lb.
 - **Použití:** Sestavit Drobný předmět ze šrotu, který se za 1 minutu rozpadne (SO 20)
 - **Výroba:** Musket, Pistol, Bell, Bullseye Lantern, Flask, Hooded Lantern, Hunting Trap, Lock, Manacles, Mirror, Shovel, Signal Whistle, Tinderbox
 
 **Weaver's Tools (tkalcovské nářadí) (1 GP)**
-- **Vlastnost:** Obratnost (AGI)
+- **Vlastnost:** Obratnost (DEX)
 - **Váha:** 5 lb.
 - **Použití:** Zašít trhlinu v oděvu (SO 10), nebo vyšít Drobný vzor (SO 10)
 - **Výroba:** Padded Armor, Basket, Bedroll, Blanket, Fine Clothes, Net, Robe, Rope, Sack, String, Tent, Traveler's Clothes
 
 **Woodcarver's Tools (řezbářské nářadí) (1 GP)**
-- **Vlastnost:** Obratnost (AGI)
+- **Vlastnost:** Obratnost (DEX)
 - **Váha:** 5 lb.
 - **Použití:** Vyřezat do dřeva vzor (SO 10)
 - **Výroba:** Club, Greatclub, Quarterstaff, zbraně na dálku (kromě Pistol, Musket a Sling), Arcane Focus, Arrows, Bolts, Druidic Focus, Ink Pen, Needles
@@ -337,7 +337,7 @@ Každý z řemeslnických nástrojů (Artisan's Tools) slouží k výrobě před
 - **Výroba:** Costume
 
 **Forgery Kit (padělatelská sada) (15 GP)**
-- **Vlastnost:** Obratnost (AGI)
+- **Vlastnost:** Obratnost (DEX)
 - **Váha:** 5 lb.
 - **Použití:** Napodobit nejvýše 10 slov cizího rukopisu (SO 15), nebo zhotovit kopii voskové pečeti (SO 20)
 
@@ -371,7 +371,7 @@ Každý z řemeslnických nástrojů (Artisan's Tools) slouží k výrobě před
 - **Výroba:** Basic Poison
 
 **Thieves' Tools (zlodějské náčiní) (25 GP)**
-- **Vlastnost:** Obratnost (AGI)
+- **Vlastnost:** Obratnost (DEX)
 - **Váha:** 1 lb.
 - **Použití:** Otevřít zámek planžetou (SO 15), nebo zneškodnit past (SO 15)
 

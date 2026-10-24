@@ -21,7 +21,7 @@ Vlci velcí jako tele, kteří se po Noci Proměny stáhli z hor do podhůří. 
 
 **Útok houfu – kousnutí:** +5 (+1 za každého dalšího vlka, nejvýš +5), dosah 5 stop. **Zásah:** 4 Piercing za každého vlka v dosahu cíle. Cíl velikosti Large nebo menší, kterého kousli aspoň dva vlci, si hodí STR save DC 13, jinak je Prone.
 
-**Záchrany houfu:** STR +3, AGI +2, CON +2, ostatní −2
+**Záchrany houfu:** STR +3, DEX +2, CON +2, ostatní −2
 
 ## Vlastnosti
 

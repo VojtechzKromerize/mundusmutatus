@@ -21,7 +21,7 @@ Meče ze zbrojnice, které sňaly ze stěn samy – kouzlem mága, nebo proto, �
 
 **Útok houfu – sek:** +4 (+1 za každý další meč, nejvýš +5), dosah 5 stop. **Zásah:** 3 Slashing za každý meč v dosahu cíle. Houf útočí z letu.
 
-**Záchrany houfu:** AGI +4, ostatní −3
+**Záchrany houfu:** DEX +4, ostatní −3
 
 ## Vlastnosti
 

@@ -42,7 +42,7 @@ Akcí Ovlivnění se snažíš nestvůru přimět, aby něco udělala. Popiš ne
 
 Iniciativa určuje pořadí tahů během boje. Jak házet na iniciativu, vysvětlují pravidla boje v kapitole „Hraní hry“ („Playing the Game“).
 
-Někdy může vypravěč nechat bojovníky místo hodu na iniciativu použít jejich hodnotu iniciativy. Tvoje hodnota iniciativy se rovná 10 plus tvůj opravný bonus Obratnosti (AGI). Pokud máš na hody na iniciativu výhodu, zvyš svou hodnotu iniciativy o 5. Pokud máš na tyto hody nevýhodu, sniž tuto hodnotu o 5. *Viz též* „Hraní hry“ („Boj“).
+Někdy může vypravěč nechat bojovníky místo hodu na iniciativu použít jejich hodnotu iniciativy. Tvoje hodnota iniciativy se rovná 10 plus tvůj opravný bonus Obratnosti (DEX). Pokud máš na hody na iniciativu výhodu, zvyš svou hodnotu iniciativy o 5. Pokud máš na tyto hody nevýhodu, sniž tuto hodnotu o 5. *Viz též* „Hraní hry“ („Boj“).
 
 > **Artikule:** Iniciativa je slotová. Hráči hodí d20 + Obratnost, vypravěč jednou za nepřítele s nejlepší iniciativou; nejlepší výsledek každé strany určí sloty. Družina i nepřátelé mají tolik slotů, kolik je hráčů; sloty se střídají a začíná strana s vyšším hodem (při shodě družina). Hráči si v každém kole sloty rozdělují sami, každý jen jeden; vypravěč smí jedno NPC použít vícekrát (pacholek 1×, sok až 2×, zhoubce až 3× za kolo). Překvapená strana hází iniciativu s nevýhodou.
 

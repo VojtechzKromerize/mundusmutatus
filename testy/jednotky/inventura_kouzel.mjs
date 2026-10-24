@@ -30,7 +30,7 @@ const J = S.ev(`JSON.stringify((() => {
     if (KPRID.some(r => r[0] === d.en)) T.push("KPRID");
     if (EFK.includes(d.en)) T.push("zvl");
     const t = String(d.t || "");
-    const zach = (t.match(/(STR|AGI|CON|INT|WIS|CHA) záchrann/) || [])[1] || null;
+    const zach = (t.match(/(STR|DEX|CON|INT|WIS|CHA) záchrann/) || [])[1] || null;
     out.push({
       n: d.en, cz: d.cz, l: d.l, s: d.s, ko: !!d.ko, ri: !!d.ri, x: !!d.x, r: d.r, d: d.d, ct: d.ct,
       uk: U ? U.k : null, ux: U ? U.x : null, ut: U ? U.t : null, utok: !!(U && U.utok), zach: (U && U.zach) || zach,

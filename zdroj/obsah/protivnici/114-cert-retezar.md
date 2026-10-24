@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 8 (3 900 XP)
 ac: 15
 hp: 85
-utok: Řetěz +7, dosah 10 stop, 2d6+4 Slashing a Grappled/Restrained (DC 14) · pekelný řetěz (AGI DC 15, 2d4+4 Fire, Restrained, přitáhne o 30 stop)
+utok: Řetěz +7, dosah 10 stop, 2d6+4 Slashing a Grappled/Restrained (DC 14) · pekelný řetěz (DEX DC 15, 2d4+4 Fire, Restrained, přitáhne o 30 stop)
 pozehnani: Řetězy se rozletí: uchvátí dva tvory najednou, každého jedním řetězem.
 pokuseni: Zaplete se do vlastních řetězů: do konce příštího tahu je Restrained.
 nerest: Sázka – čert nikdy neodmítne sázku ani hru. Kdo mu nabídne sázku o duši (Persuasion DC 15), toho čert na kolo neútočí a hraje; kdo vyhraje, toho čert nesmí v tomto boji spoutat. Hloupost: čert věří, že mu nikdo nelže.
@@ -13,7 +13,7 @@ stitky: pekelníci, čert, řetěz, peklo, hříšníci, smlouva, Kristus, Káč
 zdroje: Vrátit se 1
 utoky:
   - Řetěz | +7 | 2d6+4 Slashing | dosah 10 stop; cíl Large nebo menší je Grappled (únik DC 14) a Restrained
-  - Pekelný řetěz | AGI DC 15 | 2d4+4 Fire | jeden tvor do 60 stop; neúspěch Restrained do konce čertova příštího tahu a přitažen o 30 stop
+  - Pekelný řetěz | DEX DC 15 | 2d4+4 Fire | jeden tvor do 60 stop; neúspěch Restrained do konce čertova příštího tahu a přitažen o 30 stop
   - Tvář hříchu | WIS DC 15 |  | Reakce: kdo začne tah do 30 stop a dívá se, je do konce tahu Frightened; úspěch = 24 hodin imunní
 ---
 *„Čert, co bere hříšníky, chodí s řetězem. Ne proto, že by utíkali. Proto, aby slyšeli, že jde.“*
@@ -24,7 +24,7 @@ utoky:
 
 **AC** 15 (řetězy) · **HP** 85 (10d8+40) · **Rychlost** 30 stop · **Iniciativa** +5
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 18 (+4) | 15 (+2) | 18 (+4) | 11 (+0) | 12 (+1) | 14 (+2) |
 
@@ -40,7 +40,7 @@ utoky:
 
 - **Řetězy.** Dvakrát zaútočí řetězem a použije Pekelný řetěz.
 - **Řetěz.** +7, dosah 10 stop. **Zásah:** 2d6+4 Slashing; tvor velikosti Large nebo menší je Grappled (únik DC 14) jedním ze dvou řetězů a Restrained, dokud sevření trvá.
-- **Pekelný řetěz.** Jeden tvor do 60 stop hodí AGI save DC 15, jinak utrží 2d4+4 Fire, je Restrained do konce čertova příštího tahu a čert ho přitáhne až o 30 stop k sobě.
+- **Pekelný řetěz.** Jeden tvor do 60 stop hodí DEX save DC 15, jinak utrží 2d4+4 Fire, je Restrained do konce čertova příštího tahu a čert ho přitáhne až o 30 stop k sobě.
 
 ## Reakce
 

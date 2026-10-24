@@ -23,7 +23,7 @@ Bytost z druhé strany Závoje bez vlastní tváře, která bere tváře lidí. 
 
 **AC** 14 · **HP** 52 (8d8+16) · **Rychlost** 30 stop · **Iniciativa** +4
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 11 (+0) | 18 (+4) | 14 (+2) | 11 (+0) | 12 (+1) | 14 (+2) |
 

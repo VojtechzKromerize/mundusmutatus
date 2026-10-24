@@ -24,7 +24,7 @@ Velitel městské hotovosti, měšťanský syn, který si koupil rytířský pá
 
 **AC** 18 (plátová zbroj) · **HP** 52 (8d8+16) · **Rychlost** 30 stop · **Iniciativa** +0
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 16 (+3) | 11 (+0) | 14 (+2) | 11 (+0) | 11 (+0) | 15 (+2) |
 

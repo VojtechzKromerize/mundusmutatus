@@ -174,7 +174,7 @@ function kStavyTab(akt, vse, attr, vy, konN) {
         : t === "soustředí"
           ? "Soustředíš se na kouzlo (Concentration). Zranění = CON záchrana (SO 10 nebo polovina zranění, víc z obou), stav Neschopný soustředění ukončí; najednou jen jedno kouzlo."
           : t === "úhyb"
-            ? "Úhyb (Dodge): útoky na tebe mají nevýhodu, AGI záchrany máš s výhodou – do začátku tvého příštího tahu."
+            ? "Úhyb (Dodge): útoky na tebe mají nevýhodu, DEX záchrany máš s výhodou – do začátku tvého příštího tahu."
             : "";
     return `<details class="kstr${on ? " on" : ""}"><summary><span class="kstri">${ic}</span><span class="kstrn">${besc(cap(t))}${d ? ` <small>${besc(d.en)}</small>` : t === "soustředí" ? ` <small>Concentration</small>${konN && on ? ` <b class="kstrkon">· ${besc(konN)}</b>` : ""}` : ""}</span><button type="button" class="kstrs" role="switch" ${attr}="${besc(t)}" aria-checked="${on}" aria-label="${besc(cap(t))}: ${on ? "zapnuto" : "vypnuto"}"><i></i></button><span class="kstrv" aria-hidden="true"></span></summary>${txt ? `<p>${besc(cap(txt))}.</p>`.replace(/\.\.<\/p>$/, ".</p>") : ""}</details>`;
   };
@@ -1618,9 +1618,9 @@ function bdmRysy(K) {
   return `<h4 class="bdmgh">S aktivací a počtem použití</h4>${ak}${vse ? `<details class="bdmbez"><summary>Ostatní rysy</summary><div class="bdmrysy">${vse}</div></details>` : ""}`;
 }
 /* vlastnost v bojové kartě (2026-10-23): mince se zkratkou | skóre | modifikátor (ověření, velký) | záchrana ve štítku
-   (plný zlatý štítek = zdatnost v záchraně); mince `art/img/atributy/<str|agi|…>-48/96.webp`, prompty v projektu
+   (plný zlatý štítek = zdatnost v záchraně); mince `art/img/atributy/<str|dex|…>-48/96.webp`, prompty v projektu
    `grafika/ikony-atributu-prompty.md` */
-const BDMVLZ = {STR: "STR", AGI: "DEX", CON: "CON", INT: "INT", WIS: "WIS", CHA: "CHA"};
+const BDMVLZ = {STR: "STR", DEX: "DEX", CON: "CON", INT: "INT", WIS: "WIS", CHA: "CHA"};
 const BDMSTIT = `<svg viewBox="0 0 24 26" aria-hidden="true"><path d="M12 1.5l9 3.2v6.8c0 6-4.1 10-9 12.5-4.9-2.5-9-6.5-9-12.5V4.7z"/></svg>`;
 /* Zdatnost, Rychlost a Iniciativa nad vlastnostmi (2026-10-23, Vojta): stříbrná mince (art/img/atributy/pb|rych|ini) a hodnota,
    bez rámečku a popisku; název nese alt mince (čtečka), podrobnost popisek data-tip (myš i dotyk) */

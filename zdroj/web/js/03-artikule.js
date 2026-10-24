@@ -650,15 +650,15 @@ const ARTK = [
       [
         "Zápas s mečem <i>(Ringen am Schwert)</i>",
         "1V + Požehnání",
-        "Po zásahu zbraní jdeš nepříteli do těla. Cíl hází STR/AGI save: při neúspěchu je Restrained nebo Prone podle tvé volby.",
+        "Po zásahu zbraní jdeš nepříteli do těla. Cíl hází STR/DEX save: při neúspěchu je Restrained nebo Prone podle tvé volby.",
       ],
-      ["Hod přes bok", "1V + Požehnání", "Po zásahu Unarmed útokem hází cíl STR/AGI save: při neúspěchu je Restrained a Prone."],
+      ["Hod přes bok", "1V + Požehnání", "Po zásahu Unarmed útokem hází cíl STR/DEX save: při neúspěchu je Restrained a Prone."],
       [
         "Mordstösse",
         "1V + Požehnání",
         "Unarmed úder do hrdla nebo spánku: do konce svého příštího tahu cíl nemůže mluvit (nemůže kouzlit verbálně) a přichází o reakci.",
       ],
-      ["Zůstaň!", "1V + Požehnání", "Pokud je cíl Prone nebo Restrained, hází AGI save: při neúspěchu je znehybněn do konce tvého příštího tahu."],
+      ["Zůstaň!", "1V + Požehnání", "Pokud je cíl Prone nebo Restrained, hází DEX save: při neúspěchu je znehybněn do konce tvého příštího tahu."],
       [
         "Zlom <i>(Bruch)</i>",
         "1V + reakce",
@@ -672,7 +672,7 @@ const ARTK = [
       [
         "Zápas o zbraň",
         "1V + reakce",
-        "Když na tebe někdo útočí lehkou zbraní (dýka), hází STR/AGI save: při neúspěchu útok mine a zbraň máš ve svých rukou.",
+        "Když na tebe někdo útočí lehkou zbraní (dýka), hází STR/DEX save: při neúspěchu útok mine a zbraň máš ve svých rukou.",
       ],
       [
         "Zápas ve zbroji <i>(Ringen im Harnisch)</i>",
@@ -855,7 +855,7 @@ const ARTK = [
       [
         "Paže",
         "<b>Rána přes prsty</b> – upustíš, co držíš",
-        "<b>Zlomenina</b> – nevýhoda na STR/AGI skillchecky",
+        "<b>Zlomenina</b> – nevýhoda na STR/DEX skillchecky",
         "<b>Rozdrcené předloktí</b> – nevýhoda na útoky + krvácení d8",
         "<b>Useknutá paže</b>",
       ],
@@ -888,7 +888,7 @@ const ARTK = [
       [
         "Mráz",
         "<b>Ztuhlé údy</b> – poloviční pohyb",
-        "<b>Zkřehlé údy</b> – nevýhoda na AGI saves",
+        "<b>Zkřehlé údy</b> – nevýhoda na DEX saves",
         "<b>Prsty z ledu</b> – nevýhoda na attack rolls",
         "<b>Zamrzlé srdce</b>",
       ],

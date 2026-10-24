@@ -5,7 +5,7 @@ uroven: zhoubce
 vyzva: 11 (7 200 XP)
 ac: 20 (plná zbroj)
 hp: 178
-utok: Děsivá čepel +9, 2d8+5 a 3d6 Prokleté · pekelná koule (AGI DC 15, 6d6 Fire a 6d6 Prokleté, poloměr 20 stop)
+utok: Děsivá čepel +9, 2d8+5 a 3d6 Prokleté · pekelná koule (DEX DC 15, 6d6 Fire a 6d6 Prokleté, poloměr 20 stop)
 pozehnani: Ruka na rameni: zásah je kritický.
 pokuseni: Zahlédne kalich na korouhvi: v příštím slotu musí zaútočit na toho, kdo ho nese.
 nerest: Hněv a Pýcha – přišel vyhladit kacíře a padl rukou sedláků. Nenávidí kališníky víc než smrt. Ctnosti: Odvaha, Věrnost (Kristu, jak jej chápe).
@@ -14,7 +14,7 @@ stitky: nemrtví, křižák, Vítkov, Noc Proměny, katolíci, rytíř, velitel,
 zdroje: Pekelná koule 1, Ničivá vlna 1, Rozptýlení magie 1, Parírování 1
 utoky:
   - Děsivá čepel | +9 | 2d8+5 Slashing a 3d6 Prokleté (Necrotic) | jeden útok v každém slotu (předloha má tři)
-  - Pekelná koule | AGI DC 15 | 6d6 Fire a 6d6 Prokleté (Necrotic) | koule poloměru 20 stop do 120 stop; dobíjí se na 5–6; úspěch polovina
+  - Pekelná koule | DEX DC 15 | 6d6 Fire a 6d6 Prokleté (Necrotic) | koule poloměru 20 stop do 120 stop; dobíjí se na 5–6; úspěch polovina
 ---
 *„Na Vítkově padl první, když se Závoj protrhl. Svatý Jiří ho nepřijal a peklo ho poslalo zpátky.“*
 
@@ -24,11 +24,11 @@ Rytíř křížové výpravy proti kacířům, který zemřel v Noci Proměny na
 
 **AC** 20 (plná zbroj) · **HP** 178 (21d8+84) · **Rychlost** 30 stop · **Iniciativa** +4
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 20 (+5) | 10 (+0) | 18 (+4) | 10 (+0) | 12 (+1) | 16 (+3) |
 
-**Záchrany** AGI +4, WIS +5 · **Imunita** Necrotic, Poison; nedá se vyděsit ani vyčerpat · **Smysly** Darkvision 120 stop · **Jazyky** německy, latinsky, česky
+**Záchrany** DEX +4, WIS +5 · **Imunita** Necrotic, Poison; nedá se vyděsit ani vyčerpat · **Smysly** Darkvision 120 stop · **Jazyky** německy, latinsky, česky
 
 ## Vlastnosti
 
@@ -41,7 +41,7 @@ Rytíř křížové výpravy proti kacířům, který zemřel v Noci Proměny na
 ## Akce (jedna v každém slotu)
 
 - **Děsivá čepel.** +9, dosah 5 stop. **Zásah:** 2d8+5 Slashing a 3d6 Prokleté (Necrotic).
-- **Pekelná koule (dobíjí se na 5–6).** Bod do 120 stop: tvorové v kouli o poloměru 20 stop hodí AGI save DC 15, neúspěch 6d6 Fire a 6d6 Prokleté, úspěch polovina.
+- **Pekelná koule (dobíjí se na 5–6).** Bod do 120 stop: tvorové v kouli o poloměru 20 stop hodí DEX save DC 15, neúspěch 6d6 Fire a 6d6 Prokleté, úspěch polovina.
 - **Kouzla (CHA, DC 15).** Libovolně: vidmový kůň (Phantom Steed). 1/den: Destructive Wave (Prokleté), Dispel Magic.
 
 ## Reakce

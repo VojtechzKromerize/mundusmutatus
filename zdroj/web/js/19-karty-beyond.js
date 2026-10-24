@@ -385,7 +385,7 @@ const kFormaZ = p => {
     vl = {};
   if (tb) {
     const c = [...tb[1].matchAll(/<td[^>]*>\s*(\d+)/g)].map(x => +x[1]);
-    ["STR", "AGI", "CON"].forEach((a, i) => {
+    ["STR", "DEX", "CON"].forEach((a, i) => {
       if (c[i]) vl[a] = c[i];
     });
   }
@@ -423,7 +423,7 @@ function kFormaHtml(K) {
         : ""
     }</p>
     ${(F.ut || []).length ? `<p>${F.ut.map((a, j) => `<button type="button" class="gbtn ghost" data-kforu="${j}">${besc(a.n)} ${bsg(+a.b || 0)} · ${besc(a.z)} ${besc(BZRT[a.t] || a.t || "")}</button>`).join(" ")}</p>` : ""}
-    <p class="rsmall">${F.typ === "ws" ? "Ponecháváš si životy, INT, WIS, CHA, rysy povolání a featy; STR, AGI a CON, AC, rychlost a útoky má zvíře. Dočasné HP = úroveň druida. Kouzla sesílat nejde (kromě rysů, které to dovolují)." : "Statistiky nahrazuje zvíře; podoba skončí, když dojdou dočasné HP (= životy zvířete), nebo po hodině (Concentration)."}</p>
+    <p class="rsmall">${F.typ === "ws" ? "Ponecháváš si životy, INT, WIS, CHA, rysy povolání a featy; STR, DEX a CON, AC, rychlost a útoky má zvíře. Dočasné HP = úroveň druida. Kouzla sesílat nejde (kromě rysů, které to dovolují)." : "Statistiky nahrazuje zvíře; podoba skončí, když dojdou dočasné HP (= životy zvířete), nebo po hodině (Concentration)."}</p>
     <button type="button" class="gbtn" data-kforx>Ukončit podobu</button>${PROTBY[F.src] ? `<details class="bjapd"><summary>Statistiky zvířete</summary><div class="bsb srdtext">${PROTBY[F.src].h}</div></details>` : ""}</section>`;
   const zb = ws ? ws.max - Math.min(ws.max, (kartaStav(K.id).zdr || {})[ws.n] || 0) : 0,
     L = (NETV || [])

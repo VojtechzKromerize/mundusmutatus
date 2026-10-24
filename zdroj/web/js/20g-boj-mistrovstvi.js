@@ -56,7 +56,7 @@ function bojWAdv(me, w, plus, minus) {
   const K = me && bojKartaH(me),
     R = K && bojWTr(K, w);
   if (!R) return;
-  if (zbrTezkaNev(R.vl, !!w.dal, kVl(K, "STR") || 10, kVl(K, "AGI") || 10)) minus.push(w.dal ? "Heavy: AGI pod 13" : "Heavy: STR pod 13");
+  if (zbrTezkaNev(R.vl, !!w.dal, kVl(K, "STR") || 10, kVl(K, "DEX") || 10)) minus.push(w.dal ? "Heavy: DEX pod 13" : "Heavy: STR pod 13");
   const O = GMV ? BGMU[me.id] || {} : BJU,
     T = bojZvVolby(O, w);
   if (T.dd && R.vl.Range) minus.push("za běžným dostřelem");

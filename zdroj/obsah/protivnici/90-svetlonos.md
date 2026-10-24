@@ -23,7 +23,7 @@ Hořící muž, který chodí po mezích a doprovází zbloudilé. Za živa byl 
 
 **AC** 13 · **HP** 52 (8d8+16) · **Rychlost** 40 stop · **Iniciativa** +3
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 14 (+2) | 16 (+3) | 14 (+2) | 10 (+0) | 12 (+1) | 13 (+1) |
 

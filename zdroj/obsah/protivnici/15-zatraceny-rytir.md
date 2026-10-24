@@ -24,7 +24,7 @@ utoky:
 
 **AC** 18 (plná zbroj) · **HP** 150 (20d8+60) · **Rychlost** 30 stop · **Iniciativa** +2
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 20 (+5) | 14 (+2) | 16 (+3) | 12 (+1) | 12 (+1) | 15 (+2) |
 

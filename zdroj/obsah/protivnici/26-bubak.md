@@ -23,7 +23,7 @@ Neklidný duch domu, který hází věcmi, bouchá dveřmi a chodí po půdě. Z
 
 **AC** 12 · **HP** 22 (5d8) · **Rychlost** 5 stop, let 50 stop · **Iniciativa** +2
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 1 (−5) | 14 (+2) | 11 (+0) | 10 (+0) | 10 (+0) | 14 (+2) |
 

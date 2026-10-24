@@ -54,7 +54,7 @@ const REAKCE = [
         ? {
             i: x.i,
             n: "Hellish Rebuke – oplatit",
-            t: "Útočník: záchrana AGI proti tvému SO, 2d10 Fire (+1d10 za každý stupeň slotu nad 1), úspěch polovina – pošle se vypravěči",
+            t: "Útočník: záchrana DEX proti tvému SO, 2d10 Fire (+1d10 za každý stupeň slotu nad 1), úspěch polovina – pošle se vypravěči",
           }
         : null;
     },
@@ -115,7 +115,7 @@ const REAKCE = [
     "zasah",
     (f, e) =>
       rkRys(f, /^deflect attacks?$/i) && rkZtr(e) > 0 && /Bludgeoning|Piercing|Slashing/.test(e.t || "")
-        ? {n: "Deflect Attacks", t: "Sníží zranění o 1d10 + AGI + úroveň mnicha"}
+        ? {n: "Deflect Attacks", t: "Sníží zranění o 1d10 + DEX + úroveň mnicha"}
         : null,
   ],
   [

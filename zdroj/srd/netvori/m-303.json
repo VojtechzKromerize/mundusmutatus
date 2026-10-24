@@ -12,7 +12,7 @@
   "rych": "30 stop, plavání 120 stop",
   "vl": {
    "STR": 30,
-   "AGI": 11,
+   "DEX": 11,
    "CON": 26,
    "INT": 22,
    "WIS": 18,
@@ -20,7 +20,7 @@
   },
   "zach": {
    "STR": "+17",
-   "AGI": "+7",
+   "DEX": "+7",
    "CON": "+15",
    "INT": "+6",
    "WIS": "+11",
@@ -91,21 +91,21 @@
    },
    {
     "n": "Fling",
-    "dc": "AGI SO 25",
+    "dc": "DEX SO 25",
     "z": "4d8",
     "zt": "Bludgeoning",
     "p": "vržený tvor a tvorové v cílovém prostoru, sražen, polovina při úspěchu"
    },
    {
     "n": "Lightning Strike",
-    "dc": "AGI SO 23",
+    "dc": "DEX SO 23",
     "z": "6d10",
     "zt": "Lightning",
     "p": "jeden tvor do 120 stop, polovina při úspěchu"
    },
    {
     "n": "Swallow",
-    "dc": "AGI SO 25",
+    "dc": "DEX SO 25",
     "z": "3d8+10",
     "zt": "Piercing",
     "p": "jeden chycený tvor; spolknutý utrží 7d6 Acid na začátku každého svého tahu"
@@ -126,7 +126,7 @@
   "rych": "40 stop",
   "vl": {
    "STR": 16,
-   "AGI": 13,
+   "DEX": 13,
    "CON": 15,
    "INT": 14,
    "WIS": 15,
@@ -134,7 +134,7 @@
   },
   "zach": {
    "STR": "+3",
-   "AGI": "+1",
+   "DEX": "+1",
    "CON": "+2",
    "INT": "+2",
    "WIS": "+2",
@@ -202,7 +202,7 @@
   "rych": "20 stop",
   "vl": {
    "STR": 10,
-   "AGI": 5,
+   "DEX": 5,
    "CON": 11,
    "INT": 1,
    "WIS": 11,
@@ -210,7 +210,7 @@
   },
   "zach": {
    "STR": "+0",
-   "AGI": "-3",
+   "DEX": "-3",
    "CON": "+0",
    "INT": "-5",
    "WIS": "+0",
@@ -260,7 +260,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 11,
-   "AGI": 16,
+   "DEX": 16,
    "CON": 16,
    "INT": 21,
    "WIS": 14,
@@ -268,7 +268,7 @@
   },
   "zach": {
    "STR": "+0",
-   "AGI": "+10",
+   "DEX": "+10",
    "CON": "+10",
    "INT": "+12",
    "WIS": "+9",
@@ -371,7 +371,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 9,
-   "AGI": 14,
+   "DEX": 14,
    "CON": 11,
    "INT": 17,
    "WIS": 12,
@@ -379,7 +379,7 @@
   },
   "zach": {
    "STR": "-1",
-   "AGI": "+2",
+   "DEX": "+2",
    "CON": "+0",
    "INT": "+6",
    "WIS": "+4",
@@ -443,7 +443,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 10,
-   "AGI": 14,
+   "DEX": 14,
    "CON": 12,
    "INT": 20,
    "WIS": 15,
@@ -451,7 +451,7 @@
   },
   "zach": {
    "STR": "+0",
-   "AGI": "+2",
+   "DEX": "+2",
    "CON": "+1",
    "INT": "+9",
    "WIS": "+6",
@@ -521,7 +521,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 7,
-   "AGI": 15,
+   "DEX": 15,
    "CON": 12,
    "INT": 8,
    "WIS": 11,
@@ -529,7 +529,7 @@
   },
   "zach": {
    "STR": "-2",
-   "AGI": "+2",
+   "DEX": "+2",
    "CON": "+1",
    "INT": "-1",
    "WIS": "+0",
@@ -570,7 +570,7 @@
    },
    {
     "n": "Death Burst",
-    "dc": "AGI SO 11",
+    "dc": "DEX SO 11",
     "z": "2d6",
     "zt": "Fire",
     "p": "při smrti, 10stopé vyzařování, polovina při úspěchu"
@@ -591,7 +591,7 @@
   "rych": "30 stop, let 50 stop",
   "vl": {
    "STR": 17,
-   "AGI": 16,
+   "DEX": 16,
    "CON": 17,
    "INT": 7,
    "WIS": 12,
@@ -599,7 +599,7 @@
   },
   "zach": {
    "STR": "+3",
-   "AGI": "+3",
+   "DEX": "+3",
    "CON": "+3",
    "INT": "-2",
    "WIS": "+1",
@@ -655,7 +655,7 @@
   "rych": "40 stop, šplhání 40 stop",
   "vl": {
    "STR": 18,
-   "AGI": 20,
+   "DEX": 20,
    "CON": 20,
    "INT": 18,
    "WIS": 16,
@@ -663,7 +663,7 @@
   },
   "zach": {
    "STR": "+9",
-   "AGI": "+5",
+   "DEX": "+5",
    "CON": "+10",
    "INT": "+4",
    "WIS": "+8",
@@ -749,7 +749,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 10,
-   "AGI": 17,
+   "DEX": 17,
    "CON": 16,
    "INT": 12,
    "WIS": 13,
@@ -757,7 +757,7 @@
   },
   "zach": {
    "STR": "+0",
-   "AGI": "+3",
+   "DEX": "+3",
    "CON": "+3",
    "INT": "+1",
    "WIS": "+4",
@@ -832,7 +832,7 @@
   "rych": "30 stop, let 30 stop",
   "vl": {
    "STR": 5,
-   "AGI": 14,
+   "DEX": 14,
    "CON": 10,
    "INT": 9,
    "WIS": 11,
@@ -840,7 +840,7 @@
   },
   "zach": {
    "STR": "-3",
-   "AGI": "+2",
+   "DEX": "+2",
    "CON": "+0",
    "INT": "-1",
    "WIS": "+0",
@@ -885,7 +885,7 @@
    },
    {
     "n": "Death Burst",
-    "dc": "AGI SO 10",
+    "dc": "DEX SO 10",
     "z": "2d4",
     "zt": "Bludgeoning",
     "p": "při smrti, 5stopé vyzařování, polovina při úspěchu"
@@ -906,7 +906,7 @@
   "rych": "30 stop, let 30 stop",
   "vl": {
    "STR": 7,
-   "AGI": 13,
+   "DEX": 13,
    "CON": 10,
    "INT": 9,
    "WIS": 11,
@@ -914,7 +914,7 @@
   },
   "zach": {
    "STR": "-2",
-   "AGI": "+1",
+   "DEX": "+1",
    "CON": "+0",
    "INT": "-1",
    "WIS": "+0",
@@ -987,7 +987,7 @@
   "rych": "30 stop, let 30 stop",
   "vl": {
    "STR": 8,
-   "AGI": 12,
+   "DEX": 12,
    "CON": 12,
    "INT": 7,
    "WIS": 10,
@@ -995,7 +995,7 @@
   },
   "zach": {
    "STR": "-1",
-   "AGI": "+1",
+   "DEX": "+1",
    "CON": "+1",
    "INT": "-2",
    "WIS": "+0",
@@ -1036,14 +1036,14 @@
    },
    {
     "n": "Fire Breath",
-    "dc": "AGI SO 11",
+    "dc": "DEX SO 11",
     "z": "2d6",
     "zt": "Fire",
     "p": "kužel 15 stop, polovina při úspěchu, obnova 6"
    },
    {
     "n": "Death Burst",
-    "dc": "AGI SO 11",
+    "dc": "DEX SO 11",
     "z": "2d6",
     "zt": "Fire",
     "p": "při smrti, 5stopé vyzařování, polovina při úspěchu"
@@ -1064,7 +1064,7 @@
   "rych": "30 stop, let 30 stop",
   "vl": {
    "STR": 5,
-   "AGI": 11,
+   "DEX": 11,
    "CON": 10,
    "INT": 11,
    "WIS": 10,
@@ -1072,7 +1072,7 @@
   },
   "zach": {
    "STR": "-3",
-   "AGI": "+0",
+   "DEX": "+0",
    "CON": "+0",
    "INT": "+0",
    "WIS": "+0",
@@ -1123,7 +1123,7 @@
    },
    {
     "n": "Death Burst",
-    "dc": "AGI SO 10",
+    "dc": "DEX SO 10",
     "z": "2d4",
     "zt": "Fire",
     "p": "při smrti, 5stopé vyzařování, polovina při úspěchu"
@@ -1144,7 +1144,7 @@
   "rych": "10 stop, plavání 40 stop",
   "vl": {
    "STR": 10,
-   "AGI": 13,
+   "DEX": 13,
    "CON": 12,
    "INT": 11,
    "WIS": 14,
@@ -1152,7 +1152,7 @@
   },
   "zach": {
    "STR": "+0",
-   "AGI": "+1",
+   "DEX": "+1",
    "CON": "+1",
    "INT": "+0",
    "WIS": "+2",
@@ -1199,7 +1199,7 @@
   "rych": "10 stop, plavání 40 stop",
   "vl": {
    "STR": 18,
-   "AGI": 15,
+   "DEX": 15,
    "CON": 15,
    "INT": 8,
    "WIS": 10,
@@ -1207,7 +1207,7 @@
   },
   "zach": {
    "STR": "+4",
-   "AGI": "+2",
+   "DEX": "+2",
    "CON": "+2",
    "INT": "-1",
    "WIS": "+0",
@@ -1281,7 +1281,7 @@
   "rych": "20 stop",
   "vl": {
    "STR": 17,
-   "AGI": 12,
+   "DEX": 12,
    "CON": 15,
    "INT": 5,
    "WIS": 13,
@@ -1289,7 +1289,7 @@
   },
   "zach": {
    "STR": "+3",
-   "AGI": "+1",
+   "DEX": "+1",
    "CON": "+2",
    "INT": "-3",
    "WIS": "+1",
@@ -1356,7 +1356,7 @@
   "rych": "40 stop",
   "vl": {
    "STR": 18,
-   "AGI": 11,
+   "DEX": 11,
    "CON": 16,
    "INT": 6,
    "WIS": 16,
@@ -1364,7 +1364,7 @@
   },
   "zach": {
    "STR": "+4",
-   "AGI": "+0",
+   "DEX": "+0",
    "CON": "+3",
    "INT": "-2",
    "WIS": "+3",
@@ -1418,7 +1418,7 @@
   "rych": "20 stop",
   "vl": {
    "STR": 16,
-   "AGI": 8,
+   "DEX": 8,
    "CON": 15,
    "INT": 6,
    "WIS": 12,
@@ -1426,7 +1426,7 @@
   },
   "zach": {
    "STR": "+3",
-   "AGI": "-1",
+   "DEX": "-1",
    "CON": "+2",
    "INT": "-2",
    "WIS": "+3",
@@ -1478,7 +1478,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 18,
-   "AGI": 10,
+   "DEX": 10,
    "CON": 17,
    "INT": 11,
    "WIS": 19,
@@ -1486,7 +1486,7 @@
   },
   "zach": {
    "STR": "+4",
-   "AGI": "+0",
+   "DEX": "+0",
    "CON": "+3",
    "INT": "+5",
    "WIS": "+9",
@@ -1595,7 +1595,7 @@
   "rych": "20 stop, let 30 stop",
   "vl": {
    "STR": 21,
-   "AGI": 10,
+   "DEX": 10,
    "CON": 22,
    "INT": 19,
    "WIS": 12,
@@ -1603,7 +1603,7 @@
   },
   "zach": {
    "STR": "+5",
-   "AGI": "+0",
+   "DEX": "+0",
    "CON": "+11",
    "INT": "+9",
    "WIS": "+6",
@@ -1684,7 +1684,7 @@
   "rych": "30 stop",
   "vl": {
    "STR": 18,
-   "AGI": 15,
+   "DEX": 15,
    "CON": 16,
    "INT": 16,
    "WIS": 14,
@@ -1692,7 +1692,7 @@
   },
   "zach": {
    "STR": "+4",
-   "AGI": "+2",
+   "DEX": "+2",
    "CON": "+3",
    "INT": "+3",
    "WIS": "+2",
@@ -1769,7 +1769,7 @@
   "rych": "60 stop, let 90 stop (vznáší se)",
   "vl": {
    "STR": 18,
-   "AGI": 15,
+   "DEX": 15,
    "CON": 16,
    "INT": 10,
    "WIS": 13,
@@ -1777,7 +1777,7 @@
   },
   "zach": {
    "STR": "+4",
-   "AGI": "+2",
+   "DEX": "+2",
    "CON": "+3",
    "INT": "+0",
    "WIS": "+1",

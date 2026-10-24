@@ -467,28 +467,28 @@ const BTEC = {
   "Šilhavý sek": "1 Výdrž + Požehnání: zlomí soupeřův sek – ten má do konce svého příštího tahu nevýhodu na útoky.",
   "Dělný sek": "1 Výdrž + reakce: když nepřítel vstoupí do dosahu, zaútočí dřív a ustoupí jako při Dodge.",
   "Vražedný úder": "1 Výdrž + bonusová akce: úder záštitou – do konce tahu má zbraň Bludgeoning s perkem Drtivá.",
-  "Zápas s mečem": "1 Výdrž + Požehnání: po zásahu do těla – cíl hází STR/AGI save, jinak je Restrained nebo Prone.",
-  "Hod přes bok": "1 Výdrž + Požehnání: po zásahu beze zbraně hází cíl STR/AGI save, jinak je Restrained a Prone.",
+  "Zápas s mečem": "1 Výdrž + Požehnání: po zásahu do těla – cíl hází STR/DEX save, jinak je Restrained nebo Prone.",
+  "Hod přes bok": "1 Výdrž + Požehnání: po zásahu beze zbraně hází cíl STR/DEX save, jinak je Restrained a Prone.",
   Mordstösse: "1 Výdrž + Požehnání: úder do hrdla nebo spánku – cíl do konce svého příštího tahu nemluví (nekouzlí verbálně) a nemá reakci.",
-  "Zůstaň!": "1 Výdrž + Požehnání: Prone nebo Restrained cíl hází AGI save, jinak je znehybněn do konce útočníkova příštího tahu.",
+  "Zůstaň!": "1 Výdrž + Požehnání: Prone nebo Restrained cíl hází DEX save, jinak je znehybněn do konce útočníkova příštího tahu.",
   Zlom: "1 Výdrž + reakce: když ho soupeř povaluje nebo drží, Contested Roll s výhodou; při úspěchu se situace obrátí.",
   "Lámání paže": "1 Výdrž + reakce na Pokušení: Restrained soupeř, který útočí, hází CON save s nevýhodou, jinak má zlomenou paži.",
-  "Zápas o zbraň": "1 Výdrž + reakce: útočník s lehkou zbraní hází STR/AGI save, jinak mine a zbraň mu sebere.",
+  "Zápas o zbraň": "1 Výdrž + reakce: útočník s lehkou zbraní hází STR/DEX save, jinak mine a zbraň mu sebere.",
   "Zápas ve zbroji": "1 Výdrž + bonusová akce: proti Restrained nebo Prone soupeři ignorují útoky dýkou do konce tahu Resistance zbroje.",
 };
 const BSTAVD = {
   Prone: "Sražen: pohyb jen plazením, vstát stojí polovinu rychlosti; útoky zblízka na něj s výhodou, na dálku s nevýhodou; jeho útoky s nevýhodou.",
-  Restrained: "Spoután: rychlost 0; útoky na něj s výhodou, jeho útoky s nevýhodou; nevýhoda na AGI záchrany.",
+  Restrained: "Spoután: rychlost 0; útoky na něj s výhodou, jeho útoky s nevýhodou; nevýhoda na DEX záchrany.",
   Grappled: "Sevřen: rychlost 0; nevýhoda na útoky proti komukoli kromě toho, kdo ho drží; ten ho může táhnout s sebou.",
   Frightened: "Vyděšen: nevýhoda na testy a útoky, dokud vidí zdroj strachu; nesmí se k němu dobrovolně přiblížit.",
   Poisoned: "Otráven: nevýhoda na útoky a testy dovedností.",
   Charmed: "Okouzlen: nemůže zaútočit na toho, kdo ho okouzlil; ten má výhodu na společenské testy proti němu.",
   Blinded: "Oslepen: nevidí; útoky na něj s výhodou, jeho útoky s nevýhodou.",
   Deafened: "Ohlušen: neslyší; testy, které potřebují sluch, automaticky selžou.",
-  Stunned: "Omráčen: Incapacitated, nehýbe se, STR a AGI záchrany automaticky selžou, útoky na něj s výhodou.",
-  Paralyzed: "Ochromen: Incapacitated, nehýbe se, STR a AGI záchrany selžou, útoky na něj s výhodou a zásah zblízka (5 stop) je kritický.",
+  Stunned: "Omráčen: Incapacitated, nehýbe se, STR a DEX záchrany automaticky selžou, útoky na něj s výhodou.",
+  Paralyzed: "Ochromen: Incapacitated, nehýbe se, STR a DEX záchrany selžou, útoky na něj s výhodou a zásah zblízka (5 stop) je kritický.",
   Incapacitated: "Bez akcí, bonusových akcí i reakcí; ztrácí soustředění a nemluví.",
-  Unconscious: "V bezvědomí: Incapacitated a Prone, upustí, co drží; STR a AGI záchrany selžou, útoky na něj s výhodou, zásah zblízka je kritický.",
+  Unconscious: "V bezvědomí: Incapacitated a Prone, upustí, co drží; STR a DEX záchrany selžou, útoky na něj s výhodou, zásah zblízka je kritický.",
   Petrified: "Zkamenělý: Incapacitated, odolá všemu zranění, nestárne; jed a nemoc se zastaví.",
   Invisible: "Neviditelný: útoky na něj s nevýhodou, jeho útoky s výhodou; nejde zacílit tím, co vyžaduje vidět cíl.",
   Exhaustion: "Vyčerpání: za každou úroveň −2 k hodům d20 a −5 stop rychlosti; šestá úroveň zabíjí.",
@@ -2151,7 +2151,7 @@ const BKRIT = {
       ],
       Paže: [
         "Rána přes prsty – upustíš, co držíš",
-        "Zlomenina – nevýhoda na STR/AGI skillcheck",
+        "Zlomenina – nevýhoda na STR/DEX skillcheck",
         "Rozdrcené předloktí – nevýhoda na útoky + krvácení D8",
         "Useknutá paže",
       ],
@@ -2164,7 +2164,7 @@ const BKRIT = {
   },
   mraz: {
     n: "Mráz",
-    t: ["Ztuhlé údy – poloviční pohyb", "Zkřehlé údy – nevýhoda na AGI saves", "Prsty z ledu – nevýhoda na attack rolls", "Zamrzlé srdce"],
+    t: ["Ztuhlé údy – poloviční pohyb", "Zkřehlé údy – nevýhoda na DEX saves", "Prsty z ledu – nevýhoda na attack rolls", "Zamrzlé srdce"],
   },
   jed: {n: "Kyselina a jed", t: ["Dávení – bez Reakce a Bonusové akce", "Žíravina – nevýhoda na CON saves", "Černá krev – Poisoned", "Selhání těla"]},
   svata: {
@@ -2210,7 +2210,7 @@ const BKRIT = {
       "Nohy a ocas": [
         "Podražení – Prone",
         "Přeťatá šlacha – poloviční pohyb, vzlet jen ze svahu nebo skály",
-        "Uťatý ocas – ztrácí útok ocasem, nevýhoda na AGI saves",
+        "Uťatý ocas – ztrácí útok ocasem, nevýhoda na DEX saves",
         "Rozdrcená pánev",
       ],
     },
@@ -2436,7 +2436,7 @@ const bojDB = window.MMDB
     ? {
         nacti: async () => {
           try {
-            return JSON.parse(localStorage.getItem("mm-boj") || "null");
+            return JSON.parse(mmDex(localStorage.getItem("mm-boj")) || "null");
           } catch (e) {
             return null;
           }
@@ -3052,7 +3052,7 @@ function bojRealtime() {
   ws.onmessage = e => {
     let m;
     try {
-      m = JSON.parse(e.data);
+      m = JSON.parse(mmDex(e.data));
     } catch (x) {
       return;
     }

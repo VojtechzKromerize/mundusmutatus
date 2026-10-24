@@ -388,7 +388,7 @@ const LS="mm-gm-relace",V=encodeURIComponent(C.vetev);
 const hdr=tok=>{const h={apikey:C.key},b=tok||(C.key.startsWith("eyJ")?C.key:null);if(b)h.Authorization="Bearer "+b;return h};
 async function api(path,o={}){
   const r=await fetch(C.url+path,{method:o.method||"GET",body:o.body,cache:"no-store",headers:{...hdr(o.tok),...(o.body?{"Content-Type":"application/json"}:{})}});
-  const t=await r.text();let j=null;try{j=t?JSON.parse(t):null}catch(e){}
+  const t=(await r.text()).replace(/\bAGI\b/g,"DEX");let j=null;/* Obratnost = DEX (dřív AGI) i ve starších datech */try{j=t?JSON.parse(t):null}catch(e){}
   if(!r.ok){const e=new Error((j&&(j.msg||j.message||j.error_description||j.error))||("HTTP "+r.status));e.status=r.status;throw e}
   return j}
 const relace=()=>{try{return JSON.parse(localStorage.getItem(LS)||"null")}catch(e){return null}};

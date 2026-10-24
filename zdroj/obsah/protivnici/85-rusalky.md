@@ -23,7 +23,7 @@ Nevěsty, které zemřely před svatbou, a od nepaměti tančí na lukách u vod
 
 **Útok houfu – mámivý dotek:** +4 (+1 za každou další, nejvýš +5), dosah 5 stop. **Zásah:** 3 Psychic za každou rusalku v dosahu cíle.
 
-**Záchrany houfu:** AGI +2, CHA +3, ostatní +0
+**Záchrany houfu:** DEX +2, CHA +3, ostatní +0
 
 ## Vlastnosti
 

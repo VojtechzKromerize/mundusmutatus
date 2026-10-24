@@ -26,7 +26,7 @@ Kněz Starých bohů z hor a hlubokých lesů. Po Noci Proměny Staří bozi odp
 
 **AC** 13 (kožená s cvočky) · **HP** 44 (8d8+8) · **Rychlost** 30 stop · **Iniciativa** +1
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 10 (+0) | 12 (+1) | 13 (+1) | 12 (+1) | 16 (+3) | 11 (+0) |
 

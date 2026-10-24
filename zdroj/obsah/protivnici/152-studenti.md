@@ -8,7 +8,7 @@ ac: 10
 hp: 5
 utok: Jiskra +4 · 2 Fire za každého studenta, který na cíl vidí · hole +2, 2 Bludgeoning · latinské nadávky
 bonus: 4
-komplikace: Student sešle něco, co se mu nepovedlo: útočník i student hodí AGI save DC 11, jinak oba utrží 1d6 Fire – a hoří kabát.
+komplikace: Student sešle něco, co se mu nepovedlo: útočník i student hodí DEX save DC 11, jinak oba utrží 1d6 Fire – a hoří kabát.
 stitky: studenti, Karolinum, univerzita, Praha, mistři, kolej, latina, kouzla, Závoj, kališníci, lidé
 vyznani: kal
 utoky:

@@ -21,7 +21,7 @@ Drobní čerti, posílaní z pekla na pochůzky: svádět, krást duše, slouži
 
 **Útok houfu – žihadla:** +5 (+1 za každého dalšího, nejvýš +5), dosah 5 stop. **Zásah:** 3 zranění za každého čertíka v dosahu cíle (Piercing a Poison).
 
-**Záchrany houfu:** AGI +3, CHA +2, ostatní +0
+**Záchrany houfu:** DEX +3, CHA +2, ostatní +0
 
 ## Vlastnosti
 

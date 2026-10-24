@@ -25,7 +25,7 @@ Duch paní z rodu, který na hradě sídlí. Zjevuje se před smrtí v rodu a hl
 
 **AC** 11 · **HP** 45 (10d8) · **Rychlost** 5 stop, let 40 stop · **Iniciativa** +1
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 7 (−2) | 13 (+1) | 10 (+0) | 10 (+0) | 12 (+1) | 17 (+3) |
 

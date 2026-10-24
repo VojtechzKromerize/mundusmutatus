@@ -124,7 +124,7 @@ function kReakceFakta(K, h, s, e) {
     sd: SD ? {k: SD.k, zb: SD.zb} : null,
     bi: B ? {st: kBardSt(K), zb: B.zb} : null,
     str: kMod(kVl(K, "STR") || 10),
-    agi: kMod(kVl(K, "AGI") || 10),
+    agi: kMod(kVl(K, "DEX") || 10),
     pb: kPB(K),
     mnich: kTrU(kCtx(K), "Monk") || kLv(K),
     odv: bojZbrVse(s, h).some(w => !w.dal && w.z && (w.vl || []).includes("Odvetná")),
@@ -278,10 +278,10 @@ async function kZasahReakce(K, k, i) {
           t: "Fire",
           hod: 0,
           dmg: r ? r.tot : 0,
-          plos: {ab: "AGI", dc: dc || 13, pol: true},
+          plos: {ab: "DEX", dc: dc || 13, pol: true},
         });
-      kHodZapis({k: K.id, kdo: K.n, co: "Reakce: Hellish Rebuke", txt: `${r ? r.txt : ""} Fire, AGI SO ${dc}`});
-      mmHlas(`Hellish Rebuke: ${r ? r.tot : 0} Fire – útočník si hodí záchranu AGI u vypravěče.`, 5000);
+      kHodZapis({k: K.id, kdo: K.n, co: "Reakce: Hellish Rebuke", txt: `${r ? r.txt : ""} Fire, DEX SO ${dc}`});
+      mmHlas(`Hellish Rebuke: ${r ? r.tot : 0} Fire – útočník si hodí záchranu DEX u vypravěče.`, 5000);
     } catch (err) {
       mmHlas("Nepodařilo se poslat: " + (err.message || err), 5000);
     }
@@ -491,7 +491,7 @@ async function vyzvaRychle(d, x) {
   }
   const komu = KARTY.filter(k => !k.test || KHRAC[k.id]).map(k => k.id);
   const o = {komu: komu.length ? komu : KARTY.map(k => k.id)};
-  if (/^(STR|AGI|CON|INT|WIS|CHA)$/.test(d)) {
+  if (/^(STR|DEX|CON|INT|WIS|CHA)$/.test(d)) {
     o.typ = "zach";
     o.ab = d;
   } else {

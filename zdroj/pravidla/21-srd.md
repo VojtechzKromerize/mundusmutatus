@@ -418,7 +418,7 @@ Tvá vrozená magie pochází z daru draka. Možná starobylý drak tváří v t
 
 Magie ve tvém těle se projevuje fyzickými rysy tvého dračího daru. Tvé maximum životů (HP) se zvyšuje o 3 a pokaždé, když získáš další úroveň povolání Sorcerer, se zvýší o 1.
 
-Části tvého těla jsou navíc pokryty dračími šupinami. Dokud nemáš na sobě zbroj, tvé základní AC se rovná 10 plus tvé modifikátory Obratnosti (AGI) a Charismy (CHA).
+Části tvého těla jsou navíc pokryty dračími šupinami. Dokud nemáš na sobě zbroj, tvé základní AC se rovná 10 plus tvé modifikátory Obratnosti (DEX) a Charismy (CHA).
 
 #### Úroveň 3: Draconic Spells
 

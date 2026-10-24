@@ -252,7 +252,7 @@ Hlavní orientační body:
   Lore a Kronika jsou psané jako kronika Vojtěcha z Kroměříže – čeština evokující 15. století, ale čtivá.
 - **Terminologie pravidel** (jako v art/pravidla.json): dovednosti, typy zranění, Resistance / Vulnerability /
   Immunity, názvy kouzel a magických předmětů **anglicky**; stavy česky s anglickým názvem v závorce
-  („Sražen (Prone)“); vlastnosti STR/AGI/CON/INT/WIS/CHA; v datech protivníků `AGI DC 15`.
+  („Sražen (Prone)“); vlastnosti STR/DEX/CON/INT/WIS/CHA (od 2026-10-24 DEX, ne AGI – starší data převede při čtení `mmDex` a `api()` v koruna.html); v datech protivníků `DEX DC 15`.
 - **Domácí pravidla (Artikule) mají přednost před SRD.** V Pravidlech jsou jako rámečky „Artikule“.
   Aktuální text Artikulí je v projektu claude.ai (`pravidla/artikule-*.md`, nejnovější datum).
 - **Vzhled:** středověká kronika / iluminovaný kodex (vínová kůže, zlaté linky, iluminační modř).

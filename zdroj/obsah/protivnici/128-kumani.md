@@ -22,7 +22,7 @@ Lehká jízda uherského krále, potomci stepních nájezdníků usazených na T
 
 **Útok houfu – koňské luky:** +4 (+1 za každého dalšího, nejvýš +5), dostřel 80/320 stop. **Zásah:** 3 Piercing za každého, kdo na cíl vidí. Houf může střílet a potom se pohnout (nebo naopak) bez postihu. **Šavle:** +4, dosah 5 stop, 3 Slashing za každého v dosahu – jen když ho někdo dožene.
 
-**Záchrany houfu:** AGI +2, ostatní +0
+**Záchrany houfu:** DEX +2, ostatní +0
 
 ## Vlastnosti
 

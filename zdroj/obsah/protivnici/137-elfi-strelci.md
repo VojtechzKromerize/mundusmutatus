@@ -23,7 +23,7 @@ Lesní lovci a střelci elfího pána z Hazmburka: Proměněnci urození i podda
 
 **Útok houfu – dlouhé luky:** +5 (+1 za každého dalšího střelce, nejvýš +5), dostřel 150/600 stop. **Zásah:** 3 Piercing za každého střelce, který na cíl vidí. **Krátké meče:** +5, dosah 5 stop, 3 Piercing za každého v dosahu.
 
-**Záchrany houfu:** AGI +3, WIS +1, ostatní +0
+**Záchrany houfu:** DEX +3, WIS +1, ostatní +0
 
 ## Vlastnosti
 

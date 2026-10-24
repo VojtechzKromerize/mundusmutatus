@@ -23,7 +23,7 @@ Džin ohně z pohádek Východu, který po Protržení Závoje vstoupil do svět
 
 **AC** 17 · **HP** 212 (17d10+119) · **Rychlost** 40 stop, let 60 stop (vznáší se) · **Iniciativa** +1
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 22 (+6) | 12 (+1) | 24 (+7) | 16 (+3) | 15 (+2) | 19 (+4) |
 

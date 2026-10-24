@@ -4,7 +4,7 @@
   "cz": "Řemeslník",
   "vl": [
    "STR",
-   "AGI",
+   "DEX",
    "INT"
   ],
   "feat": "Crafter",
@@ -20,7 +20,7 @@
   "en": "Charlatan",
   "cz": "Šarlatán",
   "vl": [
-   "AGI",
+   "DEX",
    "CON",
    "CHA"
   ],
@@ -38,7 +38,7 @@
   "cz": "Bavič",
   "vl": [
    "STR",
-   "AGI",
+   "DEX",
    "CHA"
   ],
   "feat": "Musician",
@@ -88,7 +88,7 @@
   "en": "Guide",
   "cz": "Průvodce",
   "vl": [
-   "AGI",
+   "DEX",
    "CON",
    "WIS"
   ],
@@ -157,7 +157,7 @@
   "cz": "Plavec",
   "vl": [
    "STR",
-   "AGI",
+   "DEX",
    "WIS"
   ],
   "feat": "Tavern Brawler",
@@ -173,7 +173,7 @@
   "en": "Scribe",
   "cz": "Písař",
   "vl": [
-   "AGI",
+   "DEX",
    "INT",
    "WIS"
   ],
@@ -190,7 +190,7 @@
   "en": "Wayfarer",
   "cz": "Tulák",
   "vl": [
-   "AGI",
+   "DEX",
    "WIS",
    "CHA"
   ],

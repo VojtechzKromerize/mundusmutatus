@@ -65,7 +65,7 @@ async def main():
     r=await g.evaluate(f"(()=>{{const hp0=(bojHp.get()['{rid}']||[])[0];bojZmen(z=>{{const n=z.npc.find(x=>x.id==='{rid}');n.stav=[...(n.stav||[]).filter(t=>!/krvácí/.test(t)),'krvácí k6'];delete n.krvK;bojZacatekTahu(z,'{rid}')}});const hp1=(bojHp.get()['{rid}']||[])[0];bojZmen(z=>{{const n=z.npc.find(x=>x.id==='{rid}');n.stav=(n.stav||[]).filter(t=>!/krvácí/.test(t));delete n.krvK}});return [hp0,hp1,(BTMSG['{rid}']||[]).join(' ')]}})()")
     chk(r[1] is not None and (r[0] is None or r[1]<r[0]) and "krvácí" in r[2],"stav Krvácí k6: na začátku tahu ztratí životy: "+str(r))
     await g.evaluate("kartaStavZmen('balduin',{hp:null,thp:null},null,{bezZpet:true})");await g.wait_for_timeout(800)
-    r=await g.evaluate("(()=>{BPLV[999999]={dmg:10,pol:true,t:'Fire',ab:'AGI',dc:15,map:{balduin:'h4'},hot:new Set(),src:'',cim:'Test'};const V0=VYZVY;VYZVY=[{id:999999,data:{typ:'zach'},odpovedi:{balduin:{tot:5}}}];bojVyzZpracuj();VYZVY=V0;return kartaStav('balduin').hp})()")
+    r=await g.evaluate("(()=>{BPLV[999999]={dmg:10,pol:true,t:'Fire',ab:'DEX',dc:15,map:{balduin:'h4'},hot:new Set(),src:'',cim:'Test'};const V0=VYZVY;VYZVY=[{id:999999,data:{typ:'zach'},odpovedi:{balduin:{tot:5}}}];bojVyzZpracuj();VYZVY=V0;return kartaStav('balduin').hp})()")
     chk(r==52,"plošný zásah výzvou: neúspěšná záchrana hráče odečte zranění samo ("+str(r)+")")
     await g.evaluate("kartaStavZmen('balduin',{hp:null,thp:null},null,{bezZpet:true})");await g.wait_for_timeout(800)
     await puls(pl,od=g);await pl.evaluate("bojJa.set('Balduin');renderBoj()");await pl.wait_for_timeout(600)

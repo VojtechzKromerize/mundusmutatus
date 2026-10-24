@@ -21,7 +21,7 @@ Nafouklí, modraví mrtví s rybinami ve vlasech. Slouží vodníkovi, dokud jej
 
 **Útok houfu – ledová kousnutí:** +4 (+1 za každého dalšího, nejvýš +5), dosah 5 stop. **Zásah:** 4 Cold za každého utopence v dosahu cíle a cíl má do začátku jejich příštího tahu rychlost o 5 stop nižší. Jsou-li v dosahu aspoň 3, CON save DC 10, jinak Paralyzed do konce příštího tahu (elfové imunní).
 
-**Záchrany houfu:** AGI +2, ostatní +0
+**Záchrany houfu:** DEX +2, ostatní +0
 
 ## Vlastnosti
 

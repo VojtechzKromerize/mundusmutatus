@@ -40,7 +40,7 @@ const EDDRUH = {
     kl: "id",
     n: "Protivník",
     tpl: id =>
-      `---\nid: ${id}\nnazev: \nuroven: sok\npocet: \nvyzva: \nac: \nhp: \nutok: \nbonus: \npozehnani: \npokuseni: \nkomplikace: \nnerest: \n---\n*„Citát z Kroniky.“*\n\nKrátký popis.\n\n**AC** · **HP** · **Rychlost** 30 stop\n\n| STR | AGI | CON | INT | WIS | CHA |\n|:-:|:-:|:-:|:-:|:-:|:-:|\n| 10 (+0) | 10 (+0) | 10 (+0) | 10 (+0) | 10 (+0) | 10 (+0) |\n\n## Akce (jedna v každém slotu)\n\n- **Útok.** Popis.\n`,
+      `---\nid: ${id}\nnazev: \nuroven: sok\npocet: \nvyzva: \nac: \nhp: \nutok: \nbonus: \npozehnani: \npokuseni: \nkomplikace: \nnerest: \n---\n*„Citát z Kroniky.“*\n\nKrátký popis.\n\n**AC** · **HP** · **Rychlost** 30 stop\n\n| STR | DEX | CON | INT | WIS | CHA |\n|:-:|:-:|:-:|:-:|:-:|:-:|\n| 10 (+0) | 10 (+0) | 10 (+0) | 10 (+0) | 10 (+0) | 10 (+0) |\n\n## Akce (jedna v každém slotu)\n\n- **Útok.** Popis.\n`,
   },
   privlastek: {
     dir: "privlastky",
@@ -134,7 +134,7 @@ const EDPOLE = {
   komplikace: "Komplikace pro útočníka (houfy)",
   nerest: "Neřest / slabina",
   zakon: "Zákon relikta (krátce; u relikta dej do štítků „relikt“)",
-  utoky: "Útoky na kliknutí – „Název | +6 | 1d8+3 Slashing | poznámka“, u houfu „| 3 za pacholka …“, záchrana „| AGI DC 15 | 2d8 Fire“",
+  utoky: "Útoky na kliknutí – „Název | +6 | 1d8+3 Slashing | poznámka“, u houfu „| 3 za pacholka …“, záchrana „| DEX DC 15 | 2d8 Fire“",
   zdroje: "Zdroje k odškrtávání (Výdrž 2, Náboje 3, …)",
   stitky: "Štítky pro hledání (kraj, frakce, prostředí – čárkami)",
   kriticka: "Kritická zranění (drak = dračí tabulka)",

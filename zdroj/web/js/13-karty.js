@@ -13,7 +13,7 @@ const KDB = window.MMDB
   : (() => {
       const L = k => {
           try {
-            return JSON.parse(localStorage.getItem(k) || "null");
+            return JSON.parse(mmDex(localStorage.getItem(k)) || "null");
           } catch (e) {
             return null;
           }
@@ -458,9 +458,9 @@ async function kartaSeslat(K, sp, chce) {
   return true;
 }
 /* ===== stránka Karty postav ===== */
-const KSK = {STR: "Síla", AGI: "Obratnost", CON: "Odolnost", INT: "Inteligence", WIS: "Moudrost", CHA: "Charisma"};
+const KSK = {STR: "Síla", DEX: "Obratnost", CON: "Odolnost", INT: "Inteligence", WIS: "Moudrost", CHA: "Charisma"};
 const KDOVAB = {
-  Acrobatics: "AGI",
+  Acrobatics: "DEX",
   "Animal Handling": "WIS",
   Arcana: "INT",
   Athletics: "STR",
@@ -475,8 +475,8 @@ const KDOVAB = {
   Performance: "CHA",
   Persuasion: "CHA",
   Religion: "INT",
-  "Sleight of Hand": "AGI",
-  Stealth: "AGI",
+  "Sleight of Hand": "DEX",
+  Stealth: "DEX",
   Survival: "WIS",
 };
 const KEF = {};
@@ -570,7 +570,7 @@ function kartaZatez(K) {
 }
 /* ===== části karty sdílené s bojovou kartou (14): české názvy vlastností, puntíky omezených použití, deník.
    Celou kartu v rozvržení D&D Beyond (kartaDbHtml) nahradila 2026-10-18 bojová karta; odstraněna 2026-10-23. ===== */
-const KDBVL = {STR: "Síla", AGI: "Obratnost", CON: "Odolnost", INT: "Inteligence", WIS: "Moudrost", CHA: "Charisma"};
+const KDBVL = {STR: "Síla", DEX: "Obratnost", CON: "Odolnost", INT: "Inteligence", WIS: "Moudrost", CHA: "Charisma"};
 function kdbPips(K, q) {
   const U = kartaStav(K.id).zdr || {},
     u = Math.min(q.max, U[q.k] || 0);
@@ -1194,14 +1194,14 @@ async function kPoslUprav(K, typ) {
 /* ---- kostky v textech schopností: „1d6“, „2d8 + your Strength modifier“, „1d10 + your Fighter level“ ---- */
 const KTXAB = {
   strength: "STR",
-  dexterity: "AGI",
+  dexterity: "DEX",
   constitution: "CON",
   intelligence: "INT",
   wisdom: "WIS",
   charisma: "CHA",
   str: "STR",
-  dex: "AGI",
-  agi: "AGI",
+  dex: "DEX",
+  agi: "DEX",
   con: "CON",
   int: "INT",
   wis: "WIS",

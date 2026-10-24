@@ -68,7 +68,7 @@ function kartaZPdf(F) {
   };
   const AB = [
     ["STR", "STR", "Strength"],
-    ["AGI", "DEX", "Dexterity"],
+    ["DEX", "DEX", "Dexterity"],
     ["CON", "CON", "Constitution"],
     ["INT", "INT", "Intelligence"],
     ["WIS", "WIS", "Wisdom"],
@@ -466,6 +466,6 @@ function kZachPoznCz(t) {
   if (/^Advantage on CON saving throws (that )?you make to maintain/i.test(t)) return "výhoda na CON záchrany pro udržení soustředění (War Caster)";
   if ((m = t.match(/^Advantage on saving throws against (.+?)\.?$/i))) return `výhoda na záchrany proti: ${m[1]}`;
   if ((m = t.match(/^Advantage on (STR|DEX|CON|INT|WIS|CHA) saving throws( against (.+?))?\.?$/i)))
-    return `výhoda na ${m[1].toUpperCase() === "DEX" ? "AGI" : m[1].toUpperCase()} záchrany${m[3] ? " proti: " + m[3] : ""}`;
+    return `výhoda na ${m[1].toUpperCase()} záchrany${m[3] ? " proti: " + m[3] : ""}`;
   return t;
 }

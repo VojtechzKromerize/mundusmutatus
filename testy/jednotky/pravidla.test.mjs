@@ -19,7 +19,7 @@ const V = vyraz => {
 /* syntetická karta: povolání „Fighter 5“, skóre vlastností, rysy podle názvu z PDF, vybavení */
 const karta = o =>
   JSON.stringify(Object.assign({id: "t_" + Math.random().toString(36).slice(2, 8), n: "Zkouška", druh: "Human", vl: {}, rysy: [], vybaveni: []}, o));
-const VL = {STR: 16, AGI: 14, CON: 14, INT: 10, WIS: 12, CHA: 16};
+const VL = {STR: 16, DEX: 14, CON: 14, INT: 10, WIS: 12, CHA: 16};
 
 /* ---------- pravidla postavy (D&D 2024, SRD 5.2.1) ---------- */
 test("pravidla: bonus zdatnosti roste každé čtyři úrovně (+2 až +6)", () => {
@@ -56,12 +56,12 @@ test("pravidla: sloty kouzel – plný sesilatel, poloviční zaokrouhlený naho
   assert.deepEqual(st(V(`kSlotyMax(${karta({povolani: "Warlock 5", uroven: 5})})`)), [[3, 2, true]], "pakt: 2 sloty 3. stupně");
 });
 
-test("pravidla: AC – zbroj + AGI s omezením + štít; těžká zbroj bez AGI; Unarmored Defense mnicha 10 + AGI + WIS", () => {
+test("pravidla: AC – zbroj + DEX s omezením + štít; těžká zbroj bez DEX; Unarmored Defense mnicha 10 + DEX + WIS", () => {
   const b = V(`kACR(${karta({povolani: "Barbarian 5", uroven: 5, vl: VL, vybaveni: [{n: "Shield"}, {n: "Chain Shirt"}]})})`);
   assert.equal(b.ac, 13 + 2 + 2);
   assert.equal(b.N.z.dr, "Kroužková", "druh zbroje podle Artikulí");
-  assert.equal(V(`kACR(${karta({povolani: "Paladin 6", uroven: 6, vl: VL, vybaveni: [{n: "Plate Armor"}]})}).ac`), 18, "Plate bez AGI");
-  assert.equal(V(`kACR(${karta({povolani: "Monk 6", uroven: 6, vl: {AGI: 16, WIS: 16}})}).ac`), 10 + 3 + 3);
+  assert.equal(V(`kACR(${karta({povolani: "Paladin 6", uroven: 6, vl: VL, vybaveni: [{n: "Plate Armor"}]})}).ac`), 18, "Plate bez DEX");
+  assert.equal(V(`kACR(${karta({povolani: "Monk 6", uroven: 6, vl: {DEX: 16, WIS: 16}})}).ac`), 10 + 3 + 3);
   assert.equal(V(`kZbrInfo({n: "Shield +1"}).ac`), 3, "magický štít +1");
   assert.equal(V(`kZbrInfo({n: "Plate Armor +2"}).ac`), 20);
   assert.equal(V(`kZbrInfo({n: "Cloak of Protection"})`), null, "plášť není zbroj");
@@ -78,7 +78,7 @@ test("pravidla: záchrany – zdatnost, Aura of Protection paladina (CHA ke vše
   const p = V(`kHodn(${karta({povolani: "Paladin 6", uroven: 6, vl: VL, zachProf: ["WIS", "CHA"]})}, "zach", "STR")`);
   assert.equal(p.v, 3 + 3, "STR +3 + Aura of Protection +3 (CHA)");
   assert.ok(p.L.some(([n]) => n === "Aura of Protection"));
-  const bard = karta({povolani: "Bard 3", uroven: 3, vl: {AGI: 14, CHA: 16}});
+  const bard = karta({povolani: "Bard 3", uroven: 3, vl: {DEX: 14, CHA: 16}});
   assert.deepEqual(V(`kHodn(${bard}, "dov", "Athletics").L`), [["Jack of All Trades", 1]]);
   assert.equal(V(`kHodn(${bard}, "ini").v`), 2 + 1);
 });
@@ -102,9 +102,9 @@ test("pravidla: rysy mimo SRD – Combat Superiority (kostky převahy podle úro
   );
   assert.equal(bm.max, 5, "Battle Master 7: 5 kostek");
   assert.match(bm.obn, /kostka d8/);
-  const gs = V(`kHodn(${karta({povolani: "Ranger 5", uroven: 5, vl: {AGI: 16, WIS: 14}, rysy: ["Dread Ambusher", "Gloom Stalker"]})}, "ini")`);
+  const gs = V(`kHodn(${karta({povolani: "Ranger 5", uroven: 5, vl: {DEX: 16, WIS: 14}, rysy: ["Dread Ambusher", "Gloom Stalker"]})}, "ini")`);
   assert.deepEqual(gs.L, [
-    ["AGI", 3],
+    ["DEX", 3],
     ["Dread Ambusher", 2],
   ]);
   const ek = karta({povolani: "Fighter 7", uroven: 7, vl: {INT: 14}, rysy: ["Eldritch Knight", "War Magic"]});
@@ -136,7 +136,7 @@ test("Artikule: Výdrž má jen bojové povolání – Fighter bonus zdatnosti, 
 /* ---------- stavy postavy (SRD) a vyčerpání ---------- */
 const stavy = async L => S.ev(`kartaStavZmen("balduin", {stavy: ${JSON.stringify(L)}}, null, {bezZpet: true})`);
 
-test("stavy: Sražen a Otrávený dávají nevýhodu na útok, Otrávený i na ověření; Zadržen nevýhodu na záchranu AGI", async () => {
+test("stavy: Sražen a Otrávený dávají nevýhodu na útok, Otrávený i na ověření; Zadržen nevýhodu na záchranu DEX", async () => {
   await stavy(["sražen", "otrávený"]);
   try {
     assert.deepEqual(V(`kStavVliv(KARTBY.balduin, "Útok").r`), [
@@ -144,15 +144,15 @@ test("stavy: Sražen a Otrávený dávají nevýhodu na útok, Otrávený i na o
       [-1, "otrávený"],
     ]);
     assert.deepEqual(V(`kStavVliv(KARTBY.balduin, "Ověření Athletics").r`), [[-1, "otrávený"]]);
-    assert.deepEqual(V(`kStavVliv(KARTBY.balduin, "Záchrana AGI").r`), [], "Sražen záchranu nemění");
+    assert.deepEqual(V(`kStavVliv(KARTBY.balduin, "Záchrana DEX").r`), [], "Sražen záchranu nemění");
     await stavy(["zadržen"]);
-    assert.deepEqual(V(`kStavVliv(KARTBY.balduin, "Záchrana AGI").r`), [[-1, "zadržen"]]);
+    assert.deepEqual(V(`kStavVliv(KARTBY.balduin, "Záchrana DEX").r`), [[-1, "zadržen"]]);
   } finally {
     await stavy(null);
   }
 });
 
-test("stavy: Ochromen – rychlost 0, záchrany STR a AGI automaticky selžou, nemůže jednat", async () => {
+test("stavy: Ochromen – rychlost 0, záchrany STR a DEX automaticky selžou, nemůže jednat", async () => {
   await stavy(["ochromen"]);
   try {
     assert.equal(V(`kRychN(KARTBY.balduin)`), 0);
@@ -212,6 +212,18 @@ test("Artikule: druh zbroje z popisu AC statbloku", () => {
   assert.deepEqual(V(`bikZbDruhy("přirozená zbroj")`), [], "přirozená zbroj se neobětuje a nedává Resistance");
 });
 
+test("pojmy: Obratnost je DEX – starší data s AGI se při čtení převedou (mmDex)", () => {
+  const K = JSON.parse(
+    V(
+      `mmDex(${JSON.stringify(JSON.stringify({id: "t_agi", n: "Stará", druh: "Human", povolani: "Rogue 3", uroven: 3, vl: {STR: 10, AGI: 16}, zachProf: ["AGI"], rysy: [], vybaveni: []}))})`,
+    ),
+  );
+  assert.deepEqual(K.vl, {STR: 10, DEX: 16});
+  assert.deepEqual(K.zachProf, ["DEX"]);
+  assert.equal(V(`kMod(kVl(${JSON.stringify(K)}, "DEX"))`), 3);
+  assert.equal(V(`mmDex("STRAGIL a AGI DC 15")`), "STRAGIL a DEX DC 15", "jen celé slovo AGI");
+});
+
 test("Artikule › featy: Martial Adept dává +1 Výdrž i kouzelníkovi; Mistr těžké zbroje +1 obětování jen těžké zbroje", () => {
   assert.equal(V(`kVydMax(${karta({povolani: "Wizard 5", uroven: 5, rysy: ["Martial Adept"]})})`), 1);
   assert.equal(V(`kVydMax(${karta({povolani: "Fighter 9", uroven: 9, rysy: ["Martial Adept"]})})`), 5);
@@ -259,7 +271,7 @@ test("Artikule: obětování zbroje – kroužková 2×, štít 1×; vyčerpaný
   assert.equal(z0.ac, 16);
   assert.equal(V(`bojZbrStav({zbrU: {"Štít": 1}}, ${E}).ac`), 14);
   const z2 = V(`bojZbrStav({zbrU: {"Kroužková": 2}}, ${E})`);
-  assert.equal(z2.ac, 10 + 0 + 2, "bez zbroje 10 + AGI (neznámá 0) + štít 2");
+  assert.equal(z2.ac, 10 + 0 + 2, "bez zbroje 10 + DEX (neznámá 0) + štít 2");
   assert.match(z2.pr[0], /vyčerpána/);
 });
 

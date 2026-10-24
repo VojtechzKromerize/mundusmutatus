@@ -23,7 +23,7 @@ Velitel městských biřiců a strážných, který drží pořádek na rynku, u
 
 **AC** 18 (kyrys a pavéza) · **HP** 75 (10d8+30) · **Rychlost** 30 stop · **Iniciativa** +2
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 18 (+4) | 14 (+2) | 16 (+3) | 12 (+1) | 14 (+2) | 13 (+1) |
 

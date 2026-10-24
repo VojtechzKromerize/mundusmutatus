@@ -21,7 +21,7 @@ Kanec, kterého Noc Proměny nafoukla do velikosti tura. Rozrývá pole, láme p
 
 **AC** 13 · **HP** 42 (5d10+15) · **Rychlost** 40 stop · **Iniciativa** +0
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 17 (+3) | 10 (+0) | 16 (+3) | 2 (−4) | 7 (−2) | 5 (−3) |
 

@@ -21,7 +21,7 @@ Had s kohoutí hlavou a křídly, vylíhlý z kohoutího vejce. Menší a hloup�
 
 **AC** 11 · **HP** 22 (5d6+5) · **Rychlost** 20 stop, let 40 stop · **Iniciativa** +1
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 6 (−2) | 12 (+1) | 12 (+1) | 2 (−4) | 13 (+1) | 5 (−3) |
 

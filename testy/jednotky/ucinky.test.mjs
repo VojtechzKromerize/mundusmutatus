@@ -31,7 +31,7 @@ test("neznámý účinek se ignoruje, výjimka scit sčítá i stejnojmenné", (
   );
 });
 
-test("AC: Mage Armor jen bez zbroje (13 + AGI), Barkskin nejméně 17", () => {
+test("AC: Mage Armor jen bez zbroje (13 + DEX), Barkskin nejméně 17", () => {
   assert.equal(V(`ucAC(ucSecti([{n: "Mage Armor"}]), false, 3).min`), 16);
   assert.equal(V(`ucAC(ucSecti([{n: "Mage Armor"}]), true, 3).min`), 0);
   assert.equal(V(`ucAC(ucSecti([{n: "Mage Armor"}, {n: "Barkskin"}]), false, 3).min`), 17);
@@ -47,7 +47,7 @@ test("rychlost, záchrany, dovednosti, Resistance a výhoda", () => {
   assert.deepEqual(V(`ucHodn(ucSecti([{n: "Pass without Trace"}]), "dov", "Athletics")`), []);
   assert.equal(V(`ucRes(ucSecti([{n: "Warding Bond"}])).length`), 13);
   assert.deepEqual(V(`ucRes(ucSecti([{n: "Stoneskin"}, {n: "Gaseous Form"}]))`), ["Bludgeoning", "Piercing", "Slashing"]);
-  assert.deepEqual(V(`ucAdv(ucSecti([{n: "Haste"}, {n: "Holy Aura"}, {n: "Bless"}]), "AGI")`), ["Haste", "Holy Aura"]);
+  assert.deepEqual(V(`ucAdv(ucSecti([{n: "Haste"}, {n: "Holy Aura"}, {n: "Bless"}]), "DEX")`), ["Haste", "Holy Aura"]);
 });
 
 test("kostky jednou za tah: Emboldening Bond jen k prvnímu hodu v tahu, Bardic až po hodu", () => {

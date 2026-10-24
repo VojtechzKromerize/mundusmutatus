@@ -6,9 +6,9 @@
 
 | Rys | Hodnota |
 |---|---|
-| Primární vlastnost | Obratnost (AGI) |
+| Primární vlastnost | Obratnost (DEX) |
 | Kostka životů | k8 za každou úroveň povolání Rogue |
-| Zdatnost v záchranných hodech | Obratnost (AGI) a Inteligence (INT) |
+| Zdatnost v záchranných hodech | Obratnost (DEX) a Inteligence (INT) |
 | Zdatnost v dovednostech | Vyber 4: Acrobatics, Athletics, Deception, Insight, Intimidation, Investigation, Perception, Persuasion, Sleight of Hand nebo Stealth |
 | Zdatnost se zbraněmi | Jednoduché zbraně a válečné zbraně s vlastností Finesa (Finesse) nebo Lehká (Light) |
 | Zdatnost s nářadím | Thieves' Tools (zlodějské náčiní) |
@@ -108,7 +108,7 @@ Pokud efekt Cunning Strike vyžaduje záchranný hod, SO se rovná 8 + tvůj mod
 
 Abys mohl tento efekt použít, musíš mít u sebe Poisoner's Kit (travičskou sadu).
 
-**Trip (cena: 1d6).** Pokud je cíl Velký nebo menší, musí uspět v záchranném hodu na Obratnost (AGI), jinak má stav Sražen (k zemi) (Prone).
+**Trip (cena: 1d6).** Pokud je cíl Velký nebo menší, musí uspět v záchranném hodu na Obratnost (DEX), jinak má stav Sražen (k zemi) (Prone).
 
 **Withdraw (cena: 1d6).** Ihned po útoku se přesuneš až o polovinu své rychlosti, aniž bys vyvolal příležitostné útoky.
 
@@ -118,7 +118,7 @@ Když tě útočník, kterého vidíš, zasáhne hodem na útok, můžeš použ�
 
 ### Úroveň 7: Evasion
 
-Dokážeš hbitě uhnout před určitými nebezpečími. Když jsi vystaven efektu, který ti umožňuje hodit si záchranný hod na Obratnost (AGI), abys utrpěl jen poloviční zranění, neutrpíš místo toho při úspěšné záchraně žádné zranění a při neúspěchu jen poloviční. Tento rys nemůžeš použít, pokud máš stav Neschopný (Incapacitated).
+Dokážeš hbitě uhnout před určitými nebezpečími. Když jsi vystaven efektu, který ti umožňuje hodit si záchranný hod na Obratnost (DEX), abys utrpěl jen poloviční zranění, neutrpíš místo toho při úspěšné záchraně žádné zranění a při neúspěchu jen poloviční. Tento rys nemůžeš použít, pokud máš stav Neschopný (Incapacitated).
 
 ### Úroveň 7: Reliable Talent
 
@@ -136,7 +136,7 @@ Nacvičil sis nové způsoby, jak svůj Sneak Attack použít úskočně. Násle
 
 **Knock Out (cena: 6d6).** Cíl musí uspět v záchranném hodu na Odolnost (CON), jinak má na 1 minutu stav V bezvědomí (Unconscious), nebo dokud neutrpí jakékoli zranění. Cíl V bezvědomí opakuje záchranu na konci každého svého tahu a při úspěchu efekt na sobě ukončí.
 
-**Obscure (cena: 3d6).** Cíl musí uspět v záchranném hodu na Obratnost (AGI), jinak má do konce svého příštího tahu stav Oslepen (Blinded).
+**Obscure (cena: 3d6).** Cíl musí uspět v záchranném hodu na Obratnost (DEX), jinak má do konce svého příštího tahu stav Oslepen (Blinded).
 
 ### Úroveň 15: Slippery Mind
 

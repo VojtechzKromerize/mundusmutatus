@@ -22,7 +22,7 @@ Bledé světlo nad rašeliništěm, duše utopeného poutníka, která láká da
 
 **AC** 19 · **HP** 27 (11d4) · **Rychlost** 5 stop, let 50 stop · **Iniciativa** +9
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 1 (−5) | 28 (+9) | 10 (+0) | 13 (+1) | 14 (+2) | 11 (+0) |
 

@@ -25,7 +25,7 @@ Kazatel z Tábora, který jde s vojskem a slouží mši na voze. Po Noci Proměn
 
 **AC** 13 (drátěná košile) · **HP** 38 (7d8+7) · **Rychlost** 30 stop · **Iniciativa** +0
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 16 (+3) | 10 (+0) | 12 (+1) | 13 (+1) | 16 (+3) | 13 (+1) |
 

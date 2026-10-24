@@ -22,7 +22,7 @@ Zvěd ve službě pána, města, Církve nebo cizí koruny. Uslyší, co neměl,
 
 **AC** 12 · **HP** 27 (6d8) · **Rychlost** 30 stop, šplhání 30 stop · **Iniciativa** +2
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 10 (+0) | 15 (+2) | 10 (+0) | 12 (+1) | 14 (+2) | 16 (+3) |
 

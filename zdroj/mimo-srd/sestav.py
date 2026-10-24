@@ -9,7 +9,7 @@ ROOT = os.path.dirname(os.path.dirname(D))
 nacti = lambda n: json.load(open(os.path.join(D, n), encoding="utf-8"))
 
 POV = {"Barbarian", "Bard", "Cleric", "Druid", "Fighter", "Monk", "Paladin", "Ranger", "Rogue", "Sorcerer", "Warlock", "Wizard"}
-VL = {"STR", "AGI", "DEX", "CON", "INT", "WIS", "CHA"}
+VL = {"STR", "DEX", "AGI", "CON", "INT", "WIS", "CHA"}
 CAS = {"A", "BA", "R"}
 KAT = {"origin", "general", "fightStyle", "epic"}
 EF = {"ac", "rych", "ini", "hpU", "hpL", "spab", "ov"}  # ov: ["CHA", "WIS"] = k ověřením CHA přičti modifikátor WIS (min. 1)

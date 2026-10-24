@@ -22,11 +22,11 @@ Mrtvý, který po pohřbu vychází z hrobu a pije krev svých blízkých. Na Mo
 
 **AC** 16 · **HP** 90 (12d8+36) · **Rychlost** 30 stop, šplhání 30 stop · **Iniciativa** +3
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 16 (+3) | 16 (+3) | 16 (+3) | 11 (+0) | 10 (+0) | 12 (+1) |
 
-**Záchrany** AGI +6, WIS +3 · **Dovednosti** Perception +3, Stealth +6 · **Resistance** Prokleté (Necrotic) · **Smysly** Darkvision 60 stop · **Jazyky** česky, německy
+**Záchrany** DEX +6, WIS +3 · **Dovednosti** Perception +3, Stealth +6 · **Resistance** Prokleté (Necrotic) · **Smysly** Darkvision 60 stop · **Jazyky** česky, německy
 
 ## Vlastnosti
 

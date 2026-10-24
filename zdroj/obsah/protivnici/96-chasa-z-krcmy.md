@@ -27,7 +27,7 @@ Tovaryši, řeznické pacholky, nosiči a podobná chasa, kterou si za pár gro�
 ## Vlastnosti
 
 - **Rvačka.** Cíl velikosti Medium nebo menší, který utrží zásah od aspoň tří rváčů, si hodí STR save DC 12, jinak je Prone – chasa ho povalila a kope.
-- **Opilí.** Houf, který pil, má nevýhodu na AGI saves, ale neprchá při polovině – prchá až při dvou třetinách.
+- **Opilí.** Houf, který pil, má nevýhodu na DEX saves, ale neprchá při polovině – prchá až při dvou třetinách.
 - **Po tmě.** V uličkách a ve sklepích znají každý kout: útok ze zálohy má v prvním kole výhodu.
 
 **Morálka.** Prchají, když padne polovina nebo ten, kdo jim zaplatil. Městská stráž (zvon, píšťalka rychtáře) je rozežene hned. Kdo nabídne víc než ten, kdo je najal (Persuasion DC 12 a měšec), má chasu na své straně.

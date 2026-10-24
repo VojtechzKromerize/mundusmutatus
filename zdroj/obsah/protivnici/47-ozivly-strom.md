@@ -21,7 +21,7 @@ Strom, který po Noci Proměny procitl. Většinou jen stojí a vzpomíná; kdy�
 
 **AC** 13 · **HP** 59 (7d12+14) · **Rychlost** 20 stop · **Iniciativa** −2
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 19 (+4) | 6 (−2) | 15 (+2) | 10 (+0) | 10 (+0) | 7 (−2) |
 

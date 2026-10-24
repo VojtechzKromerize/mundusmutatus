@@ -25,11 +25,11 @@ Prastarý upír z karpatských hradů, šlechtic, který zemřel a odmítl odej�
 
 **AC** 16 · **HP** 195 (23d8+92) · **Rychlost** 40 stop, šplhání 40 stop · **Iniciativa** +14
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 18 (+4) | 18 (+4) | 18 (+4) | 17 (+3) | 15 (+2) | 18 (+4) |
 
-**Záchrany** AGI +9, CON +9, WIS +7, CHA +9 · **Dovednosti** Perception +7, Stealth +9 · **Resistance** Prokleté (Necrotic) · **Smysly** Darkvision 120 stop · **Jazyky** valašsky, maďarsky, latinsky, česky
+**Záchrany** DEX +9, CON +9, WIS +7, CHA +9 · **Dovednosti** Perception +7, Stealth +9 · **Resistance** Prokleté (Necrotic) · **Smysly** Darkvision 120 stop · **Jazyky** valašsky, maďarsky, latinsky, česky
 
 ## Vlastnosti
 

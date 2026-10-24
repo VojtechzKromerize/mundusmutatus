@@ -22,7 +22,7 @@ Obr z jeskyní a hlubokých lesů, hloupý, silný a vždycky hladový. Proměn�
 
 **AC** 11 · **HP** 68 (8d10+24) · **Rychlost** 40 stop · **Iniciativa** −1
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 19 (+4) | 8 (−1) | 16 (+3) | 5 (−3) | 7 (−2) | 7 (−2) |
 

@@ -21,7 +21,7 @@ utoky:
 
 **Útok houfu – kousnutí a drápy:** +4 (+1 za každého dalšího, nejvýš +5), dosah 5 stop. **Zásah:** 4 zranění za každého mrchožrouta v dosahu cíle (Piercing a Prokleté). Jsou-li v dosahu aspoň 3, cíl hodí CON save DC 10, jinak je Paralyzed do konce svého příštího tahu; elfové jsou imunní.
 
-**Záchrany houfu:** AGI +2, ostatní +0
+**Záchrany houfu:** DEX +2, ostatní +0
 
 ## Vlastnosti
 

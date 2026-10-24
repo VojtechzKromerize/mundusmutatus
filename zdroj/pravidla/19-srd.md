@@ -6,9 +6,9 @@
 
 | Rys | Hodnota |
 |---|---|
-| Hlavní vlastnost | Obratnost (AGI) a Moudrost (WIS) |
+| Hlavní vlastnost | Obratnost (DEX) a Moudrost (WIS) |
 | Kostka životů | d10 za každou úroveň Rangera |
-| Zdatnost v záchranných hodech | Síla (STR) a Obratnost (AGI) |
+| Zdatnost v záchranných hodech | Síla (STR) a Obratnost (DEX) |
 | Zdatnost v dovednostech | Vyber 3: Animal Handling, Athletics, Insight, Investigation, Nature, Perception, Stealth nebo Survival |
 | Zdatnost se zbraněmi | Jednoduché a válečné zbraně |
 | Výcvik se zbrojí | Lehká a střední zbroj a štíty |

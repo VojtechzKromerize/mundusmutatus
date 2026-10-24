@@ -31,17 +31,17 @@ const SRDST = {
     en: "Paralyzed",
     cil: 1,
     nej: 1,
-    zach: {STR: "f", AGI: "f"},
+    zach: {STR: "f", DEX: "f"},
     k5: 1,
-    t: "Incapacitated, rychlost 0, záchrany STR a AGI automaticky selžou; útoky na něj s výhodou a zásah zblízka do 5 stop je kritický",
+    t: "Incapacitated, rychlost 0, záchrany STR a DEX automaticky selžou; útoky na něj s výhodou a zásah zblízka do 5 stop je kritický",
   },
   zkamenělý: {
     en: "Petrified",
     cil: 1,
     nej: 1,
-    zach: {STR: "f", AGI: "f"},
+    zach: {STR: "f", DEX: "f"},
     res: 1,
-    t: "proměněn v kámen: Incapacitated, rychlost 0, záchrany STR a AGI automaticky selžou, útoky na něj s výhodou, Resistance vůči všemu zranění, Immunity vůči otravě",
+    t: "proměněn v kámen: Incapacitated, rychlost 0, záchrany STR a DEX automaticky selžou, útoky na něj s výhodou, Resistance vůči všemu zranění, Immunity vůči otravě",
   },
   otrávený: {en: "Poisoned", ut: -1, t: "nevýhoda na útoky a ověření"},
   sražen: {
@@ -54,29 +54,29 @@ const SRDST = {
     en: "Restrained",
     ut: -1,
     cil: 1,
-    zach: {AGI: "d"},
-    t: "rychlost 0; útoky na něj s výhodou, jeho útoky s nevýhodou; nevýhoda na záchrany AGI",
+    zach: {DEX: "d"},
+    t: "rychlost 0; útoky na něj s výhodou, jeho útoky s nevýhodou; nevýhoda na záchrany DEX",
   },
   omráčen: {
     en: "Stunned",
     cil: 1,
     nej: 1,
-    zach: {STR: "f", AGI: "f"},
-    t: "Incapacitated, záchrany STR a AGI automaticky selžou, útoky na něj s výhodou",
+    zach: {STR: "f", DEX: "f"},
+    t: "Incapacitated, záchrany STR a DEX automaticky selžou, útoky na něj s výhodou",
   },
   "v bezvědomí": {
     en: "Unconscious",
     cil: 1,
     nej: 1,
-    zach: {STR: "f", AGI: "f"},
+    zach: {STR: "f", DEX: "f"},
     k5: 1,
-    t: "Incapacitated a sražen, upustí, co drží; rychlost 0; záchrany STR a AGI automaticky selžou; útoky na něj s výhodou a zásah zblízka do 5 stop je kritický",
+    t: "Incapacitated a sražen, upustí, co drží; rychlost 0; záchrany STR a DEX automaticky selžou; útoky na něj s výhodou a zásah zblízka do 5 stop je kritický",
   },
   úhyb: {
     en: "Dodge",
     cil: -1,
-    zach: {AGI: "a"},
-    t: "akce Úhyb do začátku jeho příštího tahu: útoky na něj s nevýhodou (vidí-li útočníka), výhoda na záchrany AGI",
+    zach: {DEX: "a"},
+    t: "akce Úhyb do začátku jeho příštího tahu: útoky na něj s nevýhodou (vidí-li útočníka), výhoda na záchrany DEX",
   },
 };
 
@@ -210,7 +210,7 @@ const bojTxt = p =>
 const bojIniB = p => {
   const m = bojTxt(p).match(/Iniciativa\s*([+-]\d+)/);
   if (m) return +m[1];
-  const a = bojAbil(p, "AGI");
+  const a = bojAbil(p, "DEX");
   return a != null ? a : 0;
 };
 

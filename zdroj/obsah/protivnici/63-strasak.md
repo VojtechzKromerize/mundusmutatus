@@ -22,7 +22,7 @@ Panák ze slámy a hadrů, do kterého čarodějnice zaklela něčí zlost. Stoj
 
 **AC** 11 · **HP** 27 (6d8) · **Rychlost** 30 stop · **Iniciativa** +3
 
-| STR | AGI | CON | INT | WIS | CHA |
+| STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 11 (+0) | 13 (+1) | 11 (+0) | 10 (+0) | 10 (+0) | 13 (+1) |
 

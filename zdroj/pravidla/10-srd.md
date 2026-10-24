@@ -79,7 +79,7 @@ Pasti jsou uvedeny v abecedním pořadí (podle anglických názvů).
 
 Tato past využívá nástražný drát ke zřícení nestabilní části stropu. Nástražný drát je 3 palce nad zemí a je natažen mezi dvěma slabými podpěrami, které se po zatažení za drát zhroutí.
 
-První tvor, který drát překročí, způsobí pád podpěr a zřícení nestabilní části stropu. Každý tvor pod nestabilní částí stropu musí uspět v záchranném hodu na Obratnost (AGI) se SO 13; při neúspěchu utrpí 11 (2d10) Bludgeoning zranění, při úspěchu poloviční zranění. Suť ze zřícení promění zasažený prostor v obtížný terén.
+První tvor, který drát překročí, způsobí pád podpěr a zřícení nestabilní části stropu. Každý tvor pod nestabilní částí stropu musí uspět v záchranném hodu na Obratnost (DEX) se SO 13; při neúspěchu utrpí 11 (2d10) Bludgeoning zranění, při úspěchu poloviční zranění. Suť ze zřícení promění zasažený prostor v obtížný terén.
 
 ***Odhalení a zneškodnění.*** Akcí Hledání (Search) může tvor prozkoumat prostor s pastí a provést ověření Moudrosti (Perception) se SO 11; při úspěchu odhalí nástražný drát i nestabilní část stropu. Jakmile je drát odhalen, lze ho snadno přestřihnout nebo se mu vyhnout (bez ověření vlastnosti).
 
@@ -100,7 +100,7 @@ První tvor, který drát překročí, způsobí pád podpěr a zřícení nesta
 
 Past s padající sítí využívá nástražný drát k uvolnění zatížené sítě (Net) o rozměrech 10 × 10 stop zavěšené u stropu. Nástražný drát je 3 palce nad zemí a je natažen mezi dvěma sloupy nebo stromy.
 
-Na prvního tvora, který drát překročí, spadne síť. Cíl musí uspět v záchranném hodu na Obratnost (AGI) se SO 10, jinak má stav Zadržen (Restrained), dokud se nevyprostí. Je-li cíl Obrovský nebo větší, uspěje automaticky. Tvor může použít akci k ověření Síly (Athletics) se SO 10; při úspěchu ze sítě vyprostí sebe nebo jiného tvora v dosahu.
+Na prvního tvora, který drát překročí, spadne síť. Cíl musí uspět v záchranném hodu na Obratnost (DEX) se SO 10, jinak má stav Zadržen (Restrained), dokud se nevyprostí. Je-li cíl Obrovský nebo větší, uspěje automaticky. Tvor může použít akci k ověření Síly (Athletics) se SO 10; při úspěchu ze sítě vyprostí sebe nebo jiného tvora v dosahu.
 
 ***Odhalení a zneškodnění.*** Akcí Hledání (Search) může tvor prozkoumat prostor s pastí a provést ověření Moudrosti (Perception) se SO 11; při úspěchu odhalí nástražný drát i zavěšenou síť. Jakmile je drát odhalen, lze ho snadno přestřihnout nebo se mu vyhnout (bez ověření vlastnosti).
 
@@ -117,7 +117,7 @@ Na prvního tvora, který drát překročí, spadne síť. Cíl musí uspět v z
 **Spouštěč:** Tvor vstoupí na nášlapnou desku
 **Trvání:** Okamžité a past se znovu nastraží na začátku dalšího tahu
 
-Když tvor během tahu poprvé vstoupí na nášlapnou desku této pasti nebo na ní začne svůj tah, nedaleká socha vydechne 15stopý kužel magického plamene. Socha může vypadat jakkoli, například jako drak nebo čaroděj. Každý tvor v kuželu musí uspět v záchranném hodu na Obratnost (AGI) se SO 15; při neúspěchu utrpí 11 (2d10) Fire zranění, při úspěchu poloviční zranění.
+Když tvor během tahu poprvé vstoupí na nášlapnou desku této pasti nebo na ní začne svůj tah, nedaleká socha vydechne 15stopý kužel magického plamene. Socha může vypadat jakkoli, například jako drak nebo čaroděj. Každý tvor v kuželu musí uspět v záchranném hodu na Obratnost (DEX) se SO 15; při neúspěchu utrpí 11 (2d10) Fire zranění, při úspěchu poloviční zranění.
 
 ***Odhalení a zneškodnění.*** Kouzlo *Detect Magic* odhalí kolem sochy auru magie Evocation. Akcí Hledání (Search) může tvor do 5 stop od sochy sochu prozkoumat a provést ověření Moudrosti (Perception) se SO 10; při úspěchu na soše odhalí drobný glyf. Jakmile je glyf nalezen, může postava použít akci Studium (Study), aby ho prozkoumala, a provést ověření Inteligence (Arcana) se SO 15; při úspěchu zjistí, že glyf znamená „oheň“. Akcí může postava ostrým nástrojem glyf znehodnotit, čímž past zneškodní.
 
@@ -163,7 +163,7 @@ Tvor, který spadne do jámy, utrpí pádem 3 (1d6) Bludgeoning zranění.
 
 Když tvor během tahu poprvé vstoupí na nášlapnou desku této pasti, z trubic zapuštěných v okolních stěnách vystřelí otrávené šipky. Otvory, v nichž jsou trubice uloženy, jsou zakryté prachem a pavučinami nebo důmyslně ukryté mezi reliéfy, malbami či freskami.
 
-Každý tvor v dráze šipek musí uspět v záchranném hodu na Obratnost (AGI) se SO 13, jinak ho zasáhne 1d3 šipek a za každou šipku utrpí 3 (1d6) Poison zranění.
+Každý tvor v dráze šipek musí uspět v záchranném hodu na Obratnost (DEX) se SO 13, jinak ho zasáhne 1d3 šipek a za každou šipku utrpí 3 (1d6) Poison zranění.
 
 ***Odhalení a zneškodnění.*** Akcí Hledání (Search) může tvor prozkoumat stěny a provést ověření Moudrosti (Perception) se SO 15; při úspěchu odhalí otvory. Ucpání všech otvorů voskem, látkou nebo smetím zabrání vystřelení šipek.
 
@@ -203,7 +203,7 @@ Když tvor vstoupí na skrytou nášlapnou desku, z tajné schránky se uvolní 
 
 > **Artikule:** V Mundus Mutatus se iniciativa určuje slotově (hráči d20 + Obratnost, vypravěč jednou za stranu protivníků; strany se střídají ve slotech). Kámen vypravěč zařadí jako samostatný slot na straně protivníků s bonusem +8 k iniciativě.
 
-Ve svém tahu se kámen posune o 60 stop jedním směrem a změní kurz, pokud ho odkloní překážka. Kámen se může pohybovat skrz prostory tvorů a tvorové se mohou pohybovat skrz prostor kamene, přičemž ho považují za obtížný terén. Kdykoli kámen během tahu poprvé vstoupí do prostoru tvora nebo tvor vstoupí do prostoru kamene, zatímco se kámen valí, musí tento tvor uspět v záchranném hodu na Obratnost (AGI) se SO 15, jinak utrpí 55 (10d10) Bludgeoning zranění a má stav Sražen (k zemi) (Prone).
+Ve svém tahu se kámen posune o 60 stop jedním směrem a změní kurz, pokud ho odkloní překážka. Kámen se může pohybovat skrz prostory tvorů a tvorové se mohou pohybovat skrz prostor kamene, přičemž ho považují za obtížný terén. Kdykoli kámen během tahu poprvé vstoupí do prostoru tvora nebo tvor vstoupí do prostoru kamene, zatímco se kámen valí, musí tento tvor uspět v záchranném hodu na Obratnost (DEX) se SO 15, jinak utrpí 55 (10d10) Bludgeoning zranění a má stav Sražen (k zemi) (Prone).
 
 Kámen se zastaví, když narazí do zdi nebo podobné překážky. Nedokáže zatáčet za rohy, ale vynalézaví stavitelé podzemí začleňují do okolních chodeb zakřivené zatáčky, které kameni umožňují valit se dál.
 

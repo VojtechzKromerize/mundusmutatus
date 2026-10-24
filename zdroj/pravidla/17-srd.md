@@ -6,9 +6,9 @@
 
 | Rys | Hodnota |
 |---|---|
-| Hlavní vlastnost | Obratnost (AGI) a Moudrost (WIS) |
+| Hlavní vlastnost | Obratnost (DEX) a Moudrost (WIS) |
 | Kostka životů | d8 za každou úroveň Monka |
-| Zdatnost v záchranných hodech | Síla (STR) a Obratnost (AGI) |
+| Zdatnost v záchranných hodech | Síla (STR) a Obratnost (DEX) |
 | Zdatnost v dovednostech | Vyber 2: Acrobatics, Athletics, History, Insight, Religion nebo Stealth |
 | Zdatnost se zbraněmi | Jednoduché zbraně a válečné zbraně s vlastností Light (Lehká) |
 | Zdatnost s nástroji | Vyber jeden druh řemeslnických nástrojů (Artisan’s Tools) nebo hudební nástroj (viz „Vybavení“) |
