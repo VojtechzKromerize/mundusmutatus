@@ -370,12 +370,15 @@ function kVecPopis(x, p, v) {
             .join("")
         : "",
     art = v && typeof vybArtikule === "function" ? vybArtikule(v) : "",
+    /* věc, kterou zná jen plné znění (Vojtova tabulka předmětů): druh a vzácnost ze seznamu, text po rozbalení */
+    pl = (p && p.en) || (v && v.sk === "magicke") ? null : plneVec(x.n),
+    druh2 = druh || (pl ? [pl.typ, pl.vz, pl.sl].filter(Boolean).join(", ") : ""),
     cele =
       (v && v.t && p && p.t ? `<details class="kvcele"><summary>Celé znění</summary>${kzMd(p.t)}</details>` : "") +
-      ((p && p.en) || (v && v.sk === "magicke") ? plneTag("predmety", (p && p.en) || v.en) : "");
-  if (!druh && !par && !txt && !tab && !art) return "";
+      ((p && p.en) || (v && v.sk === "magicke") ? plneTag("predmety", (p && p.en) || v.en) : pl ? plneTag("predmety", pl.id) : "");
+  if (!druh2 && !par && !txt && !tab && !art) return "";
   const k = String(x.n || "").toLowerCase();
-  return `<details class="kvpop" data-kvpop="${besc(k)}"${KVPOPZ.has(k) ? "" : " open"}><summary>Popis</summary>${druh || par ? `<p class="kvpar"><i>${besc(druh)}</i>${druh && par ? " · " : ""}${par}</p>` : ""}${txt}${tab}${art}${cele}</details>`;
+  return `<details class="kvpop" data-kvpop="${besc(k)}"${KVPOPZ.has(k) ? "" : " open"}><summary>Popis</summary>${druh2 || par ? `<p class="kvpar"><i>${besc(druh2)}</i>${druh2 && par ? " · " : ""}${par}</p>` : ""}${txt}${tab}${art}${cele}</details>`;
 }
 document.addEventListener(
   "toggle",
@@ -489,6 +492,9 @@ function kInvDbHtml(K) {
     }),
   );
   const gm = GMV || !window.MMDB;
+  /* předměty z Vojtovy tabulky (plné znění v databázi, jen přihlášeným), které katalog vybavení nezná – 2026-10-24 */
+  const PL = kInvPlne(K, q, D.f, vid),
+    nPl = Math.max(0, KINVDBN - L.length);
   return `${L.slice(0, KINVDBN)
     .map(x => {
       const e = vybPoolVstup(x);
@@ -501,9 +507,66 @@ function kInvDbHtml(K) {
       return `<li class="kvdr"><span class="kvdn"><b>${besc(x.en)}</b>${x.cz && x.cz.toLowerCase() !== x.en.toLowerCase() ? ` <small>${besc(x.cz)}</small>` : ""}<small class="kvrs">${besc(pod)}${x.w ? ` · ${kLbF(x.w)}` : ""}</small></span>
         <form class="kvdf" data-kvdadd="${besc(x.id)}">${dopl}<input name="q" type="number" min="1" max="999" value="1" inputmode="numeric" aria-label="Počet"><button class="bdmbtn" ${btip(gm ? "Přidat do vybavení" : "Pošle vypravěči ke schválení – po potvrzení se věc objeví ve vybavení")}>${gm ? "Přidat" : "Požádat"}</button></form></li>`;
     })
+    .join("")}${PL.slice(0, nPl)
+    .map(
+      x => `<li class="kvdr"><span class="kvdn"><b>${besc(x.en)}</b>${x.cz && x.cz.toLowerCase() !== x.en.toLowerCase() ? ` <small>${besc(x.cz)}</small>` : ""}<small class="kvrs">${besc([x.typ, x.vz].filter(Boolean).join(", "))}${x.w ? ` · ${besc(x.w)}` : ""}</small></span>
+        <form class="kvdf" data-kvdpl="${besc(x.id)}"><input name="q" type="number" min="1" max="999" value="1" inputmode="numeric" aria-label="Počet"><button class="bdmbtn" ${btip(gm ? "Přidat do vybavení" : "Pošle vypravěči ke schválení – po potvrzení se věc objeví ve vybavení")}>${gm ? "Přidat" : "Požádat"}</button></form></li>`,
+    )
     .join(
       "",
-    )}${L.length > KINVDBN ? `<li class="bdmnote">… a dalších ${L.length - KINVDBN} – upřesni hledání.</li>` : L.length ? "" : `<li class="bdmnote">Nic nenalezeno.</li>`}`;
+    )}${L.length + PL.length > KINVDBN ? `<li class="bdmnote">… a dalších ${L.length + PL.length - KINVDBN} – upřesni hledání.</li>` : L.length + PL.length ? "" : `<li class="bdmnote">Nic nenalezeno.</li>`}`;
+}
+/* předměty z plného znění (Pravidla › Předměty), které katalog nezná: hledání jako v katalogu, druh podle typu z tabulky;
+   seznam se načte z databáze při prvním hledání (jen přihlášení) */
+const KINVPL = {
+  zbroj: /zbroj|štít/i,
+  zbrane: /zbraň/i,
+  strelivo: /střelivo/i,
+  vybava: /výbava|výstroj/i,
+  naradi: /nářadí|nástroj/i,
+  lektvar: /lektvar/i,
+  prsten: /prsten/i,
+  hul: /hůl|hůlka|žezl/i,
+  svitek: /svit/i,
+  magzb: /zbraň|zbroj|štít/i,
+  div: /divotvor/i,
+  jedy: /\bjed/i,
+  dopr: /zvíře|vozidl|plavidl|sedl/i,
+};
+function kInvPlne(K, q, f, vid) {
+  if (typeof PLNES === "undefined" || !featyMuze()) return [];
+  if (!PLNES.predmety) {
+    plneSeznam("predmety").then(j => {
+      if (j) document.querySelectorAll("[data-kvdvys]").forEach(el => (el.innerHTML = kInvDbHtml(K)));
+    });
+    return [];
+  }
+  const re = f ? KINVPL[f] : null;
+  return PLNES.predmety.filter(
+    x =>
+      !vid.has(String(x.en).toLowerCase()) &&
+      (!f || (re && re.test(x.typ || ""))) &&
+      (!q || _nrm(`${x.en} ${x.cz || ""} ${x.typ || ""}`).includes(q)),
+  );
+}
+/* váha z tabulky („2 lb.“, „1/2 lb.“, „—“) na číslo liber za kus */
+const kLbPlne = s => {
+  const m = String(s || "")
+    .replace(",", ".")
+    .match(/(\d+(?:\.\d+)?)(?:\s*\/\s*(\d+))?/);
+  return m ? +m[1] / (+m[2] || 1) : 0;
+};
+/* předmět z plného znění do vybavení: vypravěč rovnou, hráč pošle návrh (typ „vec“ s polem pl) */
+async function kVecPlnePridej(K, id, q) {
+  const x = ((typeof PLNES !== "undefined" && PLNES.predmety) || []).find(y => y.id === id);
+  if (!x || !K) return;
+  q = Math.max(1, Math.min(999, Math.round(+q || 1)));
+  const e = {k: "pl", n: String(x.en).slice(0, 80), w: kLbPlne(x.w)};
+  if (GMV || !window.MMDB) {
+    await kVybPridej(K, e, q);
+    return;
+  }
+  await navrhPosli(K, {typ: "vec", cil: K.id, pl: x.id, n: e.n, w: e.w, q, popis: `${x.en}${q > 1 ? ` ×${q}` : ""} do vybavení`});
 }
 function bdmInvList(K) {
   const inv = kInv(K),
@@ -570,13 +633,17 @@ async function kInvDbPridej(K, F) {
 }
 document.addEventListener("submit", async e => {
   const f = e.target;
-  if (!f.matches || !f.matches("[data-kvdadd],[data-kvvlf],[data-kvslf]")) return;
+  if (!f.matches || !f.matches("[data-kvdadd],[data-kvdpl],[data-kvvlf],[data-kvslf]")) return;
   e.preventDefault();
   const root = f.closest(".bdm"),
     K = root && KARTBY[root.dataset.kid];
   if (!K || !kMuze(K)) return;
   if (f.matches("[data-kvdadd]")) {
     await kInvDbPridej(K, f);
+    return;
+  }
+  if (f.matches("[data-kvdpl]")) {
+    await kVecPlnePridej(K, f.dataset.kvdpl, f.elements.q.value);
     return;
   }
   const E = f.elements;

@@ -263,11 +263,12 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `KIMPINV` | 13-karty:642 | let | Karty import: zaškrtnutí „Převzít vybavení z nového PDF“ (přepsat inventář ze stavu) |
 | `KINVC` | 14b-vybaveni:143 | const | ⓐ vybraný cíl vrhu podle karty |
 | `KINVCEN` | 14b-vybaveni:14 | const | Vybavení: regex cenností (gems, rubín, šperk, soška…) → skupina „cen“ v inventáři |
-| `KINVDB` | 14b-vybaveni:441 | const | ⓘ `[` |
-| `KINVDBN` | 14b-vybaveni:456 | const | ⓘ `40;` |
+| `KINVDB` | 14b-vybaveni:444 | const | ⓘ `[` |
+| `KINVDBN` | 14b-vybaveni:459 | const | ⓘ `40;` |
 | `KINVF` | 14b-vybaveni:163 | const | ⓐ druhy věcí pro přepínače nad seznamem (věc může mít víc: připoutaný magický prsten = Připoutané i Magické) |
 | `KINVHOD` | 14b-vybaveni:17 | const | ⓐ vrhací spotřební věci podle SRD 5.2.1 (výstroj): místo jednoho útoku akce Útok; cíl do 20 stop, záchrana DEX SO 8 + DEX + zdatnost |
 | `KINVIK` | 14b-vybaveni:213 | const | ⓐ ikony vlevo od jména: připoutání (◆ připoutáno / ◇ vyžaduje připoutání) a oblečená zbroj nebo štít v ruce – klepnutím se přepnou |
+| `KINVPL` | 14b-vybaveni:521 | const | ⓘ `{` |
 | `KINVSK` | 14b-vybaveni:4 | const | Vybavení: skupiny inventáře [klíč, název] – pri Připoutané, boj Zbraně a zbroj, spo Spotřební, mag, cen, vys Výstroj |
 | `KINVSPO` | 14b-vybaveni:12 | const | Vybavení: regex spotřebních věcí (potion, scroll, svěcená voda, olej, ration, torch, šípy…) → skupina „spo“ |
 | `KIRIT` | 19-karty-beyond:1529 | const | Kouzla: SVG ikonka rituálu (Ritual) u kouzla v seznamu |
@@ -436,13 +437,15 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `PICO` | 04b-praha-plan:106 | const | ⓐ ikony míst: vlastní kresba [soubor, výška], jinak obecná podle druhu |
 | `PKIND` | 04-praha:29 | const | Praha: druh objektu (dvur, urad, cirkev, hospoda, anomalie) → název kategorie |
 | `PLACES` | 02-mapa:1669 | const | mapa: sídla rodů ({name, lo, la, fam}) bez duplicit – body a výběr pro měření cest |
-| `PLNEF` | 10q-plne-texty:10 | const | ⓘ `{kouzla: {q: "", l: ""}, predmety: {q: "", l: ""}};` |
+| `PLNEF` | 10q-plne-texty:12 | const | ⓘ `{kouzla: {q: "", l: ""}, predmety: {q: "", l: ""}};` |
 | `PLNEKL` | 10q-plne-texty:6 | const | ⓘ `{kouzla: "Kouzla", predmety: "Kouzelné předměty"};` |
-| `PLNEMAX` | 10q-plne-texty:78 | const | ⓘ `120;` |
-| `PLNES` | 10q-plne-texty:7 | const | ⓘ `{},` |
-| `PLNESP` | 10q-plne-texty:8 | const | ⓘ `{},` |
-| `PLNESTR` | 10q-plne-texty:111 | const | ⓐ stránky Pravidla › Kouzla (#pravidla/kouzla) a Pravidla › Předměty (#pravidla/predmety-plne) |
-| `PLNET` | 10q-plne-texty:9 | const | ⓘ `{};` |
+| `PLNEMAX` | 10q-plne-texty:112 | const | ⓘ `120;` |
+| `PLNES` | 10q-plne-texty:9 | const | ⓘ `{},` |
+| `PLNESP` | 10q-plne-texty:10 | const | ⓘ `{},` |
+| `PLNESTR` | 10q-plne-texty:150 | const | ⓐ stránky Pravidla › Kouzla (#pravidla/kouzla) a Pravidla › Předměty (#pravidla/predmety-plne) |
+| `PLNET` | 10q-plne-texty:11 | const | ⓘ `{};` |
+| `PLNEUP` | 10q-plne-texty:8 | const | ⓐ co jde nahrát (featy se ukazují v Pravidlech › Featy, 08; nahrávají se tady u kouzel) – data: kouzla a předměty objekt, featy seznam |
+| `PLNEVZ` | 10q-plne-texty:33 | let | ⓐ předmět z plného znění podle jména věci v inventáři (seznam se načte jednou, pak se karta překreslí) |
 | `PM` | 04b-praha-plan:1385 | const | plán Prahy: stav měření cesty (zapnuto, body a/b, nalezená cesta, mřížka pro A*) |
 | `PMA` | 04-praha:35 | const | plán Prahy: cesta ke složce obrázků plánu ("art/mapa/") |
 | `PMU` | 04b-praha-plan:1386 | const | ⓐ metrů na jednotku plánu (podle délky Kamenného mostu) |
@@ -631,10 +634,10 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `ZBRVL` | 10w-zbrane:7 | const | ⓘ `{` |
 | `ZBY` | 07-druzina-kronika:84 | var | Kronika: zápis podle id (z ZAPISY) – rychlé hledání zápisu |
 | `ZEMEPIS` | 01-zaklad:5 | const | ⓐ zeměpis: královská města a sídla církevních vrchností jsou na mapě vždy, i když družina rod nezná |
-| `ZMENY` | 23-potvrzovani:259 | var | Časová osa sezení (vypravěč): změny karet, boje a herního času z databáze (MMDB.zmeny) k vrácení |
-| `ZMFLT` | 23-potvrzovani:261 | var | Časová osa: filtr druhu změn („vse“ nebo druh) |
-| `ZMOD` | 23-potvrzovani:260 | var | Časová osa: rozsah zpětně (1h, 6h, 24h, 7d) |
-| `ZMPOLE` | 23-potvrzovani:262 | var | Časová osa: popisky změněných polí karty (hp životy, thp, kz, vycerp, insp, zdr, inv vybavení, pen, pozn…) |
+| `ZMENY` | 23-potvrzovani:264 | var | Časová osa sezení (vypravěč): změny karet, boje a herního času z databáze (MMDB.zmeny) k vrácení |
+| `ZMFLT` | 23-potvrzovani:266 | var | Časová osa: filtr druhu změn („vse“ nebo druh) |
+| `ZMOD` | 23-potvrzovani:265 | var | Časová osa: rozsah zpětně (1h, 6h, 24h, 7d) |
+| `ZMPOLE` | 23-potvrzovani:267 | var | Časová osa: popisky změněných polí karty (hp životy, thp, kz, vycerp, insp, zdr, inv vybavení, pen, pozn…) |
 | `ZPR` | 16-srd-ukazky-sezeni-hrac:1244 | let | Tajné zprávy (hráč): zprávy mezi vypravěčem a přihlášenou postavou |
 | `ZPRG` | 16-srd-ukazky-sezeni-hrac:1245 | let | Tajné zprávy (vypravěč): všechny zprávy všech postav (MMDB.zpravyGm) |
 | `ZPRK` | 16-srd-ukazky-sezeni-hrac:1246 | let | Tajné zprávy (vypravěč): id karty vybrané v pultu družiny pro vlákno zpráv |

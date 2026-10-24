@@ -93,6 +93,14 @@ for k in kat:
                 "d": k["d"], "ko": k["ko"], "ri": k["ri"], "t": k["t"], "v": k["v"], "cs": 1, "x": 1, "vt": 1, **({"a": k["a"]} if k.get("a") else {})})
     if AUT.get(k["en"]) == "bez": out[-1]["ta"] = out[-1]["va"] = ""
     pouzite.add(k["en"].lower())
+# kouzla z Vojtovy tabulky, která web jinak nezná (doplnek.json z kouzla_predmety_plne.py --doplnek): jen herní údaje bez textu,
+# text mají přihlášení v plném znění z databáze (pole dop = 1)
+DOP = os.path.join(D, "doplnek.json")
+for x in json.load(open(DOP, encoding="utf-8")) if os.path.exists(DOP) else []:
+    if x["en"].lower() in znama:
+        raise SystemExit(f"CHYBA: kouzlo {x['en']} z doplnek.json web už zná – smaž ho z doplňku")
+    out.append(dict(x, t="", v="", cs=1, x=1, dop=1))
+    znama.add(x["en"].lower())
 # licence: obsah mimo SRD jen jako vlastní shrnutí, nejvýš 1 000 znaků (CLAUDE.md, oddíl Licence)
 for x in out:
     if x.get("x") and len(x.get("t", "")) > 1000:

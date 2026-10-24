@@ -267,6 +267,41 @@ test("plné znění kouzel a předmětů: rozbalovací blok jen přihlášeným,
   assert.equal(f, "Fireball", "hledání bez diakritiky i v českém názvu");
 });
 
+test("předměty z plného znění: hledání v inventáři, váha z tabulky, návrh hráče přidá věc na kartu, popis věci z tabulky", async () => {
+  assert.equal(V(`kLbPlne("1/2 lb.")`), 0.5);
+  assert.equal(V(`kLbPlne("2,5 lb.")`), 2.5);
+  assert.equal(V(`kLbPlne("—")`), 0);
+  S.ev(`window.__mm0 = window.MMDB; window.MMDB = {pravidlaTexty() {}, prihlasen: () => true}; PLNES.predmety = [
+    {id: "bag of tricks", en: "Bag of Tricks", cz: "Vak triků", typ: "Divotvorný předmět", vz: "neobvyklá", w: "1/2 lb."},
+    {id: "longsword", en: "Longsword", cz: "Dlouhý meč", typ: "Zbraň", vz: "", w: "3 lb."}]`);
+  try {
+    const nove = V(`kInvPlne(KARTBY.balduin, "trik", "", new Set()).map(x => x.en)`);
+    assert.deepEqual(nove, ["Bag of Tricks"], "hledá i v českém názvu");
+    assert.deepEqual(V(`kInvPlne(KARTBY.balduin, "", "div", new Set()).map(x => x.en)`), ["Bag of Tricks"], "druh podle typu z tabulky");
+    assert.deepEqual(V(`kInvPlne(KARTBY.balduin, "sword", "", new Set(["longsword"])).length`), 0, "co zná katalog, se neopakuje");
+    assert.equal(V(`plneVec("Bag of Tricks").id`), "bag of tricks");
+    assert.match(
+      V(`kVecPopis({n: "Bag of Tricks", q: 1}, null, null)`),
+      /Divotvorný předmět, neobvyklá[\s\S]*data-plne="predmety" data-plnen="bag of tricks"/,
+    );
+    await S.ev(`navrhProved({data: {typ: "vec", pl: "bag of tricks", n: "Bag of Tricks", w: 0.5, q: 2, cil: "balduin"}})`);
+    const it = V(`kartaStav("balduin").inv.find(x => x.n === "Bag of Tricks")`);
+    assert.equal(it.q, 2);
+    assert.equal(it.w, "1 lb.", "váha za kus × počet");
+  } finally {
+    S.ev(`window.MMDB = window.__mm0; delete PLNES.predmety`);
+  }
+});
+
+test("kouzla z Vojtovy tabulky, která SRD ani katalog nezná: karta je pozná podle jména, bez textu (text je v plném znění)", () => {
+  const x = V(`kSp("Aura of Evasion")`);
+  assert.equal(x.l, 7);
+  assert.equal(x.dop, 1);
+  assert.equal(x.t, "");
+  assert.equal(V(`kSp("Summon Dinosaur").cz`), "Přivolání dinosaura");
+  assert.match(V(`kzKarta(kSp("Wail of the Banshee"), false)`), /Popis kouzla uvidíš po přihlášení/);
+});
+
 test("featy: plné znění – rámeček Artikule, tabulka, podnadpis a escapování HTML", () => {
   const h = V(
     `featyMd("Úvod <script>x</script>\\n\\n> **Artikule – Pohotovost.** Jednou za boj.\\n\\n## Tabulka\\n\\n| **k4** | **Výboj** |\\n|---|---|\\n| 1 | **Vztek.** Útok |")`,
