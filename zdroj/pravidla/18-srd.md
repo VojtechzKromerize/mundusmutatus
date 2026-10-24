@@ -165,7 +165,7 @@ Tvé údery teď nesou nadpřirozenou moc. Když zasáhneš cíl hodem na útok 
 
 ### Úroveň 14: Restoring Touch
 
-Když použiješ Lay On Hands na tvora, můžeš z něj také odstranit jeden nebo více z následujících stavů: Oslepen (Blinded), Okouzlen (Charmed), Ohlušen (Deafened), Vyděšen (Frightened), Ochromen (Paralyzed) nebo Omráčen (Stunned). Za každý z těchto stavů, který odstraníš, musíš ze zásoby léčení Lay On Hands utratit 5 životů; tyto body tvorovi zároveň neobnoví životy.
+Když použiješ Lay On Hands na tvora, můžeš z něj také odstranit jeden nebo více z následujících stavů: Oslepen (Blinded), Okouzlen (Charmed), Ohlušen (Deafened), Vyděšen (Frightened), Paralyzovaný (Paralyzed) nebo Omráčen (Stunned). Za každý z těchto stavů, který odstraníš, musíš ze zásoby léčení Lay On Hands utratit 5 životů; tyto body tvorovi zároveň neobnoví životy.
 
 ### Úroveň 18: Aura Expansion
 

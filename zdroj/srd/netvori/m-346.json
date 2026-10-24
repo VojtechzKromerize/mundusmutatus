@@ -396,7 +396,7 @@
   "akce": [
    {
     "n": "Bite",
-    "t": "*Hod na útok na blízko:* +4, dosah 5 stop. *Zásah:* 6 (1d8 + 2) Piercing zranění. Pokud je cíl Střední nebo menší tvor, má stav Chycen (Grappled) (únik SO 12). Dokud je cíl chycen, má stav Zadržen (Restrained)."
+    "t": "*Hod na útok na blízko:* +4, dosah 5 stop. *Zásah:* 6 (1d8 + 2) Piercing zranění. Pokud je cíl Střední nebo menší tvor, má stav Chycen (Grappled) (únik SO 12). Dokud je cíl chycen, má stav Spoután (Restrained)."
    }
   ],
   "utoky": [
@@ -405,7 +405,7 @@
     "b": 4,
     "z": "1d8+2",
     "zt": "Piercing",
-    "p": "dosah 5 stop; Střední nebo menší cíl Chycen (únik SO 12) a Zadržen"
+    "p": "dosah 5 stop; Střední nebo menší cíl Chycen (únik SO 12) a Spoután"
    }
   ],
   "str": 347,
@@ -1326,7 +1326,7 @@
    },
    {
     "n": "Bite",
-    "t": "*Hod na útok na blízko:* +8, dosah 5 stop. *Zásah:* 21 (3d10 + 5) Piercing zranění. Pokud je cíl Velký nebo menší tvor, má stav Chycen (Grappled) (únik SO 15). Dokud je cíl chycen, má stav Zadržen (Restrained) a krokodýl na něj nemůže mířit útokem Tail."
+    "t": "*Hod na útok na blízko:* +8, dosah 5 stop. *Zásah:* 21 (3d10 + 5) Piercing zranění. Pokud je cíl Velký nebo menší tvor, má stav Chycen (Grappled) (únik SO 15). Dokud je cíl chycen, má stav Spoután (Restrained) a krokodýl na něj nemůže mířit útokem Tail."
    },
    {
     "n": "Tail",
@@ -1339,7 +1339,7 @@
     "b": 8,
     "z": "3d10+5",
     "zt": "Piercing",
-    "p": "dosah 5 stop; Velký nebo menší cíl Chycen (únik SO 15) a Zadržen"
+    "p": "dosah 5 stop; Velký nebo menší cíl Chycen (únik SO 15) a Spoután"
    },
    {
     "n": "Tail",
@@ -1571,7 +1571,7 @@
    },
    {
     "n": "Swallow",
-    "t": "Žába spolkne Malý nebo menší cíl, který drží v chvatu. Dokud je cíl spolknutý, není chycen, ale má stavy Oslepen (Blinded) a Zadržen (Restrained) a má úplný kryt proti útokům a jiným účinkům zvenčí žáby. Dokud má žába cíl spolknutý, nemůže používat Bite, a pokud žába zemře, spolknutý cíl už není zadržen a může z mrtvoly uniknout za 5 stop pohybu; vyjde ve stavu Sražen (Prone).\nNa konci příštího tahu žáby utrpí spolknutý cíl 5 (2d4) Acid zranění. Pokud ho toto zranění nezabije, žába ho vyvrhne, takže vyjde ve stavu Sražen."
+    "t": "Žába spolkne Malý nebo menší cíl, který drží v chvatu. Dokud je cíl spolknutý, není chycen, ale má stavy Oslepen (Blinded) a Spoután (Restrained) a má úplný kryt proti útokům a jiným účinkům zvenčí žáby. Dokud má žába cíl spolknutý, nemůže používat Bite, a pokud žába zemře, spolknutý cíl už není spoután a může z mrtvoly uniknout za 5 stop pohybu; vyjde ve stavu Sražen (Prone).\nNa konci příštího tahu žáby utrpí spolknutý cíl 5 (2d4) Acid zranění. Pokud ho toto zranění nezabije, žába ho vyvrhne, takže vyjde ve stavu Sražen."
    }
   ],
   "utoky": [
@@ -1796,7 +1796,7 @@
   "akce": [
    {
     "n": "Tentacles",
-    "t": "*Hod na útok na blízko:* +5, dosah 10 stop. *Zásah:* 10 (2d6 + 3) Bludgeoning zranění. Pokud je cíl Střední nebo menší tvor, má stav Chycen (Grappled) (únik SO 13) všemi osmi chapadly. Dokud je cíl chycen, má stav Zadržen (Restrained)."
+    "t": "*Hod na útok na blízko:* +5, dosah 10 stop. *Zásah:* 10 (2d6 + 3) Bludgeoning zranění. Pokud je cíl Střední nebo menší tvor, má stav Chycen (Grappled) (únik SO 13) všemi osmi chapadly. Dokud je cíl chycen, má stav Spoután (Restrained)."
    }
   ],
   "reakce": [
@@ -1811,7 +1811,7 @@
     "b": 5,
     "z": "2d6+3",
     "zt": "Bludgeoning",
-    "p": "dosah 10 stop; Střední nebo menší cíl Chycen (únik SO 13) a Zadržen"
+    "p": "dosah 10 stop; Střední nebo menší cíl Chycen (únik SO 13) a Spoután"
    }
   ],
   "str": 352,
@@ -2180,7 +2180,7 @@
    },
    {
     "n": "Web (obnova 5–6)",
-    "t": "*Záchrana Obratnosti:* SO 13, jeden tvor, kterého pavouk vidí, do 60 stop. *Neúspěch:* Cíl má stav Zadržen (Restrained), dokud není pavučina zničena (AC 10; HP 5; Vulnerability vůči Fire zranění; Immunity vůči Poison a Psychic zranění)."
+    "t": "*Záchrana Obratnosti:* SO 13, jeden tvor, kterého pavouk vidí, do 60 stop. *Neúspěch:* Cíl má stav Spoután (Restrained), dokud není pavučina zničena (AC 10; HP 5; Vulnerability vůči Fire zranění; Immunity vůči Poison a Psychic zranění)."
    }
   ],
   "utoky": [
@@ -2245,7 +2245,7 @@
    },
    {
     "n": "Swallow",
-    "t": "Ropucha spolkne Střední nebo menší cíl, který drží v chvatu. Dokud je cíl spolknutý, není chycen, ale má stavy Oslepen (Blinded) a Zadržen (Restrained) a má úplný kryt proti útokům a jiným účinkům zvenčí ropuchy. Navíc cíl utrpí 10 (3d6) Acid zranění na konci každého tahu ropuchy. Ropucha může mít spolknutý vždy jen jeden cíl a nemůže používat Bite, dokud má spolknutý cíl. Pokud ropucha zemře, spolknutý tvor už není zadržen a může z mrtvoly uniknout za 5 stop pohybu; vyjde ve stavu Sražen (Prone)."
+    "t": "Ropucha spolkne Střední nebo menší cíl, který drží v chvatu. Dokud je cíl spolknutý, není chycen, ale má stavy Oslepen (Blinded) a Spoután (Restrained) a má úplný kryt proti útokům a jiným účinkům zvenčí ropuchy. Navíc cíl utrpí 10 (3d6) Acid zranění na konci každého tahu ropuchy. Ropucha může mít spolknutý vždy jen jeden cíl a nemůže používat Bite, dokud má spolknutý cíl. Pokud ropucha zemře, spolknutý tvor už není spoután a může z mrtvoly uniknout za 5 stop pohybu; vyjde ve stavu Sražen (Prone)."
    }
   ],
   "utoky": [

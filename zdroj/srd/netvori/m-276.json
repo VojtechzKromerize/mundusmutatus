@@ -322,7 +322,7 @@
    },
    {
     "n": "Constrict",
-    "t": "*Záchrana Síly:* SO 15, jeden Střední nebo menší tvor, kterého couatl vidí, do 5 stop. *Neúspěch:* 8 (1d6 + 5) Bludgeoning zranění. Cíl je ve stavu Chycen (Grappled; SO úniku 13) a dokud chvat neskončí, je ve stavu Zadržen (Restrained)."
+    "t": "*Záchrana Síly:* SO 15, jeden Střední nebo menší tvor, kterého couatl vidí, do 5 stop. *Neúspěch:* 8 (1d6 + 5) Bludgeoning zranění. Cíl je ve stavu Chycen (Grappled; SO úniku 13) a dokud chvat neskončí, je ve stavu Spoután (Restrained)."
    },
    {
     "n": "Spellcasting",
@@ -348,7 +348,7 @@
     "dc": "STR SO 15",
     "z": "1d6+5",
     "zt": "Bludgeoning",
-    "p": "jeden Střední nebo menší tvor do 5 stop, Chycen (únik SO 13) a Zadržen"
+    "p": "jeden Střední nebo menší tvor do 5 stop, Chycen (únik SO 13) a Spoután"
    }
   ],
   "str": 277
@@ -381,7 +381,7 @@
    "CHA": "-3"
   },
   "odol": "Bludgeoning, Piercing, Slashing",
-  "imu": "Necrotic, Poison; Okouzlen (Charmed), Vyčerpání (Exhaustion), Vyděšen (Frightened), Chycen (Grappled), Neschopný (Incapacitated), Ochromen (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned), Sražen (Prone), Zadržen (Restrained), Omráčen (Stunned)",
+  "imu": "Necrotic, Poison; Okouzlen (Charmed), Vyčerpání (Exhaustion), Vyděšen (Frightened), Chycen (Grappled), Neschopný (Incapacitated), Paralyzovaný (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned), Sražen (Prone), Spoután (Restrained), Omráčen (Stunned)",
   "smysly": "Blindsight 30 stop; pasivní Perception 10",
   "jaz": "rozumí Common, ale nemluví",
   "cr": "3",
@@ -769,7 +769,7 @@
    },
    {
     "n": "Create Whirlwind",
-    "t": "Džin vyvolá vichřici v bodě, který vidí, do 120 stop. Vichřice vyplní válec o poloměru 20 stop a výšce 60 stop se středem v tomto bodě. Vichřice trvá, dokud neskončí džinovo soustředění (Concentration) na ni. Na začátku každého svého tahu může džin vichřicí pohnout až o 20 stop.\nKdykoli vichřice vstoupí do prostoru tvora nebo tvor vstoupí do vichřice, je tento tvor vystaven následujícímu účinku. *Záchrana Síly:* SO 17 (tvor si tuto záchranu hází jen jednou za tah a džin není ovlivněn). *Neúspěch:* Dokud je cíl ve vichřici, je ve stavu Zadržen (Restrained) a pohybuje se spolu s vichřicí. Na začátku každého svého tahu utrpí Zadržený cíl 21 (6d6) Thunder zranění. Na konci každého svého tahu cíl záchranu opakuje; při úspěchu účinek na sobě ukončí."
+    "t": "Džin vyvolá vichřici v bodě, který vidí, do 120 stop. Vichřice vyplní válec o poloměru 20 stop a výšce 60 stop se středem v tomto bodě. Vichřice trvá, dokud neskončí džinovo soustředění (Concentration) na ni. Na začátku každého svého tahu může džin vichřicí pohnout až o 20 stop.\nKdykoli vichřice vstoupí do prostoru tvora nebo tvor vstoupí do vichřice, je tento tvor vystaven následujícímu účinku. *Záchrana Síly:* SO 17 (tvor si tuto záchranu hází jen jednou za tah a džin není ovlivněn). *Neúspěch:* Dokud je cíl ve vichřici, je ve stavu Spoután (Restrained) a pohybuje se spolu s vichřicí. Na začátku každého svého tahu utrpí Spoutaný cíl 21 (6d6) Thunder zranění. Na konci každého svého tahu cíl záchranu opakuje; při úspěchu účinek na sobě ukončí."
    },
    {
     "n": "Spellcasting",
@@ -796,7 +796,7 @@
     "dc": "STR SO 17",
     "z": "6d6",
     "zt": "Thunder",
-    "p": "válec o poloměru 20 stop, při neúspěchu Zadržen; zranění na začátku každého tahu cíle"
+    "p": "válec o poloměru 20 stop, při neúspěchu Spoután; zranění na začátku každého tahu cíle"
    }
   ],
   "str": 280
@@ -1273,7 +1273,7 @@
    "CHA": "-3"
   },
   "zra": "Thunder",
-  "imu": "Poison; Vyčerpání (Exhaustion), Ochromen (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned), V bezvědomí (Unconscious)",
+  "imu": "Poison; Vyčerpání (Exhaustion), Paralyzovaný (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned), V bezvědomí (Unconscious)",
   "smysly": "Darkvision 60 stop, Tremorsense 60 stop; pasivní Perception 10",
   "jaz": "Primordial (Terran)",
   "cr": "5",
@@ -1464,7 +1464,7 @@
    },
    {
     "n": "Entangling Rope (vyžaduje Magic Rope)",
-    "t": "*Záchrana Síly:* SO 16, jeden tvor, kterého erínye vidí, do 120 stop. *Neúspěch:* 14 (4d6) Force zranění a cíl je ve stavu Zadržen (Restrained), dokud není lano zničeno, dokud erínye nepoužije bonusovou akci k propuštění cíle, nebo dokud erínye znovu nepoužije Entangling Rope."
+    "t": "*Záchrana Síly:* SO 16, jeden tvor, kterého erínye vidí, do 120 stop. *Neúspěch:* 14 (4d6) Force zranění a cíl je ve stavu Spoután (Restrained), dokud není lano zničeno, dokud erínye nepoužije bonusovou akci k propuštění cíle, nebo dokud erínye znovu nepoužije Entangling Rope."
    }
   ],
   "reakce": [
@@ -1486,7 +1486,7 @@
     "dc": "STR SO 16",
     "z": "4d6",
     "zt": "Force",
-    "p": "jeden tvor do 120 stop, při neúspěchu Zadržen"
+    "p": "jeden tvor do 120 stop, při neúspěchu Spoután"
    }
   ],
   "str": 283
@@ -1548,13 +1548,13 @@
    },
    {
     "n": "Web Strand (obnova 5–6)",
-    "t": "*Záchrana Obratnosti:* SO 12, jeden Velký nebo menší tvor, kterého ettercap vidí, do 30 stop. *Neúspěch:* Cíl je ve stavu Zadržen (Restrained), dokud není pavučina zničena (AC 10; HP 5; Vulnerability vůči Fire zranění; Immunity vůči Bludgeoning, Poison a Psychic zranění)."
+    "t": "*Záchrana Obratnosti:* SO 12, jeden Velký nebo menší tvor, kterého ettercap vidí, do 30 stop. *Neúspěch:* Cíl je ve stavu Spoután (Restrained), dokud není pavučina zničena (AC 10; HP 5; Vulnerability vůči Fire zranění; Immunity vůči Bludgeoning, Poison a Psychic zranění)."
    }
   ],
   "bonus": [
    {
     "n": "Reel",
-    "t": "Ettercap přitáhne jednoho tvora do 30 stop od sebe, který je Zadržen jeho Web Strand, až o 25 stop přímo k sobě."
+    "t": "Ettercap přitáhne jednoho tvora do 30 stop od sebe, který je Spoután jeho Web Strand, až o 25 stop přímo k sobě."
    }
   ],
   "utoky": [
@@ -1669,7 +1669,7 @@
    "CHA": "-2"
   },
   "odol": "Bludgeoning, Piercing, Slashing",
-  "imu": "Fire, Poison; Vyčerpání (Exhaustion), Chycen (Grappled), Ochromen (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned), Sražen (Prone), Zadržen (Restrained), V bezvědomí (Unconscious)",
+  "imu": "Fire, Poison; Vyčerpání (Exhaustion), Chycen (Grappled), Paralyzovaný (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned), Sražen (Prone), Spoután (Restrained), V bezvědomí (Unconscious)",
   "smysly": "Darkvision 60 stop; pasivní Perception 10",
   "jaz": "Primordial (Ignan)",
   "cr": "5",

@@ -1230,11 +1230,11 @@
    },
    {
     "n": "Chain",
-    "t": "*Hod na útok na blízko:* +7, dosah 10 stop. *Zásah:* 11 (2d6 + 4) Slashing zranění. Je-li cíl Velký nebo menší tvor, má stav Chycen (Grappled) (únik SO 14) jedním ze dvou řetězů a dokud chvat neskončí, má stav Zadržen (Restrained)."
+    "t": "*Hod na útok na blízko:* +7, dosah 10 stop. *Zásah:* 11 (2d6 + 4) Slashing zranění. Je-li cíl Velký nebo menší tvor, má stav Chycen (Grappled) (únik SO 14) jedním ze dvou řetězů a dokud chvat neskončí, má stav Spoután (Restrained)."
    },
    {
     "n": "Conjure Infernal Chain",
-    "t": "Ďábel vyvolá ohnivý řetěz, kterým spoutá tvora. *Záchrana Obratnosti:* SO 15, jeden tvor, kterého ďábel vidí do 60 stop. *Neúspěch:* 9 (2d4 + 4) Fire zranění a cíl má stav Zadržen (Restrained) do konce ďáblova příštího tahu, kdy řetěz zmizí. Je-li cíl Velký nebo menší, ďábel ho přitáhne až o 30 stop přímo k sobě. *Úspěch:* Řetěz zmizí."
+    "t": "Ďábel vyvolá ohnivý řetěz, kterým spoutá tvora. *Záchrana Obratnosti:* SO 15, jeden tvor, kterého ďábel vidí do 60 stop. *Neúspěch:* 9 (2d4 + 4) Fire zranění a cíl má stav Spoután (Restrained) do konce ďáblova příštího tahu, kdy řetěz zmizí. Je-li cíl Velký nebo menší, ďábel ho přitáhne až o 30 stop přímo k sobě. *Úspěch:* Řetěz zmizí."
    }
   ],
   "reakce": [
@@ -1249,14 +1249,14 @@
     "b": 7,
     "z": "2d6+4",
     "zt": "Slashing",
-    "p": "dosah 10 stop, Velký nebo menší cíl Chycen (únik SO 14) a Zadržen"
+    "p": "dosah 10 stop, Velký nebo menší cíl Chycen (únik SO 14) a Spoután"
    },
    {
     "n": "Conjure Infernal Chain",
     "dc": "DEX SO 15",
     "z": "2d4+4",
     "zt": "Fire",
-    "p": "jeden tvor do 60 stop, Zadržen a přitažen o 30 stop, při úspěchu nic"
+    "p": "jeden tvor do 60 stop, Spoután a přitažen o 30 stop, při úspěchu nic"
    }
   ],
   "str": 272
@@ -1404,7 +1404,7 @@
    },
    {
     "n": "Paralyzing Tentacles",
-    "t": "*Záchrana Odolnosti:* SO 13, jeden tvor, kterého chuul drží v chvatu. *Neúspěch:* Cíl má stav Otráven (Poisoned) a na konci každého svého tahu záchranu opakuje; při úspěchu účinek na sobě ukončí. Po 1 minutě uspěje automaticky. Dokud je cíl Otráven, má stav Ochromen (Paralyzed)."
+    "t": "*Záchrana Odolnosti:* SO 13, jeden tvor, kterého chuul drží v chvatu. *Neúspěch:* Cíl má stav Otráven (Poisoned) a na konci každého svého tahu záchranu opakuje; při úspěchu účinek na sobě ukončí. Po 1 minutě uspěje automaticky. Dokud je cíl Otráven, má stav Paralyzovaný (Paralyzed)."
    }
   ],
   "utoky": [
@@ -1446,7 +1446,7 @@
    "CHA": "-5"
   },
   "odol": "Bludgeoning, Piercing, Slashing",
-  "imu": "Acid, Poison, Psychic; Okouzlen (Charmed), Vyčerpání (Exhaustion), Vyděšen (Frightened), Ochromen (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned)",
+  "imu": "Acid, Poison, Psychic; Okouzlen (Charmed), Vyčerpání (Exhaustion), Vyděšen (Frightened), Paralyzovaný (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned)",
   "smysly": "Darkvision 60 stop; pasivní Perception 9",
   "jaz": "Common a jeden další jazyk",
   "cr": "9",
@@ -1693,7 +1693,7 @@
   "akce": [
    {
     "n": "Petrifying Bite",
-    "t": "*Hod na útok na blízko:* +3, dosah 5 stop. *Zásah:* 3 (1d4 + 1) Piercing zranění. Je-li cíl tvor, je vystaven následujícímu účinku. *Záchrana Odolnosti:* SO 11. *První neúspěch:* Cíl má stav Zadržen (Restrained). Na konci svého příštího tahu cíl záchranu zopakuje, je-li stále Zadržen; při úspěchu účinek na sobě ukončí. *Druhý neúspěch:* Cíl má na 24 hodin stav Zkamenělý (Petrified) místo stavu Zadržen."
+    "t": "*Hod na útok na blízko:* +3, dosah 5 stop. *Zásah:* 3 (1d4 + 1) Piercing zranění. Je-li cíl tvor, je vystaven následujícímu účinku. *Záchrana Odolnosti:* SO 11. *První neúspěch:* Cíl má stav Spoután (Restrained). Na konci svého příštího tahu cíl záchranu zopakuje, je-li stále Spoután; při úspěchu účinek na sobě ukončí. *Druhý neúspěch:* Cíl má na 24 hodin stav Zkamenělý (Petrified) místo stavu Spoután."
    }
   ],
   "utoky": [
@@ -1702,7 +1702,7 @@
     "b": 3,
     "z": "1d4+1",
     "zt": "Piercing",
-    "p": "dosah 5 stop, pak CON SO 11: Zadržen, při druhém neúspěchu Zkamenělý na 24 hodin"
+    "p": "dosah 5 stop, pak CON SO 11: Spoután, při druhém neúspěchu Zkamenělý na 24 hodin"
    }
   ],
   "str": 275

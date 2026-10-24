@@ -152,12 +152,60 @@ def _ostatni(t):
     return t
 
 
+# --- stavy (Vojta 2026-10-24) -----------------------------------------------------------------------------
+# Názvy na webu: Oslepen, Okouzlen, Ohlušen, Vyděšen, Chycen, Neschopný, Neviditelný, Paralyzovaný (Paralyzed), Zkamenělý,
+# Otráven, Sražen (Prone), Spoután (Restrained), Omráčen (Stunned), V bezvědomí, Vyčerpání.
+_DLOUHE = ("ého", "ému", "ými", "ých", "ým", "ou", "ý", "á", "é", "í")
+
+
+def _pricesti(t, kmen, kratky, dlouhy, stitek=None):
+    """příčestí stavu v kterémkoli tvaru: kmen „[Zz]adrž“ + en… → spoután / spoutaný / spoutání…;
+    stitek = tvar pro název stavu s velkým písmenem bez koncovky („Ochromen“ → „Paralyzovaný“)"""
+
+    def f(m):
+        vel, e = m.group(1)[0].isupper(), m.group(2) or ""
+        pred = t[max(0, m.start() - 12):m.start()]
+        if e == "í" and not re.search(r"(jsou|byli|budou|jsou ledem)\s+$", pred):
+            w = kratky + "í"  # podstatné jméno: zadržení → spoutání
+        else:
+            w = (dlouhy if e in _DLOUHE else kratky) + e
+        if vel and not e and stitek:
+            w = stitek
+        return w[0].upper() + w[1:] if vel else w
+
+    return re.sub(rf"\b({kmen})en(ého|ému|ými|ých|ým|ou|ý|á|é|í|a|o|i|y)?\b(?! dechu| upírů)", f, t)
+
+
+def _predpona(t, stary, novy):
+    """stav, který se liší jen začátkem slova (vystrašený → vyděšený), v obou velikostech písmen"""
+    t = re.sub(rf"\b{stary}", novy, t)
+    return re.sub(rf"\b{stary[0].upper() + stary[1:]}", novy[0].upper() + novy[1:], t)
+
+
+def stavy_srd(t):
+    """český překlad SRD na webu: Ochromen (= Paralyzed) → Paralyzovaný, Zadržen (Restrained) → Spoután"""
+    t = _pricesti(t, "[Oo]chrom", "paralyzován", "paralyzovan", "Paralyzovaný")
+    t = _pricesti(t, "[Zz]adrž", "spoután", "spoutan")
+    return _predpona(t, "vystrašen", "vyděšen")
+
+
+def _stavy(t):
+    """Vojtovy texty: ochromený (= Stunned) → omráčený, zadržený → spoutaný, uchvácený → chycený, vystrašený → vyděšený,
+    zmámený → okouzlený, stav ležící → sražený; paralyzovaný (Paralyzed) zůstává"""
+    for a, b in (("ochromen", "omráčen"), ("uchvácen", "chycen"), ("vystrašen", "vyděšen"), ("zmámen", "okouzlen")):
+        t = _predpona(t, a, b)
+    t = _pricesti(t, "[Zz]adrž", "spoután", "spoutan")
+    t = re.sub(r"\b(stav|stavu|stavy|stavem|[Jj]e|[Jj]si|[Jj]sem|je tvor|tvor|zůstane|zůstává|zůstaneš|byl|byla|bude|budeš)( ležící)\b", r"\1 sražený", t)
+    t = re.sub(r"\b(jsou|byli|budou)( ležící)\b", r"\1 sražení", t)
+    return t
+
+
 def pojmy(t):
     """celý převod jednoho textu"""
     if not t:
         return t
     t = str(t)
-    for f in (_ostatni, _pozice, _vypravec, _vycerpani, _skoly, _zbrane, _zraneni):
+    for f in (_ostatni, _pozice, _vypravec, _vycerpani, _skoly, _zbrane, _zraneni, _stavy):
         t = f(t)
     return t
 
@@ -186,11 +234,27 @@ if __name__ == "__main__":
         ("Mistrovství: Nick (Škrábnutí)", "Mistrovství: Nick (Rychlé seknutí)"),
         ("ověření DEX (Čachry)", "ověření DEX (Kapsářství)"),
         ("platinový amulet", "stříbrný amulet"),
+        ("cíl je ochromený do konce tvého tahu", "cíl je omráčený do konce tvého tahu"),
+        ("je paralyzovaný. Zadržený tvor může", "je paralyzovaný. Spoutaný tvor může"),
+        ("Při neúspěchu je zadržen a uchvácen", "Při neúspěchu je spoután a chycen"),
+        ("jinak je vystrašený, nebo zmámený", "jinak je vyděšený, nebo okouzlený"),
+        ("upadne do stavu ležící. Pokud je tvor ležící, může", "upadne do stavu sražený. Pokud je tvor sražený, může"),
+        ("předmět ležící na zemi", "předmět ležící na zemi"),
+        ("| 7–8 | Jsi ležící a", "| 7–8 | Jsi sražený a"),
+        ("STR proti zadržení. Zadržení dechu nepomůže.", "STR proti spoutání. Zadržení dechu nepomůže."),
+        ("Ochromující úder", "Ochromující úder"),
+    ]
+    S = [
+        ("cíl má stav Ochromen (Paralyzed) a je ochromen", "cíl má stav Paralyzovaný (Paralyzed) a je paralyzován"),
+        ("stav Zadržen (Restrained). Zadržený tvor; Zadrženého tvora", "stav Spoután (Restrained). Spoutaný tvor; Spoutaného tvora"),
+        ("jsou ledem zadrženi; jsou zadržení", "jsou ledem spoutáni; jsou spoutaní"),
+        ("Zadržení dechu proti jedům", "Zadržení dechu proti jedům"),
     ]
     chyby = 0
-    for a, b in Z:
-        if pojmy(a) != b:
-            chyby += 1
-            print("CHYBA:", repr(a), "→", repr(pojmy(a)), "čekáno", repr(b))
+    for fn, L in ((pojmy, Z), (stavy_srd, S)):
+        for a, b in L:
+            if fn(a) != b:
+                chyby += 1
+                print("CHYBA:", fn.__name__, repr(a), "→", repr(fn(a)), "čekáno", repr(b))
     print("pojmy_textu: v pořádku" if not chyby else f"pojmy_textu: {chyby} chyb")
     raise SystemExit(1 if chyby else 0)

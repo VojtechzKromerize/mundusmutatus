@@ -802,7 +802,7 @@
    "CHA": "+0"
   },
   "odol": "Acid, Bludgeoning, Cold, Fire, Necrotic, Piercing, Slashing",
-  "imu": "Lightning, Poison; Vyčerpání (Exhaustion), Chycen (Grappled), Ochromen (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned), Sražen (Prone), Zadržen (Restrained), V bezvědomí (Unconscious)",
+  "imu": "Lightning, Poison; Vyčerpání (Exhaustion), Chycen (Grappled), Paralyzovaný (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned), Sražen (Prone), Spoután (Restrained), V bezvědomí (Unconscious)",
   "smysly": "Darkvision 120 stop; pasivní Perception 12",
   "jaz": "Common a jeden další jazyk",
   "cr": "2",
@@ -997,7 +997,7 @@
    "CHA": "+2"
   },
   "odol": "Acid, Bludgeoning, Cold, Fire, Piercing, Slashing",
-  "imu": "Necrotic, Poison; Okouzlen (Charmed), Vyčerpání (Exhaustion), Chycen (Grappled), Ochromen (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned), Sražen (Prone), Zadržen (Restrained), V bezvědomí (Unconscious)",
+  "imu": "Necrotic, Poison; Okouzlen (Charmed), Vyčerpání (Exhaustion), Chycen (Grappled), Paralyzovaný (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned), Sražen (Prone), Spoután (Restrained), V bezvědomí (Unconscious)",
   "smysly": "Darkvision 60 stop; pasivní Perception 12",
   "jaz": "Common a dva další jazyky",
   "cr": "5",
@@ -1128,7 +1128,7 @@
    "CHA": "+0"
   },
   "dov": "Perception +6, Stealth +6",
-  "imu": "Poison; Ochromen (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned)",
+  "imu": "Poison; Paralyzovaný (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned)",
   "smysly": "Darkvision 60 stop, Tremorsense 60 stop; pasivní Perception 16",
   "jaz": "Primordial (Terran)",
   "cr": "5",

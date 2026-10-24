@@ -5223,7 +5223,7 @@
 "pr": true,
 "cenatxt": "Rare (vzácný): B+4,000 GP",
 "cena": "B+4,000 GP",
-"t": "Běsům a nemrtvým přidává při zásahu 2d6 Radiant. Má-li pak cíl nejvýše 25 životů, WIS DC 15: neúspěch jej zničí, úspěch způsobí Frightened (vystrašený) do konce tvého dalšího tahu. Při držení svítí jasně 20 stop a slabě dalších 20."
+"t": "Běsům a nemrtvým přidává při zásahu 2d6 Radiant. Má-li pak cíl nejvýše 25 životů, WIS DC 15: neúspěch jej zničí, úspěch způsobí Frightened (vyděšený) do konce tvého dalšího tahu. Při držení svítí jasně 20 stop a slabě dalších 20."
 },
 {
 "en": "Mace of Smiting",
@@ -5242,7 +5242,7 @@
 "pr": true,
 "cenatxt": "Rare (vzácný): B+4,000 GP",
 "cena": "B+4,000 GP",
-"t": "Akcí Magic (magie) a za jeden náboj zvolíš tvory do 30 stop: WIS DC 15 proti vystrašení na minutu. Postižení se snaží utíkat co nejdál, nemají příležitostné útoky a jejich akce je omezena na Dash (běh) nebo osvobozování; není-li kam jít, mohou Dodge (uhýbání). Záchrana se opakuje na konci tahů. Tři náboje, obnova 1d3 za úsvitu."
+"t": "Akcí Magic (magie) a za jeden náboj zvolíš tvory do 30 stop: WIS DC 15 proti vyděšení na minutu. Postižení se snaží utíkat co nejdál, nemají příležitostné útoky a jejich akce je omezena na Dash (běh) nebo osvobozování; není-li kam jít, mohou Dodge (uhýbání). Záchrana se opakuje na konci tahů. Tři náboje, obnova 1d3 za úsvitu."
 },
 {
 "en": "Mage Breaker",
@@ -6097,7 +6097,7 @@
 "pr": true,
 "cenatxt": "Very Rare (velmi vzácný): B+40,000 GP",
 "cena": "B+40,000 GP",
-"t": "Luk +1 k útoku a zranění vytváří vlastní šípy ze silové energie; po zásahu či minutí mizí. Místo zranění může zásah vyvolat STR DC 15: neúspěch znamená Restrained (zadržený) na minutu, únik akcí STR (Athletics) DC 20. Akcí Magic přeneseš ochotného tvora velikosti Medium či menší nebo nedržený předmět ve velikosti krychle 5 stop: viditelný cíl do 60 stop teleportuje na viditelné volné místo do 10 stop od tebe. Další akcí Magic vytvoříš na zdi do 60 stop energetický žebřík dlouhý až 60 stop, který vydrží minutu."
+"t": "Luk +1 k útoku a zranění vytváří vlastní šípy ze silové energie; po zásahu či minutí mizí. Místo zranění může zásah vyvolat STR DC 15: neúspěch znamená Restrained (spoutaný) na minutu, únik akcí STR (Athletics) DC 20. Akcí Magic přeneseš ochotného tvora velikosti Medium či menší nebo nedržený předmět ve velikosti krychle 5 stop: viditelný cíl do 60 stop teleportuje na viditelné volné místo do 10 stop od tebe. Další akcí Magic vytvoříš na zdi do 60 stop energetický žebřík dlouhý až 60 stop, který vydrží minutu."
 },
 {
 "en": "Executioner's Axe",
@@ -6140,7 +6140,7 @@
 ],
 [
 "51–55",
-"Stunned (ochromený) do konce svého příštího tahu."
+"Stunned (omráčený) do konce svého příštího tahu."
 ],
 [
 "56–60",

@@ -130,7 +130,7 @@
    "CHA": "-2"
   },
   "odol": "Bludgeoning, Lightning, Piercing, Slashing",
-  "imu": "Poison, Thunder; Vyčerpání (Exhaustion), Chycen (Grappled), Ochromen (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned), Sražen (Prone), Zadržen (Restrained), V bezvědomí (Unconscious)",
+  "imu": "Poison, Thunder; Vyčerpání (Exhaustion), Chycen (Grappled), Paralyzovaný (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned), Sražen (Prone), Spoután (Restrained), V bezvědomí (Unconscious)",
   "smysly": "Darkvision 60 stop; pasivní Perception 10",
   "jaz": "Primordial (Auran)",
   "cr": "5",
@@ -202,7 +202,7 @@
    "WIS": "-4",
    "CHA": "-5"
   },
-  "imu": "Poison, Psychic; Okouzlen (Charmed), Ohlušen (Deafened), Vyčerpání (Exhaustion), Vyděšen (Frightened), Ochromen (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned)",
+  "imu": "Poison, Psychic; Okouzlen (Charmed), Ohlušen (Deafened), Vyčerpání (Exhaustion), Vyděšen (Frightened), Paralyzovaný (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned)",
   "smysly": "Blindsight 60 stop; pasivní Perception 6",
   "jaz": "žádné",
   "cr": "1",
@@ -257,7 +257,7 @@
    "WIS": "-3",
    "CHA": "-5"
   },
-  "imu": "Poison, Psychic; Okouzlen (Charmed), Ohlušen (Deafened), Vyčerpání (Exhaustion), Vyděšen (Frightened), Ochromen (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned)",
+  "imu": "Poison, Psychic; Okouzlen (Charmed), Ohlušen (Deafened), Vyčerpání (Exhaustion), Vyděšen (Frightened), Paralyzovaný (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned)",
   "smysly": "Blindsight 60 stop; pasivní Perception 7",
   "jaz": "žádné",
   "cr": "1/4",
@@ -308,7 +308,7 @@
    "WIS": "-4",
    "CHA": "-5"
   },
-  "imu": "Poison, Psychic; Okouzlen (Charmed), Ohlušen (Deafened), Vyčerpání (Exhaustion), Vyděšen (Frightened), Ochromen (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned)",
+  "imu": "Poison, Psychic; Okouzlen (Charmed), Ohlušen (Deafened), Vyčerpání (Exhaustion), Vyděšen (Frightened), Paralyzovaný (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned)",
   "smysly": "Blindsight 60 stop; pasivní Perception 6",
   "jaz": "žádné",
   "cr": "2",
@@ -318,7 +318,7 @@
   "akce": [
    {
     "n": "Smother",
-    "t": "*Hod na útok na blízko:* +5, dosah 5 stop. *Zásah:* 10 (2d6 + 3) Bludgeoning zranění. Je-li cíl Střední nebo menší tvor, může mu koberec místo způsobení zranění udělit stav Chycen (Grappled) (únik SO 13). Dokud chvat neskončí, má cíl stavy Oslepen (Blinded) a Zadržen (Restrained), dusí se a na začátku každého svého tahu utrží 10 (2d6 + 3) Bludgeoning zranění. Koberec může dusit vždy jen jednoho tvora.\nDokud koberec cíl drží v chvatu, nemůže tuto akci provést, zranění, které sám utrží, se mu snižuje na polovinu (zaokrouhleno dolů) a cíl utrží stejné množství zranění."
+    "t": "*Hod na útok na blízko:* +5, dosah 5 stop. *Zásah:* 10 (2d6 + 3) Bludgeoning zranění. Je-li cíl Střední nebo menší tvor, může mu koberec místo způsobení zranění udělit stav Chycen (Grappled) (únik SO 13). Dokud chvat neskončí, má cíl stavy Oslepen (Blinded) a Spoután (Restrained), dusí se a na začátku každého svého tahu utrží 10 (2d6 + 3) Bludgeoning zranění. Koberec může dusit vždy jen jednoho tvora.\nDokud koberec cíl drží v chvatu, nemůže tuto akci provést, zranění, které sám utrží, se mu snižuje na polovinu (zaokrouhleno dolů) a cíl utrží stejné množství zranění."
    }
   ],
   "utoky": [
@@ -327,7 +327,7 @@
     "b": 5,
     "z": "2d6+3",
     "zt": "Bludgeoning",
-    "p": "dosah 5 stop, místo zranění Chycen (únik SO 13) – Oslepen, Zadržen, 2d6+3 na začátku tahu"
+    "p": "dosah 5 stop, místo zranění Chycen (únik SO 13) – Oslepen, Spoután, 2d6+3 na začátku tahu"
    }
   ],
   "str": 259
@@ -1060,7 +1060,7 @@
   "bonus": [
    {
     "n": "Petrifying Gaze (obnova 4–6)",
-    "t": "*Záchrana Odolnosti:* SO 12, každý tvor v kuželu 30 stop. Uvidí-li bazilišek v kuželu svůj odraz, musí si tuto záchranu hodit i on. *První neúspěch:* Cíl má stav Zadržen (Restrained) a na konci svého příštího tahu záchranu opakuje, je-li stále Zadržen; při úspěchu pro sebe účinek ukončí. *Druhý neúspěch:* Cíl má místo stavu Zadržen stav Zkamenělý (Petrified)."
+    "t": "*Záchrana Odolnosti:* SO 12, každý tvor v kuželu 30 stop. Uvidí-li bazilišek v kuželu svůj odraz, musí si tuto záchranu hodit i on. *První neúspěch:* Cíl má stav Spoután (Restrained) a na konci svého příštího tahu záchranu opakuje, je-li stále Spoután; při úspěchu pro sebe účinek ukončí. *Druhý neúspěch:* Cíl má místo stavu Spoután stav Zkamenělý (Petrified)."
    }
   ],
   "utoky": [
@@ -1193,7 +1193,7 @@
    },
    {
     "n": "Constrict",
-    "t": "*Záchrana Síly:* SO 18, jeden Velký nebo menší tvor do 5 stop, kterého behir vidí. *Neúspěch:* 28 (5d8 + 6) Bludgeoning zranění. Cíl má stav Chycen (Grappled) (únik SO 16) a dokud chvat neskončí, má i stav Zadržen (Restrained)."
+    "t": "*Záchrana Síly:* SO 18, jeden Velký nebo menší tvor do 5 stop, kterého behir vidí. *Neúspěch:* 28 (5d8 + 6) Bludgeoning zranění. Cíl má stav Chycen (Grappled) (únik SO 16) a dokud chvat neskončí, má i stav Spoután (Restrained)."
    },
    {
     "n": "Lightning Breath (obnova 5–6)",
@@ -1203,7 +1203,7 @@
   "bonus": [
    {
     "n": "Swallow",
-    "t": "*Záchrana Obratnosti:* SO 18, jeden Velký nebo menší tvor, kterého behir drží v chvatu (behir může mít spolknutého vždy jen jednoho tvora). *Neúspěch:* Behir cíl spolkne a cíl už není Chycen. Spolknutý tvor má stavy Oslepen (Blinded) a Zadržen (Restrained), má úplný kryt proti útokům a jiným účinkům zvenčí behira a na začátku každého behirova tahu utrží 21 (6d6) Acid zranění.\nUtrží-li behir během jediného tahu od spolknutého tvora 30 nebo více zranění, musí na konci toho tahu uspět v záchraně Odolnosti se SO 14, jinak tvora vyvrhne; ten dopadne na místo do 10 stop od behira a má stav Sražen (Prone). Zemře-li behir, spolknutý tvor už není Zadržen a může z mrtvoly uniknout za 15 stop pohybu; vyjde z ní ve stavu Sražen."
+    "t": "*Záchrana Obratnosti:* SO 18, jeden Velký nebo menší tvor, kterého behir drží v chvatu (behir může mít spolknutého vždy jen jednoho tvora). *Neúspěch:* Behir cíl spolkne a cíl už není Chycen. Spolknutý tvor má stavy Oslepen (Blinded) a Spoután (Restrained), má úplný kryt proti útokům a jiným účinkům zvenčí behira a na začátku každého behirova tahu utrží 21 (6d6) Acid zranění.\nUtrží-li behir během jediného tahu od spolknutého tvora 30 nebo více zranění, musí na konci toho tahu uspět v záchraně Odolnosti se SO 14, jinak tvora vyvrhne; ten dopadne na místo do 10 stop od behira a má stav Sražen (Prone). Zemře-li behir, spolknutý tvor už není Spoután a může z mrtvoly uniknout za 15 stop pohybu; vyjde z ní ve stavu Sražen."
    }
   ],
   "utoky": [
@@ -1219,7 +1219,7 @@
     "dc": "STR SO 18",
     "z": "5d8+6",
     "zt": "Bludgeoning",
-    "p": "jeden Velký nebo menší tvor do 5 stop, Chycen (únik SO 16) a Zadržen"
+    "p": "jeden Velký nebo menší tvor do 5 stop, Chycen (únik SO 16) a Spoután"
    },
    {
     "n": "Lightning Breath",
@@ -1673,7 +1673,7 @@
    "WIS": "-2",
    "CHA": "-5"
   },
-  "imu": "Acid, Cold, Lightning, Slashing; Okouzlen (Charmed), Ohlušen (Deafened), Vyčerpání (Exhaustion), Vyděšen (Frightened), Chycen (Grappled), Sražen (Prone), Zadržen (Restrained)",
+  "imu": "Acid, Cold, Lightning, Slashing; Okouzlen (Charmed), Ohlušen (Deafened), Vyčerpání (Exhaustion), Vyděšen (Frightened), Chycen (Grappled), Sražen (Prone), Spoután (Restrained)",
   "smysly": "Blindsight 60 stop; pasivní Perception 8",
   "jaz": "žádné",
   "cr": "4",

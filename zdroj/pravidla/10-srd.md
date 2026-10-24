@@ -100,7 +100,7 @@ První tvor, který drát překročí, způsobí pád podpěr a zřícení nesta
 
 Past s padající sítí využívá nástražný drát k uvolnění zatížené sítě (Net) o rozměrech 10 × 10 stop zavěšené u stropu. Nástražný drát je 3 palce nad zemí a je natažen mezi dvěma sloupy nebo stromy.
 
-Na prvního tvora, který drát překročí, spadne síť. Cíl musí uspět v záchranném hodu na Obratnost (DEX) se SO 10, jinak má stav Zadržen (Restrained), dokud se nevyprostí. Je-li cíl Obrovský nebo větší, uspěje automaticky. Tvor může použít akci k ověření Síly (Athletics) se SO 10; při úspěchu ze sítě vyprostí sebe nebo jiného tvora v dosahu.
+Na prvního tvora, který drát překročí, spadne síť. Cíl musí uspět v záchranném hodu na Obratnost (DEX) se SO 10, jinak má stav Spoután (Restrained), dokud se nevyprostí. Je-li cíl Obrovský nebo větší, uspěje automaticky. Tvor může použít akci k ověření Síly (Athletics) se SO 10; při úspěchu ze sítě vyprostí sebe nebo jiného tvora v dosahu.
 
 ***Odhalení a zneškodnění.*** Akcí Hledání (Search) může tvor prozkoumat prostor s pastí a provést ověření Moudrosti (Perception) se SO 11; při úspěchu odhalí nástražný drát i zavěšenou síť. Jakmile je drát odhalen, lze ho snadno přestřihnout nebo se mu vyhnout (bez ověření vlastnosti).
 

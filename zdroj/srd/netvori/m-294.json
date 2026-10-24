@@ -476,7 +476,7 @@
    "CHA": "+8"
   },
   "dov": "Arcana +11, History +11, Religion +11",
-  "imu": "Poison; Okouzlen (Charmed), Ochromen (Paralyzed), Otráven (Poisoned), Zadržen (Restrained)",
+  "imu": "Poison; Okouzlen (Charmed), Paralyzovaný (Paralyzed), Otráven (Poisoned), Spoután (Restrained)",
   "smysly": "Darkvision 60 stop; pasivní Perception 14",
   "jaz": "Celestial, Common",
   "cr": "10",
@@ -1663,7 +1663,7 @@
   },
   "dov": "Perception +8, Stealth +10",
   "odol": "Bludgeoning, Piercing, Slashing",
-  "imu": "Poison; Vyčerpání (Exhaustion), Chycen (Grappled), Ochromen (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned), Sražen (Prone), Zadržen (Restrained), V bezvědomí (Unconscious)",
+  "imu": "Poison; Vyčerpání (Exhaustion), Chycen (Grappled), Paralyzovaný (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned), Sražen (Prone), Spoután (Restrained), V bezvědomí (Unconscious)",
   "smysly": "Darkvision 60 stop; pasivní Perception 18",
   "jaz": "Common, Primordial (Auran)",
   "cr": "6",
@@ -1739,7 +1739,7 @@
    "WIS": "+0",
    "CHA": "-5"
   },
-  "imu": "Fire, Poison, Psychic; Okouzlen (Charmed), Vyčerpání (Exhaustion), Vyděšen (Frightened), Ochromen (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned)",
+  "imu": "Fire, Poison, Psychic; Okouzlen (Charmed), Vyčerpání (Exhaustion), Vyděšen (Frightened), Paralyzovaný (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned)",
   "smysly": "Darkvision 120 stop; pasivní Perception 10",
   "jaz": "rozumí Common a dvěma dalším jazykům, ale nemluví",
   "cr": "16",

@@ -156,9 +156,9 @@ Příležitostný útok můžeš provést, když tvor, kterého vidíš, opustí
 
 > **Artikule:** Zbraně s perkem Ratiště (Halberd, Pike, Glaive, Spear) umožňují příležitostný útok i tehdy, když nepřítel vstoupí do jejich dosahu 10 stop; v kontaktu na 5 stop má jejich nositel nevýhodu.
 
-#### Paralyzed [Condition] (Ochromen [stav])
+#### Paralyzed [Condition] (Paralyzovaný [stav])
 
-Dokud máš stav Ochromen (Paralyzed), platí pro tebe následující účinky.
+Dokud máš stav Paralyzovaný (Paralyzed), platí pro tebe následující účinky.
 
 ***Neschopnost.*** Máš stav Neschopný (Incapacitated).
 
@@ -250,9 +250,9 @@ Pokud máš Resistance vůči určitému typu zranění, zranění tohoto typu s
 
 > **Artikule:** Zbroj dává Resistance: vycpávaná (Padded, Leather, Studded Leather, Hide) proti Bludgeoning; kroužková (Chain Shirt, Scale Mail, Ring Mail, Chain Mail) proti Bludgeoning a Slashing; plátová (Breastplate, Half Plate, Splint) proti Slashing a Piercing; komplexní (Plate) proti Bludgeoning, Slashing a Piercing. Zbraně s perkem Drtivá (Mace, Flail, Warhammer) ignorují Resistance zbroje proti Bludgeoning, s perkem Průrazná (Handgun, Heavy Crossbow, Lance, Halberd, War Pick) Resistance zbroje proti Piercing.
 
-#### Restrained [Condition] (Zadržen [stav])
+#### Restrained [Condition] (Spoután [stav])
 
-Dokud máš stav Zadržen (Restrained), platí pro tebe následující účinky.
+Dokud máš stav Spoután (Restrained), platí pro tebe následující účinky.
 
 ***Rychlost 0.*** Tvoje rychlost je 0 a nemůže se zvýšit.
 

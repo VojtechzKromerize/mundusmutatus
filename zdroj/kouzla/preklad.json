@@ -1170,14 +1170,14 @@
  },
  {
   "index": "hold-monster",
-  "cz": "Ochromení nestvůry",
+  "cz": "Znehybnění nestvůry",
   "pop": "Zvol tvora, kterého vidíš v dosahu. Cíl musí uspět ve WIS záchranném hodu, jinak je po dobu trvání ve stavu Paralyzed. Na konci každého svého tahu si cíl hod opakuje a při úspěchu na sobě kouzlo ukončí.",
   "vys": "Za každou úroveň slotu kouzla nad 5 můžeš zacílit o jednoho tvora navíc.",
   "mat": "rovný kousek železa"
  },
  {
   "index": "hold-person",
-  "cz": "Ochromení osoby",
+  "cz": "Znehybnění osoby",
   "pop": "Zvol humanoida (Humanoid), kterého vidíš v dosahu. Cíl musí uspět ve WIS záchranném hodu, jinak je po dobu trvání ve stavu Paralyzed. Na konci každého svého tahu si cíl hod opakuje a při úspěchu na sobě kouzlo ukončí.",
   "vys": "Za každou úroveň slotu kouzla nad 2 můžeš zacílit o jednoho humanoida navíc.",
   "mat": "rovný kousek železa"

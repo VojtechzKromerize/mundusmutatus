@@ -80,7 +80,7 @@ Díky výcviku se zbraněmi můžeš používat vlastnosti mistrovství u dvou d
 
 Kdykoli dokončíš dlouhý odpočinek, můžeš druhy zvolených zbraní změnit. Můžeš například přejít na používání vlastností mistrovství u Scimitars a Shortswords.
 
-> **Artikule:** Weapon Mastery platí beze změny. Navíc platí perky zbraní pro každého, kdo je se zbraní zdatný (např. Dagger – Do slabin!: Požehnání proti cíli ve stavu Zadržen nebo Sražen znamená kritický zásah; Shortsword – Šikovná a Ostrá). Rogue se také učí šermířské techniky a zápasnické chvaty za Výdrž; jeho Výdrž je polovina bonusu zdatnosti a obnovuje se dlouhým odpočinkem.
+> **Artikule:** Weapon Mastery platí beze změny. Navíc platí perky zbraní pro každého, kdo je se zbraní zdatný (např. Dagger – Do slabin!: Požehnání proti cíli ve stavu Spoután nebo Sražen znamená kritický zásah; Shortsword – Šikovná a Ostrá). Rogue se také učí šermířské techniky a zápasnické chvaty za Výdrž; jeho Výdrž je polovina bonusu zdatnosti a obnovuje se dlouhým odpočinkem.
 
 ### Úroveň 2: Cunning Action
 

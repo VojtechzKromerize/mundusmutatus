@@ -127,7 +127,7 @@
    },
    {
     "n": "Constrict",
-    "t": "*Záchrana Síly:* SO 15, jeden Velký nebo menší tvor, kterého salamandr vidí, do 10 stop. *Neúspěch:* 11 (2d6 + 4) Bludgeoning zranění plus 7 (2d6) Fire zranění. Cíl má stav Chycen (Grappled) (únik SO 14) a dokud chvat neskončí, má stav Zadržen (Restrained)."
+    "t": "*Záchrana Síly:* SO 15, jeden Velký nebo menší tvor, kterého salamandr vidí, do 10 stop. *Neúspěch:* 11 (2d6 + 4) Bludgeoning zranění plus 7 (2d6) Fire zranění. Cíl má stav Chycen (Grappled) (únik SO 14) a dokud chvat neskončí, má stav Spoután (Restrained)."
    }
   ],
   "utoky": [
@@ -143,7 +143,7 @@
     "dc": "STR SO 15",
     "z": "2d6+4",
     "zt": "Bludgeoning",
-    "p": "+ 2d6 Fire; jeden Velký nebo menší tvor do 10 stop, Chycen (únik SO 14) a Zadržen"
+    "p": "+ 2d6 Fire; jeden Velký nebo menší tvor do 10 stop, Chycen (únik SO 14) a Spoután"
    }
   ],
   "str": 321
@@ -392,7 +392,7 @@
   "dov": "Stealth +6",
   "zra": "Radiant",
   "odol": "Acid, Cold, Fire, Lightning, Thunder",
-  "imu": "Necrotic, Poison; Vyčerpání (Exhaustion), Vyděšen (Frightened), Chycen (Grappled), Ochromen (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned), Sražen (Prone), Zadržen (Restrained), V bezvědomí (Unconscious)",
+  "imu": "Necrotic, Poison; Vyčerpání (Exhaustion), Vyděšen (Frightened), Chycen (Grappled), Paralyzovaný (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned), Sražen (Prone), Spoután (Restrained), V bezvědomí (Unconscious)",
   "smysly": "Darkvision 60 stop; pasivní Perception 10",
   "jaz": "žádné",
   "cr": "1/2",
@@ -484,7 +484,7 @@
    },
    {
     "n": "Engulf",
-    "t": "*Záchrana Síly:* SO 15, jeden Střední nebo menší tvor do 5 stop. *Neúspěch:* Cíl je vtažen do prostoru shambling moundu a má stav Chycen (Grappled) (únik SO 14). Dokud chvat neskončí, má cíl stavy Oslepen (Blinded) a Zadržen (Restrained) a na začátku každého svého tahu utrpí 10 (3d6) Lightning zranění. Když se shambling mound pohne, Chycený cíl se pohne s ním, aniž by ho to stálo pohyb navíc. Shambling mound může mít touto akcí Chyceného vždy jen jednoho tvora."
+    "t": "*Záchrana Síly:* SO 15, jeden Střední nebo menší tvor do 5 stop. *Neúspěch:* Cíl je vtažen do prostoru shambling moundu a má stav Chycen (Grappled) (únik SO 14). Dokud chvat neskončí, má cíl stavy Oslepen (Blinded) a Spoután (Restrained) a na začátku každého svého tahu utrpí 10 (3d6) Lightning zranění. Když se shambling mound pohne, Chycený cíl se pohne s ním, aniž by ho to stálo pohyb navíc. Shambling mound může mít touto akcí Chyceného vždy jen jednoho tvora."
    }
   ],
   "utoky": [
@@ -500,7 +500,7 @@
     "dc": "STR SO 15",
     "z": "3d6",
     "zt": "Lightning",
-    "p": "jeden Střední nebo menší tvor do 5 stop; Chycen (únik SO 14), Oslepen a Zadržen; zranění na začátku každého tahu cíle"
+    "p": "jeden Střední nebo menší tvor do 5 stop; Chycen (únik SO 14), Oslepen a Spoután; zranění na začátku každého tahu cíle"
    }
   ],
   "str": 323
@@ -532,7 +532,7 @@
    "WIS": "+0",
    "CHA": "-4"
   },
-  "imu": "Poison; Okouzlen (Charmed), Vyčerpání (Exhaustion), Vyděšen (Frightened), Ochromen (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned)",
+  "imu": "Poison; Okouzlen (Charmed), Vyčerpání (Exhaustion), Vyděšen (Frightened), Paralyzovaný (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned)",
   "smysly": "Blindsight 10 stop, Darkvision 60 stop; pasivní Perception 10",
   "jaz": "rozumí povelům v jakémkoli jazyce, ale nemluví",
   "cr": "7",
@@ -630,7 +630,7 @@
    },
    {
     "n": "Paralyzing Breath",
-    "t": "*Záchrana Odolnosti:* SO 13, každý tvor v kuželu 15 stop. *První neúspěch:* Cíl má do konce svého příštího tahu stav Neschopný (Incapacitated); tehdy záchranu opakuje. *Druhý neúspěch:* Cíl má stav Ochromen (Paralyzed) a záchranu opakuje na konci každého svého tahu; při úspěchu účinek na sobě ukončí. Po 1 minutě uspěje automaticky."
+    "t": "*Záchrana Odolnosti:* SO 13, každý tvor v kuželu 15 stop. *První neúspěch:* Cíl má do konce svého příštího tahu stav Neschopný (Incapacitated); tehdy záchranu opakuje. *Druhý neúspěch:* Cíl má stav Paralyzovaný (Paralyzed) a záchranu opakuje na konci každého svého tahu; při úspěchu účinek na sobě ukončí. Po 1 minutě uspěje automaticky."
    }
   ],
   "utoky": [
@@ -701,7 +701,7 @@
    },
    {
     "n": "Paralyzing Breath",
-    "t": "*Záchrana Odolnosti:* SO 17, každý tvor v kuželu 30 stop. *První neúspěch:* Cíl má do konce svého příštího tahu stav Neschopný (Incapacitated); tehdy záchranu opakuje. *Druhý neúspěch:* Cíl má stav Ochromen (Paralyzed) a záchranu opakuje na konci každého svého tahu; při úspěchu účinek na sobě ukončí. Po 1 minutě uspěje automaticky."
+    "t": "*Záchrana Odolnosti:* SO 17, každý tvor v kuželu 30 stop. *První neúspěch:* Cíl má do konce svého příštího tahu stav Neschopný (Incapacitated); tehdy záchranu opakuje. *Druhý neúspěch:* Cíl má stav Paralyzovaný (Paralyzed) a záchranu opakuje na konci každého svého tahu; při úspěchu účinek na sobě ukončí. Po 1 minutě uspěje automaticky."
    }
   ],
   "utoky": [
@@ -778,7 +778,7 @@
    },
    {
     "n": "Paralyzing Breath",
-    "t": "*Záchrana Odolnosti:* SO 20, každý tvor v kuželu 60 stop. *První neúspěch:* Cíl má do konce svého příštího tahu stav Neschopný (Incapacitated); tehdy záchranu opakuje. *Druhý neúspěch:* Cíl má stav Ochromen (Paralyzed) a záchranu opakuje na konci každého svého tahu; při úspěchu účinek na sobě ukončí. Po 1 minutě uspěje automaticky."
+    "t": "*Záchrana Odolnosti:* SO 20, každý tvor v kuželu 60 stop. *První neúspěch:* Cíl má do konce svého příštího tahu stav Neschopný (Incapacitated); tehdy záchranu opakuje. *Druhý neúspěch:* Cíl má stav Paralyzovaný (Paralyzed) a záchranu opakuje na konci každého svého tahu; při úspěchu účinek na sobě ukončí. Po 1 minutě uspěje automaticky."
    },
    {
     "n": "Spellcasting",
@@ -881,7 +881,7 @@
    },
    {
     "n": "Paralyzing Breath",
-    "t": "*Záchrana Odolnosti:* SO 24, každý tvor v kuželu 90 stop. *První neúspěch:* Cíl má do konce svého příštího tahu stav Neschopný (Incapacitated); tehdy záchranu opakuje. *Druhý neúspěch:* Cíl má stav Ochromen (Paralyzed) a záchranu opakuje na konci každého svého tahu; při úspěchu účinek na sobě ukončí. Po 1 minutě uspěje automaticky."
+    "t": "*Záchrana Odolnosti:* SO 24, každý tvor v kuželu 90 stop. *První neúspěch:* Cíl má do konce svého příštího tahu stav Neschopný (Incapacitated); tehdy záchranu opakuje. *Druhý neúspěch:* Cíl má stav Paralyzovaný (Paralyzed) a záchranu opakuje na konci každého svého tahu; při úspěchu účinek na sobě ukončí. Po 1 minutě uspěje automaticky."
    },
    {
     "n": "Spellcasting",
@@ -1248,7 +1248,7 @@
    "CHA": "+0"
   },
   "odol": "Acid, Bludgeoning, Cold, Fire, Lightning, Piercing, Slashing, Thunder",
-  "imu": "Necrotic, Poison; Okouzlen (Charmed), Vyčerpání (Exhaustion), Chycen (Grappled), Ochromen (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned), Sražen (Prone), Zadržen (Restrained), V bezvědomí (Unconscious)",
+  "imu": "Necrotic, Poison; Okouzlen (Charmed), Vyčerpání (Exhaustion), Chycen (Grappled), Paralyzovaný (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned), Sražen (Prone), Spoután (Restrained), V bezvědomí (Unconscious)",
   "smysly": "Darkvision 60 stop; pasivní Perception 10",
   "jaz": "rozumí Common a jednomu dalšímu jazyku, ale nemluví",
   "cr": "1",
@@ -1496,7 +1496,7 @@
    },
    {
     "n": "Roar (3/Day)",
-    "t": "(3× za den) Sfinga vydá magický řev. Pokaždé, když zařve, má řev jiný účinek, jak je popsáno níže (pořadí se vynuluje, když dokončí dlouhý odpočinek):\n- **První řev.** *Záchrana Moudrosti:* SO 20, každý nepřítel ve vyzařování 500 stop vycházejícím ze sfingy. *Neúspěch:* Cíl má na 1 minutu stav Vyděšen (Frightened).\n- **Druhý řev.** *Záchrana Moudrosti:* SO 20, každý nepřítel ve vyzařování 500 stop vycházejícím ze sfingy. *Neúspěch:* Cíl má stav Ochromen (Paralyzed) a záchranu opakuje na konci každého svého tahu; při úspěchu účinek na sobě ukončí. Po 1 minutě uspěje automaticky.\n- **Třetí řev.** *Záchrana Odolnosti:* SO 20, každý nepřítel ve vyzařování 500 stop vycházejícím ze sfingy. *Neúspěch:* 44 (8d10) Thunder zranění a cíl má stav Sražen (Prone). *Úspěch:* Jen poloviční zranění."
+    "t": "(3× za den) Sfinga vydá magický řev. Pokaždé, když zařve, má řev jiný účinek, jak je popsáno níže (pořadí se vynuluje, když dokončí dlouhý odpočinek):\n- **První řev.** *Záchrana Moudrosti:* SO 20, každý nepřítel ve vyzařování 500 stop vycházejícím ze sfingy. *Neúspěch:* Cíl má na 1 minutu stav Vyděšen (Frightened).\n- **Druhý řev.** *Záchrana Moudrosti:* SO 20, každý nepřítel ve vyzařování 500 stop vycházejícím ze sfingy. *Neúspěch:* Cíl má stav Paralyzovaný (Paralyzed) a záchranu opakuje na konci každého svého tahu; při úspěchu účinek na sobě ukončí. Po 1 minutě uspěje automaticky.\n- **Třetí řev.** *Záchrana Odolnosti:* SO 20, každý nepřítel ve vyzařování 500 stop vycházejícím ze sfingy. *Neúspěch:* 44 (8d10) Thunder zranění a cíl má stav Sražen (Prone). *Úspěch:* Jen poloviční zranění."
    },
    {
     "n": "Spellcasting",

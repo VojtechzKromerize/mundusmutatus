@@ -266,8 +266,8 @@ Stav je dočasný herní stav. Definice stavu uvádí, jak působí na toho, kdo
 | --- | --- | --- |
 | Oslepen (Blinded) | Chycen (Grappled) | Otráven (Poisoned) |
 | Okouzlen (Charmed) | Neschopný (Incapacitated) | Sražen (Prone) |
-| Ohlušen (Deafened) | Neviditelný (Invisible) | Zadržen (Restrained) |
-| Vyčerpání (Exhaustion) | Ochromen (Paralyzed) | Omráčen (Stunned) |
+| Ohlušen (Deafened) | Neviditelný (Invisible) | Spoután (Restrained) |
+| Vyčerpání (Exhaustion) | Paralyzovaný (Paralyzed) | Omráčen (Stunned) |
 | Vyděšen (Frightened) | Zkamenělý (Petrified) | V bezvědomí (Unconscious) |
 
 Stav se sám se sebou nesčítá; ten, kdo jím trpí, ho buď má, nebo nemá. Výjimkou z tohoto pravidla je stav Vyčerpání (Exhaustion).

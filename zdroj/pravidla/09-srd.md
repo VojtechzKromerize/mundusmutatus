@@ -309,7 +309,7 @@ Tvor vystavený Burnt Othur Fumes musí uspět v záchranném hodu na Odolnost s
 
 *Kontaktní jed*
 
-Tvor vystavený Crawler Mucus musí uspět v záchranném hodu na Odolnost se SO 13, jinak má na 1 minutu stav Otráven (Poisoned). Dokud je takto otráven, má tvor také stav Ochromen (Paralyzed). Tvor si záchranu opakuje na konci každého svého tahu a při úspěchu na sebe účinek ukončí.
+Tvor vystavený Crawler Mucus musí uspět v záchranném hodu na Odolnost se SO 13, jinak má na 1 minutu stav Otráven (Poisoned). Dokud je takto otráven, má tvor také stav Paralyzovaný (Paralyzed). Tvor si záchranu opakuje na konci každého svého tahu a při úspěchu na sebe účinek ukončí.
 
 ##### Essence of Ether (300 GP)
 

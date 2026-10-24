@@ -94,7 +94,7 @@ Pouzdro na mapy či svitky pojme až 10 listů papíru nebo 5 listů pergamenu.
 
 #### Chain (řetěz, 5 GP)
 
-Akcí Použití můžeš ovinout řetěz kolem nedobrovolného tvora do 5 stop od tebe, který má stav Chycen (Grappled), Neschopný (Incapacitated) nebo Zadržen (Restrained), pokud uspěješ v ověření Síly (STR) (Athletics) se SO 13. Jsou-li tvorovi spoutány nohy, má stav Zadržen, dokud se nevyprostí. Aby se z řetězu vyprostil, musí tvor akcí uspět v ověření Obratnosti (DEX) (Acrobatics) se SO 18. Přetrhnout řetěz vyžaduje akcí úspěšné ověření Síly (STR) (Athletics) se SO 20.
+Akcí Použití můžeš ovinout řetěz kolem nedobrovolného tvora do 5 stop od tebe, který má stav Chycen (Grappled), Neschopný (Incapacitated) nebo Spoután (Restrained), pokud uspěješ v ověření Síly (STR) (Athletics) se SO 13. Jsou-li tvorovi spoutány nohy, má stav Spoután, dokud se nevyprostí. Aby se z řetězu vyprostil, musí tvor akcí uspět v ověření Obratnosti (DEX) (Acrobatics) se SO 18. Přetrhnout řetěz vyžaduje akcí úspěšné ověření Síly (STR) (Athletics) se SO 20.
 
 #### Chest (truhla, 5 GP)
 
@@ -226,7 +226,7 @@ Lupa poskytuje výhodu na každé ověření vlastnosti, kterým oceňuješ nebo
 
 #### Manacles (okovy, 2 GP)
 
-Akcí Použití můžeš okovy spoutat nedobrovolného Malého nebo Středního tvora do 5 stop od sebe, který má stav Chycen (Grappled), Neschopný (Incapacitated) nebo Zadržen (Restrained), pokud uspěješ v ověření Obratnosti (DEX) (Sleight of Hand) se SO 13. Spoutaný tvor má nevýhodu na hody na útok a je Zadržen, pokud jsou okovy připevněny k řetězu nebo háku upevněnému na místě. Vyprostit se z okovů vyžaduje akcí úspěšné ověření Obratnosti (DEX) (Sleight of Hand) se SO 20. Roztrhnout je vyžaduje akcí úspěšné ověření Síly (STR) (Athletics) se SO 25.
+Akcí Použití můžeš okovy spoutat nedobrovolného Malého nebo Středního tvora do 5 stop od sebe, který má stav Chycen (Grappled), Neschopný (Incapacitated) nebo Spoután (Restrained), pokud uspěješ v ověření Obratnosti (DEX) (Sleight of Hand) se SO 13. Spoutaný tvor má nevýhodu na hody na útok a je Spoután, pokud jsou okovy připevněny k řetězu nebo háku upevněnému na místě. Vyprostit se z okovů vyžaduje akcí úspěšné ověření Obratnosti (DEX) (Sleight of Hand) se SO 20. Roztrhnout je vyžaduje akcí úspěšné ověření Síly (STR) (Athletics) se SO 25.
 
 Ke každým okovům patří klíč. Bez klíče může tvor zámek okovů otevřít pomocí zlodějského náčiní (Thieves' Tools) úspěšným ověřením Obratnosti (DEX) (Sleight of Hand) se SO 15.
 
@@ -240,9 +240,9 @@ Ruční ocelové zrcátko se hodí k péči o vzhled, ale také k nahlížení z
 
 #### Net (síť, 1 GP)
 
-Když použiješ akci Útok, můžeš jeden ze svých útoků nahradit hozením sítě. Zaměř tvora, kterého vidíš, do 15 stop od sebe. Cíl musí uspět v záchranném hodu na Obratnost (DEX) (SO 8 plus tvůj modifikátor Obratnosti a bonus zdatnosti), jinak získá stav Zadržen (Restrained), dokud se nevyprostí. Je-li cíl Obrovský nebo větší, uspěje automaticky.
+Když použiješ akci Útok, můžeš jeden ze svých útoků nahradit hozením sítě. Zaměř tvora, kterého vidíš, do 15 stop od sebe. Cíl musí uspět v záchranném hodu na Obratnost (DEX) (SO 8 plus tvůj modifikátor Obratnosti a bonus zdatnosti), jinak získá stav Spoután (Restrained), dokud se nevyprostí. Je-li cíl Obrovský nebo větší, uspěje automaticky.
 
-Aby se cíl vyprostil, musí on sám nebo tvor do 5 stop od něj použít akci a provést ověření Síly (STR) (Athletics) se SO 10; při úspěchu Zadrženého tvora vysvobodí. Zničení sítě (AC 10; 5 HP; Immunity vůči Bludgeoning, Poison a Psychic zranění) také cíl vysvobodí a ukončí účinek.
+Aby se cíl vyprostil, musí on sám nebo tvor do 5 stop od něj použít akci a provést ověření Síly (STR) (Athletics) se SO 10; při úspěchu Spoutaného tvora vysvobodí. Zničení sítě (AC 10; 5 HP; Immunity vůči Bludgeoning, Poison a Psychic zranění) také cíl vysvobodí a ukončí účinek.
 
 #### Oil (olej, 1 SP)
 
@@ -312,7 +312,7 @@ Roucho má profesní nebo obřadní význam. Na některé události a místa maj
 
 Akcí Použití můžeš na provazu uvázat uzel, pokud uspěješ v ověření Obratnosti (DEX) (Sleight of Hand) se SO 10. Provaz lze přetrhnout úspěšným ověřením Síly (STR) (Athletics) se SO 20.
 
-Provazem můžeš spoutat nedobrovolného tvora jen tehdy, má-li stav Chycen (Grappled), Neschopný (Incapacitated) nebo Zadržen (Restrained). Jsou-li tvorovi spoutány nohy, má stav Zadržen, dokud se nevyprostí. Aby se z provazu vyprostil, musí tvor akcí uspět v ověření Obratnosti (DEX) (Acrobatics) se SO 15.
+Provazem můžeš spoutat nedobrovolného tvora jen tehdy, má-li stav Chycen (Grappled), Neschopný (Incapacitated) nebo Spoután (Restrained). Jsou-li tvorovi spoutány nohy, má stav Spoután, dokud se nevyprostí. Aby se z provazu vyprostil, musí tvor akcí uspět v ověření Obratnosti (DEX) (Acrobatics) se SO 15.
 
 #### Sack (pytel, 1 CP)
 

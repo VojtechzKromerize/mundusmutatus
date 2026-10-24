@@ -93,7 +93,7 @@
    "WIS": "+0",
    "CHA": "-3"
   },
-  "imu": "Lightning, Poison; Okouzlen (Charmed), Vyčerpání (Exhaustion), Vyděšen (Frightened), Ochromen (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned)",
+  "imu": "Lightning, Poison; Okouzlen (Charmed), Vyčerpání (Exhaustion), Vyděšen (Frightened), Paralyzovaný (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned)",
   "smysly": "Darkvision 60 stop; pasivní Perception 10",
   "jaz": "rozumí Common a jednomu dalšímu jazyku, ale neumí mluvit",
   "cr": "5",
@@ -426,7 +426,7 @@
    },
    {
     "n": "Engulf",
-    "t": "Krychle se přesune až o svou rychlost, aniž by vyvolávala příležitostné útoky. Krychle se může pohybovat prostory Velkých nebo menších tvorů, pokud má uvnitř místo, aby je pojala (viz rys Ooze Cube). *Záchrana Obratnosti:* SO 12, každý tvor, do jehož prostoru krychle během tohoto pohybu poprvé vstoupí. *Neúspěch:* 10 (3d6) Acid zranění a cíl je pohlcen. Pohlcený cíl se dusí, nemůže sesílat kouzla s verbální složkou, má stav Zadržen (Restrained) a na začátku každého tahu krychle utrpí 10 (3d6) Acid zranění. Když se krychle pohybuje, pohlcený cíl se pohybuje s ní. Pohlcený cíl se může pokusit uniknout tím, že akcí provede ověření Síly (Athletics) se SO 12. Při úspěšném ověření cíl unikne a vstoupí do nejbližšího volného prostoru. *Úspěch:* Poloviční zranění a cíl se přesune do volného prostoru do 5 stop od krychle. Pokud žádný volný prostor není, cíl v záchraně místo toho neuspěje."
+    "t": "Krychle se přesune až o svou rychlost, aniž by vyvolávala příležitostné útoky. Krychle se může pohybovat prostory Velkých nebo menších tvorů, pokud má uvnitř místo, aby je pojala (viz rys Ooze Cube). *Záchrana Obratnosti:* SO 12, každý tvor, do jehož prostoru krychle během tohoto pohybu poprvé vstoupí. *Neúspěch:* 10 (3d6) Acid zranění a cíl je pohlcen. Pohlcený cíl se dusí, nemůže sesílat kouzla s verbální složkou, má stav Spoután (Restrained) a na začátku každého tahu krychle utrpí 10 (3d6) Acid zranění. Když se krychle pohybuje, pohlcený cíl se pohybuje s ní. Pohlcený cíl se může pokusit uniknout tím, že akcí provede ověření Síly (Athletics) se SO 12. Při úspěšném ověření cíl unikne a vstoupí do nejbližšího volného prostoru. *Úspěch:* Poloviční zranění a cíl se přesune do volného prostoru do 5 stop od krychle. Pokud žádný volný prostor není, cíl v záchraně místo toho neuspěje."
    }
   ],
   "utoky": [
@@ -442,7 +442,7 @@
     "dc": "DEX SO 12",
     "z": "3d6",
     "zt": "Acid",
-    "p": "tvorové v cestě, pohlcení (Zadržen, 3d6 Acid každý tah), polovina při úspěchu"
+    "p": "tvorové v cestě, pohlcení (Spoután, 3d6 Acid každý tah), polovina při úspěchu"
    }
   ],
   "str": 286
@@ -494,7 +494,7 @@
    },
    {
     "n": "Claw",
-    "t": "*Hod na útok na blízko:* +5, dosah 5 stop. *Zásah:* 10 (2d6 + 3) Slashing zranění. Pokud je cílem tvor, který není nemrtvý (Undead), je vystaven následujícímu účinku. *Záchrana Odolnosti:* SO 10. *Neúspěch:* Cíl má stav Ochromen (Paralyzed) až do konce svého příštího tahu."
+    "t": "*Hod na útok na blízko:* +5, dosah 5 stop. *Zásah:* 10 (2d6 + 3) Slashing zranění. Pokud je cílem tvor, který není nemrtvý (Undead), je vystaven následujícímu účinku. *Záchrana Odolnosti:* SO 10. *Neúspěch:* Cíl má stav Paralyzovaný (Paralyzed) až do konce svého příštího tahu."
    }
   ],
   "utoky": [
@@ -510,7 +510,7 @@
     "b": 5,
     "z": "2d6+3",
     "zt": "Slashing",
-    "p": "dosah 5 stop, CON SO 10 nebo Ochromen (ne Undead)"
+    "p": "dosah 5 stop, CON SO 10 nebo Paralyzovaný (ne Undead)"
    }
   ],
   "str": 287
@@ -543,7 +543,7 @@
    "CHA": "+3"
   },
   "odol": "Acid, Bludgeoning, Cold, Fire, Lightning, Piercing, Slashing, Thunder",
-  "imu": "Necrotic, Poison; Okouzlen (Charmed), Vyčerpání (Exhaustion), Vyděšen (Frightened), Chycen (Grappled), Ochromen (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned), Sražen (Prone), Zadržen (Restrained)",
+  "imu": "Necrotic, Poison; Okouzlen (Charmed), Vyčerpání (Exhaustion), Vyděšen (Frightened), Chycen (Grappled), Paralyzovaný (Paralyzed), Zkamenělý (Petrified), Otráven (Poisoned), Sražen (Prone), Spoután (Restrained)",
   "smysly": "Darkvision 60 stop; pasivní Perception 11",
   "jaz": "Common a jeden další jazyk",
   "cr": "4",
@@ -645,7 +645,7 @@
    },
    {
     "n": "Claw",
-    "t": "*Hod na útok na blízko:* +4, dosah 5 stop. *Zásah:* 4 (1d4 + 2) Slashing zranění. Pokud je cílem tvor, který není nemrtvý (Undead) ani elf, je vystaven následujícímu účinku. *Záchrana Odolnosti:* SO 10. *Neúspěch:* Cíl má stav Ochromen (Paralyzed) až do konce svého příštího tahu."
+    "t": "*Hod na útok na blízko:* +4, dosah 5 stop. *Zásah:* 4 (1d4 + 2) Slashing zranění. Pokud je cílem tvor, který není nemrtvý (Undead) ani elf, je vystaven následujícímu účinku. *Záchrana Odolnosti:* SO 10. *Neúspěch:* Cíl má stav Paralyzovaný (Paralyzed) až do konce svého příštího tahu."
    }
   ],
   "utoky": [
@@ -661,7 +661,7 @@
     "b": 4,
     "z": "1d4+2",
     "zt": "Slashing",
-    "p": "dosah 5 stop, CON SO 10 nebo Ochromen (ne Undead ani elf)"
+    "p": "dosah 5 stop, CON SO 10 nebo Paralyzovaný (ne Undead ani elf)"
    }
   ],
   "str": 288
@@ -1573,7 +1573,7 @@
    },
    {
     "n": "Petrifying Breath (obnova 5–6)",
-    "t": "*Záchrana Odolnosti:* SO 15, každý tvor v kuželu 30 stop. *První neúspěch:* Cíl má stav Zadržen (Restrained) a na konci svého příštího tahu záchranu opakuje, je-li stále Zadržen; při úspěchu účinek sám na sobě ukončí. *Druhý neúspěch:* Cíl má místo stavu Zadržen stav Zkamenělý (Petrified)."
+    "t": "*Záchrana Odolnosti:* SO 15, každý tvor v kuželu 30 stop. *První neúspěch:* Cíl má stav Spoután (Restrained) a na konci svého příštího tahu záchranu opakuje, je-li stále Spoután; při úspěchu účinek sám na sobě ukončí. *Druhý neúspěch:* Cíl má místo stavu Spoután stav Zkamenělý (Petrified)."
    }
   ],
   "bonus": [
@@ -1629,7 +1629,7 @@
   },
   "dov": "Stealth +2",
   "odol": "Acid, Cold, Fire",
-  "imu": "Oslepen (Blinded), Okouzlen (Charmed), Ohlušen (Deafened), Vyčerpání (Exhaustion), Vyděšen (Frightened), Chycen (Grappled), Sražen (Prone), Zadržen (Restrained)",
+  "imu": "Oslepen (Blinded), Okouzlen (Charmed), Ohlušen (Deafened), Vyčerpání (Exhaustion), Vyděšen (Frightened), Chycen (Grappled), Sražen (Prone), Spoután (Restrained)",
   "smysly": "Blindsight 60 stop; pasivní Perception 8",
   "jaz": "žádné",
   "cr": "1/2",

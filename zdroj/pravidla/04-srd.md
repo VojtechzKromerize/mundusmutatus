@@ -144,7 +144,7 @@ Používáš-li jako provizorní zbraň nějaký předmět – například nohu 
 > - **Šikovná** (Shortsword, Longsword, Greatsword, Scimitar, Warhammer, Halberd) – typ zranění se volí před hodem.
 > - **Ostrá** (Shortsword, Longsword, Greatsword, Scimitar) – Slashing zásah proti cíli bez Resistance je kritický na 19–20.
 > - **Půlmeč** (Longsword, Greatsword) – bonusovou akcí přehmat: Piercing zranění s perkem Průrazná, kostka zranění o stupeň níž.
-> - **Do slabin!** (Dagger) – Požehnání na kostce Závoje proti Zadrženému (Restrained) nebo Sraženému (Prone) cíli = kritický zásah.
+> - **Do slabin!** (Dagger) – Požehnání na kostce Závoje proti Spoutanému (Restrained) nebo Sraženému (Prone) cíli = kritický zásah.
 > - **Strhující** (Halberd, Glaive) – Požehnání proti jezdci: strhne ho ze sedla.
 > - **Vpřed!** (Lance) – po 15 stopách jízdy dvojnásobek kostek zranění, kritický zásah 4×.
 > - **Štěpící** (Greataxe) – Požehnání proti cíli se štítem: zničí štít.

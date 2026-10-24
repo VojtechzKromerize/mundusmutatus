@@ -10,8 +10,12 @@ Formát Markdownu: „# English (Česky)“, pod ním kurzívou kategorie a pře
 pak text; odstavce „> **Artikule – …**“ jsou úpravy z Artikulí, tabulky jako v GitHub Markdownu.
 """
 import json
+import os
 import re
 import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from pojmy_textu import pojmy  # noqa: E402  sjednocené pojmy a názvy stavů (Vojta 2026-10-24)
 
 KAT = [
     ("Feat původu", "origin"),
@@ -43,7 +47,7 @@ def featy(md):
         pred = radek[len(jm):].strip()
         if pred.startswith("(") and pred.endswith(")"):
             pred = pred[1:-1].replace(") (", "; ")
-        f = {"en": en, "cz": cz, "kat": kat, "pred": pred, "t": telo}
+        f = {"en": en, "cz": cz, "kat": kat, "pred": pojmy(pred), "t": pojmy(telo)}
         if radek.startswith("Náhrada"):
             f["nahr"] = 1
         out.append(f)

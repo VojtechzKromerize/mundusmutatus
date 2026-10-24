@@ -84,7 +84,7 @@
    "CHA": "-5"
   },
   "odol": "Acid",
-  "imu": "Lightning, Slashing; Okouzlen (Charmed), Ohlušen (Deafened), Vyčerpání (Exhaustion), Vyděšen (Frightened), Chycen (Grappled), Sražen (Prone), Zadržen (Restrained)",
+  "imu": "Lightning, Slashing; Okouzlen (Charmed), Ohlušen (Deafened), Vyčerpání (Exhaustion), Vyděšen (Frightened), Chycen (Grappled), Sražen (Prone), Spoután (Restrained)",
   "smysly": "Blindsight 60 stop; pasivní Perception 8",
   "jaz": "žádné",
   "cr": "2",
@@ -502,7 +502,7 @@
    },
    {
     "n": "Bite",
-    "t": "*Hod na útok na blízko:* +5, dosah 5 stop. *Zásah:* 8 (1d10 + 3) Piercing zranění plus 9 (2d8) Poison zranění. Pokud toto zranění sníží HP cíle na 0, cíl se stane stabilizovaným a na 1 hodinu má stav Otráven (Poisoned). Dokud je Otráven, má cíl také stav Ochromen (Paralyzed)."
+    "t": "*Hod na útok na blízko:* +5, dosah 5 stop. *Zásah:* 8 (1d10 + 3) Piercing zranění plus 9 (2d8) Poison zranění. Pokud toto zranění sníží HP cíle na 0, cíl se stane stabilizovaným a na 1 hodinu má stav Otráven (Poisoned). Dokud je Otráven, má cíl také stav Paralyzovaný (Paralyzed)."
    }
   ],
   "bonus": [
@@ -1120,7 +1120,7 @@
    },
    {
     "n": "Bite",
-    "t": "*Hod na útok na blízko:* +14, dosah 10 stop. *Zásah:* 22 (3d8 + 9) Piercing zranění. Je-li cíl Velký nebo menší tvor, má stav Chycen (Grappled) (únik SO 19) a dokud chvat neskončí, má stav Zadržen (Restrained)."
+    "t": "*Hod na útok na blízko:* +14, dosah 10 stop. *Zásah:* 22 (3d8 + 9) Piercing zranění. Je-li cíl Velký nebo menší tvor, má stav Chycen (Grappled) (únik SO 19) a dokud chvat neskončí, má stav Spoután (Restrained)."
    },
    {
     "n": "Tail Stinger",
@@ -1130,7 +1130,7 @@
   "bonus": [
    {
     "n": "Swallow",
-    "t": "*Záchrana Síly:* SO 19, jeden Velký nebo menší tvor, kterého červ drží jako Chyceného (Grappled) (červ může mít spolknuté až tři tvory současně). *Neúspěch:* Cíl je červem spolknut a stav Chycen skončí. Spolknutý tvor má stavy Oslepen (Blinded) a Zadržen (Restrained), má úplný kryt proti útokům a jiným účinkům zvenčí červa a na začátku každého tahu červa utrpí 17 (5d6) Acid zranění.\nPokud červ během jediného tahu utrpí od tvora uvnitř sebe 30 nebo více zranění, musí na konci tohoto tahu uspět v záchranném hodu na Odolnost se SO 21, jinak vyvrhne všechny spolknuté tvory; každý z nich dopadne na prostor do 5 stop od červa a má stav Sražen (Prone). Pokud červ zemře, spolknutý tvor už nemá stav Zadržen a může z mrtvoly uniknout za 20 stop pohybu, přičemž opustí stav Sražen."
+    "t": "*Záchrana Síly:* SO 19, jeden Velký nebo menší tvor, kterého červ drží jako Chyceného (Grappled) (červ může mít spolknuté až tři tvory současně). *Neúspěch:* Cíl je červem spolknut a stav Chycen skončí. Spolknutý tvor má stavy Oslepen (Blinded) a Spoután (Restrained), má úplný kryt proti útokům a jiným účinkům zvenčí červa a na začátku každého tahu červa utrpí 17 (5d6) Acid zranění.\nPokud červ během jediného tahu utrpí od tvora uvnitř sebe 30 nebo více zranění, musí na konci tohoto tahu uspět v záchranném hodu na Odolnost se SO 21, jinak vyvrhne všechny spolknuté tvory; každý z nich dopadne na prostor do 5 stop od červa a má stav Sražen (Prone). Pokud červ zemře, spolknutý tvor už nemá stav Spoután a může z mrtvoly uniknout za 20 stop pohybu, přičemž opustí stav Sražen."
    }
   ],
   "utoky": [
@@ -1139,7 +1139,7 @@
     "b": 14,
     "z": "3d8+9",
     "zt": "Piercing",
-    "p": "dosah 10 stop; Velký nebo menší Chycen (únik SO 19) a Zadržen"
+    "p": "dosah 10 stop; Velký nebo menší Chycen (únik SO 19) a Spoután"
    },
    {
     "n": "Tail Stinger",
@@ -1666,13 +1666,13 @@
   "akce": [
    {
     "n": "Bite",
-    "t": "*Hod na útok na blízko:* +11, dosah 10 stop. *Zásah:* 18 (2d10 + 7) Piercing zranění plus 14 (4d6) Fire zranění. Je-li cíl Velký nebo menší tvor, má stav Chycen (Grappled) (únik SO 17) a dokud chvat neskončí, má stav Zadržen (Restrained)."
+    "t": "*Hod na útok na blízko:* +11, dosah 10 stop. *Zásah:* 18 (2d10 + 7) Piercing zranění plus 14 (4d6) Fire zranění. Je-li cíl Velký nebo menší tvor, má stav Chycen (Grappled) (únik SO 17) a dokud chvat neskončí, má stav Spoután (Restrained)."
    }
   ],
   "bonus": [
    {
     "n": "Swallow",
-    "t": "*Záchrana Síly:* SO 19, jeden Velký nebo menší tvor, kterého remorhaz drží jako Chyceného (Grappled) (remorhaz může mít spolknuté až dva tvory současně). *Neúspěch:* Cíl je remorhazem spolknut a stav Chycen skončí. Spolknutý tvor má stavy Oslepen (Blinded) a Zadržen (Restrained), má úplný kryt proti útokům a jiným účinkům zvenčí remorhaze a na začátku každého tahu remorhaze utrpí 10 (3d6) Acid zranění plus 10 (3d6) Fire zranění.\nPokud remorhaz během jediného tahu utrpí od tvora uvnitř sebe 30 nebo více zranění, musí na konci tohoto tahu uspět v záchranném hodu na Odolnost se SO 15, jinak vyvrhne všechny spolknuté tvory; každý z nich dopadne na prostor do 5 stop od remorhaze a má stav Sražen (Prone). Pokud remorhaz zemře, spolknutý tvor už nemá stav Zadržen a může z mrtvoly uniknout za 15 stop pohybu, přičemž opustí stav Sražen."
+    "t": "*Záchrana Síly:* SO 19, jeden Velký nebo menší tvor, kterého remorhaz drží jako Chyceného (Grappled) (remorhaz může mít spolknuté až dva tvory současně). *Neúspěch:* Cíl je remorhazem spolknut a stav Chycen skončí. Spolknutý tvor má stavy Oslepen (Blinded) a Spoután (Restrained), má úplný kryt proti útokům a jiným účinkům zvenčí remorhaze a na začátku každého tahu remorhaze utrpí 10 (3d6) Acid zranění plus 10 (3d6) Fire zranění.\nPokud remorhaz během jediného tahu utrpí od tvora uvnitř sebe 30 nebo více zranění, musí na konci tohoto tahu uspět v záchranném hodu na Odolnost se SO 15, jinak vyvrhne všechny spolknuté tvory; každý z nich dopadne na prostor do 5 stop od remorhaze a má stav Sražen (Prone). Pokud remorhaz zemře, spolknutý tvor už nemá stav Spoután a může z mrtvoly uniknout za 15 stop pohybu, přičemž opustí stav Sražen."
    }
   ],
   "utoky": [
@@ -1681,7 +1681,7 @@
     "b": 11,
     "z": "2d10+7",
     "zt": "Piercing",
-    "p": "dosah 10 stop; + 4d6 Fire; Velký nebo menší Chycen (únik SO 17) a Zadržen"
+    "p": "dosah 10 stop; + 4d6 Fire; Velký nebo menší Chycen (únik SO 17) a Spoután"
    },
    {
     "n": "Heat Aura",
@@ -1743,7 +1743,7 @@
    },
    {
     "n": "Talons",
-    "t": "*Hod na útok na blízko:* +13, dosah 5 stop. *Zásah:* 23 (4d6 + 9) Slashing zranění. Je-li cíl Obrovský nebo menší tvor, má stav Chycen (Grappled) (únik SO 19) oběma pařáty a dokud chvat neskončí, má stav Zadržen (Restrained)."
+    "t": "*Hod na útok na blízko:* +13, dosah 5 stop. *Zásah:* 23 (4d6 + 9) Slashing zranění. Je-li cíl Obrovský nebo menší tvor, má stav Chycen (Grappled) (únik SO 19) oběma pařáty a dokud chvat neskončí, má stav Spoután (Restrained)."
    }
   ],
   "bonus": [
@@ -1765,7 +1765,7 @@
     "b": 13,
     "z": "4d6+9",
     "zt": "Slashing",
-    "p": "dosah 5 stop; Obrovský nebo menší Chycen (únik SO 19) a Zadržen"
+    "p": "dosah 5 stop; Obrovský nebo menší Chycen (únik SO 19) a Spoután"
    }
   ],
   "str": 320

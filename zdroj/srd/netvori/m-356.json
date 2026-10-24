@@ -1532,7 +1532,7 @@
    "CHA": "-3"
   },
   "odol": "Bludgeoning, Piercing, Slashing",
-  "imu": "Okouzlen (Charmed), Vyděšen (Frightened), Chycen (Grappled), Ochromen (Paralyzed), Zkamenělý (Petrified), Sražen (Prone), Zadržen (Restrained), Omráčen (Stunned)",
+  "imu": "Okouzlen (Charmed), Vyděšen (Frightened), Chycen (Grappled), Paralyzovaný (Paralyzed), Zkamenělý (Petrified), Sražen (Prone), Spoután (Restrained), Omráčen (Stunned)",
   "smysly": "Blindsight 60 stop; pasivní Perception 11",
   "jaz": "žádné",
   "cr": "1/4",
@@ -1591,7 +1591,7 @@
    "CHA": "-5"
   },
   "odol": "Bludgeoning, Piercing, Slashing",
-  "imu": "Okouzlen (Charmed), Vyděšen (Frightened), Chycen (Grappled), Ochromen (Paralyzed), Zkamenělý (Petrified), Sražen (Prone), Zadržen (Restrained), Omráčen (Stunned)",
+  "imu": "Okouzlen (Charmed), Vyděšen (Frightened), Chycen (Grappled), Paralyzovaný (Paralyzed), Zkamenělý (Petrified), Sražen (Prone), Spoután (Restrained), Omráčen (Stunned)",
   "smysly": "Blindsight 30 stop; pasivní Perception 8",
   "jaz": "žádné",
   "cr": "1/2",
@@ -1654,7 +1654,7 @@
    "CHA": "-4"
   },
   "odol": "Bludgeoning, Piercing, Slashing",
-  "imu": "Okouzlen (Charmed), Vyděšen (Frightened), Chycen (Grappled), Ochromen (Paralyzed), Zkamenělý (Petrified), Sražen (Prone), Zadržen (Restrained), Omráčen (Stunned)",
+  "imu": "Okouzlen (Charmed), Vyděšen (Frightened), Chycen (Grappled), Paralyzovaný (Paralyzed), Zkamenělý (Petrified), Sražen (Prone), Spoután (Restrained), Omráčen (Stunned)",
   "smysly": "Darkvision 60 stop; pasivní Perception 8",
   "jaz": "žádné",
   "cr": "1",
@@ -1717,7 +1717,7 @@
    "CHA": "-4"
   },
   "odol": "Bludgeoning, Piercing, Slashing",
-  "imu": "Okouzlen (Charmed), Vyděšen (Frightened), Chycen (Grappled), Ochromen (Paralyzed), Zkamenělý (Petrified), Sražen (Prone), Zadržen (Restrained), Omráčen (Stunned)",
+  "imu": "Okouzlen (Charmed), Vyděšen (Frightened), Chycen (Grappled), Paralyzovaný (Paralyzed), Zkamenělý (Petrified), Sražen (Prone), Spoután (Restrained), Omráčen (Stunned)",
   "smysly": "Darkvision 30 stop; pasivní Perception 10",
   "jaz": "žádné",
   "cr": "1/4",
@@ -1777,7 +1777,7 @@
   },
   "dov": "Perception +5",
   "odol": "Bludgeoning, Piercing, Slashing",
-  "imu": "Okouzlen (Charmed), Vyděšen (Frightened), Chycen (Grappled), Ochromen (Paralyzed), Zkamenělý (Petrified), Sražen (Prone), Zadržen (Restrained), Omráčen (Stunned)",
+  "imu": "Okouzlen (Charmed), Vyděšen (Frightened), Chycen (Grappled), Paralyzovaný (Paralyzed), Zkamenělý (Petrified), Sražen (Prone), Spoután (Restrained), Omráčen (Stunned)",
   "smysly": "pasivní Perception 15",
   "jaz": "žádné",
   "cr": "1/4",
@@ -1840,7 +1840,7 @@
    "CHA": "-4"
   },
   "odol": "Bludgeoning, Piercing, Slashing",
-  "imu": "Okouzlen (Charmed), Vyděšen (Frightened), Chycen (Grappled), Ochromen (Paralyzed), Zkamenělý (Petrified), Sražen (Prone), Zadržen (Restrained), Omráčen (Stunned)",
+  "imu": "Okouzlen (Charmed), Vyděšen (Frightened), Chycen (Grappled), Paralyzovaný (Paralyzed), Zkamenělý (Petrified), Sražen (Prone), Spoután (Restrained), Omráčen (Stunned)",
   "smysly": "Blindsight 10 stop; pasivní Perception 10",
   "jaz": "žádné",
   "cr": "2",
@@ -2025,7 +2025,7 @@
    },
    {
     "n": "Bite",
-    "t": "*Hod na útok na blízko:* +10, dosah 10 stop. *Zásah:* 33 (4d12 + 7) Piercing zranění. Je-li cílem Velký nebo menší tvor, má stav Chycen (Grappled) (únik SO 17). Dokud je cíl Chycen, má stav Zadržen (Restrained) a nemůže být cílem útoku Tail tyranosaura."
+    "t": "*Hod na útok na blízko:* +10, dosah 10 stop. *Zásah:* 33 (4d12 + 7) Piercing zranění. Je-li cílem Velký nebo menší tvor, má stav Chycen (Grappled) (únik SO 17). Dokud je cíl Chycen, má stav Spoután (Restrained) a nemůže být cílem útoku Tail tyranosaura."
    },
    {
     "n": "Tail",
@@ -2038,7 +2038,7 @@
     "b": 10,
     "z": "4d12+7",
     "zt": "Piercing",
-    "p": "dosah 10 stop; Velký a menší cíl Chycen (únik SO 17) a Zadržen"
+    "p": "dosah 10 stop; Velký a menší cíl Chycen (únik SO 17) a Spoután"
    },
    {
     "n": "Tail",
