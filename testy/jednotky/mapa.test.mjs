@@ -75,3 +75,19 @@ test("mapa: podklad (#mapz) se při výběru rodu nekreslí znovu, při změně 
   assert.notEqual(prvni(), z0, "vrstva Země a knížectví je v podkladu");
   S.ev(`st.duchy = false; setSel(null, false)`);
 });
+
+test("mapa: lem ikon sídel – roztažení čtvercem jako feMorphology, bez plátna ikona s filtrem jako dřív", async () => {
+  await S.ev(`typeof drawMapK === "function" || mmLina("mapa")`);
+  if (V(`typeof mikRoztahni`) !== "function") return;
+  /* jeden neprůhledný bod uprostřed 5 × 5, poloměr 1 → čtverec 3 × 3 */
+  const A = V(`Array.from(mikRoztahni(Uint8ClampedArray.from({length: 25}, (_, i) => (i === 12 ? 255 : 0)), 5, 1))`);
+  assert.deepEqual(
+    A.map((v, i) => (v ? i : -1)).filter(i => i >= 0),
+    [6, 7, 8, 11, 12, 13, 16, 17, 18],
+  );
+  assert.equal(V(`mapIkona(CASTLEICO, "xyz", false, 14)`), null, "neznámé vyznání nemá lem");
+  const e = V(
+    `(() => { const e = mapIkEl(CASTLEICO, "kat", false, 14, 100, 100, 0.66, 1); return [e.getAttribute("href"), e.getAttribute("filter") || e.getAttribute("width")]; })()`,
+  );
+  assert.ok(e[0] === "art/img/hrad.webp" ? e[1] === "url(#tout-kat)" : /^data:image\/png/.test(e[0]), "bez plátna filtr, jinak hotová ikona");
+});

@@ -5638,6 +5638,138 @@ function krajeJmena(svg, s, k) {
     t(x, y, 11, 3.4, `fill:var(--${L.c});font-style:italic`, L.n);
   }
 }
+/* ikony sídel s barevným lemem předem nakreslené na plátně (2026-10-24): lem dřív počítal filtr (feMorphology) u každé
+   ze stovek ikon při každém vykreslení; teď se každá kombinace obrázku, barvy vyznání, druhu lemu a velikosti spočítá jednou
+   v barvách motivu (tmavý motiv má jiné barvy → vlastní ikony) a dál se jen použije. Lem má na obrazovce stejnou tloušťku
+   jako dřív: sídlo 1,1 px, sídlo souseda inkoust 1,75 px a pod ním barva 0,95 px. Než se obrázky načtou (a bez plátna
+   v testech), kreslí se ikona s filtrem jako dřív. */
+const MIKR = 4; /* pixelů plátna na jeden pixel kresby: stačí pro displej 3× i širokou mapu */
+const MIKP = 2; /* okraj kolem ikony pro lem, v pixelech kresby */
+const MIKZ = {}; /* zdrojové obrázky: adresa → načtený Image | false (načítá se) | null (nejde) */
+const MIKC = new Map(); /* hotové ikony: klíč → data URL; barvy jsou součástí klíče */
+let MIKB = {}; /* barvy motivu pro jedno vykreslení (drawMapK je na začátku vynuluje) – čtení stylu je drahé, ikon jsou stovky */
+/* lem ikon má barvy upečené v obrázku: když systém přepne světlý / tmavý režim, mapa se překreslí v nových barvách */
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+  if (curView === "mapa" || curView === "vyprava") drawMap();
+});
+function mapIkZdroj(src) {
+  if (MIKZ[src] || MIKZ[src] === false || MIKZ[src] === null) return MIKZ[src] || null;
+  MIKZ[src] = null;
+  try {
+    const im = new Image();
+    if (typeof im.decode !== "function" || !document.createElement("canvas").getContext("2d")) return null;
+    MIKZ[src] = false;
+    im.src = src;
+    im.decode()
+      .then(() => {
+        MIKZ[src] = im;
+        if (curView === "mapa" || curView === "vyprava") drawMap();
+      })
+      .catch(() => {
+        MIKZ[src] = null;
+      });
+  } catch {
+    MIKZ[src] = null;
+  }
+  return null;
+}
+/* barva proměnné motivu jako [r, g, b] (čte se z mapy, kde proměnné platí) */
+function mikBarva(c) {
+  if (MIKB[c]) return MIKB[c];
+  const v = getComputedStyle(svg)
+    .getPropertyValue("--" + c)
+    .trim();
+  const cv = document.createElement("canvas");
+  cv.width = cv.height = 1;
+  const x = cv.getContext("2d");
+  x.fillStyle = "#000";
+  x.fillStyle = v || "#000";
+  x.fillRect(0, 0, 1, 1);
+  return (MIKB[c] = [...x.getImageData(0, 0, 1, 1).data.slice(0, 3)]);
+}
+/* roztažení průhlednosti čtvercem o poloměru r (jako feMorphology dilate): po řádcích, pak po sloupcích */
+function mikRoztahni(A, w, r) {
+  if (r < 1) return A;
+  const B = new Uint8ClampedArray(A.length),
+    C = new Uint8ClampedArray(A.length);
+  for (let y = 0; y < w; y++)
+    for (let x = 0; x < w; x++) {
+      let m = 0;
+      for (let d = Math.max(0, x - r); d <= Math.min(w - 1, x + r); d++) m = Math.max(m, A[y * w + d]);
+      B[y * w + x] = m;
+    }
+  for (let x = 0; x < w; x++)
+    for (let y = 0; y < w; y++) {
+      let m = 0;
+      for (let d = Math.max(0, y - r); d <= Math.min(w - 1, y + r); d++) m = Math.max(m, B[d * w + x]);
+      C[y * w + x] = m;
+    }
+  return C;
+}
+/* data URL ikony s lemem, nebo null (obrázek se ještě načítá / neznámé vyznání / bez plátna) */
+function mapIkona(src, conf, nbr, zr) {
+  if (!["kat", "kal", "mix"].includes(conf)) return null;
+  const im = mapIkZdroj(src);
+  if (!im) return null;
+  const col = mikBarva(conf),
+    ink = nbr ? mikBarva("ink") : null,
+    key = [src, conf, nbr ? 1 : 0, zr, col, ink].join("|");
+  if (MIKC.has(key)) return MIKC.get(key);
+  const W = Math.round((zr + 2 * MIKP) * MIKR),
+    o = MIKP * MIKR,
+    z = zr * MIKR,
+    cv = document.createElement("canvas");
+  cv.width = cv.height = W;
+  const cx = cv.getContext("2d");
+  cx.drawImage(im, o, o, z, z);
+  const S = cx.getImageData(0, 0, W, W).data,
+    A = new Uint8ClampedArray(W * W);
+  for (let i = 0; i < A.length; i++) A[i] = S[i * 4 + 3];
+  const out = cx.createImageData(W, W),
+    D = out.data;
+  /* vrstva barvy s průhledností M přes to, co už v D je */
+  const vrstva = (M, rgb) => {
+    for (let i = 0; i < M.length; i++) {
+      const a = M[i] / 255;
+      if (!a) continue;
+      const b = D[i * 4 + 3] / 255,
+        ao = a + b * (1 - a);
+      for (let ch = 0; ch < 3; ch++) D[i * 4 + ch] = (rgb[ch] * a + D[i * 4 + ch] * b * (1 - a)) / ao;
+      D[i * 4 + 3] = ao * 255;
+    }
+  };
+  if (nbr) {
+    vrstva(mikRoztahni(A, W, Math.round(1.75 * MIKR)), ink);
+    vrstva(mikRoztahni(A, W, Math.round(0.95 * MIKR)), col);
+  } else vrstva(mikRoztahni(A, W, Math.round(1.1 * MIKR)), col);
+  cx.putImageData(out, 0, 0);
+  cx.drawImage(im, o, o, z, z);
+  const u = cv.toDataURL("image/png");
+  MIKC.set(key, u);
+  return u;
+}
+/* prvek ikony sídla: velikost zr v pixelech kresby, střed x, dolní část posunutá o dy (podíl výšky) */
+function mapIkEl(src, conf, nbr, zr, x, y, dy, s) {
+  const z = zr * s,
+    u = mapIkona(src, conf, nbr, zr);
+  if (!u)
+    return el("image", {
+      href: src,
+      x: (x - z / 2).toFixed(2),
+      y: (y - z * dy).toFixed(2),
+      width: z.toFixed(2),
+      height: z.toFixed(2),
+      filter: `url(#${nbr ? "nout" : "tout"}-${conf})`,
+    });
+  const p = MIKP * s;
+  return el("image", {
+    href: u,
+    x: (x - z / 2 - p).toFixed(2),
+    y: (y - z * dy - p).toFixed(2),
+    width: (z + 2 * p).toFixed(2),
+    height: (z + 2 * p).toFixed(2),
+  });
+}
 /* podklad mapy (vrstva #mapz): vše pod sídly; drawMapK ho volá, jen když se změní výřez nebo vrstvy podkladu */
 function mapPodklad(Z, vb, s, k) {
   Z.setAttribute("viewBox", vb.join(" "));
@@ -6120,6 +6252,7 @@ function mapPodklad(Z, vb, s, k) {
   );
 }
 function drawMapK() {
+  MIKB = {};
   svg.classList.toggle("mapw", mapWide());
   /* konec gesta: obraz posunutý a zvětšený jen CSS transformací (mapGesto v 02) se nahradí novým vykreslením */
   mapVrstvy.style.transform = "";
@@ -6212,29 +6345,9 @@ function drawMapK() {
       g.appendChild(el("circle", {cx: x, cy: y, r: (12 * s).toFixed(1), fill: "transparent"}));
       const tier = mistoTier(sd[0], f.city || TOWNSEATS.has(sd[0]));
       if (f.city || TOWNSEATS.has(sd[0])) {
-        const z = (isSel ? 19 : MTZ[tier]) * s;
-        g.appendChild(
-          el("image", {
-            href: TOWNICO,
-            x: (x - z / 2).toFixed(2),
-            y: (y - z * 0.62).toFixed(2),
-            width: z.toFixed(2),
-            height: z.toFixed(2),
-            filter: `url(#${f.nbr && !f.city ? "nout" : "tout"}-${conf})`,
-          }),
-        );
+        g.appendChild(mapIkEl(TOWNICO, conf, !!f.nbr && !f.city, isSel ? 19 : MTZ[tier], x, y, 0.62, s));
       } else {
-        const z = (isSel ? 18 : MTZ[tier]) * s;
-        g.appendChild(
-          el("image", {
-            href: CASTLEICO,
-            x: (x - z / 2).toFixed(2),
-            y: (y - z * 0.66).toFixed(2),
-            width: z.toFixed(2),
-            height: z.toFixed(2),
-            filter: `url(#${f.nbr ? "nout" : "tout"}-${conf})`,
-          }),
-        );
+        g.appendChild(mapIkEl(CASTLEICO, conf, !!f.nbr, isSel ? 18 : MTZ[tier], x, y, 0.66, s));
       }
       if (rt && !dim) {
         let ri = 0;
@@ -6297,17 +6410,9 @@ function drawMapK() {
         mmHlasZem(n);
       });
       g.appendChild(el("circle", {cx: x, cy: y, r: (12 * s).toFixed(1), fill: "transparent"}));
-      const tier = mistoTier(n, typ === "mesto"),
-        z = MTZ[tier] * s;
+      const tier = mistoTier(n, typ === "mesto");
       g.appendChild(
-        el("image", {
-          href: typ === "mesto" ? TOWNICO : CASTLEICO,
-          x: (x - z / 2).toFixed(2),
-          y: (y - z * 0.64).toFixed(2),
-          width: z.toFixed(2),
-          height: z.toFixed(2),
-          filter: `url(#tout-${["kat", "kal", "mix"].includes(conf) ? conf : "mix"})`,
-        }),
+        mapIkEl(typ === "mesto" ? TOWNICO : CASTLEICO, ["kat", "kal", "mix"].includes(conf) ? conf : "mix", false, MTZ[tier], x, y, 0.64, s),
       );
       g.appendChild(el("title", {}, n));
       svg.appendChild(g);
