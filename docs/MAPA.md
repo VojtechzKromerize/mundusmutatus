@@ -347,8 +347,8 @@ Karta postavy podle Artikulí: duše (Svědomí, Ctnosti a Neřesti, vyznání, 
 
 - 1274 řádků, 78 definic na nejvyšší úrovni, z toho 51 používají jiné soubory
 - používá z: 01-zaklad (2), 04-praha (1), 07-druzina-kronika (7), 08-navigace-pravidla (1), 09-vypravec-herni-cas (4), 10-kouzla (5), 10p-pravidla (1), 10q-plne-texty (1), 10u-ucinky (1), 11-boj (9), 12-boj-tah-postavy (4), 13-karty (14), 16-srd-ukazky-sezeni-hrac (2), 17-karty-ii (2), 17b-kouzla-ucinky (3), 18-pravidla-postavy (9), 19-karty-beyond (2), 20d-boj-render (1)
-- používají ho: 03-artikule (1), 08-navigace-pravidla (4), 10-kouzla (1), 11-boj (3), 12-boj-tah-postavy (6), 13-karty (22), 14-karty-bojova-karta (19), 14c-boj-reakce (2), 14d-vybaveni-katalog (1), 16-srd-ukazky-sezeni-hrac (27), 17-karty-ii (11), 17b-kouzla-ucinky (7), 18-pravidla-postavy (2), 19-karty-beyond (9), 20-boj-hraci (9), 20b-boj-vypravec (5), 20c-boj-ridery (1), 20d-boj-render (3), 24-boj-zaznam (2)
-- poskytuje: kSp KSPD kUc mmPop kVyraz pojZnac kDuse kSpNacti mmPopX kTrv KZAV kUcPridej kZavoj KFR kFrontaOdesli kSitChyba kSpA kSvAdv kTech kTed kVydMax STBY kFrontaNaStav kFrontaPridej kHodForm kParty kPrehledHtml KPS kRany kSpPopis kSpTexty kSvKl kTechMozne kVlastniHod kVydU kZaznamHtml kZpyt KCACHE kDuseAkce kDuseHtml … (+11)
+- používají ho: 03-artikule (1), 08-navigace-pravidla (4), 10-kouzla (1), 11-boj (3), 12-boj-tah-postavy (6), 13-karty (22), 14-karty-bojova-karta (19), 14c-boj-reakce (2), 14d-vybaveni-katalog (1), 16-srd-ukazky-sezeni-hrac (27), 17-karty-ii (11), 17b-kouzla-ucinky (7), 18-pravidla-postavy (2), 19-karty-beyond (8), 20-boj-hraci (9), 20b-boj-vypravec (5), 20c-boj-ridery (1), 20d-boj-render (3), 24-boj-zaznam (2)
+- poskytuje: kSp KSPD kUc mmPop kVyraz pojZnac kDuse kSpNacti mmPopX kTrv KZAV kZavoj KFR kFrontaOdesli kSitChyba kSpA kSvAdv kTech kTed kUcPridej kVydMax STBY kFrontaNaStav kFrontaPridej kHodForm kParty kPrehledHtml KPS kRany kSpPopis kSpTexty kSvKl kTechMozne kVlastniHod kVydU kZaznamHtml kZpyt KCACHE kDuseAkce kDuseHtml … (+11)
 - oddíly:
   - ř. 231: herní čas a účinky s trváním
   - ř. 311: popisy kouzel z art/kouzla.json (pro hráče jen kouzla jejich postavy)
@@ -456,8 +456,8 @@ Pravidla postavy (2026-10-17): karta počítá podle pravidel D&D 2024 (SRD 5.2.
 
 karta jako D&D Beyond (2026-10-17 b): portrét, batohy a směna mincí, historie karty, postup na úroveň, podoba
 
-- 1537 řádků, 57 definic na nejvyšší úrovni, z toho 24 používají jiné soubory
-- používá z: 01-zaklad (1), 02-mapa (1), 04-praha (1), 07-druzina-kronika (1), 08-navigace-pravidla (2), 09-vypravec-herni-cas (1), 10p-pravidla (4), 11-boj (9), 12-boj-tah-postavy (2), 13-karty (14), 14-karty-bojova-karta (1), 14b-vybaveni (5), 15-karty-artikule (9), 16-srd-ukazky-sezeni-hrac (8), 17-karty-ii (25), 18-pravidla-postavy (20), 20-boj-hraci (1), 20b-boj-vypravec (1), 23-potvrzovani (3)
+- 1577 řádků, 62 definic na nejvyšší úrovni, z toho 24 používají jiné soubory
+- používá z: 01-zaklad (1), 02-mapa (1), 04-praha (1), 07-druzina-kronika (1), 08-navigace-pravidla (2), 09-vypravec-herni-cas (1), 10p-pravidla (4), 11-boj (9), 12-boj-tah-postavy (2), 13-karty (14), 14-karty-bojova-karta (1), 14b-vybaveni (5), 15-karty-artikule (8), 16-srd-ukazky-sezeni-hrac (8), 17-karty-ii (25), 18-pravidla-postavy (20), 20-boj-hraci (1), 20b-boj-vypravec (1), 23-potvrzovani (3)
 - používají ho: 13-karty (4), 14-karty-bojova-karta (14), 14b-vybaveni (6), 14c-boj-reakce (2), 15-karty-artikule (2), 16-srd-ukazky-sezeni-hrac (5), 17-karty-ii (5), 17b-kouzla-ucinky (2), 20c-boj-ridery (1)
 - poskytuje: kZdrUtrat kKonI kZdrN kForma KSLV POKL poklHtml kartaUlozImport kImg KKONTM KMINC KRIM kRit kRitI kSpSt kSpZn poklNacti aplikaceHtml kFormaHtml kLvupHtml kModsSync kPenSmenHtml kRysyHtml kSchopHtml
 - oddíly:
@@ -467,10 +467,10 @@ karta jako D&D Beyond (2026-10-17 b): portrét, batohy a směna mincí, historie
   - ř. 156: postup na úroveň: životy (průměr nebo hod), nové rysy povolání ze SRD, zvýšení vlastností nebo feat, kouzla
   - ř. 370: podoba: Wild Shape (druid; dočasné HP = úroveň druida, AC a útoky zvířete) a Polymorph (dočasné HP = životy zv
   - ř. 498: schopnosti povolání: Bardic Inspiration spojenci, Lay on Hands, Channel Divinity, Arcane Recovery
-  - ř. 812: bonusy pro hody z Discordu: prohlížeč hráče zapíše spočítané bonusy karty (jen když se změní)
-  - ř. 843: upozornění v telefonu (Web Push) a instalace webu jako aplikace
-  - ř. 991: pokladna družiny
-  - ř. 1040: tisk a export
+  - ř. 852: bonusy pro hody z Discordu: prohlížeč hráče zapíše spočítané bonusy karty (jen když se změní)
+  - ř. 883: upozornění v telefonu (Web Push) a instalace webu jako aplikace
+  - ř. 1031: pokladna družiny
+  - ř. 1080: tisk a export
 
 ## 20-boj-hraci
 

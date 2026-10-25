@@ -578,11 +578,12 @@ function kSchopHtml(K) {
       `<div class="kschop"><b>Arcane Recovery</b> <small>po krátkém odpočinku · sloty do součtu ${lim}, nejvýš 5. stupně${ar.zb ? "" : " · už použito"}</small><span>${pou.length && ar.zb ? pou.map(q => `<label class="bst"><input type="number" min="0" max="${q.u}" value="0" data-karv="${q.k}" data-st="${q.st}" style="width:3.2em" aria-label="Kolik slotů ${q.st}. st."> ${q.st}. st. <small>(${q.u} použito)</small></label>`).join("") + `<button type="button" class="gbtn ghost" data-kar>Obnovit sloty</button>` : `<small>${ar.zb ? "žádný použitý slot" : ""}</small>`}</span></div>`,
     );
   }
-  /* Doména míru – Emboldening Bond (2026-10-22): utratí použití, sobě zapne kostku 1d4; spojenci si ji zapnou sami (jako Bless) */
+  /* Doména míru – Emboldening Bond (2026-10-22): utratí použití; od 2026-10-25 (Vojta) sesilatel vybere až PB postav (i sebe) a každá
+     dostane účinek „Emboldening Bond ⇒ Jméno“ na 10 minut (jako Bless u spojenců, kBufy) – kostka 1d4 jednou za tah se jí přičte sama */
   const eb = kZdrN(K, /^emboldening bond$/i);
   if (eb && kTrU(c, "Cleric"))
     L.push(
-      `<div class="kschop"><b>Emboldening Bond</b> <small>akce · až ${kPB(K)} tvorů do 30 stop na 10 minut · zbývá ${eb.zb}/${eb.q.max}</small><span><button type="button" class="gbtn ghost" data-kemb${eb.zb ? "" : " disabled"} ${btip("Spojení tvoři si k jednomu hodu za tah přičtou 1d4; tobě se kostka zapne, spojenci si zapnou „Emboldening Bond“ v kostkách k hodům na své kartě")}>Vytvořit pouto</button></span></div>`,
+      `<div class="kschop"><b>Emboldening Bond</b> <small>akce · až ${kPB(K)} tvorů do 30 stop na 10 minut · zbývá ${eb.zb}/${eb.q.max}</small><span>${kEmbChips(K)}<button type="button" class="gbtn ghost" data-kemb${eb.zb ? "" : " disabled"} ${btip("Vybraní tvoři si k jednomu hodu za tah (útok, záchrana, ověření) přičtou 1d4 – kostka se jim přičte sama; bez výběru jen ty")}>Vytvořit pouto</button></span></div>`,
     );
   /* Cesta horlivce – Warrior of the Gods (2026-10-22): zásoba d12 na vlastní léčení, bonusová akce */
   const wg = kZdrN(K, /^warrior of the gods$/i);
@@ -600,6 +601,45 @@ function kSchopHtml(K) {
   }
   return L.length ? `<section class="kdbsec kschopy" data-kac="X"><h4 class="kdbsh">Schopnosti povolání</h4>${L.join("")}</section>` : "";
 }
+/* Emboldening Bond: výběr postav (sebe + spojenci, nejvýš PB) a pouto „Emboldening Bond ⇒ Jméno“ u sesilatele; nové pouto staré nahradí */
+const KEMBC = new Map();
+const kEmbVyber = K => {
+  if (!KEMBC.has(K.id)) KEMBC.set(K.id, new Set());
+  return KEMBC.get(K.id);
+};
+function kEmbChips(K) {
+  const S = kEmbVyber(K),
+    L = [K, ...kSpojenci(K)];
+  return `<span class="kcilm" role="group" aria-label="Komu pouto (nejvýš ${kPB(K)})">${L.map(k => `<button type="button" class="kcilmb" data-kembc="${besc(k.id)}" aria-pressed="${S.has(k.id)}">${k === K ? "sebe" : besc(k.n)}</button>`).join("")}<small>${S.size ? `${S.size}/${kPB(K)}` : "bez výběru = sebe"}</small></span>`;
+}
+const kEmbCile = K => {
+  const C = [...kEmbVyber(K)].map(id => (id === K.id ? K : KARTBY[id])).filter(Boolean);
+  return C.length ? C : [K];
+};
+async function kEmbPouto(K, C) {
+  const t = kTed(),
+    h = 1 / 6,
+    L = kUc(K).filter(u => !/^Emboldening Bond( ⇒ |$)/.test(String(u.n || "")));
+  C.forEach(c => {
+    const o = {n: ("Emboldening Bond ⇒ " + c.n).slice(0, 80), h: Math.round(h * 1000) / 1000};
+    if (t != null) o.do = Math.round((t + h) * 1000) / 1000;
+    L.push(o);
+  });
+  const P = kPri(K).filter(n => n !== "Emboldening Bond");
+  await kartaStavZmen(K.id, {uc: L.slice(-30), pri: P.length ? P : null});
+}
+document.addEventListener("click", e => {
+  const b = e.target.closest && e.target.closest("[data-kembc]");
+  if (!b) return;
+  const K = kvK(b);
+  if (!K || !kMuze(K)) return;
+  const S = kEmbVyber(K),
+    id = b.dataset.kembc;
+  if (S.has(id)) S.delete(id);
+  else if (S.size < kPB(K)) S.add(id);
+  else mmHlasG(`Emboldening Bond: nejvýš ${kPB(K)} tvorů.`, 3000);
+  kartyPrekresli();
+});
 const KBALM = {};
 document.addEventListener("click", async e => {
   const T = s => e.target.closest && e.target.closest(s);
@@ -613,16 +653,16 @@ document.addEventListener("click", async e => {
     const z = kZdrN(K, /^emboldening bond$/i);
     if (!z || !z.zb) return;
     await kZdrUtrat(K, z);
-    const P = kPri(K).filter(n => n !== "Emboldening Bond");
-    await kartaStavZmen(K.id, {pri: [...P, "Emboldening Bond"]}, null, {bezZpet: true});
-    await kUcPridej(K, "Emboldening Bond", 1 / 6, false);
+    const C = kEmbCile(K);
+    await kEmbPouto(K, C);
     kHodZapis({
       k: K.id,
       kdo: K.n,
       co: "Emboldening Bond",
-      txt: `pouto na 10 minut pro až ${kPB(K)} tvorů – spojenci si zapnou kostku Emboldening Bond na své kartě (zbývá ${z.zb - 1}/${z.q.max})`,
+      txt: `pouto na 10 minut: ${C.map(k => (k === K ? "sám" : k.n)).join(", ")} – jednou za tah +1d4 k útoku, záchraně nebo ověření (zbývá ${z.zb - 1}/${z.q.max})`,
     });
-    mmHlasG(`${K.n}: Emboldening Bond – spojenci si zapnou kostku na své kartě.`, 5000);
+    KEMBC.delete(K.id);
+    mmHlasG(`${K.n}: Emboldening Bond – ${C.map(k => k.n).join(", ")}.`, 5000);
     return;
   }
   if (b.matches("[data-kwg]")) {
