@@ -48,7 +48,7 @@
     ],
     "utoky": [
       "Longsword: +7 1d8+4 Slashing ×2",
-      "Heavy Crossbow: +4 1d10+1 Piercing ×2",
+      "Heavy Crossbow: +4 2d10+1 Piercing",
       "Úder beze zbraně: +7 5 Bludgeoning ×2"
     ],
     "pridavky": [],
@@ -105,7 +105,7 @@
       ],
       "utoky": [
         "Longsword: +7 1d8+4 Slashing ×2",
-        "Heavy Crossbow: +4 1d10+1 Piercing ×2",
+        "Heavy Crossbow: +4 2d10+1 Piercing",
         "Úder beze zbraně: +7 5 Bludgeoning ×2"
       ],
       "pridavky": [],

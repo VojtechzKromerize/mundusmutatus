@@ -282,7 +282,7 @@ header.site{display:flex;flex-direction:column;gap:0;border:0;padding:0}
   .navlinks .navdd{display:block}
   .navlinks .navdd .svitek{position:static;transform:none;width:auto;margin:0;padding:0 0 4px 14px;pointer-events:auto;visibility:visible;opacity:1}
   .navlinks .navdd .svlist{max-height:none!important;padding:0!important;margin:0;-webkit-mask:none;mask:none;background:none;border:0;box-shadow:none;display:flex;flex-direction:column;align-items:flex-start;min-width:0}
-  .navlinks .navdd .svlist::before,.navlinks .navdd .svlist a.on::before{display:none}.navlinks .navdd .svlist a small{display:none}.navlinks .navdd .svlist a{font-size:1.1rem;font-weight:inherit;padding:4px 0;margin:0!important;color:var(--ink);text-shadow:none;text-align:left;border:0!important;background:none!important;box-shadow:none!important}.navlinks .navdd .svlist a.on,.navlinks .navdd .svlist a:hover{color:var(--kal)}.navlinks .navdd .svlist a+a::before{display:none}.navlinks .navdd .svsep{color:var(--muted);margin:6px 0 0;font-size:.68rem}.navlinks .navdd .svsep::after{border-color:var(--rule)}.navlinks .navdd .svsep::before{display:none}
+  .navlinks .navdd .svitek::before,.navlinks .navdd .svlist::before,.navlinks .navdd .svlist a.on::before{display:none}.navlinks .navdd .svlist a small{display:none}.navlinks .navdd .svlist a{font-size:1.1rem;font-weight:inherit;padding:4px 0;margin:0!important;color:var(--ink);text-shadow:none;text-align:left;border:0!important;background:none!important;box-shadow:none!important}.navlinks .navdd .svlist a.on,.navlinks .navdd .svlist a:hover{color:var(--kal)}.navlinks .navdd .svlist a+a::before{display:none}.navlinks .navdd .svsep{color:var(--muted);margin:6px 0 0;font-size:.68rem}.navlinks .navdd .svsep::after{border-color:var(--rule)}.navlinks .navdd .svsep::before{display:none}
   .navlinks .gsearch{order:-1;margin-bottom:6px}
   .logo{width:min(100%,300px)}
   header.site .logo{display:none}
@@ -1110,6 +1110,8 @@ html.mmload .wrap>main{visibility:hidden}
 html.mmload body::after{content:"Načítám zemské desky…";position:fixed;left:50%;top:45%;transform:translateX(-50%);font-family:var(--f-label);letter-spacing:.06em;color:var(--muted)}
 .mmhlas{position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(8px);z-index:95;max-width:min(92vw,520px);background:var(--ink);color:var(--paper);font-family:var(--f-label);letter-spacing:.03em;padding:9px 16px;border-radius:4px;box-shadow:0 4px 14px rgba(0,0,0,.3);opacity:0;transition:opacity .25s,transform .25s;pointer-events:none}
 .mmhlas.on{opacity:1;transform:translateX(-50%)}
+/* výsledek hodu (kHodHlas, 13): větší, se zlatým lemem, klepnutím se zavře */
+.mmhlas.mmhod{pointer-events:auto;cursor:pointer;font-size:1.05rem;padding:12px 18px;border:2px solid var(--gold,#b08a3c)}
 .mmhlas.mmnova{pointer-events:auto;display:flex;gap:12px;align-items:center}.mmhlas.mmnova button{background:var(--paper);color:var(--ink);border:1px solid var(--gold,#b08a3c);border-radius:3px;font:inherit;padding:4px 12px;cursor:pointer}
 /* zápisy čekající na signál (fronta karty a boje) */
 #mmfronta{position:fixed;right:10px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:94;background:var(--ink);color:var(--paper);border:1px solid var(--gold,#b08a3c);border-radius:999px;font-family:var(--f-label);font-size:.85rem;padding:5px 11px;box-shadow:0 3px 10px rgba(0,0,0,.3);cursor:pointer}
@@ -1447,6 +1449,10 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
 .navdd .svitek .svlist::before,.navdd .svitek .svlist a.on::before{background:var(--kos);box-shadow:0 0 0 1.5px #e0b04a,0 0 0 2.5px rgba(20,3,6,.85)}
 #navdesky .svitek .svlist a.on::before{background:#d9a93f;box-shadow:0 0 0 1px rgba(20,3,6,.7)}
 .navdd .svitek .svlist::before{width:12px;height:12px;margin-left:-6px;top:-7px}
+/* dlouhá nabídka (Artikule, 2026-10-25): lístek nepřeroste okno – zbytek se posouvá uvnitř; kosočtverec je na obalu, aby ho posuvník neořízl */
+.navdd .svitek .svlist{max-height:var(--svmax,calc(100vh - 150px));overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:rgba(214,170,90,.55) transparent}
+.navdd .svitek .svlist::before{display:none}
+.navdd .svitek::before{content:"";position:absolute;z-index:1;left:50%;top:1px;width:12px;height:12px;margin-left:-6px;transform:rotate(45deg);background:var(--kos,linear-gradient(135deg,#f6dc8a,#c99a3a 55%,#8a6516));box-shadow:0 0 0 1.5px #e0b04a,0 0 0 2.5px rgba(20,3,6,.85)}
 /* zvolená karta / přepínač: stejná vínová kůže se zlatou linkou jako hlavní lišta */
 .controls button[aria-pressed="true"],.dtools .controls button[aria-pressed="true"],.subnav a.on,.gbtn:not(.ghost){background:linear-gradient(180deg,color-mix(in srgb,var(--kuze) 85%,#000) 0%,var(--kuze) 35%,var(--kuze2) 100%);color:#f6d27a;border-color:rgba(20,3,6,.85);text-shadow:0 1px 0 rgba(0,0,0,.45);box-shadow:inset 0 0 0 2px var(--kuze),inset 0 0 0 3px var(--zlato-linka),0 1px 3px rgba(40,10,10,.3)}
 .controls button[aria-pressed="true"]:hover,.subnav a.on:hover,.gbtn:not(.ghost):hover{color:#ffe7a8}
@@ -2175,6 +2181,11 @@ button.kbox{cursor:pointer}button.kbox:hover{border-color:var(--gold)}
 /* pravidla SRD */
 .srdtext h3{margin:1.6em 0 .4em}.srdtext h4{margin:1.2em 0 .3em}.srdtext h5,.srdtext h6{margin:1em 0 .2em;font-size:1rem}
 .srdtext h3,.srdtext h4,.srdtext h5{scroll-margin-top:80px}
+/* dlouhé stránky (2026-10-25): oddíly mimo obrazovku prohlížeč nerozkládá ani nekreslí, dokud k nim čtenář nedojede
+   (kapitoly Pravidel po h3 – srdOddily v 08, Vybavení, seznamy Doplňků mimo SRD). Oddíl nenechá splynout okraje sousedů:
+   dolní okraj posledního prvku kapitoly se vynuluje (nadpis dalšího oddílu má větší horní okraj). */
+.srdsek,.vybsek,#srdmain ul.kfeat{content-visibility:auto;contain-intrinsic-size:auto 1200px}
+.srdsek>:last-child{margin-bottom:0}
 .srdtab{overflow-x:auto;margin:.6em 0 1em}.srdtab table{border-collapse:collapse;font-size:.92rem;min-width:60%}.srdtab th,.srdtab td{border-bottom:1px solid var(--rule);padding:4px 10px 4px 0;text-align:left;vertical-align:top}.srdtab th{font-family:var(--f-label);font-size:.78rem;color:var(--muted)}
 .srdart{margin:.6em 0 1em;padding:8px 12px;border-left:4px solid var(--kal);background:color-mix(in srgb,var(--kal) 7%,var(--paper));font-size:.95rem}.srdart>b:first-child{font-family:var(--f-label);letter-spacing:.06em;color:var(--kal);margin-right:6px;text-transform:uppercase;font-size:.78rem}
 .srdkap{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px}.srdkap a{display:flex;flex-direction:column;padding:10px 12px;border:1px solid var(--rule);border-radius:4px;background:var(--paper);text-decoration:none;color:var(--ink)}.srdkap a:hover{border-color:var(--gold)}.srdkap b{font-family:var(--f-disp);font-size:1.15rem}.srdkap small{color:var(--muted)}
@@ -2862,6 +2873,13 @@ html.mmapp .mmpop{padding-top:calc(env(safe-area-inset-top,0px) + 10px)}
 .bdmhlz .khlas>*:not(:first-child){display:none!important}
 .bdmhlb{position:absolute;top:2px;right:0;min-width:38px;padding:3px 6px;border-radius:999px;background:var(--kb-btn);border:1px solid var(--kb-ac);color:var(--kb-tx);font-family:var(--f-label)!important;font-weight:700;font-size:.74rem}
 .bdmainf{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:10px}
+/* pohyb a akce navíc v tahu (2026-10-25) */
+.bdmtah{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:10px;padding:6px 8px;border:1px solid var(--kb-bd);border-radius:6px;background:var(--kb-bg)}
+.bdmtah .bdmmini{min-height:32px;min-width:40px}
+.bdmpoh{display:inline-flex;align-items:baseline;gap:4px;margin-right:2px;font-family:var(--f-label);color:var(--kb-tx)}
+.bdmpoh b{font-size:1.15rem}.bdmpoh i{font-style:normal;font-size:.8rem;opacity:.75}.bdmpoh0 b{opacity:.5}
+.bdmtsp{display:inline-flex;flex-wrap:wrap;gap:4px;align-items:center}.bdmtsp small{opacity:.8}
+.bdmtah [aria-pressed=true]{opacity:.55;text-decoration:line-through}
 .bdmchu{opacity:.55;text-decoration:line-through}
 .bdmuse{margin-left:6px;padding:1px 8px;border-radius:999px;background:var(--kb-bg);border:1px solid #3d8fe0;color:#8cbcf0;font-family:var(--f-label)!important;font-weight:700;font-size:.66rem;letter-spacing:.04em;text-transform:uppercase;vertical-align:middle}
 .bdmuse.on{border-color:var(--kb-bd2);color:var(--kb-mu)}
@@ -3314,7 +3332,21 @@ html.mmjenhra .bdmkl{display:none}
 .bzsip{font-style:normal;color:var(--muted)}
 .bzh time{font:400 .7rem var(--f-label);color:var(--muted);white-space:nowrap}
 .bzh .blund{margin-left:2px}
-.bzh[data-bzex]{cursor:pointer}.bzh[data-bzex]:hover .bzchev{color:var(--ink)}
+.bzh[data-bzdet]{cursor:pointer}.bzh[data-bzdet]:hover .bzchev{color:var(--ink)}
+/* okno s podrobnostmi řádku herního záznamu (2026-10-25): velké čitelné kostky, popisky vlevo, hodnoty vpravo */
+.bzdet .bzdhl{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin:0 30px 4px 0;font:600 1.2rem/1.3 var(--f-disp)}
+.bzdet .bzdos{display:inline-flex;align-items:center;gap:6px}
+.bzdet .bzdco{color:var(--ink)}
+.bzdet .bzdsip{font-style:normal;color:var(--muted)}
+.bzdet .bzdmeta{margin:0 0 14px;color:var(--muted);font-size:.88rem}
+.bzdet .bzdl2{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:10px 16px;align-items:baseline;margin:0}
+.bzdet .bzdl2 dt{font:600 .74rem/1.3 var(--f-label);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.bzdet .bzdl2 dd{margin:0;font-size:1.02rem;line-height:1.5;overflow-wrap:anywhere}
+.bzdet .bzk{min-width:30px;height:30px;font-size:1rem;border-radius:5px}
+.bzdet .bzkg{gap:5px}
+.bzdet .bztot{font-size:1.45rem}
+.bzdet .bzdvys{font:600 1.15rem/1.3 var(--f-disp)}
+.bzdet .bzdvys.bzkr{color:var(--gold)}.bzdet .bzdvys.bzmis{color:var(--muted)}.bzdet .bzdvys.bzhit{color:var(--kal)}
 .bzt{display:inline-flex;align-items:center;gap:3px 6px;margin-left:auto}
 .bzr{display:inline-flex;align-items:center;gap:3px 6px}
 .bzchev{display:inline-flex;flex:none;color:var(--muted);transition:transform .15s}.bzchev .bi{width:14px;height:14px}
@@ -3733,6 +3765,28 @@ html.mmpc:not(.mmjenhra) .bdmweb{display:grid;font-size:1.2rem}
   .bojpc .bcolk .bdmpc .bdmh{grid-template-columns:auto minmax(170px,1fr) minmax(210px,290px) minmax(210px,290px)}
   .bojpc .bcolk .bdmpc .bdmportw{--pw:128px}
   .bdmpc .bdmpcvl .bdmvl{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+/* ===== Karta na stránce Karty (Kronika › Karty) na širokém počítači (2026-10-24, Vojta): stejné široké rozvržení jako hráčova
+   karta v boji na Hře (bdmpc, 14), jen bez přepínače Moje karta · Iniciativa · Ukončit tah; záhlaví a menu webu zůstávají,
+   pravý sloupec listů se drží pod přilepeným menu ===== */
+@media (min-width:1280px){
+  .wrap:has(.view[data-view=karty]:not([hidden]) .bdmpc){max-width:1840px}
+  #kartyview:has(>.bdmpc){--z:1}
+  #kartyview .bdm.bdmpc{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(420px,31%);align-items:start;max-width:none}
+  #kartyview .bdmpcr{top:calc((var(--navh) + 8px) / var(--z));max-height:calc((100vh - var(--navh) - 16px) / var(--z));max-height:calc((100dvh - var(--navh) - 16px) / var(--z))}
+  #kartyview .bdmpc .bdmh{display:grid;grid-template-columns:auto minmax(200px,1fr) minmax(250px,320px) minmax(250px,330px);grid-template-rows:auto auto 1fr;column-gap:14px;row-gap:8px;align-items:stretch;padding:12px 16px 14px}
+  #kartyview .bdmpc .bdmportw{grid-column:1;grid-row:1/4;--pw:150px;padding:13px 0 12px;align-self:center}
+  #kartyview .bdmpc .bdmac,#kartyview .bdmpc .bdmini{min-height:84px}
+  #kartyview .bdmpc .bdmac b,#kartyview .bdmpc .bdmini b{font-size:2rem}
+  #kartyview .bdmpc .bdmhp b{font-size:1.9rem}
+  #kartyview .bdmpc .bdmsq,#kartyview .bdmpc .bdmst{min-height:48px}
+}
+/* web kolem karty ubírá šířku (rám, okraje): zmenšené rozvržení až do 1800 px, jinak se jméno nevejde vedle portrétu */
+@media (min-width:1280px) and (max-width:1799px){
+  #kartyview:has(>.bdmpc){--z:.85;zoom:.85}
+  #kartyview .bdm.bdmpc{grid-template-columns:minmax(0,1fr) minmax(370px,30%)}
+  #kartyview .bdmpc .bdmh{grid-template-columns:auto minmax(170px,1fr) minmax(210px,290px) minmax(210px,290px)}
+  #kartyview .bdmpc .bdmportw{--pw:128px}
 }
 /* ===== Scéna mimo boj (2026-10-23): místo pruhu iniciativy přítomní ===== */
 .bscleg{display:flex;flex-direction:column;align-items:center;gap:1px;padding:4px 10px;border:1px solid var(--gold);border-radius:999px;background:var(--paper);font:500 .72rem/1.1 var(--f-label);letter-spacing:.04em;text-transform:uppercase}

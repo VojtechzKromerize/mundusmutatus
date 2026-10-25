@@ -145,7 +145,6 @@ const EDPOLE = {
   statblok: "Statblock v boji (id protivníka [+ přívlastek], jen vypravěč)",
 };
 const EDDLOUHE = new Set(["hlava", "postoj", "historie", "note", "schopnost", "role", "utok", "pozehnani", "pokuseni", "komplikace", "nerest"]);
-const edEsc = t => String(t ?? "").replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"})[c]);
 function edRozloz(md) {
   const m = String(md)
     .replace(/\r\n/g, "\n")
@@ -294,7 +293,7 @@ function edOkno(titul, obsah) {
   const o = document.createElement("div");
   o.id = "edov";
   o.className = "edov";
-  o.innerHTML = `<div class="edbox" role="dialog" aria-modal="true" aria-label="${edEsc(titul)}"><div class="edhd"><b>${edEsc(titul)}</b><button type="button" class="edx" data-edzavri aria-label="Zavřít">×</button></div>${obsah}</div>`;
+  o.innerHTML = `<div class="edbox" role="dialog" aria-modal="true" aria-label="${besc(titul)}"><div class="edhd"><b>${besc(titul)}</b><button type="button" class="edx" data-edzavri aria-label="Zavřít">×</button></div>${obsah}</div>`;
   document.body.appendChild(o);
   document.body.classList.add("edopen");
   o.addEventListener("click", e => {
@@ -354,10 +353,10 @@ async function edOtevri(druh, id, novy) {
     const lab = EDPOLE[druh === "praha" && f.k === "mesto" ? "mesto_p" : f.k] || f.k,
       ro = f.k === klid && !novy;
     if (Array.isArray(f.v) || f.k === "sidla")
-      return `<label class="edf edfull">${edEsc(lab)}<textarea name="f_${f.k}" rows="${Math.max(2, (Array.isArray(f.v) ? f.v.length : 1) + 1)}" data-seznam>${edEsc(Array.isArray(f.v) ? f.v.join("\n") : f.v)}</textarea></label>`;
+      return `<label class="edf edfull">${besc(lab)}<textarea name="f_${f.k}" rows="${Math.max(2, (Array.isArray(f.v) ? f.v.length : 1) + 1)}" data-seznam>${besc(Array.isArray(f.v) ? f.v.join("\n") : f.v)}</textarea></label>`;
     if (EDDLOUHE.has(f.k) || f.v.length > 70)
-      return `<label class="edf edfull">${edEsc(lab)}<textarea name="f_${f.k}" rows="2">${edEsc(f.v)}</textarea></label>`;
-    return `<label class="edf">${edEsc(lab)}<input name="f_${f.k}" value="${edEsc(f.v)}"${ro ? " readonly" : ""}></label>`;
+      return `<label class="edf edfull">${besc(lab)}<textarea name="f_${f.k}" rows="2">${besc(f.v)}</textarea></label>`;
+    return `<label class="edf">${besc(lab)}<input name="f_${f.k}" value="${besc(f.v)}"${ro ? " readonly" : ""}></label>`;
   };
   const obr = {
     osoba: ["portrety", "Nahrát portrét"],
@@ -372,8 +371,8 @@ async function edOtevri(druh, id, novy) {
       ${obr ? `<label class="gbtn ghost edup">${obr[1]}<input type="file" accept="image/*" data-edobr="${obr[0]}" hidden></label>` : ""}
       ${novy ? "" : `<button type="button" class="gbtn ghost" data-edhist>Historie</button><button type="button" class="gbtn ghost" data-edraw>Upravit jako text</button><button type="button" class="gbtn ghost edsmaz" data-edsmaz>Smazat</button>`}</div>
     <form class="edform"><div class="edgrid">${pole.map(fld).join("")}</div>
-      <label class="edf edfull">Text <small>(odstavce prázdným řádkem, **tučně**, *kurzíva*, \u27E6tajné\u27E7, zmínka [[id|jméno]])</small><textarea name="f__body" rows="12">${edEsc(p.body.replace(/\s+$/, ""))}</textarea></label>
-      <p class="rsmall">Soubor: ${edEsc(soubor)}${novy ? " · nový záznam je pro hráče skrytý, dokud ho neodhalíš" : ""}</p>
+      <label class="edf edfull">Text <small>(odstavce prázdným řádkem, **tučně**, *kurzíva*, \u27E6tajné\u27E7, zmínka [[id|jméno]])</small><textarea name="f__body" rows="12">${besc(p.body.replace(/\s+$/, ""))}</textarea></label>
+      <p class="rsmall">Soubor: ${besc(soubor)}${novy ? " · nový záznam je pro hráče skrytý, dokud ho neodhalíš" : ""}</p>
       <p class="ederr" role="alert"></p>
       <div class="edbtns"><button type="submit" class="gbtn">Uložit</button><button type="button" class="gbtn ghost" data-edzavri>Zrušit</button></div></form>`,
   );
@@ -456,7 +455,7 @@ function edRaw(soubor, titul, uprav) {
   const md = ED.z[soubor] ?? "";
   const o = edOkno(
     titul,
-    `<form class="edform"><label class="edf edfull">Celý text souboru<textarea name="raw" rows="22" spellcheck="false" class="edmono">${edEsc(uprav ? uprav.zobraz : md)}</textarea></label>
+    `<form class="edform"><label class="edf edfull">Celý text souboru<textarea name="raw" rows="22" spellcheck="false" class="edmono">${besc(uprav ? uprav.zobraz : md)}</textarea></label>
     <p class="ederr" role="alert"></p><div class="edbtns"><button type="submit" class="gbtn">Uložit</button>${uprav ? "" : `<button type="button" class="gbtn ghost" data-edhist>Historie</button>`}<button type="button" class="gbtn ghost" data-edzavri>Zrušit</button>${!uprav && soubor.endsWith(".md") && soubor !== "vazby.md" ? `<button type="button" class="gbtn ghost edsmaz" data-edsmazraw>Smazat soubor</button>` : ""}</div></form>`,
   );
   const sr = o.querySelector("[data-edsmazraw]");
@@ -544,8 +543,8 @@ async function edHistorie(soubor) {
     `<ol class="edhist">${
       h
         .map(
-          (x, i) => `<li><div class="edhr"><b>${new Date(x.kdy).toLocaleString("cs-CZ")}</b><span>${edEsc(x.akce)}</span>
-      <button type="button" class="gbtn ghost" data-hv="${i}">Zobrazit</button>${x.md != null && x.md !== ED.z[soubor] ? `<button type="button" class="gbtn ghost" data-ho="${i}">Obnovit tuto verzi</button>` : ""}</div><pre class="edpre" hidden>${edEsc(x.md ?? "")}</pre></li>`,
+          (x, i) => `<li><div class="edhr"><b>${new Date(x.kdy).toLocaleString("cs-CZ")}</b><span>${besc(x.akce)}</span>
+      <button type="button" class="gbtn ghost" data-hv="${i}">Zobrazit</button>${x.md != null && x.md !== ED.z[soubor] ? `<button type="button" class="gbtn ghost" data-ho="${i}">Obnovit tuto verzi</button>` : ""}</div><pre class="edpre" hidden>${besc(x.md ?? "")}</pre></li>`,
         )
         .join("") || "<li>Zatím žádné verze.</li>"
     }</ol><p class="ederr" role="alert"></p>`,
@@ -742,7 +741,7 @@ document.addEventListener("click", async e => {
     const m = String(err.message),
       f = (m.match(/^([a-z_/-]+\/[0-9A-Za-z_.-]+\.md|vazby\.md|rodokmeny\.json)/) || [])[1];
     out.innerHTML =
-      edEsc(m) + (f && ED.z && f in ED.z ? ` <button type="button" class="gbtn ghost" data-edsoubor="${edEsc(f)}">Opravit ${edEsc(f)}</button>` : "");
+      besc(m) + (f && ED.z && f in ED.z ? ` <button type="button" class="gbtn ghost" data-edsoubor="${besc(f)}">Opravit ${besc(f)}</button>` : "");
   }
 });
 document.addEventListener("submit", e => {

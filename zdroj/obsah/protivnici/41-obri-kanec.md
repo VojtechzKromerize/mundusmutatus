@@ -5,11 +5,12 @@ uroven: sok
 vyzva: 2 (450 XP)
 ac: 13
 hp: 42
-utok: Kly +5, 2d6+3 · po rozběhu 20 stop navíc 2d6 a Prone · zraněný útočí s výhodou
+utok: Kly +5, 2d6+3 · po rozběhu 20 stop navíc 2d6 a Prone · zraněný útočí s výhodou · zarputilost (Reakce)
 pozehnani: Projede skrz: po zásahu se může pohnout dál o 20 stop bez Opportunity Attacks a vzít dalšího.
 pokuseni: Zaryje se do bahna nebo plotu: příští slot se vyprošťuje.
 nerest: Zuřivost – když krvácí, neuteče. Dá se ale navést do pasti nebo na nastražené kopí (Survival DC 13).
 stitky: zvěř, kanec, les, pole, vesnice, lov
+zdroje: Zarputilost 1
 utoky:
   - Kly | +5 | 2d6+3 Piercing | po rozběhu aspoň 20 stop rovně navíc 2d6 a cíl Large a menší je Prone
 ---
@@ -35,6 +36,10 @@ Kanec, kterého Noc Proměny nafoukla do velikosti tura. Rozrývá pole, láme p
 
 - **Kly.** +5, dosah 5 stop. **Zásah:** 2d6+3 Piercing. Pokud se těsně před útokem rozběhl aspoň 20 stop rovně, cíl utrží navíc 2d6 Piercing a velikost Large a menší je Prone.
 
+## Reakce
+
+- **Zarputilost (1/den).** Když utrží zranění nejvýš 10, které by ho srazilo na 0 HP, zůstane mu 1 HP.
+
 **Výkupné a kořist.** Maso pro celou ves, kly jako trofej a vděk rychtáře.
 
-*Předloha: Giant Boar (D&D 2024), převedeno pro Mundus Mutatus.*
+*Předloha: Giant Boar (D&D 2024); reakce podle Relentless starších kanců, převedeno pro Mundus Mutatus.*

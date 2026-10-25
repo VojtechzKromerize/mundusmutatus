@@ -2,7 +2,7 @@
 # ukázky pro hráče, příprava sezení, SRD předměty a nestvůry, offline fronta – s databází.
 import asyncio, json, os, urllib.request
 from playwright.async_api import async_playwright
-from _klid import klid  # čekání na klid stránky místo pevných ms (testy/_klid.py)
+from _klid import klid, dokud  # čekání na klid stránky místo pevných ms (testy/_klid.py)
 U=os.environ.get("MM_SB","http://localhost:54321");K="sb_publishable_test";BASE=os.environ.get("MM_WEB","http://localhost:8765/")
 VYSTUP=os.environ.get("MM_VYSTUP","/tmp")
 def tok():
@@ -191,7 +191,9 @@ async def main():
     await pl.keyboard.press('Escape');await pl.click('.bdmtabs [data-bdmsec="vyb"]');await klid(pl,400)
     sk=await pl.evaluate("[...document.querySelectorAll('.bdm [data-kvsk]')].map(d=>d.dataset.kvsk)")
     chk(sk==["s:"],"vybavení ve složkách (bez složky = Na sobě): "+str(sk))
+    await dokud(pl,"typeof VYB!=='undefined'&&!!VYB",10000);await klid(pl,800)  # druhy věcí bere z katalogu vybavení, který se načítá líně (10-25 jednou spadlo)
     await pl.click('.bdm [data-kvf="spo"]');await klid(pl,200)
+    await dokud(pl,"JSON.stringify([...document.querySelectorAll('.bdm .kvr')].filter(li=>!li.hidden).map(li=>li.querySelector('.kvrn').textContent))==='[\"Holy Water (flask)\"]'",5000)
     vid=await pl.evaluate("[...document.querySelectorAll('.bdm .kvr')].filter(li=>!li.hidden).map(li=>li.querySelector('.kvrn').textContent)")
     chk(vid==["Holy Water (flask)"],"přepínač druhu Spotřební ukáže jen svěcenou vodu: "+str(vid))
     await pl.click('.bdm [data-kvf=""]');await klid(pl,200)
@@ -312,6 +314,11 @@ async def main():
     cizi=await b.new_page(viewport={"width":390,"height":844});cerr=[];cizi.on("pageerror",lambda e:cerr.append(str(e)[:200]))
     await cizi.goto(BASE+"#karty/balduin");await cizi.wait_for_selector(".bdm",timeout=15000);await klid(cizi,2600);await cizi.evaluate("mmPopX()")
     chk(await cizi.evaluate("!!document.querySelector('.bdm.kro')"),"cizí prohlížeč vidí kartu jen ke čtení")
+    # 2026-10-25: za cizí zamčenou postavu se nehází – klepnutí na hod nic nespustí ani nezapíše, karta nemá kostku
+    n0=len(hody());h0=await cizi.evaluate("HODY.length")
+    await cizi.click('.bdm .bdmtabs [data-bdmsec="vl"]');await cizi.click('.bdm [data-khod="za:WIS"]');await klid(cizi,900)
+    chk(len(hody())==n0 and await cizi.evaluate("HODY.length")==h0,"cizí prohlížeč za cizí postavu nehodí (nic v záznamu)")
+    chk(await cizi.locator(".bdm .bdmd20").count()==0,"cizí karta nemá kostku")
     r=await cizi.evaluate("MMDB.kartaStav('balduin','sv',0).then(()=>'ok',e=>e.message)")
     chk(r!="ok","bez přihlášení nejde chráněnou kartu změnit ("+str(r)[:60]+")")
     await pl.keyboard.press('Escape');await pl.click('.hraja .bdmtabs [data-bdmsec="vl"]');await pl.click('.hraja [data-khod="za:WIS"], .hraja [data-bkzh="WIS"]');await klid(pl,800)

@@ -87,7 +87,7 @@ function renderRodArticle(id) {
      <dl class="kv"><dt>Vyznání</dt><dd>${faith(f.conf)}</dd>
      ${f.pos ? `<dt>Postavení</dt><dd>${POSL(f.pos)}</dd>` : ""}
      <dt>Země</dt><dd>${f.land}</dd>
-     ${f.seats.length ? `<dt>${f.city ? "Města" : "Državy"}</dt><dd>${f.seats.map(sd => maplinkBtn(f, sd)).join(", ")}</dd>` : ""}
+     ${f.seats.length ? `<dt>${f.city ? "Města" : f.castle ? "Hrady" : "Državy"}</dt><dd>${f.seats.map(sd => maplinkBtn(f, sd)).join(", ")}</dd>` : ""}
      ${ppl.length ? `<dt>Osoby</dt><dd>${ppl.map(plinkP).join(", ")}</dd>` : ""}
      ${PRAHA_PLACES.some(q => q.r === id) ? `<dt>V Praze</dt><dd>${prLinks(PRAHA_PLACES.filter(q => q.r === id))}</dd>` : ""}</dl>
      ${
@@ -151,7 +151,6 @@ function renderPersonArticle(pid) {
 }
 /* vypravěčská sekce rešerše: osud po březnu 1458 a podklady (jistota, rozpory, zdroje) */
 function resersGM(r) {
-  const esc = t => String(t).replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"})[c]);
   const um = r.um ? (/^\d{4}-\d{2}-\d{2}$/.test(r.um) ? (([y, m, d]) => `${+d}. ${MES[+m - 1]} ${y}`)(r.um.split("-")) : r.um) : "";
   const zdr =
     r.zdr && r.zdr.length
@@ -161,14 +160,14 @@ function resersGM(r) {
             try {
               h = new URL(u).hostname.replace(/^www\./i, "");
             } catch (e) {}
-            return `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(h)}</a>`;
+            return `<a href="${besc(u)}" target="_blank" rel="noopener">${besc(h)}</a>`;
           })
           .join(", ")
       : "";
   return `<details class="gmres"><summary>Po březnu 1458 <span>jen pro vypravěče</span></summary>
-    ${r.po ? `<p>${esc(r.po)}</p>` : `<p class="gmresnic">O dalších osudech rešerše nic nezjistila.</p>`}
+    ${r.po ? `<p>${besc(r.po)}</p>` : `<p class="gmresnic">O dalších osudech rešerše nic nezjistila.</p>`}
     ${um ? `<p class="gmresum">Úmrtí: ${um}</p>` : ""}
-    <dl class="gmresmeta">${r.jis ? `<dt>Jistota</dt><dd>${esc(r.jis)}</dd>` : ""}${r.zak ? `<dt>Základ odhadu</dt><dd>${esc(r.zak)}</dd>` : ""}${r.roz ? `<dt>Rozpor s webem</dt><dd>${esc(r.roz)}</dd>` : ""}${zdr ? `<dt>Zdroje</dt><dd>${zdr}</dd>` : ""}</dl></details>`;
+    <dl class="gmresmeta">${r.jis ? `<dt>Jistota</dt><dd>${besc(r.jis)}</dd>` : ""}${r.zak ? `<dt>Základ odhadu</dt><dd>${besc(r.zak)}</dd>` : ""}${r.roz ? `<dt>Rozpor s webem</dt><dd>${besc(r.roz)}</dd>` : ""}${zdr ? `<dt>Zdroje</dt><dd>${zdr}</dd>` : ""}</dl></details>`;
 }
 function renderOsoby() {
   const box = document.getElementById("osobylist");
@@ -237,6 +236,22 @@ document.querySelectorAll(".navdd").forEach(dd => {
       top.setAttribute("aria-expanded", "false");
     }
   });
+  /* nabídka nesmí přerůst okno (Artikule mají dlouhý seznam): výška podle místa pod položkou, zbytek se posouvá (2026-10-25) */
+  const vyska = () => {
+    const L = dd.querySelector(".svlist");
+    if (L && !matchMedia("(max-width:640px)").matches)
+      L.style.setProperty("--svmax", Math.max(200, innerHeight - L.getBoundingClientRect().top - 12) + "px");
+  };
+  dd.addEventListener("mouseenter", vyska);
+  dd.addEventListener("focusin", vyska);
+  top.addEventListener("click", vyska);
+  addEventListener(
+    "scroll",
+    () => {
+      if (dd.matches(":hover,:focus-within,.open")) vyska();
+    },
+    {passive: true},
+  );
   dd.addEventListener("mouseenter", () => top.setAttribute("aria-expanded", "true"));
   dd.addEventListener("mouseleave", () => top.setAttribute("aria-expanded", "false"));
   /* nabídka nesmí přetéct přes okraj okna: před otevřením ji případně posuneme do strany */
@@ -568,11 +583,31 @@ function renderPravidla(b, c) {
     window.scrollTo(0, 0);
     return;
   }
-  main.innerHTML = `<nav class="crumbs"><a href="#pravidla">Pravidla</a> › <b>${K.n}</b></nav><h2 class="arttitle">${K.n}</h2><div class="srdtext">${K.h}</div><p class="rsmall srdattr">${besc(SRDP.attr)}</p>`;
+  main.innerHTML = `<nav class="crumbs"><a href="#pravidla">Pravidla</a> › <b>${K.n}</b></nav><h2 class="arttitle">${K.n}</h2><div class="srdtext"></div><p class="rsmall srdattr">${besc(SRDP.attr)}</p>`;
+  main.querySelector(".srdtext").appendChild(srdOddily(K.h, K.id !== "glosar"));
   if (K.id !== "glosar") pojZnac(main.querySelector(".srdtext"));
   const el = c && document.getElementById(c);
   if (el) el.scrollIntoView({block: "start"});
   else window.scrollTo(0, 0);
+}
+/* kapitola Pravidel rozdělená na oddíly podle nadpisů h3 (2026-10-25): oddíly mimo obrazovku prohlížeč nerozkládá ani nekreslí
+   (.srdsek, content-visibility v CSS) – dlouhé kapitoly (Povolání ~9 000 prvků) se pak otevřou mnohem rychleji. Skládá se
+   mimo stránku, aby se do ní vložila jednou. Glosář ne: má stovky drobných hesel pod h3 a režie oddílů by převážila. */
+function srdOddily(h, delit) {
+  const t = document.createElement("template");
+  t.innerHTML = h;
+  const F = t.content;
+  if (!delit || F.children.length < 30) return F;
+  let sek = null;
+  for (const e of [...F.childNodes]) {
+    if (!sek || e.nodeName === "H3") {
+      sek = document.createElement("section");
+      sek.className = "srdsek";
+      F.insertBefore(sek, e);
+    }
+    sek.appendChild(e);
+  }
+  return F;
 }
 const NAVNAME = {
   hra: "Hra",
@@ -715,7 +750,8 @@ function route() {
     document.querySelectorAll("[data-sub]").forEach(n => n.classList.toggle("on", n.dataset.sub === view));
   if (view === "druzina" || view === "karty")
     document.querySelectorAll("[data-ksub]").forEach(n => n.classList.toggle("on", n.dataset.ksub === view));
-  queueMicrotask(navSync);
+  /* až před vykreslením snímku: čtení šířky podnabídky vynutí rozložení stránky – v mikroúloze by se rozkládala dvakrát (2026-10-25) */
+  requestAnimationFrame(navSync);
   document.title = view === "uvod" ? "Mundus Mutatus" : "Mundus Mutatus · " + (TITL[navV] || SUBT[navV]);
   if (view === "desky") {
     const art = document.getElementById("article"),
@@ -731,6 +767,7 @@ function route() {
       art.hidden = true;
       sub = subs.includes(b) ? b : "rody";
       if (sub === "osoby") renderOsoby();
+      if (sub === "vazby" && !gsvg.firstChild) drawGraph();
     }
     subs.forEach(k => {
       document.getElementById(k).hidden = k !== sub;
@@ -822,7 +859,7 @@ document.addEventListener("click", e => {
   if (m) {
     const f = byId[m.dataset.id];
     navTo("#mapa");
-    if (f.city) showCity(f.id, m.dataset.place);
+    if (f.city || f.castle) showCity(f.id, m.dataset.place);
     else {
       show(f.id);
       const sd = f.seats.find(x => x[0] === m.dataset.place);

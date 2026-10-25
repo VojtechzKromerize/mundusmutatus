@@ -404,3 +404,22 @@ const kPocet = (c, pakt) => {
 
 /* z 20b-boj-vypravec */
 const bojKonDC = d => Math.min(30, Math.max(10, Math.floor((+d || 0) / 2)));
+
+/* ---- manévry Battle Mastera se záchranou cíle (2026-10-25, Vojta): co se stane při neúspěchu; vyhodnotí vypravěč při potvrzení
+   zásahu (20g). st = stav cíle, ef = značka účinku, okdy "konec" = skončí na konci příštího tahu útočníka (jako Vex), vel = jen
+   na tvora Velkého a menšího ---- */
+const MANZ = {
+  "Trip Attack": {ab: "STR", st: "sražen", vel: true, txt: "sražen (Prone)"},
+  "Menacing Attack": {ab: "WIS", st: "vyděšen", okdy: "konec", txt: "vyděšen (Frightened) do konce příštího tahu útočníka"},
+  "Pushing Attack": {ab: "STR", vel: true, txt: "odstrčen až o 15 stop – posuň figurku"},
+  "Disarming Attack": {ab: "STR", txt: "upustí jeden předmět, který drží (vybere útočník)"},
+  "Goading Attack": {ab: "WIS", ef: 1, okdy: "konec", txt: "do konce příštího tahu útočníka nevýhoda na útoky proti jiným"},
+};
+/* výsledek manévru: n = název, ok = cíl uspěl v záchraně, velky = cíl je Obrovský a větší */
+function manVysledek(n, ok, velky) {
+  const M = MANZ[n];
+  if (!M) return null;
+  if (M.vel && velky) return {n, txt: `${n}: na tak velkého tvora nepůsobí`};
+  if (ok) return {n, txt: `${n}: záchrana ${M.ab} uspěla`};
+  return {n, st: M.st || "", ef: !!M.ef, okdy: M.okdy || "", txt: `${n}: ${M.txt}`};
+}

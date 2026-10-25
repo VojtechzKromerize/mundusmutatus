@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 3 (700 XP)
 ac: 14
 hp: 52
-utok: Úder +6, 2d6+4 Bludgeoning (výhoda v prvním kole) · čte myšlenky (Detect Thoughts, DC 12) · pravá tvář (WIS DC 12, Frightened)
+utok: Úder +6, 2d6+4 Bludgeoning (výhoda v prvním kole) · čte myšlenky (Detect Thoughts, DC 12) · pravá tvář (WIS DC 12, Frightened) · mou tváří (Reakce)
 pozehnani: Vezme tvář někoho z družiny: do konce kola nikdo nepozná, který z nich je pravý (útok na něj má nevýhodu, dokud ho někdo neodhalí Insight DC 14).
 pokuseni: Maska sklouzne: do konce kola je vidět jeho pravá bezvýrazná tvář – a každý ví, kdo je.
 nerest: Závist – chce být tím, koho hraje, ne ho hrát. Kdo mu řekne, že originál je lepší, a dokáže to (Insight nebo Persuasion DC 13), toho musí v příštím slotu napadnout, i kdyby ho to prozradilo.
@@ -41,6 +41,10 @@ Bytost z druhé strany Závoje bez vlastní tváře, která bere tváře lidí. 
 - **Úder.** +6 (s výhodou v prvním kole boje), dosah 5 stop. **Zásah:** 2d6+4 Bludgeoning.
 - **Pravá tvář (dobíjí se na 6).** Odloží masku: každý tvor do 15 stop, který ho vidí, hodí WIS save DC 12, jinak je Frightened; opakuje na konci každého svého tahu.
 
+## Reakce
+
+- **Mou tváří.** Když ho zasáhne útok a do 5 stop stojí tvor, jehož podobu má, útočník hodí WIS (Insight) DC 12, jinak útok zasáhne toho druhého.
+
 **Výkupné a kořist.** Za dvojníka nikdo nezaplatí. Ale ví, koho hrál, kdo ho najal a co se ten člověk dozvěděl – a to je cennější než výkupné. Při zajetí vezme tvář toho, kdo ho hlídá.
 
-*Předloha: Doppelganger (D&D 2024), převedeno pro Mundus Mutatus.*
+*Předloha: Doppelganger (D&D 2024); reakce podle Amnizu, převedeno pro Mundus Mutatus.*

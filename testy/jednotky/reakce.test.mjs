@@ -57,6 +57,23 @@ test("nabídka podle spouštěče: Shield na zásah, Riposte a Odvetná na minut
   assert.ok(!ok({...f, sd: {k: "d8", zb: 0}}, ZAS, "zasah").o.some(r => r.k === "parry"));
 });
 
+test("příležitostný útok, když nepřítel opouští dosah; Sentinel i na zásah jiného (2026-10-25)", () => {
+  const E = {a: "Skřet", ai: "n1"};
+  assert.deepEqual(
+    ok({zbl: true}, E, "odchod").o.map(r => r.k),
+    ["pa"],
+  );
+  assert.ok(!/Sentinel/.test(ok({zbl: true}, E, "odchod").o[0].t));
+  assert.match(ok({zbl: true, sentinel: true}, E, "odchod").o[0].t, /rychlost 0/);
+  assert.deepEqual(ok({}, E, "odchod").o, [], "bez zbraně zblízka nic");
+  assert.equal(ok({zbl: true, rk: true}, E, "odchod").proc, "Reakci jsi už v tomto kole použil.");
+  assert.deepEqual(
+    ok({zbl: true, sentinel: true}, {...E, c: "Adam"}, "jiny").o.map(r => r.k),
+    ["sentinel"],
+  );
+  assert.deepEqual(ok({zbl: true}, {...E, c: "Adam"}, "jiny").o, [], "bez Sentinelu se na zásah jiného nereaguje");
+});
+
 test("výsledek: kolik HP reakce vrátí", () => {
   const R = (k, e, f, x) => V(`reakceVysledek("${k}", ${JSON.stringify(e)}, ${F(f || {})}, ${JSON.stringify(x || {})})`);
   assert.deepEqual(R("shield", ZAS), {n: 9, proc: "Shield – útok minul"});
@@ -96,4 +113,27 @@ test("stránka: nabídka na zásah bere fakta z karty; použitá reakce ukáže 
   assert.equal(o.a, false);
   assert.equal(o.bProc, "Reakci jsi už v tomto kole použil.");
   assert.equal(o.bObet, 0, "s použitou reakcí jen obětování zbroje (není to reakce)");
+});
+
+test("stránka: řádek „opouští dosah“ nabídne příležitostný útok; útok jde jako reakce s předponou (2026-10-25)", () => {
+  const r = S.ev(`(() => {
+    const K = KARTBY.balduin, h = {id: "h1", k: K.id, n: K.n};
+    const s0 = BOJ.s, rip0 = BJU.ripo;
+    if (typeof mmHlas !== "function") window.mmHlas = () => {};
+    const s = {aktivni: true, kolo: 2, tah: 3, hraci: [h], npc: [{id: "n1", n: "Skřet", druh: "pesak"}], reak: {}, zbrane: {}};
+    BOJ.s = s;
+    try {
+      const f = kReakceFakta(K, h, s, {ai: "n1"});
+      bojPrilezNovy(s, h, [{a: "Skřet", ai: "n1", c: K.n, ci: "h1", v: "opouští dosah", ts: 1}]);
+      const html = kPrilezHtml(K, h, s);
+      const pouzita = kPrilezHtml(K, h, {...s, reak: {h1: 1}});
+      return JSON.stringify({zbl: f.zbl, nab: /data-bpri="n1"/.test(html), txt: /opouští tvůj dosah/.test(html), pouzita, pre: [bojRipoPre({pa: 1}), bojRipoPre({pa: 1, st: 1}), bojRipoPre({sen: 1}), bojRipoPre({})], rip: [bojRipoJeRiposte({}), bojRipoJeRiposte({pa: 1})]});
+    } finally { BOJ.s = s0; BJU.ripo = rip0; }
+  })()`);
+  const o = JSON.parse(r);
+  assert.equal(o.zbl, true, "Balduin má zbraň zblízka");
+  assert.ok(o.nab && o.txt, "nabídka příležitostného útoku");
+  assert.equal(o.pouzita, "", "s použitou reakcí se nenabízí");
+  assert.deepEqual(o.pre, ["Příležitostný útok: ", "Příležitostný útok (Sentinel): ", "Sentinel: ", "Riposte: "]);
+  assert.deepEqual(o.rip, [true, false], "kostka převahy jen u Riposte");
 });

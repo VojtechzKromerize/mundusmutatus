@@ -168,8 +168,13 @@ function bojSpStav(cim) {
   const t = String(d.t || ""),
     EN = Object.fromEntries(Object.entries(SRDST).map(([k, v]) => [v.en, k])),
     st = [];
-  t.split(/(?<=\.)\s+/)
-    .filter(v => /neúspěch|jinak|musí uspět|při selhání|selže-li|pokud selže|nepodaří/i.test(v))
+  /* věty o neúspěchu a věta hned za ní, která ho rozvádí („Dokud je Charmed, je Incapacitated“ – Hypnotic Pattern, 2026-10-25);
+     stav v záporu („nemůže těžit ze stavu Invisible“, „nemůže ukončit stav Prone“, „imunní vůči“) se nepočítá */
+  const V = t.split(/(?<=\.)\s+/),
+    FAIL = /neúspěch|jinak|musí uspět|při selhání|selže-li|pokud selže|nepodaří/i,
+    ZAPOR = /(?:nemůže|nemohou|nesmí)\s+(?:na sobě\s+)?(?:těžit|využ\w*|ukončit)[^,.;]{0,30}|imunní vůči[^,.;]{0,40}/gi;
+  V.filter((v, i) => FAIL.test(v) || (i > 0 && FAIL.test(V[i - 1]) && /^(Dokud|Během té doby|Po tu dobu|Po dobu)\b/.test(v)))
+    .map(v => v.replace(ZAPOR, ""))
     .forEach(v => {
       (
         v.match(

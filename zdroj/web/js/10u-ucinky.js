@@ -4,7 +4,7 @@
 
    UCINKY[jméno] – jeden záznam na účinek (kouzlo, rys, kostka). Všechna pole jsou nepovinná:
      p        popis na kartě (co účinek dělá, dokud trvá)
-     hodnoty karty: ac (+AC) · acmin (AC nejméně) · acz (bez zbroje AC = acz + DEX) · rych (+stop) · rychX (násobek rychlosti)
+     hodnoty karty: ac (+AC) · acmin (AC nejméně) · acz (bez zbroje AC = acz + DEX) · rych (+stop) · rychX (násobek rychlosti) · akceNavic omezená akce navíc v tahu (Haste; účet tahu 10t)
               zach (+ ke všem záchranám) · adv [vlastnosti] výhoda na záchrany · res [typy] | "vse" Resistance
               hpmax l => + maximum HP podle stupně · thp l => dočasné HP při seslání ({x: výraz} | {n: číslo}) · thpTah dočasné HP
               na začátku tahu · dov {dovednost: bonus} · ov + ke všem ověřením · utMinus útoky proti tobě −1d4 · blink d6 na konci tahu
@@ -20,6 +20,7 @@ const UCINKY = {
     ac: 2,
     rychX: 2,
     adv: ["DEX"],
+    akceNavic: 1,
     p: "+2 AC, dvojnásobná rychlost, výhoda na záchrany DEX, v každém tahu akce navíc (Útok jedním útokem, Sprint, Odpoutání, Skrytí nebo Použití předmětu)",
   },
   "Mage Armor": {acz: 13, p: "bez zbroje: AC 13 + DEX"},

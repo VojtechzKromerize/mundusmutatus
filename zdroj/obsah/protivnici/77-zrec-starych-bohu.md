@@ -5,13 +5,13 @@ uroven: sok
 vyzva: 2 (450 XP)
 ac: 13 (kožená s cvočky)
 hp: 44
-utok: Dva útoky: hůl s úponky +5, 1d8+3 a 1d4 Poison, nebo bludný svit +5, 90 stop, 3d6 Svaté · zapletení, hromová vlna (DC 13) · měsíční paprsek
+utok: Dva útoky: hůl s úponky +5, 1d8+3 a 1d4 Poison, nebo bludný svit +5, 90 stop, 3d6 Svaté · zapletení, hromová vlna (DC 13) · měsíční paprsek · podoba zvířete (Bonusová akce)
 pozehnani: Zavolá zvíře: na bojiště přiběhne vlk, medvěd nebo hejno krkavců (přidej houf nebo soka).
 pokuseni: Staří bozi chtějí obětinu: ztratí 1d10 HP nebo jeden přívrženec padne.
 nerest: Pýcha – věří, že Kristus je jen další bůh, který přišel a odejde. Kdo prokáže úctu jeho háji (obětina, Religion DC 13), s tím mluví.
 vyznani: old
 stitky: starověrci, Staří bozi, žrec, druid, les, Perun, Veles, Morana, hory, lidé
-zdroje: Zapletení 2, Hromová vlna 2, Měsíční paprsek 1
+zdroje: Zapletení 2, Hromová vlna 2, Měsíční paprsek 1, Podoba zvířete 2
 utoky:
   - Hůl s úponky | +5 | 1d8+3 Bludgeoning a 1d4 Poison | dva útoky v jednom slotu
   - Bludný svit | +5 | 3d6 Svaté (Radiant) | dostřel 90 stop
@@ -43,6 +43,10 @@ Kněz Starých bohů z hor a hlubokých lesů. Po Noci Proměny Staří bozi odp
 - **Bludný svit.** +5, dostřel 90 stop. **Zásah:** 3d6 Svaté.
 - **Kouzla (WIS, DC 13).** Libovolně: Druidcraft, Speak with Animals. 2/den: Entangle, Thunderwave. 1/den: Animal Messenger, Longstrider, Moonbeam.
 
+## Bonusová akce
+
+- **Podoba zvířete (2/den).** Promění se ve vlka, medvěda nebo krkavce (útoky a rychlost podle zvířete), nebo zpět. Ponechá si HP, jazyk a kouzla.
+
 **Výkupné a kořist.** Bylinky, amulety a vědění, za které by lékaři dali hodně. Vesnice by za něj nedala nic – je jejich.
 
-*Předloha: Druid (D&D 2024), převedeno pro Mundus Mutatus.*
+*Předloha: Druid (D&D 2024); bonusová akce podle Archdruid, převedeno pro Mundus Mutatus.*

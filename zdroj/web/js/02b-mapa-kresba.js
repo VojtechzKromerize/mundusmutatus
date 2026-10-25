@@ -6340,13 +6340,26 @@ function drawMapK() {
         if (id !== sel) {
           (relT[id] = relT[id] || new Set()).add(r.t);
         }
+  /* místo, které je zároveň městem (hradem) se shrnutím i sídlem rodu, se kreslí jednou (Vojta 2026-10-25): se zapnutou vrstvou
+     Sídla rodů jako sídlo rodu (klik ukáže rod), bez ní jako město či hrad (klik ukáže shrnutí místa) */
+  const rodM = new Set(),
+    grpM = new Set(),
+    drawnM = new Set();
+  if (st.holds) for (const f of FAM) if (!f.nomap && !f.city && !f.castle) for (const sd of f.seats) rodM.add(sd[0]);
+  for (const f of FAM) if (!f.nomap && (f.city ? st.cities : f.castle && st.castles)) for (const sd of f.seats) grpM.add(sd[0]);
+  /* bez vrstvy Sídla rodů jsou sídla rodů jen místa: město ve vrstvě Města, hrad ve vrstvě Hrady (klik ukáže shrnutí místa) */
+  const vidi = f => (f.city ? st.cities : f.castle ? st.castles : st.holds || st.cities || st.castles);
   for (const f of FAM) {
     if (f.nomap) continue;
-    if (sel !== f.id && (f.city ? !st.cities : !st.holds)) continue;
+    if (sel !== f.id && !vidi(f)) continue;
+    const rodovy = !f.city && !f.castle;
     for (const sd of f.seats) {
+      if (sel !== f.id && !rodovy && rodM.has(sd[0])) continue;
+      if (sel !== f.id && rodovy && !st.holds && (grpM.has(sd[0]) || !(TOWNSEATS.has(sd[0]) ? st.cities : st.castles))) continue;
+      drawnM.add(sd[0]);
       const conf = sd[3] || f.conf;
       const [x, y] = P(sd[1], sd[2]);
-      const isSel = sel === f.id && (!st.city || sd[0] === st.city);
+      const isSel = (sel === f.id && (!st.city || sd[0] === st.city)) || st.misto === sd[0];
       const filtOk = st.conf === "all" || (st.conf === "nbr" ? !!f.nbr : !f.nbr && conf === st.conf);
       const rt = relT[f.id];
       const dim = (sel && !isSel && !rt) || !filtOk;
@@ -6357,14 +6370,14 @@ function drawMapK() {
           pickPlace(sd[0]);
           return;
         }
-        if (f.city) showCity(f.id, sd[0]);
-        else select(f.id);
+        if (rodovy && st.holds) select(f.id);
+        else showMisto(sd[0]);
       });
       const r = (isSel ? 6.5 : 4.8) * s,
         sw = (1 * s).toFixed(2);
       g.appendChild(el("circle", {cx: x, cy: y, r: (12 * s).toFixed(1), fill: "transparent"}));
       const tier = mistoTier(sd[0], f.city || TOWNSEATS.has(sd[0]));
-      if (f.city || TOWNSEATS.has(sd[0])) {
+      if (!f.castle && (f.city || TOWNSEATS.has(sd[0]))) {
         g.appendChild(mapIkEl(TOWNICO, conf, !!f.nbr && !f.city, isSel ? 19 : MTZ[tier], x, y, 0.62, s));
       } else {
         g.appendChild(mapIkEl(CASTLEICO, conf, !!f.nbr, isSel ? 18 : MTZ[tier], x, y, 0.66, s));
@@ -6412,10 +6425,10 @@ function drawMapK() {
     }
   }
   {
-    const drawn = new Set();
-    for (const f of FAM) if (!f.nomap) for (const sd of f.seats) drawn.add(sd[0]);
+    /* jen sídla, která se opravdu kreslí: se skrytými hrady a sídly rodů (2026-10-25) zůstane město jako Svídnice vidět ze zeměpisu */
+    const drawn = drawnM;
     for (const [n, lo, la, conf, typ] of ZEMEPIS) {
-      if (drawn.has(n) || (typ === "mesto" ? !st.cities : !st.holds)) continue;
+      if (drawn.has(n) || (typ === "mesto" ? !st.cities : typ === "hrad" ? !st.castles : !st.holds)) continue;
       drawn.add(n);
       const [x, y] = P(lo, la),
         filtOk = st.conf === "all" || (st.conf !== "nbr" && conf === st.conf),
@@ -6427,7 +6440,8 @@ function drawMapK() {
           pickPlace(n);
           return;
         }
-        mmHlasZem(n);
+        if (CITYINFO[n]) showMisto(n);
+        else mmHlasZem(n);
       });
       g.appendChild(el("circle", {cx: x, cy: y, r: (12 * s).toFixed(1), fill: "transparent"}));
       const tier = mistoTier(n, typ === "mesto");

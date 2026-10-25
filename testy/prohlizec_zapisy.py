@@ -1,5 +1,6 @@
 import asyncio, json, urllib.request
 from playwright.async_api import async_playwright
+from _klid import klid, dokud, sleduj  # čekání na stav místo pevných pauz (testy/_klid.py)
 import os, sys
 U=os.environ.get("MM_SB","http://localhost:54321");K="sb_publishable_test";BASE=os.environ.get("MM_WEB","http://localhost:8765/")
 VYSTUP=os.environ.get("MM_VYSTUP","/tmp")
@@ -15,19 +16,20 @@ async def main():
     g.on("dialog",lambda d:asyncio.ensure_future(d.accept()))
     await g.add_init_script("localStorage.setItem('mm-gm-relace',JSON.stringify("+json.dumps({"at":t["access_token"],"rt":t["refresh_token"],"exp":t["expires_at"],"email":"gm@x.cz"})+"))")
     ready=lambda: g.wait_for_function("!document.documentElement.classList.contains('mmload')&&typeof PBY!=='undefined'")
-    await g.goto(BASE+"#gm");await g.wait_for_selector("#ednovy")
-    await g.click("[data-edkontrola]");await g.wait_for_timeout(1500)
+    await sleduj(g);await g.goto(BASE+"#gm");await g.wait_for_selector("#ednovy")
+    await g.click("[data-edkontrola]");await dokud(g,"/\\S/.test(document.querySelector('#edkontrola').textContent)",15000);await klid(g,1500)
     chk("v pořádku" in await g.inner_text("#edkontrola"),"kontrola textů: v pořádku")
     await g.select_option("#ednovy [name=druh]","zapis");await g.fill("#ednovy [name=nid]","sezeni-1");await g.click("#ednovy button[type=submit]")
     await g.wait_for_selector("#edov form")
     await g.fill("[name=f_title]","Kostnice pod Vyšehradem");await g.fill("[name=f_n]","Sezení 1")
     await g.fill("[name=f__body]","První odstavec zápisu.\n\nDruhý **tučný** odstavec. ⟦Tajná poznámka ZAP_TAJ⟧")
-    await g.click("#edov button[type=submit]");await g.wait_for_timeout(1500);await ready();await g.wait_for_timeout(300)
+    async with g.expect_navigation(timeout=30000): await g.click("#edov button[type=submit]")  # uložení stránku obnoví
+    await ready();await klid(g,300)
     chk(await g.evaluate("!!ZBY['sezeni-1']&&STAV['sezeni-1']===0"),"nový zápis je koncept")
     chk("Kostnice pod" not in snimek(),"koncept není u hráčů")
-    await g.goto(BASE+"#kronika/sezeni-1");await g.wait_for_timeout(400)
+    await g.goto(BASE+"#kronika/sezeni-1");await klid(g,400)
     t2=await g.inner_html("#kzapisy .ztext");chk("<b>tučný</b>" in t2 and "ZAP_TAJ" in t2,"Markdown a tajemství u vypravěče")
-    await g.click("#kzapisy .gmbar .gs2");await g.wait_for_timeout(800)
+    await g.click("#kzapisy .gmbar .gs2");await klid(g,2000)
     S=snimek();chk("Kostnice pod" in S and "ZAP_TAJ" not in S,"zveřejněný zápis u hráčů bez tajemství")
     chk(not err,"bez chyb "+str(err[:2]))
     await b.close()

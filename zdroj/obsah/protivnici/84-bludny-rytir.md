@@ -5,7 +5,7 @@ uroven: zhoubce
 vyzva: 12 (8 400 XP)
 ac: 18 (plná zbroj)
 hp: 202
-utok: Obouruční meč +9, 2d6+5 a 5d8 Svaté, nebo dlouhý luk +7, 150/600 stop, 2d8+3 a 5d8 Svaté · aura statečnosti 30 stop
+utok: Obouruční meč +9, 2d6+5 a 5d8 Svaté, nebo dlouhý luk +7, 150/600 stop, 2d8+3 a 5d8 Svaté · aura statečnosti 30 stop · boží úder (Bonusová akce) · kryt (Reakce)
 pozehnani: Ruka na rameni: zásah je kritický.
 pokuseni: Přísaha ho svazuje: v příštím slotu nesmí zaútočit na toho, kdo neozbrojený prosí o milost.
 nerest: Přísaha – vydal se na výpravu (za drakem, Grálem, ztracenou paní) a nic ho neodkloní. Kdo mu pomůže, toho bude bránit; kdo stojí v cestě, toho vyzve. Ctnosti: Odvaha, Věrnost, Štědrost. Neřest: Pýcha.
@@ -42,6 +42,14 @@ Rytíř na výpravě, kterou mu svěřil Bůh, dáma nebo slib nad hrobem. Po No
 - **Dlouhý luk.** +7, dostřel 150/600 stop. **Zásah:** 2d8+3 Piercing a 5d8 Svaté.
 - **Kouzla (CHA, DC 16).** 1/den: Daylight, Dispel Evil and Good, Greater Restoration, Phantom Steed.
 
+## Bonusová akce
+
+- **Boží úder.** Hned po zásahu útokem zblízka: cíl hodí CON save DC 16, jinak je na minutu Blinded (záchrana na konci tahu), nebo je odstrčen o 10 stop a je Prone (volí rytíř).
+
+## Reakce
+
+- **Kryt.** Když ho zasáhne útok zblízka a drží meč, přičte si k AC 4 – útok může minout.
+
 **Výkupné a kořist.** Výkupné 100 kop a čest rodu. Zabít ho je hřích (bod Svědomí), zajmout ho je čest.
 
-*Předloha: Questing Knight (D&D 2024), převedeno pro Mundus Mutatus.*
+*Předloha: Questing Knight (D&D 2024); bonusová akce podle Blackguard, reakce podle Death Knight Aspirant, převedeno pro Mundus Mutatus.*

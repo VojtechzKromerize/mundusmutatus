@@ -180,7 +180,28 @@ function kartyPrekresli() {
 const kVycerp = K => +(kartaStav(K.id).vycerp || 0);
 /* hod d20 z karty; ověření a útoky hází i kostku Závoje a rovnou ji vyhodnotí, záchrany ne (Artikule › Kostka Závoje) */
 let KADV = 0;
+/* cizí zamčená karta (2026-10-25): házet za ni smí jen její hráč – databáze by hod odmítla. Klepnutí na hod, zranění, seslání,
+   útok nebo kostku na takové kartě se zachytí dřív, než cokoli spustí (ani neodečte střelivo), a hráč dostane vysvětlení. */
+const KCIZI = "[data-khod],[data-kzr],[data-kses],[data-kds],[data-ks],[data-bppap],[data-bdmsh='utok'],[data-bdmsh='kost'],.bdmd20";
+const kCiziHlas = K => mmHlasG(`Házet můžeš jen za svou postavu – ${K.n} patří jinému hráči.`, 4500);
+document.addEventListener(
+  "click",
+  e => {
+    const el = e.target.closest && e.target.closest(KCIZI),
+      karta = el && el.closest("[data-kid]"),
+      K = karta && KARTBY[karta.dataset.kid];
+    if (!K || kMuze(K)) return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    kCiziHlas(K);
+  },
+  true,
+);
 async function kartaHod(K, co, b, o = {}) {
+  if (!kMuze(K)) {
+    kCiziHlas(K);
+    return null;
+  }
   const SV = kStavVliv(K, co),
     v = kAdvSum(o.adv != null ? o.adv : KADV, SV.r);
   if (SV.r.length) o.why = [o.why, ...SV.r.map(x => x[1])].filter(Boolean).join(", ");
@@ -239,11 +260,23 @@ async function kartaHod(K, co, b, o = {}) {
     HODY.unshift(Object.assign({id: Date.now(), cas: new Date().toISOString(), skryty: true}, H));
     kartyPrekresli();
   }
-  mmHlasG(`${K.n}: ${co} ${tot} (${txt.replace(/ = \d+.*/, "")})${z ? " · " + zavTxt(z) : ""}`, 6500);
+  kHodHlas(`${K.n}: ${co} ${tot} (${txt.replace(/ = \d+.*/, "")})${z ? " · " + zavTxt(z) : ""}`);
   return {tot, d, krit, mis, zav: z ? z.d : undefined, zr: z ? z.r : undefined, txt};
 }
+/* výsledek hodu v proužku dole (2026-10-25, Vojta): výraznější, drží 12 s, zavře se klepnutím; nový hod nahradí předchozí
+   (dřív se dva rychlé hody překryly a po 6,5 s zmizely, když hráč zrovna sledoval stůl). Na kartě zůstává „Poslední hod“. */
+function kHodHlas(t) {
+  document.querySelectorAll(".mmhlas.mmhod").forEach(x => x.remove());
+  mmHlasG(t, 12000);
+  const d = [...document.querySelectorAll(".mmhlas")].pop();
+  if (!d) return;
+  d.classList.add("mmhod");
+  d.title = "Klepnutím zavřeš";
+  d.addEventListener("click", () => d.remove());
+}
 async function kHodZapis(H) {
-  HODY.unshift(Object.assign({id: Date.now(), cas: new Date().toISOString()}, H));
+  const zaz = Object.assign({id: Date.now(), cas: new Date().toISOString()}, H);
+  HODY.unshift(zaz);
   kartyPrekresli();
   try {
     await KDB.hod(H);
@@ -253,6 +286,10 @@ async function kHodZapis(H) {
       KCACHE.uloz();
       return;
     }
+    /* databáze zápis odmítla (např. cizí postava): hod nesmí zůstat v herním záznamu (2026-10-25) */
+    const i = HODY.indexOf(zaz);
+    if (i >= 0) HODY.splice(i, 1);
+    kartyPrekresli();
     mmHlasG("Hod se nepodařilo zapsat: " + (e.message || e), 4000);
   }
 }
@@ -735,7 +772,7 @@ document.addEventListener("click", async e => {
           skryty: skr,
           ut: +a,
         });
-        if (r.krit || !r.mis) {
+        if (r && (r.krit || !r.mis)) {
           const zr = kartaZraneni(K, at, r.krit, E);
           kEfPouzij(K, E, KEF[K.id]);
           kHodZapis({
@@ -972,6 +1009,7 @@ document.addEventListener("click", async e => {
     let d = null;
     if (a === "hod") {
       const r = await kartaHod(K, "Hod proti smrti", 0, {adv: 0});
+      if (!r) return;
       d = r.d;
     }
     const r = bojDs(S.ds, a === "hod" ? "hod" : a === "stab" ? "u" : a, a === "hod" ? d : a === "stab" ? 3 : 1);

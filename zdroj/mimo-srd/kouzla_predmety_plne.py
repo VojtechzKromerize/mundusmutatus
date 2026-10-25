@@ -8,9 +8,10 @@ Texty NEJSOU v repozitáři (je veřejný) ani v art/ – zdrojem jsou Vojtovy t
   - vyřadí položky, které do roku 1458 nepatří, a moderní zbraně ze seznamů základních předmětů,
   - české názvy vezme z voleb webu (zdroj/kouzla/jmena.json, zdroj/vybaveni/jmena.json), jinak z tabulky.
 
-  python3 zdroj/mimo-srd/kouzla_predmety_plne.py Kouzla.xlsx Předměty.xlsx VÝSTUPNÍ_SLOŽKA [--xlsx]
-    → VÝSTUP/kouzla.json, VÝSTUP/predmety.json (objekt id → položka), s --xlsx i upravené tabulky pro Vojtu.
-Nahrání do databáze: viz docs/STAV.md („Plné texty kouzel a předmětů“) – šifrovaný soubor + pg_net + pgp_sym_decrypt.
+  python3 zdroj/mimo-srd/kouzla_predmety_plne.py Kouzla.xlsx Předměty.xlsx VÝSTUPNÍ_SLOŽKA [--xlsx] [--doplnek]
+    → VÝSTUP/kouzla.json, VÝSTUP/predmety.json (objekt id → položka), s --xlsx i upravené tabulky pro Vojtu,
+    s --doplnek zdroj/kouzla/doplnek.json (kouzla, která web nezná – jen herní údaje, bez textu; pak zdroj/kouzla/sestav.py).
+Nahrání do databáze: vypravěč na webu, Pravidla › Kouzla / Předměty › Nahrát plné znění.
 """
 import json
 import os
@@ -113,6 +114,28 @@ def kouzla(cesta):
     return out
 
 
+def doplnek(K):
+    """kouzla z Vojtovy tabulky, která web nezná (SRD, mimo SRD ani katalog): jen herní údaje bez textu → zdroj/kouzla/doplnek.json
+    (text mají přihlášení v plném znění z databáze); karta tak kouzla z PDF pozná a ukáže stupeň, školu, dosah i plné znění"""
+    cesta = os.path.join(ROOT, "zdroj", "kouzla", "doplnek.json")
+    stare = {x["en"].lower() for x in json.load(open(cesta, encoding="utf-8"))} if os.path.exists(cesta) else set()
+    web = {w["en"].lower() for w in json.load(open(os.path.join(ROOT, "art", "kouzla.json"), encoding="utf-8"))} - stare
+    out = []
+    for k, x in sorted(K.items()):
+        if k in web:
+            continue
+        sl = x["k"]
+        m = re.search(r"\bM\s*\((.*)\)\s*$", sl)
+        d = re.sub(r"^Soustředění, až 1 (minuta|hodina)$", lambda q: "Concentration, až 1 " + {"minuta": "minutu", "hodina": "hodinu"}[q.group(1)], x["d"])
+        d = re.sub(r"^Soustředění, až ", "Concentration, až ", d)
+        cz = re.sub(r"^Přivolej (\w+)", lambda q: "Přivolání " + {"dinosaura": "dinosaura", "rostlinu": "rostliny"}.get(q.group(1), q.group(1)), x["cz"])
+        out.append({"i": re.sub(r"[^a-z0-9]+", "-", k).strip("-"), "en": x["en"], "cz": cz, "l": x["l"], "s": x["s"], "p": [],
+                    "ct": x["ct"], "r": "Sebe" if x["r"] == "Sesilatel" else x["r"], "k": [c for c in ("V", "S", "M") if re.search(rf"\b{c}\b", sl.split("(")[0])],
+                    "m": m.group(1) if m else "", "d": d, "ko": 1 if d.startswith("Concentration") else 0, "ri": x["ri"]})
+    json.dump(out, open(cesta, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    print(f"{cesta}: {len(out)} kouzel (bez textu)")
+
+
 def predmety(cesta):
     jmena = {k.lower(): v for k, v in json.load(open(os.path.join(ROOT, "zdroj", "vybaveni", "jmena.json"), encoding="utf-8")).items()}
     out = {}
@@ -179,6 +202,8 @@ if __name__ == "__main__":
     nk = sum(1 for x in K.values() if "> **Artikule" in x.get("t", ""))
     np_ = sum(1 for x in P.values() if "> **Artikule" in x.get("t", ""))
     print(f"kouzla {len(K)} (s rámečkem Artikule {nk}), předměty {len(P)} (s rámečkem Artikule {np_})")
+    if "--doplnek" in sys.argv:
+        doplnek(K)
     if "--xlsx" in sys.argv:
         xlsx(a[0], os.path.join(a[2], "Kouzla.xlsx"), K, "kouzla")
         xlsx(a[1], os.path.join(a[2], "Předměty.xlsx"), P, "predmety")

@@ -783,19 +783,19 @@ function dialPocSVG(P, Pt, F, C, INK, IMG) {
     const [x, y] = Pt(h === 12 ? RM + 3 : RM, h);
     return `<g class="dialpocm"><title>${tt}</title><circle cx="${F(x)}" cy="${F(y)}" r="${r + 1.4}" fill="${INK}"/><image href="${IMG}${pocObr(kind)}" x="${F(x - r)}" y="${F(y - r)}" width="${2 * r}" height="${2 * r}" clip-path="url(#dkmed)"/></g>`;
   };
-  const popis = vyEsc(P.text) + (P.zav ? " " + vyEsc(P.zav) : "");
+  const popis = besc(P.text) + (P.zav ? " " + besc(P.zav) : "");
   o += med(12, 20, k, `Dnešní počasí: ${popis}`);
   /* vedlejší jevy (vítr, mráz, mlha, sníh na zemi, znamení Závoje) drobně po stranách hlavního symbolu */
   [9.7, 14.3, 8, 16].forEach((h, i) => {
     const kind = extra[i];
-    if (kind) o += med(h, 14.5, kind, (POC_N[kind] || "") + (kind === "zavoj" ? ": " + vyEsc(P.zav) : ""));
+    if (kind) o += med(h, 14.5, kind, (POC_N[kind] || "") + (kind === "zavoj" ? ": " + besc(P.zav) : ""));
   });
   /* popis dne po spodním oblouku */
   let t = P.text.split(". ")[0].replace(/\.$/, "");
   if (t.length > 78) t = t.slice(0, 76).replace(/[ ,–-]+\S*$/, "") + "…";
   const [x0, y0] = Pt(RM, 6.4),
     [x1, y1] = Pt(RM, 17.6);
-  o += `<path id="dkpocp" d="M${F(x0)},${F(y0)}A${RM},${RM} 0 1 0 ${F(x1)},${F(y1)}" fill="none"/><text class="dialpoct" dominant-baseline="central"><title>${popis}</title><textPath href="#dkpocp" startOffset="50%" text-anchor="middle">${vyEsc(t)}</textPath></text>`;
+  o += `<path id="dkpocp" d="M${F(x0)},${F(y0)}A${RM},${RM} 0 1 0 ${F(x1)},${F(y1)}" fill="none"/><text class="dialpoct" dominant-baseline="central"><title>${popis}</title><textPath href="#dkpocp" startOffset="50%" text-anchor="middle">${besc(t)}</textPath></text>`;
   return o + `</g>`;
 }
 /* ===== dráček na Úvodu ukazuje stav hry: bdí / spí / svátek / neklid (Hodina Závoje) / Hodina Pravdy; rámeček podle ročního období ===== */
@@ -959,8 +959,11 @@ function renderKal() {
   const html = `<div class="kalhead"><span class="kalt">Kalendárium</span><span class="lbl">svátky a Hodiny Pravdy</span></div>
    <ul class="kallist">${up.map(f => `<li class="${f.hp ? "hp" : f.info ? "inf" : ""}"><span class="kd">${(([y, m, d]) => `${d}<small>${MES[m - 1].slice(0, 3)}</small>`)(fromJdn(f.j))}</span><span class="kn">${f.n}</span><span class="kw">${f.hp ? `<a href="#artikule/pojmy/p-hodina-pravdy">Hodina Pravdy</a>` : f.info ? "" : `Požehnání 4–6: ${f.w}`}</span><span class="kr">${rel(f.j)}</span></li>`).join("")}</ul>`;
   document.querySelectorAll(".kal").forEach(k => (k.innerHTML = html));
-  kalFit();
+  /* až před vykreslením snímku – rozložení stránky se pak počítá jednou, ne uprostřed startu (2026-10-25) */
+  requestAnimationFrame(kalFit);
 }
+/* svátky, které se do rámečku kalendáře nevejdou, se skryjí – od prvního přesahujícího dál (seznam je podle data);
+   nejdřív se všechny změří, pak skryjí, aby se stránka nerozkládala znovu po každém skrytém řádku */
 function kalFit() {
   const k = document.getElementById("kal1");
   if (!k) return;
@@ -968,13 +971,15 @@ function kalFit() {
   lis.forEach(l => (l.style.display = ""));
   if (!matchMedia("(min-width:861px)").matches || !k.offsetHeight) return;
   const dol = k.getBoundingClientRect().bottom - parseFloat(getComputedStyle(k).paddingBottom);
-  lis.forEach(l => {
-    const r = [l, ...l.children]
-      .map(x => x.getBoundingClientRect())
-      .filter(r => r.height)
-      .reduce((m, r) => Math.max(m, r.bottom), 0);
-    if (r > dol + 1) l.style.display = "none";
-  });
+  const prvni = lis.findIndex(
+    l =>
+      [l, ...l.children]
+        .map(x => x.getBoundingClientRect())
+        .filter(r => r.height)
+        .reduce((m, r) => Math.max(m, r.bottom), 0) >
+      dol + 1,
+  );
+  if (prvni >= 0) lis.slice(prvni).forEach(l => (l.style.display = "none"));
 }
 if ("ResizeObserver" in window) {
   const u = document.querySelector(".uvev");
@@ -1267,8 +1272,12 @@ function autolink(root, self, filter) {
   });
 }
 /* --- HLEDÁNÍ NA CELÉM WEBU --- */
+/* rejstřík se sestaví až při prvním hledání (2026-10-25): normalizace textů celého webu stála start stránky ~20 ms na telefonu */
 const GIDX = [];
-(function () {
+let GIDXH = false;
+function gIndex() {
+  if (GIDXH) return;
+  GIDXH = true;
   FAM.forEach(f =>
     GIDX.push({
       k: "Rod",
@@ -1289,7 +1298,7 @@ const GIDX = [];
       if (seen.has(sd[0])) return;
       seen.add(sd[0]);
       const ci = (typeof CITYINFO !== "undefined" && CITYINFO[sd[0]]) || {};
-      GIDX.push({k: f.city ? "Město" : "Sídlo", n: sd[0], s: f.name, place: [f.id, sd[0]], t: norm(sd[0]), b: norm(ci.n || "")});
+      GIDX.push({k: f.city ? "Město" : f.castle ? "Hrad" : "Sídlo", n: sd[0], s: f.name, place: [f.id, sd[0]], t: norm(sd[0]), b: norm(ci.n || "")});
     });
   });
   DUCHY.forEach(u => GIDX.push({k: "Země", n: u.name, s: u.s, duchy: u.id, t: norm(u.name + " " + u.s), b: norm(u.note)}));
@@ -1341,7 +1350,7 @@ const GIDX = [];
       b: norm(dd.textContent),
     });
   });
-})();
+}
 const gq = document.getElementById("gq"),
   gres = document.getElementById("gres");
 function gSearch() {
@@ -1351,6 +1360,7 @@ function gSearch() {
     gres.innerHTML = "";
     return;
   }
+  gIndex();
   const ws = q.split(/\s+/);
   const hits = GIDX.map(r => {
     const inT = ws.every(w => r.t.includes(w)),

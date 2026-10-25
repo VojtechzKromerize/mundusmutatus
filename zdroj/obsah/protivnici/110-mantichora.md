@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 3 (700 XP)
 ac: 14
 hp: 68
-utok: Drápy +5, 1d8+3 Slashing · ostny z ocasu +5, dostřel 100/200 stop, 1d8+3 Piercing (24 ostnů)
+utok: Drápy +5, 1d8+3 Slashing · ostny z ocasu +5, dostřel 100/200 stop, 1d8+3 Piercing (24 ostnů) · ostnatý ocas (Reakce)
 pozehnani: Salva: ostny zasáhnou i druhý cíl do 10 stop od prvního.
 pokuseni: Ocas se zasekne: do konce kola nemůže střílet ostny a musí k tělu.
 nerest: Ješitnost – mluví lidským hlasem a ráda o sobě. Kdo ji chválí (Persuasion DC 13), toho poslouchá a kolo neútočí; kdo jí lže o tom, že jsou blízko lovci, tomu uvěří.
@@ -39,6 +39,10 @@ Netvor z Physiologu: lví tělo, lidská tvář, ocas plný ostnů, které vyst�
 - **Tři rány.** Provede dva útoky drápy a jeden ostny, nebo tři útoky ostny.
 - **Drápy.** +5, dosah 5 stop. **Zásah:** 1d8+3 Slashing.
 - **Ostny z ocasu.** +5, dostřel 100/200 stop. **Zásah:** 1d8+3 Piercing. Spotřebuje osten.
+
+## Reakce
+
+- **Ostnatý ocas.** Když tvor vstoupí do 10 stop od ní, šlehne ocasem: +5, 1d8+3 Piercing (spotřebuje osten).
 
 **Výkupné a kořist.** Ostny – 24 šípů, které se neláme; kůže na štít (1 kopa); hlava, za kterou uherský župan zaplatí 10 kop, protože mantichory žerou jeho poddané.
 

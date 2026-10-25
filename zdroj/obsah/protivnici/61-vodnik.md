@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 2 (450 XP)
 ac: 14
 hp: 52
-utok: Dráp +5, 2d6+3 · hrůzná tvář (WIS DC 11, Frightened) · smrtelný pohled na vyděšeného (WIS DC 11): do 20 HP = 0 HP, jinak 3d8 Psychic
+utok: Dráp +5, 2d6+3 · hrůzná tvář (WIS DC 11, Frightened) · smrtelný pohled na vyděšeného (WIS DC 11): do 20 HP = 0 HP, jinak 3d8 Psychic · pod hladinu (Reakce)
 pozehnani: Strhne cíl do vody: STR save DC 13, jinak je pod hladinou Restrained a nemůže dýchat.
 pokuseni: Z šosu mu kape voda: na suchu ztrácí sílu, příští útok má s nevýhodou.
 nerest: Hrnečky – duše utopených schovává pod pokličkami a dbá na ně víc než na sebe. Kdo hrnečky ohrozí, toho musí zastavit; kdo mu nabídne dýmku a karty (Persuasion DC 12), s tím si sedne.
@@ -41,6 +41,10 @@ Hastrman z rybníků a jezů. Na suchu je to podivný chlapík v zeleném kabát
 - **Smrtelný pohled (dobíjí se na 5–6).** Vyděšený tvor do 30 stop hodí WIS save DC 11: kdo neuspěje a má 20 HP a méně, klesne na 0 HP; ostatní utrží 3d8 Psychic.
 - **Lidská podoba.** Disguise Self na 24 hodin.
 
+## Reakce
+
+- **Pod hladinu.** Když ho zasáhne útok a stojí ve vodě nebo u ní, ponoří se a přesune se vodou až o 30 stop, aniž by vyvolal Opportunity Attack.
+
 ## Relikt
 
 - **Znamení.** Z levého šosu mu kape voda i na slunci; mokré stopy vedou do vody, ne z ní; utopení mají v uších bahno; na hladině plavou hrnečky s pokličkou.
@@ -53,4 +57,4 @@ Hastrman z rybníků a jezů. Na suchu je to podivný chlapík v zeleném kabát
 
 **Výkupné a kořist.** Hrnečky s dušemi, dýmka, která nezhasne, a mlynářův dluh.
 
-*Předloha: Sea Hag (D&D 2024), převedeno pro Mundus Mutatus.*
+*Předloha: Sea Hag (D&D 2024); reakce podle Riverine, převedeno pro Mundus Mutatus.*

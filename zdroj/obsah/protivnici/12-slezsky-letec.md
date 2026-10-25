@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 5 (1 800 XP)
 ac: jezdec 15, dráček 14
 hp: jezdec 45, dráček 68
-utok: Jezdec: kuše +5, 1d8+2 · kopí +5, 1d10+2 · ohnivý hrnec 1/den (DEX DC 13, 3d6 Fire). Dráček: kousnutí +6, 1d10+3 · drápy +6, 2d6+3, nálet +2d6
+utok: Jezdec: kuše +5, 1d8+2 · kopí +5, 1d10+2 · ohnivý hrnec 1/den (DEX DC 13, 3d6 Fire). Dráček: kousnutí +6, 1d10+3 · drápy +6, 2d6+3, nálet +2d6 · úhyb ve vzduchu (Reakce)
 pozehnani: Dráček se otočí ve vzduchu a jezdec i drak zaútočí v jednom slotu.
 pokuseni: Dráček je drzý: dá se do řeči s nepřítelem (nebo s jeho drakem) a jeden slot promarní.
 nerest: Pýcha (jezdec) – chce být prvním rytířem, který přemohl českého draka. Výzvou k souboji v letu ho lze vylákat od jeho houfu.
@@ -51,5 +51,9 @@ Rytíř ze Slezska nebo Saska na drakovi, kterého koupil jako mládě z pašova
 - **Střemhlavý nálet.** Pokud před útokem drápy klesne aspoň 30 stop, zásah způsobí navíc 2d6 a cíl velikosti Medium nebo menší je Prone (STR save DC 14).
 - **Kousnutí.** +6, dosah 5 stop. **Zásah:** 1d10+3 Piercing.
 - **Drápy.** +6, dosah 5 stop. **Zásah:** 2d6+3 Slashing. Medium cíl může uchvátit (Grappled, únik DC 14) a odnést.
+
+## Reakce
+
+- **Úhyb ve vzduchu.** Když útok zasáhne jezdce nebo dráčka, dráček strhne let: AC +2 proti tomuto útoku a po něm se oba posunou o 10 stop, aniž by vyvolali Opportunity Attack.
 
 **Výkupné a kořist.** Jezdec 15 kop grošů. Dráček je ochočený, ne divoký, takže na něj dračí mír nepamatuje. Zajatý cizí drak by mohl být prvním drakem koruny, a to je pěkná diplomatická komplikace.

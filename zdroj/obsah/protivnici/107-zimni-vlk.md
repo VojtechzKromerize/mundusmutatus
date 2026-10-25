@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 3 (700 XP)
 ac: 13
 hp: 75
-utok: Kousnutí +6, 2d6+4 Piercing a Prone · mrazivý dech (CON DC 12, 4d8 Cold, dobíjí se na 5–6)
+utok: Kousnutí +6, 2d6+4 Piercing a Prone · mrazivý dech (CON DC 12, 4d8 Cold, dobíjí se na 5–6) · vytí (Bonusová akce)
 pozehnani: Dech zmrazí zem: oblast kužele je do konce příštího kola kluzká – kdo se v ní pohne, hodí DEX save DC 12, jinak je Prone.
 pokuseni: Dech zamrzne v hrdle: do konce příštího kola nemůže dýchat mráz a kašle.
 nerest: Nenasytnost – mluví, a když mluví, nežere. Kdo mu nabídne velkou kořist (kůň, kráva; Persuasion DC 12), toho nechá projít. Pýcha: kdo ho nazve psem, toho zabije první.
@@ -39,6 +39,10 @@ Bílý vlk velký jako kůň, který mluví lidskou řečí a vede smečku pravl
 - **Kousnutí.** +6, dosah 5 stop. **Zásah:** 2d6+4 Piercing a cíl velikosti Large nebo menší je Prone.
 - **Mrazivý dech (dobíjí se na 5–6).** Kužel 15 stop. Každý tvor hodí CON save DC 12, jinak utrží 4d8 Cold; při úspěchu polovinu. Mráz: kdo neuspěl, má do konce svého příštího tahu poloviční rychlost.
 
+## Bonusová akce
+
+- **Vytí.** Houf pravlků v doslechu se pohne až o polovinu rychlosti, aniž by vyvolal Opportunity Attack.
+
 **Výkupné a kořist.** Kožich zimního vlka: kožešník z něj ušije plášť, který dává Resistance Cold (20 kop). Zimní vlk, kterého družina nechá žít a dá mu kořist, si ji pamatuje – a pamatuje si i ty, kdo mu zabili smečku.
 
-*Předloha: Winter Wolf (D&D 2024), převedeno pro Mundus Mutatus.*
+*Předloha: Winter Wolf (D&D 2024); bonusová akce podle Berserker Commander, převedeno pro Mundus Mutatus.*

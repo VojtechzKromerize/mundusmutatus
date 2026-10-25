@@ -5,13 +5,63 @@
    se připíše k hodu, ke kterému patří. Hráč u nepřátel vidí jen výsledek: nikdy jejich kostky, Závoj, AC ani životy. */
 const BZ_OKNO = 10 * 60 * 1000;
 /* sbalené řádky (2026-10-21): nejnovější záznam je vždy rozbalený, starší ukazují jen hlavičku (kdo · co → komu, výsledek
-   ikonkou, zranění, ikonka Závoje); klepnutím na hlavičku se starší řádek rozbalí – klíče rozbalených si pamatujeme */
-const BZOPEN = new Set();
+   ikonkou, zranění, ikonka Závoje). Klepnutí na řádek (2026-10-25, Vojta) otevře okno s podrobným rozborem (bzDetailHtml) –
+   vykreslené řádky si pamatujeme podle klíče (BZMAP), aby okno ukázalo přesně to, co řádek */
 const bzKlic = e => `${e.src}:${e.tg || e.t}:${e.A ? e.A.n : ""}:${e.co}`;
-function bzPrepni(k) {
-  if (BZOPEN.has(k)) BZOPEN.delete(k);
-  else BZOPEN.add(k);
+const BZMAP = new Map();
+function bzPamatuj(k, e, gm) {
+  BZMAP.delete(k);
+  BZMAP.set(k, {e, gm});
+  if (BZMAP.size > 600) BZMAP.delete(BZMAP.keys().next().value);
 }
+/* okno s podrobnostmi řádku: kdo · co → komu, kolo a čas, výsledek slovy, zranění s typem, každý hod s kostkami, Závoj, poznámky.
+   Ukazuje jen to, co řádek už nese (hráč u nepřátel dál vidí jen výsledek) */
+function bzDetailHtml(e, gm) {
+  const os = q => (q && q.n ? `<span class="bzdos"><b>${besc(q.n)}</b></span>` : "");
+  const vel = s =>
+      String(s || "")
+        .charAt(0)
+        .toUpperCase() + String(s || "").slice(1),
+    D = [];
+  if (e.vys) D.push(["Výsledek", `<span class="bzdvys ${e.vys[1] || ""}">${besc(vel(e.vys[0]))}</span>`]);
+  if (e.zr && e.zr.t != null)
+    D.push([
+      e.zr.lec ? "Léčení" : "Zranění",
+      `<b class="bztot">${e.zr.t}</b>${e.zr.zt ? ` ${besc(bojZrCz(e.zr.zt))}` : ""}${e.vys && e.vys[1] === "bzmis" ? " <small>(útok minul – nezapočítává se)</small>" : ""}`,
+    ]);
+  e.rows.forEach(r => D.push([vel(r.l) || "Hod", r.h]));
+  const z = e.zav;
+  if (z && (z.d || z.r))
+    D.push([
+      "Závoj",
+      `${z.d ? `kostka ${z.d} – ` : ""}${z.r === "pok" ? "Pokušení" : z.r === "poz" ? "Požehnání" : "bez vlivu"}${z.vol ? `: ${besc(z.vol)}` : ""}${z.txt ? `<br><small>${besc(z.txt)}</small>` : ""}`,
+    ]);
+  if (e.pozn.length) D.push(["Poznámky", e.pozn.map(besc).join("<br>")]);
+  let cas = "";
+  try {
+    cas = e.t ? new Date(e.t).toLocaleTimeString("cs-CZ", {hour: "2-digit", minute: "2-digit", second: "2-digit"}) : "";
+  } catch (x) {}
+  const meta = [e.k != null ? `${e.k}. kolo` : "", cas, e.skryty ? "skrytý hod – vidí jen vypravěč" : "", e.undone ? "vráceno" : ""]
+    .filter(Boolean)
+    .join(" · ");
+  return `<div class="bzdet${gm ? " bzdetgm" : ""}"><h3 class="bzdhl">${os(e.A)}<span class="bzdco">${besc(e.co || "Záznam")}</span>${e.C ? `<i class="bzdsip" aria-label="vůči">→</i>${os(e.C)}` : ""}</h3>${meta ? `<p class="bzdmeta">${meta}</p>` : ""}${
+    D.length ? `<dl class="bzdl2">${D.map(([a, b]) => `<dt>${a}</dt><dd>${b}</dd>`).join("")}</dl>` : `<p class="rsmall">Bez dalších podrobností.</p>`
+  }</div>`;
+}
+document.addEventListener("click", e => {
+  const h = e.target.closest && e.target.closest("[data-bzdet]");
+  if (!h || e.target.closest("button,a,input,select")) return;
+  const x = BZMAP.get(h.dataset.bzdet);
+  if (x) mmPop(bzDetailHtml(x.e, x.gm));
+});
+document.addEventListener("keydown", e => {
+  if (e.key !== "Enter" && e.key !== " ") return;
+  const h = e.target.closest && e.target.closest("[data-bzdet]");
+  const x = h && e.target === h && BZMAP.get(h.dataset.bzdet);
+  if (!x) return;
+  e.preventDefault();
+  mmPop(bzDetailHtml(x.e, x.gm));
+});
 /* výsledek útoku jako ikonka: hvězda = zásah, X = vedle, v prstenci = přirozená 20 / 1; text zůstává v popisku */
 const BZVYS = {bzhit: "zasah", bzkr: "zasahkrit", bzmis: "vedle"};
 /* zbraň / kouzlo podle názvu útoku → ikonka (2026-10-21): v hlavičce místo textu, celý název zůstává v popisku.
@@ -303,7 +353,7 @@ function bzRadek(e, gm) {
   if (gm && e.tg && !e.undone && !e.und && e.co !== "Vráceno")
     e.und = `<button type="button" class="blund" data-bzvrat="${e.tg}" data-p="${besc([e.A && e.A.n, e.co].filter(Boolean).join(" – "))}" ${btip("Vrátit boj do stavu před tímto řádkem (i všechno pozdější)")}>↶</button>`;
   const med = q => (q && q.o ? (q.o.druh ? bojMedN(q.o, "bmini") : bojMedH(q.o, "bmini")) : "");
-  /* jméno rozbaluje řádek (klepnutí na hlavičku), filtr „jen akce této postavy“ je jen na medailonu */
+  /* klepnutí na řádek otevře podrobnosti (bzDetailHtml), filtr „jen akce této postavy“ je jen na medailonu */
   const os = q =>
     q && q.n
       ? `<span class="bzos">${q.id && q.o ? `<button type="button" class="blfb" data-blf="${besc(q.id)}" ${btip("Jen akce: " + q.n)}>${med(q)}</button>` : med(q)}<b>${besc(q.n)}</b></span>`
@@ -344,9 +394,10 @@ function bzRadek(e, gm) {
   const zbr = bzZbrIk(e);
   const det = e.rows.length || e.pozn.length || zv,
     kl = bzKlic(e),
-    open = e.prvni || BZOPEN.has(kl);
+    open = e.prvni;
+  bzPamatuj(kl, e, gm);
   const str = e.A && e.A.o ? (e.A.o.druh && !bojSpoj(e.A.o) ? " bz-n" : " bz-h") : "";
-  return `<li class="bz${str}${e.undone ? " blundone" : ""}${e.skryty ? " bzskr" : ""}${e.vys && e.vys[1] === "bzkr" ? " bzlkr" : ""}${det && !open ? " bzc" : ""}${det && !e.prvni ? " bzex" : ""}"><div class="bzh"${det && !e.prvni ? ` data-bzex="${besc(kl)}" ${btip(open ? "Sbalit podrobnosti" : "Rozbalit: kostky, hod a poznámky")}` : ""}>${os(e.A)}${zbr ? `<span class="bzzbr" role="img" aria-label="${besc(e.co)}" ${btip(e.co)}>${bi(zbr)}</span>` : `<span class="bzco">${besc(e.co)}</span>`}${e.C ? `<span class="bzcil"><i class="bzsip" aria-label="vůči">→</i>${os(e.C)}</span>` : ""}<span class="bzt">${vys || zr || hph || zh ? `<span class="bzr">${vys}${zr}${hph}${zh}</span>` : ""}<time>${e.skryty ? "skrytý · " : ""}${bzCas(e.t)}</time>${e.und || ""}${det && !e.prvni ? `<i class="bzchev" aria-hidden="true">${bi("sipka")}</i>` : ""}</span></div>
+  return `<li class="bz${str}${e.undone ? " blundone" : ""}${e.skryty ? " bzskr" : ""}${e.vys && e.vys[1] === "bzkr" ? " bzlkr" : ""}${det && !open ? " bzc" : ""}${det && !e.prvni ? " bzex" : ""}"><div class="bzh" data-bzdet="${besc(kl)}" role="button" tabindex="0" ${btip("Podrobnosti: kostky, výsledek, zranění a poznámky")}>${os(e.A)}${zbr ? `<span class="bzzbr" role="img" aria-label="${besc(e.co)}" ${btip(e.co)}>${bi(zbr)}</span>` : `<span class="bzco">${besc(e.co)}</span>`}${e.C ? `<span class="bzcil"><i class="bzsip" aria-label="vůči">→</i>${os(e.C)}</span>` : ""}<span class="bzt">${vys || zr || hph || zh ? `<span class="bzr">${vys}${zr}${hph}${zh}</span>` : ""}<time>${e.skryty ? "skrytý · " : ""}${bzCas(e.t)}</time>${e.und || ""}${det && !e.prvni ? `<i class="bzchev" aria-hidden="true">${bi("sipka")}</i>` : ""}</span></div>
     ${e.rows.length ? `<div class="bzd">${e.rows.map(r => `<p>${r.l ? `<small class="bzdl">${r.l}</small>` : ""}<span>${r.h}</span></p>`).join("")}</div>` : ""}${e.pozn.length ? `<p class="bzp">${e.pozn.map(besc).join(" · ")}</p>` : ""}${zv}</li>`;
 }
 /* sloupec záznamu (vypravěč i hráč) */

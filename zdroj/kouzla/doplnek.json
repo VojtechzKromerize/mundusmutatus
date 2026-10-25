@@ -1,0 +1,851 @@
+[
+ {
+  "i": "alustriel-s-mooncloak",
+  "en": "Alustriel's Mooncloak",
+  "cz": "Alustrielin měsíční plášť",
+  "l": 5,
+  "s": "Ochranná magie",
+  "p": [],
+  "ct": "Akce",
+  "r": "Sebe",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "měsíční kámen v hodnotě alespoň 50 zl.",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0
+ },
+ {
+  "i": "aura-of-evasion",
+  "en": "Aura of Evasion",
+  "cz": "Aura úhybnosti",
+  "l": 7,
+  "s": "Ochranná magie",
+  "p": [],
+  "ct": "Akce",
+  "r": "Sebe",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0
+ },
+ {
+  "i": "backlash",
+  "en": "Backlash",
+  "cz": "Zpětný úder",
+  "l": 4,
+  "s": "Ochranná magie",
+  "p": [],
+  "ct": "Reakce",
+  "r": "60 stop",
+  "k": [
+   "V"
+  ],
+  "m": "",
+  "d": "Okamžité",
+  "ko": 0,
+  "ri": 0
+ },
+ {
+  "i": "battle-familiar",
+  "en": "Battle Familiar",
+  "cz": "Bojový přítelíček",
+  "l": 2,
+  "s": "Vyvolávání",
+  "p": [],
+  "ct": "Akce",
+  "r": "10 stop",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "diamant v hodnotě alespoň 25 zl.",
+  "d": "1 hodina",
+  "ko": 0,
+  "ri": 0
+ },
+ {
+  "i": "cacophonic-shield",
+  "en": "Cacophonic Shield",
+  "cz": "Kakofonický štít",
+  "l": 3,
+  "s": "Zaklínání",
+  "p": [],
+  "ct": "Akce",
+  "r": "Sebe",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Concentration, až 10 minut",
+  "ko": 1,
+  "ri": 0
+ },
+ {
+  "i": "conjure-constructs",
+  "en": "Conjure Constructs",
+  "cz": "Vyvolání výtvorů",
+  "l": 3,
+  "s": "Vyvolávání",
+  "p": [],
+  "ct": "Akce",
+  "r": "60 stop",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "mosazné ozubené kolečko",
+  "d": "Concentration, až 10 minut",
+  "ko": 1,
+  "ri": 0
+ },
+ {
+  "i": "death-armor",
+  "en": "Death Armor",
+  "cz": "Zbroj smrti",
+  "l": 2,
+  "s": "Nekromancie",
+  "p": [],
+  "ct": "Akce",
+  "r": "Dotyk",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "onyx v hodnotě alespoň 50 zl., který kouzlo spotřebuje",
+  "d": "1 hodina",
+  "ko": 0,
+  "ri": 0
+ },
+ {
+  "i": "deryan-s-helpful-homunculi",
+  "en": "Deryan's Helpful Homunculi",
+  "cz": "Deryanovi nápomocní homunkulové",
+  "l": 2,
+  "s": "Vyvolávání",
+  "p": [],
+  "ct": "Akce",
+  "r": "Sebe",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "rozemleté drahokamy v hodnotě alespoň 100 zl., které kouzlo spotřebuje, a jedna sada řemeslnického nářadí, s níž jsi zdatný",
+  "d": "8 hodin",
+  "ko": 0,
+  "ri": 1
+ },
+ {
+  "i": "detonate",
+  "en": "Detonate",
+  "cz": "Detonace",
+  "l": 9,
+  "s": "Zaklínání",
+  "p": [],
+  "ct": "Akce",
+  "r": "500 stop",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "kousek troudu",
+  "d": "Okamžité",
+  "ko": 0,
+  "ri": 0
+ },
+ {
+  "i": "dirge",
+  "en": "Dirge",
+  "cz": "Žalozpěv",
+  "l": 6,
+  "s": "Očarování",
+  "p": [],
+  "ct": "Akce",
+  "r": "Sebe",
+  "k": [
+   "V"
+  ],
+  "m": "",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0
+ },
+ {
+  "i": "disruptive-tune",
+  "en": "Disruptive Tune",
+  "cz": "Rušivý nápěv",
+  "l": 2,
+  "s": "Ochranná magie",
+  "p": [],
+  "ct": "Akce",
+  "r": "120 stop",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0
+ },
+ {
+  "i": "distorted-distance",
+  "en": "Distorted Distance",
+  "cz": "Zkreslená vzdálenost",
+  "l": 4,
+  "s": "Iluze",
+  "p": [],
+  "ct": "Akce",
+  "r": "120 stop",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Concentration, až 10 minut",
+  "ko": 1,
+  "ri": 0
+ },
+ {
+  "i": "doomtide",
+  "en": "Doomtide",
+  "cz": "Příliv zkázy",
+  "l": 4,
+  "s": "Vyvolávání",
+  "p": [],
+  "ct": "Akce",
+  "r": "120 stop",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "saze a sušený úhoř",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0
+ },
+ {
+  "i": "dueling-ground",
+  "en": "Dueling Ground",
+  "cz": "Soubojové kolbiště",
+  "l": 2,
+  "s": "Ochranná magie",
+  "p": [],
+  "ct": "10 minut",
+  "r": "Dotyk",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "hedvábný praporec v hodnotě alespoň 100 zl.",
+  "d": "1 hodina",
+  "ko": 0,
+  "ri": 1
+ },
+ {
+  "i": "elminster-s-effulgent-spheres",
+  "en": "Elminster's Effulgent Spheres",
+  "cz": "Elminsterovy zářivé koule",
+  "l": 6,
+  "s": "Zaklínání",
+  "p": [],
+  "ct": "Akce",
+  "r": "Sebe",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "opál v hodnotě alespoň 1 000 zl.",
+  "d": "1 hodina",
+  "ko": 0,
+  "ri": 0
+ },
+ {
+  "i": "elminster-s-elusion",
+  "en": "Elminster's Elusion",
+  "cz": "Elminsterův únik",
+  "l": 2,
+  "s": "Ochranná magie",
+  "p": [],
+  "ct": "Bonusová akce",
+  "r": "Sebe",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Concentration, až 10 minut",
+  "ko": 1,
+  "ri": 0
+ },
+ {
+  "i": "entrancing-mirrors",
+  "en": "Entrancing Mirrors",
+  "cz": "Uhrančivá zrcadla",
+  "l": 8,
+  "s": "Iluze",
+  "p": [],
+  "ct": "Akce",
+  "r": "90 stop",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "střep zrcadla",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0
+ },
+ {
+  "i": "festering-blast",
+  "en": "Festering Blast",
+  "cz": "Hnisavý výšleh",
+  "l": 4,
+  "s": "Nekromancie",
+  "p": [],
+  "ct": "Akce",
+  "r": "Sebe",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "1 minuta",
+  "ko": 0,
+  "ri": 0
+ },
+ {
+  "i": "fractured-awareness",
+  "en": "Fractured Awareness",
+  "cz": "Roztříštěné vnímání",
+  "l": 7,
+  "s": "Věštění",
+  "p": [],
+  "ct": "Akce",
+  "r": "120 stop",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0
+ },
+ {
+  "i": "grave-ground",
+  "en": "Grave Ground",
+  "cz": "Hrobová půda",
+  "l": 5,
+  "s": "Nekromancie",
+  "p": [],
+  "ct": "Akce",
+  "r": "120 stop",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "hrst hlíny z hrobu",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0
+ },
+ {
+  "i": "hindsight",
+  "en": "Hindsight",
+  "cz": "Pohled do minulosti",
+  "l": 9,
+  "s": "Věštění",
+  "p": [],
+  "ct": "10 minut",
+  "r": "500 stop",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "drobné přesýpací hodiny v hodnotě alespoň 500 zl., které kouzlo spotřebuje",
+  "d": "Concentration, až 1 hodinu",
+  "ko": 1,
+  "ri": 0
+ },
+ {
+  "i": "holy-star-of-mystra",
+  "en": "Holy Star of Mystra",
+  "cz": "Mystřina svatá hvězda",
+  "l": 8,
+  "s": "Zaklínání",
+  "p": [],
+  "ct": "Bonusová akce",
+  "r": "Sebe",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0
+ },
+ {
+  "i": "homunculus-servant",
+  "en": "Homunculus Servant",
+  "cz": "Homunkulus služebník",
+  "l": 2,
+  "s": "Vyvolávání",
+  "p": [],
+  "ct": "1 hodina",
+  "r": "10 stop",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "drahokam v hodnotě alespoň 100 zl.",
+  "d": "Okamžité",
+  "ko": 0,
+  "ri": 1
+ },
+ {
+  "i": "inflict-doubt",
+  "en": "Inflict Doubt",
+  "cz": "Zasej pochybnosti",
+  "l": 3,
+  "s": "Očarování",
+  "p": [],
+  "ct": "Akce",
+  "r": "120 stop",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0
+ },
+ {
+  "i": "iron-body",
+  "en": "Iron Body",
+  "cz": "Železné tělo",
+  "l": 8,
+  "s": "Transmutace",
+  "p": [],
+  "ct": "Akce",
+  "r": "Dotyk",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "diamantový prach v hodnotě alespoň 250 zl., který kouzlo spotřebuje",
+  "d": "Concentration, až 1 hodinu",
+  "ko": 1,
+  "ri": 0
+ },
+ {
+  "i": "laeral-s-silver-lance",
+  "en": "Laeral's Silver Lance",
+  "cz": "Laeralino stříbrné kopí",
+  "l": 3,
+  "s": "Zaklínání",
+  "p": [],
+  "ct": "Akce",
+  "r": "Sebe",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "stříbrný špendlík v hodnotě alespoň 250 zl.",
+  "d": "Okamžité",
+  "ko": 0,
+  "ri": 0
+ },
+ {
+  "i": "lightning-ring",
+  "en": "Lightning Ring",
+  "cz": "Bleskový kruh",
+  "l": 8,
+  "s": "Zaklínání",
+  "p": [],
+  "ct": "Bonusová akce",
+  "r": "Sebe",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "trocha srsti a skleněný kroužek",
+  "d": "Concentration, až 10 minut",
+  "ko": 1,
+  "ri": 0
+ },
+ {
+  "i": "moment-of-prescience",
+  "en": "Moment of Prescience",
+  "cz": "Okamžik předvídavosti",
+  "l": 8,
+  "s": "Věštění",
+  "p": [],
+  "ct": "Reakce",
+  "r": "Sebe",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Okamžité",
+  "ko": 0,
+  "ri": 0
+ },
+ {
+  "i": "mordenkainen-s-lucubration",
+  "en": "Mordenkainen's Lucubration",
+  "cz": "Mordenkainenovo rozjímání",
+  "l": 5,
+  "s": "Věštění",
+  "p": [],
+  "ct": "Akce",
+  "r": "Sebe",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Okamžité",
+  "ko": 0,
+  "ri": 0
+ },
+ {
+  "i": "reweave-fate",
+  "en": "Reweave Fate",
+  "cz": "Přetkání osudu",
+  "l": 7,
+  "s": "Věštění",
+  "p": [],
+  "ct": "Reakce",
+  "r": "60 stop",
+  "k": [
+   "S"
+  ],
+  "m": "",
+  "d": "Okamžité",
+  "ko": 0,
+  "ri": 0
+ },
+ {
+  "i": "simbul-s-synostodweomer",
+  "en": "Simbul's Synostodweomer",
+  "cz": "Simbulino léčivé kouzlo",
+  "l": 7,
+  "s": "Transmutace",
+  "p": [],
+  "ct": "Akce",
+  "r": "Dotyk",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "1 hodina",
+  "ko": 0,
+  "ri": 0
+ },
+ {
+  "i": "songal-s-elemental-suffusion",
+  "en": "Songal's Elemental Suffusion",
+  "cz": "Songalovo prosycení živly",
+  "l": 5,
+  "s": "Transmutace",
+  "p": [],
+  "ct": "Akce",
+  "r": "Sebe",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "perla v hodnotě alespoň 100 zl.",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0
+ },
+ {
+  "i": "spellfire-flare",
+  "en": "Spellfire Flare",
+  "cz": "Záblesk kouzelného ohně",
+  "l": 1,
+  "s": "Zaklínání",
+  "p": [],
+  "ct": "Akce",
+  "r": "60 stop",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Okamžité",
+  "ko": 0,
+  "ri": 0
+ },
+ {
+  "i": "spellfire-storm",
+  "en": "Spellfire Storm",
+  "cz": "Bouře kouzelného ohně",
+  "l": 4,
+  "s": "Zaklínání",
+  "p": [],
+  "ct": "Akce",
+  "r": "60 stop",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0
+ },
+ {
+  "i": "spirit-lantern",
+  "en": "Spirit Lantern",
+  "cz": "Lucerna duší",
+  "l": 5,
+  "s": "Nekromancie",
+  "p": [],
+  "ct": "Akce",
+  "r": "Sebe",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "černá lucerna",
+  "d": "10 minut",
+  "ko": 0,
+  "ri": 0
+ },
+ {
+  "i": "summon-dinosaur",
+  "en": "Summon Dinosaur",
+  "cz": "Přivolání dinosaura",
+  "l": 6,
+  "s": "Vyvolávání",
+  "p": [],
+  "ct": "Akce",
+  "r": "90 stop",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "vyleštěná šupina v hodnotě alespoň 600 zl.",
+  "d": "Concentration, až 1 hodinu",
+  "ko": 1,
+  "ri": 0
+ },
+ {
+  "i": "summon-plant",
+  "en": "Summon Plant",
+  "cz": "Přivolání rostliny",
+  "l": 5,
+  "s": "Vyvolávání",
+  "p": [],
+  "ct": "Akce",
+  "r": "90 stop",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "byliny v hodnotě alespoň 500 zl.",
+  "d": "Concentration, až 1 hodinu",
+  "ko": 1,
+  "ri": 0
+ },
+ {
+  "i": "sylun-s-viper",
+  "en": "Syluné's Viper",
+  "cz": "Sylunina zmije",
+  "l": 3,
+  "s": "Vyvolávání",
+  "p": [],
+  "ct": "Bonusová akce",
+  "r": "Sebe",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "hadí zub",
+  "d": "1 hodina",
+  "ko": 0,
+  "ri": 0
+ },
+ {
+  "i": "transfix",
+  "en": "Transfix",
+  "cz": "Uhrančivé okouzlení",
+  "l": 7,
+  "s": "Očarování",
+  "p": [],
+  "ct": "Akce",
+  "r": "Sebe",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0
+ },
+ {
+  "i": "uncertain-footing",
+  "en": "Uncertain Footing",
+  "cz": "Nejistý krok",
+  "l": 2,
+  "s": "Iluze",
+  "p": [],
+  "ct": "Akce",
+  "r": "120 stop",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "zkreslující čočka",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0
+ },
+ {
+  "i": "vision-of-elapsing-eons",
+  "en": "Vision of Elapsing Eons",
+  "cz": "Vize plynoucích věků",
+  "l": 9,
+  "s": "Iluze",
+  "p": [],
+  "ct": "Akce",
+  "r": "120 stop",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "1 minuta",
+  "ko": 0,
+  "ri": 0
+ },
+ {
+  "i": "wail-of-the-banshee",
+  "en": "Wail of the Banshee",
+  "cz": "Nářek bánší",
+  "l": 9,
+  "s": "Nekromancie",
+  "p": [],
+  "ct": "Akce",
+  "r": "60 stop",
+  "k": [
+   "V"
+  ],
+  "m": "",
+  "d": "Okamžité",
+  "ko": 0,
+  "ri": 0
+ },
+ {
+  "i": "wardaway",
+  "en": "Wardaway",
+  "cz": "Odmítnutí",
+  "l": 1,
+  "s": "Ochranná magie",
+  "p": [],
+  "ct": "Akce",
+  "r": "60 stop",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "miniaturní hliněná ruka",
+  "d": "Okamžité",
+  "ko": 0,
+  "ri": 0
+ },
+ {
+  "i": "waves-of-exhaustion",
+  "en": "Waves of Exhaustion",
+  "cz": "Vlny vyčerpání",
+  "l": 5,
+  "s": "Nekromancie",
+  "p": [],
+  "ct": "Bonusová akce",
+  "r": "Sebe",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "kousek sušeného masa",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0
+ },
+ {
+  "i": "yolande-s-regal-presence",
+  "en": "Yolande's Regal Presence",
+  "cz": "Yolandina královská přítomnost",
+  "l": 5,
+  "s": "Očarování",
+  "p": [],
+  "ct": "Akce",
+  "r": "Sebe",
+  "k": [
+   "V",
+   "S",
+   "M"
+  ],
+  "m": "miniaturní diadém",
+  "d": "Concentration, až 1 minutu",
+  "ko": 1,
+  "ri": 0
+ },
+ {
+  "i": "zone-of-amicability",
+  "en": "Zone of Amicability",
+  "cz": "Zóna přívětivosti",
+  "l": 4,
+  "s": "Očarování",
+  "p": [],
+  "ct": "Akce",
+  "r": "Sebe",
+  "k": [
+   "V",
+   "S"
+  ],
+  "m": "",
+  "d": "10 minut",
+  "ko": 0,
+  "ri": 0
+ }
+]

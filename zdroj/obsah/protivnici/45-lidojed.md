@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 2 (450 XP)
 ac: 11
 hp: 68
-utok: Kyj +6, 2d8+4 · oštěp +6, 30/120 stop, 2d6+4
+utok: Kyj +6, 2d8+4 · oštěp +6, 30/120 stop, 2d6+4 · zatarasit cestu (Reakce)
 pozehnani: Chňapne cíl volnou rukou: Grappled (únik DC 14).
 pokuseni: Hlad: místo útoku zvedne nejbližšího padlého a kousne do něj.
 nerest: Obžerství a hloupost – dá se oklamat (Deception DC 10), zvlášť jídlem.
@@ -33,6 +33,10 @@ Obr z jeskyní a hlubokých lesů, hloupý, silný a vždycky hladový. Proměn�
 - **Kyj.** +6, dosah 5 stop. **Zásah:** 2d8+4 Bludgeoning.
 - **Oštěp.** +6, dosah 5 stop nebo hozený 30/120 stop. **Zásah:** 2d6+4 Piercing.
 
+## Reakce
+
+- **Zatarasit cestu.** Když tvor vstoupí do 5 stop od něj, udeří kyjem; při zásahu má cíl rychlost 0 do začátku lidojedova příštího tahu.
+
 **Výkupné a kořist.** V jeskyni: kosti, kotle, věci pocestných a někdy živý zajatec.
 
-*Předloha: Ogre (D&D 2024), převedeno pro Mundus Mutatus.*
+*Předloha: Ogre (D&D 2024); reakce podle Ogre Battering Ram, převedeno pro Mundus Mutatus.*

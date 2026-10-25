@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 5 (1 800 XP)
 ac: 19
 hp: 105
-utok: Dva útoky: dráp +7, 1d8+4 a 2d6 Fire, nebo ohnivý paprsek +7, 120 stop, 3d6+3 Fire · kouzla CHA DC 14
+utok: Dva útoky: dráp +7, 1d8+4 a 2d6 Fire, nebo ohnivý paprsek +7, 120 stop, 3d6+3 Fire · kouzla CHA DC 14 · zkřivené zrcadlo (Reakce)
 pozehnani: Křídla se rozevřou: vzlétne o 30 stop bez Opportunity Attacks a další útok má s výhodou.
 pokuseni: Lidská krev se ozve: zaváhá nad padlým nepřítelem a jeden slot ho nechá být.
 nerest: Závist – nepatří do pekla ani na svět. Nenávidí legitimní syny svého otce. Kdo mu nabídne uznání (Persuasion DC 15), ten ho může získat.
@@ -41,6 +41,10 @@ Dítě pekelníka (sukuby či inkuba) a smrtelníka. Často levoboček z dobréh
 - **Ohnivý paprsek.** +7, dostřel 120 stop. **Zásah:** 3d6+3 Fire.
 - **Kouzla (CHA, DC 14).** 2/den: Alter Self, Command (3. úroveň), Detect Magic. 1/den: Dominate Person (8. úroveň), Plane Shift (jen sebe).
 
+## Reakce
+
+- **Zkřivené zrcadlo.** Když na něj míří útok tvor do 30 stop a vedle stojí jiný tvor, útočník hodí WIS save DC 14, jinak útok míří na toho druhého.
+
 **Výkupné a kořist.** Prsten s erbem otcova rodu. Výkupné by rod zaplatil hned – za mlčení ještě víc.
 
-*Předloha: Cambion (D&D 2024), převedeno pro Mundus Mutatus.*
+*Předloha: Cambion (D&D 2024); reakce podle Enchanter Wizard, převedeno pro Mundus Mutatus.*

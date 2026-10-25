@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 5 (1 800 XP)
 ac: 13
 hp: 67
-utok: Vysátí života +6, 4d8+3 Prokleté a max. HP klesne · stvoří přízrak z čerstvého mrtvého
+utok: Vysátí života +6, 4d8+3 Prokleté a max. HP klesne · stvoří přízrak z čerstvého mrtvého · troubení honu (Bonusová akce)
 pozehnani: Z čerstvě padlého člověka do 10 stop vstane přízrak a přidá se k honu.
 pokuseni: Zazní roh honu: lovec musí do příštího slotu odletět o 60 stop za stopou nejbližšího zvířete.
 nerest: Lov – nesmí se vzdát kořisti. Kdo před ním padne tváří k zemi a nedívá se, toho přeskočí (ale hon si zapamatuje).
@@ -40,6 +40,10 @@ Vůdce divokého honu. Nikdo neví, kým byl: podle jedněch pánem, který lovi
 - **Vysátí života.** +6, dosah 5 stop. **Zásah:** 4d8+3 Prokleté (Necrotic) a maximum HP cíle klesne o stejně do dlouhého odpočinku.
 - **Stvořit přízrak.** Člověk mrtvý nejvýš minutu do 10 stop vstane jako přízrak (přidej k houfu přízraků); nejvýš 7.
 
+## Bonusová akce
+
+- **Troubení honu.** Jeden pekelný pes nebo kůň honu do 30 stop, který ho slyší, reakcí zaútočí s výhodou.
+
 ## Relikt
 
 - **Znamení.** Štěkot psů v mracích, troubení; ráno mrtví ptáci a ulámané větve na hřebenu.
@@ -52,4 +56,4 @@ Vůdce divokého honu. Nikdo neví, kým byl: podle jedněch pánem, který lovi
 
 **Výkupné a kořist.** Roh honu – kdo do něj zatroubí, přivolá hon. Na sebe.
 
-*Předloha: Wraith (D&D 2024), převedeno pro Mundus Mutatus.*
+*Předloha: Wraith (D&D 2024); bonusová akce podle Warlord, převedeno pro Mundus Mutatus.*

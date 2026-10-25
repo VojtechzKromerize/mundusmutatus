@@ -29,6 +29,22 @@ const plneText = (k, id) => {
   if (kl in PLNET) return Promise.resolve(PLNET[kl]);
   return MMDB.pravidlaText(k, plneId(id)).then(x => (PLNET[kl] = x || null));
 };
+/* předmět z plného znění podle jména věci v inventáři (seznam se načte jednou, pak se karta překreslí) */
+let PLNEVZ = false;
+function plneVec(n) {
+  if (!featyMuze()) return null;
+  if (!PLNES.predmety) {
+    if (!PLNEVZ) {
+      PLNEVZ = true;
+      plneSeznam("predmety").then(j => {
+        if (j && j.length) kartyPrekresli();
+      });
+    }
+    return null;
+  }
+  const id = plneId(n);
+  return PLNES.predmety.find(x => x.id === id) || null;
+}
 /* první věta odstavce „Použití pozice kouzla vyššího stupně. …“ / „Vylepšení triku. …“ tučně */
 const plneVyssi = v => {
   const m = String(v || "").match(/^([^.]{3,60}\.)\s*([\s\S]*)$/);
@@ -39,10 +55,26 @@ function plneMeta(k, x) {
     return [x.l ? `Kouzlo ${x.l}. stupně` : "Trik", x.s + (x.ri ? " (rituál)" : ""), x.ct, x.r, x.k, x.d].filter(Boolean).map(besc).join(" · ");
   return [x.typ, x.vz, x.sl, x.zr, x.vl, x.ma ? `Mistrovství: ${x.ma}` : "", x.w].filter(Boolean).map(besc).join(" · ");
 }
-const plneTelo = (k, x) =>
+const plneTelo = (k, x, id) =>
   x
-    ? `<p class="rsmall"><i>${plneMeta(k, x)}</i></p>${featyMd(x.t)}${x.v ? plneVyssi(x.v) : ""}`
+    ? `<p class="rsmall"><i>${plneMeta(k, x)}</i></p>${featyMd(x.t)}${x.v ? plneVyssi(x.v) : ""}${k === "predmety" && id ? plneVecBtn(id) : ""}`
     : `<p class="rsmall">Ve vypravěčově překladu tahle položka není.</p>`;
+/* „Přidat do vybavení“ u předmětu v Pravidlech › Předměty: hráč pošle návrh vypravěči, vypravěč přidá vybrané postavě */
+function plneVecBtn(id) {
+  const K = typeof vybCil === "function" ? vybCil() : null;
+  if (!K) return "";
+  const gm = GMV || !window.MMDB;
+  return `<form class="bdmrow plnevec" data-plnevec="${besc(id)}"><input name="q" type="number" min="1" max="999" value="1" inputmode="numeric" aria-label="Počet"><button class="gbtn" ${btip(gm ? `Přidat postavě ${K.n}` : "Pošle vypravěči ke schválení – po potvrzení se věc objeví ve vybavení")}>${gm ? `Přidat: ${besc(K.n)}` : "Požádat o přidání do vybavení"}</button></form>`;
+}
+document.addEventListener("submit", async e => {
+  const f = e.target;
+  if (!f.matches || !f.matches("[data-plnevec]")) return;
+  e.preventDefault();
+  const K = typeof vybCil === "function" ? vybCil() : null;
+  if (!K) return;
+  if (!PLNES.predmety) await plneSeznam("predmety");
+  await kVecPlnePridej(K, f.dataset.plnevec, f.elements.q.value);
+});
 /* rozbalovací „Plné znění“ u kouzla / předmětu (jen přihlášeným); text se načte při rozbalení */
 const plneTag = (k, en) =>
   en && featyMuze()
@@ -55,7 +87,7 @@ document.addEventListener(
     if (!(d instanceof HTMLDetailsElement) || !d.open || !d.dataset.plne || d.dataset.plneOk) return;
     d.dataset.plneOk = "1";
     plneText(d.dataset.plne, d.dataset.plnen)
-      .then(x => d.insertAdjacentHTML("beforeend", plneTelo(d.dataset.plne, x)))
+      .then(x => d.insertAdjacentHTML("beforeend", plneTelo(d.dataset.plne, x, d.dataset.plnen)))
       .catch(() => d.insertAdjacentHTML("beforeend", `<p class="rsmall">Plné znění se nepodařilo načíst.</p>`))
       .finally(() => {
         const n = d.querySelector(":scope > p.rsmall");

@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 1/4 (50 XP)
 ac: 13
 hp: 13
-utok: Kousnutí +5, 1 Piercing a jed (CON DC 11, Poisoned) · varování (celý dům se probudí)
+utok: Kousnutí +5, 1 Piercing a jed (CON DC 11, Poisoned) · varování (celý dům se probudí) · zasyčení (Reakce)
 pozehnani: Celý statek se vzbudí: všichni obyvatelé domu jednají v příštím kole s výhodou na iniciativu.
 pokuseni: Urazí se a schová se pod práh – do konce boje nejedná.
 nerest: Uraženost – kdo mu nedá mléko nebo ho ohrozí, toho dům přestane chránit.
@@ -37,6 +37,10 @@ Domácí had, ochránce rodu a statku. Varuje před ohněm, zlodějem a zlou du�
 ## Akce (jedna v každém slotu)
 
 - **Kousnutí.** +5, dosah 5 stop. **Zásah:** 1 Piercing; cíl hodí CON save DC 11, jinak je na hodinu Poisoned.
+
+## Reakce
+
+- **Zasyčení.** Když útok míří na člena rodu nebo čeledína do 30 stop od něj, zasyčí: cíl si přičte k AC 2 – útok může minout.
 
 ## Relikt
 

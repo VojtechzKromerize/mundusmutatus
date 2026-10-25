@@ -124,7 +124,7 @@ function bojJaRidery(K, me, w, q, s, O) {
         }),
       );
   }
-  if (O.ripo && !O.ripo.odv && SD && O.ripo.ai === q.ci)
+  if (bojRipoJeRiposte(O.ripo) && SD && O.ripo.ai === q.ci)
     R.push({k: "rp", g: "rp", n: "Riposte", zr: "1" + SD.k, pozn: "odveta: kostka převahy ke zranění (utratí se odesláním)"});
   if (typeof bojZvRidery === "function") R.push(...bojZvRidery(K, me, w, q, s, O));
   if (typeof bojWmRidery === "function") R.push(...bojWmRidery(K, me, w, q));
@@ -217,7 +217,7 @@ async function bojJaRidPo(K, me, SER, O) {
       if (r.ba && typeof bojBptOznac === "function") bojBptOznac("B");
     }
   if (O.ripo) {
-    if (!O.ripo.odv) {
+    if (bojRipoJeRiposte(O.ripo)) {
       const z = kSD(K);
       try {
         if (z) await kZdrUtrat(K, z);

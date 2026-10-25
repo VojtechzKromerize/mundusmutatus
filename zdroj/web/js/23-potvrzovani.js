@@ -190,7 +190,12 @@ async function navrhProved(n) {
     K2 = KARTBY[d.cil];
   if (!K2) throw new Error("cílová karta neexistuje");
   if (d.typ === "lec") await kLecKarta(K2, +d.hp || 0, null, d.co || "léčení");
-  else if (d.typ === "vec") {
+  else if (d.typ === "vec" && d.pl) {
+    /* předmět z plného znění (Vojtova tabulka předmětů, 2026-10-24): jméno a váha přišly v návrhu */
+    const n = String(d.n || "").slice(0, 80);
+    if (!n) throw new Error("návrh nemá jméno předmětu");
+    await kVybPridej(K2, {k: "pl", n, w: Math.max(0, +d.w || 0)}, Math.max(1, Math.min(999, +d.q || 1)));
+  } else if (d.typ === "vec") {
     /* předmět z databáze do vybavení hráče (2026-10-23) */
     if (typeof VYB !== "undefined" && !VYB) await vybNacti();
     if (typeof predNacti === "function" && !PRED) await predNacti().catch(() => {});

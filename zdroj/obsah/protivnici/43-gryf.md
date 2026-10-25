@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 2 (450 XP)
 ac: 12
 hp: 59
-utok: Dva drápy +6, 1d8+4, cíl Medium a menší Grappled (únik DC 14) a odnesen
+utok: Dva drápy +6, 1d8+4, cíl Medium a menší Grappled (únik DC 14) a odnesen · vzlet s kořistí (Bonusová akce)
 pozehnani: Vzlétne s kořistí v drápech o 40 stop výš.
 pokuseni: Kůň! Zahlédne koně a v příštím slotu letí po něm.
 nerest: Koně – gryf miluje koňské maso. Obětovaný kůň ho odláká (a jezdce to bude stát).
@@ -32,6 +32,10 @@ Napůl orel, napůl lev, zvíře z erbů a bestiářů. Po Noci Proměny se gryf
 - **Dva drápy.** Dvakrát sekne drápy.
 - **Drápy.** +6, dosah 5 stop. **Zásah:** 1d8+4 Piercing a tvor velikosti Medium a menší je Grappled (únik DC 14); s kořistí může odletět.
 
+## Bonusová akce
+
+- **Vzlet s kořistí.** S tvorem, kterého drží, vzlétne až o polovinu rychlosti letu, aniž by vyvolal Opportunity Attack; pak ho smí pustit (pád 1d6 Bludgeoning za každých 10 stop).
+
 **Výkupné a kořist.** Gryfí pera (léčitelé věří, že odhalí jed) a vejce, za které knížata zaplatí jako za dračí.
 
-*Předloha: Griffon (D&D 2024), převedeno pro Mundus Mutatus.*
+*Předloha: Griffon (D&D 2024); bonusová akce podle Hippogriff, převedeno pro Mundus Mutatus.*

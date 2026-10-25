@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 4 (1 100 XP)
 ac: 11
 hp: 45
-utok: Dva zvadající doteky +5, 3d10+3 Prokleté · děsivá tvář (WIS DC 13, 2d6+3 Psychic) · posednutí (CHA DC 13)
+utok: Dva zvadající doteky +5, 3d10+3 Prokleté · děsivá tvář (WIS DC 13, 2d6+3 Psychic) · posednutí (CHA DC 13) · sdílený žal (Bonusová akce)
 pozehnani: Posednutí se dobije hned.
 pokuseni: Pozná v někom z družiny potomka svého rodu: místo útoku ho jeden slot jen pozoruje a pláče.
 nerest: Nedokončená věc – bloudí, protože něco nezůstalo vykonáno (nevrácené věno, nepohřbené dítě, křivá přísaha). Kdo to slíbí napravit (Persuasion DC 13), toho ušetří.
@@ -44,6 +44,10 @@ Duch paní z rodu, který na hradě sídlí. Zjevuje se před smrtí v rodu a hl
 - **Ustoupit za Závoj.** Zmizí do světa za Závojem; odtud nemůže působit a nic nepůsobí na ni.
 - **Posednutí (dobíjí se na 6).** Člověk do 5 stop hodí CHA save DC 13, jinak do něj vstoupí: tělo jedná podle ní, zasáhnout ji jde jen proti nemrtvým (Ve jménu Páně!). Končí, když tělo klesne na 0 HP.
 
+## Bonusová akce
+
+- **Sdílený žal.** Tvor do 60 stop, kterému chybí HP, hodí WIS save DC 13, jinak je Incapacitated jejím žalem; záchrana znovu na konci každého tahu, úspěch = den imunity.
+
 ## Relikt
 
 - **Znamení.** Bílá postava v oknech; rukavice bílé značí radost, černé smrt; klíče zvoní na chodbě.
@@ -56,4 +60,4 @@ Duch paní z rodu, který na hradě sídlí. Zjevuje se před smrtí v rodu a hl
 
 **Výkupné a kořist.** Prsten nebo list, který nedokončenou věc vysvětlí. Klid jí přinese splnění, ne meč.
 
-*Předloha: Ghost (D&D 2024), převedeno pro Mundus Mutatus.*
+*Předloha: Ghost (D&D 2024); bonusová akce podle Haint, převedeno pro Mundus Mutatus.*

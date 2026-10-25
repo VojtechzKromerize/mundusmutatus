@@ -1146,6 +1146,7 @@ async function vyzvaHod(id, ne) {
     }
     const adv = kAdvSum(+d.adv || 0, why),
       h = await kartaHod(K, co + (d.dc && !d.skryt ? ` (SO ${d.dc})` : ""), b, {adv, why: why.map(x => x[1]).join(", ")});
+    if (!h) return;
     r = {tot: h.tot, d: h.d, zav: h.zav, txt: h.txt.slice(0, 200)};
     if (adv) r.adv = adv;
   }
@@ -1771,6 +1772,7 @@ document.addEventListener("click", async e => {
     await bojDB.hrac(b.dataset.bkonec, "hotovo", (s.kolo || 1) * 100 + (s.tah || 0));
     mmHlasG("Tah ukončen – vypravěč pokračuje.", 3500);
     BPT.k = null;
+    bojEvasiveKonec(bojKartaH((s.hraci || []).find(h => h.id === b.dataset.bkonec))).catch(() => {});
     try {
       navigator.vibrate && navigator.vibrate(40);
     } catch (err) {}

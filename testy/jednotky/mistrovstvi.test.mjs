@@ -39,6 +39,16 @@ test("čisté: modifikátor útoku, zranění bez modifikátoru, obouruč, Heavy
   assert.equal(C.ev(`zbrTezkaNev({Light: true}, false, 8, 8)`), false);
 });
 
+test("čisté: Artikule – pomalá, ale těžká rána (těžká kuše, píšťala, hákovnice)", () => {
+  assert.deepEqual(C.V(`zbrPomala("Heavy Crossbow", 2, "1d10+4")`), {z: "2d10+4", kostek: 2});
+  assert.deepEqual(C.V(`zbrPomala("Musket", 3, "1d12+1d6+3")`), {z: "3d12+1d6+3", kostek: 3}, "jen kostka zbraně, ne kostky navíc");
+  assert.equal(C.V(`zbrPomala("Light Crossbow", 2, "1d8+4")`), null, "lehká kuše střílí normálně");
+  assert.equal(C.V(`zbrPomala("Pistol", 1, "1d10+4")`), null, "bez Extra Attack beze změny");
+  assert.equal(C.V(`zbrPomala("Heavy Crossbow", 2, "1d10+4", true)`), null, "Crossbow Expert: víc výstřelů s běžnými kostkami");
+  assert.equal(C.ev(`zbrZalic("Heavy Crossbow")`), true, "Zalícení jen s těžkou kuší");
+  assert.equal(C.ev(`zbrZalic("Light Crossbow")`), false);
+});
+
 let S;
 before(async () => {
   S = await stranka();
@@ -58,6 +68,33 @@ test("boj: Balduinovy zbraně – mistrovství jen to, které používá", () =>
   assert.equal(sek.ma, null, "Cleave Balduin nemá");
   assert.equal(V(`bojWTr(${BAL}, {n: "Eldritch Blast", b: 7})`), null, "kouzlo není zbraň");
   assert.deepEqual(V(`bojWmPayload(${BAL}, {n: "Nevermore", b: 8, z: "1d8+5"}, {})`), {n: "Sap"}, "Sap se pošle sám");
+});
+
+test("karta: těžká kuše s Extra Attack – jeden výstřel za akci se dvěma kostkami, lehká kuše dvakrát", () => {
+  const tk = V(`kUtAdj(${BAL}, {n: "Heavy Crossbow", b: 5, z: "1d10+2", dal: true, pocet: 2})`);
+  assert.equal(tk.z, "2d10+2");
+  assert.equal(tk.pocet, undefined, "jeden výstřel za akci");
+  assert.match(tk.rozpis, /pomalá zbraň/);
+  const lk = V(`kUtAdj(${BAL}, {n: "Light Crossbow", b: 5, z: "1d8+2", dal: true, pocet: 2})`);
+  assert.equal(lk.z, "1d8+2");
+  assert.equal(lk.pocet, 2);
+});
+
+test("boj: Zalícení těžké kuše – přepínač, výhoda a polovina pohybu (Artikule 2026-10-25)", () => {
+  const B0 = S.ev(`JSON.stringify(BOJ.s || null)`);
+  S.ev(`BOJ.s = {aktivni: true, kolo: 1, tah: 1, hraci: [{id: "h1", n: "Balduin", k: "balduin"}], npc: [], utoky: []}`);
+  const TK = `{n: "Heavy Crossbow", b: 5, z: "2d10+2", dal: true}`;
+  try {
+    assert.match(V(`bojWmVolbyHtml(${BAL}, ${TK}, BOJ.s.hraci[0], false)`), /Zalícení/);
+    assert.doesNotMatch(V(`bojWmVolbyHtml(${BAL}, {n: "Light Crossbow", b: 5, z: "1d8+2", dal: true}, BOJ.s.hraci[0], false)`), /Zalícení/);
+    S.ev(`BGMU.h1 = {zvt: {"Heavy Crossbow": {zl: true}}}`);
+    assert.deepEqual(V(`(() => { const p = [], m = []; bojWAdv(BOJ.s.hraci[0], ${TK}, p, m); return p; })()`), ["Zalícení"]);
+    const r = V(`kRychN(${BAL})`);
+    S.ev(`bojWZalicPohyb(${BAL}, ${TK}, {zl: true})`);
+    assert.equal(V(`tahPohyb(bojBpt(BOJ.s), kRychN(${BAL})).zbyva`), r - Math.floor(r / 2), "zalícení stojí polovinu rychlosti");
+  } finally {
+    S.ev(`delete BGMU.h1; BOJ.s = ${B0}`);
+  }
 });
 
 test("boj: útok navíc z Light s Nick, obouruč a Topple po zásahu", () => {
@@ -105,6 +142,35 @@ test("vypravěč: Topple srazí, Graze zraní i při minutí, Vex dá výhodu a 
     assert.ok(!V(`BOJ.s.npc[0].stav`).includes("oslaben"), "Sap končí na začátku příštího tahu útočníka");
     proved({wm: {n: "Slow"}, dmg: 0});
     assert.ok(!V(`BOJ.s.npc[0].stav || []`).includes("zpomalen"), "Slow bez zranění se neuplatní");
+  } finally {
+    S.ev(`BOJ.s = ${B0}`);
+  }
+});
+
+test("vypravěč: manévr Battle Mastera se záchranou – Trip srazí, Menacing vystraší do konce příštího tahu útočníka (2026-10-25)", () => {
+  const B0 = S.ev(`JSON.stringify(BOJ.s || null)`);
+  S.ev(`BOJ.s = {aktivni: true, kolo: 1, tah: 1, hraci: [{id: "h1", n: "Balduin", k: "balduin"}], npc: [{id: "n1", n: "Žoldnéř"}], utoky: []}`);
+  const u = o =>
+    JSON.stringify(Object.assign({id: "t" + Math.random(), h: "h1", ci: ["n1"], cim: "Zbraň", hod: 15, d: 12, dmg: 5, t: "Slashing"}, o));
+  const proved = o =>
+    S.ev(`(() => { const u = ${u(o)}, V = bojUtokVyhodnot0(BOJ.s, u); bojWmProved(BOJ.s, u, V); return JSON.stringify(V.r[0]); })()`);
+  try {
+    S.kostky([[2, 20]]);
+    const t = JSON.parse(proved({man: {n: "Trip Attack", dc: 15}}));
+    assert.match(t.gm, /Trip Attack: STR .* proti SO 15 – sražen/);
+    assert.ok(V(`BOJ.s.npc[0].stav`).includes("sražen"));
+    S.kostky([[2, 20]]);
+    proved({man: {n: "Menacing Attack", dc: 15}});
+    assert.ok(V(`BOJ.s.npc[0].stav`).includes("vyděšen"));
+    S.ev(`bojWmTahVlastnika(BOJ.s, "h1", "kon"); BOJ.s.kolo = 2; bojWmTahVlastnika(BOJ.s, "h1", "zac"); bojWmTahVlastnika(BOJ.s, "h1", "kon")`);
+    assert.ok(!V(`BOJ.s.npc[0].stav`).includes("vyděšen"), "Menacing končí na konci příštího tahu útočníka");
+    S.kostky([[19, 20]]);
+    const ok = JSON.parse(proved({man: {n: "Goading Attack", dc: 10}}));
+    assert.match(ok.gm, /odolal/);
+    assert.ok(!V(`(BOJ.s.npc[0].ef || []).some(e => e.n === "Goading Attack")`));
+    /* bez manévru se nic nepošle; s vybraným přídavkem manévru {n, dc} */
+    assert.equal(V(`bojManPayload(KARTBY.balduin, {rid: []})`), null);
+    assert.deepEqual(V(`bojManPayload(KARTBY.balduin, {rid: [{g: "m", n: "Trip Attack"}]})`), {n: "Trip Attack", dc: V(`kSDdc(KARTBY.balduin)`)});
   } finally {
     S.ev(`BOJ.s = ${B0}`);
   }

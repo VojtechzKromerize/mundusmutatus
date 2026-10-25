@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 3 (700 XP)
 ac: 11
 hp: 58
-utok: Hnilobná pěst +5, 1d10+3 Bludgeoning a 3d6 Prokleté (Necrotic) a kletba hniloby · strašný pohled (WIS DC 11, Frightened)
+utok: Hnilobná pěst +5, 1d10+3 Bludgeoning a 3d6 Prokleté (Necrotic) a kletba hniloby · strašný pohled (WIS DC 11, Frightened) · prach z rakve (Reakce)
 pozehnani: Kletba zabere hned: cíl ztrácí 3d6 z maxima HP okamžitě.
 pokuseni: Obinadla se rozmotají: do konce kola je Prone a jeho pohled nikoho neděsí.
 nerest: Pýcha – chce být uctíván jako světec, kterým nebyl. Kdo před ním poklekne a modlí se (Religion nebo Deception DC 12), toho nechá projít; kdo mu zapálí kadidlo, získá kolo. Kdo řekne nahlas, čím byl, toho napadne první.
@@ -41,6 +41,10 @@ Tělo, které v hrobě nezetlelo – a Církev je proto vystavila jako ostatky s
 - **Hnilobná pěst.** +5, dosah 5 stop. **Zásah:** 1d10+3 Bludgeoning a 3d6 Prokleté (Necrotic) a cíl je proklet (viz výše).
 - **Strašný pohled.** Jeden tvor do 60 stop hodí WIS save DC 11, jinak je Frightened do konce Neporušeného příštího tahu. Kdo uspěje, je 24 hodin imunní.
 
+## Reakce
+
+- **Prach z rakve.** Když ho zasáhne útok, přičte si k AC 2 – útok může minout – a vyrazí z něj prach: tvorové do 5 stop jsou Blinded do konce jeho příštího tahu.
+
 **Výkupné a kořist.** Relikviář se zlatem a drahokamy (20 kop) – a poutníci, kteří za ostatky platili. Kdo zveřejní, čí tělo to bylo, má proti sobě klášter, který na relikviích žil. Kdo mlčí, má klášter zavázaný.
 
-*Předloha: Mummy (D&D 2024), převedeno pro Mundus Mutatus.*
+*Předloha: Mummy (D&D 2024); reakce podle Mummy Lord, převedeno pro Mundus Mutatus.*

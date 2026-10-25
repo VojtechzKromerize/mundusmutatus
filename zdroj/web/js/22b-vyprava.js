@@ -601,7 +601,7 @@ function vyHtmlTrasa() {
   const kde = VY.z ? VY.z.name : "–",
     cil = VY.do ? VY.do.name : "";
   let out = `<section class="vycard"><h3 class="uvh2">Trasa</h3>
-    <dl class="kv vykv"><dt>Odkud</dt><dd>${vyEsc(kde)}${VY.z ? "" : " <small>(klikni na mapu – první bod je výchozí)</small>"}</dd><dt>Kam</dt><dd>${cil ? `<b>${vyEsc(cil)}</b>` : "<small>vyber cíl kliknutím do mapy</small>"}</dd>
+    <dl class="kv vykv"><dt>Odkud</dt><dd>${besc(kde)}${VY.z ? "" : " <small>(klikni na mapu – první bod je výchozí)</small>"}</dd><dt>Kam</dt><dd>${cil ? `<b>${besc(cil)}</b>` : "<small>vyber cíl kliknutím do mapy</small>"}</dd>
     <dt>Vyráží</dt><dd>${vyDatum(jdn(...S.datum.split("-").map(Number)))}, ${S.hodina}:00</dd></dl>
     <form class="gmhraf vyform" onsubmit="return false">
       <label>Jak<select data-vyf="zp">${zp.map(([k, n, v, kmh]) => `<option value="${k}"${VY.zp === k ? " selected" : ""}>${n}${VY.mapa === "praha" ? ` · ${kmh} km/h` : ` · ${v} km/den`}</option>`).join("")}</select></label>
@@ -627,7 +627,7 @@ function vyHtmlTrasa() {
     ${VYT.m === "svet" && VYT.more ? `<p class="lbl">Z toho asi ${Math.round(VYT.km * VYT.more)} km lodí.</p>` : ""}
     ${X.zdrzSetk ? `<p class="lbl">Setkání navíc prodlužují cestu o ${vyTrvani(X.zdrzSetk)}.</p>` : ""}
     ${!X.delka ? `<p class="vypozn">Pod ${VYT.plan ? "40 minut" : "6 hodin"} cesty stačí vyprávění. <label class="vychk"><input type="checkbox" data-vyf="hratKratkou"${VY.hratKratkou ? " checked" : ""}> přesto hrát jako krátkou výpravu</label></p>` : ""}
-    ${X.reviry && X.reviry.length ? `<p class="vypozn"><b>Dračí revíry na trase:</b> ${X.reviry.map(r => `<a href="#draconomicon/${r.d.id}">${vyEsc(r.d.n)}</a> (${vyEsc(r.kde)})`).join(", ")}. Divocí draci brání revír i proti drakům s jezdcem. <label class="vychk"><input type="checkbox" data-vyf="revir"${VY.revir ? " checked" : ""}> přidat setkání za přelet revíru</label></p>` : ""}
+    ${X.reviry && X.reviry.length ? `<p class="vypozn"><b>Dračí revíry na trase:</b> ${X.reviry.map(r => `<a href="#draconomicon/${r.d.id}">${besc(r.d.n)}</a> (${besc(r.kde)})`).join(", ")}. Divocí draci brání revír i proti drakům s jezdcem. <label class="vychk"><input type="checkbox" data-vyf="revir"${VY.revir ? " checked" : ""}> přidat setkání za přelet revíru</label></p>` : ""}
     ${VY.zp === "drak" ? `<p class="rsmall">Drak letí nejvýš 8 hodin denně; v bouři a vichřici nevzlétne.</p>` : ""}
     ${vyPoCeste()}
     <div class="gmhrab">${VYT.plan ? "" : `<button type="button" class="gbtn" data-vy="vyrazit-cas"${VY.do ? "" : " disabled"} title="Družina vyrazí teď a s každou hodinou herního času se posune po trase">Vyrazit</button>`}<button type="button" class="gbtn${VYT.plan ? "" : " ghost"}" data-vy="odcestovat"${VY.do ? "" : " disabled"} title="Posune herní čas rovnou na příjezd a praporec do cíle">Rovnou dorazit</button></div></section>`;
@@ -637,11 +637,11 @@ function vyPocasiRadek(x, i) {
   const P = x.P,
     dat = vyDat(x.j);
   return `<li class="vyden${P.rucne ? " vyruc" : ""}"><div class="vydh"><b>${vyDatum(x.j)}</b><span class="vyw" title="Hodnota počasí pro obtížnost (1–10)">${P.w}</span>
-      <small>${VYT.plan ? "Praha" : vyEsc(VYT.m === "koruna" ? vyBlizko(x.q.xy) : x.q.more ? "na moři" : vyNejblizsiMesto(x.q.xy))} · ${x.stuj ? "stojí se" : `${vyHod(x.od)}–${vyHod(x.do)}`}</small>
+      <small>${VYT.plan ? "Praha" : besc(VYT.m === "koruna" ? vyBlizko(x.q.xy) : x.q.more ? "na moři" : vyNejblizsiMesto(x.q.xy))} · ${x.stuj ? "stojí se" : `${vyHod(x.od)}–${vyHod(x.do)}`}</small>
       <span class="vydb"><button type="button" class="gbtn ghost" data-vypoc="jine" data-dat="${dat}" title="Hodit jiné počasí pro tento den">Jiné počasí</button><button type="button" class="gbtn ghost" data-vypoc="rucne" data-dat="${dat}">Upravit</button>${P.rucne || P.salt ? `<button type="button" class="gbtn ghost" data-vypoc="zpet" data-dat="${dat}">Původní</button>` : ""}</span></div>
-    <p>${vyEsc(P.text)}</p>
-    <p class="rsmall">Přes den kolem ${Math.round(P.tx)} °C, v noci ${Math.round(P.tn)} °C · ${VY_REZ[P.rz].n}${x.f < 1 && !x.stuj ? ` · postup ${Math.round(x.f * 100)} %` : ""}${P.drak ? ` · draci: ${vyEsc(P.drak)}` : ""}</p>
-    ${P.zav ? `<p class="vyzav">Závoj: ${vyEsc(P.zav)}</p>` : ""}</li>`;
+    <p>${besc(P.text)}</p>
+    <p class="rsmall">Přes den kolem ${Math.round(P.tx)} °C, v noci ${Math.round(P.tn)} °C · ${VY_REZ[P.rz].n}${x.f < 1 && !x.stuj ? ` · postup ${Math.round(x.f * 100)} %` : ""}${P.drak ? ` · draci: ${besc(P.drak)}` : ""}</p>
+    ${P.zav ? `<p class="vyzav">Závoj: ${besc(P.zav)}</p>` : ""}</li>`;
 }
 function vyHtmlPanely() {
   const X = VYS,
@@ -686,7 +686,7 @@ function vyHtmlPanely() {
     ${dr
       .map((x, i) => {
         const R = VY_ROLE[x.role];
-        return `<tr data-vyi="${i}"><td><input data-vyf="d${i}n" data-vyd="n" value="${vyEsc(x.n)}" placeholder="Jméno" aria-label="Jméno postavy"></td>
+        return `<tr data-vyi="${i}"><td><input data-vyf="d${i}n" data-vyd="n" value="${besc(x.n)}" placeholder="Jméno" aria-label="Jméno postavy"></td>
       <td><select data-vyf="d${i}f" data-vyd="vira" aria-label="Víra"><option value="">—</option>${[
         ["kal", "kališník"],
         ["kat", "katolík"],
@@ -703,7 +703,7 @@ function vyHtmlPanely() {
           : `<td><select data-vyf="d${i}p" data-vyd="prip" aria-label="Příprava"><option value="">—</option>${VY_PRIP.map(p => `<option value="${p.k}"${x.prip === p.k ? " selected" : ""}>${p.n}</option>`).join("")}</select></td>
       <td><select data-vyf="d${i}v" data-vyd="pv" aria-label="Výsledek přípravy"><option value="">—</option><option value="ok"${x.pv === "ok" ? " selected" : ""}>úspěch</option><option value="ok5"${x.pv === "ok5" ? " selected" : ""}>úspěch o 5+</option><option value="fail"${x.pv === "fail" ? " selected" : ""}>neúspěch</option><option value="fail5"${x.pv === "fail5" ? " selected" : ""}>neúspěch o 5+</option></select></td>`
       }
-      <td>${R ? `<select data-vyf="d${i}h" data-vyd="hod" aria-label="Co hází">${R.hod.map((t, k) => `<option value="${k}"${+x.hod === k ? " selected" : ""}>${vyEsc(t)}</option>`).join("")}</select>` : `<small>vyber roli</small>`}
+      <td>${R ? `<select data-vyf="d${i}h" data-vyd="hod" aria-label="Co hází">${R.hod.map((t, k) => `<option value="${k}"${+x.hod === k ? " selected" : ""}>${besc(t)}</option>`).join("")}</select>` : `<small>vyber roli</small>`}
         <span class="vygc" role="group" aria-label="Výsledek hodu na cestu"><button type="button" data-vygc="${i}" data-v="ok" aria-pressed="${x.gc === "ok"}" title="uspěl">✓</button><button type="button" data-vygc="${i}" data-v="fail" aria-pressed="${x.gc === "fail"}" title="neuspěl">✗</button></span></td>
       <td><button type="button" class="bx" data-vydel="${i}" aria-label="Odebrat">×</button></td></tr>`;
       })
@@ -713,7 +713,7 @@ function vyHtmlPanely() {
       ${VY.rychle ? `<button type="button" class="gbtn ghost" data-vy="rychlek8" title="Místo −1 za postavu hodit k8">${VY.rychleK != null && VY.rychleK !== X.dr.length ? `hodit k8 (padlo ${VY.rychleK})` : "místo toho hodit k8"}</button>` : ""}</div>
     ${vars.length ? `<p class="vypozn">${vars.join(" ")}</p>` : ""}
     <details class="vyjak"><summary>Role a přípravy</summary><dl class="vyroles">${role.map(([k, r]) => `<dt>${r.n}</dt><dd>${r.sch}</dd>`).join("")}</dl>
-      <dl class="vyroles">${VY_PRIP.map(p => `<dt>${p.n}</dt><dd><i>${vyEsc(p.h)}</i> · ${vyEsc(p.u)}${p.f5t ? " " + vyEsc(p.f5t) : ""}</dd>`).join("")}</dl>
+      <dl class="vyroles">${VY_PRIP.map(p => `<dt>${p.n}</dt><dd><i>${besc(p.h)}</i> · ${besc(p.u)}${p.f5t ? " " + besc(p.f5t) : ""}</dd>`).join("")}</dl>
       <p class="rsmall">Přípravu lze zkusit jednou za výpravu; druhá příprava stojí odpočinek a úroveň vyčerpání. Kdo před cestou neodpočívá dlouhým odpočinkem, získá vyčerpání, ale může zkusit přípravu navíc.</p></details></section>`;
   /* cesta a setkání */
   const gcT =
@@ -739,7 +739,7 @@ function vyHtmlPanely() {
         dr.some(x => x.role === "vudce" || x.role2 === "vudce")
           ? `<span class="vypov">${dr
               .filter(x => x.n.trim())
-              .map(x => `<label><input type="checkbox" data-vypov="${x.id}"${VY.vudce[x.id] ? " checked" : ""}> ${vyEsc(x.n)}</label>`)
+              .map(x => `<label><input type="checkbox" data-vypov="${x.id}"${VY.vudce[x.id] ? " checked" : ""}> ${besc(x.n)}</label>`)
               .join("")}</span>`
           : `<small>chybí Vůdce</small>`
       }</div>
@@ -748,7 +748,7 @@ function vyHtmlPanely() {
     ${K ? "" : `<button type="button" class="gbtn" data-vy="vyrazit"${X.dl ? "" : " disabled"}>Vyrazit – rozdat kostky zásob a bdělosti</button>`}
     <ol class="vysetk">${VY.setk.map((s, i) => vyHtmlSetk(s, i)).join("")}</ol>
     ${X.dl ? `<button type="button" class="badd" data-vy="setkplus">+ Setkání navíc (bloudění, výsledek jiného setkání…)</button>${VY.navic > 0 ? ` <button type="button" class="badd" data-vy="setkminus">− ubrat přidané setkání</button>` : ""}` : ""}
-    <div class="vyrow"><button type="button" class="gbtn ghost" data-vy="clovek">Člověk na cestě</button><span class="rsmall" id="vyclovek">${vyEsc(VY.clovek || "")}</span></div>
+    <div class="vyrow"><button type="button" class="gbtn ghost" data-vy="clovek">Člověk na cestě</button><span class="rsmall" id="vyclovek">${besc(VY.clovek || "")}</span></div>
     ${vyHtmlTabulky()}
     <details class="vyjak"><summary>Odpočinek a schopnosti na cestě</summary><p>Na cestě se dlouhý odpočinek nedá vzít, leda to dovolí setkání (Místo k odpočinku). Krátký jednou za výpravu, za cenu setkání navíc.</p>
       <p>Mezi setkáními (ne během nich) lze za kostky životů obnovit schopnosti povolání: co se obnovuje krátkým odpočinkem, stojí 1 kostku; co dlouhým, 2 kostky; pozice kouzla stojí tolik kostek, kolikátá je její úroveň (černokněžník podle úrovně svých pozic).</p>
@@ -764,13 +764,13 @@ function vyHtmlPanely() {
     ]
       .map(([k, n]) => `<button type="button" data-vykon="${k}" aria-pressed="${kc.vys === k}">${n}</button>`)
       .join("")}</div>
-    ${kc.vys === "dorazili" ? `<p>Každý hodí záchranu Odolnosti (SO ${X.D}) a přičte ${zasob ? `modifikátor Síly nebo Inteligence Zásobovače (${vyEsc(zasob.n)})` : "modifikátor Síly nebo Inteligence Zásobovače"}. Úspěch: dočasné životy rovné úrovni. Neúspěch: úroveň vyčerpání. Uspějí-li všichni, každý získá inspiraci; neuspějí-li všichni, každý ji ztratí.</p>` : ""}
+    ${kc.vys === "dorazili" ? `<p>Každý hodí záchranu Odolnosti (SO ${X.D}) a přičte ${zasob ? `modifikátor Síly nebo Inteligence Zásobovače (${besc(zasob.n)})` : "modifikátor Síly nebo Inteligence Zásobovače"}. Úspěch: dočasné životy rovné úrovni. Neúspěch: úroveň vyčerpání. Uspějí-li všichni, každý získá inspiraci; neuspějí-li všichni, každý ji ztratí.</p>` : ""}
     ${kc.vys === "opustili" ? `<p>Každý hodí záchranu Odolnosti (SO ${X.D}) s modifikátorem Síly nebo Inteligence Zásobovače. Neúspěch: úroveň vyčerpání; neuspějí-li všichni, ztratí i zbylé kostky životů. Družina skončí, kde určí vypravěč – někde mezi výchozím místem a cílem, klidně v pustině.</p>` : ""}
     ${kc.vys === "katastrofa" ? `<p>Výprava se rozpadla: někdo se ztratil, padl do zajetí, je zmrzačen nebo mrtev. Kdo zbyl, získá úroveň vyčerpání a další následky podle vypravěče.</p>` : ""}
-    <div class="vyrow"><label class="vychk">Moudrost Hlídky${hlid ? ` (${vyEsc(hlid.n)})` : ""} <input data-vyf="mou" type="number" min="1" max="6" value="${kc.mou || 1}" class="vynum"></label>
+    <div class="vyrow"><label class="vychk">Moudrost Hlídky${hlid ? ` (${besc(hlid.n)})` : ""} <input data-vyf="mou" type="number" min="1" max="6" value="${kc.mou || 1}" class="vynum"></label>
       <button type="button" class="gbtn ghost" data-vy="prijezd">Hod na příjezd (${Math.max(1, kc.mou || 1)}k12, nejvyšší)</button>${kc.prij != null ? ` <b class="vyprij">${kc.prij}</b>` : ""}</div>
     ${pr ? `<p><b>${pr[1]}.</b> ${pr[2]}</p>` : ""}
-    <label class="edf edfull vypozn2">Poznámky k cestě (odměny, změny postav…)<textarea data-vyf="pozn" rows="2">${vyEsc(kc.pozn || "")}</textarea></label>
+    <label class="edf edfull vypozn2">Poznámky k cestě (odměny, změny postav…)<textarea data-vyf="pozn" rows="2">${besc(kc.pozn || "")}</textarea></label>
     <div class="gmhrab">${VYT && !VYT.plan ? `<button type="button" class="gbtn" data-vy="vyrazit-cas"${VY.do ? "" : " disabled"}>Vyrazit</button>` : ""}<button type="button" class="gbtn${VYT && !VYT.plan ? " ghost" : ""}" data-vy="odcestovat"${VY.do ? "" : " disabled"}>Rovnou dorazit</button><button type="button" class="gbtn ghost" data-vy="kronika"${VYT || VY.posledniMd ? "" : " disabled"}>Koncept zápisu do Kroniky</button></div>
     <details class="vyjak"><summary>Odměny za cestu</summary><p><b>Příběhové:</b> věhlas (cesta, kterou nikdo nezvládl), spojenci a nepřátelé z cesty, proměna postavy (jizva, nový pohled na svět, nová vada nebo ctnost). <b>Krátkodobé:</b> inspirace, výhoda nebo bonusová kostka při další cestě stejným krajem, dočasná zdatnost s nástroji. Nebo zkušenosti podle počtu a obtížnosti setkání.</p></details></section>`;
   const dne = X.dny.length;
@@ -792,12 +792,12 @@ function vyHtmlSetk(s, i) {
   const vys = ["cela", "vice", "mene", "nikdo"],
     vn = ["uspěli všichni", "víc než polovina", "polovina a méně", "nikdo"],
     vi = vys.indexOf(s.vys);
-  return `<li class="vys${s.hotovo ? " vyhot" : ""}" data-vys="${i}"><div class="vysh"><span class="vysn">${i + 1}</span><div class="vyskde"><b>${vyEsc(s._kde)}</b><small>${vyDatum(s._j)}, ${vyDobaDne(s._h)}${s.navic ? " · navíc" : ""}</small></div>
+  return `<li class="vys${s.hotovo ? " vyhot" : ""}" data-vys="${i}"><div class="vysh"><span class="vysn">${i + 1}</span><div class="vyskde"><b>${besc(s._kde)}</b><small>${vyDatum(s._j)}, ${vyDobaDne(s._h)}${s.navic ? " · navíc" : ""}</small></div>
       <select data-vyf="s${i}k" data-vys2="kraj" aria-label="Kraj">${Object.entries(VY_KRAJ)
         .map(([k, [n]]) => `<option value="${k}"${kr === k ? " selected" : ""}>${n}${k === s._kraj && !s.kraj ? " (z mapy)" : ""}</option>`)
         .join("")}</select>
       <label class="vychk"><input type="checkbox" data-vyhot="${i}"${s.hotovo ? " checked" : ""}> vyřešeno</label></div>
-    ${s.hotovo ? `<details class="vyhotd"><summary>${T ? vyEsc(T.n) : "bez typu"}${Z ? ` – ${vyEsc(Z.n)}` : ""}${vi >= 0 ? ` · ${vn[vi]}` : ""}</summary>` : ""}<div class="vysb">
+    ${s.hotovo ? `<details class="vyhotd"><summary>${T ? besc(T.n) : "bez typu"}${Z ? ` – ${besc(Z.n)}` : ""}${vi >= 0 ? ` · ${vn[vi]}` : ""}</summary>` : ""}<div class="vysb">
       <div class="vyrow"><button type="button" class="gbtn ghost" data-vysh="typ" data-i="${i}">${T ? "Hodit znovu" : "Hodit typ (k12)"}</button><button type="button" class="gbtn ghost" data-vyboj="${i}" title="Otevře Boj s tímto setkáním mezi nepřáteli">⚔ Do boje</button>
         ${!VY.najdi && VYS.dr.some(x => x.role === "zved" || x.role2 === "zved") ? `<button type="button" class="gbtn ghost" data-vysh="najdi" data-i="${i}" title="Zvěd hodí také a vybere">Najdi cestu (2× k12)</button>` : ""}
         <select data-vyf="s${i}t" data-vys2="typ" aria-label="Typ setkání"><option value="">— typ —</option>${VY_TYPY.map((t, k) => `<option value="${k}"${s.typ === k ? " selected" : ""}>${k + 1}. ${t.n}</option>`).join("")}</select>
@@ -807,9 +807,9 @@ function vyHtmlSetk(s, i) {
           ? `<p class="vyjakt"><b>${T.n}</b> · klíčová role: ${T.r}. ${T.jak}</p>
         <div class="vyrow"><button type="button" class="gbtn ghost" data-vysh="zaz" data-i="${i}">${Z ? "Jiný záznam" : "Hodit záznam"}</button>
           <select data-vyf="s${i}z" data-vys2="zaz" aria-label="Záznam"><option value="">— záznam —</option>${vyZazT(s.typ)
-            .map((z, k) => `<option value="${k}"${s.zaz === k ? " selected" : ""}>${vyEsc(z.n)}${vyHodiSe(z, kr) ? "" : " (jiný kraj)"}</option>`)
+            .map((z, k) => `<option value="${k}"${s.zaz === k ? " selected" : ""}>${besc(z.n)}${vyHodiSe(z, kr) ? "" : " (jiný kraj)"}</option>`)
             .join("")}</select></div>
-        ${Z ? `<p class="vyzaz"><b>${vyEsc(Z.n)}.</b> ${vyEsc(Z.t)}${Z.k ? ` <i>Ověření: ${vyEsc(Z.k)}.</i>` : ""}</p>` : ""}
+        ${Z ? `<p class="vyzaz"><b>${besc(Z.n)}.</b> ${besc(Z.t)}${Z.k ? ` <i>Ověření: ${besc(Z.k)}.</i>` : ""}</p>` : ""}
         <div class="controls vyvys" role="group" aria-label="Výsledek skupinového hodu">${vys.map((v, k) => `<button type="button" data-vysv="${i}" data-v="${v}" aria-pressed="${s.vys === v}">${vn[k]}</button>`).join("")}</div>
         ${vi >= 0 ? `<p class="vyvt">${T.v[vi]}</p>` : ""}`
           : ""
@@ -817,7 +817,7 @@ function vyHtmlSetk(s, i) {
       ${T ? vyHtmlOkoli(s) : ""}
       ${
         T || s.pozn
-          ? `<textarea data-vyf="s${i}p" data-vys2="pozn" rows="${Math.min(6, Math.max(1, (s.pozn || "").split("\n").length))}" placeholder="Poznámky k setkání" aria-label="Poznámky">${vyEsc(s.pozn || "")}</textarea>
+          ? `<textarea data-vyf="s${i}p" data-vys2="pozn" rows="${Math.min(6, Math.max(1, (s.pozn || "").split("\n").length))}" placeholder="Poznámky k setkání" aria-label="Poznámky">${besc(s.pozn || "")}</textarea>
       <div class="vyrow"><button type="button" class="badd" data-vyclov="${i}">+ člověk na cestě do poznámek</button></div>`
           : ""
       }</div>${s.hotovo ? "</details>" : ""}</li>`;
@@ -1786,10 +1786,10 @@ function vyHtmlOkoli(s) {
   const roz = ok[0] ? vyRozpor(ok[0].f) : "",
     ukaz = [0, 3, 7, 11].includes(s.typ),
     draci = [6, 10].includes(s.typ);
-  return `<div class="vyok">${ok.length ? `<p><span class="lbl">Okolí</span> ${ok.map(x => `<a href="#rod/${x.f.id}">${vyEsc(x.f.name)}</a> <small>(${VY_VIRA[x.f.conf] || x.f.conf} · ${vyEsc(x.sd[0])}${x.d >= 0.5 && !VYT.plan ? `, ${Math.round(x.d)} km` : ""})</small>`).join(" · ")}</p>` : ""}
+  return `<div class="vyok">${ok.length ? `<p><span class="lbl">Okolí</span> ${ok.map(x => `<a href="#rod/${x.f.id}">${besc(x.f.name)}</a> <small>(${VY_VIRA[x.f.conf] || x.f.conf} · ${besc(x.sd[0])}${x.d >= 0.5 && !VYT.plan ? `, ${Math.round(x.d)} km` : ""})</small>`).join(" · ")}</p>` : ""}
     ${roz ? `<p class="vypozn">${roz}</p>` : ""}
-    ${ukaz && os.length ? `<details class="vyos"><summary>Osoby z okolí (${os.length})</summary>${os.map(p => `<div class="gmrow gmp vyosr" data-gmid="${p.id}"><a href="#osoba/${p.id}">${vyEsc(p.n.replace(/^✦\s*/, ""))}</a><small>${vyEsc(p.role || "")}</small>${typeof gmSeg === "function" ? gmSeg(p.id) : ""}</div>`).join("")}</details>` : ""}
-    ${draci && dr.length ? `<p><span class="lbl">Draci v kraji</span> ${dr.map(d => `<a href="#draconomicon/${d.id}">${vyEsc(d.n)}</a>`).join(", ")}</p>` : ""}</div>`;
+    ${ukaz && os.length ? `<details class="vyos"><summary>Osoby z okolí (${os.length})</summary>${os.map(p => `<div class="gmrow gmp vyosr" data-gmid="${p.id}"><a href="#osoba/${p.id}">${besc(p.n.replace(/^✦\s*/, ""))}</a><small>${besc(p.role || "")}</small>${typeof gmSeg === "function" ? gmSeg(p.id) : ""}</div>`).join("")}</details>` : ""}
+    ${draci && dr.length ? `<p><span class="lbl">Draci v kraji</span> ${dr.map(d => `<a href="#draconomicon/${d.id}">${besc(d.n)}</a>`).join(", ")}</p>` : ""}</div>`;
 }
 function vyHtmlNoci() {
   const N = vyNoci();
@@ -1803,7 +1803,7 @@ function vyHtmlNoci() {
   });
   return `<section class="vycard"><h3 class="uvh2">Noclehy <small>${N.length} ${N.length === 1 ? "noc" : N.length < 5 ? "noci" : "nocí"} · asi ${sum} grošů za družinu (${lid} ${lid === 1 ? "osoba" : lid < 5 ? "osoby" : "osob"})</small></h3>
     <ol class="vynoci">${N.map(
-      n => `<li><b>${vyDatum(n.j)}</b> <small>${vyEsc(n.kde)}</small> <select data-vynoc="${n.k}" aria-label="Kde se nocuje">${Object.entries(VY_NOC)
+      n => `<li><b>${vyDatum(n.j)}</b> <small>${besc(n.kde)}</small> <select data-vynoc="${n.k}" aria-label="Kde se nocuje">${Object.entries(VY_NOC)
         .map(([k, [t]]) => `<option value="${k}"${n.v === k ? " selected" : ""}>${t}</option>`)
         .join("")}</select>
       <span class="rsmall">${VY_NOC[n.v][2]}</span>${n.pozn ? `<span class="vypozn vypoznm">${n.pozn}</span>` : ""}</li>`,
@@ -1816,7 +1816,7 @@ function vyHtmlTabulky() {
   <p class="rsmall">Každý řádek je jeden záznam: <code>kraje | název | text | ověření | boj</code>. Sloupec boj je nepovinný: id hotového setkání (např. <code>rota-bez-pana</code>), nebo nepřátelé z bestiáře oddělení středníkem (<code>6 houf-zoldneru; rotmistr-zoldneru + zkuseny</code>); tlačítko do boje je pak přenese i se statblocky. Kraje jsou písmena P pole, L hvozdy, H hory, M město, V voda, K pohraničí, W válkou zpustlý kraj, Z místa Závoje, * kdekoli. Řádky začínající # se přeskočí.</p>
   <div class="vyrow"><select data-vytabt aria-label="Typ setkání">${VY_TYPY.map((x, k) => `<option value="${k}"${t === k ? " selected" : ""}>${k + 1}. ${x.n}${VY.tab && VY.tab[k] ? " (upraveno)" : ""}</option>`).join("")}</select>
     <button type="button" class="gbtn ghost" data-vy="tabzpet"${VY.tab && VY.tab[t] ? "" : " disabled"}>Vrátit výchozí</button></div>
-  <textarea data-vytab="${t}" rows="10" class="vytabta" spellcheck="false">${vyEsc(VY.tab && VY.tab[t] ? VY.tab[t] : vyZazText(t))}</textarea>
+  <textarea data-vytab="${t}" rows="10" class="vytabta" spellcheck="false">${besc(VY.tab && VY.tab[t] ? VY.tab[t] : vyZazText(t))}</textarea>
   <div class="vyrow"><button type="button" class="gbtn" data-vy="tabuloz">Uložit tabulku</button></div></details>`;
 }
 function vyHtmlStul() {
@@ -1830,14 +1830,14 @@ function vyHtmlStul() {
   const zasob = dr.find(x => x.role === "zasob" || x.role2 === "zasob"),
     hlid = dr.find(x => x.role === "hlidka" || x.role2 === "hlidka");
   return `<section class="vycard vystulc"><h3 class="uvh2">U stolu <small>SO ${X.D}</small></h3>
-    ${den ? `<div class="vystulp"><span class="vyw">${den.P.w}</span><div><b>${vyDatum(den.j)}</b><p>${vyEsc(den.P.text)}</p>${den.P.drak ? `<p class="rsmall">Draci: ${vyEsc(den.P.drak)}</p>` : ""}</div></div>` : ""}
+    ${den ? `<div class="vystulp"><span class="vyw">${den.P.w}</span><div><b>${vyDatum(den.j)}</b><p>${besc(den.P.text)}</p>${den.P.drak ? `<p class="rsmall">Draci: ${besc(den.P.drak)}</p>` : ""}</div></div>` : ""}
     <div class="vytrack vytrackb">
       <div><b>Zásoby</b>${K && zasob ? `<span class="vykst"><button type="button" class="gbtn ghost" data-vyk="zas" data-d="-1">−</button><span>${K.zas} × d${K.zasD}</span><button type="button" class="gbtn ghost" data-vyk="zas" data-d="1">+</button></span>` : "<small>–</small>"}</div>
       <div><b>Bdělost</b>${K && hlid ? `<span class="vykst"><button type="button" class="gbtn ghost" data-vyk="bdel" data-d="-1">−</button><span>${K.bdel} × d6</span><button type="button" class="gbtn ghost" data-vyk="bdel" data-d="1">+</button></span>` : "<small>–</small>"}</div>
       <div><b>Kostky</b><span class="vykst">${[4, 6, 8, 10, 12, 20].map(n => `<button type="button" class="gbtn ghost" data-vyhod="${n}">k${n}</button>`).join("")}</span><span class="vyhodv" id="vyhodv"></span></div></div>
     ${K ? "" : `<button type="button" class="gbtn" data-vy="vyrazit"${X.dl ? "" : " disabled"}>Vyrazit – rozdat kostky zásob a bdělosti</button>`}
     ${akt >= 0 ? `<h4 class="vysub">Setkání ${akt + 1} z ${VY.setk.length}</h4><ol class="vysetk vysetkb">${vyHtmlSetk(VY.setk[akt], akt)}</ol>` : VY.setk.length ? `<p>Všechna setkání jsou vyřešená – zbývá Konec cesty.</p>` : `<p>Tato cesta nemá žádná setkání.</p>`}
-    <div class="vyrow"><button type="button" class="gbtn ghost" data-vy="clovek">Člověk na cestě</button><span class="rsmall" id="vyclovek">${vyEsc(VY.clovek || "")}</span></div>
+    <div class="vyrow"><button type="button" class="gbtn ghost" data-vy="clovek">Člověk na cestě</button><span class="rsmall" id="vyclovek">${besc(VY.clovek || "")}</span></div>
     <p class="rsmall">${VY.setk.map((s, i) => `<span class="vystulm${s.hotovo ? " on" : ""}${i === akt ? " akt" : ""}">${i + 1}${s.typ != null ? ` ${VY_TYPY[s.typ].n}` : ""}</span>`).join(" · ")}</p></section>`;
 }
 /*@cast}*/

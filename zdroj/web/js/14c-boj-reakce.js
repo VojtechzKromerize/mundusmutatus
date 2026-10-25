@@ -128,6 +128,8 @@ function kReakceFakta(K, h, s, e) {
     pb: kPB(K),
     mnich: kTrU(kCtx(K), "Monk") || kLv(K),
     odv: bojZbrVse(s, h).some(w => !w.dal && w.z && (w.vl || []).includes("Odvetná")),
+    zbl: bojZbrVse(s, h).some(w => !w.dal && w.z),
+    sentinel: kMaRys(K, /^sentinel$/i),
   };
 }
 /* reakce, které postava může použít na zásah (okno reakce 10r) + obětování zbroje při kritu (Artikule – není to reakce) */
@@ -193,6 +195,69 @@ document.addEventListener("click", e => {
     setTimeout(renderBoj, 0);
   }
 });
+/* příležitostný útok (2026-10-25, Vojta): vypravěč u nepřítele označí „Opouští dosah“ a vybere postavy – do záznamu jde řádek
+   s v = „opouští dosah“; telefon té postavy nabídne příležitostný útok. Sentinel: nepřítel zasáhl někoho jiného → nabídka útoku reakcí.
+   Útok jde formulářem jako Riposte (BJU.ripo s pa / sen), spotřebuje reakci. */
+let BPRI = null;
+function bojPrilezNovy(s, me, N, jiny) {
+  const K = bojKartaH(me);
+  if (!K) return;
+  const sp = jiny ? "jiny" : "odchod",
+    L = N.filter(
+      e =>
+        (jiny ? e.ci !== me.id && /zásah|krit/.test(e.v || "") : e.v === "opouští dosah") &&
+        (s.npc || []).some(o => o.id === e.ai && !bojSpoj(o)) &&
+        reakceMa(kReakceFakta(K, me, s, e), e, sp, jiny ? "sentinel" : "pa"),
+    );
+  if (!L.length) return;
+  BPRI = {e: L[0], k: jiny ? "sentinel" : "pa", kid: K.id, hid: me.id, cas: Date.now()};
+  mmHlas(
+    jiny
+      ? `${L[0].a || "Nepřítel"} zasáhl ${L[0].c || "spojence"} – Sentinel: můžeš reakcí zaútočit.`
+      : `${L[0].a || "Nepřítel"} opouští tvůj dosah – příležitostný útok?`,
+    6000,
+  );
+  renderBoj();
+}
+function kPrilezHtml(K, h, s) {
+  if (!BPRI || BPRI.kid !== K.id || Date.now() - BPRI.cas > 3 * 60e3 || (s.reak || {})[h.id] || !(s.npc || []).some(o => o.id === BPRI.e.ai))
+    return "";
+  const e = BPRI.e,
+    zb = bojZbrVse(s, h),
+    j = zb.findIndex(w => !w.dal && w.z),
+    R = reakceOkno(kReakceFakta(K, h, s, e), e, BPRI.k === "sentinel" ? "jiny" : "odchod").o[0];
+  if (j < 0 || !R) return "";
+  return `<div class="khl kzas"><b>${besc(e.a || "Nepřítel")}</b> ${BPRI.k === "sentinel" ? `zasáhl ${besc(e.c || "spojence")}` : "opouští tvůj dosah"}. <button type="button" class="gbtn" data-bdmsh="utok" data-j="${j}" data-bpri="${besc(e.ai)}" ${btip(`${R.t} (${zb[j].n})`)}>${besc(R.n)}</button><button type="button" class="gbtn ghost" data-bprix>Nechat být</button></div>`;
+}
+document.addEventListener("click", e => {
+  const T = q => e.target.closest && e.target.closest(q);
+  if (T("[data-bprix]")) {
+    BPRI = null;
+    renderBoj();
+    return;
+  }
+  const r = T("[data-bpri]");
+  if (r && BPRI) {
+    const s = BOJ.s || {},
+      K = KARTBY[BPRI.kid],
+      sen = BPRI.k === "sentinel";
+    BJU.ripo = Object.assign(
+      {ai: r.dataset.bpri, tk: (s.kolo || 1) * 100 + (s.tah || 0)},
+      sen ? {sen: 1} : {pa: 1},
+      K && kMaRys(K, /^sentinel$/i) ? {st: 1} : {},
+    );
+    BJU.cilL = [r.dataset.bpri];
+    BJU.cil = r.dataset.bpri;
+    BJU.serie = null;
+    BJU.info = `${sen ? "Sentinel" : "Příležitostný útok"}: útok reakcí – hoď a pošli.${BJU.ripo.st ? " Při zásahu má cíl do konce tahu rychlost 0." : ""}`;
+    BPRI = null;
+    setTimeout(renderBoj, 0);
+  }
+});
+/* předpona útoku reakcí v záznamu: Riposte, Odveta (Odvetná), příležitostný útok, Sentinel */
+const bojRipoPre = r =>
+  !r ? "" : r.odv ? "Odveta: " : r.pa ? `Příležitostný útok${r.st ? " (Sentinel)" : ""}: ` : r.sen ? "Sentinel: " : "Riposte: ";
+const bojRipoJeRiposte = r => !!r && !r.odv && !r.pa && !r.sen;
 function kZasahHtml(K, h, s) {
   if (!BZAS || BZAS.kid !== K.id || Date.now() - BZAS.cas > 10 * 60e3) return "";
   const e = BZAS.e,

@@ -612,6 +612,7 @@ function bojJaHod() {
   }
   BJU.info = (v && r20 == null ? `${v > 0 ? "Výhoda" : "Nevýhoda"}. ` : "") + txt.join(" · ") + zv;
   if (!NV && iU >= nU - 1) bojBptOznac("A");
+  if (typeof bojWZalicPohyb === "function") bojWZalicPohyb(K, w, ZT);
   bojListPrekresli();
 }
 /* hráč: poslat útok vypravěči */
@@ -665,7 +666,7 @@ async function bojJaPosli() {
         adv: x.v === 1 || x.v === -1 ? x.v : adv,
       });
       if ((x.rid || []).length || BJU.ripo)
-        u.cim = `${BJU.ripo ? (BJU.ripo.odv ? "Odveta: " : "Riposte: ") : ""}${zak.cim}${(x.rid || [])
+        u.cim = `${bojRipoPre(BJU.ripo)}${zak.cim}${(x.rid || [])
           .filter(r => r.g !== "rp")
           .map(r => " + " + (r.cim || r.n))
           .join("")}`.slice(0, 60);
@@ -676,6 +677,8 @@ async function bojJaPosli() {
         const wm = typeof bojWmPayload === "function" ? bojWmPayload(K, w, x) : null;
         if (wm) u.wm = wm;
       }
+      const man = bojManPayload(K, x);
+      if (man) u.man = man;
       L.push(u);
     }
   }
@@ -831,12 +834,17 @@ const BVID = {
 function bojZazHlidej(s, me) {
   if (!me || GMV) return;
   const v0 = BVID.get(),
-    N = (s.zaz || []).filter(e => e.ci === me.id && e.ts > v0 && (v0 || (+e.k || 0) >= (s.kolo || 1)));
-  if (!N.length) return;
-  BVID.set(Math.max(...N.map(x => x.ts)));
-  for (const f of [bojKonNovy, bojMinNovy, bojOdvNovy, bojZasahNovy]) {
+    A = (s.zaz || []).filter(e => e.ts > v0 && (v0 || (+e.k || 0) >= (s.kolo || 1))),
+    N = A.filter(e => e.ci === me.id),
+    /* zásahy jiných postav (Sentinel, 2026-10-25) */
+    J = A.filter(e => e.ci !== me.id && e.ci && e.ai);
+  if (!N.length && !J.length) return;
+  BVID.set(Math.max(...[...N, ...J].map(x => x.ts)));
+  const F = N.length ? [bojKonNovy, bojMinNovy, bojOdvNovy, bojZasahNovy, bojPrilezNovy].map(f => () => f(s, me, N)) : [];
+  if (J.length) F.push(() => bojPrilezNovy(s, me, J, true));
+  for (const f of F) {
     try {
-      f(s, me, N);
+      f();
     } catch (e) {
       console.error(e);
     }

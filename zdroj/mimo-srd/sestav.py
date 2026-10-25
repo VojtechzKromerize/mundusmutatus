@@ -29,6 +29,9 @@ def rys(r, kde, max_t=350):
         chyba(k, f"text má {len(r['t'])} znaků (max. {max_t})")
     if r.get("cas") and r["cas"] not in CAS:
         chyba(k, f"neznámý čas {r['cas']}")
+    # zjm: jméno zdroje na listu z D&D Beyond (Combat Superiority → „Superiority Dice“), aby se na kartě neukázal dvakrát
+    if r.get("zjm") is not None and not isinstance(r["zjm"], str):
+        chyba(k, "zjm musí být text")
     p = r.get("pocet")
     if p is not None and not (isinstance(p, int) or (isinstance(p, str) and (p == "PB" or p in VL)) or
                               (isinstance(p, list) and all(isinstance(x, list) and len(x) == 2 for x in p))):

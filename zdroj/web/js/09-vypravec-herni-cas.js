@@ -516,8 +516,7 @@ function partyPos() {
   return w ? {name: w[0], lo: w[1], la: w[2]} : null;
 }
 /* ===== Herní čas: jedno místo pro uložení a posun (Při hře, přehled vypravěče, mapy) ===== */
-const p2 = n => String(n).padStart(2, "0"),
-  hEsc = t => String(t ?? "").replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"})[c]);
+const p2 = n => String(n).padStart(2, "0");
 /* aktuální herní okamžik: den, hodina, Slunce, svátky a hodiny Závoje (stejně jako kolo času) */
 function hraX() {
   const [Y, M, D] = herniDen(),
@@ -694,7 +693,7 @@ function phPocasi() {
   if (P.v >= 3) d.push("silný vítr: nevýhoda na útoky zbraní na dálku, otevřený oheň zhasíná, rozhání mlhu");
   if (P.snih >= 3) d.push("hluboký sníh: obtížný terén");
   if (noc) d.push("noc: bez světla silně zastřeno");
-  return `<div class="bojpoc"><span class="lbl">Počasí</span> ${hEsc(P.text)}${d.length ? `<ul>${d.map(x => `<li>${x}</li>`).join("")}</ul>` : ""}</div>`;
+  return `<div class="bojpoc"><span class="lbl">Počasí</span> ${besc(P.text)}${d.length ? `<ul>${d.map(x => `<li>${x}</li>`).join("")}</ul>` : ""}</div>`;
 }
 /* Boj: nepřátelé předaní z Výpravy (setkání) */
 /* Při hře: herní čas, posun hodin a upozornění na Hodinu Závoje */
@@ -714,7 +713,7 @@ if (GMV && STAV) {
         pp = partyPos(),
         c = cestaAktivni();
       P.querySelector(".phted").innerHTML =
-        `<b>${DNY[(X.today + 1) % 7]} ${X.D}. ${MES[X.M - 1]} ${X.Y}${X.H != null ? `, ${X.H}:00` : ""}</b><small>${c ? `na cestě ${hEsc(c.z)} → ${hEsc(c.do)}${pp ? " · " + hEsc(cKde(pp.lo, pp.la)) : ""}` : pp ? hEsc(pp.name) : ""}</small>`;
+        `<b>${DNY[(X.today + 1) % 7]} ${X.D}. ${MES[X.M - 1]} ${X.Y}${X.H != null ? `, ${X.H}:00` : ""}</b><small>${c ? `na cestě ${besc(c.z)} → ${besc(c.do)}${pp ? " · " + besc(cKde(pp.lo, pp.la)) : ""}` : pp ? besc(pp.name) : ""}</small>`;
       P.querySelector(".phzav").innerHTML = zavojBan();
       P.querySelector(".phpoc").innerHTML = phPocasi();
       if (B) {

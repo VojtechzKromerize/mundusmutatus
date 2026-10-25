@@ -7,6 +7,8 @@ const byId = Object.fromEntries(FAM.map(f => [f.id, f]));
 /* překreslení jednou za dávku změn (2026-10-21): když jedna obsluha změní data několikrát (zápis útoku, potvrzení, puls),
    stránka se překreslí jen jednou – po doběhnutí obsluhy (mikroúloha). Okamžité překreslení (renderBoj…) čekající zruší. */
 const MMPREK = new Map();
+/* text do HTML (obsah i hodnota atributu v uvozovkách) – jediná funkce pro celý web */
+const besc = t => String(t ?? "").replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"})[c]);
 function mmPozdeji(klic, fn) {
   if (MMPREK.has(klic)) return;
   MMPREK.set(klic, fn);

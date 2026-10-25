@@ -164,6 +164,24 @@ test("kouzla: posílení od jiné postavy („Kouzlo ⇒ Cíl“ u sesilatele) p
   }
 });
 
+test("Emboldening Bond (2026-10-25): kněz vybere spojence, pouto se jim přičte samo, nové pouto nahradí staré", async () => {
+  S.ev(
+    `KARTY.push({id: "t_mir", n: "Mírotvůrce", povolani: "Cleric 5", uroven: 5, vl: {WIS: 16}, rysy: [], vybaveni: []}); KARTBY.t_mir = KARTY[KARTY.length - 1]`,
+  );
+  try {
+    await S.ev(`kEmbPouto(KARTBY.t_mir, [KARTBY.t_mir, KARTBY.balduin])`);
+    assert.deepEqual(V(`kUc(KARTBY.t_mir).map(u => u.n)`), ["Emboldening Bond ⇒ Mírotvůrce", "Emboldening Bond ⇒ Balduin"]);
+    assert.deepEqual(V(`kPriHod(KARTBY.balduin, "Útok").n`), ["Emboldening Bond"], "spojenci se kostka přičte sama");
+    assert.deepEqual(V(`kPriHod(KARTBY.t_mir, "Záchrana WIS").n`), ["Emboldening Bond"], "i sesilateli");
+    await S.ev(`kEmbPouto(KARTBY.t_mir, [KARTBY.t_mir])`);
+    assert.deepEqual(V(`kUc(KARTBY.t_mir).map(u => u.n)`), ["Emboldening Bond ⇒ Mírotvůrce"]);
+    assert.deepEqual(V(`kPriHod(KARTBY.balduin, "Útok").n`), []);
+    assert.match(V(`kEmbChips(KARTBY.t_mir)`), /data-kembc="t_mir"[^>]*>sebe/);
+  } finally {
+    S.ev(`delete KST.t_mir; KARTY.pop(); delete KARTBY.t_mir`);
+  }
+});
+
 /* ---------- opakovaná kouzla bez slotu (KZOPAK), oblasti (KZOBL), rituály ---------- */
 test("kouzla: Spiritual Weapon 1d8 + modifikátor, +1d8 za každé dva stupně nad 2.", () => {
   assert.equal(V(`kzZr(KZOPAK["Spiritual Weapon"], 2, 4)`), "1d8+4");
@@ -278,6 +296,9 @@ test("kouzla: stav ze záchrany i z českého textu – Cause Fear → Vyděšen
   assert.deepEqual(V(`bojSpStav("Snare").st`), ["spoután"]);
   assert.deepEqual(V(`bojSpStav("Hold Person").st`), ["paralyzovaný"]);
   assert.equal(V(`bojSpStav("Cure Wounds")`), null);
+  /* 2026-10-25: věta za neúspěchem („Dokud je Charmed, je Incapacitated“) se počítá, stav v záporu ne */
+  assert.deepEqual(V(`bojSpStav("Hypnotic Pattern").st`), ["okouzlen", "neschopný"]);
+  assert.equal(V(`bojSpStav("Sickening Radiance")`), null, "„nemůže těžit ze stavu Invisible“ není stav");
 });
 
 test("kouzla: smity po zásahu – Searing/Wrathful/Thunderous Smite a Ensnaring Strike z nejnižšího volného slotu, Blinding Smite bez slotu 3. st. ne; s Divine Smite se vylučují", () => {

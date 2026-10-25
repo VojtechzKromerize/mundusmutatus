@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 5 (1 800 XP)
 ac: 15
 hp: 110
-utok: Drápy +6, 2d6+3 a Grappled, a ocas +6, dosah 10 stop, 2d10+3 · nebo dva vržené plameny +5, 150 stop, 5d6 Fire
+utok: Drápy +6, 2d6+3 a Grappled, a ocas +6, dosah 10 stop, 2d10+3 · nebo dva vržené plameny +5, 150 stop, 5d6 Fire · ostny (Reakce)
 pozehnani: Ostny kůže se zaryjí: tvor, kterého drží, utrží navíc 1d10 Piercing.
 pokuseni: Musí se pochlubit: příští slot vykřikuje, kolik duší už odnesl.
 nerest: Pýcha – je pekelný biřic a nesnese, že by ho přelstil smrtelník. Kdo ho vyzve k sázce, toho nesmí odmítnout.
@@ -42,6 +42,10 @@ utoky:
 - **Drápy.** +6, dosah 5 stop. **Zásah:** 2d6+3 Piercing a tvor velikosti Large a menší je Grappled (únik DC 13).
 - **Ocas.** +6, dosah 10 stop. **Zásah:** 2d10+3 Slashing.
 - **Vržený plamen.** +5, dostřel 150 stop. **Zásah:** 5d6 Fire; hořlavé věci vzplanou.
+
+## Reakce
+
+- **Ostny.** Když ho zasáhne útok zblízka, útočník hodí DEX save DC 13, jinak utrží 1d10 Piercing.
 
 **Výkupné a kořist.** Seznam dlužníků pekla. Některá jména družina zná.
 

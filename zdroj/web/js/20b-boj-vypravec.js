@@ -281,6 +281,7 @@ function bojUtokVyhodnot0(s, u) {
     o.zve = bojZvVyhodnot(s, u, h, n, E, ZS, true, krit);
     /* mistrovství zbraně (20g): Topple, Sap, Slow, Vex, Push – přidá se k vyhodnocení perků */
     if (typeof bojWmVyhodnot === "function") o.wme = bojWmVyhodnot(u, h, n, E, o);
+    if (u.man && typeof bojManVyhodnot === "function") o.mne = bojManVyhodnot(u, n, E);
     o.gm = `${n.n}: ${u.hod} proti ${o.acT} → ${krit ? "kritický zásah" : "zásah"}${o.ostra != null ? ` (Ostrá: 19 seká cíl bez Resistance, přihozeno ${o.ostra})` : ""}${o.slabin != null ? ` (Do slabin!: ležící cíl, přihozeno ${o.slabin})` : ""}, ${u.dmg}${z.pozn.length ? " → " + z.x + " (" + z.pozn.join(", ") + ")" : ""}${o.sokKrit ? " · sok je kritickým zásahem poražen (Artikule) – ledaže pošle do rány pacholka („Za pána!“)" : ""}${krit && n.druh === "zhoubce" ? " · zhoubce smí obětovat zbroj" : ""}${o.zve.map(e => " · " + e.txt).join("")}`;
     o.vys = o.sokKrit
       ? "kritický zásah – poražen"
@@ -291,6 +292,7 @@ function bojUtokVyhodnot0(s, u) {
           : "zásah";
     if (o.obet) o.gm += ` · ${o.obet} obětována, zranění bez kritu ${o.x}`;
     if ((o.wme || []).length) o.gm += o.wme.map(e => " · " + e.txt).join("");
+    if (o.mne) o.gm += " · " + o.mne.txt;
     r.push(o);
   });
   return {an, h, r};
@@ -2023,12 +2025,6 @@ document.addEventListener("click", async e => {
     renderBoj();
     return;
   }
-  const bzx = T("[data-bzex]");
-  if (bzx && !T("button,a,input,select")) {
-    bzPrepni(bzx.dataset.bzex);
-    renderBoj();
-    return;
-  }
   const blz = T("[data-blzpet]");
   if (blz) {
     bojLogZpetSem(+blz.dataset.blzpet);
@@ -2530,6 +2526,10 @@ document.addEventListener("click", async e => {
     bojNpcKouzlo(o0, kzb.dataset.bkz, kzb.dataset.bkzz || null);
     return;
   }
+  if (T("[data-bodch]") && o0) {
+    bojOdchodDlg(o0);
+    return;
+  }
   if (T("[data-bkryt]")) {
     upd(o => {
       const k = +o.kryt || 0;
@@ -2843,3 +2843,36 @@ async function bojVratCas(tr, popis) {
   mmHlasG("Boj vrácen do stavu před vybraným řádkem.", 3500);
   renderBoj();
 }
+
+/* příležitostný útok (2026-10-25, Vojta): „Opouští dosah“ u nepřítele – vypravěč vybere postavy, od kterých odchází; do veřejného
+   záznamu jde řádek s v = „opouští dosah“ a telefon postavy nabídne útok reakcí (bojPrilezNovy v 14c) */
+function bojOdchodDlg(n) {
+  const s = BOJ.s || {},
+    L = (s.hraci || []).filter(h => !bojDsAkt(h) && !(s.reak || {})[h.id]);
+  mmPop(
+    `<h3 class="uvh2">${besc(n.n)} opouští dosah</h3><p class="rsmall">Od koho odchází? Vybraným se nabídne příležitostný útok (reakce už v tomto kole použitá se nenabízí).</p>
+    <p class="kcilm bodchl">${L.length ? L.map(h => `<button type="button" class="kcilmb" data-bodchh="${besc(h.id)}" data-bodchn="${besc(n.id)}" aria-pressed="false">${besc(h.n)}</button>`).join("") : "<small>Nikdo nemá volnou reakci.</small>"}</p>
+    <p><button type="button" class="gbtn" data-bodchok="${besc(n.id)}">Nabídnout příležitostný útok</button></p>`,
+  );
+}
+document.addEventListener("click", e => {
+  const T = q => e.target.closest && e.target.closest(q);
+  const b = T("[data-bodchh]");
+  if (b) {
+    b.setAttribute("aria-pressed", String(b.getAttribute("aria-pressed") !== "true"));
+    return;
+  }
+  const ok = T("[data-bodchok]");
+  if (!ok) return;
+  const s = BOJ.s || {},
+    n = (s.npc || []).find(x => x.id === ok.dataset.bodchok),
+    H = [...document.querySelectorAll('.mmpop [data-bodchh][aria-pressed="true"]')]
+      .map(x => (s.hraci || []).find(h => h.id === x.dataset.bodchh))
+      .filter(Boolean);
+  mmPopX();
+  if (!n || !H.length) return;
+  H.forEach(h => bojZaz({a: n.n, ai: n.id, c: h.n, ci: h.id, cim: "příležitostný útok", v: "opouští dosah"}));
+  bojLog(n.id, {n: "Opouští dosah", zt: `příležitostný útok: ${H.map(h => h.n).join(", ")}`}, n.n);
+  mmHlasG(`${n.n} opouští dosah – ${H.map(h => h.n).join(", ")} ${H.length > 1 ? "mohou" : "může"} reakcí zaútočit.`, 4000);
+  renderBoj();
+});
