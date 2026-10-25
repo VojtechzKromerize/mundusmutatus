@@ -14,6 +14,7 @@ postaveni: stabilní
 historie: Starý rod, který se psal podle Nového hradu.
 # erb: obrázek art/erby/<id>.webp se najde sám; jiný soubor zadejte jako  erb: <název bez .webp>
 # mesto: ano   – jde o město, ne o šlechtický rod
+# hrady: ano   – skupina klíčových hradů (na mapě hrady, každé místo má vlastní shrnutí v CITYINFO, 02-mapa.js)
 # soused: ano  – rod ze sousední země (tmavý lem na mapě)
 # nemapovat: ano – nezobrazovat na mapě
 # sídla: název | zeměpisná délka | šířka | volitelně vyznání tohoto sídla (kat/kal/mix)

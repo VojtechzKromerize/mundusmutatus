@@ -87,7 +87,7 @@ function renderRodArticle(id) {
      <dl class="kv"><dt>Vyznání</dt><dd>${faith(f.conf)}</dd>
      ${f.pos ? `<dt>Postavení</dt><dd>${POSL(f.pos)}</dd>` : ""}
      <dt>Země</dt><dd>${f.land}</dd>
-     ${f.seats.length ? `<dt>${f.city ? "Města" : "Državy"}</dt><dd>${f.seats.map(sd => maplinkBtn(f, sd)).join(", ")}</dd>` : ""}
+     ${f.seats.length ? `<dt>${f.city ? "Města" : f.castle ? "Hrady" : "Državy"}</dt><dd>${f.seats.map(sd => maplinkBtn(f, sd)).join(", ")}</dd>` : ""}
      ${ppl.length ? `<dt>Osoby</dt><dd>${ppl.map(plinkP).join(", ")}</dd>` : ""}
      ${PRAHA_PLACES.some(q => q.r === id) ? `<dt>V Praze</dt><dd>${prLinks(PRAHA_PLACES.filter(q => q.r === id))}</dd>` : ""}</dl>
      ${
@@ -859,7 +859,7 @@ document.addEventListener("click", e => {
   if (m) {
     const f = byId[m.dataset.id];
     navTo("#mapa");
-    if (f.city) showCity(f.id, m.dataset.place);
+    if (f.city || f.castle) showCity(f.id, m.dataset.place);
     else {
       show(f.id);
       const sd = f.seats.find(x => x[0] === m.dataset.place);

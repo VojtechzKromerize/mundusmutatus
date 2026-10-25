@@ -177,6 +177,8 @@
         note: text(r._body),
       };
       if (ANO(r.mesto)) o.city = true;
+      /* skupina klíčových hradů (2026-10-25): na mapě jako hrady s vlastním shrnutím každého místa, jako města */
+      if (ANO(r.hrady)) o.castle = true;
       if (ANO(r.soused)) o.nbr = true;
       if (ANO(r.nemapovat)) o.nomap = true;
       if (fam.some(f => f.id === o.id)) fail(`${w}: id „${o.id}“ už má jiný rod`);
@@ -737,8 +739,8 @@
     /* zeměpis: královská města a sídla církevních vrchností (bez brány – jsou na mapě vždy) */
     const ZEM = [];
     for (const f of fam)
-      if (!f.nomap && (f.city || f.land === "Duchovenstvo"))
-        for (const sd of f.seats) ZEM.push([sd[0], sd[1], sd[2], sd[3] || f.conf, f.city ? "mesto" : "cirkev"]);
+      if (!f.nomap && (f.city || f.castle || f.land === "Duchovenstvo"))
+        for (const sd of f.seats) ZEM.push([sd[0], sd[1], sd[2], sd[3] || f.conf, f.city ? "mesto" : f.castle ? "hrad" : "cirkev"]);
     const odh = {
       DRACI: {kap, pl: PL},
       ZEMEPIS: ZEM,

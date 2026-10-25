@@ -1298,7 +1298,7 @@ function gIndex() {
       if (seen.has(sd[0])) return;
       seen.add(sd[0]);
       const ci = (typeof CITYINFO !== "undefined" && CITYINFO[sd[0]]) || {};
-      GIDX.push({k: f.city ? "Město" : "Sídlo", n: sd[0], s: f.name, place: [f.id, sd[0]], t: norm(sd[0]), b: norm(ci.n || "")});
+      GIDX.push({k: f.city ? "Město" : f.castle ? "Hrad" : "Sídlo", n: sd[0], s: f.name, place: [f.id, sd[0]], t: norm(sd[0]), b: norm(ci.n || "")});
     });
   });
   DUCHY.forEach(u => GIDX.push({k: "Země", n: u.name, s: u.s, duchy: u.id, t: norm(u.name + " " + u.s), b: norm(u.note)}));

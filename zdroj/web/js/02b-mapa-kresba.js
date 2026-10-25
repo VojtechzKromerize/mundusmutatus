@@ -6340,10 +6340,14 @@ function drawMapK() {
         if (id !== sel) {
           (relT[id] = relT[id] || new Set()).add(r.t);
         }
+  /* místo, které je zároveň městem (hradem) se shrnutím i sídlem rodu, se kreslí jednou – jako město (2026-10-25) */
+  const zMest = new Set();
+  for (const f of FAM) if (!f.nomap && (f.city ? st.cities : f.castle && st.holds)) for (const sd of f.seats) zMest.add(sd[0]);
   for (const f of FAM) {
     if (f.nomap) continue;
     if (sel !== f.id && (f.city ? !st.cities : !st.holds)) continue;
     for (const sd of f.seats) {
+      if (sel !== f.id && !f.city && !f.castle && zMest.has(sd[0])) continue;
       const conf = sd[3] || f.conf;
       const [x, y] = P(sd[1], sd[2]);
       const isSel = sel === f.id && (!st.city || sd[0] === st.city);
@@ -6357,14 +6361,14 @@ function drawMapK() {
           pickPlace(sd[0]);
           return;
         }
-        if (f.city) showCity(f.id, sd[0]);
+        if (f.city || f.castle) showCity(f.id, sd[0]);
         else select(f.id);
       });
       const r = (isSel ? 6.5 : 4.8) * s,
         sw = (1 * s).toFixed(2);
       g.appendChild(el("circle", {cx: x, cy: y, r: (12 * s).toFixed(1), fill: "transparent"}));
       const tier = mistoTier(sd[0], f.city || TOWNSEATS.has(sd[0]));
-      if (f.city || TOWNSEATS.has(sd[0])) {
+      if (!f.castle && (f.city || TOWNSEATS.has(sd[0]))) {
         g.appendChild(mapIkEl(TOWNICO, conf, !!f.nbr && !f.city, isSel ? 19 : MTZ[tier], x, y, 0.62, s));
       } else {
         g.appendChild(mapIkEl(CASTLEICO, conf, !!f.nbr, isSel ? 18 : MTZ[tier], x, y, 0.66, s));

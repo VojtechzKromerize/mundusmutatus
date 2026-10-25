@@ -2340,10 +2340,11 @@ function renderDetail() {
     const sd = f.seats.find(x => x[0] === st.city) || f.seats[0],
       conf = sd[3] || f.conf,
       info = CITYINFO[st.city] || {};
-    const typ = info.t || CTYPE[f.id] || "Město";
+    const typ = info.t || CTYPE[f.id] || (f.castle ? "Hrad" : "Město");
+    /* jen shrnutí tohoto místa (CITYINFO) – poznámka celé skupiny měst mluví o jiných městech (Litovel ukazovala Tábor, 2026-10-25) */
     d.innerHTML = `${back}<span class="lbl">${typ} · ${f.nbr ? f.land : "země Koruny"}</span>
-     <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h3 style="font-size:1.35rem">${townImg(conf, "townico big")}${st.city}</h3>${faith(conf)}</div>
-     ${CARMS[st.city] ? `<img class="carms" src="${CARMS[st.city]}" alt="Erb města ${st.city}">` : ""}<p>${info.n || f.note}</p>
+     <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h3 style="font-size:1.35rem">${f.castle ? `<img class="townico big t-${conf}" src="${CASTLEICO}" alt="" aria-hidden="true">` : townImg(conf, "townico big")}${st.city}</h3>${faith(conf)}</div>
+     ${CARMS[st.city] ? `<img class="carms" src="${CARMS[st.city]}" alt="Erb města ${st.city}">` : ""}${info.n ? `<p>${info.n}</p>` : ""}
      ${st.city === "Praha" ? `<a class="gbtn ghost" href="#praha">Plán Prahy</a>` : ""}<dl class="kv" style="clear:both"><dt>Patří k</dt><dd>${flink(f.id)}</dd></dl>`;
     const bb = document.getElementById("backbtn");
     if (bb) bb.addEventListener("click", goBack);
@@ -2585,7 +2586,8 @@ renderRels(document.getElementById("relcols2"), REL.filter(isForeign));
 const norm = s => String(s).normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 const CIDX = [];
 FAM.forEach(f => {
-  if (f.city) f.seats.forEach(sd => CIDX.push({f, name: sd[0], conf: sd[3] || f.conf, txt: norm(sd[0] + " " + ((CITYINFO[sd[0]] || {}).n || ""))}));
+  if (f.city || f.castle)
+    f.seats.forEach(sd => CIDX.push({f, name: sd[0], conf: sd[3] || f.conf, txt: norm(sd[0] + " " + ((CITYINFO[sd[0]] || {}).n || ""))}));
 });
 /* hledání na mapě nahradilo jediné hledání v liště */
 
