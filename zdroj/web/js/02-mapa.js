@@ -1282,6 +1282,330 @@ const CITYINFO = {
   Będzin: {t: "Královský hrad", n: "Kamenný hrad Kazimíra Velikého, vojenská hláska na jihozápadní hranici Polska proti Slezsku."},
   Czorsztyn: {t: "Královský hrad", n: "Strážce polsko-uherské hranice nad Dunajcem, naproti uherské Nedeci; spravují ho královští starostové."},
   Ziesar: {t: "Biskupský hrad", n: "Sídlo braniborských biskupů a správní středisko biskupství už od roku 1327."},
+  /* sídla rodů jako místa (2026-10-25, Vojta: bez vrstvy Sídla rodů se čte o místě) */
+  Poděbrady: {
+    t: "Hrad pánů z Poděbrad",
+    n: "Vodní hrad a město na Labi, dědičné sídlo pánů z Kunštátu a Poděbrad. Podle tradice se tu roku 1420 narodil Jiří, nyní zvolený král.",
+  },
+  Litice: {
+    t: "Hrad pánů z Poděbrad",
+    n: "Hrad na skále nad Divokou Orlicí, který Jiří dal zesílit. Na litickém panství, ve vsi Kunvaldu, se s jeho svolením usadila Jednota bratrská.",
+  },
+  Náchod: {
+    t: "Hrad pánů z Poděbrad",
+    n: "Hrad a město na Kladské stezce u zemské hranice. Jiří je zdědil roku 1427, ale od roku 1437 tu vládl husitský hejtman Jan Kolda ze Žampachu; Jiří hrad dobyl až roku 1456.",
+  },
+  Kladsko: {
+    t: "Město a hrad pánů z Poděbrad",
+    n: "Hlavní město Kladska s hradem nad Nisou, na cestě z Čech do Slezska. Jiří je koupil roku 1454 a spravuje je jeho hejtman Hanuš z Varnsdorfu.",
+  },
+  Minsterberk: {
+    t: "Slezské knížecí město",
+    n: "Sídlo minsterberského knížectví ve Slezsku, které Jiří získal roku 1456; jako v Kladsku tu za něj vládne hejtman Hanuš z Varnsdorfu.",
+  },
+  "Kunštát (Morava)": {
+    t: "Hrad pánů z Poděbrad",
+    n: "Rodový hrad pánů z Kunštátu na západní Moravě, podle něhož se rod píše. Po smrti Viktorina Bočka jej držela poručnická správa a Albrecht Habsburský; Jiří jej má od konce 40. let.",
+  },
+  "Český Krumlov": {
+    t: "Sídelní město Rožmberků",
+    n: "Hlavní sídlo Rožmberků: mohutný hrad nad meandry Vltavy a město pod ním. Odtud vedl Oldřich II. za husitských válek boj proti Táboru.",
+  },
+  Rožmberk: {
+    t: "Hrad pánů z Rožmberka",
+    n: "Starobylý hrad nad Vltavou, po němž se rod píše. Hlavním sídlem je dnes Krumlov, ale jméno a růže vzešly odtud.",
+  },
+  Třeboň: {
+    t: "Rožmberské město",
+    n: "Opevněné město Rožmberků v rovině mezi rybníky a mokřady jižních Čech, s augustiniánským klášterem, který rod založil roku 1367.",
+  },
+  "Nové Hrady": {
+    t: "Hrad pánů z Rožmberka",
+    n: "Pomezní hrad Rožmberků u rakouské hranice, v jejich rukou od roku 1359; střeží cestu z jižních Čech do Rakous.",
+  },
+  Konopiště: {
+    t: "Hrad pánů ze Šternberka",
+    n: "Gotický hrad u Benešova, Šternberkové jej drží od roku 1327. Je sídlem Zdeňka Konopišťského ze Šternberka, nejvyššího purkrabího a nejmocnějšího katolíka u dvora.",
+  },
+  "Český Šternberk": {
+    t: "Hrad pánů ze Šternberka",
+    n: "Rodový hrad Šternberků na skalním ostrohu nad Sázavou, založený roku 1241. Odtud se rod s osmicípou hvězdou píše.",
+  },
+  "Zelená Hora": {
+    t: "Hrad nad Nepomukem",
+    n: "Hrad na vrchu nad Nepomukem. Když husité roku 1420 vypálili cisterciácký klášter Pomuk, převzal hrad roli střediska zdejšího panství.",
+  },
+  "Lukov (Morava)": {
+    t: "Hrad pánů ze Šternberka",
+    n: "Lesní hrad na ostrohu nad Zlínskem, Šternberkům patří už od 14. století. Drží ho moravská větev rodu, pan Matouš ze Šternberka.",
+  },
+  "Holešov (Morava)": {
+    t: "Panské město Šternberků",
+    n: "Město na Hané se šternberskou tvrzí, která nahradila starší hrad. Spolu s Lukovem je drží moravská větev rodu.",
+  },
+  "Jindřichův Hradec": {
+    t: "Sídelní město pánů z Hradce",
+    n: "Hrad a jedno z největších měst jižních Čech, kmenové sídlo pánů z Hradce se zlatou růží. Panství nyní spravují poručníci za nezletilé dědice.",
+  },
+  "Telč (Morava)": {
+    t: "Panské město pánů z Hradce",
+    n: "Hrad a město mezi rybníky na moravském pomezí, v rukou pánů z Hradce od roku 1339. Odtud pocházejí nezletilí dědici rodu, Jindřich a Heřman.",
+  },
+  Blatná: {
+    t: "Hrad Lvů z Rožmitálu",
+    n: "Vodní hrad mezi rybníky v Pootaví, sídlo Lvů z Rožmitálu. Rodina, z níž pochází královna Johana, tu sílí spolu s jejím manželem.",
+  },
+  Rožmitál: {
+    t: "Hrad Lvů z Rožmitálu",
+    n: "Hrad a městečko pod Třemšínem v Brdech, po nichž se Lvové z Rožmitálu píší. Drží ho bratři královny Johany.",
+  },
+  "Rabštejn nad Střelou": {
+    t: "Hrad mladších pánů z Rabštejna",
+    n: "Hrad na skalním ostrohu nad řekou Střelou s malým hrazeným městečkem pod ním, na Plzeňsku. Podle něho se píší mladší páni z Rabštejna, rod kancléře Prokopa.",
+  },
+  Litomyšl: {
+    t: "Zástavní město Kostků z Postupic",
+    n: "Někdejší sídlo litomyšlského biskupa; biskupství za husitských válek zaniklo. Od roku 1436 město drží zástavou Kostkové z Postupic, věrní kališníci.",
+  },
+  Postupice: {
+    t: "Rodová tvrz Kostků z Postupic",
+    n: "Ves s tvrzí na Benešovsku, rodové sídlo rytířů Kostků z Postupic. Rod nyní stoupá se svým králem.",
+  },
+  Smiřice: {
+    t: "Rodová tvrz Smiřických",
+    n: "Tvrz a městečko na Labi u Hradce Králové, po nichž se píší Smiřičtí. Od popravy pana Jana roku 1453 je spravují poručníci jeho synů.",
+  },
+  Houska: {
+    t: "Hrad Smiřických",
+    n: "Osamělý hrad na pískovcové skále v lesích Kokořínska, Smiřickým patří od roku 1432. Pověst tvrdí, že pod ním zeje díra do pekel.",
+  },
+  Libštejn: {
+    t: "Hrad pánů z Kolovrat",
+    n: "Hrad Kolovratů na ostrohu nad Berounkou. Roku 1425 jej husité sedm týdnů obléhali; nedobyli ho, ale Kolovratové s nimi nakonec uzavřeli mír.",
+  },
+  "Švamberk (Krasikov)": {
+    t: "Hrad pánů ze Švamberka",
+    n: "Rodový hrad Švamberků na kopci u Tachova. Roku 1421 tu husité zajali Bohuslava ze Švamberka, který pak přešel na jejich stranu a vedl Tábor.",
+  },
+  Bor: {
+    t: "Hrad a městečko Švamberků",
+    n: "Hrad a městečko na Tachovsku, které Švamberkové drží od počátku 15. století. Roku 1430 jej husité marně obléhali.",
+  },
+  Hazmburk: {
+    t: "Hrad Zajíců z Hazmburka",
+    n: "Hrad se dvěma věžemi, Bílou a Černou, na vrchu Klapý nad Podřipskem. Rod Zajíců se po něm píše; drží ho pan Zbyněk Zajíc.",
+  },
+  Budyně: {t: "Hrad Zajíců z Hazmburka", n: "Vodní hrad a městečko nad Ohří na Podřipsku. Roku 1451 je koupil Zbyněk Zajíc z Hazmburka."},
+  Hasištejn: {
+    t: "Hrad Hasištejnských z Lobkovic",
+    n: "Hrad na úbočí Krušných hor nad Kadaní, od roku 1418 v rukou Lobkoviců, kteří se po něm píší Hasištejnští.",
+  },
+  Děčín: {
+    t: "Hrad pánů z Vartenberka",
+    n: "Hrad na skále nad Labem při hranici s Míšní, kde se vybírá labské clo. Sídlo Jana z Vartenberka, často terč nájezdů lužického Šestiměstí.",
+  },
+  Ralsko: {
+    t: "Hrad pánů z Vartenberka",
+    n: "Hrad na vrcholu osamělé hory Ralsko, viditelný široko daleko. Sídlo Heníka z Vartenberka, který přepadá lužické kupce.",
+  },
+  Tolštejn: {
+    t: "Hrad Berků z Dubé",
+    n: "Hrad v Lužických horách nad Jiřetínem. Hynek Berka z Dubé tu žije z výpalného, které vybírá od kupců ze Žitavy.",
+  },
+  Jestřebí: {
+    t: "Hrad Smiřických",
+    n: "Hrad na pískovcové skále u Doks, dříve Berků z Dubé. Roku 1445 ho koupil Jan Smiřický a po jeho popravě zůstal jeho synům.",
+  },
+  Dubá: {t: "Rodové sídlo Berků z Dubé", n: "Městečko s hradem na Kokořínsku, po němž se píší Berkové z Dubé, větev Ronovců se zkříženými ostrvemi."},
+  Velhartice: {
+    t: "Hrad Švihovských z Rýzmberka",
+    n: "Hrad na Šumavsku, proslulý kamenným mostem na pilířích, který spojuje palác s věží. Děpolt Švihovský jej koupil od pánů z Hradce.",
+  },
+  Loket: {t: "Královský hrad zastavený Šlikům", n: "Královský hrad nad zákrutem Ohře, střed Loketska. Od roku 1434 jej zástavou drží Šlikové."},
+  Pernštejn: {
+    t: "Hrad pánů z Pernštejna",
+    n: "Rodový hrad pánů z Pernštejna na skále nad Nedvědicí na Vysočině, sídlo Jana II., opory krále na Moravě.",
+  },
+  Tovačov: {
+    t: "Hrad pánů z Cimburka",
+    n: "Hrad a městečko na Hané, sídlo Jana Tovačovského z Cimburka, moravského zemského hejtmana a hlavní opory kalicha na Moravě.",
+  },
+  Cimburk: {
+    t: "Hrad v Chřibech",
+    n: "Hrad v Chřibech nad Koryčany, který v 1. polovině 14. století založil Bernart z Cimburka. Od konce 14. století jej drží zástavní páni.",
+  },
+  Kroměříž: {
+    t: "Biskupské město",
+    n: "Město na Hané s rezidencí olomouckých biskupů, nejvyšší duchovní vrchnosti na Moravě. Biskupské statky v okolí jsou od husitských válek z velké části zastavené.",
+  },
+  Vyškov: {t: "Biskupské město", n: "Město s hradem olomouckých biskupů na cestě z Brna na Hanou."},
+  Hukvaldy: {
+    t: "Biskupský hrad v cizích rukou",
+    n: "Hrad olomouckých biskupů v podhůří Beskyd, za husitských válek ztracený. Drží jej Jan Talafús z Ostrova, zeť žoldnéřského hejtmana Jana Čapka ze Sán.",
+  },
+  "Černá Hora": {
+    t: "Hrad pánů z Boskovic",
+    n: "Hrad nad městečkem u Blanska, sídlo černohorské větve pánů z Boskovic. Sedí tu pan Vaněk, nejvyšší komorník moravského zemského soudu.",
+  },
+  "Moravský Krumlov": {
+    t: "Hrad pánů z Lipé",
+    n: "Hrad a město na jižní Moravě, které páni z Lipé drží od roku 1447. Moravské sídlo nejvyššího maršálka Jindřicha z Lipé.",
+  },
+  "Velké Meziříčí": {
+    t: "Hrad pánů z Lomnice",
+    n: "Hrad a město na Vysočině nad řekou Oslavou, od 40. let sídlo Václava Meziříčského z Lomnice, muže habsburského dvora.",
+  },
+  "Mikulov (Morava)": {
+    t: "Hrad pánů z Lichtenštejna",
+    n: "Hrad na skále nad vinařským městem při rakouské hranici, Lichtenštejnům patří od 13. století. Sídlo zadluženého Jana z Lichtenštejna.",
+  },
+  Valtice: {
+    t: "Rakouské panství Lichtenštejnů",
+    n: "Hrad a městečko těsně za moravskou hranicí; patří k Dolním Rakousům. Lichtenštejnové tu mají jednu nohu v Rakousích.",
+  },
+  Otmuchov: {
+    t: "Biskupský hrad",
+    n: "Hrad a město vratislavských biskupů v niském knížectví ve Slezsku. Spolu s Nisou patří biskupu Joštovi z Rožmberka.",
+  },
+  "Horní Hlohov": {t: "Knížecí město", n: "Hlavní sídlo knížete Bolka V. Opolského, jediného slezského knížete, který přál kalichu."},
+  Frýdlant: {
+    t: "Hrad pánů z Bibrštejna",
+    n: "Hrad na čedičové skále v severních Čechách, Bibrštejnům patří od 13. století. Kraj za husitských válek vydrancovali a od té doby se drží Šestiměstí.",
+  },
+  Žary: {t: "Lužické město Bibrštejnů", n: "Město v Dolní Lužici, které patří Bibrštejnům vedle Frýdlantu. Na Žary má chuť Braniborsko."},
+  Beeskow: {
+    t: "Lužické město Bibrštejnů",
+    n: "Městečko na Sprévě v Dolní Lužici, při hranici s Braniborskem. Nejsevernější državu pánů z Bibrštejna ohrožují braniborské nároky.",
+  },
+  Landštejn: {
+    t: "Hrad Krajířů z Krajku",
+    n: "Pomezní hrad na cestě z Rakous do Čech. Krajířové tu za válek zbohatli na mýtě, které vybírali ode všech stran.",
+  },
+  "Berlín-Cölln": {
+    t: "Rezidence braniborských kurfiřtů",
+    n: "Dvojměstí na Sprévě, jehož vzdor kurfiřt Fridrich II. zlomil. V Cöllnu si dal postavit hrad a od roku 1451 v něm sídlí.",
+  },
+  Chotěbuz: {
+    t: "Braniborské město v Dolní Lužici",
+    n: "Město na Sprévě, které kurfiřt Fridrich II. od roku 1445 skupoval od pánů z Chotěbuzi. Braniborská výspa v zemi, kterou Koruna považuje za svou.",
+  },
+  Picnov: {
+    t: "Braniborský hrad v Dolní Lužici",
+    n: "Hrad a městečko kousek od Chotěbuze. Kurfiřt Fridrich II. ho získal roku 1442 vyplacením zástavy a drží ho jako opěrný bod v Lužici.",
+  },
+  Krakov: {
+    t: "Hlavní město Polského království",
+    n: "Sídelní město krále Kazimíra IV. pod Wawelem, bohaté obchodem na Visle a s německým měšťanstvem. Má proslulou univerzitu, obnovenou roku 1400.",
+  },
+  Osvětim: {
+    t: "Hrad a město Osvětimského knížectví",
+    n: "Hrad a město na Sole nedaleko Visly. Knížectví, dřív léno české koruny, koupil roku 1457 polský král Kazimír IV.",
+  },
+  Budín: {
+    t: "Královské sídlo Uher",
+    n: "Královský hrad a město na vrchu nad Dunajem, naproti Pešti. V únoru 1458 sem přijel nově zvolený král Matyáš Korvín.",
+  },
+  Zvolen: {
+    t: "Hrad Jana Jiskry",
+    n: "Královský hrad, který dal postavit Ludvík Veliký, nad soutokem Hronu a Slatiny. Hlavní sídlo hejtmana Jiskry v Horních Uhrách.",
+  },
+  Kremnice: {t: "Horní město", n: "Zlatonosné horní město s královskou mincovnou, odkud pocházejí uherské zlaté dukáty. Drží ho Jiskrovi žoldnéři."},
+  "Vídeňské Nové Město": {
+    t: "Rezidence císaře Fridricha III.",
+    n: "Opevněné město jižně od Vídně, oblíbené sídlo císaře Fridricha III. Na jeho hradě je kaple sv. Jiří se stěnou erbů.",
+  },
+  Vídeň: {
+    t: "Hlavní město Rakous",
+    n: "Největší město Rakous s univerzitou a chrámem sv. Štěpána, církevně pod Pasovem. Po smrti Ladislava Pohrobka nemá jistého pána; přou se o ni Fridrich III. a Albrecht VI.",
+  },
+  Landshut: {
+    t: "Sídelní město Ludvíka Bohatého",
+    n: "Město na Isaře s hradem Trausnitz, rezidence vévody Ludvíka IX. Bohatého, nejbohatšího z bavorských Wittelsbachů.",
+  },
+  Mnichov: {
+    t: "Sídelní město vévody Albrechta III.",
+    n: "Město na Isaře a rezidence bavorsko-mnichovské linie Wittelsbachů, kde vládne vévoda Albrecht III.",
+  },
+  Neumarkt: {t: "Sídlo falckraběte Oty I.", n: "Město v Horní Falci, od roku 1448 rezidence falckraběte Oty I. Mosbašského z linie Wittelsbachů."},
+  Míšeň: {
+    t: "Hradní a biskupské město Wettinů",
+    n: "Kolébka Wettinů: na hradním vrchu nad Labem stojí hrad markrabat míšeňských a katedrála míšeňského biskupství.",
+  },
+  Drážďany: {t: "Rezidence saských Wettinů", n: "Město s hradem na Labi, od 13. století jedna z wettinských rezidencí. Přes řeku vede kamenný most."},
+  Výmar: {
+    t: "Sídlo vévody Viléma III.",
+    n: "Durynské město, kde sídlí vévoda Vilém III., bratr saského kurfiřta, s nímž vedl bratrovražednou válku.",
+  },
+  Plavno: {t: "Sídlo pánů z Plavna", n: "Hlavní město Fojtska na Bílém Halštrovu, sídlo pánů z Plavna. Drží ho jako léno české koruny."},
+  Glauchau: {t: "Hrad pánů ze Šumburka", n: "Město s hradem na Muldě, sídlo pánů ze Šumburka. Drží je jako léno české koruny."},
+  Waldenburg: {
+    t: "Hrad pánů ze Šumburka",
+    n: "Hrad a město na Muldě, od roku 1378 v rukou pánů ze Šumburka a léno české koruny. Proslulo hrnčíři, kteří mají cech od roku 1388.",
+  },
+  Plassenburg: {
+    t: "Hrad frankských Hohenzollernů",
+    n: "Mohutný hrad nad Kulmbachem na horním Mohanu, hlavní pevnost frankských Hohenzollernů, od roku 1457 v rukou Albrechta Achilla.",
+  },
+  Ansbach: {
+    t: "Sídelní město Albrechta Achilla",
+    n: "Franské město, oblíbená rezidence markraběte Albrechta Achilla, odkud vládne svému panství u Norimberka.",
+  },
+  Zátor: {
+    t: "Sídlo knížat zátorských",
+    n: "Malé město na Skavě u Visly, sídlo chudého Zátorského knížectví, které se roku 1445 oddělilo od Osvětimska.",
+  },
+  "Krakov (Wawel)": {
+    t: "Biskupský chrám a královský hrad",
+    n: "Hrad na vrchu nad Vislou s katedrálou, kde se korunují a pohřbívají polští králové. Je sídlem krakovského biskupa a kapituly.",
+  },
+  Tęczyn: {t: "Hrad Tęczyńských", n: "Rodový hrad Tęczyńských na zalesněném návrší západně od Krakova, podle něhož se rod píše."},
+  Rabsztyn: {t: "Královský hrad", n: "Královský hrad na skále u Olkuše, kde se těží stříbro a olovo. Jako starosta ho spravuje Ondřej z Tęczyna."},
+  Šamotuly: {t: "Sídlo Šamotulských", n: "Velkopolské město severozápadně od Poznaně, rodové sídlo pánů ze Šamotul."},
+  Hnězdno: {
+    t: "Arcibiskupské město",
+    n: "Nejstarší církevní centrum Polska, sídlo arcibiskupa a primase. V katedrále leží ostatky svatého Vojtěcha.",
+  },
+  Ostřihom: {
+    t: "Arcibiskupské město",
+    n: "Hrad a katedrála na vrchu nad Dunajem, sídlo arcibiskupa a primase Uher, který má právo korunovat uherské krále.",
+  },
+  "Oravský hrad": {
+    t: "Hrad Petra Komorovského",
+    n: "Královský hrad na vysoké skále nad řekou Oravou, který střeží cestu z Uher do Polska. Drží ho Petr Komorovský.",
+  },
+  Pezinok: {t: "Sídlo hrabat svatojiřských", n: "Město s hradem pod Malými Karpaty, obklopené vinicemi, sídlo hrabat ze Svatého Jura a Pezinku."},
+  "Svätý Jur": {
+    t: "Sídlo hrabat svatojiřských",
+    n: "Vinařské město pod Malými Karpaty, podle něhož se hrabata svatojiřská píší. Nad městem stojí jejich hrad Biely Kameň.",
+  },
+  Schrattenthal: {
+    t: "Hrad Oldřicha Eicingera",
+    n: "Městečko s vodním hradem ve vinařském kraji u Retzu, kousek od moravské hranice. Oldřich Eicinger ho drží od roku 1448 jako vlastní zboží.",
+  },
+  Heidenreichstein: {t: "Hrad Puchheimů", n: "Vodní hrad v lesích na severu Dolních Rakous, jen kousek od české hranice. Sídlo Puchheimů."},
+  Hardegg: {
+    t: "Hrad hrabat z Hardeggu",
+    n: "Hrad na skále nad Dyjí s městečkem pod ním, přímo na moravsko-rakouské hranici. Sídlo hrabat z Hardeggu.",
+  },
+  Eferding: {
+    t: "Sídelní město hrabat ze Schaunberku",
+    n: "Město u Dunaje v Horních Rakousích, středisko hrabství Schaunberků nedaleko jejich hradu Schaunberg.",
+  },
+  Pasov: {
+    t: "Biskupské město",
+    n: "Město na soutoku Dunaje, Innu a Ilzu s biskupským hradem nad řekou. Odtud vede Zlatá stezka se solí do Prachatic.",
+  },
+  Leuchtenberg: {t: "Hrad lankrabat z Leuchtenberka", n: "Rodový hrad lankrabat na kopci v Horní Falci, nedaleko hranice s Tachovskem."},
+  Pfreimd: {
+    t: "Sídlo lankrabat z Leuchtenberka",
+    n: "Městečko s vodním hradem v Horní Falci, sídlo lankrabat z Leuchtenberka a místo jejich rodové hrobky.",
+  },
+  Stolpen: {t: "Hrad biskupa míšeňského", n: "Hrad na čedičovém vrchu východně od Drážďan, sídlo míšeňských biskupů."},
+  Gera: {
+    t: "Sídlo pánů z Gery",
+    n: "Město na Bílém Halštrovu, sídlo pánů z Gery na hradě Osterštejně. Roku 1450 ho téměř zničila saská bratrovražedná válka.",
+  },
+  Greiz: {t: "Sídlo Reussů", n: "Město na Bílém Halštrovu s hradem na vrchu nad řekou, sídlo Reussů z Greizu."},
 };
 const MAJOR_ROADS = new Set([
   "Zlatá stezka",

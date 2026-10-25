@@ -108,10 +108,8 @@ test("mapa: posun v nakreslené oblasti (okraj MAPM) se nepřekresluje, přiblí
   S.ev(`st.vb = null; drawMapK()`);
 });
 
-test("mapa: každé město a klíčový hrad má vlastní shrnutí, hrady jsou v zeměpisu jako hrady (2026-10-25)", () => {
-  const bez = V(
-    `FAM.filter(f => (f.city || f.castle) && !f.nomap).flatMap(f => f.seats.map(sd => sd[0])).filter(n => !(CITYINFO[n] && CITYINFO[n].n))`,
-  );
+test("mapa: každé místo na mapě (město, hrad, sídlo rodu) má vlastní shrnutí, hrady jsou v zeměpisu jako hrady (2026-10-25)", () => {
+  const bez = V(`FAM.filter(f => !f.nomap).flatMap(f => f.seats.map(sd => sd[0])).filter(n => !(CITYINFO[n] && CITYINFO[n].n))`);
   assert.deepEqual(bez, [], "panel města nesmí ukazovat text celé skupiny (Litovel mluvila o Táboru)");
   const hrady = V(`ZEMEPIS.filter(z => z[4] === "hrad").map(z => z[0])`);
   for (const h of ["Karlštejn", "Křivoklát", "Bouzov", "Spišský hrad", "Devín"]) assert.ok(hrady.includes(h), h);
