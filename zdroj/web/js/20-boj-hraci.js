@@ -676,6 +676,8 @@ async function bojJaPosli() {
         const wm = typeof bojWmPayload === "function" ? bojWmPayload(K, w, x) : null;
         if (wm) u.wm = wm;
       }
+      const man = bojManPayload(K, x);
+      if (man) u.man = man;
       L.push(u);
     }
   }

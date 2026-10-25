@@ -1772,6 +1772,7 @@ document.addEventListener("click", async e => {
     await bojDB.hrac(b.dataset.bkonec, "hotovo", (s.kolo || 1) * 100 + (s.tah || 0));
     mmHlasG("Tah ukončen – vypravěč pokračuje.", 3500);
     BPT.k = null;
+    bojEvasiveKonec(bojKartaH((s.hraci || []).find(h => h.id === b.dataset.bkonec))).catch(() => {});
     try {
       navigator.vibrate && navigator.vibrate(40);
     } catch (err) {}

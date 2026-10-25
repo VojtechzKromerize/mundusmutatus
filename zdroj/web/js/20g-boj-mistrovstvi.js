@@ -152,6 +152,23 @@ function bojWmVyhodnot(u, h, n, E, o) {
   if (t === "Push") return [{t, txt: `${bojWmJm(t)}: ${hn} smí cíl (Velký a menší) odstrčit o 10 stop – posuň figurku`}];
   return [];
 }
+/* manévr Battle Mastera se záchranou (2026-10-25): útok nese {n, dc} z přídavku manévru; při zásahu vypravěč hodí záchranu cíle sám
+   a následek (MANZ v čistém 10p) se zapíše při potvrzení spolu s mistrovstvím (bojWmProved) */
+function bojManPayload(K, x) {
+  const r = K && (x.rid || []).find(q => q.g === "m" && MANZ[q.n]);
+  return r ? {n: r.n, dc: kSDdc(K)} : null;
+}
+function bojManVyhodnot(u, n, E) {
+  const M = u && u.man && MANZ[u.man.n];
+  if (!M) return null;
+  /* velikost cíle statblok nenese: u Trip a Pushing jen připomínka (Obrovský a větší tvor nepodlehne – vypravěč stav odebere) */
+  const dc = +u.man.dc || 10,
+    Z = bojNpcZach(n, E, M.ab, dc),
+    R = manVysledek(u.man.n, Z.ok);
+  return Object.assign(R, {
+    txt: `${u.man.n}: ${M.ab} ${Z.txt} proti SO ${dc} – ${Z.ok ? "odolal" : M.txt + (M.vel ? " (jen Velký a menší tvor)" : "")}`,
+  });
+}
 /* zápis účinků při potvrzení útoku (uvnitř bojZmen); Vex se spotřebuje dalším útokem téže postavy proti cíli */
 function bojWmProved(z, u, V) {
   if (!u || !u.h) return;
@@ -178,6 +195,17 @@ function bojWmProved(z, u, V) {
       }
       if (e.txt) bojMsg(n.id, e.txt);
     });
+    const m = o.mne;
+    if (m && (m.st || m.ef)) {
+      (n.ef || []).filter(x => x.n === m.n && x.od === u.h).forEach(x => bojEfDel(n, x));
+      if (m.okdy || m.ef) {
+        const ef = {n: m.n, od: u.h, okdy: m.okdy || "konec", kolo, tah};
+        if (m.st) ef.st = m.st;
+        (n.ef = n.ef || []).push(ef);
+      }
+      if (m.st && !(n.stav || []).includes(m.st)) n.stav = [...(n.stav || []), m.st];
+      bojMsg(n.id, m.txt);
+    }
   });
 }
 /* konec účinků podle tahu útočníka (volá 12 na začátku a konci tahu účastníka id): Sap a Slow do začátku jeho příštího tahu,

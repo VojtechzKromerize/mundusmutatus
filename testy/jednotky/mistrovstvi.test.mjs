@@ -127,3 +127,32 @@ test("vypravěč: Topple srazí, Graze zraní i při minutí, Vex dá výhodu a 
     S.ev(`BOJ.s = ${B0}`);
   }
 });
+
+test("vypravěč: manévr Battle Mastera se záchranou – Trip srazí, Menacing vystraší do konce příštího tahu útočníka (2026-10-25)", () => {
+  const B0 = S.ev(`JSON.stringify(BOJ.s || null)`);
+  S.ev(`BOJ.s = {aktivni: true, kolo: 1, tah: 1, hraci: [{id: "h1", n: "Balduin", k: "balduin"}], npc: [{id: "n1", n: "Žoldnéř"}], utoky: []}`);
+  const u = o =>
+    JSON.stringify(Object.assign({id: "t" + Math.random(), h: "h1", ci: ["n1"], cim: "Zbraň", hod: 15, d: 12, dmg: 5, t: "Slashing"}, o));
+  const proved = o =>
+    S.ev(`(() => { const u = ${u(o)}, V = bojUtokVyhodnot0(BOJ.s, u); bojWmProved(BOJ.s, u, V); return JSON.stringify(V.r[0]); })()`);
+  try {
+    S.kostky([[2, 20]]);
+    const t = JSON.parse(proved({man: {n: "Trip Attack", dc: 15}}));
+    assert.match(t.gm, /Trip Attack: STR .* proti SO 15 – sražen/);
+    assert.ok(V(`BOJ.s.npc[0].stav`).includes("sražen"));
+    S.kostky([[2, 20]]);
+    proved({man: {n: "Menacing Attack", dc: 15}});
+    assert.ok(V(`BOJ.s.npc[0].stav`).includes("vyděšen"));
+    S.ev(`bojWmTahVlastnika(BOJ.s, "h1", "kon"); BOJ.s.kolo = 2; bojWmTahVlastnika(BOJ.s, "h1", "zac"); bojWmTahVlastnika(BOJ.s, "h1", "kon")`);
+    assert.ok(!V(`BOJ.s.npc[0].stav`).includes("vyděšen"), "Menacing končí na konci příštího tahu útočníka");
+    S.kostky([[19, 20]]);
+    const ok = JSON.parse(proved({man: {n: "Goading Attack", dc: 10}}));
+    assert.match(ok.gm, /odolal/);
+    assert.ok(!V(`(BOJ.s.npc[0].ef || []).some(e => e.n === "Goading Attack")`));
+    /* bez manévru se nic nepošle; s vybraným přídavkem manévru {n, dc} */
+    assert.equal(V(`bojManPayload(KARTBY.balduin, {rid: []})`), null);
+    assert.deepEqual(V(`bojManPayload(KARTBY.balduin, {rid: [{g: "m", n: "Trip Attack"}]})`), {n: "Trip Attack", dc: V(`kSDdc(KARTBY.balduin)`)});
+  } finally {
+    S.ev(`BOJ.s = ${B0}`);
+  }
+});

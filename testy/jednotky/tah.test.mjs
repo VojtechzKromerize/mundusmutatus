@@ -136,3 +136,22 @@ test("stránka: Sprint, Action Surge a akce z Haste podle karty; pás tahu uká�
   })()`);
   assert.deepEqual(JSON.parse(r), [["A"], true, false, ["A", "AH"], true, 60, true, true, true, ["A", "BA"]]);
 });
+
+test("stránka: Battle Master v pásu tahu – Evasive Footwork s kostkou převahy, Know Your Enemy za bonusovou akci (2026-10-25)", async () => {
+  const r = await S.ev(`(async () => {
+    const K = {id: "t_bm", n: "Mistr", povolani: "Fighter 7", uroven: 7, rychlost: "30 ft.", vl: {STR: 16, DEX: 12, CON: 14, INT: 10, WIS: 10, CHA: 10},
+      rysy: ["Combat Superiority", "Evasive Footwork", "Know Your Enemy", "Trip Attack"], vybaveni: []};
+    KARTY.push(K); KARTBY[K.id] = K;
+    try {
+      const P = tahObnov({}, "1:1");
+      const sd = kSD(K), h1 = bdmManTahHtml(K, P), ac0 = kAC(K);
+      tahOznac(P, "BA");
+      const h2 = bdmManTahHtml(K, P);
+      await kartaStavZmen(K.id, {uc: [{n: "Evasive Footwork", ac: 5}]});
+      const ac = kAC(K) - ac0 === 5;
+      await bojEvasiveKonec(K);
+      return JSON.stringify([!!sd, /data-btef/.test(h1), /data-btkye/.test(h1), /data-btkye/.test(h2), ac, kUc(K).length]);
+    } finally { KARTY.pop(); delete KARTBY[K.id]; delete KST[K.id]; }
+  })()`);
+  assert.deepEqual(JSON.parse(r), [true, true, true, false, true, 0]);
+});

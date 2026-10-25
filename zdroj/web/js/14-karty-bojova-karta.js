@@ -280,8 +280,46 @@ function bdmTahPas(K, P) {
       : as && as.zb > 0
         ? `<button type="button" class="bdmmini bdmtas" data-btas ${btip(`Action Surge: v tomto tahu akce navíc (zbývá ${as.zb}×, obnova krátkým odpočinkem)`)}>Action Surge</button>`
         : ""
-  }${ha ? `<button type="button" class="bdmmini bdmtha" data-btp="ah" aria-pressed="${!!P.ah}" ${btip(`Haste – akce navíc (jen Útok jedním útokem, Sprint, Odpoutání, Skrytí nebo Použití předmětu): ${P.ah ? "použitá" : "volná"} – klikni`)}>Akce z Haste</button>` : ""}</div>`;
+  }${ha ? `<button type="button" class="bdmmini bdmtha" data-btp="ah" aria-pressed="${!!P.ah}" ${btip(`Haste – akce navíc (jen Útok jedním útokem, Sprint, Odpoutání, Skrytí nebo Použití předmětu): ${P.ah ? "použitá" : "volná"} – klikni`)}>Akce z Haste</button>` : ""}${bdmManTahHtml(K, P)}</div>`;
 }
+/* Battle Master v tahu (2026-10-25): Evasive Footwork (kostka převahy k AC, dokud se pohybuješ – skončí s koncem tahu) a Know Your
+   Enemy (bonusová akce: vypravěč prozradí imunity, odolnosti a zranitelnosti cíle) */
+function bdmManTahHtml(K, P) {
+  const SD = kSD(K),
+    ef = SD && SD.zb > 0 && kManMa(K, "Evasive Footwork") && !kUc(K).some(u => u.n === "Evasive Footwork"),
+    kye = kMaRys(K, /^know your enemy$/i) && !P.b;
+  return `${ef ? `<button type="button" class="bdmmini" data-btef ${btip(`Evasive Footwork: při pohybu přičti 1${SD.k} k AC, dokud se nezastavíš (kostka převahy, zbývá ${SD.zb})`)}>Evasive Footwork</button>` : ""}${kye ? `<button type="button" class="bdmmini" data-btkye ${btip("Know Your Enemy (bonusová akce): vypravěč ti prozradí imunity, odolnosti a zranitelnosti tvora do 30 stop")}>Know Your Enemy</button>` : ""}`;
+}
+async function bojEvasiveKonec(K) {
+  if (K && kUc(K).some(u => u.n === "Evasive Footwork")) await kartaStavZmen(K.id, {uc: kUc(K).filter(u => u.n !== "Evasive Footwork")});
+}
+document.addEventListener("click", async e => {
+  const b = e.target.closest && e.target.closest("[data-btef],[data-btkye]");
+  if (!b || !BOJ.s) return;
+  const me = ((BOJ.s || {}).hraci || []).find(h => h.n === bojJa.get()),
+    K = me && bojKartaH(me);
+  if (!K || !kMuze(K)) return;
+  if (b.matches("[data-btef]")) {
+    const SD = kSD(K),
+      r = SD && SD.zb > 0 ? kVyraz("1" + SD.k) : null;
+    if (!r) return;
+    await kZdrUtrat(K, SD);
+    const uc = [...kUc(K).filter(u => u.n !== "Evasive Footwork"), {n: "Evasive Footwork", ac: r.tot}];
+    await kartaStavZmen(K.id, {uc});
+    kHodZapis({k: K.id, kdo: K.n, co: "Evasive Footwork", txt: `AC +${r.tot} (1${SD.k}: ${r.txt}), dokud se pohybuje – skončí s koncem tahu`});
+    mmHlasG(`Evasive Footwork: AC +${r.tot} do konce pohybu.`, 4000);
+  } else {
+    tahOznac(bojBpt(BOJ.s), "BA");
+    kHodZapis({
+      k: K.id,
+      kdo: K.n,
+      co: "Know Your Enemy",
+      txt: "bonusová akce – vypravěč prozradí imunity, odolnosti a zranitelnosti zvoleného tvora",
+    });
+    mmHlasG("Know Your Enemy: řekni vypravěči, kterého tvora si prohlížíš.", 4500);
+  }
+  bojPrekresli();
+});
 document.addEventListener("click", async e => {
   const b = e.target.closest && e.target.closest("[data-btpm],[data-btsp],[data-btas]");
   if (!b || !BOJ.s) return;
@@ -1056,8 +1094,9 @@ function bojGmZapisVse(hid) {
       },
       (() => {
         const zv = w && typeof bojZvPayload === "function" ? bojZvPayload(K, w, x, G.zav, bojZvVolby(G, w)) : null,
-          wm = w && typeof bojWmPayload === "function" ? bojWmPayload(K, w, x) : null;
-        return Object.assign(zv ? {zv} : {}, wm ? {wm} : {});
+          wm = w && typeof bojWmPayload === "function" ? bojWmPayload(K, w, x) : null,
+          man = typeof bojManPayload === "function" ? bojManPayload(K, x) : null;
+        return Object.assign(zv ? {zv} : {}, wm ? {wm} : {}, man ? {man} : {});
       })(),
     ),
   );

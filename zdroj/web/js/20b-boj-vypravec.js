@@ -281,6 +281,7 @@ function bojUtokVyhodnot0(s, u) {
     o.zve = bojZvVyhodnot(s, u, h, n, E, ZS, true, krit);
     /* mistrovství zbraně (20g): Topple, Sap, Slow, Vex, Push – přidá se k vyhodnocení perků */
     if (typeof bojWmVyhodnot === "function") o.wme = bojWmVyhodnot(u, h, n, E, o);
+    if (u.man && typeof bojManVyhodnot === "function") o.mne = bojManVyhodnot(u, n, E);
     o.gm = `${n.n}: ${u.hod} proti ${o.acT} → ${krit ? "kritický zásah" : "zásah"}${o.ostra != null ? ` (Ostrá: 19 seká cíl bez Resistance, přihozeno ${o.ostra})` : ""}${o.slabin != null ? ` (Do slabin!: ležící cíl, přihozeno ${o.slabin})` : ""}, ${u.dmg}${z.pozn.length ? " → " + z.x + " (" + z.pozn.join(", ") + ")" : ""}${o.sokKrit ? " · sok je kritickým zásahem poražen (Artikule) – ledaže pošle do rány pacholka („Za pána!“)" : ""}${krit && n.druh === "zhoubce" ? " · zhoubce smí obětovat zbroj" : ""}${o.zve.map(e => " · " + e.txt).join("")}`;
     o.vys = o.sokKrit
       ? "kritický zásah – poražen"
@@ -291,6 +292,7 @@ function bojUtokVyhodnot0(s, u) {
           : "zásah";
     if (o.obet) o.gm += ` · ${o.obet} obětována, zranění bez kritu ${o.x}`;
     if ((o.wme || []).length) o.gm += o.wme.map(e => " · " + e.txt).join("");
+    if (o.mne) o.gm += " · " + o.mne.txt;
     r.push(o);
   });
   return {an, h, r};

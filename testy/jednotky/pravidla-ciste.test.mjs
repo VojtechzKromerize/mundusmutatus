@@ -86,3 +86,12 @@ test("drobné výpočty: modifikátor, výhoda a nevýhoda se ruší, počet út
   assert.equal(V(`srdNejedna(["paralyzovaný"])`), true);
   assert.equal(V(`srdNejedna(["sražen"])`), false);
 });
+
+test("manévry Battle Mastera: následek neúspěšné záchrany (2026-10-25)", () => {
+  assert.deepEqual(V(`manVysledek("Trip Attack", false)`), {n: "Trip Attack", st: "sražen", ef: false, okdy: "", txt: "Trip Attack: sražen (Prone)"});
+  assert.match(V(`JSON.stringify(manVysledek("Trip Attack", false, true))`), /nepůsobí/, "Obrovský tvor nespadne");
+  assert.deepEqual(V(`(r => [r.st, r.okdy])(manVysledek("Menacing Attack", false))`), ["vyděšen", "konec"]);
+  assert.deepEqual(V(`(r => [r.ef, r.okdy, r.st])(manVysledek("Goading Attack", false))`), [true, "konec", ""]);
+  assert.match(V(`manVysledek("Menacing Attack", true).txt`), /uspěla/);
+  assert.equal(V(`manVysledek("Parry", false)`), null);
+});

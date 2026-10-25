@@ -967,8 +967,14 @@ begin
   if not exists (select 1 from jsonb_array_elements(coalesce(s -> 'hraci', '[]'::jsonb)) h where h ->> 'id' = p_hrac) then
     raise exception 'neznámá postava';
   end if;
-  if jsonb_typeof(x) <> 'object' or exists (select 1 from jsonb_object_keys(x) k where k not in ('ci', 'cim', 'hod', 'd', 'adv', 'dmg', 't', 'drt', 'pru', 'plos', 'kmin', 'sl', 'sid', 'zv', 'wm')) then
+  if jsonb_typeof(x) <> 'object' or exists (select 1 from jsonb_object_keys(x) k where k not in ('ci', 'cim', 'hod', 'd', 'adv', 'dmg', 't', 'drt', 'pru', 'plos', 'kmin', 'sl', 'sid', 'zv', 'wm', 'man')) then
     raise exception 'neplatný útok';
+  end if;
+  -- manévr Battle Mastera se záchranou cíle (2026-10-25): jméno a SO; následek vyhodnotí vypravěč při potvrzení
+  if x ? 'man' and (jsonb_typeof(x -> 'man') <> 'object' or exists (select 1 from jsonb_object_keys(x -> 'man') k where k not in ('n', 'dc'))
+      or coalesce(x -> 'man' ->> 'n', '') not in ('Trip Attack', 'Menacing Attack', 'Pushing Attack', 'Disarming Attack', 'Goading Attack')
+      or not public.mm_cislo(x -> 'man' -> 'dc', 1, 40)) then
+    raise exception 'neplatný manévr';
   end if;
   -- mistrovství zbraně (Weapon Mastery, 2026-10-24): jméno, SO Topple, zranění Graze
   if x ? 'wm' and (jsonb_typeof(x -> 'wm') <> 'object' or exists (select 1 from jsonb_object_keys(x -> 'wm') k where k not in ('n', 'dc', 'x'))
