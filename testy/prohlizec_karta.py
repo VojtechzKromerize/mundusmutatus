@@ -2,7 +2,7 @@
 # ukázky pro hráče, příprava sezení, SRD předměty a nestvůry, offline fronta – s databází.
 import asyncio, json, os, urllib.request
 from playwright.async_api import async_playwright
-from _klid import klid  # čekání na klid stránky místo pevných ms (testy/_klid.py)
+from _klid import klid, dokud  # čekání na klid stránky místo pevných ms (testy/_klid.py)
 U=os.environ.get("MM_SB","http://localhost:54321");K="sb_publishable_test";BASE=os.environ.get("MM_WEB","http://localhost:8765/")
 VYSTUP=os.environ.get("MM_VYSTUP","/tmp")
 def tok():
@@ -191,7 +191,9 @@ async def main():
     await pl.keyboard.press('Escape');await pl.click('.bdmtabs [data-bdmsec="vyb"]');await klid(pl,400)
     sk=await pl.evaluate("[...document.querySelectorAll('.bdm [data-kvsk]')].map(d=>d.dataset.kvsk)")
     chk(sk==["s:"],"vybavení ve složkách (bez složky = Na sobě): "+str(sk))
+    await dokud(pl,"typeof VYB!=='undefined'&&!!VYB",10000);await klid(pl,800)  # druhy věcí bere z katalogu vybavení, který se načítá líně (10-25 jednou spadlo)
     await pl.click('.bdm [data-kvf="spo"]');await klid(pl,200)
+    await dokud(pl,"JSON.stringify([...document.querySelectorAll('.bdm .kvr')].filter(li=>!li.hidden).map(li=>li.querySelector('.kvrn').textContent))==='[\"Holy Water (flask)\"]'",5000)
     vid=await pl.evaluate("[...document.querySelectorAll('.bdm .kvr')].filter(li=>!li.hidden).map(li=>li.querySelector('.kvrn').textContent)")
     chk(vid==["Holy Water (flask)"],"přepínač druhu Spotřební ukáže jen svěcenou vodu: "+str(vid))
     await pl.click('.bdm [data-kvf=""]');await klid(pl,200)
