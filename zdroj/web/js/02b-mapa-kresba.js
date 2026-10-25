@@ -6412,8 +6412,9 @@ function drawMapK() {
     }
   }
   {
+    /* jen sídla, která se opravdu kreslí: se skrytými hrady a sídly rodů (2026-10-25) zůstane město jako Svídnice vidět ze zeměpisu */
     const drawn = new Set();
-    for (const f of FAM) if (!f.nomap) for (const sd of f.seats) drawn.add(sd[0]);
+    for (const f of FAM) if (!f.nomap && (sel === f.id || (f.city ? st.cities : st.holds))) for (const sd of f.seats) drawn.add(sd[0]);
     for (const [n, lo, la, conf, typ] of ZEMEPIS) {
       if (drawn.has(n) || (typ === "mesto" ? !st.cities : !st.holds)) continue;
       drawn.add(n);
