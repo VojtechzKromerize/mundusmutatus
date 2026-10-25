@@ -68,6 +68,14 @@ krátký časovač, rozpracované uložení karty či boje), nejdéle po N ms �
 (`goto`) a u věcí, které se mají stát „po čase“, zůstává pevné čekání nebo `wait_for_function` na podmínku.
 V nových testech používej `puls`, `klid` a `wait_for_function` místo `wait_for_timeout` s vteřinami.
 
+Od 2026-10-25 nemají `prohlizec_*.py` skoro žádné pevné čekání (dřív ~400): po místní akci `klid(stránka, N)`, na změnu od jiné
+stránky přes databázi `puls_dokud(příjemce, "výraz JS", od=odesílatel)` (ptá se pulsem, dokud výraz neplatí – útok a karta
+mohou dorazit každé jiným pulsem), na stav stránky `dokud(stránka, "výraz JS", N)` (vrátí True/False, kontrola `chk` za ním
+zůstává). `klid` se instaluje i jako init skript (`sleduj(stránka)` před prvním `goto`), takže vidí i fetch rozjetý při načtení,
+a přežije obnovení stránky (uložení v editoru). Po akci, která stránku obnoví, použij `async with stránka.expect_navigation(): …`.
+Pevné čekání zůstává jen tam, kde je čas podstatou testu (lhůta potvrzení, souběh se zpožděným načtením, pozorování nečinného
+hráče, IntersectionObserver u pečeti) – vždy s komentářem `# pevně: …`.
+
 Ručně, např. na vlastním počítači s PostgreSQL:
 
     pip install playwright pillow && python -m playwright install chromium
