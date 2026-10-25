@@ -122,6 +122,8 @@ let st = {
   rings: false,
   holds: true,
   cities: true,
+  castles: true,
+  misto: null,
   dio: false,
   duchy: false,
   dom: false,
@@ -2781,6 +2783,11 @@ function relText(r, self) {
 const EMPTY = `<span class="lbl">Rod a jeho vazby</span><p>Vyberte rod na mapě, v nabídce nebo v rejstříku níže. Zobrazí se hlava rodu, državy, postoj ke králi a všechna příbuzenství, spojenectví a spory.</p>`;
 function renderDetail() {
   const d = document.getElementById("detail");
+  if (!st.sel && st.misto) {
+    d.classList.remove("empty");
+    d.innerHTML = `<button type="button" class="detx" data-detx aria-label="Zavřít panel" title="Zavřít">×</button>${mistoHtml(st.misto)}`;
+    return;
+  }
   if (!st.sel) {
     d.classList.add("empty");
     const pv = HIST[HIST.length - 1];
@@ -2796,15 +2803,7 @@ function renderDetail() {
   /* na široké mapě je panel vysouvací okno přes mapu – × ho zavře (zruší výběr) */
   const back = `<button type="button" class="detx" data-detx aria-label="Zavřít panel" title="Zavřít">×</button>${prev ? `<button type="button" class="backbtn" id="backbtn">← Zpět: ${histName(prev)}</button>` : ""}`;
   if (st.city) {
-    const sd = f.seats.find(x => x[0] === st.city) || f.seats[0],
-      conf = sd[3] || f.conf,
-      info = CITYINFO[st.city] || {};
-    const typ = info.t || CTYPE[f.id] || (f.castle ? "Hrad" : "Město");
-    /* jen shrnutí tohoto místa (CITYINFO) – poznámka celé skupiny měst mluví o jiných městech (Litovel ukazovala Tábor, 2026-10-25) */
-    d.innerHTML = `${back}<span class="lbl">${typ} · ${f.nbr ? f.land : "země Koruny"}</span>
-     <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h3 style="font-size:1.35rem">${f.castle ? `<img class="townico big t-${conf}" src="${CASTLEICO}" alt="" aria-hidden="true">` : townImg(conf, "townico big")}${st.city}</h3>${faith(conf)}</div>
-     ${CARMS[st.city] ? `<img class="carms" src="${CARMS[st.city]}" alt="Erb města ${st.city}">` : ""}${info.n ? `<p>${info.n}</p>` : ""}
-     ${st.city === "Praha" ? `<a class="gbtn ghost" href="#praha">Plán Prahy</a>` : ""}<dl class="kv" style="clear:both"><dt>Patří k</dt><dd>${flink(f.id)}</dd></dl>`;
+    d.innerHTML = back + mistoHtml(st.city, f);
     const bb = document.getElementById("backbtn");
     if (bb) bb.addEventListener("click", goBack);
     return;
@@ -2823,6 +2822,40 @@ function renderDetail() {
   const bb = document.getElementById("backbtn");
   if (bb) bb.addEventListener("click", goBack);
 }
+/* panel místa (města, hradu, sídla): jen shrnutí tohoto místa (CITYINFO) – poznámka celé skupiny měst mluví o jiných městech
+   (Litovel ukazovala Tábor, 2026-10-25). Kdo místo drží, ukáže jen se zapnutou vrstvou Sídla rodů (Vojta 2026-10-25). */
+function mistoHtml(n, g) {
+  const G = g || FAM.find(x => (x.city || x.castle) && x.seats.some(q => q[0] === n)),
+    H = FAM.filter(x => !x.city && !x.castle && x.seats.some(q => q[0] === n)),
+    Z = ZEMEPIS.find(z => z[0] === n),
+    info = CITYINFO[n] || {},
+    zdroj = G || H[0],
+    sd = zdroj ? zdroj.seats.find(q => q[0] === n) : null,
+    conf = (sd && (sd[3] || zdroj.conf)) || (Z && Z[3]) || "mix",
+    hrad = G ? !!G.castle : H.length ? !TOWNSEATS.has(n) : !!Z && Z[4] !== "mesto",
+    typ = info.t || (G && CTYPE[G.id]) || (hrad ? "Hrad" : "Město"),
+    zeme = zdroj ? (zdroj.nbr ? zdroj.land : "země Koruny") : "",
+    D = st.holds ? H : [];
+  return `<span class="lbl">${typ}${zeme ? " · " + zeme : ""}</span>
+     <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h3 style="font-size:1.35rem">${hrad ? `<img class="townico big t-${conf}" src="${CASTLEICO}" alt="" aria-hidden="true">` : townImg(conf, "townico big")}${n}</h3>${faith(conf)}</div>
+     ${CARMS[n] ? `<img class="carms" src="${CARMS[n]}" alt="Erb města ${n}">` : ""}${info.n ? `<p>${info.n}</p>` : `<p class="rsmall">O tomto místě zatím není nic zapsáno.</p>`}
+     ${n === "Praha" ? `<a class="gbtn ghost" href="#praha">Plán Prahy</a>` : ""}${
+       D.length || G
+         ? `<dl class="kv" style="clear:both">${D.length ? `<dt>Drží</dt><dd>${D.map(x => flink(x.id)).join(", ")}</dd>` : ""}${G ? `<dt>${G.castle ? "Mezi" : "Patří k"}</dt><dd>${flink(G.id)}</dd>` : ""}</dl>`
+         : ""
+     }`;
+}
+/* klik na místo na mapě: panel místa bez výběru rodu (mapa nic neztlumí) */
+function showMisto(n) {
+  st.sel = null;
+  st.city = null;
+  st.focus = null;
+  st.misto = n;
+  document.getElementById("famsel").value = "";
+  document.getElementById("ringlegend").hidden = true;
+  drawMap();
+  renderDetail();
+}
 const POSL = t => (t ? t.charAt(0).toUpperCase() + t.slice(1) : "");
 const HISTH = f => (f.city ? "Historie města" : /^(Biskupství|Arcibiskupství|Papežská|Duchovenstvo)/.test(f.name) ? "Historie" : "Historie rodu");
 const HIST = [];
@@ -2833,6 +2866,7 @@ function setSel(id, push = true, city = null) {
   }
   st.sel = id;
   st.city = id ? city : null;
+  st.misto = null;
   st.focus = null;
   document.getElementById("famsel").value = st.sel || "";
   if (st.sel && byId[st.sel].nbr && typeof setTab === "function") setTab(byId[st.sel].land);
@@ -3585,6 +3619,7 @@ function toggleBtn(id, key, after) {
 }
 toggleBtn("lyHolds", "holds");
 toggleBtn("lyCities", "cities");
+toggleBtn("lyCastles", "castles");
 toggleBtn("lyRoads", "roads");
 const duchLeg = document.getElementById("duchlegend");
 const duchItem = u =>

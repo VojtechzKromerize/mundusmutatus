@@ -118,3 +118,26 @@ test("mapa: každé město a klíčový hrad má vlastní shrnutí, hrady jsou v
   const n = new Set(V(`PLACES.map(p => p.name)`));
   for (const m of ["Svídnice", "Olava", "Svatý Hypolit", "Salcburk", "Varšava", "Šoproň", "Stendal"]) assert.ok(n.has(m), m);
 });
+
+test("mapa: hrad, který drží rod, je v jeho državách a panel hradu ukáže, kdo ho drží (Kost → Hazmburkové, 2026-10-25)", () => {
+  assert.ok(V(`byId.haz.seats.map(s => s[0])`).includes("Kost"));
+  assert.ok(V(`byId.wet.seats.map(s => s[0])`).includes("Königstein"));
+  const t = V(`(() => { showCity("hce", "Kost"); return document.getElementById("detail").textContent; })()`);
+  assert.match(t, /Drží[\s\S]*Zajícové z Hazmburka/);
+});
+
+test("mapa: klik na místo bez vrstvy Sídla rodů ukáže jen místo, bez rodu (Vojta 2026-10-25)", () => {
+  const r = V(`(() => {
+    const h0 = st.holds;
+    try {
+      st.holds = false;
+      showMisto("Kost");
+      const dt = () => [...document.querySelectorAll("#detail dt")].map(x => x.textContent);
+      const a = [st.sel, dt(), document.getElementById("detail").textContent];
+      st.holds = true;
+      showMisto("Kost");
+      return [a[0], a[1].includes("Drží"), /Házmburk/.test(a[2]), dt().includes("Drží")];
+    } finally { st.holds = h0; st.misto = null; }
+  })()`);
+  assert.deepEqual(r, [null, false, true, true], "bez rodů žádný řádek Drží; jméno rodu jen v samotném shrnutí");
+});
