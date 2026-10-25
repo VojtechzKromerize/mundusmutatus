@@ -219,12 +219,13 @@ async def main():
     chk(await g.evaluate(f"(bojHp.get()['{rid}']||[])[0]")==hp0 or hp0 is None,"Zpět v záznamu vrátí životy")
     chk(await g.locator(".bzaz li.bz:not(.blundone) [data-bzvrat], .bzaz li.bz:not(.blundone) [data-blzpet]").count()>=1 or await g.locator(".bzaz li.bz.blundone").count()>=1,"Zpět je u řádků herního záznamu")
     await g.click(".bzl [data-blf] >> nth=0");await g.wait_for_timeout(300);chk(await g.locator(".blfc").count()==1,"filtr záznamu podle žetonu");await g.click("[data-blfx]");await g.wait_for_timeout(300)
-    # sbalené řádky záznamu (2026-10-21): nejnovější rozbalený, starší se rozbalí klepnutím na hlavičku
+    # sbalené řádky záznamu (2026-10-21): nejnovější rozbalený, starší sbalené; klepnutí na řádek otevře okno s podrobnostmi (2026-10-25)
     chk(await g.locator(".bzl li.bz:first-child.bzc, .bzl li.bzkolo:first-child+li.bzc").count()==0,"nejnovější řádek záznamu je rozbalený")
-    if await g.locator(".bzl li.bz.bzc [data-bzex]").count():
-        k=await g.get_attribute(".bzl li.bz.bzc [data-bzex] >> nth=0","data-bzex")
+    if await g.locator(".bzl li.bz.bzc [data-bzdet]").count():
         await g.click(".bzl li.bz.bzc .bzh .bzos > b >> nth=0");await g.wait_for_timeout(400)
-        chk(await g.evaluate(f"!document.querySelector('.bzl [data-bzex=\"{k}\"]').closest('li').classList.contains('bzc')"),"klepnutí na hlavičku rozbalí starší řádek záznamu")
+        chk(await g.locator(".mmpop .bzdet").count()==1 and await g.locator(".mmpop .bzdet dt").count()>=1,"klepnutí na řádek záznamu otevře okno s podrobnostmi")
+        await g.keyboard.press("Escape");await g.wait_for_timeout(200)
+        chk(await g.locator(".mmpop").count()==0,"okno podrobností se zavře klávesou Esc")
     else: chk(False,"v záznamu není žádný sbalený řádek")
     await g.select_option("#bojview [data-potvrzr]","cast");await g.wait_for_timeout(1200)
     await pl.fill('[name="juhod"]',"5");await pl.fill('[name="jud"]',"1");await pl.fill('[name="judmg"]',"4");await pl.click("[data-juposl]");await pl.wait_for_timeout(800)

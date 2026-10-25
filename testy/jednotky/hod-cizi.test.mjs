@@ -33,3 +33,27 @@ test("odmítnutý zápis hodu se z herního záznamu odebere, výpadek sítě ne
     S.ev(`KDB.hod = window.__hod; HODY.splice(0, HODY.length - window.__n)`);
   }
 });
+
+test("herní záznam: okno s podrobnostmi řádku (kdo · co → komu, výsledek, kostky, zranění, Závoj)", () => {
+  const H = {
+    id: 1,
+    cas: new Date().toISOString(),
+    k: "balduin",
+    kdo: "Balduin",
+    co: "Útok – Nevermore → Rotmistr",
+    tot: 19,
+    txt: "d20 11 + 8 = 19 · zranění 1d8+5 [6] + 5 = 11",
+    zav: 6,
+    zr: "poz",
+  };
+  const html = S.ev(`(() => { const e = bzZHod(BOJ.s || {}, ${JSON.stringify(H)}); return bzDetailHtml(e, false); })()`);
+  const T = S.ev(`(() => { const d = document.createElement("div"); d.innerHTML = ${JSON.stringify(html)}; return d.textContent; })()`);
+  assert.match(T, /Balduin/);
+  assert.match(T, /Útok – Nevermore/);
+  assert.match(T, /Rotmistr/, "cíl");
+  assert.match(T, /Výsledek\s*19/);
+  assert.match(T, /Útok/);
+  assert.match(T, /Zranění/);
+  assert.match(T, /Závojkostka 6 – Požehnání/);
+  assert.match(html, /class="bzk/, "kostky jako žetony");
+});
