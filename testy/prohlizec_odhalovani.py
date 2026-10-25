@@ -1,5 +1,6 @@
 import asyncio, json, urllib.request, sys, re
 from playwright.async_api import async_playwright
+from _klid import klid, sleduj  # čekání na stav místo pevných pauz (testy/_klid.py)
 import os, sys
 U=os.environ.get("MM_SB","http://localhost:54321");K="sb_publishable_test";BASE=os.environ.get("MM_WEB","http://localhost:8765/")
 VYSTUP=os.environ.get("MM_VYSTUP","/tmp")
@@ -32,27 +33,27 @@ async def main():
   async with async_playwright() as p:
     b=await p.chromium.launch()
     # --- hráč ---
-    pg=await b.new_page();errs=[]
+    pg=await b.new_page();await sleduj(pg);errs=[]
     pg.on("pageerror",lambda e:errs.append(str(e)[:200]))
     await pg.goto(BASE);await pg.wait_for_function("!document.documentElement.classList.contains('mmload')",timeout=10000)
     src=await pg.content()
     chk(P["zdenekst"]["$plne"]["x"][:50] not in src,"hráčská stránka neobsahuje text skryté osoby")
     chk(await pg.evaluate("typeof PBY!=='undefined'&&!PBY.zdenekst&&!!PBY.jindrich4&&PBY.jindrich4.sl===true&&!byId.var&&byId.hra.sl===true"),"hráč: skryté chybí, slyšeli mají příznak sl")
-    await pg.goto(BASE+"#osoba/jindrich4");await pg.wait_for_timeout(300)
+    await pg.goto(BASE+"#osoba/jindrich4");await klid(pg,300)
     t=await pg.inner_text("#article");chk("jen slyšela" in t,"stránka osoby 'slyšeli' ukazuje poznámku");
     chk(await pg.locator("#article img.psilbig").count()==1,"osoba 'slyšeli' má siluetu")
-    await pg.goto(BASE+"#rod/hra");await pg.wait_for_timeout(300)
+    await pg.goto(BASE+"#rod/hra");await klid(pg,300)
     t=await pg.inner_text("#article");chk("jen slyšela" in t and "Rodokmen" not in t,"rod 'slyšeli' bez zápisu a rodokmenu")
-    await pg.goto(BASE+"#rod/var");await pg.wait_for_timeout(300)
+    await pg.goto(BASE+"#rod/var");await klid(pg,300)
     chk(await pg.locator("#article").is_hidden(),"skrytý rod → seznam rodů")
-    await pg.goto(BASE+"#gm");await pg.wait_for_timeout(300)
+    await pg.goto(BASE+"#gm");await klid(pg,300)
     chk(await pg.locator("#gmlogin").count()==1,"#gm ukazuje přihlášení")
     # obrázky portrétů mají nečitelné názvy
-    await pg.goto(BASE+"#osoba/jiri");await pg.wait_for_timeout(300)
+    await pg.goto(BASE+"#osoba/jiri");await klid(pg,300)
     srcs=await pg.eval_on_selector_all("#article img","els=>els.map(e=>e.getAttribute('src'))")
     chk(any(re.search(r"art/portrety/[0-9a-f]{24}\.webp",s or "") for s in srcs),"portrét pod nečitelným názvem: "+str(srcs[:1]))
     # živá změna: hráč má otevřenou stránku osob, vypravěč odhalí zdenekst
-    await pg.goto(BASE+"#desky/osoby");await pg.wait_for_timeout(500)
+    await pg.goto(BASE+"#desky/osoby");await klid(pg,2000)
     await pg.evaluate("scrollTo(0,400)")
     nastav({"zdenekst":2})
     # od 2026-10-20 se stránka neobnoví hned: ukáže lištu „Obnovit“ (sama se obnoví, až telefon půl minuty nikdo nedrží)
@@ -64,38 +65,39 @@ async def main():
     chk(await pg.evaluate("location.hash")=="#desky/osoby","obnova zachovala adresu")
     chk(not errs,"hráč bez chyb JS "+str(errs[:2]))
     # --- vypravěč ---
-    g=await b.new_page();gerr=[]
+    g=await b.new_page();await sleduj(g);gerr=[]
     g.on("pageerror",lambda e:gerr.append(str(e)[:200]))
     await g.goto(BASE+"#gm");await g.wait_for_selector("#gmlogin")
     await g.fill("#gmlogin input[name=e]","gm@x.cz");await g.fill("#gmlogin input[name=h]","spatne")
-    await g.click("#gmlogin button");await g.wait_for_timeout(400)
+    await g.click("#gmlogin button");await klid(g,400)
     chk("Nesprávný" in await g.inner_text(".gmerr"),"špatné heslo → hláška")
     await g.fill("#gmlogin input[name=h]","heslo");await g.click("#gmlogin button")
     await g.wait_for_selector(".gmlist",timeout=10000)
     chk(await g.evaluate("GMV&&!!PBY.zdenekst&&!!byId.var&&STAV.var===0"),"vypravěč vidí vše a stavy")
     chk(await g.locator('.gmrow[data-gmid="var"] .gs0[aria-pressed="true"]').count()==1,"přehled ukazuje var jako skrytý")
-    await g.click('.gmrow[data-gmid="var"] .gs1');await g.wait_for_timeout(600)
+    await g.click('.gmrow[data-gmid="var"] .gs1');await klid(g,2000)
     chk(await g.evaluate("STAV.var===1"),"klik Slyšeli uložen")
-    await g.fill("#gmq","smiř");await g.wait_for_timeout(200)
+    await g.fill("#gmq","smiř");await klid(g,200)
     vis=await g.eval_on_selector_all(".gmrod:not([hidden])","els=>els.length");chk(vis>=1 and vis<5,f"hledání filtruje ({vis})")
-    await g.goto(BASE+"#osoba/jindrich4");await g.wait_for_timeout(400)
+    await g.goto(BASE+"#osoba/jindrich4");await klid(g,400)
     chk(await g.locator("#article .gmbar .gs1[aria-pressed=true]").count()==1,"lišta stavu na stránce osoby")
-    await g.click("#article .gmbar .gs2");await g.wait_for_timeout(600)
+    await g.click("#article .gmbar .gs2");await klid(g,2000)
     chk(await g.evaluate("STAV.jindrich4===2"),"změna z lišty uložena")
     chk(await g.locator("#article .gmbar .gs2[aria-pressed=true]").count()==1,"lišta se překreslila")
-    await g.goto(BASE+"#rod/hra");await g.wait_for_timeout(300)
+    await g.goto(BASE+"#rod/hra");await klid(g,300)
     t=await g.inner_text("#article");chk("Rodokmen" in t,"vypravěč vidí rodokmen i u rodu 'slyšeli'")
     # hromadné nastavení osob rodu
-    await g.goto(BASE+"#gm");await g.wait_for_timeout(300)
-    await g.fill("#gmq","");await g.wait_for_timeout(100)
-    await g.select_option('[data-gmbulk="smi"]',"1");await g.wait_for_timeout(700)
+    await g.goto(BASE+"#gm");await klid(g,300)
+    await g.fill("#gmq","");await klid(g,100)
+    await g.select_option('[data-gmbulk="smi"]',"1");await klid(g,2000)
     chk(await g.evaluate("peopleOf('smi').every(p=>STAV[p.id]===1)"),"hromadné nastavení osob rodu")
     # vypršelý token → obnova přes refresh token
     await g.evaluate("(()=>{const r=JSON.parse(localStorage.getItem('mm-gm-relace'));r.exp=1;r.at='neplatny';localStorage.setItem('mm-gm-relace',JSON.stringify(r))})()")
     await g.reload();await g.wait_for_function("!document.documentElement.classList.contains('mmload')")
     chk(await g.evaluate("GMV===true"),"vypršelé přihlášení se samo obnoví")
-    await g.goto(BASE+"#gm");await g.wait_for_timeout(300)
-    await g.click("#gmout");await g.wait_for_timeout(1500);await g.wait_for_function("!document.documentElement.classList.contains('mmload')");await g.wait_for_timeout(300)
+    await g.goto(BASE+"#gm");await klid(g,300)
+    async with g.expect_navigation(timeout=15000): await g.click("#gmout")  # odhlášení stránku obnoví
+    await g.wait_for_function("!document.documentElement.classList.contains('mmload')");await klid(g,1500)
     chk(await g.evaluate("GMV===false&&!PBY.vaclavvar"),"odhlášení → hráčská verze")
     chk(not gerr,"vypravěč bez chyb JS "+str(gerr[:2]))
     await b.close()
