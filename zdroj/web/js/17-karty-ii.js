@@ -170,6 +170,27 @@ const kCasKouzla = x => {
 };
 /* mistrovství zbraní (Vex, Nick…) nejsou akce – patří k vlastnostem zbraně */
 const KMAST = /^(cleave|graze|nick|push|sap|slow|topple|vex)\b\s*(\(|$)/i;
+/* rysy s aktivací nebo počtem použití (bez mistrovství zbraní) pro Akce a Rysy; varianty manévru podle vlastnosti z D&D Beyond
+   („Maneuver: Goading Attack (Str.)“ a „(Dex.)“) jsou jeden řádek „… (STR/DEX)“ – jm je zobrazené jméno, n zůstává pro popis
+   a počty použití (2026-10-25); kRysyVarJednou totéž pro jakýkoli seznam rysů (i Ostatní rysy) */
+const KRVL = /\s*\((str|dex)\.?\)\s*$/i;
+function kRysyVarJednou(L) {
+  const out = [];
+  (L || []).forEach(r => {
+    const n = String(r.n || "");
+    if (!KRVL.test(n)) {
+      out.push(r);
+      return;
+    }
+    const z = n.replace(KRVL, ""),
+      j = out.findIndex(x => x.zakl === z);
+    if (j >= 0) out[j] = Object.assign({}, out[j], {jm: `${z} (STR/DEX)`});
+    else out.push(Object.assign({}, r, {zakl: z}));
+  });
+  return out;
+}
+const kRysyAktivni = K =>
+  kRysyVarJednou([...(K.rysy2 || []).filter(r => (r.cas || r.max) && !KMAST.test(String(r.n || "").trim())), ...(kDopl(K).rysy || [])]);
 function kAkceG(K, bezUt, o) {
   o = o || {};
   const D = kDopl(K),
@@ -189,10 +210,10 @@ function kAkceG(K, bezUt, o) {
       `<li><button type="button" class="kspn" data-kspd="${i}">${besc(x.n)}</button> ${kSpSt(x.st)}${kSpZn(x)}${kPzZn(x)} ${kSesHtml(K, x, i)}</li>`,
     );
   });
-  [...(K.rysy2 || []).filter(r => (r.cas || r.max) && !KMAST.test(String(r.n || "").trim())), ...(D.rysy || [])].forEach(r => {
+  kRysyAktivni(K).forEach(r => {
     const u = Math.min(r.max || 0, +(U[r.n] || 0));
     G[r.cas || "X"].push(
-      `<li><button type="button" class="kspn" data-krys="${besc(r.n)}">${besc(r.n)}</button>${r.max ? ` <span class="bzd">${[...Array(r.max)].map((_, j) => `<button type="button" class="${j < u ? "on" : ""}" data-kzd="${besc(r.n)}" data-j="${j}" aria-label="${besc(r.n)} ${j + 1}"></button>`).join("")}</span>` : ""}</li>`,
+      `<li><button type="button" class="kspn" data-krys="${besc(r.n)}">${besc(r.jm || r.n)}</button>${r.max ? ` <span class="bzd">${[...Array(r.max)].map((_, j) => `<button type="button" class="${j < u ? "on" : ""}" data-kzd="${besc(r.n)}" data-j="${j}" aria-label="${besc(r.n)} ${j + 1}"></button>`).join("")}</span>` : ""}</li>`,
     );
   });
   kTech(K).forEach(id => {

@@ -1533,7 +1533,7 @@ function bdmAkce(s, h, K, gm, X) {
   } else if (af === "R") {
     telo = `<section class="bdmgrp${X.boj && X.rk ? " bdmused" : ""}"${X.boj && X.rk ? " inert" : ""}>${sez(G.R, "")}${spJm(spR)}</section>`;
   } else {
-    telo = `${zdrL.length ? `<ul class="kdbli kdbzdr bdmzdr">${zdrL.map(q => `<li>${q.k === q.n && q.n !== "Výdrž" ? `<button type="button" class="kspn" data-krys="${besc(q.n)}"><b>${besc(q.n)}</b></button>` : `<b>${besc(q.n)}</b>`}${kdbPips(K, q)}</li>`).join("")}</ul>` : `<p class="bdmnote">Nic s omezeným počtem použití.</p>`}${kSchopHtml(K)}`;
+    telo = `${zdrL.length ? `<ul class="kdbli kdbzdr bdmzdr">${zdrL.map(q => `<li>${q.k === q.n && q.n !== "Výdrž" ? `<button type="button" class="kspn" data-krys="${besc(q.n)}"><b>${besc(kZdrJm(q.n))}</b></button>` : `<b>${besc(q.n)}</b>`}${kdbPips(K, q)}</li>`).join("")}</ul>` : `<p class="bdmnote">Nic s omezeným počtem použití.</p>`}${kSchopHtml(K)}`;
   }
   return `${info}<div class="bdmseg" role="tablist" aria-label="Druh akce">${seg}</div><div class="bdmafb" data-bdmafb="${af}">${telo}</div>`;
 }
@@ -1609,13 +1609,12 @@ function bdmKouzla(s, h, K, gm, X) {
 /* rysy: nahoře ty s aktivací nebo počtem použití, ostatní sbalené */
 function bdmRysy(K) {
   const U = kartaStav(K.id).zdr || {},
-    D = kDopl(K),
-    A = [...(K.rysy2 || []).filter(r => (r.cas || r.max) && !KMAST.test(String(r.n || "").trim())), ...(D.rysy || [])];
+    A = kRysyAktivni(K);
   /* počet použití jako „zbývá 1/2“ s tečkami u jména (2026-10-22); mistrovství zbraní (Vex, Nick…) nejsou rysy s aktivací */
   const ak = A.length
     ? `<ul class="kakl bdmakl">${A.map(r => {
         const u = Math.min(r.max || 0, +(U[r.n] || 0));
-        return `<li><button type="button" class="kspn" data-krys="${besc(r.n)}">${besc(r.n)}</button>${r.cas ? ` <small class="kcas">${{A: "akce", BA: "bonusová akce", R: "reakce"}[r.cas] || ""}</small>` : ""}${r.max ? ` <span class="bdmpoc" ${btip(`${r.n}: zbývá ${r.max - u} z ${r.max} použití – klikni na tečku, když použiješ`)}><small>zbývá</small><b>${r.max - u}/${r.max}</b><span class="bzd">${[...Array(r.max)].map((_, j) => `<button type="button" class="${j < u ? "on" : ""}" data-kzd="${besc(r.n)}" data-j="${j}" aria-label="${besc(r.n)} ${j + 1}"></button>`).join("")}</span></span>` : ""}</li>`;
+        return `<li><button type="button" class="kspn" data-krys="${besc(r.n)}">${besc(r.jm || r.n)}</button>${r.cas ? ` <small class="kcas">${{A: "akce", BA: "bonusová akce", R: "reakce"}[r.cas] || ""}</small>` : ""}${r.max ? ` <span class="bdmpoc" ${btip(`${r.n}: zbývá ${r.max - u} z ${r.max} použití – klikni na tečku, když použiješ`)}><small>zbývá</small><b>${r.max - u}/${r.max}</b><span class="bzd">${[...Array(r.max)].map((_, j) => `<button type="button" class="${j < u ? "on" : ""}" data-kzd="${besc(r.n)}" data-j="${j}" aria-label="${besc(r.n)} ${j + 1}"></button>`).join("")}</span></span>` : ""}</li>`;
       }).join("")}</ul>`
     : `<p class="bdmnote">Žádné rysy s aktivací nebo počtem použití.</p>`;
   const vse = kRysyHtml(K);

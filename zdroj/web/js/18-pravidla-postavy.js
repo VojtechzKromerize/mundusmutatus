@@ -543,16 +543,35 @@ const KZDRP = [
     "dlouhý odpočinek",
   ],
 ];
+/* jméno zdroje bez přípony z D&D Beyond: „Superiority Dice: 5 / Short Rest • 1 Action“ → „Superiority Dice“ (2026-10-25) */
+const kZdrJm = n =>
+  String(n || "")
+    .replace(/\s*•.*$/, "")
+    .replace(/:\s*\d+\s*\/\s*(short|long)\s+rest.*$/i, "")
+    .trim();
+/* tentýž zdroj pod více jmény z PDF („Superiority Dice“ a „Superiority Dice: 5 / Short Rest“) jen jednou: zůstane ten, na kterém
+   je zapsané použití, pak ten spočítaný podle pravidel, pak kratší jméno */
+function kZdrJednou(o, U) {
+  const sk = q => (+(U || {})[q.n] > 0 ? 4 : 0) + (q.pr ? 2 : 0),
+    out = [];
+  o.forEach(q => {
+    const j = out.findIndex(x => kZdrJm(x.n).toLowerCase() === kZdrJm(q.n).toLowerCase());
+    if (j < 0) out.push(q);
+    else if (sk(q) > sk(out[j]) || (sk(q) === sk(out[j]) && q.n.length < out[j].n.length)) out[j] = q;
+  });
+  return out;
+}
 function kZdroje(K) {
   const c = kCtx(K),
     fit = n => KZDRP.find(x => x[0].test(String(n).replace(/[’']/g, "'"))),
     ob = (r, q) => (typeof r[2] === "function" ? r[2](c) : r[2] || q.obn);
-  const o = (K.zdroje || []).map(q => {
+  const o0 = (K.zdroje || []).map(q => {
     const r = fit(q.n);
     if (!r) return q;
     const m = r[1](c);
     return m > 0 ? Object.assign({}, q, {max: m, obn: ob(r, q), kr1: /1 se vrátí/.test(ob(r, q)) || undefined, pr: 1}) : q;
   });
+  const o = kZdrJednou(o0, (c.S || {}).zdr);
   KZDRP.filter(r => r[3] && !o.some(q => r[0].test(String(q.n).replace(/[’']/g, "'")))).forEach(r => {
     const m = r[1](c);
     if (m > 0) o.push({n: r[3], max: m, obn: ob(r, {}), kr1: /1 se vrátí/.test(ob(r, {})) || undefined, pr: 1});
@@ -700,12 +719,15 @@ function kMimoZdroje(c, o) {
     if (m.r.zdroj || m.r.pocet == null || KZDRP.some(r => r[0].test(m.r.en))) return;
     const max = mimoPocet(c, m);
     if (!(max > 0)) return;
+    /* zdroj rysu bývá na listu pod jiným jménem (Combat Superiority → Superiority Dice, Mage Slayer → Guarded Mind: zjm) –
+       pak se doplní ten a zůstane jeho jméno, pod kterým jsou zapsaná použití */
     const obn = m.r.obn || "dlouhý odpočinek",
       k = mimoKostka(c, m),
-      i = o.findIndex(q => mimoN(q.n) === mimoN(m.r.en));
+      jm = [mimoN(m.r.en), m.r.zjm && mimoN(m.r.zjm)].filter(Boolean),
+      i = o.findIndex(q => jm.includes(mimoN(kZdrJm(q.n))));
     const q = {n: m.r.en, max, obn: k ? `${obn} · kostka ${k}` : obn, kr1: /1 se vrátí/.test(obn) || undefined, pr: 1};
     if (i >= 0) {
-      if (!o[i].pr) o[i] = Object.assign({}, o[i], q);
+      if (!o[i].pr) o[i] = Object.assign({}, o[i], q, {n: o[i].n});
     } else o.push(q);
   });
   return o;

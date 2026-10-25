@@ -1502,7 +1502,7 @@ document.addEventListener("click", async e => {
 });
 /* rysy z PDF s texty a odkazy na SRD */
 function kRysyHtml(K) {
-  const L = K.rysy2 || [];
+  const L = kRysyVarJednou(K.rysy2);
   if (!L.length) return (K.rysy || []).length ? `<p class="rsmall krysy">${K.rysy.map(besc).join(" · ")}</p>` : "";
   if (KTX[K.id] === undefined) kTexty(K);
   if (!SRDRY) srdRysy().then(() => kartyPrekresli());
@@ -1513,7 +1513,7 @@ function kRysyHtml(K) {
         `<h4 class="bsph">${besc(x.replace(/ FEATURES| TRAITS| SPECIES/g, "").toLowerCase())}</h4><p class="krysy2">${L.filter(r => r.s === x)
           .map(
             r =>
-              `<button type="button" class="kspn${r.sub ? " ksub" : ""}" data-krys="${besc(r.n)}">${besc(r.n)}</button>${r.cas ? `<small class="kcas">${{A: "akce", BA: "bon.", R: "reakce"}[r.cas]}</small>` : ""}${kRysSrd(r.n) ? `<small class="ksrd" ${btip("Je v pravidlech SRD česky")}>SRD</small>` : ""}`,
+              `<button type="button" class="kspn${r.sub ? " ksub" : ""}" data-krys="${besc(r.n)}">${besc(r.jm || r.n)}</button>${r.cas ? `<small class="kcas">${{A: "akce", BA: "bon.", R: "reakce"}[r.cas]}</small>` : ""}${kRysSrd(r.n) ? `<small class="ksrd" ${btip("Je v pravidlech SRD česky")}>SRD</small>` : ""}`,
           )
           .join(" · ")}</p>`,
     )
