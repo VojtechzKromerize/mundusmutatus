@@ -955,9 +955,19 @@ function kUtAdj(K, a) {
         return k + (x ? (x > 0 ? "+" : "") + x : "") + ")";
       }),
     );
-  if ((a.pocet || 1) > 1 || kPocet(c, true) > 1) o.pocet = kPocet(c, true);
+  /* Extra Attack z PDF zůstane i u povolání, která kPocet nezná (Gunslinger, Bladesinger) */
+  if ((a.pocet || 1) > 1 || kPocet(c, true) > 1) o.pocet = Math.max(+a.pocet || 1, kPocet(c, true));
   o.rozpis = `${i.fin ? "STR/DEX" : i.ab} ${bsg(md)} · zdatnost ${bsg(c.pb)}${i.m ? ` · magie ${bsg(i.m)}` : ""}${i.arch ? " · Archery +2" : ""}`;
+  kUtPomala(c, o, i.w);
   return o;
+}
+/* Artikule: pomalá, ale těžká rána (zbrPomala v 10w) – jeden výstřel za akci s kostkou navíc za každý další útok */
+function kUtPomala(c, o, w) {
+  const p = w && zbrPomala(w[1], +o.pocet || 1, o.z, /crossbow/i.test(w[1]) && c.maRys(/^crossbow expert$/));
+  if (!p) return;
+  o.z = p.z;
+  o.pocet = undefined;
+  o.rozpis += ` · pomalá zbraň: 1 výstřel za akci, ${p.kostek} kostky zranění`;
 }
 /* zbraně z vybavení, které v PDF nejsou (koupené, nalezené), a úder beze zbraně */
 function kUtZInv(K) {
@@ -1001,6 +1011,7 @@ function kUtZInv(K) {
       zInv: 1,
       rozpis: `z vybavení · ${ab} ${bsg(md)}${chx ? " (Hex Warrior / Pact of the Blade)" : ""}${prof(w[5]) ? ` · zdatnost ${bsg(c.pb)}` : " · bez zdatnosti"}${m ? ` · magie ${bsg(m)}` : ""}`,
     });
+    kUtPomala(c, o[o.length - 1], w);
   });
   if (![...pdfU, ...(kDopl(K).utoky || [])].some(a => /unarmed|beze zbraně/i.test(a.n))) {
     const mk = kTrU(c, "Monk"),

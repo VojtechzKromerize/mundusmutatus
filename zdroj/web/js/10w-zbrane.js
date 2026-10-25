@@ -137,5 +137,14 @@ const zbrVersKost = z => {
     d = m && {6: 8, 8: 10, 10: 12}[+m[2]];
   return d ? `${m[1] || 1}d${d}` : null;
 };
+/* Artikule 2026-10-25 – pomalá, ale těžká rána: těžká kuše, píšťala a hákovnice vystřelí jednou za akci Útok a za každý
+   další útok akce přidají kostku zbraně („1d10+4“ ×2 → „2d10+4“). Lehká a ruční kuše se napínají rychle a střílí normálně.
+   Kdo Nabíjení ignoruje (Crossbow Expert u kuší), střílí vícekrát s běžnými kostkami – pak null. */
+const ZBRPOMALE = ["Heavy Crossbow", "Musket", "Pistol"];
+function zbrPomala(druh, pocet, z, bezNab) {
+  const m = String(z || "").match(/^(\d*)d(\d+)(.*)$/);
+  if (!ZBRPOMALE.includes(druh) || !(pocet > 1) || bezNab || !m) return null;
+  return {z: `${(+m[1] || 1) * pocet}d${m[2]}${m[3]}`, kostek: pocet};
+}
 /* Heavy: nevýhoda zblízka se STR pod 13, na dálku s DEX pod 13 */
 const zbrTezkaNev = (vl, dal, str, agi) => !!(vl && vl.Heavy) && (dal ? +agi < 13 : +str < 13);

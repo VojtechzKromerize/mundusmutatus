@@ -580,7 +580,8 @@ const ARTK = [
         `${Z.B} – zahalí střelce v dýmu a dá mu na 1 kolo výhodu proti útokům zblízka.<br>${Z.P} – zbraň selže a před dalším výstřelem ji musíš vyčistit (bonusová akce); pokud jsi minul a u cíle stojí spojenec, zasáhneš spojence; při 1 na d20 a 1 na Závoji zbraň vybuchne a způsobí střelci 2d8 Fire.`,
       ],
     ],
-  )}`,
+  )}
+  <p><b>Pomalá, ale těžká rána.</b> Těžká kuše, píšťala a hákovnice vystřelí jednou za akci Útok, i když máš víc útoků. Za každý útok navíc, který by ti akce dala (Extra Attack), přidáš k zásahu jednu kostku zbraně; modifikátor přičteš jen jednou a při kritickém zásahu se zdvojí všechny kostky (těžká kuše s Extra Attack: 2d10 + DEX). Lehká a ruční kuše se napínají rychle kozí nohou a střílí podle Extra Attack normálně. Kdo Nabíjení ignoruje (Crossbow Expert u kuší, Gunner za bonusovou akci na každé nabití), smí místo jedné těžké rány střílet vícekrát s běžnými kostkami.</p>`,
       },
     ],
   },

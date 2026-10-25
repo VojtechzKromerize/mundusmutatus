@@ -39,6 +39,14 @@ test("čisté: modifikátor útoku, zranění bez modifikátoru, obouruč, Heavy
   assert.equal(C.ev(`zbrTezkaNev({Light: true}, false, 8, 8)`), false);
 });
 
+test("čisté: Artikule – pomalá, ale těžká rána (těžká kuše, píšťala, hákovnice)", () => {
+  assert.deepEqual(C.V(`zbrPomala("Heavy Crossbow", 2, "1d10+4")`), {z: "2d10+4", kostek: 2});
+  assert.deepEqual(C.V(`zbrPomala("Musket", 3, "1d12+1d6+3")`), {z: "3d12+1d6+3", kostek: 3}, "jen kostka zbraně, ne kostky navíc");
+  assert.equal(C.V(`zbrPomala("Light Crossbow", 2, "1d8+4")`), null, "lehká kuše střílí normálně");
+  assert.equal(C.V(`zbrPomala("Pistol", 1, "1d10+4")`), null, "bez Extra Attack beze změny");
+  assert.equal(C.V(`zbrPomala("Heavy Crossbow", 2, "1d10+4", true)`), null, "Crossbow Expert: víc výstřelů s běžnými kostkami");
+});
+
 let S;
 before(async () => {
   S = await stranka();
@@ -58,6 +66,16 @@ test("boj: Balduinovy zbraně – mistrovství jen to, které používá", () =>
   assert.equal(sek.ma, null, "Cleave Balduin nemá");
   assert.equal(V(`bojWTr(${BAL}, {n: "Eldritch Blast", b: 7})`), null, "kouzlo není zbraň");
   assert.deepEqual(V(`bojWmPayload(${BAL}, {n: "Nevermore", b: 8, z: "1d8+5"}, {})`), {n: "Sap"}, "Sap se pošle sám");
+});
+
+test("karta: těžká kuše s Extra Attack – jeden výstřel za akci se dvěma kostkami, lehká kuše dvakrát", () => {
+  const tk = V(`kUtAdj(${BAL}, {n: "Heavy Crossbow", b: 5, z: "1d10+2", dal: true, pocet: 2})`);
+  assert.equal(tk.z, "2d10+2");
+  assert.equal(tk.pocet, undefined, "jeden výstřel za akci");
+  assert.match(tk.rozpis, /pomalá zbraň/);
+  const lk = V(`kUtAdj(${BAL}, {n: "Light Crossbow", b: 5, z: "1d8+2", dal: true, pocet: 2})`);
+  assert.equal(lk.z, "1d8+2");
+  assert.equal(lk.pocet, 2);
 });
 
 test("boj: útok navíc z Light s Nick, obouruč a Topple po zásahu", () => {
