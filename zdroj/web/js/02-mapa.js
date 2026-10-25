@@ -1386,8 +1386,8 @@ const CITYINFO = {
     n: "Rodový hrad Šternberků na skalním ostrohu nad Sázavou, založený léta Páně 1241. Odtud se píše rod s hvězdou o osmi cípech.",
   },
   "Zelená Hora": {
-    t: "Hrad nad Nepomukem",
-    n: "Hrad na vrchu nad Nepomukem. Když husité léta Páně 1420 vypálili cisterciácký klášter Pomuk, stal se hrad střediskem zdejšího panství.",
+    t: "Hrad pánů ze Švamberka",
+    n: "Hrad na vrchu nad Nepomukem. Když husité léta Páně 1420 vypálili cisterciácký klášter Pomuk, stal se hrad střediskem zdejšího panství. Od těch let jej drží páni ze Švamberka.",
   },
   "Lukov (Morava)": {
     t: "Hrad pánů ze Šternberka",
@@ -1491,8 +1491,8 @@ const CITYINFO = {
     n: "Hrad a městečko na Hané, sídlo pana Jana Tovačovského z Cimburka, hejtmana zemského moravského a přední opory kalicha na Moravě.",
   },
   Cimburk: {
-    t: "Hrad v Chřibech",
-    n: "Hrad v Chřibech nad Koryčany, jejž v první polovici čtrnáctého věku založil Bernart z Cimburka. Od sklonku téhož věku jej drží páni zástavní.",
+    t: "Hrad pánů z Cimburka",
+    n: "Hrad v Chřibech nad Koryčany, jejž v první polovici čtrnáctého věku založil Bernart z Cimburka; podle něho se píší páni z Cimburka, jichž rod nyní vede pan Jan Tovačovský.",
   },
   Kroměříž: {
     t: "Biskupské město",
