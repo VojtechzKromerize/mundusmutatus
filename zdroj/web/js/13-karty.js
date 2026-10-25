@@ -260,8 +260,19 @@ async function kartaHod(K, co, b, o = {}) {
     HODY.unshift(Object.assign({id: Date.now(), cas: new Date().toISOString(), skryty: true}, H));
     kartyPrekresli();
   }
-  mmHlasG(`${K.n}: ${co} ${tot} (${txt.replace(/ = \d+.*/, "")})${z ? " · " + zavTxt(z) : ""}`, 6500);
+  kHodHlas(`${K.n}: ${co} ${tot} (${txt.replace(/ = \d+.*/, "")})${z ? " · " + zavTxt(z) : ""}`);
   return {tot, d, krit, mis, zav: z ? z.d : undefined, zr: z ? z.r : undefined, txt};
+}
+/* výsledek hodu v proužku dole (2026-10-25, Vojta): výraznější, drží 12 s, zavře se klepnutím; nový hod nahradí předchozí
+   (dřív se dva rychlé hody překryly a po 6,5 s zmizely, když hráč zrovna sledoval stůl). Na kartě zůstává „Poslední hod“. */
+function kHodHlas(t) {
+  document.querySelectorAll(".mmhlas.mmhod").forEach(x => x.remove());
+  mmHlasG(t, 12000);
+  const d = [...document.querySelectorAll(".mmhlas")].pop();
+  if (!d) return;
+  d.classList.add("mmhod");
+  d.title = "Klepnutím zavřeš";
+  d.addEventListener("click", () => d.remove());
 }
 async function kHodZapis(H) {
   const zaz = Object.assign({id: Date.now(), cas: new Date().toISOString()}, H);

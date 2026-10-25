@@ -2064,13 +2064,14 @@ function bojDbm(s, h, K, gm, vzdy, X) {
       : X.hl != null
         ? X.hl
         : kHlas([
+            /* poslední hod první (2026-10-25): jako poslední se schoval pod „+1“ za jinou hlášku a hráči výsledek nenašli */
+            kPoslBox(K),
             navrhyMojeHtml(K),
             postupBanner(K),
             kZavBox(K),
             KKON[K.id] && kKonDrzi(K)
               ? `<p class="khl kdbkon">${bi("soustredi")} <b>Soustředění:</b> CON záchrana SO ${KKON[K.id]} <button type="button" class="gbtn" data-kkonh>🎲 CON ${bsg(kZach(K, "CON"))}${K.konVyhoda ? " s výhodou" : ""}</button><button type="button" class="kx" data-kkonx aria-label="Zavřít">×</button></p>`
               : "",
-            kPoslBox(K),
           ]);
   /* stav, který bere akce: tlačítka tahu, útoků, kouzel a reakce ztlumené (CSS .bdmnesch) a hláška */
   const nes = (X.boj ? bojNeschopny(h.stav) : "") || kNeschopny(K);
