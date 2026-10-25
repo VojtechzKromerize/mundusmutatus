@@ -57,3 +57,22 @@ test("kapitola Pravidel: oddíly podle h3 (beze ztráty obsahu), Glosář a krá
     0,
   );
 });
+
+test("graf vazeb se rozloží až při prvním kreslení, skrytá mapa se nekreslí", () => {
+  assert.equal(V(`GROZ`), false, "start webu graf nerozkládá");
+  S.ev(`drawGraph()`);
+  assert.equal(V(`GROZ`), true);
+  assert.ok(V(`Object.values(GN).every(n => n.x >= 20 && n.y >= 18)`), "uzly jsou v ploše grafu");
+  const v0 = V(`curView`);
+  S.ev(`window.__dm = 0; window.__dk = typeof drawMapK === "function" ? drawMapK : null; if (window.__dk) drawMapK = () => window.__dm++`);
+  try {
+    S.ev(`curView = "uvod"; drawMap()`);
+    assert.equal(V(`window.__dm`), 0, "mimo Mapu a Výpravu se mapa nekreslí");
+    if (V(`!!window.__dk`)) {
+      S.ev(`curView = "mapa"; drawMap()`);
+      assert.equal(V(`window.__dm`), 1, "na Mapě ano");
+    }
+  } finally {
+    S.ev(`curView = ${JSON.stringify(v0)}; if (window.__dk) drawMapK = window.__dk`);
+  }
+});

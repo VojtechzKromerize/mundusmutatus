@@ -2296,13 +2296,15 @@ function mmHlasZem(n) {
 }
 /* kresba mapy je v samostatné části (02b-mapa-kresba.js): než se načte, nic se nekreslí – stránka Mapa si ji načte sama */
 function drawMap() {
+  /* skrytou mapu nekreslit (2026-10-25): výběr rodu na startu webu nebo ze Zemských desek ji jinak kreslil naprázdno (vypravěč
+     má kresbu načtenou hned, ~40 ms na PC); otevření Mapy nebo Výpravy ji nakreslí přes route() */
+  if (curView !== "mapa" && curView !== "vyprava") return;
   if (typeof drawMapK === "function") return drawMapK();
-  if (curView === "mapa" || curView === "vyprava")
-    mmLina("mapa")
-      .then(() => {
-        if (typeof drawMapK === "function") drawMapK();
-      })
-      .catch(() => {});
+  mmLina("mapa")
+    .then(() => {
+      if (typeof drawMapK === "function") drawMapK();
+    })
+    .catch(() => {});
 }
 const RORD = {rod: 0, spoj: 1, spor: 2};
 const relsFor = id => REL.filter(r => r.ids.includes(id)).sort((a, b) => RORD[a.t] - RORD[b.t]);
@@ -2593,7 +2595,12 @@ const GIDS = [...new Set(EDGES.flatMap(e => [e.a, e.b]))].filter(id => byId[id])
 const GW = 900,
   GH = 640;
 const GN = {};
-(function layout() {
+/* rozložení grafu vazeb (iterační simulace) se spočítá až při prvním kreslení grafu (Zemské desky › Vazby), ne na startu webu –
+   se všemi vazbami vypravěče stálo ~0,14 s na PC (2026-10-25) */
+let GROZ = false;
+function grafRozloz() {
+  if (GROZ) return;
+  GROZ = true;
   const anc = {};
   for (const id of GIDS) {
     const f = byId[id];
@@ -2675,7 +2682,7 @@ const GN = {};
       n.y = Math.max(18, Math.min(GH - 18, n.y));
     }
   }
-})();
+}
 let gst = {sel: null, type: "all", koruna: false};
 function gVisibleEdge(e) {
   if (gst.type !== "all" && e.t !== gst.type) return false;
@@ -2684,6 +2691,7 @@ function gVisibleEdge(e) {
 }
 const ECOL = {rod: "var(--gold)", spoj: "var(--kat)", spor: "var(--kal)"};
 function drawGraph() {
+  grafRozloz();
   gsvg.innerHTML = "";
   const vis = EDGES.filter(gVisibleEdge);
   const nbrSet = new Set();
@@ -2771,7 +2779,6 @@ document.querySelector("[data-gs]").addEventListener("click", e => {
   e.currentTarget.setAttribute("aria-pressed", gst.koruna);
   drawGraph();
 });
-drawGraph();
 
 const PEOPLE = /*@PEOPLE@*/ [];
 const PBY = Object.fromEntries(PEOPLE.map(p => [p.id, p]));

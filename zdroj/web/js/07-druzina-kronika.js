@@ -959,8 +959,11 @@ function renderKal() {
   const html = `<div class="kalhead"><span class="kalt">Kalendárium</span><span class="lbl">svátky a Hodiny Pravdy</span></div>
    <ul class="kallist">${up.map(f => `<li class="${f.hp ? "hp" : f.info ? "inf" : ""}"><span class="kd">${(([y, m, d]) => `${d}<small>${MES[m - 1].slice(0, 3)}</small>`)(fromJdn(f.j))}</span><span class="kn">${f.n}</span><span class="kw">${f.hp ? `<a href="#artikule/pojmy/p-hodina-pravdy">Hodina Pravdy</a>` : f.info ? "" : `Požehnání 4–6: ${f.w}`}</span><span class="kr">${rel(f.j)}</span></li>`).join("")}</ul>`;
   document.querySelectorAll(".kal").forEach(k => (k.innerHTML = html));
-  kalFit();
+  /* až před vykreslením snímku – rozložení stránky se pak počítá jednou, ne uprostřed startu (2026-10-25) */
+  requestAnimationFrame(kalFit);
 }
+/* svátky, které se do rámečku kalendáře nevejdou, se skryjí – od prvního přesahujícího dál (seznam je podle data);
+   nejdřív se všechny změří, pak skryjí, aby se stránka nerozkládala znovu po každém skrytém řádku */
 function kalFit() {
   const k = document.getElementById("kal1");
   if (!k) return;
@@ -968,13 +971,15 @@ function kalFit() {
   lis.forEach(l => (l.style.display = ""));
   if (!matchMedia("(min-width:861px)").matches || !k.offsetHeight) return;
   const dol = k.getBoundingClientRect().bottom - parseFloat(getComputedStyle(k).paddingBottom);
-  lis.forEach(l => {
-    const r = [l, ...l.children]
-      .map(x => x.getBoundingClientRect())
-      .filter(r => r.height)
-      .reduce((m, r) => Math.max(m, r.bottom), 0);
-    if (r > dol + 1) l.style.display = "none";
-  });
+  const prvni = lis.findIndex(
+    l =>
+      [l, ...l.children]
+        .map(x => x.getBoundingClientRect())
+        .filter(r => r.height)
+        .reduce((m, r) => Math.max(m, r.bottom), 0) >
+      dol + 1,
+  );
+  if (prvni >= 0) lis.slice(prvni).forEach(l => (l.style.display = "none"));
 }
 if ("ResizeObserver" in window) {
   const u = document.querySelector(".uvev");

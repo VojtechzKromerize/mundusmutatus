@@ -735,7 +735,8 @@ function route() {
     document.querySelectorAll("[data-sub]").forEach(n => n.classList.toggle("on", n.dataset.sub === view));
   if (view === "druzina" || view === "karty")
     document.querySelectorAll("[data-ksub]").forEach(n => n.classList.toggle("on", n.dataset.ksub === view));
-  queueMicrotask(navSync);
+  /* až před vykreslením snímku: čtení šířky podnabídky vynutí rozložení stránky – v mikroúloze by se rozkládala dvakrát (2026-10-25) */
+  requestAnimationFrame(navSync);
   document.title = view === "uvod" ? "Mundus Mutatus" : "Mundus Mutatus · " + (TITL[navV] || SUBT[navV]);
   if (view === "desky") {
     const art = document.getElementById("article"),
@@ -751,6 +752,7 @@ function route() {
       art.hidden = true;
       sub = subs.includes(b) ? b : "rody";
       if (sub === "osoby") renderOsoby();
+      if (sub === "vazby" && !gsvg.firstChild) drawGraph();
     }
     subs.forEach(k => {
       document.getElementById(k).hidden = k !== sub;
