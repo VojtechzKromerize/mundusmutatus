@@ -442,8 +442,9 @@ function bdmVecList(K, i) {
 
 /* --- list Spravovat inventář (2026-10-23): přidat z databáze předmětů, vlastní předmět, složky --- */
 const KINVDB = [
-  ["zbroj", "Zbroj", x => x.sk === "zbroj"],
-  ["zbrane", "Zbraně", x => x.sk === "zbrane"],
+  /* Zbroj a Zbraně zahrnou i magické kusy (Dwarven Plate, Flame Tongue…) – Vojta hledal trpasličí zbroj pod Zbrojí, 2026-10-25 */
+  ["zbroj", "Zbroj", x => x.sk === "zbroj" || (x.sk === "magicke" && /zbroj|štít/i.test(x.druh || ""))],
+  ["zbrane", "Zbraně", x => x.sk === "zbrane" || (x.sk === "magicke" && /zbraň/i.test(x.druh || ""))],
   ["strelivo", "Střelivo", x => x.sk === "strelivo"],
   ["vybava", "Výstroj", x => x.sk === "vybava"],
   ["naradi", "Nářadí", x => x.sk === "naradi"],

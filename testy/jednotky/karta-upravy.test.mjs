@@ -108,6 +108,19 @@ test("vybavení: složky (Na sobě, Batoh, vlastní), nesená složka se nepoč�
   S.ev(`BDM.invd = {}`);
 });
 
+test("Spravovat inventář: štítky Zbroj a Zbraně najdou i magické kusy", () => {
+  try {
+    S.ev(`BDM.invd = {q: "dwarven plate", f: "zbroj"}`);
+    assert.match(V(`kInvDbHtml(KARTBY.balduin)`), /data-kvdadd="dwarven-plate"/, "Dwarven Plate pod Zbrojí");
+    S.ev(`BDM.invd = {q: "flame tongue", f: "zbrane"}`);
+    assert.match(V(`kInvDbHtml(KARTBY.balduin)`), /data-kvdadd="flame-tongue/, "Flame Tongue pod Zbraněmi");
+    S.ev(`BDM.invd = {q: "longsword", f: "zbroj"}`);
+    assert.doesNotMatch(V(`kInvDbHtml(KARTBY.balduin)`), /data-kvdadd="longsword"/, "obyčejná zbraň pod Zbrojí není");
+  } finally {
+    S.ev(`BDM.invd = {}`);
+  }
+});
+
 test("vybavení: předmět z databáze schválený vypravěčem (návrh „vec“) přibude do vybavení hráče", async () => {
   const pred = V(`kartaStav("balduin").inv || KARTBY.balduin.vybaveni || []`);
   try {
