@@ -312,6 +312,11 @@ async def main():
     cizi=await b.new_page(viewport={"width":390,"height":844});cerr=[];cizi.on("pageerror",lambda e:cerr.append(str(e)[:200]))
     await cizi.goto(BASE+"#karty/balduin");await cizi.wait_for_selector(".bdm",timeout=15000);await klid(cizi,2600);await cizi.evaluate("mmPopX()")
     chk(await cizi.evaluate("!!document.querySelector('.bdm.kro')"),"cizí prohlížeč vidí kartu jen ke čtení")
+    # 2026-10-25: za cizí zamčenou postavu se nehází – klepnutí na hod nic nespustí ani nezapíše, karta nemá kostku
+    n0=len(hody());h0=await cizi.evaluate("HODY.length")
+    await cizi.click('.bdm .bdmtabs [data-bdmsec="vl"]');await cizi.click('.bdm [data-khod="za:WIS"]');await klid(cizi,900)
+    chk(len(hody())==n0 and await cizi.evaluate("HODY.length")==h0,"cizí prohlížeč za cizí postavu nehodí (nic v záznamu)")
+    chk(await cizi.locator(".bdm .bdmd20").count()==0,"cizí karta nemá kostku")
     r=await cizi.evaluate("MMDB.kartaStav('balduin','sv',0).then(()=>'ok',e=>e.message)")
     chk(r!="ok","bez přihlášení nejde chráněnou kartu změnit ("+str(r)[:60]+")")
     await pl.keyboard.press('Escape');await pl.click('.hraja .bdmtabs [data-bdmsec="vl"]');await pl.click('.hraja [data-khod="za:WIS"], .hraja [data-bkzh="WIS"]');await klid(pl,800)

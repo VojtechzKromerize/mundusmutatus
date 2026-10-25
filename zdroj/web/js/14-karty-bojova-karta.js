@@ -2102,7 +2102,10 @@ function bojDbm(s, h, K, gm, vzdy, X) {
       })()
     : "";
   const upr = `${!kMuze(K) && X.karta ? `<p class="kropozn">Tuto kartu upravuje přihlášený hráč. Ke své postavě se přihlas na stránce <a href="#hra">Hra</a>.</p>` : ""}${kMuze(K) ? kLvupHtml(K) + (KUPRO.has(K.id) ? kUprHtml(K) : "") : ""}`;
-  const d20 = `<button type="button" class="bdmd20" data-bdmsh="kost" aria-expanded="${shOpen === "kost"}" aria-label="Hod kostkou" ${btip("Hod kostkou: vlastní výraz se Závojem, výhoda a nevýhoda")}>${bdmIc("d20")}</button>`;
+  /* cizí zamčená karta: bez kostky – házet za ni smí jen její hráč (2026-10-25) */
+  const d20 = !kMuze(K)
+    ? ""
+    : `<button type="button" class="bdmd20" data-bdmsh="kost" aria-expanded="${shOpen === "kost"}" aria-label="Hod kostkou" ${btip("Hod kostkou: vlastní výraz se Závojem, výhoda a nevýhoda")}>${bdmIc("d20")}</button>`;
   /* široký počítač: vlevo hlavička, hlášky a Statistiky s Dovednostmi, vpravo záložky a zvolený list přes celou výšku */
   if (pc)
     return `<div class="bdm kdb bhkb bdmpc${kMuze(K) ? "" : " kro"}${nes ? " bdmnesch" : ""}" data-kid="${besc(K.id)}"><div class="bdmpcl">${head}${hlH}${upr}<section class="bdmsec bdmpcvl" data-bdmid="vl">${bdmTelo(s, h, K, gm, X, "vl")}</section>${d20}</div><div class="bdmpcr">${lep}<div class="bdmbody" data-bdmsw="${besc(key)}">${body}</div></div>${list}</div>`;

@@ -1146,6 +1146,7 @@ async function vyzvaHod(id, ne) {
     }
     const adv = kAdvSum(+d.adv || 0, why),
       h = await kartaHod(K, co + (d.dc && !d.skryt ? ` (SO ${d.dc})` : ""), b, {adv, why: why.map(x => x[1]).join(", ")});
+    if (!h) return;
     r = {tot: h.tot, d: h.d, zav: h.zav, txt: h.txt.slice(0, 200)};
     if (adv) r.adv = adv;
   }
