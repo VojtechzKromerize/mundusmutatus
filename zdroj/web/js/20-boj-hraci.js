@@ -612,6 +612,7 @@ function bojJaHod() {
   }
   BJU.info = (v && r20 == null ? `${v > 0 ? "Výhoda" : "Nevýhoda"}. ` : "") + txt.join(" · ") + zv;
   if (!NV && iU >= nU - 1) bojBptOznac("A");
+  if (typeof bojWZalicPohyb === "function") bojWZalicPohyb(K, w, ZT);
   bojListPrekresli();
 }
 /* hráč: poslat útok vypravěči */

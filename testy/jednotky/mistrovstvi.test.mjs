@@ -45,6 +45,8 @@ test("čisté: Artikule – pomalá, ale těžká rána (těžká kuše, píšť
   assert.equal(C.V(`zbrPomala("Light Crossbow", 2, "1d8+4")`), null, "lehká kuše střílí normálně");
   assert.equal(C.V(`zbrPomala("Pistol", 1, "1d10+4")`), null, "bez Extra Attack beze změny");
   assert.equal(C.V(`zbrPomala("Heavy Crossbow", 2, "1d10+4", true)`), null, "Crossbow Expert: víc výstřelů s běžnými kostkami");
+  assert.equal(C.ev(`zbrZalic("Heavy Crossbow")`), true, "Zalícení jen s těžkou kuší");
+  assert.equal(C.ev(`zbrZalic("Light Crossbow")`), false);
 });
 
 let S;
@@ -76,6 +78,23 @@ test("karta: těžká kuše s Extra Attack – jeden výstřel za akci se dvěma
   const lk = V(`kUtAdj(${BAL}, {n: "Light Crossbow", b: 5, z: "1d8+2", dal: true, pocet: 2})`);
   assert.equal(lk.z, "1d8+2");
   assert.equal(lk.pocet, 2);
+});
+
+test("boj: Zalícení těžké kuše – přepínač, výhoda a polovina pohybu (Artikule 2026-10-25)", () => {
+  const B0 = S.ev(`JSON.stringify(BOJ.s || null)`);
+  S.ev(`BOJ.s = {aktivni: true, kolo: 1, tah: 1, hraci: [{id: "h1", n: "Balduin", k: "balduin"}], npc: [], utoky: []}`);
+  const TK = `{n: "Heavy Crossbow", b: 5, z: "2d10+2", dal: true}`;
+  try {
+    assert.match(V(`bojWmVolbyHtml(${BAL}, ${TK}, BOJ.s.hraci[0], false)`), /Zalícení/);
+    assert.doesNotMatch(V(`bojWmVolbyHtml(${BAL}, {n: "Light Crossbow", b: 5, z: "1d8+2", dal: true}, BOJ.s.hraci[0], false)`), /Zalícení/);
+    S.ev(`BGMU.h1 = {zvt: {"Heavy Crossbow": {zl: true}}}`);
+    assert.deepEqual(V(`(() => { const p = [], m = []; bojWAdv(BOJ.s.hraci[0], ${TK}, p, m); return p; })()`), ["Zalícení"]);
+    const r = V(`kRychN(${BAL})`);
+    S.ev(`bojWZalicPohyb(${BAL}, ${TK}, {zl: true})`);
+    assert.equal(V(`tahPohyb(bojBpt(BOJ.s), kRychN(${BAL})).zbyva`), r - Math.floor(r / 2), "zalícení stojí polovinu rychlosti");
+  } finally {
+    S.ev(`delete BGMU.h1; BOJ.s = ${B0}`);
+  }
 });
 
 test("boj: útok navíc z Light s Nick, obouruč a Topple po zásahu", () => {

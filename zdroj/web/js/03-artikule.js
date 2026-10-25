@@ -581,7 +581,8 @@ const ARTK = [
       ],
     ],
   )}
-  <p><b>Pomalá, ale těžká rána.</b> Těžká kuše, píšťala a hákovnice vystřelí jednou za akci Útok, i když máš víc útoků. Za každý útok navíc, který by ti akce dala (Extra Attack), přidáš k zásahu jednu kostku zbraně; modifikátor přičteš jen jednou a při kritickém zásahu se zdvojí všechny kostky (těžká kuše s Extra Attack: 2d10 + DEX). Lehká a ruční kuše se napínají rychle kozí nohou a střílí podle Extra Attack normálně. Kdo Nabíjení ignoruje (Crossbow Expert u kuší, Gunner za bonusovou akci na každé nabití), smí místo jedné těžké rány střílet vícekrát s běžnými kostkami.</p>`,
+  <p><b>Pomalá, ale těžká rána.</b> Těžká kuše, píšťala a hákovnice vystřelí jednou za akci Útok, i když máš víc útoků. Za každý útok navíc, který by ti akce dala (Extra Attack), přidáš k zásahu jednu kostku zbraně; modifikátor přičteš jen jednou a při kritickém zásahu se zdvojí všechny kostky (těžká kuše s Extra Attack: 2d10 + DEX). Lehká a ruční kuše se napínají rychle kozí nohou a střílí podle Extra Attack normálně. Kdo Nabíjení ignoruje (Crossbow Expert u kuší, Gunner za bonusovou akci na každé nabití), smí místo jedné těžké rány střílet vícekrát s běžnými kostkami.</p>
+  <p><b>Zalícení.</b> S těžkou kuší můžeš před výstřelem utratit polovinu své rychlosti a zamířit: útok má výhodu.</p>`,
       },
     ],
   },

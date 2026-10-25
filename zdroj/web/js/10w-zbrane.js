@@ -146,5 +146,7 @@ function zbrPomala(druh, pocet, z, bezNab) {
   if (!ZBRPOMALE.includes(druh) || !(pocet > 1) || bezNab || !m) return null;
   return {z: `${(+m[1] || 1) * pocet}d${m[2]}${m[3]}`, kostek: pocet};
 }
+/* Zalícení (Artikule 2026-10-25): s těžkou kuší stojí polovinu rychlosti a dá výhodu na útok */
+const zbrZalic = druh => druh === "Heavy Crossbow";
 /* Heavy: nevýhoda zblízka se STR pod 13, na dálku s DEX pod 13 */
 const zbrTezkaNev = (vl, dal, str, agi) => !!(vl && vl.Heavy) && (dal ? +agi < 13 : +str < 13);

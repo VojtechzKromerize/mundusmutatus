@@ -60,6 +60,14 @@ function bojWAdv(me, w, plus, minus) {
   const O = GMV ? BGMU[me.id] || {} : BJU,
     T = bojZvVolby(O, w);
   if (T.dd && R.vl.Range) minus.push("za běžným dostřelem");
+  if (T.zl && w.dal && zbrZalic(R.druh)) plus.push("Zalícení");
+}
+/* Zalícení po odeslání útoku hráče: polovina rychlosti z pohybu v tomto tahu (účet tahu v 14) */
+function bojWZalicPohyb(K, w, T) {
+  const R = T && T.zl && w.dal && bojWTr(K, w);
+  if (!R || !zbrZalic(R.druh) || !BOJ.s) return;
+  const r = kRychN(K);
+  tahPohni(bojBpt(BOJ.s), Math.floor(r / 2), r);
 }
 /* volby před hodem v listu útoku (přepínače sdílí uložení s perky: O.zvt[zbraň], tlačítka data-bzvt v 20e) */
 function bojWmVolbyHtml(K, w, h, gm) {
@@ -71,6 +79,7 @@ function bojWmVolbyHtml(K, w, h, gm) {
     L = [];
   if (!w.dal && typeof R.vl.Versatile === "string")
     L.push(["ob", `Obouruč ${R.vl.Versatile}`, `Versatile (Univerzální): v obou rukou zranění ${R.vl.Versatile}`]);
+  if (w.dal && zbrZalic(R.druh)) L.push(["zl", "Zalícení", "Zalícení (Artikule): stojí polovinu rychlosti, útok má výhodu"]);
   if (R.vl.Range)
     L.push(["dd", "Za dostřelem", `Range (Dostřel ${typeof R.vl.Range === "string" ? R.vl.Range : ""}): cíl za běžným dostřelem – nevýhoda`]);
   if (R.vl.Light && (tahJednouVolne(U, "nl") || T.nl))

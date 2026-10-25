@@ -33,6 +33,7 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
 - 2026-10-25 **Pomalá, ale těžká rána**: těžká kuše, píšťala a hákovnice vystřelí jednou za akci Útok a za každý další útok akce
   (Extra Attack) přidají kostku zbraně (modifikátor jednou, při kritu se zdvojí všechny). Lehká a ruční kuše střílí normálně.
   Crossbow Expert (kuše) a Gunner (bonusová akce na nabití) smí místo toho střílet vícekrát s běžnými kostkami.
+  **Zalícení**: s těžkou kuší za polovinu rychlosti výhoda na útok (i v kontaktu s nepřítelem – Vojta; není to perk).
 
 ## Hotovo
 
@@ -126,6 +127,8 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
   píšťalu a hákovnici s Extra Attack jako jeden výstřel s víc kostkami (`zbrPomala` v 10w, `kUtPomala` v 18; s Crossbow Expertem
   u kuší zůstanou běžné výstřely); test v `mistrovstvi.test.mjs`. Opraveno zároveň: Extra Attack z PDF zůstane i u povolání,
   která `kPocet` nezná (Gunslinger, Bladesinger) – dřív ho karta srazila na jeden útok.
+  **Zalícení**: přepínač u těžké kuše ve volbách před hodem (`zbrZalic` 10w, `bojWmVolbyHtml` / `bojWAdv` 20g) dá výhodu;
+  po odeslání útoku hráče ubere polovinu rychlosti z pohybu v tahu (`bojWZalicPohyb`). Volba zůstává zapnutá i v dalších tazích.
 - 10-25 **Spravovat inventář: štítky Zbroj a Zbraně zahrnou i magické kusy** (Dwarven Plate, Flame Tongue; `KINVDB` 14b) – dřív je ukázal jen štítek Magické zbraně a zbroj.
 - 10-24 **Plné znění propojené s kartou**: předměty z Vojtovy tabulky, které katalog vybavení nezná (~1 260), jdou hledat v kartě › Spravovat inventář i přidat z Pravidel › Předměty („Požádat o přidání do vybavení“) – hráč pošle návrh `typ: vec` s polem `pl` (jméno, váha), vypravěč potvrdí (`navrhProved`, 23); popis věci v inventáři ukáže druh a vzácnost z tabulky a Plné znění (`kInvPlne`, `kVecPlnePridej`, `kLbPlne` v 14b, `plneVec` v 10q). 46 kouzel z tabulky, která web neznal, je v katalogu kouzel jen s herními údaji bez textu (`zdroj/kouzla/doplnek.json` z `kouzla_predmety_plne.py --doplnek`, pole `dop`), karta je z PDF pozná a text ukáže z plného znění. Featy: okno rysu na kartě ukáže přihlášenému plné znění featu s rámečky Artikulí (`kFeatPlne`, 17).
 - 10-24 **Názvy podle Vojtovy volby**: 113 kouzel přejmenováno (`zdroj/kouzla/jmena.json`; Bigby's Hand = Tajemná ruka, Hold Person = Znehybnění osoby…). **Stavy**: Paralyzed = Paralyzovaný (dřív Ochromen), Restrained = Spoután (Zadržen, Spoután), Grappled = Chycen (ne Sevřen), Frightened = Vyděšen, Poisoned = Otráven, Stunned = Omráčen – klíče v datech `paralyzovaný`, `spoután`, `vyděšen`, `otráven`; starší data z databáze i prohlížeče převede při čtení `mmStare` (koruna.html, i pro `mmDex`), `mm_stavy_pc_ok` bere staré i nové. Texty: překlad SRD převádí `stavy_srd`, Vojtovy texty (katalog kouzel a vybavení, plné znění, featy) `_stavy` v `pojmy_textu.py` (ochromený = omráčený, zadržený = spoutaný, uchvácený = chycený, vystrašený = vyděšený, zmámený = okouzlený, stav ležící = sražený); featy ve vývojové databázi převedené SQL. Ostrá: schéma (`mm_stavy_pc_ok`) a nahrání plného znění při nasazení.
