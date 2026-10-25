@@ -296,6 +296,9 @@ test("kouzla: stav ze záchrany i z českého textu – Cause Fear → Vyděšen
   assert.deepEqual(V(`bojSpStav("Snare").st`), ["spoután"]);
   assert.deepEqual(V(`bojSpStav("Hold Person").st`), ["paralyzovaný"]);
   assert.equal(V(`bojSpStav("Cure Wounds")`), null);
+  /* 2026-10-25: věta za neúspěchem („Dokud je Charmed, je Incapacitated“) se počítá, stav v záporu ne */
+  assert.deepEqual(V(`bojSpStav("Hypnotic Pattern").st`), ["okouzlen", "neschopný"]);
+  assert.equal(V(`bojSpStav("Sickening Radiance")`), null, "„nemůže těžit ze stavu Invisible“ není stav");
 });
 
 test("kouzla: smity po zásahu – Searing/Wrathful/Thunderous Smite a Ensnaring Strike z nejnižšího volného slotu, Blinding Smite bez slotu 3. st. ne; s Divine Smite se vylučují", () => {
