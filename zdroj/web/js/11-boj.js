@@ -1626,7 +1626,12 @@ function bojRef(n, s, velH) {
   const vzd = (n.stav || []).includes("vzdal se")
     ? `<p class="bmor bvzd">${bi("vzdal")} <b>Vzdal se.</b> Je bezbranný: kdo ho zabije, páchá vraždu bezbranného – smrtelný hřích (Svědomí −1, proti vlastní Ctnosti −2). Ozvi se dřív, než to hráč udělá. Po boji rozhodnete, co s ním.</p>`
     : "";
-  const bar = `${nej}${vzd}<div class="bbar1">${bojStavy(n, true, true)}${kryB}${zbr ? `<span class="bzbrw">${zbr}</span>` : ""}${zn ? `<span class="bznw">${zn}</span>` : ""}${velH || ""}${prC}${os}</div>`;
+  /* příležitostný útok (2026-10-25): vypravěč označí, že nepřítel opouští dosah postav – jejich telefony nabídnou útok reakcí */
+  const odchB =
+    GMV && !bojSpoj(n) && bojBezi(s)
+      ? `<button type="button" class="bkrytb bodchb" data-bodch ${btip("Opouští dosah: vyber postavy, od kterých odchází – nabídne se jim příležitostný útok")}>⇢<small>dosah</small></button>`
+      : "";
+  const bar = `${nej}${vzd}<div class="bbar1">${bojStavy(n, true, true)}${kryB}${odchB}${zbr ? `<span class="bzbrw">${zbr}</span>` : ""}${zn ? `<span class="bznw">${zn}</span>` : ""}${velH || ""}${prC}${os}</div>`;
   if (!E) return `<div class="bref">${bar}</div>`;
   var zu = bojZdr.get()[n.id] || {};
   const kzN = new Set(

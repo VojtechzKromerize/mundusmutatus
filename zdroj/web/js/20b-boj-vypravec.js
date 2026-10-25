@@ -2524,6 +2524,10 @@ document.addEventListener("click", async e => {
     bojNpcKouzlo(o0, kzb.dataset.bkz, kzb.dataset.bkzz || null);
     return;
   }
+  if (T("[data-bodch]") && o0) {
+    bojOdchodDlg(o0);
+    return;
+  }
   if (T("[data-bkryt]")) {
     upd(o => {
       const k = +o.kryt || 0;
@@ -2837,3 +2841,36 @@ async function bojVratCas(tr, popis) {
   mmHlasG("Boj vrácen do stavu před vybraným řádkem.", 3500);
   renderBoj();
 }
+
+/* příležitostný útok (2026-10-25, Vojta): „Opouští dosah“ u nepřítele – vypravěč vybere postavy, od kterých odchází; do veřejného
+   záznamu jde řádek s v = „opouští dosah“ a telefon postavy nabídne útok reakcí (bojPrilezNovy v 14c) */
+function bojOdchodDlg(n) {
+  const s = BOJ.s || {},
+    L = (s.hraci || []).filter(h => !bojDsAkt(h) && !(s.reak || {})[h.id]);
+  mmPop(
+    `<h3 class="uvh2">${besc(n.n)} opouští dosah</h3><p class="rsmall">Od koho odchází? Vybraným se nabídne příležitostný útok (reakce už v tomto kole použitá se nenabízí).</p>
+    <p class="kcilm bodchl">${L.length ? L.map(h => `<button type="button" class="kcilmb" data-bodchh="${besc(h.id)}" data-bodchn="${besc(n.id)}" aria-pressed="false">${besc(h.n)}</button>`).join("") : "<small>Nikdo nemá volnou reakci.</small>"}</p>
+    <p><button type="button" class="gbtn" data-bodchok="${besc(n.id)}">Nabídnout příležitostný útok</button></p>`,
+  );
+}
+document.addEventListener("click", e => {
+  const T = q => e.target.closest && e.target.closest(q);
+  const b = T("[data-bodchh]");
+  if (b) {
+    b.setAttribute("aria-pressed", String(b.getAttribute("aria-pressed") !== "true"));
+    return;
+  }
+  const ok = T("[data-bodchok]");
+  if (!ok) return;
+  const s = BOJ.s || {},
+    n = (s.npc || []).find(x => x.id === ok.dataset.bodchok),
+    H = [...document.querySelectorAll('.mmpop [data-bodchh][aria-pressed="true"]')]
+      .map(x => (s.hraci || []).find(h => h.id === x.dataset.bodchh))
+      .filter(Boolean);
+  mmPopX();
+  if (!n || !H.length) return;
+  H.forEach(h => bojZaz({a: n.n, ai: n.id, c: h.n, ci: h.id, cim: "příležitostný útok", v: "opouští dosah"}));
+  bojLog(n.id, {n: "Opouští dosah", zt: `příležitostný útok: ${H.map(h => h.n).join(", ")}`}, n.n);
+  mmHlasG(`${n.n} opouští dosah – ${H.map(h => h.n).join(", ")} ${H.length > 1 ? "mohou" : "může"} reakcí zaútočit.`, 4000);
+  renderBoj();
+});

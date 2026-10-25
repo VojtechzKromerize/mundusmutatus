@@ -414,6 +414,7 @@ function bojHracRef(s, h, gm, K, vzdy, dbm) {
   const hl = kHlas([
     vzdy ? kZasahHtml(K, h, s) : "",
     vzdy && !gm ? kRipHtml(K, h, s) : "",
+    vzdy && !gm ? kPrilezHtml(K, h, s) : "",
     vzdy && !gm && typeof kOdvHtml === "function" ? kOdvHtml(K, h, s) : "",
     plak,
     s.aktivni ? bojJaHexHtml(s, h, K) : "",
@@ -494,6 +495,7 @@ function bojHracRef(s, h, gm, K, vzdy, dbm) {
       hl: kHlas([
         vzdy ? kZasahHtml(K, h, s) : "",
         vzdy && !gm ? kRipHtml(K, h, s) : "",
+        vzdy && !gm ? kPrilezHtml(K, h, s) : "",
         vzdy && !gm && typeof kOdvHtml === "function" ? kOdvHtml(K, h, s) : "",
         plak,
         s.aktivni ? bojJaHexHtml(s, h, K) : "",
@@ -507,6 +509,7 @@ function bojHracRef(s, h, gm, K, vzdy, dbm) {
       hlS: kHlas([
         vzdy ? kZasahHtml(K, h, s) : "",
         vzdy && !gm ? kRipHtml(K, h, s) : "",
+        vzdy && !gm ? kPrilezHtml(K, h, s) : "",
         vzdy && !gm && typeof kOdvHtml === "function" ? kOdvHtml(K, h, s) : "",
         s.aktivni ? bojJaHexHtml(s, h, K) : "",
         zavUt ? "" : kZavBox(K),
@@ -1034,7 +1037,7 @@ function bojGmZapisVse(hid) {
         id: "g" + Date.now().toString(36) + q,
         h: hid,
         ci: [x.ci],
-        cim: `${G.ripo ? (G.ripo.odv ? "Odveta: " : "Riposte: ") : ""}${w ? w.n : "útok"}${rid(x)}`.slice(0, 60),
+        cim: `${bojRipoPre(G.ripo)}${w ? w.n : "útok"}${rid(x)}`.slice(0, 60),
         hod: x.hod,
         d: x.d,
         adv: x.v || 0,

@@ -4,10 +4,11 @@
 
    Spouštěče: "zasah" – nepřítel mě zasáhl (řádek záznamu boje e: hod, ac, d, kr, ph/pt, t, dal, ai)
               "vedle" – nepřítel mě minul útokem (e: dal, ai, zv = pok/poz)   "kouzlo" – nepřítel sesílá kouzlo (Counterspell)
+              "odchod" – nepřítel opouští můj dosah (vypravěč ho označí; e: a, ai)   "jiny" – nepřítel zasáhl někoho jiného (e: a, ai, c)
    Fakta f: rk reakce v tomto kole použita · nemuze stav, který bere reakce (omráčen, paralyzovaný…) · ds na 0 HP (hody proti smrti)
             kouzla [{n, i, st, pz}] reakční kouzla se slotem / nábojem · rysy [jména malými písmeny] · man [manévry Battle Mastera]
             sd {k: "d8", zb} kostky převahy · bi {st, zb} Bardic Inspiration · str, agi modifikátory · pb zdatnost · mnich úroveň
-            odv zbraň zblízka s vlastností Odvetná
+            odv zbraň zblízka s vlastností Odvetná · zbl zbraň zblízka (příležitostný útok) · sentinel feat Sentinel
    Společné pravidlo (D&D 2024): reakce jednou za kolo (obnoví se na začátku vlastního tahu) a nejde, když stav bere reakce
    nebo je postava na 0 HP – dřív to hlídal jen Counterspell. ===== */
 
@@ -161,6 +162,27 @@ const REAKCE = [
         : null,
   ],
   ["odv", "vedle", (f, e) => (f.odv && !e.dal && e.ai && e.zv === "pok" ? {n: "Odveta – oplatit", t: "Odvetná: protiútok reakcí"} : null)],
+  /* nepřítel opouští můj dosah: příležitostný útok (2026-10-25); Sentinel – zasažený cíl má do konce tahu rychlost 0 */
+  [
+    "pa",
+    "odchod",
+    (f, e) =>
+      f.zbl && e.ai
+        ? {n: "Příležitostný útok", t: `Reakce: jeden útok na blízko${f.sentinel ? "; Sentinel: při zásahu má cíl do konce tahu rychlost 0" : ""}`}
+        : null,
+  ],
+  /* Sentinel (Guardian): nepřítel do 5 stop ode mě zasáhl někoho jiného – příležitostný útok reakcí */
+  [
+    "sentinel",
+    "jiny",
+    (f, e) =>
+      f.sentinel && f.zbl && e.ai
+        ? {
+            n: "Sentinel – příležitostný útok",
+            t: `${e.a || "Nepřítel"} zasáhl ${e.c || "spojence"}: je-li do 5 stop od tebe, zaútoč reakcí; při zásahu má do konce tahu rychlost 0`,
+          }
+        : null,
+  ],
   /* nepřítel sesílá kouzlo */
   [
     "counterspell",
