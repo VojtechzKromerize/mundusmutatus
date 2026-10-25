@@ -236,6 +236,22 @@ document.querySelectorAll(".navdd").forEach(dd => {
       top.setAttribute("aria-expanded", "false");
     }
   });
+  /* nabídka nesmí přerůst okno (Artikule mají dlouhý seznam): výška podle místa pod položkou, zbytek se posouvá (2026-10-25) */
+  const vyska = () => {
+    const L = dd.querySelector(".svlist");
+    if (L && !matchMedia("(max-width:640px)").matches)
+      L.style.setProperty("--svmax", Math.max(200, innerHeight - L.getBoundingClientRect().top - 12) + "px");
+  };
+  dd.addEventListener("mouseenter", vyska);
+  dd.addEventListener("focusin", vyska);
+  top.addEventListener("click", vyska);
+  addEventListener(
+    "scroll",
+    () => {
+      if (dd.matches(":hover,:focus-within,.open")) vyska();
+    },
+    {passive: true},
+  );
   dd.addEventListener("mouseenter", () => top.setAttribute("aria-expanded", "true"));
   dd.addEventListener("mouseleave", () => top.setAttribute("aria-expanded", "false"));
   /* nabídka nesmí přetéct přes okraj okna: před otevřením ji případně posuneme do strany */

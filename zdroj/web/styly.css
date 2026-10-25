@@ -282,7 +282,7 @@ header.site{display:flex;flex-direction:column;gap:0;border:0;padding:0}
   .navlinks .navdd{display:block}
   .navlinks .navdd .svitek{position:static;transform:none;width:auto;margin:0;padding:0 0 4px 14px;pointer-events:auto;visibility:visible;opacity:1}
   .navlinks .navdd .svlist{max-height:none!important;padding:0!important;margin:0;-webkit-mask:none;mask:none;background:none;border:0;box-shadow:none;display:flex;flex-direction:column;align-items:flex-start;min-width:0}
-  .navlinks .navdd .svlist::before,.navlinks .navdd .svlist a.on::before{display:none}.navlinks .navdd .svlist a small{display:none}.navlinks .navdd .svlist a{font-size:1.1rem;font-weight:inherit;padding:4px 0;margin:0!important;color:var(--ink);text-shadow:none;text-align:left;border:0!important;background:none!important;box-shadow:none!important}.navlinks .navdd .svlist a.on,.navlinks .navdd .svlist a:hover{color:var(--kal)}.navlinks .navdd .svlist a+a::before{display:none}.navlinks .navdd .svsep{color:var(--muted);margin:6px 0 0;font-size:.68rem}.navlinks .navdd .svsep::after{border-color:var(--rule)}.navlinks .navdd .svsep::before{display:none}
+  .navlinks .navdd .svitek::before,.navlinks .navdd .svlist::before,.navlinks .navdd .svlist a.on::before{display:none}.navlinks .navdd .svlist a small{display:none}.navlinks .navdd .svlist a{font-size:1.1rem;font-weight:inherit;padding:4px 0;margin:0!important;color:var(--ink);text-shadow:none;text-align:left;border:0!important;background:none!important;box-shadow:none!important}.navlinks .navdd .svlist a.on,.navlinks .navdd .svlist a:hover{color:var(--kal)}.navlinks .navdd .svlist a+a::before{display:none}.navlinks .navdd .svsep{color:var(--muted);margin:6px 0 0;font-size:.68rem}.navlinks .navdd .svsep::after{border-color:var(--rule)}.navlinks .navdd .svsep::before{display:none}
   .navlinks .gsearch{order:-1;margin-bottom:6px}
   .logo{width:min(100%,300px)}
   header.site .logo{display:none}
@@ -1449,6 +1449,10 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
 .navdd .svitek .svlist::before,.navdd .svitek .svlist a.on::before{background:var(--kos);box-shadow:0 0 0 1.5px #e0b04a,0 0 0 2.5px rgba(20,3,6,.85)}
 #navdesky .svitek .svlist a.on::before{background:#d9a93f;box-shadow:0 0 0 1px rgba(20,3,6,.7)}
 .navdd .svitek .svlist::before{width:12px;height:12px;margin-left:-6px;top:-7px}
+/* dlouhá nabídka (Artikule, 2026-10-25): lístek nepřeroste okno – zbytek se posouvá uvnitř; kosočtverec je na obalu, aby ho posuvník neořízl */
+.navdd .svitek .svlist{max-height:var(--svmax,calc(100vh - 150px));overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:rgba(214,170,90,.55) transparent}
+.navdd .svitek .svlist::before{display:none}
+.navdd .svitek::before{content:"";position:absolute;z-index:1;left:50%;top:1px;width:12px;height:12px;margin-left:-6px;transform:rotate(45deg);background:var(--kos,linear-gradient(135deg,#f6dc8a,#c99a3a 55%,#8a6516));box-shadow:0 0 0 1.5px #e0b04a,0 0 0 2.5px rgba(20,3,6,.85)}
 /* zvolená karta / přepínač: stejná vínová kůže se zlatou linkou jako hlavní lišta */
 .controls button[aria-pressed="true"],.dtools .controls button[aria-pressed="true"],.subnav a.on,.gbtn:not(.ghost){background:linear-gradient(180deg,color-mix(in srgb,var(--kuze) 85%,#000) 0%,var(--kuze) 35%,var(--kuze2) 100%);color:#f6d27a;border-color:rgba(20,3,6,.85);text-shadow:0 1px 0 rgba(0,0,0,.45);box-shadow:inset 0 0 0 2px var(--kuze),inset 0 0 0 3px var(--zlato-linka),0 1px 3px rgba(40,10,10,.3)}
 .controls button[aria-pressed="true"]:hover,.subnav a.on:hover,.gbtn:not(.ghost):hover{color:#ffe7a8}
