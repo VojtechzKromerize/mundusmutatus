@@ -2869,6 +2869,13 @@ html.mmapp .mmpop{padding-top:calc(env(safe-area-inset-top,0px) + 10px)}
 .bdmhlz .khlas>*:not(:first-child){display:none!important}
 .bdmhlb{position:absolute;top:2px;right:0;min-width:38px;padding:3px 6px;border-radius:999px;background:var(--kb-btn);border:1px solid var(--kb-ac);color:var(--kb-tx);font-family:var(--f-label)!important;font-weight:700;font-size:.74rem}
 .bdmainf{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:10px}
+/* pohyb a akce navíc v tahu (2026-10-25) */
+.bdmtah{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:10px;padding:6px 8px;border:1px solid var(--kb-bd);border-radius:6px;background:var(--kb-bg)}
+.bdmtah .bdmmini{min-height:32px;min-width:40px}
+.bdmpoh{display:inline-flex;align-items:baseline;gap:4px;margin-right:2px;font-family:var(--f-label);color:var(--kb-tx)}
+.bdmpoh b{font-size:1.15rem}.bdmpoh i{font-style:normal;font-size:.8rem;opacity:.75}.bdmpoh0 b{opacity:.5}
+.bdmtsp{display:inline-flex;flex-wrap:wrap;gap:4px;align-items:center}.bdmtsp small{opacity:.8}
+.bdmtah [aria-pressed=true]{opacity:.55;text-decoration:line-through}
 .bdmchu{opacity:.55;text-decoration:line-through}
 .bdmuse{margin-left:6px;padding:1px 8px;border-radius:999px;background:var(--kb-bg);border:1px solid #3d8fe0;color:#8cbcf0;font-family:var(--f-label)!important;font-weight:700;font-size:.66rem;letter-spacing:.04em;text-transform:uppercase;vertical-align:middle}
 .bdmuse.on{border-color:var(--kb-bd2);color:var(--kb-mu)}

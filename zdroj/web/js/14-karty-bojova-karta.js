@@ -251,6 +251,65 @@ function bojBptOznac(c) {
   if (!BOJ.s || !BOJ.s.aktivni) return;
   tahOznac(bojBpt(BOJ.s), c);
 }
+/* pohyb a akce navíc v tahu (2026-10-25, Vojta): zbývající pohyb, Sprint (akcí, bonusovou akcí z Cunning Action / Step of the Wind,
+   akcí z Haste), Action Surge a omezená akce z Haste – na telefonu hráče, nad pod-kartami Akce; účet tahu v čistém 10t */
+const bojHaste = K => typeof kBufEf === "function" && kBufEf(K).some(b => b.e && b.e.akceNavic);
+function bojTahMoz(K, P) {
+  const c = kCtx(K),
+    mnich = kTrU(c, "Monk") >= 2 ? kZdrN(K, /focus|\bki\b/i) : null,
+    as = kTrU(c, "Fighter") >= 2 ? kZdrN(K, /action surge/i) : null,
+    ha = bojHaste(K),
+    sp = [];
+  if (!tahMa(P, "A")) sp.push(["A", "akcí", "Sprint za akci"]);
+  if (!P.b && kTrU(c, "Rogue") >= 2) sp.push(["BA", "bonusovou", "Cunning Action: Sprint za bonusovou akci"]);
+  else if (!P.b && mnich && mnich.zb > 0) sp.push(["BA:ki", "bonusovou", "Step of the Wind: Sprint za bonusovou akci (1 bod Focus)"]);
+  if (ha && !P.ah) sp.push(["AH", "z Haste", "Haste: Sprint za akci navíc"]);
+  return {sp, as, ha, mnich};
+}
+function bdmTahPas(K, P) {
+  const M = tahPohyb(P, kRychN(K)),
+    {sp, as, ha} = bojTahMoz(K, P);
+  const tl = (ft, z, t) => `<button type="button" class="bdmmini" data-btpm="${ft}" ${btip(t)}>${z}</button>`;
+  return `<div class="bdmtah" role="group" aria-label="Pohyb a akce navíc v tomto tahu"><span class="bdmpoh${M.zbyva ? "" : " bdmpoh0"}" ${btip(`Pohyb v tomto tahu: zbývá ${M.zbyva} z ${M.max} stop${P.d ? ` (Sprint ${P.d}×)` : ""}`)}><small>Pohyb</small> <b>${M.zbyva}</b><i>/${M.max} st.</i></span>${M.zbyva ? tl(5, "−5", "Ušel jsem 5 stop") + tl(10, "−10", "Ušel jsem 10 stop") : ""}${M.m ? tl(-5, "↺5", "Vrátit 5 stop") : ""}${
+    sp.length
+      ? `<span class="bdmtsp"><small>Sprint:</small>${sp.map(([k, l, t]) => `<button type="button" class="bdmmini" data-btsp="${k}" ${btip(`${t} – pohyb navíc ${M.r} stop`)}>${l}</button>`).join("")}</span>`
+      : ""
+  }${
+    P.as
+      ? `<button type="button" class="bdmmini bdmtas" data-btp="a2" aria-pressed="${!!P.a2}" ${btip(`Action Surge: druhá akce ${P.a2 ? "použitá" : "volná"} – klikni`)}>Akce 2</button>`
+      : as && as.zb > 0
+        ? `<button type="button" class="bdmmini bdmtas" data-btas ${btip(`Action Surge: v tomto tahu akce navíc (zbývá ${as.zb}×, obnova krátkým odpočinkem)`)}>Action Surge</button>`
+        : ""
+  }${ha ? `<button type="button" class="bdmmini bdmtha" data-btp="ah" aria-pressed="${!!P.ah}" ${btip(`Haste – akce navíc (jen Útok jedním útokem, Sprint, Odpoutání, Skrytí nebo Použití předmětu): ${P.ah ? "použitá" : "volná"} – klikni`)}>Akce z Haste</button>` : ""}</div>`;
+}
+document.addEventListener("click", async e => {
+  const b = e.target.closest && e.target.closest("[data-btpm],[data-btsp],[data-btas]");
+  if (!b || !BOJ.s) return;
+  const me = ((BOJ.s || {}).hraci || []).find(h => h.n === bojJa.get()),
+    K = me && bojKartaH(me);
+  if (!K || !kMuze(K)) return;
+  const P = bojBpt(BOJ.s),
+    r = kRychN(K);
+  if (b.dataset.btpm) tahPohni(P, +b.dataset.btpm, r);
+  else if (b.dataset.btsp) {
+    const [druh, ki] = b.dataset.btsp.split(":"),
+      M = bojTahMoz(K, P);
+    if (!tahSprint(P, druh, r)) return;
+    if (ki && M.mnich) await kZdrUtrat(K, M.mnich);
+    kHodZapis({
+      k: K.id,
+      kdo: K.n,
+      co: "Sprint (Dash)",
+      txt: `${druh === "AH" ? "akcí z Haste" : druh === "BA" ? (ki ? "Step of the Wind" : "Cunning Action") : "akcí"} · pohyb navíc ${r} stop`,
+    });
+  } else {
+    const M = bojTahMoz(K, P);
+    if (!M.as || M.as.zb <= 0 || !tahSurge(P)) return;
+    await kZdrUtrat(K, M.as);
+    kHodZapis({k: K.id, kdo: K.n, co: "Action Surge", txt: "v tomto tahu akce navíc"});
+  }
+  bojPrekresli();
+});
 function bojHracKarta(s, h, gm, vzdy) {
   const K = bojKartaH(h),
     ob = s.obsazeni || {},
@@ -298,11 +357,7 @@ function bojHracKarta(s, h, gm, vzdy) {
     mojeTah = vzdy && natahu;
   const pips = `<span class="btpips" role="group" aria-label="Tah">${
     mojeTah
-      ? [
-          ["p", "Pohyb", "P"],
-          ["a", "Akce", "A"],
-          ["b", "Bonusová akce", "BA"],
-        ]
+      ? [["p", "Pohyb", "P"], ["a", "Akce", "A"], ["b", "Bonusová akce", "BA"], ...(P.as ? [["a2", "Druhá akce (Action Surge)", "A2"]] : [])]
           .map(
             ([k, l, z]) =>
               `<button type="button" data-btp="${k}" aria-pressed="${!!P[k]}" ${btip(`${l}: ${P[k] ? "použito" : "k dispozici"} – klikni`)}>${z}</button>`,
@@ -1475,7 +1530,7 @@ function bdmAkce(s, h, K, gm, X) {
   const UT = kUtoky(K).filter(a => !kJeKouzloUt(K, a)),
     apa = Math.max(1, ...UT.map(a => +a.pocet || 1));
   const T = X.mojeTah && X.BP,
-    uA = T && X.BP.a,
+    uA = T && tahMa(X.BP, "A"),
     uB = T && X.BP.b,
     vmx = kVydMax(K),
     G = kAkceG(K, true, {bezKouzel: true}),
@@ -1493,7 +1548,7 @@ function bdmAkce(s, h, K, gm, X) {
       k !== af
         ? ""
         : (k === "A" || k === "BA") && T
-          ? ` data-btp="${k === "A" ? "a" : "b"}" aria-pressed="${!!used}"`
+          ? ` data-btp="${k === "A" ? (X.BP.as && (used || X.BP.a) ? "a2" : "a") : "b"}" aria-pressed="${!!used}"`
           : k === "R" && X.boj
             ? ` ${gm ? `data-break="${h.id}"` : "data-bhrk"} aria-pressed="${!!X.rk}"`
             : "";
@@ -1535,7 +1590,7 @@ function bdmAkce(s, h, K, gm, X) {
   } else {
     telo = `${zdrL.length ? `<ul class="kdbli kdbzdr bdmzdr">${zdrL.map(q => `<li>${q.k === q.n && q.n !== "Výdrž" ? `<button type="button" class="kspn" data-krys="${besc(q.n)}"><b>${besc(kZdrJm(q.n))}</b></button>` : `<b>${besc(q.n)}</b>`}${kdbPips(K, q)}</li>`).join("")}</ul>` : `<p class="bdmnote">Nic s omezeným počtem použití.</p>`}${kSchopHtml(K)}`;
   }
-  return `${info}<div class="bdmseg" role="tablist" aria-label="Druh akce">${seg}</div><div class="bdmafb" data-bdmafb="${af}">${telo}</div>`;
+  return `${T ? bdmTahPas(K, X.BP) : ""}${info}<div class="bdmseg" role="tablist" aria-label="Druh akce">${seg}</div><div class="bdmafb" data-bdmafb="${af}">${telo}</div>`;
 }
 /* kouzla: jen použitelná; bez volného slotu sbalená na konci, triky v jednom bloku */
 function bdmKouzla(s, h, K, gm, X) {
@@ -1565,7 +1620,8 @@ function bdmKouzla(s, h, K, gm, X) {
       ? `<button type="button" class="bdmmini bdmcil" ${naCil(i)} ${btip("Seslat – vybrat cíl (u plošných a vícecílových kouzel víc cílů)")}>Seslat</button>`
       : "";
   /* akce, bonusová akce nebo reakce už v tomto tahu použitá: kouzla s tímto časem seslání zešednou a nejdou seslat (2026-10-23) */
-  const pouz = c => (c === "A" && X.mojeTah && X.BP && X.BP.a) || (c === "BA" && X.mojeTah && X.BP && X.BP.b) || (c === "R" && X.boj && X.rk);
+  const pouz = c =>
+    (c === "A" && X.mojeTah && X.BP && tahMa(X.BP, "A")) || (c === "BA" && X.mojeTah && X.BP && X.BP.b) || (c === "R" && X.boj && X.rk);
   /* trik ke zbrani v boji: Seslat otevře útok zbraní s předvybraným trikem (2026-10-24) */
   const zbT = X.boj ? bojZbrVse(s, h) : [],
     trikB = x => {
