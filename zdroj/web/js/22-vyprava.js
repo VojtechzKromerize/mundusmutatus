@@ -622,7 +622,6 @@ const VY_NOVA = () => ({
   pocHraci: false,
   revir: false,
 });
-const vyEsc = t => String(t ?? "").replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"})[c]);
 const vyId = () => Math.random().toString(36).slice(2, 9);
 function vyDruzina() {
   if (!VY.druzina || !VY.druzina.length) {
@@ -796,7 +795,7 @@ function hraZpetHtml() {
                 } catch (e) {
                   return "";
                 }
-              })()}</small> <span>před: <b>${vyEsc(o.popis)}</b> → ${vyEsc(hraZpetTxt(o))}</span> <button type="button" class="gbtn ghost" data-vyzpet="${L.length - 1 - j}">Vrátit sem</button></li>`,
+              })()}</small> <span>před: <b>${besc(o.popis)}</b> → ${besc(hraZpetTxt(o))}</span> <button type="button" class="gbtn ghost" data-vyzpet="${L.length - 1 - j}">Vrátit sem</button></li>`,
           ).join("")}</ul>`
         : `<p class="rsmall">Zatím nic k vrácení.</p>`
     }

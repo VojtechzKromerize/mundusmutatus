@@ -3433,9 +3433,8 @@ const BZRT = {
   Force: "Silové",
 };
 const BZBK = {Vycpávaná: "vycpavana", Kroužková: "krouzkova", Plátová: "platova", Komplexní: "komplexni", Štít: "stit"};
-const bikE = t => String(t).replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"})[c]);
 const bik = (f, tip, c) =>
-  `<img class="bi bimg bik${c ? " " + c : ""}" src="art/img/boj/${f}-48.webp" srcset="art/img/boj/${f}-48.webp 48w, art/img/boj/${f}-96.webp 96w" sizes="24px" width="24" height="24" alt="${bikE(tip)}" aria-label="${bikE(tip)}" data-tip="${bikE(tip)}" loading="lazy" decoding="async" loading="lazy">`;
+  `<img class="bi bimg bik${c ? " " + c : ""}" src="art/img/boj/${f}-48.webp" srcset="art/img/boj/${f}-48.webp 48w, art/img/boj/${f}-96.webp 96w" sizes="24px" width="24" height="24" alt="${besc(tip)}" aria-label="${besc(tip)}" data-tip="${besc(tip)}" loading="lazy" decoding="async" loading="lazy">`;
 const bikZvTip = k => `${k} (perk zbraně): ${BVLZ[k]}`;
 const bikZv = k => (BZVK[k] ? bik("zv-" + BZVK[k], `${k} (perk zbraně): ${BVLZ[k]}`, "bik-zv") : "");
 const bikZrTip = t =>

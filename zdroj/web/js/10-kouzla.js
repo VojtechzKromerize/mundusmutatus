@@ -136,9 +136,8 @@ function kzNacti() {
   return KZP;
 }
 const kzUr = l => (l ? `${l}. stupeň` : "trik");
-const kzE = t => String(t ?? "").replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"})[c]);
 const kzIn = t =>
-  kzE(t)
+  besc(t)
     .replace(/\*\*(.+?)\*\*/g, "<b>$1</b>")
     .replace(/\*(.+?)\*/g, "<i>$1</i>");
 const kzMd = t =>
@@ -164,14 +163,14 @@ const KZSK = ["Ochranná magie", "Vyvolávání", "Věštění", "Očarování",
   KZPOV = ["Bard", "Klerik", "Druid", "Paladin", "Hraničář", "Čaroděj", "Černokněžník", "Kouzelník"];
 function kzKarta(x, pop) {
   return `<article class="kzkarta">${pop ? `<button type="button" class="kzx" data-kzzavri aria-label="Zavřít">×</button>` : ""}
-  <h3>${kzE(x.cz || x.en)} <small lang="en">${kzE(x.en)}</small></h3>
-  <p class="kzmeta">${x.l ? kzUr(x.l) : "Trik"} · ${kzE(x.s)}${x.ri ? " · rituál" : ""}${x.ko ? " · Concentration" : ""}</p>
-  <dl class="kzkv"><dt>Sesílání</dt><dd>${kzE(x.ct)}${x.ri ? ", nebo jako rituál" : ""}</dd><dt>Dosah</dt><dd>${kzE(x.r)}</dd>
-    <dt>Složky</dt><dd>${kzE((x.k || []).join(", "))}${x.m ? ` (${kzE(x.m)})` : ""}</dd><dt>Trvání</dt><dd>${kzE(x.d)}</dd>${x.p && x.p.length ? `<dt>Povolání</dt><dd>${kzE(x.p.join(", "))}</dd>` : ""}</dl>
+  <h3>${besc(x.cz || x.en)} <small lang="en">${besc(x.en)}</small></h3>
+  <p class="kzmeta">${x.l ? kzUr(x.l) : "Trik"} · ${besc(x.s)}${x.ri ? " · rituál" : ""}${x.ko ? " · Concentration" : ""}</p>
+  <dl class="kzkv"><dt>Sesílání</dt><dd>${besc(x.ct)}${x.ri ? ", nebo jako rituál" : ""}</dd><dt>Dosah</dt><dd>${besc(x.r)}</dd>
+    <dt>Složky</dt><dd>${besc((x.k || []).join(", "))}${x.m ? ` (${besc(x.m)})` : ""}</dd><dt>Trvání</dt><dd>${besc(x.d)}</dd>${x.p && x.p.length ? `<dt>Povolání</dt><dd>${besc(x.p.join(", "))}</dd>` : ""}</dl>
   <div class="kztext">${x.dop && !x.t ? `<p class="rsmall">${featyMuze() ? "Popis je v plném znění níže." : "Popis kouzla uvidíš po přihlášení (plné znění)."}</p>` : kzMd(x.t)}${x.v ? `<p><b>Na vyšším stupni.</b> ${kzIn(x.v)}</p>` : ""}</div>${x.vl ? "" : plneTag("kouzla", x.en)}
   ${
     x.vl
-      ? `<p class="kzsrc">Vlastní kouzlo vypravěče – vidíš ho jen ty.${pop ? ` <a href="#kouzla/${x.i}">v seznamu kouzel</a>` : ` <span class="kzakce"><button type="button" class="gbtn" data-kzuprav="${kzE(x.i)}">Upravit</button> <button type="button" class="gbtn kzalt" data-kzsmaz="${kzE(x.i)}">Smazat</button></span>`}</p></article>`
+      ? `<p class="kzsrc">Vlastní kouzlo vypravěče – vidíš ho jen ty.${pop ? ` <a href="#kouzla/${x.i}">v seznamu kouzel</a>` : ` <span class="kzakce"><button type="button" class="gbtn" data-kzuprav="${besc(x.i)}">Upravit</button> <button type="button" class="gbtn kzalt" data-kzsmaz="${besc(x.i)}">Smazat</button></span>`}</p></article>`
       : /* bez původu a překladu textu (Vojta 2026-10-23) – licence SRD a upozornění na vlastní shrnutí jsou v patičce webu */
         `${pop && GMV ? `<p class="kzsrc"><a href="#kouzla/${x.i}">v seznamu kouzel</a></p>` : ""}</article>`
   }`;
@@ -181,8 +180,8 @@ function kzForm(x) {
   const n = !x;
   x = x || {en: "", cz: "", l: 1, s: "Zaklínání", p: [], ct: "Akce", r: "", k: ["V", "S"], m: "", d: "Okamžité", ko: 0, ri: 0, t: "", v: ""};
   const inp = (k, l, ph) =>
-    `<label class="kzfl"><span>${l}</span><input name="${k}" value="${kzE(x[k])}"${ph ? ` placeholder="${ph}"` : ""}></label>`;
-  return `<form class="kzkarta kzform" data-kzid="${n ? "" : kzE(x.i)}"><h3>${n ? "Nové vlastní kouzlo" : "Upravit kouzlo"}</h3>
+    `<label class="kzfl"><span>${l}</span><input name="${k}" value="${besc(x[k])}"${ph ? ` placeholder="${ph}"` : ""}></label>`;
+  return `<form class="kzkarta kzform" data-kzid="${n ? "" : besc(x.i)}"><h3>${n ? "Nové vlastní kouzlo" : "Upravit kouzlo"}</h3>
   <p class="kzsrc">Uloží se jen pro vypravěče – v databázi (nebo v tomto prohlížeči), nikdy do veřejných souborů webu.</p>
   <div class="kzfg">${inp("en", "Anglický název *", "např. Hunger of Hadar")}${inp("cz", "Český název")}
     <label class="kzfl"><span>Úroveň</span><select name="l">${[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(l => `<option value="${l}"${+x.l === l ? " selected" : ""}>${l ? l + ". úroveň" : "Trik"}</option>`).join("")}</select></label>
@@ -191,8 +190,8 @@ function kzForm(x) {
   <fieldset class="kzfs"><legend>Složky</legend>${KZK.map(v => `<label class="kzchk"><input type="checkbox" name="k" value="${v}"${(x.k || []).includes(v) ? " checked" : ""}> ${v}</label>`).join("")}
     <label class="kzchk"><input type="checkbox" name="ko"${x.ko ? " checked" : ""}> Concentration</label><label class="kzchk"><input type="checkbox" name="ri"${x.ri ? " checked" : ""}> rituál</label></fieldset>
   <fieldset class="kzfs"><legend>Povolání</legend>${KZPOV.map(v => `<label class="kzchk"><input type="checkbox" name="p" value="${v}"${(x.p || []).includes(v) ? " checked" : ""}> ${v}</label>`).join("")}</fieldset>
-  <label class="kzfl kzfw"><span>Text</span><textarea name="t" rows="9" placeholder="Odstavce odděl prázdným řádkem, **tučně**, *kurzívou*, odrážky „- “.">${kzE(x.t)}</textarea></label>
-  <label class="kzfl kzfw"><span>Na vyšší úrovni</span><textarea name="v" rows="3">${kzE(x.v)}</textarea></label>
+  <label class="kzfl kzfw"><span>Text</span><textarea name="t" rows="9" placeholder="Odstavce odděl prázdným řádkem, **tučně**, *kurzívou*, odrážky „- “.">${besc(x.t)}</textarea></label>
+  <label class="kzfl kzfw"><span>Na vyšší úrovni</span><textarea name="v" rows="3">${besc(x.v)}</textarea></label>
   <p class="kzakce"><button type="submit" class="gbtn">Uložit</button> <button type="button" class="gbtn kzalt" data-kzzrus>Zrušit</button></p></form>`;
 }
 async function kzFormUloz(f) {
@@ -299,16 +298,16 @@ function kzFiltr() {
     ? L.slice(0, 400)
         .map(
           x =>
-            `<li><a href="#kouzla/${x.i}" class="${x.i === cur ? "on" : ""}"><b>${kzE(x.cz || x.en)}</b><small><span lang="en">${kzE(x.en)}</span> · ${kzUr(x.l)} · ${kzE(x.s)}${x.ko ? ' · <abbr title="Concentration">K</abbr>' : ""}${x.ri ? ' · <abbr title="rituál">R</abbr>' : ""}${x.vl ? ' · <span class="kzvl">vlastní</span>' : ""}</small></a></li>`,
+            `<li><a href="#kouzla/${x.i}" class="${x.i === cur ? "on" : ""}"><b>${besc(x.cz || x.en)}</b><small><span lang="en">${besc(x.en)}</span> · ${kzUr(x.l)} · ${besc(x.s)}${x.ko ? ' · <abbr title="Concentration">K</abbr>' : ""}${x.ri ? ' · <abbr title="rituál">R</abbr>' : ""}${x.vl ? ' · <span class="kzvl">vlastní</span>' : ""}</small></a></li>`,
         )
         .join("")
-    : `<li class="kzmiss">${KZF.vl && !KZVL.length ? "Zatím nemáš žádné vlastní kouzlo." : "Nic takového tu není."} <button type="button" class="gbtn" data-kznove="${kzE(KZF.q.trim())}">Zapsat jako vlastní kouzlo</button>${
+    : `<li class="kzmiss">${KZF.vl && !KZVL.length ? "Zatím nemáš žádné vlastní kouzlo." : "Nic takového tu není."} <button type="button" class="gbtn" data-kznove="${besc(KZF.q.trim())}">Zapsat jako vlastní kouzlo</button>${
         KZF.q.trim()
           ? ` <a href="https://www.aidedd.org/spell/${encodeURIComponent(
               _nrm(KZF.q.trim())
                 .replace(/[^a-z0-9]+/g, "-")
                 .replace(/^-|-$/g, ""),
-            )}" target="_blank" rel="noopener">Zkusit „${kzE(KZF.q.trim())}“ na aidedd.org</a> (anglický název kouzla z Player's Handbooku).`
+            )}" target="_blank" rel="noopener">Zkusit „${besc(KZF.q.trim())}“ na aidedd.org</a> (anglický název kouzla z Player's Handbooku).`
           : ""
       }</li>`;
 }

@@ -2498,7 +2498,6 @@ let bojHlasen = "",
   BKON = false,
   BODP = false;
 const BHROTV = new Set();
-const besc = t => String(t ?? "").replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"})[c]);
 const bojJm = (s, id) => {
   const h = (s.hraci || []).find(x => x.id === id);
   if (h) return h.n;

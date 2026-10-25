@@ -151,7 +151,6 @@ function renderPersonArticle(pid) {
 }
 /* vypravěčská sekce rešerše: osud po březnu 1458 a podklady (jistota, rozpory, zdroje) */
 function resersGM(r) {
-  const esc = t => String(t).replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"})[c]);
   const um = r.um ? (/^\d{4}-\d{2}-\d{2}$/.test(r.um) ? (([y, m, d]) => `${+d}. ${MES[+m - 1]} ${y}`)(r.um.split("-")) : r.um) : "";
   const zdr =
     r.zdr && r.zdr.length
@@ -161,14 +160,14 @@ function resersGM(r) {
             try {
               h = new URL(u).hostname.replace(/^www\./i, "");
             } catch (e) {}
-            return `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(h)}</a>`;
+            return `<a href="${besc(u)}" target="_blank" rel="noopener">${besc(h)}</a>`;
           })
           .join(", ")
       : "";
   return `<details class="gmres"><summary>Po březnu 1458 <span>jen pro vypravěče</span></summary>
-    ${r.po ? `<p>${esc(r.po)}</p>` : `<p class="gmresnic">O dalších osudech rešerše nic nezjistila.</p>`}
+    ${r.po ? `<p>${besc(r.po)}</p>` : `<p class="gmresnic">O dalších osudech rešerše nic nezjistila.</p>`}
     ${um ? `<p class="gmresum">Úmrtí: ${um}</p>` : ""}
-    <dl class="gmresmeta">${r.jis ? `<dt>Jistota</dt><dd>${esc(r.jis)}</dd>` : ""}${r.zak ? `<dt>Základ odhadu</dt><dd>${esc(r.zak)}</dd>` : ""}${r.roz ? `<dt>Rozpor s webem</dt><dd>${esc(r.roz)}</dd>` : ""}${zdr ? `<dt>Zdroje</dt><dd>${zdr}</dd>` : ""}</dl></details>`;
+    <dl class="gmresmeta">${r.jis ? `<dt>Jistota</dt><dd>${besc(r.jis)}</dd>` : ""}${r.zak ? `<dt>Základ odhadu</dt><dd>${besc(r.zak)}</dd>` : ""}${r.roz ? `<dt>Rozpor s webem</dt><dd>${besc(r.roz)}</dd>` : ""}${zdr ? `<dt>Zdroje</dt><dd>${zdr}</dd>` : ""}</dl></details>`;
 }
 function renderOsoby() {
   const box = document.getElementById("osobylist");
