@@ -821,6 +821,465 @@ const CITYINFO = {
   Freiberk: {n: "Nejbohatší stříbrné doly Saska."},
   Halle: {t: "Město magdeburského arcibiskupa", n: "Bohatne na solných pramenech."},
   "Věličky (Wieliczka)": {t: "Královské solné doly", n: "Sůl z Věliček je jedním z největších příjmů polské koruny."},
+  /* doplněno 2026-10-25 (Vojta): vlastní shrnutí měst Moravy, Slezska a sousedů, města sousedních zemí a klíčové hrady */
+  Kouřim: {n: "Kališnické královské město, středisko Kouřimského kraje. Roku 1421 ho dobyli pražští husité."},
+  Stříbro: {n: "Královské horní město na Mži. Roku 1427 ho obléhala křížová výprava, než v panice utekla k Tachovu."},
+  Tachov: {n: "Pohraniční královské město u bavorské hranice. Roku 1427 tu Prokop Holý rozprášil křížovou výpravu a město dobyl."},
+  Trutnov: {t: "Věnné město královny", n: "Převážně německé město pod Krkonošemi na cestě do Slezska."},
+  Prachatice: {n: "Město Zlaté stezky, kudy se z Pasova vozí sůl. Roku 1420 ho Žižka dobyl a krutě potrestal; pak patřilo k táborskému svazu."},
+  Litovel: {n: "Malé katolické královské město na rozvětvené řece Moravě nedaleko Olomouce."},
+  Augšpurk: {
+    t: "Svobodné říšské město",
+    n: "Bohaté švábské město kupců a tkalců barchetu. Sídlí tu augsburský biskup, kardinál Petr ze Schaumbergu, ale město si vládne samo.",
+  },
+  Košice: {
+    t: "Svobodné královské město",
+    n: "Přední z pětice hornouherských měst (s Levočí, Bardejovem, Prešovem a Sabinovem). Ve 40. letech oporou Jana Jiskry z Brandýsa, roku 1452 mu bylo odňato.",
+  },
+  Levoča: {
+    t: "Svobodné královské město",
+    n: "Hlavní město spišských Sasů s právem skladu, člen svazu pěti hornouherských měst. Ještě roku 1450 v moci Jana Jiskry z Brandýsa.",
+  },
+  Bardejov: {
+    t: "Svobodné královské město",
+    n: "Šarišské obchodní město na cestě do Polska, člen svazu pěti hornouherských měst. Ještě roku 1450 v moci Jana Jiskry z Brandýsa.",
+  },
+  Prešov: {
+    t: "Svobodné královské město",
+    n: "Šarišské město ve svazu pěti hornouherských měst. Kraj kolem trpí nájezdy bratříků, žoldnéřů z Jiskrových vojsk.",
+  },
+  Skalica: {
+    t: "Svobodné královské město",
+    n: "Pohraniční město na moravské hranici. Roku 1432 ho dobyli husité a dva roky odtud plenili okolí; roku 1450 ho převzal Jan Hunyadi.",
+  },
+  Pešť: {
+    t: "Svobodné královské město",
+    n: "Kupecké město naproti Budínu. Na sněmu v Pešti byl v lednu 1458 provolán králem Matyáš Korvín, tehdy ještě zajatec Jiřího v Praze.",
+  },
+  "Lubin (Lübben)": {
+    n: "Sídlo zemského fojta Dolní Lužice. Zemi České koruny od roku 1448 drží braniborský kurfiřt Fridrich II. a vládne jí odsud přes svého fojta.",
+  },
+  Guben: {n: "Město Dolní Lužice na Nise. Dolní Lužici, zemi České koruny, od roku 1448 drží braniborský kurfiřt Fridrich II."},
+  Luckau: {n: "Jedno z předních měst Dolní Lužice. Zemi České koruny od roku 1448 drží braniborský kurfiřt Fridrich II."},
+  Linec: {
+    t: "Zeměpanské město",
+    n: "Trhové město Rakous nad Enží s mezinárodními jarmarky. O zemi nad Enží se po Ladislavově smrti uchází arcivévoda Albrecht VI., bratr císaře.",
+  },
+  Kremže: {t: "Zeměpanské město", n: "Dvojměstí Kremže a Steinu na Dunaji, bohaté obchodem a vínem; razí se tu kremžský fenik."},
+  Štýr: {t: "Zeměpanské město", n: "Město železa na Enži: od roku 1287 má právo skladu železa a dřeva a ovládá obchod se železem ze štýrských dolů."},
+  "Štýrský Hradec": {
+    t: "Sídelní město",
+    n: "Sídlo císaře Fridricha III., který tu od roku 1438 staví nový hrad; hlavní město Štýrska a habsburských vnitřních Rakous.",
+  },
+  Cáhlov: {
+    t: "Zeměpanské město",
+    n: "Freistadt v Rakousích nad Enží, hraniční město na cestě z Lince do Budějovic. Na sever jde sůl a železo, z Čech ryby; od roku 1277 má právo skladu.",
+  },
+  Mělk: {n: "Městečko pod benediktinským klášterem na Dunaji, odkud od roku 1418 vychází přísná mělcká reforma klášterů v Rakousích a Bavorsku."},
+  Straubing: {
+    t: "Zeměpanské město",
+    n: "Dunajské město mnichovského vévody Albrechta III. Roku 1435 tu dal vévoda Arnošt utopit v Dunaji Anežku Bernauerovou, synovu milou.",
+  },
+  Ingolstadt: {
+    t: "Zeměpanské město",
+    n: "Bývalé sídlo ingolstadtských vévodů; po vymření jejich rodu roku 1447 připadlo landshutským Wittelsbachům, dnes vévodovi Ludvíkovi Bohatému.",
+  },
+  Amberg: {
+    t: "Zeměpanské město",
+    n: "Středisko Horní Falce, bohaté na železnou rudu a obchod se železem. V letech 1452–1454 se vzepřelo falckraběti Fridrichovi, který povstání krvavě potlačil.",
+  },
+  Bamberk: {t: "Biskupské město", n: "Sídlo bamberského knížete-biskupa Antonína z Rotenhanu; v dómu leží císař Jindřich II. a Kunhuta."},
+  Burghausen: {
+    t: "Zeměpanské město",
+    n: "Město na Salzachu pod nejdelším hradem Bavor, druhým sídlem landshutských vévodů, kde se ukládá jejich poklad.",
+  },
+  Zwickau: {t: "Zeměpanské město", n: "Bývalé říšské město, od roku 1323 v moci míšeňských markrabat, dnes saských Wettinů."},
+  "Saská Kamenice": {t: "Zeměpanské město", n: "Wettinské město plátna: od roku 1357 má výsadní právo bělidla pro celé Míšeňsko."},
+  Wittenberg: {
+    t: "Zeměpanské město",
+    n: "Někdejší sídlo askánských vévodů. Po jejich vymření roku 1422 přešel kurfiřtský titul na Wettiny, dnes na kurfiřta Fridricha II. Saského.",
+  },
+  Pirna: {t: "Zeměpanské město", n: "Labské město, které až do roku 1405 patřilo Českému království; pak ho získala míšeňská markrabata."},
+  "Frankfurt nad Odrou": {
+    t: "Hanzovní město",
+    n: "Braniborské město v Hanze od roku 1430, ovládá obchod na Odře mezi Vratislaví a Štětínem; roku 1432 ho zasáhla husitská spanilá jízda.",
+  },
+  "Braniborsko nad Havolou": {
+    t: "Biskupské město",
+    n: "Starobylé dvojměstí na Havole, sídlo braniborského biskupa a dávný střed Braniborska, kterému vládne kurfiřt Fridrich II. Železný.",
+  },
+  Magdeburk: {
+    t: "Hanzovní město",
+    n: "Sídlo arcibiskupa Fridricha z Beichlingenu, ale město si vládne samo. Magdeburské městské právo užívají města od Saska po Polsko.",
+  },
+  Poznaň: {n: "Hlavní město Velkopolska a sídlo poznaňského biskupa, obchodní uzel na cestě z Polska do Říše. Polsko vede s Řádem válku o Prusko."},
+  Kališ: {n: "Jedno z nejstarších měst Polska, střed Kališského vojvodství. Proslul statutem z roku 1264, jímž kníže Boleslav dal ochranu Židům."},
+  Čenstochová: {
+    n: "Město pod klášterem paulínů na Jasné Hoře s ikonou Černé Madony. Roku 1430 klášter vyloupili lupiči, mezi nimi Češi, a obraz poškodili.",
+  },
+  Bochnia: {t: "Královské solné doly", n: "Nejstarší solné doly Polska (od roku 1248); spolu s Věličkami tvoří královské krakovské solivary."},
+  "Nowy Sącz": {t: "Královské město", n: "Královské město na cestě z Krakova do Uher, které roku 1292 založil český král Václav II."},
+  Ráb: {t: "Biskupské město", n: "Sídlo rábského biskupa na soutoku Ráby s Dunajem, strážce cesty z Rakous do Budína."},
+  Nitra: {t: "Biskupské město", n: "Sídlo nitranského biskupa na hradě nad řekou Nitrou, jednom z nejstarších křesťanských míst Uher."},
+  Trenčín: {
+    t: "Svobodné královské město",
+    n: "Město pod královským hradem na Váhu, svobodné od roku 1412. Roku 1431 ho dobyli a vypálili husité; od roku 1454 má právo meče.",
+  },
+  Žilina: {
+    n: "Považské město s privilegiem z roku 1381, které dává Slovákům v radě stejná místa jako Němcům. Husité ho roku 1431 vypálili a v letech 1433–1434 drželi.",
+  },
+  Visegrád: {
+    t: "Královský hrad",
+    n: "Hrad a palác uherských králů nad Dunajem. Odtud roku 1440 komorná Helena Kottannerová odnesla svatoštěpánskou korunu; tu nyní drží císař Fridrich III.",
+  },
+  Prostějov: {t: "Panské město", n: "Poddanské město na úrodné Hané, za husitských válek opora kalicha na Moravě."},
+  Hlivice: {
+    n: "Hornoslezské město, ve kterém za husitských válek sídlilo husitské vojsko Zikmunda Korybutoviče, dokud ho roku 1431 nevypudil nočním přepadem kníže Konrád Bílý.",
+  },
+  Bytom: {n: "Hlavní město Bytomska, rozděleného napůl mezi olešnického knížete Konráda IX. Černého a těšínského knížete Václava I."},
+  Javor: {
+    n: "Druhé hlavní město korunního knížectví svídnicko-javorského, kde vládne místo krále zemský hejtman; ten sídlí na bývalém piastovském hradě.",
+  },
+  Lehnice: {
+    n: "Hlavní město lehnického knížectví mladého Fridricha I., za kterého vládne matka Hedvika. Po roce 1449 se tu Piastovcům vzepřeli a hledali oporu přímo u koruny.",
+  },
+  Břeh: {n: "Hlavní město břežského knížectví na Odře. Od roku 1450 ho má v zástavě opolský kníže Mikuláš I."},
+  Hlohov: {
+    n: "Město na Odře rozdělené mezi dva knížata: polovinu drží Jindřich IX. Starší ze žaháňské větve, polovinu Vladislav z těšínských Piastovců.",
+  },
+  Opolí: {n: "Sídlo opolského knížete Mikuláše I., který vládne celému Opolsku od roku 1439 a drží v zástavě i Břeh."},
+  Nisa: {
+    t: "Biskupské město",
+    n: "Sídlo vratislavských biskupů a jejich knížectví. Od roku 1456 je biskupem Jošt z Rožmberka, převor johanitů, který se vůči Jiřímu drží opatrně stranou.",
+  },
+  Opava: {
+    n: "Hlavní město rozdrobeného Opavska: dvě třetiny po roce 1454 koupil opolský kníže Bolek V. zvaný Husita, třetinu drží hlubčický kníže Jan II. z opavských Přemyslovců.",
+  },
+  Krnov: {n: "Sídlo krnovských Přemyslovců. Za nezletilé bratry Jana IV. a Václava III. vládne poručnice, jejich macecha Barbora."},
+  Hlubčice: {n: "Sídlo hlubčického knížete Jana II. z opavských Přemyslovců, který drží i třetinu Opavska."},
+  Ratiboř: {
+    n: "Sídlo ratibořských Přemyslovců. Po smrti knížete Václava (1456) dědí zemi jeho nezletilý syn Jan; matka Markéta pochází z polských Šamotulských.",
+  },
+  Těšín: {n: "Sídlo těšínského knížete Václava I. z rodu Piastovců, který drží i část Bytomska."},
+  Kozlí: {n: "Město na Odře, které spolu s Olešnicí a polovinou Bytomska drží olešnický kníže Konrád IX. Černý."},
+  Olešnice: {n: "Sídlo olešnického knížete Konráda IX. Černého, který drží i Kozlí a polovinu Bytomska."},
+  Žaháň: {
+    n: "Sídlo žaháňského knížete Baltazara. Jeho bratr Jan (II.) se tu za Baltazarovy nepřítomnosti prohlásil správcem země; mezi bratry panuje nevraživost.",
+  },
+  Lubin: {n: "Město lehnicko-břežských Piastovců, od roku 1446 v zástavě u hlohovského knížete Jindřicha IX. Staršího."},
+  Střelín: {n: "Město mladého knížete Fridricha I. Lehnického, za kterého vládne matka Hedvika."},
+  Frankenštejn: {n: "Město, které roku 1454 získal v zástavě spolu s Kladskem Jiří z Poděbrad od syna Hynka Krušiny z Lichtenburka."},
+  Střehom: {n: "Město korunního knížectví svídnicko-javorského, proslulé suknem, plátnem a pivem; dominuje mu gotická bazilika johanitů."},
+  Bolkov: {
+    n: "Město pod hradem knížete Bolka I. v korunním knížectví svídnicko-javorském. Husité město zničili, hrad nedobyli; dlouho v něm ležel knížecí poklad.",
+  },
+  "Jelení Hora": {
+    n: "Město korunního knížectví svídnicko-javorského pod Krkonošemi, žije z tkalcovství a obchodu s Čechami; roku 1426 a 1427 ho poplenili husité.",
+  },
+  "Svatý Hypolit": {
+    t: "Biskupské město",
+    n: "Dolnorakouské město, které nepatří vévodovi, ale pasovskému biskupovi. Leží na cestě z Vídně do Lince.",
+  },
+  Tulln: {
+    t: "Zeměpanské město",
+    n: "Staré dunajské město nad Vídní, opěvované už v Písni o Nibelunzích. Kupecká a soudní obec, městské právo má od roku 1270.",
+  },
+  Korneuburg: {
+    t: "Zeměpanské město",
+    n: "Město na levém břehu Dunaje naproti Klosterneuburgu. Po zhoubném požáru roku 1450 je znovu postavené jako zeměpanská pevnost, která kryje Vídeň od severu.",
+  },
+  Hainburg: {
+    t: "Pohraniční město",
+    n: "Hrazené město v Uherské bráně, poslední rakouská bašta na Dunaji před Prešpurkem. Hradby s patnácti věžemi a mohutnou Vídeňskou branou.",
+  },
+  "Laa an der Thaya": {
+    t: "Pohraniční město",
+    n: "Babenberské hrazené město na Dyji při moravské hranici. Roku 1407 ho poplenil markrabě Jošt a roku 1426 husité; od roku 1454 smí vařit pivo.",
+  },
+  Enže: {
+    t: "Zeměpanské město",
+    n: "Nejstarší rakouské město s právem od roku 1212, na místě římského Lauriaca. Řeka Enže dělí Rakousy pod Enží a nad Enží, o něž se přou Fridrich III. a Albrecht VI.",
+  },
+  Wels: {
+    t: "Zeměpanské město",
+    n: "Hornorakouské trhové město na Tauně s právem od roku 1222, na místě římské Ovilavy. Leží v Rakousích nad Enží, kam si dělá nárok Albrecht VI.",
+  },
+  Gmunden: {t: "Solné město", n: "Město na Traunském jezeře, odkud se rozváží sůl z Hallstattu a Ischlu plavená po Tauně."},
+  Leoben: {
+    t: "Zeměpanské město",
+    n: "Štýrské město Fridricha III. na Muře. Od roku 1314 má výsadu obchodu s železem z Vordernbergu pod Erzbergem, které jde na jihovýchod a přes Benátky do Levanty.",
+  },
+  Salcburk: {t: "Arcibiskupské město", n: "Sídlo arcibiskupa Zikmunda z Volkersdorfu (1452–1461), který vládne vlastní zemi mezi Bavory a Rakousy."},
+  Freising: {
+    t: "Biskupské město",
+    n: "Sídlo freisinského biskupa Jana Tulbecka (od 1453) na vrchu nad Isarou. Malé knížecí biskupství uprostřed vévodských Horních Bavor, nedaleko Mnichova.",
+  },
+  Landsberg: {
+    t: "Zeměpanské město",
+    n: "Město mnichovských vévodů na Lechu, kudy vede Solná stezka přes most do Švábska. Na clu a soli zbohatlo; střeží hranici s augsburským biskupstvím.",
+  },
+  Wasserburg: {
+    t: "Zeměpanské město",
+    n: "Město v ohbí Innu, od roku 1447 landshutské, tedy Ludvíka IX. Bohatého. Od roku 1439 vybírá clo ze soli, která tudy jde do Mnichova; vládne mu bohatý patriciát.",
+  },
+  Braunau: {
+    t: "Zeměpanské město",
+    n: "Bavorské hrazené město na Innu s právem od roku 1260. Žije z obchodu se solí a lodní dopravy po Innu; staví se tu kostel sv. Štěpána s vysokou věží.",
+  },
+  Reichenhall: {
+    t: "Solné město",
+    n: "Prastaré solné prameny a vařírny soli pod Alpami. Reichenhallská sůl jde přes Pasov a Zlatou stezku až do Čech.",
+  },
+  Neuburg: {
+    t: "Zeměpanské město",
+    n: "Dunajské město, které s dědictvím vymřelé ingolstadtské větve připadlo roku 1447 landshutským vévodům; dnes patří Ludvíkovi IX. Bohatému.",
+  },
+  Donauwörth: {
+    t: "Svobodné říšské město",
+    n: "Říšské město na Dunaji, svobodné od roku 1308. Dělá si na ně nárok bavorský vévoda Ludvík IX. Bohatý, což ho staví proti markraběti Albrechtu Achillovi.",
+  },
+  Mühldorf: {t: "Arcibiskupské město", n: "Salcburský ostrůvek na Innu uprostřed bavorských zemí. Od roku 1287 patří salcburským arcibiskupům."},
+  Bayreuth: {
+    t: "Zeměpanské město",
+    n: "Hohenzollernské město, roku 1430 vypálené husity. Jan Alchymista zde postavil zámek a roku 1457 se vzdal vlády; obě franská markrabství teď drží Albrecht Achilles.",
+  },
+  Hof: {
+    t: "Zeměpanské město",
+    n: "Město na Sále, které roku 1373 koupili od fojtů z Weidy hohenzollernští purkrabí. Roku 1430 ho zpustošili husité; bohatne na suknu z místní vlny.",
+  },
+  Eichstätt: {t: "Biskupské město", n: "Sídlo knížete-biskupa Jana z Eychu (1445–1464), reformátora církve a přítele humanistů, v údolí Altmühlu."},
+  Weißenburg: {t: "Svobodné říšské město", n: "Malé říšské město ve Francích, svobodné od roku 1296, se zachovalými hradbami."},
+  Forchheim: {t: "Biskupské město", n: "Město bamberských biskupů na Regnitz. Jejich zdejší hrad je po Bamberku jejich nejpřednějším sídlem."},
+  Kronach: {
+    t: "Biskupské město",
+    n: "Pevné město bamberských biskupů u Franského lesa. Roku 1430 odolalo husitskému obléhání, jen kus města měšťané sami zapálili.",
+  },
+  Kouba: {
+    t: "Pohraniční město",
+    n: "Cham, pohraniční město na Řezné (Regen) u cesty z Čech přes Všerubský průsmyk, kterou dřív střežil říšský hrad. Husitské války mu daly těžce zabrat.",
+  },
+  Altenburg: {
+    t: "Rezidenční město",
+    n: "Rezidenční město s hradem kurfiřta Fridricha II. Dobrotivého. V noci 7. na 8. července 1455 odtud Kunc z Kaufungen unesl oba kurfiřtovy syny; byl dopaden a sťat ve Freiberku.",
+  },
+  Torgava: {t: "Zeměpanské město", n: "Wettinské město u brodu přes Labe, kde se kříží dálkové obchodní cesty."},
+  Merseburk: {
+    t: "Biskupské město",
+    n: "Sídlo merseburského biskupa Jana z Bose (1431–1463). Wettinové se snaží biskupství podřídit a upírají mu říšskou bezprostřednost.",
+  },
+  Naumburk: {t: "Biskupské město", n: "Město s dómem a kapitulou naumburského biskupství na Sále. Biskupové sídlí v nedalekém Zeitzu."},
+  Jena: {
+    t: "Zeměpanské město",
+    n: "Durynské město na Sále v zemi lantkraběte Viléma III., bratra kurfiřta. Roku 1429 si od pánů koupilo soudy i clo.",
+  },
+  Gotha: {t: "Zeměpanské město", n: "Jedno z pěti durynských měst, která bohatnou na barvířském boryti. Patří k Durynsku lantkraběte Viléma III."},
+  Nordhausen: {t: "Svobodné říšské město", n: "Říšské město pod Harcem, svobodné od roku 1220. V letech 1430–1432 bylo krátce členem Hanzy."},
+  Tangermünde: {
+    t: "Rezidenční město",
+    n: "Hanzovní město na Labi s falcí Karla IV. Od roku 1415 tu sídlí hohenzollernští kurfiřti; zažívá zlatý věk cihlové gotiky.",
+  },
+  Stendal: {
+    t: "Hanzovní město",
+    n: "Bohaté město Staré marky, v Hanze od roku 1358. Roku 1447 vysvětilo dvouvěžový kostel P. Marie a roku 1456 tu kurfiřt Fridrich II. založil augustiniánský klášter.",
+  },
+  Havelberg: {
+    t: "Biskupské město",
+    n: "Dóm a kapitula havelberského biskupa Konráda z Lintorfu (1427–1460); samo město ale patří markrabatům a biskupové sídlí raději ve Wittstocku.",
+  },
+  Wilsnack: {
+    t: "Poutní místo",
+    n: "Poutní místo Svaté krve: roku 1383 tu ve vypáleném kostele našli tři krvácející hostie. Jan Hus zázrak odsoudil, havelberský biskup s podporou kurfiřta pouť hájí.",
+  },
+  Fürstenwalde: {
+    t: "Biskupské město",
+    n: "Městečko na Sprévě, kam lubušští biskupové přenesli sídlo (1385). Biskupové, od roku 1455 Fridrich Sesselmann, drží s braniborskými markrabaty.",
+  },
+  "Landsberg an der Warthe": {
+    t: "Zeměpanské město",
+    n: "Město Nové marky na Wartě. Lucemburkové ji zastavili Řádu německých rytířů; roku 1454 ji vykoupil Fridrich II. Železný a právě zde přijal hold stavů.",
+  },
+  "Königsberg in der Neumark": {
+    t: "Zeměpanské město",
+    n: "Dávné hlavní město Nové marky, bohatnoucí na obilí po Odře. Roku 1433 odolalo husitům; s celou Novou markou je od let 1454–1455 opět braniborské.",
+  },
+  Varšava: {
+    t: "Rezidenční město",
+    n: "Sídlo mazovských knížat od roku 1413. Za nezletilého Konráda III. a jeho bratrů vládne kněžna Barbora s plockým biskupem Pavlem Giżyckým.",
+  },
+  Plock: {
+    t: "Biskupské město",
+    n: "Biskupské a knížecí město na Visle. Vládnou tu nezletilí mazovští Piastovci Zemovít VI. a Vladislav II. pod poručnictvím matky Anny a biskupa Pavla.",
+  },
+  Piotrków: {t: "Královské město", n: "Královské město, kde se už od roku 1354 schází polská šlechta k zemským sjezdům a sněmům."},
+  Olkusz: {t: "Hornické město", n: "Královské město v Malopolsku, které zbohatlo na olověných a stříbrných dolech."},
+  Sieradz: {t: "Královské město", n: "Hlavní město sieradzského vojvodství na Wartě, mezi Velkopolskem a Slezskem."},
+  Łęczyca: {t: "Královské město", n: "Hlavní město łęczyckého vojvodství uprostřed polských zemí."},
+  Włocławek: {
+    t: "Biskupské město",
+    n: "Sídlo kujavského biskupa na Visle, nedaleko Pomoří, kde Polsko vede Třináctiletou válku s Řádem německých rytířů.",
+  },
+  Wschowa: {
+    t: "Královské město",
+    n: "Pohraniční pevné město naproti hlohovskému Slezsku, polské od roku 1343. Prožívá zlatý věk: soukenictví, mincovna, škola a obchod s Lipskem i Rusí.",
+  },
+  Biecz: {
+    t: "Královské město",
+    n: "Jedno z největších polských měst a celní stanice na cestě do Uher, kudy jde uherské víno. Sídlo soudu magdeburského práva.",
+  },
+  Wieluń: {
+    t: "Královské město",
+    n: "Obchodní a správní středisko Wieluńské země, od roku 1395 opět polské. Ve 40. a 50. letech ho opakovaně pustoší nájezdy ze Slezska.",
+  },
+  Šoproň: {
+    t: "Svobodné královské město",
+    n: "Uherské město na rakouské hranici, které královna Alžběta roku 1441 zastavila Fridrichu III. Císař ho stále drží, stejně jako svatoštěpánskou korunu.",
+  },
+  Komárno: {
+    t: "Královské město",
+    n: "Město a hrad na soutoku Váhu s Dunajem, s výsadami od roku 1265. Roku 1440 se tu narodil král Ladislav Pohrobek.",
+  },
+  Vacov: {t: "Biskupské město", n: "Vác v Dunajském ohbí, jedno z nejstarších uherských biskupství. Biskup je zároveň pánem města."},
+  Jáger: {t: "Biskupské město", n: "Eger, sídlo biskupa od roku 1009, s katedrálou na hradním vrchu, kolem níž vyrostlo město."},
+  "Spišská Nová Ves": {
+    t: "Zastavené město",
+    n: "Nejpřednější ze třinácti spišských měst, která Zikmund roku 1412 zastavil Polsku. Spravuje je polský starosta ze Staré Ľubovně.",
+  },
+  Kežmarok: {n: "Spišské město pod Tatrami, od roku 1440 sídlo spišského hraběte. Roku 1433 ho těžce poničil husitský nájezd."},
+  Rožňava: {
+    t: "Hornické město",
+    n: "Gemerské hornické město, které bohatne na zlatě, stříbře a železe; svobodným královským městem je od roku 1410.",
+  },
+  Karlštejn: {
+    t: "Královský hrad",
+    n: "Strážce korunovačních klenotů, které jsou tu znovu od roku 1436, i zemského archivu; za husitských válek nedobytá katolická pevnost. Purkrabím je Jindřich Berka z Dubé.",
+  },
+  Křivoklát: {
+    t: "Královský hrad",
+    n: "Královský hrad uprostřed hlubokých lesů. Ladislav Pohrobek ho vyplatil ze zástavy Aleše Holického ze Šternberka, takže je opět v rukou koruny.",
+  },
+  Bezděz: {
+    t: "Královský hrad v zástavě",
+    n: "Za husitů opora katolíků na severu, kam byly převezeny zemské desky. Zástavu drží Jindřich z Michalovic.",
+  },
+  Zvíkov: {
+    t: "Královský hrad v rožmberské zástavě",
+    n: "Hrad na soutoku Vltavy a Otavy, který husité roku 1429 marně čtyři měsíce obléhali. Drží ho Rožmberkové; Ladislav jim roku 1457 slíbil, že jim ho nevyplatí.",
+  },
+  Orlík: {
+    t: "Hrad Zmrzlíků ze Svojšína",
+    n: "Hrad nad Vltavou, od roku 1407 v rukou Zmrzlíků ze Svojšína. Roku 1457 ho zdědil Jaroslav Zmrzlík, stoupenec krále Jiřího.",
+  },
+  Kost: {
+    t: "Hrad Zajíců z Házmburka",
+    n: "Hrad v pískovcových skalách u Sobotky. Drží ho Mikuláš Zajíc z Házmburka, přísný katolík a odpůrce kalicha, kterého Zikmund jmenoval nejvyšším sudím.",
+  },
+  Trosky: {
+    t: "Hrad Zajíců z Házmburka",
+    n: "Dvě věže na sopečných vrcholech, za husitských válek katolická bašta. Roku 1455 ho koupil Jan Zajíc z Házmburka a připojil ke Kosti.",
+  },
+  Lipnice: {
+    t: "Hrad Trčků z Lípy",
+    n: "Mohutný hrad nad Sázavou, který roku 1436 koupil husitský hejtman Mikuláš Trčka z Lípy. Jeho rod stojí při králi Jiřím.",
+  },
+  Rabí: {
+    t: "Hrad Švihovských z Rýzmberka",
+    n: "Rozlehlý hrad nad Otavou. Žižka ho dobyl dvakrát a při druhém obléhání roku 1421 přišel o zbývající oko. Od roku 1450 ho drží Vilém Švihovský z Rýzmberka.",
+  },
+  Kašperk: {
+    t: "Královský hrad v zástavě",
+    n: "Strážní hrad Karla IV. nad Vintířovou stezkou z Pasova, dějiště pohraničních půtek s Bavory. Roku 1454 ho Petr Zmrzlík prodal Zdeňku ze Šternberka.",
+  },
+  Točník: {
+    t: "Královský hrad v zástavě",
+    n: "Honosný hrad Václava IV. nad Žebrákem, roku 1424 marně obléhaný husity. Zástavu drží Kolovratové, kteří roku 1430 přešli pod obojí.",
+  },
+  "Kunětická hora": {
+    t: "Husitský hrad",
+    n: "Hrad na osamělém kopci u Pardubic, který přestavěl husitský hejtman Diviš Bořek z Miletínka. Drží ho jeho syn Soběslav Mrzák z Miletínka.",
+  },
+  Lichnice: {
+    t: "Královský hrad",
+    n: "Hrad na hraně Železných hor, za husitů v rukou sirotků. Drží ho husitský hejtman Jan Hertvík z Rušinova, od něhož ho král Jiří roku 1458 vykupuje.",
+  },
+  Střekov: {
+    t: "Panský hrad nad Labem",
+    n: "Skalní hrad nad Labem u Ústí, za husitů na straně krále Zikmunda; v době bitvy u Ústí (1426) v něm byla míšeňská posádka. Drží ho potomci Jetřicha z Kladna.",
+  },
+  Homole: {
+    t: "Hrad Poděbradů",
+    n: "Pohraniční hrad v Kladsku u Dušník. Roku 1427 ho dobyli táborité, potom sloužil loupeživým pánům; roku 1458 ho král Jiří převedl na syny Bočka a Viktorína.",
+  },
+  Helfštýn: {t: "Panský hrad", n: "Rozlehlý hrad nad Bečvou u Lipníka. Drží ho Vok ze Sovince."},
+  Bouzov: {
+    t: "Hrad Kostků z Postupic",
+    n: "Hrad na pomezí Hané, který Jiří z Poděbrad před rokem 1442 předal svému věrnému Zdeňku Kostkovi z Postupic.",
+  },
+  Buchlov: {
+    t: "Zeměpanský hrad v zástavě",
+    n: "Zeměpanský hrad v Chřibech nad Pomoravím, opakovaně zastavovaný; roku 1437 ho v zástavě získal Čeněk z Mošnova.",
+  },
+  Brumov: {t: "Pohraniční hrad", n: "Strážce cesty do Uher na Vlárce. Zástavu drží Cimburkové; Bernard z Cimburka z něj podnikal výpravy do Uher."},
+  Veveří: {
+    t: "Zeměpanský hrad",
+    n: "Hrad nad Svratkou u Brna, za husitů opora Zikmundovy strany s rakouskou posádkou. Král Jiří ho roku 1458 svěřuje Přemkovi, knížeti těšínskému.",
+  },
+  Książ: {
+    t: "Hrad svídnického knížectví",
+    n: "Hlavní hrad korunního knížectví svídnického, v letech 1428–1429 obsazený husity. Jiří z Poděbrad ho získal od dědiců Janka z Chotěmic a správu svěřil Birkovi z Násile.",
+  },
+  Chojnik: {
+    t: "Rytířský hrad",
+    n: "Hrad na skále nad Jelení Horou pod Krkonošemi. Koupil ho rytíř Gotsche Schoff od vdovy po vévodovi Bolkovi II. a drží ho jeho rod.",
+  },
+  Ojvín: {
+    t: "Hrad a klášter celestinů",
+    n: "Skalní hrad u Žitavy, kde Karel IV. roku 1369 založil klášter celestinů; na stavbě kostela se podílel Petr Parléř.",
+  },
+  Senftenberg: {
+    t: "Hrad v saských rukou",
+    n: "Dolnolužický hrad a panství, které roku 1448 získal saský kurfiřt Fridrich; tím se odtrhlo od české Lužice.",
+  },
+  Königstein: {
+    t: "Pohraniční hrad (sporný)",
+    n: "Skalní pevnost nad Labem, kterou míšeňští markrabí roku 1408 vzali Donínům. Formálně je česká; Sasku ji definitivně přizná až mír v Chebu (1459).",
+  },
+  Hohnstein: {
+    t: "Hrad saských kurfiřtů (české léno)",
+    n: "Skalní hrad v Saském Švýcarsku, do roku 1443 v rukou Berků z Dubé. Pak ho směnou a koupí získalo Sasko, hrad však zůstal českým lénem.",
+  },
+  Coburg: {t: "Hrad Wettinů", n: "Mohutná pevnost nad Coburgem, wettinská od roku 1353. Kvůli husitským válkám tu roku 1430 rozšířili opevnění."},
+  Cadolzburg: {
+    t: "Hrad frankských Hohenzollernů",
+    n: "Sídlo markraběte Albrechta Achilla, bratra braniborského kurfiřta. V letech 1449–1450 vedl válku s Norimberkem, od roku 1457 vládne oběma frankským markrabstvím.",
+  },
+  Kufstein: {
+    t: "Pohraniční pevnost",
+    n: "Bavorská pevnost nad Innem na hranici s Tyrolskem. Po vymření ingolstadtské větve připadla bohatým vévodům landshutským; roku 1415 ji silně opevnil Ludvík Bradatý.",
+  },
+  Vitoraz: {t: "Pohraniční hrad", n: "Zeměpanské panství na české hranici, často zastavované mocným rodům; roku 1426 ho obléhali husité."},
+  Falkenstein: {t: "Zeměpanský hrad", n: "Hrad ve Weinviertelu blízko moravské hranice, od roku 1106 v rukou rakouských panovníků."},
+  Devín: {t: "Pohraniční hrad", n: "Skála nad soutokem Moravy a Dunaje, brána do Uher. Od roku 1414 ho drží mocný rod Garaiů."},
+  "Spišský hrad": {t: "Hrad uherské koruny", n: "Rozlehlý královský hrad nad Spiší; s jeho areálem se pojí opevněné sídlo Jana Jiskry z Brandýsa."},
+  "Šarišský hrad": {t: "Hrad uherské koruny (v moci Jiskry)", n: "Hrad nad Prešovem, který roku 1441 obsadil Jan Jiskra z Brandýsa a stále ho drží."},
+  Ľubovňa: {
+    t: "Hrad zastavený Polsku",
+    n: "Hrad na severu Spiše, roku 1412 zastavený Polsku spolu se šestnácti spišskými městy; spravují ho polští hejtmani.",
+  },
+  Beckov: {
+    t: "Hrad Bánffyů",
+    n: "Skalní hrad nad Váhem, který kdysi král prodal Ctiborovi ze Ctiboric. Po vymření jeho rodu (1434) připadl Bánffyům.",
+  },
+  Čachtice: {t: "Hrad Országhů", n: "Hrad na Považí, který roku 1436 Zikmund daroval svému stoupenci Michalu Országhovi; drží ho jeho rod."},
+  Strečno: {t: "Hrad Pongráců", n: "Hrad nad soutěskou Váhu u Žiliny, od roku 1444 v rukou Pongráců z Liptovského Mikuláše."},
+  Bojnice: {t: "Panský hrad", n: "Hrad na horní Nitře, od roku 1430 sídlo potomků Onufria Bardy, kteří ho uhájili proti husitům."},
+  Likava: {t: "Hrad Hunyadiů", n: "Hrad v Liptově, v letech 1431–1434 husitská pevnost. Od roku 1434 patří Hunyadiům, rodu krále Matyáše."},
+  Olsztyn: {
+    t: "Královský hrad",
+    n: "Pohraniční hrad u Čenstochové, který chrání Polsko proti Slezsku a Čechám. Starostenství drží potomci Jana ze Szczekocin, od roku 1432 Piotr Woda.",
+  },
+  Będzin: {t: "Královský hrad", n: "Kamenný hrad Kazimíra Velikého, vojenská hláska na jihozápadní hranici Polska proti Slezsku."},
+  Czorsztyn: {t: "Královský hrad", n: "Strážce polsko-uherské hranice nad Dunajcem, naproti uherské Nedeci; spravují ho královští starostové."},
+  Ziesar: {t: "Biskupský hrad", n: "Sídlo braniborských biskupů a správní středisko biskupství už od roku 1327."},
 };
 const MAJOR_ROADS = new Set([
   "Zlatá stezka",
