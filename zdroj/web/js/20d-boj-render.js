@@ -521,6 +521,86 @@ function bojListPrekresli() {
 }
 /* hráčská Hra mimo boj: poslední vykreslené HTML karty a jeho prvek – stejné HTML se znovu nevkládá */
 const BHRAH = {h: "", el: null};
+/* rozepsané formuláře v Boji (2026-10-25, Vojta): překreslení po uložení vypravěče (puls) dřív smazalo, co hráč napsal do
+   formuláře (zachovalo se jen pole s kurzorem). Co hráč napíše nebo zaškrtne, si pamatujeme podle místa a jména pole; po překreslení,
+   které nespustil on sám, se hodnota vrátí do nového pole, pokud v něm je jen výchozí hodnota. Hodnoty starší než hráčovo poslední
+   klepnutí nebo Enteru (odeslání, uložení) se nevracejí – odeslaný formulář se znovu nevyplní. Hodnota se vrátí jen do pole se stejnou
+   výchozí hodnotou jako při psaní: když se mezitím změnila data pod polem (životy, poznámka od vypravěče), platí nová. Pole, které
+   po překreslení zmizí, se zapomene. */
+const BFV = new Map();
+let BFVKLIK = 0;
+function bojPoleKlic(e) {
+  const n = e.name || e.id;
+  if (!n) return null;
+  const p = e.closest("[data-bhpan],[data-kid],[data-bdmlist],[data-otv]"),
+    ps = p ? p.dataset.bhpan || p.dataset.kid || p.dataset.otv || "list" : "",
+    f = e.form,
+    fs = f
+      ? [...f.attributes]
+          .filter(a => a.name.startsWith("data-"))
+          .map(a => a.name)
+          .join(",") || f.className
+      : "";
+  return `${ps}|${fs}|${n}${e.type === "radio" ? "=" + e.value : ""}`;
+}
+const bojPoleVyp = e => (e.type === "checkbox" || e.type === "radio" ? e.checked : e.value);
+const bojPoleVych = e =>
+  e.type === "checkbox" || e.type === "radio"
+    ? e.defaultChecked
+    : e.tagName === "SELECT"
+      ? ([...e.options].find(o => o.defaultSelected) || e.options[0] || {}).value
+      : e.defaultValue;
+function bojPoleZapis(e) {
+  const k = e && e.matches && e.matches("input,textarea,select") && e.type !== "file" && e.type !== "password" ? bojPoleKlic(e) : null;
+  if (k) BFV.set(k, {v: bojPoleVyp(e), d: bojPoleVych(e), t: Date.now()});
+}
+function bojPoleObnov(box) {
+  if (!BFV.size || !box) return;
+  const M = new Map();
+  box.querySelectorAll("input,textarea,select").forEach(e => {
+    const k = bojPoleKlic(e);
+    if (k) M.set(k, e);
+  });
+  for (const [k, x] of [...BFV]) {
+    const e = M.get(k);
+    if (!e) {
+      BFV.delete(k);
+      continue;
+    }
+    const d = bojPoleVych(e);
+    if (x.t <= BFVKLIK || d !== x.d || e === document.activeElement || bojPoleVyp(e) === x.v || bojPoleVyp(e) !== d) continue;
+    if (e.type === "checkbox" || e.type === "radio") e.checked = x.v;
+    else e.value = x.v;
+  }
+}
+document.addEventListener("input", e => {
+  if (e.target.closest && e.target.closest("#bojview")) bojPoleZapis(e.target);
+});
+document.addEventListener("change", e => {
+  if (e.target.closest && e.target.closest("#bojview")) bojPoleZapis(e.target);
+});
+document.addEventListener(
+  "click",
+  e => {
+    const b = e.target.closest && e.target.closest("#bojview button, #bojview [type=submit]");
+    if (b) BFVKLIK = Date.now();
+  },
+  true,
+);
+document.addEventListener(
+  "keydown",
+  e => {
+    if (e.key === "Enter" && e.target.closest && e.target.closest("#bojview")) BFVKLIK = Date.now();
+  },
+  true,
+);
+document.addEventListener(
+  "submit",
+  e => {
+    if (e.target.closest && e.target.closest("#bojview")) BFVKLIK = Date.now();
+  },
+  true,
+);
 function renderBoj() {
   mmZrus("boj");
   try {
@@ -692,6 +772,7 @@ function renderBoj() {
         } catch (x) {}
     }
   }
+  bojPoleObnov(box);
   try {
     bdmLepky();
   } catch (e) {}
