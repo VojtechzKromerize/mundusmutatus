@@ -5241,6 +5241,18 @@ const FORLBL = [
   ["Český les", 12.62, 49.6, -62],
   ["Alpy", 13.9, 47.47, 0],
   ["Tatry", 19.95, 49.32, 0],
+  /* pohoří doplněná 2026-10-26 */
+  ["České středohoří", 14.1, 50.52, 15],
+  ["Orlické hory", 16.42, 50.27, -55],
+  ["Žďárské vrchy", 16.0, 49.62, -30],
+  ["Železné hory", 15.62, 49.86, -35],
+  ["Bílé Karpaty", 17.95, 49.02, -40],
+  ["Malé Karpaty", 17.35, 48.42, -60],
+  ["Javorníky", 18.22, 49.24, -15],
+  ["Hostýnské vrchy", 17.72, 49.36, 15],
+  ["Lužické hory", 14.6, 50.86, 0],
+  ["Chřiby", 17.3, 49.1, -35],
+  ["Doupovské hory", 13.15, 50.25, 0],
   ["Fatra", 19.05, 49.05, -50],
 ];
 const TRIBS = [
@@ -5470,6 +5482,50 @@ const TRIBS = [
     [16.7, 51.6],
     [16.25, 51.7],
   ],
+  /* doplněno 2026-10-26 (Vojta): Radbuza, Úhlava, Blanice, Chrudimka, Doubrava, Cidlina, Ostravice, Olše */
+  [
+    [12.62, 49.43],
+    [12.92, 49.52],
+    [13.18, 49.62],
+    [13.38, 49.75],
+  ],
+  [
+    [13.28, 49.18],
+    [13.28, 49.42],
+    [13.36, 49.62],
+    [13.38, 49.75],
+  ],
+  [
+    [13.95, 48.95],
+    [14.02, 49.15],
+    [14.12, 49.28],
+  ],
+  [
+    [15.95, 49.7],
+    [15.82, 49.88],
+    [15.77, 50.04],
+  ],
+  [
+    [15.62, 49.65],
+    [15.48, 49.88],
+    [15.35, 50.05],
+  ],
+  [
+    [15.45, 50.48],
+    [15.42, 50.28],
+    [15.25, 50.14],
+  ],
+  [
+    [18.5, 49.45],
+    [18.36, 49.62],
+    [18.28, 49.84],
+  ],
+  [
+    [18.78, 49.58],
+    [18.62, 49.75],
+    [18.42, 49.92],
+    [18.32, 49.98],
+  ],
 ];
 function smoothClosed(pp) {
   const n = pp.length;
@@ -5501,6 +5557,21 @@ const RIVLBL = [
   ["Inn", 12.8, 48.15, 40],
   ["Ohře", 13.1, 50.33, 20],
   ["Sázava", 15.05, 49.8, -15],
+  /* doplněno 2026-10-26 */
+  ["Jizera", 15.02, 50.45, -55],
+  ["Otava", 13.95, 49.33, 35],
+  ["Lužnice", 14.72, 49.12, -65],
+  ["Berounka", 13.75, 49.93, 10],
+  ["Dyje", 15.75, 48.7, 0],
+  ["Svratka", 16.38, 49.42, -60],
+  ["Bečva", 17.75, 49.43, 0],
+  ["Opava", 17.82, 50.0, 15],
+  ["Olše", 18.58, 49.79, -55],
+  ["Ostravice", 18.4, 49.62, -75],
+  ["Radbuza", 12.97, 49.54, 25],
+  ["Orlice", 16.2, 50.22, 0],
+  ["Malše", 14.5, 48.82, 80],
+  ["Kladská Nisa", 17.2, 50.55, -45],
 ];
 function chainPts(chain, step) {
   const out = [];
@@ -5562,6 +5633,42 @@ function meander(line, amp, seed) {
    l = listnaté lesy nížin a luhů (dub, habr, lužní lesy). Podíl jehličnanů v kresbě: s 45 %, j 85 %, l 10 %. */
 const LES_DRUH = "sssssssssssssjjljjsssssjjlslsllsljjsssjjjljsjjjssjsjjjjslllllsssslll";
 const LES_JEHL = {s: 0.45, j: 0.85, l: 0.1};
+/* vnější úseky hranice Koruny (úsek, který leží jen v jedné zemi Koruny) a jejich druh podle krajiny; spočítá se jednou */
+let HRKOR = null;
+function hraniceKoruny() {
+  if (HRKOR) return HRKOR;
+  const polys = LANDS.flatMap(([, rs]) => rs),
+    vKorune = (lo, la) => polys.some(p => inPoly(lo, la, p)),
+    reky = [...RIVERS, ...TRIBS],
+    blizkoReky = (lo, la) =>
+      reky.some(r =>
+        r.some((q, i) => {
+          const w = r[i + 1];
+          if (!w) return false;
+          const dx = w[0] - q[0],
+            dy = w[1] - q[1],
+            L = dx * dx + dy * dy,
+            t = Math.max(0, Math.min(1, L ? ((lo - q[0]) * dx + (la - q[1]) * dy) / L : 0));
+          return Math.hypot((lo - q[0] - t * dx) * 0.64, la - q[1] - t * dy) < 0.06;
+        }),
+      );
+  HRKOR = [];
+  for (const poly of polys)
+    poly.forEach((a, i) => {
+      const b = poly[(i + 1) % poly.length],
+        lo = (a[0] + b[0]) / 2,
+        la = (a[1] + b[1]) / 2,
+        dx = b[0] - a[0],
+        dy = b[1] - a[1],
+        d = Math.hypot(dx, dy) || 1,
+        nx = (-dy / d) * 0.02,
+        ny = (dx / d) * 0.02;
+      /* vnější úsek: na jedné straně Koruna, na druhé ne (vnitřní hranice zemí mají Korunu po obou stranách) */
+      if (vKorune(lo + nx, la + ny) === vKorune(lo - nx, la - ny)) return;
+      HRKOR.push([FORESTS.some(p => inPoly(lo, la, p)) ? "hvozd" : blizkoReky(lo, la) ? "reka" : "cara", a, b]);
+    });
+  return HRKOR;
+}
 /* kraje Čech (KRAJE v 02): každý kraj = část Čech blíž jeho středu než středům ostatních (ořez hranice Čech polorovinami);
    barva podle landfrídu kolem roku 1450 (LANDFR), jména krajů a landfrídů */
 function polyPolorovina(poly, a, b) {
@@ -5872,6 +5979,50 @@ function mapPodklad(Z, vb, s, k) {
         }),
       );
     }
+  /* hranice Koruny podle krajiny (2026-10-26, Vojta): vnější úseky hranice zemí Koruny – hvozdem jako pás lesa, po řece jako
+     vodní čára, jinde ostrá čára (otevřená krajina, kde se hranice vytyčovala kameny a příkopy) */
+  {
+    const H = hraniceKoruny(),
+      gk = G({filter: "url(#wob)"}),
+      dd = {hvozd: "", reka: "", cara: ""};
+    for (const [druh, a, b] of H) {
+      const [x1, y1] = P(...a),
+        [x2, y2] = P(...b);
+      dd[druh] += `M${x1.toFixed(1)},${y1.toFixed(1)}L${x2.toFixed(1)},${y2.toFixed(1)}`;
+    }
+    gk.appendChild(
+      el("path", {
+        d: dd.hvozd,
+        fill: "none",
+        stroke: "var(--tree)",
+        "stroke-width": (11 * s).toFixed(2),
+        "stroke-opacity": ".32",
+        "stroke-linecap": "round",
+      }),
+    );
+    gk.appendChild(
+      el("path", {
+        d: dd.hvozd,
+        fill: "none",
+        stroke: "var(--tree)",
+        "stroke-width": (1.2 * s).toFixed(2),
+        "stroke-dasharray": `${0.6 * s} ${2.4 * s}`,
+        "stroke-linecap": "round",
+        opacity: ".8",
+      }),
+    );
+    gk.appendChild(
+      el("path", {
+        d: dd.reka,
+        fill: "none",
+        stroke: "var(--water)",
+        "stroke-width": (2.2 * s).toFixed(2),
+        "stroke-opacity": ".75",
+        "stroke-linecap": "round",
+      }),
+    );
+    gk.appendChild(el("path", {d: dd.cara, fill: "none", stroke: "var(--ink)", "stroke-width": (1.9 * s).toFixed(2), "stroke-linecap": "round"}));
+  }
   if (st.dio) {
     const pd = el("defs", {});
     for (const d of DIO) {
@@ -6027,6 +6178,35 @@ function mapPodklad(Z, vb, s, k) {
     const pp = poly.map(c => P(...c));
     gbz.appendChild(
       el("path", {d: smoothClosed(pp), fill: "var(--water)", "fill-opacity": ".45", stroke: "var(--water)", "stroke-width": (0.8 * s).toFixed(2)}),
+    );
+  });
+  /* vrchoviny (2026-10-26): kopečky jako krátké oblouky, řídce, pod lesy */
+  const gv = G({});
+  VRCHOVINY.forEach(([, poly], vi) => {
+    const pp = poly.map(c => P(...c)),
+      xs = pp.map(q => q[0]),
+      ys = pp.map(q => q[1]),
+      x0 = Math.min(...xs),
+      x1 = Math.max(...xs),
+      y0 = Math.min(...ys),
+      y1 = Math.max(...ys);
+    let seed = 71 + vi * 61;
+    const rnd = () => {
+      seed = (seed * 16807) % 2147483647;
+      return seed / 2147483647;
+    };
+    const want = Math.min(140, Math.round(((x1 - x0) * (y1 - y0)) / (s * s) / 260));
+    let d = "";
+    for (let n = 0, tries = 0; n < want && tries < want * 4; tries++) {
+      const x = x0 + (x1 - x0) * rnd(),
+        y = y0 + (y1 - y0) * rnd();
+      if (!inPoly(x, y, pp)) continue;
+      n++;
+      const w = (3.2 + rnd() * 1.6) * s;
+      d += `M${(x - w).toFixed(1)},${y.toFixed(1)}Q${x.toFixed(1)},${(y - w * 0.9).toFixed(1)} ${(x + w).toFixed(1)},${y.toFixed(1)}`;
+    }
+    gv.appendChild(
+      el("path", {d, fill: "none", stroke: "var(--city)", "stroke-width": (0.55 * s).toFixed(2), "stroke-linecap": "round", opacity: ".45"}),
     );
   });
   /* forests: drawn trees, conifers in the border hvozd, round crowns in the lowlands */
@@ -6186,6 +6366,26 @@ function mapPodklad(Z, vb, s, k) {
           "stroke-width": (2.6 * s).toFixed(2),
           "text-anchor": "middle",
           transform: `rotate(${rot} ${x} ${y})`,
+        },
+        t,
+      ),
+    );
+  }
+  for (const [t, , L] of VRCHOVINY) {
+    const [x, y] = P(L[0], L[1]);
+    Z.appendChild(
+      el(
+        "text",
+        {
+          x,
+          y,
+          class: "rivlbl",
+          "font-size": (9 * k).toFixed(1),
+          "stroke-width": (2.4 * s).toFixed(2),
+          "text-anchor": "middle",
+          "letter-spacing": ".08em",
+          transform: `rotate(${L[2] || 0} ${x} ${y})`,
+          style: "fill:var(--city);opacity:.7",
         },
         t,
       ),
@@ -6638,7 +6838,7 @@ function drawMapK() {
             "text-anchor": "middle",
             fill: "var(--kal)",
           },
-          `≈ ${st.route.km} km`,
+          `≈ ${mileTxt(st.route.km)}`,
         ),
       );
     }

@@ -1078,7 +1078,7 @@ function smRender() {
   SM.path = R ? R.path : null;
   if (!R) {
     const land = Math.round(air * 1.3);
-    r.innerHTML = `<p><b>${SM.a.name}</b> → <b>${SM.b.name}</b>: <span class="km">asi ${land.toLocaleString("cs")} km</span> <span class="lbl">(vzdušnou čarou ${air.toLocaleString("cs")} km)</span></p>
+    r.innerHTML = `<p><b>${SM.a.name}</b> → <b>${SM.b.name}</b>: <span class="km">asi ${mileTxt(land)}</span> <span class="lbl">(vzdušnou čarou ${mileTxt(air)})</span></p>
      <div class="tgrid"><div><b>Pěšky</b>${days(land, 30)}</div><div><b>Na koni</b>${days(land, 45)}</div><div><b>S vozem</b>${days(land, 20)}</div><div><b>Posel se střídáním koní</b>${days(land, 90)}</div><div><b>Na drakovi</b>${days(air, 250)}</div></div>
      <p class="lbl">Žádná známá cesta sem nevede; odhad počítá s cestou o třetinu delší než vzdušná čára.</p>`;
     return;
@@ -1086,9 +1086,9 @@ function smRender() {
   const L = R.land,
     S = R.sea,
     t = v => days(L / v + S / 110, 1);
-  r.innerHTML = `<p><b>${SM.a.name}</b> → <b>${SM.b.name}</b>: <span class="km">asi ${(L + S).toLocaleString("cs")} km</span> <span class="lbl">${S ? `(z toho ${S.toLocaleString("cs")} km lodí; ` : "("}vzdušnou čarou ${air.toLocaleString("cs")} km)</span></p>
+  r.innerHTML = `<p><b>${SM.a.name}</b> → <b>${SM.b.name}</b>: <span class="km">asi ${mileTxt(L + S)}</span> <span class="lbl">${S ? `(z toho ${mileTxt(S)} lodí; ` : "("}vzdušnou čarou ${mileTxt(air)})</span></p>
    <div class="tgrid"><div><b>Pěšky</b>${t(30)}</div><div><b>Na koni</b>${t(45)}</div><div><b>S vozem</b>${t(20)}</div><div><b>Posel se střídáním koní</b>${days(L / 90 + S / 110, 1)}</div><div><b>Na drakovi</b>${days(air, 250)}</div></div>
-   <p class="lbl">Odhad vede po známých obchodních a poutních cestách a po trasách lodí (na mapě vrstva Cesty); ${S ? "plavba počítá asi 110 km za den, " : ""}mimo ně počítá s cestou o třetinu delší než vzdušná čára. Počasí, hranice ani války nezná.</p>`;
+   <p class="lbl">Odhad vede po známých obchodních a poutních cestách a po trasách lodí (na mapě vrstva Cesty); ${S ? `plavba počítá asi ${mileTxt(110)} za den, ` : ""}mimo ně počítá s cestou o třetinu delší než vzdušná čára. Počasí, hranice ani války nezná.</p>`;
 }
 (function () {
   const svg = document.getElementById("smap");

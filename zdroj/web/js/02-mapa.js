@@ -2723,6 +2723,41 @@ const MOUNTAINS = [
     [18.8, 47.75],
     [19.05, 47.65],
   ],
+  /* doplněno 2026-10-26 (Vojta): České středohoří, Žďárské vrchy, Železné hory, Javorníky, Chřiby, Blanský les, Rychlebské hory */
+  [
+    [13.85, 50.47],
+    [14.02, 50.55],
+    [14.2, 50.59],
+    [14.38, 50.63],
+  ],
+  [
+    [15.85, 49.72],
+    [16.0, 49.66],
+    [16.15, 49.58],
+  ],
+  [
+    [15.45, 49.98],
+    [15.62, 49.88],
+    [15.8, 49.78],
+  ],
+  [
+    [18.0, 49.32],
+    [18.2, 49.27],
+    [18.42, 49.2],
+  ],
+  [
+    [17.18, 49.18],
+    [17.32, 49.12],
+    [17.42, 49.05],
+  ],
+  [
+    [14.05, 48.92],
+    [14.2, 48.88],
+  ],
+  [
+    [16.98, 50.4],
+    [17.12, 50.33],
+  ],
 ];
 const FORESTS = [
   [
@@ -3333,6 +3368,81 @@ const JEZERA = [
       [16.66, 47.8],
     ],
     [16.76, 47.82, -80],
+  ],
+];
+/* vrchoviny a pahorkatiny (2026-10-26, Vojta): kopcovitý kraj mezi horami a nížinami – jemné šrafy na mapě, cesta jím jde pomaleji
+   než polem, rychleji než horami (terrain 1,3). [jméno, obrys, popisek [délka, šířka, otočení]] */
+const VRCHOVINY = [
+  [
+    "Českomoravská vrchovina",
+    [
+      [15.0, 49.85],
+      [15.6, 49.8],
+      [16.2, 49.72],
+      [16.4, 49.45],
+      [16.1, 49.1],
+      [15.5, 49.05],
+      [15.05, 49.3],
+      [14.85, 49.6],
+    ],
+    [15.55, 49.38, -10],
+  ],
+  [
+    "Drahanská vrchovina",
+    [
+      [16.6, 49.62],
+      [16.9, 49.62],
+      [17.0, 49.4],
+      [16.85, 49.22],
+      [16.62, 49.3],
+    ],
+    [16.8, 49.42, -60],
+  ],
+  [
+    "Středočeská pahorkatina",
+    [
+      [14.2, 49.85],
+      [14.75, 49.82],
+      [15.0, 49.6],
+      [14.75, 49.35],
+      [14.3, 49.45],
+      [14.05, 49.65],
+    ],
+    [14.55, 49.6, 0],
+  ],
+  [
+    "Plzeňská pahorkatina",
+    [
+      [12.85, 49.95],
+      [13.4, 50.02],
+      [13.75, 49.75],
+      [13.6, 49.5],
+      [13.05, 49.5],
+      [12.8, 49.7],
+    ],
+    [13.25, 49.72, 0],
+  ],
+  [
+    "Nízký Jeseník",
+    [
+      [17.2, 50.08],
+      [17.6, 50.02],
+      [17.85, 49.78],
+      [17.6, 49.65],
+      [17.25, 49.8],
+    ],
+    [17.5, 49.85, -30],
+  ],
+  [
+    "Podkrkonoší",
+    [
+      [15.2, 50.6],
+      [15.8, 50.6],
+      [16.1, 50.45],
+      [15.75, 50.38],
+      [15.25, 50.45],
+    ],
+    [15.6, 50.5, 0],
   ],
 ];
 
@@ -4021,6 +4131,7 @@ function terrain(a, b) {
     if (nearMountain(lo, la)) f = 2.0;
     else if (BAZINY.some(([, poly]) => inPoly(lo, la, poly))) f = 2.2;
     else if (FORESTS.some(poly => inPoly(lo, la, poly))) f = 1.7;
+    else if (VRCHOVINY.some(([, poly]) => inPoly(lo, la, poly))) f = 1.3;
     sum += f;
   }
   return sum / (n + 1);
@@ -4158,8 +4269,12 @@ function renderTravel() {
   const R = st.route,
     e = R.eff;
   const split =
-    R.offKm < 5 ? "celou cestu po stezkách" : R.roadKm < 5 ? "bez stezek, napříč krajinou" : `${R.roadKm} km po stezkách, ${R.offKm} km mimo ně`;
-  r.innerHTML = `<p><b>${st.ta.name}</b> → <b>${st.tb.name}</b>: <span class="km">asi ${R.km} km</span> <span class="lbl">(${split})</span></p>
+    R.offKm < 5
+      ? "celou cestu po stezkách"
+      : R.roadKm < 5
+        ? "bez stezek, napříč krajinou"
+        : `${mileTxt(R.roadKm)} po stezkách, ${mileTxt(R.offKm)} mimo ně`;
+  r.innerHTML = `<p><b>${st.ta.name}</b> → <b>${st.tb.name}</b>: <span class="km">asi ${mileTxt(R.km)}</span> <span class="lbl">(${split})</span></p>
    <p><span class="lbl">Trasa:</span> ${R.names.join(" – ")}</p>
    <div class="tgrid"><div><b>Pěšky</b>${days(e, 30)}</div><div><b>Na koni</b>${days(e, 45)}</div><div><b>S vozem</b>${days(e, 20)}</div><div><b>Posel se střídáním koní</b>${days(e, 90)}</div></div>
    <p class="lbl">${R.roadKm >= 5 ? "Trasa využívá hlavní stezky. " : ""}Úseky mimo cesty, lesem a přes hory se počítají pomaleji; brody, počasí a stav cest odhad nezná.</p>`;

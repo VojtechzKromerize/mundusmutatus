@@ -606,7 +606,7 @@ function vyHtmlTrasa() {
     <dl class="kv vykv"><dt>Odkud</dt><dd>${besc(kde)}${VY.z ? "" : " <small>(klikni na mapu – první bod je výchozí)</small>"}</dd><dt>Kam</dt><dd>${cil ? `<b>${besc(cil)}</b>` : "<small>vyber cíl kliknutím do mapy</small>"}</dd>
     <dt>Vyráží</dt><dd>${vyDatum(jdn(...S.datum.split("-").map(Number)))}, ${S.hodina}:00</dd></dl>
     <form class="gmhraf vyform" onsubmit="return false">
-      <label>Jak<select data-vyf="zp">${zp.map(([k, n, v, kmh]) => `<option value="${k}"${VY.zp === k ? " selected" : ""}>${n}${VY.mapa === "praha" ? ` · ${kmh} km/h` : ` · ${v} km/den`}</option>`).join("")}</select></label>
+      <label>Jak<select data-vyf="zp">${zp.map(([k, n, v, kmh]) => `<option value="${k}"${VY.zp === k ? " selected" : ""}>${n}${VY.mapa === "praha" ? ` · ${kmh} km/h` : ` · ${mileTxt(v)}/den`}</option>`).join("")}</select></label>
       <label>Tempo<select data-vyf="tempo">${Object.entries(VY_TEMPO)
         .map(([k, [n]]) => `<option value="${k}"${VY.tempo === k ? " selected" : ""}>${n}</option>`)
         .join("")}</select></label>
@@ -623,10 +623,10 @@ function vyHtmlTrasa() {
   }
   const X = VYS,
     dl = VY_DELKA[X.dl];
-  out += `<div class="tgrid vytg"><div><b>Vzdálenost</b>${VYT.plan ? (VYT.metry < 1000 ? `${Math.round(VYT.metry / 10) * 10} m` : `${VYT.km.toFixed(1).replace(".", ",")} km`) : `asi ${VYT.km.toLocaleString("cs")} km`}</div>
+  out += `<div class="tgrid vytg"><div><b>Vzdálenost</b>${VYT.plan ? (VYT.metry < 1000 ? `${Math.round(VYT.metry / 10) * 10} m` : `${VYT.km.toFixed(1).replace(".", ",")} km`) : `asi ${mileTxt(VYT.km)}`}</div>
       <div><b>Na cestě</b>${vyTrvani(X.H)}</div><div><b>Příjezd</b>${vyDatum(X.prij.j)}, ${X.prij.h}:00</div><div><b>Délka</b>${dl[1]}</div><div><b>Obtížnost</b>SO ${X.D}${X.dl ? ` · ${X.n} ${X.n === 1 ? "setkání" : "setkání"}` : ""}</div></div>
-    ${VYT.m === "koruna" && VY.zp !== "drak" ? `<p class="lbl">${VYT.silnice >= 5 ? `${VYT.silnice} km po stezkách` : "bez stezek"}${VYT.mimo >= 5 ? `, ${VYT.mimo} km mimo ně` : ""} · ${VYT.names.join(" – ")}</p>` : ""}
-    ${VYT.m === "svet" && VYT.more ? `<p class="lbl">Z toho asi ${Math.round(VYT.km * VYT.more)} km lodí.</p>` : ""}
+    ${VYT.m === "koruna" && VY.zp !== "drak" ? `<p class="lbl">${VYT.silnice >= 5 ? `${mileTxt(VYT.silnice)} po stezkách` : "bez stezek"}${VYT.mimo >= 5 ? `, ${mileTxt(VYT.mimo)} mimo ně` : ""} · ${VYT.names.join(" – ")}</p>` : ""}
+    ${VYT.m === "svet" && VYT.more ? `<p class="lbl">Z toho asi ${mileTxt(VYT.km * VYT.more)} lodí.</p>` : ""}
     ${X.zdrzSetk ? `<p class="lbl">Setkání navíc prodlužují cestu o ${vyTrvani(X.zdrzSetk)}.</p>` : ""}
     ${!X.delka ? `<p class="vypozn">Pod ${VYT.plan ? "40 minut" : "6 hodin"} cesty stačí vyprávění. <label class="vychk"><input type="checkbox" data-vyf="hratKratkou"${VY.hratKratkou ? " checked" : ""}> přesto hrát jako krátkou výpravu</label></p>` : ""}
     ${X.reviry && X.reviry.length ? `<p class="vypozn"><b>Dračí revíry na trase:</b> ${X.reviry.map(r => `<a href="#draconomicon/${r.d.id}">${besc(r.d.n)}</a> (${besc(r.kde)})`).join(", ")}. Divocí draci brání revír i proti drakům s jezdcem. <label class="vychk"><input type="checkbox" data-vyf="revir"${VY.revir ? " checked" : ""}> přidat setkání za přelet revíru</label></p>` : ""}

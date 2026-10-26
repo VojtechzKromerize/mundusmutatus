@@ -148,3 +148,22 @@ test("mapa: lesy mají druh pro každou plochu, bažiny zpomalí cestu a ve Výp
   const [bazina, pole] = V(`[terrain([18.0, 49.74], [18.05, 49.76]), terrain([14.9, 50.6], [14.95, 50.62])]`);
   assert.ok(bazina > pole, "Poodří je pomalejší než pole");
 });
+
+test("vzdálenost v českých mílích, kilometry v závorce (2026-10-26)", () => {
+  assert.equal(V(`mileTxt(76)`), "7 mil (76 km)");
+  assert.equal(V(`mileTxt(11.24)`), "1 míle (11 km)");
+  assert.equal(V(`mileTxt(20)`), "2 míle (20 km)");
+  assert.equal(V(`mileTxt(5)`), "0,5 míle (5 km)");
+  assert.equal(V(`mileTxt(17)`), "1,5 míle (17 km)");
+  assert.equal(V(`mileTxt(366)`), "33 mil (366 km)");
+  assert.equal(V(`mileTxt(30, true)`), "2,5 míle");
+});
+
+test("reliéf: vrchoviny zpomalí cestu méně než hory; hranice Koruny má hvozd, řeku i čáru", async () => {
+  await S.ev(`typeof hraniceKoruny === "function" || mmLina("mapa")`);
+  const [vrch, pole] = V(`[terrain([13.35, 49.62], [13.4, 49.64]), terrain([17.15, 49.45], [17.2, 49.47])]`);
+  assert.ok(vrch > 1 && vrch < 2, "Plzeňská pahorkatina mezi polem (Haná) a horami");
+  assert.ok(pole <= vrch);
+  const c = V(`hraniceKoruny().reduce((o, h) => ((o[h[0]] = (o[h[0]] || 0) + 1), o), {})`);
+  assert.ok(c.hvozd > 0 && c.reka > 0 && c.cara > 0, JSON.stringify(c));
+});

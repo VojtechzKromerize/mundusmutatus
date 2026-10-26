@@ -7,6 +7,14 @@ const byId = Object.fromEntries(FAM.map(f => [f.id, f]));
 /* překreslení jednou za dávku změn (2026-10-21): když jedna obsluha změní data několikrát (zápis útoku, potvrzení, puls),
    stránka se překreslí jen jednou – po doběhnutí obsluhy (mikroúloha). Okamžité překreslení (renderBoj…) čekající zruší. */
 const MMPREK = new Map();
+/* vzdálenost v českých mílích, kilometry v závorce (Vojta 2026-10-26): česká míle ≈ 11,24 km; pod 10 mil na půl míle */
+const MILE_KM = 11.24;
+function mileTxt(km, bezKm) {
+  const m = (+km || 0) / MILE_KM,
+    r = m < 10 ? Math.max(0.5, Math.round(m * 2) / 2) : Math.round(m),
+    w = r % 1 || (r >= 1 && r <= 4) ? "míle" : "mil";
+  return `${String(r).replace(".", ",")} ${w}${bezKm ? "" : ` (${Math.round(km).toLocaleString("cs")} km)`}`;
+}
 /* text do HTML (obsah i hodnota atributu v uvozovkách) – jediná funkce pro celý web */
 const besc = t => String(t ?? "").replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"})[c]);
 function mmPozdeji(klic, fn) {
