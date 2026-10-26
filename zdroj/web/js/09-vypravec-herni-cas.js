@@ -450,7 +450,10 @@ function cestaPlan(o) {
           if (x) {
             const most = CMOSTY.find(m => m[3] === RIVNAMES[ri] && haversine([m[1], m[2]], x) < 6);
             const kraj = [legs[0].p0, legs[legs.length - 1].p1].some(q => haversine(q, x) < 4);
-            if (!kraj && !reky.some(r => r.r === RIVNAMES[ri])) reky.push({r: RIVNAMES[ri], most: most ? most[0] : null, kde: cKde(...x)});
+            /* známý brod, přívoz či most z krajiny mapy (02e) do 8 km od místa, kde trasa řeku protne */
+            const pr = PRECHODY.find(q => q[1] !== "prusmyk" && haversine([q[2], q[3]], x) < 8);
+            if (!kraj && !reky.some(r => r.r === RIVNAMES[ri]))
+              reky.push({r: RIVNAMES[ri], most: most ? most[0] : null, kde: cKde(...x), pr: pr ? pr[0] : null});
             break;
           }
         }

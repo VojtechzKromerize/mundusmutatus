@@ -124,6 +124,9 @@ let st = {
   cities: true,
   castles: true,
   baziny: true,
+  prechody: true,
+  hosp: false,
+  zpustle: false,
   misto: null,
   dio: false,
   duchy: false,
@@ -3483,7 +3486,7 @@ function renderDetail() {
   const d = document.getElementById("detail");
   if (!st.sel && st.misto) {
     d.classList.remove("empty");
-    d.innerHTML = `<button type="button" class="detx" data-detx aria-label="Zavřít panel" title="Zavřít">×</button>${mistoHtml(st.misto)}`;
+    d.innerHTML = `<button type="button" class="detx" data-detx aria-label="Zavřít panel" title="Zavřít">×</button>${typeof st.misto === "object" ? krajHtml(st.misto) : mistoHtml(st.misto)}`;
     return;
   }
   if (!st.sel) {
@@ -3542,6 +3545,48 @@ function mistoHtml(n, g) {
          ? `<dl class="kv" style="clear:both">${D.length ? `<dt>Drží</dt><dd>${D.map(x => flink(x.id)).join(", ")}</dd>` : ""}${G ? `<dt>${G.castle ? "Mezi" : "Patří k"}</dt><dd>${flink(G.id)}</dd>` : ""}</dl>`
          : ""
      }`;
+}
+/* krajina na mapě (2026-10-26): panel přechodu, hospodářského místa či kraje a zpustlého kraje; o = {k: pre|hb|ho|zp, i} */
+function krajMes() {
+  const m = HRA && /^\d{4}-(\d{2})-\d{2}$/.exec(HRA.datum || "");
+  return m ? +m[1] : 0;
+}
+function krajHtml(o) {
+  let typ = "",
+    n = "",
+    txt = "",
+    navic = "";
+  if (o.k === "pre") {
+    const [jm, druh, , , sez, pozn] = PRECHODY[o.i];
+    typ = PRECH_DRUH[druh];
+    n = jm;
+    txt = pozn;
+    if (sez === "z") navic = "V zimě a na přelomu jara sníh v sedle cestu zdrží, za vánice ji zavře.";
+    if (sez === "j") navic = `Na jaře, když taje sníh a prší, se řeka vzedme a ${druh === "brod" ? "brod" : "převoz"} zdrží, při povodni stojí.`;
+    const mes = krajMes(),
+      S = mes ? prechodStav(druh, sez, mes) : null;
+    if (S) navic += ` <b>Teď v herním čase:</b> ${S.t}.`;
+  } else if (o.k === "hb") {
+    const [jm, druh, co, , , pozn] = HOSP_BODY[o.i];
+    typ = `${HOSP_DRUH[druh]} · ${co}`;
+    n = jm;
+    txt = pozn;
+  } else if (o.k === "ho") {
+    const [jm, druh, , pozn] = HOSP_OBL[o.i];
+    typ = HOSP_DRUH[druh];
+    n = jm;
+    txt = pozn;
+  } else if (o.k === "zp") {
+    const [jm, mira, , pozn] = ZPUSTLE[o.i];
+    typ = mira > 1 ? "Kraj zle zpustlý válkou" : "Kraj místy zpustlý válkou";
+    n = jm;
+    txt = pozn;
+    navic = "Vsi tu stojí pusté, po cestách se toulají žoldnéři a lapkové.";
+  }
+  return `<span class="lbl">${typ}</span><h3 style="font-size:1.35rem">${besc(n)}</h3><p>${besc(txt)}</p>${navic ? `<p class="rsmall">${navic}</p>` : ""}`;
+}
+function showKraj(k, i) {
+  showMisto({k, i});
 }
 /* klik na místo na mapě: panel místa bez výběru rodu (mapa nic neztlumí) */
 function showMisto(n) {
@@ -4274,10 +4319,12 @@ function renderTravel() {
       : R.roadKm < 5
         ? "bez stezek, napříč krajinou"
         : `${mileTxt(R.roadKm)} po stezkách, ${mileTxt(R.offKm)} mimo ně`;
+  const pr = prechodyNaTrase(R.coords);
   r.innerHTML = `<p><b>${st.ta.name}</b> → <b>${st.tb.name}</b>: <span class="km">asi ${mileTxt(R.km)}</span> <span class="lbl">(${split})</span></p>
    <p><span class="lbl">Trasa:</span> ${R.names.join(" – ")}</p>
    <div class="tgrid"><div><b>Pěšky</b>${days(e, 30)}</div><div><b>Na koni</b>${days(e, 45)}</div><div><b>S vozem</b>${days(e, 20)}</div><div><b>Posel se střídáním koní</b>${days(e, 90)}</div></div>
-   <p class="lbl">${R.roadKm >= 5 ? "Trasa využívá hlavní stezky. " : ""}Úseky mimo cesty, lesem a přes hory se počítají pomaleji; brody, počasí a stav cest odhad nezná.</p>`;
+   ${pr.length ? `<p><span class="lbl">Přechody:</span> ${pr.map(x => `${x.n}${x.sez ? "*" : ""}`).join(", ")}</p>` : ""}
+   <p class="lbl">${R.roadKm >= 5 ? "Trasa využívá hlavní stezky. " : ""}Úseky mimo cesty, lesem, bažinou a přes hory se počítají pomaleji; počasí a roční dobu (*sníh v sedle, jarní voda u brodu) počítá Výprava.</p>`;
 }
 function pickPlace(name) {
   const p = placeBy(name);
@@ -4325,6 +4372,9 @@ toggleBtn("lyHolds", "holds");
 toggleBtn("lyCities", "cities");
 toggleBtn("lyCastles", "castles");
 toggleBtn("lyBaziny", "baziny");
+toggleBtn("lyPrechody", "prechody");
+toggleBtn("lyHosp", "hosp");
+toggleBtn("lyZpustle", "zpustle");
 toggleBtn("lyRoads", "roads");
 const duchLeg = document.getElementById("duchlegend");
 const duchItem = u =>

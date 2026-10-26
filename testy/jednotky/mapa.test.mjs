@@ -167,3 +167,34 @@ test("reliéf: vrchoviny zpomalí cestu méně než hory; hranice Koruny má hvo
   const c = V(`hraniceKoruny().reduce((o, h) => ((o[h[0]] = (o[h[0]] || 0) + 1), o), {})`);
   assert.ok(c.hvozd > 0 && c.reka > 0 && c.cara > 0, JSON.stringify(c));
 });
+
+test("krajina: panel přechodu a zpustlého kraje, Výprava v zpustlém kraji hraje setkání války (2026-10-26)", async () => {
+  await S.ev(`typeof drawMapK === "function" || mmLina("mapa")`);
+  const i = V(`PRECHODY.findIndex(q => q[0] === "Náchodský průsmyk")`);
+  S.ev(`showKraj("pre", ${i})`);
+  assert.match(V(`document.getElementById("detail").textContent`), /Průsmyk.*Náchodský průsmyk/s);
+  S.ev(`showKraj("zp", 0)`);
+  assert.match(V(`document.getElementById("detail").textContent`), /zpustlý válkou/);
+  S.ev(`setSel(null, false)`);
+  if (V(`typeof vyKrajBodu`) === "function") {
+    assert.equal(V(`vyKrajBodu({}, {xy: [13.1, 49.7]})`), "valka", "Plzeňsko (zle zpustlé)");
+    assert.equal(V(`vyKrajBodu({}, {xy: [14.42, 50.09]})`), "pole");
+  }
+  if (V(`typeof drawMapK`) === "function") {
+    S.ev(`st.hosp = true; st.zpustle = true; drawMapK()`);
+    assert.ok(V(`document.querySelectorAll("#map .kraj").length`) >= 37 + 25, "značky přechodů a hospodářství");
+    assert.ok(V(`document.querySelectorAll("#map .krajpoly").length`) === 11 + 11, "plochy oblastí a zpustlých krajů");
+    S.ev(`st.hosp = false; st.zpustle = false; drawMapK()`);
+  }
+});
+
+test("Výprava: přechody na trase Praha – Drážďany a jejich zdržení v délce cesty (2026-10-26)", async () => {
+  await S.ev(`typeof vyPrepocti === "function" || mmLina("vyprava")`);
+  if (V(`typeof vyPrepocti`) !== "function") return;
+  const r =
+    V(`(() => { st.ta = placeBy("Praha"); st.tb = placeBy("Drážďany"); updateRoute(); VY = VY || VY_NOVA(); VY.mapa = "koruna"; VY.zp = "pesky";
+    VY.start = {datum: "1458-01-20", hodina: 8}; vyPrepocti(); return [VYS.prech.map(x => x.n), VYS.zdrzPrech, VYS.prech.reduce((a, x) => a + (x.st ? x.st.h : 0), 0)]; })()`);
+  assert.ok(r[0].includes("Nakléřovský průsmyk"), JSON.stringify(r[0]));
+  assert.equal(r[1], r[2], "zdržení na přechodech je součtem stavů");
+  S.ev(`st.ta = st.tb = null; st.route = null`);
+});

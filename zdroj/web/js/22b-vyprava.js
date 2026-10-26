@@ -344,13 +344,26 @@ function vyKrajBodu(T, q) {
   if (T.plan) return "mesto";
   if (q.more) return "voda";
   const [lo, la] = q.xy;
+  /* kraje zpustlé válkou (2026-10-26): kde zle (míra 2), vždy „válka“; kde místy, jen v otevřené krajině */
+  const zp = zpustlyKraj(lo, la);
+  if (zp && zp[1] > 1) return "valka";
   if (lo > 11.8 && lo < 19 && la > 48.5 && la < 51.3) {
     if (nearMountain(lo, la)) return "hory";
     /* bažiny (2026-10-26): setkání jako u řek – brody, rybáři, blátivé cesty */
     if (BAZINY.some(([, p]) => inPoly(lo, la, p))) return "voda";
     if (FORESTS.some(p => inPoly(lo, la, p))) return "les";
   }
-  return "pole";
+  return zp ? "valka" : "pole";
+}
+/* přechody na trase (2026-10-26): průsmyky, mosty, brody a přívozy do 5 km od cesty; zdržení podle počasí v den přechodu */
+function vyPrechody(H0) {
+  if (VYT.m !== "koruna" || VY.zp === "drak") return [];
+  const s = VY.start || vyHraStart(),
+    j0 = jdn(...s.datum.split("-").map(Number));
+  return prechodyNaTrase(VYT.pts).map(x => {
+    const j = j0 + Math.floor((x.p * H0) / 12);
+    return Object.assign(x, {j, st: prechodStav(x.druh, x.sez, vyGreg(j)[1], vyPocasi(j, [x.lo, x.la]))});
+  });
 }
 function vyPrepocti() {
   VYT = vyTrasa();
@@ -384,7 +397,9 @@ function vyPrepocti() {
   const zakl = dl ? Math.max(1, dl + (gc || 0)) : 0,
     navic = Math.max(0, n - zakl),
     zdrzSetk = navic * (praha ? 0.25 : Math.max(2, H0 * 0.1));
-  const H = Math.max(praha ? 0.05 : 1, H0 + (+VY.zdrz || 0) + zdrzSetk);
+  const prech = vyPrechody(H0),
+    zdrzPrech = prech.reduce((a, x) => a + (x.st ? x.st.h : 0), 0);
+  const H = Math.max(praha ? 0.05 : 1, H0 + (+VY.zdrz || 0) + zdrzSetk + zdrzPrech);
   /* časový průběh po dnech: putuje se od východu slunce, nejvýš 12 hodin denně */
   const s = VY.start || vyHraStart();
   let [y, m, d] = s.datum.split("-").map(Number),
@@ -490,7 +505,31 @@ function vyPrepocti() {
     x._h = dd ? dd.od + (dd.p1 > dd.p0 ? (pe - dd.p0) / (dd.p1 - dd.p0) : 0) * (dd.do - dd.od) : 0;
     x._kde = VYT.m === "koruna" ? vyBlizko(q.xy) : VYT.m === "svet" ? (q.more ? "na moři" : vyNejblizsiMesto(q.xy)) : "Praha";
   });
-  VYS = {H0, H, dl, delka, gc, n, zakl, navic, zdrzSetk, dny, prij: {j, h: prijH % 24}, W, Wa, T, Ta, bl, prip, pr, D, dr, reviry: vyReviry(VYT)};
+  VYS = {
+    H0,
+    H,
+    dl,
+    delka,
+    gc,
+    n,
+    zakl,
+    navic,
+    zdrzSetk,
+    prech,
+    zdrzPrech,
+    dny,
+    prij: {j, h: prijH % 24},
+    W,
+    Wa,
+    T,
+    Ta,
+    bl,
+    prip,
+    pr,
+    D,
+    dr,
+    reviry: vyReviry(VYT),
+  };
 }
 function vyBlizko(ll) {
   let b = null,
@@ -628,6 +667,7 @@ function vyHtmlTrasa() {
     ${VYT.m === "koruna" && VY.zp !== "drak" ? `<p class="lbl">${VYT.silnice >= 5 ? `${mileTxt(VYT.silnice)} po stezkách` : "bez stezek"}${VYT.mimo >= 5 ? `, ${mileTxt(VYT.mimo)} mimo ně` : ""} · ${VYT.names.join(" – ")}</p>` : ""}
     ${VYT.m === "svet" && VYT.more ? `<p class="lbl">Z toho asi ${mileTxt(VYT.km * VYT.more)} lodí.</p>` : ""}
     ${X.zdrzSetk ? `<p class="lbl">Setkání navíc prodlužují cestu o ${vyTrvani(X.zdrzSetk)}.</p>` : ""}
+    ${X.prech.length ? `<p class="lbl">Přechody na cestě</p><ul class="gmclist vyprech">${X.prech.map(x => `<li><b>${besc(x.n)}</b> <small>${PRECH_DRUH[x.druh].toLowerCase()}</small>${x.st ? ` – ${vyDatum(x.j)}: ${x.st.t} (o ${vyTrvani(x.st.h)} déle)` : ""}</li>`).join("")}</ul>` : ""}
     ${!X.delka ? `<p class="vypozn">Pod ${VYT.plan ? "40 minut" : "6 hodin"} cesty stačí vyprávění. <label class="vychk"><input type="checkbox" data-vyf="hratKratkou"${VY.hratKratkou ? " checked" : ""}> přesto hrát jako krátkou výpravu</label></p>` : ""}
     ${X.reviry && X.reviry.length ? `<p class="vypozn"><b>Dračí revíry na trase:</b> ${X.reviry.map(r => `<a href="#draconomicon/${r.d.id}">${besc(r.d.n)}</a> (${besc(r.kde)})`).join(", ")}. Divocí draci brání revír i proti drakům s jezdcem. <label class="vychk"><input type="checkbox" data-vyf="revir"${VY.revir ? " checked" : ""}> přidat setkání za přelet revíru</label></p>` : ""}
     ${VY.zp === "drak" ? `<p class="rsmall">Drak letí nejvýš 8 hodin denně; v bouři a vichřici nevzlétne.</p>` : ""}
@@ -1279,7 +1319,8 @@ function vyPoCeste() {
       const S = VY.start || vyHraStart(),
         P = cestaPlan({z: VYT.z, do: VYT.do, zp: VY.zp === "drak" ? "pesky" : VY.zp, odch: 1, zdrz: 0, sez: true, datum: S.datum, hodina: S.hodina});
       if (P && !P.chyba) {
-        rk = VY.zp === "drak" ? [] : P.reky || [];
+        /* řeky, jejichž přechod už je mezi „Přechody na cestě“, se neopakují */
+        rk = VY.zp === "drak" ? [] : (P.reky || []).filter(r => !r.pr || !(VYS.prech || []).some(x => x.n === r.pr));
         my = VY.zp === "drak" ? [] : P.myta || [];
       }
     }
@@ -1289,7 +1330,7 @@ function vyPoCeste() {
     const [, M, D] = fromJdn(j);
     return `${D}. ${MES[M - 1]}`;
   };
-  return `<p class="lbl">Po cestě</p><ul class="gmclist">${sv.map(f => `<li${f.hp ? ' class="gmchp"' : ""}>${ds(f.j)}: <b>${f.n}</b>${f.hp ? " – Hodina Pravdy" : f.w ? ` – Požehnání 4–6: ${f.w}` : ""}</li>`).join("")}${rk.map(r => `<li>${r.r}: ${r.most ? `kamenný most v ${r.most}` : `brod nebo přívoz (${r.kde})`}</li>`).join("")}${my.map(m => `<li>${m.n}: ${m.t}</li>`).join("")}</ul>`;
+  return `<p class="lbl">Po cestě</p><ul class="gmclist">${sv.map(f => `<li${f.hp ? ' class="gmchp"' : ""}>${ds(f.j)}: <b>${f.n}</b>${f.hp ? " – Hodina Pravdy" : f.w ? ` – Požehnání 4–6: ${f.w}` : ""}</li>`).join("")}${rk.map(r => `<li>${r.r}: ${r.pr || (r.most ? `kamenný most (${r.most})` : `brod nebo přívoz (${r.kde})`)}</li>`).join("")}${my.map(m => `<li>${m.n}: ${m.t}</li>`).join("")}</ul>`;
 }
 async function vyOdcestuj(putovat) {
   if (!VYT || !VYS) {

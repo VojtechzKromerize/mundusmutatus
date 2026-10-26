@@ -139,6 +139,9 @@
         <button type="button" id="lyCastles" aria-pressed="true" title="Klíčové hrady roku 1458">Hrady</button>
         <button type="button" id="lyRoads" aria-pressed="false">Cesty</button>
         <button type="button" id="lyBaziny" aria-pressed="true" title="Bažiny a mokřiny roku 1458 – neregulované nivy, blata">Bažiny</button>
+        <button type="button" id="lyPrechody" aria-pressed="true" title="Průsmyky, mosty, brody a přívozy – v zimě a na jaře zdrží cestu">Přechody</button>
+        <button type="button" id="lyHosp" aria-pressed="false" title="Doly, sůl a železo; vinice, obilnice, chmelnice a rybníky">Hospodářství</button>
+        <button type="button" id="lyZpustle" aria-pressed="false" title="Kraje zpustlé válkami husitskými a bratříky">Zpustlé kraje</button>
         <button type="button" id="lyDom" aria-pressed="false" title="Hrubý odhad podle rodových sídel">Panství rodů (odhad)</button>
         <button type="button" id="lyDuchy" aria-pressed="false">Země a knížectví</button>
         <button type="button" id="lyKraje" aria-pressed="false" title="Kraje Čech a landfrídy kolem roku 1450 (přibližně)">Kraje a landfrídy</button>
@@ -614,6 +617,7 @@ const hraAkt=()=>api("/rest/v1/rpc/mm_hra",{method:"POST",body:"{}"}).then(h=>h&
 /*@vloz web/js/02b-mapa-kresba.js*/
 /*@vloz web/js/02c-zbroj.js*/
 /*@vloz web/js/02d-pojmy.js*/
+/*@vloz web/js/02e-krajina.js*/
 /*@vloz web/js/03-artikule.js*/
 /*@vloz web/js/04-praha.js*/
 /*@vloz web/js/04b-praha-plan.js*/

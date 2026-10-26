@@ -8,28 +8,28 @@ Podrobnosti k jednomu jménu nebo souboru: `node testy/kontrola_kodu.mjs --kde J
 
 Základ: data z buildu (rody, vazby, zeměpis, erby), víry a ikony, odkazy mezi stránkami (mmLina), odložené překreslení (mmPozdeji)
 
-- 196 řádků, 33 definic na nejvyšší úrovni, z toho 26 používají jiné soubory
+- 204 řádků, 35 definic na nejvyšší úrovni, z toho 27 používají jiné soubory
 - používá z: 02-mapa (1)
-- používají ho: 02-mapa (17), 02b-mapa-kresba (6), 03-artikule (1), 04b-praha-plan (7), 05b-svet-mapa (1), 06-draconomicon-rodokmeny (2), 07-druzina-kronika (6), 08-navigace-pravidla (13), 09-vypravec-herni-cas (3), 10-kouzla (3), 10q-plne-texty (1), 11-boj (3), 12-boj-tah-postavy (1), 13-karty (4), 14-karty-bojova-karta (1), 14b-vybaveni (1), 14c-boj-reakce (1), 14d-vybaveni-katalog (1), 15-karty-artikule (2), 16-srd-ukazky-sezeni-hrac (2), 17-karty-ii (2), 17b-kouzla-ucinky (1), 18-pravidla-postavy (1), 19-karty-beyond (1), 20-boj-hraci (2), 20b-boj-vypravec (1), 20c-boj-ridery (1), 20d-boj-render (2), 20e-boj-vlastnosti (1), 20f-scena (1), 20g-boj-mistrovstvi (1), 21-editor-pecet (2), 22-vyprava (2), 22b-vyprava (3), 23-potvrzovani (1), 24-boj-zaznam (1), 26-start (3)
-- poskytuje: besc byId FAM mmDex armsImg FICON ARMS CONFN mmLina CARMS faith shield0 mmPozdeji mmZrus relGroups rIco TOWNICO ZEMEPIS CASTLEICO mmLinyHotove mmLinyPro REL SFICON shield townImg TOWNSEATS
+- používají ho: 02-mapa (20), 02b-mapa-kresba (7), 03-artikule (1), 04b-praha-plan (7), 05b-svet-mapa (2), 06-draconomicon-rodokmeny (2), 07-druzina-kronika (6), 08-navigace-pravidla (13), 09-vypravec-herni-cas (3), 10-kouzla (3), 10q-plne-texty (1), 11-boj (3), 12-boj-tah-postavy (1), 13-karty (4), 14-karty-bojova-karta (1), 14b-vybaveni (1), 14c-boj-reakce (1), 14d-vybaveni-katalog (1), 15-karty-artikule (2), 16-srd-ukazky-sezeni-hrac (2), 17-karty-ii (2), 17b-kouzla-ucinky (1), 18-pravidla-postavy (1), 19-karty-beyond (1), 20-boj-hraci (2), 20b-boj-vypravec (1), 20c-boj-ridery (1), 20d-boj-render (2), 20e-boj-vlastnosti (1), 20f-scena (1), 20g-boj-mistrovstvi (1), 21-editor-pecet (2), 22-vyprava (2), 22b-vyprava (4), 23-potvrzovani (1), 24-boj-zaznam (1), 26-start (3)
+- poskytuje: besc byId FAM mmDex armsImg FICON ARMS CONFN mileTxt mmLina CARMS faith shield0 CASTLEICO mmPozdeji mmZrus relGroups rIco TOWNICO TOWNSEATS ZEMEPIS mmLinyHotove mmLinyPro REL SFICON shield townImg
 - oddíly:
-  - ř. 128: Samostatné části skriptu (2026-10-19): kresba map, plán Prahy, mapa světa, Výprava a editor textů se stahují,
+  - ř. 136: Samostatné části skriptu (2026-10-19): kresba map, plán Prahy, mapa světa, Výprava a editor textů se stahují,
 
 ## 02-mapa
 
 map geometry
 
-- 3483 řádků, 151 definic na nejvyšší úrovni, z toho 82 používají jiné soubory
-- používá z: 01-zaklad (17), 02b-mapa-kresba (1), 02c-zbroj (1), 04-praha (2), 08-navigace-pravidla (2)
-- používají ho: 01-zaklad (1), 02b-mapa-kresba (42), 03-artikule (4), 04b-praha-plan (5), 05-svet (1), 05b-svet-mapa (7), 06-draconomicon-rodokmeny (3), 07-druzina-kronika (11), 08-navigace-pravidla (18), 09-vypravec-herni-cas (18), 10-kouzla (5), 11-boj (10), 12-boj-tah-postavy (6), 13-karty (1), 14-karty-bojova-karta (6), 14b-vybaveni (2), 14c-boj-reakce (2), 14d-vybaveni-katalog (5), 16-srd-ukazky-sezeni-hrac (2), 17-karty-ii (1), 17b-kouzla-ucinky (1), 18-pravidla-postavy (2), 19-karty-beyond (1), 20-boj-hraci (3), 20b-boj-vypravec (3), 20c-boj-ridery (1), 20e-boj-vlastnosti (1), 22-vyprava (1), 22b-vyprava (12), 24-boj-zaznam (1), 26-start (2)
-- poskytuje: BZRT bikZr bikZv PBY PEOPLE _nrm bikZb el st bikZrTxt BVLZ drawMap haversine P SHORT norm placeBy DIO DUCHY FORESTS inPoly mapDrag NAMEPTS nearMountain peopleOf relsFor renderTravel show svg svgG TOWNS updateRoute bikZbTip BZVK CITYINFO computeRoute days drawGraph gsvg KRAJE … (+42)
+- 4739 řádků, 159 definic na nejvyšší úrovni, z toho 87 používají jiné soubory
+- používá z: 01-zaklad (20), 02b-mapa-kresba (1), 02c-zbroj (1), 02e-krajina (8), 04-praha (2), 07-druzina-kronika (1), 08-navigace-pravidla (2)
+- používají ho: 01-zaklad (1), 02b-mapa-kresba (47), 03-artikule (4), 04b-praha-plan (5), 05-svet (1), 05b-svet-mapa (7), 06-draconomicon-rodokmeny (3), 07-druzina-kronika (11), 08-navigace-pravidla (18), 09-vypravec-herni-cas (18), 10-kouzla (5), 11-boj (10), 12-boj-tah-postavy (6), 13-karty (1), 14-karty-bojova-karta (6), 14b-vybaveni (2), 14c-boj-reakce (2), 14d-vybaveni-katalog (5), 16-srd-ukazky-sezeni-hrac (2), 17-karty-ii (1), 17b-kouzla-ucinky (1), 18-pravidla-postavy (2), 19-karty-beyond (1), 20-boj-hraci (3), 20b-boj-vypravec (3), 20c-boj-ridery (1), 20e-boj-vlastnosti (1), 22-vyprava (1), 22b-vyprava (13), 24-boj-zaznam (1), 26-start (2)
+- poskytuje: BZRT bikZr bikZv PBY PEOPLE _nrm bikZb el st bikZrTxt BVLZ drawMap haversine P SHORT norm placeBy BAZINY CITYINFO DIO DUCHY FORESTS inPoly mapDrag NAMEPTS nearMountain peopleOf relsFor renderTravel show svg svgG TOWNS updateRoute bikZbTip BZVK computeRoute days drawGraph gsvg … (+47)
 
 ## 02b-mapa-kresba
 
 Mapa zemí: kresba (geometrie zemí, diecézí, panství, lesů a hor a funkce drawMap) – samostatná část „mapa“, načte se až na stránce Mapa či Výprava (2026-10-19)
 
-- 6621 řádků, 33 definic na nejvyšší úrovni, z toho 1 používají jiné soubory
-- používá z: 01-zaklad (6), 02-mapa (42), 07-druzina-kronika (1), 08-navigace-pravidla (1)
+- 7107 řádků, 36 definic na nejvyšší úrovni, z toho 1 používají jiné soubory
+- používá z: 01-zaklad (7), 02-mapa (47), 02e-krajina (4), 07-druzina-kronika (1), 08-navigace-pravidla (1)
 - používají ho: 02-mapa (1)
 - poskytuje: drawMapK
 
@@ -51,11 +51,20 @@ Mapa zemí: kresba (geometrie zemí, diecézí, panství, lesů a hor a funkce d
 - používají ho: 26-start (1)
 - poskytuje: pojmyCz
 
+## 02e-krajina
+
+@čisté – Krajina roku 1458 na mapě zemí (2026-10-26, Vojta): přechody (průsmyky, mosty, brody, přívozy), hospodářství (doly, sůl,
+
+- 686 řádků, 11 definic na nejvyšší úrovni, z toho 9 používají jiné soubory
+- používá z: –
+- používají ho: 02-mapa (8), 02b-mapa-kresba (4), 09-vypravec-herni-cas (1), 22b-vyprava (4)
+- poskytuje: PRECHODY ZPUSTLE HOSP_BODY HOSP_OBL PRECH_DRUH prechodStav prechodyNaTrase HOSP_DRUH zpustlyKraj
+
 ## 03-artikule
 
 Artikule: pravidla tažení, rozdělená do knih a kapitol
 
-- 1111 řádků, 17 definic na nejvyšší úrovni, z toho 5 používají jiné soubory
+- 1112 řádků, 17 definic na nejvyšší úrovni, z toho 5 používají jiné soubory
 - používá z: 01-zaklad (1), 02-mapa (4), 07-druzina-kronika (1), 15-karty-artikule (1)
 - používají ho: 07-druzina-kronika (3), 08-navigace-pravidla (3)
 - poskytuje: ARTK ARTB GLOSS strip renderArtikule
@@ -98,7 +107,7 @@ Známý svět: mapa Evropy a Středomoří k 3. 3. 1458
 Známý svět: kresba mapy Evropy, detail, výběr – samostatná část „svet“, načte se až na stránce Známý svět (2026-10-19)
 
 - 1273 řádků, 9 definic na nejvyšší úrovni, z toho 4 používají jiné soubory
-- používá z: 01-zaklad (1), 02-mapa (7), 04-praha (1), 04b-praha-plan (1), 05-svet (33), 06-draconomicon-rodokmeny (2), 07-druzina-kronika (5), 08-navigace-pravidla (1), 09-vypravec-herni-cas (1)
+- používá z: 01-zaklad (2), 02-mapa (7), 04-praha (1), 04b-praha-plan (1), 05-svet (33), 06-draconomicon-rodokmeny (2), 07-druzina-kronika (5), 08-navigace-pravidla (1), 09-vypravec-herni-cas (1)
 - používají ho: 08-navigace-pravidla (3), 09-vypravec-herni-cas (3), 22b-vyprava (3)
 - poskytuje: sDraw smRender svInit sSel
 
@@ -120,7 +129,7 @@ Družina · Kronika tažení · automatické odkazy · hledání
 
 - 1447 řádků, 67 definic na nejvyšší úrovni, z toho 30 používají jiné soubory
 - používá z: 01-zaklad (6), 02-mapa (11), 03-artikule (3), 04-praha (5), 05-svet (1), 06-draconomicon-rodokmeny (3), 08-navigace-pravidla (3), 09-vypravec-herni-cas (11), 22-vyprava (1)
-- používají ho: 02b-mapa-kresba (1), 03-artikule (1), 04b-praha-plan (3), 05b-svet-mapa (5), 06-draconomicon-rodokmeny (4), 08-navigace-pravidla (7), 09-vypravec-herni-cas (18), 10-kouzla (7), 11-boj (3), 12-boj-tah-postavy (2), 13-karty (1), 14-karty-bojova-karta (1), 14b-vybaveni (1), 14c-boj-reakce (1), 14d-vybaveni-katalog (1), 15-karty-artikule (7), 16-srd-ukazky-sezeni-hrac (7), 17-karty-ii (1), 17b-kouzla-ucinky (1), 19-karty-beyond (1), 20b-boj-vypravec (2), 20d-boj-render (2), 21-editor-pecet (7), 22-vyprava (4), 22b-vyprava (8), 23-potvrzovani (1), 25-puls (2), 26-start (2)
+- používají ho: 02-mapa (1), 02b-mapa-kresba (1), 03-artikule (1), 04b-praha-plan (3), 05b-svet-mapa (5), 06-draconomicon-rodokmeny (4), 08-navigace-pravidla (7), 09-vypravec-herni-cas (18), 10-kouzla (7), 11-boj (3), 12-boj-tah-postavy (2), 13-karty (1), 14-karty-bojova-karta (1), 14b-vybaveni (1), 14c-boj-reakce (1), 14d-vybaveni-katalog (1), 15-karty-artikule (7), 16-srd-ukazky-sezeni-hrac (7), 17-karty-ii (1), 17b-kouzla-ucinky (1), 19-karty-beyond (1), 20b-boj-vypravec (2), 20d-boj-render (2), 21-editor-pecet (7), 22-vyprava (4), 22b-vyprava (8), 23-potvrzovani (1), 25-puls (2), 26-start (2)
 - poskytuje: HRA KARTY PARTY partyDate partyPlace autolink MES ZAPISY fromJdn herniDen jdn renderKal renderKronika SVST ZBY DISC feasts renderDruzina dialCtx dialPoc DNY hraUkolyHtml kronikaPrekresli pFaith renderNovinky svMeter tvarLet vekPostavy drawParty kalHero
 - oddíly:
   - ř. 3: DRUŽINA
@@ -137,29 +146,29 @@ Družina · Kronika tažení · automatické odkazy · hledání
 
 site navigation: views, house and person articles
 
-- 1067 řádků, 52 definic na nejvyšší úrovni, z toho 19 používají jiné soubory
+- 1083 řádků, 52 definic na nejvyšší úrovni, z toho 19 používají jiné soubory
 - používá z: 01-zaklad (13), 02-mapa (18), 03-artikule (3), 04-praha (5), 04b-praha-plan (2), 05-svet (4), 05b-svet-mapa (3), 06-draconomicon-rodokmeny (4), 07-druzina-kronika (7), 09-vypravec-herni-cas (1), 10-kouzla (4), 10q-plne-texty (1), 11-boj (3), 13-karty (2), 14d-vybaveni-katalog (1), 15-karty-artikule (4), 16-srd-ukazky-sezeni-hrac (5), 17-karty-ii (1), 18-pravidla-postavy (5), 20d-boj-render (2), 22b-vyprava (2)
 - používají ho: 02-mapa (2), 02b-mapa-kresba (1), 05b-svet-mapa (1), 06-draconomicon-rodokmeny (2), 07-druzina-kronika (3), 09-vypravec-herni-cas (4), 10-kouzla (2), 10q-plne-texty (3), 11-boj (4), 13-karty (3), 14-karty-bojova-karta (3), 14b-vybaveni (1), 14c-boj-reakce (1), 14d-vybaveni-katalog (1), 15-karty-artikule (1), 16-srd-ukazky-sezeni-hrac (8), 17-karty-ii (7), 17b-kouzla-ucinky (1), 19-karty-beyond (2), 20-boj-hraci (1), 20b-boj-vypravec (2), 20d-boj-render (4), 21-editor-pecet (2), 22-vyprava (1), 22b-vyprava (1), 23-potvrzovani (2), 25-puls (2), 26-start (2)
 - poskytuje: curView mmNaHre navTo featyMuze route PULTTAB featyMd mmCela PORTR portU renderPersonArticle renderRodArticle FEATY featyNacti MMCELA_WEB pThumb SRDP ucetBoxHtml ucetMuze
 - oddíly:
-  - ř. 330: Pravidla: český překlad SRD 5.2.1 s poznámkami Artikulí (art/pravidla.json, načte se až při otevření)
-  - ř. 946: Iluminované iniciály: první písmeno zápisu, oddílu Artikulí, kapitoly Draconomiconu a zápisu kronikáře o rodu
-  - ř. 980: Účet hráče s heslem (2026-10-20): založení a přihlášení na Úvodu i na stránce Hra; vedle Discordu
+  - ř. 346: Pravidla: český překlad SRD 5.2.1 s poznámkami Artikulí (art/pravidla.json, načte se až při otevření)
+  - ř. 962: Iluminované iniciály: první písmeno zápisu, oddílu Artikulí, kapitoly Draconomiconu a zápisu kronikáře o rodu
+  - ř. 996: Účet hráče s heslem (2026-10-20): založení a přihlášení na Úvodu i na stránce Hra; vedle Discordu
 
 ## 09-vypravec-herni-cas
 
 Vypravěč: stavy odhalení (Skryté / Slyšeli / Potkali), přihlášení a přehled
 
-- 1018 řádků, 49 definic na nejvyšší úrovni, z toho 33 používají jiné soubory
-- používá z: 01-zaklad (3), 02-mapa (18), 04-praha (1), 05-svet (4), 05b-svet-mapa (3), 06-draconomicon-rodokmeny (3), 07-druzina-kronika (18), 08-navigace-pravidla (4), 11-boj (3), 20d-boj-render (1), 21-editor-pecet (5), 22-vyprava (4), 22b-vyprava (1)
+- 1021 řádků, 49 definic na nejvyšší úrovni, z toho 33 používají jiné soubory
+- používá z: 01-zaklad (3), 02-mapa (18), 02e-krajina (1), 04-praha (1), 05-svet (4), 05b-svet-mapa (3), 06-draconomicon-rodokmeny (3), 07-druzina-kronika (18), 08-navigace-pravidla (4), 11-boj (3), 20d-boj-render (1), 21-editor-pecet (5), 22-vyprava (4), 22b-vyprava (1)
 - používají ho: 05b-svet-mapa (1), 06-draconomicon-rodokmeny (1), 07-druzina-kronika (11), 08-navigace-pravidla (1), 10-kouzla (20), 11-boj (3), 12-boj-tah-postavy (1), 13-karty (1), 14-karty-bojova-karta (2), 14b-vybaveni (1), 14c-boj-reakce (1), 15-karty-artikule (4), 16-srd-ukazky-sezeni-hrac (4), 17-karty-ii (1), 17b-kouzla-ucinky (1), 18-pravidla-postavy (1), 19-karty-beyond (1), 20b-boj-vypravec (4), 20c-boj-ridery (1), 20d-boj-render (2), 20e-boj-vlastnosti (1), 20f-scena (1), 21-editor-pecet (3), 22-vyprava (2), 22b-vyprava (7), 23-potvrzovani (3), 25-puls (2)
 - poskytuje: mmHlasG hraUloz cT cTxt gmSeg hraPo hraPosun partyPos zavojInfo cestaAktivni cestaMisto cestaPlan cestaPoz gmLv gmPl zavojBan cDat cDokonciG CESTA_ZP cKde cNejbliz cZaznamG gmMark gmRefresh gmSum gmUloz pozehnaniDnes STAV STLBL zapisNovy CESTA_ODCH pozBadge zapisDoHry
 - oddíly:
   - ř. 135: Při hře: plovoucí panel vypravěče – rychlé hledání a Skryté/Slyšeli/Potkali odkudkoli (Ctrl+K)
-  - ř. 518: Herní čas: jedno místo pro uložení a posun (Při hře, přehled vypravěče, mapy)
-  - ř. 745: Kronika z herního stavu: nový zápis s datem, hodinou, místem, trasou a podklady (putování, boj, počasí); ulože
-  - ř. 853: Mapa jako paměť tažení: posuvník po zápisech Kroniky
-  - ř. 894: Měření a cesta z místa kliknutí na místo kliknutí (mapa zemí Koruny)
+  - ř. 521: Herní čas: jedno místo pro uložení a posun (Při hře, přehled vypravěče, mapy)
+  - ř. 748: Kronika z herního stavu: nový zápis s datem, hodinou, místem, trasou a podklady (putování, boj, počasí); ulože
+  - ř. 856: Mapa jako paměť tažení: posuvník po zápisech Kroniky
+  - ř. 897: Měření a cesta z místa kliknutí na místo kliknutí (mapa zemí Koruny)
 
 ## 10-kouzla
 
@@ -214,8 +223,8 @@ Plné znění kouzel a předmětů (Vojtovy tabulky, 2026-10-24) – jen pro př
 
 - 94 řádků, 13 definic na nejvyšší úrovni, z toho 12 používají jiné soubory
 - používá z: –
-- používají ho: 14-karty-bojova-karta (9), 16-srd-ukazky-sezeni-hrac (3), 17-karty-ii (3), 20c-boj-ridery (4), 20g-boj-mistrovstvi (3)
-- poskytuje: tahKlic tahObnov tahJednouVolne tahJednouZapis tahNastav tahOznac tahPohyb tahMa tahPohni tahPrepni tahSprint tahSurge
+- používají ho: 14-karty-bojova-karta (9), 16-srd-ukazky-sezeni-hrac (3), 17-karty-ii (3), 20c-boj-ridery (4), 20g-boj-mistrovstvi (4)
+- poskytuje: tahKlic tahObnov tahJednouVolne tahJednouZapis tahNastav tahOznac tahPohni tahPohyb tahMa tahPrepni tahSprint tahSurge
 - oddíly:
   - ř. 62: pohyb a Sprint (2026-10-25)
 
@@ -234,10 +243,10 @@ Plné znění kouzel a předmětů (Vojtovy tabulky, 2026-10-24) – jen pro př
 
 @čisté – Vlastnosti a mistrovství zbraní (Weapon Traits a Weapon Masteries, 2026-10-24)
 
-- 151 řádků, 13 definic na nejvyšší úrovni, z toho 11 používají jiné soubory
+- 153 řádků, 14 definic na nejvyšší úrovni, z toho 12 používají jiné soubory
 - používá z: –
-- používají ho: 14-karty-bojova-karta (2), 18-pravidla-postavy (1), 20g-boj-mistrovstvi (10)
-- poskytuje: ZBRMS ZBRVL zbrBezMod ZBRMA zbrMaMa zbrMod zbrObour zbrPomala zbrRozbor zbrTezkaNev zbrVersKost
+- používají ho: 14-karty-bojova-karta (2), 18-pravidla-postavy (1), 20g-boj-mistrovstvi (11)
+- poskytuje: ZBRMS ZBRVL zbrBezMod ZBRMA zbrMaMa zbrMod zbrObour zbrPomala zbrRozbor zbrTezkaNev zbrVersKost zbrZalic
 
 ## 11-boj
 
@@ -298,10 +307,10 @@ Karty postav: import listu z PDF D&D Beyond, trvalý stav, hody se Závojem, odp
 
 Karta: vybavení z nabídky (2026-10-17) – zbraně a zbroj SRD 5.2.1, výstroj, magické předměty SRD.
 
-- 2499 řádků, 107 definic na nejvyšší úrovni, z toho 34 používají jiné soubory
+- 2499 řádků, 107 definic na nejvyšší úrovni, z toho 35 používají jiné soubory
 - používá z: 01-zaklad (1), 02-mapa (6), 02c-zbroj (1), 04-praha (1), 07-druzina-kronika (1), 08-navigace-pravidla (3), 09-vypravec-herni-cas (2), 10p-pravidla (6), 10t-tah (9), 10u-ucinky (2), 10w-zbrane (2), 11-boj (21), 12-boj-tah-postavy (12), 13-karty (18), 14b-vybaveni (6), 14c-boj-reakce (6), 14d-vybaveni-katalog (5), 15-karty-artikule (20), 16-srd-ukazky-sezeni-hrac (8), 17-karty-ii (22), 17b-kouzla-ucinky (5), 18-pravidla-postavy (36), 19-karty-beyond (14), 20-boj-hraci (12), 20b-boj-vypravec (2), 20c-boj-ridery (5), 20d-boj-render (2), 20e-boj-vlastnosti (4), 20g-boj-mistrovstvi (6), 23-potvrzovani (4), 24-boj-zaznam (1)
-- používají ho: 11-boj (1), 12-boj-tah-postavy (2), 13-karty (4), 14b-vybaveni (5), 14c-boj-reakce (2), 14d-vybaveni-katalog (1), 16-srd-ukazky-sezeni-hrac (5), 17-karty-ii (1), 17b-kouzla-ucinky (1), 18-pravidla-postavy (1), 19-karty-beyond (1), 20-boj-hraci (15), 20b-boj-vypravec (4), 20c-boj-ridery (1), 20d-boj-render (4), 20e-boj-vlastnosti (1), 20g-boj-mistrovstvi (1), 23-potvrzovani (1)
-- poskytuje: BDM BGMU bdmPrekresli bojBptOznac bdmZvl kLbTxt kVybPridej KZBRV bdmIc bdmLepky bdmZvlAuto bojCileL bojCilMoz bojPapCil bojPcHrac bojRidNavic bojSikTypy bojTrikZvol bojUtTyp bRucN BTABH BUTYP kartaJednaHtml kJeZbran KKOSTTAJ kStavyTab kZbrU kZbrvUloz bojEvasiveKonec bojHracKarta bRucPrevezmi kKostAdv kPoolDopl kZbrUziti
+- používají ho: 11-boj (1), 12-boj-tah-postavy (2), 13-karty (4), 14b-vybaveni (5), 14c-boj-reakce (2), 14d-vybaveni-katalog (1), 16-srd-ukazky-sezeni-hrac (5), 17-karty-ii (1), 17b-kouzla-ucinky (1), 18-pravidla-postavy (1), 19-karty-beyond (1), 20-boj-hraci (15), 20b-boj-vypravec (4), 20c-boj-ridery (1), 20d-boj-render (4), 20e-boj-vlastnosti (1), 20g-boj-mistrovstvi (2), 23-potvrzovani (1)
+- poskytuje: BDM BGMU bdmPrekresli bojBptOznac bdmZvl kLbTxt kVybPridej KZBRV bdmIc bdmLepky bdmZvlAuto bojBpt bojCileL bojCilMoz bojPapCil bojPcHrac bojRidNavic bojSikTypy bojTrikZvol bojUtTyp bRucN BTABH BUTYP kartaJednaHtml kJeZbran KKOSTTAJ kStavyTab kZbrU kZbrvUloz bojEvasiveKonec bojHracKarta bRucPrevezmi kKostAdv kPoolDopl kZbrUziti
 - oddíly:
   - ř. 156: Boj: karta postavy hráče ve formátu karty NPC (2026-10-17) – hlavička (AC, životy, R), rozbalená část
   - ř. 1325: Boj: bojová karta postavy v rozvržení D&D Beyond na telefonu (2026-10-17) – úsporná: hlavička (AC s obětováním
@@ -439,8 +448,8 @@ Pravidla postavy (2026-10-17): karta počítá podle pravidel D&D 2024 (SRD 5.2.
 
 - 1311 řádků, 103 definic na nejvyšší úrovni, z toho 53 používají jiné soubory
 - používá z: 01-zaklad (1), 02-mapa (2), 02c-zbroj (1), 09-vypravec-herni-cas (1), 10-kouzla (2), 10p-pravidla (5), 10w-zbrane (1), 11-boj (5), 12-boj-tah-postavy (2), 13-karty (5), 14-karty-bojova-karta (1), 15-karty-artikule (2), 16-srd-ukazky-sezeni-hrac (5), 17-karty-ii (6), 17b-kouzla-ucinky (3)
-- používají ho: 08-navigace-pravidla (5), 11-boj (3), 12-boj-tah-postavy (11), 13-karty (18), 14-karty-bojova-karta (36), 14b-vybaveni (5), 14c-boj-reakce (7), 14d-vybaveni-katalog (1), 15-karty-artikule (9), 16-srd-ukazky-sezeni-hrac (10), 17-karty-ii (19), 17b-kouzla-ucinky (8), 19-karty-beyond (20), 20-boj-hraci (4), 20b-boj-vypravec (4), 20c-boj-ridery (3), 20d-boj-render (3), 20e-boj-vlastnosti (3), 20g-boj-mistrovstvi (4), 23-potvrzovani (1)
-- poskytuje: kHPmax kSloty kLv kPB kUtoky kVl kAC kCtx kZach kIni kSpDC kZdroje kTridy kZbranInfo kDov kOdol kSpolId kSpU1 kSpUt kZbrInfo kACR kKostkyPool kMd kNoseno kOvB kRychN kSpol kSpolBoj KSPOLC KTR kVl0 MIMO kHDtxt kHodn kMunOdecti kMunTxt kOmezena kPas kPripHtml kRozpis … (+13)
+- používají ho: 08-navigace-pravidla (5), 11-boj (3), 12-boj-tah-postavy (11), 13-karty (18), 14-karty-bojova-karta (36), 14b-vybaveni (5), 14c-boj-reakce (7), 14d-vybaveni-katalog (1), 15-karty-artikule (9), 16-srd-ukazky-sezeni-hrac (10), 17-karty-ii (19), 17b-kouzla-ucinky (8), 19-karty-beyond (20), 20-boj-hraci (4), 20b-boj-vypravec (4), 20c-boj-ridery (3), 20d-boj-render (3), 20e-boj-vlastnosti (3), 20g-boj-mistrovstvi (5), 23-potvrzovani (1)
+- poskytuje: kHPmax kSloty kLv kPB kUtoky kVl kAC kCtx kZach kIni kSpDC kZdroje kTridy kZbranInfo kDov kOdol kRychN kSpolId kSpU1 kSpUt kZbrInfo kACR kKostkyPool kMd kNoseno kOvB kSpol kSpolBoj KSPOLC KTR kVl0 MIMO kHDtxt kHodn kMunOdecti kMunTxt kOmezena kPas kPripHtml kRozpis … (+13)
 - oddíly:
   - ř. 126: povolání a úrovně
   - ř. 149: kontext: vstupy modelu (aktuální stav, nebo stav PDF pro porovnání)
@@ -478,13 +487,13 @@ karta jako D&D Beyond (2026-10-17 b): portrét, batohy a směna mincí, historie
 
 Boj: hráč na telefonu (2026-10-20 rozděleno z 20-boj-hraci.js) – formulář útoku (BJU) a jeho obnova po načtení,
 
-- 957 řádků, 34 definic na nejvyšší úrovni, z toho 25 používají jiné soubory
-- používá z: 01-zaklad (2), 02-mapa (3), 04-praha (1), 08-navigace-pravidla (1), 10p-pravidla (3), 11-boj (17), 12-boj-tah-postavy (5), 13-karty (4), 14-karty-bojova-karta (15), 14c-boj-reakce (6), 15-karty-artikule (9), 16-srd-ukazky-sezeni-hrac (2), 17-karty-ii (16), 17b-kouzla-ucinky (1), 18-pravidla-postavy (4), 20b-boj-vypravec (2), 20c-boj-ridery (1), 20d-boj-render (3), 20e-boj-vlastnosti (4), 20g-boj-mistrovstvi (5), 23-potvrzovani (1)
+- 958 řádků, 34 definic na nejvyšší úrovni, z toho 25 používají jiné soubory
+- používá z: 01-zaklad (2), 02-mapa (3), 04-praha (1), 08-navigace-pravidla (1), 10p-pravidla (3), 11-boj (17), 12-boj-tah-postavy (5), 13-karty (4), 14-karty-bojova-karta (15), 14c-boj-reakce (6), 15-karty-artikule (9), 16-srd-ukazky-sezeni-hrac (2), 17-karty-ii (16), 17b-kouzla-ucinky (1), 18-pravidla-postavy (4), 20b-boj-vypravec (2), 20c-boj-ridery (1), 20d-boj-render (3), 20e-boj-vlastnosti (4), 20g-boj-mistrovstvi (6), 23-potvrzovani (1)
 - používají ho: 12-boj-tah-postavy (2), 13-karty (4), 14-karty-bojova-karta (12), 14c-boj-reakce (1), 17-karty-ii (4), 17b-kouzla-ucinky (3), 19-karty-beyond (1), 20b-boj-vypravec (7), 20c-boj-ridery (3), 20d-boj-render (7), 20e-boj-vlastnosti (1), 20g-boj-mistrovstvi (1), 25-puls (1)
 - poskytuje: BJU bojAdvHrac bojJaZas bojJaHod bojJaZvolKouzlo kSpBoj BJK bojEfZnacene bojForm bojFormZbr bojJaCilMax bojJaObnov bojJaSp bojJaSpDmg bojJaUloz bojJaUtokHtml bojKonHtml bojUtokPriprav bojWake BZNADV bojJaNeprihl bojJaPosli bojUpozorni bojZazHlidej bojZbraneHtml
 - oddíly:
   - ř. 410: Jeden hod na útok pro hráče z telefonu i vypravěče za hráče (2026-10-20)
-  - ř. 813: Paměť telefonu v boji (2026-10-20): co už hráč viděl a co má rozehrané
+  - ř. 814: Paměť telefonu v boji (2026-10-20): co už hráč viděl a co má rozehrané
 
 ## 20b-boj-vypravec
 
@@ -549,12 +558,12 @@ Scéna mimo boj: NPC ve scéně (statistiky, víra, cíle), jednání hráčů s
 
 Boj: vlastnosti a mistrovství zbraní (Weapon Traits a Weapon Masteries, 2026-10-24, Vojta)
 
-- 249 řádků, 19 definic na nejvyšší úrovni, z toho 15 používají jiné soubory
-- používá z: 01-zaklad (1), 04-praha (1), 10p-pravidla (4), 10t-tah (3), 10w-zbrane (10), 11-boj (4), 12-boj-tah-postavy (4), 14-karty-bojova-karta (1), 17-karty-ii (3), 18-pravidla-postavy (4), 20-boj-hraci (1), 20b-boj-vypravec (1), 20e-boj-vlastnosti (1)
-- používají ho: 11-boj (1), 12-boj-tah-postavy (1), 14-karty-bojova-karta (6), 20-boj-hraci (5), 20b-boj-vypravec (4), 20c-boj-ridery (2)
-- poskytuje: bojWmNavic bojManPayload bojWmPayload bojWUprav BWMIK bojManVyhodnot bojWAdv bojWmMinuti bojWmProved bojWmRidery bojWmSapPouzit bojWmTahVlastnika bojWmVolbyHtml bojWmVyhodnot bojWPopisHtml
+- 258 řádků, 20 definic na nejvyšší úrovni, z toho 16 používají jiné soubory
+- používá z: 01-zaklad (1), 04-praha (1), 10p-pravidla (4), 10t-tah (4), 10w-zbrane (11), 11-boj (4), 12-boj-tah-postavy (4), 14-karty-bojova-karta (2), 17-karty-ii (3), 18-pravidla-postavy (5), 20-boj-hraci (1), 20b-boj-vypravec (1), 20e-boj-vlastnosti (1)
+- používají ho: 11-boj (1), 12-boj-tah-postavy (1), 14-karty-bojova-karta (6), 20-boj-hraci (6), 20b-boj-vypravec (4), 20c-boj-ridery (2)
+- poskytuje: bojWmNavic bojManPayload bojWmPayload bojWUprav BWMIK bojManVyhodnot bojWAdv bojWmMinuti bojWmProved bojWmRidery bojWmSapPouzit bojWmTahVlastnika bojWmVolbyHtml bojWmVyhodnot bojWPopisHtml bojWZalicPohyb
 - oddíly:
-  - ř. 116: vypravěč: vyhodnocení při zápisu útoku hráče
+  - ř. 125: vypravěč: vyhodnocení při zápisu útoku hráče
 
 ## 21-editor-pecet
 
@@ -573,10 +582,10 @@ Vypravěč: úpravy textů a obrázků přímo na webu
 
 VÝPRAVA: cesta družiny podle pravidel Uncharted Journeys (stránka jen pro vypravěče)
 
-- 813 řádků, 52 definic na nejvyšší úrovni, z toho 29 používají jiné soubory
+- 813 řádků, 52 definic na nejvyšší úrovni, z toho 30 používají jiné soubory
 - používá z: 01-zaklad (2), 02-mapa (1), 04-praha (1), 07-druzina-kronika (4), 08-navigace-pravidla (1), 09-vypravec-herni-cas (2), 22b-vyprava (1)
-- používají ho: 07-druzina-kronika (1), 09-vypravec-herni-cas (4), 22b-vyprava (28)
-- poskytuje: hraZpetZapis VY hraZpet VY_NACTENO VY_NOVA VY_REZ VY_TYPY vyDat vyId vyNacti vyPocasi vyUlozHned hraZpetHtml VY_DELKA VY_KRAJ VY_ODCH VY_PRIJ VY_PRIP VY_ROLE VY_TEMPO VY_ZAZ VY_ZP vyDen vyDruzina vyHod vyRychl VYS VYT vyUloz
+- používají ho: 07-druzina-kronika (1), 09-vypravec-herni-cas (4), 22b-vyprava (29)
+- poskytuje: hraZpetZapis VY hraZpet VY_NACTENO VY_NOVA VY_REZ VY_TYPY vyDat vyGreg vyId vyNacti vyPocasi vyUlozHned hraZpetHtml VY_DELKA VY_KRAJ VY_ODCH VY_PRIJ VY_PRIP VY_ROLE VY_TEMPO VY_ZAZ VY_ZP vyDen vyDruzina vyHod vyRychl VYS VYT vyUloz
 - oddíly:
   - ř. 292: počasí
   - ř. 584: stav výpravy
@@ -586,16 +595,16 @@ VÝPRAVA: cesta družiny podle pravidel Uncharted Journeys (stránka jen pro vyp
 
 Výprava: stránka vypravěče (trasa, setkání, počasí na cestě, mapy) – samostatná část „vyprava“, načte se až na stránce Výprava (2026-10-19)
 
-- 1844 řádků, 58 definic na nejvyšší úrovni, z toho 3 používají jiné soubory
-- používá z: 01-zaklad (3), 02-mapa (12), 04-praha (4), 04b-praha-plan (6), 05-svet (5), 05b-svet-mapa (3), 06-draconomicon-rodokmeny (1), 07-druzina-kronika (8), 08-navigace-pravidla (1), 09-vypravec-herni-cas (7), 21-editor-pecet (2), 22-vyprava (28)
+- 1887 řádků, 59 definic na nejvyšší úrovni, z toho 3 používají jiné soubory
+- používá z: 01-zaklad (4), 02-mapa (13), 02e-krajina (4), 04-praha (4), 04b-praha-plan (6), 05-svet (5), 05b-svet-mapa (3), 06-draconomicon-rodokmeny (1), 07-druzina-kronika (8), 08-navigace-pravidla (1), 09-vypravec-herni-cas (7), 21-editor-pecet (2), 22-vyprava (29)
 - používají ho: 08-navigace-pravidla (2), 09-vypravec-herni-cas (1), 22-vyprava (1)
 - poskytuje: renderVyprava vyZazT vyVrat
 - oddíly:
   - ř. 3: výchozí místo a cíl na jednotlivých mapách
   - ř. 232: trasa, časový průběh, obtížnost, setkání
-  - ř. 532: vykreslení
-  - ř. 867: ovládání
-  - ř. 1452: Výprava 2: okolí trasy, draci, vlastní tabulky, noclehy, lidé na cestě, počasí pro hráče, režim u stolu
+  - ř. 573: vykreslení
+  - ř. 909: ovládání
+  - ř. 1495: Výprava 2: okolí trasy, draci, vlastní tabulky, noclehy, lidé na cestě, počasí pro hráče, režim u stolu
 
 ## 23-potvrzovani
 

@@ -6209,6 +6209,98 @@ function mapPodklad(Z, vb, s, k) {
       el("path", {d, fill: "none", stroke: "var(--city)", "stroke-width": (0.55 * s).toFixed(2), "stroke-linecap": "round", opacity: ".45"}),
     );
   });
+  /* hospodářství a zpustlé kraje (2026-10-26): plocha s rozsetými značkami – hrozny, klasy, chmelové tyče, rybníčky, spáleniště */
+  const rozsyp = (g, poly, seed0, hustota, barva, tvar, sirka) => {
+    const pp = poly.map(c => P(...c)),
+      xs = pp.map(q => q[0]),
+      ys = pp.map(q => q[1]),
+      x0 = Math.min(...xs),
+      x1 = Math.max(...xs),
+      y0 = Math.min(...ys),
+      y1 = Math.max(...ys);
+    let seed = seed0;
+    const rnd = () => {
+      seed = (seed * 16807) % 2147483647;
+      return seed / 2147483647;
+    };
+    const want = Math.min(120, Math.round(((x1 - x0) * (y1 - y0)) / (s * s) / hustota));
+    let d = "";
+    for (let n = 0, tries = 0; n < want && tries < want * 4; tries++) {
+      const x = x0 + (x1 - x0) * rnd(),
+        y = y0 + (y1 - y0) * rnd();
+      if (!inPoly(x, y, pp)) continue;
+      n++;
+      d += tvar(x, y, s * (0.8 + rnd() * 0.4));
+    }
+    g.appendChild(
+      el("path", {d, fill: "none", stroke: barva, "stroke-width": ((sirka || 0.6) * s).toFixed(2), "stroke-linecap": "round", opacity: ".75"}),
+    );
+    return pp;
+  };
+  const f1 = v => v.toFixed(1),
+    kruh = (x, y, r) => `M${f1(x - r)},${f1(y)}a${f1(r)},${f1(r)} 0 1,0 ${f1(2 * r)},0a${f1(r)},${f1(r)} 0 1,0 ${f1(-2 * r)},0`;
+  const HOSPZN = {
+    vinice: [
+      "var(--spra)",
+      (x, y, t) => kruh(x - t, y, 0.8 * t) + kruh(x + t, y, 0.8 * t) + kruh(x, y + 1.4 * t, 0.8 * t) + `M${f1(x)},${f1(y - 0.8 * t)}v${f1(-1.4 * t)}`,
+    ],
+    obili: [
+      "var(--gold)",
+      (x, y, t) =>
+        `M${f1(x)},${f1(y + 2 * t)}V${f1(y - 2 * t)}M${f1(x)},${f1(y - 0.6 * t)}l${f1(-1.1 * t)},${f1(-1.1 * t)}M${f1(x)},${f1(y - 0.6 * t)}l${f1(1.1 * t)},${f1(-1.1 * t)}`,
+    ],
+    chmel: ["var(--sisl)", (x, y, t) => `M${f1(x)},${f1(y + 2.2 * t)}V${f1(y - 2.4 * t)}` + kruh(x + 0.9 * t, y - 0.6 * t, 0.7 * t)],
+    rybniky: [
+      "var(--water)",
+      (x, y, t) => `M${f1(x - 2 * t)},${f1(y)}q${f1(2 * t)},${f1(-1.6 * t)} ${f1(4 * t)},0q${f1(-2 * t)},${f1(1.6 * t)} ${f1(-4 * t)},0`,
+    ],
+  };
+  if (st.hosp) {
+    const gh = G({});
+    HOSP_OBL.forEach(([, druh, poly], i) => {
+      const [barva, tvar] = HOSPZN[druh],
+        pp = rozsyp(gh, poly, 31 + i * 47, 140, barva, tvar);
+      gh.insertBefore(
+        el("path", {
+          d: smoothClosed(pp),
+          fill: barva,
+          "fill-opacity": ".08",
+          stroke: barva,
+          "stroke-opacity": ".35",
+          "stroke-width": (0.6 * s).toFixed(2),
+          "stroke-dasharray": `${f1(3 * s)} ${f1(2 * s)}`,
+        }),
+        gh.firstChild,
+      );
+    });
+  }
+  if (st.zpustle) {
+    const gzp = G({});
+    ZPUSTLE.forEach(([, mira, poly], i) => {
+      const pp = rozsyp(
+        gzp,
+        poly,
+        17 + i * 59,
+        mira > 1 ? 320 : 560,
+        "var(--proof)",
+        (x, y, t) =>
+          `M${f1(x - 1.6 * t)},${f1(y - 1.6 * t)}l${f1(3.2 * t)},${f1(3.2 * t)}M${f1(x + 1.6 * t)},${f1(y - 1.6 * t)}l${f1(-3.2 * t)},${f1(3.2 * t)}`,
+        0.7,
+      );
+      gzp.insertBefore(
+        el("path", {
+          d: smoothClosed(pp),
+          fill: "var(--proof)",
+          "fill-opacity": mira > 1 ? ".13" : ".07",
+          stroke: "var(--proof)",
+          "stroke-opacity": ".5",
+          "stroke-width": (0.8 * s).toFixed(2),
+          "stroke-dasharray": `${f1(5 * s)} ${f1(3 * s)}`,
+        }),
+        gzp.firstChild,
+      );
+    });
+  }
   /* forests: drawn trees, conifers in the border hvozd, round crowns in the lowlands */
   /* lesy a hory bez filtru chvění: stovky drobných tvarů by se při posouvání stránky překreslovaly pomalu */
   const gf = G({});
@@ -6391,6 +6483,29 @@ function mapPodklad(Z, vb, s, k) {
       ),
     );
   }
+  /* popisky oblastí hospodářství a zpustlých krajů: až při přiblížení, uprostřed obrysu */
+  if (s < 0.75)
+    for (const [t, poly, barva, it] of [
+      ...(st.hosp ? HOSP_OBL.map(o => [o[0], o[2], o[1] === "obili" ? "var(--mix)" : HOSPZN[o[1]][0], false]) : []),
+      ...(st.zpustle ? ZPUSTLE.map(o => [o[0], o[2], "var(--proof)", true]) : []),
+    ]) {
+      const [x, y] = P(poly.reduce((a, c) => a + c[0], 0) / poly.length, poly.reduce((a, c) => a + c[1], 0) / poly.length);
+      Z.appendChild(
+        el(
+          "text",
+          {
+            x,
+            y,
+            class: "rivlbl",
+            "font-size": (8.5 * k).toFixed(1),
+            "stroke-width": (2.4 * s).toFixed(2),
+            "text-anchor": "middle",
+            style: `fill:${barva}${it ? ";font-style:italic" : ""}`,
+          },
+          t,
+        ),
+      );
+    }
   for (const [t, , L] of [...(st.baziny ? BAZINY : []), ...JEZERA]) {
     if (!L) continue;
     const [x, y] = P(L[0], L[1]);
@@ -6549,7 +6664,7 @@ function drawMapK() {
   /* podklad – krajina, hranice, řeky, lesy, hory, popisky krajiny, papír a rám – je ve vlastní vrstvě #mapz pod mapou: jeho
      filtry (chvění inkoustu, akvarel, papír) jsou na kresbě nejdražší, a tak se kreslí znovu, jen když se změní výřez nebo vrstva,
      která ho mění; výběr rodu, sídla, jejich popisky, vazby a měření kreslí jen horní vrstva #map */
-  const kz = JSON.stringify([D, s, st.dio, st.dom, st.dom ? st.sel : 0, st.duchy, st.kraje, st.roads, st.baziny]);
+  const kz = JSON.stringify([D, s, st.dio, st.dom, st.dom ? st.sel : 0, st.duchy, st.kraje, st.roads, st.baziny, st.hosp, st.zpustle]);
   if (svgZ.dataset.k !== kz) {
     mapPodklad(svgZ, D, s, k);
     svgZ.dataset.k = kz;
@@ -6594,6 +6709,22 @@ function drawMapK() {
         svg.appendChild(pg);
       }
     }
+  /* oblasti hospodářství a zpustlé kraje: plochy v podkladu, klepnout se dá na neviditelnou kopii (panel s popisem) */
+  for (const [k, pole, zap] of [
+    ["ho", HOSP_OBL, st.hosp],
+    ["zp", ZPUSTLE, st.zpustle],
+  ])
+    if (zap)
+      pole.forEach((o, i) => {
+        const pg = el("polygon", {points: o[2].map(c => P(...c).join(",")).join(" "), class: "krajpoly", fill: "#000", "fill-opacity": "0"});
+        pg.appendChild(el("title", {}, o[0]));
+        pg.addEventListener("click", e => {
+          if ((mapDrag && mapDrag.moved) || st.measure) return;
+          e.stopPropagation();
+          showKraj(k, i);
+        });
+        svg.appendChild(pg);
+      });
   const sel = st.sel,
     labels = [];
   const relT = {};
@@ -6714,6 +6845,84 @@ function drawMapK() {
       g.appendChild(el("title", {}, n));
       svg.appendChild(g);
       if (!dim && mistoPopisek(tier, s)) labels.push([x, y, n, tier + 1]);
+    }
+  }
+  /* přechody (průsmyky, mosty, brody, přívozy) a hospodářská místa (doly, sůl, železo): drobné značky, klepnutím panel */
+  {
+    const f1 = v => v.toFixed(1),
+      ZN = {
+        prusmyk: t =>
+          `M${f1(-3.4 * t)},${f1(2 * t)}L${f1(-1 * t)},${f1(-2.6 * t)}L${f1(0.6 * t)},${f1(0)}L${f1(1.6 * t)},${f1(-1.6 * t)}L${f1(3.4 * t)},${f1(2 * t)}`,
+        most: t => `M${f1(-3.6 * t)},${f1(1.6 * t)}Q0,${f1(-2.8 * t)} ${f1(3.6 * t)},${f1(1.6 * t)}M${f1(-4 * t)},${f1(-0.4 * t)}H${f1(4 * t)}`,
+        brod: t =>
+          `M${f1(-3.4 * t)},${f1(-1.2 * t)}q${f1(1.7 * t)},${f1(-1.4 * t)} ${f1(3.4 * t)},0t${f1(3.4 * t)},0M${f1(-3.4 * t)},${f1(1.4 * t)}q${f1(1.7 * t)},${f1(-1.4 * t)} ${f1(3.4 * t)},0t${f1(3.4 * t)},0`,
+        privoz: t =>
+          `M${f1(-3.6 * t)},${f1(0.6 * t)}H${f1(3.6 * t)}L${f1(2.2 * t)},${f1(2.4 * t)}H${f1(-2.2 * t)}ZM0,${f1(0.6 * t)}V${f1(-3 * t)}L${f1(2 * t)},${f1(-0.6 * t)}`,
+        dul: t =>
+          `M${f1(-3 * t)},${f1(3 * t)}L${f1(2.4 * t)},${f1(-2.4 * t)}M${f1(3 * t)},${f1(3 * t)}L${f1(-2.4 * t)},${f1(-2.4 * t)}M${f1(1.2 * t)},${f1(-3.4 * t)}l${f1(2.2 * t)},${f1(2.2 * t)}M${f1(-3.4 * t)},${f1(-1.2 * t)}l${f1(2.2 * t)},${f1(-2.2 * t)}`,
+        sul: t =>
+          `M${f1(-2.8 * t)},0a${f1(2.8 * t)},${f1(2.8 * t)} 0 1,0 ${f1(5.6 * t)},0a${f1(2.8 * t)},${f1(2.8 * t)} 0 1,0 ${f1(-5.6 * t)},0M${f1(-2.8 * t)},0H${f1(2.8 * t)}`,
+        hut: t =>
+          `M${f1(-3.4 * t)},${f1(-1.6 * t)}H${f1(3.4 * t)}L${f1(1.6 * t)},${f1(0.4 * t)}H${f1(1 * t)}V${f1(2.6 * t)}H${f1(-1 * t)}V${f1(0.4 * t)}H${f1(-2 * t)}Z`,
+        jine: t =>
+          `M${f1(-2.6 * t)},${f1(-2.6 * t)}h${f1(5.2 * t)}v${f1(5.2 * t)}h${f1(-5.2 * t)}ZM${f1(-2.6 * t)},${f1(-2.6 * t)}l${f1(5.2 * t)},${f1(5.2 * t)}M${f1(2.6 * t)},${f1(-2.6 * t)}l${f1(-5.2 * t)},${f1(5.2 * t)}`,
+      },
+      BARVA = {
+        prusmyk: "var(--city)",
+        most: "var(--road)",
+        brod: "var(--water)",
+        privoz: "var(--water)",
+        dul: "var(--city)",
+        sul: "var(--city)",
+        hut: "var(--city)",
+        jine: "var(--city)",
+      },
+      body = [
+        ...(st.prechody ? PRECHODY.map((q, i) => ["pre", i, q[0], q[1], q[2], q[3], 0]) : []),
+        ...(st.hosp ? HOSP_BODY.map((q, i) => ["hb", i, q[0], q[1], q[3], q[4], 1]) : []),
+      ],
+      t = Math.max(0.55, Math.min(1.3, s * 1.1));
+    for (const [kk, i, n, druh, lo, la, posun] of body) {
+      const [x0, y0] = P(lo, la),
+        x = x0 + (posun ? 7 * s : 0),
+        y = y0 - (posun ? 6 * s : 0);
+      const g = el("g", {class: "seat kraj", transform: `translate(${f1(x)} ${f1(y)})`, opacity: sel ? 0.35 : 1});
+      g.appendChild(el("circle", {r: (8 * s).toFixed(1), fill: "transparent"}));
+      g.appendChild(el("circle", {r: (4.6 * t).toFixed(2), fill: "var(--paper)", "fill-opacity": ".8", stroke: "none"}));
+      g.appendChild(
+        el("path", {
+          d: ZN[druh](t),
+          fill: druh === "privoz" || druh === "hut" ? BARVA[druh] : "none",
+          "fill-opacity": ".35",
+          stroke: BARVA[druh],
+          "stroke-width": (0.9 * t).toFixed(2),
+          "stroke-linecap": "round",
+          "stroke-linejoin": "round",
+        }),
+      );
+      g.appendChild(el("title", {}, n));
+      g.addEventListener("click", e => {
+        if (mapDrag.moved || st.measure) return;
+        e.stopPropagation();
+        showKraj(kk, i);
+      });
+      svg.appendChild(g);
+      if (kk === "pre" && druh === "prusmyk" && s < 0.55)
+        svg.appendChild(
+          el(
+            "text",
+            {
+              x: f1(x),
+              y: f1(y + 9 * t),
+              class: "rivlbl",
+              "font-size": (7.5 * k).toFixed(1),
+              "stroke-width": (2 * s).toFixed(2),
+              "text-anchor": "middle",
+              style: "fill:var(--city);font-style:italic",
+            },
+            n,
+          ),
+        );
     }
   }
   if (st.dom)

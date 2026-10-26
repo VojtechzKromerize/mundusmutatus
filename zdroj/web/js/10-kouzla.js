@@ -667,7 +667,7 @@ function renderGM() {
       ${P.sezona ? `<p class="gmcpoz">Roční doba: ${P.sezona} – započteno do odhadu.</p>` : ""}
       ${P.noci.length ? `<p class="lbl">Noclehy</p><ol class="gmclist">${P.noci.map(n => `<li>${ds(n.j)} večer: ${n.kde}</li>`).join("")}</ol>` : ""}
       ${P.sv.length ? `<p class="lbl">Kalendář na cestě</p><ul class="gmclist">${P.sv.map(v => `<li${v.hp ? ' class="gmchp"' : ""}>${ds(v.j)}: <b>${v.n}</b>${v.hp ? " – Hodina Pravdy" : v.w ? ` – Požehnání 4–6: ${v.w}` : ""}${v.kde ? ` · ${v.kde}` : ""}</li>`).join("")}</ul>` : ""}
-      ${P.reky.length || P.myta.length ? `<p class="lbl">Po cestě</p><ul class="gmclist">${P.reky.map(r => `<li>${r.r}: ${r.most ? `kamenný most v ${r.most}` : `brod nebo přívoz (${r.kde}) – odhad s ním nepočítá`}</li>`).join("")}${P.myta.map(m => `<li>${m.n}: ${m.t}</li>`).join("")}</ul>` : ""}`;
+      ${P.reky.length || P.myta.length ? `<p class="lbl">Po cestě</p><ul class="gmclist">${P.reky.map(r => `<li>${r.r}: ${r.pr ? r.pr : r.most ? `kamenný most (${r.most})` : `brod nebo přívoz (${r.kde}) – odhad s ním nepočítá`}</li>`).join("")}${P.myta.map(m => `<li>${m.n}: ${m.t}</li>`).join("")}</ul>` : ""}`;
   };
   let cPlan = null;
   const cestaOdhad = () => {

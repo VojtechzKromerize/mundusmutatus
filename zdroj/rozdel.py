@@ -25,6 +25,8 @@ JS = [
     ("02-mapa.js", "/* --- map geometry --- */"),
     ("02b-mapa-kresba.js", "/* ===== Mapa zemí: kresba"),
     ("02c-zbroj.js", "/* @čisté – Druhy zbroje podle Artikulí"),
+    ("02d-pojmy.js", "/* @čisté – Pojmy pro zobrazení česky"),
+    ("02e-krajina.js", "/* @čisté – Krajina roku 1458"),
     ("03-artikule.js", "/* ---------- Artikule: pravidla tažení"),
     ("04-praha.js", "/* ---------- Praha: plán města"),
     ("04b-praha-plan.js", "/* ===== Praha: kreslený plán"),
