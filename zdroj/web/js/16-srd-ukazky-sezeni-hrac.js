@@ -1056,10 +1056,13 @@ const NAVOD = `<ol class="navod"><li><b>Nahraj svou postavu.</b> V D&amp;D Beyon
   <li><b>V boji</b> si na stránce Hra obsadíš volný slot družiny. Až budeš na tahu, telefon zavibruje a web připomene pohyb, akci, bonusovou akci a reakci.</li></ul>`;
 /* ---- upozornění na pozadí (když je stránka otevřená, ale skrytá) ---- */
 function mmNotif(t, b) {
-  if (!document.hidden) return;
+  /* se zapnutými upozorněními v telefonu (Web Push) by totéž přišlo dvakrát */
+  if (!document.hidden || (typeof PUSHST !== "undefined" && PUSHST === "on")) return;
   try {
     if ("Notification" in window && Notification.permission === "granted") {
       const n = new Notification(t, {body: b || "", icon: "art/img/kostka-180.png", tag: "mm-" + t});
+      /* po návratu na web je kostra zavře (koruna.html) */
+      (window.MMNOTIF = window.MMNOTIF || []).push(n);
       n.onclick = () => {
         focus();
         n.close();
@@ -1073,8 +1076,40 @@ const notifBtn = () =>
     : "";
 /* ---- výzvy k hodu ---- */
 let VYZVY = [],
-  VYZVID = 0,
   VYZODP = 0;
+/* výzva, kterou už hráč viděl, a výzvy, které na telefonu zavřel (×): pamatuje si to prohlížeč, takže po znovunačtení stránky
+   nebo aplikace se hlášení „Vypravěč žádá…“ neopakuje (2026-10-26, Vojta) */
+const vyzPamet = (klic, vychozi) => ({
+  get() {
+    try {
+      return JSON.parse(localStorage.getItem(klic)) ?? vychozi;
+    } catch (e) {
+      return vychozi;
+    }
+  },
+  set(v) {
+    try {
+      localStorage.setItem(klic, JSON.stringify(v));
+    } catch (e) {}
+  },
+});
+const vyzVideno = vyzPamet("mm-vyz-videno", 0),
+  vyzSkryte = vyzPamet("mm-vyz-skryte", []);
+/* jak dlouho čeká výzva na hráče: starší (vypravěč ji zapomněl uzavřít, sezení skončilo) se už neukáže a vypravěč ji uzavře */
+const VYZ_ZIVOT = 3 * 3600e3;
+const vyzStara = v => !!v.cas && Date.now() - Date.parse(v.cas) > VYZ_ZIVOT;
+/* výzva, na kterou už hráč nemá reagovat, i když v ní jeho odpověď chybí: stará, zavřená na telefonu, nebo iniciativa, kterou
+   zapsal rovnou do slotu boje, případně boj už začal či skončil (iniciativa patří jen k přípravě boje) */
+function vyzvaVyrizena(v, K) {
+  if (vyzStara(v) || vyzSkryte.get().includes(v.id)) return true;
+  const s = typeof BOJ !== "undefined" ? BOJ.s : null;
+  if ((v.data || {}).typ === "ini" && s) {
+    if (!s.priprava) return true;
+    const h = (s.hraci || []).find(x => bojKartaH(x) === K);
+    if (h && h.hod != null && h.hod !== "") return true;
+  }
+  return false;
+}
 async function vyzvyNacti() {
   if (!window.MMDB || !MMDB.vyzvyNacti) return false;
   try {
@@ -1105,7 +1140,7 @@ const vyzvaTxt = d =>
               : `hod ${d.pozn || "d20"}`;
 const vyzvyMoje = () => {
   const K = jaK();
-  return K ? VYZVY.filter(v => vyzvaPro(v, K.id) && !(v.odpovedi || {})[K.id]) : [];
+  return K ? VYZVY.filter(v => vyzvaPro(v, K.id) && !(v.odpovedi || {})[K.id] && !vyzvaVyrizena(v, K)) : [];
 };
 async function vyzvaHod(id, ne) {
   const v = VYZVY.find(x => x.id === id),
@@ -1160,6 +1195,17 @@ async function vyzvaHod(id, ne) {
     mmHlasG("Odpověď se nepodařilo poslat: " + (e.message || e), 5000);
   }
 }
+/* vypravěč: zapomenuté výzvy uzavře sám – starší než VYZ_ZIVOT a iniciativu, když příprava boje skončila (boj začal nebo se zrušil) */
+const VYZUKL = new Set();
+function vyzvyUklid() {
+  if (!GMV || !window.MMDB || !MMDB.vyzvaZavri) return;
+  const s = typeof BOJ !== "undefined" ? BOJ.s : null;
+  VYZVY.filter(v => !v.zavrena && !VYZUKL.has(v.id) && (vyzStara(v) || ((v.data || {}).typ === "ini" && s && !s.priprava))).forEach(v => {
+    VYZUKL.add(v.id);
+    v.zavrena = true;
+    MMDB.vyzvaZavri(v.id).catch(() => VYZUKL.delete(v.id));
+  });
+}
 /* lišta s výzvou na kterékoli stránce */
 function vyzBar() {
   let b = document.getElementById("mmvyz");
@@ -1178,7 +1224,7 @@ function vyzBar() {
   b.innerHTML = L.slice(0, 4)
     .map(
       v =>
-        `<div class="vyzk"><span>Vypravěč žádá: <b>${besc(vyzvaTxt(v.data))}</b>${v.data.dc && !v.data.skryt ? ` · SO ${v.data.dc}` : ""}${v.data.adv ? (v.data.adv > 0 ? " · s výhodou" : " · s nevýhodou") : ""}${v.data.pozn && v.data.typ !== "hod" ? ` · ${besc(v.data.pozn)}` : ""}</span>${typeof vyzvaProti === "function" && vyzvaProti(v.data) ? `<button type="button" class="gbtn" data-vyzhod="${v.id}">Použít Counterspell</button><button type="button" class="gbtn ghost" data-vyzne="${v.id}">Nechat být</button>` : `<button type="button" class="gbtn" data-vyzhod="${v.id}">🎲 ${v.data.typ === "odp" ? "Odpočinout" : v.data.pozn === KZPYTV ? "Zpytovat" : "Hodit"}</button>`}</div>`,
+        `<div class="vyzk"><span>Vypravěč žádá: <b>${besc(vyzvaTxt(v.data))}</b>${v.data.dc && !v.data.skryt ? ` · SO ${v.data.dc}` : ""}${v.data.adv ? (v.data.adv > 0 ? " · s výhodou" : " · s nevýhodou") : ""}${v.data.pozn && v.data.typ !== "hod" ? ` · ${besc(v.data.pozn)}` : ""}</span>${typeof vyzvaProti === "function" && vyzvaProti(v.data) ? `<button type="button" class="gbtn" data-vyzhod="${v.id}">Použít Counterspell</button><button type="button" class="gbtn ghost" data-vyzne="${v.id}">Nechat být</button>` : `<button type="button" class="gbtn" data-vyzhod="${v.id}">🎲 ${v.data.typ === "odp" ? "Odpočinout" : v.data.pozn === KZPYTV ? "Zpytovat" : "Hodit"}</button>`}<button type="button" class="vyzzav" data-vyzskryj="${v.id}" aria-label="Zavřít výzvu" title="Už vyřízeno – zavřít">×</button></div>`,
     )
     .join("");
 }
@@ -1334,8 +1380,8 @@ async function hraPoll(hned, co) {
   if (!GMV) {
     const m = vyzvyMoje(),
       top = Math.max(0, ...m.map(v => v.id));
-    if (top > VYZVID) {
-      VYZVID = top;
+    if (top > vyzVideno.get()) {
+      vyzVideno.set(top);
       try {
         navigator.vibrate && navigator.vibrate([120, 60, 120]);
       } catch (e) {}
@@ -1349,6 +1395,7 @@ async function hraPoll(hned, co) {
       mmHlasG("Zpráva od vypravěče: " + nz[nz.length - 1].t.slice(0, 140), 7000);
     }
   } else {
+    vyzvyUklid();
     try {
       bojVyzZpracuj();
     } catch (e) {
@@ -1644,6 +1691,13 @@ document.addEventListener("click", async e => {
   const vn = T("[data-vyzne]");
   if (vn) {
     vyzvaHod(+vn.dataset.vyzne, true);
+    return;
+  }
+  const vz = T("[data-vyzskryj]");
+  if (vz) {
+    vyzSkryte.set([+vz.dataset.vyzskryj, ...vyzSkryte.get()].slice(0, 50));
+    vyzBar();
+    hraPrekresli();
     return;
   }
   const vx = T("[data-vyzx]");

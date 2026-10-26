@@ -563,8 +563,11 @@ function spust(D){
   s.textContent=m.textContent;m.after(s);po(D)}
 function po(D){
   document.documentElement.classList.remove("mmload");
-  /* tečka na ikoně aplikace (Badging API) zmizí, jakmile je web vidět */
-  if(navigator.clearAppBadge){const cb=()=>{if(document.visibilityState==="visible")navigator.clearAppBadge().catch(()=>{})};cb();document.addEventListener("visibilitychange",cb)}
+  /* tečka na ikoně aplikace (Badging API) i upozornění v liště telefonu zmizí, jakmile je web vidět: co hlásila (výzva, tah,
+     zpráva), ukáže a zapamatuje si stránka, takže v liště by zůstala i po odkliknutí na webu (2026-10-26, Vojta) */
+  {const cb=()=>{if(document.visibilityState!=="visible")return;if(navigator.clearAppBadge)navigator.clearAppBadge().catch(()=>{});
+    try{if(navigator.serviceWorker)navigator.serviceWorker.getRegistration().then(r=>r&&r.getNotifications?r.getNotifications():[]).then(L=>L.forEach(n=>n.close())).catch(()=>{})}catch(e){}
+    (window.MMNOTIF||[]).splice(0).forEach(n=>{try{n.close()}catch(e){}})};cb();document.addEventListener("visibilitychange",cb)}
   if(navigator.onLine===false)setTimeout(()=>hlas("Jste bez připojení – zobrazuji naposledy uložený stav desek.",7000),300);
   let ob=null;try{ob=JSON.parse(sessionStorage.getItem("mm-obnova")||"null");sessionStorage.removeItem("mm-obnova")}catch(e){}
   if(ob&&ob.h===location.hash)setTimeout(()=>{scrollTo(0,ob.y);hlas(ob.t||"Zemské desky byly doplněny o nové poznatky.")},60);

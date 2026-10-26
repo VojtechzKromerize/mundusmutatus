@@ -2236,6 +2236,7 @@ abbr.poj{text-decoration:underline dotted color-mix(in srgb,var(--kal) 60%,trans
 .navod{padding-left:20px}.navod li,.navod2 li{margin:6px 0;line-height:1.45}
 .vyzk{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between;padding:10px 12px;margin:6px 0;border:2px solid var(--gold);border-radius:4px;background:color-mix(in srgb,var(--gold) 14%,var(--paper))}
 .vyzk .gbtn{font-size:1.05rem}
+.vyzk .vyzzav{margin-left:auto;min-width:36px;min-height:36px;border:1px solid var(--rule);border-radius:50%;background:var(--paper);color:var(--ink);font-size:1.2rem;line-height:1;cursor:pointer}
 .mmvyz{position:fixed;left:8px;right:8px;bottom:calc(8px + env(safe-area-inset-bottom,0px));z-index:105;display:flex;flex-direction:column;gap:6px}
 .mmvyz .vyzk{margin:0;box-shadow:0 6px 20px rgba(0,0,0,.3)}
 .vyzgm{margin:8px 0;padding:6px 10px;border:1px solid var(--rule);border-radius:3px;background:var(--paper)}.vyzgm ul{margin:4px 0;padding-left:18px}

@@ -110,7 +110,7 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `BPRAV` | 12-boj-tah-postavy:1126 | let | ⓐ rychlá pravidla v šuplíku: kritická zranění, vlastnosti zbraní, zbroj |
 | `BPRI` | 14c-boj-reakce:201 | let | ⓘ `null;` |
 | `BPROT` | 17b-kouzla-ucinky:563 | const | Boj: čekající Counterspell – podle id výzvy {nid NPC, xi index kouzla, zn, dal, map karta→hráč, n, sp} než hráči odpoví |
-| `BPT` | 16-srd-ukazky-sezeni-hrac:1718 | const | Boj hráč: Průvodce tahem – k = klíč kolo:tah, p/a/b = pohyb/akce/bonusová odškrtnuty, dle id checkboxu |
+| `BPT` | 16-srd-ukazky-sezeni-hrac:1772 | const | Boj hráč: Průvodce tahem – k = klíč kolo:tah, p/a/b = pohyb/akce/bonusová odškrtnuty, dle id checkboxu |
 | `BRC` | 20d-boj-render:331 | const | ⓐ kostra aktivního boje: bloky se klíčem, překreslí se jen ty, jejichž obsah se změnil |
 | `BRCH` | 12-boj-tah-postavy:87 | const | Boj: Recharge schopnosti NPC podle id – {název: 1} = použitá, na začátku tahu se hází k6 na dobití |
 | `BRIDBEZ` | 20c-boj-ridery:134 | const | ⓐ přídavky bez kostek (perk, mistrovství, útok navíc): u zvoleného jen ✓ |
@@ -239,7 +239,7 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `HRA` | 07-druzina-kronika:86 | var | ⓐ Herní stav nastavený vypravěčem (datum, hodina, kde je družina); bez něj platí poslední zápis Kroniky |
 | `HRA_PO` | 09-vypravec-herni-cas:621 | const | herní čas: funkce volané po změně herního stavu (překreslení plánu Prahy, synchronizace…) |
 | `HRAKL` | 22-vyprava:695 | const | Výprava: klíče stavu hry ukládané do kroků Zpět (datum, hodina, misto, praha, cesta, poloha, putovani) |
-| `HRAP` | 16-srd-ukazky-sezeni-hrac:1308 | let | Hra: příznak spuštěného pravidelného načítání (hraPoll) výzev, zpráv, potvrzení – jen jednou |
+| `HRAP` | 16-srd-ukazky-sezeni-hrac:1354 | let | Hra: příznak spuštěného pravidelného načítání (hraPoll) výzev, zpráv, potvrzení – jen jednou |
 | `HRKOR` | 02b-mapa-kresba:5637 | let | ⓐ vnější úseky hranice Koruny (úsek, který leží jen v jedné zemi Koruny) a jejich druh podle krajiny; spočítá se jednou |
 | `ILSEL` | 08-navigace-pravidla:963 | const | iluminované iniciály: CSS selektory odstavců, které dostanou zdobené první písmeno |
 | `INSTP` | 19-karty-beyond:942 | let | PWA: uložená událost beforeinstallprompt – tlačítko „Nainstalovat jako aplikaci“ ji vyvolá |
@@ -310,7 +310,7 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `KPOLL` | 13-karty:1088 | let | ⓐ karty a herní záznam se obnovují, když je stránka otevřená (nepřekreslí se, když hráč zrovna píše) |
 | `KPOSL` | 13-karty:1097 | const | Karta: poslední hod d20 podle id karty – {co, d1, d2, v, b…} pro úpravu po hodu (Bless, Bane, přehození, Lucky) |
 | `KPOVCZ` | 18-pravidla-postavy:1230 | const | Příprava kouzel: anglické → české názvy sesilatelských povolání (Wizard Kouzelník, Cleric Klerik…) |
-| `KPOZT` | 16-srd-ukazky-sezeni-hrac:1820 | let | Karta: timeout odloženého uložení poznámky (data-kpozn) do stavu karty |
+| `KPOZT` | 16-srd-ukazky-sezeni-hrac:1874 | let | Karta: timeout odloženého uložení poznámky (data-kpozn) do stavu karty |
 | `KPREDX` | 18-pravidla-postavy:106 | const | ⓐ předměty, které pravidla znají jménem (doplňují databázi SRD předmětů): nastavené skóre, bonus ke kouzlům a další |
 | `KPRID` | 10u-ucinky:205 | const | Kostky k hodům d20 odvozené z UCINKY (10u): [název, kostka, druhy ut/za/ov/in, nápověda, po hodu, jednou za tah, bez přepínače] – přepínače na kartě |
 | `KPRIP` | 18-pravidla-postavy:1240 | let | Příprava kouzel: hledaný text v seznamu kouzel povolání (data-kpripq) |
@@ -380,7 +380,7 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `KZPF` | 13-karty:1302 | const | Karta Zpět: popisky polí stavu (hp životy, thp dočasné HP, zdr sloty a zdroje, kz, insp, uc, vycerp, mun, stavy) |
 | `KZPOV` | 10-kouzla:163 | const | Kouzla: seznam povolání sesilatelů česky (Bard, Klerik…) pro filtr a formulář |
 | `KZPROT` | 17b-kouzla-ucinky:562 | const | Boj Counterspell: prefix poznámky výzvy „Counterspell: “ – podle něj se pozná výzva protikouzla |
-| `KZPYTV` | 16-srd-ukazky-sezeni-hrac:1091 | const | ⓐ Zpytování svědomí jako výzva: typ „hod“ s touto poznámkou (bez změny databáze); hráč hodí d10 na své kartě (kZpyt) |
+| `KZPYTV` | 16-srd-ukazky-sezeni-hrac:1126 | const | ⓐ Zpytování svědomí jako výzva: typ „hod“ s touto poznámkou (bez změny databáze); hráč hodí d10 na své kartě (kZpyt) |
 | `KZRE` | 10-kouzla:6 | let | Kouzla: regulární výraz anglických názvů kouzel – prolinkování v textech karet a Boje |
 | `KZSK` | 10-kouzla:162 | const | Kouzla: školy magie česky (Abjurace, Vyvolávání…) pro filtr a formulář |
 | `KZSRD` | 10-kouzla:7 | let | Kouzla: kouzla z SRD načtená z art/kouzla.json |
@@ -645,10 +645,11 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `VYBSKN` | 14d-vybaveni-katalog:21 | const | Vybavení katalog: názvy skupin podle klíče (objekt z VYBSK) |
 | `VYS` | 22-vyprava:587 | let | Výprava: spočtený průběh – {H hodiny, dl délka, gc, dny, prij příjezd, W počasí, T terén, dr družina role, reviry…} nebo null |
 | `VYT` | 22-vyprava:586 | let | Výprava: spočtená trasa (vyTrasa) – {m mapa, z, do, h hodiny, plan, p body…} nebo null |
+| `VYZ_ZIVOT` | 16-srd-ukazky-sezeni-hrac:1099 | const | ⓐ jak dlouho čeká výzva na hráče: starší (vypravěč ji zapomněl uzavřít, sezení skončilo) se už neukáže a vypravěč ji uzavře |
 | `VYZAZ` | 22-vyprava:266 | const | Výprava: záznamy setkání vložené generátorem (/*@VYZAZ@*/, jen vypravěč) – [{i index typu, z záznamy}] |
-| `VYZODP` | 16-srd-ukazky-sezeni-hrac:1077 | let | Výzvy k hodu (vypravěč): poslední známý počet odpovědí hráčů – při nárůstu překreslí Boj |
-| `VYZVID` | 16-srd-ukazky-sezeni-hrac:1076 | let | Výzvy k hodu (hráč): nejvyšší id výzvy, na kterou telefon už zavibroval |
-| `VYZVY` | 16-srd-ukazky-sezeni-hrac:1075 | let | Výzvy k hodu načtené z databáze (hod, záchrana, iniciativa) s odpověďmi hráčů |
+| `VYZODP` | 16-srd-ukazky-sezeni-hrac:1079 | let | Výzvy k hodu (vypravěč): poslední známý počet odpovědí hráčů – při nárůstu překreslí Boj |
+| `VYZUKL` | 16-srd-ukazky-sezeni-hrac:1199 | const | ⓐ vypravěč: zapomenuté výzvy uzavře sám – starší než VYZ_ZIVOT a iniciativu, když příprava boje skončila (boj začal nebo se zrušil) |
+| `VYZVY` | 16-srd-ukazky-sezeni-hrac:1078 | let | Výzvy k hodu načtené z databáze (hod, záchrana, iniciativa) s odpověďmi hráčů |
 | `ZAPISY` | 07-druzina-kronika:80 | var | Kronika: zápisy ze sezení z buildu (@ZAPISY@) – trasa, místo, text; poslední určuje polohu družiny |
 | `ZBRMA` | 10w-zbrane:30 | const | ⓐ mistrovství zbraní SRD 5.2.1 (tabulka Zbraně v Pravidlech › Výbava) |
 | `ZBRMS` | 10w-zbrane:19 | const | ⓘ `{` |
@@ -660,7 +661,7 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `ZMFLT` | 23-potvrzovani:266 | var | Časová osa: filtr druhu změn („vse“ nebo druh) |
 | `ZMOD` | 23-potvrzovani:265 | var | Časová osa: rozsah zpětně (1h, 6h, 24h, 7d) |
 | `ZMPOLE` | 23-potvrzovani:267 | var | Časová osa: popisky změněných polí karty (hp životy, thp, kz, vycerp, insp, zdr, inv vybavení, pen, pozn…) |
-| `ZPR` | 16-srd-ukazky-sezeni-hrac:1245 | let | Tajné zprávy (hráč): zprávy mezi vypravěčem a přihlášenou postavou |
-| `ZPRG` | 16-srd-ukazky-sezeni-hrac:1246 | let | Tajné zprávy (vypravěč): všechny zprávy všech postav (MMDB.zpravyGm) |
-| `ZPRK` | 16-srd-ukazky-sezeni-hrac:1247 | let | Tajné zprávy (vypravěč): id karty vybrané v pultu družiny pro vlákno zpráv |
+| `ZPR` | 16-srd-ukazky-sezeni-hrac:1291 | let | Tajné zprávy (hráč): zprávy mezi vypravěčem a přihlášenou postavou |
+| `ZPRG` | 16-srd-ukazky-sezeni-hrac:1292 | let | Tajné zprávy (vypravěč): všechny zprávy všech postav (MMDB.zpravyGm) |
+| `ZPRK` | 16-srd-ukazky-sezeni-hrac:1293 | let | Tajné zprávy (vypravěč): id karty vybrané v pultu družiny pro vlákno zpráv |
 | `ZPUSTLE` | 02e-krajina:449 | const | ⓘ `[` |

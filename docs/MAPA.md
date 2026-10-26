@@ -378,8 +378,8 @@ Karta postavy podle Artikulí: duše (Svědomí, Ctnosti a Neřesti, vyznání, 
 
 SRD 5.2.1: magické předměty (všichni) a nestvůry (vypravěč) – art/predmety.json, art/netvori.json
 
-- 1836 řádků, 97 definic na nejvyšší úrovni, z toho 38 používají jiné soubory
-- používá z: 01-zaklad (2), 02-mapa (2), 04-praha (1), 07-druzina-kronika (7), 08-navigace-pravidla (8), 09-vypravec-herni-cas (4), 10-kouzla (2), 10p-pravidla (2), 10q-plne-texty (1), 10t-tah (3), 11-boj (15), 12-boj-tah-postavy (6), 13-karty (17), 14-karty-bojova-karta (5), 14b-vybaveni (1), 14c-boj-reakce (1), 15-karty-artikule (27), 17-karty-ii (9), 17b-kouzla-ucinky (3), 18-pravidla-postavy (10), 19-karty-beyond (5), 20d-boj-render (1), 23-potvrzovani (8), 25-puls (1)
+- 1890 řádků, 104 definic na nejvyšší úrovni, z toho 38 používají jiné soubory
+- používá z: 01-zaklad (2), 02-mapa (2), 04-praha (1), 07-druzina-kronika (7), 08-navigace-pravidla (8), 09-vypravec-herni-cas (4), 10-kouzla (2), 10p-pravidla (2), 10q-plne-texty (1), 10t-tah (3), 11-boj (15), 12-boj-tah-postavy (6), 13-karty (17), 14-karty-bojova-karta (5), 14b-vybaveni (1), 14c-boj-reakce (1), 15-karty-artikule (27), 17-karty-ii (9), 17b-kouzla-ucinky (3), 18-pravidla-postavy (10), 19-karty-beyond (6), 20d-boj-render (1), 23-potvrzovani (8), 25-puls (1)
 - používají ho: 08-navigace-pravidla (5), 12-boj-tah-postavy (3), 13-karty (12), 14-karty-bojova-karta (8), 14b-vybaveni (9), 14c-boj-reakce (6), 14d-vybaveni-katalog (5), 15-karty-artikule (2), 17-karty-ii (4), 17b-kouzla-ucinky (3), 18-pravidla-postavy (5), 19-karty-beyond (8), 20-boj-hraci (2), 20b-boj-vypravec (2), 20d-boj-render (4), 20e-boj-vlastnosti (2), 23-potvrzovani (3), 25-puls (3)
 - poskytuje: kMuze kvK hraPrekresli jaK KZAM PRED predNacti VYZVY vyzvyNacti hraPoll kPred NETV PREDBY kLb mmNotif netvNacti renderHra BPT hraHracHtml PRVZ pultVykresli renderNetvori renderPredmety renderSezeni UKDB ukNacti ukSeznam vyzvyGmHtml bojKorDelHtml bojPruvodce hraStart hraUcetHtml hraVypravBtn hraVypravList kZatez postupBanner pultObal ukStart
 - oddíly:
@@ -388,15 +388,15 @@ SRD 5.2.1: magické předměty (všichni) a nestvůry (vypravěč) – art/predm
   - ř. 631: Kořist: rozdělení do vybavení postav a peněz, Štědrost a Lakomství
   - ř. 987: Hráč: přihlášení za postavu, stránka Hra, výzvy k hodu, tajné zprávy, upozornění, úkoly družiny, postup na úro
   - ř. 1057: upozornění na pozadí (když je stránka otevřená, ale skrytá)
-  - ř. 1074: výzvy k hodu
-  - ř. 1244: tajné zprávy
-  - ř. 1307: pravidelné načítání pro hráče i vypravěče
-  - ř. 1396: úkoly družiny a postup na úroveň (v herním stavu, který čtou všichni)
-  - ř. 1408: stránka Hra
-  - ř. 1428: hráčská stránka Hra (2026-10-22): jen karta; iniciativa a boj se na ní objeví, až vypravěč boj připraví
-  - ř. 1462: nová místa oddílů dřívější hráčské Hry (2026-10-22): listy na vlastní kartě
-  - ř. 1500: řídicí pult vypravěče (2026-10-22): Hra = Boj + záložky Družina a Sezení (dřívější stránka Hra vypravěče)
-  - ř. 1717: Průvodce tahem hráče v Boji
+  - ř. 1077: výzvy k hodu
+  - ř. 1290: tajné zprávy
+  - ř. 1353: pravidelné načítání pro hráče i vypravěče
+  - ř. 1443: úkoly družiny a postup na úroveň (v herním stavu, který čtou všichni)
+  - ř. 1455: stránka Hra
+  - ř. 1475: hráčská stránka Hra (2026-10-22): jen karta; iniciativa a boj se na ní objeví, až vypravěč boj připraví
+  - ř. 1509: nová místa oddílů dřívější hráčské Hry (2026-10-22): listy na vlastní kartě
+  - ř. 1547: řídicí pult vypravěče (2026-10-22): Hra = Boj + záložky Družina a Sezení (dřívější stránka Hra vypravěče)
+  - ř. 1771: Průvodce tahem hráče v Boji
 
 ## 17-karty-ii
 
@@ -467,10 +467,10 @@ Pravidla postavy (2026-10-17): karta počítá podle pravidel D&D 2024 (SRD 5.2.
 
 karta jako D&D Beyond (2026-10-17 b): portrét, batohy a směna mincí, historie karty, postup na úroveň, podoba
 
-- 1577 řádků, 62 definic na nejvyšší úrovni, z toho 24 používají jiné soubory
+- 1577 řádků, 62 definic na nejvyšší úrovni, z toho 25 používají jiné soubory
 - používá z: 01-zaklad (1), 02-mapa (1), 04-praha (1), 07-druzina-kronika (1), 08-navigace-pravidla (2), 09-vypravec-herni-cas (1), 10p-pravidla (4), 11-boj (9), 12-boj-tah-postavy (2), 13-karty (14), 14-karty-bojova-karta (1), 14b-vybaveni (5), 15-karty-artikule (8), 16-srd-ukazky-sezeni-hrac (8), 17-karty-ii (25), 18-pravidla-postavy (20), 20-boj-hraci (1), 20b-boj-vypravec (1), 23-potvrzovani (3)
-- používají ho: 13-karty (4), 14-karty-bojova-karta (14), 14b-vybaveni (6), 14c-boj-reakce (2), 15-karty-artikule (2), 16-srd-ukazky-sezeni-hrac (5), 17-karty-ii (5), 17b-kouzla-ucinky (2), 20c-boj-ridery (1)
-- poskytuje: kZdrUtrat kKonI kZdrN kForma KSLV POKL poklHtml kartaUlozImport kImg KKONTM KMINC KRIM kRit kRitI kSpSt kSpZn poklNacti aplikaceHtml kFormaHtml kLvupHtml kModsSync kPenSmenHtml kRysyHtml kSchopHtml
+- používají ho: 13-karty (4), 14-karty-bojova-karta (14), 14b-vybaveni (6), 14c-boj-reakce (2), 15-karty-artikule (2), 16-srd-ukazky-sezeni-hrac (6), 17-karty-ii (5), 17b-kouzla-ucinky (2), 20c-boj-ridery (1)
+- poskytuje: kZdrUtrat kKonI kZdrN kForma KSLV POKL poklHtml kartaUlozImport kImg KKONTM KMINC KRIM kRit kRitI kSpSt kSpZn poklNacti PUSHST aplikaceHtml kFormaHtml kLvupHtml kModsSync kPenSmenHtml kRysyHtml kSchopHtml
 - oddíly:
   - ř. 4: portrét: obrázek z telefonu se zmenší na 192 px (JPEG) a uloží do stavu karty
   - ř. 46: batohy: předmět může ležet v batohu, vaku nebo truhle; obsah magických vaků (Bag of Holding…) se do zátěže nep
