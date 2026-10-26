@@ -346,6 +346,8 @@ function vyKrajBodu(T, q) {
   const [lo, la] = q.xy;
   if (lo > 11.8 && lo < 19 && la > 48.5 && la < 51.3) {
     if (nearMountain(lo, la)) return "hory";
+    /* bažiny (2026-10-26): setkání jako u řek – brody, rybáři, blátivé cesty */
+    if (BAZINY.some(([, p]) => inPoly(lo, la, p))) return "voda";
     if (FORESTS.some(p => inPoly(lo, la, p))) return "les";
   }
   return "pole";

@@ -139,3 +139,12 @@ test("mapa: klik na místo bez vrstvy Sídla rodů ukáže jen místo, bez rodu 
   })()`);
   assert.deepEqual(r, [null, false, true, true], "bez rodů žádný řádek Drží; jméno rodu jen v samotném shrnutí");
 });
+
+test("mapa: lesy mají druh pro každou plochu, bažiny zpomalí cestu a ve Výpravě jsou voda (2026-10-26)", async () => {
+  await S.ev(`typeof LES_DRUH !== "undefined" || mmLina("mapa")`);
+  assert.equal(V(`LES_DRUH.length === FORESTS.length && /^[sjl]+$/.test(LES_DRUH)`), true);
+  assert.ok(V(`BAZINY.length`) >= 8);
+  assert.ok(V(`JEZERA.some(j => j[0] === "Neziderské jezero")`));
+  const [bazina, pole] = V(`[terrain([18.0, 49.74], [18.05, 49.76]), terrain([14.9, 50.6], [14.95, 50.62])]`);
+  assert.ok(bazina > pole, "Poodří je pomalejší než pole");
+});

@@ -5557,7 +5557,11 @@ function meander(line, amp, seed) {
   out.push(line[line.length - 1]);
   return out;
 }
-const HIGHLAND_FOREST = new Set([0, 1, 2, 3, 4, 5, 6, 7, 12, 18, 19, 21, 22, 26, 28, 31, 35, 45, 47, 49, 51, 56]);
+/* druh lesa podle indexu ve FORESTS (02), stav kolem roku 1458 (2026-10-26, Vojta): s = smíšený horský hvozd (buk, jedle, smrk – smrkové
+   monokultury přijdou až v 18. věku), j = bory na píscích (Kokořínsko, Ralsko, Třeboňsko, Záhoří, lužické a slezské bory, Fläming),
+   l = listnaté lesy nížin a luhů (dub, habr, lužní lesy). Podíl jehličnanů v kresbě: s 45 %, j 85 %, l 10 %. */
+const LES_DRUH = "sssssssssssssjjljjsssssjjlslsllsljjsssjjjljsjjjssjsjjjjslllllsssslll";
+const LES_JEHL = {s: 0.45, j: 0.85, l: 0.1};
 /* kraje Čech (KRAJE v 02): každý kraj = část Čech blíž jeho středu než středům ostatních (ořez hranice Čech polorovinami);
    barva podle landfrídu kolem roku 1450 (LANDFR), jména krajů a landfrídů */
 function polyPolorovina(poly, a, b) {
@@ -5986,6 +5990,45 @@ function mapPodklad(Z, vb, s, k) {
     );
     gr.appendChild(el("path", {d, fill: "none", stroke: "var(--water)", "stroke-width": (1.6 * s).toFixed(2), "stroke-linecap": "round"}));
   });
+  /* bažiny a jezera (2026-10-26): samostatná vrstva Bažiny – modravá plocha, vodní čárky a trsy rákosí; jezero vždy */
+  const gbz = G({});
+  if (st.baziny)
+    BAZINY.forEach(([, poly], bi) => {
+      const pp = poly.map(c => P(...c));
+      gbz.appendChild(el("path", {d: smoothClosed(pp), fill: "var(--water)", "fill-opacity": ".12", stroke: "none"}));
+      const xs = pp.map(q => q[0]),
+        ys = pp.map(q => q[1]),
+        x0 = Math.min(...xs),
+        x1 = Math.max(...xs),
+        y0 = Math.min(...ys),
+        y1 = Math.max(...ys);
+      let seed = 53 + bi * 89;
+      const rnd = () => {
+        seed = (seed * 16807) % 2147483647;
+        return seed / 2147483647;
+      };
+      const want = Math.min(160, Math.round(((x1 - x0) * (y1 - y0)) / (s * s) / 90));
+      let d = "";
+      for (let n = 0, tries = 0; n < want && tries < want * 4; tries++) {
+        const x = x0 + (x1 - x0) * rnd(),
+          y = y0 + (y1 - y0) * rnd();
+        if (!inPoly(x, y, pp)) continue;
+        n++;
+        const t = s * (0.8 + rnd() * 0.4);
+        if (rnd() < 0.55)
+          d += `M${(x - 1.3 * t).toFixed(1)},${(y - 2.4 * t).toFixed(1)}L${x.toFixed(1)},${y.toFixed(1)}L${(x + 1.3 * t).toFixed(1)},${(y - 2.4 * t).toFixed(1)}M${x.toFixed(1)},${y.toFixed(1)}V${(y - 3 * t).toFixed(1)}`;
+        d += `M${(x - 2.2 * t).toFixed(1)},${(y + 0.7 * t).toFixed(1)}h${(4.4 * t).toFixed(1)}`;
+      }
+      gbz.appendChild(
+        el("path", {d, fill: "none", stroke: "var(--water)", "stroke-width": (0.5 * s).toFixed(2), "stroke-linecap": "round", opacity: ".7"}),
+      );
+    });
+  JEZERA.forEach(([, poly]) => {
+    const pp = poly.map(c => P(...c));
+    gbz.appendChild(
+      el("path", {d: smoothClosed(pp), fill: "var(--water)", "fill-opacity": ".45", stroke: "var(--water)", "stroke-width": (0.8 * s).toFixed(2)}),
+    );
+  });
   /* forests: drawn trees, conifers in the border hvozd, round crowns in the lowlands */
   /* lesy a hory bez filtru chvění: stovky drobných tvarů by se při posouvání stránky překreslovaly pomalu */
   const gf = G({});
@@ -6005,12 +6048,12 @@ function mapPodklad(Z, vb, s, k) {
       return seed / 2147483647;
     };
     const want = Math.min(700, Math.round(((x1 - x0) * (y1 - y0)) / (s * s) / 140));
-    const conifer = HIGHLAND_FOREST.has(fi);
+    const pJehl = LES_JEHL[LES_DRUH[fi]] ?? 0.45;
     const trees = [];
     for (let tries = 0; tries < want * 4 && trees.length < want; tries++) {
       const x = x0 + (x1 - x0) * rnd(),
         y = y0 + (y1 - y0) * rnd();
-      if (inPoly(x, y, pp)) trees.push([x, y, 0.8 + rnd() * 0.45, rnd() < (conifer ? 0.8 : 0.2)]);
+      if (inPoly(x, y, pp)) trees.push([x, y, 0.8 + rnd() * 0.45, rnd() < pJehl]);
     }
     trees.sort((a, b) => a[1] - b[1]);
     let fillD = "",
@@ -6143,6 +6186,26 @@ function mapPodklad(Z, vb, s, k) {
           "stroke-width": (2.6 * s).toFixed(2),
           "text-anchor": "middle",
           transform: `rotate(${rot} ${x} ${y})`,
+        },
+        t,
+      ),
+    );
+  }
+  for (const [t, , L] of [...(st.baziny ? BAZINY : []), ...JEZERA]) {
+    if (!L) continue;
+    const [x, y] = P(L[0], L[1]);
+    Z.appendChild(
+      el(
+        "text",
+        {
+          x,
+          y,
+          class: "rivlbl",
+          "font-size": (9 * k).toFixed(1),
+          "stroke-width": (2.4 * s).toFixed(2),
+          "text-anchor": "middle",
+          transform: `rotate(${L[2] || 0} ${x} ${y})`,
+          style: "font-style:italic;fill:var(--water)",
         },
         t,
       ),
@@ -6286,7 +6349,7 @@ function drawMapK() {
   /* podklad – krajina, hranice, řeky, lesy, hory, popisky krajiny, papír a rám – je ve vlastní vrstvě #mapz pod mapou: jeho
      filtry (chvění inkoustu, akvarel, papír) jsou na kresbě nejdražší, a tak se kreslí znovu, jen když se změní výřez nebo vrstva,
      která ho mění; výběr rodu, sídla, jejich popisky, vazby a měření kreslí jen horní vrstva #map */
-  const kz = JSON.stringify([D, s, st.dio, st.dom, st.dom ? st.sel : 0, st.duchy, st.kraje, st.roads]);
+  const kz = JSON.stringify([D, s, st.dio, st.dom, st.dom ? st.sel : 0, st.duchy, st.kraje, st.roads, st.baziny]);
   if (svgZ.dataset.k !== kz) {
     mapPodklad(svgZ, D, s, k);
     svgZ.dataset.k = kz;
