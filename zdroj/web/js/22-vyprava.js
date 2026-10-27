@@ -373,12 +373,14 @@ const VY_NIZ = [
   [12.9, 50.15, 13.6, 50.45],
 ];
 function vyMisto(ll) {
+  /* kor: dřívější obdélník Koruny (výchozí výška a nížiny beze změny); hory se od 2026-10-27 poznají v celém světě mapy (Alpy, Dinárské hory) */
   const [lo, la] = ll,
-    kor = lo > 11.8 && lo < 19 && la > 48.5 && la < 51.3;
+    kor = lo > 11.8 && lo < 19 && la > 48.5 && la < 51.3,
+    svet = lo > 9.5 && lo < 23 && la > 44.4 && la < 55.4;
   let el = kor ? 380 : 250,
     hory = false,
     niz = false;
-  if (kor && nearMountain(lo, la)) {
+  if (svet && nearMountain(lo, la)) {
     el = 950;
     hory = true;
   } else if (kor && VY_NIZ.some(b => lo >= b[0] && lo <= b[2] && la >= b[1] && la <= b[3])) {

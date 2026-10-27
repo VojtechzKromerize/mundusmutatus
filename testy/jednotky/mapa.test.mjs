@@ -179,6 +179,8 @@ test("krajina: panel přechodu a zpustlého kraje, Výprava v zpustlém kraji hr
   if (V(`typeof vyKrajBodu`) === "function") {
     assert.equal(V(`vyKrajBodu({}, {xy: [13.1, 49.7]})`), "valka", "Plzeňsko (zle zpustlé)");
     assert.equal(V(`vyKrajBodu({}, {xy: [14.42, 50.09]})`), "pole");
+    /* od 2026-10-27 i na jihu: Julské Alpy, Kočevský hvozd, Lublaňské blato */
+    assert.deepEqual(V(`[[13.8, 46.36], [14.75, 45.6], [14.45, 45.95]].map(xy => vyKrajBodu({}, {xy}))`), ["hory", "les", "voda"]);
   }
   if (V(`typeof drawMapK`) === "function") {
     S.ev(`st.hosp = true; st.zpustle = true; drawMapK()`);

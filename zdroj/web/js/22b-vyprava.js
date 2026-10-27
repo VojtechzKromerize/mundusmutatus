@@ -350,7 +350,8 @@ function vyKrajBodu(T, q) {
   /* kraje zpustlé válkou (2026-10-26): kde zle (míra 2), vždy „válka“; kde místy, jen v otevřené krajině */
   const zp = zpustlyKraj(lo, la);
   if (zp && zp[1] > 1) return "valka";
-  if (lo > 11.8 && lo < 19 && la > 48.5 && la < 51.3) {
+  /* kraj podle hor, bažin a lesů v celém světě mapy (2026-10-27: od Baltu k Jadranu; dřív jen lon 11,8–19, lat 48,5–51,3) */
+  if (lo > 9.5 && lo < 23 && la > 44.4 && la < 55.4) {
     if (nearMountain(lo, la)) return "hory";
     /* bažiny (2026-10-26): setkání jako u řek – brody, rybáři, blátivé cesty */
     if (BAZINY.some(([, p]) => inPoly(lo, la, p))) return "voda";

@@ -9893,6 +9893,23 @@ const FORLBL = [
   ["Ukerská pušča", 14.2, 53.58, 0],
   ["Drawská pušča", 16.05, 53.15, 0],
   ["Saský les", 10.45, 53.5, 0],
+  /* ---- JIH (mapa 2026-10-27) ---- */
+  ["Vysoké Taury", 12.6, 47.0, 0],
+  ["Dolomity", 12.0, 46.45, 0],
+  ["Karnské Alpy", 13.0, 46.68, -5],
+  ["Julské Alpy", 13.8, 46.29, 0],
+  ["Karavanky", 14.35, 46.48, -10],
+  ["Pohorje", 15.38, 46.43, 0],
+  ["Ötztalské Alpy", 10.9, 46.78, 0],
+  ["Velebit", 15.25, 44.62, -45],
+  ["Velká Kapela", 14.85, 45.38, -25],
+  ["Apeniny", 10.4, 44.55, -10],
+  ["Papuk", 17.45, 45.42, 0],
+  ["Kočevský hvozd", 14.75, 45.58, 0],
+  ["Posávské luhy", 16.85, 45.25, -15],
+  ["Šomoďské lesy", 17.65, 46.32, 0],
+  ["Bosenské hvozdy", 17.0, 44.58, 0],
+  ["Banátské hory", 22.05, 45.25, -50],
 ];
 const TRIBS = [
   [
@@ -10966,7 +10983,9 @@ function meander(line, amp, seed) {
 const LES_DRUH =
   "sssssssssssssjjljjsssssjjlslsllsljjsssjjjljsjjjssjsjjjjslllllsssslll" +
   /* ---- SEVER (mapa 2026-10-27): Tucholské bory, Velká divočina, Zelená pušča, Ukerská, Goleniowská a Drawská pušča, Saský les, Rominta ---- */
-  "jsjjjjls";
+  "jsjjjjls" +
+  /* ---- JIH (mapa 2026-10-27): Kočevský hvozd, Trnovský les, Gorski kotar, Spačva, Posávské a Podravské luhy, Šomoďské lesy, Pohorje, Cansiglio, Bosenské a Banátské hvozdy ---- */
+  "ssjlllljlss";
 const LES_JEHL = {s: 0.45, j: 0.85, l: 0.1};
 /* vnější úseky hranice Koruny (úsek, který leží jen v jedné zemi Koruny) a jejich druh podle krajiny; spočítá se jednou */
 let HRKOR = null;
