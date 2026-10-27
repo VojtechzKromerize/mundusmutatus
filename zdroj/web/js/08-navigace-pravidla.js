@@ -156,13 +156,16 @@ function resersGM(r) {
     r.zdr && r.zdr.length
       ? r.zdr
           .map(u => {
-            let h = u;
+            /* webový odkaz ukáže doménu, bibliografický údaj (kniha, práce) zůstane prostým textem */
+            let h;
             try {
               h = new URL(u).hostname.replace(/^www\./i, "");
-            } catch (e) {}
+            } catch (e) {
+              return besc(u);
+            }
             return `<a href="${besc(u)}" target="_blank" rel="noopener">${besc(h)}</a>`;
           })
-          .join(", ")
+          .join("; ")
       : "";
   return `<details class="gmres"><summary>Po březnu 1458 <span>jen pro vypravěče</span></summary>
     ${r.po ? `<p>${besc(r.po)}</p>` : `<p class="gmresnic">O dalších osudech není nic známo.</p>`}
