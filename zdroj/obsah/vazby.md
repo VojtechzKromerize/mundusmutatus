@@ -138,7 +138,7 @@
 - spoj | haz, pod | Nejvyšší sudí Zbyněk Zajíc z Hazmburka šel 2. 3. 1458 v průvodu do Královského dvora hned za králem, spolu s Janem z Rožmberka.
 - tajné rod | lip, pod | Viktorin z Poděbrad se roku 1463 ožení s Markétou, dcerou Hynce Ptáčka z Pirkštejna, Jiřího předchůdce v čele kališnické strany; Ptáčkovu dceru měl podle některých zpráv za ženu i Jindřich z Lipé, který si roku 1461 vezme Jiřího dceru Barboru.
 - rod | var, ber, pod | Jan Děčínský z Vartenberka a Jindřich Berka z Dubé a Lipé seděli na volebním sněmu mezi pány spřízněnými se zvoleným králem.
-- spoj | bos, pod | Ješek Svojanovský z Boskovic byl s Jiřím v únoru 1458 ve Strážnici, když tam vydával Matyáše Uhrům.
+- spoj | bos, pod | [[jesek|Ješek Svojanovský z Boskovic]] byl s Jiřím v únoru 1458 ve Strážnici, když tam vydával Matyáše Uhrům.
 - spoj | sli, wet | Matyáš Šlik podporoval kandidaturu Viléma Saského a dodával mu právní posudky; s ním i někteří páni ze severu a severozápadu Čech.
 - spor | wet, pod | Saské poselstvo Heinricha Leubinga Jiří ještě 1. 3. ujišťoval o dalších jednáních a nazítří ho volbou postavil před hotovou věc; Sasové to mají za podvod. Roku 1456 dobyl Jiří na Sasech Most. ⟦V březnu 1458 Sasové zavřou sůl za Krušnými horami a 11. 3. se Vilém odvolá k papeži a císaři.¦⟧
 - spor | lie, eiz | Lichtenštejnové a Oldřich Eicinger se roku 1451 přeli o hranice panství; Eicinger pak svolal pány do Mailberku pod záminkou smírčího řízení v tomto sporu.

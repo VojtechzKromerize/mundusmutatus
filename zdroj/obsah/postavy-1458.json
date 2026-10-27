@@ -1420,16 +1420,17 @@
   "narozeniRok": 1400,
   "narozeniOdhad": true,
   "zakladOdhadu": "Rok narození nedoložen. Samostatně jedná již roku 1425, zemským hejtmanem od 1437, synové narozeni kolem 1438 a 1440 – odhad kolem 1400.",
-  "shrnuti": "Moravský pán z Cimburka sídlící na Tovačově, za husitských válek jeden z předních kališnických pánů na Moravě. Ve 20. a 30. letech se stýkal i přel s Olomoucí, roku 1431 potvrdil městu Hranicím jeho starobylá privilegia a roku 1437 získal s manželkou zástavu Kojetína. Od roku 1437 je moravským zemským hejtmanem. Roku 1439 obsadili bývalí husitští hejtmani Puklicové jeho město Přerov a vydali je až roku 1442 za 1200 kop; roku 1452 žádal jako hejtman Jana Hunyadiho o zásah proti Sudlicovým nájezdům. S manželkou Žofií z Kunštátu určili roku 1447 Jiřího z Poděbrad správcem majetku svých nezletilých dětí.",
+  "shrnuti": "Moravský pán z Cimburka sídlící na Tovačově, za husitských válek jeden z předních kališnických pánů na Moravě; Tovačov je od roku 1416 útočištěm kališnických kněží. Roku 1420 byl zajat Pražany pod Vyšehradem, pak se přidal k husitům a v zimě 1426/27 dobyl Přerov, Nový Jičín (kde byli němečtí měšťané vyvražděni), Fulnek, Odry a Hranice; Hranice, panství premonstrátů z Hradiska, drží dál jako zástavu a pro tamního kališnického faráře vedl ve 40. letech ostrý spor s olomouckou kapitulou. Ve 20. a 30. letech se stýkal i přel s Olomoucí, roku 1431 potvrdil městu Hranicím jeho starobylá privilegia a roku 1437 získal s manželkou zástavu Kojetína. Od roku 1437 je moravským zemským hejtmanem. Roku 1439 obsadili bývalí husitští hejtmani Puklicové jeho město Přerov a vydali je až roku 1442 za 1200 kop; roku 1452 žádal jako hejtman Jana Hunyadiho o zásah proti Sudlicovým nájezdům. S manželkou Žofií z Kunštátu určili roku 1447 Jiřího z Poděbrad správcem majetku svých nezletilých dětí.",
   "jistota": "střední",
   "rozporSWebem": "Podle některých údajů byla jeho manželka Žofie z Kunštátu sestrou Jiřího z Poděbrad, takže Jan byl králův švagr, nejen přítel. Web ji uvádí jako Žofii „z Kunštátu a Skalé“, což ukazuje spíš na jinou větev Kunštátů. Ověřte, kterou Žofii chcete v kampani.",
   "zdroje": [
    "https://www.vhu.sk/data/att/ae7/18616.0ffd7a.pdf",
    "https://www.biographia.cms.flu.cas.cz/autority/detail/15222/",
-   "https://en.wikipedia.org/wiki/Tova%C4%8Dov"
+   "https://en.wikipedia.org/wiki/Tova%C4%8Dov",
+   "J. Elbel, Kapitoly z dějin katolické církevní správy na Moravě v době husitské (1408–1457), disertace, FF MU Brno 2007"
   ],
   "gm": {
-   "poBreznu1458": "Patřil k hlavním stoupencům nového krále: podpořil jeho volbu, se syny Ctiborem a Janem byl 7. 5. 1458 na korunovaci, 6. 10. 1458 dostal zástavou Uherský Ostroh a v říjnu 1458 táhl do Rakouska. Roku 1459 se vzdal hejtmanství (nástupcem byl královský syn Viktorin), přesto zůstal věrný a v listopadu 1462 táhl s Jiřím znovu do Rakouska. Zemřel 27. 2. 1464 krátce po olomouckém sněmu, na kterém Morava uznala Jiřího.",
+   "poBreznu1458": "Patřil k hlavním stoupencům nového krále: podpořil jeho volbu, se syny Ctiborem a Janem byl 7. 5. 1458 na korunovaci, 6. 10. 1458 dostal zástavou Uherský Ostroh a v říjnu 1458 táhl do Rakouska. Roku 1459, nejpozději 1460, se vzdal hejtmanství (nástupcem byl královský syn Viktorin), přesto zůstal věrný a v listopadu 1462 táhl s Jiřím znovu do Rakouska. Zemřel 27. 2. 1464 krátce po olomouckém sněmu, na kterém Morava uznala Jiřího.",
    "umrti": "1464-02-27"
   }
  },
@@ -1528,17 +1529,18 @@
   "narozeniRok": 1430,
   "narozeniOdhad": true,
   "zakladOdhadu": "Rok narození nedoložen. Studia ve Vídni od 1446 ukazují na narození kolem 1430; údaj o smrti „asi v sedmdesáti letech“ (tedy narození kolem 1412) se studijní dráhou nesouhlasí.",
-  "shrnuti": "Nejstarší syn Beneše z Boskovic a Černé Hory z významného moravského rodu. Od roku 1446 studoval ve Vídni, kde se spřátelil s opavským vévodou Přemkem, poté ve Ferraře a Padově; tam se pohyboval v humanistických kruzích, přátelil se s Janem Panoniem a rétoriku ho učil Galeotto Marzio. Stal se kanovníkem v Brně a později tamním proboštem. Po smrti biskupa Bohuslava ze Zvole (31. 7. 1457, údajně otráveného) ho olomoucká kapitula zvolila biskupem; ⟦papež volbu snad potvrdil 21. 11. 1457, ⟧vysvěcen však dosud není.",
+  "shrnuti": "Nejstarší syn Beneše z Boskovic a Černé Hory z významného moravského rodu. Od roku 1446 studoval ve Vídni, kde se spřátelil s opavským vévodou Přemkem, poté ve Ferraře a Padově; tam se pohyboval v humanistických kruzích, přátelil se s Janem Panoniem a rétoriku ho učil Galeotto Marzio. Stal se kanovníkem v Brně a později tamním proboštem. Po smrti biskupa Bohuše ze Zvole (31. 7. 1457, údajně otráveného) ho olomoucká kapitula zvolila biskupem; ⟦papež volbu snad potvrdil 21. 11. 1457, ⟧vysvěcen však dosud není.",
   "jistota": "vysoká",
   "rozporSWebem": null,
   "zdroje": [
    "https://de.wikipedia.org/wiki/Protasius_von_Boskowitz_und_%C4%8Cernahora",
    "https://www.deutsche-biographie.de/sfz97527.html",
    "https://catholic-hierarchy.org/bishop/bczerna.html",
-   "https://en.wikipedia.org/wiki/List_of_bishops_and_archbishops_of_Olomouc"
+   "https://en.wikipedia.org/wiki/List_of_bishops_and_archbishops_of_Olomouc",
+   "J. Elbel, Kapitoly z dějin katolické církevní správy na Moravě v době husitské (1408–1457), disertace, FF MU Brno 2007"
   ],
   "gm": {
-   "poBreznu1458": "V dubnu 1458 změnil postoj a podpořil Jiřího, čímž výrazně pomohl jeho uznání na Moravě; nejspíš jednal na pokyn církve. V květnu 1458 byl svědkem Jiřího tajné přísahy a 7. 5. asistoval při korunovaci – kronikář v jeho službách tak zná tajemství z první ruky. Biskupské svěcení přijal od vratislavského biskupa Jošta z Rožmberka (údaje se liší: 27. 7. 1459, nebo jmenován 27. 7. 1459 a vysvěcen 3. 2. 1460). Roku 1459 vedl znojemské jednání s císařem a Jiří mu stále víc důvěřoval; ozdravoval zadlužené biskupství, stavěl na Hukvaldech. Roku 1466 prosadil rozhodčí řízení, ale v dubnu 1467 pod hrozbou klatby přešel ke katolické opozici a šel pak co nejdál: roku 1468 přemlouval Matyáše k válce, roku 1469 pomáhal zvolit ho českým králem a v roce 1471 se podílel na jeho provolání. Jeho bratři dali roku 1487 přeložit Eneášovu Historii českou do češtiny. Účastnil se brněnských jednání 1478; zemřel 25. 8. 1482 ve Vyškově a je pohřben v olomoucké katedrále.",
+   "poBreznu1458": "V dubnu 1458 změnil postoj a podpořil Jiřího, čímž výrazně pomohl jeho uznání na Moravě; nejspíš jednal na pokyn církve. V květnu 1458 byl svědkem Jiřího tajné přísahy a 7. 5. asistoval při korunovaci – kronikář v jeho službách tak zná tajemství z první ruky. Biskupské svěcení přijal od vratislavského biskupa Jošta z Rožmberka (údaje se liší: 27. 7. 1459, nebo jmenován 27. 7. 1459 a vysvěcen 3. 2. 1460). Roku 1459 vedl znojemské jednání s císařem a Jiří mu stále víc důvěřoval; ozdravoval zadlužené biskupství, stavěl na Hukvaldech. Jako biskup zavedl vůči kališníkům nový kurz: světil kališnické kněze a potvrzoval je na fary, a ještě v srpnu 1466 tuto praxi hájil listem papeži Pavlu II. Roku 1466 prosadil rozhodčí řízení, ale v dubnu 1467 pod hrozbou klatby přešel ke katolické opozici a šel pak co nejdál: roku 1468 přemlouval Matyáše k válce, roku 1469 pomáhal zvolit ho českým králem a v roce 1471 se podílel na jeho provolání. Jeho bratři dali roku 1487 přeložit Eneášovu Historii českou do češtiny. Účastnil se brněnských jednání 1478; zemřel 25. 8. 1482 ve Vyškově a je pohřben v olomoucké katedrále.",
    "umrti": "1482-08-25"
   }
  },
@@ -1576,15 +1578,16 @@
   "narozeni": null,
   "narozeniRok": 1405,
   "narozeniOdhad": true,
-  "zakladOdhadu": "Podkomořím Moravy byl už od roku 1442 (předpoklad zralého věku kolem 35 let); jeho nejstarší syn Tas byl roku 1457 zvolen olomouckým biskupem.",
-  "shrnuti": "Syn Vaňka staršího z Boskovic, zakladatele černohorské větve rodu, a bratr Vaňka mladšího. Od počátku čtyřicátých let zastává úřad moravského podkomořího, jednoho z nejvyšších zemských úřadů. V polovině století se i s rodinou vrátil od kalicha ke katolictví. Jeho nejstarší syn Tas, kterého podle rodové tradice zaslíbil církvi, je zvoleným olomouckým biskupem; další synové Beneš a Dobeš teprve vstupují do veřejného života.",
+  "zakladOdhadu": "Podkomořím Moravy byl už od roku 1441 (předpoklad zralého věku kolem 35 let); jeho nejstarší syn Tas byl roku 1457 zvolen olomouckým biskupem.",
+  "shrnuti": "Syn Vaňka staršího z Boskovic, zakladatele černohorské větve rodu, a bratr Vaňka mladšího. V letech 1441–1456 zastával úřad moravského podkomořího, jednoho z nejvyšších zemských úřadů. V polovině století se i s rodinou vrátil od kalicha ke katolictví. Jeho nejstarší syn Tas, kterého podle rodové tradice zaslíbil církvi, je zvoleným olomouckým biskupem; další synové Beneš a Dobeš teprve vstupují do veřejného života.",
   "jistota": "střední",
-  "rozporSWebem": null,
+  "rozporSWebem": "Podkomořím je doložen v letech 1441–1456; od roku 1459 je moravským podkomořím Karel z Vlašimi na Úsově, mezi lety 1456 a 1459 úřad doložen není. K 3. 3. 1458 je tedy spíš bývalým podkomořím.",
   "zdroje": [
    "https://www.muzeumct.cz/images/casopis-tesinsko/digiarchiv_pdf/Tesinsko_2017_1.pdf",
    "https://www.deutsche-biographie.de/sfz97527.html",
    "https://de-academic.com/dic.nsf/dewiki/190966",
-   "https://catholic-hierarchy.org/bishop/bczerna.html"
+   "https://catholic-hierarchy.org/bishop/bczerna.html",
+   "M. Juřička, Od nepanské šlechty k rytířskému stavu. Sociální a politické proměny nižší šlechty na Moravě v pozdním středověku, disertace, FF MU Brno 2024"
   ],
   "gm": {
    "poBreznu1458": "Jeho syn Tas byl v červenci 1459 papežem potvrzen jako olomoucký biskup. Beneš zemřel roku 1473 (někdy je veden jako Beneš z Boskovic na Budišově, zakladatel budišovské větve).",
@@ -3636,6 +3639,88 @@
   "gm": {
    "poBreznu1458": "Roku 1458 vrátil Jiří hrad Boskovice Vaňkovi z Boskovic. Počátkem roku 1464 zaznamenal jako komorník na olomouckém zemském soudu, že se Hynek z Lichtenburka nedostavil, a vysoudil na Cornštejnských díly malenovického panství, Kvítkovice a Otrokovice. Na desce knihy zemských desk z roku 1464 jsou dvě bernardinská slunce se znaky IHS a XPC (symbol, který šířil Kapistrán jako katolickou odpověď na kalich) a Panna Maria s dítětem – jediné sakrální vyobrazení na moravských deskách; bernardinské slunce má i na své znakové desce v Kunštátu.",
    "umrti": null
+  }
+ },
+ "vilemkolin": {
+  "jmeno": "Vilém z Kolína",
+  "fiktivni": false,
+  "vek": 48,
+  "vekText": "odhadem 48 let",
+  "narozeni": null,
+  "narozeniRok": 1410,
+  "narozeniOdhad": true,
+  "zakladOdhadu": "Rok narození nedoložen; světícím biskupem olomouckým je doložen v letech 1442–1480. Velmi hrubý odhad kolem 1410.",
+  "shrnuti": "Světící (pomocný) biskup olomoucký, který od roku 1442 světí na Moravě znovu postavené a obnovené kostely na katolických panstvích; doložena je např. jeho listina o vysvěcení nově postaveného kostela v Hošticích na Vyškovsku z roku 1445. Protože zvolený biskup Tas dosud vysvěcen není a pražské arcibiskupství je prázdné, je k jaru 1458 jediným vysvěceným katolickým biskupem v Čechách a na Moravě.",
+  "jistota": "střední",
+  "rozporSWebem": null,
+  "zdroje": [
+   "J. Elbel, Kapitoly z dějin katolické církevní správy na Moravě v době husitské (1408–1457), disertace, FF MU Brno 2007"
+  ],
+  "gm": {
+   "poBreznu1458": "Úřadoval jako světící biskup olomoucký až do roku 1480. Další údaje o něm (titulární biskupství, smrt) se nepodařilo zjistit.",
+   "umrti": null
+  }
+ },
+ "pauswangel": {
+  "jmeno": "Jan Pauswangel z Olomouce",
+  "fiktivni": false,
+  "vek": 38,
+  "vekText": "odhadem 38 let",
+  "narozeni": null,
+  "narozeniRok": 1420,
+  "narozeniOdhad": true,
+  "zakladOdhadu": "Rok narození nedoložen; bakalář dekretů a kanovník od 5. 1. 1453, od roku 1455 generální vikář. Hrubý odhad kolem 1420.",
+  "shrnuti": "Bakalář dekretů z přední olomoucké patricijské rodiny, kanovník olomoucký od 5. 1. 1453. Za biskupa Bohuše ze Zvole vydává od února 1455 listiny jako generální vikář a oficiál: potvrzuje kněze na fary, zřizuje obročí a soudí v konzistoři, která zasedá v kanovnickém domě na olomouckém Předhradí. Za biskupů Háze a Bohuše olomoucká kurie kališnické kněze prakticky nepotvrzovala.",
+  "jistota": "střední",
+  "rozporSWebem": "Generálním vikářem a oficiálem je doložen za biskupa Bohuše (od února 1455); že úřad drží i k jaru 1458, za uprázdněného stolce a za zvoleného Tase, je pravděpodobné, ale ne doložené.",
+  "zdroje": [
+   "J. Elbel, Kapitoly z dějin katolické církevní správy na Moravě v době husitské (1408–1457), disertace, FF MU Brno 2007"
+  ],
+  "gm": {
+   "poBreznu1458": "Zůstal výraznou postavou olomoucké biskupské kurie po celou třetí čtvrtinu 15. století, tedy i za Tase. Od roku 1469 vede olomoucký oficiál soudní protokol, který se dochoval.",
+   "umrti": null
+  }
+ },
+ "mikulasvoj": {
+  "jmeno": "Mikuláš Bystřice z Vojnic",
+  "fiktivni": false,
+  "vek": 48,
+  "vekText": "odhadem 48 let",
+  "narozeni": null,
+  "narozeniRok": 1410,
+  "narozeniOdhad": true,
+  "zakladOdhadu": "Rok narození nedoložen; činný od roku 1434, nejvyšším sudím od 1437/1439. Odhad kolem 1410.",
+  "shrnuti": "Rytíř z drobného rodu Vojniců (erb s kosmými pruhy), který zbohatl po husitských válkách ve službách olomouckých biskupů. Jako biskupský man dostal od biskupa Jana Háze, administrátora Dominika a biskupa Bohuše ze Zvole, svého švagra, do zástavy rozsáhlé biskupské statky včetně města Kroměříže, po níž se píše. Od let 1437/1439 je nejvyšším sudím olomoucké cúdy a roku 1455 byl členem moravské zemské rady. Kolem let 1450–1454 se v listinách mění jeho titul ze „slovutného panoše“ na „statečného rytíře“, byl tedy pasován.",
+  "jistota": "střední",
+  "rozporSWebem": "Kroměříž dobyl roku 1432 husita Smil z Moravan a roku 1436 mu byla legálně zastavena; jak a kdy přešla zástava na Mikuláše (za biskupů Háze a Bohuše, tedy v 50. letech), prameny přesně neříkají. Web uvádí Kroměříž jako sídlo biskupa Tase.",
+  "zdroje": [
+   "M. Juřička, Od nepanské šlechty k rytířskému stavu. Sociální a politické proměny nižší šlechty na Moravě v pozdním středověku, disertace, FF MU Brno 2024",
+   "J. Kristl, Jindřich VIII. z Lipé, bakalářská práce, FF MU Brno 2019"
+  ],
+  "gm": {
+   "poBreznu1458": "Nejvyšším olomouckým sudím zůstal do roku 1466 a s biskupstvím byl úzce spojen do počátku 60. let. Roku 1462 dokládali Vojnicové spolu s Doloplazy, že jsou jeden rod se společným urozeným původem. Mezi pány se nedostal; zemřel roku 1480 bez mužských potomků a rod pokračoval jen ve vedlejších liniích (Vojnicové na Střílkách).",
+   "umrti": "1480"
+  }
+ },
+ "jesek": {
+  "jmeno": "Ješek Svojanovský z Boskovic",
+  "fiktivni": false,
+  "vek": 38,
+  "vekText": "odhadem 38 let",
+  "narozeni": null,
+  "narozeniRok": 1420,
+  "narozeniOdhad": true,
+  "zakladOdhadu": "Rok narození nedoložen; dospělý po roce 1430, na Svojanově doložen 1447. Odhad kolem 1420.",
+  "shrnuti": "Pán ze svojanovské větve pánů z Boskovic; dětství prožil na Novém Hradě u Adamova. S bratrem Jindřichem drží zástavou královský hrad Svojanov, který Zikmund roku 1420 zastavil jejich otci Oldřichovi; roku 1437 ho Zikmund sice připsal císařovně Barboře a nařídil vyplacení, k tomu však nedošlo. Je kališník a Jiřího stoupenec: 24. 6. 1448 pečetil v Kutné Hoře listinu poděbradské jednoty a 27. 4. 1452 byl mezi pány, kteří zvolili Jiřího zemským správcem; s Jiřím měl zprvu sousedské spory o majetek, pak se spřátelili. Je dobrý hospodář, ale neklidné, až násilnické povahy: v létě 1449 vtrhl s ozbrojenci na Moravu, plenil hlavně katolíky a 24. 7. 1449 přepadl a obsadil klášter Rajhrad, který měl v ochraně maršálek Pertold z Lipé; spor se urovnal na sjezdu v Jihlavě. Roku 1452 táhl s moravskými pány na pomoc rakouské šlechtě proti Fridrichovi III. V únoru 1458 byl s Jiřím ve Strážnici při předání Matyáše Uhrům.",
+  "jistota": "střední",
+  "rozporSWebem": "Údaje o Ješkovi pocházejí hlavně ze starší rodové literatury; přepad Rajhradu roku 1449 potvrzují i prameny k pánům z Lipé.",
+  "zdroje": [
+   "J. Klemša, Pánové z Boskovic na hradě Svojanově 1420–1512, bakalářská práce, FF UHK Hradec Králové 2022",
+   "J. Kristl, Jindřich VIII. z Lipé, bakalářská práce, FF MU Brno 2019"
+  ],
+  "gm": {
+   "poBreznu1458": "Roku 1458 táhl s Jiřím na vzpurnou Jihlavu a pak do Rakous proti Albrechtovi VI.; v dubnu 1459 měl význačné místo v průvodu do Chebu. Jiřímu zůstal věrný celý život: roku 1470 jel jako posel k Matyášovi do Brna, po roce 1471 sloužil královně Johaně, jejím synům a pak Vladislavovi (zástavy Poličky, Roudnice, nakrátko Domažlic a hradu Kalich), roku 1483 seděl v osmnáctičlenné pražské radě. Ve 1470. letech dal Svojanov přestavět (štítová zeď, vnější hradba se sedmi baštami). Roku 1474 se soudil s Eliškou z Postupic o dědictví pro jejího syna, jehož byl patrně otcem; roku 1484 zrušil na svojanovském panství odúmrť. Zemřel roku 1488; synové Jan a Jindřich byli ještě nezletilí.",
+   "umrti": "1488"
   }
  }
 }
