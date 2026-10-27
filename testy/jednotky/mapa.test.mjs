@@ -234,10 +234,12 @@ test("poutě, kláštery a pověsti: body na mapě, panel s řádem a stavem, n�
   const namety = V(`Object.keys(MAPNAMETY)`);
   assert.ok(namety.length >= 10, "vypravěčská verze má náměty");
   assert.deepEqual(
-    namety.filter(n => !V(`POUTE.some(q => q.n === ${JSON.stringify(n)})`)),
+    namety.filter(n => !V(`POUTE.some(q => q.n === ${JSON.stringify(n)}) || HOSP_BODY.some(q => q[0] === ${JSON.stringify(n)})`)),
     [],
-    "náměty jen k bodům vrstvy",
+    "náměty jen k bodům vrstev Poutě a Hospodářství",
   );
+  S.ev(`showKraj("hb", HOSP_BODY.findIndex(q => q[0] === "Kutná Hora"))`);
+  assert.match(V(`document.getElementById("detail").textContent`), /Doly · stříbro.*Kutná Hora.*Námět pro vypravěče:.*trpaslíci/s, "námět i u dolů");
   const i = V(`POUTE.findIndex(q => q.n === "Zbraslav")`);
   S.ev(`showKraj("pt", ${i})`);
   const t = V(`document.getElementById("detail").textContent`);

@@ -3659,7 +3659,6 @@ function krajHtml(o) {
     n = q.n;
     txt = q.ref ? (CITYINFO[q.ref] || {}).n || "" : q.t;
     if (q.s) navic = `Stav k roku 1458: ${POUTE_STAV[q.s]}.`;
-    if (GMV && MAPNAMETY[q.n]) gm = `<p class="gmnamet"><b>Námět pro vypravěče:</b> ${besc(MAPNAMETY[q.n])}</p>`;
   } else if (o.k === "zp") {
     const [jm, mira, , pozn] = ZPUSTLE[o.i];
     typ = mira > 1 ? "Kraj zle zpustlý válkou" : "Kraj místy zpustlý válkou";
@@ -3667,6 +3666,7 @@ function krajHtml(o) {
     txt = pozn;
     navic = "Vsi tu stojí pusté, po cestách se toulají žoldnéři a lapkové.";
   }
+  if (GMV && (o.k === "pt" || o.k === "hb") && MAPNAMETY[n]) gm = `<p class="gmnamet"><b>Námět pro vypravěče:</b> ${besc(MAPNAMETY[n])}</p>`;
   return `<span class="lbl">${typ}</span><h3 style="font-size:1.35rem">${besc(n)}</h3><p>${besc(txt)}</p>${navic ? `<p class="rsmall">${navic}</p>` : ""}${gm}`;
 }
 function showKraj(k, i) {

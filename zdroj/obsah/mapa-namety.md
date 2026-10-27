@@ -1,10 +1,10 @@
-# Náměty pro vypravěče k místům na mapě Zemí Koruny české (vrstva Poutě, kláštery a pověsti)
+# Náměty pro vypravěče k místům na mapě Zemí Koruny české (vrstvy Poutě, kláštery a pověsti a Hospodářství)
 #
 # VŠECHNO V TOMTO SOUBORU JE JEN PRO VYPRAVĚČE: build každý text sám zabalí do ⟦ ⟧, hráčská verze dostane prázdný seznam
 # a build hlídá, že nic neproteklo. Na webu se ukáže v panelu místa jako „Námět pro vypravěče“.
 # Jsou to jen nápady, ne kánon tažení – co z nich platí, rozhoduje vypravěč u stolu.
 #
-# Každý řádek:  - název místa (přesně jako v POUTE v zdroj/web/js/02e-krajina.js) | text námětu
+# Každý řádek:  - název místa (přesně jako v POUTE nebo HOSP_BODY v zdroj/web/js/02e-krajina.js) | text námětu
 - Říp | Na temeni, kde podle pověsti praotec pozdravil zemi, může být Závoj tenčí: kdo tu přenocuje, snad uvidí kraj, jaký byl, než do něj přišli lidé. Vhodné místo pro zkoušku věštce nebo pro první setkání s bytostí, která zemi „pamatuje“.
 - Vyšehrad | V troskách Libušina hradu se mohou nacházet úlomky věšteckých zápisů. Po Noci Proměny by mohly „mluvit“ – kdo je čte, slyší, co by Libuše řekla o zvoleném králi.
 - Tetín | Tetiny čáry jako starší, nekřesťanská magie: zdroj paktu pro čaroděje či čarodějku, nebo místo, kde se ta tradice tajně předává. Stín svaté Ludmily může stát proti ní.
@@ -22,3 +22,11 @@
 - Velehrad | Hroby moravských králů a Velká Morava jako zaniklé království: spojnice s Pohanskem pro Václava ze Srubce a jeho mapu starých hradišť.
 - Sázava | Svatý Prokop podle legendy vyháněl ďábly: jeho hrob v pustém klášteře může přitahovat ty, kdo hledají pomoc proti posedlosti.
 - Jasná Hora | Obraz s jizvami jako relikvie, o kterou mohou stát obě strany – a pro Poláky živá vzpomínka na „české lupiče“, kterou mohou družině připomínat.
+- Kutná Hora | Doly stojí, protože mělké žíly jsou vybrané a hlubší zalila voda; havíři museli před provalenou vodou prchat, pokud je dřív nezasypala povolená výztuž. Kdo umí odvodnit (dědičné štoly, kola hnaná vodou či koňmi), je pro krále k nezaplacení. Proměnění trpaslíci se nabízejí jako nová hornická vrstva – a spor s německými katolickými havíři, kteří by se rádi vrátili. Učení lidé věří, že rudy v zemi rostou jako rostliny; po Noci Proměny snad doslova, tam kde kopou trpaslíci. V zatopených šachtách mohou sídlit vodní bytosti. Historicky se těžba obnoví až roku 1468 a ražba groše 1469; Jiřího první pokusy o novou minci dopadnou špatně.
+- Freiberk | Koncem 50. let zkouší Martin Claus z Gothy stroj na saské důlní vody: kdo získá jeho výkresy, nebo jeho samého, může zachránit Kutnou Horu – Sasové ho budou střežit. Sasové také asi od roku 1451 umějí oddělit stříbro z měďnaté rudy olovem; postup se tají a v příručkách skrývá za alchymickými znameními. Saské doly odlákávají norimberské peníze od českého stříbra.
+- Jihlava | Horní obec je stát ve státě: přísežní havířů rozhodují spolu s úředníky pána, spory soudí horní soud a havíř má postavení měšťana – nevolník, který odejde na hory, je svobodný. Katolická Jihlava, kde se roku 1436 vyhlašovala kompaktáta, se může krále kališníka zříct; historicky přejde roku 1468 k jeho nepřátelům. Havíři umějí protipodkopy, při obléhání jsou cennější nežli měšťané.
+- Stříbro | Dluhová past: těžaři si půjčují od kupce, který jim vykupuje rudu, a když nesplatí, věřitel důl převezme a ze svobodných havířů udělá námezdníky. Norimberští faktoři jezdí do Čech potají přes katolickou Plzeň a Domažlice, ač jejich města obchod s kacíři veřejně odsuzují – stříbro ven, koření dovnitř. Ve městě se vypráví o Přibíkovi z Klenové, jehož meč prý sahal od jedné brány ke druhé.
+- Německý Brod | Pusté šachty a sklepy po roce 1422 jsou místo pro zakopaný poklad: za válek a stříbrného hladu se mince zakopávaly v hliněných hrncích a stříbro se ukládalo do pohárů vážících přesně hřivnu.
+- Cínovec a Altenberk | Draci polykají oblázky a rudu jako trávicí kameny, v horách cínové a stříbronosné valouny. Hromady vyvržených ohlazených koulí („dračí vejce“) prozrazují ložiska, takže prospektor může stopovat draky – a kováři je prodávají jako amulety. Krušné hory jsou roku 1458 tiché a lesnaté; velký stříbrný rozmach přijde až v 70. letech (Schneeberg), Jáchymov vznikne až roku 1516.
+- Rychleby (Złoty Stok) | Rychleby leží nejspíš v knížectví minstrberském, jež drží Jiří z Poděbrad: rodový důl Poděbradů jako zázemí výpravy, nebo místo, kde se našlo něco, co probudila Proměna. Obnova slezského zlata přijde až ve druhé polovině století.
+- Kremnice | Jan Jiskra drží horní města, nejbohatší zlaté a stříbrné doly i královské příjmy a Matyáše neuznává; král Matyáš proti němu vytáhne v dubnu 1458. Kdo nese zlato z Kremnice, nese válku.
