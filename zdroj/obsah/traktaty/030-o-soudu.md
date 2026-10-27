@@ -5,7 +5,7 @@ id: o-soudu
 title: O soudu a právu zemském
 stav: potkali
 ---
-*Sepsal Vojtěch z Kroměříže, bakalář vídeňský, v Praze léta Páně 1458 pro ty, kdo se v Čechách chtějí soudit, a pro ty, kdo by se soudu rádi vyhnuli.*
+*Sepsal Vojtěch z Kroměříže, bakalář pražský, v Praze léta Páně 1458 pro ty, kdo se v Čechách chtějí soudit, a pro ty, kdo by se soudu rádi vyhnuli.*
 
 ## Mnoho práv v jedné zemi
 

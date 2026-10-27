@@ -5,7 +5,7 @@ id: o-penezich
 title: O penězích a váze stříbra
 stav: skryta
 ---
-*Sepsal Vojtěch z Kroměříže, bakalář vídeňský, v Praze léta Páně 1458 pro ty, kdo přicházejí s cizí mincí a odcházejí s prázdným měšcem.*
+*Sepsal Vojtěch z Kroměříže, bakalář pražský, v Praze léta Páně 1458 pro ty, kdo přicházejí s cizí mincí a odcházejí s prázdným měšcem.*
 
 ## O groši pražském
 

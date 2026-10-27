@@ -5,7 +5,7 @@ id: kratke-dejiny
 title: Krátké dějiny země
 stav: potkali
 ---
-*Sepsal Vojtěch z Kroměříže, bakalář vídeňský, rytíř ve službách urozených pánů Tovačovských z Cimburka, v Praze léta Páně 1458, v dnech po volbě nového krále.*
+*Sepsal Vojtěch z Kroměříže, bakalář pražský, rytíř ve službách urozených pánů Tovačovských z Cimburka, v Praze léta Páně 1458, v dnech po volbě nového krále.*
 
 ## Předmluva
 

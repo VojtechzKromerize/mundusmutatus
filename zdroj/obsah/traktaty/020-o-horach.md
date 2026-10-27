@@ -5,7 +5,7 @@ id: o-horach
 title: O horách a horním právu
 stav: potkali
 ---
-*Sepsal Vojtěch z Kroměříže, bakalář vídeňský, v Praze léta Páně 1458 pro ty, kdo se chtějí vypravit na Hory a nevědí, jaký řád tam platí.*
+*Sepsal Vojtěch z Kroměříže, bakalář pražský, v Praze léta Páně 1458 pro ty, kdo se chtějí vypravit na Hory a nevědí, jaký řád tam platí.*
 
 ## Co jsou Hory
 

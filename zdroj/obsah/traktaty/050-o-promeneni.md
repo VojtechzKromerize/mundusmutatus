@@ -6,7 +6,7 @@ id: o-promeneni
 title: O Proměnění Páně a přijetí Proměněnců
 stav: skryta
 ---
-*Sepsal Vojtěch z Kroměříže, bakalář vídeňský, rytíř ve službách urozených pánů Tovačovských z Cimburka, v Praze léta Páně 1458, pro Proměněnce, kteří se ptají, zda je církev přijme, a pro ty, kdo se ptají, za kolik.*
+*Sepsal Vojtěch z Kroměříže, bakalář pražský, rytíř ve službách urozených pánů Tovačovských z Cimburka, v Praze léta Páně 1458, pro Proměněnce, kteří se ptají, zda je církev přijme, a pro ty, kdo se ptají, za kolik.*
 
 ## O svátku
 
