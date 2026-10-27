@@ -4090,7 +4090,7 @@ document.querySelector("[data-gs]").addEventListener("click", e => {
 
 const PEOPLE = /*@PEOPLE@*/ [];
 const PBY = Object.fromEntries(PEOPLE.map(p => [p.id, p]));
-/* rešerše postav: jen ve vypravěčských datech (hráčům přijde prázdná) */
+/* osudy postav po březnu 1458: jen ve vypravěčských datech (hráčům přijde prázdná) */
 const RESERS = /*@RESERS@*/ [];
 const RESBY = Object.fromEntries(RESERS.map(r => [r.id, r]));
 const peopleOf = id => PEOPLE.filter(p => p.r === id);
