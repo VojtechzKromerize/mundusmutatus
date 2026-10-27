@@ -239,7 +239,7 @@ const HOSP_BODY = [
     "stříbro",
     15.27,
     49.95,
-    "Nejbohatší horní město království; po vypálení za válek husitských se doly opět probouzejí. Ve Vlašském dvoře sídlí královská mincovna.",
+    "Někdy nejbohatší horní město království. Když za válek husitských odešli havíři němečtí, doly z větší části zatopila voda a těží se jen skrovně; ve Vlašském dvoře sídlí královská mincovna, ale groš pražský se tu od léta Páně 1423 nerazí.",
   ],
   [
     "Jihlava",

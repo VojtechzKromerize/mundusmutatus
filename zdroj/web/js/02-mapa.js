@@ -771,34 +771,47 @@ const CTYPE = {
 const CITYINFO = {
   /* shrnutí míst mapy v dobové mluvě, stav k březnu 1458 (Vojta 2026-10-26: bez anachronismů) */
   Praha: {
-    n: "Praha jest sídlem královým a srdcem kalicha. Na radnici Staroměstské byl 2. dne března zvolen pan Jiří z Poděbrad a v chrámu Týnském káže mistr Jan Rokycana.",
+    n: "Praha jest sídlem královým a srdcem kalicha. Na radnici Staroměstské byl 2. dne března zvolen pan Jiří z Poděbrad a v chrámu Týnském káže mistr Jan Rokycana. Král sídlí v Králově dvoře na Starém Městě; Hrad a chrám svatého Víta drží kapitula strany římské a Malá Strana posud leží zpustlá od bouří husitských.",
   },
   "Kutná Hora": {
-    n: "Hora Kutná jest město stříbrných dolů a královské mincovny, odkud pražský groš pochází. Drží se kalicha, avšak živě pamatuje krvavé spory s Němci z bouří husitských.",
+    n: "Hora Kutná, někdy nejbohatší horní město království, jest sídlem královské mincovny ve Vlašském dvoře, odkud pražský groš pochází. Když za bouří husitských odešli havíři němečtí, doly z větší části zatopila voda a od léta Páně 1423 se groš nerazí; v zemi obíhá stará mince a chatrný drobný peníz. Město se drží kalicha a mincmistrem jest Jan Čabelický ze Soutic.",
   },
   Tábor: {
-    n: "Tábor býval městem bratrstev husitských, i podrobil jej pan Jiří léta Páně 1452. Horlivci táborští jsou zlomeni, ale paměť jejich jest posud živá.",
+    n: "Tábor, čili Hradiště hory Tábor nad Lužnicí, býval hlavou bratrstev husitských a od léta Páně 1436 jest městem královským. Prvního dne září léta 1452 vzdal se bez boje panu Jiřímu a táborští kněží Mikuláš z Pelhřimova a Václav Koranda dáni jsou do žaláře na Poděbradech. Horlivci táborští jsou zlomeni, ale paměť jejich jest posud živá.",
   },
-  "Hradec Králové": {t: "Věnné město královny", n: "Hradec jest baštou kališníků východočeských a orebitů, město bohaté na Labi."},
+  "Hradec Králové": {
+    t: "Věnné město královny",
+    n: "Hradec jest bohaté město na Labi a baštou kališníků východočeských. Za bouří husitských býval středem orebitů a sirotků a císaři Zikmundovi vzdoroval do konce; v letech 1438–1448 zde sídlil mistr Jan Rokycana. Sídlí zde purkrabí kraje hradeckého.",
+  },
   Žatec: {n: "Žatec jest bohaté město pod obojí, chmelnicemi obklopené, a drží věrný spolek s Louny."},
   Plzeň: {
-    n: "Plzeň jest baštou strany římské na západě. Za bouří husitských odolala obležení a podnes stojí v čele landfrýdu plzeňského, jenž pod jednou přijímá.",
+    n: "Plzeň jest baštou strany římské na západě. Za bouří husitských odolala obležení a podnes stojí v čele landfrýdu plzeňského, jenž pod jednou přijímá. Když pan Jiří léta Páně 1448 vzal Prahu, utekli sem kanovníci pražští i hejtman Hanuš z Kolovrat; norimberští kupci zde mají svou oporu.",
   },
   "České Budějovice": {
-    n: "Budějovice jsou město strany římské, z větší části německé a králi věrné, obklopené zbožím pánů z Rožmberka; jest branou k Linci.",
+    n: "Budějovice jsou město strany římské, z větší části německé a králi věrné, s chválenou školou městskou. Leží uprostřed zboží pánů z Rožmberka, kteří je chrání, ač se s nimi měšťané často přou; jest branou k Linci.",
   },
   Cheb: {
     t: "Říšské město zastavené Koruně",
-    n: "Cheb jest město strany římské a německé, jež se samo široce spravuje. Ve věcech duchovních náleží biskupu řezenskému, nikoli Praze.",
+    n: "Cheb jest město strany římské a německé, jež se samo široce spravuje. Ve věcech duchovních náleží biskupu řezenskému, nikoli Praze. Ač katolický, s panem Jiřím drží dobrou vůli: Chebák Jošt z Einsiedlu jest jeho důvěrníkem a prvního dne března jel pro korunní listiny na Karlštejn.",
   },
-  Brno: {n: "Brno jest hlavním městem markrabství moravského, strany římské a německé, i hledí ostražitě na krále pod obojí."},
-  Olomouc: {n: "Olomouc jest královské město strany římské a sídlo kapituly biskupské."},
-  Jihlava: {n: "Jihlava jest bohaté město stříbra a sukna, ze všech na Moravě nejzarytější protivník pana Jiřího ze strany římské."},
-  Znojmo: {n: "Znojmo jest královské město strany římské nad Dyjí, nedaleko od pomezí rakouského."},
+  Brno: {
+    n: "Brno jest s Olomoucí předním městem markrabství moravského, strany římské a německé, s hradem Špilberkem nad sebou. Léta Páně 1454 vyhnal odsud král Ladislav na žádost měšťanů Židy. S Olomoucí, Jihlavou a Znojmem drží Brno jednotu měst moravských a na pána kališníka hledí ostražitě.",
+  },
+  Olomouc: {
+    n: "Olomouc jest královské město strany římské a sídlo kapituly biskupské; s Brnem, Jihlavou a Znojmem drží jednotu měst moravských. Léta Páně 1452 nedali zde vyvěsiti mandáty papežské proti odbojným Rakušanům a léta 1454 vyhnal král Ladislav z města Židy, čímž se dlužníci olomoučtí zbavili dluhů.",
+  },
+  Jihlava: {
+    n: "Jihlava jest bohaté německé město strany římské, proslulé horním právem a suknem. Léta Páně 1436 zde byla vyhlášena kompaktáta a přijat císař Zikmund. S Brnem, Olomoucí a Znojmem drží jednotu měst moravských; mezi radou patricijskou a obecným lidem však roste nesvár, jejž živí kazatelé ze želivského kláštera.",
+  },
+  Znojmo: {
+    n: "Znojmo jest královské město strany římské nad Dyjí, nedaleko pomezí rakouského. Zde léta Páně 1437 dal císař Zikmund zatknouti choť svou Barboru a týž rok tu zemřel; léta 1454 vyhnal král Ladislav ze Znojma Židy.",
+  },
   Litoměřice: {n: "Litoměřice jsou město pod obojí na Labi, kteréž živí se kupectvím s vínem, obilím a solí."},
   Louny: {n: "Louny jsou město pod obojí na Ohři a se Žatcem činí svazek husitských měst na severozápadě země."},
   Slaný: {n: "Slaný jest město pod obojí na stezce Chebské."},
-  Kolín: {n: "Kolín jest město pod obojí na Labi, odkudž se rozbíhají cesty na Moravu a do Kladska."},
+  Kolín: {
+    n: "Kolín jest město pod obojí na Labi a pevnost téměř nedobytná, odkudž se rozbíhají cesty na Moravu a do Kladska. Po bitvě u Lipan sem utekli ti, kdo z bratrstev přežili, a město drží posud kněz Bedřich ze Strážnice, někdy hejtman bratrstev.",
+  },
   Čáslav: {n: "Čáslav jest město pod obojí. Léta Páně 1421 sešel se zde slavný sněm, kterýž Zikmunda trůnu zbavil."},
   Nymburk: {n: "Nymburk jest město pod obojí nad Labem, mocnými hradbami ohrazené."},
   Chrudim: {t: "Věnné město královny", n: "Chrudim jest město pod obojí na stezce Trstenické."},
@@ -813,29 +826,41 @@ const CITYINFO = {
   Sušice: {n: "Sušice jest město pod obojí na Otavě, kamž míří kašperskohorská větev Zlaté stezky."},
   Beroun: {n: "Beroun jest město pod obojí na stezce Norimberské."},
   Rakovník: {n: "Rakovník jest město pod obojí při královských lesích křivoklátských."},
-  Most: {n: "Most jest německé město strany římské pod Krušnými horami. Léta Páně 1421 utrpěli zde husité krvavý nezdar."},
+  Most: {
+    n: "Most jest německé město strany římské pod Krušnými horami s mocným hradem. Léta Páně 1421 utrpěli zde husité krvavý nezdar. Město drželi v zástavě vévodové saští a za nich zde pobýval i kazatel Kapistrán; léta 1456 dobyl pan Jiří hradu rychlým útokem, Sasové se však svých práv posud nevzdali.",
+  },
   Kadaň: {n: "Kadaň jest královské město strany římské na Ohři."},
   "Ústí nad Labem": {n: "Léta Páně 1426 porazili husité u Ústí Sasy a město vypálili; ponenáhlu se z popela zvedá."},
   "Uherské Hradiště": {n: "Hradiště jest město strany římské, strážce pomezí uherského, kteréž husitům nikdy nepodlehlo."},
-  Uničov: {n: "Uničov jest královské město strany římské, od starodávna hornické."},
+  Uničov: {
+    n: "Uničov jest královské město strany římské, od starodávna hornické. Léta Páně 1452 zde zasedal sněm moravský a léta 1454 odsud král Ladislav na žádost měšťanů vyhnal Židy.",
+  },
   "Uherský Brod": {n: "Brod Uherský jest město strany římské na stezce Uherské."},
   Vratislav: {
-    n: "Vratislav jest po Praze největším městem Koruny, strany římské a spolku hanzovního. Krále kacíře odmítá a kazatelé její proti Jiřímu lid burcují.",
+    n: "Vratislav jest po Praze největším a nejbohatším kupeckým městem Koruny, strany římské a spolku hanzovního; knížete nemá a vládne jí rada patricijů. Léta Páně 1453 zde po kázáních Kapistránových upálili čtyřicet jeden Židů. Kazatelé vratislavští proti panu Jiřímu lid burcují a po ulicích se zpívají posměšné písně o „Girsikovi“.",
   },
   Svídnice: {
     n: "Svídnice jest hlavním městem knížectví svídnického a javorského, jež Koruně přímo náleží, a po Vratislavi nejpřednějším městem slezským; bohatne suknem a pivem.",
   },
   Olava: {n: "Olava jest město knížat z rodu Piastovců lehnických na Odře mezi Vratislaví a Břehem."},
-  Zhořelec: {n: "Zhořelec jest nejbohatším ze Šestiměstí na Vysoké cestě a kupčí suknem i barvou z borůvek."},
-  Budyšín: {n: "Budyšín jest hlavním městem Horní Lužice, kdež sídlí kapitula a zemský fojt."},
-  Žitava: {n: "Žitava odolala husitům a živí se kupectvím s Čechami přes hory Lužické."},
+  Zhořelec: {
+    n: "Zhořelec jest nejbohatším ze Šestiměstí na Vysoké cestě a kupčí suknem i barvou z borůvek. Poslové jeho byli spolu s budyšínskými na volebním sněmu v Praze.",
+  },
+  Budyšín: {
+    n: "Budyšín jest hlavním městem Horní Lužice, kdež sídlí kapitula a zemský fojt. Jen poslové Budyšína a Zhořelce přijeli z vedlejších zemí na volební sněm do Prahy, odjeli však ještě před volbou.",
+  },
+  Žitava: {
+    n: "Žitava odolala husitům a živí se suknem a kupectvím s Čechami přes hory Lužické. Za bouří husitských zde v exilu sídlila kapitula pražská a s ní mnozí vyhnanci strany římské.",
+  },
   Lubáň: {n: "Lubáň jest nejmenší ze Šestiměstí, na pomezí slezském."},
   Kamenec: {n: "Kamenec jest město ze Šestiměstí na západním kraji Horní Lužice."},
   Lobava: {n: "Lobava jest město ze Šestiměstí mezi Budyšínem a Zhořelcem."},
   Norimberk: {n: "Norimberk jest největším kupeckým městem v jižních Němcích a Praha i Plzeň s ním nejvíce kupčí."},
   Řezno: {n: "Řezno jest přístavem na Dunaji, sídlem biskupským a starobylým městem říšským."},
   Erfurt: {t: "Město mohučského arcibiskupa", n: "Erfurt jest bohaté a přední město durynské s učením obecným, kteréž se samo spravuje."},
-  Prešpurk: {n: "Prešpurk jest uherské pomezní město naproti Rakousům, na Dunaji i na cestě Považské."},
+  Prešpurk: {
+    n: "Prešpurk jest uherské pomezní město naproti Rakousům, na Dunaji i na cestě Považské. Sem má být podle smlouvy strážnické do roka dopravena Kateřina, dcera pana Jiřího, zasnoubená králi Matyášovi.",
+  },
   Trnava: {n: "Trnava jest bohaté kupecké město na cestě Považské."},
   "Banská Štiavnica": {n: "Štiavnica má nejbohatší stříbrné doly v celých Uhřích."},
   "Banská Bystrica": {n: "Bystrica jest město měděných dolů, z nichž měď jde až do Benátek."},
@@ -848,7 +873,7 @@ const CITYINFO = {
   Tachov: {n: "Tachov jest královské město při pomezí bavorském. Léta Páně 1427 zde Prokop Holý rozprášil výpravu křižáckou a město dobyl."},
   Trutnov: {t: "Věnné město královny", n: "Trutnov jest město z větší části německé pod Krkonošemi, na cestě do Slezska."},
   Prachatice: {
-    n: "Prachatice jsou město Zlaté stezky, kudy se z Pasova sůl vozí. Léta Páně 1420 je Žižka dobyl a krutě potrestal; potom náležely k svazu táborskému.",
+    n: "Prachatice jsou město Zlaté stezky, kudy se z Pasova sůl vozí. Léta Páně 1420 je Žižka dobyl a krutě potrestal; potom náležely k svazu táborskému. Od léta 1444 je drželi páni z Rožmberka a léta 1457 postoupili zástavu Prachatic a Volar pánům Prokopovi a Janovi z Rabštejna.",
   },
   Litovel: {n: "Litovel jest malé královské město strany římské na rozvětvené řece Moravě nedaleko Olomouce."},
   Augšpurk: {
@@ -979,7 +1004,7 @@ const CITYINFO = {
   },
   Bytom: {n: "Hlavní město Bytomska, kteréž jest rozděleno napůl mezi knížete olešnického Konráda IX. Černého a knížete těšínského Václava I."},
   Javor: {
-    n: "Druhé hlavní město knížectví svídnicko-javorského, jež náleží přímo Koruně; místo krále tu vládne zemský hejtman, sídlící na někdejším hradě Piastovců.",
+    n: "Druhé hlavní město knížectví svídnicko-javorského, jež náleží přímo Koruně; místo krále tu vládne zemský hejtman. Hejtmanem knížectví slezských jest od léta Páně 1457 pan Jan z Rožmberka.",
   },
   Lehnice: {
     n: "Hlavní město knížectví lehnického mladého Fridricha I., za něhož vládne matka jeho Hedvika. Po létě Páně 1449 vzepřeli se tu Piastovcům a hledali oporu přímo u Koruny.",
@@ -1200,7 +1225,7 @@ const CITYINFO = {
   },
   Karlštejn: {
     t: "Královský hrad",
-    n: "Strážce korunovačních klenotů, jež jsou zde opět od léta Páně 1436, i archivu korunního; za bouří husitských nedobytá pevnost strany římské. Purkrabím jest Jindřich Berka z Dubé.",
+    n: "Královský hrad, schránka korunovačních klenotů, jež jsou zde opět od léta Páně 1436, a od léta 1437 i archivu korunního v kapli svatého Kříže; bez nich nelze krále platně korunovati. Za bouří husitských nedobytá pevnost strany římské; spravuje jej nejvyšší purkrabí. Prvního dne března jela sem družina přes třicet jezdců pro listiny o právu ke Koruně a za tmy je přivezla na sněm do Prahy.",
   },
   Křivoklát: {
     t: "Královský hrad",
@@ -1244,7 +1269,7 @@ const CITYINFO = {
   },
   "Kunětická hora": {
     t: "Husitský hrad",
-    n: "Hrad na osamělé hoře u Pardubic, jejž přestavěl husitský hejtman Diviš Bořek z Miletínka. Drží jej syn jeho, pan Soběslav Mrzák z Miletínka.",
+    n: "Hrad na osamělé hoře u Pardubic, jejž přestavěl husitský hejtman Diviš Bořek z Miletínka; léta Páně 1437 zde u něho nalezl útočiště mistr Jan Rokycana. Drží jej syn jeho, pan Soběslav Mrzák z Miletínka.",
   },
   Lichnice: {
     t: "Královský hrad",
@@ -1343,11 +1368,11 @@ const CITYINFO = {
   Ziesar: {t: "Biskupský hrad", n: "Sídlo biskupů braniborských a středisko správy biskupství již od léta Páně 1327."},
   Poděbrady: {
     t: "Hrad pánů z Poděbrad",
-    n: "Vodní hrad a město na Labi, dědičné sídlo pánů z Kunštátu a z Poděbrad. Praví se, že se zde léta Páně 1420 narodil Jiří, jenž nyní zvolen jest králem.",
+    n: "Vodní hrad a město na Labi při brodu na cestě z Prahy do Hradce, dědičné sídlo pánů z Kunštátu a z Poděbrad. Praví se, že se zde léta Páně 1420 narodil Jiří, jenž nyní zvolen jest králem. Do hradního žaláře dal léta 1452 vsaditi táborské kněze Mikuláše z Pelhřimova a Václava Korandu.",
   },
   Litice: {
     t: "Hrad pánů z Poděbrad",
-    n: "Hrad na skále nad Divokou Orlicí, jejž pan Jiří dal zesíliti. Na panství litickém, ve vsi Kunvaldu, usadila se s jeho svolením Jednota bratrská.",
+    n: "Hrad na skále nad Divokou Orlicí v podhůří Orlických hor, jejž pan Jiří dal zesíliti. K panství litickému náleží i odlehlá ves Kunvald.",
   },
   Náchod: {
     t: "Hrad pánů z Poděbrad",
@@ -1355,7 +1380,7 @@ const CITYINFO = {
   },
   Kladsko: {
     t: "Město a hrad pánů z Poděbrad",
-    n: "Hlavní město země kladské s hradem nad Nisou, na cestě z Čech do Slezska. Pan Jiří je koupil léta Páně 1454 a spravuje je jeho hejtman Hanuš z Varnsdorfu.",
+    n: "Hlavní město země kladské s hradem nad Nisou, na cestě z Čech do Slezska; země ta jest jako pevnost horami obehnaná. Pan Jiří ji získal léta Páně 1454 a spravuje ji jeho hejtman Hanuš z Varnsdorfu, Němec a katolík, pánovi svému však bezvýhradně oddaný.",
   },
   Minsterberk: {
     t: "Slezské knížecí město",
@@ -1367,15 +1392,15 @@ const CITYINFO = {
   },
   "Český Krumlov": {
     t: "Sídelní město Rožmberků",
-    n: "Hlavní sídlo pánů z Rožmberka: mohutný hrad nad zákruty Vltavy a město pod ním. Odtud vedl pan Oldřich za bouří husitských boj proti Táboru.",
+    n: "Hlavní sídlo pánů z Rožmberka: mohutný hrad nad zákruty Vltavy, v letech čtyřicátých nově přestavěný, a město pod ním se školou slovutnou až v Rakousích. Odtud vedl pan Oldřich za bouří husitských boj proti Táboru a léta Páně 1451 zde Kapistrán odmítl rozmluvu s Rokycanou. Vládu panství drží od léta 1457 nejmladší syn Oldřichův, pan Jan.",
   },
   Rožmberk: {
     t: "Hrad pánů z Rožmberka",
-    n: "Starobylý hrad nad Vltavou, podle něhož se rod píše. Hlavním sídlem jest nyní Krumlov, ale jméno i růže vzešly odtud.",
+    n: "Starobylý hrad nad Vltavou, podle něhož se rod píše; hlavním sídlem jest nyní Krumlov, ale jméno i růže vzešly odtud. Léta Páně 1456 jej pan Jan vykoupil od pánů z Wallsee a sídlí zde vdova po panu Jindřichovi, paní Anežka ze Schaunberka.",
   },
   Třeboň: {
     t: "Rožmberské město",
-    n: "Ohrazené město pánů z Rožmberka v rovině mezi rybníky a mokřinami, s klášterem augustiniánů, jejž rod založil léta Páně 1367.",
+    n: "Ohrazené město pánů z Rožmberka v rovině mezi rybníky a mokřinami, s klášterem augustiniánů, jejž rod založil léta Páně 1367. Panství zde spravuje panna Anežka, neprovdaná dcera pana Oldřicha, jež nebydlí na hradě, nýbrž v domě měšťanském.",
   },
   "Nové Hrady": {
     t: "Hrad pánů z Rožmberka",
@@ -1451,7 +1476,7 @@ const CITYINFO = {
   },
   Hazmburk: {
     t: "Hrad Zajíců z Hazmburka",
-    n: "Hrad o dvou věžích, Bílé a Černé, na vrchu Klapý pod Řípem. Po něm se píše rod Zajíců; drží jej pan Zbyněk Zajíc.",
+    n: "Hrad o dvou věžích, Bílé a Černé, na vrchu Klapý pod Řípem. Po něm se píše rod Zajíců; drží jej pan Zbyněk Zajíc, nejvyšší sudí zemský.",
   },
   Budyně: {t: "Hrad Zajíců z Hazmburka", n: "Vodní hrad a městečko nad Ohří pod Řípem, kteréž léta Páně 1451 koupil pan Zbyněk Zajíc z Hazmburka."},
   Hasištejn: {
@@ -1500,7 +1525,7 @@ const CITYINFO = {
   },
   Kroměříž: {
     t: "Biskupské město",
-    n: "Město na Hané se sídlem biskupů olomouckých, nejvyšší vrchnosti duchovní na Moravě. Biskupské zboží v okolí jest od bouří husitských z větší části zastaveno.",
+    n: "Město na Hané se sídlem biskupů olomouckých, nejvyšší vrchnosti duchovní na Moravě; biskupem jest od léta Páně 1457 Protas, řečený Tas, z Boskovic, posud nevysvěcený. Měšťané však drží s kalichem: léta 1452 zajali zdejší kališníci čtyřicet poutníků, kteří šli na kázání Kapistránovo. Biskupské zboží v okolí jest od bouří husitských z větší části zastaveno.",
   },
   Vyškov: {t: "Biskupské město", n: "Město s hradem biskupů olomouckých na cestě z Brna na Hanou."},
   Hukvaldy: {
@@ -1521,7 +1546,7 @@ const CITYINFO = {
   },
   "Mikulov (Morava)": {
     t: "Hrad pánů z Lichtenštejna",
-    n: "Hrad na skále nad městem vinařským při hranici rakouské, jenž Lichtenštejnům náleží od třináctého věku. Sídlí zde zadlužený pan Jan z Lichtenštejna.",
+    n: "Hrad na skále nad městem vinařským při hranici rakouské, jenž Lichtenštejnům náleží od třináctého věku. Sídlí zde zadlužený pan Jan z Lichtenštejna s chotí svou Perchtou z Rožmberka.",
   },
   Valtice: {
     t: "Rakouské panství Lichtenštejnů",
@@ -1580,7 +1605,7 @@ const CITYINFO = {
   },
   Vídeň: {
     t: "Hlavní město Rakous",
-    n: "Největší město rakouské s učením a chrámem svatého Štěpána, v duchovních věcech pod Pasovem. Po smrti krále Ladislava nemá jistého pána; přou se o ni Fridrich III. a Albrecht VI.",
+    n: "Největší město rakouské s učením a chrámem svatého Štěpána, v duchovních věcech pod Pasovem. Po smrti krále Ladislava nemá jistého pána: přou se o ni císař Fridrich III. a arcivévoda Albrecht VI. a stavové odpovídají, že učiní, co káže právo, až se bratři dohodnou.",
   },
   Landshut: {
     t: "Sídelní město Ludvíka Bohatého",
@@ -1676,6 +1701,34 @@ const CITYINFO = {
     n: "Město na Bílém Halštrovu, sídlo pánů z Gery na hradě Osterštejně. Léta Páně 1450 bylo téměř zničeno v saské válce bratrovražedné.",
   },
   Greiz: {t: "Sídlo Reussů", n: "Město na Bílém Halštrovu s hradem na vrchu nad řekou, sídlo Reussů z Greizu."},
+  Strážnice: {
+    t: "Panské město pánů z Kravař",
+    n: "Město na řece Moravě při pomezí uherském, sídlo pana Jiřího z Kravař a ze Strážnice. Šestého dne února léta Páně 1458 zde pan Jiří z Poděbrad předal Uhrům mladého Matyáše, jejž přebírala matka jeho Alžběta, a devátého dne zpečetěna smlouva o Matyášově sňatku s Kateřinou, dcerou páně Jiřího.",
+  },
+  Hodonín: {
+    t: "Zastavené zeměpanské město",
+    n: "Město s hradem na řece Moravě při pomezí uherském. Kolem léta Páně 1451 se ho zmocnil drsný vladyka Václav Sudlice z Nespečova, služebník Hunyadiho, a odtud plenil zboží biskupa olomouckého i pánů moravských. Teprve za rakouské peníze odtáhl a král Ladislav léta 1453 zastavil Hodonín rakouskému dvornímu maršálkovi Zikmundovi Fritzesdorferovi.",
+  },
+  Cornštejn: {
+    t: "Hrad Bítovských z Lichtenburka",
+    n: "Hrad na skalním ostrohu nad Dyjí blízko pomezí rakouského, sídlo pana Hynka Bítovského z Lichtenburka. Rod jeho, odedávna nepřítel Kunštátů, kryje lapky, kteří plení Moravu i Rakousy. Na posledním soudu krále Ladislava v listopadu léta Páně 1457 se pan Hynek přel s panem Prockem z Kunštátu o olomoucké komornictví, až jeden druhého vyzýval na souboj.",
+  },
+  Mejdštejn: {
+    t: "Hrad pánů z Rožmberka",
+    n: "Mejdštejn, čili Dívčí Kámen, hrad na ostrohu nad soutokem Vltavy s Křemžským potokem, na dohled od Krumlova i Zlaté Koruny. Od léta Páně 1457 tu na výměnku sedí starý pan Oldřich z Rožmberka, kulhavý a nesmířený, když vládu panství předal synu Janovi. Pan Jiří drží jeho úpis na šestnáct tisíc zlatých.",
+  },
+  Helfenburk: {
+    t: "Hrad pánů z Rožmberka",
+    n: "Hrad v lesích nad Bavorovem, západní výspa panství rožmberského. Úředníci odsud posílají zprávy na Krumlov, sjednávají se tu příměří a doručují opovědi pánům z Rožmberka; ve věžích jeho za bouří husitských zemřeli kněží zajatí léta Páně 1420. Pod hradem stojí krčma s noclehem.",
+  },
+  Želiv: {
+    t: "Zpustlý klášter premonstrátů",
+    n: "Klášter premonstrátů nad řekou Želivkou na pomezí českomoravském, odkud vyšel kněz Jan Želivský, kazatel pražské chudiny. Za bouří husitských klášter zpustl a řeholníci se rozešli; kazatelé želivského původu posud burcují obecný lid v Jihlavě.",
+  },
+  Pohansko: {
+    t: "Opuštěné hradisko",
+    n: "Veliký val zarostlý lužním lesem na soutoku Moravy s Dyjí u Břeclavi, kde v dávných časech stával hrad u brodu přes Moravu. Uvnitř leží trosky kamenného kostela; po staletí tu nikdo nebydlí a rozvodněné řeky val rok co rok podmílají. Lid mu říká Pohansko.",
+  },
 };
 const MAJOR_ROADS = new Set([
   "Zlatá stezka",
