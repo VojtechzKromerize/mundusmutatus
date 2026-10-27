@@ -36,6 +36,7 @@ JS = [
     ("05b-svet-mapa.js", "/* ===== Známý svět: kresba"),
     ("06-draconomicon-rodokmeny.js", "/* ---------- Draconomicon ---------- */"),
     ("07-druzina-kronika.js", "/* ======== Družina · Kronika tažení"),
+    ("07s-stopa.js", "/* @čisté – Stopa družiny na mapě"),
     ("08-navigace-pravidla.js", "/* ---------- site navigation"),
     ("09-vypravec-herni-cas.js", "/* ===== Vypravěč: stavy odhalení"),
     ("10-kouzla.js", "/* ===== Kouzla: SRD 5.2.1 česky"),

@@ -782,13 +782,12 @@ function sDraw() {
       const c = SVETMESTA.find(x => x[0] === n);
       return c ? [c[1], c[2]] : null;
     };
+    /* stejný počátek stopy a volba diváka jako na mapě Koruny (stopaTed v 07) */
     const pts = [];
-    ZAPISY.forEach(z =>
-      (z.route || [z.place]).concat(z.place).forEach(n => {
-        const q = look(n);
-        if (q && (!pts.length || pts[pts.length - 1] + "" !== q + "")) pts.push(q);
-      }),
-    );
+    stopaTed(null).zast.forEach(z => {
+      const q = look(z.n);
+      if (q && (!pts.length || pts[pts.length - 1] + "" !== q + "")) pts.push(q);
+    });
     {
       const pp = partyPos(),
         q = pp ? [pp.lo, pp.la] : null;

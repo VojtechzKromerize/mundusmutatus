@@ -1399,7 +1399,10 @@ async function vyOdcestuj(putovat) {
     h = {datum: dat, hodina: p.h, misto, praha: VYT.m === "praha" ? praha : null, cesta: null, poloha: null};
     if (tr && tr.length > 1 && typeof cTxt === "function") {
       const b = tr.map(q => [q[1], q[2]]).filter((q, i, a) => i === 0 || i === a.length - 1 || i % 3 === 0);
-      h.putovani = [...((HRA && HRA.putovani) || []), {z: VYT.z, do: misto, od: cTxt(tr[0][0]), pr: cTxt(tr[tr.length - 1][0]), b}].slice(-80);
+      h.putovani = [
+        ...((HRA && HRA.putovani) || []),
+        {z: VYT.z, do: misto, od: cTxt(tr[0][0]), pr: cTxt(tr[tr.length - 1][0]), t0: tr[0][0], t1: tr[tr.length - 1][0], b},
+      ].slice(-80);
     }
   }
   await hraZpetZapis(`${putovat ? "vyrazit" : "dorazit"} do: ${misto}`);

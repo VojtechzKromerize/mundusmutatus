@@ -5256,7 +5256,7 @@ function renderDetail() {
   const d = document.getElementById("detail");
   if (!st.sel && st.misto) {
     d.classList.remove("empty");
-    d.innerHTML = `<button type="button" class="detx" data-detx aria-label="Zavřít panel" title="Zavřít">×</button>${typeof st.misto === "object" ? krajHtml(st.misto) : mistoHtml(st.misto)}`;
+    d.innerHTML = `<button type="button" class="detx" data-detx aria-label="Zavřít panel" title="Zavřít">×</button>${typeof st.misto !== "object" ? mistoHtml(st.misto) : st.misto.k === "st" ? stopaHtml(st.misto) : krajHtml(st.misto)}`;
     return;
   }
   if (!st.sel) {

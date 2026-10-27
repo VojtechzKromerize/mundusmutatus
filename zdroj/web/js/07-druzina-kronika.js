@@ -169,7 +169,7 @@ function renderKronika(b, c) {
   const box = document.getElementById("kzapisy"),
     z = ZBY[b];
   if (!z) {
-    box.innerHTML = `<p class="intro">Zápisy z cest družiny, sezení po sezení. Praporec na mapě (vrstva <b>Družina</b>) ukazuje, kde družina právě je, a tečkovaná čára, kudy prošla.</p>
+    box.innerHTML = `<p class="intro">Zápisy z cest družiny, sezení po sezení. Praporec na mapě (vrstva <b>Družina</b>) ukazuje, kde družina právě je, a tečkovaná čára se šipkami, kudy prošla; starší cesty slábnou a pod mapou si zvolíte, zda vidět jen poslední cestu, stopu od jejího počátku, nebo celé tažení.</p>
      <ol class="zlist">${ZAPISY.map(z => `<li><a class="zcard" href="#kronika/${z.id}"><small>${z.n} · ${z.date} · ${z.place}</small><b>${z.title}</b><span>${strip(z.text).replace(/\s+/g, " ").slice(0, 150)}…</span></a></li>`).join("")}</ol>
      <p class="rsmall">Další zápisy přibudou po každém sezení.</p>${(HRA && (HRA.ukoly || []).length) || GMV ? hraUkolyHtml() : ""}`;
     return;
@@ -184,54 +184,224 @@ function renderKronika(b, c) {
    <div class="ztext">${z.text}</div>
    ${zPodpis(z)}
    <button type="button" class="gbtn" data-partymap="${z.id}">Ukázat cestu na mapě</button>${z.place === "Praha" || (z.praha || []).length ? ` <a class="gbtn ghost" href="#praha${(z.praha || []).length ? "/" + z.praha[0] : ""}">Plán Prahy</a>` : ""}
+   ${stopaOd() && stopaOd().z === z.id ? `<p class="rsmall">Odtud začíná stopa družiny na mapě.</p>` : ""}${GMV ? `<p class="stopagm"><button type="button" class="gbtn ghost" data-stopaod="${z.id}" title="Na mapě se stopa začne kreslit od místa, kde tento zápis končí; starší zápisy v Kronice zůstanou">Začít stopu na mapě tímto zápisem</button></p>` : ""}
    <nav class="apn">${pv ? `<a href="#kronika/${pv.id}" rel="prev"><small>Předchozí</small>${pv.title}</a>` : "<span></span>"}${nx ? `<a href="#kronika/${nx.id}" rel="next"><small>Další</small>${nx.title}</a>` : "<span></span>"}</nav>`;
   autolink(box.querySelector(".ztext"), "");
 }
-function partyPath(lim) {
-  const pts = [];
-  (lim != null ? ZAPISY.slice(0, lim + 1) : ZAPISY).forEach(z =>
-    (z.route || [z.place]).concat(z.place).forEach(n => {
-      const p = placeBy(n);
-      if (p && (!pts.length || pts[pts.length - 1].name !== p.name)) pts.push(p);
-    }),
-  );
-  if (lim != null) return pts;
-  const q = placeBy(partyPlace() || "");
-  if (q && (!pts.length || pts[pts.length - 1].name !== q.name)) pts.push(q);
-  return pts;
+/* ===== Stopa družiny na mapě (2026-10-28, Vojta): úseky po cestách se šipkami, starší slábnou, zastávky s datem, „Družina je tady“;
+   počátek stopy (HRA.stopaOd) nastavuje vypravěč, kolik stopy ukázat si volí každý divák (výpočet v 07s-stopa.js) ===== */
+let STOPAP = null;
+function stopaPohled() {
+  if (STOPAP) return STOPAP;
+  let v = null;
+  try {
+    v = localStorage.getItem("mm-stopa-pohled");
+  } catch (e) {}
+  STOPAP = STOPA_POHLEDY.some(p => p[0] === v) ? v : "pocatek";
+  return STOPAP;
+}
+const stopaOd = () => (HRA && HRA.stopaOd) || null;
+const stopaTed = lim => stopaRozsah(ZAPISY, {od: stopaOd(), pohled: stopaPohled(), lim});
+const datumDlouhe = d => {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(d || "");
+  return m ? `${+m[3]}. ${MES[+m[2] - 1]} ${m[1]}` : "";
+};
+/* úsek mezi dvěma místy po síti cest (computeRoute v 02); bez cesty po souši (ostrov) nebo neznámé místo → rovná čára */
+const STOPAG = new Map();
+function stopaGeo(a, b) {
+  const k = a + "|" + b;
+  if (STOPAG.has(k)) return STOPAG.get(k);
+  const A = placeBy(a),
+    B = placeBy(b);
+  let g = null;
+  if (A && B) {
+    let r = null;
+    try {
+      r = computeRoute(A, B);
+    } catch (e) {}
+    g =
+      r && r.coords.length > 1
+        ? r.coords.map(q => [q[0], q[1]])
+        : [
+            [A.lo, A.la],
+            [B.lo, B.la],
+          ];
+  }
+  STOPAG.set(k, g);
+  return g;
+}
+/* popis počátku pro panel a ovládání: „od 5. března 1458 (Sezení 3)“ */
+function stopaPopis() {
+  const od = stopaOd(),
+    p = stopaPohled();
+  if (p === "cele") return "Ukazuje se celé tažení.";
+  if (p === "posledni") return "Ukazuje se jen poslední cesta.";
+  if (!od) return "Stopa ukazuje celé tažení – vypravěč zatím nezačal novou.";
+  const z = od.z && ZBY[od.z],
+    d = datumDlouhe(od.datum) || (z && z.date) || "";
+  return `Stopa začíná ${d ? d + " " : ""}${z ? `v místě ${z.place} (${z.n || z.title})` : ""}.`.replace(/ \./, ".");
+}
+/* tlačítka vypravěče: začít stopu zápisem, smazat stopu (počátek = teď), vrátit celou */
+function stopaGmHtml(zid) {
+  if (!GMV) return "";
+  const od = stopaOd();
+  return `<p class="stopagm">${zid ? `<button type="button" class="gbtn ghost" data-stopaod="${zid}" title="Na mapě se stopa začne kreslit od místa, kde tento zápis končí; starší zápisy v Kronice zůstanou">Začít stopu tímto zápisem</button>` : ""}<button type="button" class="gbtn ghost" data-stopasmaz title="Stopa začne od dnešního místa družiny; zápisy Kroniky ani cesty se nemažou">Smazat stopu</button>${od ? `<button type="button" class="gbtn ghost" data-stopacela title="Zrušit počátek – stopa zase od začátku tažení">Vrátit celou stopu</button>` : ""}</p>`;
+}
+/* volba diváka (pamatuje si ji prohlížeč) a stav stopy u posuvníku „Kde jsme byli kdy“ (plní 09) */
+function stopaUiHtml() {
+  const p = stopaPohled();
+  return `<div class="controls stopapohl" role="group" aria-label="Kolik stopy družiny ukázat">${STOPA_POHLEDY.map(
+    ([k, t]) => `<button type="button" data-stopapohl="${k}" aria-pressed="${k === p}">${t}</button>`,
+  ).join("")}</div><p class="stopapop">${besc(stopaPopis())}</p>${stopaGmHtml(st.cas != null && ZAPISY[st.cas] ? ZAPISY[st.cas].id : "")}`;
+}
+/* panel na mapě: zastávka (zápisy, které tu končí) nebo „Družina je tady“ */
+function stopaHtml(o) {
+  const zl = i => {
+    const z = ZAPISY[i];
+    return z
+      ? `<li><a href="#kronika/${z.id}"><b>${besc(z.title)}</b></a><small>${besc([z.n || "Zápis " + (i + 1), z.date, z.hodina != null ? z.hodina + ":00" : ""].filter(Boolean).join(" · "))}</small>${GMV ? `<button type="button" class="gbtn ghost" data-stopaod="${z.id}">Začít stopu tímto zápisem</button>` : ""}</li>`
+      : "";
+  };
+  if (o.tady) {
+    const pp = partyPos(),
+      L = ZAPISY[ZAPISY.length - 1];
+    return `<span class="lbl">Družina je tady</span><h3 style="font-size:1.35rem">${besc((pp && pp.name) || partyPlace() || "")}</h3><p>${besc(partyDate())}${HRA && HRA.hodina != null ? `, ${HRA.hodina}:00` : ""}</p>${L ? `<p class="rsmall">Poslední zápis Kroniky:</p><ul class="stopazl">${zl(ZAPISY.length - 1)}</ul>` : ""}<p class="rsmall">${besc(stopaPopis())}</p>${stopaGmHtml("")}`;
+  }
+  return `<span class="lbl">Zastávka družiny</span><h3 style="font-size:1.35rem">${besc(o.n)}</h3><ul class="stopazl">${(o.z || [])
+    .slice()
+    .reverse()
+    .map(zl)
+    .join("")}</ul><p class="rsmall">${besc(stopaPopis())}</p>`;
+}
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-stopapohl],[data-stopaod],[data-stopasmaz],[data-stopacela]");
+  if (!b) return;
+  if (b.dataset.stopapohl) {
+    STOPAP = b.dataset.stopapohl;
+    try {
+      localStorage.setItem("mm-stopa-pohled", STOPAP);
+    } catch (e) {}
+    stopaObnov();
+    return;
+  }
+  if (!GMV) return;
+  let od = null;
+  if (b.dataset.stopaod) {
+    const z = ZBY[b.dataset.stopaod];
+    if (!z) return;
+    od = {z: z.id, datum: z.datum || "", hodina: z.hodina == null ? null : z.hodina};
+  } else if (b.hasAttribute("data-stopasmaz")) {
+    const L = ZAPISY[ZAPISY.length - 1];
+    od = {
+      z: L ? L.id : "",
+      datum: (HRA && HRA.datum) || (L && L.datum) || "",
+      hodina: HRA && HRA.hodina != null ? HRA.hodina : L && L.hodina != null ? L.hodina : null,
+    };
+  }
+  Promise.resolve(hraUloz({stopaOd: od})).then(() => {
+    if (curView === "kronika") renderKronika(decodeURIComponent(location.hash.split("/")[1] || ""));
+    stopaObnov();
+    mmHlasG(od ? "Stopa na mapě začíná znovu – starší zápisy zůstaly v Kronice." : "Na mapě je zase celá stopa tažení.", 4000);
+  });
+});
+/* překreslení po změně volby nebo počátku (mapa Koruny, mapa světa, panel a ovládání) */
+function stopaObnov() {
+  if (curView === "mapa") {
+    drawMap();
+    if (st.misto && st.misto.k === "st") renderDetail();
+  }
+  if (SG) {
+    if (curView === "svet" && typeof sDraw === "function") sDraw();
+    else window._sDirty = 1;
+  }
+  const u = document.getElementById("mapstopa");
+  if (u) u.innerHTML = stopaUiHtml();
 }
 function drawParty(svg, s, k) {
   if (!st.party || (!ZAPISY.length && !HRA)) return;
   const lim = st.cas != null && ZAPISY[st.cas] ? st.cas : null,
     LZ = lim != null ? ZAPISY[lim] : null,
     tz = LZ ? cT({datum: LZ.datum, hodina: LZ.hodina ?? 23}) : null;
-  const pts = partyPath(lim);
-  if (pts.length > 1) {
-    const rp = pts.map(p => P(p.lo, p.la).join(",")).join(" ");
-    svg.appendChild(
+  const R = stopaTed(lim),
+    tOd = R.odT ? cT(R.odT) : null,
+    put = stopaPutovani((HRA && HRA.putovani) || [], tOd, tz),
+    zast = R.zast.slice();
+  /* dnešní místo družiny, když se pohnula bez zápisu (a cestu nekreslí deník putování) */
+  if (lim == null) {
+    const q = placeBy(partyPlace() || ""),
+      pz = put[put.length - 1];
+    if (q && (!zast.length || zast[zast.length - 1].n !== q.name) && !(pz && pz.do === q.name)) zast.push({n: q.name, i: R.i1 + 1, z: []});
+  }
+  const XY = q => P(q[0], q[1]),
+    G = el("g", {class: "stopa", "pointer-events": "none"});
+  svg.appendChild(G);
+  /* úsek: podklad v barvě papíru, tečkovaná čára v barvě kalicha, šipka směru v polovině */
+  const usek = (body, op, nej, plna, title) => {
+    if (!body || body.length < 2) return;
+    const xy = body.map(XY),
+      rp = xy.map(q => q.map(v => v.toFixed(1)).join(",")).join(" "),
+      w = (nej ? 2.8 : 2.1) * s;
+    G.appendChild(
       el("polyline", {
         points: rp,
         fill: "none",
         stroke: "var(--paper)",
-        "stroke-width": (4.5 * s).toFixed(2),
-        opacity: ".8",
+        "stroke-width": (w + 2.4 * s).toFixed(2),
+        opacity: (0.75 * op).toFixed(2),
         "stroke-linejoin": "round",
-        "pointer-events": "none",
-      }),
-    );
-    svg.appendChild(
-      el("polyline", {
-        points: rp,
-        fill: "none",
-        stroke: "var(--kal)",
-        "stroke-width": (2.2 * s).toFixed(2),
-        "stroke-dasharray": `${0.5 * s} ${4 * s}`,
         "stroke-linecap": "round",
-        "stroke-linejoin": "round",
-        "pointer-events": "none",
       }),
     );
-  }
+    const pl = el("polyline", {
+      points: rp,
+      fill: "none",
+      stroke: "var(--kal)",
+      "stroke-width": w.toFixed(2),
+      opacity: op,
+      "stroke-dasharray": plna ? "none" : `${0.5 * s} ${(nej ? 3.4 : 4) * s}`,
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round",
+    });
+    if (title) pl.appendChild(el("title", {}, title));
+    G.appendChild(pl);
+    const a = stopaSipka(xy, 16 * s);
+    if (a) {
+      const m = s * (nej ? 1.5 : 1.2);
+      G.appendChild(
+        el("path", {
+          d: `M${-3.2 * m},${-3.4 * m}L${2.6 * m},0L${-3.2 * m},${3.4 * m}`,
+          transform: `translate(${a.x.toFixed(1)},${a.y.toFixed(1)}) rotate(${a.a.toFixed(0)})`,
+          fill: "none",
+          stroke: "var(--kal)",
+          "stroke-width": (1.7 * s).toFixed(2),
+          "stroke-linecap": "round",
+          "stroke-linejoin": "round",
+          opacity: op,
+          class: "stopasip",
+        }),
+      );
+    }
+  };
+  const useky = stopaUseky(zast, R.i1);
+  useky.forEach(u => usek(stopaGeo(u.a, u.b), stopaSila(u.vek), u.vek === 0, false));
+  /* průchozí místa (trasa zápisu bez vlastního zápisu): malé kroužky */
+  zast.forEach((q, j) => {
+    if (q.z.length || j === zast.length - 1) return;
+    const p = placeBy(q.n);
+    if (!p) return;
+    const [x, y] = P(p.lo, p.la);
+    G.appendChild(
+      el("circle", {
+        cx: x,
+        cy: y,
+        r: (2.1 * s).toFixed(2),
+        fill: "var(--paper)",
+        stroke: "var(--kal)",
+        "stroke-width": (1.2 * s).toFixed(2),
+        opacity: stopaSila(Math.max(0, R.i1 - q.i)),
+      }),
+    );
+  });
   DISC.forEach(d => {
     const [x, y] = P(d.lo, d.la),
       m = s * 1.2,
@@ -255,64 +425,51 @@ function drawParty(svg, s, k) {
       });
     svg.appendChild(g);
   });
-  /* deník putování a právě probíhající cesta */
+  /* deník putování (cesty z Výpravy) a právě probíhající cesta */
   {
-    const line = (pts, dash, op, title) => {
-      if (pts.length < 2) return;
-      const rp = pts.map(q => P(q[0], q[1]).join(",")).join(" ");
-      svg.appendChild(
-        el("polyline", {
-          points: rp,
-          fill: "none",
-          stroke: "var(--paper)",
-          "stroke-width": (4 * s).toFixed(2),
-          opacity: ".7",
-          "stroke-linejoin": "round",
-          "pointer-events": "none",
-        }),
-      );
-      const pl = el("polyline", {
-        points: rp,
-        fill: "none",
-        stroke: "var(--kal)",
-        "stroke-width": (1.8 * s).toFixed(2),
-        opacity: op,
-        "stroke-dasharray": dash ? `${3 * s} ${3 * s}` : "none",
-        "stroke-linecap": "round",
-        "stroke-linejoin": "round",
-      });
-      if (title) pl.appendChild(el("title", {}, title));
-      svg.appendChild(pl);
-    };
-    ((HRA && HRA.putovani) || [])
-      .filter(c => lim == null || (c.t1 != null && tz != null && c.t1 <= tz))
-      .forEach(c => line(c.b || [], false, ".85", `${c.z} → ${c.do} · ${c.od} – ${c.pr}`));
+    const n = put.length;
+    put.forEach((c, j) => usek(c.b || [], stopaSila(n - 1 - j), j === n - 1, true, `${c.z} → ${c.do} · ${c.od} – ${c.pr}`));
     const c = lim == null && HRA && HRA.cesta;
     if (c && c.track) {
       const now = cT(HRA),
         done = c.track.filter(q => q[0] <= now).map(q => [q[1], q[2]]),
         qq = cestaPoz(c.track, now);
       if (qq) done.push(qq);
-      line(done, false, ".85", `${c.z} → ${c.do}`);
-      line([qq || [c.track[0][1], c.track[0][2]], ...c.track.filter(q => q[0] > now).map(q => [q[1], q[2]])], true, ".45", `plán: ${c.z} → ${c.do}`);
+      usek(done, 1, true, true, `${c.z} → ${c.do}`);
+      const zb = [qq || [c.track[0][1], c.track[0][2]], ...c.track.filter(q => q[0] > now).map(q => [q[1], q[2]])];
+      if (zb.length > 1) {
+        const pl = el("polyline", {
+          points: zb.map(q => XY(q).join(",")).join(" "),
+          fill: "none",
+          stroke: "var(--kal)",
+          "stroke-width": (1.8 * s).toFixed(2),
+          opacity: ".45",
+          "stroke-dasharray": `${3 * s} ${3 * s}`,
+          "stroke-linecap": "round",
+        });
+        pl.appendChild(el("title", {}, `plán: ${c.z} → ${c.do}`));
+        G.appendChild(pl);
+      }
     }
   }
-  /* paměť tažení: pečeti zápisů Kroniky v místech, kde zápis končí */
+  /* zastávky: pečeti zápisů Kroniky s datem v místech, kde zápis končí (jen ve viditelné stopě) */
   {
     const by = new Map();
-    ZAPISY.forEach((z, i) => {
-      if (lim != null && i > lim) return;
-      const p = placeBy(z.place);
+    zast.forEach(q => {
+      if (!q.z.length) return;
+      const p = placeBy(q.n);
       if (!p) return;
       if (!by.has(p.name)) by.set(p.name, {p, z: []});
-      by.get(p.name).z.push([i, z]);
+      by.get(p.name).z.push(...q.z);
     });
     by.forEach(({p, z}) => {
       const [x, y] = P(p.lo, p.la),
         m = s * 1.15,
-        [i0, zl] = z[z.length - 1],
-        g = el("g", {class: "zapmk", tabindex: 0, role: "link", "aria-label": `Zápis Kroniky: ${zl.title}`});
-      g.appendChild(el("title", {}, z.map(([i, q]) => `${q.n || "Zápis " + (i + 1)} · ${q.date || ""} · ${q.title}`).join("\n")));
+        i0 = z[z.length - 1],
+        zl = ZAPISY[i0],
+        g = el("g", {class: "zapmk", tabindex: 0, role: "button", "aria-label": `Zastávka družiny: ${p.name}, ${zl.date || ""} – ${zl.title}`});
+      g.appendChild(el("title", {}, z.map(i => `${ZAPISY[i].n || "Zápis " + (i + 1)} · ${ZAPISY[i].date || ""} · ${ZAPISY[i].title}`).join("\n")));
+      g.style.opacity = stopaSila(Math.max(0, R.i1 - i0));
       g.appendChild(
         el("circle", {cx: x - 9 * m, cy: y + 9 * m, r: 6.4 * m, fill: "#a3232b", stroke: "var(--paper)", "stroke-width": (1.4 * s).toFixed(2)}),
       );
@@ -331,30 +488,46 @@ function drawParty(svg, s, k) {
           z.length > 1 ? `${z.length}×` : String(i0 + 1),
         ),
       );
+      const dk = stopaDatumKr(zl.datum);
+      if (dk)
+        g.appendChild(
+          el(
+            "text",
+            {
+              x: x - 9 * m,
+              y: y + 19.5 * m,
+              "text-anchor": "middle",
+              class: "seatlbl stopadat",
+              "font-size": (8 * k).toFixed(1),
+              "stroke-width": (2.6 * s).toFixed(2),
+            },
+            dk,
+          ),
+        );
       const go = e => {
         e.stopPropagation();
-        navTo("#kronika/" + zl.id);
+        showMisto({k: "st", n: p.name, z});
       };
       g.addEventListener("click", go);
       g.addEventListener("keydown", e => {
-        if (e.key === "Enter") go(e);
+        if (e.key === "Enter" || e.key === " ") go(e);
       });
       svg.appendChild(g);
     });
   }
-  const last = lim != null ? LZ : ZAPISY[ZAPISY.length - 1],
-    cur = lim != null ? placeBy(LZ.place) : partyPos();
+  const cur = lim != null ? placeBy(LZ.place) : partyPos();
   if (!cur) return;
   const [x0, y] = P(cur.lo, cur.la),
     m = s * 1.3,
-    x = x0 + 7 * m;
+    x = x0 + 7 * m,
+    nap = lim != null ? `Družina tehdy (${LZ.date || ""})` : "Družina je tady";
   const g = el("g", {
     class: "partymk",
     tabindex: 0,
-    role: "link",
-    "aria-label": `Družina: ${cur.name}, ${partyDate()}.${last ? " Otevřít zápis." : ""}`,
+    role: "button",
+    "aria-label": `${nap}: ${cur.name}, ${lim != null ? LZ.date || "" : partyDate()}.`,
   });
-  g.appendChild(el("title", {}, `Družina · ${cur.name} · ${partyDate()}`));
+  g.appendChild(el("title", {}, `${nap} · ${cur.name} · ${lim != null ? LZ.date || "" : partyDate()}`));
   g.appendChild(el("rect", {x: x - 5 * m, y: y - 30 * m, width: 25 * m, height: 34 * m, fill: "transparent"}));
   g.appendChild(
     el("path", {d: `M${x},${y + 2 * m}V${y - 26 * m}`, stroke: "var(--ink)", "stroke-width": (1.8 * s).toFixed(2), "stroke-linecap": "round"}),
@@ -369,9 +542,17 @@ function drawParty(svg, s, k) {
     }),
   );
   g.appendChild(el("circle", {cx: x, cy: y - 27.5 * m, r: 1.8 * m, fill: "var(--gold)"}));
+  g.appendChild(
+    el(
+      "text",
+      {x: x + 21 * m, y: y - 18 * m, class: "seatlbl stopatady", "font-size": (9.5 * k).toFixed(1), "stroke-width": (3 * s).toFixed(2)},
+      nap,
+    ),
+  );
   const go = e => {
     e.stopPropagation();
-    navTo(last ? "#kronika/" + last.id : "#kronika");
+    if (lim != null) showMisto({k: "st", n: LZ.place, z: [lim]});
+    else showMisto({k: "st", tady: 1});
   };
   g.addEventListener("click", go);
   g.addEventListener("keydown", e => {

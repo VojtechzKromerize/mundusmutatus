@@ -1767,6 +1767,14 @@ html.gmv .wrap{margin-bottom:56px}
 .mapcas{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0 4px;padding:6px 10px;border:1px solid color-mix(in srgb,var(--gold) 40%,var(--rule));border-radius:3px;background:var(--paper)}
 .mapcas input{flex:1 1 220px;accent-color:var(--kal)}.mapcas output{flex-basis:100%;font-size:.9rem;color:var(--ink)}
 .zapmk{cursor:pointer}.zapmk:focus{outline:none}.zapmk:focus circle,.zapmk:hover circle{stroke:var(--gold)}
+/* stopa družiny (2026-10-28): volba diváka, počátek stopy, panel zastávky */
+.mapstopa{flex-basis:100%;display:flex;flex-direction:column;gap:6px;padding-top:6px;border-top:1px dashed color-mix(in srgb,var(--gold) 50%,var(--rule))}
+.mapstopa:empty{display:none}.stopapop{margin:0;font-size:.85rem;color:var(--ink)}
+.stopagm{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 0}.stopagm .gbtn{font-size:.85rem;padding:3px 9px}
+.stopazl{list-style:none;margin:6px 0;padding:0;display:flex;flex-direction:column;gap:8px}
+.stopazl li{display:flex;flex-direction:column;gap:2px;padding-left:8px;border-left:2px solid color-mix(in srgb,var(--kal) 60%,transparent)}
+.stopazl small{font-size:.8rem;opacity:.85}.stopazl .gbtn{align-self:flex-start;font-size:.8rem;padding:2px 8px;margin-top:2px}
+.zapmk .stopadat{pointer-events:none}.partymk .stopatady{font-style:italic}
 .trcest{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:10px;padding-top:8px;border-top:1px dashed color-mix(in srgb,var(--gold) 50%,var(--rule))}
 .trcest select{font:inherit;font-family:var(--f-body);color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:3px;padding:4px 8px;min-height:36px}
 .trodh{font-size:.88rem;color:var(--muted)}

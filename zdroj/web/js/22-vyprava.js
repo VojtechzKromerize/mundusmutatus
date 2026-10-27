@@ -694,7 +694,7 @@ async function vyNacti() {
 
 /* ---------- návrat cest a času (2026-10-18): před každou změnou času, místa nebo cesty se uloží předchozí stav
    (posledních 20, ve stavu výpravy jen pro vypravěče); Zpět ho vrátí i s časem, Vynulovat smaže stopu cest na mapách ---------- */
-const HRAKL = ["datum", "hodina", "misto", "praha", "cesta", "poloha", "putovani"];
+const HRAKL = ["datum", "hodina", "misto", "praha", "cesta", "poloha", "putovani", "stopaOd"];
 async function hraZpetZapis(popis) {
   if (!GMV || !window.MMDB || !HRA) return;
   try {

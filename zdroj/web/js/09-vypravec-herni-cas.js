@@ -878,11 +878,13 @@ document.addEventListener("click", e => {
     r.max = n;
     if (st.cas == null) r.value = n;
     popis();
+    if (!box.hidden) document.getElementById("mapstopa").innerHTML = stopaUiHtml();
   };
   r.addEventListener("input", () => {
     const v = +r.value;
     st.cas = v >= ZAPISY.length ? null : v;
     popis();
+    document.getElementById("mapstopa").innerHTML = stopaUiHtml();
     drawMap();
   });
   const lb = document.getElementById("lyParty");
