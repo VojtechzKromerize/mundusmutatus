@@ -212,9 +212,9 @@ async def main():
     # peníze: zaplatit s rozměněním, přijmout
     await pl.keyboard.press('Escape');await pl.click('.bdm [data-bdmsh="pen"]');await pl.wait_for_selector(".bdmlist [data-kvpenf]",timeout=5000)
     await pl.fill(".bdmlist [data-kvpenf] [name=v]","5");await pl.select_option(".bdmlist [data-kvpenf] [name=k]","SP");await pl.click('.bdmlist [data-kvpenf] button[value="z"]');await klid(pl,800)
-    chk(stav().get("pen")=={"GP":9,"SP":8},"zaplatit 5 SP z 3 SP a GP: rozmění 1 GP → 9 GP 8 SP "+str(stav().get("pen")))
+    chk(stav().get("pen")=={"GP":9,"SP":38},"zaplatit 5 SP z 3 SP a GP: rozmění 1 zlatý (40 gr.) → 9 GP 38 SP "+str(stav().get("pen")))
     await pl.fill(".bdmlist [data-kvpenf] [name=v]","2");await pl.select_option(".bdmlist [data-kvpenf] [name=k]","GP");await pl.click('.bdmlist [data-kvpenf] button[value="p"]');await klid(pl,800)
-    chk(stav().get("pen")=={"GP":11,"SP":8},"přijmout 2 GP "+str(stav().get("pen")))
+    chk(stav().get("pen")=={"GP":11,"SP":38},"přijmout 2 GP "+str(stav().get("pen")))
     # dar spolubojovníkovi a pokladna družiny
     import subprocess
     subprocess.run(os.environ.get("MM_PSQL","psql").split()+["-q","-d",os.environ.get("MM_DB","mm_testy"),"-c","insert into public.karty (id, karta) values ('zbynek', '{\"n\":\"Zbyněk\",\"id\":\"zbynek\"}') on conflict (id) do nothing"],capture_output=True)
