@@ -78,6 +78,7 @@ s česky popsanou chybou v přehledu nasazení na Netlify a web zůstane ve stav
 | `svet-mesta.md` | města na mapě Známý svět | návod v hlavičce souboru |
 | `svet-drzavy.md` | zámořské a vzdálené državy (tečka v barvě mateřské země) | návod v hlavičce souboru |
 | `svet-cesty.md` | obchodní a poutní cesty a trasy lodí; po nich vede měření cesty | návod v hlavičce souboru |
+| `mapa-namety.md` | náměty pro vypravěče k bodům vrstvy Poutě, kláštery a pověsti na mapě zemí (celé tajné – hráč je nedostane; body samy jsou v `zdroj/web/js/02e-krajina.js`, `POUTE`) | návod v hlavičce souboru |
 
 ## Pravidla
 - Soubor má nahoře hlavičku mezi dvěma řádky `---` (pole `klíč: hodnota`), pod ní text.

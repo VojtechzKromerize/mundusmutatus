@@ -178,6 +178,16 @@ def svet_cesty(mesta):
         out.append({"k": a[0], "n": a[1], "p": pts})
     return out
 
+def mapa_namety():
+    """Náměty pro vypravěče k místům mapy (vrstva Poutě, kláštery a pověsti): celé tajné – hráč dostane {} (viz STAT_H níže)."""
+    out = {}
+    for i, line in lines_file("mapa-namety.md"):
+        n, _, txt = (x.strip() for x in line.partition("|"))
+        if not n or not txt or "⟦" in txt or "⟧" in txt:
+            fail(f"mapa-namety.md, řádek {i}: má mít tvar  - název místa | text (bez ⟦ ⟧ – tajný je celý)")
+        out[n] = "⟦" + txt + "⟧"
+    return out
+
 def svet_mesta():
     out = []
     for i, line in lines_file("svet-mesta.md"):
@@ -370,12 +380,13 @@ if DB:
 G = generuj(SOUBORY, MANIFEST)
 HRAC, GMD, SEED = G["hrac"], G["gm"], G["seed"]
 GMD["MANIFEST"] = MANIFEST
-STAT = {"PSTREETS": ulice(), "SVET": svet(), "SVETMESTA": svet_mesta()}
+STAT = {"PSTREETS": ulice(), "SVET": svet(), "SVETMESTA": svet_mesta(), "MAPNAMETY": mapa_namety()}
 STAT["SVETDRZ"] = svet_drzavy({o["id"] for o in STAT["SVET"]})
 STAT["SVETCESTY"] = svet_cesty(STAT["SVETMESTA"])
 _stat = J(STAT)
 STAT_H_TXT, rem2 = strip_secrets(_stat)
 STAT_H, STAT_G = json.loads(STAT_H_TXT.replace("✦ ", "").replace("✦", "")), json.loads(show_secrets(_stat))
+STAT_H["MAPNAMETY"] = {}  # hráč nedostane ani jména míst, k nimž má vypravěč námět
 secrets_all = G["odstranene"] + rem2
 ODH_KLICE = list(HRAC)
 

@@ -128,6 +128,7 @@ let st = {
   hosp: false,
   zpustle: false,
   vern: false,
+  poute: false,
   misto: null,
   dio: false,
   duchy: false,
@@ -138,6 +139,8 @@ let st = {
   tb: null,
 };
 const svg = document.getElementById("map");
+/* náměty vypravěče k místům vrstvy Poutě, kláštery a pověsti (zdroj/obsah/mapa-namety.md, build.py) – hráč dostane {} */
+const MAPNAMETY = /*@MAPNAMETY@*/ {};
 /* podklad mapy pod #map (krajina, hranice, papír – drahé filtry); kreslí ho mapPodklad v 02b, jen když se změní výřez */
 const svgZ = document.getElementById("mapz");
 /* obaly vrstev (podklad #mapvz, sídla #mapvrstvy): při posunu se posouvají a zvětšují jen ony (mapPosun); mezi nimi je pevný
@@ -3628,7 +3631,8 @@ function krajHtml(o) {
   let typ = "",
     n = "",
     txt = "",
-    navic = "";
+    navic = "",
+    gm = "";
   if (o.k === "pre") {
     const [jm, druh, , , sez, pozn] = PRECHODY[o.i];
     typ = PRECH_DRUH[druh];
@@ -3649,6 +3653,13 @@ function krajHtml(o) {
     typ = HOSP_DRUH[druh];
     n = jm;
     txt = pozn;
+  } else if (o.k === "pt") {
+    const q = POUTE[o.i];
+    typ = POUTE_DRUH[q.d] + (q.r ? ` · ${q.r}` : "");
+    n = q.n;
+    txt = q.ref ? (CITYINFO[q.ref] || {}).n || "" : q.t;
+    if (q.s) navic = `Stav k roku 1458: ${POUTE_STAV[q.s]}.`;
+    if (GMV && MAPNAMETY[q.n]) gm = `<p class="gmnamet"><b>Námět pro vypravěče:</b> ${besc(MAPNAMETY[q.n])}</p>`;
   } else if (o.k === "zp") {
     const [jm, mira, , pozn] = ZPUSTLE[o.i];
     typ = mira > 1 ? "Kraj zle zpustlý válkou" : "Kraj místy zpustlý válkou";
@@ -3656,7 +3667,7 @@ function krajHtml(o) {
     txt = pozn;
     navic = "Vsi tu stojí pusté, po cestách se toulají žoldnéři a lapkové.";
   }
-  return `<span class="lbl">${typ}</span><h3 style="font-size:1.35rem">${besc(n)}</h3><p>${besc(txt)}</p>${navic ? `<p class="rsmall">${navic}</p>` : ""}`;
+  return `<span class="lbl">${typ}</span><h3 style="font-size:1.35rem">${besc(n)}</h3><p>${besc(txt)}</p>${navic ? `<p class="rsmall">${navic}</p>` : ""}${gm}`;
 }
 function showKraj(k, i) {
   showMisto({k, i});
@@ -4461,6 +4472,17 @@ function vernLegenda() {
       "",
     )}</ul><p class="lbl">${GMV ? "Vypravěč vidí věrnost všech rodů; hráči jen u rodů, s nimiž se družina potkala, a u měst." : "Barevný lem mají města a rody, s nimiž se družina už potkala."} Rody bez lemu se k volbě nevyjádřily nebo o nich nic nevíme.</p>`;
 }
+/* poutě, kláštery a pověsti (2026-10-27): body POUTE z 02e, legenda pod mapou */
+const pouteLeg = document.getElementById("poutelegend");
+function pouteLegenda() {
+  const zn = (d, txt) =>
+    `<li><svg class="vrnsw" viewBox="-6 -6 12 12" aria-hidden="true"><path d="${POUTE_ZN[d]}" fill="none" stroke="var(--${d})" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>${txt}</li>`;
+  pouteLeg.innerHTML = `<span class="lbl">Poutě, kláštery a pověsti</span><ul>${zn("pout", "poutní místo")}${zn("klaster", "klášter (čárkovaný = za válek zpustlý či poničený)")}${zn("povest", "místo pověstí ze starých kronik")}</ul>`;
+}
+toggleBtn("lyPoute", "poute", () => {
+  if (st.poute && !pouteLeg.innerHTML) pouteLegenda();
+  pouteLeg.hidden = !st.poute;
+});
 toggleBtn("lyVernost", "vern", () => {
   if (st.vern && !vernLeg.innerHTML) vernLegenda();
   vernLeg.hidden = !st.vern;

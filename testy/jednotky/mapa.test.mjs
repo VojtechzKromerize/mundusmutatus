@@ -227,3 +227,32 @@ test("věrnost králi: vrstva obarví lem sídel a měst, panel místa i rodu uk
     assert.equal(V(`st.vern`), false);
   }
 });
+
+test("poutě, kláštery a pověsti: body na mapě, panel s řádem a stavem, náměty jen pro vypravěče (2026-10-27)", async () => {
+  await S.ev(`typeof drawMapK === "function" || mmLina("mapa")`);
+  assert.deepEqual(V(`POUTE.filter(q => q.ref && !(CITYINFO[q.ref] && ZEMEPIS.some(z => z[0] === q.ref))).map(q => q.n)`), [], "odkaz na místo mapy");
+  const namety = V(`Object.keys(MAPNAMETY)`);
+  assert.ok(namety.length >= 10, "vypravěčská verze má náměty");
+  assert.deepEqual(
+    namety.filter(n => !V(`POUTE.some(q => q.n === ${JSON.stringify(n)})`)),
+    [],
+    "náměty jen k bodům vrstvy",
+  );
+  const i = V(`POUTE.findIndex(q => q.n === "Zbraslav")`);
+  S.ev(`showKraj("pt", ${i})`);
+  const t = V(`document.getElementById("detail").textContent`);
+  assert.match(t, /Klášter · cisterciáci.*Zbraslav.*Stav k roku 1458: za válek poničený/s);
+  S.ev(`showKraj("pt", POUTE.findIndex(q => q.n === "Říp"))`);
+  assert.match(V(`document.getElementById("detail").textContent`), /Námět pro vypravěče/);
+  S.ev(`showKraj("pt", POUTE.findIndex(q => q.n === "Pohansko"))`);
+  assert.match(V(`document.getElementById("detail").textContent`), /Místo pověstí.*Pohansko.*val/s);
+  S.ev(`setSel(null, false)`);
+  if (V(`typeof drawMapK`) === "function") {
+    S.ev(`drawMapK()`);
+    assert.equal(V(`document.querySelectorAll("#map .pout").length`), 0);
+    S.ev(`document.getElementById("lyPoute").click(); drawMapK()`);
+    assert.equal(V(`document.querySelectorAll("#map .pout").length`), V(`POUTE.length`));
+    assert.equal(V(`document.getElementById("poutelegend").hidden`), false);
+    S.ev(`document.getElementById("lyPoute").click(); drawMapK()`);
+  }
+});

@@ -6952,6 +6952,40 @@ function drawMapK() {
         );
     }
   }
+  /* poutě, kláštery a pověsti (2026-10-27): značka POUTE_ZN v barvě druhu, zpustlý či poničený klášter čárkovaně; o = odsadit od
+     ikony města či hradu, které na místě stojí; klepnutí = panel (krajHtml, náměty vypravěče jen pro něj) */
+  if (st.poute) {
+    const t = Math.max(0.6, Math.min(1.35, s * 1.15));
+    POUTE.forEach((q, i) => {
+      const [x0, y0] = P(q.lo, q.la),
+        x = x0 + (q.o ? 8 * s : 0),
+        y = y0 + (q.o ? 7 * s : 0);
+      const g = el("g", {class: "seat pout", transform: `translate(${x.toFixed(1)} ${y.toFixed(1)})`, opacity: sel ? 0.35 : 1});
+      g.appendChild(el("circle", {r: (8 * s).toFixed(1), fill: "transparent"}));
+      g.appendChild(el("circle", {r: (5.4 * t).toFixed(2), fill: "var(--paper)", "fill-opacity": ".85", stroke: "none"}));
+      g.appendChild(
+        el("path", {
+          d: POUTE_ZN[q.d],
+          transform: `scale(${t.toFixed(2)})`,
+          fill: q.d === "klaster" && q.s === "c" ? `var(--${q.d})` : "none",
+          "fill-opacity": ".3",
+          stroke: `var(--${q.d})`,
+          "stroke-width": "1.1",
+          "stroke-dasharray": q.d === "klaster" && q.s !== "c" ? "1.6 1.1" : "none",
+          "stroke-linecap": "round",
+          "stroke-linejoin": "round",
+        }),
+      );
+      g.appendChild(el("title", {}, `${q.n} – ${POUTE_DRUH[q.d]}`));
+      g.addEventListener("click", e => {
+        if (mapDrag.moved || st.measure) return;
+        e.stopPropagation();
+        showKraj("pt", i);
+      });
+      svg.appendChild(g);
+      if (!sel && s < 0.75) labels.push([x, y, q.n, 4]);
+    });
+  }
   if (st.dom)
     for (const u of DOMAIN) {
       if (u.c === "city" || u.w / s < 38 || !byId[u.id]) continue;
