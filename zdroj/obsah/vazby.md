@@ -142,6 +142,8 @@
 - spoj | sli, wet | Matyáš Šlik podporoval kandidaturu Viléma Saského a dodával mu právní posudky; s ním i někteří páni ze severu a severozápadu Čech.
 - spor | wet, pod | Saské poselstvo Heinricha Leubinga Jiří ještě 1. 3. ujišťoval o dalších jednáních a nazítří ho volbou postavil před hotovou věc; Sasové to mají za podvod. Roku 1456 dobyl Jiří na Sasech Most. ⟦V březnu 1458 Sasové zavřou sůl za Krušnými horami a 11. 3. se Vilém odvolá k papeži a císaři.¦⟧
 - spor | lie, eiz | Lichtenštejnové a Oldřich Eicinger se roku 1451 přeli o hranice panství; Eicinger pak svolal pány do Mailberku pod záminkou smírčího řízení v tomto sporu.
+- spor | bit, pod | Páni z Lichtenburka na Cornštejně se od roku 1454 přou s Pročkem z Kunštátu, Jiřího příbuzným, o olomoucké komornictví; klíče od truhly se zemskými deskami mu vydat nechtěli.
+- spoj | bit, hab | Hynek Bítovský z Lichtenburka byl blízký zesnulému Ladislavovi Pohrobkovi, roku 1456 vedl moravskou hotovost k Bělehradu a drží s Habsburky.
 - spor | leg, pod | V lehnickém sporu o dědictví vyhnalo roku 1454 lidové povstání z hradu českou posádku Jiřího bratrance Procka z Kunštátu a kněžna Hedvika se synem se vrátila bez svolení Prahy. Trest nepřišel, sňatek Fridricha s Jiřího dcerou Zdeňkou se neuskutečnil.
 - spoj | ole, hlo, leg, tes, wet | Slezská knížata před volbou stranila kandidatuře Viléma Saského; výjimkou je Bolek Opolský, který přeje kalichu.
 - spor | pod, vra | Když roku 1454 Vratislav odmítla holdovat Ladislavovi, vyměřil jí Jiří jako správce, když tam král v prosinci přijel, žoviálně pokutu 30 000 dukátů a pak slevil na polovinu. Obec, štvaná kazateli, mu to nezapomněla.

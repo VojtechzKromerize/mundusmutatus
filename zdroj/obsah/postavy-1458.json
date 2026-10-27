@@ -1005,19 +1005,21 @@
  "bitovsky": {
   "jmeno": "Hynek Bítovský z Lichtenburka",
   "fiktivni": false,
-  "vek": 38,
-  "vekText": "odhadem 38 let",
+  "vek": 26,
+  "vekText": "odhadem 26 let",
   "narozeni": null,
-  "narozeniRok": 1420,
+  "narozeniRok": 1432,
   "narozeniOdhad": true,
-  "zakladOdhadu": "Rok narození nedoložen; v 50.–60. letech samostatně jedná a válčí. Odhad kolem 1420.",
-  "shrnuti": "Hynek Bítovský z Lichtenburka pochází z bítovské větve pánů z Lichtenburka a drží hrady Cornštejn a Bítov na moravsko-rakouském pomezí, odkud plení Moravu i Rakousy. V listopadu 1457 se na Ladislavově soudu v Praze přel s Pročkem z Kunštátu o olomoucké komornictví a popíral jeho panský původ, až došlo k výzvě na souboj; Eneáš Silvius tu hádku omylem připsal Poděbradovi a Černohorskému z Boskovic. Stojí na straně Albrechta VI. Habsburského.",
+  "zakladOdhadu": "Prostřední ze tří (snad čtyř) synů Jana z Lichtenburka a na Cornštejně; poprvé doložen 1446/1447. Odhad 1430–1434.",
+  "shrnuti": "Hynek z Lichtenburka a na Cornštejně, zvaný Bítovský, je prostřední syn Jana z Lichtenburka a na Cornštejně († 1453), nejvyššího komorníka olomoucké cúdy. S bratry Albrechtem a Štěpánem drží Cornštejn, Jaroměřice a zástavou královské město Jemnici, kterou jim Ladislav 11. 7. 1457 potvrdil za věrné služby. Byl Ladislavovi blízký a roku 1456 velel moravské zemské hotovosti na tažení k Bělehradu. Od roku 1454, kdy olomoucké komornictví dostal na Jiřího přímluvu Procek z Kunštátu, vedou Cornštejnští s Prockem spor, odmítli mu vydat klíče od truhly se zemskými deskami a hanili jeho původ; v listopadu 1457 se s ním Hynek přel na Ladislavově soudu v Praze a popíral jeho panský stav, až došlo k výzvě na souboj (Eneáš Silvius tu hádku omylem připsal Poděbradovi a Černohorskému z Boskovic). Stojí na straně Albrechta VI. Habsburského.",
   "jistota": "střední",
-  "rozporSWebem": "Aktéři sporu na posledním Ladislavově soudu se obvykle ztotožňují s Pročkem z Kunštátu a Hynkem Bítovským; Eneáš jmenuje Poděbrada a Černohorského.",
-  "zdroje": [],
+  "rozporSWebem": "Dříve odhadován na rok 1420 a uváděn jako pán na Cornštejně a Bítově; cornštejnská větev držela jen polovinu Bítova. Spor s Prockem začal už 1454 (Prockův list stavům z 25. 2. 1456); listopadový soud 1457 a výzva k souboji jsou známy z Eneáše. V pramenech k roku 1458 je nejstarším z bratří Albrecht.",
+  "zdroje": [
+   "H. Klikorková, Hynek z Lichtenburka a na Cornštejně, bakalářská práce, FF MU Brno 2023"
+  ],
   "gm": {
-   "poBreznu1458": "Vymohl si z Říma poučení, že nikdo nemusí poslouchat toho, kdo sám neposlouchá Svatou stolici. Když Viktorin z Poděbrad formálně vedl obléhání Cornštejna (1464), utekl a v Římě hrál pronásledovaného katolíka; papežský legát Rudolf z Rüdesheimu pak citoval jeho svědectví, že Jiří chtěl krále Ladislava zabít. Datum úmrtí se nepodařilo zjistit.",
-   "umrti": null
+   "poBreznu1458": "Brněnský sněm v dubnu 1458 přijal Jiřího, královská města však vzdorovala. Od července do listopadu 1458 velel Hynek se Štěpánem jako polní hejtman arciknížete Albrechta VI. obraně Jihlavy; po její kapitulaci Jiří vtrhl do Rakous a donutil Albrechta vzdát se nároků na Moravu. Vymohl si z Říma poučení, že nikdo nemusí poslouchat toho, kdo sám neposlouchá Svatou stolici. Roku 1463 přešel s bratrem Štěpánem do otevřeného boje, oporou mu byli Rakušané, zvláště johanitský komtur v Mailbergu Achác Bohunek. Na zemský soud v Olomouci počátkem roku 1464 se nedostavil, stavové ho dali do zemské klatby a v červenci 1464 proti němu zahájili řízení i tažení; 15. 8. 1464 padly jeho Strachotice a sněm v Korneuburgu ho vypověděl z Rakous. Cornštejn obléhalo vojsko pod vrchní správou Viktorina z Poděbrad s oddíly katolických měst i biskupa Tase; v poli tažení vedli Krajířové z Krajku, kteří pak pobořený hrad dostali. Hynek z hradu unikl, koncem roku 1464 se objevil v Římě a hrál pronásledovaného katolíka; papež Pavel II. žádal zastavení obléhání i náhradu jeho škod, Tas a moravští stavové odmítli, protože nešlo o víru, ale o zemské právo. Cornštejn kapituloval po dlouhém obléhání pro nedostatek vody a potravin (9. 6. 1465); bratr Štěpán mezitím přešel ke králi. Pád Cornštejna posloužil kurii jako záminka k obnovení procesu s Jiřím a legát Rudolf z Rüdesheimu citoval Hynkovo svědectví, že Jiří chtěl krále Ladislava zabít. Po roce 1465 spolupracoval se Zdeňkem ze Šternberka a podporoval Matyáše; roku 1475 je jako moravský podkomoří uváděn „Hynek z Lichtemburka“, snad on. Zemřel kolem roku 1480 bezdětný a patrně neženatý; jeho spory převzal synovec Půta.",
+   "umrti": "asi 1480"
   }
  },
  "zajic": {
@@ -2258,7 +2260,7 @@
    "https://adw-goe.de/fileadmin/forschungsprojekte/resikom/dokumente/pdfs/HBIV/A_B_C_Kraig.pdf"
   ],
   "gm": {
-   "poBreznu1458": "Roku 1459 koupil za peníze z prodeje korutanských statků Bílkov od Zdeňka ze Šternberka. Není jasné, zda lenní slib za česká léna složil Ladislavovi, nebo až Jiřímu. S Eliškou měl nejméně deset dětí (čtyři syny a šest dcer). Za krále Jiřího prý zastával úřad zemského místodržícího na Moravě, což však není potvrzeno. Psal se „z Landštejna“ a „z Dačic“. Dne 5. 3. 1487 rozdělil většinu majetku mezi syny Lipolta, Jindřicha, Jiřího a Konráda a pro sebe si ponechal Bystřici a Dačice. Závěť z roku 1487 ještě dvakrát upravil. Zemřel roku 1490 nebo 1491 (ve stejném roce jako Eliška).",
+   "poBreznu1458": "Roku 1459 koupil za peníze z prodeje korutanských statků Bílkov od Zdeňka ze Šternberka. V letech 1464–1465 vedli Krajířové v poli tažení proti Hynkovi Bítovskému z Lichtenburka a jako odměnu dostali pobořený Cornštejn se zbožím. Není jasné, zda lenní slib za česká léna složil Ladislavovi, nebo až Jiřímu. S Eliškou měl nejméně deset dětí (čtyři syny a šest dcer). Za krále Jiřího prý zastával úřad zemského místodržícího na Moravě, což však není potvrzeno. Psal se „z Landštejna“ a „z Dačic“. Dne 5. 3. 1487 rozdělil většinu majetku mezi syny Lipolta, Jindřicha, Jiřího a Konráda a pro sebe si ponechal Bystřici a Dačice. Závěť z roku 1487 ještě dvakrát upravil. Zemřel roku 1490 nebo 1491 (ve stejném roce jako Eliška).",
    "umrti": "1490"
   }
  },
@@ -3564,6 +3566,67 @@
   "gm": {
    "poBreznu1458": "Roku 1460 jí manžel zapsal 1 000 kop grošů na Choustníkově Hradišti; po jeho smrti (1473) jí švagr Jan tuto sumu vyplatil. Roku 1477 prodala jako vdova Milotice Slavatovi z Chlumu s právem zpětné koupě do šesti let; v listině se píše „Anna z Častolovic a Talmberka“. Pak mizí z pramenů. Z matčina druhého manželství má polorodé sestry Salomenu, pozdější kněžnu opavskou, Eufemii a Reginu z Lichtenburka.",
    "umrti": "po 1477"
+  }
+ },
+ "albrechtlich": {
+  "jmeno": "Albrecht z Lichtenburka a na Cornštejně",
+  "fiktivni": false,
+  "vek": 31,
+  "vekText": "odhadem 31 let",
+  "narozeni": null,
+  "narozeniRok": 1427,
+  "narozeniOdhad": true,
+  "zakladOdhadu": "Nejstarší ze synů Jana z Lichtenburka a na Cornštejně; roku 1452 už doprovázel císaře do Itálie. Odhad kolem 1427, nejistý.",
+  "shrnuti": "Nejstarší syn Jana z Lichtenburka a na Cornštejně, bratr Hynka a Štěpána. Roku 1452 se s otcem a příbuzným Jindřichem účastnil korunovační cesty Fridricha III. do Itálie. Kolem roku 1457 vystoupil z bratrského nedílu a drží Fryšavu, Strachotice a Jakubov. Katolík, přítel Oldřicha z Rožmberka; manželkou je Kateřina z Hylmburka. V únoru 1456 byl s bratry v Brně při uzavření moravského landfrýdu.",
+  "jistota": "střední",
+  "rozporSWebem": null,
+  "zdroje": [
+   "H. Klikorková, Hynek z Lichtenburka a na Cornštejně, bakalářská práce, FF MU Brno 2023"
+  ],
+  "gm": {
+   "poBreznu1458": "Zemřel bezdětný před rokem 1464, kdy si bratři dělili majetek. Vdova Kateřina z Hylmburka pak poháněla Hynka, že jí nezapsal věno (několik vsí a půl Jaroměřic), a znovu se provdala za Bohuše z Lomnice.",
+   "umrti": "před 1464"
+  }
+ },
+ "stepanlich": {
+  "jmeno": "Štěpán z Lichtenburka a na Cornštejně",
+  "fiktivni": false,
+  "vek": 23,
+  "vekText": "odhadem 23 roky",
+  "narozeni": null,
+  "narozeniRok": 1435,
+  "narozeniOdhad": true,
+  "zakladOdhadu": "Nejmladší ze synů Jana z Lichtenburka a na Cornštejně, mladší než Hynek (narozený 1430–1434). Odhad kolem 1435.",
+  "shrnuti": "Nejmladší ze synů Jana z Lichtenburka a na Cornštejně a stálý průvodce bratra Hynka, s nímž drží majetek nerozdílně: Cornštejn, Jaroměřice a zástavou Jemnici. V únoru 1456 byl s bratry v Brně při uzavření moravského landfrýdu.",
+  "jistota": "střední",
+  "rozporSWebem": null,
+  "zdroje": [
+   "H. Klikorková, Hynek z Lichtenburka a na Cornštejně, bakalářská práce, FF MU Brno 2023"
+  ],
+  "gm": {
+   "poBreznu1458": "V létě 1458 bránil s Hynkem Jihlavu proti Jiřímu a roku 1463 s ním přešel do otevřeného boje. Při dělení majetku roku 1464 dostal Jemnici a Malenovice a usadil se v Jemnici. Roku 1465 přešel na výzvu Jana z Rožmberka a dalších pánů ke králi, jeho statky zůstaly nedotčeny a zčásti dostal i Hynkův zabavený majetek; bratra pak poháněl o rodové listiny a o slíbenou polovinu klenotů. Synové Půta, Albrecht a Zdeněk. Naposledy je doložen roku 1472 (list týkající se Jemnice).",
+   "umrti": "po 1472"
+  }
+ },
+ "procek": {
+  "jmeno": "Procek z Kunštátu a Opatovic",
+  "fiktivni": false,
+  "vek": 48,
+  "vekText": "odhadem 48 let",
+  "narozeni": null,
+  "narozeniRok": 1410,
+  "narozeniOdhad": true,
+  "zakladOdhadu": "Rok narození nedoložen; v mládí stál při Albrechtovi Rakouském (tedy nejpozději ve 30. letech dospělý), roku 1453 hejtmanem v Lehnici. Hrubý odhad kolem 1410.",
+  "shrnuti": "Moravský pán z rodu Kunštátů a příbuzný Jiřího z Poděbrad, kterého v listech nazývá „strýcem“. V mládí stál při Albrechtovi Rakouském. Roku 1453 ho Ladislav na Jiřího radu jmenoval hejtmanem v Lehnici, odkud ho roku 1454 vyhnalo povstání měšťanů. Téhož roku dostal na Jiřího přímluvu úřad nejvyššího komorníka olomoucké cúdy, který předtím léta držel Jan z Lichtenburka a na Cornštejně; Ladislav jmenování pod tlakem Cornštejnských zrušil a pak znovu potvrdil. Cornštejnští mu nevydali klíče od truhly se zemskými deskami, hanili jeho původ a v listopadu 1457 došlo mezi ním a Hynkem Bítovským až k výzvě na souboj. Píše se na Opatovicích a na Boskovicích, jejichž hrad drží. Ve víře se kloní spíš ke katolíkům a na fary svých panství dosazuje katolické kněze.",
+  "jistota": "střední",
+  "rozporSWebem": null,
+  "zdroje": [
+   "H. Klikorková, Hynek z Lichtenburka a na Cornštejně, bakalářská práce, FF MU Brno 2023",
+   "J. Elbel, Kapitoly z dějin katolické církevní správy na Moravě v době husitské (1408–1457), disertace, FF MU Brno 2007"
+  ],
+  "gm": {
+   "poBreznu1458": "Roku 1458 vrátil Jiří hrad Boskovice Vaňkovi z Boskovic. Počátkem roku 1464 zaznamenal jako komorník na olomouckém zemském soudu, že se Hynek z Lichtenburka nedostavil, a vysoudil na Cornštejnských díly malenovického panství, Kvítkovice a Otrokovice. Na desce knihy zemských desk z roku 1464 jsou dvě bernardinská slunce se znaky IHS a XPC (symbol, který šířil Kapistrán jako katolickou odpověď na kalich) a Panna Maria s dítětem – jediné sakrální vyobrazení na moravských deskách; bernardinské slunce má i na své znakové desce v Kunštátu.",
+   "umrti": null
   }
  }
 }
