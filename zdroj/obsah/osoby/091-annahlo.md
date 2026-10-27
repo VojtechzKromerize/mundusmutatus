@@ -5,4 +5,4 @@ rod: roz
 role: manželka vladaře
 sidlo: Český Krumlov
 ---
-Dcera knížete Jindřicha IX. Hlohovského a manželka Jana II. z Rožmberka, matka malého dědice Jindřicha.
+Dcera knížete Jindřicha IX. Hlohovského a manželka Jana II. z Rožmberka, matka malého dědice Jindřicha. Česká šlechta knížecí tituly nad sebe nestaví, a tak se jejich sňatek pokládal za nerovný.

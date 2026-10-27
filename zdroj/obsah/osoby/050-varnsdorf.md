@@ -5,4 +5,4 @@ rod: pod
 role: hejtman Kladska
 sidlo: Kladsko
 ---
-Spravuje Kladsko jménem Jiřího od roku 1454.
+Hanuš (Wölfl) z Varnsdorfu spravuje Kladsko jménem Jiřího od roku 1454. Je to český Němec a katolík, svému pánovi však bezvýhradně oddaný.
