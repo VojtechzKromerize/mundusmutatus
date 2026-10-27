@@ -7,4 +7,4 @@ vyznani: kat
 rod: roz
 poloha: 278, 164
 ---
-Hradní dům Rožmberků, nejbohatšího katolického rodu země; odtud mají páni z Krumlova blízko ke kapitule i k úřadům.
+Hradčanský dům Rožmberků, nejbohatšího katolického rodu země. Odtud mají páni z Krumlova blízko ke kapitule, k zemskému soudu i k deskám; do Prahy však nejčastěji přijíždějí do svého velkého domu v Dlouhé třídě na Starém Městě.⟦ Pozn. vypravěče: skutečný dům stál na Hradčanském náměstí (čp. 63/64, správce Mařík Kunšův 1433), ne v areálu Hradu; rožmberský palác na Hradě vznikl až po roce 1544 (Šimůnek, Páni z Rožmberka).⟧
