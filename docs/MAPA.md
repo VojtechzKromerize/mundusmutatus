@@ -19,10 +19,10 @@ Základ: data z buildu (rody, vazby, zeměpis, erby), víry a ikony, odkazy mezi
 
 map geometry
 
-- 8394 řádků, 166 definic na nejvyšší úrovni, z toho 88 používají jiné soubory
-- používá z: 01-zaklad (20), 02b-mapa-kresba (1), 02c-zbroj (1), 02e-krajina (16), 04-praha (3), 07-druzina-kronika (1), 08-navigace-pravidla (2)
-- používají ho: 01-zaklad (1), 02b-mapa-kresba (48), 03-artikule (4), 04b-praha-plan (5), 05-svet (1), 05b-svet-mapa (7), 06-draconomicon-rodokmeny (3), 07-druzina-kronika (11), 08-navigace-pravidla (18), 09-vypravec-herni-cas (18), 10-kouzla (5), 11-boj (10), 12-boj-tah-postavy (6), 13-karty (1), 14-karty-bojova-karta (6), 14b-vybaveni (2), 14c-boj-reakce (2), 14d-vybaveni-katalog (5), 16-srd-ukazky-sezeni-hrac (2), 17-karty-ii (1), 17b-kouzla-ucinky (1), 18-pravidla-postavy (2), 19-karty-beyond (1), 20-boj-hraci (3), 20b-boj-vypravec (3), 20c-boj-ridery (1), 20e-boj-vlastnosti (1), 22-vyprava (1), 22b-vyprava (13), 24-boj-zaznam (1), 26-start (2)
-- poskytuje: BZRT bikZr bikZv PBY PEOPLE _nrm bikZb el st bikZrTxt BVLZ drawMap haversine P SHORT norm placeBy BAZINY CITYINFO DIO DUCHY FORESTS inPoly mapDrag NAMEPTS nearMountain peopleOf relsFor renderTravel show svg svgG TOWNS updateRoute bikZbTip BZVK computeRoute days drawGraph gsvg … (+48)
+- 8406 řádků, 166 definic na nejvyšší úrovni, z toho 89 používají jiné soubory
+- používá z: 01-zaklad (20), 02b-mapa-kresba (1), 02c-zbroj (1), 02e-krajina (16), 02f-mapa-cela (1), 04-praha (3), 07-druzina-kronika (1), 08-navigace-pravidla (2)
+- používají ho: 01-zaklad (1), 02b-mapa-kresba (48), 02f-mapa-cela (2), 03-artikule (4), 04b-praha-plan (5), 05-svet (1), 05b-svet-mapa (7), 06-draconomicon-rodokmeny (3), 07-druzina-kronika (11), 08-navigace-pravidla (18), 09-vypravec-herni-cas (18), 10-kouzla (5), 11-boj (10), 12-boj-tah-postavy (6), 13-karty (1), 14-karty-bojova-karta (6), 14b-vybaveni (2), 14c-boj-reakce (2), 14d-vybaveni-katalog (5), 16-srd-ukazky-sezeni-hrac (2), 17-karty-ii (1), 17b-kouzla-ucinky (1), 18-pravidla-postavy (2), 19-karty-beyond (1), 20-boj-hraci (3), 20b-boj-vypravec (3), 20c-boj-ridery (1), 20e-boj-vlastnosti (1), 22-vyprava (1), 22b-vyprava (13), 24-boj-zaznam (1), 26-start (2)
+- poskytuje: BZRT bikZr bikZv PBY PEOPLE st _nrm bikZb el bikZrTxt BVLZ drawMap haversine P SHORT norm placeBy BAZINY CITYINFO DIO DUCHY FORESTS inPoly mapDrag NAMEPTS nearMountain peopleOf relsFor renderTravel show svg svgG TOWNS updateRoute bikZbTip BZVK computeRoute days drawGraph gsvg … (+49)
 
 ## 02b-mapa-kresba
 
@@ -67,6 +67,15 @@ Mapa zemí: kresba (geometrie zemí, diecézí, panství, lesů a hor a funkce d
   - ř. 1838: Věrnost králi k 3. 3. 1458 (vrstva mapy, 2026-10-27, Vojta)
   - ř. 1956: Poutě, kláštery a pověsti (vrstva mapy, 2026-10-27, Vojta)
 
+## 02f-mapa-cela
+
+Mapy přes celou obrazovku (2026-10-27, Vojta)
+
+- 159 řádků, 11 definic na nejvyšší úrovni, z toho 2 používají jiné soubory
+- používá z: 02-mapa (2), 04-praha (2), 04b-praha-plan (1), 05-svet (2), 05b-svet-mapa (1)
+- používají ho: 02-mapa (1), 04b-praha-plan (2), 05b-svet-mapa (2)
+- poskytuje: celaPomer celaVyrez
+
 ## 03-artikule
 
 Artikule: pravidla tažení, rozdělená do knih a kapitol
@@ -84,19 +93,19 @@ Praha: plán města
 
 - 39 řádků, 15 definic na nejvyšší úrovni, z toho 15 používají jiné soubory
 - používá z: –
-- používají ho: 02-mapa (3), 04b-praha-plan (13), 05b-svet-mapa (1), 06-draconomicon-rodokmeny (1), 07-druzina-kronika (5), 08-navigace-pravidla (5), 09-vypravec-herni-cas (1), 10-kouzla (2), 10q-plne-texty (1), 11-boj (1), 12-boj-tah-postavy (1), 13-karty (1), 14-karty-bojova-karta (1), 14b-vybaveni (1), 14c-boj-reakce (1), 14d-vybaveni-katalog (1), 15-karty-artikule (1), 16-srd-ukazky-sezeni-hrac (1), 17-karty-ii (1), 17b-kouzla-ucinky (1), 19-karty-beyond (1), 19b-automatika (1), 20-boj-hraci (1), 20b-boj-vypravec (1), 20c-boj-ridery (1), 20d-boj-render (1), 20e-boj-vlastnosti (1), 20f-scena (1), 20g-boj-mistrovstvi (1), 21-editor-pecet (1), 22-vyprava (1), 22b-vyprava (4), 23-potvrzovani (1), 24-boj-zaznam (1), 25-puls (1), 26-start (1)
-- poskytuje: GMV PRAHA_PLACES PRB PG prLinks pcol PMA PRAHA_TOWNS pst PVB0 PAR pcolP PKIND PSTREETS pVis
+- používají ho: 02-mapa (3), 02f-mapa-cela (2), 04b-praha-plan (13), 05b-svet-mapa (1), 06-draconomicon-rodokmeny (1), 07-druzina-kronika (5), 08-navigace-pravidla (5), 09-vypravec-herni-cas (1), 10-kouzla (2), 10q-plne-texty (1), 11-boj (1), 12-boj-tah-postavy (1), 13-karty (1), 14-karty-bojova-karta (1), 14b-vybaveni (1), 14c-boj-reakce (1), 14d-vybaveni-katalog (1), 15-karty-artikule (1), 16-srd-ukazky-sezeni-hrac (1), 17-karty-ii (1), 17b-kouzla-ucinky (1), 19-karty-beyond (1), 19b-automatika (1), 20-boj-hraci (1), 20b-boj-vypravec (1), 20c-boj-ridery (1), 20d-boj-render (1), 20e-boj-vlastnosti (1), 20f-scena (1), 20g-boj-mistrovstvi (1), 21-editor-pecet (1), 22-vyprava (1), 22b-vyprava (4), 23-potvrzovani (1), 24-boj-zaznam (1), 25-puls (1), 26-start (1)
+- poskytuje: GMV PRAHA_PLACES PRB PG prLinks pst pcol PMA PRAHA_TOWNS PVB0 PAR pcolP PKIND PSTREETS pVis
 
 ## 04b-praha-plan
 
 Praha: kreslený plán města, hledání, měření – samostatná část „praha“, načte se až na stránce Praha (2026-10-19)
 
-- 1759 řádků, 26 definic na nejvyšší úrovni, z toho 8 používají jiné soubory
-- používá z: 01-zaklad (7), 02-mapa (5), 04-praha (13), 07-druzina-kronika (3)
-- používají ho: 05b-svet-mapa (1), 08-navigace-pravidla (2), 22b-vyprava (6)
+- 1759 řádků, 28 definic na nejvyšší úrovni, z toho 8 používají jiné soubory
+- používá z: 01-zaklad (7), 02-mapa (5), 02f-mapa-cela (2), 04-praha (13), 07-druzina-kronika (3)
+- používají ho: 02f-mapa-cela (1), 05b-svet-mapa (1), 08-navigace-pravidla (2), 22b-vyprava (6)
 - poskytuje: pDraw PM pmRender pmRoute PMU praInit pRam pSel
 - oddíly:
-  - ř. 1382: Praha: měření cesty pěšky po ulicích
+  - ř. 1385: Praha: měření cesty pěšky po ulicích
 
 ## 05-svet
 
@@ -104,8 +113,8 @@ Známý svět: mapa Evropy a Středomoří k 3. 3. 1458
 
 - 541 řádků, 39 definic na nejvyšší úrovni, z toho 33 používají jiné soubory
 - používá z: 02-mapa (1)
-- používají ho: 05b-svet-mapa (33), 07-druzina-kronika (1), 08-navigace-pravidla (4), 09-vypravec-herni-cas (4), 10-kouzla (1), 22b-vyprava (5)
-- poskytuje: SVETMESTA SG SVET SM SP sRoute SVB SRSEA sst SVETCESTY SCITY sConfOk sDark SHCOL sHlavni SIMG SKURF SLABPOS SLODE SMA SOBLUDY SPinv SPORT SRCOL SRIVHL SSEAS sTip SVB0 SVETDRZ SVIRA SVIRAC SVMOB svRozbal
+- používají ho: 02f-mapa-cela (2), 05b-svet-mapa (33), 07-druzina-kronika (1), 08-navigace-pravidla (4), 09-vypravec-herni-cas (4), 10-kouzla (1), 22b-vyprava (5)
+- poskytuje: SG SVETMESTA SVET SM SP sRoute sst SVB SRSEA SVETCESTY SCITY sConfOk sDark SHCOL sHlavni SIMG SKURF SLABPOS SLODE SMA SOBLUDY SPinv SPORT SRCOL SRIVHL SSEAS sTip SVB0 SVETDRZ SVIRA SVIRAC SVMOB svRozbal
 - oddíly:
   - ř. 111: ilustrace mapy světa: rozměry obrázků (šířka, výška[, složka])
 
@@ -113,9 +122,9 @@ Známý svět: mapa Evropy a Středomoří k 3. 3. 1458
 
 Známý svět: kresba mapy Evropy, detail, výběr – samostatná část „svet“, načte se až na stránce Známý svět (2026-10-19)
 
-- 1273 řádků, 9 definic na nejvyšší úrovni, z toho 4 používají jiné soubory
-- používá z: 01-zaklad (2), 02-mapa (7), 04-praha (1), 04b-praha-plan (1), 05-svet (33), 06-draconomicon-rodokmeny (2), 07-druzina-kronika (5), 08-navigace-pravidla (1), 09-vypravec-herni-cas (1)
-- používají ho: 08-navigace-pravidla (3), 09-vypravec-herni-cas (3), 22b-vyprava (3)
+- 1272 řádků, 11 definic na nejvyšší úrovni, z toho 4 používají jiné soubory
+- používá z: 01-zaklad (2), 02-mapa (7), 02f-mapa-cela (2), 04-praha (1), 04b-praha-plan (1), 05-svet (33), 06-draconomicon-rodokmeny (2), 07-druzina-kronika (5), 08-navigace-pravidla (1), 09-vypravec-herni-cas (1)
+- používají ho: 02f-mapa-cela (1), 08-navigace-pravidla (3), 09-vypravec-herni-cas (3), 22b-vyprava (3)
 - poskytuje: sDraw smRender svInit sSel
 
 ## 06-draconomicon-rodokmeny

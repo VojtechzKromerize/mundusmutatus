@@ -195,6 +195,11 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
   7 vrchovin, 16 popisků; Výprava určuje kraj v celém `MAPWB` (`vyKrajBodu`), výšku podle hor v `vyMisto` také (výchozí výška a nížiny jen ve starém obdélníku).
   21 diecézí (Akvileja, Terst, Záhřeb, Kaloča, Brixen, Trident, benátská pevnina…; Lublaň až 1461 – není), jižní díl `dsa` k Drávě. 02e: 22 přechodů, 11 míst
   a 8 oblastí hospodářství, 3 zpustlé kraje, věrnost 6 měst, 25 poutí a klášterů, 7 námětů. Testy `mapa` (trasa Praha–Terst po souši, do Benátek lodí), `krajina`.
+- 10-27 **Mapy přes celou obrazovku** (Vojta): tlačítko v pravém dolním rohu mapy Koruny, Známého světa a plánu Prahy (i ve Výpravě) – `02f-mapa-cela.js`.
+  Kořen `.mapgrid` (mapa s panelem místa), ve Výpravě `.mapbox`; Fullscreen API, bez něj (iPhone) třída `.mapcela` (fixed, 100dvh) a `html.mmmapcela`
+  bez posunu stránky. Mapa Koruny je v celé obrazovce vždy „široká“ (`mapWide`, `mapAsp` = skutečný poměr okna; na telefonu na výšku celá výška světa
+  mapy, strany se posouvají), svět a Praha drží výřez přes `celaVyrez` (`sVidim`, `pVidim`). Panel místa plave vlevo dole (telefon: list zespodu), Vrstvy
+  přes mapu; Zavřít / Esc / odchod ze stránky vrátí posun stránky a bez pohybu na mapě i původní výřez. Testy `mapa`.
 
 ## Otevřené
 - **Mapa jih – k ověření (Vojta)**: kdo k 3. 3. 1458 drží Čakovec a Varaždínský hrad (celjské dědictví – Vitovec?), Golubac vynechán (srbský/turecký?), Kusánský
