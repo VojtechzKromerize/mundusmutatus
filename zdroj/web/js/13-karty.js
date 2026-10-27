@@ -964,7 +964,12 @@ document.addEventListener("click", async e => {
         }
         return;
       }
+      bojZranWb();
       m = bojZranPC(o, K, val, typ, false);
+      {
+        const wb = bojZranWb();
+        if (wb > 0) setTimeout(() => kPoutoZran(K, wb, o.hp === 0), 0);
+      }
       if (zr > 0 && kKonDrzi(K) && (o.hp == null || o.hp > 0)) KKON[K.id] = bojKonDC(zr);
       else if (o.hp === 0 && kKonDrzi(K)) kKonZtrata(K, "pád na 0 HP");
     } else if (k === "l") {
@@ -1054,7 +1059,9 @@ function bojPCZmena(hid, fn, hlas) {
   if (!h0 || !K) return;
   const ks = kartaStav(K.id);
   const o = {hp: ks.hp, thp: ks.thp, ds: h0.ds ? JSON.parse(JSON.stringify(h0.ds)) : undefined, stav: h0.stav ? [...h0.stav] : undefined};
-  const msg = fn(o) || "";
+  bojZranWb();
+  const msg = fn(o) || "",
+    wb = bojZranWb();
   const ch = {};
   if ((o.hp ?? null) !== (ks.hp ?? null)) ch.hp = o.hp != null && o.hp < kHPmax(K) ? o.hp : null;
   if ((o.thp ?? null) !== (ks.thp ?? null)) ch.thp = o.thp || null;
@@ -1069,6 +1076,7 @@ function bojPCZmena(hid, fn, hlas) {
     });
   if (GMV) bojLog(hid, {n: "Zranění", ai: null, ci: hid, zt: msg}, h0.n);
   if (hlas !== false && msg) mmHlasG(`${h0.n}: ${msg}${ch.vycerp ? " · vyčerpání " + ch.vycerp : ""}.`, 6000);
+  if (wb > 0) kPoutoZran(K, wb, o.hp === 0);
   return msg;
 }
 

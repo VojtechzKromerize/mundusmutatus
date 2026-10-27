@@ -254,6 +254,73 @@ document.addEventListener("click", e => {
     setTimeout(renderBoj, 0);
   }
 });
+/* Protective Bond (Doména míru, 2026-10-27): zasáhne-li nepřítel postavu spojenou Emboldening Bond, jiná spojená postava smí reakcí
+   převzít celé zranění (teleportuje se k ní, do 30 stop). Telefonu té postavy se nabídne „Převzít zranění“: utrpí ho sama (se svými
+   odolnostmi) a zasažené se vrátí ztracené životy (léčení spojence – jako Healing Word, případně přes schválení vypravěčem). */
+let BPOU = null;
+function bojPoutoOd(K) {
+  const b = typeof kBufy === "function" ? kBufy(K).find(x => x.n === "Emboldening Bond") : null;
+  return b ? b.od : null;
+}
+function bojPoutoNovy(s, me, J) {
+  const K = bojKartaH(me);
+  if (!K || (s.reak || {})[me.id]) return;
+  const od = bojPoutoOd(K),
+    kl = od && (KARTY || []).find(k => k.n === od);
+  if (!kl || !kMaRys(kl, /^protective bond$/i)) return;
+  const e = J.find(x => {
+    const T = bojKartaH((s.hraci || []).find(h => h.id === x.ci));
+    return T && T.id !== K.id && (+x.ph || 0) + (+x.pt || 0) > 0 && bojPoutoOd(T) === od;
+  });
+  if (!e) return;
+  const T = bojKartaH((s.hraci || []).find(h => h.id === e.ci));
+  BPOU = {
+    e,
+    kid: K.id,
+    hid: me.id,
+    tk: T.id,
+    dmg: +e.z || (+e.ph || 0) + (+e.pt || 0),
+    t: e.t || "",
+    vrat: (+e.ph || 0) + (+e.pt || 0),
+    cas: Date.now(),
+  };
+  mmHlas(`${e.a || "Nepřítel"} zasáhl ${T.n} – Protective Bond: můžeš reakcí převzít zranění.`, 6000);
+  renderBoj();
+}
+function kPoutoHtml(K, h, s) {
+  if (!BPOU || BPOU.kid !== K.id || Date.now() - BPOU.cas > 3 * 60e3 || (s.reak || {})[h.id]) return "";
+  const T = KARTBY[BPOU.tk];
+  if (!T) return "";
+  return `<div class="khl kzas"><b>${besc(BPOU.e.a || "Nepřítel")}</b> zasáhl ${besc(T.n)} za ${BPOU.vrat}. <button type="button" class="gbtn" data-bpou ${btip(`Protective Bond: reakcí se přeneseš k ${T.n} (do 30 stop od spojence) a utrpíš celé zranění ${BPOU.dmg}${BPOU.t ? " " + (BZRT[BPOU.t] || BPOU.t) : ""} místo ní – započtou se tvoje odolnosti`)}>Převzít zranění</button><button type="button" class="gbtn ghost" data-bpoux>Nechat být</button></div>`;
+}
+document.addEventListener("click", async e => {
+  const T = q => e.target.closest && e.target.closest(q);
+  if (T("[data-bpoux]")) {
+    BPOU = null;
+    renderBoj();
+    return;
+  }
+  if (!T("[data-bpou]") || !BPOU) return;
+  const P = BPOU,
+    K = KARTBY[P.kid],
+    C = KARTBY[P.tk];
+  BPOU = null;
+  if (!K || !C) return;
+  const m = bojPCZmena(P.hid, x => bojZranPC(x, K, P.dmg, P.t, false), false) || "";
+  bojHracAkce(P.hid, (hh, z) => {
+    z.reak = z.reak || {};
+    z.reak[hh.id] = 1;
+  });
+  await kLecKarta(C, P.vrat, K, "Protective Bond");
+  kHodZapis({
+    k: K.id,
+    kdo: K.n,
+    co: "Protective Bond",
+    txt: `převzal zranění za ${C.n}: ${m || P.dmg}${P.e.pd ? " · " + C.n + " padl/a na 0 – vypravěč ho vrátí do boje" : ""}`.slice(0, 290),
+  });
+  mmHlasG(`${K.n}: Protective Bond – zranění za ${C.n} převzato (${m || P.dmg}).`, 5000);
+  renderBoj();
+});
 /* předpona útoku reakcí v záznamu: Riposte, Odveta (Odvetná), příležitostný útok, Sentinel */
 const bojRipoPre = r =>
   !r ? "" : r.odv ? "Odveta: " : r.pa ? `Příležitostný útok${r.st ? " (Sentinel)" : ""}: ` : r.sen ? "Sentinel: " : "Riposte: ";

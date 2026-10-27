@@ -1422,6 +1422,68 @@ end $$;
 revoke all on function public.mm_karta_bardic(text, int, text, text) from public;
 grant execute on function public.mm_karta_bardic(text, int, text, text) to anon, authenticated;
 
+-- Warding Bond (2026-10-27): chráněná postava (p_od, přihlášený hráč za svou postavu) přenese utrpěné zranění na sesilatele (p_id),
+-- jen když jeho karta nese pouto „Warding Bond … ⇒ jméno“ (jméno z karty p_od; karta bez jména v databázi pošle p_jmeno).
+-- Dočasné HP pohltí první; v bezvědomí = neúspěch hodu proti smrti; pád na 0 = hody proti smrti a vyčerpání +1 (Artikule).
+-- Pouto končí, padne-li sesilatel na 0 HP nebo chráněná postava (p_konec).
+drop function if exists public.mm_karta_warding(text, int, int, text, boolean, text);
+create or replace function public.mm_karta_warding(p_id text, p_zr int, p_max int, p_od text, p_konec boolean default false,
+  p_token text default null, p_jmeno text default null) returns bigint
+language plpgsql security definer set search_path = public as $$
+declare st jsonb; jm text; uc jsonb; cur int; th int; zb int; ds jsonb; v bigint; konec boolean := coalesce(p_konec, false);
+begin
+  if p_id is null or p_id !~ '^[a-z0-9-]{1,40}$' or p_od is null or p_od !~ '^[a-z0-9-]{1,40}$' or p_id = p_od then
+    raise exception 'neplatná karta';
+  end if;
+  if p_zr is null or p_zr not between 1 and 300 or p_max is null or p_max not between 1 and 999 then raise exception 'neplatné zranění'; end if;
+  if not public.mm_hrac_ok(p_od, p_token) then
+    raise exception 'zranění přenáší jen přihlášený hráč za svou postavu' using errcode = '42501';
+  end if;
+  select coalesce(karta ->> 'n', left(p_jmeno, 80)) into jm from public.karty where id = p_od;
+  if jm is null or jm = '' then raise exception 'neznámá karta'; end if;
+  select stav into st from public.karty where id = p_id for update;
+  if not found then raise exception 'neznámá karta'; end if;
+  uc := case when jsonb_typeof(st -> 'uc') = 'array' then st -> 'uc' else '[]'::jsonb end;
+  if not exists (select 1 from jsonb_array_elements(uc) e
+      where (e ->> 'n') like 'Warding Bond%' and right(e ->> 'n', char_length(jm) + 3) = ' ⇒ ' || jm) then
+    raise exception 'Warding Bond na tuto postavu nedrží' using errcode = '42501';
+  end if;
+  zb := p_zr;
+  th := case when jsonb_typeof(st -> 'thp') = 'number' then (st ->> 'thp')::int else 0 end;
+  if th > 0 then
+    st := case when th > zb then jsonb_set(st, '{thp}', to_jsonb(th - zb)) else st - 'thp' end;
+    zb := greatest(0, zb - th);
+  end if;
+  cur := case when jsonb_typeof(st -> 'hp') = 'number' then (st ->> 'hp')::int else p_max end;
+  ds := case when jsonb_typeof(st -> 'ds') = 'object' then st -> 'ds' else null end;
+  if zb > 0 then
+    if ds is not null then
+      if coalesce(ds ->> 'st', '') not in ('mrtev', 'stab') then
+        ds := jsonb_set(ds, '{n}', to_jsonb(least(3, coalesce((ds ->> 'n')::int, 0) + 1)));
+        if (ds ->> 'n')::int >= 3 then ds := jsonb_set(ds, '{st}', '"mrtev"'); end if;
+        st := jsonb_set(st, '{ds}', ds);
+      end if;
+    elsif cur - zb <= 0 then
+      -- přesah ≥ maximum HP = okamžitá smrt (jako na kartě)
+      st := jsonb_set(jsonb_set(st, '{hp}', '0'), '{ds}', case when zb - cur >= p_max then jsonb_build_object('u', 0, 'n', 3, 'st', 'mrtev')
+        else jsonb_build_object('u', 0, 'n', 0) end);
+      st := jsonb_set(st, '{vycerp}', to_jsonb(least(10, coalesce((st ->> 'vycerp')::int, 0) + 1)));
+      konec := true;
+    else
+      st := jsonb_set(st, '{hp}', to_jsonb(cur - zb));
+    end if;
+  end if;
+  if konec then
+    select coalesce(jsonb_agg(e), '[]'::jsonb) into uc from jsonb_array_elements(uc) e
+      where not ((e ->> 'n') like 'Warding Bond%' and right(e ->> 'n', char_length(jm) + 3) = ' ⇒ ' || jm);
+    st := case when jsonb_array_length(uc) = 0 then st - 'uc' else jsonb_set(st, '{uc}', uc) end;
+  end if;
+  update public.karty set stav = st, verze = verze + 1, zmeneno = now() where id = p_id returning verze into v;
+  return v;
+end $$;
+revoke all on function public.mm_karta_warding(text, int, int, text, boolean, text, text) from public;
+grant execute on function public.mm_karta_warding(text, int, int, text, boolean, text, text) to anon, authenticated;
+
 -- historie karty: před změnou stavu se uloží předchozí stav (nejvýš jednou za 10 minut, 40 snímků na kartu)
 create or replace function public.mm_karty_historie() returns trigger
 language plpgsql security definer set search_path = public as $$

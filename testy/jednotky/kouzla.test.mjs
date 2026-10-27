@@ -182,6 +182,56 @@ test("Emboldening Bond (2026-10-25): kněz vybere spojence, pouto se jim přičt
   }
 });
 
+test("Warding Bond (2026-10-27): sesilatel utrpí stejné zranění jako chráněný (po jeho odolnostech, bez vlastních); pád na 0 pouto ukončí", async () => {
+  S.ev(
+    `KARTY.push({id: "t_war", n: "Strážce", povolani: "Cleric 5", uroven: 5, vl: {WIS: 16, CON: 14}, hp: 38, rysy: [], vybaveni: []}); KARTBY.t_war = KARTY[KARTY.length - 1]`,
+  );
+  try {
+    S.ev(`KST.t_war = {uc: [{n: "Warding Bond ⇒ Balduin", kon: true}]}; KST.balduin = Object.assign({}, KST.balduin, {hp: null, thp: null})`);
+    assert.deepEqual(V(`kWardSesilatele(KARTBY.balduin).map(k => k.id)`), ["t_war"]);
+    const mx = V(`kHPmax(KARTBY.t_war)`);
+    /* zranění Balduina mimo boj (karta): Warding Bond mu dává Resistance vůči všemu → 10 Slashing = 5, sesilatel 5 */
+    S.ev(`bojZranWb(); window._o = {hp: null}; bojZranPC(window._o, KARTBY.balduin, 10, "Slashing", false)`);
+    const wb = V(`bojZranWb()`);
+    assert.equal(wb, 5);
+    await S.ev(`kPoutoZran(KARTBY.balduin, ${wb}, false)`);
+    assert.equal(V(`kartaStav("t_war").hp`), mx - 5);
+    assert.equal(V(`kUc(KARTBY.t_war).length`), 1, "pouto trvá");
+    assert.equal(V(`bojZranWb()`), 0, "zranění sesilatele se dál nepřenáší");
+    await S.ev(`kPoutoZran(KARTBY.balduin, ${mx - 5 + 2}, false)`);
+    assert.equal(V(`kartaStav("t_war").hp`), 0);
+    assert.deepEqual(V(`kartaStav("t_war").ds`), {u: 0, n: 0}, "sesilatel padne do bezvědomí");
+    assert.equal(V(`(kartaStav("t_war").uc || []).length`), 0, "pád na 0 pouto ukončí");
+  } finally {
+    S.ev(`delete KST.t_war; KARTY.pop(); delete KARTBY.t_war`);
+  }
+});
+
+test("Protective Bond (2026-10-27): spojená postava s reakcí dostane nabídku převzít zranění spojence", () => {
+  S.ev(
+    `KARTY.push({id: "t_mir2", n: "Mírotvůrce", povolani: "Cleric 6", uroven: 6, vl: {WIS: 16}, rysy: ["Protective Bond"], vybaveni: []}); KARTBY.t_mir2 = KARTY[KARTY.length - 1]`,
+  );
+  try {
+    S.ev(`KST.t_mir2 = {uc: [{n: "Emboldening Bond ⇒ Mírotvůrce"}, {n: "Emboldening Bond ⇒ Balduin"}]}`);
+    assert.equal(V(`bojPoutoOd(KARTBY.balduin)`), "Mírotvůrce");
+    const s = `{aktivni: true, hraci: [{id: "h1", k: "t_mir2", n: "Mírotvůrce"}, {id: "h2", k: "balduin", n: KARTBY.balduin.n}], npc: [], reak: {}}`;
+    S.ev(
+      `BPOU = null; bojPoutoNovy(${s}, {id: "h1", k: "t_mir2", n: "Mírotvůrce"}, [{ci: "h2", ai: "n1", a: "Rotmistr", z: 12, ph: 12, t: "Slashing"}])`,
+    );
+    assert.deepEqual(V(`[BPOU && BPOU.tk, BPOU && BPOU.dmg, BPOU && BPOU.vrat]`), ["balduin", 12, 12]);
+    S.ev(
+      `BPOU = null; bojPoutoNovy(Object.assign(${s}, {reak: {h1: 1}}), {id: "h1", k: "t_mir2", n: "Mírotvůrce"}, [{ci: "h2", ai: "n1", z: 12, ph: 12}])`,
+    );
+    assert.equal(V(`BPOU`), null, "bez reakce žádná nabídka");
+    S.ev(
+      `KST.t_mir2 = {uc: [{n: "Emboldening Bond ⇒ Mírotvůrce"}]}; BPOU = null; bojPoutoNovy(${s}, {id: "h1", k: "t_mir2", n: "Mírotvůrce"}, [{ci: "h2", ai: "n1", z: 12, ph: 12}])`,
+    );
+    assert.equal(V(`BPOU`), null, "zasažený není spojený");
+  } finally {
+    S.ev(`BPOU = null; delete KST.t_mir2; KARTY.pop(); delete KARTBY.t_mir2`);
+  }
+});
+
 /* ---------- opakovaná kouzla bez slotu (KZOPAK), oblasti (KZOBL), rituály ---------- */
 test("kouzla: Spiritual Weapon 1d8 + modifikátor, +1d8 za každé dva stupně nad 2.", () => {
   assert.equal(V(`kzZr(KZOPAK["Spiritual Weapon"], 2, 4)`), "1d8+4");

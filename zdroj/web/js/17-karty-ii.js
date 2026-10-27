@@ -619,6 +619,60 @@ function kBufy(K) {
   });
   return R;
 }
+/* Warding Bond (2026-10-27): sesilatel nese pouto „Warding Bond ⇒ Jméno“ a utrpí stejné zranění jako chráněná postava (bez odolností);
+   padne-li kterýkoli z nich na 0 HP, pouto končí. Vypravěč a sesilatel sám zapíší zranění přímo, jiný hráč přes mm_karta_warding
+   (databáze ověří, že pouto na jeho postavu opravdu existuje). Volá bojPCZmena / zranění mimo boj (13), když postava utrpí zranění. */
+const KWARDRE = /^Warding Bond\b.* ⇒ (.+)$/;
+function kWardSesilatele(K) {
+  const t = kTed();
+  return (KARTY || []).filter(
+    k =>
+      k.id !== K.id &&
+      kUc(k).some(u => {
+        const m = String(u.n || "").match(KWARDRE);
+        return m && m[1] === K.n && !(u.do != null && t != null && u.do <= t);
+      }),
+  );
+}
+async function kPoutoZran(K, dmg, padl) {
+  for (const Kc of kWardSesilatele(K)) {
+    if (GMV || kMuze(Kc)) {
+      const h0 = ((BOJ.s && BOJ.s.aktivni && BOJ.s.hraci) || []).find(x => bojKartaH(x) === Kc);
+      if (h0) bojPCZmena(h0.id, x => bojZranPC(x, Kc, dmg, "", false, {bezPout: 1}), false);
+      else {
+        const S = kartaStav(Kc.id),
+          o = {hp: S.hp, thp: S.thp, ds: S.ds},
+          hp0 = S.hp != null ? +S.hp : kHPmax(Kc);
+        bojZranPC(o, Kc, dmg, "", false, {bezPout: 1});
+        const ch = {hp: o.hp != null && o.hp < kHPmax(Kc) ? o.hp : null, thp: o.thp || null, ds: o.ds || null};
+        if (o.hp === 0 && hp0 > 0) ch.vycerp = Math.min(10, (+S.vycerp || 0) + 1);
+        await kartaStavZmen(Kc.id, ch);
+      }
+      if (padl || kartaStav(Kc.id).hp === 0) {
+        const uc = kUc(Kc).filter(u => (String(u.n || "").match(KWARDRE) || [])[1] !== K.n);
+        await kartaStavZmen(Kc.id, {uc: uc.length ? uc : null});
+      }
+    } else if (window.MMDB && MMDB.kartaWarding) {
+      try {
+        await MMDB.kartaWarding(Kc.id, Math.min(300, Math.round(dmg)), kHPmax(Kc), K.id, !!padl, K.n);
+        await kartyNacti();
+      } catch (e) {
+        mmHlasG(`Warding Bond: zranění ${Kc.n} se nezapsalo (${e.message || e}) – zapiš ${dmg} na jeho kartě.`, 6000);
+        continue;
+      }
+    } else {
+      mmHlasG(`${Kc.n}: Warding Bond – zapiš ${dmg} zranění na jeho kartě.`, 5000);
+      continue;
+    }
+    kHodZapis({
+      k: K.id,
+      kdo: K.n,
+      co: "Warding Bond",
+      txt: `${Kc.n} utrpí stejné zranění: ${dmg}${padl || kartaStav(Kc.id).hp === 0 ? " · pouto končí (pád na 0 HP)" : ""}`,
+    });
+    mmHlasG(`Warding Bond: ${Kc.n} utrpí ${dmg} zranění spolu s ${K.n}.`, 5000);
+  }
+}
 /* ---- Seslat na koho (2026-10-17 b): kouzlo s dosahem (ne „Sebe“) se před sesláním zeptá na cíle – postavy družiny
    a v boji nepřátelé. Spojenci dostanou účinek „Kouzlo ⇒ Jméno“ (drží ho sesilatel, se soustředěním zmizí), léčivé kouzlo
    rovnou vyléčí vybrané. Nepřátelé v boji: hráč kouzlo se záchranou či útokem dohodí v listu útoku (vyhodnotí vypravěč),

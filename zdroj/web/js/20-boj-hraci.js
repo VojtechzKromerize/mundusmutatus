@@ -841,7 +841,10 @@ function bojZazHlidej(s, me) {
   if (!N.length && !J.length) return;
   BVID.set(Math.max(...[...N, ...J].map(x => x.ts)));
   const F = N.length ? [bojKonNovy, bojMinNovy, bojOdvNovy, bojZasahNovy, bojPrilezNovy].map(f => () => f(s, me, N)) : [];
-  if (J.length) F.push(() => bojPrilezNovy(s, me, J, true));
+  if (J.length) {
+    F.push(() => bojPrilezNovy(s, me, J, true));
+    F.push(() => bojPoutoNovy(s, me, J));
+  }
   for (const f of F) {
     try {
       f();
