@@ -71,10 +71,10 @@ test("věrnost králi: města mají skupinu z povolené množiny a dobovou větu
 
 test("poutě, kláštery a pověsti: každý bod má druh, souřadnice v rozsahu mapy a text; klášter řád, stav a vyznání (2026-10-27)", () => {
   const n = V(`POUTE.length`);
-  assert.ok(n >= 30 && n <= 45, "bodů " + n);
+  assert.ok(n >= 30 && n <= 120, "bodů " + n);
   assert.deepEqual(V(`POUTE.filter(q => !POUTE_DRUH[q.d] || !POUTE_ZN[q.d]).map(q => q.n)`), []);
-  /* rozsah mapy MAPWB (02): x od −80 do 810, y od −40 do 665 při P = [(lo − 10,9) · 72, (52,7 − la) · 112] */
-  assert.deepEqual(V(`POUTE.filter(q => !(q.lo > 9.8 && q.lo < 22.1 && q.la > 46.8 && q.la < 53.05)).map(q => q.n)`), []);
+  /* rozsah mapy MAPWB (02, od 2026-10-27 od Baltu k Jadranu): lon 9,5–23,0°, lat 44,4–55,4° */
+  assert.deepEqual(V(`POUTE.filter(q => !(q.lo > 9.5 && q.lo < 23 && q.la > 44.4 && q.la < 55.4)).map(q => q.n)`), []);
   assert.deepEqual(V(`POUTE.filter(q => !q.ref && q.t.length < 40).map(q => q.n)`), [], "dobový text (ref = shrnutí místa na mapě)");
   assert.deepEqual(V(`POUTE.filter(q => q.d === "klaster" && !(q.r && POUTE_STAV[q.s] && q.v)).map(q => q.n)`), []);
   assert.equal(V(`new Set(POUTE.map(q => q.n)).size`), n, "jména jsou jedinečná");

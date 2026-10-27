@@ -183,7 +183,7 @@ test("krajina: panel přechodu a zpustlého kraje, Výprava v zpustlém kraji hr
   if (V(`typeof drawMapK`) === "function") {
     S.ev(`st.hosp = true; st.zpustle = true; drawMapK()`);
     assert.ok(V(`document.querySelectorAll("#map .kraj").length`) >= 37 + 25, "značky přechodů a hospodářství");
-    assert.ok(V(`document.querySelectorAll("#map .krajpoly").length`) === 11 + 11, "plochy oblastí a zpustlých krajů");
+    assert.ok(V(`document.querySelectorAll("#map .krajpoly").length`) === V(`HOSP_OBL.length + ZPUSTLE.length`), "plochy oblastí a zpustlých krajů");
     S.ev(`st.hosp = false; st.zpustle = false; drawMapK()`);
   }
 });
@@ -314,4 +314,44 @@ test("moře nepřekrývá žádné místo mapy (sídla, města, hrady, zeměpis)
   assert.equal(r.voda, 0, "žádný úsek nevede vodou");
   /* na ostrov (Bornholm) se po souši nedojde */
   assert.equal(V(`computeRoute({name: "Štětín", lo: 14.55, la: 53.43}, {name: "Rønne", lo: 14.7, la: 55.1})`), null);
+});
+
+test("sever mapy: města a hrady od Holštýnska po Prusy, cesty k Baltu a přívozy (2026-10-27)", async () => {
+  const n = new Set(V(`PLACES.map(p => p.name)`));
+  for (const m of ["Gdaňsk", "Lübeck", "Hamburk", "Královec", "Malbork", "Štětín", "Toruň", "Rostock", "Chojnice", "Drohičin"])
+    assert.ok(n.has(m), m);
+  assert.ok(V(`METRO.has("Lübeck") && METRO.has("Gdaňsk")`));
+  assert.ok(V(`["Prusy", "Pomořany", "Hanza"].every(L => NBR_LANDS.includes(L) && FAM.some(f => f.nbr && f.land === L))`));
+  /* každé město severu má věrnost (cizí nárok) a dobovou větu */
+  const bezV = V(
+    `FAM.filter(f => f.city && ["Prusy", "Pomořany", "Hanza", "Meklenbursko a Holštýnsko"].includes(f.land)).flatMap(f => f.seats.map(s => s[0])).filter(m => !VERNOST_MIST[m])`,
+  );
+  assert.deepEqual(bezV, []);
+  await S.ev(`typeof drawMapK === "function" || mmLina("mapa")`);
+  if (V(`typeof drawMapK`) !== "function") return;
+  /* Praha → Gdaňsk: po souši a po stezkách přes Toruň, žádný úsek vodou */
+  const r = V(`(() => {
+    const R = computeRoute(placeBy("Praha"), placeBy("Gdaňsk"));
+    if (!R) return null;
+    let voda = 0;
+    for (const l of R.legs) for (let f = 0; f <= 1; f += 0.05) if (naVode(l.p0[0] + (l.p1[0] - l.p0[0]) * f, l.p0[1] + (l.p1[1] - l.p0[1]) * f)) voda++;
+    return {voda, names: R.names, road: R.roadKm, km: R.km, lod: R.legs.some(l => l.lod)};
+  })()`);
+  assert.ok(r, "trasa existuje");
+  assert.equal(r.voda, 0);
+  assert.ok(r.names.includes("Toruň"), JSON.stringify(r.names));
+  assert.ok(r.road > r.km * 0.7, "převážně po stezkách");
+  assert.equal(r.lod, false);
+  /* na Rujánu a na Fehmarn přívozem; na Bornholm dál jen lodí (bez spoje) */
+  const ruj = V(
+    `(() => { const R = computeRoute(placeBy("Stralsund"), {name: "Bergen na Rujáně", lo: 13.43, la: 54.42}); return R && R.legs.some(l => l.lod); })()`,
+  );
+  assert.equal(ruj, true, "přes Strelasund přívozem");
+  const feh = V(
+    `(() => { const R = computeRoute(placeBy("Lübeck"), {name: "Burg na Fehmarnu", lo: 11.19, la: 54.44}); return R && R.legs.some(l => l.lod); })()`,
+  );
+  assert.equal(feh, true, "přes Fehmarnsund přívozem");
+  const dan = V(`(() => { const R = computeRoute(placeBy("Vordingborg"), placeBy("Nykøbing")); return R && R.legs.some(l => l.lod); })()`);
+  assert.equal(dan, true, "ze Sjællandu na Falster přívozem");
+  assert.equal(V(`computeRoute(placeBy("Štětín"), placeBy("Hammershus"))`), null);
 });

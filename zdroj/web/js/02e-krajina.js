@@ -231,6 +231,49 @@ const PRECHODY = [
     "j",
     "Pod hradem trenčínským se převáží přes Váh na cestě z Moravy do Horních Uher. Váh na jaře divoce stoupá.",
   ],
+  /* ---- SEVER (mapa 2026-10-27) ---- */
+  [
+    "Přívoz v Toruni",
+    "privoz",
+    18.61,
+    53.0,
+    "j",
+    "Pod Toruní se převáží přes Vislu z Kujav do Chełmińské země; mostu tu není. Na jaře nese řeka led a převoz stojí.",
+  ],
+  [
+    "Přívoz v Tczewě",
+    "privoz",
+    18.79,
+    54.09,
+    "j",
+    "Pod Tczewem se převáží přes Vislu na cestě z Gdaňska do Malborku a do Prus; břehy hlídají žoldnéři.",
+  ],
+  ["Přívoz u Artlenburku", "privoz", 10.49, 53.37, "j", "Solná stezka tu přechází Labe: převoz nese vozy se solí z Lüneburku na sever k Lübecku."],
+  ["Přívoz u Hamburku", "privoz", 10.01, 53.5, "j", "Mezi Hamburkem a Harburkem se přes ramena Labe a ostrovy mezi nimi převáží několikrát."],
+  [
+    "Přívoz přes Strelasund",
+    "privoz",
+    13.1,
+    54.315,
+    "",
+    "Ze Stralsundu se převáží přes úzký průliv na ostrov Rujánu; v zimě, když zamrzne, se chodí po ledu.",
+  ],
+  [
+    "Přívoz na Fehmarn",
+    "privoz",
+    11.13,
+    54.4,
+    "",
+    "Přes úžinu Fehmarnsund se převáží z Vagrie na ostrov Fehmarn, který náleží vévodovi šlesvickému.",
+  ],
+  [
+    "Přívoz přes Storstrøm",
+    "privoz",
+    11.89,
+    54.98,
+    "",
+    "Mezi Sjællandem a ostrovem Falsterem se převáží přes široký průliv pod královským hradem Vordingborgem.",
+  ],
 ];
 const HOSP_BODY = [
   [
@@ -394,6 +437,41 @@ const HOSP_BODY = [
     48.51,
     "Rakouské město na Linecké stezce s právem skladu; kupci tu skládají sůl a železo, jež jdou do Čech.",
   ],
+  /* ---- SEVER (mapa 2026-10-27) ---- */
+  [
+    "Lüneburk",
+    "sul",
+    "sůl",
+    10.41,
+    53.25,
+    "Nejbohatší solivar severu: solanka se vaří v desítkách pánví a sůl jde po solné stezce a průplavem do Lübecku a odtud po celém Baltu.",
+  ],
+  ["Kolobřeh", "sul", "sůl", 15.58, 54.18, "Ze solných pramenů u Kolobřehu se odedávna vaří sůl, jež se vozí do Pomořan a do Velkopolska."],
+  [
+    "Sambijské pobřeží",
+    "jantar",
+    "jantar",
+    20.0,
+    54.9,
+    "Moře tu vyhazuje na břeh jantar. Sbírat jej smí jen lidé Řádu, který jím obchoduje až do Brugg a Lübecku; kdo jej sebere tajně, visí.",
+  ],
+  [
+    "Gdaňsk",
+    "jine",
+    "obilí, dřevo a popel",
+    18.65,
+    54.35,
+    "Přístav, kudy jde po Visle z Polska obilí, dřevo, popel a smůla do Flander a Anglie; zpět se veze sukno, sůl a sledě.",
+  ],
+  ["Lübeck", "jine", "sůl a sledě", 10.69, 53.87, "Hlavní sklad Hanzy: sem se sváží sůl z Lüneburku a sledě ze Skåne a odtud jdou po celém Baltu."],
+  [
+    "Toruň",
+    "jine",
+    "právo skladu",
+    18.61,
+    53.01,
+    "Kupci, kteří jdou z Polska a Uher k moři, musí v Toruni složit zboží a nabídnout je měšťanům ke koupi.",
+  ],
 ];
 const HOSP_OBL = [
   [
@@ -531,6 +609,44 @@ const HOSP_OBL = [
       [17.3, 51.45],
     ],
     "Rybníky při řece Baryči u Milíče ve Slezsku, jež zakládali cisterciáci z Lubuše již před dvěma věky.",
+  ],
+  /* ---- SEVER (mapa 2026-10-27) ---- */
+  [
+    "Viselské Žulavy",
+    "obili",
+    [
+      [18.75, 54.3],
+      [19.25, 54.3],
+      [19.45, 54.15],
+      [19.1, 53.98],
+      [18.85, 54.0],
+      [18.75, 54.15],
+    ],
+    "Úrodná rovina v deltě Visly, kterou Řád obehnal hrázemi a vysušil; obilí odtud jde do Gdaňska a Elblągu. Válka ji však pustoší.",
+  ],
+  [
+    "Kujavská obilnice",
+    "obili",
+    [
+      [17.9, 52.85],
+      [18.55, 52.95],
+      [18.95, 52.7],
+      [18.6, 52.5],
+      [18.0, 52.6],
+    ],
+    "Černá prsť Kujav dává nejvíce obilí v Polsku; po Visle se veze do Gdaňska a odtud za moře.",
+  ],
+  [
+    "Pyrzycká pšeničná pole",
+    "obili",
+    [
+      [14.75, 53.2],
+      [15.1, 53.25],
+      [15.15, 53.1],
+      [14.9, 53.0],
+      [14.7, 53.08],
+    ],
+    "Těžká úrodná půda u Pyrzyc v Pomořanech, kde se rodí nejlepší pšenice v zemi; obilí jde po Odře do Štětína.",
   ],
 ];
 const ZPUSTLE = [
@@ -688,6 +804,48 @@ const ZPUSTLE = [
     ],
     "Roku 1451 rozprášili bratříci u Lučence mnohem větší vojsko Huňadyho. Od roku 1453 je vede hejtman Petr Aksamit a z opevněných táborů drží velkou část Horních Uher.",
   ],
+  /* ---- SEVER (mapa 2026-10-27) ---- */
+  [
+    "Zpustlé Pomoří a Žulavy",
+    2,
+    [
+      [17.4, 53.6],
+      [17.6, 53.95],
+      [18.55, 54.2],
+      [19.3, 54.25],
+      [19.5, 54.0],
+      [19.1, 53.7],
+      [18.4, 53.5],
+      [17.7, 53.45],
+    ],
+    "Od léta 1454 tudy táhnou žoldnéři Řádu i Svazu: Chojnice, Tczew, Gniew a Malbork přecházejí z ruky do ruky, vsi jsou vypálené a pole leží ladem.",
+  ],
+  [
+    "Zpustlé Chełmińsko a Pomezanie",
+    1,
+    [
+      [18.4, 53.0],
+      [19.4, 53.1],
+      [19.8, 53.5],
+      [19.5, 53.75],
+      [18.9, 53.75],
+      [18.45, 53.4],
+    ],
+    "Hrady a města tu léta dobývají a draží žoldnéři obou stran a z pevností vybírají výpalné z okolních vsí.",
+  ],
+  [
+    "Zpustlá Varmie a Natangie",
+    1,
+    [
+      [19.7, 54.0],
+      [20.3, 53.7],
+      [21.0, 53.9],
+      [21.0, 54.4],
+      [20.4, 54.6],
+      [19.8, 54.4],
+    ],
+    "Kolem Královce a ve Varmii se léta 1455 bojovalo o hrady a města; roty obou stran, kterým nikdo neplatí, plení kraj samy.",
+  ],
 ];
 const PRECH_DRUH = {prusmyk: "Průsmyk", most: "Most", brod: "Brod", privoz: "Přívoz"};
 const HOSP_DRUH = {
@@ -699,6 +857,8 @@ const HOSP_DRUH = {
   obili: "Obilnice",
   chmel: "Chmelnice",
   rybniky: "Rybníky",
+  /* ---- SEVER (mapa 2026-10-27) ---- */
+  jantar: "Jantar",
 };
 /* vzdálenost v km: rovinný odhad, na pár desítek km stačí */
 function krajKm(a, b) {
@@ -1184,6 +1344,55 @@ function naVode(lo, la) {
   for (const r of VODA_CESTA) if (krajVPoly(lo, la, r)) v = !v;
   return v;
 }
+/* ---- SEVER (mapa 2026-10-27): úžiny užší, než aby je pokryla VODA_CESTA (zúžená od břehu) – Strelasund, Fehmarnsund a Storstrøm. Lomená čára
+   středem průlivu od otevřené vody k otevřené vodě; úsek cesty, který ji protne, vede vodou (terrain v 02 = ∞), takže se na
+   ostrov dostane jen přívozem (ROADS s "lod"). Čára se počítá průsečíkem, ne vzorky, aby ji nepřeskočil ani dlouhý úsek. ---- */
+const UZINY = [
+  [
+    [13.11, 54.41],
+    [13.11, 54.38],
+    [13.115, 54.36],
+    [13.11, 54.335],
+    [13.12, 54.32],
+    [13.13, 54.3],
+    [13.15, 54.29],
+    [13.19, 54.275],
+    [13.22, 54.262],
+    [13.27, 54.252],
+    [13.33, 54.235],
+    [13.4, 54.225],
+    [13.47, 54.225],
+  ],
+  [
+    [11.0, 54.4],
+    [11.14, 54.395],
+    [11.25, 54.4],
+    [11.4, 54.4],
+  ],
+  [
+    [11.7, 54.975],
+    [11.8, 54.975],
+    [11.86, 54.965],
+    [11.89, 54.955],
+    [11.95, 54.955],
+    [12.05, 54.95],
+    [12.15, 54.945],
+    [12.22, 54.94],
+    [12.3, 54.925],
+    [12.39, 54.9],
+  ],
+];
+/* protne úsek a–b některou úžinu? */
+function presUzinu(a, b) {
+  const x = (p, q, r) => (q[0] - p[0]) * (r[1] - p[1]) - (q[1] - p[1]) * (r[0] - p[0]);
+  for (const l of UZINY)
+    for (let i = 0; i < l.length - 1; i++) {
+      const c = l[i],
+        d = l[i + 1];
+      if (x(a, b, c) * x(a, b, d) < 0 && x(c, d, a) * x(c, d, b) < 0) return true;
+    }
+  return false;
+}
 /* přechody blízko trasy (lomená čára [[délka, šířka] …]): {i, n, druh, sez, lo, la, p (0–1 podél trasy), km od trasy}, podle pořadí */
 function prechodyNaTrase(pts, dosah) {
   const D = dosah || 5;
@@ -1293,6 +1502,53 @@ const VERNOST_MIST = {
   Luckau: ["cizi", "Město Dolní Lužice pod správou markraběte braniborského; koruna je žádá zpět."],
   Svídnice: ["vahaji", "Korunní město, jež spravuje pán z Rožmberka, hledí však k Vratislavi."],
   Javor: ["vahaji", "Korunní město, jež spravuje pán z Rožmberka, hledí však k Vratislavi."],
+  /* ---- SEVER (mapa 2026-10-27) ---- */
+  Gdaňsk: ["cizi", "Gdaňsk se poddal králi polskému a o volbu v Čechách dbá jen, pokud by zdražila žoldnéře."],
+  Toruň: ["cizi", "Toruň náleží králi polskému; z Čech zná hlavně žoldnéře, kteří táhnou do Prus."],
+  Elbląg: ["cizi", "Elbląg poslouchá krále polského a volbu krále v Čechách přechází mlčením."],
+  Chełmno: ["cizi", "Chełmno stojí při Svazu a králi polském; o krále českého se nestará."],
+  Grudziądz: ["cizi", "Město drží s králem polským a s Čechami nemá co činit."],
+  Tczew: ["cizi", "Město sevřené válkou poslouchá toho, kdo právě drží hrad, a o Čechy nedbá."],
+  Královec: ["cizi", "Královec poslouchá velmistra; Čechy zná jen jako zemi, odkud chodí žoldnéři."],
+  Štětín: ["cizi", "Štětín poslouchá vévodu pomořanského a o volbě v Čechách ví jen od kupců."],
+  Anklam: ["cizi", "Hanzovní Anklam hledí obchodu a volbou v Čechách se nezabývá."],
+  Pasewalk: ["cizi", "Pomořanské město při braniborském pomezí; Čechy jsou mu daleko."],
+  Stargard: ["cizi", "Stargard se přou se Štětínem o plavbu a o krále českého nedbá."],
+  Kolobřeh: ["cizi", "Kolobřeh vaří sůl a přou se s biskupem; volba v Čechách mu jest lhostejná."],
+  Koszalin: ["cizi", "Město biskupa kamínského, jemuž jest volba v Čechách daleko."],
+  Słupsk: ["cizi", "Město starého krále Erika hledí k Pomořanům a k Gdaňsku, ne k Praze."],
+  Lübeck: ["cizi", "Rada lübecká přeje každému králi, jenž udrží cesty bezpečné a výsady kupců."],
+  Hamburk: ["cizi", "Hamburk hledí k Flandrám a k moři; o krále českého nedbá."],
+  Lüneburk: ["cizi", "Lüneburk má dosti starostí se sporem o solivar; volba v Čechách mu jest daleko."],
+  Wismar: ["cizi", "Hanzovní Wismar o volbu krále v Čechách nedbá."],
+  Rostock: ["cizi", "Rostock s vysokým učením zná Čechy z učenců a sporů o kalich, krále však neřeší."],
+  Stralsund: ["cizi", "Stralsund hledí moře a obchodu; o krále českého se nestará."],
+  Greifswald: ["cizi", "Greifswald s novým vysokým učením zná Čechy jen z disputací o kalichu."],
+  Schwerin: ["cizi", "Sídelní město vévodů meklenburských, jemuž jest volba v Čechách lhostejná."],
+  Kiel: ["cizi", "Kiel poslouchá hrabata holštýnská a o krále českého nedbá."],
+  Itzehoe: ["cizi", "Holštýnské město daleko od Čech, kde se o volbě neví."],
+  Mölln: ["cizi", "Mölln drží Lübeck v zástavě a město hledí k němu, nikoli k Praze."],
+  Ratzeburg: ["cizi", "Biskupské město v Lauenbursku, jemuž jest volba v Čechách daleko."],
+  Eutin: ["cizi", "Sídlo biskupa lubeckého, jenž hledí k Římu, ne k Praze."],
+  Bydhošť: ["cizi", "Královské město polské, opora války v Prusích; o Čechách ví z žoldnéřů."],
+  Inowrocław: ["cizi", "Kujavské město krále polského, jemuž jest volba v Čechách lhostejná."],
+  Nakło: ["cizi", "Pomezní město krále polského, jemuž jest volba v Čechách daleko."],
+  Wałcz: ["cizi", "Polské pomezní město proti Nové marce; Čechy jsou mu daleko."],
+  Łomża: ["cizi", "Mazovské město daleko od Čech, kde o volbě sotva kdo slyšel."],
+  Pułtusk: ["cizi", "Město biskupa płockého, jenž hledí k Římu a k Hnězdnu, ne k Praze."],
+  Ostrołęka: ["cizi", "Mazovské pomezní město, kde o volbě v Čechách sotva kdo slyšel."],
+  Prenzlau: ["cizi", "Město kurfiřta braniborského; s Čechami má jeho pán spor jen o Lužici."],
+  Angermünde: ["cizi", "Město kurfiřta braniborského, jež hledí, co učiní jeho pán."],
+  Templin: ["cizi", "Město kurfiřta braniborského, jemuž jest volba v Čechách daleko."],
+  Perleberg: ["cizi", "Hanzovní město v Přignicku, jež o krále českého nedbá."],
+  Pritzwalk: ["cizi", "Město v Přignicku, jemuž jest volba v Čechách daleko."],
+  Kyritz: ["cizi", "Město v Přignicku, jemuž jest volba v Čechách daleko."],
+  Neuruppin: ["cizi", "Město hrabat ruppinských, kteří hledí ke kurfiřtovi, ne k Praze."],
+  Salzwedel: ["cizi", "Hanzovní město Staré marky, jež o krále českého nedbá."],
+  Choszczno: ["cizi", "Město Nové marky, jež sotva poznalo nového pána, kurfiřta braniborského."],
+  Myślibórz: ["cizi", "Město Nové marky, nyní kurfiřtovo; o Čechách ví málo."],
+  Drawsko: ["cizi", "Město Nové marky, nyní kurfiřtovo; o Čechách ví málo."],
+  Świdwin: ["cizi", "Město Nové marky, nyní kurfiřtovo; o Čechách ví málo."],
 };
 /* věrnost místa n: město podle VERNOST_MIST, jinak podle rodů (data z FAM), které tu mají sídlo a věrnost znají → [skupina, věta] | null */
 function vernostMista(n, rody) {
@@ -1625,4 +1881,116 @@ const POUTE = [
     t: "Pod hradem krakovským je sluj, v níž podle kroniky mistra Vincence přebývala saň, jež žrala dobytek i lidi, dokud ji synové knížete Kraka nezahubili.",
   },
   {n: "Pohansko", d: "povest", lo: 16.89, la: 48.72, ref: "Pohansko", o: 1, t: ""},
+  /* ---- SEVER (mapa 2026-10-27) ---- */
+  {n: "Kwidzyn", d: "pout", lo: 18.93, la: 53.73, ref: "Kwidzyn", o: 1, t: ""},
+  {
+    n: "Hora Chełmská",
+    d: "pout",
+    lo: 16.21,
+    la: 54.21,
+    v: "kat",
+    t: "Hora nad Koszalinem s mariánskou kaplí, k níž putují Pomořané z širého okolí. Podle staré paměti tu kdysi stávala svatyně pohanská.",
+  },
+  {
+    n: "Oliwa",
+    d: "klaster",
+    lo: 18.56,
+    la: 54.41,
+    r: "cisterciáci",
+    s: "c",
+    v: "kat",
+    t: "Klášter cisterciáků u Gdaňska, kde odpočívají někdejší knížata pomořská. Léta Páně 1433 jej vypálila vojska husitská, když táhla s Poláky proti Řádu až k moři, ale bratří jej obnovili.",
+  },
+  {
+    n: "Pelplin",
+    d: "klaster",
+    lo: 18.7,
+    la: 53.93,
+    r: "cisterciáci",
+    s: "c",
+    v: "kat",
+    t: "Bohatý klášter cisterciáků s velikým cihlovým chrámem na Pomoří, uprostřed kraje, jímž táhnou vojska Řádu i Svazu.",
+  },
+  {
+    n: "Kartuzy",
+    d: "klaster",
+    lo: 18.2,
+    la: 54.33,
+    r: "kartuziáni",
+    s: "c",
+    v: "kat",
+    t: "Klášter kartuziánů mezi kašubskými jezery a lesy, založený před osmdesáti lety; mniši žijí v mlčení, každý ve své cele.",
+  },
+  {
+    n: "Doberan",
+    d: "klaster",
+    lo: 11.91,
+    la: 54.11,
+    r: "cisterciáci",
+    s: "c",
+    v: "kat",
+    t: "Klášter cisterciáků u Rostocku s vysokým cihlovým chrámem, kde jsou pohřbeni vévodové meklenburští.",
+  },
+  {
+    n: "Chorin",
+    d: "klaster",
+    lo: 13.87,
+    la: 52.9,
+    r: "cisterciáci",
+    s: "c",
+    v: "kat",
+    t: "Klášter cisterciáků mezi lesy a jezery v Barnimu s cihlovým chrámem, pohřebiště starých markrabat askánských.",
+  },
+  {
+    n: "Kołbacz",
+    d: "klaster",
+    lo: 14.8,
+    la: 53.3,
+    r: "cisterciáci",
+    s: "c",
+    v: "kat",
+    t: "Nejstarší klášter cisterciáků v Pomořanech, jižně od Štětína; mniši spravují rozsáhlé statky.",
+  },
+  {
+    n: "Eldena",
+    d: "klaster",
+    lo: 13.45,
+    la: 54.09,
+    r: "cisterciáci",
+    s: "c",
+    v: "kat",
+    t: "Klášter cisterciáků u Greifswaldu, z jehož trhu kdysi vyrostlo samo město.",
+  },
+  {
+    n: "Bergen na Rujáně",
+    d: "klaster",
+    lo: 13.43,
+    la: 54.42,
+    r: "cisterciačky",
+    s: "c",
+    v: "kat",
+    t: "Ženský klášter cisterciaček uprostřed ostrova Rujány, založený slovanskými knížaty rujánskými.",
+  },
+  {
+    n: "Arkona",
+    d: "povest",
+    lo: 13.43,
+    la: 54.67,
+    t: "Mys na severu Rujány, kde podle kroniky dánské stál chrám čtyřhlavého boha Svantovíta s bílým koněm, jejž léta 1168 rozbili Dánové.",
+  },
+  {
+    n: "Ústí Visly",
+    d: "povest",
+    lo: 18.66,
+    la: 54.39,
+    t: "Léta Páně 1433 dotáhla vojska husitská s Poláky proti Řádu až sem k moři. Bojovníci prý nabrali mořskou vodu do lahví a přinesli ji domů na znamení, že jim moře hranicí.",
+  },
+  {n: "Kruszwica", d: "povest", lo: 18.33, la: 52.68, ref: "Kruszwica", o: 1, t: ""},
+  {
+    n: "Grunwald",
+    d: "povest",
+    lo: 20.12,
+    la: 53.49,
+    t: "Pole, kde léta Páně 1410 porazili Poláci a Litevci Řád; padl zde velmistr Oldřich z Jungingenu a Řád dal na místě postavit kapli. Prý tu bojoval i mladý Jan Žižka.",
+  },
 ];

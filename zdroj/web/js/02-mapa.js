@@ -1322,6 +1322,488 @@ const ROADS = [
     ],
     1,
   ],
+  /* ---- SEVER (mapa 2026-10-27) ---- */
+  /* čtvrtý prvek "lod" = přívoz nebo lodní spoj přes vodu (cestySit: úsek nekontroluje naVode, kresba modře) */
+  [
+    "Jantarová stezka",
+    [
+      [18.6, 52.75],
+      [18.61, 53.01],
+    ],
+    0,
+  ],
+  [
+    "Pruská cesta",
+    [
+      [18.61, 53.01],
+      [18.46, 53.35],
+      [18.75, 53.48],
+      [18.93, 53.73],
+      [19.03, 54.04],
+      [19.4, 54.16],
+      [19.68, 54.36],
+      [19.82, 54.38],
+      [19.94, 54.46],
+      [20.25, 54.6],
+      [20.51, 54.71],
+    ],
+    3,
+  ],
+  [
+    "Viselská cesta",
+    [
+      [18.61, 53.01],
+      [18.45, 53.41],
+      [18.73, 53.65],
+      [18.83, 53.84],
+      [18.78, 54.09],
+      [18.65, 54.35],
+    ],
+    2,
+  ],
+  [
+    "Žulavská cesta",
+    [
+      [18.78, 54.09],
+      [19.03, 54.04],
+    ],
+    0,
+  ],
+  [
+    "Pomořská cesta",
+    [
+      [18.65, 54.35],
+      [17.75, 54.54],
+      [17.03, 54.46],
+      [16.68, 54.36],
+      [16.18, 54.19],
+      [15.58, 54.18],
+      [15.26, 54.06],
+      [15.2, 53.92],
+      [14.83, 53.56],
+      [14.7, 53.4],
+      [14.66, 53.38],
+      [14.55, 53.43],
+    ],
+    4,
+  ],
+  [
+    "Pobřežní cesta",
+    [
+      [10.69, 53.87],
+      [11.18, 53.86],
+      [11.46, 53.89],
+      [12.14, 54.09],
+      [12.43, 54.24],
+      [13.09, 54.31],
+      [13.2, 54.17],
+      [13.38, 54.1],
+      [13.69, 53.86],
+      [13.99, 53.51],
+      [14.55, 53.43],
+    ],
+    3,
+  ],
+  [
+    "Volgastská cesta",
+    [
+      [13.38, 54.1],
+      [13.76, 54.05],
+      [13.73, 54.04],
+      [13.72, 53.95],
+      [13.69, 53.86],
+    ],
+    0,
+  ],
+  [
+    "Solná stezka",
+    [
+      [10.41, 53.25],
+      [10.49, 53.37],
+      [10.69, 53.63],
+      [10.69, 53.87],
+    ],
+    2,
+  ],
+  [
+    "Lubecká cesta",
+    [
+      [10.69, 53.87],
+      [10.37, 53.81],
+      [9.99, 53.55],
+    ],
+    1,
+  ],
+  [
+    "Volská stezka",
+    [
+      [9.99, 53.55],
+      [9.88, 53.92],
+      [9.98, 54.07],
+      [9.67, 54.3],
+      [9.55, 54.52],
+      [9.43, 54.78],
+    ],
+    3,
+  ],
+  [
+    "Segeberská cesta",
+    [
+      [10.69, 53.87],
+      [10.31, 53.94],
+      [9.98, 54.07],
+    ],
+    0,
+  ],
+  [
+    "Cesta do Kielu",
+    [
+      [10.69, 53.87],
+      [10.62, 54.14],
+      [10.42, 54.16],
+      [10.14, 54.32],
+      [9.98, 54.07],
+    ],
+    0,
+  ],
+  [
+    "Itzehoská cesta",
+    [
+      [9.99, 53.55],
+      [9.65, 53.75],
+      [9.51, 53.93],
+    ],
+    0,
+  ],
+  [
+    "Hamburk–Lüneburk",
+    [
+      [9.99, 53.55],
+      [9.98, 53.46],
+      [10.21, 53.36],
+      [10.41, 53.25],
+    ],
+    0,
+  ],
+  [
+    "Cesta k Hamburku",
+    [
+      [13.4, 52.52],
+      [13.2, 52.54],
+      [12.8, 52.93],
+      [12.39, 52.94],
+      [11.86, 53.07],
+      [11.47, 53.09],
+      [10.72, 53.38],
+      [10.56, 53.37],
+      [9.99, 53.55],
+    ],
+    4,
+  ],
+  [
+    "Lüneburská cesta",
+    [
+      [11.63, 52.13],
+      [11.97, 52.54],
+      [11.86, 52.61],
+      [11.15, 52.85],
+      [10.56, 52.97],
+      [10.41, 53.25],
+    ],
+    3,
+  ],
+  [
+    "Štětínská cesta",
+    [
+      [13.4, 52.52],
+      [13.59, 52.68],
+      [13.82, 52.83],
+      [14.0, 53.02],
+      [14.39, 53.21],
+      [14.55, 53.43],
+    ],
+    3,
+  ],
+  [
+    "Ukerská cesta",
+    [
+      [13.59, 52.68],
+      [13.75, 53.0],
+      [13.86, 53.32],
+      [13.99, 53.51],
+    ],
+    2,
+  ],
+  [
+    "Templinská cesta",
+    [
+      [12.8, 52.93],
+      [13.5, 53.12],
+      [13.86, 53.32],
+    ],
+    0,
+  ],
+  [
+    "Svěřínská cesta",
+    [
+      [11.46, 53.89],
+      [11.42, 53.63],
+      [11.85, 53.43],
+      [11.86, 53.07],
+    ],
+    1,
+  ],
+  [
+    "Cesta přes Meklenbursko",
+    [
+      [12.14, 54.09],
+      [12.17, 53.79],
+      [12.57, 53.77],
+      [13.26, 53.56],
+      [13.99, 53.51],
+    ],
+    3,
+  ],
+  [
+    "Lübeck–Svěřín",
+    [
+      [10.69, 53.87],
+      [10.76, 53.7],
+      [11.42, 53.63],
+    ],
+    0,
+  ],
+  [
+    "Novomarská cesta",
+    [
+      [14.55, 52.35],
+      [14.65, 52.59],
+      [14.86, 52.92],
+      [14.89, 53.14],
+      [15.03, 53.34],
+      [14.7, 53.4],
+      [14.66, 53.38],
+      [14.55, 53.43],
+    ],
+    2,
+  ],
+  [
+    "Cesta ze Štětína do Poznaně",
+    [
+      [15.03, 53.34],
+      [15.42, 53.17],
+      [15.83, 52.84],
+      [16.38, 52.71],
+      [16.93, 52.41],
+    ],
+    2,
+  ],
+  [
+    "Solná cesta z Kolobřehu",
+    [
+      [15.58, 54.18],
+      [15.99, 54.0],
+      [16.7, 53.71],
+      [16.47, 53.27],
+      [16.74, 53.15],
+      [16.81, 52.65],
+      [16.93, 52.41],
+    ],
+    3,
+  ],
+  [
+    "Notecká cesta",
+    [
+      [18.0, 53.12],
+      [17.6, 53.14],
+      [16.74, 53.05],
+      [16.17, 52.89],
+      [15.83, 52.84],
+      [15.24, 52.73],
+    ],
+    2,
+  ],
+  [
+    "Kujavská cesta",
+    [
+      [17.6, 52.53],
+      [18.26, 52.8],
+      [18.61, 53.01],
+    ],
+    1,
+  ],
+  [
+    "Bydhošťská cesta",
+    [
+      [18.26, 52.8],
+      [18.0, 53.12],
+      [18.45, 53.41],
+    ],
+    0,
+  ],
+  [
+    "Cesta přes Chojnice",
+    [
+      [17.6, 53.14],
+      [17.56, 53.7],
+      [18.53, 53.97],
+      [18.78, 54.09],
+    ],
+    1,
+  ],
+  [
+    "Cesta do Nové marky",
+    [
+      [17.56, 53.7],
+      [17.36, 53.67],
+      [16.7, 53.71],
+      [15.81, 53.53],
+      [15.42, 53.17],
+    ],
+    3,
+  ],
+  [
+    "Cesta k Němenu",
+    [
+      [20.51, 54.71],
+      [21.15, 54.66],
+      [21.8, 54.63],
+      [21.93, 55.08],
+    ],
+    1,
+  ],
+  [
+    "Cesta podél Visly",
+    [
+      [18.61, 53.01],
+      [19.07, 52.65],
+      [19.32, 52.64],
+      [19.71, 52.55],
+      [20.19, 52.39],
+      [21.01, 52.23],
+    ],
+    3,
+  ],
+  [
+    "Mazovská cesta",
+    [
+      [21.01, 52.23],
+      [21.08, 52.7],
+      [21.4, 52.88],
+      [21.57, 53.08],
+      [22.07, 53.18],
+      [22.38, 53.2],
+      [22.77, 53.2],
+    ],
+    3,
+  ],
+  [
+    "Cesta z Mazovska do Prus",
+    [
+      [19.71, 52.55],
+      [20.38, 53.11],
+      [20.43, 53.36],
+      [20.48, 53.78],
+      [20.58, 54.13],
+      [20.55, 54.45],
+      [20.51, 54.71],
+    ],
+    2,
+  ],
+  [
+    "Ciechanovská cesta",
+    [
+      [21.08, 52.7],
+      [20.62, 52.88],
+      [20.38, 53.11],
+    ],
+    0,
+  ],
+  [
+    "Cesta na Iławu",
+    [
+      [18.93, 53.73],
+      [19.2, 53.76],
+      [19.57, 53.6],
+      [19.96, 53.7],
+      [20.48, 53.78],
+    ],
+    2,
+  ],
+  [
+    "Pucká cesta",
+    [
+      [18.65, 54.35],
+      [18.56, 54.41],
+      [18.41, 54.72],
+    ],
+    0,
+  ],
+  [
+    "Podlaská cesta",
+    [
+      [21.01, 52.23],
+      [22.02, 52.4],
+      [22.66, 52.4],
+      [22.84, 52.74],
+      [22.77, 53.2],
+    ],
+    2,
+  ],
+  [
+    "Cesta na Fehmarn",
+    [
+      [10.62, 54.14],
+      [10.88, 54.29],
+      [11.05, 54.33],
+      [11.06, 54.36],
+      [11.08, 54.37],
+    ],
+    0,
+  ],
+  [
+    "Přívoz na Fehmarn",
+    [
+      [11.08, 54.37],
+      [11.19, 54.44],
+    ],
+    0,
+    "lod",
+  ],
+  [
+    "Přívoz přes Strelasund",
+    [
+      [13.09, 54.31],
+      [13.14, 54.335],
+    ],
+    0,
+    "lod",
+  ],
+  [
+    "Cesta po Rujáně",
+    [
+      [13.14, 54.335],
+      [13.43, 54.42],
+    ],
+    0,
+  ],
+  [
+    "Přívoz přes Storstrøm",
+    [
+      [11.91, 55.01],
+      [11.86, 54.95],
+    ],
+    0,
+    "lod",
+  ],
+  [
+    "Falsterská cesta",
+    [
+      [11.86, 54.95],
+      [11.87, 54.77],
+    ],
+    0,
+  ],
 ];
 const CTYPE = {
   mes: "Královské město",
@@ -1336,6 +1818,13 @@ const CTYPE = {
   cbr: "Hanzovní město",
   cpl: "Královské město",
   chu: "Město",
+  /* ---- SEVER (mapa 2026-10-27) ---- */
+  cpru: "Město v Prusích",
+  cpom: "Pomořanské město",
+  chan: "Hanzovní město",
+  cmek: "Město",
+  cpls: "Královské město",
+  cbrs: "Zeměpanské město",
 };
 const CITYINFO = {
   /* shrnutí míst mapy v dobové mluvě, stav k březnu 1458 (Vojta 2026-10-26: bez anachronismů) */
@@ -2310,6 +2799,323 @@ const CITYINFO = {
     t: "Hrad pánů z Újlaku",
     n: "Hrad nad Dunajem v kraji sremském, sídlo Mikuláše z Újlaku, po Garaiovi nejmocnějšího velmože uherského. Oba páni sami snili o koruně a jeden druhého drží v šachu.",
   },
+  /* ---- SEVER (mapa 2026-10-27) ---- */
+  Gdaňsk: {
+    t: "Hanzovní město, hlava Pruského svazu",
+    n: "Gdaňsk jest největším a nejbohatším městem Prus, přístavem při ústí Visly, kudy jde obilí, dřevo a popel z Polska do Flander a Anglie. Léta Páně 1454 vypověděl Řádu poslušnost a za to dostal od krále Kazimíra veliká privilegia i vlastní území. Platí žold stovkám žoldnéřů a vypravuje kaperské lodi proti Řádu i Dánům; nad Motlavou stojí nová brána s jeřábem, jímž se nakládají lodi. Ve městě žije ve vyhnanství sesazený král švédský Karel Knutsson.",
+  },
+  Toruň: {
+    t: "Hanzovní město Pruského svazu",
+    n: "Toruň jest starým městem na Visle, kde se převáží z Kujav do Prus a kde kupci mají právo skladu. Ve Starém Městě zasedá tajná rada Pruského svazu; měšťané v únoru léta Páně 1454 dobyli hrad Řádu a rozbořili jej, aby jim už nikdy nevládl. Loni tu obec povstala proti daním na válku a rada ji tvrdě zkrotila.",
+  },
+  Elbląg: {
+    t: "Hanzovní město Pruského svazu",
+    n: "Elbląg leží při Viselském zálivu a jest po Gdaňsku druhým přístavem Prus. V Elblągu se léta Páně 1440 sešli páni a města, aby se spolčili proti Řádu, a za války měšťané strhli hrad Řádu. S Gdaňskem staví kaperské lodi, jimiž přepadají koráby Řádu na zálivu.",
+  },
+  Chełmno: {
+    t: "Město Pruského svazu",
+    n: "Chełmno na vysokém břehu Visly dalo jméno právu chełmińskému, podle něhož se řídí skoro všechna města v Prusích. Jest hlavou Chełmińské země, kterou Svaz poddal králi polskému, a lid i šlechta stojí při Svazu.",
+  },
+  Grudziądz: {
+    t: "Město Pruského svazu",
+    n: "Město s hradem na pravém břehu Visly mezi Toruní a Malborkem. Se Svazem vypovědělo Řádu poslušnost a leží na cestě, kudy táhnou vojska krále polského do Prus.",
+  },
+  Tczew: {
+    t: "Pomezní město na Visle",
+    n: "Město nad Vislou, kde se převáží na cestě z Gdaňska do Malborku a do Prus. Za války přechází z ruky do ruky: Řád ji zastavil svým žoldnéřům za dlužný žold a ti o ni smlouvají s Poláky stejně jako o Malbork.",
+  },
+  Královec: {
+    t: "Sídlo velmistra Řádu, hanzovní město",
+    n: "Královec na Pregole jsou tři města – Staré Město, Löbenicht a Kneiphof na ostrově s chrámem biskupa sambijského – pod mocným hradem Řádu. Za vzpoury stavů léta Páně 1455 se dvě města vrátila k Řádu a Kneiphof se po obležení vzdal. Od ztráty Malborku sídlí na hradě velmistr Ludvík z Erlichshausenu a odtud vede válku.",
+  },
+  Chojnice: {
+    t: "Pevnost Řádu",
+    n: "Město s hradem na pomezí Pomoří, za bažinatým potokem. Pod ním porazili 18. dne září léta Páně 1454 žoldnéři Řádu ve vozové hradbě polskou šlechtickou hotovost, Poláci ztratili tisíce mužů i královskou korouhev a pečeť. Řád Chojnice drží dál, neboť tudy vede jeho spojení s Novou markou a Říší, odkud přicházejí žoldnéři.",
+  },
+  Gniew: {
+    t: "Hrad Řádu na Visle",
+    n: "Cihlový hrad Řádu na vysokém levém břehu Visly. Spolu s Chojnicemi drží Řádu cestu z Říše na dolní Vislu; posádku tvoří žoldnéři.",
+  },
+  Puck: {
+    t: "Přístav Řádu",
+    n: "Městečko s hradem při Puckém zálivu na severu Pomoří. Drží je posádka Řádu nedaleko Gdaňska.",
+  },
+  Tapiawa: {
+    t: "Hrad Řádu",
+    n: "Hrad Řádu na Pregole východně od Královce, na cestě k Litvě.",
+  },
+  Ragneta: {
+    t: "Pomezní hrad Řádu",
+    n: "Mohutný cihlový hrad Řádu nad Němenem, odkud se kdysi táhlo na pohanskou Žmuď a Litvu. Dnes hlídá pomezí litevské, za nímž leží Žmuď, kde dosud žijí lidé ani pohanští, ani opravdu křesťanští.",
+  },
+  Malbork: {
+    t: "Hrad krále polského, město Řádu",
+    n: "Malbork, největší cihlový hrad křesťanstva, byl na půldruhého sta let sídlem velmistrů Řádu. Šestého dne června léta Páně 1457 jej neplacení žoldnéři, vedení Čechem Oldřichem Červenkou, prodali králi polskému a velmistr odešel se slzami v očích. Moravský hejtman Bernard Šumborský, který prodej odmítl, pak pro Řád znovu dobyl město pod hradem; na hradě leží Poláci, ve městě Řád, a Češi stojí na obou stranách hradeb.",
+  },
+  Lidzbark: {
+    t: "Hrad biskupů varmijských",
+    n: "Čtyřkřídlý cihlový hrad na soutoku Łyny a Symsarny, sídlo biskupů varmijských. Biskupský stolec jest uprázdněn a sporný a hrad sevřen válkou mezi Řádem a Svazem.",
+  },
+  Frombork: {
+    t: "Sídlo kapituly varmijské",
+    n: "Městečko na pahorku nad Viselským zálivem s opevněným chrámem, při němž sídlí kanovníci varmijští. Z kopce je vidět přes záliv až k Viselské kose.",
+  },
+  "Olsztyn (Allenstein)": {
+    t: "Hrad kapituly varmijské",
+    n: "Hrad a město kapituly varmijské na řece Łyně v jižní Varmii. Léta Páně 1455 je vzal Řád, který odtud ohrožuje kraj kolem.",
+  },
+  Iława: {
+    t: "Pomezní hrad v Prusích",
+    n: "Hrad a město mezi jezery v jižních Prusích. Řád je léta Páně 1454 zastavil žoldnéřům spolu s Malborkem a Tczewem a ti je loni prodali králi polskému.",
+  },
+  Kwidzyn: {
+    t: "Sídlo biskupa pomezanského",
+    n: "Hrad a chrám kapituly pomezanské nad údolím Visly, mezi Toruní a Malborkem. Zde léta Páně 1440 šlechta a města zpečetili Pruský svaz, neboť Řád tu neměl hrad ani posádku. V chrámu leží zbožná poustevnice Dorota z Mątów, kterou lid ctí jako svatou a k níž se putuje z celých Prus.",
+  },
+  Volgast: {
+    t: "Sídlo vévodů pomořansko-volgastských",
+    n: "Vévodský hrad na ostrůvku v úžině Peene naproti ostrovu Usedomu, sídlo bratří Erika a Vartislava. Odtud se vládne Předním Pomořanům i ostrovu Rujáně.",
+  },
+  Štětín: {
+    t: "Hanzovní město, sídlo vévodů štětínských",
+    n: "Štětín jest největším městem Pomořan, na vysokém břehu Odry nad Štětínským zálivem, s vévodským hradem a hanzovním přístavem. Po Odře sem plují lodi s obilím a dřevem z Braniborska a Slezska a zpět jdou sledě a sůl. Vládne tu mladý vévoda Ota a kurfiřt braniborský by tu rád vládl po něm.",
+  },
+  Ueckermünde: {
+    t: "Hrad vévodů pomořanských",
+    n: "Vévodský hrad a městečko při ústí řeky Uecker do Štětínského zálivu, obklopené lesy a vřesovišti, kde vévodové rádi loví.",
+  },
+  Darłowo: {
+    t: "Sídlo krále Erika Pomořanského",
+    n: "Hrad a město při ústí Wieprzy nedaleko moře. Sídlí tu starý Erik Pomořanský, někdy král Dánska, Norska a Švédska, kterého poddaní sesadili; z Gotlandu, kde léta žil, si prý přivezl poklad. Odtud vládne zemi słupské.",
+  },
+  Słupsk: {
+    t: "Hanzovní město Zadních Pomořan",
+    n: "Město na Słupi, hlavní místo země słupské, kterou drží starý král Erik. Náleží k Hanze a obchoduje s Gdaňskem i s Lübeckem.",
+  },
+  Kamín: {
+    t: "Sídlo biskupství kamínského",
+    n: "Chrám a kapitula biskupství kamínského nad zálivem u ústí Odry. Biskupství podléhá přímo papeži a diecéze jeho jest prý veliká jako mohučská.",
+  },
+  Koszalin: {
+    t: "Město biskupů kamínských",
+    n: "Město pod horou Chełmskou s mariánskou poutní kaplí, nedaleko moře. Náleží biskupům kamínským a k Hanze.",
+  },
+  Anklam: {
+    t: "Hanzovní město",
+    n: "Hanzovní město na řece Peene, odkud se lodi dostanou do Štětínského zálivu i k moři. Kupci obchodují s obilím a sladem.",
+  },
+  Pasewalk: {
+    t: "Pomořanské město",
+    n: "Město na řece Uecker na pomezí Pomořan a Ukerské marky, o něž se vévodové pomořanští dlouho přeli s Braniborem.",
+  },
+  Stargard: {
+    t: "Hanzovní město",
+    n: "Stargard na řece Ině jest po Štětínu nejbohatším městem vévodství štětínského; kupci jeho chtějí plout po Ině a Odře volně k moři, a proto se ustavičně svářejí se Štětínem.",
+  },
+  Kolobřeh: {
+    t: "Hanzovní město, solivar",
+    n: "Přístav při ústí Parsęty, kde se odedávna vaří sůl ze solných pramenů a vozí se do Pomořan i do Velkopolska. Město náleží biskupům kamínským, ale vládne si samo a s biskupy se přou.",
+  },
+  Lübeck: {
+    t: "Svobodné říšské město, hlava Hanzy",
+    n: "Lübeck, královna Hanzy, jest městem nad Travou s věžemi kostela Panny Marie, kde se scházejí sjezdy hanzovních měst. Rada dvanácti konšelů vládne doživotně a lid se vlády neúčastní, ale nikdo ho neutiskuje. Odtud jde lübecké právo do desítek měst a sem se sváží sůl z Lüneburku a sledě ze Skåne.",
+  },
+  Hamburk: {
+    t: "Hanzovní město",
+    n: "Hamburk na dolním Labi jest branou Hanzy k Severnímu moři a Flandrám. Vaří se tu pivo, jež se vozí lodí až do Nizozemí, a rada si vládne sama, hrabatům holštýnským se klaní jen slovy. Léta Páně 1401 tu na Grasbrooku sťali piráta Klause Störtebekera a jeho druhy.",
+  },
+  Lüneburk: {
+    t: "Hanzovní město, solivar",
+    n: "Lüneburk bohatne na solivaru, z něhož se sůl vozí po solné stezce a průplavem do Lübecku a odtud po celém Baltu. Podíly v solných pánvích drží i kláštery a preláti; spor o jejich důchody zmítá městem již léta a došel až k papeži i k císaři.",
+  },
+  Wismar: {
+    t: "Hanzovní město",
+    n: "Hanzovní přístav v zátoce mezi Lübeckem a Rostockem, jehož pánem jest vévoda meklenburský; město si však vládne samo a s Lübeckem a Rostockem drží spolek.",
+  },
+  Rostock: {
+    t: "Hanzovní město s vysokým učením",
+    n: "Rostock na řece Warnow jest největším městem Meklenburska. Od léta Páně 1419 má vysoké učení, které musilo pro papežskou klatbu na město léta 1437 až 1443 přesídlit do Greifswaldu. Rada si vládne sama a s vévodou se přou o práva.",
+  },
+  Stralsund: {
+    t: "Hanzovní město",
+    n: "Stralsund leží naproti ostrovu Rujáně za úzkým průlivem, přes nějž jezdí přívoz. Zde léta Páně 1370 Hanza vnutila králi dánskému mír, po němž vládne Baltu. Město jest bohaté a vládne si samo.",
+  },
+  Greifswald: {
+    t: "Hanzovní město s vysokým učením",
+    n: "Hanzovní město na řece Rycku při moři. Léta Páně 1456 tu purkmistr Jindřich Rubenow s vévodou Vartislavem založil vysoké učení. Opodál leží cisterciácký klášter Eldena.",
+  },
+  Schwerin: {
+    t: "Sídlo vévodů a biskupů meklenburských",
+    n: "Město na Svěřínském jezeře s vévodským hradem na ostrově a chrámem biskupů svěřínských. Sídlí tu vévoda Jindřich Tlustý.",
+  },
+  Güstrow: {
+    t: "Hrad vévodů meklenburských",
+    n: "Někdejší sídlo pánů z Werle, jejichž větev léta Páně 1436 vymřela; nyní hrad a město vévodů meklenburských.",
+  },
+  "Burg Stargard": {
+    t: "Hrad vévodů stargardských",
+    n: "Hrad na vrchu na jihovýchodě Meklenburska, po němž se píše stargardská větev vévodů meklenburských; pod ním leží město Neubrandenburg.",
+  },
+  "Šlesvik (Gottorf)": {
+    t: "Sídlo vévody šlesvického",
+    n: "Starobylé město na zátoce Schlei s biskupským chrámem a nedaleký hrad Gottorf, kde rád sídlí starý vévoda Adolf. Kolem leží vévodství šlesvické, léno koruny dánské.",
+  },
+  Segeberg: {
+    t: "Hrad hrabat holštýnských",
+    n: "Hrad na sádrovcovém vrchu nad městečkem, nejpevnější místo Holštýnska.",
+  },
+  Rendsburg: {
+    t: "Hrad na Eideře",
+    n: "Hrad a město na řece Eideře, která dělí Holštýnsko od Šlesvicka a Říši od Dánska. Vede tudy Volská stezka z Jutska do Hamburku.",
+  },
+  Plön: {
+    t: "Hrad hrabat holštýnských",
+    n: "Hrad mezi jezery ve východním Holštýnsku, jedno ze sídel hrabat holštýnských.",
+  },
+  Lauenburg: {
+    t: "Hrad vévodů sasko-lauenburských",
+    n: "Hrad na vysokém břehu Labe, kde začíná průplav do Lübecku. Vévodové tu vybírají clo ze soli a zboží, jež jde po řece.",
+  },
+  Ratzeburg: {
+    t: "Sídlo biskupů ratzeburských",
+    n: "Město na ostrově v jezeře s cihlovým chrámem, který dal postavit vévoda Jindřich Lev, a sídlo biskupů ratzeburských.",
+  },
+  Kiel: {
+    t: "Hanzovní město v Holštýnsku",
+    n: "Přístav na dlouhé zátoce Baltu. Každého roku po Třech králích se tu schází šlechta holštýnská na velký trh, kde se půjčují a splácejí peníze.",
+  },
+  Itzehoe: {
+    t: "Město v Holštýnsku",
+    n: "Město s lubeckým právem na řece Stör v západním Holštýnsku, s ženským klášterem cisterciaček.",
+  },
+  Mölln: {
+    t: "Město v zástavě Lübecku",
+    n: "Město mezi jezery na solné stezce, které vévodové lauenburští zastavili Lübecku; jde jím průplav, po němž plují lodi se solí z Lüneburku.",
+  },
+  Eutin: {
+    t: "Sídlo biskupů lubeckých",
+    n: "Městečko mezi jezery ve východním Holštýnsku, kde biskupové lubečtí sídlí raději než v Lübecku, s jehož měšťany nejsou zadobře.",
+  },
+  Vordingborg: {
+    t: "Hrad krále dánského",
+    n: "Královský hrad na jihu Sjællandu při úžině, odkud se vyplouvá na jižní ostrovy a do Pomořan. Na vysoké věži hradu nechal kdysi král Valdemar posadit zlatou husu na posměch Hanze a tu také zemřel.",
+  },
+  Nykøbing: {
+    t: "Hrad krále dánského",
+    n: "Královský hrad a městečko na ostrově Falsteru při úžině Guldborgsund, výspa dánská proti pobřeží meklenburskému.",
+  },
+  Hammershus: {
+    t: "Hrad arcibiskupů lundských",
+    n: "Mohutný hrad na skalách nad mořem na severu ostrova Bornholmu, který drží arcibiskupové lundští. Z pevniny se sem dostane jen lodí.",
+  },
+  Ciechanów: {
+    t: "Hrad knížat mazovských",
+    n: "Zděný hrad knížat mazovských na severu Mazovska, nedaleko pomezí pruského.",
+  },
+  Wizna: {
+    t: "Pomezní hrad Mazovska",
+    n: "Hrad na Narvi u soutoku s Biebrzou, na pomezí Mazovska, Litvy a Prus, uprostřed bažin a lesů.",
+  },
+  Kruszwica: {
+    t: "Královský hrad na Kujavách",
+    n: "Hrad na břehu jezera Gopła s osmibokou cihlovou věží. Podle starých kronik tu kdysi sídlil zlý kníže Popel, kterého prý sežraly myši.",
+  },
+  Bydhošť: {
+    t: "Královské město",
+    n: "Město s královským hradem na řece Brdě nedaleko jejího ústí do Visly, sídlo starosty. Jest oporou krále polského ve válce v Prusích a tudy se jde do Pomoří.",
+  },
+  Inowrocław: {
+    t: "Královské město, hlava Kujav",
+    n: "Město uprostřed úrodných Kujav, kde se vaří sůl ze solanky. Leží na cestě z Hnězdna do Toruně.",
+  },
+  Nakło: {
+    t: "Královské město",
+    n: "Město s hradem na řece Noteci, kdysi pevnost proti Pomořanům, dnes na cestě z Velkopolska do Pomoří.",
+  },
+  Wałcz: {
+    t: "Pomezní královské město",
+    n: "Město mezi jezery na pomezí Velkopolska a Nové marky, od léta Páně 1368 polské. Tudy vede cesta z Poznaně k moři do Kolobřehu.",
+  },
+  Łomża: {
+    t: "Mazovské město",
+    n: "Dřevěné město na vysokém břehu Narve v severovýchodním Mazovsku, na cestě z Varšavy k Litvě.",
+  },
+  Pułtusk: {
+    t: "Sídlo biskupů płockých",
+    n: "Město na Narvi s hradem biskupů płockých, kteří tu rádi pobývají. Kolem leží kraj lesů a bažin.",
+  },
+  Ostrołęka: {
+    t: "Mazovské město",
+    n: "Pomezní město na Narvi při Zelené pušči, kde žijí brtníci a lovci.",
+  },
+  Prenzlau: {
+    t: "Hlavní město Ukerské marky",
+    n: "Bohaté město na Ukerském jezeře, hlava Ukerské marky. O ni a o celou marku se kurfiřt dlouho přel s vévody pomořanskými, až léta Páně 1448 zůstala Braniborsku.",
+  },
+  Angermünde: {
+    t: "Město Ukerské marky",
+    n: "Město mezi jezery na cestě z Berlína do Štětína, za válek s Pomořany často dobývané.",
+  },
+  Templin: {
+    t: "Město Ukerské marky",
+    n: "Město uprostřed jezer a lesů na jihu Ukerské marky, obehnané kamennou hradbou.",
+  },
+  Perleberg: {
+    t: "Hanzovní město v Přignicku",
+    n: "Hlavní město Přignicka na řece Stepenici, na cestě z Berlína k Hamburku. Náleží k Hanze.",
+  },
+  Pritzwalk: {
+    t: "Město v Přignicku",
+    n: "Soukenické město v Přignicku, nedaleko poutního Wilsnacku.",
+  },
+  Kyritz: {
+    t: "Město v Přignicku",
+    n: "Malé město mezi jezírky v Přignicku, na cestě z Berlína k Labi.",
+  },
+  Neuruppin: {
+    t: "Sídlo hrabat z Lindowa a Ruppinu",
+    n: "Město na Ruppinském jezeře, kde vládnou hrabata z Lindowa a Ruppinu, nejmocnější páni v marce po kurfiřtovi. Stojí tu i klášter dominikánů.",
+  },
+  Salzwedel: {
+    t: "Hanzovní město Staré marky",
+    n: "Hanzovní město na řece Jeetze ve Staré marce, na cestě z Magdeburku do Lüneburku a k Hamburku.",
+  },
+  Choszczno: {
+    t: "Město Nové marky",
+    n: "Město mezi jezery v Nové marce, které léta Páně 1455 přešlo s celou markou od Řádu na kurfiřta braniborského.",
+  },
+  Myślibórz: {
+    t: "Město Nové marky",
+    n: "Někdejší hlavní město Nové marky. Od léta Páně 1455 jest s celou markou kurfiřtovo.",
+  },
+  Drawsko: {
+    t: "Město Nové marky",
+    n: "Město na řece Drawě na severu Nové marky, při pomezí Pomořan; kolem leží rozsáhlé bory.",
+  },
+  Świdwin: {
+    t: "Město Nové marky",
+    n: "Město s hradem na severním okraji Nové marky, vklíněné do země pomořanské; Řád je kdysi koupil a s markou prodal kurfiřtovi.",
+  },
+  Drezdenko: {
+    t: "Pomezní hrad Nové marky",
+    n: "Hrad v bažinách na řece Noteci, kde se střetávají Nová marka, Velkopolsko a Pomořany. Kdo jej drží, zavírá cestu po řece.",
+  },
+  Wittstock: {
+    t: "Sídlo biskupů havelberských",
+    n: "Hrad a město na řece Dosse v Přignicku, kde raději než v Havelbergu sídlí biskupové havelberští.",
+  },
+  Drohičin: {
+    t: "Hrad velkoknížete litevského",
+    n: "Starý ruský hrad na vysokém břehu Bugu, hlava Podlasí. Kníže Daniel Haličský tu léta Páně 1253 přijal korunu od papeže. Od léta 1444 jest hrad litevský a žijí tu katolíci i Rusové řeckého vyznání.",
+  },
+  Tykocin: {
+    t: "Hrad pánů Goštautů",
+    n: "Hrad na Narvi na pomezí Mazovska a Litvy, který velkokníže léta Páně 1433 dal mocnému litevskému pánu Goštautovi. Jonas Goštautas, vojvoda vilenský, patří mezi ty, kdo by chtěli Litvě vlastního velkoknížete.",
+  },
+  Brańsk: {
+    t: "Hrad velkoknížete litevského",
+    n: "Hrad a město na řece Nurci v Podlasí, na pomezí Mazovska a Litvy.",
+  },
 };
 const MAJOR_ROADS = new Set([
   "Zlatá stezka",
@@ -2337,6 +3143,16 @@ const MAJOR_ROADS = new Set([
   "Jablunkovská cesta",
   "Považská cesta",
   "Cesta k horním městům",
+  /* ---- SEVER (mapa 2026-10-27) ---- */
+  "Pruská cesta",
+  "Viselská cesta",
+  "Pomořská cesta",
+  "Pobřežní cesta",
+  "Solná stezka",
+  "Volská stezka",
+  "Cesta k Hamburku",
+  "Štětínská cesta",
+  "Cesta podél Visly",
 ]);
 const MAJOR_PLACES = new Set([
   "Praha",
@@ -2371,10 +3187,32 @@ const MAJOR_PLACES = new Set([
   "Erfurt",
   "Mnichov",
   "Košice",
+  /* ---- SEVER (mapa 2026-10-27) ---- */
+  "Lübeck",
+  "Gdaňsk",
+  "Hamburk",
+  "Královec",
+  "Toruň",
+  "Malbork",
+  "Štětín",
+  "Rostock",
+  "Stralsund",
+  "Elbląg",
+  "Lüneburk",
 ]);
 /* význam místa na mapě (2026-10-24, Vojta): 0 metropole, 1 hlavní město (MAJOR_PLACES), 2 ostatní město, 3 hrad a sídlo rodu.
    Podle toho velikost značky (MTZ, násobek měřítka) a od jakého přiblížení se ukáže jméno (mistoPopisek: s = šířka výřezu / 680) */
-const METRO = new Set(["Praha", "Vídeň", "Vratislav", "Krakov", "Budín", "Norimberk"]);
+const METRO = new Set([
+  "Praha",
+  "Vídeň",
+  "Vratislav",
+  "Krakov",
+  "Budín",
+  "Norimberk",
+  /* ---- SEVER (mapa 2026-10-27) ---- */
+  "Lübeck",
+  "Gdaňsk",
+]);
 const mistoTier = (n, mesto) => (METRO.has(n) ? 0 : MAJOR_PLACES.has(n) ? 1 : mesto ? 2 : 3);
 const MTZ = [21, 17, 14, 12];
 const mistoPopisek = (tier, s) => tier <= 1 || (tier === 2 && s < 0.9) || s < 0.62;
@@ -2546,6 +3384,86 @@ const DIO = [
   },
   {id: "drb", c: "dre", name: "Diecéze rábská", seat: [17.63, 47.69], note: "Západ Uher jižně od Dunaje až k Litavě."},
   {id: "deg", c: "dpr", name: "Diecéze jágerská", seat: [20.22, 47.95], note: "Severovýchod Uher a východní Slovensko."},
+  /* ---- SEVER (mapa 2026-10-27) ---- */
+  {
+    id: "dbm",
+    c: "dvr",
+    name: "Arcidiecéze brémská",
+    seat: [9.99, 53.55],
+    note: "Hamburk a západní Holštýnsko severně od Labe; arcibiskup sídlí v Brémách, v Hamburku zasedá kapitula.",
+  },
+  {id: "dsl", c: "dx2", name: "Diecéze šlesvická", seat: [9.55, 54.52], note: "Vévodství šlesvické. Spadá pod arcibiskupa lundského."},
+  {
+    id: "dlu",
+    c: "dkr",
+    name: "Diecéze lubecká",
+    seat: [10.69, 53.87],
+    note: "Lübeck a východní Holštýnsko. Spadá pod Brémy; biskupové sídlí raději v Eutinu.",
+  },
+  {id: "drz", c: "dx3", name: "Diecéze ratzeburská", seat: [10.76, 53.7], note: "Lauenbursko a západ Meklenburska. Spadá pod Brémy."},
+  {
+    id: "dsv",
+    c: "dpa",
+    name: "Diecéze svěřínská",
+    seat: [11.42, 53.63],
+    note: "Většina Meklenburska a Přední Pomořany se Stralsundem; ostrov Rujána však náleží dánskému Roskilde. Spadá pod Brémy; biskupové sídlí v Bützowě.",
+  },
+  {
+    id: "dhv",
+    c: "dvr",
+    name: "Diecéze havelberská",
+    seat: [12.07, 52.83],
+    note: "Přignicko a jih Meklenburska. Spadá pod Magdeburk; biskup Konrád z Lintorfu sídlí raději ve Wittstocku.",
+  },
+  {
+    id: "dka",
+    c: "dmi",
+    name: "Diecéze kamínská",
+    seat: [14.77, 53.97],
+    note: "Pomořany od Peene po Słupsk, Ukerská marka a sever Nové marky. Podléhá přímo papeži; biskup Henning Iwen.",
+  },
+  {
+    id: "dwl",
+    c: "dre",
+    name: "Diecéze kujavská",
+    seat: [18.65, 54.35],
+    note: "Kujavy a Gdaňské Pomoří; biskupové sídlí ve Vladislavi (Włocławku) na Kujavách. Spadá pod Hnězdno; biskup Jan Gruszczyński jest kancléřem krále Kazimíra.",
+  },
+  {
+    id: "dch",
+    c: "dkr",
+    name: "Diecéze chełmińská",
+    seat: [18.61, 53.18],
+    note: "Chełmińská země mezi Vislou a Drwęcou s Toruní. Spadá pod Rigu; chrám a kapitula v Chełmży.",
+  },
+  {
+    id: "dpz",
+    c: "dx3",
+    name: "Diecéze pomezanská",
+    seat: [18.93, 53.73],
+    note: "Pomezanie mezi Vislou, Nogatem a jezery na jihu. Spadá pod Rigu; kanovníci v Kwidzynu jsou kněžími Řádu.",
+  },
+  {
+    id: "dwr",
+    c: "dpr",
+    name: "Diecéze varmijská",
+    seat: [19.68, 54.36],
+    note: "Varmie s Elblągem a Braniewem. Spadá pod Rigu; stolec jest sporný, papež jej loni svěřil kardinálu Eneáši Silviovi.",
+  },
+  {
+    id: "dsb",
+    c: "dol",
+    name: "Diecéze sambijská",
+    seat: [20.51, 54.71],
+    note: "Sambie, Natangie a východní Prusy k Němenu. Spadá pod Rigu; chrám stojí v královeckém Kneiphofu a kanovníci jsou kněžími Řádu.",
+  },
+  {
+    id: "dpl",
+    c: "dvr",
+    name: "Diecéze płocká",
+    seat: [21.08, 52.7],
+    note: "Severní Mazovsko s Dobrzyňskou zemí. Spadá pod Hnězdno; biskupové rádi sídlí v Pułtusku.",
+  },
 ];
 const DIO_ORDER = [
   "dsa",
@@ -2570,6 +3488,20 @@ const DIO_ORDER = [
   "dmi",
   "dol",
   "dpr",
+  /* ---- SEVER (mapa 2026-10-27) ---- */
+  "dbm",
+  "dsl",
+  "dlu",
+  "drz",
+  "dsv",
+  "dhv",
+  "dka",
+  "dwl",
+  "dch",
+  "dpz",
+  "dwr",
+  "dsb",
+  "dpl",
 ];
 const DUCHY = [
   {
@@ -4332,6 +5264,64 @@ const FORESTS = [
     [15.02, 50.13],
     [14.75, 50.16],
   ],
+  /* ---- SEVER (mapa 2026-10-27) ---- */
+  [
+    [17.45, 53.95],
+    [17.95, 54.0],
+    [18.2, 53.75],
+    [18.1, 53.45],
+    [17.7, 53.42],
+    [17.45, 53.6],
+  ],
+  [
+    [20.9, 53.95],
+    [21.8, 54.1],
+    [22.6, 54.0],
+    [22.9, 53.7],
+    [22.6, 53.4],
+    [21.8, 53.42],
+    [21.0, 53.5],
+    [20.65, 53.7],
+  ],
+  [
+    [21.2, 53.05],
+    [21.7, 53.3],
+    [22.0, 53.22],
+    [21.8, 52.95],
+    [21.45, 52.92],
+  ],
+  [
+    [13.95, 53.65],
+    [14.3, 53.7],
+    [14.45, 53.55],
+    [14.3, 53.46],
+    [14.05, 53.5],
+  ],
+  [
+    [14.72, 53.68],
+    [15.0, 53.7],
+    [15.08, 53.5],
+    [14.85, 53.46],
+  ],
+  [
+    [15.8, 53.25],
+    [16.3, 53.32],
+    [16.42, 53.08],
+    [16.0, 52.96],
+    [15.72, 53.05],
+  ],
+  [
+    [10.3, 53.48],
+    [10.48, 53.56],
+    [10.6, 53.5],
+    [10.42, 53.43],
+  ],
+  [
+    [21.9, 54.45],
+    [22.5, 54.52],
+    [22.8, 54.32],
+    [22.2, 54.22],
+  ],
 ];
 /* bažiny a mokřiny roku 1458 (2026-10-26, Vojta: samostatně, ne jako les): neregulované nivy a blata, která se vysušila až
    v 18. a 19. století (Oderské a Varťanské blato, Hanság, Blata na Sprévě); zpomalují cestu (terrain) a ve Výpravě jsou „voda“.
@@ -4447,6 +5437,46 @@ const BAZINY = [
       [17.32, 48.02],
     ],
   ],
+  /* ---- SEVER (mapa 2026-10-27) ---- */
+  [
+    "Notecké blato",
+    [
+      [15.3, 52.82],
+      [15.85, 52.9],
+      [16.6, 53.07],
+      [17.2, 53.13],
+      [17.45, 53.16],
+      [17.45, 53.1],
+      [17.2, 53.05],
+      [16.6, 52.98],
+      [15.85, 52.8],
+      [15.3, 52.76],
+    ],
+    [16.35, 52.98, 12],
+  ],
+  [
+    "Biebrzanské bažiny",
+    [
+      [22.42, 53.24],
+      [22.62, 53.45],
+      [22.95, 53.75],
+      [23.0, 53.58],
+      [22.75, 53.35],
+      [22.5, 53.2],
+    ],
+    [22.72, 53.45, -55],
+  ],
+  [
+    "Havolské blato",
+    [
+      [12.55, 52.65],
+      [13.0, 52.78],
+      [13.2, 52.72],
+      [12.9, 52.6],
+      [12.6, 52.58],
+    ],
+    [12.88, 52.68, 10],
+  ],
 ];
 /* jezera (bez přehrad – ty roku 1458 nejsou): Neziderské jezero na pomezí Rakous a Uher */
 const JEZERA = [
@@ -4536,6 +5566,18 @@ const VRCHOVINY = [
       [15.25, 50.45],
     ],
     [15.6, 50.5, 0],
+  ],
+  /* ---- SEVER (mapa 2026-10-27) ---- */
+  [
+    "Kašubské vrchy",
+    [
+      [17.7, 54.42],
+      [18.35, 54.45],
+      [18.45, 54.2],
+      [18.2, 54.05],
+      [17.75, 54.15],
+    ],
+    [18.05, 54.27, 0],
   ],
 ];
 
@@ -4875,7 +5917,24 @@ document.querySelectorAll("[data-dview]").forEach(b =>
   }),
 );
 deskApply();
-const NBR_LANDS = ["Braniborsko", "Polsko", "Uhry", "Rakousy", "Bavory", "Sasko", "Říšská města", "Řím", "Osmanská říše"];
+const NBR_LANDS = [
+  "Braniborsko",
+  "Polsko",
+  "Uhry",
+  "Rakousy",
+  "Bavory",
+  "Sasko",
+  "Říšská města",
+  "Řím",
+  "Osmanská říše",
+  /* ---- SEVER (mapa 2026-10-27) ---- */
+  "Prusy",
+  "Pomořany",
+  "Hanza",
+  "Meklenbursko a Holštýnsko",
+  "Dánsko",
+  "Litva",
+];
 buildCards(document.getElementById("nbrlands"), NBR_LANDS, true);
 const tabsEl = document.getElementById("nbrtabs");
 function setTab(L) {
@@ -5237,6 +6296,65 @@ const TOWNS = [
   ["Krosno", 15.1, 52.05],
   ["Adorf", 12.26, 50.32],
   ["Vídeňské Nové Město", 16.25, 47.81],
+  /* ---- SEVER (mapa 2026-10-27) ---- */
+  ["Świecie", 18.45, 53.41],
+  ["Nowe", 18.73, 53.65],
+  ["Braniewo", 19.82, 54.38],
+  ["Heiligenbeil", 19.94, 54.46],
+  ["Lębork", 17.75, 54.54],
+  ["Sławno", 16.68, 54.36],
+  ["Trzebiatów", 15.26, 54.06],
+  ["Gryfice", 15.2, 53.92],
+  ["Goleniów", 14.83, 53.56],
+  ["Dąbie", 14.7, 53.4],
+  ["Grevesmühlen", 11.18, 53.86],
+  ["Ribnitz", 12.43, 54.24],
+  ["Artlenburg", 10.49, 53.37],
+  ["Bramstedt", 9.88, 53.92],
+  ["Neumünster", 9.98, 54.07],
+  ["Flensburg", 9.43, 54.78],
+  ["Oldesloe", 10.37, 53.81],
+  ["Spandava", 13.2, 52.54],
+  ["Lenzen", 11.47, 53.09],
+  ["Boizenburg", 10.72, 53.38],
+  ["Bernau", 13.59, 52.68],
+  ["Eberswalde", 13.82, 52.83],
+  ["Gartz", 14.39, 53.21],
+  ["Uelzen", 10.56, 52.97],
+  ["Parchim", 11.85, 53.43],
+  ["Teterow", 12.57, 53.77],
+  ["Neubrandenburg", 13.26, 53.56],
+  ["Wronki", 16.38, 52.71],
+  ["Kostřín", 14.65, 52.59],
+  ["Pyrzyce", 14.89, 53.14],
+  ["Białogard", 15.99, 54.0],
+  ["Szczecinek", 16.7, 53.71],
+  ["Piła", 16.74, 53.15],
+  ["Oborniki", 16.81, 52.65],
+  ["Ujście", 16.74, 53.05],
+  ["Wieleń", 16.17, 52.89],
+  ["Człuchów", 17.36, 53.67],
+  ["Starogard", 18.53, 53.97],
+  ["Wystruć", 21.8, 54.63],
+  ["Różan", 21.4, 52.88],
+  ["Mława", 20.38, 53.11],
+  ["Nidzica", 20.43, 53.36],
+  ["Elmshorn", 9.65, 53.75],
+  ["Oldenburg v Holštýnsku", 10.88, 54.29],
+  ["Großenbrode", 11.08, 54.37],
+  ["Burg na Fehmarnu", 11.19, 54.44],
+  ["Altefähr", 13.14, 54.335],
+  ["Bergen na Rujáně", 13.43, 54.42],
+  ["Orehoved", 11.86, 54.95],
+  ["Oliwa", 18.56, 54.41],
+  ["Prabuty", 19.2, 53.76],
+  ["Ostróda", 19.96, 53.7],
+  ["Węgrów", 22.02, 52.4],
+  ["Harburg", 9.98, 53.46],
+  ["Winsen", 10.21, 53.36],
+  ["Wyszogród", 20.19, 52.39],
+  ["Dobrzyń", 19.32, 52.64],
+  ["Joachimsthal", 13.75, 53.0],
 ];
 const NAMEPTS = [...PLACES.map(p => [p.name, p.lo, p.la]), ...TOWNS];
 function nameOf(c) {
@@ -5271,6 +6389,8 @@ function nearMountain(lo, la) {
   return false;
 }
 function terrain(a, b) {
+  /* průliv bez přívozu (UZINY v 02e, 2026-10-27): po souši se přes něj nejde */
+  if (presUzinu(a, b)) return Infinity;
   const km = haversine(a, b),
     n = Math.max(2, Math.ceil(km / 5));
   let sum = 0;
@@ -5297,9 +6417,10 @@ function rNode(c) {
   RADJ.push([]);
   return RN.length - 1;
 }
-function rLink(i, j, km, eff, road) {
-  RADJ[i].push({to: j, km, eff, road});
-  RADJ[j].push({to: i, km, eff, road});
+function rLink(i, j, km, eff, road, lod) {
+  const e = lod ? {km, eff, road, lod: true} : {km, eff, road};
+  RADJ[i].push({to: j, ...e});
+  RADJ[j].push({to: i, ...e});
 }
 /* síť cest pro měření trasy se spočítá až při prvním měření (2026-10-25): odhad terénu každého úseku je na startu webu
    nejdražší výpočet jádra (~0,1 s na telefonu) a většina návštěv mapu neměří */
@@ -5307,11 +6428,17 @@ let RSIT = false;
 function cestySit() {
   if (RSIT) return;
   RSIT = true;
-  for (const [, line] of ROADS)
+  for (const [, line, , lod] of ROADS)
     for (let i = 0; i < line.length - 1; i++) {
       const a = rNode(line[i]),
         b = rNode(line[i + 1]);
       if (a === b) continue;
+      /* přívoz a lodní spoj (2026-10-27): úsek přes vodu, terén se nepočítá; čekání na převoz jako ~8 km cesty */
+      if (lod) {
+        const km = haversine(RN[a], RN[b]);
+        rLink(a, b, km, km * 1.5 + 8, true, true);
+        continue;
+      }
       const km = haversine(RN[a], RN[b]) * 1.15,
         t = terrain(RN[a], RN[b]);
       rLink(a, b, km, km * (1 + (t - 1) * 0.35), true);
@@ -5389,7 +6516,11 @@ function computeRoute(A, B) {
     const {from, e} = prev[cur];
     if (e.road) roadKm += e.km;
     else offKm += e.km;
-    legs.unshift({p0: coords[from], p1: coords[cur], km: e.km, eff: e.eff, road: e.road});
+    legs.unshift(
+      e.lod
+        ? {p0: coords[from], p1: coords[cur], km: e.km, eff: e.eff, road: e.road, lod: true}
+        : {p0: coords[from], p1: coords[cur], km: e.km, eff: e.eff, road: e.road},
+    );
     path.push(from);
     cur = from;
   }

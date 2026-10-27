@@ -247,7 +247,8 @@ function vyTrasa() {
       km: drak ? Math.round(air) : R.km,
       h: ((drak ? air : R.eff) / zp[2]) * 12,
       pts: drak ? [a, b] : R.coords,
-      mor: null,
+      /* přívoz nebo lodní spoj na trase (2026-10-27): úsek po vodě má kraj „voda“ */
+      mor: !drak && (R.legs || []).some(l => l.lod) ? [false, ...R.legs.map(l => !!l.lod)] : null,
       ratio: R.eff / Math.max(1, R.km),
       silnice: R.roadKm,
       mimo: R.offKm,
@@ -352,6 +353,11 @@ function vyKrajBodu(T, q) {
   if (lo > 11.8 && lo < 19 && la > 48.5 && la < 51.3) {
     if (nearMountain(lo, la)) return "hory";
     /* bažiny (2026-10-26): setkání jako u řek – brody, rybáři, blátivé cesty */
+    if (BAZINY.some(([, p]) => inPoly(lo, la, p))) return "voda";
+    if (FORESTS.some(p => inPoly(lo, la, p))) return "les";
+  }
+  /* ---- SEVER (mapa 2026-10-27): od Lužice a Velkopolska k Baltu – lesy, bažiny a vrchoviny severu ---- */
+  if (la >= 51.3 && la <= 55.4 && lo >= 9.5 && lo <= 23) {
     if (BAZINY.some(([, p]) => inPoly(lo, la, p))) return "voda";
     if (FORESTS.some(p => inPoly(lo, la, p))) return "les";
   }

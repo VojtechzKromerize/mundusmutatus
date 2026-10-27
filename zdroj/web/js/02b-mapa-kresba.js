@@ -2602,6 +2602,14 @@ const DIO_POLY = {
       [15.95, 52.8],
       [16.0, 52.4],
     ],
+    /* ---- SEVER (mapa 2026-10-27): prodloužení k severu ---- */
+    [
+      [15.95, 52.8],
+      [17.05, 52.8],
+      [17.05, 53.2],
+      [16.6, 53.4],
+      [16.1, 53.25],
+    ],
   ],
   dgn: [
     [
@@ -2615,6 +2623,15 @@ const DIO_POLY = {
       [17.0, 52.8],
       [17.2, 52.3],
       [17.3, 51.75],
+    ],
+    /* ---- SEVER (mapa 2026-10-27): prodloužení k severu ---- */
+    [
+      [17.05, 52.8],
+      [18.62, 52.8],
+      [18.62, 52.95],
+      [18.3, 53.2],
+      [17.6, 53.3],
+      [17.05, 53.2],
     ],
   ],
   des: [
@@ -2678,6 +2695,193 @@ const DIO_POLY = {
       [19.6, 47.6],
       [19.6, 48.3],
       [20.0, 48.6],
+    ],
+  ],
+  /* ---- SEVER (mapa 2026-10-27): diecéze od Holštýnska po Sambii, hranice přibližné; moře je zakryje ---- */
+  dbm: [
+    [
+      [9.5, 53.55],
+      [10.0, 53.45],
+      [10.55, 53.45],
+      [10.45, 53.8],
+      [10.25, 53.95],
+      [10.2, 54.2],
+      [9.9, 54.35],
+      [9.5, 54.35],
+    ],
+  ],
+  dsl: [
+    [
+      [9.5, 54.35],
+      [9.9, 54.35],
+      [10.2, 54.42],
+      [10.35, 54.6],
+      [10.2, 55.0],
+      [9.95, 55.4],
+      [9.5, 55.4],
+    ],
+  ],
+  dlu: [
+    [
+      [10.55, 53.45],
+      [10.65, 53.7],
+      [10.85, 53.92],
+      [11.15, 53.95],
+      [11.25, 54.5],
+      [10.9, 54.6],
+      [10.35, 54.45],
+      [10.2, 54.42],
+      [10.2, 54.2],
+      [10.25, 53.95],
+      [10.45, 53.8],
+    ],
+  ],
+  drz: [
+    [
+      [10.55, 53.3],
+      [10.95, 53.35],
+      [11.25, 53.6],
+      [11.15, 53.95],
+      [10.85, 53.92],
+      [10.65, 53.7],
+      [10.55, 53.45],
+    ],
+  ],
+  dsv: [
+    [
+      [10.95, 53.35],
+      [11.6, 53.25],
+      [12.2, 53.4],
+      [12.9, 53.45],
+      [13.5, 53.4],
+      [13.75, 53.85],
+      [13.7, 54.15],
+      [13.05, 54.55],
+      [12.3, 54.35],
+      [11.6, 54.1],
+      [11.15, 53.95],
+      [11.25, 53.6],
+    ],
+  ],
+  dhv: [
+    [
+      [11.3, 52.8],
+      [13.45, 52.8],
+      [13.45, 53.0],
+      [13.5, 53.4],
+      [12.9, 53.45],
+      [12.2, 53.4],
+      [11.6, 53.25],
+      [11.3, 53.05],
+    ],
+  ],
+  dka: [
+    [
+      [13.75, 53.85],
+      [13.7, 54.15],
+      [14.3, 54.05],
+      [15.3, 54.25],
+      [16.2, 54.5],
+      [17.0, 54.75],
+      [17.35, 54.72],
+      [17.35, 54.2],
+      [16.9, 53.75],
+      [16.5, 53.45],
+      [16.1, 53.25],
+      [15.95, 52.8],
+      [13.45, 52.8],
+      [13.45, 53.0],
+      [13.5, 53.4],
+    ],
+  ],
+  dwl: [
+    [
+      [17.35, 54.72],
+      [17.6, 54.9],
+      [18.85, 54.9],
+      [19.0, 54.35],
+      [18.85, 53.6],
+      [18.45, 53.42],
+      [18.3, 53.2],
+      [17.6, 53.3],
+      [17.05, 53.2],
+      [16.6, 53.4],
+      [16.5, 53.45],
+      [16.9, 53.75],
+      [17.35, 54.2],
+    ],
+  ],
+  dch: [
+    [
+      [18.62, 52.95],
+      [19.0, 53.05],
+      [19.45, 53.1],
+      [19.5, 53.3],
+      [19.2, 53.45],
+      [18.75, 53.5],
+      [18.45, 53.42],
+      [18.3, 53.2],
+      [18.62, 53.0],
+    ],
+  ],
+  dpz: [
+    [
+      [18.75, 53.5],
+      [19.2, 53.45],
+      [19.5, 53.3],
+      [20.2, 53.35],
+      [20.1, 53.75],
+      [19.9, 54.05],
+      [19.4, 54.15],
+      [19.15, 54.3],
+      [18.95, 54.3],
+      [19.0, 54.35],
+      [18.85, 53.6],
+    ],
+  ],
+  dwr: [
+    [
+      [19.15, 54.3],
+      [19.4, 54.15],
+      [19.9, 54.05],
+      [20.1, 53.75],
+      [20.2, 53.35],
+      [20.6, 53.45],
+      [21.0, 53.8],
+      [21.0, 54.2],
+      [20.6, 54.45],
+      [19.7, 54.5],
+      [19.3, 54.42],
+    ],
+  ],
+  dsb: [
+    [
+      [19.7, 54.5],
+      [20.6, 54.45],
+      [21.0, 54.2],
+      [21.0, 53.8],
+      [21.8, 53.75],
+      [22.9, 53.9],
+      [22.9, 55.3],
+      [21.2, 55.3],
+      [20.0, 55.0],
+      [19.85, 54.75],
+    ],
+  ],
+  dpl: [
+    [
+      [18.62, 52.8],
+      [20.4, 52.8],
+      [22.2, 52.8],
+      [22.6, 53.0],
+      [22.4, 53.4],
+      [21.8, 53.4],
+      [21.0, 53.25],
+      [20.2, 53.35],
+      [19.5, 53.3],
+      [19.45, 53.1],
+      [19.0, 53.05],
+      [18.62, 52.95],
     ],
   ],
 };
@@ -9682,6 +9886,13 @@ const FORLBL = [
   ["Chřiby", 17.3, 49.1, -35],
   ["Doupovské hory", 13.15, 50.25, 0],
   ["Fatra", 19.05, 49.05, -50],
+  /* ---- SEVER (mapa 2026-10-27) ---- */
+  ["Tucholské bory", 17.86, 53.84, 0],
+  ["Velká divočina", 21.8, 53.75, 0],
+  ["Zelená pušča", 21.6, 53.12, 0],
+  ["Ukerská pušča", 14.2, 53.58, 0],
+  ["Drawská pušča", 16.05, 53.15, 0],
+  ["Saský les", 10.45, 53.5, 0],
 ];
 const TRIBS = [
   [
@@ -10752,7 +10963,10 @@ function meander(line, amp, seed) {
 /* druh lesa podle indexu ve FORESTS (02), stav kolem roku 1458 (2026-10-26, Vojta): s = smíšený horský hvozd (buk, jedle, smrk – smrkové
    monokultury přijdou až v 18. věku), j = bory na píscích (Kokořínsko, Ralsko, Třeboňsko, Záhoří, lužické a slezské bory, Fläming),
    l = listnaté lesy nížin a luhů (dub, habr, lužní lesy). Podíl jehličnanů v kresbě: s 45 %, j 85 %, l 10 %. */
-const LES_DRUH = "sssssssssssssjjljjsssssjjlslsllsljjsssjjjljsjjjssjsjjjjslllllsssslll";
+const LES_DRUH =
+  "sssssssssssssjjljjsssssjjlslsllsljjsssjjjljsjjjssjsjjjjslllllsssslll" +
+  /* ---- SEVER (mapa 2026-10-27): Tucholské bory, Velká divočina, Zelená pušča, Ukerská, Goleniowská a Drawská pušča, Saský les, Rominta ---- */
+  "jsjjjjls";
 const LES_JEHL = {s: 0.45, j: 0.85, l: 0.1};
 /* vnější úseky hranice Koruny (úsek, který leží jen v jedné zemi Koruny) a jejich druh podle krajiny; spočítá se jednou */
 let HRKOR = null;
@@ -11583,15 +11797,16 @@ function mapPodklad(Z, vb, s, k) {
   }
   if (st.roads) {
     const gro = G({filter: "url(#wob)"});
-    for (const [name, line, li] of ROADS) {
+    for (const [name, line, li, lod] of ROADS) {
       const maj = MAJOR_ROADS.has(name);
+      /* přívoz a lodní spoj (2026-10-27): tečkovaně barvou vody */
       gro.appendChild(
         el("path", {
           d: smoothOpen(line.map(c => P(...c))),
           fill: "none",
-          stroke: "var(--road)",
-          "stroke-width": ((maj ? 1.9 : 0.9) * s).toFixed(2),
-          "stroke-dasharray": maj ? `${6 * s} ${3 * s}` : `${2.5 * s} ${2.5 * s}`,
+          stroke: lod ? "var(--water)" : "var(--road)",
+          "stroke-width": ((maj ? 1.9 : lod ? 1.4 : 0.9) * s).toFixed(2),
+          "stroke-dasharray": lod ? `${1.2 * s} ${2.4 * s}` : maj ? `${6 * s} ${3 * s}` : `${2.5 * s} ${2.5 * s}`,
           "stroke-linecap": "round",
           "stroke-linejoin": "round",
           opacity: maj ? ".9" : ".7",
@@ -12105,6 +12320,9 @@ function drawMapK() {
           `M${f1(-3.4 * t)},${f1(-1.6 * t)}H${f1(3.4 * t)}L${f1(1.6 * t)},${f1(0.4 * t)}H${f1(1 * t)}V${f1(2.6 * t)}H${f1(-1 * t)}V${f1(0.4 * t)}H${f1(-2 * t)}Z`,
         jine: t =>
           `M${f1(-2.6 * t)},${f1(-2.6 * t)}h${f1(5.2 * t)}v${f1(5.2 * t)}h${f1(-5.2 * t)}ZM${f1(-2.6 * t)},${f1(-2.6 * t)}l${f1(5.2 * t)},${f1(5.2 * t)}M${f1(2.6 * t)},${f1(-2.6 * t)}l${f1(-5.2 * t)},${f1(5.2 * t)}`,
+        /* ---- SEVER (mapa 2026-10-27): jantar – kapka ---- */
+        jantar: t =>
+          `M0,${f1(-3.2 * t)}C${f1(2.6 * t)},${f1(-0.4 * t)} ${f1(2.6 * t)},${f1(2.8 * t)} 0,${f1(2.8 * t)}C${f1(-2.6 * t)},${f1(2.8 * t)} ${f1(-2.6 * t)},${f1(-0.4 * t)} 0,${f1(-3.2 * t)}Z`,
       },
       BARVA = {
         prusmyk: "var(--city)",
@@ -12115,6 +12333,8 @@ function drawMapK() {
         sul: "var(--city)",
         hut: "var(--city)",
         jine: "var(--city)",
+        /* ---- SEVER (mapa 2026-10-27) ---- */
+        jantar: "var(--gold)",
       },
       body = [
         ...(st.prechody ? PRECHODY.map((q, i) => ["pre", i, q[0], q[1], q[2], q[3], 0]) : []),
@@ -12131,7 +12351,7 @@ function drawMapK() {
       g.appendChild(
         el("path", {
           d: ZN[druh](t),
-          fill: druh === "privoz" || druh === "hut" ? BARVA[druh] : "none",
+          fill: druh === "privoz" || druh === "hut" || druh === "jantar" ? BARVA[druh] : "none",
           "fill-opacity": ".35",
           stroke: BARVA[druh],
           "stroke-width": (0.9 * t).toFixed(2),
