@@ -950,12 +950,14 @@
   "narozeniRok": 1400,
   "narozeniOdhad": true,
   "zakladOdhadu": "Rok narození nedoložen; je bratrem Elišky z Kravař, babičky Oldřichových dětí, tedy o generaci starší než Oldřich II. (1403), ale dožil se ještě 60. let. Odhad kolem 1400, velmi nejistý.",
-  "shrnuti": "Jiří ze Strážnice pochází z mocného rodu pánů z Kravař, z něhož vzešli Lacek z Kravař, Husův ochránce a moravský zemský hejtman, a Petr Strážnický, pozdější husita. Je bratrem Elišky z Kravař, matky Oldřicha II. z Rožmberka, a Rožmberkové ho oslovují jako bratra. V únoru 1458 stál v čele moravské šlechty, která byla přítomna ve Strážnici předání Matyáše Korvína a zpečetění jeho svatební smlouvy s Kateřinou z Poděbrad. Perchtě z Rožmberka léta pomáhá s dopisy a platí jí posly.",
+  "shrnuti": "Jiří ze Strážnice pochází z mocného rodu pánů z Kravař, z něhož vzešli Lacek z Kravař, Husův ochránce a moravský zemský hejtman, a Petr Strážnický, pozdější husita. Drží Strážnici a hrad Šternberk, kde mu jako purkrabí slouží Bareš z Čehovic. Je kališník, na fary katolických a německých vsí však dosazuje katolické kněze. Je bratrem Elišky z Kravař, matky Oldřicha II. z Rožmberka, a Rožmberkové ho oslovují jako bratra. V únoru 1458 stál v čele moravské šlechty, která byla přítomna ve Strážnici předání Matyáše Korvína a zpečetění jeho svatební smlouvy s Kateřinou z Poděbrad. Perchtě z Rožmberka léta pomáhá s dopisy a platí jí posly.",
   "jistota": "střední",
   "rozporSWebem": "Příbuzenství: Rožmberkové mu říkají „bratře“, ve skutečnosti je bratrem jejich babičky.",
-  "zdroje": [],
+  "zdroje": [
+   "J. Elbel, Kapitoly z dějin katolické církevní správy na Moravě v době husitské (1408–1457), disertace, FF MU Brno 2007"
+  ],
   "gm": {
-   "poBreznu1458": "Začátkem roku 1459 předložil s Janem z Rožmberka Perchtinu věc králi v Olomouci; Perchtě nabízel „čestné opatření“ na Strážnici a doprovodil ji přes své panství až ke Štramberku. Roku 1464 byl raněn a „chodil, jak mohl“; prosil Jana z Rožmberka o mladého barváře k výcviku na stopu a sliboval mu zvěřinu. Zemřel nejspíš roku 1466 (údaj neověřený).",
+   "poBreznu1458": "Začátkem roku 1459 předložil s Janem z Rožmberka Perchtinu věc králi v Olomouci; Perchtě nabízel „čestné opatření“ na Strážnici a doprovodil ji přes své panství až ke Štramberku. Roku 1464 byl raněn a „chodil, jak mohl“; prosil Jana z Rožmberka o mladého barváře k výcviku na stopu a sliboval mu zvěřinu. Zemřel nejspíš roku 1466 (údaj neověřený). Roku 1466 se jeho dcera Alžběta provdala za Pertolda, syna maršálka Jindřicha z Lipé, a Strážnice tak přešla na pány z Lipé.",
    "umrti": "1466"
   }
  },
@@ -1385,9 +1387,9 @@
   "narozeniRok": 1425,
   "narozeniOdhad": true,
   "zakladOdhadu": "Rok narození nedoložen. Úřad nejvyššího maršálka zastává od 1451, musel tedy být dospělý – odhad kolem 1425. Genealogii pánů z Lipé v 15. století se nepodařilo spolehlivě ověřit.",
-  "shrnuti": "Příslušník pánů z Lipé, starobylého rodu odvozovaného od Ronovců, kteří po husitských válkách znovu drží Moravský Krumlov; po roce 1453 získal i Jarohněvice vykoupené od loupeživého Václava Sudlice. Od roku 1451 zastává dědičný úřad nejvyššího maršálka Království českého, který jeho rod držel po většinu století; roku 1452 se uvádí i jako hejtman Moravy a stavy tehdy navrhovaly disputaci Rokycany s Kapistránem pod jeho záštitou v Moravském Krumlově. Roku 1449 se spolu s Pertoldem z Lipé podílel na moravském příměří z 15. dubna. Na podzim 1457 byl s poselstvem ve Francii.",
+  "shrnuti": "Příslušník pánů z Lipé, starobylého rodu odvozovaného od Ronovců, kteří po husitských válkách znovu drží Moravský Krumlov; po roce 1453 získal i Jarohněvice, které podle svých slov sám vykoupil od lupičů. Roku 1451 zdědil po strýci Pertoldovi dědičný úřad nejvyššího maršálka Království českého, Krumlov i dluhy. Roku 1449 se spolu s Pertoldem z Lipé podílel na moravském příměří z 15. dubna; roku 1452 stavy navrhovaly disputaci Rokycany s Kapistránem pod jeho záštitou v Moravském Krumlově a od června 1455 je jedním ze sboru zemských správců Moravy. Na podzim 1457 byl s poselstvem ve Francii, vrátil se v polovině února 1458 a na volebním sněmu byl patrně jediným zástupcem Moravy; 2. 3. nesl před zvoleným králem meč. Je kališník.",
   "jistota": "střední",
-  "rozporSWebem": "Rodiče (maršálek Hynek z Lipé a Eliška z Vartenberka) se nepodařilo ověřit. Manželka: Jindřich z Lipé i Viktorin měli prý za ženy dcery Hynce Ptáčka z Pirkštejna; rodokmen webu uvádí jako 1. manželku Elišku z Potštejna. Moravské hejtmanství kolem 1452: někde je nazýván maršálkem a hejtmanem Moravy, kolem 1450–1452 je však hejtmanem doložen Jan Tovačovský. Rok úmrtí: 1469, někde 1496 (spíš přehozené číslice).",
+  "rozporSWebem": "Rodiče (maršálek Hynek z Lipé a Eliška z Vartenberka) se nepodařilo ověřit. Manželka: Jindřich z Lipé i Viktorin měli prý za ženy dcery Hynce Ptáčka z Pirkštejna; rodokmen webu uvádí jako 1. manželku Elišku z Potštejna; syn Pertold je doložen už 1447/48, je tedy z prvního manželství. Moravské hejtmanství: kolem 1450–1452 byl hejtmanem Jan Tovačovský, Jindřich byl od června 1455 jen členem sboru zemských správců a hejtmanem je doložen až od konce 1462. Rok úmrtí: dříve uváděno 1469 (jinde 1496); Jindřich je však ještě roku 1473 doložen jako jeden ze čtyř zemských správců Moravy.",
   "zdroje": [
    "https://en.wikipedia.org/wiki/Supreme_Marshal_of_the_Kingdom_of_Bohemia",
    "https://de.wikipedia.org/wiki/Leipa_(Adelsgeschlecht)",
@@ -1395,11 +1397,12 @@
    "https://www.vhu.sk/data/att/ae7/18616.0ffd7a.pdf",
    "https://en.wikipedia.org/wiki/George_of_Pod%C4%9Bbrady",
    "https://en.wikipedia.org/wiki/Kunigunde_of_Sternberg",
-   "https://www.slavkov.cz/wp-content/uploads/2017/08/Bystřička-podrobnosti_10.pdf"
+   "https://www.slavkov.cz/wp-content/uploads/2017/08/Bystřička-podrobnosti_10.pdf",
+   "J. Kristl, Jindřich VIII. z Lipé, bakalářská práce, FF MU Brno 2019"
   ],
   "gm": {
-   "poBreznu1458": "V dubnu 1458 jel se Šternberkem a kancléřem Prokopem na slezský sněm do Vratislavi. Oženil se s Barborou (1446–1469/1474), dcerou krále Jiřího z Poděbrad (rodokmen uvádí 1461). Působil jako moravský zemský hejtman. Heimburg ho obvinil, že roku 1469 u Veselí po tajné dohodě s Matyášem zradil Viktorina; zda právem, zůstává sporné. Zemřel roku 1469 a v hejtmanském úřadu jej vystřídal Ctibor Tovačovský z Cimburka. Vdova Barbora se znovu provdala za Jana z Ronova. (Úřad maršálka se mu někdy přičítá do 1473, nástupce Pertold z Lipé je doložen od 1475.)",
-   "umrti": "1469"
+   "poBreznu1458": "Podepsal list Lužičanům z 8. 3. 1458 (na třetím místě). V dubnu 1458 jel se Šternberkem a kancléřem Prokopem na slezský sněm do Vratislavi, kde poselstvo přijali nepřátelsky. Na korunovaci 7. 5. 1458 nesl před králem meč. 23. 5. 1458 získal pro Jiřího bez boje Znojmo jednáním s cechy a obcí; v červnu 1458 Jiří navštívil Moravský Krumlov a udělil mu dva výroční trhy. V listopadu 1458 vedl fehdu s Lichtenštejny kvůli 1 000 zlatým, které nesplatili jeho manovi Václavovi z Rechenberka: s 800 muži marně obléhal Drnholec, byl poražen a oloupen o výzbroj, pak ztratil i Hostěradice, městečko vyhořelo a skoro všichni jeho druhové (páni z Mingerbergu, Rechenberk, Jindřich Suchý Ďábel) padli do zajetí; sám unikl. Smír vyhlásil Vilém z Lichtenštejna na Mikulově 7. 1. 1459 (pokuta 10 000 zlatých za porušení); když ho Jan z Lichtenštejna porušil, soudil se Jindřich o pokutu a rozsudek padl roku 1464 pod jeho vlastním předsednictvím. Kolem volby se snad zasnoubil s Jiřího dcerou Barborou (1446–1469/1474), svatba nejspíš 1461, s níž souvisí Ivančice (1460 zástava, 1461 věno). Moravským zemským hejtmanem byl asi od konce 1462 (7. 12. 1462 mu Fridrich III. na jeho žádost polepšil moravskou orlici zlatem) do roku 1465; roku 1466 je už jen maršálkem. V poli byl skoro vždy poražen, u soudů naopak spory o desátky a vinice většinou vyhrával. Syn Pertold z prvního manželství získal roku 1466 sňatkem s Alžbětou z Kravař Strážnici. Heimburg ho obvinil, že roku 1469 u Veselí po tajné dohodě s Matyášem zradil Viktorina; zda právem, zůstává sporné. Roku 1473 byl jedním ze čtyř zemských správců Moravy, pak mizí z pramenů; zemřel po roce 1473. Vdova Barbora se znovu provdala za Jana z Ronova. Nástupce v úřadu maršálka Pertold z Lipé je doložen od 1475.",
+   "umrti": "po 1473"
   }
  },
  "tovacovsky": {
@@ -1442,7 +1445,7 @@
    "https://en.wikipedia.org/wiki/Jan_Talaf%C3%BAs"
   ],
   "gm": {
-   "poBreznu1458": "S otcem a bratrem byl 7. 5. 1458 na Jiřího korunovaci; v letech 1464–1469 byl moravským zemským sudím a roku 1466 velel královským oddílům na tažení k Polsku a Vratislavi, 11. 6. 1467 porazil biskupovo vojsko. Spolu s bratrem byl po smrti Zdeňka Kostky stále důležitější v královské radě; v létě 1467 marně prosil svého příbuzného Tase z Boskovic, aby se nespolčoval se „zrádnými Jidáši“. Od roku 1469 až do smrti byl moravským zemským hejtmanem (nástupce Jindřicha z Lipé), v letech 1471–1479 nejvyšším kancléřem Království českého; je jednou z výrazných postav raného českého humanismu, sepsal Hádání Pravdy a Lži a Knihu Tovačovskou (1482–1490), sbírku moravského zemského práva. Zemřel kolem roku 1494.",
+   "poBreznu1458": "S otcem a bratrem byl 7. 5. 1458 na Jiřího korunovaci; v letech 1464–1469 byl hofrychtéřem (správcem markraběcích lén a manského soudu) a roku 1466 velel královským oddílům na tažení k Polsku a Vratislavi, 11. 6. 1467 porazil biskupovo vojsko. Spolu s bratrem byl po smrti Zdeňka Kostky stále důležitější v královské radě; v létě 1467 marně prosil svého příbuzného Tase z Boskovic, aby se nespolčoval se „zrádnými Jidáši“. Od roku 1469 až do smrti byl moravským zemským hejtmanem, v letech 1471–1479 nejvyšším kancléřem Království českého; je jednou z výrazných postav raného českého humanismu, sepsal Hádání Pravdy a Lži a Knihu Tovačovskou (1482–1490), sbírku moravského zemského práva. Zemřel kolem roku 1494.",
    "umrti": "1494"
   }
  },
