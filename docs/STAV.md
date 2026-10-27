@@ -205,6 +205,12 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
   `mistoInfo(n, hotovo)` (02; než se část stáhne, panel napíše „Načítám…“ a překreslí se), hledání v liště (`gIndex`, 07) ji stáhne při
   prvním hledání a rejstřík sestaví znovu. Mrtvý rejstřík `CIDX` smazán. `DUCHY`, `DIO`, `ROADS`, hory a 02e zůstávají v jádru: legendy
   mapy, graf cest (`MSEG`, plán cesty v 09) a hledání je čtou hned při načtení. Test `mapa` hlídá, že jádro nečte `CITYINFO` bez `typeof`.
+- 10-28 **Stopa družiny na mapě** (Vojta): úseky mezi zastávkami po síti cest (`stopaGeo` → `computeRoute`, bez cesty rovně), šipky, starší úseky slábnou,
+  nejnovější čárkovaný; pečeti zápisů s datem → panel zastávky (`stopaHtml`, `st.misto = {k: "st"}`), praporec „Družina je tady“. **Počátek stopy** ukládá
+  vypravěč do herního stavu (`HRA.stopaOd = {z, datum, hodina}`, bez změny schématu; vrací ho i Zpět – `HRAKL`): „Začít stopu tímto zápisem“ (Kronika, panel
+  zastávky, pod mapou u posuvníku), „Smazat stopu“ (počátek = poslední zápis a dnešní čas), „Vrátit celou stopu“. Divák si pod mapou volí Poslední cesta /
+  Od počátku stopy / Celé tažení (`localStorage` `mm-stopa-pohled`). Výpočet v čistém `07s-stopa.js` (`stopaRozsah`, `stopaPutovani`…); skrytý zápis hráč nemá
+  (`mm_orez`), počátek v něm se dohledá podle data. Cesty z Výpravy nesou `t1`; starší bez něj se ukážou jen v Celém tažení. Mapa světa bere stejný počátek. Test `stopa`.
 
 ## Otevřené
 - **Mapa jih – k ověření (Vojta)**: kdo k 3. 3. 1458 drží Čakovec a Varaždínský hrad (celjské dědictví – Vitovec?), Golubac vynechán (srbský/turecký?), Kusánský
