@@ -142,14 +142,16 @@ function vybPridatBtn(x) {
   if (!K) return "";
   return `<button type="button" class="gbtn ghost vybadd" data-vybadd="${besc(x.id)}" ${btip(`Přidat do vybavení: ${K.n}`)}>+ Přidat</button>`;
 }
-/* mince v katalogu: jen mince tažení (GP, SP, CP) s dobovým jménem a ikonou; elektrum a platina se nepoužívají */
-const VYBMINC = {"Gold Piece": "GP", "Silver Piece": "SP", "Copper Piece": "CP"};
+/* mince v katalogu: jen mince tažení (GP, SP, CP) s dobovým jménem, ikonou a kurzem tažení; elektrum a platina se nepoužívají.
+   Ceny v katalogu převádí na groše a kopy už zdroj/vybaveni/sestav.py (1 GP z pravidel = 10 grošů, Vojta 2026-10-27). */
+const VYBMINC = {"Gold Piece": "GP", "Silver Piece": "SP", "Copper Piece": "CP"},
+  VYBMKURZ = {GP: "40 grošů", SP: "10 haléřů", CP: "nejmenší mince"};
 const vybMinceHtml = () =>
   (VYB.mince || [])
     .filter(m => VYBMINC[m.n])
     .map(m => {
       const k = VYBMINC[m.n];
-      return `<span class="kpenm">${kMinceIk("mince-" + k.toLowerCase())}<b>${k}</b> ${besc(KMINCJM[k])} = ${besc(m.gp)} GP</span>`;
+      return `<span class="kpenm">${kMinceIk("mince-" + k.toLowerCase())}<b>${besc(KMINCJM[k])}</b> = ${VYBMKURZ[k]}</span>`;
     })
     .join(" · ");
 /* ---- stránka Pravidla › Vybavení ---- */

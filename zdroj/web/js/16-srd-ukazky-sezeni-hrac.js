@@ -635,7 +635,7 @@ function bojKorDelHtml(kor) {
   const op = sel => KARTY.map(k => `<option value="${besc(k.id)}"${sel === k.id ? " selected" : ""}>${besc(k.n)}</option>`).join("");
   return `<details class="bjapd bkordel" data-otv="kordel"${BOTV.has("kordel") ? " open" : ""}><summary>Rozdělit kořist do vybavení postav</summary>
     ${kor.length ? `<ul class="bkor">${kor.map(x => `<li>${besc(x.t)} <select data-bkorkomu="${besc(x.k)}" aria-label="Komu"><option value="">— nikomu —</option>${op(BKORK[x.k])}</select></li>`).join("")}</ul>` : ""}
-    <p class="kvlh"><label>Peníze GP <input type="number" min="0" max="99999" data-bkorgp value="0"></label><label>SP <input type="number" min="0" max="99999" data-bkorsp value="0"></label> rovným dílem mezi: ${KARTY.map(k => `<label><input type="checkbox" data-bkorpen="${besc(k.id)}" checked> ${besc(k.n)}</label>`).join(" ")}</p>
+    <p class="kvlh"><label>Peníze: zlatých <input type="number" min="0" max="99999" data-bkorgp value="0"></label><label>grošů <input type="number" min="0" max="99999" data-bkorsp value="0"></label> rovným dílem mezi: ${KARTY.map(k => `<label><input type="checkbox" data-bkorpen="${besc(k.id)}" checked> ${besc(k.n)}</label>`).join(" ")}</p>
     <button type="button" class="gbtn" data-bkordel>Rozdělit</button>
     <p class="rsmall">Kdo dělil spravedlivě, jedná podle Štědrosti (bod dobrých skutků); kdo si kořist ponechal, podlehl Lakomství (bod hříchu, proti Ctnosti Štědrost dva). Obojí dává Heroic Inspiration:
       ${KARTY.map(k => `<span class="kvlh"><b>${besc(k.n)}</b> <button type="button" class="gbtn ghost" data-bkorctn="${besc(k.id)}">Štědrost</button><button type="button" class="gbtn ghost bhrich" data-bkorner="${besc(k.id)}">Lakomství</button></span>`).join(" ")}</p></details>`;
@@ -663,21 +663,19 @@ async function bojKorDel(box, kor) {
     sp = Math.max(0, Math.round(+(box.querySelector("[data-bkorsp]") || {}).value || 0)),
     komu = [...box.querySelectorAll("[data-bkorpen]:checked")].map(c => KARTBY[c.dataset.bkorpen]).filter(Boolean);
   if ((gp || sp) && komu.length) {
-    const cp = gp * 100 + sp * 10,
+    const cp = gp * KMINC.GP + sp * KMINC.SP,
       dil = Math.floor(cp / komu.length),
       zb = cp - dil * komu.length;
     for (const K of komu) {
-      const pen = Object.assign({}, kartaStav(K.id).pen || K.penize || {});
-      let r = dil;
-      pen.GP = (+pen.GP || 0) + Math.floor(r / 100);
-      r %= 100;
-      pen.SP = (+pen.SP || 0) + Math.floor(r / 10);
-      r %= 10;
-      if (r) pen.CP = (+pen.CP || 0) + r;
+      const pen = Object.assign({}, kPenKarta(K)),
+        dP = kPenSloz({CP: dil});
+      KMINCE.forEach(k => {
+        if (dP[k]) pen[k] = (+pen[k] || 0) + dP[k];
+      });
       await kartaStavZmen(K.id, {pen});
-      kHodZapis({k: K.id, kdo: K.n, co: "Podíl z kořisti", txt: `${Math.floor(dil / 100)} GP ${Math.floor((dil % 100) / 10)} SP ${dil % 10} CP`});
+      kHodZapis({k: K.id, kdo: K.n, co: "Podíl z kořisti", txt: kPenTxt(dP)});
     }
-    if (zb) mmHlasG(`Nedělitelný zbytek: ${zb} CP – ať o něj rozhodne družina.`, 6000);
+    if (zb) mmHlasG(`Nedělitelný zbytek: ${kPenTxt(kPenSloz({CP: zb}))} – ať o něj rozhodne družina.`, 6000);
     n++;
   }
   mmHlasG(n ? "Kořist rozdělena do karet postav." : "Nic k rozdělení – vyber, komu co připadne.", 4000);

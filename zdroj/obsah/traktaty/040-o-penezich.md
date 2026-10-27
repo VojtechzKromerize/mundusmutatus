@@ -1,6 +1,6 @@
 ---
 # O penězích a váze stříbra – kronikářův výklad o groších, kopách, hřivnách, zlatých a drobné minci, stav k jaru 1458.
-# Skrytý: vypravěč ho odkryje, až rozhodne o měnovém systému hry (web zatím počítá 1 zlatý = 10 grošů = 100 haléřů).
+# Skrytý, odkrývá vypravěč. Kurz odpovídá měně hry (Vojta 2026-10-27): 1 uherský zlatý = 40 grošů = 400 haléřů, kopa = 60 grošů.
 id: o-penezich
 title: O penězích a váze stříbra
 stav: skryta
@@ -23,11 +23,11 @@ Za válek husitských odešli z Hor němečtí havíři, doly zalila voda a **od
 
 ## Drobné peníze
 
-Na chléb, maso a pivo se neplatí groši. Obíhají **drobné peníze** a haléře: **bílé**, v nichž je ještě kus stříbra, a **černé**, kde je stříbra jen stopa a měď prosvítá, sotva se mince ošoupe. Řemeslník nebo žoldnéř dostane za den práce asi groš. Za správy pana [[jiri|Jiřího]] byla v zemi laciná doba a staří letopisci zapsali, že v Praze se konev nejlepšího mělnického vína dala koupit za haléř.
+Na chléb, maso a pivo se neplatí groši. Obíhají **drobné peníze** a haléře: **bílé**, v nichž je ještě kus stříbra, a **černé**, kde je stříbra jen stopa a měď prosvítá, sotva se mince ošoupe. Nádeník dostane za den práce groš či dva, zručný řemeslník víc. Za správy pana [[jiri|Jiřího]] byla v zemi laciná doba a staří letopisci zapsali, že v Praze se konev nejlepšího mělnického vína dala koupit za haléř.
 
 ## Zlatí
 
-Velké sumy se počítají ve zlatých. **Uherský zlatý**, jemuž Vlaši říkají dukát, se razí v Kremnici z ryzího zlata a je vážen ve všech zemích; v něm se sjednává žold i výkupné. **Rýnský zlatý** je lehčí a horší, ale v Říši a v Porýní vládne obchodu. V Míšni se říká, že kopa míšeňských grošů vydá za rýnský zlatý. Za uherský zlatý se v Praze dává **zhruba tři čtvrti kopy grošů**, někdy méně, někdy více, podle toho, jaké groše kdo nabízí a jak zlé jsou časy. Když pan Jiří vyměřil Vratislavanům pokutu, počítal ji v zlatých: třicet tisíc, pak slevil na polovinu.
+Velké sumy se počítají ve zlatých. **Uherský zlatý**, jemuž Vlaši říkají dukát, se razí v Kremnici z ryzího zlata a je vážen ve všech zemích; v něm se sjednává žold i výkupné. **Rýnský zlatý** je lehčí a horší, ale v Říši a v Porýní vládne obchodu. V Míšni se říká, že kopa míšeňských grošů vydá za rýnský zlatý. Za uherský zlatý se v Praze dává **kolem čtyřiceti grošů**, tedy dvě třetiny kopy, někdy méně, někdy více, podle toho, jaké groše kdo nabízí a jak zlé jsou časy. Když pan Jiří vyměřil Vratislavanům pokutu, počítal ji v zlatých: třicet tisíc, pak slevil na polovinu.
 
 ## Stříbrný hlad
 
@@ -41,4 +41,4 @@ Kde je málo dobré mince, množí se špatná. Penězokazci ořezávají okraje
 
 Ve Vlaších a ve Flandrech platí kupci **listem**: složí peníze v jednom městě a v druhém je podle listu vyzvednou. V Čechách ani v zemích kolem se to neujalo; i papežští výběrčí odtud musívali vézt stříbro až do Brugg nebo do Benátek. Velké platby, věna, výkupné i žold, se proto vozí v hotovosti, na vozech a pod ozbrojenou stráží, a na cestě je číhá každý lapka, který o nich zví.
 
-⟦Pozn. vypravěče: Historický kurz je nejistý: 1442 asi 45 gr za florén; v rožmberských listech 1459–1465 34–48 gr za uherský zlatý (dluh 16 000 zl. ≈ 544 000 gr dává 34). Web nyní počítá 1 zlatý (GP) = 10 grošů (SP) = 100 haléřů (CP), traktát uvádí historický kurz „tři čtvrti kopy za zlatý“. Před odkrytím rozhodni: (a) ponechat herní zjednodušení a větu o kurzu přepsat, nebo (b) zavést historický kurz. Budoucnost: 1460 zaplaví Rakousy a pak Čechy špatná mince („šindelíky“); Jiřího pokusy o mincovní reformu mají nešťastné důsledky; hodnotný groš se znovu razí až 1469. Háčky: zakopané husitské poklady (Čapkův poklad 5 000 kop zabavený 1434 na Novém Městě), převoz věna či výkupného pod stráží, pohár o váze hřivny jako schránka.⟧
+⟦Pozn. vypravěče: Historický kurz je nejistý: 1442 asi 45 gr za florén; v rožmberských listech 1459–1465 34–48 gr za uherský zlatý (dluh 16 000 zl. ≈ 544 000 gr dává 34). Hra počítá 1 zlatý = 40 grošů = 400 haléřů a ceny z pravidel D&D převádí 1 GP = 10 grošů (Vojta 2026-10-27). Budoucnost: 1460 zaplaví Rakousy a pak Čechy špatná mince („šindelíky“); Jiřího pokusy o mincovní reformu mají nešťastné důsledky; hodnotný groš se znovu razí až 1469. Háčky: zakopané husitské poklady (Čapkův poklad 5 000 kop zabavený 1434 na Novém Městě), převoz věna či výkupného pod stráží, pohár o váze hřivny jako schránka.⟧

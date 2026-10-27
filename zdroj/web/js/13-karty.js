@@ -603,7 +603,7 @@ function kartaPriprav(K) {
 /* zátěž postavy z vybavení a peněz na kartě (oddíl Vybavení bojové karty) */
 function kartaZatez(K) {
   const S = kartaStav(K.id);
-  return kZatez(K, S.inv || K.vybaveni || [], S.pen || K.penize || {});
+  return kZatez(K, S.inv || K.vybaveni || [], kPenKarta(K));
 }
 /* ===== části karty sdílené s bojovou kartou (14): české názvy vlastností, puntíky omezených použití, deník.
    Celou kartu v rozvržení D&D Beyond (kartaDbHtml) nahradila 2026-10-18 bojová karta; odstraněna 2026-10-23. ===== */
@@ -717,8 +717,7 @@ document.addEventListener("change", async e => {
     return;
   }
   if (t.matches("[data-kpen]")) {
-    const S = kartaStav(K.id),
-      pen = Object.assign({}, S.pen || K.penize || {});
+    const pen = Object.assign({}, kPenKarta(K));
     pen[t.dataset.kpen] = Math.max(0, Math.min(9999999, Math.round(+t.value || 0)));
     kartaStavZmen(K.id, {pen});
     return;

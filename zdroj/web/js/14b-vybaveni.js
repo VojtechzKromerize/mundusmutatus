@@ -73,13 +73,27 @@ const kInvSvitekI = (K, i) => (typeof kSeznam === "function" ? kSeznam(K).findIn
 const kPenTxt = pen =>
   ["PP", "GP", "EP", "SP", "CP"]
     .filter(k => +pen[k])
-    .map(k => `${pen[k]} ${k}`)
+    .map(k => `${pen[k]} ${KMINCZK[k]}`)
     .join(" · ") || "bez peněz";
-/* mince tažení: jen GP, SP, CP (Vojta 2026-10-23) – uherský zlatý, pražský groš, haléř; PP a EP z PDF D&D Beyond se ukážou,
+/* mince tažení: jen GP, SP, CP (Vojta 2026-10-23) – uherský zlatý, pražský groš, haléř (kurz 1 : 40 : 400, Vojta 2026-10-27); PP a EP z PDF D&D Beyond se ukážou,
    ale nenabízejí se a „Rozměnit na nejvyšší“ je převede. Ikony `art/img/boj/mince-*`, `mesec`, `pokladna` (prompty v projektu
    `grafika/mince-prompty.md`) */
 const KMINCE = ["GP", "SP", "CP"],
-  KMINCJM = {GP: "uherský zlatý", SP: "pražský groš", CP: "haléř"};
+  KMINCJM = {GP: "uherský zlatý", SP: "pražský groš", CP: "haléř"},
+  KMINCZK = {GP: "zl.", SP: "gr.", CP: "hal.", EP: "EP", PP: "PP"};
+/* peníze z PDF D&D Beyond (K.penize) jsou v mincích pravidel: 1 GP z pravidel = 10 grošů, PP = 100, EP = 5 (Vojta 2026-10-27);
+   stav karty S.pen už je v mincích tažení. S.pen === null = postava peníze utratila (nevrací se k PDF). */
+function kPenDnd(p) {
+  const P = {},
+    gr = (+(p || {}).GP || 0) * 10 + (+(p || {}).PP || 0) * 100 + (+(p || {}).EP || 0) * 5 + (+(p || {}).SP || 0);
+  if (gr) P.SP = gr;
+  if (+(p || {}).CP) P.CP = +p.CP;
+  return P;
+}
+const kPenKarta = K => {
+  const S = kartaStav(K.id);
+  return S.pen ? S.pen : S.pen === null ? {} : kPenDnd(K.penize);
+};
 const kMinceIk = (f, t) =>
   `<img class="kminik" src="art/img/boj/${f}-48.webp" width="18" height="18" alt="${besc(t || "")}"${t ? "" : ` aria-hidden="true"`} decoding="async" loading="lazy">`;
 /* částka s ikonami mincí (HTML); kPenTxt zůstává pro záznam a hlášky */
@@ -88,7 +102,7 @@ const kPenHtml = pen =>
     .filter(k => +(pen || {})[k])
     .map(k =>
       KMINCJM[k]
-        ? `<span class="kpenm" aria-label="${besc(`${pen[k]} ${k} (${KMINCJM[k]})`)}" ${btip(`${k} – ${KMINCJM[k]}`)}>${kMinceIk("mince-" + k.toLowerCase())}${besc(String(pen[k]))}</span>`
+        ? `<span class="kpenm" aria-label="${besc(`${pen[k]} ${KMINCZK[k]} (${KMINCJM[k]})`)}" ${btip(KMINCJM[k])}>${kMinceIk("mince-" + k.toLowerCase())}${besc(String(pen[k]))}</span>`
         : `<span class="kpenm">${besc(String(pen[k]))} <small>${k}</small></span>`,
     )
     .join(" ") || "bez peněz";
@@ -262,7 +276,7 @@ function bdmVyb(K) {
   const zat = kartaZatez(K),
     S = kartaStav(K.id),
     inv = kInv(K),
-    pen = S.pen || K.penize || {},
+    pen = kPenKarta(K),
     NOS = kNoseno(inv),
     ro = !kMuze(K);
   const pri = inv.filter(x => x.pripoutano).length,
@@ -705,8 +719,7 @@ document.addEventListener("change", async e => {
 
 /* --- list Peníze --- */
 function bdmPenList(K) {
-  const S = kartaStav(K.id),
-    pen = S.pen || K.penize || {},
+  const pen = kPenKarta(K),
     ro = !kMuze(K);
   if (ro) return ["Peníze", `<p class="kvpen">${kPenHtml(pen)}</p>`];
   return [
@@ -715,14 +728,14 @@ function bdmPenList(K) {
     <form class="bdmrow kvpenf" data-kvpenf><input name="v" type="number" min="1" max="9999999" inputmode="numeric" placeholder="částka" required aria-label="Částka" style="width:6em"><select name="k" aria-label="Mince">${kMinceNab(
       pen,
     )
-      .map(k => `<option>${k}</option>`)
+      .map(k => `<option value="${k}">${KMINCZK[k]}</option>`)
       .join("")}</select>
       <button class="bdmbtn" name="a" value="z" ${btip("Odečte částku; když nemáš přesné mince, rozmění větší")}>Zaplatit</button><button class="bdmbtn" name="a" value="p">Přijmout</button>
       ${window.MMDB && MMDB.pokladna && (GMV || KZAM.has(K.id)) ? `<button class="bdmbtn ghost" name="a" value="dp" ${btip("Vloží částku do pokladny družiny")}>Do pokladny</button><button class="bdmbtn ghost" name="a" value="zp" ${btip("Vybere částku z pokladny družiny")}>Z pokladny</button>` : ""}</form>
     <details class="bdmbez"><summary>Mince jednotlivě a směna</summary><div class="kpen">${kMinceNab(pen)
       .map(
         k =>
-          `<label>${KMINCJM[k] ? kMinceIk("mince-" + k.toLowerCase()) : ""}${k} <input type="number" min="0" max="9999999" data-kpen="${k}" value="${+pen[k] || 0}"></label>`,
+          `<label>${KMINCJM[k] ? kMinceIk("mince-" + k.toLowerCase()) : ""}${KMINCZK[k]} <input type="number" min="0" max="9999999" data-kpen="${k}" value="${+pen[k] || 0}"></label>`,
       )
       .join("")}</div>${kPenSmenHtml()}</details>${!GMV && window.MMDB && KZAM.has(K.id) ? poklHtml() : ""}`,
   ];
@@ -827,8 +840,7 @@ document.addEventListener("submit", async e => {
   const a = (e.submitter && e.submitter.value) || "z",
     v = Math.round(+f.elements.v.value || 0),
     k = f.elements.k.value,
-    S = kartaStav(K.id),
-    pen = S.pen || K.penize || {};
+    pen = kPenKarta(K);
   if (!(v > 0)) return;
   if (a === "p" || a === "zp") {
     if (a === "zp") {
@@ -842,14 +854,14 @@ document.addEventListener("submit", async e => {
     }
     const P = Object.assign({}, pen);
     P[k] = (+P[k] || 0) + v;
-    await kartaStavZmen(K.id, {pen: P}, `${K.n}: +${v} ${k}${a === "zp" ? " z pokladny družiny" : ""}.`);
-    kHodZapis({k: K.id, kdo: K.n, co: a === "zp" ? "Z pokladny" : "Peníze", txt: `+${v} ${k} → ${kPenTxt(P)}`});
+    await kartaStavZmen(K.id, {pen: P}, `${K.n}: +${v} ${KMINCZK[k]}${a === "zp" ? " z pokladny družiny" : ""}.`);
+    kHodZapis({k: K.id, kdo: K.n, co: a === "zp" ? "Z pokladny" : "Peníze", txt: `+${v} ${KMINCZK[k]} → ${kPenTxt(P)}`});
     f.reset();
     return;
   }
   const P = kPenZapl(pen, k, v);
   if (!P) {
-    mmHlasG(`Na ${v} ${k} nemáš dost peněz (${kPenTxt(pen)}).`, 4000);
+    mmHlasG(`Na ${v} ${KMINCZK[k]} nemáš dost peněz (${kPenTxt(pen)}).`, 4000);
     return;
   }
   if (a === "dp") {
@@ -864,9 +876,9 @@ document.addEventListener("submit", async e => {
   await kartaStavZmen(
     K.id,
     {pen: Object.keys(P).length ? P : null},
-    `${K.n}: −${v} ${k}${a === "dp" ? " do pokladny družiny" : ""} → ${kPenTxt(P)}.`,
+    `${K.n}: −${v} ${KMINCZK[k]}${a === "dp" ? " do pokladny družiny" : ""} → ${kPenTxt(P)}.`,
   );
-  kHodZapis({k: K.id, kdo: K.n, co: a === "dp" ? "Do pokladny" : "Zaplatil", txt: `−${v} ${k} → ${kPenTxt(P)}`});
+  kHodZapis({k: K.id, kdo: K.n, co: a === "dp" ? "Do pokladny" : "Zaplatil", txt: `−${v} ${KMINCZK[k]} → ${kPenTxt(P)}`});
   f.reset();
 });
 document.addEventListener("click", async e => {
