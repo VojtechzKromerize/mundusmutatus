@@ -1029,11 +1029,12 @@
   "narozeniRok": 1420,
   "narozeniOdhad": true,
   "zakladOdhadu": "Uvádí se rok 1420 bez bližšího doložení; rodiče se vzali před rokem 1414.",
-  "shrnuti": "Syn Mikuláše Zajíce z Hazmburka, nejvyššího sudího, a Škonky z Kunštátu. Katolický pán z Podřipska, jehož první manželka Kateřina z Častolovic zemřela roku 1457.",
+  "shrnuti": "Syn Mikuláše Zajíce z Hazmburka, nejvyššího sudího, a Škonky z Kunštátu. Katolický pán z Podřipska; roku 1455 koupil od Jana z Bergova hrad Trosky a roku 1456 získal Hrubou Skálu. Jeho první manželka Kateřina z Častolovic, dcera Půty z Častolovic a sestra ženy jeho bratra Oldřicha, zemřela roku 1457.",
   "jistota": "střední",
-  "rozporSWebem": "Jinde je uváděn jako pán „na Budyni“ (a Libochovicích) až do smrti 1495, což se nesnadno slučuje s tvrzením webu, že roku 1451 prodal Budyni bratranci Zbyňkovi. Prodej z roku 1451 se nepodařilo ověřit.",
+  "rozporSWebem": "Budyni v letech 1451–1463 držel bratranec Zbyněk; Jan s Oldřichem ji zdědili až po jeho smrti roku 1463 a od té doby se Jan píše „na Budyni“ až do smrti. Web tedy platí.",
   "zdroje": [
-   "https://de.wikipedia.org/wiki/Zaj%C3%ADc_von_Hasenburg"
+   "https://de.wikipedia.org/wiki/Zaj%C3%ADc_von_Hasenburg",
+   "A. Petrčková, Oldřich Zajíc z Házmburka († 1474), bakalářská práce, FF UHK Hradec Králové 2025"
   ],
   "gm": {
    "poBreznu1458": "Pravděpodobně je autorem rozkladu pánů proti místům rytířů v zemském soudu (1458–1460; možná jej sepsal otec Mikuláš). Za Jiřího zastával úřad nejvyššího dvorského sudího, roku 1465 byl jedním z mluvčích opozice a král mu vyčetl, že jako sudí nikdy nic nenamítal; roku 1466 byl přesto rozhodčím. Od Matyáše dostal roku 1469 úřad nejvyššího kancléře, vedl poselstvo do Krakova a jen o vlas unikl zajetí, když mu Češi plenili hrady. Vůdcem katolické opozice zůstal až do smrti. Podruhé se oženil s Annou z Hlubčic (zemř. před 1505), nechal přestavět sídlo v Libochovicích a zemřel 15. května 1495.",
@@ -1043,13 +1044,13 @@
  "mikulashaz": {
   "jmeno": "Mikuláš Zajíc z Hazmburka",
   "fiktivni": false,
-  "vek": 68,
-  "vekText": "odhadem 68 let",
+  "vek": 64,
+  "vekText": "odhadem 64 roky",
   "narozeni": null,
-  "narozeniRok": 1390,
+  "narozeniRok": 1394,
   "narozeniOdhad": true,
-  "zakladOdhadu": "Odhad podle sňatku se Škonkou z Kunštátu (nar. asi 1398) před rokem 1414 a narození syna Jana kolem 1420.",
-  "shrnuti": "Hlava rodu Zajíců z Hazmburka, pán na Libochovicích a katolický pán z Podřipska. Před rokem 1414 se oženil se Škonkou z Kunštátu, vdovou po Petrovi z Vartenberka a dědičkou hradu Kost, kam rod přesídlil. Dlouhá léta zastával úřad nejvyššího zemského sudího, který nyní drží jeho příbuzný Zbyněk; jeho syny jsou Oldřich a Jan, dcerami Kunhuta a Anna.",
+  "zakladOdhadu": "Narodil se mezi lety 1392 a 1396; jako pán na Kosti je poprvé doložen 7. 2. 1414.",
+  "shrnuti": "Hlava rodu Zajíců z Hazmburka, pán na Libochovicích a katolický pán z Podřipska. Před rokem 1414 se oženil se Škonkou z Kunštátu, příbuznou Jiřího z Poděbrad, vdovou po Petrovi z Vartenberka a dědičkou hradu Kost, kam rod přesídlil. Dlouhá léta zastával úřad nejvyššího zemského sudího, který nyní drží jeho příbuzný Zbyněk; jeho syny jsou Oldřich a Jan, dcerami Kunhuta a Anna.",
   "jistota": "střední",
   "rozporSWebem": "Úřad nejvyššího sudího: web 1436–1451. Uvádí se i jako sudí od Zikmundových dob, kterého Ladislav roku 1453 potvrdil, a jako nejvyšší zemský sudí ještě k roku smrti 1459. V květnu 1458 je však nejvyšším sudím doložen Zbyněk Zajíc a 2. 3. 1458 kráčel za králem; pro 3. 3. 1458 platí Zbyněk, Mikuláš byl patrně jeho předchůdcem.",
   "zdroje": [
@@ -1057,7 +1058,7 @@
    "https://en.wikipedia.org/wiki/Kost_Castle"
   ],
   "gm": {
-   "poBreznu1458": "Zemřel 8. října 1459; stejné datum se uvádí i u manželky Škonky.",
+   "poBreznu1458": "Zemřel 8. října 1459; synové Jan a Oldřich pak drželi statky v nedílu. Manželka Škonka ho přežila a zemřela patrně roku 1465 (údaj, že zemřela týž den jako on, je omyl).",
    "umrti": "1459-10-08"
   }
  },
@@ -1088,21 +1089,22 @@
  "oldrichhaz": {
   "jmeno": "Oldřich Zajíc z Hazmburka",
   "fiktivni": false,
-  "vek": 42,
-  "vekText": "odhadem 42 roky",
+  "vek": 35,
+  "vekText": "odhadem 35 let",
   "narozeni": null,
-  "narozeniRok": 1416,
+  "narozeniRok": 1423,
   "narozeniOdhad": true,
-  "zakladOdhadu": "Odhad podle sňatku rodičů před rokem 1414 a narození bratra Jana kolem 1420; pořadí bratrů neznámé.",
-  "shrnuti": "Syn Mikuláše Zajíce z Hazmburka a Škonky z Kunštátu, dědic hradu Kost a Hradiště. Manželkou je Anna z Častolovic.",
+  "zakladOdhadu": "Mladší bratr Jana (narozeného kolem 1420); poprvé doložen 8. 10. 1445 při koupi tvrze Žerotín a oženil se patrně před rokem 1446. Odhad kolem 1423.",
+  "shrnuti": "Mladší syn Mikuláše Zajíce z Hazmburka a Škonky z Kunštátu. Roku 1445 koupil tvrz Žerotín a brzy nato se oženil s Annou z Častolovic, dcerou kladského pána Půty z Častolovic; její sestra Kateřina byla ženou jeho bratra Jana. V listinách vystupuje hlavně jako „bratr pana Jana“. Hrad Kost drží dosud otec.",
   "jistota": "střední",
-  "rozporSWebem": null,
+  "rozporSWebem": "Dříve byl uváděn jako pán na Kosti a starší z bratrů (narozený asi 1416). Kost drží k roku 1458 otec Mikuláš, po něm oba bratři v nedílu a fakticky na ní sedí Jan; Oldřich je patrně mladší bratr, narozený nejpozději v polovině 20. let.",
   "zdroje": [
-   "https://de.wikipedia.org/wiki/Zaj%C3%ADc_von_Hasenburg"
+   "https://de.wikipedia.org/wiki/Zaj%C3%ADc_von_Hasenburg",
+   "A. Petrčková, Oldřich Zajíc z Házmburka († 1474), bakalářská práce, FF UHK Hradec Králové 2025"
   ],
   "gm": {
-   "poBreznu1458": "Po smrti rodičů (1459) převzal Kost; působil jako zemský hejtman svídnického a javorského knížectví. Od Matyáše dostal roku 1469 úřad nejvyššího sudího; roku 1467 uzavřel s Janem Zajícem příměří, když Sasové odvolali jejich míšeňské žoldnéře. Zemřel roku 1472 nebo 1473.",
-   "umrti": "1472"
+   "poBreznu1458": "Po otcově smrti (8. 10. 1459) držel s bratrem Janem statky v nedílu; roku 1460 zapsal ženě 1 000 kop grošů na Choustníkově Hradišti. Kromě Žerotína drží Hostinné, Choustníkovo Hradiště a Chvatěruby. Bratr ho přivedl do Zelenohorské jednoty (28. 11. 1465, jeho pečeť je na listině). Když roku 1467 královští vytáhli proti jednotě, uzavřel brzy po pádu Roudnice s králem čtyřtýdenní příměří, dřív než Jan; přispělo k tomu, že saská a braniborská knížata odvolala žoldnéře z jeho služby. Chvatěruby a Choustníkovo Hradiště mu roku 1467 přesto zabavili. Od roku 1468 byl ve službách Matyáše a katolické strany hejtmanem svídnického a javorského knížectví (9. 5. 1468 velel obléhání Bolkenhainu, v srpnu 1468 při nezdařeném obléhání Frankštejna spěchal se Svídnickými domů) a po olomoucké volbě 1469 Matyášovým nejvyšším sudím. Roku 1468 pustili bratři Matyášovy lidi do Budyně. Po ročním příměří bratří s Jiřím (1470) ho Matyáš roku 1471 z obou úřadů odvolal. Roku 1472 byl krajským popravcem v Hradeckém a Boleslavském kraji. Zemřel bezdětný, patrně 9. 9. 1473 v Litoměřicích (k 10. 9. 1473 je doložen jako zesnulý; údaje „1474“ jsou chybné), a byl pohřben v rodové hrobce v Budyni.",
+   "umrti": "1473-09-09"
   }
  },
  "mikulaslob": {
@@ -3542,6 +3544,26 @@
   "gm": {
    "poBreznu1458": "Po smrti Kalixta III. podpořil volbu Pia II. a vicekancléřem zůstal 35 let; roku 1460 ho Pius II. pokáral za prostopášnou slavnost. Měl řadu dětí (mj. s Vannozzou dei Cattanei Cesara a Lucrezii), 11. 8. 1492 byl zvolen papežem jako Alexandr VI. a zemřel v Římě 18. 8. 1503.",
    "umrti": "1503-08-18"
+  }
+ },
+ "annacast": {
+  "jmeno": "Anna z Častolovic",
+  "fiktivni": false,
+  "vek": 36,
+  "vekText": "odhadem 36 let",
+  "narozeni": null,
+  "narozeniRok": 1422,
+  "narozeniOdhad": true,
+  "zakladOdhadu": "Odhad kolem 1422; roku 1436 byla ještě nezletilá.",
+  "shrnuti": "Dcera Půty z Častolovic, kladského pána a rádce krále Zikmunda († 1435), a Anny z Koldic. Po otcově smrti byla nezletilá a jejím majetkem i výchovou se zabývala rada poručníků vedená babičkou, kněžnou Annou Osvětimskou; matka se znovu provdala za Hynka Krušinu z Lichtenburka. Je manželkou Oldřicha Zajíce z Hazmburka, její starší sestra Kateřina byla ženou jeho bratra Jana.",
+  "jistota": "střední",
+  "rozporSWebem": null,
+  "zdroje": [
+   "A. Petrčková, Oldřich Zajíc z Házmburka († 1474), bakalářská práce, FF UHK Hradec Králové 2025"
+  ],
+  "gm": {
+   "poBreznu1458": "Roku 1460 jí manžel zapsal 1 000 kop grošů na Choustníkově Hradišti; po jeho smrti (1473) jí švagr Jan tuto sumu vyplatil. Roku 1477 prodala jako vdova Milotice Slavatovi z Chlumu s právem zpětné koupě do šesti let; v listině se píše „Anna z Častolovic a Talmberka“. Pak mizí z pramenů. Z matčina druhého manželství má polorodé sestry Salomenu, pozdější kněžnu opavskou, Eufemii a Reginu z Lichtenburka.",
+   "umrti": "po 1477"
   }
  }
 }
