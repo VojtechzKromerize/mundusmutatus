@@ -19,8 +19,8 @@ Základ: data z buildu (rody, vazby, zeměpis, erby), víry a ikony, odkazy mezi
 
 map geometry
 
-- 5879 řádků, 166 definic na nejvyšší úrovni, z toho 88 používají jiné soubory
-- používá z: 01-zaklad (20), 02b-mapa-kresba (1), 02c-zbroj (1), 02e-krajina (15), 04-praha (3), 07-druzina-kronika (1), 08-navigace-pravidla (2)
+- 7010 řádků, 166 definic na nejvyšší úrovni, z toho 88 používají jiné soubory
+- používá z: 01-zaklad (20), 02b-mapa-kresba (1), 02c-zbroj (1), 02e-krajina (16), 04-praha (3), 07-druzina-kronika (1), 08-navigace-pravidla (2)
 - používají ho: 01-zaklad (1), 02b-mapa-kresba (48), 03-artikule (4), 04b-praha-plan (5), 05-svet (1), 05b-svet-mapa (7), 06-draconomicon-rodokmeny (3), 07-druzina-kronika (11), 08-navigace-pravidla (18), 09-vypravec-herni-cas (18), 10-kouzla (5), 11-boj (10), 12-boj-tah-postavy (6), 13-karty (1), 14-karty-bojova-karta (6), 14b-vybaveni (2), 14c-boj-reakce (2), 14d-vybaveni-katalog (5), 16-srd-ukazky-sezeni-hrac (2), 17-karty-ii (1), 17b-kouzla-ucinky (1), 18-pravidla-postavy (2), 19-karty-beyond (1), 20-boj-hraci (3), 20b-boj-vypravec (3), 20c-boj-ridery (1), 20e-boj-vlastnosti (1), 22-vyprava (1), 22b-vyprava (13), 24-boj-zaznam (1), 26-start (2)
 - poskytuje: BZRT bikZr bikZv PBY PEOPLE _nrm bikZb el st bikZrTxt BVLZ drawMap haversine P SHORT norm placeBy BAZINY CITYINFO DIO DUCHY FORESTS inPoly mapDrag NAMEPTS nearMountain peopleOf relsFor renderTravel show svg svgG TOWNS updateRoute bikZbTip BZVK computeRoute days drawGraph gsvg … (+48)
 
@@ -28,12 +28,12 @@ map geometry
 
 Mapa zemí: kresba (geometrie zemí, diecézí, panství, lesů a hor a funkce drawMap) – samostatná část „mapa“, načte se až na stránce Mapa či Výprava (2026-10-19)
 
-- 12381 řádků, 43 definic na nejvyšší úrovni, z toho 1 používají jiné soubory
+- 12601 řádků, 43 definic na nejvyšší úrovni, z toho 1 používají jiné soubory
 - používá z: 01-zaklad (7), 02-mapa (48), 02e-krajina (9), 07-druzina-kronika (1), 08-navigace-pravidla (1)
 - používají ho: 02-mapa (1)
 - poskytuje: drawMapK
 - oddíly:
-  - ř. 7404: Moře a pobřeží (2026-10-27, Vojta): Baltské moře se zálivy a Jadran z Natural Earth (public domain; podklady/k
+  - ř. 7608: Moře a pobřeží (2026-10-27, Vojta): Baltské moře se zálivy a Jadran z Natural Earth (public domain; podklady/k
 
 ## 02c-zbroj
 
@@ -57,14 +57,15 @@ Mapa zemí: kresba (geometrie zemí, diecézí, panství, lesů a hor a funkce d
 
 @čisté – Krajina roku 1458 na mapě zemí (2026-10-26, Vojta): přechody (průsmyky, mosty, brody, přívozy), hospodářství (doly, sůl,
 
-- 1629 řádků, 20 definic na nejvyšší úrovni, z toho 16 používají jiné soubory
+- 1997 řádků, 22 definic na nejvyšší úrovni, z toho 17 používají jiné soubory
 - používá z: –
-- používají ho: 02-mapa (15), 02b-mapa-kresba (9), 09-vypravec-herni-cas (1), 22b-vyprava (5)
-- poskytuje: PRECHODY ZPUSTLE HOSP_BODY HOSP_OBL naVode POUTE POUTE_DRUH POUTE_ZN PRECH_DRUH prechodStav prechodyNaTrase VERNOST_SKUP vernostMista HOSP_DRUH POUTE_STAV zpustlyKraj
+- používají ho: 02-mapa (16), 02b-mapa-kresba (9), 09-vypravec-herni-cas (1), 22b-vyprava (5)
+- poskytuje: PRECHODY ZPUSTLE HOSP_BODY HOSP_OBL naVode POUTE POUTE_DRUH POUTE_ZN PRECH_DRUH prechodStav prechodyNaTrase VERNOST_SKUP vernostMista HOSP_DRUH POUTE_STAV presUzinu zpustlyKraj
 - oddíly:
-  - ř. 721: Voda pro výpočet cest (2026-10-27, Vojta): moře, zálivy a velká jezera hrubě a zúženě o 2–3 km od břehu (podkl
-  - ř. 1239: Věrnost králi k 3. 3. 1458 (vrstva mapy, 2026-10-27, Vojta)
-  - ř. 1303: Poutě, kláštery a pověsti (vrstva mapy, 2026-10-27, Vojta)
+  - ř. 881: Voda pro výpočet cest (2026-10-27, Vojta): moře, zálivy a velká jezera hrubě a zúženě o 2–3 km od břehu (podkl
+  - ř. 1347: SEVER (mapa 2026-10-27): úžiny užší, než aby je pokryla VODA_CESTA (zúžená od břehu) – Strelasund, Fehmarnsund
+  - ř. 1448: Věrnost králi k 3. 3. 1458 (vrstva mapy, 2026-10-27, Vojta)
+  - ř. 1559: Poutě, kláštery a pověsti (vrstva mapy, 2026-10-27, Vojta)
 
 ## 03-artikule
 
@@ -611,16 +612,16 @@ VÝPRAVA: cesta družiny podle pravidel Uncharted Journeys (stránka jen pro vyp
 
 Výprava: stránka vypravěče (trasa, setkání, počasí na cestě, mapy) – samostatná část „vyprava“, načte se až na stránce Výprava (2026-10-19)
 
-- 1889 řádků, 59 definic na nejvyšší úrovni, z toho 3 používají jiné soubory
+- 1895 řádků, 59 definic na nejvyšší úrovni, z toho 3 používají jiné soubory
 - používá z: 01-zaklad (4), 02-mapa (13), 02e-krajina (5), 04-praha (4), 04b-praha-plan (6), 05-svet (5), 05b-svet-mapa (3), 06-draconomicon-rodokmeny (1), 07-druzina-kronika (8), 08-navigace-pravidla (1), 09-vypravec-herni-cas (7), 21-editor-pecet (2), 22-vyprava (29)
 - používají ho: 08-navigace-pravidla (2), 09-vypravec-herni-cas (1), 22-vyprava (1)
 - poskytuje: renderVyprava vyZazT vyVrat
 - oddíly:
   - ř. 3: výchozí místo a cíl na jednotlivých mapách
   - ř. 232: trasa, časový průběh, obtížnost, setkání
-  - ř. 575: vykreslení
-  - ř. 911: ovládání
-  - ř. 1497: Výprava 2: okolí trasy, draci, vlastní tabulky, noclehy, lidé na cestě, počasí pro hráče, režim u stolu
+  - ř. 581: vykreslení
+  - ř. 917: ovládání
+  - ř. 1503: Výprava 2: okolí trasy, draci, vlastní tabulky, noclehy, lidé na cestě, počasí pro hráče, režim u stolu
 
 ## 23-potvrzovani
 
