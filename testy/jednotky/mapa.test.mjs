@@ -382,3 +382,47 @@ test("mapa jihu: trasa Praha – Terst po souši, do Benátek přes lagunu lodí
   /* lodní spoj se kreslí jako tečkovaná čára barvy vody */
   assert.ok(V(`ROADS.filter(c => c[3]).length`) >= 2);
 });
+
+test("mapa přes celou obrazovku: výřez v poměru stran okna se stejným středem a v mezích mapy (2026-10-27)", () => {
+  const M = [-60, -60, 1084, 850, 120, 1120];
+  /* běžný poměr stran: výřez se nemění */
+  assert.deepEqual(V(`celaVyrez([0, 0, 1024, 790], 790 / 1024, ${JSON.stringify(M)})`), [0, 0, 1024, 790]);
+  /* počítač na šířku: celá šířka, výška podle okna kolem středu */
+  const pc = V(`celaVyrez([0, 0, 1024, 790], 0.6, ${JSON.stringify(M)})`);
+  assert.equal(pc[2], 1024);
+  assert.ok(Math.abs(pc[3] - 614.4) < 1e-9 && Math.abs(pc[1] + pc[3] / 2 - 395) < 1e-9, "střed zůstal: " + pc);
+  /* telefon na výšku: celá výška mapy, šířka se zúží a strany se posouvají */
+  const tel = V(`celaVyrez([0, 0, 1024, 790], 2.1, ${JSON.stringify(M)})`);
+  assert.ok(Math.abs(tel[3] - 910) < 1e-9 && tel[1] === -60, "celá výška: " + tel);
+  assert.ok(Math.abs(tel[0] + tel[2] / 2 - 512) < 1e-9, "střed vodorovně: " + tel);
+  /* posun za okraj se zarazí o meze */
+  assert.equal(V(`celaVyrez([-500, 0, 300, 231.4], 790 / 1024, ${JSON.stringify(M)})[0]`), -60);
+});
+
+test("mapa přes celou obrazovku: přepnutí třídy, poměr stran mapy Koruny a návrat výřezu (2026-10-27)", () => {
+  const r = V(`(() => {
+    const box = document.getElementById("kmapbox"), grid = box.closest(".mapgrid"), pl = document.getElementById("mapplatno");
+    pl.getBoundingClientRect = () => ({width: 390, height: 780, left: 0, top: 0, right: 390, bottom: 780});
+    st.zoom = "vse";
+    st.vb = [100, 100, 300, 267];
+    const pred = st.vb, o = {pred: [mapWide(), celaPomer(pl)]};
+    box.querySelector("[data-mapcela]").click();
+    o.otevreno = [grid.classList.contains("mapcela"), document.documentElement.classList.contains("mmmapcela"),
+      box.querySelector("[data-mapcela]").getAttribute("aria-pressed"), mapWide(), celaPomer(pl), mapAsp()];
+    o.vse = mapFit(VB.vse);
+    box.querySelector("[data-mapcela]").click();
+    o.zavreno = [grid.classList.contains("mapcela"), document.documentElement.classList.contains("mmmapcela"),
+      box.querySelector("[data-mapcela]").getAttribute("aria-pressed"), st.vb === pred];
+    delete pl.getBoundingClientRect;
+    st.vb = null;
+    st.zoom = "all";
+    return o;
+  })()`);
+  assert.deepEqual(r.pred, [false, null], "mimo celou obrazovku úzká mapa s pevným poměrem");
+  assert.deepEqual(r.otevreno, [true, true, "true", true, 2, 2]);
+  /* Od Baltu k Jadranu na telefonu na výšku: celá výška světa mapy (MAPWB), šířka v poměru okna */
+  const W = V(`MAPWB`);
+  assert.ok(Math.abs(r.vse[3] - W[3]) < 1e-6 && Math.abs(r.vse[1] - W[1]) < 1e-6, "celá výška: " + r.vse);
+  assert.ok(Math.abs(r.vse[3] / r.vse[2] - 2) < 1e-9, "poměr okna: " + r.vse);
+  assert.deepEqual(r.zavreno, [false, false, "false", true], "bez pohybu na mapě se vrátí původní výřez");
+});

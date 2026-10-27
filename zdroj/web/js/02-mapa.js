@@ -716,20 +716,25 @@ const mapPlatno = document.getElementById("mapplatno");
 const MAPW_MQ = matchMedia("(min-width:1100px)");
 const MAPWB = [-101, -302, 972, 1232];
 const MAPW_PRESET = 890;
-const mapWide = () => MAPW_MQ.matches && !!svg.closest("#mapa");
+/* v celé obrazovce (.mapcela, 02f) je mapa široká vždy – i na telefonu a ve Výpravě: výřez se roztáhne na poměr stran obrazovky */
+const mapWide = () => (MAPW_MQ.matches && !!svg.closest("#mapa")) || !!mapPlatno.closest(".mapcela");
 /* výchozí výřezy široké mapy: „Se sousedy“ od Lužice po Budín a od Bavor po Košice */
 const VBW = {all: [-80, 40, 890, 560], vse: VB.vse};
 const mapPreset = () => (mapWide() && VBW[st.zoom]) || VB[st.zoom];
 const mapAsp = () => {
   /* úzká mapa: pevný poměr 680 : 605, jen pohled na celý svět si drží svůj (vysoký) poměr i při přibližování */
   if (!mapWide()) return st.zoom === "vse" ? VB.vse[3] / VB.vse[2] : 605 / 680;
+  /* celá obrazovka: skutečný poměr okna, i vysoký telefon na výšku */
+  const C = celaPomer(mapPlatno);
+  if (C) return C;
   /* obal mapy: jeho rozměr se při gestu nemění (svg samo je posunuté a zvětšené transformací) */
   const r = mapPlatno.getBoundingClientRect();
   return r.width > 0 && r.height > 0 ? Math.max(0.42, Math.min(0.95, r.height / r.width)) : 605 / 680;
 };
 /* výřez v poměru stran okna mapy: přidá šířku (nebo výšku) kolem středu a udrží ho ve světě mapy; nejvýš wMax široký (celý svět
-   na výšku i s okraji po stranách, předvolby jen na šířku dřívějšího světa MAPW_PRESET) */
-function mapFit(v, wMax = Math.max(MAPWB[2], MAPWB[3] / mapAsp())) {
+   na výšku i s okraji po stranách, předvolby jen na šířku dřívějšího světa MAPW_PRESET); okno vyšší než svět mapy (telefon na výšku
+   v celé obrazovce) ukáže celou výšku a strany se posouvají */
+function mapFit(v, wMax = MAPWB[3] / mapAsp()) {
   const A = mapAsp();
   let [x, y, w, h] = v;
   if (h / w > A) {
@@ -760,7 +765,12 @@ const mapKresba = {d: null, vd: null, s: 0};
 const mapVidim = () => st.vb || (mapWide() ? mapFit(mapPreset(), st.zoom === "vse" ? undefined : MAPW_PRESET) : VB[st.zoom]);
 const mapOkraj = v => [v[0] - MAPM * v[2], v[1] - MAPM * v[3], v[2] * (1 + 2 * MAPM), v[3] * (1 + 2 * MAPM)];
 /* měřítko kresby: na široké mapě podle skutečné šířky okna v pixelech, aby značky a písmo měly stejnou velikost jako dřív */
-const mapMeritko = v => (mapWide() ? (v[2] / Math.max(300, mapPlatno.getBoundingClientRect().width)) * (880 / 680) : v[2] / 680);
+const mapMeritko = v => {
+  if (!mapWide()) return v[2] / 680;
+  /* úzké okno v celé obrazovce (telefon): značky velké jako na telefonu, ne jako na počítači */
+  const W = Math.max(300, mapPlatno.getBoundingClientRect().width);
+  return (v[2] / W) * (Math.min(W, 880) / 680);
+};
 /* stačí výřez v jen posunout? (stejná velikost a měřítko, celý uvnitř nakreslené oblasti) */
 function mapLzePosunout(v, s) {
   const K = mapKresba,
@@ -8157,8 +8167,8 @@ const mapDrag = {moved: false};
   const curVB = mapVidim;
   /* široká mapa: při změně velikosti okna se výřez přepočítá na nový poměr stran */
   let rsT = null;
-  const naVelikost = () => {
-    if (curView !== "mapa") return;
+  const naVelikost = vzdy => {
+    if (vzdy !== true && curView !== "mapa" && !mapPlatno.closest(".mapcela")) return;
     clearTimeout(rsT);
     rsT = setTimeout(() => {
       if (st.vb) st.vb = clampVB(st.vb);
@@ -8166,6 +8176,8 @@ const mapDrag = {moved: false};
     }, 150);
   };
   MAPW_MQ.addEventListener("change", naVelikost);
+  /* přepnutí celé obrazovky (02f): výřez na nový poměr stran a jedno překreslení, až se rozměr ustálí */
+  window.mapNaVelikost = () => naVelikost(true);
   addEventListener("resize", () => {
     if (mapWide()) naVelikost();
   });

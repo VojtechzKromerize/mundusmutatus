@@ -1244,6 +1244,41 @@ html.gmv .zcard.gm0 b::after{content:" · koncept";font-weight:400;font-style:it
   #mapa .mapgrid>.detail.empty{display:none}
   #mapa .detx{display:grid;place-items:center;position:sticky;top:0;float:right;width:30px;height:30px;margin:-6px -6px 0 8px;border:1px solid var(--rule);border-radius:50%;background:var(--paper);color:var(--ink);font-size:1.2rem;line-height:1;cursor:pointer;z-index:1}
 }
+/* ===== mapy přes celou obrazovku (2026-10-27, Vojta; 02f): tlačítko v rohu mapy, kořen .mapcela (obal mapy s panelem místa,
+   ve Výpravě jen obal mapy) přes celé okno – s Fullscreen API i bez něj (iPhone: position fixed, 100dvh, html.mmmapcela bez posunu) ===== */
+.mapcelab{position:absolute;right:12px;bottom:12px;z-index:6;display:inline-flex;align-items:center;justify-content:center;gap:6px;min-width:34px;height:34px;padding:0 8px;border-radius:2px;cursor:pointer;color:#f6d27a;border:1px solid rgba(20,3,6,.85);background:linear-gradient(180deg,color-mix(in srgb,var(--kuze) 85%,#000) 0%,var(--kuze) 35%,var(--kuze2) 100%);box-shadow:inset 0 0 0 2px var(--kuze),inset 0 0 0 3px var(--zlato-linka),0 1px 3px rgba(40,10,10,.35);line-height:1}
+.mapcelab:hover{color:#ffe7a8}
+.mapcelab:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.mapcelab svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.mapcelab b{display:none;font-family:var(--f-label);font-weight:700;letter-spacing:.08em;font-size:.8rem;text-transform:uppercase;text-shadow:0 1px 0 rgba(0,0,0,.45)}
+.mapcelab .mczav,.mapcela .mapcelab .mcotev{display:none}
+.mapcela .mapcelab .mczav{display:inline}
+.mapcela .mapcelab{top:10px;left:10px;right:auto;bottom:auto;padding:0 12px 0 10px}
+.mapcela .mapcelab b{display:inline}
+html.mmmapcela,html.mmmapcela body{overflow:hidden;overscroll-behavior:none}
+.mapcela{position:fixed!important;inset:0;z-index:100;margin:0!important;width:auto!important;max-width:none!important;height:100vh;height:100dvh;box-sizing:border-box;background:var(--paper);overscroll-behavior:contain}
+.mapcela::backdrop{background:var(--paper)}
+.mapgrid.mapcela{display:flex!important;flex-direction:column;align-items:stretch;gap:0;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)}
+.mapcela>.mapbox{flex:1 1 auto;min-height:0;padding:6px;gap:6px;border:0}
+.mapbox.mapcela{display:flex;flex-direction:column;gap:6px;border:0;padding:max(6px,env(safe-area-inset-top,0px)) max(6px,env(safe-area-inset-right,0px)) max(6px,env(safe-area-inset-bottom,0px)) max(6px,env(safe-area-inset-left,0px))!important}
+.mapcela .mapbox>*,.mapbox.mapcela>*{flex:none}
+.mapcela .mapstage{flex:1 1 0!important;min-height:0;position:relative}
+.mapcela .mapplatno{position:absolute!important;inset:0;width:auto!important;height:auto!important;aspect-ratio:auto!important;max-height:none!important;min-height:0!important}
+.mapcela #smap,.mapcela #pmap{position:absolute;inset:0;width:100%!important;height:100%!important}
+.mapcela .mapbox>:not(.mapbar):not(.mapstage),.mapbox.mapcela>:not(.mapbar):not(.mapstage){max-height:30vh;max-height:30dvh;overflow:auto}
+.mapcela .maplegend,.mapcela .mapnote{display:none!important}
+/* ovládání v jednom řádku, na telefonu posuvné do strany; Vrstvy jako plovoucí panel přes mapu */
+.mapcela .mapbar{flex-wrap:nowrap;min-width:0}
+.mapcela .mapbar>.controls{flex-wrap:nowrap;overflow-x:auto;min-width:0;flex:1 1 auto;scrollbar-width:thin;padding-bottom:2px}
+.mapcela .mapbar>.controls>*{flex:none}
+.mapcela .lyrpanel{max-height:calc(100% - 60px)!important;overflow:auto;z-index:8}
+/* panel místa: plovoucí okno přes mapu vlevo dole (× nebo klepnutí do mapy ho zavře), na telefonu list zespodu */
+.mapgrid.mapcela>.detail{position:absolute!important;left:calc(16px + env(safe-area-inset-left,0px))!important;right:auto;top:auto!important;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:7;width:min(390px,40%)!important;max-height:calc(100% - 150px)!important;overflow:auto;box-shadow:0 12px 30px -12px rgba(30,10,5,.55)}
+.mapgrid.mapcela>.detail.empty{display:none!important}
+.mapgrid.mapcela .detx{display:grid;place-items:center;position:sticky;top:0;float:right;width:30px;height:30px;margin:-6px -6px 0 8px;border:1px solid var(--rule);border-radius:50%;background:var(--paper);color:var(--ink);font-size:1.2rem;line-height:1;cursor:pointer;z-index:1}
+@media (max-width:700px){
+  .mapgrid.mapcela>.detail{left:0!important;right:0;bottom:0;width:auto!important;max-height:46%!important;padding:12px 14px calc(12px + env(safe-area-inset-bottom,0px));border-left:0;border-right:0}
+}
 .slistbox{background:var(--paper);border:1px solid var(--rule);padding:10px 14px}
 .slistbox[open]>summary{margin-bottom:12px}
 .slistbox .pgrps{display:block;columns:4 220px;column-gap:24px}

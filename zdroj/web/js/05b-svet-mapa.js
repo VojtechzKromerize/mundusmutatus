@@ -1,5 +1,8 @@
 /* ===== Známý svět: kresba mapy Evropy, detail, výběr – samostatná část „svet“, načte se až na stránce Známý svět (2026-10-19) ===== */
 /*@cast svet{*/
+/* výřez mapy světa v mezích [x0, y0, x1, y1, nejmenší a největší šířka]; v celé obrazovce (02f) v poměru stran okna, jinak 1024 : 790 */
+const SMEZE = [-60, -60, 1084, 850, 120, 1120];
+const sVidim = () => celaVyrez(sst.vb || SVB0, celaPomer(document.getElementById("smap")) || SVB0[3] / SVB0[2], SMEZE);
 function svInit() {
   if (SG) {
     sDraw();
@@ -22,7 +25,7 @@ function svInit() {
 }
 function sDraw() {
   const svg = document.getElementById("smap"),
-    vb = sst.vb || SVB0,
+    vb = sVidim(),
     SW0 = svg.getBoundingClientRect().width || 700;
   svg.setAttribute("viewBox", vb.join(" "));
   const s = vb[2] / SVB0[2];
@@ -1092,13 +1095,9 @@ function smRender() {
 }
 (function () {
   const svg = document.getElementById("smap");
-  const cur = () => sst.vb || SVB0,
-    AR = SVB0[3] / SVB0[2];
-  const clamp = v => {
-    const w = Math.max(120, Math.min(1120, v[2])),
-      h = w * AR;
-    return [Math.max(-60, Math.min(1084 - w, v[0])), Math.max(-60, Math.min(850 - h, v[1])), w, h];
-  };
+  const cur = sVidim,
+    AR = () => celaPomer(svg) || SVB0[3] / SVB0[2];
+  const clamp = v => celaVyrez(v, AR(), SMEZE);
   const toSvg = (cx, cy) => {
     const r = svg.getBoundingClientRect(),
       v = cur();
@@ -1117,7 +1116,7 @@ function smRender() {
     const v = cur();
     const [px, py] = cx == null ? [v[0] + v[2] / 2, v[1] + v[3] / 2] : toSvg(cx, cy);
     const w = v[2] * f,
-      h = w * AR;
+      h = w * AR();
     sst.vb = clamp([px - ((px - v[0]) * w) / v[2], py - ((py - v[1]) * h) / v[3], w, h]);
     redraw();
   };
