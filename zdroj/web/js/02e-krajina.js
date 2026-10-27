@@ -1761,6 +1761,16 @@ const UZINY = [
     [12.3, 54.925],
     [12.39, 54.9],
   ],
+  /* ---- JIH (mapa 2026-10-27): benátská laguna – z pevniny do Benátek se jde jen lodí z Mestre ---- */
+  [
+    [12.27, 45.15],
+    [12.24, 45.25],
+    [12.22, 45.35],
+    [12.26, 45.43],
+    [12.3, 45.47],
+    [12.4, 45.51],
+    [12.5, 45.55],
+  ],
 ];
 /* protne úsek a–b některou úžinu? */
 function presUzinu(a, b) {
