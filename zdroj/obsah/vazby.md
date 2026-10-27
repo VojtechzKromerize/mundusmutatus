@@ -116,7 +116,7 @@
 - rod | ole, sli | Anežka Olešnická († 1448), sestra obou Konrádů, byla manželkou říšského kancléře Kašpara Šlika († 1449), bratra Matyáše Šlika.
 - rod | tes, jag | Anna Bělská, vdova po Boleslavovi II. Těšínském a matka Kazimíra II., je sestřenicí krále Kazimíra IV., který roku 1448 jejich sňatek schválil.
 - spoj | opa, jag | Barbora Rokemberková, poručnice krnovských knížat, uzavřela roku 1457 s Kazimírem IV. dohodu o vzájemné pomoci proti lupičům.
-- rod | opa, sgy | Jitka Opavská († 1445), sestra Arnošta a Viléma, byla manželkou hraběte Jiřího II. Svatojiřského a Pezinského († 1467).
+- rod | opa, sgy | Jitka Opavská († 1445), sestra Arnošta a Viléma, byla manželkou hraběte Jiřího II. Svatojiřského a Pezinského.
 - spoj | bib, bra | Václav II. z Bibrštejna, pán Žar, Beeskowa a Storkowa, ustanovil roku 1451 dědicem těchto panství kurfiřta Fridricha II. Braniborského (smlouva potvrzena 1452).
 - rod | bra, wit | Matka kurfiřta Fridricha II. Alžběta Bavorsko-Landshutská byla sestrou Jindřicha XVI., kurfiřt a Ludvík Bohatý jsou tedy bratranci.
 - rod | fra, wit | Albrecht Achilles a Ludvík Bohatý jsou bratranci (matka Albrechta byla sestrou Jindřicha XVI.), přesto jsou úhlavní soupeři.
