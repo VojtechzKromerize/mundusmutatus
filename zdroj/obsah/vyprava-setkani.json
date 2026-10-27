@@ -11,7 +11,15 @@
   {"n": "Voraři", "r": "V", "t": "Parta vorařů na voru dřeva míří po řece do Prahy. Za pomoc s veslem svezou družinu kus cesty."},
   {"n": "Horníci za prací", "r": "HM", "t": "Havíři z Kutné Hory jdou za novým nalezištěm. Šeptají o permonících, kteří od Noci Proměny v hlubinách mluví."},
   {"n": "Písař na sněm", "r": "M", "t": "Městský písař se svazkem listin spěchá na radnici. Ví, kdo komu dluží, a rád to prodá."},
-  {"n": "Uprchlíci", "r": "W", "t": "Rodina s vozíkem utíká z vypálené vsi. Kdo ji vypálil, neřeknou – bojí se, že je družina s nimi."}
+  {"n": "Uprchlíci", "r": "W", "t": "Rodina s vozíkem utíká z vypálené vsi. Kdo ji vypálil, neřeknou – bojí se, že je družina s nimi."},
+  {"n": "Norimberský faktor", "r": "KM", "t": "Kupec z Norimberka vede vůz sukna přes Domažlice do katolické Plzně. Papež obchod s kacíři zakázal; faktor tvrdí, že prodává jen pravověrným – a co se prodá dál, není jeho věc."},
+  {"n": "Saští páni z poselstva", "r": "KH", "t": "Saské poselstvo, které v Praze čekalo na volbu svého vévody, jede uraženo domů přes Osek. Jejich písař se vyptává na čáry na radnici a Proměněnce v síni – sbírá svědectví."},
+  {"n": "Havíř hledá žílu", "r": "HL", "t": "Trpasličí havíř s kladívkem a pytlíkem vzorků obchází potoky: jarní voda strhla ornici a odhalila výchoz. Hledá společníky do těžířstva – kdo vloží groše, má svůj díl."},
+  {"n": "Proutkař", "r": "H", "t": "Muž s vidlicovou virgulí, kterého si horní obec platí, aby našel novou žílu. Havíři se ho bojí a nevěří mu zároveň; od Noci Proměny prý vidí skrz skálu."},
+  {"n": "Kazatel kříže", "r": "MP", "t": "Františkán s křížem na rameni káže tažení proti Turkům a mluví o Bělehradě, jako by stál na hradbách vedle Kapistrána. Kdo dá na válku, dostane odpustky; kališnická ves ho nechce pustit do kostela."},
+  {"n": "Poutníci z Wilsnacku", "r": "KP", "t": "Poutníci se vracejí od Svaté krve ve Wilsnacku za Labem, na kloboucích cínové odznaky. Stačí, aby někdo řekl, že ty krvavé hostie měl Hus za podvod, a je z toho mela."},
+  {"n": "Verbíř bratříků", "r": "KW", "t": "Starý vozataj verbuje do Horních Uher k „bratrům“ na Spiši: kořist se tam dělí rovným dílem na konci měsíce a kdo přišel den před dělením, dostane jako ten, kdo slouží rok."},
+  {"n": "Hrouda země", "r": "P", "t": "Na mezi se prodává dvůr: prodávající podá kupci z ruky do ruky hroudu země a oba se napijí vína. Chybí jim svědek – a družina přišla právě včas. Jen jestli prodávající ten dvůr opravdu vlastní."}
  ],
  [
   {"n": "Opuštěný vozový tábor", "r": "WPK", "t": "Rozbité husitské vozy zarůstají kopřivami. V jednom zůstal sud suchého prachu a nasolené maso."},
@@ -24,7 +32,10 @@
   {"n": "Klášterní sklep", "r": "PW", "t": "Mniši z vypleněného kláštera utekli, ale sklep s vínem a sýry nikdo nenašel."},
   {"n": "Sádky bez hlídače", "r": "VP", "t": "Rybníkářova sádka plná kaprů a štik. Rybníkář chybí."},
   {"n": "Vrak člunu", "r": "V", "t": "Na mělčině uvízl člun se suknem a sudem sledě."},
-  {"n": "Trh před zavírací hodinou", "r": "M", "t": "Kramáři prodávají zbytky za babku – kdo umí smlouvat, nakoupí za pár grošů na celý týden."}
+  {"n": "Trh před zavírací hodinou", "r": "M", "t": "Kramáři prodávají zbytky za babku – kdo umí smlouvat, nakoupí za pár grošů na celý týden."},
+  {"n": "Dračí vejce u potoka", "r": "HL", "t": "Mezi valouny leží ohlazené koule rudy, které vyvrhl drak. Kovář za takové „dračí vejce“ dá pár grošů, sedláci je nosí proti moru dobytka a havíř podle nich pozná, kde je žíla."},
+  {"n": "Opuštěná dýmačka", "r": "LH", "t": "U potoka v lese stojí vyhaslá pec na železo a vedle hromada železných hub. Hutníci odešli za dřevem dál do hor; kovář ve vsi z toho ukove hroty i podkovy."},
+  {"n": "Zakopaný hrnec", "r": "PW", "t": "Pod prahem vypálené tvrze je hliněný hrnec s groši a stříbrný pohár vážící přesně hřivnu – úspory z doby válek, pro které si už nikdo nepřišel."}
  ],
  [
   {"n": "Stržený most", "r": "PVK", "k": "Moudrost (Přežití)", "t": "Velká voda strhla most; brod je hluboký a dno kluzké."},
@@ -38,7 +49,11 @@
   {"n": "Dračí revír", "r": "HL", "k": "Inteligence (Příroda)", "t": "Ohořelé kmeny a kosti ovcí značí revír plivníka. Obejít ho velkým obloukem je jistější."},
   {"n": "Cesta, která se točí", "r": "Z", "k": "Moudrost (Přežití) s nevýhodou", "t": "V místě, kde se Závoj protrhl, se cesta vrací tam, odkud vyšla. Stíny ukazují jinam než slunce."},
   {"n": "Závěje", "r": "H", "k": "Moudrost (Přežití)", "t": "Sníh zavál průsmyk; jde se po pás a každý krok bolí."},
-  {"n": "Procesí", "r": "M", "k": "Charisma (Přesvědčování) nebo Obratnost (Akrobacie)", "t": "Ulici zaplnilo procesí s ostatky. Projít skrz znamená urazit zbožné, obejít ho trvá hodinu."}
+  {"n": "Procesí", "r": "M", "k": "Charisma (Přesvědčování) nebo Obratnost (Akrobacie)", "t": "Ulici zaplnilo procesí s ostatky. Projít skrz znamená urazit zbožné, obejít ho trvá hodinu."},
+  {"n": "Vykácené svahy", "r": "H", "k": "Moudrost (Přežití)", "t": "Hory kolem hutí jsou vykácené na uhlí. Po dešti se svahy sesouvají, potok je plný bahna a pařezů a stezka zmizela."},
+  {"n": "Právo skladu", "r": "K", "k": "Charisma (Přesvědčování) nebo Inteligence (Pátrání)", "t": "V Cáhlově za rakouskou hranicí musí kupec složit zboží a nabídnout ho místním, než smí dál. Formani, s nimiž družina jede, nechtějí; měšťané mají knihu, pečeť i pacholky."},
+  {"n": "Zavřené krušnohorské stezky", "r": "HK", "k": "Obratnost (Nenápadnost) nebo Moudrost (Přežití)", "t": "Na stezce do Saska stojí kurfiřtova stráž a obrací vozy se solí (od března 1458). Kdo chce dál, musí v noci po pašerácké pěšině přes hřeben."},
+  {"n": "Ohlodané groše", "r": "M", "k": "Charisma (Přesvědčování) nebo Inteligence (Pátrání)", "t": "Kramář nechce družinino stříbro: pražské groše se nerazí od válek a staré jsou ohlodané, tak je váží a za tři dá cenu dvou. Směnárník vedle váží jinak – a hůř."}
  ],
  [
   {"n": "Zlomená náprava", "r": "PK", "k": "Síla (Atletika) nebo truhlářské nářadí", "t": "Formanovi se zlomila náprava a vůz s obilím uvízl uprostřed cesty. Za soumraku sem chodí vlci."},
@@ -51,7 +66,13 @@
   {"n": "Okradený kupec", "r": "KP", "k": "Moudrost (Lékařství), Charisma (Přesvědčování)", "t": "Kupec z Norimberka leží svázaný u cesty, okradený do košile."},
   {"n": "Proměněnec v nesnázích", "r": "PWZ", "k": "Charisma (Přesvědčování nebo Zastrašování)", "t": "Vesničané honí napůl elfího mladíka s cepy a vidlemi; mají ho za ďáblovo dílo."},
   {"n": "Požár na předměstí", "r": "M", "k": "Síla (Atletika), Odolnost", "t": "Hoří dřevěné domy u hradeb. Řetěz s vědry potřebuje každou ruku."},
-  {"n": "Ztracené stádo", "r": "H", "k": "Moudrost (Přežití)", "t": "Ovčák ztratil stádo v mlze na hřebeni. Bez něj jeho rodina zimu nepřežije."}
+  {"n": "Ztracené stádo", "r": "H", "k": "Moudrost (Přežití)", "t": "Ovčák ztratil stádo v mlze na hřebeni. Bez něj jeho rodina zimu nepřežije."},
+  {"n": "Voda v šachtě", "r": "H", "k": "Síla (Atletika) nebo Inteligence (Pátrání)", "t": "Do dolu se provalila voda a dole zůstali havíři. Rumpál s koženými vědry nestačí – potřeba je každá ruka v řetězu, nebo někdo, kdo najde zanesenou odvodňovací štolu.", "b": "voda-v-sachte"},
+  {"n": "Přísaha v jámě", "r": "P", "k": "Moudrost (Vhled) nebo Inteligence (Pátrání)", "t": "Dva sedláci se přou o mez a jeden už stojí bos v jámě vykopané na hranici, aby přísahal. Rychtář šeptá, že přísaha bude křivá; vrchnostenský soud je zítra."},
+  {"n": "Hold pod hrozbou ohně", "r": "WP", "k": "Charisma (Přesvědčování nebo Zastrašování)", "t": "Rychtář prosí: ves platí hold svému pánovi i rotě z pusté vsi za lesem, a ta teď chce dvakrát tolik, jinak ves vypálí. Do neděle.", "b": "zoldneri-v-puste-vsi"},
+  {"n": "Mor dobytka", "r": "P", "k": "Moudrost (Lékařství) nebo Inteligence (Příroda)", "t": "Ve vsi padá dobytek. Sedláci tvrdí, že někdo v noci rozsypává po pastvinách prach, a už mají podezřelého – cizince, Proměněnce nebo dračího letce. Nákaza přitom přišla s uherským stádem."},
+  {"n": "Těžaři v dluzích", "r": "HM", "k": "Charisma (Přesvědčování) nebo Inteligence (Pátrání)", "t": "Havíři z malého dolu si na výdřevu půjčili od kupce, který jim vykupuje rudu. Nesplatí-li, vezme jim důl a udělá z nich námezdní dělníky. Chtějí svědka, že jim účet zfalšoval."},
+  {"n": "Pohřeb bez kněze", "r": "PM", "k": "Charisma (Přesvědčování) nebo Inteligence (Náboženství)", "t": "Kališnický farář nechce pohřbít na hřbitově zemřelou, která nepřijímala z kalicha. Příbuzní přivedli kněze z kláštera a oba stojí nad rakví; ves se dělí na dvě strany."}
  ],
  [
   {"n": "Lapkové ze zříceniny", "r": "KL", "t": "Loupeživý zeman a jeho pacholci. Znamení: čerstvě pokácený strom přes cestu a ticho ptáků."},
@@ -63,7 +84,8 @@
   {"n": "Říční piráti", "r": "V", "t": "Pod jezem čeká prám se sekerníky. Kdo plave, platí."},
   {"n": "Dezertéři", "r": "K", "t": "Rakouští dezertéři přes hranici, hladoví a zoufalí."},
   {"n": "Ctitelé Antikrista", "r": "LZ", "t": "V lesní kapli se schází kult, který věří, že Závoj protrhl Antikrist. Hledají oběť."},
-  {"n": "Panští drábi", "r": "LP", "t": "Drábi hledají pytláky – a družina jim přijde vhod, ať je vinná nebo ne."}
+  {"n": "Panští drábi", "r": "LP", "t": "Drábi hledají pytláky – a družina jim přijde vhod, ať je vinná nebo ne."},
+  {"n": "Městská míle", "r": "PM", "t": "Pacholci z města přišli rozbít sudy v krčmě, která stojí uvnitř městské míle – čepovat tu smí jen město. Hosté se zvedají od stolů a družina sedí uprostřed.", "b": "8 chasa-z-krcmy"}
  ],
  [
   {"n": "Hromový sněm", "r": "H", "t": "Nad hřebenem Krkonoš krouží hromové saně (koncem srpna se slétají na Sněžku). Vzduch voní bouřkou."},
@@ -90,7 +112,8 @@
   {"n": "Divocí dráčci", "r": "P", "t": "Hejno divokých dráčků krade slepice i jehňata. Trofej: vejce, za která saský kupec zaplatí zlatem."},
   {"n": "Obří kanec", "r": "LP", "t": "Kanec velký jako tur rozryl pole celé vsi. Trofej: kly a maso pro celou ves.", "b": "obri-kanec"},
   {"n": "Polednice", "r": "PZ", "t": "Za poledního žáru se na poli zjevuje polednice. Trofej: její srp, který nikdy netupí.", "b": "polednice"},
-  {"n": "Bludičky", "r": "VZ", "t": "Světla nad bažinou lákají z cesty. Trofej: lucerna se světlem, které nezhasne.", "b": "3 bludicka"}
+  {"n": "Bludičky", "r": "VZ", "t": "Světla nad bažinou lákají z cesty. Trofej: lucerna se světlem, které nezhasne.", "b": "3 bludicka"},
+  {"n": "Saň u dolu", "r": "HM", "t": "Saň, kterou vyhnalo kácení z hor, chodí na tažné koně u šachet; žentour stojí a voda v dole stoupá. Trofej: šupiny – a vděk celé horní obce.", "b": "obecna-san"}
  ],
  [
   {"n": "Cisterciácký klášter", "r": "P", "t": "Klášter, který přežil války. Pohostí – katolíky ochotněji než kališníky."},
@@ -103,7 +126,9 @@
   {"n": "Tvrz chudého zemana", "r": "PK", "t": "Zchudlý zeman rád uvidí hosty i novinky – a dceru by rád provdal."},
   {"n": "Mlýn", "r": "V", "t": "Mlynář pohostí, ale ví o vodníkovi a v noci nespí."},
   {"n": "Posvátný háj", "r": "LZ", "t": "Háj starých bohů. Kdo je ctí, spí klidně; ostatní slyší kroky."},
-  {"n": "Opuštěný dvorec", "r": "W", "t": "Prázdný dvorec po moru, střecha drží. Je tu až moc ticho."}
+  {"n": "Opuštěný dvorec", "r": "W", "t": "Prázdný dvorec po moru, střecha drží. Je tu až moc ticho."},
+  {"n": "Městská lázeň", "r": "M", "t": "V sobotu je lázeň plná havířů a tovaryšů. Lazebník oholí, pustí žilou a poví, kdo s kým – a kdo se v lázni vyptával na družinu."},
+  {"n": "U uhlířů", "r": "LH", "t": "Uhlíři u milíře v pohraničním hvozdu dají kouř, chléb a pivo. Znají každou stezku přes hranici a pamatují si každého, kdo po ní šel."}
  ],
  [
   {"n": "Keltské hradiště", "r": "HPL", "t": "Valy hradiště Bójů, kteří dali zemi jméno. V hlíně se lesknou duhovky – zlaté mince."},
@@ -116,7 +141,9 @@
   {"n": "Románská rotunda", "r": "P", "t": "Malá rotunda z dob knížat s vybledlými freskami. Jedna z nich ukazuje draka."},
   {"n": "Pustý hrad", "r": "KL", "t": "Hrad opuštěný za válek. Na nádvoří roste bříza, ve věži někdo svítí."},
   {"n": "Zatopené doly", "r": "H", "t": "Stříbrné doly z dob krále Václava, dávno zatopené. Voda je průzračná a na dně se něco leskne."},
-  {"n": "Smírčí kříž", "r": "PK", "t": "Kamenný kříž, který postavil vrah za smír s rodinou zabitého. Nápis vyprávění dokončí."}
+  {"n": "Smírčí kříž", "r": "PK", "t": "Kamenný kříž, který postavil vrah za smír s rodinou zabitého. Nápis vyprávění dokončí."},
+  {"n": "Hraniční hvozd", "r": "LK", "t": "Pás lesa, který knížata kdysi zakazovala klučit, aby chránil hranici. Cesta vede jen po starých zářezech na kmenech – a některé zářezy jsou čerstvé."},
+  {"n": "Dědičná štola", "r": "H", "t": "Ústí odvodňovací štoly z dob krále Václava, přes míli dlouhé. Zanesla se – a doly nad ní proto stojí ve vodě."}
  ],
  [
   {"n": "Šibenice", "r": "KP", "t": "Na šibenici visí oběšenci a nad nimi krouží bojištníci."},
@@ -128,7 +155,8 @@
   {"n": "Černá mše", "r": "LZ", "t": "Lesní kaple, kde někdo sloužil černou mši. Kříž visí hlavou dolů."},
   {"n": "Utopená ves", "r": "V", "t": "Pod hladinou nového rybníka je vidět kostelní věž. Za tichých nocí se ozývá zvon."},
   {"n": "Popraviště", "r": "M", "t": "Na popravišti zaschlá krev; dav se rozchází a děti si hrají na kata."},
-  {"n": "Bojiště v mlze", "r": "WP", "t": "Staré bojiště v mlze; ozývají se povely a rachot vozů, ale nikdo tu není."}
+  {"n": "Bojiště v mlze", "r": "WP", "t": "Staré bojiště v mlze; ozývají se povely a rachot vozů, ale nikdo tu není."},
+  {"n": "Ves, kterou vzal les", "r": "WL", "t": "Ze vsi zbyla kostelní zeď a jabloně uprostřed mladého lesa. Les tu od Noci Proměny roste rychleji, než by měl, a cesta, která tudy vedla loni, už nevede nikam."}
  ],
  [
   {"n": "Hromová saň", "r": "H", "t": "Saň slétne z hřebene na koně družiny. Omračuje výbojem a kořist odnáší.", "b": "hnizdo-dvouocasnice"},
@@ -141,7 +169,12 @@
   {"n": "Divoký hon", "r": "ZL", "t": "Za bouřlivé noci se hnaly mraky a v nich psi, koně a lovci. Kdo je spatří, má se vrhnout tváří k zemi.", "b": "divoky-hon"},
   {"n": "Plivník v revíru", "r": "H", "t": "Plivník se vrhne na vetřelce s ohněm a sirným dechem."},
   {"n": "Pouliční rvačka", "r": "M", "t": "Rvačka dvou cechů přeroste v krveprolití a družina je uprostřed."},
-  {"n": "Saň z hlubiny", "r": "V", "t": "Slatinná saň strhne koně pod vodu u brodu."}
+  {"n": "Saň z hlubiny", "r": "V", "t": "Slatinná saň strhne koně pod vodu u brodu."},
+  {"n": "Žoldnéři v pusté vsi", "r": "WP", "t": "Hladová rota bez žoldu se usadila v pusté vsi a vybírá hold od okolních. Kdo nedá, tomu hoří stodola.", "b": "zoldneri-v-puste-vsi"},
+  {"n": "Věno na stezce", "r": "KP", "t": "Zeman veze dceři věno: truhlu stříbrných pohárů, každý přesně na hřivnu, protože směnce tu nikdo nevěří. Lapkové o truhle vědí dřív než ženich.", "b": "veno-na-stezce"},
+  {"n": "Kradené stádo", "r": "KP", "t": "Tlupa z uherského pomezí žene dobytek z biskupských vsí k brodu. Za stádem jede husar a svědky nenechává.", "b": "kradene-stado"},
+  {"n": "Sůl na hřebeni", "r": "H", "t": "V mlze na hřebeni Krušných hor se potkají pašeráci se solí na zádech a kurfiřtova stráž. Obě strany mají družinu za tu druhou.", "b": "sul-na-hrebeni"},
+  {"n": "Uherská jízda", "r": "K", "t": "Na uherské straně pomezí čistí Matyášova lehká jízda kraj od českých žoldnéřů (od dubna 1458) a neptá se, kdo je kdo. Šípy přilétají dřív, než je vidět prach.", "b": "najezd-kumanu"}
  ],
  [
   {"n": "Muž papežského legáta", "r": "*", "t": "Poutník v kápi. Tajemství: je agent papežského legáta a zjišťuje, kdo z pánů by podpořil kruciátu."},
@@ -153,6 +186,8 @@
   {"n": "Uherský šlechtic", "r": "K*", "t": "Šlechtic cestující pod cizím jménem. Tajemství: je Matyášův muž a zjišťuje, co chystá Praha."},
   {"n": "Mnich s Draconomiconem", "r": "*", "t": "Mnich s poškozenou knihou. Tajemství: je to výtisk Draconomiconu z roku 1423 a někdo ho po něm chce."},
   {"n": "Nevěsta na útěku", "r": "*", "t": "Žena v mužských šatech. Tajemství: utíká před sňatkem, který domluvil její rod."},
-  {"n": "Pražský kat", "r": "M*", "t": "Tichý muž, s nímž nikdo nechce sedět. Tajemství: je pražský kat a zná tajemství mnoha odsouzených."}
+  {"n": "Pražský kat", "r": "M*", "t": "Tichý muž, s nímž nikdo nechce sedět. Tajemství: je pražský kat a zná tajemství mnoha odsouzených."},
+  {"n": "Rožmberský písař", "r": "*", "t": "Písař ve službách pánů z Rožmberka. Tajemství: veze opis úpisu, jímž starý pán Oldřich dluží 16 000 zlatých – úpis teď drží Jiří z Poděbrad, a starý pán na Dívčím Kameni by za opis dal hodně."},
+  {"n": "Saský běženec", "r": "*", "t": "Bohatý Sas, který se v Čechách vyhýbá svým krajanům. Tajemství: je Apel Vitzthum, štváč saské bratrské války, který kdysi utekl s poklady do Čech – a saští páni by ho rádi dostali domů."}
  ]
 ]
