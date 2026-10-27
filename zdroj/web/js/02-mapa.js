@@ -1729,6 +1729,18 @@ const CITYINFO = {
     t: "Opuštěné hradisko",
     n: "Veliký val zarostlý lužním lesem na soutoku Moravy s Dyjí u Břeclavi, kde v dávných časech stával hrad u brodu přes Moravu. Uvnitř leží trosky kamenného kostela; po staletí tu nikdo nebydlí a rozvodněné řeky val rok co rok podmílají. Lid mu říká Pohansko.",
   },
+  Bítov: {
+    t: "Hrad Bítovských z Lichtenburka",
+    n: "Starý hrad nad Dyjí na pomezí moravsko-rakouském, po němž se páni Bítovští z Lichtenburka píší. Rod ten jest svárlivý a s pány z Kunštátu žije v odvěkém nepřátelství.",
+  },
+  Siklós: {
+    t: "Hrad pánů z Gary",
+    n: "Hrad v jižních Uhrách pod vinohrady, sídlo mocných pánů z Gary. Palatin Ladislav z Gary chtěl mladému Matyášovi dáti za ženu svou dceru, ale volba se mu vymkla z rukou a nyní hledí na nového krále s nevolí.",
+  },
+  Ilok: {
+    t: "Hrad pánů z Újlaku",
+    n: "Hrad nad Dunajem v kraji sremském, sídlo Mikuláše z Újlaku, po Garaiovi nejmocnějšího velmože uherského. Oba páni sami snili o koruně a jeden druhého drží v šachu.",
+  },
 };
 const MAJOR_ROADS = new Set([
   "Zlatá stezka",
