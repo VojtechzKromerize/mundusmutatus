@@ -29,7 +29,7 @@
 - spoj | roz, ses | Jindřich IV. z Rožmberka byl do smrti (1457) fojtem Horní Lužice; úřad zůstal neobsazen.
 - spoj | jis, pod | Jiskra je Čech a jeho žoldnéři jsou s Čechami úzce svázáni.
 - spor | pod, hra | Jiří zajal Menharta z Hradce při dobytí Prahy (1448). Menhart zemřel v únoru 1449 krátce po propuštění a Jiří musel odrážet řeči o otravě.
-- spor | pod, smi | Jan Smiřický ze Smiřic byl 6. září 1453 v Praze sťat pro obvinění ze zrady.
+- spor | pod, smi | Jan Smiřický ze Smiřic byl 7. září 1453 v Praze sťat pro velezradu: Jiří ho nechal odsoudit radou, a teprve pak ukázal, že zrádný list Ladislavovi psal on sám.
 - spor | pod, roz | Oldřich II. z Rožmberka vedl katolický odpor proti Jiřímu; jeho syn Jan II. však volbu podpořil a mezi rody panuje ostražité příměří.
 - spor | pod, vra | Vratislav odmítá holdovat kališnickému králi a hledá oporu u papeže.
 - spor | pod, bra | Braniborsko drží Dolní Lužici; Koruna ji žádá zpět.
@@ -59,7 +59,7 @@
 - spoj | rmi, pod | Norimberští kupci jsou hlavními obchodními partnery Prahy a Plzně.
 - spor | umi, jis | Kremnicu a Banskou Štiavnicu drží Jiskra jako hejtman Horních Uher; okolí ovládají bratříci a vybírají výpalné.
 - tajné spoj | jag, zat | Václav Zátorský roku 1456 tajně holdoval Kazimírovi IV., ačkoli je formálně leníkem české koruny.
-- spor | jis, hun | Jiskra Matyáše přes Jiřího zprostředkování formálně uznal, ale dál drží Horní Uhry po svém a novému králi nedůvěřuje.
+- spor | jis, hun | Jiskra na Matyášovo uvítání v Budíně nepřišel, dál drží Horní Uhry po svém a novému králi nedůvěřuje; Matyáš ho činí odpovědným i za loupení bratříků.
 - spor | ses, var | Šestiměstí vede fehdy s Vartenberky a dalšími severočeskými pány a ničí jejich hrady.
 - spor | hlo | Jan II. si roku 1457 za Baltazarovy nepřítomnosti vynutil hold žaháňských stavů a Baltazar to po návratu zvrátil; bratři se přou o Žaháň.
 - spor | pla, wet | Plavenští drží od roku 1439 míšeňské purkrabství jen jako titul, úřad i statky získali Wettinové. Ti teď pokukují i po plavenském panství, které je lénem české koruny.
@@ -67,7 +67,7 @@
 - rod | pod, ste | První manželkou Jiřího byla Kunhuta ze Šternberka († 1449), matka Bočka, Viktorina, Barbory, Jindřicha staršího, Kateřiny a Zdeňky.
 - rod | hra, ste | Matkou mladých pánů Jindřicha IV. a Heřmana z Hradce je Kateřina ze Šternberka; jejich poručníkem se po Arnoštovi z Leskovce stal Zdeněk ze Šternberka.
 - rod | roz, hlo | Jan II. z Rožmberka je ženatý s Annou, dcerou Jindřicha IX. Hlohovského; roku 1456 se jim narodil syn Jindřich V.
-- rod | roz, sva | Ludmila, dcera Oldřicha II. z Rožmberka a Kateřiny z Vartenberka, se roku 1452 provdala za Bohuslava ze Švamberka a zemřela nejspíš před rokem 1458. Podle Čechury si sám Oldřich II. po smrti první ženy vzal Elišku ze Švamberka; jiné genealogie ji neuvádějí.
+- rod | roz, sva | Ludmila, dcera Oldřicha II. z Rožmberka a Kateřiny z Vartenberka, se o masopustu 1452 provdala za Bohuslava ze Švamberka, přinesla mu věnem Bor a zemřela před rokem 1458. Sám Oldřich II. si po smrti první ženy nejspíš vzal Kateřinu ze Švamberka († 1451, pohřbena v Třeboni) – roku 1442 oslovuje Hynka Krušinu ze Švamberka „tchánem“ (Šimůnek s. 56).
 - rod | sli, sva | Konstancie, dcera Matyáše Šlika, se roku 1458 stane druhou manželkou ovdovělého Bohuslava ze Švamberka.
 - rod | roz, var | Oldřich II. z Rožmberka se oženil s Kateřinou († 1436), dcerou svého poručníka Čeňka z Vartenberka, rytíře Dračího řádu; jejich syny jsou Jan II. a biskup Jošt.
 - rod | kol, ste | Hanuš II. z Kolovrat je ženatý s Kateřinou ze Šternberka.
@@ -90,7 +90,7 @@
 - rod | wit, wet | Ludvík Bohatý je od roku 1452 ženatý s Amálií, dcerou saského kurfiřta.
 - rod | wit, hab | Albrecht VI. je ženatý s Mechtildou Falckou, sestrou falckého kurfiřta Fridricha Vítězného.
 - spor | jag, hun | Kazimír IV. si přes Alžbětu činí nárok i na uherskou korunu a Matyášovu volbu nepovažuje za konečnou.
-- spoj | jis, jag | Jiskra se po Matyášově nástupu obrací do Polska a nabízí Kazimírovi pomoc.
+- spoj | jis, jag | Jiskra po Matyášově nástupu hledí k Polsku. ⟦V březnu 1458 odejde ke Kazimírovi, nabídne mu služby a dostane do úschovy Malbork (Heymann s. 204–205).¦⟧
 - spor | jis | Jan Jiskra a hejtman bratříků Petr Aksamit jsou od roku 1453 rozkmotření.
 - spoj | eiz, sbg, mai | Eicinger, Bernhard ze Schaunberku a Michal z Hardeggu zasedají od prosince 1457 ve stavovské vládě, která spravuje Rakousy.
 - spoj | pas, hab | Pasovský biskup Oldřich z Nussdorfu je kancléřem císaře Fridricha III.
@@ -103,7 +103,7 @@
 - spor | cbr, bra | Berlín-Cölln se v letech 1447–1448 vzbouřil proti kurfiřtovi a markrabě vzpouru zlomil.
 - spoj | var, pod | Jan z Vartenberka se uchází o hornolužické fojtství a hledá přízeň nového krále.
 - spor | osm, hun | Mehmed II. byl roku 1456 odražen od Bělehradu Janem Hunyadim; Osmané a Uhry stojí proti sobě na Dunaji a v Srbsku.
-- rod | roz, sbg | Jindřich IV. z Rožmberka († 1457) se roku 1453 oženil s Anežkou, dcerou Jana ze Schaunberku; bezdětná vdova žije v Krumlově.
+- rod | roz, sbg | Jindřich IV. z Rožmberka († 1457) se roku 1453 oženil s Anežkou, dcerou Jana ze Schaunberku; bezdětná vdova sedí na hradě Rožmberku, který dostala jako věnnou zástavu. Hrabě Bernhard ze Schaunberku má za ženu Anežku z Wallsee, neteř Oldřicha II.
 - spoj | rab, pap | Kancléř Prokop z Rabštejna je dávným přítelem kardinála Eneáše Silvia Piccolominiho, který mu roku 1444 věnoval list De fortuna.
 - rod | smi, kol | Kateřina Smiřická (doložena 1434–1457), nejspíš sestra popraveného Jana, je manželkou Albrechta Krakovského z Kolovrat.
 - spoj | ste, smi | Poručníkem nezletilých synů popraveného Jana Smiřického se stal Zdeněk Konopišťský ze Šternberka.
@@ -123,3 +123,25 @@
 - rod | sch, pla | Vít II. ze Šumburka je od roku 1439 ženatý s Annou z Plavna, která mu přinesla Hartenštejn.
 - spoj | sch, wet | Vít II. ze Šumburka je „man a služebník“ saského kurfiřta a Hartenštejn drží od roku 1456 jako saské léno.
 - rod | zat, hlo | Matka Václava Zátorského Anna byla dcerou Jindřicha VIII. Žaháňského.
+
+# Doplněno podle rešerše literatury (stav k 3. 3. 1458)
+- spor | pod, roz | Jiří drží od 29. 11. 1454 Oldřichův dlužní úpis na 16 000 zlatých (asi 544 000 grošů), který koupil od císaře Fridricha III., a je tak největším věřitelem Rožmberků. Při volbě mu stačilo tuto páku nejspíš jen naznačit.
+- spor | roz | Jan II. a jeho otec Oldřich II. se přou o postoj k Jiřímu; rozhodčí v lednu 1458 uložili Oldřichovi vydat Janovi jeho exemplář úpisu na 16 000 zlatých a Jan má dluh vyřešit tak, aby panství neutrpělo.
+- tajné spoj | roz, hab | Oldřich II. dál straní Habsburkům. Po volbě vzkáže přes služebníka Kozlovce Albrechtovi VI. a Zikmundovi Tyrolskému, že Janův hlas pro Jiřího „jeho vuole nebyla“ (Čornej s. 223).
+- spor | roz, hab | Rožmberkové se roku 1452 jako jediní Češi přidali k Mailberskému spolku proti císaři Fridrichovi a Jindřich IV. tehdy přivedl Rakušanům tábority; v císařově kanceláři na to nezapomněli.
+- spor | roz, mes | Král Ladislav dal Jindřichovi IV. z Rožmberka doživotní držbu Budějovic, ale měšťané rožmberské úředníky do města nevpustili a hrozili, že spíš vypálí každý dům. Rod se nároku nevzdal.
+- spor | roz, lie | Oldřich II. dosud nevyplatil Perchtino věno 60 000 grošů; Jan z Lichtenštejna proto snížil její roční důchod a spor se táhne přes prostředníky u vídeňského dvora.
+- spoj | ste, roz | Zdeněk ze Šternberka strávil část mládí v domě Oldřicha z Rožmberka. Při volbě 2. 3. 1458 to byl on, kdo Jana II. odvedl do vedlejší světnice a přiměl ho ustoupit.
+- tajné spor | ste, pod | Zdeněk se na jaře 1457 otevřeně pohádal s Jiřím o poručnictví nad syny popraveného Smiřického a v skrytu doufá, že bude jednou zvolen králem sám (Heymann s. 139, 158).
+- spoj | rab, roz | Rožmberkové roku 1457 postoupili zástavu Prachatic a Volar kancléři Prokopovi a jeho bratru Janovi z Rabštejna.
+- spoj | rab, haz | Kancléř Prokop z Rabštejna a Jan Zajíc z Hazmburka byli 2. 3. 1458 dva latiníci, na jejichž výkladu karlštejnských listin páni závisli.
+- spoj | haz, pod | Nejvyšší sudí Zbyněk Zajíc z Hazmburka šel 2. 3. 1458 v průvodu do Královského dvora hned za králem, spolu s Janem z Rožmberka.
+- rod | lip, pod | Jindřich z Lipé a Viktorin z Poděbrad mají za ženy dcery Hynce Ptáčka z Pirkštejna, Jiřího předchůdce v čele kališnické strany.
+- rod | var, ber, pod | Jan Děčínský z Vartenberka a Jindřich Berka z Dubé a Lipé seděli na volebním sněmu mezi pány spřízněnými se zvoleným králem.
+- spoj | bos, pod | Ješek Svojanovský z Boskovic byl s Jiřím v únoru 1458 ve Strážnici, když tam vydával Matyáše Uhrům.
+- spoj | sli, wet | Matyáš Šlik podporoval kandidaturu Viléma Saského a dodával mu právní posudky; s ním i někteří páni ze severu a severozápadu Čech.
+- spor | wet, pod | Saské poselstvo Heinricha Leubinga Jiří ještě 1. 3. ujišťoval o dalších jednáních a nazítří ho volbou postavil před hotovou věc; Sasové to mají za podvod. Roku 1456 dobyl Jiří na Sasech Most. ⟦V březnu 1458 Sasové zavřou sůl za Krušnými horami a 11. 3. se Vilém odvolá k papeži a císaři.¦⟧
+- spor | lie, eiz | Lichtenštejnové a Oldřich Eicinger se roku 1451 přeli o hranice panství; Eicinger pak svolal pány do Mailberku pod záminkou smírčího řízení v tomto sporu.
+- spor | leg, pod | V lehnickém sporu o dědictví vyhnalo roku 1454 lidové povstání z hradu českou posádku Jiřího bratrance Procka z Kunštátu a kněžna Hedvika se synem se vrátila bez svolení Prahy. Trest nepřišel, sňatek Fridricha s Jiřího dcerou Zdeňkou se neuskutečnil.
+- spoj | ole, hlo, leg, tes, wet | Slezská knížata před volbou stranila kandidatuře Viléma Saského (Čornej s. 208); výjimkou je Bolek Opolský, který přeje kalichu.
+- spor | pod, vra | Když roku 1454 Vratislav odmítla holdovat Ladislavovi, vyměřil jí Jiří jako správce, když tam král v prosinci přijel, žoviálně pokutu 30 000 dukátů a pak slevil na polovinu. Obec, štvaná kazateli, mu to nezapomněla.
