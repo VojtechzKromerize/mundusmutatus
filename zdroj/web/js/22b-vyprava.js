@@ -344,6 +344,8 @@ function vyKrajBodu(T, q) {
   if (T.plan) return "mesto";
   if (q.more) return "voda";
   const [lo, la] = q.xy;
+  /* drak letí i nad mořem a zálivy (2026-10-27) */
+  if (naVode(lo, la)) return "voda";
   /* kraje zpustlé válkou (2026-10-26): kde zle (míra 2), vždy „válka“; kde místy, jen v otevřené krajině */
   const zp = zpustlyKraj(lo, la);
   if (zp && zp[1] > 1) return "valka";

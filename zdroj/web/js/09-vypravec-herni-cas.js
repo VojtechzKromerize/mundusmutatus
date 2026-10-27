@@ -262,7 +262,7 @@ const cestaMisto = n => {
   return t ? {name: t[0], lo: t[1], la: t[2]} : null;
 };
 /* řeky z mapy (pořadí jako RIVERS), stálé mosty roku 1458 a známá mýtná místa */
-const RIVNAMES = ["Labe", "Vltava", "Odra", "Morava", "Nisa", "Dunaj", "Visla"];
+const RIVNAMES = ["Labe", "Vltava", "Odra", "Morava", "Nisa", "Dunaj", "Visla", "Dunaj", "Dráva", "Sáva", "Tisa", "Pád", "Adiže"];
 const CMOSTY = [
   ["Praha", 14.414, 50.086, "Vltava"],
   ["Drážďany", 13.741, 51.054, "Labe"],
