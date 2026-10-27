@@ -127,6 +127,7 @@ let st = {
   prechody: true,
   hosp: false,
   zpustle: false,
+  vern: false,
   misto: null,
   dio: false,
   duchy: false,
@@ -3579,6 +3580,7 @@ function renderDetail() {
    <dl class="kv"><dt>V čele</dt><dd>${f.head}</dd>
    ${f.seats.length ? `<dt>Državy</dt><dd>${f.seats.map(sd => `<button type="button" class="plink${st.focus === sd[0] ? " on" : ""}" data-place="${sd[0]}" title="Ukázat na mapě">${sd[0]}</button>`).join(", ")}</dd>` : ""}
    <dt>${f.nbr ? "Ke Koruně" : "K Jiřímu"}</dt><dd>${f.stance}</dd>
+   ${st.vern && f.vern ? `<dt>Věrnost</dt><dd>${vernHtml([f.vern.v, f.vern.t])}</dd>` : ""}
    ${f.pos ? `<dt>Postavení</dt><dd>${POSL(f.pos)}</dd>` : ""}
    ${PRAHA_PLACES.some(q => q.r === f.id) ? `<dt>V Praze</dt><dd>${prLinks(PRAHA_PLACES.filter(q => q.r === f.id))}</dd>` : ""}</dl>
    <p>${f.note}</p>
@@ -3605,11 +3607,17 @@ function mistoHtml(n, g) {
   return `<span class="lbl">${typ}${zeme ? " · " + zeme : ""}</span>
      <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h3 style="font-size:1.35rem">${hrad ? `<img class="townico big t-${conf}" src="${CASTLEICO}" alt="" aria-hidden="true">` : townImg(conf, "townico big")}${n}</h3>${faith(conf)}</div>
      ${CARMS[n] ? `<img class="carms" src="${CARMS[n]}" alt="Erb města ${n}">` : ""}${info.n ? `<p>${info.n}</p>` : `<p class="rsmall">O tomto místě zatím není nic zapsáno.</p>`}
-     ${n === "Praha" ? `<a class="gbtn ghost" href="#praha">Plán Prahy</a>` : ""}${
+     ${vernHtml(st.vern ? vernostMista(n, G ? [G, ...H] : H) : null)}${n === "Praha" ? `<a class="gbtn ghost" href="#praha">Plán Prahy</a>` : ""}${
        D.length || G
          ? `<dl class="kv" style="clear:both">${D.length ? `<dt>Drží</dt><dd>${D.map(x => flink(x.id)).join(", ")}</dd>` : ""}${G ? `<dt>${G.castle ? "Mezi" : "Patří k"}</dt><dd>${flink(G.id)}</dd>` : ""}</dl>`
          : ""
      }`;
+}
+/* věrnost králi v panelu místa či rodu (vr = [skupina, věta] z vernostMista / f.vern): štítek skupiny a dobová věta */
+function vernHtml(vr) {
+  if (!vr) return "";
+  const [nazev, barva] = VERNOST_SKUP[vr[0]];
+  return `<p class="vrnp"><span class="vrnst" style="border-color:${barva}">${nazev}</span> ${besc(vr[1])}</p>`;
 }
 /* krajina na mapě (2026-10-26): panel přechodu, hospodářského místa či kraje a zpustlého kraje; o = {k: pre|hb|ho|zp, i} */
 function krajMes() {
@@ -4440,6 +4448,24 @@ toggleBtn("lyBaziny", "baziny");
 toggleBtn("lyPrechody", "prechody");
 toggleBtn("lyHosp", "hosp");
 toggleBtn("lyZpustle", "zpustle");
+/* věrnost králi k 3. 3. 1458 (2026-10-27): lem u sídel a měst podle VERNOST_MIST / f.vern (02e), legenda pod mapou */
+const vernLeg = document.getElementById("vernlegend");
+/* legenda se skládá až při prvním zapnutí – VERNOST_SKUP je v 02e, který se načte po 02 */
+function vernLegenda() {
+  vernLeg.innerHTML = `<span class="lbl">Věrnost králi Jiřímu ráno po volbě (3. 3. 1458)</span><ul>${Object.values(VERNOST_SKUP)
+    .map(
+      ([n, c, d]) =>
+        `<li><svg class="vrnsw" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="6" fill="none" stroke="${c}" stroke-width="2.4" stroke-dasharray="${d}"/></svg>${n}</li>`,
+    )
+    .join(
+      "",
+    )}</ul><p class="lbl">${GMV ? "Vypravěč vidí věrnost všech rodů; hráči jen u rodů, s nimiž se družina potkala, a u měst." : "Barevný lem mají města a rody, s nimiž se družina už potkala."} Rody bez lemu se k volbě nevyjádřily nebo o nich nic nevíme.</p>`;
+}
+toggleBtn("lyVernost", "vern", () => {
+  if (st.vern && !vernLeg.innerHTML) vernLegenda();
+  vernLeg.hidden = !st.vern;
+  renderDetail();
+});
 toggleBtn("lyRoads", "roads");
 const duchLeg = document.getElementById("duchlegend");
 const duchItem = u =>

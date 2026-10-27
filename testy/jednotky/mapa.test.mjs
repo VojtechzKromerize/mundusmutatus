@@ -198,3 +198,32 @@ test("Výprava: přechody na trase Praha – Drážďany a jejich zdržení v d�
   assert.equal(r[1], r[2], "zdržení na přechodech je součtem stavů");
   S.ev(`st.ta = st.tb = null; st.route = null`);
 });
+
+test("věrnost králi: vrstva obarví lem sídel a měst, panel místa i rodu ukáže skupinu a dobovou větu (2026-10-27)", async () => {
+  await S.ev(`typeof drawMapK === "function" || mmLina("mapa")`);
+  assert.ok(V(`FAM.filter(f => f.vern).length`) >= 30, "rody s věrností");
+  assert.deepEqual(V(`FAM.filter(f => f.vern && !VERNOST_SKUP[f.vern.v]).map(f => f.id)`), []);
+  assert.deepEqual(V(`FAM.filter(f => f.vern && f.vern.t.length < 30).map(f => f.id)`), [], "každá věrnost má větu");
+  const mesta = new Set(V(`ZEMEPIS.filter(z => z[4] === "mesto").map(z => z[0])`));
+  assert.deepEqual(
+    V(`Object.keys(VERNOST_MIST)`).filter(n => !mesta.has(n)),
+    [],
+    "VERNOST_MIST jen pro města na mapě",
+  );
+  assert.equal(V(`vernostMista("Mejdštejn", FAM)[0]`), "odpurci", "starý Oldřich na Dívčím Kameni");
+  assert.equal(V(`vernostMista("Český Krumlov", FAM)[0]`), "vahaji");
+  assert.equal(V(`vernostMista("Kunštát", FAM) || vernostMista("Poděbrady", FAM)`)[0], "verni");
+  if (V(`typeof drawMapK`) === "function") {
+    S.ev(`drawMapK()`);
+    assert.equal(V(`document.querySelectorAll("#map .vrnkruh").length`), 0, "bez vrstvy žádné lemy");
+    S.ev(`document.getElementById("lyVernost").click(); drawMapK()`);
+    assert.ok(V(`document.querySelectorAll("#map .vrnkruh").length`) > 40, "lemy u sídel a měst");
+    assert.equal(V(`document.getElementById("vernlegend").hidden`), false);
+    S.ev(`showMisto("Vratislav")`);
+    assert.match(V(`document.getElementById("detail").textContent`), /Odpůrci.*kacíře/s);
+    S.ev(`show("ste")`);
+    assert.match(V(`document.getElementById("detail").textContent`), /Věrnost.*Věrní králi/s);
+    S.ev(`setSel(null, false); document.getElementById("lyVernost").click()`);
+    assert.equal(V(`st.vern`), false);
+  }
+});

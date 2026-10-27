@@ -1,5 +1,5 @@
 /* @čisté – Krajina roku 1458 na mapě zemí (2026-10-26, Vojta): přechody (průsmyky, mosty, brody, přívozy), hospodářství (doly, sůl,
-   železo; vinice, obilnice, chmelnice, rybníky) a kraje zpustlé válkami. Jen data a výpočty bez stránky: kresba je v 02b, panel
+   železo; vinice, obilnice, chmelnice, rybníky), kraje zpustlé válkami a (2026-10-27) věrnost králi (VERNOST_MIST, vernostMista). Jen data a výpočty bez stránky: kresba je v 02b, panel
    místa v 02 (krajHtml), Výprava (22b) z nich bere zdržení na přechodech podle počasí (prechodStav) a kraj „válka“ (zpustlyKraj).
    PRECHODY [jméno, druh prusmyk|most|brod|privoz, délka, šířka, sezóna "z" (zima: sníh v sedle) | "j" (jaro: velká voda) | "", pozn]
    HOSP_BODY [jméno, druh dul|sul|hut|jine, co se dobývá, délka, šířka, pozn] · HOSP_OBL [jméno, druh vinice|obili|chmel|rybniky,
@@ -681,5 +681,69 @@ function prechodStav(druh, sez, mes, P) {
       return {k: "zdrz", h: 3, t: druh === "brod" ? "jarní voda – brod je hluboký" : "jarní voda – převoz čeká na klidnější proud"};
     return null;
   }
+  return null;
+}
+/* ===== Věrnost králi k 3. 3. 1458 (vrstva mapy, 2026-10-27, Vojta) =====
+   Obarví lem u sídel rodů a měst podle postoje k zvolenému králi Jiřímu ráno po volbě – nic z pozdějška. Rody nesou věrnost
+   v poli `vernost` svého záznamu (generátor → f.vern = {v, t, m: {sídlo: [v, t]}}); hráč ji dostane jen u rodu, který družina
+   „potkala“ (jako postoj ke králi), u skrytého rodu ji nedostane vůbec. Města (veřejná místa skupin měst) mají věrnost tady
+   podle jména: VERNOST_MIST {místo: [skupina, věta]}. VERNOST_SKUP {skupina: [popisek, barva, čárkování]}. */
+const VERNOST_SKUP = {
+  verni: ["Věrní králi", "var(--vrn)", ""],
+  vahaji: ["Váhají a vyčkávají", "var(--vrw)", "3 2"],
+  odpurci: ["Odpůrci", "var(--vro)", ""],
+  cizi: ["Cizí nárok", "var(--vrc)", "1 1.6"],
+};
+const VERNOST_MIST = {
+  Praha: ["verni", "Pražská města volala pod okny radnice po panu Jiřím a stojí při něm jako jeden muž."],
+  "Kutná Hora": ["verni", "Kališnické horní město drží s králem, jemuž jeho mincovna bije groše."],
+  Tábor: ["verni", "Tábor se léta 1452 poddal panu Jiřímu a od té doby mu poslouchá, ač staré časy nezapomněl."],
+  "Hradec Králové": ["verni", "Kališnický Hradec, kdysi hlava sirotčího svazu, stojí věrně při panu Jiřím."],
+  Žatec: ["verni", "Žatec, jedno z pěti měst vyvolených, drží kalich i krále."],
+  Louny: ["verni", "Louny drží kalich a stojí při králi spolu s Žatcem."],
+  Slaný: ["verni", "Kališnický Slaný drží s pražskými městy a s králem."],
+  Litoměřice: ["verni", "Litoměřice drží kalich a krále Jiřího vítají."],
+  Kolín: ["verni", "Kolín drží kalich a s ním i krále Jiřího."],
+  Čáslav: ["verni", "Čáslav, kde kdysi sněm odepřel Zikmundovi poslušenství, drží s kališnickým králem."],
+  Nymburk: ["verni", "Nymburk drží kalich a stojí při králi, jehož rod sídlí nedaleko v Poděbradech."],
+  Chrudim: ["verni", "Věnné město královny, kališnické, drží s králem."],
+  "Vysoké Mýto": ["verni", "Věnné město královny, kališnické, drží s králem."],
+  Polička: ["verni", "Věnné město královny, kališnické, drží s králem."],
+  "Dvůr Králové": ["verni", "Věnné město královny, kališnické, drží s králem."],
+  Jaroměř: ["verni", "Věnné město královny, kališnické, drží s králem."],
+  Mělník: ["verni", "Věnné město královny, kališnické, drží s králem."],
+  Písek: ["verni", "Kališnický Písek drží s králem."],
+  Klatovy: ["verni", "Klatovy, jedno z pěti měst vyvolených, drží kalich i krále."],
+  Domažlice: ["verni", "Domažlice, kde husité rozprášili poslední křižáky, drží kalich i krále."],
+  Sušice: ["verni", "Kališnická Sušice drží s králem."],
+  Beroun: ["verni", "Kališnický Beroun drží s pražskými městy a s králem."],
+  Rakovník: ["verni", "Kališnický Rakovník drží s králem."],
+  Kouřim: ["verni", "Kališnická Kouřim drží s králem."],
+  Prachatice: ["verni", "Kališnické Prachatice na Zlaté stezce drží s králem."],
+  Plzeň: ["vahaji", "Katolická Plzeň, jež odolala všem obléháním husitským, hledí na krále pod obojí nedůvěřivě."],
+  "České Budějovice": ["vahaji", "Katolické Budějovice se mají k volbě opatrně a nikomu brány snadno neotevřou."],
+  Cheb: ["vahaji", "Cheb jest koruně zastaven, drží si svá práva a hledí nejprve k nim."],
+  Brno: ["vahaji", "Německá katolická rada brněnská krále pod obojí nemiluje a slovo dosud nedala."],
+  Olomouc: ["vahaji", "Katolická rada olomoucká hledí na kališnického krále chladně a slovo dosud nedala."],
+  Jihlava: ["vahaji", "Jihlavská rada jest německá a katolická, s rodem rakouským zadobře, a slovo dosud nedala."],
+  Znojmo: ["vahaji", "Katolické Znojmo hledí spíše k Rakousům než k Praze a slovo dosud nedalo."],
+  Most: ["cizi", "Město i s hradem drží v zástavě vévodové míšenští."],
+  Vratislav: ["odpurci", "Vratislav kacíře za krále nechce; kazatelé hřímají z kazatelen a obec straší opatrnou radu."],
+  Zhořelec: ["odpurci", "Poslové Zhořelce odjeli ze sněmu dříve, nežli se volilo, a kacíře za krále míti nechtějí."],
+  Budyšín: ["odpurci", "Poslové Budyšína odjeli ze sněmu dříve, nežli se volilo, a kacíře za krále míti nechtějí."],
+  Žitava: ["odpurci", "Jako celé Šestiměstí Horní Lužice nechce Žitava krále kališníka."],
+  Lubáň: ["odpurci", "Jako celé Šestiměstí Horní Lužice nechce Lubáň krále kališníka."],
+  Kamenec: ["odpurci", "Jako celé Šestiměstí Horní Lužice nechce Kamenec krále kališníka."],
+  Lobava: ["odpurci", "Jako celé Šestiměstí Horní Lužice nechce Lobava krále kališníka."],
+  "Lubin (Lübben)": ["cizi", "Město Dolní Lužice pod správou markraběte braniborského; koruna je žádá zpět."],
+  Guben: ["cizi", "Město Dolní Lužice pod správou markraběte braniborského; koruna je žádá zpět."],
+  Luckau: ["cizi", "Město Dolní Lužice pod správou markraběte braniborského; koruna je žádá zpět."],
+  Svídnice: ["vahaji", "Korunní město, jež spravuje pán z Rožmberka, hledí však k Vratislavi."],
+  Javor: ["vahaji", "Korunní město, jež spravuje pán z Rožmberka, hledí však k Vratislavi."],
+};
+/* věrnost místa n: město podle VERNOST_MIST, jinak podle rodů (data z FAM), které tu mají sídlo a věrnost znají → [skupina, věta] | null */
+function vernostMista(n, rody) {
+  if (VERNOST_MIST[n]) return VERNOST_MIST[n];
+  for (const f of rody || []) if (f.vern && f.seats.some(s => s[0] === n)) return (f.vern.m && f.vern.m[n]) || [f.vern.v, f.vern.t];
   return null;
 }

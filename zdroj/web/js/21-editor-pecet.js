@@ -81,6 +81,7 @@ const EDPOLE = {
   vyznani: "Vyznání",
   hlava: "Hlava rodu",
   postoj: "Postoj",
+  vernost: "Věrnost králi k 3. 3. 1458 – „verni / vahaji / odpurci / cizi | věta“ (na mapě, vrstva Věrnost králi)",
   postaveni: "Postavení rodu (na vrcholu moci / v plné síle / na vzestupu / stabilní / v nesnázích / v úpadku)",
   historie: "Historie rodu (krátký odstavec)",
   mesto: "Město (ano / ne)",
@@ -151,7 +152,20 @@ const EDPOLE = {
   nepratele: "Nepřátelé – řádek „[Jméno = ][počet ]id [+ přívlastek]“",
   statblok: "Statblock v boji (id protivníka [+ přívlastek], jen vypravěč)",
 };
-const EDDLOUHE = new Set(["hlava", "postoj", "historie", "note", "schopnost", "role", "utok", "pozehnani", "pokuseni", "komplikace", "nerest"]);
+const EDDLOUHE = new Set([
+  "hlava",
+  "postoj",
+  "vernost",
+  "historie",
+  "note",
+  "schopnost",
+  "role",
+  "utok",
+  "pozehnani",
+  "pokuseni",
+  "komplikace",
+  "nerest",
+]);
 function edRozloz(md) {
   const m = String(md)
     .replace(/\r\n/g, "\n")

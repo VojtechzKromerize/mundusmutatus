@@ -149,6 +149,28 @@
       return out;
     };
 
+    /* věrnost králi k 3. 3. 1458 (vrstva mapy Věrnost králi, 2026-10-27): „skupina | věta“, nebo seznam, v němž další řádky
+       „Sídlo = skupina | věta“ platí jen pro jedno sídlo (Mejdštejn starého Oldřicha z Rožmberka) → {v, t, m: {sídlo: [v, t]}} */
+    const VERN = ["verni", "vahaji", "odpurci", "cizi"];
+    const vernost = (val, w, seats) => {
+      const out = {m: {}},
+        radky = Array.isArray(val) ? val : [val];
+      for (const radek of radky) {
+        const eq = radek.indexOf("="),
+          bar = radek.indexOf("|"),
+          misto = eq > 0 && (bar < 0 || eq < bar) ? radek.slice(0, eq).trim() : "",
+          [v, ...t] = (misto ? radek.slice(eq + 1) : radek).split("|").map(x => x.trim());
+        if (!VERN.includes(v)) fail(`${w}: vernost má začínat jedním z ${VERN.join(" / ")} (je „${v}“)`);
+        if (misto) {
+          if (!seats.some(s => s[0] === misto)) fail(`${w}: vernost pro „${misto}“ – takové sídlo rod nemá`);
+          out.m[misto] = [v, t.join(" | ")];
+        } else if (out.v) fail(`${w}: vernost má mít jen jeden řádek bez sídla`);
+        else Object.assign(out, {v, t: t.join(" | ")});
+      }
+      if (!out.v) fail(`${w}: vernost bez výchozí skupiny`);
+      return out;
+    };
+
     /* rody */
     const fam = [],
       short = {},
@@ -181,6 +203,7 @@
       if (ANO(r.hrady)) o.castle = true;
       if (ANO(r.soused)) o.nbr = true;
       if (ANO(r.nemapovat)) o.nomap = true;
+      if (r.vernost) o.vern = vernost(r.vernost, w, seats);
       if (fam.some(f => f.id === o.id)) fail(`${w}: id „${o.id}“ už má jiný rod`);
       fam.push(o);
       seed(o.id, r, w);
@@ -673,11 +696,13 @@
     const pref = pid => ({$g: [pid, prod[pid]], $x: pid});
     const rref = rid => ({$g: rid, $x: rid});
     const F = fam.map(f => {
-      /* „Slyšeli“: jméno, základní údaje a veřejně známá historie rodu; postoj ke králi a zápis kronikáře až „Potkali“ */
+      /* „Slyšeli“: jméno, základní údaje a veřejně známá historie rodu; postoj ke králi (i věrnost na mapě) a zápis kronikáře až „Potkali“ */
       const base = {};
-      for (const k in f) if (k !== "stance" && k !== "note") base[k] = f[k];
+      for (const k in f) if (k !== "stance" && k !== "note" && k !== "vern") base[k] = f[k];
       Object.assign(base, {stance: "", note: "", sl: true});
-      return {$g: f.id, ...base, $plne: {stance: f.stance, note: f.note, sl: false}};
+      const plne = {stance: f.stance, note: f.note, sl: false};
+      if (f.vern) plne.vern = f.vern;
+      return {$g: f.id, ...base, $plne: plne};
     });
     const P = people.map(p => {
       const base = {id: p.id, n: p.n, r: p.r, role: p.role, x: "", sl: true},

@@ -5881,6 +5881,31 @@ function mapIkEl(src, conf, nbr, zr, x, y, dy, s) {
     height: (z + 2 * p).toFixed(2),
   });
 }
+/* věrnost králi (vrstva Věrnost králi, 2026-10-27): barevný prstenec pod ikonou sídla či města (vr = [skupina, věta] | null);
+   střed ikony leží o (0,5 − dy) její výšky pod bodem sídla – bez filtrů, jen kružnice */
+function vernKruh(g, vr, x, y, zr, dy, s) {
+  if (!vr) return;
+  const [, barva, carky] = VERNOST_SKUP[vr[0]],
+    z = zr * s;
+  g.appendChild(
+    el("circle", {
+      cx: x,
+      cy: (y + z * (0.5 - dy)).toFixed(2),
+      r: (z * 0.62).toFixed(2),
+      fill: "var(--paper)",
+      "fill-opacity": ".55",
+      stroke: barva,
+      "stroke-width": (2.2 * s).toFixed(2),
+      "stroke-dasharray": carky
+        ? carky
+            .split(" ")
+            .map(c => (c * 1.6 * s).toFixed(2))
+            .join(" ")
+        : "none",
+      class: "vrnkruh",
+    }),
+  );
+}
 /* podklad mapy (vrstva #mapz): vše pod sídly; drawMapK ho volá, jen když se změní výřez nebo vrstvy podkladu */
 function mapPodklad(Z, vb, s, k) {
   /* vb je tu celá nakreslená oblast i s okrajem pro posouvání (mapOkraj v 02) */
@@ -6771,6 +6796,7 @@ function drawMapK() {
         sw = (1 * s).toFixed(2);
       g.appendChild(el("circle", {cx: x, cy: y, r: (12 * s).toFixed(1), fill: "transparent"}));
       const tier = mistoTier(sd[0], f.city || TOWNSEATS.has(sd[0]));
+      if (st.vern) vernKruh(g, vernostMista(sd[0], [f]), x, y, isSel ? 19 : MTZ[tier], 0.64, s);
       if (!f.castle && (f.city || TOWNSEATS.has(sd[0]))) {
         g.appendChild(mapIkEl(TOWNICO, conf, !!f.nbr && !f.city, isSel ? 19 : MTZ[tier], x, y, 0.62, s));
       } else {
@@ -6839,6 +6865,7 @@ function drawMapK() {
       });
       g.appendChild(el("circle", {cx: x, cy: y, r: (12 * s).toFixed(1), fill: "transparent"}));
       const tier = mistoTier(n, typ === "mesto");
+      if (st.vern) vernKruh(g, vernostMista(n, []), x, y, MTZ[tier], 0.64, s);
       g.appendChild(
         mapIkEl(typ === "mesto" ? TOWNICO : CASTLEICO, ["kat", "kal", "mix"].includes(conf) ? conf : "mix", false, MTZ[tier], x, y, 0.64, s),
       );

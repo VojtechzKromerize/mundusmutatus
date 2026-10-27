@@ -53,3 +53,18 @@ test("přechody na trase: cesta z Hradce do Kladska jde Náchodským průsmykem,
   assert.ok(!r.some(x => x.n === "Semmering"));
   assert.deepEqual(V(`prechodyNaTrase([[14.4, 50.1]])`), []);
 });
+
+test("věrnost králi: města mají skupinu z povolené množiny a dobovou větu; místo bez města bere věrnost rodu (2026-10-27)", () => {
+  const skup = V(`Object.keys(VERNOST_SKUP)`);
+  assert.deepEqual(skup, ["verni", "vahaji", "odpurci", "cizi"]);
+  assert.deepEqual(V(`Object.entries(VERNOST_MIST).filter(([n, v]) => !VERNOST_SKUP[v[0]] || v[1].length < 30).map(e => e[0])`), []);
+  assert.equal(V(`vernostMista("Praha", [])[0]`), "verni");
+  assert.equal(V(`vernostMista("Vratislav", [])[0]`), "odpurci");
+  assert.equal(V(`vernostMista("Brno", [])[0]`), "vahaji", "k 3. 3. Brno ještě nic neodmítlo – jen váhá");
+  const rod = `{seats: [["Krumlov", 14, 48], ["Mejdštejn", 14, 48]], vern: {v: "vahaji", t: "věta", m: {Mejdštejn: ["odpurci", "Oldřich"]}}}`;
+  assert.deepEqual(V(`[vernostMista("Krumlov", [${rod}]), vernostMista("Mejdštejn", [${rod}])]`), [
+    ["vahaji", "věta"],
+    ["odpurci", "Oldřich"],
+  ]);
+  assert.equal(V(`vernostMista("Krumlov", [{seats: [["Krumlov", 14, 48]]}])`), null, "rod bez věrnosti (hráč ho jen „slyšel“) nic neprozradí");
+});
