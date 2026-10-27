@@ -70,6 +70,22 @@ test("traktáty: první traktát (Krátké dějiny země) je platný, viditelný
   assert.ok(!/14(59|[6-9]\d)/.test(txt), "nic po roce 1458");
 });
 
+test("traktáty: všechny soubory jsou platné a hráčský text odkrytých traktátů nemluví o době po roce 1458", async () => {
+  const fs = await import("node:fs");
+  const slozka = new URL("../../zdroj/obsah/traktaty/", import.meta.url);
+  const soubory = {"vazby.md": ""};
+  for (const f of fs.readdirSync(slozka).filter(f => f.endsWith(".md") && !f.startsWith("_"))) {
+    soubory["traktaty/" + f] = fs.readFileSync(new URL(f, slozka), "utf8");
+  }
+  const g = G.generuj(soubory, {});
+  const hrac = G.rozbal(G.proHrace(g.odh).hrac, g.seed).TRAKTATY;
+  for (const t of hrac.filter(t => !t.sl)) {
+    assert.ok(!/[⟦⟧]/.test(t.h), `${t.id}: tajemství proteklo hráči`);
+    assert.ok(!/14(59|[6-9]\d)|\b[5-9]0\. let/.test(t.h), `${t.id}: hráčský text zmiňuje dobu po roce 1458`);
+  }
+  assert.ok(hrac.length >= 1);
+});
+
 test("věrnost králi (2026-10-27): pole vernost u rodu, přepis pro jedno sídlo; hráč ji dostane až u rodu, který družina potkala", () => {
   const rod = (id, stav, vern) =>
     `---\nid: ${id}\nzeme: Čechy\nnazev: Rod ${id}\nvyznani: kat\npostoj: Postoj.\n${vern}\n${stav ? `stav: ${stav}\n` : ""}sidla:\n  - Hrad ${id} | 14 | 50\n  - Tvrz ${id} | 14.1 | 50\n---\nPoznámka.\n`;
