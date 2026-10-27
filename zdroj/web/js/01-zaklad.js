@@ -193,10 +193,10 @@ function mmLina(n) {
 /* části potřebné pro stránku (v pořadí, v jakém běží: plán Prahy kreslí i mapa světa, Výprava všechny mapy) */
 /* „hra“ (boj, karty, hra, puls…) potřebují stránky s kartou, bojem a pravidly; ostatní stránky se ukážou bez ní */
 const MMLINY_V = {
-  mapa: ["mapa"],
+  mapa: ["mista", "mapa"],
   praha: ["praha"],
   svet: ["praha", "svet"],
-  vyprava: ["hra", "mapa", "praha", "svet", "editor", "vyprava"],
+  vyprava: ["hra", "mista", "mapa", "praha", "svet", "editor", "vyprava"],
   pravidla: ["hra"],
   karty: ["hra"],
   boj: ["hra"],

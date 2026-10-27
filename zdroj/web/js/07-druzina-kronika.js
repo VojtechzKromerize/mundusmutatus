@@ -1334,6 +1334,18 @@ let GIDXH = false;
 function gIndex() {
   if (GIDXH) return;
   GIDXH = true;
+  /* shrnutí míst (CITYINFO) je v části „mista“ (02g): bez ní se hledá jen ve jménech míst, část se stáhne a rejstřík se sestaví znovu */
+  const mista = typeof CITYINFO !== "undefined";
+  if (!mista)
+    mmLina("mista").then(
+      () => {
+        if (typeof CITYINFO === "undefined") return;
+        GIDX.length = 0;
+        GIDXH = false;
+        if (!gres.hidden) gSearch();
+      },
+      () => {},
+    );
   FAM.forEach(f =>
     GIDX.push({
       k: "Rod",
@@ -1353,7 +1365,7 @@ function gIndex() {
     f.seats.forEach(sd => {
       if (seen.has(sd[0])) return;
       seen.add(sd[0]);
-      const ci = (typeof CITYINFO !== "undefined" && CITYINFO[sd[0]]) || {};
+      const ci = mista ? mistoInfo(sd[0]) : {};
       GIDX.push({k: f.city ? "Město" : f.castle ? "Hrad" : "Sídlo", n: sd[0], s: f.name, place: [f.id, sd[0]], t: norm(sd[0]), b: norm(ci.n || "")});
     });
   });

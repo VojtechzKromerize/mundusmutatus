@@ -1,6 +1,9 @@
 // Mapa Zemí Koruny české (2026-10-24): města doby na mapě, význam míst (velikost značky a od kdy se ukáže jméno).
 import {test, before, after} from "node:test";
 import assert from "node:assert/strict";
+import fs from "node:fs";
+import path from "node:path";
+import {fileURLToPath} from "node:url";
 import {stranka} from "./stranka.mjs";
 
 let S;
@@ -106,6 +109,28 @@ test("mapa: posun v nakreslené oblasti (okraj MAPM) se nepřekresluje, přiblí
   assert.equal(S.ev(`document.getElementById("mapz").firstElementChild`), z0, "vykreslení po posunu podklad nechá");
   assert.deepEqual(V(`mapKresba.d`), D, "nakreslená oblast zůstává");
   S.ev(`st.vb = null; drawMapK()`);
+});
+
+test("mapa: shrnutí míst (CITYINFO) nese samostatná část „mista“, jádro na ně sahá jen přes mistoInfo (2026-10-28)", () => {
+  const js = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..", "zdroj", "web", "js");
+  const mista = fs.readFileSync(path.join(js, "02g-mista.js"), "utf8");
+  assert.match(mista, /^\/\*@cast mista\{\*\/\nconst CITYINFO = \{/m, "CITYINFO je uvnitř části mista");
+  const holy = [];
+  for (const f of fs.readdirSync(js).filter(f => /^(0\d|26)/.test(f) && f !== "02g-mista.js")) {
+    /* části a komentáře pryč (počet řádků zůstane, ať čísla řádků sedí) */
+    const bez = x => x.replace(/[^\n]/g, "");
+    const t = fs
+      .readFileSync(path.join(js, f), "utf8")
+      .replace(/\/\*@cast \w+\{\*\/[\s\S]*?\/\*@cast\}\*\//g, bez)
+      .replace(/\/\*[\s\S]*?\*\//g, bez);
+    t.split("\n").forEach((r, i) => {
+      const kod = r.replace(/\/\/.*$/, "");
+      if (/\bCITYINFO\b/.test(kod) && !/typeof CITYINFO|return CITYINFO\[n\]/.test(kod)) holy.push(`${f}:${i + 1}`);
+    });
+  }
+  assert.deepEqual(holy, [], "jádro čte CITYINFO bez typeof – na stránce bez mapy by spadlo");
+  assert.ok(V(`mistoInfo("Praha").n`).length > 50);
+  assert.deepEqual(V(`mistoInfo("Nikde na mapě")`), {});
 });
 
 test("mapa: každé místo na mapě (město, hrad, sídlo rodu) má vlastní shrnutí, hrady jsou v zeměpisu jako hrady (2026-10-25)", () => {

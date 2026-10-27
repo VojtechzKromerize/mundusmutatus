@@ -28,6 +28,7 @@ JS = [
     ("02d-pojmy.js", "/* @čisté – Pojmy pro zobrazení česky"),
     ("02e-krajina.js", "/* @čisté – Krajina roku 1458"),
     ("02f-mapa-cela.js", "/* ===== Mapy přes celou obrazovku"),
+    ("02g-mista.js", "/* ===== Shrnutí míst mapy (CITYINFO)"),
     ("03-artikule.js", "/* ---------- Artikule: pravidla tažení"),
     ("04-praha.js", "/* ---------- Praha: plán města"),
     ("04b-praha-plan.js", "/* ===== Praha: kreslený plán"),
