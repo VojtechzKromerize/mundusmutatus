@@ -30,14 +30,14 @@
 - Basilej | 7.59, 47.56 |
 - Vídeň | 16.37, 48.21 | hlavní
 - Praha | 14.42, 50.09 | hlavní
-- Vratislav | 17.04, 51.11 |
+- Vratislav | 17.04, 51.11 | | hlavní město Slezska, nepřátelské kališnickému králi
 - Krakov | 19.94, 50.06 | hlavní
 - Gdaňsk | 18.65, 54.35 |
 - Královec | 20.51, 54.71 | hlavní
 - Riga | 24.10, 56.95 |
 - Vilno | 25.28, 54.69 | hlavní
 - Budín | 19.04, 47.50 | hlavní
-- Bělehrad | 20.46, 44.82 | | uherská pevnost
+- Bělehrad | 20.46, 44.82 | | uherská pevnost; roku 1456 tu Hunyady odrazil sultána
 - Benátky | 12.33, 45.44 | hlavní
 - Milán | 9.19, 45.46 | hlavní
 - Janov | 8.93, 44.41 | hlavní
@@ -72,8 +72,9 @@
 - Tunis | 10.18, 36.80 | hlavní
 - Tlemcen | -1.31, 34.88 |
 - Fès | -5.00, 34.03 | hlavní
+- Lvov | 24.03, 49.84 | | překladiště obchodu s Východem; Arméni, Židé a Řekové
 - Kyjev | 30.52, 50.45 |
-- Kaffa | 35.38, 45.03 | | janovská kolonie
+- Kaffa | 35.38, 45.03 | | janovská kolonie; velký trh s otroky
 - Moskva | 37.62, 55.75 | hlavní
 - Novgorod | 31.27, 58.52 | hlavní
 - Kazaň | 49.12, 55.79 |
