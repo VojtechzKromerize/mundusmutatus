@@ -175,6 +175,16 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
   a Dunaj prodloužené, nové Dráva, Sáva, Tisa, Pád, Adiže (`RIVERS`, `RIVNAMES` v 09) a 40 přítoků; 44 jezer (`JEZERA_V`, bez dnešních přehrad).
   Cesty: `VODA_CESTA` + `naVode` (02e) – trasa po souši nevede přes moře, zálivy ani velká jezera (`terrain` = ∞, `computeRoute` vrátí null, když cíl leží
   za vodou), drak nad mořem má ve Výpravě kraj „voda“. Vše generuje `podklady/koruna_geo.py` (opakovatelně s `--od 1e22cb1`). Testy `mapa`, `krajina`.
+- 10-27 **Mapa od Baltu k Jadranu – sever** (Vojta; fáze 2, stav k 3. 3. 1458): 23 záznamů `rody/800–840` (Řád v Prusích, čeští hejtmani u Malborku,
+  Varmie, Gryfité, Kamín, Meklenburští, Schauenburkové, Lauenburští, Oldenburkové, Mazovští; skupiny měst a hradů Pruska, Pomořan, vendické Hanzy,
+  Meklenburska a Holštýnska, Dánska, severního Polska a Braniborska, Podlasí) s 79 místy a shrnutím v `CITYINFO`; nové záložky sousedů `NBR_LANDS`
+  (Prusy, Pomořany, Hanza, Meklenbursko a Holštýnsko, Dánsko, Litva), Lübeck a Gdaňsk v `METRO`. 44 cest (Pruská, Viselská, Pomořská, Pobřežní,
+  Solná a Volská stezka, Cesta k Hamburku…) a **přívozy** – úsek `ROADS` se čtvrtým prvkem `"lod"` (kresba modře tečkovaně, `cestySit` bez terénu,
+  `computeRoute` vrací `lod` u úseku, Výprava ho počítá jako vodu) a průlivy `UZINY` + `presUzinu` (02e; Strelasund, Fehmarnsund, Storstrøm), přes
+  které `terrain` po souši nepustí. 8 lesů, 3 bažiny, Kašubské vrchy, 13 diecézí (Brémy, Šlesvik, Lübeck, Ratzeburg, Svěřín, Havelberg, Kamín, Kujavy,
+  Chełmno, Pomezanie, Varmie, Sambie, Płock; Poznaň a Hnězdno prodloužené), vrstvy 02e: 7 přívozů, sůl, jantar (nový druh), sklady, 3 obilnice,
+  3 zpustlé kraje války třináctileté, 14 bodů Poutí (Oliwa, Pelplin, Doberan, Arkona, Ústí Visly 1433, Grunwald…), 7 námětů v `mapa-namety.md`.
+  Výprava: lesy a bažiny severu (`vyKrajBodu` 22b). Testy `mapa` (Praha → Gdaňsk po souši přes Toruň, přívozy na Rujánu, Fehmarn a Falster), `krajina`.
 
 ## Otevřené
 - **Mapa od Baltu k Jadranu – další fáze** (sever a jih): města, hrady a rody, cesty, hory, lesy, bažiny, diecéze a vrstvy 02e v novém rozsahu; nejisté
