@@ -5,11 +5,11 @@ id: kratke-dejiny
 title: Krátké dějiny země
 stav: potkali
 ---
-*Sepsal Vojtěch z Kroměříže, bakalář vídeňský, ve službách urozeného pana Tasa z Boskovic, zvoleného biskupa olomouckého, v Praze léta Páně 1458, v dnech po volbě nového krále.*
+*Sepsal Vojtěch z Kroměříže, bakalář vídeňský, rytíř ve službách urozených pánů Tovačovských z Cimburka, v Praze léta Páně 1458, v dnech po volbě nového krále.*
 
 ## Předmluva
 
-Kdo přichází do Prahy z ciziny nebo z dalekého kraje, slyší v krčmách jména, jimž nerozumí: kalich a Tábor, Lipany a kompaktáta, Pohrobek a správce. Sepsal jsem proto krátce, co se v této zemi od počátku dálo, aby čtenář věděl, proč se tu lidé přou, koho ctí a čeho se bojí. Jsem syn církve římské, ale píši tak, aby mi i kališník dal za pravdu. Co jsem vzal z pověstí, za pověst také vydávám.
+Kdo přichází do Prahy z ciziny nebo z dalekého kraje, slyší v krčmách jména, jimž nerozumí: kalich a Tábor, Lipany a kompaktáta, Pohrobek a správce. Sepsal jsem proto krátce, co se v této zemi od počátku dálo, aby čtenář věděl, proč se tu lidé přou, koho ctí a čeho se bojí. Přijímám tělo i krev Páně pod obojí způsobou, ale píši tak, aby mi i syn církve římské dal za pravdu. Co jsem vzal z pověstí, za pověst také vydávám.
 
 ## O počátcích
 

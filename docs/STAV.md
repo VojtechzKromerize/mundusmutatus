@@ -187,6 +187,7 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
   3 zpustlé kraje války třináctileté, 14 bodů Poutí (Oliwa, Pelplin, Doberan, Arkona, Ústí Visly 1433, Grunwald…), 7 námětů v `mapa-namety.md`.
   Výprava: lesy a bažiny severu (`vyKrajBodu` 22b). Testy `mapa` (Praha → Gdaňsk po souši přes Toruň, přívozy na Rujánu, Fehmarn a Falster), `krajina`.
 - 10-27 **Mapa od Baltu k Jadranu – jih** (Vojta; fáze 3, stav k 3. 3. 1458): 15 záznamů `rody/850–878-j*.md` (Benátky a pevnina, Furlánsko, patriarcha akvilejský,
+- 10-27 **Kronikář a Tas** (Vojta): kronikář Vojtěch z Kroměříže je kališník, rytíř ve službách pánů Tovačovských z Cimburka (podtitul a hlas traktátů 010 a 050, Praha 14); zvolený biskup Tas sídlí ve Vyškově (Kroměříž je v zástavě) – osoba `tas`, rod `bis`, CITYINFO Vyškov.
   Istrie a Kvarner, města severní Itálie, Tyrolsko, biskupové brixenský a tridentský, církevní města Korutan, města a hrady Vnitřních Rakous, Gorice, Frankopani,
   Slavonie, hrady a města jižních Uher; 102 míst s `CITYINFO`, Benátky metropolí, 17 hlavních), záložky `NBR_LANDS` Vnitřní Rakousy, Tyrolsko, Benátky, Itálie,
   Chorvatsko a Slavonie; 31 cest (`ROADS`) a 53 bodů `TOWNS`; přívozy `"lod"` jako na severu (jeden mechanismus; plán cesty v 09 počítá lodní úsek jako plavbu)

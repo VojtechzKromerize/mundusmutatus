@@ -2974,7 +2974,10 @@ const CITYINFO = {
     t: "Biskupské město",
     n: "Město na Hané se sídlem biskupů olomouckých, nejvyšší vrchnosti duchovní na Moravě; biskupem jest od léta Páně 1457 Protas, řečený Tas, z Boskovic, posud nevysvěcený. Měšťané však drží s kalichem: léta 1452 zajali zdejší kališníci čtyřicet poutníků, kteří šli na kázání Kapistránovo. Biskupské zboží v okolí jest od bouří husitských z větší části zastaveno.",
   },
-  Vyškov: {t: "Biskupské město", n: "Město s hradem biskupů olomouckých na cestě z Brna na Hanou."},
+  Vyškov: {
+    t: "Biskupské město",
+    n: "Město s hradem biskupů olomouckých na cestě z Brna na Hanou. Sídlí zde zvolený biskup Tas z Boskovic, neboť Kroměříž jest v zástavě.",
+  },
   Hukvaldy: {
     t: "Biskupský hrad v cizích rukou",
     n: "Hrad biskupů olomouckých v podhůří Beskyd, v bouřích husitských ztracený. Drží jej Jan Talafús z Ostrova, zeť žoldnéřského hejtmana Jana Čapka ze Sán.",
