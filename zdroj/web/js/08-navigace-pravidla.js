@@ -165,7 +165,7 @@ function resersGM(r) {
           .join(", ")
       : "";
   return `<details class="gmres"><summary>Po březnu 1458 <span>jen pro vypravěče</span></summary>
-    ${r.po ? `<p>${besc(r.po)}</p>` : `<p class="gmresnic">O dalších osudech rešerše nic nezjistila.</p>`}
+    ${r.po ? `<p>${besc(r.po)}</p>` : `<p class="gmresnic">O dalších osudech není nic známo.</p>`}
     ${um ? `<p class="gmresum">Úmrtí: ${um}</p>` : ""}
     <dl class="gmresmeta">${r.jis ? `<dt>Jistota</dt><dd>${besc(r.jis)}</dd>` : ""}${r.zak ? `<dt>Základ odhadu</dt><dd>${besc(r.zak)}</dd>` : ""}${r.roz ? `<dt>Rozpor s webem</dt><dd>${besc(r.roz)}</dd>` : ""}${zdr ? `<dt>Zdroje</dt><dd>${zdr}</dd>` : ""}</dl></details>`;
 }
