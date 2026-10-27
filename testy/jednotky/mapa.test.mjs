@@ -355,3 +355,28 @@ test("sever mapy: města a hrady od Holštýnska po Prusy, cesty k Baltu a pří
   assert.equal(dan, true, "ze Sjællandu na Falster přívozem");
   assert.equal(V(`computeRoute(placeBy("Štětín"), placeBy("Hammershus"))`), null);
 });
+
+test("mapa jihu: trasa Praha – Terst po souši, do Benátek přes lagunu lodí, z Benátek do Piranu po moři (2026-10-27)", async () => {
+  const r = V(`(() => {
+    const pl = n => PLACES.find(p => p.name === n), o = {};
+    for (const [a, b] of [["Praha", "Terst"], ["Praha", "Benátky"], ["Benátky", "Piran"], ["Vídeň", "Záhřeb"], ["Mnichov", "Verona"]]) {
+      const R = computeRoute(pl(a), pl(b));
+      if (!R) { o[b] = null; continue; }
+      let voda = 0;
+      for (const l of R.legs) if (!l.lod) for (let f = 0; f <= 1; f += 0.05) if (naVode(l.p0[0] + (l.p1[0] - l.p0[0]) * f, l.p0[1] + (l.p1[1] - l.p0[1]) * f)) voda++;
+      o[b] = {km: R.km, voda, lod: R.legs.filter(l => l.lod).length, jmena: R.names};
+    }
+    return o;
+  })()`);
+  for (const k of ["Terst", "Benátky", "Piran", "Záhřeb", "Verona"]) {
+    assert.ok(r[k], "trasa do " + k);
+    assert.equal(r[k].voda, 0, "po souši nevede vodou: " + k);
+  }
+  assert.equal(r.Terst.lod, 0, "do Terstu se jde po souši");
+  assert.ok(r.Terst.km > 600 && r.Terst.km < 1000, "Praha – Terst asi 70 mil: " + r.Terst.km);
+  assert.ok(r.Benátky.lod > 0 && r.Benátky.jmena.includes("Mestre"), "do Benátek z Mestre lodí");
+  assert.ok(r.Piran.lod > 0, "z Benátek do Piranu lodí");
+  assert.ok(r.Verona.jmena.includes("Brenner"), "z Mnichova do Verony přes Brenner");
+  /* lodní spoj se kreslí jako tečkovaná čára barvy vody */
+  assert.ok(V(`ROADS.filter(c => c[3]).length`) >= 2);
+});

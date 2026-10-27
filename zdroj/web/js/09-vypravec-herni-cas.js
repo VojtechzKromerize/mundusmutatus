@@ -347,7 +347,7 @@ function cestaPlan(o) {
     if (A.name === B.name) return {chyba: "Družina už na místě je."};
     const R = computeRoute(A, B);
     if (!R) return {chyba: "Cestu se nepodařilo spočítat."};
-    legs = R.legs.map(l => ({p0: l.p0, p1: l.p1, km: l.km, eff: l.eff, sea: false}));
+    legs = R.legs.map(l => ({p0: l.p0, p1: l.p1, km: l.km, eff: l.eff, sea: !!l.lod}));
     km = R.km;
   } else {
     const bod = q => (q ? {name: q.name, ll: q.ll || [q.lo, q.la], key: q.key || ""} : null),
