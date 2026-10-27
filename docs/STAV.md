@@ -186,10 +186,18 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
   Chełmno, Pomezanie, Varmie, Sambie, Płock; Poznaň a Hnězdno prodloužené), vrstvy 02e: 7 přívozů, sůl, jantar (nový druh), sklady, 3 obilnice,
   3 zpustlé kraje války třináctileté, 14 bodů Poutí (Oliwa, Pelplin, Doberan, Arkona, Ústí Visly 1433, Grunwald…), 7 námětů v `mapa-namety.md`.
   Výprava: lesy a bažiny severu (`vyKrajBodu` 22b). Testy `mapa` (Praha → Gdaňsk po souši přes Toruň, přívozy na Rujánu, Fehmarn a Falster), `krajina`.
+- 10-27 **Mapa od Baltu k Jadranu – jih** (Vojta; fáze 3, stav k 3. 3. 1458): 15 záznamů `rody/850–878-j*.md` (Benátky a pevnina, Furlánsko, patriarcha akvilejský,
+  Istrie a Kvarner, města severní Itálie, Tyrolsko, biskupové brixenský a tridentský, církevní města Korutan, města a hrady Vnitřních Rakous, Gorice, Frankopani,
+  Slavonie, hrady a města jižních Uher; 102 míst s `CITYINFO`, Benátky metropolí, 17 hlavních), záložky `NBR_LANDS` Vnitřní Rakousy, Tyrolsko, Benátky, Itálie,
+  Chorvatsko a Slavonie; 31 cest (`ROADS`) a 53 bodů `TOWNS`; přívozy `"lod"` jako na severu (jeden mechanismus; plán cesty v 09 počítá lodní úsek jako plavbu)
+  – Mestre–Benátky, Benátky–Piran. Krajina: 26 pohoří, 11 lesů (`LES_DRUH`), 8 bažin,
+  7 vrchovin, 16 popisků; Výprava určuje kraj v celém `MAPWB` (`vyKrajBodu`), výšku podle hor v `vyMisto` také (výchozí výška a nížiny jen ve starém obdélníku).
+  21 diecézí (Akvileja, Terst, Záhřeb, Kaloča, Brixen, Trident, benátská pevnina…; Lublaň až 1461 – není), jižní díl `dsa` k Drávě. 02e: 22 přechodů, 11 míst
+  a 8 oblastí hospodářství, 3 zpustlé kraje, věrnost 6 měst, 25 poutí a klášterů, 7 námětů. Testy `mapa` (trasa Praha–Terst po souši, do Benátek lodí), `krajina`.
 
 ## Otevřené
-- **Mapa od Baltu k Jadranu – další fáze** (sever a jih): města, hrady a rody, cesty, hory, lesy, bažiny, diecéze a vrstvy 02e v novém rozsahu; nejisté
-  hranice k 1458 (Pomořany mezi sebou, Lębork a Bytów, fronta v Prusích, Celjsko, Gorice a Kras, Mačva, Švábsko a Hesensko jen barvou) – předávka mimo repozitář.
+- **Mapa jih – k ověření (Vojta)**: kdo k 3. 3. 1458 drží Čakovec a Varaždínský hrad (celjské dědictví – Vitovec?), Golubac vynechán (srbský/turecký?), Kusánský
+  na Buchensteinu od léta 1457, první turecké nájezdy do Kraňska (1408 nejisté, velké až 60. léta / 1469 – jen ⟦⟧), Svatá Hora u Gorice vznikla až 1539 (není).
 - **Automatika podle karet družiny** (Vojta 10-24): přehled „Automatika podle karet“ v Hra › Družina je hotový (10-27) – podle něj doplňovat, co skutečné karty potřebují (návrh: formulář jednoduchých bonusů pro vypravěče). Dnes: ~207 kouzel se zraněním/léčením, 105 posílení, 78 stavů ze záchrany; 18 featů podle jména + 58 shrnutí; předměty jen z katalogu vybavení.
 - **Plné texty kouzel a předmětů v databázi**: vývojová i ostrá je musí nahrát vypravěč (Pravidla › Kouzla a Pravidla › Předměty › Nahrát, soubory kouzla.json a predmety.json z převodníku) – ze sandboxu se do databáze nedostanou. Nasazeno 10-24 (schéma v ostré), ostrá tabulka `pravidla_texty` je zatím prázdná – kouzla a předměty nahraje Vojta na ostrém webu, featy chybí (viz Featy). „Slot“ v automatice a rozhraní karty zůstal (texty pravidel mají „pozice kouzla“).
 - **Featy**: české názvy 24 featů se liší od shrnutí v `featy.json` – rozhoduje Vojta; plné znění nahrává vypravěč souborem featy.json (`featy_plne.py` z MD v projektu – převádí i pojmy a stavy) na stránce Pravidla › Kouzla › Nahrát plné znění; v ostré databázi zatím není; okno featu na kartě zatím ukazuje jen shrnutí.
