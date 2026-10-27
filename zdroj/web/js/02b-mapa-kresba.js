@@ -11766,38 +11766,6 @@ function mapPodklad(Z, vb, s, k) {
       ),
     );
   }
-  /* cartouche: a scroll */
-  {
-    const [x, y] = P(10.98, 47.85),
-      w = 140,
-      h = 46;
-    const g = G({filter: "url(#wob)"});
-    g.appendChild(
-      el("path", {
-        d: `M${x + 8},${y}H${x + w - 8}q8,0 8,8v${h - 16}q0,8 -8,8H${x + 8}q-8,0 -8,-8v${-(h - 16)}q0,-8 8,-8Z`,
-        fill: "var(--paper)",
-        stroke: "var(--ink)",
-        "stroke-width": "1.3",
-      }),
-    );
-    g.appendChild(
-      el("path", {
-        d: `M${x + 6},${y + 5}V${y + h - 5}M${x + w - 6},${y + 5}V${y + h - 5}`,
-        stroke: "var(--ink)",
-        "stroke-width": ".6",
-        opacity: ".6",
-      }),
-    );
-    g.appendChild(el("rect", {x: x + 10, y: y + 5, width: w - 20, height: h - 10, fill: "none", stroke: "var(--kal)", "stroke-width": ".8"}));
-    Z.appendChild(el("text", {x: x + w / 2, y: y + 23, class: "cart", "font-size": "18", "text-anchor": "middle"}, "Koruna česká"));
-    Z.appendChild(
-      el(
-        "text",
-        {x: x + w / 2, y: y + 37, class: "rivlbl", "font-size": "10.5", "text-anchor": "middle", style: "fill:var(--ink)", stroke: "none"},
-        "léta Páně 1458",
-      ),
-    );
-  }
   /* okraj světa mapy (2026-10-27): za ním už nejsou data; vidět je jen na široké obrazovce v pohledu „Od Baltu k Jadranu“ */
   {
     const [x, y, w, h] = MAPWB;
@@ -11809,6 +11777,49 @@ function mapPodklad(Z, vb, s, k) {
       }),
     );
     Z.appendChild(el("rect", {x, y, width: w, height: h, fill: "none", stroke: "var(--ink)", "stroke-width": (1.2 * s).toFixed(2), opacity: ".6"}));
+  }
+  /* cartouche: a scroll – na dřívějším místě u jihozápadního rohu dřívější mapy; ve výřezu Od Baltu k Jadranu (2026-10-27) v rohu listu
+     vlevo dole na okraji za světem mapy (široká obrazovka), na telefonu ve volném Baltském moři mezi Pomořany a Švédskem */
+  {
+    let [x, y] = P(10.98, 47.85),
+      m = 1;
+    if (st.zoom === "vse")
+      if (mapWide() && vb[0] < MAPWB[0] - 190 * k) {
+        m = k;
+        x = MAPWB[0] - 160 * k;
+        y = MAPWB[1] + MAPWB[3] - 66 * k;
+      } else [x, y] = P(16.87, 55.3);
+    const w = 140 * m,
+      h = 46 * m,
+      e = v => v * m;
+    const g = G({filter: "url(#wob)"});
+    g.appendChild(
+      el("path", {
+        d: `M${x + e(8)},${y}H${x + w - e(8)}q${e(8)},0 ${e(8)},${e(8)}v${h - e(16)}q0,${e(8)} ${-e(8)},${e(8)}H${x + e(8)}q${-e(8)},0 ${-e(8)},${-e(8)}v${-(h - e(16))}q0,${-e(8)} ${e(8)},${-e(8)}Z`,
+        fill: "var(--paper)",
+        stroke: "var(--ink)",
+        "stroke-width": e(1.3),
+      }),
+    );
+    g.appendChild(
+      el("path", {
+        d: `M${x + e(6)},${y + e(5)}V${y + h - e(5)}M${x + w - e(6)},${y + e(5)}V${y + h - e(5)}`,
+        stroke: "var(--ink)",
+        "stroke-width": e(0.6),
+        opacity: ".6",
+      }),
+    );
+    g.appendChild(
+      el("rect", {x: x + e(10), y: y + e(5), width: w - e(20), height: h - e(10), fill: "none", stroke: "var(--kal)", "stroke-width": e(0.8)}),
+    );
+    Z.appendChild(el("text", {x: x + w / 2, y: y + e(23), class: "cart", "font-size": e(18), "text-anchor": "middle"}, "Koruna česká"));
+    Z.appendChild(
+      el(
+        "text",
+        {x: x + w / 2, y: y + e(37), class: "rivlbl", "font-size": e(10.5), "text-anchor": "middle", style: "fill:var(--ink)", stroke: "none"},
+        "léta Páně 1458",
+      ),
+    );
   }
   /* paper grain, age stains and vignette */
   Z.appendChild(el("rect", {x: R.x, y: R.y, width: R.width, height: R.height, filter: "url(#stain)", opacity: ".22", "pointer-events": "none"}));
@@ -11877,7 +11888,20 @@ function drawMapK() {
   /* podklad – krajina, hranice, řeky, lesy, hory, popisky krajiny, papír a rám – je ve vlastní vrstvě #mapz pod mapou: jeho
      filtry (chvění inkoustu, akvarel, papír) jsou na kresbě nejdražší, a tak se kreslí znovu, jen když se změní výřez nebo vrstva,
      která ho mění; výběr rodu, sídla, jejich popisky, vazby a měření kreslí jen horní vrstva #map */
-  const kz = JSON.stringify([D, s, st.dio, st.dom, st.dom ? st.sel : 0, st.duchy, st.kraje, st.roads, st.baziny, st.hosp, st.zpustle]);
+  const kz = JSON.stringify([
+    D,
+    s,
+    st.dio,
+    st.dom,
+    st.dom ? st.sel : 0,
+    st.duchy,
+    st.kraje,
+    st.roads,
+    st.baziny,
+    st.hosp,
+    st.zpustle,
+    st.zoom === "vse",
+  ]);
   if (svgZ.dataset.k !== kz) {
     mapPodklad(svgZ, D, s, k);
     svgZ.dataset.k = kz;
