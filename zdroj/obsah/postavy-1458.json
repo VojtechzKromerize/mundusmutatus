@@ -29,17 +29,18 @@
   "narozeniRok": 1430,
   "narozeniOdhad": true,
   "zakladOdhadu": "Uvádí se „kolem 1430“, resp. „před rokem 1432“; sňatek 1450 a první porod 1452.",
-  "shrnuti": "Pochází z rodu Lvů z Rožmitálu; jejím otcem byl Jan z Blatné, katolík, bratry Jaroslav Lev a Protiva, sestrou Hedvika. Roku 1450 (snad až 1451) se provdala za ovdovělého Jiřího z Poděbrad, sňatek patrně zprostředkoval její bratr Jaroslav Lev; šlo o smíšené manželství kališníka s dcerou katolického rodu. Stala se macechou Jiřího dětí z prvního manželství a porodila mu syny Jindřicha mladšího (Hynka, 1452), Bedřicha a Jiřího a dceru Ludmilu (1456). Po smrti krále Ladislava ji fáma obvinila, že mu podala otrávené jablko. ⟦Vlastní vyznání Johany je sporné, rod však byl katolický.¦Její rod je katolický.⟧",
+  "shrnuti": "Pochází z rodu Lvů z Rožmitálu; jejím otcem byl Jan z Blatné, katolík, bratry Jaroslav Lev a Protiva, sestrou Hedvika. Roku 1450 (snad až 1451) se provdala za ovdovělého Jiřího z Poděbrad, sňatek patrně zprostředkoval její bratr Jaroslav Lev; šlo o smíšené manželství kališníka s dcerou katolického rodu. Stala se macechou Jiřího dětí z prvního manželství a porodila mu syny Jindřicha mladšího (Hynka, 1452), Bedřicha a Jiřího a dceru Ludmilu (1456). Před volbou prý spolu s bratrem Jaroslavem Lvem vyjednávala s katolickými pány. Po smrti krále Ladislava ji fáma obvinila, že mu – převlečená za uherskou šlechtičnu – podala jablko potřené jedem z jedné poloviny. ⟦Vlastní vyznání Johany je sporné, rod však byl katolický.¦Její rod je katolický.⟧",
   "jistota": "vysoká",
   "rozporSWebem": null,
   "zdroje": [
    "https://en.wikipedia.org/wiki/Joanna_of_Ro%C5%BEmit%C3%A1l",
    "https://dspace.cuni.cz/bitstream/handle/20.500.11956/81106/DPTX_2014_1_11260_0_419901_0_160380.pdf?sequence=1",
    "https://en.wikipedia.org/wiki/Jaroslav_Lev_of_Ro%C5%BEmit%C3%A1l",
-   "https://en.wikipedia.org/wiki/Henry_the_Younger_of_Pod%C4%9Bbrady"
+   "https://en.wikipedia.org/wiki/Henry_the_Younger_of_Pod%C4%9Bbrady",
+   "M. Vojtovičová, Královna Johana z Rožmitálu a její role v mocenských strukturách poděbradské doby, bakalářská práce, FF OU Ostrava 2025"
   ],
   "gm": {
-   "poBreznu1458": "Večer 6. 5. 1458 skládala spolu s Jiřím tajnou korunovační přísahu, 8. 5. 1458 byla korunována českou královnou; brzy přišla o malé syny Bedřicha a Jiřího. Jako jediná z kališnické elity trvale naléhala na pronásledování Jednoty bratrské a přes bratra Lva udržovala styky s katolickou stranou; za pomoc císaři roku 1462 dostala novou zlatou korunu a začátkem roku 1467 se osobně pokusila smířit krále se Šternberkem. Po roce 1468 se o ni Jiří opíral stále víc; v srpnu 1470 jako regentka sama povolala zemskou hotovost a vedla ji proti Matyášovu nájezdu ke Kolínu a Kutné Hoře. Po Jiřího smrti podpořila nástup Vladislava Jagellonského a po sněmu v Benešově (1473) se stáhla na své věnné město Mělník, kde 12. 11. 1475 zemřela.",
+   "poBreznu1458": "Večer 6. 5. 1458 skládala spolu s Jiřím tajnou korunovační přísahu, 8. 5. 1458 byla korunována českou královnou (pomazání na čele, prsou a lopatkách, přítomny svatojiřské abatyše; žezlo jí podal Jan z Rožmberka, jablko Jindřich Kruhlata z Michalovic) a ještě roku 1458 získala od Vřesovců Teplice; brzy přišla o malé syny Bedřicha a Jiřího. Jako jediná z kališnické elity trvale naléhala na pronásledování Jednoty bratrské a přes bratra Lva udržovala styky s katolickou stranou; za pomoc císaři roku 1462 dostala novou zlatou korunu a začátkem roku 1467 se osobně pokusila smířit krále se Šternberkem. Po roce 1468 se o ni Jiří opíral stále víc; v srpnu 1470 jako regentka sama povolala zemskou hotovost a vedla ji proti Matyášovu nájezdu ke Kolínu a Kutné Hoře. Po Jiřího smrti podpořila nástup Vladislava Jagellonského a po sněmu v Benešově (1473) se stáhla na své věnné město Mělník, kde 12. 11. 1475 zemřela.",
    "umrti": "1475-11-12"
   }
  },
@@ -351,7 +352,7 @@
   "narozeni": null,
   "narozeniRok": 1395,
   "narozeniOdhad": true,
-  "zakladOdhadu": "Doložen v letech 1416–1465. Jako husitský hejtman dobyl Stříbro (1426/1427), musel se tedy narodit kolem roku 1400 nebo dříve. Odhad 1395.",
+  "zakladOdhadu": "Doložen v letech 1416–1465. Jako husitský hejtman dobyl v září 1426 Stříbro, musel se tedy narodit kolem roku 1400 nebo dříve. Odhad 1395.",
   "shrnuti": "Přibík Klenovský z Klenové pochází z jižního Plzeňska, odkud vzešla řada husitských hejtmanů. Za válek husitských byl hejtmanem a podle vyprávění si podmanil město Stříbro tak velikým mečem, že dosáhl od brány k bráně; lidé ho nazývají „neodolatelným bohatýrem“ i „Jidášem táborů“. Po válkách se stal váženým pánem a od obnovy zemského soudu (1454) v něm sedí za nižší šlechtu. Na volebním sněmu 1458 patřil k bývalým husitským hejtmanům v Jiřího táboře.",
   "jistota": "střední",
   "rozporSWebem": "U roků 1416–1465 není jasné, zda jde o roky života, nebo doložené činnosti – web je bere jako doložené působení.",
@@ -935,12 +936,13 @@
   "narozeniRok": 1420,
   "narozeniOdhad": true,
   "zakladOdhadu": "Odhad: jako mladík bojoval s otcem (Hanuš I., asi 1390–1450) proti husitům, otcovy statky převzal 1450.",
-  "shrnuti": "Syn Hanuše I. z Kolovrat, katolického předáka a hejtmana Plzeňského kraje, po jehož boku jako mladík bojoval proti husitům. V září 1448 byl hejtmanem Prahy a při Jiřího přepadení města utekl. Po otcově smrti roku 1450 zdědil rodové statky a usadil se na Žebráku, který však asi o rok později musel postoupit Jiřímu z Poděbrad; za to získal doživotní práva k zástavám a sídlo na Zbirohu. Manželkou je Kateřina ze Šternberka.",
+  "shrnuti": "Syn Hanuše I. z Kolovrat, katolického předáka a hejtmana Plzeňského kraje, po jehož boku jako mladík bojoval proti husitům. V září 1448 byl hejtmanem Prahy a při Jiřího přepadení města utekl. Po otcově smrti roku 1450 zdědil rodové statky a usadil se na Žebráku, který však asi o rok později musel postoupit Jiřímu z Poděbrad; za to získal doživotní práva k zástavám a sídlo na Zbirohu. Manželkou je Kateřina ze Šternberka. Otec Hanuš I. proslul i tím, že v letech 1426–1427 věznil na Krašově norimberského kupce Hanse Imhoffa pro podezření z obchodu s husity a nepropustil ho přes přímluvy Norimberka, Plzně i Zikmunda.",
   "jistota": "střední",
   "rozporSWebem": "Sídlo Libštejn se nepodařilo doložit: Libštejn otec vydal roku 1430 husitům a podle rodové historie Kolowratů Hanuš II. po vydání Žebráku sídlil na Zbirohu. Pozn.: Zbiroh prodal švagrům Jaroslavovi a Zdeslavovi ze Šternberka, jeho žena Kateřina tedy byla nejspíš dcerou Zdeňka Konopišťského (nezaměňovat s vdovou po Janu z Hradce).",
   "zdroje": [
    "https://kolowrat.cz/en/hanus-ii-lord-of-kolowrat",
-   "https://www.kolowrat.cz/en/hanus-i-of-kolowrat"
+   "https://www.kolowrat.cz/en/hanus-i-of-kolowrat",
+   "M. Urban, Obchod mezi zeměmi Koruny české a Norimberkem v období husitské revoluce, diplomová práce, FP TU Liberec 2025"
   ],
   "gm": {
    "poBreznu1458": "Odmítal Jiřího pro jeho setrvání v kalichu. Po smrti manželky (1465) se zřekl světského života, s papežským dispenzem se stal knězem a roku 1467 kanovníkem pražským a vyšehradským, v prosinci 1468 jedním ze dvou administrátorů pražské arcidiecéze; stál se Zelenohorskou jednotou na straně Matyáše Korvína a musel z Prahy uprchnout. Pro válečné dluhy prodal roku 1477 Zbiroh švagrům Jaroslavovi a Zdeslavovi ze Šternberka; zemřel 23. září 1483, pohřben ve svatovítské katedrále.",
@@ -3721,6 +3723,26 @@
   "gm": {
    "poBreznu1458": "Roku 1458 táhl s Jiřím na vzpurnou Jihlavu a pak do Rakous proti Albrechtovi VI.; v dubnu 1459 měl význačné místo v průvodu do Chebu. Jiřímu zůstal věrný celý život: roku 1470 jel jako posel k Matyášovi do Brna, po roce 1471 sloužil královně Johaně, jejím synům a pak Vladislavovi (zástavy Poličky, Roudnice, nakrátko Domažlic a hradu Kalich), roku 1483 seděl v osmnáctičlenné pražské radě. Ve 1470. letech dal Svojanov přestavět (štítová zeď, vnější hradba se sedmi baštami). Roku 1474 se soudil s Eliškou z Postupic o dědictví pro jejího syna, jehož byl patrně otcem; roku 1484 zrušil na svojanovském panství odúmrť. Zemřel roku 1488; synové Jan a Jindřich byli ještě nezletilí.",
    "umrti": "1488"
+  }
+ },
+ "hermanzvi": {
+  "jmeno": "Heřman ze Zvířetic",
+  "fiktivni": false,
+  "vek": 33,
+  "vekText": "odhadem 33 roky",
+  "narozeni": null,
+  "narozeniRok": 1425,
+  "narozeniOdhad": true,
+  "zakladOdhadu": "Rok narození nedoložen; v pramenech se objevuje v letech 1448–1478. Odhad kolem 1425.",
+  "shrnuti": "Pán ze Zvířetic v Pojizeří z mladší větve pánů z Lemberka, která je spřízněná s Vartenberky. Jeho državy leží kolem rodového hradu Zvířetice nad Jizerou.",
+  "jistota": "nízká",
+  "rozporSWebem": "Starší rodokmen pánů ze Zvířetic je nespolehlivý (obsahuje neexistující osoby).",
+  "zdroje": [
+   "D. Müller, Spory Kryštofa Smíška z Vrchovišť s Heřmanem Zvířetickým z Vartenberka, diplomová práce, FF UHK Hradec Králové 2026"
+  ],
+  "gm": {
+   "poBreznu1458": "Rod se pro spojení s veselskou větví Vartenberků začne psát „z Vartenberka“ (příjmení Zvířetičtí z Vartenberka až po roce 1500). Druhou část državy tvoří statky kolem Nového Bydžova; kdy je rod získal, se neví. Roku 1470 jel „Heřman z Vartenberka“, patrně on, s Ješkem Svojanovským z Boskovic a dalšími jako posel k Matyášovi do Brna; roku 1472 byl spolu s Oldřichem Zajícem krajským popravcem v Boleslavsku. Synové Jan (Zvířetice, † před 1501), Petr (Bydžov, † 1505) a Hašek (později na Smidarech). Naposledy doložen 1478.",
+   "umrti": "po 1478"
   }
  }
 }
