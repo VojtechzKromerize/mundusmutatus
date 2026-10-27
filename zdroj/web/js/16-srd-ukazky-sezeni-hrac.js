@@ -862,6 +862,11 @@ document.addEventListener("click", async e => {
     mmPop(d ? kzKarta(d, false) : `<h3>${besc(x.n)}</h3>${kSpPopis(x)}`);
     return;
   }
+  const sz = T("[data-kinvsvet]");
+  if (sz) {
+    await kSvetloZapal(K, +sz.dataset.kinvsvet);
+    return;
+  }
   const pj = T("[data-kinvpij]");
   if (pj) {
     const S = kartaStav(K.id),
@@ -1205,6 +1210,20 @@ function vyzvyUklid() {
     v.zavrena = true;
     MMDB.vyzvaZavri(v.id).catch(() => VYZUKL.delete(v.id));
   });
+}
+/* dlouhý odpočinek celé družiny (2026-10-27): každá karta jako po vlastním dlouhém odpočinku, herní čas +8 h */
+async function hraOdpocinekDruziny() {
+  /* postavy v příštím sezení: hráčské karty; bez nich (jen zkušební karta) všechny */
+  const L = (KARTY || []).filter(k => !k.test).length ? KARTY.filter(k => !k.test) : KARTY || [];
+  if (!L.length || !confirm(`Dlouhý odpočinek (8 hodin) pro ${L.map(k => k.n).join(", ")}? Herní čas se posune o 8 hodin.`)) return;
+  for (const K of L)
+    try {
+      await kartaOdpocinek(K, true, true);
+    } catch (e) {
+      mmHlasG(`${K.n}: odpočinek se nezapsal (${e.message || e}).`, 5000);
+    }
+  if (HRA && HRA.datum) await hraPosun(8);
+  mmHlasG(`Družina odpočinula: ${L.map(k => k.n).join(", ")}.`, 5000);
 }
 /* lišta s výzvou na kterékoli stránce */
 function vyzBar() {
@@ -1591,6 +1610,7 @@ function pultDruzinaHtml() {
           : `<p class="rsmall">Bez karet postav.</p>`
       }</section>
       ${hraUkolyHtml()}
+      <section><h3 class="uvh2">Odpočinek družiny</h3><p class="kvlh"><button type="button" class="gbtn ghost" data-hrodpd ${btip("Všem postavám obnoví životy, sloty a zdroje podle pravidel dlouhého odpočinku (Svědomí, vyčerpání −1) a posune herní čas o 8 hodin – světla a účinky, kterým čas vypršel, skončí samy")}>Dlouhý odpočinek všem (8 h)</button></p><p class="rsmall">Krátký odpočinek: výzva „krátkému odpočinku“ výše – každý hráč utratí kostky životů sám.</p></section>
       <section><h3 class="uvh2">Postup na úroveň</h3><form class="kvlh" data-hrpost><label>Družina má mít úroveň <input name="u" type="number" min="1" max="20" value="${+((HRA && HRA.postup) || 0) || ""}" aria-label="Úroveň"></label><button class="gbtn ghost">Oznámit postup</button></form><p class="rsmall">Hráčům s nižší úrovní se na kartě ukáže výzva nahrát nové PDF.</p></section>`;
 }
 function pultSezeniHtml() {
@@ -1692,6 +1712,10 @@ document.addEventListener("click", async e => {
   const vn = T("[data-vyzne]");
   if (vn) {
     vyzvaHod(+vn.dataset.vyzne, true);
+    return;
+  }
+  if (T("[data-hrodpd]") && GMV) {
+    await hraOdpocinekDruziny();
     return;
   }
   const vz = T("[data-vyzskryj]");

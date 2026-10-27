@@ -738,7 +738,14 @@ function kInvPouzHtml(K) {
     const p = kPred(x),
       sv = kInvSvitekI(K, i),
       hd = kInvHod(x),
-      pij = p && p.ef && (p.ef.lecit || p.ef.dhp);
+      pij = p && p.ef && (p.ef.lecit || p.ef.dhp),
+      svt = svetloDruh(x.n);
+    if (svt) {
+      L.push(
+        `<span class="kvpz"><button type="button" class="kspn" data-bdmsh="vec" data-i="${i}">${besc(x.n)}${x.q > 1 ? ` ×${x.q}` : ""}</button><button type="button" class="bdmmini" data-kinvsvet="${i}" ${btip(`${svt.n}: ${svt.sv}, hoří ${svt.h} h herního času${svt.palivo ? " na lahvičku oleje" : ""}`)}>zapálit</button></span>`,
+      );
+      return;
+    }
     if (!pij && sv < 0 && !hd) return;
     L.push(
       `<span class="kvpz"><button type="button" class="kspn" data-bdmsh="vec" data-i="${i}">${besc(x.n)}${x.q > 1 ? ` ×${x.q}` : ""}</button>${pij ? `<button type="button" class="bdmmini" data-kinvpij="${i}">vypít</button>` : sv >= 0 ? `<button type="button" class="bdmmini" data-kses="${sv}">seslat</button>` : `<button type="button" class="bdmmini" data-bdmsh="vec" data-i="${i}">hodit</button>`}</span>`,

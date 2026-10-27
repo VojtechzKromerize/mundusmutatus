@@ -313,7 +313,7 @@ function kartaZraneni(K, a, krit, ef) {
   return {t, x};
 }
 /* odpočinky (D&D 2024 + Artikule): krátký – kostky životů, zdroje „krátký odpočinek“, sloty paktu; dlouhý – vše, polovina kostek životů, vyčerpání −1 */
-async function kartaOdpocinek(K, dlouhy) {
+async function kartaOdpocinek(K, dlouhy, bez) {
   const S = kartaStav(K.id),
     ch = {},
     msg = [],
@@ -325,7 +325,7 @@ async function kartaOdpocinek(K, dlouhy) {
     cur = S.hp != null ? +S.hp : mx;
   const U = Object.assign({}, S.zdr || {});
   if (dlouhy) {
-    if (!confirm(`${K.n}: dlouhý odpočinek (8 hodin)? Obnoví životy, sloty, zdroje a všechny kostky životů, vyčerpání −1.`)) return;
+    if (!bez && !confirm(`${K.n}: dlouhý odpočinek (8 hodin)? Obnoví životy, sloty, zdroje a všechny kostky životů, vyčerpání −1.`)) return;
     {
       const D = kDuse(K);
       if (D.sv >= 1 && D.sv <= 3) {
