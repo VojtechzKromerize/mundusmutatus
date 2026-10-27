@@ -104,6 +104,14 @@ const TOWNSEATS = new Set([
   "Řezno",
   "Pfreimd",
   "Gera",
+  /* ---- JIH (mapa 2026-10-27) ---- */
+  "Brixen",
+  "Bruneck",
+  "Trident",
+  "Gorice",
+  "Lienz",
+  "Krk",
+  "Senj",
 ]); /* family seats that are towns rather than castles */
 const TOWNICO = "art/img/mesto.webp";
 const townImg = (c, cls) => `<img class="${cls || "townico"} t-${c}" src="${TOWNICO}" alt="" aria-hidden="true">`;

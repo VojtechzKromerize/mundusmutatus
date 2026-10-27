@@ -3116,6 +3116,411 @@ const CITYINFO = {
     t: "Hrad velkoknížete litevského",
     n: "Hrad a město na řece Nurci v Podlasí, na pomezí Mazovska a Litvy.",
   },
+  /* ---- JIH (mapa 2026-10-27) ---- */
+  Benátky: {
+    t: "Republika na laguně",
+    n: "Benátky jsou královnou moře a nejlidnatějším městem v těchto končinách, postaveným na ostrovech laguny. Vládne jim dóže Pasquale Malipiero, zvolený na podzim léta Páně 1457, když starého Francesca Foscariho sesadili; moc však drží Velká rada a Rada desíti. U mostu Rialto stojí dům německých kupců (Fondaco dei Tedeschi), kam jezdí i kupci z Norimberka a Vratislavi, a v Arzenálu se stavějí galéry.",
+  },
+  Chioggia: {
+    t: "Benátské město v laguně",
+    n: "Rybářské a solné město na jižním konci laguny. Léta Páně 1379 je dobyli Janované a Benátky je o rok později vybojovaly zpět ve válce, jež rozhodla o vládě nad mořem.",
+  },
+  Padova: {
+    t: "Benátské město s učením",
+    n: "Starobylé město s věhlasným učením práv a lékařství, kde studují i Němci a Čechové. V bazilice svatého Antonína odpočívá světec, k jehož hrobu putují poutníci, a před ní stojí od nedávna bronzový jezdec, socha kondotiéra Gattamelaty. Benátkám poslouchá od léta Páně 1405, kdy padl rod Carrarů.",
+  },
+  Vicenza: {
+    t: "Benátské město",
+    n: "Město pod Berickými vrchy, které se léta Páně 1404 samo poddalo Benátkám. Živí se suknem a obchodem.",
+  },
+  Verona: {
+    t: "Benátské město",
+    n: "Mocné město na Adiži s římskou arénou a kamenným mostem; vládli mu páni della Scala. Od léta Páně 1405 je benátské. Tudy jde cesta z Benátek přes Trident a Brenner do Němec.",
+  },
+  Treviso: {
+    t: "Benátské město",
+    n: "Nejstarší pevninské državy Benátek (od léta Páně 1339), město kanálů a brána k Furlánsku a k horám. Odtud vycházejí cesty do Korutan i do Němec.",
+  },
+  Belluno: {
+    t: "Benátské město",
+    n: "Horské město nad Piavou, benátské od léta Páně 1404. Po Piavě se odtud plaví do laguny dříví z hor, z něhož Benátky stavějí lodě i domy.",
+  },
+  Brescia: {
+    t: "Benátské město",
+    n: "Bohaté město zbrojířů pod Alpami, benátské od léta Páně 1426. V letech 1438 až 1440 odolalo dlouhému obléhání vojska milánského. Z údolí nad městem sem jde železo a kováři zde kují zbroj a čepele.",
+  },
+  Bergamo: {
+    t: "Benátské město",
+    n: "Nejzápadnější město Benátek, na kopci nad lombardskou rovinou; benátské od léta Páně 1428. Od míru v Lodi léta 1454 dělí Benátky od Milána řeka Adda.",
+  },
+  Rovereto: {
+    t: "Benátská pevnost",
+    n: "Hrad a městečko na Adiži pod Tridentem, které Benátčané drží od léta Páně 1416; hlídá cestu z Němec k Veroně a hranici s biskupstvím tridentským.",
+  },
+  Udine: {
+    t: "Hlavní město Furlánska",
+    n: "Hlavní město Furlánska pod hradním vrchem, kde stával palác patriarchů akvilejských. Od léta Páně 1420 je v moci Benátek, jež sem posílají svého místodržícího; zasedá tu i furlánský sněm.",
+  },
+  Cividale: {
+    t: "Furlánské město",
+    n: "Starobylé město nad říčkou Natisone, kde kdysi sídlili langobardští vévodové furlánští; zbyl po nich chrámek a mnohé památky. Od léta Páně 1420 je benátské a na východ od něho žijí v horách Slované.",
+  },
+  Gemona: {
+    t: "Furlánské městečko",
+    n: "Městečko pod horami na Kanálské cestě, jež má právo skladu: kupci, kteří jdou z Němec do Benátek, tu musí zboží složit a nabídnout.",
+  },
+  Venzone: {
+    t: "Furlánské městečko",
+    n: "Opevněné městečko v soutěsce Tagliamenta, kudy jde cesta z Korutan do Furlánska; vybírá se tu clo z každého soumaru.",
+  },
+  Portogruaro: {
+    t: "Přístav biskupů z Concordie",
+    n: "Říční přístav na Lemene, odkud se zboží z Němec plaví do laguny. Městečko patří biskupům z Concordie a s nimi poslouchá Benátky.",
+  },
+  Grado: {
+    t: "Benátské městečko v laguně",
+    n: "Ostrovní městečko v laguně, starý stolec patriarchů gradských. Léta Páně 1451 přenesl papež jejich hodnost do Benátek a Grado zůstalo městečkem rybářů.",
+  },
+  Akvileja: {
+    t: "Město patriarchy",
+    n: "Kdysi mocné římské město, jež léta 452 vyvrátil Attila, král Hunů. U velkolepé baziliky sídlí kapitula; Benátčané po dobytí Furlánska ponechali patriarchovi Akvileju, San Vito a San Daniele a roční plat. Okolí je bažinaté a nezdravé.",
+  },
+  "San Vito": {
+    t: "Městečko patriarchy",
+    n: "Městečko u Tagliamenta, jedno ze tří, která Benátky léta Páně 1445 ponechaly patriarchovi akvilejskému.",
+  },
+  "San Daniele": {
+    t: "Městečko patriarchy",
+    n: "Městečko na pahorku nad Tagliamentem, odkud je vidět Furlánsko až k moři; patří patriarchovi akvilejskému.",
+  },
+  Koper: {
+    t: "Hlavní město benátské Istrie",
+    n: "Město na skalnatém ostrově spojeném s pevninou hrází, sídlo benátského podesty a kapitána celé Istrie. Ze solných polí kolem něho jde sůl soumary po stezce přes Kras do Kraňska.",
+  },
+  Piran: {
+    t: "Benátské město",
+    n: "Město solných polí na výběžku Istrie, benátské od léta Páně 1283. Piranská sůl jde po moři do Benátek i soumary do Kraňska; měšťané mluví italsky a s Benátkami se o sůl ustavičně přou.",
+  },
+  Poreč: {
+    t: "Biskupské město",
+    n: "Biskupské město na pobřeží Istrie s bazilikou biskupa Eufrasia, jejíž zlaté mozaiky jsou starší nežli tisíc let. Benátské od léta Páně 1267.",
+  },
+  Rovinj: {
+    t: "Benátské město",
+    n: "Rybářské město na ostrůvku těsně u břehu Istrie, benátské od léta Páně 1283; z okolních lomů se vozí kámen do Benátek.",
+  },
+  Pula: {
+    t: "Benátské město",
+    n: "Starobylé římské město s obrovskou arénou a vítězným obloukem, dnes zchudlé a zpustlé morem a válkami. Benátkám poslouchá od léta Páně 1331.",
+  },
+  Motovun: {
+    t: "Benátské městečko",
+    n: "Opevněné městečko na kopci uprostřed Istrie, benátské; pod ním se v údolí Mirny táhne hustý dubový hvozd. Na dohled leží rakouské Pazinsko.",
+  },
+  Cres: {
+    t: "Benátské městečko na ostrově",
+    n: "Hlavní městečko ostrova Cresu, benátské od léta Páně 1409. Ostrované chovají ovce a loví ryby; v horách ostrova hnízdí supi.",
+  },
+  Rab: {
+    t: "Benátské město na ostrově",
+    n: "Ostrovní město se čtyřmi zvonicemi, benátské od léta Páně 1409, kdy Benátky koupily Dalmácii od krále Ladislava Neapolského.",
+  },
+  Pag: {
+    t: "Benátské město solných polí",
+    n: "Ostrov solných polí, o něž se Pažané dlouho přeli se Zadarem. Od léta Páně 1443 se staví nové město Pag podle benátského rozvrhu, neboť staré bylo zpustlé.",
+  },
+  Mantova: {
+    t: "Sídlo markraběte",
+    n: "Sídlo markraběte Ludovica Gonzagy uprostřed jezer, jež tvoří řeka Mincio. Dvůr je skvělý a učený; markraběte kdysi vychovával slavný učitel Vittorino da Feltre.",
+  },
+  Ferrara: {
+    t: "Sídlo vévody",
+    n: "Sídlo Borsa d'Este, markraběte ferrarského, jejž císař Fridrich léta Páně 1452 učinil vévodou modenským a reggijským. Ferraru drží v léno od papeže a dvůr jeho je pověstný nádherou, malíři a turnaji.",
+  },
+  Modena: {
+    t: "Město vévody",
+    n: "Město na Emiliánské cestě, říšské léno rodu d'Este, od léta Páně 1452 vévodství Borsovo.",
+  },
+  Bologna: {
+    t: "Papežské město",
+    n: "Velké město s učením práv, nejstarším v křesťanstvu, a s mnoha věžemi. Patří papeži, ale vládne v něm rod Bentivogliů v čele se Santem Bentivogliem.",
+  },
+  Cremona: {
+    t: "Milánské město",
+    n: "Město na Pádu, věno Bianky Marie Viscontiové, jež se zde léta Páně 1441 vdala za kondotiéra Francesca Sforzu; ten je nyní vévodou milánským.",
+  },
+  Parma: {
+    t: "Milánské město",
+    n: "Město Emilie, jež se po smrti posledního Viscontiho krátce spravovalo samo a léta Páně 1449 se poddalo Francescu Sforzovi.",
+  },
+  Piacenza: {
+    t: "Milánské město",
+    n: "Město na Pádu, které léta Páně 1447 dobyl a vyplenil Francesco Sforza, když ještě sloužil Milánské republice.",
+  },
+  Innsbruck: {
+    t: "Sídelní město vévody",
+    n: "Sídlo vévody Zikmunda Tyrolského při mostě přes Inn, od něhož má město jméno. Vévodové se sem přestěhovali ze starého hradu Tirolu u Meranu; tudy jde cesta z Bavor přes Brenner do Itálie.",
+  },
+  Hall: {
+    t: "Solné město",
+    n: "Solné město na Innu; solivar v Hallu vaří sůl z hor údolí Halltal a z ní plyne vévodovi největší důchod. Odtud se po Innu plaví sůl a zboží až k Dunaji.",
+  },
+  Švác: {
+    t: "Horní městečko",
+    n: "Horní městečko na Innu, kde se v posledních letech kope stříbro a měď v hojnosti nebývalé. Sem se stahují havíři z celých Alp a kupci z Augšpurku jim půjčují na rudu.",
+  },
+  Sterzing: {
+    t: "Tyrolské městečko",
+    n: "Městečko pod Brennerem, kde kupci zastavují před výstupem do průsmyku. V horách nad ním se kope stříbro a olovo.",
+  },
+  Bolzano: {
+    t: "Tyrolské trhové město",
+    n: "Trhové město na soutoku Eisacku a Talferu, kde se konají slavné jarmarky; na nich se setkávají kupci vlašští s německými. Kolem města rostou vinice, jejichž víno se vozí do Bavor a Švábska.",
+  },
+  Meran: {
+    t: "Tyrolské město",
+    n: "Staré hlavní město hrabství pod hradem Tirolem, od něhož má země jméno. Vévodové se odtud přestěhovali do Innsbrucku, ale mincovna a stará sláva zůstaly.",
+  },
+  Brixen: {
+    t: "Biskupské město",
+    n: "Biskupské město v údolí Eisacku. Biskupem je kardinál Mikuláš Kusánský, učenec, jehož papež dosadil proti vůli kapituly; s vévodou Zikmundem se ustavičně přou o práva kostela a o kláštery, jež chce kardinál reformovat.",
+  },
+  Bruneck: {
+    t: "Městečko biskupů brixenských",
+    n: "Městečko biskupů brixenských v Pusterském údolí s biskupským hradem; tudy jde cesta z Brixenu na Drávu do Korutan.",
+  },
+  Buchenstein: {
+    t: "Hrad biskupů brixenských",
+    n: "Hrádek biskupů brixenských v horách nad údolím Cordevole, nedaleko železných dolů. Kardinál Kusánský se sem loni v létě uchýlil, když se v Brixenu necítil bezpečen.",
+  },
+  Trident: {
+    t: "Biskupské město",
+    n: "Biskupské město na Adiži, na rozhraní vlašské a německé řeči. Biskup Jiří Hack vládne knížectví, nad nímž drží ochrannou ruku hrabata tyrolská; obec se proti biskupům nejednou bouřila.",
+  },
+  Bled: {
+    t: "Hrad biskupů brixenských",
+    n: "Hrad na skále nad jezerem v Horním Kraňsku, který od časů císaře Jindřicha Svatého patří biskupům brixenským. Na ostrůvku uprostřed jezera stojí kostel Panny Marie.",
+  },
+  Friesach: {
+    t: "Město arcibiskupů salcburských",
+    n: "Nejstarší město Korutan, sevřené hradbami a vodním příkopem; na hradním vrchu sídlí vicedom arcibiskupů salcburských, kteří odtud spravují své korutanské statky.",
+  },
+  Gmünd: {
+    t: "Městečko arcibiskupů salcburských",
+    n: "Městečko pod Katschberským sedlem na cestě ze Salcburku přes Taury do Korutan; patří arcibiskupům salcburským.",
+  },
+  Ptuj: {
+    t: "Město arcibiskupů salcburských",
+    n: "Prastaré město na Drávě (římská Poetovio), jež patří arcibiskupům salcburským. Páni z Ptuje, kteří sídlili na hradě nad městem, vymřeli před dvaceti lety. Kolem rostou vinice a přes Drávu se tu převáží.",
+  },
+  Villach: {
+    t: "Město biskupů bamberských",
+    n: "Město biskupů bamberských na Drávě, kde se Kanálská cesta k Benátkám sbíhá s cestami do Salcburku a Kraňska. Kupci tu skládají železo, víno a koření.",
+  },
+  Wolfsberg: {
+    t: "Město biskupů bamberských",
+    n: "Hlavní městečko bamberských statků v údolí Lavantu s biskupským hradem; v okolních horách se kope železo.",
+  },
+  Gurk: {
+    t: "Sídlo kapituly gurské",
+    n: "Tichá trhová ves s mohutným románským dómem, v němž odpočívá svatá Hema, zakladatelka biskupství. Biskup gurský sídlí na blízkém hradě Strassburgu.",
+  },
+  Lublaň: {
+    t: "Hlavní město Kraňska",
+    n: "Hlavní město Kraňska pod hradem nad Lublanicí. Léta Páně 1442 ji marně obléhali hrabě Oldřich Celjský s vévodou Albrechtem; obránci je odrazili a vzali jim tábor. Venkov mluví slovansky, v radě sedí Němci.",
+  },
+  Kranj: {
+    t: "Kraňské město",
+    n: "Starobylé město na ostrohu nad soutokem Sávy a Kokry, střed Horního Kraňska a trh pro horské vsi.",
+  },
+  Kamnik: {
+    t: "Kraňské město",
+    n: "Městečko pod Kamnickými Alpami, kdysi sídlo pánů z Andechsu, markrabat kraňských. Leží na cestě z Lublaně do Štýrska.",
+  },
+  "Škofja Loka": {
+    t: "Město biskupů frisinských",
+    n: "Městečko a hrad biskupů frisinských, kteří tu od starodávna drží rozsáhlé panství. V údolí Selce se taví železo a kovají hřebíky.",
+  },
+  "Novo Mesto": {
+    t: "Kraňské město",
+    n: "Město na Krce, jež založil vévoda Rudolf Rakouský léta Páně 1365 a nazval je po sobě. Odtud vede cesta k chorvatskému pomezí a k Záhřebu.",
+  },
+  Metlika: {
+    t: "Pomezní městečko",
+    n: "Pomezní městečko Bílé Krajiny nad Kupou. Za řekou je Chorvatsko, kam vpadají turečtí nájezdníci, a měšťané proto hledí na brody s obavou.",
+  },
+  Klagenfurt: {
+    t: "Korutanské město",
+    n: "Mladé město v blatech u Vrbského jezera; na jeho pečeti je saň s věží. Podezřelého zloděje tu nejprve oběsí a teprve třetí den soudí: je-li vinen, visí, dokud neshnije, je-li nevinen, pohřbí ho obec poctivě a se zádušní mší.",
+  },
+  "Svatý Vít": {
+    t: "Hlavní město Korutan",
+    n: "Hlavní město Korutan na řece Glan, sídlo vévodské správy. Nedaleko leží Gospa Sveta a pole s knížecím kamenem, na němž sedlák slovanskou otázkou nastoluje vévodu.",
+  },
+  Maribor: {
+    t: "Štýrské město",
+    n: "Štýrské město s hradem na Drávě, kudy jde cesta ze Štýrského Hradce k Celji a do Kraňska. Na pahorcích kolem rostou vinice.",
+  },
+  Radkersburg: {
+    t: "Pohraniční město",
+    n: "Pohraniční město na ostrově na Muře, kde se Štýrsko stýká s Uhrami; trhuje se tu vínem a dobytkem hnaným z Uher.",
+  },
+  Judenburg: {
+    t: "Štýrské kupecké město",
+    n: "Kupecké město na horní Muře, jehož kupci obchodují se štýrským železem a vozí je do Benátek; leží na Benátské cestě.",
+  },
+  "Bruck nad Murou": {
+    t: "Štýrské město",
+    n: "Město na soutoku Mury a Mürzy, kudy jde Benátská cesta z Vídně; léta Páně 1452 se tu štýrští páni radili s císařem, jak čelit povstání Rakušanů.",
+  },
+  Celje: {
+    t: "Město celjského dědictví",
+    n: "Starobylé město na Savinji (římská Celeia), sídlo hrabat celjských, jejichž rod vyhasl předloni, když v Bělehradě zavraždili hraběte Oldřicha. O dědictví se hlásí dvacet čtyři uchazeči; stavové svěřili zemi císaři, který město drží.",
+  },
+  Pordenone: {
+    t: "Rakouská enkláva",
+    n: "Město, jež patří rodu rakouskému od starodávna, uprostřed benátského Furlánska; Benátky je obklopily ze všech stran, ale nedobyly.",
+  },
+  Terst: {
+    t: "Přístavní město rodu rakouského",
+    n: "Přístavní město, jež se léta Páně 1382 poddalo vévodům rakouským, aby uniklo Benátkám. Biskupem tu býval Eneáš Silvius, nyní kardinál sienský. S Benátkami se Terst ustavičně přou o obchod se solí a vínem a o cesty do Kraňska.",
+  },
+  Rijeka: {
+    t: "Přístavní městečko pánů z Walsee",
+    n: "Přístavní městečko u ústí Rječiny, jemuž Němci říkají Svatý Vít na Rječině; drží je páni z Walsee. Kupci odtud vozí kůže, dříví a obilí přes moře do Itálie.",
+  },
+  "Horní hrad celjský": {
+    t: "Hrad celjského dědictví",
+    n: "Hrad nad Savinjou, pro polohu i lidský um nedobytný. Tu noc, kdy Vitovec s osmi sty jezdci vjel do Celje, přespal v něm císař Fridrich proti svému zvyku, a tak unikl zajetí.",
+  },
+  Postojna: {
+    t: "Zeměpanský hrad",
+    n: "Hrad rodu rakouského nad branou mezi Lublaní a mořem. Pod ním se otvírá veliká jeskyně, do níž lidé odpradávna vcházejí s pochodněmi a píší na stěny svá jména.",
+  },
+  Predjama: {
+    t: "Hrad v jeskyni",
+    n: "Hrad vestavěný do ústí jeskyně v příkré skále nad propastí. Drží jej rytíři, kteří se po něm píší, a tajnými chodbami prý lze vyjít daleko v lese.",
+  },
+  Duino: {
+    t: "Hrad pánů z Walsee",
+    n: "Hrad na útesu nad mořem u ústí Timavy, kterou staří zvali matkou moře. Drží jej páni z Walsee.",
+  },
+  Pazin: {
+    t: "Hrad rakouského hrabství",
+    n: "Hrad nad propastí, do níž se vlévá říčka a mizí pod zemí; střed rakouského hrabství v Istrii, obklopeného benátským pobřežím.",
+  },
+  Gorice: {
+    t: "Sídlo hrabat gorických",
+    n: "Hrad a město nad Sočou, sídlo hrabat gorických. Vládne hrabě Jan s bratrem Linhartem; rod je zadlužený a podle staré smlouvy se hlásí k dědictví hrabat celjských.",
+  },
+  Lienz: {
+    t: "Město hrabat gorických",
+    n: "Městečko na Drávě pod hradem Bruck, druhé sídlo hrabat gorických, jimž patří i Pusterské údolí až k Tyrolsku.",
+  },
+  Krk: {
+    t: "Ostrovní město Frankopanů",
+    n: "Ostrovní město, kolébka hrabat krčských, jež se nyní píší Frankopani. Ostrov drží hrabě Jan z krčské větve rodu; kněží tu slouží mši slovansky a píší hlaholicí.",
+  },
+  Senj: {
+    t: "Přístav Frankopanů",
+    n: "Přístav pod Velebitem, sídlo biskupa a střed frankopanských držav na moři. Ze Senje vede cesta přes hory k Modruši a do Záhřebu; v zimě sem z hor duje prudký vítr bura.",
+  },
+  Modruš: {
+    t: "Sídlo Frankopanů",
+    n: "Hrad Tržan nad městečkem Modruší, hlavní sídlo hraběte Štěpána Frankopana Modrušského.",
+  },
+  Ozalj: {
+    t: "Hrad Frankopanů",
+    n: "Hrad na skále nad Kupou, frankopanský, na cestě ze Záhřebu k moři.",
+  },
+  Trsat: {
+    t: "Hrad Frankopanů",
+    n: "Hrad nad Rijekou na hranici frankopanských a walseeských držav. Pod ním založil hrabě Martin Frankopan léta Páně 1453 klášter františkánů u poutního kostela Panny Marie.",
+  },
+  Brinje: {
+    t: "Hrad Frankopanů",
+    n: "Hrad Sokolac v Brinji, frankopanský, s pěknou kaplí; hlídá cestu ze Senje do vnitrozemí a k Modruši.",
+  },
+  Záhřeb: {
+    t: "Svobodné královské město a biskupské sídlo",
+    n: "Dvě města na dvou pahorcích: svobodné královské město Gradec se zlatou bulou krále Bély a biskupský Kaptol s chrámem. Obě obce se o hranice a mlýny ustavičně přou, nejednou i zbraní.",
+  },
+  Varaždín: {
+    t: "Svobodné královské město",
+    n: "Svobodné královské město na Drávě (od léta Páně 1209). Hrad nad městem drželi hrabata celjská a nyní patří k jejich sporné pozůstalosti.",
+  },
+  Křižovce: {
+    t: "Svobodné královské město",
+    n: "Město, kde se nejednou schází slavonský sněm. Léta Páně 1397 tu na „krvavém sněmu“ zavraždili bána Štěpána Lackoviće a jeho druhy.",
+  },
+  Koprivnica: {
+    t: "Svobodné královské město",
+    n: "Svobodné královské město v Podrávině, trh na cestě z Uher do Záhřebu.",
+  },
+  Požega: {
+    t: "Slavonské město",
+    n: "Město ve Slavonii s hradem a kapitulou, která je hodnověrným místem: sepisují a ověřují se tu listiny pro celý kraj.",
+  },
+  Bihać: {
+    t: "Svobodné královské město",
+    n: "Město na ostrově řeky Uny, na samém pomezí Chorvatska a Bosny, svobodné od časů krále Bély. Turecké nájezdy sem dolehnou dříve než jinam.",
+  },
+  Bělehrad: {
+    t: "Pevnost uherské koruny",
+    n: "Pevnost na soutoku Sávy s Dunajem, klíč Uher. Léta Páně 1456 ji Jan Hunyadi a křižáci kazatele Kapistrána ubránili proti sultánu Mehmedovi; oba hrdinové téhož léta zemřeli na mor. V listopadu téhož roku zde Uhři zavraždili hraběte Oldřicha Celjského.",
+  },
+  Smederevo: {
+    t: "Pevnost despotů srbských",
+    n: "Mocná pevnost srbských despotů na Dunaji s mnoha věžemi. Despota Lazar zemřel letos v lednu a o dědictví se přou jeho vdova Helena, slepý bratr Řehoř s tureckou pomocí i Kantakuzina, vdova po Celjském.",
+  },
+  Temešvár: {
+    t: "Hrad uherské koruny",
+    n: "Hrad a město v Banátu, kde kdysi rád pobýval král Karel Robert. Z Temešváru vedl Jan Hunyadi jako hrabě temešský boje s Turky a hrad dosud hlídá Banát před jejich nájezdy.",
+  },
+  Medvedgrad: {
+    t: "Hrad nad Záhřebem",
+    n: "Hrad na zalesněné hoře nad Záhřebem, který postavili záhřebští biskupové po vpádu Tatarů; z jeho hradeb je vidět celé údolí Sávy.",
+  },
+  Čakovec: {
+    t: "Hrad celjského dědictví",
+    n: "Hrad v Mezimuří mezi Murou a Drávou. S celým Mezimuřím jej drželi hrabata celjská a nyní patří k jejich dědictví, o něž se přou císař, Uhři i bán Vitovec.",
+  },
+  Krapina: {
+    t: "Hrad celjského dědictví",
+    n: "Hrad nad městečkem v chorvatském Záhoří, střed celjských statků v kraji. Po smrti hraběte Oldřicha jej s většinou celjských hradů ve Slavonii ovládl bán Jan Vitovec.",
+  },
+  "Stoličný Bělehrad": {
+    t: "Korunovační město",
+    n: "Královské město s bazilikou Panny Marie, kde se korunují a pohřbívají uherští králové a odpočívá svatý Štěpán. Matyáš zatím korunován není, neboť svatoštěpánskou korunu drží císař Fridrich.",
+  },
+  Vesprém: {
+    t: "Biskupské město",
+    n: "Město královen uherských na skalnatém návrší; biskup vesprémský má právo korunovat královnu.",
+  },
+  Pětikostelí: {
+    t: "Biskupské město",
+    n: "Biskupské město na úpatí Mečeku. Král Ludvík Veliký tu založil první učení v Uhrách, jež však zaniklo. Léta Páně 1408 zde král Zikmund s královnou Barborou Celjskou a dvaadvaceti barony založil Dračí řád.",
+  },
+  Kaloča: {
+    t: "Arcibiskupské město",
+    n: "Sídlo arcibiskupa kaločského, druhého metropolity Uher, uprostřed mokřin u Dunaje.",
+  },
+  Segedín: {
+    t: "Tržní město",
+    n: "Velké tržní město na Tise, kam se po Moruši plaví sůl ze Sedmihradska a kde se prodávají ryby a dobytek. Léta Páně 1444 zde král Vladislav přísahal mír s Turky, jejž pak před Varnou zrušil.",
+  },
+  Kysek: {
+    t: "Pohraniční město",
+    n: "Pohraniční město s hradem na západě Uher, které drží císař Fridrich; v okolí trestal léta Páně 1445 lupiče, kterých dal osmdesát pověsit.",
+  },
+  Kaniže: {
+    t: "Sídlo pánů Kanižských",
+    n: "Hrad a městečko v bažinách Zaly, sídlo mocných pánů Kanižských, kteří zde hlídají cesty k Drávě.",
+  },
+  Osijek: {
+    t: "Panské město",
+    n: "Město na Drávě nedaleko jejího ústí do Dunaje, kde se převáží přes řeku na cestě z Budína do Bělehradu.",
+  },
 };
 const MAJOR_ROADS = new Set([
   "Zlatá stezka",
@@ -3199,6 +3604,24 @@ const MAJOR_PLACES = new Set([
   "Stralsund",
   "Elbląg",
   "Lüneburk",
+  /* ---- JIH (mapa 2026-10-27) ---- */
+  "Benátky",
+  "Padova",
+  "Verona",
+  "Udine",
+  "Terst",
+  "Lublaň",
+  "Záhřeb",
+  "Innsbruck",
+  "Trident",
+  "Svatý Vít",
+  "Mantova",
+  "Ferrara",
+  "Bologna",
+  "Stoličný Bělehrad",
+  "Pětikostelí",
+  "Segedín",
+  "Bělehrad",
 ]);
 /* význam místa na mapě (2026-10-24, Vojta): 0 metropole, 1 hlavní město (MAJOR_PLACES), 2 ostatní město, 3 hrad a sídlo rodu.
    Podle toho velikost značky (MTZ, násobek měřítka) a od jakého přiblížení se ukáže jméno (mistoPopisek: s = šířka výřezu / 680) */
@@ -3212,6 +3635,8 @@ const METRO = new Set([
   /* ---- SEVER (mapa 2026-10-27) ---- */
   "Lübeck",
   "Gdaňsk",
+  /* ---- JIH (mapa 2026-10-27) ---- */
+  "Benátky",
 ]);
 const mistoTier = (n, mesto) => (METRO.has(n) ? 0 : MAJOR_PLACES.has(n) ? 1 : mesto ? 2 : 3);
 const MTZ = [21, 17, 14, 12];
@@ -5934,6 +6359,12 @@ const NBR_LANDS = [
   "Meklenbursko a Holštýnsko",
   "Dánsko",
   "Litva",
+  /* ---- JIH (mapa 2026-10-27) ---- */
+  "Vnitřní Rakousy",
+  "Tyrolsko",
+  "Benátky",
+  "Itálie",
+  "Chorvatsko a Slavonie",
 ];
 buildCards(document.getElementById("nbrlands"), NBR_LANDS, true);
 const tabsEl = document.getElementById("nbrtabs");
