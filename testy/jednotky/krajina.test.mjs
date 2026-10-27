@@ -81,3 +81,27 @@ test("poutě, kláštery a pověsti: každý bod má druh, souřadnice v rozsahu
   for (const d of ["pout", "klaster", "povest"]) assert.ok(V(`POUTE.filter(q => q.d === "${d}").length`) >= 5, d);
   assert.deepEqual(V(`POUTE.filter(q => /14[6-9]\\d|15\\d\\d/.test(q.t)).map(q => q.n)`), [], "žádné letopočty po roce 1458");
 });
+
+test("voda pro výpočet cest: moře, zálivy a velká jezera jsou voda, pobřežní města a ostrovní Benátky souš (2026-10-27)", () => {
+  const voda = [
+    [17.0, 55.0, "Baltské moře"],
+    [20.02, 54.63, "Viselský záliv"],
+    [21.1, 55.1, "Kuršský záliv"],
+    [14.4, 53.75, "Štětínský záliv"],
+    [13.5, 44.9, "Jaderské moře"],
+    [17.75, 46.85, "Balaton"],
+  ];
+  for (const [lo, la, n] of voda) assert.equal(V(`naVode(${lo}, ${la})`), true, n);
+  const sous = [
+    [14.42, 50.09, "Praha"],
+    [18.65, 54.35, "Gdaňsk"],
+    [20.51, 54.71, "Královec"],
+    [14.55, 53.43, "Štětín"],
+    [10.69, 53.87, "Lübeck"],
+    [12.335, 45.437, "Benátky"],
+    [13.77, 45.65, "Terst"],
+    [13.4, 54.45, "Rujána"],
+    [14.9, 55.12, "Bornholm"],
+  ];
+  for (const [lo, la, n] of sous) assert.equal(V(`naVode(${lo}, ${la})`), false, n);
+});

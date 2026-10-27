@@ -258,3 +258,60 @@ test("poutě, kláštery a pověsti: body na mapě, panel s řádem a stavem, n�
     S.ev(`document.getElementById("lyPoute").click(); drawMapK()`);
   }
 });
+
+test("mapa od Baltu k Jadranu: svět mapy, výřez celého rozsahu a data uvnitř světa (2026-10-27)", async () => {
+  const W = V(`MAPWB`);
+  const lo = x => 10.9 + x / 72,
+    la = y => 52.7 - y / 112;
+  assert.ok(lo(W[0]) <= 9.55 && lo(W[0] + W[2]) >= 22.95, "délka 9,5–23°");
+  assert.ok(la(W[1]) >= 55.35 && la(W[1] + W[3]) <= 44.45, "šířka 44,4–55,4°");
+  assert.deepEqual(V(`VB.vse`), W, "výřez celého rozsahu");
+  assert.ok(V(`!!document.querySelector('[data-zoom="vse"]')`), "tlačítko Od Baltu k Jadranu");
+  /* výchozí výřezy zůstaly */
+  assert.deepEqual(V(`[VB.all, VB.koruna, VBW.all]`), [
+    [0, 0, 680, 605],
+    [60, 35, 560, 445],
+    [-80, 40, 890, 560],
+  ]);
+  assert.deepEqual(V(`DUCHY.filter(u => !DUCHY.some(v => v !== u && v.id === u.id)).length === DUCHY.length`), true, "id zemí jedinečná");
+  await S.ev(`typeof drawMapK === "function" || mmLina("mapa")`);
+  if (V(`typeof drawMapK`) !== "function") return;
+  const mimo = V(`(() => {
+    const [x0, y0] = [9.2, 44.1], [x1, y1] = [23.3, 55.7], ven = [];
+    const pole = {RIVERS, TRIBS, JEZERA_V: JEZERA_V.map(j => j[1]), MORE};
+    for (const u of DUCHY) pole["DUCHY_POLY." + u.id] = DUCHY_POLY[u.id] || ven.push("bez obrysu " + u.id);
+    for (const [c, rs] of NBRS) pole["NBRS." + c] = rs;
+    for (const [k, rs] of Object.entries(pole))
+      for (const r of rs) for (const [lo, la] of r) if (!(lo >= x0 && lo <= x1 && la >= y0 && la <= y1)) { ven.push(k + " " + lo + "," + la); break; }
+    for (const u of DUCHY) if (!(u.lab[0] > 9.4 && u.lab[0] < 23.1 && u.lab[1] > 44.3 && u.lab[1] < 55.5)) ven.push("popisek " + u.id);
+    return ven;
+  })()`);
+  assert.deepEqual(mimo, []);
+  assert.ok(V(`NBRS.every(([c]) => getComputedStyle(document.documentElement).getPropertyValue("--" + c).trim() || true)`));
+  S.ev(`st.zoom = "vse"; st.vb = null; drawMapK()`);
+  assert.ok(V(`document.querySelector("#mapz").innerHTML.includes("url(#vlny)")`), "moře je nakreslené");
+  S.ev(`st.zoom = "all"; drawMapK()`);
+});
+
+test("moře nepřekrývá žádné místo mapy (sídla, města, hrady, zeměpis) a trasa po souši nevede přes vodu (2026-10-27)", async () => {
+  await S.ev(`typeof drawMapK === "function" || mmLina("mapa")`);
+  if (V(`typeof drawMapK`) !== "function") return;
+  const vMori = V(`(() => {
+    const vMori = (lo, la) => MORE.reduce((v, r) => (inPoly(lo, la, r) ? !v : v), false);
+    const body = [...PLACES.map(p => [p.name, p.lo, p.la]), ...TOWNS, ...ZEMEPIS.map(z => [z[0], z[1], z[2]]), ...FAM.flatMap(f => f.seats.map(sd => [sd[0], sd[1], sd[2]]))];
+    return body.filter(([n, lo, la]) => typeof lo === "number" && (vMori(lo, la) || naVode(lo, la))).map(b => b[0]);
+  })()`);
+  assert.deepEqual(vMori, []);
+  /* z Gdaňska do Královce: přímá čára vede přes Viselský záliv, trasa ho musí obejít */
+  const r = V(`(() => {
+    const R = computeRoute({name: "Gdaňsk", lo: 18.65, la: 54.35}, {name: "Královec", lo: 20.51, la: 54.71});
+    if (!R) return null;
+    let voda = 0;
+    for (const l of R.legs) for (let f = 0; f <= 1; f += 0.05) if (naVode(l.p0[0] + (l.p1[0] - l.p0[0]) * f, l.p0[1] + (l.p1[1] - l.p0[1]) * f)) voda++;
+    return {voda, km: R.km};
+  })()`);
+  assert.ok(r, "trasa existuje");
+  assert.equal(r.voda, 0, "žádný úsek nevede vodou");
+  /* na ostrov (Bornholm) se po souši nedojde */
+  assert.equal(V(`computeRoute({name: "Štětín", lo: 14.55, la: 53.43}, {name: "Rønne", lo: 14.7, la: 55.1})`), null);
+});
