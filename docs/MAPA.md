@@ -10,8 +10,8 @@ Základ: data z buildu (rody, vazby, zeměpis, erby), víry a ikony, odkazy mezi
 
 - 212 řádků, 35 definic na nejvyšší úrovni, z toho 27 používají jiné soubory
 - používá z: 02-mapa (1)
-- používají ho: 02-mapa (20), 02b-mapa-kresba (7), 03-artikule (1), 04b-praha-plan (7), 05b-svet-mapa (2), 06-draconomicon-rodokmeny (2), 07-druzina-kronika (6), 08-navigace-pravidla (13), 09-vypravec-herni-cas (3), 10-kouzla (3), 10q-plne-texty (1), 11-boj (3), 12-boj-tah-postavy (1), 13-karty (4), 14-karty-bojova-karta (1), 14b-vybaveni (1), 14c-boj-reakce (1), 14d-vybaveni-katalog (1), 15-karty-artikule (2), 16-srd-ukazky-sezeni-hrac (2), 17-karty-ii (2), 17b-kouzla-ucinky (1), 18-pravidla-postavy (1), 19-karty-beyond (1), 19b-automatika (1), 20-boj-hraci (2), 20b-boj-vypravec (1), 20c-boj-ridery (1), 20d-boj-render (2), 20e-boj-vlastnosti (1), 20f-scena (1), 20g-boj-mistrovstvi (1), 21-editor-pecet (2), 22-vyprava (2), 22b-vyprava (4), 23-potvrzovani (1), 24-boj-zaznam (1), 26-start (3)
-- poskytuje: besc byId FAM mmDex armsImg FICON ARMS CONFN mileTxt mmLina CARMS faith shield0 CASTLEICO mmPozdeji mmZrus relGroups rIco TOWNICO TOWNSEATS ZEMEPIS mmLinyHotove mmLinyPro REL SFICON shield townImg
+- používají ho: 02-mapa (20), 02b-mapa-kresba (7), 03-artikule (1), 04b-praha-plan (7), 05b-svet-mapa (2), 06-draconomicon-rodokmeny (2), 07-druzina-kronika (7), 08-navigace-pravidla (13), 09-vypravec-herni-cas (3), 10-kouzla (3), 10q-plne-texty (1), 11-boj (3), 12-boj-tah-postavy (1), 13-karty (4), 14-karty-bojova-karta (1), 14b-vybaveni (1), 14c-boj-reakce (1), 14d-vybaveni-katalog (1), 15-karty-artikule (2), 16-srd-ukazky-sezeni-hrac (2), 17-karty-ii (2), 17b-kouzla-ucinky (1), 18-pravidla-postavy (1), 19-karty-beyond (1), 19b-automatika (1), 20-boj-hraci (2), 20b-boj-vypravec (1), 20c-boj-ridery (1), 20d-boj-render (2), 20e-boj-vlastnosti (1), 20f-scena (1), 20g-boj-mistrovstvi (1), 21-editor-pecet (2), 22-vyprava (2), 22b-vyprava (4), 23-potvrzovani (1), 24-boj-zaznam (1), 26-start (3)
+- poskytuje: besc byId FAM mmDex armsImg FICON mmLina ARMS CONFN mileTxt CARMS faith shield0 CASTLEICO mmPozdeji mmZrus relGroups rIco TOWNICO TOWNSEATS ZEMEPIS mmLinyHotove mmLinyPro REL SFICON shield townImg
 - oddíly:
   - ř. 144: Samostatné části skriptu (2026-10-19): kresba map, plán Prahy, mapa světa, Výprava a editor textů se stahují,
 
@@ -19,17 +19,17 @@ Základ: data z buildu (rody, vazby, zeměpis, erby), víry a ikony, odkazy mezi
 
 map geometry
 
-- 8409 řádků, 166 definic na nejvyšší úrovni, z toho 89 používají jiné soubory
-- používá z: 01-zaklad (20), 02b-mapa-kresba (1), 02c-zbroj (1), 02e-krajina (16), 02f-mapa-cela (1), 04-praha (3), 07-druzina-kronika (1), 08-navigace-pravidla (2)
-- používají ho: 01-zaklad (1), 02b-mapa-kresba (48), 02f-mapa-cela (2), 03-artikule (4), 04b-praha-plan (5), 05-svet (1), 05b-svet-mapa (7), 06-draconomicon-rodokmeny (3), 07-druzina-kronika (11), 08-navigace-pravidla (18), 09-vypravec-herni-cas (18), 10-kouzla (5), 11-boj (10), 12-boj-tah-postavy (6), 13-karty (1), 14-karty-bojova-karta (6), 14b-vybaveni (2), 14c-boj-reakce (2), 14d-vybaveni-katalog (5), 16-srd-ukazky-sezeni-hrac (2), 17-karty-ii (1), 17b-kouzla-ucinky (1), 18-pravidla-postavy (2), 19-karty-beyond (1), 20-boj-hraci (3), 20b-boj-vypravec (3), 20c-boj-ridery (1), 20e-boj-vlastnosti (1), 22-vyprava (1), 22b-vyprava (13), 24-boj-zaznam (1), 26-start (2)
-- poskytuje: BZRT bikZr bikZv PBY PEOPLE st _nrm bikZb el bikZrTxt BVLZ drawMap haversine P SHORT norm placeBy BAZINY CITYINFO DIO DUCHY FORESTS inPoly mapDrag NAMEPTS nearMountain peopleOf relsFor renderTravel show svg svgG TOWNS updateRoute bikZbTip BZVK computeRoute days drawGraph gsvg … (+49)
+- 6719 řádků, 165 definic na nejvyšší úrovni, z toho 89 používají jiné soubory
+- používá z: 01-zaklad (20), 02b-mapa-kresba (1), 02c-zbroj (1), 02e-krajina (16), 02f-mapa-cela (1), 02g-mista (1), 04-praha (3), 07-druzina-kronika (1), 08-navigace-pravidla (2)
+- používají ho: 01-zaklad (1), 02b-mapa-kresba (47), 02f-mapa-cela (2), 03-artikule (4), 04b-praha-plan (5), 05-svet (1), 05b-svet-mapa (7), 06-draconomicon-rodokmeny (3), 07-druzina-kronika (11), 08-navigace-pravidla (18), 09-vypravec-herni-cas (18), 10-kouzla (5), 11-boj (10), 12-boj-tah-postavy (6), 13-karty (1), 14-karty-bojova-karta (6), 14b-vybaveni (2), 14c-boj-reakce (2), 14d-vybaveni-katalog (5), 16-srd-ukazky-sezeni-hrac (2), 17-karty-ii (1), 17b-kouzla-ucinky (1), 18-pravidla-postavy (2), 19-karty-beyond (1), 20-boj-hraci (3), 20b-boj-vypravec (3), 20c-boj-ridery (1), 20e-boj-vlastnosti (1), 22-vyprava (1), 22b-vyprava (13), 24-boj-zaznam (1), 26-start (2)
+- poskytuje: BZRT bikZr bikZv PBY PEOPLE st _nrm bikZb el bikZrTxt BVLZ drawMap haversine P SHORT placeBy BAZINY DIO DUCHY FORESTS inPoly mapDrag NAMEPTS nearMountain norm peopleOf relsFor renderTravel show svg svgG TOWNS updateRoute bikZbTip BZVK computeRoute days drawGraph gsvg KRAJE … (+49)
 
 ## 02b-mapa-kresba
 
 Mapa zemí: kresba (geometrie zemí, diecézí, panství, lesů a hor a funkce drawMap) – samostatná část „mapa“, načte se až na stránce Mapa či Výprava (2026-10-19)
 
-- 12909 řádků, 43 definic na nejvyšší úrovni, z toho 1 používají jiné soubory
-- používá z: 01-zaklad (7), 02-mapa (48), 02e-krajina (9), 07-druzina-kronika (1), 08-navigace-pravidla (1)
+- 12902 řádků, 43 definic na nejvyšší úrovni, z toho 1 používají jiné soubory
+- používá z: 01-zaklad (7), 02-mapa (47), 02e-krajina (9), 02g-mista (1), 07-druzina-kronika (1), 08-navigace-pravidla (1)
 - používají ho: 02-mapa (1)
 - poskytuje: drawMapK
 - oddíly:
@@ -75,6 +75,15 @@ Mapy přes celou obrazovku (2026-10-27, Vojta)
 - používá z: 02-mapa (2), 04-praha (2), 04b-praha-plan (1), 05-svet (2), 05b-svet-mapa (1)
 - používají ho: 02-mapa (1), 04b-praha-plan (2), 05b-svet-mapa (2)
 - poskytuje: celaPomer celaVyrez
+
+## 02g-mista
+
+Shrnutí míst mapy (CITYINFO) – samostatná část „mista“ (2026-10-28): stovky míst od Baltu po Jadran už jádro webu nenese;
+
+- 1704 řádků, 1 definic na nejvyšší úrovni, z toho 1 používají jiné soubory
+- používá z: –
+- používají ho: 02-mapa (1), 02b-mapa-kresba (1), 07-druzina-kronika (1)
+- poskytuje: CITYINFO
 
 ## 03-artikule
 
@@ -143,8 +152,8 @@ Draconomicon
 
 Družina · Kronika tažení · automatické odkazy · hledání
 
-- 1506 řádků, 71 definic na nejvyšší úrovni, z toho 32 používají jiné soubory
-- používá z: 01-zaklad (6), 02-mapa (11), 03-artikule (3), 04-praha (5), 05-svet (1), 06-draconomicon-rodokmeny (3), 08-navigace-pravidla (3), 09-vypravec-herni-cas (11), 22-vyprava (1)
+- 1518 řádků, 71 definic na nejvyšší úrovni, z toho 32 používají jiné soubory
+- používá z: 01-zaklad (7), 02-mapa (11), 02g-mista (1), 03-artikule (3), 04-praha (5), 05-svet (1), 06-draconomicon-rodokmeny (3), 08-navigace-pravidla (3), 09-vypravec-herni-cas (11), 22-vyprava (1)
 - používají ho: 02-mapa (1), 02b-mapa-kresba (1), 03-artikule (1), 04b-praha-plan (3), 05b-svet-mapa (5), 06-draconomicon-rodokmeny (4), 08-navigace-pravidla (7), 09-vypravec-herni-cas (20), 10-kouzla (8), 11-boj (3), 12-boj-tah-postavy (2), 13-karty (1), 14-karty-bojova-karta (1), 14b-vybaveni (1), 14c-boj-reakce (1), 14d-vybaveni-katalog (1), 15-karty-artikule (7), 16-srd-ukazky-sezeni-hrac (7), 17-karty-ii (1), 17b-kouzla-ucinky (1), 19-karty-beyond (1), 19b-automatika (1), 20b-boj-vypravec (2), 20d-boj-render (2), 21-editor-pecet (8), 22-vyprava (4), 22b-vyprava (8), 23-potvrzovani (1), 25-puls (2), 26-start (2)
 - poskytuje: HRA KARTY PARTY partyDate partyPlace autolink MES ZAPISY fromJdn herniDen jdn renderKal renderKronika SVST ZBY DISC feasts renderDruzina TRAKTATY TRBY dialCtx dialPoc DNY hraUkolyHtml kronikaPrekresli pFaith renderNovinky svMeter tvarLet vekPostavy drawParty kalHero
 - oddíly:

@@ -200,6 +200,11 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
   bez posunu stránky. Mapa Koruny je v celé obrazovce vždy „široká“ (`mapWide`, `mapAsp` = skutečný poměr okna; na telefonu na výšku celá výška světa
   mapy, strany se posouvají), svět a Praha drží výřez přes `celaVyrez` (`sVidim`, `pVidim`). Panel místa plave vlevo dole (telefon: list zespodu), Vrstvy
   přes mapu; Zavřít / Esc / odchod ze stránky vrátí posun stránky a bez pohybu na mapě i původní výřez. Testy `mapa`.
+- 10-28 **Rychlejší první načtení**: shrnutí míst `CITYINFO` (~500 míst) je v samostatné části `mista` (`02g-mista.js`), ne v jádru –
+  hráčské jádro `zaklad` 462 → 361 kB (gzip 171 → 136 kB). Stáhne se s Mapou a Výpravou (`MMLINY_V`), vypravěči hned; jádro čte jen přes
+  `mistoInfo(n, hotovo)` (02; než se část stáhne, panel napíše „Načítám…“ a překreslí se), hledání v liště (`gIndex`, 07) ji stáhne při
+  prvním hledání a rejstřík sestaví znovu. Mrtvý rejstřík `CIDX` smazán. `DUCHY`, `DIO`, `ROADS`, hory a 02e zůstávají v jádru: legendy
+  mapy, graf cest (`MSEG`, plán cesty v 09) a hledání je čtou hned při načtení. Test `mapa` hlídá, že jádro nečte `CITYINFO` bez `typeof`.
 
 ## Otevřené
 - **Mapa jih – k ověření (Vojta)**: kdo k 3. 3. 1458 drží Čakovec a Varaždínský hrad (celjské dědictví – Vitovec?), Golubac vynechán (srbský/turecký?), Kusánský
