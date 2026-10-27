@@ -23,7 +23,7 @@ Za válek husitských odešli z Hor němečtí havíři, doly zalila voda a **od
 
 ## Drobné peníze
 
-Na chléb, maso a pivo se neplatí groši. Obíhají **drobné peníze** a haléře: **bílé**, v nichž je ještě kus stříbra, a **černé**, kde je stříbra jen stopa a měď prosvítá, sotva se mince ošoupe. Nádeník dostane za den práce groš či dva, zručný řemeslník víc. Za správy pana [[jiri|Jiřího]] byla v zemi laciná doba a staří letopisci zapsali, že v Praze se konev nejlepšího mělnického vína dala koupit za haléř.
+Na chléb, maso a pivo se neplatí groši. Obíhají **drobné peníze** a haléře: **bílé**, v nichž je ještě kus stříbra, a **černé**, kde je stříbra jen stopa a měď prosvítá, sotva se mince ošoupe. Nádeník dostane za den práce groš či dva, zručný řemeslník víc. Za správy pana [[jiri|Jiřího]] byla v zemi laciná doba a písaři zapisují, že v Praze se konev nejlepšího mělnického vína dala koupit za haléř.
 
 ## Zlatí
 

@@ -60,7 +60,7 @@
 - Nikósie | 33.37, 35.17 |
 - Konya | 32.48, 37.87 |
 - Trapezunt | 39.72, 41.00 | hlavní
-- Diyarbakır | 40.23, 37.91 |
+- Amid | 40.23, 37.91 |
 - Tabríz | 46.29, 38.08 | hlavní
 - Tbilisi | 44.79, 41.72 |
 - Bagdád | 44.36, 33.31 |

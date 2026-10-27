@@ -57,7 +57,7 @@
 - spor | bkr, pod | Krakovská kapitula, vychovaná kardinálem Oleśnickým, považuje kališnického krále za kacíře.
 - spor | rmi, fra | Norimberk a Albrecht Achilles spolu nedávno válčili (1449–1450) a nedůvěra trvá.
 - spoj | rmi, pod | Norimberští kupci jsou hlavními obchodními partnery Prahy a Plzně.
-- spor | umi, jis | Kremnicu a Banskou Štiavnicu drží Jiskra jako hejtman Horních Uher; okolí ovládají bratříci a vybírají výpalné.
+- spor | umi, jis | Kremnici a Šťávnici drží Jiskra jako hejtman Horních Uher; okolí ovládají bratříci a vybírají výpalné.
 - tajné spoj | jag, zat | Václav Zátorský roku 1456 tajně holdoval Kazimírovi IV., ačkoli je formálně leníkem české koruny.
 - spor | jis, hun | Jiskra na Matyášovo uvítání v Budíně nepřišel, dál drží Horní Uhry po svém a novému králi nedůvěřuje; Matyáš ho činí odpovědným i za loupení bratříků.
 - spor | ses, var | Šestiměstí vede fehdy s Vartenberky a dalšími severočeskými pány a ničí jejich hrady.
@@ -68,7 +68,7 @@
 - rod | hra, ste | Matkou mladých pánů Jindřicha IV. a Heřmana z Hradce je Kateřina ze Šternberka; jejich poručníkem se po Arnoštovi z Leskovce stal Zdeněk ze Šternberka.
 - rod | roz, hlo | Jan II. z Rožmberka je ženatý s Annou, dcerou Jindřicha IX. Hlohovského; roku 1456 se jim narodil syn Jindřich V.
 - rod | roz, sva | Ludmila, dcera Oldřicha II. z Rožmberka a Kateřiny z Vartenberka, se o masopustu 1452 provdala za Bohuslava ze Švamberka, přinesla mu věnem Bor a zemřela před rokem 1458. Sám Oldřich II. si po smrti první ženy nejspíš vzal Kateřinu ze Švamberka († 1451, pohřbena v Třeboni) – roku 1442 oslovuje Hynka Krušinu ze Švamberka „tchánem“.
-- rod | sli, sva | Konstancie, dcera Matyáše Šlika, se roku 1458 stane druhou manželkou ovdovělého Bohuslava ze Švamberka.
+- tajné rod | sli, sva | Konstancie Šliková se roku 1458 stane druhou manželkou ovdovělého Bohuslava ze Švamberka (zda před 3. březnem, nebo po něm, není známo).
 - rod | roz, var | Oldřich II. z Rožmberka se oženil s Kateřinou († 1436), dcerou svého poručníka Čeňka z Vartenberka, rytíře Dračího řádu; jejich syny jsou Jan II. a biskup Jošt.
 - rod | kol, ste | Hanuš II. z Kolovrat je ženatý s Kateřinou ze Šternberka.
 - spor | pod, kol | Hanuš z Kolovrat musel Jiřímu vydat hrad Žebrák; náhradou dostal Zbiroh, ale křivdu nezapomněl.
@@ -88,7 +88,7 @@
 - rod | bra, wet | Kurfiřt Fridrich II. Železný je ženatý s Kateřinou Saskou, sestrou saského kurfiřta a Viléma III.
 - rod | wet, hab | Saská kurfiřtka Markéta je sestrou císaře Fridricha III.
 - rod | wit, wet | Ludvík Bohatý je od roku 1452 ženatý s Amálií, dcerou saského kurfiřta.
-- rod | wit, hab | Albrecht VI. je ženatý s Mechtildou Falckou, sestrou falckého kurfiřta Fridricha Vítězného.
+- rod | wit, hab | Albrecht VI. je ženatý s Mechtildou Falckou, sestrou falckého kurfiřta Fridricha.
 - spor | jag, hun | Kazimír IV. si přes Alžbětu činí nárok i na uherskou korunu a Matyášovu volbu nepovažuje za konečnou.
 - spoj | jis, jag | Jiskra po Matyášově nástupu hledí k Polsku. ⟦V březnu 1458 odejde ke Kazimírovi, nabídne mu služby a dostane do úschovy Malbork.¦⟧
 - spor | jis | Jan Jiskra a hejtman bratříků Petr Aksamit jsou od roku 1453 rozkmotření.
@@ -136,7 +136,7 @@
 - spoj | rab, roz | Rožmberkové roku 1457 postoupili zástavu Prachatic a Volar kancléři Prokopovi a jeho bratru Janovi z Rabštejna.
 - spoj | rab, haz | Kancléř Prokop z Rabštejna a Jan Zajíc z Hazmburka byli 2. 3. 1458 dva latiníci, na jejichž výkladu karlštejnských listin páni závisli.
 - spoj | haz, pod | Nejvyšší sudí Zbyněk Zajíc z Hazmburka šel 2. 3. 1458 v průvodu do Královského dvora hned za králem, spolu s Janem z Rožmberka.
-- rod | lip, pod | Jindřich z Lipé a Viktorin z Poděbrad mají za ženy dcery Hynce Ptáčka z Pirkštejna, Jiřího předchůdce v čele kališnické strany.
+- tajné rod | lip, pod | Viktorin z Poděbrad se roku 1463 ožení s Markétou, dcerou Hynce Ptáčka z Pirkštejna, Jiřího předchůdce v čele kališnické strany; Ptáčkovu dceru měl podle některých zpráv za ženu i Jindřich z Lipé, který si roku 1461 vezme Jiřího dceru Barboru.
 - rod | var, ber, pod | Jan Děčínský z Vartenberka a Jindřich Berka z Dubé a Lipé seděli na volebním sněmu mezi pány spřízněnými se zvoleným králem.
 - spoj | bos, pod | Ješek Svojanovský z Boskovic byl s Jiřím v únoru 1458 ve Strážnici, když tam vydával Matyáše Uhrům.
 - spoj | sli, wet | Matyáš Šlik podporoval kandidaturu Viléma Saského a dodával mu právní posudky; s ním i někteří páni ze severu a severozápadu Čech.

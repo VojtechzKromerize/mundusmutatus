@@ -1,7 +1,7 @@
 ---
 id: permonici-ve-stole
 nazev: Permoníci ve štole
-stitky: permoníci, důl, Kutná Hora, Jáchymov, hory, podzemí
+stitky: permoníci, důl, Kutná Hora, Krušné hory, hory, podzemí
 nepratele:
   - Permoníci = 8 permonici
   - Pavouci = 5 pavouci-z-hlubin

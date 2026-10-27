@@ -5,4 +5,4 @@ rod: ste
 role: pán moravské větve
 sidlo: Lukov (Morava)
 ---
-Zastupuje moravskou větev Šternberků na Lukově (s Matoušem ze Šternberka na Holešově). Hrad Šternberk na Moravě už rodu nepatří.
+Mladý syn Matouše ze Šternberka, pána na Lukově, který moravskou větev rodu zatím vede sám. Hrad Šternberk na Moravě už rodu nepatří.

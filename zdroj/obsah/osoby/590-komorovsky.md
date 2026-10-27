@@ -5,4 +5,4 @@ rod: kom
 role: pán Oravy
 sidlo: Oravský hrad
 ---
-Polský šlechtic, kastelán Oravy od roku 1441, který léta bojoval po boku Jiskry.
+Polský šlechtic, který od roku 1441 spravuje Oravu a od roku 1450 se píše županem oravským; strany střídá podle výhody, posledních let však drží s Jiskrou.

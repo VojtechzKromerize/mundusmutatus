@@ -152,7 +152,7 @@
 - obchod | Moldavská cesta Lvov – Suceava – Akkerman | Lvov; 25.4 48.9; 25.95 48.3; Suceava; 27.59 47.16; 29.0 46.6; Akkerman
 - obchod | Levantská cesta Brašov – Kluž – Varadín – Košice | Brašov; 24.15 45.79; 23.9 46.3; Kluž; Varadín; 21.6 47.9; Košice
 - obchod | Budín – Bělehrad | Budín; 19.6 46.2; Bělehrad
-- obchod | Hedvábná cesta Bursa – Tabríz | Bursa; Ankara; Sivas; Erzurum; Tabríz
+- obchod | Karavanní cesta Bursa – Tabríz | Bursa; Ankara; Sivas; Erzurum; Tabríz
 - obchod | Trapezunt – Tabríz | Trapezunt; Erzurum
 - obchod | Levantská cesta Aleppo – Damašek – Jeruzalém | Aleppo; Damašek; Jeruzalém
 - obchod | Aleppo – Bagdád | Aleppo; 38.6 36.5; 40.2 35.0; 42.5 34.0; Bagdád

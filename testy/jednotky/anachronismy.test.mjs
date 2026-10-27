@@ -37,10 +37,28 @@ test("hráčské texty obsahu nezmiňují roky po březnu 1458", () => {
     for (const f of fs.readdirSync(dir).filter(f => f.endsWith(".md") && !f.startsWith("_")))
       L.push(...nalezy(`${d}/${f}`, fs.readFileSync(path.join(dir, f), "utf8")));
   }
-  for (const f of SOUBORY) if (fs.existsSync(path.join(OBSAH, f))) L.push(...nalezy(f, fs.readFileSync(path.join(OBSAH, f), "utf8")));
+  /* řádky „- tajné …“ (vazby) jsou celé jen pro vypravěče */
+  for (const f of SOUBORY)
+    if (fs.existsSync(path.join(OBSAH, f)))
+      L.push(
+        ...nalezy(
+          f,
+          fs
+            .readFileSync(path.join(OBSAH, f), "utf8")
+            .split("\n")
+            .filter(r => !/^-\s*tajn/.test(r))
+            .join("\n"),
+        ),
+      );
   /* rodokmeny: jména, roky a poznámky (bez tajných částí) */
   const R = JSON.parse(fs.readFileSync(path.join(OBSAH, "rodokmeny.json"), "utf8"));
-  L.push(...nalezy("rodokmeny.json", JSON.stringify(R)));
+  /* záznam s "$gm": true (osoba či sňatek, který hráči nevidí) se vynechá celý */
+  L.push(
+    ...nalezy(
+      "rodokmeny.json",
+      JSON.stringify(R, (k, v) => (v && typeof v === "object" && !Array.isArray(v) && v.$gm ? undefined : v)),
+    ),
+  );
   /* rešerše postav: hráči vidí jen shrnutí */
   const P = JSON.parse(fs.readFileSync(path.join(OBSAH, "postavy-1458.json"), "utf8"));
   for (const [id, o] of Object.entries(P)) if (o && o.shrnuti) L.push(...nalezy(`postavy-1458.json ${id}`, String(o.shrnuti)));
