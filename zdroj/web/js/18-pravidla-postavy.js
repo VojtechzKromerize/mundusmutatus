@@ -1225,9 +1225,14 @@ const kMunTxt = (K, a) => {
 async function kMunOdecti(K, a, n) {
   const m = kMunice(K, a);
   if (!m || !m.x) return;
-  const inv = [...(kartaStav(K.id).inv || K.vybaveni || [])].map(y => Object.assign({}, y));
-  inv[m.i].q = Math.max(0, (+inv[m.i].q || 0) - (n || 1));
-  await kartaStavZmen(K.id, {inv});
+  const inv = [...(kartaStav(K.id).inv || K.vybaveni || [])].map(y => Object.assign({}, y)),
+    q0 = +inv[m.i].q || 0;
+  inv[m.i].q = Math.max(0, q0 - (n || 1));
+  /* vystřelené střelivo do sebrání po boji (průvodce koncem boje, 2026-10-27) */
+  const mun = Object.assign({}, kartaStav(K.id).mun || {}),
+    nm = String(inv[m.i].n).slice(0, 80);
+  mun[nm] = Math.min(999, (+mun[nm] || 0) + (q0 - inv[m.i].q));
+  await kartaStavZmen(K.id, {inv, mun});
   if (!inv[m.i].q) mmHlasG(`${K.n}: došlo střelivo (${inv[m.i].n}).`, 4500);
 }
 /* ---- příprava kouzel ze seznamu povolání ---- */

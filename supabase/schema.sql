@@ -1116,6 +1116,9 @@ begin
     when 'pen' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'object' and not exists (
       select 1 from jsonb_each(x) e where e.key not in ('CP', 'SP', 'EP', 'GP', 'PP') or jsonb_typeof(e.value) <> 'number' or (e.value #>> '{}') !~ '^[0-9]{1,7}$'))
     when 'pozn' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'string' and char_length(x #>> '{}') <= 4000)
+    -- vystřelené střelivo od posledního sebrání po boji (2026-10-27): {název věci: počet}
+    when 'mun' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'object' and (select count(*) from jsonb_object_keys(x)) <= 20
+      and not exists (select 1 from jsonb_each(x) e where char_length(e.key) not between 1 and 80 or not public.mm_cislo(e.value, 0, 999)))
     -- duše postavy (Artikule): Svědomí 0–10, body hříchu a dobrých skutků, vyznání, Ctnosti a Neřesti, stupeň featu víry, odkaz na postavu v Družině
     when 'sv' then public.mm_cislo(x, 0, 10)
     when 'hr' then public.mm_cislo(x, 0, 99)
