@@ -255,14 +255,17 @@
   "narozeni": null,
   "narozeniRok": 1415,
   "narozeniOdhad": true,
-  "zakladOdhadu": "Rok narození nedoložen; podkomořím od počátku Ladislavovy vlády (1453/1454) do roku 1468. Odhad kolem 1415.",
-  "shrnuti": "Vaněk Valečovský z Kněžmosta pochází z pražského měšťanstva a za služby byl povýšen do rytířského stavu. Jiří ho po nástupu Ladislava Pohrobka prosadil za podkomořího, který spravuje královská města a v zemském soudu je zastupuje; roku 1454 zasedal v komisi, která přezkoumávala listiny k zabraným církevním a královským statkům. Na volebním sněmu 27. února 1458 patřil k čtveřici, která pánům předložila ultimátum rytířů a měst.",
+  "zakladOdhadu": "Rok narození nedoložen; konšelem od 1449, podkomořím od 1452/53. Odhad kolem 1415.",
+  "shrnuti": "Vaněk Valečovský z Kněžmosta pochází ze zemanského rodu Valečovských, psaného po skalním hradu Valečově na Boleslavsku; jeho otec (Bernard nebo Bartoš) byl horlivý kališník a přítel Žižkův. Kariéra se mu otevřela, když se roku 1448 přidal k Jiřímu při dobytí Prahy: 3. 9. 1449 se stal staroměstským konšelem, několikrát byl primasem, 7. 12. 1452 ho Jiří povolal do své správní rady a brzy nato ho prosadil za podkomořího, který spravuje královská města a v zemském soudu je zastupuje. Roku 1454 zasedal v komisi, která přezkoumávala listiny k zabraným církevním a královským statkům. Je ostrým kritikem kališnických kněží: v traktátu z let 1453–1457 napadá „světské panování“ Rokycanových kněží v královských městech i jejich mravy. Jeho sestra Ofka je ženou staroměstského purkmistra Samuela Velvara. Na volebním sněmu 27. února 1458 patřil ke čtveřici, která pánům předložila ultimátum rytířů a měst.",
   "jistota": "střední",
-  "rozporSWebem": "Zda jízdu pro listiny na Karlštejn vedl on, nebo nejvyšší komorník Kruhlata, není jisté.",
-  "zdroje": [],
+  "rozporSWebem": "Dříve byl uváděn jako pražský měšťan povýšený mezi rytíře; pochází však ze zemanského rodu Valečovských. Podkomořím je uváděn od roku 1452, jinde od Ladislavova nástupu (1453). Zda jízdu pro listiny na Karlštejn vedl on, nebo nejvyšší komorník Kruhlata, není jisté.",
+  "zdroje": [
+   "M. F. Šrajer, Samuel z Hrádku a Valečova, bakalářská práce, FF UHK Hradec Králové 2024",
+   "O. Haliak, Politické myšlení Jana Rokycany, diplomová práce, FF MU Brno 2025"
+  ],
   "gm": {
-   "poBreznu1458": "Podkomořím zůstal do roku 1468, kdy ho v úřadu vystřídal Samuel Velvar z Hrádku. Je příkladem Jiřího měšťanských důvěrníků ve vysokých úřadech. Datum úmrtí neznámé.",
-   "umrti": null
+   "poBreznu1458": "Roku 1458 prodal švagrovi Samuelovi Velvarovi Včelní Hrádek a roku 1465 mu půjčil 12 000 uherských zlatých. Se Samuelem roku 1464 smířil v Kouřimi kramáře Jíru s městským písařem, kterého Jíra nařkl ze zrady, a za moru téhož roku dali oba pohřbívat kališníky u sv. Michala pod Hradem navzdory protestům katolického administrátora Hilaria. Psal se i „z Opočna“. Podkomořím zůstal do roku 1467, kdy ho v úřadu vystřídal švagr Samuel Velvar z Hrádku. Zemřel 19. 2. 1472; zanechal pět dcer, nezletilého syna Viktorina († 1481 bezdětný) a manželku, která brzy zemřela; poručníkem dětí byl Samuel. Je příkladem Jiřího měšťanských a rytířských důvěrníků ve vysokých úřadech.",
+   "umrti": "1472-02-19"
   }
  },
  "cabelicky": {
@@ -359,21 +362,23 @@
   }
  },
  "velvar": {
-  "jmeno": "Samuel Velvar z Hrádku",
+  "jmeno": "Samuel Velvar",
   "fiktivni": false,
-  "vek": 38,
-  "vekText": "odhadem 38 let",
+  "vek": 33,
+  "vekText": "odhadem 33 roky",
   "narozeni": null,
-  "narozeniRok": 1420,
+  "narozeniRok": 1425,
   "narozeniOdhad": true,
-  "zakladOdhadu": "Rok narození nedoložen; v 50. letech dlouholetý purkmistr, syn husitského politika Jana Velvara (činného 1427–1436). Odhad kolem 1420.",
-  "shrnuti": "Samuel Velvar (Velvarský) z Hrádku je měšťan Starého Města pražského a syn Jana Velvara, který po roce 1427 patřil k husitské staroměstské elitě kolem Rokycany. Dlouhá léta stojí v čele staroměstské rady. Před volbou roku 1458 rada pod jeho vedením otevřeně podporovala Jiřího a staroměstský purkmistr – pravděpodobně on – byl ve čtveřici, která 27. února oznámila pánům, že rytíři a města chtějí jen krále Čecha.",
+  "zakladOdhadu": "Narodil se ve 20. letech nebo počátkem 30. let 15. století; počátkem 50. let už byl ženatý a roku 1452 se stal konšelem. Odhad kolem 1425.",
+  "shrnuti": "Samuel Velvar je měšťan Starého Města pražského a syn Jana Velvara, husitského diplomata, který roku 1427 smiřoval Staré a Nové Město a jednal za Prahu se Zikmundem; po Zikmundově korunovaci byl Jan zajat a léta žil ve vyhnanství na Karlštejně, do Prahy se vrátil až po Jiřího dobytí města a roku 1451 zemřel. Samuel začínal roku 1451 v šestipanském úřadu, 7. 12. 1452 ho Jiří jmenoval konšelem, v letech 1453–1455 byl primasem čili prvním purkmistrem a znovu je jím od 9. 11. 1456. Je zámožný: drží dům v Týnské uličce, Helmovský dům Na Louži a mlýny na Poříčí, roku 1455 koupil mlýny pod Letnou a o rok později je se ziskem prodal obci. Jeho žena Ofka je sestrou podkomořího Vaňka Valečovského, její sestra Kateřina je ženou rytíře Ramše z Hrádku. Před volbou roku 1458 rada pod jeho vedením otevřeně podporovala Jiřího a staroměstský purkmistr – nejspíš on – byl ve čtveřici, která 27. února oznámila pánům, že rytíři a města chtějí jen krále Čecha.",
   "jistota": "střední",
-  "rozporSWebem": "Ve čtveřici s ultimátem je doložen jen „staroměstský purkmistr“, pravděpodobně Samuel Velvar.",
-  "zdroje": [],
+  "rozporSWebem": "Přídomek „z Hrádku“ užívá až od listopadu 1458 (rada obnovená 9. 11. 1458, listina z 13. 11. 1458); k 3. 3. 1458 je to jen Samuel Velvar. Ve čtveřici s ultimátem je doložen „staroměstský purkmistr“; jeho životopis má za jisté, že šlo o Samuela.",
+  "zdroje": [
+   "M. F. Šrajer, Samuel z Hrádku a Valečova, bakalářská práce, FF UHK Hradec Králové 2024"
+  ],
   "gm": {
-   "poBreznu1458": "Na sněmu v prosinci 1458 byl hlavním mluvčím Pražanů proti nárokům katolického administrátora Václava z Krumlova a hořce si u krále stěžoval; Zdeněk ze Šternberka mu odporoval. Roku 1463 ho Jiří povýšil do rytířského stavu a roku 1468 ho jmenoval podkomořím po Vaňku Valečovském; byl mluvčím měst. Datum úmrtí se nepodařilo zjistit.",
-   "umrti": null
+   "poBreznu1458": "Roku 1458 koupil od švagra Vaňka Valečovského Včelní Hrádek s Markvartovským domem; spolu s dědickým spolkem se švagrem Ramšem z Hrádku to vysvětluje jeho nový přídomek „z Hrádku“. 13. 11. 1458 dala rada pod jeho vedením výsady cechům malířů a sklenářů. Na sněmu v prosinci 1458 byl hlavním mluvčím Pražanů proti nárokům katolického administrátora Václava z Krumlova a osobně si stěžoval králi; Zdeněk ze Šternberka mu rozčileně odporoval. Roku 1461 koupil Chlumec nad Cidlinou s pěti vesnicemi za 1 800 kop a s Čeňkem z Klinštejna přinesl na univerzitu odvolací list mistra Jana Kravína; nejpozději roku 1463 je doložen jako „statečný“ rytíř. V letech 1464–1467 byl hofrychtéřem a Jiří mu dlužil 300 kop; v listině z 9. 11. 1467 se píše už podkomořím a „z Hrádku a z Valečova“. Na sněmech 1465 a 1467 mluvil za města, roku 1469 velel s Janem Černým ze Skaličky městským oddílům proti Lužičanům. Po Vaňkově smrti (1472) byl poručníkem jeho dětí a kronikář mu vyčítá, že zatajoval kšafty a „lakomství jest miloval“. Roku 1476 při korupční aféře rady uprchl; podkomořím zůstal do roku 1486, kdy byl sesazen, „že králi nevěřil“. Zemřel 28. 1. 1488.",
+   "umrti": "1488-01-28"
   }
  },
  "rokycana": {
@@ -384,18 +389,19 @@
   "narozeni": null,
   "narozeniRok": 1396,
   "narozeniOdhad": true,
-  "zakladOdhadu": "Uvádí se jen „kolem 1396“, resp. „kolem 1390“.",
-  "shrnuti": "Mistr pražské univerzity z Rokycan, vychovaný v augustiniánském klášteře a žák Jakoubka ze Stříbra. V září 1424 jako vyslanec Prahy přemluvil Žižku, aby na město nezaútočil. Od roku 1427 je kazatelem v Týnském chrámu a byl jedním z hlavních mluvčích kališníků na basilejském koncilu, kde si získal respekt i katolíků. Sněm ho 21. 10. 1435 zvolil pražským arcibiskupem, papež však volbu nikdy neuznal. Roku 1437 musel z Prahy odejít, krátce ho chránil Diviš Bořek na Kunětické hoře a pak deset let sídlil v Hradci Králové; vrátil se až roku 1448 po Jiřího obsazení Prahy. Věří ve skutečnou přítomnost Krista ve svátosti a bez papežského potvrzení se neodvažuje světit kněze, takže kališníci se nechávají světit v cizině. Král Ladislav ho roku 1454 uznal jen jako administrátora kališnické církve. S Jiřím úzce spolupracuje a ještě roku 1457 jednal s papežem Kalixtem III. o uznání.",
+  "zakladOdhadu": "Uvádí se jen „kolem 1396“, jinde „kolem 1390“ nebo snad 1397; roku 1447 je popisován jako padesátník.",
+  "shrnuti": "Syn chudého kováře z rokycanského předměstí, na pečeti má podkovu a hvězdu. Mistr pražské univerzity, krátce v mládí v augustiniánském klášteře v Rokycanech, žák Jakoubka ze Stříbra. V září 1424 jako vyslanec Prahy přemluvil Žižku, aby na město nezaútočil. Od roku 1427 je kazatelem v Týnském chrámu a byl jedním z hlavních mluvčích kališníků na basilejském koncilu, kde si získal respekt i katolíků. Sněm ho 21. 10. 1435 zvolil pražským arcibiskupem, papež však volbu nikdy neuznal. Roku 1437 musel z Prahy odejít, krátce ho chránil Diviš Bořek na Kunětické hoře a pak deset let sídlil v Hradci Králové; vrátil se až roku 1448 po Jiřího obsazení Prahy. Věří ve skutečnou přítomnost Krista ve svátosti a bez papežského potvrzení se neodvažuje světit kněze, takže kališníci se nechávají světit v cizině; roku 1452 se proto zajímal o unii s řeckou církví. Kapistránovy zázraky má za dílo ďáblovo. Král Ladislav ho roku 1454 uznal jen jako administrátora kališnické církve. S Jiřím úzce spolupracuje a ještě roku 1457 jednal s papežem Kalixtem III. o uznání, jejich vztah však není bez napětí: Rokycanovi vadí Jiřího shovívavost ke katolíkům a mužům v nejvyšších úřadech, jako je podkomoří Vaněk Valečovský nebo purkrabí Zdeněk ze Šternberka, zase mocenské nároky kališnických kněží.",
   "jistota": "vysoká",
   "rozporSWebem": null,
   "zdroje": [
    "https://en.wikipedia.org/wiki/Jan_Rokycana",
    "https://www.Britannica.Com/biography/Jan-Rokycana",
    "https://www.biographia.cms.flu.cas.cz/autority/detail/14007/",
-   "https://psp.cz/eknih/snemy/ac/vol03/1432_39/t0015_00.htm"
+   "https://psp.cz/eknih/snemy/ac/vol03/1432_39/t0015_00.htm",
+   "O. Haliak, Politické myšlení Jana Rokycany, diplomová práce, FF MU Brno 2025"
   ],
   "gm": {
-   "poBreznu1458": "Papež Kalixt III. si 22. 2. 1458 přál, aby Rokycana jel s českým poselstvem do Říma; kurie prý doufala, že by se spokojil s kardinálským kloboukem. Brzy po volbě vymohl bratřím útočiště v Kunvaldu. Protože ho Řím neuznával, korunovali Jiřího uherští biskupi. Ve stáří byl tvrdší a panovačnější; roku 1462 zrušil Pius II. kompaktáta a spory s Římem se vyostřily až k vyhlášení křížové výpravy (1467). Roku 1466 ho postihla mrtvice; roku 1467 žádal obsadit svatovítskou kapitulu kališníky, a když to král odmítl („Mistře, dost jste již mistrovali, nechte nyní mistrovat mne“), jejich vztah ochladl. Zemřel v Praze 22. 2. 1471, měsíc před králem, a byl pohřben v Týnském chrámu.",
+   "poBreznu1458": "Papež Kalixt III. si 22. 2. 1458 přál, aby Rokycana jel s českým poselstvem do Říma; kurie prý doufala, že by se spokojil s kardinálským kloboukem. Brzy po volbě vymohl bratřím útočiště v Kunvaldu. Protože ho Řím neuznával, korunovali Jiřího uherští biskupi. Ve stáří byl tvrdší a panovačnější; roku 1462 zrušil Pius II. kompaktáta a spory s Římem se vyostřily až k vyhlášení křížové výpravy (1467). Ve dnech 7.–11. 2. 1465 se před králem přel na hromniční disputaci s bývalými žáky Hilariem Litoměřickým a Václavem Křižanovským, kteří se ze studií v Itálii vrátili jako katolíci; Hilarius mu připomněl, že v mládí v klášteře přijímal pod jednou. Brzy nato, snad roku 1466, ho postihla mrtvice; roku 1467 žádal obsadit svatovítskou kapitulu kališníky, a když to král odmítl („Mistře, dost jste již mistrovali, nechte nyní mistrovat mne“), jejich vztah ochladl. Zemřel v Praze 22. 2. 1471, měsíc před králem, a byl pohřben v Týnském chrámu.",
    "umrti": "1471-02-22"
   }
  },
@@ -419,7 +425,7 @@
    "https://www.deutsche-biographie.de/sfz32240.html"
   ],
   "gm": {
-   "poBreznu1458": "Začátkem září 1458 ho papež Pius II. jmenoval jediným administrátorem pražské arcidiecéze. Své nároky na jurisdikci vůči kališníkům vyvolaly v Praze bouři: na sněmu v prosinci 1458 si na ně u krále hořce stěžoval staroměstský purkmistr Samuel Velvar z Hrádku a Zdeněk ze Šternberka mu odporoval. S Prokopem z Plzně sepsal 70 článků, jimiž chtěl dokázat, že Rokycana nemůže být ani řádným knězem, natož arcibiskupem (datace článků nejistá). Další osudy ani datum úmrtí se nepodařilo dohledat. Na konci roku 1461 byl administrátorem jeho bratr Mikuláš z Krumlova; po Mikulášově smrti (prosinec 1461) kapitula zvolila prozatímními administrátory Hilaria Litoměřického a Jana z Krumlova a papež Hilaria potvrdil 11. 4. 1462.",
+   "poBreznu1458": "Začátkem září 1458 ho papež Pius II. jmenoval jediným administrátorem pražské arcidiecéze. Své nároky na jurisdikci vůči kališníkům vyvolaly v Praze bouři: na sněmu v prosinci 1458 si na ně u krále hořce stěžoval staroměstský purkmistr Samuel Velvar z Hrádku a Zdeněk ze Šternberka mu odporoval. S Prokopem z Plzně sepsal 70 článků, jimiž chtěl dokázat, že Rokycana nemůže být ani řádným knězem, natož arcibiskupem (datace článků nejistá). Podle jediné, nepodložené zprávy zemřel roku 1459; polemiky proti Rokycanovi pak vedl Hilarius Litoměřický. Na konci roku 1461 byl administrátorem jeho bratr Mikuláš z Krumlova; po Mikulášově smrti (prosinec 1461) kapitula zvolila prozatímními administrátory Hilaria Litoměřického a Jana z Krumlova a papež Hilaria potvrdil 11. 4. 1462.",
    "umrti": null
   }
  },
