@@ -25,6 +25,15 @@ test("celé tažení: všechna místa v pořadí bez opakování, zápisy konč�
   assert.equal(r.odT, null);
 });
 
+test("místa, která mapa nezná, se v trase přeskočí – stopa se nepřeruší", () => {
+  assert.deepEqual(V(`stopaRozsah(${Z}, {pohled: "cele", zna: n => n !== "Jihlava" && n !== "Kouřim"}).zast.map(q => q.n)`), [
+    "Praha",
+    "Kutná Hora",
+    "Čáslav",
+    "Brno",
+  ]);
+});
+
 test("bez počátku je „od počátku stopy“ totéž co celé tažení", () => {
   assert.deepEqual(jm(R({pohled: "pocatek"})), jm(R({pohled: "cele"})));
   assert.deepEqual(jm(R({})), jm(R({pohled: "cele"})));

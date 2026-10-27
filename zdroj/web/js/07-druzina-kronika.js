@@ -201,7 +201,7 @@ function stopaPohled() {
   return STOPAP;
 }
 const stopaOd = () => (HRA && HRA.stopaOd) || null;
-const stopaTed = lim => stopaRozsah(ZAPISY, {od: stopaOd(), pohled: stopaPohled(), lim});
+const stopaTed = (lim, zna) => stopaRozsah(ZAPISY, {od: stopaOd(), pohled: stopaPohled(), lim, zna: zna || (n => !!placeBy(n))});
 const datumDlouhe = d => {
   const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(d || "");
   return m ? `${+m[3]}. ${MES[+m[2] - 1]} ${m[1]}` : "";
@@ -358,7 +358,7 @@ function drawParty(svg, s, k) {
       stroke: "var(--kal)",
       "stroke-width": w.toFixed(2),
       opacity: op,
-      "stroke-dasharray": plna ? "none" : `${0.5 * s} ${(nej ? 3.4 : 4) * s}`,
+      "stroke-dasharray": plna ? "none" : nej ? `${3.2 * s} ${2.6 * s}` : `${0.5 * s} ${4 * s}`,
       "stroke-linecap": "round",
       "stroke-linejoin": "round",
     });
@@ -545,7 +545,14 @@ function drawParty(svg, s, k) {
   g.appendChild(
     el(
       "text",
-      {x: x + 21 * m, y: y - 18 * m, class: "seatlbl stopatady", "font-size": (9.5 * k).toFixed(1), "stroke-width": (3 * s).toFixed(2)},
+      {
+        x: x + 6 * m,
+        y: y - 31.5 * m,
+        "text-anchor": "middle",
+        class: "seatlbl stopatady",
+        "font-size": (9.5 * k).toFixed(1),
+        "stroke-width": (3 * s).toFixed(2),
+      },
       nap,
     ),
   );

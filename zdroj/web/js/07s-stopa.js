@@ -18,7 +18,8 @@ function stopaDatumKr(datum) {
   return m ? `${+m[2]}. ${+m[1]}.` : "";
 }
 /* Zastávky stopy. zapisy = [{id, place, route, datum, hodina}] v pořadí Kroniky (hráč má jen odhalené),
-   o = {od: HRA.stopaOd, pohled: "posledni" | "pocatek" | "cele", lim: index zápisu z posuvníku nebo null}.
+   o = {od: HRA.stopaOd, pohled: "posledni" | "pocatek" | "cele", lim: index zápisu z posuvníku nebo null,
+   zna: jméno → zná ho mapa? (neznámá místa trasy se přeskočí, aby se stopa nepřerušila)}.
    Vrací {i0, i1, zast: [{n: jméno místa, i: zápis, při kterém sem družina došla, z: [zápisy, které tu končí]}], odT: {datum, hodina}
    – od kdy kreslit cesty z Výpravy (null = všechny)}.
    Počátek = zápis X: stopa začíná v místě, kde X končí (jeho cesta už se nekreslí). Poslední cesta = cesta k poslednímu zápisu
@@ -60,7 +61,7 @@ function stopaRozsah(zapisy, o) {
   }
   const zast = [];
   const pridej = (jm, i, kon) => {
-    if (!jm) return;
+    if (!jm || (o.zna && !o.zna(jm))) return;
     const p = zast[zast.length - 1];
     if (p && p.n === jm) {
       if (kon) p.z.push(i);

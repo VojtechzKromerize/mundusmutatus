@@ -784,7 +784,7 @@ function sDraw() {
     };
     /* stejný počátek stopy a volba diváka jako na mapě Koruny (stopaTed v 07) */
     const pts = [];
-    stopaTed(null).zast.forEach(z => {
+    stopaTed(null, n => !!look(n)).zast.forEach(z => {
       const q = look(z.n);
       if (q && (!pts.length || pts[pts.length - 1] + "" !== q + "")) pts.push(q);
     });
