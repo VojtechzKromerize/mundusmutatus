@@ -57,6 +57,7 @@ JS = [
     ("17b-kouzla-ucinky.js", "/* ===== Kouzla: účinky na cílech"),
     ("18-pravidla-postavy.js", "/* ===== Pravidla postavy"),
     ("19-karty-beyond.js", "/* ===== karta jako D&D Beyond (2026-10-17 b)"),
+    ("19b-automatika.js", "/* ===== Automatika podle karet družiny"),
     ("20-boj-hraci.js", "/* ===== Boj: hráč na telefonu"),
     ("20b-boj-vypravec.js", "/* ===== Boj: vypravěč – vyhodnocení"),
     ("20c-boj-ridery.js", "/* ===== Boj: volby po zásahu"),

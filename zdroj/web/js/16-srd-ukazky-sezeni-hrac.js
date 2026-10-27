@@ -1580,6 +1580,7 @@ function pultDruzinaHtml() {
       <section><h3 class="uvh2">Výzva k hodu</h3>${vyzvaForm()}${vyzvyGmHtml()}</section>
       <section><h3 class="uvh2">Akce hráčů</h3><p class="kvlh">${potvrzHtml("hra")}</p>${navrhyGmHtml() || `<p class="rsmall">Nic nečeká na schválení. Útoky hráčů k potvrzení jsou v záložce Boj.</p>`}</section>
       ${kPrehledHtml()}
+      ${kAutoHtml()}
       <section><h3 class="uvh2">Tajné zprávy</h3>${
         KARTY.length
           ? `<p class="kvlh"><label>Postava <select data-zprk>${KARTY.map(k => {

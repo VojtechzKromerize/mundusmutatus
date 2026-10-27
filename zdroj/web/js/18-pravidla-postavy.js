@@ -166,7 +166,11 @@ function kCtx(K, pdf) {
     x => !(x.q != null && +x.q <= 0),
   );
   const ry = new Set([...(K.rysy2 || []).map(r => r.n), ...(K.rysy || [])].map(x => String(x).toLowerCase().replace(/[’']/g, "'")));
-  const maRys = re => [...ry].some(x => re.test(x));
+  const maRys = re => {
+    const x = [...ry].find(x => re.test(x));
+    if (x) kAutoZnac(K.id, x);
+    return !!x;
+  };
   /* efekty předmětů: z databáze SRD (ef) a podle jména; předmět s připoutáním působí jen připoutaný */
   const E = [],
     vlSet = {};

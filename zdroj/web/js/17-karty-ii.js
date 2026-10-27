@@ -1146,8 +1146,20 @@ function kSmity(K) {
     .filter(Boolean);
 }
 /* ---- rysy z karty pro automatiku boje (2026-10-20): featy a manévry podle názvu z PDF, kostky převahy, Bardic Inspiration ---- */
-const kMaRys = (K, re) =>
-  !!K && [...(K.rysy || []), ...(K.rysy2 || []).map(r => r && r.n)].some(x => x && re.test(String(x).replace(/[’]/g, "'").trim()));
+/* rysy, na které se automatika opravdu ptá (kMaRys tady, c.maRys v kCtx 18): přehled „Automatika podle karet“ (19b) podle nich
+   pozná, co z rysů a featů postavy web počítá sám (2026-10-27) */
+const KAUTOR = new Map();
+function kAutoZnac(id, n) {
+  if (!id || !n) return;
+  if (!KAUTOR.has(id)) KAUTOR.set(id, new Set());
+  KAUTOR.get(id).add(String(n).toLowerCase().replace(/[’']/g, "'").trim());
+}
+const kMaRys = (K, re) => {
+  if (!K) return false;
+  const x = [...(K.rysy || []), ...(K.rysy2 || []).map(r => r && r.n)].find(x => x && re.test(String(x).replace(/[’]/g, "'").trim()));
+  if (x) kAutoZnac(K.id, x);
+  return !!x;
+};
 const kTezka = (K, a) => {
   if (!a) return false;
   const A = (kUtoky(K) || []).find(x => x.n === a.n) || a,

@@ -3840,3 +3840,7 @@ html.mmpc:not(.mmjenhra) .bdmweb{display:grid;font-size:1.2rem}
 .bdmstt button{flex:1;padding:7px 6px 6px;border:0;border-bottom:2px solid transparent;background:none;color:var(--kb-mu,#b8a384);font:600 .78rem/1.1 var(--f-label);letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
 .bdmstt button[aria-selected=true]{color:var(--kb-gold,#d9b45c);border-bottom-color:var(--kb-gold,#d9b45c)}
 .bdmstt button b{display:inline-block;min-width:1.2em;margin-left:4px;padding:0 4px;border-radius:999px;background:var(--kb-bar,#4a2228);color:var(--kb-tx,#efe3c8);font-size:.72rem}
+/* Automatika podle karet (Hra › Družina, 2026-10-27) */
+.kauto>summary{cursor:pointer}.kautk{margin:6px 0;padding:4px 8px;border-left:3px solid var(--rule)}.kautk>summary{cursor:pointer}
+.kautl{display:flex;flex-wrap:wrap;gap:4px 8px;list-style:none;padding:0;margin:2px 0 6px}.kautl li{padding:1px 6px;border:1px solid var(--rule);border-radius:3px;font-size:.9rem}
+.kautl li small{opacity:.7}.kautl li.kautnic{border-color:var(--kal)}
