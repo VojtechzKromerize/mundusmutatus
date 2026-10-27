@@ -435,6 +435,8 @@
   "VY_ZP": "Výprava: způsoby cesty [klíč, název, km/den, km/h v Praze] – pesky, kun, vuz, posel, drak",
   "ZAPISY": "Kronika: zápisy ze sezení z buildu (@ZAPISY@) – trasa, místo, text; poslední určuje polohu družiny",
   "ZBY": "Kronika: zápis podle id (z ZAPISY) – rychlé hledání zápisu",
+  "TRAKTATY": "Kronika › Traktáty: články o světě z buildu (@TRAKTATY@) – id, t název, h text; sl = družina jen slyšela (bez textu)",
+  "TRBY": "Kronika › Traktáty: traktát podle id (z TRAKTATY)",
   "ZMENY": "Časová osa sezení (vypravěč): změny karet, boje a herního času z databáze (MMDB.zmeny) k vrácení",
   "ZMFLT": "Časová osa: filtr druhu změn („vse“ nebo druh)",
   "ZMOD": "Časová osa: rozsah zpětně (1h, 6h, 24h, 7d)",

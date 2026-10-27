@@ -127,20 +127,20 @@ Draconomicon
 
 Družina · Kronika tažení · automatické odkazy · hledání
 
-- 1447 řádků, 67 definic na nejvyšší úrovni, z toho 30 používají jiné soubory
+- 1506 řádků, 71 definic na nejvyšší úrovni, z toho 32 používají jiné soubory
 - používá z: 01-zaklad (6), 02-mapa (11), 03-artikule (3), 04-praha (5), 05-svet (1), 06-draconomicon-rodokmeny (3), 08-navigace-pravidla (3), 09-vypravec-herni-cas (11), 22-vyprava (1)
-- používají ho: 02-mapa (1), 02b-mapa-kresba (1), 03-artikule (1), 04b-praha-plan (3), 05b-svet-mapa (5), 06-draconomicon-rodokmeny (4), 08-navigace-pravidla (7), 09-vypravec-herni-cas (18), 10-kouzla (7), 11-boj (3), 12-boj-tah-postavy (2), 13-karty (1), 14-karty-bojova-karta (1), 14b-vybaveni (1), 14c-boj-reakce (1), 14d-vybaveni-katalog (1), 15-karty-artikule (7), 16-srd-ukazky-sezeni-hrac (7), 17-karty-ii (1), 17b-kouzla-ucinky (1), 19-karty-beyond (1), 19b-automatika (1), 20b-boj-vypravec (2), 20d-boj-render (2), 21-editor-pecet (7), 22-vyprava (4), 22b-vyprava (8), 23-potvrzovani (1), 25-puls (2), 26-start (2)
-- poskytuje: HRA KARTY PARTY partyDate partyPlace autolink MES ZAPISY fromJdn herniDen jdn renderKal renderKronika SVST ZBY DISC feasts renderDruzina dialCtx dialPoc DNY hraUkolyHtml kronikaPrekresli pFaith renderNovinky svMeter tvarLet vekPostavy drawParty kalHero
+- používají ho: 02-mapa (1), 02b-mapa-kresba (1), 03-artikule (1), 04b-praha-plan (3), 05b-svet-mapa (5), 06-draconomicon-rodokmeny (4), 08-navigace-pravidla (7), 09-vypravec-herni-cas (20), 10-kouzla (8), 11-boj (3), 12-boj-tah-postavy (2), 13-karty (1), 14-karty-bojova-karta (1), 14b-vybaveni (1), 14c-boj-reakce (1), 14d-vybaveni-katalog (1), 15-karty-artikule (7), 16-srd-ukazky-sezeni-hrac (7), 17-karty-ii (1), 17b-kouzla-ucinky (1), 19-karty-beyond (1), 19b-automatika (1), 20b-boj-vypravec (2), 20d-boj-render (2), 21-editor-pecet (8), 22-vyprava (4), 22b-vyprava (8), 23-potvrzovani (1), 25-puls (2), 26-start (2)
+- poskytuje: HRA KARTY PARTY partyDate partyPlace autolink MES ZAPISY fromJdn herniDen jdn renderKal renderKronika SVST ZBY DISC feasts renderDruzina TRAKTATY TRBY dialCtx dialPoc DNY hraUkolyHtml kronikaPrekresli pFaith renderNovinky svMeter tvarLet vekPostavy drawParty kalHero
 - oddíly:
   - ř. 3: DRUŽINA
   - ř. 77: KRONIKA TAŽENÍ
-  - ř. 327: Kalendář tažení (juliánský kalendář)
-  - ř. 719: prstenec počasí kolem kola: dnešní počasí z generátoru Výpravy (stejné místo a den = stejné počasí)
-  - ř. 801: dráček na Úvodu ukazuje stav hry: bdí / spí / svátek / neklid (Hodina Závoje) / Hodina Pravdy; rámeček podle r
-  - ř. 989: NOVINKY: co družina nově zná (z deníku odhalení)
-  - ř. 1012: AUTOMATICKÉ ODKAZY
-  - ř. 1149: Náhledové kartičky: po najetí na odkaz (nebo prvním ťuknutí) osoba, rod, pojem či plemeno
-  - ř. 1274: HLEDÁNÍ NA CELÉM WEBU
+  - ř. 383: Kalendář tažení (juliánský kalendář)
+  - ř. 775: prstenec počasí kolem kola: dnešní počasí z generátoru Výpravy (stejné místo a den = stejné počasí)
+  - ř. 857: dráček na Úvodu ukazuje stav hry: bdí / spí / svátek / neklid (Hodina Závoje) / Hodina Pravdy; rámeček podle r
+  - ř. 1045: NOVINKY: co družina nově zná (z deníku odhalení)
+  - ř. 1068: AUTOMATICKÉ ODKAZY
+  - ř. 1205: Náhledové kartičky: po najetí na odkaz (nebo prvním ťuknutí) osoba, rod, pojem či plemeno
+  - ř. 1330: HLEDÁNÍ NA CELÉM WEBU
 
 ## 08-navigace-pravidla
 
@@ -159,23 +159,23 @@ site navigation: views, house and person articles
 
 Vypravěč: stavy odhalení (Skryté / Slyšeli / Potkali), přihlášení a přehled
 
-- 1021 řádků, 49 definic na nejvyšší úrovni, z toho 34 používají jiné soubory
-- používá z: 01-zaklad (3), 02-mapa (18), 02e-krajina (1), 04-praha (1), 05-svet (4), 05b-svet-mapa (3), 06-draconomicon-rodokmeny (3), 07-druzina-kronika (18), 08-navigace-pravidla (4), 11-boj (3), 20d-boj-render (1), 21-editor-pecet (5), 22-vyprava (4), 22b-vyprava (1)
+- 1025 řádků, 49 definic na nejvyšší úrovni, z toho 34 používají jiné soubory
+- používá z: 01-zaklad (3), 02-mapa (18), 02e-krajina (1), 04-praha (1), 05-svet (4), 05b-svet-mapa (3), 06-draconomicon-rodokmeny (3), 07-druzina-kronika (20), 08-navigace-pravidla (4), 11-boj (3), 20d-boj-render (1), 21-editor-pecet (5), 22-vyprava (4), 22b-vyprava (1)
 - používají ho: 05b-svet-mapa (1), 06-draconomicon-rodokmeny (1), 07-druzina-kronika (11), 08-navigace-pravidla (1), 10-kouzla (20), 11-boj (3), 12-boj-tah-postavy (1), 13-karty (1), 14-karty-bojova-karta (2), 14b-vybaveni (1), 14c-boj-reakce (1), 15-karty-artikule (5), 16-srd-ukazky-sezeni-hrac (4), 17-karty-ii (1), 17b-kouzla-ucinky (1), 18-pravidla-postavy (1), 19-karty-beyond (1), 20b-boj-vypravec (4), 20c-boj-ridery (1), 20d-boj-render (2), 20e-boj-vlastnosti (1), 20f-scena (1), 21-editor-pecet (3), 22-vyprava (2), 22b-vyprava (7), 23-potvrzovani (3), 25-puls (2)
 - poskytuje: mmHlasG hraUloz cT cTxt gmSeg hraPo hraPosun partyPos zavojInfo cestaAktivni cestaMisto cestaPlan cestaPoz gmLv gmPl zavojBan cDat cDokonciG CESTA_ZP cKde cNejbliz cZaznamG gmMark gmRefresh gmSum gmUloz HRA_PO pozehnaniDnes STAV STLBL zapisNovy CESTA_ODCH pozBadge zapisDoHry
 - oddíly:
-  - ř. 135: Při hře: plovoucí panel vypravěče – rychlé hledání a Skryté/Slyšeli/Potkali odkudkoli (Ctrl+K)
-  - ř. 521: Herní čas: jedno místo pro uložení a posun (Při hře, přehled vypravěče, mapy)
-  - ř. 748: Kronika z herního stavu: nový zápis s datem, hodinou, místem, trasou a podklady (putování, boj, počasí); ulože
-  - ř. 856: Mapa jako paměť tažení: posuvník po zápisech Kroniky
-  - ř. 897: Měření a cesta z místa kliknutí na místo kliknutí (mapa zemí Koruny)
+  - ř. 138: Při hře: plovoucí panel vypravěče – rychlé hledání a Skryté/Slyšeli/Potkali odkudkoli (Ctrl+K)
+  - ř. 525: Herní čas: jedno místo pro uložení a posun (Při hře, přehled vypravěče, mapy)
+  - ř. 752: Kronika z herního stavu: nový zápis s datem, hodinou, místem, trasou a podklady (putování, boj, počasí); ulože
+  - ř. 860: Mapa jako paměť tažení: posuvník po zápisech Kroniky
+  - ř. 901: Měření a cesta z místa kliknutí na místo kliknutí (mapa zemí Koruny)
 
 ## 10-kouzla
 
 Kouzla: SRD 5.2.1 česky (art/kouzla.json, načítá se až při potřebě) – jen pro vypravěče
 
-- 794 řádků, 31 definic na nejvyšší úrovni, z toho 12 používají jiné soubory
-- používá z: 01-zaklad (3), 02-mapa (5), 04-praha (2), 05-svet (1), 06-draconomicon-rodokmeny (1), 07-druzina-kronika (7), 08-navigace-pravidla (2), 09-vypravec-herni-cas (20), 10q-plne-texty (1), 15-karty-artikule (1), 21-editor-pecet (1)
+- 795 řádků, 31 definic na nejvyšší úrovni, z toho 12 používají jiné soubory
+- používá z: 01-zaklad (3), 02-mapa (5), 04-praha (2), 05-svet (1), 06-draconomicon-rodokmeny (1), 07-druzina-kronika (8), 08-navigace-pravidla (2), 09-vypravec-herni-cas (20), 10q-plne-texty (1), 15-karty-artikule (1), 21-editor-pecet (1)
 - používají ho: 08-navigace-pravidla (4), 10q-plne-texty (1), 11-boj (1), 12-boj-tah-postavy (4), 14b-vybaveni (1), 14d-vybaveni-katalog (1), 15-karty-artikule (5), 16-srd-ukazky-sezeni-hrac (2), 18-pravidla-postavy (2)
 - poskytuje: kzIn kzMd kzUr kouzlaTxt KZ KZBY kzKarta kzNacti KZRE renderKouzla kouzlaTxtKarta renderGM
 
@@ -579,14 +579,14 @@ Boj: vlastnosti a mistrovství zbraní (Weapon Traits a Weapon Masteries, 2026-1
 
 Vypravěč: úpravy textů a obrázků přímo na webu
 
-- 768 řádků, 29 definic na nejvyšší úrovni, z toho 8 používají jiné soubory
-- používá z: 01-zaklad (2), 04-praha (1), 06-draconomicon-rodokmeny (3), 07-druzina-kronika (7), 08-navigace-pravidla (2), 09-vypravec-herni-cas (3)
+- 776 řádků, 29 definic na nejvyšší úrovni, z toho 8 používají jiné soubory
+- používá z: 01-zaklad (2), 04-praha (1), 06-draconomicon-rodokmeny (3), 07-druzina-kronika (8), 08-navigace-pravidla (2), 09-vypravec-herni-cas (3)
 - používají ho: 06-draconomicon-rodokmeny (4), 09-vypravec-herni-cas (5), 10-kouzla (1), 20b-boj-vypravec (2), 22b-vyprava (2), 26-start (1)
 - poskytuje: EDDRUH edOtevri ED edNacti edGen edIndex edNovyBox edUloz
 - oddíly:
-  - ř. 281: okno editoru
-  - ř. 573: obrázky: zmenšení v prohlížeči a nahrání do úložiště
-  - ř. 655: tlačítka na stránkách
+  - ř. 288: okno editoru
+  - ř. 580: obrázky: zmenšení v prohlížeči a nahrání do úložiště
+  - ř. 662: tlačítka na stránkách
 
 ## 22-vyprava
 

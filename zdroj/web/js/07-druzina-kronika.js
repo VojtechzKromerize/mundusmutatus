@@ -82,6 +82,9 @@ var ZAPISY = /*@ZAPISY@*/ [];
    {name:"Zbořená kaple u Berouna", lo:14.07, la:49.96, note:"…", z:"prolog"} */
 var DISC = /*@MISTA@*/ [];
 var ZBY = Object.fromEntries(ZAPISY.map(z => [z.id, z]));
+/* Traktáty (zdroj/obsah/traktaty): články o světě. Hráč dostane jen odhalené; „slyšeli“ = jen název (sl), „potkali“ = i text h */
+const TRAKTATY = /*@TRAKTATY@*/ [];
+const TRBY = Object.fromEntries(TRAKTATY.map(t => [t.id, t]));
 /* Herní stav nastavený vypravěčem (datum, hodina, kde je družina); bez něj platí poslední zápis Kroniky */
 var HRA = __D.HRA || null;
 function partyPlace() {
@@ -103,12 +106,65 @@ function hraUkolyHtml() {
 const kronikaPrekresli = () => {
   if (!location.hash.split("/")[1]) renderKronika("");
 };
-function renderKronika(b) {
+/* Traktáty: seznam (#kronika/clanky) a článek (#kronika/clanky/<id>). První odstavec celý kurzívou = podtitul pod nadpisem. */
+function trRozdel(h) {
+  const m = String(h || "").match(/^<p><i>([\s\S]*?)<\/i><\/p>\n?/);
+  return m ? {pod: m[1], h: h.slice(m[0].length)} : {pod: "", h: h || ""};
+}
+function renderTraktaty(c) {
+  const box = document.getElementById("kclanky"),
+    t = TRBY[c];
+  if (!t) {
+    box.innerHTML = `<p class="intro">Traktáty o světě po protržení Závoje: o zemích, řádech, pověstech a tajemstvích, jak je sepsal kronikář Vojtěch z Kroměříže.</p>
+      ${
+        TRAKTATY.length
+          ? `<ol class="trlist">${TRAKTATY.map(x => {
+              const r = trRozdel(x.h),
+                n = (r.h.match(/<h3>/g) || []).length;
+              return `<li><a class="trcard" href="#kronika/clanky/${x.id}"><small>${x.sl ? "Družina o něm zatím jen slyšela" : n ? `Traktát · ${n} ${n === 1 ? "oddíl" : n < 5 ? "oddíly" : "oddílů"}` : "Traktát"}</small><b>${x.t}</b>${
+                x.sl
+                  ? ""
+                  : `<span>${strip(r.pod || r.h)
+                      .replace(/\s+/g, " ")
+                      .trim()
+                      .slice(0, 160)}…</span>`
+              }</a></li>`;
+            }).join("")}</ol>`
+          : `<div class="placeholder"><p>Traktáty budou doplněny.</p></div>`
+      }`;
+    return;
+  }
+  const i = TRAKTATY.indexOf(t),
+    pv = TRAKTATY[i - 1],
+    nx = TRAKTATY[i + 1],
+    r = trRozdel(t.h),
+    hs = [...r.h.matchAll(/<h3>([\s\S]*?)<\/h3>/g)].map(m => m[1]);
+  box.innerHTML = `<nav class="crumbs"><a href="#kronika/clanky">Traktáty</a> › <b>${t.t}</b></nav>
+    <h2 class="arttitle">${t.t}</h2>
+    ${r.pod ? `<p class="drlatin">${r.pod}</p>` : ""}
+    ${
+      t.sl
+        ? `<p class="intro">O tomto traktátu družina zatím jen slyšela; jeho text nezná.</p>`
+        : `${hs.length > 2 ? `<nav class="trobsah" aria-label="Obsah traktátu"><b>Obsah</b><ol>${hs.map((x, j) => `<li><button type="button" data-trsek="${j}">${x}</button></li>`).join("")}</ol></nav>` : ""}
+    <div class="drtext trtext">${r.h}</div>`
+    }
+    <nav class="apn">${pv ? `<a href="#kronika/clanky/${pv.id}" rel="prev"><small>Předchozí</small>${pv.t}</a>` : "<span></span>"}${nx ? `<a href="#kronika/clanky/${nx.id}" rel="next"><small>Další</small>${nx.t}</a>` : "<span></span>"}</nav>`;
+  const tx = box.querySelector(".trtext");
+  if (tx) autolink(tx, "");
+}
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-trsek]");
+  if (!b) return;
+  const h = document.querySelectorAll("#kclanky .trtext>h3")[+b.dataset.trsek];
+  if (h) h.scrollIntoView({behavior: matchMedia("(prefers-reduced-motion:reduce)").matches ? "auto" : "smooth", block: "start"});
+});
+function renderKronika(b, c) {
   const sub = b === "clanky" ? "clanky" : b === "letopis" ? "letopis" : "zapisy";
   ["kzapisy", "kclanky", "letopis"].forEach(k => {
     document.getElementById(k).hidden = k !== (sub === "zapisy" ? "kzapisy" : sub === "clanky" ? "kclanky" : "letopis");
   });
   document.querySelectorAll("[data-ksub]").forEach(n => n.classList.toggle("on", n.dataset.ksub === sub));
+  if (sub === "clanky") renderTraktaty(c);
   if (sub !== "zapisy") return;
   const box = document.getElementById("kzapisy"),
     z = ZBY[b];
@@ -1335,6 +1391,9 @@ function gIndex() {
   );
   ZAPISY.forEach(z =>
     GIDX.push({k: "Kronika", n: z.title, s: z.n + " · " + z.date, h: "#kronika/" + z.id, t: norm(z.title + " " + z.place), b: norm(strip(z.text))}),
+  );
+  TRAKTATY.forEach(t =>
+    GIDX.push({k: "Traktát", n: t.t, s: "Kronika · traktáty", h: "#kronika/clanky/" + t.id, t: norm(t.t), b: norm(strip(t.h || ""))}),
   );
   PARTY.forEach(p =>
     GIDX.push({k: "Družina", n: p.n, s: p.epi || "", h: "#druzina/" + p.id, t: norm(p.n + " " + (p.epi || "")), b: norm(strip(p.x || ""))}),

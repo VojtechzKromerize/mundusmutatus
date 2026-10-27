@@ -577,6 +577,7 @@ function renderGM() {
       <span class="gmsum" id="gmsum"></span></div>
     <div class="gmlist">${hraBox}${typeof edNovyBox === "function" ? edNovyBox() : ""}
     ${ZAPISY.length ? `<div class="gmrod" data-rn="kronika zapisy"><div class="gmrow"><b>Kronika – zápisy</b><small>Koncept hráči nevidí; zveřejněním se zápis objeví v Kronice i v Novinkách.</small></div>${ZAPISY.map(z => row(z.id, "gmp", "#kronika/" + z.id, z.title, [z.n, z.date].filter(Boolean).join(" · "))).join("")}</div>` : ""}
+    ${TRAKTATY.length ? `<div class="gmrod" data-rn="kronika traktaty"><div class="gmrow"><b>Kronika – traktáty</b><small>Slyšeli: hráči vidí jen název; potkali: celý text kromě tajemství.</small></div>${TRAKTATY.map(t => row(t.id, "gmp", "#kronika/clanky/" + t.id, t.t, "traktát")).join("")}</div>` : ""}
     ${rody
       .map(
         f => `<div class="gmrod" data-rn="${_nrm(f.name + " " + (SHORT[f.id] || "")).replace(/"/g, "")}">

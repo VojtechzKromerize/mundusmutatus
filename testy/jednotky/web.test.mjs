@@ -366,3 +366,17 @@ test("pojmy česky: zobrazený text se převede, pole formuláře ne", async () 
   assert.equal(V(`document.querySelector("#pojtest p[lang]").textContent`), "Resistance to Fire");
   S.ev(`document.getElementById("pojtest").remove()`);
 });
+
+test("Kronika › Traktáty: seznam, článek s obsahem oddílů a vypravěčská lišta odhalení", () => {
+  const chyb = S.chyby.length;
+  S.ev(`renderKronika("clanky")`);
+  assert.equal(V(`document.getElementById("kclanky").hidden`), false);
+  assert.ok(V(`document.querySelectorAll('#kclanky a.trcard[href="#kronika/clanky/kratke-dejiny"]').length`) === 1);
+  S.ev(`renderKronika("clanky", "kratke-dejiny")`);
+  assert.equal(V(`document.querySelector("#kclanky h2").textContent`), "Krátké dějiny země");
+  assert.match(V(`document.querySelector("#kclanky .drlatin").textContent`), /^Sepsal Vojtěch z Kroměříže/);
+  assert.ok(V(`document.querySelectorAll("#kclanky .trobsah [data-trsek]").length`) >= 8, "obsah oddílů");
+  assert.ok(V(`document.querySelectorAll("#kclanky .trtext>h3").length`) >= 8);
+  assert.ok(V(`!!document.querySelector('#kclanky .gmbar[data-gmid="kratke-dejiny"][data-gmkind="traktat"]')`), "vypravěč může odhalit");
+  assert.deepEqual(S.chyby.slice(chyb), []);
+});

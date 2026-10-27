@@ -616,6 +616,21 @@ a.pchar:hover{border-color:var(--kal)}
 .zmeta{display:flex;flex-wrap:wrap;gap:6px 16px;font-family:var(--f-label);letter-spacing:.05em;color:var(--gold)}
 .ztext{display:flex;flex-direction:column;gap:.7em}
 .ztext>p:first-child::first-letter{font-family:var(--f-disp);font-size:2.6em;float:left;line-height:.85;margin:.05em .1em 0 0;color:var(--kal)}
+/* Kronika › Traktáty: seznam jako hřbety knih, článek sazbou Draconomiconu s obsahem oddílů */
+.trlist{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:12px}
+.trcard{display:flex;flex-direction:column;gap:4px;height:100%;box-sizing:border-box;background:var(--paper);border:1px solid var(--rule);border-left:4px solid var(--kal);padding:12px 14px;color:var(--ink);text-decoration:none}
+.trcard:hover{border-color:var(--kal)}
+.trcard small{font-family:var(--f-label);letter-spacing:.05em;color:var(--gold)}
+.trcard b{font-family:var(--f-disp);font-weight:500;font-size:1.45rem;color:var(--kal);line-height:1.1}
+.trcard span{color:var(--muted);font-size:.95rem}
+.trobsah{background:var(--paper);border:1px solid var(--rule);border-top:2px solid var(--gold);padding:10px 14px;margin:12px 0 18px;max-width:70ch}
+.trobsah>b{font-family:var(--f-label);letter-spacing:.06em;color:var(--gold);font-weight:700}
+.trobsah ol{margin:6px 0 0;padding-left:1.6em;columns:2 240px;column-gap:24px}
+.trobsah li{break-inside:avoid}.trobsah li::marker{color:var(--kal);font-family:var(--f-label)}
+.trobsah button{font:inherit;background:none;border:0;padding:4px 0;min-height:32px;color:var(--kal);text-align:left;cursor:pointer}
+.trobsah button:hover,.trobsah button:focus-visible{text-decoration:underline}
+#kclanky>.drlatin{max-width:70ch}
+.trtext>h3{scroll-margin-top:calc(var(--navh,60px) + 12px)}
 .partymk{cursor:pointer}
 .partymk:focus-visible{outline:2px solid var(--gold)}
 .discmk{cursor:pointer}

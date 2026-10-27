@@ -272,10 +272,10 @@ def sb_rpc(fn, body, volitelna=False):
         fail(f"Supabase {fn}: {e.reason}")
 
 # ---------- obsah: soubory, obrázky, generátor ----------
-# Rody, osoby, vazby, rodokmeny, Praha, místa, Kronika, Družina, protivníci a Draconomicon zpracovává zdroj/generator.js
+# Rody, osoby, vazby, rodokmeny, Praha, místa, Kronika, traktáty, Družina, protivníci a Draconomicon zpracovává zdroj/generator.js
 # (stejný kód používá web, když vypravěč upraví text). Na webu napojeném na databázi je zdrojem pravdy
 # databáze (tabulka zaznamy); soubory v repozitáři jsou její záloha a nové či změněné soubory se do ní přenesou.
-ZAZNAMY_SLOZKY = ("rody/", "osoby/", "kronika/", "druzina/", "mista/", "praha/", "protivnici/", "privlastky/", "setkani/", "draconomicon/kapitoly/", "draconomicon/plemena/")
+ZAZNAMY_SLOZKY = ("rody/", "osoby/", "kronika/", "druzina/", "mista/", "praha/", "protivnici/", "privlastky/", "setkani/", "traktaty/", "draconomicon/kapitoly/", "draconomicon/plemena/")
 ZAZNAMY_SOUBORY = ("vazby.md", "rodokmeny.json", "postavy-1458.json", "vyprava-setkani.json")
 GENERATOR = os.path.join(ROOT, "zdroj", "generator.js")
 

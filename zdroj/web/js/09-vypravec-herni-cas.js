@@ -36,15 +36,15 @@ function gmBar(id, kind) {
     kind === "osoba" && PBY[id] && gmLv(PBY[id].r) === 0
       ? `<span class="gmwarn">Rod je skrytý – hráči osobu neuvidí, dokud neodhalíte rod.</span>`
       : "";
-  return `<div class="gmbar noal" data-gmid="${id}" data-gmkind="${kind}"><span class="gmlbl">${kind === "zapis" ? "Zápis Kroniky" : `Co o ${kind === "rod" ? "rodu" : kind === "misto" ? "místu" : kind === "drak" ? "plemeni" : "osobě"} ví družina`}</span>${gmSeg(id)}${warn}${window.MMDB ? "" : `<span class="gmwarn">Měnit lze jen na webu napojeném na databázi.</span>`}</div>`;
+  return `<div class="gmbar noal" data-gmid="${id}" data-gmkind="${kind}"><span class="gmlbl">${kind === "zapis" ? "Zápis Kroniky" : `Co o ${kind === "rod" ? "rodu" : kind === "misto" ? "místu" : kind === "drak" ? "plemeni" : kind === "traktat" ? "traktátu" : "osobě"} ví družina`}</span>${gmSeg(id)}${warn}${window.MMDB ? "" : `<span class="gmwarn">Měnit lze jen na webu napojeném na databázi.</span>`}</div>`;
 }
 function gmMark(root) {
   if (!STAV) return;
   (root || document).querySelectorAll('a[href^="#osoba/"],a[href^="#rod/"],a[href^="#draconomicon/"],a[href^="#kronika/"]').forEach(a => {
     const h = a.getAttribute("href"),
-      id = h.split("/")[1];
+      id = h.startsWith("#kronika/clanky/") ? h.split("/")[2] : h.split("/")[1];
     if (h.startsWith("#draconomicon/") && !gmPl(id)) return;
-    if (h.startsWith("#kronika/") && !ZBY[id]) return;
+    if (h.startsWith("#kronika/") && !ZBY[id] && !TRBY[id]) return;
     const v = gmEff(id);
     a.classList.toggle("gm0", v === 0);
     a.classList.toggle("gm1", v === 1);
@@ -116,11 +116,14 @@ if (GMV && STAV) {
     gmUloz({[box.dataset.gmid]: +b.dataset.gmset});
   });
   const _r4 = renderKronika;
-  renderKronika = function (b) {
-    _r4(b);
+  renderKronika = function (b, c) {
+    _r4(b, c);
     if (ZBY[b]) {
-      const c = document.querySelector("#kzapisy .crumbs");
-      if (c) c.insertAdjacentHTML("afterend", gmBar(b, "zapis"));
+      const cr = document.querySelector("#kzapisy .crumbs");
+      if (cr) cr.insertAdjacentHTML("afterend", gmBar(b, "zapis"));
+    } else if (b === "clanky" && TRBY[c]) {
+      const cr = document.querySelector("#kclanky .crumbs");
+      if (cr) cr.insertAdjacentHTML("afterend", gmBar(c, "traktat"));
     }
   };
   let mq = 0;
@@ -145,6 +148,7 @@ if (GMV && STAV) {
     ...FAM.map(f => ({id: f.id, n: f.name, s: f.land, h: "#rod/" + f.id, k: "Rod"})),
     ...(DRACI.pl || []).map(d => ({id: d.id, n: d.n, s: d.la || "plemeno", h: "#draconomicon/" + d.id, k: "Drak"})),
     ...ZAPISY.map(z => ({id: z.id, n: z.title, s: [z.n, z.date].filter(Boolean).join(" · "), h: "#kronika/" + z.id, k: "Zápis"})),
+    ...TRAKTATY.map(t => ({id: t.id, n: t.t, s: "traktát", h: "#kronika/clanky/" + t.id, k: "Traktát"})),
     ...DISC.map(d => ({id: d.id, n: d.name, s: "objevené místo", h: "#mapa", k: "Místo"})),
   ].map(x => Object.assign(x, {t: _nrm(x.n + " " + x.s)}));
   const RK = "mm-pri-hre",

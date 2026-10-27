@@ -817,7 +817,7 @@ function route() {
     renderDruzina(b);
     window.scrollTo(0, 0);
   } else if (view === "kronika") {
-    renderKronika(b);
+    renderKronika(b, c);
     window.scrollTo(0, 0);
   } else if (view === "pravidla") {
     renderPravidla(b || "", c || "");

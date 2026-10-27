@@ -157,6 +157,7 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
   s hodnotou, bez rámečku a popisku (`bdmSrPol` 14, `art/img/atributy/pb|rych|ini`); název v alt, podrobnost v `data-tip`. Prompty v projektu
   `grafika/zalozky-prompty.md`.
 - 10-23 **Mince jen GP, SP, CP** (uherský zlatý, pražský groš, haléř; 1 GP = 10 SP = 100 CP) s ikonami `art/img/boj/mince-*`, `mesec`, `pokladna` (14b `KMINCE`, `kPenHtml`, `kMinceNab`; 19 `kPenSloz` převádí PP a EP); prompty `grafika/mince-prompty.md` v projektu.
+- 10-27 **Kronika › Traktáty** (Vojta): články o světě jako kapitoly Draconomiconu – `zdroj/obsah/traktaty/` (vzor `_vzor.md`; `id`, `title`, `stav`, pořadí podle souboru; první odstavec celý kurzívou = podtitul), generátor → `TRAKTATY` (brána: slyšeli = jen název, potkali = text), databáze `zaznamy` bez změny schématu (build, záloha z webu). Stránka `#kronika/clanky` (seznam) a `#kronika/clanky/<id>` (článek s obsahem oddílů) – `renderTraktaty` (07); vypravěč: lišta odhalení (09), Upravit text a Nový záznam „Traktát Kroniky“ (21), oddíl v přehledu Vypravěče (10); v hledání i v panelu Při hře. První traktát Krátké dějiny země (`010-kratke-dejiny.md`, potkali).
 
 ## Otevřené
 - **Automatika podle karet družiny** (Vojta 10-24): přehled „Automatika podle karet“ v Hra › Družina je hotový (10-27) – podle něj doplňovat, co skutečné karty potřebují (návrh: formulář jednoduchých bonusů pro vypravěče). Dnes: ~207 kouzel se zraněním/léčením, 105 posílení, 78 stavů ze záchrany; 18 featů podle jména + 58 shrnutí; předměty jen z katalogu vybavení.

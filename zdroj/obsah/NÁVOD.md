@@ -1,7 +1,7 @@
 # Jak upravovat obsah webu
 
 ## Úpravy přímo na webu (doporučeno)
-Rody, osoby, vazby, rodokmeny, místa v Praze, objevená místa, Kronika, Družina a Draconomicon jsou
+Rody, osoby, vazby, rodokmeny, místa v Praze, objevená místa, Kronika (i traktáty), Družina a Draconomicon jsou
 uložené v databázi a vypravěč je upravuje **přímo na webu**: přihlásit se (ikona klíče v nabídce) →
 na stránce osoby, rodu, zápisu, plemene či postavy **Upravit text**, u rodu také **Rodokmen** a **Vazby**.
 Nové záznamy (osoba, rod, zápis Kroniky, plemeno, místo…) vznikají ve vypravěčském přehledu v části
@@ -71,6 +71,7 @@ s česky popsanou chybou v přehledu nasazení na Netlify a web zůstane ve stav
 | `praha/` | očíslovaná místa na plánu Prahy | `praha/_vzor.md` |
 | `praha-ulice.md` | názvy ulic, trhů a bran na plánu Prahy | návod v hlavičce souboru |
 | `kronika/` | zápisy ze sezení | `kronika/_vzor.md` |
+| `traktaty/` | traktáty Kroniky – články o světě (Kronika › Traktáty); `stav` jako u rodů: slyšeli = hráči vidí jen název, potkali = celý text | `traktaty/_vzor.md` |
 | `druzina/` | postavy hráčů | `druzina/_vzor.md` |
 | `mista/` | místa objevená družinou na mapě zemí | `mista/_vzor.md` |
 | `svet/` | mocnosti na mapě Známý svět (vládce, víra, `spor:` červeně, `napeti:` oranžově, `spojenec:` modře) | `svet/_vzor.md` |

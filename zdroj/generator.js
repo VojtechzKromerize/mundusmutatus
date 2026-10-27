@@ -1,5 +1,5 @@
 /* Mundus Mutatus · generátor obsahu
-   Z textových souborů (rody, osoby, vazby, Praha, místa, rodokmeny, Kronika, Družina, Draconomicon)
+   Z textových souborů (rody, osoby, vazby, Praha, místa, rodokmeny, Kronika, traktáty, Družina, Draconomicon)
    vyrobí data webu. Stejný kód běží při sestavení (node, volá ho zdroj/build.py) i v prohlížeči
    vypravěče, když upraví text přímo na webu – proto existuje jen jednou.
 
@@ -614,6 +614,15 @@
       });
     }
 
+    /* Traktáty (Kronika › Traktáty): články o světě; odhalují se jako rody – slyšeli = jen název, potkali = text */
+    const trakt = [];
+    for (const k of readDir("traktaty")) {
+      const w = "traktaty/" + k._file;
+      if (!k.id || !k.title) fail(`${w}: chybí 'id' nebo 'title'`);
+      seed(k.id, k, w);
+      trakt.push({id: k.id, t: k.title, h: md(k._body)});
+    }
+
     /* Družina */
     const party = [];
     for (const p of readDir("druzina")) {
@@ -754,6 +763,7 @@
       ARMS: Object.fromEntries(Object.entries(arms).map(([k, v]) => [k, {$g: k, $x: v}])),
       PORTR,
       ZAPISY: zapisy.map(z => ({$g: z.id, ...z})),
+      TRAKTATY: trakt.map(t => ({$g: t.id, id: t.id, t: t.t, h: "", sl: true, $plne: {h: t.h, sl: false}})),
       PARTY: party,
       KARTY: karty,
       RESERS: RES,
