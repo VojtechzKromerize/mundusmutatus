@@ -1,7 +1,7 @@
 ---
 id: krizaci-na-visle
 nazev: Křižáci na Visle
-stitky: křižáci, Řád německých rytířů, Prusko, Polsko, třináctiletá válka, Němci
+stitky: křižáci, Řád německých rytířů, Prusko, Polsko, pruská válka, Němci
 nepratele:
   - Knechti = 8 radovi-knechti
   - radovy-rytir

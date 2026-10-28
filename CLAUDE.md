@@ -112,7 +112,7 @@ přepsat (obalit) funkci jiného souboru jen jména v `OBALENE` (`testy/kontrola
 **Čistá pravidla (od 2026-10-23):** soubory s `@čisté` na 1. řádku – 02c druhy zbroje (v jádru), 10k import PDF, 10p pravidla boje
 a Artikulí (hody proti smrti, soustředění, zbroj, houfy, sloty), 10r okno reakce (`REAKCE`, `reakceOkno`, `reakceVysledek`; fakta
 z karty skládá `kReakceFakta` v 14c), 10t účet tahu (`tahObnov`, `tahOznac`, `tahJednouZapis` – BPT, KTAHJ, BJU.ridT), 10u účinky
-(`UCINKY` = dřívější KZEF + KPRID v jednom formátu, `ucSecti` a spol.), 10w vlastnosti a mistrovství zbraní SRD
+(`UCINKY` = dřívější KZEF + KPRID v jednom formátu, `ucSecti` a spol.), 02e krajina mapy (přechody, hospodářství, zpustlé kraje: `PRECHODY`, `prechodStav`, `prechodyNaTrase`, `zpustlyKraj`), 10w vlastnosti a mistrovství zbraní SRD
 (`ZBRVL`, `ZBRMS`, `ZBRMA`, `zbrRozbor`, `zbrMaMa` – napojení na boj v 20g). Smí používat jen jazyk JS a jména jiných čistých souborů
 (kontrola kódu je odmítne jinak), data dostávají argumentem; testy běží v čistém Node za milisekundy (`testy/jednotky/ciste.mjs`).
 **Nový výpočet pravidla patří do čistého souboru** (stránka ho jen volá s daty) a test do `testy/jednotky`. Co jde přesunout beze

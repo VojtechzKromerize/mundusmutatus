@@ -49,7 +49,6 @@
 = Pasov | 13.46, 48.57
 = Linec | 14.29, 48.31
 = Košice | 21.26, 48.72
-= Lvov | 24.03, 49.84
 = Kamenec Podolský | 26.58, 48.68
 = Akkerman | 30.35, 46.19
 = Ankara | 32.86, 39.93
@@ -90,6 +89,14 @@
 = Amastris | 32.39, 41.75
 = Sinope | 35.15, 42.03
 = Mudanya | 28.88, 40.38
+= Prachatice | 14.00, 49.01
+= Freiberg | 13.34, 50.91
+= Osek | 13.69, 50.62
+= Brno | 16.61, 49.20
+= Olomouc | 17.25, 49.59
+= Brašov | 25.59, 45.65
+= Kluž | 23.59, 46.77
+= Varadín | 21.92, 47.07
 
 # Hanza
 - hanza | Hanza: Lübeck – Gotland – Reval – Novgorod | Lübeck; 11.2 54.2; 12.4 54.5; Štralzund; 13.9 54.8; 15.0 55.4; 16.6 56.0; 17.2 56.9; Visby; 19.5 58.0; 21.2 58.9; 22.6 59.5; Reval; 26.0 59.75; 28.0 60.0; Ústí Něvy
@@ -131,15 +138,21 @@
 # Obchodní cesty po souši
 - obchod | Zlatá cesta Praha – Norimberk | Praha; Plzeň; Norimberk
 - obchod | Norimberk – Frankfurt – Kolín – Bruggy | Norimberk; Frankfurt; Kolín nad Rýnem; 5.6 50.75; Brusel; Bruggy
-- obchod | Královská cesta (Via Regia) | Frankfurt; Erfurt; Lipsko; 14.2 51.2; Vratislav; Krakov
+- obchod | Vysoká cesta | Frankfurt; Erfurt; Lipsko; 14.2 51.2; Vratislav; Krakov
 - obchod | Brennerská cesta Augsburg – Benátky | Augsburg; Innsbruck; Bolzano; Trento; 11.6 45.7; Benátky
 - obchod | Dunajská cesta Řezno – Vídeň – Budín | Řezno; Pasov; Linec; Vídeň; 17.1 48.0; Budín
 - obchod | Praha – Vídeň | Praha; 15.3 49.5; 16.0 48.9; Vídeň
 - obchod | Praha – Vratislav | Praha; 15.8 50.4; Vratislav
+- obchod | Prachatická stezka Pasov – Prachatice (sůl ze Solné komory) | Pasov; 13.75 48.85; Prachatice
+- obchod | Prachatice – Praha | Prachatice; 14.15 49.31; 14.4 49.75; Praha
+- obchod | Krušnohorská cesta Lipsko – Freiberg – Praha (saská sůl) | Lipsko; 13.0 51.15; Freiberg; 13.55 50.72; Osek; 13.95 50.4; Praha
+- obchod | Vídeň – Brno – Olomouc – Vratislav | Vídeň; 16.55 48.7; Brno; Olomouc; 17.33 50.47; Vratislav
 - obchod | Krakov – Košice – Budín | Krakov; 20.8 49.3; Košice; 20.4 48.1; Budín
 - obchod | Tatarská cesta Krakov – Lvov – Akkerman | Krakov; Lvov; Kamenec Podolský; 28.4 47.4; Akkerman
+- obchod | Moldavská cesta Lvov – Suceava – Akkerman | Lvov; 25.4 48.9; 25.95 48.3; Suceava; 27.59 47.16; 29.0 46.6; Akkerman
+- obchod | Levantská cesta Brašov – Kluž – Varadín – Košice | Brašov; 24.15 45.79; 23.9 46.3; Kluž; Varadín; 21.6 47.9; Košice
 - obchod | Budín – Bělehrad | Budín; 19.6 46.2; Bělehrad
-- obchod | Hedvábná cesta Bursa – Tabríz | Bursa; Ankara; Sivas; Erzurum; Tabríz
+- obchod | Karavanní cesta Bursa – Tabríz | Bursa; Ankara; Sivas; Erzurum; Tabríz
 - obchod | Trapezunt – Tabríz | Trapezunt; Erzurum
 - obchod | Levantská cesta Aleppo – Damašek – Jeruzalém | Aleppo; Damašek; Jeruzalém
 - obchod | Aleppo – Bagdád | Aleppo; 38.6 36.5; 40.2 35.0; 42.5 34.0; Bagdád

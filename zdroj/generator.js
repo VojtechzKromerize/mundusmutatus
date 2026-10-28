@@ -1,5 +1,5 @@
 /* Mundus Mutatus · generátor obsahu
-   Z textových souborů (rody, osoby, vazby, Praha, místa, rodokmeny, Kronika, Družina, Draconomicon)
+   Z textových souborů (rody, osoby, vazby, Praha, místa, rodokmeny, Kronika, traktáty, Družina, Draconomicon)
    vyrobí data webu. Stejný kód běží při sestavení (node, volá ho zdroj/build.py) i v prohlížeči
    vypravěče, když upraví text přímo na webu – proto existuje jen jednou.
 
@@ -149,6 +149,31 @@
       return out;
     };
 
+    /* věrnost králi k 3. 3. 1458 (vrstva mapy Věrnost králi, 2026-10-27): „skupina | věta“, nebo seznam, v němž další řádky
+       „Sídlo = skupina | věta“ platí jen pro jedno sídlo (Mejdštejn starého Oldřicha z Rožmberka) → {v, t, m: {sídlo: [v, t]}} */
+    const VERN = ["verni", "vahaji", "odpurci", "cizi"];
+    const vernost = (val, w, seats) => {
+      const out = {m: {}},
+        radky = Array.isArray(val) ? val : [val];
+      for (let radek of radky) {
+        const tajne = /^tajn[ée]\s+/.test(radek);
+        if (tajne) radek = radek.replace(/^tajn[ée]\s+/, "");
+        const eq = radek.indexOf("="),
+          bar = radek.indexOf("|"),
+          misto = eq > 0 && (bar < 0 || eq < bar) ? radek.slice(0, eq).trim() : "",
+          [v, ...t] = (misto ? radek.slice(eq + 1) : radek).split("|").map(x => x.trim());
+        if (!VERN.includes(v)) fail(`${w}: vernost má začínat jedním z ${VERN.join(" / ")} (je „${v}“)`);
+        if (misto) {
+          if (!seats.some(s => s[0] === misto)) fail(`${w}: vernost pro „${misto}“ – takové sídlo rod nemá`);
+          out.m[misto] = tajne ? [v, t.join(" | "), "$gm"] : [v, t.join(" | ")];
+        } else if (tajne) fail(`${w}: „tajné“ jde jen u věrnosti jednoho sídla`);
+        else if (out.v) fail(`${w}: vernost má mít jen jeden řádek bez sídla`);
+        else Object.assign(out, {v, t: t.join(" | ")});
+      }
+      if (!out.v) fail(`${w}: vernost bez výchozí skupiny`);
+      return out;
+    };
+
     /* rody */
     const fam = [],
       short = {},
@@ -157,11 +182,15 @@
       const w = "rody/" + r._file;
       for (const k of ["id", "zeme", "nazev", "vyznani"]) if (!r[k]) fail(`${w}: chybí '${k}'`);
       const seats = [];
-      for (const sd of Array.isArray(r.sidla) ? r.sidla : []) {
+      for (const sd0 of Array.isArray(r.sidla) ? r.sidla : []) {
+        /* „tajné Název | délka | šířka“: sídlo uvidí jen vypravěč (hráčská data ho nemají; poslední prvek „$gm“ vyřízne bezTajnych) */
+        const tajneSidlo = /^tajn[ée]\s+/.test(sd0),
+          sd = sd0.replace(/^tajn[ée]\s+/, "");
         const parts = sd.split("|").map(x => x.trim());
         if (parts.length < 3) fail(`${w}: sídlo „${sd}“ má mít tvar  název | délka | šířka`);
         const seat = [parts[0], num(parts[1], w), num(parts[2], w)];
         if (parts.length > 3 && parts[3]) seat.push(parts[3]);
+        if (tajneSidlo) seat.push("$gm");
         seats.push(seat);
       }
       const o = {
@@ -181,6 +210,7 @@
       if (ANO(r.hrady)) o.castle = true;
       if (ANO(r.soused)) o.nbr = true;
       if (ANO(r.nemapovat)) o.nomap = true;
+      if (r.vernost) o.vern = vernost(r.vernost, w, seats);
       if (fam.some(f => f.id === o.id)) fail(`${w}: id „${o.id}“ už má jiný rod`);
       fam.push(o);
       seed(o.id, r, w);
@@ -614,6 +644,15 @@
       });
     }
 
+    /* Traktáty (Kronika › Traktáty): články o světě; odhalují se jako rody – slyšeli = jen název, potkali = text */
+    const trakt = [];
+    for (const k of readDir("traktaty")) {
+      const w = "traktaty/" + k._file;
+      if (!k.id || !k.title) fail(`${w}: chybí 'id' nebo 'title'`);
+      seed(k.id, k, w);
+      trakt.push({id: k.id, t: k.title, h: md(k._body)});
+    }
+
     /* Družina */
     const party = [];
     for (const p of readDir("druzina")) {
@@ -664,11 +703,13 @@
     const pref = pid => ({$g: [pid, prod[pid]], $x: pid});
     const rref = rid => ({$g: rid, $x: rid});
     const F = fam.map(f => {
-      /* „Slyšeli“: jméno, základní údaje a veřejně známá historie rodu; postoj ke králi a zápis kronikáře až „Potkali“ */
+      /* „Slyšeli“: jméno, základní údaje a veřejně známá historie rodu; postoj ke králi (i věrnost na mapě) a zápis kronikáře až „Potkali“ */
       const base = {};
-      for (const k in f) if (k !== "stance" && k !== "note") base[k] = f[k];
+      for (const k in f) if (k !== "stance" && k !== "note" && k !== "vern") base[k] = f[k];
       Object.assign(base, {stance: "", note: "", sl: true});
-      return {$g: f.id, ...base, $plne: {stance: f.stance, note: f.note, sl: false}};
+      const plne = {stance: f.stance, note: f.note, sl: false};
+      if (f.vern) plne.vern = f.vern;
+      return {$g: f.id, ...base, $plne: plne};
     });
     const P = people.map(p => {
       const base = {id: p.id, n: p.n, r: p.r, role: p.role, x: "", sl: true},
@@ -740,7 +781,11 @@
     const ZEM = [];
     for (const f of fam)
       if (!f.nomap && (f.city || f.castle || f.land === "Duchovenstvo"))
-        for (const sd of f.seats) ZEM.push([sd[0], sd[1], sd[2], sd[3] || f.conf, f.city ? "mesto" : f.castle ? "hrad" : "cirkev"]);
+        for (const sd of f.seats) {
+          const zn = jeGm(sd) ? sd.slice(0, -1) : sd,
+            z = [zn[0], zn[1], zn[2], zn[3] || f.conf, f.city ? "mesto" : f.castle ? "hrad" : "cirkev"];
+          ZEM.push(jeGm(sd) ? [...z, "$gm"] : z);
+        }
     const odh = {
       DRACI: {kap, pl: PL},
       ZEMEPIS: ZEM,
@@ -754,6 +799,7 @@
       ARMS: Object.fromEntries(Object.entries(arms).map(([k, v]) => [k, {$g: k, $x: v}])),
       PORTR,
       ZAPISY: zapisy.map(z => ({$g: z.id, ...z})),
+      TRAKTATY: trakt.map(t => ({$g: t.id, id: t.id, t: t.t, h: "", sl: true, $plne: {h: t.h, sl: false}})),
       PARTY: party,
       KARTY: karty,
       RESERS: RES,
@@ -782,11 +828,20 @@
       const i = g.indexOf("¦");
       return i < 0 ? g : g.slice(0, i);
     });
+  /* prvky označené posledním členem „$gm“ (tajné sídlo, tajná věrnost sídla) vidí jen vypravěč, a to bez značky */
+  const jeGm = v => Array.isArray(v) && v[v.length - 1] === "$gm";
   function bezTajnych(j, gm) {
-    if (Array.isArray(j)) return j.filter(v => gm || !(v && typeof v === "object" && !Array.isArray(v) && v.$gm)).map(v => bezTajnych(v, gm));
+    if (Array.isArray(j))
+      return j
+        .filter(v => gm || !((v && typeof v === "object" && !Array.isArray(v) && v.$gm) || jeGm(v)))
+        .map(v => bezTajnych(jeGm(v) ? v.slice(0, -1) : v, gm));
     if (j && typeof j === "object") {
       const o = {};
-      for (const k in j) if (k !== "$gm") o[k] = bezTajnych(j[k], gm);
+      for (const k in j) {
+        if (k === "$gm") continue;
+        if (jeGm(j[k]) && !gm) continue;
+        o[k] = bezTajnych(jeGm(j[k]) ? j[k].slice(0, -1) : j[k], gm);
+      }
       return o;
     }
     return j;

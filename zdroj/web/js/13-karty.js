@@ -313,7 +313,7 @@ function kartaZraneni(K, a, krit, ef) {
   return {t, x};
 }
 /* odpočinky (D&D 2024 + Artikule): krátký – kostky životů, zdroje „krátký odpočinek“, sloty paktu; dlouhý – vše, polovina kostek životů, vyčerpání −1 */
-async function kartaOdpocinek(K, dlouhy) {
+async function kartaOdpocinek(K, dlouhy, bez) {
   const S = kartaStav(K.id),
     ch = {},
     msg = [],
@@ -325,7 +325,7 @@ async function kartaOdpocinek(K, dlouhy) {
     cur = S.hp != null ? +S.hp : mx;
   const U = Object.assign({}, S.zdr || {});
   if (dlouhy) {
-    if (!confirm(`${K.n}: dlouhý odpočinek (8 hodin)? Obnoví životy, sloty, zdroje a všechny kostky životů, vyčerpání −1.`)) return;
+    if (!bez && !confirm(`${K.n}: dlouhý odpočinek (8 hodin)? Obnoví životy, sloty, zdroje a všechny kostky životů, vyčerpání −1.`)) return;
     {
       const D = kDuse(K);
       if (D.sv >= 1 && D.sv <= 3) {
@@ -603,7 +603,7 @@ function kartaPriprav(K) {
 /* zátěž postavy z vybavení a peněz na kartě (oddíl Vybavení bojové karty) */
 function kartaZatez(K) {
   const S = kartaStav(K.id);
-  return kZatez(K, S.inv || K.vybaveni || [], S.pen || K.penize || {});
+  return kZatez(K, S.inv || K.vybaveni || [], kPenKarta(K));
 }
 /* ===== části karty sdílené s bojovou kartou (14): české názvy vlastností, puntíky omezených použití, deník.
    Celou kartu v rozvržení D&D Beyond (kartaDbHtml) nahradila 2026-10-18 bojová karta; odstraněna 2026-10-23. ===== */
@@ -717,8 +717,7 @@ document.addEventListener("change", async e => {
     return;
   }
   if (t.matches("[data-kpen]")) {
-    const S = kartaStav(K.id),
-      pen = Object.assign({}, S.pen || K.penize || {});
+    const pen = Object.assign({}, kPenKarta(K));
     pen[t.dataset.kpen] = Math.max(0, Math.min(9999999, Math.round(+t.value || 0)));
     kartaStavZmen(K.id, {pen});
     return;
@@ -964,7 +963,12 @@ document.addEventListener("click", async e => {
         }
         return;
       }
+      bojZranWb();
       m = bojZranPC(o, K, val, typ, false);
+      {
+        const wb = bojZranWb();
+        if (wb > 0) setTimeout(() => kPoutoZran(K, wb, o.hp === 0), 0);
+      }
       if (zr > 0 && kKonDrzi(K) && (o.hp == null || o.hp > 0)) KKON[K.id] = bojKonDC(zr);
       else if (o.hp === 0 && kKonDrzi(K)) kKonZtrata(K, "pád na 0 HP");
     } else if (k === "l") {
@@ -1054,7 +1058,9 @@ function bojPCZmena(hid, fn, hlas) {
   if (!h0 || !K) return;
   const ks = kartaStav(K.id);
   const o = {hp: ks.hp, thp: ks.thp, ds: h0.ds ? JSON.parse(JSON.stringify(h0.ds)) : undefined, stav: h0.stav ? [...h0.stav] : undefined};
-  const msg = fn(o) || "";
+  bojZranWb();
+  const msg = fn(o) || "",
+    wb = bojZranWb();
   const ch = {};
   if ((o.hp ?? null) !== (ks.hp ?? null)) ch.hp = o.hp != null && o.hp < kHPmax(K) ? o.hp : null;
   if ((o.thp ?? null) !== (ks.thp ?? null)) ch.thp = o.thp || null;
@@ -1069,6 +1075,7 @@ function bojPCZmena(hid, fn, hlas) {
     });
   if (GMV) bojLog(hid, {n: "Zranění", ai: null, ci: hid, zt: msg}, h0.n);
   if (hlas !== false && msg) mmHlasG(`${h0.n}: ${msg}${ch.vycerp ? " · vyčerpání " + ch.vycerp : ""}.`, 6000);
+  if (wb > 0) kPoutoZran(K, wb, o.hp === 0);
   return msg;
 }
 
@@ -1185,7 +1192,11 @@ async function kPoslUprav(K, typ) {
     ...(typ === "bard" ? [N.bard] : typ === "m4" ? ["Bane"] : typ === "b4" ? [N.bless ? "Bless" : "Guidance"] : typ === "sd" ? ["sd"] : []),
   ];
   if (typ === "bard") await kBardSpotrebuj(K, N.bard);
-  if (typ === "sd") await kZdrUtrat(K, kSD(K));
+  if (typ === "sd") {
+    /* Svéhlavost Střelce utrácí kostku Štěstěny (Karbaník 10+ bez kostek: k6 zdarma), manévry Battle Mastera kostku převahy */
+    const z = N.sd.rd ? (kRDKousek(K, "svehl") || {}).RD : kSD(K);
+    if (z) await kZdrUtrat(K, z);
+  }
   if (typ === "insp") await kartaStavZmen(K.id, {insp: null});
   if (L && L.z) {
     const U = Object.assign({}, kartaStav(K.id).zdr || {});
@@ -1397,6 +1408,14 @@ function bojJaUprHtml(K, hid) {
       return SD && SD.zb > 0 && kManMa(K, "Precision Attack")
         ? `<button type="button" class="gbtn ghost" data-juupr="prec"${H} ${btip(`Precision Attack: přičte 1${SD.k} k hodu na útok (kostka převahy, zbývá ${SD.zb})`)}>+1${SD.k} Precision</button>`
         : "";
+    })()}${(() => {
+      /* Šrám Střelce (Grazing Shot, 10x): minul jsi na dálku – kostka Štěstěny + DEX zranění i tak, jednou za tah */
+      const RD = x && x.vys === "vedle" && x.dal && !x.sram && K ? kRD(K) : null;
+      return RD && RD.zb > 0 && !(BOJ.s && !tahJednouVolne(bojBpt(BOJ.s), "Šrám"))
+        ? `<button type="button" class="gbtn ghost" data-juupr="sram"${H} ${btip(`Šrám (Grazing Shot): minul jsi, přesto zraníš za 1${RD.k} + DEX (nejméně 1) – kostka Štěstěny, zbývá ${RD.zb}; jednou za tah`)}>Šrám 1${RD.k}</button>`
+        : x && x.sram
+          ? `<small class="rsmall">Šrám: ${x.sram} zranění i při minutí</small>`
+          : "";
     })()}</div>`;
 }
 async function bojJaUprav(typ, hid) {
@@ -1422,6 +1441,20 @@ async function bojJaUprav(typ, hid) {
   }
   const i = Math.min(+BJU.ui || 0, BJU.serie.length - 1),
     q = BJU.serie[i];
+  if (typ === "sram") {
+    const RD = K ? kRD(K) : null,
+      P = BOJ.s ? bojBpt(BOJ.s) : null;
+    if (!(RD && RD.zb > 0 && q.vys === "vedle" && q.dal && !q.sram && (!P || tahJednouVolne(P, "Šrám")))) return;
+    const d = bK(+RD.k.slice(1)),
+      dex = kMod(kVl(K, "DEX") || 10),
+      x = strSram(d, dex);
+    await kZdrUtrat(K, RD);
+    if (P) tahJednouZapis(P, "Šrám");
+    BJU.serie[i] = Object.assign({}, q, {sram: x});
+    BJU.info = `${BJU.info ? BJU.info + " · " : ""}${BJU.serie.length > 1 ? `${i + 1}. útok: ` : ""}Šrám (Grazing Shot): 1${RD.k} ${d} ${bsg(dex)} = ${x} zranění i při minutí`;
+    bojListPrekresli();
+    return;
+  }
   if (typ === "insp" && !(K && kartaStav(K.id).insp)) return;
   const L = typ === "luck" ? K && kLucky(K) : null;
   if (typ === "luck" && (!L || L.zb <= 0)) return;

@@ -1,5 +1,8 @@
 /* ===== Známý svět: kresba mapy Evropy, detail, výběr – samostatná část „svet“, načte se až na stránce Známý svět (2026-10-19) ===== */
 /*@cast svet{*/
+/* výřez mapy světa v mezích [x0, y0, x1, y1, nejmenší a největší šířka]; v celé obrazovce (02f) v poměru stran okna, jinak 1024 : 790 */
+const SMEZE = [-60, -60, 1084, 850, 120, 1120];
+const sVidim = () => celaVyrez(sst.vb || SVB0, celaPomer(document.getElementById("smap")) || SVB0[3] / SVB0[2], SMEZE);
 function svInit() {
   if (SG) {
     sDraw();
@@ -22,7 +25,7 @@ function svInit() {
 }
 function sDraw() {
   const svg = document.getElementById("smap"),
-    vb = sst.vb || SVB0,
+    vb = sVidim(),
     SW0 = svg.getBoundingClientRect().width || 700;
   svg.setAttribute("viewBox", vb.join(" "));
   const s = vb[2] / SVB0[2];
@@ -771,7 +774,7 @@ function sDraw() {
     });
   }
   /* družina: dosavadní cesta a vlaječka */
-  if (sst.party && (ZAPISY.length || HRA)) {
+  if (sst.party && (ZAPISY.length || HRA) && !druzinaNikde()) {
     const g = G({"pointer-events": "none"});
     const look = n => {
       const p = placeBy(n);
@@ -779,13 +782,12 @@ function sDraw() {
       const c = SVETMESTA.find(x => x[0] === n);
       return c ? [c[1], c[2]] : null;
     };
+    /* stejný počátek stopy a volba diváka jako na mapě Koruny (stopaTed v 07) */
     const pts = [];
-    ZAPISY.forEach(z =>
-      (z.route || [z.place]).concat(z.place).forEach(n => {
-        const q = look(n);
-        if (q && (!pts.length || pts[pts.length - 1] + "" !== q + "")) pts.push(q);
-      }),
-    );
+    stopaTed(null, n => !!look(n)).zast.forEach(z => {
+      const q = look(z.n);
+      if (q && (!pts.length || pts[pts.length - 1] + "" !== q + "")) pts.push(q);
+    });
     {
       const pp = partyPos(),
         q = pp ? [pp.lo, pp.la] : null;
@@ -981,7 +983,7 @@ function sDetail() {
     S = SVB[sst.sel];
   if (!S) {
     d.classList.add("empty");
-    d.innerHTML = `<span class="lbl">Známý svět · březen 1458</span><p>Klikněte na zemi na mapě nebo v seznamu pod ní. Uvidíte, kdo v ní vládne, odkud a jaké víry; země, s nimiž je ve válce či sporu, se rozsvítí červeně, napjaté vztahy oranžově a spojenci modře.</p><p class="rsmall">Hranice jsou přibližné: středověké státy neměly ostré čáry, ale panství, léna a sféry vlivu. Zlatá přerušovaná čára obepíná Svatou říši římskou; po přiblížení se v ní ukážou kurfiřtská knížectví (♔). Sedmým kurfiřtem je český král.</p>`;
+    d.innerHTML = `<span class="lbl">Známý svět · březen 1458</span><p>Klikněte na zemi na mapě nebo v seznamu pod ní. Uvidíte, kdo v ní vládne, odkud a jaké víry; země, s nimiž je ve válce či sporu, se rozsvítí červeně, napjaté vztahy oranžově a spojenci modře.</p><p class="rsmall">Hranice jsou přibližné: panství, léna a sféry vlivu nemají ostré čáry. Zlatá přerušovaná čára obepíná Svatou říši římskou; po přiblížení se v ní ukážou kurfiřtská knížectví (♔). Sedmým kurfiřtem je český král.</p>`;
     return;
   }
   d.classList.remove("empty");
@@ -1078,7 +1080,7 @@ function smRender() {
   SM.path = R ? R.path : null;
   if (!R) {
     const land = Math.round(air * 1.3);
-    r.innerHTML = `<p><b>${SM.a.name}</b> → <b>${SM.b.name}</b>: <span class="km">asi ${land.toLocaleString("cs")} km</span> <span class="lbl">(vzdušnou čarou ${air.toLocaleString("cs")} km)</span></p>
+    r.innerHTML = `<p><b>${SM.a.name}</b> → <b>${SM.b.name}</b>: <span class="km">asi ${mileTxt(land)}</span> <span class="lbl">(vzdušnou čarou ${mileTxt(air)})</span></p>
      <div class="tgrid"><div><b>Pěšky</b>${days(land, 30)}</div><div><b>Na koni</b>${days(land, 45)}</div><div><b>S vozem</b>${days(land, 20)}</div><div><b>Posel se střídáním koní</b>${days(land, 90)}</div><div><b>Na drakovi</b>${days(air, 250)}</div></div>
      <p class="lbl">Žádná známá cesta sem nevede; odhad počítá s cestou o třetinu delší než vzdušná čára.</p>`;
     return;
@@ -1086,19 +1088,15 @@ function smRender() {
   const L = R.land,
     S = R.sea,
     t = v => days(L / v + S / 110, 1);
-  r.innerHTML = `<p><b>${SM.a.name}</b> → <b>${SM.b.name}</b>: <span class="km">asi ${(L + S).toLocaleString("cs")} km</span> <span class="lbl">${S ? `(z toho ${S.toLocaleString("cs")} km lodí; ` : "("}vzdušnou čarou ${air.toLocaleString("cs")} km)</span></p>
+  r.innerHTML = `<p><b>${SM.a.name}</b> → <b>${SM.b.name}</b>: <span class="km">asi ${mileTxt(L + S)}</span> <span class="lbl">${S ? `(z toho ${mileTxt(S)} lodí; ` : "("}vzdušnou čarou ${mileTxt(air)})</span></p>
    <div class="tgrid"><div><b>Pěšky</b>${t(30)}</div><div><b>Na koni</b>${t(45)}</div><div><b>S vozem</b>${t(20)}</div><div><b>Posel se střídáním koní</b>${days(L / 90 + S / 110, 1)}</div><div><b>Na drakovi</b>${days(air, 250)}</div></div>
-   <p class="lbl">Odhad vede po známých obchodních a poutních cestách a po trasách lodí (na mapě vrstva Cesty); ${S ? "plavba počítá asi 110 km za den, " : ""}mimo ně počítá s cestou o třetinu delší než vzdušná čára. Počasí, hranice ani války nezná.</p>`;
+   <p class="lbl">Odhad vede po známých obchodních a poutních cestách a po trasách lodí (na mapě vrstva Cesty); ${S ? `plavba počítá asi ${mileTxt(110)} za den, ` : ""}mimo ně počítá s cestou o třetinu delší než vzdušná čára. Počasí, hranice ani války nezná.</p>`;
 }
 (function () {
   const svg = document.getElementById("smap");
-  const cur = () => sst.vb || SVB0,
-    AR = SVB0[3] / SVB0[2];
-  const clamp = v => {
-    const w = Math.max(120, Math.min(1120, v[2])),
-      h = w * AR;
-    return [Math.max(-60, Math.min(1084 - w, v[0])), Math.max(-60, Math.min(850 - h, v[1])), w, h];
-  };
+  const cur = sVidim,
+    AR = () => celaPomer(svg) || SVB0[3] / SVB0[2];
+  const clamp = v => celaVyrez(v, AR(), SMEZE);
   const toSvg = (cx, cy) => {
     const r = svg.getBoundingClientRect(),
       v = cur();
@@ -1117,7 +1115,7 @@ function smRender() {
     const v = cur();
     const [px, py] = cx == null ? [v[0] + v[2] / 2, v[1] + v[3] / 2] : toSvg(cx, cy);
     const w = v[2] * f,
-      h = w * AR;
+      h = w * AR();
     sst.vb = clamp([px - ((px - v[0]) * w) / v[2], py - ((py - v[1]) * h) / v[3], w, h]);
     redraw();
   };

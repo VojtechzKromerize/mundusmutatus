@@ -34,7 +34,7 @@
 - Hradčanský rynk | 177, 221 | 0
 - Kamenný most | 457, 289 | 11
 - ostrov | 456, 462 | -80
-- Čertovka | 417, 400 | -75
-- Kampa | 434, 385 | -75
+- Strouha | 417, 400 | -75
+- Ostrov pod Malou Stranou | 434, 385 | -75
 - Staroměstské mlýny | 500, 350 | -4
 - Šítkovské mlýny | 495, 572 | -12

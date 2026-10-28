@@ -45,8 +45,9 @@ document.addEventListener("change", async e => {
 });
 /* ---- batohy: předmět může ležet v batohu, vaku nebo truhle; obsah magických vaků (Bag of Holding…) se do zátěže nepočítá ---- */
 const KKONTM = /bag of holding|handy haversack|portable hole|heward/i;
-/* směna mincí: 1 PP = 10 GP = 20 EP = 100 SP = 1000 CP */
-const KMINC = {CP: 1, SP: 10, EP: 50, GP: 100, PP: 1000};
+/* směna mincí tažení (Vojta 2026-10-27): 1 uherský zlatý (GP) = 40 pražských grošů (SP) = 400 haléřů (CP); kopa = 60 grošů je jen počet.
+   EP a PP z D&D Beyond mají hodnotu podle pravidel (1 GP z pravidel = 10 grošů): EP = 5 grošů, PP = 100 grošů. */
+const KMINC = {CP: 1, SP: 10, EP: 50, GP: 400, PP: 1000};
 function kPenSmen(pen, z, na, q) {
   const P = Object.assign({}, pen),
     mam = +P[z] || 0;
@@ -58,8 +59,9 @@ function kPenSmen(pen, z, na, q) {
   P[z] = mam - q;
   P[na] = (+P[na] || 0) + dost;
   let r = zb;
+  /* zbytek vrátí v téže minci, příp. v menších (100 grošů na zlaté = 2 zlaté a 20 grošů) */
   ["GP", "SP", "CP"].forEach(k => {
-    if (KMINC[k] >= KMINC[z]) return;
+    if (KMINC[k] > KMINC[z]) return;
     const n = Math.floor(r / KMINC[k]);
     if (n) {
       P[k] = (+P[k] || 0) + n;
@@ -88,7 +90,7 @@ function kPenSloz(pen) {
   return P;
 }
 const kPenSmenHtml = () =>
-  `<details class="bjapd kpens"><summary>Směnit mince</summary><form class="kvlh" data-kpenf><input name="q" type="number" min="1" max="9999999" value="10" aria-label="Kolik"><select name="z" aria-label="Z mincí">${["CP", "SP", "GP"].map(k => `<option${k === "SP" ? " selected" : ""}>${k}</option>`).join("")}</select> → <select name="na" aria-label="Na mince">${["CP", "SP", "GP"].map(k => `<option${k === "GP" ? " selected" : ""}>${k}</option>`).join("")}</select><button class="gbtn ghost">Směnit</button><button type="button" class="gbtn ghost" data-kpensloz ${btip("Drobné rozmění na co nejméně mincí: zlaté, groše, haléře")}>Rozměnit na nejvyšší</button></form><p class="rsmall">1 GP (uherský zlatý) = 10 SP (pražských grošů) = 100 CP (haléřů).</p></details>`;
+  `<details class="bjapd kpens"><summary>Směnit mince</summary><form class="kvlh" data-kpenf><input name="q" type="number" min="1" max="9999999" value="10" aria-label="Kolik"><select name="z" aria-label="Z mincí">${["CP", "SP", "GP"].map(k => `<option value="${k}"${k === "SP" ? " selected" : ""}>${KMINCZK[k]}</option>`).join("")}</select> → <select name="na" aria-label="Na mince">${["CP", "SP", "GP"].map(k => `<option value="${k}"${k === "GP" ? " selected" : ""}>${KMINCZK[k]}</option>`).join("")}</select><button class="gbtn ghost">Směnit</button><button type="button" class="gbtn ghost" data-kpensloz ${btip("Drobné rozmění na co nejméně mincí: zlaté, groše, haléře")}>Rozměnit na nejvyšší</button></form><p class="rsmall">1 uherský zlatý = 40 pražských grošů = 400 haléřů; kopa je 60 grošů.</p></details>`;
 /* ---- historie karty: předchozí stavy z databáze (snímek nejvýš jednou za 10 minut), obnovení ---- */
 const kHistShrn = s => {
   const L = [];
@@ -993,7 +995,7 @@ document.addEventListener("click", async e => {
     const K = kvK(e.target);
     if (!K || !kMuze(K)) return;
     const S = kartaStav(K.id),
-      P = kPenSloz(S.pen || K.penize || {});
+      P = kPenSloz(kPenKarta(K));
     await kartaStavZmen(K.id, {pen: Object.keys(P).length ? P : null}, `${K.n}: mince rozměněny.`);
     return;
   }
@@ -1018,15 +1020,14 @@ document.addEventListener("submit", async e => {
   const K = kvK(f);
   if (!K || !kMuze(K)) return;
   const E = f.elements,
-    S = kartaStav(K.id),
-    pen = S.pen || K.penize || {};
+    pen = kPenKarta(K);
   if (E.z.value === E.na.value) return;
   const P = kPenSmen(pen, E.z.value, E.na.value, +E.q.value);
   if (!P) {
-    mmHlasG(`Na 1 ${E.na.value} to nestačí (nebo tolik ${E.z.value} nemáš).`, 3500);
+    mmHlasG(`Na 1 ${KMINCZK[E.na.value]} to nestačí (nebo tolik ${KMINCZK[E.z.value]} nemáš).`, 3500);
     return;
   }
-  await kartaStavZmen(K.id, {pen: Object.keys(P).length ? P : null}, `${K.n}: směněno ${E.z.value} → ${E.na.value}.`);
+  await kartaStavZmen(K.id, {pen: Object.keys(P).length ? P : null}, `${K.n}: směněno ${KMINCZK[E.z.value]} → ${KMINCZK[E.na.value]}.`);
 });
 /* ---- pokladna družiny ---- */
 let POKL = null;
@@ -1046,7 +1047,7 @@ function poklHtml() {
     ${
       muze && window.MMDB
         ? `<form class="kvlh" data-poklf><select name="k" aria-label="Mince">${kMinceNab(P)
-            .map(k => `<option>${k}</option>`)
+            .map(k => `<option value="${k}">${KMINCZK[k]}</option>`)
             .join(
               "",
             )}</select><input name="v" type="number" min="1" max="1000000" placeholder="kolik" required><input name="p" placeholder="za co (nepovinné)" maxlength="100"><button class="gbtn ghost" data-pokl="1" name="smer" value="1">Vložit</button><button class="gbtn ghost" data-pokl="-1" name="smer" value="-1">Vybrat</button></form>`
@@ -1069,7 +1070,7 @@ function poklHtml() {
                   l.vec
                     ? besc(l.vec)
                     : Object.entries(l.z || {})
-                        .map(([k, v]) => `${v > 0 ? "+" : ""}${v} ${k}`)
+                        .map(([k, v]) => `${v > 0 ? "+" : ""}${v} ${KMINCZK[k] || k}`)
                         .join(", ")
                 } ${besc(l.p || "")}</li>`,
             )

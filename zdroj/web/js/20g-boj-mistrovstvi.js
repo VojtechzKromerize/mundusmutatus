@@ -22,12 +22,15 @@ const BWMIK = {
 function bojWTr(K, w) {
   if (!K || !w || /beze zbraně|unarmed|eldritch|kouzl/i.test(w.n || "")) return null;
   const a = kUtoky(K).find(x => x.n === w.n),
-    inf = kZbranInfo(w.n),
+    d = kVecDefN(K, w.n),
+    vd = d && d.d === "zbr",
+    inf = kZbrA(K, w),
     druh = inf ? inf[1] : null,
-    R = zbrRozbor(a ? a.vl : w.vl, inf ? inf[4] : "", druh ? ZBRMA[druh] : null),
+    /* vlastní zbraň z Dílny: mistrovství a magický bonus z def (jméno „+1“ nenese) */
+    R = zbrRozbor(a ? a.vl : w.vl, inf ? inf[4] : "", vd ? d.ma || null : druh ? ZBRMA[druh] : null),
     rysy = [...(K.rysy2 || []), ...(kDopl(K).rysy || [])].map(r => r.n),
     pb = kPB(K),
-    mod = zbrMod(w.b != null && w.b !== "" ? w.b : a && a.b, pb, w.n);
+    mod = zbrMod(w.b != null && w.b !== "" ? w.b : a && a.b, pb, w.n) - (vd ? +d.b || 0 : 0);
   if (R.vl.Versatile === true) R.vl.Versatile = zbrVersKost(w.z || (a && a.z)) || true;
   return {vl: R.vl, ma0: R.ma, ma: zbrMaMa(R.ma, rysy, druh) ? R.ma : null, mod, dc: 8 + mod + pb, druh};
 }

@@ -256,7 +256,7 @@ const SHLAVNI = [
     ],
   },
   {k: "souse", n: "Benátky – Brenner – Augsburg", r: [["Brennerská cesta Augsburg – Benátky", -1]]},
-  {k: "souse", n: "Via Regia: Frankfurt – Lipsko – Vratislav – Krakov", r: [["Královská cesta (Via Regia)", 1]]},
+  {k: "souse", n: "Vysoká cesta: Frankfurt – Lipsko – Vratislav – Krakov", r: [["Vysoká cesta", 1]]},
 ];
 let SHL = null;
 function sHlavni() {

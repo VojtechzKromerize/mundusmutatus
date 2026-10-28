@@ -15,7 +15,8 @@ test("síť cest se spočítá až při prvním měření trasy a trasy vycháze
   const r = V(
     `[["Praha", "Kutná Hora"], ["Plzeň", "Brno"], ["Cheb", "Olomouc"]].map(([x, y]) => computeRoute(PLACES.find(p => p.name === x), PLACES.find(p => p.name === y)).km)`,
   );
-  assert.deepEqual(r, [76, 366, 453]);
+  /* Plzeň–Brno 366 → 349 km od 2026-10-26: nové lesy a bažiny změnily terén, trasa vede jinudy */
+  assert.deepEqual(r, [76, 349, 453]);
   assert.equal(V(`RSIT`), true);
 });
 

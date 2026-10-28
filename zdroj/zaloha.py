@@ -12,7 +12,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OBSAH = os.path.join(ROOT, "zdroj", "obsah")
 URL = os.environ.get("SUPABASE_URL", "").strip().rstrip("/")
 KEY = next((os.environ[n].strip() for n in ("SUPABASE_SECRET", "SUPABASE_SECRET_KEY", "SUPABASE_SERVICE_ROLE_KEY") if os.environ.get(n, "").strip()), "")
-POVOLENE = re.compile(r"^(rody|osoby|kronika|druzina|mista|praha|protivnici|privlastky|setkani|draconomicon/kapitoly|draconomicon/plemena)/[0-9A-Za-z_.-]+\.md$|^(vazby\.md|rodokmeny\.json|vyprava-setkani\.json)$")
+POVOLENE = re.compile(r"^(rody|osoby|kronika|druzina|mista|praha|protivnici|privlastky|setkani|traktaty|draconomicon/kapitoly|draconomicon/plemena)/[0-9A-Za-z_.-]+\.md$|^(vazby\.md|rodokmeny\.json|vyprava-setkani\.json)$")
 
 def fail(msg):
     sys.exit("CHYBA: " + msg)

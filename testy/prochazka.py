@@ -11,7 +11,7 @@ async def main():
     b=await p.chromium.launch();cx=await b.new_context(viewport={"width":1300,"height":1000})
     if os.environ.get("RELACE"): await cx.add_init_script("localStorage.setItem(\"mm-gm-relace\",JSON.stringify("+open(os.environ["RELACE"]).read()+"))")
     errs=[];bad=[];issues=[]
-    seen=set();queue=["#uvod","#artikule","#draconomicon","#druzina","#kronika","#mapa","#praha","#svet","#desky","#desky/osoby","#desky/sousede","#desky/vazby","#draconomicon/plemena"]
+    seen=set();queue=["#uvod","#artikule","#draconomicon","#druzina","#kronika","#kronika/clanky","#mapa","#praha","#svet","#desky","#desky/osoby","#desky/sousede","#desky/vazby","#draconomicon/plemena"]
     rozpracovano=0  # kolik záložek právě má stránku – prázdná fronta ještě neznamená konec
     async def zalozka():
       nonlocal rozpracovano

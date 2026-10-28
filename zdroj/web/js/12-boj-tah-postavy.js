@@ -1803,6 +1803,14 @@ function bojZranEf(K, x, typ, opt) {
   return {v, m: ""};
 }
 var BZRPOD = 0;
+/* zranění, které postava právě utrpěla (po odolnostech, před dočasnými HP) – pro Warding Bond (sesilatel utrpí totéž, 2026-10-27);
+   bojZranWb() ho vrátí a vynuluje, aby ho nepřevzalo léčení ani další zásah */
+let BZRWB = 0;
+function bojZranWb() {
+  const v = BZRWB;
+  BZRWB = 0;
+  return v;
+}
 function bojZranPC(h, K, x, typ, krit, opt) {
   const m = [];
   let v = +x || 0;
@@ -1813,6 +1821,7 @@ function bojZranPC(h, K, x, typ, krit, opt) {
     v = r.v;
     if (r.m) m.push(r.m);
   }
+  if (K && v > 0 && !(opt && opt.bezPout)) BZRWB = v;
   if (h.thp > 0 && v > 0) {
     const a = Math.min(h.thp, v);
     h.thp -= a;

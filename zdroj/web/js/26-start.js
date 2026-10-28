@@ -122,7 +122,7 @@ if (window.MMLINE) {
       return;
     }
     if (!GMV) return;
-    for (const n of ["mapa", "praha", "svet", "editor", "vyprava"])
+    for (const n of ["mista", "mapa", "praha", "svet", "editor", "vyprava"])
       try {
         await mmLina(n);
       } catch (e) {}

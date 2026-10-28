@@ -397,7 +397,7 @@ const kSum = L => L.reduce((a, x) => a + (+x[1] || 0), 0);
 const kPocet = (c, pakt) => {
   const f = kTrU(c, "Fighter");
   let n = f >= 20 ? 4 : f >= 11 ? 3 : f >= 5 ? 2 : 1;
-  if (["Barbarian", "Monk", "Paladin", "Ranger"].some(t => kTrU(c, t) >= 5)) n = Math.max(n, 2);
+  if (["Barbarian", "Monk", "Paladin", "Ranger", "Gunslinger"].some(t => kTrU(c, t) >= 5)) n = Math.max(n, 2);
   if (pakt && kTrU(c, "Warlock") >= 5 && c.maRys(/thirsting blade/)) n = Math.max(n, 2);
   return n;
 };
@@ -423,3 +423,18 @@ function manVysledek(n, ok, velky) {
   if (ok) return {n, txt: `${n}: záchrana ${M.ab} uspěla`};
   return {n, st: M.st || "", ef: !!M.ef, okdy: M.okdy || "", txt: `${n}: ${M.txt}`};
 }
+/* světlo (SRD 5.2.1, 2026-10-27): pochodeň a svíčka hoří hodinu a spotřebují se, lampa a lucerny 6 hodin na lahvičku oleje.
+   Zapálené světlo je účinek na kartě „Světlo: …“ s herním časem – vyprší samo s posunem času (kUcVyprsi). Pořadí: lucerna
+   s clonou dřív než lucerna. [vzor názvu, {n, h hodin, spotr = spotřebuje se samo, palivo = spotřebuje olej, sv = dosah}] */
+const SVETLA = [
+  [/^(torch|pochodeň|louč)/i, {n: "Pochodeň", h: 1, spotr: true, sv: "jasné světlo 20 stop, šero dalších 20"}],
+  [/^(candle|svíčka|svíce)/i, {n: "Svíčka", h: 1, spotr: true, sv: "jasné světlo 5 stop, šero dalších 5"}],
+  [/^(lamp|lampa)\b/i, {n: "Lampa", h: 6, palivo: true, sv: "jasné světlo 15 stop, šero dalších 30"}],
+  [/(bullseye|s clonou)/i, {n: "Lucerna s clonou", h: 6, palivo: true, sv: "jasné světlo 60 stop v kuželu, šero dalších 60"}],
+  [/^(hooded )?(lantern|lucerna)/i, {n: "Lucerna", h: 6, palivo: true, sv: "jasné světlo 30 stop, šero dalších 30"}],
+];
+const SVPALIVO = /^(oil|olej)\b/i;
+const svetloDruh = n => {
+  const r = SVETLA.find(([re]) => re.test(String(n || "").trim()));
+  return r ? r[1] : null;
+};

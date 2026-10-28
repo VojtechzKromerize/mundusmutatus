@@ -38,7 +38,7 @@ const kPred = x =>
   null;
 const PRVZ = ["běžný", "neobvyklý", "vzácný", "velmi vzácný", "legendární", "artefakt", "proměnlivá"];
 function predKarta(x) {
-  return `<article class="kzkarta"><h3>${besc(x.en)}${x.cz ? ` <small>${besc(x.cz)}</small>` : ""}</h3><p class="rsmall"><i>${besc(x.druh)}${x.upr ? ` (${besc(x.upr)})` : ""}, ${besc(x.vzt || x.vz)}${x.pr ? `, vyžaduje připoutání${typeof x.pr === "string" ? " (" + besc(x.pr) + ")" : ""}` : ""}</i></p>${kzMd(x.t)}<p class="rsmall">SRD 5.2.1, s. ${x.str || ""}</p>${plneTag("predmety", x.en)}</article>`;
+  return `<article class="kzkarta plne-host"><h3>${besc(x.en)}${x.cz ? ` <small>${besc(x.cz)}</small>` : ""}</h3><p class="rsmall"><i>${besc(x.druh)}${x.upr ? ` (${besc(x.upr)})` : ""}, ${besc(x.vzt || x.vz)}${x.pr ? `, vyžaduje připoutání${typeof x.pr === "string" ? " (" + besc(x.pr) + ")" : ""}` : ""}</i></p><div class="plne-skr">${kzMd(x.t)}<p class="rsmall">SRD 5.2.1, s. ${x.str || ""}</p></div>${plneInl("predmety", x.en)}</article>`;
 }
 let PRF = {q: "", druh: "", vz: ""};
 function renderPredmety(main) {
@@ -635,7 +635,7 @@ function bojKorDelHtml(kor) {
   const op = sel => KARTY.map(k => `<option value="${besc(k.id)}"${sel === k.id ? " selected" : ""}>${besc(k.n)}</option>`).join("");
   return `<details class="bjapd bkordel" data-otv="kordel"${BOTV.has("kordel") ? " open" : ""}><summary>Rozdělit kořist do vybavení postav</summary>
     ${kor.length ? `<ul class="bkor">${kor.map(x => `<li>${besc(x.t)} <select data-bkorkomu="${besc(x.k)}" aria-label="Komu"><option value="">— nikomu —</option>${op(BKORK[x.k])}</select></li>`).join("")}</ul>` : ""}
-    <p class="kvlh"><label>Peníze GP <input type="number" min="0" max="99999" data-bkorgp value="0"></label><label>SP <input type="number" min="0" max="99999" data-bkorsp value="0"></label> rovným dílem mezi: ${KARTY.map(k => `<label><input type="checkbox" data-bkorpen="${besc(k.id)}" checked> ${besc(k.n)}</label>`).join(" ")}</p>
+    <p class="kvlh"><label>Peníze: zlatých <input type="number" min="0" max="99999" data-bkorgp value="0"></label><label>grošů <input type="number" min="0" max="99999" data-bkorsp value="0"></label> rovným dílem mezi: ${KARTY.map(k => `<label><input type="checkbox" data-bkorpen="${besc(k.id)}" checked> ${besc(k.n)}</label>`).join(" ")}</p>
     <button type="button" class="gbtn" data-bkordel>Rozdělit</button>
     <p class="rsmall">Kdo dělil spravedlivě, jedná podle Štědrosti (bod dobrých skutků); kdo si kořist ponechal, podlehl Lakomství (bod hříchu, proti Ctnosti Štědrost dva). Obojí dává Heroic Inspiration:
       ${KARTY.map(k => `<span class="kvlh"><b>${besc(k.n)}</b> <button type="button" class="gbtn ghost" data-bkorctn="${besc(k.id)}">Štědrost</button><button type="button" class="gbtn ghost bhrich" data-bkorner="${besc(k.id)}">Lakomství</button></span>`).join(" ")}</p></details>`;
@@ -663,21 +663,19 @@ async function bojKorDel(box, kor) {
     sp = Math.max(0, Math.round(+(box.querySelector("[data-bkorsp]") || {}).value || 0)),
     komu = [...box.querySelectorAll("[data-bkorpen]:checked")].map(c => KARTBY[c.dataset.bkorpen]).filter(Boolean);
   if ((gp || sp) && komu.length) {
-    const cp = gp * 100 + sp * 10,
+    const cp = gp * KMINC.GP + sp * KMINC.SP,
       dil = Math.floor(cp / komu.length),
       zb = cp - dil * komu.length;
     for (const K of komu) {
-      const pen = Object.assign({}, kartaStav(K.id).pen || K.penize || {});
-      let r = dil;
-      pen.GP = (+pen.GP || 0) + Math.floor(r / 100);
-      r %= 100;
-      pen.SP = (+pen.SP || 0) + Math.floor(r / 10);
-      r %= 10;
-      if (r) pen.CP = (+pen.CP || 0) + r;
+      const pen = Object.assign({}, kPenKarta(K)),
+        dP = kPenSloz({CP: dil});
+      KMINCE.forEach(k => {
+        if (dP[k]) pen[k] = (+pen[k] || 0) + dP[k];
+      });
       await kartaStavZmen(K.id, {pen});
-      kHodZapis({k: K.id, kdo: K.n, co: "Podíl z kořisti", txt: `${Math.floor(dil / 100)} GP ${Math.floor((dil % 100) / 10)} SP ${dil % 10} CP`});
+      kHodZapis({k: K.id, kdo: K.n, co: "Podíl z kořisti", txt: kPenTxt(dP)});
     }
-    if (zb) mmHlasG(`Nedělitelný zbytek: ${zb} CP – ať o něj rozhodne družina.`, 6000);
+    if (zb) mmHlasG(`Nedělitelný zbytek: ${kPenTxt(kPenSloz({CP: zb}))} – ať o něj rozhodne družina.`, 6000);
     n++;
   }
   mmHlasG(n ? "Kořist rozdělena do karet postav." : "Nic k rozdělení – vyber, komu co připadne.", 4000);
@@ -860,6 +858,11 @@ document.addEventListener("click", async e => {
       }
     }
     mmPop(d ? kzKarta(d, false) : `<h3>${besc(x.n)}</h3>${kSpPopis(x)}`);
+    return;
+  }
+  const sz = T("[data-kinvsvet]");
+  if (sz) {
+    await kSvetloZapal(K, +sz.dataset.kinvsvet);
     return;
   }
   const pj = T("[data-kinvpij]");
@@ -1056,10 +1059,13 @@ const NAVOD = `<ol class="navod"><li><b>Nahraj svou postavu.</b> V D&amp;D Beyon
   <li><b>V boji</b> si na stránce Hra obsadíš volný slot družiny. Až budeš na tahu, telefon zavibruje a web připomene pohyb, akci, bonusovou akci a reakci.</li></ul>`;
 /* ---- upozornění na pozadí (když je stránka otevřená, ale skrytá) ---- */
 function mmNotif(t, b) {
-  if (!document.hidden) return;
+  /* se zapnutými upozorněními v telefonu (Web Push) by totéž přišlo dvakrát */
+  if (!document.hidden || (typeof PUSHST !== "undefined" && PUSHST === "on")) return;
   try {
     if ("Notification" in window && Notification.permission === "granted") {
       const n = new Notification(t, {body: b || "", icon: "art/img/kostka-180.png", tag: "mm-" + t});
+      /* po návratu na web je kostra zavře (koruna.html) */
+      (window.MMNOTIF = window.MMNOTIF || []).push(n);
       n.onclick = () => {
         focus();
         n.close();
@@ -1073,8 +1079,40 @@ const notifBtn = () =>
     : "";
 /* ---- výzvy k hodu ---- */
 let VYZVY = [],
-  VYZVID = 0,
   VYZODP = 0;
+/* výzva, kterou už hráč viděl, a výzvy, které na telefonu zavřel (×): pamatuje si to prohlížeč, takže po znovunačtení stránky
+   nebo aplikace se hlášení „Vypravěč žádá…“ neopakuje (2026-10-26, Vojta) */
+const vyzPamet = (klic, vychozi) => ({
+  get() {
+    try {
+      return JSON.parse(localStorage.getItem(klic)) ?? vychozi;
+    } catch (e) {
+      return vychozi;
+    }
+  },
+  set(v) {
+    try {
+      localStorage.setItem(klic, JSON.stringify(v));
+    } catch (e) {}
+  },
+});
+const vyzVideno = vyzPamet("mm-vyz-videno", 0),
+  vyzSkryte = vyzPamet("mm-vyz-skryte", []);
+/* jak dlouho čeká výzva na hráče: starší (vypravěč ji zapomněl uzavřít, sezení skončilo) se už neukáže a vypravěč ji uzavře */
+const VYZ_ZIVOT = 3 * 3600e3;
+const vyzStara = v => !!v.cas && Date.now() - Date.parse(v.cas) > VYZ_ZIVOT;
+/* výzva, na kterou už hráč nemá reagovat, i když v ní jeho odpověď chybí: stará, zavřená na telefonu, nebo iniciativa, kterou
+   zapsal rovnou do slotu boje, případně boj už začal či skončil (iniciativa patří jen k přípravě boje) */
+function vyzvaVyrizena(v, K) {
+  if (vyzStara(v) || vyzSkryte.get().includes(v.id)) return true;
+  const s = typeof BOJ !== "undefined" ? BOJ.s : null;
+  if ((v.data || {}).typ === "ini" && s) {
+    if (!s.priprava) return true;
+    const h = (s.hraci || []).find(x => bojKartaH(x) === K);
+    if (h && h.hod != null && h.hod !== "") return true;
+  }
+  return false;
+}
 async function vyzvyNacti() {
   if (!window.MMDB || !MMDB.vyzvyNacti) return false;
   try {
@@ -1105,7 +1143,7 @@ const vyzvaTxt = d =>
               : `hod ${d.pozn || "d20"}`;
 const vyzvyMoje = () => {
   const K = jaK();
-  return K ? VYZVY.filter(v => vyzvaPro(v, K.id) && !(v.odpovedi || {})[K.id]) : [];
+  return K ? VYZVY.filter(v => vyzvaPro(v, K.id) && !(v.odpovedi || {})[K.id] && !vyzvaVyrizena(v, K)) : [];
 };
 async function vyzvaHod(id, ne) {
   const v = VYZVY.find(x => x.id === id),
@@ -1160,6 +1198,31 @@ async function vyzvaHod(id, ne) {
     mmHlasG("Odpověď se nepodařilo poslat: " + (e.message || e), 5000);
   }
 }
+/* vypravěč: zapomenuté výzvy uzavře sám – starší než VYZ_ZIVOT a iniciativu, když příprava boje skončila (boj začal nebo se zrušil) */
+const VYZUKL = new Set();
+function vyzvyUklid() {
+  if (!GMV || !window.MMDB || !MMDB.vyzvaZavri) return;
+  const s = typeof BOJ !== "undefined" ? BOJ.s : null;
+  VYZVY.filter(v => !v.zavrena && !VYZUKL.has(v.id) && (vyzStara(v) || ((v.data || {}).typ === "ini" && s && !s.priprava))).forEach(v => {
+    VYZUKL.add(v.id);
+    v.zavrena = true;
+    MMDB.vyzvaZavri(v.id).catch(() => VYZUKL.delete(v.id));
+  });
+}
+/* dlouhý odpočinek celé družiny (2026-10-27): každá karta jako po vlastním dlouhém odpočinku, herní čas +8 h */
+async function hraOdpocinekDruziny() {
+  /* postavy v příštím sezení: hráčské karty; bez nich (jen zkušební karta) všechny */
+  const L = (KARTY || []).filter(k => !k.test).length ? KARTY.filter(k => !k.test) : KARTY || [];
+  if (!L.length || !confirm(`Dlouhý odpočinek (8 hodin) pro ${L.map(k => k.n).join(", ")}? Herní čas se posune o 8 hodin.`)) return;
+  for (const K of L)
+    try {
+      await kartaOdpocinek(K, true, true);
+    } catch (e) {
+      mmHlasG(`${K.n}: odpočinek se nezapsal (${e.message || e}).`, 5000);
+    }
+  if (HRA && HRA.datum) await hraPosun(8);
+  mmHlasG(`Družina odpočinula: ${L.map(k => k.n).join(", ")}.`, 5000);
+}
 /* lišta s výzvou na kterékoli stránce */
 function vyzBar() {
   let b = document.getElementById("mmvyz");
@@ -1178,7 +1241,7 @@ function vyzBar() {
   b.innerHTML = L.slice(0, 4)
     .map(
       v =>
-        `<div class="vyzk"><span>Vypravěč žádá: <b>${besc(vyzvaTxt(v.data))}</b>${v.data.dc && !v.data.skryt ? ` · SO ${v.data.dc}` : ""}${v.data.adv ? (v.data.adv > 0 ? " · s výhodou" : " · s nevýhodou") : ""}${v.data.pozn && v.data.typ !== "hod" ? ` · ${besc(v.data.pozn)}` : ""}</span>${typeof vyzvaProti === "function" && vyzvaProti(v.data) ? `<button type="button" class="gbtn" data-vyzhod="${v.id}">Použít Counterspell</button><button type="button" class="gbtn ghost" data-vyzne="${v.id}">Nechat být</button>` : `<button type="button" class="gbtn" data-vyzhod="${v.id}">🎲 ${v.data.typ === "odp" ? "Odpočinout" : v.data.pozn === KZPYTV ? "Zpytovat" : "Hodit"}</button>`}</div>`,
+        `<div class="vyzk"><span>Vypravěč žádá: <b>${besc(vyzvaTxt(v.data))}</b>${v.data.dc && !v.data.skryt ? ` · SO ${v.data.dc}` : ""}${v.data.adv ? (v.data.adv > 0 ? " · s výhodou" : " · s nevýhodou") : ""}${v.data.pozn && v.data.typ !== "hod" ? ` · ${besc(v.data.pozn)}` : ""}</span>${typeof vyzvaProti === "function" && vyzvaProti(v.data) ? `<button type="button" class="gbtn" data-vyzhod="${v.id}">Použít Counterspell</button><button type="button" class="gbtn ghost" data-vyzne="${v.id}">Nechat být</button>` : `<button type="button" class="gbtn" data-vyzhod="${v.id}">🎲 ${v.data.typ === "odp" ? "Odpočinout" : v.data.pozn === KZPYTV ? "Zpytovat" : "Hodit"}</button>`}<button type="button" class="vyzzav" data-vyzskryj="${v.id}" aria-label="Zavřít výzvu" title="Už vyřízeno – zavřít">×</button></div>`,
     )
     .join("");
 }
@@ -1334,8 +1397,8 @@ async function hraPoll(hned, co) {
   if (!GMV) {
     const m = vyzvyMoje(),
       top = Math.max(0, ...m.map(v => v.id));
-    if (top > VYZVID) {
-      VYZVID = top;
+    if (top > vyzVideno.get()) {
+      vyzVideno.set(top);
       try {
         navigator.vibrate && navigator.vibrate([120, 60, 120]);
       } catch (e) {}
@@ -1349,6 +1412,7 @@ async function hraPoll(hned, co) {
       mmHlasG("Zpráva od vypravěče: " + nz[nz.length - 1].t.slice(0, 140), 7000);
     }
   } else {
+    vyzvyUklid();
     try {
       bojVyzZpracuj();
     } catch (e) {
@@ -1533,6 +1597,7 @@ function pultDruzinaHtml() {
       <section><h3 class="uvh2">Výzva k hodu</h3>${vyzvaForm()}${vyzvyGmHtml()}</section>
       <section><h3 class="uvh2">Akce hráčů</h3><p class="kvlh">${potvrzHtml("hra")}</p>${navrhyGmHtml() || `<p class="rsmall">Nic nečeká na schválení. Útoky hráčů k potvrzení jsou v záložce Boj.</p>`}</section>
       ${kPrehledHtml()}
+      ${kAutoHtml()}
       <section><h3 class="uvh2">Tajné zprávy</h3>${
         KARTY.length
           ? `<p class="kvlh"><label>Postava <select data-zprk>${KARTY.map(k => {
@@ -1543,6 +1608,7 @@ function pultDruzinaHtml() {
           : `<p class="rsmall">Bez karet postav.</p>`
       }</section>
       ${hraUkolyHtml()}
+      <section><h3 class="uvh2">Odpočinek družiny</h3><p class="kvlh"><button type="button" class="gbtn ghost" data-hrodpd ${btip("Všem postavám obnoví životy, sloty a zdroje podle pravidel dlouhého odpočinku (Svědomí, vyčerpání −1) a posune herní čas o 8 hodin – světla a účinky, kterým čas vypršel, skončí samy")}>Dlouhý odpočinek všem (8 h)</button></p><p class="rsmall">Krátký odpočinek: výzva „krátkému odpočinku“ výše – každý hráč utratí kostky životů sám.</p></section>
       <section><h3 class="uvh2">Postup na úroveň</h3><form class="kvlh" data-hrpost><label>Družina má mít úroveň <input name="u" type="number" min="1" max="20" value="${+((HRA && HRA.postup) || 0) || ""}" aria-label="Úroveň"></label><button class="gbtn ghost">Oznámit postup</button></form><p class="rsmall">Hráčům s nižší úrovní se na kartě ukáže výzva nahrát nové PDF.</p></section>`;
 }
 function pultSezeniHtml() {
@@ -1644,6 +1710,17 @@ document.addEventListener("click", async e => {
   const vn = T("[data-vyzne]");
   if (vn) {
     vyzvaHod(+vn.dataset.vyzne, true);
+    return;
+  }
+  if (T("[data-hrodpd]") && GMV) {
+    await hraOdpocinekDruziny();
+    return;
+  }
+  const vz = T("[data-vyzskryj]");
+  if (vz) {
+    vyzSkryte.set([+vz.dataset.vyzskryj, ...vyzSkryte.get()].slice(0, 50));
+    vyzBar();
+    hraPrekresli();
     return;
   }
   const vx = T("[data-vyzx]");

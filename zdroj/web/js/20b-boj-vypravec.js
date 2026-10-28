@@ -156,6 +156,30 @@ function bojEfZnac0(z, n, sp, u, nm) {
 /* vyhodnocení útoku hráče se hází jen jednou (2026-10-19): náhled v panelu „k potvrzení“ i zápis používají tytéž kostky
    (záchrany nepřátel, Ostrá, záchrany houfu) – dřív se při zápisu házelo znovu a výsledek se lišil od náhledu */
 const BUVC = new Map();
+/* Šrám Střelce (Grazing Shot, 10x): zranění při minutí, které hráč přidal po hodu (u.sram); s Graze se sečte (2026-10-28) */
+function bojSramMinuti(o, u, n, E) {
+  const x = Math.round(+(u && u.sram) || 0);
+  if (!(x > 0)) return "";
+  const raw = x + (+o.graze || 0);
+  o.sram = x;
+  if (n.druh === "houf") {
+    const Hz = bojHoufZasah(n, raw);
+    Object.assign(o, {pad: Hz.pad, hz: Hz.hz, hz0: Hz.hz0});
+    return ` · Šrám: ${x}${Hz.pad ? ", padl pacholek" : ""}`;
+  }
+  const z = E && E.hp.length ? bojZasah(E, raw, u.t, {drt: u.drt, pru: u.pru, st: n.stav}) : {x: raw, pozn: []};
+  Object.assign(o, {x: z.x, pozn: z.pozn});
+  return ` · Šrám: ${x}${z.pozn.length ? ` → ${z.x} (${z.pozn.join(", ")})` : ""}`;
+}
+/* Gut Shot Střelce (5. úroveň): kritický zásah zbraní na dálku – střela uvízne v těle (Velký a menší tvor); připomínka pro vypravěče */
+function bojGutShot(h, u, krit) {
+  const K = krit && h && !u.plos ? bojKartaH(h) : null;
+  if (!K || kStrU(K) < 5) return "";
+  const a = kUtoky(K).find(x => x.n === bojZvJm(u));
+  return a && a.dal
+    ? "Gut Shot: střela uvízla v těle – 1 minutu poloviční rychlost a nevýhoda na útoky (Velký a menší tvor; vytržení stojí jeden útok)"
+    : "";
+}
 function bojUtokVyhodnot(s, u) {
   if (!u || !u.id) return bojUtokVyhodnot0(s, u);
   const k = u.id + "|" + (u.ci || []).join(",");
@@ -247,9 +271,10 @@ function bojUtokVyhodnot0(s, u) {
     if (!hit) {
       o.zve = bojZvVyhodnot(s, u, h, n, E, ZS, false, false);
       /* Graze (mistrovství, 20g): při minutí zranění ve výši modifikátoru */
-      const gr = typeof bojWmMinuti === "function" ? bojWmMinuti(o, u, n, E) : "";
-      o.gm = `${n.n}: ${u.hod}${mis ? " (přirozená 1)" : ""} proti ${o.acT}${o.neprima ? " (Nepřímá: poloviční kryt neplatí)" : ""} → vedle${gr}${o.zve.map(e => " · " + e.txt).join("")}`;
-      o.vys = gr ? `vedle, škrábnutí ${o.graze}` : "vedle";
+      const gr = typeof bojWmMinuti === "function" ? bojWmMinuti(o, u, n, E) : "",
+        sr = bojSramMinuti(o, u, n, E);
+      o.gm = `${n.n}: ${u.hod}${mis ? " (přirozená 1)" : ""} proti ${o.acT}${o.neprima ? " (Nepřímá: poloviční kryt neplatí)" : ""} → vedle${gr}${sr}${o.zve.map(e => " · " + e.txt).join("")}`;
+      o.vys = gr || sr ? `vedle, ${[gr ? `škrábnutí ${o.graze}` : "", sr ? `šrám ${o.sram}` : ""].filter(Boolean).join(", ")}` : "vedle";
       r.push(o);
       return;
     }
@@ -293,6 +318,10 @@ function bojUtokVyhodnot0(s, u) {
     if (o.obet) o.gm += ` · ${o.obet} obětována, zranění bez kritu ${o.x}`;
     if ((o.wme || []).length) o.gm += o.wme.map(e => " · " + e.txt).join("");
     if (o.mne) o.gm += " · " + o.mne.txt;
+    {
+      const gs = bojGutShot(h, u, krit && !o.obet);
+      if (gs) o.gm += " · " + gs;
+    }
     r.push(o);
   });
   return {an, h, r};
@@ -405,6 +434,7 @@ function bojUtokProved(s, u, id) {
       }
       L.res = o.hit === false ? "vedle" : o.krit ? "krit" : "zasah";
       if (o.graze) L.zt += ` · Graze ${o.graze}`;
+      if (o.sram) L.zt += ` · Šrám ${o.sram}`;
     } else L.res = "vedle";
     if (u.zv && u.zv.r === "pok" && (u.zv.a || []).length && !o.houf) L.zvk = {h: u.h, ci: o.ci, a: u.zv.a.slice(), w: bojZvJm(u)};
     bojLog(o.ci, L, o.n);
@@ -1821,6 +1851,14 @@ document.addEventListener("click", async e => {
     renderBoj();
     return;
   }
+  const bm = T("[data-bmun]");
+  if (bm) {
+    const kid = bm.dataset.bmun,
+      L = (KARTY || []).filter(K => (kid === "*" || K.id === kid) && Object.keys(kartaStav(K.id).mun || {}).length);
+    for (const K of L) await bojMunSeber(K, bm.dataset.nic === "1");
+    renderBoj();
+    return;
+  }
   if (T("[data-bodp]") && !BODP) {
     BODP = true;
     BZAPT = null;
@@ -2876,3 +2914,60 @@ document.addEventListener("click", e => {
   mmHlasG(`${n.n} opouští dosah – ${H.map(h => h.n).join(", ")} ${H.length > 1 ? "mohou" : "může"} reakcí zaútočit.`, 4000);
   renderBoj();
 });
+
+/* ===== průvodce koncem boje (2026-10-27, Vojta): rány a stav družiny, sebrání střeliva – kroky mezi osudy nepřátel a zápisem ===== */
+/* rány: životy, bezvědomí a hody proti smrti, vyčerpání, kritická zranění (HRA.krit), soustředění – co po boji ošetřit */
+function bojPoBojiRany(s) {
+  const R = bojKritPC(),
+    L = (s.hraci || [])
+      .map(h => {
+        const K = bojKartaH(h);
+        if (!K) return "";
+        const S = kartaStav(K.id),
+          mx = kHPmax(K),
+          hp = S.hp != null ? +S.hp : mx,
+          ds = S.ds,
+          kr = R[K.n] || R[h.n] || [],
+          d = [];
+        if (ds && ds.st === "mrtev") d.push(`<b class="bhrich">mrtev</b>`);
+        else if (ds && ds.st === "stab") d.push("stabilizován – bez léčení se probere za 1d4 hodin s 1 HP");
+        else if (ds) d.push(`<b class="bhrich">v bezvědomí, hody proti smrti ${ds.u || 0}✓ ${ds.n || 0}✗</b> – ošetřit (Medicína SO 10) nebo léčit`);
+        if (S.vycerp) d.push(`vyčerpání ${S.vycerp}`);
+        if (kr.length) d.push(`kritická zranění: ${kr.map(x => besc(String(x.t || x.n || "rána").split(":")[0])).join(", ")}`);
+        if (kKonDrzi(K)) d.push(`soustředí se: ${besc(kKonNazev(K) || "kouzlo")}`);
+        return `<li><b>${besc(K.n)}</b> ${hp}/${mx} HP${S.thp ? ` (+${S.thp} dočasných)` : ""}${d.length ? " · " + d.join(" · ") : ""}</li>`;
+      })
+      .filter(Boolean);
+  return L.length ? `<ul class="bshl">${L.join("")}</ul>` : `<p class="rsmall">Postavy bez karet – rány zapiš ručně.</p>`;
+}
+/* střelivo: vystřelené od posledního sebrání (karta: mun); po boji jde polovinu najít (SRD: minuta hledání) */
+function bojPoBojiMun() {
+  const L = (KARTY || [])
+    .map(K => {
+      const M = kartaStav(K.id).mun || {},
+        E = Object.entries(M).filter(([, n]) => n > 0);
+      if (!E.length) return "";
+      return `<li><b>${besc(K.n)}</b>: ${E.map(([n, q]) => `${besc(n)} ${q}× vystřeleno, najde ${Math.floor(q / 2)}`).join(", ")} <button type="button" class="gbtn ghost" data-bmun="${besc(K.id)}">Sebrat polovinu</button><button type="button" class="badd" data-bmun="${besc(K.id)}" data-nic="1">nesbírat</button></li>`;
+    })
+    .filter(Boolean);
+  return L.length
+    ? `<ul class="bshl">${L.join("")}</ul>${L.length > 1 ? `<p><button type="button" class="gbtn ghost" data-bmun="*">Sebrat všem</button></p>` : ""}`
+    : `<p class="rsmall">Nikdo z družiny nestřílel (nebo už je sebráno).</p>`;
+}
+async function bojMunSeber(K, nic) {
+  const S = kartaStav(K.id),
+    M = S.mun || {},
+    inv = [...(S.inv || K.vybaveni || [])].map(y => Object.assign({}, y)),
+    t = [];
+  if (!nic)
+    Object.entries(M).forEach(([n, q]) => {
+      const z = Math.floor(q / 2);
+      if (!z) return;
+      const x = inv.find(y => y.n === n);
+      if (x) x.q = Math.min(9999, (+x.q || 0) + z);
+      else inv.push({n, q: z});
+      t.push(`${n} +${z}`);
+    });
+  await kartaStavZmen(K.id, t.length ? {inv, mun: null} : {mun: null});
+  if (t.length) kHodZapis({k: K.id, kdo: K.n, co: "Střelivo po boji", txt: `sebráno: ${t.join(", ")}`});
+}

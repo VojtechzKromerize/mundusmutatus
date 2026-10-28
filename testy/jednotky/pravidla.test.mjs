@@ -253,7 +253,7 @@ test("Artikule › kouzla a předměty: adamantinová a mizziová zbroj snese o 
 });
 
 test("plné znění kouzel a předmětů: rozbalovací blok jen přihlášeným, text s rámečkem Artikule a vyšším stupněm", () => {
-  assert.equal(V(`plneTag("kouzla", "Fireball")`), "", "nepřihlášený nic nevidí");
+  assert.equal(V(`plneInl("kouzla", "Fireball")`), "", "nepřihlášený nic nevidí");
   const h = V(
     `plneTelo("kouzla", {en: "Cure Wounds", l: 1, s: "Ochranná magie", ct: "Akce", r: "Dotyk", k: "V, S", d: "Okamžité", t: "Tvor si obnoví 2k8.\\n\\n> **Artikule – Léčení na 0 HP.** Jen stabilizuje.", v: "Použití pozice kouzla vyššího stupně. Léčení se zvýší o 2k8."})`,
   );
@@ -282,8 +282,16 @@ test("předměty z plného znění: hledání v inventáři, váha z tabulky, n�
     assert.equal(V(`plneVec("Bag of Tricks").id`), "bag of tricks");
     assert.match(
       V(`kVecPopis({n: "Bag of Tricks", q: 1}, null, null)`),
-      /Divotvorný předmět, neobvyklá[\s\S]*data-plne="predmety" data-plnen="bag of tricks"/,
+      /class="plne-skr"[\s\S]*Divotvorný předmět, neobvyklá[\s\S]*data-plneinl="predmety" data-plnen="bag of tricks"/,
     );
+    S.ev(`PLNET["predmety|bag of tricks"] = {typ: "Divotvorný předmět", vz: "neobvyklá", t: "Vak z šedé látky."}`);
+    assert.match(
+      V(`kVecPopis({n: "Bag of Tricks", q: 1}, null, null)`),
+      /<summary>Popis<\/summary><div class="plne-skr">[\s\S]*class="plneinl" data-ok="1"[\s\S]*Vak z šedé látky/,
+      "přihlášený: v Popisu je rovnou plné znění (krátký text skryje CSS)",
+    );
+    assert.doesNotMatch(V(`kVecPopis({n: "Bag of Tricks", q: 1}, null, null)`), /Požádat o přidání/, "v okně věci není tlačítko přidání");
+    S.ev(`delete PLNET["predmety|bag of tricks"]`);
     await S.ev(`navrhProved({data: {typ: "vec", pl: "bag of tricks", n: "Bag of Tricks", w: 0.5, q: 2, cil: "balduin"}})`);
     const it = V(`kartaStav("balduin").inv.find(x => x.n === "Bag of Tricks")`);
     assert.equal(it.q, 2);
@@ -326,6 +334,26 @@ test("featy: plné znění – rámeček Artikule, tabulka, podnadpis a escapov�
   assert.match(h, /<th>k4<\/th><th>Výboj<\/th>/);
   assert.match(h, /<td>1<\/td><td><b>Vztek\.<\/b> Útok<\/td>/);
   assert.doesNotMatch(h, /---/);
+});
+
+test("povolání mimo SRD (Střelec): rysy ###, odrážky, rámeček Artikule s poznámkou; bez přihlášení jen shrnutí", () => {
+  const h = V(
+    `featyMd("### Úroveň 2: Risk (Štěstěna)\\n\\n- **Prokoukl.** Poloviční.\\n- **Neprokoukl.** Platí.\\n\\n> **Artikule – Zbraně.** Válečné.\\n>\\n> *Poznámka:* vycpávaná.\\n\\n> *Poznámka:* sloty.")`,
+  );
+  assert.match(h, /<h6 class="fmd3">Úroveň 2: Risk \(Štěstěna\)<\/h6>/);
+  assert.match(h, /<ul><li><b>Prokoukl\.<\/b> Poloviční\.<\/li><li><b>Neprokoukl\.<\/b> Platí\.<\/li><\/ul>/);
+  assert.match(h, /<div class="srdart"><b>Artikule<\/b> <b>Zbraně\.<\/b> Válečné\.<br><i>Poznámka:<\/i> vycpávaná\.<\/div>/);
+  assert.match(h, /<p class="rsmall"><i>Poznámka:<\/i> sloty\.<\/p>/);
+  const t = V(`featyMd("| | |\\n|---|---|\\n| Hlavní vlastnost | DEX |")`);
+  assert.doesNotMatch(t, /<thead>/, "tabulka bez záhlaví");
+  assert.match(t, /<td>Hlavní vlastnost<\/td><td>DEX<\/td>/);
+  const s = V(`povolHtml()`);
+  assert.match(s, /id="mimo-gunslinger"/);
+  assert.match(s, /uvidíš po přihlášení/);
+  assert.ok(
+    V(`POVOLSHR`).every(p => p.t.length <= 350),
+    "shrnutí mimo SRD max. 350 znaků",
+  );
 });
 
 test("Artikule: Resistance zbroje půlí zranění; Drtivá / Průrazná ji ignorují; Immunity 0, Vulnerability ×2", () => {

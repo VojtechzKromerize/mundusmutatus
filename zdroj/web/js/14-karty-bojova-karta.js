@@ -280,7 +280,7 @@ function bdmTahPas(K, P) {
       : as && as.zb > 0
         ? `<button type="button" class="bdmmini bdmtas" data-btas ${btip(`Action Surge: v tomto tahu akce navíc (zbývá ${as.zb}×, obnova krátkým odpočinkem)`)}>Action Surge</button>`
         : ""
-  }${ha ? `<button type="button" class="bdmmini bdmtha" data-btp="ah" aria-pressed="${!!P.ah}" ${btip(`Haste – akce navíc (jen Útok jedním útokem, Sprint, Odpoutání, Skrytí nebo Použití předmětu): ${P.ah ? "použitá" : "volná"} – klikni`)}>Akce z Haste</button>` : ""}${bdmManTahHtml(K, P)}</div>`;
+  }${ha ? `<button type="button" class="bdmmini bdmtha" data-btp="ah" aria-pressed="${!!P.ah}" ${btip(`Haste – akce navíc (jen Útok jedním útokem, Sprint, Odpoutání, Skrytí nebo Použití předmětu): ${P.ah ? "použitá" : "volná"} – klikni`)}>Akce z Haste</button>` : ""}${bdmManTahHtml(K, P)}${bdmStrTahHtml(K, P)}</div>`;
 }
 /* Battle Master v tahu (2026-10-25): Evasive Footwork (kostka převahy k AC, dokud se pohybuješ – skončí s koncem tahu) a Know Your
    Enemy (bonusová akce: vypravěč prozradí imunity, odolnosti a zranitelnosti cíle) */
@@ -290,6 +290,59 @@ function bdmManTahHtml(K, P) {
     kye = kMaRys(K, /^know your enemy$/i) && !P.b;
   return `${ef ? `<button type="button" class="bdmmini" data-btef ${btip(`Evasive Footwork: při pohybu přičti 1${SD.k} k AC, dokud se nezastavíš (kostka převahy, zbývá ${SD.zb})`)}>Evasive Footwork</button>` : ""}${kye ? `<button type="button" class="bdmmini" data-btkye ${btip("Know Your Enemy (bonusová akce): vypravěč ti prozradí imunity, odolnosti a zranitelnosti tvora do 30 stop")}>Know Your Enemy</button>` : ""}`;
 }
+/* Střelec v tahu (2026-10-28, pravidla v 10x): kousky za bonusovou akci (Zatnout zuby, Naslepo, Kotoul stranou, Lhářské kostky)
+   za kostku Štěstěny a Hazard Karbaníka (nevýhoda na příští útok, kostka zpět – jednou za tah) */
+function bdmStrTahHtml(K, P) {
+  const u = kStrU(K),
+    RD = u >= 2 ? kRD(K) : null;
+  if (!RD) return "";
+  const ba = !P.b && RD.zb > 0 ? STRKOUSKY.filter(x => x[3] === "BA" && u >= x[4] && (x[0] !== "lhar" || kKarb(K))) : [],
+    hz = strHazard(u, kKarb(K), !tahJednouVolne(P, "Hazard"), RD.zb, RD.q.max);
+  return `<span class="bdmtsp bdmstr"><small ${btip(`Kostky Štěstěny (1${RD.k}): zbývá ${RD.zb} z ${RD.q.max}, obnova krátkým odpočinkem`)}>Štěstěna ${RD.zb}/${RD.q.max}</small>${ba
+    .map(
+      x =>
+        `<button type="button" class="bdmmini" data-btstr="${x[0]}" ${btip(`${x[2]} (${x[1]}, bonusová akce, 1${RD.k}): ${x[5]}`)}>${x[2]}</button>`,
+    )
+    .join(
+      "",
+    )}${hz ? `<button type="button" class="bdmmini" data-btstr="hazard" ${btip("Hazard (Risky Business): příští útok hodíš s nevýhodou a vrátíš si jednu kostku Štěstěny – jednou za tah")}>Hazard</button>` : ""}</span>`;
+}
+document.addEventListener("click", async e => {
+  const b = e.target.closest && e.target.closest("[data-btstr]");
+  if (!b || !BOJ.s) return;
+  const me = ((BOJ.s || {}).hraci || []).find(h => h.n === bojJa.get()),
+    K = me && bojKartaH(me);
+  if (!K || !kMuze(K)) return;
+  const P = bojBpt(BOJ.s),
+    RD = kRD(K),
+    k = b.dataset.btstr;
+  if (!RD) return;
+  if (k === "hazard") {
+    if (!strHazard(kStrU(K), kKarb(K), !tahJednouVolne(P, "Hazard"), RD.zb, RD.q.max)) return;
+    tahJednouZapis(P, "Hazard");
+    await kZdrUtrat(K, RD, -1);
+    BJU.adv = "-1";
+    kHodZapis({k: K.id, kdo: K.n, co: "Hazard (Risky Business)", txt: `příští útok s nevýhodou, kostka Štěstěny zpět (${RD.zb + 1}/${RD.q.max})`});
+    mmHlasG("Hazard: útok hoď s nevýhodou – kostka Štěstěny se vrátila.", 4500);
+    bojPrekresli();
+    return;
+  }
+  const x = strKousek(k);
+  if (!x || x[3] !== "BA" || P.b || RD.zb <= 0) return;
+  const r = kVyraz("1" + RD.k);
+  await kZdrUtrat(K, RD);
+  tahOznac(P, "BA");
+  let txt = x[5];
+  if (k === "zuby" && r) {
+    const S = kartaStav(K.id),
+      thp = strZuby(r.tot, kStrU(K), S.thp);
+    await kartaStavZmen(K.id, {thp});
+    txt = `dočasné životy ${r.tot} + ${kStrU(K)} (1${RD.k}: ${r.txt})${thp > r.tot + kStrU(K) ? ` – zůstávají dosavadní ${thp}` : ` = ${thp}`}`;
+  }
+  kHodZapis({k: K.id, kdo: K.n, co: `${x[2]} (${x[1]})`, txt: `bonusová akce, kostka Štěstěny – ${txt}`.slice(0, 290)});
+  mmHlasG(`${x[2]}: ${txt}`, 5000);
+  bojPrekresli();
+});
 async function bojEvasiveKonec(K) {
   if (K && kUc(K).some(u => u.n === "Evasive Footwork")) await kartaStavZmen(K.id, {uc: kUc(K).filter(u => u.n !== "Evasive Footwork")});
 }
@@ -453,6 +506,7 @@ function bojHracRef(s, h, gm, K, vzdy, dbm) {
     vzdy ? kZasahHtml(K, h, s) : "",
     vzdy && !gm ? kRipHtml(K, h, s) : "",
     vzdy && !gm ? kPrilezHtml(K, h, s) : "",
+    vzdy && !gm ? kPoutoHtml(K, h, s) : "",
     vzdy && !gm && typeof kOdvHtml === "function" ? kOdvHtml(K, h, s) : "",
     plak,
     s.aktivni ? bojJaHexHtml(s, h, K) : "",
@@ -534,6 +588,7 @@ function bojHracRef(s, h, gm, K, vzdy, dbm) {
         vzdy ? kZasahHtml(K, h, s) : "",
         vzdy && !gm ? kRipHtml(K, h, s) : "",
         vzdy && !gm ? kPrilezHtml(K, h, s) : "",
+        vzdy && !gm ? kPoutoHtml(K, h, s) : "",
         vzdy && !gm && typeof kOdvHtml === "function" ? kOdvHtml(K, h, s) : "",
         plak,
         s.aktivni ? bojJaHexHtml(s, h, K) : "",
@@ -548,6 +603,7 @@ function bojHracRef(s, h, gm, K, vzdy, dbm) {
         vzdy ? kZasahHtml(K, h, s) : "",
         vzdy && !gm ? kRipHtml(K, h, s) : "",
         vzdy && !gm ? kPrilezHtml(K, h, s) : "",
+        vzdy && !gm ? kPoutoHtml(K, h, s) : "",
         vzdy && !gm && typeof kOdvHtml === "function" ? kOdvHtml(K, h, s) : "",
         s.aktivni ? bojJaHexHtml(s, h, K) : "",
         zavUt ? "" : kZavBox(K),
@@ -1017,6 +1073,7 @@ function bojGmHod(hid, i) {
       zx: P.zx,
       dz: P.dz,
       pdn: P.pdn,
+      ...(wH.dal ? {dal: 1} : {}),
       ...(NV || TR ? {rid: bojRidNavic(NV, TR)} : {}),
     });
     tx.push(
@@ -1096,7 +1153,7 @@ function bojGmZapisVse(hid) {
         const zv = w && typeof bojZvPayload === "function" ? bojZvPayload(K, w, x, G.zav, bojZvVolby(G, w)) : null,
           wm = w && typeof bojWmPayload === "function" ? bojWmPayload(K, w, x) : null,
           man = typeof bojManPayload === "function" ? bojManPayload(K, x) : null;
-        return Object.assign(zv ? {zv} : {}, wm ? {wm} : {}, man ? {man} : {});
+        return Object.assign(zv ? {zv} : {}, wm ? {wm} : {}, man ? {man} : {}, +x.sram > 0 ? {sram: Math.min(40, Math.round(+x.sram))} : {});
       })(),
     ),
   );
@@ -1527,6 +1584,9 @@ const bdmZvlMoje = (a, K) => {
   return v && Array.isArray(v.vl) ? v : null;
 };
 const bdmZvl = (a, K) => {
+  /* vlastní předmět z Dílny: perky, jak je nastavil vypravěč (mají přednost i před nastavením hráče) */
+  const d = K && a ? kVecDefN(K, a.n) : null;
+  if (d && d.d === "zbr") return (d.pk || []).filter(k => BDMZV[k]);
   const v = bdmZvlMoje(a, K);
   return v ? v.vl.filter(k => BDMZV[k]) : bdmZvlAuto(a);
 };
@@ -1542,7 +1602,7 @@ const bdmWZnamy = v => {
 const kJeKouzloUt = (K, a) =>
   /eldritch|kouzl|cantrip|spell/i.test(String(a.n) + " " + (a.vl || []).join(" ")) ||
   kSeznam(K).some(x => x.n === a.n) ||
-  (typeof kSp === "function" && !!kSp(a.n) && !kZbranInfo(a.n));
+  (typeof kSp === "function" && !!kSp(a.n) && !kZbrA(K, a));
 function bdmUtoky(s, h, K, gm, X) {
   const UT = kUtoky(K),
     zb = X.boj ? bojZbrVse(s, h) : [],
@@ -1555,7 +1615,7 @@ function bdmUtoky(s, h, K, gm, X) {
     const hit = X.boj && gm && j >= 0 ? `data-bdmsh="utok" data-j="${j}"` : ut && j >= 0 ? `data-bdmsh="utok" data-j="${j}"` : `data-khod="ut:${i}"`;
     const L = bdmZvl(a, K);
     const ox = BDM.utx.has(K.id + "|" + a.n);
-    return `<div class="bdmut${zv ? " bdmzv" : ""}${ox ? " bdmuto" : ""}"><span class="bdmuti" aria-hidden="true">${bdmIc(a.dal ? "sip" : "mec")}</span><div class="bdmutn" role="button" tabindex="0" data-bdmutx="${besc(a.n)}" aria-expanded="${ox}" ${btip(ox ? "Skrýt vlastnosti, mistrovství a perky zbraně" : "Ukázat vlastnosti, mistrovství a perky zbraně")}><b>${besc(a.n)}</b>${zv ? ` <small class="bdmruk" ${btip("Zbraň v ruce")}>✋</small>` : ""}${ox ? `<small>${besc([a.dal ? "na dálku" : "zblízka", ...vl.filter(v => !bdmWZnamy(v))].join(" · "))}</small>${typeof bojWPopisHtml === "function" ? bojWPopisHtml(K, a) : ""}${L.length ? `<span class="bdmzvs">${L.map(k => `<span ${btip(`${k}: ${BVLZ[k]}`)}>${bikZv(k)}<i>${besc(k)}</i></span>`).join("")}</span>` : ""}${kMuze(K) && !/beze zbraně|unarmed|eldritch|kouzl/i.test(a.n) ? `<button type="button" class="bdmmini bdmzvb" data-bdmsh="zvl" data-zvl="${besc(a.n)}" ${btip("Perky zbraně podle Artikulí (Šikovná, Ostrá, Drtivá…)")}>⚙ perky</button>` : ""}` : ""}</div>
+    return `<div class="bdmut${zv ? " bdmzv" : ""}${ox ? " bdmuto" : ""}"><span class="bdmuti" aria-hidden="true">${bdmIc(a.dal ? "sip" : "mec")}</span><div class="bdmutn" role="button" tabindex="0" data-bdmutx="${besc(a.n)}" aria-expanded="${ox}" ${btip(ox ? "Skrýt vlastnosti, mistrovství a perky zbraně" : "Ukázat vlastnosti, mistrovství a perky zbraně")}><b>${besc(a.n)}</b>${zv ? ` <small class="bdmruk" ${btip("Zbraň v ruce")}>✋</small>` : ""}${ox ? `<small>${besc([a.dal ? "na dálku" : "zblízka", ...vl.filter(v => !bdmWZnamy(v))].join(" · "))}</small>${typeof bojWPopisHtml === "function" ? bojWPopisHtml(K, a) : ""}${L.length ? `<span class="bdmzvs">${L.map(k => `<span ${btip(`${k}: ${BVLZ[k]}`)}>${bikZv(k)}<i>${besc(k)}</i></span>`).join("")}</span>` : ""}${kMuze(K) && !/beze zbraně|unarmed|eldritch|kouzl/i.test(a.n) && !kVecDefN(K, a.n) ? `<button type="button" class="bdmmini bdmzvb" data-bdmsh="zvl" data-zvl="${besc(a.n)}" ${btip("Perky zbraně podle Artikulí (Šikovná, Ostrá, Drtivá…)")}>⚙ perky</button>` : ""}` : ""}</div>
       <span class="bdmdos">${besc(a.dosah || (a.dal ? "dálka" : "5 st."))}</span><button type="button" class="bdmbox" ${hit} ${btip(`Útok ${a.n}: d20 ${bsg(+a.b || 0)}${a.pocet > 1 ? ` · ${a.pocet}× za akci` : ""}${ut && j >= 0 ? " – vyber cíl a hoď" : X.boj && gm ? " – hodí za hráče a otevře zápis" : ""}`)}>${bsg(+a.b || 0)}</button>
       <span class="bdmdmg">${a.z ? `<button type="button" class="bdmbox" data-kzr="${i}" ${btip(`Zranění ${a.z} ${BZRT[a.t] || a.t || ""}`)}>${besc(a.z)} ${bikZr(a.t)}</button>` : "–"}</span>${a.pozn || kMunTxt(K, a) ? `<small class="bdmutp">${besc(a.pozn || "")}${kMunTxt(K, a)}</small>` : ""}</div>`;
   }).join("");
@@ -1850,7 +1910,9 @@ function bdmTelo(s, h, K, gm, X, id) {
     const def = [["Vulnerability", K.zra]].filter(([, L]) => (L || []).length);
     const sm = `<h4 class="bdmgh">Smysly</h4><p class="bdmnote bdmpas">Pasivní: Vnímání <b>${kPas(K, "vnimani")}</b> · Pátrání <b>${kPas(K, "patrani")}</b> · Vhled <b>${kPas(K, "vhled")}</b></p>${K.smysly ? `<p class="bdmnote bdmpas">${besc(K.smysly)}</p>` : ""}${def.map(([l, L]) => `<p class="bdmdef"><b>${l}</b> ${L.map(t => `${bikZr(t)}<span>${besc(BZRT[t] || t)}</span>`).join(" ")}</p>`).join("")}`;
     /* široký počítač: vlastnosti, smysly a zdatnosti v jednom sloupci, dovednosti ve druhém */
-    if (X.pc) return `<div class="bdmpcst">${ab}${za}${sm}${bdmZdatHtml(K, edit)}</div><div class="bdmpcdv">${dov}</div>`;
+    /* na širokém počítači nemají Statistiky záložku: nadpis se štítem jako záložka na telefonu (Vojta 2026-10-28) */
+    if (X.pc)
+      return `<div class="bdmpcst"><h4 class="bdmgh bdmghst">${bdmZalIk("vl")}<span>Statistiky</span></h4>${ab}${za}${sm}${bdmZdatHtml(K, edit)}</div><div class="bdmpcdv">${dov}</div>`;
     return ab + za + dov + sm + bdmZdatHtml(K, edit);
   }
   if (id === "akce") return bdmAkce(s, h, K, gm, X);

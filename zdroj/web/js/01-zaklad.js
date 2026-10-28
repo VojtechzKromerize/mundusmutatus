@@ -7,6 +7,14 @@ const byId = Object.fromEntries(FAM.map(f => [f.id, f]));
 /* překreslení jednou za dávku změn (2026-10-21): když jedna obsluha změní data několikrát (zápis útoku, potvrzení, puls),
    stránka se překreslí jen jednou – po doběhnutí obsluhy (mikroúloha). Okamžité překreslení (renderBoj…) čekající zruší. */
 const MMPREK = new Map();
+/* vzdálenost v českých mílích, kilometry v závorce (Vojta 2026-10-26): česká míle ≈ 11,24 km; pod 10 mil na půl míle */
+const MILE_KM = 11.24;
+function mileTxt(km, bezKm) {
+  const m = (+km || 0) / MILE_KM,
+    r = m < 10 ? Math.max(0.5, Math.round(m * 2) / 2) : Math.round(m),
+    w = r % 1 || (r >= 1 && r <= 4) ? "míle" : "mil";
+  return `${String(r).replace(".", ",")} ${w}${bezKm ? "" : ` (${Math.round(km).toLocaleString("cs")} km)`}`;
+}
 /* text do HTML (obsah i hodnota atributu v uvozovkách) – jediná funkce pro celý web */
 const besc = t => String(t ?? "").replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"})[c]);
 function mmPozdeji(klic, fn) {
@@ -96,6 +104,54 @@ const TOWNSEATS = new Set([
   "Řezno",
   "Pfreimd",
   "Gera",
+  /* ---- JIH (mapa 2026-10-27) ---- */
+  "Brixen",
+  "Bruneck",
+  "Trident",
+  "Gorice",
+  "Lienz",
+  "Krk",
+  "Senj",
+  /* ---- MÍSTA: Slezsko a Lužice (2026-10-28) ---- */
+  "Chojnov",
+  "Němčí",
+  "Prudník",
+  "Střelce",
+  "Němodlín",
+  "Olesno",
+  "Kluczbork",
+  "Bruntál",
+  "Rybník",
+  "Žory",
+  "Pština",
+  "Bílsko",
+  "Stínava",
+  "Kožuchov",
+  "Krosno nad Odrou",
+  "Převoz",
+  "Grodków",
+  "Paczków",
+  "Frývaldov",
+  "Forst",
+  /* ---- MÍSTA: Čechy a Morava (2026-10-28) ---- */
+  "Soběslav",
+  "Lomnice nad Lužnicí",
+  "Trhové Sviny",
+  "Sedlčany",
+  "Hostinné",
+  "Hostěradice",
+  "Jemnice",
+  /* ---- MÍSTA: Sasko, Bavory s Falcí a Franky, Rakousy (2026-10-28) ---- */
+  "Wurzen",
+  "Schleiz",
+  /* ---- MÍSTA: Polsko a severní Uhry (2026-10-28) ---- */
+  "Debrecín",
+  "Satmár",
+  "Pápa",
+  "Kielce",
+  "Łowicz",
+  "Żnin",
+  "Płońsk",
 ]); /* family seats that are towns rather than castles */
 const TOWNICO = "art/img/mesto.webp";
 const townImg = (c, cls) => `<img class="${cls || "townico"} t-${c}" src="${TOWNICO}" alt="" aria-hidden="true">`;
@@ -177,10 +233,10 @@ function mmLina(n) {
 /* části potřebné pro stránku (v pořadí, v jakém běží: plán Prahy kreslí i mapa světa, Výprava všechny mapy) */
 /* „hra“ (boj, karty, hra, puls…) potřebují stránky s kartou, bojem a pravidly; ostatní stránky se ukážou bez ní */
 const MMLINY_V = {
-  mapa: ["mapa"],
+  mapa: ["mista", "mapa"],
   praha: ["praha"],
   svet: ["praha", "svet"],
-  vyprava: ["hra", "mapa", "praha", "svet", "editor", "vyprava"],
+  vyprava: ["hra", "mista", "mapa", "praha", "svet", "editor", "vyprava"],
   pravidla: ["hra"],
   karty: ["hra"],
   boj: ["hra"],

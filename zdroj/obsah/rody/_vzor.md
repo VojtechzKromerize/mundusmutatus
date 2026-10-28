@@ -8,6 +8,9 @@ kratce: Novohradští
 vyznani: kat
 hlava: Jan z Nového hradu
 postoj: Opatrně vyčkává, na čí stranu se přikloní páni z Rožmberka.
+# vernost: věrnost králi k 3. 3. 1458 na mapě (vrstva Věrnost králi): verni / vahaji / odpurci / cizi | jedna věta dobovou mluvou;
+#   jiná věrnost jednoho sídla jako seznam:  vernost:  (nový řádek)  - vahaji | věta  (nový řádek)  - Sídlo = odpurci | věta
+vernost: vahaji | Páni z Nového hradu mlčí a hledí, kam se nakloní Rožmberkové.
 # postaveni: na vrcholu moci / v plné síle / na vzestupu / stabilní / v nesnázích / v úpadku
 postaveni: stabilní
 # historie: krátký odstavec o dějinách rodu (zobrazí se v článku rodu nad zápisem kronikáře)

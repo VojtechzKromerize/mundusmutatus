@@ -27,6 +27,13 @@ const EDDRUH = {
     tpl: id =>
       `---\nid: ${id}\nnazev: \njinak: \nlatin: \ntrida: S\nvzacnost: \nrod: \npridomek: \nmapa: \nkridla: \nocas: \nstavba: \nlet: \nschopnost: \n---\nPopis plemene.\n`,
   },
+  traktat: {
+    dir: "traktaty",
+    kl: "id",
+    n: "Traktát Kroniky",
+    tpl: id =>
+      `---\nid: ${id}\ntitle: \n---\n*Podtitul: kdo a kdy traktát sepsal.*\n\n## Mezititulek\n\nText traktátu. Odstavce odděluj prázdným řádkem.\n`,
+  },
   kapitola: {dir: "draconomicon/kapitoly", kl: "id", n: "Kapitola Draconomiconu", tpl: id => `---\nid: ${id}\ntitle: \n---\nText kapitoly.\n`},
   misto: {dir: "mista", kl: "id", n: "Objevené místo", tpl: id => `---\nid: ${id}\nname: \nlo: 14.42\nla: 50.09\nnote: \nzapis: \n---\n`},
   praha: {
@@ -74,6 +81,7 @@ const EDPOLE = {
   vyznani: "Vyznání",
   hlava: "Hlava rodu",
   postoj: "Postoj",
+  vernost: "Věrnost králi k 3. 3. 1458 – „verni / vahaji / odpurci / cizi | věta“ (na mapě, vrstva Věrnost králi)",
   postaveni: "Postavení rodu (na vrcholu moci / v plné síle / na vzestupu / stabilní / v nesnázích / v úpadku)",
   historie: "Historie rodu (krátký odstavec)",
   mesto: "Město (ano / ne)",
@@ -144,7 +152,20 @@ const EDPOLE = {
   nepratele: "Nepřátelé – řádek „[Jméno = ][počet ]id [+ přívlastek]“",
   statblok: "Statblock v boji (id protivníka [+ přívlastek], jen vypravěč)",
 };
-const EDDLOUHE = new Set(["hlava", "postoj", "historie", "note", "schopnost", "role", "utok", "pozehnani", "pokuseni", "komplikace", "nerest"]);
+const EDDLOUHE = new Set([
+  "hlava",
+  "postoj",
+  "vernost",
+  "historie",
+  "note",
+  "schopnost",
+  "role",
+  "utok",
+  "pozehnani",
+  "pokuseni",
+  "komplikace",
+  "nerest",
+]);
 function edRozloz(md) {
   const m = String(md)
     .replace(/\r\n/g, "\n")
@@ -680,9 +701,10 @@ if (GMV && window.MMDB) {
     _e2(id);
     vlož("#article .gmbar", tl("osoba", id));
   };
-  renderKronika = function (b) {
-    _e3(b);
+  renderKronika = function (b, c) {
+    _e3(b, c);
     if (ZBY[b]) vlož("#kzapisy .gmbar", tl("zapis", b));
+    else if (b === "clanky" && TRBY[c]) vlož("#kclanky .gmbar", tl("traktat", c));
   };
   renderDraco = function (b) {
     _e4(b);

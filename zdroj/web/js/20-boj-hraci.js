@@ -579,6 +579,7 @@ function bojJaHod() {
       ru: P.ru,
       zx: P.zx,
       dz: P.dz,
+      ...(wH.dal ? {dal: 1} : {}),
       ...(NV || TR ? {rid: bojRidNavic(NV, TR)} : {}),
     });
     txt.push(
@@ -679,6 +680,8 @@ async function bojJaPosli() {
       }
       const man = bojManPayload(K, x);
       if (man) u.man = man;
+      /* Šrám Střelce (Grazing Shot, 13): zranění při minutí – vypravěč ho při potvrzení odečte cíli */
+      if (+x.sram > 0) u.sram = Math.min(40, Math.round(+x.sram));
       L.push(u);
     }
   }
@@ -841,7 +844,10 @@ function bojZazHlidej(s, me) {
   if (!N.length && !J.length) return;
   BVID.set(Math.max(...[...N, ...J].map(x => x.ts)));
   const F = N.length ? [bojKonNovy, bojMinNovy, bojOdvNovy, bojZasahNovy, bojPrilezNovy].map(f => () => f(s, me, N)) : [];
-  if (J.length) F.push(() => bojPrilezNovy(s, me, J, true));
+  if (J.length) {
+    F.push(() => bojPrilezNovy(s, me, J, true));
+    F.push(() => bojPoutoNovy(s, me, J));
+  }
   for (const f of F) {
     try {
       f();

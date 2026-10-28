@@ -109,10 +109,10 @@ function vybArtikule(x) {
 function vybKarta(x, pop) {
   if (!x) return "";
   const srd = x.srd && typeof PREDBY !== "undefined" ? PREDBY[x.srd] : null;
-  return `<article class="kzkarta vybk${x.x ? " kmimo" : ""}">${pop ? `<button type="button" class="kzx" data-kzzavri aria-label="Zavřít">×</button>` : ""}<h3>${besc(x.en)}${x.cz && x.cz.toLowerCase() !== x.en.toLowerCase() ? ` <small>${besc(x.cz)}</small>` : ""}</h3>
+  return `<article class="kzkarta plne-host vybk${x.x ? " kmimo" : ""}">${pop ? `<button type="button" class="kzx" data-kzzavri aria-label="Zavřít">×</button>` : ""}<h3>${besc(x.en)}${x.cz && x.cz.toLowerCase() !== x.en.toLowerCase() ? ` <small>${besc(x.cz)}</small>` : ""}</h3>
     <p class="rsmall"><i>${besc(VYBSKN[x.sk] || "")}</i>${vybParam(x) ? ` · ${vybParam(x)}` : ""}${x.w != null ? ` · ${vybLb(x.w)}` : x.wtxt ? ` · ${besc(x.wtxt)}` : ""}${x.cena ? ` · <b>${vybCena(x)}</b>` : ""}</p>
-    ${x.t ? `<p>${besc(x.t)}</p>` : ""}${x.tab ? x.tab.map(T => `<table class="rtab vybtab"><thead><tr>${(T.h || []).map(h => `<th>${besc(h)}</th>`).join("")}</tr></thead><tbody>${(T.r || []).map(r => `<tr>${r.map(c => `<td>${besc(c)}</td>`).join("")}</tr>`).join("")}</tbody></table>`).join("") : ""}
-    ${vybArtikule(x)}${srd ? `<details class="bjapd"><summary>Plné znění SRD 5.2.1</summary>${kzMd(srd.t)}<p class="rsmall">SRD 5.2.1, s. ${srd.str || ""}</p></details>` : ""}${x.sk === "magicke" ? plneTag("predmety", x.en) : ""}
+    <div class="plne-skr">${x.t ? `<p>${besc(x.t)}</p>` : ""}${x.tab ? x.tab.map(T => `<table class="rtab vybtab"><thead><tr>${(T.h || []).map(h => `<th>${besc(h)}</th>`).join("")}</tr></thead><tbody>${(T.r || []).map(r => `<tr>${r.map(c => `<td>${besc(c)}</td>`).join("")}</tr>`).join("")}</tbody></table>`).join("") : ""}
+    ${vybArtikule(x)}${srd ? `<details class="bjapd"><summary>Plné znění SRD 5.2.1</summary>${kzMd(srd.t)}<p class="rsmall">SRD 5.2.1, s. ${srd.str || ""}</p></details>` : ""}</div>${x.sk === "magicke" ? plneInl("predmety", x.en) : ""}
 </article>`;
 }
 /* ---- přidání do vybavení postavy (stránka Vybavení i nabídka na kartě) ---- */
@@ -142,14 +142,16 @@ function vybPridatBtn(x) {
   if (!K) return "";
   return `<button type="button" class="gbtn ghost vybadd" data-vybadd="${besc(x.id)}" ${btip(`Přidat do vybavení: ${K.n}`)}>+ Přidat</button>`;
 }
-/* mince v katalogu: jen mince tažení (GP, SP, CP) s dobovým jménem a ikonou; elektrum a platina se nepoužívají */
-const VYBMINC = {"Gold Piece": "GP", "Silver Piece": "SP", "Copper Piece": "CP"};
+/* mince v katalogu: jen mince tažení (GP, SP, CP) s dobovým jménem, ikonou a kurzem tažení; elektrum a platina se nepoužívají.
+   Ceny v katalogu převádí na groše a kopy už zdroj/vybaveni/sestav.py (1 GP z pravidel = 10 grošů, Vojta 2026-10-27). */
+const VYBMINC = {"Gold Piece": "GP", "Silver Piece": "SP", "Copper Piece": "CP"},
+  VYBMKURZ = {GP: "40 grošů", SP: "10 haléřů", CP: "nejmenší mince"};
 const vybMinceHtml = () =>
   (VYB.mince || [])
     .filter(m => VYBMINC[m.n])
     .map(m => {
       const k = VYBMINC[m.n];
-      return `<span class="kpenm">${kMinceIk("mince-" + k.toLowerCase())}<b>${k}</b> ${besc(KMINCJM[k])} = ${besc(m.gp)} GP</span>`;
+      return `<span class="kpenm">${kMinceIk("mince-" + k.toLowerCase())}<b>${besc(KMINCJM[k])}</b> = ${VYBMKURZ[k]}</span>`;
     })
     .join(" · ");
 /* ---- stránka Pravidla › Vybavení ---- */

@@ -52,6 +52,10 @@ for _fn, _body in (("mm_pravidla_text", {"p_klic": "predmety", "p_id": "potion o
     _s, _b = call(f"/rest/v1/rpc/{_fn}", "POST", _body, tok=None)
     chk(ok(_s) and _b.strip() in ("null", ""), f"anonym nedostane plné znění přes {_fn}")
     chk(ok(call(f"/rest/v1/rpc/{_fn}", "POST", _body, tok=hr)[0]), f"přihlášený hráč smí volat {_fn}")
+# Warding Bond (2026-10-27): zranění na cizí kartu jen s poutem na vlastní postavu – anonym ani hráč bez pouta neprojde
+for _kdo, _tok in (("anonym", None), ("hráč", hr)):
+    chk(not ok(call("/rest/v1/rpc/mm_karta_warding", "POST", {"p_id": "balduin", "p_zr": 5, "p_max": 30, "p_od": "nikdo-jiny"}, tok=_tok)[0]),
+        f"{_kdo} nepřenese zranění na kartu bez pouta Warding Bond")
 # skrytí nepřátelé: vypravěč čte boj celý, hráč bez účastníků skryt=true a bez jejich řádků záznamu
 chk(ok(call("/rest/v1/rpc/mm_boj_uloz", "POST", {"p_stav": {"aktivni": True, "npc": [{"id": "n1", "n": "Zjevný", "gm": {"vira": "TAJNÁ_VÍRA_NPC", "dc": 17}}, {"id": "n2", "n": "Zálohář", "skryt": True}], "zaz": [{"a": "Zálohář", "c": "Adam", "v": "x"}, {"a": "Adam", "c": "Zjevný", "v": "y"}], "obsazeni": {"1": "n2", "2": "n1"}}}, tok=gm)[0]), "vypravěč uloží boj se skrytým nepřítelem")
 chk(ok(call("/rest/v1/boj?select=verze", tok=gm)[0]) and json.loads(call("/rest/v1/boj?select=verze", tok=gm)[1]) != [], "vypravěč čte tabulku boj")

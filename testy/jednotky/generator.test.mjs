@@ -26,3 +26,109 @@ test("zmínky: odkaz jen na to, co družina zná", () => {
   assert.equal(G.zminky("[[!zdenek|Zdeněk ze Šternberka|pán z Konopiště]]", st), "pán z Konopiště", "! – jen když potkali");
   assert.equal(G.zminky("[[!jiri|král Jiří|král]]", st), "král Jiří");
 });
+
+test("traktáty: načtou se ze složky traktaty, pořadí podle souboru, odhalení a tajemství pro hráče", () => {
+  const soubory = {
+    "vazby.md": "",
+    "traktaty/_vzor.md": "---\nid: vzor\ntitle: Vzor\n---\nVzor se ignoruje.\n",
+    "traktaty/020-druhy.md": "---\nid: druhy\ntitle: Druhý traktát\n---\nSkrytý ⟦úplně⟧.\n",
+    "traktaty/010-prvni.md":
+      "---\nid: prvni\ntitle: První traktát\nstav: potkali\n---\n*Podtitul.*\n\n## Oddíl\n\nVeřejný text ⟦tajemství vypravěče¦zvěsti⟧ a konec.\n",
+    "traktaty/015-zvest.md": "---\nid: zvest\ntitle: Zvěst\nstav: slyseli\n---\nText jen pro ty, kdo traktát četli.\n",
+  };
+  const g = G.generuj(soubory, {});
+  assert.deepEqual(
+    g.odh.TRAKTATY.map(t => t.id),
+    ["prvni", "zvest", "druhy"],
+  );
+  assert.deepEqual(g.seed, {prvni: 2, zvest: 1, druhy: 0}, "stav z hlavičky, bez něj skryté");
+  const gm = G.proGM(g.odh).TRAKTATY;
+  assert.ok(gm[0].h.includes("<h3>Oddíl</h3>") && gm[0].h.includes("tajemství vypravěče"), "vypravěč vidí vše");
+  assert.equal(gm.length, 3);
+  const h = G.proHrace(g.odh);
+  assert.ok(h.odstranene.includes("tajemství vypravěče"));
+  const hrac = G.rozbal(h.hrac, g.seed).TRAKTATY;
+  assert.deepEqual(
+    hrac.map(t => [t.id, t.sl]),
+    [
+      ["prvni", false],
+      ["zvest", true],
+    ],
+    "skrytý traktát hráč nedostane",
+  );
+  assert.ok(hrac[0].h.includes("Veřejný text zvěsti a konec") && !/tajemství|[⟦⟧]/.test(hrac[0].h));
+  assert.equal(hrac[1].h, "", "slyšeli: jen název bez textu");
+  assert.throws(() => G.generuj({"vazby.md": "", "traktaty/010-x.md": "---\ntitle: Bez id\n---\nText\n"}, {}), /traktaty\/010-x\.md: chybí 'id'/);
+});
+
+test("traktáty: první traktát (Krátké dějiny země) je platný, viditelný hráčům a bez tajemství", async () => {
+  const fs = await import("node:fs");
+  const txt = fs.readFileSync(new URL("../../zdroj/obsah/traktaty/010-kratke-dejiny.md", import.meta.url), "utf8");
+  const g = G.generuj({"vazby.md": "", "traktaty/010-kratke-dejiny.md": txt}, {});
+  assert.equal(g.seed["kratke-dejiny"], 2);
+  assert.ok(!/[⟦⟧]/.test(txt));
+  assert.ok(!/14(59|[6-9]\d)/.test(txt), "nic po roce 1458");
+});
+
+test("traktáty: všechny soubory jsou platné a hráčský text odkrytých traktátů nemluví o době po roce 1458", async () => {
+  const fs = await import("node:fs");
+  const slozka = new URL("../../zdroj/obsah/traktaty/", import.meta.url);
+  const soubory = {"vazby.md": ""};
+  for (const f of fs.readdirSync(slozka).filter(f => f.endsWith(".md") && !f.startsWith("_"))) {
+    soubory["traktaty/" + f] = fs.readFileSync(new URL(f, slozka), "utf8");
+  }
+  const g = G.generuj(soubory, {});
+  const hrac = G.rozbal(G.proHrace(g.odh).hrac, g.seed).TRAKTATY;
+  for (const t of hrac.filter(t => !t.sl)) {
+    assert.ok(!/[⟦⟧]/.test(t.h), `${t.id}: tajemství proteklo hráči`);
+    assert.ok(!/14(59|[6-9]\d)|\b[5-9]0\. let/.test(t.h), `${t.id}: hráčský text zmiňuje dobu po roce 1458`);
+  }
+  assert.ok(hrac.length >= 1);
+});
+
+test("věrnost králi (2026-10-27): pole vernost u rodu, přepis pro jedno sídlo; hráč ji dostane až u rodu, který družina potkala", () => {
+  const rod = (id, stav, vern) =>
+    `---\nid: ${id}\nzeme: Čechy\nnazev: Rod ${id}\nvyznani: kat\npostoj: Postoj.\n${vern}\n${stav ? `stav: ${stav}\n` : ""}sidla:\n  - Hrad ${id} | 14 | 50\n  - Tvrz ${id} | 14.1 | 50\n---\nPoznámka.\n`;
+  const soubory = {
+    "vazby.md": "",
+    "rody/010-a.md": rod("a", "potkali", "vernost:\n  - vahaji | Rod váhá.\n  - Tvrz a = odpurci | Starý pán je proti."),
+    "rody/020-b.md": rod("b", "slyseli", "vernost: verni | Věrný rod."),
+    "rody/030-c.md": rod("c", "", "vernost: odpurci | Tajný odpůrce."),
+  };
+  const g = G.generuj(soubory, {});
+  const gm = Object.fromEntries(G.proGM(g.odh).FAM.map(f => [f.id, f.vern]));
+  assert.deepEqual(gm.a, {m: {"Tvrz a": ["odpurci", "Starý pán je proti."]}, v: "vahaji", t: "Rod váhá."});
+  const hrac = G.rozbal(G.proHrace(g.odh).hrac, g.seed).FAM;
+  assert.deepEqual(
+    hrac.map(f => [f.id, f.vern ? f.vern.v : null]),
+    [
+      ["a", "vahaji"],
+      ["b", null],
+    ],
+    "slyšeli: bez věrnosti; skrytý rod hráč nedostane vůbec",
+  );
+  assert.ok(!JSON.stringify(G.rozbal(G.proHrace(g.odh).hrac, g.seed)).includes("Tajný odpůrce"));
+  assert.throws(() => G.generuj({...soubory, "rody/020-b.md": rod("b", "", "vernost: mozna | x")}, {}), /vernost má začínat/);
+  assert.throws(
+    () => G.generuj({...soubory, "rody/020-b.md": rod("b", "", "vernost:\n  - verni | x\n  - Jinde = cizi | y")}, {}),
+    /takové sídlo rod nemá/,
+  );
+});
+
+test("tajné sídlo a tajná věrnost sídla: hráč je nedostane, vypravěč ano (Kunvald)", () => {
+  const soubory = {
+    "vazby.md": "",
+    "rody/010-test.md":
+      "---\nid: tst\nzeme: Čechy\nnazev: Test\nvyznani: kat\nvernost:\n  - vahaji | Výchozí.\n  - tajné Ves = verni | Jen vypravěč.\nsidla:\n  - Hrad | 14 | 50\n  - tajné Ves | 16.5 | 50.1 | kal\n---\nText.\n",
+  };
+  const g = G.generuj(soubory, {});
+  const gm = G.proGM(g.odh).FAM[0];
+  assert.deepEqual(gm.seats, [
+    ["Hrad", 14, 50],
+    ["Ves", 16.5, 50.1, "kal"],
+  ]);
+  assert.deepEqual(gm.vern.m.Ves, ["verni", "Jen vypravěč."]);
+  const h = G.rozbal(G.proHrace(g.odh).hrac, {tst: 2}).FAM[0];
+  assert.deepEqual(h.seats, [["Hrad", 14, 50]]);
+  assert.deepEqual(h.vern.m, {});
+});

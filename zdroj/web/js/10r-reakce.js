@@ -7,7 +7,7 @@
               "odchod" – nepřítel opouští můj dosah (vypravěč ho označí; e: a, ai)   "jiny" – nepřítel zasáhl někoho jiného (e: a, ai, c)
    Fakta f: rk reakce v tomto kole použita · nemuze stav, který bere reakce (omráčen, paralyzovaný…) · ds na 0 HP (hody proti smrti)
             kouzla [{n, i, st, pz}] reakční kouzla se slotem / nábojem · rysy [jména malými písmeny] · man [manévry Battle Mastera]
-            sd {k: "d8", zb} kostky převahy · bi {st, zb} Bardic Inspiration · str, agi modifikátory · pb zdatnost · mnich úroveň
+            sd {k: "d8", zb} kostky převahy · rd {k, zb, zdarma} kostky Štěstěny Střelce · bi {st, zb} Bardic Inspiration · str, agi modifikátory · pb zdatnost · mnich úroveň
             odv zbraň zblízka s vlastností Odvetná · zbl zbraň zblízka (příležitostný útok) · sentinel feat Sentinel
    Společné pravidlo (D&D 2024): reakce jednou za kolo (obnoví se na začátku vlastního tahu) a nejde, když stav bere reakce
    nebo je postava na 0 HP – dřív to hlídal jen Counterspell. ===== */
@@ -152,6 +152,25 @@ const REAKCE = [
         ? {n: "Defensive Duelist – útok mine", t: `+${f.pb} AC proti útoku: vrátí ${rkZtr(e)} HP`}
         : null,
   ],
+  /* Střelec (10x): O vlásek – kostka Štěstěny k AC proti tomuto útoku (rd {k, zb, zdarma}: Karbaník 10+ hází k6 zdarma) */
+  [
+    "vlasek",
+    "zasah",
+    (f, e) => {
+      const R = f.rd;
+      if (!R || !(R.zb > 0 || R.zdarma)) return null;
+      const k = R.zb > 0 ? R.k : "d6",
+        hod = +e.hod,
+        AC = +e.ac;
+      return {
+        n: "O vlásek – uskočit",
+        t:
+          !e.kr && hod && AC
+            ? `Hoď 1${k} k AC (${hod} proti AC ${AC}): když útok mine, vrátí ${rkZtr(e)} HP${R.zb > 0 ? ` · kostka Štěstěny, zbývá ${R.zb}` : " · Štěstí přeje odvážným: zdarma"}`
+            : `+1${k} k AC – kritický zásah tím nezmizí`,
+      };
+    },
+  ],
   /* minul mě útokem zblízka: Riposte (Battle Master) a Odvetná (vlastnost zbraně, jen když nepřítel přijal Pokušení) */
   [
     "riposte",
@@ -230,6 +249,8 @@ function reakceVysledek(k, e, f, x) {
     return !e.kr && hod && AC && hod - d < AC
       ? {n: ztr, proc: `Cutting Words (−${d}) – útok minul`}
       : {n: Math.min(ztr, d), proc: `Cutting Words (−${d} ze zranění)`};
+  if (k === "vlasek")
+    return !e.kr && hod && AC && hod < AC + d ? {n: ztr, proc: `O vlásek (+${d} AC) – útok minul`} : {n: 0, proc: `O vlásek (+${d} AC) – nestačilo`};
   if (k === "barbs") {
     const d0 = +e.d || 0,
       d2 = +(x && x.d20) || 0,

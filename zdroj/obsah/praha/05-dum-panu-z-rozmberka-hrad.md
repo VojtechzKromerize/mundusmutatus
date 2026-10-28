@@ -2,9 +2,9 @@
 cislo: 5
 druh: dvur
 mesto: hrad
-nazev: Dům pánů z Rožmberka (Hrad)
+nazev: Dům pánů z Rožmberka (Hradčany)
 vyznani: kat
 rod: roz
-poloha: 278, 164
+poloha: 190, 200
 ---
-Hradní dům Rožmberků, nejbohatšího katolického rodu země; odtud mají páni z Krumlova blízko ke kapitule i k úřadům.
+Dům Rožmberků, nejbohatšího katolického rodu země, na Hradčanském rynku před branou Hradu. Odtud mají páni z Krumlova blízko ke kapitule, k zemskému soudu i k deskám; do Prahy však nejčastěji přijíždějí do svého velkého domu v Dlouhé třídě na Starém Městě.

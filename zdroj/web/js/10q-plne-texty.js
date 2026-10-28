@@ -1,11 +1,11 @@
 /* ===== Plné znění kouzel a předmětů (Vojtovy tabulky, 2026-10-24) – jen pro přihlášené, z databáze =====
    Texty nejsou v repozitáři ani v art/: převodník zdroj/mimo-srd/kouzla_predmety_plne.py z nich udělá JSON (sjednocené pojmy
    a rámečky Artikulí) a vypravěč je nahraje na stránkách Pravidla › Kouzla a Pravidla › Předměty (mm_pravidla_texty_uloz). Čte se po jedné
-   položce (mm_pravidla_text, data jsou ~2 MB) a seznam bez textů (mm_pravidla_seznam). plneTag() je rozbalovací „Plné znění“
-   u kouzla či předmětu kdekoli na webu – text se načte až při rozbalení. Stránky #pravidla/kouzla a #pravidla/predmety-plne (renderPlne). */
+   položce (mm_pravidla_text, data jsou ~2 MB) a seznam bez textů (mm_pravidla_seznam). plneInl() je „Popis“ z plného znění
+   u kouzla či předmětu kdekoli na webu – načte se samo a nahradí krátký text. Stránky #pravidla/kouzla a #pravidla/predmety-plne (renderPlne). */
 const PLNEKL = {kouzla: "Kouzla", predmety: "Kouzelné předměty"};
 /* co jde nahrát (featy se ukazují v Pravidlech › Featy, 08; nahrávají se tady u kouzel) – data: kouzla a předměty objekt, featy seznam */
-const PLNEUP = {...PLNEKL, featy: "Featy"};
+const PLNEUP = {...PLNEKL, featy: "Featy", povolani: "Povolání"};
 const PLNES = {},
   PLNESP = {},
   PLNET = {};
@@ -75,11 +75,34 @@ document.addEventListener("submit", async e => {
   if (!PLNES.predmety) await plneSeznam("predmety");
   await kVecPlnePridej(K, f.dataset.plnevec, f.elements.q.value);
 });
-/* rozbalovací „Plné znění“ u kouzla / předmětu (jen přihlášeným); text se načte při rozbalení */
-const plneTag = (k, en) =>
-  en && featyMuze()
-    ? `<details class="bjapd plne" data-plne="${k}" data-plnen="${besc(plneId(en))}"><summary>Plné znění <small>(vypravěčův překlad)</small></summary><p class="rsmall">Načítám…</p></details>`
-    : "";
+/* „Popis“ jen z vypravěčova překladu (Vojta 2026-10-28): přihlášenému se plné znění kouzla / předmětu načte samo a krátký text
+   (.plne-skr) v okolním .plne-host se skryje (CSS :has); bez překladu v databázi nebo bez přihlášení zůstane krátký text. */
+const plneInl = (k, en) => {
+  if (!en || !featyMuze()) return "";
+  const id = plneId(en),
+    x = PLNET[k + "|" + id];
+  return x ? `<div class="plneinl" data-ok="1">${plneTelo(k, x)}</div>` : `<div class="plneinl" data-plneinl="${k}" data-plnen="${besc(id)}"></div>`;
+};
+function plneInlNacti(n) {
+  const L = n.matches && n.matches("[data-plneinl]") ? [n] : [];
+  n.querySelectorAll("[data-plneinl]").forEach(e => L.push(e));
+  L.forEach(el => {
+    if (el.dataset.nacteno) return;
+    el.dataset.nacteno = "1";
+    plneText(el.dataset.plneinl, el.dataset.plnen)
+      .then(x => {
+        if (!x) return;
+        el.innerHTML = plneTelo(el.dataset.plneinl, x);
+        el.dataset.ok = "1";
+      })
+      .catch(() => {});
+  });
+}
+if (typeof MutationObserver === "function" && typeof document !== "undefined" && document.documentElement)
+  new MutationObserver(m => m.forEach(r => r.addedNodes.forEach(n => n.nodeType === 1 && plneInlNacti(n)))).observe(document.documentElement, {
+    childList: true,
+    subtree: true,
+  });
 document.addEventListener(
   "toggle",
   e => {
@@ -141,7 +164,9 @@ function plneNahratHtml(k) {
       <p><input type="file" accept=".json" data-plneup="${k}" aria-label="Soubor ${k}.json"></p>${
         k === "kouzla"
           ? `<p class="rsmall">Featy: soubor <b>featy.json</b> (zdroj/mimo-srd/featy_plne.py z Markdownu v projektu) – nahradí plné znění featů.</p>
-      <p><input type="file" accept=".json" data-plneup="featy" aria-label="Soubor featy.json"></p>`
+      <p><input type="file" accept=".json" data-plneup="featy" aria-label="Soubor featy.json"></p>
+      <p class="rsmall">Povolání mimo SRD (Střelec): soubor <b>povolani.json</b> (zdroj/mimo-srd/povolani_plne.py) – nahradí plné znění povolání.</p>
+      <p><input type="file" accept=".json" data-plneup="povolani" aria-label="Soubor povolani.json"></p>`
           : ""
       }<p class="rsmall" id="plneupst"></p></details>`
     : "";
@@ -206,7 +231,7 @@ document.addEventListener("change", e => {
     .text()
     .then(s => {
       const d = JSON.parse(s);
-      if ((k === "featy") !== Array.isArray(d)) throw new Error(`soubor nevypadá jako ${k}.json`);
+      if ((k === "featy" || k === "povolani") !== Array.isArray(d)) throw new Error(`soubor nevypadá jako ${k}.json`);
       return MMDB.pravidlaUloz(k, d);
     })
     .then(n => {

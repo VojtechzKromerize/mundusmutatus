@@ -1,7 +1,7 @@
 # Jak upravovat obsah webu
 
 ## Úpravy přímo na webu (doporučeno)
-Rody, osoby, vazby, rodokmeny, místa v Praze, objevená místa, Kronika, Družina a Draconomicon jsou
+Rody, osoby, vazby, rodokmeny, místa v Praze, objevená místa, Kronika (i traktáty), Družina a Draconomicon jsou
 uložené v databázi a vypravěč je upravuje **přímo na webu**: přihlásit se (ikona klíče v nabídce) →
 na stránce osoby, rodu, zápisu, plemene či postavy **Upravit text**, u rodu také **Rodokmen** a **Vazby**.
 Nové záznamy (osoba, rod, zápis Kroniky, plemeno, místo…) vznikají ve vypravěčském přehledu v části
@@ -66,17 +66,19 @@ s česky popsanou chybou v přehledu nasazení na Netlify a web zůstane ve stav
 | `rody/` | panské rody, církevní vrchnosti, města, sousedé | `rody/_vzor.md` |
 | `osoby/` | osoby v Zemských deskách | `osoby/_vzor.md` |
 | `rodokmeny.json` | rodokmeny rodů (jeden řádek = jeden rod; `p` = id osoby, `r`/`rl` = id rodu, `pl` = id manžela/manželky, `m` = z kterého manželství je dítě, `dedic` = dědic (1, 2… pořadí), `narok` = text nároku; úmrtí se píše do `d`, např. `1442–5. 3. 1458`). Osoby se stejným `p` se v rodokmenech propojí (procházení rodin, „Jak jsou příbuzní?“). Děti a manželé, které družina ještě nezná, vidí hráči jako „syn (neznámý)“ apod. Budoucí sňatek nepatří do `pl` (prozradil by se přes propojení) | stávající řádky |
-| `postavy-1458.json` | rešerše osob (klíč = id osoby): `narozeni` (RRRR-MM-DD nebo RRRR), `narozeniRok`, `narozeniOdhad` → věk k hernímu datu; `shrnuti` → „Dosavadní život“ (hráči ho vidí, až osobu družina potká). Objekt `gm` (`poBreznu1458`, `umrti`) a pole `jistota`, `rozporSWebem`, `zakladOdhadu`, `zdroje` vidí jen vypravěč (sekce „Po březnu 1458“); do hráčské verze se nedostanou, sestavení to hlídá stejně jako ⟦tajemství⟧ | stávající záznamy |
+| `postavy-1458.json` | údaje o osobách k 3. 3. 1458 (klíč = id osoby): `narozeni` (RRRR-MM-DD nebo RRRR), `narozeniRok`, `narozeniOdhad` → věk k hernímu datu; `shrnuti` → „Dosavadní život“ (hráči ho vidí, až osobu družina potká). Objekt `gm` (`poBreznu1458`, `umrti`) a pole `jistota`, `rozporSWebem`, `zakladOdhadu`, `zdroje` vidí jen vypravěč (sekce „Po březnu 1458“); do hráčské verze se nedostanou, sestavení to hlídá stejně jako ⟦tajemství⟧. Texty neodkazují na moderní literaturu ani badatele (jen fakt, případně dobový pramen); v `zdroje` jsou jen webové odkazy | stávající záznamy |
 | `vazby.md` | krev, spojenectví a spory mezi rody (jeden řádek = jedna vazba) | návod v hlavičce souboru |
 | `praha/` | očíslovaná místa na plánu Prahy | `praha/_vzor.md` |
 | `praha-ulice.md` | názvy ulic, trhů a bran na plánu Prahy | návod v hlavičce souboru |
 | `kronika/` | zápisy ze sezení | `kronika/_vzor.md` |
+| `traktaty/` | traktáty Kroniky – články o světě (Kronika › Traktáty); `stav` jako u rodů: slyšeli = hráči vidí jen název, potkali = celý text | `traktaty/_vzor.md` |
 | `druzina/` | postavy hráčů | `druzina/_vzor.md` |
 | `mista/` | místa objevená družinou na mapě zemí | `mista/_vzor.md` |
 | `svet/` | mocnosti na mapě Známý svět (vládce, víra, `spor:` červeně, `napeti:` oranžově, `spojenec:` modře) | `svet/_vzor.md` |
 | `svet-mesta.md` | města na mapě Známý svět | návod v hlavičce souboru |
 | `svet-drzavy.md` | zámořské a vzdálené državy (tečka v barvě mateřské země) | návod v hlavičce souboru |
 | `svet-cesty.md` | obchodní a poutní cesty a trasy lodí; po nich vede měření cesty | návod v hlavičce souboru |
+| `mapa-namety.md` | náměty pro vypravěče k bodům vrstvy Poutě, kláštery a pověsti na mapě zemí (celé tajné – hráč je nedostane; body samy jsou v `zdroj/web/js/02e-krajina.js`, `POUTE`) | návod v hlavičce souboru |
 
 ## Pravidla
 - Soubor má nahoře hlavičku mezi dvěma řádky `---` (pole `klíč: hodnota`), pod ní text.

@@ -967,8 +967,12 @@ begin
   if not exists (select 1 from jsonb_array_elements(coalesce(s -> 'hraci', '[]'::jsonb)) h where h ->> 'id' = p_hrac) then
     raise exception 'neznámá postava';
   end if;
-  if jsonb_typeof(x) <> 'object' or exists (select 1 from jsonb_object_keys(x) k where k not in ('ci', 'cim', 'hod', 'd', 'adv', 'dmg', 't', 'drt', 'pru', 'plos', 'kmin', 'sl', 'sid', 'zv', 'wm', 'man')) then
+  if jsonb_typeof(x) <> 'object' or exists (select 1 from jsonb_object_keys(x) k where k not in ('ci', 'cim', 'hod', 'd', 'adv', 'dmg', 't', 'drt', 'pru', 'plos', 'kmin', 'sl', 'sid', 'zv', 'wm', 'man', 'sram')) then
     raise exception 'neplatný útok';
+  end if;
+  -- Šrám Střelce (Grazing Shot, 2026-10-28): zranění při minutí (kostka Štěstěny + DEX)
+  if x ? 'sram' and not public.mm_cislo(x -> 'sram', 1, 40) then
+    raise exception 'neplatný šrám';
   end if;
   -- manévr Battle Mastera se záchranou cíle (2026-10-25): jméno a SO; následek vyhodnotí vypravěč při potvrzení
   if x ? 'man' and (jsonb_typeof(x -> 'man') <> 'object' or exists (select 1 from jsonb_object_keys(x -> 'man') k where k not in ('n', 'dc'))
@@ -1035,6 +1039,10 @@ begin
   if x ? 'sl' then u := u || jsonb_build_object('sl', x -> 'sl'); end if;
   if x ? 'sid' then u := u || jsonb_build_object('sid', x -> 'sid'); end if;
   if x ? 'zv' then u := u || jsonb_build_object('zv', x -> 'zv'); end if;
+  -- mistrovství zbraně, manévr a Šrám (2026-10-28): dřív se jen kontrolovaly a do útoku neuložily – vypravěč je neviděl
+  if x ? 'wm' then u := u || jsonb_build_object('wm', x -> 'wm'); end if;
+  if x ? 'man' then u := u || jsonb_build_object('man', x -> 'man'); end if;
+  if x ? 'sram' then u := u || jsonb_build_object('sram', x -> 'sram'); end if;
   s := jsonb_set(s, '{utoky}', (select coalesce(jsonb_agg(e order by o), '[]'::jsonb) from (
       select e, o from jsonb_array_elements(coalesce(s -> 'utoky', '[]'::jsonb) || jsonb_build_array(u)) with ordinality t(e, o) order by o desc limit 30) w));
   update public.boj set stav = s, verze = verze + 1, zmeneno = now() where id = 'aktivni' returning verze into v;
@@ -1101,7 +1109,9 @@ begin
       and not exists (select 1 from jsonb_each(x) e where char_length(e.key) > 60 or jsonb_typeof(e.value) <> 'number' or not public.mm_cislo(e.value, 0, 30)))
     when 'inv' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'array' and jsonb_array_length(x) <= 300 and not exists (
       select 1 from jsonb_array_elements(x) e where jsonb_typeof(e) <> 'object'
-        or exists (select 1 from jsonb_object_keys(e) k where k not in ('n', 'q', 'w', 'pripoutano', 'mag', 'obl', 'nab', 'v', 'pozn', 'typ'))
+        or exists (select 1 from jsonb_object_keys(e) k where k not in ('n', 'q', 'w', 'pripoutano', 'mag', 'obl', 'nab', 'v', 'pozn', 'typ', 'def'))
+        -- vlastní předmět z Dílny vypravěče (2026-10-28): popis mechaniky, obsah kontroluje web (vecDefNorm), tady jen tvar a velikost
+        or (e ? 'def' and (jsonb_typeof(e -> 'def') <> 'object' or octet_length((e -> 'def')::text) > 2000))
         or (e ? 'typ' and coalesce(e ->> 'typ', '') not in ('boj', 'spo', 'mag', 'cen', 'vys'))
         or (e ? 'pozn' and (jsonb_typeof(e -> 'pozn') <> 'string' or char_length(e ->> 'pozn') > 300))
         or (e ? 'v' and (jsonb_typeof(e -> 'v') <> 'string' or char_length(e ->> 'v') not between 1 and 80))
@@ -1116,6 +1126,9 @@ begin
     when 'pen' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'object' and not exists (
       select 1 from jsonb_each(x) e where e.key not in ('CP', 'SP', 'EP', 'GP', 'PP') or jsonb_typeof(e.value) <> 'number' or (e.value #>> '{}') !~ '^[0-9]{1,7}$'))
     when 'pozn' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'string' and char_length(x #>> '{}') <= 4000)
+    -- vystřelené střelivo od posledního sebrání po boji (2026-10-27): {název věci: počet}
+    when 'mun' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'object' and (select count(*) from jsonb_object_keys(x)) <= 20
+      and not exists (select 1 from jsonb_each(x) e where char_length(e.key) not between 1 and 80 or not public.mm_cislo(e.value, 0, 999)))
     -- duše postavy (Artikule): Svědomí 0–10, body hříchu a dobrých skutků, vyznání, Ctnosti a Neřesti, stupeň featu víry, odkaz na postavu v Družině
     when 'sv' then public.mm_cislo(x, 0, 10)
     when 'hr' then public.mm_cislo(x, 0, 99)
@@ -1233,7 +1246,8 @@ language plpgsql immutable set search_path = public as $$
 declare i int := 0; e jsonb;
 begin
   for e in select * from jsonb_array_elements(coalesce(inv, '[]'::jsonb)) loop
-    if lower(trim(e ->> 'n')) = lower(trim(v ->> 'n')) and coalesce(e ->> 'mag', '') = coalesce(v ->> 'mag', '') and not (e ? 'v') then
+    if lower(trim(e ->> 'n')) = lower(trim(v ->> 'n')) and coalesce(e ->> 'mag', '') = coalesce(v ->> 'mag', '') and not (e ? 'v')
+      and coalesce(e -> 'def', 'null'::jsonb) = coalesce(v -> 'def', 'null'::jsonb) then
       return jsonb_set(inv, array[i::text, 'q'], to_jsonb(coalesce((e ->> 'q')::int, 1) + coalesce((v ->> 'q')::int, 1)));
     end if;
     i := i + 1;
@@ -1244,7 +1258,8 @@ create or replace function public.mm_vec_ok(v jsonb) returns boolean
 language sql immutable set search_path = public as $$
   select jsonb_typeof(v) = 'object' and jsonb_typeof(v -> 'n') = 'string' and char_length(v ->> 'n') between 1 and 80
     and jsonb_typeof(v -> 'q') = 'number' and public.mm_cislo(v -> 'q', 1, 9999)
-    and not exists (select 1 from jsonb_object_keys(v) k where k not in ('n', 'q', 'mag', 'w', 'pozn', 'nab'))
+    and not exists (select 1 from jsonb_object_keys(v) k where k not in ('n', 'q', 'mag', 'w', 'pozn', 'nab', 'def'))
+    and (not v ? 'def' or (jsonb_typeof(v -> 'def') = 'object' and octet_length((v -> 'def')::text) <= 2000))
     and (not v ? 'mag' or (jsonb_typeof(v -> 'mag') = 'string' and (v ->> 'mag') ~ '^[a-z0-9-]{1,60}$'))
     and (not v ? 'w' or (jsonb_typeof(v -> 'w') = 'string' and char_length(v ->> 'w') <= 20))
     and (not v ? 'pozn' or (jsonb_typeof(v -> 'pozn') = 'string' and char_length(v ->> 'pozn') <= 300))
@@ -1421,6 +1436,68 @@ begin
 end $$;
 revoke all on function public.mm_karta_bardic(text, int, text, text) from public;
 grant execute on function public.mm_karta_bardic(text, int, text, text) to anon, authenticated;
+
+-- Warding Bond (2026-10-27): chráněná postava (p_od, přihlášený hráč za svou postavu) přenese utrpěné zranění na sesilatele (p_id),
+-- jen když jeho karta nese pouto „Warding Bond … ⇒ jméno“ (jméno z karty p_od; karta bez jména v databázi pošle p_jmeno).
+-- Dočasné HP pohltí první; v bezvědomí = neúspěch hodu proti smrti; pád na 0 = hody proti smrti a vyčerpání +1 (Artikule).
+-- Pouto končí, padne-li sesilatel na 0 HP nebo chráněná postava (p_konec).
+drop function if exists public.mm_karta_warding(text, int, int, text, boolean, text);
+create or replace function public.mm_karta_warding(p_id text, p_zr int, p_max int, p_od text, p_konec boolean default false,
+  p_token text default null, p_jmeno text default null) returns bigint
+language plpgsql security definer set search_path = public as $$
+declare st jsonb; jm text; uc jsonb; cur int; th int; zb int; ds jsonb; v bigint; konec boolean := coalesce(p_konec, false);
+begin
+  if p_id is null or p_id !~ '^[a-z0-9-]{1,40}$' or p_od is null or p_od !~ '^[a-z0-9-]{1,40}$' or p_id = p_od then
+    raise exception 'neplatná karta';
+  end if;
+  if p_zr is null or p_zr not between 1 and 300 or p_max is null or p_max not between 1 and 999 then raise exception 'neplatné zranění'; end if;
+  if not public.mm_hrac_ok(p_od, p_token) then
+    raise exception 'zranění přenáší jen přihlášený hráč za svou postavu' using errcode = '42501';
+  end if;
+  select coalesce(karta ->> 'n', left(p_jmeno, 80)) into jm from public.karty where id = p_od;
+  if jm is null or jm = '' then raise exception 'neznámá karta'; end if;
+  select stav into st from public.karty where id = p_id for update;
+  if not found then raise exception 'neznámá karta'; end if;
+  uc := case when jsonb_typeof(st -> 'uc') = 'array' then st -> 'uc' else '[]'::jsonb end;
+  if not exists (select 1 from jsonb_array_elements(uc) e
+      where (e ->> 'n') like 'Warding Bond%' and right(e ->> 'n', char_length(jm) + 3) = ' ⇒ ' || jm) then
+    raise exception 'Warding Bond na tuto postavu nedrží' using errcode = '42501';
+  end if;
+  zb := p_zr;
+  th := case when jsonb_typeof(st -> 'thp') = 'number' then (st ->> 'thp')::int else 0 end;
+  if th > 0 then
+    st := case when th > zb then jsonb_set(st, '{thp}', to_jsonb(th - zb)) else st - 'thp' end;
+    zb := greatest(0, zb - th);
+  end if;
+  cur := case when jsonb_typeof(st -> 'hp') = 'number' then (st ->> 'hp')::int else p_max end;
+  ds := case when jsonb_typeof(st -> 'ds') = 'object' then st -> 'ds' else null end;
+  if zb > 0 then
+    if ds is not null then
+      if coalesce(ds ->> 'st', '') not in ('mrtev', 'stab') then
+        ds := jsonb_set(ds, '{n}', to_jsonb(least(3, coalesce((ds ->> 'n')::int, 0) + 1)));
+        if (ds ->> 'n')::int >= 3 then ds := jsonb_set(ds, '{st}', '"mrtev"'); end if;
+        st := jsonb_set(st, '{ds}', ds);
+      end if;
+    elsif cur - zb <= 0 then
+      -- přesah ≥ maximum HP = okamžitá smrt (jako na kartě)
+      st := jsonb_set(jsonb_set(st, '{hp}', '0'), '{ds}', case when zb - cur >= p_max then jsonb_build_object('u', 0, 'n', 3, 'st', 'mrtev')
+        else jsonb_build_object('u', 0, 'n', 0) end);
+      st := jsonb_set(st, '{vycerp}', to_jsonb(least(10, coalesce((st ->> 'vycerp')::int, 0) + 1)));
+      konec := true;
+    else
+      st := jsonb_set(st, '{hp}', to_jsonb(cur - zb));
+    end if;
+  end if;
+  if konec then
+    select coalesce(jsonb_agg(e), '[]'::jsonb) into uc from jsonb_array_elements(uc) e
+      where not ((e ->> 'n') like 'Warding Bond%' and right(e ->> 'n', char_length(jm) + 3) = ' ⇒ ' || jm);
+    st := case when jsonb_array_length(uc) = 0 then st - 'uc' else jsonb_set(st, '{uc}', uc) end;
+  end if;
+  update public.karty set stav = st, verze = verze + 1, zmeneno = now() where id = p_id returning verze into v;
+  return v;
+end $$;
+revoke all on function public.mm_karta_warding(text, int, int, text, boolean, text, text) from public;
+grant execute on function public.mm_karta_warding(text, int, int, text, boolean, text, text) to anon, authenticated;
 
 -- historie karty: před změnou stavu se uloží předchozí stav (nejvýš jednou za 10 minut, 40 snímků na kartu)
 create or replace function public.mm_karty_historie() returns trigger
@@ -2211,7 +2288,7 @@ begin
   if not public.mm_je_gm() then
     raise exception 'jen pro vypravěče' using errcode = '42501';
   end if;
-  if p_klic not in ('kouzla', 'predmety', 'featy') then
+  if p_klic not in ('kouzla', 'predmety', 'featy', 'povolani') then
     raise exception 'neznámý klíč %', p_klic using errcode = '22023';
   end if;
   insert into public.pravidla_texty (klic, data, zmeneno) values (p_klic, p_data, now())

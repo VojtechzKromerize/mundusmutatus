@@ -43,6 +43,47 @@ def slug(s):
     return s
 
 
+# ---- ceny v mincích tažení (Vojta 2026-10-27): 1 GP z pravidel = 10 pražských grošů = 100 haléřů; kopa = 60 grošů,
+# uherský zlatý = 40 grošů. Katalog z Wordu zůstává v GP, do art/vybaveni.json jdou groše a kopy (všechny texty kromě mincí).
+MINCE_HAL = {"gp": 100, "sp": 10, "cp": 1, "ep": 50, "pp": 1000, "fp": 100}  # FP = překlep ve Wordu (Prismatic Rune)
+CENA_RE = re.compile(r"(?<![\d,.])(\d{1,3}(?:[ ,\u00a0]\d{3})+|\d+)\s*(GP|SP|CP|EP|PP|FP)\b", re.I)
+
+
+def tisice(n):
+    return f"{n:,}".replace(",", "\u00a0")
+
+
+def halere_txt(h):
+    """částka v haléřích → „2 kopy 30 gr.“; od deseti kop zaokrouhleně v kopách a zlatých"""
+    if h >= 6000:  # od deseti kop stačí celé kopy a zlaté
+        kop = round(h / 600)
+        return f"{tisice(kop)} kop (≈ {tisice(round(h / 400))} zl.)"
+    kop, r = divmod(h, 600)
+    gr, hal = divmod(r, 10)
+    casti = []
+    if kop:
+        casti.append(f"{tisice(kop)} {'kopa' if kop == 1 else 'kopy' if kop < 5 else 'kop'}")
+    if gr:
+        casti.append(f"{gr} gr.")
+    if hal:
+        casti.append(f"{hal} hal.")
+    return " ".join(casti) or "0 gr."
+
+
+def ceny_tazeni(t):
+    t = t.replace("cena v GP dělená deseti", "cena v groších dělená stem")
+    t = re.sub(r"\bB\+(?=\d)", "základ + ", t)  # „B+500 GP“ = cena základního předmětu a k tomu částka
+    return CENA_RE.sub(lambda m: halere_txt(int(re.sub(r"\D", "", m.group(1))) * MINCE_HAL[m.group(2).lower()]), t)
+
+
+def ceny_vsude(o):
+    if isinstance(o, dict):
+        return {k: ceny_vsude(v) for k, v in o.items()}
+    if isinstance(o, list):
+        return [ceny_vsude(v) for v in o]
+    return ceny_tazeni(o) if isinstance(o, str) else o
+
+
 def main():
     K = json.load(open(os.path.join(D, "katalog.json"), encoding="utf-8"))
     P = json.load(open(os.path.join(ROOT, "art", "predmety.json"), encoding="utf-8"))
@@ -99,6 +140,7 @@ def main():
     if dup:
         print("POZOR – zdvojené id:", dup, file=sys.stderr)
     out = os.path.join(ROOT, "art", "vybaveni.json")
+    V = {k: (v if k == "mince" else ceny_vsude(v)) for k, v in V.items()}
     json.dump(V, open(out, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
     print(f"art/vybaveni.json: {sum(len(V[k]) for k in V if isinstance(V[k], list))} položek, magické {len(V['magicke'])} "
           f"(SRD {len(V['magicke']) - mimo}, mimo SRD {mimo}), {os.path.getsize(out) // 1024} kB")

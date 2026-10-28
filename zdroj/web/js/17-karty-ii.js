@@ -619,6 +619,60 @@ function kBufy(K) {
   });
   return R;
 }
+/* Warding Bond (2026-10-27): sesilatel nese pouto „Warding Bond ⇒ Jméno“ a utrpí stejné zranění jako chráněná postava (bez odolností);
+   padne-li kterýkoli z nich na 0 HP, pouto končí. Vypravěč a sesilatel sám zapíší zranění přímo, jiný hráč přes mm_karta_warding
+   (databáze ověří, že pouto na jeho postavu opravdu existuje). Volá bojPCZmena / zranění mimo boj (13), když postava utrpí zranění. */
+const KWARDRE = /^Warding Bond\b.* ⇒ (.+)$/;
+function kWardSesilatele(K) {
+  const t = kTed();
+  return (KARTY || []).filter(
+    k =>
+      k.id !== K.id &&
+      kUc(k).some(u => {
+        const m = String(u.n || "").match(KWARDRE);
+        return m && m[1] === K.n && !(u.do != null && t != null && u.do <= t);
+      }),
+  );
+}
+async function kPoutoZran(K, dmg, padl) {
+  for (const Kc of kWardSesilatele(K)) {
+    if (GMV || kMuze(Kc)) {
+      const h0 = ((BOJ.s && BOJ.s.aktivni && BOJ.s.hraci) || []).find(x => bojKartaH(x) === Kc);
+      if (h0) bojPCZmena(h0.id, x => bojZranPC(x, Kc, dmg, "", false, {bezPout: 1}), false);
+      else {
+        const S = kartaStav(Kc.id),
+          o = {hp: S.hp, thp: S.thp, ds: S.ds},
+          hp0 = S.hp != null ? +S.hp : kHPmax(Kc);
+        bojZranPC(o, Kc, dmg, "", false, {bezPout: 1});
+        const ch = {hp: o.hp != null && o.hp < kHPmax(Kc) ? o.hp : null, thp: o.thp || null, ds: o.ds || null};
+        if (o.hp === 0 && hp0 > 0) ch.vycerp = Math.min(10, (+S.vycerp || 0) + 1);
+        await kartaStavZmen(Kc.id, ch);
+      }
+      if (padl || kartaStav(Kc.id).hp === 0) {
+        const uc = kUc(Kc).filter(u => (String(u.n || "").match(KWARDRE) || [])[1] !== K.n);
+        await kartaStavZmen(Kc.id, {uc: uc.length ? uc : null});
+      }
+    } else if (window.MMDB && MMDB.kartaWarding) {
+      try {
+        await MMDB.kartaWarding(Kc.id, Math.min(300, Math.round(dmg)), kHPmax(Kc), K.id, !!padl, K.n);
+        await kartyNacti();
+      } catch (e) {
+        mmHlasG(`Warding Bond: zranění ${Kc.n} se nezapsalo (${e.message || e}) – zapiš ${dmg} na jeho kartě.`, 6000);
+        continue;
+      }
+    } else {
+      mmHlasG(`${Kc.n}: Warding Bond – zapiš ${dmg} zranění na jeho kartě.`, 5000);
+      continue;
+    }
+    kHodZapis({
+      k: K.id,
+      kdo: K.n,
+      co: "Warding Bond",
+      txt: `${Kc.n} utrpí stejné zranění: ${dmg}${padl || kartaStav(Kc.id).hp === 0 ? " · pouto končí (pád na 0 HP)" : ""}`,
+    });
+    mmHlasG(`Warding Bond: ${Kc.n} utrpí ${dmg} zranění spolu s ${K.n}.`, 5000);
+  }
+}
 /* ---- Seslat na koho (2026-10-17 b): kouzlo s dosahem (ne „Sebe“) se před sesláním zeptá na cíle – postavy družiny
    a v boji nepřátelé. Spojenci dostanou účinek „Kouzlo ⇒ Jméno“ (drží ho sesilatel, se soustředěním zmizí), léčivé kouzlo
    rovnou vyléčí vybrané. Nepřátelé v boji: hráč kouzlo se záchranou či útokem dohodí v listu útoku (vyhodnotí vypravěč),
@@ -954,13 +1008,17 @@ function kHodNabidka(K, co, zapocteno) {
             ? "Tactical Assessment"
             : null
         : null;
+  /* Střelec (10x): Svéhlavost (Maverick Spirit) k ověření a záchraně na INT, WIS a CHA – kostka Štěstěny místo kostky převahy */
+  const co0 = String(co || "").replace(/\s*\(.*$/, ""),
+    ab = (co0.match(/^Záchrana (STR|DEX|CON|INT|WIS|CHA)/) || [])[1] || Object.keys(KSK).find(k => co0 === "Ověření " + KSK[k]) || KDOVAB[co0],
+    RK = !man && !z.has("sd") && kStrU(K) >= 2 && strSvehlavost(ab) ? kRDKousek(K, "svehl") : null;
   return {
     bless: ma("Bless"),
     guid: ma("Guidance"),
     bane: ma("Bane"),
     bard,
     st: bard ? +bard.match(/\d+$/)[0] : 0,
-    sd: man ? {n: man, k: SD.k, zb: SD.zb} : null,
+    sd: man ? {n: man, k: SD.k, zb: SD.zb} : RK ? {n: "Svéhlavost (Maverick Spirit)", k: RK.k, zb: RK.RD ? RK.RD.zb : null, rd: 1} : null,
   };
 }
 /* Bardic Inspiration použitá po hodu: kostka se spotřebuje */
@@ -978,7 +1036,7 @@ function kNabidkaHtml(N, a, H = "") {
       ? `<button type="button" class="gbtn ghost" ${a}="bard"${H} ${btip(`Bardic Inspiration: přičte 1d${N.st}, kostka se spotřebuje`)}>${bi("bard")}+1d${N.st} Bardic</button>`
       : "",
     N.sd
-      ? `<button type="button" class="gbtn ghost" ${a}="sd"${H} ${btip(`${N.sd.n}: přičte 1${N.sd.k} (kostka převahy, zbývá ${N.sd.zb})`)}>+1${N.sd.k} ${besc(N.sd.n)}</button>`
+      ? `<button type="button" class="gbtn ghost" ${a}="sd"${H} ${btip(`${N.sd.n}: přičte 1${N.sd.k} (${N.sd.rd ? (N.sd.zb == null ? "Štěstí přeje odvážným – zdarma" : `kostka Štěstěny, zbývá ${N.sd.zb}; jednou za tah`) : `kostka převahy, zbývá ${N.sd.zb}`})`)}>+1${N.sd.k} ${besc(N.sd.n.replace(/ \(.*\)$/, ""))}</button>`
       : "",
   ].join("");
 }
@@ -1035,6 +1093,18 @@ function kEfekty(K) {
       blizko: 1,
       pozn: "Rage: + ke zranění útoků zblízka, Resistance Bludgeoning/Piercing/Slashing, výhoda na STR ověření a záchrany; zapnutí spotřebuje 1 Rage",
     });
+  /* Střelec (10x): Critical Shot – kritický zásah na dálku od 19 (9. úroveň 18, 17. úroveň 17); Overkill (11.) +1d8 na dálku */
+  const gs = kTrU(c, "Gunslinger");
+  if (gs >= 2)
+    L.push({
+      n: "Critical Shot",
+      krit: strKrit(gs),
+      auto: 1,
+      jen: a => !!a.dal,
+      pozn: `Rána do živého: útok zbraní na dálku je kritickým zásahem při ${strKrit(gs)}–20`,
+    });
+  if (gs >= 11)
+    L.push({n: "Overkill", zr: "1d8", auto: 1, jen: a => !!a.dal, pozn: "Přes míru: +1d8 zranění typu zbraně při zásahu zbraní na dálku"});
   if (has("Hex")) L.push({n: "Hex", zr: "1d6", t: "Necrotic", pozn: "+1d6 Necrotic proti očarovanému cíli"});
   if (has("Hunter's Mark")) L.push({n: "Hunter's Mark", zr: "1d6", t: "Force", pozn: "+1d6 Force proti označenému cíli"});
   if (has("Divine Favor")) L.push({n: "Divine Favor", zr: "1d4", t: "Radiant", pozn: "+1d4 Radiant k útokům zbraní"});
@@ -1062,6 +1132,21 @@ function kEfekty(K) {
       jen: a => kTezka(K, a),
       pozn: `+${kPB(K)} zranění při zásahu zbraní Heavy; po kritickém zásahu nebo srážce tvora na 0 HP můžeš bonusovou akcí zaútočit znovu`,
     });
+  /* vlastní zbraň z Dílny: zranění navíc při zásahu (Flame Tongue po svém) – započítá se samo, jen k útoku touto zbraní */
+  c.inv.forEach(x => {
+    if (!x || !x.def || x.def.d !== "zbr" || !x.def.zr || (x.def.pr && !x.pripoutano)) return;
+    const nm = String(x.n).toLowerCase();
+    x.def.zr.forEach(q =>
+      L.push({
+        n: `${x.n}: +${q.k} ${q.t}`,
+        zr: q.k,
+        t: q.t,
+        auto: 1,
+        jen: a => String(a.n || "").toLowerCase() === nm,
+        pozn: `+${q.k} ${q.t} při zásahu zbraní ${x.n}`,
+      }),
+    );
+  });
   if (typeof kEfKouzla === "function")
     kEfKouzla(K).forEach(e => {
       if (!L.some(q => q.n === e.n)) L.push(e);
@@ -1092,12 +1177,24 @@ function kSmity(K) {
     .filter(Boolean);
 }
 /* ---- rysy z karty pro automatiku boje (2026-10-20): featy a manévry podle názvu z PDF, kostky převahy, Bardic Inspiration ---- */
-const kMaRys = (K, re) =>
-  !!K && [...(K.rysy || []), ...(K.rysy2 || []).map(r => r && r.n)].some(x => x && re.test(String(x).replace(/[’]/g, "'").trim()));
+/* rysy, na které se automatika opravdu ptá (kMaRys tady, c.maRys v kCtx 18): přehled „Automatika podle karet“ (19b) podle nich
+   pozná, co z rysů a featů postavy web počítá sám (2026-10-27) */
+const KAUTOR = new Map();
+function kAutoZnac(id, n) {
+  if (!id || !n) return;
+  if (!KAUTOR.has(id)) KAUTOR.set(id, new Set());
+  KAUTOR.get(id).add(String(n).toLowerCase().replace(/[’']/g, "'").trim());
+}
+const kMaRys = (K, re) => {
+  if (!K) return false;
+  const x = [...(K.rysy || []), ...(K.rysy2 || []).map(r => r && r.n)].find(x => x && re.test(String(x).replace(/[’]/g, "'").trim()));
+  if (x) kAutoZnac(K.id, x);
+  return !!x;
+};
 const kTezka = (K, a) => {
   if (!a) return false;
   const A = (kUtoky(K) || []).find(x => x.n === a.n) || a,
-    z = typeof kZbranInfo === "function" ? kZbranInfo(A.n) : null;
+    z = typeof kZbrA === "function" ? kZbrA(K, A) : null;
   return /\bheavy\b/i.test([...(A.vl || []), (z && z[4]) || "", A.pozn || ""].join(" "));
 };
 /* Battle Master: kostky převahy (zdroj „Combat Superiority“) a jejich velikost; SO manévrů = 8 + zdatnost + STR nebo DEX */
@@ -1110,6 +1207,22 @@ function kSD(K) {
   return Object.assign(z, {k: m ? m[1] : f >= 18 ? "d12" : f >= 10 ? "d10" : "d8"});
 }
 const kSDdc = K => 8 + kPB(K) + Math.max(kMod(kVl(K, "STR") || 10), kMod(kVl(K, "DEX") || 10));
+/* Střelec (Gunslinger, pravidla v čistém 10x): kostky Štěstěny = zdroj „Risk Dice“ z PDF, velikost kostky podle úrovně;
+   Karbaník (High Roller) dává Hazard a od 10. úrovně Svéhlavost a O vlásek zdarma s k6 (2026-10-28) */
+const kStrU = K => (K ? kTrU(kCtx(K), "Gunslinger") : 0);
+const kKarb = K => kMaRys(K, /^high roller$/i);
+function kRD(K) {
+  const R = strRD(kStrU(K)),
+    z = R && typeof kZdrN === "function" ? kZdrN(K, /risk dic?e/i) : null;
+  return z ? Object.assign(z, {k: R.k}) : null;
+}
+/* kostka kousku: utrácí kostku Štěstěny, nebo (Karbaník 10+, Svéhlavost a O vlásek) k6 zdarma, když kostky došly */
+function kRDKousek(K, k) {
+  const RD = kRD(K);
+  if (RD && RD.zb > 0) return {k: RD.k, RD};
+  if ((k === "svehl" || k === "vlasek") && strZdarma(kStrU(K), kKarb(K))) return {k: "d6", RD: null};
+  return null;
+}
 /* manévry, které se přidávají k zásahu: [název, česky, záchrana cíle, následek při neúspěchu] */
 const BMAN = [
   ["Trip Attack", "Útok s podražením", "STR", "Sražen (Prone)"],
@@ -1346,5 +1459,6 @@ function kStavVliv(K, co) {
   });
   if (typ === "za" && ab && typeof kBufAdv === "function") kBufAdv(K, ab).forEach(n => r.push([1, n]));
   if (kPri(K).includes("Rage") && (typ === "ov" || typ === "za") && ab === "STR") r.push([1, "Rage"]);
+  if (typ === "in" && kStrU(K) >= 1) r.push([1, "Quick Draw"]);
   return {r, fail};
 }

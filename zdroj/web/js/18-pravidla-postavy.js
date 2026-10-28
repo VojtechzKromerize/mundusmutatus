@@ -18,7 +18,7 @@ const KTR = {
   Warlock: {hd: 8, cz: "Černokněžník", pakt: 1, ab: "CHA"},
   Wizard: {hd: 6, cz: "Kouzelník", c: 1, ab: "INT"},
 };
-const KMARC = /Barbarian|Fighter|Paladin|Ranger/;
+const KMARC = /Barbarian|Fighter|Paladin|Ranger|Gunslinger/; /* Gunslinger: válečné zbraně podle Artikulí (2026-10-28) */
 /* sloty podle úrovně sesilatele (SRD: Multiclassing) a sloty paktu černokněžníka */
 const KSLT = [
   [],
@@ -102,6 +102,8 @@ const kZbranInfo = n => {
   if (/ammunition|arrows?\b|bolts?\b|šíp|šipky do|munice|sheath|pochv|quiver|toulec/i.test(n)) return null;
   return KZBRAN.find(r => r[0].test(n)) || null;
 };
+/* zbraň věci ve vybavení: vlastní předmět z Dílny podle def (10v), jinak podle jména */
+const kVecZbr = x => (x && x.def ? vecZbrRow(x.def) : kZbranInfo(x && x.n));
 /* předměty, které pravidla znají jménem (doplňují databázi SRD předmětů): nastavené skóre, bonus ke kouzlům a další */
 const KPREDX = [
   [/amulet of health/i, {vl: {CON: 19}}],
@@ -166,13 +168,26 @@ function kCtx(K, pdf) {
     x => !(x.q != null && +x.q <= 0),
   );
   const ry = new Set([...(K.rysy2 || []).map(r => r.n), ...(K.rysy || [])].map(x => String(x).toLowerCase().replace(/[’']/g, "'")));
-  const maRys = re => [...ry].some(x => re.test(x));
+  const maRys = re => {
+    const x = [...ry].find(x => re.test(x));
+    if (x) kAutoZnac(K.id, x);
+    return !!x;
+  };
   /* efekty předmětů: z databáze SRD (ef) a podle jména; předmět s připoutáním působí jen připoutaný */
   const E = [],
     vlSet = {};
   inv.forEach(x => {
     const p = kPred(x),
       nm = String(x.n || "");
+    if (x.def) {
+      /* vlastní předmět z Dílny: účinky z def, ne podle jména; s připoutáním působí jen připoutaný */
+      if (x.def.pr && !x.pripoutano) return;
+      vecEf(x.def).forEach(e => {
+        if (e.set) vlSet[e.c.slice(3)] = Math.max(vlSet[e.c.slice(3)] || 0, e.v);
+        E.push(Object.assign({n: nm}, e));
+      });
+      return;
+    }
     if (p && p.pr && !x.pripoutano) return;
     const ef = Object.assign({}, (p && p.ef) || {});
     KPREDX.forEach(([re, f]) => {
@@ -526,6 +541,13 @@ const KZDRP = [
     "dlouhý odpočinek",
     "Sorcery Points",
   ],
+  /* Střelec (doplněk mimo SRD, 10x): kostky Štěstěny podle úrovně, velikost kostky do obnovy (čte ji i nápověda karty) */
+  [
+    /^risk dic?e/i,
+    c => (strRD(kTrU(c, "Gunslinger")) || {n: 0}).n,
+    c => `krátký odpočinek · kostka ${(strRD(kTrU(c, "Gunslinger")) || {k: "d8"}).k}`,
+    "Risk Dice",
+  ],
   [/arcane recovery/i, c => (kTrU(c, "Wizard") ? 1 : 0), "dlouhý odpočinek", "Arcane Recovery"],
   [/magical cunning/i, c => (kTrU(c, "Warlock") >= 2 ? 1 : 0), "dlouhý odpočinek", "Magical Cunning"],
   [/^lucky$/i, c => c.pb, "dlouhý odpočinek"],
@@ -784,6 +806,7 @@ const KZBRT = [
 ];
 function kZbrInfo(x) {
   const n = String((x && x.n) || "");
+  if (x && x.def) return x.q != null && +x.q <= 0 ? null : vecZbroj(x.def);
   if (
     !n ||
     (x.q != null && +x.q <= 0) ||
@@ -979,9 +1002,9 @@ function kUtZInv(K) {
       return t === "S" ? true : /martial/i.test(z) || c.tr.some(x => KMARC.test(x.n));
     };
   c.inv.forEach(x => {
-    const w = kZbranInfo(x.n);
+    const w = kVecZbr(x);
     if (!w) return;
-    const mg = !!x.mag || /\+\s*[1-3]\b/.test(x.n);
+    const mg = !!x.mag || !!x.def || /\+\s*[1-3]\b/.test(x.n);
     if (
       [...pdfU, ...(kDopl(K).utoky || [])].some(
         a => String(a.n).toLowerCase() === String(x.n).toLowerCase() || (!mg && (kZbranInfo(a.n) || [])[1] === w[1]),
@@ -990,7 +1013,7 @@ function kUtZInv(K) {
       return;
     if (o.some(q => q.n === x.n)) return;
     const p = kPred(x),
-      m = +(String(x.n).match(/\+\s*([1-3])\b/) || [])[1] || +((p && p.ef && p.ef.utok) || 0),
+      m = x.def ? +x.def.b || 0 : +(String(x.n).match(/\+\s*([1-3])\b/) || [])[1] || +((p && p.ef && p.ef.utok) || 0),
       fin = /Finesse/.test(w[4]),
       dal = !!w[6],
       ab0 = dal ? "DEX" : fin ? (c.md("DEX") >= c.md("STR") ? "DEX" : "STR") : "STR",
@@ -1009,7 +1032,7 @@ function kUtZInv(K) {
       pocet: kPocet(c) > 1 ? kPocet(c) : undefined,
       cas: "A",
       zInv: 1,
-      rozpis: `z vybavení · ${ab} ${bsg(md)}${chx ? " (Hex Warrior / Pact of the Blade)" : ""}${prof(w[5]) ? ` · zdatnost ${bsg(c.pb)}` : " · bez zdatnosti"}${m ? ` · magie ${bsg(m)}` : ""}`,
+      rozpis: `z vybavení · ${ab} ${bsg(md)}${chx ? " (Hex Warrior / Pact of the Blade)" : ""}${prof(w[5]) ? ` · zdatnost ${bsg(c.pb)}` : " · bez zdatnosti"}${m ? ` · magie ${bsg(m)}` : ""}${x.def && x.def.zr ? x.def.zr.map(q => ` · +${q.k} ${q.t} při zásahu`).join("") : ""}`,
     });
     kUtPomala(c, o[o.length - 1], w);
   });
@@ -1032,6 +1055,16 @@ function kUtZInv(K) {
   }
   return o;
 }
+/* vlastní předmět z Dílny podle jména útoku (útoky z vybavení nesou jméno věci) a zbraň útoku: podle def, jinak podle jména */
+const kVecDefN = (K, n) => {
+  const nm = String(n || "").toLowerCase(),
+    x = K && nm ? kCtx(K).inv.find(y => y && y.def && String(y.n).toLowerCase() === nm) : null;
+  return x ? x.def : null;
+};
+const kZbrA = (K, a) => {
+  const d = a && kVecDefN(K, a.n);
+  return d ? vecZbrRow(d) : kZbranInfo(a && a.n);
+};
 /* zbraň z PDF, kterou postava už nemá (prodaná, ztracená), se mezi útoky neukáže */
 const kUtMa = (K, a) => {
   if (a.vlastni || kUtInf(K, a).sp) return true;
@@ -1221,9 +1254,14 @@ const kMunTxt = (K, a) => {
 async function kMunOdecti(K, a, n) {
   const m = kMunice(K, a);
   if (!m || !m.x) return;
-  const inv = [...(kartaStav(K.id).inv || K.vybaveni || [])].map(y => Object.assign({}, y));
-  inv[m.i].q = Math.max(0, (+inv[m.i].q || 0) - (n || 1));
-  await kartaStavZmen(K.id, {inv});
+  const inv = [...(kartaStav(K.id).inv || K.vybaveni || [])].map(y => Object.assign({}, y)),
+    q0 = +inv[m.i].q || 0;
+  inv[m.i].q = Math.max(0, q0 - (n || 1));
+  /* vystřelené střelivo do sebrání po boji (průvodce koncem boje, 2026-10-27) */
+  const mun = Object.assign({}, kartaStav(K.id).mun || {}),
+    nm = String(inv[m.i].n).slice(0, 80);
+  mun[nm] = Math.min(999, (+mun[nm] || 0) + (q0 - inv[m.i].q));
+  await kartaStavZmen(K.id, {inv, mun});
   if (!inv[m.i].q) mmHlasG(`${K.n}: došlo střelivo (${inv[m.i].n}).`, 4500);
 }
 /* ---- příprava kouzel ze seznamu povolání ---- */

@@ -1,6 +1,9 @@
 // Mapa Zemí Koruny české (2026-10-24): města doby na mapě, význam míst (velikost značky a od kdy se ukáže jméno).
 import {test, before, after} from "node:test";
 import assert from "node:assert/strict";
+import fs from "node:fs";
+import path from "node:path";
+import {fileURLToPath} from "node:url";
 import {stranka} from "./stranka.mjs";
 
 let S;
@@ -9,6 +12,7 @@ before(async () => {
 });
 after(() => S && S.zavri());
 const V = vyraz => JSON.parse(S.ev(`JSON.stringify(${vyraz})`));
+const KOREN = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
 
 test("mapa: doplněná města doby jsou mezi místy mapy", () => {
   const n = new Set(V(`PLACES.map(p => p.name)`));
@@ -108,6 +112,28 @@ test("mapa: posun v nakreslené oblasti (okraj MAPM) se nepřekresluje, přiblí
   S.ev(`st.vb = null; drawMapK()`);
 });
 
+test("mapa: shrnutí míst (CITYINFO) nese samostatná část „mista“, jádro na ně sahá jen přes mistoInfo (2026-10-28)", () => {
+  const js = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..", "zdroj", "web", "js");
+  const mista = fs.readFileSync(path.join(js, "02g-mista.js"), "utf8");
+  assert.match(mista, /^\/\*@cast mista\{\*\/\nconst CITYINFO = \{/m, "CITYINFO je uvnitř části mista");
+  const holy = [];
+  for (const f of fs.readdirSync(js).filter(f => /^(0\d|26)/.test(f) && f !== "02g-mista.js")) {
+    /* části a komentáře pryč (počet řádků zůstane, ať čísla řádků sedí) */
+    const bez = x => x.replace(/[^\n]/g, "");
+    const t = fs
+      .readFileSync(path.join(js, f), "utf8")
+      .replace(/\/\*@cast \w+\{\*\/[\s\S]*?\/\*@cast\}\*\//g, bez)
+      .replace(/\/\*[\s\S]*?\*\//g, bez);
+    t.split("\n").forEach((r, i) => {
+      const kod = r.replace(/\/\/.*$/, "");
+      if (/\bCITYINFO\b/.test(kod) && !/typeof CITYINFO|return CITYINFO\[n\]/.test(kod)) holy.push(`${f}:${i + 1}`);
+    });
+  }
+  assert.deepEqual(holy, [], "jádro čte CITYINFO bez typeof – na stránce bez mapy by spadlo");
+  assert.ok(V(`mistoInfo("Praha").n`).length > 50);
+  assert.deepEqual(V(`mistoInfo("Nikde na mapě")`), {});
+});
+
 test("mapa: každé místo na mapě (město, hrad, sídlo rodu) má vlastní shrnutí, hrady jsou v zeměpisu jako hrady (2026-10-25)", () => {
   const bez = V(`FAM.filter(f => !f.nomap).flatMap(f => f.seats.map(sd => sd[0])).filter(n => !(CITYINFO[n] && CITYINFO[n].n))`);
   assert.deepEqual(bez, [], "panel města nesmí ukazovat text celé skupiny (Litovel mluvila o Táboru)");
@@ -138,4 +164,369 @@ test("mapa: klik na místo bez vrstvy Sídla rodů ukáže jen místo, bez rodu 
     } finally { st.holds = h0; st.misto = null; }
   })()`);
   assert.deepEqual(r, [null, false, true, true], "bez rodů žádný řádek Drží; jméno rodu jen v samotném shrnutí");
+});
+
+test("mapa: lesy mají druh pro každou plochu, bažiny zpomalí cestu a ve Výpravě jsou voda (2026-10-26)", async () => {
+  await S.ev(`typeof LES_DRUH !== "undefined" || mmLina("mapa")`);
+  assert.equal(V(`LES_DRUH.length === FORESTS.length && /^[sjl]+$/.test(LES_DRUH)`), true);
+  assert.ok(V(`BAZINY.length`) >= 8);
+  assert.ok(V(`JEZERA.some(j => j[0] === "Neziderské jezero")`));
+  const [bazina, pole] = V(`[terrain([18.0, 49.74], [18.05, 49.76]), terrain([14.9, 50.6], [14.95, 50.62])]`);
+  assert.ok(bazina > pole, "Poodří je pomalejší než pole");
+});
+
+test("vzdálenost v českých mílích, kilometry v závorce (2026-10-26)", () => {
+  assert.equal(V(`mileTxt(76)`), "7 mil (76 km)");
+  assert.equal(V(`mileTxt(11.24)`), "1 míle (11 km)");
+  assert.equal(V(`mileTxt(20)`), "2 míle (20 km)");
+  assert.equal(V(`mileTxt(5)`), "0,5 míle (5 km)");
+  assert.equal(V(`mileTxt(17)`), "1,5 míle (17 km)");
+  assert.equal(V(`mileTxt(366)`), "33 mil (366 km)");
+  assert.equal(V(`mileTxt(30, true)`), "2,5 míle");
+});
+
+test("reliéf: vrchoviny zpomalí cestu méně než hory; hranice Koruny má hvozd, řeku i čáru", async () => {
+  await S.ev(`typeof hraniceKoruny === "function" || mmLina("mapa")`);
+  const [vrch, pole] = V(`[terrain([13.35, 49.62], [13.4, 49.64]), terrain([17.15, 49.45], [17.2, 49.47])]`);
+  assert.ok(vrch > 1 && vrch < 2, "Plzeňská pahorkatina mezi polem (Haná) a horami");
+  assert.ok(pole <= vrch);
+  const c = V(`hraniceKoruny().reduce((o, h) => ((o[h[0]] = (o[h[0]] || 0) + 1), o), {})`);
+  assert.ok(c.hvozd > 0 && c.reka > 0 && c.cara > 0, JSON.stringify(c));
+});
+
+test("krajina: panel přechodu a zpustlého kraje, Výprava v zpustlém kraji hraje setkání války (2026-10-26)", async () => {
+  await S.ev(`typeof drawMapK === "function" || mmLina("mapa")`);
+  const i = V(`PRECHODY.findIndex(q => q[0] === "Náchodský průsmyk")`);
+  S.ev(`showKraj("pre", ${i})`);
+  assert.match(V(`document.getElementById("detail").textContent`), /Průsmyk.*Náchodský průsmyk/s);
+  S.ev(`showKraj("zp", 0)`);
+  assert.match(V(`document.getElementById("detail").textContent`), /zpustlý válkou/);
+  S.ev(`setSel(null, false)`);
+  if (V(`typeof vyKrajBodu`) === "function") {
+    assert.equal(V(`vyKrajBodu({}, {xy: [13.1, 49.7]})`), "valka", "Plzeňsko (zle zpustlé)");
+    assert.equal(V(`vyKrajBodu({}, {xy: [14.42, 50.09]})`), "pole");
+    /* od 2026-10-27 i na jihu: Julské Alpy, Kočevský hvozd, Lublaňské blato */
+    assert.deepEqual(V(`[[13.8, 46.36], [14.75, 45.6], [14.45, 45.95]].map(xy => vyKrajBodu({}, {xy}))`), ["hory", "les", "voda"]);
+  }
+  if (V(`typeof drawMapK`) === "function") {
+    S.ev(`st.hosp = true; st.zpustle = true; st.prechody = true; drawMapK()`);
+    assert.ok(V(`document.querySelectorAll("#map .kraj").length`) >= 37 + 25, "značky přechodů a hospodářství");
+    assert.ok(V(`document.querySelectorAll("#map .krajpoly").length`) === V(`HOSP_OBL.length + ZPUSTLE.length`), "plochy oblastí a zpustlých krajů");
+    S.ev(`st.hosp = false; st.zpustle = false; st.prechody = false; drawMapK()`);
+    assert.equal(V(`st.prechody`), false, "přechody jsou ve výchozím stavu vypnuté (2026-10-28)");
+  }
+});
+
+test("Výprava: přechody na trase Praha – Drážďany a jejich zdržení v délce cesty (2026-10-26)", async () => {
+  await S.ev(`typeof vyPrepocti === "function" || mmLina("vyprava")`);
+  if (V(`typeof vyPrepocti`) !== "function") return;
+  const r =
+    V(`(() => { st.ta = placeBy("Praha"); st.tb = placeBy("Drážďany"); updateRoute(); VY = VY || VY_NOVA(); VY.mapa = "koruna"; VY.zp = "pesky";
+    VY.start = {datum: "1458-01-20", hodina: 8}; vyPrepocti(); return [VYS.prech.map(x => x.n), VYS.zdrzPrech, VYS.prech.reduce((a, x) => a + (x.st ? x.st.h : 0), 0)]; })()`);
+  assert.ok(r[0].includes("Nakléřovský průsmyk"), JSON.stringify(r[0]));
+  assert.equal(r[1], r[2], "zdržení na přechodech je součtem stavů");
+  S.ev(`st.ta = st.tb = null; st.route = null`);
+});
+
+test("věrnost králi: vrstva obarví lem sídel a měst, panel místa i rodu ukáže skupinu a dobovou větu (2026-10-27)", async () => {
+  await S.ev(`typeof drawMapK === "function" || mmLina("mapa")`);
+  assert.ok(V(`FAM.filter(f => f.vern).length`) >= 30, "rody s věrností");
+  assert.deepEqual(V(`FAM.filter(f => f.vern && !VERNOST_SKUP[f.vern.v]).map(f => f.id)`), []);
+  assert.deepEqual(V(`FAM.filter(f => f.vern && f.vern.t.length < 30).map(f => f.id)`), [], "každá věrnost má větu");
+  const mesta = new Set(V(`ZEMEPIS.filter(z => z[4] === "mesto").map(z => z[0])`));
+  assert.deepEqual(
+    V(`Object.keys(VERNOST_MIST)`).filter(n => !mesta.has(n)),
+    [],
+    "VERNOST_MIST jen pro města na mapě",
+  );
+  assert.equal(V(`vernostMista("Mejdštejn", FAM)[0]`), "odpurci", "starý Oldřich na Dívčím Kameni");
+  assert.equal(V(`vernostMista("Český Krumlov", FAM)[0]`), "vahaji");
+  assert.equal(V(`vernostMista("Kunštát", FAM) || vernostMista("Poděbrady", FAM)`)[0], "verni");
+  if (V(`typeof drawMapK`) === "function") {
+    S.ev(`drawMapK()`);
+    assert.equal(V(`document.querySelectorAll("#map .vrnkruh").length`), 0, "bez vrstvy žádné lemy");
+    S.ev(`document.getElementById("lyVernost").click(); drawMapK()`);
+    assert.ok(V(`document.querySelectorAll("#map .vrnkruh").length`) > 40, "lemy u sídel a měst");
+    assert.equal(V(`document.getElementById("vernlegend").hidden`), false);
+    S.ev(`showMisto("Vratislav")`);
+    assert.match(V(`document.getElementById("detail").textContent`), /Odpůrci.*kacíře/s);
+    S.ev(`show("ste")`);
+    assert.match(V(`document.getElementById("detail").textContent`), /Věrnost.*Věrní králi/s);
+    S.ev(`setSel(null, false); document.getElementById("lyVernost").click()`);
+    assert.equal(V(`st.vern`), false);
+  }
+});
+
+test("poutě, kláštery a pověsti: body na mapě, panel s řádem a stavem, náměty jen pro vypravěče (2026-10-27)", async () => {
+  await S.ev(`typeof drawMapK === "function" || mmLina("mapa")`);
+  assert.deepEqual(V(`POUTE.filter(q => q.ref && !(CITYINFO[q.ref] && ZEMEPIS.some(z => z[0] === q.ref))).map(q => q.n)`), [], "odkaz na místo mapy");
+  const namety = V(`Object.keys(MAPNAMETY)`);
+  assert.ok(namety.length >= 10, "vypravěčská verze má náměty");
+  assert.deepEqual(
+    namety.filter(n => !V(`POUTE.some(q => q.n === ${JSON.stringify(n)}) || HOSP_BODY.some(q => q[0] === ${JSON.stringify(n)})`)),
+    [],
+    "náměty jen k bodům vrstev Poutě a Hospodářství",
+  );
+  S.ev(`showKraj("hb", HOSP_BODY.findIndex(q => q[0] === "Kutná Hora"))`);
+  assert.match(V(`document.getElementById("detail").textContent`), /Doly · stříbro.*Kutná Hora.*Námět pro vypravěče:.*trpaslíci/s, "námět i u dolů");
+  const i = V(`POUTE.findIndex(q => q.n === "Zbraslav")`);
+  S.ev(`showKraj("pt", ${i})`);
+  const t = V(`document.getElementById("detail").textContent`);
+  assert.match(t, /Klášter · cisterciáci.*Zbraslav.*Stav k roku 1458: za válek poničený/s);
+  S.ev(`showKraj("pt", POUTE.findIndex(q => q.n === "Říp"))`);
+  assert.match(V(`document.getElementById("detail").textContent`), /Námět pro vypravěče/);
+  S.ev(`showKraj("pt", POUTE.findIndex(q => q.n === "Pohansko"))`);
+  assert.match(V(`document.getElementById("detail").textContent`), /Místo pověstí.*Pohansko.*val/s);
+  S.ev(`setSel(null, false)`);
+  if (V(`typeof drawMapK`) === "function") {
+    S.ev(`drawMapK()`);
+    assert.equal(V(`document.querySelectorAll("#map .pout").length`), 0);
+    S.ev(`document.getElementById("lyPoute").click(); drawMapK()`);
+    assert.equal(V(`document.querySelectorAll("#map .pout").length`), V(`POUTE.length`));
+    assert.equal(V(`document.getElementById("poutelegend").hidden`), false);
+    S.ev(`document.getElementById("lyPoute").click(); drawMapK()`);
+  }
+});
+
+test("mapa od Baltu k Jadranu: svět mapy, výřez celého rozsahu a data uvnitř světa (2026-10-27)", async () => {
+  const W = V(`MAPWB`);
+  const lo = x => 10.9 + x / 72,
+    la = y => 52.7 - y / 112;
+  assert.ok(lo(W[0]) <= 9.55 && lo(W[0] + W[2]) >= 22.95, "délka 9,5–23°");
+  assert.ok(la(W[1]) >= 55.35 && la(W[1] + W[3]) <= 44.45, "šířka 44,4–55,4°");
+  assert.deepEqual(V(`VB.vse`), W, "výřez celého rozsahu");
+  assert.ok(V(`!!document.querySelector('[data-zoom="vse"]')`), "tlačítko Od Baltu k Jadranu");
+  /* výchozí výřezy zůstaly */
+  assert.deepEqual(V(`[VB.all, VB.koruna, VBW.all]`), [
+    [0, 0, 680, 605],
+    [60, 35, 560, 445],
+    [-80, 40, 890, 560],
+  ]);
+  assert.deepEqual(V(`DUCHY.filter(u => !DUCHY.some(v => v !== u && v.id === u.id)).length === DUCHY.length`), true, "id zemí jedinečná");
+  await S.ev(`typeof drawMapK === "function" || mmLina("mapa")`);
+  if (V(`typeof drawMapK`) !== "function") return;
+  const mimo = V(`(() => {
+    const [x0, y0] = [9.2, 44.1], [x1, y1] = [23.3, 55.7], ven = [];
+    const pole = {RIVERS, TRIBS, JEZERA_V: JEZERA_V.map(j => j[1]), MORE};
+    for (const u of DUCHY) pole["DUCHY_POLY." + u.id] = DUCHY_POLY[u.id] || ven.push("bez obrysu " + u.id);
+    for (const [c, rs] of NBRS) pole["NBRS." + c] = rs;
+    for (const [k, rs] of Object.entries(pole))
+      for (const r of rs) for (const [lo, la] of r) if (!(lo >= x0 && lo <= x1 && la >= y0 && la <= y1)) { ven.push(k + " " + lo + "," + la); break; }
+    for (const u of DUCHY) if (!(u.lab[0] > 9.4 && u.lab[0] < 23.1 && u.lab[1] > 44.3 && u.lab[1] < 55.5)) ven.push("popisek " + u.id);
+    return ven;
+  })()`);
+  assert.deepEqual(mimo, []);
+  assert.ok(V(`NBRS.every(([c]) => getComputedStyle(document.documentElement).getPropertyValue("--" + c).trim() || true)`));
+  S.ev(`st.zoom = "vse"; st.vb = null; drawMapK()`);
+  assert.ok(V(`document.querySelector("#mapz").innerHTML.includes("url(#vlny)")`), "moře je nakreslené");
+  S.ev(`st.zoom = "all"; drawMapK()`);
+});
+
+test("země a diecéze pokrývají souš celé mapy a nekončí rovnou čarou u dřívějšího okraje mapy (2026-10-28, Vojta)", async () => {
+  await S.ev(`typeof drawMapK === "function" || mmLina("mapa")`);
+  if (V(`typeof drawMapK`) !== "function") return;
+  const r = V(`(() => {
+    const obal = rs => { let o = [1e9, 1e9, -1e9, -1e9]; for (const r of rs) for (const [x, y] of r) o = [Math.min(o[0], x), Math.min(o[1], y), Math.max(o[2], x), Math.max(o[3], y)]; return o; };
+    const sada = (P, ids) => ids.map(id => [id, P[id], obal(P[id])]);
+    /* země se kreslí sudo-liše (enklávy), diecéze po mnohoúhelnících */
+    const vZemi = (lo, la, [, rs, o]) => lo >= o[0] && lo <= o[2] && la >= o[1] && la <= o[3] && rs.reduce((v, r) => (inPoly(lo, la, r) ? !v : v), false);
+    const vDiec = (lo, la, [, rs, o]) => lo >= o[0] && lo <= o[2] && la >= o[1] && la <= o[3] && rs.some(r => inPoly(lo, la, r));
+    const Z = sada(DUCHY_POLY, DUCHY.map(u => u.id)), D = sada(DIO_POLY, DIO.map(d => d.id));
+    const vMori = (lo, la) => MORE.reduce((v, r) => (inPoly(lo, la, r) ? !v : v), false);
+    const srb = Z.find(z => z[0] === "srb");
+    const kryto = (lo, la, S, f) => [[0, 0], [0.03, 0], [-0.03, 0], [0, 0.03], [0, -0.03]].some(([a, b]) => S.some(s => f(lo + a, la + b, s)));
+    const bezZeme = [], bezDiec = [];
+    for (let la = 44.2; la < 55.6; la += 0.2)
+      for (let lo = 9.3; lo < 23.2; lo += 0.2) {
+        if (vMori(lo, la)) continue;
+        if (!kryto(lo, la, Z, vZemi)) bezZeme.push([lo.toFixed(1), la.toFixed(1)]);
+        /* srbský despotát je pravoslavný – latinské diecéze v něm nejsou */
+        if (!vZemi(lo, la, srb) && !kryto(lo, la, D, vDiec)) bezDiec.push([lo.toFixed(1), la.toFixed(1)]);
+      }
+    /* dřívější okraj mapy (do 2026-10-27): poledníky 10,6°, 10,9°, 20,4° a rovnoběžky 47°, 47,2°, 52,8°, 53° */
+    const rovne = [];
+    for (const [P, ids] of [[DUCHY_POLY, DUCHY.map(u => u.id)], [DIO_POLY, DIO.map(d => d.id)]])
+      for (const id of ids)
+        for (const r of P[id])
+          r.forEach((a, i) => {
+            const b = r[(i + 1) % r.length];
+            for (const [k, v] of [[0, 10.6], [0, 10.9], [0, 20.4], [1, 47], [1, 47.2], [1, 52.8], [1, 53]])
+              if (Math.abs(a[k] - v) < 0.003 && Math.abs(b[k] - v) < 0.003 && Math.abs(a[1 - k] - b[1 - k]) > 0.25) rovne.push(id + " " + a + " " + b);
+          });
+    return {bezZeme, bezDiec, rovne};
+  })()`);
+  assert.deepEqual(r.bezZeme, [], "souš bez země");
+  assert.deepEqual(r.bezDiec, [], "souš bez diecéze");
+  assert.deepEqual(r.rovne, [], "rovná hranice po dřívějším okraji mapy");
+  /* země svatoštěpánské koruny a západ říše */
+  const id = new Set(V(`DUCHY.map(u => u.id)`));
+  for (const k of ["jis", "spz", "zfr", "mac", "tem", "sev", "sed", "hes", "wur", "aug", "sva", "rae"]) assert.ok(id.has(k), k);
+  /* sídlo biskupa za okrajem mapy: popisek uvnitř mapy, bez značky stolce */
+  assert.deepEqual(V(`DIO.filter(d => !(d.seat[0] > 9.25 && d.seat[0] < 23.25 && d.seat[1] > 44.15 && d.seat[1] < 55.65)).map(d => d.id)`), []);
+});
+
+test("vrstva Hlavní hráči: mocnosti ze zemí, každá s erbem a vlastní barvou (2026-10-28, Vojta)", async () => {
+  const H = V(`HRACI.map(h => ({id: h.id, c: h.c, z: h.z}))`);
+  assert.equal(H.length, 13);
+  const zeme = new Set(V(`DUCHY.map(u => u.id)`)),
+    uz = new Set();
+  for (const h of H) {
+    assert.ok(fs.existsSync(path.join(KOREN, "art", "erby", `hrac-${h.id}.webp`)), "erb " + h.id);
+    for (const z of h.z) {
+      assert.ok(zeme.has(z), h.id + ": " + z);
+      assert.ok(!uz.has(z), "země ve dvou mocnostech: " + z);
+      uz.add(z);
+    }
+  }
+  assert.equal(new Set(H.map(h => h.c)).size, H.length, "každá mocnost má jinou barvu");
+  await S.ev(`typeof drawMapK === "function" || mmLina("mapa")`);
+  if (V(`typeof drawMapK`) !== "function") return;
+  assert.ok(V(`HRACI.every(h => HRACI_GEO[h.id] && HRACI_GEO[h.id].rs.length && HRACI_GEO[h.id].lab.length === 2)`));
+  S.ev(`document.getElementById("lyHraci").click(); st.zoom = "vse"; st.vb = null; drawMapK()`);
+  assert.equal(V(`document.querySelectorAll("#map .hracerbm image").length`), 13);
+  assert.equal(V(`document.getElementById("hraclegend").hidden`), false);
+  /* klepnutí na území mocnosti ukáže její panel: vládnoucí rod, země a války z vrstvy Konflikty */
+  assert.equal(V(`document.querySelectorAll("#map path.krajpoly").length`), 13);
+  S.ev(`document.querySelectorAll("#map path.krajpoly")[2].dispatchEvent(new MouseEvent("click", {bubbles: true}))`);
+  const det = V(`document.getElementById("detail").textContent`);
+  assert.match(det, /Polské království/);
+  assert.match(det, /Jagellonci/);
+  assert.match(det, /Polsko × Řád/);
+  assert.ok(V(`document.querySelectorAll("#detail [data-hrzem]").length`) >= 8, "země Polska jako odkazy");
+  /* zapnutí Zemí a knížectví vrstvu vypne (obě barví celé země) */
+  S.ev(`document.getElementById("lyDuchy").click()`);
+  assert.equal(V(`st.hraci`), false);
+  S.ev(`document.getElementById("lyDuchy").click(); st.zoom = "all"; drawMapK()`);
+});
+
+test("moře nepřekrývá žádné místo mapy (sídla, města, hrady, zeměpis) a trasa po souši nevede přes vodu (2026-10-27)", async () => {
+  await S.ev(`typeof drawMapK === "function" || mmLina("mapa")`);
+  if (V(`typeof drawMapK`) !== "function") return;
+  const vMori = V(`(() => {
+    const vMori = (lo, la) => MORE.reduce((v, r) => (inPoly(lo, la, r) ? !v : v), false);
+    const body = [...PLACES.map(p => [p.name, p.lo, p.la]), ...TOWNS, ...ZEMEPIS.map(z => [z[0], z[1], z[2]]), ...FAM.flatMap(f => f.seats.map(sd => [sd[0], sd[1], sd[2]]))];
+    return body.filter(([n, lo, la]) => typeof lo === "number" && (vMori(lo, la) || naVode(lo, la))).map(b => b[0]);
+  })()`);
+  assert.deepEqual(vMori, []);
+  /* z Gdaňska do Královce: přímá čára vede přes Viselský záliv, trasa ho musí obejít */
+  const r = V(`(() => {
+    const R = computeRoute({name: "Gdaňsk", lo: 18.65, la: 54.35}, {name: "Královec", lo: 20.51, la: 54.71});
+    if (!R) return null;
+    let voda = 0;
+    for (const l of R.legs) for (let f = 0; f <= 1; f += 0.05) if (naVode(l.p0[0] + (l.p1[0] - l.p0[0]) * f, l.p0[1] + (l.p1[1] - l.p0[1]) * f)) voda++;
+    return {voda, km: R.km};
+  })()`);
+  assert.ok(r, "trasa existuje");
+  assert.equal(r.voda, 0, "žádný úsek nevede vodou");
+  /* na ostrov (Bornholm) se po souši nedojde */
+  assert.equal(V(`computeRoute({name: "Štětín", lo: 14.55, la: 53.43}, {name: "Rønne", lo: 14.7, la: 55.1})`), null);
+});
+
+test("sever mapy: města a hrady od Holštýnska po Prusy, cesty k Baltu a přívozy (2026-10-27)", async () => {
+  const n = new Set(V(`PLACES.map(p => p.name)`));
+  for (const m of ["Gdaňsk", "Lübeck", "Hamburk", "Královec", "Malbork", "Štětín", "Toruň", "Rostock", "Chojnice", "Drohičin"])
+    assert.ok(n.has(m), m);
+  assert.ok(V(`METRO.has("Lübeck") && METRO.has("Gdaňsk")`));
+  assert.ok(V(`["Prusy", "Pomořany", "Hanza"].every(L => NBR_LANDS.includes(L) && FAM.some(f => f.nbr && f.land === L))`));
+  /* každé město severu má věrnost (cizí nárok) a dobovou větu */
+  const bezV = V(
+    `FAM.filter(f => f.city && ["Prusy", "Pomořany", "Hanza", "Meklenbursko a Holštýnsko"].includes(f.land)).flatMap(f => f.seats.map(s => s[0])).filter(m => !VERNOST_MIST[m])`,
+  );
+  assert.deepEqual(bezV, []);
+  await S.ev(`typeof drawMapK === "function" || mmLina("mapa")`);
+  if (V(`typeof drawMapK`) !== "function") return;
+  /* Praha → Gdaňsk: po souši a po stezkách přes Toruň, žádný úsek vodou */
+  const r = V(`(() => {
+    const R = computeRoute(placeBy("Praha"), placeBy("Gdaňsk"));
+    if (!R) return null;
+    let voda = 0;
+    for (const l of R.legs) for (let f = 0; f <= 1; f += 0.05) if (naVode(l.p0[0] + (l.p1[0] - l.p0[0]) * f, l.p0[1] + (l.p1[1] - l.p0[1]) * f)) voda++;
+    return {voda, names: R.names, road: R.roadKm, km: R.km, lod: R.legs.some(l => l.lod)};
+  })()`);
+  assert.ok(r, "trasa existuje");
+  assert.equal(r.voda, 0);
+  assert.ok(r.names.includes("Toruň"), JSON.stringify(r.names));
+  assert.ok(r.road > r.km * 0.7, "převážně po stezkách");
+  assert.equal(r.lod, false);
+  /* na Rujánu a na Fehmarn přívozem; na Bornholm dál jen lodí (bez spoje) */
+  const ruj = V(
+    `(() => { const R = computeRoute(placeBy("Stralsund"), {name: "Bergen na Rujáně", lo: 13.43, la: 54.42}); return R && R.legs.some(l => l.lod); })()`,
+  );
+  assert.equal(ruj, true, "přes Strelasund přívozem");
+  const feh = V(
+    `(() => { const R = computeRoute(placeBy("Lübeck"), {name: "Burg na Fehmarnu", lo: 11.19, la: 54.44}); return R && R.legs.some(l => l.lod); })()`,
+  );
+  assert.equal(feh, true, "přes Fehmarnsund přívozem");
+  const dan = V(`(() => { const R = computeRoute(placeBy("Vordingborg"), placeBy("Nykøbing")); return R && R.legs.some(l => l.lod); })()`);
+  assert.equal(dan, true, "ze Sjællandu na Falster přívozem");
+  assert.equal(V(`computeRoute(placeBy("Štětín"), placeBy("Hammershus"))`), null);
+});
+
+test("mapa jihu: trasa Praha – Terst po souši, do Benátek přes lagunu lodí, z Benátek do Piranu po moři (2026-10-27)", async () => {
+  const r = V(`(() => {
+    const pl = n => PLACES.find(p => p.name === n), o = {};
+    for (const [a, b] of [["Praha", "Terst"], ["Praha", "Benátky"], ["Benátky", "Piran"], ["Vídeň", "Záhřeb"], ["Mnichov", "Verona"]]) {
+      const R = computeRoute(pl(a), pl(b));
+      if (!R) { o[b] = null; continue; }
+      let voda = 0;
+      for (const l of R.legs) if (!l.lod) for (let f = 0; f <= 1; f += 0.05) if (naVode(l.p0[0] + (l.p1[0] - l.p0[0]) * f, l.p0[1] + (l.p1[1] - l.p0[1]) * f)) voda++;
+      o[b] = {km: R.km, voda, lod: R.legs.filter(l => l.lod).length, jmena: R.names};
+    }
+    return o;
+  })()`);
+  for (const k of ["Terst", "Benátky", "Piran", "Záhřeb", "Verona"]) {
+    assert.ok(r[k], "trasa do " + k);
+    assert.equal(r[k].voda, 0, "po souši nevede vodou: " + k);
+  }
+  assert.equal(r.Terst.lod, 0, "do Terstu se jde po souši");
+  assert.ok(r.Terst.km > 600 && r.Terst.km < 1000, "Praha – Terst asi 70 mil: " + r.Terst.km);
+  assert.ok(r.Benátky.lod > 0 && r.Benátky.jmena.includes("Mestre"), "do Benátek z Mestre lodí");
+  assert.ok(r.Piran.lod > 0, "z Benátek do Piranu lodí");
+  assert.ok(r.Verona.jmena.includes("Brenner"), "z Mnichova do Verony přes Brenner");
+  /* lodní spoj se kreslí jako tečkovaná čára barvy vody */
+  assert.ok(V(`ROADS.filter(c => c[3]).length`) >= 2);
+});
+
+test("mapa přes celou obrazovku: výřez v poměru stran okna se stejným středem a v mezích mapy (2026-10-27)", () => {
+  const M = [-60, -60, 1084, 850, 120, 1120];
+  /* běžný poměr stran: výřez se nemění */
+  assert.deepEqual(V(`celaVyrez([0, 0, 1024, 790], 790 / 1024, ${JSON.stringify(M)})`), [0, 0, 1024, 790]);
+  /* počítač na šířku: celá šířka, výška podle okna kolem středu */
+  const pc = V(`celaVyrez([0, 0, 1024, 790], 0.6, ${JSON.stringify(M)})`);
+  assert.equal(pc[2], 1024);
+  assert.ok(Math.abs(pc[3] - 614.4) < 1e-9 && Math.abs(pc[1] + pc[3] / 2 - 395) < 1e-9, "střed zůstal: " + pc);
+  /* telefon na výšku: celá výška mapy, šířka se zúží a strany se posouvají */
+  const tel = V(`celaVyrez([0, 0, 1024, 790], 2.1, ${JSON.stringify(M)})`);
+  assert.ok(Math.abs(tel[3] - 910) < 1e-9 && tel[1] === -60, "celá výška: " + tel);
+  assert.ok(Math.abs(tel[0] + tel[2] / 2 - 512) < 1e-9, "střed vodorovně: " + tel);
+  /* posun za okraj se zarazí o meze */
+  assert.equal(V(`celaVyrez([-500, 0, 300, 231.4], 790 / 1024, ${JSON.stringify(M)})[0]`), -60);
+});
+
+test("mapa přes celou obrazovku: přepnutí třídy, poměr stran mapy Koruny a návrat výřezu (2026-10-27)", () => {
+  const r = V(`(() => {
+    const box = document.getElementById("kmapbox"), grid = box.closest(".mapgrid"), pl = document.getElementById("mapplatno");
+    pl.getBoundingClientRect = () => ({width: 390, height: 780, left: 0, top: 0, right: 390, bottom: 780});
+    st.zoom = "vse";
+    st.vb = [100, 100, 300, 267];
+    const pred = st.vb, o = {pred: [mapWide(), celaPomer(pl)]};
+    box.querySelector("[data-mapcela]").click();
+    o.otevreno = [grid.classList.contains("mapcela"), document.documentElement.classList.contains("mmmapcela"),
+      box.querySelector("[data-mapcela]").getAttribute("aria-pressed"), mapWide(), celaPomer(pl), mapAsp()];
+    o.vse = mapFit(VB.vse);
+    box.querySelector("[data-mapcela]").click();
+    o.zavreno = [grid.classList.contains("mapcela"), document.documentElement.classList.contains("mmmapcela"),
+      box.querySelector("[data-mapcela]").getAttribute("aria-pressed"), st.vb === pred];
+    delete pl.getBoundingClientRect;
+    st.vb = null;
+    st.zoom = "all";
+    return o;
+  })()`);
+  assert.deepEqual(r.pred, [false, null], "mimo celou obrazovku úzká mapa s pevným poměrem");
+  assert.deepEqual(r.otevreno, [true, true, "true", true, 2, 2]);
+  /* Od Baltu k Jadranu na telefonu na výšku: celá výška světa mapy (MAPWB), šířka v poměru okna */
+  const W = V(`MAPWB`);
+  assert.ok(Math.abs(r.vse[3] - W[3]) < 1e-6 && Math.abs(r.vse[1] - W[1]) < 1e-6, "celá výška: " + r.vse);
+  assert.ok(Math.abs(r.vse[3] / r.vse[2] - 2) < 1e-9, "poměr okna: " + r.vse);
+  assert.deepEqual(r.zavreno, [false, false, "false", true], "bez pohybu na mapě se vrátí původní výřez");
 });

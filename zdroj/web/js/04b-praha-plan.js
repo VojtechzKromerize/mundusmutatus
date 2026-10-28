@@ -34,6 +34,9 @@ function pRuka(d) {
   if (d.vys) d.vys = line(d.vys, true);
   return d;
 }
+/* výřez plánu v mezích [x0, y0, x1, y1, nejmenší a největší šířka]; v celé obrazovce (02f) v poměru stran okna, jinak PAR */
+const PMEZE = [-150, -120, 1190, 1300, 160, 1240];
+const pVidim = () => celaVyrez(pst.vb || PVB0, celaPomer(document.getElementById("pmap")) || PAR, PMEZE);
 function praInit() {
   if (PG) {
     pDraw();
@@ -341,7 +344,7 @@ function pRam(g, vb, s, o) {
 }
 function pDraw() {
   const svg = document.getElementById("pmap"),
-    vb = pst.vb || PVB0,
+    vb = pVidim(),
     SW0 = svg.getBoundingClientRect().width || 700;
   svg.setAttribute("viewBox", vb.join(" "));
   const s = vb[2] / PVB0[2];
@@ -1275,6 +1278,7 @@ function pDraw() {
   svg.appendChild(hov);
 }
 function pParty() {
+  if (druzinaNikde()) return null;
   if (HRA && (HRA.misto || HRA.praha)) {
     if (!HRA.praha || !PRB[HRA.praha] || (HRA.misto && HRA.misto !== "Praha")) return null;
     const L = ZAPISY[ZAPISY.length - 1];
@@ -1668,12 +1672,9 @@ function pmPick(pt, name, key) {
 const pDrag = {moved: false};
 (function () {
   const svg = document.getElementById("pmap");
-  const cur = () => pst.vb || PVB0;
-  const clamp = v => {
-    const w = Math.max(160, Math.min(1240, v[2])),
-      h = w * PAR;
-    return [Math.max(-150, Math.min(1190 - w, v[0])), Math.max(-120, Math.min(1300 - h, v[1])), w, h];
-  };
+  const cur = pVidim,
+    AR = () => celaPomer(svg) || PAR;
+  const clamp = v => celaVyrez(v, AR(), PMEZE);
   const toSvg = (cx, cy) => {
     const r = svg.getBoundingClientRect(),
       v = cur();
@@ -1692,7 +1693,7 @@ const pDrag = {moved: false};
     const v = cur();
     const [px, py] = cx == null ? [v[0] + v[2] / 2, v[1] + v[3] / 2] : toSvg(cx, cy);
     const w = v[2] * f,
-      h = w * PAR;
+      h = w * AR();
     pst.vb = clamp([px - ((px - v[0]) * w) / v[2], py - ((py - v[1]) * h) / v[3], w, h]);
     redraw();
   };

@@ -57,7 +57,7 @@ test("věc: popis je nahoře a rozbalený, bez původu SRD a bez ceny", () => {
   const h = V(
     `kVecPopis({n: "Ring of Protection"}, {druh: "prsten", vzt: "vzácný", pr: true, t: "Dostaneš +1 k AC.", str: 210}, {sk: "magicke", en: "Ring of Protection", t: "Při nošení +1 k AC.", cena: "3500 GP"})`,
   );
-  assert.match(h, /^<details class="kvpop"[^>]* open>/);
+  assert.match(h, /^<details class="kvpop[^"]*"[^>]* open>/);
   assert.match(h, /Při nošení \+1 k AC/, "přednost má text z katalogu");
   assert.match(h, /Celé znění/);
   assert.doesNotMatch(h, /SRD 5\.2\.1|GP/);

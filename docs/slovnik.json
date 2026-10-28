@@ -262,7 +262,7 @@
   "LLBL": "kresba mapy: popisky zemí Koruny ([NÁZEV, lon, lat, velikost])",
   "LOKATIV": "Kronika: název místa → tvar „v Praze“, „v Kutné Hoře“ pro věty datace",
   "MAJOR_PLACES": "mapa: názvy hlavních měst (Praha, Vratislav, Vídeň…), které se ukazují i při oddálení",
-  "MAJOR_ROADS": "mapa: názvy hlavních stezek (Zlatá stezka…), které se kreslí zvýrazněně",
+  "MAJOR_ROADS": "mapa: názvy hlavních stezek (Prachatická stezka…), které se kreslí zvýrazněně",
   "MES": "kalendář: názvy měsíců v 2. pádě (ledna, února…) pro datace",
   "MIMO": "Obsah D&D 2024 mimo SRD (art/mimo-srd.json): podtřídy, featy, zázemí – načtená data nebo null",
   "MIMOCAS": "Mimo SRD: popisky času aktivace rysu – A Akce, BA Bonusová akce, R Reakce",
@@ -435,6 +435,8 @@
   "VY_ZP": "Výprava: způsoby cesty [klíč, název, km/den, km/h v Praze] – pesky, kun, vuz, posel, drak",
   "ZAPISY": "Kronika: zápisy ze sezení z buildu (@ZAPISY@) – trasa, místo, text; poslední určuje polohu družiny",
   "ZBY": "Kronika: zápis podle id (z ZAPISY) – rychlé hledání zápisu",
+  "TRAKTATY": "Kronika › Traktáty: články o světě z buildu (@TRAKTATY@) – id, t název, h text; sl = družina jen slyšela (bez textu)",
+  "TRBY": "Kronika › Traktáty: traktát podle id (z TRAKTATY)",
   "ZMENY": "Časová osa sezení (vypravěč): změny karet, boje a herního času z databáze (MMDB.zmeny) k vrácení",
   "ZMFLT": "Časová osa: filtr druhu změn („vse“ nebo druh)",
   "ZMOD": "Časová osa: rozsah zpětně (1h, 6h, 24h, 7d)",
@@ -445,5 +447,10 @@
   "UCINKY": "Účinky v jednom formátu (10u, čisté): jméno → posílení (ac, rych, zach, res, hpmax…) a kostky k hodům (kostka, na, jednou, poHodu); dřív KZEF + KPRID",
   "KTAHJ": "Účet tahu podle karty (17): kostky „jednou za tah“ (Emboldening Bond) použité v běžícím tahu, id karty → {k, jt}",
   "RKELEM": "Okno reakce (10r): typy zranění, proti kterým pomáhá Absorb Elements",
-  "UCTYPY": "Účinky (10u): všech 13 typů zranění pro Resistance „vse“ (Warding Bond, Feign Death…)"
+  "UCTYPY": "Účinky (10u): všech 13 typů zranění pro Resistance „vse“ (Warding Bond, Feign Death…)",
+  "VERNOST_SKUP": "mapa, vrstva Věrnost králi: skupiny postoje k Jiřímu k 3. 3. 1458 (věrní, váhají, odpůrci, cizí nárok) → popisek, barva lemu, čárkování",
+  "VERNOST_MIST": "mapa, vrstva Věrnost králi: věrnost měst podle jména [skupina, dobová věta]; rody mají věrnost v poli vernost (f.vern, jen u rodů, které družina potkala)",
+  "POUTE": "mapa, vrstva Poutě, kláštery a pověsti: body {n, d pout|klaster|povest, lo, la, t, r řád, s stav c|p|z, v vyznání, ref místo mapy, o odsazení}",
+  "POUTE_ZN": "mapa, vrstva Poutě: tvary značek (kříž v kruhu, kostelík, hvězda) v rámečku −5…5",
+  "MAPNAMETY": "náměty vypravěče k bodům vrstvy Poutě (zdroj/obsah/mapa-namety.md, build je zabalí do ⟦⟧) – hráč dostane {}"
 }

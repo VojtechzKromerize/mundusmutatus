@@ -280,6 +280,45 @@ function kUcVyprsi(K) {
   });
   kHodZapis({k: K.id, kdo: K.n, co: "Účinek vypršel", txt: pr.map(x => x.n).join(", ")});
 }
+/* zapálit světlo z inventáře (2026-10-27): pochodeň a svíčka se spotřebují, lampa a lucerna spálí lahvičku oleje; vznikne účinek
+   „Světlo: …“ s trváním v herním čase (SVETLA v 10p), který vyprší sám, když vypravěč posune čas (kCasMotor) */
+async function kSvetloZapal(K, i) {
+  const S = kartaStav(K.id),
+    inv = [...(S.inv || K.vybaveni || [])].map(y => Object.assign({}, y)),
+    it = inv[i],
+    d = it && svetloDruh(it.n);
+  if (!d) return;
+  const ub = j => {
+    inv[j].q = Math.max(0, (+inv[j].q || 1) - 1);
+    if (!inv[j].q) inv.splice(j, 1);
+  };
+  if (d.palivo) {
+    const j = inv.findIndex(y => SVPALIVO.test(String(y.n || "").trim()) && !(y.q != null && !(+y.q > 0)));
+    if (j < 0) {
+      mmHlasG(`${d.n} potřebuje lahvičku oleje – v inventáři žádná není.`, 4500);
+      return;
+    }
+    ub(j);
+  } else ub(i);
+  await kartaStavZmen(K.id, {inv});
+  await kUcPridej(K, "Světlo: " + d.n, d.h, false);
+  kHodZapis({k: K.id, kdo: K.n, co: `Zapálil: ${d.n}`, txt: `${d.sv}; hoří ${d.h} h${d.palivo ? " (spálí lahvičku oleje)" : ""}`});
+  mmHlasG(`${K.n}: ${d.n} hoří (${d.h} h herního času).`, 4000);
+}
+/* herní čas jako motor (2026-10-27): po každé změně herního času (posun hodin, cesta, odpočinek) vyprší účinky, jejichž čas
+   uplynul – světla, kouzla v hodinách a minutách. Vypravěč za všechny karty, hráč za svou. */
+function kCasMotor() {
+  if (kTed() == null) return;
+  const ja = !GMV && typeof jaK === "function" ? jaK() : null;
+  (KARTY || [])
+    .filter(K => GMV || (ja && ja.id === K.id))
+    .forEach(K => {
+      try {
+        kUcVyprsi(K);
+      } catch (e) {}
+    });
+}
+HRA_PO.push(kCasMotor);
 /* 2026-10-21: jen přehled běžících účinků (ukončit, znovu seslat); ruční přidávání a tlačítka AC zmizely – kouzla si účinky
    přidávají sama při seslání. Bez účinků se oddíl neukazuje. */
 /* ikona účinku v seznamu (2026-10-23): stejná jako na žetonu v boji (KZIK v 17b, načte se s kartou) */
@@ -375,7 +414,7 @@ function kSpPopis(sp) {
     kSpTexty();
     return `<p class="rsmall">Načítám popis…</p>`;
   }
-  return `<div class="kspd${x.x ? " kmimo" : ""}"><p class="rsmall"><b>${besc(x.cz || x.en)}</b> · ${kzUr(x.l)} · ${besc(x.s || "")} · ${besc(x.ct || "")} · ${besc(x.r || "")} · ${besc((x.k || []).join(", "))}${x.m ? ` (${besc(x.m)})` : ""} · ${besc(x.d || "")}${x.ri ? " · rituál" : ""}</p>${kzMd(x.t)}${x.v ? `<p><b>Na vyšším stupni.</b> ${kzIn(x.v)}</p>` : ""}${plneTag("kouzla", x.en)}</div>`;
+  return `<div class="kspd plne-host${x.x ? " kmimo" : ""}"><p class="rsmall"><b>${besc(x.cz || x.en)}</b> · ${kzUr(x.l)} · ${besc(x.s || "")} · ${besc(x.ct || "")} · ${besc(x.r || "")} · ${besc((x.k || []).join(", "))}${x.m ? ` (${besc(x.m)})` : ""} · ${besc(x.d || "")}${x.ri ? " · rituál" : ""}</p><div class="plne-skr">${kzMd(x.t)}${x.v ? `<p><b>Na vyšším stupni.</b> ${kzIn(x.v)}</p>` : ""}</div>${plneInl("kouzla", x.en)}</div>`;
 }
 /* ---- vlastní hod: 2d6+3, 4d6kh3, 2d20kl1, d%, s kostkou Závoje ---- */
 function kVyraz(v) {

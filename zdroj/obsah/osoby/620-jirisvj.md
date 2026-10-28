@@ -5,4 +5,4 @@ rod: sgy
 role: hrabě
 sidlo: Pezinok
 ---
-Hrabě ze Svatého Jura a Pezinku a pán malokarpatských vinic. Od roku 1446 drží celé svatojurské panství, v Pezinku hospodaří vdova po jeho příbuzném za nezletilé syny. Byl čtyřikrát ženatý, mimo jiné s Jitkou (Gutou) Opavskou († 1445), a má pět synů, z nichž nejstarší jsou Zikmund a Jan.
+Pán ze Svatého Jura a Pezinku a malokarpatských vinic. Od roku 1446 drží celé svatojurské panství, v Pezinku hospodaří vdova po jeho příbuzném za nezletilé syny. Byl čtyřikrát ženatý, mimo jiné s Jitkou (Gutou) Opavskou († 1445), a má pět synů, z nichž nejstarší jsou Zikmund a Jan.

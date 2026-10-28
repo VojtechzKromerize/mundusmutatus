@@ -36,15 +36,15 @@ function gmBar(id, kind) {
     kind === "osoba" && PBY[id] && gmLv(PBY[id].r) === 0
       ? `<span class="gmwarn">Rod je skrytý – hráči osobu neuvidí, dokud neodhalíte rod.</span>`
       : "";
-  return `<div class="gmbar noal" data-gmid="${id}" data-gmkind="${kind}"><span class="gmlbl">${kind === "zapis" ? "Zápis Kroniky" : `Co o ${kind === "rod" ? "rodu" : kind === "misto" ? "místu" : kind === "drak" ? "plemeni" : "osobě"} ví družina`}</span>${gmSeg(id)}${warn}${window.MMDB ? "" : `<span class="gmwarn">Měnit lze jen na webu napojeném na databázi.</span>`}</div>`;
+  return `<div class="gmbar noal" data-gmid="${id}" data-gmkind="${kind}"><span class="gmlbl">${kind === "zapis" ? "Zápis Kroniky" : `Co o ${kind === "rod" ? "rodu" : kind === "misto" ? "místu" : kind === "drak" ? "plemeni" : kind === "traktat" ? "traktátu" : "osobě"} ví družina`}</span>${gmSeg(id)}${warn}${window.MMDB ? "" : `<span class="gmwarn">Měnit lze jen na webu napojeném na databázi.</span>`}</div>`;
 }
 function gmMark(root) {
   if (!STAV) return;
   (root || document).querySelectorAll('a[href^="#osoba/"],a[href^="#rod/"],a[href^="#draconomicon/"],a[href^="#kronika/"]').forEach(a => {
     const h = a.getAttribute("href"),
-      id = h.split("/")[1];
+      id = h.startsWith("#kronika/clanky/") ? h.split("/")[2] : h.split("/")[1];
     if (h.startsWith("#draconomicon/") && !gmPl(id)) return;
-    if (h.startsWith("#kronika/") && !ZBY[id]) return;
+    if (h.startsWith("#kronika/") && !ZBY[id] && !TRBY[id]) return;
     const v = gmEff(id);
     a.classList.toggle("gm0", v === 0);
     a.classList.toggle("gm1", v === 1);
@@ -116,11 +116,14 @@ if (GMV && STAV) {
     gmUloz({[box.dataset.gmid]: +b.dataset.gmset});
   });
   const _r4 = renderKronika;
-  renderKronika = function (b) {
-    _r4(b);
+  renderKronika = function (b, c) {
+    _r4(b, c);
     if (ZBY[b]) {
-      const c = document.querySelector("#kzapisy .crumbs");
-      if (c) c.insertAdjacentHTML("afterend", gmBar(b, "zapis"));
+      const cr = document.querySelector("#kzapisy .crumbs");
+      if (cr) cr.insertAdjacentHTML("afterend", gmBar(b, "zapis"));
+    } else if (b === "clanky" && TRBY[c]) {
+      const cr = document.querySelector("#kclanky .crumbs");
+      if (cr) cr.insertAdjacentHTML("afterend", gmBar(c, "traktat"));
     }
   };
   let mq = 0;
@@ -145,6 +148,7 @@ if (GMV && STAV) {
     ...FAM.map(f => ({id: f.id, n: f.name, s: f.land, h: "#rod/" + f.id, k: "Rod"})),
     ...(DRACI.pl || []).map(d => ({id: d.id, n: d.n, s: d.la || "plemeno", h: "#draconomicon/" + d.id, k: "Drak"})),
     ...ZAPISY.map(z => ({id: z.id, n: z.title, s: [z.n, z.date].filter(Boolean).join(" · "), h: "#kronika/" + z.id, k: "Zápis"})),
+    ...TRAKTATY.map(t => ({id: t.id, n: t.t, s: "traktát", h: "#kronika/clanky/" + t.id, k: "Traktát"})),
     ...DISC.map(d => ({id: d.id, n: d.name, s: "objevené místo", h: "#mapa", k: "Místo"})),
   ].map(x => Object.assign(x, {t: _nrm(x.n + " " + x.s)}));
   const RK = "mm-pri-hre",
@@ -170,6 +174,7 @@ if (GMV && STAV) {
   P.hidden = true;
   P.setAttribute("aria-label", "Při hře");
   P.innerHTML = `<div class="phhead"><b>Při hře</b><button type="button" class="phx" aria-label="Zavřít">×</button></div>
+    <details class="phgen"><summary>Kdo je to? <small>rychlá postava doby</small></summary><div class="phgenin"></div></details>
     <input type="search" class="phq" placeholder="Koho družina potkala nebo o kom slyší…" aria-label="Hledat osobu, rod, plemeno, zápis">
     <div class="phres"></div><p class="phfoot">${window.MMDB ? "Změna se hráčům ukáže do půl minuty." : "Statická verze – stavy jen ke čtení."} <a href="#gm">Celý přehled →</a></p>`;
   document.body.append(btn, P);
@@ -205,6 +210,72 @@ if (GMV && STAV) {
       q.select();
     }
   };
+  /* Kdo je to? (2026-10-28, Vojta): náhodná postava doby (09g, genPostava) – jméno podle země, stav, věk, vyznání, řeč, povaha,
+     vzhled a co chce; „Do scény“ ji přidá jako NPC do scény na Hře (údaje pro vypravěče v n.gm), „Zkopírovat“ do schránky */
+  const G = P.querySelector(".phgen"),
+    GV = {zeme: "", stav: "", pohl: "", p: null};
+  const genOpt = (k, prazdne, L) =>
+    `<select data-gen="${k}" aria-label="${prazdne}"><option value="">${prazdne}</option>${L.map(([v, t]) => `<option value="${v}"${GV[k] === v ? " selected" : ""}>${t}</option>`).join("")}</select>`;
+  const genText = p =>
+    `${p.jmeno} – ${p.stav}, ${p.vek} let (${p.zeme}). Vyznání: ${p.vira}. Mluví ${p.reci}. Povaha: ${p.povaha}. Vzhled: ${p.vzhled}. Chce: ${p.chce}.`;
+  const genKresli = () => {
+    const p = GV.p;
+    G.querySelector(".phgenin").innerHTML = `<div class="phgenf">${genOpt(
+      "zeme",
+      "Země: kdekoli",
+      Object.entries(GENZEME).map(([k, v]) => [k, v[0]]),
+    )}${genOpt(
+      "stav",
+      "Stav: jakýkoli",
+      Object.entries(GENSTAV).map(([k, v]) => [k, v[0]]),
+    )}${genOpt("pohl", "Muž či žena", [
+      ["m", "muž"],
+      ["z", "žena"],
+    ])}<button type="button" class="gbtn" data-gen-nova>Další</button></div>${
+      p
+        ? `<div class="phgenp"><b>${besc(p.jmeno)}</b><small>${besc(p.stav)} · ${p.vek} let · ${besc(p.zeme)}</small>
+      <dl><dt>Vyznání</dt><dd>${besc(p.vira)}</dd><dt>Mluví</dt><dd>${besc(p.reci)}</dd><dt>Povaha</dt><dd>${besc(p.povaha)}</dd><dt>Vzhled</dt><dd>${besc(p.vzhled)}</dd><dt>Chce</dt><dd>${besc(p.chce)}</dd></dl>
+      <div class="phgenb"><button type="button" class="gbtn ghost" data-gen-scena title="Přidat jako NPC do scény na Hře">Do scény</button><button type="button" class="gbtn ghost" data-gen-kopie>Zkopírovat</button></div></div>`
+        : ""
+    }`;
+  };
+  const genNova = () => {
+    GV.p = genPostava({zeme: GV.zeme, stav: GV.stav, pohl: GV.pohl});
+    genKresli();
+  };
+  G.addEventListener("toggle", () => {
+    if (G.open && !GV.p) genNova();
+  });
+  G.addEventListener("change", e => {
+    const t = e.target.closest("[data-gen]");
+    if (!t) return;
+    GV[t.dataset.gen] = t.value;
+    genNova();
+  });
+  G.addEventListener("click", e => {
+    if (e.target.closest("[data-gen-nova]")) genNova();
+    if (e.target.closest("[data-gen-kopie]") && GV.p)
+      navigator.clipboard
+        .writeText(genText(GV.p))
+        .then(() => mmHlasG("Postava zkopírována.", 2000))
+        .catch(() => {});
+    if (e.target.closest("[data-gen-scena]") && GV.p) {
+      if (typeof bojZmen !== "function" || typeof bojPridejNpc !== "function" || !BOJ.s) {
+        mmHlasG("Scéna se načte na stránce Hra – otevři ji a zkus to znovu.", 3500);
+        return;
+      }
+      const p = GV.p;
+      bojZmen(s => {
+        bojPridejNpc(s, [{n: p.jmeno, druh: "sok", pocet: 1, b: p.b, pr: [], os: ""}]);
+        s.npc[s.npc.length - 1].gm = {
+          vira: p.vira,
+          chce: p.chce,
+          pozn: `${p.stav}, ${p.vek} let (${p.zeme}); mluví ${p.reci}. ${p.povaha}; ${p.vzhled}.`,
+        };
+      });
+      mmHlasG(`${p.jmeno} je ve scéně.`, 2500);
+    }
+  });
   btn.addEventListener("click", () => otevri(P.hidden));
   P.querySelector(".phx").addEventListener("click", () => otevri(false));
   q.addEventListener("input", vykresli);
@@ -258,7 +329,7 @@ const cestaMisto = n => {
   return t ? {name: t[0], lo: t[1], la: t[2]} : null;
 };
 /* řeky z mapy (pořadí jako RIVERS), stálé mosty roku 1458 a známá mýtná místa */
-const RIVNAMES = ["Labe", "Vltava", "Odra", "Morava", "Nisa", "Dunaj", "Visla"];
+const RIVNAMES = ["Labe", "Vltava", "Odra", "Morava", "Nisa", "Dunaj", "Visla", "Dunaj", "Dráva", "Sáva", "Tisa", "Pád", "Adiže"];
 const CMOSTY = [
   ["Praha", 14.414, 50.086, "Vltava"],
   ["Drážďany", 13.741, 51.054, "Labe"],
@@ -343,7 +414,7 @@ function cestaPlan(o) {
     if (A.name === B.name) return {chyba: "Družina už na místě je."};
     const R = computeRoute(A, B);
     if (!R) return {chyba: "Cestu se nepodařilo spočítat."};
-    legs = R.legs.map(l => ({p0: l.p0, p1: l.p1, km: l.km, eff: l.eff, sea: false}));
+    legs = R.legs.map(l => ({p0: l.p0, p1: l.p1, km: l.km, eff: l.eff, sea: !!l.lod}));
     km = R.km;
   } else {
     const bod = q => (q ? {name: q.name, ll: q.ll || [q.lo, q.la], key: q.key || ""} : null),
@@ -450,7 +521,10 @@ function cestaPlan(o) {
           if (x) {
             const most = CMOSTY.find(m => m[3] === RIVNAMES[ri] && haversine([m[1], m[2]], x) < 6);
             const kraj = [legs[0].p0, legs[legs.length - 1].p1].some(q => haversine(q, x) < 4);
-            if (!kraj && !reky.some(r => r.r === RIVNAMES[ri])) reky.push({r: RIVNAMES[ri], most: most ? most[0] : null, kde: cKde(...x)});
+            /* známý brod, přívoz či most z krajiny mapy (02e) do 8 km od místa, kde trasa řeku protne */
+            const pr = PRECHODY.find(q => q[1] !== "prusmyk" && haversine([q[2], q[3]], x) < 8);
+            if (!kraj && !reky.some(r => r.r === RIVNAMES[ri]))
+              reky.push({r: RIVNAMES[ri], most: most ? most[0] : null, kde: cKde(...x), pr: pr ? pr[0] : null});
             break;
           }
         }
@@ -583,6 +657,7 @@ const cDokonciG = h => {
 };
 async function hraUloz(h) {
   h = cDokonciG(Object.assign({}, h));
+  if (h.misto || h.cesta) h.nikde = null;
   if (h.hodina != null && HRA && HRA.hodina != null && h.hodinaPred === undefined && (h.datum == null || h.datum === HRA.datum))
     h.hodinaPred = +HRA.hodina;
   if (!window.MMDB) {
@@ -859,7 +934,7 @@ document.addEventListener("click", e => {
     const n = ZAPISY.length,
       v = +r.value;
     if (v >= n) {
-      o.textContent = `teď · ${partyDate()}${partyPos() ? " · " + partyPos().name : ""}`;
+      o.textContent = `teď · ${partyDate()}${partyPos() ? " · " + partyPos().name : druzinaNikde() ? " · družina zatím nikde" : ""}`;
       return;
     }
     const z = ZAPISY[v];
@@ -871,11 +946,13 @@ document.addEventListener("click", e => {
     r.max = n;
     if (st.cas == null) r.value = n;
     popis();
+    if (!box.hidden) document.getElementById("mapstopa").innerHTML = stopaUiHtml();
   };
   r.addEventListener("input", () => {
     const v = +r.value;
     st.cas = v >= ZAPISY.length ? null : v;
     popis();
+    document.getElementById("mapstopa").innerHTML = stopaUiHtml();
     drawMap();
   });
   const lb = document.getElementById("lyParty");
