@@ -1699,5 +1699,136 @@ const CITYINFO = {
     t: "Panské město",
     n: "Město na Drávě nedaleko jejího ústí do Dunaje, kde se převáží přes řeku na cestě z Budína do Bělehradu.",
   },
+  /* ---- MÍSTA: Slezsko a Lužice (2026-10-28) ---- */
+  Namyslav: {
+    t: "Korunní město",
+    n: "Město knížectví vratislavského, jež náleží přímo Koruně, na cestě z Vratislavi do Polska. Léta Páně 1348 zde císař Karel učinil mír s králem polským Kazimírem.",
+  },
+  "Środa Śląska": {
+    t: "Korunní město",
+    n: "Staré město knížectví vratislavského na Vysoké cestě mezi Vratislaví a Lehnicí. Jeho právo, řečené středské, přijala za své mnohá města slezská i polská.",
+  },
+  "Lwówek Śląski": {
+    t: "Korunní město",
+    n: "Město knížectví javorského nad Bobrem, jež náleží přímo Koruně. Právo německé dostalo léta Páně 1217 mezi prvními ve Slezsku; v okolí se dobývalo zlato i železo.",
+  },
+  Bolesławiec: {
+    t: "Korunní město",
+    n: "Město knížectví javorského na Bobru, jež náleží přímo Koruně, při Vysoké cestě ze Zhořelce do Lehnice a Vratislavi.",
+  },
+  Złotoryja: {
+    t: "Horní město",
+    n: "Nejstarší město slezské s právem německým, jež mu dal kníže Jindřich Bradatý léta Páně 1211, aby sem přilákal havíře k dolům na zlato; podle zlata má i jméno. Náleží knížectví lehnickému.",
+  },
+  Chojnov: {
+    t: "Knížecí město",
+    n: "Město knížectví lehnického na Vysoké cestě mezi Lehnicí a Bolesławcem. Náleží mladému knížeti Fridrichovi, za něhož vládne matka jeho Hedvika.",
+  },
+  Rychbach: {t: "Korunní město", n: "Město knížectví svídnického pod Sovími horami, jež náleží přímo Koruně, na cestě ze Svídnice ke Kladsku."},
+  Němčí: {
+    t: "Knížecí město",
+    n: "Prastaré hradiště nad Slezou, jež léta Páně 1017 odolalo obležení císaře Jindřicha II. Nyní náleží mladému knížeti Fridrichovi Lehnickému.",
+  },
+  Stínava: {
+    t: "Rozdělené město",
+    n: "Město s přechodem přes Odru mezi Hlohovem a Vratislaví. Jest rozděleno napůl: jednu polovici drží kníže olešnický Konrád X. Bílý, druhou kníže Vladislav z Těšínských.",
+  },
+  Wołów: {t: "Knížecí město", n: "Město knížat olešnických v rovině nedaleko Odry, na sever od Vratislavi."},
+  Milicz: {t: "Hrad a město", n: "Hrad a město knížat olešnických v kraji rybníků při řece Baryči, na pomezí Velkopolska."},
+  Syców: {t: "Knížecí město", n: "Pomezní město knížectví olešnického na cestě do Velkopolska."},
+  "Krosno nad Odrou": {
+    t: "Knížecí město",
+    n: "Hrad a město při ústí Bobru do Odry, odkud vedou cesty do Braniborska a Nové marky. Drží je kníže Jindřich IX. Starší z Piastovců hlohovsko-žaháňských.",
+  },
+  Kožuchov: {
+    t: "Knížecí sídlo",
+    n: "Sídlo knížete Jindřicha IX. Staršího, hlavy Piastovců hlohovsko-žaháňských, jenž drží i polovici Hlohova a Krosno. Dcera jeho Anna jest chotí pana Jana z Rožmberka.",
+  },
+  Převoz: {
+    t: "Knížecí městečko",
+    n: "Městečko na Nise na pomezí Lužice, jež drží kníže Jan II., bratr knížete Baltazara Žaháňského, s nímž se přou o Žaháň.",
+  },
+  "Zielona Góra": {t: "Knížecí město", n: "Město knížectví hlohovského obklopené vinicemi, živé soukenictvím a vínem."},
+  Szprotawa: {t: "Knížecí město", n: "Město knížectví hlohovského na soutoku Bobru a Sprotavy, mezi Žahání a Kožuchovem."},
+  Świebodzin: {t: "Pomezní město", n: "Pomezní město knížectví hlohovského proti Braniborsku a Velkopolsku."},
+  Střelce: {t: "Knížecí město", n: "Hrad a město, jež od léta Páně 1450 drží kníže Bolek V. Opolský."},
+  Prudník: {t: "Knížecí město", n: "Město knížete Bolka V. Opolského na pomezí moravském, nedaleko jeho sídla v Horním Hlohově."},
+  Němodlín: {t: "Knížecí město", n: "Hrad a město mezi Nisou a Opolím, jež od léta Páně 1450 drží kníže Bolek V. Opolský."},
+  Olesno: {t: "Knížecí město", n: "Pomezní město proti Polsku, jež od léta Páně 1455 drží kníže Bolek V. Opolský."},
+  Kluczbork: {
+    t: "Knížecí město",
+    n: "Město, jež založili křižovníci s červenou hvězdou, odkud má německé jméno Křížový hrad. Od léta Páně 1451 je drží kníže opolský Mikuláš I.",
+  },
+  Rybník: {
+    t: "Knížecí město",
+    n: "Město Přemyslovců krnovských; za nezletilé bratry Jana IV. a Václava III. vládne poručnice jejich, macecha Barbora.",
+  },
+  Žory: {t: "Knížecí město", n: "Malé pomezní město obehnané zdí, jež spolu s Rybníkem náleží nezletilým Přemyslovcům krnovským."},
+  Pština: {
+    t: "Vdovský úděl",
+    n: "Hrad a město mezi lesy na polském pomezí, jež drží jako vdovský úděl kněžna Barbora Rokemberková, macecha a poručnice mladých knížat krnovských.",
+  },
+  Bílsko: {t: "Knížecí sídlo", n: "Sídlo knížete Václava I., jenž nese titul knížete těšínského, pod Beskydami na pomezí polském."},
+  Fryštát: {t: "Knížecí město", n: "Město knížectví těšínského na Olši, na cestě z Těšína k Ratiboři."},
+  Frýdek: {t: "Knížecí město", n: "Město knížectví těšínského nad Ostravicí, jež tu dělí Slezsko od Moravy."},
+  Jablunkov: {t: "Pomezní městečko", n: "Městečko knížectví těšínského pod průsmykem, jímž vede cesta z Těšína přes hory do Uher."},
+  Bruntál: {
+    t: "Horní město",
+    n: "Horní město v horách, jemuž již léta Páně 1213 dáno právo německé, aby sem přilákalo havíře. Náleží nezletilým Přemyslovcům krnovským.",
+  },
+  "Zlaté Hory": {t: "Horní město", n: "Horní městečko v horách na pomezí knížectví niského, kde se odedávna rýžuje a kope zlato."},
+  Frývaldov: {t: "Biskupské městečko", n: "Horské městečko biskupů vratislavských na cestě přes hory k Moravě."},
+  Grodków: {
+    t: "Biskupské město",
+    n: "Město, jež léta Páně 1344 koupil biskup vratislavský Přeclav z Pohořelé od knížete břežského; od té doby náleží s Nisou biskupům.",
+  },
+  Paczków: {t: "Biskupské město", n: "Pevné město biskupů vratislavských na pomezí kladském, obehnané mocnou zdí s mnoha věžemi."},
+  "Bystřice Kladská": {t: "Město pana Jiřího", n: "Město hrabství kladského nad Nisou Kladskou, jež náleží panu Jiřímu z Poděbrad."},
+  "Nowa Ruda": {t: "Panské městečko", n: "Městečko v severním cípu hrabství kladského pod Sovími horami, jež náleží ke Kladsku pana Jiřího."},
+  "Zlatý Stok": {
+    t: "Horní město",
+    n: "Horní městečko na pomezí Kladska a Minsterberska, kde se odedávna dobývá zlato. Horní právo zdejší náleží ke knížectví minsterberskému, jež drží pan Jiří.",
+  },
+  Gryf: {t: "Rytířský hrad", n: "Hrad na vrchu nad Kvisou na pomezí Lužice, jejž drží rytíři Schoffové, páni na Chojniku."},
+  Kamieniec: {t: "Klášter cisterciáků", n: "Bohaté opatství cisterciáků nad Nisou Kladskou, nedaleko Frankenštejna."},
+  Henryków: {
+    t: "Klášter cisterciáků",
+    n: "Opatství cisterciáků, jež nese jméno knížete Jindřicha Bradatého, za něhož bylo založeno; mniši vůkol klučili hraniční les a osazovali jej vsemi.",
+  },
+  Rudy: {t: "Klášter cisterciáků", n: "Opatství cisterciáků v lesích knížectví ratibořského."},
+  Marienthal: {
+    t: "Klášter cisterciaček",
+    n: "Klášter panen cisterciaček na Nise mezi Žitavou a Zhořelcem, jejž založila královna Kunhuta, choť krále Václava I. Jest velikým hospodářem v kraji.",
+  },
+  Marienstern: {
+    t: "Klášter cisterciaček",
+    n: "Klášter panen cisterciaček mezi Budyšínem a Kamencem, jejž založili páni z Kamence; okolní vsi lužických Srbů mu poddány.",
+  },
+  Neuzelle: {
+    t: "Klášter cisterciáků",
+    n: "Opatství cisterciáků nad Odrou, jež založil markrabě míšeňský Jindřich Jasný. Opat sedá na sněmu dolnolužickém v čele stavu duchovního.",
+  },
+  Dobrilugk: {
+    t: "Klášter cisterciáků",
+    n: "Nejstarší klášter cisterciáků v Lužici, na západním pomezí Dolní Lužice proti Sasku. Opat sedá s opatem z Neuzelle na sněmu dolnolužickém.",
+  },
+  Hoyerswerda: {
+    t: "Pevný hrad",
+    n: "Hrad a městečko na Černém Halštrově na severním pomezí Horní Lužice, jeden z nejpevnějších hradů v zemi.",
+  },
+  Mužakov: {t: "Panský hrad", n: "Hrad a městečko na Nise v kraji borů a vřesovišť na pomezí Horní a Dolní Lužice."},
+  Forst: {t: "Město pánů z Bibrštejna", n: "Město na Nise v Dolní Lužici, jež náleží pánům z Bibrštejna, pánům na Žarech."},
+  Calau: {
+    t: "Dolnolužické město",
+    n: "Malé město Dolní Lužice. Tu zemi Koruny české drží od léta Páně 1448 v zástavě kurfiřt braniborský Fridrich II.",
+  },
+  Spremberg: {
+    t: "Dolnolužické město",
+    n: "Hrad a město na Sprévě na jižním pomezí Dolní Lužice, nedaleko Chotěbuze, kterou drží kurfiřt braniborský.",
+  },
+  Sommerfeld: {
+    t: "Dolnolužické město",
+    n: "Město na východě Dolní Lužice mezi Gubenem a Žarami. Tu zemi Koruny české drží od léta Páně 1448 v zástavě kurfiřt braniborský.",
+  },
 };
 /*@cast}*/

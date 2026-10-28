@@ -211,6 +211,12 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
   zastávky, pod mapou u posuvníku), „Smazat stopu“ (počátek = poslední zápis a dnešní čas), „Vrátit celou stopu“. Divák si pod mapou volí Poslední cesta /
   Od počátku stopy / Celé tažení (`localStorage` `mm-stopa-pohled`). Výpočet v čistém `07s-stopa.js` (`stopaRozsah`, `stopaPutovani`…); skrytý zápis hráč nemá
   (`mm_orez`), počátek v něm se dohledá podle data. Cesty z Výpravy nesou `t1`; starší bez něj se ukážou jen v Celém tažení. Mapa světa bere stejný počátek. Test `stopa`.
+- 10-28 **Místa: Slezsko a Lužice** (Vojta, zahuštění mapy): +54 míst – nové skupiny `920-cdsl` Města Dolního Slezska (18), `921-chsl` Města Horního Slezska (17),
+  `922-ckla` Města Kladska a Minsterberska (3), `923-kslu` Kláštery Slezska a Lužic (7 cisterciáckých, `zeme: Duchovenstvo`); hrady Gryf (`752-hsl`), Hoyerswerda
+  a Mužakov (`753-hlu`); Forst, Calau, Spremberg, Sommerfeld (`660-mdl`). Knížecí města jsou i v sídlech svých rodů (opo, opa, tes, ole, hlo, leg, bvr, bib)
+  a v `TOWNSEATS`. Hustota (míst na 10 000 km² v obrysech `DUCHY_POLY`): Slezsko 7,6 → 16,9, Lužice 11,2 → 18,7 (ve starém měřítku zadání asi 14). Shrnutí
+  v `CITYINFO`, věrnost měst ve `VERNOST_MIST`, Hlohov, Opolí, Ratiboř, Těšín, Žitava a Kladsko v `MAJOR_PLACES`. Popisky míst na mapě se nově nekladou
+  přes cizí ikonu (`ikony` v kresbě sídel, 02b) – v hustých krajích jméno raději vynechají, než aby zdánlivě patřilo sousedovi.
 
 ## Otevřené
 - **Mapa jih – k ověření (Vojta)**: kdo k 3. 3. 1458 drží Čakovec a Varaždínský hrad (celjské dědictví – Vitovec?), Golubac vynechán (srbský/turecký?), Kusánský

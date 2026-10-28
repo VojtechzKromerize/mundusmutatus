@@ -112,6 +112,27 @@ const TOWNSEATS = new Set([
   "Lienz",
   "Krk",
   "Senj",
+  /* ---- MÍSTA: Slezsko a Lužice (2026-10-28) ---- */
+  "Chojnov",
+  "Němčí",
+  "Prudník",
+  "Střelce",
+  "Němodlín",
+  "Olesno",
+  "Kluczbork",
+  "Bruntál",
+  "Rybník",
+  "Žory",
+  "Pština",
+  "Bílsko",
+  "Stínava",
+  "Kožuchov",
+  "Krosno nad Odrou",
+  "Převoz",
+  "Grodków",
+  "Paczków",
+  "Frývaldov",
+  "Forst",
 ]); /* family seats that are towns rather than castles */
 const TOWNICO = "art/img/mesto.webp";
 const townImg = (c, cls) => `<img class="${cls || "townico"} t-${c}" src="${TOWNICO}" alt="" aria-hidden="true">`;
