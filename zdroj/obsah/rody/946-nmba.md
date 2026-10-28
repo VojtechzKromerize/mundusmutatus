@@ -1,6 +1,7 @@
 ---
 id: nmba
 zeme: Bavory
+erb: cba
 nazev: Města a trhy Dolních a Horních Bavor
 kratce: Menší bavorská města
 vyznani: kat

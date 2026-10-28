@@ -1,6 +1,7 @@
 ---
 id: cpom
 zeme: Pomořany
+erb: zem-pomorany
 nazev: Města Pomořan
 kratce: Pomořanská města
 vyznani: kat

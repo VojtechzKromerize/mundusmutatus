@@ -1,6 +1,7 @@
 ---
 id: cpru
 zeme: Prusy
+erb: zem-prusy
 nazev: Města Pruska
 kratce: Pruská města
 vyznani: kat

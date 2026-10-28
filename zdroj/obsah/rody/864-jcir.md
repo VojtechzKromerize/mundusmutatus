@@ -1,6 +1,7 @@
 ---
 id: jcir
 zeme: Vnitřní Rakousy
+erb: zem-vnitrni-rakousy
 nazev: Města salcburská, bamberská a gurská v Korutanech
 kratce: Církevní města Korutan
 vyznani: kat

@@ -1,6 +1,7 @@
 ---
 id: ckla
 zeme: Čechy
+erb: mes
 nazev: Města Kladska a Minsterberska
 kratce: Kladská města
 vyznani: kat

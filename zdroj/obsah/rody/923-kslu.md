@@ -1,6 +1,7 @@
 ---
 id: kslu
 zeme: Duchovenstvo
+erb: kla
 nazev: Kláštery Slezska a Lužic
 kratce: Slezské a lužické kláštery
 vyznani: kat

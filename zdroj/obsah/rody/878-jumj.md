@@ -1,6 +1,7 @@
 ---
 id: jumj
 zeme: Uhry
+erb: zem-uhry
 nazev: Města jižních a západních Uher
 kratce: Města jižních Uher
 vyznani: kat

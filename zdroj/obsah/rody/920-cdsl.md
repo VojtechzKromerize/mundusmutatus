@@ -1,6 +1,7 @@
 ---
 id: cdsl
 zeme: Slezsko
+erb: zem-slezsko
 nazev: Města Dolního Slezska
 kratce: Dolnoslezská města
 vyznani: kat

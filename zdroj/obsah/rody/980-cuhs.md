@@ -1,6 +1,7 @@
 ---
 id: cuhs
 zeme: Uhry
+erb: zem-uhry
 nazev: Města horní a severní Uher
 kratce: Horní města Uher
 vyznani: kat

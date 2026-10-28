@@ -1,6 +1,7 @@
 ---
 id: jtyr
 zeme: Tyrolsko
+erb: zem-tyrolsko
 nazev: Města Tyrolska
 kratce: Tyrolská města
 vyznani: kat

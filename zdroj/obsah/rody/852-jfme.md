@@ -1,6 +1,7 @@
 ---
 id: jfme
 zeme: Benátky
+erb: zem-benatky
 nazev: Města benátského Furlánska
 kratce: Furlánská města
 vyznani: kat

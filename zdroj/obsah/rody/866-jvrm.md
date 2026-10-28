@@ -1,6 +1,7 @@
 ---
 id: jvrm
 zeme: Vnitřní Rakousy
+erb: zem-vnitrni-rakousy
 nazev: Města Vnitřních Rakous
 kratce: Města Kraňska, Korutan a Štýrska
 vyznani: kat

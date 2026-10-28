@@ -1,6 +1,7 @@
 ---
 id: jben
 zeme: Benátky
+erb: zem-benatky
 nazev: Benátky a města benátské pevniny
 kratce: Benátky
 vyznani: kat

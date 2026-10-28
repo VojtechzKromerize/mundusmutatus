@@ -1,6 +1,7 @@
 ---
 id: nmhf
 zeme: Bavory
+erb: cba
 nazev: Města Horní Falce a Frank
 kratce: Města Falce a Frank
 vyznani: kat

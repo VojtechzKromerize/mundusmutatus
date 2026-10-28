@@ -1,6 +1,7 @@
 ---
 id: jist
 zeme: Benátky
+erb: zem-benatky
 nazev: Města benátské Istrie a Kvarneru
 kratce: Istrie a ostrovy
 vyznani: kat

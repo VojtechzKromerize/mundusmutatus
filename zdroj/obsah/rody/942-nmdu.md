@@ -1,6 +1,7 @@
 ---
 id: nmdu
 zeme: Sasko
+erb: csa
 nazev: Města Durynska
 kratce: Durynská města
 vyznani: kat

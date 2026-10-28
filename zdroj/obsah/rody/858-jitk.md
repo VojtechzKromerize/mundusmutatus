@@ -1,6 +1,7 @@
 ---
 id: jitk
 zeme: Itálie
+erb: zem-italie
 nazev: Města severní Itálie
 kratce: Města Lombardie a Emilie
 vyznani: kat

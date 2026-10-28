@@ -1,6 +1,7 @@
 ---
 id: chsl
 zeme: Slezsko
+erb: zem-slezsko
 nazev: Města Horního Slezska
 kratce: Hornoslezská města
 vyznani: kat

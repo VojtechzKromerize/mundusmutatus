@@ -1,6 +1,7 @@
 ---
 id: cpls
 zeme: Polsko
+erb: cpl
 nazev: Města severního Polska a Mazovska
 kratce: Severopolská města
 vyznani: kat

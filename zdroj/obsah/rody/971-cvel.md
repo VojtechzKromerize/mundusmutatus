@@ -1,6 +1,7 @@
 ---
 id: cvel
 zeme: Polsko
+erb: cpl
 nazev: Města Velkopolska, Sieradzka a Kujavska
 kratce: Města Velkopolska
 vyznani: kat

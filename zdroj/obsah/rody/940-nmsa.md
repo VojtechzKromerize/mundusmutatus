@@ -1,6 +1,7 @@
 ---
 id: nmsa
 zeme: Sasko
+erb: csa
 nazev: Města Míšně, Fojtska a Vitenberska
 kratce: Menší saská města
 vyznani: kat

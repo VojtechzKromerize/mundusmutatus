@@ -1,6 +1,7 @@
 ---
 id: nmra
 zeme: Rakousy
+erb: cat
 nazev: Města a trhy Rakous pod a nad Enží
 kratce: Menší rakouská města
 vyznani: kat

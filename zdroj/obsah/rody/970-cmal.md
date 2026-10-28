@@ -1,6 +1,7 @@
 ---
 id: cmal
 zeme: Polsko
+erb: cpl
 nazev: Města Malopolska a Červené Rusi
 kratce: Města Malopolska
 vyznani: kat

@@ -1,6 +1,7 @@
 ---
 id: jcsl
 zeme: Chorvatsko a Slavonie
+erb: zem-chorvatsko
 nazev: Města Slavonie a Chorvatska
 kratce: Slavonská města
 vyznani: kat

@@ -1,6 +1,7 @@
 ---
 id: cmek
 zeme: Meklenbursko a Holštýnsko
+erb: zem-meklenbursko-holstyn
 nazev: Města Meklenburska, Holštýnska a Lauenburska
 kratce: Severní města
 vyznani: kat

@@ -1,6 +1,7 @@
 ---
 id: chan
 zeme: Hanza
+erb: zem-hanza
 nazev: Vendická města Hanzy
 kratce: Hanzovní města
 vyznani: kat

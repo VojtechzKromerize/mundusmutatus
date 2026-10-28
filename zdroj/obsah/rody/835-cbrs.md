@@ -1,6 +1,7 @@
 ---
 id: cbrs
 zeme: Braniborsko
+erb: zem-braniborsko
 nazev: Města severního Braniborska a Nové marky
 kratce: Severobraniborská města
 vyznani: kat
