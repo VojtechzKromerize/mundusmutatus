@@ -1015,8 +1015,8 @@ const CITYINFO = {
     n: "Cihlový hrad Řádu na vysokém levém břehu Visly. Spolu s Chojnicemi drží Řádu cestu z Říše na dolní Vislu; posádku tvoří žoldnéři.",
   },
   Puck: {
-    t: "Přístav Řádu",
-    n: "Městečko s hradem při Puckém zálivu na severu Pomoří. Drží je posádka Řádu nedaleko Gdaňska.",
+    t: "Přístav na Pomoří",
+    n: "Městečko s hradem při Puckém zálivu na severu Pomoří. Rybářský úřad a okolí zastavil král roku 1454 a 1455 Gdaňsku a ten je roku 1457 dal do zástavy za 15 000 marek vyhnanému švédskému králi Karlu Knutssonovi; kdo drží samotný hrad, je na jaře 1458 nejisté.",
   },
   Tapiawa: {
     t: "Hrad Řádu",
