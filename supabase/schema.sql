@@ -2280,7 +2280,7 @@ begin
   if not public.mm_je_gm() then
     raise exception 'jen pro vypravěče' using errcode = '42501';
   end if;
-  if p_klic not in ('kouzla', 'predmety', 'featy') then
+  if p_klic not in ('kouzla', 'predmety', 'featy', 'povolani') then
     raise exception 'neznámý klíč %', p_klic using errcode = '22023';
   end if;
   insert into public.pravidla_texty (klic, data, zmeneno) values (p_klic, p_data, now())

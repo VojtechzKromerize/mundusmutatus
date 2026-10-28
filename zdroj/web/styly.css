@@ -2270,6 +2270,7 @@ button.kbox{cursor:pointer}button.kbox:hover{border-color:var(--gold)}
 .srdsek>:last-child{margin-bottom:0}
 .srdtab{overflow-x:auto;margin:.6em 0 1em}.srdtab table{border-collapse:collapse;font-size:.92rem;min-width:60%}.srdtab th,.srdtab td{border-bottom:1px solid var(--rule);padding:4px 10px 4px 0;text-align:left;vertical-align:top}.srdtab th{font-family:var(--f-label);font-size:.78rem;color:var(--muted)}
 .srdart{margin:.6em 0 1em;padding:8px 12px;border-left:4px solid var(--kal);background:color-mix(in srgb,var(--kal) 7%,var(--paper));font-size:.95rem}.srdart>b:first-child{font-family:var(--f-label);letter-spacing:.06em;color:var(--kal);margin-right:6px;text-transform:uppercase;font-size:.78rem}
+h6.fmd3{font-family:var(--f-label);font-size:.95rem;letter-spacing:.03em;color:var(--ink);margin:1em 0 .3em;border-bottom:1px solid var(--rule);padding-bottom:2px}
 .srdkap{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px}.srdkap a{display:flex;flex-direction:column;padding:10px 12px;border:1px solid var(--rule);border-radius:4px;background:var(--paper);text-decoration:none;color:var(--ink)}.srdkap a:hover{border-color:var(--gold)}.srdkap b{font-family:var(--f-disp);font-size:1.15rem}.srdkap small{color:var(--muted)}
 .srdattr{margin-top:2em;color:var(--muted)}.srdtoc .abook a{color:inherit;text-decoration:none}.srdtoc .abook a.on{color:var(--kal)}.srdtoc li.srdl2{padding-left:10px;font-size:.88em}
 /* karta podle Artikulí, přehled družiny, ukázky, příprava sezení, popisky pravidel (2026-10-16) */

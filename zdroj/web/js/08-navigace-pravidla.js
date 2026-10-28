@@ -400,17 +400,57 @@ function featyMd(t) {
     .map(b => b.trim())
     .filter(Boolean)
     .map(b => {
+      if (/^### /.test(b)) return `<h6 class="fmd3">${kzIn(b.slice(4))}</h6>`;
       if (/^## /.test(b)) return `<h5>${kzIn(b.slice(3))}</h5>`;
+      if (/^- /.test(b))
+        return `<ul>${b
+          .split(/\n(?=- )/)
+          .map(x => `<li>${kzIn(x.slice(2).trim())}</li>`)
+          .join("")}</ul>`;
       if (/^\|/.test(b)) {
         const R = b.split("\n").filter(r => !/^\|[\s|:-]+\|$/.test(r.trim()));
         const [h, ...d] = R.map(bunky);
         return `<div class="srdtab"><table><thead><tr>${h.map(x => `<th>${x}</th>`).join("")}</tr></thead><tbody>${d.map(r => `<tr>${r.map(x => `<td>${x}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
       }
       const q = b.match(/^>\s*\*\*Artikule\s*[–-]\s*(.+?)\*\*\s*([\s\S]*)$/);
-      if (q) return `<div class="srdart"><b>Artikule</b> <b>${kzIn(q[1])}</b> ${kzIn(q[2].replace(/\n>\s*/g, " "))}</div>`;
-      return `<p>${kzIn(b.replace(/^>\s*/, "")).replace(/\n/g, "<br>")}</p>`;
+      if (q)
+        return `<div class="srdart"><b>Artikule</b> <b>${kzIn(q[1])}</b> ${q[2]
+          .split(/\n>\s*\n>\s*/)
+          .map(x => kzIn(x.replace(/\n>\s*/g, " ")))
+          .join("<br>")}</div>`;
+      if (/^>/.test(b)) return `<p class="rsmall">${kzIn(b.replace(/^>\s*/gm, "")).replace(/\n/g, "<br>")}</p>`;
+      return `<p>${kzIn(b).replace(/\n/g, "<br>")}</p>`;
     })
     .join("");
+}
+/* Plné znění povolání mimo SRD (Střelec / Gunslinger, Vojtův překlad 2026-10-28) – jako featy jen pro přihlášené (klíč „povolani“) */
+let POVOL = null,
+  POVOLP = null;
+const povolNacti = () =>
+  (POVOLP =
+    POVOLP ||
+    MMDB.pravidlaTexty("povolani")
+      .then(j => (POVOL = Array.isArray(j) ? j : []))
+      .catch(() => {
+        POVOLP = null;
+        return null;
+      }));
+const POVOLSHR = [
+  {
+    en: "Gunslinger",
+    cz: "Střelec",
+    t: "Povolání střelce z kuše a palných zbraní s kostkou životů d8 a hlavní vlastností DEX. Má výhodu na iniciativu, širší kritický zásah na dálku, kostky Štěstěny na troufalé kousky (dočasné životy, úskok, šrám při minutí) a podtřídu Karbaník, která riskuje nevýhodou za další kostku.",
+  },
+];
+function povolHtml() {
+  if (POVOL && POVOL.length)
+    return `<p class="rsmall">Plné znění – Vojtův překlad pro tažení, jen pro přihlášené. Rámečky Artikule jsou domácí úpravy a mají přednost.</p>${POVOL.map(
+      p =>
+        `<details class="bjapd" id="mimo-${besc(slugMimo(p.en))}"><summary><b>${besc(p.cz || p.en)}</b> <small lang="en">${besc(p.en)}</small></summary>${featyMd(p.t)}</details>`,
+    ).join("")}`;
+  return `<p class="rsmall">${featyMuze() ? (POVOL == null ? "Načítám plné znění povolání…" : "Plné znění povolání se nepodařilo načíst.") : "Plné znění povolání (Vojtův překlad i s úpravami z Artikulí) uvidíš po přihlášení. Tady je jen stručné shrnutí."}</p><ul class="kfeat">${POVOLSHR.map(
+    p => `<li id="mimo-${besc(slugMimo(p.en))}"><b>${besc(p.cz)}</b> <small lang="en">${besc(p.en)}</small><br>${besc(p.t)}</li>`,
+  ).join("")}</ul>`;
 }
 const featyPrihlasHtml = () =>
   `<p class="rsmall">${featyMuze() ? (FEATY == null ? "Načítám plné znění featů…" : "Plné znění featů se nepodařilo načíst.") : "Plné znění featů (Vojtův překlad i s úpravami z Artikulí) uvidíš po přihlášení. Tady je jen stručné shrnutí."}</p>`;
@@ -453,6 +493,10 @@ function renderMimo(main, c) {
     featyNacti().then(j => {
       if (j && j.length && curView === "pravidla") renderMimo(main, c);
     });
+  if (POVOL == null && featyMuze())
+    povolNacti().then(j => {
+      if (j && j.length && curView === "pravidla") renderMimo(main, c);
+    });
   const rys = (r, m) =>
     `<li id="mimo-${besc(slugMimo(r.en))}"><b>${besc(r.cz || r.en)}</b> <small lang="en">${besc(r.en)}</small>${(() => {
       const t = mimoMeta({r, typ: m, o: {}}, null);
@@ -468,6 +512,7 @@ function renderMimo(main, c) {
         .sort((a, b) => a.l - b.l || a.en.localeCompare(b.en))
     : [];
   const toc = [
+    ["povolani", "Povolání"],
     ["podtridy", "Podtřídy"],
     ["featy", "Featy"],
     ["zazemi", "Zázemí"],
@@ -475,8 +520,9 @@ function renderMimo(main, c) {
     ["kouzla", "Kouzla"],
   ];
   main.innerHTML = `<nav class="crumbs"><a href="#pravidla">Pravidla</a> › <b>Doplňky mimo SRD</b></nav><h2 class="arttitle">Doplňky mimo SRD</h2>
-  <p class="intro">Podtřídy, featy, zázemí, druh a kouzla z D&amp;D 2024, které nejsou v SRD 5.2.1. Každá položka je stručné shrnutí mechaniky vlastními slovy – stačí pro hru a pro výpočty na kartě, plné znění je v příručce nebo na listu postavy z D&amp;D Beyond. Artikule platí přednostně i tady.</p>
+  <p class="intro">Povolání, podtřídy, featy, zázemí, druh a kouzla z D&amp;D 2024 a doplňků, které nejsou v SRD 5.2.1. Každá položka je stručné shrnutí mechaniky vlastními slovy – stačí pro hru a pro výpočty na kartě, plné znění je v příručce nebo na listu postavy z D&amp;D Beyond. Artikule platí přednostně i tady.</p>
   <p class="rsmall">${toc.map(([id, n]) => `<a href="#pravidla/mimo/mimo-${id}">${n}</a>`).join(" · ")}</p>
+  <h3 class="uvh2" id="mimo-povolani">Povolání</h3>${povolHtml()}
   <h3 class="uvh2" id="mimo-podtridy">Podtřídy</h3>${Object.keys(KTR)
     .filter(k => tr[k])
     .map(

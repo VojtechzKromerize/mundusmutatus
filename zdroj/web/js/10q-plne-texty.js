@@ -5,7 +5,7 @@
    u kouzla či předmětu kdekoli na webu – text se načte až při rozbalení. Stránky #pravidla/kouzla a #pravidla/predmety-plne (renderPlne). */
 const PLNEKL = {kouzla: "Kouzla", predmety: "Kouzelné předměty"};
 /* co jde nahrát (featy se ukazují v Pravidlech › Featy, 08; nahrávají se tady u kouzel) – data: kouzla a předměty objekt, featy seznam */
-const PLNEUP = {...PLNEKL, featy: "Featy"};
+const PLNEUP = {...PLNEKL, featy: "Featy", povolani: "Povolání"};
 const PLNES = {},
   PLNESP = {},
   PLNET = {};
@@ -141,7 +141,9 @@ function plneNahratHtml(k) {
       <p><input type="file" accept=".json" data-plneup="${k}" aria-label="Soubor ${k}.json"></p>${
         k === "kouzla"
           ? `<p class="rsmall">Featy: soubor <b>featy.json</b> (zdroj/mimo-srd/featy_plne.py z Markdownu v projektu) – nahradí plné znění featů.</p>
-      <p><input type="file" accept=".json" data-plneup="featy" aria-label="Soubor featy.json"></p>`
+      <p><input type="file" accept=".json" data-plneup="featy" aria-label="Soubor featy.json"></p>
+      <p class="rsmall">Povolání mimo SRD (Střelec): soubor <b>povolani.json</b> (zdroj/mimo-srd/povolani_plne.py) – nahradí plné znění povolání.</p>
+      <p><input type="file" accept=".json" data-plneup="povolani" aria-label="Soubor povolani.json"></p>`
           : ""
       }<p class="rsmall" id="plneupst"></p></details>`
     : "";
@@ -206,7 +208,7 @@ document.addEventListener("change", e => {
     .text()
     .then(s => {
       const d = JSON.parse(s);
-      if ((k === "featy") !== Array.isArray(d)) throw new Error(`soubor nevypadá jako ${k}.json`);
+      if ((k === "featy" || k === "povolani") !== Array.isArray(d)) throw new Error(`soubor nevypadá jako ${k}.json`);
       return MMDB.pravidlaUloz(k, d);
     })
     .then(n => {

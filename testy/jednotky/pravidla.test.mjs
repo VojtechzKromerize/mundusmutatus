@@ -328,6 +328,23 @@ test("featy: plné znění – rámeček Artikule, tabulka, podnadpis a escapov�
   assert.doesNotMatch(h, /---/);
 });
 
+test("povolání mimo SRD (Střelec): rysy ###, odrážky, rámeček Artikule s poznámkou; bez přihlášení jen shrnutí", () => {
+  const h = V(
+    `featyMd("### Úroveň 2: Risk (Štěstěna)\\n\\n- **Prokoukl.** Poloviční.\\n- **Neprokoukl.** Platí.\\n\\n> **Artikule – Zbraně.** Válečné.\\n>\\n> *Poznámka:* vycpávaná.\\n\\n> *Poznámka:* sloty.")`,
+  );
+  assert.match(h, /<h6 class="fmd3">Úroveň 2: Risk \(Štěstěna\)<\/h6>/);
+  assert.match(h, /<ul><li><b>Prokoukl\.<\/b> Poloviční\.<\/li><li><b>Neprokoukl\.<\/b> Platí\.<\/li><\/ul>/);
+  assert.match(h, /<div class="srdart"><b>Artikule<\/b> <b>Zbraně\.<\/b> Válečné\.<br><i>Poznámka:<\/i> vycpávaná\.<\/div>/);
+  assert.match(h, /<p class="rsmall"><i>Poznámka:<\/i> sloty\.<\/p>/);
+  const s = V(`povolHtml()`);
+  assert.match(s, /id="mimo-gunslinger"/);
+  assert.match(s, /uvidíš po přihlášení/);
+  assert.ok(
+    V(`POVOLSHR`).every(p => p.t.length <= 350),
+    "shrnutí mimo SRD max. 350 znaků",
+  );
+});
+
 test("Artikule: Resistance zbroje půlí zranění; Drtivá / Průrazná ji ignorují; Immunity 0, Vulnerability ×2", () => {
   const E = JSON.stringify({ac: "16 (kroužková zbroj)", p: {b: ""}});
   assert.deepEqual(V(`bojZasah(${E}, 10, "Slashing", {})`), {x: 5, pozn: ["Resistance zbroje"]});
