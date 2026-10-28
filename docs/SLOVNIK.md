@@ -173,13 +173,14 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `BZTL` | 12-boj-tah-postavy:747 | const | Boj: typ posledního zranění nepřítele podle id – {t: typ, drt: Drtivá, pru: Průrazná} pro druh kritického zranění |
 | `BZTYPY` | 20b-boj-vypravec:4 | const | Boj: seznam anglických typů zranění (Slashing, Piercing, Fire…) pro selecty typu zranění |
 | `BZUND` | 11-boj:1076 | const | Boj: časové rozsahy řádků záznamu vrácených „Zpět“ – v záznamu se zašedí |
+| `BZUPRV` | 24-boj-zaznam:70 | const | ⓘ `{zasah: ["zásah", "bzhit"], krit: ["kritický zásah", "bzkr"], vedle: […` |
 | `BZVAKT` | 20e-boj-vlastnosti:8 | const | Boj: vlastnosti zbraní z Artikulí (Krvežíznivá, Omračující, Ničivá, Odvetná, Přibodnutí…) – poz = Požehnání, kom = komplikace Pokušení |
 | `BZVK` | 02-mapa:7523 | const | ⓐ malované ikony vlastností zbraní (zv-), typů zranění (zr-) a zbrojí (zb-) – art/img/boj, zadání vyvoj/ikony-boj.md |
 | `BZVL` | 12-boj-tah-postavy:1199 | const | Boj: regex názvů vlastností zbraní (Ostrá, Drtivá, Šikovná, Lehká, Těžká…) – poznání zbraně NPC v kořisti |
 | `BZVST` | 11-boj:356 | const | ⓐ stavy z vlastností zbraní (Artikule › Zbraně, 2026-10-20): ikona = štítek vlastnosti; ut/cil jako u SRD stavů (cil "dym" = nevýhoda jen zblí… |
 | `BZVV` | 20e-boj-vlastnosti:292 | const | Boj: čekající výzvy záchrany proti vlastnosti zbraně nepřítele podle id výzvy – {hid, kid, dc, p vlastnost, nid} |
-| `BZVYS` | 24-boj-zaznam:66 | const | ⓐ výsledek útoku jako ikonka: hvězda = zásah, X = vedle, v prstenci = přirozená 20 / 1; text zůstává v popisku |
-| `BZZBR` | 24-boj-zaznam:70 | const | Boj záznam: [ikona, regex názvu] – zbraň/kouzlo podle názvu útoku → ikonka (kuse, luk, mec, drap…) |
+| `BZVYS` | 24-boj-zaznam:272 | const | ⓐ výsledek útoku jako ikonka: hvězda = zásah, X = vedle, v prstenci = přirozená 20 / 1; text zůstává v popisku |
+| `BZZBR` | 24-boj-zaznam:276 | const | Boj záznam: [ikona, regex názvu] – zbraň/kouzlo podle názvu útoku → ikonka (kuse, luk, mec, drap…) |
 | `CARMS` | 01-zaklad:170 | const | erby měst (Brno, Kutná Hora, Plzeň, Praha, Vratislav) → cesta k obrázku |
 | `CASTLEICO` | 01-zaklad:43 | const | mapa: cesta k ikoně hradu pro sídla rodů, která nejsou městy |
 | `CESTA_ODCH` | 09-vypravec-herni-cas:314 | const | Výprava/herní čas: odchylky délky cesty od odhadu ([násobek, popis]) pro formulář cesty |
@@ -253,7 +254,7 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `HRAKL` | 22-vyprava:697 | const | Výprava: klíče stavu hry ukládané do kroků Zpět (datum, hodina, misto, praha, cesta, poloha, putovani) |
 | `HRAP` | 16-srd-ukazky-sezeni-hrac:1371 | let | Hra: příznak spuštěného pravidelného načítání (hraPoll) výzev, zpráv, potvrzení – jen jednou |
 | `HRKOR` | 02b-mapa-kresba:15120 | let | ⓐ vnější úseky hranice Koruny (úsek, který leží jen v jedné zemi Koruny) a jejich druh podle krajiny; spočítá se jednou |
-| `ILSEL` | 08-navigace-pravidla:1012 | const | iluminované iniciály: CSS selektory odstavců, které dostanou zdobené první písmeno |
+| `ILSEL` | 08-navigace-pravidla:1013 | const | iluminované iniciály: CSS selektory odstavců, které dostanou zdobené první písmeno |
 | `INSTP` | 19-karty-beyond:944 | let | PWA: uložená událost beforeinstallprompt – tlačítko „Nainstalovat jako aplikaci“ ji vyvolá |
 | `JA` | 11-boj:2467 | const | ⓐ přihlášený hráč (stránka Hra): {k: karta, t: token relace, n: jméno} |
 | `JEZERA` | 02-mapa:5869 | const | ⓐ jezera (bez přehrad – ty roku 1458 nejsou): Neziderské jezero na pomezí Rakous a Uher |
@@ -438,13 +439,13 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `MILE_KM` | 01-zaklad:11 | const | ⓐ vzdálenost v českých mílích, kilometry v závorce (Vojta 2026-10-26): česká míle ≈ 11,24 km; pod 10 mil na půl míle |
 | `MIMO` | 18-pravidla-postavy:622 | let | Obsah D&D 2024 mimo SRD (art/mimo-srd.json): podtřídy, featy, zázemí – načtená data nebo null |
 | `MIMOCAS` | 18-pravidla-postavy:757 | const | Mimo SRD: popisky času aktivace rysu – A Akce, BA Bonusová akce, R Reakce |
-| `MIMOKAT` | 08-navigace-pravidla:476 | const | ⓐ Doplňky mimo SRD: podtřídy podle povolání, featy podle druhu, zázemí, druhy a kouzla (vlastní shrnutí mechaniky) |
+| `MIMOKAT` | 08-navigace-pravidla:477 | const | ⓐ Doplňky mimo SRD: podtřídy podle povolání, featy podle druhu, zázemí, druhy a kouzla (vlastní shrnutí mechaniky) |
 | `MIMOP` | 18-pravidla-postavy:623 | let | Mimo SRD: probíhající Promise načítání MIMO (mimoNacti) |
 | `MIMOPOZN` | 18-pravidla-postavy:776 | const | Mimo SRD: text upozornění, že jde o vlastní shrnutí mechaniky, ne oficiální text pravidel |
 | `MIMOR` | 18-pravidla-postavy:624 | let | Mimo SRD: rejstřík rysů podle normalizovaného názvu (mimoN) → záznam s mechanikou (počty použití, ef) |
 | `MIMOSKIP` | 18-pravidla-postavy:711 | const | ⓐ rysy, které pravidla už počítají jménem (Tough, Speedy, Lucky…), tu nesčítat podruhé |
-| `MMCELA_MQ` | 08-navigace-pravidla:704 | const | navigace: media query šířky ≤ 700 px – hráčova Hra na telefonu přes celou obrazovku |
-| `MMCELA_WEB` | 08-navigace-pravidla:705 | let | navigace: hráč na telefonu kliknul ☰ a chce vidět web s menu (vypne celoobrazovkovou Hru) |
+| `MMCELA_MQ` | 08-navigace-pravidla:705 | const | navigace: media query šířky ≤ 700 px – hráčova Hra na telefonu přes celou obrazovku |
+| `MMCELA_WEB` | 08-navigace-pravidla:706 | let | navigace: hráč na telefonu kliknul ☰ a chce vidět web s menu (vypne celoobrazovkovou Hru) |
 | `MMIDB` | 15-karty-artikule:920 | const | Karty: obal IndexedDB „mm“ (store kv) – get/set – druhá offline kopie karet vedle localStorage |
 | `MMK` | 11-boj:819 | const | Mundus Mutatus kostky: stav 3D animace hodů (fronta, časovač, dice-box, prvek, index zvýraznění) |
 | `MMLINY` | 01-zaklad:187 | const | líné části skriptu: název části → promise jejího načtení (mmLina), aby se stáhla jen jednou |
@@ -457,7 +458,7 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `MTZ` | 02-mapa:2667 | const | ⓘ `[21, 17, 14, 12];` |
 | `NAMEPTS` | 02-mapa:6920 | const | mapa: body se jménem (sídla z PLACES + města TOWNS) – pojmenování nejbližšího místa |
 | `NAVMOJE` | 23-potvrzovani:126 | var | Potvrzování: id návrhů odeslaných tímto hráčem – po rozhodnutí vypravěče se mu ohlásí výsledek |
-| `NAVNAME` | 08-navigace-pravidla:661 | const | navigace: id stránky → název v menu (Hra, Úvod, Artikule…) |
+| `NAVNAME` | 08-navigace-pravidla:662 | const | navigace: id stránky → název v menu (Hra, Úvod, Artikule…) |
 | `NAVOD` | 16-srd-ukazky-sezeni-hrac:1054 | const | Hra: HTML návod pro hráče „Jak hrát na webu“ (nahrát PDF, přihlásit, kostka Závoje, Svědomí, boj) |
 | `NAVRHY` | 23-potvrzovani:125 | var | Potvrzování: návrhy hráčů ke schválení vypravěčem (léčení, Bardic spojenců) načtené z databáze |
 | `NBR_LANDS` | 02-mapa:6426 | const | Zemské desky: názvy sousedních zemí (Braniborsko, Polsko…) pro záložky cizích rodů |
@@ -520,9 +521,9 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `POUTE_DRUH` | 02e-krajina:2090 | const | ⓘ `{pout: "Poutní místo", klaster: "Klášter", povest: "Místo pověstí"};` |
 | `POUTE_STAV` | 02e-krajina:2091 | const | ⓘ `{c: "činný", p: "za válek poničený, bratří živoří", z: "zpustlý"};` |
 | `POUTE_ZN` | 02e-krajina:2094 | const | mapa, vrstva Poutě: tvary značek (kříž v kruhu, kostelík, hvězda) v rámečku −5…5 |
-| `POVOL` | 08-navigace-pravidla:427 | let | ⓐ Plné znění povolání mimo SRD (Střelec / Gunslinger, Vojtův překlad 2026-10-28) – jako featy jen pro přihlášené (klíč „povolani“) |
-| `POVOLP` | 08-navigace-pravidla:428 | let | ⓘ `null;` |
-| `POVOLSHR` | 08-navigace-pravidla:438 | const | ⓘ `[` |
+| `POVOL` | 08-navigace-pravidla:428 | let | ⓐ Plné znění povolání mimo SRD (Střelec / Gunslinger, Vojtův překlad 2026-10-28) – jako featy jen pro přihlášené (klíč „povolani“) |
+| `POVOLP` | 08-navigace-pravidla:429 | let | ⓘ `null;` |
+| `POVOLSHR` | 08-navigace-pravidla:439 | const | ⓘ `[` |
 | `PRAHA_PLACES` | 04-praha:23 | const | ⓐ n = číslo na plánu, k = druh (dvur/urad/cirkev/hospoda), t = město, c = vyznání (kat/kal/mix/""), r = rod, p = osoba |
 | `PRAHA_TOWNS` | 04-praha:2 | const | Praha: čtyři města pražská (id, název, popis) pro plán a seznam |
 | `PRB` | 04-praha:24 | const | Praha: objekt plánu podle čísla na plánu (z PRAHA_PLACES) |
@@ -544,7 +545,7 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `PSTREETS` | 04-praha:37 | const | ⓐ názvy ulic, trhů a bran: [název, x, y, natočení] |
 | `PULS` | 25-puls:7 | var | Puls: stav pravidelného dotazu na změny v databázi – z poslední verze, beh běží, znovu, t, obnov, start, stary (databáze bez pulsu) |
 | `PULS_HRA` | 25-puls:8 | const | Puls: druhy změn pro stránku Hra (vyzvy, zpravy, navrhy, potvrz, pokladna) – spustí hraPoll |
-| `PULTTAB` | 08-navigace-pravidla:723 | let | ⓐ záložka řídicího pultu vypravěče: boj \| druzina \| sezeni (nastaví route podle adresy) |
+| `PULTTAB` | 08-navigace-pravidla:724 | let | ⓐ záložka řídicího pultu vypravěče: boj \| druzina \| sezeni (nastaví route podle adresy) |
 | `PUSHST` | 19-karty-beyond:891 | let | Web Push: stav odběru upozornění – „on“, „off“ nebo null (nezjištěno) |
 | `PVB0` | 04-praha:33 | const | plán Prahy: výchozí viewBox SVG [x, y, šířka, výška] |
 | `PZID` | 04b-praha-plan:151 | const | plán Prahy: body obrysu Židovského Města (tečkovaná hranice čtvrti) |
@@ -641,7 +642,7 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `TREES` | 06-draconomicon-rodokmeny:83 | const | ⓐ p = osoba v zemských deskách, r = rod, d = data, m = z kterého manželství, note = poznámka |
 | `TRIBS` | 02b-mapa-kresba:14043 | const | kresba mapy: linie přítoků (menší řeky, lon/lat) kreslené tenčí čárou |
 | `TSTAV` | 06-draconomicon-rodokmeny:271 | const | ⓐ stav rodokmenů: zaostřená osoba, vybrané manželství, historie procházení |
-| `UCETR` | 08-navigace-pravidla:1046 | let | ⓐ otevřený formulář: "" (jen tlačítka), "novy", "prihlas" |
+| `UCETR` | 08-navigace-pravidla:1047 | let | ⓐ otevřený formulář: "" (jen tlačítka), "novy", "prihlas" |
 | `UCINKY` | 10u-ucinky:18 | const | Účinky v jednom formátu (10u, čisté): jméno → posílení (ac, rych, zach, res, hpmax…) a kostky k hodům (kostka, na, jednou, poHodu); dřív KZEF + KPRID |
 | `UCTYPY` | 10u-ucinky:265 | const | Účinky (10u): všech 13 typů zranění pro Resistance „vse“ (Warding Bond, Feign Death…) |
 | `UKAZKY` | 16-srd-ukazky-sezeni-hrac:238 | let | Ukázky od vypravěče (obrázek, dopis, mapka) načtené z databáze, nejnovější první |

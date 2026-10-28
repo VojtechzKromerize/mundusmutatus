@@ -16,7 +16,7 @@ function bzPamatuj(k, e, gm) {
 }
 /* okno s podrobnostmi řádku: kdo · co → komu, kolo a čas, výsledek slovy, zranění s typem, každý hod s kostkami, Závoj, poznámky.
    Ukazuje jen to, co řádek už nese (hráč u nepřátel dál vidí jen výsledek) */
-function bzDetailHtml(e, gm) {
+function bzDetailHtml(e, gm, kl) {
   const os = q => (q && q.n ? `<span class="bzdos"><b>${besc(q.n)}</b></span>` : "");
   const vel = s =>
       String(s || "")
@@ -46,13 +46,13 @@ function bzDetailHtml(e, gm) {
     .join(" · ");
   return `<div class="bzdet${gm ? " bzdetgm" : ""}"><h3 class="bzdhl">${os(e.A)}<span class="bzdco">${besc(e.co || "Záznam")}</span>${e.C ? `<i class="bzdsip" aria-label="vůči">→</i>${os(e.C)}` : ""}</h3>${meta ? `<p class="bzdmeta">${meta}</p>` : ""}${
     D.length ? `<dl class="bzdl2">${D.map(([a, b]) => `<dt>${a}</dt><dd>${b}</dd>`).join("")}</dl>` : `<p class="rsmall">Bez dalších podrobností.</p>`
-  }</div>`;
+  }${gm && GMV && kl && BOJ.s ? `<p class="bzdupr"><button type="button" class="gbtn ghost" data-bzupr="${besc(kl)}" ${btip("Opravit cíl, hod, výsledek, zranění nebo typ zranění – hráči uvidí opravený řádek")}>✎ Upravit záznam</button></p>` : ""}</div>`;
 }
 document.addEventListener("click", e => {
   const h = e.target.closest && e.target.closest("[data-bzdet]");
   if (!h || e.target.closest("button,a,input,select")) return;
   const x = BZMAP.get(h.dataset.bzdet);
-  if (x) mmPop(bzDetailHtml(x.e, x.gm));
+  if (x) mmPop(bzDetailHtml(x.e, x.gm, h.dataset.bzdet));
 });
 document.addEventListener("keydown", e => {
   if (e.key !== "Enter" && e.key !== " ") return;
@@ -60,7 +60,213 @@ document.addEventListener("keydown", e => {
   const x = h && e.target === h && BZMAP.get(h.dataset.bzdet);
   if (!x) return;
   e.preventDefault();
-  mmPop(bzDetailHtml(x.e, x.gm));
+  mmPop(bzDetailHtml(x.e, x.gm, h.dataset.bzdet));
+});
+/* ===== úprava řádku vypravěčem (2026-10-28, Vojta): cíl, hod, výsledek, zranění a typ zranění =====
+   Úprava se neprovádí v původních datech řádku, ale jako oprava U = {ci, c, hod, vys, zr, zt, pozn} vedle nich: u veřejného
+   záznamu boje v z.upr (vidí ji i hráči), u záznamu vypravěče v BLOGG o.upr (a v odpovídajícím veřejném řádku), u hodu z karty
+   v s.hupr[id hodu]. Řádek ji použije při sestavení (bzUprAplikuj) – původní kostky zůstanou v podrobnostech. Životy cíle
+   může oprava srovnat o rozdíl zranění (bzHpOprav). */
+const BZUPRV = {zasah: ["zásah", "bzhit"], krit: ["kritický zásah", "bzkr"], vedle: ["vedle", "bzmis"]};
+function bzUprAplikuj(e, U, s, gm) {
+  if (!e || !U) return e;
+  if ("ci" in U) e.C = U.ci ? bzOs(s, U.ci, U.c) || (U.c ? {n: U.c} : null) : null;
+  if (U.hod != null) {
+    if (gm || !bzNepr(s, e.A)) {
+      const i = e.rows.findIndex(r => r.l === "útok" || r.l === "hod");
+      const r = {l: i >= 0 ? e.rows[i].l : "útok", h: `<b class="bztot">${U.hod}</b> <small>upraveno</small>`};
+      if (i >= 0) e.rows.splice(i, 1, r);
+      else e.rows.unshift(r);
+    }
+    if (!U.vys && e.vys && e.vys[1] === "bztotv") e.vys = [String(U.hod), "bztotv"];
+  }
+  if (U.vys) e.vys = BZUPRV[U.vys] || [String(U.vys), /vedle/.test(U.vys) ? "bzmis" : /krit/.test(U.vys) ? "bzkr" : ""];
+  if ("zr" in U) {
+    e.rows = e.rows.filter(r => r.l !== "zranění");
+    e.zr = U.zr == null ? null : {t: U.zr, zt: U.zt != null ? U.zt : (e.zr && e.zr.zt) || "", lec: !!(e.zr && e.zr.lec)};
+  } else if (U.zt != null && e.zr) e.zr = Object.assign({}, e.zr, {zt: U.zt});
+  e.pozn = [...e.pozn, `upraveno vypravěčem${U.pozn ? ": " + U.pozn : ""}`];
+  e.upr = U;
+  return e;
+}
+/* oprava, která na řádku už je (pro sloučení s novou) */
+function bzUprStara(e) {
+  if (e.src === "g") return (BLOGG[e.i] && BLOGG[e.i].o.upr) || null;
+  if (e.src === "z") return (e.z && e.z.upr) || null;
+  if (e.src === "h") return ((BOJ.s || {}).hupr || {})[e.h && e.h.id] || null;
+  return null;
+}
+/* zápis opravy do stavu boje z (uvnitř bojZmen): veřejný řádek podle času, útočníka a cíle; hod z karty podle id */
+function bzUprZapis(z, ref, U) {
+  if (ref.src === "h") {
+    if (!ref.hid) return false;
+    const H = Object.assign({}, z.hupr || {}, {[ref.hid]: U}),
+      k = Object.keys(H);
+    k.slice(0, Math.max(0, k.length - 80)).forEach(x => delete H[x]);
+    z.hupr = H;
+    return true;
+  }
+  const okno = ref.src === "z" ? 1 : 6000;
+  const q = (z.zaz || [])
+    .filter(
+      x =>
+        Math.abs((x.ts || 0) - ref.t) <= okno &&
+        (!ref.cid || x.ci === ref.cid || (!x.ci && x.c === ref.cn)) &&
+        (!ref.aid || x.ai === ref.aid || (!x.ai && x.a === ref.an)),
+    )
+    .sort((a, b) => Math.abs(a.ts - ref.t) - Math.abs(b.ts - ref.t))[0];
+  if (!q) return false;
+  q.upr = U;
+  return true;
+}
+/* životy cíle o rozdíl d (kladné = víc zranění, záporné = vrátit); nepřítel v paměti vypravěče, postava na kartě; houf ne */
+function bzHpOprav(s, id, d) {
+  d = Math.round(+d || 0);
+  const c = id && d ? bojCilO(s, id) : null;
+  if (!c) return "";
+  if (!c.druh) {
+    const K = bojKartaH(c);
+    if (!K) return "";
+    let t = "";
+    bojPCZmena(
+      id,
+      o => {
+        const cur = hpO(o, K),
+          mx = kHPmax(K),
+          n = Math.max(0, Math.min(mx, cur - d));
+        o.hp = n;
+        t = `${c.n}: ${cur} → ${n} HP`;
+        return `oprava záznamu: ${cur} → ${n} HP`;
+      },
+      false,
+    );
+    return t;
+  }
+  if (c.druh === "houf") return "";
+  const E = bojEff(c);
+  if (!E || !E.hp.length) return "";
+  const hp = bojHp.get(),
+    a = hp[id] || [],
+    mx = E.hp[0].max,
+    old = a[0] != null ? a[0] : mx,
+    nov = Math.min(mx, old - d);
+  a[0] = nov;
+  hp[id] = a;
+  bojHp.set(hp);
+  if (d > 0) bojHpZmena(id, 0, old, nov);
+  bojLog(id, {n: "Oprava životů", ai: null, ci: id, zt: `${old} → ${nov} HP (oprava záznamu)`}, c.n);
+  return `${c.n}: ${old} → ${nov} HP`;
+}
+/* původní hod a výsledek řádku (předvyplnění formuláře) */
+const bzUprHod0 = e => {
+  const r = e.rows.find(q => q.l === "útok" || q.l === "hod"),
+    m = r && String(r.h).match(/class="bztot">(-?\d+)</);
+  return m ? +m[1] : e.vys && e.vys[1] === "bztotv" ? +e.vys[0] : null;
+};
+const bzUprVys0 = e =>
+  !e.vys
+    ? ""
+    : e.vys[1] === "bzkr"
+      ? "krit"
+      : e.vys[1] === "bzmis" && /^vedle$/.test(e.vys[0])
+        ? "vedle"
+        : e.vys[1] === "bzhit" && /^zásah$/.test(e.vys[0])
+          ? "zasah"
+          : "jine";
+function bzUprHtml(kl, e, s) {
+  const ci = (e.C && e.C.id) || "",
+    v0 = bzUprVys0(e),
+    h0 = bzUprHod0(e),
+    zr = e.zr && e.zr.t != null ? e.zr.t : "",
+    zt = (e.zr && e.zr.zt) || "",
+    lid = [...(s.hraci || []), ...(s.npc || [])].filter(o => o && o.id);
+  const sel = (a, b) => (a === b ? " selected" : "");
+  const hpOk = e.src !== "h" && !(e.zr && e.zr.lec);
+  return `<form class="bzupr" data-bzuprf="${besc(kl)}"><h3 class="bzdhl">Upravit záznam</h3><p class="bzdmeta">${besc([e.A && e.A.n, e.co].filter(Boolean).join(" · ") || "Záznam")}</p>
+    <label>Cíl <select name="ci"><option value="">– bez cíle –</option>${lid.map(o => `<option value="${besc(o.id)}"${sel(o.id, ci)}>${besc(o.n)}${o.druh ? "" : " (družina)"}</option>`).join("")}${ci && !lid.some(o => o.id === ci) ? `<option value="${besc(ci)}" selected>${besc(e.C.n)}</option>` : ""}</select></label>
+    <label>Hod (součet) <input name="hod" type="number" inputmode="numeric" min="-20" max="99" value="${h0 != null ? h0 : ""}"></label>
+    <label>Výsledek <select name="vys"><option value=""${sel(v0, "")}>–</option><option value="zasah"${sel(v0, "zasah")}>zásah</option><option value="krit"${sel(v0, "krit")}>kritický zásah</option><option value="vedle"${sel(v0, "vedle")}>vedle</option><option value="jine"${sel(v0, "jine")}>jiný (text)</option></select></label>
+    <label>Vlastní výsledek <input name="vyst" type="text" maxlength="60" value="${v0 === "jine" ? besc(e.vys[0]) : ""}" placeholder="např. uspěl, SO 14, +5 HP"></label>
+    <label>Zranění <input name="zr" type="number" inputmode="numeric" min="0" max="999" value="${zr}" placeholder="žádné"></label>
+    <label>Typ zranění <select name="zt"><option value="">–</option>${Object.keys(BZRT)
+      .map(t => `<option value="${t}"${sel(t, zt)}>${besc(bojZrCz(t))}</option>`)
+      .join("")}</select></label>
+    <label class="bzuprw">Poznámka <input name="pozn" type="text" maxlength="120" placeholder="proč se oprava dělá (nepovinné)"></label>
+    ${hpOk ? `<label class="bzuprw bzuprck"><input type="checkbox" name="hp" value="1" checked> Opravit i životy cíle o rozdíl zranění (při změně cíle vrátit starému a dát novému)</label>` : `<p class="rsmall bzuprw">Hod z karty: životy se neopravují (zranění z něj nikdo neodečetl).</p>`}
+    <p class="bzuprw bzuprbt"><button type="submit" class="gbtn">Uložit opravu</button> <button type="button" class="gbtn ghost" data-mmpopx>Zrušit</button></p></form>`;
+}
+/* uložení opravy: f = hodnoty formuláře {ci, hod, vys, vyst, zr, zt, pozn, hp} */
+function bzUprUloz(kl, f) {
+  const x = BZMAP.get(kl),
+    s = BOJ.s;
+  if (!x || !s || !GMV) return null;
+  const e = x.e,
+    num = v => (v === "" || v == null || isNaN(+v) ? null : Math.round(+v)),
+    U = {};
+  const ci0 = (e.C && e.C.id) || "",
+    ci = String(f.ci || "");
+  if (ci !== ci0) {
+    const c = bojCilO(s, ci);
+    U.ci = ci;
+    U.c = c ? c.n : "";
+  }
+  const hod = num(f.hod);
+  if (hod != null && hod !== bzUprHod0(e)) U.hod = hod;
+  const vys =
+    f.vys === "jine"
+      ? String(f.vyst || "")
+          .trim()
+          .slice(0, 60)
+      : String(f.vys || "");
+  if (vys && vys !== bzUprVys0(e) && !(f.vys === "jine" && e.vys && vys === e.vys[0])) U.vys = vys;
+  const zr0 = e.zr && e.zr.t != null ? +e.zr.t : null,
+    zr = num(f.zr);
+  if (zr !== zr0) U.zr = zr == null ? null : Math.max(0, zr);
+  const zt = String(f.zt || "");
+  if (zt !== ((e.zr && e.zr.zt) || "") && (zr != null || zr0 != null)) U.zt = zt;
+  const pozn = String(f.pozn || "")
+    .trim()
+    .slice(0, 120);
+  if (pozn) U.pozn = pozn;
+  if (!Object.keys(U).length) return {nic: 1};
+  const M = Object.assign({}, bzUprStara(e) || {}, U),
+    ref = {src: e.src, t: e.t, aid: e.A && e.A.id, an: e.A && e.A.n, cid: ci0, cn: e.C && e.C.n, hid: e.h && e.h.id};
+  if (e.src === "g" && BLOGG[e.i]) {
+    BLOGG[e.i].o.upr = M;
+    bojLogUloz();
+  }
+  /* životy: rozdíl zranění, které řádek započítal (zásah), a opraveného; při změně cíle vrátit starému a dát novému */
+  const hp = [];
+  if (f.hp && e.src !== "h" && !(e.zr && e.zr.lec)) {
+    const hit0 = !(e.vys && e.vys[1] === "bzmis"),
+      a0 = hit0 && zr0 ? zr0 : 0,
+      hit1 = U.vys ? !/vedle/.test(U.vys) : hit0,
+      z1 = "zr" in U ? U.zr || 0 : zr0 || 0,
+      a1 = hit1 ? z1 : 0,
+      c1 = "ci" in U ? U.ci : ci0;
+    if (c1 === ci0) hp.push(bzHpOprav(s, ci0, a1 - a0));
+    else hp.push(bzHpOprav(s, ci0, -a0), bzHpOprav(s, c1, a1));
+  }
+  bojZmen(z => {
+    bzUprZapis(z, ref, M);
+  });
+  return {U: M, hp: hp.filter(Boolean)};
+}
+document.addEventListener("click", e => {
+  const b = e.target.closest && e.target.closest("[data-bzupr]");
+  if (!b || !GMV || !BOJ.s) return;
+  const x = BZMAP.get(b.dataset.bzupr);
+  if (x) mmPop(bzUprHtml(b.dataset.bzupr, x.e, BOJ.s));
+});
+document.addEventListener("submit", e => {
+  const f = e.target.closest && e.target.closest("form[data-bzuprf]");
+  if (!f) return;
+  e.preventDefault();
+  const r = bzUprUloz(f.dataset.bzuprf, Object.fromEntries(new FormData(f)));
+  mmPopX();
+  if (!r) return;
+  if (!r.nic) mmHlasG(`Záznam upraven${r.hp.length ? ` · ${r.hp.join(" · ")}` : ""}.`, 5000);
+  bojPrekresli();
 });
 /* výsledek útoku jako ikonka: hvězda = zásah, X = vedle, v prstenci = přirozená 20 / 1; text zůstává v popisku */
 const BZVYS = {bzhit: "zasah", bzkr: "zasahkrit", bzmis: "vedle"};
@@ -340,6 +546,11 @@ function bzZaznam(s, gm) {
     }
   });
   L = L.filter(e => !pryc.has(e));
+  /* opravy vypravěče (bzUprAplikuj): až po spojení útoku s vyhodnocením, aby opravený hod nepřepsal hod z karty */
+  L.forEach(e => {
+    const U = e.src === "g" ? BLOGG[e.i] && BLOGG[e.i].o.upr : e.src === "z" ? e.z && e.z.upr : e.src === "h" ? (s.hupr || {})[e.h && e.h.id] : null;
+    if (U) bzUprAplikuj(e, U, s, gm);
+  });
   /* kola: hody z karet zdědí kolo z předchozího záznamu */
   let k0 = null;
   for (let j = L.length - 1; j >= 0; j--) {

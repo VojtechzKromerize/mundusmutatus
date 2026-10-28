@@ -42,6 +42,9 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
   (`kStavVliv`), Svéhlavost (`kHodNabidka`), Šrám po minutí (`bojJaUprav` → `sram` v útoku, vypravěč odečte), O vlásek (reakce `vlasek`),
   kousky za bonusovou akci a Hazard v pruhu tahu (`bdmStrTahHtml`), Gut Shot jako připomínka vypravěči. `mm_boj_utok` teď ukládá i `wm` a `man`
   (dřív se jen kontrolovaly – Graze a manévry z telefonu k vypravěči nedošly).
+- 2026-10-28 **Úprava řádku herního záznamu** (vypravěč, 24): v podrobnostech řádku „✎ Upravit záznam“ – cíl, hod, výsledek (i vlastní text),
+  zranění, typ zranění a poznámka. Oprava leží vedle původních dat (`o.upr` v BLOGG, `upr` u řádku `s.zaz` – vidí ji hráči, `s.hupr[id]`
+  u hodu z karty) a řádek ji použije při sestavení (`bzUprAplikuj`); zaškrtnuté „opravit i životy“ srovná HP cíle o rozdíl (`bzHpOprav`).
 
 ## Hotovo
 
