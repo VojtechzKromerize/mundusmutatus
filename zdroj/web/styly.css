@@ -158,6 +158,8 @@ svg#map:active{cursor:grabbing}
 .diolegend{border-top:1px solid var(--rule);padding-top:10px;display:flex;flex-direction:column;gap:6px;font-size:.92rem}
 .diolegend ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:4px 14px}
 .dsw{display:inline-block;width:14px;height:10px;margin-right:6px;vertical-align:0;border:1.5px solid}
+/* vrstva Hlavní hráči: erb mocnosti v legendě (2026-10-28) */
+.hracerb{width:22px;height:auto;vertical-align:-6px;margin-right:6px}
 .vrnsw{width:18px;height:18px;margin-right:6px;vertical-align:-4px}
 .vrnp{margin:.5em 0}
 .gmnamet{border-left:3px solid var(--gold);padding-left:8px;font-size:.92rem}

@@ -9,7 +9,8 @@ a kusy jedné diecéze se nesloučily. Skript nad současnými daty:
   2. provede operace níže – PRIRAD (kraj patří zemi, bere jen zemím v seznamu „ber“ a prázdné ploše) a VYPLN (jen prázdná plocha),
   3. drobné mezery na souši (do 0,3 čtverečního stupně) přidá sousedovi s nejdelší společnou hranicí,
   4. barvy sousedních zemí na podkladu (NBRS) poskládá ze zemí, aby jejich hranice nešly po dřívějším okraji mapy,
-  5. zapíše změněné obrysy do 02b (NBRS, DUCHY_POLY, DIO_POLY), nové země a diecéze do 02 (DUCHY, DIO, DIO_ORDER) mezi značky
+  5. sloučí země mocností vrstvy Hlavní hráči (HRACI v 02) do obrysů HRACI_GEO s místem erbu,
+  6. zapíše změněné obrysy do 02b (NBRS, DUCHY_POLY, DIO_POLY, HRACI_GEO), nové země a diecéze do 02 (DUCHY, DIO, DIO_ORDER) mezi značky
      /* hranice_doplnit.py {…} */ a soubory naformátuje Prettierem.
 
 Hranice jsou přibližné (rešerše: Engel o Uhrách, dobové mapy říše); moře se kreslí přes ně, obrysy smějí do moře přesahovat.
@@ -497,6 +498,12 @@ def spocti():
             d["seat"] = [KG.R3(c) for c in nearest_points(jadro if not jadro.is_empty else D[k], Point(*d["seat"]))[0].coords[0]]
             d["mimo"] = 1
         vys["dio_nove"].append(d)
+    # ---- hlavní hráči (HRACI v 02): mocnost = sloučené země; obrys a místo erbu
+    vys["hraci"] = {}
+    for h in KG.cti_js("DUCHY", "HRACI")["HRACI"]:
+        g = unary_union([G[k] for k in h["z"] if k in G]).buffer(0.003).buffer(-0.003)
+        lab, _ = KG.stitek(g, souse_g)
+        vys["hraci"][h["id"]] = {"lab": lab, "rs": KG.kruhy_out(g, tol=0.006)}
     vys["zbyle"] = (zbyle_z, zbyle_d)
     vys["G"], vys["D"] = G, D
     vys["zmenene"] = sorted(k for k in puv if jina(G[k], puv[k])), sorted(k for k in puv_d if jina(D[k], puv_d[k]))
@@ -536,6 +543,9 @@ def zapis(V):
         if re.sub(r"\s", "", t[a:b]) != re.sub(r"\s", "", text):
             t = t[:a] + text + t[b:]
     t = blok(t, "diecéze", "\n".join(f"  {k}: {KG.js(rs)}," for k, rs in V["dio_nove_poly"].items()), "DIO_POLY")
+    if "const HRACI_GEO = " not in t:
+        t = t.replace("const DUCHY_POLY = {", "/* obrysy mocností vrstvy Hlavní hráči a místo erbu (počítá podklady/hranice_doplnit.py z HRACI v 02) */\nconst HRACI_GEO = {};\nconst DUCHY_POLY = {", 1)
+    t = blok(t, "hraci", "\n".join(f"  {k}: {KG.js(v)}," for k, v in V["hraci"].items()), "HRACI_GEO")
     open(KG.F02B, "w").write(t)
     t = open(KG.F02).read()
     t = blok(t, "zeme", "\n".join(KG.js(u) + "," for u in V["duchy_nove"]), "DUCHY")

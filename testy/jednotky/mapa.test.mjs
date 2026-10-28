@@ -12,6 +12,7 @@ before(async () => {
 });
 after(() => S && S.zavri());
 const V = vyraz => JSON.parse(S.ev(`JSON.stringify(${vyraz})`));
+const KOREN = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
 
 test("mapa: doplněná města doby jsou mezi místy mapy", () => {
   const n = new Set(V(`PLACES.map(p => p.name)`));
@@ -362,6 +363,32 @@ test("země a diecéze pokrývají souš celé mapy a nekončí rovnou čarou u 
   for (const k of ["jis", "spz", "zfr", "mac", "tem", "sev", "sed", "hes", "wur", "aug", "sva", "rae"]) assert.ok(id.has(k), k);
   /* sídlo biskupa za okrajem mapy: popisek uvnitř mapy, bez značky stolce */
   assert.deepEqual(V(`DIO.filter(d => !(d.seat[0] > 9.25 && d.seat[0] < 23.25 && d.seat[1] > 44.15 && d.seat[1] < 55.65)).map(d => d.id)`), []);
+});
+
+test("vrstva Hlavní hráči: mocnosti ze zemí, každá s erbem a vlastní barvou (2026-10-28, Vojta)", async () => {
+  const H = V(`HRACI.map(h => ({id: h.id, c: h.c, z: h.z}))`);
+  assert.equal(H.length, 13);
+  const zeme = new Set(V(`DUCHY.map(u => u.id)`)),
+    uz = new Set();
+  for (const h of H) {
+    assert.ok(fs.existsSync(path.join(KOREN, "art", "erby", `hrac-${h.id}.webp`)), "erb " + h.id);
+    for (const z of h.z) {
+      assert.ok(zeme.has(z), h.id + ": " + z);
+      assert.ok(!uz.has(z), "země ve dvou mocnostech: " + z);
+      uz.add(z);
+    }
+  }
+  assert.equal(new Set(H.map(h => h.c)).size, H.length, "každá mocnost má jinou barvu");
+  await S.ev(`typeof drawMapK === "function" || mmLina("mapa")`);
+  if (V(`typeof drawMapK`) !== "function") return;
+  assert.ok(V(`HRACI.every(h => HRACI_GEO[h.id] && HRACI_GEO[h.id].rs.length && HRACI_GEO[h.id].lab.length === 2)`));
+  S.ev(`document.getElementById("lyHraci").click(); st.zoom = "vse"; st.vb = null; drawMapK()`);
+  assert.equal(V(`document.querySelectorAll("#map .hracerbm image").length`), 13);
+  assert.equal(V(`document.getElementById("hraclegend").hidden`), false);
+  /* zapnutí Zemí a knížectví vrstvu vypne (obě barví celé země) */
+  S.ev(`document.getElementById("lyDuchy").click()`);
+  assert.equal(V(`st.hraci`), false);
+  S.ev(`document.getElementById("lyDuchy").click(); st.zoom = "all"; drawMapK()`);
 });
 
 test("moře nepřekrývá žádné místo mapy (sídla, města, hrady, zeměpis) a trasa po souši nevede přes vodu (2026-10-27)", async () => {

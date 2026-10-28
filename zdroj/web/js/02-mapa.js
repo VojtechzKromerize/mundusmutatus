@@ -693,6 +693,7 @@ let st = {
   misto: null,
   dio: false,
   duchy: false,
+  hraci: false,
   dom: false,
   party: false,
   measure: false,
@@ -4508,6 +4509,101 @@ const DUCH_NOLBL = new Set([
   "ven",
   "tyr",
 ]);
+/* vrstva Hlavní hráči (2026-10-28, Vojta): mocnosti jara 1458 jako sloučené země (z: id v DUCHY; obrys a místo erbu spočítá
+   podklady/hranice_doplnit.py do HRACI_GEO v 02b). Barva podle erbu; sousedé mají odlišný odstín (Čechy × Polsko × Braniborsko, Čechy × Rakousy, Braniborsko × Pomořany). */
+const HRACI = [
+  {
+    id: "cze",
+    n: "České království",
+    c: "#c8372f",
+    z: DUCHY.filter(u => u.dom).map(u => u.id),
+    t: "Koruna česká s Moravou, Slezskem a oběma Lužicemi. Králem byl 2. března zvolen Jiří z Poděbrad; korunovace ho teprve čeká a vedlejší země i papež ho zatím neuznali.",
+  },
+  {
+    id: "uhr",
+    n: "Uherské království",
+    c: "#3e933e",
+    z: ["hun", "jis", "mac", "tem", "sev", "sed", "sla", "chr", "frk"],
+    t: "Svatoštěpánská koruna se Slavonií, Chorvatskem a Sedmihradskem. V lednu byl zvolen patnáctiletý Matyáš Hunyadi, kterého Jiří z Poděbrad propustil z Prahy a zasnoubil se svou dcerou Kateřinou. Horní Uhry dosud drží Jan Jiskra.",
+  },
+  {
+    id: "pol",
+    n: "Polské království",
+    c: "#7d1a2c",
+    z: ["mpl", "vlp", "sie", "kuj", "maz", "rus", "osz", "kpr", "gpo", "spz"],
+    t: "Král Kazimír Jagellonský vede pátým rokem válku s Řádem o Prusy; lenní Mazovsko a Gdaňské Pomoří stojí při něm.",
+  },
+  {
+    id: "lit",
+    n: "Velkoknížectví litevské",
+    c: "#d0653f",
+    z: ["lit"],
+    t: "Velkým knížetem je týž Kazimír, Litva však zůstává zemí vlastních pánů a válce v Prusích se vyhýbá.",
+  },
+  {
+    id: "rad",
+    n: "Řád německých rytířů",
+    c: "#6f6f6f",
+    z: ["rad"],
+    t: "Zbytek řádového státu kolem Královce. Velmistr Ludvík z Erlichshausenu přišel o Malbork a dluží žoldnéřům obrovské sumy.",
+  },
+  {
+    id: "bra",
+    n: "Braniborsko",
+    c: "#a8503c",
+    z: ["brb", "nmk"],
+    t: "Kurfiřt Fridrich II. Železný z rodu Hohenzollernů; vykoupil Novou marku a v zástavě drží i Dolní Lužici.",
+  },
+  {
+    id: "pom",
+    n: "Pomořanská vévodství",
+    c: "#e2b2a2",
+    z: ["pwo", "pst", "psl"],
+    t: "Vévodové z rodu Gryfů vládnou ve Štětíně, Volgastu a Słupsku; hanzovní města při pobřeží si vládnou sama.",
+  },
+  {
+    id: "sas",
+    n: "Saské země Wettinů",
+    c: "#dfa936",
+    z: ["sxw", "mis", "thu", "vog"],
+    t: "Kurfiřt Fridrich II. Dobrotivý vládne v Míšeňsku, jeho bratr Vilém v Durynsku; bratrská válka skončila před sedmi lety. Vilém si přes manželku Annu, sestru zesnulého krále Ladislava, činí nárok i na českou korunu.",
+  },
+  {
+    id: "bav",
+    n: "Bavorská vévodství",
+    c: "#2f78a8",
+    z: ["bla", "bmu", "hfa"],
+    t: "Wittelsbachové: Ludvík Bohatý v Landshutu, Albrecht III. v Mnichově a falcká linie v Horní Falci.",
+  },
+  {
+    id: "fra",
+    n: "Franky",
+    c: "#e7a7a0",
+    z: ["kul", "ans", "bam", "wur", "nur", "hen"],
+    t: "Franské země Hohenzollernů, biskupů würzburských a bamberských a říšského Norimberku; vévodou franským se píše biskup würzburský.",
+  },
+  {
+    id: "rak",
+    n: "Rakouské země",
+    c: "#e9b9b4",
+    z: ["rpe", "rne", "sty", "kor", "kra", "tyr", "tst", "paz", "zfr"],
+    t: "Dědictví Habsburků od Dunaje po Jadran a Tyrolsko. Po smrti krále Ladislava se o Rakousy přou císař Fridrich III. a jeho bratr Albrecht VI.",
+  },
+  {
+    id: "dan",
+    n: "Dánské království",
+    c: "#d48a26",
+    z: ["dan", "sle"],
+    t: "Král Kristián I. Oldenburský nosí korunu dánskou, norskou i švédskou; Šlesvicko je lénem jeho koruny.",
+  },
+  {
+    id: "ben",
+    n: "Benátská republika",
+    c: "#1f5f8b",
+    z: ["ven", "fur", "ist", "dal"],
+    t: "Nejjasnější republika vládne pevnině od Bergama po Furlánsko, Istrii a dalmatským ostrovům; dóžetem je Pasquale Malipiero.",
+  },
+];
 const haversine = (a, b) => {
   const R = 6371,
     toR = Math.PI / 180,
@@ -7085,6 +7181,7 @@ function layerOff(key, btn, leg) {
 const domLeg = document.getElementById("domlegend");
 toggleBtn("lyDio", "dio", () => {
   if (st.dio) {
+    layerOff("hraci", "lyHraci", hracLeg);
     layerOff("duchy", "lyDuchy", duchLeg);
     layerOff("dom", "lyDom", domLeg);
     layerOff("kraje", "lyKraje", krajLeg);
@@ -7093,6 +7190,7 @@ toggleBtn("lyDio", "dio", () => {
 });
 toggleBtn("lyDuchy", "duchy", () => {
   if (st.duchy) {
+    layerOff("hraci", "lyHraci", hracLeg);
     layerOff("dio", "lyDio", dioLeg);
     layerOff("dom", "lyDom", domLeg);
     layerOff("kraje", "lyKraje", krajLeg);
@@ -7101,11 +7199,26 @@ toggleBtn("lyDuchy", "duchy", () => {
 });
 toggleBtn("lyDom", "dom", () => {
   if (st.dom) {
+    layerOff("hraci", "lyHraci", hracLeg);
     layerOff("dio", "lyDio", dioLeg);
     layerOff("duchy", "lyDuchy", duchLeg);
     layerOff("kraje", "lyKraje", krajLeg);
   }
   domLeg.hidden = !st.dom;
+});
+const hracLeg = document.getElementById("hraclegend");
+hracLeg.innerHTML = `<span class="lbl">Hlavní hráči jara 1458</span><ul>${HRACI.map(
+  h =>
+    `<li><img class="hracerb" src="art/erby/hrac-${h.id}.webp" alt="" loading="lazy"><span class="dsw" style="border-color:${h.c};background:${h.c};opacity:.7"></span><b>${h.n}</b> — ${h.t}</li>`,
+).join("")}</ul><p class="lbl">Mocnosti jsou sloučené ze zemí vrstvy Země a knížectví; hranice jsou schematické.</p>`;
+toggleBtn("lyHraci", "hraci", () => {
+  if (st.hraci) {
+    layerOff("dio", "lyDio", dioLeg);
+    layerOff("duchy", "lyDuchy", duchLeg);
+    layerOff("dom", "lyDom", domLeg);
+    layerOff("kraje", "lyKraje", krajLeg);
+  }
+  hracLeg.hidden = !st.hraci;
 });
 const krajLeg = document.getElementById("krajlegend");
 krajLeg.innerHTML = `<span class="lbl">Landfrídy kolem roku 1450</span><ul>${Object.values(LANDFR)
@@ -7122,6 +7235,7 @@ krajLeg.innerHTML = `<span class="lbl">Landfrídy kolem roku 1450</span><ul>${Ob
   )}</ul><p class="lbl">Kraje bez barvy vlastní landfríd neměly, nebo není doložen. Hranice krajů jsou schematické – kreslené kolem jejich středů.</p>`;
 toggleBtn("lyKraje", "kraje", () => {
   if (st.kraje) {
+    layerOff("hraci", "lyHraci", hracLeg);
     layerOff("dio", "lyDio", dioLeg);
     layerOff("duchy", "lyDuchy", duchLeg);
     layerOff("dom", "lyDom", domLeg);
