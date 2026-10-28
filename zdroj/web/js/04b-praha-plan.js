@@ -1278,6 +1278,7 @@ function pDraw() {
   svg.appendChild(hov);
 }
 function pParty() {
+  if (druzinaNikde()) return null;
   if (HRA && (HRA.misto || HRA.praha)) {
     if (!HRA.praha || !PRB[HRA.praha] || (HRA.misto && HRA.misto !== "Praha")) return null;
     const L = ZAPISY[ZAPISY.length - 1];

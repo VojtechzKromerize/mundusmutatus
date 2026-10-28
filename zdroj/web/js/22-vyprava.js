@@ -694,7 +694,7 @@ async function vyNacti() {
 
 /* ---------- návrat cest a času (2026-10-18): před každou změnou času, místa nebo cesty se uloží předchozí stav
    (posledních 20, ve stavu výpravy jen pro vypravěče); Zpět ho vrátí i s časem, Vynulovat smaže stopu cest na mapách ---------- */
-const HRAKL = ["datum", "hodina", "misto", "praha", "cesta", "poloha", "putovani", "stopaOd"];
+const HRAKL = ["datum", "hodina", "misto", "praha", "cesta", "poloha", "putovani", "stopaOd", "nikde"];
 async function hraZpetZapis(popis) {
   if (!GMV || !window.MMDB || !HRA) return;
   try {
@@ -783,6 +783,33 @@ async function hraCestyVynuluj() {
     document.documentElement.classList.remove("gmbusy");
   }
 }
+/* družina zatím nikde (2026-10-28, Vojta: zkušební cesty pryč, tažení ještě nezačalo): smaže místo, polohu, cesty i stopu;
+   mapy ji ukážou, až dostane místo nebo vyrazí (hraUloz zruší značku nikde). Zápisy Kroniky zůstávají; vrátit jde Zpět. */
+async function hraDruzinaNikde() {
+  if (!GMV || !window.MMDB) {
+    mmHlasG("Družinu lze přesunout jen na webu napojeném na databázi.");
+    return;
+  }
+  if (
+    !confirm(
+      "Družina zatím nikde?\nSmaže se její místo, poloha v Praze, probíhající cesta i stopa cest na mapách.\nČas a zápisy Kroniky zůstanou. Jde to vrátit tlačítkem Zpět.",
+    )
+  )
+    return;
+  await hraZpetZapis("družina zatím nikde");
+  document.documentElement.classList.add("gmbusy");
+  try {
+    HRA = await MMDB.nastavHru({misto: null, poloha: null, praha: null, cesta: null, putovani: null, stopaOd: null, nikde: true});
+    __D.HRA = HRA;
+    hraPo();
+    if (curView === "vyprava") renderVyprava();
+    mmHlasG("Družina zatím na mapách není – ukáže se, až dostane místo nebo vyrazí.", 5000);
+  } catch (err) {
+    mmHlasG("Nepodařilo se uložit: " + err.message, 7000);
+  } finally {
+    document.documentElement.classList.remove("gmbusy");
+  }
+}
 function hraZpetHtml() {
   const L = ((VY && VY.zpet) || []).slice().reverse();
   return `<details class="bjapd vyzpet"><summary>Cesty a čas družiny – vrátit nebo vynulovat${L.length ? ` <small>(${L.length})</small>` : ""}</summary>
@@ -801,11 +828,15 @@ function hraZpetHtml() {
           ).join("")}</ul>`
         : `<p class="rsmall">Zatím nic k vrácení.</p>`
     }
-    <p><button type="button" class="gbtn ghost" data-vyzpet="">↶ Zpět o krok</button> <button type="button" class="gbtn ghost" data-vynuluj>Vynulovat stopu cest na mapách</button></p></details>`;
+    <p><button type="button" class="gbtn ghost" data-vyzpet="">↶ Zpět o krok</button> <button type="button" class="gbtn ghost" data-vynuluj>Vynulovat stopu cest na mapách</button> <button type="button" class="gbtn ghost" data-vynikde>Družina zatím nikde</button></p></details>`;
 }
 document.addEventListener("click", e => {
-  const t = e.target.closest && e.target.closest("[data-vyzpet],[data-vynuluj]");
+  const t = e.target.closest && e.target.closest("[data-vyzpet],[data-vynuluj],[data-vynikde]");
   if (!t || !GMV) return;
+  if (t.matches("[data-vynikde]")) {
+    hraDruzinaNikde();
+    return;
+  }
   if (t.matches("[data-vynuluj]")) {
     hraCestyVynuluj();
     return;

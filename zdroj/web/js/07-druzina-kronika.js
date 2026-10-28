@@ -87,7 +87,10 @@ const TRAKTATY = /*@TRAKTATY@*/ [];
 const TRBY = Object.fromEntries(TRAKTATY.map(t => [t.id, t]));
 /* Herní stav nastavený vypravěčem (datum, hodina, kde je družina); bez něj platí poslední zápis Kroniky */
 var HRA = __D.HRA || null;
+/* „Družina zatím nikde“ (2026-10-28, Vojta): vypravěč smazal místo i cesty – mapy ji neukážou, dokud nedostane nové místo nebo cestu */
+const druzinaNikde = () => !!(HRA && HRA.nikde && !HRA.misto && !(HRA.cesta && HRA.cesta.track));
 function partyPlace() {
+  if (druzinaNikde()) return null;
   return HRA && HRA.misto ? HRA.misto : ZAPISY.length ? ZAPISY[ZAPISY.length - 1].place : null;
 }
 function partyDate() {
@@ -245,7 +248,7 @@ function stopaPopis() {
 function stopaGmHtml(zid) {
   if (!GMV) return "";
   const od = stopaOd();
-  return `<p class="stopagm">${zid ? `<button type="button" class="gbtn ghost" data-stopaod="${zid}" title="Na mapě se stopa začne kreslit od místa, kde tento zápis končí; starší zápisy v Kronice zůstanou">Začít stopu tímto zápisem</button>` : ""}<button type="button" class="gbtn ghost" data-stopasmaz title="Stopa začne od dnešního místa družiny; zápisy Kroniky ani cesty se nemažou">Smazat stopu</button>${od ? `<button type="button" class="gbtn ghost" data-stopacela title="Zrušit počátek – stopa zase od začátku tažení">Vrátit celou stopu</button>` : ""}</p>`;
+  return `<p class="stopagm">${zid ? `<button type="button" class="gbtn ghost" data-stopaod="${zid}" title="Na mapě se stopa začne kreslit od místa, kde tento zápis končí; starší zápisy v Kronice zůstanou">Začít stopu tímto zápisem</button>` : ""}<button type="button" class="gbtn ghost" data-stopasmaz title="Stopa začne od dnešního místa družiny; zápisy Kroniky ani cesty se nemažou">Smazat stopu</button>${od ? `<button type="button" class="gbtn ghost" data-stopacela title="Zrušit počátek – stopa zase od začátku tažení">Vrátit celou stopu</button>` : ""}<button type="button" class="gbtn ghost" data-vynuluj title="Smazat cesty z Výpravy a zrušit probíhající cestu; místo družiny zůstane">Vynulovat cesty</button><button type="button" class="gbtn ghost" data-vynikde title="Smazat místo, cesty i polohu v Praze – družina zatím na mapách nebude">Družina zatím nikde</button></p>`;
 }
 /* volba diváka (pamatuje si ji prohlížeč) a stav stopy u posuvníku „Kde jsme byli kdy“ (plní 09) */
 function stopaUiHtml() {
@@ -319,8 +322,9 @@ function stopaObnov() {
 }
 function drawParty(svg, s, k) {
   if (!st.party || (!ZAPISY.length && !HRA)) return;
-  const lim = st.cas != null && ZAPISY[st.cas] ? st.cas : null,
-    LZ = lim != null ? ZAPISY[lim] : null,
+  const lim = st.cas != null && ZAPISY[st.cas] ? st.cas : null;
+  if (lim == null && druzinaNikde()) return;
+  const LZ = lim != null ? ZAPISY[lim] : null,
     tz = LZ ? cT({datum: LZ.datum, hodina: LZ.hodina ?? 23}) : null;
   const R = stopaTed(lim),
     tOd = R.odT ? cT(R.odT) : null,

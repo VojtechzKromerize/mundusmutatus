@@ -774,7 +774,7 @@ function sDraw() {
     });
   }
   /* družina: dosavadní cesta a vlaječka */
-  if (sst.party && (ZAPISY.length || HRA)) {
+  if (sst.party && (ZAPISY.length || HRA) && !druzinaNikde()) {
     const g = G({"pointer-events": "none"});
     const look = n => {
       const p = placeBy(n);

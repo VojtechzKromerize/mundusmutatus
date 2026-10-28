@@ -657,6 +657,7 @@ const cDokonciG = h => {
 };
 async function hraUloz(h) {
   h = cDokonciG(Object.assign({}, h));
+  if (h.misto || h.cesta) h.nikde = null;
   if (h.hodina != null && HRA && HRA.hodina != null && h.hodinaPred === undefined && (h.datum == null || h.datum === HRA.datum))
     h.hodinaPred = +HRA.hodina;
   if (!window.MMDB) {
@@ -933,7 +934,7 @@ document.addEventListener("click", e => {
     const n = ZAPISY.length,
       v = +r.value;
     if (v >= n) {
-      o.textContent = `teď · ${partyDate()}${partyPos() ? " · " + partyPos().name : ""}`;
+      o.textContent = `teď · ${partyDate()}${partyPos() ? " · " + partyPos().name : druzinaNikde() ? " · družina zatím nikde" : ""}`;
       return;
     }
     const z = ZAPISY[v];

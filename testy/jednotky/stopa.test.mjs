@@ -172,3 +172,28 @@ test("mapa: stopa po cestách se šipkami, zastávky s datem, „Družina je tad
   assert.match(out.panel, /Družina je tady/);
   assert.match(out.panel, /data-stopasmaz/, "vypravěč má v panelu Smazat stopu");
 });
+
+test("družina zatím nikde: mapa ji ani její stopu neukáže, nové místo ji vrátí; vypravěč má tlačítka u stopy (2026-10-28)", () => {
+  const out = JSON.parse(
+    S.ev(`JSON.stringify((() => {
+      const h0 = HRA;
+      st.party = true;
+      st.cas = null;
+      const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      HRA = {datum: "1458-03-03", hodina: 10, nikde: true, misto: null, putovani: null, cesta: null};
+      drawParty(svg, 1, 1);
+      const nikde = {kresba: svg.innerHTML, pos: partyPos(), misto: partyPlace(), praha: pParty ? pParty() : null};
+      HRA = {datum: "1458-03-03", hodina: 10, nikde: true, misto: "Kutná Hora"};
+      const zpet = partyPlace();
+      HRA = h0;
+      return {nikde, zpet, gm: stopaGmHtml("")};
+    })())`),
+  );
+  assert.equal(out.nikde.kresba, "");
+  assert.equal(out.nikde.pos, null);
+  assert.equal(out.nikde.misto, null);
+  assert.equal(out.nikde.praha, null);
+  assert.equal(out.zpet, "Kutná Hora");
+  assert.match(out.gm, /data-vynuluj/);
+  assert.match(out.gm, /data-vynikde/);
+});
