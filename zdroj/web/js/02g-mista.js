@@ -366,7 +366,7 @@ const CITYINFO = {
   },
   Kouba: {
     t: "Pohraniční město",
-    n: "Cham, pohraniční město na Řezné (Regen) u cesty z Čech přes Všerubský průsmyk, kterouž kdysi střežil říšský hrad. Bouře husitské mu těžce daly zabrat.",
+    n: "Cham, pohraniční město na Řezné (Regen) u cesty z Čech přes Všerubský průsmyk, kterouž kdysi střežil říšský hrad. Bouře husitské město těžce postihly.",
   },
   Altenburg: {
     t: "Rezidenční město",
@@ -2624,7 +2624,7 @@ const CITYINFO = {
   },
   "Německý Brod": {
     t: "Horní město",
-    n: "Královské město, které vzniklo z horníků a německých osadníků na pomezí českomoravském; roku 1422 se tu porazil husitský Žižka vojsko krále Zikmunda.",
+    n: "Královské město, které vzniklo z horníků a německých osadníků na pomezí českomoravském; léta Páně 1422 zde husitský Žižka porazil vojsko krále Zikmunda.",
   },
   Sedlec: {
     t: "Cisterciácké opatství",

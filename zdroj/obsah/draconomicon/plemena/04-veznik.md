@@ -9,7 +9,7 @@ mapa: 14.25, 50.88; 14.58, 50.43; 15.28, 50.47; 16.12, 50.62
 ---
 ## Kde přebývá
 
-V pískovcových skalních městech: v Českosaském Švýcarsku, na Kokořínsku, v Prachovských a Adršpašských skalách a v Lužických horách.
+V pískovcových skalních městech: v pískovcových skalách nad Děčínem a Hřenskem, na Kokořínsku, v Prachovských a Adršpašských skalách a v Lužických horách.
 
 ## Čím se živí a jak loví
 

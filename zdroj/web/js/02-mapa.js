@@ -2523,7 +2523,7 @@ const DIO = [
     c: "dvr",
     name: "Arcidiecéze ostřihomská",
     seat: [18.74, 47.79],
-    note: "Primas Uher; západní a střední Slovensko a okolí Ostřihomi. Arcibiskup Dionýz Széchy, který má korunovat uherské krále.",
+    note: "Primas Uher; západní a střední Horní Uhry a okolí Ostřihomi. Arcibiskup Dionýz Széchy, který má korunovat uherské krále.",
   },
   {
     id: "dnt",
@@ -2533,7 +2533,7 @@ const DIO = [
     note: "Severozápad Uher: Nitransko, Trenčansko a Pováží. Sousedí s Moravou.",
   },
   {id: "drb", c: "dre", name: "Diecéze rábská", seat: [17.63, 47.69], note: "Západ Uher jižně od Dunaje až k Litavě."},
-  {id: "deg", c: "dpr", name: "Diecéze jágerská", seat: [20.22, 47.95], note: "Severovýchod Uher a východní Slovensko."},
+  {id: "deg", c: "dpr", name: "Diecéze jágerská", seat: [20.22, 47.95], note: "Severovýchod Uher a východní Horní Uhry."},
   /* ---- SEVER (mapa 2026-10-27) ---- */
   {
     id: "dbm",
@@ -2794,7 +2794,7 @@ const DUCHY = [
     s: "Čechy",
     h: "pod",
     dom: 1,
-    note: "Jádro Koruny. Den před začátkem tažení, 2. března 1458, zvolili stavové na Staroměstské radnici králem Jiřího z Poděbrad.",
+    note: "Jádro Koruny. Dne 2. března 1458 zvolili stavové na Staroměstské radnici králem Jiřího z Poděbrad.",
     c: "dpr",
     lab: [14.236, 49.815],
     w: 278.0,

@@ -983,7 +983,7 @@ function sDetail() {
     S = SVB[sst.sel];
   if (!S) {
     d.classList.add("empty");
-    d.innerHTML = `<span class="lbl">Známý svět · březen 1458</span><p>Klikněte na zemi na mapě nebo v seznamu pod ní. Uvidíte, kdo v ní vládne, odkud a jaké víry; země, s nimiž je ve válce či sporu, se rozsvítí červeně, napjaté vztahy oranžově a spojenci modře.</p><p class="rsmall">Hranice jsou přibližné: středověké státy neměly ostré čáry, ale panství, léna a sféry vlivu. Zlatá přerušovaná čára obepíná Svatou říši římskou; po přiblížení se v ní ukážou kurfiřtská knížectví (♔). Sedmým kurfiřtem je český král.</p>`;
+    d.innerHTML = `<span class="lbl">Známý svět · březen 1458</span><p>Klikněte na zemi na mapě nebo v seznamu pod ní. Uvidíte, kdo v ní vládne, odkud a jaké víry; země, s nimiž je ve válce či sporu, se rozsvítí červeně, napjaté vztahy oranžově a spojenci modře.</p><p class="rsmall">Hranice jsou přibližné: panství, léna a sféry vlivu nemají ostré čáry. Zlatá přerušovaná čára obepíná Svatou říši římskou; po přiblížení se v ní ukážou kurfiřtská knížectví (♔). Sedmým kurfiřtem je český král.</p>`;
     return;
   }
   d.classList.remove("empty");

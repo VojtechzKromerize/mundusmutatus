@@ -67,7 +67,7 @@
 - rod | pod, ste | První manželkou Jiřího byla Kunhuta ze Šternberka († 1449), matka Bočka, Viktorina, Barbory, Jindřicha staršího, Kateřiny a Zdeňky.
 - rod | hra, ste | Matkou mladých pánů Jindřicha IV. a Heřmana z Hradce je Kateřina ze Šternberka; jejich poručníkem se po Arnoštovi z Leskovce stal Zdeněk ze Šternberka.
 - rod | roz, hlo | Jan II. z Rožmberka je ženatý s Annou, dcerou Jindřicha IX. Hlohovského; roku 1456 se jim narodil syn Jindřich V.
-- rod | roz, sva | Ludmila, dcera Oldřicha II. z Rožmberka a Kateřiny z Vartenberka, se o masopustu 1452 provdala za Bohuslava ze Švamberka, přinesla mu věnem Bor a zemřela před rokem 1458. Sám Oldřich II. si po smrti první ženy nejspíš vzal Kateřinu ze Švamberka († 1451, pohřbena v Třeboni) – roku 1442 oslovuje Hynka Krušinu ze Švamberka „tchánem“.
+- rod | roz, sva | Ludmila, dcera Oldřicha II. z Rožmberka a Kateřiny z Vartenberka, se o masopustu 1452 provdala za Bohuslava ze Švamberka, přinesla mu věnem Bor a zemřela před rokem 1458. Sám Oldřich II. si po smrti první ženy nejspíš vzal Kateřinu ze Švamberka, dceru Hynka Krušiny († 1451, pohřbena v Třeboni).
 - tajné rod | sli, sva | Konstancie Šliková se roku 1458 stane druhou manželkou ovdovělého Bohuslava ze Švamberka (zda před 3. březnem, nebo po něm, není známo).
 - rod | roz, var | Oldřich II. z Rožmberka se oženil s Kateřinou († 1436), dcerou svého poručníka Čeňka z Vartenberka, rytíře Dračího řádu; jejich syny jsou Jan II. a biskup Jošt.
 - rod | kol, ste | Hanuš II. z Kolovrat je ženatý s Kateřinou ze Šternberka.
@@ -105,7 +105,7 @@
 - spor | osm, hun | Mehmed II. byl roku 1456 odražen od Bělehradu Janem Hunyadim; Osmané a Uhry stojí proti sobě na Dunaji a v Srbsku.
 - rod | roz, sbg | Jindřich IV. z Rožmberka († 1457) se roku 1453 oženil s Anežkou, dcerou Jana ze Schaunberku; bezdětná vdova sedí na hradě Rožmberku, který dostala jako věnnou zástavu. Hrabě Bernhard ze Schaunberku má za ženu Anežku z Wallsee, neteř Oldřicha II.
 - spoj | rab, pap | Kancléř Prokop z Rabštejna je dávným přítelem kardinála Eneáše Silvia Piccolominiho, který mu roku 1444 věnoval list De fortuna.
-- rod | smi, kol | Kateřina Smiřická (doložena 1434–1457), nejspíš sestra popraveného Jana, je manželkou Albrechta Krakovského z Kolovrat.
+- rod | smi, kol | Kateřina Smiřická (1434–1457), nejspíš sestra popraveného Jana, je manželkou Albrechta Krakovského z Kolovrat.
 - spoj | ste, smi | Poručníkem nezletilých synů popraveného Jana Smiřického se stal Zdeněk Konopišťský ze Šternberka.
 - rod | lob, ryz | Jan Popel z Lobkovic je ženatý s Annou, dcerou Děpolta Švihovského z Rýzmberka na Velharticích.
 - rod | kol, var | Bedřich z Kolovrat na Libštejně († 1432) měl za manželku Kateřinu z Vartenberka († 1445); jejich synové Jindřich a Beneš žijí.

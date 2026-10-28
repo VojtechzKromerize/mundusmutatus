@@ -138,7 +138,7 @@
 # Obchodní cesty po souši
 - obchod | Zlatá cesta Praha – Norimberk | Praha; Plzeň; Norimberk
 - obchod | Norimberk – Frankfurt – Kolín – Bruggy | Norimberk; Frankfurt; Kolín nad Rýnem; 5.6 50.75; Brusel; Bruggy
-- obchod | Královská cesta (Via Regia) | Frankfurt; Erfurt; Lipsko; 14.2 51.2; Vratislav; Krakov
+- obchod | Vysoká cesta | Frankfurt; Erfurt; Lipsko; 14.2 51.2; Vratislav; Krakov
 - obchod | Brennerská cesta Augsburg – Benátky | Augsburg; Innsbruck; Bolzano; Trento; 11.6 45.7; Benátky
 - obchod | Dunajská cesta Řezno – Vídeň – Budín | Řezno; Pasov; Linec; Vídeň; 17.1 48.0; Budín
 - obchod | Praha – Vídeň | Praha; 15.3 49.5; 16.0 48.9; Vídeň
