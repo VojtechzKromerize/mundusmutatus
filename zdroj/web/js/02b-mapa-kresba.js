@@ -12480,6 +12480,9 @@ function drawMapK() {
       });
   const sel = st.sel,
     labels = [];
+  /* rámečky ikon míst (2026-10-28): jméno místa se nepoloží přes cizí ikonu, aby v hustých krajích (Slezsko) nepatřilo zdánlivě sousedovi */
+  const ikony = [];
+  const ikonaRam = (x, y, z) => ikony.push([x - z * 0.4, y - z * 0.6, z * 0.8, z * 0.9]);
   const relT = {};
   if (sel && st.rings)
     for (const r of relsFor(sel))
@@ -12525,6 +12528,7 @@ function drawMapK() {
       g.appendChild(el("circle", {cx: x, cy: y, r: (12 * s).toFixed(1), fill: "transparent"}));
       const tier = mistoTier(sd[0], f.city || TOWNSEATS.has(sd[0]));
       if (st.vern) vernKruh(g, vernostMista(sd[0], [f]), x, y, isSel ? 19 : MTZ[tier], 0.64, s);
+      ikonaRam(x, y, (isSel ? 19 : MTZ[tier]) * s);
       if (!f.castle && (f.city || TOWNSEATS.has(sd[0]))) {
         g.appendChild(mapIkEl(TOWNICO, conf, !!f.nbr && !f.city, isSel ? 19 : MTZ[tier], x, y, 0.62, s));
       } else {
@@ -12594,6 +12598,7 @@ function drawMapK() {
       g.appendChild(el("circle", {cx: x, cy: y, r: (12 * s).toFixed(1), fill: "transparent"}));
       const tier = mistoTier(n, typ === "mesto");
       if (st.vern) vernKruh(g, vernostMista(n, []), x, y, MTZ[tier], 0.64, s);
+      ikonaRam(x, y, MTZ[tier] * s);
       g.appendChild(
         mapIkEl(typ === "mesto" ? TOWNICO : CASTLEICO, ["kat", "kal", "mix"].includes(conf) ? conf : "mix", false, MTZ[tier], x, y, 0.64, s),
       );
@@ -12848,7 +12853,7 @@ function drawMapK() {
     }
   }
   drawParty(svg, s, k);
-  const placed = [];
+  const placed = ikony;
   labels.sort((a, b) => a[3] - b[3]);
   const seenLbl = new Set();
   for (const [x, y, t, pri] of labels) {
