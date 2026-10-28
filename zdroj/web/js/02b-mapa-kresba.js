@@ -11843,39 +11843,38 @@ function mapPodklad(Z, vb, s, k) {
     );
     gr.appendChild(el("path", {d, fill: "none", stroke: "var(--water)", "stroke-width": (1.6 * s).toFixed(2), "stroke-linecap": "round"}));
   });
-  /* bažiny a jezera (2026-10-26): samostatná vrstva Bažiny – modravá plocha, vodní čárky a trsy rákosí; jezero vždy */
+  /* bažiny a jezera (2026-10-26): bažiny se kreslí vždy (od 2026-10-28 bez vrstvy) – modravá plocha, vodní čárky a trsy rákosí; jezero vždy */
   const gbz = G({});
-  if (st.baziny)
-    BAZINY.forEach(([, poly], bi) => {
-      const pp = poly.map(c => P(...c));
-      gbz.appendChild(el("path", {d: smoothClosed(pp), fill: "var(--water)", "fill-opacity": ".12", stroke: "none"}));
-      const xs = pp.map(q => q[0]),
-        ys = pp.map(q => q[1]),
-        x0 = Math.min(...xs),
-        x1 = Math.max(...xs),
-        y0 = Math.min(...ys),
-        y1 = Math.max(...ys);
-      let seed = 53 + bi * 89;
-      const rnd = () => {
-        seed = (seed * 16807) % 2147483647;
-        return seed / 2147483647;
-      };
-      const want = Math.min(160, Math.round(((x1 - x0) * (y1 - y0)) / (s * s) / 90));
-      let d = "";
-      for (let n = 0, tries = 0; n < want && tries < want * 4; tries++) {
-        const x = x0 + (x1 - x0) * rnd(),
-          y = y0 + (y1 - y0) * rnd();
-        if (!inPoly(x, y, pp)) continue;
-        n++;
-        const t = s * (0.8 + rnd() * 0.4);
-        if (rnd() < 0.55)
-          d += `M${(x - 1.3 * t).toFixed(1)},${(y - 2.4 * t).toFixed(1)}L${x.toFixed(1)},${y.toFixed(1)}L${(x + 1.3 * t).toFixed(1)},${(y - 2.4 * t).toFixed(1)}M${x.toFixed(1)},${y.toFixed(1)}V${(y - 3 * t).toFixed(1)}`;
-        d += `M${(x - 2.2 * t).toFixed(1)},${(y + 0.7 * t).toFixed(1)}h${(4.4 * t).toFixed(1)}`;
-      }
-      gbz.appendChild(
-        el("path", {d, fill: "none", stroke: "var(--water)", "stroke-width": (0.5 * s).toFixed(2), "stroke-linecap": "round", opacity: ".7"}),
-      );
-    });
+  BAZINY.forEach(([, poly], bi) => {
+    const pp = poly.map(c => P(...c));
+    gbz.appendChild(el("path", {d: smoothClosed(pp), fill: "var(--water)", "fill-opacity": ".12", stroke: "none"}));
+    const xs = pp.map(q => q[0]),
+      ys = pp.map(q => q[1]),
+      x0 = Math.min(...xs),
+      x1 = Math.max(...xs),
+      y0 = Math.min(...ys),
+      y1 = Math.max(...ys);
+    let seed = 53 + bi * 89;
+    const rnd = () => {
+      seed = (seed * 16807) % 2147483647;
+      return seed / 2147483647;
+    };
+    const want = Math.min(160, Math.round(((x1 - x0) * (y1 - y0)) / (s * s) / 90));
+    let d = "";
+    for (let n = 0, tries = 0; n < want && tries < want * 4; tries++) {
+      const x = x0 + (x1 - x0) * rnd(),
+        y = y0 + (y1 - y0) * rnd();
+      if (!inPoly(x, y, pp)) continue;
+      n++;
+      const t = s * (0.8 + rnd() * 0.4);
+      if (rnd() < 0.55)
+        d += `M${(x - 1.3 * t).toFixed(1)},${(y - 2.4 * t).toFixed(1)}L${x.toFixed(1)},${y.toFixed(1)}L${(x + 1.3 * t).toFixed(1)},${(y - 2.4 * t).toFixed(1)}M${x.toFixed(1)},${y.toFixed(1)}V${(y - 3 * t).toFixed(1)}`;
+      d += `M${(x - 2.2 * t).toFixed(1)},${(y + 0.7 * t).toFixed(1)}h${(4.4 * t).toFixed(1)}`;
+    }
+    gbz.appendChild(
+      el("path", {d, fill: "none", stroke: "var(--water)", "stroke-width": (0.5 * s).toFixed(2), "stroke-linecap": "round", opacity: ".7"}),
+    );
+  });
   [...JEZERA, ...JEZERA_V].forEach(([, poly]) => {
     if (!vKresbe(poly, vb)) return;
     const pp = poly.map(c => P(...c));
@@ -12210,7 +12209,7 @@ function mapPodklad(Z, vb, s, k) {
         ),
       );
     }
-  for (const [t, , L] of [...(st.baziny ? BAZINY : []), ...JEZERA, ...JEZERA_V]) {
+  for (const [t, , L] of [...BAZINY, ...JEZERA, ...JEZERA_V]) {
     if (!L) continue;
     const [x, y] = P(L[0], L[1]);
     Z.appendChild(
@@ -12404,20 +12403,7 @@ function drawMapK() {
   /* podklad – krajina, hranice, řeky, lesy, hory, popisky krajiny, papír a rám – je ve vlastní vrstvě #mapz pod mapou: jeho
      filtry (chvění inkoustu, akvarel, papír) jsou na kresbě nejdražší, a tak se kreslí znovu, jen když se změní výřez nebo vrstva,
      která ho mění; výběr rodu, sídla, jejich popisky, vazby a měření kreslí jen horní vrstva #map */
-  const kz = JSON.stringify([
-    D,
-    s,
-    st.dio,
-    st.dom,
-    st.dom ? st.sel : 0,
-    st.duchy,
-    st.kraje,
-    st.roads,
-    st.baziny,
-    st.hosp,
-    st.zpustle,
-    st.zoom === "vse",
-  ]);
+  const kz = JSON.stringify([D, s, st.dio, st.dom, st.dom ? st.sel : 0, st.duchy, st.kraje, st.roads, st.hosp, st.zpustle, st.zoom === "vse"]);
   if (svgZ.dataset.k !== kz) {
     mapPodklad(svgZ, D, s, k);
     svgZ.dataset.k = kz;

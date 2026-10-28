@@ -208,10 +208,11 @@ test("krajina: panel přechodu a zpustlého kraje, Výprava v zpustlém kraji hr
     assert.deepEqual(V(`[[13.8, 46.36], [14.75, 45.6], [14.45, 45.95]].map(xy => vyKrajBodu({}, {xy}))`), ["hory", "les", "voda"]);
   }
   if (V(`typeof drawMapK`) === "function") {
-    S.ev(`st.hosp = true; st.zpustle = true; drawMapK()`);
+    S.ev(`st.hosp = true; st.zpustle = true; st.prechody = true; drawMapK()`);
     assert.ok(V(`document.querySelectorAll("#map .kraj").length`) >= 37 + 25, "značky přechodů a hospodářství");
     assert.ok(V(`document.querySelectorAll("#map .krajpoly").length`) === V(`HOSP_OBL.length + ZPUSTLE.length`), "plochy oblastí a zpustlých krajů");
-    S.ev(`st.hosp = false; st.zpustle = false; drawMapK()`);
+    S.ev(`st.hosp = false; st.zpustle = false; st.prechody = false; drawMapK()`);
+    assert.equal(V(`st.prechody`), false, "přechody jsou ve výchozím stavu vypnuté (2026-10-28)");
   }
 });
 

@@ -114,3 +114,21 @@ test("věrnost králi (2026-10-27): pole vernost u rodu, přepis pro jedno sídl
     /takové sídlo rod nemá/,
   );
 });
+
+test("tajné sídlo a tajná věrnost sídla: hráč je nedostane, vypravěč ano (Kunvald)", () => {
+  const soubory = {
+    "vazby.md": "",
+    "rody/010-test.md":
+      "---\nid: tst\nzeme: Čechy\nnazev: Test\nvyznani: kat\nvernost:\n  - vahaji | Výchozí.\n  - tajné Ves = verni | Jen vypravěč.\nsidla:\n  - Hrad | 14 | 50\n  - tajné Ves | 16.5 | 50.1 | kal\n---\nText.\n",
+  };
+  const g = G.generuj(soubory, {});
+  const gm = G.proGM(g.odh).FAM[0];
+  assert.deepEqual(gm.seats, [
+    ["Hrad", 14, 50],
+    ["Ves", 16.5, 50.1, "kal"],
+  ]);
+  assert.deepEqual(gm.vern.m.Ves, ["verni", "Jen vypravěč."]);
+  const h = G.rozbal(G.proHrace(g.odh).hrac, {tst: 2}).FAM[0];
+  assert.deepEqual(h.seats, [["Hrad", 14, 50]]);
+  assert.deepEqual(h.vern.m, {});
+});

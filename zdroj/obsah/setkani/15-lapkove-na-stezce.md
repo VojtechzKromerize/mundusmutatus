@@ -1,7 +1,7 @@
 ---
 id: lapkove-na-stezce
 nazev: Lapkové na stezce
-stitky: lapkové, zbojníci, stezka, les, Zlatá stezka
+stitky: lapkové, zbojníci, stezka, les, Prachatická stezka
 nepratele:
   - lapka-hejtman
   - Tesáky = 6 lapkove

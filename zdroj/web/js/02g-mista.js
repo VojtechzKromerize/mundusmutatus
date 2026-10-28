@@ -56,7 +56,7 @@ const CITYINFO = {
   Písek: {n: "Písek jest město pod obojí u kamenného mostu přes Otavu, v níž se zlato rýžuje."},
   Klatovy: {n: "Klatovy jsou město pod obojí, strážce cest do Bavor."},
   Domažlice: {n: "Domažlice jsou město pod obojí a Chodů, kteříž hranici střehou. Léta Páně 1431 zde husité rozprášili výpravu křižáckou."},
-  Sušice: {n: "Sušice jest město pod obojí na Otavě, kamž míří kašperskohorská větev Zlaté stezky."},
+  Sušice: {n: "Sušice jest město pod obojí na Otavě, kamž míří kašperskohorská větev Prachatické stezky."},
   Beroun: {n: "Beroun jest město pod obojí na stezce Norimberské."},
   Rakovník: {n: "Rakovník jest město pod obojí při královských lesích křivoklátských."},
   Most: {
@@ -106,7 +106,7 @@ const CITYINFO = {
   Tachov: {n: "Tachov jest královské město při pomezí bavorském. Léta Páně 1427 zde Prokop Holý rozprášil výpravu křižáckou a město dobyl."},
   Trutnov: {t: "Věnné město královny", n: "Trutnov jest město z větší části německé pod Krkonošemi, na cestě do Slezska."},
   Prachatice: {
-    n: "Prachatice jsou město Zlaté stezky, kudy se z Pasova sůl vozí. Léta Páně 1420 je Žižka dobyl a krutě potrestal; potom náležely k svazu táborskému. Od léta 1444 je drželi páni z Rožmberka a léta 1457 postoupili zástavu Prachatic a Volar pánům Prokopovi a Janovi z Rabštejna.",
+    n: "Prachatice jsou město Prachatické stezky, kudy se z Pasova sůl vozí. Léta Páně 1420 je Žižka dobyl a krutě potrestal; potom náležely k svazu táborskému. Od léta 1444 je drželi páni z Rožmberka a léta 1457 postoupili zástavu Prachatic a Volar pánům Prokopovi a Janovi z Rabštejna.",
   },
   Litovel: {n: "Litovel jest malé královské město strany římské na rozvětvené řece Moravě nedaleko Olomouce."},
   Augšpurk: {
@@ -332,7 +332,7 @@ const CITYINFO = {
   },
   Reichenhall: {
     t: "Solné město",
-    n: "Prastaré solné prameny a vařírny soli pod Alpami. Sůl reichenhallská jde přes Pasov a Zlatou stezku až do Čech.",
+    n: "Prastaré solné prameny a vařírny soli pod Alpami. Sůl reichenhallská jde přes Pasov a Prachatickou stezku až do Čech.",
   },
   Neuburg: {
     t: "Zeměpanské město",
@@ -924,7 +924,7 @@ const CITYINFO = {
   },
   Pasov: {
     t: "Biskupské město",
-    n: "Město na soutoku Dunaje, Innu a Ilzu s hradem biskupským nad řekou. Odtud vede Zlatá stezka se solí do Prachatic.",
+    n: "Město na soutoku Dunaje, Innu a Ilzu s hradem biskupským nad řekou. Odtud vede Prachatická stezka se solí do Prachatic.",
   },
   Leuchtenberg: {t: "Hrad lankrabat z Leuchtenberka", n: "Rodový hrad lankrabí na vrchu v Horní Falci, nedaleko hranice kraje tachovského."},
   Pfreimd: {
@@ -2010,8 +2010,8 @@ const CITYINFO = {
     n: "Ves s farním kostelem na Budějovicku, kde léta Páně 1455 obdržel Petr z Lindy, zbohatlý měšťan budějovický rodem z Lince, povolení založit klášter kanovníků řádu svatého Augustina pod ochranou pánů z Rožmberka. Řeholníci zatím nepřišli.",
   },
   Kunvald: {
-    t: "Ves bratří",
-    n: "Odlehlá ves v podhůří Orlických hor na panství litickém, které drží pan Jiří. Od loňska se tu z jeho dovolení usadili bratří, lidé zbožní, kteří chtějí žíti prostě podle zákona Kristova; mnozí z nich bývali posluchači mistra Rokycany.",
+    t: "Ves na litickém panství",
+    n: "Odlehlá ves v podhůří Orlických hor na panství litickém, které drží pan Jiří.",
   },
   /* ---- MÍSTA: Sasko, Bavory s Falcí a Franky, Rakousy (2026-10-28) ---- */
   Grimma: {
@@ -2148,7 +2148,7 @@ const CITYINFO = {
   },
   Waldkirchen: {
     t: "Trh biskupa pasovského",
-    n: "Trh na Zlaté stezce, po níž soumaři vozí sůl z Pasova do Prachatic a zpět obilí a zboží z Čech.",
+    n: "Trh na Prachatické stezce, po níž soumaři vozí sůl z Pasova do Prachatic a zpět obilí a zboží z Čech.",
   },
   "Brod nad Lesy": {
     t: "Pohraniční městečko",

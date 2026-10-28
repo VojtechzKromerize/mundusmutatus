@@ -143,7 +143,7 @@
 - obchod | Dunajská cesta Řezno – Vídeň – Budín | Řezno; Pasov; Linec; Vídeň; 17.1 48.0; Budín
 - obchod | Praha – Vídeň | Praha; 15.3 49.5; 16.0 48.9; Vídeň
 - obchod | Praha – Vratislav | Praha; 15.8 50.4; Vratislav
-- obchod | Zlatá stezka Pasov – Prachatice (sůl ze Solné komory) | Pasov; 13.75 48.85; Prachatice
+- obchod | Prachatická stezka Pasov – Prachatice (sůl ze Solné komory) | Pasov; 13.75 48.85; Prachatice
 - obchod | Prachatice – Praha | Prachatice; 14.15 49.31; 14.4 49.75; Praha
 - obchod | Krušnohorská cesta Lipsko – Freiberg – Praha (saská sůl) | Lipsko; 13.0 51.15; Freiberg; 13.55 50.72; Osek; 13.95 50.4; Praha
 - obchod | Vídeň – Brno – Olomouc – Vratislav | Vídeň; 16.55 48.7; Brno; Olomouc; 17.33 50.47; Vratislav

@@ -684,8 +684,7 @@ let st = {
   holds: true,
   cities: true,
   castles: true,
-  baziny: true,
-  prechody: true,
+  prechody: false,
   hosp: false,
   zpustle: false,
   vern: false,
@@ -851,7 +850,7 @@ const svgG = (svg, a) => {
 
 const ROADS = [
   [
-    "Zlatá stezka",
+    "Prachatická stezka",
     [
       [13.46, 48.57],
       [13.6, 48.73],
@@ -2227,7 +2226,7 @@ const CTYPE = {
   cbrs: "Zeměpanské město",
 };
 const MAJOR_ROADS = new Set([
-  "Zlatá stezka",
+  "Prachatická stezka",
   "Vysoká cesta",
   "Norimberská stezka",
   "Řezenská stezka",
@@ -6347,7 +6346,6 @@ function toggleBtn(id, key, after) {
 toggleBtn("lyHolds", "holds");
 toggleBtn("lyCities", "cities");
 toggleBtn("lyCastles", "castles");
-toggleBtn("lyBaziny", "baziny");
 toggleBtn("lyPrechody", "prechody");
 toggleBtn("lyHosp", "hosp");
 toggleBtn("lyZpustle", "zpustle");

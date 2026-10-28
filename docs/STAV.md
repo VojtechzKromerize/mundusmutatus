@@ -205,6 +205,9 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
   konec čáry mimo mapu = krátká šipka; klepnutí na ⚔ ukáže panel (`krajHtml`, druh `kf`). Státy bez kotvy se nekreslí.
 - 10-28 **Audit hráčského textu** (Vojta): anachronismy po 3. 3. 1458, hlas badatele („doloženo“, „v pramenech“) a interní poznámky z hráčských textů přesunuty do ⟦tajné⟧
   nebo přepsány dobovým hlasem; vypravěčské soubory (setkání, protivníci, mapa-namety) a tajné části se neměnily. Další audit: texty v databázi (Letopis) a `art/*.json`.
+- 10-28 **Mapa Koruny: Bažiny vždy, Přechody vypnuté** (Vojta): bažiny se kreslí pořád (tlačítko zrušeno), Přechody jsou ve výchozím stavu vypnuté a zapínají se ve Vrstvách.
+  **Tajné sídlo** (generátor): `tajné Název | délka | šířka` v `sidla:` a `tajné Sídlo = skupina | věta` ve `vernost:` – hráč je nedostane (Kunvald v `902-kla`), vypravěč ano.
+  Zlatá stezka přejmenována na dobovou **Prachatickou stezku**.
 - 10-28 **Rychlejší první načtení**: shrnutí míst `CITYINFO` (~500 míst) je v samostatné části `mista` (`02g-mista.js`), ne v jádru –
   hráčské jádro `zaklad` 462 → 361 kB (gzip 171 → 136 kB). Stáhne se s Mapou a Výpravou (`MMLINY_V`), vypravěči hned; jádro čte jen přes
   `mistoInfo(n, hotovo)` (02; než se část stáhne, panel napíše „Načítám…“ a překreslí se), hledání v liště (`gIndex`, 07) ji stáhne při

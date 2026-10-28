@@ -262,7 +262,7 @@
   "LLBL": "kresba mapy: popisky zemí Koruny ([NÁZEV, lon, lat, velikost])",
   "LOKATIV": "Kronika: název místa → tvar „v Praze“, „v Kutné Hoře“ pro věty datace",
   "MAJOR_PLACES": "mapa: názvy hlavních měst (Praha, Vratislav, Vídeň…), které se ukazují i při oddálení",
-  "MAJOR_ROADS": "mapa: názvy hlavních stezek (Zlatá stezka…), které se kreslí zvýrazněně",
+  "MAJOR_ROADS": "mapa: názvy hlavních stezek (Prachatická stezka…), které se kreslí zvýrazněně",
   "MES": "kalendář: názvy měsíců v 2. pádě (ledna, února…) pro datace",
   "MIMO": "Obsah D&D 2024 mimo SRD (art/mimo-srd.json): podtřídy, featy, zázemí – načtená data nebo null",
   "MIMOCAS": "Mimo SRD: popisky času aktivace rysu – A Akce, BA Bonusová akce, R Reakce",
