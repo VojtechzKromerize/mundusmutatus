@@ -12690,6 +12690,64 @@ function drawMapK() {
         );
     }
   }
+  /* konflikty (2026-10-28): spory rodů čárkovaně mezi sídly, války států plnou červenou, napětí oranžově; konec čáry mimo svět mapy
+     (Osmané, papež…) se ukáže jen jako šipka k okraji. Čáry samy klepnutí nepřijímají, jen značka ⚔ uprostřed (panel krajHtml). */
+  if (st.konf) {
+    const [wx, wy, ww, wh] = MAPWB,
+      uvnitr = ([x, y]) => x >= wx && x <= wx + ww && y >= wy && y <= wy + wh;
+    konfliktyKrajina().forEach((c, i) => {
+      let A = P(...c.a),
+        B = P(...c.b);
+      const ua = uvnitr(A),
+        ub = uvnitr(B);
+      if (!ua && !ub) return;
+      if (!ua || !ub) {
+        const [I, O] = ua ? [A, B] : [B, A],
+          d = Math.hypot(O[0] - I[0], O[1] - I[1]) || 1,
+          dl = 46 * s;
+        const K = [I[0] + ((O[0] - I[0]) / d) * dl, I[1] + ((O[1] - I[1]) / d) * dl];
+        [A, B] = [I, K];
+      }
+      const bar = c.druh === "napeti" ? "#b06d10" : "var(--kal)",
+        g = el("g", {class: "konf", opacity: sel ? 0.4 : 1});
+      g.appendChild(
+        el("line", {
+          x1: A[0],
+          y1: A[1],
+          x2: B[0],
+          y2: B[1],
+          stroke: bar,
+          "stroke-width": ((c.druh === "valka" ? 2.6 : 1.7) * s).toFixed(2),
+          "stroke-dasharray": c.druh === "valka" ? "none" : c.druh === "napeti" ? `${6 * s} ${4 * s}` : `${2.5 * s} ${3 * s}`,
+          "stroke-linecap": "round",
+          opacity: ".8",
+          "pointer-events": "none",
+        }),
+      );
+      const mx = (A[0] + B[0]) / 2,
+        my = (A[1] + B[1]) / 2,
+        r = 7 * s;
+      const m = el("g", {class: "seat", transform: `translate(${mx.toFixed(1)} ${my.toFixed(1)})`});
+      m.appendChild(el("circle", {r: (11 * s).toFixed(1), fill: "transparent"}));
+      m.appendChild(el("circle", {r: r.toFixed(1), fill: "var(--paper)", stroke: bar, "stroke-width": (1.3 * s).toFixed(2)}));
+      m.appendChild(
+        el("path", {
+          d: `M${-r * 0.5},${-r * 0.5}L${r * 0.5},${r * 0.5}M${r * 0.5},${-r * 0.5}L${-r * 0.5},${r * 0.5}`,
+          stroke: bar,
+          "stroke-width": (1.6 * s).toFixed(2),
+          "stroke-linecap": "round",
+        }),
+      );
+      m.appendChild(el("title", {}, c.n));
+      m.addEventListener("click", e => {
+        if (mapDrag.moved || st.measure) return;
+        e.stopPropagation();
+        showKraj("kf", i);
+      });
+      g.appendChild(m);
+      svg.appendChild(g);
+    });
+  }
   /* poutě, kláštery a pověsti (2026-10-27): značka POUTE_ZN v barvě druhu, zpustlý či poničený klášter čárkovaně; o = odsadit od
      ikony města či hradu, které na místě stojí; klepnutí = panel (krajHtml, náměty vypravěče jen pro něj) */
   if (st.poute) {

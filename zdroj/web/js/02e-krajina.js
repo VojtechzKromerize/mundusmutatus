@@ -2750,3 +2750,72 @@ const POUTE = [
     t: "U Celje dal starý hrabě Heřman utopit Veroniku z Desenic, chudou šlechtičnu a choť svého syna Fridricha. Obvinil ji z čarodějnictví, a když ji soud osvobodil, dal ji přesto utopit v potoce.",
   },
 ];
+
+/* ---- Konflikty na mapě (2026-10-28, Vojta): vrstva „Konflikty“ ---------------------------------------------------------------
+   Spory mezi rody (vazby „spor“ z Rodů a vazeb) a války a napětí mezi státy (stejná data jako mapa Známý svět: pole spor / napeti).
+   KONF_KOT = kotva státu na mapě [délka, šířka] (hlavní sídlo); stát bez kotvy se do vrstvy nedostane (čára by neměla kam vést).
+   konfliktyKoruny(rel, rody, svet) → [{k: "rod"|"stat", druh: "spor"|"valka"|"napeti", n, ids, a:[lo,la], b:[lo,la], x}] */
+const KONF_KOT = {
+  boh: [14.42, 50.09],
+  hab: [16.37, 48.21],
+  hun: [19.04, 47.5],
+  pol: [19.94, 50.06],
+  teu: [19.03, 54.04],
+  hre: [11.08, 49.45],
+  swi: [8.54, 47.37],
+  ser: [20.93, 44.66],
+  bos: [18.4, 43.86],
+  her: [17.9, 43.25],
+  alb: [19.79, 41.51],
+  ott: [26.56, 41.67],
+  pap: [12.5, 41.9],
+};
+function konfliktyKoruny(rel, rody, svet) {
+  const out = [];
+  for (const r of rel || []) {
+    if (r.t !== "spor") continue;
+    const f0 = rody[r.ids[0]];
+    if (!f0 || f0.nomap || !f0.seats.length) continue;
+    for (const id of r.ids.slice(1)) {
+      const f1 = rody[id];
+      if (!f1 || f1.nomap || !f1.seats.length) continue;
+      out.push({
+        k: "rod",
+        druh: "spor",
+        n: `${f0.name} × ${f1.name}`,
+        ids: [r.ids[0], id],
+        a: [f0.seats[0][1], f0.seats[0][2]],
+        b: [f1.seats[0][1], f1.seats[0][2]],
+        x: r.x || "",
+        gm: !!r.$gm,
+      });
+    }
+  }
+  const videno = new Set();
+  for (const [pole, druh] of [
+    ["sp", "valka"],
+    ["na", "napeti"],
+  ])
+    for (const s of svet || [])
+      for (const x of s[pole] || []) {
+        const kl = [s.id, x].sort().join("|");
+        if (videno.has(kl) || !KONF_KOT[s.id] || !KONF_KOT[x]) continue;
+        const t = (svet || []).find(z => z.id === x);
+        if (!t) continue;
+        videno.add(kl);
+        out.push({
+          k: "stat",
+          druh,
+          n: `${s.k} × ${t.k}`,
+          ids: [s.id, x],
+          a: KONF_KOT[s.id],
+          b: KONF_KOT[x],
+          x:
+            druh === "valka"
+              ? `${s.n} a ${t.n} jsou k jaru roku 1458 ve válce.`
+              : `Mezi zeměmi ${s.n} a ${t.n} je napjato; k otevřené válce zatím nedošlo.`,
+          gm: false,
+        });
+      }
+  return out;
+}

@@ -689,6 +689,7 @@ let st = {
   hosp: false,
   zpustle: false,
   vern: false,
+  konf: false,
   poute: false,
   misto: null,
   dio: false,
@@ -5357,6 +5358,11 @@ function krajMes() {
   const m = HRA && /^\d{4}-(\d{2})-\d{2}$/.exec(HRA.datum || "");
   return m ? +m[1] : 0;
 }
+/* konflikty pro vrstvu Konflikty: skládají se jednou, data (vazby, státy) se za běhu nemění */
+let KONF_C = null;
+function konfliktyKrajina() {
+  return KONF_C || (KONF_C = konfliktyKoruny(REL, byId, SVET));
+}
 function krajHtml(o) {
   let typ = "",
     n = "",
@@ -5389,6 +5395,14 @@ function krajHtml(o) {
     n = q.n;
     txt = q.ref ? (mistoInfo(q.ref, renderDetail) || {}).n || "" : q.t;
     if (q.s) navic = `Stav k roku 1458: ${POUTE_STAV[q.s]}.`;
+  } else if (o.k === "kf") {
+    const c = konfliktyKrajina()[o.i];
+    if (c) {
+      typ = c.k === "stat" ? (c.druh === "valka" ? "Válka mezi zeměmi" : "Napětí mezi zeměmi") : "Spor mezi rody";
+      n = c.n;
+      txt = c.x;
+      if (c.gm) navic = "Tajná vazba – vidí ji jen vypravěč.";
+    }
   } else if (o.k === "zp") {
     const [jm, mira, , pozn] = ZPUSTLE[o.i];
     typ = mira > 1 ? "Kraj zle zpustlý válkou" : "Kraj místy zpustlý válkou";
@@ -6337,6 +6351,9 @@ toggleBtn("lyBaziny", "baziny");
 toggleBtn("lyPrechody", "prechody");
 toggleBtn("lyHosp", "hosp");
 toggleBtn("lyZpustle", "zpustle");
+toggleBtn("lyKonf", "konf", () => {
+  document.getElementById("konflegend").hidden = !st.konf;
+});
 /* věrnost králi k 3. 3. 1458 (2026-10-27): lem u sídel a měst podle VERNOST_MIST / f.vern (02e), legenda pod mapou */
 const vernLeg = document.getElementById("vernlegend");
 /* legenda se skládá až při prvním zapnutí – VERNOST_SKUP je v 02e, který se načte po 02 */

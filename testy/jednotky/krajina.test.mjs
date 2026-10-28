@@ -105,3 +105,21 @@ test("voda pro výpočet cest: moře, zálivy a velká jezera jsou voda, pobře�
   ];
   for (const [lo, la, n] of sous) assert.equal(V(`naVode(${lo}, ${la})`), false, n);
 });
+
+test("konflikty na mapě: spor rodů vede mezi prvními sídly, válka států jednou na dvojici a bez kotvy se nekreslí", () => {
+  const k = V(`konfliktyKoruny(
+    [{t: "spor", ids: ["a", "b", "c"], x: "Svár."}, {t: "spoj", ids: ["a", "b"], x: ""}, {t: "spor", ids: ["a", "d"], x: "", $gm: true}],
+    {a: {name: "A", seats: [["X", 14, 50]]}, b: {name: "B", seats: [["Y", 15, 49]]}, c: {name: "C", seats: [], nomap: false}, d: {name: "D", seats: [["Z", 16, 48]]}},
+    [{id: "teu", k: "Řád", n: "Řád", sp: ["pol"], na: []}, {id: "pol", k: "Polsko", n: "Polsko", sp: ["teu"], na: ["xxx"]}, {id: "xxx", k: "X", n: "X", sp: [], na: []}]
+  )`);
+  assert.deepEqual(
+    k.map(c => [c.k, c.druh, c.ids.join(">"), c.gm]),
+    [
+      ["rod", "spor", "a>b", false],
+      ["rod", "spor", "a>d", true],
+      ["stat", "valka", "teu>pol", false],
+    ],
+  );
+  assert.deepEqual(k[0].a, [14, 50]);
+  assert.equal(V(`konfliktyKoruny([], {}, []).length`), 0);
+});
