@@ -2340,6 +2340,8 @@ const MAJOR_PLACES = new Set([
   "Kladsko",
   /* ---- MÍSTA: Čechy a Morava (2026-10-28) ---- */
   "Třebíč",
+  /* ---- MÍSTA: Sasko, Bavory s Falcí a Franky, Rakousy (2026-10-28) ---- */
+  "Würzburg",
 ]);
 /* význam místa na mapě (2026-10-24, Vojta): 0 metropole, 1 hlavní město (MAJOR_PLACES), 2 ostatní město, 3 hrad a sídlo rodu.
    Podle toho velikost značky (MTZ, násobek měřítka) a od jakého přiblížení se ukáže jméno (mistoPopisek: s = šířka výřezu / 680) */

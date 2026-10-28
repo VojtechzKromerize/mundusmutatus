@@ -141,6 +141,9 @@ const TOWNSEATS = new Set([
   "Hostinné",
   "Hostěradice",
   "Jemnice",
+  /* ---- MÍSTA: Sasko, Bavory s Falcí a Franky, Rakousy (2026-10-28) ---- */
+  "Wurzen",
+  "Schleiz",
 ]); /* family seats that are towns rather than castles */
 const TOWNICO = "art/img/mesto.webp";
 const townImg = (c, cls) => `<img class="${cls || "townico"} t-${c}" src="${TOWNICO}" alt="" aria-hidden="true">`;

@@ -2013,5 +2013,358 @@ const CITYINFO = {
     t: "Ves bratří",
     n: "Odlehlá ves v podhůří Orlických hor na panství litickém, které drží pan Jiří. Od loňska se tu z jeho dovolení usadili bratří, lidé zbožní, kteří chtějí žíti prostě podle zákona Kristova; mnozí z nich bývali posluchači mistra Rokycany.",
   },
+  /* ---- MÍSTA: Sasko, Bavory s Falcí a Franky, Rakousy (2026-10-28) ---- */
+  Grimma: {
+    t: "Zeměpanské město",
+    n: "Wettinské město na Muldě mezi Lipskem a Míšní. Od léta Páně 1357 má latinskou školu, jednu z nejstarších v zemích míšeňských.",
+  },
+  Oschatz: {
+    t: "Zeměpanské město",
+    n: "Starobylé trhové město markrabí míšeňských mezi Labem a Muldou; latinskou školu má od léta Páně 1367.",
+  },
+  Leisnig: {
+    t: "Zeměpanské město",
+    n: "Město pod hradem Mildenštejnem nad Muldou. Purkrabí, kteří tu dříve vládli, vyhnali markrabí míšeňští léta Páně 1365 mocí; latinská škola je zde od léta 1397.",
+  },
+  Großenhain: {
+    t: "Zeměpanské město",
+    n: "Město soukeníků na Vysoké silnici, po níž jezdí kupci z Lipska do Budyšína a dále do Slezska.",
+  },
+  Rochlitz: {
+    t: "Zeměpanský hrad a město",
+    n: "Město pod mohutným hradem Wettinů na Muldě. Na vrchu nad městem se láme červený kámen, jímž se zdobí kostely široko daleko.",
+  },
+  Dippoldiswalde: {
+    t: "Horní městečko",
+    n: "Horní městečko na stezce z Drážďan přes Krušné hory do Čech, kde se od starých časů dobývá stříbro.",
+  },
+  Oelsnitz: {
+    t: "Zeměpanské město",
+    n: "Městečko na Bílém Halštrovu pod hradem Voigtsbergem v Fojtsku, které již před sto lety přešlo od fojtů k Wettinům.",
+  },
+  Pegau: {
+    t: "Město s klášterem",
+    n: "Město na Bílém Halštrovu s opatstvím benediktinů, jež léta Páně 1091 založil hrabě Wiprecht z Groitzsche.",
+  },
+  Zeitz: {
+    t: "Sídlo biskupa naumburského",
+    n: "Starobylé město na Bílém Halštrovu. Biskupství bylo založeno zde léta Páně 968 a teprve později přeneseno do Naumburku; biskupové však na hradě v Zeitzu rádi sídlí a odtud spravují své panství.",
+  },
+  Herzberg: {
+    t: "Zeměpanské město",
+    n: "Město na Černém Halštrovu v Saském vévodství okolo Vitenberka, které od vymření Askánců léta Páně 1422 drží kurfiřti z rodu Wettinů.",
+  },
+  Wurzen: {
+    t: "Město biskupa míšeňského",
+    n: "Město na Muldě s kapitulou při chrámu Panny Marie, střed světského panství biskupů míšeňských mezi Lipskem a Míšní.",
+  },
+  Schleiz: {
+    t: "Sídlo pánů z Gery",
+    n: "Městečko s hradem na horním Fojtsku, kteréž drží páni z Gery, větev starého rodu fojtů.",
+  },
+  Eisenach: {
+    t: "Zeměpanské město",
+    n: "Město lantkrabí durynských pod hradem Wartburkem, kde žila svatá Alžběta Uherská a kde se, jak se vypravuje, kdysi pěvci přeli o přednost. Nyní je drží vévoda Vilém.",
+  },
+  Langensalza: {
+    t: "Zeměpanské město",
+    n: "Durynské město vévody Viléma uprostřed úrodné krajiny, kde se pěstuje boryt na modré barvivo pro soukeníky.",
+  },
+  Saalfeld: {
+    t: "Zeměpanské město",
+    n: "Město na Sále pod Durynským lesem s opatstvím benediktinů; v okolních horách se dobývá stříbro a měď. Náleží vévodovi Vilémovi.",
+  },
+  Arnstadt: {
+    t: "Město hrabat ze Schwarzburku",
+    n: "Starobylé město pod Durynským lesem, sídlo hrabat ze Schwarzburku; obchoduje borytem jako Erfurt.",
+  },
+  Sondershausen: {
+    t: "Město hrabat ze Schwarzburku",
+    n: "Městečko s hradem na řece Wipperu na severu Durynska, jež drží hrabata ze Schwarzburku.",
+  },
+  Mühlhausen: {
+    t: "Svobodné říšské město",
+    n: "Bohaté říšské město v Durynsku, které se s Erfurtem a Nordhausenem spolčuje na ochranu silnic a svých svobod.",
+  },
+  Altzella: {
+    t: "Klášter cisterciáků",
+    n: "Cisterciácké opatství u Nossenu, založené léta Páně 1162; v jeho chrámu leží starší markrabí míšeňští, dokud se jejich hrobkou nestal dóm v Míšni.",
+  },
+  Reinhardsbrunn: {
+    t: "Klášter benediktinů",
+    n: "Opatství benediktinů pod Durynským lesem, které léta Páně 1085 založil lantkrabě Ludvík Skokan; je pohřebištěm starých lantkrabí durynských.",
+  },
+  Purschenstein: {
+    t: "Hrad pánů ze Schönbergu",
+    n: "Hrad nad řekou Flöhou na hřebeni Krušných hor, kousek od hranice české. Drží jej páni ze Schönbergu, z jejichž rodu pochází biskup míšeňský.",
+  },
+  Mansfeld: {
+    t: "Hrad hrabat z Mansfeldu",
+    n: "Hrad a městečko na východním úpatí Harcu, sídlo hrabat z Mansfeldu, která bohatnou z měděných dolů v okolí.",
+  },
+  Schleusingen: {
+    t: "Hrad hrabat z Hennebergu",
+    n: "Hrad a město na jižním svahu Durynského lesa, sídlo hrabat z Hennebergu, sousedů Wettinů i biskupů würzburských.",
+  },
+  Deggendorf: {
+    t: "Bavorské město",
+    n: "Město na Dunaji pod Bavorským lesem, kde se nakládá zboží na lodi a odkud vede stezka přes hory k Čechám.",
+  },
+  Vilshofen: {
+    t: "Bavorské město",
+    n: "Městečko vévodů bavorských při ústí Vilsu do Dunaje mezi Deggendorfem a Pasovem.",
+  },
+  Kelheim: {
+    t: "Bavorské město",
+    n: "Město při ústí Altmühlu do Dunaje, kdysi sídlo prvních vévodů z rodu Wittelsbachů; na mostě zde léta Páně 1231 zavraždili vévodu Ludvíka.",
+  },
+  Schärding: {
+    t: "Bavorské pohraniční město",
+    n: "Město s hradem na Innu, na hranici proti Rakousům; náleží vévodovi Ludvíkovi Landshutskému.",
+  },
+  Rosenheim: {
+    t: "Bavorský trh",
+    n: "Trh u mostu přes Inn na cestě z Mnichova do Salcburku, kde se překládá sůl a zboží plavené po řece.",
+  },
+  Dachau: {
+    t: "Bavorský trh a hrad",
+    n: "Trh s hradem vévodů mnichovských na řece Ampeře, nedaleko Mnichova.",
+  },
+  Tölz: {
+    t: "Bavorský trh",
+    n: "Trh na Isaře pod Alpami, odkud voraři plaví dříví a zboží po řece až k Mnichovu.",
+  },
+  Rattenberg: {
+    t: "Bavorské pohraniční město",
+    n: "Městečko s hradem v úzkém údolí Innu, nejzazší výspa vévodů landshutských proti Tyrolsku.",
+  },
+  Kitzbühel: {
+    t: "Bavorské město",
+    n: "Horské městečko v údolí pod Alpami, jež náleží vévodům landshutským spolu s Kufsteinem a Rattenberkem.",
+  },
+  Zwiesel: {
+    t: "Bavorský trh",
+    n: "Trh v hlubokém Bavorském lese na řece Řezné, odkud vede stezka k Železné Rudě a do Čech.",
+  },
+  Waldkirchen: {
+    t: "Trh biskupa pasovského",
+    n: "Trh na Zlaté stezce, po níž soumaři vozí sůl z Pasova do Prachatic a zpět obilí a zboží z Čech.",
+  },
+  "Brod nad Lesy": {
+    t: "Pohraniční městečko",
+    n: "Městečko pod hvozdem na Bavorské cestě z Domažlic do Řezna. Nejkratší stezka z Čech vede právě sem a přechod přes hranici se střeží.",
+  },
+  Sulzbach: {
+    t: "Hornofalcké město",
+    n: "Město s hradem na Norimberské cestě od Přimdy, mezi železnými doly a hamry. Léta Páně 1428 zde stráž u hranic nepustila dál pět zbrojí norimberských kupců, aby nepadly do rukou kacířů.",
+  },
+  Weiden: {
+    t: "Hornofalcké město",
+    n: "Město na Naabě v Horní Falci, nedaleko stezky, po níž se jede oklikou z Tachova do Norimberka.",
+  },
+  Tirschenreuth: {
+    t: "Město kláštera waldsasského",
+    n: "Městečko obklopené rybníky, střed panství cisterciáků z Waldsassen na pomezí chebském.",
+  },
+  Wunsiedel: {
+    t: "Město markrabí Albrechta",
+    n: "Přední ze šesti úřadů ve Smrčinách, jež drží Hohenzollernové; v okolních horách se rýžuje a kope cín.",
+  },
+  Erlangen: {
+    t: "Město markrabí Albrechta",
+    n: "Městečko na Regnici, které koupil císař Karel IV. ke koruně české; král Václav je léta Páně 1402 prodal purkrabím norimberským.",
+  },
+  Schwabach: {
+    t: "Město markrabí Albrechta",
+    n: "Město markrabství ansbašského na jih od Norimberka, kudy vede cesta do Švábska a k Dunaji.",
+  },
+  "Neustadt an der Aisch": {
+    t: "Město markrabí Albrechta",
+    n: "Město na řece Aischi v západních Francích, jež drží markrabí z rodu Hohenzollernů.",
+  },
+  Würzburg: {
+    t: "Biskupské město",
+    n: "Sídlo biskupa würzburského, jenž se píše vévodou ve Francích, s pevným hradem na Mariánském vrchu nad Mohanem. Biskupem je od léta Páně 1455 Jan z Grumbachu.",
+  },
+  Rothenburg: {
+    t: "Svobodné říšské město",
+    n: "Říšské město na skále nad Tauberou ve Francích. Za purkmistra Jindřicha Toplera v minulém věku nabylo rozsáhlého venkova a stalo se mocnou obcí.",
+  },
+  Schweinfurt: {
+    t: "Svobodné říšské město",
+    n: "Říšské město na Mohanu, obklopené zemí biskupů würzburských, které hlídá přechod přes řeku.",
+  },
+  Windsheim: {
+    t: "Svobodné říšské město",
+    n: "Malé říšské město ve Francích na cestě z Norimberka k Würzburku.",
+  },
+  Pottenstein: {
+    t: "Hrad biskupa bamberského",
+    n: "Hrad na skále nad údolím v hornatém kraji mezi Bamberkem a Bayreuthem, kde léta Páně 1228 pobývala svatá Alžběta Durynská.",
+  },
+  Lauf: {
+    t: "Bavorský hrad Karla IV.",
+    n: "Hrad na ostrově v Pegnici, který dal postavit císař Karel IV., když kraj náležel k Novým Čechám; v jeho sále jsou na zdech erby českých pánů, rytířů a měst. Od léta Páně 1373 patří Bavorům. V únoru 1452 se zde sjela německá knížata a strana pana Jiřího jim psala na obranu kalicha.",
+  },
+  Ortenburg: {
+    t: "Hrad hrabat z Ortenburku",
+    n: "Hrad na návrší mezi Vilshofenem a Pasovem, sídlo starého rodu hrabat z Ortenburku, kteří se drží za bezprostřední many říše a brání se svrchovanosti vévodů bavorských.",
+  },
+  Abensberg: {
+    t: "Město a hrad pánů z Abensberku",
+    n: "Městečko s hradem nad říčkou Abens nedaleko Kelheimu, sídlo starobylého bavorského rodu pánů z Abensberku.",
+  },
+  Waldsassen: {
+    t: "Klášter cisterciáků",
+    n: "Opatství cisterciáků založené léta Páně 1133, mocný klášter na pomezí chebském; náleží mu Tirschenreuth i všechen kraj okolo, jemuž se říká Stiftland.",
+  },
+  Niederaltaich: {
+    t: "Klášter benediktinů",
+    n: "Prastaré opatství benediktinů na Dunaji, založené vévodou Odilem bavorským léta Páně 741; jeho mniši klučili Bavorský les až k hranici české.",
+  },
+  Tegernsee: {
+    t: "Klášter benediktinů",
+    n: "Opatství benediktinů u jezera pod Alpami, středisko obnovy řádového života. Kardinál Mikuláš Kusánský si se zdejšími mnichy dopisuje o patření na Boha a léta Páně 1453 jim věnoval knihu O vidění Boha.",
+  },
+  Andechs: {
+    t: "Klášter benediktinů",
+    n: "Svatá hora nad jezerem Ammersee, kam putují poutníci k ostatkům a ke třem svatým hostiím. Vévoda Albrecht III. zde léta Páně 1455 založil klášter benediktinů.",
+  },
+  Ettal: {
+    t: "Klášter benediktinů",
+    n: "Opatství v horském údolí na cestě z Mnichova k Innsbrucku, které léta Páně 1330 založil císař Ludvík Bavor; chová sošku Panny Marie, kterou císař přivezl z Itálie.",
+  },
+  Scheyern: {
+    t: "Klášter benediktinů",
+    n: "Opatství na místě, kde stával hrad hrabat ze Scheyernu, předků rodu Wittelsbachů; vévodové bavorští tu mají starou rodovou hrobku.",
+  },
+  Heilsbronn: {
+    t: "Klášter cisterciáků",
+    n: "Opatství cisterciáků mezi Norimberkem a Ansbachem, kde jsou pohřbíváni purkrabí norimberští a markrabí z rodu Hohenzollernů.",
+  },
+  Vierzehnheiligen: {
+    t: "Nové poutní místo",
+    n: "Pole nad Mohanem, kde se léta Páně 1445 pastýři kláštera langheimského zjevilo plačící dítě a později v kruhu čtrnácti svatých pomocníků. Cisterciáci tu postavili kapli a poutníků přibývá.",
+  },
+  Berchtesgaden: {
+    t: "Proboštství augustiniánů",
+    n: "Proboštství kanovníků svatého Augustina v horském kotli pod Alpami; žije ze solných pramenů a o prodej soli se přou se Salcburkem i s vévody bavorskými.",
+  },
+  Retz: {
+    t: "Vinařské město",
+    n: "Město s hradbami na moravském pomezí, pod nímž jsou ve skále vyhloubeny sklepy na víno. Léta Páně 1425 je dobyli a vypálili husité.",
+  },
+  Marchegg: {
+    t: "Pohraniční město",
+    n: "Město na řece Moravě proti Uhrám, které léta Páně 1268 založil král Přemysl Otakar II. jako pevnost na hranici; jeho hradby objímají mnohem víc místa, než kolik je v nich domů.",
+  },
+  "Bruck an der Leitha": {
+    t: "Pohraniční město",
+    n: "Město na Litavě, hraniční řece mezi Rakousy a Uhrami, na cestě z Vídně do Uher.",
+  },
+  "Waidhofen an der Ybbs": {
+    t: "Město biskupa freisinského",
+    n: "Město v železářském kraji na řece Ybbs, které náleží biskupům freisinským; kováři zde zpracují štýrské železo na kosy, srpy a nože.",
+  },
+  Hallstatt: {
+    t: "Solné doly",
+    n: "Městečko na úzkém břehu jezera pod horami, kde se v hoře kope sůl; po Tauně ji plaví přes Gmunden k Dunaji a vozí i do jižních Čech.",
+  },
+  Perchtoldsdorf: {
+    t: "Zeměpanský hrad a trh",
+    n: "Trh s hradem na úpatí Vídeňského lesa nedaleko Vídně. Léta Páně 1452 sem přivezli mladého krále Ladislava, když jej císař vydal Rakušanům; hrad pak držel hrabě Oldřich Celjský a chovával zde svou milenku.",
+  },
+  Orth: {
+    t: "Zeměpanský hrad",
+    n: "Vodní hrad na Moravském poli u Dunaje, dědičný hrad rodu rakouského. Léta Páně 1452 jej Rakušané Mailberského spolku dobyli na císařově posádce, která se osm dní bránila dělům.",
+  },
+  Lengbach: {
+    t: "Hrad ve Vídeňském lese",
+    n: "Hrad Konráda Hölzlera, někdejšího správce zeměpanských důchodů v Rakousích, kde jeho purkrabí věznil mladého Matyáše Hunyadiho. Když Hölzler upadl v nemilost, dal král Ladislav vězně převézt do Prahy; přibyl tam v den králova skonu, 23. listopadu léta Páně 1457.",
+  },
+  Forchtenstein: {
+    t: "Hrad císařův v Uhrách",
+    n: "Hrad na skále v župě šoproňské nedaleko Nového Města, jeden z uherských hradů, které rod rakouský drží od léta Páně 1445. Arcikníže Albrecht jej slíbil Oldřichu Eicingerovi a pak prodal císaři; ta křivda hnala Eicingera do odboje.",
+  },
+  Gars: {
+    t: "Hrad za Dunajem",
+    n: "Hrad nad řekou Kamp v Rakousích za Dunajem. Léta Páně 1452 zde i ve Vídeňském Novém Městě dal císař vyhlásit papežské listy proti odbojným Rakušanům.",
+  },
+  Aggstein: {
+    t: "Hrad nad Dunajem",
+    n: "Hrad na strmé skále nad Dunajem pod Mělkem. Jiří Scheck z Waldu jej znovu vystavěl a vybírá zde mýto od lodí; lid mu pro jeho kruté způsoby říká Schreckenwald.",
+  },
+  Raabs: {
+    t: "Pohraniční hrad",
+    n: "Hrad na skále nad soutokem obou Dyjí na hranici moravské. Podle něho, jak se praví, nazvali Čechové celou zemi Rakousy.",
+  },
+  Wallsee: {
+    t: "Sídlo pánů z Wallsee",
+    n: "Hrad nad Dunajem na pomezí Rakous pod a nad Enží, sídlo mocného rodu pánů z Wallsee. Pan Wolfgang z Wallsee jednal léta Páně 1452 s císařem za rakouské stavy.",
+  },
+  Mailberg: {
+    t: "Komenda johanitů",
+    n: "Komenda rytířů svatého Jana na hranici Rakous a Moravy. Léta Páně 1451 se zde pod záminkou sporu o hranice spikli rakouští páni proti císaři; Mailberský spolek si pak vynutil vydání krále Ladislava.",
+  },
+  Zwettl: {
+    t: "Klášter cisterciáků",
+    n: "Městečko a opatství cisterciáků v lesích na severu Rakous, které léta Páně 1138 založil Hadmar z Kuenringu. U Zwettlu porazili husité léta 1427 vojsko rakouské.",
+  },
+  Heiligenkreuz: {
+    t: "Klášter cisterciáků",
+    n: "Opatství cisterciáků ve Vídeňském lese, které léta Páně 1133 založil markrabě Leopold; je pohřebištěm vévodů z rodu Babenberků.",
+  },
+  Klosterneuburg: {
+    t: "Klášter kanovníků",
+    n: "Klášter kanovníků svatého Augustina nad Dunajem nedaleko Vídně, který založil markrabě Leopold z rodu Babenberků; jeho hrob zde lid uctívá jako hrob světce. Chová slavný oltář zdobený zlatem a smaltem.",
+  },
+  Kremsmünster: {
+    t: "Klášter benediktinů",
+    n: "Prastaré opatství benediktinů, které léta Páně 777 založil vévoda Tasilo bavorský; chová pozlacený kalich, jejž prý daroval sám zakladatel.",
+  },
+  Lambach: {
+    t: "Klášter benediktinů",
+    n: "Opatství benediktinů na Tauně, po níž se plaví sůl, založené léta Páně 1056 biskupem würzburským Adalberonem z rodu hrabat z Lambachu.",
+  },
+  "Svatý Florián": {
+    t: "Klášter kanovníků",
+    n: "Klášter kanovníků svatého Augustina nad hrobem svatého Floriána, římského vojáka, kterého pro víru utopili v Enži; nedaleko města Enže.",
+  },
+  Gaming: {
+    t: "Kartouza",
+    n: "Kartuziánský klášter Trůn Mariin v předhůří Alp, který založil vévoda Albrecht II. Chromý; v jeho chrámu je vévoda pohřben.",
+  },
+  Eilenburg: {
+    t: "Zeměpanské město",
+    n: "Město pod starým hradem na Muldě mezi Lipskem a Torgavou; odtud prý pochází i rod pánů z Ilburka, známý v Čechách.",
+  },
+  Döbeln: {
+    t: "Zeměpanské město",
+    n: "Jedno z nejstarších měst markrabí míšeňských, na ostrově ve Freiberské Muldě mezi Míšní a Lipskem.",
+  },
+  Weida: {
+    t: "Zeměpanské město",
+    n: "Město pod hradem Osterburgem, kolébka fojtů z Weidy, od nichž má Fojtsko jméno; léta Páně 1427 je koupili Wettinové.",
+  },
+  Sangerhausen: {
+    t: "Zeměpanské město",
+    n: "Durynské město vévody Viléma na jižním úpatí Harcu, v kraji, kde se dobývá měď.",
+  },
+  Pöchlarn: {
+    t: "Město biskupa řezenského",
+    n: "Městečko na Dunaji pod Mělkem, které náleží biskupům řezenským. Zpěváci o Nibelunzích je jmenují Bechelaren a praví, že tu sídlil šlechetný markrabě Rüdiger.",
+  },
+  Lilienfeld: {
+    t: "Klášter cisterciáků",
+    n: "Opatství cisterciáků v údolí pod Alpami, které léta Páně 1202 založil vévoda Leopold VI. z rodu Babenberků a v němž je pohřben; leží tu i Cimburgis Mazovská, matka císaře Fridricha.",
+  },
+  Geras: {
+    t: "Klášter premonstrátů",
+    n: "Klášter premonstrátů v lesnatém kraji na severu Rakous, nedaleko hranice moravské.",
+  },
+  Schlägl: {
+    t: "Klášter premonstrátů",
+    n: "Klášter premonstrátů v hornatém kraji pod Šumavou, při hranici české, nedaleko panství pánů z Rožmberka.",
+  },
 };
 /*@cast}*/
