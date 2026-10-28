@@ -237,6 +237,7 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
   Eisenstadt, Forchtenstein), 982 Kláštery Uher, rody 983–985 (Pálócziové, Rozgonyiové, Drugethové); doplněné `hun` (Debrecín, Mukačevo, Satmár),
   `jis` (Plaveč, Tábor u Hrabušic – Aksamit), `uhm` (Pápa). Bloky „MÍSTA: Polsko a severní Uhry“ v `CITYINFO`, `VERNOST_MIST`, `MAJOR_PLACES`
   (Sandoměř, Lublin, Varadín) a `TOWNSEATS` (01).
+- 10-28 **Osm dalších knih (hospodářství, Prusko, vojenství)** (Vojta): výtahy v knihovně `souhrny/vytahy/` (teutonic-last-years, baltic-monetisation, graulau-silver, business-medieval, merchants-moneymen, expansion-central-europe, weapons-warfare, medieval-military-tech). Na web: +14 míst (Sztum, Świecie, Pelplin, Oliwa, Bydgoszcz, Freiberg, Goslar, Schwaz, Augsburg, Příbram, Německý Brod, Sedlec, Velehrad, Kremnica; rod `986-pdol` + sídla do stávajících rodů), Puck (hrad není jistě Řádův), Řád: Dánové po Bornholmu 1457 odstoupili, interdikt nad západním Pruskem, Malbork prodán za gdaňské peníze; složení posádky vozu v setkání 22 (Hall).
 
 ## Otevřené
 - **Mapa jih – k ověření (Vojta)**: kdo k 3. 3. 1458 drží Čakovec a Varaždínský hrad (celjské dědictví – Vitovec?), Golubac vynechán (srbský/turecký?), Kusánský
@@ -281,6 +282,7 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
 - **Hra vypravěče**: samostatná stránka `#sezeni` (Příprava sezení) a `#karty` zůstávají vedle pultu – pult na ně jen odkazuje; není rozhodnuto, zda je sloučit.
 - **Výkon boje**: `renderBoj` překresluje po blocích (`bojBlok`, `bojSeznam`), ne celý `#bojview`; úplné klíčované vykreslování karet protivníků z plánu boj-vykon není a zatím není potřeba.
 - **Dokumenty v projektu claude.ai**: datované snímky `vyvoj/*` smazány 2026-10-22 (vše sloučeno sem); zůstávají `vyvoj/mobil.md` a `vyvoj/beyond-parita.md` (otevřené body jsou přenesené výše – po jejich vyřízení smazat), `pravidla/rozhodnuti.md` a aktuální Artikule.
+- Rešerše 10-28 (knihy 4) k ověření: Jindřich Reuss z Plavna je u Urbana velmistrův synovec, web má strýce (800-nrad); Malbork 1457 – Urban: žoldnéři prodali hrad Gdaňsku za 190 000 dukátů, Gdaňsk králi; Neumark 1443/1455 měna; Bárány s. 373 (Matyáš a válka proti Jiřímu) neodpovídá webu, nepřebírat. Nové osoby k zvážení: Laurentius Blumenau, Bartholmaus Liebenwald, Johann Pyr (kupec gdaňský), Johann Schweidnitzer (Toruň/Olkusz).
 
 ## Týdenní údržba 2026-10-24
 

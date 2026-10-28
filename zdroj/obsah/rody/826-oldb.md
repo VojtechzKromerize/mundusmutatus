@@ -14,4 +14,4 @@ sidla:
   - Vordingborg | 11.91 | 55.01
   - Nykøbing | 11.87 | 54.77
 ---
-Král Kristián jest mladý, štědrý a vždy bez peněz. Sesazený švédský král Karel Knutsson žije ve vyhnanství v Gdaňsku a čeká na návrat. V pruské válce stojí Dánové při Řádu a gdaňští kapři přepadají jejich lodě.⟦ Roku 1460 se Kristián stane i vévodou šlesvickým a hrabětem holštýnským.⟧
+Král Kristián jest mladý, štědrý a vždy bez peněz. Sesazený švédský král Karel Knutsson žije ve vyhnanství v Gdaňsku a čeká na návrat. V pruské válce stáli Dánové při Řádu, ale gdaňští kapři je léta 1457 porazili u Bornholmu a Kristián z války vystoupil.⟦ Roku 1460 se Kristián stane i vévodou šlesvickým a hrabětem holštýnským.⟧

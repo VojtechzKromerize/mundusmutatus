@@ -25,5 +25,6 @@ sidla:
   - Eilenburg | 12.63 | 51.46 | kat
   - Döbeln | 13.12 | 51.12 | kat
   - Weida | 12.06 | 50.77 | kat
+  - Freiberg | 13.34 | 50.91
 ---
 Saská města mají většinou pět set až patnáct set duší a měšťané jsou svobodní lidé. Latinské školy mají Grimma, Oschatz i Leisnig již od minulého věku. Großenhain leží na Vysoké silnici z Lipska do Budyšína, Dippoldiswalde na stezce přes Krušné hory do Čech a Oelsnitz střeží Fojtsko pod Plavnem; Weidu, kolébku fojtů, koupili Wettinové léta Páně 1427. Zeitz náleží biskupům naumburským, kteří odtud spravují své panství.⟦ Při dělení lipském léta 1485 připadne Grimma, Oschatz, Leisnig a Rochlitz Albrechtovi, Fojtsko a Herzberg Arnoštovi.⟧

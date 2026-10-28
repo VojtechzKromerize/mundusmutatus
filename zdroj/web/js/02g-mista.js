@@ -2581,5 +2581,62 @@ const CITYINFO = {
     n: "Polní tábor bratříků na Zelené hoře nad Hrabušicemi, opevněný srubem a valem. Petr Aksamit se v listech píše, že sídlí zde a na Plavči.",
   },
   Pápa: {t: "Sídlo Garaiů", n: "Město a pohodlné panské sídlo, které si zde vystavěli Garaiové, rod palatinů."},
+  /* ---- MÍSTA: doplnění z rešerše hospodářství a Pruska (2026-10-28) ---- */
+  Sztum: {
+    t: "Hrad Řádu",
+    n: "Cihlový hrad jižně od Malborku. Když Svaz dobyl velká města a zbořil jejich hrady, zbyly velmistrovi vedle Malborku a Chojnic právě tyto zdi nad jezerem.",
+  },
+  Świecie: {
+    t: "Hrad na Visle",
+    n: "Hrad a městečko na vysokém břehu Visly. Léta Páně 1433 jím táhli husité od Chojnic po vodě k Gdaňsku; komu zdi nyní náležejí, mění se s válkou.",
+  },
+  Pelplin: {
+    t: "Klášter cisterciáků",
+    n: "Bohatý klášter v Pomoří, který husité léta 1433 vypálili. Mniši si dodnes pamatují, co Češi v kraji činili, a každou zvěst o nich poslouchají s úzkostí.",
+  },
+  Oliwa: {
+    t: "Klášter u Gdaňska",
+    n: "Cisterciácké opatství v lesích nad mořem nedaleko Gdaňska, které husité léta 1433 vypálili. Mniši mají v zemi velkou váhu a jejich opat sedí v radě Pomoří.",
+  },
+  Bydgoszcz: {
+    t: "Město s pivovary Řádu",
+    n: "Městečko na Brdě při Visle. Pivo, které zde vaří Řád, má v zemi nejlepší pověst a prodává se i do Gdaňska.",
+  },
+  Freiberg: {
+    t: "Horní město stříbrné",
+    n: "Nejstarší velké stříbrné město saské, kde se stříbro dobývá od dávných časů. Doly dlouho churaly; nyní se po odvodňovacích štolách a novém dělení stříbra od mědi opět otvírají.",
+  },
+  Goslar: {
+    t: "Říšské město a doly",
+    n: "Staré město pod Rammelsbergem, jehož stříbro a olovo kdysi živilo půl Říše. Doly upadly; jeden sesuv zahubil podle starých zpráv v jediný den na čtyři sta mužů.",
+  },
+  Schwaz: {
+    t: "Důl Falkenstein",
+    n: "Městečko v údolí Innu, kde se po nálezu nových žil počíná horní štěstí. Tyrolský vévoda Zikmund si od augsburských kupců půjčuje peníze na budoucí příjem z dolů.",
+  },
+  Augsburg: {
+    t: "Obchodní město kupců",
+    n: "Říšské město švábské, kde se tkají barchety a kde sídlí kupecké domy, jež financují doly a obchodují mědí a stříbrem. Cesty odtud vedou přes Alpy do Itálie i přes Bavory k českým hranicím.",
+  },
+  Příbram: {
+    t: "Horní městečko",
+    n: "Městečko pod Brdy, kde se těží olovnatá ruda s malou příměsí stříbra. Bohatství Kutné Hory z ní nikdy nebylo a po válkách těžba zchátrala.",
+  },
+  "Německý Brod": {
+    t: "Horní město",
+    n: "Královské město, které vzniklo z horníků a německých osadníků na pomezí českomoravském; roku 1422 se tu porazil husitský Žižka vojsko krále Zikmunda.",
+  },
+  Sedlec: {
+    t: "Cisterciácké opatství",
+    n: "Opatství, na jehož půdě začalo dobývání stříbra, dříve než vznikla Kutná Hora. Opat se kdysi přel s Čáslaví a Kolínem o horní zemi; klášter byl za válek zpustošen.",
+  },
+  Velehrad: {
+    t: "Klášter cisterciáků",
+    n: "Cisterciácké opatství na Moravě, kde sloužili němečtí mniši od roku 1201. Podle pověsti stálo opatství poblíž hrobu svatého Metoděje.",
+  },
+  Kremnica: {
+    t: "Královské horní město",
+    n: "Zlaté a stříbrné doly s mincovnou, kde se ražením zlata platí vojska pánů. Zdejší žíla je neobyčejně mocná; těžba však trpí neklidem v zemi.",
+  },
 };
 /*@cast}*/

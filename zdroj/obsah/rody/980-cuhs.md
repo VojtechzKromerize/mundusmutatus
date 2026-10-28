@@ -19,5 +19,6 @@ sidla:
   - Smolník | 20.74 | 48.73 | kat
   - Lučenec | 19.67 | 48.33 | kat
   - Varadín | 21.93 | 47.07 | kat
+  - Kremnica | 18.92 | 48.71
 ---
 Kdo do horních měst přichází, nesmí podle starého nařízení nésti v měšci víc než dvě hřivny, aby se nekupčilo zlatem mimo komoru královskou. Varadín leží daleko na východě, na cestě do Sedmihradska.

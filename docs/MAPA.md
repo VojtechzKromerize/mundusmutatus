@@ -80,7 +80,7 @@ Mapy přes celou obrazovku (2026-10-27, Vojta)
 
 Shrnutí míst mapy (CITYINFO) – samostatná část „mista“ (2026-10-28): stovky míst od Baltu po Jadran už jádro webu nenese;
 
-- 2586 řádků, 1 definic na nejvyšší úrovni, z toho 1 používají jiné soubory
+- 2643 řádků, 1 definic na nejvyšší úrovni, z toho 1 používají jiné soubory
 - používá z: –
 - používají ho: 02-mapa (1), 02b-mapa-kresba (1), 07-druzina-kronika (1)
 - poskytuje: CITYINFO

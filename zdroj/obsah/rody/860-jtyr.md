@@ -18,5 +18,6 @@ sidla:
   - Sterzing | 11.43 | 46.895
   - Bolzano | 11.354 | 46.498
   - Meran | 11.16 | 46.67
+  - Schwaz | 11.72 | 47.34
 ---
 Brennerem vede nejschůdnější cesta z Němec do Itálie a z cla na ní žije vévoda i města. Kupci z Augšpurku a Norimberka tudy vozí sukno a kov do Benátek a odtud koření a hedvábí.⟦ Spor vévody Zikmunda s kardinálem Kusánským vyvrcholí o Velikonocích 1460 v Brunecku zajetím kardinála; papež Zikmunda vyobcuje.⟧
