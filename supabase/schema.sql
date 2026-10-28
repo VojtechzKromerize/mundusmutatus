@@ -967,8 +967,12 @@ begin
   if not exists (select 1 from jsonb_array_elements(coalesce(s -> 'hraci', '[]'::jsonb)) h where h ->> 'id' = p_hrac) then
     raise exception 'neznámá postava';
   end if;
-  if jsonb_typeof(x) <> 'object' or exists (select 1 from jsonb_object_keys(x) k where k not in ('ci', 'cim', 'hod', 'd', 'adv', 'dmg', 't', 'drt', 'pru', 'plos', 'kmin', 'sl', 'sid', 'zv', 'wm', 'man')) then
+  if jsonb_typeof(x) <> 'object' or exists (select 1 from jsonb_object_keys(x) k where k not in ('ci', 'cim', 'hod', 'd', 'adv', 'dmg', 't', 'drt', 'pru', 'plos', 'kmin', 'sl', 'sid', 'zv', 'wm', 'man', 'sram')) then
     raise exception 'neplatný útok';
+  end if;
+  -- Šrám Střelce (Grazing Shot, 2026-10-28): zranění při minutí (kostka Štěstěny + DEX)
+  if x ? 'sram' and not public.mm_cislo(x -> 'sram', 1, 40) then
+    raise exception 'neplatný šrám';
   end if;
   -- manévr Battle Mastera se záchranou cíle (2026-10-25): jméno a SO; následek vyhodnotí vypravěč při potvrzení
   if x ? 'man' and (jsonb_typeof(x -> 'man') <> 'object' or exists (select 1 from jsonb_object_keys(x -> 'man') k where k not in ('n', 'dc'))
@@ -1035,6 +1039,10 @@ begin
   if x ? 'sl' then u := u || jsonb_build_object('sl', x -> 'sl'); end if;
   if x ? 'sid' then u := u || jsonb_build_object('sid', x -> 'sid'); end if;
   if x ? 'zv' then u := u || jsonb_build_object('zv', x -> 'zv'); end if;
+  -- mistrovství zbraně, manévr a Šrám (2026-10-28): dřív se jen kontrolovaly a do útoku neuložily – vypravěč je neviděl
+  if x ? 'wm' then u := u || jsonb_build_object('wm', x -> 'wm'); end if;
+  if x ? 'man' then u := u || jsonb_build_object('man', x -> 'man'); end if;
+  if x ? 'sram' then u := u || jsonb_build_object('sram', x -> 'sram'); end if;
   s := jsonb_set(s, '{utoky}', (select coalesce(jsonb_agg(e order by o), '[]'::jsonb) from (
       select e, o from jsonb_array_elements(coalesce(s -> 'utoky', '[]'::jsonb) || jsonb_build_array(u)) with ordinality t(e, o) order by o desc limit 30) w));
   update public.boj set stav = s, verze = verze + 1, zmeneno = now() where id = 'aktivni' returning verze into v;

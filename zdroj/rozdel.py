@@ -49,6 +49,7 @@ JS = [
     ("10u-ucinky.js", "/* @čisté – Účinky v jednom formátu"),
     ("10v-veci.js", "/* @čisté – Vlastní předměty z Dílny"),
     ("10w-zbrane.js", "/* @čisté – Vlastnosti a mistrovství zbraní"),
+    ("10x-strelec.js", "/* @čisté – Střelec (Gunslinger"),
     ("11-boj.js", "/* ===== BOJ: tracker slotové iniciativy"),
     ("12-boj-tah-postavy.js", "/* ===== automatizace tahu:"),
     ("13-karty.js", "/* ===== Karty postav: import listu z PDF"),

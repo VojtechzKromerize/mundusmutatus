@@ -156,6 +156,30 @@ function bojEfZnac0(z, n, sp, u, nm) {
 /* vyhodnocení útoku hráče se hází jen jednou (2026-10-19): náhled v panelu „k potvrzení“ i zápis používají tytéž kostky
    (záchrany nepřátel, Ostrá, záchrany houfu) – dřív se při zápisu házelo znovu a výsledek se lišil od náhledu */
 const BUVC = new Map();
+/* Šrám Střelce (Grazing Shot, 10x): zranění při minutí, které hráč přidal po hodu (u.sram); s Graze se sečte (2026-10-28) */
+function bojSramMinuti(o, u, n, E) {
+  const x = Math.round(+(u && u.sram) || 0);
+  if (!(x > 0)) return "";
+  const raw = x + (+o.graze || 0);
+  o.sram = x;
+  if (n.druh === "houf") {
+    const Hz = bojHoufZasah(n, raw);
+    Object.assign(o, {pad: Hz.pad, hz: Hz.hz, hz0: Hz.hz0});
+    return ` · Šrám: ${x}${Hz.pad ? ", padl pacholek" : ""}`;
+  }
+  const z = E && E.hp.length ? bojZasah(E, raw, u.t, {drt: u.drt, pru: u.pru, st: n.stav}) : {x: raw, pozn: []};
+  Object.assign(o, {x: z.x, pozn: z.pozn});
+  return ` · Šrám: ${x}${z.pozn.length ? ` → ${z.x} (${z.pozn.join(", ")})` : ""}`;
+}
+/* Gut Shot Střelce (5. úroveň): kritický zásah zbraní na dálku – střela uvízne v těle (Velký a menší tvor); připomínka pro vypravěče */
+function bojGutShot(h, u, krit) {
+  const K = krit && h && !u.plos ? bojKartaH(h) : null;
+  if (!K || kStrU(K) < 5) return "";
+  const a = kUtoky(K).find(x => x.n === bojZvJm(u));
+  return a && a.dal
+    ? "Gut Shot: střela uvízla v těle – 1 minutu poloviční rychlost a nevýhoda na útoky (Velký a menší tvor; vytržení stojí jeden útok)"
+    : "";
+}
 function bojUtokVyhodnot(s, u) {
   if (!u || !u.id) return bojUtokVyhodnot0(s, u);
   const k = u.id + "|" + (u.ci || []).join(",");
@@ -247,9 +271,10 @@ function bojUtokVyhodnot0(s, u) {
     if (!hit) {
       o.zve = bojZvVyhodnot(s, u, h, n, E, ZS, false, false);
       /* Graze (mistrovství, 20g): při minutí zranění ve výši modifikátoru */
-      const gr = typeof bojWmMinuti === "function" ? bojWmMinuti(o, u, n, E) : "";
-      o.gm = `${n.n}: ${u.hod}${mis ? " (přirozená 1)" : ""} proti ${o.acT}${o.neprima ? " (Nepřímá: poloviční kryt neplatí)" : ""} → vedle${gr}${o.zve.map(e => " · " + e.txt).join("")}`;
-      o.vys = gr ? `vedle, škrábnutí ${o.graze}` : "vedle";
+      const gr = typeof bojWmMinuti === "function" ? bojWmMinuti(o, u, n, E) : "",
+        sr = bojSramMinuti(o, u, n, E);
+      o.gm = `${n.n}: ${u.hod}${mis ? " (přirozená 1)" : ""} proti ${o.acT}${o.neprima ? " (Nepřímá: poloviční kryt neplatí)" : ""} → vedle${gr}${sr}${o.zve.map(e => " · " + e.txt).join("")}`;
+      o.vys = gr || sr ? `vedle, ${[gr ? `škrábnutí ${o.graze}` : "", sr ? `šrám ${o.sram}` : ""].filter(Boolean).join(", ")}` : "vedle";
       r.push(o);
       return;
     }
@@ -293,6 +318,10 @@ function bojUtokVyhodnot0(s, u) {
     if (o.obet) o.gm += ` · ${o.obet} obětována, zranění bez kritu ${o.x}`;
     if ((o.wme || []).length) o.gm += o.wme.map(e => " · " + e.txt).join("");
     if (o.mne) o.gm += " · " + o.mne.txt;
+    {
+      const gs = bojGutShot(h, u, krit && !o.obet);
+      if (gs) o.gm += " · " + gs;
+    }
     r.push(o);
   });
   return {an, h, r};
@@ -405,6 +434,7 @@ function bojUtokProved(s, u, id) {
       }
       L.res = o.hit === false ? "vedle" : o.krit ? "krit" : "zasah";
       if (o.graze) L.zt += ` · Graze ${o.graze}`;
+      if (o.sram) L.zt += ` · Šrám ${o.sram}`;
     } else L.res = "vedle";
     if (u.zv && u.zv.r === "pok" && (u.zv.a || []).length && !o.houf) L.zvk = {h: u.h, ci: o.ci, a: u.zv.a.slice(), w: bojZvJm(u)};
     bojLog(o.ci, L, o.n);

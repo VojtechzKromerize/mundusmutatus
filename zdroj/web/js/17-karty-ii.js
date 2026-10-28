@@ -1008,13 +1008,17 @@ function kHodNabidka(K, co, zapocteno) {
             ? "Tactical Assessment"
             : null
         : null;
+  /* Střelec (10x): Svéhlavost (Maverick Spirit) k ověření a záchraně na INT, WIS a CHA – kostka Štěstěny místo kostky převahy */
+  const co0 = String(co || "").replace(/\s*\(.*$/, ""),
+    ab = (co0.match(/^Záchrana (STR|DEX|CON|INT|WIS|CHA)/) || [])[1] || Object.keys(KSK).find(k => co0 === "Ověření " + KSK[k]) || KDOVAB[co0],
+    RK = !man && !z.has("sd") && kStrU(K) >= 2 && strSvehlavost(ab) ? kRDKousek(K, "svehl") : null;
   return {
     bless: ma("Bless"),
     guid: ma("Guidance"),
     bane: ma("Bane"),
     bard,
     st: bard ? +bard.match(/\d+$/)[0] : 0,
-    sd: man ? {n: man, k: SD.k, zb: SD.zb} : null,
+    sd: man ? {n: man, k: SD.k, zb: SD.zb} : RK ? {n: "Svéhlavost (Maverick Spirit)", k: RK.k, zb: RK.RD ? RK.RD.zb : null, rd: 1} : null,
   };
 }
 /* Bardic Inspiration použitá po hodu: kostka se spotřebuje */
@@ -1032,7 +1036,7 @@ function kNabidkaHtml(N, a, H = "") {
       ? `<button type="button" class="gbtn ghost" ${a}="bard"${H} ${btip(`Bardic Inspiration: přičte 1d${N.st}, kostka se spotřebuje`)}>${bi("bard")}+1d${N.st} Bardic</button>`
       : "",
     N.sd
-      ? `<button type="button" class="gbtn ghost" ${a}="sd"${H} ${btip(`${N.sd.n}: přičte 1${N.sd.k} (kostka převahy, zbývá ${N.sd.zb})`)}>+1${N.sd.k} ${besc(N.sd.n)}</button>`
+      ? `<button type="button" class="gbtn ghost" ${a}="sd"${H} ${btip(`${N.sd.n}: přičte 1${N.sd.k} (${N.sd.rd ? (N.sd.zb == null ? "Štěstí přeje odvážným – zdarma" : `kostka Štěstěny, zbývá ${N.sd.zb}; jednou za tah`) : `kostka převahy, zbývá ${N.sd.zb}`})`)}>+1${N.sd.k} ${besc(N.sd.n.replace(/ \(.*\)$/, ""))}</button>`
       : "",
   ].join("");
 }
@@ -1089,6 +1093,18 @@ function kEfekty(K) {
       blizko: 1,
       pozn: "Rage: + ke zranění útoků zblízka, Resistance Bludgeoning/Piercing/Slashing, výhoda na STR ověření a záchrany; zapnutí spotřebuje 1 Rage",
     });
+  /* Střelec (10x): Critical Shot – kritický zásah na dálku od 19 (9. úroveň 18, 17. úroveň 17); Overkill (11.) +1d8 na dálku */
+  const gs = kTrU(c, "Gunslinger");
+  if (gs >= 2)
+    L.push({
+      n: "Critical Shot",
+      krit: strKrit(gs),
+      auto: 1,
+      jen: a => !!a.dal,
+      pozn: `Rána do živého: útok zbraní na dálku je kritickým zásahem při ${strKrit(gs)}–20`,
+    });
+  if (gs >= 11)
+    L.push({n: "Overkill", zr: "1d8", auto: 1, jen: a => !!a.dal, pozn: "Přes míru: +1d8 zranění typu zbraně při zásahu zbraní na dálku"});
   if (has("Hex")) L.push({n: "Hex", zr: "1d6", t: "Necrotic", pozn: "+1d6 Necrotic proti očarovanému cíli"});
   if (has("Hunter's Mark")) L.push({n: "Hunter's Mark", zr: "1d6", t: "Force", pozn: "+1d6 Force proti označenému cíli"});
   if (has("Divine Favor")) L.push({n: "Divine Favor", zr: "1d4", t: "Radiant", pozn: "+1d4 Radiant k útokům zbraní"});
@@ -1191,6 +1207,22 @@ function kSD(K) {
   return Object.assign(z, {k: m ? m[1] : f >= 18 ? "d12" : f >= 10 ? "d10" : "d8"});
 }
 const kSDdc = K => 8 + kPB(K) + Math.max(kMod(kVl(K, "STR") || 10), kMod(kVl(K, "DEX") || 10));
+/* Střelec (Gunslinger, pravidla v čistém 10x): kostky Štěstěny = zdroj „Risk Dice“ z PDF, velikost kostky podle úrovně;
+   Karbaník (High Roller) dává Hazard a od 10. úrovně Svéhlavost a O vlásek zdarma s k6 (2026-10-28) */
+const kStrU = K => (K ? kTrU(kCtx(K), "Gunslinger") : 0);
+const kKarb = K => kMaRys(K, /^high roller$/i);
+function kRD(K) {
+  const R = strRD(kStrU(K)),
+    z = R && typeof kZdrN === "function" ? kZdrN(K, /risk dic?e/i) : null;
+  return z ? Object.assign(z, {k: R.k}) : null;
+}
+/* kostka kousku: utrácí kostku Štěstěny, nebo (Karbaník 10+, Svéhlavost a O vlásek) k6 zdarma, když kostky došly */
+function kRDKousek(K, k) {
+  const RD = kRD(K);
+  if (RD && RD.zb > 0) return {k: RD.k, RD};
+  if ((k === "svehl" || k === "vlasek") && strZdarma(kStrU(K), kKarb(K))) return {k: "d6", RD: null};
+  return null;
+}
 /* manévry, které se přidávají k zásahu: [název, česky, záchrana cíle, následek při neúspěchu] */
 const BMAN = [
   ["Trip Attack", "Útok s podražením", "STR", "Sražen (Prone)"],
@@ -1427,5 +1459,6 @@ function kStavVliv(K, co) {
   });
   if (typ === "za" && ab && typeof kBufAdv === "function") kBufAdv(K, ab).forEach(n => r.push([1, n]));
   if (kPri(K).includes("Rage") && (typ === "ov" || typ === "za") && ab === "STR") r.push([1, "Rage"]);
+  if (typ === "in" && kStrU(K) >= 1) r.push([1, "Quick Draw"]);
   return {r, fail};
 }

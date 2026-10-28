@@ -122,6 +122,10 @@ function kReakceFakta(K, h, s, e) {
     rysy: [...(K.rysy || []), ...(K.rysy2 || []).map(r => r.n)].map(x => String(x).toLowerCase()),
     man: ["Parry", "Riposte"].filter(n => kManMa(K, n)),
     sd: SD ? {k: SD.k, zb: SD.zb} : null,
+    rd: (() => {
+      const RD = kStrU(K) >= 2 ? kRD(K) : null;
+      return RD ? {k: RD.k, zb: RD.zb, zdarma: strZdarma(kStrU(K), kKarb(K))} : null;
+    })(),
     bi: B ? {st: kBardSt(K), zb: B.zb} : null,
     str: kMod(kVl(K, "STR") || 10),
     agi: kMod(kVl(K, "DEX") || 10),
@@ -434,12 +438,29 @@ async function kZasahReakce(K, k, i) {
     if (!z) return;
     await kZdrUtrat(K, z);
   }
+  /* O vlásek: kostka (Štěstěny, nebo k6 zdarma) se určí před utracením */
+  const VL = k === "vlasek" ? kRDKousek(K, "vlasek") : null;
+  if (k === "vlasek") {
+    if (!VL) return;
+    if (VL.RD) await kZdrUtrat(K, VL.RD);
+  }
   /* kolik HP vrátit: okno reakce (čistý 10r) – kostky se hodí tady */
   {
     const f = kReakceFakta(K, h, s, e),
-      d = k === "da" ? bK(10) : k === "parry" ? bK(+String((f.sd || {}).k || "d8").slice(1)) : k === "cw" ? bK(kBardSt(K)) : 0,
+      d =
+        k === "da"
+          ? bK(10)
+          : k === "parry"
+            ? bK(+String((f.sd || {}).k || "d8").slice(1))
+            : k === "cw"
+              ? bK(kBardSt(K))
+              : VL
+                ? bK(+VL.k.slice(1))
+                : 0,
       V = reakceVysledek(k, e, f, {d});
     if (V && V.n > 0) await vrat(V.n, V.proc);
+    else if (k === "vlasek" && V)
+      kHodZapis({k: K.id, kdo: K.n, co: "Reakce: O vlásek", txt: `${V.proc} – útok ${e.hod || "?"} proti AC ${e.ac || "?"}`});
   }
   mmHlas(`${K.n}: reakce použita.`, 4000);
   renderBoj();

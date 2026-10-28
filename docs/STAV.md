@@ -36,6 +36,12 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
   **Zalícení**: s těžkou kuší za polovinu rychlosti výhoda na útok (i v kontaktu s nepřítelem – Vojta; není to perk).
 - 2026-10-28 **Gunslinger (Valda's Spire, Mikuláš)**: povolání má zdatnost se všemi válečnými zbraněmi, ne jen na dálku. Karta to počítá
   (`KMARC` v 18) a Extra Attack na 5. úrovni zná `kPocet` (10p). Český překlad mimo SRD je jen v projektu claude.ai `pravidla/gunslinger-2026-10-28.md`.
+- 2026-10-28 **Střelec na webu**: plné znění jen pro přihlášené (Pravidla › Doplňky mimo SRD › Povolání; klíč `povolani` v `pravidla_texty`,
+  převodník `zdroj/mimo-srd/povolani_plne.py`, vypravěč nahraje `povolani.json` v Pravidla › Kouzla › Nahrát plné znění – do ostré po „nasaď“).
+  Automatika (čistý `10x-strelec.js`): kostky Štěstěny (`kRD`, Omezené s velikostí kostky), Critical Shot a Overkill v `kEfekty`, Quick Draw
+  (`kStavVliv`), Svéhlavost (`kHodNabidka`), Šrám po minutí (`bojJaUprav` → `sram` v útoku, vypravěč odečte), O vlásek (reakce `vlasek`),
+  kousky za bonusovou akci a Hazard v pruhu tahu (`bdmStrTahHtml`), Gut Shot jako připomínka vypravěči. `mm_boj_utok` teď ukládá i `wm` a `man`
+  (dřív se jen kontrolovaly – Graze a manévry z telefonu k vypravěči nedošly).
 
 ## Hotovo
 

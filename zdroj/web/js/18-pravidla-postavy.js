@@ -541,6 +541,13 @@ const KZDRP = [
     "dlouhý odpočinek",
     "Sorcery Points",
   ],
+  /* Střelec (doplněk mimo SRD, 10x): kostky Štěstěny podle úrovně, velikost kostky do obnovy (čte ji i nápověda karty) */
+  [
+    /^risk dic?e/i,
+    c => (strRD(kTrU(c, "Gunslinger")) || {n: 0}).n,
+    c => `krátký odpočinek · kostka ${(strRD(kTrU(c, "Gunslinger")) || {k: "d8"}).k}`,
+    "Risk Dice",
+  ],
   [/arcane recovery/i, c => (kTrU(c, "Wizard") ? 1 : 0), "dlouhý odpočinek", "Arcane Recovery"],
   [/magical cunning/i, c => (kTrU(c, "Warlock") >= 2 ? 1 : 0), "dlouhý odpočinek", "Magical Cunning"],
   [/^lucky$/i, c => c.pb, "dlouhý odpočinek"],

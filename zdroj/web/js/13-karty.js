@@ -1192,7 +1192,11 @@ async function kPoslUprav(K, typ) {
     ...(typ === "bard" ? [N.bard] : typ === "m4" ? ["Bane"] : typ === "b4" ? [N.bless ? "Bless" : "Guidance"] : typ === "sd" ? ["sd"] : []),
   ];
   if (typ === "bard") await kBardSpotrebuj(K, N.bard);
-  if (typ === "sd") await kZdrUtrat(K, kSD(K));
+  if (typ === "sd") {
+    /* Svéhlavost Střelce utrácí kostku Štěstěny (Karbaník 10+ bez kostek: k6 zdarma), manévry Battle Mastera kostku převahy */
+    const z = N.sd.rd ? (kRDKousek(K, "svehl") || {}).RD : kSD(K);
+    if (z) await kZdrUtrat(K, z);
+  }
   if (typ === "insp") await kartaStavZmen(K.id, {insp: null});
   if (L && L.z) {
     const U = Object.assign({}, kartaStav(K.id).zdr || {});
@@ -1404,6 +1408,14 @@ function bojJaUprHtml(K, hid) {
       return SD && SD.zb > 0 && kManMa(K, "Precision Attack")
         ? `<button type="button" class="gbtn ghost" data-juupr="prec"${H} ${btip(`Precision Attack: přičte 1${SD.k} k hodu na útok (kostka převahy, zbývá ${SD.zb})`)}>+1${SD.k} Precision</button>`
         : "";
+    })()}${(() => {
+      /* Šrám Střelce (Grazing Shot, 10x): minul jsi na dálku – kostka Štěstěny + DEX zranění i tak, jednou za tah */
+      const RD = x && x.vys === "vedle" && x.dal && !x.sram && K ? kRD(K) : null;
+      return RD && RD.zb > 0 && !(BOJ.s && !tahJednouVolne(bojBpt(BOJ.s), "Šrám"))
+        ? `<button type="button" class="gbtn ghost" data-juupr="sram"${H} ${btip(`Šrám (Grazing Shot): minul jsi, přesto zraníš za 1${RD.k} + DEX (nejméně 1) – kostka Štěstěny, zbývá ${RD.zb}; jednou za tah`)}>Šrám 1${RD.k}</button>`
+        : x && x.sram
+          ? `<small class="rsmall">Šrám: ${x.sram} zranění i při minutí</small>`
+          : "";
     })()}</div>`;
 }
 async function bojJaUprav(typ, hid) {
@@ -1429,6 +1441,20 @@ async function bojJaUprav(typ, hid) {
   }
   const i = Math.min(+BJU.ui || 0, BJU.serie.length - 1),
     q = BJU.serie[i];
+  if (typ === "sram") {
+    const RD = K ? kRD(K) : null,
+      P = BOJ.s ? bojBpt(BOJ.s) : null;
+    if (!(RD && RD.zb > 0 && q.vys === "vedle" && q.dal && !q.sram && (!P || tahJednouVolne(P, "Šrám")))) return;
+    const d = bK(+RD.k.slice(1)),
+      dex = kMod(kVl(K, "DEX") || 10),
+      x = strSram(d, dex);
+    await kZdrUtrat(K, RD);
+    if (P) tahJednouZapis(P, "Šrám");
+    BJU.serie[i] = Object.assign({}, q, {sram: x});
+    BJU.info = `${BJU.info ? BJU.info + " · " : ""}${BJU.serie.length > 1 ? `${i + 1}. útok: ` : ""}Šrám (Grazing Shot): 1${RD.k} ${d} ${bsg(dex)} = ${x} zranění i při minutí`;
+    bojListPrekresli();
+    return;
+  }
   if (typ === "insp" && !(K && kartaStav(K.id).insp)) return;
   const L = typ === "luck" ? K && kLucky(K) : null;
   if (typ === "luck" && (!L || L.zb <= 0)) return;
