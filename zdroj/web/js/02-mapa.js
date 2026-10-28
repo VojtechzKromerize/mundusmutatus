@@ -4509,11 +4509,14 @@ const DUCH_NOLBL = new Set([
   "ven",
   "tyr",
 ]);
-/* vrstva Hlavní hráči (2026-10-28, Vojta): mocnosti jara 1458 jako sloučené země (z: id v DUCHY; obrys a místo erbu spočítá
+/* vrstva Hlavní hráči (2026-10-28, Vojta): mocnosti jara 1458 jako sloučené země (z: id v DUCHY; h: vládnoucí rod v deskách,
+   l: země rodů z desk (FAM.land) do panelu mocnosti, kf: jména mocnosti ve vrstvě Konflikty; obrys a místo erbu spočítá
    podklady/hranice_doplnit.py do HRACI_GEO v 02b). Barva podle erbu; sousedé mají odlišný odstín (Čechy × Polsko × Braniborsko, Čechy × Rakousy, Braniborsko × Pomořany). */
 const HRACI = [
   {
     id: "cze",
+    h: "pod",
+    kf: ["Koruna česká"],
     n: "České království",
     c: "#c8372f",
     z: DUCHY.filter(u => u.dom).map(u => u.id),
@@ -4521,6 +4524,9 @@ const HRACI = [
   },
   {
     id: "uhr",
+    h: "hun",
+    l: ["Uhry", "Chorvatsko a Slavonie"],
+    kf: ["Uhry"],
     n: "Uherské království",
     c: "#3e933e",
     z: ["hun", "jis", "mac", "tem", "sev", "sed", "sla", "chr", "frk"],
@@ -4528,6 +4534,9 @@ const HRACI = [
   },
   {
     id: "pol",
+    h: "jag",
+    l: ["Polsko"],
+    kf: ["Polsko"],
     n: "Polské království",
     c: "#7d1a2c",
     z: ["mpl", "vlp", "sie", "kuj", "maz", "rus", "osz", "kpr", "gpo", "spz"],
@@ -4535,6 +4544,8 @@ const HRACI = [
   },
   {
     id: "lit",
+    h: "jag",
+    l: ["Litva"],
     n: "Velkoknížectví litevské",
     c: "#d0653f",
     z: ["lit"],
@@ -4542,6 +4553,9 @@ const HRACI = [
   },
   {
     id: "rad",
+    h: "nrad",
+    l: ["Prusy"],
+    kf: ["Řád"],
     n: "Řád německých rytířů",
     c: "#6f6f6f",
     z: ["rad"],
@@ -4549,6 +4563,8 @@ const HRACI = [
   },
   {
     id: "bra",
+    h: "fra",
+    l: ["Braniborsko"],
     n: "Braniborsko",
     c: "#a8503c",
     z: ["brb", "nmk"],
@@ -4556,6 +4572,8 @@ const HRACI = [
   },
   {
     id: "pom",
+    h: "gryf",
+    l: ["Pomořany"],
     n: "Pomořanská vévodství",
     c: "#e2b2a2",
     z: ["pwo", "pst", "psl"],
@@ -4563,6 +4581,8 @@ const HRACI = [
   },
   {
     id: "sas",
+    h: "wet",
+    l: ["Sasko"],
     n: "Saské země Wettinů",
     c: "#dfa936",
     z: ["sxw", "mis", "thu", "vog"],
@@ -4570,6 +4590,8 @@ const HRACI = [
   },
   {
     id: "bav",
+    h: "wit",
+    l: ["Bavory"],
     n: "Bavorská vévodství",
     c: "#2f78a8",
     z: ["bla", "bmu", "hfa"],
@@ -4577,6 +4599,7 @@ const HRACI = [
   },
   {
     id: "fra",
+    h: "fra",
     n: "Franky",
     c: "#e7a7a0",
     z: ["kul", "ans", "bam", "wur", "nur", "hen"],
@@ -4584,6 +4607,9 @@ const HRACI = [
   },
   {
     id: "rak",
+    h: "hab",
+    l: ["Rakousy", "Vnitřní Rakousy", "Tyrolsko"],
+    kf: ["Rakousy"],
     n: "Rakouské země",
     c: "#e9b9b4",
     z: ["rpe", "rne", "sty", "kor", "kra", "tyr", "tst", "paz", "zfr"],
@@ -4591,6 +4617,8 @@ const HRACI = [
   },
   {
     id: "dan",
+    h: "oldb",
+    l: ["Dánsko"],
     n: "Dánské království",
     c: "#d48a26",
     z: ["dan", "sle"],
@@ -4598,6 +4626,8 @@ const HRACI = [
   },
   {
     id: "ben",
+    h: "jben",
+    l: ["Benátky"],
     n: "Benátská republika",
     c: "#1f5f8b",
     z: ["ven", "fur", "ist", "dal"],
@@ -6143,12 +6173,27 @@ let KONF_C = null;
 function konfliktyKrajina() {
   return KONF_C || (KONF_C = konfliktyKoruny(REL, byId, SVET));
 }
+/* panel mocnosti (vrstva Hlavní hráči, klik na její území): erb, stav k jaru 1458, vládnoucí rod, země (klik je ukáže na mapě),
+   rody a sídla z desk a války či napětí z vrstvy Konflikty */
+function hracHtml(h) {
+  const f = h.h && byId[h.h],
+    zeme = h.z.map(id => DUCHY.find(u => u.id === id)).filter(Boolean),
+    rody = FAM.filter(x => (h.l || []).includes(x.land) && x.id !== h.h && !x.nomap),
+    kf = typeof konfliktyKrajina === "function" ? konfliktyKrajina().filter(c => c.k === "stat" && (h.kf || []).some(t => c.n.includes(t))) : [];
+  return `<span class="lbl">Mocnost jara 1458</span><div class="hracpan"><img class="hracpanerb" src="art/erby/hrac-${h.id}.webp" alt=""><h3>${besc(h.n)}</h3></div>
+   <p>${besc(h.t)}</p>
+   <dl class="kv">${f ? `<dt>Vládne</dt><dd><button type="button" class="hrrod" data-hrrod="${f.id}">${besc(f.name)}</button> – ${besc(f.head)}</dd>` : ""}
+   <dt>Země</dt><dd>${zeme.map(u => `<button type="button" class="hrzem" data-hrzem="${u.id}" title="Ukázat na mapě">${besc(u.s || u.name)}</button>`).join(", ")}</dd>
+   ${rody.length ? `<dt>Rody a sídla</dt><dd>${rody.map(x => `<button type="button" class="hrrod" data-hrrod="${x.id}">${besc(x.name)}</button>`).join(", ")}</dd>` : ""}
+   ${kf.length ? `<dt>Války a napětí</dt><dd>${kf.map(c => `<b>${besc(c.n)}</b> – ${besc(c.x)}`).join("<br>")}</dd>` : ""}</dl>`;
+}
 function krajHtml(o) {
   let typ = "",
     n = "",
     txt = "",
     navic = "",
     gm = "";
+  if (o.k === "hr") return hracHtml(HRACI[o.i]);
   if (o.k === "pre") {
     const [jm, druh, , , sez, pozn] = PRECHODY[o.i];
     typ = PRECH_DRUH[druh];
@@ -7256,6 +7301,18 @@ toggleBtn("lyMeasure", "measure", () => {
   renderTravel();
 });
 
+/* panel mocnosti: rod otevře rod (zpět vede k mocnosti přes historii mapy), země přiblíží mapu na její popisek */
+document.addEventListener("click", e => {
+  const r = e.target.closest("[data-hrrod]"),
+    z = e.target.closest("[data-hrzem]");
+  if (r && byId[r.dataset.hrrod]) show(r.dataset.hrrod);
+  if (z) {
+    const u = DUCHY.find(x => x.id === z.dataset.hrzem);
+    if (!u) return;
+    const [x, y] = P(...u.lab);
+    mapCenter(x, y, Math.max(160, Math.min(420, u.w * 2.2)));
+  }
+});
 /* clicking a holding in the detail panel centres the map on it */
 document.addEventListener("click", e => {
   const b = e.target.closest(".plink");

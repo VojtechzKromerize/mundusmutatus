@@ -385,6 +385,14 @@ test("vrstva Hlavní hráči: mocnosti ze zemí, každá s erbem a vlastní barv
   S.ev(`document.getElementById("lyHraci").click(); st.zoom = "vse"; st.vb = null; drawMapK()`);
   assert.equal(V(`document.querySelectorAll("#map .hracerbm image").length`), 13);
   assert.equal(V(`document.getElementById("hraclegend").hidden`), false);
+  /* klepnutí na území mocnosti ukáže její panel: vládnoucí rod, země a války z vrstvy Konflikty */
+  assert.equal(V(`document.querySelectorAll("#map path.krajpoly").length`), 13);
+  S.ev(`document.querySelectorAll("#map path.krajpoly")[2].dispatchEvent(new MouseEvent("click", {bubbles: true}))`);
+  const det = V(`document.getElementById("detail").textContent`);
+  assert.match(det, /Polské království/);
+  assert.match(det, /Jagellonci/);
+  assert.match(det, /Polsko × Řád/);
+  assert.ok(V(`document.querySelectorAll("#detail [data-hrzem]").length`) >= 8, "země Polska jako odkazy");
   /* zapnutí Zemí a knížectví vrstvu vypne (obě barví celé země) */
   S.ev(`document.getElementById("lyDuchy").click()`);
   assert.equal(V(`st.hraci`), false);

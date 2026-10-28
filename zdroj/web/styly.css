@@ -160,6 +160,11 @@ svg#map:active{cursor:grabbing}
 .dsw{display:inline-block;width:14px;height:10px;margin-right:6px;vertical-align:0;border:1.5px solid}
 /* vrstva Hlavní hráči: erb mocnosti v legendě (2026-10-28) */
 .hracerb{width:22px;height:auto;vertical-align:-6px;margin-right:6px}
+/* panel mocnosti: erb vedle jména, země a rody jako odkazy */
+.hracpan{display:flex;align-items:center;gap:12px;margin:4px 0 6px}
+.hracpan h3{font-size:1.35rem;margin:0}
+.hracpanerb{width:52px;height:auto;flex:none}
+.hrzem,.hrrod{background:none;border:0;padding:0;font:inherit;color:var(--kal);text-decoration:underline dotted;text-underline-offset:3px;cursor:pointer}
 .vrnsw{width:18px;height:18px;margin-right:6px;vertical-align:-4px}
 .vrnp{margin:.5em 0}
 .gmnamet{border-left:3px solid var(--gold);padding-left:8px;font-size:.92rem}

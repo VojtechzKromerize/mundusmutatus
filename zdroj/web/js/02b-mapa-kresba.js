@@ -16334,6 +16334,18 @@ function drawMapK() {
         });
         svg.appendChild(pg);
       });
+  /* mocnosti (vrstva Hlavní hráči): klepnutí na území ukáže panel mocnosti */
+  if (st.hraci)
+    HRACI.forEach((h, i) => {
+      const pg = el("path", {d: kruhyD(HRACI_GEO[h.id].rs), "fill-rule": "evenodd", class: "krajpoly", fill: "#000", "fill-opacity": "0"});
+      pg.appendChild(el("title", {}, h.n));
+      pg.addEventListener("click", e => {
+        if ((mapDrag && mapDrag.moved) || st.measure) return;
+        e.stopPropagation();
+        showKraj("hr", i);
+      });
+      svg.appendChild(pg);
+    });
   const sel = st.sel,
     labels = [];
   /* rámečky ikon míst (2026-10-28): jméno místa se nepoloží přes cizí ikonu, aby v hustých krajích (Slezsko) nepatřilo zdánlivě sousedovi */
