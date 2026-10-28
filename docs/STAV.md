@@ -55,6 +55,9 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
 - 2026-10-28 Útok nepřítele na víc cílů: „+ víc cílů“ u Na koho (`BCILL`, první = `BCIL`); útok proběhne na každý cíl, u záchrany
   (dech, výbuch) se zranění hodí jednou (`bojUtok` opt.zr). Data art/*.json mají v adrese otisk obsahu (build) – po změně dat je
   prohlížeč i service worker stáhnou znovu (vypravěč měl v mezipaměti kouzla se starými názvy škol).
+- 2026-10-28 **Jedna skupina měst na zemi** (Vojta): sloučeno cmal → cpl (Města Polska), chu → umi (Města Uher), nmra → cat (Města a trhy
+  Rakous), nmba → cba (Města Bavor, Horní Falce a Frank), nmsa → csa (Města Saska a Míšně); sídla spojená, texty za sebou. Čechy a Morava
+  dál rozlišují královská a věnná města (mes) od ostatních (cmc, cmm) – je to stav na sněmu, ne zbytečné dělení.
 
 ## Hotovo
 

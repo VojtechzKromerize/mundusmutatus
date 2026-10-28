@@ -2507,19 +2507,17 @@ const CTYPE = {
   vra: "Královské město",
   mdl: "Zemské město Dolní Lužice",
   rmi: "Svobodné říšské město",
-  umi: "Svobodné královské město",
+  umi: "Město",
   cat: "Zeměpanské město",
   cba: "Zeměpanské město",
   csa: "Zeměpanské město",
   cbr: "Hanzovní město",
-  cpl: "Královské město",
-  chu: "Město",
+  cpl: "Město",
   /* ---- SEVER (mapa 2026-10-27) ---- */
   cpru: "Město v Prusích",
   cpom: "Pomořanské město",
   chan: "Hanzovní město",
   cmek: "Město",
-  cmal: "Královské město",
 };
 const MAJOR_ROADS = new Set([
   "Frankfurtská cesta",
