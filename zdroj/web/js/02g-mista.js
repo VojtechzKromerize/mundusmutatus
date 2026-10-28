@@ -138,7 +138,7 @@ const CITYINFO = {
     n: "Pešť jest kupecké město naproti Budínu. Na sněmu pešťském byl v lednu léta Páně 1458 provolán králem Matyáš Korvín, tehdy ještě zajatec pana Jiřího v Praze.",
   },
   "Lubin (Lübben)": {
-    n: "Lubin jest sídlem zemského fojta Dolní Lužice. Tu zemi Koruny české drží od léta Páně 1448 kurfiřt braniborský Fridrich II. a odsud jí skrze fojta svého vládne.",
+    n: "Lubin jest dolnolužické město, v němž stojí farní kostel spojený s úřadem arcijáhna míšeňského; arcijáhen sám bydlí v Míšni a církevní soud tu drží skrze svého oficiála. Zemi, kterou od léta Páně 1448 drží v zástavě kurfiřt braniborský Fridrich II., spravuje fojt bez stálého sídla.",
   },
   Guben: {n: "Guben jest město Dolní Lužice na Nise. Dolní Lužici, zemi Koruny české, drží od léta Páně 1448 kurfiřt braniborský Fridrich II."},
   Luckau: {n: "Luckau jest jedno z předních měst Dolní Lužice. Tu zemi Koruny české drží od léta Páně 1448 kurfiřt braniborský Fridrich II."},
@@ -547,7 +547,7 @@ const CITYINFO = {
   },
   Senftenberg: {
     t: "Hrad v saských rukou",
-    n: "Hrad a panství v Dolní Lužici, jež léta Páně 1448 získal kurfiřt saský Fridrich; tím se odtrhlo od Lužice české.",
+    n: "Hrad a panství v Dolní Lužici. Synové Hanse z Polenz prodali je léta Páně 1446 kurfiřtu saskému Fridrichu, jenž pro nedostatek peněz převzal je až v listopadu 1448, když hrozilo, že je obsadí Braniborský. Tím se odtrhlo od Lužice české, jako před tím, od léta 1425, Finsterwalde.",
   },
   Königstein: {
     t: "Pohraniční hrad (sporný)",
@@ -812,7 +812,7 @@ const CITYINFO = {
   },
   Chotěbuz: {
     t: "Braniborské město v Dolní Lužici",
-    n: "Město na Sprévě, kteréž kurfiřt Fridrich II. od léta Páně 1445 skupoval od pánů z Chotěbuzi. Jest braniborskou výspou v zemi, již Koruna česká má za svou.",
+    n: "Město na Sprévě. Polovici jeho koupil kurfiřt Fridrich II. léta Páně 1445 od pana Reinharda z Chotěbuzi za pět tisíc pět set kop grošů, druhá připadla mu léta 1455, když umřel bez dědiců pan Luther. Páni ze Šternberka však mají od krále Ladislava list na odúmrť i na vyplacení, a protož Koruna česká má kurfiřtovu koupi toliko za zástavu.",
   },
   Picnov: {
     t: "Braniborský hrad v Dolní Lužici",
