@@ -224,6 +224,12 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
   Osek, Žďár, Vilémov, Rajhrad, Borovany, Kunvald). Shrnutí v `CITYINFO`, věrnost měst ve `VERNOST_MIST`, Třebíč v `MAJOR_PLACES`, městská sídla rodů
   v `TOWNSEATS` (bloky „MÍSTA: Čechy a Morava“). Vynecháno pro těsnost bodů: Louka (u Znojma), Benešov (u Konopiště), Libochovice (u Hazmburku), Kájov,
   Bavorov; Zornštejn = Cornštejn a Krasíkov = Švamberk už na mapě; Úhrov a Lhotka u Rychnova jen děje po 1458 (místo Lhotky Kunvald).
+- 10-28 **Hustší mapa Saska, Bavor s Falcí a Franky a Rakous** (Vojta): +88 míst, každé se shrnutím k březnu 1458 (blok `MÍSTA: Sasko, Bavory…`
+  v `CITYINFO`, `VERNOST_MIST` u měst). Nové záznamy 940–954: města Míšně, Fojtska a Vitenberska, města Durynska, kláštery Saska, města Bavor,
+  města Horní Falce a Frank (Würzburg hlavním městem), kláštery Bavor a Frank, města Rakous, kláštery Rakous; hrady přidány do 760–762 (Mansfeld,
+  Lauf, Forchtenstein, Orth, Lengbach, Perchtoldsdorf…), říšská města do 640, Wurzen biskupovi míšeňskému, Schleiz pánům z Gery. Hustota
+  (místa z rodů v obrysech zemí na 10 000 km²): Sasko 7,2 → 14,5, Bavory s Falcí a Franky 5,7 → 10,8 (část míst leží západně od obrysů zemí), Rakousy pod a nad Enží 8,7 → 17,4.
+  Hornická města Krušných hor (Schneeberg, Annaberg) nejsou – vzniknou až po 1470.
 
 ## Otevřené
 - **Mapa jih – k ověření (Vojta)**: kdo k 3. 3. 1458 drží Čakovec a Varaždínský hrad (celjské dědictví – Vitovec?), Golubac vynechán (srbský/turecký?), Kusánský
