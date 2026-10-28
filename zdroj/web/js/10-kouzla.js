@@ -162,12 +162,12 @@ const kzMd = t =>
 const KZSK = ["Ochranná magie", "Vyvolávání", "Věštění", "Očarování", "Zaklínání", "Iluze", "Nekromancie", "Transmutace"],
   KZPOV = ["Bard", "Klerik", "Druid", "Paladin", "Hraničář", "Čaroděj", "Černokněžník", "Kouzelník"];
 function kzKarta(x, pop) {
-  return `<article class="kzkarta">${pop ? `<button type="button" class="kzx" data-kzzavri aria-label="Zavřít">×</button>` : ""}
+  return `<article class="kzkarta plne-host">${pop ? `<button type="button" class="kzx" data-kzzavri aria-label="Zavřít">×</button>` : ""}
   <h3>${besc(x.cz || x.en)} <small lang="en">${besc(x.en)}</small></h3>
   <p class="kzmeta">${x.l ? kzUr(x.l) : "Trik"} · ${besc(x.s)}${x.ri ? " · rituál" : ""}${x.ko ? " · Concentration" : ""}</p>
   <dl class="kzkv"><dt>Sesílání</dt><dd>${besc(x.ct)}${x.ri ? ", nebo jako rituál" : ""}</dd><dt>Dosah</dt><dd>${besc(x.r)}</dd>
     <dt>Složky</dt><dd>${besc((x.k || []).join(", "))}${x.m ? ` (${besc(x.m)})` : ""}</dd><dt>Trvání</dt><dd>${besc(x.d)}</dd>${x.p && x.p.length ? `<dt>Povolání</dt><dd>${besc(x.p.join(", "))}</dd>` : ""}</dl>
-  <div class="kztext">${x.dop && !x.t ? `<p class="rsmall">${featyMuze() ? "Popis je v plném znění níže." : "Popis kouzla uvidíš po přihlášení (plné znění)."}</p>` : kzMd(x.t)}${x.v ? `<p><b>Na vyšším stupni.</b> ${kzIn(x.v)}</p>` : ""}</div>${x.vl ? "" : plneTag("kouzla", x.en)}
+  <p class="plnepop">Popis</p><div class="kztext plne-skr">${x.dop && !x.t ? `<p class="rsmall">${featyMuze() ? "Popis je v plném znění níže." : "Popis kouzla uvidíš po přihlášení (plné znění)."}</p>` : kzMd(x.t)}${x.v ? `<p><b>Na vyšším stupni.</b> ${kzIn(x.v)}</p>` : ""}</div>${x.vl ? "" : plneInl("kouzla", x.en)}
   ${
     x.vl
       ? `<p class="kzsrc">Vlastní kouzlo vypravěče – vidíš ho jen ty.${pop ? ` <a href="#kouzla/${x.i}">v seznamu kouzel</a>` : ` <span class="kzakce"><button type="button" class="gbtn" data-kzuprav="${besc(x.i)}">Upravit</button> <button type="button" class="gbtn kzalt" data-kzsmaz="${besc(x.i)}">Smazat</button></span>`}</p></article>`

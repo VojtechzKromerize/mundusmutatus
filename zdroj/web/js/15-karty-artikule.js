@@ -414,7 +414,7 @@ function kSpPopis(sp) {
     kSpTexty();
     return `<p class="rsmall">Načítám popis…</p>`;
   }
-  return `<div class="kspd${x.x ? " kmimo" : ""}"><p class="rsmall"><b>${besc(x.cz || x.en)}</b> · ${kzUr(x.l)} · ${besc(x.s || "")} · ${besc(x.ct || "")} · ${besc(x.r || "")} · ${besc((x.k || []).join(", "))}${x.m ? ` (${besc(x.m)})` : ""} · ${besc(x.d || "")}${x.ri ? " · rituál" : ""}</p>${kzMd(x.t)}${x.v ? `<p><b>Na vyšším stupni.</b> ${kzIn(x.v)}</p>` : ""}${plneTag("kouzla", x.en)}</div>`;
+  return `<div class="kspd plne-host${x.x ? " kmimo" : ""}"><p class="rsmall"><b>${besc(x.cz || x.en)}</b> · ${kzUr(x.l)} · ${besc(x.s || "")} · ${besc(x.ct || "")} · ${besc(x.r || "")} · ${besc((x.k || []).join(", "))}${x.m ? ` (${besc(x.m)})` : ""} · ${besc(x.d || "")}${x.ri ? " · rituál" : ""}</p><div class="plne-skr">${kzMd(x.t)}${x.v ? `<p><b>Na vyšším stupni.</b> ${kzIn(x.v)}</p>` : ""}</div>${plneInl("kouzla", x.en)}</div>`;
 }
 /* ---- vlastní hod: 2d6+3, 4d6kh3, 2d20kl1, d%, s kostkou Závoje ---- */
 function kVyraz(v) {

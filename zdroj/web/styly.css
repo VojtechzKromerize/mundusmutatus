@@ -2921,7 +2921,9 @@ html.mmapp .mmpop{padding-top:calc(env(safe-area-inset-top,0px) + 10px)}
 .bdmpusc.bdmpusod{border-color:var(--kb-gold);background:#3a2b1c;color:#f2dfa6}
 .kvpop{margin:0 0 12px;padding:2px 0 8px;border-bottom:1px solid var(--kb-bd2,var(--rule))}
 .kvpop>summary{cursor:pointer;font:600 .78rem var(--f-label);letter-spacing:.06em;text-transform:uppercase;color:var(--kb-gold,var(--gold));padding:4px 0}
-.kvpop p{margin:4px 0 8px;line-height:1.45}.kvpop .kvpar{font-size:.86rem;color:var(--kb-mu,var(--muted))}
+.kvpop p{margin:4px 0 8px;line-height:1.45}
+.plne-host:has(.plneinl[data-ok]) .plne-skr{display:none}
+.plnepop{margin:14px 0 4px;font:600 .78rem var(--f-label);letter-spacing:.06em;text-transform:uppercase;color:var(--kb-gold,var(--gold))}.kvpop .kvpar{font-size:.86rem;color:var(--kb-mu,var(--muted))}
 .kvcele>summary{cursor:pointer;font-size:.82rem;color:var(--kb-mu,var(--muted))}
 .kdusin{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px 12px;margin:10px 0;padding:8px 10px;border:1px solid var(--kb-bd2,var(--rule));border-radius:6px;background:var(--kb-pan,var(--paper))}
 .kdusin label{display:flex;flex-direction:column;gap:3px;font:600 .68rem var(--f-label);letter-spacing:.05em;text-transform:uppercase;color:var(--kb-mu,var(--muted))}

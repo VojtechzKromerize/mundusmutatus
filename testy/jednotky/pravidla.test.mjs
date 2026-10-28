@@ -253,7 +253,7 @@ test("Artikule › kouzla a předměty: adamantinová a mizziová zbroj snese o 
 });
 
 test("plné znění kouzel a předmětů: rozbalovací blok jen přihlášeným, text s rámečkem Artikule a vyšším stupněm", () => {
-  assert.equal(V(`plneTag("kouzla", "Fireball")`), "", "nepřihlášený nic nevidí");
+  assert.equal(V(`plneInl("kouzla", "Fireball")`), "", "nepřihlášený nic nevidí");
   const h = V(
     `plneTelo("kouzla", {en: "Cure Wounds", l: 1, s: "Ochranná magie", ct: "Akce", r: "Dotyk", k: "V, S", d: "Okamžité", t: "Tvor si obnoví 2k8.\\n\\n> **Artikule – Léčení na 0 HP.** Jen stabilizuje.", v: "Použití pozice kouzla vyššího stupně. Léčení se zvýší o 2k8."})`,
   );
@@ -282,8 +282,16 @@ test("předměty z plného znění: hledání v inventáři, váha z tabulky, n�
     assert.equal(V(`plneVec("Bag of Tricks").id`), "bag of tricks");
     assert.match(
       V(`kVecPopis({n: "Bag of Tricks", q: 1}, null, null)`),
-      /Divotvorný předmět, neobvyklá[\s\S]*data-plne="predmety" data-plnen="bag of tricks"/,
+      /class="plne-skr"[\s\S]*Divotvorný předmět, neobvyklá[\s\S]*data-plneinl="predmety" data-plnen="bag of tricks"/,
     );
+    S.ev(`PLNET["predmety|bag of tricks"] = {typ: "Divotvorný předmět", vz: "neobvyklá", t: "Vak z šedé látky."}`);
+    assert.match(
+      V(`kVecPopis({n: "Bag of Tricks", q: 1}, null, null)`),
+      /<summary>Popis<\/summary><div class="plne-skr">[\s\S]*class="plneinl" data-ok="1"[\s\S]*Vak z šedé látky/,
+      "přihlášený: v Popisu je rovnou plné znění (krátký text skryje CSS)",
+    );
+    assert.doesNotMatch(V(`kVecPopis({n: "Bag of Tricks", q: 1}, null, null)`), /Požádat o přidání/, "v okně věci není tlačítko přidání");
+    S.ev(`delete PLNET["predmety|bag of tricks"]`);
     await S.ev(`navrhProved({data: {typ: "vec", pl: "bag of tricks", n: "Bag of Tricks", w: 0.5, q: 2, cil: "balduin"}})`);
     const it = V(`kartaStav("balduin").inv.find(x => x.n === "Bag of Tricks")`);
     assert.equal(it.q, 2);

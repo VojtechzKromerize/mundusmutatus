@@ -38,7 +38,7 @@ const kPred = x =>
   null;
 const PRVZ = ["běžný", "neobvyklý", "vzácný", "velmi vzácný", "legendární", "artefakt", "proměnlivá"];
 function predKarta(x) {
-  return `<article class="kzkarta"><h3>${besc(x.en)}${x.cz ? ` <small>${besc(x.cz)}</small>` : ""}</h3><p class="rsmall"><i>${besc(x.druh)}${x.upr ? ` (${besc(x.upr)})` : ""}, ${besc(x.vzt || x.vz)}${x.pr ? `, vyžaduje připoutání${typeof x.pr === "string" ? " (" + besc(x.pr) + ")" : ""}` : ""}</i></p>${kzMd(x.t)}<p class="rsmall">SRD 5.2.1, s. ${x.str || ""}</p>${plneTag("predmety", x.en)}</article>`;
+  return `<article class="kzkarta plne-host"><h3>${besc(x.en)}${x.cz ? ` <small>${besc(x.cz)}</small>` : ""}</h3><p class="rsmall"><i>${besc(x.druh)}${x.upr ? ` (${besc(x.upr)})` : ""}, ${besc(x.vzt || x.vz)}${x.pr ? `, vyžaduje připoutání${typeof x.pr === "string" ? " (" + besc(x.pr) + ")" : ""}` : ""}</i></p><div class="plne-skr">${kzMd(x.t)}<p class="rsmall">SRD 5.2.1, s. ${x.str || ""}</p></div>${plneInl("predmety", x.en)}</article>`;
 }
 let PRF = {q: "", druh: "", vz: ""};
 function renderPredmety(main) {

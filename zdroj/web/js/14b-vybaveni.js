@@ -392,12 +392,11 @@ function kVecPopis(x, p, v) {
     /* věc, kterou zná jen plné znění (Vojtova tabulka předmětů): druh a vzácnost ze seznamu, text po rozbalení */
     pl = (p && p.en) || (v && v.sk === "magicke") ? null : plneVec(x.n),
     druh2 = druh || (pl ? [pl.typ, pl.vz, pl.sl].filter(Boolean).join(", ") : ""),
-    cele =
-      (v && v.t && p && p.t ? `<details class="kvcele"><summary>Celé znění</summary>${kzMd(p.t)}</details>` : "") +
-      ((p && p.en) || (v && v.sk === "magicke") ? plneTag("predmety", (p && p.en) || v.en) : pl ? plneTag("predmety", pl.id) : "");
+    cele = v && v.t && p && p.t ? `<details class="kvcele"><summary>Celé znění</summary>${kzMd(p.t)}</details>` : "",
+    plId = (p && p.en) || (v && v.sk === "magicke") ? (p && p.en) || v.en : pl ? pl.id : "";
   if (!druh2 && !par && !txt && !tab && !art) return "";
   const k = String(x.n || "").toLowerCase();
-  return `<details class="kvpop" data-kvpop="${besc(k)}"${KVPOPZ.has(k) ? "" : " open"}><summary>Popis</summary>${druh2 || par ? `<p class="kvpar"><i>${besc(druh2)}</i>${druh2 && par ? " · " : ""}${par}</p>` : ""}${txt}${tab}${art}${cele}</details>`;
+  return `<details class="kvpop plne-host" data-kvpop="${besc(k)}"${KVPOPZ.has(k) ? "" : " open"}><summary>Popis</summary><div class="plne-skr">${druh2 || par ? `<p class="kvpar"><i>${besc(druh2)}</i>${druh2 && par ? " · " : ""}${par}</p>` : ""}${txt}${tab}${art}${cele}</div>${plneInl("predmety", plId)}</details>`;
 }
 document.addEventListener(
   "toggle",
