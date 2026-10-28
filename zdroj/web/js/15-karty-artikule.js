@@ -769,28 +769,66 @@ async function kTechPouzij(K, id) {
   mmHlasG(`${K.n}: ${t.n} (Výdrž ${mx - u - 1}/${mx}) – ${t.t}`, 7000);
 }
 /* ---- rány ---- */
+/* kdo ránu léčí z tohoto zařízení (2026-10-28): přihlášený hráč svou postavou (smí ošetřit i spolubojovníka), vypravěč postavou
+   zraněného; bez databáze (statická verze) zraněný sám */
+const kRanaLecitel = K => (typeof jaK === "function" && jaK()) || (GMV || !window.MMDB ? K : null);
+/* reakční kouzlo léčitele, které ránu vyléčí: Lesser / Greater Restoration se slotem */
+function kRanaKouzlo(H, re) {
+  if (!H || typeof kSeznam !== "function") return -1;
+  return kSeznam(H).findIndex(x => re.test(kzJm(x.n)) && (x.pz || kSlX(H, x).length > 0));
+}
 function kRanyHtml(K) {
   const R = kRany(K);
   if (!R.length) return "";
-  /* vypravěč i přihlášený hráč ránu vyléčí rovnou z karty (data-kranlec, 2026-10-21); hráč přes mm_rana_vylecena, jako u léčení životů
-     smí ošetřit i spolubojovníka */
-  const lec = GMV || (typeof jaK === "function" && jaK());
+  /* vypravěč i přihlášený hráč ránu léčí rovnou z karty; hráč přes mm_rana_vylecena (jako u léčení životů smí ošetřit
+     i spolubojovníka). Co ránu vyléčí, říká čistý ranaLecba (10p): Lehká pomine, Těžká ošetřením (Lékařství) nebo Lesser
+     Restoration, Vážná Greater Restoration nebo felčar, Smrtelná je trvalá */
+  const H = kRanaLecitel(K),
+    muze = GMV || !!H || (typeof ucetPrihlasen === "function" && ucetPrihlasen()),
+    kl = H ? kRanaKouzlo(H, /^lesser restoration$/i) : -1,
+    kg = H ? kRanaKouzlo(H, /^greater restoration$/i) : -1,
+    kdo = H && H !== K ? ` – ošetřuje ${besc(H.n)}` : "";
+  const tl = (a, t, tip) => `<button type="button" class="gbtn ghost kranlec" ${a} ${btip(tip)}>${t}</button>`;
   return `<h3 class="uvh2">Rány <a class="pmore" href="#artikule/kriticka">pravidla →</a></h3><ul class="krany" data-kranyk="${besc(K.id)}">${R.map(
-    (x, j) =>
-      `<li class="${/^Lehk/.test(x.t) ? "" : /^Těžk/.test(x.t) ? "bhp2" : "bhrich"}"><b>${besc(x.t)}</b>${x.d ? ` <small>${besc(x.d)}</small>` : ""}${lec ? ` <button type="button" class="gbtn ghost kranlec" data-kranlec="${j}" ${btip("Rána je vyléčená (Lesser Restoration, léčitel, odpočinek podle Artikulí) – zmizí z karty i z Boje")}>vyléčeno</button>` : ""}</li>`,
+    (x, j) => {
+      const L = ranaLecba(x.t),
+        b = !muze
+          ? ""
+          : [
+              L.pomine ? tl(`data-kranlec="${j}"`, "pominula", "Lehká rána pomine koncem boje nebo krátkým odpočinkem") : "",
+              L.lek && H
+                ? tl(
+                    `data-kranlek="${j}"`,
+                    `Ošetřit (Lékařství)`,
+                    `Ošetření: Lékařství (Medicine) SO ${L.lek}${kdo.replace(/<[^>]*>/g, "")} – při úspěchu je rána vyléčená`,
+                  )
+                : "",
+              L.lesser && kl >= 0
+                ? tl(`data-kranres="${j}:${kl}"`, "Lesser Restoration", `${H.n} sešle Lesser Restoration (slot) – Lehká i Těžká rána je vyléčená`)
+                : "",
+              L.greater && kg >= 0
+                ? tl(`data-kranres="${j}:${kg}"`, "Greater Restoration", `${H.n} sešle Greater Restoration (slot) – vyléčí i Vážnou ránu`)
+                : "",
+              !L.pomine && (GMV || !L.gm)
+                ? tl(
+                    `data-kranlec="${j}"`,
+                    "vyléčeno",
+                    L.gm
+                      ? "Vypravěč: rána je vyléčená (felčar, mág, zázrak)"
+                      : "Rána je vyléčená (odpočinek, léčitel podle Artikulí) – zmizí z karty i z Boje",
+                  )
+                : "",
+            ].join("");
+      return `<li class="${L.st === 0 ? "" : L.st === 1 ? "bhp2" : "bhrich"}"><b>${besc(x.t)}</b>${x.d ? ` <small>${besc(x.d)}</small>` : ""}${b ? `<span class="kranbt">${b}</span>` : ""}${L.st === 2 && !(GMV || kg >= 0) && muze ? `<small class="kranpoz">Vážnou ránu vyléčí Greater Restoration, nebo felčar – rozhodne vypravěč.</small>` : ""}${L.st === 3 ? `<small class="kranpoz">Smrtelná rána je trvalá.</small>` : ""}</li>`;
+    },
   ).join(
     "",
-  )}</ul><p class="rsmall">Neléčená kritická zranění: každé přidá +1 k dalšímu hodu na kritické zranění.${lec ? "" : " Vyléčení odškrtne přihlášený hráč nebo vypravěč."}</p>`;
+  )}</ul><p class="rsmall">Neléčená kritická zranění: každé přidá +1 k dalšímu hodu na kritické zranění.${muze ? kdo : " Léčit je může přihlášený hráč nebo vypravěč."}</p>`;
 }
-document.addEventListener("click", async e => {
-  const b = e.target.closest && e.target.closest("[data-kranlec]");
-  if (!b) return;
-  const ul = b.closest("[data-kranyk]"),
-    K = ul && KARTBY[ul.dataset.kranyk];
-  if (!K) return;
-  const jm = Object.keys(bojKritPC()).find(n => n === kJmeno(K) || n === K.n),
-    j = +b.dataset.kranlec;
-  if (!jm) return;
+/* rána zmizí z herního stavu (vypravěč přímo, hráč přes mm_rana_vylecena) a zapíše se do záznamu */
+async function kRanaPryc(K, j, proc) {
+  const jm = Object.keys(bojKritPC()).find(n => n === kJmeno(K) || n === K.n);
+  if (!jm) return false;
   const x = (bojKritPC()[jm] || [])[j];
   if (GMV) {
     const Kr = Object.assign({}, bojKritPC());
@@ -798,20 +836,53 @@ document.addEventListener("click", async e => {
     if (!Kr[jm].length) delete Kr[jm];
     await hraUloz({krit: Kr});
   } else {
+    if (!window.MMDB) return false;
     const ja = jaK();
-    if (!ja || !window.MMDB) return;
-    b.disabled = true;
     try {
-      const krit = await MMDB.ranaVylecena(ja.id, jm, j);
+      const krit = await MMDB.ranaVylecena(ja ? ja.id : K.id, jm, j);
       HRA = Object.assign({}, HRA || {}, {krit: krit || {}});
       __D.HRA = HRA;
     } catch (err) {
       mmHlas(err.message || String(err), 5000);
-      b.disabled = false;
-      return;
+      return false;
     }
   }
-  if (x) kHodZapis({k: K.id, kdo: K.n, co: "Rána vyléčena", txt: x.t});
+  if (x) kHodZapis({k: K.id, kdo: K.n, co: "Rána vyléčena", txt: `${x.t}${proc ? ` – ${proc}` : ""}`.slice(0, 290)});
+  return true;
+}
+document.addEventListener("click", async e => {
+  const b = e.target.closest && e.target.closest("[data-kranlec],[data-kranlek],[data-kranres]");
+  if (!b) return;
+  const ul = b.closest("[data-kranyk]"),
+    K = ul && KARTBY[ul.dataset.kranyk];
+  if (!K) return;
+  b.disabled = true;
+  try {
+    if (b.dataset.kranlec != null) await kRanaPryc(K, +b.dataset.kranlec, "");
+    else if (b.dataset.kranlek != null) {
+      /* ošetření: Lékařství léčitele proti SO; neúspěch ránu nechá */
+      const j = +b.dataset.kranlek,
+        x = kRany(K)[j],
+        H = kRanaLecitel(K),
+        L = x && ranaLecba(x.t);
+      if (!x || !H || !L.lek) return;
+      const r = await kartaHod(H, `Medicine – ošetření rány${H !== K ? ` (${K.n})` : ""}, SO ${L.lek}`, kDov(H, "Medicine"), {});
+      if (!r) return;
+      if (r.tot >= L.lek) {
+        if (await kRanaPryc(K, j, `ošetřil ${H.n} (Lékařství ${r.tot} proti SO ${L.lek})`)) mmHlasG(`Rána ošetřena: ${x.t}`, 5000);
+      } else mmHlasG(`Ošetření se nepovedlo (${r.tot} proti SO ${L.lek}) – rána zůstává.`, 5000);
+    } else {
+      const [j, i] = b.dataset.kranres.split(":").map(Number),
+        H = kRanaLecitel(K),
+        sp = H && kSeznam(H)[i],
+        x = kRany(K)[j];
+      if (!sp || !x) return;
+      if ((await kartaSeslat(H, sp)) === false) return;
+      if (await kRanaPryc(K, j, `${kzJm(sp.n)} (${H.n})`)) mmHlasG(`${kzJm(sp.n)}: rána vyléčena – ${x.t}`, 5000);
+    }
+  } finally {
+    b.disabled = false;
+  }
   kartyPrekresli();
 });
 /* ---- rozdíl po novém PDF (úroveň, životy, kouzla, útoky, předměty) ---- */

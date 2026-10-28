@@ -438,3 +438,12 @@ const svetloDruh = n => {
   const r = SVETLA.find(([re]) => re.test(String(n || "").trim()));
   return r ? r[1] : null;
 };
+/* léčení kritického zranění (Artikule › Rány, 2026-10-28): co ránu vyléčí podle závažnosti z textu „Těžká (Trup): …“.
+   Lehká pomine sama (konec boje, krátký odpočinek); Těžká ošetřením (Lékařství SO 13 – Vojtův návrh Ran) nebo Lesser Restoration;
+   Vážná Greater Restoration nebo felčar (rozhodne vypravěč); Smrtelná je trvalá (odškrtne jen vypravěč). Greater léčí i lehčí. */
+const RANASO = 13;
+function ranaLecba(t) {
+  const s = String(t || ""),
+    st = /^Lehk/i.test(s) ? 0 : /^Těžk/i.test(s) ? 1 : /^Vážn/i.test(s) ? 2 : /^Smrteln/i.test(s) ? 3 : 1;
+  return {st, pomine: st === 0, lek: st === 1 ? RANASO : null, lesser: st <= 1, greater: st <= 2, gm: st >= 2};
+}

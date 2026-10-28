@@ -45,6 +45,9 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
 - 2026-10-28 **Úprava řádku herního záznamu** (vypravěč, 24): v podrobnostech řádku „✎ Upravit záznam“ – cíl, hod, výsledek (i vlastní text),
   zranění, typ zranění a poznámka. Oprava leží vedle původních dat (`o.upr` v BLOGG, `upr` u řádku `s.zaz` – vidí ji hráči, `s.hupr[id]`
   u hodu z karty) a řádek ji použije při sestavení (`bzUprAplikuj`); zaškrtnuté „opravit i životy“ srovná HP cíle o rozdíl (`bzHpOprav`).
+- 2026-10-28 **Léčení ran z karty** (15, pravidlo `ranaLecba` v 10p): Lehká „pominula“, Těžká „Ošetřit (Lékařství)“ proti SO 13 (Vojtův
+  návrh Ran – ověřit) nebo Lesser Restoration, Vážná Greater Restoration nebo vypravěč, Smrtelná trvalá. Léčí přihlášený hráč svou postavou
+  (i spolubojovníka) nebo vypravěč; tlačítka vidí i hráč přihlášený účtem (`ucetPrihlasen`), dřív jen s vazbou `jaK`.
 
 ## Hotovo
 
