@@ -1856,7 +1856,9 @@ function bdmTelo(s, h, K, gm, X, id) {
     const def = [["Vulnerability", K.zra]].filter(([, L]) => (L || []).length);
     const sm = `<h4 class="bdmgh">Smysly</h4><p class="bdmnote bdmpas">Pasivní: Vnímání <b>${kPas(K, "vnimani")}</b> · Pátrání <b>${kPas(K, "patrani")}</b> · Vhled <b>${kPas(K, "vhled")}</b></p>${K.smysly ? `<p class="bdmnote bdmpas">${besc(K.smysly)}</p>` : ""}${def.map(([l, L]) => `<p class="bdmdef"><b>${l}</b> ${L.map(t => `${bikZr(t)}<span>${besc(BZRT[t] || t)}</span>`).join(" ")}</p>`).join("")}`;
     /* široký počítač: vlastnosti, smysly a zdatnosti v jednom sloupci, dovednosti ve druhém */
-    if (X.pc) return `<div class="bdmpcst">${ab}${za}${sm}${bdmZdatHtml(K, edit)}</div><div class="bdmpcdv">${dov}</div>`;
+    /* na širokém počítači nemají Statistiky záložku: nadpis se štítem jako záložka na telefonu (Vojta 2026-10-28) */
+    if (X.pc)
+      return `<div class="bdmpcst"><h4 class="bdmgh bdmghst">${bdmZalIk("vl")}<span>Statistiky</span></h4>${ab}${za}${sm}${bdmZdatHtml(K, edit)}</div><div class="bdmpcdv">${dov}</div>`;
     return ab + za + dov + sm + bdmZdatHtml(K, edit);
   }
   if (id === "akce") return bdmAkce(s, h, K, gm, X);

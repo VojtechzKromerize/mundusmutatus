@@ -3814,6 +3814,9 @@ button.btedch{cursor:pointer}button.btedch:hover{border-color:var(--gold,#b08d3a
   .bdmpc .bdmpcvl{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 28px;padding:4px 16px 8px}
   .bdmpcst,.bdmpcdv{min-width:0}
   .bdmpcdv .bdmgh:first-child{margin-top:14px}
+  /* nadpis Statistiky se štítem záložky; Dovednosti vedle drží stejnou výšku řádku */
+  .bdmpc .bdmghst,.bdmpcdv .bdmgh:first-child{display:flex;align-items:center;gap:8px;min-height:40px;margin:10px 0 8px}
+  .bdmpc .bdmghst .bdmzik{width:auto;height:40px;transform:rotate(-10deg)}
   .bdmpcdv .bdmdov2 .bdmdr{padding:6px 0!important;font-size:.95rem}
 }
 /* bez rámu webu (2026-10-24, Vojta): jako mmcela na telefonu – bez záhlaví s logem, menu, rámu, patky a modrého proužku účastníka;
