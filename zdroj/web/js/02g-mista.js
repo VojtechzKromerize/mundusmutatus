@@ -80,12 +80,14 @@ const CITYINFO = {
     n: "Zhořelec jest nejbohatším ze Šestiměstí na Vysoké cestě a kupčí suknem i barvou z borůvek. Poslové jeho byli spolu s budyšínskými na volebním sněmu v Praze.",
   },
   Budyšín: {
-    n: "Budyšín jest hlavním městem Horní Lužice, kdež sídlí kapitula a zemský fojt. Jen poslové Budyšína a Zhořelce přijeli z vedlejších zemí na volební sněm do Prahy, odjeli však ještě před volbou.",
+    n: "Budyšín jest hlavním městem Horní Lužice. Na hradě Ortenburku sídlívá zemský fojt, nyní uprázdněný, a u chrámu svatého Petra kapitula. Jen poslové Budyšína a Zhořelce přijeli z vedlejších zemí na volební sněm do Prahy, odjeli však ještě před volbou.",
   },
   Žitava: {
-    n: "Žitava odolala husitům a živí se suknem a kupectvím s Čechami přes hory Lužické. Za bouří husitských zde v exilu sídlila kapitula pražská a s ní mnozí vyhnanci strany římské.",
+    n: "Žitava jest město Království českého, ne země lužické, a teprve spolkem z léta 1346 přistoupila k šesti městům. Odolala husitům a živí se suknem a kupectvím s Čechami cestou přes průsmyk lückendorfský, kdež císař Karel dal vystavět hrad Karlsfried k vybírání cla. Za bouří husitských zde v exilu sídlila kapitula pražská a s ní mnozí vyhnanci strany římské.",
   },
-  Lubáň: {n: "Lubáň jest nejmenší ze Šestiměstí, na pomezí slezském."},
+  Lubáň: {
+    n: "Lubáň leží na levém břehu řeky Kvisy, jež dělí zemi budyšínskou od Slezska, a na Vysoké cestě. Husité ji vypálili v máji léta 1427 a znovu v březnu 1431; paměť na to je mezi lidmi živá.",
+  },
   Kamenec: {n: "Kamenec jest město ze Šestiměstí na západním kraji Horní Lužice."},
   Lobava: {n: "Lobava jest město ze Šestiměstí mezi Budyšínem a Zhořelcem."},
   Norimberk: {n: "Norimberk jest největším kupeckým městem v jižních Němcích a Praha i Plzeň s ním nejvíce kupčí."},
