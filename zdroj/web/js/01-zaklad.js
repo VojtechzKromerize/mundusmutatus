@@ -133,6 +133,14 @@ const TOWNSEATS = new Set([
   "Paczków",
   "Frývaldov",
   "Forst",
+  /* ---- MÍSTA: Čechy a Morava (2026-10-28) ---- */
+  "Soběslav",
+  "Lomnice nad Lužnicí",
+  "Trhové Sviny",
+  "Sedlčany",
+  "Hostinné",
+  "Hostěradice",
+  "Jemnice",
 ]); /* family seats that are towns rather than castles */
 const TOWNICO = "art/img/mesto.webp";
 const townImg = (c, cls) => `<img class="${cls || "townico"} t-${c}" src="${TOWNICO}" alt="" aria-hidden="true">`;

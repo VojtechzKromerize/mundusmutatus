@@ -1988,6 +1988,11 @@ const VERNOST_MIST = {
   Calau: ["cizi", "Město Dolní Lužice pod správou markraběte braniborského; koruna je žádá zpět."],
   Spremberg: ["cizi", "Město Dolní Lužice pod správou markraběte braniborského; koruna je žádá zpět."],
   Sommerfeld: ["cizi", "Město Dolní Lužice pod správou markraběte braniborského; koruna je žádá zpět."],
+  /* ---- MÍSTA: Čechy a Morava (2026-10-28) ---- */
+  "Český Brod": ["verni", "Kališnický Brod drží s pražskými městy a s králem."],
+  Ivančice: ["vahaji", "Moravské stavy krále dosud nepřijaly a malé královské město čeká, co učiní páni."],
+  Třebíč: ["vahaji", "Moravské stavy krále dosud nepřijaly a bohaté město čeká, co učiní páni."],
+  "Veselí nad Moravou": ["vahaji", "Pan Mikuláš z Vojslavic drží stranu římskou a hledí, co učiní páni moravští."],
 };
 /* věrnost místa n: město podle VERNOST_MIST, jinak podle rodů (data z FAM), které tu mají sídlo a věrnost znají → [skupina, věta] | null */
 function vernostMista(n, rody) {

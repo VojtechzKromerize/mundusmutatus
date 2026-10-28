@@ -1830,5 +1830,188 @@ const CITYINFO = {
     t: "Dolnolužické město",
     n: "Město na východě Dolní Lužice mezi Gubenem a Žarami. Tu zemi Koruny české drží od léta Páně 1448 v zástavě kurfiřt braniborský.",
   },
+  /* ---- MÍSTA: Čechy a Morava (2026-10-28) ---- */
+  Soběslav: {
+    t: "Město pánů z Rožmberka",
+    n: "Město s hradem nad Lužnicí, jež náleží pánům z Rožmberka. Na cestě z Krumlova do Prahy se páni zastavují na zdejším hradě. Soukeníci soběslavští za válek zbohatli a město roste.",
+  },
+  "Lomnice nad Lužnicí": {
+    t: "Město pánů z Rožmberka",
+    n: "Městečko s hradem nad Lužnicí v bažinatém kraji. V září léta Páně 1420 je dobyl Žižka a velel v něm pan Jan Roháč z Dubé; páni z Rožmberka je léta 1435 marně obléhali a získali je teprve asi o deset let později.",
+  },
+  "Trhové Sviny": {
+    t: "Městečko pánů z Rožmberka",
+    n: "Neohrazené tržní městečko pod hrádkem, na rušné cestě jihovýchodně od Budějovic. Náleží pánům z Rožmberka.",
+  },
+  Velešín: {
+    t: "Hrad pánů z Rožmberka",
+    n: "Hrad na ostrohu nad Malší, jejž kdysi založil král; má starou kapli a okrouhlou věž. Náleží pánům z Rožmberka a v létech čtyřicátých na něm dožila vdova paní Perchta z Kravař.",
+  },
+  Sedlčany: {
+    t: "Městečko pánů z Rožmberka",
+    n: "Městečko na cestě z jižních Čech do Prahy, kde mají páni z Rožmberka dům a nocují, když jedou ke dvoru.",
+  },
+  Choustník: {
+    t: "Hrad pánů z Rožmberka",
+    n: "Hrad na zalesněném vrchu na východ od Tábora. Za válek s tábority patřil k pevným hradům pana Oldřicha z Rožmberka.",
+  },
+  Příběnice: {
+    t: "Pobořený hrad Rožmberků",
+    n: "Hrad na skále nad Lužnicí nedaleko Tábora, jejž páni z Rožmberka měli za nedobytný. V listopadu léta Páně 1420 jej táboři i se sousedními Příběničkami dobyli a biskupa Heřmana, jenž se sem uchýlil, utopili v Lužnici. Páni z Rožmberka jej dostali zpět pobořený s tím, že jej nesmějí obnoviti.",
+  },
+  Roudnice: {
+    t: "Hrad pánů ze Šternberka",
+    n: "Mocný hrad a město nad Labem, někdy sídlo arcibiskupů pražských. Biskup Jan z Dražic tu dal postaviti kamenný most a klášter kanovníků augustiniánů; arcibiskup Konrád z Vechty, jenž přistoupil ke kalichu, zde sídlil a světil kněze pod obojí. Za slabosti strany římské nabyli hrad levně z arcibiskupského zboží páni ze Šternberka.",
+  },
+  Chvatěruby: {
+    t: "Hrad pánů z Hazmburka",
+    n: "Hrad na skále nad Vltavou severně od Prahy, jejž drží pan Oldřich Zajíc z Hazmburka. Za veliké povodně léta Páně 1432 viděli odtud plouti po řece pražské dříví, mlýny, seno i voly.",
+  },
+  Hostinné: {
+    t: "Městečko pánů z Hazmburka",
+    n: "Městečko nad Labem v podhůří Krkonoš. Drží je pan Oldřich Zajíc z Hazmburka, jenž je koupil od své manželky paní Anny z Častolovic a jejích sester.",
+  },
+  Krašov: {
+    t: "Hrad pánů z Kolovrat",
+    n: "Hrad nad Berounkou na Plzeňsku, jejž drží páni z Kolovrat. Pan Hanuš z Kolovrat, otec nynějšího pána, tu v letech 1426 a 1427 věznil norimberského kupce Hanse Imhoffa pro podezření, že obchoduje s kacíři, přes přímluvy Norimberka i krále Zikmunda.",
+  },
+  Drnholec: {t: "Hrad pánů z Lichtenštejna", n: "Hrad a městečko nad Dyjí jižně od Brna, kteréž drží páni z Lichtenštejna."},
+  Hostěradice: {
+    t: "Městečko pánů z Lipé",
+    n: "Ohrazené tržní městečko na jihu Moravy. Léta Páně 1447 je dostala věnem paní Eliška z Cimburka, manželka maršálka Pertolda z Lipé, a léta 1455 se vrátilo k panu Jindřichovi z Lipé.",
+  },
+  Templštejn: {
+    t: "Hrad pánů z Lipé",
+    n: "Hrad na ostrohu nad řekou Jihlavou, o němž se praví, že jej založili rytíři templáři. Páni z Lipé tu od léta Páně 1379 po půl století drželi svůj manský soud; od té doby, co mají Moravský Krumlov, ustupuje hrad do pozadí.",
+  },
+  Jemnice: {
+    t: "Zastavené královské město",
+    n: "Královské město na západní Moravě, jež drží v zástavě bratři z Lichtenburka a na Cornštejně; král Ladislav jim zástavu léta Páně 1457 potvrdil. Měšťané si léta 1453 draze koupili potvrzení svobod a doufali, že budou vyplaceni, a pan Jiří se o to přičiňoval – odtud zlá krev mezi ním a Cornštejnskými.",
+  },
+  Malenovice: {
+    t: "Hrad pánů z Lichtenburka",
+    n: "Hrad u Zlína, jejž drží bratři z Lichtenburka a na Cornštejně po své matce paní Anně ze Šumvaldu. Před léty jej oblehl a dobyl Smil z Moravan, po smlouvě jej však vrátil.",
+  },
+  Svojanov: {
+    t: "Zastavený královský hrad",
+    n: "Královský hrad nad údolím Křetínky na pomezí českomoravském, kterýž od léta Páně 1420 drží v zástavě páni z Boskovic. Císař Zikmund jej léta 1437 připsal věnem císařovně Barboře a nařídil držitele vyplatit, ale nestalo se tak. Sedí tu pan Ješek Svojanovský z Boskovic, kališník a přítel pana Jiřího, muž neklidný a prudký, jenž léta 1449 přepadl klášter v Rajhradě.",
+  },
+  "Vítkův Kámen": {
+    t: "Rožmberský hrad v zástavě",
+    n: "Osamělá obytná věž na nejvyšším návrší nad Vltavou při rakouské hranici, spíše znamení panství nežli pevnost. Páni z Rožmberka ji léta Páně 1427 zastavili pánům z Wallsee a dosud ji nevyplatili.",
+  },
+  Zvířetice: {
+    t: "Hrad pánů ze Zvířetic",
+    n: "Hrad nad Jizerou u Bakova, rodové sídlo pánů ze Zvířetic, mladší větve pánů z Lemberka. Drží jej pan Heřman ze Zvířetic.",
+  },
+  Valečov: {
+    t: "Skalní hrad",
+    n: "Hrad vytesaný ve skalách v lesích nad Kněžmostem u Hradiště nad Jizerou. Nedaleko leží Kněžmost, po němž se píše pan Vaněk Valečovský, podkomoří královský a věrný muž pana Jiřího.",
+  },
+  Zlenice: {
+    t: "Hrad nad Sázavou",
+    n: "Hrad na ostrohu při soutoku Sázavy s Hrusickým potokem. Psal se po něm pan Ondřej z Dubé, nejvyšší sudí krále Karla, jenž z mnohaleté praxe sepsal výklad na právo země české.",
+  },
+  Přimda: {
+    t: "Pohraniční hrad",
+    n: "Starobylý kamenný hrad nad cestou z Plzně přes les do Falce a k Norimberku, jeden z nejstarších kamenných hradů v zemi. Před bouřemi husitskými tu purkrabí Bohuš ze Štědré, řečený Tista, vedl tlupu lapků, kterou podkomoří Jan z Lestkova o masopustu léta Páně 1416 pochytal.",
+  },
+  Vranov: {
+    t: "Pohraniční hrad",
+    n: "Hrad na skále nad Dyjí při rakouském pomezí. Za válek husitských jej dostali v zástavu páni Bítovští z Lichtenburka a jako Bítov býval základnou bojových družin, které plenily kraj na obou stranách hranice.",
+  },
+  Boskovice: {
+    t: "Hrad pána z Kunštátu",
+    n: "Hrad nad městečkem Boskovicemi, odkud pochází rod pánů z Boskovic. Nyní jej drží pan Procek z Kunštátu na Opatovicích, příbuzný a straník pana Jiřího, a podle něho se píše.",
+  },
+  Kvasice: {
+    t: "Tvrz rytířská",
+    n: "Tvrz nad Moravou u Kroměříže, kterouž drží pan Jan Kužel ze Žeravic, nejpřednější muž moravského rytířstva; v landfrýdu léta Páně 1456 stál v čele rytířů. Kvasice získal léta 1437 od sirotka, jemuž byl poručníkem jeho pán z Kravař. Syn jeho Jiří má za manželku Kunku ze Šternberka.",
+  },
+  Úsov: {t: "Panský hrad", n: "Hrad na severu Hané mezi Litovlí a Mohelnicí, kterýž drží bratři Karel a Václav z Vlašimi, lidé spíše strany římské."},
+  Konice: {
+    t: "Rytířský hrad",
+    n: "Hrad a městečko na západním okraji Hané. Drží je Zdeněk a Václav ze Švábenic, jejichž rod zbohatl za válek husitských a přijal jméno i erb vymřelých pánů ze Švábenic.",
+  },
+  Potštát: {
+    t: "Rytířský hrad",
+    n: "Hrad v Oderských vrších, jejž od léta Páně 1408 drží rytíři Potštátští z Prusinovic, rod zámožný, jenž se do věcí zemských mnoho neplete.",
+  },
+  "Nový Světlov": {
+    t: "Rytířský hrad",
+    n: "Hrad v horách nad Bojkovicemi při uherském pomezí, kterýž léta Páně 1449 koupili Burian z Vlčnova a Zich z Lipiny. Pan Burian se tím zadlužil.",
+  },
+  Kolštejn: {
+    t: "Biskupské léno",
+    n: "Hrad v Jeseníkách při cestě do Kladska, jejž léta Páně 1448 získal Markvart ze Zvole. Páni ze Zvole jsou leníky biskupství olomouckého a z jejich rodu byl biskup Bohuš, jenž zemřel loni.",
+  },
+  Rosice: {t: "Panský hrad", n: "Hrad a městečko západně od Brna, které zdědila panna Magdalena z Rosic, katolička."},
+  "Nový Hrad (Morava)": {
+    t: "Panský hrad",
+    n: "Hrad v lesích nad údolím Svitavy severně od Brna, kterýž drží pan Bernard z Cimburka, katolík. Na tomto hradě strávil dětství pan Ješek Svojanovský z Boskovic.",
+  },
+  Blansko: {t: "Panské městečko", n: "Městečko s tvrzí nad Svitavou severně od Brna, které drží Vilém z Miličína, katolík."},
+  Polná: {t: "Panské město", n: "Městečko s hradem na cestě z Čáslavska k Jihlavě, hned při pomezí moravském."},
+  "Český Brod": {
+    t: "Město pod obojí",
+    n: "Město na cestě z Prahy ke Kolínu a Kutné Hoře, kdysi zboží arcibiskupů pražských. Nedaleko odtud u Lipan léta Páně 1434 porazili páni a Pražané vojska táborů a sirotků; padl tu kněz Prokop Holý.",
+  },
+  Říčany: {
+    t: "Hrad a městečko",
+    n: "Hrad a městečko jihovýchodně od Prahy. Sem byl v lednu léta Páně 1449 propuštěn z vězení poděbradského nejvyšší purkrabí pan Menhart z Hradce a za několik dní zemřel; hned se mluvilo o jedu.",
+  },
+  "Mladá Vožice": {
+    t: "Hrad a městečko",
+    n: "Hrad a městečko pět hodin cesty od Tábora. Na Velký pátek léta Páně 1420 tu Žižka před svítáním přepadl spící královské jezdce mincmistra Mikuláše Divůčka a z ukořistěných koní počal stavěti jízdu táborskou.",
+  },
+  Přibyslav: {
+    t: "Panské městečko",
+    n: "Městečko nad Sázavou na pomezí českomoravském. Při jeho obléhání zemřel 11. dne října léta Páně 1424 slepý vojevůdce Jan Žižka z Trocnova a město potom padlo do rukou jeho vojska.",
+  },
+  Chomutov: {
+    t: "Město pod Krušnými horami",
+    n: "Město na cestě do Míšně, kdysi zboží řádu německých rytířů; jeho kupci obchodují se Saskem. 16. dne března léta Páně 1421 je dobyli Pražané se Žižkou a měšťany krutě pobili; kraj kolem leží posud zpustlý.",
+  },
+  Vodňany: {
+    t: "Město",
+    n: "Město na cestě od Písku k Prachaticím. Léta Páně 1420 přísahalo věrnost panu Oldřichovi z Rožmberka, ale v srpnu je vzal Žižka a táborští kněží tu dali zabíjeti. Léta 1450 si pan Oldřich stěžoval, že Vodňanští berou na lidech z Protivína nová mýta proti starému obyčeji.",
+  },
+  Ivančice: {
+    t: "Královské město",
+    n: "Malé královské město na soutoku Jihlavy s Oslavou a Rokytnou jihozápadně od Brna. Léta Páně 1440 pečetilo landfrýd spolu s městy královskými.",
+  },
+  Třebíč: {
+    t: "Město pod klášterem",
+    n: "Jedno z nejbohatších měst moravských, nad řekou Jihlavou pod starým klášterem benediktinů, jenž stojí nad městem jako pevnost místo hradu.",
+  },
+  "Veselí nad Moravou": {
+    t: "Panské město",
+    n: "Město s hradem na řece Moravě při cestě k uherskému pomezí, velké panství rytíře Mikuláše Veselského z Vojslavic. Pan Mikuláš pochází z Pelhřimovska a býval služebníkem pánů z Hradce; za válek přešel na Moravu a drží se strany římské.",
+  },
+  Strakonice: {
+    t: "Sídlo velkopřevora johanitů",
+    n: "Hrad nad soutokem Otavy a Volyňky, sídlo velkopřevora řádu rytířů svatého Jana v Čechách, jemuž jej odkázali páni Bavorové ze Strakonic. Léta Páně 1449 se zde páni a rytíři strany římské spolčili proti panu Jiřímu v jednotu strakonickou. Velkopřevorem býval i pan Jošt z Rožmberka, nyní biskup vratislavský.",
+  },
+  Osek: {
+    t: "Klášter cisterciáků",
+    n: "Klášter cisterciáků pod Krušnými horami a nad ním hrad Osek, jenž s Mostem a Duchcovem drží v zástavě vévodové míšenští. Tudy jezdí poselstva ze Saska do Prahy; v těchto dnech poslal pan Jiří k hradu své služebníky naproti saským poslům.",
+  },
+  Žďár: {
+    t: "Klášter cisterciáků",
+    n: "Klášter cisterciáků na pomezí českomoravském, rodový klášter pánů z Kunštátu, za válek zle poničený. Kolem léta Páně 1450 dal pan Jiří v jeho chrámu vymalovati své předky jako rytíře Kristovy.",
+  },
+  Vilémov: {t: "Zpustlý klášter benediktinů", n: "Starý klášter benediktinů na úpatí Železných hor, za bouří husitských zpustlý."},
+  Rajhrad: {
+    t: "Klášter benediktinů",
+    n: "Nejstarší klášter na Moravě, probošství benediktinů na řece Svratce jižně od Brna. Léta Páně 1449, kdy jej v ochraně měli maršálek Pertold z Lipé a měšťané brněnští, jej přepadl a obsadil pan Ješek Svojanovský z Boskovic a zajal představené; když jej oblehli, utekl a lidi své nechal napospas.",
+  },
+  Borovany: {
+    t: "Ves s budoucím klášterem",
+    n: "Ves s farním kostelem na Budějovicku, kde léta Páně 1455 obdržel Petr z Lindy, zbohatlý měšťan budějovický rodem z Lince, povolení založit klášter kanovníků řádu svatého Augustina pod ochranou pánů z Rožmberka. Řeholníci zatím nepřišli.",
+  },
+  Kunvald: {
+    t: "Ves bratří",
+    n: "Odlehlá ves v podhůří Orlických hor na panství litickém, které drží pan Jiří. Od loňska se tu z jeho dovolení usadili bratří, lidé zbožní, kteří chtějí žíti prostě podle zákona Kristova; mnozí z nich bývali posluchači mistra Rokycany.",
+  },
 };
 /*@cast}*/

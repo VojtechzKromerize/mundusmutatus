@@ -217,6 +217,13 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
   a v `TOWNSEATS`. Hustota (míst na 10 000 km² v obrysech `DUCHY_POLY`): Slezsko 7,6 → 16,9, Lužice 11,2 → 18,7 (ve starém měřítku zadání asi 14). Shrnutí
   v `CITYINFO`, věrnost měst ve `VERNOST_MIST`, Hlohov, Opolí, Ratiboř, Těšín, Žitava a Kladsko v `MAJOR_PLACES`. Popisky míst na mapě se nově nekladou
   přes cizí ikonu (`ikony` v kresbě sídel, 02b) – v hustých krajích jméno raději vynechají, než aby zdánlivě patřilo sousedovi.
+- 10-28 **Zahuštění míst: Čechy a Morava** (Vojta): +50 míst z rešerše (stav k 3. 3. 1458) – do rodů Rožmberkové (Soběslav, Lomnice, Trhové Sviny,
+  Velešín, Sedlčany, Choustník, Příběnice), Šternberkové (Roudnice), Hazmburkové (Chvatěruby, Hostinné), Kolovratové (Krašov), Lichtenštejnové (Drnholec),
+  páni z Lipé (Hostěradice, Templštejn), Bítovští (Jemnice, Malenovice), Boskovicové (Svojanov, věrnost sídla „verni“), do skupin hradů Čech (+5) a Moravy (+11,
+  i rytířská sídla) a nové záznamy `900-cmc` Další města Čech, `901-cmm` Další města Moravy, `902-kla` Kláštery a řádové domy (zeme Duchovenstvo: Strakonice,
+  Osek, Žďár, Vilémov, Rajhrad, Borovany, Kunvald). Shrnutí v `CITYINFO`, věrnost měst ve `VERNOST_MIST`, Třebíč v `MAJOR_PLACES`, městská sídla rodů
+  v `TOWNSEATS` (bloky „MÍSTA: Čechy a Morava“). Vynecháno pro těsnost bodů: Louka (u Znojma), Benešov (u Konopiště), Libochovice (u Hazmburku), Kájov,
+  Bavorov; Zornštejn = Cornštejn a Krasíkov = Švamberk už na mapě; Úhrov a Lhotka u Rychnova jen děje po 1458 (místo Lhotky Kunvald).
 
 ## Otevřené
 - **Mapa jih – k ověření (Vojta)**: kdo k 3. 3. 1458 drží Čakovec a Varaždínský hrad (celjské dědictví – Vitovec?), Golubac vynechán (srbský/turecký?), Kusánský
