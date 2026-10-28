@@ -593,7 +593,9 @@ function renderPravidla(b, c) {
             ? `<ol>${k.toc
                 .filter(t => t.l <= (k.id === "glosar" ? 2 : 1))
                 .map(t => `<li class="srdl${t.l}"><a href="#pravidla/${k.id}/${t.id}">${besc(t.n)}</a></li>`)
-                .join("")}</ol>`
+                .join(
+                  "",
+                )}${k.id === "povolani" ? `<li class="srdl1"><a href="#pravidla/mimo/mimo-gunslinger" ${btip("Střelec – povolání mimo SRD (Doplňky mimo SRD › Povolání)")}>Gunslinger</a></li>` : ""}</ol>`
             : ""
         }`,
     )
