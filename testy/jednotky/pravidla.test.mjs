@@ -344,6 +344,9 @@ test("povolání mimo SRD (Střelec): rysy ###, odrážky, rámeček Artikule s 
   assert.match(h, /<ul><li><b>Prokoukl\.<\/b> Poloviční\.<\/li><li><b>Neprokoukl\.<\/b> Platí\.<\/li><\/ul>/);
   assert.match(h, /<div class="srdart"><b>Artikule<\/b> <b>Zbraně\.<\/b> Válečné\.<br><i>Poznámka:<\/i> vycpávaná\.<\/div>/);
   assert.match(h, /<p class="rsmall"><i>Poznámka:<\/i> sloty\.<\/p>/);
+  const t = V(`featyMd("| | |\\n|---|---|\\n| Hlavní vlastnost | DEX |")`);
+  assert.doesNotMatch(t, /<thead>/, "tabulka bez záhlaví");
+  assert.match(t, /<td>Hlavní vlastnost<\/td><td>DEX<\/td>/);
   const s = V(`povolHtml()`);
   assert.match(s, /id="mimo-gunslinger"/);
   assert.match(s, /uvidíš po přihlášení/);

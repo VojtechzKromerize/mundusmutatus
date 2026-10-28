@@ -408,9 +408,10 @@ function featyMd(t) {
           .map(x => `<li>${kzIn(x.slice(2).trim())}</li>`)
           .join("")}</ul>`;
       if (/^\|/.test(b)) {
-        const R = b.split("\n").filter(r => !/^\|[\s|:-]+\|$/.test(r.trim()));
+        /* oddělovač „|---|---|“ (prázdná hlavička „| | |“ tabulky bez záhlaví zůstane a nevykreslí se) */
+        const R = b.split("\n").filter(r => !(/^\|[\s|:-]+\|$/.test(r.trim()) && /-/.test(r)));
         const [h, ...d] = R.map(bunky);
-        return `<div class="srdtab"><table><thead><tr>${h.map(x => `<th>${x}</th>`).join("")}</tr></thead><tbody>${d.map(r => `<tr>${r.map(x => `<td>${x}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+        return `<div class="srdtab"><table>${h.some(Boolean) ? `<thead><tr>${h.map(x => `<th>${x}</th>`).join("")}</tr></thead>` : ""}<tbody>${d.map(r => `<tr>${r.map(x => `<td>${x}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
       }
       const q = b.match(/^>\s*\*\*Artikule\s*[–-]\s*(.+?)\*\*\s*([\s\S]*)$/);
       if (q)
