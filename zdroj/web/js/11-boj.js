@@ -1130,8 +1130,10 @@ function bojLog(id, o, kdo) {
 const bsg = v => `${v >= 0 ? "+" : "−"}${Math.abs(v)}`;
 const bojZavObj = (p, z) => ({r: z.r, d: z.d, hod: z.hod || "", txt: z.r === "pok" ? (p && p.pok) || "" : z.r === "poz" ? (p && p.poz) || "" : ""});
 /* zbraň s více typy zranění (Šikovná, „Slashing nebo Piercing“) a Půlmeč: volba se pamatuje u útoku */
+/* BCILL (2026-10-28, Vojta): víc cílů najednou – seznam cílů v režimu „víc cílů“; BCIL drží první z nich (zbytek kódu čte jen BCIL) */
 const BUTT = {},
   BCIL = {},
+  BCILL = {},
   BADV = {},
   BJR = {};
 /* výhoda / nevýhoda: návrh podle stavu útočníka a cíle (Sražen: zblízka výhoda, z dálky nevýhoda; Omráčen: výhoda; útočník Sražen: nevýhoda) */
@@ -1344,7 +1346,8 @@ const bojUtokPocet = a => {
   return v > 1 && v < 9 ? v : 1;
 };
 /* a0: útok mimo statblok – kouzlo NPC (bojNpcKouzlo; a0.auto = automatický zásah) */
-function bojUtok(n, ai, a0) {
+/* opt.zr: pevné zranění (útok se záchranou na víc cílů – zranění se hází jednou, každý cíl si hází záchranu sám) */
+function bojUtok(n, ai, a0, opt) {
   const E = bojEff(n);
   if (!E) return;
   {
@@ -1409,7 +1412,7 @@ function bojUtok(n, ai, a0) {
   const ACc = cil ? (!cil.druh ? (bojKartaH(cil) ? kAC(bojKartaH(cil)) + (+cil.kryt || 0) : null) : +cil.ac || null) : null;
   const zas = !o.hod ? true : o.hod.mis ? false : krit ? true : ACc != null ? o.hod.tot >= ACc : null;
   if (zas === true) {
-    const zr = bojUtokZr(n, a, krit, S);
+    const zr = opt && opt.zr && a.dc ? Object.assign({}, opt.zr) : bojUtokZr(n, a, krit, S);
     if (zr) o.zr = zr;
     else if (a.zt) o.zt = a.zt;
   } else if (zas === null && (a.z || a.zp != null)) o.zrPo = a0 ? {ai, krit, a: a0} : {ai, krit};
@@ -1670,7 +1673,7 @@ function bojRef(n, s, velH) {
           .join("")}</span>`
       : "";
   const utc = E.at.length
-    ? `<div class="butc"><span class="bphl">Na koho</span><span class="bphc bnkcil">${cile.map(x => `<button type="button" class="bphcil" data-bcilb="${besc(x.id)}" aria-pressed="${BCIL[n.id] === x.id}" aria-label="${besc(x.n)}" ${btip(x.n)}>${x.druh ? bojMedN(x, "bmini") : bojMedH(x, "bmini")}<span>${besc(x.n)}</span></button>`).join("") || `<small>nikdo</small>`}</span>
+    ? `<div class="butc"><span class="bphl">Na koho</span><span class="bphc bnkcil">${cile.map(x => `<button type="button" class="bphcil" data-bcilb="${besc(x.id)}" aria-pressed="${BCILL[n.id] ? BCILL[n.id].includes(x.id) : BCIL[n.id] === x.id}" aria-label="${besc(x.n)}" ${btip(x.n)}>${x.druh ? bojMedN(x, "bmini") : bojMedH(x, "bmini")}<span>${besc(x.n)}</span></button>`).join("") || `<small>nikdo</small>`}${cile.length > 1 ? `<button type="button" class="bphcilm" data-bcilm aria-pressed="${!!BCILL[n.id]}" ${btip(BCILL[n.id] ? `Víc cílů: vybráno ${BCILL[n.id].length} – útok či záchrana proběhne na každého (zranění se záchranou se hodí jednou). Klepni: zpět na jeden cíl` : "Víc cílů najednou (dech, výbuch, plošné kouzlo): klepáním na portréty vyber všechny zasažené")}>${BCILL[n.id] ? `${BCILL[n.id].length} cíle` : "+ víc cílů"}</button>` : ""}</span>
     <span class="bphadvi" role="group" aria-label="Výhoda nebo nevýhoda">${[
       ["1", "vyhoda", "Výhoda"],
       ["-1", "nevyhoda", "Nevýhoda"],

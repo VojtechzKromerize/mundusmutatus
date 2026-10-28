@@ -417,6 +417,15 @@ for key in ODH_KLICE + list(STAT):
 if not znacka("GM", "false").search(s) or "/*@MMDATA@*/" not in s:
     fail("ve zdroji chybí značka /*@GM@*/false nebo /*@MMDATA@*/")
 s = znacka("GM", "false").sub("!!__D.GM", s)
+# data art/*.json s otiskem obsahu v adrese (2026-10-28): service worker a prohlížeč je drží v mezipaměti (art/* stale-while-revalidate),
+# po změně dat (školy kouzel 2026-10-24) by vypravěč jinak dlouho viděl starý soubor; nový otisk = nová adresa = čerstvá data
+def _art_otisk(m):
+    f = m.group(1)
+    zdroj = os.path.join(ROOT, "art", "kouzla.json" if f == "kouzla-karta.json" else f)
+    if not os.path.exists(zdroj):
+        return m.group(0)
+    return f'fetch("art/{f}?v={hashlib.md5(open(zdroj, "rb").read()).hexdigest()[:10]}"'
+s = re.sub(r'fetch\("art/([\w.-]+\.json)"', _art_otisk, s)
 safe = lambda v: J(v).replace("</", "<\\/")
 if DB:
     s = s.replace("/*@MMDATA@*/", "window.MMCFG=" + safe({"url": SB_URL, "key": SB_KEY, "vetev": VETEV, "gen": GEN_VERZE}) + ";window.__S=" + safe(STAT_H) + ";/*@MMLINE@*/")

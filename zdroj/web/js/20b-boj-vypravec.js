@@ -1214,8 +1214,8 @@ document.addEventListener("keydown", e => {
   }
 });
 document.addEventListener("keydown", e => {
-  if (e.key === "Escape" && BPRAV && curView === "boj") {
-    const b = document.querySelector("#bojview .bprx");
+  if (e.key === "Escape" && (BPRAV || BKRO) && curView === "boj") {
+    const b = document.querySelector(BPRAV ? "#bojview #bpravidla .bprx" : "#bojview #bkritsup .bprx");
     if (b) b.click();
   }
 });
@@ -1605,7 +1605,8 @@ async function bojUlozSetkani() {
 }
 /* otevře rámeček Kritická zranění v pravidlech boje a posune na něj; s fokus i kurzor do první volby */
 function bojKritUkaz(v, fokus) {
-  BPRAV = true;
+  BKRO = true;
+  BPRAV = false;
   renderBoj();
   const k = v.querySelector(".bkrit");
   if (!k) return;
@@ -2032,14 +2033,22 @@ document.addEventListener("click", async e => {
     bojKritUkaz(v, true);
     return;
   }
-  if (T("[data-bprav]")) {
-    BPRAV = !BPRAV;
-    v.querySelectorAll(".bpravidla").forEach(a => a.classList.toggle("open", BPRAV));
-    v.querySelectorAll(".bprtg").forEach(b => b.setAttribute("aria-expanded", BPRAV));
-    if (BPRAV) {
-      const x = v.querySelector(".bprx");
-      if (x) x.focus({preventScroll: true});
+  if (T("[data-bprav]") || T("[data-bkro]")) {
+    /* šuplíky Pravidla a Kritická zranění: otevřený je nejvýš jeden */
+    const kr = !!T("[data-bkro]");
+    if (kr) {
+      BKRO = !BKRO;
+      if (BKRO) BPRAV = false;
+    } else {
+      BPRAV = !BPRAV;
+      if (BPRAV) BKRO = false;
     }
+    v.querySelectorAll("#bpravidla").forEach(a => a.classList.toggle("open", BPRAV));
+    v.querySelectorAll("#bkritsup").forEach(a => a.classList.toggle("open", BKRO));
+    v.querySelectorAll(".bprtg[data-bprav]").forEach(b => b.setAttribute("aria-expanded", BPRAV));
+    v.querySelectorAll(".bprtg[data-bkro]").forEach(b => b.setAttribute("aria-expanded", BKRO));
+    const x = v.querySelector(BPRAV ? "#bpravidla .bprx" : BKRO ? "#bkritsup .bprx" : null);
+    if (x) x.focus({preventScroll: true});
     return;
   }
   const bpo = T("[data-bupot]");
@@ -2404,8 +2413,22 @@ document.addEventListener("click", async e => {
   const bcb = T("[data-bcilb]");
   if (bcb && o0) {
     const c = bcb.dataset.bcilb;
-    if (BCIL[id] === c) delete BCIL[id];
+    if (BCILL[id]) {
+      /* víc cílů: klepnutí přidá či ubere; první vybraný je hlavní cíl (BCIL) */
+      const L = BCILL[id].includes(c) ? BCILL[id].filter(x => x !== c) : [...BCILL[id], c];
+      BCILL[id] = L;
+      if (L.length) BCIL[id] = L[0];
+      else delete BCIL[id];
+    } else if (BCIL[id] === c) delete BCIL[id];
     else BCIL[id] = c;
+    renderBoj();
+    return;
+  }
+  if (T("[data-bcilm]") && o0) {
+    if (BCILL[id]) {
+      delete BCILL[id];
+      if (BCIL[id] == null) delete BCIL[id];
+    } else BCILL[id] = BCIL[id] ? [BCIL[id]] : [];
     renderBoj();
     return;
   }
@@ -2796,7 +2819,19 @@ function bojUtokKlik(o0, ai) {
       });
     delete BJR[id];
   }
-  bojUtok(o0, ai);
+  /* víc cílů (BCILL): útok proběhne na každý cíl zvlášť; u záchrany se zranění hodí jednou a platí pro všechny */
+  const L = (BCILL[id] || []).filter(c => bojCilO(BOJ.s || {}, c));
+  if (L.length > 1) {
+    const hl = BCIL[id];
+    let zr = null;
+    L.forEach(c => {
+      BCIL[id] = c;
+      bojUtok(o0, ai, undefined, zr ? {zr} : undefined);
+      const o = (BLOG[id] || [])[0];
+      if (!zr && o && o.dc && o.zr) zr = o.zr;
+    });
+    BCIL[id] = hl;
+  } else bojUtok(o0, ai);
   renderBoj();
 }
 /* Šikovná zbraň: před hodem se zvolí typ zranění */

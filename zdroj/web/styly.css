@@ -1981,9 +1981,13 @@ abbr.btp{text-decoration:underline dotted color-mix(in srgb,var(--gold) 85%,tran
 .bobts.bobt0{color:var(--muted)}.bobts.bobt1{color:var(--tree)}.bobts.bobt2{color:#9a7016}.bobts.bobt3{color:var(--kal)}.bobts.bobt4{color:#4a1016}
 .bobtm small{color:var(--muted)}
 /* šuplík s rychlými pravidly */
-.bprtg{position:fixed;right:0;top:44%;z-index:84;display:flex;flex-direction:column;align-items:center;gap:8px;padding:12px 7px;border-radius:4px 0 0 4px;cursor:pointer;writing-mode:vertical-rl;font-family:var(--f-label);font-size:.85rem;letter-spacing:.08em;color:#f6d27a;text-shadow:0 1px 0 rgba(0,0,0,.45);border:1px solid rgba(20,3,6,.85);border-right:0;background:linear-gradient(90deg,color-mix(in srgb,var(--kuze) 85%,#000) 0%,var(--kuze) 35%,var(--kuze2) 100%);box-shadow:inset 0 0 0 2px var(--kuze),inset 0 0 0 3px var(--zlato-linka),-4px 4px 12px -6px rgba(20,5,5,.6)}
+.bprtgs{position:fixed;right:0;top:36%;z-index:84;display:flex;flex-direction:column;align-items:flex-end;gap:8px;transition:right .22s ease}
+/* otevřený šuplík: záložky se přisunou k jeho levému okraji, aby šlo přepnout na druhý šuplík */
+#bojview:has(.bpravidla.open) .bprtgs{right:min(410px,94vw);z-index:111}
+.bprtg{display:flex;flex-direction:column;align-items:center;gap:8px;padding:12px 7px;border-radius:4px 0 0 4px;cursor:pointer;writing-mode:vertical-rl;font-family:var(--f-label);font-size:.85rem;letter-spacing:.08em;color:#f6d27a;text-shadow:0 1px 0 rgba(0,0,0,.45);border:1px solid rgba(20,3,6,.85);border-right:0;background:linear-gradient(90deg,color-mix(in srgb,var(--kuze) 85%,#000) 0%,var(--kuze) 35%,var(--kuze2) 100%);box-shadow:inset 0 0 0 2px var(--kuze),inset 0 0 0 3px var(--zlato-linka),-4px 4px 12px -6px rgba(20,5,5,.6)}
 .bprtg .bi{writing-mode:horizontal-tb;font-size:1.15rem}
 .bprtg:hover{color:#ffe7a8}
+.bprtg[aria-expanded="true"]{color:#ffe7a8;box-shadow:inset 0 0 0 2px var(--kuze),inset 0 0 0 3px #f6d27a,-4px 4px 12px -6px rgba(20,5,5,.6)}
 #bojview .bpravidla{position:fixed;top:0;right:0;bottom:0;z-index:110;width:min(410px,94vw);margin:0;padding:0;border:0;border-left:2px solid var(--gold);background:var(--paper);box-shadow:-14px 0 30px -14px rgba(20,5,5,.6);display:flex;flex-direction:column;transform:translateX(102%);visibility:hidden;transition:transform .22s ease,visibility 0s linear .22s}
 #bojview .bpravidla.open{transform:none;visibility:visible;transition:transform .22s ease}
 .bprh{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px 8px 16px;border-bottom:1px solid var(--rule)}
@@ -2312,7 +2316,7 @@ abbr.poj{text-decoration:underline dotted color-mix(in srgb,var(--kal) 60%,trans
 .szsc>li.szhot{opacity:.65}.szrow{margin:6px 0;display:flex;flex-wrap:wrap;gap:6px;align-items:center}.szrow .chip{display:inline-flex;gap:4px;align-items:center}
 /* stránka Hra, přihlášení hráčů, výzvy, zprávy, průvodce tahem, záložky karty (2026-10-16) */
 .navhra{font-weight:700}
-.navhra.bojbezi::after{content:" ⚔";color:var(--gold,#c9a227)}
+.navhra.bojbezi::after{content:"⚔";color:var(--gold,#c9a227);margin-left:-4px;font-size:1.05rem}
 .navodbar{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin:8px 0;padding:8px 12px;border:1px solid var(--gold);border-radius:4px;background:color-mix(in srgb,var(--gold) 12%,var(--paper))}.navodbar span{flex:1 1 240px}
 .hrastav{padding:8px 12px;border:1px solid var(--rule);border-radius:3px;background:var(--paper);margin:8px 0}.hrastav p{margin:4px 0}
 .hraboj{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
@@ -3530,6 +3534,8 @@ html.mmjenhra .bdmkl{display:none}
 .bnk .bnkcil{display:flex;flex-wrap:wrap;gap:4px}
 .bnk .bphcil{background:var(--paper);color:var(--ink);border-color:var(--rule)}
 .bnk .bphcil[aria-pressed=true]{background:color-mix(in srgb,var(--gold) 18%,var(--paper));border-color:var(--gold)}
+.bphcilm{align-self:center;font-family:var(--f-label);font-size:.74rem;letter-spacing:.04em;padding:4px 10px;min-height:30px;border:1px dashed var(--rule);border-radius:999px;background:none;color:var(--muted);cursor:pointer}
+.bphcilm[aria-pressed=true]{border-style:solid;border-color:var(--gold);color:var(--kal);background:color-mix(in srgb,var(--gold) 12%,transparent)}
 .bnk .bphl{font-family:var(--f-label);font-weight:700;font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
 .bnkbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .bnkft{display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:center;gap:4px 12px;margin-top:2px;padding-top:6px;border-top:1px dashed var(--rule);font-size:.82rem;color:var(--muted)}

@@ -50,6 +50,11 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
   (i spolubojovníka) nebo vypravěč; tlačítka vidí i hráč přihlášený účtem (`ucetPrihlasen`), dřív jen s vazbou `jaK`.
 - 2026-10-28 Traktáty a Draconomicon (`.drtext`) přes celou šíři stránky, obsah traktátu ve 4 sloupcích; v Pravidlech › Povolání odkaz Gunslinger
   na Doplňky mimo SRD › Povolání.
+- 2026-10-28 Boj: hod na kritické zranění má vlastní šuplík se svislou záložkou pod „Pravidla“ (`BKRO`, `#bkritsup`; otevřený je nejvýš
+  jeden šuplík, záložky se přisunou k jeho okraji). Menu: Hra je ikona kostky na prvním místě, „Úvod“ v menu není (úvod = logo).
+- 2026-10-28 Útok nepřítele na víc cílů: „+ víc cílů“ u Na koho (`BCILL`, první = `BCIL`); útok proběhne na každý cíl, u záchrany
+  (dech, výbuch) se zranění hodí jednou (`bojUtok` opt.zr). Data art/*.json mají v adrese otisk obsahu (build) – po změně dat je
+  prohlížeč i service worker stáhnou znovu (vypravěč měl v mezipaměti kouzla se starými názvy škol).
 
 ## Hotovo
 
