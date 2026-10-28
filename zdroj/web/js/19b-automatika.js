@@ -132,7 +132,7 @@ function kAutoPredmety(K) {
   const out = [];
   inv.forEach(x => {
     const nm = String(x.n || "").trim();
-    if (!nm || kZbrInfo(x) || kZbranInfo(nm) || KPREDX.some(([re]) => re.test(nm)) || (K.utoky || []).some(u => u.n === nm)) return;
+    if (!nm || x.def || kZbrInfo(x) || kZbranInfo(nm) || KPREDX.some(([re]) => re.test(nm)) || (K.utoky || []).some(u => u.n === nm)) return;
     const p = kPred(x);
     if (p) {
       if (!p.ef && !/potion|elixir|oil of|scroll|ammunition|lektvar/i.test(nm)) out.push({n: nm, s: "shrnuti", t: "magický předmět – jen popis"});

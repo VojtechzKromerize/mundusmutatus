@@ -34,8 +34,8 @@ function kInvSkup(x, i, NOS) {
     p = kPred(x);
   if (x.pripoutano) return "pri";
   if (KINVSPO.test(n) || (p && p.ef && (p.ef.lecit || p.ef.dhp)) || kInvHod(x)) return "spo";
-  if (kZbrInfo(x) || kZbranInfo(n)) return "boj";
-  if (p || x.mag) return "mag";
+  if (kZbrInfo(x) || kVecZbr(x)) return "boj";
+  if (p || x.mag || (x.def && (x.def.ef || x.def.pr))) return "mag";
   if (KINVCEN.test(n)) return "cen";
   return "vys";
 }
@@ -195,6 +195,10 @@ const kInvDruhy = (x, i, NOS) => {
 };
 /* krátký popisek pod jménem: zranění zbraně, AC zbroje, druh a vzácnost magického předmětu, druh z katalogu */
 function kInvPodtitul(x) {
+  if (x.def) {
+    const s = vecSouhrn(x.def, kDilN()).split(" · ")[0];
+    return x.def.d === "vec" ? `vlastní předmět${x.def.vz ? `, ${x.def.vz}` : ""}` : x.def.d === "zbroj" ? `vlastní zbroj, ${s}` : s;
+  }
   const p = kPred(x),
     v = typeof vybNajdi === "function" ? vybNajdi(x) : null;
   if (v && v.sk === "zbrane")
@@ -210,7 +214,8 @@ function kInvPodtitul(x) {
 function kInvVz(x) {
   const p = kPred(x),
     v = typeof vybNajdi === "function" ? vybNajdi(x) : null,
-    z = String((p && p.vz) || (v && v.sk === "magicke" && v.vz) || "");
+    z = String((x.def ? x.def.vz : "") || (p && p.vz) || (v && v.sk === "magicke" && v.vz) || "");
+  if (x.def && !z) return "";
   if (!z) return "";
   if (/artefakt/i.test(z)) return "kvz-art";
   if (/legend/i.test(z)) return "kvz-leg";
@@ -230,7 +235,7 @@ const KINVIK = {
 function kInvIkona(K, x, i, on) {
   const p = kPred(x),
     ro = !kMuze(K);
-  if (x.pripoutano || (p && p.pr)) {
+  if (x.pripoutano || (x.def ? x.def.pr : p && p.pr)) {
     const tip = x.pripoutano ? "Připoutaný (Attunement) – klepni pro zrušení" : "Vyžaduje připoutání (Attunement) – klepni pro připoutání";
     return `<button type="button" class="kvik kvikpri${x.pripoutano ? " on" : ""}" ${ro ? "disabled" : `data-kpri="${i}"`} aria-pressed="${!!x.pripoutano}" aria-label="${besc(tip)}" ${btip(tip)}>${x.pripoutano ? "◆" : "◇"}</button>`;
   }
@@ -245,7 +250,7 @@ function bdmPriList(K) {
   const inv = kInv(K),
     ro = !kMuze(K),
     P = inv.map((x, i) => [x, i]).filter(([x]) => x.pripoutano),
-    N = inv.map((x, i) => [x, i]).filter(([x]) => !x.pripoutano && (kPred(x) || {}).pr),
+    N = inv.map((x, i) => [x, i]).filter(([x]) => !x.pripoutano && (x.def ? x.def.pr : (kPred(x) || {}).pr)),
     li = ([x, i], on) =>
       `<li><b class="${kInvVz(x)}">${besc(x.n)}</b>${(kPred(x) || {}).pr && typeof kPred(x).pr === "string" ? ` <small>${besc(kPred(x).pr)}</small>` : ""}${ro ? "" : `<button type="button" class="bdmbtn ghost" data-kpri="${i}"${!on && P.length >= 3 ? ` disabled ${btip("Připoutané smíš mít nejvýš 3 předměty")}` : ""}>${on ? "Zrušit připoutání" : "Připoutat"}</button>`}</li>`;
   return [
@@ -412,7 +417,7 @@ function bdmVecList(K, i) {
   const ro = !kMuze(K),
     p = kPred(x),
     v = typeof vybNajdi === "function" ? vybNajdi(x) : null,
-    vH = kVecPopis(x, p, v),
+    vH = x.def ? kDilPopis(x) : kVecPopis(x, p, v),
     r = kZbrInfo(x),
     NOS = kNoseno(inv),
     on = r && ((NOS.z && NOS.z.i === i) || (NOS.s && NOS.s.i === i)),
@@ -426,7 +431,7 @@ function bdmVecList(K, i) {
   if (ro) return [x.n, `${vH}${info}${x.pozn ? `<p class="kvpozn">${besc(x.pozn)}</p>` : ""}`];
   const akce = [
     r ? `<button type="button" class="bdmbtn" data-kobl="${i}">${on ? "Sundat" : "Obléct"}</button>` : "",
-    p && (p.pr || x.pripoutano)
+    (x.def ? x.def.pr : p && p.pr) || x.pripoutano
       ? `<button type="button" class="bdmbtn" data-kpri="${i}" ${!x.pripoutano && pri >= 3 ? `disabled ${btip("Připoutané smíš mít nejvýš 3 předměty")}` : ""}>${x.pripoutano ? "Zrušit připoutání" : "Připoutat"}</button>`
       : "",
     p && p.ef && (p.ef.lecit || p.ef.dhp) ? `<button type="button" class="bdmbtn" data-kinvpij="${i}">Vypít</button>` : "",
@@ -450,7 +455,7 @@ function bdmVecList(K, i) {
     <label class="kvlab">Poznámka <textarea data-kvpozn="${i}" rows="2" maxlength="300" placeholder="odkud je, co dělá, komu patří…">${besc(x.pozn || "")}</textarea></label>
     <p class="bdmrow"><span class="kq"><button type="button" class="bdmmini" data-kinv="${i}" data-d="-1" aria-label="Ubrat">−</button><b>${x.q ?? 1}</b><button type="button" class="bdmmini" data-kinv="${i}" data-d="1" aria-label="Přidat">+</button></span>
       <label class="kvlab kvlabr">Složka <select data-kinvv="${i}">${sl.map(fl => `<option value="${besc(fl.n)}"${(x.v || "") === fl.n ? " selected" : ""}>${besc(fl.jm)}</option>`).join("")}</select></label>
-      <button type="button" class="bdmmini kvx" data-kvx="${i}">Zahodit</button></p></div>`;
+      <button type="button" class="bdmmini kvx" data-kvx="${i}">Zahodit</button></p>${GMV || !window.MMDB ? `<p class="bdmrow"><button type="button" class="bdmbtn ghost" data-bdmsh="inv" data-kved="${i}" ${btip("Dílna vypravěče: základ, vlastnosti a mistrovství, perky, magický bonus, zranění navíc, trvalé bonusy")}>⚒ Upravit vlastnosti</button></p>` : ""}</div>`;
   return [x.n, `${vH}${info}${akce ? `<div class="bdmrow kvakce">${akce}</div>` : ""}${hodH}${darH}${upr}`];
 }
 
@@ -609,7 +614,364 @@ function bdmInvList(K) {
     return `<li><b>${besc(fl.jm)}</b> <small>${L.length} · ${kLbF(w)}</small>${vl ? `<label class="kvslnen" ${btip("Složku postava nenese (kůň, vůz, úschovna) – nepočítá se do nosnosti")}><input type="checkbox" data-kvslnen="${besc(fl.n)}"${fl.nen ? " checked" : ""}> nenese</label><button type="button" class="bdmmini" data-kvslx="${besc(fl.n)}" aria-label="Smazat složku ${besc(fl.n)}" ${btip("Smaže složku, věci z ní budou Na sobě")}>×</button>` : ""}</li>`;
   }).join("")}</ul>
     <form class="bdmrow" data-kvslf><input name="n" required maxlength="40" placeholder="nová složka (Váček, Kůň, Vůz…)" aria-label="Název nové složky"><button class="bdmbtn ghost">Přidat složku</button></form></details>`;
-  return ["Spravovat inventář", `${db}${vl}${sl}`];
+  return ["Spravovat inventář", `${db}${vl}${gm ? kDilObal(K) : ""}${sl}`];
+}
+/* --- Dílna vypravěče (2026-10-28): vlastní předmět ze základu z katalogu (zbraň, zbroj, štít, nebo bez základu) – vlastnosti
+   a mistrovství SRD, perky z Artikulí, magický bonus, zranění navíc, trvalé bonusy, připoutání. Mechanika je v def u věci (10v),
+   vytváří a upravuje jen vypravěč. Rozpracovaný předmět drží BDM.dil, aby ho překreslení listu nesmazalo; tlačítko „Upravit
+   vlastnosti“ v listu věci otevře Dílnu s touto věcí (i s věcí z katalogu – uloží ji pak jako vlastní předmět). --- */
+const kDilP = () => ({vl: Object.keys(ZBRVL), ma: Object.keys(ZBRMS), pk: Object.keys(BDMZV), ef: [...KUPRC.map(r => r[0]), "zrd"]});
+const kDilN = () => ({ma: Object.fromEntries(Object.keys(ZBRMS).map(k => [k, ZBRMS[k][0]])), ef: KUPRN});
+const kDilEfL = () => [...KUPRC, ["zrd", "zranění na dálku"], ...BAB.map(a => ["vl:" + a, `${a} nastavená na`])];
+const kDilAkt = () => (typeof BZVAKT !== "undefined" ? Object.keys(BZVAKT) : []);
+/* základ z katalogu vybavení → def (zbraň, zbroj, štít; jinak věc bez základu) */
+function kDilZaklad(x) {
+  if (x && x.sk === "zbrane")
+    return {
+      d: "zbr",
+      z: x.id,
+      zn: x.en,
+      k: x.z,
+      t: x.zt,
+      vl: [...(x.vl || [])],
+      ma: x.ma || "",
+      s: /^jednoduch/.test(x.kat || "") ? "S" : "M",
+      dal: /na dálku/.test(x.kat || "") ? 1 : 0,
+      dos: x.dostrel || "",
+      pk: [...(x.art || [])],
+    };
+  if (x && x.sk === "zbroj")
+    return x.typ === "štít"
+      ? {d: "stit", z: x.id, zn: x.en, ac: x.ac || 2}
+      : {
+          d: "zbroj",
+          z: x.id,
+          zn: x.en,
+          ac: x.ac,
+          max: x.typ === "těžká" ? null : x.typ === "lehká" ? 9 : (x.agi ?? 2),
+          dr: x.art || "Vycpávaná",
+          pl: x.plizeni ? 1 : 0,
+          str: x.str || "",
+        };
+  return {d: "vec"};
+}
+/* rozpracovaný předmět z věci ve vybavení: vlastní předmět beze změny, jinak základ podle jména, bonus „+1“, perky nastavené
+   na kartě, účinky a připoutání magického předmětu SRD */
+function kDilZVeci(K, x) {
+  const q = Math.max(1, +x.q || 1),
+    o = {n: x.n, q, w: kLb(x.w) ? Math.round((kLb(x.w) / q) * 100) / 100 : "", v: x.v || "", pozn: x.pozn || ""};
+  if (x.def) return Object.assign(o, {def: JSON.parse(JSON.stringify(x.def))});
+  const v = typeof vybNajdi === "function" ? vybNajdi(x) : null,
+    p = kPred(x),
+    w = kZbranInfo(x.n),
+    r = kZbrInfo(x);
+  let d = v && (v.sk === "zbrane" || v.sk === "zbroj") ? kDilZaklad(v) : null;
+  if (!d && w && VYBN[vybKl(w[1])]) d = kDilZaklad(VYBN[vybKl(w[1])]);
+  if (!d && r) d = r.k === "s" ? {d: "stit", zn: "Shield", ac: r.ac - r.m} : {d: "zbroj", zn: x.n, ac: r.ac - r.m, max: r.max, dr: r.dr, pl: r.pl};
+  d = d || {d: "vec"};
+  const ef = Object.assign({}, (p && p.ef) || {});
+  KPREDX.forEach(([re, f]) => {
+    const m = String(x.n).match(re);
+    if (m) Object.assign(ef, typeof f === "function" ? f(m) : f);
+  });
+  const m = +(String(x.n).match(/\+\s*([1-3])\b/) || [])[1] || +ef.utok || (r ? r.m : 0) || 0;
+  if (m && d.d !== "vec") d.b = m;
+  const zv = (kartaStav(K.id).zbrVl || {})[x.n];
+  if (d.d === "zbr" && zv && Array.isArray(zv.vl)) d.pk = [...zv.vl];
+  d.ef = [
+    ...Object.entries(ef)
+      .filter(([k]) => /^(zach|sput|spdc|ov|zrd)$/.test(k) || (k === "ac" && d.d === "vec"))
+      .map(([c, v]) => ({c, v})),
+    ...Object.entries(ef.vl || {}).map(([a, v]) => ({c: "vl:" + a, v})),
+  ];
+  if (p && p.pr) d.pr = 1;
+  if (p && VECVZ.includes(p.vz)) d.vz = p.vz;
+  return Object.assign(o, {def: d});
+}
+const kDilOpt = (L, cur) =>
+  L.map(([k, l]) => `<option value="${besc(k)}"${String(cur ?? "") === String(k) ? " selected" : ""}>${besc(l)}</option>`).join("");
+/* náhled mechaniky pod formulářem: souhrn a upozornění na perky nad rámec Artikulí */
+function kDilNahled(D) {
+  const d = vecDefNorm(D.def, kDilP()),
+    s = vecSouhrn(d, kDilN()),
+    va = vecPerkyVaruj(d, kDilAkt());
+  return `${s ? `<b>Na kartě:</b> ${besc(s)}` : "Vyber základ nebo doplň bonusy."}${va ? `<br><span class="kdilvar">${besc(va)}</span>` : ""}`;
+}
+function kDilForm(K) {
+  const D = BDM.dil || (BDM.dil = {n: "", q: 1, def: {d: "vec"}}),
+    d = D.def || {d: "vec"},
+    FS = kSlozkyVse(K, kInv(K)),
+    zakl = d.z ? `${d.d}:${d.z}` : "",
+    ZT = VECZT.map(t => [t, BZRT[t] || t]),
+    chk = (n, v, on, l, tip) =>
+      `<label class="kdilchk"${tip ? " " + btip(tip) : ""}><input type="checkbox" name="${n}" value="${besc(v)}"${on ? " checked" : ""}> ${l}</label>`;
+  if (!VYB && typeof vybNacti === "function")
+    vybNacti()
+      .then(() => kDilObnov(K))
+      .catch(() => {});
+  const zs = `<label class="kdilw">Základ <select name="zakl" data-kdilz><option value="">— bez základu (divotvorný předmět, jiná věc) —</option>
+    <optgroup label="Zbraně">${((VYB && VYB.zbrane) || []).map(x => `<option value="zbr:${besc(x.id)}"${zakl === "zbr:" + x.id ? " selected" : ""}>${besc(x.en)}${x.cz ? ` – ${besc(x.cz)}` : ""}</option>`).join("")}</optgroup>
+    <optgroup label="Zbroj a štít">${((VYB && VYB.zbroj) || [])
+      .map(x => {
+        const k = `${x.typ === "štít" ? "stit" : "zbroj"}:${x.id}`;
+        return `<option value="${besc(k)}"${zakl === k ? " selected" : ""}>${besc(x.en)}${x.cz ? ` – ${besc(x.cz)}` : ""}</option>`;
+      })
+      .join("")}</optgroup></select></label>`;
+  let mech = "";
+  if (d.d === "zbr") {
+    const VL = new Map(
+      (d.vl || []).map(s => {
+        const m = String(s).match(/^([^(]*?)\s*(?:\(([^)]*)\))?$/);
+        return [m[1], m[2] || ""];
+      }),
+    );
+    mech = `<fieldset class="kdilfs"><legend>Zbraň</legend>
+      <label>Kostka <input name="k" value="${besc(d.k || "")}" maxlength="6" placeholder="1d8"></label>
+      <label>Typ zranění <select name="t">${kDilOpt(ZT, d.t)}</select></label>
+      <label>Druh <select name="s">${kDilOpt(
+        [
+          ["S", "jednoduchá"],
+          ["M", "válečná"],
+        ],
+        d.s || "M",
+      )}</select></label>
+      <label>Dostřel <input name="dos" value="${besc(d.dos || "")}" maxlength="9" placeholder="80/320"></label>
+      ${chk("dal", "1", d.dal, "na dálku")}
+      <div class="kdilg"><span>Vlastnosti</span>${Object.keys(ZBRVL)
+        .filter(k => k !== "Range")
+        .map(
+          k =>
+            `${chk("vl", k, VL.has(k), besc(ZBRVL[k][0]), ZBRVL[k][1])}${k === "Versatile" ? `<input name="vers" class="kdilmal" value="${besc(VL.get("Versatile") || "")}" maxlength="5" placeholder="1d10" aria-label="Kostka obouruč">` : ""}`,
+        )
+        .join("")}</div>
+      <label>Mistrovství <select name="ma"><option value="">— žádné —</option>${kDilOpt(
+        Object.keys(ZBRMS).map(k => [k, `${ZBRMS[k][0]} (${k})`]),
+        d.ma,
+      )}</select></label>
+      <div class="kdilg"><span>Perky (Artikule)</span>${Object.keys(BDMZV)
+        .map(k => chk("pk", k, (d.pk || []).includes(k), `${bikZv(k)}${besc(k)}`, `${k}: ${BVLZ[k] || ""}`))
+        .join("")}</div>
+      <div class="kdilg"><span>Zranění navíc při zásahu</span>${[0, 1]
+        .map(j => {
+          const z = (d.zr || [])[j] || {};
+          return `<span class="kdilr"><input name="zrk${j}" class="kdilmal" value="${besc(z.k || "")}" maxlength="5" placeholder="1d6" aria-label="Kostka"><select name="zrt${j}" aria-label="Typ zranění">${kDilOpt([["", "—"], ...ZT], z.t)}</select></span>`;
+        })
+        .join("")}</div></fieldset>`;
+  } else if (d.d === "zbroj")
+    mech = `<fieldset class="kdilfs"><legend>Zbroj</legend>
+      <label>AC <input name="ac" type="number" min="10" max="25" value="${besc(d.ac ?? 11)}" inputmode="numeric"></label>
+      <label>DEX <select name="max">${kDilOpt(
+        [
+          ["9", "celá DEX (lehká)"],
+          ["2", "nejvýš +2 (střední)"],
+          ["", "bez DEX (těžká)"],
+        ],
+        d.max == null || d.max === "" ? "" : +d.max >= 9 ? "9" : String(d.max),
+      )}</select></label>
+      <label>Druh podle Artikulí <select name="dr">${kDilOpt(
+        VECDR.map(x => [x, x]),
+        d.dr,
+      )}</select></label>
+      <label>Potřebná STR <input name="str" type="number" min="0" max="20" value="${besc(d.str || "")}" placeholder="—" inputmode="numeric"></label>
+      ${chk("pl", "1", d.pl, "nevýhoda na plížení")}</fieldset>`;
+  else if (d.d === "stit")
+    mech = `<fieldset class="kdilfs"><legend>Štít</legend><label>AC <input name="ac" type="number" min="1" max="5" value="${besc(d.ac ?? 2)}" inputmode="numeric"></label></fieldset>`;
+  const mag = `<fieldset class="kdilfs"><legend>Magie</legend>
+    ${
+      d.d !== "vec"
+        ? `<label>Magický bonus <select name="b">${kDilOpt(
+            [
+              ["0", "žádný"],
+              ["1", "+1"],
+              ["2", "+2"],
+              ["3", "+3"],
+            ],
+            d.b || 0,
+          )}</select></label>`
+        : ""
+    }
+    <div class="kdilg"><span>Trvalé bonusy</span>${[0, 1, 2, 3]
+      .map(j => {
+        const e = (d.ef || [])[j] || {};
+        return `<span class="kdilr"><select name="efc${j}" aria-label="Bonus ${j + 1}"><option value="">—</option>${kDilOpt(kDilEfL(), e.c)}</select><input name="efv${j}" class="kdilmal" type="number" min="-10" max="30" value="${besc(e.v ?? "")}" aria-label="Hodnota" inputmode="numeric"></span>`;
+      })
+      .join("")}</div>
+    ${chk("pr", "1", d.pr, "vyžaduje připoutání")}
+    <label>Vzácnost <select name="vz"><option value="">—</option>${kDilOpt(
+      VECVZ.map(x => [x, x]),
+      d.vz,
+    )}</select></label></fieldset>`;
+  return `<form class="kvdilf" data-kdilf>
+    <label class="kdilw">Název <input name="n" required maxlength="80" value="${besc(D.n || "")}" placeholder="např. Rožmberský meč"></label>
+    ${zs}
+    <label>Počet <input name="q" type="number" min="1" max="9999" value="${besc(D.q || 1)}" inputmode="numeric"></label>
+    <label>Váha za kus (lb) <input name="w" type="number" min="0" max="2000" step="0.1" value="${besc(D.w ?? "")}" inputmode="decimal" placeholder="0"></label>
+    <label>Složka <select name="v">${FS.map(fl => `<option value="${besc(fl.n)}"${(D.v || "") === fl.n ? " selected" : ""}>${besc(fl.jm)}</option>`).join("")}</select></label>
+    ${mech}${mag}
+    <label class="kdilw">Popis <textarea name="pozn" rows="2" maxlength="300" placeholder="odkud je, kdo ji ukoval, co se o ní vypráví…">${besc(D.pozn || "")}</textarea></label>
+    <p class="kdilnah kdilw" data-kdilnah>${kDilNahled(D)}</p>
+    <p class="bdmrow kdilw"><button class="bdmbtn">${D.i != null ? "Uložit změny" : "Vytvořit"}</button>${D.i != null || D.n ? `<button type="button" class="bdmbtn ghost" data-kdilzrus>${D.i != null ? "Zrušit úpravu" : "Vyčistit"}</button>` : ""}</p></form>`;
+}
+const kDilObal = K => {
+  const D = BDM.dil;
+  return `<details class="kvsek kvdil" data-kdilw${D && (D.open || D.i != null) ? " open" : ""}><summary class="bdmgh">${D && D.i != null ? `Upravit předmět: ${besc(D.n || "")}` : "Vytvořit předmět"}</summary><div data-kdilbox>${kDilForm(K)}</div></details>`;
+};
+const kDilObnov = K => {
+  document.querySelectorAll(`.bdm[data-kid="${K.id}"] [data-kdilbox]`).forEach(el => (el.innerHTML = kDilForm(K)));
+};
+/* formulář → rozpracovaný předmět (hodnoty jak je vypravěč napsal; vecDefNorm je očistí při náhledu a uložení) */
+function kDilCti(F) {
+  const E = F.elements,
+    D = BDM.dil || {},
+    d0 = D.def || {d: "vec"},
+    g = n => (E[n] ? E[n].value : ""),
+    on = n => !!(E[n] && E[n].checked),
+    vse = n => [...F.querySelectorAll(`[name="${n}"]:checked`)].map(x => x.value),
+    d = {d: d0.d};
+  if (d0.z) d.z = d0.z;
+  if (d0.zn) d.zn = d0.zn;
+  if (d.d === "zbr")
+    Object.assign(d, {
+      k: g("k"),
+      t: g("t"),
+      s: g("s"),
+      dal: on("dal") ? 1 : 0,
+      dos: g("dos"),
+      ma: g("ma"),
+      pk: vse("pk"),
+      vl: vse("vl").map(k => (k === "Versatile" && g("vers").trim() ? `Versatile (${g("vers").trim()})` : k)),
+      zr: [0, 1].map(j => ({k: g("zrk" + j), t: g("zrt" + j)})),
+    });
+  if (d.d === "zbroj") Object.assign(d, {ac: g("ac"), max: g("max") === "" ? null : +g("max"), dr: g("dr"), pl: on("pl") ? 1 : 0, str: g("str")});
+  if (d.d === "stit") d.ac = g("ac");
+  if (E.b) d.b = g("b");
+  d.ef = [0, 1, 2, 3].map(j => ({c: g("efc" + j), v: g("efv" + j)})).filter(e => e.c);
+  d.pr = on("pr") ? 1 : 0;
+  d.vz = g("vz");
+  return Object.assign({}, D, {n: g("n"), q: g("q"), w: g("w"), v: g("v"), pozn: g("pozn"), def: d});
+}
+const kDilK = el => {
+  const root = el && el.closest && el.closest(".bdm");
+  return root ? KARTBY[root.dataset.kid] : null;
+};
+document.addEventListener("input", e => {
+  const F = e.target.closest && e.target.closest("[data-kdilf]");
+  if (!F || e.target.matches("[data-kdilz]")) return;
+  BDM.dil = kDilCti(F);
+  const nh = F.querySelector("[data-kdilnah]");
+  if (nh) nh.innerHTML = kDilNahled(BDM.dil);
+});
+/* jiný základ: zbraň, zbroj nebo štít převezme hodnoty ze základu; název, popis a magie zůstanou */
+document.addEventListener("change", e => {
+  const t = e.target;
+  if (!t.matches || !t.matches("[data-kdilz]")) return;
+  const K = kDilK(t),
+    F = t.closest("[data-kdilf]");
+  if (!K || !F) return;
+  const D = kDilCti(F),
+    x = VYBBY[String(t.value).split(":")[1]],
+    d = kDilZaklad(t.value ? x : null),
+    stare = D.def || {};
+  ["ef", "pr", "vz"].forEach(k => {
+    if (stare[k] != null) d[k] = stare[k];
+  });
+  if (stare.b && d.d !== "vec") d.b = stare.b;
+  const w0 = (stare.z && VYBBY[stare.z] && VYBBY[stare.z].w) || "";
+  BDM.dil = Object.assign(D, {def: d, w: x && (!D.w || String(D.w) === String(w0)) ? x.w || "" : D.w});
+  kDilObnov(K);
+});
+document.addEventListener(
+  "toggle",
+  e => {
+    const d = e.target;
+    if (!d.matches || !d.matches("[data-kdilw]")) return;
+    BDM.dil = Object.assign(BDM.dil || {n: "", q: 1, def: {d: "vec"}}, {open: d.open});
+  },
+  true,
+);
+/* Upravit vlastnosti (list věci): Dílna s touto věcí – dřív, než tlačítko otevře list Spravovat inventář */
+document.addEventListener(
+  "click",
+  e => {
+    const b = e.target.closest && e.target.closest("[data-kved]");
+    if (!b) return;
+    const K = kDilK(b),
+      x = K && kInv(K)[+b.dataset.kved];
+    if (!x) return;
+    BDM.dil = Object.assign(kDilZVeci(K, x), {i: +b.dataset.kved, open: true});
+    setTimeout(() => {
+      const el = document.querySelector(`.bdm[data-kid="${K.id}"] [data-kdilw]`);
+      if (el && el.scrollIntoView) el.scrollIntoView({block: "start", behavior: "smooth"});
+    }, 60);
+  },
+  true,
+);
+document.addEventListener("click", e => {
+  const b = e.target.closest && e.target.closest("[data-kdilzrus]");
+  if (!b) return;
+  const K = kDilK(b);
+  BDM.dil = null;
+  if (K) bdmPrekresli();
+});
+async function kDilUloz(K, F) {
+  const D = kDilCti(F),
+    d = vecDefNorm(D.def, kDilP()),
+    n = (String(D.n || "").trim() || d.zn || "").slice(0, 80);
+  if (!n) {
+    mmHlas("Zadej název předmětu.", 2500);
+    return;
+  }
+  const q = Math.max(1, Math.min(9999, Math.round(+D.q || 1))),
+    w = Math.max(0, +String(D.w || "").replace(",", ".") || 0),
+    inv = kInv(K).map(y => Object.assign({}, y)),
+    upr = D.i != null && inv[D.i],
+    it = upr ? inv[D.i] : {},
+    pz = String(D.pozn || "")
+      .trim()
+      .slice(0, 300);
+  Object.assign(it, {n, q, def: d});
+  if (w) it.w = kLbTxt(w * q);
+  else delete it.w;
+  if (D.v) it.v = D.v;
+  else delete it.v;
+  if (pz) it.pozn = pz;
+  else delete it.pozn;
+  delete it.typ;
+  if (!upr) {
+    const r = vecZbroj(d);
+    if (r) {
+      inv.forEach(y => {
+        const z = kZbrInfo(y);
+        if (z && z.k === r.k) y.obl = false;
+      });
+      it.obl = true;
+    }
+    inv.push(it);
+  }
+  const s = vecSouhrn(d, kDilN()),
+    i = upr ? D.i : inv.length - 1;
+  await kInvUloz(K, inv, `${K.n}: ${n} ${upr ? "upraven" : "ve vybavení"}${s ? ` – ${s}` : ""}.`);
+  kHodZapis({k: K.id, kdo: K.n, co: upr ? "Úprava předmětu" : "Nový předmět", txt: `${n}${s ? `: ${s}` : ""}`});
+  BDM.dil = null;
+  if (BDM.sheet) BDM.sheet = {k: BDM.sheet.k, t: "vec", i};
+  bdmPrekresli();
+}
+document.addEventListener("submit", async e => {
+  const F = e.target;
+  if (!F.matches || !F.matches("[data-kdilf]")) return;
+  e.preventDefault();
+  const K = kDilK(F);
+  if (!K || !(GMV || !window.MMDB)) return;
+  await kDilUloz(K, F);
+});
+/* popis vlastního předmětu v listu věci: souhrn mechaniky, perky s pravidly Artikulí, upozornění */
+function kDilPopis(x) {
+  const d = x.def,
+    k = String(x.n || "").toLowerCase(),
+    s = vecSouhrn(d, kDilN()),
+    va = vecPerkyVaruj(d, kDilAkt()),
+    art = d.d === "zbr" && (d.pk || []).length && typeof vybArtikule === "function" ? vybArtikule({sk: "zbrane", art: d.pk}) : "";
+  return `<details class="kvpop" data-kvpop="${besc(k)}"${KVPOPZ.has(k) ? "" : " open"}><summary>Popis</summary><p class="kvpar"><i>Vlastní předmět${d.zn ? ` · základ ${besc(d.zn)}` : ""}</i></p>${s ? `<p>${besc(s)}</p>` : ""}${art}${va ? `<p class="bdmnote kdilvar">${besc(va)}</p>` : ""}</details>`;
 }
 const kInvDbObnov = root => {
   const K = root && KARTBY[root.dataset.kid];

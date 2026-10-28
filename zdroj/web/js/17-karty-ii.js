@@ -1116,6 +1116,21 @@ function kEfekty(K) {
       jen: a => kTezka(K, a),
       pozn: `+${kPB(K)} zranění při zásahu zbraní Heavy; po kritickém zásahu nebo srážce tvora na 0 HP můžeš bonusovou akcí zaútočit znovu`,
     });
+  /* vlastní zbraň z Dílny: zranění navíc při zásahu (Flame Tongue po svém) – započítá se samo, jen k útoku touto zbraní */
+  c.inv.forEach(x => {
+    if (!x || !x.def || x.def.d !== "zbr" || !x.def.zr || (x.def.pr && !x.pripoutano)) return;
+    const nm = String(x.n).toLowerCase();
+    x.def.zr.forEach(q =>
+      L.push({
+        n: `${x.n}: +${q.k} ${q.t}`,
+        zr: q.k,
+        t: q.t,
+        auto: 1,
+        jen: a => String(a.n || "").toLowerCase() === nm,
+        pozn: `+${q.k} ${q.t} při zásahu zbraní ${x.n}`,
+      }),
+    );
+  });
   if (typeof kEfKouzla === "function")
     kEfKouzla(K).forEach(e => {
       if (!L.some(q => q.n === e.n)) L.push(e);
@@ -1163,7 +1178,7 @@ const kMaRys = (K, re) => {
 const kTezka = (K, a) => {
   if (!a) return false;
   const A = (kUtoky(K) || []).find(x => x.n === a.n) || a,
-    z = typeof kZbranInfo === "function" ? kZbranInfo(A.n) : null;
+    z = typeof kZbrA === "function" ? kZbrA(K, A) : null;
   return /\bheavy\b/i.test([...(A.vl || []), (z && z[4]) || "", A.pozn || ""].join(" "));
 };
 /* Battle Master: kostky převahy (zdroj „Combat Superiority“) a jejich velikost; SO manévrů = 8 + zdatnost + STR nebo DEX */

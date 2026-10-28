@@ -185,6 +185,11 @@ async def main():
     await pridej("weapon-plus1-plus2-or-plus3",{"zakl":"Rapier","bon":2})
     chk(await pl.evaluate("(()=>{const U=kUtoky(KARTBY.balduin),a=U.find(x=>x.n==='Rapier +2');return !!a&&a.z.endsWith('+6')})()"),"magická zbraň +2 z nabídky: útok i zranění s bonusem")
     await pl.evaluate("kartaStavZmen('balduin',{inv:null},null,{bezZpet:true});delete KZBRV.balduin;kZbrvUloz()");await klid(pl,500)
+    # vlastní předmět z Dílny vypravěče (2026-10-28): databáze přijme popis mechaniky def a útok se počítá podle něj
+    dv={"n":"Rožmberský meč","q":1,"def":{"d":"zbr","zn":"Longsword","k":"1d10","t":"Slashing","vl":["Finesse"],"s":"M","pk":["Odvetná"],"zr":[{"k":"1d6","t":"Fire"}],"b":1}}
+    await pl.evaluate("kartaStavZmen('balduin',"+json.dumps({"inv":[dv]})+",null,{bezZpet:true})");await klid(pl,700)
+    chk(((stav().get("inv") or [{}])[0].get("def") or {}).get("k")=="1d10" and await pl.evaluate("kUtoky(KARTBY.balduin).some(a=>a.n==='Rožmberský meč'&&a.z.startsWith('1d10'))"),"vlastní předmět z Dílny: databáze uloží def, útok podle něj")
+    await pl.evaluate("kartaStavZmen('balduin',{inv:null},null,{bezZpet:true})");await klid(pl,500)
     # Vybavení (2026-10-19): skupiny, list věci, přejmenování a poznámka, sloučení, peníze, dar, pokladna, vrh
     inv0=[{"n":"Dagger","q":1,"w":"1 lb."},{"n":"dagger","q":2},{"n":"Holy Water (flask)","q":2},{"n":"Rope, Hempen (50 feet)","q":1},{"n":"Breastplate","q":1,"obl":True},{"n":"Ruby","q":1}]
     await pl.evaluate("kartaStavZmen('balduin',"+json.dumps({"inv":inv0,"pen":{"GP":10,"SP":3}})+",null,{bezZpet:true})");await klid(pl,700)

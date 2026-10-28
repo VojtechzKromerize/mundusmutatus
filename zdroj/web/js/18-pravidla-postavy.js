@@ -102,6 +102,8 @@ const kZbranInfo = n => {
   if (/ammunition|arrows?\b|bolts?\b|šíp|šipky do|munice|sheath|pochv|quiver|toulec/i.test(n)) return null;
   return KZBRAN.find(r => r[0].test(n)) || null;
 };
+/* zbraň věci ve vybavení: vlastní předmět z Dílny podle def (10v), jinak podle jména */
+const kVecZbr = x => (x && x.def ? vecZbrRow(x.def) : kZbranInfo(x && x.n));
 /* předměty, které pravidla znají jménem (doplňují databázi SRD předmětů): nastavené skóre, bonus ke kouzlům a další */
 const KPREDX = [
   [/amulet of health/i, {vl: {CON: 19}}],
@@ -177,6 +179,15 @@ function kCtx(K, pdf) {
   inv.forEach(x => {
     const p = kPred(x),
       nm = String(x.n || "");
+    if (x.def) {
+      /* vlastní předmět z Dílny: účinky z def, ne podle jména; s připoutáním působí jen připoutaný */
+      if (x.def.pr && !x.pripoutano) return;
+      vecEf(x.def).forEach(e => {
+        if (e.set) vlSet[e.c.slice(3)] = Math.max(vlSet[e.c.slice(3)] || 0, e.v);
+        E.push(Object.assign({n: nm}, e));
+      });
+      return;
+    }
     if (p && p.pr && !x.pripoutano) return;
     const ef = Object.assign({}, (p && p.ef) || {});
     KPREDX.forEach(([re, f]) => {
@@ -788,6 +799,7 @@ const KZBRT = [
 ];
 function kZbrInfo(x) {
   const n = String((x && x.n) || "");
+  if (x && x.def) return x.q != null && +x.q <= 0 ? null : vecZbroj(x.def);
   if (
     !n ||
     (x.q != null && +x.q <= 0) ||
@@ -983,9 +995,9 @@ function kUtZInv(K) {
       return t === "S" ? true : /martial/i.test(z) || c.tr.some(x => KMARC.test(x.n));
     };
   c.inv.forEach(x => {
-    const w = kZbranInfo(x.n);
+    const w = kVecZbr(x);
     if (!w) return;
-    const mg = !!x.mag || /\+\s*[1-3]\b/.test(x.n);
+    const mg = !!x.mag || !!x.def || /\+\s*[1-3]\b/.test(x.n);
     if (
       [...pdfU, ...(kDopl(K).utoky || [])].some(
         a => String(a.n).toLowerCase() === String(x.n).toLowerCase() || (!mg && (kZbranInfo(a.n) || [])[1] === w[1]),
@@ -994,7 +1006,7 @@ function kUtZInv(K) {
       return;
     if (o.some(q => q.n === x.n)) return;
     const p = kPred(x),
-      m = +(String(x.n).match(/\+\s*([1-3])\b/) || [])[1] || +((p && p.ef && p.ef.utok) || 0),
+      m = x.def ? +x.def.b || 0 : +(String(x.n).match(/\+\s*([1-3])\b/) || [])[1] || +((p && p.ef && p.ef.utok) || 0),
       fin = /Finesse/.test(w[4]),
       dal = !!w[6],
       ab0 = dal ? "DEX" : fin ? (c.md("DEX") >= c.md("STR") ? "DEX" : "STR") : "STR",
@@ -1013,7 +1025,7 @@ function kUtZInv(K) {
       pocet: kPocet(c) > 1 ? kPocet(c) : undefined,
       cas: "A",
       zInv: 1,
-      rozpis: `z vybavení · ${ab} ${bsg(md)}${chx ? " (Hex Warrior / Pact of the Blade)" : ""}${prof(w[5]) ? ` · zdatnost ${bsg(c.pb)}` : " · bez zdatnosti"}${m ? ` · magie ${bsg(m)}` : ""}`,
+      rozpis: `z vybavení · ${ab} ${bsg(md)}${chx ? " (Hex Warrior / Pact of the Blade)" : ""}${prof(w[5]) ? ` · zdatnost ${bsg(c.pb)}` : " · bez zdatnosti"}${m ? ` · magie ${bsg(m)}` : ""}${x.def && x.def.zr ? x.def.zr.map(q => ` · +${q.k} ${q.t} při zásahu`).join("") : ""}`,
     });
     kUtPomala(c, o[o.length - 1], w);
   });
@@ -1036,6 +1048,16 @@ function kUtZInv(K) {
   }
   return o;
 }
+/* vlastní předmět z Dílny podle jména útoku (útoky z vybavení nesou jméno věci) a zbraň útoku: podle def, jinak podle jména */
+const kVecDefN = (K, n) => {
+  const nm = String(n || "").toLowerCase(),
+    x = K && nm ? kCtx(K).inv.find(y => y && y.def && String(y.n).toLowerCase() === nm) : null;
+  return x ? x.def : null;
+};
+const kZbrA = (K, a) => {
+  const d = a && kVecDefN(K, a.n);
+  return d ? vecZbrRow(d) : kZbranInfo(a && a.n);
+};
 /* zbraň z PDF, kterou postava už nemá (prodaná, ztracená), se mezi útoky neukáže */
 const kUtMa = (K, a) => {
   if (a.vlastni || kUtInf(K, a).sp) return true;

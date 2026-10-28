@@ -1101,7 +1101,9 @@ begin
       and not exists (select 1 from jsonb_each(x) e where char_length(e.key) > 60 or jsonb_typeof(e.value) <> 'number' or not public.mm_cislo(e.value, 0, 30)))
     when 'inv' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'array' and jsonb_array_length(x) <= 300 and not exists (
       select 1 from jsonb_array_elements(x) e where jsonb_typeof(e) <> 'object'
-        or exists (select 1 from jsonb_object_keys(e) k where k not in ('n', 'q', 'w', 'pripoutano', 'mag', 'obl', 'nab', 'v', 'pozn', 'typ'))
+        or exists (select 1 from jsonb_object_keys(e) k where k not in ('n', 'q', 'w', 'pripoutano', 'mag', 'obl', 'nab', 'v', 'pozn', 'typ', 'def'))
+        -- vlastní předmět z Dílny vypravěče (2026-10-28): popis mechaniky, obsah kontroluje web (vecDefNorm), tady jen tvar a velikost
+        or (e ? 'def' and (jsonb_typeof(e -> 'def') <> 'object' or octet_length((e -> 'def')::text) > 2000))
         or (e ? 'typ' and coalesce(e ->> 'typ', '') not in ('boj', 'spo', 'mag', 'cen', 'vys'))
         or (e ? 'pozn' and (jsonb_typeof(e -> 'pozn') <> 'string' or char_length(e ->> 'pozn') > 300))
         or (e ? 'v' and (jsonb_typeof(e -> 'v') <> 'string' or char_length(e ->> 'v') not between 1 and 80))
@@ -1236,7 +1238,8 @@ language plpgsql immutable set search_path = public as $$
 declare i int := 0; e jsonb;
 begin
   for e in select * from jsonb_array_elements(coalesce(inv, '[]'::jsonb)) loop
-    if lower(trim(e ->> 'n')) = lower(trim(v ->> 'n')) and coalesce(e ->> 'mag', '') = coalesce(v ->> 'mag', '') and not (e ? 'v') then
+    if lower(trim(e ->> 'n')) = lower(trim(v ->> 'n')) and coalesce(e ->> 'mag', '') = coalesce(v ->> 'mag', '') and not (e ? 'v')
+      and coalesce(e -> 'def', 'null'::jsonb) = coalesce(v -> 'def', 'null'::jsonb) then
       return jsonb_set(inv, array[i::text, 'q'], to_jsonb(coalesce((e ->> 'q')::int, 1) + coalesce((v ->> 'q')::int, 1)));
     end if;
     i := i + 1;
@@ -1247,7 +1250,8 @@ create or replace function public.mm_vec_ok(v jsonb) returns boolean
 language sql immutable set search_path = public as $$
   select jsonb_typeof(v) = 'object' and jsonb_typeof(v -> 'n') = 'string' and char_length(v ->> 'n') between 1 and 80
     and jsonb_typeof(v -> 'q') = 'number' and public.mm_cislo(v -> 'q', 1, 9999)
-    and not exists (select 1 from jsonb_object_keys(v) k where k not in ('n', 'q', 'mag', 'w', 'pozn', 'nab'))
+    and not exists (select 1 from jsonb_object_keys(v) k where k not in ('n', 'q', 'mag', 'w', 'pozn', 'nab', 'def'))
+    and (not v ? 'def' or (jsonb_typeof(v -> 'def') = 'object' and octet_length((v -> 'def')::text) <= 2000))
     and (not v ? 'mag' or (jsonb_typeof(v -> 'mag') = 'string' and (v ->> 'mag') ~ '^[a-z0-9-]{1,60}$'))
     and (not v ? 'w' or (jsonb_typeof(v -> 'w') = 'string' and char_length(v ->> 'w') <= 20))
     and (not v ? 'pozn' or (jsonb_typeof(v -> 'pozn') = 'string' and char_length(v ->> 'pozn') <= 300))

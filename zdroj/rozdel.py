@@ -46,6 +46,7 @@ JS = [
     ("10r-reakce.js", "/* @čisté – Okno reakce"),
     ("10t-tah.js", "/* @čisté – Účet tahu"),
     ("10u-ucinky.js", "/* @čisté – Účinky v jednom formátu"),
+    ("10v-veci.js", "/* @čisté – Vlastní předměty z Dílny"),
     ("10w-zbrane.js", "/* @čisté – Vlastnosti a mistrovství zbraní"),
     ("11-boj.js", "/* ===== BOJ: tracker slotové iniciativy"),
     ("12-boj-tah-postavy.js", "/* ===== automatizace tahu:"),
