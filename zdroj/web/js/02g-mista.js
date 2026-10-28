@@ -1806,11 +1806,11 @@ const CITYINFO = {
   },
   Neuzelle: {
     t: "Klášter cisterciáků",
-    n: "Opatství cisterciáků nad Odrou, jež založil markrabě míšeňský Jindřich Jasný. Opat sedá na sněmu dolnolužickém v čele stavu duchovního.",
+    n: "Opatství cisterciáků nad Odrou, založené léta 1268 markrabětem Jindřichem Jasným u vsi Starzedel a okolo léta 1290 přenesené na dnešní místo. Léta 1411 muselo pro tíseň a chudobu prodat město Fürstenberg. Praví se, že husité léta 1429 pobili celý konvent; opat Mikuláš z Bohmsdorfu, který klášter řídí od roku asi 1431, dostavuje poničená křídla. Opat sedá na sněmu dolnolužickém v čele stavu duchovního.",
   },
   Dobrilugk: {
     t: "Klášter cisterciáků",
-    n: "Nejstarší klášter cisterciáků v Lužici, na západním pomezí Dolní Lužice proti Sasku. Opat sedá s opatem z Neuzelle na sněmu dolnolužickém.",
+    n: "Opatství cisterciáků, nejstarší v Lužici, založené okolo léta Páně 1165 markrabětem Dietrichem z Landsbergu za hrobku rodu; první mniši přišli z durynského kláštera Volkenrodu. Leží na západním pomezí Dolní Lužice proti Sasku; po smlouvě zerbstské se opat podrobil kurfiřtovi braniborskému. Sedá s opatem z Neuzelle na sněmu dolnolužickém.",
   },
   Hoyerswerda: {
     t: "Pevný hrad",
