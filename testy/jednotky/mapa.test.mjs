@@ -321,6 +321,49 @@ test("mapa od Baltu k Jadranu: svět mapy, výřez celého rozsahu a data uvnit�
   S.ev(`st.zoom = "all"; drawMapK()`);
 });
 
+test("země a diecéze pokrývají souš celé mapy a nekončí rovnou čarou u dřívějšího okraje mapy (2026-10-28, Vojta)", async () => {
+  await S.ev(`typeof drawMapK === "function" || mmLina("mapa")`);
+  if (V(`typeof drawMapK`) !== "function") return;
+  const r = V(`(() => {
+    const obal = rs => { let o = [1e9, 1e9, -1e9, -1e9]; for (const r of rs) for (const [x, y] of r) o = [Math.min(o[0], x), Math.min(o[1], y), Math.max(o[2], x), Math.max(o[3], y)]; return o; };
+    const sada = (P, ids) => ids.map(id => [id, P[id], obal(P[id])]);
+    /* země se kreslí sudo-liše (enklávy), diecéze po mnohoúhelnících */
+    const vZemi = (lo, la, [, rs, o]) => lo >= o[0] && lo <= o[2] && la >= o[1] && la <= o[3] && rs.reduce((v, r) => (inPoly(lo, la, r) ? !v : v), false);
+    const vDiec = (lo, la, [, rs, o]) => lo >= o[0] && lo <= o[2] && la >= o[1] && la <= o[3] && rs.some(r => inPoly(lo, la, r));
+    const Z = sada(DUCHY_POLY, DUCHY.map(u => u.id)), D = sada(DIO_POLY, DIO.map(d => d.id));
+    const vMori = (lo, la) => MORE.reduce((v, r) => (inPoly(lo, la, r) ? !v : v), false);
+    const srb = Z.find(z => z[0] === "srb");
+    const kryto = (lo, la, S, f) => [[0, 0], [0.03, 0], [-0.03, 0], [0, 0.03], [0, -0.03]].some(([a, b]) => S.some(s => f(lo + a, la + b, s)));
+    const bezZeme = [], bezDiec = [];
+    for (let la = 44.2; la < 55.6; la += 0.2)
+      for (let lo = 9.3; lo < 23.2; lo += 0.2) {
+        if (vMori(lo, la)) continue;
+        if (!kryto(lo, la, Z, vZemi)) bezZeme.push([lo.toFixed(1), la.toFixed(1)]);
+        /* srbský despotát je pravoslavný – latinské diecéze v něm nejsou */
+        if (!vZemi(lo, la, srb) && !kryto(lo, la, D, vDiec)) bezDiec.push([lo.toFixed(1), la.toFixed(1)]);
+      }
+    /* dřívější okraj mapy (do 2026-10-27): poledníky 10,6°, 10,9°, 20,4° a rovnoběžky 47°, 47,2°, 52,8°, 53° */
+    const rovne = [];
+    for (const [P, ids] of [[DUCHY_POLY, DUCHY.map(u => u.id)], [DIO_POLY, DIO.map(d => d.id)]])
+      for (const id of ids)
+        for (const r of P[id])
+          r.forEach((a, i) => {
+            const b = r[(i + 1) % r.length];
+            for (const [k, v] of [[0, 10.6], [0, 10.9], [0, 20.4], [1, 47], [1, 47.2], [1, 52.8], [1, 53]])
+              if (Math.abs(a[k] - v) < 0.003 && Math.abs(b[k] - v) < 0.003 && Math.abs(a[1 - k] - b[1 - k]) > 0.25) rovne.push(id + " " + a + " " + b);
+          });
+    return {bezZeme, bezDiec, rovne};
+  })()`);
+  assert.deepEqual(r.bezZeme, [], "souš bez země");
+  assert.deepEqual(r.bezDiec, [], "souš bez diecéze");
+  assert.deepEqual(r.rovne, [], "rovná hranice po dřívějším okraji mapy");
+  /* země svatoštěpánské koruny a západ říše */
+  const id = new Set(V(`DUCHY.map(u => u.id)`));
+  for (const k of ["jis", "spz", "zfr", "mac", "tem", "sev", "sed", "hes", "wur", "aug", "sva", "rae"]) assert.ok(id.has(k), k);
+  /* sídlo biskupa za okrajem mapy: popisek uvnitř mapy, bez značky stolce */
+  assert.deepEqual(V(`DIO.filter(d => !(d.seat[0] > 9.25 && d.seat[0] < 23.25 && d.seat[1] > 44.15 && d.seat[1] < 55.65)).map(d => d.id)`), []);
+});
+
 test("moře nepřekrývá žádné místo mapy (sídla, města, hrady, zeměpis) a trasa po souši nevede přes vodu (2026-10-27)", async () => {
   await S.ev(`typeof drawMapK === "function" || mmLina("mapa")`);
   if (V(`typeof drawMapK`) !== "function") return;
