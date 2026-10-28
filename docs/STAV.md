@@ -230,6 +230,13 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
   Lauf, Forchtenstein, Orth, Lengbach, Perchtoldsdorf…), říšská města do 640, Wurzen biskupovi míšeňskému, Schleiz pánům z Gery. Hustota
   (místa z rodů v obrysech zemí na 10 000 km²): Sasko 7,2 → 14,5, Bavory s Falcí a Franky 5,7 → 10,8 (část míst leží západně od obrysů zemí), Rakousy pod a nad Enží 8,7 → 17,4.
   Hornická města Krušných hor (Schneeberg, Annaberg) nejsou – vzniknou až po 1470.
+- 10-28 **Místa Polska a severních Uher** (Vojta: vyrovnat hustotu): +77 míst. Polsko na jih od lat 53 (+53, ~2 → ~5 na 10 000 km²): nové
+  záznamy 970 Města Malopolska a Červené Rusi, 971 Města Velkopolska, Sieradzka a Kujavska, 972 Kláštery a poutní místa Polska, rody 973–977
+  (Oleśničtí, Rytwiańští, Koniecpolští, Pileccy, Górkové); doplněné `hpl`, `bkr`, `gni`, `pmaz`. Uhry na sever od lat 47,4 (+24, ~3,6 → ~5,5;
+  navíc Güssing, Varadín, Pápa jižněji): 980 Města horní a severní Uher, 981 Hrady západních a středních Uher (Tata, Diósgyőr, Güssing,
+  Eisenstadt, Forchtenstein), 982 Kláštery Uher, rody 983–985 (Pálócziové, Rozgonyiové, Drugethové); doplněné `hun` (Debrecín, Mukačevo, Satmár),
+  `jis` (Plaveč, Tábor u Hrabušic – Aksamit), `uhm` (Pápa). Bloky „MÍSTA: Polsko a severní Uhry“ v `CITYINFO`, `VERNOST_MIST`, `MAJOR_PLACES`
+  (Sandoměř, Lublin, Varadín) a `TOWNSEATS` (01).
 
 ## Otevřené
 - **Mapa jih – k ověření (Vojta)**: kdo k 3. 3. 1458 drží Čakovec a Varaždínský hrad (celjské dědictví – Vitovec?), Golubac vynechán (srbský/turecký?), Kusánský

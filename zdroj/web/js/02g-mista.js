@@ -2366,5 +2366,220 @@ const CITYINFO = {
     t: "Klášter premonstrátů",
     n: "Klášter premonstrátů v hornatém kraji pod Šumavou, při hranici české, nedaleko panství pánů z Rožmberka.",
   },
+  /* ---- MÍSTA: Polsko a severní Uhry (2026-10-28) ---- */
+  Sandoměř: {
+    t: "Královské město",
+    n: "Staré královské město na vysokém břehu Visly, hlava země sandoměřské, s hradem a kolegiátním kostelem. Po Visle se odtud plaví obilí a dříví ke Gdaňsku. Léta Páně 1452 zde král Kazimír na sjezdu nevpustil do rady pana Jana z Oleśnice.",
+  },
+  Lublin: {
+    t: "Královské město",
+    n: "Hlavní město země lublinské s hradem nad Bystřicí, na cestě z Krakova do Litvy a na Rus. Na trhy sem jezdí kupci z Rusi a z Litvy a páni polští zde s Litevci jednávají o unii.",
+  },
+  Radom: {
+    t: "Královské město",
+    n: "Královské město s hradem v zemi sandoměřské, kde se král cestou z Krakova do Litvy rád zastavuje. Léta Páně 1401 zde páni polští stvrdili smlouvu s velkoknížetem Vitoldem.",
+  },
+  Tarnów: {t: "Panské město", n: "Město pánů z Tarnova erbu Leliwa s hradem na vrchu nad městem, na cestě z Krakova na Rus."},
+  Opatów: {
+    t: "Biskupské město",
+    n: "Tržní město biskupů lubušských v zemi sandoměřské s kolegiátním kostelem svatého Martina, na cestě ze Sandoměře ke Krakovu.",
+  },
+  Szydłów: {
+    t: "Královské město",
+    n: "Královské městečko obehnané kamennou hradbou, kterou mu dal postaviti Kazimír Veliký; hrad hlídá cestu ze Sandoměře ke Krakovu.",
+  },
+  "Kazimierz Dolny": {
+    t: "Královské město",
+    n: "Městečko pod královským hradem na Visle, kde se nakládá zboží na lodě; jméno má prý po králi Kazimírovi Velikém.",
+  },
+  Krosno: {
+    t: "Královské město",
+    n: "Královské město na úpatí hor, odkud vede cesta přes průsmyk do Uher; měšťané obchodují s Uhry suknem a vínem.",
+  },
+  Jasło: {t: "Královské město", n: "Královské městečko nad Wisłokou na cestě z Biecze ke Krosnu a do Uher."},
+  Myślenice: {t: "Městečko", n: "Městečko na Rabě na cestě z Krakova k horám a k uherské hranici."},
+  Přemyšl: {
+    t: "Biskupské město",
+    n: "Staré město nad Sanem, hlava země přemyšlské. Sídlí zde biskup katolický i vladyka řeckého vyznání a žije tu mnoho Rusínů a Židů.",
+  },
+  Sanok: {
+    t: "Královské město",
+    n: "Královský hrad a město nad Sanem, hlava země sanocké na pomezí k Uhrám; v kraji žijí Rusíni a horalé pastevci. Zde léta Páně 1417 pojal král Vladislav Jagello svou třetí choť Alžbětu z Pilice.",
+  },
+  Jarosław: {t: "Tržní město", n: "Tržní město nad Sanem na cestě ze Lvova ke Krakovu, kam se sjíždějí kupci z Rusi i z Polska."},
+  Parczew: {
+    t: "Královské město",
+    n: "Malé královské město v zemi lublinské, kde páni polští a litevští sněmují o unii; léta 1451 tu prý kardinál Oleśnicki všechny umořil dlouhou řečí o dějinách unie.",
+  },
+  Łuków: {t: "Královské město", n: "Královské město na východě Malopolska, mezi lesy a bažinami k pomezí litevskému."},
+  Kościan: {t: "Královské město", n: "Královské město s hradem nad Obrou v jižním Velkopolsku, na cestě z Poznaně do Slezska."},
+  Pyzdry: {t: "Královské město", n: "Královské město s hradem nad Vartou v zemi kališské."},
+  Środa: {
+    t: "Sněmovní město",
+    n: "Velkopolské město, kde se schází sněmík šlechty poznaňské a kališské. Podle výsad z Nešavy nesmí král bez sjezdu šlechty vydávat nová ustanovení ani svolávat hotovost.",
+  },
+  Koło: {
+    t: "Sněmovní město",
+    n: "Město nad Vartou, kde se schází sněmík velkopolský; daně na válku pruskou tu musí šlechta od léta Páně 1456 králi povolit.",
+  },
+  Konin: {
+    t: "Královské město",
+    n: "Královské město nad Vartou na staré cestě z Kališe do Kujav; u kostela stojí kamenný sloup, jenž měří polovici cesty z Kališe do Kruszwice.",
+  },
+  "Brześć Kujawski": {
+    t: "Hlavní město vojvodství",
+    n: "Hlava vojvodství brzeského v Kujavsku s hradem. Vojvoda Mikuláš Szarlejski, prostředník mezi pruským Svazem a dvorem, padl léta 1454 u Chojnic do zajetí.",
+  },
+  Radziejów: {t: "Sněmovní město", n: "Kujavské město, kde se schází sněmík šlechty kujavské."},
+  Dobrzyń: {
+    t: "Hrad a město",
+    n: "Hrad a městečko na vysokém břehu Visly, hlava země dobřiňské, o kterou se Polsko po léta přelo s Řádem německých rytířů.",
+  },
+  Radomsko: {
+    t: "Královské město",
+    n: "Královské město na cestě z Piotrkowa ke Krakovu; léta Páně 1382 se zde sjeli páni polští, aby rozhodli o nástupnictví po králi Ludvíkovi.",
+  },
+  Niepołomice: {
+    t: "Královský hrad",
+    n: "Lovecký hrad králů polských nad Niepołomickou pustou, který dal vystavěti Kazimír Veliký. Král Kazimír, vášnivý lovec, sem rád zajíždí.",
+  },
+  Lanckorona: {t: "Královský hrad", n: "Královský hrad na vrchu nad cestou z Krakova k pomezí osvětimskému a do Uher."},
+  Chęciny: {
+    t: "Královský hrad",
+    n: "Královský hrad na skalnatém hřebeni nad městem; chovávají se v něm poklady a vězňové, i rytíři řádoví zajatí u Grunwaldu.",
+  },
+  Melsztyn: {
+    t: "Hrad pánů z Melštýna",
+    n: "Hrad nad Dunajcem, sídlo pánů z Melštýna. Pan Spytek z Melštýna, jenž přál kalichu a vedl konfederaci proti kardinálu Oleśnickému, padl léta Páně 1439 u Grotnik.",
+  },
+  Tyniec: {t: "Benediktinské opatství", n: "Prastaré opatství benediktinů na skále nad Vislou pod Krakovem, nejstarší klášter v zemi."},
+  "Łysa Góra": {
+    t: "Benediktinské opatství a pouť",
+    n: "Opatství benediktinů na Lysé hoře, kde se chová kus Svatého Kříže; putují sem poutníci z celého Polska. Na vrcholu hory prý stávala svatyně pohanská.",
+  },
+  Wąchock: {t: "Cisterciácké opatství", n: "Klášter cisterciáků v lesích nad Kamennou; mniši tu dobývají a taví železnou rudu."},
+  Sulejów: {t: "Cisterciácké opatství", n: "Cisterciácké opatství nad Pilicí, které založil kníže Kazimír Spravedlivý."},
+  Jędrzejów: {
+    t: "Cisterciácké opatství",
+    n: "Nejstarší klášter cisterciáků v Polsku, kde dožil a je pohřben kronikář biskup Vincenc Kadłubek.",
+  },
+  Trzemeszno: {
+    t: "Klášter kanovníků řeholních",
+    n: "Opatství kanovníků řeholních nedaleko Hnězdna; podle podání se tu zastavil svatý Vojtěch na cestě k Prusům.",
+  },
+  Wągrowiec: {t: "Cisterciácké opatství", n: "Cisterciácký klášter v severním Velkopolsku, kam se mniši přestěhovali z Łekna."},
+  Czerwińsk: {
+    t: "Klášter kanovníků řeholních",
+    n: "Klášter kanovníků řeholních nad Vislou v Mazovsku. Zde léta Páně 1410 přešlo vojsko krále Vladislava po mostě z lodí přes Vislu na cestě ke Grunwaldu.",
+  },
+  Lubiń: {t: "Benediktinské opatství", n: "Opatství benediktinů v jižním Velkopolsku, jedno z nejstarších v zemi."},
+  Pińczów: {
+    t: "Sídlo pánů z Oleśnice",
+    n: "Hrad a město pana Jana Głowacze z Oleśnice, bratra zemřelého kardinála a jednoho z nejbohatších pánů malopolských.",
+  },
+  Rytwiany: {t: "Sídlo pánů z Rytwian", n: "Hrad pana Dziersława z Rytwian, vojvody sandoměřského a věrného muže krále Kazimíra."},
+  Koniecpol: {
+    t: "Sídlo pánů z Koniecpola",
+    n: "Sídlo pánů z Koniecpola nad Pilicí; z rodu toho byl kancléř Jan, jenž zemřel léta 1455, a pan Přeboř jest kastelánem sandoměřským.",
+  },
+  Pilica: {
+    t: "Sídlo pánů z Pilice",
+    n: "Hrad a městečko nad řekou Pilicí; drží je pan Jan Pilecki, syn královny Alžběty z prvního manželství a nevlastní bratr krále Kazimíra.",
+  },
+  Kórnik: {t: "Sídlo pánů z Górky", n: "Hrad na jezeře nedaleko Poznaně, který drží páni z Górky."},
+  Kielce: {
+    t: "Biskupské město",
+    n: "Město biskupů krakovských v lesích pod Lysou horou, s biskupským dvorem a kolegiátním kostelem.",
+  },
+  Iłża: {t: "Biskupský hrad", n: "Hrad a městečko biskupů krakovských na cestě ze Sandoměře do Radomi."},
+  Łowicz: {
+    t: "Arcibiskupské město",
+    n: "Hlavní sídlo arcibiskupů hnězdenských, jejichž panství zde leží jako ostrov uprostřed Mazovska.",
+  },
+  Uniejów: {t: "Arcibiskupský hrad", n: "Hrad arcibiskupů hnězdenských nad Vartou."},
+  Żnin: {t: "Arcibiskupské město", n: "Město arcibiskupů hnězdenských v severním Velkopolsku."},
+  Czersk: {
+    t: "Knížecí hrad",
+    n: "Starý hrad knížat mazovských na vysokém břehu nad Vislou, odkud se vládlo Mazovsku, než knížata přesídlila do Varšavy.",
+  },
+  Rawa: {t: "Knížecí hrad", n: "Hrad a město knížat mazovských, hlava země ravské na pomezí s Lenčickem."},
+  Sochaczew: {t: "Knížecí hrad", n: "Hrad a město knížat mazovských nad Bzurou."},
+  Gostynin: {t: "Knížecí hrad", n: "Hrad a městečko knížat mazovských na pomezí ke Kujavám."},
+  Płońsk: {t: "Knížecí město", n: "Město knížat mazovských na cestě z Płocka do Ciechanowa."},
+  Liw: {t: "Knížecí hrad", n: "Hrad knížat mazovských nad Liwcem, na pomezí k Podlasí a k Litvě."},
+  Krupina: {
+    t: "Královské město",
+    n: "Staré královské město německých měšťanů, jehož právo převzala i jiná města; živí je vinice a pole víc než doly.",
+  },
+  "Nová Baňa": {
+    t: "Horní město",
+    n: "Malé horní město nad Hronem, jedno ze svobodných horních měst pod královskou komorou; kope se tu zlato a stříbro.",
+  },
+  Ľubietová: {
+    t: "Horní město",
+    n: "Horní město, kde se odedávna dobývá měď; bývalo hlavou měděných dolů uherských, ale nyní je předstihuje Banská Bystrica.",
+  },
+  Gelnica: {t: "Horní město", n: "Horní město na Hnilci, kde se kope měď a stříbro; vedle Ľubietové bylo dlouho hlavou měděných dolů uherských."},
+  Smolník: {t: "Horní město", n: "Horní město v horách nad Hnilcem, kde se od starých časů dobývá zlato a měď."},
+  Lučenec: {
+    t: "Městečko",
+    n: "Tržní městečko s opevněným klášterem, u něhož léta Páně 1451 pan Jiskra těžce porazil vojsko Hunyadiho; padlo tu několik baronů uherských.",
+  },
+  Varadín: {
+    t: "Biskupské město",
+    n: "Bohaté tržní město bez hradeb pod biskupským hradem. V chrámu je hrob svatého krále Ladislava, k němuž putují poutníci a u něhož se skládají přísahy. Biskupem jest Jan Vitéz, vychovatel krále Matyáše a muž velmi učený, jenž sbírá knihy.",
+  },
+  Tata: {
+    t: "Královský hrad",
+    n: "Hrad na jezeře, který si císař Zikmund vystavěl pro lovy a kde hostíval knížata; léta Páně 1426 zde smluvil s despotou Štěpánem budoucnost Srbska.",
+  },
+  Diósgyőr: {
+    t: "Královský hrad",
+    n: "Skvělý hrad krále Ludvíka o čtyřech nárožních věžích, podle něhož si páni uherští stavějí svá sídla; býval věnem královen uherských.",
+  },
+  Güssing: {
+    t: "Hrad",
+    n: "Hrad na osamělém sopečném vrchu při západní hranici Uher, odkud kdysi mocní hrabata z Güssingu vzdorovali králům.",
+  },
+  Eisenstadt: {
+    t: "Hrad v rukou císařových",
+    n: "Hrad a městečko na úpatí Litavských hor; od léta Páně 1445 je drží císař Fridrich spolu s dalšími hrady západních Uher a se Šoproní.",
+  },
+  Pannonhalma: {
+    t: "Benediktinské arciopatství",
+    n: "Prastaré opatství benediktinů na hoře svatého Martina nad rovinou rábskou, založené za časů knížete Gejzy a svatého Štěpána.",
+  },
+  Jasov: {t: "Premonstrátský klášter", n: "Klášter premonstrátů v údolí pod skalami u Košic; po léta 1453 jej vyplenili bratříci."},
+  Sárospatak: {
+    t: "Sídlo pánů Pálócziů",
+    n: "Hrad a město nad Bodrogem, které léta Páně 1429 dal císař Zikmund pánům Pálócziům; pan Ladislav Pálóczi jest dvorským sudím.",
+  },
+  Šintava: {
+    t: "Hrad Rozgonyiů",
+    n: "Hrad u brodu přes Váh, který císař Zikmund zastavoval za veliké sumy; nakonec jej dal pánům Rozgonyiům za půjčku.",
+  },
+  Užhorod: {
+    t: "Sídlo Drugethů",
+    n: "Hrad a město nad Uhem, sídlo hrabat Drugethů, kteří přišli do Uher s králi z rodu Anjou a vládnou župě užské.",
+  },
+  Humenné: {t: "Sídlo Drugethů", n: "Sídlo Drugethů v Zemplíně pod Vihorlatem, na cestě z Uher přes hory do Polska."},
+  Debrecín: {
+    t: "Tržní město Hunyadiů",
+    n: "Veliké tržní město bez hradeb uprostřed roviny. Léta Páně 1444 je dal despota Jiří Branković Janu Hunyadimu a nyní náleží matce královské Alžbětě Silágyiové; na zdejší trhy se hnává dobytek z veliké roviny.",
+  },
+  Mukačevo: {
+    t: "Hrad Hunyadiů",
+    n: "Hrad na skále nad Latoricí, který léta 1444 přešel s Debrecínem na Hunyadiho. Kdysi zde vládl litevský kníže Fedor Koriatovič, jenž založil klášter řeckého vyznání.",
+  },
+  Satmár: {t: "Město Hunyadiů", n: "Město na Samoši, jeden ze statků, které léta Páně 1444 dostal Jan Hunyadi od despoty srbského."},
+  Plaveč: {
+    t: "Hrad bratříků",
+    n: "Hrad nad Popradem, kde sídlí Petr Aksamit, vůdce bratříků; od rozchodu s Jiskrou odtud a z polních táborů vládne velkému dílu Spiše.",
+  },
+  "Tábor u Hrabušic": {
+    t: "Tábor bratříků",
+    n: "Polní tábor bratříků na Zelené hoře nad Hrabušicemi, opevněný srubem a valem. Petr Aksamit se v listech píše, že sídlí zde a na Plavči.",
+  },
+  Pápa: {t: "Sídlo Garaiů", n: "Město a pohodlné panské sídlo, které si zde vystavěli Garaiové, rod palatinů."},
 };
 /*@cast}*/

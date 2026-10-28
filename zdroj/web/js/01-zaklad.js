@@ -144,6 +144,14 @@ const TOWNSEATS = new Set([
   /* ---- MÍSTA: Sasko, Bavory s Falcí a Franky, Rakousy (2026-10-28) ---- */
   "Wurzen",
   "Schleiz",
+  /* ---- MÍSTA: Polsko a severní Uhry (2026-10-28) ---- */
+  "Debrecín",
+  "Satmár",
+  "Pápa",
+  "Kielce",
+  "Łowicz",
+  "Żnin",
+  "Płońsk",
 ]); /* family seats that are towns rather than castles */
 const TOWNICO = "art/img/mesto.webp";
 const townImg = (c, cls) => `<img class="${cls || "townico"} t-${c}" src="${TOWNICO}" alt="" aria-hidden="true">`;

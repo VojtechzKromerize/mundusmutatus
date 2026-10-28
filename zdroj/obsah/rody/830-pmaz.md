@@ -13,5 +13,11 @@ soused: ano
 sidla:
   - Ciechanów | 20.62 | 52.88
   - Wizna | 22.38 | 53.2
+  - Czersk | 21.24 | 51.96
+  - Rawa | 20.25 | 51.76
+  - Sochaczew | 20.24 | 52.23
+  - Gostynin | 19.46 | 52.43
+  - Płońsk | 20.37 | 52.62
+  - Liw | 21.97 | 52.4
 ---
 Mazovsko jest zemí drobné a chudé šlechty, lesů a bažin na Narvi a Bugu. Z hradů Ciechanowa a Wizny hlídají knížata pomezí k Prusům a k Litvě, s níž se léta přela o Podlasí. Rádcové mladých knížat ve válce s Řádem straní spíš Řádu a nechtějí, aby polský král zesílil.⟦ Płocká větev vymře roku 1462 a král Kazimír si z jejího dědictví vezme Ravsko a Gostynin ke koruně.⟧
