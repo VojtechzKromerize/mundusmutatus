@@ -34,6 +34,8 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
   (Extra Attack) přidají kostku zbraně (modifikátor jednou, při kritu se zdvojí všechny). Lehká a ruční kuše střílí normálně.
   Crossbow Expert (kuše) a Gunner (bonusová akce na nabití) smí místo toho střílet vícekrát s běžnými kostkami.
   **Zalícení**: s těžkou kuší za polovinu rychlosti výhoda na útok (i v kontaktu s nepřítelem – Vojta; není to perk).
+- 2026-10-28 **Gunslinger (Valda's Spire, Mikuláš)**: povolání má zdatnost se všemi válečnými zbraněmi, ne jen na dálku. Karta to počítá
+  (`KMARC` v 18) a Extra Attack na 5. úrovni zná `kPocet` (10p). Český překlad mimo SRD je jen v projektu claude.ai `pravidla/gunslinger-2026-10-28.md`.
 
 ## Hotovo
 

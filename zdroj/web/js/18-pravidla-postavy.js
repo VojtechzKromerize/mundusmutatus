@@ -18,7 +18,7 @@ const KTR = {
   Warlock: {hd: 8, cz: "Černokněžník", pakt: 1, ab: "CHA"},
   Wizard: {hd: 6, cz: "Kouzelník", c: 1, ab: "INT"},
 };
-const KMARC = /Barbarian|Fighter|Paladin|Ranger/;
+const KMARC = /Barbarian|Fighter|Paladin|Ranger|Gunslinger/; /* Gunslinger: válečné zbraně podle Artikulí (2026-10-28) */
 /* sloty podle úrovně sesilatele (SRD: Multiclassing) a sloty paktu černokněžníka */
 const KSLT = [
   [],

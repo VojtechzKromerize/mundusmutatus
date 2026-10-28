@@ -70,6 +70,10 @@ test("boj: Balduinovy zbraně – mistrovství jen to, které používá", () =>
   assert.deepEqual(V(`bojWmPayload(${BAL}, {n: "Nevermore", b: 8, z: "1d8+5"}, {})`), {n: "Sap"}, "Sap se pošle sám");
 });
 
+test("karta: Gunslinger je zdatný s válečnými zbraněmi (Artikule 2026-10-28)", () => {
+  assert.equal(V(`KMARC.test("Gunslinger")`), true);
+});
+
 test("karta: těžká kuše s Extra Attack – jeden výstřel za akci se dvěma kostkami, lehká kuše dvakrát", () => {
   const tk = V(`kUtAdj(${BAL}, {n: "Heavy Crossbow", b: 5, z: "1d10+2", dal: true, pocet: 2})`);
   assert.equal(tk.z, "2d10+2");

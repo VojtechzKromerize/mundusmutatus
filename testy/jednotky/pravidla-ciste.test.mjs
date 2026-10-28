@@ -74,6 +74,7 @@ test("drobné výpočty: modifikátor, výhoda a nevýhoda se ruší, počet út
   assert.equal(V(`kPocet(${c([{n: "Fighter", u: 11}])})`), 3);
   assert.equal(V(`kPocet(${c([{n: "Ranger", u: 5}])})`), 2);
   assert.equal(V(`kPocet(${c([{n: "Wizard", u: 9}])})`), 1);
+  assert.equal(V(`kPocet(${c([{n: "Gunslinger", u: 5}])})`), 2, "Gunslinger (Valda) má Extra Attack na 5. úrovni");
   assert.deepEqual(V(`["Fire", "Cold", "Poison", "Radiant", "Psychic", "Slashing"].map(bojKritDruh)`), [
     "ohen",
     "mraz",

@@ -397,7 +397,7 @@ const kSum = L => L.reduce((a, x) => a + (+x[1] || 0), 0);
 const kPocet = (c, pakt) => {
   const f = kTrU(c, "Fighter");
   let n = f >= 20 ? 4 : f >= 11 ? 3 : f >= 5 ? 2 : 1;
-  if (["Barbarian", "Monk", "Paladin", "Ranger"].some(t => kTrU(c, t) >= 5)) n = Math.max(n, 2);
+  if (["Barbarian", "Monk", "Paladin", "Ranger", "Gunslinger"].some(t => kTrU(c, t) >= 5)) n = Math.max(n, 2);
   if (pakt && kTrU(c, "Warlock") >= 5 && c.maRys(/thirsting blade/)) n = Math.max(n, 2);
   return n;
 };
