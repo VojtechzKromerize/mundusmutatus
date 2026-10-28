@@ -39,6 +39,7 @@ JS = [
     ("07s-stopa.js", "/* @čisté – Stopa družiny na mapě"),
     ("08-navigace-pravidla.js", "/* ---------- site navigation"),
     ("09-vypravec-herni-cas.js", "/* ===== Vypravěč: stavy odhalení"),
+    ("09g-generator-postav.js", "/* @čisté – Generátor postav doby"),
     ("10-kouzla.js", "/* ===== Kouzla: SRD 5.2.1 česky"),
     ("10k-import-pdf.js", "/* @čisté – Import listu postavy z PDF"),
     ("10p-pravidla.js", "/* @čisté – Pravidla boje a Artikulí"),

@@ -1609,6 +1609,18 @@ h3 .pmore{margin:0 0 0 10px;vertical-align:middle}
 .phres .gmseg{grid-area:s}
 .phnad{margin:2px 0 4px;font-family:var(--f-label);font-size:.78rem;letter-spacing:.06em;color:var(--muted)}
 .phfoot{margin:0;font-size:.8rem;color:var(--muted)}.phfoot a{color:var(--kal)}
+/* Kdo je to? – rychlá postava doby v panelu Při hře (2026-10-28) */
+.phgen{border:1px dashed color-mix(in srgb,var(--gold) 45%,var(--rule));border-radius:2px;padding:4px 8px;flex:none}
+.phgen>summary{cursor:pointer;font-family:var(--f-label);font-weight:700}
+.phgen>summary small{font-weight:400;color:var(--muted)}
+.phgenf{display:flex;flex-wrap:wrap;gap:4px;margin:6px 0}
+.phgenf select{font:inherit;font-size:.85rem;padding:2px 4px;max-width:9.5em}
+.phgenp>b{display:block;font-family:var(--f-disp);font-size:1.15rem}
+.phgenp>small{color:var(--muted)}
+.phgenp dl{display:grid;grid-template-columns:auto 1fr;gap:1px 10px;margin:6px 0;font-size:.9rem}
+.phgenp dt{color:var(--muted);font-variant:small-caps}
+.phgenp dd{margin:0}
+.phgenb{display:flex;gap:6px}
 @media (max-width:640px){.phbtn{left:10px;bottom:10px;font-size:1rem;padding:6px 12px}.phpanel{left:8px;bottom:54px;width:calc(100vw - 16px)}}
 @media print{.phbtn,.phpanel{display:none!important}}
 /* Boj: stavy nepřátel a uložené skupiny */

@@ -174,6 +174,7 @@ if (GMV && STAV) {
   P.hidden = true;
   P.setAttribute("aria-label", "Při hře");
   P.innerHTML = `<div class="phhead"><b>Při hře</b><button type="button" class="phx" aria-label="Zavřít">×</button></div>
+    <details class="phgen"><summary>Kdo je to? <small>rychlá postava doby</small></summary><div class="phgenin"></div></details>
     <input type="search" class="phq" placeholder="Koho družina potkala nebo o kom slyší…" aria-label="Hledat osobu, rod, plemeno, zápis">
     <div class="phres"></div><p class="phfoot">${window.MMDB ? "Změna se hráčům ukáže do půl minuty." : "Statická verze – stavy jen ke čtení."} <a href="#gm">Celý přehled →</a></p>`;
   document.body.append(btn, P);
@@ -209,6 +210,72 @@ if (GMV && STAV) {
       q.select();
     }
   };
+  /* Kdo je to? (2026-10-28, Vojta): náhodná postava doby (09g, genPostava) – jméno podle země, stav, věk, vyznání, řeč, povaha,
+     vzhled a co chce; „Do scény“ ji přidá jako NPC do scény na Hře (údaje pro vypravěče v n.gm), „Zkopírovat“ do schránky */
+  const G = P.querySelector(".phgen"),
+    GV = {zeme: "", stav: "", pohl: "", p: null};
+  const genOpt = (k, prazdne, L) =>
+    `<select data-gen="${k}" aria-label="${prazdne}"><option value="">${prazdne}</option>${L.map(([v, t]) => `<option value="${v}"${GV[k] === v ? " selected" : ""}>${t}</option>`).join("")}</select>`;
+  const genText = p =>
+    `${p.jmeno} – ${p.stav}, ${p.vek} let (${p.zeme}). Vyznání: ${p.vira}. Mluví ${p.reci}. Povaha: ${p.povaha}. Vzhled: ${p.vzhled}. Chce: ${p.chce}.`;
+  const genKresli = () => {
+    const p = GV.p;
+    G.querySelector(".phgenin").innerHTML = `<div class="phgenf">${genOpt(
+      "zeme",
+      "Země: kdekoli",
+      Object.entries(GENZEME).map(([k, v]) => [k, v[0]]),
+    )}${genOpt(
+      "stav",
+      "Stav: jakýkoli",
+      Object.entries(GENSTAV).map(([k, v]) => [k, v[0]]),
+    )}${genOpt("pohl", "Muž či žena", [
+      ["m", "muž"],
+      ["z", "žena"],
+    ])}<button type="button" class="gbtn" data-gen-nova>Další</button></div>${
+      p
+        ? `<div class="phgenp"><b>${besc(p.jmeno)}</b><small>${besc(p.stav)} · ${p.vek} let · ${besc(p.zeme)}</small>
+      <dl><dt>Vyznání</dt><dd>${besc(p.vira)}</dd><dt>Mluví</dt><dd>${besc(p.reci)}</dd><dt>Povaha</dt><dd>${besc(p.povaha)}</dd><dt>Vzhled</dt><dd>${besc(p.vzhled)}</dd><dt>Chce</dt><dd>${besc(p.chce)}</dd></dl>
+      <div class="phgenb"><button type="button" class="gbtn ghost" data-gen-scena title="Přidat jako NPC do scény na Hře">Do scény</button><button type="button" class="gbtn ghost" data-gen-kopie>Zkopírovat</button></div></div>`
+        : ""
+    }`;
+  };
+  const genNova = () => {
+    GV.p = genPostava({zeme: GV.zeme, stav: GV.stav, pohl: GV.pohl});
+    genKresli();
+  };
+  G.addEventListener("toggle", () => {
+    if (G.open && !GV.p) genNova();
+  });
+  G.addEventListener("change", e => {
+    const t = e.target.closest("[data-gen]");
+    if (!t) return;
+    GV[t.dataset.gen] = t.value;
+    genNova();
+  });
+  G.addEventListener("click", e => {
+    if (e.target.closest("[data-gen-nova]")) genNova();
+    if (e.target.closest("[data-gen-kopie]") && GV.p)
+      navigator.clipboard
+        .writeText(genText(GV.p))
+        .then(() => mmHlasG("Postava zkopírována.", 2000))
+        .catch(() => {});
+    if (e.target.closest("[data-gen-scena]") && GV.p) {
+      if (typeof bojZmen !== "function" || typeof bojPridejNpc !== "function" || !BOJ.s) {
+        mmHlasG("Scéna se načte na stránce Hra – otevři ji a zkus to znovu.", 3500);
+        return;
+      }
+      const p = GV.p;
+      bojZmen(s => {
+        bojPridejNpc(s, [{n: p.jmeno, druh: "sok", pocet: 1, b: p.b, pr: [], os: ""}]);
+        s.npc[s.npc.length - 1].gm = {
+          vira: p.vira,
+          chce: p.chce,
+          pozn: `${p.stav}, ${p.vek} let (${p.zeme}); mluví ${p.reci}. ${p.povaha}; ${p.vzhled}.`,
+        };
+      });
+      mmHlasG(`${p.jmeno} je ve scéně.`, 2500);
+    }
+  });
   btn.addEventListener("click", () => otevri(P.hidden));
   P.querySelector(".phx").addEventListener("click", () => otevri(false));
   q.addEventListener("input", vykresli);
