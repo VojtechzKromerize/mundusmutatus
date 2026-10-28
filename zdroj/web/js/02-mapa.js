@@ -2222,8 +2222,7 @@ const CTYPE = {
   cpom: "Pomořanské město",
   chan: "Hanzovní město",
   cmek: "Město",
-  cpls: "Královské město",
-  cbrs: "Zeměpanské město",
+  cmal: "Královské město",
 };
 const MAJOR_ROADS = new Set([
   "Prachatická stezka",
