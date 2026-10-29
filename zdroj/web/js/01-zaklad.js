@@ -27,6 +27,71 @@ function mmPozdeji(klic, fn) {
   });
 }
 const mmZrus = klic => MMPREK.delete(klic);
+/* hlášení chyb (Vojta 2026-10-29): chyba skriptu, nezachycená chyba slibu a console.error s chybou se zapíšou do databáze
+   (mm_chyba), vypravěč je vidí v Hra › Sezení. Za návštěvu nejvýš 12 různých; síťové výpadky a šum prohlížečů se nehlásí. */
+const MMCHYBY = {n: 0, b: new Set()};
+const MMCHSUM =
+  /ResizeObserver loop|Script error\.?$|Failed to fetch|NetworkError|Load failed|network|AbortError|The operation was aborted|Bez připojení|Přihlášení vypršelo/i;
+function mmChyba(zprava, misto) {
+  try {
+    const z = String(zprava || "").slice(0, 300),
+      m = String(misto || "").slice(0, 300);
+    if (!z || MMCHSUM.test(z) || !window.MMDB || !MMDB.chyba || navigator.onLine === false) return;
+    const k = z + "|" + m;
+    if (MMCHYBY.b.has(k) || MMCHYBY.n >= 12) return;
+    MMCHYBY.b.add(k);
+    MMCHYBY.n++;
+    let kdo = GMV ? "vypravěč" : "";
+    if (!GMV)
+      try {
+        kdo = (JSON.parse(localStorage.getItem("mm-hrac") || "null") || {}).k || "";
+      } catch (e) {}
+    const src = (document.getElementById("mmhlavni") || {}).dataset || {};
+    MMDB.chyba({
+      zprava: z,
+      misto: m,
+      stranka: location.hash.slice(0, 120),
+      kdo,
+      ua: navigator.userAgent.slice(0, 160),
+      verze: String(src.src || "")
+        .split(" ")[0]
+        .slice(-20),
+    }).catch(() => {});
+  } catch (e) {}
+}
+const mmChMisto = s =>
+  String(s || "")
+    .split("\n")
+    .map(r => r.trim())
+    .filter(r => /\.js|<anonymous>|index\.html/.test(r))
+    .slice(0, 2)
+    .join(" ← ")
+    .replace(/https?:\/\/[^/ ]+\//g, "");
+addEventListener("error", e => {
+  if (!e.message) return; /* nenačtený obrázek či skript – ne chyba kódu */
+  mmChyba(
+    e.message,
+    e.error && e.error.stack
+      ? mmChMisto(e.error.stack)
+      : `${String(e.filename || "")
+          .split("/")
+          .pop()}:${e.lineno}:${e.colno}`,
+  );
+});
+addEventListener("unhandledrejection", e => {
+  const r = e.reason;
+  if (!r) return;
+  mmChyba(r.message || String(r), r.stack ? mmChMisto(r.stack) : "");
+});
+{
+  /* chyby, které kód zachytí a jen vypíše (console.error(e) v catch) – také jsou to chyby */
+  const ce = console.error.bind(console);
+  console.error = (...a) => {
+    ce(...a);
+    const x = a.find(v => v instanceof Error);
+    if (x) mmChyba(x.message, mmChMisto(x.stack));
+  };
+}
 /* denní / noční vzhled (Vojta 2026-10-29): podle zařízení → denní → noční; volba v prohlížeči (mm-motiv), styly čtou :root[data-theme] */
 const MMMOTIV = {auto: ["◐", "podle zařízení"], light: ["☀", "denní"], dark: ["☾", "noční"]};
 function mmMotivTed() {

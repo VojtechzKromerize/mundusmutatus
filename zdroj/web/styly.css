@@ -4016,3 +4016,8 @@ html.mmpc:not(.mmjenhra) .bdmweb{display:grid;font-size:1.2rem}
 /* pojem, na který jde klepnout pro pravidlo (10h) */
 [data-hlp]{cursor:help}
 .bdmwvl [data-hlp],.bdmstd abbr[data-hlp]{text-decoration:underline dotted color-mix(in srgb,currentColor 45%,transparent);text-underline-offset:3px}
+/* chyby webu v Hra › Sezení (vypravěč) */
+.chybyl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.chybyl li{display:flex;flex-direction:column;gap:2px;padding:6px 8px;border-left:3px solid var(--kal);background:color-mix(in srgb,var(--kal) 6%,transparent);border-radius:0 3px 3px 0}
+.chybyl small{color:var(--muted)}.chybyl code{font-size:.78rem;overflow-wrap:anywhere;opacity:.8}
+.chpoc{font-family:var(--f-label);font-size:.78rem;padding:0 6px;border-radius:8px;background:var(--kal);color:var(--paper)}

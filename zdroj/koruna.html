@@ -482,6 +482,10 @@ window.MMDB={vetev:C.vetev,
   async bojUloz(s,v){const t=await token();if(!t)throw new Error("Přihlášení vypršelo – přihlaste se znovu.");
     if(v!=null&&v>0)return api("/rest/v1/rpc/mm_boj_uloz_v",{method:"POST",tok:t,body:JSON.stringify({p_stav:s,p_verze:v})});
     return api("/rest/v1/rpc/mm_boj_uloz",{method:"POST",tok:t,body:JSON.stringify({p_stav:s})})},
+  /* chyby webu (01-zaklad): hlásí kdokoli, čte a maže jen vypravěč */
+  async chyba(o){return api("/rest/v1/rpc/mm_chyba",{method:"POST",tok:(await token())||undefined,body:JSON.stringify({p:o})})},
+  async chyby(){return rpc("mm_chyby",{})},
+  async chybySmaz(){return rpc("mm_chyby_smaz",{})},
   async bojHod(hrac,hod){return rpc("mm_boj_hod",{p_hrac:hrac,p_hod:hod,p_token:htok()})},
   async bojUtok(hrac,utok){return rpc("mm_boj_utok",{p_hrac:hrac,p_utok:utok,p_token:htok()})},
   /* karty: nejdřív jen verze (pár bajtů), celé řádky jen u karet, které se změnily – telefony nestahují každé 4 s všechny karty i s portréty */

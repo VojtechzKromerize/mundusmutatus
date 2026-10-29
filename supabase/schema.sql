@@ -2303,5 +2303,59 @@ end $$;
 revoke all on function public.mm_pravidla_texty_uloz(text, jsonb) from public, anon;
 grant execute on function public.mm_pravidla_texty_uloz(text, jsonb) to authenticated;
 
+-- ===== Chyby z prohlížečů (2026-10-29, Vojta): web hlásí své chyby (hráči i vypravěč), vypravěč je vidí v Hra › Sezení =====
+-- Zápis smí kdokoli jen přes mm_chyba (omezené délky, stejná chyba do 10 minut jen zvýší počet, nejvýš 300 zápisů za hodinu);
+-- tabulku čte jen vypravěč přes mm_chyby; starší než 30 dní se mažou.
+create table if not exists public.chyby (
+  id      bigserial primary key,
+  cas     timestamptz not null default now(),
+  posl    timestamptz not null default now(),
+  zprava  text not null,
+  misto   text not null default '',
+  stranka text not null default '',
+  kdo     text not null default '',
+  ua      text not null default '',
+  verze   text not null default '',
+  pocet   integer not null default 1
+);
+create index if not exists chyby_posl on public.chyby (posl desc);
+alter table public.chyby enable row level security;
+revoke all on table public.chyby from anon, authenticated;
+create or replace function public.mm_chyba(p jsonb) returns void
+language plpgsql security definer set search_path = public as $$
+declare z text; m text; i bigint;
+begin
+  z := left(coalesce(p->>'zprava', ''), 300);
+  m := left(coalesce(p->>'misto', ''), 300);
+  if z = '' then return; end if;
+  if (select count(*) from public.chyby where posl > now() - interval '1 hour') >= 300 then return; end if;
+  select id into i from public.chyby where zprava = z and misto = m and posl > now() - interval '10 minutes' order by id desc limit 1;
+  if i is not null then
+    update public.chyby set pocet = pocet + 1, posl = now() where id = i;
+  else
+    insert into public.chyby (zprava, misto, stranka, kdo, ua, verze)
+      values (z, m, left(coalesce(p->>'stranka', ''), 120), left(coalesce(p->>'kdo', ''), 60), left(coalesce(p->>'ua', ''), 160), left(coalesce(p->>'verze', ''), 40));
+  end if;
+  if random() < 0.05 then delete from public.chyby where posl < now() - interval '30 days'; end if;
+end $$;
+revoke all on function public.mm_chyba(jsonb) from public;
+grant execute on function public.mm_chyba(jsonb) to anon, authenticated;
+create or replace function public.mm_chyby() returns jsonb
+language plpgsql security definer set search_path = public as $$
+begin
+  if not public.mm_je_gm() then raise exception 'jen pro vypravěče' using errcode = '42501'; end if;
+  return coalesce((select jsonb_agg(to_jsonb(c) order by c.posl desc) from (select * from public.chyby order by posl desc limit 80) c), '[]'::jsonb);
+end $$;
+revoke all on function public.mm_chyby() from public, anon;
+grant execute on function public.mm_chyby() to authenticated;
+create or replace function public.mm_chyby_smaz() returns void
+language plpgsql security definer set search_path = public as $$
+begin
+  if not public.mm_je_gm() then raise exception 'jen pro vypravěče' using errcode = '42501'; end if;
+  delete from public.chyby where true;
+end $$;
+revoke all on function public.mm_chyby_smaz() from public, anon;
+grant execute on function public.mm_chyby_smaz() to authenticated;
+
 -- ▼ Doplňte svůj e‑mail (účet založený v Authentication → Users) a spusťte:
 -- insert into public.gm (user_id) select id from auth.users where email = 'VAS@EMAIL.CZ' on conflict do nothing;
