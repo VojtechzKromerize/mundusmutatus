@@ -828,7 +828,6 @@ function route() {
     }
   if (view === "uvod")
     try {
-      renderUvodRozc();
       renderUvodUcet();
     } catch (e) {
       console.warn(e);
@@ -1113,43 +1112,6 @@ function ucetBoxHtml(kde) {
   const disc = window.MMDB && MMDB.discordLogin ? `<button type="button" class="gbtn ghost ddisc" data-ucetdisc>Přihlásit přes Discord</button>` : "";
   return `${UCETR ? ucetFormHtml(UCETR) : `<p class="ucetakce"><button type="button" class="gbtn" data-ucetr="novy">Vytvořit účet</button><button type="button" class="gbtn ghost" data-ucetr="prihlas">Přihlásit se</button>${disc}</p>`}
     ${UCETR && disc ? `<p class="ucetakce ucetdisc"><span class="rsmall">nebo</span> ${disc}</p>` : ""}`;
-}
-/* Úvod jako rozcestník (Vojta 2026-10-29): velké dlaždice a naposledy otevřené stránky (jen v tomto prohlížeči) */
-const UVROZC = [
-  ["#hra", "Hra", "moje postava a boj"],
-  ["#artikule", "Pravidla", "Artikule, SRD, kouzla, vybavení"],
-  ["#mapa", "Mapy", "Koruna, známý svět, Praha"],
-  ["#kronika", "Kronika", "zápisy tažení a družina"],
-];
-const UVNED = "mm-nedavne";
-function uvNedavne() {
-  try {
-    const L = JSON.parse(localStorage.getItem(UVNED) || "[]");
-    return Array.isArray(L) ? L : [];
-  } catch (e) {
-    return [];
-  }
-}
-/* po přechodu na stránku (až má název) se zapíše mezi naposledy otevřené; Úvod, Hra a Vypravěč ne */
-addEventListener("hashchange", () =>
-  setTimeout(() => {
-    const h = location.hash;
-    if (!h || /^#(uvod|hra|gm|boj)?(\/|$)/.test(h)) return;
-    const n = document.title.replace(/^⚔ Na tahu! · /, "").replace(/^Mundus Mutatus( · )?/, "");
-    if (!n) return;
-    const L = [{h, n}, ...uvNedavne().filter(x => x.h !== h)].slice(0, 6);
-    try {
-      localStorage.setItem(UVNED, JSON.stringify(L));
-    } catch (e) {}
-  }, 400),
-);
-function renderUvodRozc() {
-  const b = document.getElementById("uvrozc");
-  if (!b) return;
-  const L = uvNedavne();
-  b.innerHTML = `<div class="uvdl">${UVROZC.map(([h, n, s]) => `<a class="uvdla" href="${h}"><b>${n}</b><small>${s}</small></a>`).join("")}</div>${
-    L.length ? `<p class="uvned"><span>Naposledy:</span> ${L.map(x => `<a href="${besc(x.h)}">${besc(x.n)}</a>`).join(" · ")}</p>` : ""
-  }`;
 }
 function renderUvodUcet() {
   const b = document.getElementById("uvucet");

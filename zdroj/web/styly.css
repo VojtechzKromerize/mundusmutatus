@@ -4002,17 +4002,6 @@ html.mmpc:not(.mmjenhra) .bdmweb{display:grid;font-size:1.2rem}
 /* šuplík: při hledání se rychlý přehled schová */
 #bojview .bpravidla .bprg:has(.hlbox.hlon)>.bqr{display:none}
 .bdmhl{padding:10px 12px}
-/* Úvod – rozcestník (2026-10-29): dlaždice a naposledy otevřené */
-.uvrozc{margin:6px 0 18px}
-.uvdl{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
-.uvdla{display:flex;flex-direction:column;gap:2px;padding:12px 14px;border:1px solid color-mix(in srgb,var(--gold) 60%,var(--rule));border-radius:4px;background:color-mix(in srgb,var(--gold) 7%,var(--paper));color:var(--ink);text-decoration:none;box-shadow:inset 0 0 0 3px var(--paper),inset 0 0 0 4px color-mix(in srgb,var(--gold) 30%,transparent);transition:transform .12s}
-.uvdla:hover{transform:translateY(-1px);border-color:var(--gold)}
-.uvdla b{font-family:var(--f-disp);font-weight:500;font-size:1.35rem;color:var(--kal);line-height:1.1}
-.uvdla small{color:var(--muted);font-size:.85rem;line-height:1.25}
-.uvned{margin:10px 0 0;font-size:.92rem;color:var(--muted)}
-.uvned a{color:var(--kal);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--kal) 35%,transparent)}.uvned a:hover{border-bottom-color:var(--kal)}
-.uvned span{font-family:var(--f-label);letter-spacing:.05em;text-transform:uppercase;font-size:.78rem;margin-right:4px}
-@media (max-width:700px){.uvdl{grid-template-columns:repeat(2,minmax(0,1fr))}.uvdla b{font-size:1.2rem}}
 /* pojem, na který jde klepnout pro pravidlo (10h) */
 [data-hlp]{cursor:help}
 .bdmwvl [data-hlp],.bdmstd abbr[data-hlp]{text-decoration:underline dotted color-mix(in srgb,currentColor 45%,transparent);text-underline-offset:3px}
