@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 2 (450 XP)
 ac: 12
 hp: 59
-utok: Dva drápy +6, 1d8+4, cíl Medium a menší Grappled (únik DC 14) a odnesen · vzlet s kořistí (Bonusová akce)
+utok: Dva drápy +6, 1d8+4, cíl Medium a menší Grappled (únik DC 14) a odnesen · vzlet s kořistí (Bonusová akce) · úder křídlem (Reakce)
 pozehnani: Vzlétne s kořistí v drápech o 40 stop výš.
 pokuseni: Kůň! Zahlédne koně a v příštím slotu letí po něm.
 nerest: Koně – gryf miluje koňské maso. Obětovaný kůň ho odláká (a jezdce to bude stát).
@@ -35,6 +35,10 @@ Napůl orel, napůl lev, zvíře z erbů a bestiářů. Po Noci Proměny se gryf
 ## Bonusová akce
 
 - **Vzlet s kořistí.** S tvorem, kterého drží, vzlétne až o polovinu rychlosti letu, aniž by vyvolal Opportunity Attack; pak ho smí pustit (pád 1d6 Bludgeoning za každých 10 stop).
+
+## Reakce
+
+- **Úder křídlem.** Když na něj zaútočí tvor do 5 stop, gryf ho srazí křídlem: STR save DC 14, jinak je odhozen o 10 stop.
 
 **Výkupné a kořist.** Gryfí pera (léčitelé věří, že odhalí jed) a vejce, za které knížata zaplatí jako za dračí.
 

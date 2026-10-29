@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 3 (700 XP)
 ac: 18
 hp: 52
-utok: Obouruční meč +5, 2d6+3 Slashing nebo Piercing · těžká kuše +2, 2d10 Piercing · odraz (Reakce, AC +2) · nedá se zastrašit
+utok: Obouruční meč +5, 2d6+3 Slashing nebo Piercing · těžká kuše +2, 2d10 Piercing · odraz (Reakce, AC +2) · nedá se zastrašit · na hradby! (Bonusová akce)
 pozehnani: Hotovost se sešikuje: dva prořídlé houfy se spojí v jeden a ihned zaútočí.
 pokuseni: Přezka hledí: do konce příštího tahu má nevýhodu na Perception a AC −2.
 nerest: Pýcha měšťana – je rytířem z milosti města, ne z rodu, a nesnese, když mu to někdo připomene. Kdo ho nazve kupcem v brnění (Intimidation DC 13), toho musí vyzvat. Rozvaha: za hradbami nikdy nevyjede, dokud ho nevylákají.
@@ -40,6 +40,10 @@ Velitel městské hotovosti, měšťanský syn, který si koupil rytířský pá
 - **Dva útoky.** Dvakrát mečem nebo kuší.
 - **Obouruční meč.** +5, dosah 5 stop. **Zásah:** 2d6+3 Slashing nebo Piercing (Šikovná, Ostrá, Půlmeč).
 - **Těžká kuše.** +2, dostřel 100/400 stop. **Zásah:** 2d10 Piercing (Průrazná).
+
+## Bonusová akce
+
+- **Na hradby!.** Houf hotovosti v doslechu se pohne až o 10 stop, aniž by vyvolal Opportunity Attack, nebo nabije kuše.
 
 ## Reakce
 

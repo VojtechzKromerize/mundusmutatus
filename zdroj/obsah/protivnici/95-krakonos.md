@@ -5,7 +5,7 @@ uroven: zhoubce
 vyzva: 13 (10 000 XP)
 ac: 17
 hp: 230
-utok: Hůl +13, 3d8+8 Bludgeoning · blesk z hory (DEX DC 18, 8d8 Lightning) · mlha a vichřice v celých horách · proměna (poutník, havran, kořen) · vítr v cestě (Reakce)
+utok: Hůl +13, 3d8+8 Bludgeoning · blesk z hory (DEX DC 18, 8d8 Lightning) · mlha a vichřice v celých horách · proměna (poutník, havran, kořen) · vítr v cestě (Reakce) · mlha, která má tvar (Bonusová akce)
 pozehnani: Přivolá hromovou saň: na bojiště přiletí na konci kola.
 pokuseni: Někdo se mu posmívá: v příštím slotu musí trestat posměváčka, i kdyby stál jinde.
 nerest: Spravedlnost a uraženost – odmění poctivého, potrestá posměváčka. S Krakonošem se nebojuje, s Krakonošem se vyjednává. Ctnosti: Poctivost, Věrnost úmluvě. Neřest: Hněv.
@@ -44,6 +44,10 @@ Pán Krkonoš, starší než jakýkoli rod v Čechách. Chodí v podobě poutní
 - **Blesk z hory (3/den).** Bod do 300 stop: každý v poloměru 10 stop hodí DEX save DC 18, neúspěch 8d8 Lightning, úspěch polovina.
 - **Vichřice.** Každý do 60 stop hodí STR save DC 18, jinak je odhozen o 15 stop a Prone; letci padají o 60 stop.
 - **Proměna.** Poutník, havran, kořen, nebo zpět.
+
+## Bonusová akce
+
+- **Mlha, která má tvar.** Koule mlhy o poloměru 20 stop kolem bodu do 120 stop: Heavily Obscured do začátku jeho příštího tahu; Krakonoš v ní vidí.
 
 ## Reakce
 

@@ -5,7 +5,7 @@ uroven: zhoubce
 vyzva: 9 (5 000 XP)
 ac: 14
 hp: 123
-utok: Úder +9, 1d10+5 a 1d12 Acid, max. HP klesne · zrychlení: Dash a Disengage a tři údery
+utok: Úder +9, 1d10+5 a 1d12 Acid, max. HP klesne · zrychlení: Dash a Disengage a tři údery · hlína drží (Reakce)
 pozehnani: Zrychlení se dobije hned.
 pokuseni: Šém se v jeho ústech pohne: do konce kola nejedná.
 nerest: Šém – na čele nebo pod jazykem má napsané slovo. Kdo ho smaže nebo vytáhne (akce v dosahu, DEX nebo STR proti DC 17), ten ho zastaví.
@@ -43,6 +43,10 @@ Hliněný obr, kterého oživil šém – slovo s božím jménem. Strážce pra
 ## Bonusová akce
 
 - **Zrychlení (dobíjí se na 5–6).** Dash a Disengage; v tom slotu udeří dvakrát.
+
+## Reakce
+
+- **Hlína drží.** Když ho zasáhne útok zbraní zblízka, zbraň uvízne v hlíně: útočník hodí STR save DC 15, jinak ji pustí (vytáhnout ji je Akce).
 
 **Výkupné a kořist.** Šém a s ním moc nad golemem. Židovská obec ho bude chtít zpátky – a nejen ona.
 

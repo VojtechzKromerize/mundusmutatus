@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 1/2 (100 XP)
 ac: 11
 hp: 22
-utok: Zkameňující kousnutí +3, 1d4+1 Piercing · CON DC 11: Restrained, podruhé Petrified (24 hodin) · kohoutí skok (Reakce)
+utok: Zkameňující kousnutí +3, 1d4+1 Piercing · CON DC 11: Restrained, podruhé Petrified (24 hodin) · kohoutí skok (Reakce) · kohoutí vzlet (Bonusová akce)
 pozehnani: Jed zabere hned: při neúspěchu je cíl rovnou Petrified.
 pokuseni: Uvidí se v lesklém štítu nebo v kaluži: sama hodí CON save DC 11, jinak je Restrained; podruhé zkamení.
 nerest: Kohoutí pýcha – na kohoutí zakokrhání (nebo napodobení, Performance DC 12) se zastaví a odpovídá; lasička ji zažene (Animal Handling DC 10, máš-li lasičku).
@@ -35,6 +35,10 @@ Had s kohoutí hlavou a křídly, vylíhlý z kohoutího vejce. Menší a hloup�
 ## Akce (jedna v každém slotu)
 
 - **Zkameňující kousnutí.** +3, dosah 5 stop. **Zásah:** 1d4+1 Piercing a cíl hodí CON save DC 11. Při prvním neúspěchu je Restrained; na konci svého příštího tahu hází znovu – při úspěchu účinek skončí, při druhém neúspěchu je 24 hodin Petrified.
+
+## Bonusová akce
+
+- **Kohoutí vzlet.** Vyskočí a přeletí až 20 stop, aniž by vyvolala Opportunity Attack.
 
 ## Reakce
 

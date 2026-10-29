@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 3 (700 XP)
 ac: 17
 hp: 65
-utok: Obouruční meč +5, 2d6+3 Slashing · těžká kuše +3, 2d10+1 Piercing · odraz (Reakce, AC +2)
+utok: Obouruční meč +5, 2d6+3 Slashing · těžká kuše +3, 2d10+1 Piercing · odraz (Reakce, AC +2) · žalm (Bonusová akce)
 pozehnani: „Na ně!“ – houf bratříků v doslechu ihned zaútočí na tentýž cíl.
 pokuseni: Zaváhá mezi vírou a kořistí: slot promarní a houf má do konce kola nevýhodu.
 nerest: Hněv – zrazený: Jiskra ho prodal, Matyáš ho vyhnal, král Jiří ho nechce. Kdo mu nabídne službu pod kalichem a žold (Persuasion DC 13 a skutečné místo – třeba v družině zemského pána), toho poslechne; kdo mu připomene Jiskru, toho napadne.
@@ -40,6 +40,10 @@ Hejtman bratříků: Čech nebo Moravan, který prošel Lipany, Jiskrovou služb
 - **Dva útoky.** Dvakrát mečem nebo kuší.
 - **Obouruční meč.** +5, dosah 5 stop. **Zásah:** 2d6+3 Slashing (Šikovná, Ostrá, Půlmeč).
 - **Těžká kuše.** +3, dostřel 100/400 stop. **Zásah:** 2d10+1 Piercing (Průrazná).
+
+## Bonusová akce
+
+- **Žalm.** Hejtman začne zpívat: houf bratříků v doslechu má do konce kola výhodu na záchrany a +1 k útoku.
 
 ## Reakce
 

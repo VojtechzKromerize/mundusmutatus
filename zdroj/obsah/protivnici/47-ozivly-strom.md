@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 2 (450 XP)
 ac: 13
 hp: 59
-utok: Úder větví +6, dosah 10 stop, 3d6+4 · chápavý kořen (Bonusová akce)
+utok: Úder větví +6, dosah 10 stop, 3d6+4 · chápavý kořen (Bonusová akce) · větev (Reakce)
 pozehnani: Kořeny podrazí: cíl je Prone a Restrained, dokud se nevyprostí (STR DC 13).
 pokuseni: Zakoření: příští slot se nepohne z místa.
 nerest: Strach z ohně – pochodeň ho zarazí (Intimidation s ohněm DC 12).
@@ -38,6 +38,10 @@ Strom, který po Noci Proměny procitl. Většinou jen stojí a vzpomíná; kdy�
 ## Bonusová akce
 
 - **Chápavý kořen.** Tvor velikosti Medium nebo menší do 10 stop hodí STR save DC 13, jinak je přitažen o 5 stop a je Grappled (únik DC 13).
+
+## Reakce
+
+- **Větev.** Když tvor do 10 stop zaútočí na někoho jiného než na strom, strom ho šlehne větví (útok Úder větví).
 
 **Výkupné a kořist.** Dřevo, které nehoří – nebo naopak hoří příliš dobře.
 

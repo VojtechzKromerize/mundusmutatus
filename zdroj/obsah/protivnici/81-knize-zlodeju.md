@@ -5,7 +5,7 @@ uroven: zhoubce
 vyzva: 11 (7 200 XP)
 ac: 17 (kožená s cvočky)
 hp: 169
-utok: Kord +9, 2d6+5 a 4d6 Poison, nebo píšťala +9, 30/90 stop, 1d10+5 a 4d6 Poison · smrtící zaměření: výhoda a +8d6 Poison
+utok: Kord +9, 2d6+5 a 4d6 Poison, nebo píšťala +9, 30/90 stop, 1d10+5 a 4d6 Poison · smrtící zaměření: výhoda a +8d6 Poison · jiná chodba (Reakce)
 pozehnani: Smrtící zaměření nic nestojí.
 pokuseni: Někdo z jeho lidí ho zradí: houf v doslechu v příštím slotu neútočí.
 nerest: Lakota a Pýcha – vládne pražskému podsvětí a nesnese, že by mu někdo bral. Kdo mu přinese něco, co nemá (tajemství, jméno, klíč), s tím obchoduje. Ctnost: drží slovo, protože bez něj by podsvětí nedrželo.
@@ -45,6 +45,10 @@ Pán zlodějů, pašeráků a vrahů, který z kanálů a sklepů pod Prahou ř�
 
 - **Smrtící zaměření.** Výhoda na další útok v tomto tahu; při zásahu +8d6 Poison.
 
+## Reakce
+
+- **Jiná chodba.** Když ho zasáhne útok, přesune se až o 15 stop, aniž by vyvolal Opportunity Attack, a utrží jen polovinu zranění.
+
 **Výkupné a kořist.** Knihy dluhů pražských měšťanů, klíče od půlky sklepů a jméno konšela, který mu kryje záda.
 
-*Předloha: Bandit Crime Lord (D&D 2024), převedeno pro Mundus Mutatus.*
+*Předloha: Bandit Crime Lord (D&D 2024); reakce podle Master Thief, převedeno pro Mundus Mutatus.*

@@ -5,7 +5,7 @@ uroven: zhoubce
 vyzva: 10 (5 900 XP)
 ac: 17
 hp: 229
-utok: Sekera hromu +8, 1d6+4 Bludgeoning a 4d8 Lightning · hrom z nebe (DEX DC 17, 8d6 Lightning, 1/kolo) · Perunova milost 2/den: léčení, Lesser Restoration, sejmutí kletby
+utok: Sekera hromu +8, 1d6+4 Bludgeoning a 4d8 Lightning · hrom z nebe (DEX DC 17, 8d6 Lightning, 1/kolo) · Perunova milost 2/den: léčení, Lesser Restoration, sejmutí kletby · hrom za hrom (Reakce)
 pozehnani: Blesk z čistého nebe: každý nepřítel do 30 stop v kovové zbroji hodí CON save DC 17, jinak je do konce kola Stunned.
 pokuseni: Hrom bez blesku: do konce kola nemůže kouzlit ani udeřit hromem – Perun mlčí.
 nerest: Spravedlnost – nemá Neřest, má zákon: trestá křivopřísežníky a ty, kdo porušili úmluvu. Kdo prokáže, že svou přísahu dodržel (svědek, Persuasion DC 17 před dubem), toho nesmí napadnout. Pýcha boha: nesnese, aby ho někdo nazval ďáblem – katolík, který to udělá, je cíl číslo jedna.
@@ -46,6 +46,10 @@ Posel Peruna, Starého boha hromu a přísahy – bojovník s vousy z blesků, k
 ## Bonusová akce
 
 - **Perunova milost (2/den).** *Cure Wounds*, *Lesser Restoration* nebo *Remove Curse* – tomu, kdo dodržel slovo.
+
+## Reakce
+
+- **Hrom za hrom.** Když ho zasáhne kouzlo nebo útok kovovou zbraní, útočník utrží 2d6 Lightning.
 
 **Kořist.** Žádná, kterou by šlo odnést. Kdo před ním dodrží přísahu, může ho jednou zavolat: za bouře, u dubu, jménem toho, komu přísahal.
 

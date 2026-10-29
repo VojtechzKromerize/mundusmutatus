@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 2 (450 XP)
 ac: 14
 hp: 36
-utok: Škodolibá rána +6, 1d6+4 a 1d6 Fire · neviditelnost · zakletí dobytka (CON DC 13)
+utok: Škodolibá rána +6, 1d6+4 a 1d6 Fire · neviditelnost · zakletí dobytka (CON DC 13) · podrazit nohy (Reakce)
 pozehnani: Ukradne útočníkovi věc z opasku a zmizí s ní.
 pokuseni: Dostane nesplnitelný úkol: příští slot počítá mák nebo nosí vodu v řešetu.
 nerest: Hravost – nesnese nesplněný úkol a nedokončenou hru. Kdo mu dá úkol, který nejde splnit, toho na chvíli nechá být.
@@ -42,6 +42,10 @@ utoky:
 ## Bonusová akce
 
 - **Neviditelnost.** Zneviditelní se do svého příštího útoku.
+
+## Reakce
+
+- **Podrazit nohy.** Když se tvor do 5 stop pohne, rarášek mu podrazí nohy: DEX save DC 13, jinak je Prone.
 
 ## Relikt
 

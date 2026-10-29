@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 2 (450 XP)
 ac: 13
 hp: 38
-utok: Palcát +5, 1d6+3 Bludgeoning a 2d4 Svaté (Radiant) · Slovo +5, 2d10 Svaté, dostřel 60 stop · Boží pomoc 3/den (Bless, Healing Word) · Spirit Guardians 1/den
+utok: Palcát +5, 1d6+3 Bludgeoning a 2d4 Svaté (Radiant) · Slovo +5, 2d10 Svaté, dostřel 60 stop · Boží pomoc 3/den (Bless, Healing Word) · Spirit Guardians 1/den · bratři, ke mně! (Reakce)
 pozehnani: Rynk se přidá: houf tovaryšů dostane 2 pacholky navíc (přišli z vedlejší dílny).
 pokuseni: Překřičí ho zvon nebo stráž: do konce kola nemůže kázat a houf má nevýhodu.
 nerest: Hněv – spravedlivý, ale hněv. Kdo mu připomene, že za rvačku na rynku zaplatí tovaryši, ne konšelé (Persuasion DC 13), toho vyslechne a houf stáhne. Kdo se mu vysměje kvůli Proměně (kly, rohy, výška), toho napadne, i kdyby to byl kněz.
@@ -45,6 +45,10 @@ Kališnický kazatel nebo písař, kterého Proměna udělala orkem, půlobrem n
 ## Bonusová akce
 
 - **Boží pomoc (3/den).** *Bless*, *Healing Word*, *Lesser Restoration* nebo *Dispel Magic* (WIS, DC 13).
+
+## Reakce
+
+- **Bratři, ke mně!.** Když ho zasáhne útok a do 5 stop stojí tovaryš z jeho houfu, ten se postaví do rány: útok zasáhne tovaryše.
 
 **Výkupné a kořist.** Konšelé zaplatí 10 kop, aby byl zavřený – a Proměněnci rynku přijdou pro něj. Kázání sepsaná na kůži, seznam dílen, které zavřely Proměněncům, a dopis od Jana Rokycany, který ho ani neodsuzuje, ani nechválí.
 

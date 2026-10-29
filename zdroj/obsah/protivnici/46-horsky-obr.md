@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 5 (1 800 XP)
 ac: 13
 hp: 105
-utok: Dva útoky: kmen +8, dosah 10 stop, 3d8+5 a Prone, nebo vržené haraburdí 60/240 stop, 2d10+5 a Poisoned · chytit kámen (Reakce)
+utok: Dva útoky: kmen +8, dosah 10 stop, 3d8+5 a Prone, nebo vržené haraburdí 60/240 stop, 2d10+5 a Poisoned · chytit kámen (Reakce) · dupnutí (Bonusová akce)
 pozehnani: Udeří kmenem do země: všichni do 10 stop hodí DEX save DC 15, jinak jsou Prone.
 pokuseni: Uklouzne na suti a sám padá Prone.
 nerest: Lakota – sbírá lesklé věci a dobytek. Výměnou za stádo nebo kotel mincí odtáhne (Persuasion DC 13).
@@ -33,6 +33,10 @@ Obr z hor, velký jako věž, který rve stromy i s kořeny a hází kamením i 
 - **Dva útoky.** Dvakrát udeří kmenem nebo hodí.
 - **Kmen.** +8, dosah 10 stop. **Zásah:** 3d8+5 Bludgeoning a tvor velikosti Large a menší je Prone.
 - **Vržené haraburdí.** +8, dostřel 60/240 stop. **Zásah:** 2d10+5 Bludgeoning a cíl je Poisoned do konce svého příštího tahu.
+
+## Bonusová akce
+
+- **Dupnutí (dobíjí se na 5–6).** Každý tvor do 10 stop hodí DEX save DC 15, jinak je Prone.
 
 ## Reakce
 

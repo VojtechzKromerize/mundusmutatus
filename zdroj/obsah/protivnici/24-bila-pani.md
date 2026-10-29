@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 4 (1 100 XP)
 ac: 11
 hp: 45
-utok: Dva zvadající doteky +5, 3d10+3 Prokleté · děsivá tvář (WIS DC 13, 2d6+3 Psychic) · posednutí (CHA DC 13) · sdílený žal (Bonusová akce)
+utok: Dva zvadající doteky +5, 3d10+3 Prokleté · děsivá tvář (WIS DC 13, 2d6+3 Psychic) · posednutí (CHA DC 13) · sdílený žal (Bonusová akce) · klíče zazvoní (Reakce)
 pozehnani: Posednutí se dobije hned.
 pokuseni: Pozná v někom z družiny potomka svého rodu: místo útoku ho jeden slot jen pozoruje a pláče.
 nerest: Nedokončená věc – bloudí, protože něco nezůstalo vykonáno (nevrácené věno, nepohřbené dítě, křivá přísaha). Kdo to slíbí napravit (Persuasion DC 13), toho ušetří.
@@ -47,6 +47,10 @@ Duch paní z rodu, který na hradě sídlí. Zjevuje se před smrtí v rodu a hl
 ## Bonusová akce
 
 - **Sdílený žal.** Tvor do 60 stop, kterému chybí HP, hodí WIS save DC 13, jinak je Incapacitated jejím žalem; záchrana znovu na konci každého tahu, úspěch = den imunity.
+
+## Reakce
+
+- **Klíče zazvoní.** Když útok míří na člena jejího rodu do 30 stop, zazvoní klíče: cíl si přičte 2 k AC a útočník hodí WIS save DC 13, jinak je Frightened do konce svého tahu.
 
 ## Relikt
 

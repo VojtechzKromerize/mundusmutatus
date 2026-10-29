@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 2 (450 XP)
 ac: 15 (kožená s cvočky)
 hp: 52
-utok: Dva útoky: tesák +5, 1d6+3, nebo píšťala +5, 30/90 stop, 1d10+3 · kryt +2 AC
+utok: Dva útoky: tesák +5, 1d6+3, nebo píšťala +5, 30/90 stop, 1d10+3 · kryt +2 AC · píšťalka (Bonusová akce)
 pozehnani: Zahvízdá: všichni lapkové v doslechu udělají hned útok.
 pokuseni: Píšťala selže a vybuchne mu v ruce: 1d6 Fire a do konce boje má jen tesák.
 nerest: Lakota – bere výkupné a dělí se nespravedlivě. Kdo mu nabídne víc, než je kořist (Persuasion DC 13), s tím se dá domluvit.
@@ -38,6 +38,10 @@ Velitel lapků, bývalý žoldnéř nebo vyhnaný zeman. Má píšťalu, zdravý
 - **Dva útoky.** Tesákem nebo píšťalou, libovolně.
 - **Tesák.** +5, dosah 5 stop. **Zásah:** 1d6+3 Slashing.
 - **Píšťala.** +5, dostřel 30/90 stop. **Zásah:** 1d10+3 Piercing.
+
+## Bonusová akce
+
+- **Píšťalka.** Houf lapků v doslechu se pohne až o 10 stop, aniž by vyvolal Opportunity Attack, nebo se vynoří ze zálohy s výhodou na příští útok.
 
 ## Reakce
 

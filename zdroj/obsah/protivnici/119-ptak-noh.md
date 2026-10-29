@@ -5,7 +5,7 @@ uroven: zhoubce
 vyzva: 11 (7 200 XP)
 ac: 15
 hp: 248
-utok: Zobák +13, dosah 10 stop, 3d12+9 Piercing · pařáty +13, 4d6+9 Slashing a Grappled/Restrained (DC 19, i Huge) · vzlet s kořistí a upuštění
+utok: Zobák +13, dosah 10 stop, 3d12+9 Piercing · pařáty +13, 4d6+9 Slashing a Grappled/Restrained (DC 19, i Huge) · vzlet s kořistí a upuštění · vír peří (Reakce)
 pozehnani: Strhne i druhého: pařáty uchvátí dva tvory velikosti Large a menší.
 pokuseni: Pustí kořist dřív, než chtěl: uchvácený tvor padá z 10 stop (1d6), ale je volný.
 nerest: Hnízdo – brání vejce a mláďata nade vše. Kdo ohrozí hnízdo (nebo to předstírá: Deception DC 15 s ohněm u skály), toho Noh napadne první a opustí jinou kořist. Hlad: kůň nebo kráva položená na otevřeném místě ho odvede na kolo.
@@ -45,6 +45,10 @@ Pták tak velký, že zastíní slunce, z pohádek, které se po Protržení Zá
 ## Bonusová akce
 
 - **Vzlet s kořistí (dobíjí se na 5–6).** S chyceným tvorem uletí až o 60 stop, aniž by provokoval Opportunity Attacks, a pustí ho.
+
+## Reakce
+
+- **Vír peří.** Když na něj míří útok na dálku, mávne křídly: útok má nevýhodu a hořící šípy zhasnou.
 
 **Kritická zranění.** Jako draci (`kriticka: drak`): hlava, trup, křídla, nohy. Zlomené křídlo ho uzemní.
 

@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 1 (200 XP)
 ac: 16
 hp: 22
-utok: Úder šlahounem +6, dosah 10 stop, 1d8+4 · trny +6, 60 stop, 1d6+4 · okouzlení (WIS DC 14)
+utok: Úder šlahounem +6, dosah 10 stop, 1d8+4 · trny +6, 60 stop, 1d6+4 · okouzlení (WIS DC 14) · do stromu (Reakce)
 pozehnani: Hejkne: všichni, kdo ho slyší, hodí WIS save DC 14, jinak jdou do konce kola za hlasem (o 30 stop).
 pokuseni: Ztratí ozvěnu: do konce kola nemůže skočit mezi stromy.
 nerest: Les – bojuje jen v lese a jen proti těm, kdo lesu škodí. Kdo nesl dřevo, ať ho položí; kdo přinese obětinu, tomu ukáže cestu.
@@ -46,6 +46,10 @@ Duch hlubokých lesů, kterého je víc slyšet než vidět. Po Noci Proměny se
 ## Bonusová akce
 
 - **Skok mezi stromy.** Od velkého stromu se přenese k jinému do 60 stop.
+
+## Reakce
+
+- **Do stromu.** Když ho zasáhne útok a stojí u velkého stromu, vstoupí do něj a vystoupí z jiného do 30 stop; utrží jen polovinu zranění.
 
 ## Relikt
 

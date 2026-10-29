@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 4 (1 100 XP)
 ac: 15
 hp: 66
-utok: Dva neklidné doteky +7, 3d6+5 Psychic a kletba (bez krátkého odpočinku) · můra (WIS DC 15): do 20 HP bezvědomí, jinak 4d8 Psychic
+utok: Dva neklidné doteky +7, 3d6+5 Psychic a kletba (bez krátkého odpočinku) · můra (WIS DC 15): do 20 HP bezvědomí, jinak 4d8 Psychic · do snu (Reakce)
 pozehnani: Můra se dobije hned.
 pokuseni: Spící vzbudí kohout nebo zvon: inkubus musí do konce kola ustoupit za Závoj.
 nerest: Chtíč – přichází ve snech. Kdo spí s křížem, svěcenou vodou nebo zaříkáním (Religion DC 13), k tomu nemůže.
@@ -42,6 +42,10 @@ Mužská podoba téhož pekelníka, který přichází ve snech a odnáší z ni
 ## Bonusová akce
 
 - **Můra (dobíjí se na 6).** Tvor do 60 stop hodí WIS save DC 15: kdo neuspěje a má 20 HP a méně, upadne na hodinu do bezvědomí (probudí ho zranění nebo jiný tvor akcí); ostatní utrží 4d8 Psychic.
+
+## Reakce
+
+- **Do snu.** Když ho zasáhne útok, ustoupí za Závoj: utrží jen polovinu zranění a do začátku svého tahu je za Závojem (nic na něj nepůsobí, on nepůsobí na nic).
 
 **Výkupné a kořist.** Ničeho se nedotýká. Zůstanou jen sny – a dítě, které se narodí za devět měsíců.
 

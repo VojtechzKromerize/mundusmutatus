@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 2 (450 XP)
 ac: 19
 hp: 27
-utok: Výboj +4, 2d8+2 Lightning · pohltí umírajícího (CON DC 10) a vyléčí se 3d6
+utok: Výboj +4, 2d8+2 Lightning · pohltí umírajícího (CON DC 10) a vyléčí se 3d6 · zhasnout (Reakce)
 pozehnani: Zmizí (neviditelná) a přeletí o 50 stop; další výboj má s výhodou.
 pokuseni: Světlo zakolísá: do konce kola je vidět, kde skutečně je, a ztratí neviditelnost.
 nerest: Lákání – musí vést poutníky dál do bažiny. Kdo jde za ní a nevšímá si jí (WIS save DC 12), ten ji zmate a ona odletí.
@@ -41,6 +41,10 @@ Bledé světlo nad rašeliništěm, duše utopeného poutníka, která láká da
 
 - **Pohltit život.** Živý tvor na 0 HP do 5 stop hodí CON save DC 10, jinak umírá a bludička získá 3d6 HP.
 - **Zmizet.** Ona i její světlo zneviditelní, dokud se soustředí; končí po útoku nebo pohlcení.
+
+## Reakce
+
+- **Zhasnout.** Když ji zasáhne útok, zhasne: utrží jen polovinu zranění a do konce kola je Invisible.
 
 ## Relikt
 

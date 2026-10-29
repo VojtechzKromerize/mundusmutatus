@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 1/8 (25 XP)
 ac: 15
 hp: 9
-utok: Kord +3, 1d8+1 Piercing · odraz (Reakce, AC +2) · nebojuje – velí zbrojnošům a mluví
+utok: Kord +3, 1d8+1 Piercing · odraz (Reakce, AC +2) · nebojuje – velí zbrojnošům a mluví · za zbrojnoše (Bonusová akce)
 pozehnani: Městská svoboda: houf v doslechu neprchá a jeden houf ihned zaútočí.
 pokuseni: Přeřekne se: prozradí, kdo z rady vyjednává s králem (nebo s legátem) – a ztratí slot.
 nerest: Pýcha městské svobody – Vratislav neklekne před kacířem. Kdo mu nabídne cestu, jak se podřídit králi a vypadat přitom jako vítěz (Persuasion DC 15, lepší s dopisem od papeže nebo od Jošta z Rožmberka), toho vyslechne. Lakota: zaplatí za to, aby se o něm nemluvilo.
@@ -37,6 +37,10 @@ Patricij z vratislavské rady, která na jaře 1458 odmítla uznat Jiřího z Po
 
 - **Kord.** +3, dosah 5 stop. **Zásah:** 1d8+1 Piercing.
 - **Rozkaz.** Jeden houf v doslechu se přesune o 10 stop bez Opportunity Attacks, nebo zaútočí na cíl, který konšel určí.
+
+## Bonusová akce
+
+- **Za zbrojnoše.** Pohne se až o 15 stop, aniž by vyvolal Opportunity Attack, pokud skončí za spojencem; do začátku svého tahu má half cover.
 
 ## Reakce
 

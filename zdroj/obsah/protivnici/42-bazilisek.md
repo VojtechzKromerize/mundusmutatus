@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 3 (700 XP)
 ac: 15
 hp: 52
-utok: Kousnutí +5, 2d6+3 a 2d6 Poison · zkameňující pohled (kužel 30 stop, CON DC 12: Restrained, podruhé zkamení)
+utok: Kousnutí +5, 2d6+3 a 2d6 Poison · zkameňující pohled (kužel 30 stop, CON DC 12: Restrained, podruhé zkamení) · zrcadlový pohled (Reakce)
 pozehnani: Pohled se dobije hned.
 pokuseni: Zahlédne svůj odraz (zrcadlo, kaluž, lesklý štít): sám si hodí CON save DC 12 proti pohledu.
 nerest: Zrcadlo – nesnese svůj odraz. Kdo mu nastaví zrcadlo nebo vyleštěný štít (akce), ten ho donutí hodit si na vlastní pohled.
@@ -34,6 +34,10 @@ Plaz s kohoutím hřebenem, vylíhlý z vejce, které snesl kohout a vyseděla r
 ## Bonusová akce
 
 - **Zkameňující pohled (dobíjí se na 4–6).** Každý tvor v kuželu 30 stop hodí CON save DC 12. Při prvním neúspěchu je Restrained a na konci svého příštího tahu hodí znovu; další neúspěch = Petrified. Kdo se dívá jinam (oči zavřené, výhled jen v zrcadle), hází s výhodou, ale útočí s nevýhodou.
+
+## Reakce
+
+- **Zrcadlový pohled.** Když ho zasáhne útok od tvora, který se na něj dívá, pohlédne mu do očí: CON save DC 12, jinak je Restrained a začíná kamenět (jako po Zkameňujícím pohledu).
 
 **Výkupné a kořist.** Krev baziliška rozpouští kámen; theriakáři a alchymisté za ni platí zlatem. Zkamenělí lidé se dají vrátit jen velkým kouzlem.
 

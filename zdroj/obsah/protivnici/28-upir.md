@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 5 (1 800 XP)
 ac: 16
 hp: 90
-utok: Dva drápy +6, 2d4+3 a Grappled; kousnutí (CON DC 14): 1d4+3 a 3d6 Prokleté, léčí se
+utok: Dva drápy +6, 2d4+3 a Grappled; kousnutí (CON DC 14): 1d4+3 a 3d6 Prokleté, léčí se · krvavé seknutí (Reakce)
 pozehnani: Vyšplhá po stěně nebo stropě nad cíl a další útok má s výhodou.
 pokuseni: Ucítí krev: musí kousnout nejbližšího zraněného, i kdyby to byl jeho spojenec.
 nerest: Hlad – nevstoupí do domu bez pozvání a nepřejde tekoucí vodu. Rozsypané mák nebo proso musí spočítat (jeden slot).
@@ -43,6 +43,10 @@ Mrtvý, který po pohřbu vychází z hrobu a pije krev svých blízkých. Na Mo
 
 - **Neúnavný.** Dash nebo Disengage.
 
+## Reakce
+
+- **Krvavé seknutí.** Když tvor do 40 stop, který je pod polovinou HP, utrží zranění, upír se pohne až o polovinu rychlosti a sekne ho drápem.
+
 **Výkupné a kořist.** Rakev s hlínou z rodné vsi. Pokud ho tam družina nedorazí, za týden se vrátí.
 
-*Předloha: Vampire Spawn (D&D 2024), převedeno pro Mundus Mutatus.*
+*Předloha: Vampire Spawn (D&D 2024); reakce podle Vampire Nosferatu, převedeno pro Mundus Mutatus.*

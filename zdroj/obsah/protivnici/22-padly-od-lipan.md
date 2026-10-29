@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 3 (700 XP)
 ac: 14 (kožená s cvočky)
 hp: 82
-utok: Dva útoky: meč +4, 1d8+2 a 1d8 Prokleté, nebo luk 150/600 · jeden lze nahradit Vysátím života (CON DC 13) · pití života (Bonusová akce)
+utok: Dva útoky: meč +4, 1d8+2 a 1d8 Prokleté, nebo luk 150/600 · jeden lze nahradit Vysátím života (CON DC 13) · pití života (Bonusová akce) · kryt mrtvými (Reakce)
 pozehnani: Kostlivci v jeho doslechu se zvednou: jeden padlý kostlivec se vrátí do houfu.
 pokuseni: Vzpomene si na bitvu: zavolá jméno svého hejtmana a jeden slot jen stojí.
 nerest: Pýcha – byl hejtmanem polních vojsk. Kdo ho nazve zrádcem nebo poraženým (Intimidation DC 13), toho musí v příštím slotu napadnout, i kdyby opustil své muže.
@@ -45,6 +45,10 @@ Hejtman táborských polních vojsk, který zemřel u Lipan roku 1434 a vstal po
 ## Bonusová akce
 
 - **Pití života (dobíjí se na 5–6).** Tvor do 5 stop hodí CON save DC 13, jinak utrží 1d8+2 Prokleté (Necrotic) a padlý si obnoví stejně HP.
+
+## Reakce
+
+- **Kryt mrtvými.** Když ho zasáhne útok a do 5 stop stojí kostlivec nebo umrlec, kterému velí, ten nastaví tělo: útok zasáhne jeho.
 
 **Výkupné a kořist.** Korouhev s kalichem, prsten s pečetí polních vojsk, rezavý meč. Výkupné nikdo nezaplatí; kališníci by mu ale rádi dali hrob.
 

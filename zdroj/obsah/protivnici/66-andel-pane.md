@@ -5,7 +5,7 @@ uroven: zhoubce
 vyzva: 10 (5 900 XP)
 ac: 17
 hp: 229
-utok: Svatý palcát +8, 1d6+4 a 4d8 Svaté (Radiant) · Boží pomoc 2/den: léčení, Lesser Restoration, sejmutí kletby
+utok: Svatý palcát +8, 1d6+4 a 4d8 Svaté (Radiant) · Boží pomoc 2/den: léčení, Lesser Restoration, sejmutí kletby · štít víry (Reakce)
 pozehnani: Světlo z nebe: všichni zatracení a pekelníci do 30 stop hodí WIS save DC 17, jinak jsou Frightened.
 pokuseni: Boží mlčení: do konce kola nemůže kouzlit – i anděl čeká na rozkaz.
 nerest: Poslušnost – neudělá nic, co mu nebylo přikázáno, a nelže. Kdo se dovolá Božího soudu (Religion DC 17), tomu musí dát slyšení. Ctnosti: všechny. Neřest: Pýcha, prý.
@@ -43,6 +43,10 @@ Posel Boží, který po Noci Proměny přichází skrze Závoj. Ne vždy jako sp
 ## Bonusová akce
 
 - **Boží pomoc (2/den).** Cure Wounds, Lesser Restoration nebo Remove Curse.
+
+## Reakce
+
+- **Štít víry.** Když útok zasáhne spojence do 30 stop, anděl ho zakryje křídlem: AC +3 proti tomuto útoku.
 
 **Výkupné a kořist.** Pírko, které nehoří, a zjevení, o kterém bude chtít slyšet arcibiskup, papežský legát i táborský kněz. Každý jinak.
 

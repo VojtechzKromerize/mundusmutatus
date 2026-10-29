@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 5 (1 800 XP)
 ac: 19
 hp: 105
-utok: Dva útoky: dráp +7, 1d8+4 a 2d6 Fire, nebo ohnivý paprsek +7, 120 stop, 3d6+3 Fire · kouzla CHA DC 14 · zkřivené zrcadlo (Reakce)
+utok: Dva útoky: dráp +7, 1d8+4 a 2d6 Fire, nebo ohnivý paprsek +7, 120 stop, 3d6+3 Fire · kouzla CHA DC 14 · zkřivené zrcadlo (Reakce) · křídla z kouře (Bonusová akce)
 pozehnani: Křídla se rozevřou: vzlétne o 30 stop bez Opportunity Attacks a další útok má s výhodou.
 pokuseni: Lidská krev se ozve: zaváhá nad padlým nepřítelem a jeden slot ho nechá být.
 nerest: Závist – nepatří do pekla ani na svět. Nenávidí legitimní syny svého otce. Kdo mu nabídne uznání (Persuasion DC 15), ten ho může získat.
@@ -40,6 +40,10 @@ Dítě pekelníka (sukuby či inkuba) a smrtelníka. Často levoboček z dobréh
 - **Dráp.** +7, dosah 5 stop. **Zásah:** 1d8+4 Slashing a 2d6 Fire.
 - **Ohnivý paprsek.** +7, dostřel 120 stop. **Zásah:** 3d6+3 Fire.
 - **Kouzla (CHA, DC 14).** 2/den: Alter Self, Command (3. úroveň), Detect Magic. 1/den: Dominate Person (8. úroveň), Plane Shift (jen sebe).
+
+## Bonusová akce
+
+- **Křídla z kouře.** Vzlétne až o 30 stop, aniž by vyvolal Opportunity Attack.
 
 ## Reakce
 

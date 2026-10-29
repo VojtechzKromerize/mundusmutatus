@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 2 (450 XP)
 ac: 13
 hp: 38
-utok: Hůl +5, 1d6+3 Bludgeoning a 2d4 Svaté (Radiant) · plamen ráje +5, 2d10 Svaté, dostřel 60 stop · Andělé (Spirit Guardians 1/den) · Boží pomoc 3/den
+utok: Hůl +5, 1d6+3 Bludgeoning a 2d4 Svaté (Radiant) · plamen ráje +5, 2d10 Svaté, dostřel 60 stop · Andělé (Spirit Guardians 1/den) · Boží pomoc 3/den · andělé kryjí (Reakce)
 pozehnani: Zázrak: Boží pomoc neutratí denní použití – a houf adamitů to vidí (výhoda do konce kola).
 pokuseni: Hlas umlkne: do konce kola nemůže kouzlit ani kázat; adamité jsou zmatení (nevýhoda).
 nerest: Pýcha – věří, že je Adam nový, bez hříchu. Kdo mu dokáže hřích (svědek, dítě, dluh; Persuasion nebo Insight DC 13), toho prorok musí v příštím slotu vyvracet místo boje; kdo ho nazve Žižkovým kacířem, toho napadne.
@@ -45,6 +45,10 @@ Prorok sekty, bývalý kněz nebo sedlák, kterému Závoj dal dar: léčí, sv�
 ## Bonusová akce
 
 - **Boží pomoc (3/den).** *Bless*, *Healing Word*, *Lesser Restoration* nebo *Dispel Magic* (WIS, DC 13).
+
+## Reakce
+
+- **Andělé kryjí.** Když ho zasáhne útok, z něj vyšlehne světlo: útočník hodí CON save DC 13, jinak je Blinded do konce svého tahu.
 
 **Výkupné a kořist.** Konzistoř i táborští kněží zaplatí 10 kop za živého (a upálí ho – pokaždé jiní). Nic nemá. Má jen slova – a ta si jeho stoupenci pamatují.
 

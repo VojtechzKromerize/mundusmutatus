@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 3 (700 XP)
 ac: 13
 hp: 49
-utok: Studená ruka +5, 2d6+3 Necrotic a Grappled · hlas matky (WIS DC 13, Charmed, jde k ní) · ztracení (dítě zmizí) · do mlhy (Reakce)
+utok: Studená ruka +5, 2d6+3 Necrotic a Grappled · hlas matky (WIS DC 13, Charmed, jde k ní) · ztracení (dítě zmizí) · do mlhy (Reakce) · zavolat jménem (Bonusová akce)
 pozehnani: Hlas matky se dobije: zmámený cíl jde k ní ještě v tomto kole.
 pokuseni: Na prahu je rozsypaný mák: příští slot počítá zrnka.
 nerest: Mateřský žal – hledá své dítě. Kdo jí přinese dětskou věc z vesnice, toho nechá být.
@@ -39,6 +39,10 @@ Hubená žena v šedém, která chodí po návsi po večerním zvonění. Volá 
 - **Studená ruka.** +5, dosah 5 stop. **Zásah:** 2d6+3 Necrotic; Medium a menší cíl je Grappled (únik DC 13).
 - **Hlas matky.** Tvor do 60 stop, který ji slyší, hodí WIS save DC 13, jinak je Charmed a v příštím tahu jde k ní; dítě má na záchranu nevýhodu.
 - **Ztracení.** Odnese tvora, kterého drží, a zmizí s ním do mlhy; vrátí se s ním za čtvrt hodiny (o rok starším), nebo vůbec.
+
+## Bonusová akce
+
+- **Zavolat jménem.** Tvor do 60 stop, jehož jméno zná (dítě vždy), hodí WIS save DC 13, jinak se pohne až o 15 stop k ní, aniž by vyvolal Opportunity Attack.
 
 ## Reakce
 

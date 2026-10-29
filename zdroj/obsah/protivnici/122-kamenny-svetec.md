@@ -5,7 +5,7 @@ uroven: zhoubce
 vyzva: 10 (5 900 XP)
 ac: 18
 hp: 220
-utok: Úder +10, 2d8+6 Bludgeoning a 2d8 Force · kamenná ruka +9, 4d10 Force, dostřel 120 stop · tíha (Slow, CON DC 17, dobíjí se na 5–6)
+utok: Úder +10, 2d8+6 Bludgeoning a 2d8 Force · kamenná ruka +9, 4d10 Force, dostřel 120 stop · tíha (Slow, CON DC 17, dobíjí se na 5–6) · svatá tíha (Reakce)
 pozehnani: Dupnutí: každý tvor do 10 stop hodí STR save DC 17, jinak je Prone.
 pokuseni: Kámen praská: do konce kola má AC −2 a další kritický zásah mu urazí ruku (ztrácí Kamennou ruku).
 nerest: Poslušnost – nemá Neřest, má příkaz. Plní doslova to, co mu bylo vepsáno pod jazyk („Nikdo neprojde branou“, „Hlídej hrob“). Kdo příkaz zjistí (Investigation nebo Religion DC 15), najde, co příkaz nezakazuje – a světec ho nechá.
@@ -45,6 +45,10 @@ Kamenná socha světce z průčelí katedrály nebo z hrobky, kterou oživil Zá
 ## Bonusová akce
 
 - **Tíha (dobíjí se na 5–6).** *Slow* (CON save DC 17) na až 6 tvorů do 120 stop: poloviční rychlost, AC −2, nevýhoda na DEX saves, jedna akce místo dvou slotů.
+
+## Reakce
+
+- **Svatá tíha.** Když se tvor do 5 stop od něj pokusí vzdálit, hodí STR save DC 17, jinak má rychlost 0 do konce svého tahu.
 
 **Výkupné a kořist.** Kámen – a šém: pergamen s příkazem psaný rukou toho, kdo sochu oživil. Kapitula zaplatí 30 kop za to, že se o soše nebude mluvit. Pod soklem bývá to, co socha hlídala.
 

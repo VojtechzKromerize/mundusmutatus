@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 5 (1 800 XP)
 ac: 18 (kyrys, štít)
 hp: 75
-utok: Dva útoky dlouhým mečem +6, 1d8+3 Slashing nebo Piercing
+utok: Dva útoky dlouhým mečem +6, 1d8+3 Slashing nebo Piercing · za mnou, chlapi! (Reakce)
 pozehnani: Strhne muže s sebou: jeden houf v doslechu ihned zaútočí na tentýž cíl.
 pokuseni: Vyzve nejsilnějšího protivníka na souboj a v příštím slotu musí útočit na něj, i kdyby to byla chyba.
 nerest: Lakomství – dvojnásobný žold (Persuasion DC 15 a skutečné peníze) ho i s rotou převede na druhou stranu, alespoň do konce boje.
@@ -40,5 +40,9 @@ Velitel roty, který prošel třemi válkami a dvěma pány. Zná šermířskou 
 ## Bonusová akce
 
 - **Rozkaz.** Jeden houf v doslechu se ihned přesune o 10 stop, aniž by provokoval Opportunity Attacks.
+
+## Reakce
+
+- **Za mnou, chlapi!.** Když ho zasáhne útok a do 5 stop stojí pacholek z jeho houfu, ten nastaví halapartnu: rotmistr utrží jen polovinu zranění a pacholek padne.
 
 **Výkupné a kořist.** Výkupné 20 kop grošů. Kyrys, dobrý meč, měšec s 2k10 groši, rotní listina (komu slouží a za kolik).

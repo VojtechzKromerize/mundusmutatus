@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 4 (1 100 XP)
 ac: 18
 hp: 52
-utok: Dlouhý meč +6, 2d6+3 Slashing nebo Piercing · dlouhý luk +4, 1d8+2 Piercing · odraz (Reakce, AC +2) · nedá se zastrašit ani omámit
+utok: Dlouhý meč +6, 2d6+3 Slashing nebo Piercing · dlouhý luk +4, 1d8+2 Piercing · odraz (Reakce, AC +2) · nedá se zastrašit ani omámit · elfí krok (Bonusová akce)
 pozehnani: Elfí rychlost: v tomto slotu se pohne o dalších 30 stop a zaútočí ještě jednou.
 pokuseni: Pýcha ho zaslepí: do konce kola útočí jen na toho, kdo ho urazil, i kdyby to byla chyba.
 nerest: Pýcha – lidé jsou pro něj nedokonalí a Proměněnci z měšťanstva zrádci stavu. Kdo prokáže urozenost (erb, jméno, Persuasion DC 13), toho bere jako rovného a přijme souboj; neurozenému se nevzdá. Kdo ho nazve „kalichem s ušima“, toho napadne.
@@ -40,6 +40,10 @@ Mladší syn nebo družiník elfího pána, Proměněnec, který Proměnu vzal j
 - **Dva útoky.** Dvakrát mečem nebo lukem.
 - **Dlouhý meč.** +6, dosah 5 stop. **Zásah:** 2d6+3 Slashing nebo Piercing (Šikovná, Ostrá, Půlmeč).
 - **Dlouhý luk.** +4, dostřel 150/600 stop. **Zásah:** 1d8+2 Piercing.
+
+## Bonusová akce
+
+- **Elfí krok.** Pohne se až o 15 stop, aniž by vyvolal Opportunity Attack; v lese se při tom může skrýt (Hide).
 
 ## Reakce
 

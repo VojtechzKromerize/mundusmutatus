@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 3 (700 XP)
 ac: 11
 hp: 58
-utok: Hnilobná pěst +5, 1d10+3 Bludgeoning a 3d6 Prokleté (Necrotic) a kletba hniloby · strašný pohled (WIS DC 11, Frightened) · prach z rakve (Reakce)
+utok: Hnilobná pěst +5, 1d10+3 Bludgeoning a 3d6 Prokleté (Necrotic) a kletba hniloby · strašný pohled (WIS DC 11, Frightened) · prach z rakve (Reakce) · tvář světce (Bonusová akce)
 pozehnani: Kletba zabere hned: cíl ztrácí 3d6 z maxima HP okamžitě.
 pokuseni: Obinadla se rozmotají: do konce kola je Prone a jeho pohled nikoho neděsí.
 nerest: Pýcha – chce být uctíván jako světec, kterým nebyl. Kdo před ním poklekne a modlí se (Religion nebo Deception DC 12), toho nechá projít; kdo mu zapálí kadidlo, získá kolo. Kdo řekne nahlas, čím byl, toho napadne první.
@@ -40,6 +40,10 @@ Tělo, které v hrobě nezetlelo – a Církev je proto vystavila jako ostatky s
 - **Pěsti a pohled.** Dvakrát udeří pěstí a použije Strašný pohled.
 - **Hnilobná pěst.** +5, dosah 5 stop. **Zásah:** 1d10+3 Bludgeoning a 3d6 Prokleté (Necrotic) a cíl je proklet (viz výše).
 - **Strašný pohled.** Jeden tvor do 60 stop hodí WIS save DC 11, jinak je Frightened do konce Neporušeného příštího tahu. Kdo uspěje, je 24 hodin imunní.
+
+## Bonusová akce
+
+- **Tvář světce.** Katolická postava do 30 stop, která ho vidí, hodí WIS save DC 11, jinak zaváhá: do konce svého příštího tahu má proti němu nevýhodu na útoky.
 
 ## Reakce
 

@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 6 (2 300 XP)
 ac: 15
 hp: 127
-utok: Drápy +6, 2d6+3 · hadí vlasy +6, 1d4+3 a 4d6 Poison · jedový pohled +5, 2d8+2 Poison, dostřel 150 stop · zkameňující pohled (CON DC 13, kužel 30 stop)
+utok: Drápy +6, 2d6+3 · hadí vlasy +6, 1d4+3 a 4d6 Poison · jedový pohled +5, 2d8+2 Poison, dostřel 150 stop · zkameňující pohled (CON DC 13, kužel 30 stop) · pohled přes rameno (Reakce)
 pozehnani: Pohled zasáhne i ty, kdo se dívají stranou – nikdo v kuželu se neodvrátil včas.
 pokuseni: Zahlédne se v lesklém plátu nebo v čepeli: sama hodí CON save DC 13 proti vlastnímu pohledu.
 nerest: Pýcha – byla nejkrásnější paní v kraji a nesnese, aby to někdo zpochybnil. Kdo ji nazve krásnou a nedívá se (Persuasion DC 14 se zavřenýma očima), toho nechá mluvit; kdo přinese zrcadlo, ten ji zabije – nebo zemře první.
@@ -47,6 +47,10 @@ utoky:
 ## Bonusová akce
 
 - **Zkameňující pohled (dobíjí se na 5–6).** Kužel 30 stop. Každý tvor, který se na ni dívá, hodí CON save DC 13. První neúspěch: Restrained; na konci svého příštího tahu opakuje – úspěch účinek ukončí, druhý neúspěch: Petrified. Kdo se odvrátí (nevýhoda na útoky proti ní), nehází.
+
+## Reakce
+
+- **Pohled přes rameno.** Když na ni zaútočí zblízka tvor, který se na ni dívá, a ona nemá závoj, hodí útočník CON save DC 13, jinak je Restrained a začíná kamenět.
 
 **Výkupné a kořist.** Za ni nikdo nezaplatí – rod se jí zřekl. Její krev je jed i lék (alchymista: 10 kop); hadí hlavy za 1 kopu kus. Sochy na nádvoří: tři nápadníci z dobrých rodů, kteří se po odkamenění odvděčí.
 

@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 6 (2 300 XP)
 ac: 14
 hp: 97
-utok: Úder větru +7, 2d6+4 Force (tři v kole) · vír (CON DC 14, 1d8+3 Thunder, Grappled, nemůže mluvit, 2d6 každé kolo) · neviditelný · prochází škvírou · s větrem (Bonusová akce)
+utok: Úder větru +7, 2d6+4 Force (tři v kole) · vír (CON DC 14, 1d8+3 Thunder, Grappled, nemůže mluvit, 2d6 každé kolo) · neviditelný · prochází škvírou · s větrem (Bonusová akce) · vítr uhne (Reakce)
 pozehnani: Vír zvedne cíl do výšky 20 stop a pustí: 2d6 Bludgeoning a Prone.
 pokuseni: Prach ho ukáže: do konce kola je vidět (obrys z prachu, sněhu nebo listí) a ztrácí neviditelnost.
 nerest: Jméno – slouží tomu, kdo zná jeho jméno z bubnu. Kdo jméno vysloví (šamanův buben, nebo Religion DC 16 a tatarsky), tomu duch nemůže ublížit a splní jeden rozkaz; kdo ho osloví špatným jménem, toho napadne první.
@@ -44,6 +44,10 @@ Vítr, kterému šaman dal jméno a tvar. Neviditelný, bez těla, protáhne se 
 ## Bonusová akce
 
 - **S větrem.** Pohne se až o svou rychlost, aniž by vyvolal Opportunity Attack; koho drží ve víru, nese s sebou.
+
+## Reakce
+
+- **Vítr uhne.** Když ho zasáhne útok a není obalený prachem, moukou ani sněhem, utrží jen polovinu zranění.
 
 **Kořist.** Žádná. Kdo zná jeho jméno, má vítr – jednou.
 

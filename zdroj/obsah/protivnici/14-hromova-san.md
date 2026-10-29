@@ -5,7 +5,7 @@ uroven: zhoubce
 vyzva: 13 (10 000 XP)
 ac: 17 (přirozená)
 hp: 217
-utok: Kousnutí +11, 2d10+6 · sevření +11, 2d8+6 a Grappled · ocas +11, dosah 20 stop, 2d6+6 a Restrained · výboj (1 Náboj): CON DC 18, 6d8 Lightning
+utok: Kousnutí +11, 2d10+6 · sevření +11, 2d8+6 a Grappled · ocas +11, dosah 20 stop, 2d6+6 a Restrained · výboj (1 Náboj): CON DC 18, 6d8 Lightning · vzlet z hřebene (Bonusová akce)
 pozehnani: Za bouře do ní udeří blesk a obnoví všechny Náboje. Bez bouře zasáhne výboj i tvory do 10 stop, které nedrží.
 pokuseni: Výboj se zkratuje do země nebo do mokré skály: ztratí Náboj bez účinku.
 nerest: Hamižnost a Nevděk – v hladové zimě bere víc dobytka, než úmluva dovoluje; vděk není její starost, úmluva ano. Ctnosti: Pravdomluvnost, Věrnost rodu.
@@ -47,6 +47,10 @@ Strážkyně krkonošských hřebenů; v celých Čechách jich žije sotva dvac
 - **Obtočení ocasem.** +11, dosah 20 stop. **Zásah:** 2d6+6 Bludgeoning a cíl je Grappled a Restrained (únik DC 19).
 - **Výboj (1 Náboj).** Každý tvor, kterého drží nebo který se jí dotýká, hodí CON save DC 18: při neúspěchu 6d8 Lightning, při úspěchu polovina. V kovové zbroji má na záchranu nevýhodu. Kritické zranění z výboje patří do kategorie Oheň/Blesk.
 - **Na hřeben.** Pokud někoho drží, vzlétne s ním až o celou rychlost letu. Co pustí, padá.
+
+## Bonusová akce
+
+- **Vzlet z hřebene.** Pohne se až o polovinu rychlosti letu, aniž by vyvolala Opportunity Attack – na svahu nebo skále i z místa.
 
 ## Reakce
 

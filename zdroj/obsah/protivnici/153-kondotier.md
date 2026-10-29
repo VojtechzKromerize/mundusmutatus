@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 4 (1 100 XP)
 ac: 17
 hp: 65
-utok: Kopí v sedle +5, dosah 10 stop, 1d10+3 Piercing (Vpřed!) · meč +5, 2d6+3 · těžká kuše +3, 2d10+1 · odraz (Reakce, AC +2) · condotta: bojuje přesně tolik, kolik je zaplaceno
+utok: Kopí v sedle +5, dosah 10 stop, 1d10+3 Piercing (Vpřed!) · meč +5, 2d6+3 · těžká kuše +3, 2d10+1 · odraz (Reakce, AC +2) · condotta: bojuje přesně tolik, kolik je zaplaceno · florén za odvahu (Bonusová akce)
 pozehnani: Lance zaútočí najednou: houf jeho jezdců (Kumáni nebo žoldnéři s přívlastkem Jízdní) ihned provede útok.
 pokuseni: Spočítá si to: slot promarní úvahou, zda se mu boj vyplatí – a houf má do konce kola nevýhodu.
 nerest: Lakota – condotta je smlouva a smlouva se dá přepsat. Kdo mu nabídne víc (Persuasion DC 14 a skutečné peníze, nejlépe florentské zlaté), toho kondotiér převede i s lancí; kdo mu smlouvu ukáže jako neplatnou (právník! Investigation DC 13), toho nechá být, dokud mu někdo nezaplatí znovu.
@@ -43,6 +43,10 @@ Italský žoldnéřský velitel s lancí: on, zbrojnoš a páže, a za nimi toli
 - **Kopí v sedle.** +5, dosah 10 stop. **Zásah:** 1d10+3 Piercing; po jízdě aspoň 15 stop rovně Vpřed! (dvojité kostky).
 - **Meč.** +5, dosah 5 stop. **Zásah:** 2d6+3 Slashing nebo Piercing (Šikovná, Ostrá, Půlmeč).
 - **Těžká kuše.** +3, dostřel 100/400 stop. **Zásah:** 2d10+1 Piercing (Průrazná).
+
+## Bonusová akce
+
+- **Florén za odvahu.** Hodí zlatý houfu v doslechu: příští útok houfu má výhodu.
 
 ## Reakce
 

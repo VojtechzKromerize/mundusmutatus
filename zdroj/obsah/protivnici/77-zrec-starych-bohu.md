@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 2 (450 XP)
 ac: 13 (kožená s cvočky)
 hp: 44
-utok: Dva útoky: hůl s úponky +5, 1d8+3 a 1d4 Poison, nebo bludný svit +5, 90 stop, 3d6 Svaté · zapletení, hromová vlna (DC 13) · měsíční paprsek · podoba zvířete (Bonusová akce)
+utok: Dva útoky: hůl s úponky +5, 1d8+3 a 1d4 Poison, nebo bludný svit +5, 90 stop, 3d6 Svaté · zapletení, hromová vlna (DC 13) · měsíční paprsek · podoba zvířete (Bonusová akce) · úponky (Reakce)
 pozehnani: Zavolá zvíře: na bojiště přiběhne vlk, medvěd nebo hejno krkavců (přidej houf nebo soka).
 pokuseni: Staří bozi chtějí obětinu: ztratí 1d10 HP nebo jeden přívrženec padne.
 nerest: Pýcha – věří, že Kristus je jen další bůh, který přišel a odejde. Kdo prokáže úctu jeho háji (obětina, Religion DC 13), s tím mluví.
@@ -46,6 +46,10 @@ Kněz Starých bohů z hor a hlubokých lesů. Po Noci Proměny Staří bozi odp
 ## Bonusová akce
 
 - **Podoba zvířete (2/den).** Promění se ve vlka, medvěda nebo krkavce (útoky a rychlost podle zvířete), nebo zpět. Ponechá si HP, jazyk a kouzla.
+
+## Reakce
+
+- **Úponky.** Když tvor do 10 stop zaútočí na žrece nebo jeho spojence, zachytí ho úponky z hole: STR save DC 13, jinak má rychlost 0 do konce svého tahu.
 
 **Výkupné a kořist.** Bylinky, amulety a vědění, za které by lékaři dali hodně. Vesnice by za něj nedala nic – je jejich.
 

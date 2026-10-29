@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 2 (450 XP)
 ac: 13 (kožená)
 hp: 44
-utok: Smluvní čepel +4, 1d8+2 a 2d6 Prokleté · rozkaz (WIS DC 12) · znehybnění (Hold Person) · přízračná zbraň
+utok: Smluvní čepel +4, 1d8+2 a 2d6 Prokleté · rozkaz (WIS DC 12) · znehybnění (Hold Person) · přízračná zbraň · krvavá smlouva (Reakce)
 pozehnani: Ctitelé v doslechu zaútočí s výhodou.
 pokuseni: Zakoktá se v zaklínání: kouzlo selže a slot propadne.
 nerest: Pýcha – myslí si, že ďábel ho vyvolil. Kdo mu dokáže, že je jen nástroj (Insight a Persuasion DC 13), toho nechá promluvit.
@@ -38,6 +38,10 @@ Vyhnaný kněz nebo potulný kazatel, který po Noci Proměny našel nového pá
 ## Bonusová akce
 
 - **Přízračná zbraň (2/den).** Spiritual Weapon.
+
+## Reakce
+
+- **Krvavá smlouva.** Když ho zasáhne útok a do 5 stop stojí ctitel, ten se postaví do rány: útok zasáhne ctitele.
 
 **Výkupné a kořist.** Kniha kázání s okrajovými poznámkami někoho jiného. Ten někdo je mistr černé mše.
 
