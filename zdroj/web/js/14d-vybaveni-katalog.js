@@ -143,8 +143,8 @@ function vybPridatBtn(x) {
   return `<button type="button" class="gbtn ghost vybadd" data-vybadd="${besc(x.id)}" ${btip(`Přidat do vybavení: ${K.n}`)}>+ Přidat</button>`;
 }
 /* mince v katalogu: jen mince tažení (GP, SP, CP) s dobovým jménem, ikonou a kurzem tažení; elektrum a platina se nepoužívají.
-   Ceny v katalogu převádí na groše a kopy už zdroj/vybaveni/sestav.py: běžné zboží dobově (1 GP = 2 groše, výjimky v DOBA, 2026-10-29),
-   kouzelné věci 1 GP z pravidel = 10 grošů (Vojta 2026-10-27). */
+   Ceny v katalogu skládá zdroj/vybaveni/sestav.py: běžné zboží za dobové ceny v groších (zdroj/vybaveni/ceny-dobove.json, 2026-10-29),
+   kouzelné předměty mají vlastní ceny (unikáty; z pravidel 1 GP = 10 grošů). */
 const VYBMINC = {"Gold Piece": "GP", "Silver Piece": "SP", "Copper Piece": "CP"},
   VYBMKURZ = {GP: "40 grošů", SP: "10 haléřů", CP: "nejmenší mince"};
 const vybMinceHtml = () =>
@@ -200,7 +200,7 @@ function renderVybaveni(main, c) {
   }).join("");
   main.innerHTML = `<nav class="crumbs"><a href="#pravidla">Pravidla</a> › <b>Vybavení</b></nav><h2 class="arttitle">Vybavení</h2>
     <p class="intro">Zbroj, zbraně, výbava, nářadí, zvířata, doprava, jedy a magické předměty s cenami a stručným popisem. U zbraní jsou perky a u zbroje druh podle <a href="#artikule/vyzbroj">Artikulí</a>. Klepnutím na název se ukáže popis; ${K ? `<b>+ Přidat</b> dá věc do vybavení postavy <b>${besc(K.n)}</b>` : GMV ? "vyber postavu, do které se má přidávat" : "přihlas se ke své postavě na stránce Hra a věci si rovnou přidáš do vybavení"}.</p>
-    <p class="vybmince"><b>Mince tažení:</b> 1 kopa = 60 pražských grošů · 1 groš = 10 haléřů · uherský zlatý ≈ 40 grošů. Ceny běžného zboží jsou dobové (Čechy kolem 1450: pacholek bere 1½ groše denně, kůň stojí kolem 2 kop, meč 30 grošů, plná zbroj 30 kop); kouzelné věci, lektvary, svitky a jedy zůstávají podle pravidel D&amp;D, 1 GP = 10 grošů.</p>
+    <p class="vybmince"><b>Mince tažení:</b> 1 kopa = 60 pražských grošů · 1 groš = 10 haléřů · uherský zlatý ≈ 40 grošů. Ceny běžného zboží jsou dobové (Čechy kolem 1450: pacholek bere 1½ groše denně, kůň stojí kolem 2 kop, meč 30 grošů, plná zbroj 30 kop); kouzelné předměty, lektvary, svitky a jedy jsou unikáty s vlastní cenou.</p>
     <form class="kvlh vybf" data-vybf><input type="search" name="q" value="${besc(VYBF.q)}" placeholder="hledat: meč, Rope, lektvar…" data-vybq autocomplete="off"><select name="sk" data-vybsk aria-label="Kategorie"><option value="">vše</option>${VYBSK.map(([sk, n]) => `<option value="${sk}"${VYBF.sk === sk ? " selected" : ""}>${n}</option>`).join("")}</select>
       ${
         !VYBF.sk || VYBF.sk === "magicke"

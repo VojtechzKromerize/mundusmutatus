@@ -57,7 +57,7 @@ test("kurz tažení (2026-10-27): 1 zlatý = 40 grošů = 400 haléřů; peníze
   assert.equal(V(`kPenZapl({GP: 1}, "SP", 15).SP`), 25, "zlatý se rozmění na groše");
 });
 
-test("katalog vybavení: dobové ceny běžného zboží (1 GP = 2 groše, výjimky přímo), kouzelné věci 1 GP = 10 grošů", () => {
+test("katalog vybavení: dobové ceny běžného zboží (ceny-dobove.json), kouzelné věci s vlastní cenou", () => {
   const VYB = JSON.parse(readFileSync("art/vybaveni.json", "utf8")),
     c = (sk, en) => VYB[sk].find(x => x.en === en).cena;
   assert.equal(c("zbrane", "Club"), "2 hal.");
@@ -66,7 +66,7 @@ test("katalog vybavení: dobové ceny běžného zboží (1 GP = 2 groše, výji
   assert.equal(c("zbrane", "Musket"), "1 kopa", "hákovnice za dobovou cenu");
   assert.equal(c("zbroj", "Plate Armor"), "30 kop (≈ 45 zl.)");
   assert.equal(c("zvirata", "Horse, Riding"), "2 kopy 30 gr.");
-  assert.equal(c("vybava", "Potion of Healing"), "8 kop 20 gr.", "lektvar zůstává podle pravidel");
+  assert.equal(c("vybava", "Potion of Healing"), "8 kop 20 gr.", "lektvar je unikát s vlastní cenou");
   const vse = JSON.stringify(Object.fromEntries(Object.entries(VYB).filter(([k]) => k !== "mince")));
   assert.doesNotMatch(vse, /\d\s*(GP|SP|CP)\b/, "žádná cena v mincích D&D");
   assert.match(VYB.vyroba.t[0], /cena v groších dělená stem/);
