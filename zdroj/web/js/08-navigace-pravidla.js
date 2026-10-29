@@ -193,38 +193,13 @@ function renderOsoby() {
       })
       .join("") || `<div class="placeholder"><p>Družina zatím nikoho z panstva nepotkala ani o nikom neslyšela.</p></div>`;
 }
-const SRDKAP = [
-  ["hrani", "Hraní hry"],
-  ["tvorba", "Tvorba postavy"],
-  ["povolani", "Povolání"],
-  ["puvod", "Původ a featy"],
-  ["vybava", "Výbava"],
-  ["kouzleni", "Sesílání kouzel"],
-  ["glosar", "Glosář pravidel"],
-  ["nastroje", "Nástroje vypravěče"],
-  ["predmety", "Magické předměty"],
-];
-/* menu Pravidla (Vojta 2026-10-29): Artikule jako první kapitola (po knihách), pak SRD česky, kouzla, předměty a vybavení */
+/* menu Pravidla (Vojta 2026-10-29): jen Pravidla (SRD, kouzla, vybavení… jako záložky na stránce) a Artikule */
 {
   const l = document.getElementById("navartl");
   if (l)
     l.innerHTML =
-      `<span class="svsep" aria-hidden="true">Artikule – domácí pravidla</span>` +
-      ARTB.filter(b => b.id !== "rejstrik")
-        .map(b => {
-          const k = ARTK.find(x => x.book === b.id);
-          return k
-            ? `<a href="#artikule/${k.id}">${b.n}<small>${ARTK.filter(x => x.book === b.id)
-                .map(x => x.t)
-                .join(" · ")}</small></a>`
-            : "";
-        })
-        .join("") +
-      `<a href="#artikule/pojmy">Rejstřík pojmů<small>slovníček Artikulí</small></a>` +
-      `<span class="svsep" aria-hidden="true">Pravidla SRD 5.2.1 česky</span>` +
-      `<a href="#pravidla">Přehled pravidel<small>všechny kapitoly SRD</small></a>` +
-      SRDKAP.map(([id, n]) => `<a href="#pravidla/${id}">${n}</a>`).join("") +
-      `<span class="svsep" aria-hidden="true">Kouzla a výbava</span><a href="#pravidla/kouzla">Kouzla</a><a href="#pravidla/vybaveni">Vybavení<small>zbraně, zbroj, výbava s cenami</small></a><a href="#pravidla/mimo">Doplňky mimo SRD<small>podtřídy, featy, zázemí, Střelec</small></a>`;
+      `<a href="#pravidla">Pravidla<small>SRD 5.2.1 česky, kouzla, předměty, vybavení, doplňky</small></a>` +
+      `<a href="#artikule">Artikule<small>domácí pravidla tažení – mají přednost</small></a>`;
 }
 document.querySelectorAll(".navdd").forEach(dd => {
   const top = dd.querySelector(".ddtop");

@@ -502,7 +502,7 @@ if (GMV) {
     kzT = setTimeout(kzSken, 300);
   });
   const nl = document.getElementById("navartl");
-  if (nl) nl.insertAdjacentHTML("beforeend", `<span class="svsep" aria-hidden="true">Pro vypravěče</span><a href="#kouzla">Kouzla</a>`);
+  if (nl) nl.insertAdjacentHTML("beforeend", `<a href="#kouzla">Kouzla vypravěče<small>správa kouzel, jen pro tebe</small></a>`);
   if (document.querySelector(".phpanel")) kzNacti().catch(() => {});
 }
 function renderGM() {
