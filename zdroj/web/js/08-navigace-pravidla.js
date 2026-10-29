@@ -374,7 +374,15 @@ const featyNacti = () =>
   (FEATYP =
     FEATYP ||
     MMDB.pravidlaTexty("featy")
-      .then(j => (FEATY = Array.isArray(j) ? j : []))
+      .then(j => {
+        /* bez přihlášení vrátí databáze null: zkusit znovu za minutu (po přihlášení bez přenačtení stránky) */
+        if (!Array.isArray(j))
+          setTimeout(() => {
+            FEATY = null;
+            FEATYP = null;
+          }, 60000);
+        return (FEATY = Array.isArray(j) ? j : []);
+      })
       .catch(() => {
         FEATYP = null;
         return null;
@@ -431,7 +439,14 @@ const povolNacti = () =>
   (POVOLP =
     POVOLP ||
     MMDB.pravidlaTexty("povolani")
-      .then(j => (POVOL = Array.isArray(j) ? j : []))
+      .then(j => {
+        if (!Array.isArray(j))
+          setTimeout(() => {
+            POVOL = null;
+            POVOLP = null;
+          }, 60000);
+        return (POVOL = Array.isArray(j) ? j : []);
+      })
       .catch(() => {
         POVOLP = null;
         return null;
@@ -1124,6 +1139,8 @@ document.addEventListener("submit", async e => {
     UCETR = "";
     if (typeof mmHlasG === "function") mmHlasG(novy ? "Účet vytvořen – teď si nahraj nebo zvol postavu." : "Přihlášeno.", 4000);
     if (typeof jaDiscordInit === "function") await jaDiscordInit();
+    /* zprávy, výzvy a návrhy přihlášeného hráče hned, ne až s další změnou v pulsu */
+    if (typeof hraPoll === "function") hraPoll(true);
     if (location.hash.replace(/^#/, "").split("/")[0] === "hra") route();
     else location.hash = "#hra";
   } catch (err) {

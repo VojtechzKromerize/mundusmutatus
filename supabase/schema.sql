@@ -530,6 +530,8 @@ begin
   if not public.mm_je_gm() then raise exception 'jen pro vypravěče' using errcode = '42501'; end if;
   delete from public.hesla where karta = p_karta;
   delete from public.relace_hracu where karta = p_karta;
+  -- upozornění v telefonu patří hráči, ne postavě: po zrušení hesla už nechodí na jeho telefon (2026-10-29)
+  delete from public.push_odbery where karta = p_karta;
   update public.karty set zamceno = false where id = p_karta;
 end $$;
 
@@ -561,6 +563,7 @@ language plpgsql security definer set search_path = public as $$
 begin
   if not public.mm_je_gm() then raise exception 'jen pro vypravěče' using errcode = '42501'; end if;
   delete from public.hraci_ucty where karta = p_karta;
+  delete from public.push_odbery where karta = p_karta;
   update public.karty set zamceno = exists (select 1 from public.hesla where karta = p_karta), hrac = null where id = p_karta;
 end $$;
 -- texty schopností z PDF: jen vlastník chráněné postavy a vypravěč

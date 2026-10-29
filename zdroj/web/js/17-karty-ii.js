@@ -4,7 +4,17 @@
 const DCU = {jmeno: "", ok: false, typ: ""}; /* typ: "discord" nebo "email" (účet s heslem) */
 const jaOdhlasTxt = () => (DCU.typ === "email" ? "Odhlásit" : "Odhlásit Discord");
 async function jaDiscordInit() {
-  if (!window.MMDB || !MMDB.hracPrihlasen || !MMDB.hracPrihlasen()) return;
+  if (!window.MMDB || !MMDB.hracPrihlasen) return;
+  if (!MMDB.hracPrihlasen()) {
+    /* relace účtu vypršela (obnova tokenu selhala): postava z účtu (d:1) už nepatří tomuto zařízení – jinak by hráč viděl kartu
+       jako svou a každý zápis by selhal „přihlas se“ */
+    const o = JA.get();
+    if (o && o.d) {
+      jaZapomen();
+      if (mmNaHre() || curView === "karty") kartyPrekresli();
+    }
+    return;
+  }
   try {
     const [j, u] = await Promise.all([MMDB.ja(), MMDB.hracUzivatel().catch(() => null)]);
     if (!MMDB.hracPrihlasen()) return; // mezitím se odhlásil – odpověď z doby před odhlášením by ho přihlásila zpátky (2026-10-23)
@@ -19,11 +29,12 @@ async function jaDiscordInit() {
       DCU.jmeno ||
       "hráč";
     if (j && j.karta) {
+      if ((JA.get() || {}).k !== j.karta && typeof pushPostava === "function") pushPostava(j.karta);
       JA.set({k: j.karta, n: (KARTBY[j.karta] || {}).n || j.karta, d: 1});
       bojJa.set((KARTBY[j.karta] || {}).n || "");
     } else {
       const o = JA.get();
-      if (o && o.d) JA.set(null);
+      if (o && o.d) jaZapomen();
     }
     if (mmNaHre() || curView === "karty") kartyPrekresli();
   } catch (e) {
@@ -34,6 +45,7 @@ async function jaZvol(kid) {
   if (!confirm("Volba postavy je trvalá – změnit ji pak může jen vypravěč. Hrát za tuto postavu?")) return;
   try {
     await MMDB.jaKarta(kid, DCU.jmeno);
+    if (typeof pushPostava === "function") pushPostava(kid);
     JA.set({k: kid, n: (KARTBY[kid] || {}).n || kid, d: 1});
     KZAM.add(kid);
     await kartyNacti();
@@ -81,6 +93,12 @@ function kTexty(K) {
       } catch (e) {}
     }
     KTX[K.id] = t || {};
+    /* nic nepřišlo (před přihlášením, výpadek): zkusit znovu za minutu, ne až po přenačtení stránky */
+    if (!t)
+      setTimeout(() => {
+        if (KTX[K.id] && !Object.keys(KTX[K.id]).length) delete KTX[K.id];
+        delete KTXP[K.id];
+      }, 60000);
     kartyPrekresli();
   })();
   return null;

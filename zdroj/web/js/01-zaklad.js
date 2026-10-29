@@ -203,6 +203,12 @@ function mmLina(n) {
         s.onerror = () => {
           if (chyba) return;
           chyba = true;
+          /* se signálem je příčinou skoro jistě nové nasazení (starý díl s otiskem už na serveru není): zjistit verzi hned,
+             aby se ukázala lišta Obnovit, ne až za deset minut (2026-10-29) */
+          if (navigator.onLine !== false && typeof window.mmKontrolaKodu === "function")
+            try {
+              window.mmKontrolaKodu();
+            } catch (e) {}
           if (U.length === 1) {
             delete MMLINY[n];
             s.remove();

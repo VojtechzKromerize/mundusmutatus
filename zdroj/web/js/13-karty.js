@@ -1082,6 +1082,8 @@ function bojPCZmena(hid, fn, hlas) {
 if (window.MMDB)
   kartyNacti().then(ch => {
     if (ch && curView === "boj") renderBoj();
+    /* hráč: karty dorazily po prvním dotazu na zprávy a výzvy – ten bez jeho karty nic nenačetl */
+    if (!GMV && HRAP && jaK()) hraPoll(true);
   });
 setTimeout(() => {
   try {

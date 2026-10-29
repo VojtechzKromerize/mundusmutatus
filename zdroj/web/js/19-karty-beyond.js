@@ -941,6 +941,22 @@ async function pushVypni() {
     mmHlasG(err.message || String(err), 4000);
   }
 }
+/* upozornění patří postavě, za kterou se na tomto zařízení hraje (2026-10-29): odhlášení odběr zruší, nová postava ho převezme –
+   dřív chodila upozornění dál za starou postavu a nová žádná */
+async function pushPostava(karta) {
+  try {
+    if (!pushUmi() || !window.MMDB) return;
+    const r = await navigator.serviceWorker.getRegistration(),
+      s = r && (await r.pushManager.getSubscription());
+    if (!s) return;
+    if (karta) await MMDB.pushPrihlas(s.toJSON(), karta);
+    else {
+      await MMDB.pushOdhlas(s.endpoint).catch(() => {});
+      await s.unsubscribe();
+      PUSHST = "off";
+    }
+  } catch (e) {}
+}
 let INSTP = null;
 addEventListener("beforeinstallprompt", e => {
   e.preventDefault();
@@ -1158,7 +1174,7 @@ document.addEventListener("click", async e => {
   }
   if (T("[data-discordx]")) {
     await MMDB.discordOdhlas();
-    JA.set(null);
+    jaZapomen();
     DCU.ok = false;
     DCU.typ = "";
     route();

@@ -3016,7 +3016,7 @@ async function bojPoll() {
   if (BZ.q.length || BZ.beh) return false;
   return bojNacti();
 }
-const BRT = {ok: false, ws: null, zkus: 0};
+const BRT = {ok: false, ws: null, zkus: 0, t: 0};
 function bojRealtime() {
   const C = window.MMDB && MMDB.cfg;
   if (
@@ -3054,7 +3054,18 @@ function bojRealtime() {
     send("realtime:mm-boj", "phx_join", {
       config: {broadcast: {self: false}, presence: {key: ""}, postgres_changes: [{event: "INSERT", schema: "public", table: "puls"}]},
     });
-    hb = setInterval(() => send("phoenix", "heartbeat", {}), 25000);
+    BRT.t = Date.now();
+    /* polootevřené spojení (telefon bez signálu, uspaná síť): bez odpovědi na heartbeat déle než 70 s ho zavřít – jinak by
+       BRT.ok zůstalo true a puls by se ptal jen jednou za minutu i v boji (2026-10-29) */
+    hb = setInterval(() => {
+      if (Date.now() - (BRT.t || 0) > 70000) {
+        try {
+          ws.close();
+        } catch (e) {}
+        return;
+      }
+      send("phoenix", "heartbeat", {});
+    }, 25000);
   };
   ws.onmessage = e => {
     let m;
@@ -3063,8 +3074,14 @@ function bojRealtime() {
     } catch (x) {
       return;
     }
+    BRT.t = Date.now();
     if (m.topic !== "realtime:mm-boj") return;
-    if (m.event === "phx_reply") BRT.ok = !!(m.payload && m.payload.status === "ok");
+    if (m.event === "phx_error" || m.event === "phx_close") {
+      BRT.ok = false;
+      try {
+        ws.close();
+      } catch (x) {}
+    } else if (m.event === "phx_reply") BRT.ok = !!(m.payload && m.payload.status === "ok");
     else if (m.event === "system" && m.payload) BRT.ok = m.payload.status === "ok" ? BRT.ok : false;
     else if (m.event === "postgres_changes") pulsKrok();
   };
