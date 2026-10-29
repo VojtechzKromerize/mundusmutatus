@@ -153,21 +153,21 @@ Draconomicon
 
 Družina · Kronika tažení · automatické odkazy · hledání
 
-- 1735 řádků, 83 definic na nejvyšší úrovni, z toho 36 používají jiné soubory
+- 1750 řádků, 84 definic na nejvyšší úrovni, z toho 36 používají jiné soubory
 - používá z: 01-zaklad (7), 02-mapa (15), 02g-mista (1), 03-artikule (3), 04-praha (5), 05-svet (2), 05b-svet-mapa (1), 06-draconomicon-rodokmeny (3), 07s-stopa (7), 08-navigace-pravidla (3), 09-vypravec-herni-cas (13), 10h-hledani (3), 22-vyprava (1)
 - používají ho: 02-mapa (2), 02b-mapa-kresba (1), 03-artikule (1), 04b-praha-plan (4), 05b-svet-mapa (7), 06-draconomicon-rodokmeny (4), 08-navigace-pravidla (7), 09-vypravec-herni-cas (22), 10-kouzla (8), 11-boj (3), 12-boj-tah-postavy (2), 13-karty (1), 14-karty-bojova-karta (1), 14b-vybaveni (1), 14c-boj-reakce (1), 14d-vybaveni-katalog (1), 15-karty-artikule (7), 16-srd-ukazky-sezeni-hrac (7), 17-karty-ii (1), 17b-kouzla-ucinky (1), 19-karty-beyond (1), 19b-automatika (1), 20b-boj-vypravec (2), 20d-boj-render (2), 21-editor-pecet (8), 22-vyprava (4), 22b-vyprava (8), 23-potvrzovani (1), 25-puls (2), 26-start (2)
 - poskytuje: HRA KARTY PARTY partyDate partyPlace autolink MES ZAPISY fromJdn druzinaNikde herniDen jdn renderKal renderKronika SVST ZBY DISC feasts renderDruzina TRAKTATY TRBY dialCtx dialPoc DNY hraUkolyHtml kronikaPrekresli pFaith renderNovinky stopaTed stopaUiHtml svMeter tvarLet vekPostavy drawParty kalHero stopaHtml
 - oddíly:
   - ř. 3: DRUŽINA
   - ř. 77: KRONIKA TAŽENÍ
-  - ř. 194: Stopa družiny na mapě (2026-10-28, Vojta): úseky po cestách se šipkami, starší slábnou, zastávky s datem, „Dru
-  - ř. 575: Kalendář tažení (juliánský kalendář)
-  - ř. 967: prstenec počasí kolem kola: dnešní počasí z generátoru Výpravy (stejné místo a den = stejné počasí)
-  - ř. 1049: dráček na Úvodu ukazuje stav hry: bdí / spí / svátek / neklid (Hodina Závoje) / Hodina Pravdy; rámeček podle r
-  - ř. 1237: NOVINKY: co družina nově zná (z deníku odhalení)
-  - ř. 1260: AUTOMATICKÉ ODKAZY
-  - ř. 1397: Náhledové kartičky: po najetí na odkaz (nebo prvním ťuknutí) osoba, rod, pojem či plemeno
-  - ř. 1522: HLEDÁNÍ NA CELÉM WEBU
+  - ř. 209: Stopa družiny na mapě (2026-10-28, Vojta): úseky po cestách se šipkami, starší slábnou, zastávky s datem, „Dru
+  - ř. 590: Kalendář tažení (juliánský kalendář)
+  - ř. 982: prstenec počasí kolem kola: dnešní počasí z generátoru Výpravy (stejné místo a den = stejné počasí)
+  - ř. 1064: dráček na Úvodu ukazuje stav hry: bdí / spí / svátek / neklid (Hodina Závoje) / Hodina Pravdy; rámeček podle r
+  - ř. 1252: NOVINKY: co družina nově zná (z deníku odhalení)
+  - ř. 1275: AUTOMATICKÉ ODKAZY
+  - ř. 1412: Náhledové kartičky: po najetí na odkaz (nebo prvním ťuknutí) osoba, rod, pojem či plemeno
+  - ř. 1537: HLEDÁNÍ NA CELÉM WEBU
 
 ## 07s-stopa
 
@@ -182,14 +182,14 @@ Družina · Kronika tažení · automatické odkazy · hledání
 
 site navigation: views, house and person articles
 
-- 1153 řádků, 56 definic na nejvyšší úrovni, z toho 23 používají jiné soubory
+- 1163 řádků, 56 definic na nejvyšší úrovni, z toho 23 používají jiné soubory
 - používá z: 01-zaklad (13), 02-mapa (18), 03-artikule (1), 04-praha (5), 04b-praha-plan (2), 05-svet (4), 05b-svet-mapa (3), 06-draconomicon-rodokmeny (4), 07-druzina-kronika (7), 09-vypravec-herni-cas (1), 10-kouzla (4), 10q-plne-texty (1), 11-boj (4), 13-karty (2), 14d-vybaveni-katalog (1), 15-karty-artikule (4), 16-srd-ukazky-sezeni-hrac (6), 17-karty-ii (1), 18-pravidla-postavy (5), 20d-boj-render (2), 22b-vyprava (2)
 - používají ho: 02-mapa (2), 02b-mapa-kresba (1), 05b-svet-mapa (2), 06-draconomicon-rodokmeny (2), 07-druzina-kronika (3), 09-vypravec-herni-cas (4), 10-kouzla (2), 10h-hledani (4), 10q-plne-texty (3), 11-boj (4), 13-karty (3), 14-karty-bojova-karta (3), 14b-vybaveni (1), 14c-boj-reakce (1), 14d-vybaveni-katalog (1), 15-karty-artikule (2), 16-srd-ukazky-sezeni-hrac (8), 17-karty-ii (7), 17b-kouzla-ucinky (1), 19-karty-beyond (2), 19b-automatika (1), 20-boj-hraci (1), 20b-boj-vypravec (2), 20d-boj-render (4), 21-editor-pecet (2), 22-vyprava (1), 22b-vyprava (1), 23-potvrzovani (2), 25-puls (2), 26-start (2)
 - poskytuje: curView mmNaHre navTo featyMuze route PULTTAB featyMd mmCela PORTR portU renderPersonArticle renderRodArticle SRDP FEATY featyNacti MMCELA_WEB POVOLSHR pThumb slugMimo srdNacti ucetBoxHtml ucetMuze ucetPrihlasen
 - oddíly:
   - ř. 350: Pravidla: český překlad SRD 5.2.1 s poznámkami Artikulí (art/pravidla.json, načte se až při otevření)
-  - ř. 1030: Iluminované iniciály: první písmeno zápisu, oddílu Artikulí, kapitoly Draconomiconu a zápisu kronikáře o rodu
-  - ř. 1064: Účet hráče s heslem (2026-10-20): založení a přihlášení na Úvodu i na stránce Hra; vedle Discordu
+  - ř. 1040: Iluminované iniciály: první písmeno zápisu, oddílu Artikulí, kapitoly Draconomiconu a zápisu kronikáře o rodu
+  - ř. 1074: Účet hráče s heslem (2026-10-20): založení a přihlášení na Úvodu i na stránce Hra; vedle Discordu
 
 ## 09-vypravec-herni-cas
 

@@ -375,7 +375,7 @@ test("Kronika › Traktáty: seznam, článek s obsahem oddílů a vypravěčsk�
   S.ev(`renderKronika("clanky", "kratke-dejiny")`);
   assert.equal(V(`document.querySelector("#kclanky h2").textContent`), "Krátké dějiny země");
   assert.match(V(`document.querySelector("#kclanky .drlatin").textContent`), /^Sepsal Vojtěch z Kroměříže/);
-  assert.ok(V(`document.querySelectorAll("#kclanky .trobsah [data-trsek]").length`) >= 8, "obsah oddílů");
+  assert.ok(V(`document.querySelectorAll("#kclside [data-trsek]").length`) >= 8, "obsah oddílů v postranním obsahu");
   assert.ok(V(`document.querySelectorAll("#kclanky .trtext>h3").length`) >= 8);
   assert.ok(V(`!!document.querySelector('#kclanky .gmbar[data-gmid="kratke-dejiny"][data-gmkind="traktat"]')`), "vypravěč může odhalit");
   assert.deepEqual(S.chyby.slice(chyb), []);

@@ -601,23 +601,33 @@ function renderPravidla(b, c) {
     return;
   }
   const K = SRDP.kap.find(k => k.id === b);
-  side.innerHTML = `<nav class="atoc srdtoc" aria-label="Obsah pravidel"><a class="atop${K || b === "predmety" || b === "netvori" || b === "mimo" || b === "vybaveni" || b === "kouzla" || b === "predmety-plne" ? "" : " on"}" href="#pravidla">Úvod</a>${SRDP.kap
-    .map(
-      k =>
-        `<p class="abook"><a href="#pravidla/${k.id}"${K && K.id === k.id ? ' class="on"' : ""}>${k.n}</a></p>${
-          K && K.id === k.id
-            ? `<ol>${k.toc
-                .filter(t => t.l <= (k.id === "glosar" ? 2 : 1))
-                .map(t => `<li class="srdl${t.l}"><a href="#pravidla/${k.id}/${t.id}">${besc(t.n)}</a></li>`)
-                .join(
-                  "",
-                )}${k.id === "povolani" ? `<li class="srdl1"><a href="#pravidla/mimo/mimo-gunslinger" ${btip("Střelec – povolání mimo SRD (Doplňky mimo SRD › Povolání)")}>Gunslinger</a></li>` : ""}</ol>`
-            : ""
-        }`,
+  /* postranní obsah jako u Artikulí (Vojta 2026-10-29): oddělovače skupin, položky v seznamu, u otevřené kapitoly její oddíly */
+  const pol = (h, n, on, pod) => `<li><a href="${h}"${on ? ' class="on" aria-current="page"' : ""}>${n}</a>${pod || ""}</li>`;
+  const DAL = [
+    ["kouzla", "Kouzla"],
+    ["predmety-plne", "Předměty"],
+    ["predmety", "Magické předměty"],
+    ["vybaveni", "Vybavení"],
+    ["mimo", "Doplňky mimo SRD"],
+    ...(GMV ? [["netvori", "Nestvůry a zvířata"]] : []),
+  ];
+  side.innerHTML = `<button type="button" class="atoggle" aria-expanded="false">☰ Obsah pravidel</button><nav class="atoc srdtoc" aria-label="Obsah pravidel"><a class="atop${K || DAL.some(([id]) => id === b) ? "" : " on"}" href="#pravidla">Úvod</a><p class="abook">Pravidla SRD 5.2.1</p><ol>${SRDP.kap
+    .map(k =>
+      pol(
+        `#pravidla/${k.id}`,
+        k.n,
+        K && K.id === k.id,
+        K && K.id === k.id
+          ? `<ol class="asecs">${k.toc
+              .filter(t => t.l <= (k.id === "glosar" ? 2 : 1))
+              .map(t => `<li class="srdl${t.l}"><a href="#pravidla/${k.id}/${t.id}">${besc(t.n)}</a></li>`)
+              .join(
+                "",
+              )}${k.id === "povolani" ? `<li class="srdl1"><a href="#pravidla/mimo/mimo-gunslinger" ${btip("Střelec – povolání mimo SRD (Doplňky mimo SRD › Povolání)")}>Gunslinger</a></li>` : ""}</ol>`
+          : "",
+      ),
     )
-    .join(
-      "",
-    )}<p class="abook"><a href="#pravidla/predmety"${b === "predmety" ? ' class="on"' : ""}>Magické předměty</a></p><p class="abook"><a href="#pravidla/vybaveni"${b === "vybaveni" ? ' class="on"' : ""}>Vybavení</a></p><p class="abook"><a href="#pravidla/mimo"${b === "mimo" ? ' class="on"' : ""}>Doplňky mimo SRD</a></p><p class="abook"><a href="#pravidla/kouzla"${b === "kouzla" ? ' class="on"' : ""}>Kouzla</a></p><p class="abook"><a href="#pravidla/predmety-plne"${b === "predmety-plne" ? ' class="on"' : ""}>Předměty</a></p>${GMV ? `<p class="abook"><a href="#pravidla/netvori"${b === "netvori" ? ' class="on"' : ""}>Nestvůry a zvířata</a></p>` : ""}</nav>`;
+    .join("")}</ol><p class="abook">Kouzla a výbava</p><ol>${DAL.map(([id, n]) => pol(`#pravidla/${id}`, n, b === id)).join("")}</ol></nav>`;
   if (b === "mimo") {
     renderMimo(main, c);
     return;

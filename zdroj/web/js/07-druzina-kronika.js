@@ -114,11 +114,22 @@ function trRozdel(h) {
   const m = String(h || "").match(/^<p><i>([\s\S]*?)<\/i><\/p>\n?/);
   return m ? {pod: m[1], h: h.slice(m[0].length)} : {pod: "", h: h || ""};
 }
+/* postranní obsah traktátů jako u Artikulí (Vojta 2026-10-29): všechny traktáty, u otevřeného jeho oddíly */
+function trSide(t, hs) {
+  return `<button type="button" class="atoggle" aria-expanded="false">☰ Obsah traktátů</button><nav class="atoc" aria-label="Traktáty"><a class="atop${t ? "" : " on"}" href="#kronika/clanky">Všechny traktáty</a><p class="abook">Traktáty</p><ol>${TRAKTATY.map(
+    x =>
+      `<li><a href="#kronika/clanky/${x.id}"${t === x ? ' class="on" aria-current="page"' : ""}>${x.t}</a>${
+        t === x && hs.length > 1
+          ? `<ol class="asecs">${hs.map((h, j) => `<li><a href="#kronika/clanky/${x.id}" data-trsek="${j}">${h}</a></li>`).join("")}</ol>`
+          : ""
+      }</li>`,
+  ).join("")}</ol></nav>`;
+}
 function renderTraktaty(c) {
   const box = document.getElementById("kclanky"),
     t = TRBY[c];
   if (!t) {
-    box.innerHTML = `<p class="intro">Traktáty o světě po protržení Závoje: o zemích, řádech, pověstech a tajemstvích, jak je sepsal kronikář Vojtěch z Kroměříže.</p>
+    box.innerHTML = `<div class="alay"><aside class="aside" id="kclside">${trSide(null, [])}</aside><article class="amain"><p class="intro">Traktáty o světě po protržení Závoje: o zemích, řádech, pověstech a tajemstvích, jak je sepsal kronikář Vojtěch z Kroměříže.</p>
       ${
         TRAKTATY.length
           ? `<ol class="trlist">${TRAKTATY.map(x => {
@@ -134,30 +145,34 @@ function renderTraktaty(c) {
               }</a></li>`;
             }).join("")}</ol>`
           : `<div class="placeholder"><p>Traktáty budou doplněny.</p></div>`
-      }`;
+      }</article></div>`;
     return;
   }
   const i = TRAKTATY.indexOf(t),
     pv = TRAKTATY[i - 1],
     nx = TRAKTATY[i + 1],
     r = trRozdel(t.h),
-    hs = [...r.h.matchAll(/<h3>([\s\S]*?)<\/h3>/g)].map(m => m[1]);
-  box.innerHTML = `<nav class="crumbs"><a href="#kronika/clanky">Traktáty</a> › <b>${t.t}</b></nav>
+    hs = t.sl ? [] : [...r.h.matchAll(/<h3>([\s\S]*?)<\/h3>/g)].map(m => m[1]);
+  box.innerHTML = `<div class="alay"><aside class="aside" id="kclside">${trSide(t, hs)}</aside><article class="amain"><nav class="crumbs"><a href="#kronika/clanky">Traktáty</a> › <b>${t.t}</b></nav>
     <h2 class="arttitle">${t.t}</h2>
     ${r.pod ? `<p class="drlatin">${r.pod}</p>` : ""}
-    ${
-      t.sl
-        ? `<p class="intro">O tomto traktátu družina zatím jen slyšela; jeho text nezná.</p>`
-        : `${hs.length > 2 ? `<nav class="trobsah" aria-label="Obsah traktátu"><b>Obsah</b><ol>${hs.map((x, j) => `<li><button type="button" data-trsek="${j}">${x}</button></li>`).join("")}</ol></nav>` : ""}
-    <div class="drtext trtext">${r.h}</div>`
-    }
-    <nav class="apn">${pv ? `<a href="#kronika/clanky/${pv.id}" rel="prev"><small>Předchozí</small>${pv.t}</a>` : "<span></span>"}${nx ? `<a href="#kronika/clanky/${nx.id}" rel="next"><small>Další</small>${nx.t}</a>` : "<span></span>"}</nav>`;
+    ${t.sl ? `<p class="intro">O tomto traktátu družina zatím jen slyšela; jeho text nezná.</p>` : `<div class="drtext trtext">${r.h}</div>`}
+    <nav class="apn">${pv ? `<a href="#kronika/clanky/${pv.id}" rel="prev"><small>Předchozí</small>${pv.t}</a>` : "<span></span>"}${nx ? `<a href="#kronika/clanky/${nx.id}" rel="next"><small>Další</small>${nx.t}</a>` : "<span></span>"}</nav></article></div>`;
   const tx = box.querySelector(".trtext");
   if (tx) autolink(tx, "");
 }
+/* rozbalení postranního obsahu na telefonu (Pravidla, Traktáty – kreslí se znovu, proto přes delegaci) */
+document.addEventListener("click", e => {
+  const tg = e.target.closest && e.target.closest("#srdside .atoggle, #kclside .atoggle");
+  if (!tg) return;
+  const side = tg.closest(".aside"),
+    o = side.classList.toggle("open");
+  tg.setAttribute("aria-expanded", o);
+});
 document.addEventListener("click", e => {
   const b = e.target.closest("[data-trsek]");
   if (!b) return;
+  e.preventDefault();
   const h = document.querySelectorAll("#kclanky .trtext>h3")[+b.dataset.trsek];
   if (h) h.scrollIntoView({behavior: matchMedia("(prefers-reduced-motion:reduce)").matches ? "auto" : "smooth", block: "start"});
 });

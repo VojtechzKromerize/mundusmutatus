@@ -8,8 +8,8 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 |---|---|---|---|
 | `AIMG` | 03-artikule:2 | const | Artikule: cesta ke složce obrázků ("art/") pro ilustrace kapitol |
 | `AK` | 03-artikule:1001 | const | Artikule: kapitoly podle id (z ARTK) – rychlé hledání kapitoly |
-| `AL` | 07-druzina-kronika:1261 | const | automatické odkazy (autolink): slovník pojmů → cíl a společný regulární výraz pro prolinkování textů |
-| `AL_SKIP` | 07-druzina-kronika:1352 | const | autolink: CSS selektory prvků, v nichž se odkazy nevkládají (nadpisy, tlačítka, formuláře…) |
+| `AL` | 07-druzina-kronika:1276 | const | automatické odkazy (autolink): slovník pojmů → cíl a společný regulární výraz pro prolinkování textů |
+| `AL_SKIP` | 07-druzina-kronika:1367 | const | autolink: CSS selektory prvků, v nichž se odkazy nevkládají (nadpisy, tlačítka, formuláře…) |
 | `ARMS` | 01-zaklad:277 | const | erby rodů podle id rodu (z buildu, značka @ARMS@) – cesty k obrázkům erbů |
 | `ARTB` | 03-artikule:215 | const | Artikule: seznam knih (Víra, Boj, Rány, Rejstřík) s názvem a popisem |
 | `ARTK` | 03-artikule:221 | const | Artikule: seznam kapitol (id, kniha, název, obrázek, shrnutí, citát, text) |
@@ -196,18 +196,18 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `CONFN` | 01-zaklad:141 | const | vyznání (kat, kal, mix, isl) → český název (katolíci, kališníci…) |
 | `CTYPE` | 02-mapa:2504 | const | mapa: id rodu-města → typ města (Královské město, Zeměpanské město…) pro detail |
 | `DCU` | 17-karty-ii:4 | const | ⓐ typ: "discord" nebo "email" (účet s heslem) |
-| `DEG` | 07-druzina-kronika:744 | const | ⓐ hodiny Závoje na úvodu: 24 hodin (pravý sluneční čas Prahy), poledne nahoře, půlnoc dole |
+| `DEG` | 07-druzina-kronika:759 | const | ⓐ hodiny Závoje na úvodu: 24 hodin (pravý sluneční čas Prahy), poledne nahoře, půlnoc dole |
 | `DF` | 02-mapa:6351 | const | ⓐ desky: filters + list view |
 | `DIO` | 02-mapa:2709 | const | mapa: diecéze (id, barva, název, sídlo, poznámka) pro vrstvu církevní správy |
 | `DIO_ORDER` | 02-mapa:3182 | const | mapa: pořadí kreslení polygonů diecézí (od vnějších k vnitřním) |
 | `DIO_POLY` | 02b-mapa-kresba:2328 | const | kresba mapy: polygony diecézí podle id (souřadnice lon/lat) |
 | `DISC` | 07-druzina-kronika:83 | var | Družina: objevená místa z buildu (@MISTA@) – vrstva Družina na mapě, odhalení vypravěče |
-| `DNY` | 07-druzina-kronika:577 | const | kalendář: názvy dnů v týdnu (neděle…sobota) podle indexu 0–6 |
-| `DNYV` | 07-druzina-kronika:692 | const | kalendář: dny v týdnu s předložkou („v neděli“, „ve středu“) pro starou dataci zápisů |
+| `DNY` | 07-druzina-kronika:592 | const | kalendář: názvy dnů v týdnu (neděle…sobota) podle indexu 0–6 |
+| `DNYV` | 07-druzina-kronika:707 | const | kalendář: dny v týdnu s předložkou („v neděli“, „ve středu“) pro starou dataci zápisů |
 | `DOMAIN` | 02-mapa:4434 | const | mapa: panství rodů (id rodu, barva „odstín:varianta“ nebo city, poloha popisku, šířka) pro vrstvu držav |
 | `DOMAIN_POLY` | 02b-mapa-kresba:4845 | const | kresba mapy: polygony držav rodů podle id rodu |
 | `DRACI` | 06-draconomicon-rodokmeny:2 | const | Draconomicon: data z buildu (@DRACI@) – kapitoly (kap) a dračí plemena (pl) |
-| `DRAK_T` | 07-druzina-kronika:1050 | const | Úvod: stav dráčka (bdí, spí, svátek, neklid, pravda) → popisek pro obrázek |
+| `DRAK_T` | 07-druzina-kronika:1065 | const | Úvod: stav dráčka (bdí, spí, svátek, neklid, pravda) → popisek pro obrázek |
 | `DRBY` | 06-draconomicon-rodokmeny:15 | const | Draconomicon: id → {k: kap|pl, o: objekt} – hledání kapitoly nebo plemene podle hashe |
 | `DUCH_NOLBL` | 02-mapa:4485 | const | kresba mapy: id zemí (kcz, mor, hun…), u nichž se nekreslí popisek vrstvy zemí |
 | `DUCHY` | 02-mapa:3274 | const | mapa: země Koruny a sousedé (id, název, zkratka, hlava, poznámka, barva, poloha popisku) |
@@ -238,8 +238,8 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `GENZEME` | 09g-generator-postav:46 | const | ⓐ země: [název, podíly jazyků na venkově, podíly ve městech, podíly vyznání [kališník, katolík, kolísající]] |
 | `GH` | 02-mapa:6508 | const | graf vazeb: výška kreslicí plochy SVG (640) |
 | `GIDS` | 02-mapa:6506 | const | graf vazeb: id rodů, které mají aspoň jednu vazbu a existují v FAM – uzly grafu |
-| `GIDX` | 07-druzina-kronika:1524 | const | hledání na celém webu: rejstřík položek (druh, název, popis, odkaz, normalizovaný text) |
-| `GIDXH` | 07-druzina-kronika:1525 | let | ⓘ `false;` |
+| `GIDX` | 07-druzina-kronika:1539 | const | hledání na celém webu: rejstřík položek (druh, název, popis, odkaz, normalizovaný text) |
+| `GIDXH` | 07-druzina-kronika:1540 | let | ⓘ `false;` |
 | `GINFO0` | 02-mapa:6665 | const | graf vazeb: původní HTML panelu #ginfo – obnoví se po zrušení výběru rodu |
 | `GLOSS` | 03-artikule:18 | const | Artikule: slovníček pojmů (id, název, kapitola, tvary slova, definice) – i pro autolink |
 | `GMV` | 04-praha:32 | const | vypravěčská verze webu (build přepne @GM@ na true) – větvení kódu jen pro vypravěče |
@@ -265,7 +265,7 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `HRAKL` | 22-vyprava:697 | const | Výprava: klíče stavu hry ukládané do kroků Zpět (datum, hodina, misto, praha, cesta, poloha, putovani) |
 | `HRAP` | 16-srd-ukazky-sezeni-hrac:1380 | let | Hra: příznak spuštěného pravidelného načítání (hraPoll) výzev, zpráv, potvrzení – jen jednou |
 | `HRKOR` | 02b-mapa-kresba:15120 | let | ⓐ vnější úseky hranice Koruny (úsek, který leží jen v jedné zemi Koruny) a jejich druh podle krajiny; spočítá se jednou |
-| `ILSEL` | 08-navigace-pravidla:1031 | const | iluminované iniciály: CSS selektory odstavců, které dostanou zdobené první písmeno |
+| `ILSEL` | 08-navigace-pravidla:1041 | const | iluminované iniciály: CSS selektory odstavců, které dostanou zdobené první písmeno |
 | `INSTP` | 19-karty-beyond:966 | let | PWA: uložená událost beforeinstallprompt – tlačítko „Nainstalovat jako aplikaci“ ji vyvolá |
 | `JA` | 11-boj:2490 | const | ⓐ přihlášený hráč (stránka Hra): {k: karta, t: token relace, n: jméno} |
 | `JEZERA` | 02-mapa:5867 | const | ⓐ jezera (bez přehrad – ty roku 1458 nejsou): Neziderské jezero na pomezí Rakous a Uher |
@@ -429,7 +429,7 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `LES_DRUH` | 02b-mapa-kresba:15112 | const | ⓘ `const LES_DRUH =` |
 | `LES_JEHL` | 02b-mapa-kresba:15118 | const | ⓘ `{s: 0.45, j: 0.85, l: 0.1};` |
 | `LLBL` | 02b-mapa-kresba:676 | const | kresba mapy: popisky zemí Koruny ([NÁZEV, lon, lat, velikost]) |
-| `LOKATIV` | 07-druzina-kronika:712 | const | Kronika: název místa → tvar „v Praze“, „v Kutné Hoře“ pro věty datace |
+| `LOKATIV` | 07-druzina-kronika:727 | const | Kronika: název místa → tvar „v Praze“, „v Kutné Hoře“ pro věty datace |
 | `MAJOR_PLACES` | 02-mapa:2570 | const | mapa: názvy hlavních měst (Praha, Vratislav, Vídeň…), které se ukazují i při oddálení |
 | `MAJOR_ROADS` | 02-mapa:2522 | const | mapa: názvy hlavních stezek (Prachatická stezka…), které se kreslí zvýrazněně |
 | `MANZ` | 10p-pravidla:411 | const | ⓘ `{` |
@@ -440,7 +440,7 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `MAPW_MQ` | 02-mapa:717 | const | ⓘ `matchMedia("(min-width:1100px)");` |
 | `MAPW_PRESET` | 02-mapa:719 | const | ⓘ `890;` |
 | `MAPWB` | 02-mapa:718 | const | ⓘ `[-101, -302, 972, 1232];` |
-| `MES` | 07-druzina-kronika:576 | const | kalendář: názvy měsíců v 2. pádě (ledna, února…) pro datace |
+| `MES` | 07-druzina-kronika:591 | const | kalendář: názvy měsíců v 2. pádě (ledna, února…) pro datace |
 | `METRO` | 02-mapa:2651 | const | ⓘ `new Set([` |
 | `MIKB` | 02b-mapa-kresba:15244 | let | ⓐ barvy motivu pro jedno vykreslení (drawMapK je na začátku vynuluje) – čtení stylu je drahé, ikon jsou stovky |
 | `MIKC` | 02b-mapa-kresba:15243 | const | ⓐ hotové ikony: klíč → data URL; barvy jsou součástí klíče |
@@ -455,8 +455,8 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `MIMOPOZN` | 18-pravidla-postavy:777 | const | Mimo SRD: text upozornění, že jde o vlastní shrnutí mechaniky, ne oficiální text pravidel |
 | `MIMOR` | 18-pravidla-postavy:625 | let | Mimo SRD: rejstřík rysů podle normalizovaného názvu (mimoN) → záznam s mechanikou (počty použití, ef) |
 | `MIMOSKIP` | 18-pravidla-postavy:712 | const | ⓐ rysy, které pravidla už počítají jménem (Tough, Speedy, Lucky…), tu nesčítat podruhé |
-| `MMCELA_MQ` | 08-navigace-pravidla:723 | const | navigace: media query šířky ≤ 700 px – hráčova Hra na telefonu přes celou obrazovku |
-| `MMCELA_WEB` | 08-navigace-pravidla:724 | let | navigace: hráč na telefonu kliknul ☰ a chce vidět web s menu (vypne celoobrazovkovou Hru) |
+| `MMCELA_MQ` | 08-navigace-pravidla:733 | const | navigace: media query šířky ≤ 700 px – hráčova Hra na telefonu přes celou obrazovku |
+| `MMCELA_WEB` | 08-navigace-pravidla:734 | let | navigace: hráč na telefonu kliknul ☰ a chce vidět web s menu (vypne celoobrazovkovou Hru) |
 | `MMCHSUM` | 01-zaklad:33 | const | ⓘ `const MMCHSUM =` |
 | `MMCHYBY` | 01-zaklad:32 | const | ⓘ `{n: 0, b: new Set()};` |
 | `MMIDB` | 15-karty-artikule:992 | const | Karty: obal IndexedDB „mm“ (store kv) – get/set – druhá offline kopie karet vedle localStorage |
@@ -472,12 +472,12 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `MTZ` | 02-mapa:2665 | const | ⓘ `[21, 17, 14, 12];` |
 | `NAMEPTS` | 02-mapa:6918 | const | mapa: body se jménem (sídla z PLACES + města TOWNS) – pojmenování nejbližšího místa |
 | `NAVMOJE` | 23-potvrzovani:126 | var | Potvrzování: id návrhů odeslaných tímto hráčem – po rozhodnutí vypravěče se mu ohlásí výsledek |
-| `NAVNAME` | 08-navigace-pravidla:680 | const | navigace: id stránky → název v menu (Hra, Úvod, Artikule…) |
+| `NAVNAME` | 08-navigace-pravidla:690 | const | navigace: id stránky → název v menu (Hra, Úvod, Artikule…) |
 | `NAVOD` | 16-srd-ukazky-sezeni-hrac:1062 | const | Hra: HTML návod pro hráče „Jak hrát na webu“ (nahrát PDF, přihlásit, kostka Závoje, Svědomí, boj) |
 | `NAVRHY` | 23-potvrzovani:125 | var | Potvrzování: návrhy hráčů ke schválení vypravěčem (léčení, Bardic spojenců) načtené z databáze |
 | `NBR_LANDS` | 02-mapa:6424 | const | Zemské desky: názvy sousedních zemí (Braniborsko, Polsko…) pro záložky cizích rodů |
 | `NBRS` | 02b-mapa-kresba:714 | const | kresba mapy: polygony sousedních zemí ([id, prstence]) kolem Koruny |
-| `NEDELE` | 07-druzina-kronika:672 | const | kalendář: neděle liturgického roku ([dny od Velikonoc, název, tvary]) pro starou dataci |
+| `NEDELE` | 07-druzina-kronika:687 | const | kalendář: neděle liturgického roku ([dny od Velikonoc, název, tvary]) pro starou dataci |
 | `NETV` | 16-srd-ukazky-sezeni-hrac:112 | let | ⓐ nestvůry: připojí se k protivníkům (bestiář v Boji, přidání do boje) |
 | `NETVP` | 16-srd-ukazky-sezeni-hrac:113 | let | Nestvůry: probíhající Promise načítání art/netvori.json (NETV) |
 | `NLBL` | 02b-mapa-kresba:684 | const | kresba mapy: popisky sousedních zemí ([NÁZEV, lon, lat]) |
@@ -512,7 +512,7 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `PMA` | 04-praha:35 | const | plán Prahy: cesta ke složce obrázků plánu ("art/mapa/") |
 | `PMEZE` | 04b-praha-plan:38 | const | ⓐ výřez plánu v mezích [x0, y0, x1, y1, nejmenší a největší šířka]; v celé obrazovce (02f) v poměru stran okna, jinak PAR |
 | `PMU` | 04b-praha-plan:1390 | const | ⓐ metrů na jednotku plánu (podle délky Kamenného mostu) |
-| `POC_N` | 07-druzina-kronika:996 | const | počasí: klíč (jasno, dest, snih…) → český název pro ikonu na Úvodu |
+| `POC_N` | 07-druzina-kronika:1011 | const | počasí: klíč (jasno, dest, snih…) → český název pro ikonu na Úvodu |
 | `POJ` | 15-karty-artikule:1241 | let | Glosář SRD: pojmy z art/pojmy.json podle tvaru slova → {id, en, cz, d} pro popisky v textu (null = nenačteno) |
 | `POJDOV` | 02d-pojmy:21 | const | ⓘ `{` |
 | `POJKOST` | 02d-pojmy:46 | const | ⓘ `/(\d+\s*(?:[dk]\d+)?(?:\s*[+−-]\s*\d+)?\)?\|\d+\s*\(\d+[dk]\d+(?:\s*[+−…` |
@@ -559,7 +559,7 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `PSTREETS` | 04-praha:37 | const | ⓐ názvy ulic, trhů a bran: [název, x, y, natočení] |
 | `PULS` | 25-puls:7 | var | Puls: stav pravidelného dotazu na změny v databázi – z poslední verze, beh běží, znovu, t, obnov, start, stary (databáze bez pulsu) |
 | `PULS_HRA` | 25-puls:8 | const | Puls: druhy změn pro stránku Hra (vyzvy, zpravy, navrhy, potvrz, pokladna) – spustí hraPoll |
-| `PULTTAB` | 08-navigace-pravidla:742 | let | ⓐ záložka řídicího pultu vypravěče: boj \| druzina \| sezeni (nastaví route podle adresy) |
+| `PULTTAB` | 08-navigace-pravidla:752 | let | ⓐ záložka řídicího pultu vypravěče: boj \| druzina \| sezeni (nastaví route podle adresy) |
 | `PUSHST` | 19-karty-beyond:897 | let | Web Push: stav odběru upozornění – „on“, „off“ nebo null (nezjištěno) |
 | `PVB0` | 04-praha:33 | const | plán Prahy: výchozí viewBox SVG [x, y, šířka, výška] |
 | `PZID` | 04b-praha-plan:151 | const | plán Prahy: body obrysu Židovského Města (tečkovaná hranice čtvrti) |
@@ -573,7 +573,7 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `RGRAF` | 06-draconomicon-rodokmeny:107 | let | rodokmeny: propojený graf osob všech rodokmenů (lazy, vytvoří rodGraf) |
 | `RGVZ` | 06-draconomicon-rodokmeny:238 | const | rodokmeny: kód vztahu (P, C, S, PC…) → [mužský, ženský] název (otec/matka, syn/dcera…) |
 | `RICON` | 01-zaklad:266 | const | typ vazby (rod, spoj, spor) → cesta k ikoně vazby |
-| `RIMV` | 07-druzina-kronika:826 | const | ⓐ hodiny 2 × 12 („půl orloj“, jako římské číslice pražského orloje), unciálními kapitálami; čtyřka IIII jako na ciferníku |
+| `RIMV` | 07-druzina-kronika:841 | const | ⓐ hodiny 2 × 12 („půl orloj“, jako římské číslice pražského orloje), unciálními kapitálami; čtyřka IIII jako na ciferníku |
 | `RIVERS` | 02-mapa:13 | const | mapa: linie řek (lon/lat) pro kresbu a přechody řek |
 | `RIVLBL` | 02b-mapa-kresba:14976 | const | kresba mapy: popisky řek ([název, lon, lat, natočení]) |
 | `RIVNAMES` | 09-vypravec-herni-cas:332 | const | ⓐ řeky z mapy (pořadí jako RIVERS), stálé mosty roku 1458 a známá mýtná místa |
@@ -626,11 +626,11 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `STECH` | 15-karty-artikule:123 | const | ⓐ techniky a chvaty: id, název, cena, Požehnání (1) / reakce (r) / bonusová akce (b), účinek |
 | `STLBL` | 09-vypravec-herni-cas:3 | const | vypravěč: popisky stupňů odhalení (Skryté, Slyšeli, Potkali) |
 | `STOPA_POHLEDY` | 07s-stopa:5 | const | ⓘ `[` |
-| `STOPAG` | 07-druzina-kronika:213 | const | ⓐ úsek mezi dvěma místy po síti cest (computeRoute v 02); bez cesty po souši (ostrov) nebo neznámé místo → rovná čára |
-| `STOPAP` | 07-druzina-kronika:196 | let | ⓘ `null;` |
+| `STOPAG` | 07-druzina-kronika:228 | const | ⓐ úsek mezi dvěma místy po síti cest (computeRoute v 02); bez cesty po souši (ostrov) nebo neznámé místo → rovná čára |
+| `STOPAP` | 07-druzina-kronika:211 | let | ⓘ `null;` |
 | `STRKOUSKY` | 10x-strelec:23 | const | ⓐ kousky: [klíč, anglicky, česky, čas (BA bonusová akce, R reakce, 0 bez akce), od úrovně, krátký popis]; lhar jen Karbaník |
 | `SUBT` | 08-navigace-pravidla:21 | const | navigace: id stránky → podtitul hlavičky („Koruna česká k 3. březnu…“) |
-| `SVATKYD` | 07-druzina-kronika:619 | const | ⓐ datování po středověku: svátek dne a neděle církevního roku (juliánský kalendář, Velikonoce podle starého výpočtu) |
+| `SVATKYD` | 07-druzina-kronika:634 | const | ⓐ datování po středověku: svátek dne a neděle církevního roku (juliánský kalendář, Velikonoce podle starého výpočtu) |
 | `SVB` | 05-svet:109 | const | Známý svět: mocnosti podle id (z SVET) – rychlé hledání |
 | `SVB0` | 05-svet:310 | const | mapa světa: výchozí viewBox SVG [0, 0, 1024, 790] |
 | `SVET` | 05-svet:2 | const | Známý svět: mocnosti z buildu (@SVET@) – id, název, vyznání, spojenci, nepřátelé |
@@ -656,7 +656,7 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `TREES` | 06-draconomicon-rodokmeny:83 | const | ⓐ p = osoba v zemských deskách, r = rod, d = data, m = z kterého manželství, note = poznámka |
 | `TRIBS` | 02b-mapa-kresba:14043 | const | kresba mapy: linie přítoků (menší řeky, lon/lat) kreslené tenčí čárou |
 | `TSTAV` | 06-draconomicon-rodokmeny:271 | const | ⓐ stav rodokmenů: zaostřená osoba, vybrané manželství, historie procházení |
-| `UCETR` | 08-navigace-pravidla:1065 | let | ⓐ otevřený formulář: "" (jen tlačítka), "novy", "prihlas" |
+| `UCETR` | 08-navigace-pravidla:1075 | let | ⓐ otevřený formulář: "" (jen tlačítka), "novy", "prihlas" |
 | `UCINKY` | 10u-ucinky:18 | const | Účinky v jednom formátu (10u, čisté): jméno → posílení (ac, rych, zach, res, hpmax…) a kostky k hodům (kostka, na, jednou, poHodu); dřív KZEF + KPRID |
 | `UCTYPY` | 10u-ucinky:266 | const | Účinky (10u): všech 13 typů zranění pro Resistance „vse“ (Warding Bond, Feign Death…) |
 | `UKAZKY` | 16-srd-ukazky-sezeni-hrac:238 | let | Ukázky od vypravěče (obrázek, dopis, mapka) načtené z databáze, nejnovější první |
