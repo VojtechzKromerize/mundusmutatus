@@ -67,14 +67,14 @@ const KFEAT = {
       "Přijímání podobojí",
       1,
       1,
-      "1× za dlouhý odpočinek přijmi krev Boží: obnov slot kouzla až do stupně podle bonusu zdatnosti, nebo Výdrž až do poloviny bonusu zdatnosti.",
+      "1× za dlouhý odpočinek přijmi krev Boží: obnov jednu pozici kouzla nejvýš do stupně rovného bonusu zdatnosti, nebo tolik Výdrže, kolik je polovina bonusu zdatnosti (aspoň 1).",
     ],
     ["Pravda Páně", 1, 2, "Akce, 1× za dlouhý odpočinek: zjistíš, zda je cíl ovlivněn Závojem (anděl, démon či Proměněnec)."],
     [
       "Ktož sú Boží bojovníci!",
       1,
       3,
-      "Akce, 1× za dlouhý odpočinek: bojový chorál – spojenci v doslechu získají bonus d4 ke všem útokům i záchranám.",
+      "Akce, 1× za dlouhý odpočinek: bojový chorál – spojenci v doslechu získají na 3 kola bonus k4 ke všem hodům na útok i záchranným hodům.",
     ],
   ],
   kat: [
@@ -82,14 +82,14 @@ const KFEAT = {
       "Přímluva patrona",
       3,
       1,
-      "3× za dlouhý odpočinek: přímluva u světce – výhoda na hod podle jeho dovedností (sv. Jiří Acrobatics, Athletics · sv. Václav útok, Persuasion · sv. Ludmila Insight, Medicine · sv. Vojtěch Religion, Perception · sv. Kryštof Survival, Animal Handling).",
+      "3× za dlouhý odpočinek: přímluva u světce – výhoda na hod podle jeho dovedností (sv. Jiří Akrobacie, Atletika · sv. Václav hody na útok, Přesvědčování · sv. Ludmila Vhled, Lékařství · sv. Vojtěch Náboženství, Vnímání · sv. Kryštof Přežití, Ovládání zvířat).",
     ],
     ["Oroduj za nás", 1, 2, "Reakce, 1× za dlouhý odpočinek: ty nebo spojenec do 30 stop přehodí neúspěšnou záchranu."],
     [
       "Ve jménu Páně!",
       1,
       3,
-      "Akce, 1× za dlouhý odpočinek: pozvedneš kříž proti démonům a nemrtvým – nižší démony vyhostí, vyšší hází WIS záchranu, při neúspěchu jsou Frightened.",
+      "Akce, 1× za dlouhý odpočinek: pozvedneš kříž proti démonům a nemrtvým – nižší démony vyhostí, vyšší hází záchranu na WIS se SO 12, při neúspěchu jsou Vyděšení (Frightened).",
     ],
   ],
   old: [
@@ -792,7 +792,7 @@ function kRanyHtml(K) {
   const tl = (a, t, tip) => `<button type="button" class="gbtn ghost kranlec" ${a} ${btip(tip)}>${t}</button>`;
   return `<h3 class="uvh2">Rány <a class="pmore" href="#artikule/kriticka">pravidla →</a></h3><ul class="krany" data-kranyk="${besc(K.id)}">${R.map(
     (x, j) => {
-      const L = ranaLecba(x.t),
+      const L = ranaLecba(x.t, R.length - 1),
         b = !muze
           ? ""
           : [
@@ -865,7 +865,7 @@ document.addEventListener("click", async e => {
       const j = +b.dataset.kranlek,
         x = kRany(K)[j],
         H = kRanaLecitel(K),
-        L = x && ranaLecba(x.t);
+        L = x && ranaLecba(x.t, kRany(K).length - 1);
       if (!x || !H || !L.lek) return;
       const r = await kartaHod(H, `Medicine – ošetření rány${H !== K ? ` (${K.n})` : ""}, SO ${L.lek}`, kDov(H, "Medicine"), {});
       if (!r) return;

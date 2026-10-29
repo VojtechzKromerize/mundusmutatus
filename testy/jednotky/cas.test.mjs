@@ -119,6 +119,24 @@ test("Závoj: v Hodině Závoje (poledne, půlnoc, klekání) padá Pokušení u
   }
 });
 
+test("Závoj: slunovrat je Hodina Závoje po celý den (jediný den v roce), není to svátek", () => {
+  try {
+    const dny = [];
+    for (let d = 1; d <= 30; d++) {
+      hra({datum: `1458-06-${String(d).padStart(2, "0")}`, hodina: 10});
+      const I = V(`zavojInfo()`);
+      if (I.z) dny.push([d, I.z, I.fe]);
+    }
+    assert.equal(dny.length, 1, "v červnu je Hodina Závoje v 10 dopoledne jen v den slunovratu");
+    assert.equal(dny[0][1], "letní slunovrat");
+    assert.ok(!dny[0][2].includes("letní slunovrat"), "slunovrat nedává Požehnání jako svátek");
+    hra({datum: `1458-06-${String(dny[0][0]).padStart(2, "0")}`, hodina: 12});
+    assert.equal(V(`zavojInfo().z`), "poledne o slunovratu");
+  } finally {
+    hra(null);
+  }
+});
+
 test("Závoj: v záznamu boje se výsledek dopočítá z kostky, uložený výsledek má přednost", () => {
   assert.deepEqual(V(`bzZav(1)`), {d: 1, r: "pok", txt: ""});
   assert.deepEqual(V(`bzZav(3)`), {d: 3, r: "", txt: ""});

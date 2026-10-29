@@ -829,11 +829,18 @@ function dialCtx(Y, M, D, today, H, Hprev) {
     ["nešpory", sun.set - 0.5],
     ["kompletář", sun.set + 1.5],
   ];
+  /* slunovrat (Vojta 2026-10-29): Hodina Závoje po celý den slunovratu (den, kdy je Slunce nejvýš či nejníž), ne svátek */
   const fe = feasts(Y)
       .filter(f => f.j === today)
       .map(f => f.n),
-    sol = Math.abs(sun.dec) > 23.3 ? (sun.dec > 0 ? "letní slunovrat" : "zimní slunovrat") : "";
-  if (sol) fe.push(sol);
+    dA = Math.abs(sun.dec),
+    sol =
+      dA > 23 && dA >= Math.abs(sunFor(today - 1).dec) && dA > Math.abs(sunFor(today + 1).dec)
+        ? sun.dec > 0
+          ? "letní slunovrat"
+          : "zimní slunovrat"
+        : "";
+  if (sol) for (let h = 0; h < 24; h++) Z[h] = Z[h] ? `${Z[h]} o slunovratu` : sol;
   const cz = h => ((Math.round(h - sun.set) % 24) + 24) % 24 || 24;
   return {Y, M, D, H, Hprev, sun, moon, Z, canon, fe, cz};
 }
