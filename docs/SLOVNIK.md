@@ -707,10 +707,10 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `VY_ZP` | 22-vyprava:6 | const | Výprava: způsoby cesty [klíč, název, km/den, km/h v Praze] – pesky, kun, vuz, posel, drak |
 | `VYB` | 14d-vybaveni-katalog:4 | let | Vybavení katalog: data z art/vybaveni.json podle skupiny (zbroj, zbrane…, vlastnosti) nebo null |
 | `VYBBY` | 14d-vybaveni-katalog:6 | const | Vybavení katalog: index položek podle id |
-| `VYBF` | 14d-vybaveni-katalog:158 | let | Vybavení katalog: filtr stránky Pravidla › Vybavení – q hledaný text, sk skupina, vz vzácnost (t timeout) |
+| `VYBF` | 14d-vybaveni-katalog:159 | let | Vybavení katalog: filtr stránky Pravidla › Vybavení – q hledaný text, sk skupina, vz vzácnost (t timeout) |
 | `VYBK` | 14d-vybaveni-katalog:131 | let | ⓐ postava, do které se na stránce Vybavení přidává: hráč svou, vypravěč vybranou |
-| `VYBMINC` | 14d-vybaveni-katalog:147 | const | ⓘ `{"Gold Piece": "GP", "Silver Piece": "SP", "Copper Piece": "CP"},` |
-| `VYBMKURZ` | 14d-vybaveni-katalog:148 | const | ⓘ `{GP: "40 grošů", SP: "10 haléřů", CP: "nejmenší mince"};` |
+| `VYBMINC` | 14d-vybaveni-katalog:148 | const | ⓘ `{"Gold Piece": "GP", "Silver Piece": "SP", "Copper Piece": "CP"},` |
+| `VYBMKURZ` | 14d-vybaveni-katalog:149 | const | ⓘ `{GP: "40 grošů", SP: "10 haléřů", CP: "nejmenší mince"};` |
 | `VYBN` | 14d-vybaveni-katalog:7 | const | Vybavení katalog: index položek podle normalizovaného anglického i českého názvu (vybNajdi) |
 | `VYBP` | 14d-vybaveni-katalog:5 | let | Vybavení katalog: probíhající Promise načítání VYB (vybNacti) |
 | `VYBSK` | 14d-vybaveni-katalog:8 | const | Vybavení katalog: skupiny [klíč, název] – zbroj, zbrane, strelivo, vybava, naradi, zvirata, sedla, vozy, plavidla, magicke… |

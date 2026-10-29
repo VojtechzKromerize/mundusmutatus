@@ -426,13 +426,13 @@ Boj: zásahy rovnou do karty, reakce na telefonu, plošné zásahy a iniciativa 
 
 Vybavení: katalog (2026-10-20) – art/vybaveni.json z Vojtova Přehledu vybavení (zdroj/vybaveni) s pravidly Artikulí.
 
-- 296 řádků, 24 definic na nejvyšší úrovni, z toho 16 používají jiné soubory
+- 298 řádků, 24 definic na nejvyšší úrovni, z toho 16 používají jiné soubory
 - používá z: 01-zaklad (1), 02-mapa (5), 02c-zbroj (1), 04-praha (1), 07-druzina-kronika (1), 08-navigace-pravidla (1), 10-kouzla (1), 10q-plne-texty (1), 11-boj (1), 12-boj-tah-postavy (1), 14-karty-bojova-karta (1), 14b-vybaveni (2), 15-karty-artikule (1), 16-srd-ukazky-sezeni-hrac (5), 18-pravidla-postavy (1)
 - používají ho: 08-navigace-pravidla (1), 10h-hledani (4), 10q-plne-texty (1), 13-karty (3), 14-karty-bojova-karta (5), 14b-vybaveni (12), 19b-automatika (3), 23-potvrzovani (4)
 - poskytuje: VYB vybNacti VYBBY vybKl VYBN vybNajdi vybPoolVstup VYBSK renderVybaveni vybArtikule vybCil vybKarta VYBP vybParam VYBSKN vybVl
 - oddíly:
   - ř. 118: přidání do vybavení postavy (stránka Vybavení i nabídka na kartě)
-  - ř. 157: stránka Pravidla › Vybavení
+  - ř. 158: stránka Pravidla › Vybavení
 
 ## 15-karty-artikule
 

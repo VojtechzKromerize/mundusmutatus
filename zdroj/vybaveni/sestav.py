@@ -70,18 +70,49 @@ def halere_txt(h):
     return " ".join(casti) or "0 gr."
 
 
-def ceny_tazeni(t):
+def ceny_tazeni(t, f=1.0):
+    """GP/SP/CP v textu → mince tažení; f = násobek (běžné zboží dobově f = 0,2, tj. 1 GP = 2 groše)"""
     t = t.replace("cena v GP dělená deseti", "cena v groších dělená stem")
     t = re.sub(r"\bB\+(?=\d)", "základ + ", t)  # „B+500 GP“ = cena základního předmětu a k tomu částka
-    return CENA_RE.sub(lambda m: halere_txt(int(re.sub(r"\D", "", m.group(1))) * MINCE_HAL[m.group(2).lower()]), t)
+    return CENA_RE.sub(lambda m: halere_txt(max(1, round(int(re.sub(r"\D", "", m.group(1))) * MINCE_HAL[m.group(2).lower()] * f))), t)
 
 
-def ceny_vsude(o):
+def ceny_vsude(o, f=1.0):
     if isinstance(o, dict):
-        return {k: ceny_vsude(v) for k, v in o.items()}
+        return {k: ceny_vsude(v, f) for k, v in o.items()}
     if isinstance(o, list):
-        return [ceny_vsude(v) for v in o]
-    return ceny_tazeni(o) if isinstance(o, str) else o
+        return [ceny_vsude(v, f) for v in o]
+    return ceny_tazeni(o, f) if isinstance(o, str) else o
+
+
+# ---- dobové ceny běžného zboží (Vojta 2026-10-29: „co nejrealističtěji“): D&D ceny jsou vůči mzdám vysoké – v Čechách 15. století
+# bral pacholek 1½ groše a tesař 2 groše denně, kůň stál kolem 2 kop, kráva 24–40 grošů, meč 24–70 grošů, kuše 30–64 grošů,
+# plná zbroj 8–40 kop, píšťala kolem 24 a hákovnice kolem 60 grošů (Nowakowski, Uzbrojenie w Polsce 1450–1500; české přehledy cen).
+# Běžné zboží proto 1 GP = 2 groše (DOBA_F); kde se dobová cena liší víc, platí přímo DOBA (v groších). Kouzelné a polokouzelné
+# věci (lektvary, svitky, alchymie, jedy, magické předměty) dobovou cenu nemají – zůstávají 1 GP = 10 grošů, jako kořist a výkupné.
+DOBA_F = 0.2
+DOBA = {
+    "Pistol": 30, "Musket": 60, "Bullets, Firearm": 2,
+    "Plate Armor": 1800, "Half Plate Armor": 900, "Breastplate": 180, "Splint Armor": 300,
+    "Greatsword": 60, "Longbow": 48, "Spear": 6,
+    "Clothes, Fine": 120, "Clothes, Traveler's": 15, "Book": 300, "Ink": 3, "Parchment": 1,
+    "Mule": 60,
+}
+MAGIE = {"Potion of Healing", "Spell Scroll (Cantrip)", "Spell Scroll (Level 1)", "Acid", "Alchemist's Fire", "Antitoxin",
+         "Poison, Basic", "Holy Water", "Bright Fungal Cloak", "Garb of Light and Shadow", "Genie Robe", "Monster Camouflage",
+         "Warm Fungal Clothing", "Winter Camouflage", "Devil Mask", "Locking Spellbook"}
+BEZNE = ("zbroj", "zbrane", "strelivo", "vybava", "naradi", "zvirata", "sedla", "vozy", "plavidla")
+
+
+def ceny_dobove(sk, x):
+    """položka běžného zboží: cena dobově, popis v téže míře; kouzelné zboží jako dřív"""
+    if x.get("en") in MAGIE:
+        return ceny_vsude(x)
+    o = ceny_vsude(x, DOBA_F)
+    if x.get("en") in DOBA:
+        o["cena"] = halere_txt(DOBA[x["en"]] * 10)
+        o["doba"] = 1
+    return o
 
 
 def main():
@@ -140,7 +171,10 @@ def main():
     if dup:
         print("POZOR – zdvojené id:", dup, file=sys.stderr)
     out = os.path.join(ROOT, "art", "vybaveni.json")
-    V = {k: (v if k == "mince" else ceny_vsude(v)) for k, v in V.items()}
+    V = {k: (v if k == "mince" else [ceny_dobove(k, x) for x in v] if k in BEZNE else ceny_vsude(v)) for k, v in V.items()}
+    chybi = sorted(set(DOBA) - {x["en"] for sk in BEZNE for x in V[sk]})
+    if chybi:
+        print("POZOR – dobová cena bez položky v katalogu:", chybi, file=sys.stderr)
     json.dump(V, open(out, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
     print(f"art/vybaveni.json: {sum(len(V[k]) for k in V if isinstance(V[k], list))} položek, magické {len(V['magicke'])} "
           f"(SRD {len(V['magicke']) - mimo}, mimo SRD {mimo}), {os.path.getsize(out) // 1024} kB")
