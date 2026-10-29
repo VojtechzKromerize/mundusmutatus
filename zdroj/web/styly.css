@@ -3299,7 +3299,7 @@ h4 .kspi{margin-right:5px}
 .bdmsun{width:30px;height:30px;bottom:-14px;background:radial-gradient(circle at 35% 30%,#5b4a45,#3a2a27 78%);color:var(--kb-mu)}
 .bdmport.on .bdmsun{background:radial-gradient(circle at 35% 30%,#f0d68a,#9a7424 78%);color:#2b1a08;box-shadow:inset 0 0 0 2px rgba(255,255,255,.22),0 0 10px rgba(233,200,114,.65)}
 /* nadpisy oddílů karty serifovou kapitálkou Alegreya SC (2026-10-29), místo verzálek bezpatkového písma */
-.kdb .uvh2,.kdb .kakcegrid>section>.uvh2,.kdb .bsph,.kdb .ktab .uvh2{font-family:var(--f-nadp);font-weight:500;text-transform:none;letter-spacing:.1em;font-size:1rem}
+.bdmgh,.kdb .uvh2,.kdb .kakcegrid>section>.uvh2,.kdb .bsph,.kdb .ktab .uvh2{font-family:var(--f-nadp);font-weight:500;text-transform:none;letter-spacing:.1em;font-size:1rem}
 .bdm .kslvb.on{background:#33271a;border-color:var(--kb-gold);color:var(--kb-gold)}
 .bdmbtn,.bdmhlb{border-color:color-mix(in srgb,var(--kb-gold) 55%,transparent)}
 .bdmbtn.on{background:#33271a;border-color:var(--kb-gold);color:var(--kb-gold)}
