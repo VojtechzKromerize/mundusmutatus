@@ -3311,9 +3311,8 @@ h4 .kspi{margin-right:5px}
 .kdb .bzaz .uvh2 small,.kdb .bz .bzd small,.kdb .bz .time{color:var(--kb-mu)}
 /* řádky dovedností (název, zkratka, bonus) také Alegreya SC; velikost zůstává, aby se na telefonu názvy neořezávaly */
 .bdmdov .bdmdr,.bdmdov .bdmdr .bdmbox{font-family:var(--f-nadp);letter-spacing:.02em}
-/* zkratka vlastnosti za dovedností: každá vlastnost má svou barvu (kontrast ≥ 7:1 na pozadí karty), text zkratky ji říká i bez barvy */
-.bdmdr small.bdmat-str{color:#ec7f6b}.bdmdr small.bdmat-dex{color:#86c48f}.bdmdr small.bdmat-con{color:#6fc4c0}
-.bdmdr small.bdmat-int{color:#7fa8ee}.bdmdr small.bdmat-wis{color:#b99be8}.bdmdr small.bdmat-cha{color:#ea8fb0}
+/* zkratka vlastnosti za dovedností (STR, DEX…) se nezobrazuje (Vojta 2026-10-29: čtení je bez ní čistší; na telefonu se skrývala už dřív) */
+.bdmdov2 .bdmdr span small{display:none}
 /* nadpisy oddílů karty serifovou kapitálkou Alegreya SC (2026-10-29), místo verzálek bezpatkového písma */
 .bdmgh,.kdb .uvh2,.kdb .kakcegrid>section>.uvh2,.kdb .bsph,.kdb .ktab .uvh2{font-family:var(--f-nadp);font-weight:500;text-transform:none;letter-spacing:.1em;font-size:1rem}
 .bdm .kslvb.on{background:#33271a;border-color:var(--kb-gold);color:var(--kb-gold)}

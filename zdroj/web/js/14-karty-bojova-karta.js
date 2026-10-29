@@ -1916,7 +1916,7 @@ function bdmTelo(s, h, K, gm, X, id) {
           ik = vy !== ne ? (vy ? "vyhoda" : "nevyhoda") : "",
           pr = dp[n] === "E" ? "expertíza" : dp[n] ? "zdatnost" : "",
           tH = `${n}: d20 ${bsg(kDov(K, n))}${pr ? ` (${pr})` : ""}${r.length ? ` · ${r.map(x => x[1]).join(", ")}` : ""}`;
-        return `<div class="bdmdr${dp[n] ? " kprof" : ""}${dp[n] === "E" ? " kexp" : ""}"><span>${besc(n)} <small class="bdmat bdmat-${KDOVAB[n].toLowerCase()}">${KDOVAB[n]}</small></span><span class="bdmdrv">${ik ? `<img class="bdmdrik" src="art/img/boj/${ik}-48.webp" width="22" height="22" alt="" aria-hidden="true" decoding="async" loading="lazy" ${btip(r.map(x => x[1]).join(", "))}>` : ""}<button type="button" class="bdmbox" data-khod="dv:${besc(n)}" aria-label="${besc(tH)}" ${btip(tH)}>${bsg(kDov(K, n))}</button></span></div>`;
+        return `<div class="bdmdr${dp[n] ? " kprof" : ""}${dp[n] === "E" ? " kexp" : ""}"><span>${besc(n)} <small>${KDOVAB[n]}</small></span><span class="bdmdrv">${ik ? `<img class="bdmdrik" src="art/img/boj/${ik}-48.webp" width="22" height="22" alt="" aria-hidden="true" decoding="async" loading="lazy" ${btip(r.map(x => x[1]).join(", "))}>` : ""}<button type="button" class="bdmbox" data-khod="dv:${besc(n)}" aria-label="${besc(tH)}" ${btip(tH)}>${bsg(kDov(K, n))}</button></span></div>`;
       })
       .join("")}</div>`;
     const def = [["Vulnerability", K.zra]].filter(([, L]) => (L || []).length);
