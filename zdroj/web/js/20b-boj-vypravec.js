@@ -182,7 +182,16 @@ function bojGutShot(h, u, krit) {
 }
 function bojUtokVyhodnot(s, u) {
   if (!u || !u.id) return bojUtokVyhodnot0(s, u);
-  const k = u.id + "|" + (u.ci || []).join(",");
+  /* stav houfu cílů je v klíči: když mezitím padli pacholci, záchrany houfu se hodí znovu pro skutečný počet */
+  const k =
+    u.id +
+    "|" +
+    (u.ci || [])
+      .map(ci => {
+        const n = (s.npc || []).find(x => x.id === ci);
+        return n && n.druh === "houf" ? `${ci}:${n.pocet || 0}:${n.hz || 0}` : ci;
+      })
+      .join(",");
   if (BUVC.has(k)) return BUVC.get(k);
   const V = bojUtokVyhodnot0(s, u);
   BUVC.set(k, V);
@@ -326,13 +335,16 @@ function bojUtokVyhodnot0(s, u) {
   });
   return {an, h, r};
 }
-const BUTZP = new Set();
+/* útoky, jejichž zápis právě běží (id → čas): po Zpět, obnově stavu nebo neuloženém zápisu je útok zase „čeká“ – po 15 s ho
+   jde potvrdit znovu (dřív zůstal navždy zablokovaný a blokoval hráči další útoky, 2026-10-29) */
+const BUTZP = new Map();
+const bojUtokBezi = id => BUTZP.has(id) && Date.now() - BUTZP.get(id) < 15000;
 /* potvrzení útoku hráče: životy, houfy, záznam, veřejný výsledek */
 function bojUtokPotvrd(id, zamitni) {
   const s = BOJ.s;
   const u = s && (s.utoky || []).find(x => x.id === id);
-  if (!u || u.stav !== "ceka" || BUTZP.has(id)) return;
-  BUTZP.add(id);
+  if (!u || u.stav !== "ceka" || bojUtokBezi(id)) return;
+  BUTZP.set(id, Date.now());
   if (zamitni) {
     bojZmen(z => {
       const q = (z.utoky || []).find(x => x.id === id);
@@ -375,6 +387,9 @@ document.addEventListener("click", e => {
   if (b) bojUtokLeg(b.dataset.bulr, b.dataset.ci);
 });
 function bojUtokProved(s, u, id) {
+  /* Zpět po zapsání útoku vrátí i životy nepřátel (mění se mimo stav boje) */
+  const hp0 = JSON.parse(JSON.stringify(bojHp.get() || {})),
+    U0 = BUNDO[BUNDO.length - 1];
   const V = bojUtokVyhodnot(s, u),
     houfy = [],
     mrtvi = [];
@@ -495,12 +510,14 @@ function bojUtokProved(s, u, id) {
       ...(z.zaz || []),
     ].slice(0, 40);
   });
+  const Un = BUNDO[BUNDO.length - 1];
+  if (Un && Un !== U0 && Un.s && !Un.hp) Un.hp = hp0;
   mmHlasG(`${V.an} → ${vys}`, 5000);
 }
 /* nové útoky hráčů po načtení boje: rovnou zapsat, nebo upozornit */
 function bojUtokyNove() {
   if (!GMV || !BOJ.s || !BOJ.s.aktivni) return;
-  const P = (BOJ.s.utoky || []).filter(u => u.stav === "ceka" && !BUTZP.has(u.id));
+  const P = (BOJ.s.utoky || []).filter(u => u.stav === "ceka" && !bojUtokBezi(u.id));
   if (!P.length) return;
   if (bojAuto.get()) P.forEach(u => bojUtokPotvrd(u.id));
   else {
@@ -2876,10 +2893,7 @@ async function bojLogZpetSem(i) {
 }
 
 async function bojObnovSnap(P) {
-  await bojZmen(s => {
-    Object.keys(s).forEach(k => delete s[k]);
-    Object.assign(s, JSON.parse(P.s));
-  });
+  await bojZmen(s => bojObnovStav(s, JSON.parse(P.s)));
   try {
     bojHp.set(JSON.parse(P.hp));
   } catch (e) {}

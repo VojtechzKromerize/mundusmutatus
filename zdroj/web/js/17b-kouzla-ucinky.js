@@ -179,7 +179,7 @@ async function kUcKonci(K, L, proc) {
 }
 /* Heroism: na začátku tahu postavy dočasné HP = modifikátor sesílací vlastnosti sesilatele (vypravěč) */
 function bojBufZacTahu(s, h) {
-  if (!GMV) return;
+  if (!GMV || BTICHO) return;
   const K = bojKartaH(h);
   if (!K) return;
   kBufEf(K)

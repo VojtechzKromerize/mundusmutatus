@@ -36,3 +36,22 @@ test("zásah postavy v bezvědomí: neúspěch hodu proti smrti, kritický zása
   })())`);
   assert.deepEqual(JSON.parse(r), [1, 2]);
 });
+
+test("zásah postavy v bezvědomí alespoň za maximum HP: okamžitá smrt (SRD)", () => {
+  const r = S.ev(`JSON.stringify((() => {
+    const K = KARTBY.balduin, mx = kHPmax(K), a = {id: "a", hp: 0, ds: {u: 0, n: 0}}, b = {id: "b", hp: 0, ds: {u: 0, n: 0}};
+    bojZranPC(a, K, mx, "Fire", false);
+    bojZranPC(b, K, mx - 1, "Fire", false);
+    return [a.ds.st, b.ds.st || "", b.ds.n];
+  })())`);
+  assert.deepEqual(JSON.parse(r), ["mrtev", "", 1]);
+});
+
+test("Zpět do snímku boje nesmaže útoky hráčů, které čekají na vyhodnocení", () => {
+  const r = S.ev(`JSON.stringify((() => {
+    const s = {kolo: 2, utoky: [{id: 1, stav: "hotovo"}, {id: 2, stav: "ceka"}, {id: 3, stav: "ceka"}]};
+    bojObnovStav(s, {kolo: 1, utoky: [{id: 1, stav: "ceka"}]});
+    return [s.kolo, s.utoky.map(u => u.id + u.stav)];
+  })())`);
+  assert.deepEqual(JSON.parse(r), [1, ["1ceka", "2ceka", "3ceka"]]);
+});

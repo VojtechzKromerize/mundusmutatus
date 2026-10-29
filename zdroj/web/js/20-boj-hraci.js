@@ -714,7 +714,8 @@ async function bojJaPosli() {
   try {
     bojJaUloz();
   } catch (e) {}
-  let fr = false;
+  let fr = false,
+    ok = 0;
   try {
     for (const u of L) {
       try {
@@ -727,6 +728,7 @@ async function bojJaPosli() {
         delete u.wm;
         await bojDB.utok(me.id, u);
       }
+      ok++;
     }
     /* starší databáze bez 'sl' / 'zv' */ bojJaHodyZapis(s, K, L, SER, ZV);
     try {
@@ -756,6 +758,12 @@ async function bojJaPosli() {
       navigator.vibrate && navigator.vibrate(40);
     } catch (e) {}
   } catch (err) {
+    /* část série už odešla: ze série ji vyjmout, aby se po opakování neposlala vypravěči dvakrát */
+    if (ok && SER && BJU.serie === SER) {
+      SER.splice(0, ok);
+      if (!SER.length) BJU.serie = null;
+      BJU.info = `Odešlo ${ok} z ${L.length} útoků – zbytek pošli znovu.`;
+    }
     mmHlas("Nepodařilo se poslat: " + (err.message || err), 5000);
   }
   delete BJU.posila;

@@ -1079,11 +1079,12 @@ function bojHistZapis() {
   clearTimeout(bojHistZapis.t);
   bojHistZapis.t = setTimeout(() => {
     if (!BOJ.s || !BOJ.s.aktivni) return;
+    /* shoda s posledním snímkem po částech (dřív se ke každému snímku ukládal i spojený klíč – dvojnásobek paměti) */
     const p = bojSnap(),
-      key = p.s + p.hp + JSON.stringify(p.k),
-      L = BHIST[BHIST.length - 1];
-    if (L && L.key === key) return;
-    BHIST.push(Object.assign(p, {t: Date.now(), key}));
+      L = BHIST[BHIST.length - 1],
+      ks = Object.keys(p.k);
+    if (L && L.s === p.s && L.hp === p.hp && ks.length === Object.keys(L.k).length && ks.every(k => L.k[k] === p.k[k])) return;
+    BHIST.push(Object.assign(p, {t: Date.now()}));
     if (BHIST.length > 250) BHIST.shift();
   }, 120);
 }
@@ -1551,9 +1552,10 @@ function bojPlak(o) {
       ? `<button type="button" class="badd" data-bkritpc ${btip("Padl na 0 HP: hod na kritické zranění – neléčené rány a HP pod nulou jsou vyplněné")}>${besc(o.cil || "")} padl: hod na kritické zranění →</button>`
       : "") +
     (o.pcHit && o.zr && o.zr.t > 0 && !BPCZ.has(o.t) && !o.pcAuto
-      ? `<button type="button" class="badd" data-bpczt="${o.t}" data-bpcz="${besc(o.pcId)}" data-z="${o.zr.t}" data-t="${besc(bojTypy({zt: o.zr.zt})[0] || "Slashing")}"${/drtiv/i.test(o.p || "") ? ' data-drt="1"' : ""}${/průrazn/i.test(o.p || "") ? ' data-pru="1"' : ""}${o.hod && o.hod.krit ? ' data-k="1"' : ""} ${btip("Odečte postavě životy (s jejími odolnostmi a dočasnými HP). Neklikej, když se ubránila reakcí, např. Shield.")}>Zapsat zranění ${besc(o.cil)} −${o.zr.t} →</button>`
+      ? `<button type="button" class="badd" data-bpczt="${o.t}" data-bpcz="${besc(o.pcId)}" data-z="${o.zr.t}" data-t="${besc(bojTypy({zt: o.zr.zt})[0] || "Slashing")}"${/drtiv/i.test(o.p || "") ? ' data-drt="1"' : ""}${/průrazn/i.test(o.p || "") ? ' data-pru="1"' : ""}${(o.hod && o.hod.krit) || (o.bezv && o.bezvZbl) ? ' data-k="1"' : ""} ${btip("Odečte postavě životy (s jejími odolnostmi a dočasnými HP). Neklikej, když se ubránila reakcí, např. Shield.")}>Zapsat zranění ${besc(o.cil)} −${o.zr.t} →</button>`
       : "") +
-    (o.bezv && !(o.hod && o.hod.mis)
+    /* zásah padlého zapíše sám zápis zranění na kartu (bojZranPC) – tlačítko jen tam, kde se zranění nezapsalo */
+    (o.bezv && !(o.hod && o.hod.mis) && !o.pcAuto && o.pcHit !== false && !(o.pcHit && o.zr && o.zr.t > 0)
       ? (() => {
           const k = (o.hod && o.hod.krit) || o.bezvZbl ? 2 : 1;
           return `<button type="button" class="badd" data-bdsf="${besc(o.bezv)}" data-k="${k}" ${btip("Zásah postavy na 0 HP: neúspěch hodu proti smrti, kritický zásah dva")}>Zasáhl padlého: +${k} ${k === 1 ? "neúspěch" : "neúspěchy"} →</button>`;
@@ -2635,7 +2637,8 @@ function bojNovaScena(z) {
     sloty: [],
     obsazeni: {},
     npc: [],
-    nid: 0,
+    /* čísla NPC pokračují: nové NPC nesmí zdědit životy a zdroje po starém se stejným id (bojHp, bojZdr) */
+    nid: st.nid || 0,
     zac: Date.now(),
     hraci: jm.map((n, i) => {
       const K = (KARTY || []).find(k => k.n === n);
@@ -2747,12 +2750,18 @@ async function bojZpet() {
       return;
     }
   }
-  if (o.s)
-    await bojZmen(s => {
-      Object.keys(s).forEach(k => delete s[k]);
-      Object.assign(s, JSON.parse(o.s));
-    }, true);
+  if (o.s) await bojZmen(s => bojObnovStav(s, JSON.parse(o.s)), true);
   mmHlasG("Vráceno o krok zpět.", 1800);
+}
+/* návrat boje do snímku: útoky hráčů, které na vyhodnocení teprve čekají a ve snímku chybí, zůstanou (jinak by Zpět smazalo,
+   co hráč mezitím poslal z telefonu) */
+function bojObnovStav(s, S0) {
+  const ceka = (s.utoky || []).filter(u => u && u.stav === "ceka");
+  Object.keys(s).forEach(k => delete s[k]);
+  Object.assign(s, S0);
+  const ma = new Set((s.utoky || []).map(u => u && u.id));
+  const nove = ceka.filter(u => !ma.has(u.id));
+  if (nove.length) s.utoky = [...(s.utoky || []), ...nove].slice(-40);
 }
 /* změna boje: hned se uplatní a vykreslí, uloží se na pozadí; rychlé série (do 300 ms) jdou jedním uložením.
    Když se verze v databázi mezitím změnila (hráč obsadil slot), načte se aktuální stav a změny se uplatní znovu. */
@@ -2910,10 +2919,12 @@ function bojZmen(fn0, bezUndo) {
     console.error(e);
     return Promise.resolve();
   }
+  /* hák tahu potřebuje ze stavu před změnou jen tah, kolo a obsazení slotů – BOJ.s změna nemění (mění kopii s) */
+  const tahPred = z => ({tah: z.tah, kolo: z.kolo, obsazeni: z.obsazeni || {}});
   if (!bezUndo) {
     bojMoralka(s);
     try {
-      bojTahHook(JSON.parse(pre), s);
+      bojTahHook(tahPred(BOJ.s || {}), s);
     } catch (e) {
       console.error(e);
     }
@@ -2922,7 +2933,16 @@ function bojZmen(fn0, bezUndo) {
   BOJ.s = s;
   bojPrekresli();
   bojNav();
-  BZ.q.push(fn);
+  /* do fronty i s tichým hákem tahu: při konfliktu verzí se změna přehraje na stavu z databáze včetně posunu reakcí a účinků */
+  BZ.q.push(
+    bezUndo
+      ? fn
+      : z => {
+          const p = JSON.parse(JSON.stringify(tahPred(z)));
+          fn(z);
+          bojTahHookTicho(p, z);
+        },
+  );
   return new Promise(r => {
     BZ.cek.push(r);
     clearTimeout(BZ.t);
@@ -2956,10 +2976,12 @@ async function bojUlozFrontu() {
   try {
     let s = BOJ.s,
       jinde = false,
-      nv;
+      nv,
+      db;
     /* hráč mohl mezi kontrolou verze a uložením zapsat z telefonu: databáze vrátí konflikt, načteme a přehrajeme znovu */
     for (let pokus = 0; ; pokus++) {
-      const v = bojDB.verze ? await bojDB.verze() : BOJ.v;
+      /* známá verze jde rovnou do uložení (kontrolu dělá databáze – při nesouladu vrátí konflikt); dotaz na verzi jen bez ní */
+      const v = bojDB.verze && !(BOJ.v > 0) ? await bojDB.verze() : BOJ.v;
       if (v !== BOJ.v || pokus) {
         const cur = await bojDB.nacti();
         try {
@@ -2970,15 +2992,16 @@ async function bojUlozFrontu() {
         BOJ.v = cur ? cur.verze : 0;
       }
       try {
-        nv = await bojDB.uloz(bojPcBez(s), BOJ.v);
+        db = bojPcBez(s);
+        nv = await bojDB.uloz(db, BOJ.v);
         break;
       } catch (e) {
-        if (pokus < 3 && (e.status === 409 || /konflikt/i.test(e.message || ""))) continue;
+        if (pokus < 4 && (e.status === 409 || /konflikt/i.test(e.message || ""))) continue;
         throw e;
       }
     }
     BOJ.v = nv;
-    BOJ.db = bojPcBez(s);
+    BOJ.db = db;
     if (jinde) {
       BOJ.s = BZ.q.length ? prehraj(JSON.parse(JSON.stringify(s)), BZ.q) : s;
       renderBoj();
@@ -3002,8 +3025,17 @@ async function bojUlozFrontu() {
   }
 }
 /* načtení boje: nejdřív jen verze, celý stav až při změně (o změně dá vědět puls – 25-puls.js) */
+/* dotaz během ukládání se nezahodí: zkusí se znovu, až uložení doběhne (jinak by zpráva Realtime o cizí změně propadla) */
+function bojPollPozdeji() {
+  clearTimeout(bojPollPozdeji.t);
+  bojPollPozdeji.t = setTimeout(bojPoll, 800);
+}
 async function bojPoll() {
-  if (!bojDB || BZ.q.length || BZ.beh) return false;
+  if (!bojDB) return false;
+  if (BZ.q.length || BZ.beh) {
+    bojPollPozdeji();
+    return false;
+  }
   BOJ.lp = Date.now();
   try {
     if (bojDB.verze) {
@@ -3013,7 +3045,10 @@ async function bojPoll() {
   } catch (e) {
     return false;
   }
-  if (BZ.q.length || BZ.beh) return false;
+  if (BZ.q.length || BZ.beh) {
+    bojPollPozdeji();
+    return false;
+  }
   return bojNacti();
 }
 const BRT = {ok: false, ws: null, zkus: 0, t: 0};
