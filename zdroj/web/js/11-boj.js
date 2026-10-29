@@ -813,6 +813,9 @@ const bojJmPr = n =>
 
 /* --- kostky --- */
 const bK = (s, z) => {
+  /* ruční kostka (11b): zadané číslo se nehází ani nepřehrává ve 3D */
+  const r = mmRucVezmi(s);
+  if (r != null) return r;
   const v = 1 + Math.floor(Math.random() * s);
   mmkZaznam(s, v, z);
   return v;

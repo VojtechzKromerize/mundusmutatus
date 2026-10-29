@@ -201,11 +201,19 @@ document.addEventListener(
   },
   true,
 );
+/* ruční kostky (11b): před hodem se zeptá na d20 (dvě při výhodě či nevýhodě) a na kostku Závoje; vypnutý režim hodí hned jako dřív */
 async function kartaHod(K, co, b, o = {}) {
   if (!kMuze(K)) {
     kCiziHlas(K);
     return null;
   }
+  if (!mmRucZap()) return kartaHodTelo(K, co, b, o);
+  const v = kAdvSum(o.adv != null ? o.adv : KADV, kStavVliv(K, co).r),
+    kostky = [{s: 20, n: v ? 2 : 1, t: "d20", lbl: v > 0 ? "výhoda, platí vyšší" : v < 0 ? "nevýhoda, platí nižší" : ""}];
+  if (!zavBezZach(co)) kostky.push({s: 6, n: 1, t: "d6 Závoje", lbl: "1–2 Pokušení, 5–6 Požehnání"});
+  return mmRucS({popis: `${K.n}: ${co}`, kostky}, () => kartaHodTelo(K, co, b, o));
+}
+async function kartaHodTelo(K, co, b, o = {}) {
   const SV = kStavVliv(K, co),
     v = kAdvSum(o.adv != null ? o.adv : KADV, SV.r);
   if (SV.r.length) o.why = [o.why, ...SV.r.map(x => x[1])].filter(Boolean).join(", ");

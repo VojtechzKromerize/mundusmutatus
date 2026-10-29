@@ -2388,6 +2388,20 @@ html.mmapp .mmpop{padding-top:calc(env(safe-area-inset-top,0px) + 10px)}
 .mmkvyp{position:absolute;right:14px;bottom:14px;pointer-events:none;font-family:var(--f-label);letter-spacing:.04em;font-size:.85rem;color:var(--paper);background:color-mix(in srgb,var(--ink) 80%,transparent);border:0;border-radius:3px;padding:5px 12px;cursor:pointer}
 .mmkostky.on .mmkvyp{pointer-events:auto}
 .kmmk{font-family:var(--f-label);letter-spacing:.03em;font-size:.9rem;color:var(--muted);display:inline-flex;align-items:center;gap:4px}
+/* okno pro ruční zadání kostek (11b) – leží mimo .kdb, proto tmavá paleta karty se záložními hodnotami */
+.mmruc{border:1px solid var(--kb-gold,#d9b45c);border-radius:8px;background:var(--kb-bg,#1f0c10);color:var(--kb-tx,#efe3c8);padding:0;width:min(92vw,360px);box-shadow:0 12px 40px rgba(0,0,0,.6)}
+.mmruc::backdrop{background:rgba(10,3,5,.72)}
+.mmrucf{display:flex;flex-direction:column;gap:10px;padding:16px}
+.mmrucf h3{margin:0;font:500 1.1rem var(--f-nadp,var(--f-disp));letter-spacing:.06em}
+.mmrucn{margin:0;color:var(--kb-mu,#b8a384);font-size:.9rem}
+.mmrucr{display:flex;align-items:center;justify-content:space-between;gap:10px;font-family:var(--f-nadp,var(--f-label));font-size:1rem}
+.mmrucr small{display:block;color:var(--kb-mu,#b8a384);font-size:.75rem;letter-spacing:.02em}
+.mmrucr input{width:84px;padding:8px;border:2px solid var(--kb-bd,#8c4a3e);border-radius:6px;background:var(--kb-pan2,#15070a);color:var(--kb-tx,#efe3c8);font:600 1.3rem var(--f-body);text-align:center}
+.mmrucr input:focus-visible{outline:2px solid var(--kb-gold,#d9b45c);outline-offset:1px}
+.mmrucr input.bad{border-color:var(--kb-ac,#d9534f)}
+.mmruce{margin:0;color:#ff9b96;font-size:.9rem}
+.mmrucb{display:flex;gap:8px;justify-content:flex-end}
+.mmrucb .gbtn{min-height:44px}
 
 /* ===== karta postavy v rozvržení D&D Beyond (2026-10-16): tmavé panely s měděným rámem ===== */
 /* karta postavy: vínová kůže se zlatým kováním (2026-10-22, dřív hnědá) – všechny odstíny karty jsou tady, listy a hlavička je berou odsud;

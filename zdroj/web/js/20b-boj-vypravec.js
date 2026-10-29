@@ -2322,6 +2322,7 @@ document.addEventListener("click", async e => {
       h0 = (S.hraci || []).find(x => x.id === id),
       K = bojKartaH(h0);
     if (!K) return;
+    if (mmRucZap() && !(await mmRucPred({popis: `${h0.n}: iniciativa`, kostky: [{s: 20, n: 1, t: "d20"}]}))) return;
     const d = bK(20),
       v = d + kIni(K);
     if (GMV)
@@ -2484,8 +2485,13 @@ document.addEventListener("click", async e => {
       E = bojEff(o0),
       p = E && E.p,
       b = bojAbil(p, ab) || 0;
-    const ef = (o0.stav || []).some(k => SRDST[k] && /nevýhod/i.test(SRDST[k].t || "") && /ověřen/i.test(SRDST[k].t || "")),
-      d1 = bK(20),
+    const ef = (o0.stav || []).some(k => SRDST[k] && /nevýhod/i.test(SRDST[k].t || "") && /ověřen/i.test(SRDST[k].t || ""));
+    if (mmRucZap()) {
+      const kostky = [{s: 20, n: ef ? 2 : 1, t: "d20", lbl: ef ? "nevýhoda, platí nižší" : ""}];
+      if (o0.druh !== "houf") kostky.push({s: 6, n: 1, t: "d6 Závoje", lbl: "1–2 Pokušení, 5–6 Požehnání"});
+      if (!(await mmRucPred({popis: `${o0.n}: ověření ${ab}`, kostky}))) return;
+    }
+    const d1 = bK(20),
       d2 = ef ? bK(20) : null,
       d = ef ? Math.min(d1, d2) : d1,
       t = d + b;
@@ -2514,6 +2520,10 @@ document.addEventListener("click", async e => {
     const ef = (o0.stav || []).map(k => (SRDST[k] && SRDST[k].zach && SRDST[k].zach[ab] ? [k, SRDST[k].zach[ab]] : null)).filter(Boolean),
       fail = ef.find(x => x[1] === "f"),
       va = ef.some(x => x[1] === "a") - ef.some(x => x[1] === "d");
+    if (!fail && mmRucZap()) {
+      const kostky = [{s: 20, n: va ? 2 : 1, t: "d20", lbl: va > 0 ? "výhoda, platí vyšší" : va < 0 ? "nevýhoda, platí nižší" : ""}];
+      if (!(await mmRucPred({popis: `${o0.n}: záchrana ${ab}`, kostky}))) return;
+    }
     const d1 = bK(20),
       d2 = va ? bK(20) : null,
       d = va > 0 ? Math.max(d1, d2) : va < 0 ? Math.min(d1, d2) : d1,

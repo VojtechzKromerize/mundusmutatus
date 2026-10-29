@@ -1653,9 +1653,13 @@ function bojHracKlik(T) {
     }
     const h0 = (s.hraci || []).find(x => x.id === id);
     if (!h0 || !h0.ds) return true;
-    const r = k === "hod" ? bojDs(h0.ds, "hod", bK(20)) : bojDs(h0.ds, k);
-    if (GMV && k === "hod") bojLog(id, {n: "Hod proti smrti", zt: r.m}, hn);
-    bojDsZapis(id, h0, r, k === "hod", k === "hod" ? `${hn}: hod proti smrti ${r.m}.` : r.m ? `${hn}: ${r.m}.` : "");
+    const zapis = () => {
+      const r = k === "hod" ? bojDs(h0.ds, "hod", bK(20)) : bojDs(h0.ds, k);
+      if (GMV && k === "hod") bojLog(id, {n: "Hod proti smrti", zt: r.m}, hn);
+      bojDsZapis(id, h0, r, k === "hod", k === "hod" ? `${hn}: hod proti smrti ${r.m}.` : r.m ? `${hn}: ${r.m}.` : "");
+    };
+    if (k === "hod") mmRucS({popis: `${hn}: hod proti smrti`, kostky: [{s: 20, n: 1, t: "d20"}]}, zapis);
+    else zapis();
     return true;
   }
   return false;
