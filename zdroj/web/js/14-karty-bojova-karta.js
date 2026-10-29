@@ -1413,8 +1413,8 @@ const BDMI = {
 };
 const bdmIc = (k, c) =>
   `<svg class="bdmic${c ? " " + c : ""}" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">${BDMI[k] || ""}</svg>`;
-/* záložky karty jako malované kolčí štíty (2026-10-23, Vojta): art/img/zalozky/<id>-48/96.webp; Společníci štít zatím nemají (linková ikona) */
-const BDMSTITY = new Set(["vl", "akce", "kouzla", "vyb", "rysy", "denik", "zaznam"]);
+/* záložky karty jako malované kolčí štíty (2026-10-23, Vojta): art/img/zalozky/<id>-48/96.webp; Společníci štít zatím nemají (linková ikona); Pravidla mají tenné pole s otevřenou knihou (2026-10-29) */
+const BDMSTITY = new Set(["vl", "akce", "kouzla", "vyb", "rysy", "denik", "zaznam", "prav"]);
 const bdmZalIk = id =>
   BDMSTITY.has(id)
     ? `<img class="bdmzik" src="art/img/zalozky/${id}-48.webp" srcset="art/img/zalozky/${id}-96.webp 2x" width="32" height="48" alt="" aria-hidden="true" decoding="async">`

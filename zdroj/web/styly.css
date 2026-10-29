@@ -3934,8 +3934,8 @@ html.mmpc:not(.mmjenhra) .bdmweb{display:grid;font-size:1.2rem}
 }
 /* široký počítač (2026-10-29, Vojta): hlavička a Statistiky s Dovednostmi končí tam, kde končí záložka Iniciativa nad kartou, pravý sloupec listů
    začíná pod záložkou Dohráno (ta má flex 1,25 proti 1 + 1, odtud poměr 2 : 1,25); štíty záložek jsou větší */
-@media (min-width:1600px){
-  .bojpc .bcolk .bdm.bdmpc{grid-template-columns:minmax(0,2fr) minmax(420px,1.25fr)}
+@media (min-width:1280px){
+  .bojpc .bcolk .bdm.bdmpc{grid-template-columns:minmax(0,2fr) minmax(370px,1.25fr)}
   .bdmpc .bdmtabs button .bdmzik{height:50px}
   .bdmpc .bdmtabs button .bdmic{width:26px;height:26px}
 }
