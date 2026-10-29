@@ -512,7 +512,7 @@ mark{background:color-mix(in srgb,var(--gold) 35%,transparent);color:inherit;pad
 /* sazba: rozumná délka řádku, iniciály a ozdoby jako v rukopisu */
 /* traktáty a Draconomicon přes celou šíři stránky (Vojta 2026-10-28) */
 .drtext{display:block;max-width:none}.drtext>*+*{margin-top:.7em}
-.asec>p,.asec>ul,.asec>ol,.asec>.rl,.asec>.rnote,.artmain>p,.artmain>.artlead{max-width:72ch}
+/* Artikule přes celou šíři stránky jako traktáty (Vojta 2026-10-29: odrážky byly úzké) */
 .alead{max-width:none}/* úvod Artikulí pod citátem jde přes celou šíři */
 .asec>.ash+p::first-letter,.drtext>h3+p::first-letter{font-family:var(--f-disp);font-size:2.7em;float:left;line-height:.82;margin:.06em .1em 0 0;color:var(--kal)}
 .drtext>h3:not(:first-child)::before{content:"❦";display:block;text-align:center;font-size:1.3rem;color:var(--gold);margin:.4em 0 .5em;font-family:var(--f-body)}
