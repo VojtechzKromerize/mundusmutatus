@@ -24,10 +24,12 @@ for f in glob.glob(ob+"/**/*",recursive=True):
     r=os.path.relpath(f,ob).replace(os.sep,"/")
     if os.path.isfile(f) and (r.endswith(".md") or r.endswith(".json")) and not r.split("/")[-1].startswith("_"): sb[r]=open(f,encoding="utf-8").read()
 k=next(x for x in sb if x.startswith("osoby/") and "\nid: viktorin\n" in "\n"+sb[x])
-sb[k]=sb[k].replace("\n---\n","\nstatblok: rytir-v-plne-zbroji + zkuseny\n---\n",1)
+# každá osoba má od 2026-10-29 vlastní statblok (os-<id>) – u Viktorina ho test nahradí statblokem z bestiáře s přívlastkem
+sb[k]=re.sub(r"\nstatblok:[^\n]*\n","\n",sb[k],count=1).replace("\n---\n","\nstatblok: rytir-v-plne-zbroji + zkuseny\n---\n",1)
 sb["setkani/99-test-cile.md"]="---\nid: test-cile\nnazev: Zkouška cílů\nprostredi: mlha, úzký průchod\nprekvapeni: nepřátelé\nnepratele:\n  - 3 houf-zoldneru\ncile:\n  - Zachránit rukojmí (3×, do 2. kola)\n  - Zabít kněze (skrytý)\n---\nZkušební setkání.\n"
 g=json.loads(subprocess.run(["node",os.path.join(KOR,"zdroj","generator.js")],input=json.dumps({"soubory":sb,"manifest":{}},ensure_ascii=False),capture_output=True,text=True,check=True).stdout)
-chk([o["b"] for o in g["gm"]["PROTOSOBY"]]==["rytir-v-plne-zbroji"] and g["gm"]["PROTOSOBY"][0]["pr"]==["zkuseny"],"generátor: statblok u osoby pro vypravěče")
+vk=[o for o in g["gm"]["PROTOSOBY"] if o["id"]=="viktorin"]
+chk(len(vk)==1 and vk[0]["b"]=="rytir-v-plne-zbroji" and vk[0]["pr"]==["zkuseny"],"generátor: statblok u osoby pro vypravěče: "+json.dumps(vk,ensure_ascii=False))
 chk(all(not g["hrac"].get(x) for x in ("PROTIVNICI","PRIVLASTKY","SETKANI","PROTOSOBY","VYZAZ")),"generátor: hráč nedostane bestiář ani tabulky setkání")
 tc=next((x for x in g["gm"]["SETKANI"] if x["id"]=="test-cile"),{})
 chk(tc.get("cl")==["Zachránit rukojmí (3×, do 2. kola)","Zabít kněze (skrytý)"] and tc.get("pro")==["mlha","úzký průchod"] and tc.get("pk")=="n","generátor: setkání nese cíle, prostředí a přepadení")
