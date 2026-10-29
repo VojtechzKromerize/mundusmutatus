@@ -6,7 +6,7 @@ pocet: 6
 vyzva: 50 XP za pacholka
 ac: 17
 hp: 5
-utok: Sek +4 · 3 Slashing za každý meč v dosahu cíle
+utok: Sek +4 · 3 Slashing za každý meč v dosahu cíle · kroužit (Bonusová akce)
 bonus: 4
 komplikace: Meč zachytí útočníkovu čepel a vymrští ji: STR save DC 12, jinak zbraň odletí o 10 stop.
 stitky: konstrukty, meče, zbrojnice, hrad, zbrojíř, kouzlo, mág, Závoj, Karlštejn
@@ -28,6 +28,10 @@ Meče ze zbrojnice, které sňaly ze stěn samy – kouzlem mága, nebo proto, �
 - **Železo.** Zbroj s Resistance vůči Slashing meče drží na uzdě: proti rytíři v plátu dávají jen polovinu.
 - **Zbrojnice.** Neopustí budovu, ve které visely. Kdo vyběhne ven, má pokoj – a meče čekají ve dveřích.
 - **Zpět na hák.** Kdo meč chytí (Athletics DC 13 místo útoku) a pověsí na stěnu, toho meč pustí a visí dál. Mág, který je oživil, je zastaví slovem.
+
+## Bonusová akce
+
+- **Kroužit.** Houf se pohne až o 30 stop, aniž by vyvolal Opportunity Attack, a do začátku svého příštího tahu má +2 AC – meče se kryjí navzájem.
 
 **Morálka.** Neprchají. Když padne mág, který je oživil, nebo vyjde slunce do oken, zazvoní o zem.
 

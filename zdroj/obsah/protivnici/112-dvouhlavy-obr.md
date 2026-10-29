@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 4 (1 100 XP)
 ac: 12
 hp: 85
-utok: Sekera +7, 2d8+5 Slashing a Prone · řemdih +7, 2d8+5 Piercing a nevýhoda na příští útok · bdělá hlava (Reakce)
+utok: Sekera +7, 2d8+5 Slashing a Prone · řemdih +7, 2d8+5 Piercing a nevýhoda na příští útok · bdělá hlava (Reakce) · plivanec druhé hlavy (Bonusová akce)
 pozehnani: Obě hlavy se shodnou: v tomto slotu zaútočí sekerou i řemdihem.
 pokuseni: Hlavy se pohádají: slot promarní hádkou, kdo z nich má velet.
 nerest: Svár – hlavy se nesnášejí. Kdo jednu z nich pochválí a druhou urazí (Persuasion nebo Intimidation DC 12), získá kolo, kdy se obr pere sám se sebou (jedná jen v jednom slotu).
@@ -38,6 +38,10 @@ Obr se dvěma hlavami, jaký se vypráví dětem na Šumavě – a jaký od Prot
 - **Sekera.** +7, dosah 5 stop. **Zásah:** 2d8+5 Slashing a cíl velikosti Large nebo menší je Prone.
 - **Řemdih.** +7, dosah 5 stop. **Zásah:** 2d8+5 Piercing a cíl má nevýhodu na příští útok do konce svého příštího tahu.
 - **Hodit balvan.** +7, dostřel 60/240 stop. **Zásah:** 3d10+5 Bludgeoning.
+
+## Bonusová akce
+
+- **Plivanec druhé hlavy.** Tvor do 10 stop hodí DEX save DC 13, jinak je Blinded do konce svého tahu.
 
 ## Reakce
 

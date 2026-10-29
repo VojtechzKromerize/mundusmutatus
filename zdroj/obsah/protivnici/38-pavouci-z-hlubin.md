@@ -6,7 +6,7 @@ pocet: 5
 vyzva: 50 XP za pacholka
 ac: 13
 hp: 5
-utok: Jedovaté kousnutí +5 · 4 Piercing a jed za každého v dosahu
+utok: Jedovaté kousnutí +5 · 4 Piercing a jed za každého v dosahu · pavučina (Bonusová akce)
 bonus: 5
 komplikace: Pavučina: útočník hodí DEX save DC 12, jinak je Restrained, dokud se nevyprostí (akce, STR DC 12).
 stitky: zvěř, pavouci, doly, jeskyně, kras, Moravský kras, tma
@@ -26,6 +26,10 @@ Velcí lovečtí pavouci z jeskyní a opuštěných štol, kteří se po Noci Pr
 ## Vlastnosti
 
 - **Šplhají po stropě.** Pohybují se po stěnách a stropech bez ověření; útočí shora, z úkrytu.
+
+## Bonusová akce
+
+- **Pavučina (dobíjí se na 5–6).** Tvor do 30 stop hodí DEX save DC 12, jinak je Restrained v pavučině (únik DC 12; pavučina AC 10, 5 HP, hoří).
 
 **Morálka.** Prchají do tmy, když padne polovina.
 

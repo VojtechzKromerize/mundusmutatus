@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 3 (700 XP)
 ac: 13
 hp: 75
-utok: Kousnutí +6, 2d6+4 Piercing a Prone · mrazivý dech (CON DC 12, 4d8 Cold, dobíjí se na 5–6) · vytí (Bonusová akce)
+utok: Kousnutí +6, 2d6+4 Piercing a Prone · mrazivý dech (CON DC 12, 4d8 Cold, dobíjí se na 5–6) · vytí (Bonusová akce) · mrazivé zavrčení (Reakce)
 pozehnani: Dech zmrazí zem: oblast kužele je do konce příštího kola kluzká – kdo se v ní pohne, hodí DEX save DC 12, jinak je Prone.
 pokuseni: Dech zamrzne v hrdle: do konce příštího kola nemůže dýchat mráz a kašle.
 nerest: Nenasytnost – mluví, a když mluví, nežere. Kdo mu nabídne velkou kořist (kůň, kráva; Persuasion DC 12), toho nechá projít. Pýcha: kdo ho nazve psem, toho zabije první.
@@ -42,6 +42,10 @@ Bílý vlk velký jako kůň, který mluví lidskou řečí a vede smečku pravl
 ## Bonusová akce
 
 - **Vytí.** Houf pravlků v doslechu se pohne až o polovinu rychlosti, aniž by vyvolal Opportunity Attack.
+
+## Reakce
+
+- **Mrazivé zavrčení.** Když tvor zaútočí na pravlka do 30 stop od něj, zimní vlk na něj vydechne mráz: CON save DC 12, jinak utrží 1d6 Cold a má do konce tahu rychlost o 10 stop menší.
 
 **Výkupné a kořist.** Kožich zimního vlka: kožešník z něj ušije plášť, který dává Resistance Cold (20 kop). Zimní vlk, kterého družina nechá žít a dá mu kořist, si ji pamatuje – a pamatuje si i ty, kdo mu zabili smečku.
 

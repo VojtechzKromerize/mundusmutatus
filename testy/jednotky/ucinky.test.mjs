@@ -32,8 +32,8 @@ test("neznámý účinek se ignoruje, výjimka scit sčítá i stejnojmenné", (
 });
 
 test("AC: Mage Armor jen bez zbroje (13 + DEX), Barkskin nejméně 17", () => {
-  assert.equal(V(`ucAC(ucSecti([{n: "Mage Armor"}]), false, 3).min`), 16);
-  assert.equal(V(`ucAC(ucSecti([{n: "Mage Armor"}]), true, 3).min`), 0);
+  assert.equal(V(`ucAC(ucSecti([{n: "Mage Armor"}]), false, 3).zak`), 16);
+  assert.equal(V(`ucAC(ucSecti([{n: "Mage Armor"}]), true, 3).zak || 0`), 0);
   assert.equal(V(`ucAC(ucSecti([{n: "Mage Armor"}, {n: "Barkskin"}]), false, 3).min`), 17);
 });
 

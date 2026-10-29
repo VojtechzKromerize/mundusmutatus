@@ -6,7 +6,7 @@ pocet: 6
 vyzva: 200 XP za pacholka
 ac: 14 (kožená)
 hp: 5
-utok: Dýky +5 · 5 za každého v dosahu · jeden lotr může místo útoku okouzlit (WIS DC 12)
+utok: Dýky +5 · 5 za každého v dosahu · jeden lotr může místo útoku okouzlit (WIS DC 12) · pod vodu (Bonusová akce)
 bonus: 5
 komplikace: Lotr strčí útočníka přes bok vory do vody: STR (Athletics) DC 12, jinak je ve vodě a Prone.
 stitky: lotři, voraři, Vltava, Labe, řeka, pašeráci, lidé
@@ -27,6 +27,10 @@ Pašeráci a lotři z vorů a lodic na Vltavě a Labi. Mluví sladce, bodají ry
 ## Vlastnosti
 
 - **Doma na vodě.** Na voru či lodi nemají nevýhodu a skok do vody je pro ně úkrok.
+
+## Bonusová akce
+
+- **Pod vodu.** Na řece houf skočí do vody a vynoří se až o 20 stop dál, aniž by vyvolal Opportunity Attack.
 
 **Morálka.** Prchají do vody, když padne polovina nebo kapitán.
 

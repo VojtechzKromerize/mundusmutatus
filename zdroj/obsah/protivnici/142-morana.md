@@ -5,7 +5,7 @@ uroven: zhoubce
 vyzva: 7 (2 900 XP)
 ac: 17
 hp: 150
-utok: Drápy z ledu +7, 2d8+4 Slashing a 2d6 Cold · dech zimy (CON DC 14, 6d8 Cold, kužel 30 stop) · Noční můra (Dream, 1/den) · Magic Missile, Phantasmal Killer
+utok: Drápy z ledu +7, 2d8+4 Slashing a 2d6 Cold · dech zimy (CON DC 14, 6d8 Cold, kužel 30 stop) · Noční můra (Dream, 1/den) · Magic Missile, Phantasmal Killer · ledová krusta (Reakce)
 pozehnani: Zamrzne řeka, rybník nebo studna v dosahu: kdo na ní stojí, je Restrained v ledu (STR save DC 14).
 pokuseni: Zaslechne jarní píseň: do konce kola nemůže dýchat zimu a ztrácí Resistance Fire.
 nerest: Zima se vynáší – nemá Neřest, má zákon: na Smrtnou neděli ji vesnice vynese a utopí, a ona musí odejít do podzimu. Kdo ji topí s písní a s Mořenou ze slámy (Performance DC 13 a správný den), toho nesmí v tomto roce napadnout. Pýcha: nesnese, aby jí někdo říkal „babo“.
@@ -47,6 +47,10 @@ Stará bohyně zimy a smrti, kterou po Protržení Závoje nestačí vynést ze 
 ## Bonusová akce
 
 - **Jiná tvář.** Změní se na bledou dívku, stařenu nebo ženu, kterou někdo z přítomných pohřbil, nebo zpět.
+
+## Reakce
+
+- **Ledová krusta.** Když ji zasáhne útok zblízka, přičte si k AC 3; mine-li, zbraň přimrzne a útočník má nevýhodu na příští útok.
 
 **Kořist.** Led, který netaje do léta (alchymista: 5 kop). Mořena ze slámy, kterou vesnice po jejím odchodu spálí – kdo si vezme stéblo, má na rok Resistance Cold.
 

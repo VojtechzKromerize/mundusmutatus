@@ -6,7 +6,7 @@ pocet: 6
 vyzva: 50 XP za pacholka
 ac: 15
 hp: 5
-utok: Jehlové mečíky +6 · 2 Piercing za každého skřítka v dosahu · luky +6, 1 Piercing a Charmed
+utok: Jehlové mečíky +6 · 2 Piercing za každého skřítka v dosahu · luky +6, 1 Piercing a Charmed · zmizí (Bonusová akce)
 bonus: 6
 komplikace: Skřítek útočníkovi sebere drobnost – klíč, prsten, šíp, hrst grošů: útočník ji nemá, dokud houf neskončí nebo ji nevykoupí.
 stitky: víly, skřítci, les, háj, dryáda, hejkal, starověrci, Staří bozi, Závoj, elfové
@@ -26,9 +26,12 @@ Mužíčci velikosti dlaně s křídly vážky, kteří chodí za dryádou, hejk
 
 ## Vlastnosti
 
-- **Zmizí.** Jako Bonusovou akci celý houf zneviditelní, dokud nezaútočí; v listí a kapradí ho nenajde ani Perception DC 20.
 - **Pohled do srdce.** Skřítek pozná, kdo v tomto boji přijal Pokušení, a kdo je Zatracený. Se Zatraceným nemluví a nevyjednává; postavu V milosti nenapadnou první.
 - **Malí.** Plošný útok nebo rozmáchnutý sek (Cleave) skolí dva skřítky; sítě a kouř je drží na zemi.
+
+## Bonusová akce
+
+- **Zmizí.** Celý houf se zneviditelní, dokud nezaútočí; v listí a kapradí ho nenajde ani Perception DC 20.
 
 **Morálka.** Prchají (zmizí) při polovině. Vrátí se, když je zavolá dryáda nebo hejkal, kterému slouží. Kdo jim nechá na pařezu mléko a med (Akce), má od nich do rána pokoj.
 

@@ -6,7 +6,7 @@ vyzva: 100 XP za pacholka
 pocet: 6
 ac: 12
 hp: 5
-utok: Spáry a šepot, dosah 5 stop · 2 Prokleté (Necrotic) za každého běsa v dosahu cíle; zbroj nepomáhá
+utok: Spáry a šepot, dosah 5 stop · 2 Prokleté (Necrotic) za každého běsa v dosahu cíle; zbroj nepomáhá · šepot neřesti (Bonusová akce)
 bonus: 4
 komplikace: Běs se zasměje útočníkovým hlasem: útočník je Frightened do konce svého příštího tahu (postava V milosti je imunní).
 stitky: běsi, démoni, Závoj, Hodina Závoje, noc
@@ -28,6 +28,10 @@ Nižší bytosti z druhé strany Závoje. Objevují se jen v Hodinách Závoje, 
 - **Vracejí se.** Na začátku každého kola se vrátí jeden padlý běs, dokud trvá Hodina Závoje nebo dokud houf nikdo nevyhostí.
 - **Ve jménu Páně!** Feat víry katolíka (stupeň 3) vyhostí celý houf. Svěcená voda (Akce) skolí 1k4 běsů v dosahu 5 stop.
 - **Svatá zbraň.** Zásah Svatým (Radiant) zraněním skolí běsa a ten se už nevrátí.
+
+## Bonusová akce
+
+- **Šepot Neřesti.** Tvor do 30 stop, který běsy slyší, hodí WIS save DC 12, jinak má do konce svého příštího tahu nevýhodu na první hod k20. Kdo svou Neřest nahlas přizná, je imunní.
 
 **Morálka.** Neprchají. Rozplynou se na zvuk kostelního zvonu, kohoutí kokrhání nebo východ slunce.
 

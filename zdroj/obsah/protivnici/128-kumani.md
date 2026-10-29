@@ -6,7 +6,7 @@ pocet: 6
 vyzva: 100 XP za pacholka
 ac: 13
 hp: 5
-utok: Koňské luky +4 · 3 Piercing za každého, kdo na cíl vidí · jízdní, střílí a odjíždějí · šavle +4, 3 Slashing
+utok: Koňské luky +4 · 3 Piercing za každého, kdo na cíl vidí · jízdní, střílí a odjíždějí · šavle +4, 3 Slashing · zamířit ze sedla (Bonusová akce)
 bonus: 4
 komplikace: Kumán se otočí v sedle a střelí za sebe: útočník, který se k houfu přiblížil, dostane šíp (3 Piercing) a jeho kůň se plaší (Animal Handling DC 12).
 stitky: Kumáni, Uhry, Matyáš, jízda, lučištníci, step, nájezd, pomezí, Morava, lidé
@@ -30,8 +30,12 @@ Lehká jízda uherského krále, potomci stepních nájezdníků usazených na T
 - **Step, ne les.** V lese, v bažině nebo v úzkém prostoru ztrácí výhody jízdy: rychlost 30 stop, žádné Střílej a jeď.
 - **Kůň.** Zásah Strhující zbraní nebo sudlicí shodí Kumána z koně: padá jako pacholek, kůň utíká.
 
+## Bonusová akce
+
+- **Zamířit ze sedla.** Příští střelba houfu v tomto tahu má výhodu.
+
 **Morálka.** Prchají při třetině – ne ze strachu, ze zvyku; vrátí se za hodinu. Za vozovou hradbu nejedou. Kdo jim nechá stádo, má pokoj.
 
 **Kořist.** Koně (malí, otužilí; 3 kopy za kus), reflexní luky (kdo s nimi neumí, nenatáhne je), kořist z moravských vsí.
 
-*Předloha: Scout (D&D 2024), jízdní, převedeno pro Mundus Mutatus.*
+*Předloha: Scout (D&D 2024), jízdní; bonusová akce podle Scout Captain, převedeno pro Mundus Mutatus.*

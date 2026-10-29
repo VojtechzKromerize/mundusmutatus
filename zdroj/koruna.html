@@ -77,8 +77,7 @@
     <a href="#uvod" class="navmark" aria-label="Mundus Mutatus – úvod"><img class="lg-l" loading="lazy" src="art/img/logo.webp" srcset="art/img/logo-240.webp 240w, art/img/logo-480.webp 480w, art/img/logo.webp 960w" sizes="104px" alt="" width="1200" height="391"><img class="lg-d" loading="lazy" src="art/img/logo-tma.webp" srcset="art/img/logo-tma-240.webp 240w, art/img/logo-tma-480.webp 480w, art/img/logo-tma.webp 960w" sizes="104px" alt="" width="1200" height="391"></a>
     <button type="button" class="navtoggle" id="navtoggle" aria-expanded="false" aria-controls="navlinks"><span class="navburger" aria-hidden="true"></span><span id="navcur">Úvod</span></button>
     <div class="navlinks" id="navlinks">
-    <a href="#uvod" data-nav="uvod">Úvod</a>
-    <a href="#hra" data-nav="hra" class="navhra">Hra</a>
+    <a href="#hra" data-nav="hra" class="navgm navhra" title="Hra – karta postavy a boj" aria-label="Hra"><img class="navpecet" src="art/img/kostka.webp" alt="" width="40" height="40"><span class="navgmt">Hra</span></a>
     <div class="navdd" id="navart"><a href="#artikule" class="ddtop" data-navgrp="artikule kouzla" aria-haspopup="true" aria-expanded="false">Artikule</a>
       <div class="svitek"><div class="svlist" id="navartl"></div></div></div>
     <a href="#draconomicon" data-nav="draconomicon">Draconomicon</a>
@@ -447,7 +446,7 @@ async function htokenAuth(){let r=null;try{r=JSON.parse(localStorage.getItem(HLS
 const rpc=async(fn,body)=>{const t=(await token())||(await htokenAuth());return api("/rest/v1/rpc/"+fn,{method:"POST",tok:t||undefined,body:JSON.stringify(body)})};
 window.MMDB={vetev:C.vetev,
   async prihlas(email,heslo){uloz(await api("/auth/v1/token?grant_type=password",{method:"POST",body:JSON.stringify({email,password:heslo})}))},
-  async odhlas(){const t=await token();if(t)try{await api("/auth/v1/logout",{method:"POST",tok:t})}catch(e){}smaz()},
+  async odhlas(){const t=await token();if(t)try{await api("/auth/v1/logout?scope=local",{method:"POST",tok:t})}catch(e){}smaz()},
   email(){const r=relace();return r&&r.email},
   prihlasen(){return !!relace()},
   async nastav(zmeny){const t=await token();if(!t)throw new Error("Přihlášení vypršelo – přihlaste se znovu.");
@@ -508,7 +507,7 @@ window.MMDB={vetev:C.vetev,
   discordLogin(){return discordPrihlas()},
   hracPrihlasen(){try{return !!JSON.parse(localStorage.getItem(HLS)||"null")}catch(e){return false}},
   async hracUzivatel(){const t=await htokenAuth();return t?api("/auth/v1/user",{tok:t}):null},
-  async discordOdhlas(){const t=await htokenAuth();if(t)try{await api("/auth/v1/logout",{method:"POST",tok:t})}catch(e){}try{localStorage.removeItem(HLS)}catch(e){}},
+  async discordOdhlas(){const t=await htokenAuth();if(t)try{await api("/auth/v1/logout?scope=local",{method:"POST",tok:t})}catch(e){}try{localStorage.removeItem(HLS)}catch(e){}},
   /* účet hráče s heslem (Supabase Auth, e-mail se nepotvrzuje): přezdívka se převede na umělou adresu, skutečný e-mail projde beze změny;
      relace je stejná jako u Discordu (mm-hrac-relace), takže volba postavy a zápisy jedou přes hraci_ucty */
   ucetEmail(j){j=String(j||"").trim();if(j.includes("@"))return j.toLowerCase();const s=j.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,".").replace(/^\.+|\.+$/g,"").slice(0,40);return s.length>=2?`${s}.hrac@mundusmutatus.netlify.app`:""},
@@ -598,7 +597,7 @@ function po(D){
       KOD=dilyH(document.documentElement.innerHTML);let KODT=0;
     const kontrolaKodu=async()=>{if(!KOD||NV||document.visibilityState!=="visible"||Date.now()-KODT<60000)return;KODT=Date.now();
       try{const r=await fetch("./",{cache:"no-store"});if(!r.ok)return;const n=dilyH(await r.text());if(n&&n!==KOD)novaVerze("Web má novou verzi.")}catch(e){}};
-    document.addEventListener("visibilitychange",kontrolaKodu);setInterval(kontrolaKodu,600000);setTimeout(kontrolaKodu,60000)}
+    window.mmKontrolaKodu=()=>{KODT=0;return kontrolaKodu()};document.addEventListener("visibilitychange",kontrolaKodu);setInterval(kontrolaKodu,600000);setTimeout(kontrolaKodu,60000)}
 }
 function hlas(t,ms){const d=document.createElement("div");d.className="mmhlas";d.setAttribute("role","status");d.textContent=t;document.body.appendChild(d);
   requestAnimationFrame(()=>d.classList.add("on"));setTimeout(()=>{d.classList.remove("on");setTimeout(()=>d.remove(),400)},ms||4500)}

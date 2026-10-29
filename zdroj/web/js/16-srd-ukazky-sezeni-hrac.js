@@ -877,8 +877,7 @@ document.addEventListener("click", async e => {
       dh = ef.dhp ? kVyraz(String(ef.dhp)) : null;
     it.q = Math.max(0, (+it.q || 1) - 1);
     if (!it.q) inv.splice(+pj.dataset.kinvpij, 1);
-    const ch = {inv},
-      o = {hp: S.hp, thp: S.thp};
+    const ch = {inv};
     let m = `${x.en}`;
     if (r) {
       const h0 = ((BOJ.s && BOJ.s.aktivni && BOJ.s.hraci) || []).find(q => bojKartaH(q) === K);
@@ -886,8 +885,9 @@ document.addEventListener("click", async e => {
         bojPCZmena(h0.id, q => bojLecPC(q, K, r.tot), true);
         m += `: +${r.tot} HP (${r.txt})`;
       } else {
-        m += ": " + bojLecPC(o, K, r.tot) + ` (${r.txt})`;
-        ch.hp = o.hp != null && o.hp < kHPmax(K) ? o.hp : null;
+        const L = kLecMimo(K, S, r.tot);
+        m += ": " + L.m + ` (${r.txt})`;
+        if (L.ch) Object.assign(ch, L.ch);
       }
     }
     if (dh) {
@@ -1013,7 +1013,9 @@ async function jaPrihlas(kid, heslo) {
         return false;
       }
     }
+    const k0 = (JA.get() || {}).k;
     JA.set({k: kid, t, n: K.n});
+    if (k0 !== kid && typeof pushPostava === "function") pushPostava(kid);
     KZAM.add(kid);
     bojJa.set(K.n);
     mmHlasG(`Přihlášen jako ${K.n}.`, 3500);
@@ -1024,15 +1026,21 @@ async function jaPrihlas(kid, heslo) {
     return false;
   }
 }
+/* zapomenout místní identitu hráče (odhlášení, vypršelá relace, uvolněná karta): postava, jméno v boji a tajné zprávy –
+   jinak by další hráč na tomtéž zařízení viděl zprávy předchozího a telefon by dál „hrál“ za starou postavu (2026-10-29) */
+function jaZapomen() {
+  if (!GMV && JA.get() && typeof pushPostava === "function") pushPostava(null);
+  JA.set(null);
+  bojJa.set("");
+  ZPR = [];
+}
 async function jaOdhlas() {
   const j = JA.get();
   if (j && j.t && window.MMDB)
     try {
       await MMDB.hracOdhlas(j.t);
     } catch (e) {}
-  JA.set(null);
-  bojJa.set("");
-  ZPR = [];
+  jaZapomen();
   route();
 }
 async function jaOver() {
@@ -1332,7 +1340,8 @@ async function zpravyNacti() {
       return ch;
     }
     const K = jaK();
-    if (!K || !KZAM.has(K.id) || !(JA.get() || {}).t) return false;
+    /* přihlášený heslem ke kartě má token t, přihlášený účtem (Discord, přezdívka) relaci Supabase Auth – dřív zprávy viděl jen ten první */
+    if (!K || !KZAM.has(K.id) || !((JA.get() || {}).t || (MMDB.hracPrihlasen && MMDB.hracPrihlasen()))) return false;
     const r = (await MMDB.zpravy(K.id)) || [];
     const ch = JSON.stringify(r) !== JSON.stringify(ZPR);
     ZPR = r;
@@ -1442,10 +1451,17 @@ async function hraPoll(hned, co) {
 function hraStart() {
   if (HRAP || !window.MMDB) return;
   jaOver();
-  jaDiscordInit();
+  const ja0 = jaDiscordInit();
   poklNacti();
   hraPoll(true);
   HRAP = true;
+  /* zprávy a výzvy hráče potřebují jeho kartu (jaK): když účet či karty dorazí až po prvním dotazu (pomalý telefon, probouzející
+     se databáze), načíst je znovu – dřív zůstaly prázdné do další změny v pulsu (2026-10-29) */
+  Promise.resolve(ja0)
+    .then(() => {
+      if (!GMV && jaK()) hraPoll(true);
+    })
+    .catch(() => {});
   pulsStart();
   /* skrytá záložka nedotazuje (upozornění v telefonu chodí i tak); po návratu hned načíst */
   /* po návratu do záložky se puls zeptá hned (25-puls.js) */

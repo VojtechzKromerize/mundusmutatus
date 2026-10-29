@@ -6,7 +6,7 @@ pocet: 4
 vyzva: 200 XP za pacholka
 ac: 12
 hp: 5
-utok: Drápy a trny +4 · 3 za každou v dosahu (Slashing) · mámení (WIS DC 12, Charmed)
+utok: Drápy a trny +4 · 3 za každou v dosahu (Slashing) · mámení (WIS DC 12, Charmed) · zelené vlasy (Bonusová akce)
 bonus: 4
 komplikace: Divoženka hodí útočníkovi do očí hrst koření: CON save DC 12, jinak je do konce příštího tahu Blinded.
 zakon: Musí odpovědět na pozdrav „Pozdrav Pánbůh“ a pak nesmějí ublížit; nesmějí se dotknout dítěte s červenou nitkou.
@@ -31,6 +31,10 @@ Lesní ženy se zelenými vlasy a prsy přes rameno, staré jako hvozd. Kradou d
 - **Byliny.** Akcí houfu vyléčí jeden ze spojenců 2d8 HP nebo zruší Poisoned.
 - **Podvrženec.** Vypravěčská moc: dítě vymění za své; viz Zažehnání.
 - **Nesmrtelnost místa.** Na 0 HP se rozplyne a vrátí se ve své příští hodině s polovinou HP, dokud ho družina nezažehná (viz Relikt).
+
+## Bonusová akce
+
+- **Zelené vlasy.** Divoženky obtočí vlasy tvora do 5 stop: STR save DC 12, jinak je Restrained (únik DC 12). Studené železo vlasy přetne bez hodu.
 
 ## Relikt
 

@@ -6,7 +6,7 @@ pocet: 4
 vyzva: 200 XP za pacholka
 ac: 12
 hp: 5
-utok: Ledové kousnutí +4 · 4 Cold za každého v dosahu, cíl −5 stop rychlosti; 3+ v dosahu = Paralyzed (CON DC 10)
+utok: Ledové kousnutí +4 · 4 Cold za každého v dosahu, cíl −5 stop rychlosti; 3+ v dosahu = Paralyzed (CON DC 10) · pod hladinou (Bonusová akce)
 bonus: 4
 komplikace: Utopenec se chytí za nohu: útočník, který stojí ve vodě nebo na břehu, hodí STR save DC 11, jinak je stažen pod hladinu (Restrained, nemůže dýchat).
 stitky: nemrtví, voda, vodník, řeka, rybník, brod
@@ -25,8 +25,11 @@ Nafouklí, modraví mrtví s rybinami ve vlasech. Slouží vodníkovi, dokud jej
 
 ## Vlastnosti
 
-- **Pod hladinou.** Ve vodě se přesunou o 15 stop bez Opportunity Attacks (Bonusová akce).
 - **Hrnečky.** Rozbije-li někdo vodníkovy hrnečky s jejich dušemi, utopenci padnou mrtví a konečně klidní.
+
+## Bonusová akce
+
+- **Pod hladinou.** Ve vodě se houf přesune až o 15 stop, aniž by vyvolal Opportunity Attack.
 
 **Morálka.** Neprchají, dokud žije vodník.
 

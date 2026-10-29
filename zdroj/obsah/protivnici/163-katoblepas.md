@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 5 (1 800 XP)
 ac: 14
 hp: 84
-utok: Ocas +7, dosah 10 stop, 5d6+4 Bludgeoning a CON DC 16, jinak Stunned · pohled smrti (CON DC 16, 8d8 Prokleté; o 5 a víc = 64; dobíjí se na 5–6, jen se zvednutou hlavou) · puch (CON DC 16, Poisoned)
+utok: Ocas +7, dosah 10 stop, 5d6+4 Bludgeoning a CON DC 16, jinak Stunned · pohled smrti (CON DC 16, 8d8 Prokleté; o 5 a víc = 64; dobíjí se na 5–6, jen se zvednutou hlavou) · puch (CON DC 16, Poisoned) · ocasem dozadu (Reakce)
 pozehnani: Bažina ho skryje: do konce kola má Resistance proti všemu zranění z dálky a je Heavily Obscured.
 pokuseni: Hlava je příliš těžká: v tomto kole ji nezvedne.
 nerest: Lenost – leží v bahně, dokud ho někdo nevyruší; obejít ho po větru a potichu (Stealth DC 13 celé družiny) znamená projít bez boje.
@@ -42,6 +42,10 @@ Zvíře jako bažinný býk s krátkýma nohama, hřívou plnou bahna a hlavou t
 ## Bonusová akce
 
 - **Zvednout hlavu.** S funěním zvedne hlavu: do začátku svého příštího tahu smí použít Pohled smrti a vidí i letce nad sebou; útoky na jeho hlavu (kdo míří na oči) mají výhodu.
+
+## Reakce
+
+- **Ocasem dozadu.** Když na něj tvor do 10 stop zaútočí zblízka, švihne ocasem (útok Ocas).
 
 **Výkupné a kořist.** Oči: kdo je vysuší ve tmě, má prach, který zabíjí krysy a šváby (alchymista 4 kopy). Žluč na theriak. Učenec z Karolina zaplatí za lebku 10 kop – a napíše o tom traktát s vaším jménem.
 

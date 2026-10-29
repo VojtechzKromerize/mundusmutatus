@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 5 (1 800 XP)
 ac: 15
 hp: 90
-utok: Ohnivé kopí +7, 2d8+4 Piercing a 2d6 Fire (hod 20/60, vrací se) · sevření (STR DC 15, 2d6+4 a 2d6 Fire, Restrained) · žár: 2d6 Fire všem do 5 stop na konci tahu · planoucí pohyb (Bonusová akce)
+utok: Ohnivé kopí +7, 2d8+4 Piercing a 2d6 Fire (hod 20/60, vrací se) · sevření (STR DC 15, 2d6+4 a 2d6 Fire, Restrained) · žár: 2d6 Fire všem do 5 stop na konci tahu · planoucí pohyb (Bonusová akce) · žhnoucí kůže (Reakce)
 pozehnani: Vzplanutí: cíl, kterého drží nebo zasáhl, hoří (1d6 Fire na začátku tahu, dokud to neuhasí).
 pokuseni: Plamen zeslábne: do konce kola nepálí žár a kopí zraňuje jen Piercing.
 nerest: Pýcha – je oheň a nesnese vodu ani urážku. Kdo na něj vylije vědro vody (Akce, 10 Cold – má Vulnerability, tedy 20), toho musí v příštím slotu napadnout, i kdyby to znamenalo opustit pec.
@@ -44,6 +44,10 @@ Had z živého ohně, bytost, kterou alchymisté znali z knih – a po Protržen
 ## Bonusová akce
 
 - **Planoucí pohyb.** Pohne se až o svou rychlost, aniž by vyvolal Opportunity Attack; každý tvor, kterého mine do 5 stop, utrží jednou 1d6 Fire.
+
+## Reakce
+
+- **Žhnoucí kůže.** Když ho zasáhne útok zblízka kovovou zbraní, kov zrudne: útočník utrží 1d6 Fire.
 
 **Výkupné a kořist.** Kůže salamandra nehoří: tkadlec z ní utká rukavice nebo plášť s Resistance Fire (30 kop). Popel z pece – alchymista tvrdí, že je v něm zlato. Alchymistovy zápisky: komu salamandra prodával.
 

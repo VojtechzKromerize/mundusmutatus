@@ -28,6 +28,7 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
   stejnojmenné ne – platí nejsilnější (dva Bless = jednou 1d4, Aid jen nejvyšší stupeň). Výjimku umí pole `scit` v `UCINKY`.
 - 2026-10-23 **Čistá pravidla**: výpočty pravidel patří do souborů `@čisté` (bez stránky, testy v čistém Node); stránka je jen volá s daty.
 - 2026-10-25 **Vzdušný boj draků bez bojiště**: varianta podle X-Wingu (stránka `#nebe`, 10n/22c) zkoušena a z `dev` odstraněna.
+- 2026-10-29 **Každá osoba v zemských deskách má vlastní D&D statblok** (`protivnici/2NN-os-<id>.md`, štítek `osoba`, `statblok: os-<id>` u osoby): výzva podle role a povahy (děti 0, dvůr 1–4, velitelé 5–8, vladaři a zhoubci 9–12), Neřest vychází z charakteru, číslo odvozeno z výzvy; jen pro vypravěče, v bestiáři se nevypisují zvlášť (hledají se jako osoby). Test `osoby-statbloky.test.mjs`.
   Výchozí bod je „Fáze draků“ s figurkami (návrh v projektu claude.ai `pravidla/vzdusny-boj-navrh.md`): draci jsou zhoubci, let v pořadí
   těžký → střední → lehký, útoky naráz, akce draka (stoupání bonusovou akcí, Nálet, Sevřít), třídy s rysy, pravidlo strachu, přesila.
 - 2026-10-25 **Pomalá, ale těžká rána**: těžká kuše, píšťala a hákovnice vystřelí jednou za akci Útok a za každý další útok akce
@@ -45,6 +46,19 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
 - 2026-10-28 **Úprava řádku herního záznamu** (vypravěč, 24): v podrobnostech řádku „✎ Upravit záznam“ – cíl, hod, výsledek (i vlastní text),
   zranění, typ zranění a poznámka. Oprava leží vedle původních dat (`o.upr` v BLOGG, `upr` u řádku `s.zaz` – vidí ji hráči, `s.hupr[id]`
   u hodu z karty) a řádek ji použije při sestavení (`bzUprAplikuj`); zaškrtnuté „opravit i životy“ srovná HP cíle o rozdíl (`bzHpOprav`).
+- 2026-10-28 **Léčení ran z karty** (15, pravidlo `ranaLecba` v 10p): Lehká „pominula“, Těžká „Ošetřit (Lékařství)“ proti SO 13 (Vojtův
+  návrh Ran – ověřit) nebo Lesser Restoration, Vážná Greater Restoration nebo vypravěč, Smrtelná trvalá. Léčí přihlášený hráč svou postavou
+  (i spolubojovníka) nebo vypravěč; tlačítka vidí i hráč přihlášený účtem (`ucetPrihlasen`), dřív jen s vazbou `jaK`.
+- 2026-10-28 Traktáty a Draconomicon (`.drtext`) přes celou šíři stránky, obsah traktátu ve 4 sloupcích; v Pravidlech › Povolání odkaz Gunslinger
+  na Doplňky mimo SRD › Povolání.
+- 2026-10-28 Boj: hod na kritické zranění má vlastní šuplík se svislou záložkou pod „Pravidla“ (`BKRO`, `#bkritsup`; otevřený je nejvýš
+  jeden šuplík, záložky se přisunou k jeho okraji). Menu: Hra je ikona kostky na prvním místě, „Úvod“ v menu není (úvod = logo).
+- 2026-10-28 Útok nepřítele na víc cílů: „+ víc cílů“ u Na koho (`BCILL`, první = `BCIL`); útok proběhne na každý cíl, u záchrany
+  (dech, výbuch) se zranění hodí jednou (`bojUtok` opt.zr). Data art/*.json mají v adrese otisk obsahu (build) – po změně dat je
+  prohlížeč i service worker stáhnou znovu (vypravěč měl v mezipaměti kouzla se starými názvy škol).
+- 2026-10-28 **Jedna skupina měst na zemi** (Vojta): sloučeno cmal → cpl (Města Polska), chu → umi (Města Uher), nmra → cat (Města a trhy
+  Rakous), nmba → cba (Města Bavor, Horní Falce a Frank), nmsa → csa (Města Saska a Míšně); sídla spojená, texty za sebou. Čechy a Morava
+  dál rozlišují královská a věnná města (mes) od ostatních (cmc, cmm) – je to stav na sněmu, ne zbytečné dělení.
 
 ## Hotovo
 
@@ -162,6 +176,9 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
 - 10-24 **Názvy podle Vojtovy volby**: 113 kouzel přejmenováno (`zdroj/kouzla/jmena.json`; Bigby's Hand = Tajemná ruka, Hold Person = Znehybnění osoby…). **Stavy**: Paralyzed = Paralyzovaný (dřív Ochromen), Restrained = Spoután (Zadržen, Spoután), Grappled = Chycen (ne Sevřen), Frightened = Vyděšen, Poisoned = Otráven, Stunned = Omráčen – klíče v datech `paralyzovaný`, `spoután`, `vyděšen`, `otráven`; starší data z databáze i prohlížeče převede při čtení `mmStare` (koruna.html, i pro `mmDex`), `mm_stavy_pc_ok` bere staré i nové. Texty: překlad SRD převádí `stavy_srd`, Vojtovy texty (katalog kouzel a vybavení, plné znění, featy) `_stavy` v `pojmy_textu.py` (ochromený = omráčený, zadržený = spoutaný, uchvácený = chycený, vystrašený = vyděšený, zmámený = okouzlený, stav ležící = sražený); featy ve vývojové databázi převedené SQL. Ostrá: schéma (`mm_stavy_pc_ok`) a nahrání plného znění při nasazení.
 - 10-24 **Pojmy česky v zobrazení** (Vojta): typy zranění (kyselinové, drtivé, mrazivé, ohnivé, silové, bleskové, prokleté, bodné, jedové, psychické, svaté, sečné, hromové – skloňované podle okolí), odolnost / imunita / zranitelnost, dovednosti (Sleight of Hand = Kapsářství) a Univerzální; data a automatika zůstávají anglicky. `pojmyCz` (02d-pojmy.js, test `pojmy.test.mjs`), na stránce `pojmyStrana` + MutationObserver (26). Názvy kouzel / předmětů / schopností beze změny. Plné znění featů a ručně psané texty vybavení a podtříd přepsány na mrazivé / prokleté / svaté.
 - 10-24 **Bestiář z Vojtovy tabulky 5e** (Bestiar.xlsx, 2 294 tvorů roztříděno na hodí se / jen čísla / vyškrtnout): 18 nových protivníků `protivnici/154–171` – sokové Ježibaba, Sudičky, Labutí panna (relikty), Hlas šibenice, Černý pes od pokladu, Tur, Morový nosič, Oživlá vitráž, Medvědí poustevník, Katoblepas, Šeptající písař; houfy Diví muži (relikt), Oživlé chrastí, Morové červy; zhoubci Bezhlavý rytíř, Čert s vidlemi, Titivillus, Nesmrtelný nigromant. Každý má vlastní bonusovou akci nebo reakci (část převzatá z jiných statbloků: Kryt, Nabodnout, Zakoktání, Škrt…); mechanika mimo SRD jen čísly, texty vlastní. 10 setkání `setkani/53–62` (Perníková chaloupka, Šibenice za městem, Morová ves, Bezhlavý rytíř na mostě, Skriptorium, Hvozd divých mužů, Bažina u Třeboně, Čert na rozcestí, Nigromantova krypta, Kaple s vitrážemi). Žetony zatím nejsou. Stávajícím 52 protivníkům (sokové a zhoubci bez bonusové akce i reakce, k tomu Cepníci, Zvědové a Elfí střelci) doplněna bonusová akce nebo reakce podle příbuzných statbloků z tabulky (Gravecaller, Lifedrinker, Haint, Battering Ram, Tree Blight, Mummy Lord…); zdroj je v řádku Předloha.
+- 10-29 **Bestiář: každý sok a zhoubce má bonusovou akci i reakci** (89 doplněných; Cizí tvář dvojníka a Tři podoby krysaře přesunuty z Vlastností do Bonusové akce). Předlohy z Vojtovy tabulky jsou u inspirovaných schopností v řádku Předloha.
+- 10-29 **Bestiář: každý houf má bonusovou akci** (49 houfů; tam, kde byla schovaná ve Vlastnostech – Utopenci, Stíny, Lesní skřítci, Strigojovi služebníci – přesunuta do vlastního oddílu).
+- 10-29 **Bestiář: sloučené dvojice** (Vojta): importy, které se kryly s vlastními tvory, jsou sloučené pod vlastním jménem a id – Čert ← Čert s vidlemi (výzva 4), Hrobník z morové jámy ← Morový nosič (výzva 3), Padlý křižák ← Bezhlavý rytíř, Jezinky ← Ježibaba, Mistr černého umění ← Nesmrtelný nigromant (lich je nový přívlastek **Nesmrtelný**, `privlastky/10-nesmrtelny.md`). Smazané `protivnici/154, 160, 168, 169, 171`; zdvojená setkání sloučena do starších (Chaloupka jezinek, Morová jáma), Bezhlavý rytíř na mostě → Padlý křižák na mostě.
 - 10-23 **Záložky karty jako malované kolčí štíty** (`bdmZalIk`, `BDMSTITY` 14; `art/img/zalozky/<id>-48/96.webp`): Statistiky lev, Akce meče,
   Kouzla kometa, Vybavení truhla, Rysy strom s kořeny, Poznámky brk, Záznam kostka – neaktivní ztlumené, aktivní natočený; Společníci zatím linková
   ikona (štít chybí). Nad vlastnostmi místo bublin **stříbrné mince** Zdatnost (vavřín), Rychlost (podkova), Iniciativa (polnice, klik hází)
@@ -265,6 +282,7 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
 - 10-28 **Mapa Koruny: hranice až k okrajům, země v Uhrách, vrstva Hlavní hráči** (Vojta): země, diecéze a barvy sousedů na podkladu už nekončí rovnou čarou u dřívějšího okraje mapy (kusy sloučené, rovné hranice zvlněné, souš pokrytá celá) – počítá `podklady/hranice_doplnit.py` vždy od stavu 159b63f, spouštět po `koruna_geo.py`. Nové země na západě říše (Hesensko … Tři spolky) a v Uhrách (Jiskrovy Horní Uhry, spišská zástava, zástavy rakouského domu, Mačva, Temešsko, Severin, Sedmihradsko), 30 nových diecézí (sídlo za okrajem mapy = `mimo`, bez značky stolce), 24 cest k okrajům. Vrstva **Hlavní hráči** (`HRACI` v 02, obrysy `HRACI_GEO` v 02b): 13 mocností v barvě erbu s erbem `art/erby/hrac-*.webp` (z Vojtových SVG; Litva zatím z `hlit`, poslaný soubor byl stránka WappenWiki, ne SVG). Test: `mapa.test.mjs` (pokrytí souše, žádné rovné hrany na starém okraji, mocnosti).
 - 10-28 **Karta, mapa a Při hře** (Vojta): na kartě na počítači nadpis Statistiky se štítem záložky; klepnutí na mocnost ve vrstvě Hlavní hráči ukáže panel (`hracHtml`: vládnoucí rod, země s přiblížením, rody, Konflikty); v Při hře **Kdo je to?** – náhodná postava doby (`09g-generator-postav.js`, @čisté, `genPostava`; Do scény = NPC se statblokem SRD a `n.gm`); **Družina zatím nikde** (`HRA.nikde`, `druzinaNikde()` v 07; tlačítka Vynulovat cesty a Družina zatím nikde u stopy na mapě i ve Výpravě) – na ostrém webu je družina ze zkoušky v Praze s cestou do Kunštátu, vypravěč to po nasazení smaže tlačítkem.
 - 10-28 **Popis jen z vypravěčova překladu** (Vojta): u kouzla (karta kouzla, seznam na kartě) i předmětu (okno věci na kartě, katalog vybavení, SRD předměty) se přihlášenému místo krátkého textu + „Celé znění“ + rozbalovacího „Plné znění“ ukáže jen vypravěčův překlad pod nadpisem Popis (`plneInl` v 10q – načte se samo, MutationObserver; krátký text `.plne-skr` skryje CSS `:has` v `.plne-host`). Bez přihlášení nebo bez překladu v databázi zůstane krátký text. Bez tlačítka „Požádat o přidání“ v okně věci. Rozbalovací bloky zůstaly jen na stránkách Pravidla › Kouzla / Předměty. Vývojová databáze má zatím jen featy – kouzla a předměty musí vypravěč nahrát (viz Otevřené).
+- 10-28 **Lužice, Braniborsko, Míšeň, Habsburkové: doplnění a opravy z literatury** (12 návrhů schválených Vojtou): Chotěbuz (dvě poloviny 1445/1455, cena, nárok Šternberků a Šlikových; opraveno 1454–55 u Picnova), dolnolužické fojtství 1448–1453 a Lubin (není doložené sídlo fojta, arcijáhenský soud), Senftenberg a Finsterwalde, Berkové jako fojtové (`02g` Chotěbuz, Lubin, Senftenberg, Budyšín, Žitava, Lubáň, Dobrilugk, Neuzelle; rody `350-bra`, `030-ste`, `660-mdl`, `430-wet`, `140-ber`, `620-mei`, `320-ses`, `902-kla`, `390-hab`; osoby `480-fridrich3`, `750-fridrich2bra`, nová `741-petrkrebs`; traktát `010-kratke-dejiny`; `postavy-1458.json`). Vymyšlené věci jsou v ⟦tajném⟧ s „Pozn. vypravěče, herní nápad“. Bez textu o 1461–1462 pro hráče.
 
 ## Otevřené
 - **Mapa jih – k ověření (Vojta)**: kdo k 3. 3. 1458 drží Čakovec a Varaždínský hrad (celjské dědictví – Vitovec?), Golubac vynechán (srbský/turecký?), Kusánský
@@ -310,6 +328,26 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
 - **Výkon boje**: `renderBoj` překresluje po blocích (`bojBlok`, `bojSeznam`), ne celý `#bojview`; úplné klíčované vykreslování karet protivníků z plánu boj-vykon není a zatím není potřeba.
 - **Dokumenty v projektu claude.ai**: datované snímky `vyvoj/*` smazány 2026-10-22 (vše sloučeno sem); zůstávají `vyvoj/mobil.md` a `vyvoj/beyond-parita.md` (otevřené body jsou přenesené výše – po jejich vyřízení smazat), `pravidla/rozhodnuti.md` a aktuální Artikule.
 - Rešerše 10-28 (knihy 4) k ověření: Jindřich Reuss z Plavna je u Urbana velmistrův synovec, web má strýce (800-nrad); Malbork 1457 – Urban: žoldnéři prodali hrad Gdaňsku za 190 000 dukátů, Gdaňsk králi; Neumark 1443/1455 měna; Bárány s. 373 (Matyáš a válka proti Jiřímu) neodpovídá webu, nepřebírat. Nové osoby k zvážení: Laurentius Blumenau, Bartholmaus Liebenwald, Johann Pyr (kupec gdaňský), Johann Schweidnitzer (Toruň/Olkusz).
+
+## Údržba 2026-10-29
+
+Průchod stabilitou a chybami (Vojta: „optimalizace a údržba celého webu“). Commity `0bf2ef7` (přihlášení), `0067f01` (boj), `7a54d64` (karta).
+
+- **Přihlášení a spojení:** zprávy od vypravěče i pro hráče s účtem; odhlášení jen na tomto zařízení (`scope=local`); vypršelá relace účtu hráče odhlásí
+  (`jaZapomen`); upozornění na telefon za správnou postavu (`pushPostava`, odběr se při uvolnění karty smaže v `mm_ja_uvolni` / `mm_hrac_zrus_heslo`);
+  mrtvé spojení Realtime se pozná (70 s bez zprávy) a přepne se na puls; nenačtený díl skriptu spustí kontrolu nové verze; featy, povolání a texty karty
+  se po chybě načtou znovu za minutu.
+- **Boj:** přehrání změny po konfliktu verzí volá hák tahu potichu (`bojTahHookTicho`, `BTICHO` v 12) – nic se znovu nehází ani nehlásí, výsledky záchran
+  konce tahu si pamatuje `BTHZ`; přepínače stavů a reakcí zapisují cílovou hodnotu; zámek potvrzení útoku vyprší (15 s); Zpět (`bojObnovStav`) nechá čekající
+  útoky hráčů a po útoku vrací i životy; okamžitá smrt při zásahu na 0 HP ≥ maximum; Nová scéna drží `nid`; série útoků po částečné chybě; klíč `BUVC` se stavem
+  houfu; dotaz pulsu během ukládání se zopakuje (`bojPollPozdeji`); uložení bez dotazu na verzi, když ji známe; `BHIST` bez spojeného klíče.
+- **Karta:** Mage Armor jako základ AC (`ucAC().zak`); `kLecMimo` (léčení padlého mimo boj); `kStavVliv` – hod proti smrti je záchrana, dovednost dá vlastnost;
+  LoH/Bardic po odkladu z čerstvého stavu; `KUCX` s časem konce; `kartaStavZmen` po chybě uvolní všechna pole; Large Form, Tireless; `kZdroje` přes `kZdrJm`;
+  kostka životů s `kMd(K, "CON")`; `kMunice` bez pouzder. Testy `karta-udrzba.test.mjs`, rozšířený `boj-pc.test.mjs`.
+- **Databáze:** konflikt verze boje (`mm_boj_uloz_v`) hlásí `PT409` místo `40001` – PostgREST serializační chybu opakoval dokola a uložení
+  vypravěče viselo, kdykoli hráč zapsal těsně před ním. **Do ostré databáze přijde až se „schéma do ostré“ při nasazení.**
+- **Nechané (k rozhodnutí):** hráč přihlášený jen starým heslem karty nevidí své tajné hody (potřebovalo by RPC); test `prohlizec_boj2.py` občas spadne na připojení
+  společníka (ř. ~323) – opakování projde.
 
 ## Týdenní údržba 2026-10-24
 

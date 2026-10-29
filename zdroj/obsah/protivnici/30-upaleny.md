@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 3 (700 XP)
 ac: 15
 hp: 65
-utok: Dva útoky: ohnivé žezlo +4, 1d6+2 a 1d6 Fire, nebo vržený plamen 60 stop, 1d10+2 Fire · při smrti výbuch · hranice (Reakce)
+utok: Dva útoky: ohnivé žezlo +4, 1d6+2 a 1d6 Fire, nebo vržený plamen 60 stop, 1d10+2 Fire · při smrti výbuch · hranice (Reakce) · plamenný krok (Bonusová akce)
 pozehnani: Plamen přeskočí na dřevo, slámu či šat cíle: cíl hoří (1d4 Fire na začátku tahu, dokud to neuhasí).
 pokuseni: Vzpomene na hranici: jeden slot jen stojí a hoří, nic nedělá.
 nerest: Křivda – upálili ho nevinného. Kdo vysloví jeho jméno a odpustí mu (Religion DC 13), tomu nic neudělá.
@@ -38,6 +38,10 @@ Kostra v plamenech, která nikdy nedohoří. Upálený kacíř, čarodějnice ne
 - **Dva útoky.** Dvakrát zaútočí žezlem nebo plamenem.
 - **Ohnivé žezlo.** +4, dosah 5 stop. **Zásah:** 1d6+2 Bludgeoning a 1d6 Fire.
 - **Vržený plamen.** +4, dostřel 60 stop. **Zásah:** 1d10+2 Fire.
+
+## Bonusová akce
+
+- **Plamenný krok.** Pohne se až o polovinu rychlosti, aniž by vyvolal Opportunity Attack; za ním do konce kola hoří stopa – kdo do ní vstoupí, utrží 1d6 Fire.
 
 ## Reakce
 

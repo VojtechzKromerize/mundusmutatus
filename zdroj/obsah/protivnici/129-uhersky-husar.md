@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 3 (700 XP)
 ac: 16
 hp: 52
-utok: Kopí v sedle +5, dosah 10 stop, 1d10+3 Piercing (Vpřed! po jízdě) · šavle +5, 1d8+3 Slashing · nedá se zastrašit
+utok: Kopí v sedle +5, dosah 10 stop, 1d10+3 Piercing (Vpřed! po jízdě) · šavle +5, 1d8+3 Slashing · nedá se zastrašit · ostruhy (Bonusová akce)
 pozehnani: Projede: po zásahu kopím pokračuje v jízdě o dalších 30 stop a zaútočí šavlí na druhý cíl.
 pokuseni: Kůň se splaší nebo klopýtne: do konce příštího tahu je pěší (kůň odběhl o 30 stop).
 nerest: Chtíč po slávě – husar bojuje pro Matyáše a pro písně. Kdo ho vyzve na souboj v sedle (Persuasion nebo Intimidation DC 13), toho přijme, a dokud souboj trvá, neútočí na ostatní. Kořist: za koně nepřítele opustí boj.
@@ -39,6 +39,10 @@ Lehký jezdec uherského krále: štít, kopí, šavle, kůň rychlejší než �
 
 - **Kopí v sedle.** +5, dosah 10 stop. **Zásah:** 1d10+3 Piercing. **Vpřed!** Po jízdě aspoň 15 stop rovně dvojité kostky zranění.
 - **Šavle.** +5, dosah 5 stop. **Zásah:** 1d8+3 Slashing (Šikovná, Ostrá).
+
+## Bonusová akce
+
+- **Ostruhy.** Kůň se pohne až o polovinu rychlosti, aniž by vyvolal Opportunity Attack – husar vyrazí a vrátí se.
 
 ## Reakce
 

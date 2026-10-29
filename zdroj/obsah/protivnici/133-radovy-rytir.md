@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 3 (700 XP)
 ac: 18
 hp: 52
-utok: Obouruční meč +5, 2d6+3 Slashing nebo Piercing · těžká kuše +2, 2d10 Piercing · odraz (Reakce, AC +2) · nedá se zastrašit
+utok: Obouruční meč +5, 2d6+3 Slashing nebo Piercing · těžká kuše +2, 2d10 Piercing · odraz (Reakce, AC +2) · nedá se zastrašit · štít s křížem (Bonusová akce)
 pozehnani: Gott mit uns: zásah je kritický proti kacíři nebo pohanovi (kališník, starověrec, Proměněnec).
 pokuseni: Plášť se zachytí: do konce příštího tahu má poloviční rychlost a nevýhodu na DEX saves.
 nerest: Pýcha – rytíř Panny Marie nevyjednává s kacíři ani s ženami. Kdo ho urazí jako Němce bez země (Intimidation DC 13), toho musí vyzvat. Poslušnost: rozkaz komtura plní, i když je zjevně špatný – kdo mu předloží jiný rozkaz s pečetí (Deception DC 15), toho poslechne.
@@ -40,6 +40,10 @@ Bratr Řádu německých rytířů: šlechtic z Říše, mnich a válečník, vy
 - **Dva útoky.** Dvakrát mečem nebo kuší.
 - **Obouruční meč.** +5, dosah 5 stop. **Zásah:** 2d6+3 Slashing nebo Piercing (Šikovná, Ostrá, Půlmeč).
 - **Těžká kuše.** +2, dostřel 100/400 stop. **Zásah:** 2d10 Piercing (Průrazná).
+
+## Bonusová akce
+
+- **Štít s křížem.** Zvedne štít proti střelám: do začátku svého příštího tahu má proti útokům na dálku +2 AC.
 
 ## Reakce
 

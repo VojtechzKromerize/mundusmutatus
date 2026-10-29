@@ -6,7 +6,7 @@ pocet: 6
 vyzva: 25 XP za pacholka
 ac: 16
 hp: 5
-utok: Kopí +3 · 3 Piercing za každého zbrojnoše v dosahu cíle · bílý kříž na černém
+utok: Kopí +3 · 3 Piercing za každého zbrojnoše v dosahu cíle · bílý kříž na černém · krýt raněného (Bonusová akce)
 bonus: 3
 komplikace: Zbrojnoš zavolá komtura: v příštím kole se k houfu přidá sok (komtur) nebo další houf ze špitálu, pokud je v doslechu.
 stitky: johanité, Strakonice, řád, Církev, katolíci, špitál, zbrojnoši, komenda, Bavorové, lidé
@@ -29,6 +29,10 @@ Služební bratři a zbrojnoši řádu svatého Jana ze strakonické komendy: č
 - **Řád.** Neprchají, dokud stojí komtur nebo převor; na jeho rozkaz ustoupí v pořádku (bez Opportunity Attacks).
 - **Špitál.** Jeden zbrojnoš z houfu může místo útoku stabilizovat spojence na 0 HP (Medicine +3).
 - **Kříž.** Katolická postava, která proti nim tasí, přijala Pokušení, ať hodila cokoli – ledaže řád stojí proti králi se zbraní.
+
+## Bonusová akce
+
+- **Krýt raněného.** Houf se posune až o 10 stop k raněnému spojenci; ten má do začátku příštího tahu houfu +2 AC.
 
 **Morálka.** Neprchají při polovině, jen na rozkaz. Bez velitele prchají do špitálu, který pak drží jako tvrz.
 

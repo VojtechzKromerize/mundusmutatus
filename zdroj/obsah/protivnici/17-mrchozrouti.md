@@ -6,7 +6,7 @@ pocet: 6
 vyzva: 200 XP za pacholka
 ac: 12
 hp: 5
-utok: Kousnutí a drápy +4 · 4 za každého v dosahu (Piercing a Prokleté); 3+ v dosahu = CON DC 10, jinak Paralyzed
+utok: Kousnutí a drápy +4 · 4 za každého v dosahu (Piercing a Prokleté); 3+ v dosahu = CON DC 10, jinak Paralyzed · hladový skok (Bonusová akce)
 bonus: 4
 komplikace: Drápy ochromí: útočník hodí CON save DC 10, jinak je Paralyzed do konce svého příštího tahu (elfové jsou imunní).
 stitky: nemrtví, mor, morová jáma, hřbitov, mrchožrouti, ghúlové
@@ -27,8 +27,12 @@ utoky:
 
 - **Na mrtvé.** Výhoda na útok proti cíli, který leží na 0 HP; padlí spolubojovníci je zdržují – každý mrchožrout, který začne tah u mrtvoly, ji místo útoku žere.
 
+## Bonusová akce
+
+- **Hladový skok.** Houf se pohne až o 15 stop, i po stěnách, aniž by vyvolal Opportunity Attack – jen k tvoru na 0 HP nebo k mrtvole.
+
 **Morálka.** Prchají před ohněm a svěcenou vodou, ne před ranami. Polovina padlých je nezastaví, dokud mají co žrát.
 
 **Kořist.** Nic, co by chtěl někdo nosit. V jámě bývají věci mrtvých.
 
-*Předloha: Ghoul (D&D 2024), převedeno pro Mundus Mutatus.*
+*Předloha: Ghoul (D&D 2024); bonusová akce podle Hungry Ghast, převedeno pro Mundus Mutatus.*

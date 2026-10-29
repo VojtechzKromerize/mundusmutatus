@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 5 (1 800 XP)
 ac: 13
 hp: 67
-utok: Vysátí života +6, 4d8+3 Prokleté a max. HP klesne · stvoří přízrak z čerstvého mrtvého · troubení honu (Bonusová akce)
+utok: Vysátí života +6, 4d8+3 Prokleté a max. HP klesne · stvoří přízrak z čerstvého mrtvého · troubení honu (Bonusová akce) · rozplynout se v bouři (Reakce)
 pozehnani: Z čerstvě padlého člověka do 10 stop vstane přízrak a přidá se k honu.
 pokuseni: Zazní roh honu: lovec musí do příštího slotu odletět o 60 stop za stopou nejbližšího zvířete.
 nerest: Lov – nesmí se vzdát kořisti. Kdo před ním padne tváří k zemi a nedívá se, toho přeskočí (ale hon si zapamatuje).
@@ -43,6 +43,10 @@ Vůdce divokého honu. Nikdo neví, kým byl: podle jedněch pánem, který lovi
 ## Bonusová akce
 
 - **Troubení honu.** Jeden pekelný pes nebo kůň honu do 30 stop, který ho slyší, reakcí zaútočí s výhodou.
+
+## Reakce
+
+- **Rozplynout se v bouři.** Když ho zasáhne útok, utrží jen polovinu zranění a přesune se až o 15 stop, aniž by vyvolal Opportunity Attack.
 
 ## Relikt
 

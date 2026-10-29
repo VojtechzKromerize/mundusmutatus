@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 2 (450 XP)
 ac: 13
 hp: 68
-utok: Kousnutí +6, dosah 10 stop, 2d6+4 Piercing · stáhne pod vodu · zadrží dech hodinu · pod hladinu (Reakce)
+utok: Kousnutí +6, dosah 10 stop, 2d6+4 Piercing · stáhne pod vodu · zadrží dech hodinu · pod hladinu (Reakce) · šlehnutí krkem (Bonusová akce)
 pozehnani: Převrátí loď nebo vor: každý na palubě hodí DEX save DC 13, jinak je ve vodě a Prone.
 pokuseni: Uvízne na mělčině: do konce příštího tahu je na suchu (rychlost 20 stop, útoky proti němu s výhodou).
 nerest: Hlad – ryby ze sítí. Kdo mu hodí úlovek nebo prase (Akce), toho nechá projet; kdo ho krmí týden, má na řece spojence, který převrací cizí lodě.
@@ -37,6 +37,10 @@ Dlouhokrký vodní ještěr, který po Protržení Závoje žije v hlubokých t�
 
 - **Kousnutí.** +6, dosah 10 stop. **Zásah:** 2d6+4 Piercing; tvor velikosti Medium nebo menší ve vodě je Grappled (únik DC 14) a stažen pod hladinu.
 - **Vlna.** Ocasem udeří do hladiny: loď do 10 stop se zhoupne – každý na palubě hodí DEX save DC 12, jinak je Prone; vor se rozpojí (Athletics DC 13 na spojení).
+
+## Bonusová akce
+
+- **Šlehnutí krkem.** Tvor na palubě nebo na břehu do 10 stop hodí STR save DC 12, jinak spadne do vody.
 
 ## Reakce
 

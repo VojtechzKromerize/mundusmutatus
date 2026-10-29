@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 5 (1 800 XP)
 ac: 17
 hp: 112
-utok: Dva drápy +7, 2d8+4 · magické střely (4. úroveň) · přízračný vrah (WIS DC 14) · sen o můře (1/den)
+utok: Dva drápy +7, 2d8+4 · magické střely (4. úroveň) · přízračný vrah (WIS DC 14) · sen o můře (1/den) · tíha na prsou (Reakce)
 pozehnani: Ustoupí za Závoj a objeví se na hrudi spícího.
 pokuseni: Někdo zavolá její jméno: do konce kola je viditelná a nemůže ustoupit za Závoj.
 nerest: Váček duší – nosí duše svých obětí ve váčku. Kdo ho zničí nebo ukradne, ten ji spoutá.
@@ -48,6 +48,10 @@ Noční ježibaba, která chodí za Závojem a sedá spícím na hruď. Krade de
 ## Bonusová akce
 
 - **Proměna.** Podoba člověka (stará žena, dívka), nebo zpět.
+
+## Reakce
+
+- **Tíha na prsou.** Když tvor do 5 stop od ní padne Prone nebo Unconscious, sedne mu na prsa: CON save DC 14, jinak získá 1 stupeň Exhaustion.
 
 ## Relikt
 

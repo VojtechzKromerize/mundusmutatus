@@ -182,7 +182,16 @@ function bojGutShot(h, u, krit) {
 }
 function bojUtokVyhodnot(s, u) {
   if (!u || !u.id) return bojUtokVyhodnot0(s, u);
-  const k = u.id + "|" + (u.ci || []).join(",");
+  /* stav houfu cílů je v klíči: když mezitím padli pacholci, záchrany houfu se hodí znovu pro skutečný počet */
+  const k =
+    u.id +
+    "|" +
+    (u.ci || [])
+      .map(ci => {
+        const n = (s.npc || []).find(x => x.id === ci);
+        return n && n.druh === "houf" ? `${ci}:${n.pocet || 0}:${n.hz || 0}` : ci;
+      })
+      .join(",");
   if (BUVC.has(k)) return BUVC.get(k);
   const V = bojUtokVyhodnot0(s, u);
   BUVC.set(k, V);
@@ -326,13 +335,16 @@ function bojUtokVyhodnot0(s, u) {
   });
   return {an, h, r};
 }
-const BUTZP = new Set();
+/* útoky, jejichž zápis právě běží (id → čas): po Zpět, obnově stavu nebo neuloženém zápisu je útok zase „čeká“ – po 15 s ho
+   jde potvrdit znovu (dřív zůstal navždy zablokovaný a blokoval hráči další útoky, 2026-10-29) */
+const BUTZP = new Map();
+const bojUtokBezi = id => BUTZP.has(id) && Date.now() - BUTZP.get(id) < 15000;
 /* potvrzení útoku hráče: životy, houfy, záznam, veřejný výsledek */
 function bojUtokPotvrd(id, zamitni) {
   const s = BOJ.s;
   const u = s && (s.utoky || []).find(x => x.id === id);
-  if (!u || u.stav !== "ceka" || BUTZP.has(id)) return;
-  BUTZP.add(id);
+  if (!u || u.stav !== "ceka" || bojUtokBezi(id)) return;
+  BUTZP.set(id, Date.now());
   if (zamitni) {
     bojZmen(z => {
       const q = (z.utoky || []).find(x => x.id === id);
@@ -375,6 +387,9 @@ document.addEventListener("click", e => {
   if (b) bojUtokLeg(b.dataset.bulr, b.dataset.ci);
 });
 function bojUtokProved(s, u, id) {
+  /* Zpět po zapsání útoku vrátí i životy nepřátel (mění se mimo stav boje) */
+  const hp0 = JSON.parse(JSON.stringify(bojHp.get() || {})),
+    U0 = BUNDO[BUNDO.length - 1];
   const V = bojUtokVyhodnot(s, u),
     houfy = [],
     mrtvi = [];
@@ -495,12 +510,14 @@ function bojUtokProved(s, u, id) {
       ...(z.zaz || []),
     ].slice(0, 40);
   });
+  const Un = BUNDO[BUNDO.length - 1];
+  if (Un && Un !== U0 && Un.s && !Un.hp) Un.hp = hp0;
   mmHlasG(`${V.an} → ${vys}`, 5000);
 }
 /* nové útoky hráčů po načtení boje: rovnou zapsat, nebo upozornit */
 function bojUtokyNove() {
   if (!GMV || !BOJ.s || !BOJ.s.aktivni) return;
-  const P = (BOJ.s.utoky || []).filter(u => u.stav === "ceka" && !BUTZP.has(u.id));
+  const P = (BOJ.s.utoky || []).filter(u => u.stav === "ceka" && !bojUtokBezi(u.id));
   if (!P.length) return;
   if (bojAuto.get()) P.forEach(u => bojUtokPotvrd(u.id));
   else {
@@ -1214,8 +1231,8 @@ document.addEventListener("keydown", e => {
   }
 });
 document.addEventListener("keydown", e => {
-  if (e.key === "Escape" && BPRAV && curView === "boj") {
-    const b = document.querySelector("#bojview .bprx");
+  if (e.key === "Escape" && (BPRAV || BKRO) && curView === "boj") {
+    const b = document.querySelector(BPRAV ? "#bojview #bpravidla .bprx" : "#bojview #bkritsup .bprx");
     if (b) b.click();
   }
 });
@@ -1605,7 +1622,8 @@ async function bojUlozSetkani() {
 }
 /* otevře rámeček Kritická zranění v pravidlech boje a posune na něj; s fokus i kurzor do první volby */
 function bojKritUkaz(v, fokus) {
-  BPRAV = true;
+  BKRO = true;
+  BPRAV = false;
   renderBoj();
   const k = v.querySelector(".bkrit");
   if (!k) return;
@@ -2032,14 +2050,22 @@ document.addEventListener("click", async e => {
     bojKritUkaz(v, true);
     return;
   }
-  if (T("[data-bprav]")) {
-    BPRAV = !BPRAV;
-    v.querySelectorAll(".bpravidla").forEach(a => a.classList.toggle("open", BPRAV));
-    v.querySelectorAll(".bprtg").forEach(b => b.setAttribute("aria-expanded", BPRAV));
-    if (BPRAV) {
-      const x = v.querySelector(".bprx");
-      if (x) x.focus({preventScroll: true});
+  if (T("[data-bprav]") || T("[data-bkro]")) {
+    /* šuplíky Pravidla a Kritická zranění: otevřený je nejvýš jeden */
+    const kr = !!T("[data-bkro]");
+    if (kr) {
+      BKRO = !BKRO;
+      if (BKRO) BPRAV = false;
+    } else {
+      BPRAV = !BPRAV;
+      if (BPRAV) BKRO = false;
     }
+    v.querySelectorAll("#bpravidla").forEach(a => a.classList.toggle("open", BPRAV));
+    v.querySelectorAll("#bkritsup").forEach(a => a.classList.toggle("open", BKRO));
+    v.querySelectorAll(".bprtg[data-bprav]").forEach(b => b.setAttribute("aria-expanded", BPRAV));
+    v.querySelectorAll(".bprtg[data-bkro]").forEach(b => b.setAttribute("aria-expanded", BKRO));
+    const x = v.querySelector(BPRAV ? "#bpravidla .bprx" : BKRO ? "#bkritsup .bprx" : null);
+    if (x) x.focus({preventScroll: true});
     return;
   }
   const bpo = T("[data-bupot]");
@@ -2404,8 +2430,22 @@ document.addEventListener("click", async e => {
   const bcb = T("[data-bcilb]");
   if (bcb && o0) {
     const c = bcb.dataset.bcilb;
-    if (BCIL[id] === c) delete BCIL[id];
+    if (BCILL[id]) {
+      /* víc cílů: klepnutí přidá či ubere; první vybraný je hlavní cíl (BCIL) */
+      const L = BCILL[id].includes(c) ? BCILL[id].filter(x => x !== c) : [...BCILL[id], c];
+      BCILL[id] = L;
+      if (L.length) BCIL[id] = L[0];
+      else delete BCIL[id];
+    } else if (BCIL[id] === c) delete BCIL[id];
     else BCIL[id] = c;
+    renderBoj();
+    return;
+  }
+  if (T("[data-bcilm]") && o0) {
+    if (BCILL[id]) {
+      delete BCILL[id];
+      if (BCIL[id] == null) delete BCIL[id];
+    } else BCILL[id] = BCIL[id] ? [BCIL[id]] : [];
     renderBoj();
     return;
   }
@@ -2796,7 +2836,19 @@ function bojUtokKlik(o0, ai) {
       });
     delete BJR[id];
   }
-  bojUtok(o0, ai);
+  /* víc cílů (BCILL): útok proběhne na každý cíl zvlášť; u záchrany se zranění hodí jednou a platí pro všechny */
+  const L = (BCILL[id] || []).filter(c => bojCilO(BOJ.s || {}, c));
+  if (L.length > 1) {
+    const hl = BCIL[id];
+    let zr = null;
+    L.forEach(c => {
+      BCIL[id] = c;
+      bojUtok(o0, ai, undefined, zr ? {zr} : undefined);
+      const o = (BLOG[id] || [])[0];
+      if (!zr && o && o.dc && o.zr) zr = o.zr;
+    });
+    BCIL[id] = hl;
+  } else bojUtok(o0, ai);
   renderBoj();
 }
 /* Šikovná zbraň: před hodem se zvolí typ zranění */
@@ -2841,10 +2893,7 @@ async function bojLogZpetSem(i) {
 }
 
 async function bojObnovSnap(P) {
-  await bojZmen(s => {
-    Object.keys(s).forEach(k => delete s[k]);
-    Object.assign(s, JSON.parse(P.s));
-  });
+  await bojZmen(s => bojObnovStav(s, JSON.parse(P.s)));
   try {
     bojHp.set(JSON.parse(P.hp));
   } catch (e) {}

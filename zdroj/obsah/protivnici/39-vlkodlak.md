@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 3 (700 XP)
 ac: 15
 hp: 71
-utok: Dva útoky: drápy +5, 2d6+3, nebo dlouhý luk 150/600, 2d8+2 · jeden lze nahradit kousnutím 2d8+3 a kletbou (CON DC 12)
+utok: Dva útoky: drápy +5, 2d6+3, nebo dlouhý luk 150/600, 2d8+2 · jeden lze nahradit kousnutím 2d8+3 a kletbou (CON DC 12) · kousnutí za kousnutí (Reakce)
 pozehnani: Výhoda na příští útok proti cíli, který krvácí.
 pokuseni: Za úplňku zavyje: v příštím slotu se musí proměnit, i kdyby to prozradilo, kým je.
 nerest: Hněv – zvíře v něm nesnese ránu stříbrem ani posměch. Kdo ho zraní stříbrem, toho napadne a zapomene na ostatní.
@@ -44,6 +44,10 @@ utoky:
 ## Bonusová akce
 
 - **Proměna.** Velký zvíře-člověk, vlk, nebo zpět do lidské podoby; výstroj se nemění.
+
+## Reakce
+
+- **Kousnutí za kousnutí.** Když ho zasáhne útok zblízka a je ve vlčí nebo smíšené podobě, hned útočníka kousne.
 
 **Výkupné a kořist.** V lidské podobě je to někdo z vesnice. Za jeho hlavu je vypsaná odměna – a jeho rodina by zaplatila víc, aby se to nikdo nedozvěděl.
 

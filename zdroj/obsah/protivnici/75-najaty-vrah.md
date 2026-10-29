@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 8 (3 900 XP)
 ac: 16 (kožená s cvočky)
 hp: 97
-utok: Tři útoky: krátký meč +7, 1d6+4 a 5d6 Poison (Poisoned), nebo kuše +7, 80/320 stop, 1d8+4 a 6d6 Poison · Dash, Disengage nebo Hide
+utok: Tři útoky: krátký meč +7, 1d6+4 a 5d6 Poison (Poisoned), nebo kuše +7, 80/320 stop, 1d8+4 a 6d6 Poison · Dash, Disengage nebo Hide · úhyb (Reakce)
 pozehnani: Ze stínu: útok je kritický, pokud cíl o něm nevěděl.
 pokuseni: Jed zaschl na čepeli: v příštím slotu bez Poison.
 nerest: Lakota – zabije pro zlato a pro víc zlata nezabije. Kdo přeplatí objednavatele, ten se dozví jméno.
@@ -44,6 +44,10 @@ Vrah na objednávku, často z Itálie, kde to umějí nejlépe. Na dvorech v Pra
 
 - **Mrštnost.** Dash, Disengage nebo Hide.
 
+## Reakce
+
+- **Úhyb.** Když ho zasáhne útok od útočníka, kterého vidí, utrží jen polovinu zranění.
+
 **Výkupné a kořist.** Lahvičky s jedem, florentské zlato a dopis bez podpisu – ale s pečetí, kterou někdo pozná.
 
-*Předloha: Assassin (D&D 2024), převedeno pro Mundus Mutatus.*
+*Předloha: Assassin (D&D 2024); reakce podle Ambitious Assassin, převedeno pro Mundus Mutatus.*

@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 4 (1 100 XP)
 ac: 15
 hp: 71
-utok: Ďábelský dotek +7, 2d10+5 Psychic · ovládnutí (Dominate Person, WIS DC 15) nebo vysávající polibek (CON DC 15, 3d8 Psychic, max. HP klesne)
+utok: Ďábelský dotek +7, 2d10+5 Psychic · ovládnutí (Dominate Person, WIS DC 15) nebo vysávající polibek (CON DC 15, 3d8 Psychic, max. HP klesne) · slzy (Reakce)
 pozehnani: Ovládnutý si nic nepamatuje a bude ji chránit i po boji.
 pokuseni: Zahlédne ve světle kříž nebo relikvii: do konce kola nemůže nikoho okouzlit.
 nerest: Chtíč a Pýcha – svádí, protože musí. Kdo ji odmítne s Cudností (Ctnost) nebo ve stavu V milosti, má výhodu na záchrany proti ní.
@@ -43,6 +43,10 @@ Pekelnice, která svádí mocné a odnáší jim duši po kouscích. Na dvoře v
 ## Bonusová akce
 
 - **Proměna.** Podoba člověka (bez letu), nebo zpět.
+
+## Reakce
+
+- **Slzy.** Když ji zasáhne útok zblízka, rozpláče se: útočník hodí WIS save DC 15, jinak je Charmed do konce svého příštího tahu.
 
 **Výkupné a kořist.** Šperky darované zamilovanými pány a dopisy, kvůli kterým by se rozpadla manželství i spojenectví.
 

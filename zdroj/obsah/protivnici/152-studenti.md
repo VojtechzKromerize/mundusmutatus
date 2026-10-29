@@ -6,7 +6,7 @@ pocet: 6
 vyzva: 25 XP za pacholka
 ac: 10
 hp: 5
-utok: Jiskra +4 · 2 Fire za každého studenta, který na cíl vidí · hole +2, 2 Bludgeoning · latinské nadávky
+utok: Jiskra +4 · 2 Fire za každého studenta, který na cíl vidí · hole +2, 2 Bludgeoning · latinské nadávky · latinská nadávka (Bonusová akce)
 bonus: 4
 komplikace: Student sešle něco, co se mu nepovedlo: útočník i student hodí DEX save DC 11, jinak oba utrží 1d6 Fire – a hoří kabát.
 stitky: studenti, Karolinum, univerzita, Praha, mistři, kolej, latina, kouzla, Závoj, kališníci, lidé
@@ -30,6 +30,10 @@ Bakaláři a scholáři z Karolina, kteří se naučili první zaklínadlo a mys
 - **Latina funguje.** Kdo zná kouzla, pozná, že jejich jiskra je *Fire Bolt* bez vlády: v dešti nehoří, v kostele na ně mistři vidí.
 - **Kolej.** V koleji a v uličkách kolem Karolina znají každé dveře; na rynku ne. Universita má vlastní soud – rychtář na ně nesmí.
 - **Mistr.** Když se objeví mistr univerzity (Učenec Závoje nebo kdokoli s Arcana +6, kdo je okřikne – Intimidation DC 12), houf se stydí a rozejde.
+
+## Bonusová akce
+
+- **Latinská nadávka.** Tvor do 30 stop, který jim rozumí (nebo ne), hodí WIS save DC 11, jinak má do konce svého příštího tahu nevýhodu na první ověření nebo záchranu.
 
 **Morálka.** Prchají při polovině nebo když někdo z nich doopravdy hoří. Vrátí se v noci s dalšími.
 

@@ -25,7 +25,7 @@ function bojPcZasah(o, cid, K) {
     t0 = +ks0.thp || 0,
     ds0 = !!h0.ds,
     typ = bojTypy({zt: o.zr.zt})[0] || "Slashing",
-    krit = !!(o.hod && o.hod.krit);
+    krit = !!((o.hod && o.hod.krit) || (o.bezv && o.bezvZbl));
   const opt = {drt: /drtiv/i.test(o.p || ""), pru: /průrazn/i.test(o.p || "")};
   const msg = bojPCZmena(cid, x => bojZranPC(x, K, o.zr.t, typ, krit, opt), false) || "";
   const ks1 = kartaStav(K.id),

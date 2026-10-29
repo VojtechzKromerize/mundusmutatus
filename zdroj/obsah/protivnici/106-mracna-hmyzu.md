@@ -6,7 +6,7 @@ pocet: 4
 vyzva: 100 XP za pacholka
 ac: 11
 hp: 5
-utok: Kousance +3 · 3 Poison za každé mračno v prostoru cíle · zbroj nepomáhá · obyčejnou zbraní padá na druhý zásah
+utok: Kousance +3 · 3 Poison za každé mračno v prostoru cíle · zbroj nepomáhá · obyčejnou zbraní padá na druhý zásah · do úst a do očí (Bonusová akce)
 bonus: 3
 komplikace: Hmyz vletí útočníkovi do očí a úst: je Blinded do konce svého příštího tahu.
 stitky: zvěř, hmyz, kobylky, mouchy, včely, mor, morová jáma, rána egyptská, žně, bažina
@@ -28,6 +28,10 @@ Mračna much nad morovou jámou, kobylky, které po Protržení přišly jako eg
 - **Všude.** Mračno proleze každou škvírou, obsadí prostor jiného tvora a zůstane v něm. Zavřít dveře nestačí.
 - **Kouzlo a kouř.** Plošné kouzlo nebo oheň skolí každé mračno v oblasti. Kdo stojí v kouři z ohně (Akce: hodit mokré roští do ohně), toho mračna nenapadnou.
 - **Déšť.** Za deště se nevznesou. Za bouře padnou.
+
+## Bonusová akce
+
+- **Do úst a do očí.** Tvor v prostoru houfu hodí CON save DC 11, jinak do konce svého příštího tahu nemůže sesílat kouzla se slovní složkou a má nevýhodu na Perception.
 
 **Morálka.** Neprchají, rozprchnou se – za deště, v kouři, nebo když ten, kdo je přivolal (žrec, morová panna), přestane volat.
 

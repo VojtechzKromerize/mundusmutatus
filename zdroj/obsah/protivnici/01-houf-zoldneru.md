@@ -6,7 +6,7 @@ vyzva: 100 XP za pacholka
 pocet: 6
 ac: 14 (kroužková košile)
 hp: 5
-utok: Halapartny, dosah 10 stop · 3 Slashing nebo Piercing za každého pacholka v dosahu cíle (Průrazná)
+utok: Halapartny, dosah 10 stop · 3 Slashing nebo Piercing za každého pacholka v dosahu cíle (Průrazná) · sevřít šik (Bonusová akce)
 bonus: 4
 komplikace: Halapartna zahákne zbraň nebo štít: útočník do začátku svého příštího tahu nemůže tuto zbraň použít, nebo ztrácí AC ze štítu.
 stitky: žoldnéři, rota, Uhry, Slezsko, pole, pohraničí
@@ -27,6 +27,10 @@ Sešikovaní halapartníci z kterékoli roty, která zrovna slouží tomu, kdo p
 
 - **Les ratišť.** Když nepřítel vstoupí do 10 stop od houfu, houf provede Opportunity Attack jedním hodem. V kontaktu (5 stop) útočí houf s nevýhodou.
 - **Proti jízdě.** Na jezdce, koně nebo draka, který najede do dosahu, útočí houf s výhodou. Při zásahu jezdce si jezdec hodí STR save DC 12, jinak je stržen ze sedla (Strhující).
+
+## Bonusová akce
+
+- **Sevřít šik.** Houf se posune až o 5 stop, aniž by vyvolal Opportunity Attack, a do začátku svého příštího tahu má proti útokům zepředu +2 AC.
 
 **Morálka – žold.** Houf, kterému pán dluží, prchá už při třetině padlých. Houf, kterému někdo nabídne víc (Persuasion DC 15 a měšec), může přeběhnout.
 

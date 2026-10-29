@@ -6,7 +6,7 @@ pocet: 8
 vyzva: 25 XP za pacholka
 ac: 12 (kožená)
 hp: 5
-utok: Obětní srpy +3 · 2 za každého v dosahu (Slashing a Prokleté)
+utok: Obětní srpy +3 · 2 za každého v dosahu (Slashing a Prokleté) · krvavá oběť (Bonusová akce)
 bonus: 3
 komplikace: Ctitel zakřičí jméno démona: útočník hodí WIS save DC 10, jinak získá bod hříchu (něco v něm odpovědělo).
 stitky: ctitelé, kult, sabat, čarodějnice, peklo, Závoj, lidé
@@ -26,6 +26,10 @@ Měšťané, čeledíni, zklamaní kněží i drobná šlechta, kteří po Noci 
 ## Vlastnosti
 
 - **Za pána!** Když padne jejich kazatel nebo mistr, polovina prchá a polovina se v zuřivosti vrhne kupředu (útok s výhodou, pak prchají).
+
+## Bonusová akce
+
+- **Krvavá oběť.** Jeden ctitel si podřízne žíly a padne (odečti pacholka); příští útok houfu v tomto tahu má výhodu a +1 zranění za pacholka.
 
 **Morálka.** Prchají, když padne polovina nebo jejich mistr. Kdo se vzdá, prosí o rozhřešení.
 

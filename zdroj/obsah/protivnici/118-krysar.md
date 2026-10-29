@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 2 (450 XP)
 ac: 13
 hp: 60
-utok: Kousnutí +5, 2d4+3 Piercing a kletba krys (CON DC 11) · škrábnutí +5, 1d6+3 · ruční kuše +5, 1d6+3 · píšťala: ovládá houf krys · krysy do rány (Reakce)
+utok: Kousnutí +5, 2d4+3 Piercing a kletba krys (CON DC 11) · škrábnutí +5, 1d6+3 · ruční kuše +5, 1d6+3 · píšťala: ovládá houf krys · krysy do rány (Reakce) · tři podoby (Bonusová akce)
 pozehnani: Píšťala svolá krysy ze sklepů: houf krys v boji dostane 2 pacholky navíc (nebo vznikne nový, 4 krysy).
 pokuseni: Píšťala přeskočí: houf krys se do konce kola obrátí proti němu.
 nerest: Pomsta – město mu nezaplatilo. Kdo mu zaplatí, co mu dluží (dohoda: Persuasion DC 12 a peníze města, ne vlastní), toho nechá být a odvede krysy; kdo ho nazve podvodníkem, toho kousne první.
@@ -31,7 +31,6 @@ Krysař, kterého město podvedlo a který se ze msty a z Protržení stal napů
 
 ## Vlastnosti
 
-- **Tři podoby.** Jako Bonusovou akci se promění v krysu (Small; proleze kudykoli), ve smíšenou podobu, nebo zpět v člověka. Věci se nemění.
 - **Píšťala.** Houf krys v doslechu píšťaly neprchá a jde, kam krysař píská. Kdo píšťalu zlomí (vyrazí z ruky: STR save DC 13 po zásahu), krysy se rozprchnou.
 - **Stříbro.** Zbraň ze stříbra nebo svěcená ignoruje jeho Resistance – nemá žádnou, ale kousnutí stříbrem mu brání v proměně do konce boje.
 
@@ -41,6 +40,10 @@ Krysař, kterého město podvedlo a který se ze msty a z Protržení stal napů
 - **Kousnutí (krysí nebo smíšená podoba).** +5, dosah 5 stop. **Zásah:** 2d4+3 Piercing. Humanoid hodí CON save DC 11, jinak je proklet: klesne-li na 0 HP, nezemře, ale stane se krysodlakem pod vedením vypravěče (10 HP). *Remove Curse* nebo pouť ruší.
 - **Škrábnutí.** +5, dosah 5 stop. **Zásah:** 1d6+3 Slashing.
 - **Ruční kuše (lidská nebo smíšená podoba).** +5, dostřel 30/120 stop. **Zásah:** 1d6+3 Piercing.
+
+## Bonusová akce
+
+- **Tři podoby.** Promění se v krysu (Small; proleze kudykoli), ve smíšenou podobu, nebo zpět v člověka. Věci se nemění.
 
 ## Reakce
 

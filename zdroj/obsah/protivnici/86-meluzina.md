@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 4 (1 100 XP)
 ac: 14
 hp: 66
-utok: Ledový závan +6, 2d8+4 Cold · vichr (STR DC 14, odhození 20 stop a Prone; letci padají o 30 stop) · kvílení (WIS DC 13, Frightened) · na křídlech větru (Bonusová akce)
+utok: Ledový závan +6, 2d8+4 Cold · vichr (STR DC 14, odhození 20 stop a Prone; letci padají o 30 stop) · kvílení (WIS DC 13, Frightened) · na křídlech větru (Bonusová akce) · poryv (Reakce)
 pozehnani: Vítr se otočí: všichni letci do 120 stop mají do konce kola nevýhodu a padají o 20 stop.
 pokuseni: Zaslechne dětský pláč: příští slot ho hledá a neútočí.
 nerest: Žal – hledá své děti. Kdo jí přinese zprávu o nich nebo předmět dítěte, s tím mluví a nebojuje.
@@ -46,6 +46,10 @@ utoky:
 ## Bonusová akce
 
 - **Na křídlech větru.** Pohne se až o svou rychlost, aniž by vyvolala Opportunity Attack; skrz škvíru projde bez zpomalení.
+
+## Reakce
+
+- **Poryv.** Když se k ní tvor přiblíží na 10 stop, hodí STR save DC 14, jinak ho vítr odhodí o 10 stop.
 
 ## Relikt
 

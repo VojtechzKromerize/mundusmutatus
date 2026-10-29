@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 3 (700 XP)
 ac: 18
 hp: 52
-utok: Obouruční meč +5, 2d6+3 Slashing nebo Piercing · těžká kuše +2, 2d10 Piercing · odraz (Reakce, AC +2)
+utok: Obouruční meč +5, 2d6+3 Slashing nebo Piercing · těžká kuše +2, 2d10 Piercing · odraz (Reakce, AC +2) · psi na ně! (Bonusová akce)
 pozehnani: Hradní čeleď vyběhne z brány: nový houf lapků (4) se přidá k boji.
 pokuseni: Přecení se: vyjede z brány ven a do konce kola je bez cover a bez houfu.
 nerest: Hamižnost – všechno je mýto. Kdo zaplatí „clo“ (polovina hotovosti, Persuasion DC 12 na slevu), projde; kdo mu nabídne víc, než vybírá (službu králi, úřad, výkupné za zajatce), toho vyslechne. Pýcha: je zeman a sedí na sněmu – nikdo ho nesmí nazvat lapkou (Intimidation DC 13 → vyzve).
@@ -41,6 +41,10 @@ Zchudlý zeman s hradem na pomezí – Moravy, Slezska, Rakous – který z husi
 - **Dva útoky.** Dvakrát mečem nebo kuší.
 - **Obouruční meč.** +5, dosah 5 stop. **Zásah:** 2d6+3 Slashing nebo Piercing (Šikovná, Ostrá, Půlmeč).
 - **Těžká kuše.** +2, dostřel 100/400 stop. **Zásah:** 2d10 Piercing (Průrazná).
+
+## Bonusová akce
+
+- **Psi na ně!.** Smečka psů v doslechu se pohne až o 15 stop a jeden pes reakcí zaútočí.
 
 ## Reakce
 

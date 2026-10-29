@@ -6,7 +6,7 @@ pocet: 4
 vyzva: 25 XP za pacholka
 ac: 16
 hp: 5
-utok: Sudlice a háky +3 · 3 Piercing za každého celníka v dosahu cíle · řetěz přes řeku · kuše z celnice
+utok: Sudlice a háky +3 · 3 Piercing za každého celníka v dosahu cíle · řetěz přes řeku · kuše z celnice · hák (Bonusová akce)
 bonus: 3
 komplikace: Celník zahákne loď nebo vor: plavidlo je do konce příštího kola přitažené k celnici a kdo na něm stojí, hodí DEX save DC 12, jinak je Prone.
 stitky: clo, mýto, celnice, řeka, Labe, Vltava, Litoměřice, Mělník, voraři, kupci, stráž, král, lidé
@@ -29,6 +29,10 @@ Královští nebo panští celníci na řece: řetěz přes Labe nebo Vltavu, ce
 - **Řetěz.** Řetěz přes řeku (AC 19, 30 HP; spustí se za celý slot u navijáku) zastaví každé plavidlo: loď, která do něj narazí, hodí DEX save DC 13 kormidelníka, jinak se převrátí.
 - **Troubení.** Na začátku boje jeden celník troubí: další celnice po proudu (za 2 míle) ví a čeká. Kdo ho umlčí v prvním kole, projede potichu.
 - **Královští.** Kdo zabije královského celníka, kradl králi. Kdo zaplatí (clo, nebo úplatek 2× clo), projede. Panský celník se dá uplatit snáze (Persuasion DC 10).
+
+## Bonusová akce
+
+- **Hák.** Jeden celník zahákne člun, vor nebo tvora do 15 stop a přitáhne ho o 10 stop; tvor hodí STR save DC 12, jinak je Prone.
 
 **Morálka.** Prchají do celnice při polovině a odtud střílejí. Za úplatek „nic neviděli“.
 

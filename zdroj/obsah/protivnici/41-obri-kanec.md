@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 2 (450 XP)
 ac: 13
 hp: 42
-utok: Kly +5, 2d6+3 · po rozběhu 20 stop navíc 2d6 a Prone · zraněný útočí s výhodou · zarputilost (Reakce)
+utok: Kly +5, 2d6+3 · po rozběhu 20 stop navíc 2d6 a Prone · zraněný útočí s výhodou · zarputilost (Reakce) · rozběh (Bonusová akce)
 pozehnani: Projede skrz: po zásahu se může pohnout dál o 20 stop bez Opportunity Attacks a vzít dalšího.
 pokuseni: Zaryje se do bahna nebo plotu: příští slot se vyprošťuje.
 nerest: Zuřivost – když krvácí, neuteče. Dá se ale navést do pasti nebo na nastražené kopí (Survival DC 13).
@@ -35,6 +35,10 @@ Kanec, kterého Noc Proměny nafoukla do velikosti tura. Rozrývá pole, láme p
 ## Akce (jedna v každém slotu)
 
 - **Kly.** +5, dosah 5 stop. **Zásah:** 2d6+3 Piercing. Pokud se těsně před útokem rozběhl aspoň 20 stop rovně, cíl utrží navíc 2d6 Piercing a velikost Large a menší je Prone.
+
+## Bonusová akce
+
+- **Rozběh.** Pohne se až o 20 stop rovně, aniž by vyvolal Opportunity Attack – příští útok kly počítá s rozběhem.
 
 ## Reakce
 

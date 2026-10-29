@@ -24,10 +24,12 @@ for f in glob.glob(ob+"/**/*",recursive=True):
     r=os.path.relpath(f,ob).replace(os.sep,"/")
     if os.path.isfile(f) and (r.endswith(".md") or r.endswith(".json")) and not r.split("/")[-1].startswith("_"): sb[r]=open(f,encoding="utf-8").read()
 k=next(x for x in sb if x.startswith("osoby/") and "\nid: viktorin\n" in "\n"+sb[x])
-sb[k]=sb[k].replace("\n---\n","\nstatblok: rytir-v-plne-zbroji + zkuseny\n---\n",1)
+# každá osoba má od 2026-10-29 vlastní statblok (os-<id>) – u Viktorina ho test nahradí statblokem z bestiáře s přívlastkem
+sb[k]=re.sub(r"\nstatblok:[^\n]*\n","\n",sb[k],count=1).replace("\n---\n","\nstatblok: rytir-v-plne-zbroji + zkuseny\n---\n",1)
 sb["setkani/99-test-cile.md"]="---\nid: test-cile\nnazev: Zkouška cílů\nprostredi: mlha, úzký průchod\nprekvapeni: nepřátelé\nnepratele:\n  - 3 houf-zoldneru\ncile:\n  - Zachránit rukojmí (3×, do 2. kola)\n  - Zabít kněze (skrytý)\n---\nZkušební setkání.\n"
 g=json.loads(subprocess.run(["node",os.path.join(KOR,"zdroj","generator.js")],input=json.dumps({"soubory":sb,"manifest":{}},ensure_ascii=False),capture_output=True,text=True,check=True).stdout)
-chk([o["b"] for o in g["gm"]["PROTOSOBY"]]==["rytir-v-plne-zbroji"] and g["gm"]["PROTOSOBY"][0]["pr"]==["zkuseny"],"generátor: statblok u osoby pro vypravěče")
+vk=[o for o in g["gm"]["PROTOSOBY"] if o["id"]=="viktorin"]
+chk(len(vk)==1 and vk[0]["b"]=="rytir-v-plne-zbroji" and vk[0]["pr"]==["zkuseny"],"generátor: statblok u osoby pro vypravěče: "+json.dumps(vk,ensure_ascii=False))
 chk(all(not g["hrac"].get(x) for x in ("PROTIVNICI","PRIVLASTKY","SETKANI","PROTOSOBY","VYZAZ")),"generátor: hráč nedostane bestiář ani tabulky setkání")
 tc=next((x for x in g["gm"]["SETKANI"] if x["id"]=="test-cile"),{})
 chk(tc.get("cl")==["Zachránit rukojmí (3×, do 2. kola)","Zabít kněze (skrytý)"] and tc.get("pro")==["mlha","úzký průchod"] and tc.get("pk")=="n","generátor: setkání nese cíle, prostředí a přepadení")
@@ -56,8 +58,8 @@ async def main():
     g.on("dialog",lambda d:asyncio.ensure_future(d.accept()))
     await sleduj(g);await g.goto(GM+"#boj");await g.wait_for_function("!document.documentElement.classList.contains('mmload')");await klid(g,2000)
     await do_pripravy(g)
-    chk(await g.locator(".bpravidla .bqr").count()==5,"rychlá pravidla v šuplíku (kritická zranění, stavy, akce, zbraně, zbroj)")
-    chk(not await g.locator(".bpravidla").is_visible(),"šuplík s pravidly je zavřený")
+    chk(await g.locator("#bpravidla .bqr").count()==4 and await g.locator("#bkritsup .bkrit").count()==1,"rychlá pravidla v šuplíku (stavy, akce, zbraně, zbroj), kritická zranění ve vlastním šuplíku")
+    chk(not await g.locator("#bpravidla").is_visible() and not await g.locator("#bkritsup").is_visible(),"šuplíky Pravidla a Kritická zranění jsou zavřené")
     # hledání: štítek, setkání, osoba
     await g.fill("[data-bhledej]","krkonose");await klid(g,100)
     t=await g.locator("[data-bvysl]").inner_text()
@@ -181,15 +183,19 @@ async def main():
       await bojJaUprav('b4');const a=Object.assign({},BJU.serie[0]);for(let i=0;i<5;i++)await bojJaUprav('m4');const z=BJU.serie[0];BJU.serie=null;BJU.info='';bojJa.set(jm0||'');
       return [a.vys,a.dmg,z.vys,z.dmg]})()""")
     chk(r[0]!="vedle" and 4<=r[1]<=11 and r[2]=="vedle" and r[3]==0,"Bless změní minutí na zásah a zranění se dohodí, Bane zpět na minutí ho vynuluje: "+str(r))
-    # kritické zranění v šuplíku s pravidly
-    await g.click(".bprtg");await klid(g,350)
-    chk(await g.locator(".bpravidla").is_visible(),"šuplík s pravidly se otevře")
+    # kritické zranění ve vlastním šuplíku pod záložkou Pravidla (2026-10-28); otevřený je nejvýš jeden šuplík
+    await g.click(".bprtg[data-bprav]");await klid(g,350)
+    chk(await g.locator("#bpravidla").is_visible(),"šuplík s pravidly se otevře")
+    await g.click(".bprtg[data-bkro]");await klid(g,350)
+    chk(await g.locator("#bkritsup").is_visible(),"šuplík kritických zranění se otevře")
+    await dokud(g,"getComputedStyle(document.querySelector('#bpravidla')).visibility==='hidden'",3000)
+    chk(not await g.locator("#bpravidla").is_visible(),"pravidla se při tom zavřou")
     await g.select_option("[data-bkd]","drak");await g.fill("[data-bkr]","1");await g.fill("[data-bkp]","10");await g.click("[data-bkhod]");await klid(g,150)
     kt=await g.locator(".bkrit").inner_text();print("krit:",kt[:160].replace("\n"," | "))
     chk(re.search(r"d10 \d+ \+ 3 = \d+",kt) is not None and any(x in kt for x in ["Hlava","Trup","Křídla","Nohy a ocas"]),"kritické zranění draka: modifikátor +3 a místo zásahu")
     await g.screenshot(path=OUT+"5-boj-novy.png",full_page=True)
-    await g.keyboard.press("Escape");await dokud(g,"getComputedStyle(document.querySelector('.bpravidla')).visibility==='hidden'",3000)  # šuplík odjede přechodem 0,22 s
-    chk(not await g.locator(".bpravidla").is_visible(),"Escape šuplík zavře")
+    await g.keyboard.press("Escape");await dokud(g,"getComputedStyle(document.querySelector('#bkritsup')).visibility==='hidden'",3000)  # šuplík odjede přechodem 0,22 s
+    chk(not await g.locator("#bkritsup").is_visible(),"Escape šuplík zavře")
     # konec boje: shrnutí
     await g.click("[data-bact=konec]");await klid(g,200)
     sh=await g.locator(".bkonsh").inner_text();print("shrnutí:",sh[:200].replace("\n"," | "))

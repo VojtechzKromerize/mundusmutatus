@@ -80,12 +80,14 @@ const CITYINFO = {
     n: "Zhořelec jest nejbohatším ze Šestiměstí na Vysoké cestě a kupčí suknem i barvou z borůvek. Poslové jeho byli spolu s budyšínskými na volebním sněmu v Praze.",
   },
   Budyšín: {
-    n: "Budyšín jest hlavním městem Horní Lužice, kdež sídlí kapitula a zemský fojt. Jen poslové Budyšína a Zhořelce přijeli z vedlejších zemí na volební sněm do Prahy, odjeli však ještě před volbou.",
+    n: "Budyšín jest hlavním městem Horní Lužice. Na hradě Ortenburku sídlívá zemský fojt, nyní uprázdněný, a u chrámu svatého Petra kapitula. Jen poslové Budyšína a Zhořelce přijeli z vedlejších zemí na volební sněm do Prahy, odjeli však ještě před volbou.",
   },
   Žitava: {
-    n: "Žitava odolala husitům a živí se suknem a kupectvím s Čechami přes hory Lužické. Za bouří husitských zde v exilu sídlila kapitula pražská a s ní mnozí vyhnanci strany římské.",
+    n: "Žitava jest město Království českého, ne země lužické, a teprve spolkem z léta 1346 přistoupila k šesti městům. Odolala husitům a živí se suknem a kupectvím s Čechami cestou přes průsmyk lückendorfský, kdež císař Karel dal vystavět hrad Karlsfried k vybírání cla. Za bouří husitských zde v exilu sídlila kapitula pražská a s ní mnozí vyhnanci strany římské.",
   },
-  Lubáň: {n: "Lubáň jest nejmenší ze Šestiměstí, na pomezí slezském."},
+  Lubáň: {
+    n: "Lubáň leží na levém břehu řeky Kvisy, jež dělí zemi budyšínskou od Slezska, a na Vysoké cestě. Husité ji vypálili v máji léta 1427 a znovu v březnu 1431; paměť na to je mezi lidmi živá.",
+  },
   Kamenec: {n: "Kamenec jest město ze Šestiměstí na západním kraji Horní Lužice."},
   Lobava: {n: "Lobava jest město ze Šestiměstí mezi Budyšínem a Zhořelcem."},
   Norimberk: {n: "Norimberk jest největším kupeckým městem v jižních Němcích a Praha i Plzeň s ním nejvíce kupčí."},
@@ -138,7 +140,7 @@ const CITYINFO = {
     n: "Pešť jest kupecké město naproti Budínu. Na sněmu pešťském byl v lednu léta Páně 1458 provolán králem Matyáš Korvín, tehdy ještě zajatec pana Jiřího v Praze.",
   },
   "Lubin (Lübben)": {
-    n: "Lubin jest sídlem zemského fojta Dolní Lužice. Tu zemi Koruny české drží od léta Páně 1448 kurfiřt braniborský Fridrich II. a odsud jí skrze fojta svého vládne.",
+    n: "Lubin jest dolnolužické město, v němž stojí farní kostel spojený s úřadem arcijáhna míšeňského; arcijáhen sám bydlí v Míšni a církevní soud tu drží skrze svého oficiála. Zemi, kterou od léta Páně 1448 drží v zástavě kurfiřt braniborský Fridrich II., spravuje fojt bez stálého sídla.",
   },
   Guben: {n: "Guben jest město Dolní Lužice na Nise. Dolní Lužici, zemi Koruny české, drží od léta Páně 1448 kurfiřt braniborský Fridrich II."},
   Luckau: {n: "Luckau jest jedno z předních měst Dolní Lužice. Tu zemi Koruny české drží od léta Páně 1448 kurfiřt braniborský Fridrich II."},
@@ -547,7 +549,7 @@ const CITYINFO = {
   },
   Senftenberg: {
     t: "Hrad v saských rukou",
-    n: "Hrad a panství v Dolní Lužici, jež léta Páně 1448 získal kurfiřt saský Fridrich; tím se odtrhlo od Lužice české.",
+    n: "Hrad a panství v Dolní Lužici. Synové Hanse z Polenz prodali je léta Páně 1446 kurfiřtu saskému Fridrichu, jenž pro nedostatek peněz převzal je až v listopadu 1448, když hrozilo, že je obsadí Braniborský. Tím se odtrhlo od Lužice české, jako před tím, od léta 1425, Finsterwalde.",
   },
   Königstein: {
     t: "Pohraniční hrad (sporný)",
@@ -812,7 +814,7 @@ const CITYINFO = {
   },
   Chotěbuz: {
     t: "Braniborské město v Dolní Lužici",
-    n: "Město na Sprévě, kteréž kurfiřt Fridrich II. od léta Páně 1445 skupoval od pánů z Chotěbuzi. Jest braniborskou výspou v zemi, již Koruna česká má za svou.",
+    n: "Město na Sprévě. Polovici jeho koupil kurfiřt Fridrich II. léta Páně 1445 od pana Reinharda z Chotěbuzi za pět tisíc pět set kop grošů, druhá připadla mu léta 1455, když umřel bez dědiců pan Luther. Páni ze Šternberka však mají od krále Ladislava list na odúmrť i na vyplacení, a protož Koruna česká má kurfiřtovu koupi toliko za zástavu.",
   },
   Picnov: {
     t: "Braniborský hrad v Dolní Lužici",
@@ -1806,11 +1808,11 @@ const CITYINFO = {
   },
   Neuzelle: {
     t: "Klášter cisterciáků",
-    n: "Opatství cisterciáků nad Odrou, jež založil markrabě míšeňský Jindřich Jasný. Opat sedá na sněmu dolnolužickém v čele stavu duchovního.",
+    n: "Opatství cisterciáků nad Odrou, založené léta 1268 markrabětem Jindřichem Jasným u vsi Starzedel a okolo léta 1290 přenesené na dnešní místo. Léta 1411 muselo pro tíseň a chudobu prodat město Fürstenberg. Praví se, že husité léta 1429 pobili celý konvent; opat Mikuláš z Bohmsdorfu, který klášter řídí od roku asi 1431, dostavuje poničená křídla. Opat sedá na sněmu dolnolužickém v čele stavu duchovního.",
   },
   Dobrilugk: {
     t: "Klášter cisterciáků",
-    n: "Nejstarší klášter cisterciáků v Lužici, na západním pomezí Dolní Lužice proti Sasku. Opat sedá s opatem z Neuzelle na sněmu dolnolužickém.",
+    n: "Opatství cisterciáků, nejstarší v Lužici, založené okolo léta Páně 1165 markrabětem Dietrichem z Landsbergu za hrobku rodu; první mniši přišli z durynského kláštera Volkenrodu. Leží na západním pomezí Dolní Lužice proti Sasku; po smlouvě zerbstské se opat podrobil kurfiřtovi braniborskému. Sedá s opatem z Neuzelle na sněmu dolnolužickém.",
   },
   Hoyerswerda: {
     t: "Pevný hrad",

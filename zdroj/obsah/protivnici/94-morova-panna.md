@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 5 (1 800 XP)
 ac: 13
 hp: 90
-utok: Mávnutí šátkem (CON DC 15, 4d8 Poison a morová nákaza) · dotek moru +6, 2d6+3 Necrotic · sny o mrtvých (WIS DC 14) · rudý šátek (Bonusová akce)
+utok: Mávnutí šátkem (CON DC 15, 4d8 Poison a morová nákaza) · dotek moru +6, 2d6+3 Necrotic · sny o mrtvých (WIS DC 14) · rudý šátek (Bonusová akce) · šátek se zatřepetá (Reakce)
 pozehnani: Mávnutí šátkem se dobije hned.
 pokuseni: Někdo ji pozná a osloví jménem: příští slot nesmí mávnout.
 nerest: Povinnost – musí vzít daň a odejít. Kdo jí nabídne něco místo životů (oheň z jalovce, morový sloup, slib), s tím vyjedná.
@@ -45,6 +45,10 @@ Bledá žena v bílém s rudým šátkem, která chodí před morem. Sama do vsi
 ## Bonusová akce
 
 - **Rudý šátek.** Ukáže šátkem na tvora do 60 stop: do konce kola má nevýhodu na záchrany proti moru a jejím schopnostem.
+
+## Reakce
+
+- **Šátek se zatřepetá.** Když ji zasáhne útok zblízka, útočník hodí CON save DC 15, jinak je Poisoned do konce svého příštího tahu.
 
 ## Relikt
 

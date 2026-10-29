@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 6 (2 300 XP)
 ac: 14 (kroužková košile pod hábitem)
 hp: 55
-utok: Plamen víry: DEX save DC 15, 2d8 Svaté · těžký kříž +3, 1d6 (Drtivá) · kouzla WIS DC 15
+utok: Plamen víry: DEX save DC 15, 2d8 Svaté · těžký kříž +3, 1d6 (Drtivá) · kouzla WIS DC 15 · odvolej! (Bonusová akce)
 pozehnani: Zázrak: kouzlo neutratí denní použití.
 pokuseni: Horlivost: příští kouzlo namíří na nejbližšího Proměněnce nebo dračího jezdce, i kdyby to byl spojenec nebo nevinný.
 nerest: Chtíč po moci – touží po biskupské mitře. Kdo mu nabídne cestu výš (dopis do Říma, svědectví, cizí hřích), má výhodu na Persuasion.
@@ -41,6 +41,10 @@ Papežský inkvizitor heretické zvrhlosti. Dle nynějšího římského výklad
 - **Těžký kříž.** +3, dosah 5 stop. **Zásah:** 1d6 Bludgeoning (Drtivá).
 - **Plamen víry.** Cíl do 60 stop hodí DEX save DC 15, jinak utrží 2d8 Svatého (Radiant) zranění.
 - **Sesílání kouzel (WIS, DC 15).** Libovolně: Thaumaturgy. 2/den: Command, Bless. 1/den: Hold Person, Zone of Truth, Spirit Guardians (Svaté zranění).
+
+## Bonusová akce
+
+- **Odvolej!.** Tvor do 30 stop, který mu rozumí, hodí WIS save DC 15, jinak je Frightened do konce svého příštího tahu; kališník nebo starověrec hází s nevýhodou.
 
 ## Reakce
 

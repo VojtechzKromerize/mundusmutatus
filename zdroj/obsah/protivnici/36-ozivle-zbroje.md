@@ -6,7 +6,7 @@ pocet: 4
 vyzva: 200 XP za pacholka
 ac: 18
 hp: 5
-utok: Údery železnou pěstí +4 · 3 Bludgeoning za každou zbroj v dosahu
+utok: Údery železnou pěstí +4 · 3 Bludgeoning za každou zbroj v dosahu · uzavřít řadu (Bonusová akce)
 bonus: 4
 komplikace: Zbroj sevře útočníkovu zbraň: útočník hodí STR save DC 12, jinak ji upustí.
 stitky: konstrukty, zbroj, hrad, zbrojnice, kouzlo, Závoj
@@ -27,6 +27,10 @@ Prázdné plátové zbroje, které oživil Závoj nebo kouzelník. Strážci zbr
 
 - **Bez duše.** Nedají se okouzlit, vyděsit, ochromit, zkamenět ani otrávit.
 - **Rozptýlení magie** (Dispel Magic) nebo Ve jménu Páně! (stupeň 3) je zastaví na místě.
+
+## Bonusová akce
+
+- **Uzavřít řadu.** Houf se pohne až o 10 stop. Tvor, u kterého stojí aspoň dvě zbroje, hodí STR save DC 12, jinak má rychlost 0 do začátku příštího tahu houfu.
 
 **Morálka.** Neprchají.
 

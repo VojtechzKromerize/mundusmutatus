@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 3 (700 XP)
 ac: 13
 hp: 52
-utok: Hořící ruka +5, 2d6+3 Fire · oslnění (CON DC 12, Blinded) · nesení: odnese tvora rychle jako kůň · zhasnout (Bonusová akce)
+utok: Hořící ruka +5, 2d6+3 Fire · oslnění (CON DC 12, Blinded) · nesení: odnese tvora rychle jako kůň · zhasnout (Bonusová akce) · plamen do tváře (Reakce)
 pozehnani: Vzplane: všichni do 10 stop utrží 2d6 Fire.
 pokuseni: Přejde přes mez: musí se v příštím slotu vrátit k mezníku.
 nerest: Dluh – za živa šidil sedláky na mezích. Kdo mu zaplatí modlitbou, s tím nebojuje.
@@ -44,6 +44,10 @@ Hořící muž, který chodí po mezích a doprovází zbloudilé. Za živa byl 
 ## Bonusová akce
 
 - **Zhasnout.** Zhasne a ztratí se ve tmě: do začátku svého příštího tahu je Invisible, dokud nezaútočí.
+
+## Reakce
+
+- **Plamen do tváře.** Když ho zasáhne útok zblízka, šlehne mu plamen do tváře: CON save DC 12, jinak je útočník Blinded do konce svého příštího tahu.
 
 ## Relikt
 

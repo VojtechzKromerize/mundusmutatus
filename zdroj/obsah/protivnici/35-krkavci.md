@@ -6,7 +6,7 @@ pocet: 6
 vyzva: 50 XP za pacholka
 ac: 12
 hp: 5
-utok: Zobáky +4 · 3 Piercing za každý roj v dosahu · krákání (WIS DC 10) ohluší
+utok: Zobáky +4 · 3 Piercing za každý roj v dosahu · krákání (WIS DC 10) ohluší · do očí (Bonusová akce)
 bonus: 4
 komplikace: Krkavec klovne do oka: útočník má do konce svého příštího tahu nevýhodu na útoky.
 stitky: zvěř, krkavci, bojiště, šibenice, Lipany, zlé znamení
@@ -28,6 +28,10 @@ Hejna krkavců z bojišť a šibenic, která po Noci Proměny slouží tomu, kdo
 
 - **Krákání (dobíjí se na 6).** Místo útoku: jeden tvor v roji hodí WIS save DC 10, jinak je Deafened a má nevýhodu na ověření a útoky do začátku příštího tahu houfu.
 - **Roje.** Sdílejí pole s jinými tvory, létají, nedají se chytit ani vyděsit.
+
+## Bonusová akce
+
+- **Do očí (1/kolo).** Jeden tvor v prostoru houfu hodí DEX save DC 11, jinak je Blinded do začátku příštího tahu houfu.
 
 **Morálka.** Prchají, když padne polovina. Vracejí se, když je boj u konce, pro mrtvé.
 

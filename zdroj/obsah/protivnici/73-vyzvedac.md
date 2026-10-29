@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 1 (200 XP)
 ac: 12
 hp: 27
-utok: Krátký meč +4, 1d6+2 a 2d6 Poison · ruční kuše +4, 30/120 stop, 1d6+2 a 2d6 Poison · Dash, Disengage nebo Hide jako bonus
+utok: Krátký meč +4, 1d6+2 a 2d6 Poison · ruční kuše +4, 30/120 stop, 1d6+2 a 2d6 Poison · Dash, Disengage nebo Hide jako bonus · pepř do očí (Reakce)
 pozehnani: Zmizí v davu: do konce kola ho nelze sledovat bez Perception DC 16.
 pokuseni: Upustí dopis: družina se dozví, pro koho pracuje.
 nerest: Strach – pracuje pro toho, kdo ho drží v hrsti. Kdo mu nabídne ochranu (Persuasion DC 13), toho zradí.
@@ -40,6 +40,10 @@ Zvěd ve službě pána, města, Církve nebo cizí koruny. Uslyší, co neměl,
 ## Bonusová akce
 
 - **Mrštnost.** Dash, Disengage nebo Hide.
+
+## Reakce
+
+- **Pepř do očí.** Když se k němu tvor přiblíží na 5 stop, hodí mu pepř do očí: CON save DC 12, jinak je Blinded do konce svého tahu.
 
 **Výkupné a kořist.** Šifrované dopisy. Kdo je přečte, ví víc, než by měl.
 

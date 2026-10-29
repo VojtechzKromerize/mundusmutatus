@@ -6,7 +6,7 @@ pocet: 6
 vyzva: 25 XP za pacholka
 ac: 16
 hp: 5
-utok: Sudlice +3 · 3 Piercing za každého zbrojnoše v dosahu cíle
+utok: Sudlice +3 · 3 Piercing za každého zbrojnoše v dosahu cíle · pavézy vzhůru (Bonusová akce)
 bonus: 3
 komplikace: Zbrojnoši zavřou řadu pavéz: útočník je do konce svého příštího tahu odříznut od spojenců (nemůže k nim projít bez Athletics DC 12).
 stitky: Vratislav, Slezsko, biskup, Jošt z Rožmberka, zbrojnoši, katolíci, město, stráž, lidé
@@ -28,6 +28,10 @@ Vojsko vratislavského biskupa Jošta z Rožmberka: kroužkové košile, pavézy
 
 - **Řada pavéz.** Dokud houf stojí v řadě, mají proti střelbě zepředu three-quarters cover. V pohybu ji ztrácejí.
 - **Ve jménu biskupa.** Katolická postava, která proti nim tasí, přijala Pokušení, ať hodila cokoli – ledaže biskup sám stojí proti králi se zbraní.
+
+## Bonusová akce
+
+- **Pavézy vzhůru.** Houf se v tomto tahu nepohne a do začátku příštího tahu má three-quarters cover i proti útokům z boku.
 
 **Morálka.** Prchají při polovině nebo při pádu konšela/velitele; za hradbami města neprchají. Kdo ukáže list s biskupovou pečetí (pravý nebo dobrý padělek, Deception DC 14), toho pustí.
 

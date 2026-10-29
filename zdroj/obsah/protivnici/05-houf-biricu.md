@@ -6,7 +6,7 @@ vyzva: 50 XP za pacholka
 pocet: 6
 ac: 12 (prošívanice)
 hp: 5
-utok: Palcáty, dosah 5 stop · 3 Bludgeoning za každého pacholka v dosahu cíle (Drtivá)
+utok: Palcáty, dosah 5 stop · 3 Bludgeoning za každého pacholka v dosahu cíle (Drtivá) · chyťte ho! (Bonusová akce)
 bonus: 3
 komplikace: Biřic zařve „Ve jménu práva!“ a chytí útočníka za rukáv: útočník je Grappled (únik DC 12).
 stitky: biřici, město, Církev, inkvizice, stráž
@@ -26,6 +26,10 @@ Městská nebo církevní stráž: doprovod inkvizitora, purkmistra či rychtá�
 ## Vlastnosti
 
 - **Ve jménu práva.** Kdo biřice zabije, má na krku město nebo Církev. Biřici se raději snaží protivníka zajmout než zabít.
+
+## Bonusová akce
+
+- **Chyťte ho!.** Jeden biřic hodí smyčku nebo řetěz na tvora do 5 stop: STR save DC 12, jinak je Grappled (únik DC 12).
 
 **Morálka.** Prchají, když padne třetina, pokud je nedrží sok nebo jejich pán.
 

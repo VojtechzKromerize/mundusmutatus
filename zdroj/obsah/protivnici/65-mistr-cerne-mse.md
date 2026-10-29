@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 8 (3 900 XP)
 ac: 16 (kyrys)
 hp: 127
-utok: Tři údery smluvní sekerou +7, 1d12+4 a 3d8 Fire · spalující paprsek (5. úroveň) · ohnivá koule 2/den (6. úroveň, DEX DC 15)
+utok: Tři údery smluvní sekerou +7, 1d12+4 a 3d8 Fire · spalující paprsek (5. úroveň) · ohnivá koule 2/den (6. úroveň, DEX DC 15) · rozkaz ctitelům (Bonusová akce)
 pozehnani: Pekelný odvet zasáhne každého, kdo ho v kole zranil.
 pokuseni: Pán za Závojem chce víc: ztratí 2d6 HP a jeden ctitel padne mrtvý jako obětina.
 nerest: Chtíč po moci – slouží peklu pro moc. Kdo mu nabídne větší moc nebo jeho smlouvu přečte nahlas (Religion DC 15), toho musí vyslechnout.
@@ -35,6 +35,10 @@ utoky:
 - **Tři údery.** Třikrát udeří smluvní sekerou.
 - **Smluvní sekera.** +7, dosah 5 stop. **Zásah:** 1d12+4 Slashing a 3d8 Fire.
 - **Kouzla (WIS, DC 15, útok +7).** Libovolně: Scorching Ray (5. úroveň), Thaumaturgy. 2/den: Fireball (6. úroveň).
+
+## Bonusová akce
+
+- **Rozkaz ctitelům.** Houf ďáblových ctitelů v doslechu reakcí zaútočí.
 
 ## Reakce
 

@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 5 (1 800 XP)
 ac: 12
 hp: 97
-utok: Kopyta +7, 2d6+4 · Zářivý roh +7, 1d10+4 Svaté (Radiant) · Požehnání rohu 3/den: léčení, Lesser Restoration
+utok: Kopyta +7, 2d6+4 · Zářivý roh +7, 1d10+4 Svaté (Radiant) · Požehnání rohu 3/den: léčení, Lesser Restoration · roh odrazí (Reakce)
 pozehnani: Třpytivý štít: on nebo spojenec do 60 stop získá 3d6 dočasných HP a AC +2 do konce příštího kola.
 pokuseni: Roh pohasne: do konce kola nemůže léčit ani zraňovat Svatým – jen kopyta.
 nerest: Panna – nemá Neřest, má slabinu. Před pannou (postava bez přijatého Pokušení v tomto dni) se zastaví a nechá se oslovit; kdo ji zneužije k lovu, Pokušení přijal.
@@ -45,6 +45,10 @@ Bílý kůň s jediným rohem, který po Protržení Závoje vyšel z bestiář�
 
 - **Požehnání rohu (3/den).** Dotkne se tvora rohem: *Cure Wounds* nebo *Lesser Restoration*.
 - **Roh v běhu.** Pohne se o polovinu rychlosti bez Opportunity Attacks a bodne rohem (jednou za kolo).
+
+## Reakce
+
+- **Roh odrazí.** Když ho zasáhne útok nebo kouzlo pekelníka či Zatraceného, přičte si k AC 3 a útočník utrží 1d8 Svaté.
 
 **Výkupné a kořist.** Roh (alicorn): lék proti každému jedu, relikvie, 100 kop a víc – a každý opat v zemi ho bude chtít. Kdo jednorožce zabije, přijal Pokušení, ať hodil cokoli; kdo ho ochrání, má v lese spojence, který léčí.
 

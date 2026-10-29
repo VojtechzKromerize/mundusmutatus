@@ -5,13 +5,13 @@ uroven: zhoubce
 vyzva: 12 (8 400 XP)
 ac: 16 (drátěná zbroj)
 hp: 240
-utok: Svatý výbuch +9, 60 stop, 4d10+5 Svaté · svaté slovo (WIS DC 17, 6d6 Svaté a Stunned) · plamenný sloup (6. úroveň) · Boží pomoc 3/den
+utok: Svatý výbuch +9, 60 stop, 4d10+5 Svaté · svaté slovo (WIS DC 17, 6d6 Svaté a Stunned) · plamenný sloup (6. úroveň) · Boží pomoc 3/den · bula (Reakce)
 pozehnani: Svaté slovo se dobije hned.
 pokuseni: Ozve se kalich: zvon husitského kostela, píseň nebo hlas z davu – do konce kola má nevýhodu.
 nerest: Pýcha a Hněv – přišel vymýtit kacířství a nesnese, že Čechy nepadly na kolena. Kdo ho porazí v disputaci před svědky (Religion DC 18), ten mu vezme moc nad davem. Ctnosti: Víra, Píle.
 vyznani: kat
 stitky: kněží, legát, papež, Řím, katolíci, Církev, inkvizice, křížová výprava, lidé
-zdroje: Legendární odolnost 1, Svaté slovo 1, Boží pomoc 3, Plamenný sloup 1
+zdroje: Legendární odolnost 1, Svaté slovo 1, Boží pomoc 3, Plamenný sloup 1, Bula 2
 utoky:
   - Svatý výbuch | +9 | 4d10+5 Svaté (Radiant) | dosah 5 stop nebo dostřel 60 stop; jeden v každém slotu (předloha má tři)
   - Svaté slovo | WIS DC 17 | 6d6 Svaté (Radiant) | každý nepřítel do 20 stop; neúspěch Stunned do konce jeho tahu; úspěch polovina; dobíjí se na 4–6
@@ -45,6 +45,10 @@ Vyslanec Svatého stolce, který má rozhodnout, zda Čechy dostanou milost, neb
 ## Bonusová akce
 
 - **Boží pomoc (3/den).** Bless, Dispel Magic, Healing Word nebo Lesser Restoration.
+
+## Reakce
+
+- **Bula (2/den).** Když tvor do 60 stop sesílá kouzlo, legát zvedne bulu a sešle *Counterspell* (WIS).
 
 **Výkupné a kořist.** Papežská bula a pověřovací listiny. Kdo legáta zabije nebo zajme, nese odpovědnost za další křížovou výpravu.
 

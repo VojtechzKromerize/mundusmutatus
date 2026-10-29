@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 6 (2 300 XP)
 ac: 13
 hp: 75
-utok: Vířící oprátky a čepele +6, 3d6+3 Slashing a 3d4 Prokleté (dvakrát v jednom slotu, i na dálku 60 stop) · kvílivý vítr (CON DC 15, 4d8 Thunder, kužel 30 stop) · aura násilí (WIS DC 15)
+utok: Vířící oprátky a čepele +6, 3d6+3 Slashing a 3d4 Prokleté (dvakrát v jednom slotu, i na dálku 60 stop) · kvílivý vítr (CON DC 15, 4d8 Thunder, kužel 30 stop) · aura násilí (WIS DC 15) · utáhnout smyčku (Bonusová akce)
 pozehnani: Ozve se další oběšenec: aura násilí má do konce kola dosah 30 stop.
 pokuseni: Mezi hlasy zazní jméno člověka, kterého někdo z družiny zná: Hlas se na kolo zastaví a ten člověk smí s mrtvým promluvit.
 nerest: Křivda – oběšenec, který visel nevinně, ztichne, když někdo nahlas řekne jeho jméno a prohlásí ho za nevinného.
@@ -41,6 +41,10 @@ Vír šedého větru, starých provazů a rezavých čepelí, v němž křičí 
 - **Dvě čepele.** Dva útoky Vířícími čepelemi.
 - **Vířící čepele.** +6, dosah 5 stop nebo dostřel 60 stop. **Zásah:** 3d6+3 Slashing a 3d4 Prokleté (Necrotic).
 - **Kvílivý vítr (dobíjí se na 5–6).** Kužel 30 stop: CON save DC 15. **Neúspěch:** 4d8 Thunder a cíl je na minutu Frightened a Deafened, musí křičet s ním a nemůže sesílat kouzla se slovní složkou; opakuje záchranu na konci svého tahu. **Úspěch:** polovina zranění.
+
+## Bonusová akce
+
+- **Utáhnout smyčku.** Tvor do 30 stop hodí STR save DC 15, jinak je Grappled oprátkou (únik DC 15) a do konce úchopu nemůže mluvit ani sesílat kouzla se slovní složkou.
 
 ## Reakce
 

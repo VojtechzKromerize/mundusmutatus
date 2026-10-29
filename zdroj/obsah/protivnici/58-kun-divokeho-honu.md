@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 3 (700 XP)
 ac: 13
 hp: 68
-utok: Kopyta +6, 2d8+4 a 3d6 Fire · přejde s jezdcem za Závoj · ohnivý cval (Bonusová akce)
+utok: Kopyta +6, 2d8+4 a 3d6 Fire · přejde s jezdcem za Závoj · ohnivý cval (Bonusová akce) · vzepnout se (Reakce)
 pozehnani: Přeskočí přes cíl a podupe ho: cíl je Prone.
 pokuseni: Zařehtá a vzepne se: jezdec hodí DEX save DC 12, jinak spadne.
 nerest: Pán – poslouchá jen jezdce. Bez jezdce letí k nejbližší bouři.
@@ -40,6 +40,10 @@ utoky:
 ## Bonusová akce
 
 - **Ohnivý cval.** Pohne se až o svou rychlost, aniž by vyvolal Opportunity Attack; každý tvor, kolem kterého projde do 5 stop, utrží jednou 1d6 Fire.
+
+## Reakce
+
+- **Vzepnout se.** Když ho zasáhne útok zblízka, vzepne se a kopne útočníka (útok Kopyty).
 
 **Výkupné a kořist.** Podkova, která pálí. Kdo ji přibije nad práh, k tomu hon nepřijede – nebo přijede hned.
 

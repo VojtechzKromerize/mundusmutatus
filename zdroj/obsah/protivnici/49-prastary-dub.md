@@ -5,7 +5,7 @@ uroven: zhoubce
 vyzva: 9 (5 000 XP)
 ac: 16
 hp: 138
-utok: Úder +10, 3d6+6 · krupobití kůry +10, 180 stop, 4d10+6 · oživí 2 stromy (1/den) · chápavé kořeny (Bonusová akce)
+utok: Úder +10, 3d6+6 · krupobití kůry +10, 180 stop, 4d10+6 · oživí 2 stromy (1/den) · chápavé kořeny (Bonusová akce) · padající větev (Reakce)
 pozehnani: Zemi pod nepřáteli prorostou kořeny: tvorové do 15 stop hodí DEX save DC 18, jinak jsou Restrained.
 pokuseni: Zavrže a zamyslí se: jeden slot jen mluví – o čem, záleží na tom, kdo ho oslovil.
 nerest: Paměť – pamatuje pohanské bohy a nenávidí sekeru. Kdo mu donese obětinu Starým bohům, s tím mluví místo boje. Ctnosti: Respekt, Úcta k předkům. Neřest: Hamižnost (nedá z háje nic).
@@ -45,6 +45,10 @@ Posvátný dub Starých bohů, který po Noci Proměny procitl. Strážce háje,
 ## Bonusová akce
 
 - **Chápavé kořeny.** Tvor velikosti Large nebo menší do 15 stop hodí STR save DC 18, jinak je přitažen o 10 stop a je Grappled (únik DC 16); na začátku každého svého tahu pak utrží 2d6+6 Bludgeoning.
+
+## Reakce
+
+- **Padající větev.** Když tvor do 15 stop vystřelí nebo sešle kouzlo, padne na něj suchá větev: DEX save DC 18, jinak 2d6+6 Bludgeoning.
 
 **Výkupné a kořist.** Žaludy, ze kterých vyroste háj. Kdo dub pokácí, porušil starověrskou svatyni – a má na krku Hazmburky i Krakonoše.
 

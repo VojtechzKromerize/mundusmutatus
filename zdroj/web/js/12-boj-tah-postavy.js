@@ -88,7 +88,21 @@ const BRCH = {},
   BTMSG = {},
   BDMG = {};
 let BPLOS = null;
+/* tiché přehrání háku tahu (2026-10-29): když uložení boje narazí na zápis hráče (konflikt verzí), změna se přehraje na čerstvém
+   stavu z databáze – i s hákem začátku a konce tahu (reakce, připravené akce, trvání účinků). Vedlejší účinky (životy nepřátel
+   v paměti vypravěče, zprávy, výzvy, hody) už proběhly napoprvé, při tichém přehrání se neopakují; záchrany se vezmou z prvního hodu. */
+let BTICHO = false;
+const BTHZ = new Map();
+function bojTahHookTicho(pre, s) {
+  BTICHO = true;
+  try {
+    bojTahHook(pre, s);
+  } finally {
+    BTICHO = false;
+  }
+}
 const bojMsg = (id, t) => {
+  if (BTICHO) return;
   (BTMSG[id] = BTMSG[id] || []).push(t);
   if (BTMSG[id].length > 6) BTMSG[id].shift();
 };
@@ -135,7 +149,7 @@ function bojTahHook(pre, s) {
       if (!Object.keys(s.ready).length) delete s.ready;
       bojMsg(id1, `Připravená akce propadla: ${rd}.`);
       const hh = (s.hraci || []).find(x => x.id === id1);
-      if (hh) mmHlasG(`${hh.n}: připravená akce propadla (${rd}).`, 4000);
+      if (hh && !BTICHO) mmHlasG(`${hh.n}: připravená akce propadla (${rd}).`, 4000);
     }
     bojZacatekTahu(s, id1);
   }
@@ -219,7 +233,7 @@ function bojEfDel(n, e) {
 }
 function bojKonecTahu(s, id) {
   try {
-    if (typeof bojOblTah === "function") bojOblTah(s, id, "kon");
+    if (typeof bojOblTah === "function" && !BTICHO) bojOblTah(s, id, "kon");
     if (typeof bojWmTahVlastnika === "function") bojWmTahVlastnika(s, id, "kon");
   } catch (e) {
     console.error(e);
@@ -234,9 +248,17 @@ function bojKonecTahu(s, id) {
     (n.ef || []).slice().forEach(e => {
       if (!e.op || hot.has(e.n)) return;
       hot.add(e.n);
+      /* tiché přehrání: výsledek záchrany z prvního hodu, nehází se znovu */
+      const kz = `${s.kolo || 1}:${s.tah || 0}:${id}:${e.n}`;
+      if (BTICHO) {
+        if (BTHZ.get(kz)) (n.ef || []).filter(x => x.n === e.n).forEach(x => bojEfDel(n, x));
+        return;
+      }
       const E = bojEff(n),
         Z = bojNpcZach(n, E, e.op.ab, e.op.dc, bojJeKouzlo(e.n)),
         ok = Z.ok;
+      BTHZ.set(kz, ok);
+      if (BTHZ.size > 200) BTHZ.delete(BTHZ.keys().next().value);
       bojMsg(id, `${e.n}: záchrana ${Z.txt} proti SO ${e.op.dc} – ${ok ? "uspěl, kouzlo na něm končí" : "neuspěl, trvá dál"}.`);
       if (ok) (n.ef || []).filter(x => x.n === e.n).forEach(x => bojEfDel(n, x));
     });
@@ -267,6 +289,7 @@ function bojPcKonec(s, id) {
   (h.ef || []).forEach(e => {
     if (!e.op || hot.has(e.n)) return;
     hot.add(e.n);
+    if (BTICHO) return;
     const o = {hid: h.id, n: e.n, ab: e.op.ab, dc: e.op.dc};
     if (K && window.MMDB && MMDB.vyzva)
       setTimeout(
@@ -304,7 +327,7 @@ function bojPcZac(s, id) {
   if (!h) return;
   {
     const kv = bojKrvaceni(s, h);
-    if (kv && !h.ds) {
+    if (kv && !h.ds && !BTICHO) {
       const K = bojKartaH(h);
       if (K)
         setTimeout(() => {
@@ -337,7 +360,7 @@ function bojPcZac(s, id) {
 }
 function bojZacatekTahu(s, id) {
   try {
-    if (typeof bojOblTah === "function") bojOblTah(s, id, "zac");
+    if (typeof bojOblTah === "function" && !BTICHO) bojOblTah(s, id, "zac");
     if (typeof bojWmTahVlastnika === "function") bojWmTahVlastnika(s, id, "zac");
   } catch (e) {
     console.error(e);
@@ -351,12 +374,12 @@ function bojZacatekTahu(s, id) {
     } catch (e) {}
     return;
   }
-  BTMSG[id] = [];
+  if (!BTICHO) BTMSG[id] = [];
   const E = bojEff(n),
     kolo = s.kolo || 1;
   {
     const kv = n.druh !== "houf" && E && E.hp.length ? bojKrvaceni(s, n) : null;
-    if (kv) {
+    if (kv && !BTICHO) {
       const hp = bojHp.get(),
         a = hp[id] || [],
         old = a[0] != null ? a[0] : E.hp[0].max;
@@ -376,7 +399,7 @@ function bojZacatekTahu(s, id) {
     if (e.kdy === "konec") e.zac = 1;
     if (e.lk === kolo) return;
     e.lk = kolo;
-    if (e.z && E && E.hp.length && n.druh !== "houf") {
+    if (e.z && E && E.hp.length && n.druh !== "houf" && !BTICHO) {
       const k = bojKostky(String(e.z).replace(/\s+/g, ""), false),
         v = k ? k.t : +e.z || 0;
       if (v > 0) {
@@ -402,7 +425,7 @@ function bojZacatekTahu(s, id) {
       }
     }
   });
-  if (E) {
+  if (E && !BTICHO) {
     const R = BRCH[id] || {};
     bojRecharge(E.p).forEach(q => {
       if (R[q.n]) {
@@ -437,6 +460,7 @@ function bojZacatekTahu(s, id) {
       }
     }
   }
+  if (BTICHO) return;
   if (BTMSG[id].length) mmHlasG(`${n.n} na tahu: ${BTMSG[id].join(" ")}`, 6000);
   else delete BTMSG[id];
 }
@@ -1122,13 +1146,17 @@ const BAKCE = [
     "šermířské techniky a zápasnické chvaty za Výdrž (Fighter = bonus zdatnosti, ostatní bojovníci polovina; obnova dlouhým odpočinkem).",
   ],
 ];
-/* rychlá pravidla v šuplíku: kritická zranění, vlastnosti zbraní, zbroj */
-let BPRAV = false;
+/* rychlá pravidla v šuplíku: stavy, akce, vlastnosti zbraní, zbroj; hod na kritické zranění má vlastní šuplík a záložku pod
+   Pravidly (Vojta 2026-10-28) – BPRAV / BKRO, otevřený je vždy nejvýš jeden */
+let BPRAV = false,
+  BKRO = false;
 function bojPravidla() {
   const L = (h, t) => `<p class="rsmall"><a href="#artikule/${h}">${t} →</a></p>`;
-  return `<button type="button" class="bprtg" data-bprav aria-controls="bpravidla" aria-expanded="${BPRAV}" ${btip("Rychlá pravidla: kritická zranění, zbraně, zbroj")}>${bi("kniha")}<span>Pravidla</span></button>
+  return `<div class="bprtgs"><button type="button" class="bprtg" data-bprav aria-controls="bpravidla" aria-expanded="${BPRAV}" ${btip("Rychlá pravidla: stavy, akce, zbraně, zbroj")}>${bi("kniha")}<span>Pravidla</span></button><button type="button" class="bprtg bkrtg" data-bkro aria-controls="bkritsup" aria-expanded="${BKRO}" ${btip("Hod na kritické zranění a rány postav")}>${bi("rana")}<span>Kritická zranění</span></button></div>
+  <aside class="bpravidla bkritsup${BKRO ? " open" : ""}" id="bkritsup" aria-label="Kritická zranění"><div class="bprh"><h3>Kritická zranění</h3><button type="button" class="bprx" data-bkro aria-label="Zavřít kritická zranění">${bi("krizek")}</button></div><div class="bprg">
+    <article class="bqr bqkrit"><p>k10 + 1 za každé neléčené kritické zranění + 1 za každých 5 HP pod 0: <b>1–5</b> Lehká · <b>6–9</b> Těžká · <b>10–12</b> Vážná · <b>13+</b> Smrtelná. Místo podle Závoje: 6 hlava, 3–5 trup, 2 paže, 1 nohy.</p>${bojKritPanel()}${L("kriticka", "Artikule › Kritická zranění")}</article>
+  </div></aside>
   <aside class="bpravidla${BPRAV ? " open" : ""}" id="bpravidla" aria-label="Rychlá pravidla"><div class="bprh"><h3>Rychlá pravidla</h3><button type="button" class="bprx" data-bprav aria-label="Zavřít rychlá pravidla">${bi("krizek")}</button></div><div class="bprg">
-    <article class="bqr bqkrit"><h4>Kritické zranění</h4><p>k10 + 1 za každé neléčené kritické zranění + 1 za každých 5 HP pod 0: <b>1–5</b> Lehká · <b>6–9</b> Těžká · <b>10–12</b> Vážná · <b>13+</b> Smrtelná. Místo podle Závoje: 6 hlava, 3–5 trup, 2 paže, 1 nohy.</p>${bojKritPanel()}</article>
     <article class="bqr"><h4>Stavy (SRD 5.2.1)</h4><dl class="bdl">${Object.entries(SRDST)
       .map(([k, v]) => `<dt>${bi(SRDIC[k])}${k[0].toUpperCase() + k.slice(1)} <small>${v.en}</small></dt><dd>${v.t}.</dd>`)
       .join(
@@ -1509,10 +1537,11 @@ function bojHracKlik(T) {
       kKonZtrata(K0, "ukončeno");
       return true;
     }
+    /* cílový stav se určí při klepnutí – při přehrání po konfliktu verzí se tak přepínač neotočí podruhé (2026-10-29) */
+    const on = ((h0 && h0.stav) || []).includes(t);
     bojHracAkce(id, h => {
-      const a = h.stav || [],
-        on = a.includes(t);
-      h.stav = on ? a.filter(x => x !== t) : [...a, t];
+      const a = (h.stav || []).filter(x => x !== t);
+      h.stav = on ? a : [...a, t];
       if (!on && SRDST[t] && SRDST[t].nej) h.stav = h.stav.filter(x => x !== "soustředí");
       if (!h.stav.length) delete h.stav;
     });
@@ -1529,9 +1558,10 @@ function bojHracKlik(T) {
     return true;
   }
   if (T("[data-bhrk]")) {
+    const bylo = !!((BOJ.s || {}).reak || {})[id];
     bojHracAkce(id, (h, z) => {
       z.reak = z.reak || {};
-      if (z.reak[id]) delete z.reak[id];
+      if (bylo) delete z.reak[id];
       else z.reak[id] = 1;
     });
     return true;
@@ -1831,6 +1861,13 @@ function bojZranPC(h, K, x, typ, krit, opt) {
   }
   if (v <= 0) return m.join(", ");
   if (bojDsAkt(h)) {
+    /* SRD: zranění na 0 HP alespoň ve výši maxima životů zabíjí hned */
+    const mx0 = K ? kHPmax(K) : 0;
+    if (mx0 && v >= mx0) {
+      h.ds = {u: 0, n: 3, st: "mrtev"};
+      m.push(`zásah v bezvědomí ${v} ≥ maximum HP – okamžitá smrt`);
+      return m.join(", ");
+    }
     const r = bojDs(h.ds, "n", krit ? 2 : 1);
     h.ds = r.ds;
     m.push(`zásah v bezvědomí: ${krit ? "dva neúspěchy" : "neúspěch"} hodu proti smrti${r.m ? " → " + r.m : ""}`);

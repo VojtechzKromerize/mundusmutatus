@@ -6,7 +6,7 @@ pocet: 4
 vyzva: 100 XP za pacholka
 ac: 8
 hp: 5
-utok: Kousání +0 · 3 Piercing za každé hnízdo v prostoru cíle a CON DC 10, jinak Poisoned: na konci tahu 1d6 Poison, na 0 HP smrt; oheň ho vyléčí · obyčejnou zbraní padá na druhý zásah
+utok: Kousání +0 · 3 Piercing za každé hnízdo v prostoru cíle a CON DC 10, jinak Poisoned: na konci tahu 1d6 Poison, na 0 HP smrt; oheň ho vyléčí · obyčejnou zbraní padá na druhý zásah · zavrtat se (Bonusová akce)
 bonus: 0
 komplikace: Červi vlezou útočníkovi pod zbroj: CON save DC 10, jinak je Poisoned jako po kousnutí.
 stitky: zvířata, hmyz, červi, larvy, mor, morová jáma, mrtvoly, hnis, oheň, hrobník
@@ -27,6 +27,10 @@ Bílé larvy z morových jam a mršin, které po Protržení Závoje hladoví i 
 
 - **Roj.** Houf smí stát v prostoru jiného tvora a proleze každou škvírou.
 - **Žár je spálí.** Pochodeň, hořící olej nebo *Fire Bolt* zabíjí jedno hnízdo na zásah bez ohledu na tuhost.
+
+## Bonusová akce
+
+- **Zavrtat se.** Tvor v prostoru houfu, který je od červů Poisoned, utrží hned 1d6 Poison navíc (jednou za kolo).
 
 **Morálka.** Nemají ji. Couvají jen před ohněm: kdo drží pochodeň, do jeho prostoru nevlezou.
 

@@ -6,7 +6,7 @@ pocet: 8
 vyzva: 50 XP za pacholka
 ac: 15
 hp: 5
-utok: Kopí a sekery +3 · 3 Piercing nebo Slashing za každého knechta v dosahu cíle
+utok: Kopí a sekery +3 · 3 Piercing nebo Slashing za každého knechta v dosahu cíle · kopí vpřed (Bonusová akce)
 bonus: 3
 komplikace: Knechti sevřou šik a odříznou útočníka od spojenců: do konce svého příštího tahu se k nim nedostane bez Athletics DC 13.
 stitky: křižáci, Řád německých rytířů, Prusko, Malbork, Polsko, třináctiletá válka, knechti, Němci, lidé
@@ -30,6 +30,10 @@ Pěší zbrojnoši Řádu německých rytířů: šedé kabátce s půlkřížem
 - **Šik.** Proti cíli, u kterého stojí aspoň dva knechti, útočí houf s výhodou. Houf v šiku se pohybuje jen o 15 stop.
 - **Kázeň.** Na rozkaz řádového bratra ustoupí v pořádku (bez Opportunity Attacks) nebo se sešikuje (two prořídlé houfy v jeden).
 - **Čeští knechti.** Polovina houfu rozumí česky. Kdo se jich zeptá, kolik jim řád dluží (Persuasion DC 13), může polovinu houfu přesvědčit, že má jít domů.
+
+## Bonusová akce
+
+- **Kopí vpřed.** Do začátku příštího tahu houfu vyvolá Opportunity Attack s výhodou každý tvor, který vstoupí do 10 stop od šiku.
 
 **Morálka.** Neprchají, dokud stojí řádový bratr; pak prchají při polovině. Za hradbami řádového hradu neprchají nikdy – řád věší zběhy.
 

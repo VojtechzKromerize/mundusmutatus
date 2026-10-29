@@ -6,7 +6,7 @@ pocet: 8
 vyzva: 25 XP za pacholka
 ac: 13
 hp: 5
-utok: Sudlice a cepy +3 · 3 Piercing nebo Bludgeoning za každého bratříka v dosahu cíle · vozová hradba
+utok: Sudlice a cepy +3 · 3 Piercing nebo Bludgeoning za každého bratříka v dosahu cíle · vozová hradba · kdož jsú boží bojovníci (Bonusová akce)
 bonus: 3
 komplikace: Bratříci zpívají „Ktož jsú boží bojovníci“: kališnická postava, která na ně útočí, hodí WIS save DC 12, jinak do konce svého příštího tahu neútočí (postava s featem víry kališníka má výhodu).
 stitky: bratříci, Jiskra, Horní Uhry, Slovensko, Spiš, husité, kališníci, vozová hradba, rota bez pána, Matyáš, lidé
@@ -30,6 +30,10 @@ Husitští veteráni v Horních Uhrách, které tam od čtyřicátých let vedl 
 - **V šiku.** Proti cíli, u kterého stojí aspoň dva bratříci, útočí houf s výhodou. Za vozovou hradbou mají three-quarters cover a neprchají.
 - **Boží bojovníci.** Kališnická postava, která bratříky pozná (a oni ji), může místo boje vyjednávat: Persuasion DC 12 s kalichem v ruce, DC 18 s křížem.
 - **Zvyk na draky i jízdu.** Jízdu stahují sudlicemi ze sedla (STR save DC 12 při zásahu jezdce).
+
+## Bonusová akce
+
+- **Kdož jsú boží bojovníci.** Houf zpívá: do konce kola nedá se vyděsit ani okouzlit a kališníci – spojenci v doslechu – mají výhodu na záchrany.
 
 **Morálka.** Za vozy neprchají. V poli prchají při polovině – do nejbližšího kostela, který pak drží jako tvrz. Padne-li hejtman, zvolí si nového (kolo bez útoku).
 

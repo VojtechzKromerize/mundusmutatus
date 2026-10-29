@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 7 (2 900 XP)
 ac: 18 (plná zbroj)
 hp: 85
-utok: Dva útoky mečem obouruč +7, 1d10+4 · v sedle kopí +7, 1d10+4, Vpřed! (po 15 stopách rovně dvojité kostky)
+utok: Dva útoky mečem obouruč +7, 1d10+4 · v sedle kopí +7, 1d10+4, Vpřed! (po 15 stopách rovně dvojité kostky) · ostruhy a hledí (Bonusová akce)
 pozehnani: Vazba: zasažený soupeř hodí STR save DC 15, jinak mu vyrazí zbraň z ruky (5 stop stranou).
 pokuseni: Kůň se splaší, nebo se mu pod hledím rozjede přezka: do konce příštího tahu AC −2.
 nerest: Pýcha – kdo ho urazí (Intimidation nebo Persuasion DC 13), toho musí v příštím slotu vyzvat. Vzdá se jen rytíři, nikdy pacholkovi.
@@ -41,6 +41,10 @@ Pán z erbovního rodu, vycvičený od dětství, s koněm, panošem a zbrojí, 
 - **Dlouhý meč obouruč.** +7, dosah 5 stop. **Zásah:** 1d10+4 Slashing nebo Piercing (Šikovná, Ostrá, Půlmeč).
 - **Kopí (jen v sedle).** +7, dosah 10 stop. **Zásah:** 1d10+4 Piercing (Průrazná). **Vpřed!** Po jízdě aspoň 15 stop rovně se zdvojnásobí kostky zranění (kritický zásah čtyřnásobně).
 - **Dýka v zápase.** +7, dosah 5 stop. **Zásah:** 1d4+4 Piercing. S technikou Zápas ve zbroji proti Restrained nebo Prone cíli ignoruje Resistance zbroje.
+
+## Bonusová akce
+
+- **Ostruhy a hledí.** V sedle se kůň pohne až o polovinu rychlosti, aniž by vyvolal Opportunity Attack. Stejnou bonusovou akcí si rytíř zvedne nebo spustí hledí (viz Hledí).
 
 ## Reakce
 

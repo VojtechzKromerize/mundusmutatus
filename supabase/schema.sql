@@ -443,7 +443,8 @@ begin
   end if;
   select verze into cur from public.boj where id = 'aktivni' for update;
   if cur is not null and p_verze is not null and cur <> p_verze then
-    raise exception 'konflikt verze boje' using errcode = '40001';
+    -- PT409 = HTTP 409 (PostgREST); 40001 by PostgREST opakoval pořád dokola a uložení vypravěče by viselo
+    raise exception 'konflikt verze boje' using errcode = 'PT409';
   end if;
   insert into public.boj as b (id, stav, verze, zmeneno) values ('aktivni', p_stav, 1, now())
   on conflict (id) do update set stav = excluded.stav, verze = b.verze + 1, zmeneno = now()
@@ -530,6 +531,8 @@ begin
   if not public.mm_je_gm() then raise exception 'jen pro vypravěče' using errcode = '42501'; end if;
   delete from public.hesla where karta = p_karta;
   delete from public.relace_hracu where karta = p_karta;
+  -- upozornění v telefonu patří hráči, ne postavě: po zrušení hesla už nechodí na jeho telefon (2026-10-29)
+  delete from public.push_odbery where karta = p_karta;
   update public.karty set zamceno = false where id = p_karta;
 end $$;
 
@@ -561,6 +564,7 @@ language plpgsql security definer set search_path = public as $$
 begin
   if not public.mm_je_gm() then raise exception 'jen pro vypravěče' using errcode = '42501'; end if;
   delete from public.hraci_ucty where karta = p_karta;
+  delete from public.push_odbery where karta = p_karta;
   update public.karty set zamceno = exists (select 1 from public.hesla where karta = p_karta), hrac = null where id = p_karta;
 end $$;
 -- texty schopností z PDF: jen vlastník chráněné postavy a vypravěč

@@ -6,7 +6,7 @@ pocet: 8
 vyzva: 25 XP za pacholka
 ac: 12
 hp: 5
-utok: Chňapnutí +4 · 2 Prokleté (Necrotic) za každou ruku v dosahu cíle · zbroj nepomáhá
+utok: Chňapnutí +4 · 2 Prokleté (Necrotic) za každou ruku v dosahu cíle · zbroj nepomáhá · za kotník (Bonusová akce)
 bonus: 4
 komplikace: Ruka chytne útočníka za kotník: DEX save DC 12, jinak je Prone a ruka mu leze po těle k hrdlu.
 stitky: nemrtví, ruce, nigromant, kostnice, šibenice, kat, dílna, Závoj
@@ -28,6 +28,10 @@ Uťaté ruce oběšenců a popravených, oživené nigromantem nebo samy od sebe
 - **Mrtvá ruka.** Houf, který se nehýbe, se nedá rozeznat od hromady ostatků (Perception DC 15). První útok ze zálohy má výhodu.
 - **Lezou všude.** Stropy, stěny, otvory velikosti pěsti. Zavřené dveře je nezastaví, pokud je pod nimi škvíra.
 - **Svatá zbraň a oheň.** Svaté (Radiant) zranění, svěcená voda nebo pochodeň ruku skolí hned; plamen ji spálí natrvalo.
+
+## Bonusová akce
+
+- **Za kotník.** Tvor v dosahu houfu hodí DEX save DC 11, jinak je Prone a jedna ruka mu vleze pod zbroj (příští zásah houfu proti němu +2).
 
 **Morálka.** Neprchají. Padne-li nigromant, který je oživil, znehybní; ruce z kostnice bez pána se po úsvitu rozlezou zpět mezi kosti.
 

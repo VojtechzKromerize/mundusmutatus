@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 2 (450 XP)
 ac: 12
 hp: 22
-utok: Hozený předmět +4, 2d4+2 · telekinetický náraz (STR DC 12, 2d6+2 Force, odhození o 30 stop)
+utok: Hozený předmět +4, 2d4+2 · telekinetický náraz (STR DC 12, 2d6+2 Force, odhození o 30 stop) · bouchnout dveřmi (Reakce)
 pozehnani: Zhasnou všechny svíce v místnosti; do konce kola je tma.
 pokuseni: Musí něco rozbít: příští slot hází jen hrnce a talíře bez účinku.
 nerest: Zlomyslnost – nesnese, když se mu nikdo nebojí. Kdo se mu vysměje (Performance DC 12), toho začne pronásledovat a nechá ostatní.
@@ -42,6 +42,10 @@ Neklidný duch domu, který hází věcmi, bouchá dveřmi a chodí po půdě. Z
 ## Bonusová akce
 
 - **Zmizet.** Stane se neviditelným, nebo se ukáže.
+
+## Reakce
+
+- **Bouchnout dveřmi.** Když se k němu tvor přiblíží na 5 stop, bouchnou dveře, okenice nebo truhla: STR save DC 12, jinak utrží 1d6 Bludgeoning a je Prone.
 
 ## Relikt
 

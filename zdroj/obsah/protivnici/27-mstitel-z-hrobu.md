@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 5 (1 800 XP)
 ac: 13
 hp: 127
-utok: Pomstychtivý pohled (WIS DC 15, Frightened) a dvě rány +7, 2d6+4 Prokleté · regenerace 10 HP za kolo
+utok: Pomstychtivý pohled (WIS DC 15, Frightened) a dvě rány +7, 2d6+4 Prokleté · regenerace 10 HP za kolo · nenávist (Reakce)
 pozehnani: Vrah, kterého proklel, je Paralyzed místo vyděšení.
 pokuseni: Ucítí vraha: v příštím slotu jde jen za ním, i kdyby šel mimo boj.
 nerest: Pomsta – nezajímá ho nikdo jiný než jeho vrah. Kdo vraha vydá nebo přivede (Persuasion DC 15), s tím nebojuje.
@@ -43,6 +43,10 @@ Zavražděný, kterého Závoj vrátil, aby se pomstil. Nemá s živými žádn�
 ## Bonusová akce
 
 - **Přísaha pomsty (1/den).** Prokleje tvora do 30 stop: vždy ví, kde je.
+
+## Reakce
+
+- **Nenávist.** Když ho zasáhne tvor, kterému přísahal pomstu, hned mu ránu oplatí (útok Ranou).
 
 **Výkupné a kořist.** Nic, co by si vzal s sebou. Jeho smrt ale něco dluží – rodině, soudu, svědomí.
 

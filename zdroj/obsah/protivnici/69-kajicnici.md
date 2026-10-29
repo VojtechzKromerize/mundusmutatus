@@ -6,7 +6,7 @@ pocet: 6
 vyzva: 50 XP za pacholka
 ac: 13 (drátěná košile)
 hp: 5
-utok: Palice +4 · 4 za každého v dosahu (Bludgeoning a Svaté)
+utok: Palice +4 · 4 za každého v dosahu (Bludgeoning a Svaté) · bičování (Bonusová akce)
 bonus: 4
 komplikace: Kajícník se zbičuje do krve a zpívá: všichni pacholci houfu mají do konce kola výhodu na záchrany.
 vyznani: kat
@@ -29,6 +29,10 @@ Procesí bičujících se kajícníků, kteří po Noci Proměny vidí trest Bo�
 - **Svatý plamen.** Místo útoku houfu může jeden kajícník vrhnout plamen: +4, dostřel 60 stop, 2d6 Svaté.
 - **Boží pomoc (1/den).** Jeden kajícník sešle Bless, Healing Word nebo Sanctuary.
 - **Ve jménu Páně!** Proti zatraceným, pekelníkům a nemrtvým má houf výhodu na útoky.
+
+## Bonusová akce
+
+- **Bičování.** Jeden kajícník padne vysílením (odečti pacholka); houf má do konce svého příštího tahu výhodu na útoky a nedá se vyděsit.
 
 **Morálka.** Neprchají. Klekají a modlí se, když padne jejich kazatel; pak je lze rozehnat (Intimidation nebo Religion DC 12).
 

@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 2 (450 XP)
 ac: 14
 hp: 52
-utok: Dráp +5, 2d6+3 · hrůzná tvář (WIS DC 11, Frightened) · smrtelný pohled na vyděšeného (WIS DC 11): do 20 HP = 0 HP, jinak 3d8 Psychic · pod hladinu (Reakce)
+utok: Dráp +5, 2d6+3 · hrůzná tvář (WIS DC 11, Frightened) · smrtelný pohled na vyděšeného (WIS DC 11): do 20 HP = 0 HP, jinak 3d8 Psychic · pod hladinu (Reakce) · ze šosu kape (Bonusová akce)
 pozehnani: Strhne cíl do vody: STR save DC 13, jinak je pod hladinou Restrained a nemůže dýchat.
 pokuseni: Z šosu mu kape voda: na suchu ztrácí sílu, příští útok má s nevýhodou.
 nerest: Hrnečky – duše utopených schovává pod pokličkami a dbá na ně víc než na sebe. Kdo hrnečky ohrozí, toho musí zastavit; kdo mu nabídne dýmku a karty (Persuasion DC 12), s tím si sedne.
@@ -40,6 +40,10 @@ Hastrman z rybníků a jezů. Na suchu je to podivný chlapík v zeleném kabát
 - **Dráp.** +5, dosah 5 stop. **Zásah:** 2d6+3 Slashing.
 - **Smrtelný pohled (dobíjí se na 5–6).** Vyděšený tvor do 30 stop hodí WIS save DC 11: kdo neuspěje a má 20 HP a méně, klesne na 0 HP; ostatní utrží 3d8 Psychic.
 - **Lidská podoba.** Disguise Self na 24 hodin.
+
+## Bonusová akce
+
+- **Ze šosu kape.** Kolem vodníka se na 10 stop rozlije voda: do začátku jeho příštího tahu je to obtížný terén; on a utopenci se v ní pohybují plnou rychlostí.
 
 ## Reakce
 

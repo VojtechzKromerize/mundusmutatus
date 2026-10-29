@@ -5,7 +5,7 @@ uroven: zhoubce
 vyzva: 13 (10 000 XP)
 ac: 16
 hp: 195
-utok: Hrobová rána +9, 1d8+4 a 2d6 Prokleté, Grappled · kousnutí (CON DC 17) 1d4+4 a 3d8 Prokleté, léčí se · okouzlení (CHA DC 17)
+utok: Hrobová rána +9, 1d8+4 a 2d6 Prokleté, Grappled · kousnutí (CON DC 17) 1d4+4 a 3d8 Prokleté, léčí se · okouzlení (CHA DC 17) · hejno netopýrů (Reakce)
 pozehnani: Ruka na rameni: zásah je kritický, nebo okouzlení se dobije hned.
 pokuseni: Kohout zakokrhá nebo zazvoní zvon: do konce kola má nevýhodu a nemůže se proměnit.
 nerest: Pýcha a Chtíč – pán, který nesnese pokoření, a hladový, který nesnese odmítnutí. Svěcená půda, česnek a zrcadlo ho drží zpátky jen na chvíli. Ctnosti: Věrnost rodu, Pohostinství (k hostům, které pozval).
@@ -50,6 +50,10 @@ Prastarý upír z karpatských hradů, šlechtic, který zemřel a odmítl odej�
 
 - **Proměna.** Netopýr (let 30 stop), mlha (let 20, odolná všemu kromě slunce), nebo zpět.
 - **Okouzlení (dobíjí se na 5–6).** Charm Person (CHA, DC 17) na 24 hodin; okouzlený se nechá kousnout a pak si nic nepamatuje.
+
+## Reakce
+
+- **Hejno netopýrů.** Když na něj míří útok na dálku nebo kouzlo s hodem na útok, mezi něj a střelu vletí netopýři: AC +4 proti tomuto útoku.
 
 **Výkupné a kořist.** Hrad, archiv, dluhopisy na půl Valašska a hrob, který musí družina najít dřív, než se do něj vrátí.
 

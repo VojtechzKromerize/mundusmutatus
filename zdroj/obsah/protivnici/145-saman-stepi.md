@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 2 (450 XP)
 ac: 13
 hp: 38
-utok: Hůl s rolničkami +5, 1d6+3 Bludgeoning a 2d4 Thunder · hlas předků +5, 2d10 Thunder, dostřel 60 stop · duchové (Spirit Guardians 1/den: vítr, Thunder) · buben 3/den (Bless, Healing Word)
+utok: Hůl s rolničkami +5, 1d6+3 Bludgeoning a 2d4 Thunder · hlas předků +5, 2d10 Thunder, dostřel 60 stop · duchové (Spirit Guardians 1/den: vítr, Thunder) · buben 3/den (Bless, Healing Word) · vítr chrání (Reakce)
 pozehnani: Přijde vítr: na bojiště se zhmotní duch stepi (přidej soka duch-stepi, nebo mu vrať plné HP).
 pokuseni: Buben praskne: do konce kola nemůže kouzlit a duch stepi, pokud je v boji, jedná sám (útočí na nejbližšího, i na Tatary).
 nerest: Chamtivost po jménech – sbírá jména mrtvých a živých do bubnu. Kdo mu nabídne jméno někoho mocného (Deception nebo Persuasion DC 13), toho šaman vyslechne; kdo mu řekne své pravé jméno, má v bubnu duši a šaman ho může najít kdekoli.
@@ -44,6 +44,10 @@ Kněz stepních duchů, který jede s tatarskou hordou: buben s jmény, hůl s r
 ## Bonusová akce
 
 - **Buben (3/den).** *Bless*, *Healing Word* nebo *Lesser Restoration* (WIS, DC 13). Jinak bubnuje (viz Buben).
+
+## Reakce
+
+- **Vítr chrání.** Když ho zasáhne útok a duch stepi je do 30 stop, vítr strhne ránu: šaman utrží jen polovinu zranění.
 
 **Výkupné a kořist.** Chán za šamana zaplatí – v koních a v lidech. Buben se jmény: kdo ho má, ví, koho Tataři odvedli, a kdo umí bubnovat (Performance DC 15), zavolá vítr. Plášť z per orla.
 

@@ -5,7 +5,7 @@ uroven: zhoubce
 vyzva: 12 (8 400 XP)
 ac: 18
 hp: 178
-utok: Vadnoucí meč +8, 2d8+4 Slashing a 2d10 Prokleté (Necrotic) · lano soudu (STR DC 16, 4d6 Force, Restrained, dostřel 120 stop) · odraz (Reakce, AC +4)
+utok: Vadnoucí meč +8, 2d8+4 Slashing a 2d10 Prokleté (Necrotic) · lano soudu (STR DC 16, 4d6 Force, Restrained, dostřel 120 stop) · odraz (Reakce, AC +4) · přitáhnout lano (Bonusová akce)
 pozehnani: Soud: cíl zasažený mečem si uvědomí svůj hřích – nemůže do konce kola získat HP a má nevýhodu na záchranu proti Pokušení.
 pokuseni: Lano se mu v ruce rozpadne v prach: do konce boje nemá Lano soudu (vrátí se po odpočinku).
 nerest: Pýcha – byl andělem a tvrdí, že jím je dosud: trestá hříšné z Božího pověření. Kdo prokáže, že je bez viny (postava V milosti, nebo Religion DC 17 s citací Písma), toho nesmí napadnout první. Kdo ho nazve padlým, toho napadne hned, i kdyby to byla chyba.
@@ -41,6 +41,10 @@ Anděl, který padl s Luciferem a od Protržení Závoje chodí po světě jako 
 
 - **Vadnoucí meč.** +8, dosah 5 stop. **Zásah:** 2d8+4 Slashing a 2d10 Prokleté (Necrotic).
 - **Lano soudu.** Jeden tvor do 120 stop hodí STR save DC 16, jinak utrží 4d6 Force a je Restrained, dokud lano nezničí, anděl ho Bonusovou akcí nepustí, nebo lano nehodí znovu.
+
+## Bonusová akce
+
+- **Přitáhnout lano.** Tvor svázaný lanem soudu je přitažen až o 30 stop k andělovi, nebo ho anděl pustí.
 
 ## Reakce
 

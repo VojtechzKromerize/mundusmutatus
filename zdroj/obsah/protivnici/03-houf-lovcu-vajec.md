@@ -6,7 +6,7 @@ vyzva: 50 XP za pacholka
 pocet: 5
 ac: 13 (kožená)
 hp: 5
-utok: Tesáky a sítě, dosah 5 stop · 3 Slashing za každého pacholka v dosahu cíle, nebo síť (Restrained)
+utok: Tesáky a sítě, dosah 5 stop · 3 Slashing za každého pacholka v dosahu cíle, nebo síť (Restrained) · síť (Bonusová akce)
 bonus: 4
 komplikace: Lano povolí: útočník na skále, svahu nebo stěně hodí DEX save DC 12, jinak sklouzne o 10 stop (a možná dolů).
 stitky: lovci draků, pytláci, Vratislav, Slezsko, hory, Krkonoše
@@ -27,6 +27,10 @@ Lezci a pytláci, kteří kradou dračí vejce a vřesovníkům podřezávají h
 
 - **Natřeni trusem.** Draci je nevyčuchají; Perception draků proti nim má nevýhodu.
 - **Lana a háky.** Na skalách a stěnách nemají nevýhodu a pohybují se plnou rychlostí.
+
+## Bonusová akce
+
+- **Síť.** Jeden lovec hodí síť na tvora do 15 stop: DEX save DC 12, jinak je Restrained (únik DC 12; síť AC 10, 5 HP). Drak velikosti Large nebo menší v síti nemůže vzlétnout.
 
 **Morálka.** Jakmile mají vejce, prchají. Když se ozve dračí řev rodiče vejce, houf okamžitě prchá, pokud ho nedrží sok.
 

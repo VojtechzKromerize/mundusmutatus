@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 3 (700 XP)
 ac: 17
 hp: 82
-utok: Dva drápy +6, 1d8+4 a 1d6 Poison · paprsek nemoci (CON DC 12, 3. úroveň) · napodobí hlas · úpal (Bonusová akce)
+utok: Dva drápy +6, 1d8+4 a 1d6 Poison · paprsek nemoci (CON DC 12, 3. úroveň) · napodobí hlas · úpal (Bonusová akce) · srp (Reakce)
 pozehnani: Zneviditelní se a objeví se za cílem; další útok má s výhodou.
 pokuseni: Zvon odbije poledne nebo jednu: musí zmizet do konce kola.
 nerest: Poledne – přichází jen v poledním žáru a musí odpovědět na každou otázku hádankou. Kdo ji zaměstná řečí do jedné (Persuasion či Performance DC 13), ten přežije.
@@ -44,6 +44,10 @@ Shrbená bába v bílém se srpem a pokřivenou tváří. Chodí v poledne po po
 ## Bonusová akce
 
 - **Úpal (dobíjí se na 5–6).** Tvor do 30 stop, který stojí na slunci, hodí CON save DC 12, jinak získá 1 stupeň Exhaustion.
+
+## Reakce
+
+- **Srp.** Když se tvor do 5 stop od ní vzdálí, sekne ho srpem: +6, 1d8+4 Slashing.
 
 ## Relikt
 

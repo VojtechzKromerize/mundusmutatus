@@ -5,7 +5,7 @@ uroven: zhoubce
 vyzva: 11 (7 200 XP)
 ac: 17
 hp: 212
-utok: Žhavá šavle +10, 2d6+6 Slashing a 2d12 Fire · vržený plamen +8, 7d6 Fire, dostřel 120 stop · kouzla (CHA, DC 16): Wall of Fire, Invisibility, Gaseous Form, Major Image, Tongues · ohnivý vír (Bonusová akce)
+utok: Žhavá šavle +10, 2d6+6 Slashing a 2d12 Fire · vržený plamen +8, 7d6 Fire, dostřel 120 stop · kouzla (CHA, DC 16): Wall of Fire, Invisibility, Gaseous Form, Major Image, Tongues · ohnivý vír (Bonusová akce) · ohnivý štít (Reakce)
 pozehnani: Vzplanutí: cíl zasažený šavlí nebo plamenem hoří (2d6 Fire na začátku tahu, dokud to neuhasí).
 pokuseni: Vlastní dým ho zahalí: do konce kola má nevýhodu na útoky a každý proti němu výhodu.
 nerest: Pýcha – je kníže ohně a nesnese, aby ho někdo nazval sluhou nebo otrokem; kdo to udělá, toho napadne první. Smlouva: kdo drží prsten s pečetí, kterou byl spoután, tomu musí odpovědět na tři otázky pravdivě (ne sloužit).
@@ -45,6 +45,10 @@ Džin ohně z pohádek Východu, který po Protržení Závoje vstoupil do svět
 ## Bonusová akce
 
 - **Ohnivý vír.** Pohne se až o svou rychlost, aniž by vyvolal Opportunity Attack; každý tvor, kterého mine do 5 stop, utrží jednou 2d6 Fire.
+
+## Reakce
+
+- **Ohnivý štít.** Když ho zasáhne útok zblízka, útočník utrží 2d6 Fire.
 
 **Výkupné a kořist.** Nedá se zajmout – dá se spoutat: prsten nebo nádoba s pečetí Šalamounovou (pokud ji někdo v Čechách má) ho váže ke službě. Mosazná lampa, zlato z Konstantinopole (50 kop), a dopis sultána uherskému králi, který by rád viděl král Jiří.
 

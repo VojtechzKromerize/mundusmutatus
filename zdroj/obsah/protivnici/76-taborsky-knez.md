@@ -5,7 +5,7 @@ uroven: sok
 vyzva: 2 (450 XP)
 ac: 13 (drátěná košile)
 hp: 38
-utok: Dva útoky: palcát +5, 1d6+3 a 2d4 Svaté, nebo plamen Páně +5, 60 stop, 2d10 Svaté · duchovní strážci (WIS DC 13) · Boží pomoc 3/den
+utok: Dva útoky: palcát +5, 1d6+3 a 2d4 Svaté, nebo plamen Páně +5, 60 stop, 2d10 Svaté · duchovní strážci (WIS DC 13) · Boží pomoc 3/den · kalich vzhůru (Reakce)
 pozehnani: Zanotuje chorál: všichni kališníci v doslechu mají do konce kola výhodu na útoky.
 pokuseni: Pochybnost: do konce kola nemůže kouzlit.
 nerest: Hněv – Boží bojovník vidí Antikrista v každém pánovi a mnichovi. Kdo ho porazí v disputaci (Religion DC 14), tomu musí dát slovo.
@@ -45,6 +45,10 @@ Kazatel z Tábora, který jde s vojskem a slouží mši na voze. Po Noci Proměn
 ## Bonusová akce
 
 - **Boží pomoc (3/den).** Bless, Dispel Magic, Healing Word nebo Lesser Restoration.
+
+## Reakce
+
+- **Kalich vzhůru.** Když spojenec do 30 stop klesne na 0 HP, kněz zvedne kalich a sešle mu *Healing Word* (spotřebuje jedno použití Boží pomoci).
 
 **Výkupné a kořist.** Kalich, Bible v češtině a listy od táborských starších. Katolický pán by za něj dal dobré výkupné – na hranici.
 
