@@ -1352,7 +1352,7 @@ document.addEventListener("change", async e => {
   if (e.target.matches("[data-bkkomu]")) {
     BKS.komu = e.target.value;
     BKS.vys = "";
-    if (BKS.komu) BKS.rany = (bojKritPC()[BKS.komu] || []).length;
+    if (BKS.komu) BKS.rany = bojKritRany(BKS.komu).length;
     renderBoj();
     return;
   }
@@ -2007,6 +2007,20 @@ document.addEventListener("click", async e => {
     }
     bojKritHod();
     renderBoj();
+    const nk = BKS.komu && BKS.last && bojKritNpc(BKS.komu);
+    if (nk) {
+      /* NPC: rána se zapíše k němu do boje a do záznamu */
+      const id = nk.id,
+        R = BKS.last;
+      BKRLOG.push({komu: nk.n, t: R.t});
+      bojLog(id, {n: "Kritické zranění", ai: null, ci: id, cn: nk.n, zt: R.t}, nk.n);
+      bojZmen(z => {
+        const q = (z.npc || []).find(x => x.id === id);
+        if (q) q.rany = [...(q.rany || []), R].slice(-12);
+      });
+      BKS.rany = (nk.rany || []).length + 1;
+      return;
+    }
     if (BKS.komu && BKS.last) {
       if (BOJ.s && BOJ.s.aktivni) {
         BKRLOG.push({komu: BKS.komu, t: BKS.last.t});
@@ -2023,6 +2037,18 @@ document.addEventListener("click", async e => {
     return;
   }
   const kh2 = T("[data-bkheal]");
+  if (kh2 && bojKritNpc(BKS.komu)) {
+    const j = +kh2.dataset.bkheal,
+      id = bojKritNpc(BKS.komu).id;
+    bojZmen(z => {
+      const q = (z.npc || []).find(x => x.id === id);
+      if (!q) return;
+      q.rany = (q.rany || []).filter((_, i) => i !== j);
+      if (!q.rany.length) delete q.rany;
+    });
+    BKS.rany = bojKritRany(BKS.komu).length;
+    return;
+  }
   if (kh2 && BKS.komu) {
     const j = +kh2.dataset.bkheal,
       K = Object.assign({}, bojKritPC());

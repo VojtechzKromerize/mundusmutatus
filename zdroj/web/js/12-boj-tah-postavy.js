@@ -1091,7 +1091,7 @@ function bojKarta(s, n, gm) {
         c = hv != null ? hv : mx,
         pr = Math.max(0, Math.min(100, Math.round((c / mx) * 100)));
       return `<i class="bhpp${pr <= 25 ? " bhpp4" : ""}" style="--p:${pr}%" role="img" aria-label="Životy ${c} z ${mx}"></i>`;
-    })()}${prj.length ? `<small>${besc(prj.join(", "))}</small>` : ""}</span><span class="bdruh" role="img" aria-label="${BDRUH[n.druh] || n.druh}" ${btip((BDRUH[n.druh] || n.druh) + (E ? " · " + E.p.n + (E.p.vy ? " · výzva " + E.p.vy : "") : ""))}>${bi(BDRIC[n.druh] || "sok")}</span>${E && E.p.rel ? `<span class="bzn bzn-zak bzn-h" role="img" aria-label="Relikt – zákon" ${btip("Relikt – zákon: " + (E.p.zak || "viz statblock") + " · Zažehnání a tajemství jsou ve statblocku.")}>${bi("zakon")}</span>` : ""}${
+    })()}${prj.length ? `<small>${besc(prj.join(", "))}</small>` : ""}</span>${(n.rany || []).length ? `<span class="bkrb" ${btip(`Kritická zranění: ${n.rany.map(x => x.t).join("; ")}`)}>${bi("rana")}${n.rany.length}</span>` : ""}<span class="bdruh" role="img" aria-label="${BDRUH[n.druh] || n.druh}" ${btip((BDRUH[n.druh] || n.druh) + (E ? " · " + E.p.n + (E.p.vy ? " · výzva " + E.p.vy : "") : ""))}>${bi(BDRIC[n.druh] || "sok")}</span>${E && E.p.rel ? `<span class="bzn bzn-zak bzn-h" role="img" aria-label="Relikt – zákon" ${btip("Relikt – zákon: " + (E.p.zak || "viz statblock") + " · Zažehnání a tajemství jsou ve statblocku.")}>${bi("zakon")}</span>` : ""}${
       acN
         ? (() => {
             const zt = ZS.d.map(z => `${bikZbTip(z.k).replace(/ \(obětování při kritickém zásahu\)/, "")} · zbývá ${z.max - z.u} z ${z.max}`),

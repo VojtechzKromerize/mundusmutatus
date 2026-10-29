@@ -2257,20 +2257,32 @@ function bojKritHod() {
   BKS.vys = `<p class="bkv"><b class="bkz bkz${i}">${BKZ[i]}</b> <small>d10 ${d}${mod ? ` + ${mod}` : ""} = ${c}</small>${misto ? ` · ${misto}` : ""}</p><p class="bkv2"><b>${besc(txt)}</b>${BKS.kdo ? ` <small>(${besc(BKS.kdo)})</small>` : ""}</p>
     <p class="rsmall">${BKZ[i]} zranění ${BKZT[i]}.${i >= 2 ? " Zahojená zanechá jizvu (výhoda na Intimidation, nevýhoda na Persuasion při svádění)." : ""}${i >= 1 ? " Po boji CON save (s felčarem s výhodou), jinak 1 úroveň vyčerpání denně, dokud neuspěje." : ""} Krvácení pokračuje každé kolo až do ošetření.</p>`;
 }
+/* cíl kritického zranění (Vojta 2026-10-29): postava družiny (rány ve stavu hry podle jména, HRA.krit) nebo NPC v boji
+   („npc:<id>“, rány u NPC v boji – n.rany; houfy pacholků ne, ti padají) */
+const bojKritNpc = komu => (/^npc:/.test(komu || "") ? ((BOJ.s || {}).npc || []).find(n => n.id === komu.slice(4)) || null : null);
+const bojKritRany = komu => {
+  const n = bojKritNpc(komu);
+  return n ? n.rany || [] : bojKritPC()[komu] || [];
+};
+const bojKritJm = komu => {
+  const n = bojKritNpc(komu);
+  return n ? n.n : komu;
+};
 function bojKritPanel() {
   const s = BOJ.s || {},
-    K = bojKritPC(),
     pc = [...new Set([...(s.hraci || []).map(h => h.n), ...PARTY.map(p => p.n.replace(/^✦\s*/, ""))])].filter(Boolean),
-    L = (BKS.komu && K[BKS.komu]) || [];
+    npc = GMV ? (s.npc || []).filter(n => n.druh !== "houf" && !n.spol) : [],
+    L = BKS.komu ? bojKritRany(BKS.komu) : [];
+  const opt = (v, n) => `<option value="${besc(v)}"${BKS.komu === v ? " selected" : ""}>${besc(n)}</option>`;
   return `<section class="bkrit" aria-label="Hod na kritické zranění">
-    <div class="bkf"><label>Komu <select data-bkkomu><option value="">— neukládat —</option>${pc.map(n => `<option${BKS.komu === n ? " selected" : ""}>${besc(n)}</option>`).join("")}</select></label><label>Druh <select data-bkd>${Object.entries(
+    <div class="bkf"><label>Komu <select data-bkkomu><option value="">— neukládat —</option><optgroup label="Družina">${pc.map(n => opt(n, n)).join("")}</optgroup>${npc.length ? `<optgroup label="Nepřátelé a NPC">${npc.map(n => opt("npc:" + n.id, n.n)).join("")}</optgroup>` : ""}</select></label><label>Druh <select data-bkd>${Object.entries(
       BKRIT,
     )
       .map(([k, v]) => `<option value="${k}"${BKS.druh === k ? " selected" : ""}>${v.n}</option>`)
       .join("")}</select></label>
       <label>neléčená kritická zranění <input type="number" min="0" max="9" name="bkr" data-bkr value="${+BKS.rany || 0}"></label>
       <label>HP pod nulou <input type="number" min="0" max="200" name="bkp" data-bkp value="${+BKS.pod || 0}"></label>
-      <button type="button" class="gbtn" data-bkhod>Hodit</button></div>${BKS.komu ? `<div class="bkl"><small>Neléčená kritická zranění – ${besc(BKS.komu)}:</small>${L.length ? `<ul>${L.map((x, j) => `<li>${besc(x.t)} <small>${besc(x.d || "")}</small> <button type="button" class="gbtn ghost" data-bkheal="${j}">vyléčeno</button></li>`).join("")}</ul>` : " <small>žádná</small>"}</div>` : ""}${BKS.vys}</section>`;
+      <button type="button" class="gbtn" data-bkhod>Hodit</button></div>${BKS.komu ? `<div class="bkl"><small>Neléčená kritická zranění – ${besc(bojKritJm(BKS.komu))}:</small>${L.length ? `<ul>${L.map((x, j) => `<li>${besc(x.t)} <small>${besc(x.d || "")}</small> <button type="button" class="gbtn ghost" data-bkheal="${j}">vyléčeno</button></li>`).join("")}</ul>` : " <small>žádná</small>"}</div>` : ""}${BKS.vys}</section>`;
 }
 
 /* --- přidání nepřátel do boje odjinud (osoba, Výprava): rovnou do běžícího boje, jinak do rozestavení --- */
