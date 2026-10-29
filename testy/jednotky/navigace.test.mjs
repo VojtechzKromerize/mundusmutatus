@@ -1,4 +1,4 @@
-// Navigace (2026-10-29, Vojta): menu Pravidla · Svět · Mapy · Kronika, Pravidla s Artikulemi jako první kapitolou,
+// Navigace (2026-10-29, Vojta): menu Pravidla · Svět · Mapy · Kronika, Pravidla s Artikulemi jako první kapitolou.
 import {test, before, after} from "node:test";
 import assert from "node:assert/strict";
 import {stranka} from "./stranka.mjs";
