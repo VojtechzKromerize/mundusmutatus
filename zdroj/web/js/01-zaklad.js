@@ -27,6 +27,49 @@ function mmPozdeji(klic, fn) {
   });
 }
 const mmZrus = klic => MMPREK.delete(klic);
+/* denní / noční vzhled (Vojta 2026-10-29): podle zařízení → denní → noční; volba v prohlížeči (mm-motiv), styly čtou :root[data-theme] */
+const MMMOTIV = {auto: ["◐", "podle zařízení"], light: ["☀", "denní"], dark: ["☾", "noční"]};
+function mmMotivTed() {
+  const t = document.documentElement.dataset.theme;
+  return t === "light" || t === "dark" ? t : "auto";
+}
+function mmMotivPopis() {
+  const [i, n] = MMMOTIV[mmMotivTed()];
+  document.querySelectorAll("[data-mmmotiv]").forEach(b => {
+    const l = `Vzhled: ${n} (klepnutím změníš)`;
+    b.setAttribute("aria-label", l);
+    b.title = l;
+    const ic = b.querySelector(".navmotivi"),
+      tx = b.querySelector(".navgmt");
+    if (ic) ic.textContent = i;
+    if (tx) tx.textContent = `Vzhled: ${n}`;
+  });
+}
+/* tlačítko pro stránky bez záhlaví s menu (hráčova Hra v aplikaci a na telefonu – list Postava) */
+const mmMotivBtn = () => {
+  const [i, n] = MMMOTIV[mmMotivTed()];
+  return `<button type="button" class="gbtn ghost" data-mmmotiv title="Vzhled: ${n} (klepnutím změníš)"><span class="navmotivi" aria-hidden="true">${i}</span> <span class="navgmt">Vzhled: ${n}</span></button>`;
+};
+function mmMotiv(t) {
+  const d = document.documentElement;
+  if (t === "light" || t === "dark") d.dataset.theme = t;
+  else delete d.dataset.theme;
+  try {
+    if (t === "light" || t === "dark") localStorage.setItem("mm-motiv", t);
+    else localStorage.removeItem("mm-motiv");
+  } catch (e) {}
+  mmMotivPopis();
+  /* mapy mají barvy motivu upečené v kresbě – překreslí se */
+  dispatchEvent(new Event("mmmotiv"));
+}
+document.addEventListener("click", e => {
+  const b = e.target.closest && e.target.closest("[data-mmmotiv]");
+  if (!b) return;
+  e.preventDefault();
+  const t = mmMotivTed();
+  mmMotiv(t === "auto" ? "light" : t === "light" ? "dark" : "auto");
+});
+mmMotivPopis();
 /* starší data z prohlížeče (kopie karet, boj, výprava…) se při čtení převedou jako data z databáze (mmStare v koruna.html):
    DEX (dřív AGI) a názvy stavů podle Vojty 2026-10-24 (paralyzovaný, spoután, vyděšen, otráven) */
 const mmDex = s => (typeof window.mmStare === "function" ? window.mmStare(s) : s);
