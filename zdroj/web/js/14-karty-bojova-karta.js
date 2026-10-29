@@ -269,8 +269,18 @@ function bojTahMoz(K, P) {
 function bdmTahPas(K, P) {
   const M = tahPohyb(P, kRychN(K)),
     {sp, as, ha} = bojTahMoz(K, P);
-  const tl = (ft, z, t) => `<button type="button" class="bdmmini" data-btpm="${ft}" ${btip(t)}>${z}</button>`;
-  return `<div class="bdmtah" role="group" aria-label="Pohyb a akce navíc v tomto tahu"><span class="bdmpoh${M.zbyva ? "" : " bdmpoh0"}" ${btip(`Pohyb v tomto tahu: zbývá ${M.zbyva} z ${M.max} stop${P.d ? ` (Sprint ${P.d}×)` : ""}`)}><small>Pohyb</small> <b>${M.zbyva}</b><i>/${M.max} st.</i></span>${M.zbyva ? tl(5, "−5", "Ušel jsem 5 stop") + tl(10, "−10", "Ušel jsem 10 stop") : ""}${M.m ? tl(-5, "↺5", "Vrátit 5 stop") : ""}${
+  /* políčka po 5 stopách (Vojta 2026-10-29): 30 stop = 6 políček, Sprint přidá další (jinou barvou); klepnutí na políčko = ušel jsem
+     až sem, klepnutí na poslední ušlé ho vrátí */
+  const n = Math.min(40, Math.floor(M.max / 5)),
+    u = Math.round(M.m / 5),
+    zak = Math.floor(M.r / 5);
+  const pol = [...Array(n)]
+    .map(
+      (_, j) =>
+        `<button type="button" class="bdmpol${j < u ? " on" : ""}${j >= zak ? " sp" : ""}" data-btpq="${j + 1 === u ? j : j + 1}" aria-label="${(j + 1) * 5} stop${j < u ? " – ušlé" : ""}" ${btip(j + 1 === u ? `Vrátit pohyb na ${j * 5} stop` : `Ušel jsem ${(j + 1) * 5} stop${j >= zak ? " (Sprint)" : ""}`)}></button>`,
+    )
+    .join("");
+  return `<div class="bdmtah" role="group" aria-label="Pohyb a akce navíc v tomto tahu"><span class="bdmpoh${M.zbyva ? "" : " bdmpoh0"}" ${btip(`Pohyb v tomto tahu: zbývá ${M.zbyva} z ${M.max} stop${P.d ? ` (Sprint ${P.d}×)` : ""} – jedno políčko je 5 stop`)}><small>Pohyb</small> <b>${M.zbyva}</b><i>/${M.max} st.</i></span><span class="bdmpols" role="group" aria-label="Políčka pohybu po 5 stopách">${pol}</span>${
     sp.length
       ? `<span class="bdmtsp"><small>Sprint:</small>${sp.map(([k, l, t]) => `<button type="button" class="bdmmini" data-btsp="${k}" ${btip(`${t} – pohyb navíc ${M.r} stop`)}>${l}</button>`).join("")}</span>`
       : ""
@@ -374,14 +384,14 @@ document.addEventListener("click", async e => {
   bojPrekresli();
 });
 document.addEventListener("click", async e => {
-  const b = e.target.closest && e.target.closest("[data-btpm],[data-btsp],[data-btas]");
+  const b = e.target.closest && e.target.closest("[data-btpq],[data-btsp],[data-btas]");
   if (!b || !BOJ.s) return;
   const me = ((BOJ.s || {}).hraci || []).find(h => h.n === bojJa.get()),
     K = me && bojKartaH(me);
   if (!K || !kMuze(K)) return;
   const P = bojBpt(BOJ.s),
     r = kRychN(K);
-  if (b.dataset.btpm) tahPohni(P, +b.dataset.btpm, r);
+  if (b.dataset.btpq != null) tahPohni(P, +b.dataset.btpq * 5 - tahPohyb(P, r).m, r);
   else if (b.dataset.btsp) {
     const [druh, ki] = b.dataset.btsp.split(":"),
       M = bojTahMoz(K, P);

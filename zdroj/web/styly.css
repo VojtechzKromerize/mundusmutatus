@@ -2990,6 +2990,15 @@ html.mmapp .mmpop{padding-top:calc(env(safe-area-inset-top,0px) + 10px)}
 .bdmtah .bdmmini{min-height:32px;min-width:40px}
 .bdmpoh{display:inline-flex;align-items:baseline;gap:4px;margin-right:2px;font-family:var(--f-label);color:var(--kb-tx)}
 .bdmpoh b{font-size:1.15rem}.bdmpoh i{font-style:normal;font-size:.8rem;opacity:.75}.bdmpoh0 b{opacity:.5}
+/* pohyb po políčkách (5 stop), Sprint jinou barvou */
+.bdmpols{display:inline-flex;flex-wrap:wrap;gap:3px;align-items:center}
+.bdmpol{width:22px;height:22px;padding:0;border:1.5px solid rgba(214,170,90,.75);border-radius:3px;background:transparent;cursor:pointer}
+.bdmpol.sp{border-style:dashed}
+.bdmpol.on{background:rgba(214,170,90,.85);border-style:solid}
+.bdmpol.on.sp{background:rgba(111,130,191,.9);border-color:rgba(160,175,230,.9)}
+.bdmpol.sp{border-color:rgba(160,175,230,.75)}
+.bdmpol:hover{outline:2px solid var(--gold);outline-offset:1px}
+@media (pointer:coarse){.bdmpol{width:26px;height:26px}}
 .bdmtsp{display:inline-flex;flex-wrap:wrap;gap:4px;align-items:center}.bdmtsp small{opacity:.8}
 .bdmtah [aria-pressed=true]{opacity:.55;text-decoration:line-through}
 .bdmchu{opacity:.55;text-decoration:line-through}
