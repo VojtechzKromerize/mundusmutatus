@@ -344,6 +344,8 @@ Průchod stabilitou a chybami (Vojta: „optimalizace a údržba celého webu“
 - **Karta:** Mage Armor jako základ AC (`ucAC().zak`); `kLecMimo` (léčení padlého mimo boj); `kStavVliv` – hod proti smrti je záchrana, dovednost dá vlastnost;
   LoH/Bardic po odkladu z čerstvého stavu; `KUCX` s časem konce; `kartaStavZmen` po chybě uvolní všechna pole; Large Form, Tireless; `kZdroje` přes `kZdrJm`;
   kostka životů s `kMd(K, "CON")`; `kMunice` bez pouzder. Testy `karta-udrzba.test.mjs`, rozšířený `boj-pc.test.mjs`.
+- **Databáze:** konflikt verze boje (`mm_boj_uloz_v`) hlásí `PT409` místo `40001` – PostgREST serializační chybu opakoval dokola a uložení
+  vypravěče viselo, kdykoli hráč zapsal těsně před ním. **Do ostré databáze přijde až se „schéma do ostré“ při nasazení.**
 - **Nechané (k rozhodnutí):** hráč přihlášený jen starým heslem karty nevidí své tajné hody (potřebovalo by RPC); test `prohlizec_boj2.py` občas spadne na připojení
   společníka (ř. ~323) – opakování projde.
 

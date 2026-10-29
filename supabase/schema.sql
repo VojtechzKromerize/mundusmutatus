@@ -443,7 +443,8 @@ begin
   end if;
   select verze into cur from public.boj where id = 'aktivni' for update;
   if cur is not null and p_verze is not null and cur <> p_verze then
-    raise exception 'konflikt verze boje' using errcode = '40001';
+    -- PT409 = HTTP 409 (PostgREST); 40001 by PostgREST opakoval pořád dokola a uložení vypravěče by viselo
+    raise exception 'konflikt verze boje' using errcode = 'PT409';
   end if;
   insert into public.boj as b (id, stav, verze, zmeneno) values ('aktivni', p_stav, 1, now())
   on conflict (id) do update set stav = excluded.stav, verze = b.verze + 1, zmeneno = now()
