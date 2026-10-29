@@ -3302,6 +3302,8 @@ h4 .kspi{margin-right:5px}
 .kdb{--f-label:var(--f-nadp)}
 /* horní záložky hráče (Moje karta · Iniciativa · Dohráno) leží mimo .kdb, proto mají proměnnou zvlášť */
 .btabsc{--f-label:var(--f-nadp)}
+/* čitelnost (2026-10-29): drobné popisky na kartě měly 0,6–0,68 rem; v Alegreya SC jsou malé, proto spodní mez 0,72 rem (těsná místa – spodní záložky, sloupce slotů – zůstávají) */
+.kdb .kbox small,.kdbsm small,.kdbhpc small,.kdbheal,.kdbdmg,.kdb .kcas,.kdb .ksrd,.kdb .kbar small,.bdmac small,.bdmini small,.bdmhp small,.bdmabb small,.bdmkzh small,.bdmvyh small,.bdmpoc small,.bdmzavm,.bdmuse,.bdmsvk .kbod small{font-size:.72rem}
 /* herní záznam na tmavé kartě: názvy akcí měly tmavý inkoust pro světlý papír a splývaly s pozadím */
 .kdb .bzco{color:var(--kb-tx)}
 .kdb .bzkolo{color:var(--kb-mu)}
