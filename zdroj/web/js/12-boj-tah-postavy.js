@@ -1875,7 +1875,10 @@ function bojZranPC(h, K, x, typ, krit, opt) {
     }
     const r = bojDs(h.ds, "n", krit ? 2 : 1);
     h.ds = r.ds;
-    m.push(`zásah v bezvědomí: ${krit ? "dva neúspěchy" : "neúspěch"} hodu proti smrti${r.m ? " → " + r.m : ""}`);
+    /* HP pod nulou (Artikule, Vojta 2026-10-29): zásah v bezvědomí odečítá dál do záporu – zhorší další kritické zranění */
+    h.hp = Math.min(0, hpO(h, K)) - v;
+    BZRPOD = -h.hp;
+    m.push(`zásah v bezvědomí: ${krit ? "dva neúspěchy" : "neúspěch"} hodu proti smrti${r.m ? " → " + r.m : ""} (${h.hp} HP)`);
     return m.join(", ");
   }
   const mx = K ? kHPmax(K) : 0,
@@ -1883,7 +1886,8 @@ function bojZranPC(h, K, x, typ, krit, opt) {
     nov = cur - v;
   if ((h.stav || []).includes("soustředí")) m.push(`soustředění: CON záchrana SO ${bojKonDC(v)}${K && K.konVyhoda ? " s výhodou (War Caster)" : ""}`);
   if (nov <= 0) {
-    h.hp = 0;
+    /* HP pod nulou (Artikule, Vojta 2026-10-29): přesah se odečítá do záporu; léčení pak počítá od 0 (bojLecPC) */
+    h.hp = nov;
     BZRPOD = Math.max(0, -nov);
     if (mx && -nov >= mx) {
       h.ds = {u: 0, n: 3, st: "mrtev"};
@@ -1897,7 +1901,7 @@ function bojZranPC(h, K, x, typ, krit, opt) {
       if (!h.stav.length) delete h.stav;
     }
   } else h.hp = nov;
-  m.unshift(`−${v} HP (${Math.max(0, nov)}/${mx})`);
+  m.unshift(`−${v} HP (${nov}/${mx})`);
   return m.join(", ");
 }
 function bojLecPC(h, K, x) {
@@ -1911,9 +1915,9 @@ function bojLecPC(h, K, x) {
     h.hp = Math.min(mx, Math.max(0, cur) + v);
     return `+${v} HP: stabilizován – do konce boje mimo hru (Artikule), ledaže ho vrátí Lesser nebo Greater Restoration`;
   }
-  h.hp = Math.min(mx, cur + v);
+  h.hp = Math.min(mx, Math.max(0, cur) + v);
   if (h.hp >= mx) delete h.hp;
-  return `+${v} HP (${Math.min(mx, cur + v)}/${mx})`;
+  return `+${v} HP (${Math.min(mx, Math.max(0, cur) + v)}/${mx})`;
 }
 /* hlavička karty: AC, životy s pruhem, dočasné HP, ovládání zranění a léčení */
 function bojKartaHlava(h, s, gm) {

@@ -133,7 +133,7 @@ function bzHpOprav(s, id, d) {
       o => {
         const cur = hpO(o, K),
           mx = kHPmax(K),
-          n = Math.max(0, Math.min(mx, cur - d));
+          n = Math.max(-mx, Math.min(mx, cur - d));
         o.hp = n;
         t = `${c.n}: ${cur} → ${n} HP`;
         return `oprava záznamu: ${cur} → ${n} HP`;

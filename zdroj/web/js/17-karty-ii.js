@@ -700,10 +700,10 @@ async function kPoutoZran(K, dmg, padl) {
           hp0 = S.hp != null ? +S.hp : kHPmax(Kc);
         bojZranPC(o, Kc, dmg, "", false, {bezPout: 1});
         const ch = {hp: o.hp != null && o.hp < kHPmax(Kc) ? o.hp : null, thp: o.thp || null, ds: o.ds || null};
-        if (o.hp === 0 && hp0 > 0) ch.vycerp = Math.min(10, (+S.vycerp || 0) + 1);
+        if (o.hp != null && o.hp <= 0 && hp0 > 0) ch.vycerp = Math.min(10, (+S.vycerp || 0) + 1);
         await kartaStavZmen(Kc.id, ch);
       }
-      if (padl || kartaStav(Kc.id).hp === 0) {
+      if (padl || (kartaStav(Kc.id).hp ?? 1) <= 0) {
         const uc = kUc(Kc).filter(u => (String(u.n || "").match(KWARDRE) || [])[1] !== K.n);
         await kartaStavZmen(Kc.id, {uc: uc.length ? uc : null});
       }
@@ -723,7 +723,7 @@ async function kPoutoZran(K, dmg, padl) {
       k: K.id,
       kdo: K.n,
       co: "Warding Bond",
-      txt: `${Kc.n} utrpí stejné zranění: ${dmg}${padl || kartaStav(Kc.id).hp === 0 ? " · pouto končí (pád na 0 HP)" : ""}`,
+      txt: `${Kc.n} utrpí stejné zranění: ${dmg}${padl || (kartaStav(Kc.id).hp ?? 1) <= 0 ? " · pouto končí (pád na 0 HP)" : ""}`,
     });
     mmHlasG(`Warding Bond: ${Kc.n} utrpí ${dmg} zranění spolu s ${K.n}.`, 5000);
   }

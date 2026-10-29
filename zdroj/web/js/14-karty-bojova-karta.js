@@ -1253,7 +1253,7 @@ function bojHracHp(hid, val) {
     if (zr > 0 && kKonDrzi(K) && (hp == null || hp > 0)) {
       KKON[K.id] = bojKonDC(zr);
       renderBoj();
-    } else if (hp === 0 && kKonDrzi(K)) kKonZtrata(K, "pád na 0 HP");
+    } else if (hp != null && hp <= 0 && kKonDrzi(K)) kKonZtrata(K, "pád na 0 HP");
   } else {
     const ks = kartaStav(K.id),
       o = {hp: ks.hp, thp: ks.thp, ds: h.ds ? JSON.parse(JSON.stringify(h.ds)) : undefined},

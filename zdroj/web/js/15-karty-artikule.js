@@ -1183,7 +1183,7 @@ async function kPrehledOdp(dl) {
         spent = +S.kz || 0,
         ch = {thp: null, zdr: null, kz: null};
       if (D.sv >= 1 && D.sv <= 3) {
-        const n = Math.min(mx, cur + Math.floor(mx / 2));
+        const n = Math.min(mx, Math.max(0, cur) + Math.floor(mx / 2));
         ch.hp = n >= mx ? null : n;
       } else ch.hp = null;
       if (S.vycerp) ch.vycerp = Math.max(0, S.vycerp - 1) || null;

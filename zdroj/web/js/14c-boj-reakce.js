@@ -33,7 +33,9 @@ function bojPcZasah(o, cid, K) {
   const ph = Math.max(0, hp0 - kHpOf(K, ks1)),
     pt = Math.max(0, t0 - (+ks1.thp || 0)),
     pd = !ds0 && !!h1.ds,
-    pod = pd ? BZRPOD : 0;
+    /* kritický zásah postavy, která už leží (HP pod nulou se odečítají dál), chce také hod na kritické zranění */
+    kpod = pd || (ds0 && krit),
+    pod = kpod ? BZRPOD : 0;
   /* obětování zbroje (Artikule): kritický zásah se změní v běžný – kolik HP by se vrátilo (rozdíl účinku kritického a běžného zranění) */
   const ob =
     krit &&
@@ -46,12 +48,12 @@ function bojPcZasah(o, cid, K) {
       ? Math.max(0, Math.min(ph + pt, bojZranEf(K, o.zr.t, typ, opt).v - bojZranEf(K, o.zr.t1, typ, opt).v))
       : 0;
   /* pád na 0 HP: vyčerpání přičte karta, hod na kritické zranění se připraví vypravěči (neléčené rány, HP pod nulou) */
-  if (pd && GMV) {
+  if (kpod && GMV) {
     BKS.komu = h0.n;
     BKS.rany = (bojKritPC()[h0.n] || []).length;
     BKS.pod = pod;
     BKS.vys = "";
-    BKS.kdo = h0.n + " padl";
+    BKS.kdo = h0.n + (pd ? " padl" : " – kritický zásah v bezvědomí");
     BKS.druh = bojKritDruh(typ);
   }
   let kv = false;
