@@ -36,7 +36,7 @@ Akcí Ovlivnění se snažíš nestvůru přimět, aby něco udělala. Popiš ne
 | Charisma (Persuasion) | Přesvědčování nestvůry, která ti rozumí |
 | Moudrost (Animal Handling) | Jemné přemlouvání zvířete (Beast) nebo zrůdy (Monstrosity) |
 
-> **Artikule:** Při ověření hází postava vedle d20 i kostku Závoje (d6): 1–2 Pokušení (přijmout = bod hříchu, odmítnout = komplikace), 3–4 bez efektu, 5–6 Požehnání (dodatečný dobrý efekt); výsledek d20 se nemění.
+> **Artikule:** Při ověření hází postava vedle k20 i kostku Závoje (k6): 1–2 Pokušení (přijmout = bod hříchu, odmítnout = komplikace), 3–4 bez efektu, 5–6 Požehnání (dodatečný dobrý účinek); výsledek k20 se nemění.
 
 #### Initiative (Iniciativa)
 
@@ -44,7 +44,7 @@ Iniciativa určuje pořadí tahů během boje. Jak házet na iniciativu, vysvět
 
 Někdy může vypravěč nechat bojovníky místo hodu na iniciativu použít jejich hodnotu iniciativy. Tvoje hodnota iniciativy se rovná 10 plus tvůj opravný bonus Obratnosti (DEX). Pokud máš na hody na iniciativu výhodu, zvyš svou hodnotu iniciativy o 5. Pokud máš na tyto hody nevýhodu, sniž tuto hodnotu o 5. *Viz též* „Hraní hry“ („Boj“).
 
-> **Artikule:** Iniciativa je slotová. Hráči hodí d20 + Obratnost, vypravěč jednou za nepřítele s nejlepší iniciativou; nejlepší výsledek každé strany určí sloty. Družina i nepřátelé mají tolik slotů, kolik je hráčů; sloty se střídají a začíná strana s vyšším hodem (při shodě družina). Hráči si v každém kole sloty rozdělují sami, každý jen jeden; vypravěč smí jedno NPC použít vícekrát (pacholek 1×, sok až 2×, zhoubce až 3× za kolo). Překvapená strana hází iniciativu s nevýhodou.
+> **Artikule:** Platí slotová iniciativa. Hráči hodí k20 + DEX, vypravěč hodí jednou za nepřítele s nejlepší iniciativou; nejlepší výsledek každé strany určí její sloty. Družina má tolik slotů, kolik má členů (postavy i spojenci); vypravěč o jeden víc, je-li nepřátel (houfů, soků, zhoubců) víc, o jeden méně, je-li jich méně, jinak stejně – vždy aspoň jeden. Sloty obou stran se střídají a začíná strana s lepším hodem (při shodě družina). Hráči si v každém kole sloty rozdělují sami, každý jen jeden; vypravěč smí jedno NPC použít vícekrát (pacholek 1×, sok až 2×, zhoubce až 3× za kolo). Překvapená strana hází iniciativu s nevýhodou.
 
 #### Invisible [Condition] (Neviditelný [stav])
 
@@ -248,7 +248,7 @@ Když si připravíš kouzlo, sešleš ho normálně (a spotřebuješ všechny p
 
 Pokud máš Resistance vůči určitému typu zranění, zranění tohoto typu se ti snižuje na polovinu (zaokrouhleno dolů). Resistance se na jeden zdroj zranění uplatní jen jednou. *Viz též* „Hraní hry“ („Zranění a léčení“).
 
-> **Artikule:** Zbroj dává Resistance: vycpávaná (Padded, Leather, Studded Leather, Hide) proti Bludgeoning; kroužková (Chain Shirt, Scale Mail, Ring Mail, Chain Mail) proti Bludgeoning a Slashing; plátová (Breastplate, Half Plate, Splint) proti Slashing a Piercing; komplexní (Plate) proti Bludgeoning, Slashing a Piercing. Zbraně s perkem Drtivá (Mace, Flail, Warhammer) ignorují Resistance zbroje proti Bludgeoning, s perkem Průrazná (Handgun, Heavy Crossbow, Lance, Halberd, War Pick) Resistance zbroje proti Piercing.
+> **Artikule:** Zbroj dává odolnost: vycpávaná (Padded, Leather, Studded Leather, Hide) proti drtivému zranění; kroužková (Chain Shirt, Scale Mail, Ring Mail, Chain Mail) proti drtivému a sečnému; plátová (Breastplate, Half Plate, Splint) proti sečnému a bodnému; komplexní (Plate) proti drtivému, sečnému a bodnému. Zbraně s perkem Drtivá (Maul, Mace, Flail, Warhammer) ignorují odolnost zbroje vůči drtivému zranění, s perkem Průrazná (Pistol, Musket, Heavy Crossbow, Lance, Halberd, War Pick) vůči bodnému.
 
 #### Restrained [Condition] (Spoután [stav])
 
@@ -276,7 +276,7 @@ Záchrana je jiný název pro záchranný hod. *Viz též* „Saving Throw (Zác
 
 Záchranný hod – nazývaný také záchrana – představuje pokus vyhnout se hrozbě nebo jí odolat. Záchranný hod obvykle provádíš jen tehdy, když to vyžaduje pravidlo, ale můžeš se rozhodnout v záchraně neuspět bez hodu. Výsledek záchrany je popsán v účinku, který ji vyvolal. Pokud je cíl nucen provést záchranu a nemá hodnotu vlastnosti, kterou záchrana používá, automaticky neuspěje. *Viz též* „Hraní hry“ („Testy d20“).
 
-> **Artikule:** Při záchranném hodu hází postava vedle d20 i kostku Závoje (d6): 1–2 Pokušení, 3–4 bez efektu, 5–6 Požehnání; výsledek d20 se nemění.
+> **Artikule:** K záchrannému hodu se kostka Závoje nehází – jen k ověřením (i k iniciativě) a hodům na útok.
 
 #### Search [Action] (Hledání [akce])
 
@@ -354,7 +354,7 @@ Výchozí bod koule je součástí oblasti účinku koule.
 
 Tvor je stabilizovaný, pokud má 0 životů, ale nemusí si házet hody proti smrti. *Viz též* „Hraní hry“ („Zranění a léčení“).
 
-> **Artikule:** Postava, která v boji padne na 0 HP, získá stav V bezvědomí, hází hody proti smrti, hází na kritické zranění a získá 1 úroveň vyčerpání. Léčení ji jen stabilizuje – do konce boje je mimo hru, ledaže ji vrátí *Lesser Restoration* nebo *Greater Restoration*. Po boji s Těžkým nebo horším kritickým zraněním si hází záchranu na Odolnost (s felčarem s výhodou); při neúspěchu získává 1 úroveň vyčerpání denně, dokud neuspěje.
+> **Artikule:** Postava, která v boji padne na 0 HP, získá stav V bezvědomí, hází hody proti smrti, hází na kritické zranění a získá 1 úroveň vyčerpání; HP mohou klesnout i pod nulu. Léčení ji jen stabilizuje (počítá od 0) – do konce boje je mimo hru, ledaže ji vrátí *Lesser Restoration* nebo *Greater Restoration*. Po boji s Těžkým nebo horším kritickým zraněním hází postava záchranu na CON se SO 12 (s felčarem s výhodou); při neúspěchu získává 1 úroveň vyčerpání denně, dokud neuspěje.
 
 #### Stat Block (Statistiky)
 
@@ -400,7 +400,7 @@ Blok statistik obsahuje herní statistiky nestvůry. Každý blok statistik obsa
 
 ***Zápis zranění.*** Blok statistik obvykle uvádí u každého zranění jak pevné číslo, tak výraz s kostkami. Útok může například při zásahu způsobit 4 (1d4 + 2) zranění. Vypravěč určí, zda se použije pevné číslo, nebo výraz s kostkami v závorce; obojí se nepoužívá.
 
-> **Artikule:** Protivníci se dělí na pacholky, soky a zhoubce. Pacholci mají 1 HP (každý zásah skolí jednoho), houf 3–12 pacholků útočí jedním hodem s bonusem +1 za každého dalšího pacholka (nejvýš +5), prchá, padne-li polovina houfu nebo velitel (nedrží-li ho sok), nehází Závoj a nemá kritická zranění. Sok má běžné statistiky, hází Závoj, má techniky a kritický zásah ho porazí (umírá, vzdá se, uteče nebo je zajat). Zhoubce hraje podle pravidel jako hráč, má legendární akce a odolnosti a Ďáblovo štěstí (na 0 HP hodí Závoj; při Pokušení přežije a unikne).
+> **Artikule:** Protivníci se dělí na pacholky, soky a zhoubce. Pacholek má 5 HP a zranění, které ho skolí, přejde na dalšího; houf 3–12 pacholků má jeden tah a útočí jedním hodem s bonusem +1 za každého dalšího pacholka (nejvýš +5), prchá, padne-li polovina houfu nebo velitel (nedrží-li ho sok), nehází Závoj a nemá kritická zranění. Sok má běžné statistiky, hází Závoj, může znát techniky, při kritickém zásahu smí obětovat zbroj a bez ní ho kritický zásah porazí (umírá, vzdá se, uteče nebo je zajat); reakcí „Za pána!“ může poslat do rány pacholka. Zhoubce hraje podle pravidel jako hráč, může mít legendární akce a odolnosti a má Ďáblovo štěstí (na 0 HP hodí kostkou Závoje; při Pokušení přežije a unikne).
 
 #### Study [Action] (Studium [akce])
 
@@ -518,7 +518,7 @@ Dokud máš stav V bezvědomí (Unconscious), platí pro tebe následující ú�
 
 ***Nevědomost.*** Nevnímáš své okolí.
 
-> **Artikule:** Každý kritický zásah znamená pro zasaženého hod na kritické zranění (d10 + 1 za každé neléčené kritické zranění + 1 za každých 5 HP pod 0): 1–5 Lehká, 6–9 Těžká, 10–12 Vážná, 13+ Smrtelná; místo zásahu určí kostka Závoje.
+> **Artikule:** Každý kritický zásah znamená pro zasaženého hod na kritické zranění (k10 + 1 za každé neléčené kritické zranění + 1 za každých 5 HP pod nulou): 1–5 Lehká, 6–9 Těžká, 10–12 Vážná, 13+ Smrtelná; místo zásahu určí kostka Závoje.
 
 #### Unoccupied Space (Neobsazený prostor)
 

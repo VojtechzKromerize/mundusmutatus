@@ -234,7 +234,7 @@ Shrnutí přesvědčení níže popisují typické chování tvora s daným pře
 
 ***Chaoticky zlý (CE, Chaotic Evil).*** Chaoticky zlí tvorové jednají s bezohledným násilím, poháněni nenávistí nebo krvežíznivostí. Padouch, který spřádá plány pomsty a zkázy, je nejspíš chaoticky zlý.
 
-> **Artikule:** V Mundus Mutatus morální kompas postavy doplňuje i její Ctnost a Neřest (jednání v souladu s Ctností nebo podlehnutí Neřesti přináší Hrdinskou inspiraci) a Svědomí (0–10), které mění některé hody: V milosti (8–10) imunita vůči stavu Vyděšen (Frightened), výhoda na Insight a nevýhoda na Deception; Na scestí (1–3) výhoda na Deception a při dlouhém odpočinku obnova jen poloviny HP; Zatracený (0) výhoda na Intimidation, Smlouva s ďáblem (1× za dlouhý odpočinek změní kostku Závoje na Požehnání) a feat víry nefunguje.
+> **Artikule:** V Mundus Mutatus morální kompas postavy doplňuje i její Ctnost a Neřest (jednání v souladu s Ctností nebo podlehnutí Neřesti přináší Hrdinskou inspiraci) a Svědomí (0–10), které mění některé hody: V milosti (8–10) imunita vůči stavu Vyděšen (Frightened), výhoda na Vhled a nevýhoda na Klamání; Na scestí (1–3) výhoda na Klamání a při dlouhém odpočinku obnova jen poloviny HP; Zatracený (0) výhoda na Zastrašování, Smlouva s ďáblem (1× za dlouhý odpočinek změní kostku Závoje na Požehnání) a feat víry nefunguje.
 
 #### Tvorové bez přesvědčení
 
@@ -281,11 +281,11 @@ Na listu postavy je místo pro zaznamenání aktuálních životů, když utrpí
 
 ***Iniciativa.*** Do políčka pro iniciativu na listu postavy zapiš svou opravu Obratnosti.
 
-> **Artikule:** Iniciativa v Mundus Mutatus je slotová: hráči hodí d20 + Obratnost, vypravěč hází jednou za nepřítele s nejlepší iniciativou a nejlepší výsledek každé strany určí její sloty. Družina i nepřátelé mají tolik slotů, kolik je hráčů; sloty se střídají a začíná strana s vyšším hodem (při shodě družina).
+> **Artikule:** Platí slotová iniciativa. Hráči hodí k20 + DEX, vypravěč hodí jednou za nepřítele s nejlepší iniciativou; nejlepší výsledek každé strany určí její sloty. Družina má tolik slotů, kolik má členů (postavy i spojenci); vypravěč o jeden víc, je-li nepřátel (houfů, soků, zhoubců) víc, o jeden méně, je-li jich méně, jinak stejně – vždy aspoň jeden. Sloty obou stran se střídají a začíná strana s lepším hodem (při shodě družina).
 
 ***Třída zbroje.*** Bez zbroje a štítu je tvoje základní třída zbroje (AC) 10 plus tvoje oprava Obratnosti. Pokud tvé počáteční vybavení zahrnuje zbroj nebo štít (nebo obojí), vypočti své AC podle pravidel v kapitole „Vybavení“. Rys povolání ti může dát jiný způsob výpočtu AC.
 
-> **Artikule:** Zbroj kromě AC dává i Resistance: vycpávaná (Padded, Leather, Studded Leather, Hide) proti Bludgeoning zranění; kroužková (Chain Shirt, Scale Mail, Ring Mail, Chain Mail) proti Bludgeoning a Slashing; plátová (Breastplate, Half Plate, Splint) proti Slashing a Piercing; komplexní (Plate) proti Bludgeoning, Slashing a Piercing. Poznamenej si ji na list postavy.
+> **Artikule:** Zbroj kromě AC dává i odolnost: vycpávaná (Padded, Leather, Studded Leather, Hide) proti drtivému zranění; kroužková (Chain Shirt, Scale Mail, Ring Mail, Chain Mail) proti drtivému a sečnému; plátová (Breastplate, Half Plate, Splint) proti sečnému a bodnému; komplexní (Plate) proti drtivému, sečnému a bodnému. Poznamenej si ji na list postavy.
 
 ***Útoky.*** Do oddílu listu postavy pro zbraně a útočné triky (Weapons & Damage Cantrips) zapiš své počáteční zbraně. Bonus k hodu na útok u zbraně, se kterou máš zdatnost, je jeden z následujících, pokud vlastnost zbraně neříká jinak:
 

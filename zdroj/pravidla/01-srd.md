@@ -83,7 +83,7 @@ Když je výsledek nějakého činu nejistý, hra k určení úspěchu nebo neú
 
 6. **Porovnej celkový výsledek s cílovým číslem.** Pokud se součet d20 a jejích modifikátorů rovná cílovému číslu nebo je vyšší, test d20 uspěje. V opačném případě selže. Cílová čísla určuje vypravěč a sděluje hráčům, zda jejich hody uspěly. Cílové číslo pro ověření vlastnosti nebo záchranný hod se nazývá stupeň obtížnosti (SO, Difficulty Class). Cílové číslo pro hod na útok se nazývá třída zbroje (AC, Armor Class) a je uvedeno v deníku postavy nebo ve statistikách (stat block) tvora (viz „Glosář pravidel“).
 
-> **Artikule:** Ke každému testu d20 (ověření vlastnosti, záchranný hod i hod na útok) se vedle d20 hází i d6 – kostka Závoje. Na 1–2 padne Pokušení (přijmeš-li ho, získáš bod hříchu; odmítneš-li, nastane komplikace), na 3–4 se nic nestane, na 5–6 padne Požehnání (dodatečný dobrý efekt). Výsledek d20 se tím nemění. V Hodinách Závoje (půlnoc, poledne, po večerním klekání, slunovraty) padá Pokušení na 1–3; o svátku podle vyznání postavy padá Požehnání na 4–6; souběh obojího je Hodina Pravdy. Příklad: zásah s odmítnutým Pokušením – zbraň uvízne v těle a její vytržení stojí bonusovou akci.
+> **Artikule:** Ke každému ověření (i k iniciativě) a hodu na útok se vedle k20 hází i k6 – kostka Závoje; k záchranným hodům ne. Na 1–2 padne Pokušení (přijmeš-li ho, získáš bod hříchu; odmítneš-li, nastane komplikace), na 3–4 se nic nestane, na 5–6 padne Požehnání (dodatečný dobrý účinek). Výsledek k20 se tím nemění. V Hodině Závoje (půlnoc, poledne a hodina po večerním klekání; slunovrat celý den) padá Pokušení na 1–3; o svátku podle vyznání postavy padá Požehnání na všech hodech na 4–6; souběh obojího je Hodina Pravdy. Příklad: zásah s odmítnutým Pokušením – zbraň uvízne v těle a její vytržení stojí bonusovou akci.
 
 #### Ověření vlastností
 
@@ -184,7 +184,7 @@ AC tvora pak mohou upravit zbroj, magické předměty, kouzla a další.
 
 ***Jen jedna základní AC.*** Některá kouzla a schopnosti povolání dávají postavám jiný způsob výpočtu AC. Postava s více schopnostmi, které dávají různé způsoby výpočtu AC, si musí vybrat, který z nich použije; u tvora může platit jen jeden základní výpočet.
 
-> **Artikule:** Zbroj v Mundus Mutatus kromě AC dává i Resistance: vycpávaná (Padded, Leather, Studded Leather, Hide) proti Bludgeoning zranění; kroužková (Chain Shirt, Scale Mail, Ring Mail, Chain Mail) proti Bludgeoning a Slashing; plátová (Breastplate, Half Plate, Splint) proti Slashing a Piercing; komplexní (Plate) proti Bludgeoning, Slashing a Piercing. Při kritickém zásahu smí postava zbroj nebo štít obětovat a kritický zásah se změní v běžný (vycpávaná zbroj a štít 1×, kroužková 2×, plátová a komplexní 3×); poté zbroj nedává AC, dokud ji kovář neopraví (nebo postava s kovářským nářadím během dlouhého odpočinku).
+> **Artikule:** Zbroj v Mundus Mutatus kromě AC dává i odolnost: vycpávaná (Padded, Leather, Studded Leather, Hide) proti drtivému zranění; kroužková (Chain Shirt, Scale Mail, Ring Mail, Chain Mail) proti drtivému a sečnému; plátová (Breastplate, Half Plate, Splint) proti sečnému a bodnému; komplexní (Plate) proti drtivému, sečnému a bodnému. Při kritickém zásahu smí postava zbroj nebo štít obětovat a kritický zásah se změní v běžný (vycpávaná zbroj a štít 1×, kroužková 2×, plátová a komplexní 3×); poté zbroj nedává AC, dokud ji kovář neopraví (nebo postava s kovářským nářadím během dlouhého odpočinku).
 
 ##### Hod 20 nebo 1
 
@@ -192,7 +192,7 @@ Pokud ti při hodu na útok padne na d20 číslo 20 (tzv. „přirozená 20“),
 
 Pokud ti při hodu na útok padne na d20 číslo 1 (tzv. „přirozená 1“), útok mine bez ohledu na jakékoli modifikátory nebo AC cíle.
 
-> **Artikule:** Každý kritický zásah způsobuje kritické zranění: zasažený hází d10 + 1 za každé neléčené kritické zranění + 1 za každých 5 HP pod 0 (1–5 Lehká, 6–9 Těžká, 10–12 Vážná, 13+ Smrtelná). Místo zásahu určí kostka Závoje (6 hlava, 3–5 trup, 2 paže, 1 nohy). Podrobnosti viz Artikule o kritických zraněních.
+> **Artikule:** Každý kritický zásah způsobuje kritické zranění: zasažený hází k10 + 1 za každé neléčené kritické zranění + 1 za každých 5 HP pod nulou (1–5 Lehká, 6–9 Těžká, 10–12 Vážná, 13+ Smrtelná). Místo zásahu určí kostka Závoje (6 hlava, 3–5 trup, 2 paže, 1 nohy). Podrobnosti viz Artikule o kritických zraněních.
 
 #### Výhoda/nevýhoda
 
@@ -200,7 +200,7 @@ Někdy je test d20 upraven výhodou nebo nevýhodou. Výhoda odráží přízniv
 
 Výhodu nebo nevýhodu obvykle získáš použitím zvláštních schopností a akcí. Vypravěč také může rozhodnout, že okolnosti výhodu poskytují nebo nevýhodu ukládají.
 
-> **Artikule:** Výhodu a nevýhodu mohou dávat i stupně Svědomí (0–10): V milosti (8–10) dává imunitu vůči stavu Vyděšen (Frightened), výhodu na Insight a nevýhodu na Deception; Na scestí (1–3) dává výhodu na Deception; Zatracený (0) dává výhodu na Intimidation.
+> **Artikule:** Výhodu a nevýhodu mohou dávat i stupně Svědomí (0–10): V milosti (8–10) dává imunitu vůči stavu Vyděšen (Frightened), výhodu na Vhled a nevýhodu na Klamání; Na scestí (1–3) dává výhodu na Klamání; Zatracený (0) dává výhodu na Zastrašování.
 
 ##### Hoď dvěma d20
 
@@ -301,7 +301,7 @@ Postava získává zdatnost s různými zbraněmi a nástroji ze svého povolán
 - **Zbraně.** Zbraní může vládnout kdokoli, ale zdatnost ti umožňuje vládnout jí lépe. Máš-li zdatnost se zbraní, přičítáš svůj bonus zdatnosti k hodům na útok, které s ní provádíš.
 - **Nástroje.** Máš-li zdatnost s nástrojem, můžeš přičíst svůj bonus zdatnosti ke každému ověření vlastnosti, které s tímto nástrojem provádíš. Máš-li navíc zdatnost v dovednosti, která se při tomto ověření také používá, máš na ověření i výhodu. To znamená, že při jednom ověření vlastnosti můžeš těžit ze zdatnosti v dovednosti i ze zdatnosti s nástrojem zároveň.
 
-> **Artikule:** Kdo má se zbraní zdatnost, využívá i její perky podle Artikulí (např. Drtivá, Průrazná, Ratiště, Šikovná, Ostrá, Půlmeč); Weapon Mastery (mistrovství zbraní) se nemění.
+> **Artikule:** Kdo má se zbraní zdatnost, využívá i její perky podle Artikulí (např. Drtivá, Průrazná, Ratiště, Šikovná, Ostrá, Půlmeč); mistrovství zbraní (Weapon Mastery) se nemění.
 
 ### Akce
 

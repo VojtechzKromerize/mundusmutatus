@@ -303,6 +303,12 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
 - 10-29 **Barvy karty** (Vojta): list Postava má volbu „Barva karty“ – výchozí Vínová + Noc, Les, Uhel, Purpur, Jantar, Hlubina, Popel, Čistá černá (oled), Vysoký kontrast (Pergamen zatím ne, chce převod barev stavů a vzácnosti). Volba je jen v prohlížeči (localStorage `mm-kb`, atribut `html[data-kb]`, `MMKB` v 01); karta čte `--kb-*` z `--kbt-*`, takže barvy mění jen blok `html[data-kb=…]` ve `styly.css`. Nové tokeny `--kb-ac-tx` (text a ikony akcentu, ≥ 4,5:1; `--kb-ac` zůstává pro výplně), `--kb-hl` (nadpisy), `--kb-hb`, `--kb-glow`/`--kb-vig`/`--kb-line` (hlavička). Test `barvy-karty.test.mjs` hlídá kontrast ≥ 4,5:1 všech palet. Napevno zůstaly hnědé výplně (`#3a2b1c`, `#5a3d2c`, `#201914`, `#8e3236`) a barvy stavů – v tmavých variantách mírně vybočují. Sdílení volby mezi zařízeními (do stavu karty) zatím není.
 
 ## Otevřené
+
+- 2026-10-29 **Po revizi pojmů zbývá:** (1) plné znění featů a kouzel v databázi (`pravidla_texty`) má v rámečcích ještě „Pohotovost“ a „jednou denně“
+  – nově nahrát (featy z projektu `pravidla/featy-2026-10-24.md` přes `featy_plne.py`, kouzla a předměty z Vojtových tabulek přes `kouzla_predmety_plne.py`,
+  rámečky už opravené v `kouzla_predmety_artikule.py`); (2) automatika HP pod nulou na kartě i v boji (dnes boj drží HP na 0 a přesah si pamatuje
+  jen pro hod na kritické zranění); (3) čeká na Vojtu: Lance má dva pasivní perky, Spear v Ratišti nemá dosah 10 stop, kritické zranění soka,
+  přejmenování perku Šikovná nebo vlastnosti Obratná (Finesse), kostky „k“ i v textu SRD a na kartě, „slot“ vs. „pozice kouzla“ na kartě.
 - **Mapa jih – k ověření (Vojta)**: kdo k 3. 3. 1458 drží Čakovec a Varaždínský hrad (celjské dědictví – Vitovec?), Golubac vynechán (srbský/turecký?), Kusánský
   na Buchensteinu od léta 1457, první turecké nájezdy do Kraňska (1408 nejisté, velké až 60. léta / 1469 – jen ⟦⟧), Svatá Hora u Gorice vznikla až 1539 (není).
 - **Automatika podle karet družiny** (Vojta 10-24): přehled „Automatika podle karet“ v Hra › Družina je hotový (10-27) – podle něj doplňovat, co skutečné karty potřebují (návrh: formulář jednoduchých bonusů pro vypravěče). Dnes: ~207 kouzel se zraněním/léčením, 105 posílení, 78 stavů ze záchrany; 18 featů podle jména + 58 shrnutí; předměty jen z katalogu vybavení.
@@ -380,5 +386,15 @@ Průchod stabilitou a chybami (Vojta: „optimalizace a údržba celého webu“
 
 - **Aktuální znění** = `pravidla/artikule-2026-10-14.md` jako celek **+ `pravidla/artikule-zbrane-2026-10-25.md`**, které nahrazuje jen oddíl Výzbroj › Zbraně (17 perků zbraní, Kord, Hákovnice, Okovaný cep; proti 24. 10. přibyla Pomalá, ale těžká rána). Je to výsek, ne úplná verze – sám nestačí.
 - Oproti textu 14. 10. platí novější rozhodnutí zapsaná jen v kódu a `rozhodnuti.md`: protivníci z 22. 10. (pacholek 5 HP, sok obětuje zbroj, slot navíc), jedna Ctnost a jedna Neřest, tři stupně featu víry. Web (`03-artikule.js`) je s těmito změnami v souladu; `pravidla/protivnici.md` a `pravidla/featy-viry.md` (čtyři stupně) jsou v těchto bodech zastaralé.
+- 2026-10-29 **Revize pojmů a rozhodnutí Vojty** (Artikule 03, rámečky „Artikule“ v Pravidlech SRD, perky v 02/20e, krit. zranění v 11, featy víry v 15):
+  Artikule i rámečky jsou česky (záchranný hod, dlouhý odpočinek, pozice kouzla, ověření, vyčerpání, příležitostný útok, Úhyb, hody proti smrti,
+  Hrdinská inspirace, kritický zásah, stavy „Sražen (Prone)“, typy zranění drtivé/bodné/sečné, odolnost; vypravěč místo GM/DM; iniciativa k20 + DEX;
+  kostky s malým „k“; „1× za dlouhý odpočinek“; Klamání; Pistol (píšťala); stupně Svědomí místo „stavů“; Alert = **Předstih** (dřív Pohotovost).
+  Rozhodnutí: Závoj k ověřením (i iniciativě) a útokům, **ne k záchranám**; svátek = Požehnání 4–6 na všech hodech; Hodina Závoje trvá hodinu,
+  **slunovrat celý den** (`dialCtx` 07 – dřív svátek a několik dní); body hříchu a skutků se po Zpytování smažou (kód už to dělal); SO 12 záchrany
+  po Těžkém zranění a u „Ve jménu Páně!“; Těžkou ránu ošetří kdokoli Lékařstvím **SO 12 + 2 za každé další neléčené kritické zranění** (`ranaLecba`
+  10p); „Ktož sú…“ na 3 kola; **SO perků = 8 + bonus zdatnosti + STR útočníka** (i Přibodnutí a Štěpící, hází cíl); stupně featu víry příběhově;
+  Křížný sek +2 AC může zásah změnit v minutí; Sek hněvu na další hod na útok; Zůstaň! → Spoután; Hod přes bok → Chycen + Sražen; Zlom = záchrana
+  proti SO chvatu s výhodou; Lámání paže = Těžké zranění paže (Zlomenina); **HP mohou klesnout pod 0** (text; automatika viz Otevřené).
 - Nerozhodnuté návrhy k Artikulím (střelné zbraně 19. 10., čtvrté vyznání, Gunslinger) viz Otevřené; do Artikulí patří až po Vojtově „platí“.
 - 10-28 **Sloučené skupiny měst a hradů** (Vojta): 12 skupin pohlceno držiteli (cmc Města Čech a Kladska, jben Benátky a jejich města, cmal Další polská města, nmba Města Bavor, Falce a Frank, hpl Hrady Polska a Kujav, kla Kláštery a řády, chu, huh, cbr, cdsl, chsl, cmm); `cms` rozdělena na Moravu (cmm) a Dolní/Horní Slezsko (cdsl/chsl); starší řádky výše o `ckla`, `kslu`, `cms`, `cpls`, `cbrs`, `hkuj`, `hbrs` jsou historické. Sídla se nezměnila (879). Pozor: chu/huh/cbr ukazují u sídel věrnost `cizi`; Kladsko dědí vyznání `mix`.

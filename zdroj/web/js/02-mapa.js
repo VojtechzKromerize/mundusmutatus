@@ -7492,30 +7492,31 @@ document.getElementById("zout").addEventListener("click", () => mapZoom(1.4));
 
 const BVLZ = {
   Krvežíznivá:
-    "Požehnání: cíl bez Resistance vůči typu zranění zbraně krvácí d4 do ošetření. Pokušení: čepel uvízne v ráně, vytrhnout ji stojí bonusovou akci.",
-  Drtivá: "Ignoruje Resistance zbroje proti Bludgeoning.",
+    "Požehnání: cíl bez odolnosti vůči typu zranění zbraně krvácí k4 do ošetření. Pokušení: čepel uvízne v ráně, vytrhnout ji stojí bonusovou akci (u luku se šíp vzpříčí: další výstřel až po bonusové akci).",
+  Drtivá: "Ignoruje odolnost zbroje vůči drtivému zranění.",
   Omračující:
-    "Požehnání: cíl hází CON save (SO 8 + proficiency bonus útočníka + STR), jinak je do konce svého příštího tahu bez Reakce a má nevýhodu na útoky. Pokušení: rána sklouzne po zbroji a do svého příštího tahu jsi bez Reakce ty.",
+    "Požehnání: cíl hází záchranu na CON (SO 8 + bonus zdatnosti + STR útočníka), jinak je do konce svého příštího tahu bez reakce a má nevýhodu na hody na útok. Pokušení: rána sklouzne po zbroji a do svého příštího tahu jsi bez reakce ty.",
   Ratiště:
-    "Když nepřítel vstoupí do dosahu zbraně (10 stop), smí udělat Opportunity Attack. V kontaktu (5 stop) má na útoky nevýhodu. Bonusovou akcí lze zbraň zapřít o zem: dokud se nepohne, Opportunity Attack proti útoku s Vpřed! je automatický kritický zásah a Vpřed! se neuplatní.",
+    "Když nepřítel vstoupí do dosahu zbraně (10 stop), smí provést příležitostný útok. V kontaktu (5 stop) má na hody na útok nevýhodu. Bonusovou akcí lze zbraň zapřít o zem: dokud se nepohne, příležitostný útok proti útoku s Vpřed! je automatický kritický zásah a Vpřed! se neuplatní.",
   Ničivá: "Požehnání: zbroj cíle ztrácí jedno obětování. Pokušení: zbraň praská a ztrácí Ničivou až do opravy.",
-  Průrazná: "Ignoruje Resistance zbroje proti Piercing.",
+  Průrazná: "Ignoruje odolnost zbroje vůči bodnému zranění.",
   Odvetná:
-    "Požehnání: vazba – cíl na tebe do konce svého příštího tahu nemůže použít Reakci; mine-li tě nepřítel útokem na blízko s Pokušením, můžeš Reakcí provést protiútok. Pokušení: čepele se zaklesnou, ztrácíš Reakci.",
+    "Požehnání: vazba – cíl na tebe do konce svého příštího tahu nemůže použít reakci; mine-li tě nepřítel útokem na blízko s Pokušením, můžeš reakcí provést protiútok. Pokušení: čepele se zaklesnou, ztrácíš reakci.",
   Šikovná: "Před hodem na útok si útočník zvolí typ zranění podle zbraně.",
   Přibodnutí:
-    "Požehnání: cíl je hrotem přidržen – do začátku tvého příštího tahu má rychlost 0, ty se nesmíš pohnout. Pokušení: hrot uvízne ve zbroji, cíl ti může Reakcí vytrhnout zbraň (STR save, SO 12).",
-  Ostrá: "Při Slashing proti cíli bez Resistance je kritický zásah už na 19–20.",
-  Půlmeč: "Bonusovou akcí přehmat zbraně: Piercing útoky získají perk Průrazná, kostka zranění klesne o stupeň (d8 na d6).",
+    "Požehnání: cíl je hrotem přidržen – do začátku tvého příštího tahu má rychlost 0, ty se nesmíš pohnout. Pokušení: hrot uvízne ve zbroji, cíl se ti může reakcí pokusit vytrhnout zbraň (záchrana na STR proti SO 8 + bonus zdatnosti + STR útočníka).",
+  Ostrá: "Při sečném zranění proti cíli bez odolnosti je kritický zásah už na 19–20.",
+  Půlmeč: "Bonusovou akcí přehmat zbraně: útoky s bodným zraněním získají perk Průrazná, kostka zranění klesne o stupeň (k8 na k6).",
   "Do slabin!":
-    "Požehnání: proti Restrained nebo Prone cíli jde o automatický kritický zásah. Pokušení: dýka sklouzne po plátu, další útok proti tobě má výhodu.",
+    "Požehnání: proti cíli, který je Spoután (Restrained) nebo Sražen (Prone), jde o automatický kritický zásah. Pokušení: dýka sklouzne po zbroji, další útok proti tobě má výhodu.",
   Strhující:
-    "Požehnání: umožňuje strhnout cíl k zemi (cíl hází CON save, zda bude Prone). Pokušení: hák se zasekne v postroji, cíl tě strhne o 5 stop k sobě a může Reakcí zaútočit.",
+    "Požehnání: umožňuje strhnout cíl k zemi – cíl hází záchranu na CON (SO 8 + bonus zdatnosti + STR útočníka), jinak je Sražen (Prone). Pokušení: hák se zasekne v postroji, cíl tě strhne o 5 stop k sobě a může reakcí zaútočit.",
   "Vpřed!": "Po jízdě aspoň 15 stop rovně se zdvojnásobí kostky zranění (kritický zásah 4×).",
-  Štěpící: "Požehnání: zničí štít nepřítele, má-li štít. Pokušení: sekera uvízne ve štítu, cíl ji může Reakcí vytrhnout (STR save, SO 12).",
+  Štěpící:
+    "Požehnání: zničí štít nepřítele, má-li štít. Pokušení: sekera uvízne ve štítu, cíl se ti ji může reakcí pokusit vytrhnout (záchrana na STR proti SO 8 + bonus zdatnosti + STR útočníka).",
   Nepřímá: "Projektil letí obloukem: ignoruje bonus polovičního krytu.",
   "Hrom a kouř!":
-    "Požehnání: střelce zahalí dým a má na 1 kolo výhodu proti útokům zblízka. Pokušení: zbraň selže a před dalším výstřelem ji musíš vyčistit (bonusová akce); minul-li jsi a u cíle stojí spojenec, zasáhneš spojence; při 1 na d20 a 1 na Závoji zbraň vybuchne (2d8 Fire střelci).",
+    "Požehnání: střelce zahalí dým a má na 1 kolo výhodu proti útokům zblízka. Pokušení: zbraň selže a před dalším výstřelem ji musíš vyčistit (bonusová akce); minul-li jsi a u cíle stojí spojenec, zasáhneš spojence; při 1 na k20 a 1 na Závoji zbraň vybuchne (střelci 2k8 ohnivého zranění).",
 };
 /* malované ikony vlastností zbraní (zv-), typů zranění (zr-) a zbrojí (zb-) – art/img/boj, zadání vyvoj/ikony-boj.md */
 const BZVK = {

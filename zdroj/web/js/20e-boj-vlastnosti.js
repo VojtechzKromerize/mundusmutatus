@@ -6,20 +6,23 @@
    Odvetná: nepřítel mine postavu s Pokušením → telefon nabídne protiútok reakcí (jako Riposte, bez kostky převahy).
    Nepřítel: útok ze statbloku s vlastností a Požehnáním → tlačítka u plakety (stav postavě, CON záchrana výzvou). */
 const BZVAKT = {
-  Krvežíznivá: {poz: "cíl bez Resistance vůči typu zranění krvácí d4 do ošetření", kom: "čepel uvízla v ráně – vytrhnout ji stojí bonusovou akci"},
+  Krvežíznivá: {poz: "cíl bez odolnosti vůči typu zranění krvácí k4 do ošetření", kom: "čepel uvízla v ráně – vytrhnout ji stojí bonusovou akci"},
   Omračující: {
-    poz: "cíl hází CON záchranu, jinak je do konce svého příštího tahu bez Reakce a má nevýhodu na útoky",
-    kom: "rána sklouzla po zbroji – do svého příštího tahu jsi bez Reakce",
+    poz: "cíl hází CON záchranu, jinak je do konce svého příštího tahu bez reakce a má nevýhodu na hody na útok",
+    kom: "rána sklouzla po zbroji – do svého příštího tahu jsi bez reakce",
   },
   Ničivá: {poz: "zbroj cíle ztrácí jedno obětování", kom: "zbraň praská – ztrácí Ničivou až do opravy"},
-  Odvetná: {poz: "vazba – cíl na tebe do konce svého příštího tahu nemůže použít Reakci", kom: "čepele se zaklesly – ztrácíš Reakci"},
+  Odvetná: {poz: "vazba – cíl na tebe do konce svého příštího tahu nemůže použít reakci", kom: "čepele se zaklesly – ztrácíš reakci"},
   Přibodnutí: {
     poz: "cíl je přidržen hrotem (rychlost 0 do začátku tvého příštího tahu), ty se nesmíš pohnout",
-    kom: "hrot uvízl ve zbroji – cíl ti může Reakcí vytrhnout zbraň (STR záchrana SO 12)",
+    kom: "hrot uvízl ve zbroji – cíl se ti může reakcí pokusit vytrhnout zbraň (STR záchrana proti SO perku: 8 + bonus zdatnosti + STR)",
   },
   "Do slabin!": {poz: "proti sraženému nebo spoutanému cíli je zásah kritický", kom: "dýka sklouzla po plátu – další útok na tebe má výhodu"},
-  Strhující: {poz: "cíl hází CON záchranu, jinak je sražen k zemi", kom: "hák se zasekl – cíl tě strhne o 5 stop k sobě a může Reakcí zaútočit"},
-  Štěpící: {poz: "štít cíle je zničen", kom: "sekera uvízla ve štítu – cíl ji může Reakcí vytrhnout (STR záchrana SO 12)"},
+  Strhující: {poz: "cíl hází CON záchranu, jinak je sražen k zemi", kom: "hák se zasekl – cíl tě strhne o 5 stop k sobě a může reakcí zaútočit"},
+  Štěpící: {
+    poz: "štít cíle je zničen",
+    kom: "sekera uvízla ve štítu – cíl se ti ji může reakcí pokusit vytrhnout (STR záchrana proti SO perku: 8 + bonus zdatnosti + STR)",
+  },
   "Hrom a kouř!": {
     poz: "dým tě zahalí – útoky zblízka na tebe mají 1 kolo nevýhodu",
     kom: "zbraň selhala – před dalším výstřelem ji musíš vyčistit (bonusová akce)",

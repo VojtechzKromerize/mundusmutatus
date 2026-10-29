@@ -389,7 +389,7 @@ Získáš následující přínosy.
 
 **Initiative Swap.** Bezprostředně poté, co si hodíš na iniciativu, si můžeš svou iniciativu vyměnit s iniciativou jednoho ochotného spojence v tomtéž boji. Tuto výměnu nemůžeš provést, pokud ty nebo spojenec máte stav Neschopný (Incapacitated).
 
-> **Artikule:** Při slotové iniciativě přičítáš bonus zdatnosti ke svému hodu d20 + Obratnost (nejlepší hod družiny určuje sloty). Výměna iniciativy se spojencem pozbývá smyslu, protože si hráči sloty v každém kole rozdělují sami.
+> **Artikule:** Místo Výměny iniciativy platí Předstih: jednou za boj uskutečníš svůj tah před tahem libovolného nepřítele. Bonus zdatnosti přičítáš ke svému hodu k20 + DEX (nejlepší hod družiny určuje sloty).
 
 ### Magic Initiate
 
@@ -513,7 +513,7 @@ Získáš následující přínosy.
 
 **Overcome Defenses.** Bludgeoning, Piercing a Slashing zranění, které způsobuješ, vždy ignoruje Resistance.
 
-> **Artikule:** Přínos Overcome Defenses ignoruje i Resistance, kterou dává zbroj.
+> **Artikule:** Přínos Overcome Defenses ignoruje i odolnost, kterou dává zbroj.
 
 **Overwhelming Strike.** Když ti na d20 při hodu na útok padne 20, můžeš cíli způsobit dodatečné zranění rovné hodnotě vlastnosti, kterou tento feat zvýšil. Typ dodatečného zranění je stejný jako typ útoku.
 

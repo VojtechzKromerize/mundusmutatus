@@ -201,7 +201,7 @@ V zámku je ukrytá otrávená jehla. Když tvor otevře zámek čímkoli jiným
 
 Když tvor vstoupí na skrytou nášlapnou desku, z tajné schránky se uvolní koule z pevného kamene o poloměru 5 stop a začne se valit. Kámen i všichni tvorové poblíž si hodí na iniciativu; kámen má k hodu na iniciativu bonus +8.
 
-> **Artikule:** V Mundus Mutatus se iniciativa určuje slotově (hráči d20 + Obratnost, vypravěč jednou za stranu protivníků; strany se střídají ve slotech). Kámen vypravěč zařadí jako samostatný slot na straně protivníků s bonusem +8 k iniciativě.
+> **Artikule:** V Mundus Mutatus se iniciativa určuje slotově (hráči k20 + DEX, vypravěč jednou za stranu protivníků; strany se střídají ve slotech). Kámen vypravěč zařadí jako samostatný slot na straně protivníků s bonusem +8 k iniciativě.
 
 Ve svém tahu se kámen posune o 60 stop jedním směrem a změní kurz, pokud ho odkloní překážka. Kámen se může pohybovat skrz prostory tvorů a tvorové se mohou pohybovat skrz prostor kamene, přičemž ho považují za obtížný terén. Kdykoli kámen během tahu poprvé vstoupí do prostoru tvora nebo tvor vstoupí do prostoru kamene, zatímco se kámen valí, musí tento tvor uspět v záchranném hodu na Obratnost (DEX) se SO 15, jinak utrpí 55 (10d10) Bludgeoning zranění a má stav Sražen (k zemi) (Prone).
 
@@ -313,7 +313,7 @@ Při vytváření a vedení bojových setkání měj na paměti následující.
 
 Čím více tvorů je v setkání, tím vyšší je riziko, že jim šťastná série hodů umožní způsobit postavám větší zranění, než očekáváš. Pokud tvé setkání zahrnuje více než dva tvory na postavu, zařaď křehké tvory, které lze rychle porazit. Tato zásada je obzvlášť důležitá pro postavy 1. nebo 2. úrovně.
 
-> **Artikule:** V Mundus Mutatus k tomu slouží pacholci – mají 1 HP, každý zásah jednoho skolí a houf 3–12 pacholků útočí jedním hodem (+1 za každého dalšího pacholka, nejvýš +5). Padne-li polovina houfu nebo jeho velitel, houf prchá, nedrží-li ho sok.
+> **Artikule:** V Mundus Mutatus k tomu slouží pacholci – mají 5 HP, zranění, které jednoho skolí, přejde na dalšího, a houf 3–12 pacholků útočí jedním hodem (+1 za každého dalšího pacholka, nejvýš +5). Padne-li polovina houfu nebo jeho velitel, houf prchá, nedrží-li ho sok.
 
 #### Úpravy
 

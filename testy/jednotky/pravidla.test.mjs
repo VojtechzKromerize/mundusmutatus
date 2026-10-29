@@ -399,13 +399,13 @@ const krit = (druh, rany, pod, kostky) => {
   return V(`(() => { Object.assign(BKS, {druh: ${JSON.stringify(druh)}, rany: ${rany}, pod: ${pod}}); bojKritHod(); return BKS.last; })()`);
 };
 
-test("Artikule: kritické zranění – d10 + neléčená zranění + 1 za 5 HP pod nulou určí závažnost, Závoj d6 místo na těle", () => {
+test("Artikule: kritické zranění – k10 + neléčená zranění + 1 za 5 HP pod nulou určí závažnost, Závoj k6 místo na těle", () => {
   assert.equal(
     krit("fyz", 0, 0, [
       [3, 10],
       [6, 6],
     ]).t,
-    "Lehká (Hlava): Zvonění v hlavě – bez Reakce, nevýhoda na příští hod",
+    "Lehká (Hlava): Zvonění v hlavě – bez reakce, nevýhoda na příští hod",
   );
   assert.equal(
     krit("fyz", 2, 12, [
@@ -417,7 +417,7 @@ test("Artikule: kritické zranění – d10 + neléčená zranění + 1 za 5 HP 
   );
   assert.equal(
     krit("ohen", 0, 0, [[10, 10]]).t,
-    "Vážná: Vypálené oči – nevýhoda na Perception a útoky na dálku",
+    "Vážná: Vypálené oči – nevýhoda na Vnímání a hody na útok na dálku",
     "magické zranění bez místa na těle",
   );
   assert.equal(krit("mraz", 1, 20, [[10, 10]]).t, "Smrtelná: Zamrzlé srdce", "10 + 1 + 4 = 15 → Smrtelná");

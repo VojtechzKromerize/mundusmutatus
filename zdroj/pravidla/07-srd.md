@@ -109,7 +109,7 @@ Tvoje základní AC se vypočítá jako 10 plus tvoje opravná hodnota Obratnost
 
 Výcvik ve zbroji ti umožňuje používat zbroj určité kategorie bez následujících nevýhod. Nosíš-li lehkou, střední nebo těžkou zbroj a nemáš v ní výcvik, máš nevýhodu na každý test d20, který zahrnuje Sílu nebo Obratnost, a nemůžeš sesílat kouzla. Používáš-li štít a nemáš v něm výcvik, nezískáváš jeho bonus k AC. *Viz také* „Disadvantage“ („Nevýhoda“) a „Vybavení“ („Zbroj“).
 
-> **Artikule:** Zbroj navíc dává Resistance podle svého druhu: vycpávaná (Padded, Leather, Studded Leather, Hide) proti Bludgeoning; kroužková (Chain Shirt, Scale Mail, Ring Mail, Chain Mail) proti Bludgeoning a Slashing; plátová (Breastplate, Half Plate, Splint) proti Slashing a Piercing; komplexní (Plate) proti Bludgeoning, Slashing a Piercing. Navléknout plátovou nebo komplexní zbroj trvá 20 minut (s panošem 10).
+> **Artikule:** Zbroj navíc dává odolnost podle svého druhu: vycpávaná (Padded, Leather, Studded Leather, Hide) proti drtivému zranění; kroužková (Chain Shirt, Scale Mail, Ring Mail, Chain Mail) proti drtivému a sečnému; plátová (Breastplate, Half Plate, Splint) proti sečnému a bodnému; komplexní (Plate) proti drtivému, sečnému a bodnému. Navléknout plátovou nebo komplexní zbroj trvá 20 minut (s panošem 10).
 
 #### Attack [Action] (Útok [akce])
 
@@ -308,7 +308,7 @@ Typy samy o sobě žádná pravidla nemají, ale některá pravidla ve hře půs
 
 Hodíš-li na d20 při hodu na útok 20, dosáhneš kritického zásahu a útok zasáhne bez ohledu na jakékoli opravy nebo AC cíle. Kritický zásah ti umožňuje hodit za zranění útoku proti cíli kostkami navíc. Hoď všemi kostkami zranění útoku dvakrát a sečti je. Potom přičti všechny příslušné opravy. *Viz také* „Hraní hry“ („Zranění a léčení“).
 
-> **Artikule:** Při každém kritickém zásahu hází zasažený na kritické zranění: d10 + 1 za každé neléčené kritické zranění + 1 za každých 5 HP pod 0; 1–5 Lehká (do konce příštího tahu), 6–9 Těžká (do vyléčení – Medicine), 10–12 Vážná (trvalá, není-li včas vyléčena zkušeným mágem či felčarem), 13+ Smrtelná (bezvědomí a 2 neúspěšné hody proti smrti; přežije-li, následek je trvalý). Místo zásahu určí kostka Závoje: 6 hlava, 3–5 trup, 2 paže, 1 nohy. Krvácení pokračuje každé kolo až do ošetření; zahojená Vážná či Smrtelná rána zanechá jizvu (výhoda na Intimidation, nevýhoda na Persuasion při svádění). Force a Thunder mají fyzická kritická zranění. **Obětování zbroje:** při kritickém zásahu smí postava obětovat zbroj nebo štít a kritický zásah se změní v běžný (vycpávaná zbroj a štít 1×, kroužková 2×, plátová a komplexní 3×); pak zbroj nedává AC, dokud ji kovář neopraví (nebo postava s kovářským nářadím během dlouhého odpočinku). Zbraně s perkem Ostrá (Shortsword, Longsword, Greatsword, Scimitar) způsobují Slashing zraněním proti cíli bez Resistance kritický zásah na 19–20. Kritický zásah porazí soka; pacholci kritická zranění nemají.
+> **Artikule:** Při každém kritickém zásahu hází zasažený na kritické zranění: k10 + 1 za každé neléčené kritické zranění + 1 za každých 5 HP pod nulou (1–5 Lehká, 6–9 Těžká, 10–12 Vážná, 13+ Smrtelná). Místo zásahu určí kostka Závoje (6 hlava, 3–5 trup, 2 paže, 1 nohy). Lehká trvají do konce příštího tahu, Těžká do ošetření (kdokoli, ověření Lékařství se SO 12, +2 za každé další neléčené kritické zranění), Vážná jsou trvalá, nejsou-li včas vyléčena zkušeným mágem či felčarem, Smrtelná znamenají bezvědomí a 2 neúspěšné hody proti smrti (přežije-li postava, následek je trvalý). Krvácení pokračuje každé kolo až do ošetření; zahojená Vážná či Smrtelná rána zanechá jizvu (výhoda na Zastrašování, nevýhoda na Přesvědčování při svádění). Silové a hromové zranění má fyzická kritická zranění. **Obětování zbroje:** při kritickém zásahu smí postava zbroj nebo štít obětovat a kritický zásah se změní v běžný (vycpávaná zbroj a štít 1×, kroužková 2×, plátová a komplexní 3×); poté zbroj nedává AC, dokud ji kovář neopraví (nebo postava s kovářským nářadím během dlouhého odpočinku). Zbraně s perkem Ostrá (Shortsword, Longsword, Greatsword, Scimitar, Battleaxe) způsobují sečným zraněním proti cíli bez odolnosti kritický zásah už na 19–20. Sok bez zbroje k obětování je kritickým zásahem poražen; pacholci kritická zranění nemají.
 
 #### Cube [Area of Effect] (Krychle [oblast účinku])
 
@@ -330,7 +330,7 @@ Výchozí bod válce do oblasti účinku patří.
 
 Testy d20 zahrnují tři hlavní hody d20 ve hře: ověření vlastností, hody na útok a záchranné hody. Pokud něco ve hře ovlivňuje testy d20, ovlivňuje všechny tři tyto hody. Vypravěč určuje, zda je za daných okolností test d20 namístě. *Viz také* „Hraní hry“ („Testy d20“).
 
-> **Artikule:** Ke každému testu d20 (ověření, záchrany i hody na útok) se vedle d20 hází d6 – kostka Závoje: 1–2 Pokušení (přijmout = bod hříchu, odmítnout = komplikace), 3–4 bez efektu, 5–6 Požehnání (dodatečný dobrý efekt). Výsledek d20 se nemění. V Hodinách Závoje (půlnoc, poledne, po večerním klekání, slunovraty) padá Pokušení na 1–3; o svátku podle vyznání postavy Požehnání na 4–6; souběh obojího je Hodina Pravdy. Příklad: zásah s odmítnutým Pokušením – zbraň uvízne v těle a vytržení stojí bonusovou akci. Pacholci Závoj neházejí.
+> **Artikule:** Ke každému ověření (i k iniciativě) a hodu na útok se vedle k20 hází i k6 – kostka Závoje; k záchranným hodům ne. Na 1–2 padne Pokušení (přijmeš-li ho, získáš bod hříchu; odmítneš-li, nastane komplikace), na 3–4 se nic nestane, na 5–6 padne Požehnání (dodatečný dobrý účinek). Výsledek k20 se tím nemění. V Hodině Závoje (půlnoc, poledne a hodina po večerním klekání; slunovrat celý den) padá Pokušení na 1–3; o svátku podle vyznání postavy padá Požehnání na všech hodech na 4–6; souběh obojího je Hodina Pravdy. Příklad: zásah s odmítnutým Pokušením – zbraň uvízne v těle a vytržení stojí bonusovou akci. Pacholci Závoj neházejí.
 
 #### Damage (zranění)
 
@@ -398,7 +398,7 @@ Dokud jsi ve stavu Ohlušen (Deafened), platí pro tebe následující účinek.
 
 Postava hráče musí provést hod proti smrti (Death Saving Throw, nazývaný také Death Save), pokud začíná svůj tah s 0 životy. *Viz také* „Hraní hry“ („Zranění a léčení“).
 
-> **Artikule:** Pád na 0 HP znamená bezvědomí, hody proti smrti, hod na kritické zranění a 1 úroveň vyčerpání. Léčení postavu jen stabilizuje – do konce boje je mimo hru, ledaže ji vrátí Lesser nebo Greater Restoration. Po boji s Těžkým nebo horším kritickým zraněním hází postava záchranu na Odolnost (s felčarem s výhodou); neúspěch = 1 úroveň vyčerpání denně, dokud neuspěje.
+> **Artikule:** Pád na 0 HP znamená bezvědomí, hody proti smrti, hod na kritické zranění a 1 úroveň vyčerpání; HP mohou klesnout i pod nulu. Léčení postavu jen stabilizuje (počítá od 0) – do konce boje je mimo hru, ledaže ji vrátí Lesser nebo Greater Restoration. Po boji s Těžkým nebo horším kritickým zraněním hází postava záchranu na CON se SO 12 (s felčarem s výhodou); při neúspěchu získává 1 úroveň vyčerpání denně, dokud neuspěje.
 
 #### Dehydration [Hazard] (Dehydratace [nebezpečí])
 
@@ -589,7 +589,7 @@ Kostky životů (Hit Point Dice), zkráceně Hit Dice, pomáhají určit maximum
 
 Životy (HP) jsou mírou toho, jak obtížné je tvora nebo předmět zabít či zničit. Zranění životy snižuje a léčení je obnovuje. Nemůžeš mít víc životů, než je tvoje maximum životů, a nemůžeš jich mít méně než 0. *Viz také* „Breaking Objects“ („Rozbíjení předmětů“) a „Hraní hry“ („Zranění a léčení“).
 
-> **Artikule:** Pacholci mají 1 HP a každý zásah jednoho z nich skolí.
+> **Artikule:** Pacholek má 5 HP; zranění, které ho skolí, přejde na dalšího pacholka.
 
 #### Hostile [Attitude] (Nepřátelský [postoj])
 
