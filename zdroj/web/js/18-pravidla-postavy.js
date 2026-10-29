@@ -93,7 +93,7 @@ const KZBRAN = [
   [/hand crossbow|ruční kuše/i, "Hand Crossbow", "1d6", "Piercing", "Ammunition, Light, Loading", "M", 1],
   [/heavy crossbow|těžká kuše|^kuše/i, "Heavy Crossbow", "1d10", "Piercing", "Ammunition, Heavy, Loading, Two-Handed", "M", 1],
   [/longbow|dlouhý luk|\bluk\b/i, "Longbow", "1d8", "Piercing", "Ammunition, Heavy, Two-Handed", "M", 1],
-  [/musket|mušket/i, "Musket", "1d12", "Piercing", "Ammunition, Loading, Two-Handed", "M", 1],
+  [/musket|mušket|hákovnic/i, "Musket", "1d12", "Piercing", "Ammunition, Loading, Two-Handed", "M", 1],
   [/pistol|píšťal/i, "Pistol", "1d10", "Piercing", "Ammunition, Loading", "M", 1],
   [/blowgun|foukačk/i, "Blowgun", "1", "Piercing", "Ammunition, Loading", "M", 1],
 ];

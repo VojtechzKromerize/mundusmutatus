@@ -134,8 +134,8 @@ Používáš-li jako provizorní zbraň nějaký předmět – například nohu 
 | Hand Crossbow (ruční kuše) | 1d6 Piercing | Ammunition (dostřel 30/120; šipka), Light, Loading | Vex | 3 lb. | 75 GP |
 | Heavy Crossbow (těžká kuše) | 1d10 Piercing | Ammunition (dostřel 100/400; šipka), Heavy, Loading, Two-Handed | Push | 18 lb. | 50 GP |
 | Longbow (dlouhý luk) | 1d8 Piercing | Ammunition (dostřel 150/600; šíp), Heavy, Two-Handed | Slow | 2 lb. | 50 GP |
-| Musket (mušketa) | 1d12 Piercing | Ammunition (dostřel 40/120; kulka), Loading, Two-Handed | Slow | 10 lb. | 500 GP |
-| Pistol (pistole) | 1d10 Piercing | Ammunition (dostřel 30/90; kulka), Loading | Vex | 3 lb. | 250 GP |
+| Musket (hákovnice) | 1d12 Piercing | Ammunition (dostřel 40/120; kulka), Loading, Two-Handed | Slow | 10 lb. | 500 GP |
+| Pistol (píšťala) | 1d10 Piercing | Ammunition (dostřel 30/90; kulka), Loading | Vex | 3 lb. | 250 GP |
 
 > **Artikule:** Vedle vlastností SRD mají zbraně perky, které platí pro každého, kdo má se zbraní zdatnost (Weapon Mastery se nemění):
 > - **Drtivá** (Mace, Flail, Warhammer) – ignoruje Resistance zbroje proti Bludgeoning zranění.

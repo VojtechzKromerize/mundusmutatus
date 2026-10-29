@@ -199,6 +199,7 @@ function renderVybaveni(main, c) {
   }).join("");
   main.innerHTML = `<nav class="crumbs"><a href="#pravidla">Pravidla</a> › <b>Vybavení</b></nav><h2 class="arttitle">Vybavení</h2>
     <p class="intro">Zbroj, zbraně, výbava, nářadí, zvířata, doprava, jedy a magické předměty s cenami a stručným popisem. U zbraní jsou perky a u zbroje druh podle <a href="#artikule/vyzbroj">Artikulí</a>. Klepnutím na název se ukáže popis; ${K ? `<b>+ Přidat</b> dá věc do vybavení postavy <b>${besc(K.n)}</b>` : GMV ? "vyber postavu, do které se má přidávat" : "přihlas se ke své postavě na stránce Hra a věci si rovnou přidáš do vybavení"}.</p>
+    <p class="vybmince"><b>Mince tažení:</b> 1 kopa = 60 pražských grošů · 1 groš = 10 haléřů · uherský zlatý ≈ 40 grošů. Ceny z pravidel D&amp;D se převádějí 1 GP = 10 grošů.</p>
     <form class="kvlh vybf" data-vybf><input type="search" name="q" value="${besc(VYBF.q)}" placeholder="hledat: meč, Rope, lektvar…" data-vybq autocomplete="off"><select name="sk" data-vybsk aria-label="Kategorie"><option value="">vše</option>${VYBSK.map(([sk, n]) => `<option value="${sk}"${VYBF.sk === sk ? " selected" : ""}>${n}</option>`).join("")}</select>
       ${
         !VYBF.sk || VYBF.sk === "magicke"

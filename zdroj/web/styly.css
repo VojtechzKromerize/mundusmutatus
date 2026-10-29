@@ -4004,3 +4004,4 @@ html.mmpc:not(.mmjenhra) .bdmweb{display:grid;font-size:1.2rem}
 .chybyl li{display:flex;flex-direction:column;gap:2px;padding:6px 8px;border-left:3px solid var(--kal);background:color-mix(in srgb,var(--kal) 6%,transparent);border-radius:0 3px 3px 0}
 .chybyl small{color:var(--muted)}.chybyl code{font-size:.78rem;overflow-wrap:anywhere;opacity:.8}
 .chpoc{font-family:var(--f-label);font-size:.78rem;padding:0 6px;border-radius:8px;background:var(--kal);color:var(--paper)}
+.vybmince{margin:-4px 0 12px;padding:6px 10px;border-left:3px solid var(--gold);background:color-mix(in srgb,var(--gold) 8%,transparent);font-size:.92rem}
