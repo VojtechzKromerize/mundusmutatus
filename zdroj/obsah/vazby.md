@@ -99,6 +99,7 @@
 - spoj | leu, pas | Lankrabata drží hrabství Hals a pasovský maršálský úřad v léno od pasovského biskupa.
 - spoj | mei, wet | Biskup Kašpar ze Schönbergu vděčí za volbu saskému kurfiřtovi a slouží mu jako diplomat.
 - spoj | pap, hun | Legát Carvajal financuje boj proti Turkům a podporuje Matyášovu volbu.
+- spoj | szap, hun | Bratři Zápolští jsou mezi příbuznými a služebníky Hunyadiů a mladého krále Matyáše.
 - spoj | cat, mes | Sůl ze Solné komory jde přes Linec a Freistadt do jižních Čech, hlavně do Budějovic.
 - spor | cbr, bra | Berlín-Cölln se v letech 1447–1448 vzbouřil proti kurfiřtovi a markrabě vzpouru zlomil.
 - spoj | var, pod | Jan z Vartenberka se uchází o hornolužické fojtství a hledá přízeň nového krále.
