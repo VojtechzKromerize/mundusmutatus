@@ -62,8 +62,8 @@ test("dovednosti: nevýhoda na Stealth z nasazené zbroje jde do hodu i na kartu
   const dp = V(`KARTBY.balduin.dovProf || {}`);
   const ex = Object.keys(dp).find(n => dp[n] === "E"),
     pr = Object.keys(dp).find(n => dp[n] && dp[n] !== "E");
-  if (pr) assert.ok(h.includes(`<div class="bdmdr kprof"><span>${pr} <small>`), `${pr}: řádek se zdatností`);
-  if (ex) assert.ok(h.includes(`<div class="bdmdr kprof kexp"><span>${ex} <small>`), `${ex}: řádek s expertízou`);
+  if (pr) assert.ok(h.includes(`<div class="bdmdr kprof"><span>${pr} <small class="bdmat `), `${pr}: řádek se zdatností`);
+  if (ex) assert.ok(h.includes(`<div class="bdmdr kprof kexp"><span>${ex} <small class="bdmat `), `${ex}: řádek s expertízou`);
 });
 
 test("nad vlastnostmi Zdatnost, Rychlost a Iniciativa jako stříbrné mince s hodnotou; Iniciativa hází", () => {

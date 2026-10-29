@@ -293,6 +293,7 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
 - 10-29 Nadpisy oddílů bojové karty (`.bdmgh`: Statistiky, Dovednosti, Smysly…) serifovou kapitálkou Alegreya SC (`--f-nadp`, soubory v `art/pisma`, `@font-face` v `koruna.html`; licence OFL přiložena) místo verzálek Alegreya Sans SC. Zbývá: lišta „Web má novou verzi“ nahoře (na mobilu zakrývá ☰ a jméno – nejdřív ověřit v prohlížeči na dev).
 - 10-29 Po označení reakce jako použité se nad kartou už neukazuje samostatný rámeček „Reakci jsi v tomto kole už použil“ (připomínky na tah `.bjapr`, 20d); stav reakce říká přeškrtnutá pečeť R na portrétu.
 - 10-29 Celá karta (`.kdb`) používá Alegreya SC na popiscích, záložkách, tlačítkách a štítcích: `--f-label` se uvnitř karty přepíše na `--f-nadp`; dlouhé texty zůstávají v Alegreya (`--f-body`) a jména v gotické (`--f-disp`). Řádky dovedností (`.bdmdr`) také, bez zvětšení písma kvůli ořezu názvů na telefonu.
+- 10-29 Zkratka vlastnosti za dovedností (STR, DEX…) má na kartě svou barvu (`.bdmat-*`). Herní záznam na tmavé kartě je čitelný (`.kdb .bzco` a spol. používají `--kb-*`). Horní záložky hráče (`.btabsc`) mají také Alegreya SC.
 
 ## Otevřené
 - **Mapa jih – k ověření (Vojta)**: kdo k 3. 3. 1458 drží Čakovec a Varaždínský hrad (celjské dědictví – Vitovec?), Golubac vynechán (srbský/turecký?), Kusánský
