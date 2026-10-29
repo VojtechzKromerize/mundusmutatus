@@ -329,6 +329,24 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
 - **Dokumenty v projektu claude.ai**: datované snímky `vyvoj/*` smazány 2026-10-22 (vše sloučeno sem); zůstávají `vyvoj/mobil.md` a `vyvoj/beyond-parita.md` (otevřené body jsou přenesené výše – po jejich vyřízení smazat), `pravidla/rozhodnuti.md` a aktuální Artikule.
 - Rešerše 10-28 (knihy 4) k ověření: Jindřich Reuss z Plavna je u Urbana velmistrův synovec, web má strýce (800-nrad); Malbork 1457 – Urban: žoldnéři prodali hrad Gdaňsku za 190 000 dukátů, Gdaňsk králi; Neumark 1443/1455 měna; Bárány s. 373 (Matyáš a válka proti Jiřímu) neodpovídá webu, nepřebírat. Nové osoby k zvážení: Laurentius Blumenau, Bartholmaus Liebenwald, Johann Pyr (kupec gdaňský), Johann Schweidnitzer (Toruň/Olkusz).
 
+## Údržba 2026-10-29
+
+Průchod stabilitou a chybami (Vojta: „optimalizace a údržba celého webu“). Commity `0bf2ef7` (přihlášení), `0067f01` (boj), `7a54d64` (karta).
+
+- **Přihlášení a spojení:** zprávy od vypravěče i pro hráče s účtem; odhlášení jen na tomto zařízení (`scope=local`); vypršelá relace účtu hráče odhlásí
+  (`jaZapomen`); upozornění na telefon za správnou postavu (`pushPostava`, odběr se při uvolnění karty smaže v `mm_ja_uvolni` / `mm_hrac_zrus_heslo`);
+  mrtvé spojení Realtime se pozná (70 s bez zprávy) a přepne se na puls; nenačtený díl skriptu spustí kontrolu nové verze; featy, povolání a texty karty
+  se po chybě načtou znovu za minutu.
+- **Boj:** přehrání změny po konfliktu verzí volá hák tahu potichu (`bojTahHookTicho`, `BTICHO` v 12) – nic se znovu nehází ani nehlásí, výsledky záchran
+  konce tahu si pamatuje `BTHZ`; přepínače stavů a reakcí zapisují cílovou hodnotu; zámek potvrzení útoku vyprší (15 s); Zpět (`bojObnovStav`) nechá čekající
+  útoky hráčů a po útoku vrací i životy; okamžitá smrt při zásahu na 0 HP ≥ maximum; Nová scéna drží `nid`; série útoků po částečné chybě; klíč `BUVC` se stavem
+  houfu; dotaz pulsu během ukládání se zopakuje (`bojPollPozdeji`); uložení bez dotazu na verzi, když ji známe; `BHIST` bez spojeného klíče.
+- **Karta:** Mage Armor jako základ AC (`ucAC().zak`); `kLecMimo` (léčení padlého mimo boj); `kStavVliv` – hod proti smrti je záchrana, dovednost dá vlastnost;
+  LoH/Bardic po odkladu z čerstvého stavu; `KUCX` s časem konce; `kartaStavZmen` po chybě uvolní všechna pole; Large Form, Tireless; `kZdroje` přes `kZdrJm`;
+  kostka životů s `kMd(K, "CON")`; `kMunice` bez pouzder. Testy `karta-udrzba.test.mjs`, rozšířený `boj-pc.test.mjs`.
+- **Nechané (k rozhodnutí):** hráč přihlášený jen starým heslem karty nevidí své tajné hody (potřebovalo by RPC); test `prohlizec_boj2.py` občas spadne na připojení
+  společníka (ř. ~323) – opakování projde.
+
 ## Týdenní údržba 2026-10-24
 
 Údržbový průchod (bez nových funkcí). CI na `dev` zelená, `npm test` 177 testů zelených (~1 min), kontrola kódu bez chyb.
