@@ -6,7 +6,7 @@ pocet: 6
 vyzva: 25 XP za pacholka
 ac: 12
 hp: 5
-utok: Kousnutí +3 · 2 Piercing za každého psa v dosahu cíle · strhávají (Prone)
+utok: Kousnutí +3 · 2 Piercing za každého psa v dosahu cíle · strhávají (Prone) · zavětřit (Bonusová akce)
 bonus: 3
 komplikace: Pes se zakousne do lýtka a nepustí: útočník má do konce svého příštího tahu poloviční rychlost.
 stitky: psi, zvěř, lov, štvanice, hrad, dvůr, stráž, psovod, honicí psi
@@ -28,6 +28,10 @@ Hlídací a honicí psi z panského dvora, kláštera nebo biřicova dvorku. Št
 - **Čich.** Smečka stopuje: Survival se nehází, pokud stopa není starší než den nebo nevede vodou.
 - **Štvanice.** Proti cíli, který se v tomto kole pohnul o 15 stop a víc, útočí houf s výhodou – psi vidí útěk.
 - **Štěkot.** Kde smečka štěká, nikdo nespí: hlídka v doslechu je vzhůru.
+
+## Bonusová akce
+
+- **Zavětřit.** Houf zjistí polohu skrytého nebo neviditelného tvora do 60 stop; proti němu útočí do konce tahu bez nevýhody.
 
 **Morálka.** Prchají, když padne polovina nebo psovod. Na psovodův signál (Animal Handling DC 12, Bonusová akce) se vrátí. Kdo psům hodí maso (Akce), odvede polovinu houfu na kolo od boje.
 

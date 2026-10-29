@@ -6,7 +6,7 @@ pocet: 5
 vyzva: 100 XP za pacholka
 ac: 12
 hp: 5
-utok: Vysávající dotek +4 · 2 Prokleté za každého v dosahu a cíl ztratí 1 STR (1k4 STR, jsou-li v dosahu 3+)
+utok: Vysávající dotek +4 · 2 Prokleté za každého v dosahu a cíl ztratí 1 STR (1k4 STR, jsou-li v dosahu 3+) · ve tmě (Bonusová akce)
 bonus: 4
 komplikace: Stín vklouzne do útočníkova stínu: útočník má do konce svého příštího tahu nevýhodu na Perception a útoky proti stínům.
 stitky: nemrtví, stíny, Závoj, Noc Proměny, tma, noc
@@ -26,7 +26,10 @@ Tma ve tvaru člověka, chladná na dotek. Vysávají sílu a kdo jim podlehne, 
 ## Vlastnosti
 
 - **Slunce.** Na slunci mají nevýhodu na hody a nemohou se skrýt.
-- **Ve tmě.** V šeru a tmě se mohou skrýt (Bonusová akce); útočník na ně pak nevidí a hádá pole.
+
+## Bonusová akce
+
+- **Ve tmě.** V šeru a tmě se houf skryje (Hide); útočník na něj pak nevidí a hádá pole.
 
 **Morálka.** Neprchají. Rozplynou se za svítání.
 

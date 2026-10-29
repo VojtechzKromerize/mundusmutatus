@@ -6,7 +6,7 @@ pocet: 5
 vyzva: 100 XP za pacholka
 ac: 13
 hp: 5
-utok: Mámivý dotek +4 · 3 za každou v dosahu (Psychic) · smrtící tanec (CON DC 12, 1 úroveň Exhaustion)
+utok: Mámivý dotek +4 · 3 za každou v dosahu (Psychic) · smrtící tanec (CON DC 12, 1 úroveň Exhaustion) · do kola (Bonusová akce)
 bonus: 4
 komplikace: Rusalka chytí útočníka za ruku a strhne ho do kola: WIS save DC 12, jinak v příštím tahu tančí místo útoku.
 zakon: Musí tančit do kuropění; nesmí se dotknout člověka v obrácených botách; musí přijmout nabídnutý věneček.
@@ -30,6 +30,10 @@ Nevěsty, které zemřely před svatbou, a od nepaměti tančí na lukách u vod
 - **Smrtící tanec.** Kdo je v kole (zmámený nebo dobrovolně), hodí na konci každého kola CON save DC 12, jinak získá 1 úroveň Exhaustion. Kolo se přeruší kokrháním, zvonem nebo světlem úsvitu.
 - **Zpěv.** Akcí houfu: každý muž do 60 stop hodí WIS save DC 12, jinak je Charmed a vejde do kola.
 - **Nesmrtelnost místa.** Na 0 HP se rozplyne a vrátí se ve své příští hodině s polovinou HP, dokud ho družina nezažehná (viz Relikt).
+
+## Bonusová akce
+
+- **Do kola.** Tvor do 30 stop, který je Charmed, se pohne až o 15 stop do kola rusalek, aniž by vyvolal Opportunity Attack, a tančí.
 
 ## Relikt
 

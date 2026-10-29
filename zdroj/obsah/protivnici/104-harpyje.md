@@ -6,7 +6,7 @@ pocet: 4
 vyzva: 200 XP za pacholka
 ac: 11
 hp: 5
-utok: Drápy +3 · 3 Slashing za každou harpyji v dosahu cíle · Lákavá píseň (WIS DC 11, Charmed – jde k nim)
+utok: Drápy +3 · 3 Slashing za každou harpyji v dosahu cíle · Lákavá píseň (WIS DC 11, Charmed – jde k nim) · do výšky (Bonusová akce)
 bonus: 3
 komplikace: Harpyje útočníka chytí a vynese o 10 stop výš a pustí: 1d6 Bludgeoning a Prone.
 stitky: netvor, harpyje, skály, hory, Alpy, Dunaj, pobřeží, píseň, Physiologus, Závoj
@@ -29,6 +29,10 @@ Ptačí ženy z bestiářů, které po Protržení Závoje zahnízdily na skalá
 - **Lákavá píseň.** Místo útoku houf zpívá (soustředí se). Každý humanoid a obr do 30 stop, který píseň slyší, hodí WIS save DC 11, jinak je Charmed: je Incapacitated a každý tah jde nejkratší cestou k harpyjím, i přes okraj skály. Na konci svého tahu a kdykoli utrží zranění od jiného zdroje než od harpyjí záchranu opakuje; kdo uspěje, je vůči písni 24 hodin imunní. Vosk v uších (nebo ohlušení) chrání.
 - **Nad propastí.** Hnízdí tam, kde pod skálou je 30 stop a víc. Kdo spadne, utrží pád – a houf se na něj vrhne.
 - **Zbabělé.** Útočí jen na toho, kdo je Charmed, Prone nebo sám. Proti sešikované družině se drží ve vzduchu.
+
+## Bonusová akce
+
+- **Do výšky.** Houf vzlétne až o 40 stop, aniž by vyvolal Opportunity Attack.
 
 **Morálka.** Prchají při polovině. Vrátí se v noci, když družina spí – a zpívají hlídce.
 

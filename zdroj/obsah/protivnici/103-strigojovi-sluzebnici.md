@@ -6,7 +6,7 @@ pocet: 4
 vyzva: 700 XP za pacholka
 ac: 15
 hp: 5
-utok: Stínové dýky +5 · 4 (Piercing a Prokleté) za každého služebníka · zbroj proti Prokletému nepomáhá · kdo padne, je živý a Paralyzed
+utok: Stínové dýky +5 · 4 (Piercing a Prokleté) za každého služebníka · zbroj proti Prokletému nepomáhá · kdo padne, je živý a Paralyzed · nelidsky hbití (Bonusová akce)
 bonus: 5
 komplikace: Dýka zůstane v ráně a chladí: útočník nemůže do konce svého příštího tahu získat HP.
 stitky: nemrtví, upír, strigoj, služebníci, hrad, Valašsko, Sedmihradsko, noc, lidé
@@ -26,8 +26,11 @@ Lidé, kterým strigoj dal pít ze své krve, ale nedovolil jim zemřít. Vidí 
 ## Vlastnosti
 
 - **Pánovy oči.** Co vidí služebník, vidí strigoj. Lstí na ně nejde zaskočit, pokud strigoj bdí.
-- **Nelidsky hbití.** Houf může jako Bonusovou akci Dash nebo Disengage; po stěnách lezou jako pavouci.
 - **Živí.** Jsou to lidé. Svaté zranění, svěcená voda ani *Ve jménu Páně!* na ně nepůsobí. Kdo je zabije, zabil člověka, který byl obětí.
+
+## Bonusová akce
+
+- **Nelidsky hbití.** Houf použije Dash nebo Disengage; po stěnách lezou jako pavouci.
 
 **Morálka.** Neprchají, dokud strigoj žije – nemohou. Padne-li strigoj, zhroutí se (1 hodinu Poisoned), a kdo přežije, je volný; většina si nic nepamatuje.
 

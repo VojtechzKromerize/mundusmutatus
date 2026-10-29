@@ -6,7 +6,7 @@ pocet: 4
 vyzva: 200 XP za pacholka
 ac: 13
 hp: 5
-utok: Žihadla +5 · 3 Piercing a jed za každého čertíka v dosahu
+utok: Žihadla +5 · 3 Piercing a jed za každého čertíka v dosahu · ukrást (Bonusová akce)
 bonus: 5
 komplikace: Čertík se zneviditelní a šeptne útočníkovi do ucha jeho Neřest: další hod Závoje mu padá Pokušení na 1–3.
 stitky: pekelníci, čerti, čertíci, Závoj, peklo, sabat, čarodějnice
@@ -29,6 +29,10 @@ Drobní čerti, posílaní z pekla na pochůzky: svádět, krást duše, slouži
 - **Proměna.** Krysa, krkavec nebo pavouk – houf se dá zahnat jen svěcenou vodou nebo zvonem.
 - **Odolnost proti magii.** Výhoda na záchrany proti kouzlům.
 - **Pekelníci.** Ve jménu Páně! (katolík, stupeň 3) na něj působí jako na vyššího démona: WIS save, jinak Frightened. Svěcená voda mu způsobí 2d6 Svatého zranění.
+
+## Bonusová akce
+
+- **Ukrást.** Jeden čertík vezme drobnost z opasku tvora do 5 stop (Sleight of Hand +5 proti jeho pasivní Perception) a odletí s ní o 20 stop.
 
 **Morálka.** Prchají, když padne polovina nebo jejich pán. Vždycky se ale vracejí.
 

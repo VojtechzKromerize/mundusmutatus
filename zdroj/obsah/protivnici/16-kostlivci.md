@@ -6,7 +6,7 @@ pocet: 8
 vyzva: 50 XP za pacholka
 ac: 14
 hp: 5
-utok: Krátké meče nebo luky +5 · 3 Piercing za každého kostlivce v dosahu (luky: za každého, kdo vidí)
+utok: Krátké meče nebo luky +5 · 3 Piercing za každého kostlivce v dosahu (luky: za každého, kdo vidí) · složit kosti (Bonusová akce)
 bonus: 4
 komplikace: Kostlivec se rozpadne a znovu složí: útočník je do konce svého příštího tahu obklíčen – další houf na něj útočí s výhodou.
 stitky: nemrtví, kostlivci, bojiště, Lipany, hřbitov, kostnice
@@ -29,8 +29,12 @@ Holé kosti v rezavých kroužkových košilích, často ještě s kalichem nebo
 - **Kosti se lámou.** Zásah zbraní s Bludgeoning (palcát, cep, kladivo) skolí dva kostlivce.
 - **Bez vůle.** Neprchají, dokud stojí ten, kdo je zvedl (padlý rytíř, nigromant). Pak se rozsypou.
 
+## Bonusová akce
+
+- **Složit kosti (1/kolo).** Jeden padlý kostlivec se znovu složí a vrátí se do houfu – ne ten, kterého skolila Drtivá zbraň, Svaté zranění nebo oheň.
+
 **Morálka.** Neprchají. Padne-li jejich pán, houf se rozpadne.
 
 **Kořist.** Rezavé zbraně, zbytky zbrojí, tu a tam prsten nebo růženec.
 
-*Předloha: Skeleton (D&D 2024), převedeno pro Mundus Mutatus.*
+*Předloha: Skeleton (D&D 2024); bonusová akce podle Graveyard Revenant, převedeno pro Mundus Mutatus.*

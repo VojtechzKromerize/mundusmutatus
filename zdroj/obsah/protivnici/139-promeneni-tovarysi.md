@@ -6,7 +6,7 @@ pocet: 8
 vyzva: 100 XP za pacholka
 ac: 12
 hp: 5
-utok: Kladiva, sekery a palice +4 · 3 Bludgeoning za každého v dosahu cíle · Drtivá (řemeslnické nářadí) · trpaslíci a půlobři vydrží
+utok: Kladiva, sekery a palice +4 · 3 Bludgeoning za každého v dosahu cíle · Drtivá (řemeslnické nářadí) · trpaslíci a půlobři vydrží · barikáda (Bonusová akce)
 bonus: 4
 komplikace: Tovaryš útočníka chytí za zbraň a zatne do ní kladivem: zbraň má do konce boje −1 k útoku (Mending ruší).
 stitky: Proměněnci, tovaryši, měšťané, kališníci, Praha, Kutná Hora, cech, rovnost, trpaslíci, půlobři, orkové, lidé
@@ -30,6 +30,10 @@ utoky:
 - **Nářadí.** Kladiva a palice jsou Drtivá: ignorují Resistance zbroje. Rytíř v plátu se proti nim necítí jako rytíř.
 - **Rynk je jejich.** Ve městě, kde pracují, znají každou uličku a dílnu: útok ze zálohy má v prvním kole výhodu a houf se nedá pronásledovat.
 - **Bratři.** Proměněná postava (nebo kališník, který Proměnu brání) s nimi může mluvit: Persuasion DC 12 a houf vyslechne; DC 15 a jde domů.
+
+## Bonusová akce
+
+- **Barikáda.** Houf převrhne vůz, stůl nebo stánek: do konce kola má on i spojenci za ní half cover.
 
 **Morálka.** Prchají při polovině nebo když zazvoní na poplach (stráž). Neprchají, dokud mluví jejich řečník – a nikdy před Hazmburkovými elfy, které nesnášejí.
 

@@ -6,7 +6,7 @@ pocet: 4
 vyzva: 700 XP za pacholka
 ac: 15
 hp: 5
-utok: Kousnutí +5 · 5 za každého psa v dosahu (Piercing a Fire) · ohnivý dech (DEX DC 12, 5d6 Fire)
+utok: Kousnutí +5 · 5 za každého psa v dosahu (Piercing a Fire) · ohnivý dech (DEX DC 12, 5d6 Fire) · štvanice (Bonusová akce)
 bonus: 5
 komplikace: Pes chytí útočníka za plášť a ten vzplane: hoří (1d4 Fire na začátku tahu, dokud to neuhasí).
 stitky: pekelníci, psi, divoký hon, oheň, peklo, noc
@@ -28,6 +28,10 @@ utoky:
 
 - **Ohnivý dech (dobíjí se na 5–6).** Místo kousnutí: kužel 15 stop, DEX save DC 12, neúspěch 5d6 Fire, úspěch polovina.
 - **Pekelníci.** Ve jménu Páně! (katolík, stupeň 3) na něj působí jako na vyššího démona: WIS save, jinak Frightened. Svěcená voda mu způsobí 2d6 Svatého zranění.
+
+## Bonusová akce
+
+- **Štvanice.** Houf se pohne až o 25 stop, aniž by vyvolal Opportunity Attack, pokud skončí u tvora, kterého jim označil pán honu nebo čarodějník.
 
 **Morálka.** Neprchají, dokud žije jejich pán. Pak se rozplynou v kouři.
 

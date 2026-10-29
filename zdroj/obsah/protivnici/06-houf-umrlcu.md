@@ -6,7 +6,7 @@ vyzva: 50 XP za pacholka
 pocet: 3
 ac: 8
 hp: 5
-utok: Zetlelé pěsti, dosah 5 stop · 3 Bludgeoning za každého umrlce v dosahu cíle
+utok: Zetlelé pěsti, dosah 5 stop · 3 Bludgeoning za každého umrlce v dosahu cíle · studené ruce (Bonusová akce)
 bonus: 3
 komplikace: Umrlec se zakousne a nepustí: útočník je Grappled (únik DC 11), dokud umrlce neskolí.
 stitky: umrlci, nemrtví, nigromant, mor, hřbitov
@@ -27,6 +27,10 @@ Mrtví zvednutí kouzlem *Animate Dead*, obvykle po třech. Pomalí, tupí a ne�
 
 - **Svatá zbraň a svěcená voda.** Zásah Svatým (Radiant) zraněním nebo svěcená voda umrlce skolí hned.
 - **Bez pána.** Padne-li nigromant, který je zvedl, umrlci se rozpadnou.
+
+## Bonusová akce
+
+- **Studené ruce.** Houf se pohne až o 10 stop; tvor, který leží (Prone) v jeho dosahu, je Grappled (únik DC 11).
 
 **Morálka.** Neprchají.
 

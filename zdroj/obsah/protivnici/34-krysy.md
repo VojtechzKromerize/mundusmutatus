@@ -6,7 +6,7 @@ pocet: 6
 vyzva: 50 XP za pacholka
 ac: 10
 hp: 5
-utok: Kousnutí +2 · 3 Piercing za každý roj v dosahu (2 po polovině padlých)
+utok: Kousnutí +2 · 3 Piercing za každý roj v dosahu (2 po polovině padlých) · pod nohy (Bonusová akce)
 bonus: 2
 komplikace: Krysy vlezou do rukávů: útočník je do konce svého příštího tahu Poisoned (hnus a kousance).
 stitky: zvěř, krysy, mor, město, sklep, kanál, stoka, upír
@@ -27,6 +27,10 @@ utoky:
 
 - **Roje.** Sdílejí pole s jinými tvory a projdou každou škvírou; nedají se chytit, vyděsit ani srazit.
 - **Mor.** Kdo je po boji pokousaný, hodí CON save DC 10, jinak za den onemocní (vypravěč volí).
+
+## Bonusová akce
+
+- **Pod nohy.** Tvor v prostoru houfu hodí DEX save DC 10, jinak je Prone.
 
 **Morálka.** Prchají, když padne polovina, nebo před ohněm.
 

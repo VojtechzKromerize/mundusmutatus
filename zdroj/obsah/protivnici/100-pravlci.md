@@ -6,7 +6,7 @@ pocet: 5
 vyzva: 200 XP za pacholka
 ac: 14
 hp: 5
-utok: Kousnutí +5 · 4 Piercing za každého vlka v dosahu cíle · strhávají (Prone, STR DC 13)
+utok: Kousnutí +5 · 4 Piercing za každého vlka v dosahu cíle · strhávají (Prone, STR DC 13) · vytí do noci (Bonusová akce)
 bonus: 5
 komplikace: Vlk strhne útočníka za plášť nebo ze sedla: STR save DC 13, jinak je Prone (jezdec spadne z koně).
 stitky: zvěř, vlci, pravlci, hory, Krkonoše, Jeseníky, Šumava, zima, smečka, zimní vlk
@@ -28,6 +28,10 @@ Vlci velcí jako tele, kteří se po Noci Proměny stáhli z hor do podhůří. 
 - **Obklíčení.** Proti cíli, u kterého stojí aspoň dva vlci, útočí houf s výhodou.
 - **Rychlí.** Na sněhu a v hlubokém lese se pohybují plnou rychlostí; kdo před nimi utíká pěšky, toho dohoní.
 - **Koně.** Kůň do 30 stop od smečky se plaší: jezdec hodí Animal Handling DC 13, jinak kůň prchá i s ním.
+
+## Bonusová akce
+
+- **Vytí do noci (1/boj).** Každý nepřítel do 60 stop, který vytí slyší, hodí WIS save DC 12, jinak je Frightened do konce příštího tahu houfu; koně se plaší.
 
 **Morálka.** Prchají, když padne polovina nebo zimní vlk, který je vede. Oheň: do 10 stop od ohně nevstoupí, dokud hoří. Mrtvý kůň na místě zdrží polovinu smečky na kolo.
 

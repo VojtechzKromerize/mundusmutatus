@@ -6,7 +6,7 @@ pocet: 4
 vyzva: 700 XP za pacholka
 ac: 14
 hp: 5
-utok: Pastýřské hole +4 · 4 (Slashing a Prokleté) za každého pastýře v dosahu cíle · luky +4 · ženou stáda mrtvých
+utok: Pastýřské hole +4 · 4 (Slashing a Prokleté) za každého pastýře v dosahu cíle · luky +4 · ženou stáda mrtvých · zahnat stádo (Bonusová akce)
 bonus: 4
 komplikace: Pastýř se útočníka dotkne holí: CON save DC 13, jinak ztratí 1d8 z maxima HP – Veles si ho zapsal do stáda.
 stitky: Staří bozi, Veles, nemrtví, pastýři, stádo, podsvětí, Nav, mohyly, dobytek, starověrci, noc
@@ -30,6 +30,10 @@ Mrtví pastýři Velesa, Starého boha stád, podsvětí a přísah na dobytek. 
 - **Stádo.** Chodí s houfem dobytka (zvířata, AC 10, 5 HP, útok houfu rohy +3, 3 Bludgeoning). Kdo vstoupí do stáda, je Grappled (STR save DC 13) a stádo ho nese s sebou.
 - **Slunce.** Za dne mají nevýhodu na útoky a schovávají se v mohylách. V noci mají na pastvinách výhodu na Stealth.
 - **Velesův zápis.** Kdo zemře zásahem houfu, vstane za 24 hodin jako umrlec v jejich stádu – ledaže ho někdo pohřbí s mincí v ústech, nebo spálí.
+
+## Bonusová akce
+
+- **Zahnat stádo.** Stádo vrazí do tvora do 10 stop: STR save DC 13, jinak je Prone a Grappled stádem.
 
 **Morálka.** Neprchají. Rozplynou se za svítání, při kohoutím zakokrhání – nebo když žrec, který je zavolal, zruší obětinu.
 

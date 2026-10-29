@@ -6,7 +6,7 @@ pocet: 8
 vyzva: 100 XP za pacholka
 ac: 13
 hp: 5
-utok: Luky +4 · 3 Piercing za každého, kdo na cíl vidí · ohnivé šípy zapalují · arkany (laso) · jízdní, střílí a odjíždějí
+utok: Luky +4 · 3 Piercing za každého, kdo na cíl vidí · ohnivé šípy zapalují · arkany (laso) · jízdní, střílí a odjíždějí · pokřik (Bonusová akce)
 bonus: 4
 komplikace: Arkan: útočníkovi padne na krk smyčka a kůň ho táhne – STR save DC 12, jinak je Prone a vlečen o 20 stop (1d6 Bludgeoning).
 stitky: Tataři, Zlatá horda, Krym, Litva, Polsko, Rus, nájezd, jízda, lučištníci, step, oheň, lidé
@@ -31,6 +31,10 @@ Nájezdníci Zlaté hordy a krymského chána: přicházejí přes Litvu a Polsk
 - **Arkany.** Místo střelby hodí houf lasa: cíl Medium nebo menší hodí DEX save DC 12, jinak je Restrained (únik DC 12) a vlečen za koňmi o 30 stop za tah.
 - **Step, ne les.** V lese, v bažině nebo za vozovou hradbou ztrácejí jízdu: rychlost 30 stop, bez Střílej a jeď. Do města nejedou – město zapálí zvenku.
 - **Zajatci.** Nezabíjejí, pokud nemusí – zajatec je zboží. Kdo padne na 0 HP, je svázaný na koni.
+
+## Bonusová akce
+
+- **Pokřik.** Houf zavyje stepní pokřik: koně nepřátel do 60 stop se plaší – jezdec hodí Animal Handling DC 12, jinak kůň prchá.
 
 **Morálka.** Prchají při polovině – do stepi, kam je nikdo nedožene. Vrátí se příští rok. Nedají se podplatit, dají se vyplatit: za zajatce berou stříbro.
 

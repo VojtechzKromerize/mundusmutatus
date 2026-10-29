@@ -6,7 +6,7 @@ pocet: 8
 vyzva: 25 XP za pacholka
 ac: 10
 hp: 5
-utok: Srpy a klacky +3 · 3 Slashing za každého adamitu v dosahu cíle · nahota: zbroj žádná, strach žádný
+utok: Srpy a klacky +3 · 3 Slashing za každého adamitu v dosahu cíle · nahota: zbroj žádná, strach žádný · extáze (Bonusová akce)
 bonus: 3
 komplikace: Adamita útočníka obejme a káže mu o ráji: útočník hodí WIS save DC 11, jinak je do konce svého příštího tahu Charmed (neútočí na adamity).
 stitky: sekta, adamité, pikarti, kacíři, Nežárka, ostrov, Tábor, ráj, Závoj, Noc Proměny, lidé
@@ -29,6 +29,10 @@ Sekta, která po Protržení Závoje věří, že ráj už nastal: žádný hř�
 - **Ráj.** Nebojí se ničeho a nikoho; kouzla strachu na ně nepůsobí. Plošné kouzlo je skolí všechny – nemají zbroj ani štíty.
 - **Kážou.** Místo útoku může houf kázat: každý humanoid do 30 stop, který slyší, hodí WIS save DC 11, jinak je do konce příštího kola Charmed. Kališnická postava má nevýhodu – ta slova zná.
 - **Prorok.** Dokud je v doslechu jejich prorok, mají výhodu na záchrany.
+
+## Bonusová akce
+
+- **Extáze.** Houf se vrhne až o 15 stop k nejbližšímu nepříteli, aniž by vyvolal Opportunity Attack; voda a bahno je nezdrží.
 
 **Morálka.** Neprchají – smrt je návrat do ráje. Padne-li prorok, rozejdou se (a za týden mají nového).
 

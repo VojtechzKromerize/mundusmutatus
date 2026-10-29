@@ -6,7 +6,7 @@ vyzva: 100 XP za pacholka
 pocet: 8
 ac: 12 (prošívanice), za pavézou +2
 hp: 5
-utok: Salva, dostřel 30/90 stop · 4 Piercing za každého střelce, který na cíl vidí (Průrazná); pak tah nabíjí
+utok: Salva, dostřel 30/90 stop · 4 Piercing za každého střelce, který na cíl vidí (Průrazná); pak tah nabíjí · doutnák (Bonusová akce)
 bonus: 3
 komplikace: Zablýsknutí na pánvičce: polovina houfu (dolů) vypálí na útočníka mimořádnou salvu, i když nabíjí.
 stitky: husité, kališníci, vozová hradba, střelci, pole
@@ -28,6 +28,10 @@ Střelci za pavézami nebo vozovou hradbou. Jedna salva a pak nabíjení; mezi t
 - **Nabíjení.** Po salvě houf celý příští tah nabíjí. Střílí tedy každé druhé kolo, pokud ho nerozdělíš na dva menší houfy.
 - **Hrom a kouř.** Po salvě je okolí houfu do 10 stop do konce dalšího kola Lightly Obscured. Koně a draci nezvyklí na střelbu se splaší, pokud jezdec neuspěje v Animal Handling DC 12.
 - **Za vozy.** Za vozovou hradbou mají střelci three-quarters cover a houf neprchá.
+
+## Bonusová akce
+
+- **Doutnák.** Nabíjí-li houf v tomto tahu, jeden pacholek přesto odpálí hákovnici: +3, dostřel 30/90 stop, 2d10 Piercing (Průrazná) jednomu cíli.
 
 **Morálka.** Za vozy neprchají. V otevřeném poli, když se k nim nepřítel dostane na dosah meče, prchají hned.
 

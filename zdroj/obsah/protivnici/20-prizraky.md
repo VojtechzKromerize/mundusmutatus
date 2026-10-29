@@ -6,7 +6,7 @@ pocet: 4
 vyzva: 200 XP za pacholka
 ac: 12
 hp: 5
-utok: Vysátí života +4 · 3 Prokleté za každého v dosahu a stejně se sníží max. HP cíle
+utok: Vysátí života +4 · 3 Prokleté za každého v dosahu a stejně se sníží max. HP cíle · skrz zeď (Bonusová akce)
 bonus: 4
 komplikace: Přízrak projde útočníkem: útočník hodí CON save DC 11, jinak ztrácí Reakci do konce svého příštího tahu (chlad v srdci).
 stitky: nemrtví, přízraky, divoký hon, Závoj, noc
@@ -26,6 +26,10 @@ Bledé tváře bez těl, ozvěny těch, které divoký lovec vytrhl ze života. 
 ## Vlastnosti
 
 - **Nehmotní.** Procházejí tvory i předměty; na slunci mají nevýhodu.
+
+## Bonusová akce
+
+- **Skrz zeď.** Houf proletí až 30 stop skrz zdi i tvory, aniž by vyvolal Opportunity Attack; tvor, kterým proletí, hodí CON save DC 11, jinak má do konce svého tahu nevýhodu na útoky (mráz).
 
 **Morálka.** Neprchají, dokud žije ten, kdo je stvořil.
 

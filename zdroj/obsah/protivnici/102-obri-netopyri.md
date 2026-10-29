@@ -6,7 +6,7 @@ pocet: 6
 vyzva: 50 XP za pacholka
 ac: 13
 hp: 5
-utok: Kousnutí +5 · 3 Piercing za každého netopýra v dosahu cíle · let 60 stop
+utok: Kousnutí +5 · 3 Piercing za každého netopýra v dosahu cíle · let 60 stop · vír křídel (Bonusová akce)
 bonus: 5
 komplikace: Netopýr se zaplete útočníkovi do vlasů nebo kapuce: do konce svého příštího tahu je Blinded.
 stitky: zvěř, netopýři, jeskyně, Moravský kras, štola, věž, strigoj, upír, noc
@@ -28,6 +28,10 @@ Netopýři velcí jako pes, kteří vylétají z krasových jeskyní, z opuště
 - **Slepí.** Nedají se oslepit ani oklamat neviditelností; vidí ušima na 120 stop.
 - **Hluk.** Zvon, výstřel z píšťaly nebo hromové kouzlo (Thunder) houf rozptýlí: do konce příštího kola neútočí a lítá zmateně.
 - **Z ničeho.** V jeskyni nebo v temné věži mají v prvním kole výhodu – nikdo nevidí, odkud letí.
+
+## Bonusová akce
+
+- **Vír křídel.** Houf se pohne letem až o 30 stop, aniž by vyvolal Opportunity Attack; kdo stojí na jeho cestě, má do konce tahu nevýhodu na Perception.
 
 **Morálka.** Prchají při polovině nebo za denního světla. Pochodeň zvednutá nad hlavou (Akce) odvede houf na kolo od jejího nositele.
 

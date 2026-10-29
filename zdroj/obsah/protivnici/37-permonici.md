@@ -6,7 +6,7 @@ pocet: 8
 vyzva: 25 XP za pacholka
 ac: 14
 hp: 5
-utok: Dýky +4 · 2 Piercing za každého permoníka v dosahu (i hozené na 20/60 stop)
+utok: Dýky +4 · 2 Piercing za každého permoníka v dosahu (i hozené na 20/60 stop) · hrst kamínků (Bonusová akce)
 bonus: 4
 komplikace: Permoník zhasne lampu: útočník je do konce svého příštího tahu ve tmě (Blinded, nemá-li darkvision).
 zakon: Musí dostat svůj díl a musí ukázat žílu poctivému havíři; trestají, kdo v dole hvízdá nebo kleje.
@@ -28,6 +28,10 @@ Malí horští duchové z hlubin, kteří od Noci Proměny mluví a mají vlastn
 
 - **Slunce.** Na slunci mají nevýhodu na útoky.
 - **Štoly.** Znají každou chodbu: v dolech se mohou kdykoli stáhnout a objevit se jinde (vypravěč přesune houf o 30 stop).
+
+## Bonusová akce
+
+- **Hrst kamínků.** Tvor do 20 stop hodí DEX save DC 11, jinak má nevýhodu na příští útok – permoníci mu hodili prach do očí.
 
 **Morálka.** Prchají, když padne polovina, ale vracejí se s celou štolou. Usmířit je jde darem a slibem (Persuasion DC 12).
 

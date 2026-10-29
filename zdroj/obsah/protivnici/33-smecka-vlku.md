@@ -6,7 +6,7 @@ pocet: 6
 vyzva: 50 XP za pacholka
 ac: 12
 hp: 5
-utok: Kousnutí +4 · 4 Piercing za každého vlka v dosahu a cíl Medium a menší padá Prone
+utok: Kousnutí +4 · 4 Piercing za každého vlka v dosahu a cíl Medium a menší padá Prone · obkličovat (Bonusová akce)
 bonus: 4
 komplikace: Vlk se zakousne do pláště či štítu: útočník hodí STR save DC 12, jinak je Prone.
 stitky: zvěř, vlci, les, hory, zima, smečka
@@ -27,6 +27,10 @@ Hladová smečka z pohraničních hvozdů. Po Noci Proměny jsou vlci odvážně
 
 - **Smečka.** Výhoda, jsou-li u cíle aspoň dva vlci.
 - **Oheň.** Pochodeň nebo oheň mezi družinou a smečkou: vlci za ním neútočí, dokud je nevyžene hlad (Pokušení útočníka).
+
+## Bonusová akce
+
+- **Obkličovat.** Houf se pohne až o 15 stop, aniž by vyvolal Opportunity Attack, pokud skončí u cíle, u kterého už stojí jiný vlk.
 
 **Morálka.** Prchají, když padne polovina nebo vůdce smečky. Hladoví vlci v zimě prchají až při dvou třetinách.
 
