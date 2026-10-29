@@ -296,6 +296,12 @@ header.site{display:flex;flex-direction:column;gap:0;border:0;padding:0}
   .navlinks .navdd .svlist{max-height:none!important;padding:0!important;margin:0;-webkit-mask:none;mask:none;background:none;border:0;box-shadow:none;display:flex;flex-direction:column;align-items:flex-start;min-width:0}
   .navlinks .navdd .svitek::before,.navlinks .navdd .svlist::before,.navlinks .navdd .svlist a.on::before{display:none}.navlinks .navdd .svlist a small{display:none}.navlinks .navdd .svlist a{font-size:1.1rem;font-weight:inherit;padding:4px 0;margin:0!important;color:var(--ink);text-shadow:none;text-align:left;border:0!important;background:none!important;box-shadow:none!important}.navlinks .navdd .svlist a.on,.navlinks .navdd .svlist a:hover{color:var(--kal)}.navlinks .navdd .svlist a+a::before{display:none}.navlinks .navdd .svsep{color:var(--muted);margin:6px 0 0;font-size:.68rem}.navlinks .navdd .svsep::after{border-color:var(--rule)}.navlinks .navdd .svsep::before{display:none}
   .navlinks .gsearch{order:-1;margin-bottom:6px}
+  /* harmonika (2026-10-29): seznam skupiny jen u rozbalené, šipka u názvu */
+  .navlinks .navdd>.svitek{display:none}
+  .navlinks .navdd.open>.svitek{display:block}
+  .navlinks .navdd>.ddtop{display:flex;justify-content:space-between;align-items:center}
+  .navlinks .navdd>.ddtop::after{content:"";width:8px;height:8px;margin-right:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translateY(-3px);transition:transform .15s;opacity:.8}
+  .navlinks .navdd.open>.ddtop::after{transform:rotate(-135deg) translateY(-3px)}
   .logo{width:min(100%,300px)}
   header.site .logo{display:none}
 }
@@ -1517,6 +1523,7 @@ html.mmmapcela,html.mmmapcela body{overflow:hidden;overscroll-behavior:none}
 #navart{--kos:linear-gradient(135deg,#8fb4ee,#2f5d9e 55%,#163869)}
 #navkron{--kos:linear-gradient(135deg,#8fd6a6,#23774a 55%,#0f4a2b)}
 #navdesky{--kos:linear-gradient(135deg,#ffe28a,#f0a91e 50%,#b86a06)}
+#navsvet{--kos:linear-gradient(135deg,#f2d6d6,#a33a3a 55%,#5e1414)}
 .navdd .svitek .svlist::before,.navdd .svitek .svlist a.on::before{background:var(--kos);box-shadow:0 0 0 1.5px #e0b04a,0 0 0 2.5px rgba(20,3,6,.85)}
 #navdesky .svitek .svlist a.on::before{background:#d9a93f;box-shadow:0 0 0 1px rgba(20,3,6,.7)}
 .navdd .svitek .svlist::before{width:12px;height:12px;margin-left:-6px;top:-7px}
@@ -3995,3 +4002,14 @@ html.mmpc:not(.mmjenhra) .bdmweb{display:grid;font-size:1.2rem}
 /* šuplík: při hledání se rychlý přehled schová */
 #bojview .bpravidla .bprg:has(.hlbox.hlon)>.bqr{display:none}
 .bdmhl{padding:10px 12px}
+/* Úvod – rozcestník (2026-10-29): dlaždice a naposledy otevřené */
+.uvrozc{margin:6px 0 18px}
+.uvdl{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.uvdla{display:flex;flex-direction:column;gap:2px;padding:12px 14px;border:1px solid color-mix(in srgb,var(--gold) 60%,var(--rule));border-radius:4px;background:color-mix(in srgb,var(--gold) 7%,var(--paper));color:var(--ink);text-decoration:none;box-shadow:inset 0 0 0 3px var(--paper),inset 0 0 0 4px color-mix(in srgb,var(--gold) 30%,transparent);transition:transform .12s}
+.uvdla:hover{transform:translateY(-1px);border-color:var(--gold)}
+.uvdla b{font-family:var(--f-disp);font-weight:500;font-size:1.35rem;color:var(--kal);line-height:1.1}
+.uvdla small{color:var(--muted);font-size:.85rem;line-height:1.25}
+.uvned{margin:10px 0 0;font-size:.92rem;color:var(--muted)}
+.uvned a{color:var(--kal);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--kal) 35%,transparent)}.uvned a:hover{border-bottom-color:var(--kal)}
+.uvned span{font-family:var(--f-label);letter-spacing:.05em;text-transform:uppercase;font-size:.78rem;margin-right:4px}
+@media (max-width:700px){.uvdl{grid-template-columns:repeat(2,minmax(0,1fr))}.uvdla b{font-size:1.2rem}}

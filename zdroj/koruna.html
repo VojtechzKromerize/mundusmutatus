@@ -82,13 +82,14 @@
     <button type="button" class="navtoggle" id="navtoggle" aria-expanded="false" aria-controls="navlinks"><span class="navburger" aria-hidden="true"></span><span id="navcur">Úvod</span></button>
     <div class="navlinks" id="navlinks">
     <a href="#hra" data-nav="hra" class="navgm navhra" title="Hra – karta postavy a boj" aria-label="Hra"><img class="navpecet" src="art/img/kostka.webp" alt="" width="40" height="40"><span class="navgmt">Hra</span></a>
-    <div class="navdd" id="navart"><a href="#artikule" class="ddtop" data-navgrp="artikule kouzla" aria-haspopup="true" aria-expanded="false">Artikule</a>
+    <div class="navdd" id="navart"><a href="#artikule" class="ddtop" data-navgrp="artikule pravidla kouzla" aria-haspopup="true" aria-expanded="false">Pravidla</a>
       <div class="svitek"><div class="svlist" id="navartl"></div></div></div>
-    <a href="#draconomicon" data-nav="draconomicon">Draconomicon</a>
+    <div class="navdd" id="navsvet"><a href="#desky" class="ddtop" data-navgrp="desky osoba rod draconomicon" aria-haspopup="true" aria-expanded="false">Svět</a>
+      <div class="svitek"><div class="svlist"><span class="svsep" aria-hidden="true">Zemské desky</span><a href="#desky">Zemí Koruny České<small>panstvo, církev a města Koruny</small></a><a href="#desky/sousede">Zahraniční rody<small>okolní země a jejich vládci</small></a><a href="#desky/osoby">Matriky<small>koho družina poznala</small></a><span class="svsep" aria-hidden="true">Tvorstvo</span><a href="#draconomicon">Draconomicon<small>draci a bytosti za Závojem</small></a></div></div></div>
+    <div class="navdd" id="navdesky"><a href="#mapa" class="ddtop" data-navgrp="mapa praha svet" aria-haspopup="true" aria-expanded="false">Mapy</a>
+      <div class="svitek"><div class="svlist"><a href="#mapa">Země Koruny České<small>Čechy, Morava, Slezsko a Lužice</small></a><a href="#svet">Známý svět<small>Evropa a Středomoří</small></a><a href="#praha">Praha<small>čtyři města pražská</small></a></div></div></div>
     <div class="navdd" id="navkron"><a href="#kronika" class="ddtop" data-navgrp="kronika druzina karty sezeni" aria-haspopup="true" aria-expanded="false">Kronika</a>
       <div class="svitek"><div class="svlist"><a href="#kronika">Zápisy tažení<small>ze sezení družiny</small></a><a href="#kronika/clanky">Traktáty<small>o světě po protržení Závoje</small></a><a href="#kronika/letopis">Letopis<small>události Koruny a světa</small></a><a href="#druzina">Družina<small>hrdinové tažení a jejich Svědomí</small></a><a href="#karty">Karty postav<small>listy postav, hody a odpočinky</small></a><a href="#sezeni" class="gmonly">Příprava sezení<small>scény, setkání a ukázky pro hráče</small></a></div></div></div>
-    <div class="navdd" id="navdesky"><a href="#desky" class="ddtop" data-navgrp="desky mapa praha svet" aria-haspopup="true" aria-expanded="false">Zemské desky</a>
-      <div class="svitek"><div class="svlist"><span class="svsep" aria-hidden="true">Rody</span><a href="#desky">Zemí Koruny České<small>panstvo, církev a města Koruny</small></a><a href="#desky/sousede">Zahraniční rody<small>okolní země a jejich vládci</small></a><span class="svsep" aria-hidden="true">Osoby</span><a href="#desky/osoby">Matriky<small>koho družina poznala</small></a><span class="svsep" aria-hidden="true">Mapy</span><a href="#mapa">Mapa Zemí Koruny České<small>Čechy, Morava, Slezsko a Lužice</small></a><a href="#svet">Známý svět<small>Evropa a Středomoří</small></a><a href="#praha">Praha<small>čtyři města pražská</small></a></div></div></div>
     <a href="#vyprava" data-nav="vyprava" class="navgm navboj navvy" id="navvy" title="Výprava – cesta družiny" aria-label="Výprava" hidden><img class="navpecet" src="art/img/hul.webp" alt="" width="40" height="40"><span class="navgmt">Výprava</span></a>
     <div class="gsearch" role="search"><input type="search" id="gq" placeholder="Hledat v celé kronice…" aria-label="Hledat na celém webu" autocomplete="off"><ul class="gres" id="gres" hidden></ul></div>
     <button type="button" class="navmotiv" data-mmmotiv aria-label="Vzhled: podle zařízení" title="Vzhled: podle zařízení"><span class="navmotivi" aria-hidden="true">◐</span><span class="navgmt">Vzhled: podle zařízení</span></button>
@@ -98,6 +99,7 @@
 
 <main>
 <div class="view" data-view="uvod" hidden>
+<nav class="uvrozc" id="uvrozc" aria-label="Rozcestník"></nav>
 <div class="herobox"><figure class="herofig"><span class="drstav" role="img" aria-label="Iluminace: bílý dráček ve zlatém kalichu plném vína pod hvězdnou oblohou. Dráček bdí – je den." title="Dráček bdí – je den."><img class="drsp" src="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 1 1%27/%3E" width="560" height="560" alt=""></span><figcaption>Sub utraque sunt dracones</figcaption></figure><section class="hero" id="hero"></section></div>
 <div class="uvgrid">
   <section class="sec uvev"><div id="uvucet" class="uvucet" hidden></div><h2 class="uvh">Poslední události</h2><div id="uvnovw" hidden><h3 class="uvh2">Nedávné kontakty</h3><div class="kontakty" id="uvnov"></div></div><div id="uvzap"></div><h3 class="uvh2">Ze světa</h3><dl class="tl" id="uvlet"></dl><a class="uvmore" href="#kronika/letopis">Celý letopis →</a></section>

@@ -204,25 +204,41 @@ const SRDKAP = [
   ["nastroje", "Nástroje vypravěče"],
   ["predmety", "Magické předměty"],
 ];
+/* menu Pravidla (Vojta 2026-10-29): Artikule jako první kapitola (po knihách), pak SRD česky, kouzla, předměty a vybavení */
 {
   const l = document.getElementById("navartl");
   if (l)
     l.innerHTML =
+      `<span class="svsep" aria-hidden="true">Artikule – domácí pravidla</span>` +
       ARTB.filter(b => b.id !== "rejstrik")
-        .map(
-          b =>
-            `<span class="svsep" aria-hidden="true">${b.n}</span>` +
-            ARTK.filter(k => k.book === b.id)
-              .map(k => `<a href="#artikule/${k.id}">${k.t}</a>`)
-              .join(""),
-        )
+        .map(b => {
+          const k = ARTK.find(x => x.book === b.id);
+          return k
+            ? `<a href="#artikule/${k.id}">${b.n}<small>${ARTK.filter(x => x.book === b.id)
+                .map(x => x.t)
+                .join(" · ")}</small></a>`
+            : "";
+        })
         .join("") +
+      `<a href="#artikule/pojmy">Rejstřík pojmů<small>slovníček Artikulí</small></a>` +
       `<span class="svsep" aria-hidden="true">Pravidla SRD 5.2.1 česky</span>` +
-      SRDKAP.map(([id, n]) => `<a href="#pravidla/${id}">${n}</a>`).join("");
+      `<a href="#pravidla">Přehled pravidel<small>všechny kapitoly SRD</small></a>` +
+      SRDKAP.map(([id, n]) => `<a href="#pravidla/${id}">${n}</a>`).join("") +
+      `<span class="svsep" aria-hidden="true">Kouzla a výbava</span><a href="#pravidla/kouzla">Kouzla</a><a href="#pravidla/vybaveni">Vybavení<small>zbraně, zbroj, výbava s cenami</small></a><a href="#pravidla/mimo">Doplňky mimo SRD<small>podtřídy, featy, zázemí, Střelec</small></a>`;
 }
 document.querySelectorAll(".navdd").forEach(dd => {
   const top = dd.querySelector(".ddtop");
   top.addEventListener("click", e => {
+    /* telefon (harmonika): klepnutí na skupinu ji rozbalí a ostatní sbalí; stránky jsou v seznamu pod ní */
+    if (matchMedia("(max-width:640px)").matches) {
+      e.preventDefault();
+      const o = !dd.classList.contains("open");
+      document.querySelectorAll(".navdd").forEach(x => {
+        x.classList.toggle("open", o && x === dd);
+        x.querySelector(".ddtop").setAttribute("aria-expanded", o && x === dd);
+      });
+      return;
+    }
     if (matchMedia("(hover: none)").matches && !matchMedia("(max-width:640px)").matches && !dd.classList.contains("open")) {
       e.preventDefault();
       document.querySelectorAll(".navdd.open").forEach(o => {
@@ -329,6 +345,16 @@ document.querySelectorAll(".lyrbtn").forEach(b => {
   tg.addEventListener("click", () => {
     const o = nav.classList.toggle("open");
     tg.setAttribute("aria-expanded", o);
+    /* telefon: menu jako harmonika – rozbalená je skupina, ve které právě jsem */
+    /* až po zavření nabídek kliknutím mimo ně (posluchač níže by ji hned zase sbalil) */
+    if (o)
+      setTimeout(() =>
+        document.querySelectorAll(".navdd").forEach(dd => {
+          const on = dd.querySelector(".ddtop.on");
+          dd.classList.toggle("open", !!on);
+          dd.querySelector(".ddtop").setAttribute("aria-expanded", !!on);
+        }),
+      );
   });
   document.addEventListener("click", e => {
     if (!nav.contains(e.target) && nav.classList.contains("open")) {
@@ -802,6 +828,7 @@ function route() {
     }
   if (view === "uvod")
     try {
+      renderUvodRozc();
       renderUvodUcet();
     } catch (e) {
       console.warn(e);
@@ -1086,6 +1113,43 @@ function ucetBoxHtml(kde) {
   const disc = window.MMDB && MMDB.discordLogin ? `<button type="button" class="gbtn ghost ddisc" data-ucetdisc>Přihlásit přes Discord</button>` : "";
   return `${UCETR ? ucetFormHtml(UCETR) : `<p class="ucetakce"><button type="button" class="gbtn" data-ucetr="novy">Vytvořit účet</button><button type="button" class="gbtn ghost" data-ucetr="prihlas">Přihlásit se</button>${disc}</p>`}
     ${UCETR && disc ? `<p class="ucetakce ucetdisc"><span class="rsmall">nebo</span> ${disc}</p>` : ""}`;
+}
+/* Úvod jako rozcestník (Vojta 2026-10-29): velké dlaždice a naposledy otevřené stránky (jen v tomto prohlížeči) */
+const UVROZC = [
+  ["#hra", "Hra", "moje postava a boj"],
+  ["#artikule", "Pravidla", "Artikule, SRD, kouzla, vybavení"],
+  ["#mapa", "Mapy", "Koruna, známý svět, Praha"],
+  ["#kronika", "Kronika", "zápisy tažení a družina"],
+];
+const UVNED = "mm-nedavne";
+function uvNedavne() {
+  try {
+    const L = JSON.parse(localStorage.getItem(UVNED) || "[]");
+    return Array.isArray(L) ? L : [];
+  } catch (e) {
+    return [];
+  }
+}
+/* po přechodu na stránku (až má název) se zapíše mezi naposledy otevřené; Úvod, Hra a Vypravěč ne */
+addEventListener("hashchange", () =>
+  setTimeout(() => {
+    const h = location.hash;
+    if (!h || /^#(uvod|hra|gm|boj)?(\/|$)/.test(h)) return;
+    const n = document.title.replace(/^⚔ Na tahu! · /, "").replace(/^Mundus Mutatus( · )?/, "");
+    if (!n) return;
+    const L = [{h, n}, ...uvNedavne().filter(x => x.h !== h)].slice(0, 6);
+    try {
+      localStorage.setItem(UVNED, JSON.stringify(L));
+    } catch (e) {}
+  }, 400),
+);
+function renderUvodRozc() {
+  const b = document.getElementById("uvrozc");
+  if (!b) return;
+  const L = uvNedavne();
+  b.innerHTML = `<div class="uvdl">${UVROZC.map(([h, n, s]) => `<a class="uvdla" href="${h}"><b>${n}</b><small>${s}</small></a>`).join("")}</div>${
+    L.length ? `<p class="uvned"><span>Naposledy:</span> ${L.map(x => `<a href="${besc(x.h)}">${besc(x.n)}</a>`).join(" · ")}</p>` : ""
+  }`;
 }
 function renderUvodUcet() {
   const b = document.getElementById("uvucet");
