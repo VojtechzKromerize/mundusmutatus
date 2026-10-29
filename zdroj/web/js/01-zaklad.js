@@ -110,8 +110,19 @@ function mmMotivPopis() {
     if (tx) tx.textContent = `Vzhled: ${n}`;
   });
 }
-/* barva karty (Vojta 2026-10-29): vínová výchozí + Noc, Les, Uhel, Purpur; volba v prohlížeči (mm-kb), styly čtou html[data-kb] (--kbt-*) */
-const MMKB = {vino: "Vínová (výchozí)", noc: "Noc", les: "Les", uhel: "Uhel", purpur: "Purpur"};
+/* barva karty (Vojta 2026-10-29): vínová výchozí + Noc, Les, Uhel, Purpur, Jantar, Hlubina, Popel, Čistá černá, Vysoký kontrast; volba v prohlížeči (mm-kb), styly čtou html[data-kb] (--kbt-*) */
+const MMKB = {
+  vino: "Vínová (výchozí)",
+  noc: "Noc",
+  les: "Les",
+  uhel: "Uhel",
+  purpur: "Purpur",
+  jantar: "Jantar",
+  hlubina: "Hlubina",
+  popel: "Popel",
+  oled: "Čistá černá",
+  kontrast: "Vysoký kontrast",
+};
 const mmKbTed = () => document.documentElement.dataset.kb || "vino";
 const mmKbSel = () =>
   `<label class="gbtn ghost mmkbl">Barva karty <select data-mmkb>${Object.entries(MMKB)
