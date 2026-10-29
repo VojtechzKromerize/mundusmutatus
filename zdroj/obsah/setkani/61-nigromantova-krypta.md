@@ -3,7 +3,7 @@ id: nigromantova-krypta
 nazev: Nigromantova krypta
 stitky: krypta, hřbitov, nigromant, relikviář, kostlivci, stíny, nemrtví, Karolinum
 nepratele:
-  - nesmrtelny-nigromant
+  - Mistr Šimon = mistr-cerneho-umeni + nesmrtelny
   - Kostlivci = 8 kostlivci
   - Stíny = 5 stiny
 prostredi: tma

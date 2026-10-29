@@ -3,7 +3,7 @@ id: cert-na-rozcesti
 nazev: Čert na rozcestí
 stitky: čert, rozcestí, smlouva, duše, kovář, pekelníci, peklo
 nepratele:
-  - cert-s-vidlemi
+  - cert + zkuseny
   - Čertíci = 4 certici
 cile:
   - Vyhrát sázku s čertem (skrytý)
