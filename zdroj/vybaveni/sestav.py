@@ -21,6 +21,7 @@ ARTZV = {"Krvežíznivá": ["Sickle", "Scimitar", "Glaive", "Longbow", "Shortbow
          "Ostrá": ["Shortsword", "Longsword", "Greatsword", "Scimitar", "Battleaxe"], "Půlmeč": ["Longsword", "Greatsword"],
          "Do slabin!": ["Dagger"], "Strhující": ["Halberd"], "Vpřed!": ["Lance"], "Štěpící": ["Greataxe", "Handaxe", "Battleaxe"],
          "Nepřímá": ["Longbow", "Shortbow", "Sling"], "Hrom a kouř!": ["Pistol", "Musket"]}
+ARTDOSAH = {"Spear"}
 # Artikule › Výzbroj › Zbroj: druh → zbroje
 ARTZB = {"Vycpávaná": ["Padded Armor", "Leather Armor", "Studded Leather Armor", "Hide Armor"],
          "Kroužková": ["Chain Shirt", "Scale Mail", "Ring Mail", "Chain Mail"],
@@ -122,6 +123,9 @@ def main():
         V[klic] = {m.group(1): {"cz": m.group(2), "t": m.group(3).strip()} for m in re.finditer(r"\*\*([A-Za-z-]+) \(([^)]+)\)\.\*\* (.+)", oddil)}
     for z in V["zbrane"]:
         z["art"] = [v for v, L in ARTZV.items() if z["en"] in L]
+        # Artikule (Vojta 2026-10-29): kopí má dosah 10 stop jako ostatní zbraně s perkem Ratiště
+        if z["en"] in ARTDOSAH and "Reach" not in z.get("vl", []):
+            z.setdefault("vl", []).append("Reach")
         z["id"] = slug(z["en"])
     for z in V["zbroj"]:
         z["art"] = next((d for d, L in ARTZB.items() if z["en"] in L), "")

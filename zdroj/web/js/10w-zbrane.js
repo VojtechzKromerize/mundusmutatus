@@ -6,7 +6,7 @@
    Heavy pod 13. Boj je volá z 20g-boj-mistrovstvi.js. Perky zbraní z Artikulí (Šikovná, Ostrá…) jsou jinde (20e). */
 const ZBRVL = {
   Ammunition: ["Střelivo", "útok na dálku jen se střelivem; každý útok spotřebuje kus, po boji najdeš polovinu"],
-  Finesse: ["Obratná", "k útoku i zranění STR, nebo DEX – pro oba hody stejnou"],
+  Finesse: ["Lehkoruká", "k útoku i zranění STR, nebo DEX – pro oba hody stejnou"],
   Heavy: ["Těžká", "nevýhoda k útoku: zblízka se STR pod 13, na dálku s DEX pod 13"],
   Light: ["Lehká", "po akci Útok s lehkou zbraní můžeš bonusovou akcí zaútočit jinou lehkou zbraní, bez kladného modifikátoru ke zranění"],
   Loading: ["Nabíjení", "jeden výstřel za akci, bonusovou akci nebo reakci, i když máš víc útoků"],

@@ -189,7 +189,7 @@ const GLOSS = [
     t: "Sok",
     ch: "iniciativa",
     f: ["Sok"],
-    d: "Protivník s běžnými statistikami, hází Závoj a může znát techniky. Při kritickém zásahu obětuje zbroj; když nemá co obětovat, je poražen. Smí poslat pacholka do rány místo sebe.",
+    d: "Protivník s běžnými statistikami, hází Závoj a může znát techniky. Při kritickém zásahu obětuje zbroj; když nemá co obětovat, je poražen, nebo utrží kritické zranění. Smí poslat pacholka do rány místo sebe.",
   },
   {
     id: "zhoubce",
@@ -457,7 +457,7 @@ const ARTK = [
    <li><b>Morálka:</b> když padne polovina houfu nebo jeho velitel, houf prchá, pokud ho v boji nedrží sok.</li></ul></article>
   <article class="foe"><h4>Sok</h4><ul>
    <li>Má běžné statistiky, hází <b>Závoj</b> a může znát ${xl("serm", "", "šermířské a zápasnické techniky")}.</li>
-   <li>Sok může mít zbroj a při kritickém zásahu ji <b>obětovat</b> – kritický zásah se změní v běžný. Když už nemá co obětovat, kritický zásah ho automaticky porazí. Poražený sok umírá, vzdá se, uteče, nebo je zajat pro výkupné.</li>
+   <li>Sok může mít zbroj a při kritickém zásahu ji <b>obětovat</b> – kritický zásah se změní v běžný. Když už nemá co obětovat, kritický zásah ho automaticky porazí – nebo mu vypravěč místo porážky dá kritické zranění a nechá ho žít (výslech, výkupné). Poražený sok umírá, vzdá se, uteče, nebo je zajat pro výkupné.</li>
    <li><b>„Za pána!“</b> Sok může jako reakci poslat do rány blízkého pacholka – zásah místo něj schytá pacholek ze sousedního pole.</li></ul></article>
   <article class="foe"><h4>Zhoubce</h4><ul>
    <li>Hraje podle <b>stejných pravidel jako hráči</b>. Může mít legendární akce a odolnosti.</li>
@@ -507,7 +507,7 @@ const ARTK = [
         id: "zbrane",
         t: "Zbraně",
         h: `
-  <p>Mistrovství zbraní (Weapon Mastery) z D&amp;D 2024 funguje beze změny. Každá dobře vyrobená zbraň má ale navíc fyzické perky, které platí pro každého, kdo ji používá a má s ní zdatnost. <b>Pasivní</b> perky platí vždy; <b>aktivní</b> perky se projeví jen podle kostky Závoje – ${Z.B} dává výhodu, odmítnuté ${Z.P} komplikaci. Žádná zbraň nemá víc než jeden pasivní a jeden aktivní perk; výjimkou jsou meče, halapartna a hákovnice jako zbraně na všechno (u hákovnice si střelec při Požehnání vybere Ničivou, nebo dým – obojí naráz ne). Záchranný hod proti perku má <b>SO 8 + bonus zdatnosti + STR</b> toho, kdo zbraní útočí.</p>
+  <p>Mistrovství zbraní (Weapon Mastery) z D&amp;D 2024 funguje beze změny. Každá dobře vyrobená zbraň má ale navíc fyzické perky, které platí pro každého, kdo ji používá a má s ní zdatnost. <b>Pasivní</b> perky platí vždy; <b>aktivní</b> perky se projeví jen podle kostky Závoje – ${Z.B} dává výhodu, odmítnuté ${Z.P} komplikaci. Žádná zbraň nemá víc než jeden pasivní a jeden aktivní perk; výjimkou jsou meče, halapartna, hákovnice a dřevec (Lance) jako zbraně na všechno (u hákovnice si střelec při Požehnání vybere Ničivou, nebo dým – obojí naráz ne). Záchranný hod proti perku má <b>SO 8 + bonus zdatnosti + STR</b> toho, kdo zbraní útočí.</p>
   ${tb(
     ["Perk", "Zbraně", "Efekt"],
     [
@@ -525,7 +525,7 @@ const ARTK = [
       [
         `${bikZv("Ratiště")}Ratiště`,
         "Halberd, Pike, Glaive, Spear",
-        "Když nepřítel vstoupí do dosahu zbraně (10 stop), můžeš provést příležitostný útok. V kontaktním boji (5 stop) máš ale na hody na útok nevýhodu.<br>Bonusovou akcí můžeš zbraň zapřít o zem: dokud se nepohneš, příležitostný útok proti útoku s Vpřed! je automatický kritický zásah a Vpřed! se neuplatní.",
+        "Všechny tyto zbraně mají dosah 10 stop (v Artikulích i kopí – Spear). Když nepřítel vstoupí do dosahu zbraně (10 stop), můžeš provést příležitostný útok. V kontaktním boji (5 stop) máš ale na hody na útok nevýhodu.<br>Bonusovou akcí můžeš zbraň zapřít o zem: dokud se nepohneš, příležitostný útok proti útoku s Vpřed! je automatický kritický zásah a Vpřed! se neuplatní.",
       ],
       [
         `${bikZv("Ničivá")}Ničivá`,

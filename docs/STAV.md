@@ -304,10 +304,8 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
 
 ## Otevřené
 
-- 2026-10-29 **Po revizi pojmů zbývá:** (1) plné znění featů a kouzel v databázi (`pravidla_texty`) má v rámečcích ještě „Pohotovost“ a „jednou denně“
-  – nově nahrát (featy z projektu `pravidla/featy-2026-10-24.md` přes `featy_plne.py`, kouzla a předměty z Vojtových tabulek přes `kouzla_predmety_plne.py`,
-  rámečky už opravené v `kouzla_predmety_artikule.py`); (2) čeká na Vojtu: Lance má dva pasivní perky, Spear v Ratišti nemá dosah 10 stop, kritické zranění soka,
-  přejmenování perku Šikovná nebo vlastnosti Obratná (Finesse), kostky „k“ i v textu SRD a na kartě, „slot“ vs. „pozice kouzla“ na kartě.
+- 2026-10-29 **Po revizi pojmů:** plné znění featů a kouzel v databázi (`pravidla_texty`) má v rámečcích ještě „Pohotovost“ a „jednou denně“ – Vojta: zatím nechat
+  (předpis rámečků kouzel `kouzla_predmety_artikule.py` už je opravený, při příštím nahrání se srovná).
 - **Mapa jih – k ověření (Vojta)**: kdo k 3. 3. 1458 drží Čakovec a Varaždínský hrad (celjské dědictví – Vitovec?), Golubac vynechán (srbský/turecký?), Kusánský
   na Buchensteinu od léta 1457, první turecké nájezdy do Kraňska (1408 nejisté, velké až 60. léta / 1469 – jen ⟦⟧), Svatá Hora u Gorice vznikla až 1539 (není).
 - **Automatika podle karet družiny** (Vojta 10-24): přehled „Automatika podle karet“ v Hra › Družina je hotový (10-27) – podle něj doplňovat, co skutečné karty potřebují (návrh: formulář jednoduchých bonusů pro vypravěče). Dnes: ~207 kouzel se zraněním/léčením, 105 posílení, 78 stavů ze záchrany; 18 featů podle jména + 58 shrnutí; předměty jen z katalogu vybavení.
@@ -394,7 +392,9 @@ Průchod stabilitou a chybami (Vojta: „optimalizace a údržba celého webu“
   po Těžkém zranění a u „Ve jménu Páně!“; Těžkou ránu ošetří kdokoli Lékařstvím **SO 12 + 2 za každé další neléčené kritické zranění** (`ranaLecba`
   10p); „Ktož sú…“ na 3 kola; **SO perků = 8 + bonus zdatnosti + STR útočníka** (i Přibodnutí a Štěpící, hází cíl); stupně featu víry příběhově;
   Křížný sek +2 AC může zásah změnit v minutí; Sek hněvu na další hod na útok; Zůstaň! → Spoután; Hod přes bok → Chycen + Sražen; Zlom = záchrana
-  proti SO chvatu s výhodou; Lámání paže = Těžké zranění paže (Zlomenina); **HP mohou klesnout pod 0**: `bojZranPC` (12) nechá přesah
+  proti SO chvatu s výhodou; **Lance** je výjimka (dva pasivní perky); **kopí (Spear) má dosah 10 stop** (`ARTDOSAH` v `zdroj/vybaveni/sestav.py`, útok v 18);
+  **sok** bez zbroje k obětování je kritickým zásahem poražen, nebo mu vypravěč dá kritické zranění; vlastnost Finesse = **Lehkoruká** (dřív Obratná, plete se s DEX).
+  Nechat: kostky „d“ v textu SRD a na kartě, „slot“ na kartě, plné znění featů a kouzel v databázi; Lámání paže = Těžké zranění paže (Zlomenina); **HP mohou klesnout pod 0**: `bojZranPC` (12) nechá přesah
   v záporu a zásahy v bezvědomí odečítá dál (`BZRPOD` = hloubka pod nulou pro hod na kritické zranění, i při kritickém zásahu ležícího – 14c),
   léčení počítá od 0 (`bojLecPC`, odpočinek, kostky životů; `mm_karta_lecit` už měl `greatest(0, …)`); „padl“ = HP ≤ 0. Test `boj-pc.test.mjs`.
 - Nerozhodnuté návrhy k Artikulím (střelné zbraně 19. 10., čtvrté vyznání, Gunslinger) viz Otevřené; do Artikulí patří až po Vojtově „platí“.

@@ -154,7 +154,7 @@ Prostor je obsazený, pokud se v něm nachází tvor, nebo pokud je zcela vypln�
 
 Příležitostný útok můžeš provést, když tvor, kterého vidíš, opustí tvůj dosah pomocí své akce, bonusové akce, reakce nebo některé ze svých rychlostí. Abys provedl příležitostný útok, použij reakci k jednomu útoku na blízko zbraní nebo úderem beze zbraně proti tvoru, který útok vyprovokoval. Útok proběhne těsně předtím, než tvor opustí tvůj dosah. *Viz též* „Hraní hry“ („Boj“).
 
-> **Artikule:** Zbraně s perkem Ratiště (Halberd, Pike, Glaive, Spear) umožňují příležitostný útok i tehdy, když nepřítel vstoupí do jejich dosahu 10 stop; v kontaktu na 5 stop má jejich nositel nevýhodu.
+> **Artikule:** Zbraně s perkem Ratiště (Halberd, Pike, Glaive, Spear – v Artikulích i kopí má dosah 10 stop) umožňují příležitostný útok i tehdy, když nepřítel vstoupí do jejich dosahu 10 stop; v kontaktu na 5 stop má jejich nositel nevýhodu.
 
 #### Paralyzed [Condition] (Paralyzovaný [stav])
 
@@ -400,7 +400,7 @@ Blok statistik obsahuje herní statistiky nestvůry. Každý blok statistik obsa
 
 ***Zápis zranění.*** Blok statistik obvykle uvádí u každého zranění jak pevné číslo, tak výraz s kostkami. Útok může například při zásahu způsobit 4 (1d4 + 2) zranění. Vypravěč určí, zda se použije pevné číslo, nebo výraz s kostkami v závorce; obojí se nepoužívá.
 
-> **Artikule:** Protivníci se dělí na pacholky, soky a zhoubce. Pacholek má 5 HP a zranění, které ho skolí, přejde na dalšího; houf 3–12 pacholků má jeden tah a útočí jedním hodem s bonusem +1 za každého dalšího pacholka (nejvýš +5), prchá, padne-li polovina houfu nebo velitel (nedrží-li ho sok), nehází Závoj a nemá kritická zranění. Sok má běžné statistiky, hází Závoj, může znát techniky, při kritickém zásahu smí obětovat zbroj a bez ní ho kritický zásah porazí (umírá, vzdá se, uteče nebo je zajat); reakcí „Za pána!“ může poslat do rány pacholka. Zhoubce hraje podle pravidel jako hráč, může mít legendární akce a odolnosti a má Ďáblovo štěstí (na 0 HP hodí kostkou Závoje; při Pokušení přežije a unikne).
+> **Artikule:** Protivníci se dělí na pacholky, soky a zhoubce. Pacholek má 5 HP a zranění, které ho skolí, přejde na dalšího; houf 3–12 pacholků má jeden tah a útočí jedním hodem s bonusem +1 za každého dalšího pacholka (nejvýš +5), prchá, padne-li polovina houfu nebo velitel (nedrží-li ho sok), nehází Závoj a nemá kritická zranění. Sok má běžné statistiky, hází Závoj, může znát techniky, při kritickém zásahu smí obětovat zbroj a bez ní ho kritický zásah porazí (umírá, vzdá se, uteče nebo je zajat), nebo mu vypravěč místo porážky dá kritické zranění; reakcí „Za pána!“ může poslat do rány pacholka. Zhoubce hraje podle pravidel jako hráč, může mít legendární akce a odolnosti a má Ďáblovo štěstí (na 0 HP hodí kostkou Závoje; při Pokušení přežije a unikne).
 
 #### Study [Action] (Studium [akce])
 

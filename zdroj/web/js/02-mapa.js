@@ -7497,7 +7497,7 @@ const BVLZ = {
   Omračující:
     "Požehnání: cíl hází záchranu na CON (SO 8 + bonus zdatnosti + STR útočníka), jinak je do konce svého příštího tahu bez reakce a má nevýhodu na hody na útok. Pokušení: rána sklouzne po zbroji a do svého příštího tahu jsi bez reakce ty.",
   Ratiště:
-    "Když nepřítel vstoupí do dosahu zbraně (10 stop), smí provést příležitostný útok. V kontaktu (5 stop) má na hody na útok nevýhodu. Bonusovou akcí lze zbraň zapřít o zem: dokud se nepohne, příležitostný útok proti útoku s Vpřed! je automatický kritický zásah a Vpřed! se neuplatní.",
+    "Dosah 10 stop (i kopí). Když nepřítel vstoupí do dosahu zbraně (10 stop), smí provést příležitostný útok. V kontaktu (5 stop) má na hody na útok nevýhodu. Bonusovou akcí lze zbraň zapřít o zem: dokud se nepohne, příležitostný útok proti útoku s Vpřed! je automatický kritický zásah a Vpřed! se neuplatní.",
   Ničivá: "Požehnání: zbroj cíle ztrácí jedno obětování. Pokušení: zbraň praská a ztrácí Ničivou až do opravy.",
   Průrazná: "Ignoruje odolnost zbroje vůči bodnému zranění.",
   Odvetná:

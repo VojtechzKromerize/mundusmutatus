@@ -67,7 +67,7 @@ const KZBRAN = [
   [/\bmace\b|palcát/i, "Mace", "1d6", "Bludgeoning", "", "S"],
   [/quarterstaff|bojová hůl/i, "Quarterstaff", "1d6", "Bludgeoning", "Versatile (1d8)", "S"],
   [/sickle|srp/i, "Sickle", "1d4", "Slashing", "Light", "S"],
-  [/\bspear\b|kopí/i, "Spear", "1d6", "Piercing", "Thrown, Versatile (1d8)", "S"],
+  [/\bspear\b|kopí/i, "Spear", "1d6", "Piercing", "Thrown, Versatile (1d8), Reach", "S"],
   [/\bdart\b|šipk/i, "Dart", "1d4", "Piercing", "Finesse, Thrown", "S", 1],
   [/light crossbow|lehká kuše/i, "Light Crossbow", "1d8", "Piercing", "Ammunition, Loading, Two-Handed", "S", 1],
   [/shortbow|krátký luk/i, "Shortbow", "1d6", "Piercing", "Ammunition, Two-Handed", "S", 1],

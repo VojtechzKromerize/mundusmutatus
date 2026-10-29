@@ -48,7 +48,7 @@ Zde jsou vysvětleny vlastnosti uvedené ve sloupci Vlastnosti tabulky Zbraně.
 
 **Ammunition (Střelivo).** Zbraní s touto vlastností můžeš provést útok na dálku pouze tehdy, máš-li pro ni střelivo. Potřebný druh střeliva je uveden u dostřelu zbraně. Každý útok spotřebuje jeden kus střeliva. Vytažení střeliva je součástí útoku; k nabití jednoruční zbraně potřebuješ volnou ruku. Po boji můžeš strávit 1 minutu sbíráním použitého střeliva a získat zpět polovinu kusů, které jsi v boji spotřeboval (zaokrouhleno dolů). Zbytek je ztracen.
 
-**Finesse (Obratná).** Při útoku touto zbraní si můžeš pro hody na útok a na zranění zvolit modifikátor STR nebo DEX. Pro oba hody musíš použít stejný modifikátor.
+**Finesse (Lehkoruká).** Při útoku touto zbraní si můžeš pro hody na útok a na zranění zvolit modifikátor STR nebo DEX. Pro oba hody musíš použít stejný modifikátor.
 
 **Heavy (Těžká).** K hodům na útok touto zbraní máš nevýhodu, pokud jde o zbraň na blízko a tvá hodnota STR je nižší než 13, nebo pokud jde o zbraň na dálku a tvá hodnota DEX je nižší než 13.
 
@@ -104,7 +104,7 @@ Používáš-li jako provizorní zbraň nějaký předmět – například nohu 
 | Mace (palcát) | 1d6 Bludgeoning | — | Sap | 4 lb. | 5 GP |
 | Quarterstaff (hůl) | 1d6 Bludgeoning | Versatile (1d8) | Topple | 4 lb. | 2 SP |
 | Sickle (srp) | 1d4 Slashing | Light | Nick | 2 lb. | 1 GP |
-| Spear (kopí) | 1d6 Piercing | Thrown (dostřel 20/60), Versatile (1d8) | Sap | 3 lb. | 1 GP |
+| Spear (kopí) | 1d6 Piercing | Thrown (dostřel 20/60), Versatile (1d8), Reach (Artikule) | Sap | 3 lb. | 1 GP |
 | *Jednoduché zbraně na dálku* | | | | | |
 | Dart (vrhací šipka) | 1d4 Piercing | Finesse, Thrown (dostřel 20/60) | Vex | 1/4 lb. | 5 CP |
 | Light Crossbow (lehká kuše) | 1d8 Piercing | Ammunition (dostřel 80/320; šipka), Loading, Two-Handed | Slow | 5 lb. | 25 GP |
@@ -141,7 +141,7 @@ Používáš-li jako provizorní zbraň nějaký předmět – například nohu 
 > - **Krvežíznivá** (Sickle, Scimitar, Glaive, Longbow, Shortbow) – Požehnání: cíl bez odolnosti vůči typu zranění krvácí k4 do ošetření. Pokušení: zbraň uvízne v ráně, vytrhnout ji stojí bonusovou akci.
 > - **Drtivá** (Maul, Mace, Flail, Warhammer) – ignoruje odolnost zbroje vůči drtivému zranění.
 > - **Omračující** (Club, Greatclub, Mace, Flail, Morningstar, Maul, Sling) – Požehnání: záchrana na CON, jinak cíl do konce svého příštího tahu bez reakce a s nevýhodou na hody na útok. Pokušení: do svého příštího tahu jsi bez reakce ty.
-> - **Ratiště** (Halberd, Pike, Glaive, Spear) – příležitostný útok, když nepřítel vstoupí do dosahu 10 stop; v kontaktu na 5 stop nevýhoda. Zapřená zbraň (bonusová akce) proti útoku s Vpřed! = automatický kritický zásah.
+> - **Ratiště** (Halberd, Pike, Glaive, Spear) – dosah 10 stop (v Artikulích i kopí); příležitostný útok, když nepřítel vstoupí do dosahu 10 stop; v kontaktu na 5 stop nevýhoda. Zapřená zbraň (bonusová akce) proti útoku s Vpřed! = automatický kritický zásah.
 > - **Ničivá** (Warhammer, War Pick, Heavy Crossbow, Musket) – Požehnání: zbroj cíle ztrácí jedno obětování. Pokušení: zbraň praská a ztrácí Ničivou až do opravy.
 > - **Průrazná** (Pistol, Musket, Heavy Crossbow, Lance, Halberd, War Pick) – ignoruje odolnost zbroje vůči bodnému zranění.
 > - **Odvetná** (Shortsword, Longsword, Rapier, Greatsword) – Požehnání: cíl na tebe do konce svého příštího tahu nemůže použít reakci; mine-li tě nepřítel s Pokušením, smíš reakcí provést protiútok. Pokušení: ztrácíš reakci.

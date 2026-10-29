@@ -60,7 +60,7 @@ test("rejstřík stránky: stav, Artikule, pravidla SRD, kouzlo, předmět a vyb
 test("klepnutí na pojem: stav, vlastnost a mistrovství zbraně, akce – okno s pravidlem", async () => {
   await S.ev("hlIndex()");
   const n = (q, g) => S.ev(`(x => x && x.n)(hlNajdi(${JSON.stringify(q)}, ${JSON.stringify(g)}))`);
-  assert.equal(n("Finesse", "Pravidla SRD"), "Obratná");
+  assert.equal(n("Finesse", "Pravidla SRD"), "Lehkoruká");
   assert.equal(n("Topple", "Pravidla SRD"), "Sražení");
   assert.equal(n("sražen", "Stav"), "Sražen");
   assert.match(n("soustředí", "Stav"), /Concentration/);
@@ -69,7 +69,7 @@ test("klepnutí na pojem: stav, vlastnost a mistrovství zbraně, akce – okno 
     `(() => { const s = document.createElement("span"); s.dataset.hlp = "Finesse"; s.dataset.hlg = "Pravidla SRD"; s.id = "thlp"; document.body.appendChild(s); s.click(); })()`,
   );
   await new Promise(r => setTimeout(r, 50));
-  assert.match(S.ev(`(document.querySelector(".mmpop") || {}).textContent || ""`), /Obratná/);
+  assert.match(S.ev(`(document.querySelector(".mmpop") || {}).textContent || ""`), /Lehkoruká/);
   S.ev(`mmPopX(); document.getElementById("thlp").remove(); 0`);
 });
 

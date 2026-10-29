@@ -246,7 +246,7 @@ Pokud hraješ na čtvercové síti s figurkami nebo jinými žetony, řiď se t�
 
 Boj končí, když je jedna nebo druhá strana poražena, což může znamenat, že tvorové jsou zabiti nebo vyřazeni, nebo se vzdali či uprchli. Boj může skončit také tehdy, když se obě strany dohodnou, že jej ukončí.
 
-> **Artikule:** Pacholci mají morálku: padne-li polovina houfu nebo jeho velitel, houf prchá, pokud ho nedrží sok. Sok smí při kritickém zásahu obětovat zbroj; když už nemá co obětovat, kritický zásah ho porazí (umírá, vzdá se, uteče nebo je zajat). Zhoubce má Ďáblovo štěstí: na 0 HP hodí kostkou Závoje a při Pokušení přežije a unikne.
+> **Artikule:** Pacholci mají morálku: padne-li polovina houfu nebo jeho velitel, houf prchá, pokud ho nedrží sok. Sok smí při kritickém zásahu obětovat zbroj; když už nemá co obětovat, kritický zásah ho porazí (umírá, vzdá se, uteče nebo je zajat), nebo mu vypravěč místo porážky dá kritické zranění. Zhoubce má Ďáblovo štěstí: na 0 HP hodí kostkou Závoje a při Pokušení přežije a unikne.
 
 #### Pohyb a pozice
 

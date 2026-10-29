@@ -366,7 +366,7 @@ Ruční kostky (2026-10-29, Vojta): „Házím vlastními kostkami“
 
 automatizace tahu: iniciativa, návrh, začátek a konec tahu, účinky s trváním, záchrany, plošný zásah
 
-- 1962 řádků, 98 definic na nejvyšší úrovni, z toho 73 používají jiné soubory
+- 1966 řádků, 98 definic na nejvyšší úrovni, z toho 73 používají jiné soubory
 - používá z: 01-zaklad (1), 02-mapa (6), 02c-zbroj (2), 04-praha (1), 07-druzina-kronika (2), 09-vypravec-herni-cas (1), 10-kouzla (4), 10h-hledani (1), 10p-pravidla (20), 11-boj (42), 11b-rucni-kostky (1), 13-karty (4), 14-karty-bojova-karta (2), 14c-boj-reakce (1), 15-karty-artikule (6), 16-srd-ukazky-sezeni-hrac (3), 17-karty-ii (4), 17b-kouzla-ucinky (7), 18-pravidla-postavy (11), 20-boj-hraci (2), 20b-boj-vypravec (6), 20d-boj-render (1), 20f-scena (1), 20g-boj-mistrovstvi (1)
 - používají ho: 11-boj (30), 13-karty (8), 14-karty-bojova-karta (12), 14b-vybaveni (3), 14c-boj-reakce (11), 14d-vybaveni-katalog (1), 15-karty-artikule (4), 16-srd-ukazky-sezeni-hrac (6), 17-karty-ii (6), 17b-kouzla-ucinky (10), 18-pravidla-postavy (2), 19-karty-beyond (2), 19b-automatika (2), 20-boj-hraci (5), 20b-boj-vypravec (45), 20c-boj-ridery (5), 20d-boj-render (14), 20e-boj-vlastnosti (6), 20g-boj-mistrovstvi (4), 23-potvrzovani (2), 24-boj-zaznam (3)
 - poskytuje: bojKartaH KARTBY BAB bojHracAkce bojKritPC bojEfDel bojZbrVse bojZranPC bojMsg bojLecPC bojNpcZach BAKCE bojDsPip bojHpPC bojHpZmena bojSpStav bojZbrStav BKONC BKORX BKPAD BKRLOG bojStavDej BRCH BTMSG BZTL BCIM BDMG BKDO BKRO bojAkceStav bojDsZapis bojHracPanel bojJeKouzlo bojKorist bojLegN bojLegZb bojNavrh bojNpcKzLvl bojNpcSes bojPcNaplnit … (+33)
@@ -426,7 +426,7 @@ Vybavení (2026-10-19): jeden seznam ve skupinách, věc na klepnutí (list zesp
 
 Boj: zásahy rovnou do karty, reakce na telefonu, plošné zásahy a iniciativa výzvou, začátek tahu,
 
-- 746 řádků, 30 definic na nejvyšší úrovni, z toho 20 používají jiné soubory
+- 748 řádků, 30 definic na nejvyšší úrovni, z toho 20 používají jiné soubory
 - používá z: 01-zaklad (1), 02-mapa (2), 04-praha (1), 07-druzina-kronika (1), 08-navigace-pravidla (1), 09-vypravec-herni-cas (1), 10p-pravidla (7), 10r-reakce (3), 10x-strelec (1), 11-boj (8), 12-boj-tah-postavy (11), 13-karty (7), 14-karty-bojova-karta (2), 15-karty-artikule (2), 16-srd-ukazky-sezeni-hrac (6), 17-karty-ii (17), 18-pravidla-postavy (7), 19-karty-beyond (2), 20-boj-hraci (1), 20b-boj-vypravec (1), 20d-boj-render (1), 20e-boj-vlastnosti (1), 23-potvrzovani (1)
 - používají ho: 11-boj (2), 12-boj-tah-postavy (1), 14-karty-bojova-karta (7), 16-srd-ukazky-sezeni-hrac (1), 17b-kouzla-ucinky (4), 20-boj-hraci (7), 20b-boj-vypravec (2), 20c-boj-ridery (1), 20e-boj-vlastnosti (1)
 - poskytuje: bojPcAuto bojPcZasah BPLV BZAS kReakceFakta bojRipoPre BRIP kHpOf kZasahReakce bojMinNovy bojOdpVyzva bojPoutoNovy bojPrilezNovy bojRipoJeRiposte bojVyzZpracuj bojZasahNovy kPoutoHtml kPrilezHtml kRipHtml kZasahHtml
