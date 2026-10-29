@@ -145,16 +145,20 @@ async function kartaStavZmen(id, ch, msg, op = {}) {
     if (q && --q.n <= 0) delete P[k];
     KPENDT[id] = Date.now();
   };
+  const zbyva = new Set(Object.keys(ch));
   try {
     for (const [k, v] of Object.entries(ch)) {
       try {
         await KDB.stav(id, k, v ?? null);
       } finally {
+        zbyva.delete(k);
         hotovo(k);
       }
     }
     if (msg) mmHlasG(msg, 4500);
   } catch (e) {
+    /* pole, na která po chybě nedošlo, nesmí zůstat navždy „rozepsaná“ (přebíjela by stav z databáze) */
+    zbyva.forEach(hotovo);
     if (window.MMDB && kSitChyba(e)) {
       Object.entries(ch).forEach(([k, v]) => kFrontaPridej({t: "s", id, k, v: v ?? null}));
       KCACHE.uloz();
@@ -312,7 +316,7 @@ function kartaZraneni(K, a, krit, ef) {
   });
   return {t, x};
 }
-/* odpočinky (D&D 2024 + Artikule): krátký – kostky životů, zdroje „krátký odpočinek“, sloty paktu; dlouhý – vše, polovina kostek životů, vyčerpání −1 */
+/* odpočinky (D&D 2024 + Artikule): krátký – kostky životů, zdroje „krátký odpočinek“, sloty paktu; dlouhý – vše včetně všech kostek životů (D&D 2024), vyčerpání −1 */
 async function kartaOdpocinek(K, dlouhy, bez) {
   const S = kartaStav(K.id),
     ch = {},
@@ -320,7 +324,7 @@ async function kartaOdpocinek(K, dlouhy, bez) {
     pool = kKostkyPool(K),
     kzMax = pool.length || kLv(K),
     spent = +S.kz || 0,
-    con = kMod((K.vl || {}).CON || 10),
+    con = kMd(K, "CON"),
     mx = kHPmax(K),
     cur = S.hp != null ? +S.hp : mx;
   const U = Object.assign({}, S.zdr || {});
@@ -1041,7 +1045,7 @@ document.addEventListener("click", async e => {
     if (spent >= kzMax || cur >= mx) return;
     const s = pool[spent] || 8,
       d = bK(s),
-      con = kMod((K.vl || {}).CON || 10),
+      con = kMd(K, "CON"),
       heal = Math.max(0, d + con),
       hp = Math.min(mx, cur + heal);
     kHodZapis({k: K.id, kdo: K.n, co: "Kostka životů", tot: heal, txt: `d${s} ${d} ${bsg(con)} CON → +${heal} HP (${hp}/${mx})`});

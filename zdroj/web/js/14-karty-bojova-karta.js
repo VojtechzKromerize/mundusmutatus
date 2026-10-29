@@ -2003,12 +2003,12 @@ function bdmList(s, h, K, gm, X, t) {
       zb = kzMax - spent,
       pool = kKostkyPool(K),
       dal = pool[spent] || 8,
-      con = kMod((K.vl || {}).CON || 10),
+      con = kMd(K, "CON"),
       mxh = kHPmax(K),
       curh = S.hp != null ? +S.hp : mxh;
     return [
       "Odpočinek",
-      `<div class="bdmrow"><button type="button" class="bdmbtn" data-kodp="k" ${btip("Krátký odpočinek (1 hodina): zdroje s krátkým odpočinkem, sloty paktu; kostky životů pak utratíš po jedné")}>☾ Krátký</button><button type="button" class="bdmbtn" data-kodp="d" ${btip(`Dlouhý odpočinek (8 hodin): životy, sloty, zdroje, Výdrž, polovina kostek životů, vyčerpání −1`)}>☾☾ Dlouhý</button></div>
+      `<div class="bdmrow"><button type="button" class="bdmbtn" data-kodp="k" ${btip("Krátký odpočinek (1 hodina): zdroje s krátkým odpočinkem, sloty paktu; kostky životů pak utratíš po jedné")}>☾ Krátký</button><button type="button" class="bdmbtn" data-kodp="d" ${btip(`Dlouhý odpočinek (8 hodin): životy, sloty, zdroje, Výdrž, všechny kostky životů, vyčerpání −1`)}>☾☾ Dlouhý</button></div>
       <p class="kdbvy" ${btip(`Kostky životů ${kHDtxt(K)}: použité zaškrtni (krátký odpočinek je utratí sám)`)}><small>Kostky životů ${besc(kHDtxt(K))}</small>${[...Array(kzMax)].map((_, j) => `<button type="button" class="${j < (+S.kz || 0) ? "on" : ""}" data-kkz="${j}" aria-label="Kostka životů ${j + 1}"></button>`).join("")}</p>
       <p class="bdmrow"><button type="button" class="bdmbtn" data-kkzh ${zb > 0 && curh < mxh ? "" : "disabled"} ${btip(zb > 0 ? `Při krátkém odpočinku: hodí jednu kostku životů (d${dal} ${bsg(con)} CON) a přičte životy. Zbývá ${zb}.` : "Žádná kostka životů nezbývá – vrátí je dlouhý odpočinek")}>🎲 Utratit kostku životů d${dal} ${bsg(con)}</button><small class="bdmnote">zbývá ${zb}${curh >= mxh ? " · životy jsou plné" : ""}</small></p>${D.sv >= 1 && D.sv <= 3 ? `<p class="bdmnote">Na scestí – Neklidné sny: dlouhý odpočinek vrátí jen polovinu životů.</p>` : ""}`,
     ];

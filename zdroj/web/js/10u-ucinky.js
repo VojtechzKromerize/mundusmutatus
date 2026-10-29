@@ -237,7 +237,8 @@ function ucAC(B, sZbroji, agi) {
       r.L.push([b.n, e.ac]);
     }
     if (e.acmin) r.min = Math.max(r.min, e.acmin);
-    if (e.acz && !sZbroji) r.min = Math.max(r.min, e.acz + (+agi || 0));
+    /* Mage Armor: jiný základ AC bez zbroje (13 + DEX) – štít a další bonusy se k němu přičtou (dřív jen „aspoň“) */
+    if (e.acz && !sZbroji) r.zak = Math.max(r.zak || 0, e.acz + (+agi || 0));
   }
   return r;
 }

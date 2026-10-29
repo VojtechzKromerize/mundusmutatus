@@ -709,6 +709,8 @@ document.addEventListener("click", async e => {
       kk = kBardK(K);
     if (!z || !z.zb || !K2) return;
     if ((await kOdklad(`Bardic Inspiration d${kk} → ${K2.n}`, () => true)) === false) return;
+    /* během odkladu mohla kostku utratit jiná obsluha (druhé zařízení) */
+    if (!(kZdrN(K, /bardic inspiration/i) || {}).zb) return;
     if (navrhPotreba()) {
       await kZdrUtrat(K, z);
       await navrhPosli(K, {typ: "bardic", cil: K2.id, k: kk, popis: `Bardic Inspiration d${kk} → ${K2.n}`, vratit: {k: z.q.n, n: 1}});
@@ -759,8 +761,12 @@ document.addEventListener("click", async e => {
       K2 = KARTBY[(box.querySelector("[data-klohk]") || {}).value] || K;
     if (!zb) return;
     if (K2 !== K && (await kOdklad(`Lay on Hands → ${K2.n} +${v} HP`, () => true)) === false) return;
-    U["Lay on Hands"] = u + v;
-    await kartaStavZmen(K.id, {zdr: U});
+    /* zásoba znovu z karty: během odkladu se mohla změnit (jiné zdroje by se jinak přepsaly starým stavem) */
+    const U2 = Object.assign({}, kartaStav(K.id).zdr || {}),
+      u2 = Math.min(lm, U2["Lay on Hands"] || 0);
+    if (u2 + v > lm) return mmHlasG("Lay on Hands: v zásobě už tolik nezbývá.", 3000);
+    U2["Lay on Hands"] = u2 + v;
+    await kartaStavZmen(K.id, {zdr: U2});
     await kLecKarta(K2, v, K, "Lay on Hands", {k: "Lay on Hands", n: v});
     kHodZapis({k: K.id, kdo: K.n, co: "Lay on Hands", tot: v, txt: `${K2.n}: +${v} HP (zásoba ${zb - v}/${lm})`});
     return;

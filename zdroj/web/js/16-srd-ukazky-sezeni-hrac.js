@@ -877,8 +877,7 @@ document.addEventListener("click", async e => {
       dh = ef.dhp ? kVyraz(String(ef.dhp)) : null;
     it.q = Math.max(0, (+it.q || 1) - 1);
     if (!it.q) inv.splice(+pj.dataset.kinvpij, 1);
-    const ch = {inv},
-      o = {hp: S.hp, thp: S.thp};
+    const ch = {inv};
     let m = `${x.en}`;
     if (r) {
       const h0 = ((BOJ.s && BOJ.s.aktivni && BOJ.s.hraci) || []).find(q => bojKartaH(q) === K);
@@ -886,8 +885,9 @@ document.addEventListener("click", async e => {
         bojPCZmena(h0.id, q => bojLecPC(q, K, r.tot), true);
         m += `: +${r.tot} HP (${r.txt})`;
       } else {
-        m += ": " + bojLecPC(o, K, r.tot) + ` (${r.txt})`;
-        ch.hp = o.hp != null && o.hp < kHPmax(K) ? o.hp : null;
+        const L = kLecMimo(K, S, r.tot);
+        m += ": " + L.m + ` (${r.txt})`;
+        if (L.ch) Object.assign(ch, L.ch);
       }
     }
     if (dh) {

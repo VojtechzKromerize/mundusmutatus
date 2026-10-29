@@ -927,6 +927,16 @@ const kCilHtml = (K, i) => {
     v = KCIL[K.id + ":" + i] || K.id;
   return `<select data-kcil="${i}" aria-label="Koho léčíš"><option value="${besc(K.id)}">sebe</option>${L.map(k => `<option value="${besc(k.id)}"${v === k.id ? " selected" : ""}>${besc(k.n)}</option>`).join("")}<option value="-"${v === "-" ? " selected" : ""}>jen hod</option></select>`;
 };
+/* léčení mimo boj: padlou postavu (hody proti smrti na kartě) probere – od nuly, hody proti smrti zmizí; mrtvou nevzkřísí */
+function kLecMimo(K, S, tot) {
+  const ds = S && S.ds;
+  if (ds && ds.st === "mrtev") return {ch: null, m: "mrtvého léčení nevzkřísí"};
+  const o = {hp: ds ? 0 : S.hp, thp: S.thp},
+    m = bojLecPC(o, K, tot),
+    ch = {hp: o.hp != null && o.hp < kHPmax(K) ? o.hp : null};
+  if (ds) ch.ds = null;
+  return {ch, m: ds ? `${m}, probírá se` : m};
+}
 async function kLecKarta(K2, tot, od, co, vratit) {
   if (!K2 || !(tot > 0)) return;
   if (od && K2.id !== od.id && typeof navrhPotreba === "function" && navrhPotreba()) {
@@ -946,9 +956,9 @@ async function kLecKarta(K2, tot, od, co, vratit) {
       bojPCZmena(h0.id, x => bojLecPC(x, K2, tot), true);
       return;
     }
-    const o = {hp: S.hp, thp: S.thp},
-      m = bojLecPC(o, K2, tot);
-    await kartaStavZmen(K2.id, {hp: o.hp != null && o.hp < kHPmax(K2) ? o.hp : null}, `${K2.n}: ${m}.`);
+    const L = kLecMimo(K2, S, tot);
+    if (L.ch) await kartaStavZmen(K2.id, L.ch, `${K2.n}: ${L.m}.`);
+    else mmHlasG(`${K2.n}: ${L.m}.`, 4000);
     return;
   }
   if (!window.MMDB || !MMDB.kartaLecit) {
@@ -1461,8 +1471,9 @@ function kStavVliv(K, co) {
   const st = kStavy(K),
     r = [];
   let fail = false;
-  const typ = /^Útok/.test(co) ? "ut" : /^Záchrana/.test(co) ? "za" : /^Iniciativa/.test(co) ? "in" : "ov",
-    ab = (co.match(/(STR|DEX|CON|INT|WIS|CHA)/) || [])[1];
+  /* hod proti smrti je záchrana (otrávený či vyděšený na něj nevýhodu nemá); dovednost a „Ověření Síla“ dají vlastnost (Rage u Atletiky) */
+  const typ = /^Útok/.test(co) ? "ut" : /^(Záchrana|Hod proti smrti)/.test(co) ? "za" : /^Iniciativa/.test(co) ? "in" : "ov",
+    ab = (co.match(/(STR|DEX|CON|INT|WIS|CHA)/) || [])[1] || Object.keys(KSK).find(k => co === "Ověření " + KSK[k]) || KDOVAB[co];
   st.forEach(k => {
     const d = SRDST[k];
     if (!d) return;

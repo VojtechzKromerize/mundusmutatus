@@ -552,10 +552,11 @@ const KZDRP = [
   [/magical cunning/i, c => (kTrU(c, "Warlock") >= 2 ? 1 : 0), "dlouhý odpočinek", "Magical Cunning"],
   [/^lucky$/i, c => c.pb, "dlouhý odpočinek"],
   [/breath weapon/i, c => c.pb, "dlouhý odpočinek"],
-  [/stone's endurance|large form/i, c => c.pb, "dlouhý odpočinek"],
+  [/stone's endurance/i, c => c.pb, "dlouhý odpočinek"],
+  [/large form/i, c => 1, "dlouhý odpočinek"],
   [/relentless endurance/i, c => 1, "dlouhý odpočinek"],
   [/divine intervention/i, c => (kTrU(c, "Cleric") >= 10 ? 1 : 0), "dlouhý odpočinek"],
-  [/tireless/i, c => (kTrU(c, "Ranger") >= 10 ? c.pb : 0), "dlouhý odpočinek"],
+  [/tireless/i, c => (kTrU(c, "Ranger") >= 10 ? Math.max(1, c.md("WIS")) : 0), "dlouhý odpočinek"],
   [
     /favored enemy/i,
     c => {
@@ -585,7 +586,7 @@ function kZdrJednou(o, U) {
 }
 function kZdroje(K) {
   const c = kCtx(K),
-    fit = n => KZDRP.find(x => x[0].test(String(n).replace(/[’']/g, "'"))),
+    fit = n => KZDRP.find(x => x[0].test(kZdrJm(n).replace(/[’']/g, "'"))),
     ob = (r, q) => (typeof r[2] === "function" ? r[2](c) : r[2] || q.obn);
   const o0 = (K.zdroje || []).map(q => {
     const r = fit(q.n);
@@ -594,7 +595,7 @@ function kZdroje(K) {
     return m > 0 ? Object.assign({}, q, {max: m, obn: ob(r, q), kr1: /1 se vrátí/.test(ob(r, q)) || undefined, pr: 1}) : q;
   });
   const o = kZdrJednou(o0, (c.S || {}).zdr);
-  KZDRP.filter(r => r[3] && !o.some(q => r[0].test(String(q.n).replace(/[’']/g, "'")))).forEach(r => {
+  KZDRP.filter(r => r[3] && !o.some(q => r[0].test(kZdrJm(q.n).replace(/[’']/g, "'")))).forEach(r => {
     const m = r[1](c);
     if (m > 0) o.push({n: r[3], max: m, obn: ob(r, {}), kr1: /1 se vrátí/.test(ob(r, {})) || undefined, pr: 1});
   });
@@ -896,6 +897,11 @@ function kACR(K) {
     ac += B.ac;
     L.push(...B.L);
     if (B.min > min) min = B.min;
+    /* základ bez zbroje z kouzla: nahradí první položku (bez zbroje 10 + DEX, Unarmored Defense), je-li vyšší */
+    if (B.zak && !N.z && L.length && B.zak > L[0][1]) {
+      ac += B.zak - L[0][1];
+      L[0] = ["Mage Armor (13 + DEX)", B.zak];
+    }
   }
   const txt = L.map(([l, v], i) => (i ? `${l} ${bsg(v)}` : `${l} ${v}`)).join(" · ") + (min > ac ? ` · aspoň ${min} (kouzlo)` : "");
   return {ac: Math.max(ac, min), txt, N};
@@ -1243,8 +1249,11 @@ function kMunice(K, a) {
   if (!(a.vl || []).some(v => /ammunition|munice/i.test(v)) && !kMunNm(a)) return null;
   const re = kMunNm(a);
   if (!re) return null;
+  /* pouzdro na šipky ani toulec střelivo nejsou; přednost má položka, které ještě zbývá */
   const inv = kartaStav(K.id).inv || K.vybaveni || [],
-    i = inv.findIndex(x => re.test(x.n));
+    ok = x => re.test(x.n) && !/\bcase\b|quiver|toulec|pouzdr|pouch|váček/i.test(x.n),
+    i0 = inv.findIndex(x => ok(x) && +x.q > 0),
+    i = i0 >= 0 ? i0 : inv.findIndex(ok);
   return i >= 0 ? {i, x: inv[i]} : {i: -1, x: null};
 }
 const kMunTxt = (K, a) => {

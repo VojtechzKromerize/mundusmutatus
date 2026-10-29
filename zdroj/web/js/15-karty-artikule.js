@@ -272,7 +272,8 @@ function kUcVyprsi(K) {
   const L = kUc(K),
     pr = L.filter(x => x.do != null && x.do <= t);
   if (!pr.length) return;
-  const k = K.id + ":" + pr.map(x => x.n).join("|");
+  /* i s časem konce: tentýž účinek seslaný znovu musí vypršet znovu */
+  const k = K.id + ":" + pr.map(x => x.n + "@" + x.do).join("|");
   if (KUCX.has(k)) return;
   KUCX.add(k);
   kartaStavZmen(K.id, {uc: L.filter(x => !(x.do != null && x.do <= t)).length ? L.filter(x => !(x.do != null && x.do <= t)) : null}, null, {
@@ -1123,7 +1124,7 @@ function kPrehledHtml() {
         .join(
           "",
         )}</select></label><label>SO <input name="dc" type="number" min="1" max="40" value="${besc(KPS.dc)}" placeholder="–"></label><button class="gbtn ghost">Hodit</button></form>
-      <span class="bojbtn"><button type="button" class="gbtn ghost" data-kpodp="k" ${btip("Zdroje s obnovou krátkým odpočinkem a sloty paktu; kostky životů utratí každý na své kartě. Herní čas +1 h.")}>Krátký odpočinek všem</button><button type="button" class="gbtn ghost" data-kpodp="d" ${btip("Životy, sloty, zdroje, Výdrž, polovina kostek životů, vyčerpání −1. Herní čas +8 h.")}>Dlouhý odpočinek všem</button><button type="button" class="gbtn ghost" data-kpzv ${btip("Konec sezení: hráčům vyskočí výzva a každý si hodí d10 na své kartě")}>Zpytování – výzva hráčům</button><button type="button" class="gbtn ghost" data-kpzp ${btip("Konec sezení: vypravěč hodí d10 za všechny postavy")}>Zpytování všem hned</button><button type="button" class="gbtn ghost" data-kpcas="1">čas +1 h</button><button type="button" class="gbtn ghost" data-kpcas="8">+8 h</button></span>
+      <span class="bojbtn"><button type="button" class="gbtn ghost" data-kpodp="k" ${btip("Zdroje s obnovou krátkým odpočinkem a sloty paktu; kostky životů utratí každý na své kartě. Herní čas +1 h.")}>Krátký odpočinek všem</button><button type="button" class="gbtn ghost" data-kpodp="d" ${btip("Životy, sloty, zdroje, Výdrž, všechny kostky životů, vyčerpání −1. Herní čas +8 h.")}>Dlouhý odpočinek všem</button><button type="button" class="gbtn ghost" data-kpzv ${btip("Konec sezení: hráčům vyskočí výzva a každý si hodí d10 na své kartě")}>Zpytování – výzva hráčům</button><button type="button" class="gbtn ghost" data-kpzp ${btip("Konec sezení: vypravěč hodí d10 za všechny postavy")}>Zpytování všem hned</button><button type="button" class="gbtn ghost" data-kpcas="1">čas +1 h</button><button type="button" class="gbtn ghost" data-kpcas="8">+8 h</button></span>
       ${
         V
           ? `<div class="kpvys"><b>${besc(V.co)}</b><ul>${V.r

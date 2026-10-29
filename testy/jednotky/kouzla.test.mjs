@@ -117,7 +117,7 @@ test("kouzla: Mage Armor dává AC 13 + DEX jen bez zbroje; Barkskin AC nejmén�
   try {
     const a = V(`kACR(${mag})`);
     assert.equal(a.ac, 13 + 2);
-    assert.match(a.txt, /aspoň 15 \(kouzlo\)/);
+    assert.match(a.txt, /Mage Armor \(13 \+ DEX\) 15/);
     S.ev(`KST.t_mag = {uc: [{n: "Barkskin"}]}`);
     assert.equal(V(`kACR(${mag}).ac`), 17);
   } finally {
