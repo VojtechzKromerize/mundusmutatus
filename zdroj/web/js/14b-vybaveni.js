@@ -160,7 +160,8 @@ const KINVC = {}; // vybraný cíl vrhu podle karty
    nahoře Moje výbava / Výbava družiny, nosnost (současná / limit), připoutání a peníze; hledání podle jména a přepínače druhu;
    věci ve složkách (Na sobě, Batoh, vlastní – `slozky` na kartě, věc má složku v `v`); každá věc ukazuje váhu a počet, cenu ne.
    Spravovat inventář (list „inv“): přidat z databáze předmětů (hráč s potvrzením vypravěče), vlastní předmět, složky. */
-const KSLOZ0 = [{n: "Batoh"}];
+/* výchozí složky (Vojta 2026-10-29: na sobě, batoh, brašna, kapsy); vlastní přidá Spravovat inventář */
+const KSLOZ0 = [{n: "Batoh"}, {n: "Brašna"}, {n: "Kapsy"}];
 const kSlozky = K => {
   const L = kartaStav(K.id).slozky;
   return Array.isArray(L) ? L : KSLOZ0;
@@ -181,7 +182,6 @@ const KINVF = [
   ["spo", "Spotřební"],
   ["vys", "Výstroj"],
   ["cen", "Cennosti"],
-  ["pri", "Připoutané"],
 ];
 const kInvDruhy = (x, i, NOS) => {
   const g = new Set([x.typ && KINVSK.some(k => k[0] === x.typ) ? x.typ : kInvSkup(x, i, NOS)]);

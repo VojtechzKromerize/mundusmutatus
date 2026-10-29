@@ -2191,7 +2191,7 @@ function bojDbm(s, h, K, gm, vzdy, X) {
     sv = kSvKl(D.sv),
     shOpen = BDM.sheet && BDM.sheet.k === key ? BDM.sheet.t : "";
   const hpB = c =>
-    `<button type="button" class="bdmhp${c || ""}${cur <= 0 ? " bhp0" : cur <= mx / 2 ? " bhp2" : ""}" data-bdmsh="hp" aria-expanded="${shOpen === "hp"}" ${btip("Životy – klikni: zranění, léčení, dočasné HP")}><small>Životy</small><b>${cur}<i>/${mx}</i>${thp ? `<em>+${thp}</em>` : ""}</b>${c ? "" : dsH}<i class="bdmhpbar" style="--p:${pr}%"></i></button>`;
+    `<button type="button" class="bdmhp${c || ""}${cur <= 0 ? " bhp0" : cur <= mx / 2 ? " bhp2" : ""}" data-bdmsh="hp" aria-expanded="${shOpen === "hp"}" ${btip("Životy – klikni: zranění, léčení, dočasné HP")}><small>Životy</small><b>${cur}<i>/${mx}</i>${thp ? `<em>+${thp}</em>` : ""}</b>${c ? "" : dsH}<i class="bdmhpbar" style="--p:${pr}%${thp ? `;--t:${Math.min(100, Math.round((thp / Math.max(1, mx)) * 100))}%` : ""}"${thp ? ` ${btip(`Dočasné životy ${thp} (žlutá linka)`)}` : ""}></i></button>`;
   /* hlavička (2026-10-21, kompaktní): co dřív stálo v pruhu pod ní, je uvnitř – Hodina Závoje u podtitulu, rány jako odznak
      na portrétu, vyčerpání mezi stavy, hody proti smrti pod životy; reakce nad portrétem, inspirace pod ním bez popisku */
   const zavH =

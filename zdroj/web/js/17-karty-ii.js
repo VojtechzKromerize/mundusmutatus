@@ -209,6 +209,38 @@ function kRysyVarJednou(L) {
 }
 const kRysyAktivni = K =>
   kRysyVarJednou([...(K.rysy2 || []).filter(r => (r.cas || r.max) && !KMAST.test(String(r.n || "").trim())), ...(kDopl(K).rysy || [])]);
+/* schopnosti s tlačítkem Použít (Vojta 2026-10-29): použití se odečte, výsledek uplatní a v boji se odškrtne čas (bonusová akce) */
+const KRYSPOUZ = [[/^second wind\b/i, "Second Wind (bonusová akce): obnoví 1d10 + úroveň bojovníka životů"]];
+async function kRysPouzij(K, n) {
+  const r = kRysyAktivni(K).find(x => x.n === n),
+    U = Object.assign({}, kartaStav(K.id).zdr || {}),
+    u = +(U[n] || 0);
+  if (!r || (r.max && u >= r.max)) return;
+  if (/^second wind\b/i.test(n)) {
+    const lv = kTrU(kCtx(K), "Fighter") || kLv(K),
+      d = bK(10),
+      tot = d + lv;
+    U[n] = u + 1;
+    await kartaStavZmen(K.id, {zdr: U}, null, {bezZpet: true});
+    await kLecKarta(K, tot, K, "Second Wind");
+    if (typeof bojBptOznac === "function" && BOJ.s && bojBezi(BOJ.s)) bojBptOznac("BA");
+    kHodZapis({k: K.id, kdo: K.n, co: "Second Wind", tot, d, txt: `d10 ${d} + ${lv} (úroveň bojovníka) = +${tot} HP`});
+    (GMV ? mmHlasG : mmHlas)(`${K.n}: Second Wind +${tot} HP (d10 ${d} + ${lv}).`, 4500);
+    if (curView === "boj") bojPrekresli();
+    else kartyPrekresli();
+  }
+}
+document.addEventListener("click", e => {
+  const b = e.target.closest && e.target.closest("[data-krpz]"),
+    kid = b && (b.closest("[data-kid]") || {}).dataset;
+  if (!b) return;
+  const K =
+    (kid && kid.kid && KARTBY[kid.kid]) ||
+    (typeof bojKartaH === "function" && BOJ.s ? bojKartaH((BOJ.s.hraci || []).find(h => h.n === bojJa.get()) || {}) : null);
+  if (!K || !kMuze(K)) return;
+  e.preventDefault();
+  kRysPouzij(K, b.dataset.krpz);
+});
 function kAkceG(K, bezUt, o) {
   o = o || {};
   const D = kDopl(K),
@@ -229,9 +261,14 @@ function kAkceG(K, bezUt, o) {
     );
   });
   kRysyAktivni(K).forEach(r => {
-    const u = Math.min(r.max || 0, +(U[r.n] || 0));
+    const u = Math.min(r.max || 0, +(U[r.n] || 0)),
+      pz = KRYSPOUZ.find(([re]) => re.test(String(r.n || ""))),
+      tl =
+        pz && kMuze(K)
+          ? ` <button type="button" class="bdmmini" data-krpz="${besc(r.n)}"${r.max && u >= r.max ? " disabled" : ""} ${btip(pz[1])}>Použít</button>`
+          : "";
     G[r.cas || "X"].push(
-      `<li><button type="button" class="kspn" data-krys="${besc(r.n)}">${besc(r.jm || r.n)}</button>${r.max ? ` <span class="bzd">${[...Array(r.max)].map((_, j) => `<button type="button" class="${j < u ? "on" : ""}" data-kzd="${besc(r.n)}" data-j="${j}" aria-label="${besc(r.n)} ${j + 1}"></button>`).join("")}</span>` : ""}</li>`,
+      `<li><button type="button" class="kspn" data-krys="${besc(r.n)}">${besc(r.jm || r.n)}</button>${r.max ? ` <span class="bzd">${[...Array(r.max)].map((_, j) => `<button type="button" class="${j < u ? "on" : ""}" data-kzd="${besc(r.n)}" data-j="${j}" aria-label="${besc(r.n)} ${j + 1}"></button>`).join("")}</span>` : ""}${tl}</li>`,
     );
   });
   kTech(K).forEach(id => {

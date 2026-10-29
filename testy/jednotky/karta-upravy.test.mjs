@@ -235,3 +235,19 @@ test("list Peníze: výklad mincí, kurz a dobové ceny běžných věcí", () =
   assert.match(h, /1 zlatý = 40 grošů · 1 kopa = 60 grošů · 1 groš = 10 haléřů/);
   assert.match(h, /jezdecký kůň/);
 });
+
+test("Second Wind: Použít v bonusových akcích odečte použití a vyléčí 1d10 + úroveň bojovníka", async () => {
+  S.kostky([[7, 10]]);
+  const r = await S.ev(`(async () => {
+    const K = {id: "t_sw", n: "Bojovník", povolani: "Fighter 5", uroven: 5, vl: {STR: 16, DEX: 12, CON: 14, INT: 10, WIS: 10, CHA: 10}, rysy: [], vybaveni: [],
+      rysy2: [{n: "Second Wind", cas: "BA", max: 3}]};
+    KARTY.push(K); KARTBY[K.id] = K; KST[K.id] = {hp: 10};
+    try {
+      const h = kAkceG(K, true, {bezKouzel: true}).BA.join("");
+      await kRysPouzij(K, "Second Wind");
+      const s = kartaStav(K.id);
+      return JSON.stringify([/data-krpz="Second Wind"/.test(h), s.zdr["Second Wind"], s.hp]);
+    } finally { delete KST[K.id]; delete KARTBY[K.id]; KARTY.splice(KARTY.indexOf(K), 1); }
+  })()`);
+  assert.deepEqual(JSON.parse(r), [true, 1, 22]);
+});
