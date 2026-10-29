@@ -41,6 +41,8 @@ JS = [
     ("09-vypravec-herni-cas.js", "/* ===== Vypravěč: stavy odhalení"),
     ("09g-generator-postav.js", "/* @čisté – Generátor postav doby"),
     ("10-kouzla.js", "/* ===== Kouzla: SRD 5.2.1 česky"),
+    ("10g-hledej.js", "/* @čisté – Hledání v pravidlech"),
+    ("10h-hledani.js", "/* ===== Hledání v pravidlech"),
     ("10k-import-pdf.js", "/* @čisté – Import listu postavy z PDF"),
     ("10p-pravidla.js", "/* @čisté – Pravidla boje a Artikulí"),
     ("10q-plne-texty.js", "/* ===== Plné znění kouzel a předmětů"),

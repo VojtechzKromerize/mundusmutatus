@@ -1388,6 +1388,7 @@ document.addEventListener("click", e => {
 /* linkové ikonky karty (2026-10-22, středověké motivy): štít · meč · grimoár · truhla · kbelcová přilba · husí brk · otevřený
    foliant · ohniště · klíč · vycházející slunce · list s pečetí · kostka s oky · svitek; u zbraní meč (zblízka) a šíp (na dálku) */
 const BDMI = {
+  prav: '<path d="M2.5 3.2c1.9-.6 3.8-.4 5.5.7v9.6c-1.7-1.1-3.6-1.3-5.5-.7ZM13.5 3.2c-1.9-.6-3.8-.4-5.5.7"/><path d="M13.5 3.2v4.2"/><circle cx="11.6" cy="10.6" r="2"/><path d="m13 12 1.6 1.6"/>',
   spol: '<path d="M3 13.5c0-2.9 1.6-5 3.9-5.6L5.6 4.2 8 5.6l2.4-1.4-1.3 3.7c2.3.6 3.9 2.7 3.9 5.6"/><circle cx="6.6" cy="10.2" r=".5" fill="currentColor"/>',
   ohen: '<path d="M8 1.8c.4 2.2 2.8 3.4 2.8 6a2.8 2.8 0 0 1-5.6 0c0-1.4.8-2.2 1.4-3 .2 1 .7 1.6 1.2 1.8C7.6 5.2 7.4 3.4 8 1.8Z"/><path d="M2.4 14.2 13.6 11.6M2.4 11.6l11.2 2.6"/>',
   kolo: '<circle cx="4.6" cy="8.4" r="2.6"/><path d="M7.2 8.4h6.4M11 8.4v2.6M13.6 8.4v2"/>',
@@ -1418,6 +1419,7 @@ const BDMS = [
   ["denik", "Poznámky a deník", "Poznámky"],
   ["zaznam", "Herní záznam: moje hody a záznam boje", "Záznam"],
   ["spol", "Společníci", "Společníci"],
+  ["prav", "Pravidla: hledání v Artikulích, Pravidlech SRD, kouzlech, předmětech a vybavení", "Pravidla"],
 ];
 const BDM = {sec: {}, sheet: null, hlo: new Set(), af: {}, kf: {}, fokus: null, utx: new Set(), stt: "st"};
 /* ruční přidání účinku (2026-10-23, Vojta): náhrada, když se něco pokazí – jméno (nabídka účinků, které karta zná), trvání, soustředění;
@@ -1926,6 +1928,7 @@ function bdmTelo(s, h, K, gm, X, id) {
   if (id === "zaznam")
     return `<div class="kdb2 bdmkdb"><p class="kdbnote">Tvoje hody z karty i z Boje a veřejný záznam boje. Klepnutím na kostku dole hodíš cokoli.</p>${kZaznamHtml(K)}</div>`;
   if (id === "spol") return kFormaHtml(K) + kSpolHtml(K);
+  if (id === "prav") return hlBoxHtml("bdmhl");
   return "";
 }
 /* hody proti smrti mimo boj (2026-10-19): stav karty `ds` {u,n,st}; v boji je nese účastník boje (h.ds) */

@@ -1156,7 +1156,8 @@ function bojPravidla() {
   <aside class="bpravidla bkritsup${BKRO ? " open" : ""}" id="bkritsup" aria-label="Kritická zranění"><div class="bprh"><h3>Kritická zranění</h3><button type="button" class="bprx" data-bkro aria-label="Zavřít kritická zranění">${bi("krizek")}</button></div><div class="bprg">
     <article class="bqr bqkrit"><p>k10 + 1 za každé neléčené kritické zranění + 1 za každých 5 HP pod 0: <b>1–5</b> Lehká · <b>6–9</b> Těžká · <b>10–12</b> Vážná · <b>13+</b> Smrtelná. Místo podle Závoje: 6 hlava, 3–5 trup, 2 paže, 1 nohy.</p>${bojKritPanel()}${L("kriticka", "Artikule › Kritická zranění")}</article>
   </div></aside>
-  <aside class="bpravidla${BPRAV ? " open" : ""}" id="bpravidla" aria-label="Rychlá pravidla"><div class="bprh"><h3>Rychlá pravidla</h3><button type="button" class="bprx" data-bprav aria-label="Zavřít rychlá pravidla">${bi("krizek")}</button></div><div class="bprg">
+  <aside class="bpravidla${BPRAV ? " open" : ""}" id="bpravidla" aria-label="Rychlá pravidla"><div class="bprh"><h3>Pravidla</h3><button type="button" class="bprx" data-bprav aria-label="Zavřít pravidla">${bi("krizek")}</button></div><div class="bprg">
+    ${hlBoxHtml("bprhl")}
     <article class="bqr"><h4>Stavy (SRD 5.2.1)</h4><dl class="bdl">${Object.entries(SRDST)
       .map(([k, v]) => `<dt>${bi(SRDIC[k])}${k[0].toUpperCase() + k.slice(1)} <small>${v.en}</small></dt><dd>${v.t}.</dd>`)
       .join(

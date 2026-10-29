@@ -3972,3 +3972,26 @@ html.mmpc:not(.mmjenhra) .bdmweb{display:grid;font-size:1.2rem}
 .kautl{display:flex;flex-wrap:wrap;gap:4px 8px;list-style:none;padding:0;margin:2px 0 6px}.kautl li{padding:1px 6px;border:1px solid var(--rule);border-radius:3px;font-size:.9rem}
 .kautl li small{opacity:.7}.kautl li.kautnic{border-color:var(--kal)}
 .bkonsh .bkrok{margin-top:14px;border-bottom:1px solid var(--rule);padding-bottom:2px}
+/* ===== hledání v pravidlech (2026-10-29): šuplík Pravidla na Hře a list Pravidla na kartě (10h) ===== */
+.hlbox{display:flex;flex-direction:column;gap:8px}
+.hlbox [data-hl]{width:100%;box-sizing:border-box;font:inherit;font-size:1rem;padding:9px 12px;border:1px solid color-mix(in srgb,var(--gold) 70%,var(--rule));border-radius:4px;background:var(--paper);color:var(--ink)}
+.hlbox [data-hl]:focus{outline:2px solid var(--gold);outline-offset:1px}
+.hlbox .hlnap{margin:0}
+.hlg{margin:8px 0 2px;font-family:var(--f-label);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:inherit;opacity:.7}
+.hlres{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.hlres button{display:block;width:100%;text-align:left;padding:7px 9px;border:0;border-radius:3px;background:none;color:inherit;font:inherit;cursor:pointer;line-height:1.25}
+.hlres button:hover,.hlres button:focus-visible{background:color-mix(in srgb,var(--gold) 14%,transparent);outline:none}
+.hlres button b{font-weight:700}
+.hlres button small{color:inherit;opacity:.72}
+.hlres .hls{display:block;font-size:.82rem}
+.hldet{display:flex;flex-direction:column;gap:8px}
+.hldet .hlzpet{align-self:flex-start}
+.hldet h3{margin:0;font-family:var(--f-disp);font-weight:500;font-size:1.45rem;color:var(--kal);line-height:1.15}
+.hldet h3 small{font-family:var(--f-label);font-size:.85rem;color:inherit;opacity:.7}
+.hldet .srdtext h3{font-size:1.3rem}.hldet .srdtext h4{margin:.6em 0 .2em}
+.hldet .srdtext,.hldet .hlart{overflow-wrap:anywhere}
+.hldet .srdtext table,.hldet .hlart table{display:block;overflow-x:auto;max-width:100%}
+.hldet .kzkarta{padding:10px 12px}
+/* šuplík: při hledání se rychlý přehled schová */
+#bojview .bpravidla .bprg:has(.hlbox.hlon)>.bqr{display:none}
+.bdmhl{padding:10px 12px}

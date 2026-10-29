@@ -2090,7 +2090,10 @@ document.addEventListener("click", async e => {
     v.querySelectorAll("#bkritsup").forEach(a => a.classList.toggle("open", BKRO));
     v.querySelectorAll(".bprtg[data-bprav]").forEach(b => b.setAttribute("aria-expanded", BPRAV));
     v.querySelectorAll(".bprtg[data-bkro]").forEach(b => b.setAttribute("aria-expanded", BKRO));
-    const x = v.querySelector(BPRAV ? "#bpravidla .bprx" : BKRO ? "#bkritsup .bprx" : null);
+    /* Pravidla: na počítači rovnou do pole hledání (na telefonu by vyskočila klávesnice) */
+    const x = v.querySelector(
+      BPRAV ? (matchMedia("(hover: hover)").matches ? "#bpravidla [data-hl]" : "#bpravidla .bprx") : BKRO ? "#bkritsup .bprx" : null,
+    );
     if (x) x.focus({preventScroll: true});
     return;
   }
