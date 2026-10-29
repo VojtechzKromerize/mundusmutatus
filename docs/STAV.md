@@ -295,6 +295,7 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
 - 10-29 Celá karta (`.kdb`) používá Alegreya SC na popiscích, záložkách, tlačítkách a štítcích: `--f-label` se uvnitř karty přepíše na `--f-nadp`; dlouhé texty zůstávají v Alegreya (`--f-body`) a jména v gotické (`--f-disp`). Řádky dovedností (`.bdmdr`) také, bez zvětšení písma kvůli ořezu názvů na telefonu.
 - 10-29 Zkratka vlastnosti za dovedností (STR, DEX…) má na kartě svou barvu (`.bdmat-*`). Herní záznam na tmavé kartě je čitelný (`.kdb .bzco` a spol. používají `--kb-*`). Horní záložky hráče (`.btabsc`) mají také Alegreya SC.
 - 10-29 Čitelnost karty: drobné popisky (HP/AC/INI, zkratky, štítky; dřív 0,6–0,68 rem) mají spodní mez 0,72 rem; kontrasty barev karty přeměřeny (ztlumený text ≥ 5,6:1, zlatý ≥ 6,9:1), měnit nebylo co. Těsná místa (spodní záložky `.bdmtabs`, sloupce slotů `.bdmvlz`) zůstala – k ověření na telefonu.
+- 10-29 Hráčská karta na širokém počítači (≥ 1600 px): mřížka karty 2 : 1,25, takže hlavička (Životy, Stavy) a Statistiky s Dovednostmi končí pod záložkou Iniciativa a pravý sloupec listů začíná pod Dohráno (je o ~150 px širší); štíty záložek 50 px místo 36. Pod 1600 px beze změny. K ověření: ořezané názvy dovedností a zalamování vlastností při 1600–1920 px.
 
 ## Otevřené
 - **Mapa jih – k ověření (Vojta)**: kdo k 3. 3. 1458 drží Čakovec a Varaždínský hrad (celjské dědictví – Vitovec?), Golubac vynechán (srbský/turecký?), Kusánský
