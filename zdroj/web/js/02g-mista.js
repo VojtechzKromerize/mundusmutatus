@@ -117,15 +117,15 @@ const CITYINFO = {
   },
   Košice: {
     t: "Svobodné královské město",
-    n: "Košice jsou přední z pěti měst hornouherských (s Levočí, Bardejovem, Prešovem a Sabinovem). Ve čtyřicátých letech byly oporou Jana Jiskry z Brandýsa, léta Páně 1452 jemu odňaty.",
+    n: "Košice jsou přední z pěti měst hornouherských (s Levočí, Bardejovem, Prešovem a Sabinovem), třetí největší město království, ležící na rozcestí, kde se sbíhají cesty z Levoče a z Prešova k Budínu. Právo skladu skutečně užívají jen Budín a Košice; městu patří mincovna a sedmnáct vsí a králi platí ročně dva tisíce zlatých. Léta Páně 1440 svěřila královna Alžběta jejich obranu Janu Jiskrovi z Brandýsa a od těch dob jsou oporou jeho; mír z léta 1452 mu ponechal vše, co tehdy držel.",
   },
   Levoča: {
     t: "Svobodné královské město",
-    n: "Levoča jest hlavním městem spišských Sasů s právem skladu a členem svazu pěti měst hornouherských. Ještě léta Páně 1450 byla v moci Jana Jiskry z Brandýsa.",
+    n: "Levoča jest hlavní město spišských Sasů a člen svazu pěti měst hornouherských. Spiš, v němž leží, poslouchá od léta Páně 1445 Jana Jiskru z Brandýsa.",
   },
   Bardejov: {
     t: "Svobodné královské město",
-    n: "Bardejov jest šarišské kupecké město na cestě do Polska a člen svazu pěti měst hornouherských. Ještě léta Páně 1450 byl v moci Jana Jiskry z Brandýsa.",
+    n: "Bardejov jest šarišské kupecké město na cestě do Polska, jež založil král Ludvík, a člen svazu pěti měst hornouherských. Šariš poslouchá Jana Jiskru z Brandýsa od léta Páně 1442.",
   },
   Prešov: {
     t: "Svobodné královské město",
@@ -133,7 +133,7 @@ const CITYINFO = {
   },
   Skalica: {
     t: "Svobodné královské město",
-    n: "Skalica jest pomezní město při hranici moravské. Léta Páně 1432 ji dobyli husité a dvě léta odtud okolí plenili; roku 1450 ji převzal Jan Hunyadi.",
+    n: "Skalica jest pomezní město při hranici moravské. Husité se v ní usadili již na počátku léta Páně 1428 a odtud plenili okolí, dokud ji po Lipanech král zase nezískal. Za císaře Zikmunda přešla do panských rukou a po míru z léta 1450 musel pan Jiří Rozgonyi vydat ji Hunyadimu.",
   },
   Pešť: {
     t: "Svobodné královské město",
@@ -591,9 +591,12 @@ const CITYINFO = {
     t: "Hrad Országhů",
     n: "Hrad v Pováží, jejž léta Páně 1436 král Zikmund daroval svému stoupenci Michalovi Országhovi; rod jeho jej drží.",
   },
-  Strečno: {t: "Hrad Pongráců", n: "Hrad nad soutěskou Váhu u Žiliny, od léta Páně 1444 v rukou Pongráců z Liptovského Mikuláše."},
+  Strečno: {t: "Hrad nad Váhem", n: "Hrad nad soutěskou Váhu u Žiliny. V údolí Váhu pustošili husité již léta Páně 1431."},
   Bojnice: {t: "Panský hrad", n: "Hrad na horní Nitře, od léta Páně 1430 sídlo potomků Onufria Bardy, kteříž jej ubránili proti husitům."},
-  Likava: {t: "Hrad Hunyadiů", n: "Hrad v Liptově, léta Páně 1431–1434 pevnost husitská. Od léta 1434 náleží Hunyadiům, rodu krále Matyáše."},
+  Likava: {
+    t: "Hrad v Liptově",
+    n: "Hrad v Liptově. Župu liptovskou zastavil král Zikmund léta Páně 1430 své choti Barboře Celské a léta 1445 zasedl pan Pongrác z Liptova mezi sedmi hejtmany království. Kdo hrad drží nyní, je sporné.",
+  },
   Olsztyn: {
     t: "Královský hrad",
     n: "Pohraniční hrad u Čenstochové, jenž chrání Polsko proti Slezsku a Čechám. Starostenství drží potomci Jana ze Szczekocin, od léta Páně 1432 pan Piotr Woda.",
@@ -836,7 +839,10 @@ const CITYINFO = {
     t: "Hrad Jana Jiskry",
     n: "Královský hrad nad soutokem Hronu a Slatiny, jejž dal vystavěti Ludvík Veliký. Jest předním sídlem hejtmana Jiskry v Horních Uhrách.",
   },
-  Kremnice: {t: "Horní město", n: "Horní město zlatonosné s královskou mincovnou, odkudž pocházejí uherské dukáty zlaté. Drží je žoldnéři Jiskrovi."},
+  Kremnice: {
+    t: "Královské horní město",
+    n: "Zlaté a stříbrné doly s mincovnou, kde se razí uherské dukáty zlaté a kde se ražením zlata platí vojska pánů. Zdejší žíla je neobyčejně mocná; těžba však trpí neklidem v zemi, neboť horní města v okolí drží žoldnéři Jiskrovi.",
+  },
   "Vídeňské Nové Město": {
     t: "Rezidence císaře Fridricha III.",
     n: "Opevněné město na poledne od Vídně, milé sídlo císaře Fridricha III. Na hradě jeho jest kaple svatého Jiří se stěnou erbů.",
@@ -2525,7 +2531,7 @@ const CITYINFO = {
   Smolník: {t: "Horní město", n: "Horní město v horách nad Hnilcem, kde se od starých časů dobývá zlato a měď."},
   Lučenec: {
     t: "Městečko",
-    n: "Tržní městečko s opevněným klášterem, u něhož léta Páně 1451 pan Jiskra těžce porazil vojsko Hunyadiho; padlo tu několik baronů uherských.",
+    n: "Tržní městečko; nedaleko stojí opevněný klášter, který léta Páně 1451 obléhal Hunyadi. Pan Jiskra přispěchal obleženým na pomoc a porazil jeho vojsko tak těžce, že padlo několik baronů uherských.",
   },
   Varadín: {
     t: "Biskupské město",
@@ -2635,10 +2641,6 @@ const CITYINFO = {
   Velehrad: {
     t: "Klášter cisterciáků",
     n: "Cisterciácké opatství na Moravě, kde sloužili němečtí mniši od roku 1201. Podle pověsti stálo opatství poblíž hrobu svatého Metoděje.",
-  },
-  Kremnica: {
-    t: "Královské horní město",
-    n: "Zlaté a stříbrné doly s mincovnou, kde se ražením zlata platí vojska pánů. Zdejší žíla je neobyčejně mocná; těžba však trpí neklidem v zemi.",
   },
 };
 /*@cast}*/

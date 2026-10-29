@@ -1142,7 +1142,7 @@ const ZPUSTLE = [
       [19.5, 48.1],
       [19.1, 48.25],
     ],
-    "Roku 1451 rozprášili bratříci u Lučence mnohem větší vojsko Huňadyho. Od roku 1453 je vede hejtman Petr Aksamit a z opevněných táborů drží velkou část Horních Uher.",
+    "Roku 1451 oblehl Huňady opevněný klášter u Lučence a pan Jiskra, přispěchav na pomoc obleženým, jej těžce porazil. Bratříky vede od roku 1453 hejtman Petr Aksamit a z opevněných táborů drží velkou část Horních Uher.",
   ],
   /* ---- SEVER (mapa 2026-10-27) ---- */
   [
