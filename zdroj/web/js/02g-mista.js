@@ -94,9 +94,11 @@ const CITYINFO = {
   Řezno: {n: "Řezno jest přístavem na Dunaji, sídlem biskupským a starobylým městem říšským."},
   Erfurt: {t: "Město mohučského arcibiskupa", n: "Erfurt jest bohaté a přední město durynské s učením obecným, kteréž se samo spravuje."},
   Prešpurk: {
-    n: "Prešpurk jest uherské pomezní město naproti Rakousům, na Dunaji i na cestě Považské. Sem má být podle smlouvy strážnické do roka dopravena Kateřina, dcera pana Jiřího, zasnoubená králi Matyášovi.",
+    n: "Prešpurk jest uherské pomezní město naproti Rakousům, na Dunaji, druhé největší v celém království; leží na staré cestě, která vede přes Vídeň do Řezna, a výsady má již od léta Páně 1291. Dovoz tu převládá nad vývozem, zvláště sukna a nože z Rakous. Hrad prešpurský držel pan Jiří Rozgonyi, než jej po míru z léta 1450 musel vydat Hunyadimu. Sem má být podle smlouvy strážnické do roka dopravena Kateřina, dcera pana Jiřího, zasnoubená králi Matyáši.",
   },
-  Trnava: {n: "Trnava jest bohaté kupecké město na cestě Považské."},
+  Trnava: {
+    n: "Trnava, kterou založil král Béla léta Páně 1238, jest hlavní město na cestě z Prahy a z Brna do Uher, kupecké i vinařské. Husité ji obsadili léta 1432, ale po Lipanech ji král zase získal. Po míru z léta 1450 musel pan Jiří Rozgonyi vydat Trnavu Hunyadimu, a léta 1456 ji Hunyadi odevzdal králi. Město samo drží čtyři vsi.",
+  },
   "Banská Štiavnica": {n: "Štiavnica má nejbohatší stříbrné doly v celých Uhřích."},
   "Banská Bystrica": {n: "Bystrica jest město měděných dolů, z nichž měď jde až do Benátek."},
   Lipsko: {n: "Lipsko jest město trhů na rozcestí Vysoké a Říšské cesty."},
@@ -451,7 +453,7 @@ const CITYINFO = {
   Jáger: {t: "Biskupské město", n: "Sídlo biskupa od léta Páně 1009, s chrámem na hradním vrchu, okolo něhož vyrostlo město."},
   "Spišská Nová Ves": {
     t: "Zastavené město",
-    n: "Nejpřednější ze třinácti měst spišských, jež král Zikmund léta Páně 1412 zastavil Polsku. Spravuje je polský starosta, jenž sedí na Staré Ľubovni.",
+    n: "Jedno z třinácti saských měst spišských, jež král Zikmund léta Páně 1412 zastavil polskému králi Vladislavovi za sto tisíc zlatých, totiž za třicet sedm tisíc kop grošů pražských, které si od něho vypůjčil na válku s Benátkami. Spolu s nimi vzal Polák do zástavy panství Ľubovňu a města Podolínec a Hniezdne. Spravuje je polský starosta, jenž sedí na Staré Ľubovni.",
   },
   Kežmarok: {n: "Spišské město pod Tatrami, od léta Páně 1440 sídlo hraběte spišského. Léta 1433 je těžce poplenil nájezd husitský."},
   Rožňava: {

@@ -4369,7 +4369,7 @@ const DUCHY = [
     s: "Spišská zástava",
     h: "jag",
     dom: 0,
-    note: "Třináct spišských měst s hradem Ľubovňou a Podolíncem drží od roku 1412 v zástavě polská koruna; spravuje je polský starosta na Ľubovni.",
+    note: "Třináct saských měst spišských s panstvím Ľubovňou a městy Podolíncem a Hniezdnem zastavil roku 1412 král Zikmund polskému králi Vladislavovi za sto tisíc zlatých; drží je od té doby polská koruna a spravuje je polský starosta na Ľubovni.",
     c: "dpa",
     lab: [20.562, 49.123],
     w: 36.6,
