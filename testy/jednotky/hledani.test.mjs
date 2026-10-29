@@ -72,3 +72,13 @@ test("klepnutí na pojem: stav, vlastnost a mistrovství zbraně, akce – okno 
   assert.match(S.ev(`(document.querySelector(".mmpop") || {}).textContent || ""`), /Obratná/);
   S.ev(`mmPopX(); document.getElementById("thlp").remove(); 0`);
 });
+
+test("vypravěč: hledání najde vlastní bestiář a statbloky osob s tlačítkem do boje", async () => {
+  await S.ev("hlIndex()");
+  const g = JSON.parse(S.ev(`JSON.stringify([...new Set(HLI.map(e => e.g))])`));
+  assert.ok(g.includes("Protivník"), "vlastní bestiář");
+  assert.ok(g.includes("Osoba"), "statbloky osob");
+  const os = S.ev(`(e => e && HLI.indexOf(e))(hlHledej(HLI, "Viktorin").find(e => e.g === "Osoba"))`);
+  assert.ok(os >= 0, "Viktorin z Poděbrad jako osoba se statblokem");
+  assert.match(S.ev(`hlDetailHtml(HLI[${os}], false)`), /data-hlboj="o:viktorin"/);
+});

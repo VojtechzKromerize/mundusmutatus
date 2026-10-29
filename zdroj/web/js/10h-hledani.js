@@ -160,18 +160,44 @@ function hlSestav() {
     );
     POVOLSHR.forEach(p => M(p, "povolání", "povolani", `<p>${besc(p.t)}</p>`));
   }
-  /* nestvůry SRD – jen vypravěč */
-  if (GMV && typeof NETV !== "undefined" && NETV)
-    NETV.forEach(x =>
+  /* jen vypravěč: vlastní bestiář, statbloky osob ze Zemských desek a nestvůry SRD – s tlačítkem do boje */
+  if (GMV) {
+    const sb = p =>
+      `${p.ac ? `<p class="brf"><b>AC</b> ${besc(p.ac)}${(p.hp || []).length ? ` · <b>HP</b> ${p.hp.map(h => (h.n ? h.n + " " : "") + h.max).join(", ")}` : ""}</p>` : ""}${typeof bojRefTxt === "function" ? bojRefTxt(p) : ""}<div class="bsb">${p.h || p.b || ""}</div>`;
+    const doBoje = k => `<p><button type="button" class="gbtn" data-hlboj="${besc(k)}">+ do boje</button></p>`;
+    PROTIVNICI.filter(p => !p.$srd).forEach(p =>
       P({
-        g: "Nestvůra",
-        n: x.n,
-        s: x.vy ? `výzva ${String(x.vy).split(" ")[0]}` : "",
-        h: "#pravidla/netvori",
-        txt: "",
-        html: () => `<h3>${besc(x.n)}</h3><div class="bsb">${x.h}</div>`,
+        g: "Protivník",
+        n: p.n,
+        al: p.st,
+        s: [BDRUH[p.u] || p.u, p.vy ? `výzva ${String(p.vy).split(" ")[0]}` : ""].filter(Boolean).join(" · "),
+        txt: hlTxt(p.h).slice(0, 3000),
+        html: () => `<h3>${besc(p.n)}</h3>${doBoje("p:" + p.id)}${sb(p)}`,
       }),
     );
+    Object.values(OSPROT).forEach(o => {
+      const p = PROTBY[o.b] || {};
+      P({
+        g: "Osoba",
+        n: o.n,
+        s: `statblok · ${p.n || o.b}${(o.pr || []).length ? " · " + o.pr.map(i => (PRIVBY[i] || {}).n || i).join(", ") : ""}`,
+        h: `#osoba/${o.id}`,
+        txt: "",
+        html: () => `<h3>${besc(o.n)}</h3><p class="rsmall">statblok: ${besc(p.n || o.b)}</p>${doBoje("o:" + o.id)}${sb(p)}`,
+      });
+    });
+    if (typeof NETV !== "undefined" && NETV)
+      NETV.forEach(x =>
+        P({
+          g: "Nestvůra",
+          n: x.n,
+          s: x.vy ? `výzva ${String(x.vy).split(" ")[0]}` : "",
+          h: "#pravidla/netvori",
+          txt: "",
+          html: () => `<h3>${besc(x.n)}</h3>${PROTBY[x.id] ? doBoje("p:" + x.id) : ""}<div class="bsb">${x.h}</div>`,
+        }),
+      );
+  }
   return I;
 }
 /* výsledky a detail: skupiny s nadpisy, každá položka je tlačítko s pořadím v rejstříku */
@@ -323,4 +349,14 @@ document.addEventListener("keydown", e => {
   if (!el) return;
   e.preventDefault();
   hlPojem(el);
+});
+/* + do boje z výsledku hledání (vypravěč): rovnou do běžícího boje či scény, jinak do přípravy (bojPridejZvenku, 11) */
+document.addEventListener("click", e => {
+  const b = e.target.closest && e.target.closest("[data-hlboj]");
+  if (!b || !GMV) return;
+  const [k, id] = b.dataset.hlboj.split(/:(.*)/s),
+    rows = k === "o" ? bojRozvin([{os: id, pr: []}]) : PROTBY[id] ? bojRozvin([{id, pr: []}]) : [];
+  if (!rows.length) return;
+  mmPopX();
+  bojPridejZvenku(rows, `${rows[0].n} – z hledání.`);
 });

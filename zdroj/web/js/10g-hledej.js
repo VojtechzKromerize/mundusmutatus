@@ -4,8 +4,32 @@
    bez diakritiky a velkých písmen, název česky i anglicky, celé slovo v názvu má přednost před zmínkou v textu. */
 
 /* skupiny výsledků v pořadí, v jakém se ukazují při stejné shodě; Artikule mají přednost před SRD */
-const HLSKUP = ["Artikule", "Stav", "Pojem", "Pravidla SRD", "Kouzlo", "Magický předmět", "Vybavení", "Doplněk mimo SRD", "Nestvůra"];
-const HLVAHA = {Artikule: 6, Stav: 5, Pojem: 4, "Pravidla SRD": 2, Kouzlo: 2, "Magický předmět": 1, Vybavení: 1, "Doplněk mimo SRD": 1, Nestvůra: 0};
+const HLSKUP = [
+  "Artikule",
+  "Stav",
+  "Pojem",
+  "Pravidla SRD",
+  "Kouzlo",
+  "Magický předmět",
+  "Vybavení",
+  "Doplněk mimo SRD",
+  "Protivník",
+  "Osoba",
+  "Nestvůra",
+];
+const HLVAHA = {
+  Artikule: 6,
+  Stav: 5,
+  Pojem: 4,
+  "Pravidla SRD": 2,
+  Kouzlo: 2,
+  "Magický předmět": 1,
+  Vybavení: 1,
+  "Doplněk mimo SRD": 1,
+  Protivník: 2,
+  Osoba: 2,
+  Nestvůra: 0,
+};
 
 const hlNorm = s =>
   String(s ?? "")
