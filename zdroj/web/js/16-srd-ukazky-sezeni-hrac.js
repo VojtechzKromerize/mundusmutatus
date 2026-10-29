@@ -1575,7 +1575,7 @@ function hraVypravList(K) {
 function hraUcetHtml(K) {
   if (!hraMoje(K)) return "";
   const ja = JA.get() || {};
-  return `${aplikaceHtml(K.id)}<p class="bojbtn">${notifBtn()}${mmMotivBtn()}${window.MMDB && !(ja.d && DCU.typ !== "email") ? `<button type="button" class="gbtn ghost" data-jaheslo>Změnit heslo</button>` : ""}${ja.d ? `<button type="button" class="gbtn ghost" data-discordx>${jaOdhlasTxt()} (${besc(K.n)})</button>` : `<button type="button" class="gbtn ghost" data-jaodhlas>Odhlásit (${besc(K.n)})</button>`}</p>`;
+  return `${aplikaceHtml(K.id)}<p class="bojbtn">${notifBtn()}${mmMotivBtn()}${mmKbSel()}${window.MMDB && !(ja.d && DCU.typ !== "email") ? `<button type="button" class="gbtn ghost" data-jaheslo>Změnit heslo</button>` : ""}${ja.d ? `<button type="button" class="gbtn ghost" data-discordx>${jaOdhlasTxt()} (${besc(K.n)})</button>` : `<button type="button" class="gbtn ghost" data-jaodhlas>Odhlásit (${besc(K.n)})</button>`}</p>`;
 }
 /* ===== řídicí pult vypravěče (2026-10-22): Hra = Boj + záložky Družina a Sezení (dřívější stránka Hra vypravěče) =====
    renderBoj (20d) obalí #bojview navigací (pultObal); v záložce Družina/Sezení vykreslí pultVykresli místo boje. */

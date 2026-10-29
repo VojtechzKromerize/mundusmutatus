@@ -110,6 +110,25 @@ function mmMotivPopis() {
     if (tx) tx.textContent = `Vzhled: ${n}`;
   });
 }
+/* barva karty (Vojta 2026-10-29): vínová výchozí + Noc, Les, Uhel, Purpur; volba v prohlížeči (mm-kb), styly čtou html[data-kb] (--kbt-*) */
+const MMKB = {vino: "Vínová (výchozí)", noc: "Noc", les: "Les", uhel: "Uhel", purpur: "Purpur"};
+const mmKbTed = () => document.documentElement.dataset.kb || "vino";
+const mmKbSel = () =>
+  `<label class="gbtn ghost mmkbl">Barva karty <select data-mmkb>${Object.entries(MMKB)
+    .map(([k, n]) => `<option value="${k}"${mmKbTed() === k ? " selected" : ""}>${n}</option>`)
+    .join("")}</select></label>`;
+function mmKb(k) {
+  const d = document.documentElement;
+  if (k in MMKB && k !== "vino") d.dataset.kb = k;
+  else delete d.dataset.kb;
+  try {
+    if (d.dataset.kb) localStorage.setItem("mm-kb", k);
+    else localStorage.removeItem("mm-kb");
+  } catch (e) {}
+}
+document.addEventListener("change", e => {
+  if (e.target.matches && e.target.matches("[data-mmkb]")) mmKb(e.target.value);
+});
 /* tlačítko pro stránky bez záhlaví s menu (hráčova Hra v aplikaci a na telefonu – list Postava) */
 const mmMotivBtn = () => {
   const [i, n] = MMMOTIV[mmMotivTed()];

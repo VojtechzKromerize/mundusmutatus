@@ -3,7 +3,7 @@
 <meta name="theme-color" content="#4d1521">
 <script>
 /* denní / noční vzhled zvolený na webu (mmMotiv v 01): nastaví se před vykreslením, aby stránka neblikla */
-(()=>{try{const t=localStorage.getItem("mm-motiv");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}})();
+(()=>{try{const t=localStorage.getItem("mm-motiv");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t;const k=localStorage.getItem("mm-kb");if(["noc","les","uhel","purpur"].includes(k))document.documentElement.dataset.kb=k}catch(e){}})();
 </script>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Mundus Mutatus">
