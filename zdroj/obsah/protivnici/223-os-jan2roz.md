@@ -2,34 +2,36 @@
 id: os-jan2roz
 nazev: Jan II. z Rožmberka
 uroven: sok
-vyzva: 7 (2 900 XP)
+vyzva: 6 (2 300 XP)
 ac: 18 (plná zbroj)
-hp: 127
-utok: Dlouhý meč obouruč +6, 1d10+3 Slashing · dva útoky v jednom slotu · Hlava rodu.
+hp: 112
+utok: Dlouhý meč obouruč +6, 1d10+3 Slashing · dva útoky v jednom slotu · Mírný hejtman.
 pozehnani: Povel: spojenec do 30 stop se hned pohne a zaútočí bez slotu.
-pokuseni: Zakopne na hladkém: Prone a do konce příštího tahu AC −2.
-nerest: Zodpovědnost příliš brzy – nesvěří rozhodnutí nikomu jinému; rozhodnutí odkládá, dokud není pozdě. Nechá se vlákat do sporu o čest, pokud jde o rod.
+pokuseni: Otcův hněv v hlavě: vzpomene si na otcův list a v tomto slotu jen mlčí.
+nerest: Poslušný syn a tvrdohlavý pán – hněv otce se bojí víc než nepřítele. Rodová čest je pro něj posvátná; kdo ji zpochybní, toho vyzve. Chce zrušit dluh, získat Perchtino věno a smířit se s otcem.
 stitky: osoba, vladař rodu
 zdroje: Výdrž 2
 utoky:
   - Dlouhý meč obouruč | +6 | 1d10+3 Slashing | Šikovná, Ostrá; dva útoky v jednom slotu
   - Kuše | +4 | 1d10+1 Piercing | dostřel 80/320 stop; Průrazná
 ---
-Čtyřiadvacetiletý vladař rodu, slezský zemský hejtman. Trpí tíhou rodu větší, než ukazuje, a snaží se být starším, než je.
+Janíček. Nejvzdělanější a nejsnášenlivější z rožmberských mužů; upřímný, slušný, ale tvrdohlavý. Otci píše jako poslušný syn, i když je spolusprávce. Trpí žlučovými kameny. Cítí se cti zavázán Habsburkům.
 
-**Sok** · Medium humanoid (člověk) · **Sloty** 2 · **Výzva** 7 (2 900 XP)
+**Sok** · Medium humanoid (člověk) · **Sloty** 2 · **Výzva** 6 (2 300 XP)
 
-**AC** 18 (plná zbroj) · **HP** 127 (17d8+51) · **Rychlost** 30 stop · **Iniciativa** +1
+**AC** 18 (plná zbroj) · **HP** 112 (15d8+45) · **Rychlost** 30 stop · **Iniciativa** +1
 
 | STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
-| 17 (+3) | 13 (+1) | 16 (+3) | 12 (+1) | 13 (+1) | 16 (+3) |
+| 17 (+3) | 13 (+1) | 16 (+3) | 12 (+1) | 13 (+1) | 15 (+2) |
 
-**Záchrany** STR +6, CON +6, WIS +4 · **Dovednosti** Athletics +6, Persuasion +6, Intimidation +6, History +4, Perception +4 · **Resistance (zbroj, komplexní)** Bludgeoning, Slashing, Piercing · **Smysly** pasivní Perception 14 · **Jazyky** česky, německy, latinsky · **Bonus zdatnosti** +3 · **Zdroje** Výdrž 2
+**Záchrany** STR +6, CON +6, WIS +4 · **Dovednosti** Persuasion +5, Insight +4, History +4, Athletics +6, Intimidation +5 · **Resistance (zbroj, komplexní)** Bludgeoning, Slashing, Piercing · **Smysly** pasivní Perception 11 · **Jazyky** česky, německy, latinsky · **Bonus zdatnosti** +3 · **Zdroje** Výdrž 2
 
 ## Vlastnosti
 
-- **Hlava rodu.** Spojenci s erbem Rožmberků do 30 stop mají výhodu na zachránění proti strachu.
+- **Mírný hejtman.** Spojenci s erbem Rožmberků do 30 stop mají výhodu na zachránění proti strachu.
+- **Slib cti.** Jednou za scénu odmítne ústupek: výhoda na záchranu proti Charmed a Frightened.
+- **Žlučové kameny.** Je-li zasažen do těla, hází CON save DC 12, jinak ztratí slot.
 
 ## Akce (jedna v každém slotu)
 
@@ -39,5 +41,5 @@ utoky:
 
 ## Mluvení
 
-- **Řeč.** Persuasion +6, Insight +1, Deception +3, Intimidation +6.
+- **Řeč.** Persuasion +5, Insight +4, Deception +2, Intimidation +5.
 

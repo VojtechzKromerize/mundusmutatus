@@ -5,15 +5,15 @@ uroven: sok
 vyzva: 2 (450 XP)
 ac: 11
 hp: 49
-utok: Hůl +2, 1d6 Bludgeoning · Zapálený kazatel.
+utok: Hůl +2, 1d6 Bludgeoning · Kapistránův dědic.
 pozehnani: Slova přísahy: kdo k němu mluví s ohledem, nemůže ho udeřit bez Wisdom save DC 13.
-pokuseni: Hlas se zadrhne: kázání, které mělo zvednout dav, mu uvízne v krku a dav se obrátí.
-nerest: Zelotství – kališníka nesnáší jako kacíře. Rozčílí se při kalichu na stole. Nepoužije násilí, jen slovo.
+pokuseni: Disputaci se vyhne: mlčí a ustoupí – ztratí slot a ztratí autoritu u přítomných.
+nerest: Zelotství – kališníka nesnáší jako kacíře a při pohledu na kalich ztrácí rozum. Vyhýbá se disputaci, aby se nemusel obhajovat. Kázáním se chce dostat k mučednictví, ale cestuje se stráží.
 stitky: osoba, kanovník a kazatel vratislavský
 utoky:
   - Hůl | +2 | 1d6 Bludgeoning | Obouruční
 ---
-Vratislavský kanovník a kazatel, osmapadesátiletý zastánce Říma; zapálený proti kacířům.
+Kanovník a kazatel vratislavský, dědic Kapistrána: zapálený proti kacířům, v kázáních požaduje pálení „marností“. Ve Vratislavi řídil proces se Židy.
 
 **Sok** · Medium humanoid (člověk) · **Sloty** 2 · **Výzva** 2 (450 XP)
 
@@ -21,13 +21,14 @@ Vratislavský kanovník a kazatel, osmapadesátiletý zastánce Říma; zapálen
 
 | STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
-| 10 (+0) | 10 (+0) | 11 (+0) | 14 (+2) | 16 (+3) | 15 (+2) |
+| 10 (+0) | 10 (+0) | 11 (+0) | 14 (+2) | 16 (+3) | 16 (+3) |
 
-**Záchrany** WIS +5, CHA +4 · **Dovednosti** Religion +4, Persuasion +4, Intimidation +4, Insight +5 · **Smysly** pasivní Perception 13 · **Jazyky** česky, latinsky, německy, polsky · **Bonus zdatnosti** +2
+**Záchrany** WIS +5, CHA +5 · **Dovednosti** Religion +4, Persuasion +5, Intimidation +5, Insight +5 · **Smysly** pasivní Perception 13 · **Jazyky** česky, latinsky, německy, polsky · **Bonus zdatnosti** +2
 
 ## Vlastnosti
 
-- **Zapálený kazatel.** Jednou za scénu obrátí dav proti kacířům: WIS save DC 13 pro shromážděné.
+- **Kapistránův dědic.** Jednou za scénu obrátí dav proti kacířům: WIS save DC 13 pro shromážděné, jinak se postaví proti označenému tvorovi.
+- **Pálení marností.** Může vyhlásit očistný oheň: tvor, který vlastní „marnost“, ztratí výhodu v dalším jednání.
 
 ## Akce (jedna v každém slotu)
 
@@ -35,5 +36,5 @@ Vratislavský kanovník a kazatel, osmapadesátiletý zastánce Říma; zapálen
 
 ## Mluvení
 
-- **Řeč.** Persuasion +4, Insight +5, Deception +2, Intimidation +4.
+- **Řeč.** Persuasion +5, Insight +5, Deception +3, Intimidation +5.
 

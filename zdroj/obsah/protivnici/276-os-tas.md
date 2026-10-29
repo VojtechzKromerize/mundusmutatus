@@ -5,15 +5,15 @@ uroven: sok
 vyzva: 3 (700 XP)
 ac: 11
 hp: 63
-utok: Hůl +2, 1d6 Bludgeoning · Biskup Moravy.
+utok: Hůl +2, 1d6 Bludgeoning · Králův vyjednavač.
 pozehnani: Požehnání pro věřící: spojenec do 30 stop, který zná modlitbu, se může jednou hned vyléčit o 1d8 + WIS modifikátor.
-pokuseni: Pochyba v pravou chvíli: nemůže ve slotu bojovat ani kouzlit, dokud neodříká modlitbu.
-nerest: Mladý biskup – chce ukázat, že zaslouží místo. Je citlivý na kritiku jeho mládí.
+pokuseni: Mezi dvěma ohni: nemůže se rozhodnout – ztratí slot a oba protivníci mají výhodu na jeho obranu.
+nerest: Mezi dvěma ohni – bojí se přijít o příjmy kvůli bule a být rozdrcen mezi Římem a králem. Snadno se dá přesvědčit, když mu někdo nabídne smír. Chce svěcení a náhradu škod biskupství.
 stitky: osoba, zvolený biskup olomoucký
 utoky:
   - Hůl | +2 | 1d6 Bludgeoning | Obouruční
 ---
-Zvolený biskup olomoucký, osmadvacetiletý diplomat; učený a laskavý, neústupný ve věcech církve.
+Protas z Boskovic, mladý prelát s rostoucím vlivem na krále. Zprvu ke zvolenému králi kritický, v dubnu 1458 se obrátí. „Poslední Čech s římskou biskupskou berlou.“ Jezdí jako králův vyjednavač; bratr Ješek zůstane králi věrný.
 
 **Sok** · Medium humanoid (člověk) · **Sloty** 2 · **Výzva** 3 (700 XP)
 
@@ -23,11 +23,12 @@ Zvolený biskup olomoucký, osmadvacetiletý diplomat; učený a laskavý, neús
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 10 (+0) | 10 (+0) | 11 (+0) | 15 (+2) | 16 (+3) | 15 (+2) |
 
-**Záchrany** WIS +5, CHA +4 · **Dovednosti** Persuasion +4, Insight +5, Religion +4 · **Smysly** pasivní Perception 13 · **Jazyky** česky, latinsky, německy · **Bonus zdatnosti** +2
+**Záchrany** WIS +5, CHA +4 · **Dovednosti** Persuasion +4, Insight +5, Religion +4, Deception +4 · **Smysly** pasivní Perception 13 · **Jazyky** česky, latinsky, německy · **Bonus zdatnosti** +2
 
 ## Vlastnosti
 
-- **Biskup Moravy.** Může vyhlásit pokání: jeden tvor, který selže na WIS save DC 13, nemůže do konce scény útočit na kněze.
+- **Králův vyjednavač.** Jednou za scénu vyjedná příměří: Persuasion s výhodou a +3.
+- **Mezi dvěma ohni.** Je-li zaskočen mezi dvěma stranami, má nevýhodu na iniciativu.
 
 ## Akce (jedna v každém slotu)
 
@@ -35,5 +36,5 @@ Zvolený biskup olomoucký, osmadvacetiletý diplomat; učený a laskavý, neús
 
 ## Mluvení
 
-- **Řeč.** Persuasion +4, Insight +5, Deception +2, Intimidation +2.
+- **Řeč.** Persuasion +4, Insight +5, Deception +4, Intimidation +2.
 

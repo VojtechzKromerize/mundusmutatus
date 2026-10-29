@@ -5,15 +5,15 @@ uroven: sok
 vyzva: 5 (1 800 XP)
 ac: 16 (kroužková zbroj)
 hp: 97
-utok: Meč +5, 1d8+2 Slashing · dva útoky v jednom slotu · Prodigy.
-pozehnani: Dvorní přítomnost: do kruhu 30 stop mají jeho lidé výhodu proti zastrašení.
-pokuseni: Vyvede ho z míry otázka, na kterou nemá odpověď: ve slotu jen mlčí.
-nerest: Mladistvá ctižádost – musí se dokázat jako muž a vládce. Nenávidí, když ho nazývají chlapcem.
+utok: Meč +5, 1d8+2 Slashing · dva útoky v jednom slotu · Mistr divadla.
+pozehnani: Studený rozum: odhalí slabinu v argumentu nebo postoji – příští jeho útok nebo záchrana má výhodu.
+pokuseni: Chlapec, ne král: kdokoli, kdo se mu posměje, se rozzuří – ztratí slot a bude mluvit o své cti.
+nerest: Mladistvá ctižádost – trvá na tom, že o jeho královském slově se nesmí pochybovat; nenávidí, když ho nazývají chlapcem nebo rumunským knížetem. Bojí se Garaie a Újlakiho. Chce svatoštěpánskou korunu a uznání panovníků, kteří mu nechtějí dát nevěstu.
 stitky: osoba, zvolený uherský král
 utoky:
   - Meč | +5 | 1d8+2 Slashing | Šikovná; dva útoky v jednom slotu
 ---
-Patnáctiletý uherský král, hbitý a bystrý, s ostrým hlasem. Je mladý, ale ví, co chce.
+Necelých patnáct, zvolený uherský král, v Praze vězeň i čestný host. Pro okolí „rumunský kníže“ a povýšenec. Chladný soudce svých šancí, sarkastický humor, mistr divadla, snadno zapínaný šarm. Mluví dobře česky. Jiří v něm vidí vděčného chlapce; Matyáš říká, že syn má vlastní království.
 
 **Sok** · Medium humanoid (člověk) · **Sloty** 2 · **Výzva** 5 (1 800 XP)
 
@@ -21,14 +21,15 @@ Patnáctiletý uherský král, hbitý a bystrý, s ostrým hlasem. Je mladý, al
 
 | STR | DEX | CON | INT | WIS | CHA |
 |:-:|:-:|:-:|:-:|:-:|:-:|
-| 14 (+2) | 13 (+1) | 15 (+2) | 16 (+3) | 14 (+2) | 18 (+4) |
+| 14 (+2) | 13 (+1) | 15 (+2) | 16 (+3) | 14 (+2) | 19 (+4) |
 
-**Záchrany** WIS +5, CHA +7, CON +5 · **Dovednosti** Persuasion +7, Insight +5, History +6, Athletics +5, Intimidation +7 · **Resistance (zbroj, kroužková)** Bludgeoning, Slashing · **Smysly** pasivní Perception 12 · **Jazyky** česky, maďarsky, latinsky, německy, srbsky · **Bonus zdatnosti** +3
+**Záchrany** WIS +5, CHA +7, CON +5 · **Dovednosti** Persuasion +7, Insight +5, History +6, Performance +7, Intimidation +7 · **Resistance (zbroj, kroužková)** Bludgeoning, Slashing · **Smysly** pasivní Perception 12 · **Jazyky** česky, maďarsky, latinsky, německy, česky, italsky · **Bonus zdatnosti** +3
 
 ## Vlastnosti
 
-- **Prodigy.** Pozná slabinu v argumentu i v postoji: jednou za scénu zvýší svůj útok nebo zachránění o +3.
-- **Syn bojovníka.** Spojenci Uher do 60 stop mají výhodu proti strachu.
+- **Mistr divadla.** Jednou za scénu zahraje roli: Deception nebo Performance s výhodou a +3.
+- **Škádlení.** Sarkasmem vyvede z míry: cíl hází WIS save DC 13, jinak ztratí reakci.
+- **Hrdé slovo.** Kdo pochybuje o jeho královském slově, uslyší výhružku: Intimidation s výhodou.
 
 ## Akce (jedna v každém slotu)
 

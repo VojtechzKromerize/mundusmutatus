@@ -8,13 +8,13 @@ hp: 16
 utok: Hůl +2, 1d6 Bludgeoning · Nenásilí.
 pozehnani: Úder, který nečekal: zásah kromě zranění srazí cíl na zem (STR save DC 13, jinak Prone).
 pokuseni: Zbraň mu vyklouzne z ruky: do konce příštího tahu útočí s nevýhodou.
-nerest: Pokora a nenásilí – nikdy nezvedne ruku k boji; odmítne se bránit a bude trpět, kdo ho napadne, bude to vědět. Odsoudí zbraně i kněze.
+nerest: Nenásilí – nikdy nepozvedne zbraň, ani k obraně. Bojí se násilí v Kristově jménu. Chce společenství bez meče. Rokycanu uznává, ale kárá.
 stitky: osoba, laický myslitel a spisovatel
 zdroje: Výdrž 1
 utoky:
   - Hůl | +2 | 1d6 Bludgeoning | Obouruční
 ---
-Laický myslitel a odpůrce násilí. Šedesátiosmiletý rolník, který nechce brát zbraň a neradí nikomu, aby ji bral.
+Stárnoucí nižší šlechtic a rolník, myslitel. Odmítá učení o třech stavech, jakékoli zbraně i sebeobranu; stát je organizované násilí, spojení církve se státem kořen zla. Dopisoval si s Rokycanou. Kněze, kteří straší očistcem kvůli penězům, nazývá „básnotvory“.
 
 **Sok** · Medium humanoid (člověk) · **Sloty** 2 · **Výzva** 1 (200 XP)
 
@@ -29,7 +29,8 @@ Laický myslitel a odpůrce násilí. Šedesátiosmiletý rolník, který nechce
 ## Vlastnosti
 
 - **Nenásilí.** Kdo ho napadne před svědky, ztratí Ctnost a hodí WIS save DC 13, jinak nemůže útočit do konce kola.
-- **Slovo o Boží zákoně.** Jednou za scénu změní postoj svědků jednou větou: Persuasion +7.
+- **Sieť viery.** Jednou za scénu změní postoj svědků: Persuasion +7.
+- **Vůle bez meče.** Nelze ho přinutit k zabití hrozbou: výhoda na záchrany proti Charmed a Frightened.
 
 ## Akce (jedna v každém slotu)
 

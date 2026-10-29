@@ -8,12 +8,12 @@ hp: 36
 utok: Dýka +2, 1d4 Piercing · Kronikář.
 pozehnani: Dobrá rada v pravý čas: spojenec do 30 stop si přidá +2 k příštímu hodu na zachránění.
 pokuseni: Zapomene důležitou věc: svým slovem ztratí výhodu v rozhovoru do konce příštího kola.
-nerest: Pravdomluvnost – nepřikrášlí zápis, i když by tím přišel o místo. Nepřijme úplatek za vynechání faktu.
+nerest: Pravdomluvnost – nepřikrášlí zápis, ani když by mu to uškodilo. Odmítne úplatek za vynechání faktu.
 stitky: osoba, městský písař
 utoky:
   - Dýka | +2 | 1d4 Piercing | Šikovná; hodit 20/60 stop
 ---
-Městský písař a kronikář Vratislavi; pečlivý pozorovatel, který píše, co vidí.
+Městský písař Vratislavi, pozorný kronikář a dědic Kapistránova okruhu; píše, co vidí.
 
 **Sok** · Medium humanoid (člověk) · **Sloty** 2 · **Výzva** 1 (200 XP)
 
@@ -27,7 +27,7 @@ Městský písař a kronikář Vratislavi; pečlivý pozorovatel, který píše,
 
 ## Vlastnosti
 
-- **Kronikář.** Zapamatuje si rozhovor slovo od slova; Insight s výhodou.
+- **Kronikář.** Zapamatuje si rozhovor slovo od slova: Insight a History s výhodou.
 
 ## Akce (jedna v každém slotu)
 

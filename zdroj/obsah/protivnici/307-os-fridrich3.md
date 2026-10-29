@@ -6,14 +6,14 @@ vyzva: 6 (2 300 XP)
 ac: 16 (kroužková zbroj)
 hp: 110
 utok: Meč +4, 1d8+1 Slashing · dva útoky v jednom slotu · Císařská výdrž.
-pozehnani: Vyslovený příkaz: spojenec do 60 stop zaútočí a zdvojí kostky zranění.
-pokuseni: Zdržení u dvora: příchod posil se zdrží o celý slot.
-nerest: Císařská vytrvalost – nikdy nespěchá a nic nevzdá. Nenávidí přímé střety a vyčkává, až se protivník unaví.
+pozehnani: Čas pracuje pro něj: nepřítel, který nezasáhl, ztratí slot čekáním.
+pokuseni: Šetrnost v nepravý čas: odmítne zaplatit – spojenci do 30 stop ztrácejí výhodu na další hod.
+nerest: Neústupná pomalost – nic nespěchá, nic neodpustí a čeká, až protivník unaví. Tvrdohlavost, kterou později lituje. Bojí se bratra Albrechta, ztráty Vídně a výdajů; tuze šetří. Chce celé Ladislavovo dědictví a Uhry.
 stitky: osoba, římský císař
 utoky:
   - Meč | +4 | 1d8+1 Slashing | Šikovná; dva útoky v jednom slotu
 ---
-Římský císař, dvaačtyřicetiletý; pomalý, vytrvalý, neústupný. Nechává věci uzrát a přečká nepřátele.
+Císař, „Arci-spáč Říše“: líný, zasmušilý, lakomý, šetrný a ustaraný, s dobrou pamětí. Zahradničí, pozoruje hvězdy, věští z myšího trusu, na cesty vozí kurníky a nakupuje v přestrojení. Radí se od odpoledne do půlnoci. Tvrdohlavý a pak lituje. Král v šachu: malá moc, velká důležitost. Ve Viterbu vyrval sluhovi kyj a mlátil papežské žoldnéře.
 
 **Sok** · Medium humanoid (člověk) · **Sloty** 2 · **Výzva** 6 (2 300 XP)
 
@@ -27,8 +27,9 @@ utoky:
 
 ## Vlastnosti
 
-- **Císařská výdrž.** Jednou za scénu může přehlédnout urážku nebo hrozbu – automatický úspěch na záchranu proti Frightened a Charmed.
-- **Neústupná pečeť.** Žádné jednání s ním nemůže skončit rychle: Persuasion proti němu má nevýhodu.
+- **Císařská výdrž.** Jednou za scénu přečká hrozbu: automatický úspěch na záchranu proti Frightened a Charmed.
+- **Pomalá pečeť.** Jednání s ním nikdy neskončí rychle: Persuasion proti němu má nevýhodu.
+- **Kyj ve Viterbu.** Je-li napaden zákeřně, vyrve zbraň (Disarm) a udeří: protiútok ihned po neúspěšném útoku proti němu.
 
 ## Akce (jedna v každém slotu)
 
