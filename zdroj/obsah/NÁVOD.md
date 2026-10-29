@@ -44,6 +44,9 @@ Vše v této části vidí **jen vypravěč** – hráči nedostanou ani seznamy
   hledáním nebo tlačítkem „Uložit jako setkání“.
 - **Osoby se statblokem** – v souboru osoby pole `statblok: rytir-v-plne-zbroji + zkuseny`. Osoba se pak najde
   v hledání a na její stránce má vypravěč tlačítko „+ do boje“.
+  Všechny osoby mají vlastní statblok `os-<id>` (soubor `protivnici/2NN-os-<id>.md`, štítek `osoba`): výzva a čísla
+  odpovídají roli a povaze, `nerest` je charakterová slabina, vlastnosti jsou její způsoby. Ve výpisu bestiáře se
+  samostatně neobjeví – hledají se jako osoby.
 - **Tabulky setkání Výpravy** – `vyprava-setkani.json`; nepovinné pole `b` (setkání nebo nepřátelé
   „6 houf-zoldneru; rotmistr-zoldneru“) přenese setkání do Boje i se statblocky.
 

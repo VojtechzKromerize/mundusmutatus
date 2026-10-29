@@ -4,5 +4,6 @@ jmeno: Leopold z Leuchtenberka
 rod: leu
 role: lankrabě
 sidlo: Pfreimd
+statblok: os-ludvikleu
 ---
 Zadlužený pán z pomezí Horní Falce, sídlí na vodním hradě v Pfreimdu. Blíží se sedmdesátce. Je synem lankraběte Albrechta a Alžběty z Oettingenu a sloužil Falci jako správce (viztum) v Ambergu.

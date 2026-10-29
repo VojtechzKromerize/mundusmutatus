@@ -708,7 +708,11 @@ const bojOsoba = n => {
 };
 const bojBestDl = () =>
   PROTIVNICI.length
-    ? `<datalist id="bbest">${PROTOSOBY.map(o => `<option value="${besc(o.n)}">${besc((PROTBY[o.b] || {}).n || "")}</option>`).join("")}${PROTIVNICI.map(p => `<option value="${besc(p.n)}">${BDRUH[p.u] || p.u}</option>`).join("")}</datalist>`
+    ? `<datalist id="bbest">${PROTOSOBY.map(o => `<option value="${besc(o.n)}">${besc((PROTBY[o.b] || {}).n || "")}</option>`).join("")}${PROTIVNICI.filter(
+        p => !(p.st || []).includes("osoba"),
+      )
+        .map(p => `<option value="${besc(p.n)}">${BDRUH[p.u] || p.u}</option>`)
+        .join("")}</datalist>`
     : "";
 /* místní paměť vypravěče (jen tento prohlížeč): životy, spotřebované zdroje, počet v dosahu, zajatí */
 const bojLS = k => ({
@@ -1914,7 +1918,9 @@ function bojVysl(q) {
   if (!t) return "";
   const sl = t.split(/\s+/),
     ok = h => sl.every(x => bojNorm(h).includes(x));
-  const P = PROTIVNICI.filter(p => ok([p.n, p.cz || "", BDRUH[p.u] || p.u, p.ut, p.id, (p.st || []).join(" ")].join(" ")));
+  const P = PROTIVNICI.filter(
+    p => !(p.st || []).includes("osoba") && ok([p.n, p.cz || "", BDRUH[p.u] || p.u, p.ut, p.id, (p.st || []).join(" ")].join(" ")),
+  );
   const O = PROTOSOBY.filter(o => ok([o.n, (PROTBY[o.b] || {}).n, (o.pr || []).map(i => (PRIVBY[i] || {}).n).join(" "), "osoba"].join(" ")));
   const S = SETKANI.filter(x =>
     ok([x.n, x.id, (x.st || []).join(" "), "setkání", x.np.map(r => r.n || (PROTBY[r.id] || {}).n || "").join(" ")].join(" ")),

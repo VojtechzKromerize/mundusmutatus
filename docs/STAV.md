@@ -28,6 +28,7 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
   stejnojmenné ne – platí nejsilnější (dva Bless = jednou 1d4, Aid jen nejvyšší stupeň). Výjimku umí pole `scit` v `UCINKY`.
 - 2026-10-23 **Čistá pravidla**: výpočty pravidel patří do souborů `@čisté` (bez stránky, testy v čistém Node); stránka je jen volá s daty.
 - 2026-10-25 **Vzdušný boj draků bez bojiště**: varianta podle X-Wingu (stránka `#nebe`, 10n/22c) zkoušena a z `dev` odstraněna.
+- 2026-10-29 **Každá osoba v zemských deskách má vlastní D&D statblok** (`protivnici/2NN-os-<id>.md`, štítek `osoba`, `statblok: os-<id>` u osoby): výzva podle role a povahy (děti 0, dvůr 1–4, velitelé 5–8, vladaři a zhoubci 9–12), Neřest vychází z charakteru, číslo odvozeno z výzvy; jen pro vypravěče, v bestiáři se nevypisují zvlášť (hledají se jako osoby). Test `osoby-statbloky.test.mjs`.
   Výchozí bod je „Fáze draků“ s figurkami (návrh v projektu claude.ai `pravidla/vzdusny-boj-navrh.md`): draci jsou zhoubci, let v pořadí
   těžký → střední → lehký, útoky naráz, akce draka (stoupání bonusovou akcí, Nálet, Sevřít), třídy s rysy, pravidlo strachu, přesila.
 - 2026-10-25 **Pomalá, ale těžká rána**: těžká kuše, píšťala a hákovnice vystřelí jednou za akci Útok a za každý další útok akce

@@ -4,5 +4,6 @@ jmeno: Václav Meziříčský z Lomnice
 rod: lom
 role: pán na Meziříčí
 sidlo: Velké Meziříčí
+statblok: os-vaclavmez
 ---
 Syn Jana z Lomnice († 1451) a zakladatel meziříčské větve rodu, komorník brněnské cúdy. Roku 1452 doprovázel Fridricha III. na korunovační jízdě do Říma a byl tam pasován na rytíře; roku 1455 ho Ladislav Pohrobek jmenoval do desetičlenné regentské rady Moravy, ještě téhož roku však utonul na lovu, když chtěl z vody vytáhnout svého dravého ptáka.
