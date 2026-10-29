@@ -51,5 +51,8 @@ test("rejstřík stránky: stav, Artikule, pravidla SRD, kouzlo, předmět a vyb
   const d = S.ev(`(() => { HLS.d = hlHledej(HLI, "sražen")[0] && HLI.indexOf(hlHledej(HLI, "sražen")[0]); return hlBoxHtml("t"); })()`);
   assert.match(d, /data-hlzpet/);
   assert.match(d, /Prone/);
+  const gl = S.ev(`hlGlobal("chycen")`);
+  assert.match(gl, /data-ghl="\d+"/, "hledání v záhlaví dostane pravidla");
+  assert.doesNotMatch(gl, /<span class="gk">Artikule</, "Artikule a pojmy má záhlaví ve vlastním rejstříku");
   S.ev(`HLS.q = ""; HLS.d = -1; 0`);
 });

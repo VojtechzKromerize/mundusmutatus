@@ -1633,16 +1633,39 @@ function gSearch() {
     .filter(Boolean)
     .sort((a, b) => b.sc - a.sc)
     .slice(0, 14);
-  gres.innerHTML = hits.length
-    ? hits
-        .map(({r}) => {
-          const inner = `<span class="gk">${r.k}</span><b>${r.n}</b><small>${r.s}</small>`;
-          return `<li>${r.h ? `<a href="${r.h}">${inner}</a>` : r.place ? `<button type="button" class="maplink" data-id="${r.place[0]}" data-place="${r.place[1]}">${inner}</button>` : r.duchy ? `<button type="button" data-gduchy="${r.duchy}">${inner}</button>` : `<button type="button" data-gdio="${r.dio}">${inner}</button>`}</li>`;
-        })
-        .join("")
-    : `<li class="none">Nic nenalezeno.</li>`;
+  /* pravidla (SRD, stavy, kouzla, předměty, vybavení) z rejstříku 10h – až je načtená část hry; jinak se doplní po načtení */
+  const pr = typeof hlGlobal === "function" ? hlGlobal(gq.value, gSearch) : "";
+  gres.innerHTML =
+    hits.length || pr
+      ? hits
+          .map(({r}) => {
+            const inner = `<span class="gk">${r.k}</span><b>${r.n}</b><small>${r.s}</small>`;
+            return `<li>${r.h ? `<a href="${r.h}">${inner}</a>` : r.place ? `<button type="button" class="maplink" data-id="${r.place[0]}" data-place="${r.place[1]}">${inner}</button>` : r.duchy ? `<button type="button" data-gduchy="${r.duchy}">${inner}</button>` : `<button type="button" data-gdio="${r.dio}">${inner}</button>`}</li>`;
+          })
+          .join("") + pr
+      : `<li class="none">Nic nenalezeno.</li>`;
   gres.hidden = false;
 }
+/* hledání v pravidlech potřebuje část hry: načte se, jakmile se do pole klikne */
+gq.addEventListener("focus", () => {
+  mmLina("hra")
+    .then(() => {
+      if (typeof hlIndex === "function") return hlIndex();
+    })
+    .then(() => {
+      if (gq.value.trim().length >= 2 && document.activeElement === gq) gSearch();
+    })
+    .catch(() => {});
+});
+/* klávesa / skočí do hledání (mimo psaní do pole) */
+document.addEventListener("keydown", e => {
+  if (e.key !== "/" || e.ctrlKey || e.metaKey || e.altKey) return;
+  const a = document.activeElement;
+  if (a && (a.isContentEditable || /^(input|textarea|select)$/i.test(a.tagName))) return;
+  if (!gq.offsetParent) return;
+  e.preventDefault();
+  gq.focus();
+});
 gq.addEventListener("input", gSearch);
 gq.addEventListener("keydown", e => {
   const f = gres.querySelector("a,button");
@@ -1675,6 +1698,8 @@ gres.addEventListener("keydown", e => {
   }
 });
 gres.addEventListener("click", e => {
+  const hl = e.target.closest("[data-ghl]");
+  if (hl && typeof hlOkno === "function") hlOkno(+hl.dataset.ghl);
   const d = e.target.closest("[data-gduchy],[data-gdio]");
   if (d) {
     const isD = !!d.dataset.gduchy;

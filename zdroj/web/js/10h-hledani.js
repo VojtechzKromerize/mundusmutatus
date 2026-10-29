@@ -249,3 +249,26 @@ document.addEventListener("click", e => {
     hlObnov();
   }
 });
+/* hledání v záhlaví (07): pravidla, která rejstřík záhlaví nemá (Artikule a pojmy tam jsou vlastní) – výsledek v okně */
+function hlGlobal(q, znovu) {
+  if (hlNorm(q).length < 2) return "";
+  if (!HLI) {
+    hlIndex().then(() => znovu && znovu());
+    return `<li class="none">Načítám pravidla…</li>`;
+  }
+  return hlHledej(HLI, q, 40)
+    .filter(e => e.g !== "Artikule" && e.g !== "Pojem")
+    .slice(0, 8)
+    .map(
+      e =>
+        `<li><button type="button" data-ghl="${HLI.indexOf(e)}"><span class="gk">${besc(e.g)}</span><b>${besc(e.n)}${e.en && e.en !== e.n ? ` <small lang="en">${besc(e.en)}</small>` : ""}</b><small>${besc(e.s || "")}</small></button></li>`,
+    )
+    .join("");
+}
+function hlOkno(i) {
+  const e = HLI && HLI[i];
+  if (!e) return;
+  mmPop(hlDetailHtml(e, false));
+  const p = document.querySelector(".mmpop .mmpopin");
+  if (p && typeof pojmyStrana === "function") pojmyStrana(p);
+}
