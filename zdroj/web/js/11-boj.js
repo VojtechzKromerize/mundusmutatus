@@ -414,7 +414,7 @@ const bojStavy = (n, gm, vse) => {
       })
       .join("")}</span>`;
   return a.length
-    ? `<span class="bstavy bakt">${a.map(t => `<span class="bst" role="img" aria-label="${besc(I(t)[1])}" ${btip(I(t)[1])}>${bi(I(t)[0])}</span>`).join("")}</span>`
+    ? `<span class="bstavy bakt">${a.map(t => `<span class="bst" role="button" tabindex="0" data-hlp="${besc(t)}" data-hlg="Stav" aria-label="${besc(I(t)[1])} – pravidlo" ${btip(I(t)[1] + " – klepni pro pravidlo")}>${bi(I(t)[0])}</span>`).join("")}</span>`
     : "";
 };
 /* medailony: družina kruhové (portrét z karty postavy), NPC čtvercové v barvě skupiny (portrét osoby, jinak monogram) */

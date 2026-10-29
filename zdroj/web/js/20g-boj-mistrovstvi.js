@@ -94,7 +94,7 @@ function bojWmVolbyHtml(K, w, h, gm) {
   if (R.ma === "Cleave" && !w.dal && (tahJednouVolne(U, "cl") || T.cl))
     L.push(["cl", "Cleave – další cíl", `${bojWmJm("Cleave")}: ${ZBRMS.Cleave[1]}`]);
   const ma = R.ma
-    ? `<span class="bphwm" ${btip(`${bojWmJm(R.ma)}: ${ZBRMS[R.ma][1]}${BWMVOL[R.ma] ? " – po zásahu ho přidáš" : R.ma === "Nick" || R.ma === "Cleave" ? "" : " – uplatní se samo"}`)}>${bi(BWMIK[R.ma] || "boj")}<span>${besc(R.ma)}</span></span>`
+    ? `<span class="bphwm" role="button" tabindex="0" data-hlp="${besc(R.ma)}" data-hlg="Pravidla SRD" ${btip(`${bojWmJm(R.ma)}: ${ZBRMS[R.ma][1]}${BWMVOL[R.ma] ? " – po zásahu ho přidáš" : R.ma === "Nick" || R.ma === "Cleave" ? "" : " – uplatní se samo"}`)}>${bi(BWMIK[R.ma] || "boj")}<span>${besc(R.ma)}</span></span>`
     : "";
   if (!L.length && !ma) return "";
   return `<div class="bphr"><span class="bphl" ${btip("Vlastnosti a mistrovství zbraně (Pravidla › Výbava)")}>${L.length ? "Vlastnosti" : "Mistrovství"}</span><span class="bphc">${L.map(([k, n, t]) => `<button type="button" class="bphtyp" data-bzvt="${besc(h.id)}|${besc(w.n)}|${k}" aria-pressed="${!!T[k]}" ${btip(t)}><span>${besc(n)}</span></button>`).join("")}${ma}</span></div>`;
@@ -251,10 +251,13 @@ function bojWPopisHtml(K, a) {
   const R = bojWTr(K, a);
   if (!R) return "";
   const vl = Object.keys(R.vl).filter(k => k !== "Range" || !R.vl.Thrown);
-  const tx = vl.map(k => `<span ${btip(bojWvlTip(k))}>${besc(ZBRVL[k][0])}${typeof R.vl[k] === "string" ? ` <i>${besc(R.vl[k])}</i>` : ""}</span>`);
+  const tx = vl.map(
+    k =>
+      `<span role="button" tabindex="0" data-hlp="${besc(k)}" data-hlg="Pravidla SRD" ${btip(bojWvlTip(k))}>${besc(ZBRVL[k][0])}${typeof R.vl[k] === "string" ? ` <i>${besc(R.vl[k])}</i>` : ""}</span>`,
+  );
   const t = R.ma0;
   const ma = t
-    ? `<span class="bdmwm${R.ma ? " on" : ""}" ${btip(`${bojWmJm(t)}: ${ZBRMS[t][1]}${R.ma ? "" : " – postava toto mistrovství nepoužívá"}`)}>${bi(BWMIK[t] || "boj")}${besc(ZBRMS[t][0])}</span>`
+    ? `<span class="bdmwm${R.ma ? " on" : ""}" role="button" tabindex="0" data-hlp="${besc(t)}" data-hlg="Pravidla SRD" ${btip(`${bojWmJm(t)}: ${ZBRMS[t][1]}${R.ma ? "" : " – postava toto mistrovství nepoužívá"}`)}>${bi(BWMIK[t] || "boj")}${besc(ZBRMS[t][0])}</span>`
     : "";
   return tx.length || ma ? `<span class="bdmwvl">${tx.join("")}${ma}</span>` : "";
 }

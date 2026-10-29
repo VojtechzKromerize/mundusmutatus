@@ -4013,3 +4013,6 @@ html.mmpc:not(.mmjenhra) .bdmweb{display:grid;font-size:1.2rem}
 .uvned a{color:var(--kal);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--kal) 35%,transparent)}.uvned a:hover{border-bottom-color:var(--kal)}
 .uvned span{font-family:var(--f-label);letter-spacing:.05em;text-transform:uppercase;font-size:.78rem;margin-right:4px}
 @media (max-width:700px){.uvdl{grid-template-columns:repeat(2,minmax(0,1fr))}.uvdla b{font-size:1.2rem}}
+/* pojem, na který jde klepnout pro pravidlo (10h) */
+[data-hlp]{cursor:help}
+.bdmwvl [data-hlp],.bdmstd abbr[data-hlp]{text-decoration:underline dotted color-mix(in srgb,currentColor 45%,transparent);text-underline-offset:3px}

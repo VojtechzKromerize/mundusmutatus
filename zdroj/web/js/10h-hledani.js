@@ -110,6 +110,24 @@ function hlSestav() {
         }),
       ),
     );
+  /* vlastnosti a mistrovství zbraní (SRD, Pravidla › Výbava; texty z vybaveni.json) */
+  if (typeof VYB !== "undefined" && VYB)
+    [
+      ["vlastnosti", "vlastnost zbraně"],
+      ["mistrovstvi", "mistrovství zbraně"],
+    ].forEach(([k, s]) =>
+      Object.entries(VYB[k] || {}).forEach(([en, x]) =>
+        P({
+          g: "Pravidla SRD",
+          n: x.cz || en,
+          en,
+          s,
+          h: "#pravidla/vybaveni",
+          txt: x.t || "",
+          html: () => `<h3>${besc(x.cz || en)} <small lang="en">${besc(en)}</small></h3><p class="rsmall">${s}</p><p>${besc(x.t || "")}</p>`,
+        }),
+      ),
+    );
   /* doplňky mimo SRD: jen vlastní shrnutí (Licence v CLAUDE.md) */
   if (typeof MIMO !== "undefined" && MIMO) {
     const M = (o, s, id, telo) =>
@@ -272,3 +290,37 @@ function hlOkno(i) {
   const p = document.querySelector(".mmpop .mmpopin");
   if (p && typeof pojmyStrana === "function") pojmyStrana(p);
 }
+/* klepnutí na pojem (Vojta 2026-10-29): stav u účastníka, vlastnost a mistrovství zbraně, běžná akce – [data-hlp] = co hledat,
+   [data-hlg] = skupina, která má přednost (Stav, Pravidla SRD); otevře se okno s pravidlem. Zachytí se dřív než obsluhy karty a boje. */
+/* stavy z boje, které nejsou stavy SRD, mají pravidlo pod jiným jménem */
+const HLALIAS = {soustředí: "Concentration", úhyb: "Dodge", "vzdal se": "Surrender"};
+function hlNajdi(q, g) {
+  const R = hlHledej(HLI, HLALIAS[q] || q, 40);
+  return (g && R.find(e => e.g === g)) || R[0] || null;
+}
+function hlPojem(el) {
+  const q = el.dataset.hlp,
+    g = el.dataset.hlg;
+  hlIndex().then(() => {
+    const x = hlNajdi(q, g);
+    if (x) hlOkno(HLI.indexOf(x));
+    else (GMV ? mmHlasG : mmHlas)(`Pravidlo „${q}“ v rejstříku není.`, 2500);
+  });
+}
+document.addEventListener(
+  "click",
+  e => {
+    const el = e.target.closest && e.target.closest("[data-hlp]");
+    if (!el) return;
+    e.preventDefault();
+    e.stopPropagation();
+    hlPojem(el);
+  },
+  true,
+);
+document.addEventListener("keydown", e => {
+  const el = (e.key === "Enter" || e.key === " ") && e.target.closest && e.target.closest("[data-hlp]");
+  if (!el) return;
+  e.preventDefault();
+  hlPojem(el);
+});
