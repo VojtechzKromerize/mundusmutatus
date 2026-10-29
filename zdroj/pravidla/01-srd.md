@@ -265,7 +265,7 @@ Má-li tvor zdatnost v nějaké dovednosti, přičítá svůj bonus zdatnosti k 
 | Animal Handling (Zacházení se zvířaty) | Moudrost | Uklidnit nebo vycvičit zvíře nebo přimět zvíře, aby se chovalo určitým způsobem. |
 | Arcana (Arkána) | Inteligence | Vybavit si vědomosti o kouzlech, magických předmětech a sférách existence. |
 | Athletics (Atletika) | Síla | Skočit dál než obvykle, udržet se nad hladinou v rozbouřené vodě nebo něco rozbít. |
-| Deception (Klam) | Charisma | Přesvědčivě lhát nebo přesvědčivě nosit převlek. |
+| Deception (Klamání) | Charisma | Přesvědčivě lhát nebo přesvědčivě nosit převlek. |
 | History (Historie) | Inteligence | Vybavit si vědomosti o historických událostech, osobnostech, národech a kulturách. |
 | Insight (Vhled) | Moudrost | Rozpoznat náladu a úmysly druhého. |
 | Intimidation (Zastrašování) | Charisma | Ohromit nebo vyhrožovat někomu, aby udělal, co chceš. |
