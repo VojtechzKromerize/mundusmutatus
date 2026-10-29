@@ -3932,12 +3932,10 @@ html.mmpc:not(.mmjenhra) .bdmweb{display:grid;font-size:1.2rem}
   .bojpc .bcolk .bdmpc .bdmportw{--pw:128px}
   .bdmpc .bdmpcvl .bdmvl{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
-/* počítač jako triptych (2026-10-29, Vojta): hlavička a Statistiky s Dovednostmi končí tam, kde končí záložka Iniciativa nad kartou; Statistiky jsou pod
-   Moje karta, Dovednosti (jeden sloupec) pod Iniciativa, pravý sloupec listů pod Dohráno (ta má flex 1,25 proti 1 + 1, odtud poměr 2 : 1,25);
-   štíty záložek jsou větší */
+/* počítač (2026-10-29, Vojta): hlavička a Statistiky s Dovednostmi (ty zůstávají ve dvou sloupcích – Vojta je tak chce) končí tam, kde končí záložka
+   Iniciativa nad kartou; pravý sloupec listů začíná pod Dohráno (ta má flex 1,25 proti 1 + 1, odtud poměr 2 : 1,25); štíty záložek jsou větší */
 @media (min-width:1280px){
   .bojpc .bcolk .bdm.bdmpc{grid-template-columns:minmax(0,2fr) minmax(370px,1.25fr)}
-  .bdmpcdv .bdmdov2{grid-template-columns:minmax(0,1fr)}
   .bdmpc .bdmtabs button .bdmzik{height:50px}
   .bdmpc .bdmtabs button .bdmic{width:26px;height:26px}
 }
