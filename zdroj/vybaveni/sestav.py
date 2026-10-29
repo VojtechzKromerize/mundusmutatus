@@ -167,6 +167,8 @@ def main():
     chybi = sorted(f"{sk}: {en}" for sk, L in DOBA.items() for en in L if en not in {x["en"] for x in V.get(sk, [])})
     if chybi:
         print("POZOR – dobová cena bez položky v katalogu:", chybi, file=sys.stderr)
+    # služby a mzdy (2026-10-30): ceny rovnou v groších, bez převodu z GP; vykresluje 14d, čísla počítá čistý 10y-sluzby.js
+    V["sluzby"] = json.load(open(os.path.join(D, "sluzby-mzdy.json"), encoding="utf-8"))
     json.dump(V, open(out, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
     print(f"art/vybaveni.json: {sum(len(V[k]) for k in V if isinstance(V[k], list))} položek, magické {len(V['magicke'])} "
           f"(SRD {len(V['magicke']) - mimo}, mimo SRD {mimo}), {os.path.getsize(out) // 1024} kB")

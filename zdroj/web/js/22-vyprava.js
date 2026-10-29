@@ -3,6 +3,10 @@
    „Měřit cestu“; výchozí místo je vždy poloha družiny. Délka cesty se měří v hodinách na cestě.
    Počasí počítá vyPocasi() podle data a místa – stejný den a místo dají vždy stejné počasí, vypravěč ho může přehodit.
    Stav výpravy se ukládá do databáze (mm_vyprava_uloz, čte jen vypravěč), bez ní do prohlížeče. */
+/* rychlosti: km za den cesty (12 hodin na cestě včetně odpočinku) a pro tempo; ověřeno proti cestopisným údajům (2026-10-30): kůň asi 100 km
+   za 30 hodin vč. přestávek (3,3 km/h) a 50 km na jednu jízdu, vůz s pěšími přes 1 000 km za devět týdnů (asi 16 km/den s dny odpočinku),
+   pěšky v cestopisech zhruba dvakrát pomaleji než na koni. Hodnoty níž jsou čistý jízdní den bez odpočinku (kůň 3,75 km/h, vůz 1,7 km/h);
+   dny odpočinku, špatné cesty a počasí zpomalují přes tempo a obtížnost, proto se nemění. */
 const VY_ZP = [
   ["pesky", "Pěšky", 30, 4],
   ["kun", "Na koni", 45, 7],

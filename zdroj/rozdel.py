@@ -52,6 +52,7 @@ JS = [
     ("10v-veci.js", "/* @čisté – Vlastní předměty z Dílny"),
     ("10w-zbrane.js", "/* @čisté – Vlastnosti a mistrovství zbraní"),
     ("10x-strelec.js", "/* @čisté – Střelec (Gunslinger"),
+    ("10y-sluzby.js", "/* @čisté – Služby a mzdy tažení"),
     ("11-boj.js", "/* ===== BOJ: tracker slotové iniciativy"),
     ("11b-rucni-kostky.js", "/* ===== Ruční kostky"),
     ("12-boj-tah-postavy.js", "/* ===== automatizace tahu:"),

@@ -1094,7 +1094,7 @@ const KPENVYKL = `<details class="bdmbez kpenvykl"><summary>Jak fungují peníze
   <li><span>kráva · jezdecký kůň · válečný kůň</span><b>24–40 grošů · 2½ kopy · 13 kop</b></li>
   <li><span>kniha (rukopis)</span><b>5 kop</b></li>
   </ul>
-  <p class="rsmall">Kouzelné předměty, lektvary a svitky jsou unikáty s vlastní cenou. Celý ceník je v <a href="#pravidla/vybaveni">Pravidlech › Vybavení</a>.</p></details>`;
+  <p class="rsmall">Kouzelné předměty, lektvary a svitky jsou unikáty s vlastní cenou. Celý ceník je v <a href="#pravidla/vybaveni">Pravidlech › Vybavení</a>, noclehy, mzdy a poplatky v <a href="#pravidla/vybaveni/vyb-sluzby">Službách a mzdách</a>.</p></details>`;
 function bdmPenList(K) {
   const pen = kPenKarta(K),
     ro = !kMuze(K);

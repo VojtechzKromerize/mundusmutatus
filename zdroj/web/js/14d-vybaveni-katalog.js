@@ -155,6 +155,30 @@ const vybMinceHtml = () =>
       return `<span class="kpenm">${kMinceIk("mince-" + k.toLowerCase())}<b>${besc(KMINCJM[k])}</b> = ${VYBMKURZ[k]}</span>`;
     })
     .join(" · ");
+/* ---- Služby a mzdy (2026-10-30): data zdroj/vybaveni/sluzby-mzdy.json → VYB.sluzby, čísla a zápis cen z čistého 10y-sluzby.js ---- */
+function vybSluzbyHtml(q) {
+  const S = VYB.sluzby;
+  if (!S || !S.skupiny) return "";
+  const sek = S.skupiny
+    .map(g => {
+      const L = g.radky.filter(r => !q || vybKl(r.n).includes(q) || vybKl(r.z || "").includes(q) || vybKl(g.n).includes(q));
+      if (!L.length) return "";
+      return `<h4>${besc(g.n)}</h4>${g.pozn ? `<p class="rsmall">${besc(g.pozn)}</p>` : ""}<ul class="vybl slzl">${L.map(r => {
+        const x = slzRadek(r),
+          m = x.mzda,
+          dp = [
+            x.rozsah ? `rozsah ${x.rozsah}` : "",
+            x.dnu ? `asi ${x.dnu} ${x.dnu === 1 ? "den" : x.dnu < 5 ? "dny" : "dní"} práce mistra` : "",
+            m ? `týdně ${slzCena(m.tyden)} · měsíčně ${slzCena(m.mesic)} · ročně ${slzCena(m.rok)}` : "",
+            r.pozn || "",
+          ].filter(Boolean);
+        return `<li class="slzr"><span class="slzn">${besc(r.n)}</span><b class="slzc">${besc(x.cena)}</b><span class="slzj">${besc(r.j || "")}</span><span class="slzp">${besc(dp.join(" · "))}${dp.length ? " · " : ""}<i>${besc(r.o ? "orientačně" : "doloženo")}${r.z ? `, ${besc(r.z)}` : ""}</i></span></li>`;
+      }).join("")}</ul>`;
+    })
+    .join("");
+  if (!sek) return "";
+  return `<section class="vybsek" id="vyb-sluzby"><h3 class="uvh2">Služby a mzdy</h3><p class="rsmall">${besc(S.uvod || "")}</p>${sek}</section>`;
+}
 /* ---- stránka Pravidla › Vybavení ---- */
 let VYBF = {q: "", sk: "", vz: ""};
 function renderVybaveni(main, c) {
@@ -180,6 +204,7 @@ function renderVybaveni(main, c) {
   const radek =
     x => `<li class="vybr${x.x ? " vybmimo" : ""}" id="vyb-${besc(x.id)}"><button type="button" class="kspn vybn" data-vybpop="${besc(x.id)}" ${btip("Popis")}>${besc(x.en)}</button>${x.cz && x.cz.toLowerCase() !== x.en.toLowerCase() ? ` <small class="vybcz">${besc(x.cz)}</small>` : ""}${x.sk === "zbrane" && x.art && x.art.length ? ` <span class="vybik">${x.art.map(a => bikZv(a)).join("")}</span>` : x.sk === "zbroj" && x.art ? ` <span class="vybik">${bikZb(x.art)}</span>` : ""}
     <span class="vybp">${vybParam(x)}</span><span class="vybw">${x.w != null ? vybLb(x.w) : x.wtxt ? besc(x.wtxt) : ""}</span><span class="vybc">${vybCena(x)}</span>${vybPridatBtn(x)}</li>`;
+  const sluz = !VYBF.sk || VYBF.sk === "sluzby" ? vybSluzbyHtml(q) : "";
   const sekce = VYBSK.map(([sk, n]) => {
     const L = (VYB[sk] || []).filter(hit);
     if (!L.length) return "";
@@ -200,8 +225,8 @@ function renderVybaveni(main, c) {
   }).join("");
   main.innerHTML = `<nav class="crumbs"><a href="#pravidla">Pravidla</a> › <b>Vybavení</b></nav><h2 class="arttitle">Vybavení</h2>
     <p class="intro">Zbroj, zbraně, výbava, nářadí, zvířata, doprava, jedy a magické předměty s cenami a stručným popisem. U zbraní jsou perky a u zbroje druh podle <a href="#artikule/vyzbroj">Artikulí</a>. Klepnutím na název se ukáže popis; ${K ? `<b>+ Přidat</b> dá věc do vybavení postavy <b>${besc(K.n)}</b>` : GMV ? "vyber postavu, do které se má přidávat" : "přihlas se ke své postavě na stránce Hra a věci si rovnou přidáš do vybavení"}.</p>
-    <p class="vybmince"><b>Mince tažení:</b> 1 kopa = 60 pražských grošů · 1 groš = 10 haléřů · uherský zlatý ≈ 40 grošů. Ceny běžného zboží jsou dobové (Čechy kolem 1450: pacholek bere 1½ groše denně, kůň stojí kolem 2 kop, meč 30 grošů, plná zbroj 30 kop); kouzelné předměty, lektvary, svitky a jedy jsou unikáty s vlastní cenou.</p>
-    <form class="kvlh vybf" data-vybf><input type="search" name="q" value="${besc(VYBF.q)}" placeholder="hledat: meč, Rope, lektvar…" data-vybq autocomplete="off"><select name="sk" data-vybsk aria-label="Kategorie"><option value="">vše</option>${VYBSK.map(([sk, n]) => `<option value="${sk}"${VYBF.sk === sk ? " selected" : ""}>${n}</option>`).join("")}</select>
+    <p class="vybmince"><b>Mince tažení:</b> 1 kopa = 60 pražských grošů · 1 groš = 10 haléřů · uherský zlatý ≈ 40 grošů. Ceny běžného zboží jsou dobové (Čechy kolem 1450: pacholek bere 1½ groše denně, kůň stojí kolem 2 kop, meč 30 grošů, plná zbroj 30 kop); kouzelné předměty, lektvary, svitky a jedy jsou unikáty s vlastní cenou. Noclehy, cla, mzdy, žold, poplatky a ceny domů jsou dole ve <a href="#pravidla/vybaveni/vyb-sluzby">Službách a mzdách</a>.</p>
+    <form class="kvlh vybf" data-vybf><input type="search" name="q" value="${besc(VYBF.q)}" placeholder="hledat: meč, Rope, lektvar…" data-vybq autocomplete="off"><select name="sk" data-vybsk aria-label="Kategorie"><option value="">vše</option>${VYBSK.map(([sk, n]) => `<option value="${sk}"${VYBF.sk === sk ? " selected" : ""}>${n}</option>`).join("")}<option value="sluzby"${VYBF.sk === "sluzby" ? " selected" : ""}>Služby a mzdy</option></select>
       ${
         !VYBF.sk || VYBF.sk === "magicke"
           ? `<select name="vz" data-vybvz aria-label="Vzácnost"><option value="">každá vzácnost</option>${PRVZ.filter(v => v !== "proměnlivá")
@@ -210,8 +235,8 @@ function renderVybaveni(main, c) {
           : ""
       }
       ${GMV ? `<select data-vybk aria-label="Postava">${(KARTY || []).map(k => `<option value="${besc(k.id)}"${K && K.id === k.id ? " selected" : ""}>${besc(k.n)}</option>`).join("")}</select>` : ""}</form>
-    <p class="rsmall">${VYBSK.map(([sk, n]) => `<a href="#pravidla/vybaveni/vyb-${sk}">${n}</a>`).join(" · ")}</p>
-    ${sekce || `<p class="rsmall">Nic nenalezeno.</p>`}
+    <p class="rsmall">${VYBSK.map(([sk, n]) => `<a href="#pravidla/vybaveni/vyb-${sk}">${n}</a>`).join(" · ")} · <a href="#pravidla/vybaveni/vyb-sluzby">Služby a mzdy</a></p>
+    ${sekce || sluz ? sekce + sluz : `<p class="rsmall">Nic nenalezeno.</p>`}
     <h3 class="uvh2" id="vyb-vlastnosti">Vlastnosti zbraní</h3><ul class="kfeat">${Object.entries(VYB.vlastnosti || {})
       .map(([k, v]) => `<li><b>${besc(k)}</b> <small>${besc(v.cz || "")}</small><br>${besc(v.t || "")}</li>`)
       .join("")}</ul>

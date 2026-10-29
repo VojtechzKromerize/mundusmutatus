@@ -1334,12 +1334,14 @@ function vyPoCeste() {
       }
     }
   } catch (e) {}
-  if (!sv.length && !rk.length && !my.length) return "";
+  /* mýta na dlouhé trase: na cestě napříč německými zeměmi bylo přes třicet panství s clem na zhruba 900 km, tedy jedno na ~30 km */
+  const nm = VY.zp !== "drak" && VYT.km >= 60 ? Math.round(VYT.km / 30) : 0;
+  if (!sv.length && !rk.length && !my.length && !nm) return "";
   const ds = j => {
     const [, M, D] = fromJdn(j);
     return `${D}. ${MES[M - 1]}`;
   };
-  return `<p class="lbl">Po cestě</p><ul class="gmclist">${sv.map(f => `<li${f.hp ? ' class="gmchp"' : ""}>${ds(f.j)}: <b>${f.n}</b>${f.hp ? " – Hodina Pravdy" : f.w ? ` – Požehnání 4–6: ${f.w}` : ""}</li>`).join("")}${rk.map(r => `<li>${r.r}: ${r.pr || (r.most ? `kamenný most (${r.most})` : `brod nebo přívoz (${r.kde})`)}</li>`).join("")}${my.map(m => `<li>${m.n}: ${m.t}</li>`).join("")}</ul>`;
+  return `<p class="lbl">Po cestě</p><ul class="gmclist">${sv.map(f => `<li${f.hp ? ' class="gmchp"' : ""}>${ds(f.j)}: <b>${f.n}</b>${f.hp ? " – Hodina Pravdy" : f.w ? ` – Požehnání 4–6: ${f.w}` : ""}</li>`).join("")}${rk.map(r => `<li>${r.r}: ${r.pr || (r.most ? `kamenný most (${r.most})` : `brod nebo přívoz (${r.kde})`)}</li>`).join("")}${my.map(m => `<li>${m.n}: ${m.t}</li>`).join("")}${nm ? `<li>Mýta a cla: na takové cestě asi ${nm} (jedno panství s clem na každých ~30 km). Vůz se zbožím platí zhruba ${slzCena(2)} za mýto, doprovod dvou pacholků (Geleit) stojí ${slzCena(3)} na den. Cizího kupce zastaví a zeptají se, odkud jde a co veze.</li>` : ""}</ul>`;
 }
 async function vyOdcestuj(putovat) {
   if (!VYT || !VYS) {
@@ -1593,11 +1595,14 @@ function vyZazT(t) {
 const vyZazText = t =>
   (VY_ZAZ[t] || []).map(z => `${z.r} | ${z.n} | ${z.t}${z.k || z.b ? ` | ${z.k || ""}` : ""}${z.b ? ` | ${z.b}` : ""}`).join("\n");
 /* noclehy */
+/* ceny noclehů jsou v SLZ_NOC (10y, čistý soubor; tabulka Služby a mzdy v Pravidlech › Vybavení): krčma 2 gr. na osobu s večeří a snídaní,
+   komůrka 2½ gr., stáj a píce 1 gr. za koně, dar v klášteře 1 gr. */
 const VY_NOC = {
-  krcma: ["V krčmě", 2, "Odpočinek bez obtíží. Za koně píce 1 groš."],
-  klaster: ["V klášteře nebo na faře", 0, "Zdarma, čeká se dar (1 groš). Kněz se zeptá na vyznání."],
-  tvrz: ["Na tvrzi nebo dvoře", 0, "Pohostinnost pána – a závazek, novinky, otázky."],
-  sirak: ["Pod širákem", 0, "Žádné náklady. Za mrazu záchrana Odolnosti, jinak úroveň vyčerpání."],
+  krcma: ["V krčmě", "Odpočinek bez obtíží. Večeře a snídaně v ceně, za koně píce 1 groš. Ve městě a ve zlatém hostinci výš."],
+  komurka: ["V krčmě v komůrce", "Zámek na dveřích, lože jen pro vás; půl groše navíc a spropitné obsluze. Za koně píce 1 groš."],
+  klaster: ["V klášteře nebo na faře", "Zdarma, čeká se dar (1 groš). Kněz se zeptá na vyznání."],
+  tvrz: ["Na tvrzi nebo dvoře", "Pohostinnost pána – a závazek, novinky, otázky. Čeledi spropitné."],
+  sirak: ["Pod širákem", "Žádné náklady. Za mrazu záchrana Odolnosti, jinak úroveň vyčerpání."],
 };
 function vyNoci() {
   if (!VYT || !VYS || VYT.plan) return [];
@@ -1851,19 +1856,19 @@ function vyHtmlNoci() {
   if (!N.length) return "";
   const lid = Math.max(1, VYS.dr.length),
     kone = ["kun", "vuz", "posel"].includes(VY.zp);
-  let sum = 0;
-  N.forEach(n => {
-    const c = VY_NOC[n.v][1];
-    sum += c * lid + (n.v === "krcma" && kone ? lid : 0) + (n.v === "klaster" ? 1 : 0);
-  });
-  return `<section class="vycard"><h3 class="uvh2">Noclehy <small>${N.length} ${N.length === 1 ? "noc" : N.length < 5 ? "noci" : "nocí"} · asi ${sum} grošů za družinu (${lid} ${lid === 1 ? "osoba" : lid < 5 ? "osoby" : "osob"})</small></h3>
+  const sum = slzNoci(
+    N.map(n => n.v),
+    lid,
+    kone ? lid : 0,
+  );
+  return `<section class="vycard"><h3 class="uvh2">Noclehy <small>${N.length} ${N.length === 1 ? "noc" : N.length < 5 ? "noci" : "nocí"} · asi ${slzCena(sum)} za družinu (${lid} ${lid === 1 ? "osoba" : lid < 5 ? "osoby" : "osob"})</small></h3>
     <ol class="vynoci">${N.map(
       n => `<li><b>${vyDatum(n.j)}</b> <small>${besc(n.kde)}</small> <select data-vynoc="${n.k}" aria-label="Kde se nocuje">${Object.entries(VY_NOC)
         .map(([k, [t]]) => `<option value="${k}"${n.v === k ? " selected" : ""}>${t}</option>`)
         .join("")}</select>
-      <span class="rsmall">${VY_NOC[n.v][2]}</span>${n.pozn ? `<span class="vypozn vypoznm">${n.pozn}</span>` : ""}</li>`,
+      <span class="rsmall">${VY_NOC[n.v][1]}</span>${n.pozn ? `<span class="vypozn vypoznm">${n.pozn}</span>` : ""}</li>`,
     ).join("")}</ol>
-    <p class="rsmall">Ceny jsou orientační: nocleh s jídlem v krčmě asi 2 groše na osobu.</p></section>`;
+    <p class="rsmall">Ceny jsou orientační: nocleh s večeří a snídaní v krčmě asi 2 groše na osobu (1½–3), komůrka půl groše víc, stáj s pící groš za koně. Další služby, cla, průvodce a mzdy: <a href="#pravidla/vybaveni/vyb-sluzby">Pravidla › Vybavení › Služby a mzdy</a>.</p></section>`;
 }
 function vyHtmlTabulky() {
   const t = VY.tabT || 0;

@@ -329,6 +329,15 @@ Plné znění kouzel a předmětů (Vojtovy tabulky, 2026-10-24) – jen pro př
 - používají ho: 13-karty (1), 14-karty-bojova-karta (4), 14c-boj-reakce (1), 17-karty-ii (4), 18-pravidla-postavy (1)
 - poskytuje: STRKOUSKY strRD strZdarma strHazard strKousek strKrit strSram strSvehlavost strZuby
 
+## 10y-sluzby
+
+@čisté – Služby a mzdy tažení (2026-10-30): zápis cen v groších, přepočet mezd, ceny v dnech práce a noclehy na výpravě
+
+- 65 řádků, 9 definic na nejvyšší úrovni, z toho 3 používají jiné soubory
+- používá z: –
+- používají ho: 14d-vybaveni-katalog (2), 22b-vyprava (2)
+- poskytuje: slzCena slzNoci slzRadek
+
 ## 11-boj
 
 BOJ: tracker slotové iniciativy (Artikule › Iniciativa a protivníci)
@@ -435,13 +444,14 @@ Boj: zásahy rovnou do karty, reakce na telefonu, plošné zásahy a iniciativa 
 
 Vybavení: katalog (2026-10-20) – art/vybaveni.json z Vojtova Přehledu vybavení (zdroj/vybaveni) s pravidly Artikulí.
 
-- 298 řádků, 24 definic na nejvyšší úrovni, z toho 16 používají jiné soubory
-- používá z: 01-zaklad (1), 02-mapa (5), 02c-zbroj (1), 04-praha (1), 07-druzina-kronika (1), 08-navigace-pravidla (1), 10-kouzla (1), 10q-plne-texty (1), 11-boj (1), 12-boj-tah-postavy (1), 14-karty-bojova-karta (1), 14b-vybaveni (2), 15-karty-artikule (1), 16-srd-ukazky-sezeni-hrac (5), 18-pravidla-postavy (1)
+- 323 řádků, 25 definic na nejvyšší úrovni, z toho 16 používají jiné soubory
+- používá z: 01-zaklad (1), 02-mapa (5), 02c-zbroj (1), 04-praha (1), 07-druzina-kronika (1), 08-navigace-pravidla (1), 10-kouzla (1), 10q-plne-texty (1), 10y-sluzby (2), 11-boj (1), 12-boj-tah-postavy (1), 14-karty-bojova-karta (1), 14b-vybaveni (2), 15-karty-artikule (1), 16-srd-ukazky-sezeni-hrac (5), 18-pravidla-postavy (1)
 - používají ho: 08-navigace-pravidla (1), 10h-hledani (4), 10q-plne-texty (1), 13-karty (3), 14-karty-bojova-karta (5), 14b-vybaveni (12), 19b-automatika (3), 23-potvrzovani (4)
 - poskytuje: VYB vybNacti VYBBY vybKl VYBN vybNajdi vybPoolVstup VYBSK renderVybaveni vybArtikule vybCil vybKarta VYBP vybParam VYBSKN vybVl
 - oddíly:
   - ř. 118: přidání do vybavení postavy (stránka Vybavení i nabídka na kartě)
-  - ř. 158: stránka Pravidla › Vybavení
+  - ř. 158: Služby a mzdy (2026-10-30): data zdroj/vybaveni/sluzby-mzdy.json → VYB.sluzby, čísla a zápis cen z čistého 10y
+  - ř. 182: stránka Pravidla › Vybavení
 
 ## 15-karty-artikule
 
@@ -683,21 +693,21 @@ Vypravěč: úpravy textů a obrázků přímo na webu
 
 VÝPRAVA: cesta družiny podle pravidel Uncharted Journeys (stránka jen pro vypravěče)
 
-- 846 řádků, 53 definic na nejvyšší úrovni, z toho 30 používají jiné soubory
+- 850 řádků, 53 definic na nejvyšší úrovni, z toho 30 používají jiné soubory
 - používá z: 01-zaklad (2), 02-mapa (1), 04-praha (1), 07-druzina-kronika (4), 08-navigace-pravidla (1), 09-vypravec-herni-cas (2), 22b-vyprava (1)
 - používají ho: 07-druzina-kronika (1), 09-vypravec-herni-cas (4), 22b-vyprava (29)
 - poskytuje: hraZpetZapis VY hraZpet VY_NACTENO VY_NOVA VY_REZ VY_TYPY vyDat vyGreg vyId vyNacti vyPocasi vyUlozHned hraZpetHtml VY_DELKA VY_KRAJ VY_ODCH VY_PRIJ VY_PRIP VY_ROLE VY_TEMPO VY_ZAZ VY_ZP vyDen vyDruzina vyHod vyRychl VYS VYT vyUloz
 - oddíly:
-  - ř. 292: počasí
-  - ř. 586: stav výpravy
-  - ř. 695: návrat cest a času (2026-10-18): před každou změnou času, místa nebo cesty se uloží předchozí stav
+  - ř. 296: počasí
+  - ř. 590: stav výpravy
+  - ř. 699: návrat cest a času (2026-10-18): před každou změnou času, místa nebo cesty se uloží předchozí stav
 
 ## 22b-vyprava
 
 Výprava: stránka vypravěče (trasa, setkání, počasí na cestě, mapy) – samostatná část „vyprava“, načte se až na stránce Výprava (2026-10-19)
 
-- 1899 řádků, 59 definic na nejvyšší úrovni, z toho 3 používají jiné soubory
-- používá z: 01-zaklad (4), 02-mapa (13), 02e-krajina (5), 04-praha (4), 04b-praha-plan (6), 05-svet (5), 05b-svet-mapa (3), 06-draconomicon-rodokmeny (1), 07-druzina-kronika (8), 08-navigace-pravidla (1), 09-vypravec-herni-cas (7), 21-editor-pecet (2), 22-vyprava (29)
+- 1904 řádků, 59 definic na nejvyšší úrovni, z toho 3 používají jiné soubory
+- používá z: 01-zaklad (4), 02-mapa (13), 02e-krajina (5), 04-praha (4), 04b-praha-plan (6), 05-svet (5), 05b-svet-mapa (3), 06-draconomicon-rodokmeny (1), 07-druzina-kronika (8), 08-navigace-pravidla (1), 09-vypravec-herni-cas (7), 10y-sluzby (2), 21-editor-pecet (2), 22-vyprava (29)
 - používají ho: 08-navigace-pravidla (2), 09-vypravec-herni-cas (1), 22-vyprava (1)
 - poskytuje: renderVyprava vyZazT vyVrat
 - oddíly:
@@ -705,7 +715,7 @@ Výprava: stránka vypravěče (trasa, setkání, počasí na cestě, mapy) – 
   - ř. 232: trasa, časový průběh, obtížnost, setkání
   - ř. 582: vykreslení
   - ř. 918: ovládání
-  - ř. 1507: Výprava 2: okolí trasy, draci, vlastní tabulky, noclehy, lidé na cestě, počasí pro hráče, režim u stolu
+  - ř. 1509: Výprava 2: okolí trasy, draci, vlastní tabulky, noclehy, lidé na cestě, počasí pro hráče, režim u stolu
 
 ## 23-potvrzovani
 

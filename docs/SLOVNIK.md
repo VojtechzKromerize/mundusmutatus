@@ -262,7 +262,7 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `HRA_PO` | 09-vypravec-herni-cas:693 | const | herní čas: funkce volané po změně herního stavu (překreslení plánu Prahy, synchronizace…) |
 | `HRACI` | 02-mapa:4513 | const | ⓘ `[` |
 | `HRACI_GEO` | 02b-mapa-kresba:6380 | const | ⓐ obrysy mocností vrstvy Hlavní hráči a místo erbu (počítá podklady/hranice_doplnit.py z HRACI v 02) |
-| `HRAKL` | 22-vyprava:697 | const | Výprava: klíče stavu hry ukládané do kroků Zpět (datum, hodina, misto, praha, cesta, poloha, putovani) |
+| `HRAKL` | 22-vyprava:701 | const | Výprava: klíče stavu hry ukládané do kroků Zpět (datum, hodina, misto, praha, cesta, poloha, putovani) |
 | `HRAP` | 16-srd-ukazky-sezeni-hrac:1380 | let | Hra: příznak spuštěného pravidelného načítání (hraPoll) výzev, zpráv, potvrzení – jen jednou |
 | `HRKOR` | 02b-mapa-kresba:15120 | let | ⓐ vnější úseky hranice Koruny (úsek, který leží jen v jedné zemi Koruny) a jejich druh podle krajiny; spočítá se jednou |
 | `ILSEL` | 08-navigace-pravidla:1041 | const | iluminované iniciály: CSS selektory odstavců, které dostanou zdobené první písmeno |
@@ -604,6 +604,8 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `SKURF` | 05-svet:9 | const | ⓐ kurfiřtská knížectví – přibližné obrysy (zeměpisné souřadnice); sedmým kurfiřtem je český král |
 | `SLABPOS` | 05-svet:473 | const | ⓐ ručně umístěné popisky velkých mocností (zeměpisná délka, šířka) |
 | `SLODE` | 05-svet:189 | const | ⓐ lodě a obludy [obrázek, délka, šířka, šířka obrázku, zrcadlit], růžice portulánu [délka, šířka, velká] |
+| `SLZ_NOC` | 10y-sluzby:9 | const | ⓐ noclehy na výpravě: os = cena na osobu a noc, kun = píce a stáj za koně, dar = dar v klášteře (jednou za družinu), vše v groších |
+| `SLZ_PRACDNY` | 10y-sluzby:7 | const | ⓐ pracovních dnů v roce (mzdy se platí za den, svátky měsíčně asi tři) |
 | `SM` | 05-svet:295 | const | mapa světa: stav měření cesty (zapnuto, body a/b, nalezená cesta) |
 | `SMA` | 05-svet:112 | const | mapa světa: cesta ke složce ilustrací ("art/svet/") |
 | `SMEZE` | 05b-svet-mapa:4 | const | ⓐ výřez mapy světa v mezích [x0, y0, x1, y1, nejmenší a největší šířka]; v celé obrazovce (02f) v poměru stran okna, jinak 1024 : 790 |
@@ -680,38 +682,38 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `VIEWS` | 08-navigace-pravidla:2 | const | navigace: seznam id stránek (hra, uvod, svet, mapa…) pro router route() |
 | `VODA_CESTA` | 02e-krajina:1264 | const | ⓘ `[` |
 | `VRCHOVINY` | 02-mapa:5883 | const | ⓘ `[` |
-| `VY` | 22-vyprava:587 | let | Výprava: stav výpravy – mapa, z/do, zp způsob, odch, zdrz, tempo, start, teren, setkání, konec… (ukládá se do databáze) |
+| `VY` | 22-vyprava:591 | let | Výprava: stav výpravy – mapa, z/do, zp způsob, odch, zdrz, tempo, start, teren, setkání, konec… (ukládá se do databáze) |
 | `VY_BOXY` | 22b-vyprava:203 | const | Výprava: id boxů s mapou podle mapy (svet smapbox, koruna kmapbox, praha pmapbox) |
-| `VY_CHCE` | 22b-vyprava:1733 | const | Výprava lidé na cestě: náhodná přání pocestného („dostat se domů dřív než bouře“…) |
-| `VY_DELKA` | 22-vyprava:21 | const | Výprava: délky výpravy [stupeň, název, základ obtížnosti] – Krátká cesta bez pravidel… Velmi dlouhá výprava |
-| `VY_JM` | 22b-vyprava:1624 | const | ⓐ lidé na cestě |
-| `VY_KRAJ` | 22-vyprava:28 | const | Výprava: kraje → [název, písmeno pro tabulky setkání] – pole P, les L, hory H, mesto M, voda V, stezky K, valka W, zavoj Z |
-| `VY_LOK` | 22-vyprava:591 | let | Výprava: příznak, že stav běží jen lokálně (bez databáze nebo načtení selhalo) |
-| `VY_NACTENO` | 22-vyprava:590 | let | Výprava: příznak, že stav výpravy byl načten z databáze |
-| `VY_NIZ` | 22-vyprava:367 | const | Výprava: obdélníky [lo1, la1, lo2, la2] nížin Koruny české – určení typu místa (vyMisto) |
-| `VY_NOC` | 22b-vyprava:1596 | const | ⓐ noclehy |
-| `VY_NOVA` | 22-vyprava:592 | const | Výprava: továrna na výchozí stav výpravy (v 1, mapa koruna, zp pesky, odch 1, konec…) |
-| `VY_ODCH` | 22-vyprava:13 | const | Výprava: odchylka od odhadu času [násobek, popisek] – o čtvrtinu rychleji… dvakrát déle |
-| `VY_POV` | 22b-vyprava:1715 | const | Výprava lidé na cestě: náhodné povahy pocestného (podezíravý, upovídaný, zbožný…) |
-| `VY_PRIJ` | 22-vyprava:274 | const | Výprava: tabulka příjezdu [horní mez hodu, název, popis] – Nečekané nebezpečí… Bezpečí (odpočinek) |
-| `VY_PRIP` | 22-vyprava:69 | const | ⓐ přípravy (SO 13); o = obtížnost cesty při úspěchu, f = při neúspěchu, o5 = při úspěchu o 5 a víc |
-| `VY_PRIZ` | 22b-vyprava:1680 | const | Výprava lidé na cestě: náhodné přízviska (Černý, Malý, Bezzubý, Kulhavý…) |
-| `VY_REZ` | 22-vyprava:340 | const | Výprava počasí: povětrnostní režimy (tlaková výše, západní proudění, fronta…) → {n, w váhy podle sezóny, ta teplota, p déšť, v vítr, typ} |
-| `VY_ROLE` | 22-vyprava:38 | const | Výprava: role v družině (vudce, zved, zasob, hlidka) → {n název, sch schopnost, hod ověření} |
-| `VY_STAV` | 22b-vyprava:1697 | const | Výprava lidé na cestě: stavy pocestných [stav, váha, příjmení|] – sedlák, měšťan, řemeslník, kupec, zeman… |
-| `VY_TAJ` | 22b-vyprava:1751 | const | Výprava lidé na cestě: náhodná tajemství pocestného („je ve skutečnosti Proměněnec“…) |
-| `VY_TEMPO` | 22-vyprava:20 | const | Výprava: tempo cesty → [název, násobek času] – normal 1, spech 0.85, opatrne 1.15 |
-| `VY_TMAX` | 22-vyprava:330 | const | ⓐ průměry kolem 300 m n. m., o stupeň chladnější než dnes (počátek malé doby ledové) |
-| `VY_TMIN` | 22-vyprava:331 | const | Výprava počasí: průměrné měsíční noční minima °C (leden–prosinec), chladnější než dnes |
-| `VY_TYPY` | 22-vyprava:128 | const | Výprava: typy setkání na cestě (Setkání na cestě, Nesnáz…) → {n, r role, jak postup, v výsledky} |
-| `VY_VIRA` | 22b-vyprava:1508 | const | Výprava: vyznání panství → název (kal kališníci, kat katolíci, mix smíšené, isl muslimové, old starověrci) |
-| `VY_VITR` | 22-vyprava:495 | const | Výprava počasí: popisky síly větru podle stupně (bezvětří… vichřice) |
-| `VY_ZAVOJ` | 22-vyprava:282 | const | Výprava počasí: vzácné úkazy Závoje v popisu počasí („Déšť má nazelenalý třpyt“…) |
-| `VY_ZAZ` | 22-vyprava:267 | const | Výprava: tabulky záznamů setkání podle indexu typu (z VYZAZ) – [{r kraje, n, t, k ověření, b boj}] |
-| `VY_ZP` | 22-vyprava:6 | const | Výprava: způsoby cesty [klíč, název, km/den, km/h v Praze] – pesky, kun, vuz, posel, drak |
+| `VY_CHCE` | 22b-vyprava:1738 | const | Výprava lidé na cestě: náhodná přání pocestného („dostat se domů dřív než bouře“…) |
+| `VY_DELKA` | 22-vyprava:25 | const | Výprava: délky výpravy [stupeň, název, základ obtížnosti] – Krátká cesta bez pravidel… Velmi dlouhá výprava |
+| `VY_JM` | 22b-vyprava:1629 | const | ⓐ lidé na cestě |
+| `VY_KRAJ` | 22-vyprava:32 | const | Výprava: kraje → [název, písmeno pro tabulky setkání] – pole P, les L, hory H, mesto M, voda V, stezky K, valka W, zavoj Z |
+| `VY_LOK` | 22-vyprava:595 | let | Výprava: příznak, že stav běží jen lokálně (bez databáze nebo načtení selhalo) |
+| `VY_NACTENO` | 22-vyprava:594 | let | Výprava: příznak, že stav výpravy byl načten z databáze |
+| `VY_NIZ` | 22-vyprava:371 | const | Výprava: obdélníky [lo1, la1, lo2, la2] nížin Koruny české – určení typu místa (vyMisto) |
+| `VY_NOC` | 22b-vyprava:1600 | const | ⓘ `{` |
+| `VY_NOVA` | 22-vyprava:596 | const | Výprava: továrna na výchozí stav výpravy (v 1, mapa koruna, zp pesky, odch 1, konec…) |
+| `VY_ODCH` | 22-vyprava:17 | const | Výprava: odchylka od odhadu času [násobek, popisek] – o čtvrtinu rychleji… dvakrát déle |
+| `VY_POV` | 22b-vyprava:1720 | const | Výprava lidé na cestě: náhodné povahy pocestného (podezíravý, upovídaný, zbožný…) |
+| `VY_PRIJ` | 22-vyprava:278 | const | Výprava: tabulka příjezdu [horní mez hodu, název, popis] – Nečekané nebezpečí… Bezpečí (odpočinek) |
+| `VY_PRIP` | 22-vyprava:73 | const | ⓐ přípravy (SO 13); o = obtížnost cesty při úspěchu, f = při neúspěchu, o5 = při úspěchu o 5 a víc |
+| `VY_PRIZ` | 22b-vyprava:1685 | const | Výprava lidé na cestě: náhodné přízviska (Černý, Malý, Bezzubý, Kulhavý…) |
+| `VY_REZ` | 22-vyprava:344 | const | Výprava počasí: povětrnostní režimy (tlaková výše, západní proudění, fronta…) → {n, w váhy podle sezóny, ta teplota, p déšť, v vítr, typ} |
+| `VY_ROLE` | 22-vyprava:42 | const | Výprava: role v družině (vudce, zved, zasob, hlidka) → {n název, sch schopnost, hod ověření} |
+| `VY_STAV` | 22b-vyprava:1702 | const | Výprava lidé na cestě: stavy pocestných [stav, váha, příjmení|] – sedlák, měšťan, řemeslník, kupec, zeman… |
+| `VY_TAJ` | 22b-vyprava:1756 | const | Výprava lidé na cestě: náhodná tajemství pocestného („je ve skutečnosti Proměněnec“…) |
+| `VY_TEMPO` | 22-vyprava:24 | const | Výprava: tempo cesty → [název, násobek času] – normal 1, spech 0.85, opatrne 1.15 |
+| `VY_TMAX` | 22-vyprava:334 | const | ⓐ průměry kolem 300 m n. m., o stupeň chladnější než dnes (počátek malé doby ledové) |
+| `VY_TMIN` | 22-vyprava:335 | const | Výprava počasí: průměrné měsíční noční minima °C (leden–prosinec), chladnější než dnes |
+| `VY_TYPY` | 22-vyprava:132 | const | Výprava: typy setkání na cestě (Setkání na cestě, Nesnáz…) → {n, r role, jak postup, v výsledky} |
+| `VY_VIRA` | 22b-vyprava:1510 | const | Výprava: vyznání panství → název (kal kališníci, kat katolíci, mix smíšené, isl muslimové, old starověrci) |
+| `VY_VITR` | 22-vyprava:499 | const | Výprava počasí: popisky síly větru podle stupně (bezvětří… vichřice) |
+| `VY_ZAVOJ` | 22-vyprava:286 | const | Výprava počasí: vzácné úkazy Závoje v popisu počasí („Déšť má nazelenalý třpyt“…) |
+| `VY_ZAZ` | 22-vyprava:271 | const | Výprava: tabulky záznamů setkání podle indexu typu (z VYZAZ) – [{r kraje, n, t, k ověření, b boj}] |
+| `VY_ZP` | 22-vyprava:10 | const | Výprava: způsoby cesty [klíč, název, km/den, km/h v Praze] – pesky, kun, vuz, posel, drak |
 | `VYB` | 14d-vybaveni-katalog:4 | let | Vybavení katalog: data z art/vybaveni.json podle skupiny (zbroj, zbrane…, vlastnosti) nebo null |
 | `VYBBY` | 14d-vybaveni-katalog:6 | const | Vybavení katalog: index položek podle id |
-| `VYBF` | 14d-vybaveni-katalog:159 | let | Vybavení katalog: filtr stránky Pravidla › Vybavení – q hledaný text, sk skupina, vz vzácnost (t timeout) |
+| `VYBF` | 14d-vybaveni-katalog:183 | let | Vybavení katalog: filtr stránky Pravidla › Vybavení – q hledaný text, sk skupina, vz vzácnost (t timeout) |
 | `VYBK` | 14d-vybaveni-katalog:131 | let | ⓐ postava, do které se na stránce Vybavení přidává: hráč svou, vypravěč vybranou |
 | `VYBMINC` | 14d-vybaveni-katalog:148 | const | ⓘ `{"Gold Piece": "GP", "Silver Piece": "SP", "Copper Piece": "CP"},` |
 | `VYBMKURZ` | 14d-vybaveni-katalog:149 | const | ⓘ `{GP: "40 grošů", SP: "10 haléřů", CP: "nejmenší mince"};` |
@@ -719,10 +721,10 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `VYBP` | 14d-vybaveni-katalog:5 | let | Vybavení katalog: probíhající Promise načítání VYB (vybNacti) |
 | `VYBSK` | 14d-vybaveni-katalog:8 | const | Vybavení katalog: skupiny [klíč, název] – zbroj, zbrane, strelivo, vybava, naradi, zvirata, sedla, vozy, plavidla, magicke… |
 | `VYBSKN` | 14d-vybaveni-katalog:21 | const | Vybavení katalog: názvy skupin podle klíče (objekt z VYBSK) |
-| `VYS` | 22-vyprava:589 | let | Výprava: spočtený průběh – {H hodiny, dl délka, gc, dny, prij příjezd, W počasí, T terén, dr družina role, reviry…} nebo null |
-| `VYT` | 22-vyprava:588 | let | Výprava: spočtená trasa (vyTrasa) – {m mapa, z, do, h hodiny, plan, p body…} nebo null |
+| `VYS` | 22-vyprava:593 | let | Výprava: spočtený průběh – {H hodiny, dl délka, gc, dny, prij příjezd, W počasí, T terén, dr družina role, reviry…} nebo null |
+| `VYT` | 22-vyprava:592 | let | Výprava: spočtená trasa (vyTrasa) – {m mapa, z, do, h hodiny, plan, p body…} nebo null |
 | `VYZ_ZIVOT` | 16-srd-ukazky-sezeni-hrac:1110 | const | ⓐ jak dlouho čeká výzva na hráče: starší (vypravěč ji zapomněl uzavřít, sezení skončilo) se už neukáže a vypravěč ji uzavře |
-| `VYZAZ` | 22-vyprava:266 | const | Výprava: záznamy setkání vložené generátorem (/*@VYZAZ@*/, jen vypravěč) – [{i index typu, z záznamy}] |
+| `VYZAZ` | 22-vyprava:270 | const | Výprava: záznamy setkání vložené generátorem (/*@VYZAZ@*/, jen vypravěč) – [{i index typu, z záznamy}] |
 | `VYZODP` | 16-srd-ukazky-sezeni-hrac:1090 | let | Výzvy k hodu (vypravěč): poslední známý počet odpovědí hráčů – při nárůstu překreslí Boj |
 | `VYZUKL` | 16-srd-ukazky-sezeni-hrac:1210 | const | ⓐ vypravěč: zapomenuté výzvy uzavře sám – starší než VYZ_ZIVOT a iniciativu, když příprava boje skončila (boj začal nebo se zrušil) |
 | `VYZVY` | 16-srd-ukazky-sezeni-hrac:1089 | let | Výzvy k hodu načtené z databáze (hod, záchrana, iniciativa) s odpověďmi hráčů |
