@@ -65,6 +65,7 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
 - 2026-10-28 **Jedna skupina měst na zemi** (Vojta): sloučeno cmal → cpl (Města Polska), chu → umi (Města Uher), nmra → cat (Města a trhy
   Rakous), nmba → cba (Města Bavor, Horní Falce a Frank), nmsa → csa (Města Saska a Míšně); sídla spojená, texty za sebou. Čechy a Morava
   dál rozlišují královská a věnná města (mes) od ostatních (cmc, cmm) – je to stav na sněmu, ne zbytečné dělení.
+- 2026-10-29 **Sdílená sídla na mapě** (Vojta): místo, které je sídlem rodu i městem skupiny, se kreslí jednou podle jména (`rodM`/`grpM` v 02b), panel místa ukáže „Drží“ i „Patří k“; Kremnice (Jiskra + Uherská města) je pod jedním jménem a souřadnicemi, dolní značka hospodářství je jiná vrstva s posunem. Test v `mapa.test.mjs`.
 
 ## Hotovo
 
