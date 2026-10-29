@@ -192,7 +192,7 @@ async def main():
     chk(not await g.locator("#bpravidla").is_visible(),"pravidla se při tom zavřou")
     await g.select_option("[data-bkd]","drak");await g.fill("[data-bkr]","1");await g.fill("[data-bkp]","10");await g.click("[data-bkhod]");await klid(g,150)
     kt=await g.locator(".bkrit").inner_text();print("krit:",kt[:160].replace("\n"," | "))
-    chk(re.search(r"d10 \d+ \+ 3 = \d+",kt) is not None and any(x in kt for x in ["Hlava","Trup","Křídla","Nohy a ocas"]),"kritické zranění draka: modifikátor +3 a místo zásahu")
+    chk(re.search(r"k10 \d+ \+ 3 = \d+",kt) is not None and any(x in kt for x in ["Hlava","Trup","Křídla","Nohy a ocas"]),"kritické zranění draka: modifikátor +3 a místo zásahu")
     await g.screenshot(path=OUT+"5-boj-novy.png",full_page=True)
     await g.keyboard.press("Escape");await dokud(g,"getComputedStyle(document.querySelector('#bkritsup')).visibility==='hidden'",3000)  # šuplík odjede přechodem 0,22 s
     chk(not await g.locator("#bkritsup").is_visible(),"Escape šuplík zavře")
