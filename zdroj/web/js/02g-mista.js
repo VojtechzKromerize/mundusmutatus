@@ -18,14 +18,14 @@ const CITYINFO = {
   },
   Žatec: {n: "Žatec jest bohaté město pod obojí, chmelnicemi obklopené, a drží věrný spolek s Louny."},
   Plzeň: {
-    n: "Plzeň jest baštou strany římské na západě. Za bouří husitských odolala obležení a podnes stojí v čele landfrýdu plzeňského, jenž pod jednou přijímá. Když pan Jiří léta Páně 1448 vzal Prahu, utekli sem kanovníci pražští i hejtman Hanuš z Kolovrat; norimberští kupci zde mají svou oporu.",
+    n: "Plzeň jest baštou strany římské na západě. Za bouří husitských odolala obležení a podnes stojí v čele landfrýdu plzeňského, jenž pod jednou přijímá. Když pan Jiří léta Páně 1448 vzal Prahu, utekli sem kanovníci pražští i hejtman Hanuš z Kolovrat; norimberští kupci zde mají svou oporu. Radu tvoří většinou Češi; královského rychtáře město od roku 1437 nemá.",
   },
   "České Budějovice": {
-    n: "Budějovice jsou město strany římské, z větší části německé a králi věrné, s chválenou školou městskou. Leží uprostřed zboží pánů z Rožmberka, kteří je chrání, ač se s nimi měšťané často přou; jest branou k Linci.",
+    n: "Budějovice jsou město strany římské a králi věrné, obyvatelstvem zhruba půl na půl české a německé (česká strana sílí), s chválenou školou městskou. Leží uprostřed zboží pánů z Rožmberka, kteří je chrání, ač se s nimi měšťané často přou; jest branou k Linci.",
   },
   Cheb: {
     t: "Říšské město zastavené Koruně",
-    n: "Cheb jest město strany římské a německé, jež se samo široce spravuje. Ve věcech duchovních náleží biskupu řezenskému, nikoli Praze. Ač katolický, s panem Jiřím drží dobrou vůli: Chebák Jošt z Einsiedlu jest jeho důvěrníkem a prvního dne března jel pro korunní listiny na Karlštejn.",
+    n: "Cheb jest město strany římské a německé, jež se samo široce spravuje a kolem sebe drží na tři sta osmdesát čtverečních kilometrů se stovkou a šedesáti vsí; v ohrožení postaví až tři tisíce mužů. V radě vynikají rodiny Juncker, Rudusch, Pachmann a Püchelberger. Ve věcech duchovních náleží biskupu řezenskému, nikoli Praze; u svatého Mikuláše má komendu Řád německých rytířů. Ač katolický, s panem Jiřím drží dobrou vůli: Chebák Jošt z Einsiedlu jest jeho důvěrníkem a prvního dne března jel pro korunní listiny na Karlštejn.",
   },
   Brno: {
     n: "Brno jest s Olomoucí předním městem markrabství moravského, strany římské a německé, s hradem Špilberkem nad sebou. Léta Páně 1454 vyhnal odsud král Ladislav na žádost měšťanů Židy. S Olomoucí, Jihlavou a Znojmem drží Brno jednotu měst moravských a na pána kališníka hledí ostražitě.",
@@ -462,7 +462,7 @@ const CITYINFO = {
   },
   Karlštejn: {
     t: "Královský hrad",
-    n: "Královský hrad, schránka korunovačních klenotů, jež jsou zde opět od léta Páně 1436, a od léta 1437 i archivu korunního v kapli svatého Kříže; bez nich nelze krále platně korunovati. Za bouří husitských nedobytá pevnost strany římské; spravuje jej nejvyšší purkrabí. Prvního dne března jela sem družina přes třicet jezdců pro listiny o právu ke Koruně a za tmy je přivezla na sněm do Prahy.",
+    n: "Královský hrad, schránka korunovačních klenotů, jež jsou zde opět od léta Páně 1436, a od léta 1437 i archivu korunního v kapli svatého Kříže, kterou zdobí zlato, drahokamy a sto třicet deskových obrazů svatých, za nimiž je téměř u každého výklenek s ostatky; bez klenotů nelze krále platně korunovati. Za bouří husitských nedobytá pevnost strany římské; spravuje jej nejvyšší purkrabí. Prvního dne března jela sem družina přes třicet jezdců pro listiny o právu ke Koruně a za tmy je přivezla na sněm do Prahy.",
   },
   Křivoklát: {
     t: "Královský hrad",
