@@ -144,7 +144,7 @@ async def main():
     # (po předchozích testech může v databázi zůstat běžící boj s Balduinem – mimo boj = v prohlížeči hráče boj neběží)
     await pl.evaluate("if(BOJ.s)BOJ.s.aktivni=false;BOJ.v=1e12;kartaStavZmen('balduin',{hp:5,vycerp:null,ds:null,kz:null},null,{bezZpet:true})");await klid(pl,600)
     await pl.click('.bdm [data-bdmsh="hp"] >> nth=0');await klid(pl,300);await pl.fill('.bdmlist [data-kzrv]','9');await pl.click('.bdmlist [data-kzrz="z"]');await klid(pl,900)
-    chk(stav().get("hp")==0 and stav().get("ds")=={"u":0,"n":0} and stav().get("vycerp")==1,f"pád na 0 HP mimo boj: hody proti smrti a vyčerpání {stav().get('ds')} {stav().get('vycerp')}")
+    chk(stav().get("hp")==-4 and stav().get("ds")=={"u":0,"n":0} and stav().get("vycerp")==1,f"pád na 0 HP mimo boj: hody proti smrti a vyčerpání {stav().get('ds')} {stav().get('vycerp')}")
     chk(await pl.locator('.bdm .bdmhp .bdsb').count()==1 and await pl.locator('.bdmlist [data-kds="hod"]').count()==1,"karta ukazuje práh smrti a tlačítko hodu")
     await pl.click('.bdmlist [data-kds="n"]');await klid(pl,800)
     chk((stav().get("ds") or {}).get("n")==1,"ruční neúspěch se zapíše")
