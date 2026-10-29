@@ -300,7 +300,7 @@ async def main():
     v=await b.new_page(viewport={"width":1200,"height":900});v.on("pageerror",lambda e:err.append("vybavení: "+str(e)[:300]))
     v.on("dialog",lambda d:asyncio.ensure_future(d.accept("2")))
     await sleduj(v);await v.goto(GM+"#pravidla/vybaveni");await v.wait_for_function("!!VYB&&document.querySelectorAll('.vybr').length>600",timeout=20000)
-    chk(await v.locator("section.vybsek").count()==11 and await v.locator(".vybr .bik-zv").count()>=30,"stránka Vybavení: 11 oddílů, zbraně s ikonami vlastností podle Artikulí")
+    chk(await v.locator("section.vybsek").count()==12 and await v.locator(".vybr .bik-zv").count()>=30,"stránka Vybavení: 12 oddílů (vč. Služby a mzdy), zbraně s ikonami vlastností podle Artikulí")
     await v.fill("[data-vybq]","Greatsword");await klid(v,400)
     await v.locator(".vybr [data-vybpop]").first.click();await klid(v,300);pt=await v.locator(".mmpop").inner_text()
     chk("Artikule" in pt and "Půlmeč" in pt and "Ostrá" in pt,"popis zbraně nese vlastnosti z Artikulí: "+pt[:120].replace("\n"," | "))
