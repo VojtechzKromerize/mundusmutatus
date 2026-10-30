@@ -121,6 +121,15 @@ async function pulsZpracuj(co) {
     } catch (e) {}
   }
   if (co.has("hra")) await pulsHra();
+  if (co.has("povest")) povNacti(true);
+  if (co.has("obchody")) {
+    try {
+      if (await obchNacti()) {
+        if (curView === "boj") bojPrekresli();
+        if (typeof kartyPrekresli === "function") kartyPrekresli();
+      }
+    } catch (e) {}
+  }
   if (co.has("snimek") || PULS.obnov) pulsObnov();
   if (curView === "boj" && (kh || b)) bojPrekresli();
   else if (kh && !pulsPise()) kartyPrekresli();

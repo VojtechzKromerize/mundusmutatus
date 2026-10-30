@@ -600,7 +600,7 @@ function bzRadek(e, gm) {
       : "",
     zv =
       zik && (z.vol || z.txt)
-        ? `<p class="bzzv${z.prij ? " bzzp" : ""}">${z.r === "pok" ? "Pokušení" : "Požehnání"}${z.vol ? ` ${besc(z.vol)}` : ""}${z.txt ? `<span class="bzzt">${besc(z.txt)}</span>` : ""}</p>`
+        ? `<p class="bzzv${z.prij ? " bzzp" : ""}">${z.r === "pok" ? "Pokušení" : "Požehnání"}${z.vol ? ` ${besc(z.vol)}` : ""}${z.txt ? `<span class="bzzt">${besc(z.txt)}</span>` : ""}${gm ? `<button type="button" class="gbtn ghost bztab" data-tabnap="${z.r}:${tabSituace(e.co, !!e.C, false)}" ${btip("Nápady z losovacích tabulek (Nástroje)")}>💡 nápady</button>` : ""}</p>`
         : "";
   const zbr = bzZbrIk(e);
   const det = e.rows.length || e.pozn.length || zv,

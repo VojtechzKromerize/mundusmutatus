@@ -110,6 +110,8 @@ document.addEventListener("click", e => {
   }).observe(document.body, {childList: true, subtree: true});
 }
 route();
+/* pověst družiny u rodů (07p): malý dotaz, stránka rodu a Družina se po načtení dokreslí */
+povNacti(true);
 /* hráč: stránka už je vidět, boj, karty a hra (část „hra“) se stáhnou na pozadí – puls, přihlášení a karta tak běží
    za pár vteřin i na stránkách, které je samy nepotřebují. Mapy, Výprava a editor až na vyžádání stránky.
    Vypravěč dostane všechny části hned (jeho panely sahají do map, Výpravy i editoru) a stránka se pak vykreslí znovu

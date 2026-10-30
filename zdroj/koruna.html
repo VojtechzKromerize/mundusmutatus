@@ -508,6 +508,11 @@ window.MMDB={vetev:C.vetev,
   async puls(){return api("/rest/v1/rpc/mm_puls",{method:"POST",body:"{}"})},
   async hra(){return api("/rest/v1/rpc/mm_hra",{method:"POST",body:"{}"})},
   potvrzNastav(p){return this.gm("mm_potvrz_nastav",{p_hodnota:p})},
+  /* pověst družiny u rodů a obchody (2026-10-30): čte každý (hráčům databáze vyřízne neznámé rody a zavřené obchody), mění vypravěč */
+  async povest(){return rpc("mm_povest",{})},
+  povestNastav(id,u,pz){return this.gm("mm_povest_nastav",{p_id:id,p_u:u,p_pz:pz||null})},
+  async obchody(){return rpc("mm_obchody",{})},
+  obchodyUloz(h){return this.gm("mm_obchody_uloz",{p_hodnota:h})},
   async kartaBardic(id,k,od){return rpc("mm_karta_bardic",{p_id:id,p_kostka:k,p_od:od,p_token:htok()})},
   async kartaWarding(id,zr,max,od,konec,jm){return rpc("mm_karta_warding",{p_id:id,p_zr:zr,p_max:max,p_od:od,p_konec:!!konec,p_token:htok(),p_jmeno:jm||null})},
   async kartaHistorie(id){return rpc("mm_karta_historie",{p_id:id,p_token:htok()})},
@@ -653,13 +658,16 @@ const hraAkt=()=>api("/rest/v1/rpc/mm_hra",{method:"POST",body:"{}"}).then(h=>h&
 /*@vloz web/js/06-draconomicon-rodokmeny.js*/
 /*@vloz web/js/07-druzina-kronika.js*/
 /*@vloz web/js/07s-stopa.js*/
+/*@vloz web/js/07p-povest.js*/
 /*@vloz web/js/08-navigace-pravidla.js*/
 /*@vloz web/js/09-vypravec-herni-cas.js*/
 /*@vloz web/js/09g-generator-postav.js*/
 /*@vloz web/js/10-kouzla.js*/
 /*@vloz web/js/10g-hledej.js*/
 /*@vloz web/js/10h-hledani.js*/
+/*@vloz web/js/10j-tabulky.js*/
 /*@vloz web/js/10k-import-pdf.js*/
+/*@vloz web/js/10o-obchody.js*/
 /*@vloz web/js/10p-pravidla.js*/
 /*@vloz web/js/10q-plne-texty.js*/
 /*@vloz web/js/10r-reakce.js*/
@@ -679,6 +687,7 @@ const hraAkt=()=>api("/rest/v1/rpc/mm_hra",{method:"POST",body:"{}"}).then(h=>h&
 /*@vloz web/js/14d-vybaveni-katalog.js*/
 /*@vloz web/js/15-karty-artikule.js*/
 /*@vloz web/js/16-srd-ukazky-sezeni-hrac.js*/
+/*@vloz web/js/16o-obchody-tabulky.js*/
 /*@vloz web/js/17-karty-ii.js*/
 /*@vloz web/js/17b-kouzla-ucinky.js*/
 /*@vloz web/js/18-pravidla-postavy.js*/

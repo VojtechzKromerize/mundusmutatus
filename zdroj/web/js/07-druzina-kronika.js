@@ -49,7 +49,10 @@ function renderDruzina(b) {
        {length: slots},
        () =>
          `<div class="pchar pslot"><span class="pport ini" aria-hidden="true">?</span><b>Volné místo</b><span>Postava se teprve chystá na cestu.</span></div>`,
-     ).join("")}</div>`;
+     ).join("")}</div>${(() => {
+       const p = povSeznamHtml(false);
+       return p ? `<section class="povsec"><h3>Pověst družiny <a class="pmore" href="#desky">rody →</a></h3>${p}</section>` : "";
+     })()}`;
     return;
   }
   D.innerHTML = `<nav class="crumbs"><a href="#druzina">Družina</a> › <b>${p.n}</b></nav>

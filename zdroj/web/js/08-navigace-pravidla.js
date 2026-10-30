@@ -89,7 +89,8 @@ function renderRodArticle(id) {
      <dt>Země</dt><dd>${f.land}</dd>
      ${f.seats.length ? `<dt>${f.city ? "Města" : f.castle ? "Hrady" : "Državy"}</dt><dd>${f.seats.map(sd => maplinkBtn(f, sd)).join(", ")}</dd>` : ""}
      ${ppl.length ? `<dt>Osoby</dt><dd>${ppl.map(plinkP).join(", ")}</dd>` : ""}
-     ${PRAHA_PLACES.some(q => q.r === id) ? `<dt>V Praze</dt><dd>${prLinks(PRAHA_PLACES.filter(q => q.r === id))}</dd>` : ""}</dl>
+     ${PRAHA_PLACES.some(q => q.r === id) ? `<dt>V Praze</dt><dd>${prLinks(PRAHA_PLACES.filter(q => q.r === id))}</dd>` : ""}
+     ${povHtml(id)}</dl>
      ${
        ppl.some(p => PORTR.has(p.id))
          ? `<div class="rodppl">${ppl
@@ -770,7 +771,7 @@ function route() {
   const navV = view,
     tab0 = PULTTAB;
   if (view === "hra") {
-    if (GMV) PULTTAB = b === "druzina" || b === "sezeni" ? b : "boj";
+    if (GMV) PULTTAB = b === "druzina" || b === "sezeni" || b === "nastroje" ? b : "boj";
     view = "boj";
   }
   /* stránka s vlastní částí skriptu (mapy, Výprava): nejdřív ji stáhnout, pak vykreslit */

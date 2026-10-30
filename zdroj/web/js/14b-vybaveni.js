@@ -1098,7 +1098,7 @@ const KPENVYKL = `<details class="bdmbez kpenvykl"><summary>Jak fungují peníze
 function bdmPenList(K) {
   const pen = kPenKarta(K),
     ro = !kMuze(K);
-  if (ro) return ["Peníze", `<p class="kvpen">${kPenHtml(pen)}</p>${KPENVYKL}`];
+  if (ro) return ["Peníze", `<p class="kvpen">${kPenHtml(pen)}</p>${obchHracHtml(K)}${KPENVYKL}`];
   return [
     "Peníze",
     `<p class="kvpen">${kPenHtml(pen)}</p>
@@ -1109,7 +1109,7 @@ function bdmPenList(K) {
       .join("")}</select>
       <button class="bdmbtn" name="a" value="z" ${btip("Odečte částku; když nemáš přesné mince, rozmění větší")}>Zaplatit</button><button class="bdmbtn" name="a" value="p">Přijmout</button>
       ${window.MMDB && MMDB.pokladna && (GMV || KZAM.has(K.id)) ? `<button class="bdmbtn ghost" name="a" value="dp" ${btip("Vloží částku do pokladny družiny")}>Do pokladny</button><button class="bdmbtn ghost" name="a" value="zp" ${btip("Vybere částku z pokladny družiny")}>Z pokladny</button>` : ""}</form>
-    ${KPENVYKL}<details class="bdmbez"><summary>Mince jednotlivě a směna</summary><div class="kpen">${kMinceNab(pen)
+    ${obchHracHtml(K)}${KPENVYKL}<details class="bdmbez"><summary>Mince jednotlivě a směna</summary><div class="kpen">${kMinceNab(pen)
       .map(
         k =>
           `<label>${KMINCJM[k] ? kMinceIk("mince-" + k.toLowerCase()) : ""}${KMINCZK[k]} <input type="number" min="0" max="9999999" data-kpen="${k}" value="${+pen[k] || 0}"></label>`,

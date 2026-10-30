@@ -202,6 +202,9 @@ async function navrhProved(n) {
     const x = VYBBY[d.kat];
     if (!x) throw new Error("předmět v databázi není");
     await kVybPridej(K2, vybPoolVstup(x), Math.max(1, Math.min(999, +d.q || 1)), {zakl: d.zakl || "", bon: +d.bon || 0});
+  } else if (d.typ === "nakup") {
+    /* nákup v otevřeném obchodě (16o): peníze, věc a sklad až teď, po schválení vypravěčem */
+    await obchProdej(K2, d.obch, d.pol, d.q, d.cena);
   } else if (d.typ === "bardic") {
     const P = kPri(K2).filter(x => !/^Bardic /.test(x));
     await kartaStavZmen(K2.id, {pri: [...P, "Bardic d" + (+d.k || 6)]}, null, {bezZpet: true});

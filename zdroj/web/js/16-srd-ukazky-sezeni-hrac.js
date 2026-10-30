@@ -1590,6 +1590,7 @@ function pultNavHtml() {
       ],
       ["druzina", "#hra/druzina", `Družina${n ? ` <b class="pultn">${n}</b>` : ""}`],
       ["sezeni", "#hra/sezeni", "Sezení"],
+      ["nastroje", "#hra/nastroje", "Nástroje"],
     ];
   return t
     .map(([k, h, x]) => `<a href="${h}" class="pultt${PULTTAB === k ? " on" : ""}"${PULTTAB === k ? ' aria-current="page"' : ""}>${x}</a>`)
@@ -1698,7 +1699,7 @@ function pultVykresli(box) {
       if (curView === "boj") renderBoj();
     });
   }
-  box.innerHTML = PULTTAB === "druzina" ? pultDruzinaHtml() : pultSezeniHtml();
+  box.innerHTML = PULTTAB === "druzina" ? pultDruzinaHtml() : PULTTAB === "nastroje" ? pultNastrojeHtml() : pultSezeniHtml();
   pojZnac(box.querySelector(".kprehled"));
 }
 document.addEventListener("focusout", () =>

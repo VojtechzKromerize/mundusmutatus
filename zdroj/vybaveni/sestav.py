@@ -95,12 +95,32 @@ DOBA = json.load(open(os.path.join(D, "ceny-dobove.json"), encoding="utf-8"))
 BEZNE = ("zbroj", "zbrane", "strelivo", "vybava", "naradi", "zvirata", "sedla", "vozy", "plavidla")
 
 
+def hal_puvodni(t, f=1.0):
+    """první částka v textu ceny z pravidel (GP/SP/CP) v haléřích tažení; pro obchody (cena jako číslo)"""
+    m = CENA_RE.search(t or "") if isinstance(t, str) else None
+    return max(1, round(int(re.sub(r"\D", "", m.group(1))) * MINCE_HAL[m.group(2).lower()] * f)) if m else None
+
+
 def ceny_dobove(sk, x):
     o = ceny_vsude(x)
     g = DOBA.get(sk, {}).get(x.get("en"))
     if g is not None:
         o["cena"] = halere_txt(max(1, round(g * 10)))
         o["doba"] = 1
+        o["hal"] = max(1, round(g * 10))
+    else:
+        h = hal_puvodni(x.get("cena"))
+        if h:
+            o["hal"] = h
+    return o
+
+
+def ceny_hal(x):
+    """kouzelné předměty a jedy: cena z pravidel převedená jako ostatní (1 GP = 10 grošů) a navíc v haléřích"""
+    o = ceny_vsude(x)
+    h = hal_puvodni(x.get("cena"))
+    if h:
+        o["hal"] = h
     return o
 
 
@@ -163,7 +183,7 @@ def main():
     if dup:
         print("POZOR – zdvojené id:", dup, file=sys.stderr)
     out = os.path.join(ROOT, "art", "vybaveni.json")
-    V = {k: (v if k == "mince" else [ceny_dobove(k, x) for x in v] if k in BEZNE else ceny_vsude(v)) for k, v in V.items()}
+    V = {k: (v if k == "mince" else [ceny_dobove(k, x) for x in v] if k in BEZNE else [ceny_hal(x) for x in v] if k in ("jedy", "magicke") else ceny_vsude(v)) for k, v in V.items()}
     chybi = sorted(f"{sk}: {en}" for sk, L in DOBA.items() for en in L if en not in {x["en"] for x in V.get(sk, [])})
     if chybi:
         print("POZOR – dobová cena bez položky v katalogu:", chybi, file=sys.stderr)

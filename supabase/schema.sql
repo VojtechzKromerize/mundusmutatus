@@ -1656,7 +1656,7 @@ declare i bigint;
 begin
   if p_od is null or p_od !~ '^[a-z0-9-]{1,40}$' then raise exception 'neplatná karta'; end if;
   if not public.mm_hrac_ok(p_od, p_token) then raise exception 'návrh posílá jen přihlášený hráč za svou postavu' using errcode = '42501'; end if;
-  if jsonb_typeof(p_data) <> 'object' or octet_length(p_data::text) > 2000 or coalesce(p_data ->> 'typ', '') not in ('lec', 'bardic', 'vec')
+  if jsonb_typeof(p_data) <> 'object' or octet_length(p_data::text) > 2000 or coalesce(p_data ->> 'typ', '') not in ('lec', 'bardic', 'vec', 'nakup')
      or (p_data ? 'cil' and coalesce(p_data ->> 'cil', '') !~ '^[a-z0-9-]{1,40}$') then
     raise exception 'neplatný návrh';
   end if;
@@ -1699,6 +1699,64 @@ grant execute on function public.mm_potvrz() to anon, authenticated;
 revoke all on function public.mm_potvrz_nastav(jsonb) from anon;
 grant execute on function public.mm_potvrz_nastav(jsonb) to authenticated;
 
+-- pověst družiny u rodů (2026-10-30): {r: {id_rodu: {u: −3..3, pz: důvod}}}; čte každý, ale rody, které družina nezná (stav odhalení 0),
+-- hráčům vyřízne; mění vypravěč po jednom rodu
+create or replace function public.mm_povest() returns jsonb
+language sql stable security definer set search_path = public as $$
+  select jsonb_build_object('r', coalesce((
+    select jsonb_object_agg(e.key, e.value)
+      from jsonb_each(coalesce((select hodnota -> 'r' from public.nastaveni where klic = 'povest'), '{}'::jsonb)) e
+     where public.mm_je_gm() or not exists (select 1 from public.stavy s where s.id = e.key and s.stav = 0)
+  ), '{}'::jsonb))
+$$;
+create or replace function public.mm_povest_nastav(p_id text, p_u int, p_pz text default null) returns jsonb
+language plpgsql security definer set search_path = public as $$
+declare st jsonb; r jsonb;
+begin
+  if not public.mm_je_gm() then raise exception 'jen pro vypravěče' using errcode = '42501'; end if;
+  if p_id is null or p_id !~ '^[A-Za-z0-9_-]{1,60}$' or p_u is null or p_u not between -3 and 3 then raise exception 'neplatná pověst'; end if;
+  select hodnota into st from public.nastaveni where klic = 'povest' for update;
+  r := coalesce(st -> 'r', '{}'::jsonb);
+  if p_u = 0 and coalesce(btrim(p_pz), '') = '' then r := r - p_id;
+  else r := jsonb_set(r, array[p_id], jsonb_strip_nulls(jsonb_build_object('u', p_u, 'pz', nullif(left(btrim(coalesce(p_pz, '')), 200), ''))));
+  end if;
+  st := jsonb_build_object('r', r);
+  insert into public.nastaveni (klic, hodnota, zmeneno) values ('povest', st, now())
+  on conflict (klic) do update set hodnota = excluded.hodnota, zmeneno = now();
+  return st;
+end $$;
+revoke all on function public.mm_povest(), public.mm_povest_nastav(text, int, text) from public;
+grant execute on function public.mm_povest() to anon, authenticated;
+revoke all on function public.mm_povest_nastav(text, int, text) from anon;
+grant execute on function public.mm_povest_nastav(text, int, text) to authenticated;
+
+-- obchody (2026-10-30): {L: [{id, n, typ, misto, prir, otevr, ven, pol, pozn}]}; hráči čtou jen otevřené obchody (bez poznámky vypravěče),
+-- vypravěč ukládá celý seznam; nákup hráče jde návrhem (mm_navrh, typ „nakup“), který vypravěč schválí
+create or replace function public.mm_obchody() returns jsonb
+language sql stable security definer set search_path = public as $$
+  select jsonb_build_object('L', coalesce((
+    select jsonb_agg(case when public.mm_je_gm() then o else o - 'pozn' end order by n)
+      from jsonb_array_elements(coalesce((select hodnota -> 'L' from public.nastaveni where klic = 'obchody'), '[]'::jsonb)) with ordinality as x(o, n)
+     where public.mm_je_gm() or coalesce((o ->> 'otevr')::boolean, false)
+  ), '[]'::jsonb))
+$$;
+create or replace function public.mm_obchody_uloz(p_hodnota jsonb) returns jsonb
+language plpgsql security definer set search_path = public as $$
+begin
+  if not public.mm_je_gm() then raise exception 'jen pro vypravěče' using errcode = '42501'; end if;
+  if jsonb_typeof(p_hodnota) <> 'object' or jsonb_typeof(p_hodnota -> 'L') <> 'array' or jsonb_array_length(p_hodnota -> 'L') > 60
+     or octet_length(p_hodnota::text) > 100000 then
+    raise exception 'neplatné obchody';
+  end if;
+  insert into public.nastaveni (klic, hodnota, zmeneno) values ('obchody', p_hodnota, now())
+  on conflict (klic) do update set hodnota = excluded.hodnota, zmeneno = now();
+  return p_hodnota;
+end $$;
+revoke all on function public.mm_obchody(), public.mm_obchody_uloz(jsonb) from public;
+grant execute on function public.mm_obchody() to anon, authenticated;
+revoke all on function public.mm_obchody_uloz(jsonb) from anon;
+grant execute on function public.mm_obchody_uloz(jsonb) to authenticated;
+
 -- puls (2026-10-19): co se kde změnilo – jen druh a pořadové číslo, žádný obsah. Telefony se ptají jedním dotazem
 -- (mm_puls) místo šesti, a s Realtime se neptají vůbec: nový řádek přijde sám. Jen vkládání, takže zápisy na sebe nečekají.
 create table if not exists public.puls (
@@ -1719,9 +1777,9 @@ declare
   d text := tg_argv[0];
 begin
   if tg_level = 'ROW' then
-    -- nastavení: jen klíče, které čtou hráči (herní stav, potvrzování, pokladna)
+    -- nastavení: jen klíče, které čtou hráči (herní stav, potvrzování, pokladna, pověst, obchody)
     d := case when tg_op = 'DELETE' then old.klic else new.klic end;
-    if d not in ('hra', 'potvrz', 'pokladna') then return null; end if;
+    if d not in ('hra', 'potvrz', 'pokladna', 'povest', 'obchody') then return null; end if;
     if tg_op = 'UPDATE' and old.hodnota is not distinct from new.hodnota then return null; end if;
   end if;
   insert into public.puls (druh) values (d);
