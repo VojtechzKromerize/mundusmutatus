@@ -48,3 +48,17 @@ for (const [n, P] of Object.entries(palety)) {
       for (const p of PANELY) assert.ok(kontrast(P[t], P[p]) >= 4.5, `${n}: ${t} na ${p} = ${kontrast(P[t], P[p]).toFixed(2)}`);
   });
 }
+
+test("volba barvy karty je i v záhlaví (PC) a obě volby se drží stejné hodnoty", async () => {
+  const {stranka} = await import("./stranka.mjs");
+  const S = await stranka();
+  try {
+    const n = S.ev(`document.querySelectorAll(".navkb select option").length`);
+    assert.equal(n, S.ev(`Object.keys(MMKB).length`));
+    S.ev(`(() => { const s = document.querySelector(".navkb select"); s.value = "les"; s.dispatchEvent(new Event("change", {bubbles: true})); })()`);
+    assert.equal(S.ev(`document.documentElement.dataset.kb`), "les");
+    S.ev(`mmKb("vino")`);
+  } finally {
+    S.zavri();
+  }
+});

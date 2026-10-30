@@ -138,7 +138,16 @@ function mmKb(k) {
   } catch (e) {}
 }
 document.addEventListener("change", e => {
-  if (e.target.matches && e.target.matches("[data-mmkb]")) mmKb(e.target.value);
+  if (e.target.matches && e.target.matches("[data-mmkb]")) {
+    mmKb(e.target.value);
+    document.querySelectorAll("[data-mmkb]").forEach(s => s !== e.target && (s.value = mmKbTed()));
+  }
+});
+/* volba barvy karty i v záhlaví (Vojta 2026-10-30: na PC nebyla vidět – jen v listu Postava, kde ji na telefonu najdou) */
+document.querySelectorAll(".navkb select").forEach(s => {
+  s.innerHTML = Object.entries(MMKB)
+    .map(([k, n]) => `<option value="${k}"${mmKbTed() === k ? " selected" : ""}>${n}</option>`)
+    .join("");
 });
 /* tlačítko pro stránky bez záhlaví s menu (hráčova Hra v aplikaci a na telefonu – list Postava) */
 const mmMotivBtn = () => {
