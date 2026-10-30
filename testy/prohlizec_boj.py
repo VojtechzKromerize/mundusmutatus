@@ -15,7 +15,7 @@ async def main():
     await g.fill('#bojpult [data-obchnovy] input[name="n"]',"U Zkušebního kohouta");await g.click('#bojpult [data-obchnovy] button')
     await g.wait_for_selector("#bojpult .obchlgm li.on .obchz li",timeout=10000)
     chk(await g.locator("#bojpult .obchlgm li.on .obchz li.obchmag").count()==0,"pult › Nástroje: nový kramář má sortiment bez kouzelných předmětů")
-    chk(await g.locator("#bojpult .obchlgm li.on .obchkupec").count()==1 and await g.locator('#bojpult .obchlgm li.on [data-obchf] [name="rod"]').count()==1,"pult › Nástroje: obchod má obchodníka z generátoru a volbu rodu (pověst)")
+    chk(await g.locator("#bojpult .obchlgm li.on .obchkupec").count()==1 and await g.locator('#bojpult [data-povf] optgroup[label="Města"] option').count()>10,"pult › Nástroje: obchod má obchodníka z generátoru, pověst jde nastavit i městům")
     chk(await g.locator("#bojpult [data-povf]").count()==1,"pult › Nástroje: formulář pověsti")
     # řídicí pult (2026-10-22): záložky Družina a Sezení nesou dřívější stránku Hra vypravěče
     await g.click('.pultnav a[href="#hra/druzina"]');await g.wait_for_selector("#bojpult [data-vyzf]",timeout=10000)

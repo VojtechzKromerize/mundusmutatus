@@ -117,6 +117,18 @@ test("stránka: pověst – znak, infobox rodu a přehled; neznámý rod hráči
   );
 });
 
+test("stránka: pověst ve městě – klíč bez diakritiky, jméno, seznam a panel města na mapě", () => {
+  assert.equal(V(`povMestoId("Kutná Hora")`), "m-kutna-hora");
+  assert.equal(V(`povMestoId("Praha, Staré Město")`), "m-praha");
+  assert.ok(V(`povMesta()`).includes("Praha") && V(`povMesta()`).includes("Plzeň"));
+  assert.equal(V(`povJmeno("m-plzen")`), "Plzeň");
+  S.ev(`POV = {"m-plzen": {u: -1, pz: "rvačka s cechem soukeníků"}}`);
+  assert.deepEqual(V(`povSeznam()`), ["m-plzen"]);
+  assert.match(V(`povSeznamHtml(false)`), /Plzeň[\s\S]*město[\s\S]*Nedůvěra[\s\S]*soukeníků/);
+  assert.match(V(`mistoHtml("Plzeň")`), /class="kv povmisto" data-pid="m-plzen"[\s\S]*Nedůvěra/);
+  S.ev(`POV = {}`);
+});
+
 test("stránka: Nástroje v pultu, obchod v listu Peníze a nákup schválený vypravěčem", async () => {
   await S.ev(`vybNacti()`);
   assert.match(V(`pultNastrojeHtml()`), /Losovací tabulky[\s\S]*Obchody[\s\S]*Pověst družiny/);
@@ -135,7 +147,7 @@ test("stránka: Nástroje v pultu, obchod v listu Peníze a nákup schválený v
   assert.match(V(`tabNapadyHtml("pok", "utok")`), /Šepot/);
 });
 
-test("pověst u rodu obchodu: Přízeň zlevní, Nedůvěra zdraží, Nepřízeň a horší – neobchoduje; zpustlý kraj +50 %", () => {
+test("pověst ve městě obchodu: Přízeň zlevní, Nedůvěra zdraží, Nepřízeň a horší – neobchoduje; zpustlý kraj +50 %", () => {
   assert.deepEqual(C.V(`[3, 2, 1, 0, -1].map(obchPovPrir)`), [-20, -10, -5, 0, 10]);
   assert.equal(C.ev(`obchPovPrir(-2)`), null);
   assert.equal(C.ev(`obchUprava({prir: 20}, -3)`), null);
@@ -198,7 +210,7 @@ test("zakázky: jen řemeslníci, bez kouzelných věcí; dny práce podle ceny 
   assert.deepEqual(C.V(`obchRozdil({GP: 1, SP: 3}, {SP: 25})`), {GP: -1, SP: 22});
 });
 
-test("stránka: výkup, zakázka s předáním po termínu, neobchodující rod a vlastní obchodník", async () => {
+test("stránka: výkup, zakázka s předáním po termínu, neobchodující město a vlastní obchodník", async () => {
   await S.ev(`vybNacti()`);
   S.ev(`HRA = Object.assign({}, HRA || {}, {datum: "1458-03-10", misto: "Praha"})`);
   S.ev(`OBCH = [Object.assign(obchNovy("mecir", "U Meče", "Praha", "t3"), {otevr: true, vaz: true})]`);
@@ -225,8 +237,8 @@ test("stránka: výkup, zakázka s předáním po termínu, neobchodující rod 
   assert.equal(maMec(), true, "po termínu předáno");
   assert.equal(V(`OBCH[0].zak.length`), 0);
   /* pověst: Nepřízeň u rodu → neobchoduje */
-  const rod = V(`Object.keys(byId)[0]`);
-  S.ev(`POV = {${JSON.stringify(rod)}: {u: -2}}; OBCH[0].rod = ${JSON.stringify(rod)}`);
+  /* pověst ve městě obchodu (Praha), ne u rodu */
+  S.ev(`POV = {"m-praha": {u: -2}}`);
   await assert.rejects(S.ev(`obchProdej(KARTBY.balduin, "t3", obchZbozi(OBCH[0], VYB, VYBBY)[0].id, 1, 0)`), /neobchoduje/);
   assert.equal(V(`obchVykupHtml(KARTBY.balduin, {n: "Dagger", q: 1})`), "");
   /* obchodník z generátoru */

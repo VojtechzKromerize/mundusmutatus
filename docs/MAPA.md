@@ -8,19 +8,19 @@ Podrobnosti k jednomu jménu nebo souboru: `node testy/kontrola_kodu.mjs --kde J
 
 Základ: data z buildu (rody, vazby, zeměpis, erby), víry a ikony, odkazy mezi stránkami (mmLina), odložené překreslení (mmPozdeji)
 
-- 396 řádků, 48 definic na nejvyšší úrovni, z toho 29 používají jiné soubory
+- 405 řádků, 48 definic na nejvyšší úrovni, z toho 29 používají jiné soubory
 - používá z: 02-mapa (1), 04-praha (1)
-- používají ho: 02-mapa (20), 02b-mapa-kresba (7), 03-artikule (1), 04b-praha-plan (7), 05b-svet-mapa (2), 06-draconomicon-rodokmeny (2), 07-druzina-kronika (7), 07p-povest (4), 08-navigace-pravidla (13), 09-vypravec-herni-cas (3), 10-kouzla (3), 10h-hledani (1), 10q-plne-texty (1), 11-boj (3), 11b-rucni-kostky (1), 12-boj-tah-postavy (1), 13-karty (4), 14-karty-bojova-karta (1), 14b-vybaveni (1), 14c-boj-reakce (1), 14d-vybaveni-katalog (1), 15-karty-artikule (2), 16-srd-ukazky-sezeni-hrac (4), 16o-obchody-tabulky (2), 17-karty-ii (2), 17b-kouzla-ucinky (1), 18-pravidla-postavy (1), 19-karty-beyond (1), 19b-automatika (1), 20-boj-hraci (2), 20b-boj-vypravec (1), 20c-boj-ridery (1), 20d-boj-render (2), 20e-boj-vlastnosti (1), 20f-scena (1), 20g-boj-mistrovstvi (1), 21-editor-pecet (2), 22-vyprava (2), 22b-vyprava (4), 23-potvrzovani (1), 24-boj-zaznam (1), 26-start (3)
-- poskytuje: besc byId FAM mmDex armsImg ARMS FICON mmLina CONFN mileTxt CARMS faith shield0 CASTLEICO mmPozdeji mmZrus relGroups rIco TOWNICO TOWNSEATS ZEMEPIS mmKbSel mmLinyHotove mmLinyPro mmMotivBtn REL SFICON shield townImg
+- používají ho: 02-mapa (20), 02b-mapa-kresba (7), 03-artikule (1), 04b-praha-plan (7), 05b-svet-mapa (2), 06-draconomicon-rodokmeny (2), 07-druzina-kronika (7), 07p-povest (6), 08-navigace-pravidla (13), 09-vypravec-herni-cas (3), 10-kouzla (3), 10h-hledani (1), 10q-plne-texty (1), 11-boj (3), 11b-rucni-kostky (1), 12-boj-tah-postavy (1), 13-karty (4), 14-karty-bojova-karta (1), 14b-vybaveni (1), 14c-boj-reakce (1), 14d-vybaveni-katalog (1), 15-karty-artikule (2), 16-srd-ukazky-sezeni-hrac (4), 16o-obchody-tabulky (2), 17-karty-ii (2), 17b-kouzla-ucinky (1), 18-pravidla-postavy (1), 19-karty-beyond (1), 19b-automatika (1), 20-boj-hraci (2), 20b-boj-vypravec (1), 20c-boj-ridery (1), 20d-boj-render (2), 20e-boj-vlastnosti (1), 20f-scena (1), 20g-boj-mistrovstvi (1), 21-editor-pecet (2), 22-vyprava (2), 22b-vyprava (4), 23-potvrzovani (1), 24-boj-zaznam (1), 26-start (3)
+- poskytuje: besc byId FAM mmDex armsImg ARMS FICON mmLina CONFN mileTxt CARMS faith shield0 TOWNSEATS CASTLEICO mmPozdeji mmZrus relGroups rIco TOWNICO ZEMEPIS mmKbSel mmLinyHotove mmLinyPro mmMotivBtn REL SFICON shield townImg
 - oddíly:
-  - ř. 322: Samostatné části skriptu (2026-10-19): kresba map, plán Prahy, mapa světa, Výprava a editor textů se stahují,
+  - ř. 331: Samostatné části skriptu (2026-10-19): kresba map, plán Prahy, mapa světa, Výprava a editor textů se stahují,
 
 ## 02-mapa
 
 map geometry
 
 - 7604 řádků, 170 definic na nejvyšší úrovni, z toho 91 používají jiné soubory
-- používá z: 01-zaklad (20), 02b-mapa-kresba (1), 02c-zbroj (1), 02e-krajina (17), 02f-mapa-cela (1), 02g-mista (1), 04-praha (3), 05-svet (1), 07-druzina-kronika (2), 08-navigace-pravidla (2)
+- používá z: 01-zaklad (20), 02b-mapa-kresba (1), 02c-zbroj (1), 02e-krajina (17), 02f-mapa-cela (1), 02g-mista (1), 04-praha (3), 05-svet (1), 07-druzina-kronika (2), 07p-povest (1), 08-navigace-pravidla (2)
 - používají ho: 01-zaklad (1), 02b-mapa-kresba (49), 02f-mapa-cela (2), 03-artikule (4), 04b-praha-plan (5), 05-svet (1), 05b-svet-mapa (7), 06-draconomicon-rodokmeny (3), 07-druzina-kronika (15), 08-navigace-pravidla (18), 09-vypravec-herni-cas (18), 10-kouzla (5), 11-boj (10), 12-boj-tah-postavy (6), 13-karty (1), 14-karty-bojova-karta (6), 14b-vybaveni (4), 14c-boj-reakce (2), 14d-vybaveni-katalog (5), 16-srd-ukazky-sezeni-hrac (2), 17-karty-ii (1), 17b-kouzla-ucinky (1), 18-pravidla-postavy (2), 19-karty-beyond (1), 20-boj-hraci (3), 20b-boj-vypravec (3), 20c-boj-ridery (1), 20e-boj-vlastnosti (1), 22-vyprava (1), 22b-vyprava (13), 24-boj-zaznam (2), 26-start (2)
 - poskytuje: BZRT bikZv bikZr PBY PEOPLE st _nrm bikZb BVLZ drawMap el bikZrTxt haversine P SHORT placeBy BAZINY computeRoute DIO DUCHY FORESTS inPoly mapDrag NAMEPTS nearMountain norm peopleOf relsFor renderDetail renderTravel show showMisto svg svgG TOWNS updateRoute bikZbTip BZVK days drawGraph … (+51)
 
@@ -182,10 +182,10 @@ Družina · Kronika tažení · automatické odkazy · hledání
 
 Pověst družiny u rodů a měst (2026-10-30, Vojta)
 
-- 98 řádků, 10 definic na nejvyšší úrovni, z toho 7 používají jiné soubory
-- používá z: 01-zaklad (4), 04-praha (1), 08-navigace-pravidla (2), 09-vypravec-herni-cas (1), 20d-boj-render (1)
-- používají ho: 07-druzina-kronika (1), 08-navigace-pravidla (1), 16o-obchody-tabulky (5), 25-puls (1), 26-start (1)
-- poskytuje: POVL povNacti povSeznamHtml povU povUloz povZnak povHtml
+- 145 řádků, 17 definic na nejvyšší úrovni, z toho 10 používají jiné soubory
+- používá z: 01-zaklad (6), 04-praha (1), 08-navigace-pravidla (2), 09-vypravec-herni-cas (1), 20d-boj-render (1)
+- používají ho: 02-mapa (1), 07-druzina-kronika (1), 08-navigace-pravidla (1), 16o-obchody-tabulky (7), 25-puls (1), 26-start (1)
+- poskytuje: povHtml POVL povMesta povMestoId povNacti povSeznamHtml povU povUloz povZnak povMistoHtml
 
 ## 08-navigace-pravidla
 
@@ -532,18 +532,18 @@ SRD 5.2.1: magické předměty (všichni) a nestvůry (vypravěč) – art/predm
 
 Obchody, losovací tabulky a pověst – záložka Nástroje řídicího pultu (2026-10-30, Vojta)
 
-- 783 řádků, 40 definic na nejvyšší úrovni, z toho 8 používají jiné soubory
-- používá z: 01-zaklad (2), 02e-krajina (1), 04-praha (1), 07-druzina-kronika (4), 07p-povest (5), 08-navigace-pravidla (1), 09-vypravec-herni-cas (2), 09g-generator-postav (1), 10j-tabulky (5), 10o-obchody (23), 10y-sluzby (1), 11-boj (1), 12-boj-tah-postavy (1), 13-karty (4), 14-karty-bojova-karta (1), 14b-vybaveni (6), 14d-vybaveni-katalog (9), 15-karty-artikule (2), 16-srd-ukazky-sezeni-hrac (2), 18-pravidla-postavy (1), 19-karty-beyond (3), 20d-boj-render (1), 23-potvrzovani (1)
+- 785 řádků, 41 definic na nejvyšší úrovni, z toho 8 používají jiné soubory
+- používá z: 01-zaklad (2), 02e-krajina (1), 04-praha (1), 07-druzina-kronika (4), 07p-povest (7), 08-navigace-pravidla (1), 09-vypravec-herni-cas (2), 09g-generator-postav (1), 10j-tabulky (5), 10o-obchody (23), 10y-sluzby (1), 11-boj (1), 12-boj-tah-postavy (1), 13-karty (4), 14-karty-bojova-karta (1), 14b-vybaveni (6), 14d-vybaveni-katalog (9), 15-karty-artikule (2), 16-srd-ukazky-sezeni-hrac (2), 18-pravidla-postavy (1), 19-karty-beyond (3), 20d-boj-render (1), 23-potvrzovani (1)
 - používají ho: 14b-vybaveni (2), 16-srd-ukazky-sezeni-hrac (1), 23-potvrzovani (3), 25-puls (2)
 - poskytuje: obchNacti obchProdej obchVykup obchZakazka obchZakDoruc obchHracHtml obchVykupHtml pultNastrojeHtml
 - oddíly:
-  - ř. 55: platba a výdělek (vypravěč): z karty postavy, nebo z pokladny družiny
-  - ř. 92: nákup: vypravěč (schválený návrh hráče nebo prodej z pultu)
-  - ř. 109: výkup: družina prodává obchodníkovi (věc z vybavení podle jména)
-  - ř. 128: zakázka u řemeslníka: zaplatí se předem, hotová věc přibude, až herní čas dosáhne termínu
-  - ř. 175: hráč: obchody v listu Peníze, okno obchodu, prodej věci z vybavení
-  - ř. 468: losovací tabulky: okno s nápady (záznam boje) a výsledky v Nástrojích
-  - ř. 515: záložka Nástroje řídicího pultu
+  - ř. 57: platba a výdělek (vypravěč): z karty postavy, nebo z pokladny družiny
+  - ř. 94: nákup: vypravěč (schválený návrh hráče nebo prodej z pultu)
+  - ř. 111: výkup: družina prodává obchodníkovi (věc z vybavení podle jména)
+  - ř. 130: zakázka u řemeslníka: zaplatí se předem, hotová věc přibude, až herní čas dosáhne termínu
+  - ř. 177: hráč: obchody v listu Peníze, okno obchodu, prodej věci z vybavení
+  - ř. 471: losovací tabulky: okno s nápady (záznam boje) a výsledky v Nástrojích
+  - ř. 518: záložka Nástroje řídicího pultu
 
 ## 17-karty-ii
 

@@ -6149,7 +6149,7 @@ function mistoHtml(n, g) {
   return `<span class="lbl">${typ}${zeme ? " · " + zeme : ""}</span>
      <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h3 style="font-size:1.35rem">${hrad ? `<img class="townico big t-${conf}" src="${CASTLEICO}" alt="" aria-hidden="true">` : townImg(conf, "townico big")}${n}</h3>${faith(conf)}</div>
      ${CARMS[n] ? `<img class="carms" src="${CARMS[n]}" alt="Erb města ${n}">` : ""}${info.n ? `<p>${info.n}</p>` : `<p class="rsmall">${info0 ? "O tomto místě zatím není nic zapsáno." : "Načítám…"}</p>`}
-     ${vernHtml(st.vern ? vernostMista(n, G ? [G, ...H] : H) : null)}${n === "Praha" ? `<a class="gbtn ghost" href="#praha">Plán Prahy</a>` : ""}${
+     ${vernHtml(st.vern ? vernostMista(n, G ? [G, ...H] : H) : null)}${n === "Praha" ? `<a class="gbtn ghost" href="#praha">Plán Prahy</a>` : ""}${hrad ? "" : povMistoHtml(n)}${
        D.length || G
          ? `<dl class="kv" style="clear:both">${D.length ? `<dt>Drží</dt><dd>${D.map(x => flink(x.id)).join(", ")}</dd>` : ""}${G ? `<dt>${G.castle ? "Mezi" : "Patří k"}</dt><dd>${flink(G.id)}</dd>` : ""}</dl>`
          : ""

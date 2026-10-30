@@ -5,7 +5,7 @@
    a teprve potom se pohnou peníze (karta nebo pokladna družiny) a věci. Zakázku předá herní čas: když vypravěčův herní den dosáhne
    termínu, věc přibude do vybavení. Vypravěč může prodávat i sám z pultu nebo z okna obchodu.
    Tabulky: nápady u Pokušení a Požehnání v herním záznamu (24) a v Nástrojích; data a výběr v čistém 10j-tabulky.js.
-   Pověst: 07p (jádro); tady přehled, rychlé nastavení a vliv na ceny obchodů s rodem. ===== */
+   Pověst: 07p (jádro); tady přehled, rychlé nastavení a vliv na ceny obchodů ve městě (cechy, ne rod). ===== */
 let OBCH = null;
 let OBCHOTV = ""; /* obchod rozbalený v Nástrojích */
 const obchGr = hal => slzCena((+hal || 0) / 10);
@@ -17,8 +17,10 @@ try {
 } catch (e) {}
 const obchSmKl = (oid, kid) => `${oid}|${kid}|${obchDnes()}`;
 const obchSm = (oid, kid) => OBCHSM[obchSmKl(oid, kid)] || null;
-/* přirážka obchodu podle pověsti u jeho rodu a zpustlého kraje (null = s družinou neobchoduje) a herní den */
-const obchKontext = o => ({prir: obchUprava(o, o.rod ? povU(o.rod) : 0), den: obchDnes()});
+/* pověst družiny ve městě obchodu (cechy a městská rada – Vojta 2026-10-30), podle prvního slova místa („Praha, Staré Město“ → Praha) */
+const obchPovU = o => (o && o.misto ? povU(povMestoId(o.misto)) : 0);
+/* přirážka obchodu podle pověsti ve městě a zpustlého kraje (null = s družinou neobchoduje) a herní den */
+const obchKontext = o => ({prir: obchUprava(o, obchPovU(o)), den: obchDnes()});
 async function obchNacti() {
   if (!window.MMDB || !MMDB.obchody) {
     OBCH = OBCH || [];
@@ -116,7 +118,7 @@ async function obchVykup(K, oid, n, q, cenaNavrh) {
   if (i < 0) throw new Error(`${K.n} už ${n} nemá`);
   if ((+inv[i].q || 1) < q) throw new Error(`${K.n} má jen ${inv[i].q} ks`);
   const x = vybNajdi(n),
-    kus = Math.round(+cenaNavrh) > 0 ? Math.round(+cenaNavrh) : obchVykupCena(o, x, o.rod ? povU(o.rod) : 0);
+    kus = Math.round(+cenaNavrh) > 0 ? Math.round(+cenaNavrh) : obchVykupCena(o, x, obchPovU(o));
   if (!(kus > 0)) throw new Error("bez ceny – dohodněte se");
   if ((+inv[i].q || 1) > q) inv[i].q = (+inv[i].q || 1) - q;
   else inv.splice(i, 1);
@@ -188,7 +190,7 @@ function obchVykupHtml(K, x) {
   if (!L.length || !x || !kMuze(K)) return "";
   const v = typeof vybNajdi === "function" && VYB ? vybNajdi(x.n) : null;
   return `<div class="kvsek"><h4 class="bdmgh">Prodat obchodníkovi</h4><p class="bdmrow"><select data-obchvyko aria-label="Obchod">${L.map(o => {
-    const c = obchVykupCena(o, v, o.rod ? povU(o.rod) : 0);
+    const c = obchVykupCena(o, v, obchPovU(o));
     return `<option value="${besc(o.id)}" data-c="${c}">${besc(o.n)} – ${c ? `${besc(obchGr(c))} za kus` : "cena dohodou"}</option>`;
   }).join(
     "",
@@ -210,14 +212,15 @@ async function obchOkno(oid, kid) {
     pen = K ? kPenKarta(K) : {},
     sm = K ? obchSm(o.id, K.id) : null,
     pct = sm ? sm.pct : 0,
-    rod = o.rod && byId[o.rod],
+    mesto = o.misto ? String(o.misto).split(",")[0].trim() : "",
+    pu = obchPovU(o),
     poklOk = K && window.MMDB && MMDB.pokladna && (GMV || KZAM.has(K.id));
   const hlav = `<h3>${besc(o.n)}</h3><p class="rsmall">${besc(T.n || "")}${o.misto ? ` · ${besc(o.misto)}` : ""}${o.zpust ? " · zpustlý kraj" : ""}</p>
    ${o.kup && o.kup.jmeno ? `<p class="obchkupec"><b>${besc(o.kup.jmeno)}</b>${o.kup.povaha ? `<span>${besc(o.kup.povaha)}</span>` : ""}${o.kup.vzhled ? `<small>${besc(o.kup.vzhled)}</small>` : ""}${GMV && (o.kup.chce || o.kup.zv) ? `<small class="obchgmi">${o.kup.chce ? `Chce: ${besc(o.kup.chce)}. ` : ""}${o.kup.zv ? `Ví: ${besc(o.kup.zv)}` : ""}</small>` : ""}</p>` : ""}
-   ${rod ? `<p class="rsmall">Obchod patří k rodu ${besc(rod.name)} – pověst ${povZnak(povU(o.rod))}${c.prir !== null && obchPovPrir(povU(o.rod)) ? ` (ceny ${obchPovPrir(povU(o.rod)) > 0 ? "+" : ""}${obchPovPrir(povU(o.rod))} %)` : ""}.</p>` : ""}
+   ${mesto && pu ? `<p class="rsmall">Pověst družiny ve městě ${besc(mesto)}: ${povZnak(pu)}${c.prir !== null && obchPovPrir(pu) ? ` (ceny ${obchPovPrir(pu) > 0 ? "+" : ""}${obchPovPrir(pu)} %)` : ""}.</p>` : ""}
    ${GMV ? `<p class="kvlh"><label>Postava <select data-obchkomu="${besc(o.id)}" aria-label="Postava">${KARTY.map(k => `<option value="${besc(k.id)}"${K && k.id === K.id ? " selected" : ""}>${besc(k.n)}</option>`).join("")}</select></label></p>` : ""}`;
   if (c.prir === null) {
-    mmPop(`${hlav}<p class="obchne">Obchodník s družinou nemluví – u jeho rodu má družina špatnou pověst.</p>`);
+    mmPop(`${hlav}<p class="obchne">Obchodník s družinou nemluví – cechy a rada města mají o družině špatné mínění.</p>`);
     return;
   }
   const Z = obchZbozi(o, VYB, VYBBY, c),
@@ -381,7 +384,7 @@ async function obchNabidni(kid, oid, n, q, cgr) {
     o = obchById(oid);
   if (!K || !o) return;
   const x = VYB ? vybNajdi(n) : null,
-    auto = obchVykupCena(o, x, o.rod ? povU(o.rod) : 0),
+    auto = obchVykupCena(o, x, obchPovU(o)),
     kus = auto || Math.round((+cgr || 0) * 10);
   q = Math.max(1, Math.round(+q || 1));
   if (!(kus > 0)) {
@@ -552,9 +555,6 @@ function obchDetailHtml(o) {
   return `<div class="obchdet">
     <form class="kvlh obchf" data-obchf="${besc(o.id)}"><label>Název <input name="n" value="${besc(o.n)}" maxlength="60" required></label><label>Druh ${obchSelectHtml("typ", o.typ)}</label><label>Místo <input name="misto" value="${besc(o.misto || "")}" maxlength="60" placeholder="např. Praha, Staré Město"></label>
       <label ${btip("Hráči obchod uvidí, jen když je družina v tomto místě (Výprava, herní čas)")}><input type="checkbox" name="vaz"${o.vaz ? " checked" : ""}> jen když je tam družina</label>
-      <label>Rod <select name="rod" aria-label="Rod obchodu"><option value="">— žádný (pověst nehraje roli) —</option>${obchRody()
-        .map(f => `<option value="${besc(f.id)}"${f.id === o.rod ? " selected" : ""}>${besc(f.name)}</option>`)
-        .join("")}</select></label>
       <label>Přirážka <input name="prir" type="number" min="-50" max="500" value="${+o.prir || 0}" style="width:4.5em"> %</label>
       <label ${btip("Zpustlý kraj: zboží o polovinu dražší, zásoby poloviční")}><input type="checkbox" name="zpust"${o.zpust ? " checked" : ""}> zpustlý kraj</label>
       <label ${btip("Běžné zboží jen v omezeném počtu; doplní se týden po prvním prodeji (herní čas)")}><input type="checkbox" name="zas"${o.zas ? " checked" : ""}> omezené zásoby</label>
@@ -562,8 +562,8 @@ function obchDetailHtml(o) {
       <label class="obchpozn">Poznámka jen pro tebe <input name="pozn" value="${besc(o.pozn || "")}" maxlength="200"></label><button class="gbtn ghost">Uložit</button></form>
     <p class="rsmall">${besc(T.p || "")} ${vl.vyk ? `Vykupuje za ${Math.round(vl.vyk * 100)} % ceny.` : "Nevykupuje."} ${vl.zak ? "Přijímá zakázky." : ""} ${
       c.prir === null
-        ? "<b>S družinou teď neobchoduje (pověst u rodu).</b>"
-        : `Ceny celkem ${c.prir > 0 ? "+" : ""}${c.prir} %${o.rod ? ` (pověst ${obchPovPrir(povU(o.rod)) > 0 ? "+" : ""}${obchPovPrir(povU(o.rod))} %)` : ""}.`
+        ? "<b>S družinou teď neobchoduje (pověst ve městě).</b>"
+        : `Ceny celkem ${c.prir > 0 ? "+" : ""}${c.prir} %${obchPovU(o) ? ` (pověst ve městě ${obchPovPrir(obchPovU(o)) > 0 ? "+" : ""}${obchPovPrir(obchPovU(o))} %)` : ""}.`
     } ${o.vaz && o.misto ? (obchTady(o, partyPlace()) ? "Družina je na místě." : "Družina je jinde – hráči obchod nevidí.") : ""}</p>
     ${kup}<p class="kvlh"><button type="button" class="gbtn ghost" data-obchgen="${besc(o.id)}">${o.kup ? "Jiný obchodník" : "Vylosovat obchodníka"}</button>${KARTY.length ? `<button type="button" class="gbtn ghost" data-obchotv="${besc(o.id)}" data-obchk="${besc((KARTY[0] || {}).id || "")}">Okno obchodu – prodat postavě</button>` : ""}</p>
     <form class="kvlh obchvf" data-obchvf="${besc(o.id)}"><label>Vystavit kus <input name="x" list="obchdl" placeholder="hledej v katalogu (i kouzelné předměty)" required style="min-width:16em"></label><label>Kusů <input name="q" type="number" min="1" max="999" placeholder="—" style="width:4em"></label><label>Cena za kus <input name="c" type="number" min="0" max="999999" step="0.5" placeholder="z katalogu" style="width:6em"> gr.</label><button class="gbtn ghost">Vystavit</button></form>
@@ -598,7 +598,7 @@ function obchGmHtml() {
         ? `<ul class="obchl obchlgm">${OBCH.map(o => {
             const c = obchKontext(o),
               jinde = o.vaz && o.misto && !obchTady(o, kde);
-            return `<li class="${o.id === OBCHOTV ? "on" : ""}"><div class="obchr"><button type="button" class="obchnz" data-obchrozb="${besc(o.id)}"><b>${besc(o.n)}</b><small>${besc((OBCHTYP[o.typ] || {}).n || "")}${o.misto ? ` · ${besc(o.misto)}` : ""}${c.prir ? ` · ${c.prir > 0 ? "+" : ""}${c.prir} %` : ""}${c.prir === null ? " · neobchoduje (pověst)" : ""}${jinde ? " · družina jinde" : ""}${(o.zak || []).length ? ` · zakázky ${o.zak.length}` : ""}</small></button>
+            return `<li class="${o.id === OBCHOTV ? "on" : ""}"><div class="obchr"><button type="button" class="obchnz" data-obchrozb="${besc(o.id)}"><b>${besc(o.n)}</b><small>${besc((OBCHTYP[o.typ] || {}).n || "")}${o.misto ? ` · ${besc(o.misto)}` : ""}${c.prir ? ` · ${c.prir > 0 ? "+" : ""}${c.prir} %` : ""}${c.prir === null ? " · neobchoduje (pověst ve městě)" : ""}${jinde ? " · družina jinde" : ""}${(o.zak || []).length ? ` · zakázky ${o.zak.length}` : ""}</small></button>
               <label class="obchot" ${btip("Otevřený obchod vidí hráči v listu Peníze (když je družina na místě) a mohou v něm nakupovat")}><input type="checkbox" data-obchotevr="${besc(o.id)}"${o.otevr ? " checked" : ""}> otevřeno</label>
               <button type="button" class="gbtn ghost" data-obchsmaz="${besc(o.id)}" aria-label="Smazat obchod">Smazat</button></div>
               ${o.id === OBCHOTV && VYB ? obchDetailHtml(o) : ""}</li>`;
@@ -616,14 +616,16 @@ function pultNastrojeHtml() {
       <div id="tabvys" class="tabvys"><p class="rsmall">Tři nápady jedním klepnutím. U každého Pokušení a Požehnání v herním záznamu je také tlačítko 💡. Jména a povahy postav losuje generátor v panelu Při hře.</p></div></section>
     ${obchGmHtml()}
     <section class="povsec"><h3 class="uvh2">Pověst družiny</h3>${povSeznamHtml(false)}
-      <form class="kvlh" data-povf><label>Rod <select name="r" aria-label="Rod">${obchRody()
+      <form class="kvlh" data-povf><label>Město či rod <select name="r" aria-label="Město či rod"><optgroup label="Města">${povMesta()
+        .map(n => `<option value="${besc(povMestoId(n))}">${besc(n)}</option>`)
+        .join("")}</optgroup><optgroup label="Rody">${obchRody()
         .map(f => `<option value="${besc(f.id)}">${besc(f.name)}</option>`)
-        .join("")}</select></label><label>Pověst <select name="u" aria-label="Pověst">${[3, 2, 1, 0, -1, -2, -3]
+        .join("")}</optgroup></select></label><label>Pověst <select name="u" aria-label="Pověst">${[3, 2, 1, 0, -1, -2, -3]
         .map(u => `<option value="${u}"${u === 0 ? " selected" : ""}>${POVL[u]}</option>`)
         .join(
           "",
         )}</select></label><input name="pz" maxlength="200" placeholder="důvod (uvidí i hráči)"><button class="gbtn ghost">Nastavit</button></form>
-      <p class="rsmall">Hráči vidí pověst na stránce rodu a v Družině; u rodů, které družina nezná, ji databáze nepošle. Obchody s rodem mají při Přízni nižší ceny, při Nedůvěře vyšší a při Nepřízni s družinou neobchodují.</p></section>`;
+      <p class="rsmall">Hráči vidí pověst v panelu města na mapě, na stránce rodu a v Družině; u rodů, které družina nezná, ji databáze nepošle. Pověst ve městě mění ceny všech jeho obchodů (cechy drží spolu): při Přízni nižší, při Nedůvěře vyšší, při Nepřízni s družinou neobchodují.</p></section>`;
 }
 document.addEventListener("submit", async e => {
   const f = e.target;
@@ -653,7 +655,7 @@ document.addEventListener("submit", async e => {
           typ: OBCHTYP[E.typ.value] ? E.typ.value : o.typ,
           misto: E.misto.value.trim().slice(0, 60),
           vaz: E.vaz.checked,
-          rod: E.rod.value || undefined,
+          rod: undefined,
           prir: Math.max(-50, Math.min(500, Math.round(+E.prir.value || 0))),
           zpust: E.zpust.checked,
           zas: E.zas.checked,

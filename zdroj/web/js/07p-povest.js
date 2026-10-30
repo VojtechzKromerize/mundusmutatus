@@ -1,5 +1,5 @@
 /* ===== Pověst družiny u rodů a měst (2026-10-30, Vojta) =====
-   Stupnice −3 až +3 u každého rodu ze Zemských desek (i městských svazů a zahraničních rodů) a krátký důvod. Uloženo v nastavení
+   Stupnice −3 až +3 u každého rodu ze Zemských desek a u každého města (klíč povMestoId – obchody a cechy stojí na městě) a krátký důvod. Uloženo v nastavení
    „povest“ ({r: {idRodu: {u, pz}}}); čte každý přes mm_povest (rody, které družina nezná, databáze hráčům vyřízne), mění vypravěč
    (mm_povest_nastav). Ukazuje se v infoboxu rodu (vypravěč tam pověst mění) a na stránce Družina. Jádro: žádná volání do 10–25. */
 const POVL = {
@@ -22,6 +22,33 @@ const POVP = {
 };
 let POV = {};
 const povU = id => (POV[id] && +POV[id].u) || 0;
+/* pověst ve městě (Vojta 2026-10-30: obchod stojí na městě a jeho cechách, ne na rodu): klíč „m-“ + jméno bez diakritiky */
+const povMestoId = n =>
+  "m-" +
+  String(n || "")
+    .split(",")[0]
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "")
+    .slice(0, 58);
+/* města, ve kterých lze mít pověst: sídla městských svazů v Zemských deskách a města na mapě (TOWNSEATS) */
+let POVMESTA = null;
+function povMesta() {
+  if (POVMESTA) return POVMESTA;
+  const S = new Set(TOWNSEATS);
+  FAM.filter(f => f.city).forEach(f => f.seats.forEach(q => S.add(q[0])));
+  POVMESTA = [...S].sort((a, b) => a.localeCompare(b, "cs"));
+  return POVMESTA;
+}
+let POVMJ = null;
+/* jméno rodu nebo města podle klíče pověsti */
+function povJmeno(id) {
+  if (typeof byId !== "undefined" && byId[id]) return byId[id].name;
+  if (!POVMJ) POVMJ = Object.fromEntries(povMesta().map(n => [povMestoId(n), n]));
+  return POVMJ[id] || "";
+}
 async function povNacti(prekresli) {
   if (!window.MMDB || !MMDB.povest) return false;
   let p;
@@ -34,6 +61,7 @@ async function povNacti(prekresli) {
   if (JSON.stringify(r) === JSON.stringify(POV)) return false;
   POV = r;
   if (prekresli && (curView === "desky" || curView === "druzina")) route();
+  povMistoObnov();
   return true;
 }
 async function povUloz(id, u, pz) {
@@ -45,6 +73,7 @@ async function povUloz(id, u, pz) {
     mmHlasG("Pověst se nepodařilo uložit: " + (e.message || e), 5000);
     return;
   }
+  povMistoObnov();
   if (curView === "desky" || curView === "druzina") route();
   else if (typeof renderBoj === "function" && curView === "boj") renderBoj();
 }
@@ -64,17 +93,35 @@ function povHtml(id) {
 /* přehled pro stránku Družina (a pult vypravěče): rody s jinou než nulovou pověstí, od nejlepší */
 function povSeznam() {
   return Object.keys(POV)
-    .filter(id => typeof byId !== "undefined" && byId[id] && (povU(id) || (POV[id] && POV[id].pz)))
-    .sort((a, b) => povU(b) - povU(a) || String(byId[a].name).localeCompare(byId[b].name, "cs"));
+    .filter(id => povJmeno(id) && (povU(id) || (POV[id] && POV[id].pz)))
+    .sort((a, b) => povU(b) - povU(a) || povJmeno(a).localeCompare(povJmeno(b), "cs"));
+}
+/* pověst v panelu města na mapě (02) */
+function povMistoHtml(n) {
+  const h = povHtml(povMestoId(n));
+  return `<dl class="kv povmisto" data-pid="${besc(povMestoId(n))}"${h ? "" : " hidden"}>${h}</dl>`;
+}
+/* panel města na mapě se nepřekresluje celý – pověst se v něm obnoví na místě */
+function povMistoObnov() {
+  document.querySelectorAll(".povmisto[data-pid]").forEach(d => {
+    const h = povHtml(d.dataset.pid);
+    d.innerHTML = h;
+    d.hidden = !h;
+  });
 }
 function povSeznamHtml(nadpis) {
   const L = povSeznam();
   if (!L.length)
-    return GMV ? `<p class="rsmall">Družina zatím u žádného rodu nemá pověst. Změníš ji v infoboxu rodu (Zemské desky) tlačítky − a +.</p>` : "";
+    return GMV
+      ? `<p class="rsmall">Družina zatím u žádného rodu nemá pověst. Změníš ji v infoboxu rodu (Zemské desky) nebo v panelu města na mapě tlačítky − a +, či v pultu › Nástroje.</p>`
+      : "";
   return `${nadpis ? `<h3 class="uvh2">Pověst družiny</h3>` : ""}<ul class="povlist">${L.map(id => {
     const f = byId[id],
       pz = POV[id].pz || "";
-    return `<li><a href="#rod/${besc(id)}">${typeof ARMS !== "undefined" && ARMS[id] && typeof armsImg === "function" ? armsImg(f, "armsmall") : ""}<b>${f.name}</b></a> ${povZnak(povU(id))}${pz ? ` <small>${besc(pz)}</small>` : ""}</li>`;
+    const jm = f
+      ? `<a href="#rod/${besc(id)}">${typeof ARMS !== "undefined" && ARMS[id] && typeof armsImg === "function" ? armsImg(f, "armsmall") : ""}<b>${f.name}</b></a>`
+      : `<span><b>${besc(povJmeno(id))}</b> <small class="povmj">město</small></span>`;
+    return `<li>${jm} ${povZnak(povU(id))}${pz ? ` <small>${besc(pz)}</small>` : ""}</li>`;
   }).join("")}</ul>`;
 }
 document.addEventListener("click", e => {
@@ -89,7 +136,7 @@ document.addEventListener("click", e => {
   if (d) {
     const id = d.dataset.povpz,
       t = prompt(
-        `Proč má družina u rodu ${(byId[id] || {}).name || id} tuto pověst? (uvidí i hráči; prázdné = bez důvodu)`,
+        `Proč má družina ${byId[id] ? "u rodu" : "ve městě"} ${povJmeno(id) || id} tuto pověst? (uvidí i hráči; prázdné = bez důvodu)`,
         (POV[id] && POV[id].pz) || "",
       );
     if (t != null) povUloz(id, povU(id), t.trim());
