@@ -1656,7 +1656,7 @@ declare i bigint;
 begin
   if p_od is null or p_od !~ '^[a-z0-9-]{1,40}$' then raise exception 'neplatná karta'; end if;
   if not public.mm_hrac_ok(p_od, p_token) then raise exception 'návrh posílá jen přihlášený hráč za svou postavu' using errcode = '42501'; end if;
-  if jsonb_typeof(p_data) <> 'object' or octet_length(p_data::text) > 2000 or coalesce(p_data ->> 'typ', '') not in ('lec', 'bardic', 'vec', 'nakup')
+  if jsonb_typeof(p_data) <> 'object' or octet_length(p_data::text) > 2000 or coalesce(p_data ->> 'typ', '') not in ('lec', 'bardic', 'vec', 'nakup', 'vykup', 'zakazka')
      or (p_data ? 'cil' and coalesce(p_data ->> 'cil', '') !~ '^[a-z0-9-]{1,40}$') then
     raise exception 'neplatný návrh';
   end if;
@@ -1730,12 +1730,13 @@ grant execute on function public.mm_povest() to anon, authenticated;
 revoke all on function public.mm_povest_nastav(text, int, text) from anon;
 grant execute on function public.mm_povest_nastav(text, int, text) to authenticated;
 
--- obchody (2026-10-30): {L: [{id, n, typ, misto, prir, otevr, ven, pol, pozn}]}; hráči čtou jen otevřené obchody (bez poznámky vypravěče),
+-- obchody (2026-10-30): {L: [{id, n, typ, misto, prir, otevr, ven, pol, pozn, rod, vaz, zpust, zas, prod, dopl, dc, kup, zak}]}; hráči čtou jen
+-- otevřené obchody (bez poznámky vypravěče a bez toho, co obchodník chce a ví – kup.chce, kup.zv),
 -- vypravěč ukládá celý seznam; nákup hráče jde návrhem (mm_navrh, typ „nakup“), který vypravěč schválí
 create or replace function public.mm_obchody() returns jsonb
 language sql stable security definer set search_path = public as $$
   select jsonb_build_object('L', coalesce((
-    select jsonb_agg(case when public.mm_je_gm() then o else o - 'pozn' end order by n)
+    select jsonb_agg(case when public.mm_je_gm() then o else o - 'pozn' #- '{kup,chce}' #- '{kup,zv}' end order by n)
       from jsonb_array_elements(coalesce((select hodnota -> 'L' from public.nastaveni where klic = 'obchody'), '[]'::jsonb)) with ordinality as x(o, n)
      where public.mm_je_gm() or coalesce((o ->> 'otevr')::boolean, false)
   ), '[]'::jsonb))

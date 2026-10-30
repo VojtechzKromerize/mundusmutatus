@@ -120,7 +120,10 @@ async function pulsZpracuj(co) {
       await ukNacti();
     } catch (e) {}
   }
-  if (co.has("hra")) await pulsHra();
+  if (co.has("hra")) {
+    await pulsHra();
+    if (GMV) obchZakDoruc();
+  }
   if (co.has("povest")) povNacti(true);
   if (co.has("obchody")) {
     try {

@@ -488,10 +488,17 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `NS` | 02-mapa:805 | const | ⓐ www.w3.org/2000/svg"; |
 | `NVF` | 16-srd-ukazky-sezeni-hrac:139 | let | Nestvůry (vypravěč): filtr seznamu – q hledaný text, typ typ nestvůry |
 | `OBALKY` | 02b-mapa-kresba:14947 | const | ⓘ `new WeakMap();` |
-| `OBCH` | 16o-obchody-tabulky:7 | let | ⓘ `null;` |
+| `OBCH` | 16o-obchody-tabulky:9 | let | ⓘ `null;` |
+| `OBCHDOR` | 16o-obchody-tabulky:147 | let | ⓐ předání hotových zakázek (vypravěč; po načtení obchodů a po změně herního času) |
+| `OBCHDOV` | 16o-obchody-tabulky:197 | const | ⓘ `[` |
 | `OBCHNIKDY` | 10o-obchody:144 | const | ⓐ nikdy se nenabízí samo: kouzelné předměty a lektvary či svitky, věci jiných světů (vzducholodě, houbové oděvy, exotická zvířata) |
-| `OBCHOTV` | 16o-obchody-tabulky:8 | let | ⓐ obchod rozbalený v Nástrojích |
+| `OBCHOTV` | 16o-obchody-tabulky:10 | let | ⓐ obchod rozbalený v Nástrojích |
+| `OBCHPOV` | 10o-obchody:269 | const | ⓐ pověst u rodu obchodu → přirážka v procentech; null = s družinou neobchoduje (Nepřízeň a horší) |
+| `OBCHSM` | 16o-obchody-tabulky:14 | let | ⓐ smlouvání: jeden pokus na postavu, obchod a herní den (v tomto prohlížeči) |
+| `OBCHTYDEN` | 10o-obchody:306 | const | ⓐ zásoby běžného zboží (o.zas): levné věci po dvaceti kusech, drahé po jednom; doplní se po týdnu |
 | `OBCHTYP` | 10o-obchody:8 | const | ⓐ druhy obchodů: n název, p popis, s sortiment = [kategorie katalogu, seznam anglických jmen \| "*" (vše dovolené v kategorii)] |
+| `OBCHVL` | 10o-obchody:249 | const | ⓘ `{` |
+| `OBCHZPUST` | 10o-obchody:275 | const | ⓐ zpustlý kraj: zboží o polovinu dražší a zásoby poloviční |
 | `OFF` | 02-mapa:6972 | const | ⓐ without a road even open country is slower |
 | `OSPROT` | 11-boj:696 | const | Boj/bestiář: osoby ze Zemských desek se statblokem podle id (z PROTOSOBY) |
 | `PAR` | 04-praha:34 | const | plán Prahy: poměr stran výchozího výřezu (výška/šířka PVB0) pro přiblížení |
@@ -748,10 +755,10 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `ZBRVL` | 10w-zbrane:7 | const | ⓘ `{` |
 | `ZBY` | 07-druzina-kronika:87 | var | Kronika: zápis podle id (z ZAPISY) – rychlé hledání zápisu |
 | `ZEMEPIS` | 01-zaklad:5 | const | ⓐ zeměpis: královská města a sídla církevních vrchností jsou na mapě vždy, i když družina rod nezná |
-| `ZMENY` | 23-potvrzovani:267 | var | Časová osa sezení (vypravěč): změny karet, boje a herního času z databáze (MMDB.zmeny) k vrácení |
-| `ZMFLT` | 23-potvrzovani:269 | var | Časová osa: filtr druhu změn („vse“ nebo druh) |
-| `ZMOD` | 23-potvrzovani:268 | var | Časová osa: rozsah zpětně (1h, 6h, 24h, 7d) |
-| `ZMPOLE` | 23-potvrzovani:270 | var | Časová osa: popisky změněných polí karty (hp životy, thp, kz, vycerp, insp, zdr, inv vybavení, pen, pozn…) |
+| `ZMENY` | 23-potvrzovani:271 | var | Časová osa sezení (vypravěč): změny karet, boje a herního času z databáze (MMDB.zmeny) k vrácení |
+| `ZMFLT` | 23-potvrzovani:273 | var | Časová osa: filtr druhu změn („vse“ nebo druh) |
+| `ZMOD` | 23-potvrzovani:272 | var | Časová osa: rozsah zpětně (1h, 6h, 24h, 7d) |
+| `ZMPOLE` | 23-potvrzovani:274 | var | Časová osa: popisky změněných polí karty (hp životy, thp, kz, vycerp, insp, zdr, inv vybavení, pen, pozn…) |
 | `ZPR` | 16-srd-ukazky-sezeni-hrac:1316 | let | Tajné zprávy (hráč): zprávy mezi vypravěčem a přihlášenou postavou |
 | `ZPRG` | 16-srd-ukazky-sezeni-hrac:1317 | let | Tajné zprávy (vypravěč): všechny zprávy všech postav (MMDB.zpravyGm) |
 | `ZPRK` | 16-srd-ukazky-sezeni-hrac:1318 | let | Tajné zprávy (vypravěč): id karty vybrané v pultu družiny pro vlákno zpráv |

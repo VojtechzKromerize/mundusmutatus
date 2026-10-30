@@ -4111,3 +4111,8 @@ html.mmpc:not(.mmjenhra) .bdmweb{display:grid;font-size:1.2rem}
 .obchdet{margin-top:8px}.obchf label,.obchvf label{display:inline-flex;align-items:center;gap:4px}
 .tabn{margin:6px 0 6px 1.2em;padding:0}.tabn li{margin:4px 0}.tabsep{font-style:italic}
 .bztab{margin-left:6px;padding:0 6px;min-height:0;font-size:.8rem}
+.obchkupec{margin:6px 0;display:flex;flex-direction:column;gap:2px}.obchkupec small{opacity:.8}.obchgmi{font-style:italic;color:#6b4fa3}
+.obchne{font-weight:700;color:#8f1f1f}.obchsm{margin:6px 0}.obchsm .gbtn{margin-right:4px}
+.obchzak{margin-top:10px}.obchzak>summary{cursor:pointer;font-weight:700}.obchzak select{max-width:100%}
+.obchf label,.obchvlz label{margin-right:4px}
+.obchkup{margin-left:auto}

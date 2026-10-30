@@ -448,7 +448,7 @@ function bdmVecList(K, i) {
     ? ""
     : `<div class="kvsek"><h4 class="bdmgh">Předat</h4><p class="bdmrow">${x.q > 1 ? `<input type="number" data-kvpq min="1" max="${x.q}" value="1" inputmode="numeric" aria-label="Kolik kusů" style="width:4.2em">` : ""}
       ${komu.length && window.MMDB ? `<select data-kvkomu aria-label="Komu"><option value="">— komu —</option>${komu.map(k => `<option value="${besc(k.id)}">${besc(k.n)}</option>`).join("")}</select><button type="button" class="bdmbtn" data-kvdar="${i}">Dát</button>` : ""}
-      ${window.MMDB && (GMV || KZAM.has(K.id)) ? `<button type="button" class="bdmbtn ghost" data-kvpokl="${i}" ${btip("Uloží věc do pokladny družiny – vezme si ji kdokoli z družiny na stránce Hra")}>Do pokladny družiny</button>` : ""}</p></div>`;
+      ${window.MMDB && (GMV || KZAM.has(K.id)) ? `<button type="button" class="bdmbtn ghost" data-kvpokl="${i}" ${btip("Uloží věc do pokladny družiny – vezme si ji kdokoli z družiny na stránce Hra")}>Do pokladny družiny</button>` : ""}</p></div>${obchVykupHtml(K, x)}`;
   const upr = `<div class="kvsek"><h4 class="bdmgh">Upravit</h4>
     <label class="kvlab">Název <input data-kvnaz="${i}" value="${besc(x.n)}" maxlength="80"></label>
     <label class="kvlab">Poznámka <textarea data-kvpozn="${i}" rows="2" maxlength="300" placeholder="odkud je, co dělá, komu patří…">${besc(x.pozn || "")}</textarea></label>

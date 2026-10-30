@@ -187,21 +187,26 @@ function obchNovy(typ, n, misto, id) {
   };
 }
 /* zboží obchodu: sortiment druhu bez vyřazených (ven) + ručně vystavené kusy (pol: {id, q, cena, n}); každý řádek
-   {id, x (položka katalogu), n, hal (cena za kus), q (null = dost), ruc (ručně vystavené), mag (kouzelný unikát)} */
-function obchZbozi(o, V, BY) {
+   {id, x (položka katalogu), n, hal (cena za kus), q (null = dost), ruc (ručně vystavené), mag (kouzelný unikát)}.
+   c (nepovinné): prir = přirážka celkem (obchUprava – pověst, zpustlý kraj), den = herní den (obchDen) pro zásoby */
+function obchZbozi(o, V, BY, c) {
   if (!o) return [];
-  const ven = new Set(o.ven || []),
+  c = c || {};
+  const prir = c.prir != null ? c.prir : o.prir,
+    ven = new Set(o.ven || []),
     ruc = new Map((o.pol || []).map(p => [p.id, p])),
+    prod = obchProdejeDnes(o, c.den),
     R = [];
   obchSortiment(o.typ, V).forEach(x => {
     if (ven.has(x.id) || ruc.has(x.id) || !(x.hal > 0)) return;
-    R.push({id: x.id, x, n: x.cz || x.en, hal: obchCena(x.hal, o.prir), q: null, ruc: false, mag: false});
+    const q = o.zas ? Math.max(0, obchZasoba(x.hal, o.zpust) - (+prod[x.id] || 0)) : null;
+    R.push({id: x.id, x, n: x.cz || x.en, hal: obchCena(x.hal, prir), q, ruc: false, mag: false});
   });
   (o.pol || []).forEach(p => {
     const x = (BY && BY[p.id]) || null;
     if (p.q != null && !(+p.q > 0)) return;
     const mag = obchMag(x) || !!p.mag;
-    const hal = +p.cena > 0 ? Math.round(+p.cena) : x && x.hal ? obchCena(x.hal, o.prir) : 0;
+    const hal = +p.cena > 0 ? Math.round(+p.cena) : x && x.hal ? obchCena(x.hal, prir) : 0;
     if (!(hal > 0)) return;
     R.push({id: p.id, x, n: p.n || (x && (x.cz || x.en)) || p.id, hal, q: p.q != null ? +p.q : mag ? 1 : null, ruc: true, mag});
   });
@@ -220,12 +225,158 @@ function obchVystav(o, x, q, cena) {
   );
   return Object.assign({}, o, {pol: P, ven: (o.ven || []).filter(v => v !== x.id)});
 }
-/* po prodeji: ručně vystavenému kusu ubude počet (nula = zmizí), sortiment druhu je bez omezení */
-function obchProdano(o, id, q) {
-  const P = (o.pol || [])
-    .map(p => (p.id === id && p.q != null ? Object.assign({}, p, {q: +p.q - Math.max(1, +q || 1)}) : p))
-    .filter(p => p.q == null || p.q > 0);
-  return Object.assign({}, o, {pol: P});
+/* po prodeji: ručně vystavenému kusu ubude počet (nula = zmizí); u sortimentu druhu se se zásobami (o.zas) prodej
+   zapíše do o.prod a za týden herního času (OBCHTYDEN dní od o.dopl) se sklad doplní */
+function obchProdano(o, id, q, den) {
+  q = Math.max(1, +q || 1);
+  const jeRuc = (o.pol || []).some(p => p.id === id);
+  const P = (o.pol || []).map(p => (p.id === id && p.q != null ? Object.assign({}, p, {q: +p.q - q}) : p)).filter(p => p.q == null || p.q > 0);
+  const out = Object.assign({}, o, {pol: P});
+  if (!jeRuc && o.zas) {
+    const prod = Object.assign({}, obchProdejeDnes(o, den));
+    prod[id] = (+prod[id] || 0) + q;
+    out.prod = prod;
+    if (!(+o.dopl > 0) || Object.keys(obchProdejeDnes(o, den)).length === 0) out.dopl = den > 0 ? den : +o.dopl || 0;
+  }
+  return out;
 }
 /* lze prodat q kusů? (dost na skladě) */
 const obchLzeProdat = (r, q) => !!r && (r.q == null || r.q >= Math.max(1, +q || 1));
+
+/* ===== Obchody II (2026-10-30, Vojta: „líbí se mi všechno“): pověst, zásoby, výkup, smlouvání, zakázky, místo ===== */
+/* vlastnosti druhů: dc = SO smlouvání, vyk = podíl z ceny při výkupu (0 = nevykupuje), zak = přijímá zakázky, gen = stav obchodníka
+   pro generátor postav (09g) */
+const OBCHVL = {
+  kramar: {dc: 12, vyk: 0.5, gen: "mestan"},
+  kupec: {dc: 15, vyk: 0.5, gen: "kupec"},
+  kovar: {dc: 12, vyk: 0.4, zak: 1, gen: "remeslnik"},
+  mecir: {dc: 14, vyk: 0.5, zak: 1, gen: "remeslnik"},
+  zbrojir: {dc: 14, vyk: 0.5, zak: 1, gen: "remeslnik"},
+  lucist: {dc: 12, vyk: 0.5, zak: 1, gen: "remeslnik"},
+  puskar: {dc: 15, vyk: 0.4, zak: 1, gen: "remeslnik"},
+  sedlar: {dc: 12, vyk: 0.4, zak: 1, gen: "remeslnik"},
+  apatyka: {dc: 13, vyk: 0.4, gen: "mestan"},
+  alchymista: {dc: 15, vyk: 0.4, gen: "mestan"},
+  remesla: {dc: 12, vyk: 0.4, zak: 1, gen: "remeslnik"},
+  kostel: {dc: 16, vyk: 0, gen: "knez"},
+  pokout: {dc: 13, vyk: 0.3, gen: "lapka"},
+  lodar: {dc: 13, vyk: 0.4, zak: 1, gen: "remeslnik"},
+  vzacnosti: {dc: 16, vyk: 0, gen: "kupec"},
+};
+const obchVl = o => OBCHVL[(o && o.typ) || ""] || OBCHVL.kramar;
+const obchDc = o => (o && +o.dc > 0 ? +o.dc : obchVl(o).dc);
+/* pověst u rodu obchodu → přirážka v procentech; null = s družinou neobchoduje (Nepřízeň a horší) */
+const OBCHPOV = {3: -20, 2: -10, 1: -5, 0: 0, "-1": 10, "-2": null, "-3": null};
+const obchPovPrir = u => {
+  const v = OBCHPOV[Math.max(-3, Math.min(3, Math.round(+u || 0)))];
+  return v === undefined ? 0 : v;
+};
+/* zpustlý kraj: zboží o polovinu dražší a zásoby poloviční */
+const OBCHZPUST = 50;
+/* celková přirážka obchodu (druh + pověst + zpustlý kraj); null = neobchoduje */
+function obchUprava(o, u) {
+  const pv = obchPovPrir(u);
+  if (pv === null) return null;
+  return (+o.prir || 0) + pv + (o.zpust ? OBCHZPUST : 0);
+}
+/* herní den z data „YYYY-MM-DD“ (juliánský kalendář tažení – stačí rozdíly dní) */
+function obchDen(datum) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(datum || ""));
+  if (!m) return 0;
+  const y = +m[1],
+    mo = +m[2],
+    d = +m[3],
+    a = Math.floor((14 - mo) / 12),
+    Y = y + 4800 - a,
+    M = mo + 12 * a - 3;
+  return d + Math.floor((153 * M + 2) / 5) + 365 * Y + Math.floor(Y / 4) - 32083;
+}
+const obchDenTxt = (den, MES) => {
+  if (!(den > 0)) return "";
+  const c = den + 32082,
+    d = Math.floor((4 * c + 3) / 1461),
+    e = c - Math.floor((1461 * d) / 4),
+    m = Math.floor((5 * e + 2) / 153);
+  const D = e - Math.floor((153 * m + 2) / 5) + 1,
+    Mo = m + 3 - 12 * Math.floor(m / 10),
+    Y = d - 4800 + Math.floor(m / 10);
+  return `${D}. ${MES ? MES[Mo - 1] : Mo + "."} ${Y}`;
+};
+/* zásoby běžného zboží (o.zas): levné věci po dvaceti kusech, drahé po jednom; doplní se po týdnu */
+const OBCHTYDEN = 7;
+function obchZasoba(hal, zpust) {
+  const z = hal <= 20 ? 20 : hal <= 100 ? 8 : hal <= 500 ? 4 : hal <= 2000 ? 2 : 1;
+  return zpust ? Math.max(1, Math.floor(z / 2)) : z;
+}
+function obchProdejeDnes(o, den) {
+  if (!o || !o.prod) return {};
+  if (den > 0 && +o.dopl > 0 && den >= +o.dopl + OBCHTYDEN) return {};
+  return o.prod;
+}
+/* je družina v místě obchodu? místo obchodu „Praha, Staré Město“ odpovídá poloze „Praha“ (první část před čárkou) */
+const obchKl = t =>
+  String(t || "")
+    .split(",")[0]
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
+function obchTady(o, kde) {
+  if (!o || !o.vaz || !o.misto) return true;
+  return !!kde && obchKl(o.misto) === obchKl(kde);
+}
+/* vidí hráč obchod? otevřený a (bez vazby na místo, nebo je tam družina) */
+const obchViditelny = (o, kde) => !!o && !!o.otevr && obchTady(o, kde);
+/* smlouvání: hod Přesvědčování (či Klamání, Zastrašování) proti SO obchodníka → změna ceny v procentech */
+function obchSmlouvani(tot, dc) {
+  tot = +tot || 0;
+  if (tot >= dc + 5) return -20;
+  if (tot >= dc) return -10;
+  if (tot <= dc - 5) return 10;
+  return 0;
+}
+const obchSeSmlouvou = (hal, pct) => Math.max(1, Math.round((hal * (100 + (+pct || 0))) / 100));
+/* výkup od družiny: druh vykupuje věci ze svých kategorií (pokoutník vše běžné), kouzelné předměty jen dohodou s vypravěčem */
+function obchVykupuje(o, x) {
+  const vl = obchVl(o);
+  if (!vl.vyk || !x) return false;
+  if (obchMag(x)) return false;
+  if (o.typ === "pokout") return true;
+  const T = OBCHTYP[o.typ];
+  return !!T && T.s.some(([sk]) => sk === x.sk);
+}
+/* výkupní cena za kus (haléře): podíl druhu z dobové ceny, pověst ji zlepší nebo zhorší (opačně než u prodeje) */
+function obchVykupCena(o, x, u) {
+  if (!obchVykupuje(o, x) || !(x.hal > 0)) return 0;
+  const pv = obchPovPrir(u);
+  if (pv === null) return 0;
+  return Math.max(1, Math.round((x.hal * obchVl(o).vyk * (100 - pv)) / 100));
+}
+/* zakázky: řemeslník zhotoví cokoli ze svých kategorií katalogu (ne kouzelné ani nevhodné věci); dny práce podle ceny */
+function obchZakazkyNab(typ, V) {
+  const T = OBCHTYP[typ];
+  if (!T || !V || !(OBCHVL[typ] || {}).zak) return [];
+  const vid = new Set(),
+    R = [];
+  for (const [sk] of T.s)
+    (V[sk] || []).forEach(x => {
+      if (!x || !x.en || vid.has(x.id) || !(x.hal > 0) || OBCHNIKDY.test(x.en) || obchMag(Object.assign({sk}, x))) return;
+      vid.add(x.id);
+      R.push(Object.assign({sk}, x));
+    });
+  return R;
+}
+const obchDnyPrace = hal => Math.max(1, Math.min(60, Math.ceil((+hal || 0) / 250)));
+/* přijatá zakázka: {id, k (karta), kn (jméno postavy), pol (id z katalogu, prázdné = vlastní), n, q, hot (herní den hotovo), cena} */
+function obchZakazkaPridej(o, z) {
+  return Object.assign({}, o, {zak: [...(o.zak || []), z].slice(-40)});
+}
+/* platba z peněz (karta či pokladna) jako rozdíl mincí pro mm_pokladna: {GP: −1, SP: +30} */
+function obchRozdil(pred, po) {
+  const R = {};
+  new Set([...Object.keys(pred || {}), ...Object.keys(po || {})]).forEach(k => {
+    const d = (+(po || {})[k] || 0) - (+(pred || {})[k] || 0);
+    if (d) R[k] = d;
+  });
+  return R;
+}

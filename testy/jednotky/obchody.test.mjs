@@ -134,3 +134,105 @@ test("stránka: Nástroje v pultu, obchod v listu Peníze a nákup schválený v
   await assert.rejects(S.ev(`obchProdej(KARTBY.balduin, "t1", ${JSON.stringify(r.id)}, 9999, 0)`), /nemá/);
   assert.match(V(`tabNapadyHtml("pok", "utok")`), /Šepot/);
 });
+
+test("pověst u rodu obchodu: Přízeň zlevní, Nedůvěra zdraží, Nepřízeň a horší – neobchoduje; zpustlý kraj +50 %", () => {
+  assert.deepEqual(C.V(`[3, 2, 1, 0, -1].map(obchPovPrir)`), [-20, -10, -5, 0, 10]);
+  assert.equal(C.ev(`obchPovPrir(-2)`), null);
+  assert.equal(C.ev(`obchUprava({prir: 20}, -3)`), null);
+  assert.equal(C.ev(`obchUprava({prir: 20}, 2)`), 10);
+  assert.equal(C.ev(`obchUprava({prir: 0, zpust: true}, 0)`), 50);
+});
+
+test("smlouvání: o 5 nad SO −20 %, na SO −10 %, o 5 pod SO +10 %", () => {
+  assert.deepEqual(C.V(`[18, 13, 12, 9, 8].map(t => obchSmlouvani(t, 13))`), [-20, -10, 0, 0, 10]);
+  assert.equal(C.ev(`obchSeSmlouvou(100, -10)`), 90);
+  assert.equal(C.ev(`obchDc({typ: "kupec"})`), 15);
+  assert.equal(C.ev(`obchDc({typ: "kupec", dc: 11})`), 11);
+});
+
+test("místo: obchod s vazbou vidí hráči jen v jeho místě (první část před čárkou, bez diakritiky)", () => {
+  const o = `{otevr: true, vaz: true, misto: "Praha, Staré Město"}`;
+  assert.equal(C.ev(`obchViditelny(${o}, "Praha")`), true);
+  assert.equal(C.ev(`obchViditelny(${o}, "Kutná Hora")`), false);
+  assert.equal(C.ev(`obchViditelny(${o}, null)`), false);
+  assert.equal(C.ev(`obchViditelny({otevr: true, misto: "Plzeň"}, "Praha")`), true, "bez vazby všude");
+  assert.equal(C.ev(`obchViditelny({otevr: false}, "Praha")`), false);
+  assert.equal(C.ev(`obchTady({vaz: true, misto: "Kutna hora"}, "Kutná Hora")`), true);
+});
+
+test("zásoby: levné po 20, drahé po 1, zpustlý kraj polovina; prodej ubírá, za týden se doplní", () => {
+  assert.deepEqual(C.V(`[10, 50, 300, 1500, 9000].map(h => obchZasoba(h))`), [20, 8, 4, 2, 1]);
+  assert.equal(C.ev(`obchZasoba(10, true)`), 10);
+  const den = C.ev(`obchDen("1458-03-10")`);
+  C.ctx.__o = C.V(`Object.assign(obchNovy("kramar", "", "", "t"), {zas: true})`);
+  const r0 = C.V(`obchZbozi(__o, __V, __BY, {den: ${den}})`)[0];
+  C.ctx.__o = C.V(`obchProdano(__o, ${JSON.stringify(r0.id)}, 3, ${den})`);
+  const q = d => C.V(`obchZbozi(__o, __V, __BY, {den: ${d}})`).find(r => r.id === r0.id).q;
+  assert.equal(q(den), r0.q - 3);
+  assert.equal(q(den + 6), r0.q - 3);
+  assert.equal(q(den + 7), r0.q, "po týdnu doplněno");
+  assert.equal(C.ev(`obchDen("1458-03-11") - obchDen("1458-02-28")`), 11, "juliánský rok 1458 má únor o 28 dnech");
+  assert.equal(C.ev(`obchDenTxt(obchDen("1458-03-03"))`), "3. 3. 1458");
+});
+
+test("výkup: kovář koupí zbraň za 40 %, kupec ji nekoupí, pokoutník koupí cokoli běžného, kouzelné nikdo sám", () => {
+  const dyka = Object.assign(
+    {sk: "zbrane"},
+    VYB.zbrane.find(x => x.en === "Dagger"),
+  );
+  C.ctx.__d = dyka;
+  assert.equal(C.ev(`obchVykupCena({typ: "kovar"}, __d, 0)`), Math.round(dyka.hal * 0.4));
+  assert.equal(C.ev(`obchVykupCena({typ: "mecir"}, __d, 2)`), Math.round(dyka.hal * 0.5 * 1.1), "Spojenci platí lépe");
+  assert.equal(C.ev(`obchVykupCena({typ: "kupec"}, __d, 0)`), 0);
+  assert.ok(C.ev(`obchVykupCena({typ: "pokout"}, __d, 0)`) > 0);
+  assert.equal(C.ev(`obchVykupCena({typ: "mecir"}, __d, -2)`), 0);
+  C.ctx.__m = Object.assign({sk: "magicke"}, VYB.magicke[0]);
+  assert.equal(C.ev(`obchVykupuje({typ: "pokout"}, __m)`), false);
+});
+
+test("zakázky: jen řemeslníci, bez kouzelných věcí; dny práce podle ceny (1–60)", () => {
+  assert.equal(C.V(`obchZakazkyNab("kupec", __V)`).length, 0);
+  const Z = C.V(`obchZakazkyNab("zbrojir", __V)`);
+  assert.ok(Z.length > 5 && Z.every(x => x.sk !== "magicke"));
+  assert.deepEqual(C.V(`[40, 1000, 18000, 999999].map(obchDnyPrace)`), [1, 4, 60, 60]);
+  assert.deepEqual(C.V(`obchRozdil({GP: 1, SP: 3}, {SP: 25})`), {GP: -1, SP: 22});
+});
+
+test("stránka: výkup, zakázka s předáním po termínu, neobchodující rod a vlastní obchodník", async () => {
+  await S.ev(`vybNacti()`);
+  S.ev(`HRA = Object.assign({}, HRA || {}, {datum: "1458-03-10", misto: "Praha"})`);
+  S.ev(`OBCH = [Object.assign(obchNovy("mecir", "U Meče", "Praha", "t3"), {otevr: true, vaz: true})]`);
+  await S.ev(`kartaStavZmen("balduin", {pen: {GP: 10}, inv: [{n: "Dagger", q: 2}]})`);
+  const sum = () => V(`Object.entries(kPenKarta(KARTBY.balduin)).reduce((s, [k, v]) => s + KMINC[k] * v, 0)`);
+  const p0 = sum();
+  assert.match(V(`obchVykupHtml(KARTBY.balduin, {n: "Dagger", q: 2})`), /U Meče/);
+  await S.ev(`obchVykup(KARTBY.balduin, "t3", "Dagger", 1, 0)`);
+  const dyka = V(`vybNajdi("Dagger")`);
+  assert.equal(sum(), p0 + Math.round(dyka.hal * 0.5));
+  assert.equal(V(`kInv(KARTBY.balduin).find(x => x.n === "Dagger").q`), 1);
+  /* zakázka: zaplaceno hned, věc až po termínu */
+  const x = V(`obchZakazkyNab("mecir", VYB).find(x => x.en === "Longsword")`);
+  await S.ev(`obchZakazka(KARTBY.balduin, "t3", ${JSON.stringify(x.id)}, 1, 0)`);
+  assert.equal(V(`OBCH[0].zak.length`), 1);
+  const hot = V(`OBCH[0].zak[0].hot`);
+  assert.equal(hot, V(`obchDen("1458-03-10")`) + V(`obchDnyPrace(${x.hal})`));
+  const maMec = () => V(`kInv(KARTBY.balduin).some(y => /Longsword/.test(y.n))`);
+  assert.equal(maMec(), false);
+  await S.ev(`obchZakDoruc()`);
+  assert.equal(maMec(), false, "ještě není hotovo");
+  S.ev(`HRA.datum = "1458-04-20"`);
+  await S.ev(`obchZakDoruc()`);
+  assert.equal(maMec(), true, "po termínu předáno");
+  assert.equal(V(`OBCH[0].zak.length`), 0);
+  /* pověst: Nepřízeň u rodu → neobchoduje */
+  const rod = V(`Object.keys(byId)[0]`);
+  S.ev(`POV = {${JSON.stringify(rod)}: {u: -2}}; OBCH[0].rod = ${JSON.stringify(rod)}`);
+  await assert.rejects(S.ev(`obchProdej(KARTBY.balduin, "t3", obchZbozi(OBCH[0], VYB, VYBBY)[0].id, 1, 0)`), /neobchoduje/);
+  assert.equal(V(`obchVykupHtml(KARTBY.balduin, {n: "Dagger", q: 1})`), "");
+  /* obchodník z generátoru */
+  const k = V(`obchKupec(OBCH[0])`);
+  assert.ok(k.jmeno && k.povaha && k.zv);
+  /* jinde: hráč obchod nevidí */
+  S.ev(`POV = {}; HRA.misto = "Kutná Hora"`);
+  assert.doesNotMatch(V(`obchHracHtml(KARTBY.balduin)`), /U Meče/);
+});

@@ -18,6 +18,10 @@ def chk(c, m):
 ok = lambda s: 200 <= s < 300
 prazdne = lambda r: r[0] == 200 and json.loads(r[1] or "[]") == []
 gm, hr = login("gm@x.cz"), login("hrac@x.cz")
+# obchody (2026-10-30): otevřený se skrytou poznámkou a tajemstvím obchodníka, zavřený – hráč vidí jen otevřený, bez tajemství
+chk(ok(call("/rest/v1/rpc/mm_obchody_uloz", "POST", {"p_hodnota": {"L": [
+    {"id": "tb1", "n": "Otevřený", "typ": "kramar", "otevr": True, "pozn": "TAJNE1", "kup": {"jmeno": "Jan", "chce": "TAJNE2", "zv": "TAJNE3"}},
+    {"id": "tb2", "n": "ZAVRENY", "typ": "kovar", "otevr": False}]}}, tok=gm)[0]), "vypravěč ukládá obchody")
 for kdo, tok in (("anonym", None), ("hráč", hr)):
     for t in ("obsah", "stavy", "denik", "zaznamy", "zaznamy_historie", "nastaveni", "gm"):
         r = call(f"/rest/v1/{t}?select=*&limit=1", tok=tok)
@@ -41,7 +45,7 @@ for kdo, tok in (("anonym", None), ("hráč", hr)):
     for fn, body in (("mm_povest_nastav", {"p_id": "pod", "p_u": 3, "p_pz": "x"}), ("mm_obchody_uloz", {"p_hodnota": {"L": []}})):
         chk(not ok(call(f"/rest/v1/rpc/{fn}", "POST", body, tok=tok)[0]), f"{kdo} nesmí volat {fn}")
     s, b = call("/rest/v1/rpc/mm_obchody", "POST", {}, tok=tok)
-    chk(ok(s) and "pozn" not in b, f"{kdo} čte jen otevřené obchody bez poznámek vypravěče")
+    chk(ok(s) and "Otevřený" in b and "Jan" in b and not any(t in b for t in ("TAJNE", "ZAVRENY")), f"{kdo} čte jen otevřené obchody bez poznámek a tajemství obchodníka")
     chk(ok(call("/rest/v1/rpc/mm_povest", "POST", {}, tok=tok)[0]), f"{kdo} čte pověst družiny")
     chk(ok(call("/rest/v1/rpc/mm_chyba", "POST", {"p": {"zprava": "test chyby", "misto": "x.js:1:1"}}, tok=tok)[0]), f"{kdo} smí nahlásit chybu webu")
     for fn in ("mm_chyby", "mm_chyby_smaz"):
