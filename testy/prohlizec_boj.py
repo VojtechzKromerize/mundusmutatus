@@ -8,7 +8,14 @@ async def main():
   async with async_playwright() as p:
     b=await p.chromium.launch()
     g,gerr=await gm_strana(b)
-    chk(await g.evaluate("location.hash")=="#hra" and await g.locator(".pultnav a").count()==3,"vypravěč: #boj vede na Hru – řídicí pult se záložkami Boj, Družina, Sezení")
+    chk(await g.evaluate("location.hash")=="#hra" and await g.locator(".pultnav a").count()==4,"vypravěč: #boj vede na Hru – řídicí pult se záložkami Boj, Družina, Sezení, Nástroje")
+    # Nástroje (2026-10-30): losovací tabulky, obchody (založení se uloží do databáze), pověst
+    await g.click('.pultnav a[href="#hra/nastroje"]');await g.wait_for_selector("#bojpult .tabsec",timeout=10000)
+    await g.click('#bojpult [data-tablos="pok"]');chk(await g.locator("#tabvys .tabn li").count()==3,"pult › Nástroje: tři nápady na komplikaci Pokušení")
+    await g.fill('#bojpult [data-obchnovy] input[name="n"]',"U Zkušebního kohouta");await g.click('#bojpult [data-obchnovy] button')
+    await g.wait_for_selector("#bojpult .obchlgm li.on .obchz li",timeout=10000)
+    chk(await g.locator("#bojpult .obchlgm li.on .obchz li.obchmag").count()==0,"pult › Nástroje: nový kramář má sortiment bez kouzelných předmětů")
+    chk(await g.locator("#bojpult [data-povf]").count()==1,"pult › Nástroje: formulář pověsti")
     # řídicí pult (2026-10-22): záložky Družina a Sezení nesou dřívější stránku Hra vypravěče
     await g.click('.pultnav a[href="#hra/druzina"]');await g.wait_for_selector("#bojpult [data-vyzf]",timeout=10000)
     chk(await g.locator("#bojpult .bsloty, #bojpult .bprip").count()==0 and await g.locator("#bojpult [data-hrpost]").count()==1,"pult › Družina: výzvy k hodu, postup na úroveň, bez boje")
