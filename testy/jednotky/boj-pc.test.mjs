@@ -20,11 +20,24 @@ test("karta v boji: Resistance Cold půlí, dočasné HP pohltí první, přesah
     bojZranPC(h3, K, 80, "Fire", false);
     const h4 = {id: "w", hp: 3};
     bojZranPC(h4, K, 5, "Fire", false);
-    const pad = h4.ds && h4.ds.st === undefined && h4.hp === 0;
+    const pad = h4.ds && h4.ds.st === undefined && h4.hp === -2;
     bojLecPC(h4, K, 4);
     return [h.hp, h2.hp, h2.thp || 0, h3.ds && h3.ds.st, pad, h4.ds && h4.ds.st];
   })())`);
   assert.deepEqual(JSON.parse(r), [52, 59, 0, "mrtev", true, "stab"]);
+});
+
+test("HP pod nulou (Artikule): přesah při pádu i zásahy v bezvědomí jdou do záporu, léčení počítá od 0", () => {
+  const r = S.ev(`JSON.stringify((() => {
+    const K = KARTBY.balduin, h = {id: "x", hp: 3};
+    bojZranPC(h, K, 10, "Fire", false);
+    const a = h.hp, p1 = BZRPOD;
+    bojZranPC(h, K, 6, "Fire", false);
+    const b = h.hp, p2 = BZRPOD, n = h.ds.n;
+    bojLecPC(h, K, 4);
+    return [a, p1, b, p2, n, h.hp, h.ds.st];
+  })())`);
+  assert.deepEqual(JSON.parse(r), [-7, 7, -13, 13, 1, 4, "stab"]);
 });
 
 test("zásah postavy v bezvědomí: neúspěch hodu proti smrti, kritický zásah dva", () => {

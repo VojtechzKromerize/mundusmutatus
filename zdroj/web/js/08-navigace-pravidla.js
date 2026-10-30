@@ -193,36 +193,27 @@ function renderOsoby() {
       })
       .join("") || `<div class="placeholder"><p>Družina zatím nikoho z panstva nepotkala ani o nikom neslyšela.</p></div>`;
 }
-const SRDKAP = [
-  ["hrani", "Hraní hry"],
-  ["tvorba", "Tvorba postavy"],
-  ["povolani", "Povolání"],
-  ["puvod", "Původ a featy"],
-  ["vybava", "Výbava"],
-  ["kouzleni", "Sesílání kouzel"],
-  ["glosar", "Glosář pravidel"],
-  ["nastroje", "Nástroje vypravěče"],
-  ["predmety", "Magické předměty"],
-];
+/* menu Pravidla (Vojta 2026-10-29): jen Pravidla (SRD, kouzla, vybavení… jako záložky na stránce) a Artikule */
 {
   const l = document.getElementById("navartl");
   if (l)
     l.innerHTML =
-      ARTB.filter(b => b.id !== "rejstrik")
-        .map(
-          b =>
-            `<span class="svsep" aria-hidden="true">${b.n}</span>` +
-            ARTK.filter(k => k.book === b.id)
-              .map(k => `<a href="#artikule/${k.id}">${k.t}</a>`)
-              .join(""),
-        )
-        .join("") +
-      `<span class="svsep" aria-hidden="true">Pravidla SRD 5.2.1 česky</span>` +
-      SRDKAP.map(([id, n]) => `<a href="#pravidla/${id}">${n}</a>`).join("");
+      `<a href="#pravidla">Pravidla<small>SRD 5.2.1 česky, kouzla, předměty, vybavení, doplňky</small></a>` +
+      `<a href="#artikule">Artikule<small>domácí pravidla tažení – mají přednost</small></a>`;
 }
 document.querySelectorAll(".navdd").forEach(dd => {
   const top = dd.querySelector(".ddtop");
   top.addEventListener("click", e => {
+    /* telefon (harmonika): klepnutí na skupinu ji rozbalí a ostatní sbalí; stránky jsou v seznamu pod ní */
+    if (matchMedia("(max-width:640px)").matches) {
+      e.preventDefault();
+      const o = !dd.classList.contains("open");
+      document.querySelectorAll(".navdd").forEach(x => {
+        x.classList.toggle("open", o && x === dd);
+        x.querySelector(".ddtop").setAttribute("aria-expanded", o && x === dd);
+      });
+      return;
+    }
     if (matchMedia("(hover: none)").matches && !matchMedia("(max-width:640px)").matches && !dd.classList.contains("open")) {
       e.preventDefault();
       document.querySelectorAll(".navdd.open").forEach(o => {
@@ -329,6 +320,16 @@ document.querySelectorAll(".lyrbtn").forEach(b => {
   tg.addEventListener("click", () => {
     const o = nav.classList.toggle("open");
     tg.setAttribute("aria-expanded", o);
+    /* telefon: menu jako harmonika – rozbalená je skupina, ve které právě jsem */
+    /* až po zavření nabídek kliknutím mimo ně (posluchač níže by ji hned zase sbalil) */
+    if (o)
+      setTimeout(() =>
+        document.querySelectorAll(".navdd").forEach(dd => {
+          const on = dd.querySelector(".ddtop.on");
+          dd.classList.toggle("open", !!on);
+          dd.querySelector(".ddtop").setAttribute("aria-expanded", !!on);
+        }),
+      );
   });
   document.addEventListener("click", e => {
     if (!nav.contains(e.target) && nav.classList.contains("open")) {
@@ -600,23 +601,33 @@ function renderPravidla(b, c) {
     return;
   }
   const K = SRDP.kap.find(k => k.id === b);
-  side.innerHTML = `<nav class="atoc srdtoc" aria-label="Obsah pravidel"><a class="atop${K || b === "predmety" || b === "netvori" || b === "mimo" || b === "vybaveni" || b === "kouzla" || b === "predmety-plne" ? "" : " on"}" href="#pravidla">Úvod</a>${SRDP.kap
-    .map(
-      k =>
-        `<p class="abook"><a href="#pravidla/${k.id}"${K && K.id === k.id ? ' class="on"' : ""}>${k.n}</a></p>${
-          K && K.id === k.id
-            ? `<ol>${k.toc
-                .filter(t => t.l <= (k.id === "glosar" ? 2 : 1))
-                .map(t => `<li class="srdl${t.l}"><a href="#pravidla/${k.id}/${t.id}">${besc(t.n)}</a></li>`)
-                .join(
-                  "",
-                )}${k.id === "povolani" ? `<li class="srdl1"><a href="#pravidla/mimo/mimo-gunslinger" ${btip("Střelec – povolání mimo SRD (Doplňky mimo SRD › Povolání)")}>Gunslinger</a></li>` : ""}</ol>`
-            : ""
-        }`,
+  /* postranní obsah jako u Artikulí (Vojta 2026-10-29): oddělovače skupin, položky v seznamu, u otevřené kapitoly její oddíly */
+  const pol = (h, n, on, pod) => `<li><a href="${h}"${on ? ' class="on" aria-current="page"' : ""}>${n}</a>${pod || ""}</li>`;
+  const DAL = [
+    ["kouzla", "Kouzla"],
+    ["predmety-plne", "Předměty"],
+    ["predmety", "Magické předměty"],
+    ["vybaveni", "Vybavení"],
+    ["mimo", "Doplňky mimo SRD"],
+    ...(GMV ? [["netvori", "Nestvůry a zvířata"]] : []),
+  ];
+  side.innerHTML = `<button type="button" class="atoggle" aria-expanded="false">☰ Obsah pravidel</button><nav class="atoc srdtoc" aria-label="Obsah pravidel"><a class="atop${K || DAL.some(([id]) => id === b) ? "" : " on"}" href="#pravidla">Úvod</a><p class="abook">Pravidla SRD 5.2.1</p><ol>${SRDP.kap
+    .map(k =>
+      pol(
+        `#pravidla/${k.id}`,
+        k.n,
+        K && K.id === k.id,
+        K && K.id === k.id
+          ? `<ol class="asecs">${k.toc
+              .filter(t => t.l <= (k.id === "glosar" ? 2 : 1))
+              .map(t => `<li class="srdl${t.l}"><a href="#pravidla/${k.id}/${t.id}">${besc(t.n)}</a></li>`)
+              .join(
+                "",
+              )}${k.id === "povolani" ? `<li class="srdl1"><a href="#pravidla/mimo/mimo-gunslinger" ${btip("Střelec – povolání mimo SRD (Doplňky mimo SRD › Povolání)")}>Gunslinger</a></li>` : ""}</ol>`
+          : "",
+      ),
     )
-    .join(
-      "",
-    )}<p class="abook"><a href="#pravidla/predmety"${b === "predmety" ? ' class="on"' : ""}>Magické předměty</a></p><p class="abook"><a href="#pravidla/vybaveni"${b === "vybaveni" ? ' class="on"' : ""}>Vybavení</a></p><p class="abook"><a href="#pravidla/mimo"${b === "mimo" ? ' class="on"' : ""}>Doplňky mimo SRD</a></p><p class="abook"><a href="#pravidla/kouzla"${b === "kouzla" ? ' class="on"' : ""}>Kouzla</a></p><p class="abook"><a href="#pravidla/predmety-plne"${b === "predmety-plne" ? ' class="on"' : ""}>Předměty</a></p>${GMV ? `<p class="abook"><a href="#pravidla/netvori"${b === "netvori" ? ' class="on"' : ""}>Nestvůry a zvířata</a></p>` : ""}</nav>`;
+    .join("")}</ol><p class="abook">Kouzla a výbava</p><ol>${DAL.map(([id, n]) => pol(`#pravidla/${id}`, n, b === id)).join("")}</ol></nav>`;
   if (b === "mimo") {
     renderMimo(main, c);
     return;

@@ -18,14 +18,14 @@ const CITYINFO = {
   },
   Žatec: {n: "Žatec jest bohaté město pod obojí, chmelnicemi obklopené, a drží věrný spolek s Louny."},
   Plzeň: {
-    n: "Plzeň jest baštou strany římské na západě. Za bouří husitských odolala obležení a podnes stojí v čele landfrýdu plzeňského, jenž pod jednou přijímá. Když pan Jiří léta Páně 1448 vzal Prahu, utekli sem kanovníci pražští i hejtman Hanuš z Kolovrat; norimberští kupci zde mají svou oporu.",
+    n: "Plzeň jest baštou strany římské na západě. Za bouří husitských odolala obležení a podnes stojí v čele landfrýdu plzeňského, jenž pod jednou přijímá. Když pan Jiří léta Páně 1448 vzal Prahu, utekli sem kanovníci pražští i hejtman Hanuš z Kolovrat; norimberští kupci zde mají svou oporu. Radu tvoří většinou Češi; královského rychtáře město od roku 1437 nemá.",
   },
   "České Budějovice": {
-    n: "Budějovice jsou město strany římské, z větší části německé a králi věrné, s chválenou školou městskou. Leží uprostřed zboží pánů z Rožmberka, kteří je chrání, ač se s nimi měšťané často přou; jest branou k Linci.",
+    n: "Budějovice jsou město strany římské a králi věrné, obyvatelstvem zhruba půl na půl české a německé (česká strana sílí), s chválenou školou městskou. Leží uprostřed zboží pánů z Rožmberka, kteří je chrání, ač se s nimi měšťané často přou; jest branou k Linci.",
   },
   Cheb: {
     t: "Říšské město zastavené Koruně",
-    n: "Cheb jest město strany římské a německé, jež se samo široce spravuje. Ve věcech duchovních náleží biskupu řezenskému, nikoli Praze. Ač katolický, s panem Jiřím drží dobrou vůli: Chebák Jošt z Einsiedlu jest jeho důvěrníkem a prvního dne března jel pro korunní listiny na Karlštejn.",
+    n: "Cheb jest město strany římské a německé, jež se samo široce spravuje a kolem sebe drží na tři sta osmdesát čtverečních kilometrů se stovkou a šedesáti vsí; v ohrožení postaví až tři tisíce mužů. V radě vynikají rodiny Juncker, Rudusch, Pachmann a Püchelberger. Ve věcech duchovních náleží biskupu řezenskému, nikoli Praze; u svatého Mikuláše má komendu Řád německých rytířů. Ač katolický, s panem Jiřím drží dobrou vůli: Chebák Jošt z Einsiedlu jest jeho důvěrníkem a prvního dne března jel pro korunní listiny na Karlštejn.",
   },
   Brno: {
     n: "Brno jest s Olomoucí předním městem markrabství moravského, strany římské a německé, s hradem Špilberkem nad sebou. Léta Páně 1454 vyhnal odsud král Ladislav na žádost měšťanů Židy. S Olomoucí, Jihlavou a Znojmem drží Brno jednotu měst moravských a na pána kališníka hledí ostražitě.",
@@ -94,9 +94,11 @@ const CITYINFO = {
   Řezno: {n: "Řezno jest přístavem na Dunaji, sídlem biskupským a starobylým městem říšským."},
   Erfurt: {t: "Město mohučského arcibiskupa", n: "Erfurt jest bohaté a přední město durynské s učením obecným, kteréž se samo spravuje."},
   Prešpurk: {
-    n: "Prešpurk jest uherské pomezní město naproti Rakousům, na Dunaji i na cestě Považské. Sem má být podle smlouvy strážnické do roka dopravena Kateřina, dcera pana Jiřího, zasnoubená králi Matyášovi.",
+    n: "Prešpurk jest uherské pomezní město naproti Rakousům, na Dunaji, druhé největší v celém království; leží na staré cestě, která vede přes Vídeň do Řezna, a výsady má již od léta Páně 1291. Dovoz tu převládá nad vývozem, zvláště sukna a nože z Rakous. Hrad prešpurský držel pan Jiří Rozgonyi, než jej po míru z léta 1450 musel vydat Hunyadimu. Sem má být podle smlouvy strážnické do roka dopravena Kateřina, dcera pana Jiřího, zasnoubená králi Matyáši.",
   },
-  Trnava: {n: "Trnava jest bohaté kupecké město na cestě Považské."},
+  Trnava: {
+    n: "Trnava, kterou založil král Béla léta Páně 1238, jest hlavní město na cestě z Prahy a z Brna do Uher, kupecké i vinařské. Husité ji obsadili léta 1432, ale po Lipanech ji král zase získal. Po míru z léta 1450 musel pan Jiří Rozgonyi vydat Trnavu Hunyadimu, a léta 1456 ji Hunyadi odevzdal králi. Město samo drží čtyři vsi.",
+  },
   "Banská Štiavnica": {n: "Štiavnica má nejbohatší stříbrné doly v celých Uhřích."},
   "Banská Bystrica": {n: "Bystrica jest město měděných dolů, z nichž měď jde až do Benátek."},
   Lipsko: {n: "Lipsko jest město trhů na rozcestí Vysoké a Říšské cesty."},
@@ -117,15 +119,15 @@ const CITYINFO = {
   },
   Košice: {
     t: "Svobodné královské město",
-    n: "Košice jsou přední z pěti měst hornouherských (s Levočí, Bardejovem, Prešovem a Sabinovem). Ve čtyřicátých letech byly oporou Jana Jiskry z Brandýsa, léta Páně 1452 jemu odňaty.",
+    n: "Košice jsou přední z pěti měst hornouherských (s Levočí, Bardejovem, Prešovem a Sabinovem), třetí největší město království, ležící na rozcestí, kde se sbíhají cesty z Levoče a z Prešova k Budínu. Právo skladu skutečně užívají jen Budín a Košice; městu patří mincovna a sedmnáct vsí a králi platí ročně dva tisíce zlatých. Léta Páně 1440 svěřila královna Alžběta jejich obranu Janu Jiskrovi z Brandýsa a od těch dob jsou oporou jeho; mír z léta 1452 mu ponechal vše, co tehdy držel.",
   },
   Levoča: {
     t: "Svobodné královské město",
-    n: "Levoča jest hlavním městem spišských Sasů s právem skladu a členem svazu pěti měst hornouherských. Ještě léta Páně 1450 byla v moci Jana Jiskry z Brandýsa.",
+    n: "Levoča jest hlavní město spišských Sasů a člen svazu pěti měst hornouherských. Spiš, v němž leží, poslouchá od léta Páně 1445 Jana Jiskru z Brandýsa.",
   },
   Bardejov: {
     t: "Svobodné královské město",
-    n: "Bardejov jest šarišské kupecké město na cestě do Polska a člen svazu pěti měst hornouherských. Ještě léta Páně 1450 byl v moci Jana Jiskry z Brandýsa.",
+    n: "Bardejov jest šarišské kupecké město na cestě do Polska, jež založil král Ludvík, a člen svazu pěti měst hornouherských. Šariš poslouchá Jana Jiskru z Brandýsa od léta Páně 1442.",
   },
   Prešov: {
     t: "Svobodné královské město",
@@ -133,7 +135,7 @@ const CITYINFO = {
   },
   Skalica: {
     t: "Svobodné královské město",
-    n: "Skalica jest pomezní město při hranici moravské. Léta Páně 1432 ji dobyli husité a dvě léta odtud okolí plenili; roku 1450 ji převzal Jan Hunyadi.",
+    n: "Skalica jest pomezní město při hranici moravské. Husité se v ní usadili již na počátku léta Páně 1428 a odtud plenili okolí, dokud ji po Lipanech král zase nezískal. Za císaře Zikmunda přešla do panských rukou a po míru z léta 1450 musel pan Jiří Rozgonyi vydat ji Hunyadimu.",
   },
   Pešť: {
     t: "Svobodné královské město",
@@ -451,7 +453,7 @@ const CITYINFO = {
   Jáger: {t: "Biskupské město", n: "Sídlo biskupa od léta Páně 1009, s chrámem na hradním vrchu, okolo něhož vyrostlo město."},
   "Spišská Nová Ves": {
     t: "Zastavené město",
-    n: "Nejpřednější ze třinácti měst spišských, jež král Zikmund léta Páně 1412 zastavil Polsku. Spravuje je polský starosta, jenž sedí na Staré Ľubovni.",
+    n: "Jedno z třinácti saských měst spišských, jež král Zikmund léta Páně 1412 zastavil polskému králi Vladislavovi za sto tisíc zlatých, totiž za třicet sedm tisíc kop grošů pražských, které si od něho vypůjčil na válku s Benátkami. Spolu s nimi vzal Polák do zástavy panství Ľubovňu a města Podolínec a Hniezdne. Spravuje je polský starosta, jenž sedí na Staré Ľubovni.",
   },
   Kežmarok: {n: "Spišské město pod Tatrami, od léta Páně 1440 sídlo hraběte spišského. Léta 1433 je těžce poplenil nájezd husitský."},
   Rožňava: {
@@ -460,7 +462,7 @@ const CITYINFO = {
   },
   Karlštejn: {
     t: "Královský hrad",
-    n: "Královský hrad, schránka korunovačních klenotů, jež jsou zde opět od léta Páně 1436, a od léta 1437 i archivu korunního v kapli svatého Kříže; bez nich nelze krále platně korunovati. Za bouří husitských nedobytá pevnost strany římské; spravuje jej nejvyšší purkrabí. Prvního dne března jela sem družina přes třicet jezdců pro listiny o právu ke Koruně a za tmy je přivezla na sněm do Prahy.",
+    n: "Královský hrad, schránka korunovačních klenotů, jež jsou zde opět od léta Páně 1436, a od léta 1437 i archivu korunního v kapli svatého Kříže, kterou zdobí zlato, drahokamy a sto třicet deskových obrazů svatých, za nimiž je téměř u každého výklenek s ostatky; bez klenotů nelze krále platně korunovati. Za bouří husitských nedobytá pevnost strany římské; spravuje jej nejvyšší purkrabí. Prvního dne března jela sem družina přes třicet jezdců pro listiny o právu ke Koruně a za tmy je přivezla na sněm do Prahy.",
   },
   Křivoklát: {
     t: "Královský hrad",
@@ -591,9 +593,12 @@ const CITYINFO = {
     t: "Hrad Országhů",
     n: "Hrad v Pováží, jejž léta Páně 1436 král Zikmund daroval svému stoupenci Michalovi Országhovi; rod jeho jej drží.",
   },
-  Strečno: {t: "Hrad Pongráců", n: "Hrad nad soutěskou Váhu u Žiliny, od léta Páně 1444 v rukou Pongráců z Liptovského Mikuláše."},
+  Strečno: {t: "Hrad nad Váhem", n: "Hrad nad soutěskou Váhu u Žiliny. V údolí Váhu pustošili husité již léta Páně 1431."},
   Bojnice: {t: "Panský hrad", n: "Hrad na horní Nitře, od léta Páně 1430 sídlo potomků Onufria Bardy, kteříž jej ubránili proti husitům."},
-  Likava: {t: "Hrad Hunyadiů", n: "Hrad v Liptově, léta Páně 1431–1434 pevnost husitská. Od léta 1434 náleží Hunyadiům, rodu krále Matyáše."},
+  Likava: {
+    t: "Hrad v Liptově",
+    n: "Hrad v Liptově. Župu liptovskou zastavil král Zikmund léta Páně 1430 své choti Barboře Celské a léta 1445 zasedl pan Pongrác z Liptova mezi sedmi hejtmany království. Kdo hrad drží nyní, je sporné.",
+  },
   Olsztyn: {
     t: "Královský hrad",
     n: "Pohraniční hrad u Čenstochové, jenž chrání Polsko proti Slezsku a Čechám. Starostenství drží potomci Jana ze Szczekocin, od léta Páně 1432 pan Piotr Woda.",
@@ -836,7 +841,10 @@ const CITYINFO = {
     t: "Hrad Jana Jiskry",
     n: "Královský hrad nad soutokem Hronu a Slatiny, jejž dal vystavěti Ludvík Veliký. Jest předním sídlem hejtmana Jiskry v Horních Uhrách.",
   },
-  Kremnice: {t: "Horní město", n: "Horní město zlatonosné s královskou mincovnou, odkudž pocházejí uherské dukáty zlaté. Drží je žoldnéři Jiskrovi."},
+  Kremnice: {
+    t: "Královské horní město",
+    n: "Zlaté a stříbrné doly s mincovnou, kde se razí uherské dukáty zlaté a kde se ražením zlata platí vojska pánů. Zdejší žíla je neobyčejně mocná; těžba však trpí neklidem v zemi, neboť horní města v okolí drží žoldnéři Jiskrovi.",
+  },
   "Vídeňské Nové Město": {
     t: "Rezidence císaře Fridricha III.",
     n: "Opevněné město na poledne od Vídně, milé sídlo císaře Fridricha III. Na hradě jeho jest kaple svatého Jiří se stěnou erbů.",
@@ -2525,7 +2533,7 @@ const CITYINFO = {
   Smolník: {t: "Horní město", n: "Horní město v horách nad Hnilcem, kde se od starých časů dobývá zlato a měď."},
   Lučenec: {
     t: "Městečko",
-    n: "Tržní městečko s opevněným klášterem, u něhož léta Páně 1451 pan Jiskra těžce porazil vojsko Hunyadiho; padlo tu několik baronů uherských.",
+    n: "Tržní městečko; nedaleko stojí opevněný klášter, který léta Páně 1451 obléhal Hunyadi. Pan Jiskra přispěchal obleženým na pomoc a porazil jeho vojsko tak těžce, že padlo několik baronů uherských.",
   },
   Varadín: {
     t: "Biskupské město",
@@ -2635,10 +2643,6 @@ const CITYINFO = {
   Velehrad: {
     t: "Klášter cisterciáků",
     n: "Cisterciácké opatství na Moravě, kde sloužili němečtí mniši od roku 1201. Podle pověsti stálo opatství poblíž hrobu svatého Metoděje.",
-  },
-  Kremnica: {
-    t: "Královské horní město",
-    n: "Zlaté a stříbrné doly s mincovnou, kde se ražením zlata platí vojska pánů. Zdejší žíla je neobyčejně mocná; těžba však trpí neklidem v zemi.",
   },
 };
 /*@cast}*/

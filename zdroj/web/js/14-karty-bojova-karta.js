@@ -269,8 +269,18 @@ function bojTahMoz(K, P) {
 function bdmTahPas(K, P) {
   const M = tahPohyb(P, kRychN(K)),
     {sp, as, ha} = bojTahMoz(K, P);
-  const tl = (ft, z, t) => `<button type="button" class="bdmmini" data-btpm="${ft}" ${btip(t)}>${z}</button>`;
-  return `<div class="bdmtah" role="group" aria-label="Pohyb a akce navíc v tomto tahu"><span class="bdmpoh${M.zbyva ? "" : " bdmpoh0"}" ${btip(`Pohyb v tomto tahu: zbývá ${M.zbyva} z ${M.max} stop${P.d ? ` (Sprint ${P.d}×)` : ""}`)}><small>Pohyb</small> <b>${M.zbyva}</b><i>/${M.max} st.</i></span>${M.zbyva ? tl(5, "−5", "Ušel jsem 5 stop") + tl(10, "−10", "Ušel jsem 10 stop") : ""}${M.m ? tl(-5, "↺5", "Vrátit 5 stop") : ""}${
+  /* políčka po 5 stopách (Vojta 2026-10-29): 30 stop = 6 políček, Sprint přidá další (jinou barvou); klepnutí na políčko = ušel jsem
+     až sem, klepnutí na poslední ušlé ho vrátí */
+  const n = Math.min(40, Math.floor(M.max / 5)),
+    u = Math.round(M.m / 5),
+    zak = Math.floor(M.r / 5);
+  const pol = [...Array(n)]
+    .map(
+      (_, j) =>
+        `<button type="button" class="bdmpol${j < u ? " on" : ""}${j >= zak ? " sp" : ""}" data-btpq="${j + 1 === u ? j : j + 1}" aria-label="${(j + 1) * 5} stop${j < u ? " – ušlé" : ""}" ${btip(j + 1 === u ? `Vrátit pohyb na ${j * 5} stop` : `Ušel jsem ${(j + 1) * 5} stop${j >= zak ? " (Sprint)" : ""}`)}></button>`,
+    )
+    .join("");
+  return `<div class="bdmtah" role="group" aria-label="Pohyb a akce navíc v tomto tahu"><span class="bdmpoh${M.zbyva ? "" : " bdmpoh0"}" ${btip(`Pohyb v tomto tahu: zbývá ${M.zbyva} z ${M.max} stop${P.d ? ` (Sprint ${P.d}×)` : ""} – jedno políčko je 5 stop`)}><small>Pohyb</small> <b>${M.zbyva}</b><i>/${M.max} st.</i></span><span class="bdmpols" role="group" aria-label="Políčka pohybu po 5 stopách">${pol}</span>${
     sp.length
       ? `<span class="bdmtsp"><small>Sprint:</small>${sp.map(([k, l, t]) => `<button type="button" class="bdmmini" data-btsp="${k}" ${btip(`${t} – pohyb navíc ${M.r} stop`)}>${l}</button>`).join("")}</span>`
       : ""
@@ -374,14 +384,14 @@ document.addEventListener("click", async e => {
   bojPrekresli();
 });
 document.addEventListener("click", async e => {
-  const b = e.target.closest && e.target.closest("[data-btpm],[data-btsp],[data-btas]");
+  const b = e.target.closest && e.target.closest("[data-btpq],[data-btsp],[data-btas]");
   if (!b || !BOJ.s) return;
   const me = ((BOJ.s || {}).hraci || []).find(h => h.n === bojJa.get()),
     K = me && bojKartaH(me);
   if (!K || !kMuze(K)) return;
   const P = bojBpt(BOJ.s),
     r = kRychN(K);
-  if (b.dataset.btpm) tahPohni(P, +b.dataset.btpm, r);
+  if (b.dataset.btpq != null) tahPohni(P, +b.dataset.btpq * 5 - tahPohyb(P, r).m, r);
   else if (b.dataset.btsp) {
     const [druh, ki] = b.dataset.btsp.split(":"),
       M = bojTahMoz(K, P);
@@ -456,7 +466,7 @@ function bojHracKarta(s, h, gm, vzdy) {
           .join("")
       : ""
   }<button type="button" class="break${rk ? " on" : ""}" ${gm ? `data-break="${h.id}"` : vzdy ? "data-bhrk" : "disabled"} aria-pressed="${rk}" ${btip(`Reakce – ${h.n}: ${rk ? "použita" : "k dispozici"}${gm || vzdy ? " (klikni)" : ""}`)}>R</button></span>`;
-  const head = `<div class="bnh">${bojMedH(h)}<span class="bnn"${gm && !vzdy ? ` data-bhrozb="${h.id}"` : ""}><b>${besc(h.n)}</b>${sub}</span>${acH}${hp}${kr ? `<span class="bkrb" ${btip(`Neléčená kritická zranění: ${(bojKritPC()[h.n] || []).map(x => x.t).join("; ")}`)}>${bi("rana")}${kr}</span>` : ""}${bojDsPip(h)}${!open && st.length ? `<span class="bstavy bakt">${st.map(t => `<span class="bst" role="img" aria-label="${besc(BSTI[t][1])}" ${btip(BSTI[t][1])}>${bi(BSTI[t][0])}</span>`).join("")}</span>` : ""}${!open && h.kryt ? `<span class="bkrbd" ${btip(`Za krytem: AC +${h.kryt}`)}>${bi(+h.kryt >= 5 ? "kryt-3-4" : "kryt-pul")}<small>+${h.kryt}</small></span>` : ""}${!open && rd ? `<b class="brdyh" ${btip("Připravená akce: " + rd)}>⏳</b>` : ""}${K && KKON[K.id] && kKonDrzi(K) ? `<span class="bkonbd" ${btip(`Soustředění: CON záchrana SO ${KKON[K.id]}`)}>${bi("soustredi")}<small>SO ${KKON[K.id]}</small></span>` : ""}${vzdy ? "" : `<span class="btahy" role="img" aria-label="${jed ? "V tomto kole jednal" : "Ještě nejednal"}" ${btip(jed ? "V tomto kole už jednal" : natahu ? "Je na tahu" : "V tomto kole ještě nejednal")}>${bi(jed ? "tahok" : "tah", jed ? "on" : "")}</span>`}${pips}${vzdy || !gm ? "" : `<button type="button" class="brozb" data-bhrozb="${h.id}" aria-expanded="${open}" aria-label="${open ? "Sbalit" : "Rozbalit"} kartu" ${btip(open ? "Sbalit kartu" : "Rozbalit – útok, kouzla, akce, záchrany")}>${bi("sipka")}</button>`}</div>`;
+  const head = `<div class="bnh">${bojMedH(h)}<span class="bnn"${gm && !vzdy ? ` data-bhrozb="${h.id}"` : ""}><b>${besc(h.n)}</b>${sub}</span>${acH}${hp}${kr ? `<span class="bkrb" ${btip(`Neléčená kritická zranění: ${(bojKritPC()[h.n] || []).map(x => x.t).join("; ")}`)}>${bi("rana")}${kr}</span>` : ""}${bojDsPip(h)}${!open && st.length ? `<span class="bstavy bakt">${st.map(t => `<span class="bst" role="button" tabindex="0" data-hlp="${besc(t)}" data-hlg="Stav" aria-label="${besc(BSTI[t][1])} – pravidlo" ${btip(BSTI[t][1] + " – klepni pro pravidlo")}>${bi(BSTI[t][0])}</span>`).join("")}</span>` : ""}${!open && h.kryt ? `<span class="bkrbd" ${btip(`Za krytem: AC +${h.kryt}`)}>${bi(+h.kryt >= 5 ? "kryt-3-4" : "kryt-pul")}<small>+${h.kryt}</small></span>` : ""}${!open && rd ? `<b class="brdyh" ${btip("Připravená akce: " + rd)}>⏳</b>` : ""}${K && KKON[K.id] && kKonDrzi(K) ? `<span class="bkonbd" ${btip(`Soustředění: CON záchrana SO ${KKON[K.id]}`)}>${bi("soustredi")}<small>SO ${KKON[K.id]}</small></span>` : ""}${vzdy ? "" : `<span class="btahy" role="img" aria-label="${jed ? "V tomto kole jednal" : "Ještě nejednal"}" ${btip(jed ? "V tomto kole už jednal" : natahu ? "Je na tahu" : "V tomto kole ještě nejednal")}>${bi(jed ? "tahok" : "tah", jed ? "on" : "")}</span>`}${pips}${vzdy || !gm ? "" : `<button type="button" class="brozb" data-bhrozb="${h.id}" aria-expanded="${open}" aria-label="${open ? "Sbalit" : "Rozbalit"} kartu" ${btip(open ? "Sbalit kartu" : "Rozbalit – útok, kouzla, akce, záchrany")}>${bi("sipka")}</button>`}</div>`;
   return `<div class="bnpc bhrk${open ? " bopen" : ""}${natahu ? " bnatahu" : ""}${h.ds ? " bhdsr" : ""}" data-bhcard="${h.id}"${open ? ` data-bhpan="${h.id}"` : ""}${K ? ` data-kid="${besc(K.id)}"` : ""} style="--mc:var(--bh,#2c517f)">${open && K ? bojHracRef(s, h, gm, K, vzdy, {pips}) : head + (open ? bojHracRef(s, h, gm, K, vzdy) : "")}</div>`;
 }
 function bojHracRef(s, h, gm, K, vzdy, dbm) {
@@ -1243,7 +1253,7 @@ function bojHracHp(hid, val) {
     if (zr > 0 && kKonDrzi(K) && (hp == null || hp > 0)) {
       KKON[K.id] = bojKonDC(zr);
       renderBoj();
-    } else if (hp === 0 && kKonDrzi(K)) kKonZtrata(K, "pád na 0 HP");
+    } else if (hp != null && hp <= 0 && kKonDrzi(K)) kKonZtrata(K, "pád na 0 HP");
   } else {
     const ks = kartaStav(K.id),
       o = {hp: ks.hp, thp: ks.thp, ds: h.ds ? JSON.parse(JSON.stringify(h.ds)) : undefined},
@@ -1388,6 +1398,7 @@ document.addEventListener("click", e => {
 /* linkové ikonky karty (2026-10-22, středověké motivy): štít · meč · grimoár · truhla · kbelcová přilba · husí brk · otevřený
    foliant · ohniště · klíč · vycházející slunce · list s pečetí · kostka s oky · svitek; u zbraní meč (zblízka) a šíp (na dálku) */
 const BDMI = {
+  prav: '<path d="M2.5 3.2c1.9-.6 3.8-.4 5.5.7v9.6c-1.7-1.1-3.6-1.3-5.5-.7ZM13.5 3.2c-1.9-.6-3.8-.4-5.5.7"/><path d="M13.5 3.2v4.2"/><circle cx="11.6" cy="10.6" r="2"/><path d="m13 12 1.6 1.6"/>',
   spol: '<path d="M3 13.5c0-2.9 1.6-5 3.9-5.6L5.6 4.2 8 5.6l2.4-1.4-1.3 3.7c2.3.6 3.9 2.7 3.9 5.6"/><circle cx="6.6" cy="10.2" r=".5" fill="currentColor"/>',
   ohen: '<path d="M8 1.8c.4 2.2 2.8 3.4 2.8 6a2.8 2.8 0 0 1-5.6 0c0-1.4.8-2.2 1.4-3 .2 1 .7 1.6 1.2 1.8C7.6 5.2 7.4 3.4 8 1.8Z"/><path d="M2.4 14.2 13.6 11.6M2.4 11.6l11.2 2.6"/>',
   kolo: '<circle cx="4.6" cy="8.4" r="2.6"/><path d="M7.2 8.4h6.4M11 8.4v2.6M13.6 8.4v2"/>',
@@ -1402,8 +1413,8 @@ const BDMI = {
 };
 const bdmIc = (k, c) =>
   `<svg class="bdmic${c ? " " + c : ""}" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">${BDMI[k] || ""}</svg>`;
-/* záložky karty jako malované kolčí štíty (2026-10-23, Vojta): art/img/zalozky/<id>-48/96.webp; Společníci štít zatím nemají (linková ikona) */
-const BDMSTITY = new Set(["vl", "akce", "kouzla", "vyb", "rysy", "denik", "zaznam"]);
+/* záložky karty jako malované kolčí štíty (2026-10-23, Vojta): art/img/zalozky/<id>-48/96.webp; Společníci štít zatím nemají (linková ikona); Pravidla mají tenné pole s otevřenou knihou (2026-10-29) */
+const BDMSTITY = new Set(["vl", "akce", "kouzla", "vyb", "rysy", "denik", "zaznam", "prav"]);
 const bdmZalIk = id =>
   BDMSTITY.has(id)
     ? `<img class="bdmzik" src="art/img/zalozky/${id}-48.webp" srcset="art/img/zalozky/${id}-96.webp 2x" width="32" height="48" alt="" aria-hidden="true" decoding="async">`
@@ -1418,6 +1429,7 @@ const BDMS = [
   ["denik", "Poznámky a deník", "Poznámky"],
   ["zaznam", "Herní záznam: moje hody a záznam boje", "Záznam"],
   ["spol", "Společníci", "Společníci"],
+  ["prav", "Pravidla: hledání v Artikulích, Pravidlech SRD, kouzlech, předmětech a vybavení", "Pravidla"],
 ];
 const BDM = {sec: {}, sheet: null, hlo: new Set(), af: {}, kf: {}, fokus: null, utx: new Set(), stt: "st"};
 /* ruční přidání účinku (2026-10-23, Vojta): náhrada, když se něco pokazí – jméno (nabídka účinků, které karta zná), trvání, soustředění;
@@ -1684,7 +1696,7 @@ function bdmAkce(s, h, K, gm, X) {
       ? `<section class="bdmgrp${uA ? " bdmused" : ""}"${uA ? " inert" : ""}><h4 class="bdmgh">Zbraně <small>· útoků za akci: ${apa}</small></h4><div class="bdmuth"><span></span><span>Zbraň</span><span>Dosah</span><span>Zásah</span><span>Zranění</span></div>${bdmUtoky(s, h, K, gm, X)}</section>`
       : `<p class="bdmnote">Žádná zbraň – útok beze zbraně nebo kouzlem (oddíl Kouzla).</p>`;
     telo = `${kForma(K) ? kFormaHtml(K) : ""}${ut}${kInvPouzHtml(K)}${G.A.length ? `<section class="bdmgrp${uA ? " bdmused" : ""}"${uA ? " inert" : ""}><h4 class="bdmgh">Schopnosti za akci</h4>${sez(G.A, "")}</section>` : ""}${kSermHtml(K) ? `<section class="bdmgrp bdmserm">${kSermHtml(K)}</section>` : ""}
-    <details class="bdmstd"><summary>Běžné akce v boji</summary>${BAKCE.map(a => `<abbr ${btip(`${a[1]}: ${a[2]}`)}>${besc(a[0])}</abbr>`).join(", ")}</details>${rdH}`;
+    <details class="bdmstd"><summary>Běžné akce v boji</summary>${BAKCE.map(a => `<abbr role="button" tabindex="0" data-hlp="${besc(a[1])}" data-hlg="Pravidla SRD" ${btip(`${a[1]}: ${a[2]} – klepni pro pravidlo`)}>${besc(a[0])}</abbr>`).join(", ")}</details>${rdH}`;
   } else if (af === "BA") {
     telo = `<section class="bdmgrp${uB ? " bdmused" : ""}"${uB ? " inert" : ""}>${sez(G.BA, "Žádná schopnost za bonusovou akci.")}${spJm(spBA)}</section>`;
   } else if (af === "R") {
@@ -1926,6 +1938,7 @@ function bdmTelo(s, h, K, gm, X, id) {
   if (id === "zaznam")
     return `<div class="kdb2 bdmkdb"><p class="kdbnote">Tvoje hody z karty i z Boje a veřejný záznam boje. Klepnutím na kostku dole hodíš cokoli.</p>${kZaznamHtml(K)}</div>`;
   if (id === "spol") return kFormaHtml(K) + kSpolHtml(K);
+  if (id === "prav") return hlBoxHtml("bdmhl");
   return "";
 }
 /* hody proti smrti mimo boj (2026-10-19): stav karty `ds` {u,n,st}; v boji je nese účastník boje (h.ds) */
@@ -2178,7 +2191,7 @@ function bojDbm(s, h, K, gm, vzdy, X) {
     sv = kSvKl(D.sv),
     shOpen = BDM.sheet && BDM.sheet.k === key ? BDM.sheet.t : "";
   const hpB = c =>
-    `<button type="button" class="bdmhp${c || ""}${cur <= 0 ? " bhp0" : cur <= mx / 2 ? " bhp2" : ""}" data-bdmsh="hp" aria-expanded="${shOpen === "hp"}" ${btip("Životy – klikni: zranění, léčení, dočasné HP")}><small>Životy</small><b>${cur}<i>/${mx}</i>${thp ? `<em>+${thp}</em>` : ""}</b>${c ? "" : dsH}<i class="bdmhpbar" style="--p:${pr}%"></i></button>`;
+    `<button type="button" class="bdmhp${c || ""}${cur <= 0 ? " bhp0" : cur <= mx / 2 ? " bhp2" : ""}" data-bdmsh="hp" aria-expanded="${shOpen === "hp"}" ${btip("Životy – klikni: zranění, léčení, dočasné HP")}><small>Životy</small><b>${cur}<i>/${mx}</i>${thp ? `<em>+${thp}</em>` : ""}</b>${c ? "" : dsH}<i class="bdmhpbar" style="--p:${pr}%${thp ? `;--t:${Math.min(100, Math.round((thp / Math.max(1, mx)) * 100))}%` : ""}"${thp ? ` ${btip(`Dočasné životy ${thp} (žlutá linka)`)}` : ""}></i></button>`;
   /* hlavička (2026-10-21, kompaktní): co dřív stálo v pruhu pod ní, je uvnitř – Hodina Závoje u podtitulu, rány jako odznak
      na portrétu, vyčerpání mezi stavy, hody proti smrti pod životy; reakce nad portrétem, inspirace pod ním bez popisku */
   const zavH =

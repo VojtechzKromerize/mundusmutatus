@@ -192,7 +192,7 @@ async def main():
     chk(not await g.locator("#bpravidla").is_visible(),"pravidla se při tom zavřou")
     await g.select_option("[data-bkd]","drak");await g.fill("[data-bkr]","1");await g.fill("[data-bkp]","10");await g.click("[data-bkhod]");await klid(g,150)
     kt=await g.locator(".bkrit").inner_text();print("krit:",kt[:160].replace("\n"," | "))
-    chk(re.search(r"d10 \d+ \+ 3 = \d+",kt) is not None and any(x in kt for x in ["Hlava","Trup","Křídla","Nohy a ocas"]),"kritické zranění draka: modifikátor +3 a místo zásahu")
+    chk(re.search(r"k10 \d+ \+ 3 = \d+",kt) is not None and any(x in kt for x in ["Hlava","Trup","Křídla","Nohy a ocas"]),"kritické zranění draka: modifikátor +3 a místo zásahu")
     await g.screenshot(path=OUT+"5-boj-novy.png",full_page=True)
     await g.keyboard.press("Escape");await dokud(g,"getComputedStyle(document.querySelector('#bkritsup')).visibility==='hidden'",3000)  # šuplík odjede přechodem 0,22 s
     chk(not await g.locator("#bkritsup").is_visible(),"Escape šuplík zavře")
@@ -300,7 +300,7 @@ async def main():
     v=await b.new_page(viewport={"width":1200,"height":900});v.on("pageerror",lambda e:err.append("vybavení: "+str(e)[:300]))
     v.on("dialog",lambda d:asyncio.ensure_future(d.accept("2")))
     await sleduj(v);await v.goto(GM+"#pravidla/vybaveni");await v.wait_for_function("!!VYB&&document.querySelectorAll('.vybr').length>600",timeout=20000)
-    chk(await v.locator("section.vybsek").count()==11 and await v.locator(".vybr .bik-zv").count()>=30,"stránka Vybavení: 11 oddílů, zbraně s ikonami vlastností podle Artikulí")
+    chk(await v.locator("section.vybsek").count()==12 and await v.locator(".vybr .bik-zv").count()>=30,"stránka Vybavení: 12 oddílů (vč. Služby a mzdy), zbraně s ikonami vlastností podle Artikulí")
     await v.fill("[data-vybq]","Greatsword");await klid(v,400)
     await v.locator(".vybr [data-vybpop]").first.click();await klid(v,300);pt=await v.locator(".mmpop").inner_text()
     chk("Artikule" in pt and "Půlmeč" in pt and "Ostrá" in pt,"popis zbraně nese vlastnosti z Artikulí: "+pt[:120].replace("\n"," | "))

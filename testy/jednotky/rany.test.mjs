@@ -12,11 +12,12 @@ test("čisté: léčba rány podle závažnosti", () => {
   assert.deepEqual(C.V(`ranaLecba("Těžká (Trup): Krvácivá rána – krvácení D6")`), {
     st: 1,
     pomine: false,
-    lek: 13,
+    lek: 12,
     lesser: true,
     greater: true,
     gm: false,
   });
+  assert.equal(C.V(`ranaLecba("Těžká (Trup): Krvácivá rána", 2).lek`), 16, "SO 12 + 2 za každé další neléčené kritické zranění");
   assert.deepEqual(C.V(`ranaLecba("Vážná (Paže): Rozťaté předloktí")`), {st: 2, pomine: false, lek: null, lesser: false, greater: true, gm: true});
   assert.equal(C.V(`ranaLecba("Smrtelná (Hlava): Rozpoltěná lebka").greater`), false);
 });

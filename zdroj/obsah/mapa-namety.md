@@ -43,5 +43,5 @@
 - Vrhnika | Pověst o Argonautech, kteří nesli loď přes hory: v Lublaňském blatě může ležet zbytek prastaré lodi nebo „zlaté rouno“, jež po Proměně láká hledače pokladů. Blato samo může skrývat bytost, kterou si Lublaňané později dají do znaku.
 - Cerknické jezero | Když voda zmizí, otevřou se jeskyně, kudy odtekla – brána do podzemí Krasu. Po Noci Proměny tudy mohou vycházet bytosti z hlubin a sedláci se bojí léta, kdy jezero mizí.
 - Gastein a Rauris | Zlato v Taurách láká havíře z celých Alp; čeští havíři bez práce (Kutná Hora stojí) tu mohou najít chléb i nepřátele. Teplé lázně v Gasteinu mají pověst zázračné vody – po Proměně snad doopravdy.
-- Benátský Arzenál | Rada desíti platí zvědy a kupuje zprávy o dracích: drak nad lagunou by ohrozil galéry i obchod. V Arzenálu se zkoušejí velké kuše a „řecký oheň“ proti obludám – zakázka pro družinu, která draka viděla zblízka.
+- Benátský Arzenál | Rada desíti platí zvědy a kupuje zprávy o dracích: drak nad lagunou by ohrozil galéry i obchod. V Arzenálu se zkoušejí velké kuše a hořlavé směsi smolné a olejové proti obludám – zakázka pro družinu, která draka viděla zblízka.
 - Svatý Marek v Benátkách | Z Benátek plují poutní lodě do Jaffy a družina může nastoupit. Krádež ostatků svatého Marka (ukrytých pod vepřovým) je vzorem pro zakázku: někdo chce z Čech vyvézt relikvii stejnou lstí.

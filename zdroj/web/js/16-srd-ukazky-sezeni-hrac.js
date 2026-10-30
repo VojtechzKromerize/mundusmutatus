@@ -1575,7 +1575,7 @@ function hraVypravList(K) {
 function hraUcetHtml(K) {
   if (!hraMoje(K)) return "";
   const ja = JA.get() || {};
-  return `${aplikaceHtml(K.id)}<p class="bojbtn">${notifBtn()}${window.MMDB && !(ja.d && DCU.typ !== "email") ? `<button type="button" class="gbtn ghost" data-jaheslo>Změnit heslo</button>` : ""}${ja.d ? `<button type="button" class="gbtn ghost" data-discordx>${jaOdhlasTxt()} (${besc(K.n)})</button>` : `<button type="button" class="gbtn ghost" data-jaodhlas>Odhlásit (${besc(K.n)})</button>`}</p>`;
+  return `${aplikaceHtml(K.id)}<p class="bojbtn">${notifBtn()}${mmMotivBtn()}${mmKbSel()}${window.MMDB && !(ja.d && DCU.typ !== "email") ? `<button type="button" class="gbtn ghost" data-jaheslo>Změnit heslo</button>` : ""}${ja.d ? `<button type="button" class="gbtn ghost" data-discordx>${jaOdhlasTxt()} (${besc(K.n)})</button>` : `<button type="button" class="gbtn ghost" data-jaodhlas>Odhlásit (${besc(K.n)})</button>`}</p>`;
 }
 /* ===== řídicí pult vypravěče (2026-10-22): Hra = Boj + záložky Družina a Sezení (dřívější stránka Hra vypravěče) =====
    renderBoj (20d) obalí #bojview navigací (pultObal); v záložce Družina/Sezení vykreslí pultVykresli místo boje. */
@@ -1627,6 +1627,52 @@ function pultDruzinaHtml() {
       <section><h3 class="uvh2">Odpočinek družiny</h3><p class="kvlh"><button type="button" class="gbtn ghost" data-hrodpd ${btip("Všem postavám obnoví životy, sloty a zdroje podle pravidel dlouhého odpočinku (Svědomí, vyčerpání −1) a posune herní čas o 8 hodin – světla a účinky, kterým čas vypršel, skončí samy")}>Dlouhý odpočinek všem (8 h)</button></p><p class="rsmall">Krátký odpočinek: výzva „krátkému odpočinku“ výše – každý hráč utratí kostky životů sám.</p></section>
       <section><h3 class="uvh2">Postup na úroveň</h3><form class="kvlh" data-hrpost><label>Družina má mít úroveň <input name="u" type="number" min="1" max="20" value="${+((HRA && HRA.postup) || 0) || ""}" aria-label="Úroveň"></label><button class="gbtn ghost">Oznámit postup</button></form><p class="rsmall">Hráčům s nižší úrovní se na kartě ukáže výzva nahrát nové PDF.</p></section>`;
 }
+/* chyby webu z prohlížečů hráčů i vypravěče (mm_chyba, 01) – načtou se při prvním otevření záložky Sezení */
+let CHYBY = null;
+function chybyNacti() {
+  if (!window.MMDB || !MMDB.chyby) return;
+  MMDB.chyby()
+    .then(j => {
+      CHYBY = Array.isArray(j) ? j : [];
+      if (curView === "boj" && PULTTAB === "sezeni") renderBoj();
+    })
+    .catch(() => {
+      CHYBY = [];
+    });
+}
+function chybyHtml() {
+  if (!window.MMDB || !MMDB.chyby) return "";
+  if (CHYBY === null) {
+    CHYBY = [];
+    chybyNacti();
+  }
+  const cas = c => {
+    const d = new Date(c);
+    return isNaN(d) ? "" : `${d.getDate()}. ${d.getMonth() + 1}. ${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
+  };
+  const kdo = k => (k === "vypravěč" ? "vypravěč" : k ? (KARTBY[k] || {}).n || k : "nepřihlášený");
+  return `<section class="chyby"><h3 class="uvh2">Chyby na webu${CHYBY.length ? ` <small>(${CHYBY.length})</small>` : ""}</h3>${
+    CHYBY.length
+      ? `<ul class="chybyl">${CHYBY.slice(0, 30)
+          .map(
+            c =>
+              `<li><b>${besc(c.zprava)}</b>${c.pocet > 1 ? ` <span class="chpoc">${c.pocet}×</span>` : ""}<small>${besc(cas(c.posl))} · ${besc(kdo(c.kdo))}${c.stranka ? ` · ${besc(c.stranka)}` : ""}${/Mobile|Android|iPhone/.test(c.ua || "") ? " · telefon" : ""}</small>${c.misto ? `<code>${besc(c.misto)}</code>` : ""}</li>`,
+          )
+          .join("")}</ul>`
+      : `<p class="rsmall">Žádné chyby – web zatím nic nenahlásil.</p>`
+  }<p class="bojbtn"><button type="button" class="gbtn ghost" data-chybyobn>Načíst znovu</button>${CHYBY.length ? `<button type="button" class="gbtn ghost" data-chybysmaz>Smazat vše</button>` : ""}</p><p class="rsmall">Web sám hlásí chyby skriptu z prohlížečů hráčů i tvého (nejvýš 12 za návštěvu, stejná chyba se sčítá, po 30 dnech se mažou). Pošli je Claudovi k opravě.</p></section>`;
+}
+document.addEventListener("click", async e => {
+  if (!GMV) return;
+  if (e.target.closest("[data-chybyobn]")) chybyNacti();
+  else if (e.target.closest("[data-chybysmaz]")) {
+    if (!confirm("Smazat všechny nahlášené chyby?")) return;
+    try {
+      await MMDB.chybySmaz();
+    } catch (x) {}
+    chybyNacti();
+  }
+});
 function pultSezeniHtml() {
   return `${hraZmenyHtml()}
       <section><h3 class="uvh2">Ukázat hráčům</h3>${ukForm()}<p class="rsmall"><a href="#sezeni">Příprava sezení →</a></p></section>
@@ -1635,6 +1681,7 @@ function pultSezeniHtml() {
       <section><h3 class="uvh2">Hody do Discordu</h3><form class="kvlh" data-discordf><input name="u" placeholder="https://discord.com/api/webhooks/…" style="flex:1" aria-label="Webhook kanálu"><button class="gbtn ghost">Uložit</button></form><p class="rsmall">Na Discordu: nastavení kanálu → Integrace → Webhooky → Nový webhook → Kopírovat URL. Každý hod z karet pak přijde do kanálu (skryté hody vypravěče ne). Prázdné pole webhook zruší.</p></section>
       <section><h3 class="uvh2">Příkaz /hod na Discordu</h3><p class="rsmall">Hráči házejí přímo z Discordu (<code>/hod Stealth</code>, <code>/hod záchrana CON</code>, <code>/hod 2d6+3</code>); hod se zapíše sem do záznamu za jejich postavu – podle účtu Discord, kterým se na webu přihlásili. Jednorázové nastavení: v Discord Developer Portal u aplikace vlož do <b>Interactions Endpoint URL</b> adresu <code>${besc(((window.MMDB && MMDB.cfg) || {}).url || "https://…supabase.co")}/functions/v1/mm-discord</code>; v Supabase (Edge Functions → Secrets) ulož <code>DISCORD_PUBLIC_KEY</code>, <code>DISCORD_APP_ID</code> a <code>DISCORD_TOKEN</code> (token bota nikomu neposílej). Pak klikni:</p><p><button type="button" class="gbtn ghost" data-discprik>Zaregistrovat příkaz /hod</button></p></section>
       ${aplikaceHtml(null)}
+      ${chybyHtml()}
       <section><h3 class="uvh2">Jak hrát na webu (pro hráče)</h3>${NAVOD}</section>`;
 }
 /* záložka Družina / Sezení; nepřekreslí, když vypravěč zrovna píše – dokreslí se po opuštění pole */

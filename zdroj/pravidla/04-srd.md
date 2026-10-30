@@ -18,7 +18,7 @@ Mince váží zhruba třetinu unce, takže padesát mincí váží jednu libru.
 | Zlaťák (GP) | 1 |
 | Platiňák (PP) | 10 |
 
-> **Artikule:** V Koruně české se ve hře počítá v groších a kopách grošů (1 kopa = 60 pražských grošů). Ceny v tomto textu jsou ponechány podle SRD.
+> **Artikule:** V Koruně české se ve hře počítá v haléřích, groších, kopách grošů a zlatých (10 haléřů = 1 groš, 1 kopa = 60 grošů, uherský zlatý = 40 grošů). Ceny v tomto textu jsou ponechány podle SRD; katalog vybavení uvádí dobové ceny v groších.
 
 ### Zbraně
 
@@ -48,7 +48,7 @@ Zde jsou vysvětleny vlastnosti uvedené ve sloupci Vlastnosti tabulky Zbraně.
 
 **Ammunition (Střelivo).** Zbraní s touto vlastností můžeš provést útok na dálku pouze tehdy, máš-li pro ni střelivo. Potřebný druh střeliva je uveden u dostřelu zbraně. Každý útok spotřebuje jeden kus střeliva. Vytažení střeliva je součástí útoku; k nabití jednoruční zbraně potřebuješ volnou ruku. Po boji můžeš strávit 1 minutu sbíráním použitého střeliva a získat zpět polovinu kusů, které jsi v boji spotřeboval (zaokrouhleno dolů). Zbytek je ztracen.
 
-**Finesse (Obratná).** Při útoku touto zbraní si můžeš pro hody na útok a na zranění zvolit modifikátor STR nebo DEX. Pro oba hody musíš použít stejný modifikátor.
+**Finesse (Lehkoruká).** Při útoku touto zbraní si můžeš pro hody na útok a na zranění zvolit modifikátor STR nebo DEX. Pro oba hody musíš použít stejný modifikátor.
 
 **Heavy (Těžká).** K hodům na útok touto zbraní máš nevýhodu, pokud jde o zbraň na blízko a tvá hodnota STR je nižší než 13, nebo pokud jde o zbraň na dálku a tvá hodnota DEX je nižší než 13.
 
@@ -104,7 +104,7 @@ Používáš-li jako provizorní zbraň nějaký předmět – například nohu 
 | Mace (palcát) | 1d6 Bludgeoning | — | Sap | 4 lb. | 5 GP |
 | Quarterstaff (hůl) | 1d6 Bludgeoning | Versatile (1d8) | Topple | 4 lb. | 2 SP |
 | Sickle (srp) | 1d4 Slashing | Light | Nick | 2 lb. | 1 GP |
-| Spear (kopí) | 1d6 Piercing | Thrown (dostřel 20/60), Versatile (1d8) | Sap | 3 lb. | 1 GP |
+| Spear (kopí) | 1d6 Piercing | Thrown (dostřel 20/60), Versatile (1d8), Reach (Artikule) | Sap | 3 lb. | 1 GP |
 | *Jednoduché zbraně na dálku* | | | | | |
 | Dart (vrhací šipka) | 1d4 Piercing | Finesse, Thrown (dostřel 20/60) | Vex | 1/4 lb. | 5 CP |
 | Light Crossbow (lehká kuše) | 1d8 Piercing | Ammunition (dostřel 80/320; šipka), Loading, Two-Handed | Slow | 5 lb. | 25 GP |
@@ -134,21 +134,29 @@ Používáš-li jako provizorní zbraň nějaký předmět – například nohu 
 | Hand Crossbow (ruční kuše) | 1d6 Piercing | Ammunition (dostřel 30/120; šipka), Light, Loading | Vex | 3 lb. | 75 GP |
 | Heavy Crossbow (těžká kuše) | 1d10 Piercing | Ammunition (dostřel 100/400; šipka), Heavy, Loading, Two-Handed | Push | 18 lb. | 50 GP |
 | Longbow (dlouhý luk) | 1d8 Piercing | Ammunition (dostřel 150/600; šíp), Heavy, Two-Handed | Slow | 2 lb. | 50 GP |
-| Musket (mušketa) | 1d12 Piercing | Ammunition (dostřel 40/120; kulka), Loading, Two-Handed | Slow | 10 lb. | 500 GP |
-| Pistol (pistole) | 1d10 Piercing | Ammunition (dostřel 30/90; kulka), Loading | Vex | 3 lb. | 250 GP |
+| Musket (hákovnice) | 1d12 Piercing | Ammunition (dostřel 40/120; kulka), Loading, Two-Handed | Slow | 10 lb. | 500 GP |
+| Pistol (píšťala) | 1d10 Piercing | Ammunition (dostřel 30/90; kulka), Loading | Vex | 3 lb. | 250 GP |
 
-> **Artikule:** Vedle vlastností SRD mají zbraně perky, které platí pro každého, kdo má se zbraní zdatnost (Weapon Mastery se nemění):
-> - **Drtivá** (Mace, Flail, Warhammer) – ignoruje Resistance zbroje proti Bludgeoning zranění.
-> - **Průrazná** (Handgun, Heavy Crossbow, Lance, Halberd, War Pick) – ignoruje Resistance zbroje proti Piercing zranění.
-> - **Ratiště** (Halberd, Pike, Glaive, Spear) – příležitostný útok, když nepřítel vstoupí do dosahu 10 stop; v kontaktu na 5 stop nevýhoda.
-> - **Šikovná** (Shortsword, Longsword, Greatsword, Scimitar, Warhammer, Halberd) – typ zranění se volí před hodem.
-> - **Ostrá** (Shortsword, Longsword, Greatsword, Scimitar) – Slashing zásah proti cíli bez Resistance je kritický na 19–20.
-> - **Půlmeč** (Longsword, Greatsword) – bonusovou akcí přehmat: Piercing zranění s perkem Průrazná, kostka zranění o stupeň níž.
-> - **Do slabin!** (Dagger) – Požehnání na kostce Závoje proti Spoutanému (Restrained) nebo Sraženému (Prone) cíli = kritický zásah.
-> - **Strhující** (Halberd, Glaive) – Požehnání proti jezdci: strhne ho ze sedla.
-> - **Vpřed!** (Lance) – po 15 stopách jízdy dvojnásobek kostek zranění, kritický zásah 4×.
-> - **Štěpící** (Greataxe) – Požehnání proti cíli se štítem: zničí štít.
-> - **Hrom a kouř!** (Handgun) – Pokušení: zbraň selže a je nutná oprava; Požehnání: dým dává střelci výhodu proti útokům zblízka.
+> **Artikule:** Vedle vlastností SRD mají zbraně perky, které platí pro každého, kdo má se zbraní zdatnost (mistrovství zbraní se nemění). Pasivní platí vždy, aktivní podle kostky Závoje: Požehnání dává výhodu, odmítnuté Pokušení komplikaci. Záchrana proti perku má SO 8 + bonus zdatnosti + STR útočníka.
+> - **Krvežíznivá** (Sickle, Scimitar, Glaive, Longbow, Shortbow) – Požehnání: cíl bez odolnosti vůči typu zranění krvácí k4 do ošetření. Pokušení: zbraň uvízne v ráně, vytrhnout ji stojí bonusovou akci.
+> - **Drtivá** (Maul, Mace, Flail, Warhammer) – ignoruje odolnost zbroje vůči drtivému zranění.
+> - **Omračující** (Club, Greatclub, Mace, Flail, Morningstar, Maul, Sling) – Požehnání: záchrana na CON, jinak cíl do konce svého příštího tahu bez reakce a s nevýhodou na hody na útok. Pokušení: do svého příštího tahu jsi bez reakce ty.
+> - **Ratiště** (Halberd, Pike, Glaive, Spear) – dosah 10 stop (v Artikulích i kopí); příležitostný útok, když nepřítel vstoupí do dosahu 10 stop; v kontaktu na 5 stop nevýhoda. Zapřená zbraň (bonusová akce) proti útoku s Vpřed! = automatický kritický zásah.
+> - **Ničivá** (Warhammer, War Pick, Heavy Crossbow, Musket) – Požehnání: zbroj cíle ztrácí jedno obětování. Pokušení: zbraň praská a ztrácí Ničivou až do opravy.
+> - **Průrazná** (Pistol, Musket, Heavy Crossbow, Lance, Halberd, War Pick) – ignoruje odolnost zbroje vůči bodnému zranění.
+> - **Odvetná** (Shortsword, Longsword, Rapier, Greatsword) – Požehnání: cíl na tebe do konce svého příštího tahu nemůže použít reakci; mine-li tě nepřítel s Pokušením, smíš reakcí provést protiútok. Pokušení: ztrácíš reakci.
+> - **Šikovná** (Shortsword, Longsword, Greatsword, Halberd) – typ zranění se volí před hodem.
+> - **Přibodnutí** (Spear, Pike) – Požehnání: cíl má do začátku tvého příštího tahu rychlost 0, ty se nesmíš pohnout. Pokušení: cíl se ti může reakcí pokusit vytrhnout zbraň (záchrana na STR).
+> - **Ostrá** (Shortsword, Longsword, Greatsword, Scimitar, Battleaxe) – sečný zásah proti cíli bez odolnosti je kritický už na 19–20.
+> - **Půlmeč** (Longsword, Greatsword) – bonusovou akcí přehmat: bodné zranění s perkem Průrazná, kostka zranění o stupeň níž.
+> - **Do slabin!** (Dagger) – Požehnání proti cíli, který je Spoután (Restrained) nebo Sražen (Prone) = kritický zásah. Pokušení: další útok proti tobě má výhodu.
+> - **Strhující** (Halberd) – Požehnání: záchrana na CON, jinak je cíl Sražen (Prone). Pokušení: cíl tě strhne o 5 stop k sobě a může reakcí zaútočit.
+> - **Vpřed!** (Lance) – po 15 stopách jízdy rovně dvojnásobek kostek zranění, kritický zásah 4×.
+> - **Štěpící** (Greataxe, Handaxe, Battleaxe) – Požehnání: zničí štít cíle. Pokušení: cíl se ti může reakcí pokusit vytrhnout sekeru ze štítu (záchrana na STR).
+> - **Nepřímá** (Longbow, Shortbow, Sling) – střela obloukem ignoruje poloviční kryt.
+> - **Hrom a kouř!** (Pistol, Musket) – Požehnání: dým dává střelci na 1 kolo výhodu proti útokům zblízka. Pokušení: zbraň selže a před dalším výstřelem ji musíš vyčistit (bonusová akce); při 1 na k20 a 1 na Závoji vybuchne (střelci 2k8 ohnivého zranění).
+>
+> **Pomalá, ale těžká rána:** těžká kuše, píšťala (Pistol) a hákovnice (Musket) vystřelí jednou za akci Útok; za každý útok navíc z Extra Attack přidají jednu kostku zbraně (modifikátor jen jednou).
 
 ### Zbroj
 
@@ -196,7 +204,7 @@ Tvor může mít na sobě najednou jen jednu zbroj a třímat najednou jen jeden
 | *Štít (obléknutí nebo odložení akcí Použití)* | | | | | |
 | Shield (štít) | +2 | — | — | 6 lb. | 10 GP |
 
-> **Artikule:** Zbroj dává Resistance podle druhu: vycpávaná (Padded, Leather, Studded Leather, Hide) – Bludgeoning; kroužková (Chain Shirt, Scale Mail, Ring Mail, Chain Mail) – Bludgeoning a Slashing; plátová (Breastplate, Half Plate, Splint) – Slashing a Piercing; komplexní (Plate) – Bludgeoning, Slashing a Piercing.
+> **Artikule:** Zbroj dává odolnost podle druhu: vycpávaná (Padded, Leather, Studded Leather, Hide) proti drtivému zranění; kroužková (Chain Shirt, Scale Mail, Ring Mail, Chain Mail) proti drtivému a sečnému; plátová (Breastplate, Half Plate, Splint) proti sečnému a bodnému; komplexní (Plate) proti drtivému, sečnému a bodnému.
 >
 > **Obětování zbroje:** při kritickém zásahu smí postava obětovat zbroj nebo štít a kritický zásah se změní v běžný (vycpávaná zbroj a štít 1×, kroužková 2×, plátová a komplexní 3×); poté zbroj nedává AC, dokud ji kovář neopraví (nebo postava s kovářským nářadím během dlouhého odpočinku).
 >

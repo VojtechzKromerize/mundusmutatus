@@ -165,7 +165,7 @@ Mnohá kouzla určují, že cíl si hází záchranný hod, aby se vyhnul někte
 
 **SO záchrany proti kouzlu** = 8 + modifikátor tvé sesílací vlastnosti + tvůj bonus zdatnosti
 
-> **Artikule:** Záchranný hod je test d20, takže se k němu hází i Kostka Závoje (d6): 1–2 Pokušení (přijmout = bod hříchu, odmítnout = komplikace), 3–4 bez efektu, 5–6 Požehnání. Výsledek d20 se nemění.
+> **Artikule:** K záchrannému hodu se kostka Závoje nehází – jen k ověřením (i k iniciativě) a hodům na útok.
 
 ##### Hody na útok
 
@@ -173,7 +173,7 @@ Některá kouzla vyžadují, aby sesilatel hodil na útok, a určil tak, zda kou
 
 **Modifikátor útoku kouzlem** = modifikátor tvé sesílací vlastnosti + tvůj bonus zdatnosti
 
-> **Artikule:** I k hodu na útok kouzlem se hází Kostka Závoje (Pokušení / bez efektu / Požehnání, viz výše). Při kritickém zásahu kouzlem hází zasažený na kritické zranění.
+> **Artikule:** I k hodu na útok kouzlem se hází kostka Závoje (Pokušení / bez efektu / Požehnání). Při kritickém zásahu kouzlem hází zasažený na kritické zranění.
 
 ##### Kombinování účinků kouzel
 

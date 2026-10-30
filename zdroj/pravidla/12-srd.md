@@ -83,7 +83,7 @@ Při každém prodloužení trvá Zuřivost do konce tvého příštího tahu. Z
 
 Dokud nemáš na sobě žádnou zbroj, tvoje základní třída zbroje (AC) se rovná 10 plus tvé opravy Obratnosti a Odolnosti. Můžeš používat štít a tuto výhodu si přesto ponecháš.
 
-> **Artikule:** Bez zbroje nemáš Resistance, kterou v Mundus Mutatus poskytuje zbroj, a nemůžeš ani obětovat zbroj proti kritickému zásahu; obětovat lze jen štít (1×).
+> **Artikule:** Bez zbroje nemáš odolnost, kterou v Mundus Mutatus poskytuje zbroj, a nemůžeš ani obětovat zbroj proti kritickému zásahu; obětovat lze jen štít (1×).
 
 ### Úroveň 1: Weapon Mastery
 
@@ -91,7 +91,7 @@ Díky výcviku se zbraněmi můžeš používat vlastnosti mistrovství (mastery
 
 Když dosáhneš určitých úrovní Barbariana, získáš schopnost používat vlastnosti mistrovství dalších druhů zbraní, jak ukazuje sloupec Weapon Mastery tabulky Rysy Barbariana.
 
-> **Artikule:** Weapon Mastery funguje beze změny. Navíc platí perky zbraní (Drtivá, Průrazná, Ratiště, Šikovná, Ostrá, Půlmeč, Štěpící aj.) pro každého, kdo má se zbraní zdatnost – např. Greataxe je Štěpící (Požehnání proti cíli se štítem štít zničí).
+> **Artikule:** Mistrovství zbraní (Weapon Mastery) funguje beze změny. Navíc platí perky zbraní (Drtivá, Průrazná, Ratiště, Šikovná, Ostrá, Půlmeč, Štěpící aj.) pro každého, kdo má se zbraní zdatnost – např. Greataxe je Štěpící (Požehnání proti cíli se štítem štít zničí).
 
 ### Úroveň 2: Danger Sense
 
@@ -129,7 +129,7 @@ Tvoje rychlost se zvýší o 10 stop, dokud nemáš na sobě těžkou zbroj.
 
 Tvé instinkty jsou tak vybroušené, že máš výhodu na hody na iniciativu.
 
-> **Artikule:** Iniciativa je v Mundus Mutatus slotová; výhoda se uplatní na tvůj hod d20 + Obratnost, kterým se určuje, zda družina začíná a v jakém pořadí jdou sloty.
+> **Artikule:** Iniciativa je v Mundus Mutatus slotová; výhoda se uplatní na tvůj hod k20 + DEX, kterým se určuje, zda družina začíná.
 
 ### Úroveň 7: Instinctive Pounce
 

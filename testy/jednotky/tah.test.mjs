@@ -155,3 +155,17 @@ test("stránka: Battle Master v pásu tahu – Evasive Footwork s kostkou převa
   })()`);
   assert.deepEqual(JSON.parse(r), [true, true, true, false, true, 0]);
 });
+
+test("stránka: pohyb po políčkách (5 stop) – 30 stop = 6 políček, Sprint přidá další, klepnutí na poslední ušlé ho vrátí", () => {
+  const r = S.ev(`(() => {
+    const K = {id: "t_pol", n: "Zkouška", povolani: "Fighter 1", uroven: 1, rychlost: "30 ft.", vl: {STR: 10, DEX: 10, CON: 10, INT: 10, WIS: 10, CHA: 10}};
+    const P = tahObnov({}, "1:1"), pocet = h => (h.match(/class="bdmpol[ "]/g) || []).length;
+    tahPohni(P, 10, kRychN(K));
+    const h1 = bdmTahPas(K, P);
+    tahSprint(P, "A", kRychN(K));
+    const h2 = bdmTahPas(K, P);
+    const n = kRychN(K) / 5;
+    return JSON.stringify([pocet(h1) === n, (h1.match(/bdmpol on/g) || []).length, /data-btpq="1"[^>]*aria-label="10 stop/.test(h1), pocet(h2) === 2 * n, (h2.match(/bdmpol sp/g) || []).length === n]);
+  })()`);
+  assert.deepEqual(JSON.parse(r), [true, 2, true, true, true]);
+});

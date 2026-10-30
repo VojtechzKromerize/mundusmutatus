@@ -15243,9 +15243,11 @@ const MIKZ = {}; /* zdrojové obrázky: adresa → načtený Image | false (nač
 const MIKC = new Map(); /* hotové ikony: klíč → data URL; barvy jsou součástí klíče */
 let MIKB = {}; /* barvy motivu pro jedno vykreslení (drawMapK je na začátku vynuluje) – čtení stylu je drahé, ikon jsou stovky */
 /* lem ikon má barvy upečené v obrázku: když systém přepne světlý / tmavý režim, mapa se překreslí v nových barvách */
-matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+const mapMotivZmena = () => {
   if (curView === "mapa" || curView === "vyprava") drawMap();
-});
+};
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", mapMotivZmena);
+addEventListener("mmmotiv", mapMotivZmena);
 function mapIkZdroj(src) {
   if (MIKZ[src] || MIKZ[src] === false || MIKZ[src] === null) return MIKZ[src] || null;
   MIKZ[src] = null;

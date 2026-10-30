@@ -279,7 +279,7 @@ Kdykoli útočíš spojenou zbraní, můžeš pro hody na útok a na zranění m
 
 Tvé pouto se zbraní skončí, pokud znovu použiješ bonusovou akci tohoto rysu, pokud je zbraň od tebe dál než 5 stop po dobu 1 minuty nebo déle, nebo pokud zemřeš. Vyvolaná zbraň zmizí, když pouto skončí.
 
-> **Artikule:** Protože se spojenou zbraní máš zdatnost, platí pro ni i perky zbraní podle Artikulí (např. Drtivá, Průrazná, Ratiště, Šikovná, Ostrá, Půlmeč). Zvolíš-li Necrotic, Psychic nebo Radiant zranění, vlastnosti vázané na Bludgeoning, Piercing či Slashing (Drtivá, Průrazná, Ostrá) se neuplatní.
+> **Artikule:** Protože se spojenou zbraní máš zdatnost, platí pro ni i perky zbraní podle Artikulí (např. Drtivá, Průrazná, Ratiště, Šikovná, Ostrá, Půlmeč). Zvolíš-li prokleté, psychické nebo svaté zranění, perky vázané na drtivé, bodné či sečné zranění (Drtivá, Průrazná, Ostrá) se neuplatní.
 
 #### Pact of the Chain
 

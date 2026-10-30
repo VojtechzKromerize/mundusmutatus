@@ -414,7 +414,7 @@ const bojStavy = (n, gm, vse) => {
       })
       .join("")}</span>`;
   return a.length
-    ? `<span class="bstavy bakt">${a.map(t => `<span class="bst" role="img" aria-label="${besc(I(t)[1])}" ${btip(I(t)[1])}>${bi(I(t)[0])}</span>`).join("")}</span>`
+    ? `<span class="bstavy bakt">${a.map(t => `<span class="bst" role="button" tabindex="0" data-hlp="${besc(t)}" data-hlg="Stav" aria-label="${besc(I(t)[1])} – pravidlo" ${btip(I(t)[1] + " – klepni pro pravidlo")}>${bi(I(t)[0])}</span>`).join("")}</span>`
     : "";
 };
 /* medailony: družina kruhové (portrét z karty postavy), NPC čtvercové v barvě skupiny (portrét osoby, jinak monogram) */
@@ -813,6 +813,9 @@ const bojJmPr = n =>
 
 /* --- kostky --- */
 const bK = (s, z) => {
+  /* ruční kostka (11b): zadané číslo se nehází ani nepřehrává ve 3D */
+  const r = mmRucVezmi(s);
+  if (r != null) return r;
   const v = 1 + Math.floor(Math.random() * s);
   mmkZaznam(s, v, z);
   return v;
@@ -2144,45 +2147,48 @@ function bojObtForm() {
 const BKZ = ["Lehká", "Těžká", "Vážná", "Smrtelná"],
   BKZT = [
     "trvá do konce příštího tahu",
-    "trvá do vyléčení (Medicine)",
+    "trvá do ošetření (Lékařství SO 12, +2 za každé další neléčené kritické zranění)",
     "je trvalá, není-li včas vyléčena zkušeným mágem či prvotřídním felčarem",
-    "bezvědomí a 2 neúspěšné deathsaves; přežije-li, následek je trvalý",
+    "bezvědomí a 2 neúspěšné hody proti smrti; přežije-li, následek je trvalý",
   ];
 const BKRIT = {
   fyz: {
-    n: "Fyzické (zbraň, Force, Thunder)",
+    n: "Fyzické (zbraň, silové, hromové)",
     mista: {6: "Hlava", 3: "Trup", 4: "Trup", 5: "Trup", 2: "Paže", 1: "Nohy"},
     t: {
       Hlava: [
-        "Zvonění v hlavě – bez Reakce, nevýhoda na příští hod",
-        "Otřes mozku – Exhaustion, nevýhoda na INT skillcheck",
-        "Znetvoření – nevýhoda na Perception + krvácení D8",
+        "Zvonění v hlavě – bez reakce, nevýhoda na příští hod",
+        "Otřes mozku – 1 úroveň vyčerpání, nevýhoda na ověření INT",
+        "Znetvoření – nevýhoda na Vnímání + krvácení k8",
         "Rozpoltěná lebka",
       ],
       Trup: [
         "Vyražený dech – poloviční pohyb",
-        "Krvácivá rána – krvácení D6",
-        "Polámaná žebra – nevýhoda na CON saves + krvácení D8",
-        "Proklaté útroby",
+        "Krvácivá rána – krvácení k6",
+        "Polámaná žebra – nevýhoda na záchrany na CON + krvácení k8",
+        "Prokláté útroby",
       ],
       Paže: [
         "Rána přes prsty – upustíš, co držíš",
-        "Zlomenina – nevýhoda na STR/DEX skillcheck",
-        "Rozdrcené předloktí – nevýhoda na útoky + krvácení D8",
+        "Zlomenina – nevýhoda na ověření STR a DEX",
+        "Rozdrcené předloktí – nevýhoda na hody na útok + krvácení k8",
         "Useknutá paže",
       ],
-      Nohy: ["Podražení – Prone", "Zlomená noha – poloviční pohyb", "Přeťatá tepna – pohyb = 10 stop + krvácení D8", "Useknutá noha"],
+      Nohy: ["Podražení – Sražen (Prone)", "Zlomená noha – poloviční pohyb", "Přeťatá tepna – pohyb 10 stop + krvácení k8", "Useknutá noha"],
     },
   },
   ohen: {
     n: "Oheň a blesk",
-    t: ["Vzplanutí – hoříš D4", "Popáleniny – Exhaustion", "Vypálené oči – nevýhoda na Perception a útoky na dálku", "Uhoření zaživa"],
+    t: ["Vzplanutí – hoříš k4", "Popáleniny – 1 úroveň vyčerpání", "Vypálené oči – nevýhoda na Vnímání a hody na útok na dálku", "Uhoření zaživa"],
   },
   mraz: {
     n: "Mráz",
-    t: ["Ztuhlé údy – poloviční pohyb", "Zkřehlé údy – nevýhoda na DEX saves", "Prsty z ledu – nevýhoda na attack rolls", "Zamrzlé srdce"],
+    t: ["Ztuhlé údy – poloviční pohyb", "Zkřehlé údy – nevýhoda na záchrany na DEX", "Prsty z ledu – nevýhoda na hody na útok", "Zamrzlé srdce"],
   },
-  jed: {n: "Kyselina a jed", t: ["Dávení – bez Reakce a Bonusové akce", "Žíravina – nevýhoda na CON saves", "Černá krev – Poisoned", "Selhání těla"]},
+  jed: {
+    n: "Kyselina a jed",
+    t: ["Dávení – bez reakce a bonusové akce", "Žíravina – nevýhoda na záchrany na CON", "Černá krev – Otráven (Poisoned)", "Selhání těla"],
+  },
   svata: {
     n: "Svatá a prokletá",
     t: [
@@ -2196,8 +2202,8 @@ const BKRIT = {
     n: "Psychické",
     t: [
       "Zmatení – příští útok míří na náhodný cíl",
-      "Pomatení – nevýhoda na WIS saves",
-      "Hlasy v hlavě – nevýhoda na INT/WIS skillchecky a concentration",
+      "Pomatení – nevýhoda na záchrany na WIS",
+      "Hlasy v hlavě – nevýhoda na ověření INT a WIS a na soustředění",
       "Šílenství",
     ],
   },
@@ -2206,15 +2212,15 @@ const BKRIT = {
     mista: {6: "Hlava", 3: "Trup", 4: "Trup", 5: "Trup", 2: "Křídla", 1: "Nohy a ocas"},
     t: {
       Hlava: [
-        "Ohlušení – bez Reakce do konce příštího tahu",
-        "Rozštípnutý čelní štít – nevýhoda na Perception",
-        "Vypíchnuté oko – nevýhoda na Perception (zrak) a útoky na dálku",
+        "Ohlušení – bez reakce do konce příštího tahu",
+        "Rozštípnutý čelní štít – nevýhoda na Vnímání",
+        "Vypíchnuté oko – nevýhoda na Vnímání (zrak) a hody na útok na dálku",
         "Proražená lebka",
       ],
       Trup: [
         "Vyražený dech – zvláštní schopnost nelze použít do konce příštího tahu",
-        "Proražený vzdušný vak – poloviční rychlost letu, nemůže plachtit; po minutě letu 1 úroveň Exhaustion",
-        "Prolomený hrudník – krvácení 2D8",
+        "Proražený vzdušný vak – poloviční rychlost letu, nemůže plachtit; po minutě letu 1 úroveň vyčerpání",
+        "Prolomený hrudník – krvácení 2k8",
         "Probodené srdce",
       ],
       Křídla: [
@@ -2224,9 +2230,9 @@ const BKRIT = {
         "Utržené křídlo – zřítí se",
       ],
       "Nohy a ocas": [
-        "Podražení – Prone",
+        "Podražení – Sražen (Prone)",
         "Přeťatá šlacha – poloviční pohyb, vzlet jen ze svahu nebo skály",
-        "Uťatý ocas – ztrácí útok ocasem, nevýhoda na DEX saves",
+        "Uťatý ocas – ztrácí útok ocasem, nevýhoda na záchrany na DEX",
         "Rozdrcená pánev",
       ],
     },
@@ -2254,23 +2260,35 @@ function bojKritHod() {
     dat = partyDate();
   } catch (e) {}
   BKS.last = {t: `${BKZ[i]}${m0 ? " (" + m0 + ")" : ""}: ${txt}`, d: dat, druh: BKS.druh};
-  BKS.vys = `<p class="bkv"><b class="bkz bkz${i}">${BKZ[i]}</b> <small>d10 ${d}${mod ? ` + ${mod}` : ""} = ${c}</small>${misto ? ` · ${misto}` : ""}</p><p class="bkv2"><b>${besc(txt)}</b>${BKS.kdo ? ` <small>(${besc(BKS.kdo)})</small>` : ""}</p>
-    <p class="rsmall">${BKZ[i]} zranění ${BKZT[i]}.${i >= 2 ? " Zahojená zanechá jizvu (výhoda na Intimidation, nevýhoda na Persuasion při svádění)." : ""}${i >= 1 ? " Po boji CON save (s felčarem s výhodou), jinak 1 úroveň vyčerpání denně, dokud neuspěje." : ""} Krvácení pokračuje každé kolo až do ošetření.</p>`;
+  BKS.vys = `<p class="bkv"><b class="bkz bkz${i}">${BKZ[i]}</b> <small>k10 ${d}${mod ? ` + ${mod}` : ""} = ${c}</small>${misto ? ` · ${misto}` : ""}</p><p class="bkv2"><b>${besc(txt)}</b>${BKS.kdo ? ` <small>(${besc(BKS.kdo)})</small>` : ""}</p>
+    <p class="rsmall">${BKZ[i]} zranění ${BKZT[i]}.${i >= 2 ? " Zahojená zanechá jizvu (výhoda na Zastrašování, nevýhoda na Přesvědčování při svádění)." : ""}${i >= 1 ? " Po boji záchrana na CON se SO 12 (s felčarem s výhodou), jinak 1 úroveň vyčerpání denně, dokud neuspěje." : ""} Krvácení pokračuje každé kolo až do ošetření.</p>`;
 }
+/* cíl kritického zranění (Vojta 2026-10-29): postava družiny (rány ve stavu hry podle jména, HRA.krit) nebo NPC v boji
+   („npc:<id>“, rány u NPC v boji – n.rany; houfy pacholků ne, ti padají) */
+const bojKritNpc = komu => (/^npc:/.test(komu || "") ? ((BOJ.s || {}).npc || []).find(n => n.id === komu.slice(4)) || null : null);
+const bojKritRany = komu => {
+  const n = bojKritNpc(komu);
+  return n ? n.rany || [] : bojKritPC()[komu] || [];
+};
+const bojKritJm = komu => {
+  const n = bojKritNpc(komu);
+  return n ? n.n : komu;
+};
 function bojKritPanel() {
   const s = BOJ.s || {},
-    K = bojKritPC(),
     pc = [...new Set([...(s.hraci || []).map(h => h.n), ...PARTY.map(p => p.n.replace(/^✦\s*/, ""))])].filter(Boolean),
-    L = (BKS.komu && K[BKS.komu]) || [];
+    npc = GMV ? (s.npc || []).filter(n => n.druh !== "houf" && !n.spol) : [],
+    L = BKS.komu ? bojKritRany(BKS.komu) : [];
+  const opt = (v, n) => `<option value="${besc(v)}"${BKS.komu === v ? " selected" : ""}>${besc(n)}</option>`;
   return `<section class="bkrit" aria-label="Hod na kritické zranění">
-    <div class="bkf"><label>Komu <select data-bkkomu><option value="">— neukládat —</option>${pc.map(n => `<option${BKS.komu === n ? " selected" : ""}>${besc(n)}</option>`).join("")}</select></label><label>Druh <select data-bkd>${Object.entries(
+    <div class="bkf"><label>Komu <select data-bkkomu><option value="">— neukládat —</option><optgroup label="Družina">${pc.map(n => opt(n, n)).join("")}</optgroup>${npc.length ? `<optgroup label="Nepřátelé a NPC">${npc.map(n => opt("npc:" + n.id, n.n)).join("")}</optgroup>` : ""}</select></label><label>Druh <select data-bkd>${Object.entries(
       BKRIT,
     )
       .map(([k, v]) => `<option value="${k}"${BKS.druh === k ? " selected" : ""}>${v.n}</option>`)
       .join("")}</select></label>
       <label>neléčená kritická zranění <input type="number" min="0" max="9" name="bkr" data-bkr value="${+BKS.rany || 0}"></label>
       <label>HP pod nulou <input type="number" min="0" max="200" name="bkp" data-bkp value="${+BKS.pod || 0}"></label>
-      <button type="button" class="gbtn" data-bkhod>Hodit</button></div>${BKS.komu ? `<div class="bkl"><small>Neléčená kritická zranění – ${besc(BKS.komu)}:</small>${L.length ? `<ul>${L.map((x, j) => `<li>${besc(x.t)} <small>${besc(x.d || "")}</small> <button type="button" class="gbtn ghost" data-bkheal="${j}">vyléčeno</button></li>`).join("")}</ul>` : " <small>žádná</small>"}</div>` : ""}${BKS.vys}</section>`;
+      <button type="button" class="gbtn" data-bkhod>Hodit</button></div>${BKS.komu ? `<div class="bkl"><small>Neléčená kritická zranění – ${besc(bojKritJm(BKS.komu))}:</small>${L.length ? `<ul>${L.map((x, j) => `<li>${besc(x.t)} <small>${besc(x.d || "")}</small> <button type="button" class="gbtn ghost" data-bkheal="${j}">vyléčeno</button></li>`).join("")}</ul>` : " <small>žádná</small>"}</div>` : ""}${BKS.vys}</section>`;
 }
 
 /* --- přidání nepřátel do boje odjinud (osoba, Výprava): rovnou do běžícího boje, jinak do rozestavení --- */

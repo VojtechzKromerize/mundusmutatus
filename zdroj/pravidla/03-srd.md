@@ -6,7 +6,7 @@
 2. **Urči modifikátory.** Vypravěč určí, zda má cíl kryt (viz následující oddíl) a zda máš proti cíli výhodu nebo nevýhodu. Kouzla, zvláštní schopnosti a jiné účinky navíc mohou tvému hodu na útok udělit postihy nebo bonusy.
 3. **Vyhodnoť útok.** Hoď na útok, jak je popsáno dříve v části „Hraní hry“. Při zásahu hodíš na zranění, pokud konkrétní útok nemá pravidla, která stanoví jinak. Některé útoky způsobují kromě zranění nebo místo něj zvláštní účinky.
 
-> **Artikule:** Ke každému hodu na útok se vedle d20 hází i d6 Kostky Závoje (1–2 Pokušení – přijmout = bod hříchu, odmítnout = komplikace; 3–4 bez efektu; 5–6 Požehnání – dodatečný dobrý efekt). Výsledek d20 se nemění. V Hodinách Závoje padá Pokušení na 1–3, o svátku podle vyznání postavy Požehnání na 4–6, souběh obojího je Hodina Pravdy. Příklad: zásah s odmítnutým Pokušením – zbraň uvízne v těle a její vytržení stojí bonusovou akci. Zbraně mají navíc perky (Drtivá, Průrazná, Ratiště, Šikovná, Ostrá, Půlmeč aj.), které platí pro každého se zdatností.
+> **Artikule:** Ke každému ověření (i k iniciativě) a hodu na útok se vedle k20 hází i k6 – kostka Závoje; k záchranným hodům ne. Na 1–2 padne Pokušení (přijmeš-li ho, získáš bod hříchu; odmítneš-li, nastane komplikace), na 3–4 se nic nestane, na 5–6 padne Požehnání (dodatečný dobrý účinek). Výsledek k20 se tím nemění. V Hodině Závoje (půlnoc, poledne a hodina po večerním klekání; slunovrat celý den) padá Pokušení na 1–3; o svátku podle vyznání postavy padá Požehnání na všech hodech na 4–6; souběh obojího je Hodina Pravdy. Příklad: zásah s odmítnutým Pokušením – zbraň uvízne v těle a její vytržení stojí bonusovou akci. Zbraně mají navíc perky (Drtivá, Průrazná, Ratiště, Šikovná, Ostrá, Půlmeč aj.), které platí pro každého se zdatností.
 
 ### Kryt
 
@@ -36,7 +36,7 @@ Některé útoky na dálku, například útoky zbraní Longbow, mají dva dostř
 
 Mířit útokem na dálku je obtížnější, když je nepřítel vedle tebe. Když házíš na útok na dálku zbraní, kouzlem nebo jiným způsobem, máš na hod nevýhodu, pokud jsi do 5 stop od nepřítele, který tě vidí a nemá stav Neschopný (Incapacitated; viz „Glosář pravidel“).
 
-> **Artikule:** Ruční palná zbraň (Handgun) má perk Hrom a kouř!: při Požehnání dává dým střelci výhodu proti útokům zblízka; při Pokušení zbraň selže a je nutná oprava.
+> **Artikule:** Pistol (píšťala) a Musket (hákovnice) mají perk Hrom a kouř!: při Požehnání dává dým střelci na 1 kolo výhodu proti útokům zblízka; při Pokušení zbraň selže a před dalším výstřelem ji musíš vyčistit (bonusová akce).
 
 ### Útoky na blízko
 
@@ -54,7 +54,7 @@ Bojovníci číhají, až nepřítel poleví v ostražitosti. Pokud se bezstaros
 
 ***Jak provést příležitostný útok.*** Příležitostný útok můžeš provést, když tvor, kterého vidíš, opustí tvůj dosah. Útok provedeš tak, že reakcí provedeš proti tomuto tvorovi jeden útok na blízko zbraní nebo úderem beze zbraně. Útok proběhne těsně předtím, než tvor opustí tvůj dosah.
 
-> **Artikule:** Zbraně s perkem Ratiště (Halberd, Pike, Glaive, Spear) umožňují příležitostný útok i tehdy, když nepřítel vstoupí do dosahu 10 stop; v kontaktu na 5 stop však útočí s nevýhodou. Fighter, Barbarian, Paladin, Ranger, Rogue a Monk mohou za Výdrž používat šermířské techniky, včetně technik provedených reakcí.
+> **Artikule:** Zbraně s perkem Ratiště (Halberd, Pike, Glaive, Spear – v Artikulích i kopí má dosah 10 stop) umožňují příležitostný útok i tehdy, když nepřítel vstoupí do dosahu 10 stop; v kontaktu na 5 stop však útočí s nevýhodou. Fighter, Barbarian, Paladin, Ranger, Rogue a Monk mohou za Výdrž používat šermířské techniky, včetně technik provedených reakcí.
 
 ### Boj v sedle
 
@@ -72,7 +72,7 @@ Iniciativa ovládaného jízdního zvířete se ve chvíli, kdy na něj nasedne�
 
 Naproti tomu nezávislé jízdní zvíře – takové, které tě nechá jet, ale ignoruje tvé ovládání – si ponechá své místo v pořadí iniciativy a pohybuje se a jedná, jak samo chce.
 
-> **Artikule:** Lance má perk Vpřed!: po 15 stopách jízdy hází dvojnásobek kostek zranění a kritický zásah násobí kostky čtyřikrát. Halberd a Glaive mají perk Strhující: při Požehnání proti jezdci ho strhnou ze sedla.
+> **Artikule:** Lance má perk Vpřed!: po 15 stopách jízdy rovně hází dvojnásobek kostek zranění a kritický zásah násobí kostky čtyřikrát. Halberd má perk Strhující: při Požehnání hází cíl záchranu na CON, jinak je Sražen (Prone).
 
 #### Pád ze sedla
 
@@ -118,13 +118,13 @@ Každá zbraň, kouzlo a zraňující schopnost nestvůry určuje, jaké zraněn
 
 Když útočíš zbraní, přičteš k hodu na zranění svůj modifikátor vlastnosti – tentýž modifikátor, který jsi použil pro hod na útok. Kouzlo ti řekne, kterými kostkami hodit na zranění a zda přičíst nějaké modifikátory. Pokud pravidlo neříká jinak, nepřičítáš modifikátor vlastnosti k pevnému zranění, při kterém se nehází, například ke zranění zbraně Blowgun. Kostky zranění zbraní najdeš v kapitole „Vybavení“ a kostky zranění kouzel v kapitole „Kouzla“.
 
-> **Artikule:** U zbraní s perkem Šikovná (Shortsword, Longsword, Greatsword, Scimitar, Warhammer, Halberd) volí útočník typ zranění před hodem. Půlmeč (Longsword, Greatsword): bonusovou akcí přehmat – zbraň pak způsobuje Piercing zranění s perkem Průrazná, ale kostka zranění je o stupeň nižší.
+> **Artikule:** U zbraní s perkem Šikovná (Shortsword, Longsword, Greatsword, Halberd) volí útočník typ zranění před hodem. Půlmeč (Longsword, Greatsword): bonusovou akcí přehmat – zbraň pak způsobuje bodné zranění s perkem Průrazná, ale kostka zranění je o stupeň nižší.
 
 ### Kritické zásahy
 
 Když dosáhneš kritického zásahu, způsobíš dodatečné zranění. Hoď kostkami zranění útoku dvakrát, sečti je a přičti příslušné modifikátory jako obvykle. Pokud například dosáhneš kritického zásahu zbraní Dagger, hoď na zranění 2d4 místo 1d4 a přičti příslušný modifikátor vlastnosti. Pokud útok zahrnuje i jiné kostky zranění, například ze schopnosti Sneak Attack povolání Rogue, hodíš dvakrát i těmito kostkami.
 
-> **Artikule:** Při každém kritickém zásahu hází zasažený navíc na kritické zranění: d10 + 1 za každé neléčené kritické zranění + 1 za každých 5 HP pod 0. Výsledek 1–5 Lehká (do konce příštího tahu), 6–9 Těžká (do vyléčení – Medicine), 10–12 Vážná (trvalá, není-li včas vyléčena zkušeným mágem či felčarem), 13+ Smrtelná (bezvědomí a 2 neúspěšné hody proti smrti; přežije-li, následek je trvalý). Místo zásahu určí Kostka Závoje: 6 hlava, 3–5 trup, 2 paže, 1 nohy. Krvácení pokračuje každé kolo až do ošetření; zahojená Vážná či Smrtelná rána zanechá jizvu (výhoda na Intimidation, nevýhoda na Persuasion při svádění). Force a Thunder zranění mají fyzická kritická zranění. Při kritickém zásahu smí postava **obětovat zbroj nebo štít** a kritický zásah se změní v běžný (vycpávaná zbroj a štít 1×, kroužková 2×, plátová a komplexní 3×); zbroj pak nedává AC, dokud ji kovář neopraví (nebo postava s kovářským nářadím během dlouhého odpočinku). Zbraně s perkem Ostrá (Shortsword, Longsword, Greatsword, Scimitar) způsobí kritický zásah na 19–20, způsobují-li Slashing zranění cíli bez Resistance; Dagger (Do slabin!) způsobí kritický zásah při Požehnání proti cíli ve stavu Spoután (Restrained) nebo Sražen (Prone). Pacholci kritická zranění nemají; sok je kritickým zásahem poražen (umírá, vzdá se, uteče nebo je zajat).
+> **Artikule:** Při každém kritickém zásahu hází zasažený navíc na kritické zranění: k10 + 1 za každé neléčené kritické zranění + 1 za každých 5 HP pod nulou (1–5 Lehká, 6–9 Těžká, 10–12 Vážná, 13+ Smrtelná). Místo zásahu určí kostka Závoje (6 hlava, 3–5 trup, 2 paže, 1 nohy). Lehká trvají do konce příštího tahu, Těžká do ošetření (kdokoli, ověření Lékařství se SO 12, +2 za každé další neléčené kritické zranění), Vážná jsou trvalá, nejsou-li včas vyléčena zkušeným mágem či felčarem, Smrtelná znamenají bezvědomí a 2 neúspěšné hody proti smrti (přežije-li postava, následek je trvalý). Krvácení pokračuje každé kolo až do ošetření; zahojená Vážná či Smrtelná rána zanechá jizvu (výhoda na Zastrašování, nevýhoda na Přesvědčování při svádění). Silové a hromové zranění má fyzická kritická zranění. Při kritickém zásahu smí postava **obětovat zbroj nebo štít** a kritický zásah se změní v běžný (vycpávaná zbroj a štít 1×, kroužková 2×, plátová a komplexní 3×); poté zbroj nedává AC, dokud ji kovář neopraví (nebo postava s kovářským nářadím během dlouhého odpočinku). Zbraně s perkem Ostrá (Shortsword, Longsword, Greatsword, Scimitar, Battleaxe) způsobí kritický zásah už na 19–20, způsobují-li sečné zranění cíli bez odolnosti; Dagger (Do slabin!) způsobí kritický zásah při Požehnání proti cíli ve stavu Spoután (Restrained) nebo Sražen (Prone). Pacholci kritická zranění nemají; sok bez zbroje k obětování je kritickým zásahem poražen (nebo utrží kritické zranění, rozhodne-li tak vypravěč).
 
 ### Záchranné hody a zranění
 
@@ -146,7 +146,7 @@ Každé zranění má nějaký typ, například Fire nebo Slashing. Typy zraněn
 
 Někteří tvorové a předměty mají Resistance nebo Vulnerability vůči určitým typům zranění. Máš-li Resistance vůči nějakému typu zranění, zranění tohoto typu se proti tobě snižuje na polovinu (zaokrouhleno dolů). Máš-li Vulnerability vůči nějakému typu zranění, zranění tohoto typu se proti tobě zdvojnásobuje. Máš-li například Resistance vůči Cold zranění, takové zranění se proti tobě snižuje na polovinu, a máš-li Vulnerability vůči Fire zranění, takové zranění se proti tobě zdvojnásobuje.
 
-> **Artikule:** Zbroj dává Resistance: vycpávaná (Padded, Leather, Studded Leather, Hide) proti Bludgeoning; kroužková (Chain Shirt, Scale Mail, Ring Mail, Chain Mail) proti Bludgeoning a Slashing; plátová (Breastplate, Half Plate, Splint) proti Slashing a Piercing; komplexní (Plate) proti Bludgeoning, Slashing a Piercing. Zbraně s perkem Drtivá (Mace, Flail, Warhammer) ignorují Resistance zbroje proti Bludgeoning, zbraně s perkem Průrazná (Handgun, Heavy Crossbow, Lance, Halberd, War Pick) ignorují Resistance zbroje proti Piercing.
+> **Artikule:** Zbroj dává odolnost: vycpávaná (Padded, Leather, Studded Leather, Hide) proti drtivému zranění; kroužková (Chain Shirt, Scale Mail, Ring Mail, Chain Mail) proti drtivému a sečnému; plátová (Breastplate, Half Plate, Splint) proti sečnému a bodnému; komplexní (Plate) proti drtivému, sečnému a bodnému. Zbraně s perkem Drtivá (Maul, Mace, Flail, Warhammer) ignorují odolnost zbroje vůči drtivému zranění, zbraně s perkem Průrazná (Pistol, Musket, Heavy Crossbow, Lance, Halberd, War Pick) vůči bodnému.
 
 #### Žádné sčítání
 
@@ -186,7 +186,7 @@ Toto jsou hlavní způsoby, jak může tvor okamžitě zemřít.
 
 ***Drtivé zranění.*** Když zranění sníží životy postavy na 0 a nějaké zranění zbude, postava zemře, pokud se zbytek rovná jejímu maximu životů nebo ho přesahuje. Pokud má například tvoje postava maximum životů 12, aktuálně má 6 životů a utrpí 18 zranění, klesne na 0 životů, ale zbude 12 zranění. Postava pak zemře, protože 12 se rovná jejímu maximu životů.
 
-> **Artikule:** Nepřátelé se dělí na pacholky, soky a zhoubce. Pacholci mají 1 HP a každý zásah jednoho skolí; houf prchá, padne-li polovina houfu nebo velitel, nedrží-li ho sok. Sok má běžné statistiky a reakcí „Za pána!“ může poslat do rány pacholka. Zhoubce hraje podle pravidel jako postava hráče a má Ďáblovo štěstí: na 0 HP hodí Kostku Závoje a při Pokušení přežije a unikne.
+> **Artikule:** Protivníci se dělí na pacholky, soky a zhoubce. Pacholek má 5 HP a zranění, které ho skolí, přejde na dalšího; houf 3–12 pacholků má jeden tah a útočí jedním hodem s bonusem +1 za každého dalšího pacholka (nejvýš +5), prchá, padne-li polovina houfu nebo velitel (nedrží-li ho sok), nehází Závoj a nemá kritická zranění. Sok má běžné statistiky, hází Závoj, může znát techniky, při kritickém zásahu smí obětovat zbroj a bez ní ho kritický zásah porazí (umírá, vzdá se, uteče nebo je zajat), nebo mu vypravěč místo porážky dá kritické zranění; reakcí „Za pána!“ může poslat do rány pacholka. Zhoubce hraje podle pravidel jako hráč, může mít legendární akce a odolnosti a má Ďáblovo štěstí (na 0 HP hodí kostkou Závoje; při Pokušení přežije a unikne).
 
 #### Skon postavy
 
@@ -216,7 +216,7 @@ Můžeš provést akci Pomoc a pokusit se stabilizovat tvora s 0 životy, což v
 
 Stabilizovaný tvor si nehází hody proti smrti, přestože má 0 životů, ale stále má stav V bezvědomí. Pokud tvor utrpí zranění, přestane být stabilizovaný a znovu si začne házet hody proti smrti. Stabilizovaný tvor, který není vyléčen, obnoví po 1d4 hodinách 1 život.
 
-> **Artikule:** Po boji si postava s Těžkým nebo horším kritickým zraněním hází záchranný hod na Odolnost (CON) (s felčarem s výhodou); při neúspěchu získává 1 úroveň vyčerpání denně, dokud neuspěje. Těžká kritická zranění se léčí pomocí Medicine.
+> **Artikule:** Po boji s Těžkým nebo horším kritickým zraněním hází postava záchranu na CON se SO 12 (s felčarem s výhodou); při neúspěchu získává 1 úroveň vyčerpání denně, dokud neuspěje. Těžká kritická zranění se léčí ověřením Lékařství (SO 12, +2 za každé další neléčené kritické zranění).
 
 ### Dočasné životy
 

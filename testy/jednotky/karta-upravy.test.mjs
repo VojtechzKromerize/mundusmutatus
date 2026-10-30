@@ -53,13 +53,13 @@ test("Svědomí: jedna Ctnost a jedna Neřest, nastavení duše přímo v listu,
   });
 });
 
-test("věc: popis je nahoře a rozbalený, bez původu SRD a bez ceny", () => {
+test("věc: popis je nahoře a rozbalený, jen celé znění, bez původu SRD a bez ceny", () => {
   const h = V(
     `kVecPopis({n: "Ring of Protection"}, {druh: "prsten", vzt: "vzácný", pr: true, t: "Dostaneš +1 k AC.", str: 210}, {sk: "magicke", en: "Ring of Protection", t: "Při nošení +1 k AC.", cena: "3500 GP"})`,
   );
   assert.match(h, /^<details class="kvpop[^"]*"[^>]* open>/);
-  assert.match(h, /Při nošení \+1 k AC/, "přednost má text z katalogu");
-  assert.match(h, /Celé znění/);
+  assert.match(h, /Dostaneš \+1 k AC/, "jen celé znění (Vojta 2026-10-29)");
+  assert.doesNotMatch(h, /Při nošení|Celé znění/, "bez shrnutí z katalogu a bez rozbalovacího Celé znění");
   assert.doesNotMatch(h, /SRD 5\.2\.1|GP/);
 });
 
@@ -227,4 +227,27 @@ test("okno rysu: rys ze SRD má český text (Second Wind), text z listu D&D Bey
   S.ev(`delete KTX.balduin`);
   const bez = V(`kRysPopis(KARTBY.balduin, "Second Wind")`);
   assert.doesNotMatch(bez, /Popis z PDF tu zatím není/, "bez PDF textu stačí český text SRD");
+});
+
+test("list Peníze: výklad mincí, kurz a dobové ceny běžných věcí", () => {
+  const h = V(`bdmPenList(KARTBY.balduin)[1]`);
+  assert.match(h, /Jak fungují peníze/);
+  assert.match(h, /1 zlatý = 40 grošů · 1 kopa = 60 grošů · 1 groš = 10 haléřů/);
+  assert.match(h, /jezdecký kůň/);
+});
+
+test("Second Wind: Použít v bonusových akcích odečte použití a vyléčí 1d10 + úroveň bojovníka", async () => {
+  S.kostky([[7, 10]]);
+  const r = await S.ev(`(async () => {
+    const K = {id: "t_sw", n: "Bojovník", povolani: "Fighter 5", uroven: 5, vl: {STR: 16, DEX: 12, CON: 14, INT: 10, WIS: 10, CHA: 10}, rysy: [], vybaveni: [],
+      rysy2: [{n: "Second Wind", cas: "BA", max: 3}]};
+    KARTY.push(K); KARTBY[K.id] = K; KST[K.id] = {hp: 10};
+    try {
+      const h = kAkceG(K, true, {bezKouzel: true}).BA.join("");
+      await kRysPouzij(K, "Second Wind");
+      const s = kartaStav(K.id);
+      return JSON.stringify([/data-krpz="Second Wind"/.test(h), s.zdr["Second Wind"], s.hp]);
+    } finally { delete KST[K.id]; delete KARTBY[K.id]; KARTY.splice(KARTY.indexOf(K), 1); }
+  })()`);
+  assert.deepEqual(JSON.parse(r), [true, 1, 22]);
 });

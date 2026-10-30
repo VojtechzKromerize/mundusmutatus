@@ -96,7 +96,7 @@ Zasvětil ses jedné z následujících posvátných rolí podle své volby.
 
 **Warden.** Jsi vycvičen pro boj, získáváš zdatnost s válečnými zbraněmi a výcvik se střední zbrojí.
 
-> **Artikule:** Na válečné zbraně se vztahují perky zbraní (Drtivá, Průrazná, Ratiště, Šikovná, Ostrá aj.) a střední zbroj dává Resistance podle svého typu (např. Hide – Bludgeoning; Chain Shirt, Scale Mail – Bludgeoning, Slashing; Breastplate, Half Plate – Slashing, Piercing) a lze ji při kritickém zásahu obětovat.
+> **Artikule:** Na válečné zbraně se vztahují perky zbraní (Drtivá, Průrazná, Ratiště, Šikovná, Ostrá aj.) a střední zbroj dává odolnost podle svého druhu (např. Hide – drtivé; Chain Shirt, Scale Mail – drtivé a sečné; Breastplate, Half Plate – sečné a bodné) a lze ji při kritickém zásahu obětovat.
 
 ### Úroveň 2: Wild Shape
 

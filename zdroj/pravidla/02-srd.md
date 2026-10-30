@@ -67,7 +67,7 @@ Ověření vlastností mohou být klíčová pro určení výsledku sociální i
 
 Když přemýšlíš, jak budeš s NPC jednat, dávej pozor na své zdatnosti v dovednostech; zvol přístup, který staví na zdatnostech tvé skupiny. Pokud například skupina potřebuje oklamat strážného, aby ji pustil do hradu, měl by rozhovor vést Rogue, který je zdatný v Deception.
 
-> **Artikule:** Svědomí postavy mění některé hody: V milosti (8–10) má postava výhodu na Insight a nevýhodu na Deception; Na scestí (1–3) má výhodu na Deception; Zatracená postava (0) má výhodu na Intimidation.
+> **Artikule:** Svědomí postavy mění některé hody: V milosti (8–10) dává imunitu vůči stavu Vyděšen (Frightened), výhodu na Vhled a nevýhodu na Klamání; Na scestí (1–3) dává výhodu na Klamání; Zatracený (0) dává výhodu na Zastrašování.
 
 ### Průzkum
 
@@ -208,7 +208,7 @@ Iniciativa určuje pořadí tahů během boje. Když boj začne, každý účast
 
 ***Shody.*** Dojde-li ke shodě, o pořadí mezi nestvůrami se shodnou iniciativou rozhoduje vypravěč a o pořadí mezi postavami se shodnou iniciativou rozhodují hráči. Jde-li o shodu mezi nestvůrou a postavou hráče, rozhoduje o pořadí vypravěč.
 
-> **Artikule:** Platí slotová iniciativa. Hráči hodí d20 + Obratnost, vypravěč hodí jednou za nepřítele s nejlepší iniciativou; nejlepší výsledek každé strany určí její sloty. Družina i nepřátelé mají tolik slotů, kolik je hráčů; sloty obou stran se střídají a začíná strana s vyšším hodem (při shodě družina). Hráči si sloty v každém kole rozdělují sami, každý smí obsadit jen jeden; vypravěč smí jedno NPC použít vícekrát (pacholek 1×, sok až 2×, zhoubce až 3× za kolo). Překvapená strana hází iniciativu s nevýhodou.
+> **Artikule:** Platí slotová iniciativa. Hráči hodí k20 + DEX, vypravěč hodí jednou za nepřítele s nejlepší iniciativou; nejlepší výsledek každé strany určí její sloty. Družina má tolik slotů, kolik má členů (postavy i spojenci); vypravěč o jeden víc, je-li nepřátel (houfů, soků, zhoubců) víc, o jeden méně, je-li jich méně, jinak stejně – vždy aspoň jeden. Sloty obou stran se střídají a začíná strana s lepším hodem (při shodě družina). Hráči si sloty v každém kole rozdělují sami, každý smí obsadit jen jeden; vypravěč smí jedno NPC použít vícekrát (pacholek 1×, sok až 2×, zhoubce až 3× za kolo). Překvapená strana hází iniciativu s nevýhodou.
 
 ##### Tvůj tah
 
@@ -246,7 +246,7 @@ Pokud hraješ na čtvercové síti s figurkami nebo jinými žetony, řiď se t�
 
 Boj končí, když je jedna nebo druhá strana poražena, což může znamenat, že tvorové jsou zabiti nebo vyřazeni, nebo se vzdali či uprchli. Boj může skončit také tehdy, když se obě strany dohodnou, že jej ukončí.
 
-> **Artikule:** Pacholci mají morálku: padne-li polovina houfu nebo jeho velitel, houf prchá, pokud ho nedrží sok. Sok je poražen už kritickým zásahem (umírá, vzdá se, uteče nebo je zajat). Zhoubce má Ďáblovo štěstí: na 0 HP hodí Kostku Závoje a při Pokušení přežije a unikne.
+> **Artikule:** Pacholci mají morálku: padne-li polovina houfu nebo jeho velitel, houf prchá, pokud ho nedrží sok. Sok smí při kritickém zásahu obětovat zbroj; když už nemá co obětovat, kritický zásah ho porazí (umírá, vzdá se, uteče nebo je zajat), nebo mu vypravěč místo porážky dá kritické zranění. Zhoubce má Ďáblovo štěstí: na 0 HP hodí kostkou Závoje a při Pokušení přežije a unikne.
 
 #### Pohyb a pozice
 
@@ -301,7 +301,7 @@ Nemůžeš úmyslně ukončit přesun v prostoru obsazeném jiným tvorem. Pokud
 
 Když provedeš akci Útok, provedeš útok. Útok ti umožňují provést i některé další akce, bonusové akce a reakce. Ať už udeříš zbraní na blízko, vystřelíš ze zbraně na dálku, nebo hodíš na útok v rámci kouzla, útok má následující strukturu:
 
-> **Artikule:** Ke každému hodu na útok se vedle d20 hází Kostka Závoje (d6): 1–2 Pokušení, 3–4 bez efektu, 5–6 Požehnání; výsledek d20 se nemění. Pacholci Závoj neházejí a houf pacholků útočí jedním hodem (+1 za každého dalšího pacholka, nejvýše +5).
+> **Artikule:** Ke každému hodu na útok se vedle k20 hází kostka Závoje (k6): 1–2 Pokušení, 3–4 bez efektu, 5–6 Požehnání; výsledek k20 se nemění. Pacholci Závoj neházejí a houf pacholků útočí jedním hodem (+1 za každého dalšího pacholka, nejvýše +5).
 
 ##### Neviditelní útočníci a cíle
 

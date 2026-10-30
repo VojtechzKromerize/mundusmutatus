@@ -38,12 +38,17 @@ for kdo, tok in (("anonym", None), ("hráč", hr)):
                      ("mm_ukaz", {"p_ukazka": {"n": "x"}}), ("mm_ukaz_smaz", {"p_id": 1}), ("mm_pravidla_texty_uloz", {"p_klic": "kouzla", "p_data": {}}), ("mm_sezeni_nacti", {}), ("mm_sezeni_uloz", {"p_sezeni": {"s": []}}),
                      ("mm_vyzva", {"p_vyzva": {"typ": "zach", "ab": "WIS"}}), ("mm_vyzva_zavri", {"p_id": None}), ("mm_hrac_zrus_heslo", {"p_karta": "balduin"}), ("mm_karta_smaz", {"p_id": "nikdo"}), ("mm_zpravy_gm", {}), ("mm_hrac_ok", {"p_karta": "x", "p_token": None}), ("mm_ja_uvolni", {"p_karta": "x"}), ("mm_discord_nastav", {"p_url": None}), ("mm_discord_postava", {"p_discord": "1"}), ("mm_push_data", {"p_karty": ["balduin"], "p_gm": True}), ("mm_discord_hod", {"p_hod": {"src": "discord"}}), ("mm_push_posli", {"p_karty": ["balduin"], "p_gm": True, "p_titul": "x", "p_text": "x", "p_url": "#hra"}), ("mm_push_prihlas", {"p_odber": {"endpoint": "https://x.cz/a", "keys": {"p256dh": "a", "auth": "b"}}, "p_karta": None})):
         chk(not ok(call(f"/rest/v1/rpc/{fn}", "POST", body, tok=tok)[0]), f"{kdo} nesmí volat {fn}")
-    for t in ("hesla", "relace_hracu", "zpravy", "hraci_ucty", "karty_texty", "karty_historie", "push_odbery", "zmeny", "pravidla_texty"):
+    chk(ok(call("/rest/v1/rpc/mm_chyba", "POST", {"p": {"zprava": "test chyby", "misto": "x.js:1:1"}}, tok=tok)[0]), f"{kdo} smí nahlásit chybu webu")
+    for fn in ("mm_chyby", "mm_chyby_smaz"):
+        chk(not ok(call(f"/rest/v1/rpc/{fn}", "POST", {}, tok=tok)[0]), f"{kdo} nesmí volat {fn}")
+    for t in ("hesla", "relace_hracu", "zpravy", "hraci_ucty", "karty_texty", "karty_historie", "push_odbery", "zmeny", "pravidla_texty", "chyby"):
         st, bd = call(f"/rest/v1/{t}?select=*", tok=tok)
         chk(not ok(st) or bd.strip() == "[]", f"{kdo} nečte tabulku {t}")
     for t, body in (("snimek", {"vetev": "zz", "data": {}}), ("stavy", {"id": "novy", "stav": 2}), ("gm", {"user_id": "22222222-2222-2222-2222-222222222222"})):
         chk(not ok(call(f"/rest/v1/{t}", "POST", body, tok=tok)[0]), f"{kdo} nesmí zapisovat do {t}")
 chk(json.loads(call("/rest/v1/obsah?select=vetev", tok=gm)[1]) != [], "vypravěč čte obsah")
+_s, _b = call("/rest/v1/rpc/mm_chyby", "POST", {}, tok=gm)
+chk(ok(_s) and any(c.get("zprava") == "test chyby" and c.get("pocet", 0) >= 2 for c in json.loads(_b)), "vypravěč vidí nahlášené chyby (stejná chyba se sečte)")
 # plné znění featů (Vojtův překlad mimo SRD) jen pro přihlášené – anonym bez hesla ke kartě nic nedostane
 _s, _b = call("/rest/v1/rpc/mm_pravidla_texty", "POST", {"p_klic": "featy"}, tok=None)
 chk(ok(_s) and _b.strip() in ("null", ""), "anonym nedostane plné znění featů")

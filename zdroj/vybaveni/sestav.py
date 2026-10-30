@@ -21,6 +21,7 @@ ARTZV = {"Krvežíznivá": ["Sickle", "Scimitar", "Glaive", "Longbow", "Shortbow
          "Ostrá": ["Shortsword", "Longsword", "Greatsword", "Scimitar", "Battleaxe"], "Půlmeč": ["Longsword", "Greatsword"],
          "Do slabin!": ["Dagger"], "Strhující": ["Halberd"], "Vpřed!": ["Lance"], "Štěpící": ["Greataxe", "Handaxe", "Battleaxe"],
          "Nepřímá": ["Longbow", "Shortbow", "Sling"], "Hrom a kouř!": ["Pistol", "Musket"]}
+ARTDOSAH = {"Spear"}
 # Artikule › Výzbroj › Zbroj: druh → zbroje
 ARTZB = {"Vycpávaná": ["Padded Armor", "Leather Armor", "Studded Leather Armor", "Hide Armor"],
          "Kroužková": ["Chain Shirt", "Scale Mail", "Ring Mail", "Chain Mail"],
@@ -70,18 +71,37 @@ def halere_txt(h):
     return " ".join(casti) or "0 gr."
 
 
-def ceny_tazeni(t):
+def ceny_tazeni(t, f=1.0):
+    """GP/SP/CP v textu → mince tažení (1 GP = 10 grošů)"""
     t = t.replace("cena v GP dělená deseti", "cena v groších dělená stem")
     t = re.sub(r"\bB\+(?=\d)", "základ + ", t)  # „B+500 GP“ = cena základního předmětu a k tomu částka
-    return CENA_RE.sub(lambda m: halere_txt(int(re.sub(r"\D", "", m.group(1))) * MINCE_HAL[m.group(2).lower()]), t)
+    return CENA_RE.sub(lambda m: halere_txt(max(1, round(int(re.sub(r"\D", "", m.group(1))) * MINCE_HAL[m.group(2).lower()] * f))), t)
 
 
-def ceny_vsude(o):
+def ceny_vsude(o, f=1.0):
     if isinstance(o, dict):
-        return {k: ceny_vsude(v) for k, v in o.items()}
+        return {k: ceny_vsude(v, f) for k, v in o.items()}
     if isinstance(o, list):
-        return [ceny_vsude(v) for v in o]
-    return ceny_tazeni(o) if isinstance(o, str) else o
+        return [ceny_vsude(v, f) for v in o]
+    return ceny_tazeni(o, f) if isinstance(o, str) else o
+
+
+# ---- dobové ceny běžného zboží (Vojta 2026-10-29: „co nejrealističtěji“, kurz 1 GP = 10 grošů zůstává): ceny z D&D jsou vůči
+# dobovým mzdám a cenám vysoké (pacholek bral 1½ groše a tesař 2 groše denně, kůň stál kolem 2 kop, kráva 24–40 grošů, meč 24–70 grošů,
+# kuše 30–64 grošů, plná zbroj 8–40 kop, píšťala kolem 24 a hákovnice kolem 60 grošů – Nowakowski, Uzbrojenie w Polsce 1450–1500;
+# české přehledy cen 15. století). Běžné zboží má proto cenu v groších přímo v ceny-dobove.json (upravuje se tam, desetiny = haléře);
+# co tam není (kouzelné předměty, lektvary, svitky, alchymie, jedy), se převádí z pravidel 1 GP = 10 grošů.
+DOBA = json.load(open(os.path.join(D, "ceny-dobove.json"), encoding="utf-8"))
+BEZNE = ("zbroj", "zbrane", "strelivo", "vybava", "naradi", "zvirata", "sedla", "vozy", "plavidla")
+
+
+def ceny_dobove(sk, x):
+    o = ceny_vsude(x)
+    g = DOBA.get(sk, {}).get(x.get("en"))
+    if g is not None:
+        o["cena"] = halere_txt(max(1, round(g * 10)))
+        o["doba"] = 1
+    return o
 
 
 def main():
@@ -103,6 +123,9 @@ def main():
         V[klic] = {m.group(1): {"cz": m.group(2), "t": m.group(3).strip()} for m in re.finditer(r"\*\*([A-Za-z-]+) \(([^)]+)\)\.\*\* (.+)", oddil)}
     for z in V["zbrane"]:
         z["art"] = [v for v, L in ARTZV.items() if z["en"] in L]
+        # Artikule (Vojta 2026-10-29): kopí má dosah 10 stop jako ostatní zbraně s perkem Ratiště
+        if z["en"] in ARTDOSAH and "Reach" not in z.get("vl", []):
+            z.setdefault("vl", []).append("Reach")
         z["id"] = slug(z["en"])
     for z in V["zbroj"]:
         z["art"] = next((d for d, L in ARTZB.items() if z["en"] in L), "")
@@ -140,7 +163,12 @@ def main():
     if dup:
         print("POZOR – zdvojené id:", dup, file=sys.stderr)
     out = os.path.join(ROOT, "art", "vybaveni.json")
-    V = {k: (v if k == "mince" else ceny_vsude(v)) for k, v in V.items()}
+    V = {k: (v if k == "mince" else [ceny_dobove(k, x) for x in v] if k in BEZNE else ceny_vsude(v)) for k, v in V.items()}
+    chybi = sorted(f"{sk}: {en}" for sk, L in DOBA.items() for en in L if en not in {x["en"] for x in V.get(sk, [])})
+    if chybi:
+        print("POZOR – dobová cena bez položky v katalogu:", chybi, file=sys.stderr)
+    # služby a mzdy (2026-10-30): ceny rovnou v groších, bez převodu z GP; vykresluje 14d, čísla počítá čistý 10y-sluzby.js
+    V["sluzby"] = json.load(open(os.path.join(D, "sluzby-mzdy.json"), encoding="utf-8"))
     json.dump(V, open(out, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
     print(f"art/vybaveni.json: {sum(len(V[k]) for k in V if isinstance(V[k], list))} položek, magické {len(V['magicke'])} "
           f"(SRD {len(V['magicke']) - mimo}, mimo SRD {mimo}), {os.path.getsize(out) // 1024} kB")

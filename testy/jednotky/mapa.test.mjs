@@ -530,3 +530,16 @@ test("mapa přes celou obrazovku: přepnutí třídy, poměr stran mapy Koruny a
   assert.ok(Math.abs(r.vse[3] / r.vse[2] - 2) < 1e-9, "poměr okna: " + r.vse);
   assert.deepEqual(r.zavreno, [false, false, "false", true], "bez pohybu na mapě se vrátí původní výřez");
 });
+
+test("mapa: Kremnice je jedno místo – sídlo Jiskry i Uherských měst pod týmž jménem a souřadnicemi, panel ukáže oba rody", () => {
+  const S2 = V(`FAM.filter(f => f.seats.some(s => s[0] === "Kremnice")).map(f => [f.id, f.seats.find(s => s[0] === "Kremnice").slice(1, 3)])`);
+  assert.deepEqual(S2.map(q => q[0]).sort(), ["jis", "umi"]);
+  assert.deepEqual(S2[0][1], S2[1][1]);
+  /* žádné druhé jméno téhož místa (dřív „Kremnica“) mezi sídly poblíž */
+  assert.deepEqual(
+    V(`FAM.flatMap(f => f.seats).filter(s => s[0] !== "Kremnice" && Math.hypot(s[1] - 18.92, s[2] - 48.7) < 0.05).map(s => s[0])`),
+    [],
+  );
+  const html = S.ev(`mistoHtml("Kremnice")`);
+  assert.ok(html.includes("Patří k") && html.includes("Drží"), "panel ukazuje skupinu měst i držitele");
+});

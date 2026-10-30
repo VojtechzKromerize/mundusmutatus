@@ -1,0 +1,122 @@
+{
+ "uvod": "Ceny služeb, mzdy a poplatky v pražských groších (1 kopa = 60 grošů, 1 zlatý = 40 grošů, 1 groš = 10 haléřů). Údaje pocházejí z různých měst a let 14. a 15. století; každý řádek má rozsah (od–do) a běžnou hodnotu. Kde se prameny rozcházely, je vybrána střední hodnota a řádek je označen jako orientační. Vypravěč smí ceny po válkách a v neúrodě zvýšit o čtvrtinu až polovinu.",
+ "pracdny": 250,
+ "skupiny": [
+  {
+   "id": "nocleh",
+   "n": "Nocleh a jídlo na cestě",
+   "pozn": "Cena na osobu a noc. Lože se v hostinci mění zřídka, služebnictvo čeká spropitné; v klášteře se nocuje zdarma, ale čeká se dar.",
+   "radky": [
+    {"n": "Lůžko ve společné světnici (bez jídla)", "od": 0.3, "do": 1, "s": 0.5, "j": "za noc", "o": 1, "z": "podle cestovních účtů 15. století, ve vztahu k denní mzdě"},
+    {"n": "Komůrka se zámkem", "od": 0.8, "do": 1.5, "s": 1, "j": "za noc", "o": 1, "z": "podle cestovních účtů 15. století"},
+    {"n": "Večeře a snídaně v krčmě", "od": 0.7, "do": 1.5, "s": 1, "j": "na osobu", "o": 1, "z": "podle cestovních účtů a ceny jídla na cestu"},
+    {"n": "Nocleh s večeří a snídaní v krčmě", "od": 1.5, "do": 3, "s": 2, "j": "za noc", "o": 1, "z": "součet předchozích; ve městě a ve zlatém hostinci výš", "pozn": "S komůrkou o půl groše až groš víc."},
+    {"n": "Stáj a píce pro koně přes noc", "od": 0.5, "do": 1.5, "s": 1, "j": "za noc", "z": "stáj stála zhruba dvakrát tolik co lůžko pro člověka (ceník z Kostnice 1414)"},
+    {"n": "Nocleh v klášteře nebo na faře", "od": 0, "do": 2, "s": 1, "j": "dar", "o": 1, "z": "zdarma, očekává se almužna"},
+    {"n": "Nocleh na tvrzi nebo dvoře", "od": 0, "do": 0.5, "s": 0, "j": "za noc", "o": 1, "z": "pohostinnost pána; služebnictvu spropitné"},
+    {"n": "Podnájem lože s prádlem ve městě, pro dva", "od": 40, "do": 60, "s": 60, "j": "za měsíc", "o": 1, "z": "úřední nařízení při velkém sněmu v Kostnici 1414 (nejvýš 1½ zlatého)"},
+    {"n": "Jídlo na den na cestu (chléb, sýr, pivo)", "od": 0.7, "do": 1.5, "s": 1, "j": "za den", "z": "jako ceník Vybavení (denní příděl)"}
+   ]
+  },
+  {
+   "id": "doprava",
+   "n": "Doprava, cla a doprovod",
+   "pozn": "Na dlouhé cestě se cla sčítají: přes německé země od moře k Brennerskému průsmyku stálo na cestě přes třicet panství s právem na clo, přes dvacet na trase z Brunšviku do Tyrol. Kámen z lomu stál po cestě o víc než polovinu víc, než když ležel v lomu (doprava, cla, cestovné úředníků).",
+   "radky": [
+    {"n": "Mostné za osobu nebo tažného koně", "od": 0.1, "do": 0.2, "s": 0.1, "j": "za kus", "z": "podle pražských řádů z 14. století (cizinec platí dvojnásobně)"},
+    {"n": "Mostné za zboží do hodnoty kopy · nad kopu", "od": 0.1, "do": 0.6, "s": 0.1, "j": "za náklad", "z": "podle pražských řádů z konce 14. století", "pozn": "1 haléř za zboží do kopy, 6 haléřů za zboží nad kopu (zhruba setina hodnoty)."},
+    {"n": "Přívoz přes řeku: osoba · kůň · vůz s potahem", "od": 0.1, "do": 2, "s": 0.5, "j": "za převoz", "o": 1, "z": "odvozeno z mostného a z mzdy převozníka", "pozn": "Osoba 1–2 haléře, kůň asi 3 haléře, vůz s potahem 1–2 groše."},
+    {"n": "Clo na jednom mýtě (vůz se zbožím)", "od": 0.5, "do": 6, "s": 2, "j": "za mýto", "o": 1, "z": "podle zemských řádů a cel; zboží zhruba setina hodnoty", "pozn": "Doprovod (Geleit) je právo vladaře: na královské cestě bývá zdarma, jinak se platí za průvod ozbrojenců; porušení doprovodu je těžký zločin."},
+    {"n": "Ozbrojený doprovod, dva pacholci", "od": 3, "do": 6, "s": 3, "j": "za den", "o": 1, "z": "odvozeno z mzdy pacholka a stravy"},
+    {"n": "Průvodce znalý kraje nebo stezky", "od": 1.5, "do": 3, "s": 2, "j": "za den", "o": 1, "z": "odvozeno z mzdy mistra; ve městech cizích zemí úředně licencovaní"},
+    {"n": "Tlumočník", "od": 2, "do": 4, "s": 3, "j": "za den", "o": 1, "z": "odvozeno z mzdy mistra; v Benátkách a na Východě stálé místo v hostincích"},
+    {"n": "Poslíček pěšky (v zemi)", "od": 1.5, "do": 3, "s": 2, "j": "za den", "o": 1, "z": "odvozeno z mzdy pacholka a stravy (30 km denně)"},
+    {"n": "Jízdní posel se střídáním koní", "od": 3, "do": 8, "s": 5, "j": "za den", "o": 1, "z": "mzda posla a stáj pro vystřídaného koně (90 km denně)"},
+    {"n": "Diety městského vyslance s družinou", "od": 240, "do": 300, "s": 240, "j": "za týden", "z": "pražské městské účty 14. století (4 kopy v zemi, 5 kop za hranicemi)"}
+   ]
+  },
+  {
+   "id": "mzdy",
+   "n": "Mzdy a žold",
+   "pozn": "Mzda se platí za den od východu do západu slunce; v zimě bývá o třetinu nižší, pracuje se asi 250 dní v roce (zbytek svátky). K dennímu výdělku patří spropitné kolem 2 % o masopustu a na svatého Jana. Žold se často nevyplácí včas: vojáci zastavují zbroj, dostávají sůl místo stříbra.",
+   "radky": [
+    {"n": "Mistr řemeslník (zedník, tesař, kovář)", "od": 2, "do": 3, "s": 2, "j": "za den", "mzda": 1, "z": "nejvyšší povolená denní mzda v Praze kolem 1400 a přehledy příjmů v Čechách"},
+    {"n": "Tovaryš, pomocník", "od": 1, "do": 2, "s": 1.5, "j": "za den", "mzda": 1, "z": "nejvyšší povolená denní mzda pomocníka v Praze kolem 1400"},
+    {"n": "Pacholek, čeledín (mimo stravu)", "od": 1, "do": 2, "s": 1.5, "j": "za den", "mzda": 1, "o": 1, "z": "jako pomocník"},
+    {"n": "Nádeník, žeň, sběrač", "od": 0.7, "do": 1.5, "s": 1, "j": "za den", "mzda": 1, "o": 1, "z": "odvozeno z mzdy pomocníka; v žních výš, v zimě níž"},
+    {"n": "Havíř, horní mistr", "od": 0.8, "do": 1.4, "s": 1, "j": "za den", "mzda": 1, "o": 1, "z": "kutnohorské horní účty (kolem 7 grošů týdně horního mistra)"},
+    {"n": "Pěší voják (kopiník, pavézník)", "od": 120, "do": 200, "s": 160, "j": "za měsíc", "z": "žold 3–5 zlatých měsíčně podle přehledů českého a uherského žoldu", "pozn": "Za měsíc zhruba 2⅔ kopy."},
+    {"n": "Střelec (kušiník, hákovník)", "od": 200, "do": 280, "s": 240, "j": "za měsíc", "z": "uherské účty z doby Zikmunda: kušiník 6 zlatých měsíčně"},
+    {"n": "Jízdní žoldnéř, kopiník na koni", "od": 160, "do": 320, "s": 240, "j": "za měsíc", "z": "žold 4–8 zlatých měsíčně; vlastní kůň a zbroj, často zbroj půjčená", "pozn": "Dobrý válečný kůň stál asi půl roku žoldu, plná zbroj asi tři měsíce."},
+    {"n": "Lodník, veslař", "od": 100, "do": 140, "s": 120, "j": "za měsíc", "z": "uherské účty z doby Zikmunda: lodník 3 zlaté měsíčně"},
+    {"n": "Městský písař", "od": 840, "do": 2400, "s": 840, "j": "za rok", "z": "3½ kopy za čtvrtletí (14 kop ročně); protonotář městské rady 40 kop a byt"},
+    {"n": "Kanovník u svatého Víta", "od": 18000, "do": 18000, "s": 18000, "j": "za rok", "z": "příjmy pražské kapituly kolem 1400 (zhruba 300 kop ročně)"}
+   ]
+  },
+  {
+   "id": "zakazky",
+   "n": "Odměny za zakázky",
+   "pozn": "Herní měřítko, ne doložené ceny: odvozeno z žoldu a z toho, že dobrodruh riskuje víc než voják a odměna se dělí mezi družinu. Vypravěč řídí podle toho, kdo platí a co mu hrozí.",
+   "radky": [
+    {"n": "Hlídka, doprovod vozu na den cesty (na osobu)", "od": 3, "do": 6, "s": 5, "j": "za den", "o": 1, "h": 1, "z": "žold pěšáka na den"},
+    {"n": "Doručit list nebo balík na tři dny cesty", "od": 6, "do": 20, "s": 12, "j": "za zakázku", "o": 1, "h": 1, "z": "mzda posla a nebezpečí"},
+    {"n": "Vyhnat lapky nebo vlky z cesty", "od": 60, "do": 180, "s": 120, "j": "za zakázku", "o": 1, "h": 1, "z": "1–3 kopy, dělí se mezi družinu"},
+    {"n": "Zabít zvíře nebo netvora, který ohrožuje ves", "od": 120, "do": 600, "s": 300, "j": "za zakázku", "o": 1, "h": 1, "z": "2–10 kop; ves skládá hotovost, zbytek naturálie"},
+    {"n": "Zakázka panská (ochrana panství, vyjednání, výpad)", "od": 600, "do": 3000, "s": 1200, "j": "za zakázku", "o": 1, "h": 1, "z": "10–50 kop; cena domu měšťana"},
+    {"n": "Zakázka královská nebo velkého rodu", "od": 2400, "do": 12000, "s": 4800, "j": "za zakázku", "o": 1, "h": 1, "z": "60–300 zlatých; často část naturálií, zástava nebo úřad"}
+   ]
+  },
+  {
+   "id": "pravo",
+   "n": "Soudy, poplatky a pohřby",
+   "radky": [
+    {"n": "Přijetí do městského práva", "od": 30, "do": 32, "s": 32, "j": "poplatek", "z": "pražské městské knihy 14. století; k tomu rukojmí 10 kop a pobyt tři roky a den", "pozn": "Po čtyřech týdnech pobytu v městě zákon přijal každého sám."},
+    {"n": "Odvolání ke králi", "od": 600, "do": 600, "s": 600, "j": "poplatek", "z": "pražské městské právo, od roku 1356 (10 kop)"},
+    {"n": "Zápis převodu domu: písaři a rychtáři dohromady", "od": 3.6, "do": 3.6, "s": 3.6, "j": "poplatek", "z": "pražské městské knihy 14. století (4 haléře písaři, 32 haléřů rychtáři)"},
+    {"n": "Berně z movitého majetku (z každé kopy)", "od": 0.25, "do": 1, "s": 1, "j": "z kopy majetku", "z": "pražské sazby 14. století: v praxi čtvrt groše z kopy hodnoty domu"},
+    {"n": "Berně z věčné renty (z každé kopy)", "od": 4, "do": 4, "s": 4, "j": "z kopy renty", "z": "pražské sazby 14. století"},
+    {"n": "Pohřeb měšťana (vosk, látka pro kněze, zádušní mše, zvony, pivo)", "od": 600, "do": 660, "s": 660, "j": "celkem", "z": "pozůstalostní účty plzeňského soukeníka"}
+   ]
+  },
+  {
+   "id": "domy",
+   "n": "Domy, půda a renty",
+   "pozn": "Peníze se půjčují na rentu: roční úrok 8–11 ze sta (Plzeň prodávala rentu 20 kop za 200 kop, tedy desetinu). Vykupitelná renta stála 16–20násobek roční platby (5–6¼ ze sta). Město kupuje i zastavuje: rychtářství Nového Města se zastavilo za 300 kop, hrad Most za 800 kop a oprav, polovina města Cottbusu byla prodána za 5 500 kop.",
+   "radky": [
+    {"n": "Dům chudý (Nové Město, Malá Strana)", "od": 240, "do": 1200, "s": 720, "j": "kupní cena", "z": "pražské kupní knihy kolem 1400 (4–20 kop; na Novém Městě tolik stála polovina domů)"},
+    {"n": "Dům střední (Staré Město)", "od": 1260, "do": 2940, "s": 2100, "j": "kupní cena", "z": "pražské kupní knihy kolem 1400 (21–49 kop; nejčastější cena)"},
+    {"n": "Dům větší nebo dvojdům", "od": 3000, "do": 6000, "s": 4500, "j": "kupní cena", "z": "pražské kupní knihy kolem 1400 a ve 20.–30. letech 15. století (50–100 kop)"},
+    {"n": "Dům na rynku nebo na Celetné", "od": 9000, "do": 36000, "s": 18000, "j": "kupní cena", "z": "nejdražší pražské domy (150–600 kop)"},
+    {"n": "Vinice u města", "od": 1500, "do": 3000, "s": 2200, "j": "kupní cena", "z": "pražské kupní knihy 15. století (25–50 kop)"},
+    {"n": "Soukenický krám na rynku", "od": 400, "do": 530, "s": 465, "j": "kupní cena", "z": "věno dvou krámů, 15½ kopy"},
+    {"n": "Nájem kamenného soukenického krámu", "od": 26, "do": 36, "s": 30, "j": "za rok", "z": "pražské knihy z počátku 14. století"}
+   ]
+  },
+  {
+   "id": "zbozi",
+   "n": "Zboží a hospodářství",
+   "pozn": "Ceny kolísají s úrodou a válkou; po neúrodě bývá žito i několikanásobně dražší. Kam sahají hodnoty zbraní a výstroje, ukazuje ceník Vybavení.",
+   "radky": [
+    {"n": "Žito (pražský modius, asi 93 l)", "od": 1, "do": 5, "s": 3, "j": "za modius", "o": 1, "z": "po sklizni 1362 jeden groš, počátkem 15. století pětkrát víc; v neúrodě dražší"},
+    {"n": "Tažný vůl", "od": 120, "do": 160, "s": 140, "j": "za kus", "z": "uherské ceny počátku 15. století (3–4 zlaté)"},
+    {"n": "Kůň obyčejný · dobrý · nejlepší", "od": 140, "do": 2000, "s": 150, "j": "za kus", "o": 1, "z": "obyčejný 3–4 zlaté, dobrý asi 10 zlatých, nejlepší až pětkrát tolik", "pozn": "Obyčejný kůň asi 2½ kopy, dobrý asi 400 grošů, nejlepší až 50 zlatých (2 000 grošů)."},
+    {"n": "Balík českého sukna (obyčejného)", "od": 240, "do": 320, "s": 280, "j": "za balík", "z": "uherské ceny počátku 15. století (asi 7 zlatých)"},
+    {"n": "Nejlepší italské sukno (balík)", "od": 1600, "do": 2000, "s": 1800, "j": "za balík", "z": "uherské ceny počátku 15. století (asi 45 zlatých; cena 10–15 volů)"},
+    {"n": "Ruční palná zbraň při hromadném nákupu", "od": 30, "do": 40, "s": 35, "j": "za kus", "o": 1, "z": "nákupy městské obce ve Chebu (255 palných zbraní za necelých 200 zlatých)"},
+    {"n": "Přilba při hromadném nákupu", "od": 30, "do": 40, "s": 34, "j": "za kus", "o": 1, "z": "nákup 100 přileb za 84 zlatých"}
+   ]
+  },
+  {
+   "id": "pout",
+   "n": "Pouť do cizích zemí",
+   "pozn": "Zahraniční ceny jsou v dukátech (dukát se počítá jako zlatý, 40 grošů). Poutník platí na každém kroku: průvodci, tlumočníci, povolení, převozy a vstupy se prodávají zvlášť.",
+   "radky": [
+    {"n": "Plavba z Benátek do Jaffy a zpět (galéra; polovina předem)", "od": 1440, "do": 1600, "s": 1520, "j": "za osobu", "o": 1, "z": "poutnické účty (asi 38 dukátů)"},
+    {"n": "Vstup do Božího hrobu v Jeruzalémě", "od": 240, "do": 280, "s": 260, "j": "za osobu", "o": 1, "z": "poutnické účty (6½ dukátu)"},
+    {"n": "Povolení sultána a tlumočník do Káhiry", "od": 20, "do": 240, "s": 120, "j": "za skupinu", "o": 1, "z": "poutnické účty (povolení půl dukátu na osobu, tlumočník do Káhiry 6 dukátů za skupinu)"},
+    {"n": "Velbloud s proviantem k lodi", "od": 20, "do": 20, "s": 20, "j": "za den", "o": 1, "z": "poutnické účty (půl dukátu)"},
+    {"n": "Osel ve svaté zemi (pevná cena)", "od": 80, "do": 80, "s": 80, "j": "za kus", "o": 1, "z": "poutnické účty (2 dukáty)"}
+   ]
+  }
+ ]
+}

@@ -199,7 +199,7 @@ test("Warding Bond (2026-10-27): sesilatel utrpí stejné zranění jako chrán�
     assert.equal(V(`kUc(KARTBY.t_war).length`), 1, "pouto trvá");
     assert.equal(V(`bojZranWb()`), 0, "zranění sesilatele se dál nepřenáší");
     await S.ev(`kPoutoZran(KARTBY.balduin, ${mx - 5 + 2}, false)`);
-    assert.equal(V(`kartaStav("t_war").hp`), 0);
+    assert.equal(V(`kartaStav("t_war").hp`), -2, "přesah jde pod nulu (Artikule)");
     assert.deepEqual(V(`kartaStav("t_war").ds`), {u: 0, n: 0}, "sesilatel padne do bezvědomí");
     assert.equal(V(`(kartaStav("t_war").uc || []).length`), 0, "pád na 0 pouto ukončí");
   } finally {

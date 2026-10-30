@@ -1352,7 +1352,7 @@ document.addEventListener("change", async e => {
   if (e.target.matches("[data-bkkomu]")) {
     BKS.komu = e.target.value;
     BKS.vys = "";
-    if (BKS.komu) BKS.rany = (bojKritPC()[BKS.komu] || []).length;
+    if (BKS.komu) BKS.rany = bojKritRany(BKS.komu).length;
     renderBoj();
     return;
   }
@@ -2007,6 +2007,20 @@ document.addEventListener("click", async e => {
     }
     bojKritHod();
     renderBoj();
+    const nk = BKS.komu && BKS.last && bojKritNpc(BKS.komu);
+    if (nk) {
+      /* NPC: rána se zapíše k němu do boje a do záznamu */
+      const id = nk.id,
+        R = BKS.last;
+      BKRLOG.push({komu: nk.n, t: R.t});
+      bojLog(id, {n: "Kritické zranění", ai: null, ci: id, cn: nk.n, zt: R.t}, nk.n);
+      bojZmen(z => {
+        const q = (z.npc || []).find(x => x.id === id);
+        if (q) q.rany = [...(q.rany || []), R].slice(-12);
+      });
+      BKS.rany = (nk.rany || []).length + 1;
+      return;
+    }
     if (BKS.komu && BKS.last) {
       if (BOJ.s && BOJ.s.aktivni) {
         BKRLOG.push({komu: BKS.komu, t: BKS.last.t});
@@ -2023,6 +2037,18 @@ document.addEventListener("click", async e => {
     return;
   }
   const kh2 = T("[data-bkheal]");
+  if (kh2 && bojKritNpc(BKS.komu)) {
+    const j = +kh2.dataset.bkheal,
+      id = bojKritNpc(BKS.komu).id;
+    bojZmen(z => {
+      const q = (z.npc || []).find(x => x.id === id);
+      if (!q) return;
+      q.rany = (q.rany || []).filter((_, i) => i !== j);
+      if (!q.rany.length) delete q.rany;
+    });
+    BKS.rany = bojKritRany(BKS.komu).length;
+    return;
+  }
   if (kh2 && BKS.komu) {
     const j = +kh2.dataset.bkheal,
       K = Object.assign({}, bojKritPC());
@@ -2064,7 +2090,10 @@ document.addEventListener("click", async e => {
     v.querySelectorAll("#bkritsup").forEach(a => a.classList.toggle("open", BKRO));
     v.querySelectorAll(".bprtg[data-bprav]").forEach(b => b.setAttribute("aria-expanded", BPRAV));
     v.querySelectorAll(".bprtg[data-bkro]").forEach(b => b.setAttribute("aria-expanded", BKRO));
-    const x = v.querySelector(BPRAV ? "#bpravidla .bprx" : BKRO ? "#bkritsup .bprx" : null);
+    /* Pravidla: na počítači rovnou do pole hledání (na telefonu by vyskočila klávesnice) */
+    const x = v.querySelector(
+      BPRAV ? (matchMedia("(hover: hover)").matches ? "#bpravidla [data-hl]" : "#bpravidla .bprx") : BKRO ? "#bkritsup .bprx" : null,
+    );
     if (x) x.focus({preventScroll: true});
     return;
   }
@@ -2293,6 +2322,7 @@ document.addEventListener("click", async e => {
       h0 = (S.hraci || []).find(x => x.id === id),
       K = bojKartaH(h0);
     if (!K) return;
+    if (mmRucZap() && !(await mmRucPred({popis: `${h0.n}: iniciativa`, kostky: [{s: 20, n: 1, t: "d20"}]}))) return;
     const d = bK(20),
       v = d + kIni(K);
     if (GMV)
@@ -2455,8 +2485,13 @@ document.addEventListener("click", async e => {
       E = bojEff(o0),
       p = E && E.p,
       b = bojAbil(p, ab) || 0;
-    const ef = (o0.stav || []).some(k => SRDST[k] && /nevýhod/i.test(SRDST[k].t || "") && /ověřen/i.test(SRDST[k].t || "")),
-      d1 = bK(20),
+    const ef = (o0.stav || []).some(k => SRDST[k] && /nevýhod/i.test(SRDST[k].t || "") && /ověřen/i.test(SRDST[k].t || ""));
+    if (mmRucZap()) {
+      const kostky = [{s: 20, n: ef ? 2 : 1, t: "d20", lbl: ef ? "nevýhoda, platí nižší" : ""}];
+      if (o0.druh !== "houf") kostky.push({s: 6, n: 1, t: "d6 Závoje", lbl: "1–2 Pokušení, 5–6 Požehnání"});
+      if (!(await mmRucPred({popis: `${o0.n}: ověření ${ab}`, kostky}))) return;
+    }
+    const d1 = bK(20),
       d2 = ef ? bK(20) : null,
       d = ef ? Math.min(d1, d2) : d1,
       t = d + b;
@@ -2485,6 +2520,10 @@ document.addEventListener("click", async e => {
     const ef = (o0.stav || []).map(k => (SRDST[k] && SRDST[k].zach && SRDST[k].zach[ab] ? [k, SRDST[k].zach[ab]] : null)).filter(Boolean),
       fail = ef.find(x => x[1] === "f"),
       va = ef.some(x => x[1] === "a") - ef.some(x => x[1] === "d");
+    if (!fail && mmRucZap()) {
+      const kostky = [{s: 20, n: va ? 2 : 1, t: "d20", lbl: va > 0 ? "výhoda, platí vyšší" : va < 0 ? "nevýhoda, platí nižší" : ""}];
+      if (!(await mmRucPred({popis: `${o0.n}: záchrana ${ab}`, kostky}))) return;
+    }
     const d1 = bK(20),
       d2 = va ? bK(20) : null,
       d = va > 0 ? Math.max(d1, d2) : va < 0 ? Math.min(d1, d2) : d1,

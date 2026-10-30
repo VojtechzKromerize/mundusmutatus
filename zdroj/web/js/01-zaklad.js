@@ -27,6 +27,144 @@ function mmPozdeji(klic, fn) {
   });
 }
 const mmZrus = klic => MMPREK.delete(klic);
+/* hlášení chyb (Vojta 2026-10-29): chyba skriptu, nezachycená chyba slibu a console.error s chybou se zapíšou do databáze
+   (mm_chyba), vypravěč je vidí v Hra › Sezení. Za návštěvu nejvýš 12 různých; síťové výpadky a šum prohlížečů se nehlásí. */
+const MMCHYBY = {n: 0, b: new Set()};
+const MMCHSUM =
+  /ResizeObserver loop|Script error\.?$|Failed to fetch|NetworkError|Load failed|network|AbortError|The operation was aborted|Bez připojení|Přihlášení vypršelo/i;
+function mmChyba(zprava, misto) {
+  try {
+    const z = String(zprava || "").slice(0, 300),
+      m = String(misto || "").slice(0, 300);
+    if (!z || MMCHSUM.test(z) || !window.MMDB || !MMDB.chyba || navigator.onLine === false) return;
+    const k = z + "|" + m;
+    if (MMCHYBY.b.has(k) || MMCHYBY.n >= 12) return;
+    MMCHYBY.b.add(k);
+    MMCHYBY.n++;
+    let kdo = GMV ? "vypravěč" : "";
+    if (!GMV)
+      try {
+        kdo = (JSON.parse(localStorage.getItem("mm-hrac") || "null") || {}).k || "";
+      } catch (e) {}
+    const src = (document.getElementById("mmhlavni") || {}).dataset || {};
+    MMDB.chyba({
+      zprava: z,
+      misto: m,
+      stranka: location.hash.slice(0, 120),
+      kdo,
+      ua: navigator.userAgent.slice(0, 160),
+      verze: String(src.src || "")
+        .split(" ")[0]
+        .slice(-20),
+    }).catch(() => {});
+  } catch (e) {}
+}
+const mmChMisto = s =>
+  String(s || "")
+    .split("\n")
+    .map(r => r.trim())
+    .filter(r => /\.js|<anonymous>|index\.html/.test(r))
+    .slice(0, 2)
+    .join(" ← ")
+    .replace(/https?:\/\/[^/ ]+\//g, "");
+addEventListener("error", e => {
+  if (!e.message) return; /* nenačtený obrázek či skript – ne chyba kódu */
+  mmChyba(
+    e.message,
+    e.error && e.error.stack
+      ? mmChMisto(e.error.stack)
+      : `${String(e.filename || "")
+          .split("/")
+          .pop()}:${e.lineno}:${e.colno}`,
+  );
+});
+addEventListener("unhandledrejection", e => {
+  const r = e.reason;
+  if (!r) return;
+  mmChyba(r.message || String(r), r.stack ? mmChMisto(r.stack) : "");
+});
+{
+  /* chyby, které kód zachytí a jen vypíše (console.error(e) v catch) – také jsou to chyby */
+  const ce = console.error.bind(console);
+  console.error = (...a) => {
+    ce(...a);
+    const x = a.find(v => v instanceof Error);
+    if (x) mmChyba(x.message, mmChMisto(x.stack));
+  };
+}
+/* denní / noční vzhled (Vojta 2026-10-29): podle zařízení → denní → noční; volba v prohlížeči (mm-motiv), styly čtou :root[data-theme] */
+const MMMOTIV = {auto: ["◐", "podle zařízení"], light: ["☀", "denní"], dark: ["☾", "noční"]};
+function mmMotivTed() {
+  const t = document.documentElement.dataset.theme;
+  return t === "light" || t === "dark" ? t : "auto";
+}
+function mmMotivPopis() {
+  const [i, n] = MMMOTIV[mmMotivTed()];
+  document.querySelectorAll("[data-mmmotiv]").forEach(b => {
+    const l = `Vzhled: ${n} (klepnutím změníš)`;
+    b.setAttribute("aria-label", l);
+    b.title = l;
+    const ic = b.querySelector(".navmotivi"),
+      tx = b.querySelector(".navgmt");
+    if (ic) ic.textContent = i;
+    if (tx) tx.textContent = `Vzhled: ${n}`;
+  });
+}
+/* barva karty (Vojta 2026-10-29): vínová výchozí + Noc, Les, Uhel, Purpur, Jantar, Hlubina, Popel, Čistá černá, Vysoký kontrast; volba v prohlížeči (mm-kb), styly čtou html[data-kb] (--kbt-*) */
+const MMKB = {
+  vino: "Vínová (výchozí)",
+  noc: "Noc",
+  les: "Les",
+  uhel: "Uhel",
+  purpur: "Purpur",
+  jantar: "Jantar",
+  hlubina: "Hlubina",
+  popel: "Popel",
+  oled: "Čistá černá",
+  kontrast: "Vysoký kontrast",
+};
+const mmKbTed = () => document.documentElement.dataset.kb || "vino";
+const mmKbSel = () =>
+  `<label class="gbtn ghost mmkbl">Barva karty <select data-mmkb>${Object.entries(MMKB)
+    .map(([k, n]) => `<option value="${k}"${mmKbTed() === k ? " selected" : ""}>${n}</option>`)
+    .join("")}</select></label>`;
+function mmKb(k) {
+  const d = document.documentElement;
+  if (k in MMKB && k !== "vino") d.dataset.kb = k;
+  else delete d.dataset.kb;
+  try {
+    if (d.dataset.kb) localStorage.setItem("mm-kb", k);
+    else localStorage.removeItem("mm-kb");
+  } catch (e) {}
+}
+document.addEventListener("change", e => {
+  if (e.target.matches && e.target.matches("[data-mmkb]")) mmKb(e.target.value);
+});
+/* tlačítko pro stránky bez záhlaví s menu (hráčova Hra v aplikaci a na telefonu – list Postava) */
+const mmMotivBtn = () => {
+  const [i, n] = MMMOTIV[mmMotivTed()];
+  return `<button type="button" class="gbtn ghost" data-mmmotiv title="Vzhled: ${n} (klepnutím změníš)"><span class="navmotivi" aria-hidden="true">${i}</span> <span class="navgmt">Vzhled: ${n}</span></button>`;
+};
+function mmMotiv(t) {
+  const d = document.documentElement;
+  if (t === "light" || t === "dark") d.dataset.theme = t;
+  else delete d.dataset.theme;
+  try {
+    if (t === "light" || t === "dark") localStorage.setItem("mm-motiv", t);
+    else localStorage.removeItem("mm-motiv");
+  } catch (e) {}
+  mmMotivPopis();
+  /* mapy mají barvy motivu upečené v kresbě – překreslí se */
+  dispatchEvent(new Event("mmmotiv"));
+}
+document.addEventListener("click", e => {
+  const b = e.target.closest && e.target.closest("[data-mmmotiv]");
+  if (!b) return;
+  e.preventDefault();
+  const t = mmMotivTed();
+  mmMotiv(t === "auto" ? "light" : t === "light" ? "dark" : "auto");
+});
+mmMotivPopis();
 /* starší data z prohlížeče (kopie karet, boj, výprava…) se při čtení převedou jako data z databáze (mmStare v koruna.html):
    DEX (dřív AGI) a názvy stavů podle Vojty 2026-10-24 (paralyzovaný, spoután, vyděšen, otráven) */
 const mmDex = s => (typeof window.mmStare === "function" ? window.mmStare(s) : s);

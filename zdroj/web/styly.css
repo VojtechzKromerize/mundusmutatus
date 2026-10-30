@@ -9,6 +9,7 @@
   --f-disp:"Grenze Gotisch","UnifrakturMaguntia",Georgia,serif;
   --f-body:"Alegreya",Georgia,"Times New Roman",serif;
   --f-label:"Alegreya Sans SC","Gill Sans",Arial,sans-serif;
+  --f-nadp:"Alegreya SC","Alegreya Sans SC",Georgia,serif;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#1a1611; --paper:#231e17; --ink:#ece1c9; --muted:#a8997d; --rule:#3e3427;
@@ -296,6 +297,12 @@ header.site{display:flex;flex-direction:column;gap:0;border:0;padding:0}
   .navlinks .navdd .svlist{max-height:none!important;padding:0!important;margin:0;-webkit-mask:none;mask:none;background:none;border:0;box-shadow:none;display:flex;flex-direction:column;align-items:flex-start;min-width:0}
   .navlinks .navdd .svitek::before,.navlinks .navdd .svlist::before,.navlinks .navdd .svlist a.on::before{display:none}.navlinks .navdd .svlist a small{display:none}.navlinks .navdd .svlist a{font-size:1.1rem;font-weight:inherit;padding:4px 0;margin:0!important;color:var(--ink);text-shadow:none;text-align:left;border:0!important;background:none!important;box-shadow:none!important}.navlinks .navdd .svlist a.on,.navlinks .navdd .svlist a:hover{color:var(--kal)}.navlinks .navdd .svlist a+a::before{display:none}.navlinks .navdd .svsep{color:var(--muted);margin:6px 0 0;font-size:.68rem}.navlinks .navdd .svsep::after{border-color:var(--rule)}.navlinks .navdd .svsep::before{display:none}
   .navlinks .gsearch{order:-1;margin-bottom:6px}
+  /* harmonika (2026-10-29): seznam skupiny jen u rozbalené, šipka u názvu */
+  .navlinks .navdd>.svitek{display:none}
+  .navlinks .navdd.open>.svitek{display:block}
+  .navlinks .navdd>.ddtop{display:flex;justify-content:space-between;align-items:center}
+  .navlinks .navdd>.ddtop::after{content:"";width:8px;height:8px;margin-right:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translateY(-3px);transition:transform .15s;opacity:.8}
+  .navlinks .navdd.open>.ddtop::after{transform:rotate(-135deg) translateY(-3px)}
   .logo{width:min(100%,300px)}
   header.site .logo{display:none}
 }
@@ -354,23 +361,23 @@ a.plinkp:hover,.infobox a:hover,.artmain a:hover{color:var(--kal)}
 .atoc .atop{font-family:var(--f-label);letter-spacing:.06em}
 .abook{font-family:var(--f-label);font-weight:700;letter-spacing:.1em;font-size:.78rem;color:var(--gold);margin:10px 0 2px;text-transform:uppercase}
 /* postranní obsah Artikulí: stejná vínová kůže se zlatými linkami jako rozbalovací nabídka v liště */
-:is(#artside,#drside){padding:12px 10px;border-radius:3px;border:1px solid rgba(20,3,6,.85);
+:is(#artside,#drside,#srdside,#kclside){padding:12px 10px;border-radius:3px;border:1px solid rgba(20,3,6,.85);
   background:linear-gradient(180deg,color-mix(in srgb,var(--kuze) 88%,#000) 0%,var(--kuze) 12%,var(--kuze2) 100%);
   box-shadow:inset 0 0 0 4px var(--kuze),inset 0 0 0 5px var(--zlato-linka),inset 0 0 0 7px var(--kuze),inset 0 0 0 8px rgba(214,170,90,.28),0 14px 30px -14px rgba(20,5,5,.55),0 2px 4px rgba(0,0,0,.2);
   scrollbar-color:rgba(214,170,90,.5) transparent}
-:is(#artside,#drside) .atoc{gap:0;padding:4px 4px}
-:is(#artside,#drside) .atoc a{position:relative;font-family:var(--f-disp);font-size:1.12rem;line-height:1.15;color:#f4e6c4;text-shadow:0 1px 0 rgba(0,0,0,.45);padding:7px 12px 7px 18px;border:0;border-radius:2px;transition:background .12s,color .12s}
-:is(#artside,#drside) .atoc ol>li+li>a{border-top:1px solid rgba(214,170,90,.22)}
-:is(#artside,#drside) .atoc a:hover{background:rgba(255,220,160,.1);color:#f6d27a}
-:is(#artside,#drside) .atoc a.on{color:#f6d27a;font-weight:inherit}
-:is(#artside,#drside) .atoc a.on::before{content:"";position:absolute;left:5px;top:50%;width:7px;height:7px;margin-top:-4px;background:#d9a93f;transform:rotate(45deg);box-shadow:0 0 0 1px rgba(20,3,6,.7)}
-:is(#artside,#drside) .atoc .atop{letter-spacing:.02em}
-:is(#artside,#drside) .abook{display:flex;align-items:center;gap:8px;margin:10px 8px 3px;font-weight:500;font-size:.68rem;letter-spacing:.16em;color:rgba(232,200,140,.75)}
-:is(#artside,#drside) .abook::before,:is(#artside,#drside) .abook::after{content:"";flex:1;min-width:10px;border-top:1px solid rgba(214,170,90,.45)}
-:is(#artside,#drside) .asecs{padding:0 0 4px 18px!important}
-:is(#artside,#drside) .asecs a{font-family:var(--f-body);font-size:.86rem;color:rgba(232,200,140,.82);text-shadow:none;padding:3px 10px;border:0!important}
-:is(#artside,#drside) .asecs a:hover{color:#f6d27a;background:none}
-:is(#artside,#drside) .atoggle{background:transparent;color:#f4e6c4;border-color:rgba(214,170,90,.45)}
+:is(#artside,#drside,#srdside,#kclside) .atoc{gap:0;padding:4px 4px}
+:is(#artside,#drside,#srdside,#kclside) .atoc a{position:relative;font-family:var(--f-disp);font-size:1.12rem;line-height:1.15;color:#f4e6c4;text-shadow:0 1px 0 rgba(0,0,0,.45);padding:7px 12px 7px 18px;border:0;border-radius:2px;transition:background .12s,color .12s}
+:is(#artside,#drside,#srdside,#kclside) .atoc ol>li+li>a{border-top:1px solid rgba(214,170,90,.22)}
+:is(#artside,#drside,#srdside,#kclside) .atoc a:hover{background:rgba(255,220,160,.1);color:#f6d27a}
+:is(#artside,#drside,#srdside,#kclside) .atoc a.on{color:#f6d27a;font-weight:inherit}
+:is(#artside,#drside,#srdside,#kclside) .atoc a.on::before{content:"";position:absolute;left:5px;top:50%;width:7px;height:7px;margin-top:-4px;background:#d9a93f;transform:rotate(45deg);box-shadow:0 0 0 1px rgba(20,3,6,.7)}
+:is(#artside,#drside,#srdside,#kclside) .atoc .atop{letter-spacing:.02em}
+:is(#artside,#drside,#srdside,#kclside) .abook{display:flex;align-items:center;gap:8px;margin:10px 8px 3px;font-weight:500;font-size:.68rem;letter-spacing:.16em;color:rgba(232,200,140,.75)}
+:is(#artside,#drside,#srdside,#kclside) .abook::before,:is(#artside,#drside,#srdside,#kclside) .abook::after{content:"";flex:1;min-width:10px;border-top:1px solid rgba(214,170,90,.45)}
+:is(#artside,#drside,#srdside,#kclside) .asecs{padding:0 0 4px 18px!important}
+:is(#artside,#drside,#srdside,#kclside) .asecs a{font-family:var(--f-body);font-size:.86rem;color:rgba(232,200,140,.82);text-shadow:none;padding:3px 10px;border:0!important}
+:is(#artside,#drside,#srdside,#kclside) .asecs a:hover{color:#f6d27a;background:none}
+:is(#artside,#drside,#srdside,#kclside) .atoggle{background:transparent;color:#f4e6c4;border-color:rgba(214,170,90,.45)}
 /* Draconomicon: plemena jsou hlavní položky obsahu */
 #drside .asecs{padding:0 0 2px!important}
 #drside .asecs a{font-family:var(--f-disp);font-size:1.05rem;color:#f4e6c4;text-shadow:0 1px 0 rgba(0,0,0,.45);padding:5px 12px 5px 18px;border-top:1px solid rgba(214,170,90,.22)!important}
@@ -506,7 +513,7 @@ mark{background:color-mix(in srgb,var(--gold) 35%,transparent);color:inherit;pad
 /* sazba: rozumná délka řádku, iniciály a ozdoby jako v rukopisu */
 /* traktáty a Draconomicon přes celou šíři stránky (Vojta 2026-10-28) */
 .drtext{display:block;max-width:none}.drtext>*+*{margin-top:.7em}
-.asec>p,.asec>ul,.asec>ol,.asec>.rl,.asec>.rnote,.artmain>p,.artmain>.artlead{max-width:72ch}
+/* Artikule přes celou šíři stránky jako traktáty (Vojta 2026-10-29: odrážky byly úzké) */
 .alead{max-width:none}/* úvod Artikulí pod citátem jde přes celou šíři */
 .asec>.ash+p::first-letter,.drtext>h3+p::first-letter{font-family:var(--f-disp);font-size:2.7em;float:left;line-height:.82;margin:.06em .1em 0 0;color:var(--kal)}
 .drtext>h3:not(:first-child)::before{content:"❦";display:block;text-align:center;font-size:1.3rem;color:var(--gold);margin:.4em 0 .5em;font-family:var(--f-body)}
@@ -635,12 +642,6 @@ a.pchar:hover{border-color:var(--kal)}
 .trcard small{font-family:var(--f-label);letter-spacing:.05em;color:var(--gold)}
 .trcard b{font-family:var(--f-disp);font-weight:500;font-size:1.45rem;color:var(--kal);line-height:1.1}
 .trcard span{color:var(--muted);font-size:.95rem}
-.trobsah{background:var(--paper);border:1px solid var(--rule);border-top:2px solid var(--gold);padding:10px 14px;margin:12px 0 18px}
-.trobsah>b{font-family:var(--f-label);letter-spacing:.06em;color:var(--gold);font-weight:700}
-.trobsah ol{margin:6px 0 0;padding-left:1.6em;columns:4 240px;column-gap:24px}
-.trobsah li{break-inside:avoid}.trobsah li::marker{color:var(--kal);font-family:var(--f-label)}
-.trobsah button{font:inherit;background:none;border:0;padding:4px 0;min-height:32px;color:var(--kal);text-align:left;cursor:pointer}
-.trobsah button:hover,.trobsah button:focus-visible{text-decoration:underline}
 .trtext>h3{scroll-margin-top:calc(var(--navh,60px) + 12px)}
 .partymk{cursor:pointer}
 .partymk:focus-visible{outline:2px solid var(--gold)}
@@ -1176,12 +1177,21 @@ html.mmload body::after{content:"Načítám zemské desky…";position:fixed;lef
 .sitenav a.navgm{display:inline-flex;align-items:center;gap:8px;align-self:center;padding:0;border:0;color:var(--ink);transition:transform .15s,filter .15s}
 .sitenav a.navgm:hover,.sitenav a.navgm.on{transform:rotate(-8deg) scale(1.06);filter:drop-shadow(0 2px 3px rgba(0,0,0,.3))}
 .navpecet{width:40px;height:40px;display:block}
+/* přepínač denního a nočního vzhledu v menu */
+.navmotiv{display:inline-flex;align-items:center;gap:8px;align-self:center;width:36px;height:36px;justify-content:center;padding:0;border:1px solid var(--gold);border-radius:50%;background:transparent;color:var(--ink);font-size:1.35rem;line-height:1;cursor:pointer;transition:transform .15s}
+.navmotiv:hover{transform:rotate(-12deg) scale(1.06)}
+.navmotiv .navgmt{display:none}
 .navgm .navgmt{display:none}
 @media (max-width:640px){
   .sitenav a.navgm{align-self:stretch;justify-content:flex-start;padding:6px 4px;font-size:1.25rem}
   .sitenav a.navgm:hover,.sitenav a.navgm.on{transform:none}
   .navpecet{width:30px;height:30px}
   .navgm .navgmt{display:inline}
+  .navmotiv{align-self:stretch;width:auto;height:auto;justify-content:flex-start;padding:6px 4px;border:0;border-radius:0;font-size:1.25rem}
+  .navmotiv .navmotivi{width:30px;text-align:center}
+  .navmotiv .navgmt{display:inline;font-family:var(--f-disp);font-size:1.25rem}
+  .navmotiv .navmotivi{font-size:1.45rem}
+  .navmotiv:hover{transform:none}
 }
 .gmbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin:10px 0 4px;padding:8px 12px;border:1px dashed var(--gold);border-radius:4px;background:color-mix(in srgb,var(--gold) 8%,transparent)}
 .gmlbl{font-family:var(--f-label);letter-spacing:.05em;font-size:.86rem;color:var(--muted)}
@@ -1494,6 +1504,7 @@ html.mmmapcela,html.mmmapcela body{overflow:hidden;overscroll-behavior:none}
 .sitenav .gsearch input:focus{outline:2px solid rgba(214,170,90,.7);outline-offset:1px}
 .sitenav .navpecet{filter:drop-shadow(0 0 1px rgba(246,220,160,.55)) drop-shadow(0 1px 2px rgba(0,0,0,.5))}
 .sitenav .navtoggle{color:var(--lth);border-color:rgba(214,170,90,.55)}
+.sitenav .navmotiv{color:var(--lth);border-color:rgba(214,170,90,.7);text-shadow:0 1px 0 rgba(0,0,0,.45)}.sitenav .navmotiv:hover{color:#fff3d0}
 .sitenav .navburger,.sitenav .navburger::before,.sitenav .navburger::after{background:var(--lt)}
 @media (max-width:640px){
   .sitenav{border-radius:0;padding:8px 12px}
@@ -1507,6 +1518,7 @@ html.mmmapcela,html.mmmapcela body{overflow:hidden;overscroll-behavior:none}
 #navart{--kos:linear-gradient(135deg,#8fb4ee,#2f5d9e 55%,#163869)}
 #navkron{--kos:linear-gradient(135deg,#8fd6a6,#23774a 55%,#0f4a2b)}
 #navdesky{--kos:linear-gradient(135deg,#ffe28a,#f0a91e 50%,#b86a06)}
+#navsvet{--kos:linear-gradient(135deg,#f2d6d6,#a33a3a 55%,#5e1414)}
 .navdd .svitek .svlist::before,.navdd .svitek .svlist a.on::before{background:var(--kos);box-shadow:0 0 0 1.5px #e0b04a,0 0 0 2.5px rgba(20,3,6,.85)}
 #navdesky .svitek .svlist a.on::before{background:#d9a93f;box-shadow:0 0 0 1px rgba(20,3,6,.7)}
 .navdd .svitek .svlist::before{width:12px;height:12px;margin-left:-6px;top:-7px}
@@ -2376,12 +2388,38 @@ html.mmapp .mmpop{padding-top:calc(env(safe-area-inset-top,0px) + 10px)}
 .mmkvyp{position:absolute;right:14px;bottom:14px;pointer-events:none;font-family:var(--f-label);letter-spacing:.04em;font-size:.85rem;color:var(--paper);background:color-mix(in srgb,var(--ink) 80%,transparent);border:0;border-radius:3px;padding:5px 12px;cursor:pointer}
 .mmkostky.on .mmkvyp{pointer-events:auto}
 .kmmk{font-family:var(--f-label);letter-spacing:.03em;font-size:.9rem;color:var(--muted);display:inline-flex;align-items:center;gap:4px}
+/* okno pro ruční zadání kostek (11b) – leží mimo .kdb, proto tmavá paleta karty se záložními hodnotami */
+.mmruc{border:1px solid var(--kb-gold,#d9b45c);border-radius:8px;background:var(--kb-bg,#1f0c10);color:var(--kb-tx,#efe3c8);padding:0;width:min(92vw,360px);box-shadow:0 12px 40px rgba(0,0,0,.6)}
+.mmruc::backdrop{background:rgba(10,3,5,.72)}
+.mmrucf{display:flex;flex-direction:column;gap:10px;padding:16px}
+.mmrucf h3{margin:0;font:500 1.1rem var(--f-nadp,var(--f-disp));letter-spacing:.06em}
+.mmrucn{margin:0;color:var(--kb-mu,#b8a384);font-size:.9rem}
+.mmrucr{display:flex;align-items:center;justify-content:space-between;gap:10px;font-family:var(--f-nadp,var(--f-label));font-size:1rem}
+.mmrucr small{display:block;color:var(--kb-mu,#b8a384);font-size:.75rem;letter-spacing:.02em}
+.mmrucr input{width:84px;padding:8px;border:2px solid var(--kb-bd,#8c4a3e);border-radius:6px;background:var(--kb-pan2,#15070a);color:var(--kb-tx,#efe3c8);font:600 1.3rem var(--f-body);text-align:center}
+.mmrucr input:focus-visible{outline:2px solid var(--kb-gold,#d9b45c);outline-offset:1px}
+.mmrucr input.bad{border-color:var(--kb-ac,#d9534f)}
+.mmruce{margin:0;color:#ff9b96;font-size:.9rem}
+.mmrucb{display:flex;gap:8px;justify-content:flex-end}
+.mmrucb .gbtn{min-height:44px}
+.mmkbl{display:inline-flex;align-items:center;gap:8px}
+.mmkbl select{font:inherit;background:var(--kb-pan2);color:var(--kb-tx);border:1px solid var(--kb-bd);border-radius:4px;padding:4px 6px}
 
 /* ===== karta postavy v rozvržení D&D Beyond (2026-10-16): tmavé panely s měděným rámem ===== */
 /* karta postavy: vínová kůže se zlatým kováním (2026-10-22, dřív hnědá) – všechny odstíny karty jsou tady, listy a hlavička je berou odsud;
    stejné barvy má svislý pruh iniciativy na telefonu (bosav) */
-.kdb,.bosav{--kb-bg:#1f0c10;--kb-pan:#2a1216;--kb-pan2:#15070a;--kb-pan3:#2f1519;--kb-hd1:#35161c;--kb-hd2:#230d11;--kb-port:#3d1c22;--kb-in:#15070a;--kb-bar:#4a2228;--kb-sel:#3a2016;--kb-off:#1a0b0e;--kb-dim:#7a6a62;--kb-btn:#3a171c;--kb-ink:#241a10;
-  --kb-bd:#8c4a3e;--kb-bd2:#5a2a2a;--kb-tx:#efe3c8;--kb-mu:#b8a384;--kb-ac:#d9534f;--kb-gold:#d9b45c;--kb-ok:#6aa85e}
+.kdb,.bosav{--kb-bg:var(--kbt-bg,#1f0c10);--kb-pan:var(--kbt-pan,#2a1216);--kb-pan2:var(--kbt-pan2,#15070a);--kb-pan3:var(--kbt-pan3,#2f1519);--kb-hd1:var(--kbt-hd1,#35161c);--kb-hd2:var(--kbt-hd2,#230d11);--kb-port:var(--kbt-port,#3d1c22);--kb-in:var(--kbt-in,#15070a);--kb-bar:var(--kbt-bar,#4a2228);--kb-sel:var(--kbt-sel,#3a2016);--kb-off:var(--kbt-off,#1a0b0e);--kb-dim:var(--kbt-dim,#7a6a62);--kb-btn:var(--kbt-btn,#3a171c);--kb-ink:var(--kbt-ink,#241a10);--kb-bd:var(--kbt-bd,#8c4a3e);--kb-bd2:var(--kbt-bd2,#5a2a2a);--kb-tx:var(--kbt-tx,#efe3c8);--kb-mu:var(--kbt-mu,#b8a384);--kb-ac:var(--kbt-ac,#d9534f);--kb-gold:var(--kbt-gold,#d9b45c);--kb-ok:var(--kbt-ok,#6aa85e);--kb-ac-tx:var(--kbt-ac-tx,#ee7f78);--kb-hl:var(--kbt-hl,#c98564);--kb-hb:var(--kbt-hb,#6db3f2);--kb-glow:var(--kbt-glow,rgba(150,42,56,.45));--kb-vig:var(--kbt-vig,rgba(12,0,3,.55));--kb-line:var(--kbt-line,rgba(214,170,90,.28))}
+/* barevné varianty karty (2026-10-29, Vojta): atribut data-kb na <html> (volba v listu Postava, localStorage mm-kb); výchozí vínová nemá blok.
+   Každá paleta splňuje kontrast textu ≥ 4,5:1 na všech panelech (hlídá testy/jednotky/barvy-karty.test.mjs). */
+html[data-kb="noc"]{--kbt-in:#080c14;--kbt-bg:#0d121e;--kbt-pan:#141a28;--kbt-pan2:#080c14;--kbt-pan3:#171e2d;--kbt-hd1:#182033;--kbt-hd2:#0f1421;--kbt-port:#1e273b;--kbt-bar:#252f47;--kbt-sel:#1f2236;--kbt-off:#0c1019;--kbt-dim:#6b7587;--kbt-btn:#1a2337;--kbt-ink:#14181f;--kbt-bd:#4d6f9e;--kbt-bd2:#2b3f60;--kbt-tx:#e8ecf2;--kbt-mu:#a9b6cc;--kbt-ac:#e96c62;--kbt-gold:#d9b45c;--kbt-ok:#6fb57a;--kbt-ac-tx:#ec786e;--kbt-hl:#8fb4ea;--kbt-hb:#8fb4ea;--kbt-glow:rgba(52,98,176,.42);--kbt-vig:rgba(0,4,14,.55);--kbt-line:rgba(150,180,230,.28)}
+html[data-kb="les"]{--kbt-in:#08140e;--kbt-bg:#0e1d16;--kbt-pan:#14281e;--kbt-pan2:#08140e;--kbt-pan3:#182c22;--kbt-hd1:#193226;--kbt-hd2:#0f2118;--kbt-port:#1f3a2d;--kbt-bar:#264636;--kbt-sel:#1f2a16;--kbt-off:#0c1812;--kbt-dim:#6a7a68;--kbt-btn:#1a3729;--kbt-ink:#17210f;--kbt-bd:#4f8660;--kbt-bd2:#2c4a37;--kbt-tx:#ece7d0;--kbt-mu:#aebb98;--kbt-ac:#ec7358;--kbt-gold:#d7b45a;--kbt-ok:#8fc86a;--kbt-ac-tx:#f29785;--kbt-hl:#a5cf8a;--kbt-hb:#a5cf8a;--kbt-glow:rgba(46,128,84,.40);--kbt-vig:rgba(0,10,4,.55);--kbt-line:rgba(190,215,150,.28)}
+html[data-kb="uhel"]{--kbt-in:#100e0c;--kbt-bg:#181513;--kbt-pan:#221e1a;--kbt-pan2:#100e0c;--kbt-pan3:#26221e;--kbt-hd1:#2a2521;--kbt-hd2:#1b1815;--kbt-port:#312c28;--kbt-bar:#3c3630;--kbt-sel:#2c2318;--kbt-off:#151210;--kbt-dim:#7d7468;--kbt-btn:#2e2823;--kbt-ink:#1c150c;--kbt-bd:#8a6a46;--kbt-bd2:#4a3a2a;--kbt-tx:#f0e6d2;--kbt-mu:#bdae94;--kbt-ac:#e9695a;--kbt-gold:#dcb35a;--kbt-ok:#79af5f;--kbt-ac-tx:#f0857c;--kbt-hl:#d4a06a;--kbt-hb:#d4a06a;--kbt-glow:rgba(150,108,64,.34);--kbt-vig:rgba(0,0,0,.6);--kbt-line:rgba(220,180,110,.26)}
+html[data-kb="purpur"]{--kbt-in:#100814;--kbt-bg:#190e1d;--kbt-pan:#221428;--kbt-pan2:#100814;--kbt-pan3:#26182c;--kbt-hd1:#2a1932;--kbt-hd2:#1c0f21;--kbt-port:#321f3a;--kbt-bar:#3c2646;--kbt-sel:#2d1f3a;--kbt-off:#150c18;--kbt-dim:#7b6f86;--kbt-btn:#2e1a37;--kbt-ink:#1e1426;--kbt-bd:#8a58b0;--kbt-bd2:#4a2c66;--kbt-tx:#f0e6ef;--kbt-mu:#bba9c8;--kbt-ac:#ec6e88;--kbt-gold:#dbb85e;--kbt-ok:#78b873;--kbt-ac-tx:#ed738c;--kbt-hl:#cfa3ec;--kbt-hb:#cfa3ec;--kbt-glow:rgba(128,64,184,.42);--kbt-vig:rgba(8,0,14,.55);--kbt-line:rgba(210,170,240,.28)}
+html[data-kb="jantar"]{--kbt-bg:#1d160e;--kbt-pan:#271e15;--kbt-pan2:#130e09;--kbt-pan3:#2c2218;--kbt-hd1:#31261a;--kbt-hd2:#201810;--kbt-port:#392c20;--kbt-in:#130e09;--kbt-bar:#453627;--kbt-sel:#33230f;--kbt-off:#18120d;--kbt-dim:#85735c;--kbt-btn:#36281b;--kbt-ink:#241808;--kbt-bd:#a57a3c;--kbt-bd2:#5a4220;--kbt-tx:#f3e6c6;--kbt-mu:#c4ae86;--kbt-ac:#d9694a;--kbt-gold:#e2b04e;--kbt-ok:#86b35a;--kbt-hl:#e0a24c;--kbt-glow:rgba(190,120,40,.38);--kbt-vig:rgba(14,6,0,.55);--kbt-line:rgba(230,175,80,.30);--kbt-ac-tx:#ee8a6c;--kbt-hb:#e0a24c}
+html[data-kb="hlubina"]{--kbt-bg:#0d1b1e;--kbt-pan:#142528;--kbt-pan2:#081214;--kbt-pan3:#172a2d;--kbt-hd1:#182f33;--kbt-hd2:#0f1f21;--kbt-port:#1e373b;--kbt-in:#081214;--kbt-bar:#254247;--kbt-sel:#0f2a2c;--kbt-off:#0c1719;--kbt-dim:#668083;--kbt-btn:#1a3337;--kbt-ink:#0c1c1d;--kbt-bd:#3f9096;--kbt-bd2:#235356;--kbt-tx:#e6f0ee;--kbt-mu:#a2c0bd;--kbt-ac:#e8705f;--kbt-gold:#d9bd62;--kbt-ok:#6fc08a;--kbt-hl:#7fd3cc;--kbt-glow:rgba(30,140,150,.40);--kbt-vig:rgba(0,8,10,.58);--kbt-line:rgba(130,210,205,.28);--kbt-ac-tx:#f3978a;--kbt-hb:#7fd3cc}
+html[data-kb="popel"]{--kbt-bg:#141517;--kbt-pan:#1d1e1f;--kbt-pan2:#0d0e0f;--kbt-pan3:#202224;--kbt-hd1:#242527;--kbt-hd2:#171819;--kbt-port:#2b2c2e;--kbt-in:#0d0e0f;--kbt-bar:#343638;--kbt-sel:#23262b;--kbt-off:#121213;--kbt-dim:#757c87;--kbt-btn:#26282b;--kbt-ink:#14171c;--kbt-bd:#7a8594;--kbt-bd2:#434a55;--kbt-tx:#eceef1;--kbt-mu:#b2b8c1;--kbt-ac:#e2686a;--kbt-gold:#cfd4dc;--kbt-ok:#7fb98a;--kbt-hl:#c3ccd8;--kbt-glow:rgba(120,135,155,.30);--kbt-vig:rgba(0,0,0,.55);--kbt-line:rgba(200,208,220,.26);--kbt-ac-tx:#ee8182;--kbt-hb:#c3ccd8}
+html[data-kb="oled"]{--kbt-bg:#000000;--kbt-pan:#0a0a0b;--kbt-pan2:#000000;--kbt-pan3:#0e0e10;--kbt-hd1:#121214;--kbt-hd2:#060607;--kbt-port:#17171a;--kbt-in:#050506;--kbt-bar:#1f1f23;--kbt-sel:#1a1510;--kbt-off:#050505;--kbt-dim:#7a746c;--kbt-btn:#161316;--kbt-ink:#1c150c;--kbt-bd:#7d5f3f;--kbt-bd2:#3b2c20;--kbt-tx:#f0e6d2;--kbt-mu:#bcaf98;--kbt-ac:#e3615a;--kbt-gold:#dcb35a;--kbt-ok:#76ad5c;--kbt-hl:#d4a06a;--kbt-glow:rgba(120,70,40,.28);--kbt-vig:rgba(0,0,0,.7);--kbt-line:rgba(220,180,110,.24);--kbt-ac-tx:#ee7e77;--kbt-hb:#d4a06a}
+html[data-kb="kontrast"]{--kbt-bg:#000000;--kbt-pan:#0c0c0c;--kbt-pan2:#000000;--kbt-pan3:#121212;--kbt-hd1:#171717;--kbt-hd2:#050505;--kbt-port:#1c1c1c;--kbt-in:#000000;--kbt-bar:#262626;--kbt-sel:#1f1a08;--kbt-off:#080808;--kbt-dim:#a09a8c;--kbt-btn:#1a1a1a;--kbt-ink:#000000;--kbt-bd:#f0d078;--kbt-bd2:#a58a3c;--kbt-tx:#ffffff;--kbt-mu:#e6dfcf;--kbt-ac:#ff6a62;--kbt-gold:#ffd866;--kbt-ok:#86e07a;--kbt-hl:#ffd866;--kbt-glow:rgba(90,70,20,.25);--kbt-vig:rgba(0,0,0,.6);--kbt-line:rgba(255,216,102,.45);--kbt-ac-tx:#ff8e86;--kbt-hb:#ffd866}
 .kdb{display:flex;flex-direction:column;gap:12px;color:var(--kb-tx);font-family:var(--f-body)}
 .kdb small{color:var(--kb-mu)}
 .kdb .kdbp{position:relative;background:var(--kb-pan);border:2px solid var(--kb-bd);border-radius:12px;padding:12px 12px 30px;box-shadow:inset 0 0 0 2px var(--kb-pan),inset 0 0 0 3px var(--kb-bd2),0 6px 14px -8px rgba(0,0,0,.6)}
@@ -2428,7 +2466,7 @@ html.mmapp .mmpop{padding-top:calc(env(safe-area-inset-top,0px) + 10px)}
 .kdbhpc b{font-family:var(--f-body);font-size:2rem;line-height:1;font-weight:500}
 .kdbhpc>i{font-size:1.9rem;color:var(--kb-mu);font-style:normal;line-height:1}
 .kdbtmp b{color:var(--kb-mu)}
-.kdbhp.bhp2 .kdbhpc span:first-child b{color:var(--kb-gold)}.kdbhp.bhp0 .kdbhpc span:first-child b{color:var(--kb-ac)}
+.kdbhp.bhp2 .kdbhpc span:first-child b{color:var(--kb-gold)}.kdbhp.bhp0 .kdbhpc span:first-child b{color:var(--kb-ac-tx)}
 .kdbhpo{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:6px}
 .kdbhpo select{background:var(--kb-in);color:var(--kb-tx);border:1px solid var(--kb-bd);border-radius:3px;font-size:.8rem;padding:2px}
 
@@ -2475,7 +2513,7 @@ html.mmapp .mmpop{padding-top:calc(env(safe-area-inset-top,0px) + 10px)}
 .kdb .ktabs button[aria-selected=true]{border-bottom-color:var(--kb-ac)}
 
 .kdbsec{margin:0 0 14px}
-.kdbsh{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:6px 0 6px;font-family:var(--f-label);font-weight:700;letter-spacing:.07em;text-transform:uppercase;font-size:.82rem;color:#c98564;border-bottom:1px solid var(--kb-bd2);padding-bottom:4px}
+.kdbsh{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:6px 0 6px;font-family:var(--f-label);font-weight:700;letter-spacing:.07em;text-transform:uppercase;font-size:.82rem;color:var(--kb-hl);border-bottom:1px solid var(--kb-bd2);padding-bottom:4px}
 .kdbsh small{text-transform:none;letter-spacing:0;color:var(--kb-mu)}
 
 .kdb .kspn{background:none;border:0;padding:0;color:var(--kb-tx);font-style:italic;text-decoration:underline dotted var(--kb-mu);text-underline-offset:3px;text-align:left}
@@ -2495,7 +2533,7 @@ html.mmapp .mmpop{padding-top:calc(env(safe-area-inset-top,0px) + 10px)}
 .kdb .kinvf{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 
 .kdb .kgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-.kdb .uvh2{color:#c98564}
+.kdb .uvh2{color:var(--kb-hl)}
 .kdb .rsmall{color:var(--kb-mu)}
 .kdb .khody li{border-color:var(--kb-bd2)}
 .kdb .kzavbox{color:var(--ink)}
@@ -2532,7 +2570,7 @@ html.mmapp .mmpop{padding-top:calc(env(safe-area-inset-top,0px) + 10px)}
 
 /* karta Beyond: vnitřní části (akce, kouzla, stavy, vybavení, společníci, doplňky) v tmavém panelu */
 .kdb .kakcegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:4px 18px}
-.kdb .kakcegrid>section>.uvh2,.kdb .bsph,.kdb .ktab .uvh2{font-family:var(--f-label);font-weight:700;letter-spacing:.07em;text-transform:uppercase;font-size:.82rem;color:#c98564;border-bottom:1px solid var(--kb-bd2);padding-bottom:4px;margin:8px 0 6px}
+.kdb .kakcegrid>section>.uvh2,.kdb .bsph,.kdb .ktab .uvh2{font-family:var(--f-label);font-weight:700;letter-spacing:.07em;text-transform:uppercase;font-size:.82rem;color:var(--kb-hl);border-bottom:1px solid var(--kb-bd2);padding-bottom:4px;margin:8px 0 6px}
 .kdb .kakl,.kdb .kspl,.kdb .kinv{list-style:none;margin:0;padding:0}
 .kdb .kakl li,.kdb .kspl li,.kdb .kinv li{padding:5px 0;border-bottom:1px solid var(--kb-bd2);display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px}
 .kdb .kinv li{justify-content:space-between}
@@ -2550,7 +2588,7 @@ html.mmapp .mmpop{padding-top:calc(env(safe-area-inset-top,0px) + 10px)}
 .kdb .kpop dd{margin:2px 0 6px}
 
 .kdb .krysy2{line-height:1.9}
-.kdb .kcas,.kdb .ksrd{font-family:var(--f-label);text-transform:uppercase;letter-spacing:.04em;font-size:.66rem;color:#c98564;border:1px solid var(--kb-bd2);border-radius:3px;padding:0 4px;margin-left:3px}
+.kdb .kcas,.kdb .ksrd{font-family:var(--f-label);text-transform:uppercase;letter-spacing:.04em;font-size:.66rem;color:var(--kb-hl);border:1px solid var(--kb-bd2);border-radius:3px;padding:0 4px;margin-left:3px}
 .kdb .kspol{background:var(--kb-pan2);border:1px solid var(--kb-bd2);border-radius:8px;padding:8px 10px;margin:0 0 8px}
 .kdb .kspol .kbox{background:var(--kb-bg);border-color:var(--kb-bd2);color:var(--kb-tx)}
 .kdb .kstat .kbox{background:var(--kb-bg);border-color:var(--kb-bd2);color:var(--kb-tx)}
@@ -2563,7 +2601,7 @@ html.mmapp .mmpop{padding-top:calc(env(safe-area-inset-top,0px) + 10px)}
 .kdb select option{background:var(--kb-pan);color:var(--kb-tx)}
 .kdb .gbtn,.kdb .gbtn.ghost{font-family:var(--f-label)!important;font-weight:600!important;letter-spacing:.04em!important;font-size:.78rem!important;line-height:1.3!important;color:var(--kb-tx)!important;background:var(--kb-bg)!important;border:1px solid var(--kb-bd)!important;border-radius:3px!important;padding:3px 9px!important;box-shadow:none!important;min-height:0!important}
 .kdb .gbtn:hover{border-color:var(--kb-gold)!important}
-.kdb .uvh2{font-family:var(--f-label);font-weight:700;letter-spacing:.07em;text-transform:uppercase;font-size:.82rem;color:#c98564}
+.kdb .uvh2{font-family:var(--f-label);font-weight:700;letter-spacing:.07em;text-transform:uppercase;font-size:.82rem;color:var(--kb-hl)}
 
 .bhr .kdbc li,.kdbc li{background:none!important;border:0;border-bottom:1px solid var(--kb-bd2);border-radius:0!important;font-family:var(--f-body)!important;font-size:.92rem;padding:4px 0;text-decoration:none!important;color:var(--kb-tx)!important;display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px}
 .kdbc li b{font-family:var(--f-body)}
@@ -2655,8 +2693,8 @@ html.mmapp .mmpop{padding-top:calc(env(safe-area-inset-top,0px) + 10px)}
 #bojview .bdm .kdice .bst[aria-pressed=true]{background:#2f7fd0;border-color:#2f7fd0;color:#fff}
 .bdm .bdmic{width:20px;height:20px;flex:none}
 /* hlavička karty jako přední deska vazby (2026-10-22): stejná vrstva kůže jako rám webu (šum, viněta) a tenká zlatá vnitřní linka */
-.bdmh{position:relative;background-color:var(--kb-hd1);background-image:radial-gradient(ellipse at 50% 20%,rgba(150,42,56,.45),transparent 62%),radial-gradient(ellipse at 50% 70%,transparent 50%,rgba(12,0,3,.55) 100%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .12 0 0 0 0 .02 0 0 0 0 .04 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.018 .03' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .2 0 0 0 0 .22 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='600' height='600' filter='url(%23n)'/%3E%3C/svg%3E");border-bottom:2px solid var(--kb-bd);padding:8px 12px 10px}
-.bdmh::after{content:"";position:absolute;inset:4px;border:1px solid rgba(214,170,90,.28);border-radius:6px;pointer-events:none}
+.bdmh{position:relative;background-color:var(--kb-hd1);background-image:radial-gradient(ellipse at 50% 20%,var(--kb-glow),transparent 62%),radial-gradient(ellipse at 50% 70%,transparent 50%,var(--kb-vig) 100%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .12 0 0 0 0 .02 0 0 0 0 .04 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.018 .03' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .2 0 0 0 0 .22 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='600' height='600' filter='url(%23n)'/%3E%3C/svg%3E");border-bottom:2px solid var(--kb-bd);padding:8px 12px 10px}
+.bdmh::after{content:"";position:absolute;inset:4px;border:1px solid var(--kb-line);border-radius:6px;pointer-events:none}
 .bdmh>*{position:relative;z-index:1}
 .bdmtop{display:grid;grid-template-columns:40px minmax(0,1fr) 40px;align-items:center;gap:6px}
 .bdmback,.bdmkl{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--kb-bg);border:1px solid var(--kb-bd2);color:var(--kb-tx);font-size:1.6rem;line-height:1;text-decoration:none}
@@ -2733,7 +2771,7 @@ html.mmapp .mmpop{padding-top:calc(env(safe-area-inset-top,0px) + 10px)}
 .bdmcur{display:flex;align-items:center;gap:10px;padding:11px 12px;background:none;border:0;color:var(--kb-tx);font-family:var(--f-label)!important;font-weight:700;font-size:1.02rem;text-align:left;min-width:0}
 .bdmcur span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .bdmmrb,.bdmlsb{display:grid;place-items:center;width:52px;background:none;border:0;border-left:1px solid var(--kb-bd2);color:var(--kb-tx)}
-.bdmmrb{color:var(--kb-ac)}.bdmmrb .bdmic{width:22px;height:22px}
+.bdmmrb{color:var(--kb-ac-tx)}.bdmmrb .bdmic{width:22px;height:22px}
 .bdmlsb{background:var(--kb-hd2)}.bdmlsb[aria-pressed=true]{color:var(--kb-gold)}
 .bdmmriz{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin:6px 12px 0;padding:8px;background:var(--kb-pan2);border:1px solid var(--kb-bd2);border-radius:8px}
 .bdmmriz button{display:flex;align-items:center;gap:8px;padding:10px;border-radius:6px;background:var(--kb-pan);border:1px solid var(--kb-bd2);color:var(--kb-tx);font-family:var(--f-label)!important;font-weight:700;font-size:.85rem;text-align:left}
@@ -2741,7 +2779,7 @@ html.mmapp .mmpop{padding-top:calc(env(safe-area-inset-top,0px) + 10px)}
 .bdmbody{padding:2px 12px 10px;touch-action:pan-y}
 .bdmsec{min-width:0}
 .bdmsh{display:flex;align-items:center;gap:8px;margin:18px 0 6px;font-family:var(--f-label);font-weight:700;font-size:1.05rem;color:var(--kb-tx);border-bottom:1px solid var(--kb-bd2);padding-bottom:6px}
-.bdmgh{margin:16px 0 6px;font-family:var(--f-label);font-weight:800;font-size:.9rem;letter-spacing:.07em;text-transform:uppercase;color:#6db3f2}
+.bdmgh{margin:16px 0 6px;font-family:var(--f-label);font-weight:800;font-size:.9rem;letter-spacing:.07em;text-transform:uppercase;color:var(--kb-hb)}
 .bdmgh small{font-weight:600;letter-spacing:.02em;text-transform:none;color:var(--kb-tx);font-size:.85rem}
 .bdmnote{color:var(--kb-mu);font-size:.85rem;margin:6px 0;line-height:1.35}
 .bdmnote a{color:var(--kb-gold)}
@@ -2769,7 +2807,7 @@ html.mmapp .mmpop{padding-top:calc(env(safe-area-inset-top,0px) + 10px)}
 .bdmdr .kdbdot{justify-self:center}
 .bdmdr small{font-family:var(--f-label);font-weight:700;color:var(--kb-mu)}
 .bdmchips{display:flex;gap:6px;overflow-x:auto;padding:10px 0 4px;scrollbar-width:none}
-.bdmchips button{flex:none;padding:6px 12px;border-radius:5px;background:var(--kb-pan);border:1px solid var(--kb-bd2);color:#6db3f2;font-family:var(--f-label)!important;font-weight:700;font-size:.85rem}
+.bdmchips button{flex:none;padding:6px 12px;border-radius:5px;background:var(--kb-pan);border:1px solid var(--kb-bd2);color:var(--kb-hb);font-family:var(--f-label)!important;font-weight:700;font-size:.85rem}
 .bdmchips button[aria-pressed=true]{background:#2f7fd0;border-color:#2f7fd0;color:#fff}
 /* zbraně v jednom řádku všude (2026-10-21): ikona · jméno · dosah · zásah · zranění; poznámka pod tím */
 .bdmuth,.bdmut{display:grid;grid-template-columns:20px minmax(0,1fr) 54px 56px minmax(90px,auto);align-items:center;gap:5px}
@@ -2778,7 +2816,7 @@ html.mmapp .mmpop{padding-top:calc(env(safe-area-inset-top,0px) + 10px)}
 .bdmut{padding:5px 0;border-bottom:1px solid var(--kb-hd1);grid-template-areas:"i n d h z" "i p p p p";row-gap:2px}
 .bdmuth span:nth-child(2){text-align:left!important}
 .bdmut.bdmzv{background:linear-gradient(90deg,rgba(214,176,90,.08),transparent)}
-.bdmuti{grid-area:i;color:var(--kb-ac);display:grid;place-items:center}.bdmuti .bdmic{width:16px;height:16px}
+.bdmuti{grid-area:i;color:var(--kb-ac-tx);display:grid;place-items:center}.bdmuti .bdmic{width:16px;height:16px}
 .bdmutn{grid-area:n;min-width:0}.bdmutn b{color:#8cbcf0;font-style:italic;font-weight:600}.bdmutn small{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.03em}
 .bdmzvs{display:flex;flex-wrap:wrap;gap:2px 8px;margin-top:2px;color:var(--kb-gold);font-size:.74rem}.bdmzvs i{font-style:normal;margin-left:2px}.bdmzvs img,.bdmzvs .bik{width:16px;height:16px;vertical-align:middle}
 /* vlastnosti a mistrovství zbraně SRD česky u rozbalené zbraně (20g bojWPopisHtml); mistrovství, které postava nepoužívá, ztlumené */
@@ -2929,7 +2967,6 @@ html.mmapp .mmpop{padding-top:calc(env(safe-area-inset-top,0px) + 10px)}
 .kvpop p{margin:4px 0 8px;line-height:1.45}
 .plne-host:has(.plneinl[data-ok]) .plne-skr{display:none}
 .plnepop{margin:14px 0 4px;font:600 .78rem var(--f-label);letter-spacing:.06em;text-transform:uppercase;color:var(--kb-gold,var(--gold))}.kvpop .kvpar{font-size:.86rem;color:var(--kb-mu,var(--muted))}
-.kvcele>summary{cursor:pointer;font-size:.82rem;color:var(--kb-mu,var(--muted))}
 .kdusin{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px 12px;margin:10px 0;padding:8px 10px;border:1px solid var(--kb-bd2,var(--rule));border-radius:6px;background:var(--kb-pan,var(--paper))}
 .kdusin label{display:flex;flex-direction:column;gap:3px;font:600 .68rem var(--f-label);letter-spacing:.05em;text-transform:uppercase;color:var(--kb-mu,var(--muted))}
 .kdusin select,.kdusin input{font:400 .95rem var(--f-body,inherit);text-transform:none;letter-spacing:0;min-height:34px}
@@ -2979,6 +3016,15 @@ html.mmapp .mmpop{padding-top:calc(env(safe-area-inset-top,0px) + 10px)}
 .bdmtah .bdmmini{min-height:32px;min-width:40px}
 .bdmpoh{display:inline-flex;align-items:baseline;gap:4px;margin-right:2px;font-family:var(--f-label);color:var(--kb-tx)}
 .bdmpoh b{font-size:1.15rem}.bdmpoh i{font-style:normal;font-size:.8rem;opacity:.75}.bdmpoh0 b{opacity:.5}
+/* pohyb po políčkách (5 stop), Sprint jinou barvou */
+.bdmpols{display:inline-flex;flex-wrap:wrap;gap:3px;align-items:center}
+.bdmpol{width:22px;height:22px;padding:0;border:1.5px solid rgba(214,170,90,.75);border-radius:3px;background:transparent;cursor:pointer}
+.bdmpol.sp{border-style:dashed}
+.bdmpol.on{background:rgba(214,170,90,.85);border-style:solid}
+.bdmpol.on.sp{background:rgba(111,130,191,.9);border-color:rgba(160,175,230,.9)}
+.bdmpol.sp{border-color:rgba(160,175,230,.75)}
+.bdmpol:hover{outline:2px solid var(--gold);outline-offset:1px}
+@media (pointer:coarse){.bdmpol{width:26px;height:26px}}
 .bdmtsp{display:inline-flex;flex-wrap:wrap;gap:4px;align-items:center}.bdmtsp small{opacity:.8}
 .bdmtah [aria-pressed=true]{opacity:.55;text-decoration:line-through}
 .bdmchu{opacity:.55;text-decoration:line-through}
@@ -3109,7 +3155,7 @@ button.bdmsri{cursor:pointer}
 .bphcil[aria-pressed=true],.bphtyp[aria-pressed=true]{border-color:var(--kb-gold);background:#2f2416;box-shadow:0 0 0 1px var(--kb-gold)}
 .bphadv button{padding:4px 10px}
 .bphnav{color:var(--kb-mu);font-size:.78rem}
-.bphnav.bphbez{color:var(--kb-ac);font-weight:600}
+.bphnav.bphbez{color:var(--kb-ac-tx);font-weight:600}
 .bphod .kzavbox,.bphod .kjuplak{background:#201914;color:var(--kb-tx);border:1px solid var(--kb-bd2);border-radius:6px;padding:6px 8px;margin:6px 0}.bphod .kzavbox b{color:var(--kb-gold)}.bphod .kzavbox.kpok b{color:#e88a7a}
 .bphod .bdmhod{align-self:flex-start;margin-top:2px}
 /* zbraň v Akcích: vlastnosti až po klepnutí na kartu zbraně; kouzlo na cíl */
@@ -3162,12 +3208,13 @@ h4 .kspi{margin-right:5px}
 .bdmchips button.bdmchi{display:inline-flex;align-items:center;justify-content:center;min-width:2.6em;padding:5px 9px}
 
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .kspi{border-color:#c9a34a}}
+:root[data-theme="dark"] .kspi{border-color:#c9a34a}
 /* volba stupně seslání (upcasting) */
 .kslv{display:inline-flex;gap:3px;align-items:center;vertical-align:middle;margin-right:4px}
 .kslvb{box-sizing:border-box;width:24px;height:24px;padding:0;border-radius:50%;border:1.5px solid var(--rule);background:var(--paper);color:var(--muted);font-family:Georgia,"Times New Roman",serif;font-weight:700;font-size:10.5px;line-height:1;cursor:pointer}
 .kslvb.on{background:var(--kat);border-color:var(--gold);color:#fbf1d4}.kslvb.kslvp{border-style:dashed}
-.kdb .kslvb,.bdm .kslvb{background:var(--kb-bg,#1f0c10);border-color:var(--kb-bd2,#5a3d2c);color:#b9a88c}.kdb .kslvb.on,.bdm .kslvb.on{background:#2f5fae;border-color:#d9b45a;color:#fff}
-.kupc{color:#6db3f2!important;font-family:var(--f-label);font-weight:700;font-size:.72rem}
+.kdb .kslvb,.bdm .kslvb{background:var(--kb-bg,var(--kbt-bg,#1f0c10));border-color:var(--kb-bd2,#5a3d2c);color:#b9a88c}.kdb .kslvb.on,.bdm .kslvb.on{background:#2f5fae;border-color:#d9b45a;color:#fff}
+.kupc{color:var(--kb-hb)!important;font-family:var(--f-label);font-weight:700;font-size:.72rem}
 .bdmstk{display:inline-flex;vertical-align:-3px;margin-left:3px}.bdmstk img,.bdmstk svg{width:16px;height:16px}
 @media (max-width:600px){.bdmspr .bdmspa:not(.bdmspa1){grid-column:1/-1}}
 
@@ -3194,7 +3241,7 @@ h4 .kspi{margin-right:5px}
 .kstr>p{margin:0 0 8px 40px;font-size:.85rem;color:var(--kb-mu,#a8977c);line-height:1.35}
 .kstrx{padding:10px 2px 4px}.kstrxh{display:grid;grid-template-columns:30px 1fr auto;align-items:center;gap:10px}.kstrxh b{font-family:var(--f-label);font-size:.8rem;color:var(--kb-mu,#a8977c)}
 .kstrxl{display:flex;gap:6px;margin:8px 0 4px 40px;flex-wrap:wrap}
-.kstrxl button{min-width:30px;padding:2px 6px;border-radius:4px;border:1px solid var(--kb-bd2,#5a3d2c);background:var(--kb-bg,#1f0c10);color:var(--kb-tx,#efe3c8);font-weight:700;cursor:pointer}
+.kstrxl button{min-width:30px;padding:2px 6px;border-radius:4px;border:1px solid var(--kb-bd2,#5a3d2c);background:var(--kb-bg,var(--kbt-bg,#1f0c10));color:var(--kb-tx,#efe3c8);font-weight:700;cursor:pointer}
 .kstrxl button[aria-pressed=true]{background:#2f7fd0;border-color:#2f7fd0;color:#fff}
 /* aktuální stavy pod portrétem (místo popisku Inspirace) */
 .bdmsti{display:inline-flex;align-items:center;gap:1px;margin-left:2px}
@@ -3211,14 +3258,14 @@ h4 .kspi{margin-right:5px}
 .ksdlg h4.bsph{margin:10px 0 2px}
 .ksdok{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .kpzz{display:inline-block;padding:0 6px;border:1px dashed var(--gold);border-radius:999px;color:var(--muted);font-size:.75rem;white-space:nowrap}
-.kdb .kcilmb,.bdm .kcilmb{background:var(--kb-bg,#1f0c10);border-color:var(--kb-bd2,#5a3d2c);color:var(--kb-tx,#e8dcc4)}
+.kdb .kcilmb,.bdm .kcilmb{background:var(--kb-bg,var(--kbt-bg,#1f0c10));border-color:var(--kb-bd2,#5a3d2c);color:var(--kb-tx,#e8dcc4)}
 .kdb .kcilmb[aria-pressed=true],.bdm .kcilmb[aria-pressed=true]{background:#2f2416;border-color:var(--kb-gold,#d9b45a)}
 .kucod{opacity:.9;border-top:1px dashed var(--rule);padding-top:4px}
 
 /* hod v listu útoku: výhoda a nevýhoda jako ikony, vedle Hodit! */
 .bphhod{display:flex;align-items:stretch;gap:8px;flex-wrap:wrap}
 .bphadvi{display:flex;gap:6px}
-.bphai{display:flex;flex-direction:column;align-items:center;gap:1px;width:64px;padding:4px 2px 3px;border-radius:8px;border:1.5px solid var(--kb-bd2,#5a3d2c);background:var(--kb-bg,#1f0c10);color:var(--kb-mu,#a8977c);cursor:pointer}
+.bphai{display:flex;flex-direction:column;align-items:center;gap:1px;width:64px;padding:4px 2px 3px;border-radius:8px;border:1.5px solid var(--kb-bd2,#5a3d2c);background:var(--kb-bg,var(--kbt-bg,#1f0c10));color:var(--kb-mu,#a8977c);cursor:pointer}
 .bphai .bimg{width:40px;height:40px;filter:grayscale(.4) opacity(.7)!important;transition:filter .15s}
 .bphai small{font-family:var(--f-label);font-weight:700;font-size:.62rem;text-transform:uppercase;letter-spacing:.04em}
 .bphai[aria-pressed=true]{border-color:#d9b45a;background:#2a2016;color:#f4e7c3}.bphai[aria-pressed=true] .bimg{filter:none!important}
@@ -3267,6 +3314,33 @@ h4 .kspi{margin-right:5px}
 .bdmhp b em{color:var(--kb-gold)}
 .bdmhpbar::after{background:var(--kb-ok)}
 .bdmrk,.bdmuse{border-color:var(--kb-gold);color:var(--kb-gold)}
+/* portrét v zlaceném rámu a odznaky jako voskové pečeti (2026-10-29): barva vnitřního okraje dál říká Svědomí (bdmsv0–3),
+   zlacení je jen vnější linka a mírný oblouk nahoře; pečeť modrá = reakce, červená = rány, zlatá = hrdinská inspirace */
+.bdmport{border-radius:46% 46% 12px 12px/26% 26% 12px 12px;box-shadow:0 0 0 2px var(--kb-pan2),0 0 0 3.5px #b08d3e,0 5px 14px rgba(0,0,0,.5)}
+.bdmport img{border-radius:inherit}
+.bdmrk,.bdmkrb,.bdmsun{border:0;border-radius:52% 48% 55% 45%/48% 54% 46% 52%;box-shadow:inset 0 0 0 2px rgba(255,255,255,.16),0 2px 5px rgba(0,0,0,.55)}
+.bdmrk{width:30px;height:30px;background:radial-gradient(circle at 35% 30%,#4f98e6,#1d4a85 78%);color:#eaf3ff}
+.bdmrk.on{background:radial-gradient(circle at 35% 30%,#5b4a45,#3a2a27 78%);color:var(--kb-mu)}
+.bdmkrb{background:radial-gradient(circle at 35% 30%,#c13a4a,#6a111f 78%);color:#fde8ea}
+.bdmsun{width:30px;height:30px;bottom:-14px;background:radial-gradient(circle at 35% 30%,#5b4a45,#3a2a27 78%);color:var(--kb-mu)}
+.bdmport.on .bdmsun{background:radial-gradient(circle at 35% 30%,#f0d68a,#9a7424 78%);color:#2b1a08;box-shadow:inset 0 0 0 2px rgba(255,255,255,.22),0 0 10px rgba(233,200,114,.65)}
+/* písmo karty (2026-10-29, Vojta): popisky, záložky, tlačítka a štítky na kartě jsou Alegreya SC (--f-label se uvnitř .kdb přepíše), dlouhé texty zůstávají Alegreya (--f-body) */
+.kdb{--f-label:var(--f-nadp)}
+/* horní záložky hráče (Moje karta · Iniciativa · Dohráno) leží mimo .kdb, proto mají proměnnou zvlášť */
+.btabsc{--f-label:var(--f-nadp)}
+/* čitelnost (2026-10-29): drobné popisky na kartě měly 0,6–0,68 rem; v Alegreya SC jsou malé, proto spodní mez 0,72 rem (těsná místa – spodní záložky, sloupce slotů – zůstávají) */
+.kdb .kbox small,.kdbsm small,.kdbhpc small,.kdbheal,.kdbdmg,.kdb .kcas,.kdb .ksrd,.kdb .kbar small,.bdmac small,.bdmini small,.bdmhp small,.bdmabb small,.bdmkzh small,.bdmvyh small,.bdmpoc small,.bdmzavm,.bdmuse,.bdmsvk .kbod small{font-size:.72rem}
+/* herní záznam na tmavé kartě: názvy akcí měly tmavý inkoust pro světlý papír a splývaly s pozadím */
+.kdb .bzco{color:var(--kb-tx)}
+.kdb .bzkolo{color:var(--kb-mu)}
+.kdb .bz{border-bottom-color:var(--kb-bd);color:var(--kb-tx)}
+.kdb .bzaz .uvh2 small,.kdb .bz .bzd small,.kdb .bz .time{color:var(--kb-mu)}
+/* řádky dovedností (název, zkratka, bonus) také Alegreya SC; velikost zůstává, aby se na telefonu názvy neořezávaly */
+.bdmdov .bdmdr,.bdmdov .bdmdr .bdmbox{font-family:var(--f-nadp);letter-spacing:.02em}
+/* zkratka vlastnosti za dovedností (STR, DEX…) se nezobrazuje (Vojta 2026-10-29: čtení je bez ní čistší; na telefonu se skrývala už dřív) */
+.bdmdov2 .bdmdr span small{display:none}
+/* nadpisy oddílů karty serifovou kapitálkou Alegreya SC (2026-10-29), místo verzálek bezpatkového písma */
+.bdmgh,.kdb .uvh2,.kdb .kakcegrid>section>.uvh2,.kdb .bsph,.kdb .ktab .uvh2{font-family:var(--f-nadp);font-weight:500;text-transform:none;letter-spacing:.1em;font-size:1rem}
 .bdm .kslvb.on{background:#33271a;border-color:var(--kb-gold);color:var(--kb-gold)}
 .bdmbtn,.bdmhlb{border-color:color-mix(in srgb,var(--kb-gold) 55%,transparent)}
 .bdmbtn.on{background:#33271a;border-color:var(--kb-gold);color:var(--kb-gold)}
@@ -3314,7 +3388,7 @@ h4 .kspi{margin-right:5px}
   .bojakt:not(.bojprip)[data-btab="l"] .bcolk{display:none}
   /* aplikace na ploše: hráčovy záložky boje dole u palce (vypravěč má dole ovládání tahu) */
   html:is(.mmapp,.mmcela) .bojhrac.bojakt:not(.bojprip) .btabs{position:fixed;top:auto;left:0;right:0;bottom:0;z-index:86;margin:0;padding:6px max(8px,env(safe-area-inset-left,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-right,0px));background:var(--paper);border-top:2px solid var(--gold);box-shadow:0 -10px 20px -12px rgba(20,5,5,.5)}
-  html:is(.mmapp,.mmcela) .bojhrac.bojakt:not(.bojprip) .btabs{--kb-bg:#1f0c10;--kb-pan2:#15070a;--kb-hd2:#230d11;--kb-bd2:#5a2a2a;--kb-mu:#b8a384;--kb-gold:#d9b45c;padding-top:5px;padding-bottom:calc(5px + env(safe-area-inset-bottom,0px));background:var(--kb-bg);border-top:1px solid var(--kb-bd2);box-shadow:0 -8px 18px -10px rgba(0,0,0,.7)}
+  html:is(.mmapp,.mmcela) .bojhrac.bojakt:not(.bojprip) .btabs{--kb-bg:var(--kbt-bg,#1f0c10);--kb-pan2:var(--kbt-pan2,#15070a);--kb-hd2:var(--kbt-hd2,#230d11);--kb-bd2:var(--kbt-bd2,#5a2a2a);--kb-mu:var(--kbt-mu,#b8a384);--kb-gold:var(--kbt-gold,#d9b45c);padding-top:5px;padding-bottom:calc(5px + env(safe-area-inset-bottom,0px));background:var(--kb-bg);border-top:1px solid var(--kb-bd2);box-shadow:0 -8px 18px -10px rgba(0,0,0,.7)}
   html:is(.mmapp,.mmcela) .bojhrac.bojakt:not(.bojprip) .btabs button{min-height:38px;background:var(--kb-pan2);border:1px solid var(--kb-bd2);color:var(--kb-mu);font-size:.72rem}
   html:is(.mmapp,.mmcela) .bojhrac.bojakt:not(.bojprip) .btabs button[aria-selected="true"]{background:var(--kb-hd2,#3a1a1e);border-color:var(--kb-gold);color:var(--kb-gold)}
   html:is(.mmapp,.mmcela) .bojhrac.bojakt:not(.bojprip){padding-bottom:calc(52px + env(safe-area-inset-bottom,0px))}
@@ -3393,12 +3467,12 @@ html.mmcela .bojhrac.bojakt:not(.bojprip)[data-btab="k"]:not(:has(.bcolk .bdm)) 
 /* nainstalovaná aplikace: obsah až k hornímu okraji (iPhone: průhledná lišta s hodinami, Android: celá obrazovka);
    pruh pod hodinami drží barvu kůže, aby text nepřekrýval hodiny */
 html.mmapp body{padding-top:env(safe-area-inset-top,0px)}
-html.mmapp body::before{content:"";position:fixed;z-index:300;top:0;left:0;right:0;height:env(safe-area-inset-top,0px);background:#1f0c10;pointer-events:none}
+html.mmapp body::before{content:"";position:fixed;z-index:300;top:0;left:0;right:0;height:env(safe-area-inset-top,0px);background:var(--kbt-bg,#1f0c10);pointer-events:none}
 html.mmapp .bdmlep{top:env(safe-area-inset-top,0px)}
 html.mmcela .bdmlep{top:0}
 /* karta sahá až dolů i pod krátkým obsahem – kolem ní není vidět pergamen ani kůže */
-html.mmcela::before{background:#1f0c10}
-html.mmcela .wrap{background:#1f0c10}
+html.mmcela::before{background:var(--kbt-bg,#1f0c10)}
+html.mmcela .wrap{background:var(--kbt-bg,#1f0c10)}
 html.mmcela .papir{display:none}
 html.mmcela .hraja .bdm{min-height:100vh;min-height:100dvh}
 /* záložky karty se na telefonu vejdou všechny (iPhone kreslil „Poznámky“ oříznuté) */
@@ -3803,7 +3877,7 @@ button.btedch{cursor:pointer}button.btedch:hover{border-color:var(--gold,#b08d3a
   /* postava bez karty nemá list Záznam: záznam boje zůstane pod jejím panelem */
   .bojpc.bojakt:not(.bojprip)[data-btab="k"]:not(:has(.bcolk .bdm)) .bcoll{display:block;position:static;max-height:none}
   /* přepínač jako na telefonu, jen nahoře */
-  .bojpc.bojakt:not(.bojprip) .btabs{--kb-bg:#1f0c10;--kb-pan2:#15070a;--kb-hd2:#230d11;--kb-bd2:#5a2a2a;--kb-mu:#b8a384;--kb-gold:#d9b45c;display:flex;gap:6px;margin:0 0 10px;padding:6px 0}
+  .bojpc.bojakt:not(.bojprip) .btabs{--kb-bg:var(--kbt-bg,#1f0c10);--kb-pan2:var(--kbt-pan2,#15070a);--kb-hd2:var(--kbt-hd2,#230d11);--kb-bd2:var(--kbt-bd2,#5a2a2a);--kb-mu:var(--kbt-mu,#b8a384);--kb-gold:var(--kbt-gold,#d9b45c);display:flex;gap:6px;margin:0 0 10px;padding:6px 0}
   .bojpc.bojakt:not(.bojprip) .btabs button[role="tab"]{min-height:44px;background:var(--kb-pan2);border:1px solid var(--kb-bd2);color:var(--kb-mu);font-size:.95rem}
   .bojpc.bojakt:not(.bojprip) .btabs button[role="tab"][aria-selected="true"]{background:#3a1a1e;border-color:var(--kb-gold);box-shadow:inset 0 0 0 1px var(--kb-gold);color:var(--kb-gold)}
   .bojpc.bojakt:not(.bojprip) .btabsc .bkonecb{min-height:44px;font-size:.95rem}
@@ -3860,7 +3934,7 @@ button.btedch{cursor:pointer}button.btedch:hover{border-color:var(--gold,#b08d3a
 /* bez rámu webu (2026-10-24, Vojta): jako mmcela na telefonu – bez záhlaví s logem, menu, rámu, patky a modrého proužku účastníka;
    ☰ v rohu karty ukáže web s menu (data-mmweb, 08). Třídu mmpc dává renderBoj (20d). */
 html.mmpc body{padding:0}
-html.mmpc::before,html.mmpc .wrap{background:#1f0c10}
+html.mmpc::before,html.mmpc .wrap{background:var(--kbt-bg,#1f0c10)}
 html.mmpc .wrap{max-width:none!important;padding:0;gap:0;border-radius:0;box-shadow:none}
 html.mmpc .wrap::before,html.mmpc .wrap::after{display:none}
 html.mmpc header.site,html.mmpc .sitenav,html.mmpc footer.colophon,html.mmpc .papir,html.mmpc .bprtg,html.mmpc #bojview .bpravidla{display:none!important}
@@ -3871,7 +3945,7 @@ html.mmpc #bojview .bjamain .bhrk{margin:0;padding:0;border:0;border-radius:0;ba
 html.mmpc .bojpc .bcolk .bdm{margin:0;border:0;border-radius:0}
 html.mmpc .hraja,html.mmpc .bojpc .bjamain .bja{margin:0;padding:0;border:0;border-radius:0;background:none;box-shadow:none}
 html.mmpc .bojpc .bojcols,html.mmpc .bojpc .bcolm{gap:0;margin:0;padding:0}
-html.mmpc .bojpc.bojakt:not(.bojprip) .btabs{margin:0;padding:6px 10px;background:#1f0c10;border-bottom:1px solid var(--kb-bd2)}
+html.mmpc .bojpc.bojakt:not(.bojprip) .btabs{margin:0;padding:6px 10px;background:var(--kbt-bg,#1f0c10);border-bottom:1px solid var(--kb-bd2)}
 html.mmpc #bojview .bojpc .bosa.bosav{margin:14px auto}
 html.mmpc:not(.mmjenhra) .bdmpc .bdmtop{grid-template-columns:40px minmax(0,1fr) 40px}
 html.mmpc:not(.mmjenhra) .bdmpc .bdmtop .bdmback0{display:block}
@@ -3882,6 +3956,13 @@ html.mmpc:not(.mmjenhra) .bdmweb{display:grid;font-size:1.2rem}
   .bojpc .bcolk .bdmpc .bdmh{grid-template-columns:auto minmax(170px,1fr) minmax(210px,290px) minmax(210px,290px)}
   .bojpc .bcolk .bdmpc .bdmportw{--pw:128px}
   .bdmpc .bdmpcvl .bdmvl{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+/* počítač (2026-10-29, Vojta): hlavička a Statistiky s Dovednostmi (ty zůstávají ve dvou sloupcích – Vojta je tak chce) končí tam, kde končí záložka
+   Iniciativa nad kartou; pravý sloupec listů začíná pod Dohráno (ta má flex 1,25 proti 1 + 1, odtud poměr 2 : 1,25); štíty záložek jsou větší */
+@media (min-width:1280px){
+  .bojpc .bcolk .bdm.bdmpc{grid-template-columns:minmax(0,2fr) minmax(370px,1.25fr)}
+  .bdmpc .bdmtabs button .bdmzik{height:50px}
+  .bdmpc .bdmtabs button .bdmic{width:26px;height:26px}
 }
 /* ===== Karta na stránce Karty (Kronika › Karty) na širokém počítači (2026-10-24, Vojta): stejné široké rozvržení jako hráčova
    karta v boji na Hře (bdmpc, 14), jen bez přepínače Moje karta · Iniciativa · Ukončit tah; záhlaví a menu webu zůstávají,
@@ -3931,7 +4012,7 @@ html.mmpc:not(.mmjenhra) .bdmweb{display:grid;font-size:1.2rem}
 .bscref{margin-top:4px}.bscref>summary{cursor:pointer;color:var(--muted);font:500 .85rem var(--f-label);letter-spacing:.04em;padding:4px 0}
 .bscpor{display:inline-flex;flex-wrap:wrap;gap:4px 8px;align-items:center;font-size:.85rem}
 /* hráč ve scéně: s kým jedná (ověření a dovednosti jdou vůči zvolenému NPC) */
-.bscjed{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0;padding:8px 10px;background:#1f0c10;border-bottom:1px solid color-mix(in srgb,var(--gold) 45%,transparent)}
+.bscjed{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0;padding:8px 10px;background:var(--kbt-bg,#1f0c10);border-bottom:1px solid color-mix(in srgb,var(--gold) 45%,transparent)}
 .bscjl{color:#d9c79a;font:500 .72rem var(--f-label);letter-spacing:.06em;text-transform:uppercase}
 .bscjb{display:inline-flex;align-items:center;gap:6px;padding:3px 10px 3px 3px;border:1px solid color-mix(in srgb,var(--gold) 50%,transparent);border-radius:999px;background:transparent;color:#f6e7c1;font:500 .85rem var(--f-label);cursor:pointer}
 .bscjb .bmed{--ms:26px}
@@ -3941,8 +4022,8 @@ html.mmpc:not(.mmjenhra) .bdmweb{display:grid;font-size:1.2rem}
 /* ===== Karta NPC u vypravěče ve vínové kůži jako karta hráče (2026-10-23): rozvržení zůstává kompaktní, mění se jen barvy –
    proměnné papíru, inkoustu a linek se uvnitř rozbalené karty přepnou na paletu karty postavy (--kb-*, .kdb) ===== */
 #bojview .bojgm .bnpc.bopen:not(.bhrk){
-  --paper:#2a1216;--ink:#efe3c8;--muted:#b8a384;--rule:#5a2a2a;--gold:#d9b45c;--bg:#1f0c10;--kal:#d9b45c;
-  color:var(--ink);background:linear-gradient(180deg,#35161c 0,#230d11 90px,#1f0c10 100%);
+  --paper:#2a1216;--ink:#efe3c8;--muted:#b8a384;--rule:#5a2a2a;--gold:#d9b45c;--bg:var(--kbt-bg,#1f0c10);--kal:#d9b45c;
+  color:var(--ink);background:linear-gradient(180deg,#35161c 0,#230d11 90px,var(--kbt-bg,#1f0c10) 100%);
   border:2px solid #8c4a3e;border-top:3px solid var(--bn);border-radius:12px;box-shadow:0 10px 24px -14px rgba(0,0,0,.8);padding:8px 12px 10px}
 #bojview .bojgm .bnpc.bopen:not(.bhrk).bspj{border-top-color:var(--bh)}
 #bojview .bojgm .bnpc.bopen:not(.bhrk) .bnn b{font-family:var(--f-disp);font-weight:500;font-size:1.35rem;color:#f6e7c1}
@@ -3961,3 +4042,47 @@ html.mmpc:not(.mmjenhra) .bdmweb{display:grid;font-size:1.2rem}
 .kautl{display:flex;flex-wrap:wrap;gap:4px 8px;list-style:none;padding:0;margin:2px 0 6px}.kautl li{padding:1px 6px;border:1px solid var(--rule);border-radius:3px;font-size:.9rem}
 .kautl li small{opacity:.7}.kautl li.kautnic{border-color:var(--kal)}
 .bkonsh .bkrok{margin-top:14px;border-bottom:1px solid var(--rule);padding-bottom:2px}
+/* ===== hledání v pravidlech (2026-10-29): šuplík Pravidla na Hře a list Pravidla na kartě (10h) ===== */
+.hlbox{display:flex;flex-direction:column;gap:8px}
+.hlbox [data-hl]{width:100%;box-sizing:border-box;font:inherit;font-size:1rem;padding:9px 12px;border:1px solid color-mix(in srgb,var(--gold) 70%,var(--rule));border-radius:4px;background:var(--paper);color:var(--ink)}
+.hlbox [data-hl]:focus{outline:2px solid var(--gold);outline-offset:1px}
+.hlbox .hlnap{margin:0}
+.hlg{margin:8px 0 2px;font-family:var(--f-label);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:inherit;opacity:.7}
+.hlres{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.hlres button{display:block;width:100%;text-align:left;padding:7px 9px;border:0;border-radius:3px;background:none;color:inherit;font:inherit;cursor:pointer;line-height:1.25}
+.hlres button:hover,.hlres button:focus-visible{background:color-mix(in srgb,var(--gold) 14%,transparent);outline:none}
+.hlres button b{font-weight:700}
+.hlres button small{color:inherit;opacity:.72}
+.hlres .hls{display:block;font-size:.82rem}
+.hldet{display:flex;flex-direction:column;gap:8px}
+.hldet .hlzpet{align-self:flex-start}
+.hldet h3{margin:0;font-family:var(--f-disp);font-weight:500;font-size:1.45rem;color:var(--kal);line-height:1.15}
+.hldet h3 small{font-family:var(--f-label);font-size:.85rem;color:inherit;opacity:.7}
+.hldet .srdtext h3{font-size:1.3rem}.hldet .srdtext h4{margin:.6em 0 .2em}
+.hldet .srdtext,.hldet .hlart{overflow-wrap:anywhere}
+.hldet .srdtext table,.hldet .hlart table{display:block;overflow-x:auto;max-width:100%}
+.hldet .kzkarta{padding:10px 12px}
+/* šuplík: při hledání se rychlý přehled schová */
+#bojview .bpravidla .bprg:has(.hlbox.hlon)>.bqr{display:none}
+.bdmhl{padding:10px 12px}
+/* pojem, na který jde klepnout pro pravidlo (10h) */
+[data-hlp]{cursor:help}
+.bdmwvl [data-hlp],.bdmstd abbr[data-hlp]{text-decoration:underline dotted color-mix(in srgb,currentColor 45%,transparent);text-underline-offset:3px}
+/* chyby webu v Hra › Sezení (vypravěč) */
+.chybyl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.chybyl li{display:flex;flex-direction:column;gap:2px;padding:6px 8px;border-left:3px solid var(--kal);background:color-mix(in srgb,var(--kal) 6%,transparent);border-radius:0 3px 3px 0}
+.chybyl small{color:var(--muted)}.chybyl code{font-size:.78rem;overflow-wrap:anywhere;opacity:.8}
+.chpoc{font-family:var(--f-label);font-size:.78rem;padding:0 6px;border-radius:8px;background:var(--kal);color:var(--paper)}
+.vybmince{margin:-4px 0 12px;padding:6px 10px;border-left:3px solid var(--gold);background:color-mix(in srgb,var(--gold) 8%,transparent);font-size:.92rem}
+/* Pravidla › Vybavení › Služby a mzdy (2026-10-30) */
+.slzr{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"n c" "p j";gap:1px 10px;align-items:baseline;padding:5px 8px;border-radius:6px;border:1px solid color-mix(in srgb,var(--rule) 70%,transparent);background:color-mix(in srgb,var(--gold) 4%,transparent)}
+.slzr .slzn{grid-area:n;font-weight:700}.slzr .slzc{grid-area:c;white-space:nowrap;text-align:right;font-variant-numeric:tabular-nums}
+.slzr .slzj{grid-area:j;font-size:.8rem;color:var(--muted);text-align:right;white-space:nowrap}.slzr .slzp{grid-area:p;font-size:.84rem;color:var(--muted)}
+/* výklad peněz v listu Peníze */
+.kpenvykl p{margin:.4em 0}
+.kpenl{list-style:none;margin:.4em 0;padding:0;font-size:.92rem}
+.kpenl li{display:flex;justify-content:space-between;gap:12px;padding:3px 0;border-bottom:1px solid rgba(214,170,90,.2)}
+.kpenl b{white-space:nowrap;text-align:right;font-weight:600}
+/* dočasné životy: žlutá linka nad pruhem životů (Vojta 2026-10-29) */
+.bdmhpbar::before,.kdbhpbar::before{content:"";position:absolute;left:0;bottom:calc(100% + 2px);height:3px;width:var(--t,0%);border-radius:2px;background:#e9c548;box-shadow:0 0 3px rgba(233,197,72,.55)}
+.kdbhpbar{overflow:visible}

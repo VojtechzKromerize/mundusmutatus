@@ -3,7 +3,7 @@
 Texty samy nejsou v repozitáři (jen v databázi pro přihlášené); tady jsou jen pravidla převodu:
   AC místo OČ · vypravěč místo PJ / Pána jeskyně · „pozice kouzla 3. stupně“, „kouzlo 3. stupně“ (úroveň zůstává postavě)
   · vyčerpání místo únavy (Exhaustion) · školy magie: Ochranná magie, Zaklínání, Transmutace…
-  · vlastnosti a mistrovství zbraní podle Pravidel › Výbava (Obratná, Univerzální, Dlouhý dosah, Nabíjení; Rozmáchnutí,
+  · vlastnosti a mistrovství zbraní podle Pravidel › Výbava (Lehkoruká, Univerzální, Dlouhý dosah, Nabíjení; Rozmáchnutí,
     Škrábnutí, Rychlé seknutí, Odstrčení, Oslabení, Zpomalení, Sražení, Vyvedení z rovnováhy)
   · typy zranění jako na webu (mrazivé, prokleté, svaté) · Kapsářství, Umění
   · platina a elektrum v tažení nejsou (stříbro).
@@ -232,7 +232,7 @@ if __name__ == "__main__":
         ("zvol kyselinové, chladné, ohnivé nebo bleskové zranění", "zvol kyselinové, mrazivé, ohnivé nebo bleskové zranění"),
         ("vyzařuje zářivé světlo", "vyzařuje zářivé světlo"),
         ("ze školy vymítání či věštění", "ze školy ochranné magie či věštění"),
-        ("zbraň s vlastností Vytříbená", "zbraň s vlastností Obratná"),
+        ("zbraň s vlastností Vytříbená", "zbraň s vlastností Lehkoruká"),
         ("Versatile (Všestranná) (1k10)", "Versatile (Univerzální) (1k10)"),
         ("Mistrovství: Nick (Škrábnutí)", "Mistrovství: Nick (Rychlé seknutí)"),
         ("ověření DEX (Čachry)", "ověření DEX (Kapsářství)"),

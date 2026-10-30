@@ -87,7 +87,7 @@ Díky výcviku se zbraněmi můžeš používat mistrovské vlastnosti dvou druh
 
 Kdykoli dokončíš dlouhý odpočinek, můžeš vybrané druhy zbraní změnit. Můžeš například přejít na mistrovské vlastnosti zbraní Scimitar a Longsword.
 
-> **Artikule:** Weapon Mastery platí beze změny. Navíc každá zbraň, se kterou je postava zdatná, uplatňuje své perky podle Artikulí (např. Shortsword, Longsword a Scimitar jsou Šikovné a Ostré; Longsword umí přehmat Půlmeč; Heavy Crossbow je Průrazný).
+> **Artikule:** Mistrovství zbraní (Weapon Mastery) platí beze změny. Navíc každá zbraň, se kterou je postava zdatná, uplatňuje své perky podle Artikulí (např. Shortsword a Longsword jsou Šikovné a Ostré, Scimitar Ostrý; Longsword umí přehmat Půlmeč; Heavy Crossbow je Průrazný).
 
 ### Úroveň 2: Deft Explorer
 

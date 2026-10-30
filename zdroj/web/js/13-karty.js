@@ -201,11 +201,19 @@ document.addEventListener(
   },
   true,
 );
+/* ruční kostky (11b): před hodem se zeptá na d20 (dvě při výhodě či nevýhodě) a na kostku Závoje; vypnutý režim hodí hned jako dřív */
 async function kartaHod(K, co, b, o = {}) {
   if (!kMuze(K)) {
     kCiziHlas(K);
     return null;
   }
+  if (!mmRucZap()) return kartaHodTelo(K, co, b, o);
+  const v = kAdvSum(o.adv != null ? o.adv : KADV, kStavVliv(K, co).r),
+    kostky = [{s: 20, n: v ? 2 : 1, t: "d20", lbl: v > 0 ? "výhoda, platí vyšší" : v < 0 ? "nevýhoda, platí nižší" : ""}];
+  if (!zavBezZach(co)) kostky.push({s: 6, n: 1, t: "d6 Závoje", lbl: "1–2 Pokušení, 5–6 Požehnání"});
+  return mmRucS({popis: `${K.n}: ${co}`, kostky}, () => kartaHodTelo(K, co, b, o));
+}
+async function kartaHodTelo(K, co, b, o = {}) {
   const SV = kStavVliv(K, co),
     v = kAdvSum(o.adv != null ? o.adv : KADV, SV.r);
   if (SV.r.length) o.why = [o.why, ...SV.r.map(x => x[1])].filter(Boolean).join(", ");
@@ -333,7 +341,7 @@ async function kartaOdpocinek(K, dlouhy, bez) {
     {
       const D = kDuse(K);
       if (D.sv >= 1 && D.sv <= 3) {
-        const n = Math.min(mx, cur + Math.floor(mx / 2));
+        const n = Math.min(mx, Math.max(0, cur) + Math.floor(mx / 2));
         ch.hp = n >= mx ? null : n;
         msg.push("neklidné sny (Na scestí): jen polovina HP");
       } else ch.hp = null;
@@ -971,10 +979,10 @@ document.addEventListener("click", async e => {
       m = bojZranPC(o, K, val, typ, false);
       {
         const wb = bojZranWb();
-        if (wb > 0) setTimeout(() => kPoutoZran(K, wb, o.hp === 0), 0);
+        if (wb > 0) setTimeout(() => kPoutoZran(K, wb, o.hp <= 0), 0);
       }
       if (zr > 0 && kKonDrzi(K) && (o.hp == null || o.hp > 0)) KKON[K.id] = bojKonDC(zr);
-      else if (o.hp === 0 && kKonDrzi(K)) kKonZtrata(K, "pád na 0 HP");
+      else if (o.hp <= 0 && kKonDrzi(K)) kKonZtrata(K, "pád na 0 HP");
     } else if (k === "l") {
       m = bojLecPC(o, K, val);
       /* v boji léčení umírajícího stabilizuje (Artikule: do konce boje mimo hru), mimo boj se probere */
@@ -989,7 +997,7 @@ document.addEventListener("click", async e => {
     }
     const ch = {hp: o.hp != null && o.hp < mxHp(K) ? o.hp : null, thp: o.thp || null};
     if ((o.ds || null) !== (S.ds || null)) ch.ds = o.ds || null;
-    if (k === "z" && o.hp === 0 && hp0 > 0) ch.vycerp = Math.min(10, (+S.vycerp || 0) + 1); // Artikule: pád na 0 HP = 1 úroveň vyčerpání
+    if (k === "z" && o.hp != null && o.hp <= 0 && hp0 > 0) ch.vycerp = Math.min(10, (+S.vycerp || 0) + 1); // Artikule: pád na 0 HP = 1 úroveň vyčerpání
     kartaStavZmen(K.id, ch, `${K.n}: ${m}.`);
     return;
   }
@@ -1047,7 +1055,7 @@ document.addEventListener("click", async e => {
       d = bK(s),
       con = kMd(K, "CON"),
       heal = Math.max(0, d + con),
-      hp = Math.min(mx, cur + heal);
+      hp = Math.min(mx, Math.max(0, cur) + heal);
     kHodZapis({k: K.id, kdo: K.n, co: "Kostka životů", tot: heal, txt: `d${s} ${d} ${bsg(con)} CON → +${heal} HP (${hp}/${mx})`});
     kartaStavZmen(K.id, {kz: spent + 1, hp: hp >= mx ? null : hp}, `${K.n}: kostka životů d${s} ${d} ${bsg(con)} = +${heal} HP (${hp}/${mx}).`);
     return;
@@ -1079,7 +1087,7 @@ function bojPCZmena(hid, fn, hlas) {
     });
   if (GMV) bojLog(hid, {n: "Zranění", ai: null, ci: hid, zt: msg}, h0.n);
   if (hlas !== false && msg) mmHlasG(`${h0.n}: ${msg}${ch.vycerp ? " · vyčerpání " + ch.vycerp : ""}.`, 6000);
-  if (wb > 0) kPoutoZran(K, wb, o.hp === 0);
+  if (wb > 0) kPoutoZran(K, wb, o.hp != null && o.hp <= 0);
   return msg;
 }
 

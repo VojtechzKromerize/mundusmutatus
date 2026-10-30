@@ -2420,7 +2420,7 @@
   "narozeniRok": 1432,
   "narozeniOdhad": false,
   "zakladOdhadu": null,
-  "shrnuti": "Syn sultána Murada II., narozený v Edirne. Jako dítě krátce vládl už roku 1444, pak spravoval Manisu a definitivně nastoupil na trůn po otcově smrti roku 1451. Po sedmapadesátidenním obléhání dobyl 29. května 1453 Konstantinopol a učinil ji hlavním městem; v letech 1454–1455 táhl do Srbska a po čtyřicetidenním obléhání získal Novo Brdo. Roku 1456 neuspěl pod Bělehradem, kde byl i sám zraněn. Na jeho dvoře se pěstuje řecká, perská i latinská vzdělanost a působí u něj řečtí učenci.",
+  "shrnuti": "Syn sultána Murada II., narozený v Edirne. Jako dítě krátce vládl už roku 1444, pak spravoval Manisu a definitivně nastoupil na trůn po otcově smrti roku 1451. Po zhruba sedmi až osmitýdenním obléhání dobyl 29. května 1453 Konstantinopol a učinil ji hlavním městem; v letech 1454–1455 táhl do Srbska a po čtyřicetidenním obléhání získal Novo Brdo. Roku 1456 neuspěl pod Bělehradem, kde byl i sám zraněn. Na jeho dvoře se pěstuje řecká, perská i latinská vzdělanost a působí u něj řečtí učenci.",
   "jistota": "vysoká",
   "rozporSWebem": null,
   "zdroje": [
@@ -2558,9 +2558,9 @@
   "narozeniRok": 1400,
   "narozeniOdhad": true,
   "zakladOdhadu": "Uvádí se „kolem 1400“, pravděpodobně Brandýs nad Orlicí; samostatné velení od roku 1440.",
-  "shrnuti": "Český žoldnéřský vojevůdce, nejspíš z Brandýsa nad Orlicí, vycvičený v husitských válkách a ve službě v Itálii. Roku 1440 ho královna Alžběta pověřila hájit práva svého syna Ladislava Pohrobka a svěřila mu báňská města, Košice a Zvolen; se zhruba pěti tisíci převážně bývalých husitů, ukázněných a téměř neporazitelných, ovládl horní Uhry a razil v Kremnici mince na Ladislavovo jméno. Od roku 1446 soupeřil s gubernátorem Janem Hunyadim, porazil ho mimo jiné u Lučence (1451) a sídlil hlavně ve Zvolenu a Košicích. Roku 1453 ho Ladislav zbavil hejtmanství, ale už 1454 ho povolal zpět proti bratříkům; roku 1457 sám zatkl Matyáše Hunyadiho. Po Matyášově volbě uznal nového krále prostřednictvím Jiřího z Poděbrad, ale udržuje styky s Polskem.",
+  "shrnuti": "Český žoldnéřský vojevůdce, nejspíš z Brandýsa nad Orlicí, vycvičený v husitských válkách a ve službě v Itálii. Roku 1440 ho královna Alžběta pověřila hájit práva svého syna Ladislava Pohrobka a svěřila mu báňská města, Košice a Zvolen; se zhruba pěti tisíci převážně bývalých husitů, ukázněných a téměř neporazitelných, ovládl horní Uhry a razil v Kremnici mince na Ladislavovo jméno. Od roku 1446 soupeřil s gubernátorem Janem Hunyadim, porazil ho mimo jiné u Lučence (1451) a sídlil hlavně ve Zvolenu a Košicích. Roku 1453 ho Ladislav zbavil hejtmanství, ale už 1454 ho povolal zpět proti bratříkům; roku 1457 sám zatkl Matyáše Hunyadiho. Po Matyášově volbě se na Jiřího naléhání zdržel otevřeného odporu a slíbil mu, že dá mladému králi příležitost, ale na poselstvo do Strážnice nepřijel a udržuje styky s Polskem.",
   "jistota": "střední",
-  "rozporSWebem": null,
+  "rozporSWebem": "Sňatek s neteří Michala Országa není v pramenech knihovny; uvádí jej jen internetová literatura, proto byl z hráčského rodokmenu vyňat.",
   "zdroje": [
    "https://cs.wikipedia.org/wiki/Jan_Jiskra_z_Brandýsa",
    "https://en.wikipedia.org/wiki/John_Jiskra_of_Brand%C3%BDs",

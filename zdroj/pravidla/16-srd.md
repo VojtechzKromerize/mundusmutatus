@@ -141,7 +141,7 @@ Champion se soustředí na rozvoj bojového umění v neúnavné honbě za vít�
 
 Tvé hody na útok zbraněmi a údery beze zbraně mohou dosáhnout kritického zásahu, padne-li na d20 19 nebo 20.
 
-> **Artikule:** Při každém kritickém zásahu hází zasažený na kritické zranění (d10 + modifikátory; místo zásahu určí kostka Závoje). Sok je kritickým zásahem poražen, pacholci kritická zranění nemají.
+> **Artikule:** Při každém kritickém zásahu hází zasažený na kritické zranění (k10 + modifikátory; místo zásahu určí kostka Závoje). Sok bez zbroje k obětování je kritickým zásahem poražen (nebo utrží kritické zranění, rozhodne-li tak vypravěč), pacholci kritická zranění nemají.
 
 #### Úroveň 3: Remarkable Athlete
 

@@ -57,9 +57,9 @@
 - spor | bkr, pod | Krakovská kapitula, vychovaná kardinálem Oleśnickým, považuje kališnického krále za kacíře.
 - spor | rmi, fra | Norimberk a Albrecht Achilles spolu nedávno válčili (1449–1450) a nedůvěra trvá.
 - spoj | rmi, pod | Norimberští kupci jsou hlavními obchodními partnery Prahy a Plzně.
-- spor | umi, jis | Kremnici a Šťávnici drží Jiskra jako hejtman Horních Uher; okolí ovládají bratříci a vybírají výpalné.
+- spor | umi, jis | Kremnici a horní města v jejím okolí drží Jiskra jako hejtman Horních Uher; okolí ovládají bratříci a vybírají výpalné.
 - tajné spoj | jag, zat | Václav Zátorský roku 1456 tajně holdoval Kazimírovi IV., ačkoli je formálně leníkem české koruny.
-- spor | jis, hun | Jiskra na Matyášovo uvítání v Budíně nepřišel, dál drží Horní Uhry po svém a novému králi nedůvěřuje; Matyáš ho činí odpovědným i za loupení bratříků.
+- spor | jis, hun | Jiskra do Strážnice k poselstvu nepřijel, ač ho Jiří zval; slíbil Jiřímu jen, že mladému králi dá příležitost, a dál drží Horní Uhry po svém.⟦ Později bude Matyáš činit Jiřího odpovědným i za Jiskru a za loupení bratříků.⟧
 - spor | ses, var | Šestiměstí vede fehdy s Vartenberky a dalšími severočeskými pány a ničí jejich hrady.
 - spor | hlo | Jan II. si roku 1457 za Baltazarovy nepřítomnosti vynutil hold žaháňských stavů a Baltazar to po návratu zvrátil; bratři se přou o Žaháň.
 - spor | pla, wet | Plavenští drží od roku 1439 míšeňské purkrabství jen jako titul, úřad i statky získali Wettinové. Ti teď pokukují i po plavenském panství, které je lénem české koruny.
@@ -99,6 +99,7 @@
 - spoj | leu, pas | Lankrabata drží hrabství Hals a pasovský maršálský úřad v léno od pasovského biskupa.
 - spoj | mei, wet | Biskup Kašpar ze Schönbergu vděčí za volbu saskému kurfiřtovi a slouží mu jako diplomat.
 - spoj | pap, hun | Legát Carvajal financuje boj proti Turkům a podporuje Matyášovu volbu.
+- spoj | szap, hun | Bratři Zápolští jsou mezi příbuznými a služebníky Hunyadiů a mladého krále Matyáše.
 - spoj | cat, mes | Sůl ze Solné komory jde přes Linec a Freistadt do jižních Čech, hlavně do Budějovic.
 - spor | cbr, bra | Berlín-Cölln se v letech 1447–1448 vzbouřil proti kurfiřtovi a markrabě vzpouru zlomil.
 - spoj | var, pod | Jan z Vartenberka se uchází o hornolužické fojtství a hledá přízeň nového krále.

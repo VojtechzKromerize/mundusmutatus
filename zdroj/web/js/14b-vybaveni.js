@@ -160,7 +160,8 @@ const KINVC = {}; // vybraný cíl vrhu podle karty
    nahoře Moje výbava / Výbava družiny, nosnost (současná / limit), připoutání a peníze; hledání podle jména a přepínače druhu;
    věci ve složkách (Na sobě, Batoh, vlastní – `slozky` na kartě, věc má složku v `v`); každá věc ukazuje váhu a počet, cenu ne.
    Spravovat inventář (list „inv“): přidat z databáze předmětů (hráč s potvrzením vypravěče), vlastní předmět, složky. */
-const KSLOZ0 = [{n: "Batoh"}];
+/* výchozí složky (Vojta 2026-10-29: na sobě, batoh, brašna, kapsy); vlastní přidá Spravovat inventář */
+const KSLOZ0 = [{n: "Batoh"}, {n: "Brašna"}, {n: "Kapsy"}];
 const kSlozky = K => {
   const L = kartaStav(K.id).slozky;
   return Array.isArray(L) ? L : KSLOZ0;
@@ -181,7 +182,6 @@ const KINVF = [
   ["spo", "Spotřební"],
   ["vys", "Výstroj"],
   ["cen", "Cennosti"],
-  ["pri", "Připoutané"],
 ];
 const kInvDruhy = (x, i, NOS) => {
   const g = new Set([x.typ && KINVSK.some(k => k[0] === x.typ) ? x.typ : kInvSkup(x, i, NOS)]);
@@ -370,7 +370,7 @@ document.addEventListener("click", e => {
   }
 });
 /* popis věci nahoře v listu (2026-10-23): rozbalený, klikem se sbalí; bez původu textu a překladu (licence je v patičce webu).
-   Přednost má text z katalogu vybavení (Vojtovy popisy), jinak popis magického předmětu; cena se neukazuje – určuje ji vypravěč */
+   Přednost má celé znění předmětu (SRD), jinak text z katalogu vybavení (Vojtovy popisy); cena se neukazuje – určuje ji vypravěč */
 const KVPOPZ = new Set();
 function kVecPopis(x, p, v) {
   const sk = v && typeof VYBSKN !== "undefined" ? VYBSKN[v.sk] || "" : "",
@@ -378,7 +378,8 @@ function kVecPopis(x, p, v) {
       ? `${p.druh || ""}${p.upr ? ` (${p.upr})` : ""}${p.vzt || p.vz ? `, ${p.vzt || p.vz}` : ""}${p.pr ? `, vyžaduje připoutání${typeof p.pr === "string" ? " (" + p.pr + ")" : ""}` : ""}`
       : sk,
     par = v && !(p && v.sk === "magicke") && typeof vybParam === "function" ? vybParam(v) : "",
-    txt = v && v.t ? `<p>${besc(v.t)}</p>` : p && p.t ? kzMd(p.t) : "",
+    /* má-li věc celé znění (SRD), ukáže se jen ono – stručné shrnutí z katalogu jen u věcí bez něj (Vojta 2026-10-29) */
+    txt = p && p.t ? kzMd(p.t) : v && v.t ? `<p>${besc(v.t)}</p>` : "",
     tab =
       v && v.tab
         ? v.tab
@@ -392,11 +393,10 @@ function kVecPopis(x, p, v) {
     /* věc, kterou zná jen plné znění (Vojtova tabulka předmětů): druh a vzácnost ze seznamu, text po rozbalení */
     pl = (p && p.en) || (v && v.sk === "magicke") ? null : plneVec(x.n),
     druh2 = druh || (pl ? [pl.typ, pl.vz, pl.sl].filter(Boolean).join(", ") : ""),
-    cele = v && v.t && p && p.t ? `<details class="kvcele"><summary>Celé znění</summary>${kzMd(p.t)}</details>` : "",
     plId = (p && p.en) || (v && v.sk === "magicke") ? (p && p.en) || v.en : pl ? pl.id : "";
   if (!druh2 && !par && !txt && !tab && !art) return "";
   const k = String(x.n || "").toLowerCase();
-  return `<details class="kvpop plne-host" data-kvpop="${besc(k)}"${KVPOPZ.has(k) ? "" : " open"}><summary>Popis</summary><div class="plne-skr">${druh2 || par ? `<p class="kvpar"><i>${besc(druh2)}</i>${druh2 && par ? " · " : ""}${par}</p>` : ""}${txt}${tab}${art}${cele}</div>${plneInl("predmety", plId)}</details>`;
+  return `<details class="kvpop plne-host" data-kvpop="${besc(k)}"${KVPOPZ.has(k) ? "" : " open"}><summary>Popis</summary><div class="plne-skr">${druh2 || par ? `<p class="kvpar"><i>${besc(druh2)}</i>${druh2 && par ? " · " : ""}${par}</p>` : ""}${txt}${tab}${art}</div>${plneInl("predmety", plId)}</details>`;
 }
 document.addEventListener(
   "toggle",
@@ -1079,10 +1079,26 @@ document.addEventListener("change", async e => {
 });
 
 /* --- list Peníze --- */
+/* krátký výklad peněz tažení a dobových cen (Vojta 2026-10-29); ceny jako v katalogu Vybavení (zdroj/vybaveni/ceny-dobove.json) */
+const KPENVYKL = `<details class="bdmbez kpenvykl"><summary>Jak fungují peníze</summary>
+  <p>V Čechách se počítá v <b>pražských groších</b>. Větší částky se udávají v <b>kopách</b> – kopa není mince, jen počet: 60 grošů.
+  Drobné jsou <b>haléře</b>, ve zlatě se platí <b>uherským zlatým</b> (dukátem), velké obchody, výkupné a věna.</p>
+  <p class="kpenkurz"><b>1 zlatý = 40 grošů · 1 kopa = 60 grošů · 1 groš = 10 haléřů</b></p>
+  <ul class="kpenl">
+  <li><span>jídlo na den na cestu</span><b>1 groš</b></li>
+  <li><span>nocleh s jídlem v krčmě (píce pro koně)</span><b>2 groše (+1 groš)</b></li>
+  <li><span>denní mzda pacholka · řemeslníka</span><b>1½ · 2 groše</b></li>
+  <li><span>pochodeň · lano (50 stop) · cestovní šaty</span><b>1 haléř · 2 groše · 15 grošů</b></li>
+  <li><span>dýka · dlouhý meč · lehká kuše · píšťala</span><b>4 · 30 · 50 · 30 grošů</b></li>
+  <li><span>kroužková zbroj · plná plátová zbroj</span><b>2½ kopy · 30 kop</b></li>
+  <li><span>kráva · jezdecký kůň · válečný kůň</span><b>24–40 grošů · 2½ kopy · 13 kop</b></li>
+  <li><span>kniha (rukopis)</span><b>5 kop</b></li>
+  </ul>
+  <p class="rsmall">Kouzelné předměty, lektvary a svitky jsou unikáty s vlastní cenou. Celý ceník je v <a href="#pravidla/vybaveni">Pravidlech › Vybavení</a>, noclehy, mzdy a poplatky v <a href="#pravidla/vybaveni/vyb-sluzby">Službách a mzdách</a>.</p></details>`;
 function bdmPenList(K) {
   const pen = kPenKarta(K),
     ro = !kMuze(K);
-  if (ro) return ["Peníze", `<p class="kvpen">${kPenHtml(pen)}</p>`];
+  if (ro) return ["Peníze", `<p class="kvpen">${kPenHtml(pen)}</p>${KPENVYKL}`];
   return [
     "Peníze",
     `<p class="kvpen">${kPenHtml(pen)}</p>
@@ -1093,7 +1109,7 @@ function bdmPenList(K) {
       .join("")}</select>
       <button class="bdmbtn" name="a" value="z" ${btip("Odečte částku; když nemáš přesné mince, rozmění větší")}>Zaplatit</button><button class="bdmbtn" name="a" value="p">Přijmout</button>
       ${window.MMDB && MMDB.pokladna && (GMV || KZAM.has(K.id)) ? `<button class="bdmbtn ghost" name="a" value="dp" ${btip("Vloží částku do pokladny družiny")}>Do pokladny</button><button class="bdmbtn ghost" name="a" value="zp" ${btip("Vybere částku z pokladny družiny")}>Z pokladny</button>` : ""}</form>
-    <details class="bdmbez"><summary>Mince jednotlivě a směna</summary><div class="kpen">${kMinceNab(pen)
+    ${KPENVYKL}<details class="bdmbez"><summary>Mince jednotlivě a směna</summary><div class="kpen">${kMinceNab(pen)
       .map(
         k =>
           `<label>${KMINCJM[k] ? kMinceIk("mince-" + k.toLowerCase()) : ""}${KMINCZK[k]} <input type="number" min="0" max="9999999" data-kpen="${k}" value="${+pen[k] || 0}"></label>`,

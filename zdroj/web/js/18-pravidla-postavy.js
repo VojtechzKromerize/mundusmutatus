@@ -67,7 +67,7 @@ const KZBRAN = [
   [/\bmace\b|palcát/i, "Mace", "1d6", "Bludgeoning", "", "S"],
   [/quarterstaff|bojová hůl/i, "Quarterstaff", "1d6", "Bludgeoning", "Versatile (1d8)", "S"],
   [/sickle|srp/i, "Sickle", "1d4", "Slashing", "Light", "S"],
-  [/\bspear\b|kopí/i, "Spear", "1d6", "Piercing", "Thrown, Versatile (1d8)", "S"],
+  [/\bspear\b|kopí/i, "Spear", "1d6", "Piercing", "Thrown, Versatile (1d8), Reach", "S"],
   [/\bdart\b|šipk/i, "Dart", "1d4", "Piercing", "Finesse, Thrown", "S", 1],
   [/light crossbow|lehká kuše/i, "Light Crossbow", "1d8", "Piercing", "Ammunition, Loading, Two-Handed", "S", 1],
   [/shortbow|krátký luk/i, "Shortbow", "1d6", "Piercing", "Ammunition, Two-Handed", "S", 1],
@@ -93,7 +93,7 @@ const KZBRAN = [
   [/hand crossbow|ruční kuše/i, "Hand Crossbow", "1d6", "Piercing", "Ammunition, Light, Loading", "M", 1],
   [/heavy crossbow|těžká kuše|^kuše/i, "Heavy Crossbow", "1d10", "Piercing", "Ammunition, Heavy, Loading, Two-Handed", "M", 1],
   [/longbow|dlouhý luk|\bluk\b/i, "Longbow", "1d8", "Piercing", "Ammunition, Heavy, Two-Handed", "M", 1],
-  [/musket|mušket/i, "Musket", "1d12", "Piercing", "Ammunition, Loading, Two-Handed", "M", 1],
+  [/musket|mušket|hákovnic/i, "Musket", "1d12", "Piercing", "Ammunition, Loading, Two-Handed", "M", 1],
   [/pistol|píšťal/i, "Pistol", "1d10", "Piercing", "Ammunition, Loading", "M", 1],
   [/blowgun|foukačk/i, "Blowgun", "1", "Piercing", "Ammunition, Loading", "M", 1],
 ];

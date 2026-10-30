@@ -3,6 +3,15 @@
 /* výřez mapy světa v mezích [x0, y0, x1, y1, nejmenší a největší šířka]; v celé obrazovce (02f) v poměru stran okna, jinak 1024 : 790 */
 const SMEZE = [-60, -60, 1084, 850, 120, 1120];
 const sVidim = () => celaVyrez(sst.vb || SVB0, celaPomer(document.getElementById("smap")) || SVB0[3] / SVB0[2], SMEZE);
+/* barvy zemí se volí podle vzhledu při kresbě: po přepnutí denního / nočního vzhledu se mapa překreslí */
+const sMotivZmena = () => {
+  if (curView === "svet" && SG) {
+    sDraw();
+    sList();
+  }
+};
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", sMotivZmena);
+addEventListener("mmmotiv", sMotivZmena);
 function svInit() {
   if (SG) {
     sDraw();

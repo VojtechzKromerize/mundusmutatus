@@ -1091,7 +1091,7 @@ function bojKarta(s, n, gm) {
         c = hv != null ? hv : mx,
         pr = Math.max(0, Math.min(100, Math.round((c / mx) * 100)));
       return `<i class="bhpp${pr <= 25 ? " bhpp4" : ""}" style="--p:${pr}%" role="img" aria-label="Životy ${c} z ${mx}"></i>`;
-    })()}${prj.length ? `<small>${besc(prj.join(", "))}</small>` : ""}</span><span class="bdruh" role="img" aria-label="${BDRUH[n.druh] || n.druh}" ${btip((BDRUH[n.druh] || n.druh) + (E ? " · " + E.p.n + (E.p.vy ? " · výzva " + E.p.vy : "") : ""))}>${bi(BDRIC[n.druh] || "sok")}</span>${E && E.p.rel ? `<span class="bzn bzn-zak bzn-h" role="img" aria-label="Relikt – zákon" ${btip("Relikt – zákon: " + (E.p.zak || "viz statblock") + " · Zažehnání a tajemství jsou ve statblocku.")}>${bi("zakon")}</span>` : ""}${
+    })()}${prj.length ? `<small>${besc(prj.join(", "))}</small>` : ""}</span>${(n.rany || []).length ? `<span class="bkrb" ${btip(`Kritická zranění: ${n.rany.map(x => x.t).join("; ")}`)}>${bi("rana")}${n.rany.length}</span>` : ""}<span class="bdruh" role="img" aria-label="${BDRUH[n.druh] || n.druh}" ${btip((BDRUH[n.druh] || n.druh) + (E ? " · " + E.p.n + (E.p.vy ? " · výzva " + E.p.vy : "") : ""))}>${bi(BDRIC[n.druh] || "sok")}</span>${E && E.p.rel ? `<span class="bzn bzn-zak bzn-h" role="img" aria-label="Relikt – zákon" ${btip("Relikt – zákon: " + (E.p.zak || "viz statblock") + " · Zažehnání a tajemství jsou ve statblocku.")}>${bi("zakon")}</span>` : ""}${
       acN
         ? (() => {
             const zt = ZS.d.map(z => `${bikZbTip(z.k).replace(/ \(obětování při kritickém zásahu\)/, "")} · zbývá ${z.max - z.u} z ${z.max}`),
@@ -1154,9 +1154,10 @@ function bojPravidla() {
   const L = (h, t) => `<p class="rsmall"><a href="#artikule/${h}">${t} →</a></p>`;
   return `<div class="bprtgs"><button type="button" class="bprtg" data-bprav aria-controls="bpravidla" aria-expanded="${BPRAV}" ${btip("Rychlá pravidla: stavy, akce, zbraně, zbroj")}>${bi("kniha")}<span>Pravidla</span></button><button type="button" class="bprtg bkrtg" data-bkro aria-controls="bkritsup" aria-expanded="${BKRO}" ${btip("Hod na kritické zranění a rány postav")}>${bi("rana")}<span>Kritická zranění</span></button></div>
   <aside class="bpravidla bkritsup${BKRO ? " open" : ""}" id="bkritsup" aria-label="Kritická zranění"><div class="bprh"><h3>Kritická zranění</h3><button type="button" class="bprx" data-bkro aria-label="Zavřít kritická zranění">${bi("krizek")}</button></div><div class="bprg">
-    <article class="bqr bqkrit"><p>k10 + 1 za každé neléčené kritické zranění + 1 za každých 5 HP pod 0: <b>1–5</b> Lehká · <b>6–9</b> Těžká · <b>10–12</b> Vážná · <b>13+</b> Smrtelná. Místo podle Závoje: 6 hlava, 3–5 trup, 2 paže, 1 nohy.</p>${bojKritPanel()}${L("kriticka", "Artikule › Kritická zranění")}</article>
+    <article class="bqr bqkrit"><p>k10 + 1 za každé neléčené kritické zranění + 1 za každých 5 HP pod nulou: <b>1–5</b> Lehká · <b>6–9</b> Těžká · <b>10–12</b> Vážná · <b>13+</b> Smrtelná. Místo podle Závoje: 6 hlava, 3–5 trup, 2 paže, 1 nohy.</p>${bojKritPanel()}${L("kriticka", "Artikule › Kritická zranění")}</article>
   </div></aside>
-  <aside class="bpravidla${BPRAV ? " open" : ""}" id="bpravidla" aria-label="Rychlá pravidla"><div class="bprh"><h3>Rychlá pravidla</h3><button type="button" class="bprx" data-bprav aria-label="Zavřít rychlá pravidla">${bi("krizek")}</button></div><div class="bprg">
+  <aside class="bpravidla${BPRAV ? " open" : ""}" id="bpravidla" aria-label="Rychlá pravidla"><div class="bprh"><h3>Pravidla</h3><button type="button" class="bprx" data-bprav aria-label="Zavřít pravidla">${bi("krizek")}</button></div><div class="bprg">
+    ${hlBoxHtml("bprhl")}
     <article class="bqr"><h4>Stavy (SRD 5.2.1)</h4><dl class="bdl">${Object.entries(SRDST)
       .map(([k, v]) => `<dt>${bi(SRDIC[k])}${k[0].toUpperCase() + k.slice(1)} <small>${v.en}</small></dt><dd>${v.t}.</dd>`)
       .join(
@@ -1652,9 +1653,13 @@ function bojHracKlik(T) {
     }
     const h0 = (s.hraci || []).find(x => x.id === id);
     if (!h0 || !h0.ds) return true;
-    const r = k === "hod" ? bojDs(h0.ds, "hod", bK(20)) : bojDs(h0.ds, k);
-    if (GMV && k === "hod") bojLog(id, {n: "Hod proti smrti", zt: r.m}, hn);
-    bojDsZapis(id, h0, r, k === "hod", k === "hod" ? `${hn}: hod proti smrti ${r.m}.` : r.m ? `${hn}: ${r.m}.` : "");
+    const zapis = () => {
+      const r = k === "hod" ? bojDs(h0.ds, "hod", bK(20)) : bojDs(h0.ds, k);
+      if (GMV && k === "hod") bojLog(id, {n: "Hod proti smrti", zt: r.m}, hn);
+      bojDsZapis(id, h0, r, k === "hod", k === "hod" ? `${hn}: hod proti smrti ${r.m}.` : r.m ? `${hn}: ${r.m}.` : "");
+    };
+    if (k === "hod") mmRucS({popis: `${hn}: hod proti smrti`, kostky: [{s: 20, n: 1, t: "d20"}]}, zapis);
+    else zapis();
     return true;
   }
   return false;
@@ -1870,7 +1875,10 @@ function bojZranPC(h, K, x, typ, krit, opt) {
     }
     const r = bojDs(h.ds, "n", krit ? 2 : 1);
     h.ds = r.ds;
-    m.push(`zásah v bezvědomí: ${krit ? "dva neúspěchy" : "neúspěch"} hodu proti smrti${r.m ? " → " + r.m : ""}`);
+    /* HP pod nulou (Artikule, Vojta 2026-10-29): zásah v bezvědomí odečítá dál do záporu – zhorší další kritické zranění */
+    h.hp = Math.min(0, hpO(h, K)) - v;
+    BZRPOD = -h.hp;
+    m.push(`zásah v bezvědomí: ${krit ? "dva neúspěchy" : "neúspěch"} hodu proti smrti${r.m ? " → " + r.m : ""} (${h.hp} HP)`);
     return m.join(", ");
   }
   const mx = K ? kHPmax(K) : 0,
@@ -1878,7 +1886,8 @@ function bojZranPC(h, K, x, typ, krit, opt) {
     nov = cur - v;
   if ((h.stav || []).includes("soustředí")) m.push(`soustředění: CON záchrana SO ${bojKonDC(v)}${K && K.konVyhoda ? " s výhodou (War Caster)" : ""}`);
   if (nov <= 0) {
-    h.hp = 0;
+    /* HP pod nulou (Artikule, Vojta 2026-10-29): přesah se odečítá do záporu; léčení pak počítá od 0 (bojLecPC) */
+    h.hp = nov;
     BZRPOD = Math.max(0, -nov);
     if (mx && -nov >= mx) {
       h.ds = {u: 0, n: 3, st: "mrtev"};
@@ -1892,7 +1901,7 @@ function bojZranPC(h, K, x, typ, krit, opt) {
       if (!h.stav.length) delete h.stav;
     }
   } else h.hp = nov;
-  m.unshift(`−${v} HP (${Math.max(0, nov)}/${mx})`);
+  m.unshift(`−${v} HP (${nov}/${mx})`);
   return m.join(", ");
 }
 function bojLecPC(h, K, x) {
@@ -1906,9 +1915,9 @@ function bojLecPC(h, K, x) {
     h.hp = Math.min(mx, Math.max(0, cur) + v);
     return `+${v} HP: stabilizován – do konce boje mimo hru (Artikule), ledaže ho vrátí Lesser nebo Greater Restoration`;
   }
-  h.hp = Math.min(mx, cur + v);
+  h.hp = Math.min(mx, Math.max(0, cur) + v);
   if (h.hp >= mx) delete h.hp;
-  return `+${v} HP (${Math.min(mx, cur + v)}/${mx})`;
+  return `+${v} HP (${Math.min(mx, Math.max(0, cur) + v)}/${mx})`;
 }
 /* hlavička karty: AC, životy s pruhem, dočasné HP, ovládání zranění a léčení */
 function bojKartaHlava(h, s, gm) {
@@ -1922,7 +1931,7 @@ function bojKartaHlava(h, s, gm) {
   return `<div class="kdbcr"><div class="kdbac" ${btip(`AC ${kAC(K)}${kr ? ` + kryt ${kr}` : ""}`)}><small>AC</small><b>${kAC(K) + kr}</b>${kr ? `<small>kryt +${kr}</small>` : "<small>obrana</small>"}</div>
     <div class="kdbhp${cur <= mx / 2 ? " bhp2" : ""}${cur <= 0 ? " bhp0" : ""}"><div class="kdbhpz"><button type="button" class="kdbheal" data-bkzr="l" ${btip("Léčení")}>Léčit</button><input type="number" name="bkzr-${h.id}" data-bkzrv min="0" max="300" inputmode="numeric" aria-label="Kolik HP"><button type="button" class="kdbdmg" data-bkzr="z" ${btip("Zranění – odečte se s odolnostmi a dočasnými HP")}>Zranit</button></div>
       <div class="kdbhpc"><span><small>Teď</small><b>${cur}</b></span><i>/</i><span ${btip(`Maximum životů ${mx}: ${kRozpis(kHodn(K, "hp").L)}`)}><small>Max</small><b>${mx}</b></span><span class="kdbtmp"><small>Dočasné</small><b>${ks.thp || "–"}</b></span></div>
-      <div class="kdbhpo"><select data-bkzrt aria-label="Typ zranění">${BZTYPY.map(t => `<option value="${t}">${BZRT[t]}</option>`).join("")}</select><button type="button" class="kdbmini" data-bkzr="d" ${btip("Dočasné HP (nesčítají se – platí vyšší)")}>+ dočasné</button>${ks.vycerp ? `<span class="bkvy" ${btip(`Vyčerpání ${ks.vycerp}: −${2 * ks.vycerp} k hodům d20`)}>${bi("vycerpani")}vyčerpání ${ks.vycerp}</span>` : ""}<a class="bklink" href="#karty/${besc(K.id)}">celá karta →</a></div><h3 class="kdbpt">Životy</h3><i class="kdbhpbar" style="--p:${pr}%"></i></div>
+      <div class="kdbhpo"><select data-bkzrt aria-label="Typ zranění">${BZTYPY.map(t => `<option value="${t}">${BZRT[t]}</option>`).join("")}</select><button type="button" class="kdbmini" data-bkzr="d" ${btip("Dočasné HP (nesčítají se – platí vyšší)")}>+ dočasné</button>${ks.vycerp ? `<span class="bkvy" ${btip(`Vyčerpání ${ks.vycerp}: −${2 * ks.vycerp} k hodům d20`)}>${bi("vycerpani")}vyčerpání ${ks.vycerp}</span>` : ""}<a class="bklink" href="#karty/${besc(K.id)}">celá karta →</a></div><h3 class="kdbpt">Životy</h3><i class="kdbhpbar" style="--p:${pr}%${ks.thp ? `;--t:${Math.min(100, Math.round((ks.thp / Math.max(1, mx)) * 100))}%` : ""}"></i></div>
     <div class="kdbsm"><small>Pěšky</small><b>${kRychN(K)}<i> st.</i></b><small>rychlost</small></div>
     <div class="kdbsm" ${btip("Pasivní Vnímání")}><small>Vnímání</small><b>${kPas(K, "vnimani")}</b><small>pasivní</small></div></div>`;
 }

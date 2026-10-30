@@ -114,11 +114,22 @@ function trRozdel(h) {
   const m = String(h || "").match(/^<p><i>([\s\S]*?)<\/i><\/p>\n?/);
   return m ? {pod: m[1], h: h.slice(m[0].length)} : {pod: "", h: h || ""};
 }
+/* postranní obsah traktátů jako u Artikulí (Vojta 2026-10-29): všechny traktáty, u otevřeného jeho oddíly */
+function trSide(t, hs) {
+  return `<button type="button" class="atoggle" aria-expanded="false">☰ Obsah traktátů</button><nav class="atoc" aria-label="Traktáty"><a class="atop${t ? "" : " on"}" href="#kronika/clanky">Všechny traktáty</a><p class="abook">Traktáty</p><ol>${TRAKTATY.map(
+    x =>
+      `<li><a href="#kronika/clanky/${x.id}"${t === x ? ' class="on" aria-current="page"' : ""}>${x.t}</a>${
+        t === x && hs.length > 1
+          ? `<ol class="asecs">${hs.map((h, j) => `<li><a href="#kronika/clanky/${x.id}" data-trsek="${j}">${h}</a></li>`).join("")}</ol>`
+          : ""
+      }</li>`,
+  ).join("")}</ol></nav>`;
+}
 function renderTraktaty(c) {
   const box = document.getElementById("kclanky"),
     t = TRBY[c];
   if (!t) {
-    box.innerHTML = `<p class="intro">Traktáty o světě po protržení Závoje: o zemích, řádech, pověstech a tajemstvích, jak je sepsal kronikář Vojtěch z Kroměříže.</p>
+    box.innerHTML = `<div class="alay"><aside class="aside" id="kclside">${trSide(null, [])}</aside><article class="amain"><p class="intro">Traktáty o světě po protržení Závoje: o zemích, řádech, pověstech a tajemstvích, jak je sepsal kronikář Vojtěch z Kroměříže.</p>
       ${
         TRAKTATY.length
           ? `<ol class="trlist">${TRAKTATY.map(x => {
@@ -134,30 +145,34 @@ function renderTraktaty(c) {
               }</a></li>`;
             }).join("")}</ol>`
           : `<div class="placeholder"><p>Traktáty budou doplněny.</p></div>`
-      }`;
+      }</article></div>`;
     return;
   }
   const i = TRAKTATY.indexOf(t),
     pv = TRAKTATY[i - 1],
     nx = TRAKTATY[i + 1],
     r = trRozdel(t.h),
-    hs = [...r.h.matchAll(/<h3>([\s\S]*?)<\/h3>/g)].map(m => m[1]);
-  box.innerHTML = `<nav class="crumbs"><a href="#kronika/clanky">Traktáty</a> › <b>${t.t}</b></nav>
+    hs = t.sl ? [] : [...r.h.matchAll(/<h3>([\s\S]*?)<\/h3>/g)].map(m => m[1]);
+  box.innerHTML = `<div class="alay"><aside class="aside" id="kclside">${trSide(t, hs)}</aside><article class="amain"><nav class="crumbs"><a href="#kronika/clanky">Traktáty</a> › <b>${t.t}</b></nav>
     <h2 class="arttitle">${t.t}</h2>
     ${r.pod ? `<p class="drlatin">${r.pod}</p>` : ""}
-    ${
-      t.sl
-        ? `<p class="intro">O tomto traktátu družina zatím jen slyšela; jeho text nezná.</p>`
-        : `${hs.length > 2 ? `<nav class="trobsah" aria-label="Obsah traktátu"><b>Obsah</b><ol>${hs.map((x, j) => `<li><button type="button" data-trsek="${j}">${x}</button></li>`).join("")}</ol></nav>` : ""}
-    <div class="drtext trtext">${r.h}</div>`
-    }
-    <nav class="apn">${pv ? `<a href="#kronika/clanky/${pv.id}" rel="prev"><small>Předchozí</small>${pv.t}</a>` : "<span></span>"}${nx ? `<a href="#kronika/clanky/${nx.id}" rel="next"><small>Další</small>${nx.t}</a>` : "<span></span>"}</nav>`;
+    ${t.sl ? `<p class="intro">O tomto traktátu družina zatím jen slyšela; jeho text nezná.</p>` : `<div class="drtext trtext">${r.h}</div>`}
+    <nav class="apn">${pv ? `<a href="#kronika/clanky/${pv.id}" rel="prev"><small>Předchozí</small>${pv.t}</a>` : "<span></span>"}${nx ? `<a href="#kronika/clanky/${nx.id}" rel="next"><small>Další</small>${nx.t}</a>` : "<span></span>"}</nav></article></div>`;
   const tx = box.querySelector(".trtext");
   if (tx) autolink(tx, "");
 }
+/* rozbalení postranního obsahu na telefonu (Pravidla, Traktáty – kreslí se znovu, proto přes delegaci) */
+document.addEventListener("click", e => {
+  const tg = e.target.closest && e.target.closest("#srdside .atoggle, #kclside .atoggle");
+  if (!tg) return;
+  const side = tg.closest(".aside"),
+    o = side.classList.toggle("open");
+  tg.setAttribute("aria-expanded", o);
+});
 document.addEventListener("click", e => {
   const b = e.target.closest("[data-trsek]");
   if (!b) return;
+  e.preventDefault();
   const h = document.querySelectorAll("#kclanky .trtext>h3")[+b.dataset.trsek];
   if (h) h.scrollIntoView({behavior: matchMedia("(prefers-reduced-motion:reduce)").matches ? "auto" : "smooth", block: "start"});
 });
@@ -814,11 +829,18 @@ function dialCtx(Y, M, D, today, H, Hprev) {
     ["nešpory", sun.set - 0.5],
     ["kompletář", sun.set + 1.5],
   ];
+  /* slunovrat (Vojta 2026-10-29): Hodina Závoje po celý den slunovratu (den, kdy je Slunce nejvýš či nejníž), ne svátek */
   const fe = feasts(Y)
       .filter(f => f.j === today)
       .map(f => f.n),
-    sol = Math.abs(sun.dec) > 23.3 ? (sun.dec > 0 ? "letní slunovrat" : "zimní slunovrat") : "";
-  if (sol) fe.push(sol);
+    dA = Math.abs(sun.dec),
+    sol =
+      dA > 23 && dA >= Math.abs(sunFor(today - 1).dec) && dA > Math.abs(sunFor(today + 1).dec)
+        ? sun.dec > 0
+          ? "letní slunovrat"
+          : "zimní slunovrat"
+        : "";
+  if (sol) for (let h = 0; h < 24; h++) Z[h] = Z[h] ? `${Z[h]} o slunovratu` : sol;
   const cz = h => ((Math.round(h - sun.set) % 24) + 24) % 24 || 24;
   return {Y, M, D, H, Hprev, sun, moon, Z, canon, fe, cz};
 }
@@ -1633,16 +1655,39 @@ function gSearch() {
     .filter(Boolean)
     .sort((a, b) => b.sc - a.sc)
     .slice(0, 14);
-  gres.innerHTML = hits.length
-    ? hits
-        .map(({r}) => {
-          const inner = `<span class="gk">${r.k}</span><b>${r.n}</b><small>${r.s}</small>`;
-          return `<li>${r.h ? `<a href="${r.h}">${inner}</a>` : r.place ? `<button type="button" class="maplink" data-id="${r.place[0]}" data-place="${r.place[1]}">${inner}</button>` : r.duchy ? `<button type="button" data-gduchy="${r.duchy}">${inner}</button>` : `<button type="button" data-gdio="${r.dio}">${inner}</button>`}</li>`;
-        })
-        .join("")
-    : `<li class="none">Nic nenalezeno.</li>`;
+  /* pravidla (SRD, stavy, kouzla, předměty, vybavení) z rejstříku 10h – až je načtená část hry; jinak se doplní po načtení */
+  const pr = typeof hlGlobal === "function" ? hlGlobal(gq.value, gSearch) : "";
+  gres.innerHTML =
+    hits.length || pr
+      ? hits
+          .map(({r}) => {
+            const inner = `<span class="gk">${r.k}</span><b>${r.n}</b><small>${r.s}</small>`;
+            return `<li>${r.h ? `<a href="${r.h}">${inner}</a>` : r.place ? `<button type="button" class="maplink" data-id="${r.place[0]}" data-place="${r.place[1]}">${inner}</button>` : r.duchy ? `<button type="button" data-gduchy="${r.duchy}">${inner}</button>` : `<button type="button" data-gdio="${r.dio}">${inner}</button>`}</li>`;
+          })
+          .join("") + pr
+      : `<li class="none">Nic nenalezeno.</li>`;
   gres.hidden = false;
 }
+/* hledání v pravidlech potřebuje část hry: načte se, jakmile se do pole klikne */
+gq.addEventListener("focus", () => {
+  mmLina("hra")
+    .then(() => {
+      if (typeof hlIndex === "function") return hlIndex();
+    })
+    .then(() => {
+      if (gq.value.trim().length >= 2 && document.activeElement === gq) gSearch();
+    })
+    .catch(() => {});
+});
+/* klávesa / skočí do hledání (mimo psaní do pole) */
+document.addEventListener("keydown", e => {
+  if (e.key !== "/" || e.ctrlKey || e.metaKey || e.altKey) return;
+  const a = document.activeElement;
+  if (a && (a.isContentEditable || /^(input|textarea|select)$/i.test(a.tagName))) return;
+  if (!gq.offsetParent) return;
+  e.preventDefault();
+  gq.focus();
+});
 gq.addEventListener("input", gSearch);
 gq.addEventListener("keydown", e => {
   const f = gres.querySelector("a,button");
@@ -1675,6 +1720,8 @@ gres.addEventListener("keydown", e => {
   }
 });
 gres.addEventListener("click", e => {
+  const hl = e.target.closest("[data-ghl]");
+  if (hl && typeof hlOkno === "function") hlOkno(+hl.dataset.ghl);
   const d = e.target.closest("[data-gduchy],[data-gdio]");
   if (d) {
     const isD = !!d.dataset.gduchy;
