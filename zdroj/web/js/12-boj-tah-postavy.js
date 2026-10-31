@@ -1498,6 +1498,17 @@ async function bojHracAkce(id, fn, msg) {
     if (naKarte && (k === "stav" || k === "ds")) return;
     if (JSON.stringify(h[k] ?? null) !== JSON.stringify(h0[k] ?? null)) ch.push([k, h[k] ?? null]);
   });
+  /* reakce, připravená akce a zbraně jdou do boje i u postavy s kartou (2026-10-31: dřív se u ní reakce uložila jen v telefonu
+     a další načtení boje ji smazalo) */
+  const rd0 = (s.ready || {})[id] || null,
+    rd1 = (z.ready || {})[id] || null;
+  if (rd0 !== rd1) ch.push(["ready", rd1]);
+  const rk0 = !!(s.reak || {})[id],
+    rk1 = !!(z.reak || {})[id];
+  if (rk0 !== rk1) ch.push(["reak", rk1]);
+  const zb0 = JSON.stringify((s.zbrane || {})[h0.n] || null),
+    zb1 = (z.zbrane || {})[h.n] || null;
+  if (zb0 !== JSON.stringify(zb1)) ch.push(["zbrane", zb1 && zb1.length ? zb1 : null]);
   /* stavy a hody proti smrti postavy s kartou jdou na kartu */
   if (naKarte) {
     bojPcOdvod({hraci: [h]});
@@ -1509,15 +1520,6 @@ async function bojHracAkce(id, fn, msg) {
       return;
     }
   }
-  const rd0 = (s.ready || {})[id] || null,
-    rd1 = (z.ready || {})[id] || null;
-  if (rd0 !== rd1) ch.push(["ready", rd1]);
-  const rk0 = !!(s.reak || {})[id],
-    rk1 = !!(z.reak || {})[id];
-  if (rk0 !== rk1) ch.push(["reak", rk1]);
-  const zb0 = JSON.stringify((s.zbrane || {})[h0.n] || null),
-    zb1 = (z.zbrane || {})[h.n] || null;
-  if (zb0 !== JSON.stringify(zb1)) ch.push(["zbrane", zb1 && zb1.length ? zb1 : null]);
   if (!ch.length) return;
   BOJ.s = z;
   renderBoj();
