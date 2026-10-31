@@ -96,3 +96,18 @@ test("manévry Battle Mastera: následek neúspěšné záchrany (2026-10-25)", 
   assert.match(V(`manVysledek("Menacing Attack", true).txt`), /uspěla/);
   assert.equal(V(`manVysledek("Parry", false)`), null);
 });
+
+test("regenerace: SRD „Regeneration. Troll … obnoví 15 životů“, Acid a Fire ji zastaví; Oni jen od 1 HP; vlastní protivník česky (2026-10-31)", () => {
+  const tr = V(
+    `bojRegenInfo({h: "<li><b>Regeneration.</b> Troll na začátku každého svého tahu obnoví 15 životů. Pokud troll utrpí Acid nebo Fire zranění, tento rys v trollově příštím tahu nefunguje. Troll zemře jen tehdy, pokud začne svůj tah s 0 životy a neregeneruje.</li>"})`,
+  );
+  assert.deepEqual(tr, {hp: 15, typy: ["Acid", "Fire"], min1: false});
+  const oni = V(`bojRegenInfo({h: "<b>Regeneration.</b> Oni na začátku každého svého tahu získá zpět 10 HP, pokud má alespoň 1 HP."})`);
+  assert.deepEqual(oni, {hp: 10, typy: ["Fire", "Radiant"], min1: true});
+  const ms = V(
+    `bojRegenInfo({h: "<b>Regenerace.</b> Na začátku tahu získá 10 HP, ledaže v předchozím kole utrpěl oheň nebo Svaté zranění. Zničen je, jen když začne tah na 0 HP a neregeneruje."})`,
+  );
+  assert.equal(ms.hp, 10);
+  assert.deepEqual(ms.typy, ["Fire", "Radiant"]);
+  assert.equal(V(`bojRegenInfo({h: "<b>Multiattack.</b> Dva útoky."})`), null);
+});

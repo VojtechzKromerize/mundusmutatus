@@ -387,6 +387,8 @@ function bojZacatekTahu(s, id) {
     return;
   }
   if (!BTICHO) BTMSG[id] = [];
+  /* veřejný záznam začátku tahu (2026-10-31): krvácení, hoření a regenerace bez životů nepřítele; podrobnosti do záznamu vypravěče */
+  const BTZAZ = [];
   const E = bojEff(n),
     kolo = s.kolo || 1;
   {
@@ -400,6 +402,7 @@ function bojZacatekTahu(s, id) {
       bojHp.set(hp);
       bojHpZmena(id, 0, old, old - kv.d);
       bojMsg(id, `${kv.txt} → −${kv.d} HP (${old - kv.d}).`);
+      BTZAZ.push(["Krvácení", kv.txt]);
     }
   }
   (n.ef || []).slice().forEach(e => {
@@ -427,6 +430,7 @@ function bojZacatekTahu(s, id) {
           id,
           `${e.n}: ${k ? k.x + " = " : ""}${v} ${BZRT[e.t] || e.t || ""}${r.pozn.length ? " → " + r.pozn.join(", ") : ""} → −${r.x} HP (${old - r.x}).`,
         );
+        BTZAZ.push([e.n, `${v} ${BZRT[e.t] || e.t || ""} zranění`.trim()]);
       }
     }
     if (e.kdy === "kola") {
@@ -449,30 +453,36 @@ function bojZacatekTahu(s, id) {
       }
     });
     BRCH[id] = R;
-    const rg = bojRegen(E.p);
+    const RG = bojRegenInfo(E.p),
+      rg = RG ? RG.hp : 0;
     if (rg && E.hp.length) {
       const hp = bojHp.get(),
         a = hp[id] || [],
         cur = a[0] != null ? a[0] : E.hp[0].max,
-        D = BDMG[id];
-      if (D && D.k >= kolo - 1 && D.t.some(x => x === "Fire" || x === "Radiant"))
+        D = BDMG[id],
+        stop = D && D.k >= kolo - 1 ? D.t.filter(x => RG.typy.includes(x)) : [];
+      if (stop.length) {
         bojMsg(
           id,
-          `Regenerace: v předchozím kole utrpěl ${D.t
-            .filter(x => x === "Fire" || x === "Radiant")
-            .map(x => BZRT[x])
-            .join(" a ")} zranění – neregeneruje.${cur <= 0 ? " Je na 0 HP: je zničen." : ""}`,
+          `Regenerace: v předchozím kole utrpěl ${stop.map(x => BZRT[x] || x).join(" a ")} zranění – neregeneruje.${cur <= 0 ? " Je na 0 HP: je zničen." : ""}`,
         );
+        BTZAZ.push(["Regenerace", "nefunguje"]);
+      } else if (RG.min1 && cur <= 0) bojMsg(id, "Regenerace: na 0 HP nefunguje.");
       else if (cur < E.hp[0].max) {
         const nv = Math.min(E.hp[0].max, cur + rg);
         a[0] = nv;
         hp[id] = a;
         bojHp.set(hp);
         bojMsg(id, `Regenerace: +${nv - cur} HP (${nv}/${E.hp[0].max}).`);
+        BTZAZ.push(["Regenerace", "rány se zacelují"]);
       }
     }
   }
   if (BTICHO) return;
+  if (BTMSG[id].length) {
+    bojLog(id, {n: "Začátek tahu", ci: id, zt: BTMSG[id].join(" ")}, n.n);
+    BTZAZ.forEach(([co, v]) => bojZaz({a: n.n, ai: id, cim: co, v: String(v).slice(0, 80)}));
+  }
   if (BTMSG[id].length) mmHlasG(`${n.n} na tahu: ${BTMSG[id].join(" ")}`, 6000);
   else delete BTMSG[id];
 }

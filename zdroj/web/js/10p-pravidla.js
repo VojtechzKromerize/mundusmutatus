@@ -244,11 +244,35 @@ const bojRecharge = p => {
 };
 
 /* z 12-boj-tah-postavy */
+/* regenerace: vlastní protivníci „Regenerace … 10 HP“, nestvůry SRD „Regeneration. Troll … obnoví 15 životů“ (2026-10-31) */
 const bojRegen = p => {
   const t = bojTxt(p);
-  const m = t.match(/Regenerace\.?\s*[^.]*?(\d+)\s*HP/i) || t.match(/regenerace\s*(\d+)\s*HP/i);
+  const m =
+    t.match(/Regenera(?:ce|tion)\.?\s*[^.]*?(\d+)\s*(?:HP|životů|životy|život)\b/i) || t.match(/regenera(?:ce|tion)\s*(\d+)\s*(?:HP|životů)/i);
   return m ? +m[1] : 0;
 };
+/* co regeneraci zastaví (typy zranění z věty o regeneraci; bez zmínky Fire a Radiant jako dřív) a zda potřebuje aspoň 1 HP */
+const BOJREGTYP = {
+  Acid: /\bAcid\b|kyselin/i,
+  Fire: /\bFire\b|ohe[ňn]|ohn[ěi]|ohniv/i,
+  Radiant: /\bRadiant\b|svat[éý]|zář/i,
+  Cold: /\bCold\b|mraziv|chlad/i,
+  Lightning: /\bLightning\b|blesk/i,
+  Necrotic: /\bNecrotic\b|prokle/i,
+};
+function bojRegenInfo(p) {
+  const t = bojTxt(p),
+    i = t.search(/Regenera(?:ce|tion)/i);
+  if (i < 0) return null;
+  const za = t
+      .slice(i, i + 400)
+      .split(/(?<=\.)\s+/)
+      .slice(0, 4)
+      .join(" "),
+    vety = za.split(/(?<=\.)\s+/).filter(v => /utrp|damage|zasa/i.test(v)),
+    typy = Object.keys(BOJREGTYP).filter(k => vety.some(v => BOJREGTYP[k].test(v)));
+  return {hp: bojRegen(p), typy: typy.length ? typy : ["Fire", "Radiant"], min1: /alespoň\s+1\s+(?:HP|život)/i.test(za)};
+}
 
 /* z 12-boj-tah-postavy */
 /* modifikátor vlastnosti z tabulky statblocku (STR … CHA) */
