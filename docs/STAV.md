@@ -327,8 +327,7 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
 - **Účinky – zbývá sjednotit**: léčení (`KZLEC`), opakovaná kouzla (`KZOPAK`), oblasti (`KZOBL`), stavy ze záchran (`BSPSTCZ`), smity (`kSmity`)
   a přídavky povolání (`kEfekty`) mají dál vlastní tabulky; Bless/Bane zapnuté přepínačem na kartě nekončí se soustředěním sesilatele (seslané
   přes dialog ano).
-- **Tah – zbývá**: účet tahu je jen na zařízení (vypravěč nevidí, co hráč v tahu použil, obnovení stránky ho smaže – chtělo by pole v `mm_boj_hrac`);
-  útok po seslání kouzla akcí nic neblokuje (jen značka). (Pohyb, Dash, Action Surge a akce z Haste hotové 10-25.)
+- **Tah**: od 2026-10-31 telefon hráče posílá účet tahu do boje (`mm_boj_hrac` pole `tah` → `s.tahy[id]`, `bojTahSync` v 14, po obnovení stránky `bojTahObnovZBoje`); vypravěč ho vidí u postavy (`bojTahGmHtml`: A, BA, A2, S = slot, pohyb). První útok akce Útok po už použité akci a druhý slot kouzla v tahu (D&D 2024, `tahSlotZapis`) chtějí potvrzení; kouzla se slotem po prvním zešednou. (Pohyb, Dash, Action Surge a akce z Haste hotové 10-25.)
 - **Reakce – zbývá**: Absorb Elements bez přídavku k dalšímu zásahu; nabídky Riposte/Odvetná mají dál vlastní lišty (`BRIP`, `BODV`), Counterspell výzvu.
   (Příležitostný útok a Sentinel hotové 10-25, Protective Bond a Warding Bond 10-27.)
 - **Zlaté snímky – nález**: Favored Enemy hraničáře (Hunter's Mark bez slotu, 2024: 3× na 7. úrovni) se nepočítá jako zdroj (`vzor-poutnik`).

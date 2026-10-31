@@ -250,6 +250,45 @@ const bojBpt = s => tahObnov(BPT, tahKlic(s));
 function bojBptOznac(c) {
   if (!BOJ.s || !BOJ.s.aktivni) return;
   tahOznac(bojBpt(BOJ.s), c);
+  bojTahSync();
+}
+/* účet tahu do stavu boje (2026-10-31, Vojta): telefon hráče ho po každé změně (s krátkou prodlevou) pošle přes mm_boj_hrac
+   (pole „tah“ → s.tahy[id]), vypravěč ho vidí u postavy; po obnovení stránky se z něj účet vrátí (bojTahObnovZBoje) */
+let BPTPOSL = "",
+  BPTTM = 0;
+function bojTahSync() {
+  const s = BOJ.s;
+  if (GMV || !s || !bojBezi(s) || !bojDB || !bojDB.hrac || !BPT.k || BPT.k !== tahKlic(s)) return;
+  const me = (s.hraci || []).find(h => h.n === bojJa.get());
+  if (!me) return;
+  const j = JSON.stringify(tahDB(BPT));
+  if (j === BPTPOSL) return;
+  clearTimeout(BPTTM);
+  BPTTM = setTimeout(async () => {
+    const D = tahDB(BPT);
+    if (JSON.stringify(D) !== j) return bojTahSync();
+    try {
+      await bojDB.hrac(me.id, "tah", D);
+      BPTPOSL = j;
+    } catch (e) {}
+  }, 700);
+}
+/* po obnovení stránky: účet tahu, který hráč v tomto tahu už poslal, se vrátí do telefonu */
+function bojTahObnovZBoje(s) {
+  if (GMV || !s || BPT.k) return;
+  const me = (s.hraci || []).find(h => h.n === bojJa.get()),
+    T = me && (s.tahy || {})[me.id];
+  if (!T || T.k !== tahKlic(s)) return;
+  tahObnov(BPT, T.k);
+  for (const f of TAHPOLE) if (T[f]) BPT[f] = +T[f];
+  BPTPOSL = JSON.stringify(tahDB(BPT));
+}
+document.addEventListener("click", () => setTimeout(bojTahSync, 60));
+/* vypravěč: co hráč v běžícím tahu použil (jen čtení) */
+function bojTahGmHtml(s, h, K) {
+  const S = tahSouhrn((s.tahy || {})[h.id], tahKlic(s), K ? kRychN(K) : 0);
+  if (!S || (!S.L.some(x => x[2]) && !S.pohyb)) return "";
+  return `<span class="btpgm" role="group" aria-label="Tah hráče">${S.L.map(([z, l, on]) => `<b class="${on ? "on" : ""}" ${btip(`${l}: ${on ? "použito" : "k dispozici"}`)}>${z}</b>`).join("")}${S.pohyb ? `<small ${btip(`Pohyb v tomto tahu (ušlo / celkem${S.d ? `, ${S.d}× Sprint` : ""})`)}>${besc(S.pohyb)}${S.d ? " ⇢" : ""}</small>` : ""}</span>`;
 }
 /* pohyb a akce navíc v tahu (2026-10-25, Vojta): zbývající pohyb, Sprint (akcí, bonusovou akcí z Cunning Action / Step of the Wind,
    akcí z Haste), Action Surge a omezená akce z Haste – na telefonu hráče, nad pod-kartami Akce; účet tahu v čistém 10t */
@@ -464,7 +503,9 @@ function bojHracKarta(s, h, gm, vzdy) {
               `<button type="button" data-btp="${k}" aria-pressed="${!!P[k]}" ${btip(`${l}: ${P[k] ? "použito" : "k dispozici"} – klikni`)}>${z}</button>`,
           )
           .join("")
-      : ""
+      : gm && !vzdy
+        ? bojTahGmHtml(s, h, K)
+        : ""
   }<button type="button" class="break${rk ? " on" : ""}" ${gm ? `data-break="${h.id}"` : vzdy ? "data-bhrk" : "disabled"} aria-pressed="${rk}" ${btip(`Reakce – ${h.n}: ${rk ? "použita" : "k dispozici"}${gm || vzdy ? " (klikni)" : ""}`)}>R</button></span>`;
   const head = `<div class="bnh">${bojMedH(h)}<span class="bnn"${gm && !vzdy ? ` data-bhrozb="${h.id}"` : ""}><b>${besc(h.n)}</b>${sub}</span>${acH}${hp}${kr ? `<span class="bkrb" ${btip(`Neléčená kritická zranění: ${(bojKritPC()[h.n] || []).map(x => x.t).join("; ")}`)}>${bi("rana")}${kr}</span>` : ""}${bojDsPip(h)}${!open && st.length ? `<span class="bstavy bakt">${st.map(t => `<span class="bst" role="button" tabindex="0" data-hlp="${besc(t)}" data-hlg="Stav" aria-label="${besc(BSTI[t][1])} – pravidlo" ${btip(BSTI[t][1] + " – klepni pro pravidlo")}>${bi(BSTI[t][0])}</span>`).join("")}</span>` : ""}${!open && h.kryt ? `<span class="bkrbd" ${btip(`Za krytem: AC +${h.kryt}`)}>${bi(+h.kryt >= 5 ? "kryt-3-4" : "kryt-pul")}<small>+${h.kryt}</small></span>` : ""}${!open && rd ? `<b class="brdyh" ${btip("Připravená akce: " + rd)}>⏳</b>` : ""}${K && KKON[K.id] && kKonDrzi(K) ? `<span class="bkonbd" ${btip(`Soustředění: CON záchrana SO ${KKON[K.id]}`)}>${bi("soustredi")}<small>SO ${KKON[K.id]}</small></span>` : ""}${vzdy ? "" : `<span class="btahy" role="img" aria-label="${jed ? "V tomto kole jednal" : "Ještě nejednal"}" ${btip(jed ? "V tomto kole už jednal" : natahu ? "Je na tahu" : "V tomto kole ještě nejednal")}>${bi(jed ? "tahok" : "tah", jed ? "on" : "")}</span>`}${pips}${vzdy || !gm ? "" : `<button type="button" class="brozb" data-bhrozb="${h.id}" aria-expanded="${open}" aria-label="${open ? "Sbalit" : "Rozbalit"} kartu" ${btip(open ? "Sbalit kartu" : "Rozbalit – útok, kouzla, akce, záchrany")}>${bi("sipka")}</button>`}</div>`;
   return `<div class="bnpc bhrk${open ? " bopen" : ""}${natahu ? " bnatahu" : ""}${h.ds ? " bhdsr" : ""}" data-bhcard="${h.id}"${open ? ` data-bhpan="${h.id}"` : ""}${K ? ` data-kid="${besc(K.id)}"` : ""} style="--mc:var(--bh,#2c517f)">${open && K ? bojHracRef(s, h, gm, K, vzdy, {pips}) : head + (open ? bojHracRef(s, h, gm, K, vzdy) : "")}</div>`;
@@ -1736,6 +1777,8 @@ function bdmKouzla(s, h, K, gm, X) {
   /* akce, bonusová akce nebo reakce už v tomto tahu použitá: kouzla s tímto časem seslání zešednou a nejdou seslat (2026-10-23) */
   const pouz = c =>
     (c === "A" && X.mojeTah && X.BP && tahMa(X.BP, "A")) || (c === "BA" && X.mojeTah && X.BP && X.BP.b) || (c === "R" && X.boj && X.rk);
+  /* D&D 2024: jen jeden slot kouzla za tah – po kouzle se slotem zešednou ostatní kouzla se slotem (triky ne) */
+  const pouzSl = x => !!(x.st > 0 && !x.pz && X.boj && X.BP && tahSlotPouzit(X.BP));
   /* trik ke zbrani v boji: Seslat otevře útok zbraní s předvybraným trikem (2026-10-24) */
   const zbT = X.boj ? bojZbrVse(s, h) : [],
     trikB = x => {
@@ -1748,9 +1791,10 @@ function bdmKouzla(s, h, K, gm, X) {
     };
   const radek = (x, i) => {
     const c = kCasKouzla(x),
-      pu = pouz(c),
+      sl = !pouz(c) && pouzSl(x),
+      pu = pouz(c) || sl,
       tri = !x.st; /* trik: bez volby slotu, jen Seslat (nebo výběr cíle v boji) – vejde se do řádku */
-    return `<div class="bdmspr${pu ? " bdmspu" : ""}"${pu ? ` ${btip(c === "A" ? "Akci už jsi v tomto tahu použil" : c === "BA" ? "Bonusovou akci už jsi v tomto tahu použil" : "Reakci už jsi použil")}` : ""}><div class="bdmspn"><button type="button" class="kspn" data-kspd="${i}" ${btip("Popis kouzla")}>${besc(x.n)}</button>${kSpZn(x) ? " " + kSpZn(x) : ""}${kPzZn(x)}<small>${besc([{A: "1A", BA: "1BA", R: "1R", X: x.cas || ""}[c], x.dosah, x.trvani].filter(Boolean).join(" · "))}</small></div>
+    return `<div class="bdmspr${pu ? " bdmspu" : ""}"${pu ? ` ${btip(sl ? "Kouzlo se slotem už jsi v tomto tahu seslal – na tah jen jeden slot (triky jdou)" : c === "A" ? "Akci už jsi v tomto tahu použil" : c === "BA" ? "Bonusovou akci už jsi v tomto tahu použil" : "Reakci už jsi použil")}` : ""}><div class="bdmspn"><button type="button" class="kspn" data-kspd="${i}" ${btip("Popis kouzla")}>${besc(x.n)}</button>${kSpZn(x) ? " " + kSpZn(x) : ""}${kPzZn(x)}<small>${besc([{A: "1A", BA: "1BA", R: "1R", X: x.cas || ""}[c], x.dosah, x.trvani].filter(Boolean).join(" · "))}</small></div>
       <span class="bdmsph"${pu ? " inert" : ""}>${x.utok != null ? `<button type="button" class="bdmbox" ${bj(x) ? naCil(i) : `data-khod="ks:${i}"`} ${btip(bj(x) ? "Útok kouzlem – vyber cíl a hoď" : "Útok kouzlem")}>${bsg(kSpU1(K, x))}</button>` : x.zach ? `<span class="bdmso" ${btip("Záchrana cíle")}>${besc(String(x.zach).slice(0, 3).toUpperCase())} ${kSpDC(K, x) || ""}</span>` : ""}</span>
       <span class="bdmspa${tri ? " bdmspa1" : ""}"${pu ? " inert" : ""}>${trikB(x) || (bj(x) ? cil(x, i) : tri ? `<button type="button" class="bdmmini" data-kses="${i}" ${btip(kSesCil(x) ? "Seslat – vybrat cíl" : "Seslat na sebe")}>Seslat</button>` : kSesHtml(K, x, i))}</span></div>`;
   };

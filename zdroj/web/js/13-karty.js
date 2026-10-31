@@ -439,6 +439,18 @@ async function kartaSeslat(K, sp, chce) {
   }
   const q = sp.st > 0 || sp.pz ? L[0] : null,
     U = Object.assign({}, kartaStav(K.id).zdr || {});
+  /* D&D 2024: v jednom tahu jen jeden slot kouzla (Vojta 2026-10-31) – na telefonu hráče v běžícím boji */
+  {
+    const jeSlot = q && /^slot[1-9]p?$/.test(q.k || ""),
+      hJa = BOJ.s && bojBezi(BOJ.s) && (BOJ.s.hraci || []).find(x => bojKartaH(x) === K && x.n === bojJa.get());
+    if (jeSlot && hJa) {
+      const P = bojBpt(BOJ.s);
+      if (tahSlotPouzit(P) && !confirm(`${K.n} už v tomto tahu utratil slot kouzla – podle pravidel smí jen jeden za tah. Přesto seslat ${sp.n}?`))
+        return false;
+      tahSlotZapis(P);
+      bojTahSync();
+    }
+  }
   if (q && q.lab != null && sp.pz.sv) {
     const S = kartaStav(K.id),
       inv = [...(S.inv || K.vybaveni || [])].map(y => Object.assign({}, y)),

@@ -3,7 +3,8 @@
    = kostky jednou za tah podle karty, BJU.ridT v 20c = přídavky po zásahu). Reakce se nepočítá tady: je sdílená ve stavu boje
    (s.reak) a obnoví se na začátku vlastního tahu (bojTahHook) – volnost reakce řeší okno reakce v 10r.
 
-   Účet: {k: klíč tahu „kolo:tah“, p: pohyb, a: akce, b: bonusová akce (0 / 1), jt: [jména „jednou za tah“ už použitá]}
+   Účet: {k: klíč tahu „kolo:tah“, p: pohyb, a: akce, b: bonusová akce (0 / 1), jt: [jména „jednou za tah“ už použitá],
+   sl: v tomto tahu už utracen slot kouzla (D&D 2024: jen jeden za tah)}
    Od 2026-10-25 (Vojta) i: m = stop už ušlých, d = počet Sprintů (Dash: pohyb navíc ve výši rychlosti), as = Action Surge
    v tomto tahu (druhá akce a2), ah = omezená akce navíc z Haste (Útok jedním útokem, Sprint, Odpoutání, Skrytí, Použití předmětu).
    Klíč je tah, který právě běží (kohokoli): D&D 2024 „jednou za tah“ = jednou v každém tahu, i v tahu nepřítele (Sneak Attack
@@ -26,6 +27,7 @@ function tahObnov(u, k) {
     u.as = 0;
     u.a2 = 0;
     u.ah = 0;
+    u.sl = 0;
   }
   if (!Array.isArray(u.jt)) u.jt = [];
   return u;
@@ -58,6 +60,33 @@ const tahJednouVolne = (u, n) => !(u.jt || []).includes(n);
 function tahJednouZapis(u, L) {
   for (const n of [].concat(L || [])) if (n && tahJednouVolne(u, n)) u.jt.push(n);
   return u;
+}
+/* ---- jedno kouzlo se slotem za tah (D&D 2024, Vojta 2026-10-31) ----
+   „Na jeden tah smíš utratit jen jeden slot kouzla“ – i kdyby druhé kouzlo bylo za bonusovou akci nebo reakci v tomtéž tahu. */
+const tahSlotPouzit = u => !!u.sl;
+function tahSlotZapis(u) {
+  u.sl = 1;
+  return u;
+}
+/* ---- účet tahu ve stavu boje (2026-10-31): telefon hráče ho posílá do boje (mm_boj_hrac, pole „tah“), vypravěč ho vidí ---- */
+const TAHPOLE = ["p", "a", "b", "m", "d", "as", "a2", "ah", "sl"];
+function tahDB(u) {
+  const o = {k: String(u.k || "")};
+  for (const f of TAHPOLE) if (+u[f]) o[f] = Math.max(0, Math.min(999, Math.round(+u[f])));
+  return o;
+}
+/* souhrn pro vypravěče: [[zkratka, popis, použito]] + pohyb „ušlo/max“; jen pro běžící tah (jinak null) */
+function tahSouhrn(u, k, rych) {
+  if (!u || u.k !== k) return null;
+  const P = tahPohyb(u, rych),
+    L = [
+      ["A", "Akce", tahMa(u, "A")],
+      ["BA", "Bonusová akce", !!u.b],
+    ];
+  if (u.as) L.push(["A2", "Druhá akce (Action Surge)", !!u.a2]);
+  if (u.ah) L.push(["AH", "Akce z Haste", true]);
+  if (u.sl) L.push(["S", "Kouzlo se slotem (jen jedno za tah)", true]);
+  return {L, pohyb: P.r ? `${P.m}/${P.max}` : u.p ? "pohyb ✓" : "", d: +u.d || 0};
 }
 /* ---- pohyb a Sprint (2026-10-25) ---- */
 /* pohyb v tahu při rychlosti rych: celkem = rychlost × (1 + Sprintů), ušlo, zbývá */

@@ -938,6 +938,16 @@ begin
     else
       raise exception 'neplatný konec tahu';
     end if;
+  elsif p_pole = 'tah' then
+    -- účet tahu hráče (2026-10-31): {k: "kolo:tah", p, a, b, m, d, as, a2, ah, sl} – vypravěč vidí, co hráč v tahu použil
+    if jsonb_typeof(x) = 'null' then
+      s := jsonb_set(s, '{tahy}', coalesce(s -> 'tahy', '{}'::jsonb) - p_hrac);
+    elsif jsonb_typeof(x) = 'object' and coalesce(x ->> 'k', '') ~ '^\d{1,4}:\d{1,3}$' and octet_length(x::text) <= 300
+      and not exists (select 1 from jsonb_each(x) e where e.key <> 'k' and (e.key not in ('p', 'a', 'b', 'm', 'd', 'as', 'a2', 'ah', 'sl') or not public.mm_cislo(e.value, 0, 999))) then
+      s := jsonb_set(s, '{tahy}', coalesce(s -> 'tahy', '{}'::jsonb) || jsonb_build_object(p_hrac, x));
+    else
+      raise exception 'neplatný účet tahu';
+    end if;
   elsif p_pole = 'reak' then
     if x = 'true'::jsonb then
       s := jsonb_set(s, '{reak}', coalesce(s -> 'reak', '{}'::jsonb) || jsonb_build_object(p_hrac, 1));

@@ -83,6 +83,30 @@ test("jednou za tah: zápis bez zdvojení, staré uložené tvary se obnoví", (
   assert.deepEqual(C.V(`tahObnov({tk: 101, u: ["sa"]}, "1:1").jt`), []);
 });
 
+test("jeden slot kouzla za tah (D&D 2024): zápis platí jen v tomto tahu", () => {
+  assert.deepEqual(
+    C.V(`(() => { const u = {}; tahObnov(u, "2:1"); const a = tahSlotPouzit(u); tahSlotZapis(u); const b = tahSlotPouzit(u);
+      tahObnov(u, "2:2"); return [a, b, tahSlotPouzit(u)]; })()`),
+    [false, true, false],
+  );
+});
+
+test("účet tahu pro vypravěče: do boje jen nenulová pole, souhrn jen pro běžící tah", () => {
+  const D = C.V(`(() => { const u = {}; tahObnov(u, "3:4"); tahOznac(u, "A"); tahPohni(u, 15, 30); tahSlotZapis(u); return tahDB(u); })()`);
+  assert.deepEqual(D, {k: "3:4", a: 1, m: 15, sl: 1});
+  const S = C.V(`tahSouhrn(${JSON.stringify(D)}, "3:4", 30)`);
+  assert.deepEqual(
+    S.L.map(x => [x[0], x[2]]),
+    [
+      ["A", true],
+      ["BA", false],
+      ["S", true],
+    ],
+  );
+  assert.equal(S.pohyb, "15/30");
+  assert.equal(C.V(`tahSouhrn(${JSON.stringify(D)}, "3:5", 30)`), null, "jiný tah – nic");
+});
+
 let S;
 before(async () => {
   S = await stranka();
@@ -168,4 +192,14 @@ test("stránka: pohyb po políčkách (5 stop) – 30 stop = 6 políček, Sprint
     return JSON.stringify([pocet(h1) === n, (h1.match(/bdmpol on/g) || []).length, /data-btpq="1"[^>]*aria-label="10 stop/.test(h1), pocet(h2) === 2 * n, (h2.match(/bdmpol sp/g) || []).length === n]);
   })()`);
   assert.deepEqual(JSON.parse(r), [true, 2, true, true, true]);
+});
+
+test("stránka: vypravěč vidí u postavy účet tahu z boje (A ✓, pohyb 15/30, slot), jen pro běžící tah", () => {
+  const h =
+    S.ev(`(() => { const s = {aktivni: true, kolo: 2, tah: 3, hraci: [{id: "h1", n: "Balduin"}], npc: [], tahy: {h1: {k: "2:3", a: 1, m: 15, sl: 1}}};
+    return [bojTahGmHtml(s, s.hraci[0], null), bojTahGmHtml(Object.assign({}, s, {tah: 4}), s.hraci[0], null)]; })()`);
+  assert.match(h[0], /<b class="on"[^>]*>A<\/b>/);
+  assert.match(h[0], /<b class=""[^>]*>BA<\/b>/);
+  assert.match(h[0], />S<\/b>/);
+  assert.equal(h[1], "", "jiný tah – nic");
 });

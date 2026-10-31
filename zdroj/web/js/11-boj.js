@@ -2559,6 +2559,7 @@ async function bojNacti() {
       const s = db ? JSON.parse(JSON.stringify(db)) : null,
         prevod = GMV && s && bojPcPrevod(s);
       BOJ.s = bojPcNaplnit(s);
+      bojTahObnovZBoje(BOJ.s);
       if (prevod) setTimeout(() => bojZmen(() => {}, true), 0);
       if (GMV) setTimeout(bojUtokyNove, 0);
       return true;
@@ -2675,7 +2676,7 @@ function bojNovaScena(z) {
 /* konec boje (2026-10-23): zpátky do scény – stejné postavy, NPC, kteří zůstali (ne poražení a prchající), záznam pokračuje */
 function bojNaScenu(z) {
   const out = o => (o.stav || []).some(t => BMIMO.includes(t)) || (o.druh === "houf" && !(+o.pocet > 0));
-  ["priprava", "ticha", "lead", "hod", "dm", "prekv", "pocty", "hotovo", "ready", "mom", "cile"].forEach(k => delete z[k]);
+  ["priprava", "ticha", "lead", "hod", "dm", "prekv", "pocty", "hotovo", "ready", "mom", "cile", "tahy"].forEach(k => delete z[k]);
   Object.assign(z, {scena: true, aktivni: true, kolo: 1, tah: 0, sloty: [], obsazeni: {}, utOk: Date.now()});
   z.npc = (z.npc || []).filter(o => !out(o));
   if (!z.zac) z.zac = Date.now();
