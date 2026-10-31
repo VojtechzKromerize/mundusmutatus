@@ -49,13 +49,19 @@ for (const [n, P] of Object.entries(palety)) {
   });
 }
 
-test("volba barvy karty je i v záhlaví (PC) a obě volby se drží stejné hodnoty", async () => {
+test("volba barvy karty je na kartě (i pro vypravěče), v záhlaví webu ne", async () => {
   const {stranka} = await import("./stranka.mjs");
   const S = await stranka();
   try {
-    const n = S.ev(`document.querySelectorAll(".navkb select option").length`);
-    assert.equal(n, S.ev(`Object.keys(MMKB).length`));
-    S.ev(`(() => { const s = document.querySelector(".navkb select"); s.value = "les"; s.dispatchEvent(new Event("change", {bubbles: true})); })()`);
+    assert.equal(S.ev(`document.querySelectorAll(".navkb").length`), 0);
+    assert.equal(S.ev(`document.querySelectorAll(".navhra.bojbezi").length`), 0);
+    assert.equal(
+      S.ev(
+        `(() => { const d = document.createElement("div"); d.innerHTML = hraUcetHtml({id: "x", n: "X"}); document.body.appendChild(d); return d.querySelectorAll("[data-mmkb] option").length; })()`,
+      ),
+      S.ev(`Object.keys(MMKB).length`),
+    );
+    S.ev(`(() => { const s = document.querySelector("[data-mmkb]"); s.value = "les"; s.dispatchEvent(new Event("change", {bubbles: true})); })()`);
     assert.equal(S.ev(`document.documentElement.dataset.kb`), "les");
     S.ev(`mmKb("vino")`);
   } finally {

@@ -2328,7 +2328,6 @@ abbr.poj{text-decoration:underline dotted color-mix(in srgb,var(--kal) 60%,trans
 .szsc>li.szhot{opacity:.65}.szrow{margin:6px 0;display:flex;flex-wrap:wrap;gap:6px;align-items:center}.szrow .chip{display:inline-flex;gap:4px;align-items:center}
 /* stránka Hra, přihlášení hráčů, výzvy, zprávy, průvodce tahem, záložky karty (2026-10-16) */
 .navhra{font-weight:700}
-.navhra.bojbezi::after{content:"⚔";color:var(--gold,#c9a227);margin-left:-4px;font-size:1.05rem}
 .navodbar{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin:8px 0;padding:8px 12px;border:1px solid var(--gold);border-radius:4px;background:color-mix(in srgb,var(--gold) 12%,var(--paper))}.navodbar span{flex:1 1 240px}
 .hrastav{padding:8px 12px;border:1px solid var(--rule);border-radius:3px;background:var(--paper);margin:8px 0}.hrastav p{margin:4px 0}
 .hraboj{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
@@ -4116,8 +4115,4 @@ html.mmpc:not(.mmjenhra) .bdmweb{display:grid;font-size:1.2rem}
 .obchzak{margin-top:10px}.obchzak>summary{cursor:pointer;font-weight:700}.obchzak select{max-width:100%}
 .obchf label,.obchvlz label{margin-right:4px}
 .obchkup{margin-left:auto}
-/* barva karty v záhlaví (2026-10-30): kulatá ikona jako Vzhled, nativní výběr přes ni neviditelně */
-.navkb{position:relative;overflow:hidden}
-.navkb select{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;font-size:1rem}
-.navkb:focus-within{outline:2px solid var(--gold);outline-offset:2px}
 .povmisto{clear:both}.povmj{opacity:.7;font-style:italic}

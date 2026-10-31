@@ -1573,7 +1573,8 @@ function hraVypravList(K) {
   ];
 }
 function hraUcetHtml(K) {
-  if (!hraMoje(K)) return "";
+  /* vypravěč a cizí karta: jen barva karty (na PC je volba jen tady, v záhlaví webu ne – Vojta 2026-10-31) */
+  if (!hraMoje(K)) return `<p class="bojbtn">${mmKbSel()}</p>`;
   const ja = JA.get() || {};
   return `${aplikaceHtml(K.id)}<p class="bojbtn">${notifBtn()}${mmMotivBtn()}${mmKbSel()}${window.MMDB && !(ja.d && DCU.typ !== "email") ? `<button type="button" class="gbtn ghost" data-jaheslo>Změnit heslo</button>` : ""}${ja.d ? `<button type="button" class="gbtn ghost" data-discordx>${jaOdhlasTxt()} (${besc(K.n)})</button>` : `<button type="button" class="gbtn ghost" data-jaodhlas>Odhlásit (${besc(K.n)})</button>`}</p>`;
 }
