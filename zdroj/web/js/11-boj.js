@@ -2856,10 +2856,49 @@ function bojKonNejedna(s) {
     }
   });
 }
+/* Bless, Bane a Guidance zapnuté přepínačem na kartě (pri) nemají sesilatele: když v boji přestane kdokoli (postava či NPC)
+   soustředit na to kouzlo, přepínače se vypnou na všech kartách (2026-10-31, Vojta) */
+let BKONDRZ = null;
+const BKONPRI = /^(Bless|Bane|Guidance)$/;
+function bojKonPriSync(s) {
+  if (!bojBezi(s)) {
+    BKONDRZ = null;
+    return;
+  }
+  const ted = new Set();
+  (s.hraci || []).forEach(h => {
+    const K = bojKartaH(h);
+    if (K && kKonDrzi(K))
+      kKonNazev(K)
+        .split(", ")
+        .forEach(n => n && ted.add(n));
+  });
+  (s.npc || []).forEach(n => {
+    if ((n.stav || []).includes("soustředí") && n.kon) ted.add(String(n.kon).replace(/\s*\(\d+\. st\.\)\s*$/, ""));
+  });
+  const pred = BKONDRZ;
+  BKONDRZ = ted;
+  if (!pred) return;
+  const konc = [...pred].filter(n => !ted.has(n) && BKONPRI.test(n));
+  if (!konc.length) return;
+  setTimeout(async () => {
+    for (const K of KARTY) {
+      const P = kPri(K),
+        z = P.filter(x => !konc.includes(x));
+      if (z.length === P.length) continue;
+      await kartaStavZmen(K.id, {pri: z.length ? z : null}, null, {bezZpet: true});
+      kHodZapis({k: K.id, kdo: K.n, co: "Soustředění skončilo", txt: `${P.filter(x => konc.includes(x)).join(", ")} – sesilatel přestal soustředit`});
+    }
+    kartyPrekresli();
+  }, 0);
+}
 function bojAcSync(s) {
   if (!GMV) return;
   try {
     bojKonNejedna(s);
+  } catch (e) {}
+  try {
+    bojKonPriSync(s);
   } catch (e) {}
   try {
     if (typeof bojUcKola === "function") bojUcKola(s);
@@ -2878,6 +2917,8 @@ function bojAcSync(s) {
      NPC drží jen to kouzlo, které seslal naposledy (kon), a poražený či neschopný soustředění ztrácí */
   const drzi = (e, pc) => {
     const h = (s.hraci || []).find(x => x.id === e.src);
+    /* účinek vzniklý v tomto tahu počká: soustředění sesilatele z karty může dorazit o chvíli později (2026-10-31) */
+    if (h && e.kolo === s.kolo && e.tah === s.tah) return true;
     if (h) {
       const K = bojKartaH(h);
       return (h.stav || []).includes("soustředí") || (pc && !!(K && kUc(K).some(u => u.kon)));

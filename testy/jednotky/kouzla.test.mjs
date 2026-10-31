@@ -351,6 +351,22 @@ test("kouzla: stav ze záchrany i z českého textu – Cause Fear → Vyděšen
   assert.equal(V(`bojSpStav("Sickening Radiance")`), null, "„nemůže těžit ze stavu Invisible“ není stav");
 });
 
+test("kouzla: opakovaná záchrana i v textu „Na konci svých tahů … opakuje“, „Koncem svých tahů“, Fear bez výhledu; Blindness/Deafness jen jeden stav (2026-10-31)", () => {
+  const hl = V(`bojSpStav("Hideous Laughter")`);
+  assert.deepEqual(hl.st, ["sražen", "neschopný"]);
+  assert.ok(hl.op, "Hideous Laughter opakuje záchranu");
+  assert.ok(V(`bojSpStav("Fear").op`), "Fear opakuje záchranu");
+  assert.ok(V(`bojSpStav("Hold Person").op`));
+  const bd = V(`bojSpStav("Blindness/Deafness")`);
+  assert.ok(bd.op && bd.volba);
+  /* zápis: jen první stav, zdroj = sesilatel i bez soustředění v obrazu boje */
+  const r = V(`(() => { const s = {kolo: 1, tah: 2, hraci: [{id: "h1", n: "A", stav: []}], npc: []}, n = {id: "n1"};
+    bojSpStavDej(s, n, bojSpStav("Blindness/Deafness"), {h: "h1", plos: {ab: "CON", dc: 13}});
+    const n2 = {id: "n2"}; bojSpStavDej(s, n2, bojSpStav("Hold Person"), {h: "h1", plos: {ab: "WIS", dc: 14}});
+    return [n.stav, n.ef[0].op, n2.ef[0].src]; })()`);
+  assert.deepEqual(r, [["oslepen"], {ab: "CON", dc: 13}, "h1"]);
+});
+
 test("kouzla: smity po zásahu – Searing/Wrathful/Thunderous Smite a Ensnaring Strike z nejnižšího volného slotu, Blinding Smite bez slotu 3. st. ne; s Divine Smite se vylučují", () => {
   const K = JSON.stringify({
     id: "t_pal",
@@ -403,4 +419,17 @@ test("kouzla: značka Faerie Fire nebo Guiding Bolt na cíli dává hráči výh
   assert.deepEqual(V(`bojAdvHrac({}, ${JSON.stringify(me)}, {id: "n1", ef: [{n: "Guiding Bolt"}]}, true).why`), ["Guiding Bolt (příští útok)"]);
   assert.equal(V(`bojAdvHrac({}, ${JSON.stringify(me)}, {id: "n1", ef: [{n: "Hex"}]}, false).v`), 0);
   assert.equal(V(`bojSpJm("Guiding Bolt (2. st.) + Hex")`), "Guiding Bolt");
+});
+
+test("soustředění: Bless zapnuté přepínačem na kartě skončí, když NPC přestane soustředit na Bless (2026-10-31)", async () => {
+  await S.ev(`kartaStavZmen("balduin", {pri: ["Bless", "Bardic d6"]})`);
+  S.ev(
+    `window.__s = {aktivni: true, kolo: 1, tah: 1, hraci: [], npc: [{id: "n1", n: "Kněz", stav: ["soustředí"], kon: "Bless"}]}; BKONDRZ = null; bojKonPriSync(__s)`,
+  );
+  S.ev(`bojKonPriSync(__s)`);
+  assert.deepEqual(V(`kPri(KARTBY.balduin)`), ["Bless", "Bardic d6"], "dokud soustředí, zůstává");
+  S.ev(`__s.npc[0].stav = []; bojKonPriSync(__s)`);
+  await new Promise(r => setTimeout(r, 300));
+  assert.deepEqual(V(`kPri(KARTBY.balduin)`), ["Bardic d6"]);
+  await S.ev(`kartaStavZmen("balduin", {pri: null})`);
 });

@@ -172,6 +172,10 @@ const BSPSTCZ = [
   [/\bomráčen/i, "omráčen"],
   [/\bv bezvědomí|\bbezvědom/i, "v bezvědomí"],
 ];
+/* opakovaná záchrana na konci tahu: „na konci každého tahu … opakuje“, „Na konci svých tahů … opakuje“, „Koncem svých tahů opakuje“,
+   „Na konci tahu bez výhledu na tebe nový WIS záchranný hod“ (Fear), „si hází další … záchranný hod“ (2026-10-31) */
+const BSPOP =
+  /(?:na konci|koncem)\s+(?:každého\s+)?(?:svého\s+|svých\s+)?tah\w*[^.]{0,120}(?:opakuje|zopakuje|nový\s+\w+\s+záchrann|další\s+\w*\s*záchrann|záchranný hod pro ukončení)|(?:opakuje|zopakuje)[^.]{0,40}(?:na konci|koncem)\s+(?:každého\s+)?(?:svého\s+|svých\s+)?tah|ukončí\s+(?:svůj\s+)?tah[^.]{0,90}záchrann/i;
 function bojSpStav(cim) {
   if (typeof kSp !== "function" || !KSPD) return null;
   const nm = String(cim || "")
@@ -208,23 +212,31 @@ function bojSpStav(cim) {
   return {
     n: d.en || nm,
     st,
-    op: /na konci každého (?:svého )?tahu[^.]{0,90}(?:opakuje|zopakuje)|(?:opakuje|zopakuje)[^.]{0,40}na konci každého (?:svého )?tahu/i.test(t),
+    op: BSPOP.test(t),
+    /* „slepá nebo hluchá dle volby“ (Blindness/Deafness): platí jen první stav, druhý přepne vypravěč */
+    volba: st.length > 1 && /\bnebo\b[^.]{0,30}(?:dle|podle)\s+(?:tvé\s+|své\s+)?volby/i.test(t),
     k: h ? Math.max(1, Math.round(h * 600)) : 1,
     kon: !!d.ko,
   };
 }
 function bojSpStavDej(s, n, S, u) {
+  /* sesilatel soustředěného kouzla je zdrojem vždy (2026-10-31): soustředění z karty přichází jiným zápisem a mohlo by dorazit
+     později – bojAcSync dá účinku čas do konce tahu, kdy vznikl */
   const h = (s.hraci || []).find(x => x.id === u.h),
-    kon = S.kon && h && (h.stav || []).includes("soustředí");
+    kon = S.kon && !!h,
+    ST = S.volba ? S.st.slice(0, 1) : S.st;
   (n.ef || []).filter(e => e.n === S.n).forEach(e => bojEfDel(n, e));
-  S.st.forEach(st => {
+  ST.forEach(st => {
     const ef = {n: S.n, kdy: "kola", k: S.k, kolo: s.kolo || 1, tah: s.tah || 0, st};
     if (S.op && u.plos) ef.op = {ab: u.plos.ab, dc: u.plos.dc};
     if (kon) ef.src = u.h;
     if (!(n.stav || []).includes(st)) n.stav = [...(n.stav || []), st];
     (n.ef = n.ef || []).push(ef);
   });
-  bojMsg(n.id, `${S.n}: ${S.st.join(", ")}${S.op ? ` – na konci tahu záchrana ${u.plos.ab} SO ${u.plos.dc}` : ""}.`);
+  bojMsg(
+    n.id,
+    `${S.n}: ${ST.join(", ")}${S.volba ? ` (dle volby – ${S.st[1]} přepni ručně)` : ""}${S.op && u.plos ? ` – na konci tahu záchrana ${u.plos.ab} SO ${u.plos.dc}` : ""}.`,
+  );
 }
 function bojEfDel(n, e) {
   n.ef = (n.ef || []).filter(x => x !== e);
