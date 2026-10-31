@@ -445,8 +445,7 @@ async function kartaSeslat(K, sp, chce) {
       hJa = BOJ.s && bojBezi(BOJ.s) && (BOJ.s.hraci || []).find(x => bojKartaH(x) === K && x.n === bojJa.get());
     if (jeSlot && hJa) {
       const P = bojBpt(BOJ.s);
-      if (tahSlotPouzit(P) && !confirm(`${K.n} už v tomto tahu utratil slot kouzla – podle pravidel smí jen jeden za tah. Přesto seslat ${sp.n}?`))
-        return false;
+      if (tahSlotPouzit(P)) mmHlasG(`${K.n}: slot kouzla už v tomto tahu padl – podle pravidel jen jeden za tah (vypravěč to vidí).`, 4500);
       tahSlotZapis(P);
       bojTahSync();
     }

@@ -545,17 +545,9 @@ function bojJaHod() {
     BJU.utk = tk;
   }
   const iU = NV ? 0 : Math.min(+BJU.ui || 0, nU - 1);
-  /* akce už v tomto tahu padla (kouzlo, Sprint…): první útok akce Útok jen po potvrzení (Vojta 2026-10-31) */
-  if (
-    !NV &&
-    !BJU.ripo &&
-    !TR &&
-    iU === 0 &&
-    bojBezi(s) &&
-    tahMa(bojBpt(s), "A") &&
-    !confirm("Akci už jsi v tomto tahu použil. Přesto zaútočit akcí Útok?")
-  )
-    return;
+  /* akce už v tomto tahu padla (kouzlo, Sprint…): první útok akce Útok jen upozorní – vypravěč to vidí v účtu tahu (Vojta 2026-10-31) */
+  if (!NV && !BJU.ripo && !TR && iU === 0 && bojBezi(s) && tahMa(bojBpt(s), "A"))
+    mmHlas("Pozor: akci už jsi v tomto tahu použil – útok akcí Útok by neměl být (vypravěč to vidí).", 4500);
   BJU.un = nU;
   for (let i = iU; i <= iU; i++) {
     const ci = TL.length ? TL[i % TL.length] : c,

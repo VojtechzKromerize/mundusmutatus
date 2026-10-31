@@ -2917,11 +2917,14 @@ function bojAcSync(s) {
      NPC drží jen to kouzlo, které seslal naposledy (kon), a poražený či neschopný soustředění ztrácí */
   const drzi = (e, pc) => {
     const h = (s.hraci || []).find(x => x.id === e.src);
-    /* účinek vzniklý v tomto tahu počká: soustředění sesilatele z karty může dorazit o chvíli později (2026-10-31) */
-    if (h && e.kolo === s.kolo && e.tah === s.tah) return true;
     if (h) {
-      const K = bojKartaH(h);
-      return (h.stav || []).includes("soustředí") || (pc && !!(K && kUc(K).some(u => u.kon)));
+      const K = bojKartaH(h),
+        d = (h.stav || []).includes("soustředí") || (pc && !!(K && kUc(K).some(u => u.kon)));
+      /* soustředění sesilatele z karty může dorazit o chvíli později než stav na cíli (2026-10-31): dokud ho tracker u sesilatele
+         ani jednou neviděl (e.kv), účinek v tahu, kdy vznikl, počká */
+      if (d) e.kv = 1;
+      else if (!e.kv && e.kolo === s.kolo && e.tah === s.tah) return true;
+      return d;
     }
     const n = (s.npc || []).find(x => x.id === e.src);
     if (!n) return false;
