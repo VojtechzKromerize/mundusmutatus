@@ -40,7 +40,7 @@ for kdo, tok in (("anonym", None), ("hráč", hr)):
                      ("mm_uloz_zaznam", {"p_soubor": "osoby/x.md", "p_md": "x", "p_puvodni": None}), ("mm_zaznamy_gm", {}),
                      ("mm_boj_uloz", {"p_stav": {}}), ("mm_boj_uloz_v", {"p_stav": {}, "p_verze": 1}), ("mm_zmeny", {"p_od": None}), ("mm_zmena", {"p_id": 1}), ("mm_navrh_vyrid", {"p_id": 1, "p_stav": "ok"}), ("mm_potvrz_nastav", {"p_hodnota": {"rezim": "nic"}}), ("mm_vyprava_nacti", {}), ("mm_vyprava_uloz", {"p_stav": {}}), ("mm_kouzla_nacti", {}), ("mm_kouzla_uloz", {"p_kouzla": []}), ("mm_nastav_obrazek", {"p_typ": "erby", "p_klic": "x", "p_hodnota": {}}),
                      ("mm_ukaz", {"p_ukazka": {"n": "x"}}), ("mm_ukaz_smaz", {"p_id": 1}), ("mm_pravidla_texty_uloz", {"p_klic": "kouzla", "p_data": {}}), ("mm_sezeni_nacti", {}), ("mm_sezeni_uloz", {"p_sezeni": {"s": []}}),
-                     ("mm_vyzva", {"p_vyzva": {"typ": "zach", "ab": "WIS"}}), ("mm_vyzva_zavri", {"p_id": None}), ("mm_hrac_zrus_heslo", {"p_karta": "balduin"}), ("mm_karta_smaz", {"p_id": "nikdo"}), ("mm_zpravy_gm", {}), ("mm_hrac_ok", {"p_karta": "x", "p_token": None}), ("mm_ja_uvolni", {"p_karta": "x"}), ("mm_discord_nastav", {"p_url": None}), ("mm_discord_postava", {"p_discord": "1"}), ("mm_push_data", {"p_karty": ["balduin"], "p_gm": True}), ("mm_discord_hod", {"p_hod": {"src": "discord"}}), ("mm_push_posli", {"p_karty": ["balduin"], "p_gm": True, "p_titul": "x", "p_text": "x", "p_url": "#hra"}), ("mm_push_prihlas", {"p_odber": {"endpoint": "https://x.cz/a", "keys": {"p256dh": "a", "auth": "b"}}, "p_karta": None})):
+                     ("mm_vyzva", {"p_vyzva": {"typ": "zach", "ab": "WIS"}}), ("mm_vyzva_zavri", {"p_id": None}), ("mm_hrac_zrus_heslo", {"p_karta": "balduin"}), ("mm_karta_smaz", {"p_id": "nikdo"}), ("mm_zpravy_gm", {}), ("mm_forum_skryj", {"p_prispevek": 1}), ("mm_forum_tema_nastav", {"p_tema": 1, "p_n": {"stav": "uzavrene"}}), ("mm_forum_fora_uloz", {"p_f": {"id": "x", "nazev": "x"}}), ("mm_forum_fora_smaz", {"p_id": "mimo-hru"}), ("mm_forum_kdo", {"p_karta": "x", "p_token": None}), ("mm_hrac_ok", {"p_karta": "x", "p_token": None}), ("mm_ja_uvolni", {"p_karta": "x"}), ("mm_discord_nastav", {"p_url": None}), ("mm_discord_postava", {"p_discord": "1"}), ("mm_push_data", {"p_karty": ["balduin"], "p_gm": True}), ("mm_discord_hod", {"p_hod": {"src": "discord"}}), ("mm_push_posli", {"p_karty": ["balduin"], "p_gm": True, "p_titul": "x", "p_text": "x", "p_url": "#hra"}), ("mm_push_prihlas", {"p_odber": {"endpoint": "https://x.cz/a", "keys": {"p256dh": "a", "auth": "b"}}, "p_karta": None})):
         chk(not ok(call(f"/rest/v1/rpc/{fn}", "POST", body, tok=tok)[0]), f"{kdo} nesmí volat {fn}")
     for fn, body in (("mm_povest_nastav", {"p_id": "pod", "p_u": 3, "p_pz": "x"}), ("mm_obchody_uloz", {"p_hodnota": {"L": []}})):
         chk(not ok(call(f"/rest/v1/rpc/{fn}", "POST", body, tok=tok)[0]), f"{kdo} nesmí volat {fn}")
@@ -50,12 +50,26 @@ for kdo, tok in (("anonym", None), ("hráč", hr)):
     chk(ok(call("/rest/v1/rpc/mm_chyba", "POST", {"p": {"zprava": "test chyby", "misto": "x.js:1:1"}}, tok=tok)[0]), f"{kdo} smí nahlásit chybu webu")
     for fn in ("mm_chyby", "mm_chyby_smaz"):
         chk(not ok(call(f"/rest/v1/rpc/{fn}", "POST", {}, tok=tok)[0]), f"{kdo} nesmí volat {fn}")
-    for t in ("hesla", "relace_hracu", "zpravy", "hraci_ucty", "karty_texty", "karty_historie", "push_odbery", "zmeny", "pravidla_texty", "chyby"):
+    for t in ("hesla", "relace_hracu", "zpravy", "hraci_ucty", "karty_texty", "karty_historie", "push_odbery", "zmeny", "pravidla_texty", "chyby", "forum_fora", "forum_temata", "forum_prispevky", "forum_verze", "forum_cteno"):
         st, bd = call(f"/rest/v1/{t}?select=*", tok=tok)
         chk(not ok(st) or bd.strip() == "[]", f"{kdo} nečte tabulku {t}")
     for t, body in (("snimek", {"vetev": "zz", "data": {}}), ("stavy", {"id": "novy", "stav": 2}), ("gm", {"user_id": "22222222-2222-2222-2222-222222222222"})):
         chk(not ok(call(f"/rest/v1/{t}", "POST", body, tok=tok)[0]), f"{kdo} nesmí zapisovat do {t}")
 chk(json.loads(call("/rest/v1/obsah?select=vetev", tok=gm)[1]) != [], "vypravěč čte obsah")
+# fórum (2026-10-31): anonym a hráč bez své karty nic nečtou ani nepíšou; vypravěč zakládá témata a píše
+for _kdo, _tok in (("anonym", None), ("hráč bez karty", hr)):
+    for _fn, _body in (("mm_forum_strom", {}), ("mm_forum_temata", {"p_forum": "volna-hra"}), ("mm_forum_tema", {"p_tema": 1}),
+                       ("mm_forum_prispevek", {"p_tema": 1, "p_t": "x"}), ("mm_forum_tema_zaloz", {"p_forum": "praha", "p_nazev": "x", "p_t": "x"})):
+        chk(not ok(call(f"/rest/v1/rpc/{_fn}", "POST", _body, tok=_tok)[0]), f"{_kdo} nesmí volat {_fn} bez přihlášení za postavu")
+_s, _b = call("/rest/v1/rpc/mm_forum_strom", "POST", {}, tok=gm)
+chk(ok(_s) and any(f.get("id") == "praha" for f in json.loads(_b)), "vypravěč čte strom fóra")
+_s, _b = call("/rest/v1/rpc/mm_forum_tema_zaloz", "POST", {"p_forum": "aktivni-questy", "p_nazev": "Zkouška", "p_t": "První příspěvek", "p_ceka_na": ["balduin"]}, tok=gm)
+chk(ok(_s), "vypravěč založí téma ve fóru questů")
+if ok(_s):
+    _id = int(_b)
+    _s2, _b2 = call("/rest/v1/rpc/mm_forum_tema", "POST", {"p_tema": _id}, tok=gm)
+    chk(ok(_s2) and len(json.loads(_b2)["prispevky"]) == 1 and json.loads(_b2)["tema"]["ceka_na"] == ["balduin"], "vypravěč vidí téma s příspěvkem a kdo je na tahu")
+
 _s, _b = call("/rest/v1/rpc/mm_chyby", "POST", {}, tok=gm)
 chk(ok(_s) and any(c.get("zprava") == "test chyby" and c.get("pocet", 0) >= 2 for c in json.loads(_b)), "vypravěč vidí nahlášené chyby (stejná chyba se sečte)")
 # plné znění featů (Vojtův překlad mimo SRD) jen pro přihlášené – anonym bez hesla ke kartě nic nedostane

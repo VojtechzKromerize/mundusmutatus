@@ -2440,5 +2440,382 @@ end $$;
 revoke all on function public.mm_chyby_smaz() from public, anon;
 grant execute on function public.mm_chyby_smaz() to authenticated;
 
+-- ===== Fórum (2026-10-31): kategorie, fóra, témata a příspěvky pro pomalou hru mezi sezeními =====
+-- Vše jde jen přes funkce mm_forum_*: tabulky nikdo nečte ani nezapisuje přímo. Kdo smí co, určuje mm_forum_kdo
+-- (vypravěč = 'gm', hráč = jeho karta) a mm_forum_vidi (téma bez účastníků vidí všichni, jinak jen účastníci a vypravěč).
+-- Příspěvky se nemažou: vypravěč je jen skryje, oprava drží staré znění v forum_verze.
+create table if not exists public.forum_fora (
+  id       text primary key check (id ~ '^[a-z0-9-]{1,40}$'),
+  rodic    text references public.forum_fora (id) on delete set null,
+  druh     text not null default 'forum' check (druh in ('kategorie', 'forum')),
+  nazev    text not null check (char_length(nazev) between 1 and 80),
+  popis    text not null default '' check (char_length(popis) <= 300),
+  poradi   int not null default 0,
+  vede_gm  boolean not null default false,  -- témata zakládá jen vypravěč; po odpovědi hráčů se čeká na vypravěče
+  soukrome boolean not null default false,  -- téma musí mít účastníky
+  zamceno  boolean not null default false   -- píše jen vypravěč
+);
+create table if not exists public.forum_temata (
+  id             bigserial primary key,
+  forum          text not null references public.forum_fora (id),
+  nazev          text not null check (char_length(nazev) between 1 and 120),
+  zalozil        text,
+  herni_datum    text check (char_length(herni_datum) <= 40),
+  stav           text not null default 'otevrene' check (stav in ('otevrene', 'uzavrene')),
+  prilepene      boolean not null default false,
+  ucastnici      text[] not null default '{}',
+  ceka_na        text[] not null default '{}',
+  pripomenout_dni int check (pripomenout_dni between 1 and 60),
+  pocet          int not null default 0,
+  posledni_id    bigint,
+  posledni_cas   timestamptz,
+  posledni_karta text,
+  posledni_jako  text,
+  zalozeno       timestamptz not null default now()
+);
+create index if not exists forum_temata_forum on public.forum_temata (forum, posledni_cas desc);
+create index if not exists forum_temata_ucastnici on public.forum_temata using gin (ucastnici);
+create table if not exists public.forum_prispevky (
+  id         bigserial primary key,
+  tema       bigint not null references public.forum_temata (id) on delete cascade,
+  karta      text,
+  jako       text check (char_length(jako) <= 60),
+  ooc        boolean not null default false,
+  t          text not null check (char_length(btrim(t)) between 1 and 8000),
+  hod        jsonb,
+  odpoved_na bigint,
+  skryto     boolean not null default false,
+  upraveno   timestamptz,
+  cas        timestamptz not null default now()
+);
+create index if not exists forum_prispevky_tema on public.forum_prispevky (tema, id);
+create table if not exists public.forum_verze (
+  id        bigserial primary key,
+  prispevek bigint not null references public.forum_prispevky (id) on delete cascade,
+  t         text not null,
+  cas       timestamptz not null default now()
+);
+create table if not exists public.forum_cteno (
+  karta    text not null,
+  tema     bigint not null references public.forum_temata (id) on delete cascade,
+  posledni bigint not null default 0,
+  primary key (karta, tema)
+);
+alter table public.forum_fora enable row level security;
+alter table public.forum_temata enable row level security;
+alter table public.forum_prispevky enable row level security;
+alter table public.forum_verze enable row level security;
+alter table public.forum_cteno enable row level security;
+revoke all on public.forum_fora, public.forum_temata, public.forum_prispevky, public.forum_verze, public.forum_cteno from anon, authenticated;
+
+-- kdo čte a píše: vypravěč → 'gm', hráč s platným přihlášením za postavu → její karta, jinak null
+create or replace function public.mm_forum_kdo(p_karta text, p_token text) returns text
+language sql stable security definer set search_path = public as $$
+  select case
+    when public.mm_je_gm() then 'gm'
+    when p_karta is not null and public.mm_karta_chranena(p_karta) and public.mm_hrac_ok(p_karta, p_token) then p_karta
+  end
+$$;
+create or replace function public.mm_forum_vidi(p_kdo text, p_ucastnici text[]) returns boolean
+language sql immutable set search_path = pg_catalog as $$
+  select p_kdo = 'gm' or (p_kdo is not null and (cardinality(p_ucastnici) = 0 or p_kdo = any (p_ucastnici)))
+$$;
+create or replace function public.mm_forum_jmeno(p_karta text, p_jako text default null) returns text
+language sql stable security definer set search_path = public as $$
+  select coalesce(nullif(p_jako, ''), case when p_karta is null or p_karta = 'gm' then 'Vypravěč'
+    else coalesce((select kk.karta ->> 'n' from public.karty kk where kk.id = p_karta), p_karta) end)
+$$;
+create or replace function public.mm_forum_karty_ok(p_a text[]) returns boolean
+language sql immutable set search_path = pg_catalog as $$
+  select p_a is not null and cardinality(p_a) <= 12 and not exists (select 1 from unnest(p_a) e where e is null or e !~ '^[a-z0-9-]{1,40}$')
+$$;
+
+-- obsah fóra: všechna fóra s počty jen z témat, která smí tazatel vidět
+create or replace function public.mm_forum_strom(p_karta text default null, p_token text default null) returns jsonb
+language plpgsql stable security definer set search_path = public as $$
+declare k text := public.mm_forum_kdo(p_karta, p_token);
+begin
+  if k is null then raise exception 'fórum čte jen přihlášený hráč nebo vypravěč' using errcode = '42501'; end if;
+  return coalesce((
+    select jsonb_agg(jsonb_build_object(
+        'id', f.id, 'rodic', f.rodic, 'druh', f.druh, 'nazev', f.nazev, 'popis', f.popis, 'poradi', f.poradi,
+        'vede_gm', f.vede_gm, 'soukrome', f.soukrome, 'zamceno', f.zamceno,
+        'temat', coalesce(s.temat, 0), 'prispevku', coalesce(s.prispevku, 0), 'nove', coalesce(s.nove, 0), 'ceka', coalesce(s.ceka, 0),
+        'posledni', s.posledni) order by f.poradi, f.nazev)
+    from public.forum_fora f
+    left join lateral (
+      select count(*) as temat, sum(t.pocet) as prispevku,
+        count(*) filter (where t.posledni_id > coalesce(c.posledni, 0)) as nove,
+        count(*) filter (where k = any (t.ceka_na) and t.stav = 'otevrene') as ceka,
+        (select jsonb_build_object('tema', x.id, 'nazev', x.nazev, 'jmeno', public.mm_forum_jmeno(x.posledni_karta, x.posledni_jako), 'cas', x.posledni_cas)
+           from public.forum_temata x where x.forum = f.id and public.mm_forum_vidi(k, x.ucastnici)
+           order by x.posledni_cas desc nulls last limit 1) as posledni
+      from public.forum_temata t
+      left join public.forum_cteno c on c.tema = t.id and c.karta = k
+      where t.forum = f.id and public.mm_forum_vidi(k, t.ucastnici)
+    ) s on true
+  ), '[]'::jsonb);
+end $$;
+
+-- seznam témat jednoho fóra (přilepená nahoře, pak podle posledního příspěvku)
+create or replace function public.mm_forum_temata(p_forum text, p_karta text default null, p_token text default null) returns jsonb
+language plpgsql stable security definer set search_path = public as $$
+declare k text := public.mm_forum_kdo(p_karta, p_token);
+begin
+  if k is null then raise exception 'fórum čte jen přihlášený hráč nebo vypravěč' using errcode = '42501'; end if;
+  return coalesce((
+    select jsonb_agg(jsonb_build_object(
+        'id', q.id, 'nazev', q.nazev, 'zalozil', public.mm_forum_jmeno(q.zalozil), 'herni_datum', q.herni_datum, 'stav', q.stav,
+        'prilepene', q.prilepene, 'ucastnici', q.ucastnici, 'ceka_na', q.ceka_na,
+        'ceka_jmena', (select coalesce(jsonb_agg(public.mm_forum_jmeno(e)), '[]'::jsonb) from unnest(q.ceka_na) e),
+        'ceka_me', k = any (q.ceka_na), 'pocet', q.pocet, 'zalozeno', q.zalozeno, 'posledni_cas', q.posledni_cas,
+        'posledni_jmeno', public.mm_forum_jmeno(q.posledni_karta, q.posledni_jako),
+        'nove', coalesce(q.posledni_id, 0) > coalesce(q.cteno, 0), 'pripomenout_dni', q.pripomenout_dni)
+      order by q.prilepene desc, q.posledni_cas desc nulls last)
+    from (
+      select t.*, c.posledni as cteno
+      from public.forum_temata t left join public.forum_cteno c on c.tema = t.id and c.karta = k
+      where t.forum = p_forum and public.mm_forum_vidi(k, t.ucastnici)
+      order by t.prilepene desc, t.posledni_cas desc nulls last limit 200
+    ) q
+  ), '[]'::jsonb);
+end $$;
+
+-- jedno téma s příspěvky po dávkách: bez p_pred posledních p_limit, s p_pred starší než ten příspěvek
+create or replace function public.mm_forum_tema(p_tema bigint, p_pred bigint default null, p_limit int default 30,
+  p_karta text default null, p_token text default null) returns jsonb
+language plpgsql stable security definer set search_path = public as $$
+declare k text := public.mm_forum_kdo(p_karta, p_token); tm public.forum_temata; fo public.forum_fora; pr jsonb; mn bigint; cte bigint;
+begin
+  if k is null then raise exception 'fórum čte jen přihlášený hráč nebo vypravěč' using errcode = '42501'; end if;
+  select * into tm from public.forum_temata where id = p_tema;
+  if not found or not public.mm_forum_vidi(k, tm.ucastnici) then raise exception 'téma nenalezeno'; end if;
+  select * into fo from public.forum_fora where id = tm.forum;
+  select coalesce(jsonb_agg(q.x order by q.pid), '[]'::jsonb) into pr from (
+    select p.id as pid, jsonb_build_object(
+        'id', p.id, 'karta', p.karta, 'jmeno', public.mm_forum_jmeno(p.karta, p.jako), 'ooc', p.ooc, 'cas', p.cas, 'upraveno', p.upraveno,
+        'skryto', p.skryto, 'odpoved_na', p.odpoved_na,
+        'moje', (k = 'gm' and p.karta is null) or p.karta = k,
+        't', case when p.skryto and k <> 'gm' then null else p.t end,
+        'hod', case when p.skryto and k <> 'gm' then null
+                    when coalesce(p.hod ->> 'taj', '') = 'true' and k <> 'gm' and p.karta is distinct from k then null
+                    else p.hod end) as x
+    from public.forum_prispevky p
+    where p.tema = tm.id and (p_pred is null or p.id < p_pred)
+    order by p.id desc limit greatest(1, least(coalesce(p_limit, 30), 100))
+  ) q;
+  select min((e ->> 'id')::bigint) into mn from jsonb_array_elements(pr) e;
+  select coalesce(c.posledni, 0) into cte from (select 1) z left join public.forum_cteno c on c.tema = tm.id and c.karta = k;
+  return jsonb_build_object(
+    'tema', jsonb_build_object('id', tm.id, 'nazev', tm.nazev, 'forum', tm.forum, 'forum_nazev', fo.nazev, 'vede_gm', fo.vede_gm,
+      'soukrome', fo.soukrome, 'zamceno', fo.zamceno, 'herni_datum', tm.herni_datum, 'stav', tm.stav, 'prilepene', tm.prilepene,
+      'ucastnici', tm.ucastnici, 'ceka_na', tm.ceka_na,
+      'ceka_jmena', (select coalesce(jsonb_agg(public.mm_forum_jmeno(e)), '[]'::jsonb) from unnest(tm.ceka_na) e),
+      'ceka_me', k = any (tm.ceka_na), 'pocet', tm.pocet, 'posledni_id', tm.posledni_id, 'pripomenout_dni', tm.pripomenout_dni),
+    'prispevky', pr,
+    'starsi', exists (select 1 from public.forum_prispevky p where p.tema = tm.id and p.id < coalesce(mn, 0)),
+    'cteno', cte);
+end $$;
+
+-- hráč nebo vypravěč přidá příspěvek; po příspěvku v postavě se z „čeká se na“ odebere autor,
+-- ve fóru vedeném vypravěčem se po odpovědi všech čeká na vypravěče, vypravěč nastaví na koho (p_ceka)
+create or replace function public.mm_forum_prispevek(p_tema bigint, p_t text, p_ooc boolean default false, p_hod jsonb default null,
+  p_odpoved bigint default null, p_jako text default null, p_ceka text[] default null,
+  p_karta text default null, p_token text default null) returns bigint
+language plpgsql security definer set search_path = public as $$
+declare
+  k text := public.mm_forum_kdo(p_karta, p_token); tm public.forum_temata; fo public.forum_fora; i bigint;
+  txt text := btrim(coalesce(p_t, '')); jak text := nullif(left(btrim(coalesce(p_jako, '')), 60), ''); novi text[]; kdo text[];
+begin
+  if k is null then raise exception 'píše jen přihlášený hráč nebo vypravěč' using errcode = '42501'; end if;
+  if char_length(txt) not between 1 and 8000 then raise exception 'prázdný nebo příliš dlouhý příspěvek'; end if;
+  select * into tm from public.forum_temata where id = p_tema for update;
+  if not found or not public.mm_forum_vidi(k, tm.ucastnici) then raise exception 'téma nenalezeno'; end if;
+  select * into fo from public.forum_fora where id = tm.forum;
+  if k <> 'gm' and tm.stav <> 'otevrene' then raise exception 'téma je uzavřené'; end if;
+  if k <> 'gm' and fo.zamceno then raise exception 'fórum je zamčené'; end if;
+  if p_hod is not null and (jsonb_typeof(p_hod) <> 'object' or octet_length(p_hod::text) > 2000) then raise exception 'neplatný hod'; end if;
+  if p_ceka is not null and not public.mm_forum_karty_ok(p_ceka) then raise exception 'neplatný seznam, na koho se čeká'; end if;
+  if p_odpoved is not null and not exists (select 1 from public.forum_prispevky where id = p_odpoved and tema = tm.id) then p_odpoved := null; end if;
+  insert into public.forum_prispevky (tema, karta, jako, ooc, t, hod, odpoved_na)
+    values (tm.id, case when k = 'gm' then null else k end, case when k = 'gm' then jak end, coalesce(p_ooc, false), txt, p_hod, p_odpoved)
+    returning id into i;
+  kdo := case when coalesce(p_ooc, false) then tm.ceka_na else array_remove(tm.ceka_na, k) end;
+  if k = 'gm' and p_ceka is not null then kdo := p_ceka; end if;
+  if k <> 'gm' and not coalesce(p_ooc, false) and cardinality(kdo) = 0 and fo.vede_gm then kdo := array['gm']; end if;
+  update public.forum_temata set pocet = pocet + 1, posledni_id = i, posledni_cas = now(),
+    posledni_karta = case when k = 'gm' then null else k end,
+    posledni_jako = case when k = 'gm' then coalesce(jak, 'Vypravěč') end,
+    ceka_na = kdo
+  where id = tm.id;
+  insert into public.forum_cteno (karta, tema, posledni) values (k, tm.id, i)
+    on conflict (karta, tema) do update set posledni = greatest(public.forum_cteno.posledni, excluded.posledni);
+  -- upozornění dostane jen ten, na koho se nově čeká (ne autor)
+  novi := array(select e from unnest(kdo) e where e <> k and e <> all (tm.ceka_na));
+  if cardinality(novi) > 0 then
+    perform public.mm_push_posli(array(select e from unnest(novi) e where e <> 'gm'), 'gm' = any (novi), 'Fórum: ' || left(tm.nazev, 60),
+      'Čeká se na tebe.', '#forum');
+  end if;
+  return i;
+end $$;
+
+-- nové téma s prvním příspěvkem
+create or replace function public.mm_forum_tema_zaloz(p_forum text, p_nazev text, p_t text, p_ucastnici text[] default '{}',
+  p_ceka_na text[] default '{}', p_herni_datum text default null, p_karta text default null, p_token text default null) returns bigint
+language plpgsql security definer set search_path = public as $$
+declare k text := public.mm_forum_kdo(p_karta, p_token); fo public.forum_fora; i bigint; uc text[] := coalesce(p_ucastnici, '{}'); nz text := btrim(coalesce(p_nazev, ''));
+begin
+  if k is null then raise exception 'téma zakládá jen přihlášený hráč nebo vypravěč' using errcode = '42501'; end if;
+  select * into fo from public.forum_fora where id = p_forum;
+  if not found or fo.druh <> 'forum' then raise exception 'fórum nenalezeno'; end if;
+  if k <> 'gm' and (fo.zamceno or fo.vede_gm) then raise exception 'v tomto fóru zakládá témata jen vypravěč' using errcode = '42501'; end if;
+  if char_length(nz) not between 1 and 120 then raise exception 'název tématu je prázdný nebo dlouhý'; end if;
+  if not public.mm_forum_karty_ok(uc) or not public.mm_forum_karty_ok(coalesce(p_ceka_na, '{}')) then raise exception 'neplatný seznam účastníků'; end if;
+  if fo.soukrome and cardinality(uc) = 0 then raise exception 'soukromé téma musí mít účastníky'; end if;
+  if k <> 'gm' and cardinality(uc) > 0 and not k = any (uc) then uc := uc || k; end if;
+  insert into public.forum_temata (forum, nazev, zalozil, herni_datum, ucastnici, ceka_na)
+    values (fo.id, nz, case when k = 'gm' then null else k end, nullif(left(btrim(coalesce(p_herni_datum, '')), 40), ''), uc, coalesce(p_ceka_na, '{}'))
+    returning id into i;
+  perform public.mm_forum_prispevek(i, p_t, false, null, null, null, null, p_karta, p_token);
+  return i;
+end $$;
+
+-- hráč opraví svůj poslední příspěvek v otevřeném tématu, vypravěč jakýkoli; staré znění zůstává ve forum_verze
+create or replace function public.mm_forum_uprav(p_prispevek bigint, p_t text, p_karta text default null, p_token text default null) returns void
+language plpgsql security definer set search_path = public as $$
+declare k text := public.mm_forum_kdo(p_karta, p_token); pr public.forum_prispevky; tm public.forum_temata; txt text := btrim(coalesce(p_t, ''));
+begin
+  if k is null then raise exception 'upravuje jen přihlášený hráč nebo vypravěč' using errcode = '42501'; end if;
+  if char_length(txt) not between 1 and 8000 then raise exception 'prázdný nebo příliš dlouhý příspěvek'; end if;
+  select * into pr from public.forum_prispevky where id = p_prispevek for update;
+  if not found then raise exception 'příspěvek nenalezen'; end if;
+  select * into tm from public.forum_temata where id = pr.tema;
+  if not public.mm_forum_vidi(k, tm.ucastnici) then raise exception 'příspěvek nenalezen'; end if;
+  if k <> 'gm' and (pr.karta is distinct from k or pr.id <> tm.posledni_id or tm.stav <> 'otevrene') then
+    raise exception 'upravit jde jen svůj poslední příspěvek v otevřeném tématu' using errcode = '42501';
+  end if;
+  insert into public.forum_verze (prispevek, t) values (pr.id, pr.t);
+  update public.forum_prispevky set t = txt, upraveno = now() where id = pr.id;
+end $$;
+
+-- vypravěč skryje (nebo vrátí) příspěvek
+create or replace function public.mm_forum_skryj(p_prispevek bigint, p_skryto boolean default true) returns void
+language plpgsql security definer set search_path = public as $$
+begin
+  if not public.mm_je_gm() then raise exception 'jen pro vypravěče' using errcode = '42501'; end if;
+  update public.forum_prispevky set skryto = coalesce(p_skryto, true) where id = p_prispevek;
+end $$;
+
+-- vypravěč mění téma: nazev, herni_datum, stav, prilepene, ucastnici, ceka_na, pripomenout_dni, forum (přesun)
+create or replace function public.mm_forum_tema_nastav(p_tema bigint, p_n jsonb) returns void
+language plpgsql security definer set search_path = public as $$
+declare n jsonb := coalesce(p_n, '{}'::jsonb);
+begin
+  if not public.mm_je_gm() then raise exception 'jen pro vypravěče' using errcode = '42501'; end if;
+  if jsonb_typeof(n) <> 'object' then raise exception 'neplatné nastavení'; end if;
+  if not exists (select 1 from public.forum_temata where id = p_tema) then raise exception 'téma nenalezeno'; end if;
+  if n ? 'nazev' then
+    if char_length(btrim(n ->> 'nazev')) not between 1 and 120 then raise exception 'neplatný název'; end if;
+    update public.forum_temata set nazev = btrim(n ->> 'nazev') where id = p_tema;
+  end if;
+  if n ? 'herni_datum' then update public.forum_temata set herni_datum = nullif(left(btrim(coalesce(n ->> 'herni_datum', '')), 40), '') where id = p_tema; end if;
+  if n ? 'stav' then
+    if n ->> 'stav' not in ('otevrene', 'uzavrene') then raise exception 'neplatný stav'; end if;
+    update public.forum_temata set stav = n ->> 'stav' where id = p_tema;
+  end if;
+  if n ? 'prilepene' then update public.forum_temata set prilepene = coalesce((n ->> 'prilepene')::boolean, false) where id = p_tema; end if;
+  if n ? 'ucastnici' then
+    if not public.mm_forum_karty_ok(array(select jsonb_array_elements_text(n -> 'ucastnici'))) then raise exception 'neplatný seznam účastníků'; end if;
+    update public.forum_temata set ucastnici = array(select jsonb_array_elements_text(n -> 'ucastnici')) where id = p_tema;
+  end if;
+  if n ? 'ceka_na' then
+    if not public.mm_forum_karty_ok(array(select jsonb_array_elements_text(n -> 'ceka_na'))) then raise exception 'neplatný seznam, na koho se čeká'; end if;
+    update public.forum_temata set ceka_na = array(select jsonb_array_elements_text(n -> 'ceka_na')) where id = p_tema;
+  end if;
+  if n ? 'pripomenout_dni' then update public.forum_temata set pripomenout_dni = nullif(n ->> 'pripomenout_dni', '')::int where id = p_tema; end if;
+  if n ? 'forum' then
+    if not exists (select 1 from public.forum_fora where id = n ->> 'forum' and druh = 'forum') then raise exception 'fórum nenalezeno'; end if;
+    update public.forum_temata set forum = n ->> 'forum' where id = p_tema;
+  end if;
+end $$;
+
+-- hráč si označí téma jako přečtené po poslední načtený příspěvek
+create or replace function public.mm_forum_precteno(p_tema bigint, p_do bigint, p_karta text default null, p_token text default null) returns void
+language plpgsql security definer set search_path = public as $$
+declare k text := public.mm_forum_kdo(p_karta, p_token); tm public.forum_temata;
+begin
+  if k is null then raise exception 'fórum čte jen přihlášený hráč nebo vypravěč' using errcode = '42501'; end if;
+  select * into tm from public.forum_temata where id = p_tema;
+  if not found or not public.mm_forum_vidi(k, tm.ucastnici) then return; end if;
+  insert into public.forum_cteno (karta, tema, posledni) values (k, tm.id, least(coalesce(p_do, 0), coalesce(tm.posledni_id, 0)))
+    on conflict (karta, tema) do update set posledni = greatest(public.forum_cteno.posledni, excluded.posledni);
+end $$;
+
+-- vypravěč upravuje strukturu: jedna kategorie nebo jedno fórum (vytvoří nebo změní); smazat jde jen prázdné
+create or replace function public.mm_forum_fora_uloz(p_f jsonb) returns void
+language plpgsql security definer set search_path = public as $$
+declare f jsonb := coalesce(p_f, '{}'::jsonb); d text := coalesce(f ->> 'druh', 'forum');
+begin
+  if not public.mm_je_gm() then raise exception 'jen pro vypravěče' using errcode = '42501'; end if;
+  if jsonb_typeof(f) <> 'object' or d not in ('kategorie', 'forum') then raise exception 'neplatné fórum'; end if;
+  insert into public.forum_fora (id, rodic, druh, nazev, popis, poradi, vede_gm, soukrome, zamceno)
+    values (f ->> 'id', nullif(f ->> 'rodic', ''), d, btrim(coalesce(f ->> 'nazev', '')), left(coalesce(f ->> 'popis', ''), 300),
+      coalesce((f ->> 'poradi')::int, 0), coalesce((f ->> 'vede_gm')::boolean, false), coalesce((f ->> 'soukrome')::boolean, false),
+      coalesce((f ->> 'zamceno')::boolean, false))
+  on conflict (id) do update set rodic = excluded.rodic, druh = excluded.druh, nazev = excluded.nazev, popis = excluded.popis,
+    poradi = excluded.poradi, vede_gm = excluded.vede_gm, soukrome = excluded.soukrome, zamceno = excluded.zamceno;
+end $$;
+create or replace function public.mm_forum_fora_smaz(p_id text) returns void
+language plpgsql security definer set search_path = public as $$
+begin
+  if not public.mm_je_gm() then raise exception 'jen pro vypravěče' using errcode = '42501'; end if;
+  if exists (select 1 from public.forum_temata where forum = p_id) then raise exception 'fórum má témata, nejdřív je přesuň'; end if;
+  delete from public.forum_fora where id = p_id;
+end $$;
+
+-- puls: změna struktury, tématu nebo příspěvku (opravy a skrytí příspěvku také)
+do $$
+declare t text;
+begin
+  foreach t in array array['forum_fora', 'forum_temata', 'forum_prispevky'] loop
+    execute format('drop trigger if exists mm_puls on public.%I', t);
+    execute format('create trigger mm_puls after insert or update or delete on public.%I for each statement execute function public.mm_puls_tg(%L)', t, 'forum');
+  end loop;
+end $$;
+
+revoke all on function public.mm_forum_kdo(text, text), public.mm_forum_vidi(text, text[]), public.mm_forum_jmeno(text, text),
+  public.mm_forum_karty_ok(text[]) from public, anon, authenticated;
+revoke all on function public.mm_forum_strom(text, text), public.mm_forum_temata(text, text, text), public.mm_forum_tema(bigint, bigint, int, text, text),
+  public.mm_forum_prispevek(bigint, text, boolean, jsonb, bigint, text, text[], text, text), public.mm_forum_tema_zaloz(text, text, text, text[], text[], text, text, text),
+  public.mm_forum_uprav(bigint, text, text, text), public.mm_forum_precteno(bigint, bigint, text, text) from public;
+grant execute on function public.mm_forum_strom(text, text), public.mm_forum_temata(text, text, text), public.mm_forum_tema(bigint, bigint, int, text, text),
+  public.mm_forum_prispevek(bigint, text, boolean, jsonb, bigint, text, text[], text, text), public.mm_forum_tema_zaloz(text, text, text, text[], text[], text, text, text),
+  public.mm_forum_uprav(bigint, text, text, text), public.mm_forum_precteno(bigint, bigint, text, text) to anon, authenticated;
+revoke all on function public.mm_forum_skryj(bigint, boolean), public.mm_forum_tema_nastav(bigint, jsonb), public.mm_forum_fora_uloz(jsonb),
+  public.mm_forum_fora_smaz(text) from public, anon;
+grant execute on function public.mm_forum_skryj(bigint, boolean), public.mm_forum_tema_nastav(bigint, jsonb), public.mm_forum_fora_uloz(jsonb),
+  public.mm_forum_fora_smaz(text) to authenticated;
+
+-- výchozí stavba fóra; vypravěč ji pak mění (mm_forum_fora_uloz), proto jen `do nothing`
+insert into public.forum_fora (id, rodic, druh, nazev, popis, poradi, vede_gm, soukrome, zamceno) values
+  ('oznameni', null, 'kategorie', 'Oznámení', '', 10, false, false, false),
+  ('pravidla', 'oznameni', 'forum', 'Pravidla a návody', 'Domácí pravidla Artikulí, jak psát příspěvky a jak házet kostkami.', 11, true, false, false),
+  ('kalendar', 'oznameni', 'forum', 'Kalendář sezení', 'Termíny sezení a domluva, kdo kdy může.', 12, true, false, false),
+  ('postavy', null, 'kategorie', 'Postavy', '', 20, false, false, false),
+  ('pribehy', 'postavy', 'forum', 'Příběhy postav', 'Každá postava má vlastní téma: minulost, vztahy a deník.', 21, false, false, false),
+  ('volna-hra', null, 'kategorie', 'Volná hra', 'Pomalu běžící hra mezi sezeními. Bez vypravěče, píše, kdo má čas.', 30, false, false, false),
+  ('praha', 'volna-hra', 'forum', 'Praha', 'Staré Město, Nové Město a Malá Strana: setkání postav mezi sebou.', 31, false, false, false),
+  ('praha-hospody', 'praha', 'forum', 'Hospody a trhy', '', 32, false, false, false),
+  ('praha-domy', 'praha', 'forum', 'Domy', '', 33, false, false, false),
+  ('kutna-hora', 'volna-hra', 'forum', 'Kutná Hora', 'Hornické město a stříbro.', 34, false, false, false),
+  ('cesty', 'volna-hra', 'forum', 'Cesty a downtime', 'Cestování, obchod, intriky a kontakty mezi sezeními.', 35, false, false, false),
+  ('questy', null, 'kategorie', 'Questy', 'Vede vypravěč. Každý quest má vlastní téma, účastníky a tempo.', 40, false, false, false),
+  ('aktivni-questy', 'questy', 'forum', 'Aktivní questy', 'Rozběhnuté questy družiny.', 41, true, false, false),
+  ('soukrome-sceny', 'questy', 'forum', 'Soukromé scény', 'Šepot mezi tvou postavou a vypravěčem. Téma vidí jen jeho účastníci.', 42, true, true, false),
+  ('dokoncene-questy', 'questy', 'forum', 'Dokončené questy', 'Uzavřené questy a záznamy sezení.', 43, true, false, true),
+  ('komunita', null, 'kategorie', 'Komunita', '', 50, false, false, false),
+  ('mimo-hru', 'komunita', 'forum', 'Mimo hru', 'Domluva, otázky k pravidlům a dojmy ze sezení.', 51, false, false, false)
+on conflict (id) do nothing;
+
 -- ▼ Doplňte svůj e‑mail (účet založený v Authentication → Users) a spusťte:
 -- insert into public.gm (user_id) select id from auth.users where email = 'VAS@EMAIL.CZ' on conflict do nothing;
