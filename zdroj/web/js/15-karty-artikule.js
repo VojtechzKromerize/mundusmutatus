@@ -317,9 +317,97 @@ function kCasMotor() {
       try {
         kUcVyprsi(K);
       } catch (e) {}
+      if (GMV)
+        kNedMotor(K).catch(e => {
+          console.error(e);
+        });
     });
 }
 HRA_PO.push(kCasMotor);
+/* ---- nemoci, jedy a kletby (2026-10-31, čistý 10n): průběh hází vypravěč při posunu herního času, karta je ukazuje v listu Stavy ---- */
+const kNed = K => kartaStav(K.id).ned || [];
+const KNEDBEH = new Set();
+async function kNedMotor(K) {
+  const N = kNed(K),
+    t = kTed();
+  if (!N.length || t == null || KNEDBEH.has(K.id)) return;
+  if (!N.some(e => (e.dalsi != null && e.dalsi <= t) || (e.do != null && e.do <= t))) return;
+  KNEDBEH.add(K.id);
+  try {
+    const R = nedProbehni(
+        N,
+        t,
+        ab => kZach(K, ab),
+        () => bK(20),
+      ),
+      S = kartaStav(K.id),
+      ch = {ned: R.N.length ? R.N : null};
+    if (R.vyc) ch.vycerp = Math.min(6, kVycerp(K) + R.vyc);
+    const st0 = S.stavy || [],
+      st1 = [...new Set([...st0.filter(x => !R.minus.includes(x)), ...R.plus])];
+    if (JSON.stringify(st0) !== JSON.stringify(st1)) ch.stavy = st1.length ? st1 : null;
+    await kartaStavZmen(K.id, ch, null, {bezZpet: true});
+    if (R.log.length) kHodZapis({k: K.id, kdo: K.n, co: "Nemoci a jedy", txt: R.log.join("; ").slice(0, 900)});
+    if (R.vyc && ch.vycerp >= 6) mmHlasG(`${K.n}: vyčerpání 6 – podle pravidel umírá.`, 8000);
+    else if (R.log.length) mmHlasG(`${K.n}: ${R.log.slice(-2).join("; ")}.`, 6000);
+  } finally {
+    KNEDBEH.delete(K.id);
+  }
+}
+async function kNedPridej(K, i, dc) {
+  const v = NEDVZOR[+i];
+  if (!v) return;
+  const e = nedNovy(v, kTed(), null, +dc > 0 ? {dc: +dc} : null),
+    S = kartaStav(K.id),
+    ch = {ned: [...kNed(K), e].slice(-12)};
+  if (e.st && !(S.stavy || []).includes(e.st)) ch.stavy = [...(S.stavy || []), e.st];
+  await kartaStavZmen(K.id, ch);
+  kHodZapis({k: K.id, kdo: K.n, co: NEDTYP[e.typ], txt: `${e.n} – ${nedPopis(e)}`});
+}
+async function kNedZrus(K, id) {
+  const e = kNed(K).find(x => x.id === id);
+  if (!e) return;
+  const L = kNed(K).filter(x => x.id !== id),
+    S = kartaStav(K.id),
+    ch = {ned: L.length ? L : null};
+  if (e.st && !L.some(x => x.st === e.st)) ch.stavy = (S.stavy || []).filter(x => x !== e.st);
+  if (ch.stavy && !ch.stavy.length) ch.stavy = null;
+  await kartaStavZmen(K.id, ch);
+  kHodZapis({k: K.id, kdo: K.n, co: `${NEDTYP[e.typ]} skončila`, txt: `${e.n} – zrušil vypravěč`});
+}
+function kNedHtml(K) {
+  const N = kNed(K),
+    t = kTed();
+  const L = N.length
+    ? `<ul class="kned">${N.map(
+        e =>
+          `<li><b>${besc(e.n)}</b> <small>${besc(NEDTYP[e.typ] || "")}</small><span>${besc(nedPopis(e))}${e.dalsi != null && t != null ? ` · příští záchrana za ${kHodTxt(Math.max(0, e.dalsi - t))}` : ""}${e.do != null && t != null ? ` · vyprchá za ${kHodTxt(Math.max(0, e.do - t))}` : ""}</span>${e.pz && e.typ !== "kletba" ? `<small>${besc(e.pz)}</small>` : ""}${GMV ? `<button type="button" class="bdmmini" data-kned-x="${besc(e.id)}">Vyléčit / zrušit</button>` : ""}</li>`,
+      ).join("")}</ul>`
+    : `<p class="bdmnote">Žádná nemoc, jed ani kletba.</p>`;
+  return `${L}${
+    GMV
+      ? `<form class="bdmrow kvlh" data-kned-f><select name="v" aria-label="Nemoc, jed nebo kletba">${NEDVZOR.map((v, i) => `<option value="${i}">${besc(v.n)}${v.dc ? ` (SO ${v.dc})` : ""}</option>`).join("")}</select><input name="dc" type="number" min="1" max="30" placeholder="SO" aria-label="Jiné SO" style="width:4em"><button class="bdmbtn">Přidat</button></form>`
+      : ""
+  }<p class="bdmnote">Záchrany hází vypravěč sám, když posune herní čas (nemoc denně, jed každou hodinu); neúspěch nemoci přidá stupeň vyčerpání, potřebný počet úspěchů ji vyléčí.</p>`;
+}
+document.addEventListener("click", async e => {
+  const b = e.target.closest && e.target.closest("[data-kned-x]");
+  if (!b || !GMV) return;
+  const K = kvK(b);
+  if (K && confirm("Ukončit nemoc, jed či kletbu?")) {
+    await kNedZrus(K, b.dataset.knedX);
+    kartyPrekresli();
+  }
+});
+document.addEventListener("submit", async e => {
+  const f = e.target;
+  if (!f.matches || !f.matches("[data-kned-f]") || !GMV) return;
+  e.preventDefault();
+  const K = kvK(f);
+  if (!K) return;
+  await kNedPridej(K, f.elements.v.value, f.elements.dc.value);
+  kartyPrekresli();
+});
 /* 2026-10-21: jen přehled běžících účinků (ukončit, znovu seslat); ruční přidávání a tlačítka AC zmizely – kouzla si účinky
    přidávají sama při seslání. Bez účinků se oddíl neukazuje. */
 /* ikona účinku v seznamu (2026-10-23): stejná jako na žetonu v boji (KZIK v 17b, načte se s kartou) */

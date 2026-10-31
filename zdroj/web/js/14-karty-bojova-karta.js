@@ -2024,24 +2024,28 @@ function bdmList(s, h, K, gm, X, t) {
       stv = kKonDrzi(K) && !st0.includes("soustředí") ? [...st0, "soustředí"] : st0,
       uc = kUcHtml(K),
       ucN = kUc(K).length + (typeof kBufy === "function" ? kBufy(K).filter(b => b.od !== K.n).length : 0),
-      tab = BDM.stt === "uc" ? "uc" : "st";
+      tab = BDM.stt === "uc" || BDM.stt === "ned" ? BDM.stt : "st",
+      nedN = kNed(K).length;
     const tabs = `<nav class="bdmstt" role="tablist" aria-label="Stavy a účinky">${[
       ["st", "Stavy", stv.length + (+S.vycerp ? 1 : 0)],
       ["uc", "Účinky", ucN],
+      ["ned", "Nemoci a jedy", nedN],
     ]
       .map(([k, l, n]) => `<button type="button" role="tab" data-bdmstt="${k}" aria-selected="${tab === k}">${l}${n ? ` <b>${n}</b>` : ""}</button>`)
       .join("")}</nav>`;
     return [
       "Stavy a účinky",
       tabs +
-        (tab === "uc"
-          ? (uc
-              ? `<div class="kdb2 bdmkdb">${uc}</div>`
-              : `<p class="bdmnote">Žádné účinky. Kouzla a schopnosti s trváním (Bless, Armor of Agathys, Rage…) se sem zapíšou samy, když je použiješ.</p>`) +
-            (kMuze(K) ? kUcRucneHtml() : "")
-          : X.boj
-            ? kStavyTab(stv, BSTAVH, "data-bhst", +S.vycerp || 0, kKonNazev(K))
-            : kStavyTab(stv, KSTV, "data-kstav", +S.vycerp || 0, kKonNazev(K))),
+        (tab === "ned"
+          ? `<div class="bdmkdb">${kNedHtml(K)}</div>`
+          : tab === "uc"
+            ? (uc
+                ? `<div class="kdb2 bdmkdb">${uc}</div>`
+                : `<p class="bdmnote">Žádné účinky. Kouzla a schopnosti s trváním (Bless, Armor of Agathys, Rage…) se sem zapíšou samy, když je použiješ.</p>`) +
+              (kMuze(K) ? kUcRucneHtml() : "")
+            : X.boj
+              ? kStavyTab(stv, BSTAVH, "data-bhst", +S.vycerp || 0, kKonNazev(K))
+              : kStavyTab(stv, KSTV, "data-kstav", +S.vycerp || 0, kKonNazev(K))),
     ];
   }
   if (t === "ac") {

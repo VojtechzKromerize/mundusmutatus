@@ -30,7 +30,7 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `BDMS` | 14-karty-bojova-karta:1464 | const | ⓐ oddíly (2026-10-22): Info i Duše jsou pryč – smysly a zdatnosti ve Statistikách, duše, rány a účinky v listu Svědomí; Záznam = hody hráče |
 | `BDMSTIT` | 14-karty-bojova-karta:1841 | const | ⓘ `'<svg viewBox="0 0 24 26" aria-hidden="true"><path d="M12 1.5l9 3.2v6.…` |
 | `BDMSTITY` | 14-karty-bojova-karta:1458 | const | ⓘ `new Set(["vl", "akce", "kouzla", "vyb", "rysy", "denik", "zaznam", "pr…` |
-| `BDMSW` | 14-karty-bojova-karta:2546 | const | ⓐ přejetí prstem: po těle karty další / předchozí záložka, po hlavě listu dolů zavře list |
+| `BDMSW` | 14-karty-bojova-karta:2550 | const | ⓐ přejetí prstem: po těle karty další / předchozí záložka, po hlavě listu dolů zavře list |
 | `BDMVLZ` | 14-karty-bojova-karta:1840 | const | ⓘ `{STR: "STR", DEX: "DEX", CON: "CON", INT: "INT", WIS: "WIS", CHA: "CHA…` |
 | `BDMZV` | 14-karty-bojova-karta:1604 | const | ⓐ vlastnosti zbraní podle Artikulí (Zbraně) – podle druhu zbraně v názvu útoku |
 | `BDOS` | 11-boj:736 | const | Boj: kolik pacholků houfu dosáhne na cíl podle id houfu (ovlivňuje zranění) |
@@ -101,7 +101,7 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `BODP` | 11-boj:2533 | let | Boj: družina si po skončeném boji už hodinu odpočinula (posun herního času jen jednou) |
 | `BODV` | 20e-boj-vlastnosti:255 | let | Boj hráč: čekající Odvetná – nepřítel minul s Pokušením, {e: záznam, kid, hid, cas}; telefon nabídne protiútok reakcí |
 | `BOJ` | 11-boj:2335 | const | Boj: hlavní stav v prohlížeči – s = stav boje z databáze, v = verze, poll = časovač dotazů |
-| `BOJPC_MQ` | 14-karty-bojova-karta:2199 | const | ⓘ `matchMedia("(min-width:1280px)");` |
+| `BOJPC_MQ` | 14-karty-bojova-karta:2203 | const | ⓘ `matchMedia("(min-width:1280px)");` |
 | `BOJREGTYP` | 10p-pravidla:255 | const | ⓐ co regeneraci zastaví (typy zranění z věty o regeneraci; bez zmínky Fire a Radiant jako dřív) a zda potřebuje aspoň 1 HP |
 | `BOPV` | 12-boj-tah-postavy:286 | const | ⓐ postava: na konci tahu opakovaná záchrana stavu (výzva na telefon; bez karty připomínka), na začátku tahu odpočet kol |
 | `BOSUD` | 12-boj-tah-postavy:1209 | const | ⓐ shrnutí po boji: padlí, zajatí a jejich osud, výkupné, kořist, XP a návrh zápisu do Kroniky |
@@ -287,7 +287,7 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `KAUTOSRC` | 19b-automatika:66 | let | ⓘ `null;` |
 | `KBALM` | 19-karty-beyond:645 | const | ⓘ `{};` |
 | `KBUF` | 17-karty-ii:637 | const | Kouzla: posílení seslaná na spolubojovníky (Bless max 3 cíle +1d4, Guidance, Shield of Faith) – soustředěný účinek u sesilatele |
-| `KCACHE` | 15-karty-artikule:1030 | const | Karty: offline kopie karet, stavů a hodů v localStorage „mm-karty-kopie“ a IndexedDB – uloz/nacti/nactiIDB/predkesuj |
+| `KCACHE` | 15-karty-artikule:1118 | const | Karty: offline kopie karet, stavů a hodů v localStorage „mm-karty-kopie“ a IndexedDB – uloz/nacti/nactiIDB/predkesuj |
 | `KCAS` | 17-karty-ii:183 | const | Karty: popisky časů aktivace pro skupiny akcí – A Akce, BA Bonusové akce, R Reakce, X Ostatní |
 | `KCIL` | 17-karty-ii:961 | const | ⓐ léčení na kartu (2026-10-17): svou kartu (a kartu bez hesla) mění přímo, cizí přes mm_karta_lecit, který v boji stabilizuje umírajícího |
 | `KCILM` | 17-karty-ii:639 | const | Kouzla: vybrané cíle hromadného kouzla podle karta:index kouzla → Set id karet (přes kCilM) |
@@ -300,11 +300,11 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `KDLT` | 18-pravidla-postavy:323 | const | Pravidla postavy: WeakMap cache rozdílů „z D&D Beyond“ (PDF hodnota − spočtená) podle karty, klíč typ:vlastnost |
 | `KDOVAB` | 13-karty:522 | const | Karta: dovednost (Acrobatics, Athletics…) → vlastnost (AGI, STR…), pro ověření a bonusy |
 | `KDRUH` | 18-pravidla-postavy:48 | const | ⓐ druhy (SRD 5.2.1): rychlost a velikost; trpaslík +1 HP za úroveň |
-| `KDUL` | 15-karty-artikule:605 | const | Duše: poslední změna bodů hříchu/dobrých skutků podle id karty – [pole, stará hodnota] pro tlačítko Oprava |
+| `KDUL` | 15-karty-artikule:693 | const | Duše: poslední změna bodů hříchu/dobrých skutků podle id karty – [pole, stará hodnota] pro tlačítko Oprava |
 | `KEF` | 13-karty:542 | const | Karta: indexy zaškrtnutých volitelných účinků (Divine Smite se slotem…) k dalšímu hodu podle id karty |
 | `KEMBC` | 19-karty-beyond:607 | const | ⓐ Emboldening Bond: výběr postav (sebe + spojenci, nejvýš PB) a pouto „Emboldening Bond ⇒ Jméno“ u sesilatele; nové pouto staré nahradí |
 | `KFEAT` | 15-karty-artikule:64 | const | ⓐ feat víry (Artikule, Vyznání): [název, použití za dlouhý odpočinek (0 = bez počítadla), stupeň, popis] |
-| `KFR` | 15-karty-artikule:930 | const | Karty offline: fronta zápisů karty a hodů v localStorage „mm-fronta“ (get/set), odešle se po připojení |
+| `KFR` | 15-karty-artikule:1018 | const | Karty offline: fronta zápisů karty a hodů v localStorage „mm-fronta“ (get/set), odešle se po připojení |
 | `KHRAC` | 13-karty:65 | const | Karty: jméno hráče přihlášeného ke kartě podle id karty (z databáze, pro výzvy a přehled) |
 | `KHUKOL` | 14-karty-bojova-karta:230 | const | ⓐ rozdělení hlášek na úkoly (mají tlačítko s rozhodnutím) a informace |
 | `KICON` | 19-karty-beyond:1591 | const | Kouzla: SVG ikonka soustředění (Concentration) u kouzla v seznamu |
@@ -323,9 +323,9 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `KIRIT` | 19-karty-beyond:1592 | const | Kouzla: SVG ikonka rituálu (Ritual) u kouzla v seznamu |
 | `KKON` | 17-karty-ii:1383 | const | ⓐ soustředění (2026-10-17): CON záchrana na kliknutí (War Caster výhoda, stavy, Závoj); neúspěch ukončí soustředění i soustředěné účinky |
 | `KKONTM` | 19-karty-beyond:47 | const | Vybavení: regex magických vaků (bag of holding, handy haversack, portable hole) – obsah se nepočítá do zátěže |
-| `KKOSTI` | 14-karty-bojova-karta:2475 | const | ⓘ `["d20", "d12", "d100", "d10", "d8", "d6", "d4"];` |
-| `KKOSTSVG` | 14-karty-bojova-karta:2476 | const | ⓘ `{` |
-| `KKOSTTAJ` | 14-karty-bojova-karta:2485 | let | ⓘ `false;` |
+| `KKOSTI` | 14-karty-bojova-karta:2479 | const | ⓘ `["d20", "d12", "d100", "d10", "d8", "d6", "d4"];` |
+| `KKOSTSVG` | 14-karty-bojova-karta:2480 | const | ⓘ `{` |
+| `KKOSTTAJ` | 14-karty-bojova-karta:2489 | let | ⓘ `false;` |
 | `KLOAD` | 13-karty:63 | let | Karty: čas posledního načtení karet z databáze (0 = nenačteno, 1 = bez databáze) |
 | `KLVUP` | 19-karty-beyond:170 | const | Postup na úroveň: rozpracovaný postup podle id karty – {tr povolání, hod životů, ab zvýšení vlastností…} |
 | `KMARC` | 18-pravidla-postavy:21 | const | Pravidla postavy: regex bojových povolání (Barbarian, Fighter, Paladin, Ranger) – zdatnost s válečnými zbraněmi |
@@ -337,6 +337,7 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `KMINCZK` | 14b-vybaveni:83 | const | ⓘ `{GP: "zl.", SP: "gr.", CP: "hal.", EP: "EP", PP: "PP"};` |
 | `KMODSP` | 19-karty-beyond:861 | const | Discord hody: poslední odeslaný JSON bonusů karty (ověření, záchrany, dovednosti) podle id karty + timeouty „t“+id |
 | `KNABC` | 17-karty-ii:1337 | const | Vybavení: cache nábojů magického předmětu podle id – {max, obn obnova} z popisu SRD, null = bez nábojů |
+| `KNEDBEH` | 15-karty-artikule:329 | const | ⓘ `new Set();` |
 | `KNER` | 15-karty-artikule:7 | const | Artikule: sedm Neřestí pro křesťany (kr: Pýcha, Lakomství…) a starověrce (old: Zrada hosta, Zbabělost…) |
 | `KODK` | 23-potvrzovani:65 | var | Potvrzování: seznam odložených akcí hráče s lhůtou na rozmyšlení – {id, popis, konec, res, t timeout} |
 | `KODKI` | 23-potvrzovani:66 | var | Potvrzování: čítač id odložených akcí (KODK) |
@@ -355,7 +356,7 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `KPREDX` | 18-pravidla-postavy:108 | const | ⓐ předměty, které pravidla znají jménem (doplňují databázi SRD předmětů): nastavené skóre, bonus ke kouzlům a další |
 | `KPRID` | 10u-ucinky:205 | const | Kostky k hodům d20 odvozené z UCINKY (10u): [název, kostka, druhy ut/za/ov/in, nápověda, po hodu, jednou za tah, bez přepínače] – přepínače na kartě |
 | `KPRIP` | 18-pravidla-postavy:1287 | let | Příprava kouzel: hledaný text v seznamu kouzel povolání (data-kpripq) |
-| `KPS` | 15-karty-artikule:1094 | const | Přehled družiny (vypravěč): formulář hromadného hodu – ab vlastnost záchrany, dc SO, dov dovednost, vys výsledky |
+| `KPS` | 15-karty-artikule:1182 | const | Přehled družiny (vypravěč): formulář hromadného hodu – ab vlastnost záchrany, dc SO, dov dovednost, vys výsledky |
 | `KPZK` | 17-karty-ii:310 | const | Kouzla z předmětů: hůlky a podobné → {dc pevné SO, k: [[kouzlo, cena nábojů, max nábojů, stupeň]]} |
 | `KR` | 18-pravidla-postavy:227 | const | Pravidla postavy: výpočty hodnot karty (pb, zach, dov, spab…) → [součet, rozpis položek] s rysy a účinky |
 | `KRAJE` | 02-mapa:2670 | const | ⓘ `[` |
@@ -369,10 +370,10 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `KSLOZ0` | 14b-vybaveni:164 | const | ⓐ výchozí složky (Vojta 2026-10-29: na sobě, batoh, brašna, kapsy); vlastní přidá Spravovat inventář |
 | `KSLT` | 18-pravidla-postavy:23 | const | ⓐ sloty podle úrovně sesilatele (SRD: Multiclassing) a sloty paktu černokněžníka |
 | `KSLV` | 19-karty-beyond:1129 | const | Kouzla: zvolený stupeň slotu k seslání podle karta:index kouzla (klíč slotu) |
-| `KSPD` | 15-karty-artikule:352 | let | Kouzla: popisy kouzel z art/kouzla.json podle klíče názvu (null = nenačteno), kSp(n) z nich čte |
-| `KSPDP` | 15-karty-artikule:362 | let | Kouzla: probíhající Promise načítání KSPD (kSpNacti) – aby se nenačítalo dvakrát |
+| `KSPD` | 15-karty-artikule:440 | let | Kouzla: popisy kouzel z art/kouzla.json podle klíče názvu (null = nenačteno), kSp(n) z nich čte |
+| `KSPDP` | 15-karty-artikule:450 | let | Kouzla: probíhající Promise načítání KSPD (kSpNacti) – aby se nenačítalo dvakrát |
 | `KSPOLC` | 18-pravidla-postavy:1318 | const | Společníci: zvolený cíl útoku společníka v boji podle id společníka (kSpolId) |
-| `KSPTP` | 15-karty-artikule:394 | let | ⓐ popisy, které v lehkém souboru nejsou (t chybí, automatika má ta): dotáhnout z plného souboru a překreslit |
+| `KSPTP` | 15-karty-artikule:482 | let | ⓐ popisy, které v lehkém souboru nejsou (t chybí, automatika má ta): dotáhnout z plného souboru a překreslit |
 | `KST` | 13-karty:60 | const | Karty: stav postav podle id karty (životy, sloty, zdroje, vyčerpání, vybavení, stavy…), kartaStav(id) |
 | `KSTAT` | 13-karty:61 | const | Karty: id karet vložených do stránky generátorem (statické) – do offline kopie se neukládají |
 | `KSTP` | 14-karty-bojova-karta:161 | const | ⓐ sdílené části karty i bojové karty: čipy stavů s výběrem, čipy zdrojů, pruh hlášení |
@@ -412,7 +413,7 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `KZDSKR` | 14-karty-bojova-karta:1896 | const | ⓘ `new Set();` |
 | `KZDSRD` | 14-karty-bojova-karta:1866 | const | ⓘ `{` |
 | `KZF` | 10-kouzla:272 | const | Kouzla: stav filtru stránky (hledaný text, úroveň, škola, povolání, Concentration, rituál, vlastní) |
-| `KZFL` | 15-karty-artikule:1223 | let | ⓐ null = ještě nevybráno (hráči se napoprvé ukáže jeho postava), "" = vše |
+| `KZFL` | 15-karty-artikule:1311 | let | ⓐ null = ještě nevybráno (hráči se napoprvé ukáže jeho postava), "" = vše |
 | `KZIK` | 17b-kouzla-ucinky:1141 | const | Kouzla v boji: název kouzla → ikonka značky (bless, bane, posileni, ochrana…) pod iniciativou a v kartě NPC |
 | `KZK` | 10-kouzla:178 | const | Kouzla: složky kouzla (V verbální, S somatická, M materiální) pro formulář |
 | `KZLEC` | 17b-kouzla-ucinky:709 | const | Kouzla léčení a obnovy: Heal, Mass Heal, Revivify, Lesser/Greater Restoration… → {hp, st stavy, stab, ozivit, vyber} |
@@ -467,7 +468,7 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `MMCELA_WEB` | 08-navigace-pravidla:735 | let | navigace: hráč na telefonu kliknul ☰ a chce vidět web s menu (vypne celoobrazovkovou Hru) |
 | `MMCHSUM` | 01-zaklad:33 | const | ⓘ `const MMCHSUM =` |
 | `MMCHYBY` | 01-zaklad:32 | const | ⓘ `{n: 0, b: new Set()};` |
-| `MMIDB` | 15-karty-artikule:992 | const | Karty: obal IndexedDB „mm“ (store kv) – get/set – druhá offline kopie karet vedle localStorage |
+| `MMIDB` | 15-karty-artikule:1080 | const | Karty: obal IndexedDB „mm“ (store kv) – get/set – druhá offline kopie karet vedle localStorage |
 | `MMK` | 11-boj:826 | const | Mundus Mutatus kostky: stav 3D animace hodů (fronta, časovač, dice-box, prvek, index zvýraznění) |
 | `MMKB` | 01-zaklad:116 | const | ⓘ `{` |
 | `MMLINY` | 01-zaklad:330 | const | líné části skriptu: název části → promise jejího načtení (mmLina), aby se stáhla jen jednou |
@@ -488,6 +489,8 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `NBR_LANDS` | 02-mapa:6424 | const | Zemské desky: názvy sousedních zemí (Braniborsko, Polsko…) pro záložky cizích rodů |
 | `NBRS` | 02b-mapa-kresba:714 | const | kresba mapy: polygony sousedních zemí ([id, prstence]) kolem Koruny |
 | `NEDELE` | 07-druzina-kronika:690 | const | kalendář: neděle liturgického roku ([dny od Velikonoc, název, tvary]) pro starou dataci |
+| `NEDTYP` | 10n-neduhy:8 | const | ⓘ `{nemoc: "Nemoc", jed: "Jed", kletba: "Kletba"};` |
+| `NEDVZOR` | 10n-neduhy:9 | const | ⓘ `[` |
 | `NETV` | 16-srd-ukazky-sezeni-hrac:112 | let | ⓐ nestvůry: připojí se k protivníkům (bestiář v Boji, přidání do boje) |
 | `NETVP` | 16-srd-ukazky-sezeni-hrac:113 | let | Nestvůry: probíhající Promise načítání art/netvori.json (NETV) |
 | `NLBL` | 02b-mapa-kresba:684 | const | kresba mapy: popisky sousedních zemí ([NÁZEV, lon, lat]) |
@@ -534,15 +537,15 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `PMEZE` | 04b-praha-plan:38 | const | ⓐ výřez plánu v mezích [x0, y0, x1, y1, nejmenší a největší šířka]; v celé obrazovce (02f) v poměru stran okna, jinak PAR |
 | `PMU` | 04b-praha-plan:1390 | const | ⓐ metrů na jednotku plánu (podle délky Kamenného mostu) |
 | `POC_N` | 07-druzina-kronika:1021 | const | počasí: klíč (jasno, dest, snih…) → český název pro ikonu na Úvodu |
-| `POJ` | 15-karty-artikule:1241 | let | Glosář SRD: pojmy z art/pojmy.json podle tvaru slova → {id, en, cz, d} pro popisky v textu (null = nenačteno) |
+| `POJ` | 15-karty-artikule:1329 | let | Glosář SRD: pojmy z art/pojmy.json podle tvaru slova → {id, en, cz, d} pro popisky v textu (null = nenačteno) |
 | `POJDOV` | 02d-pojmy:21 | const | ⓘ `{` |
 | `POJKOST` | 02d-pojmy:46 | const | ⓘ `/(\d+\s*(?:[dk]\d+)?(?:\s*[+−-]\s*\d+)?\)?\|\d+\s*\(\d+[dk]\d+(?:\s*[+−…` |
 | `POJOBR` | 02d-pojmy:47 | const | ⓘ `POJOBR =` |
-| `POJP` | 15-karty-artikule:1242 | let | Glosář SRD: probíhající Promise načítání pojmů (pojNacti) |
-| `POJRE` | 15-karty-artikule:1243 | let | Glosář SRD: regex všech tvarů pojmů pro označení v textových uzlech (pojZnac) |
+| `POJP` | 15-karty-artikule:1330 | let | Glosář SRD: probíhající Promise načítání pojmů (pojNacti) |
+| `POJRE` | 15-karty-artikule:1331 | let | Glosář SRD: regex všech tvarů pojmů pro označení v textových uzlech (pojZnac) |
 | `POJSEP` | 02d-pojmy:44 | const | ⓘ `"(?:\\s*,\\s*(?:(?:a\|nebo\|či\|and\|or)\\s+)?\|\\s*/\\s*\|\\s+(?:a\|nebo\|či\|…` |
-| `POJSKIP` | 15-karty-artikule:1273 | const | Glosář SRD: názvy HTML značek (A, BUTTON, INPUT, H1–H4, CODE…), v nichž se pojmy neoznačují |
-| `POJT` | 15-karty-artikule:1311 | let | Glosář SRD: právě zobrazený popisek pojmu (div.pojtip) nebo null |
+| `POJSKIP` | 15-karty-artikule:1361 | const | Glosář SRD: názvy HTML značek (A, BUTTON, INPUT, H1–H4, CODE…), v nichž se pojmy neoznačují |
+| `POJT` | 15-karty-artikule:1399 | let | Glosář SRD: právě zobrazený popisek pojmu (div.pojtip) nebo null |
 | `POJTYPY` | 02d-pojmy:43 | const | ⓘ `Object.keys(POJZR).join("\|"),` |
 | `POJVELKE` | 02d-pojmy:49 | const | ⓘ `/(^\|[.!?\|])\s*(\*\*)?\s*$/u;` |
 | `POJZR` | 02d-pojmy:6 | const | ⓘ `{` |

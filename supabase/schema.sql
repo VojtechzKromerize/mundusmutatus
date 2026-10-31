@@ -1166,6 +1166,20 @@ begin
         or (e ? 'h' and (jsonb_typeof(e -> 'h') <> 'number' or (e ->> 'h')::numeric not between 0 and 8760))
         or (e ? 'do' and (jsonb_typeof(e -> 'do') <> 'number' or abs((e ->> 'do')::numeric) > 1e9))
         or (e ? 'kon' and jsonb_typeof(e -> 'kon') <> 'boolean')))
+    -- nemoci, jedy a kletby s průběhem v herním čase (2026-10-31, 10n-neduhy.js)
+    when 'ned' then jsonb_typeof(x) = 'null' or (jsonb_typeof(x) = 'array' and jsonb_array_length(x) <= 12 and octet_length(x::text) <= 6000 and not exists (
+      select 1 from jsonb_array_elements(x) e where jsonb_typeof(e) <> 'object'
+        or exists (select 1 from jsonb_object_keys(e) k where k not in ('id', 'n', 'typ', 'ab', 'dc', 'int', 'cil', 'uc', 'st', 'ok', 'nok', 'dalsi', 'do', 'pz'))
+        or jsonb_typeof(e -> 'n') is distinct from 'string' or char_length(e ->> 'n') not between 1 and 80
+        or coalesce(e ->> 'typ', '') not in ('nemoc', 'jed', 'kletba')
+        or (e ? 'ab' and coalesce(e ->> 'ab', '') not in ('STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'))
+        or (e ? 'dc' and not public.mm_cislo(e -> 'dc', 1, 30)) or (e ? 'int' and not public.mm_cislo(e -> 'int', 0, 720))
+        or (e ? 'cil' and not public.mm_cislo(e -> 'cil', 0, 9)) or (e ? 'ok' and not public.mm_cislo(e -> 'ok', 0, 99)) or (e ? 'nok' and not public.mm_cislo(e -> 'nok', 0, 99))
+        or (e ? 'uc' and coalesce(e ->> 'uc', '') not in ('', 'vycerp', 'stav'))
+        or (e ? 'st' and (jsonb_typeof(e -> 'st') <> 'string' or char_length(e ->> 'st') > 30))
+        or (e ? 'pz' and (jsonb_typeof(e -> 'pz') <> 'string' or char_length(e ->> 'pz') > 200))
+        or (e ? 'id' and (jsonb_typeof(e -> 'id') <> 'string' or char_length(e ->> 'id') > 20))
+        or exists (select 1 from unnest(array['dalsi', 'do']) f where e ? f and (jsonb_typeof(e -> f) <> 'number' or abs((e ->> f)::numeric) > 1e9))))
     -- stavy mimo boj, bez štítu, změny připravených kouzel, společníci a doplňky hráče
     when 'stavy' then jsonb_typeof(x) = 'null' or public.mm_stavy_pc_ok(x)
     when 'bezstit' then jsonb_typeof(x) in ('boolean', 'null')

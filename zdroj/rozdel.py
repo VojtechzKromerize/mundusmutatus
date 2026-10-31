@@ -46,6 +46,7 @@ JS = [
     ("10h-hledani.js", "/* ===== Hledání v pravidlech"),
     ("10j-tabulky.js", "/* @čisté – Losovací tabulky vypravěče"),
     ("10k-import-pdf.js", "/* @čisté – Import listu postavy z PDF"),
+    ("10n-neduhy.js", "/* @čisté – Nemoci, jedy a kletby"),
     ("10o-obchody.js", "/* @čisté – Obchody"),
     ("10p-pravidla.js", "/* @čisté – Pravidla boje a Artikulí"),
     ("10q-plne-texty.js", "/* ===== Plné znění kouzel a předmětů"),

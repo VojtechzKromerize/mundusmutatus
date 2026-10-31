@@ -52,3 +52,37 @@ test("dlouhý odpočinek všem: životy zpět a herní čas o 8 hodin dál", asy
     await S.ev(`kartaStavZmen("balduin", {hp: ${JSON.stringify(puv[1])}})`);
   }
 });
+
+test("nemoc v herním čase: denní záchrany, neúspěch přidá vyčerpání, tři úspěchy vyléčí; jed s otrávením vyprchá (2026-10-31)", async () => {
+  const puv = V(`[HRA, kartaStav("balduin").ned || null, kartaStav("balduin").vycerp || null, kartaStav("balduin").stavy || null]`);
+  try {
+    S.ev(`HRA = Object.assign({}, HRA || {}, {datum: "1458-03-10", hodina: 8}); __D.HRA = HRA`);
+    await S.ev(`kartaStavZmen("balduin", {ned: null, vycerp: null, stavy: null})`);
+    await S.ev(`kNedPridej(KARTBY.balduin, 0, 11)`);
+    await S.ev(`kNedPridej(KARTBY.balduin, 4, 11)`);
+    assert.deepEqual(V(`kartaStav("balduin").stavy`), ["otráven"]);
+    assert.match(V(`kNedHtml(KARTBY.balduin)`), /Bahenní zimnice[\s\S]*SO 11 každých 24 h/);
+    /* tři dny: neúspěch (1), úspěch (20), úspěch (20); jed za 8 h vyprchá po neúspěších */
+    S.kostky(
+      [...Array(8)]
+        .map(() => [1, 20])
+        .concat([
+          [1, 20],
+          [20, 20],
+          [20, 20],
+        ]),
+    );
+    S.ev(`HRA = Object.assign({}, HRA, {datum: "1458-03-13", hodina: 8}); __D.HRA = HRA`);
+    await S.ev(`kNedMotor(KARTBY.balduin)`);
+    const st = V(`kartaStav("balduin")`);
+    assert.ok(!(st.ned || []).some(e => e.typ === "jed"), "jed vyprchal");
+    assert.ok(!(st.stavy || []).includes("otráven"), "otrávení skončilo");
+    const z = (st.ned || []).find(e => e.n === "Bahenní zimnice");
+    assert.ok(z, "zimnice trvá (2 ze 3 úspěchů)");
+    assert.equal(z.ok + z.nok, 3);
+    assert.ok(st.vycerp >= 1, "neúspěch nemoci přidal vyčerpání");
+  } finally {
+    S.ev(`HRA = ${JSON.stringify(puv[0])}; __D.HRA = HRA`);
+    await S.ev(`kartaStavZmen("balduin", {ned: ${JSON.stringify(puv[1])}, vycerp: ${JSON.stringify(puv[2])}, stavy: ${JSON.stringify(puv[3])}})`);
+  }
+});

@@ -4122,3 +4122,6 @@ html.mmpc:not(.mmjenhra) .bdmweb{display:grid;font-size:1.2rem}
 .btpgm b{font:700 .62rem/1 var(--f-label,inherit);padding:3px 4px;border:1px solid var(--kb-bd,rgba(214,170,90,.4));border-radius:3px;opacity:.55}
 .btpgm b.on{opacity:1;background:var(--kb-acc,#c9a14a);color:#1b1208;border-color:transparent}
 .btpgm small{font-size:.66rem;margin-left:3px;opacity:.85;white-space:nowrap}
+/* nemoci, jedy a kletby (2026-10-31) */
+.kned{list-style:none;margin:6px 0;padding:0}.kned li{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px;padding:6px 0;border-bottom:1px solid var(--kb-hd1,rgba(214,170,90,.2))}
+.kned li>span{flex-basis:100%;font-size:.85rem}.kned li>small{opacity:.75}
