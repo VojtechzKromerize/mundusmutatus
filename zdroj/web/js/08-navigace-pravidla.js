@@ -17,6 +17,7 @@ const VIEWS = [
   "karty",
   "pravidla",
   "sezeni",
+  "forum",
 ];
 const SUBT = {
   hra: "Hra · sezení",
@@ -32,6 +33,7 @@ const SUBT = {
   gm: "Vypravěč · odhalování",
   boj: "Boj · sloty iniciativy",
   vyprava: "Výprava · cesta družiny",
+  forum: "Fórum · pomalá hra",
 };
 const TITL = {
   hra: "Hra",
@@ -49,6 +51,7 @@ const TITL = {
   gm: "Vypravěč",
   boj: "Boj",
   vyprava: "Výprava",
+  forum: "Fórum",
 };
 let curView = null;
 function navTo(h) {
@@ -706,6 +709,7 @@ const NAVNAME = {
   gm: "Vypravěč",
   boj: "Boj",
   vyprava: "Výprava",
+  forum: "Fórum",
 };
 /* nainstalovaná aplikace na telefonu ukáže hráči jen Hru (2026-10-22); odkaz ven otevře web v prohlížeči s ?web=1 */
 const mmJenHra = () => !GMV && document.documentElement.classList.contains("mmapp") && !/[?&]web=1/.test(location.search);
@@ -718,7 +722,7 @@ document.addEventListener(
     if (!a || [...a.attributes].some(x => x.name.startsWith("data-") && x.name !== "data-tip")) return;
     const h = a.getAttribute("href"),
       v = h.slice(1).split("/")[0];
-    if (!v || v === "hra" || v === "boj") return;
+    if (!v || v === "hra" || v === "boj" || v === "forum") return;
     e.preventDefault();
     e.stopPropagation();
     window.open(location.origin + location.pathname + "?web=1" + h, "_blank", "noopener");
@@ -758,7 +762,7 @@ function route() {
   if (!VIEWS.includes(view) || ((view === "kouzla" || view === "sezeni") && !GMV)) view = "uvod";
   document.documentElement.classList.toggle("mmjenhra", mmJenHra());
   if (view !== "hra" && view !== "boj") MMCELA_WEB = false; /* po návratu na Hru je karta zase přes celou obrazovku */
-  if (mmJenHra() && view !== "hra" && view !== "boj") {
+  if (mmJenHra() && view !== "hra" && view !== "boj" && view !== "forum") {
     history.replaceState(null, "", "#hra");
     view = "hra";
   }
@@ -920,6 +924,9 @@ function route() {
     if (changed) window.scrollTo(0, 0);
   } else if (view === "kouzla") {
     renderKouzla(b);
+    if (changed) window.scrollTo(0, 0);
+  } else if (view === "forum") {
+    renderForum(b, c);
     if (changed) window.scrollTo(0, 0);
   } else if (view === "sezeni") {
     renderSezeni();

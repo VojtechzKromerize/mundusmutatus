@@ -103,7 +103,7 @@ KONF
   krok "Práva v databázi"
   zkus "práva v databázi" python3 "$KOREN/testy/bezpecnost.py"
 
-  if [ -z "${MM_RYCHLA:-}" ]; then krok "Testy v prohlížeči"; for t in ${MM_TESTY-odhalovani herni_stav draci boj boj2 tah reakce potvrz karta karta_vse pecet editor zapisy vyprava}; do
+  if [ -z "${MM_RYCHLA:-}" ]; then krok "Testy v prohlížeči"; for t in ${MM_TESTY-odhalovani herni_stav draci boj boj2 tah reakce potvrz karta karta_vse pecet editor zapisy forum vyprava}; do
     zkus "prohlížeč: $t" python3 "$KOREN/testy/prohlizec_$t.py"
   done; fi
 

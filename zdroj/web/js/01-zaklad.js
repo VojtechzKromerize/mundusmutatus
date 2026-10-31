@@ -392,6 +392,7 @@ const MMLINY_V = {
   hra: ["hra"],
   sezeni: ["hra"],
   kouzla: ["hra"],
+  forum: ["hra"],
   gm: ["hra"],
 };
 async function mmLinyPro(v) {

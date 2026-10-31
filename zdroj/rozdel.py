@@ -85,6 +85,7 @@ JS = [
     ("22b-vyprava.js", "/* ===== Výprava: stránka vypravěče"),
     ("23-potvrzovani.js", "/* ===== Potvrzování akcí hráčů"),
     ("24-boj-zaznam.js", "/* ===== Boj: herní záznam ve třetím sloupci"),
+    ("24b-forum.js", "/* ===== Fórum"),
     ("25-puls.js", "/* ===== Puls: jeden dotaz"),
     ("26-start.js", "/* ===== Pečeť:"),
 ]

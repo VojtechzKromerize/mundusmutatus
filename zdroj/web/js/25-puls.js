@@ -124,6 +124,7 @@ async function pulsZpracuj(co) {
     await pulsHra();
     if (GMV) obchZakDoruc();
   }
+  if (co.has("forum") && typeof forumPuls === "function") forumPuls();
   if (co.has("povest")) povNacti(true);
   if (co.has("obchody")) {
     try {

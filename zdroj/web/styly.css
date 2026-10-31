@@ -4125,3 +4125,43 @@ html.mmpc:not(.mmjenhra) .bdmweb{display:grid;font-size:1.2rem}
 /* nemoci, jedy a kletby (2026-10-31) */
 .kned{list-style:none;margin:6px 0;padding:0}.kned li{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px;padding:6px 0;border-bottom:1px solid var(--kb-hd1,rgba(214,170,90,.2))}
 .kned li>span{flex-basis:100%;font-size:.85rem}.kned li>small{opacity:.75}
+
+/* ===== Fórum (24b) ===== */
+.fonav{margin-bottom:4px}.fonav span{font-family:var(--f-label);font-size:.95rem;color:var(--muted);padding:4px 6px}
+.fochip{display:inline-block;font-family:var(--f-label);font-size:.8rem;letter-spacing:.03em;border:1px solid var(--rule);background:var(--paper);color:var(--muted);padding:1px 8px;border-radius:10px;margin:0 6px 2px 0;white-space:nowrap}
+.fochip.fotvuj{border-color:var(--kal);color:var(--kal);font-weight:700}.fochip.fonove{border-color:var(--kat);color:var(--kat);font-weight:700}
+.fosouhrn{margin:0}.fopopis{color:var(--muted);margin:0 0 6px}.fopod{font-size:.92rem;color:var(--muted);margin-top:4px}.fochyba{color:var(--kal);font-weight:700}
+.fokat{border:1px solid var(--rule);background:var(--paper)}.fokat>h3{background:var(--ink);color:var(--paper);font-family:var(--f-nadp);letter-spacing:.06em;padding:6px 14px;font-size:1.05rem}
+.fokat>.fopopis{padding:6px 14px 0}
+.forad{display:grid;grid-template-columns:minmax(0,1fr) 64px 74px minmax(0,230px);gap:10px;align-items:start;padding:10px 14px;border-top:1px solid var(--rule)}
+.fokat>h3+.forad,.fokat>.fopopis+.forad{border-top:0}
+.fonaz{font-family:var(--f-disp);font-size:1.25rem;color:var(--kat);text-decoration:none;margin-right:8px}.fonaz:hover{text-decoration:underline}
+.fojm p{font-size:.95rem;color:var(--muted);margin-top:2px}
+.fonum{text-align:center;line-height:1.1}.fonum b{display:block;font-size:1.15rem}.fonum small,.fopos small{display:block;color:var(--muted);font-size:.78rem}
+.fopos{font-size:.9rem;overflow-wrap:anywhere}.fopos a{color:var(--kat)}
+.fonastroje{margin:2px 0}.fonastroje .gbtn{text-decoration:none;display:inline-block}
+.fotem{border:1px solid var(--rule);background:var(--paper)}
+.fotr{display:grid;grid-template-columns:minmax(0,1fr);gap:2px;padding:9px 14px;border-top:1px solid var(--rule);text-decoration:none;color:var(--ink)}
+.fotr:first-child{border-top:0}.fotr:hover{background:var(--land)}
+.fotn{font-weight:700;font-size:1.05rem}.fotmeta{font-size:.85rem;color:var(--muted)}.fotstav{margin:0}
+.fonovy .fotn{color:var(--kat)}.fotecka{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--kat);margin-right:7px;vertical-align:1px}
+.foprisp{display:flex;flex-direction:column;gap:10px}
+.fopris{display:grid;grid-template-columns:150px minmax(0,1fr);border:1px solid var(--rule);background:var(--paper)}
+.fopan{background:var(--land);padding:10px 12px;border-right:1px solid var(--rule);font-family:var(--f-label)}.fopan b{display:block;color:var(--kat)}.fopan small{color:var(--muted)}
+.foobs{padding:8px 14px 6px;min-width:0}.foobs header small,.foobs footer{color:var(--muted)}
+.fotxt p{margin:0 0 .6em;overflow-wrap:anywhere}.fohod{font-family:var(--f-label);border-left:3px solid var(--gold);padding-left:8px}
+.foobs footer{display:flex;gap:6px;justify-content:flex-end}.fobtn{font-family:var(--f-label);font-size:.8rem;background:none;border:1px solid var(--rule);color:var(--muted);border-radius:3px;padding:1px 8px;cursor:pointer}
+.foooc{border-style:dashed;background:transparent}.foskryto{opacity:.65}
+.fopredel{display:flex;align-items:center;gap:10px;color:var(--kat);font-family:var(--f-label);font-size:.85rem;margin:2px 0}
+.fopredel::before,.fopredel::after{content:"";flex:1;border-top:1px solid var(--kat)}
+.foform{display:flex;flex-direction:column;gap:10px;border:1px solid var(--rule);background:var(--paper);padding:12px 14px}
+.foform label{display:flex;flex-direction:column;gap:3px;font-family:var(--f-label)}.foform .fochk{flex-direction:row;align-items:center;gap:6px}
+.foform input[type=text],.foform input:not([type]),.foform textarea{font:inherit;padding:6px 8px;border:1px solid var(--rule);background:var(--bg);color:var(--ink);border-radius:3px;width:100%}
+.foucast{border:1px solid var(--rule);padding:6px 10px;display:flex;flex-wrap:wrap;gap:4px 14px}.foucast legend{font-family:var(--f-label);padding:0 4px}
+.foucast label{flex-direction:row;align-items:center;gap:5px}
+.foGm{border:1px dashed var(--rule);padding:6px 12px}.foGm summary{cursor:pointer;font-family:var(--f-label)}.fonastr{display:flex;flex-direction:column;gap:10px;margin-top:8px}
+.fonastr form{display:flex;flex-direction:column;gap:8px}
+@media (max-width:700px){
+  .forad{grid-template-columns:minmax(0,1fr) auto}.forad .fonum{display:none}.forad .fopos{grid-column:1/-1}
+  .fopris{grid-template-columns:minmax(0,1fr)}.fopan{border-right:0;border-bottom:1px solid var(--rule);display:flex;gap:8px;align-items:baseline;padding:6px 12px}
+}
