@@ -93,7 +93,9 @@ addEventListener("unhandledrejection", e => {
   };
 }
 /* denní / noční vzhled (Vojta 2026-10-29): podle zařízení → denní → noční; volba v prohlížeči (mm-motiv), styly čtou :root[data-theme] */
-const MMMOTIV = {auto: ["◐", "podle zařízení"], light: ["☀", "denní"], dark: ["☾", "noční"]};
+const MMMOTIV = {auto: ["auto", "podle zařízení"], light: ["den", "denní"], dark: ["noc", "noční"]};
+/* malovaný medailon slunce / měsíce / obojího (Vojta 2026-10-31, art/img/vzhled/<den|noc|auto>-48|96.webp) */
+const mmMotivIc = i => `<img src="art/img/vzhled/${i}-96.webp" alt="" width="36" height="36" decoding="async">`;
 function mmMotivTed() {
   const t = document.documentElement.dataset.theme;
   return t === "light" || t === "dark" ? t : "auto";
@@ -106,7 +108,7 @@ function mmMotivPopis() {
     b.title = l;
     const ic = b.querySelector(".navmotivi"),
       tx = b.querySelector(".navgmt");
-    if (ic) ic.textContent = i;
+    if (ic) ic.innerHTML = mmMotivIc(i);
     if (tx) tx.textContent = `Vzhled: ${n}`;
   });
 }
@@ -146,7 +148,7 @@ document.addEventListener("change", e => {
 /* tlačítko pro stránky bez záhlaví s menu (hráčova Hra v aplikaci a na telefonu – list Postava) */
 const mmMotivBtn = () => {
   const [i, n] = MMMOTIV[mmMotivTed()];
-  return `<button type="button" class="gbtn ghost" data-mmmotiv title="Vzhled: ${n} (klepnutím změníš)"><span class="navmotivi" aria-hidden="true">${i}</span> <span class="navgmt">Vzhled: ${n}</span></button>`;
+  return `<button type="button" class="gbtn ghost" data-mmmotiv title="Vzhled: ${n} (klepnutím změníš)"><span class="navmotivi" aria-hidden="true">${mmMotivIc(i)}</span> <span class="navgmt">Vzhled: ${n}</span></button>`;
 };
 function mmMotiv(t) {
   const d = document.documentElement;

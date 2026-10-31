@@ -1178,7 +1178,9 @@ html.mmload body::after{content:"Načítám zemské desky…";position:fixed;lef
 .sitenav a.navgm:hover,.sitenav a.navgm.on{transform:rotate(-8deg) scale(1.06);filter:drop-shadow(0 2px 3px rgba(0,0,0,.3))}
 .navpecet{width:40px;height:40px;display:block}
 /* přepínač denního a nočního vzhledu v menu */
-.navmotiv{display:inline-flex;align-items:center;gap:8px;align-self:center;width:36px;height:36px;justify-content:center;padding:0;border:1px solid var(--gold);border-radius:50%;background:transparent;color:var(--ink);font-size:1.35rem;line-height:1;cursor:pointer;transition:transform .15s}
+.navmotiv{display:inline-flex;align-items:center;gap:8px;align-self:center;width:36px;height:36px;justify-content:center;padding:0;border:0;border-radius:50%;background:transparent;color:var(--ink);font-size:1.35rem;line-height:1;cursor:pointer;transition:transform .15s}
+.navmotivi{display:inline-flex;width:36px;height:36px}.navmotivi img{display:block;width:100%;height:100%;border-radius:50%}
+.gbtn .navmotivi{width:24px;height:24px}
 .navmotiv:hover{transform:rotate(-12deg) scale(1.06)}
 .navmotiv .navgmt{display:none}
 .navgm .navgmt{display:none}
@@ -1188,9 +1190,8 @@ html.mmload body::after{content:"Načítám zemské desky…";position:fixed;lef
   .navpecet{width:30px;height:30px}
   .navgm .navgmt{display:inline}
   .navmotiv{align-self:stretch;width:auto;height:auto;justify-content:flex-start;padding:6px 4px;border:0;border-radius:0;font-size:1.25rem}
-  .navmotiv .navmotivi{width:30px;text-align:center}
+  .navmotiv .navmotivi{width:30px;height:30px}
   .navmotiv .navgmt{display:inline;font-family:var(--f-disp);font-size:1.25rem}
-  .navmotiv .navmotivi{font-size:1.45rem}
   .navmotiv:hover{transform:none}
 }
 .gmbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin:10px 0 4px;padding:8px 12px;border:1px dashed var(--gold);border-radius:4px;background:color-mix(in srgb,var(--gold) 8%,transparent)}

@@ -68,3 +68,19 @@ test("volba barvy karty je na kartě (i pro vypravěče), v záhlaví webu ne", 
     S.zavri();
   }
 });
+
+test("ikona Vzhledu je malovaný medailon a mění se podle stavu", async () => {
+  const {stranka} = await import("./stranka.mjs");
+  const S = await stranka();
+  try {
+    const ic = () => S.ev(`document.querySelector(".navmotiv .navmotivi img").getAttribute("src")`);
+    assert.match(ic(), /vzhled\/auto-96\.webp$/);
+    S.ev(`mmMotiv("light")`);
+    assert.match(ic(), /vzhled\/den-96\.webp$/);
+    S.ev(`mmMotiv("dark")`);
+    assert.match(ic(), /vzhled\/noc-96\.webp$/);
+    S.ev(`mmMotiv("auto")`);
+  } finally {
+    S.zavri();
+  }
+});
