@@ -512,6 +512,70 @@ const CITYINFO = {
     t: "Hrad pánů z Kolovrat",
     n: "Hrad na skalnatém ostrohu nad cestou z Prahy k Plzni. Pan Hanuš z Kolovrat sem přesídlil, když musel panu Jiřímu vydati Žebrák; náhradou mu byly doživotně potvrzeny zástavy dřívější. Sídlí zde s chotí Kateřinou ze Šternberka a hrad jest oporou strany pod jednou na pomezí Plzeňska.",
   },
+  Pardubice: {
+    t: "Město pánů z Miletínka",
+    n: "Město nad Labem, založené kolem léta Páně 1320 pány z Pardubic. Po válkách přešlo na pana Diviše Bořka z Miletínka, hejtmana strany pod obojí, a drží je jeho dědicové, kteříž sídlí na nedaleké Kunětické hoře.",
+  },
+  "Mladá Boleslav": {
+    t: "Město pánů z Michalovic",
+    n: "Město na hoře nad Jizerou, kteréž vysadil léta Páně 1334 pan Jan z Michalovic. Husité je léta 1426 dobyli; léta 1436 se měšťané, držící kalich, smířili s Michalovici a svobody jim byly rozmnoženy. Nyní jim vládne pan Jindřich Kruhlata z Michalovic.",
+  },
+  Pelhřimov: {
+    t: "Město v zástavě Trčků z Lípy",
+    n: "Město na vysočině, někdy poddané arcibiskupům pražským. Po roce 1420 je opanovalo Táborské bratrstvo a léta 1437 je císař Zikmund zapsal bratřím Trčkům z Lípy, kteříž je drží dosud. Léta 1450 se tu sjeli páni na sněm smíření mezi jednotou Poděbradskou a Strakonickou.",
+  },
+  Kraslice: {
+    t: "Městečko pánů z Plavna",
+    n: "Městečko s hradem v kraji Loketském, kolem něhož jsou doly. Má právo Loketské od léta Páně 1370. Drží je pan Jindřich z Plavna.",
+  },
+  Chotěboř: {
+    t: "Město s pamětí na Hromádku",
+    n: "Město na pomezí Vysočiny. Léta Páně 1421 se v něm zavřel táborský hejtman Hromádka; oblehli jej Kutnohorští a páni a po dobytí byl s třemi sty zajatých upálen. Město bylo věnem královny Barbory a léta 1454 je král Ladislav vyňal ze svazku s panstvím Lichtenburským.",
+  },
+  "Česká Skalice": {
+    t: "Město pánů z Náchoda",
+    n: "Město nad Úpou, připojené k panství Náchodskému. Dne 6. ledna léta Páně 1424 tu Žižka porazil vojsko pánů; léta 1441 je vypálili Slezané.",
+  },
+  "Nový Knín": {
+    t: "Královské horní město",
+    n: "Městečko založené pro zlaté doly za krále Jana a císaře Karla. Že podporovalo poutníky pod obojí, vypálili je nepřátelé a shořely i listiny jeho svobod.",
+  },
+  Veliš: {
+    t: "Hrad pana Jiřího",
+    n: "Hrad na hoře nad vsí Velišem u Jičína. Dlouho jej drželi Vartenberkové a po nich Hašek z Valdštejna; léta Páně 1452 jej postoupil panu Jiřímu z Poděbrad.",
+  },
+  Žacléř: {
+    t: "Hrad pana Jiřího",
+    n: "Hrad na hranici slezské nad Trutnovem; za nepokojů jej osazovali Slezané. Od léta Páně 1453 jej drží pan Jiří z Poděbrad.",
+  },
+  Potštejn: {
+    t: "Hrad pana Jiřího",
+    n: "Hrad s městečkem v podhůří Orlických hor, založený pány z Litic; léta Páně 1432 jej obléhali husité. Od léta 1454 jej má pan Jiří z Poděbrad a zastavil jej knězi Bedřichovi ze Strážnice.",
+  },
+  Dobříš: {
+    t: "Královský hrad v zástavě",
+    n: "Hrad a panství králů českých, vystavěné za krále Jana a obnovené Karlem. Císař Zikmund je zastavil pánům z Kolovrat a ti je drží jako zástavu.",
+  },
+  Plasy: {
+    t: "Klášter cisterciáků",
+    n: "Klášter bílých mnichů severně od Plzně, založený léta Páně 1144. Od počátku válek trpí nouzí, neboť král Zikmund statky jeho rozzastavil. Opatem jest Jan Kellner; předchůdce jeho Bedřich Wachner zemřel léta 1457.",
+  },
+  Kladruby: {
+    t: "Starý klášter benediktinský",
+    n: "Slavný klášter u Stříbra. Když léta Páně 1421 přitáhl Žižka, mniši utekli do Bavor a klášter byl dobyt a vydán Petru Zmrzlíkovi ze Svojšína; statky zastavil král Zikmund. Opat Jan Střížka je zvolna vyplácí.",
+  },
+  Chotěšov: {
+    t: "Klášter premonstrátek",
+    n: "Ženský klášter premonstrátský u Plzně, založený kolem léta Páně 1196. Léta 1421 jej Žižka obsadil prázdný; probošt Václav jej obnovil a vyvazoval zástavy. Nyní jej spravuje probošt Jiří Platner z Tachova, podřízený opatu z Teplé.",
+  },
+  Doksany: {
+    t: "Klášter premonstrátek",
+    n: "Starý klášter panen premonstrátských u Roudnice, založený kněžnou Gertrudou léta Páně 1142. Léta 1421 jej pražské vojsko vypálilo; panny utekly do lesů a pak do Litoměřic. Statky rozchvátili světští páni a správu jejich si osobil pan Hynek z Valdštejna. Léta 1456 panny vymohly právo zástavy vykupovati.",
+  },
+  Postoloprty: {
+    t: "Opuštěný klášter",
+    n: "Klášter benediktinský mezi Louny a Žatcem, vystavěný na místě hradu Drahouše. V květnu léta Páně 1420 vyhořel a opatové žili ve vyhnanství; klášteřiště i městečko uchvátili Lounští a statky zastavil císař Zikmund.",
+  },
   "Kunětická hora": {
     t: "Husitský hrad",
     n: "Hrad na osamělé hoře u Pardubic, jejž přestavěl husitský hejtman Diviš Bořek z Miletínka; léta Páně 1437 zde u něho nalezl útočiště mistr Jan Rokycana. Drží jej syn jeho, pan Soběslav Mrzák z Miletínka.",

@@ -69,6 +69,7 @@ jsou jen historie. Zdroj pravdy je kód (`zdroj/web/js/NN-*.js`, `supabase/schem
 
 ## Hotovo
 
+- 11-01 Místa ze Sedláčkova slovníku (výběr „podstatných“ z 1 278 chybějících): 16 nových bodů mapy se souřadnicemi odhadnutými ručně (Pardubice, Mladá Boleslav, Pelhřimov, Kraslice, Chotěboř, Česká Skalice, Nový Knín, hrady Veliš/Žacléř/Potštejn/Dobříš, kláštery Plasy/Kladruby/Chotěšov/Doksany/Postoloprty) + shrnutí v `CITYINFO` (02g) a odstavce o menších městech, hradech a klášterech v rodech 900-cmc, 750-hce, 902-kla. Zbytek (vsi, tvrze) se nepřidává. Zdroj a tabulka: knihovna `souhrny/mistopis/`. Navarov/Ostromeč/Cajchanov/Kank jen v textu (poloha nejistá).
 - 10-16 Přihlášení hráčů (Discord PKCE 10-20, heslo 10-20), stránka Hra, výzvy k hodu (`#mmvyz`), potvrzování akcí a časová osa (23, 10-18) – 08, 16, 23, schema `mm_ja*`, `hraci_ucty`.
 - 10-16 Import PDF D&D Beyond, karta podle pravidel D&D 2024 (PDF jen podklad, úpravy „z D&D Beyond“) – 13, 18, 19; překlad SRD 5.2.1 (všech 8 kapitol: hraní, tvorba, povolání, původ a featy, výbava, kouzlení, glosář, nástroje) – `zdroj/pravidla/*.md` → `art/pravidla.json`; nestvůry, předměty, 339 kouzel + Vojtův katalog kouzel – `art/*.json`.
 - 10-17 Doplňky mimo SRD (36 podtříd, 58 featů, 12 zázemí, Aasimar, 95 kouzel) jako vlastní shrnutí – `zdroj/mimo-srd/`, stránka Pravidla › Doplňky, `kMimoZdroje`/`kMimoEf` (18).
