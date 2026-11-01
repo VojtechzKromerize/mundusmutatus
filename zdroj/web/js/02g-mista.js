@@ -502,7 +502,7 @@ const CITYINFO = {
   },
   Točník: {
     t: "Královský hrad v zástavě",
-    n: "Nádherný hrad krále Václava nad Žebrákem, léta Páně 1424 marně obléhaný husity. Zástavu drží páni z Kolovrat, kteříž léta 1430 přistoupili k přijímání pod obojí.",
+    n: "Nádherný hrad krále Václava nad Žebrákem, léta Páně 1424 marně obléhaný husity. Zástavu drží páni z Kolovrat, věrní straně pod jednou a oporou landfrýdu plzeňského.",
   },
   Zbiroh: {
     t: "Hrad pánů z Kolovrat",
