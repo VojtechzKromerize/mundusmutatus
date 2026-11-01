@@ -49,12 +49,18 @@ utoky:
 
 ## Relikt
 
+- **Zrodil ho.** Chamtivost a strach o živobytí.
+- **Strach.** 0
 - **Znamení.** V chalupě rozházené věci a smích; hospodáři přibývá zrní, sousedům ubývá; černá slepice, která nesnáší.
 - **Zákon.** Musí sloužit tomu, kdo ho vysedí, a přinášet mu bohatství. Nesmí odmítnout úkol. Za devět let si vezme pánovu duši.
 - **Moc.** Přináší zrní, peníze a mléko od sousedů; zakletí, nemoc dobytka.
 - **Co chce.** Duši pána; hrát si.
 - **Ochrana.** Dát mu úkol, který nejde splnit (spočítat zrnka máku v pytli).
-- **Zažehnání.** 1) Poznat, kdo ho drží. 2) Dát mu úkol, který nemůže splnit (přinést vodu v řešetu, spočítat písek). 3) Než ho splní, spálit vejce, ze kterého se vylíhl.
+- **Zažehnání – lidová verze.** 1) Poznat, kdo ho drží. 2) Dát mu úkol, který nemůže splnit (přinést vodu v řešetu, spočítat písek). 3) Než ho splní, spálit vejce, ze kterého se vylíhl.
+- **Zažehnání – úplný obřad.** Majitel žije rok a den bez nového bodu hříchu a vydá se na pokání (Svědomí); nebo se musí obětovat tucet lidí (cesta ďábla). Rarášek pak uschne.
+- **Rozplynutí.** Hozený pryč se vrátí za 1d6 hodin.
+- **Moc (doplněk).** Nemá vlastní moc, dává ji majiteli: jedno očarování, kletbu nebo čáry, k tomu bohatství, štěstí (1× za sezení automatický úspěch), lásku (výhodu na svádění) nebo sílu.
+- **Cena.** Každé použití hoď 1d6: na 1 magie unikne. Majitel ho musí denně krmit slinami, jinak postihne neštěstí, nemoc nebo smrt jeho nebo jeho blízké. Předat ho lze jen dvakrát; třetí majitel se ho nikdy nezbaví.
 - **Tajemství.** Každý rarášek se vylíhl z vejce černé slepice o Velkém pátku; skořápku si schovává pod prahem.
 
 **Výkupné a kořist.** Skořápka pod prahem a hromádka kradeného zrní. A pán, který bude chtít, aby se o tom nemluvilo.

@@ -51,12 +51,18 @@ Shrbená bába v bílém se srpem a pokřivenou tváří. Chodí v poledne po po
 
 ## Relikt
 
+- **Zrodil ho.** Úzkost o dítě a úpal.
+- **Strach.** 2/1 (WIS DC 13 poprvé, DC 11 poté)
+- **Nálady.** Zvědavá · Dotěrná +1 · Rozzuřená +2 · Raněná −1 (couvá do žita).
 - **Znamení.** V poledne bezvětří a ticho cvrčků; dítě s horečkou a bílými skvrnami na čele; zlámaná stébla do kruhu.
 - **Zákon.** Smí přijít jen mezi poledním zvoněním a jednou. Musí se ptát a musí dostat odpověď; kdo ji zabaví řečí do jedné, toho nechá být.
 - **Moc.** Úpal (Exhaustion), poledne, které se táhne; zmámí matku, aby nechala dítě v poli.
 - **Co chce.** Nemluvňata nechaná v brázdě; úctu k polednímu klidu.
 - **Ochrana.** V poledne nepracovat, děti ve stínu, žehnat se při poledním zvonění.
-- **Zažehnání.** 1) Přivolat ji v poledne (zůstat v poli). 2) Odpovídat na její hádanky do jedné. 3) Nakonec jí položit otázku, na kterou nezná odpověď.
+- **Zažehnání – lidová verze.** Odhalit a vyřešit tragédii, která ji přilákala (mrtvé dítě v polích, nespravedlivé obvinění); lidé se přestanou trápit a ona odejde.
+- **Zažehnání – úplný obřad.** 1) Přivolat ji v poledne (zůstat v poli). 2) Odpovídat na její hádanky do jedné. 3) Nakonec jí položit otázku, na kterou nezná odpověď.
+- **Rozplynutí.** Rozpustí se v žáru nad polem; vrátí se příští poledne.
+- **Moc (doplněk).** Její výkřik: kdo ho slyší, má do příštího úsvitu nevýhodu na záchrany proti jejím účinkům.
 - **Tajemství.** Nezná odpověď na otázku „Kolik je hodin?“ – zvony neslyší, jen cítí slunce.
 
 **Výkupné a kořist.** Její srp nikdy netupí. Za něj by kovář dal celou kovárnu.

@@ -50,12 +50,18 @@ Hubená žena v šedém, která chodí po návsi po večerním zvonění. Volá 
 
 ## Relikt
 
+- **Zrodil ho.** Strach rodičů o děti po setmění.
+- **Strach.** 1 (WIS DC 11)
+- **Nálady.** Naslouchá · Rozzlobená +1 · Zuřivá +2 · Raněná −2 (prosí, pak prchá).
 - **Znamení.** Po klekání skřípe závora, i když nikdo nejde; v trávě otisky bosých dětských nohou vedoucí ven z vesnice.
 - **Zákon.** Smí brát jen děti, které jsou venku po klekání. Nesmí přes práh. Musí počítat rozsypaný mák.
 - **Moc.** Mámí hlasem matky; dítě se ztratí na čtvrt hodiny a vrátí se o rok starší, nebo vůbec.
 - **Co chce.** Neposlušné děti; aby se dodržovalo klekání.
 - **Ochrana.** Být doma po klekání, hrst máku na prahu.
-- **Zažehnání.** 1) Zjistit, které dítě vzala první (stará křivda ve vsi). 2) Najít jeho kosti. 3) Pohřbít je po klekání v posvěcené zemi.
+- **Zažehnání – lidová verze.** Mák na prahu. Pes na dvoře a hromadné požehnání vsi po klekání ji dočasně odeženou.
+- **Zažehnání – úplný obřad.** 1) Zjistit, které dítě vzala první (stará křivda ve vsi). 2) Najít jeho kosti. 3) Pohřbít je po klekání v posvěcené zemi.
+- **Rozplynutí.** Prchne do polí; vrátí se příští klekání.
+- **Moc (doplněk).** Slyší vše v okolí. Dech nebo sliny: zasažený hodí DEX, počet neúspěchů = počet kol, kdy se nemůže pohnout. Unáší děti v pytli.
 - **Tajemství.** Byla to matka, která po klekání sama hledala své dítě a nevrátila se.
 
 **Výkupné a kořist.** Dětské hračky a šátky schované v dutém stromě za vsí – a jména dětí, které se nevrátily.

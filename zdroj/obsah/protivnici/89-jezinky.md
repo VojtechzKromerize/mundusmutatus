@@ -58,12 +58,19 @@ Tři staré sestry v lesní chaloupce, která se ukáže jen hladovému a zbloud
 
 ## Relikt
 
+- **Zrodil ho.** Úcta ke stáří a strach z lesa.
+- **Strach.** 2/1 (WIS DC 13 poprvé, DC 11 poté)
+- **Nálady.** Lákavá · Mstivá +1 · Zuřivá +1 · Raněná −2 (couvá do chaloupky a kuje pomstu).
 - **Znamení.** Pocestní, kteří se vrátili slepí; v chaloupce oči navlečené na niti jako sušené houby.
 - **Zákon.** Jsou tři a musí jednat spolu. Nesmějí ublížit tomu, kdo s nimi jí a nepodívá se jim do očí. Ráno usínají.
 - **Moc.** Uspávání vyprávěním, vyloupnutí očí spícímu, pohled, který mámí.
 - **Co chce.** Oči, mladé tváře, jména.
 - **Ochrana.** Nespat u nich, nedívat se jim do očí, mít u sebe sůl.
-- **Zažehnání.** 1) Vydržet do rána bez spánku. 2) Vzít jim oči a vrátit je slepým (Religion nebo Medicine). 3) Zavřít je v chaloupce, než se probudí – nebo nejstarší strčit do vlastní pece: kdo ji poprosí, ať ukáže, jak se do pece leze, tomu to musí ukázat (STR DC 16, celé kolo udržet dvířka).
+- **Zažehnání – lidová verze.** Nalákat jednu do pece v chaloupce a zavřít dvířka: uvězněná nemůže použít moc. Pec uvězní jen jednu; zbylé dvě se musí zlákat jinak.
+- **Zažehnání – úplný obřad.** 1) Vydržet do rána bez spánku. 2) Vzít jim oči a vrátit je slepým (Religion nebo Medicine). 3) Zavřít je v chaloupce, než se probudí – nebo nejstarší strčit do vlastní pece: kdo ji poprosí, ať ukáže, jak se do pece leze, tomu to musí ukázat (STR DC 16, celé kolo udržet dvířka).
+- **Rozplynutí.** Změní se v bahno; vynoří se v bažině nebo hlubokém lese za několik dní.
+- **Moc (doplněk).** Počasí; ovládají lesní zvěř; mění se ve zvíře i v hodnou babičku. Hmoždíř (+2 k magii, létá). Kostěná noha (odolnost). Chaloupka na kuřích nožkách stojí na hranici mezi živými a mrtvými.
+- **Dohody.** Slovo vždy dodrží; cena je vysoká a osobní: kus duše, vzpomínky, roky života.
 - **Tajemství.** Jejich vlastní oči jsou ty, které visí na niti nejvýš. Kdo je ukradne, toho poslouchají.
 
 **Výkupné a kořist.** Nit s očima. Každé oko patří někomu, kdo slepý žebrá u kostela – a ví, kudy šli lapkové, kteří ho tam nechali.

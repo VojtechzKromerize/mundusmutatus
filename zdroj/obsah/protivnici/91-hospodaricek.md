@@ -48,12 +48,19 @@ Domácí had, ochránce rodu a statku. Varuje před ohněm, zlodějem a zlou du�
 
 ## Relikt
 
+- **Zrodil ho.** Vděk a naděje na zdar.
+- **Strach.** 0
+- **Nálady.** Povýšený · Podrážděný +1 (zneviditelní se a dělá neplechu) · Nenávistný +2 (ničí statek) · Zuřivý −2 (raněný, jedná vždy s nejvyšší iniciativou).
 - **Znamení.** Miska mléka u pece ráno prázdná; had, kterého se pes nebojí; statek, kterému se daří.
 - **Zákon.** Musí chránit dům a rod. Zemře-li, zemře i hospodář. Nesmí opustit dům, dokud ho neurazí.
 - **Moc.** Varuje před ohněm, zlodějem a zlou duší; drží zdraví dobytka.
 - **Co chce.** Mléko, úctu, klid pod prahem.
 - **Ochrana.** Není potřeba – je to ochránce. Nebezpečný je ten, kdo ho zabil.
-- **Zažehnání.** Žádné: když odejde, statek upadne. Kdo ho chce zpátky, musí najít, kdo ho urazil, a usmířit ho darem.
+- **Zažehnání – lidová verze.** Dát mu nové šaty: obleče je a odejde na jiný statek. Nebo přestat krmit či znečistit kaši (pomstí se: kráva, požár).
+- **Zažehnání – úplný obřad.** Žádné: když odejde, statek upadne. Kdo ho chce zpátky, musí najít, kdo ho urazil, a usmířit ho darem.
+- **Rozplynutí.** Schová se na 1d6 hodin a plánuje pomstu.
+- **Moc (doplněk).** Mění se ve zvíře (had, kočka, ropucha); neviditelný na krátkou dobu. Kaše: když sní svou kaši, získá +3 k síle na scénu. Zapletená hříva oblíbeného koně je jeho znamení.
+- **Odchod je pomsta.** Když odejde, vezme s sebou štěstí a nezřídka dobytek nebo střechu.
 - **Tajemství.** Zná rodové tajemství, které hospodář neřekl ani zpovědníkovi.
 
 **Výkupné a kořist.** Nic. Kdo ho zabije, odnese si jen kletbu domu.

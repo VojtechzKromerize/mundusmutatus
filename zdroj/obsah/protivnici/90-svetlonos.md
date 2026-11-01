@@ -51,12 +51,17 @@ Hořící muž, který chodí po mezích a doprovází zbloudilé. Za živa byl 
 
 ## Relikt
 
+- **Zrodil ho.** Chamtivost a křivda.
+- **Strach.** 1/1 (WIS DC 11)
 - **Znamení.** Hořící muž na mezi, za kterým zůstávají spálená stébla; pocestný s popálenými zády.
 - **Zákon.** Musí doprovodit, kdo ho požádá, a musí dostat zaplaceno. Nesmí si říct o cenu. Kdo zaplatí málo, toho popálí.
 - **Moc.** Světlo, oheň; nese člověka po cestě rychle jako kůň.
 - **Co chce.** Spravedlivou mzdu – dluží za mez, kterou za živa přeoral.
 - **Ochrana.** Zaplatit mu modlitbou, ne penězi; nepřelézat meze.
-- **Zažehnání.** 1) Zjistit, čí mez přeoral. 2) Vrátit mezník na místo. 3) Zaplatit mu „Zdrávas“ za duši.
+- **Zažehnání – lidová verze.** 1) Zjistit, čí mez přeoral. 2) Vrátit mezník na místo. 3) Zaplatit mu „Zdrávas“ za duši.
+- **Zažehnání – úplný obřad.** Vrátit půdu právoplatnému majiteli (zápis v zemských deskách, mezník, dědic).
+- **Rozplynutí.** Nemá; jen odejde. Je nehmotný a v boji nezranitelný.
+- **Moc (doplněk).** Lucerna vede do bažiny; utopení jako u bludiček. Zaplatit „Zdrávas“ ho jen odežene.
 - **Tajemství.** Byl zeměměřič. Kdo najde jeho staré míry, ví, kde leží skutečné hranice panství.
 
 **Výkupné a kořist.** Zeměměřičský provázek a stará kniha mír. Pro spor o půdu cennější než zlato.

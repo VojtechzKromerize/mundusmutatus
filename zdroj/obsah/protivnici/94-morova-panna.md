@@ -52,12 +52,17 @@ Bledá žena v bílém s rudým šátkem, která chodí před morem. Sama do vsi
 
 ## Relikt
 
+- **Zrodil ho.** Hrůza z nákazy.
+- **Strach.** 2/1 (WIS DC 13 poprvé, DC 11 poté)
 - **Znamení.** Cizí žena v bílém s rudým šátkem na mezi; psi vyjí; kde mávne šátkem, tam za tři dny umírají.
 - **Zákon.** Nesmí do vsi, kam ji nikdo nepřevezl přes vodu ani nepřinesl na zádech. Smí jen tam, kam ukáže šátkem.
 - **Moc.** Mor; sny o mrtvých.
 - **Co chce.** Vzít daň, než odejde.
 - **Ochrana.** Nepřevážet cizí ženy přes řeku; oheň z jalovce; morový sloup nebo kaplička na rozcestí.
-- **Zažehnání.** 1) Zjistit, odkud přišla (cesta nákazy). 2) Vzít jí šátek, než mávne (smrtelně nebezpečné). 3) Spálit šátek v jalovcovém ohni na hranici obce.
+- **Zažehnání – lidová verze.** Spálit šátek v jalovcovém ohni na hranici obce a vyřešit, odkud nákaza přišla.
+- **Zažehnání – úplný obřad.** 1) Zjistit, odkud přišla (cesta nákazy). 2) Vzít jí šátek, než mávne (smrtelně nebezpečné). 3) Spálit šátek v jalovcovém ohni na hranici obce.
+- **Rozplynutí.** Uprchne přes vodu; vrátí se za 1d6 dnů.
+- **Hák.** Ona a Žrout z hrobu mohou být dvě podoby téže nákazy.
 - **Tajemství.** Kdo jí vezme šátek, přežije – ale už nikdy nesmí do vlastní vsi.
 
 **Výkupné a kořist.** Rudý šátek. Spálit, nebo prodat? Mistr černého umění by za něj dal cokoli.

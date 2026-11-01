@@ -37,12 +37,18 @@ Malí horští duchové z hlubin, kteří od Noci Proměny mluví a mají vlastn
 
 ## Relikt
 
+- **Zrodil ho.** Strach z podzemí a úcta k rudě.
+- **Strach.** 0 (vůdce 1)
+- **Nálady.** Podrážděný +1 · Rozzlobený +2 (očarování a strach) · Polekaný −1 · Raněný −2 (vůdce).
 - **Znamení.** Klepání ve skále, které vede k žíle; svíčky, které nezhasnou; zmizelá svačina.
 - **Zákon.** Musí dostat svůj díl (svačinu, kus rudy). Trestají toho, kdo v dole hvízdá nebo kleje. Musí ukázat žílu poctivému havíři.
 - **Moc.** Zával, zbloudění ve štole, nalezení žíly.
 - **Co chce.** Svůj díl a úctu. Nesnášejí nové pány, kteří kopou příliš hluboko.
 - **Ochrana.** Nechat jim chléb, nehvízdat, pozdravit „Zdař Bůh“.
-- **Zažehnání.** 1) Zjistit, kdo je urazil. 2) Přinést jim dar (lampu, kladívko, havířský kabátek). 3) Uzavřít s nimi úmluvu před svědky.
+- **Zažehnání – lidová verze.** Kříž v jejich příbytku je odežene.
+- **Zažehnání – úplný obřad.** Liší se podle skupiny: jedna se uklidní vrácením uloupeného stříbra či rudy, jiná se vyhání ostrou ocelí v hnízdě. 1) Zjistit, kdo je urazil. 2) Přinést jim dar (lampu, kladívko, havířský kabátek). 3) Uzavřít s nimi úmluvu před svědky.
+- **Rozplynutí.** Uprchnou na 2d6 hodin.
+- **Ochrana (doplněk).** Svatá slova v jejich domě zkysnou jídlo; pokřtěné dítě je před podvrženci chráněno.
 - **Tajemství.** Permoníci znají žíly, o kterých neví ani mincmistr. Král by za ně dal Kutnou Horu dvakrát.
 
 **Kořist.** Kousky rudy, které zvoní jako stříbro. Jednou za čas skutečné stříbro.

@@ -49,12 +49,17 @@ Neklidný duch domu, který hází věcmi, bouchá dveřmi a chodí po půdě. Z
 
 ## Relikt
 
+- **Zrodil ho.** Výsměch a osamělost.
+- **Strach.** 2/1 (WIS DC 13 poprvé, DC 11 poté)
 - **Znamení.** Kroky na půdě, převrácené nádobí, povolené uzly pytlů; děti se bojí jít pro vodu.
 - **Zákon.** Smí jen strašit, ne zabít. Musí utéct před smíchem.
 - **Moc.** Hluk, tma, házení věcmi, strach (Frightened).
 - **Co chce.** Být sám; aby se dům bál.
 - **Ochrana.** Smích, rozsvícená louč, zvonek.
-- **Zažehnání.** 1) Zjistit, čí je (zemřelý v domě, který neměl pohřeb). 2) Vysmát se mu. 3) Pochovat ho.
+- **Zažehnání – lidová verze.** 1) Zjistit, čí je (zemřelý v domě, který neměl pohřeb). 2) Vysmát se mu. 3) Pochovat ho.
+- **Zažehnání – úplný obřad.** Zjistit, co ho drží, a dokončit nedokončené (pohřeb, odpuštění, pomsta, poselství).
+- **Rozplynutí.** Nemá; jen odejde. Je nehmotný a v boji nezranitelný.
+- **Moc (doplněk).** Ve snech posílá zprávy tomu, kdo má Zrak; klesá teplota, svíce modrají, hlas v rohu.
 - **Tajemství.** Bubák bývá duše děcka nebo blázna, kterému se smáli. Když se smějí s ním, ne jemu, odejde.
 
 **Výkupné a kořist.** Pod podlahou je obvykle důvod, proč straší.

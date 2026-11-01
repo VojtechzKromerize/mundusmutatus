@@ -55,12 +55,19 @@ Noční ježibaba, která chodí za Závojem a sedá spícím na hruď. Krade de
 
 ## Relikt
 
+- **Zrodil ho.** Nenaplněná touha a vina.
+- **Strach.** 2/1 (WIS DC 13 poprvé, DC 11 poté)
+- **Nálady.** Opatrná +1 (rozplyne se do dýmu a syčí) · Rozzlobená +1 (hrozí a proklíná) · Svůdná −1 (líbá) · Zuřící +2 (vymačkává vzduch).
 - **Znamení.** Spáč ráno vyčerpaný, s modřinami na hrudi; v koutě stéblo nebo pírko, které tam nebylo; koně zpocení se zapletenými hřívami.
 - **Zákon.** Lidová můra je duše živé ženy, která v noci opouští tělo. Musí se vrátit před kuropěním. Nesmí vstoupit dírou, kterou ucpali. (Pekelná můra z tohoto statblocku je její horší sestra – vypravěč zvolí, kterou družina potká.)
 - **Moc.** Tíha na prsou (Exhaustion), zlé sny, krádež dechu.
 - **Co chce.** To, co jí chybí ve dne (lásku, mateřství, odpuštění).
 - **Ochrana.** Nůž ostřím vzhůru u postele, ucpaná klíčová dírka, říct „Přijď ráno pro sůl“.
-- **Zažehnání.** 1) Zjistit, kdo je ve dne (ta, která ráno přijde pro sůl). 2) Dát jí sůl a odpustit jí, nebo 3) zničit stéblo, ve kterém přišla.
+- **Zažehnání – lidová verze.** 1) Zjistit, kdo je ve dne (ta, která ráno přijde pro sůl). 2) Dát jí sůl a odpustit jí, nebo 3) zničit stéblo, ve kterém přišla.
+- **Zažehnání – úplný obřad.** Nahlas ji pojmenovat jako můru ve chvíli, kdy se mění zpět v ženu: proměna se přeruší a žena se probudí, ale přijde o prst nebo končetinu (cena).
+- **Rozplynutí.** Tmavý kouř; vrátí se domů a při východu slunce se z ní stane žena bez paměti.
+- **Moc (doplněk).** Plyn a tělo: bonusovou akcí se přepíná; v plynu létá, protáhne se škvírou, nezraňuje a nelze ji zranit. Polibek: očarování, oběť ji brání. Dušnost: celý tah, WIS save, jinak psychické zranění a ztráta dalšího slotu.
+- **Ochrana (doplněk).** Kosa nad postelí (výhoda), vlas v bibli, semínka lnu kolem postele; nechat ji počítat (mák) do rána.
 - **Tajemství.** Můra o sobě často neví. Zabije-li ji družina v noci, zemře ráno žena ve vsi.
 
 **Výkupné a kořist.** Váček s dušemi. Kněží by je chtěli vysvobodit; čarodějnice by za něj daly cokoli.

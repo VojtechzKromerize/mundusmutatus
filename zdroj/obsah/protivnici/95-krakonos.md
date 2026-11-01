@@ -55,12 +55,19 @@ Pán Krkonoš, starší než jakýkoli rod v Čechách. Chodí v podobě poutní
 
 ## Relikt
 
+- **Zrodil ho.** Bázeň z hor.
+- **Strach.** 2 (WIS DC 13)
+- **Nálady.** Netečný −1 · Pohrdavý +1 · Zuřivý +1 (hází balvany) · Krvežíznivý +2 (drtí vše).
 - **Znamení.** Náhlé počasí; mlha, která má tvar; poutník s holí, který zná cestu, i když tu nikdy nebyl.
 - **Zákon.** Musí odměnit poctivého a potrestat posměváčka. Musí dodržet úmluvu s horaly a saněmi. Nesmí z hor.
 - **Moc.** Počasí v celých horách; proměna (poutník, havran, kořen); duchové hor a hromové saně na zavolání.
 - **Co chce.** Úctu k horám; aby se jeho jménu nikdo neposmíval.
 - **Ochrana.** Nevyslovit „Rýbrcoul“ posměšně; poctivost.
-- **Zažehnání.** Nelze. Krakonoš se nezažehnává – s Krakonošem se vyjednává. Úmluva s ním je silnější než listina krále.
+- **Zažehnání – lidová verze.** Zvony, kříž a svěcená voda u jeho obydlí ho zaženou do divočiny.
+- **Zažehnání – úplný obřad.** Nelze. Krakonoš se nezažehnává – s Krakonošem se vyjednává. Úmluva s ním je silnější než listina krále.
+- **Rozplynutí.** Odejde do hor na 1d6 dnů.
+- **Moc (doplněk).** Hází balvany na dálku, tlustá kůže, dvojí tah (lepší iniciativa).
+- **Slabina.** Zvony: obři prchají před jejich zvukem (často se pokusí kostel rozbít). Pravé jméno ho promění v kámen; nikdo ho nezná (v textu jen posměšné „Rýbrcoul“).
 - **Tajemství.** Krakonoš počítal řepu, aby získal zpátky ukradenou nevěstu. Kdo mu přinese zprávu o ní, má jeho vděk na celý život.
 
 **Výkupné a kořist.** Nic, co by šlo vzít. Jen jeho slovo – a to má větší cenu než hrad.

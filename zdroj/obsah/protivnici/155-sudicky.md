@@ -54,12 +54,16 @@ Tři bílé ženy, které přicházejí k novorozencům a určují jim osud: jed
 
 ## Relikt
 
+- **Zrodil ho.** Strach z osudu.
+- **Strach.** 1 (WIS DC 11)
 - **Znamení.** V noci po porodu se samo rozhoupe kolébka; na stole zůstanou tři drobty a tři kapky vosku; babka zaslechne cvaknutí nůžek.
 - **Zákon.** Co řekne poslední, třetí sudička, to se stane. Nesmějí odmítnout chléb a sůl na stole a kdo jim je nabídne, smí se zeptat na jeden osud.
 - **Moc.** Osud, kletby, věštba; vidí pravou podobu všeho.
 - **Co chce.** Aby osud šel, jak je spředen. Bílé plátno na stole a ticho u kolébky.
 - **Ochrana.** Chléb a sůl na stole, svíce, otevřené okno. Kdo jim do řeči skočí, prodlouží si osud o tolik, kolik mu to ublíží.
-- **Zažehnání.** Sudičky se nezabíjejí. Osud lze změnit jen slovem: 1) být u kolébky dřív než ony; 2) nabídnout chléb a sůl a zeptat se; 3) přimět třetí sudičku, aby ještě jednou promluvila (Persuasion DC 18, nebo hádanka, kterou nezná) – platí poslední slovo.
+- **Zažehnání – lidová verze.** Osud lze změnit jen slovem: přimět třetí sudičku, aby ještě jednou promluvila.
+- **Zažehnání – úplný obřad.** Sudičky se nezabíjejí. Osud lze změnit jen slovem: 1) být u kolébky dřív než ony; 2) nabídnout chléb a sůl a zeptat se; 3) přimět třetí sudičku, aby ještě jednou promluvila (Persuasion DC 18, nebo hádanka, kterou nezná) – platí poslední slovo.
+- **Rozplynutí.** Zmizí v hlubině noci; vrátí se u příští kolébky.
 - **Tajemství.** Každá postava družiny má svou nit. Sudičky vědí, komu zbývá málo – a jedna z nich ji kdysi stříhala jinak, než měla.
 
 **Výkupné a kořist.** Nic se jim nevezme. Kdo je usmíří, dostane odstřižek stříbrné nitě: jednou mu vypravěč na jeho žádost řekne, zda ho daná cesta zabije.

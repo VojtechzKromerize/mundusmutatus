@@ -37,12 +37,20 @@ Nevěsty, které zemřely před svatbou, a od nepaměti tančí na lukách u vod
 
 ## Relikt
 
+- **Zrodil ho.** Žal a vina (utonulé nevěsty, zavržené, nepokřtěné).
+- **Strach.** 2/1 (WIS DC 13 poprvé, DC 11 poté)
+- **Nálady.** Svůdná · Podrážděná +1 · Vražedná +2 · Zoufalá −2 (drží si odstup).
 - **Znamení.** V trávě kruhy vyšlapané do kola; mladí muži ráno ztrhaní, s jehličím ve vlasech; zpěv bez slov nad vodou.
 - **Zákon.** Musí tančit do kuropění. Nesmí se dotknout člověka v obrácených botách. Musí přijmout nabídnutý věneček.
 - **Moc.** Tanec, který umoří k smrti; zmámení zpěvem; mlha nad řekou.
 - **Co chce.** Tanečníky; svatby, kterých se nedožily.
 - **Ochrana.** Pelyněk za kloboukem, obrácené boty, nepít z řeky po setmění.
-- **Zažehnání.** 1) Najít jejich hroby (nevěsty zemřelé před svatbou). 2) Dát jim věneček a jméno. 3) Sloužit za ně mši nebo starou oběť u řeky.
+- **Zažehnání – lidová verze.** Věneček a jméno.
+- **Zažehnání – úplný obřad.** Zjistit jméno, které nepamatují (farní kniha, příbuzní), a pochovat do posvěcené země. 1) Najít jejich hroby (nevěsty zemřelé před svatbou). 2) Dát jim věneček a jméno. 3) Sloužit za ně mši nebo starou oběť u řeky.
+- **Rozplynutí.** Skočí do vody; za několik hodin se vrátí.
+- **Zákon (doplněk).** Z vody smějí jen o Zelených svátcích (Letnice) a Svatojánské noci. Jejich průvod („rusalčina svatba“) nesmí potkat skutečnou svatbu, jinak pohroma.
+- **Moc (doplněk).** Ve vodě jednají dvakrát za kolo; přivolají déšť a záplavu. Tahání pod vodu: sevřený hází každé kolo vyproštění a selhání ho stojí zranění, na 0 HP se utopí.
+- **Ochrana (doplněk).** Pelyněk, libeček nebo česnek: výhoda na záchrany a jejich útoky na nositele mají nevýhodu. Zamilovaná rusalka loví, dokud vyvolený nevstoupí do manželství v kostele a nezačne nosit prsten; holá kůže přiložená na ocel zruší očarování.
 - **Tajemství.** Rusalka, které vrátíš její stuhu, splní jedno přání a už netančí.
 
 **Morálka.** Neprchají – rozplynou se do mlhy nad vodou, když padne polovina.

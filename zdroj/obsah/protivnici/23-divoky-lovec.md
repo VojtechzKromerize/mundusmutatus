@@ -50,12 +50,19 @@ Vůdce divokého honu. Nikdo neví, kým byl: podle jedněch pánem, který lovi
 
 ## Relikt
 
+- **Zrodil ho.** Hrdost a vina předka, který lovil v neděli.
+- **Strach.** 2/1 (WIS DC 13 poprvé, DC 11 poté)
+- **Nálady.** Pomstychtivý +1 (hledá tajemství) · Nenávistný +2 · Zkroucený −1 (kletba) · Opatrný (zjeví se duchem).
 - **Znamení.** Štěkot psů v mracích, troubení; ráno mrtví ptáci a ulámané větve na hřebenu.
 - **Zákon.** Kdo se vrhne tváří k zemi, toho hon mine. Kdo se přidá s posměchem, dostane díl kořisti (lidskou nohu). Hon musí odjet před úsvitem.
 - **Moc.** Bouře, strach, únos na koni honu.
 - **Co chce.** Lov; pomstu na posměvačích.
 - **Ochrana.** Tváří k zemi, zavřít okenice, nehvízdat do noci.
-- **Zažehnání.** 1) Zjistit, kdo je lovec (prokletý pán, který lovil v neděli). 2) Najít jeho hrob nebo erb. 3) Dát mu, co mu chybí k odpočinku (mši, vrácenou půdu, odpuštění).
+- **Zažehnání – lidová verze.** 1) Zjistit, kdo je lovec (prokletý pán, který lovil v neděli). 2) Najít jeho hrob nebo erb. 3) Dát mu, co mu chybí k odpočinku (mši, vrácenou půdu, odpuštění).
+- **Zažehnání – úplný obřad.** Vykopat jeho tělo (nebylo-li na hřbitově) a přenést přes hřbitovní zeď, ne bránou, a pochovat v posvěcené zemi s křížem; bylo-li pohřben na hřbitově, vykopat, třikrát přenést přes zeď a znovu pochovat s křížem a lopatami, kterými se kopalo. Nebo tělo spálit.
+- **Rozplynutí.** Ustoupí do svého sídla na 1d6 dnů.
+- **Moc (doplněk).** Zná slabiny a stydlivá tajemství lidí a využije je při vyjednávání; bonusovou akcí přepíná fyzickou a duchovní podobu (zranit ho lze jen ve fyzické).
+- **Ochrana (doplněk).** Křesťanský znak namalovaný dehtem na prahu nepřekročí; nositele kříže nezraní, ale magií ho přiměje kříž sundat. Nestihne-li před úsvitem zpět, zůstane stát neviditelný jako stojan.
 - **Tajemství.** Lovec je předek některého z dnešních rodů. Rod o tom ví a mlčí.
 
 **Výkupné a kořist.** Roh honu – kdo do něj zatroubí, přivolá hon. Na sebe.

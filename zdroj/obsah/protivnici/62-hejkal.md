@@ -53,12 +53,19 @@ Duch hlubokých lesů, kterého je víc slyšet než vidět. Po Noci Proměny se
 
 ## Relikt
 
+- **Zrodil ho.** Bázeň z lesa a vina za kácení.
+- **Strach.** 1 (WIS DC 11)
+- **Nálady.** Rozmarný · Rozzlobený +2 · Polekaný · Těžce raněný −2 (svolá zvěř: vlky, medvědy, psy).
 - **Znamení.** V lese volání „hej, hej“; stopy, které vedou dozadu; zlomené mladé stromky.
 - **Zákon.** Kdo mu odpoví, tomu smí skočit na záda a nést ho do rána. Nesmí na mýtinu, kde stojí kříž nebo kaplička.
 - **Moc.** Zabloudění (nikdo nenajde cestu, dokud si neobrátí oděv naruby), zapletení kořeny.
 - **Co chce.** Aby se v lese nekácelo bez dovolení a nekřičelo.
 - **Ochrana.** Neodpovídat, mít oděv naruby, nést chléb pro lesní duchy.
-- **Zažehnání.** 1) Najít jeho strom. 2) Za každý pokácený strom zasadit nový. 3) Nechat na pařezu chléb a sůl a třikrát se omluvit.
+- **Zažehnání – lidová verze.** Úmluva (lákat písní, uměním, člověkem) nebo zničit srdce lesa (spálit nebo pokácet jádro háje): zabije ho natrvalo, ale les se pomstí.
+- **Zažehnání – úplný obřad.** 1) Najít jeho strom. 2) Za každý pokácený strom zasadit nový. 3) Nechat na pařezu chléb a sůl a třikrát se omluvit.
+- **Rozplynutí.** Změní se v zeleň; vynoří se v srdci lesa za 1d6 kol.
+- **Moc (doplněk).** Mění se na zvíře, strom nebo kámen; cítí vše, co se v lese děje; doprovází ho zvěř.
+- **Ochrana (doplněk).** Oděv naruby (výhoda na záchranu proti jeho moci, jednou).
 - **Tajemství.** Hejkal je poslední strážce háje Starých bohů. Starověrci ho mohou poprosit o pomoc.
 
 **Výkupné a kořist.** Jeho hůl z kořene, která ukazuje cestu – komu ji dá dobrovolně.

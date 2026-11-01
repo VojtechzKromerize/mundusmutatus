@@ -38,12 +38,18 @@ Lesní ženy se zelenými vlasy a prsy přes rameno, staré jako hvozd. Kradou d
 
 ## Relikt
 
+- **Zrodil ho.** Touha po lidském dítěti.
+- **Strach.** 1 (WIS DC 11)
 - **Znamení.** Na pasece rozvěšené mokré prádlo; kravám ubývá mléko; v kolébce dítě, které nepláče a moc jí.
 - **Zákon.** Musí odpovědět na pozdrav „Pozdrav Pánbůh“ – a pak nesmějí ublížit. Nesmějí se dotknout pokřtěného dítěte s červenou nitkou.
 - **Moc.** Podvržení dítěte, lesní mámení, léčení i kletby bylinami.
 - **Co chce.** Lidské děti, lidské muže za manžely, len a pokosené seno.
 - **Ochrana.** Červená nitka na zápěstí dítěte, kmín a pelyněk v kolébce.
-- **Zažehnání.** Podvrženec: 1) poznat ho (Medicine nebo Insight); 2) rozesmát ho (vaření vody ve skořápce od vajíčka); 3) odnést ho na rozcestí – divoženka si ho vezme a vrátí lidské dítě.
+- **Zažehnání – lidová verze.** Kříž v jejich příbytku je odežene; svatá slova v jejich domě zkysnou jídlo.
+- **Zažehnání – úplný obřad.** Podvrženec: 1) poznat ho (Medicine nebo Insight); 2) rozesmát ho (vaření vody ve skořápce od vajíčka); 3) odnést ho na rozcestí – divoženka si ho vezme a vrátí lidské dítě.
+- **Rozplynutí.** Uprchnou na 2d6 hodin.
+- **Moc (doplněk).** Zakletá strava: kdo ji sní (vypadá lákavě, ve skutečnosti slimáci a žáby), je jim vázán po scénu (WIS save; každý přebytečný neúspěch prodlouží).
+- **Ochrana (doplněk).** Pokřtěné dítě je před podvržením chráněno (k červené nitce).
 - **Tajemství.** Divé ženy znají byliny lépe než pražští lékaři. Kdo je pozdraví po jejich, dostane lék, ne kletbu.
 
 **Morálka.** Prchají do lesa, když padne polovina; vrátí se za jinou noc.

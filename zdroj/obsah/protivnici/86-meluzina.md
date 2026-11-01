@@ -53,12 +53,19 @@ utoky:
 
 ## Relikt
 
+- **Zrodil ho.** Zavržení (dítě prokleté nebo odepřené rodiči).
+- **Strach.** 2/1 (WIS DC 13 poprvé, DC 11 poté)
+- **Nálady.** Hravá +1 · Zmatená −1 · Rozzuřená +2 · Raněná −2 (prchá).
 - **Znamení.** Kvílení v komíně, mouka rozfoukaná po mlýnici; na hřebeni vystydlé ohniště s jedinou slzou ledu.
 - **Zákon.** Musí dostat hrst mouky nebo soli hozenou do větru. Nesmí pod střechu, pod kterou ji pozvali dovnitř.
 - **Moc.** Vítr, který shodí jezdce ze sedla i draka z nebe; zprávy nesené větrem z dálky.
 - **Co chce.** Své děti, které jí vzali.
 - **Ochrana.** Hrst mouky do kamen, dovřené okenice, nemluvit s větrem.
-- **Zažehnání.** 1) Zjistit, čí je. 2) Najít, kde jsou její děti (kostel, hrob, cizí rod). 3) Přinést jí zprávu nebo předmět dítěte.
+- **Zažehnání – lidová verze.** 1) Zjistit, čí je. 2) Najít, kde jsou její děti (kostel, hrob, cizí rod). 3) Přinést jí zprávu nebo předmět dítěte.
+- **Zažehnání – úplný obřad.** Svěcený nůž hozený do víru ji přibije k zemi: nehne se, dokud se nůž nevytáhne, a všechny sebrané duše se uvolní. Mezitím ji lze vyslechnout; kdo ví, čí je, ji zažehná.
+- **Rozplynutí.** Vichr, který odejde; vrátí se za 1d6 hodin.
+- **Moc (doplněk).** Vichr projde škvírou; je nejaktivnější ve dne. Sbírá duše zločinců: za každou +1 k útokům a SO, po šesté druhý tah.
+- **Ochrana (doplněk).** Hůl z bezu skryje nositele před jejím vnímáním.
 - **Tajemství.** Kdo má Meluzínu za přítelkyni, má vždy zadní vítr – dračí posádka by za to dala cokoli.
 
 **Výkupné a kořist.** Nic, co by šlo vzít. Jen zpráva o dětech, která může vést k velmi starému hříchu některého rodu.

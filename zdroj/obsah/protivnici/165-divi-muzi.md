@@ -38,12 +38,16 @@ Lesní muži porostlí srstí, s kozíma nohama a vlasy plnými listí, druhá p
 
 ## Relikt
 
+- **Zrodil ho.** Opilost a touha po zábavě.
+- **Strach.** 1 (WIS DC 11)
 - **Znamení.** V noci píšťaly v lese a dupot jako stádo koz. Ráno ušlapaný kruh na mýtině, rozbité džbány a chlupy na ostružiní.
 - **Zákon.** Nesmějí přejít zoranou brázdu ani k božím mukám. Kdo je pozve ke stolu, toho nesmějí okrást.
 - **Moc.** Tanec, který nepustí; síla a rychlost lesa; víno, po kterém člověk zapomene, kdo je.
 - **Co chce.** Víno, kozy, tanec a ženy na mýtině.
 - **Ochrana.** Vosk v uších, zoraná brázda, kříž u cesty. Nepískat v lese.
-- **Zažehnání.** Divé muže nejde zabít, jen přepít nebo přetancovat: 1) přinést na mýtinu sud vína; 2) vydržet tančit s nimi do svítání (CON save DC 12 třikrát za noc); 3) před kuropěním zaorat kolem mýtiny brázdu. Pak se do lesa nevrátí.
+- **Zažehnání – lidová verze.** Zaorat kolem mýtiny brázdu před kuropěním.
+- **Zažehnání – úplný obřad.** Divé muže nejde zabít, jen přepít nebo přetancovat: 1) přinést na mýtinu sud vína; 2) vydržet tančit s nimi do svítání (CON save DC 12 třikrát za noc); 3) před kuropěním zaorat kolem mýtiny brázdu. Pak se do lesa nevrátí.
+- **Rozplynutí.** Uprchnou do lesa na 2d6 hodin.
 - **Tajemství.** Divé ženy je nemají rády – kradou jim muže, které si ony vyhlédly.
 
 **Morálka.** Prchají, když padne polovina nebo když někdo zaoře brázdu.

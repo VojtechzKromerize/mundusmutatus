@@ -48,12 +48,17 @@ Bledé světlo nad rašeliništěm, duše utopeného poutníka, která láká da
 
 ## Relikt
 
+- **Zrodil ho.** Žal a vina (utonulí, nepokřtěné děti).
+- **Strach.** 1/1 (WIS DC 11)
 - **Znamení.** Světla, která jdou proti větru; utopený pocestný s úsměvem; ve stopách v bahně svítí voda.
 - **Zákon.** Je duší nepokřtěného dítěte nebo utopeného poutníka. Musí se zastavit, když ji někdo pojmenuje. Nesmí přes cestu, kde stojí boží muka.
 - **Moc.** Svedení z cesty, mámení, chladný oheň, který nehřeje.
 - **Co chce.** Jméno, křest, cestu domů.
 - **Ochrana.** Oděv naruby, nedívat se do světla, jít po vyšlapané cestě.
-- **Zažehnání.** 1) Zjistit, čí je (farní kniha, porodní bába). 2) Dát jí jméno. 3) Pokřtít ji vodou z její bažiny, nebo ji odvést k hrobu matky.
+- **Zažehnání – lidová verze.** Dát jí jméno a odvést ji od bažiny; zjistit pravdu o její smrti.
+- **Zažehnání – úplný obřad.** 1) Zjistit, čí je (farní kniha, porodní bába). 2) Dát jí jméno. 3) Pokřtít ji vodou z její bažiny, nebo ji odvést k hrobu matky.
+- **Rozplynutí.** Nemají; jen odejdou. V boji je nelze zranit, boj se hraje o oběť.
+- **Moc (doplněk).** Lucerna: kdo světlo uvidí, hodí WIS, jinak jde za ním do bažiny. Utopení: oběť se každé kolo brání, ostatní jí mohou pomoci; když ji vytrhnou z moci, bludička na chvíli odejde.
 - **Tajemství.** Bludička, které dáš jméno, tě dovede kamkoli – i k pokladu ve slatinách.
 
 **Výkupné a kořist.** Na místě, kde zhasla, leží v bahně kosti a něco, co utopený nesl.

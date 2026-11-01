@@ -51,12 +51,19 @@ Hastrman z rybníků a jezů. Na suchu je to podivný chlapík v zeleném kabát
 
 ## Relikt
 
+- **Zrodil ho.** Strach z vody a svod hry.
+- **Strach.** 1 (starý vodník z velké vody 2/1; WIS DC 11)
+- **Nálady.** Okouzlující +2 (hraje, zve k sázce) · Zoufalý · Raněný −2 (prokleje útočníky) · Prchající −1 (mění vodu, přerodí se).
 - **Znamení.** Z levého šosu mu kape voda i na slunci; mokré stopy vedou do vody, ne z ní; utopení mají v uších bahno; na hladině plavou hrnečky s pokličkou.
 - **Zákon.** Nesmí odmítnout sázku ani hru v karty. Duše utopených musí mít v hrnečcích pod pokličkou. Na suchu slábne, když mu vyschne šos.
 - **Moc.** Přivolá velkou vodu, přetrhne hráz, zamotá rybářům sítě; utopenci mu slouží.
 - **Co chce.** Duše do sbírky, tabák, úctu mlynáře (první mouka z roku), ženu z vesnice za manželku.
 - **Ochrana.** Chléb s hrstí soli v kapse; nepřekračovat vodu po západu slunce; nevolat ho u vody jménem.
-- **Zažehnání.** 1) Zjistit jeho jméno z mlynářovy knihy. 2) Vyhrát nad ním sázku nebo karty. 3) Jako výhru chtít hrnečky. 4) Obrátit je dnem vzhůru – duše odletí a vodník musí jinam.
+- **Zažehnání – lidová verze.** 1) Zjistit jeho jméno z mlynářovy knihy. 2) Vyhrát nad ním sázku nebo karty. 3) Jako výhru chtít hrnečky. 4) Obrátit je dnem vzhůru – duše odletí a vodník musí jinam.
+- **Zažehnání – úplný obřad.** Nalákat ho na místo, kde je ze všech stran obklopen křesťanskými znaky a ocelí (kříže, podkovy, nože podél jezu a v mlýnici). Rozzuřeného uspí utopený černý hřebec: sežere ho a spí do jara.
+- **Rozplynutí.** Změní se v mouchu nebo ropuchu a vynoří se v nejbližší vodě za 1d6 hodin; v zimě se nevrací, spí a z jara se probouzí hladový (povodně, protržené hráze).
+- **Moc (doplněk).** Hudba nutí k tanci a tanečník nepřestane, dokud se nepřetrhne struna nástroje. Bonusovou akcí přejde do jiné vody; dýchá pod vodou; mění se ve vodní zvíře. Smlouva krví: kdo mu prolije krev do vody, dostane dar, ale vodníka už nesmí přímo zranit a po pádu na 0 HP mu slouží. Kdo utone jeho rukou, vstane za 1d6 kol jako utopenec.
+- **Ochrana (doplněk).** Nůž zabodnutý do země při rozhovoru: nemůže sesílat moc. Nesnáší namalovaný kříž.
 - **Tajemství.** Každý vodník byl kdysi utopený mlynářský tovaryš. Kdo najde jeho hrob, může ho vykoupit.
 
 **Výkupné a kořist.** Hrnečky s dušemi, dýmka, která nezhasne, a mlynářův dluh.

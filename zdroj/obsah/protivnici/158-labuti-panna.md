@@ -53,12 +53,16 @@ Dívka, která umí být labutí. Žije na rybnících a jezerech, kde nikdo ner
 
 ## Relikt
 
+- **Zrodil ho.** Žal a ztráta domova.
+- **Strach.** 0
 - **Znamení.** Na hladině za úplňku sedm labutí, ráno jen šest. Na hrázi bílé peří, ze kterého se nedá nacpat polštář – vyklouzne.
 - **Zákon.** Kdo jí vezme labutí šat, tomu musí sloužit a zůstat s ním, dokud šat nenajde. Pak odletí a nikdy se nevrátí.
 - **Moc.** Lov, let, řeč ptáků; rákosí, které na její slovo prořízne nohy.
 - **Co chce.** Volnou hladinu. Pokoj od rybníkářů, kteří vypouštějí rybníky, a od lovců, kteří střílejí labutě.
 - **Ochrana.** Nestřílet labutě. Kdo jednu zastřelí, toho najde.
-- **Zažehnání.** Labutí panna se nezabíjí, ale odpouští: 1) najít, kdo jí ublížil (kdo zastřelil labuť, kdo vypustil rybník); 2) přinést jí jeho omluvu nebo jeho hlavu; 3) vrátit, co jí patří – šat, mládě, hladinu.
+- **Zažehnání – lidová verze.** Odpuštění: vrátit, co jí patří, a potrestat viníka.
+- **Zažehnání – úplný obřad.** Labutí panna se nezabíjí, ale odpouští: 1) najít, kdo jí ublížil (kdo zastřelil labuť, kdo vypustil rybník); 2) přinést jí jeho omluvu nebo jeho hlavu; 3) vrátit, co jí patří – šat, mládě, hladinu.
+- **Rozplynutí.** Odletí na 1d6 hodin.
 - **Tajemství.** Rybníkáři Rožmberků vypouštějí rybníky, kde labutí panny žijí – a ony si to pamatují. Jedna z nich má s rybníkářem z Hlubokého děti.
 
 **Výkupné a kořist.** Labutí šat. Kdo ho drží, má ji ve službě – a jednou ji ztratí. Dva šípy se stříbrnými hroty (+1 k útoku, Svaté proti Zatraceným).

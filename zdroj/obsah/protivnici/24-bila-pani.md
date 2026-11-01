@@ -54,12 +54,17 @@ Duch paní z rodu, který na hradě sídlí. Zjevuje se před smrtí v rodu a hl
 
 ## Relikt
 
+- **Zrodil ho.** Vina a žal rodu.
+- **Strach.** 2/1 (WIS DC 13 poprvé, DC 11 poté)
 - **Znamení.** Bílá postava v oknech; rukavice bílé značí radost, černé smrt; klíče zvoní na chodbě.
 - **Zákon.** Musí rod varovat před smrtí a neštěstím. Smí jen ukazovat, ne mluvit. Nesmí opustit hrad.
 - **Moc.** Předpověď, zjevení, chlad.
 - **Co chce.** Aby se splnil její odkaz (sladká kaše chudým, slib rodu, smír).
 - **Ochrana.** Konat její odkaz.
-- **Zažehnání.** 1) Zjistit, kým byla (je starší než dnešní rody). 2) Najít slib, který rod nedodržel. 3) Slib splnit.
+- **Zažehnání – lidová verze.** Splnit, co nedokončila: slib rodu, který nikdo nedodržel.
+- **Zažehnání – úplný obřad.** 1) Zjistit, kým byla (je starší než dnešní rody). 2) Najít slib, který rod nedodržel. 3) Slib splnit.
+- **Rozplynutí.** Nemá; jen odejde. Je nehmotná a v boji nezranitelná.
+- **Moc (doplněk).** Posílá sny členům rodu; modré plameny svíček.
 - **Tajemství.** Perchta z Rožmberka roku 1458 žije (v nešťastném manželství s Lichtenštejnem). Bílá paní jindřichohradecká je někdo starší – a Perchta ji možná vidí.
 
 **Výkupné a kořist.** Prsten nebo list, který nedokončenou věc vysvětlí. Klid jí přinese splnění, ne meč.

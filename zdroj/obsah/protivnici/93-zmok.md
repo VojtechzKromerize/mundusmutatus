@@ -50,12 +50,18 @@ Ohnivý pták, který nosí svému pánovi peníze a obilí. Krmit se musí kaž
 
 ## Relikt
 
+- **Zrodil ho.** Chamtivost a strach o živobytí.
+- **Strach.** 0
+- **Nálady.** Nenávistný +2 (zapálí střechu, když zapomenete smaženici).
 - **Znamení.** Ohnivý pruh v noci letí do komína; jedna chalupa bohatne, celá ves chudne; v komíně peří a mosazný prach.
 - **Zákon.** Slouží jen tomu, kdo ho krmí smaženicí každou noc. Zapomene-li pán, zapálí mu střechu.
 - **Moc.** Nosí peníze a obilí; promění se v kohouta, kočku nebo ohnivého ptáka.
 - **Co chce.** Smaženici, službu, nakonec duši.
 - **Ochrana.** Nedotknout se peněz, které přinesl.
-- **Zažehnání.** 1) Chytit ho v kohoutí podobě. 2) Nakrmit ho smaženicí s křídou místo soli. 3) Uvěznit ho v posvěcené láhvi a hodit do tekoucí vody.
+- **Zažehnání – lidová verze.** 1) Chytit ho v kohoutí podobě. 2) Nakrmit ho smaženicí s křídou místo soli. 3) Uvěznit ho v posvěcené láhvi a hodit do tekoucí vody.
+- **Zažehnání – úplný obřad.** Totéž co u raráška: rok a den bez nového bodu hříchu a pokání, nebo cesta ďábla. Zmok pak uschne.
+- **Rozplynutí.** Hozený pryč se vrátí za 1d6 hodin.
+- **Cena.** Majitel ho musí denně krmit smaženicí; hoď 1d6 při každém použití, na 1 magie unikne.
 - **Tajemství.** Zmok je vzdálený příbuzný ohnivých draků. Plivník, který ho uslyší, přiletí.
 
 **Výkupné a kořist.** Mosazný prach, který byl kdysi zlatem, a mlynář s velmi drahým tajemstvím.
