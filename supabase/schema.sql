@@ -2478,6 +2478,8 @@ create table if not exists public.forum_temata (
 );
 alter table public.forum_temata add column if not exists ceka_od timestamptz;
 alter table public.forum_temata add column if not exists pripomenuto timestamptz;
+-- „Dosud se stalo“ (2026-11-01): shrnutí questu nahoře v tématu, píše vypravěč
+alter table public.forum_temata add column if not exists shrnuti text check (char_length(shrnuti) <= 2000);
 create index if not exists forum_temata_forum on public.forum_temata (forum, posledni_cas desc);
 create index if not exists forum_temata_ucastnici on public.forum_temata using gin (ucastnici);
 create table if not exists public.forum_prispevky (
@@ -2660,7 +2662,7 @@ begin
       'soukrome', fo.soukrome, 'zamceno', fo.zamceno, 'herni_datum', tm.herni_datum, 'stav', tm.stav, 'prilepene', tm.prilepene,
       'ucastnici', tm.ucastnici, 'ceka_na', tm.ceka_na,
       'ceka_jmena', (select coalesce(jsonb_agg(public.mm_forum_jmeno(e)), '[]'::jsonb) from unnest(tm.ceka_na) e),
-      'ceka_me', k = any (tm.ceka_na), 'ceka_od', tm.ceka_od,
+      'ceka_me', k = any (tm.ceka_na), 'ceka_od', tm.ceka_od, 'shrnuti', tm.shrnuti,
       'stoji_dni', case when cardinality(tm.ceka_na) > 0 and tm.stav = 'otevrene' and tm.ceka_od is not null then floor(extract(epoch from now() - tm.ceka_od) / 86400)::int end,
       'pocet', tm.pocet, 'posledni_id', tm.posledni_id, 'pripomenout_dni', tm.pripomenout_dni),
     'prispevky', pr,
@@ -2816,6 +2818,7 @@ begin
     if char_length(btrim(n ->> 'nazev')) not between 1 and 120 then raise exception 'neplatný název'; end if;
     update public.forum_temata set nazev = btrim(n ->> 'nazev') where id = p_tema;
   end if;
+  if n ? 'shrnuti' then update public.forum_temata set shrnuti = nullif(left(btrim(coalesce(n ->> 'shrnuti', '')), 2000), '') where id = p_tema; end if;
   if n ? 'herni_datum' then update public.forum_temata set herni_datum = nullif(left(btrim(coalesce(n ->> 'herni_datum', '')), 40), '') where id = p_tema; end if;
   if n ? 'stav' then
     if n ->> 'stav' not in ('otevrene', 'uzavrene') then raise exception 'neplatný stav'; end if;

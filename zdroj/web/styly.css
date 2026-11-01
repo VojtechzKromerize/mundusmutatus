@@ -4225,3 +4225,119 @@ html.mmpc:not(.mmjenhra) .bdmweb{display:grid;font-size:1.2rem}
 .fochip.fotajch{border-color:var(--kat);color:var(--kat);white-space:normal}
 .fopro{display:flex;flex-wrap:wrap;gap:4px 14px}.fopro .foprok{display:flex;flex-wrap:wrap;gap:4px 14px;flex-basis:100%;padding-left:1.4em}.fopro .foprok[hidden]{display:none}
 .fotxt .foimg{display:inline-block;max-width:100%;margin:4px 0}.fotxt .foimg img{display:block;max-width:100%;max-height:420px;width:auto;height:auto;border:1px solid var(--rule);border-radius:3px}
+/* ===== Fórum – návrh 2 (2026-11-01): kronika – vyprávění s iniciálou, medailony, pečeti hodů, kompaktní psaní ===== */
+.foik{flex:none;vertical-align:-.2em}
+.fomed{flex:none;display:inline-flex;align-items:center;justify-content:center;overflow:hidden;border-radius:50%;background:var(--med,#5b1e27);color:#f4ecd8;border:2px solid var(--gold);box-shadow:0 0 0 2px var(--paper),0 0 0 3px var(--gold);font-family:var(--f-disp);line-height:1}
+.fomed img{width:100%;height:100%;object-fit:cover}
+.fomed.fomedc{border-radius:3px}
+.fomed-v{width:52px;height:52px;font-size:24px}.fomed-m{width:32px;height:32px;font-size:15px;box-shadow:none;border-width:1px}
+.fonatahu .fomed{border-color:var(--kal);box-shadow:0 0 0 2px var(--paper),0 0 0 4px var(--kal)}
+/* obsah fóra */
+.fohlava{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:flex-end;justify-content:space-between}.fohlava .fohled{flex:0 1 380px}
+.foh2{font-size:clamp(2rem,6vw,3rem)}
+.fodlazdice{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:12px}
+.fodl{display:flex;align-items:center;gap:14px;padding:12px 14px;background:var(--paper);border:1px solid var(--rule);text-decoration:none;color:var(--ink)}
+.fodl:hover{border-color:var(--ink)}.fodl.fodlred{border-color:var(--kal)}
+.fodl>span:last-child{display:flex;flex-direction:column;line-height:1.25}.fodl b{font-family:var(--f-nadp);font-size:1.08rem}.fodl small{color:var(--muted)}
+.fopc{flex:none;width:44px;height:44px;border-radius:50%;background:#8f1f24;color:#f4ecd8;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:1.1rem;box-shadow:inset 0 0 0 2px #b8484d;font-family:var(--f-label)}
+.fopc.fopcmodra{background:#2a4787;box-shadow:inset 0 0 0 2px #5c79b8}.fopc.fopcsvetla{background:var(--land);color:var(--ink);box-shadow:inset 0 0 0 1px var(--rule)}
+.fokat>h3{background:#5b1e27;color:#f4ecd8;font-family:var(--f-disp);font-weight:500;font-size:1.55rem;letter-spacing:.01em;padding:8px 18px;border-bottom:2px solid var(--gold);box-shadow:inset 0 -4px 0 #5b1e27,inset 0 -5px 0 rgba(227,201,127,.5)}
+.forad{grid-template-columns:48px minmax(0,1fr) 70px minmax(0,240px);align-items:center;gap:14px;padding:12px 18px}
+.foerb{width:42px;height:48px;background:var(--erb,#5b1e27);color:#f4ecd8;clip-path:polygon(0 0,100% 0,100% 62%,50% 100%,0 62%);display:flex;justify-content:center;padding-top:7px;box-sizing:border-box;font-family:var(--f-disp);font-size:1.35rem;line-height:1}
+.fojmr{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px}.fonaz{font-family:var(--f-nadp);font-weight:700;font-size:1.2rem;margin:0}
+.fopos{display:flex;align-items:center;gap:10px;min-width:0}.fopost{display:flex;flex-direction:column;min-width:0;line-height:1.25}.fopost a{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* hlavička tématu jako karta questu */
+.foquest{background:var(--paper);border:1px solid var(--rule);box-shadow:inset 0 0 0 3px var(--paper),inset 0 0 0 4px var(--rule);padding:20px 26px;display:flex;flex-direction:column;gap:12px}
+.foqmeta{margin:0;display:flex;flex-wrap:wrap;gap:4px 16px;font-family:var(--f-label);letter-spacing:.04em;color:var(--muted)}.foqtyp{color:var(--kal);font-weight:700}
+.foqmez{flex:1}
+.foqnazev{font-family:var(--f-disp);font-weight:500;font-size:clamp(2rem,6vw,3rem);line-height:1.05;margin:0}
+.foqnazev::before{content:none}.foqnazev::first-letter{color:var(--kal)}
+.foqlidi{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px}.foql{font-family:var(--f-label);color:var(--muted);letter-spacing:.05em}.foqmed{display:flex;flex-wrap:wrap;gap:10px}
+.foqdosud{border-top:1px solid var(--rule);padding-top:10px}.foqdosud summary{cursor:pointer;font-family:var(--f-nadp);font-weight:700;min-height:32px}
+.foqdosud .fotxt{font-style:italic;color:var(--muted);margin-top:6px;max-width:48em}
+/* příspěvky */
+.foprisp{gap:16px}
+.fopris{display:flex;gap:16px;border:1px solid var(--rule);background:var(--paper);padding:16px 20px}
+.fopris .fopan{background:none;border:0;padding:0;display:flex;flex-direction:column;align-items:center;gap:8px;flex:none}
+.fopris .foobs{padding:0;flex:1;min-width:0}
+.fopecz{display:flex;width:30px;height:30px;border-radius:50%;background:#8f1f24;color:#f4ecd8;align-items:center;justify-content:center;box-shadow:inset 0 0 0 2px #b8484d}
+.foobs>.foautor{display:flex;flex-wrap:wrap;gap:2px 10px;align-items:baseline;margin-bottom:6px}
+.foautor b{font-family:var(--f-nadp);font-weight:700;font-size:1.15rem;color:var(--kal)}.foautor small{font-family:var(--f-label);color:var(--muted)}
+.forubr{display:block;font-family:var(--f-label);font-weight:700;letter-spacing:.08em;color:var(--kal);font-size:.9rem;margin-bottom:6px}
+.fovyp{background:none;border:0;padding:4px 20px 0 22px;display:block}
+.fovyp .fotxt{font-size:1.1rem;line-height:1.6}
+.fovyp .fotxt>p:first-child::first-letter{float:left;font-family:var(--f-disp);font-size:2.8em;line-height:1;padding:.1em .14em .06em;margin:.06em .16em 0 0;background:#2a4787;color:#fff;border:3px solid #c99a3a;box-shadow:inset 0 0 0 2px #9fb6e8}
+.foooc{display:block;background:none;border:0;border-left:2px solid var(--rule);padding:2px 0 2px 14px;margin-left:min(10%,80px);font-family:var(--f-label);font-size:.95rem;color:var(--muted)}
+.foooc header{color:var(--ink)}.foooc .fotxt p{margin:0 0 .3em}.foooc footer{display:none}.foooc:hover footer,.foooc:focus-within footer{display:flex}
+.fopozn{display:block;background:none;border:1px dashed var(--gold);padding:10px 16px;font-family:var(--f-label);color:var(--muted)}
+.fopozn header,.foooc header,.fovyp header{border:0;padding:0}
+.fopozn header{display:flex;align-items:center;gap:6px;color:var(--ink);margin-bottom:4px}.fopozn .foik{color:var(--gold)}
+.fopris.fotajny:not(.fopozn){background:var(--land);border-style:solid}
+.fochip.fotajch{display:inline-flex;align-items:center;gap:5px;border-color:var(--kal);color:var(--kal);font-weight:700;margin-bottom:6px}
+/* pečeti hodů */
+.fohod{margin:8px 0 0}
+.fopecet{display:inline-flex;flex-wrap:wrap;align-items:center;gap:6px 12px;padding:5px 14px 5px 5px;background:var(--land);border:1px solid var(--rule);border-radius:30px;font-family:var(--f-label);max-width:100%}
+.fopecet .fopc{width:40px;height:40px;font-size:1.05rem}
+.fopt{display:flex;flex-direction:column;line-height:1.2;min-width:0}.fopt small{color:var(--muted);font-size:.8rem}
+.fozav{display:inline-flex;align-items:center;gap:5px;color:var(--gold);font-weight:700;font-size:.9rem}.fozavt{color:var(--gold)!important;font-weight:700}
+.fokrit{color:var(--kal);font-weight:700;font-size:.9rem}
+.fopecet.fopectaj{background:none;border-style:dashed;border-color:var(--kat)}.fopecet.fopectaj .fopc{background:#2a4787;box-shadow:inset 0 0 0 2px #5c79b8}
+.fohodchip{display:inline-flex;align-items:center;gap:2px;margin:0;border:0;padding:0}
+.fohodyr{display:flex;flex-wrap:wrap;gap:8px}
+/* výzvy k hodu */
+.fovyzvy{margin-top:10px;display:flex;flex-direction:column;gap:8px}
+.fovyzva{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;padding:10px 12px;background:var(--land);border:1px solid var(--rule);border-left:3px solid var(--kat);font-family:var(--f-label)}
+.fovyzt{display:inline-flex;align-items:center;gap:8px;flex:1 1 220px}.fovyzt .foik{color:var(--kat)}
+.fovyzva .fovhodb{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;background:#5b1e27;color:#f4ecd8;border:1px solid var(--gold);font-weight:700}
+.fovyzpill{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 4px 0 12px;background:#2a4787;color:#f4ecd8;border-radius:18px;font-family:var(--f-label);font-size:.9rem}
+.fovyzpill button{width:28px;height:28px;border-radius:50%;border:0;background:rgba(255,255,255,.18);color:inherit;cursor:pointer}
+.fovyzl{display:flex;flex-wrap:wrap;gap:8px}
+/* předěl nových */
+.fopredel{gap:12px;font-size:.92rem;letter-spacing:.05em}
+/* formulář odpovědi */
+.foformpsani{box-shadow:inset 0 0 0 3px var(--paper),inset 0 0 0 4px var(--rule);padding:16px 20px}
+.fokomp{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px}.fokomp h3{font-family:var(--f-nadp);font-size:1.2rem}
+.fodruh{display:inline-flex;border:1px solid var(--ink);border-radius:3px;overflow:hidden}
+.fodruh label{position:relative;display:block}
+.fodruh input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.fodruh span{display:flex;align-items:center;min-height:36px;padding:0 13px;font-family:var(--f-label);font-size:.95rem;cursor:pointer}
+.fodruh input:checked+span{background:var(--ink);color:var(--paper)}.fodruh input:focus-visible+span{outline:2px solid var(--gold);outline-offset:-3px}
+.fouvidi{flex-direction:row!important;align-items:center;gap:8px!important}.fouvidi select{font:inherit;min-height:36px;padding:0 8px;background:var(--bg);color:var(--ink);border:1px solid var(--rule);border-radius:3px}
+.foformpsani .foprok{display:flex;flex-wrap:wrap;gap:4px 14px;font-family:var(--f-label)}.foformpsani .foprok[hidden]{display:none}
+.foformpsani .foprok label{flex-direction:row;align-items:center;gap:6px}
+.fopanel{border:1px dashed var(--rule);padding:8px 12px;background:var(--bg)}
+.fopanel[hidden]{display:none}
+.fojako{flex-direction:row!important;align-items:center;gap:8px!important}.fojako input{min-height:36px}
+.fopills{display:flex;flex-wrap:wrap;gap:8px}
+.fopill{display:inline-flex;align-items:center;gap:7px;min-height:40px;padding:0 14px;font-family:var(--f-label);font-size:.95rem;color:var(--ink);background:var(--land);border:1px solid var(--rule);border-radius:20px;cursor:pointer}
+.fopill[aria-expanded=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.foceka summary{cursor:pointer;font-family:var(--f-label);color:var(--muted)}
+.foodesl{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;justify-content:flex-end}.fopak{font-family:var(--f-label);color:var(--muted)}.fopak b{color:var(--ink)}
+.foodeslat{min-height:44px;padding:0 24px;background:#5b1e27;color:#f4ecd8;border:1px solid var(--gold);font-weight:700;font-size:1rem}
+.fopsani{position:relative}
+.fozmen{position:absolute;left:12px;bottom:10px;z-index:3;min-width:220px;background:var(--paper);border:1px solid var(--rule);box-shadow:0 4px 14px rgba(0,0,0,.2);display:flex;flex-direction:column}
+.fozmen[hidden]{display:none}
+.fozmen button{display:flex;align-items:center;gap:10px;min-height:44px;padding:0 12px;background:none;border:0;text-align:left;font:inherit;color:var(--ink);cursor:pointer}
+.fozmen button[aria-selected=true],.fozmen button:hover{background:var(--land)}.fozmen small{color:var(--muted);font-family:var(--f-label)}
+.fokartad summary{display:flex;align-items:center;gap:8px}
+.fodalsi{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;font-family:var(--f-label)}
+.fofab{display:none}
+@media (max-width:700px){
+  .forad{grid-template-columns:40px minmax(0,1fr) auto}.forad .fonum{display:none}.forad .fopos{grid-column:2/-1}
+  .foerb{width:36px;height:42px;font-size:1.15rem}
+  .foquest{padding:14px 14px}
+  .fopris{padding:12px 14px}
+  .fopris{gap:12px}
+  .fomed-v{width:40px;height:40px;font-size:19px}
+  .fovyp{padding:0 2px}.foooc{margin-left:8px}
+  .fotb{flex-wrap:nowrap;overflow-x:auto}
+  .fofab{display:inline-flex;position:fixed;right:16px;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:20;align-items:center;gap:8px;min-height:52px;padding:0 20px;border-radius:26px;background:#5b1e27;border:2px solid var(--gold);color:#f4ecd8;text-decoration:none;font-family:var(--f-label);font-weight:700;box-shadow:0 4px 14px rgba(0,0,0,.3)}
+  .foformpsani{padding:12px}
+}
+.fopan>.fomed{display:inline-flex}
+.fohod{border:0;padding:0}
+.fopozn header,.foooc header{flex-direction:row;align-items:center;flex-wrap:wrap;gap:4px 6px;margin-bottom:4px}
+.fopozn .fotxt,.foooc .fotxt{font-family:var(--f-body);font-size:1rem}
+.fopris.fotajny:not(.fopozn){border-color:var(--rule)}
+.fotb .fotbb{flex:none}
+.foformpsani:focus-within~.fofab{display:none}

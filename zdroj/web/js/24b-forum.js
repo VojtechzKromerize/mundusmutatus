@@ -23,6 +23,8 @@ const FORUM = {
   npc: null,
   scena: null,
   bezZachyceni: false,
+  panel: "",
+  druh: "ic",
   pocet: undefined,
   pocetBeh: false,
   skok: null,
@@ -198,6 +200,31 @@ function forumFormatuj(ta, id) {
   ta.focus();
   ta.dispatchEvent(new Event("input", {bubbles: true}));
 }
+/* ikony fóra (linkové, jako drobné ikony karty) místo emoji */
+const FIK = {
+  kostka:
+    '<rect x="4" y="4" width="16" height="16" rx="3"></rect><circle cx="9" cy="9" r="1.1" fill="currentColor"></circle><circle cx="15" cy="15" r="1.1" fill="currentColor"></circle><circle cx="12" cy="12" r="1.1" fill="currentColor"></circle>',
+  terc: '<circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="4.5"></circle><circle cx="12" cy="12" r="1"></circle>',
+  zamek: '<rect x="5" y="11" width="14" height="9" rx="1.5"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path>',
+  pero: '<path d="M4 20l4-1 11-11-3-3L5 16l-1 4z"></path>',
+  spendlik: '<path d="M9 3h6l-1 6 3 3H7l3-3-1-6zM12 12v9"></path>',
+  svitek: '<path d="M6 4h11a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H7"></path><path d="M6 4a2 2 0 0 0-2 2v1h4V6a2 2 0 0 0-2-2zM8 9h7M8 13h7M8 17h4"></path>',
+  kvet: '<path d="M12 3c2 3 2 6 0 9-2-3-2-6 0-9zM3 12c3-2 6-2 9 0-3 2-6 2-9 0zM21 12c-3 2-6 2-9 0 3-2 6-2 9 0zM12 21c-2-3-2-6 0-9 2 3 2 6 0 9z"></path>',
+};
+const fIk = (k, v = 18) =>
+  `<svg class="foik" width="${v}" height="${v}" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${FIK[k] || ""}</svg>`;
+/* medailon autora: portrét z karty (hráč) nebo žeton NPC, jinak monogram v barvě podle jména; hráči kulatí, NPC čtvercoví (jako v boji) */
+const FBARVY = ["#5b1e27", "#2a4787", "#3d5a3a", "#6b4a2e", "#4a3a6b", "#7a6a3a"];
+function fBarva(t) {
+  let h = 0;
+  for (const c of String(t || "")) h = (h * 31 + c.charCodeAt(0)) >>> 0;
+  return FBARVY[h % FBARVY.length];
+}
+function fMedailon(id, jm, img, ctverec, vel) {
+  const ok = typeof img === "string" && /^(data:image\/|https?:|art\/)/.test(img),
+    mono = typeof bojMono === "function" ? bojMono(jm) : String(jm || "?").charAt(0);
+  return `<span class="fomed fomed-${vel}${ctverec ? " fomedc" : ""}" style="--med:${fBarva(jm)}" aria-hidden="true">${ok ? `<img src="${besc(img)}" alt="" loading="lazy">` : besc(mono)}</span>`;
+}
 const fJmeno = id => (id === "gm" ? "Vypravěč" : (KARTBY[id] || {}).n || id);
 function forumUvod(h) {
   return `<nav class="fonav subnav" aria-label="Fórum"><a href="#forum">Obsah fóra</a><a href="#forum/m/ceka">Čekají na mě${forumOdznakHtml()}</a><a href="#forum/m">Moje témata</a>${mmJenHra() ? `<a href="#hra">Zpět do Hry</a>` : ""}${h || ""}</nav>`;
@@ -331,7 +358,11 @@ async function forumTemaNacti(k) {
       } catch (e) {}
     FORUM.scena = sc || null;
   }
-  return {n, souseda: GMV ? await MMDB.forumTemata(n.tema.forum, null) : null};
+  let souseda = null;
+  try {
+    souseda = await MMDB.forumTemata(n.tema.forum, k);
+  } catch (e) {}
+  return {n, souseda};
 }
 function forumPuls() {
   if (!forumMuze()) return;
@@ -368,25 +399,33 @@ function forumIndexVykresli(box, hlava) {
     ceka = S.reduce((a, f) => a + (f.ceka || 0), 0),
     nove = S.reduce((a, f) => a + (f.nove || 0), 0);
   const fora = rodic => S.filter(f => f.rodic === rodic && f.druh === "forum");
-  const radek = f => {
+  const radek = (f, ki) => {
     const pod = fora(f.id);
-    const chips = `${f.ceka ? `<span class="fochip fotvuj">Čeká se na tebe · ${f.ceka}</span>` : ""}${f.nove ? `<span class="fochip fonove">nové · ${f.nove}</span>` : ""}${f.soukrome ? `<span class="fochip">soukromé</span>` : ""}${f.zamceno ? `<span class="fochip">jen pro čtení</span>` : ""}`;
+    const chips = `${f.ceka ? `<span class="fochip fotvuj">čeká se na tebe</span>` : ""}${f.nove ? `<span class="fochip fonove">${f.nove} nové</span>` : ""}${f.soukrome ? `<span class="fochip">soukromé</span>` : ""}${f.zamceno ? `<span class="fochip">jen pro čtení</span>` : ""}`;
     const pos = f.posledni
-      ? `<a href="#forum/t/${f.posledni.tema}">${besc(f.posledni.nazev)}</a><small>${besc(f.posledni.jmeno)} · ${fCas(f.posledni.cas)}</small>`
+      ? `${fMedailon(null, f.posledni.jmeno, "", false, "m")}<span class="fopost"><a href="#forum/t/${f.posledni.tema}">${besc(f.posledni.nazev)}</a><small>${besc(f.posledni.jmeno)} · ${fCas(f.posledni.cas)}</small></span>`
       : `<small>zatím nic</small>`;
-    return `<div class="forad"><div class="fojm"><a class="fonaz" href="#forum/f/${besc(f.id)}">${besc(f.nazev)}</a>${chips}${f.popis ? `<p>${besc(f.popis)}</p>` : ""}${
+    return `<div class="forad"><span class="foerb" style="--erb:${FBARVY[ki % FBARVY.length]}" aria-hidden="true">${besc((f.nazev.match(/\p{L}/u) || ["·"])[0].toLocaleUpperCase("cs"))}</span><div class="fojm"><span class="fojmr"><a class="fonaz" href="#forum/f/${besc(f.id)}">${besc(f.nazev)}</a>${chips}</span>${f.popis ? `<p>${besc(f.popis)}</p>` : ""}${
       pod.length ? `<p class="fopod">Podfóra: ${pod.map(p => `<a href="#forum/f/${besc(p.id)}">${besc(p.nazev)}</a>`).join(" · ")}</p>` : ""
-    }</div><div class="fonum" title="Témata"><b>${f.temat}</b><small>témat</small></div><div class="fonum" title="Příspěvky"><b>${f.prispevku}</b><small>příspěvků</small></div><div class="fopos">${pos}</div></div>`;
+    }</div><div class="fonum" title="Témata"><b>${f.temat}</b><small>témat</small></div><div class="fopos">${pos}</div></div>`;
   };
   if (GMV && FORUM.uprav) return forumStrukturaVykresli(box, hlava);
-  box.innerHTML = `${forumUvod()}<h2 class="arttitle">Fórum</h2>${hlava}
-    <p class="fodatum">Herní datum: <b>${besc(forumHerniDatum())}</b></p>
-    ${forumHledaniHtml()}
-    <p class="fosouhrn">${ceka ? `<span class="fochip fotvuj">Čekají na tebe: ${ceka}</span>` : `<span class="fochip">Nic na tebe nečeká</span>`}${nove ? ` <span class="fochip fonove">Nepřečtená témata: ${nove}</span>` : ""}${GMV ? ` <button type="button" class="gbtn ghost" data-fouprav>Upravit strukturu</button>` : ""}</p>
+  box.innerHTML = `${forumUvod()}
+    <div class="fohlava"><div><p class="fodatum">Herní datum: <b>${besc(forumHerniDatum())}</b></p><h2 class="arttitle foh2">Fórum družiny</h2></div>${forumHledaniHtml()}</div>${hlava}
+    <div class="fodlazdice">
+      <a class="fodl${ceka ? " fodlred" : ""}" href="#forum/m/ceka"><span class="fopc">${ceka}</span><span><b>Čeká se na tebe</b><small>${ceka ? "témata, kde jsi na tahu" : "nikde nejsi na tahu"}</small></span></a>
+      <a class="fodl" href="#forum/m"><span class="fopc fopcmodra">${nove}</span><span><b>Nepřečtená témata</b><small>od tvé poslední návštěvy</small></span></a>
+      <a class="fodl" href="#forum/m"><span class="fopc fopcsvetla">${fIk("pero", 22)}</span><span><b>Moje témata</b><small>kde píšeš nebo hraješ</small></span></a>
+    </div>
+    ${GMV ? `<p class="fosouhrn"><button type="button" class="gbtn ghost" data-fouprav>Upravit strukturu</button></p>` : ""}
     ${kat
       .map(
-        k =>
-          `<section class="fokat"><h3>${besc(k.nazev)}</h3>${k.popis ? `<p class="fopopis">${besc(k.popis)}</p>` : ""}${fora(k.id).map(radek).join("") || '<p class="rsmall fopraz">Zatím bez fór.</p>'}</section>`,
+        (k, ki) =>
+          `<section class="fokat"><h3>${besc(k.nazev)}</h3>${k.popis ? `<p class="fopopis">${besc(k.popis)}</p>` : ""}${
+            fora(k.id)
+              .map(f => radek(f, ki))
+              .join("") || '<p class="rsmall fopraz">Zatím bez fór.</p>'
+          }</section>`,
       )
       .join("")}
     ${S.length ? "" : '<p class="rsmall">Fórum se načítá…</p>'}`;
@@ -457,7 +496,7 @@ function forumCesta(f) {
     .join("");
 }
 function forumStav(t) {
-  return `${t.prilepene ? `<span class="fochip">📌 přilepené</span>` : ""}${t.stav === "uzavrene" ? `<span class="fochip">uzavřené</span>` : ""}${
+  return `${t.prilepene ? `<span class="fochip">${fIk("spendlik", 13)} přilepené</span>` : ""}${t.stav === "uzavrene" ? `<span class="fochip">uzavřené</span>` : ""}${
     t.ceka_me
       ? `<span class="fochip fotvuj">Čeká se na tebe</span>`
       : t.ceka_jmena && t.ceka_jmena.length && t.stav === "otevrene"
@@ -569,10 +608,14 @@ function fHodit(text, popis, vyhoda, zavoj, taj) {
   if (taj) h.taj = true;
   return h;
 }
+/* hod jako pečeť (2026-11-01, návrh 2): voskovaná pečeť s výsledkem, popis a rozpis kostek, Závoj zlatě; tajný hod modrý s přerušovaným obrysem */
 function fHodHtml(h) {
   if (!h) return "";
-  const kost = h.txt ? String(h.txt).replace(/ = -?\d+/, "") : h.dva ? `${h.dva.join(", ")} → ${h.d[0]}` : (h.d || []).join(" + ");
-  return `🎲 ${besc(h.t || "hod")} = <b>${besc(h.vysl)}</b>${kost ? ` <small>(${besc(kost)})</small>` : ""}${h.zavoj ? ` · Závoj k6: ${h.zavoj.k6} – <b>${besc(h.zavoj.t)}</b>` : ""}${h.krit ? " · <b>kritický zásah</b>" : ""}${h.karta ? " <small>(z karty)</small>" : ""}${h.taj ? " <small>(tajně)</small>" : ""}`;
+  const kost = h.txt ? String(h.txt).replace(/ = -?\d+.*$/, "") : h.dva ? `${h.dva.join(", ")} → ${h.d[0]}` : (h.d || []).join(" + ");
+  const pozn = [kost, h.karta ? "z karty" : "", h.taj ? "(tajně)" : ""].filter(Boolean).join(" · ");
+  return `<span class="fopecet${h.taj ? " fopectaj" : ""}"><b class="fopc">${besc(h.vysl)}</b><span class="fopt"><b>${besc(h.t || "hod")}</b>${pozn ? `<small>${besc(pozn)}</small>` : ""}</span>${
+    h.zavoj ? `<span class="fozav">${fIk("kostka", 16)}Závoj k6: ${besc(h.zavoj.k6)} – ${besc(h.zavoj.t)}</span>` : ""
+  }${h.krit ? '<span class="fokrit">kritický zásah</span>' : ""}</span>`;
 }
 /* hod z karty postavy (2026-11-01, Vojta): stejný výpočet jako tlačítko na kartě (kartaHod v 13 – bonusy podle pravidel postavy, stavy,
    vyčerpání, posílení z účinků, kostka Závoje, ruční kostky); hod se zapíše i do herního záznamu, takže ho vypravěč vidí i tam.
@@ -624,18 +667,18 @@ function forumVyzvaFormHtml(t) {
   const L = FORUM.vyzvy
     .map(
       (v, i) =>
-        `<p class="fohodchip">🎯 <b>${besc(fJmeno(v.k))}</b>: ${besc(fCoLbl(v.co))}${v.adv ? (v.adv > 0 ? " s výhodou" : " s nevýhodou") : ""}${v.dc ? ` · SO ${v.dc}` : ""}${v.taj ? " · tajně" : ""} <button type="button" class="fobtn" data-fovx="${i}" aria-label="Odebrat výzvu">✕</button></p>`,
+        `<span class="fovyzpill">${fIk("terc", 16)} ${besc(fJmeno(v.k))} · ${besc(fCoLbl(v.co))}${v.adv ? (v.adv > 0 ? " s výhodou" : " s nevýhodou") : ""}${v.dc ? ` · SO ${v.dc}` : ""}${v.taj ? " · tajně" : ""}<button type="button" data-fovx="${i}" aria-label="Odebrat výzvu">×</button></span>`,
     )
     .join("");
-  return `<details class="fokostky fovyzf"${FORUM.vyzvy.length ? " open" : ""}><summary>🎯 Výzva k hodu</summary>
+  return `<div class="fopanel fovyzf" data-fopanelid="vyzva"${FORUM.panel === "vyzva" ? "" : " hidden"}>
     <div class="fokrow"><select data-fovk aria-label="Kdo hází">${kdo.map(k => `<option value="${besc(k.id)}">${besc(k.n)}</option>`).join("")}</select>
     <select data-fovco aria-label="Co hází">${fCoMoznosti(null)}</select>
     <input data-fovdc type="number" min="1" max="40" inputmode="numeric" placeholder="SO" aria-label="Stupeň obtížnosti" class="fosoin">
     <select data-fovadv aria-label="Výhoda">${FADV}</select>
     <label class="fochk"><input type="checkbox" data-fovtaj> tajně</label>
     <button type="button" class="gbtn ghost" data-fovpridej>Přidat výzvu</button></div>
-    <p class="rsmall">Hráč hodí z karty přímo v příspěvku a výsledek se porovná se SO. Tajně: hráč nevidí SO ani úspěch, ostatní hráči jeho výsledek.</p>
-    ${L}</details>`;
+    <p class="rsmall">Hráč hodí z karty přímo v příspěvku a výsledek se porovná se SO. Tajně: hráč nevidí SO ani úspěch, ostatní hráči jeho výsledek.</p></div>
+    ${L ? `<div class="fovyzl">${L}</div>` : ""}`;
 }
 const fNpcSc = () => ((FORUM.scena && FORUM.scena.npc) || []).filter(n => n && n.n);
 function fNpcBonus(n) {
@@ -650,19 +693,20 @@ function forumNpcFormHtml() {
   const L = fNpcSc(),
     n = FORUM.npc && L.find(x => x.id === FORUM.npc.id);
   const bonus = n && fNpcBonus(n);
-  return `<details class="fokostky fonpcf"${FORUM.npc ? " open" : ""}><summary>🎭 Za NPC ze scény</summary>
-    ${
+  return `<div class="fopanel fonpcf" data-fodruhpanel="npc"${FORUM.druh === "npc" ? "" : " hidden"}>
+    <div class="fokrow">${
       L.length
-        ? `<div class="fokrow"><select data-fonpc aria-label="NPC ze scény"><option value="">— píšu jako vypravěč —</option>${L.map(x => `<option value="${besc(x.id)}"${n && n.id === x.id ? " selected" : ""}>${besc(x.n)}</option>`).join("")}</select></div>`
-        : '<p class="rsmall">Ve scéně nejsou žádné NPC – přidáš je na Hře (Scéna). Jméno můžeš napsat i ručně do pole Jako.</p>'
-    }
+        ? `<select data-fonpc aria-label="NPC ze scény"><option value="">— NPC ze scény —</option>${L.map(x => `<option value="${besc(x.id)}"${n && n.id === x.id ? " selected" : ""}>${besc(x.n)}</option>`).join("")}</select>`
+        : ""
+    }<label class="fojako">Jméno <input name="jako" maxlength="60" placeholder="např. Purkmistr z Kaňku" value="${besc(FORUM.npc ? FORUM.npc.n : "")}"></label></div>
+    ${L.length ? "" : '<p class="rsmall">Ve scéně nejsou žádné NPC – přidáš je na Hře (Scéna). Jméno můžeš napsat i ručně.</p>'}
     ${
       n
-        ? `<p class="fokdo">Protihod za ${besc(n.n)}</p><div class="fokrow"><select data-fonpcco aria-label="Hod NPC">${fCoMoznosti(bonus)}</select><select data-fonpcadv aria-label="Výhoda">${FADV}</select>
+        ? `<div class="fokrow"><span class="fokdo">Protihod</span><select data-fonpcco aria-label="Hod NPC">${fCoMoznosti(bonus)}</select><select data-fonpcadv aria-label="Výhoda">${FADV}</select>
           <label class="fochk"><input type="checkbox" data-fonpcver> veřejně</label><button type="button" class="gbtn ghost" data-fonpchod>Hodit za NPC</button></div>
           <p class="rsmall">Bez „veřejně“ hod vidíš jen ty; hráči ho v příspěvku neuvidí.</p>`
         : ""
-    }</details>`;
+    }</div>`;
 }
 function forumNpcHod(n, co, adv, ver) {
   const bonus = fNpcBonus(n),
@@ -684,11 +728,18 @@ function forumVyzvyHtml(p, T) {
         so = v.dc != null ? ` · SO ${v.dc}` : v.taj ? " · SO tajné" : "";
       let stav;
       if (o)
-        stav = `<b>${besc(o.vysl)}</b>${o.txt ? ` <small>(${besc(String(o.txt).replace(/ = -?\d+.*$/, ""))})</small>` : ""}${o.zavoj ? ` · Závoj ${besc(o.zavoj.k6)} – ${besc(o.zavoj.t)}` : ""}${o.ok === true ? ' <span class="fochip fook">uspěl</span>' : o.ok === false ? ' <span class="fochip fotvuj">neuspěl</span>' : ""}`;
-      else if (v.k === me && T.tema.stav === "otevrene")
-        stav = `<button type="button" class="gbtn" data-fovhod="${p.id}|${v.i}">Hodit z karty</button>`;
-      else stav = "<small>čeká na hod</small>";
-      return `<p class="fovyzva">🎯 <b>${besc(fJmeno(v.k))}</b>: ${besc(fCoLbl(v.co))}${v.adv ? (v.adv > 0 ? " s výhodou" : " s nevýhodou") : ""}${so}${v.taj && GMV ? " · tajně" : ""} – ${stav}</p>`;
+        stav = `<span class="fopecet"><b class="fopc">${besc(o.vysl)}</b><span class="fopt">${o.txt ? `<small>${besc(String(o.txt).replace(/ = -?\d+.*$/, ""))}</small>` : ""}${o.zavoj ? `<small class="fozavt">Závoj ${besc(o.zavoj.k6)} – ${besc(o.zavoj.t)}</small>` : ""}</span>${o.ok === true ? '<span class="fochip fook">uspěl</span>' : o.ok === false ? '<span class="fochip fotvuj">neuspěl</span>' : ""}</span>`;
+      else if (v.k === me && T.tema.stav === "otevrene") {
+        let b = "";
+        try {
+          const K = jaK(),
+            [k, a] = v.co.split(/:(.*)/s),
+            x = k === "dv" ? kDov(K, a) : k === "ov" ? kOvB(K, a) : k === "za" ? kZach(K, a) : kIni(K);
+          b = ` ${x >= 0 ? "+" : ""}${x}`;
+        } catch (e) {}
+        stav = `<button type="button" class="gbtn fovhodb" data-fovhod="${p.id}|${v.i}">${fIk("kostka", 18)} Hodit z karty${b}</button>`;
+      } else stav = "<small>čeká na hod</small>";
+      return `<div class="fovyzva"><span class="fovyzt">${fIk("terc", 20)}<span><b>${besc(fJmeno(v.k))}</b>: ${besc(fCoLbl(v.co))}${v.adv ? (v.adv > 0 ? " s výhodou" : " s nevýhodou") : ""}${so}${v.taj && GMV ? " · tajně" : ""}</span></span>${stav}</div>`;
     })
     .join("")}</div>`;
 }
@@ -728,7 +779,7 @@ function forumHodZachyt(H) {
 }
 function forumHodyHtml() {
   return FORUM.hody.length
-    ? `<p class="fokdo">Přiložené hody</p>${FORUM.hody.map((h, i) => `<p class="fohodchip">${fHodHtml(h)} <button type="button" class="fobtn" data-fohodx="${i}" aria-label="Odebrat hod">✕</button></p>`).join("")}`
+    ? `<p class="fokdo">Přiložené hody</p><div class="fohodyr">${FORUM.hody.map((h, i) => `<span class="fohodchip">${fHodHtml(h)}<button type="button" class="fobtn" data-fohodx="${i}" aria-label="Odebrat hod">×</button></span>`).join("")}</div>`
     : "";
 }
 function forumHodyPrekresli() {
@@ -792,14 +843,13 @@ function fKoncept(id, v) {
   return "";
 }
 /* ----- Téma ----- */
+/* příspěvek podle druhu (2026-11-01, návrh 2): vyprávění vypravěče bez rámečku s iniciálou, hráč s kulatým medailonem, NPC se čtvercovým,
+   mimo hru jako poznámka na okraji, tajný se zapečetěním, poznámka vypravěče pro sebe přerušovaně */
 function forumPrispevekHtml(p, T) {
   const gm = GMV,
     jenGm = p.skryto && !gm;
   const img = p.karta ? (kartaStav(p.karta) || {}).img : p.npc && p.npc.img ? p.npc.img : "";
-  const av =
-    typeof img === "string" && /^(data:image\/|https?:|art\/)/.test(img) ? `<img class="foav" src="${besc(img)}" alt="" loading="lazy">` : "";
-  const pan = `<div class="fopan">${av}<span><b>${besc(p.jmeno)}</b>${p.karta ? "" : `<small>${p.npc ? "NPC" : "vypravěč"}</small>`}</span></div>`;
-  const hod = p.hod ? (Array.isArray(p.hod.hody) ? p.hod.hody : [p.hod]).map(h => `<p class="fohod">${fHodHtml(h)}</p>`).join("") : "";
+  const hod = p.hod ? (Array.isArray(p.hod.hody) ? p.hod.hody : [p.hod]).map(h => `<div class="fohod">${fHodHtml(h)}</div>`).join("") : "";
   const cit = p.citace
     ? `<blockquote class="focitace"><a href="#forum/t/${T.tema.id}" data-focitskok="${p.citace.id}"><b>${besc(p.citace.jmeno)}</b></a>: ${besc(String(p.citace.t).replace(/[*]/g, ""))}</blockquote>`
     : "";
@@ -808,12 +858,23 @@ function forumPrispevekHtml(p, T) {
     (T.tema.stav === "otevrene" || gm ? `<button type="button" class="fobtn" data-focit="${p.id}">Citovat</button>` : "") +
     (muzeUpravit || gm ? `<button type="button" class="fobtn" data-foupr="${p.id}">Upravit</button>` : "") +
     (gm ? `<button type="button" class="fobtn" data-foskryj="${p.id}" data-s="${p.skryto ? 0 : 1}">${p.skryto ? "Zobrazit" : "Skrýt"}</button>` : "");
-  const pro = forumProTxt(p);
-  return `<article class="fopris${p.ooc ? " foooc" : ""}${p.skryto ? " foskryto" : ""}${pro ? " fotajny" : ""}" id="fop${p.id}" data-foid="${p.id}">${pan}<div class="foobs"><header><small>${fCas(p.cas)}${p.upraveno ? ` · upraveno ${fCas(p.upraveno)}` : ""}${p.ooc ? " · mimo hru" : ""}</small>${pro ? ` <span class="fochip fotajch">🔒 ${besc(pro)}</span>` : ""}</header>${
-    jenGm
-      ? '<p class="rsmall"><i>Příspěvek skryl vypravěč.</i></p>'
-      : `${p.skryto ? '<p class="rsmall"><i>Skryté před hráči.</i></p>' : ""}${cit}<div class="fotxt">${fText(p.t)}</div>${hod}${forumVyzvyHtml(p, T)}`
-  }<footer>${jenGm ? "" : akce}</footer></div></article>`;
+  const pro = forumProTxt(p),
+    pozn = Array.isArray(p.pro) && !p.pro.length && !p.karta,
+    vyp = !p.karta && !p.npc && !p.ooc && !pro && !(p.jako && p.jako !== "Vypravěč"),
+    cas = `${fCas(p.cas)}${p.upraveno ? ` · upraveno ${fCas(p.upraveno)}` : ""}`;
+  const telo = jenGm
+    ? '<p class="rsmall"><i>Příspěvek skryl vypravěč.</i></p>'
+    : `${p.skryto ? '<p class="rsmall"><i>Skryté před hráči.</i></p>' : ""}${cit}<div class="fotxt">${fText(p.t)}</div>${hod}${forumVyzvyHtml(p, T)}`;
+  const pata = `<footer>${jenGm ? "" : akce}</footer>`;
+  if (p.ooc && !pro)
+    return `<article class="fopris foooc${p.skryto ? " foskryto" : ""}" id="fop${p.id}" data-foid="${p.id}"><div class="foobs"><header><b>${besc(p.jmeno)}</b> · mimo hru · <small>${cas}</small></header>${telo}${pata}</div></article>`;
+  if (pozn)
+    return `<article class="fopris fotajny fopozn${p.skryto ? " foskryto" : ""}" id="fop${p.id}" data-foid="${p.id}"><div class="foobs"><header>${fIk("pero", 18)} <b>${besc(pro)}</b> · <small>${cas}</small></header>${telo}${pata}</div></article>`;
+  if (vyp)
+    return `<article class="fopris fovyp${p.skryto ? " foskryto" : ""}" id="fop${p.id}" data-foid="${p.id}"><div class="foobs"><header class="forubr">${besc(p.jmeno)} · ${cas}</header>${telo}${pata}</div></article>`;
+  const pan = `<div class="fopan">${fMedailon(p.karta, p.jmeno, img, !p.karta, "v")}${pro ? `<span class="fopecz" title="Zapečetěno">${fIk("zamek", 16)}</span>` : ""}</div>`,
+    autor = `<header class="foautor"><b>${besc(p.jmeno)}</b><small>${p.karta ? (p.karta === forumKarta() ? "ty" : "postava") : p.npc ? "NPC" : "vypravěč"} · ${cas}</small></header>`;
+  return `<article class="fopris${p.skryto ? " foskryto" : ""}${pro ? " fotajny" : ""}" id="fop${p.id}" data-foid="${p.id}">${pan}<div class="foobs">${autor}${pro ? `<span class="fochip fotajch">${fIk("zamek", 13)} Zapečetěno · ${besc(pro)}</span>` : ""}${telo}${pata}</div></article>`;
 }
 function forumTemaVykresli(box, hlava) {
   const T = FORUM.tema;
@@ -829,41 +890,92 @@ function forumTemaVykresli(box, hlava) {
     .map(p => {
       const novy = !predel && T.cteno0 > 0 && p.id > T.cteno0 && !p.moje;
       if (novy) predel = true;
-      return `${novy ? '<p class="fopredel"><span>Nové od tvé poslední návštěvy</span></p>' : ""}${forumPrispevekHtml(p, T)}`;
+      return `${novy ? `<p class="fopredel">${fIk("kvet", 18)}<span>Nové od tvé poslední návštěvy</span>${fIk("kvet", 18)}</p>` : ""}${forumPrispevekHtml(p, T)}`;
     })
     .join("");
   const muzePsat = t.stav === "otevrene" ? !t.zamceno || GMV : GMV;
   const ta0 = box.querySelector(".foformpsani textarea"),
     ulozeno = ta0 ? ta0.value : fKoncept(t.id);
-  const odp = FORUM.odp;
-  box.innerHTML = `${forumUvod(f ? forumCesta(f) : "")}<h2 class="arttitle">${besc(t.nazev)}</h2>${hlava}
-    <p class="fotstav">${t.herni_datum ? `<span class="fochip">${besc(t.herni_datum)}</span>` : ""}${forumStav(t)}${t.ucastnici.length ? `<span class="fochip">Účastníci: ${besc(t.ucastnici.map(fJmeno).join(", "))}</span>` : ""}</p>
+  /* družina v tématu: účastníci, jinak ti, kdo v něm psali; na tahu s červeným lemem */
+  const lidi = (t.ucastnici.length ? t.ucastnici : [...new Set(T.prispevky.map(p => p.karta).filter(Boolean))]).filter(k => KARTBY[k]);
+  const med = lidi
+    .map(
+      k =>
+        `<span class="fomedw${t.ceka_na.includes(k) ? " fonatahu" : ""}" title="${besc(fJmeno(k))}${t.ceka_na.includes(k) ? " – na tahu" : ""}">${fMedailon(k, fJmeno(k), (kartaStav(k) || {}).img, false, "v")}</span>`,
+    )
+    .join("");
+  const dalsi = (FORUM.souseda || []).find(x => x.id !== t.id && x.nove);
+  box.innerHTML = `${forumUvod(f ? forumCesta(f) : "")}${hlava}
+    <section class="foquest" aria-label="Téma">
+      <p class="foqmeta"><span class="foqtyp">${besc(t.forum_nazev || "")}</span>${t.herni_datum ? `<span>${besc(t.herni_datum)}</span>` : ""}<span class="foqmez"></span><span>${t.pocet} příspěvků · ${t.stav === "otevrene" ? "otevřené" : "uzavřené"}</span></p>
+      <h2 class="foqnazev">${besc(t.nazev)}</h2>
+      <p class="fotstav">${forumStav(t)}${t.ucastnici.length ? `<span class="fochip">jen pro účastníky</span>` : ""}</p>
+      ${med ? `<div class="foqlidi"><span class="foql">Družina v tématu</span><span class="foqmed">${med}</span></div>` : ""}
+      ${t.shrnuti ? `<details class="foqdosud" open><summary>Dosud se stalo</summary><div class="fotxt">${fText(t.shrnuti)}</div></details>` : ""}
+    </section>
     ${GMV ? forumGmNastroje(t) : ""}
     ${T.starsi ? '<p class="fostarsi"><button type="button" class="gbtn ghost" data-fostarsi>Načíst starší příspěvky</button></p>' : ""}
     <div class="foprisp">${html}</div>
-    ${muzePsat && !GMV && jaK() ? `<details class="fokartad" data-fokartad${FORUM.karta ? " open" : ""}><summary>📜 Karta postavy – každý hod z ní se přiloží k odpovědi</summary><div class="fokarta hraja" data-kid="${besc(jaK().id)}">${forumKartaHtml()}</div></details>` : ""}
-    ${
-      muzePsat
-        ? `<form class="foform foformpsani" data-foodp="${t.id}"><h3>Odpovědět</h3>
-        ${odp ? `<p class="focitbanner">Odpověď na <b>${besc(odp.jmeno)}</b>: „${besc(odp.t)}“ <button type="button" class="fobtn" data-focitx>✕</button></p>` : ""}
-        ${GMV ? `<label>Jako <small>(jméno postavy nebo NPC, volitelné)</small> <input name="jako" maxlength="60" placeholder="Vypravěč" value="${besc(FORUM.npc ? FORUM.npc.n : "")}"></label>${forumNpcFormHtml()}` : ""}
-        <div class="fopsani">${forumListaHtml()}${forumVlozitHtml()}<textarea name="t" rows="6" maxlength="8000" required aria-label="Příspěvek"></textarea><div class="fonahled fotxt" hidden aria-live="polite"></div></div>
-        ${forumNapovedaHtml()}
-        <details class="fokostky"><summary>🎲 Hodit kostkou</summary>${!GMV && jaK() ? forumKartaHodyHtml(jaK()) + '<p class="fokdo">Jiná kostka</p>' : ""}<div class="fokrow">
-          <input data-fohf value="1k20" size="8" aria-label="Kostky, např. 1k20+5"><input data-fohl placeholder="Popisek (např. Přesvědčování)" aria-label="Popisek hodu">
-          <select data-fohv aria-label="Výhoda"><option value="">bez výhody</option><option value="v">výhoda</option><option value="n">nevýhoda</option></select>
-          <label class="fochk"><input type="checkbox" data-fohz> Závoj k6</label><label class="fochk"><input type="checkbox" data-fohtaj> tajně</label>
-          <button type="button" class="gbtn ghost" data-fohod>Hodit</button></div>
-          </details>${GMV ? forumVyzvaFormHtml(t) : ""}<div class="fohodyl">${forumHodyHtml()}</div>
-        ${forumProHtml(t)}
-        <label class="fochk"><input type="checkbox" name="ooc"> Mimo hru (nemění, na koho se čeká)</label>
-        ${GMV ? forumUcastniciHtml("Čeká se na", t.ceka_na) : ""}
-        <p><button class="gbtn">Odeslat</button></p></form>`
-        : `<p class="rsmall">${t.stav === "uzavrene" ? "Téma je uzavřené." : "Do tohoto fóra píše jen vypravěč."}</p>`
-    }`;
+    ${muzePsat && !GMV && jaK() ? `<details class="fokartad" data-fokartad${FORUM.karta ? " open" : ""}><summary>${fIk("svitek", 18)} Karta postavy – každý hod z ní se přiloží k odpovědi</summary><div class="fokarta hraja" data-kid="${besc(jaK().id)}">${forumKartaHtml()}</div></details>` : ""}
+    ${muzePsat ? forumFormHtml2(t) : `<p class="rsmall">${t.stav === "uzavrene" ? "Téma je uzavřené." : "Do tohoto fóra píše jen vypravěč."}</p>`}
+    <nav class="fodalsi" aria-label="Další téma"><a href="#forum/f/${besc(t.forum)}">‹ ${besc(t.forum_nazev || "Zpět")}</a>${dalsi ? `<a href="#forum/t/${dalsi.id}">Další nepřečtené: ${besc(dalsi.nazev)} ›</a>` : ""}</nav>
+    ${muzePsat ? `<a class="fofab" href="#" data-fofab>${fIk("pero", 20)} Odpovědět</a>` : ""}`;
   const nov = box.querySelector(".foformpsani textarea");
   if (nov && ulozeno) nov.value = ulozeno;
 }
+/* formulář odpovědi (návrh 2): druh příspěvku a „Uvidí“ nahoře, text s lištou, pod ním tlačítka panelů (kostky, výzva, karta) a Odeslat */
+function forumFormHtml2(t) {
+  const odp = FORUM.odp,
+    me = forumKarta(),
+    druhy = GMV
+      ? [
+          ["ic", "Vyprávění"],
+          ["npc", "Za NPC"],
+          ["ooc", "Mimo hru"],
+          ["pozn", "Poznámka"],
+        ]
+      : [
+          ["ic", "V postavě"],
+          ["ooc", "Mimo hru"],
+        ],
+    kdo = (t.ucastnici.length ? KARTY.filter(k => t.ucastnici.includes(k.id)) : KARTY).filter(k => k.id !== me);
+  const druh = druhy.some(d => d[0] === FORUM.druh) ? FORUM.druh : "ic";
+  const pak = GMV
+    ? ""
+    : (() => {
+        const z = t.ceka_na.filter(k => k !== me);
+        const jm = z.length ? z.map(fJmeno) : f2VedeGm(t) ? ["vypravěče"] : [];
+        return jm.length ? `Pak se čeká na: <b>${besc(jm.join(", "))}</b>` : "";
+      })();
+  const pill = (id, ik, txt) =>
+    `<button type="button" class="fopill" data-fopanel="${id}" aria-expanded="${FORUM.panel === id}">${fIk(ik, 17)}${txt}</button>`;
+  return `<form class="foform foformpsani" data-foodp="${t.id}">
+    <div class="fokomp"><h3>Odpovědět</h3>
+      <span class="fodruh" role="radiogroup" aria-label="Druh příspěvku">${druhy.map(([v, l]) => `<label><input type="radio" name="druh" value="${v}"${v === druh ? " checked" : ""}><span>${l}</span></label>`).join("")}</span>
+      <span class="foqmez"></span>
+      <label class="fouvidi">Uvidí <select name="pro"><option value="">všichni</option>${GMV ? "" : '<option value="gm">jen vypravěč</option>'}${kdo.length ? `<option value="vyber">${GMV ? "vybrané postavy" : "vybrané postavy a vypravěč"}</option>` : ""}</select></label>
+    </div>
+    <span class="foprok" hidden>${kdo.map(k => `<label><input type="checkbox" name="proK" value="${besc(k.id)}"> ${besc(k.n)}</label>`).join("")}</span>
+    ${odp ? `<p class="focitbanner">Odpověď na <b>${besc(odp.jmeno)}</b>: „${besc(odp.t)}“ <button type="button" class="fobtn" data-focitx aria-label="Zrušit citaci">×</button></p>` : ""}
+    ${GMV ? forumNpcFormHtml() : ""}
+    <div class="fopsani">${forumListaHtml()}${forumVlozitHtml()}<textarea name="t" rows="6" maxlength="8000" required aria-label="Příspěvek"></textarea><div class="fozmen" role="listbox" aria-label="Zmínit postavu" hidden></div><div class="fonahled fotxt" hidden aria-live="polite"></div></div>
+    <div class="fopills">${pill("kostky", "kostka", "Kostky")}${GMV ? pill("vyzva", "terc", "Výzva k hodu") : ""}${!GMV && jaK() ? `<button type="button" class="fopill" data-fokartapill>${fIk("svitek", 17)}Karta</button>` : ""}</div>
+    <div class="fopanel" data-fopanelid="kostky"${FORUM.panel === "kostky" ? "" : " hidden"}>${!GMV && jaK() ? forumKartaHodyHtml(jaK()) + '<p class="fokdo">Jiná kostka</p>' : ""}<div class="fokrow">
+      <input data-fohf value="1k20" size="8" aria-label="Kostky, např. 1k20+5"><input data-fohl placeholder="Popisek (např. Přesvědčování)" aria-label="Popisek hodu">
+      <select data-fohv aria-label="Výhoda"><option value="">bez výhody</option><option value="v">výhoda</option><option value="n">nevýhoda</option></select>
+      <label class="fochk"><input type="checkbox" data-fohz> Závoj k6</label><label class="fochk"><input type="checkbox" data-fohtaj> tajně</label>
+      <button type="button" class="gbtn ghost" data-fohod>Hodit</button></div></div>
+    ${GMV ? forumVyzvaFormHtml(t) : ""}
+    <div class="fohodyl">${forumHodyHtml()}</div>
+    ${GMV ? `<details class="foceka"><summary>Čeká se na: <b>${besc(t.ceka_na.map(fJmeno).join(", ") || "nikoho")}</b> (změnit)</summary>${forumUcastniciHtml("Čeká se na", t.ceka_na)}</details>` : ""}
+    <div class="foodesl"><span class="fopak">${pak}</span><button class="gbtn foodeslat">Odeslat</button></div>
+    ${forumNapovedaHtml()}
+  </form>`;
+}
+const f2VedeGm = t => {
+  const f = (FORUM.strom || []).find(x => x.id === t.forum);
+  return !!(f && f.vede_gm);
+};
 function forumGmNastroje(t) {
   const S = FORUM.strom || [];
   const jine = (FORUM.souseda || []).filter(x => x.id !== t.id);
@@ -877,20 +989,11 @@ function forumGmNastroje(t) {
     ${jine.length ? `<form data-fosloucit class="fosloupec"><label>Sloučit s tématem <select name="do">${jine.map(x => `<option value="${x.id}">${besc(x.nazev)}</option>`).join("")}</select></label><button class="gbtn ghost">Sloučit (toto téma zanikne)</button></form>` : ""}
     <form data-fonast-f><label>Název <input name="nazev" value="${besc(t.nazev)}" maxlength="120"></label>
     <label>Herní datum <input name="herni_datum" value="${besc(t.herni_datum || "")}" maxlength="40"></label>
+    <label>Dosud se stalo <small>(shrnutí nahoře v tématu, pro ty, kdo se vracejí)</small><textarea name="shrnuti" rows="3" maxlength="2000">${besc(t.shrnuti || "")}</textarea></label>
     <label>Připomenout, když se čeká déle než (dnů, výchozí 3) <input name="pripomenout" type="number" min="1" max="60" value="${t.pripomenout_dni || ""}"></label>
     ${forumUcastniciHtml("Účastníci", t.ucastnici)}<p class="rsmall">Bez zaškrtnutí vidí téma každý.</p>
     ${forumUcastniciHtml("Čeká se na", t.ceka_na)}
     <p><button class="gbtn ghost">Uložit nastavení</button></p></form></div></details>`;
-}
-/* komu je příspěvek určený (2026-11-01): všem, jen vypravěči (u vypravěče poznámka jen pro sebe), nebo vybraným postavám */
-function forumProHtml(t) {
-  const me = forumKarta(),
-    kdo = (t.ucastnici.length ? KARTY.filter(k => t.ucastnici.includes(k.id)) : KARTY).filter(k => k.id !== me);
-  return `<fieldset class="foucast fopro"><legend>Kdo příspěvek uvidí</legend>
-    <label><input type="radio" name="pro" value="" checked> všichni</label>
-    <label><input type="radio" name="pro" value="gm"> ${GMV ? "jen já (poznámka vypravěče)" : "jen vypravěč"}</label>
-    ${kdo.length ? `<label><input type="radio" name="pro" value="vyber"> ${GMV ? "jen vybrané postavy" : "vybrané postavy a vypravěč"}</label>` : ""}
-    <span class="foprok" hidden>${kdo.map(k => `<label><input type="checkbox" name="proK" value="${besc(k.id)}"> ${besc(k.n)}</label>`).join("")}</span></fieldset>`;
 }
 function forumProTxt(p) {
   if (!Array.isArray(p.pro)) return "";
@@ -957,11 +1060,81 @@ document.addEventListener("change", async e => {
     }
   }
 });
+/* formulář odpovědi (návrh 2): Uvidí → výběr postav, druh příspěvku → panel NPC, tlačítka panelů, Karta, plovoucí Odpovědět */
 document.addEventListener("change", e => {
   const r = e.target;
-  if (!r.matches || !r.matches("#forumview .fopro input[name=pro]")) return;
-  const k = r.closest(".fopro").querySelector(".foprok");
-  if (k) k.hidden = r.value !== "vyber";
+  if (!r.matches) return;
+  if (r.matches("#forumview .foformpsani select[name=pro]")) {
+    const k = r.form.querySelector(".foprok");
+    if (k) k.hidden = r.value !== "vyber";
+  } else if (r.matches("#forumview .foformpsani input[name=druh]")) {
+    FORUM.druh = r.value;
+    const n = r.form.querySelector('[data-fodruhpanel="npc"]');
+    if (n) n.hidden = r.value !== "npc";
+  }
+});
+document.addEventListener("click", e => {
+  const b = e.target.closest && e.target.closest("#forumview [data-fopanel],#forumview [data-fokartapill],#forumview [data-fofab]");
+  if (!b) return;
+  if (b.dataset.fopanel !== undefined) {
+    const id = b.dataset.fopanel,
+      f = b.closest("form");
+    FORUM.panel = FORUM.panel === id ? "" : id;
+    f.querySelectorAll("[data-fopanelid]").forEach(x => (x.hidden = x.dataset.fopanelid !== FORUM.panel));
+    f.querySelectorAll("[data-fopanel]").forEach(x => x.setAttribute("aria-expanded", String(x.dataset.fopanel === FORUM.panel)));
+  } else if (b.dataset.fokartapill !== undefined) {
+    const d = document.querySelector("#forumview [data-fokartad]");
+    if (d) {
+      d.open = !d.open;
+      if (d.open) d.scrollIntoView({block: "start", behavior: "smooth"});
+    }
+  } else {
+    e.preventDefault();
+    const ta = document.querySelector("#forumview .foformpsani textarea");
+    if (ta) {
+      ta.scrollIntoView({block: "center", behavior: "smooth"});
+      ta.focus({preventScroll: true});
+    }
+  }
+});
+/* zmínka při psaní: „@Ba“ nabídne postavy, jejichž jméno tak začíná; klepnutí, Enter nebo Tab ji doplní */
+function fZmenNabidka(ta) {
+  const box = ta.parentNode.querySelector(".fozmen");
+  if (!box) return;
+  const pred = ta.value.slice(0, ta.selectionStart ?? ta.value.length),
+    m = /(^|\s)@([\p{L}]{0,20})$/u.exec(pred);
+  const L = m ? KARTY.filter(k => fBez(k.n.split(/\s+/)[0]).startsWith(fBez(m[2]))).slice(0, 6) : [];
+  box.hidden = !L.length;
+  box.innerHTML = L.map(
+    (k, i) =>
+      `<button type="button" role="option" aria-selected="${i === 0}" data-fozmen="${besc(k.n.split(/\s+/)[0])}">${fMedailon(k.id, k.n, (kartaStav(k.id) || {}).img, false, "m")}<span>${besc(k.n)}</span><small>přidá na tah</small></button>`,
+  ).join("");
+}
+function fZmenVloz(ta, jm) {
+  const a = ta.selectionStart ?? ta.value.length,
+    pred = ta.value.slice(0, a).replace(/@[\p{L}]{0,20}$/u, "@" + jm + " ");
+  ta.value = pred + ta.value.slice(a);
+  ta.selectionStart = ta.selectionEnd = pred.length;
+  ta.focus();
+  ta.dispatchEvent(new Event("input", {bubbles: true}));
+}
+document.addEventListener("click", e => {
+  const b = e.target.closest && e.target.closest("#forumview [data-fozmen]");
+  if (!b) return;
+  const ta = b.closest(".fopsani").querySelector("textarea");
+  fZmenVloz(ta, b.dataset.fozmen);
+});
+document.addEventListener("keydown", e => {
+  const ta = e.target;
+  if (!ta.matches || !ta.matches("#forumview .fopsani textarea")) return;
+  const box = ta.parentNode.querySelector(".fozmen");
+  if (!box || box.hidden) return;
+  if (e.key === "Enter" || e.key === "Tab") {
+    const b = box.querySelector("[data-fozmen]");
+    if (!b) return;
+    e.preventDefault();
+    fZmenVloz(ta, b.dataset.fozmen);
+  } else if (e.key === "Escape") box.hidden = true;
 });
 /* ----- obsluha ----- */
 async function forumAkce(fn, ok) {
@@ -1028,15 +1201,16 @@ document.addEventListener("submit", e => {
     e.preventDefault();
     const d = new FormData(f),
       btn = f.querySelector("button:not([type=button])"),
-      ooc = !!d.get("ooc"),
+      druh = d.get("druh") || "ic",
+      ooc = druh === "ooc",
       text = String(d.get("t") || "");
     btn.disabled = true;
-    const o = {p_tema: +f.dataset.foodp, p_t: text, p_ooc: ooc, p_jako: d.get("jako") || null};
+    const o = {p_tema: +f.dataset.foodp, p_t: text, p_ooc: ooc, p_jako: druh === "npc" ? d.get("jako") || null : null};
     if (FORUM.odp) o.p_odpoved = FORUM.odp.id;
     if (FORUM.hody.length) o.p_hod = {hody: FORUM.hody};
     if (!ooc) o.p_zminky = fZminky(text);
     const pro = d.get("pro");
-    if (pro === "gm") o.p_pro = [];
+    if (pro === "gm" || druh === "pozn") o.p_pro = [];
     else if (pro === "vyber") {
       o.p_pro = fZaskrtnute(f, "proK");
       if (!o.p_pro.length) {
@@ -1047,7 +1221,7 @@ document.addEventListener("submit", e => {
     if (GMV) {
       o.p_ceka = [...new Set(fZaskrtnute(f, "ceka").concat(FORUM.vyzvy.map(v => v.k)))];
       if (FORUM.vyzvy.length) o.p_vyzvy = FORUM.vyzvy;
-      if (FORUM.npc)
+      if (FORUM.npc && druh === "npc")
         o.p_npc = FORUM.npc.img ? {n: FORUM.npc.n, b: FORUM.npc.b || null, img: FORUM.npc.img} : {n: FORUM.npc.n, b: FORUM.npc.b || null};
     }
     forumAkce(async () => {
@@ -1057,6 +1231,7 @@ document.addEventListener("submit", e => {
       FORUM.hody = [];
       FORUM.vyzvy = [];
       FORUM.npc = null;
+      FORUM.druh = "ic";
       f.querySelector("textarea").value = "";
       await forumNacti();
       const p = document.querySelector("#forumview .foprisp .fopris:last-child");
@@ -1073,6 +1248,7 @@ document.addEventListener("submit", e => {
         MMDB.forumTemaNastav(FORUM.tid, {
           nazev: d.get("nazev"),
           herni_datum: d.get("herni_datum"),
+          shrnuti: d.get("shrnuti") || "",
           ucastnici: uc,
           ceka_na: ceka,
           pripomenout_dni: d.get("pripomenout") || "",
@@ -1130,6 +1306,7 @@ document.addEventListener("change", e => {
 document.addEventListener("input", e => {
   const ta = e.target;
   if (ta.matches && ta.matches("#forumview .foformpsani textarea") && FORUM.tid) fKoncept(FORUM.tid, ta.value);
+  if (ta.matches && ta.matches("#forumview .fopsani textarea")) fZmenNabidka(ta);
   const n = ta.matches && ta.matches("#forumview .fopsani textarea") && ta.parentNode.querySelector(".fonahled");
   if (n && !n.hidden) n.innerHTML = fText(ta.value) || '<p class="rsmall">Zatím prázdné.</p>';
 });
