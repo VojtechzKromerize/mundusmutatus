@@ -389,6 +389,12 @@
 
 <script>
 /*@MMDATA@*/
+/* audit 2026-11-01: na Hře (odkaz #hra/#boj, nainstalovaná aplikace) se díly části „hra“ stahují hned souběžně s jádrem (preload), ne až po
+   jeho spuštění – ušetří čekání na spuštění jádra (na 4G ~0,2 s, na pomalé síti rozhoduje objem dat); na Pravidlech stejně tak art/pravidla.json */
+(function(){try{const L=window.MMLINE||{},h=location.hash,d=document,pre=(u,as)=>{const l=d.createElement("link");l.rel="preload";l.as=as;l.href=u;if(as==="fetch")l.crossOrigin="anonymous";d.head.appendChild(l)};
+const app=matchMedia("(display-mode: standalone), (display-mode: fullscreen)").matches||navigator.standalone===true;
+if(L.hra&&(/^#(hra|boj)\b/.test(h)||app)){[].concat(L.hra).forEach(u=>pre(u,"script"));if(localStorage.getItem("mm-hrac"))pre("art/mimo-srd.json","fetch")}
+if(/^#pravidla\b/.test(h))pre("art/pravidla.json","fetch")}catch(e){}})();
 /* ===== Zavaděč dat: statická verze má data přímo v window.__D; verze napojená na databázi
    si je stáhne (hráč: veřejný výřez, vypravěč po přihlášení: vše) a teprve pak spustí hlavní skript. ===== */
 (function(){

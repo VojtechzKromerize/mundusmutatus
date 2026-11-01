@@ -420,12 +420,13 @@ s = znacka("GM", "false").sub("!!__D.GM", s)
 # data art/*.json s otiskem obsahu v adrese (2026-10-28): service worker a prohlížeč je drží v mezipaměti (art/* stale-while-revalidate),
 # po změně dat (školy kouzel 2026-10-24) by vypravěč jinak dlouho viděl starý soubor; nový otisk = nová adresa = čerstvá data
 def _art_otisk(m):
-    f = m.group(1)
+    fn, f = m.group(1), m.group(2)
     zdroj = os.path.join(ROOT, "art", "kouzla.json" if f == "kouzla-karta.json" else f)
     if not os.path.exists(zdroj):
         return m.group(0)
-    return f'fetch("art/{f}?v={hashlib.md5(open(zdroj, "rb").read()).hexdigest()[:10]}"'
-s = re.sub(r'fetch\("art/([\w.-]+\.json)"', _art_otisk, s)
+    return f'{fn}("art/{f}?v={hashlib.md5(open(zdroj, "rb").read()).hexdigest()[:10]}"'
+# i pre("art/….json" – přednačtení v kostře (2026-11-01) musí mít stejnou adresu jako pozdější fetch, jinak se soubor stáhne dvakrát
+s = re.sub(r'\b(fetch|pre)\("art/([\w.-]+\.json)"', _art_otisk, s)
 safe = lambda v: J(v).replace("</", "<\\/")
 if DB:
     s = s.replace("/*@MMDATA@*/", "window.MMCFG=" + safe({"url": SB_URL, "key": SB_KEY, "vetev": VETEV, "gen": GEN_VERZE}) + ";window.__S=" + safe(STAT_H) + ";/*@MMLINE@*/")
