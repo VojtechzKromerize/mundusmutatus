@@ -593,6 +593,11 @@ window.MMDB={vetev:C.vetev,
   forumMoje(k){return rpc("mm_forum_moje",{p_karta:k||null,p_token:htok()})},
   forumHledej(q,k){return rpc("mm_forum_hledej",{p_q:q,p_karta:k||null,p_token:htok()})},
   forumPocet(k){return rpc("mm_forum_pocet",{p_karta:k||null,p_token:htok()})},
+  /* obrázek do příspěvku fóra: vypravěč nebo hráč přihlášený účtem, jen do složky forum/ (schema.sql, úložiště obrazky) */
+  async forumObrazek(cesta,blob){const t=(await token())||(await htokenAuth());if(!t)throw new Error("Obrázky může nahrát jen hráč přihlášený účtem (Discord nebo jméno a heslo).");
+    const r=await fetch(`${C.url}/storage/v1/object/obrazky/forum/${cesta}`,{method:"POST",body:blob,headers:{apikey:C.key,Authorization:"Bearer "+t,"Content-Type":blob.type||"image/webp","cache-control":"31536000"}});
+    if(!r.ok){let m="HTTP "+r.status;try{const j=await r.json();m=j.message||j.error||m}catch(e){}throw new Error("Nahrání obrázku selhalo: "+m)}
+    return `${C.url}/storage/v1/object/public/obrazky/forum/${cesta}`},
   forumVyzvaOdpoved(p,i,h,k){return rpc("mm_forum_vyzva_odpoved",{p_prispevek:p,p_i:i,p_hod:h,p_karta:k||null,p_token:htok()})},
   forumSlouc(z,d){return this.gm("mm_forum_slouc",{p_z:z,p_do:d})},
   forumPreskoc(t,k){return this.gm("mm_forum_preskoc",{p_tema:t,p_koho:k})},

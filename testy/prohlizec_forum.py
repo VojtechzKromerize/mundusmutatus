@@ -116,6 +116,19 @@ async def main():
     chk("neuspěl" not in tx,"u tajné výzvy hráč úspěch nevidí")
     await g.goto(BASE+f"#forum/t/{t2}");await dokud(g,"document.querySelectorAll('.fopris:last-child .fovyzva b').length>=3",8000)
     chk("neuspěl" in await g.inner_text(".fopris:last-child .fovyzvy"),"vypravěč vidí neúspěch proti tajnému SO 30")
+    # tajné části tématu: poznámka jen pro vypravěče, příspěvek jen pro Balduina, hráčův příspěvek jen vypravěči
+    for txt,volba in (("TAJNÁ_POZNÁMKA plán léčky","gm"),("Šeptem jen Balduinovi","vyber")):
+      await g.fill(".foformpsani textarea",txt);await g.check(f'.fopro input[name=pro][value="{volba}"]')
+      if volba=="vyber": await g.check('.fopro input[name=proK][value=balduin]')
+      await g.click(".foformpsani button:has-text('Odeslat')");await dokud(g,f"document.querySelector('#forumview .foprisp').textContent.includes({txt!r})",8000)
+    chk(await g.locator(".fopris.fotajny").count()>=2,"vypravěč vidí své tajné příspěvky označené zámkem")
+    await pl.goto(BASE+f"#forum/t/{t2}");await pl.reload();await pl.wait_for_selector(".foformpsani",timeout=10000)
+    tx=await pl.inner_text(".foprisp")
+    chk("TAJNÁ_POZNÁMKA" not in tx and "Šeptem jen Balduinovi" in tx,"hráč nevidí poznámku vypravěče, ale vidí příspěvek jen pro sebe")
+    await pl.fill(".foformpsani textarea","Jen pro tvé uši, vypravěči.");await pl.check('.fopro input[name=pro][value="gm"]');await pl.click(".foformpsani button:has-text('Odeslat')")
+    await dokud(pl,"document.querySelector('#forumview .foprisp').textContent.includes('Jen pro tvé uši')",8000)
+    await g.goto(BASE+f"#forum/t/{t2}");await dokud(g,"document.querySelector('#forumview .foprisp')&&document.querySelector('#forumview .foprisp').textContent.includes('Jen pro tvé uši')",8000)
+    chk("jen pro vypravěče" in await g.inner_text(".foprisp"),"vypravěč dostane hráčův příspěvek jen pro sebe")
     # vypravěč: na hráče se znovu čeká, přeskočí ho
     await g.evaluate(f"MMDB.forumTemaNastav({t2},{{ceka_na:['balduin']}})")
     await g.goto(BASE+f"#forum/t/{t2}");await g.wait_for_selector(".foGm",timeout=10000)

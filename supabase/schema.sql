@@ -2326,6 +2326,9 @@ begin
     execute 'create policy "obrazky: nahrává vypravěč" on storage.objects for insert to authenticated with check (bucket_id = ''obrazky'' and public.mm_je_gm())';
     execute 'drop policy if exists "obrazky: mění vypravěč" on storage.objects';
     execute 'create policy "obrazky: mění vypravěč" on storage.objects for update to authenticated using (bucket_id = ''obrazky'' and public.mm_je_gm())';
+    -- obrázky do příspěvků fóra (2026-11-01): nahrává i hráč přihlášený účtem za svou postavu, jen do složky forum/
+    execute 'drop policy if exists "obrazky: fórum hráči" on storage.objects';
+    execute 'create policy "obrazky: fórum hráči" on storage.objects for insert to authenticated with check (bucket_id = ''obrazky'' and name like ''forum/%'' and public.mm_moje_karta() is not null)';
     execute 'drop policy if exists "obrazky: maže vypravěč" on storage.objects';
     execute 'create policy "obrazky: maže vypravěč" on storage.objects for delete to authenticated using (bucket_id = ''obrazky'' and public.mm_je_gm())';
   end if;
@@ -2494,6 +2497,8 @@ create index if not exists forum_prispevky_tema on public.forum_prispevky (tema,
 alter table public.forum_prispevky add column if not exists vyzvy jsonb;
 alter table public.forum_prispevky add column if not exists odpovedi jsonb not null default '{}'::jsonb;
 alter table public.forum_prispevky add column if not exists npc jsonb;
+-- komu je příspěvek určený (2026-11-01): null = všem, jinak jen těmto postavám a vypravěči ('{}' = jen vypravěči)
+alter table public.forum_prispevky add column if not exists pro text[];
 create table if not exists public.forum_verze (
   id        bigserial primary key,
   prispevek bigint not null references public.forum_prispevky (id) on delete cascade,
@@ -2637,14 +2642,15 @@ begin
         'id', p.id, 'karta', p.karta, 'jmeno', public.mm_forum_jmeno(p.karta, p.jako), 'ooc', p.ooc, 'cas', p.cas, 'upraveno', p.upraveno,
         'skryto', p.skryto, 'odpoved_na', p.odpoved_na,
         'citace', (select jsonb_build_object('id', c.id, 'jmeno', public.mm_forum_jmeno(c.karta, c.jako), 't', left(c.t, 160))
-                     from public.forum_prispevky c where c.id = p.odpoved_na and not (c.skryto and k <> 'gm')),
+                     from public.forum_prispevky c where c.id = p.odpoved_na and not (c.skryto and k <> 'gm')
+                       and (c.pro is null or k = 'gm' or k = any (c.pro) or c.karta = k)),
         'moje', (k = 'gm' and p.karta is null) or p.karta = k,
         't', case when p.skryto and k <> 'gm' then null else p.t end,
         'hod', case when p.skryto and k <> 'gm' then null else public.mm_forum_hod_pro(p.hod, k, coalesce(p.karta, 'gm')) end,
         'vyzvy', case when p.skryto and k <> 'gm' then null else public.mm_forum_vyzvy_pro(p.vyzvy, p.odpovedi, k) end,
-        'npc', p.npc) as x
+        'npc', p.npc, 'pro', p.pro) as x
     from public.forum_prispevky p
-    where p.tema = tm.id and (p_pred is null or p.id < p_pred)
+    where p.tema = tm.id and (p_pred is null or p.id < p_pred) and (p.pro is null or k = 'gm' or k = any (p.pro) or p.karta is not distinct from case when k = 'gm' then null else k end)
     order by p.id desc limit greatest(1, least(coalesce(p_limit, 30), 100))
   ) q;
   select min((e ->> 'id')::bigint) into mn from jsonb_array_elements(pr) e;
@@ -2658,7 +2664,7 @@ begin
       'stoji_dni', case when cardinality(tm.ceka_na) > 0 and tm.stav = 'otevrene' and tm.ceka_od is not null then floor(extract(epoch from now() - tm.ceka_od) / 86400)::int end,
       'pocet', tm.pocet, 'posledni_id', tm.posledni_id, 'pripomenout_dni', tm.pripomenout_dni),
     'prispevky', pr,
-    'starsi', exists (select 1 from public.forum_prispevky p where p.tema = tm.id and p.id < coalesce(mn, 0)),
+    'starsi', exists (select 1 from public.forum_prispevky p where p.tema = tm.id and p.id < coalesce(mn, 0) and (p.pro is null or k = 'gm' or k = any (p.pro) or p.karta is not distinct from case when k = 'gm' then null else k end)),
     'cteno', cte);
 end $$;
 
@@ -2666,9 +2672,11 @@ end $$;
 -- ve fóru vedeném vypravěčem se po odpovědi všech čeká na vypravěče, vypravěč nastaví na koho (p_ceka)
 drop function if exists public.mm_forum_prispevek(bigint, text, boolean, jsonb, bigint, text, text[], text, text);
 drop function if exists public.mm_forum_prispevek(bigint, text, boolean, jsonb, bigint, text, text[], text[], text, text);
+drop function if exists public.mm_forum_prispevek(bigint, text, boolean, jsonb, bigint, text, text[], text[], text, text, jsonb, jsonb);
 create or replace function public.mm_forum_prispevek(p_tema bigint, p_t text, p_ooc boolean default false, p_hod jsonb default null,
   p_odpoved bigint default null, p_jako text default null, p_ceka text[] default null, p_zminky text[] default null,
-  p_karta text default null, p_token text default null, p_vyzvy jsonb default null, p_npc jsonb default null) returns bigint
+  p_karta text default null, p_token text default null, p_vyzvy jsonb default null, p_npc jsonb default null,
+  p_pro text[] default null) returns bigint
 language plpgsql security definer set search_path = public as $$
 declare
   k text := public.mm_forum_kdo(p_karta, p_token); tm public.forum_temata; fo public.forum_fora; i bigint;
@@ -2698,10 +2706,31 @@ begin
       or (p_npc ? 'img' and coalesce(p_npc ->> 'img', '') !~ '^art/(bestiar|portrety)/[A-Za-z0-9_/-]+\.webp$')) then
     raise exception 'neplatné NPC';
   end if;
-  insert into public.forum_prispevky (tema, karta, jako, ooc, t, hod, odpoved_na, vyzvy, npc)
+  if p_pro is not null then
+    if not public.mm_forum_karty_ok(p_pro) then raise exception 'neplatný seznam, komu je příspěvek'; end if;
+    p_pro := array(select distinct e from unnest(p_pro) e where e <> 'gm' and e <> k);
+  end if;
+  insert into public.forum_prispevky (tema, karta, jako, ooc, t, hod, odpoved_na, vyzvy, npc, pro)
     values (tm.id, case when k = 'gm' then null else k end, case when k = 'gm' then jak end, coalesce(p_ooc, false), txt, p_hod, p_odpoved,
-      case when jsonb_array_length(coalesce(p_vyzvy, '[]'::jsonb)) > 0 then p_vyzvy end, p_npc)
+      case when jsonb_array_length(coalesce(p_vyzvy, '[]'::jsonb)) > 0 then p_vyzvy end, p_npc, p_pro)
     returning id into i;
+  -- příspěvek jen pro někoho: téma se navenek nemění (počet, poslední příspěvek), upozornění dostanou jen ti, komu je určený
+  if p_pro is not null then
+    if k = 'gm' and p_ceka is not null then
+      update public.forum_temata set ceka_na = p_ceka,
+        ceka_od = case when p_ceka is distinct from tm.ceka_na then case when cardinality(p_ceka) > 0 then now() end else ceka_od end,
+        pripomenuto = case when p_ceka is distinct from tm.ceka_na then null else pripomenuto end
+      where id = tm.id;
+    elsif k <> 'gm' and not coalesce(p_ooc, false) and k = any (tm.ceka_na) then
+      update public.forum_temata set ceka_na = array_remove(ceka_na, k) || case when fo.vede_gm and cardinality(array_remove(ceka_na, k)) = 0 then array['gm'] else '{}'::text[] end,
+        ceka_od = now(), pripomenuto = null
+      where id = tm.id;
+    end if;
+    if cardinality(p_pro) > 0 or k <> 'gm' then
+      perform public.mm_push_posli(p_pro, k <> 'gm', 'Fórum: ' || left(tm.nazev, 60), 'Příspěvek jen pro tebe.', '#forum/t/' || tm.id);
+    end if;
+    return i;
+  end if;
   kdo := case when coalesce(p_ooc, false) then tm.ceka_na else array_remove(tm.ceka_na, k) end;
   if k = 'gm' and p_ceka is not null then kdo := p_ceka; end if;
   if k <> 'gm' and not coalesce(p_ooc, false) and cardinality(kdo) = 0 and fo.vede_gm then kdo := array['gm']; end if;
@@ -2856,10 +2885,10 @@ end $$;
 revoke all on function public.mm_forum_kdo(text, text), public.mm_forum_vidi(text, text[]), public.mm_forum_jmeno(text, text),
   public.mm_forum_karty_ok(text[]) from public, anon, authenticated;
 revoke all on function public.mm_forum_strom(text, text), public.mm_forum_temata(text, text, text), public.mm_forum_tema(bigint, bigint, int, text, text),
-  public.mm_forum_prispevek(bigint, text, boolean, jsonb, bigint, text, text[], text[], text, text, jsonb, jsonb), public.mm_forum_tema_zaloz(text, text, text, text[], text[], text, text, text),
+  public.mm_forum_prispevek(bigint, text, boolean, jsonb, bigint, text, text[], text[], text, text, jsonb, jsonb, text[]), public.mm_forum_tema_zaloz(text, text, text, text[], text[], text, text, text),
   public.mm_forum_uprav(bigint, text, text, text), public.mm_forum_precteno(bigint, bigint, text, text) from public;
 grant execute on function public.mm_forum_strom(text, text), public.mm_forum_temata(text, text, text), public.mm_forum_tema(bigint, bigint, int, text, text),
-  public.mm_forum_prispevek(bigint, text, boolean, jsonb, bigint, text, text[], text[], text, text, jsonb, jsonb), public.mm_forum_tema_zaloz(text, text, text, text[], text[], text, text, text),
+  public.mm_forum_prispevek(bigint, text, boolean, jsonb, bigint, text, text[], text[], text, text, jsonb, jsonb, text[]), public.mm_forum_tema_zaloz(text, text, text, text[], text[], text, text, text),
   public.mm_forum_uprav(bigint, text, text, text), public.mm_forum_precteno(bigint, bigint, text, text) to anon, authenticated;
 revoke all on function public.mm_forum_skryj(bigint, boolean), public.mm_forum_tema_nastav(bigint, jsonb), public.mm_forum_fora_uloz(jsonb),
   public.mm_forum_fora_smaz(text) from public, anon;
@@ -2925,7 +2954,7 @@ begin
       select p.cas, jsonb_build_object('tema', t.id, 'nazev', t.nazev, 'forum', t.forum, 'prispevek', p.id, 'jmeno', public.mm_forum_jmeno(p.karta, p.jako),
         'cas', p.cas, 't', left(p.t, 220)) as r
       from public.forum_prispevky p join public.forum_temata t on t.id = p.tema
-      where public.mm_forum_vidi(k, t.ucastnici) and (not p.skryto or k = 'gm')
+      where public.mm_forum_vidi(k, t.ucastnici) and (not p.skryto or k = 'gm') and (p.pro is null or k = 'gm' or k = any (p.pro) or p.karta is not distinct from case when k = 'gm' then null else k end)
         and (position(q in lower(p.t)) > 0 or position(q in lower(t.nazev)) > 0)
       order by p.cas desc limit 40
     ) x

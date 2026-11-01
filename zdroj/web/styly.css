@@ -4220,3 +4220,8 @@ html.mmpc:not(.mmjenhra) .bdmweb{display:grid;font-size:1.2rem}
 /* formuláře v řádku (kvlh, kucf) se na telefonu zalomí a nic nevyčnívá z rámu */
 .kvlh label,.kucf label{max-width:100%;flex-wrap:wrap}
 .kvlh select,.kvlh input:not([type=checkbox]):not([type=radio]),.kucf select{max-width:100%;min-width:0}
+/* fórum: tajné příspěvky a obrázky */
+.fopris.fotajny{border-color:var(--kat);border-style:dashed;background:color-mix(in srgb,var(--paper) 88%,var(--kat))}
+.fochip.fotajch{border-color:var(--kat);color:var(--kat);white-space:normal}
+.fopro{display:flex;flex-wrap:wrap;gap:4px 14px}.fopro .foprok{display:flex;flex-wrap:wrap;gap:4px 14px;flex-basis:100%;padding-left:1.4em}.fopro .foprok[hidden]{display:none}
+.fotxt .foimg{display:inline-block;max-width:100%;margin:4px 0}.fotxt .foimg img{display:block;max-width:100%;max-height:420px;width:auto;height:auto;border:1px solid var(--rule);border-radius:3px}

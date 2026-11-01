@@ -57,3 +57,15 @@ test("lišta: obalení výběru, opakované stisknutí značku odebere, řádky 
   })()`);
   assert.deepEqual(r, ["Ahoj **světe**", "Ahoj světe", "- meč\n- štít", "meč\nštít"]);
 });
+test("text příspěvku: obrázky jen z webu a z úložiště obrázků", () => {
+  assert.equal(
+    T("![Jiří](art/portrety/jiri-m.webp)"),
+    '<p><a class="foimg" href="art/portrety/jiri-m.webp" target="_blank" rel="noopener"><img src="art/portrety/jiri-m.webp" alt="Jiří" loading="lazy" decoding="async"></a></p>',
+  );
+  assert.match(
+    T("![mapa](https://abcd.supabase.co/storage/v1/object/public/obrazky/forum/x1.webp)"),
+    /<img src="https:\/\/abcd\.supabase\.co\/storage/,
+  );
+  assert.equal(T("![x](https://zly.example.com/a.webp)"), "<p>![x](https://zly.example.com/a.webp)</p>", "cizí adresa zůstane textem");
+  assert.ok(!/<img/.test(T(`![x](art/a.webp" onerror="alert(1))`)), "uvozovky v adrese neprojdou");
+});

@@ -225,17 +225,18 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `EDGES` | 02-mapa:6502 | const | graf vazeb: hrany mezi rody ({a, b, t typ, ri index vazby}) odvozené z REL |
 | `EDPOLE` | 21-editor-pecet:72 | const | Editor: české popisky polí frontmatteru (id, jmeno, rod, sidlo, vyznani…) ve formuláři |
 | `EMPTY` | 02-mapa:6078 | const | Zemské desky: HTML prázdného detailu („Vyberte rod na mapě…“), když není nic vybráno |
-| `FADV` | 24b-forum:607 | const | ⓘ `'<option value="">bez výhody</option><option value="1">výhoda</option>…` |
+| `FADV` | 24b-forum:621 | const | ⓘ `'<option value="">bez výhody</option><option value="1">výhoda</option>…` |
 | `FAM` | 01-zaklad:2 | const | rody z buildu (@FAM@) – základní data rodů (id, název, sídla, vyznání, texty) |
-| `FBLOK` | 24b-forum:69 | const | ⓘ `/^(#{1,3}\s\|&gt;\|[-•]\s\|\d{1,3}[.)]\s\|-{3,}\s*$)/;` |
+| `FBLOK` | 24b-forum:77 | const | ⓘ `/^(#{1,3}\s\|&gt;\|[-•]\s\|\d{1,3}[.)]\s\|-{3,}\s*$)/;` |
 | `FEATY` | 08-navigace-pravidla:375 | let | ⓘ `null,` |
 | `FEATYKAT` | 08-navigace-pravidla:395 | const | ⓘ `{` |
 | `FEATYP` | 08-navigace-pravidla:376 | let | ⓘ `null;` |
 | `FICON` | 01-zaklad:177 | const | vyznání (kat, kal, mix, isl) → cesta k ikoně víry |
+| `FIMG` | 24b-forum:60 | const | ⓐ obrázky jen z webu (art/…) a z úložiště obrázků databáze; jiné adresy zůstanou textem |
 | `FORESTS` | 02-mapa:5013 | const | mapa: polygony lesů (lon/lat) pro vrstvu lesů |
 | `FORLBL` | 02b-mapa-kresba:13983 | const | kresba mapy: popisky lesů a pohoří ([název, lon, lat, natočení]) |
 | `FORUM` | 24b-forum:5 | const | ⓘ `{` |
-| `FTB` | 24b-forum:128 | const | ⓐ lišta formátování nad polem příspěvku: obalí výběr značkami nebo předsadí řádky; náhled ukáže, jak bude příspěvek vypadat |
+| `FTB` | 24b-forum:136 | const | ⓐ lišta formátování nad polem příspěvku: obalí výběr značkami nebo předsadí řádky; náhled ukáže, jak bude příspěvek vypadat |
 | `GCH` | 03-artikule:202 | const | Artikule: id kapitoly → název pro odkazy ze slovníčku pojmů (GLOSS) |
 | `GENCHCE` | 09g-generator-postav:123 | const | ⓘ `[` |
 | `GENJAZ` | 09g-generator-postav:145 | const | ⓘ `{cs: "česky", de: "německy", hu: "uhersky", pl: "polsky"};` |

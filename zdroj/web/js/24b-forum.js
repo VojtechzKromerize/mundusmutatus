@@ -54,10 +54,18 @@ function forumHerniDatum() {
   }
 }
 /* text příspěvku (2026-11-01, lišta formátování jako na phpBB fórech): odstavce a zalomení, ### nadpis, > citace, - seznam, 1. číslovaný
-   seznam, --- čára; v řádku **tučně**, *kurzíva*, __podtržení__, ~~přeškrtnutí~~, ||skrytý text||, ((mimo hru)) a odkazy na stránky
+   seznam, --- čára; ![popis](adresa) obrázek (jen z webu a z úložiště obrázků); v řádku **tučně**, *kurzíva*, __podtržení__, ~~přeškrtnutí~~, ||skrytý text||, ((mimo hru)) a odkazy na stránky
    webu [text](#osoba/jan). Nic jiného – žádné HTML, text se nejdřív escapuje. */
+/* obrázky jen z webu (art/…) a z úložiště obrázků databáze; jiné adresy zůstanou textem */
+const FIMG =
+  /^(art\/[\w/.-]+\.(?:webp|png|jpe?g)|https:\/\/[a-z0-9]+\.supabase\.co\/storage\/v1\/object\/public\/obrazky\/[\w/.-]+\.(?:webp|png|jpe?g))$/;
 function fInline(x) {
   return x
+    .replace(/!\[([^\]\n]*)\]\(([^)\s]+)\)/g, (m, t, u) =>
+      FIMG.test(u)
+        ? `<a class="foimg" href="${u}" target="_blank" rel="noopener"><img src="${u}" alt="${t}" loading="lazy" decoding="async"></a>`
+        : m,
+    )
     .replace(/\[([^\]\n]+)\]\((#[A-Za-z0-9/_-]*)\)/g, (m, t, h) => (h.length > 1 ? `<a href="${h}">${t}</a>` : t))
     .replace(/\|\|([^|\n]+)\|\|/g, '<span class="fospoil" tabindex="0" role="button" aria-label="Skrytý text – klepni pro zobrazení">$1</span>')
     .replace(/\(\(([^()\n]+)\)\)/g, '<span class="foooct">(($1))</span>')
@@ -140,13 +148,14 @@ const FTB = [
   ["sp", "Skryté", "Skrytý text – čtenář ho odkryje klepnutím", "||", "||", "skrytý text"],
   ["ooc", "((…))", "Poznámka mimo hru uvnitř příspěvku", "((", "))", "mimo hru"],
   ["a", "Odkaz", "Odkaz na stránku webu, např. #osoba/jan nebo #mapa", "[", "](#)", "text odkazu"],
+  ["img", "Obrázek", "Nahrát obrázek z telefonu nebo počítače"],
 ];
 function forumListaHtml() {
   const b = x =>
     x
       ? `<button type="button" class="fotbb fotb-${x[0]}" data-fotb="${x[0]}" title="${besc(x[2])}" aria-label="${besc(x[2])}">${besc(x[1])}</button>`
       : '<span class="fotbsep" aria-hidden="true"></span>';
-  return `<div class="fotb" role="toolbar" aria-label="Formátování textu">${FTB.map(b).join("")}<span class="fotbsep" aria-hidden="true"></span><button type="button" class="fotbb fotb-nahled" data-fotb="nahled" aria-pressed="false" title="Náhled příspěvku" aria-label="Náhled příspěvku">Náhled</button></div>`;
+  return `<input type="file" accept="image/*" data-foimg hidden><div class="fotb" role="toolbar" aria-label="Formátování textu">${FTB.map(b).join("")}<span class="fotbsep" aria-hidden="true"></span><button type="button" class="fotbb fotb-nahled" data-fotb="nahled" aria-pressed="false" title="Náhled příspěvku" aria-label="Náhled příspěvku">Náhled</button></div>`;
 }
 function fObal(ta, a, z, ph) {
   const s0 = ta.selectionStart ?? ta.value.length,
@@ -179,6 +188,11 @@ function fRadky(ta, pre) {
 function forumFormatuj(ta, id) {
   const x = FTB.find(y => y && y[0] === id);
   if (!x) return;
+  if (id === "img") {
+    const f = ta.closest(".fopsani") && ta.closest(".fopsani").querySelector("[data-foimg]");
+    if (f) f.click();
+    return;
+  }
   if (x.length === 4) fRadky(ta, x[3]);
   else fObal(ta, x[3], x[4], x[5]);
   ta.focus();
@@ -743,7 +757,18 @@ function forumVlozitHtml() {
     .sort((a, b) => a[1].localeCompare(b[1], "cs"))
     .slice(0, 400);
   const rody = FAM.map(f => [f.id, f.name]).sort((a, b) => a[1].localeCompare(b[1], "cs"));
-  return `<div class="fovloz"><select data-fovloz="zm" aria-label="Zmínit postavu"><option value="">@ Zmínit postavu…</option>${KARTY.map(k => `<option value="${besc(k.n.split(/\s+/)[0])}">${besc(k.n)}</option>`).join("")}</select>
+  const obr = PEOPLE.filter(p => PORTR.has(p.id))
+    .map(p => [portU(p.id, "m"), p.n.replace(/^✦\s*/, "")])
+    .concat(
+      GMV && typeof PROTBY === "object"
+        ? Object.values(PROTBY)
+            .filter(x => x && x.img)
+            .map(x => [x.img, x.n || x.id])
+        : [],
+    )
+    .filter(([u]) => FIMG.test(u))
+    .sort((a, b) => String(a[1]).localeCompare(String(b[1]), "cs"));
+  return `<div class="fovloz">${obr.length ? `<select data-fovloz="obr" aria-label="Obrázek z webu"><option value="">Obrázek z webu…</option>${obr.map(([u, n]) => `<option value="${besc(u)}|${besc(n)}">${besc(n)}</option>`).join("")}</select>` : ""}<select data-fovloz="zm" aria-label="Zmínit postavu"><option value="">@ Zmínit postavu…</option>${KARTY.map(k => `<option value="${besc(k.n.split(/\s+/)[0])}">${besc(k.n)}</option>`).join("")}</select>
     <select data-fovloz="osoba" aria-label="Odkaz na osobu"><option value="">Odkaz na osobu…</option>${osoby.map(([i, n]) => `<option value="${besc(i)}|${besc(n)}">${besc(n)}</option>`).join("")}</select>
     <select data-fovloz="rod" aria-label="Odkaz na rod"><option value="">Odkaz na rod…</option>${rody.map(([i, n]) => `<option value="${besc(i)}|${besc(n)}">${besc(n)}</option>`).join("")}</select></div>`;
 }
@@ -783,7 +808,8 @@ function forumPrispevekHtml(p, T) {
     (T.tema.stav === "otevrene" || gm ? `<button type="button" class="fobtn" data-focit="${p.id}">Citovat</button>` : "") +
     (muzeUpravit || gm ? `<button type="button" class="fobtn" data-foupr="${p.id}">Upravit</button>` : "") +
     (gm ? `<button type="button" class="fobtn" data-foskryj="${p.id}" data-s="${p.skryto ? 0 : 1}">${p.skryto ? "Zobrazit" : "Skrýt"}</button>` : "");
-  return `<article class="fopris${p.ooc ? " foooc" : ""}${p.skryto ? " foskryto" : ""}" id="fop${p.id}" data-foid="${p.id}">${pan}<div class="foobs"><header><small>${fCas(p.cas)}${p.upraveno ? ` · upraveno ${fCas(p.upraveno)}` : ""}${p.ooc ? " · mimo hru" : ""}</small></header>${
+  const pro = forumProTxt(p);
+  return `<article class="fopris${p.ooc ? " foooc" : ""}${p.skryto ? " foskryto" : ""}${pro ? " fotajny" : ""}" id="fop${p.id}" data-foid="${p.id}">${pan}<div class="foobs"><header><small>${fCas(p.cas)}${p.upraveno ? ` · upraveno ${fCas(p.upraveno)}` : ""}${p.ooc ? " · mimo hru" : ""}</small>${pro ? ` <span class="fochip fotajch">🔒 ${besc(pro)}</span>` : ""}</header>${
     jenGm
       ? '<p class="rsmall"><i>Příspěvek skryl vypravěč.</i></p>'
       : `${p.skryto ? '<p class="rsmall"><i>Skryté před hráči.</i></p>' : ""}${cit}<div class="fotxt">${fText(p.t)}</div>${hod}${forumVyzvyHtml(p, T)}`
@@ -829,6 +855,7 @@ function forumTemaVykresli(box, hlava) {
           <label class="fochk"><input type="checkbox" data-fohz> Závoj k6</label><label class="fochk"><input type="checkbox" data-fohtaj> tajně</label>
           <button type="button" class="gbtn ghost" data-fohod>Hodit</button></div>
           </details>${GMV ? forumVyzvaFormHtml(t) : ""}<div class="fohodyl">${forumHodyHtml()}</div>
+        ${forumProHtml(t)}
         <label class="fochk"><input type="checkbox" name="ooc"> Mimo hru (nemění, na koho se čeká)</label>
         ${GMV ? forumUcastniciHtml("Čeká se na", t.ceka_na) : ""}
         <p><button class="gbtn">Odeslat</button></p></form>`
@@ -855,6 +882,87 @@ function forumGmNastroje(t) {
     ${forumUcastniciHtml("Čeká se na", t.ceka_na)}
     <p><button class="gbtn ghost">Uložit nastavení</button></p></form></div></details>`;
 }
+/* komu je příspěvek určený (2026-11-01): všem, jen vypravěči (u vypravěče poznámka jen pro sebe), nebo vybraným postavám */
+function forumProHtml(t) {
+  const me = forumKarta(),
+    kdo = (t.ucastnici.length ? KARTY.filter(k => t.ucastnici.includes(k.id)) : KARTY).filter(k => k.id !== me);
+  return `<fieldset class="foucast fopro"><legend>Kdo příspěvek uvidí</legend>
+    <label><input type="radio" name="pro" value="" checked> všichni</label>
+    <label><input type="radio" name="pro" value="gm"> ${GMV ? "jen já (poznámka vypravěče)" : "jen vypravěč"}</label>
+    ${kdo.length ? `<label><input type="radio" name="pro" value="vyber"> ${GMV ? "jen vybrané postavy" : "vybrané postavy a vypravěč"}</label>` : ""}
+    <span class="foprok" hidden>${kdo.map(k => `<label><input type="checkbox" name="proK" value="${besc(k.id)}"> ${besc(k.n)}</label>`).join("")}</span></fieldset>`;
+}
+function forumProTxt(p) {
+  if (!Array.isArray(p.pro)) return "";
+  const me = forumKarta(),
+    jm = p.pro.filter(k => k !== me).map(fJmeno);
+  if (!p.pro.length) return p.karta ? "jen pro vypravěče" : "jen vypravěč (poznámka)";
+  return `jen pro ${[...(p.karta && p.karta !== me ? [fJmeno(p.karta)] : []), ...jm, ...(me && p.pro.includes(me) ? ["tebe"] : []), "vypravěče"].join(", ")}`;
+}
+/* obrázek z telefonu: zmenší se na nejvýš 1600 px (WebP) a nahraje do úložiště; do textu se vloží ![popis](adresa) */
+function fZmensi(file, max = 1600) {
+  return new Promise((ok, ko) => {
+    const u = URL.createObjectURL(file),
+      im = new Image();
+    im.onload = () => {
+      const k = Math.min(1, max / Math.max(im.width, im.height)),
+        c = document.createElement("canvas");
+      c.width = Math.round(im.width * k);
+      c.height = Math.round(im.height * k);
+      c.getContext("2d").drawImage(im, 0, 0, c.width, c.height);
+      URL.revokeObjectURL(u);
+      c.toBlob(b => (b ? ok(b) : ko(new Error("Obrázek se nepodařilo zpracovat."))), "image/webp", 0.82);
+    };
+    im.onerror = () => {
+      URL.revokeObjectURL(u);
+      ko(new Error("Tohle není obrázek, který prohlížeč umí otevřít."));
+    };
+    im.src = u;
+  });
+}
+document.addEventListener("change", async e => {
+  const f = e.target;
+  if (!f.matches || !f.matches("#forumview [data-foimg]") || !f.files || !f.files[0]) return;
+  const box = f.closest(".fopsani"),
+    ta = box && box.querySelector("textarea"),
+    soubor = f.files[0];
+  f.value = "";
+  if (!ta) return;
+  const b = box.querySelector('[data-fotb="img"]');
+  if (b) {
+    b.disabled = true;
+    b.textContent = "Nahrávám…";
+  }
+  try {
+    const blob = await fZmensi(soubor),
+      jm = `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}.webp`,
+      url = await MMDB.forumObrazek(jm, blob),
+      popis =
+        String(soubor.name || "obrázek")
+          .replace(/\.[a-z0-9]+$/i, "")
+          .replace(/[\[\]()]/g, "")
+          .slice(0, 60) || "obrázek";
+    const a = ta.selectionStart ?? ta.value.length,
+      vlozit = `\n![${popis}](${url})\n`;
+    ta.value = ta.value.slice(0, a) + vlozit + ta.value.slice(ta.selectionEnd ?? a);
+    ta.focus();
+    ta.selectionStart = ta.selectionEnd = a + vlozit.length;
+    ta.dispatchEvent(new Event("input", {bubbles: true}));
+  } catch (err) {
+    mmHlasG(String((err && err.message) || err), 7000);
+  } finally {
+    if (b) {
+      b.disabled = false;
+      b.textContent = "Obrázek";
+    }
+  }
+});
+document.addEventListener("change", e => {
+  const r = e.target;
+  if (!r.matches || !r.matches("#forumview .fopro input[name=pro]")) return;
+  const k = r.closest(".fopro").querySelector(".foprok");
+  if (k) k.hidden = r.value !== "vyber";
+});
 /* ----- obsluha ----- */
 async function forumAkce(fn, ok) {
   try {
@@ -927,6 +1035,15 @@ document.addEventListener("submit", e => {
     if (FORUM.odp) o.p_odpoved = FORUM.odp.id;
     if (FORUM.hody.length) o.p_hod = {hody: FORUM.hody};
     if (!ooc) o.p_zminky = fZminky(text);
+    const pro = d.get("pro");
+    if (pro === "gm") o.p_pro = [];
+    else if (pro === "vyber") {
+      o.p_pro = fZaskrtnute(f, "proK");
+      if (!o.p_pro.length) {
+        btn.disabled = false;
+        return mmHlasG("Vyber, kterým postavám je příspěvek určený.", 4000);
+      }
+    }
     if (GMV) {
       o.p_ceka = [...new Set(fZaskrtnute(f, "ceka").concat(FORUM.vyzvy.map(v => v.k)))];
       if (FORUM.vyzvy.length) o.p_vyzvy = FORUM.vyzvy;
@@ -939,6 +1056,7 @@ document.addEventListener("submit", e => {
       FORUM.odp = null;
       FORUM.hody = [];
       FORUM.vyzvy = [];
+      FORUM.npc = null;
       f.querySelector("textarea").value = "";
       await forumNacti();
       const p = document.querySelector("#forumview .foprisp .fopris:last-child");
@@ -1060,7 +1178,8 @@ document.addEventListener("change", e => {
   if (!ta) return;
   const druh = s.dataset.fovloz,
     [i, n] = s.value.split("|");
-  const vlozit = druh === "zm" ? `@${s.value} ` : druh === "osoba" ? `[${n}](#osoba/${i})` : `[${n}](#rod/${i})`;
+  const vlozit =
+    druh === "zm" ? `@${s.value} ` : druh === "osoba" ? `[${n}](#osoba/${i})` : druh === "obr" ? `\n![${n}](${i})\n` : `[${n}](#rod/${i})`;
   const a = ta.selectionStart ?? ta.value.length;
   ta.value = ta.value.slice(0, a) + vlozit + ta.value.slice(ta.selectionEnd ?? a);
   ta.focus();

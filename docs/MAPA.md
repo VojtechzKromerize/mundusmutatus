@@ -193,8 +193,8 @@ site navigation: views, house and person articles
 
 - 1171 řádků, 56 definic na nejvyšší úrovni, z toho 24 používají jiné soubory
 - používá z: 01-zaklad (13), 02-mapa (18), 03-artikule (1), 04-praha (5), 04b-praha-plan (2), 05-svet (4), 05b-svet-mapa (3), 06-draconomicon-rodokmeny (4), 07-druzina-kronika (7), 07p-povest (1), 09-vypravec-herni-cas (1), 10-kouzla (4), 10q-plne-texty (1), 11-boj (4), 13-karty (2), 14d-vybaveni-katalog (1), 15-karty-artikule (4), 16-srd-ukazky-sezeni-hrac (6), 17-karty-ii (1), 18-pravidla-postavy (5), 20d-boj-render (2), 22b-vyprava (2), 24b-forum (1)
-- používají ho: 02-mapa (2), 02b-mapa-kresba (1), 05b-svet-mapa (2), 06-draconomicon-rodokmeny (2), 07-druzina-kronika (3), 07p-povest (2), 09-vypravec-herni-cas (4), 10-kouzla (2), 10h-hledani (4), 10q-plne-texty (3), 11-boj (4), 13-karty (3), 14-karty-bojova-karta (3), 14b-vybaveni (1), 14c-boj-reakce (1), 14d-vybaveni-katalog (1), 15-karty-artikule (2), 16-srd-ukazky-sezeni-hrac (8), 16o-obchody-tabulky (1), 17-karty-ii (7), 17b-kouzla-ucinky (1), 19-karty-beyond (2), 19b-automatika (1), 20-boj-hraci (1), 20b-boj-vypravec (2), 20d-boj-render (4), 21-editor-pecet (2), 22-vyprava (1), 22b-vyprava (1), 23-potvrzovani (2), 24b-forum (3), 25-puls (2), 26-start (2)
-- poskytuje: curView navTo mmNaHre route featyMuze PULTTAB featyMd mmCela PORTR portU renderPersonArticle renderRodArticle SRDP FEATY featyNacti MMCELA_WEB mmJenHra POVOLSHR pThumb slugMimo srdNacti ucetBoxHtml ucetMuze ucetPrihlasen
+- používají ho: 02-mapa (2), 02b-mapa-kresba (1), 05b-svet-mapa (2), 06-draconomicon-rodokmeny (2), 07-druzina-kronika (3), 07p-povest (2), 09-vypravec-herni-cas (4), 10-kouzla (2), 10h-hledani (4), 10q-plne-texty (3), 11-boj (4), 13-karty (3), 14-karty-bojova-karta (3), 14b-vybaveni (1), 14c-boj-reakce (1), 14d-vybaveni-katalog (1), 15-karty-artikule (2), 16-srd-ukazky-sezeni-hrac (8), 16o-obchody-tabulky (1), 17-karty-ii (7), 17b-kouzla-ucinky (1), 19-karty-beyond (2), 19b-automatika (1), 20-boj-hraci (1), 20b-boj-vypravec (2), 20d-boj-render (4), 21-editor-pecet (2), 22-vyprava (1), 22b-vyprava (1), 23-potvrzovani (2), 24b-forum (5), 25-puls (2), 26-start (2)
+- poskytuje: curView navTo mmNaHre route featyMuze PORTR portU PULTTAB featyMd mmCela renderPersonArticle renderRodArticle SRDP FEATY featyNacti MMCELA_WEB mmJenHra POVOLSHR pThumb slugMimo srdNacti ucetBoxHtml ucetMuze ucetPrihlasen
 - oddíly:
   - ř. 354: Pravidla: český překlad SRD 5.2.1 s poznámkami Artikulí (art/pravidla.json, načte se až při otevření)
   - ř. 1048: Iluminované iniciály: první písmeno zápisu, oddílu Artikulí, kapitoly Draconomiconu a zápisu kronikáře o rodu
@@ -384,7 +384,7 @@ BOJ: tracker slotové iniciativy (Artikule › Iniciativa a protivníci)
 
 - 3282 řádků, 215 definic na nejvyšší úrovni, z toho 139 používají jiné soubory
 - používá z: 01-zaklad (3), 02-mapa (10), 02c-zbroj (2), 04-praha (1), 07-druzina-kronika (3), 08-navigace-pravidla (4), 09-vypravec-herni-cas (3), 10-kouzla (1), 10p-pravidla (18), 11b-rucni-kostky (1), 12-boj-tah-postavy (30), 13-karty (5), 14-karty-bojova-karta (2), 14c-boj-reakce (2), 15-karty-artikule (3), 17-karty-ii (5), 17b-kouzla-ucinky (4), 18-pravidla-postavy (3), 20b-boj-vypravec (6), 20d-boj-render (1), 20e-boj-vlastnosti (1), 20g-boj-mistrovstvi (1), 25-puls (1)
-- používají ho: 08-navigace-pravidla (4), 09-vypravec-herni-cas (4), 10h-hledani (7), 10q-plne-texty (1), 12-boj-tah-postavy (42), 13-karty (13), 14-karty-bojova-karta (22), 14b-vybaveni (6), 14c-boj-reakce (8), 14d-vybaveni-katalog (1), 15-karty-artikule (9), 16-srd-ukazky-sezeni-hrac (15), 16o-obchody-tabulky (1), 17-karty-ii (13), 17b-kouzla-ucinky (15), 18-pravidla-postavy (5), 19-karty-beyond (9), 20-boj-hraci (17), 20b-boj-vypravec (85), 20c-boj-ridery (10), 20d-boj-render (37), 20e-boj-vlastnosti (7), 20f-scena (11), 20g-boj-mistrovstvi (4), 23-potvrzovani (4), 24-boj-zaznam (19), 24b-forum (3), 25-puls (12)
+- používají ho: 08-navigace-pravidla (4), 09-vypravec-herni-cas (4), 10h-hledani (7), 10q-plne-texty (1), 12-boj-tah-postavy (42), 13-karty (13), 14-karty-bojova-karta (22), 14b-vybaveni (6), 14c-boj-reakce (8), 14d-vybaveni-katalog (1), 15-karty-artikule (9), 16-srd-ukazky-sezeni-hrac (15), 16o-obchody-tabulky (1), 17-karty-ii (13), 17b-kouzla-ucinky (15), 18-pravidla-postavy (5), 19-karty-beyond (9), 20-boj-hraci (17), 20b-boj-vypravec (85), 20c-boj-ridery (10), 20d-boj-render (37), 20e-boj-vlastnosti (7), 20f-scena (11), 20g-boj-mistrovstvi (4), 23-potvrzovani (4), 24-boj-zaznam (19), 24b-forum (4), 25-puls (12)
 - poskytuje: btip BOJ bojZmen bsg bojDB bi bK bojBezi bojKostky bojLog bojNacti bojJa bojJm bojPrekresli PROTBY bojMedN bojEff BOTV JA BLOGG bojHp bojMedH BSTI PROTIVNICI BKS bojDsAkt bojObt bojPridejZvenku bojRozvin bojZdr kNeschopny OSPROT zavTxt BCIL BHIST BODP bojBest bojCilO bojMaRes bojNav … (+99)
 - oddíly:
   - ř. 7: Boj: ikonky, medailony a popisky při najetí myší (2026-10-16)
@@ -807,21 +807,21 @@ Boj: herní záznam ve třetím sloupci (2026-10-18) – KDO · CO · KOMU, hoze
 
 Fórum (2026-10-31): pomalá hra mezi sezeními – Obsah fóra, seznam témat, téma s příspěvky
 
-- 1295 řádků, 73 definic na nejvyšší úrovni, z toho 6 používají jiné soubory
-- používá z: 01-zaklad (2), 02-mapa (1), 02d-pojmy (1), 04-praha (1), 07-druzina-kronika (4), 08-navigace-pravidla (3), 09-vypravec-herni-cas (1), 10p-pravidla (2), 11-boj (3), 12-boj-tah-postavy (1), 13-karty (4), 14-karty-bojova-karta (1), 15-karty-artikule (2), 16-srd-ukazky-sezeni-hrac (1), 18-pravidla-postavy (4), 20f-scena (2)
+- 1414 řádků, 77 definic na nejvyšší úrovni, z toho 6 používají jiné soubory
+- používá z: 01-zaklad (2), 02-mapa (1), 02d-pojmy (1), 04-praha (1), 07-druzina-kronika (4), 08-navigace-pravidla (5), 09-vypravec-herni-cas (1), 10p-pravidla (2), 11-boj (4), 12-boj-tah-postavy (1), 13-karty (4), 14-karty-bojova-karta (1), 15-karty-artikule (2), 16-srd-ukazky-sezeni-hrac (1), 18-pravidla-postavy (4), 20f-scena (2)
 - používají ho: 07-druzina-kronika (1), 08-navigace-pravidla (1), 13-karty (2), 16-srd-ukazky-sezeni-hrac (1), 25-puls (1)
 - poskytuje: forumKartaPrekresli forumOdznakHtml forumHodZachyt forumPuls forumZapis renderForum
 - oddíly:
-  - ř. 347: Obsah fóra
-  - ř. 380: Správa struktury (vypravěč)
-  - ř. 432: Seznam témat
-  - ř. 474: Moje témata, čekají na mě, hledání
-  - ř. 495: Nové téma
-  - ř. 521: Kostky
-  - ř. 606: vypravěč: výzva k hodu v příspěvku a příspěvek za NPC ze scény (2026-11-01)
-  - ř. 737: Pomůcky pro psaní: nápověda, zmínky, odkazy na osoby a rody, koncepty
-  - ř. 769: Téma
-  - ř. 858: obsluha
+  - ř. 361: Obsah fóra
+  - ř. 394: Správa struktury (vypravěč)
+  - ř. 446: Seznam témat
+  - ř. 488: Moje témata, čekají na mě, hledání
+  - ř. 509: Nové téma
+  - ř. 535: Kostky
+  - ř. 620: vypravěč: výzva k hodu v příspěvku a příspěvek za NPC ze scény (2026-11-01)
+  - ř. 751: Pomůcky pro psaní: nápověda, zmínky, odkazy na osoby a rody, koncepty
+  - ř. 794: Téma
+  - ř. 966: obsluha
 
 ## 25-puls
 
