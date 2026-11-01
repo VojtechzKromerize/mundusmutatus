@@ -2648,7 +2648,7 @@ begin
   select * into fo from public.forum_fora where id = tm.forum;
   if k <> 'gm' and tm.stav <> 'otevrene' then raise exception 'téma je uzavřené'; end if;
   if k <> 'gm' and fo.zamceno then raise exception 'fórum je zamčené'; end if;
-  if p_hod is not null and (jsonb_typeof(p_hod) <> 'object' or octet_length(p_hod::text) > 2000) then raise exception 'neplatný hod'; end if;
+  if p_hod is not null and (jsonb_typeof(p_hod) <> 'object' or octet_length(p_hod::text) > 6000) then raise exception 'neplatný hod'; end if;
   if p_ceka is not null and not public.mm_forum_karty_ok(p_ceka) then raise exception 'neplatný seznam, na koho se čeká'; end if;
   if p_zminky is not null and not public.mm_forum_karty_ok(p_zminky) then raise exception 'neplatné zmínky'; end if;
   if p_odpoved is not null and not exists (select 1 from public.forum_prispevky where id = p_odpoved and tema = tm.id) then p_odpoved := null; end if;

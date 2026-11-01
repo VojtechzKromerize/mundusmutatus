@@ -17,7 +17,8 @@ const FORUM = {
   uprav: false,
   edit: null,
   odp: null,
-  hod: null,
+  hody: [],
+  karta: false,
   pocet: undefined,
   pocetBeh: false,
   skok: null,
@@ -106,7 +107,7 @@ async function renderForum(b, c) {
     FORUM.klic = novy;
     FORUM.edit = null;
     FORUM.odp = null;
-    FORUM.hod = null;
+    FORUM.hody = [];
     if (rezim !== "t") FORUM.tema = null;
   }
   FORUM.rezim = rezim;
@@ -423,11 +424,12 @@ function fHodit(text, popis, vyhoda, zavoj, taj) {
 function fHodHtml(h) {
   if (!h) return "";
   const kost = h.txt ? String(h.txt).replace(/ = -?\d+/, "") : h.dva ? `${h.dva.join(", ")} → ${h.d[0]}` : (h.d || []).join(" + ");
-  return `🎲 ${besc(h.t || "hod")} = <b>${besc(h.vysl)}</b>${kost ? ` <small>(${besc(kost)})</small>` : ""}${h.zavoj ? ` · Závoj k6: ${h.zavoj.k6} – <b>${besc(h.zavoj.t)}</b>` : ""}${h.karta ? " <small>(z karty)</small>" : ""}${h.taj ? " <small>(tajně)</small>" : ""}`;
+  return `🎲 ${besc(h.t || "hod")} = <b>${besc(h.vysl)}</b>${kost ? ` <small>(${besc(kost)})</small>` : ""}${h.zavoj ? ` · Závoj k6: ${h.zavoj.k6} – <b>${besc(h.zavoj.t)}</b>` : ""}${h.krit ? " · <b>kritický zásah</b>" : ""}${h.karta ? " <small>(z karty)</small>" : ""}${h.taj ? " <small>(tajně)</small>" : ""}`;
 }
 /* hod z karty postavy (2026-11-01, Vojta): stejný výpočet jako tlačítko na kartě (kartaHod v 13 – bonusy podle pravidel postavy, stavy,
    vyčerpání, posílení z účinků, kostka Závoje, ruční kostky); hod se zapíše i do herního záznamu, takže ho vypravěč vidí i tam.
-   Útoky zatím ne: na kartě s nimi souvisí střelivo a účinky (Hex, Bless…), které se mají odečíst jen v boji. */
+   Rychlá nabídka pro běžné hody; všechno ostatní (útoky, kouzla, odpočinek…) jde z celé karty, kterou si hráč v tématu otevře –
+   každý hod z ní se přiloží k odpovědi (forumHodZachyt, volá ho kHodZapis v 13). */
 function forumKartaHodyHtml(K) {
   const sg = v => (v >= 0 ? "+" : "") + v,
     sk = (lbl, L) => `<optgroup label="${lbl}">${L.join("")}</optgroup>`;
@@ -477,11 +479,39 @@ async function forumKartaHod(K, volba, adv) {
     co = "Iniciativa";
     b = kIni(K);
   } else return null;
-  const r = await kartaHod(K, co, b, o);
-  if (!r) return null;
-  const h = {t: co, vysl: r.tot, txt: String(r.txt || "").slice(0, 300), karta: K.id};
-  if (r.zav != null) h.zavoj = {k6: r.zav, t: zavVys(r.zr)};
-  return h;
+  return kartaHod(K, co, b, o);
+}
+/* hod zapsaný z karty (kHodZapis v 13), když je otevřené téma, do kterého hráč smí psát: přiloží se k rozepsané odpovědi */
+function forumHodZachyt(H) {
+  const K = jaK();
+  if (GMV || !K || H.k !== K.id || FORUM.rezim !== "t" || !document.querySelector("#forumview .foformpsani")) return;
+  const h = {t: String(H.co || "hod").slice(0, 80), vysl: H.tot, txt: String(H.txt || "").slice(0, 200), karta: K.id};
+  if (H.zav != null) h.zavoj = {k6: H.zav, t: zavVys(H.zr)};
+  if (H.krit) h.krit = true;
+  FORUM.hody = FORUM.hody.concat(h).slice(-8);
+  forumHodyPrekresli();
+}
+function forumHodyHtml() {
+  return FORUM.hody.length
+    ? `<p class="fokdo">Přiložené hody</p>${FORUM.hody.map((h, i) => `<p class="fohodchip">${fHodHtml(h)} <button type="button" class="fobtn" data-fohodx="${i}" aria-label="Odebrat hod">✕</button></p>`).join("")}`
+    : "";
+}
+function forumHodyPrekresli() {
+  const el = document.querySelector("#forumview .fohodyl");
+  if (el) el.innerHTML = forumHodyHtml();
+}
+/* celá karta postavy v tématu: všechno, co jde na Hře, jde i tady (karta se překreslí přes kartyPrekresli v 13) */
+function forumKartaHtml() {
+  const K = !GMV && jaK();
+  return K && FORUM.karta ? kartaJednaHtml(K) : "";
+}
+function forumKartaPrekresli() {
+  const el = document.querySelector("#forumview .fokarta");
+  if (!el || !FORUM.karta) return;
+  const y = scrollY;
+  el.innerHTML = forumKartaHtml();
+  if (typeof pojZnac === "function") pojZnac(el);
+  scrollTo(0, y);
 }
 /* ----- Pomůcky pro psaní: nápověda, zmínky, odkazy na osoby a rody, koncepty ----- */
 function forumNapovedaHtml() {
@@ -523,7 +553,7 @@ function forumPrispevekHtml(p, T) {
   const av =
     typeof img === "string" && /^(data:image\/|https?:|art\/)/.test(img) ? `<img class="foav" src="${besc(img)}" alt="" loading="lazy">` : "";
   const pan = `<div class="fopan">${av}<span><b>${besc(p.jmeno)}</b>${p.karta ? "" : "<small>vypravěč</small>"}</span></div>`;
-  const hod = p.hod ? `<p class="fohod">${fHodHtml(p.hod)}</p>` : "";
+  const hod = p.hod ? (Array.isArray(p.hod.hody) ? p.hod.hody : [p.hod]).map(h => `<p class="fohod">${fHodHtml(h)}</p>`).join("") : "";
   const cit = p.citace
     ? `<blockquote class="focitace"><a href="#forum/t/${T.tema.id}" data-focitskok="${p.citace.id}"><b>${besc(p.citace.jmeno)}</b></a>: ${besc(String(p.citace.t).replace(/[*]/g, ""))}</blockquote>`
     : "";
@@ -564,6 +594,7 @@ function forumTemaVykresli(box, hlava) {
     ${GMV ? forumGmNastroje(t) : ""}
     ${T.starsi ? '<p class="fostarsi"><button type="button" class="gbtn ghost" data-fostarsi>Načíst starší příspěvky</button></p>' : ""}
     <div class="foprisp">${html}</div>
+    ${muzePsat && !GMV && jaK() ? `<details class="fokartad" data-fokartad${FORUM.karta ? " open" : ""}><summary>📜 Karta postavy – každý hod z ní se přiloží k odpovědi</summary><div class="fokarta hraja" data-kid="${besc(jaK().id)}">${forumKartaHtml()}</div></details>` : ""}
     ${
       muzePsat
         ? `<form class="foform foformpsani" data-foodp="${t.id}"><h3>Odpovědět</h3>
@@ -571,12 +602,12 @@ function forumTemaVykresli(box, hlava) {
         ${GMV ? '<label>Jako <small>(jméno postavy nebo NPC, volitelné)</small> <input name="jako" maxlength="60" placeholder="Vypravěč"></label>' : ""}
         <textarea name="t" rows="6" maxlength="8000" required aria-label="Příspěvek"></textarea>
         ${forumVlozitHtml()}${forumNapovedaHtml()}
-        <details class="fokostky"${FORUM.hod ? " open" : ""}><summary>🎲 Hodit kostkou</summary>${!GMV && jaK() ? forumKartaHodyHtml(jaK()) + '<p class="fokdo">Jiná kostka</p>' : ""}<div class="fokrow">
+        <details class="fokostky"><summary>🎲 Hodit kostkou</summary>${!GMV && jaK() ? forumKartaHodyHtml(jaK()) + '<p class="fokdo">Jiná kostka</p>' : ""}<div class="fokrow">
           <input data-fohf value="1k20" size="8" aria-label="Kostky, např. 1k20+5"><input data-fohl placeholder="Popisek (např. Přesvědčování)" aria-label="Popisek hodu">
           <select data-fohv aria-label="Výhoda"><option value="">bez výhody</option><option value="v">výhoda</option><option value="n">nevýhoda</option></select>
           <label class="fochk"><input type="checkbox" data-fohz> Závoj k6</label><label class="fochk"><input type="checkbox" data-fohtaj> tajně</label>
           <button type="button" class="gbtn ghost" data-fohod>Hodit</button></div>
-          ${FORUM.hod ? `<p class="fohodchip">${fHodHtml(FORUM.hod)} <button type="button" class="fobtn" data-fohodx>✕</button></p>` : ""}</details>
+          </details><div class="fohodyl">${forumHodyHtml()}</div>
         <label class="fochk"><input type="checkbox" name="ooc"> Mimo hru (nemění, na koho se čeká)</label>
         ${GMV ? forumUcastniciHtml("Čeká se na", t.ceka_na) : ""}
         <p><button class="gbtn">Odeslat</button></p></form>`
@@ -673,14 +704,14 @@ document.addEventListener("submit", e => {
     btn.disabled = true;
     const o = {p_tema: +f.dataset.foodp, p_t: text, p_ooc: ooc, p_jako: d.get("jako") || null};
     if (FORUM.odp) o.p_odpoved = FORUM.odp.id;
-    if (FORUM.hod) o.p_hod = FORUM.hod;
+    if (FORUM.hody.length) o.p_hod = {hody: FORUM.hody};
     if (!ooc) o.p_zminky = fZminky(text);
     if (GMV) o.p_ceka = fZaskrtnute(f, "ceka");
     forumAkce(async () => {
       await MMDB.forumPrispevek(o, k);
       fKoncept(o.p_tema, "");
       FORUM.odp = null;
-      FORUM.hod = null;
+      FORUM.hody = [];
       f.querySelector("textarea").value = "";
       await forumNacti();
       const p = document.querySelector("#forumview .foprisp .fopris:last-child");
@@ -846,8 +877,8 @@ document.addEventListener("click", e => {
     }
     const ta = f.querySelector("textarea");
     if (ta && FORUM.tid) fKoncept(FORUM.tid, ta.value);
-    FORUM.hod = v;
-    forumVykresli();
+    FORUM.hody = FORUM.hody.concat(v).slice(-8);
+    forumHodyPrekresli();
   } else if (d.fokhod !== undefined) {
     const f = b.closest("form"),
       K = jaK();
@@ -856,20 +887,13 @@ document.addEventListener("click", e => {
     if (ta && FORUM.tid) fKoncept(FORUM.tid, ta.value);
     b.disabled = true;
     forumKartaHod(K, f.querySelector("[data-fokh]").value, f.querySelector("[data-fokhv]").value)
-      .then(h => {
-        if (!h) return;
-        FORUM.hod = h;
-        forumVykresli();
-      })
       .catch(err => mmHlasG(String((err && err.message) || err), 5000))
       .finally(() => {
         b.disabled = false;
       });
   } else if (d.fohodx !== undefined) {
-    FORUM.hod = null;
-    const ta = document.querySelector("#forumview .foformpsani textarea");
-    if (ta && FORUM.tid) fKoncept(FORUM.tid, ta.value);
-    forumVykresli();
+    FORUM.hody = FORUM.hody.filter((x, i) => i !== +d.fohodx);
+    forumHodyPrekresli();
   } else if (d.fouprav !== undefined) {
     FORUM.uprav = !FORUM.uprav;
     FORUM.edit = null;
@@ -925,3 +949,16 @@ async function forumZapis(zid) {
   );
   navTo(`#forum/t/${id}`);
 }
+/* otevření a zavření karty v tématu: obsah se vykreslí až při otevření */
+document.addEventListener(
+  "toggle",
+  e => {
+    const d = e.target;
+    if (!d.matches || !d.matches("#forumview [data-fokartad]")) return;
+    FORUM.karta = d.open;
+    const el = d.querySelector(".fokarta");
+    if (d.open && el && !el.firstChild) forumKartaPrekresli();
+    if (!d.open && el) el.innerHTML = "";
+  },
+  true,
+);

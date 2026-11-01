@@ -179,6 +179,8 @@ function kartyPrekresli() {
     });
   if (curView === "boj") bojPrekresli();
   if (curView === "hra") mmPozdeji("hra", hraPrekresli);
+  /* karta postavy otevřená ve Fóru (24b) */
+  if (curView === "forum" && typeof forumKartaPrekresli === "function") mmPozdeji("forum-karta", forumKartaPrekresli);
 }
 /* vyčerpání (D&D 2024): každá úroveň −2 ke všem hodům d20 */
 const kVycerp = K => +(kartaStav(K.id).vycerp || 0);
@@ -288,6 +290,8 @@ function kHodHlas(t) {
 }
 async function kHodZapis(H) {
   const zaz = Object.assign({id: Date.now(), cas: new Date().toISOString()}, H);
+  /* hod z karty při psaní příspěvku ve Fóru se přiloží k odpovědi (24b) */
+  if (curView === "forum" && typeof forumHodZachyt === "function") forumHodZachyt(H);
   HODY.unshift(zaz);
   kartyPrekresli();
   try {
@@ -747,7 +751,7 @@ document.addEventListener("change", async e => {
   }
 });
 document.addEventListener("click", async e => {
-  const v = e.target.closest && e.target.closest("#kartyview,#bojpult,.hrapri,.bjapanel,.bhkb");
+  const v = e.target.closest && e.target.closest("#kartyview,#bojpult,.hrapri,.bjapanel,.bhkb,.fokarta");
   if (!v) return;
   const T = s => e.target.closest(s),
     id = decodeURIComponent(location.hash.split("/")[1] || ""),
