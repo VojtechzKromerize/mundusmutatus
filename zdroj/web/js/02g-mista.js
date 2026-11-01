@@ -504,6 +504,10 @@ const CITYINFO = {
     t: "Královský hrad v zástavě",
     n: "Nádherný hrad krále Václava nad Žebrákem, léta Páně 1424 marně obléhaný husity. Zástavu drží páni z Kolovrat, věrní straně pod jednou a oporou landfrýdu plzeňského.",
   },
+  Žebrák: {
+    t: "Královský hrad",
+    n: "Starší hrad pod Točníkem nad cestou z Prahy k Plzni, kdež rád pobýval král Václav. Pan Hanuš z Kolovrat jej musel vydati panu Jiřímu, jenž nechtěl nechávati důležitých hradů v rukou horlivců strany římské, i drží jej nyní pan Jiří; Kolovratové mu tu křivdu nezapomněli.",
+  },
   Zbiroh: {
     t: "Hrad pánů z Kolovrat",
     n: "Hrad na skalnatém ostrohu nad cestou z Prahy k Plzni. Pan Hanuš z Kolovrat sem přesídlil, když musel panu Jiřímu vydati Žebrák; náhradou mu byly doživotně potvrzeny zástavy dřívější. Sídlí zde s chotí Kateřinou ze Šternberka a hrad jest oporou strany pod jednou na pomezí Plzeňska.",
