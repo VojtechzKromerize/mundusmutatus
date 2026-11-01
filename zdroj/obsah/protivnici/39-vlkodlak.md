@@ -9,7 +9,8 @@ utok: Dva útoky: drápy +5, 2d6+3, nebo dlouhý luk 150/600, 2d8+2 · jeden lze
 pozehnani: Výhoda na příští útok proti cíli, který krvácí.
 pokuseni: Za úplňku zavyje: v příštím slotu se musí proměnit, i kdyby to prozradilo, kým je.
 nerest: Hněv – zvíře v něm nesnese ránu stříbrem ani posměch. Kdo ho zraní stříbrem, toho napadne a zapomene na ostatní.
-stitky: vlkodlak, lykantrop, vlci, les, úplněk, kletba, stříbro
+zakon: Padne-li stříbrnou zbraní na 0 HP, zemře; pravé jméno za úplňku ho promění zpět.
+stitky: relikt, vlkodlak, lykantrop, vlci, les, úplněk, kletba, stříbro
 utoky:
   - Drápy | +5 | 2d6+3 Slashing | dva útoky v jednom slotu
   - Dlouhý luk | +4 | 2d8+2 Piercing | dostřel 150/600 stop; jen v lidské podobě
@@ -48,6 +49,21 @@ utoky:
 ## Reakce
 
 - **Kousnutí za kousnutí.** Když ho zasáhne útok zblízka a je ve vlčí nebo smíšené podobě, hned útočníka kousne.
+
+## Relikt
+
+- **Zrodil ho.** Vztek a zvířecí prokletí.
+- **Strach.** 2/1 (WIS DC 13 poprvé, DC 11 poté).
+- **Nálady.** Krvežíznivý +1 · Podrážděný · Ostražitý +1 · Omámený −2 · Taktický +1 · Zuřivý (raněný) +1 · Krvavá zběsilost +3.
+- **Znamení.** Za úplňku vyje; po dni je to někdo z vsi se zarostlým obočím a vlčím pohledem.
+- **Zákon.** Za úplňku nebo při silné emoci se musí proměnit; většina se neovládne.
+- **Moc.** Chlupatý pancíř (odolnost), dvojí tah. Krvavá zběsilost: když zuřivost zlomí oběť a vlkodlak padne, kletba přejde na oběť; zabrání tomu spolknuté stříbro před první proměnou.
+- **Co chce.** Zbavit se kletby; sám ji sejme jen ohavným činem, proto je nejnebezpečnější, když zoufale hledá východisko.
+- **Ochrana.** Stříbro u sebe.
+- **Zažehnání – lidová verze.** Zranit ho stříbrnou zbraní odežene zvíře; vlk pak zmizí.
+- **Zažehnání – úplný obřad.** Kdo ho dorazí stříbrem na 0 HP, zničí ho; nebo mu za úplňku říct pravé jméno, pak se promění zpět v člověka.
+- **Rozplynutí.** Odtáhne se na 1d6 minut a hojí se; stříbro ho zabije.
+- **Tajemství.** Vzniká kletbou, magickým utišením porodních bolestí nebo volbou učeného v magii.
 
 **Výkupné a kořist.** V lidské podobě je to někdo z vesnice. Za jeho hlavu je vypsaná odměna – a jeho rodina by zaplatila víc, aby se to nikdo nedozvěděl.
 

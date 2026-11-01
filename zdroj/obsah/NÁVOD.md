@@ -34,7 +34,8 @@ Vše v této části vidí **jen vypravěč** – hráči nedostanou ani seznamy
   texty a jména jsou vlastní.
   **Relikty** (lidové potvory starší než Protržení: vodník, polednice, Krakonoš…) mají ve štítcích `relikt`, v hlavičce
   `zakon` (krátce, ukáže se jako ikonka klíče v kartě) a v textu oddíl `## Relikt` (Znamení, Zákon, Moc, Co chce, Ochrana,
-  Zažehnání, Tajemství). V Boji mají navíc stav „rozplynul se“: relikt se vrátí ve své příští hodině, dokud ho družina
+  Zažehnání, Tajemství; novější relikty podle Vaesenu k tomu Zrodil ho, Strach, Nálady, Rozplynutí a Zažehnání
+  rozdělené na lidovou verzi a úplný obřad). V Boji mají navíc stav „rozplynul se“: relikt se vrátí ve své příští hodině, dokud ho družina
   nezažehná. Podrobně v projektu `bestiar/relikty.md`.
 - **Přívlastky** – `privlastky/` (Zkušený, Veterán, Ve zbroji, Jízdní, Zatracený, Proměněnec…). Přídavky `ac`, `hp`,
   `utok`, `zraneni`, `xp` (číslo nebo procenta), `zdroje`, `pro` (komu se hodí); text = vlastnosti navíc.

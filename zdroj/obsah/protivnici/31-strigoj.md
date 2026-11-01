@@ -9,7 +9,8 @@ utok: Hrobová rána +9, 1d8+4 a 2d6 Prokleté, Grappled · kousnutí (CON DC 17
 pozehnani: Ruka na rameni: zásah je kritický, nebo okouzlení se dobije hned.
 pokuseni: Kohout zakokrhá nebo zazvoní zvon: do konce kola má nevýhodu a nemůže se proměnit.
 nerest: Pýcha a Chtíč – pán, který nesnese pokoření, a hladový, který nesnese odmítnutí. Svěcená půda, česnek a zrcadlo ho drží zpátky jen na chvíli. Ctnosti: Věrnost rodu, Pohostinství (k hostům, které pozval).
-stitky: nemrtví, upír, vampýr, Valašsko, Karpaty, Sedmihradsko, Dračí řád, hrad, šlechta
+zakon: Česnek do úst a tělo tváří dolů ho drží v hrobě; porušený hrob ho pustí.
+stitky: relikt, nemrtví, upír, vampýr, Valašsko, Karpaty, Sedmihradsko, Dračí řád, hrad, šlechta
 zdroje: Legendární odolnost 3, Okouzlení 1
 utoky:
   - Hrobová rána | +9 | 1d8+4 Bludgeoning a 2d6 Prokleté (Necrotic) | Large a menší Grappled (únik DC 14); jeden útok v každém slotu
@@ -54,6 +55,21 @@ Prastarý upír z karpatských hradů, šlechtic, který zemřel a odmítl odej�
 ## Reakce
 
 - **Hejno netopýrů.** Když na něj míří útok na dálku nebo kouzlo s hodem na útok, mezi něj a střelu vletí netopýři: AC +4 proti tomuto útoku.
+
+## Relikt
+
+- **Zrodil ho.** Závist a křivda (nespravedlivý trest, kletba, hříšný život).
+- **Strach.** 2/1 (WIS DC 13 poprvé, DC 11 poté).
+- **Nálady.** Opatrný · Raněný −1 (schová se a vrací se) · Útočný +1 · Zuřící +2 (dva sloty) · Vyčerpaný −1 (vysává) · Raněný −2 (odejde vysávat bezmocné).
+- **Znamení.** Tělo v hrobě rudé a plné krve, nehty a vlasy rostou; zůstává blízko rodiny a domova; často kopyta a ocas.
+- **Zákon.** Nevstoupí bez pozvání, nepřejde tekoucí vodu; nesnese kohouta a zvon.
+- **Moc.** Kletba a očarování; vysává (soupeří magií proti STR oběti, jednou za noc sebere až tři stavy); v noci mění podobu. Závistivec vysává energii z lidí, zvířat a jídla a prodává ji.
+- **Co chce.** Rodinu a domov, pomstu.
+- **Ochrana.** Svěcená půda, česnek, zrcadlo.
+- **Zažehnání – lidová verze.** Česnek do úst a tělo tváří dolů: zadrží ho v hrobě, ale nezabije.
+- **Zažehnání – úplný obřad.** Zjistit příčinu (neprávem popravený, prokletý, zavražděný) a pohřbít s pokojem; jinak vstane znovu.
+- **Rozplynutí.** Katatonie; další noc se uzdraví.
+- **Tajemství.** Nezabije ho meč, ale vyřešená křivda.
 
 **Výkupné a kořist.** Hrad, archiv, dluhopisy na půl Valašska a hrob, který musí družina najít dřív, než se do něj vrátí.
 

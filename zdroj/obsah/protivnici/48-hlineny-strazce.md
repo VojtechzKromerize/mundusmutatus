@@ -9,7 +9,8 @@ utok: Úder +9, 1d10+5 a 1d12 Acid, max. HP klesne · zrychlení: Dash a Disenga
 pozehnani: Zrychlení se dobije hned.
 pokuseni: Šém se v jeho ústech pohne: do konce kola nejedná.
 nerest: Šém – na čele nebo pod jazykem má napsané slovo. Kdo ho smaže nebo vytáhne (akce v dosahu, DEX nebo STR proti DC 17), ten ho zastaví.
-stitky: konstrukt, golem, Praha, Židovské město, hlína, kabala, Vltava
+zakon: Poslouchá nespolehlivě; slovo na čele ho pohání a změna slova ho vypne.
+stitky: relikt, konstrukt, golem, Praha, Židovské město, hlína, kabala, Vltava
 zdroje: Zrychlení 1
 utoky:
   - Úder | +9 | 1d10+5 Bludgeoning a 1d12 Acid | max. HP klesne o Acid; v každém slotu jeden úder (se zrychlením dva)
@@ -47,6 +48,21 @@ Hliněný obr, kterého oživil šém – slovo s božím jménem. Strážce pra
 ## Reakce
 
 - **Hlína drží.** Když ho zasáhne útok zbraní zblízka, zbraň uvízne v hlíně: útočník hodí STR save DC 15, jinak ji pustí (vytáhnout ji je Akce).
+
+## Relikt
+
+- **Zrodil ho.** Strach a zoufalství pronásledovaných.
+- **Strach.** 1/1 (WIS DC 11).
+- **Nálady.** Zmatený · Vytrvalý −1 (jde za úkolem) · Rozzlobený +1 (útočí na ty, kdo ho ruší) · Ničivý +2 (rozbíjí vše kolem) · Poškozený −2 (dokončí úkol za každou cenu).
+- **Znamení.** Nemluví, nemá duši; viditelný jen když chce; v okolí se plaší nemrtví a neklidné duše.
+- **Zákon.** Poslouchá tvůrce, ale nespolehlivě; důležitý je úkol, který dostal.
+- **Moc.** Hliněný pancíř (nejvyšší ze všech reliktů: odolnost a snížení zásahu o 6); znepokojivá přítomnost probouzí neklidné duše.
+- **Co chce.** Dokončit úkol.
+- **Ochrana.** Po polití vodou nebo když ho oheň zkřehčí, pancíř mizí.
+- **Zažehnání – lidová verze.** Smazat nebo vytáhnout šém; zastaví se, ale zůstane stát.
+- **Zažehnání – úplný obřad.** Změnit slovo na čele z emet (pravda) na met (smrt); zničit tělo hrubě může zranit či zabít stvořitele.
+- **Rozplynutí.** Rozpadne se v prach; bez řádného obřadu jeho magie dál přivolává neklidné duše.
+- **Tajemství.** Příběh o pražském golemovi je pozdější; pro rok 1458 jde o starší rabínskou tradici nebo dílo nigromanta.
 
 **Výkupné a kořist.** Šém a s ním moc nad golemem. Židovská obec ho bude chtít zpátky – a nejen ona.
 

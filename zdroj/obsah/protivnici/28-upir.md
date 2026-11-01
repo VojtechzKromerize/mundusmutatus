@@ -9,7 +9,8 @@ utok: Dva drápy +6, 2d4+3 a Grappled; kousnutí (CON DC 14): 1d4+3 a 3d6 Prokle
 pozehnani: Vyšplhá po stěně nebo stropě nad cíl a další útok má s výhodou.
 pokuseni: Ucítí krev: musí kousnout nejbližšího zraněného, i kdyby to byl jeho spojenec.
 nerest: Hlad – nevstoupí do domu bez pozvání a nepřejde tekoucí vodu. Rozsypané mák nebo proso musí spočítat (jeden slot).
-stitky: nemrtví, upír, vampýr, Morava, Slezsko, hřbitov, noc
+zakon: Nesnese kůl z jasanu, hlohu či osiky, česnek, kříž ani žalmy; nevstoupí bez pozvání.
+stitky: relikt, nemrtví, upír, vampýr, Morava, Slezsko, hřbitov, noc
 utoky:
   - Dráp | +6 | 2d4+3 Slashing | Medium cíl Grappled (únik DC 13); dva v jednom slotu spolu s kousnutím
   - Kousnutí | CON DC 14 | 1d4+3 Piercing a 3d6 Prokleté (Necrotic) | jen chycený, neschopný, spoutaný či svolný cíl; max. HP klesne, upír se léčí
@@ -46,6 +47,21 @@ Mrtvý, který po pohřbu vychází z hrobu a pije krev svých blízkých. Na Mo
 ## Reakce
 
 - **Krvavé seknutí.** Když tvor do 40 stop, který je pod polovinou HP, utrží zranění, upír se pohne až o polovinu rychlosti a sekne ho drápem.
+
+## Relikt
+
+- **Zrodil ho.** Hlad a vina.
+- **Strach.** 1 (WIS DC 11).
+- **Nálady.** Zdvořilý (domlouvá) · Svůdný (ukolébá) · Hrozivý +1 (Strach) · Zuřivý +1 · Rozlícený +2 · Krvelačný −1 (kouše) · Raněný −2 (zneviditelní se a kouzlí).
+- **Znamení.** Mrtvý s rudou tváří a rostoucími nehty; kopáči ho najdou na břiše; dobytek se u hrobu plaší.
+- **Zákon.** Bez pozvání nevstoupí; tekoucí vodu nepřejde; mák na prahu a v rakvi musí spočítat (ověřit).
+- **Moc.** Neviditelný i pro Zrak; mění se ve zvíře nebo v mlhu; po napití se uzdraví a dostane navíc tah. Vzniká osudem (sedmý syn, děti se zuby, sebevrazi, čarodějové) nebo přenosem kousnutím.
+- **Co chce.** Krev svých blízkých.
+- **Ochrana.** Česnek, ocel, kříž, žalmy mu ztíží sesílání. Napít se jeho krve smíchané s prstí z hrobu dává výhodu proti jeho magii.
+- **Zažehnání – lidová verze.** Kůl z jasanu, hlohu či osiky do hrudi ho zadrží v hrobě.
+- **Zažehnání – úplný obřad.** Setnout hlavu, rozříznout srdce a svařit je ve víně, nebo spálit celé tělo.
+- **Rozplynutí.** Mlha; vrátí se do rakve a příští noc je hladový a zuřivý (o náladu zlejší).
+- **Tajemství.** Pokaždé se vrací, dokud někdo žije z jeho krve.
 
 **Výkupné a kořist.** Rakev s hlínou z rodné vsi. Pokud ho tam družina nedorazí, za týden se vrátí.
 
