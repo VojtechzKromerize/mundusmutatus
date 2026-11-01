@@ -81,7 +81,7 @@ Mapy přes celou obrazovku (2026-10-27, Vojta)
 
 Shrnutí míst mapy (CITYINFO) – samostatná část „mista“ (2026-10-28): stovky míst od Baltu po Jadran už jádro webu nenese;
 
-- 2657 řádků, 1 definic na nejvyšší úrovni, z toho 1 používají jiné soubory
+- 2721 řádků, 1 definic na nejvyšší úrovni, z toho 1 používají jiné soubory
 - používá z: –
 - používají ho: 02-mapa (1), 02b-mapa-kresba (1), 07-druzina-kronika (1)
 - poskytuje: CITYINFO
@@ -382,10 +382,10 @@ Plné znění kouzel a předmětů (Vojtovy tabulky, 2026-10-24) – jen pro př
 
 BOJ: tracker slotové iniciativy (Artikule › Iniciativa a protivníci)
 
-- 3282 řádků, 215 definic na nejvyšší úrovni, z toho 138 používají jiné soubory
+- 3282 řádků, 215 definic na nejvyšší úrovni, z toho 139 používají jiné soubory
 - používá z: 01-zaklad (3), 02-mapa (10), 02c-zbroj (2), 04-praha (1), 07-druzina-kronika (3), 08-navigace-pravidla (4), 09-vypravec-herni-cas (3), 10-kouzla (1), 10p-pravidla (18), 11b-rucni-kostky (1), 12-boj-tah-postavy (30), 13-karty (5), 14-karty-bojova-karta (2), 14c-boj-reakce (2), 15-karty-artikule (3), 17-karty-ii (5), 17b-kouzla-ucinky (4), 18-pravidla-postavy (3), 20b-boj-vypravec (6), 20d-boj-render (1), 20e-boj-vlastnosti (1), 20g-boj-mistrovstvi (1), 25-puls (1)
-- používají ho: 08-navigace-pravidla (4), 09-vypravec-herni-cas (4), 10h-hledani (7), 10q-plne-texty (1), 12-boj-tah-postavy (42), 13-karty (13), 14-karty-bojova-karta (22), 14b-vybaveni (6), 14c-boj-reakce (8), 14d-vybaveni-katalog (1), 15-karty-artikule (9), 16-srd-ukazky-sezeni-hrac (15), 16o-obchody-tabulky (1), 17-karty-ii (13), 17b-kouzla-ucinky (15), 18-pravidla-postavy (5), 19-karty-beyond (9), 20-boj-hraci (17), 20b-boj-vypravec (85), 20c-boj-ridery (10), 20d-boj-render (37), 20e-boj-vlastnosti (7), 20f-scena (11), 20g-boj-mistrovstvi (4), 23-potvrzovani (4), 24-boj-zaznam (19), 24b-forum (1), 25-puls (12)
-- poskytuje: btip BOJ bojZmen bsg bojDB bi bK bojBezi bojKostky bojLog bojNacti bojJa bojJm bojPrekresli PROTBY bojMedN bojEff BOTV JA BLOGG bojHp bojMedH BSTI PROTIVNICI BKS bojDsAkt bojObt bojPridejZvenku bojRozvin bojZdr kNeschopny OSPROT zavTxt BCIL BHIST BODP bojBest bojCilO bojMaRes bojNav … (+98)
+- používají ho: 08-navigace-pravidla (4), 09-vypravec-herni-cas (4), 10h-hledani (7), 10q-plne-texty (1), 12-boj-tah-postavy (42), 13-karty (13), 14-karty-bojova-karta (22), 14b-vybaveni (6), 14c-boj-reakce (8), 14d-vybaveni-katalog (1), 15-karty-artikule (9), 16-srd-ukazky-sezeni-hrac (15), 16o-obchody-tabulky (1), 17-karty-ii (13), 17b-kouzla-ucinky (15), 18-pravidla-postavy (5), 19-karty-beyond (9), 20-boj-hraci (17), 20b-boj-vypravec (85), 20c-boj-ridery (10), 20d-boj-render (37), 20e-boj-vlastnosti (7), 20f-scena (11), 20g-boj-mistrovstvi (4), 23-potvrzovani (4), 24-boj-zaznam (19), 24b-forum (3), 25-puls (12)
+- poskytuje: btip BOJ bojZmen bsg bojDB bi bK bojBezi bojKostky bojLog bojNacti bojJa bojJm bojPrekresli PROTBY bojMedN bojEff BOTV JA BLOGG bojHp bojMedH BSTI PROTIVNICI BKS bojDsAkt bojObt bojPridejZvenku bojRozvin bojZdr kNeschopny OSPROT zavTxt BCIL BHIST BODP bojBest bojCilO bojMaRes bojNav … (+99)
 - oddíly:
   - ř. 7: Boj: ikonky, medailony a popisky při najetí myší (2026-10-16)
   - ř. 686: Bestiář v Boji – vše jen pro vypravěče; hráči dostanou prázdné seznamy
@@ -714,10 +714,10 @@ Boj: vlastnosti zbraní z Artikulí v boji (2026-10-20)
 
 Scéna mimo boj: NPC ve scéně (statistiky, víra, cíle), jednání hráčů s NPC a protihody vypravěče (2026-10-23)
 
-- 240 řádků, 18 definic na nejvyšší úrovni, z toho 4 používají jiné soubory
+- 240 řádků, 18 definic na nejvyšší úrovni, z toho 6 používají jiné soubory
 - používá z: 01-zaklad (1), 04-praha (1), 09-vypravec-herni-cas (1), 11-boj (11), 13-karty (2), 20b-boj-vypravec (1)
-- používají ho: 12-boj-tah-postavy (1), 13-karty (1), 20d-boj-render (1), 24-boj-zaznam (1)
-- poskytuje: bojScCo bojScJednHtml bojScNpcHtml bzScPorovnej
+- používají ho: 12-boj-tah-postavy (1), 13-karty (1), 20d-boj-render (1), 24-boj-zaznam (1), 24b-forum (2)
+- poskytuje: scMod scStat bojScCo bojScJednHtml bojScNpcHtml bzScPorovnej
 - oddíly:
   - ř. 84: vypravěč: panel NPC ve scéně (v otevřené kartě NPC místo statbloku; statblok zůstává pod ním)
   - ř. 189: vypravěč: hod hráče proti NPC v záznamu – porovnání s DC a pasivními hodnotami, tlačítko protihodu
@@ -807,20 +807,21 @@ Boj: herní záznam ve třetím sloupci (2026-10-18) – KDO · CO · KOMU, hoze
 
 Fórum (2026-10-31): pomalá hra mezi sezeními – Obsah fóra, seznam témat, téma s příspěvky
 
-- 965 řádků, 56 definic na nejvyšší úrovni, z toho 6 používají jiné soubory
-- používá z: 01-zaklad (2), 02-mapa (1), 02d-pojmy (1), 04-praha (1), 07-druzina-kronika (4), 08-navigace-pravidla (3), 09-vypravec-herni-cas (1), 10p-pravidla (2), 11-boj (1), 12-boj-tah-postavy (1), 13-karty (4), 14-karty-bojova-karta (1), 15-karty-artikule (2), 16-srd-ukazky-sezeni-hrac (1), 18-pravidla-postavy (4)
+- 1137 řádků, 66 definic na nejvyšší úrovni, z toho 6 používají jiné soubory
+- používá z: 01-zaklad (2), 02-mapa (1), 02d-pojmy (1), 04-praha (1), 07-druzina-kronika (4), 08-navigace-pravidla (3), 09-vypravec-herni-cas (1), 10p-pravidla (2), 11-boj (3), 12-boj-tah-postavy (1), 13-karty (4), 14-karty-bojova-karta (1), 15-karty-artikule (2), 16-srd-ukazky-sezeni-hrac (1), 18-pravidla-postavy (4), 20f-scena (2)
 - používají ho: 07-druzina-kronika (1), 08-navigace-pravidla (1), 13-karty (2), 16-srd-ukazky-sezeni-hrac (1), 25-puls (1)
 - poskytuje: forumKartaPrekresli forumOdznakHtml forumHodZachyt forumPuls forumZapis renderForum
 - oddíly:
-  - ř. 214: Obsah fóra
-  - ř. 247: Správa struktury (vypravěč)
-  - ř. 299: Seznam témat
-  - ř. 341: Moje témata, čekají na mě, hledání
-  - ř. 362: Nové téma
-  - ř. 387: Kostky
-  - ř. 516: Pomůcky pro psaní: nápověda, zmínky, odkazy na osoby a rody, koncepty
-  - ř. 548: Téma
-  - ř. 637: obsluha
+  - ř. 230: Obsah fóra
+  - ř. 263: Správa struktury (vypravěč)
+  - ř. 315: Seznam témat
+  - ř. 357: Moje témata, čekají na mě, hledání
+  - ř. 378: Nové téma
+  - ř. 403: Kostky
+  - ř. 488: vypravěč: výzva k hodu v příspěvku a příspěvek za NPC ze scény (2026-11-01)
+  - ř. 619: Pomůcky pro psaní: nápověda, zmínky, odkazy na osoby a rody, koncepty
+  - ř. 651: Téma
+  - ř. 740: obsluha
 
 ## 25-puls
 

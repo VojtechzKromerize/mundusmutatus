@@ -225,6 +225,7 @@ funkce a běžné proměnné najdeš `node testy/kontrola_kodu.mjs --kde JMÉNO`
 | `EDGES` | 02-mapa:6502 | const | graf vazeb: hrany mezi rody ({a, b, t typ, ri index vazby}) odvozené z REL |
 | `EDPOLE` | 21-editor-pecet:72 | const | Editor: české popisky polí frontmatteru (id, jmeno, rod, sidlo, vyznani…) ve formuláři |
 | `EMPTY` | 02-mapa:6078 | const | Zemské desky: HTML prázdného detailu („Vyberte rod na mapě…“), když není nic vybráno |
+| `FADV` | 24b-forum:489 | const | ⓘ `'<option value="">bez výhody</option><option value="1">výhoda</option>…` |
 | `FAM` | 01-zaklad:2 | const | rody z buildu (@FAM@) – základní data rodů (id, název, sídla, vyznání, texty) |
 | `FEATY` | 08-navigace-pravidla:375 | let | ⓘ `null,` |
 | `FEATYKAT` | 08-navigace-pravidla:395 | const | ⓘ `{` |

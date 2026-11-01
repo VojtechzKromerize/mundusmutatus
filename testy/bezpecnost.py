@@ -60,7 +60,8 @@ chk(json.loads(call("/rest/v1/obsah?select=vetev", tok=gm)[1]) != [], "vypravě�
 for _kdo, _tok in (("anonym", None), ("hráč bez karty", hr)):
     for _fn, _body in (("mm_forum_strom", {}), ("mm_forum_temata", {"p_forum": "volna-hra"}), ("mm_forum_tema", {"p_tema": 1}),
                        ("mm_forum_prispevek", {"p_tema": 1, "p_t": "x"}), ("mm_forum_tema_zaloz", {"p_forum": "praha", "p_nazev": "x", "p_t": "x"}),
-                       ("mm_forum_moje", {}), ("mm_forum_hledej", {"p_q": "xx"})):
+                       ("mm_forum_moje", {}), ("mm_forum_hledej", {"p_q": "xx"}),
+                       ("mm_forum_vyzva_odpoved", {"p_prispevek": 1, "p_i": 0, "p_hod": {"vysl": 20}})):
         chk(not ok(call(f"/rest/v1/rpc/{_fn}", "POST", _body, tok=_tok)[0]), f"{_kdo} nesmí volat {_fn} bez přihlášení za postavu")
 _s, _b = call("/rest/v1/rpc/mm_forum_strom", "POST", {}, tok=gm)
 chk(ok(_s) and any(f.get("id") == "praha" for f in json.loads(_b)), "vypravěč čte strom fóra")
