@@ -504,6 +504,10 @@ const CITYINFO = {
     t: "Královský hrad v zástavě",
     n: "Nádherný hrad krále Václava nad Žebrákem, léta Páně 1424 marně obléhaný husity. Zástavu drží páni z Kolovrat, kteříž léta 1430 přistoupili k přijímání pod obojí.",
   },
+  Zbiroh: {
+    t: "Hrad pánů z Kolovrat",
+    n: "Hrad na skalnatém ostrohu nad cestou z Prahy k Plzni. Pan Hanuš z Kolovrat sem přesídlil, když musel panu Jiřímu vydati Žebrák; náhradou mu byly doživotně potvrzeny zástavy dřívější. Sídlí zde s chotí Kateřinou ze Šternberka a hrad jest oporou strany pod jednou na pomezí Plzeňska.",
+  },
   "Kunětická hora": {
     t: "Husitský hrad",
     n: "Hrad na osamělé hoře u Pardubic, jejž přestavěl husitský hejtman Diviš Bořek z Miletínka; léta Páně 1437 zde u něho nalezl útočiště mistr Jan Rokycana. Drží jej syn jeho, pan Soběslav Mrzák z Miletínka.",
