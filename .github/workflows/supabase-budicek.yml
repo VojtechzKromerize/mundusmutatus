@@ -18,3 +18,11 @@ jobs:
         run: |
           curl -sS -o /dev/null -w "vývojová: HTTP %{http_code}\n" "https://cjgyhzgirzhgiwjxuqvj.supabase.co/rest/v1/snimek?select=vetev,verze" \
             -H "apikey: sb_publishable_qRzEyAiSyY-mnUMMGar2Vg_c_4mIl0z"
+      # fórum (2026-11-01): připomínky témat, na která se čeká déle než pár dní (funkce mm_forum_pripomen); dokud ji ostrá
+      # databáze nemá (schéma jde do ostré až při „nasaď“), vrátí 404 a nic se neděje
+      - name: Připomínky fóra
+        run: |
+          curl -sS -o /dev/null -w "ostrá: HTTP %{http_code}\n" -X POST "https://rzbflnwxpyepjcpndqyj.supabase.co/rest/v1/rpc/mm_forum_pripomen" \
+            -H "apikey: sb_publishable_kN6K2Na9lg-54Tt1EvmKjA_TRx6Xm_S" -H "Content-Type: application/json" -d '{}'
+          curl -sS -o /dev/null -w "vývojová: HTTP %{http_code}\n" -X POST "https://cjgyhzgirzhgiwjxuqvj.supabase.co/rest/v1/rpc/mm_forum_pripomen" \
+            -H "apikey: sb_publishable_qRzEyAiSyY-mnUMMGar2Vg_c_4mIl0z" -H "Content-Type: application/json" -d '{}'

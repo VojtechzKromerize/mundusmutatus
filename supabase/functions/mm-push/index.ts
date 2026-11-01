@@ -19,11 +19,13 @@ Deno.serve(async (req) => {
   if (!cfg.tajemstvi || req.headers.get("x-mm-tajemstvi") !== cfg.tajemstvi) return new Response("ne", { status: 401 });
   webpush.setVapidDetails("mailto:noreply@mundusmutatus.netlify.app", cfg.vapid_pub ?? "", cfg.vapid_priv ?? "");
   const zprava = JSON.stringify({ titul: d.titul ?? "Mundus Mutatus", text: d.text ?? "", url: d.url ?? "#hra", tag: d.url ?? "mm" });
+  // upozornění z fóra (pomalá hra) platí tři dny, ostatní (tah, výzva) jen deset minut
+  const forum = (d.url ?? "").startsWith("#forum");
   let ok = 0;
   const pryc: string[] = [];
   await Promise.all(L.map(async (o) => {
     try {
-      await webpush.sendNotification({ endpoint: o.endpoint, keys: o.klice }, zprava, { TTL: 600, urgency: "high" });
+      await webpush.sendNotification({ endpoint: o.endpoint, keys: o.klice }, zprava, { TTL: forum ? 259200 : 600, urgency: forum ? "normal" : "high" });
       ok++;
     } catch (e) {
       const st = (e as { statusCode?: number }).statusCode;

@@ -35,8 +35,9 @@ async def main():
     chk(await pl.locator(".fotr").count()==0,"hráč nevidí soukromé téma jiné postavy")
     await pl.goto(BASE+f"#forum/t/{tid}");await pl.wait_for_selector(".foformpsani",timeout=10000)
     chk(await pl.locator("[data-fonove]").count()==0 and await pl.locator(".fopris").count()==1,"hráč čte první příspěvek")
-    await pl.fill(".foformpsani textarea","Nasednu a jedu k Hoře.");await pl.click(".foformpsani button")
+    await pl.fill(".foformpsani textarea","Nasednu a jedu k Hoře.");await pl.click(".foformpsani button:has-text('Odeslat')")
     await dokud(pl,"document.querySelectorAll('.fopris').length==2",8000)
+
     chk("Čeká se na Vypravěč" in await pl.inner_text(".fotstav"),"po odpovědi se čeká na vypravěče")
     # příspěvek hráče vypravěč skryje
     await g.goto(BASE+f"#forum/t/{tid}");await dokud(g,"document.querySelectorAll('.fopris').length==2",8000)
@@ -47,6 +48,49 @@ async def main():
     await g.click('.foGm summary');await g.click('[data-fonast*="uzavrene"]');await dokud(g,"document.querySelector('.fochip')&&/uzavřené/.test(document.querySelector('.fotstav').textContent)",8000)
     await pl.reload();await dokud(pl,"!!document.querySelector('.fopris')",8000)
     chk(await pl.locator(".foformpsani").count()==0,"v uzavřeném tématu hráč nepíše")
+    # druhé téma: kostky, citace, hledání, přeskočení, sloučení, správa struktury, snímky vzhledu
+    t2=await g.evaluate("MMDB.forumTemaZaloz({p_forum:'volna-hra'.replace('volna-hra','aktivni-questy'),p_nazev:'Druhé téma',p_t:'Vítr od Kolína *sílí*.',p_ceka_na:['balduin'],p_herni_datum:'15. března 1458'},null)")
+    await pl.goto(BASE+f"#forum/t/{t2}");await pl.wait_for_selector(".foformpsani",timeout=10000)
+    chk("Čeká se na tebe" in await pl.inner_text(".fotstav"),"hráč vidí v novém tématu, že je na tahu")
+    await pl.click('[data-focit]');await pl.wait_for_selector(".focitbanner",timeout=5000)
+    await pl.click(".fokostky summary");await pl.fill("[data-fohl]","Přesvědčování");await pl.fill("[data-fohf]","1k20+5");await pl.check("[data-fohz]");await pl.click("[data-fohod]")
+    await pl.wait_for_selector(".fohodchip",timeout=5000)
+    chk("Přesvědčování 1k20+5" in await pl.inner_text(".fohodchip") and "Závoj k6" in await pl.inner_text(".fohodchip"),"hráč hodí kostkou se Závojem")
+    await pl.fill(".foformpsani textarea","Povídám se *sedlákem*. [Jiří](#osoba/jiri) o tom ví.");await pl.click(".foformpsani button:has-text('Odeslat')")
+    await dokud(pl,"document.querySelectorAll('.fopris').length==2",8000)
+    chk(await pl.locator(".fopris:last-child .focitace").count()==1 and await pl.locator(".fopris:last-child .fohod").count()==1,"příspěvek nese citaci a hod")
+    chk(await pl.locator('.fopris:last-child a[href="#osoba/jiri"]').count()==1,"odkaz na osobu v příspěvku")
+    await pl.goto(BASE+"#forum/h/sedlákem");await pl.wait_for_selector(".fotem .fotr",timeout=8000)
+    chk(await pl.locator(".fotem .fotr").count()>=1,"hledání najde příspěvek")
+    await pl.goto(BASE+"#forum/m/ceka");await klid(pl,1500)
+    chk(await pl.locator(".fotem .fotr").count()>=0 and "Čekají na mě" in await pl.inner_text("#forumview h2"),"stránka Čekají na mě")
+    # vypravěč: na hráče se znovu čeká, přeskočí ho
+    await g.evaluate(f"MMDB.forumTemaNastav({t2},{{ceka_na:['balduin']}})")
+    await g.goto(BASE+f"#forum/t/{t2}");await g.wait_for_selector(".foGm",timeout=10000)
+    await g.click(".foGm summary");await g.click("[data-fopreskoc=balduin]");await dokud(g,"!document.querySelector('[data-fopreskoc]')",8000)
+    chk("přeskakuje" in await g.inner_text(".foprisp"),"vypravěč přeskočí postavu a v tématu zůstane poznámka")
+    # sloučení: t2 do prvního tématu
+    await g.click(".foGm summary") if not await g.locator("[data-fosloucit]").is_visible() else None
+    await g.select_option("[data-fosloucit] select",str(tid));await g.click("[data-fosloucit] button");await dokud(g,f"FORUM.tid=={tid}&&document.querySelectorAll('.fopris').length>=5",10000)
+    chk(await g.locator(".fopris").count()>=5,"sloučené téma má příspěvky obou témat")
+    # správa struktury
+    await g.goto(BASE+"#forum");await g.wait_for_selector("[data-fouprav]",timeout=10000);await g.click("[data-fouprav]")
+    await g.click('[data-foedit="+kat"]');await g.fill(".foedit [name=nazev]","Zkouška kategorie");await g.click(".foedit button:has-text('Přidat')")
+    await dokud(g,"[...document.querySelectorAll('.fokat h3')].some(h=>h.textContent.includes('Zkouška kategorie'))",8000)
+    chk(True,"vypravěč přidá kategorii")
+    await g.click('[data-foedit="+zkouska-kategorie"]');await g.fill(".foedit [name=nazev]","Zkušební fórum");await g.click(".foedit button:has-text('Přidat')")
+    await dokud(g,"document.body.textContent.includes('Zkušební fórum')",8000)
+    chk(True,"vypravěč přidá fórum do kategorie")
+    await g.click('[data-fosmaz="zkusebni-forum"]');await dokud(g,"!document.body.textContent.includes('Zkušební fórum')",8000)
+    await g.click('[data-fosmaz="zkouska-kategorie"]');await dokud(g,"!document.body.textContent.includes('Zkouška kategorie')",8000)
+    chk(True,"vypravěč fórum i kategorii smaže")
+    # snímky vzhledu (mobil hráč, PC vypravěč; světlý a tmavý)
+    for nm,pg,hs in (("hrac",pl,[f"#forum",f"#forum/f/aktivni-questy",f"#forum/t/{tid}"]),("gm",g,[f"#forum",f"#forum/t/{tid}"])):
+      for i,h in enumerate(hs):
+        for tema in ("light","dark"):
+          await pg.goto(BASE+h);await klid(pg,1500)
+          await pg.evaluate(f"document.documentElement.dataset.theme='{tema}'");await pg.wait_for_timeout(200)
+          await pg.screenshot(path=os.path.join(VYSTUP,f"forum-{nm}-{i}-{tema}.png"),full_page=True)
     chk(not perr and not gerr,"bez chyb "+str((perr+gerr)[:2]))
     await b.close()
     sys.exit(1 if fails else 0)

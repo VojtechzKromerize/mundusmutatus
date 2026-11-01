@@ -206,9 +206,22 @@ function renderKronika(b, c) {
    ${zPodpis(z)}
    <button type="button" class="gbtn" data-partymap="${z.id}">Ukázat cestu na mapě</button>${z.place === "Praha" || (z.praha || []).length ? ` <a class="gbtn ghost" href="#praha${(z.praha || []).length ? "/" + z.praha[0] : ""}">Plán Prahy</a>` : ""}
    ${stopaOd() && stopaOd().z === z.id ? `<p class="rsmall">Odtud začíná stopa družiny na mapě.</p>` : ""}${GMV ? `<p class="stopagm"><button type="button" class="gbtn ghost" data-stopaod="${z.id}" title="Na mapě se stopa začne kreslit od místa, kde tento zápis končí; starší zápisy v Kronice zůstanou">Začít stopu na mapě tímto zápisem</button></p>` : ""}
+   ${GMV ? `<p class="stopagm"><button type="button" class="gbtn ghost" data-zapisfor="${z.id}" title="Založí ve Fóru v Dokončených questech téma s textem tohoto zápisu">Přenést do fóra (Dokončené questy)</button></p>` : ""}
    <nav class="apn">${pv ? `<a href="#kronika/${pv.id}" rel="prev"><small>Předchozí</small>${pv.title}</a>` : "<span></span>"}${nx ? `<a href="#kronika/${nx.id}" rel="next"><small>Další</small>${nx.title}</a>` : "<span></span>"}</nav>`;
   autolink(box.querySelector(".ztext"), "");
 }
+/* zápis z Kroniky do Fóra (vypravěč): fórum je v líně načítané části skriptu */
+document.addEventListener("click", e => {
+  const b = e.target.closest && e.target.closest("[data-zapisfor]");
+  if (!b) return;
+  b.disabled = true;
+  mmLina("hra")
+    .then(() => (typeof forumZapis === "function" ? forumZapis(b.dataset.zapisfor) : null))
+    .catch(err => mmHlasG(String((err && err.message) || err), 6000))
+    .finally(() => {
+      b.disabled = false;
+    });
+});
 /* ===== Stopa družiny na mapě (2026-10-28, Vojta): úseky po cestách se šipkami, starší slábnou, zastávky s datem, „Družina je tady“;
    počátek stopy (HRA.stopaOd) nastavuje vypravěč, kolik stopy ukázat si volí každý divák (výpočet v 07s-stopa.js) ===== */
 let STOPAP = null;

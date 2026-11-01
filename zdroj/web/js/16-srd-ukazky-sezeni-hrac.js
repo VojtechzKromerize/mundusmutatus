@@ -1576,7 +1576,7 @@ function hraUcetHtml(K) {
   /* vypravěč a cizí karta: jen barva karty (na PC je volba jen tady, v záhlaví webu ne – Vojta 2026-10-31) */
   if (!hraMoje(K)) return `<p class="bojbtn">${mmKbSel()}</p>`;
   const ja = JA.get() || {};
-  return `${aplikaceHtml(K.id)}<p class="bojbtn"><a class="gbtn ghost" href="#forum">Fórum</a>${notifBtn()}${mmMotivBtn()}${mmKbSel()}${window.MMDB && !(ja.d && DCU.typ !== "email") ? `<button type="button" class="gbtn ghost" data-jaheslo>Změnit heslo</button>` : ""}${ja.d ? `<button type="button" class="gbtn ghost" data-discordx>${jaOdhlasTxt()} (${besc(K.n)})</button>` : `<button type="button" class="gbtn ghost" data-jaodhlas>Odhlásit (${besc(K.n)})</button>`}</p>`;
+  return `${aplikaceHtml(K.id)}<p class="bojbtn"><a class="gbtn ghost" href="#forum">Fórum${typeof forumOdznakHtml === "function" ? forumOdznakHtml() : ""}</a>${notifBtn()}${mmMotivBtn()}${mmKbSel()}${window.MMDB && !(ja.d && DCU.typ !== "email") ? `<button type="button" class="gbtn ghost" data-jaheslo>Změnit heslo</button>` : ""}${ja.d ? `<button type="button" class="gbtn ghost" data-discordx>${jaOdhlasTxt()} (${besc(K.n)})</button>` : `<button type="button" class="gbtn ghost" data-jaodhlas>Odhlásit (${besc(K.n)})</button>`}</p>`;
 }
 /* ===== řídicí pult vypravěče (2026-10-22): Hra = Boj + záložky Družina a Sezení (dřívější stránka Hra vypravěče) =====
    renderBoj (20d) obalí #bojview navigací (pultObal); v záložce Družina/Sezení vykreslí pultVykresli místo boje. */
@@ -1592,7 +1592,7 @@ function pultNavHtml() {
       ["druzina", "#hra/druzina", `Družina${n ? ` <b class="pultn">${n}</b>` : ""}`],
       ["sezeni", "#hra/sezeni", "Sezení"],
       ["nastroje", "#hra/nastroje", "Nástroje"],
-      ["forum", "#forum", "Fórum"],
+      ["forum", "#forum", `Fórum${typeof forumOdznakHtml === "function" ? forumOdznakHtml() : ""}`],
     ];
   return t
     .map(([k, h, x]) => `<a href="${h}" class="pultt${PULTTAB === k ? " on" : ""}"${PULTTAB === k ? ' aria-current="page"' : ""}>${x}</a>`)

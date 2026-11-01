@@ -10,6 +10,10 @@ set -euo pipefail
 [ "$ZDROJ" = "$CIL" ] && { echo "ZDROJ a CIL jsou stejné – končím"; exit 1; }
 TAB="zaznamy karty karty_texty stavy ukazky boj nastaveni"
 q(){ psql "$1" -v ON_ERROR_STOP=1 -X -q -A -t -c "$2"; }
+# fórum (2026-11-01): kopíruje se, jen pokud ho ostrá databáze už má (schéma se do ostré nasazuje až při „nasaď“)
+for t in forum_fora forum_temata forum_prispevky forum_verze forum_cteno; do
+  [ "$(q "$ZDROJ" "select to_regclass('public.$t') is not null")" = t ] && [ "$(q "$CIL" "select to_regclass('public.$t') is not null")" = t ] && TAB="$TAB $t"
+done
 
 echo "== vyprázdnit vývojovou databázi (jen kopírované tabulky)"
 q "$CIL" "truncate $(for t in $TAB; do printf 'public.%s,' "$t"; done | sed 's/,$//')"
@@ -22,6 +26,9 @@ for t in $TAB; do
   psql "$ZDROJ" -X -q -v ON_ERROR_STOP=1 -c "\\copy (select $spol from public.$t $kde) to stdout" \
     | psql "$CIL" -X -q -v ON_ERROR_STOP=1 -c "\\copy public.$t ($spol) from stdin"
   echo "  $t: $(q "$CIL" "select count(*) from public.$t") řádků"
+done
+for t in forum_temata forum_prispevky forum_verze; do
+  case " $TAB " in *" $t "*) q "$CIL" "select setval(pg_get_serial_sequence('public.$t', 'id'), coalesce(max(id), 1), max(id) is not null) from public.$t" >/dev/null;; esac
 done
 echo "== karty na dev volné (účty hráčů se nekopírují)"
 q "$CIL" "update public.karty set zamceno = false, hrac = null"

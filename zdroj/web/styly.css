@@ -4165,3 +4165,23 @@ html.mmpc:not(.mmjenhra) .bdmweb{display:grid;font-size:1.2rem}
   .forad{grid-template-columns:minmax(0,1fr) auto}.forad .fonum{display:none}.forad .fopos{grid-column:1/-1}
   .fopris{grid-template-columns:minmax(0,1fr)}.fopan{border-right:0;border-bottom:1px solid var(--rule);display:flex;gap:8px;align-items:baseline;padding:6px 12px}
 }
+.fodatum{margin:0;color:var(--muted);font-family:var(--f-label)}
+.fohled{display:flex;gap:8px;align-items:center}.fohled input{flex:1;min-width:0;font:inherit;padding:6px 8px;border:1px solid var(--rule);background:var(--paper);color:var(--ink);border-radius:3px}
+.fohled-t{font-size:.9rem;color:var(--muted);overflow-wrap:anywhere}
+.fochip.fostoji{border-color:var(--gold);color:var(--gold);font-weight:700}
+.foav{width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid var(--gold);flex:none}
+.fopan{display:flex;flex-direction:column;gap:6px;align-items:flex-start}.fopan>span{display:block}
+.focitace{margin:0 0 8px;padding:4px 10px;border-left:3px solid var(--rule);color:var(--muted);font-size:.92rem;overflow-wrap:anywhere}.focitace a{color:var(--kat);text-decoration:none}
+.focitbanner{border-left:3px solid var(--kat);padding:2px 10px;font-size:.92rem;overflow-wrap:anywhere}
+.fovloz{display:flex;flex-wrap:wrap;gap:6px}.fovloz select{font:inherit;font-size:.9rem;padding:3px 6px;border:1px solid var(--rule);background:var(--bg);color:var(--ink);border-radius:3px;max-width:100%}
+.fokostky{border:1px dashed var(--rule);padding:6px 12px}.fokostky summary{cursor:pointer;font-family:var(--f-label)}
+.fokrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px}.fokrow input:not([type=checkbox]){font:inherit;padding:4px 8px;border:1px solid var(--rule);background:var(--bg);color:var(--ink);border-radius:3px;min-width:0}
+.fokrow select{font:inherit;padding:4px 6px;border:1px solid var(--rule);background:var(--bg);color:var(--ink);border-radius:3px}
+.fohodchip{margin:8px 0 0;font-family:var(--f-label);border-left:3px solid var(--gold);padding-left:8px}
+.fosloupec{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end}.fosloupec select{font:inherit;padding:4px 6px;border:1px solid var(--rule);background:var(--bg);color:var(--ink);border-radius:3px}
+.fostrr{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:8px 14px;border-top:1px solid var(--rule);flex-wrap:wrap}
+.fostrom .fostrom>.fostrr{padding-left:calc(14px + 22px)}.fostrbtn{display:flex;gap:4px;flex-wrap:wrap}
+.fokat>h3 .fostrbtn{display:inline-flex;margin-left:10px;vertical-align:middle}.fokat>h3 .fobtn{color:var(--paper);border-color:var(--paper)}
+.fostradd{padding:8px 14px;border-top:1px solid var(--rule)}.fopraz{padding:10px 14px}
+.foedit{margin:6px 14px}
+.foobs header,.foform header{display:block;border:0;padding:0;gap:0}
