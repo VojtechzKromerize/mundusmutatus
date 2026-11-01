@@ -4185,3 +4185,4 @@ html.mmpc:not(.mmjenhra) .bdmweb{display:grid;font-size:1.2rem}
 .fostradd{padding:8px 14px;border-top:1px solid var(--rule)}.fopraz{padding:10px 14px}
 .foedit{margin:6px 14px}
 .foobs header,.foform header{display:block;border:0;padding:0;gap:0}
+.fokdo{margin:8px 0 0;font-family:var(--f-label);color:var(--muted)}.fokdo small{font-size:.8rem}

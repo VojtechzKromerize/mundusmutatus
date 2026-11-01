@@ -422,8 +422,66 @@ function fHodit(text, popis, vyhoda, zavoj, taj) {
 }
 function fHodHtml(h) {
   if (!h) return "";
-  const kost = h.dva ? `${h.dva.join(", ")} → ${h.d[0]}` : (h.d || []).join(" + ");
-  return `🎲 ${besc(h.t || "hod")} = <b>${besc(h.vysl)}</b>${kost ? ` <small>(${besc(kost)})</small>` : ""}${h.zavoj ? ` · Závoj k6: ${h.zavoj.k6} – <b>${besc(h.zavoj.t)}</b>` : ""}${h.taj ? " <small>(tajně)</small>" : ""}`;
+  const kost = h.txt ? String(h.txt).replace(/ = -?\d+/, "") : h.dva ? `${h.dva.join(", ")} → ${h.d[0]}` : (h.d || []).join(" + ");
+  return `🎲 ${besc(h.t || "hod")} = <b>${besc(h.vysl)}</b>${kost ? ` <small>(${besc(kost)})</small>` : ""}${h.zavoj ? ` · Závoj k6: ${h.zavoj.k6} – <b>${besc(h.zavoj.t)}</b>` : ""}${h.karta ? " <small>(z karty)</small>" : ""}${h.taj ? " <small>(tajně)</small>" : ""}`;
+}
+/* hod z karty postavy (2026-11-01, Vojta): stejný výpočet jako tlačítko na kartě (kartaHod v 13 – bonusy podle pravidel postavy, stavy,
+   vyčerpání, posílení z účinků, kostka Závoje, ruční kostky); hod se zapíše i do herního záznamu, takže ho vypravěč vidí i tam.
+   Útoky zatím ne: na kartě s nimi souvisí střelivo a účinky (Hex, Bless…), které se mají odečíst jen v boji. */
+function forumKartaHodyHtml(K) {
+  const sg = v => (v >= 0 ? "+" : "") + v,
+    sk = (lbl, L) => `<optgroup label="${lbl}">${L.join("")}</optgroup>`;
+  let ops = "";
+  try {
+    ops =
+      sk(
+        "Dovednosti",
+        Object.keys(KDOVAB)
+          .map(d => [d, pojmyCz(d)])
+          .sort((x, y) => x[1].localeCompare(y[1], "cs"))
+          .map(([d, n]) => `<option value="dv:${besc(d)}">${besc(n)} ${sg(kDov(K, d))}</option>`),
+      ) +
+      sk(
+        "Ověření vlastnosti",
+        Object.keys(KSK).map(a => `<option value="ov:${a}">${KSK[a]} ${sg(kOvB(K, a))}</option>`),
+      ) +
+      sk(
+        "Záchrany",
+        Object.keys(KSK).map(a => `<option value="za:${a}">Záchrana – ${KSK[a]} ${sg(kZach(K, a))}</option>`),
+      ) +
+      sk("Ostatní", [`<option value="in:">Iniciativa ${sg(kIni(K))}</option>`]);
+  } catch (e) {
+    return "";
+  }
+  return `<p class="fokdo">Z karty postavy <small>(bonusy, stavy a Závoj jako na Hře)</small></p><div class="fokrow"><select data-fokh aria-label="Hod z karty">${ops}</select><select data-fokhv aria-label="Výhoda u hodu z karty"><option value="">bez výhody</option><option value="1">výhoda</option><option value="-1">nevýhoda</option></select><button type="button" class="gbtn" data-fokhod>Hodit z karty</button></div>`;
+}
+async function forumKartaHod(K, volba, adv) {
+  const [k, a] = volba.split(/:(.*)/s),
+    o = {adv: +adv || 0};
+  let co, b;
+  if (k === "ov") {
+    co = `Ověření ${KSK[a] || a}`;
+    b = kOvB(K, a);
+  } else if (k === "za") {
+    co = `Záchrana ${a}`;
+    b = kZach(K, a);
+  } else if (k === "dv") {
+    co = a;
+    b = kDov(K, a);
+    const r = kSvAdv(K, a);
+    if (r.length) {
+      o.adv = kAdvSum(o.adv, r);
+      o.why = r.map(x => x[1]).join(", ");
+    }
+  } else if (k === "in") {
+    co = "Iniciativa";
+    b = kIni(K);
+  } else return null;
+  const r = await kartaHod(K, co, b, o);
+  if (!r) return null;
+  const h = {t: co, vysl: r.tot, txt: String(r.txt || "").slice(0, 300), karta: K.id};
+  if (r.zav != null) h.zavoj = {k6: r.zav, t: zavVys(r.zr)};
+  return h;
 }
 /* ----- Pomůcky pro psaní: nápověda, zmínky, odkazy na osoby a rody, koncepty ----- */
 function forumNapovedaHtml() {
@@ -513,7 +571,7 @@ function forumTemaVykresli(box, hlava) {
         ${GMV ? '<label>Jako <small>(jméno postavy nebo NPC, volitelné)</small> <input name="jako" maxlength="60" placeholder="Vypravěč"></label>' : ""}
         <textarea name="t" rows="6" maxlength="8000" required aria-label="Příspěvek"></textarea>
         ${forumVlozitHtml()}${forumNapovedaHtml()}
-        <details class="fokostky"${FORUM.hod ? " open" : ""}><summary>🎲 Hodit kostkou</summary><div class="fokrow">
+        <details class="fokostky"${FORUM.hod ? " open" : ""}><summary>🎲 Hodit kostkou</summary>${!GMV && jaK() ? forumKartaHodyHtml(jaK()) + '<p class="fokdo">Jiná kostka</p>' : ""}<div class="fokrow">
           <input data-fohf value="1k20" size="8" aria-label="Kostky, např. 1k20+5"><input data-fohl placeholder="Popisek (např. Přesvědčování)" aria-label="Popisek hodu">
           <select data-fohv aria-label="Výhoda"><option value="">bez výhody</option><option value="v">výhoda</option><option value="n">nevýhoda</option></select>
           <label class="fochk"><input type="checkbox" data-fohz> Závoj k6</label><label class="fochk"><input type="checkbox" data-fohtaj> tajně</label>
@@ -790,6 +848,23 @@ document.addEventListener("click", e => {
     if (ta && FORUM.tid) fKoncept(FORUM.tid, ta.value);
     FORUM.hod = v;
     forumVykresli();
+  } else if (d.fokhod !== undefined) {
+    const f = b.closest("form"),
+      K = jaK();
+    if (!K) return;
+    const ta = f.querySelector("textarea");
+    if (ta && FORUM.tid) fKoncept(FORUM.tid, ta.value);
+    b.disabled = true;
+    forumKartaHod(K, f.querySelector("[data-fokh]").value, f.querySelector("[data-fokhv]").value)
+      .then(h => {
+        if (!h) return;
+        FORUM.hod = h;
+        forumVykresli();
+      })
+      .catch(err => mmHlasG(String((err && err.message) || err), 5000))
+      .finally(() => {
+        b.disabled = false;
+      });
   } else if (d.fohodx !== undefined) {
     FORUM.hod = null;
     const ta = document.querySelector("#forumview .foformpsani textarea");
