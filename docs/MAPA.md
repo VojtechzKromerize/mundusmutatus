@@ -807,21 +807,21 @@ Boj: herní záznam ve třetím sloupci (2026-10-18) – KDO · CO · KOMU, hoze
 
 Fórum (2026-10-31): pomalá hra mezi sezeními – Obsah fóra, seznam témat, téma s příspěvky
 
-- 1137 řádků, 66 definic na nejvyšší úrovni, z toho 6 používají jiné soubory
+- 1295 řádků, 73 definic na nejvyšší úrovni, z toho 6 používají jiné soubory
 - používá z: 01-zaklad (2), 02-mapa (1), 02d-pojmy (1), 04-praha (1), 07-druzina-kronika (4), 08-navigace-pravidla (3), 09-vypravec-herni-cas (1), 10p-pravidla (2), 11-boj (3), 12-boj-tah-postavy (1), 13-karty (4), 14-karty-bojova-karta (1), 15-karty-artikule (2), 16-srd-ukazky-sezeni-hrac (1), 18-pravidla-postavy (4), 20f-scena (2)
 - používají ho: 07-druzina-kronika (1), 08-navigace-pravidla (1), 13-karty (2), 16-srd-ukazky-sezeni-hrac (1), 25-puls (1)
 - poskytuje: forumKartaPrekresli forumOdznakHtml forumHodZachyt forumPuls forumZapis renderForum
 - oddíly:
-  - ř. 230: Obsah fóra
-  - ř. 263: Správa struktury (vypravěč)
-  - ř. 315: Seznam témat
-  - ř. 357: Moje témata, čekají na mě, hledání
-  - ř. 378: Nové téma
-  - ř. 403: Kostky
-  - ř. 488: vypravěč: výzva k hodu v příspěvku a příspěvek za NPC ze scény (2026-11-01)
-  - ř. 619: Pomůcky pro psaní: nápověda, zmínky, odkazy na osoby a rody, koncepty
-  - ř. 651: Téma
-  - ř. 740: obsluha
+  - ř. 347: Obsah fóra
+  - ř. 380: Správa struktury (vypravěč)
+  - ř. 432: Seznam témat
+  - ř. 474: Moje témata, čekají na mě, hledání
+  - ř. 495: Nové téma
+  - ř. 521: Kostky
+  - ř. 606: vypravěč: výzva k hodu v příspěvku a příspěvek za NPC ze scény (2026-11-01)
+  - ř. 737: Pomůcky pro psaní: nápověda, zmínky, odkazy na osoby a rody, koncepty
+  - ř. 769: Téma
+  - ř. 858: obsluha
 
 ## 25-puls
 

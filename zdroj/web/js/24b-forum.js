@@ -53,19 +53,136 @@ function forumHerniDatum() {
     return "";
   }
 }
-/* text příspěvku: odstavce, zalomení, *kurzíva*, **tučně** a odkazy na stránky webu [text](#osoba/jan) – nic dalšího (žádné HTML) */
+/* text příspěvku (2026-11-01, lišta formátování jako na phpBB fórech): odstavce a zalomení, ### nadpis, > citace, - seznam, 1. číslovaný
+   seznam, --- čára; v řádku **tučně**, *kurzíva*, __podtržení__, ~~přeškrtnutí~~, ||skrytý text||, ((mimo hru)) a odkazy na stránky
+   webu [text](#osoba/jan). Nic jiného – žádné HTML, text se nejdřív escapuje. */
+function fInline(x) {
+  return x
+    .replace(/\[([^\]\n]+)\]\((#[A-Za-z0-9/_-]*)\)/g, (m, t, h) => (h.length > 1 ? `<a href="${h}">${t}</a>` : t))
+    .replace(/\|\|([^|\n]+)\|\|/g, '<span class="fospoil" tabindex="0" role="button" aria-label="Skrytý text – klepni pro zobrazení">$1</span>')
+    .replace(/\(\(([^()\n]+)\)\)/g, '<span class="foooct">(($1))</span>')
+    .replace(/\*\*([^*\n]+)\*\*/g, "<b>$1</b>")
+    .replace(/\*([^*\n]+)\*/g, "<i>$1</i>")
+    .replace(/__([^_\n]+)__/g, "<u>$1</u>")
+    .replace(/~~([^~\n]+)~~/g, "<s>$1</s>");
+}
+const FBLOK = /^(#{1,3}\s|&gt;|[-•]\s|\d{1,3}[.)]\s|-{3,}\s*$)/;
 function fText(t) {
-  return besc(t)
-    .split(/\n{2,}/)
-    .map(
-      p =>
-        `<p>${p
-          .replace(/\[([^\]\n]+)\]\((#[A-Za-z0-9/_-]+)\)/g, '<a href="$2">$1</a>')
-          .replace(/\*\*([^*\n]+)\*\*/g, "<b>$1</b>")
-          .replace(/\*([^*\n]+)\*/g, "<i>$1</i>")
-          .replace(/\n/g, "<br>")}</p>`,
-    )
-    .join("");
+  const L = besc(t).replace(/\r/g, "").split("\n"),
+    out = [];
+  let i = 0;
+  const sber = re => {
+    const q = [];
+    while (i < L.length && re.test(L[i])) q.push(L[i++].replace(re, ""));
+    return q;
+  };
+  while (i < L.length) {
+    const l = L[i];
+    if (!l.trim()) {
+      i++;
+      continue;
+    }
+    if (/^-{3,}\s*$/.test(l)) {
+      out.push("<hr>");
+      i++;
+      continue;
+    }
+    const h = /^(#{1,3})\s+(.*)$/.exec(l);
+    if (h) {
+      out.push(`<h4 class="foh foh${h[1].length}">${fInline(h[2])}</h4>`);
+      i++;
+      continue;
+    }
+    if (/^&gt;/.test(l)) {
+      out.push(
+        `<blockquote class="foquote">${sber(/^&gt;\s?/)
+          .map(fInline)
+          .join("<br>")}</blockquote>`,
+      );
+      continue;
+    }
+    if (/^[-•]\s/.test(l)) {
+      out.push(
+        `<ul>${sber(/^[-•]\s+/)
+          .map(x => `<li>${fInline(x)}</li>`)
+          .join("")}</ul>`,
+      );
+      continue;
+    }
+    if (/^\d{1,3}[.)]\s/.test(l)) {
+      const zac = parseInt(l, 10);
+      out.push(
+        `<ol${zac > 1 ? ` start="${zac}"` : ""}>${sber(/^\d{1,3}[.)]\s+/)
+          .map(x => `<li>${fInline(x)}</li>`)
+          .join("")}</ol>`,
+      );
+      continue;
+    }
+    const p = [];
+    while (i < L.length && L[i].trim() && (!p.length || !FBLOK.test(L[i]))) p.push(L[i++]);
+    out.push(`<p>${p.map(fInline).join("<br>")}</p>`);
+  }
+  return out.join("");
+}
+/* lišta formátování nad polem příspěvku: obalí výběr značkami nebo předsadí řádky; náhled ukáže, jak bude příspěvek vypadat */
+const FTB = [
+  ["b", "B", "Tučně (Ctrl+B)", "**", "**", "tučný text"],
+  ["i", "I", "Kurzíva (Ctrl+I)", "*", "*", "kurzíva"],
+  ["u", "U", "Podtržení (Ctrl+U)", "__", "__", "podtržený text"],
+  ["s", "S", "Přeškrtnutí", "~~", "~~", "přeškrtnutý text"],
+  null,
+  ["h", "Nadpis", "Nadpis řádku", "### "],
+  ["q", "❝", "Citace", "> "],
+  ["ul", "•", "Odrážky", "- "],
+  ["ol", "1.", "Číslovaný seznam", "1. "],
+  ["hr", "―", "Oddělovací čára", "\n---\n", ""],
+  null,
+  ["sp", "Skryté", "Skrytý text – čtenář ho odkryje klepnutím", "||", "||", "skrytý text"],
+  ["ooc", "((…))", "Poznámka mimo hru uvnitř příspěvku", "((", "))", "mimo hru"],
+  ["a", "Odkaz", "Odkaz na stránku webu, např. #osoba/jan nebo #mapa", "[", "](#)", "text odkazu"],
+];
+function forumListaHtml() {
+  const b = x =>
+    x
+      ? `<button type="button" class="fotbb fotb-${x[0]}" data-fotb="${x[0]}" title="${besc(x[2])}" aria-label="${besc(x[2])}">${besc(x[1])}</button>`
+      : '<span class="fotbsep" aria-hidden="true"></span>';
+  return `<div class="fotb" role="toolbar" aria-label="Formátování textu">${FTB.map(b).join("")}<span class="fotbsep" aria-hidden="true"></span><button type="button" class="fotbb fotb-nahled" data-fotb="nahled" aria-pressed="false" title="Náhled příspěvku" aria-label="Náhled příspěvku">Náhled</button></div>`;
+}
+function fObal(ta, a, z, ph) {
+  const s0 = ta.selectionStart ?? ta.value.length,
+    e0 = ta.selectionEnd ?? s0,
+    v = ta.value;
+  /* znovu stisk na už obaleném výběru značky odebere */
+  if (z && v.slice(s0 - a.length, s0) === a && v.slice(e0, e0 + z.length) === z) {
+    ta.value = v.slice(0, s0 - a.length) + v.slice(s0, e0) + v.slice(e0 + z.length);
+    ta.setSelectionRange(s0 - a.length, e0 - a.length);
+    return;
+  }
+  const sel = v.slice(s0, e0) || ph || "";
+  ta.value = v.slice(0, s0) + a + sel + z + v.slice(e0);
+  if (a === "[" && sel !== ph) ta.setSelectionRange(s0 + a.length + sel.length + 2, s0 + a.length + sel.length + 3);
+  else ta.setSelectionRange(s0 + a.length, s0 + a.length + sel.length);
+}
+function fRadky(ta, pre) {
+  const v = ta.value,
+    s0 = v.lastIndexOf("\n", (ta.selectionStart ?? v.length) - 1) + 1,
+    e1 = v.indexOf("\n", ta.selectionEnd ?? v.length),
+    e0 = e1 < 0 ? v.length : e1,
+    radky = v.slice(s0, e0).split("\n");
+  const vse = radky.every(r => r.startsWith(pre === "1. " ? "" : pre) && (pre !== "1. " || /^\d+\.\s/.test(r)));
+  const nove = vse
+    ? radky.map(r => (pre === "1. " ? r.replace(/^\d+\.\s/, "") : r.slice(pre.length)))
+    : radky.map((r, i) => (pre === "1. " ? `${i + 1}. ` : pre) + r);
+  ta.value = v.slice(0, s0) + nove.join("\n") + v.slice(e0);
+  ta.setSelectionRange(s0, s0 + nove.join("\n").length);
+}
+function forumFormatuj(ta, id) {
+  const x = FTB.find(y => y && y[0] === id);
+  if (!x) return;
+  if (x.length === 4) fRadky(ta, x[3]);
+  else fObal(ta, x[3], x[4], x[5]);
+  ta.focus();
+  ta.dispatchEvent(new Event("input", {bubbles: true}));
 }
 const fJmeno = id => (id === "gm" ? "Vypravěč" : (KARTBY[id] || {}).n || id);
 function forumUvod(h) {
@@ -395,7 +512,8 @@ function forumNoveVykresli(box, hlava) {
       <label>Herní datum <small>(volitelné)</small> <input name="datum" maxlength="40" value="${besc(forumHerniDatum())}" placeholder="14. března 1458"></label>
       ${GMV || f.soukrome ? forumUcastniciHtml("Účastníci", me ? [me] : []) + `<p class="rsmall">${f.soukrome ? "Soukromé téma vidí jen účastníci a vypravěč." : "Bez zaškrtnutí vidí téma každý."}</p>` : ""}
       ${GMV ? forumUcastniciHtml("Čeká se na") : ""}
-      <label>První příspěvek <textarea name="t" rows="8" maxlength="8000" required></textarea></label>
+      <label for="fonovy-t">První příspěvek</label>
+      <div class="fopsani">${forumListaHtml()}${forumVlozitHtml()}<textarea id="fonovy-t" name="t" rows="8" maxlength="8000" required></textarea><div class="fonahled fotxt" hidden aria-live="polite"></div></div>
       ${forumNapovedaHtml()}
       <p><button class="gbtn">Založit téma</button> <a class="gbtn ghost" href="#forum/f/${besc(f.id)}">Zrušit</a></p>
     </form>`;
@@ -618,7 +736,7 @@ function forumKartaPrekresli() {
 }
 /* ----- Pomůcky pro psaní: nápověda, zmínky, odkazy na osoby a rody, koncepty ----- */
 function forumNapovedaHtml() {
-  return `<p class="rsmall">*kurzíva*, **tučně**, prázdný řádek dělí odstavce. <code>@Jméno</code> přidá postavu mezi ty, na které se čeká.</p>`;
+  return `<p class="rsmall">Ctrl+B tučně, Ctrl+I kurzíva, prázdný řádek dělí odstavce. <code>@Jméno</code> přidá postavu mezi ty, na které se čeká.</p>`;
 }
 function forumVlozitHtml() {
   const osoby = PEOPLE.map(p => [p.id, p.n.replace(/^✦\s*/, "")])
@@ -703,8 +821,8 @@ function forumTemaVykresli(box, hlava) {
         ? `<form class="foform foformpsani" data-foodp="${t.id}"><h3>Odpovědět</h3>
         ${odp ? `<p class="focitbanner">Odpověď na <b>${besc(odp.jmeno)}</b>: „${besc(odp.t)}“ <button type="button" class="fobtn" data-focitx>✕</button></p>` : ""}
         ${GMV ? `<label>Jako <small>(jméno postavy nebo NPC, volitelné)</small> <input name="jako" maxlength="60" placeholder="Vypravěč" value="${besc(FORUM.npc ? FORUM.npc.n : "")}"></label>${forumNpcFormHtml()}` : ""}
-        <textarea name="t" rows="6" maxlength="8000" required aria-label="Příspěvek"></textarea>
-        ${forumVlozitHtml()}${forumNapovedaHtml()}
+        <div class="fopsani">${forumListaHtml()}${forumVlozitHtml()}<textarea name="t" rows="6" maxlength="8000" required aria-label="Příspěvek"></textarea><div class="fonahled fotxt" hidden aria-live="polite"></div></div>
+        ${forumNapovedaHtml()}
         <details class="fokostky"><summary>🎲 Hodit kostkou</summary>${!GMV && jaK() ? forumKartaHodyHtml(jaK()) + '<p class="fokdo">Jiná kostka</p>' : ""}<div class="fokrow">
           <input data-fohf value="1k20" size="8" aria-label="Kostky, např. 1k20+5"><input data-fohl placeholder="Popisek (např. Přesvědčování)" aria-label="Popisek hodu">
           <select data-fohv aria-label="Výhoda"><option value="">bez výhody</option><option value="v">výhoda</option><option value="n">nevýhoda</option></select>
@@ -779,7 +897,7 @@ document.addEventListener("submit", e => {
   if (f.dataset.fonove !== undefined) {
     e.preventDefault();
     const d = new FormData(f),
-      btn = f.querySelector("button");
+      btn = f.querySelector("button:not([type=button])");
     btn.disabled = true;
     forumAkce(async () => {
       const id = await MMDB.forumTemaZaloz(
@@ -801,7 +919,7 @@ document.addEventListener("submit", e => {
   } else if (f.dataset.foodp !== undefined) {
     e.preventDefault();
     const d = new FormData(f),
-      btn = f.querySelector("button"),
+      btn = f.querySelector("button:not([type=button])"),
       ooc = !!d.get("ooc"),
       text = String(d.get("t") || "");
     btn.disabled = true;
@@ -894,11 +1012,51 @@ document.addEventListener("change", e => {
 document.addEventListener("input", e => {
   const ta = e.target;
   if (ta.matches && ta.matches("#forumview .foformpsani textarea") && FORUM.tid) fKoncept(FORUM.tid, ta.value);
+  const n = ta.matches && ta.matches("#forumview .fopsani textarea") && ta.parentNode.querySelector(".fonahled");
+  if (n && !n.hidden) n.innerHTML = fText(ta.value) || '<p class="rsmall">Zatím prázdné.</p>';
+});
+/* lišta formátování a náhled */
+document.addEventListener("mousedown", e => {
+  if (e.target.closest && e.target.closest("#forumview [data-fotb]")) e.preventDefault(); // pole si ponechá výběr
+});
+document.addEventListener("click", e => {
+  const b = e.target.closest && e.target.closest("#forumview [data-fotb]");
+  if (!b) return;
+  const box = b.closest(".fopsani"),
+    ta = box && box.querySelector("textarea");
+  if (!ta) return;
+  if (b.dataset.fotb === "nahled") {
+    const n = box.querySelector(".fonahled"),
+      zap = n.hidden;
+    n.hidden = !zap;
+    b.setAttribute("aria-pressed", String(zap));
+    if (zap) n.innerHTML = fText(ta.value) || '<p class="rsmall">Zatím prázdné.</p>';
+    return;
+  }
+  forumFormatuj(ta, b.dataset.fotb);
+});
+document.addEventListener("keydown", e => {
+  if (!(e.ctrlKey || e.metaKey) || e.altKey || !e.target.matches || !e.target.matches("#forumview .fopsani textarea")) return;
+  const k = {b: "b", i: "i", u: "u"}[e.key.toLowerCase()];
+  if (!k) return;
+  e.preventDefault();
+  forumFormatuj(e.target, k);
+});
+/* skrytý text v příspěvku: klepnutím nebo Enterem se odkryje */
+document.addEventListener("click", e => {
+  const s = e.target.closest && e.target.closest("#forumview .fospoil");
+  if (s) s.classList.toggle("on");
+});
+document.addEventListener("keydown", e => {
+  if ((e.key === "Enter" || e.key === " ") && e.target.matches && e.target.matches("#forumview .fospoil")) {
+    e.preventDefault();
+    e.target.classList.toggle("on");
+  }
 });
 document.addEventListener("change", e => {
   const s = e.target;
   if (!s.matches || !s.matches("#forumview [data-fovloz]") || !s.value) return;
-  const ta = document.querySelector("#forumview textarea");
+  const ta = (s.closest(".fopsani") || document).querySelector("textarea");
   if (!ta) return;
   const druh = s.dataset.fovloz,
     [i, n] = s.value.split("|");
@@ -961,7 +1119,7 @@ document.addEventListener("click", e => {
       p = ((FORUM.tema || {}).prispevky || []).find(x => x.id === +d.foupr);
     if (!a || !p) return;
     a.querySelector(".fotxt").outerHTML =
-      `<form class="foform" data-foupf="${p.id}"><textarea name="t" rows="6" maxlength="8000" required>${besc(p.t)}</textarea><p><button class="gbtn">Uložit</button> <button type="button" class="gbtn ghost" data-fozrus>Zrušit</button></p></form>`;
+      `<form class="foform" data-foupf="${p.id}"><div class="fopsani">${forumListaHtml()}<textarea name="t" rows="6" maxlength="8000" required aria-label="Upravit příspěvek">${besc(p.t)}</textarea><div class="fonahled fotxt" hidden aria-live="polite"></div></div><p><button class="gbtn">Uložit</button> <button type="button" class="gbtn ghost" data-fozrus>Zrušit</button></p></form>`;
     a.querySelector("footer").hidden = true;
   } else if (d.fozrus !== undefined) {
     forumVykresli();

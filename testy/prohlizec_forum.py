@@ -21,7 +21,7 @@ async def main():
     await g.goto(BASE+"#forum/n/aktivni-questy");await g.wait_for_selector("[data-fonove]",timeout=10000)
     await g.fill("[name=nazev]","Cesta do Kutné Hory");await g.fill("[name=datum]","14. března 1458")
     await g.check('input[name=ceka][value=balduin]')
-    await g.fill("[name=t]","Za městskou bránou na vás čeká povoz.\n\nCo uděláš?");await g.click("[data-fonove] button")
+    await g.fill("[name=t]","Za městskou bránou na vás čeká povoz.\n\nCo uděláš?");await g.click("[data-fonove] button:has-text('Založit téma')")
     await g.wait_for_selector(".foprisp .fopris",timeout=10000)
     tid=await g.evaluate("FORUM.tid")
     chk("Čeká se na" in await g.inner_text(".fotstav"),"vypravěč vidí, na koho se čeká")
@@ -56,6 +56,12 @@ async def main():
     await pl.click(".fokostky summary");await pl.fill("[data-fohl]","Přesvědčování");await pl.fill("[data-fohf]","1k20+5");await pl.check("[data-fohz]");await pl.click("[data-fohod]")
     await pl.wait_for_selector(".fohodchip",timeout=5000)
     chk("Přesvědčování 1k20+5" in await pl.inner_text(".fohodyl") and "Závoj k6" in await pl.inner_text(".fohodyl"),"hráč hodí kostkou se Závojem")
+    # lišta formátování: tučně obalí výběr, náhled ukáže výsledek
+    await pl.fill(".foformpsani textarea","Ahoj");await pl.evaluate("(t=>t.setSelectionRange(0,4))(document.querySelector('.foformpsani textarea'))")
+    await pl.click('.foformpsani [data-fotb="b"]');await pl.click('.foformpsani [data-fotb="nahled"]')
+    chk(await pl.input_value(".foformpsani textarea")=="**Ahoj**" and await pl.locator(".foformpsani .fonahled b").inner_text()=="Ahoj","lišta: tučně obalí výběr a náhled ho ukáže")
+    await pl.locator(".foformpsani .fopsani").screenshot(path=os.path.join(VYSTUP,"forum-lista-mobil.png"))
+    await pl.click('.foformpsani [data-fotb="nahled"]')
     # hod z karty: stejný výpočet jako na kartě, zapíše se i do herního záznamu
     n0=await pl.evaluate("HODY.length")
     await pl.select_option("[data-fokh]","dv:Persuasion");await pl.click("[data-fokhod]")

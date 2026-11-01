@@ -4189,3 +4189,23 @@ html.mmpc:not(.mmjenhra) .bdmweb{display:grid;font-size:1.2rem}
 .fovyzvy{margin-top:6px;display:flex;flex-direction:column;gap:4px}
 .fovyzva{font-family:var(--f-label);border-left:3px solid var(--kat);padding:2px 8px;overflow-wrap:anywhere}.fovyzva .gbtn{padding:2px 10px;font-size:.85rem;margin-left:4px}
 .fochip.fook{border-color:var(--vrn);color:var(--vrn);font-weight:700}.fosoin{width:5.5em}
+/* lišta formátování příspěvku (24b) */
+.fopsani{display:flex;flex-direction:column;border:1px solid var(--rule);border-radius:3px;background:var(--bg)}
+.fopsani:focus-within{border-color:var(--kat)}
+.fopsani textarea{border:0!important;border-radius:0 0 3px 3px;outline:none;min-height:8em;resize:vertical}
+.fotb{display:flex;flex-wrap:wrap;align-items:center;gap:4px;padding:6px 8px;background:var(--land);border-bottom:1px solid var(--rule)}
+.fotbb{min-width:34px;height:32px;padding:0 9px;font-family:var(--f-label);font-size:.92rem;line-height:1;color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:3px;cursor:pointer}
+.fotbb:hover{border-color:var(--ink)}.fotbb:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
+.fotbb[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.fotb-b{font-weight:700}.fotb-i{font-style:italic;font-family:var(--f-body)}.fotb-u{text-decoration:underline}.fotb-s{text-decoration:line-through}
+.fotb-q,.fotb-ul{font-size:1.25rem}.fotb-nahled{margin-left:auto}
+.fotbsep{width:1px;height:22px;background:var(--rule);margin:0 2px}
+.fopsani .fovloz{padding:6px 8px;border-bottom:1px solid var(--rule)}
+.fonahled{padding:10px 12px;border-top:1px dashed var(--rule);background:var(--paper)}
+.fotxt .foh{font-family:var(--f-nadp);margin:.4em 0 .3em;font-size:1.15rem}.fotxt .foh1{font-size:1.35rem}.fotxt .foh3{font-size:1.02rem}
+.fotxt .foquote{margin:0 0 .6em;padding:4px 12px;border-left:3px solid var(--gold);background:var(--land);font-style:italic}
+.fotxt ul,.fotxt ol{margin:0 0 .6em;padding-left:1.4em}.fotxt hr{border:0;border-top:1px solid var(--rule);margin:.8em 0}
+.fospoil{background:var(--ink);color:transparent;border-radius:2px;padding:0 3px;cursor:pointer;user-select:none}
+.fospoil.on{background:var(--land);color:inherit;user-select:auto}
+.foooct{color:var(--muted);font-family:var(--f-label);font-size:.92em}
+@media (max-width:700px){.fotbb{min-width:40px;height:40px}.fotb-nahled{margin-left:0}}
