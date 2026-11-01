@@ -113,7 +113,7 @@ function povSeznamHtml(nadpis) {
   const L = povSeznam();
   if (!L.length)
     return GMV
-      ? `<p class="rsmall">Družina zatím u žádného rodu nemá pověst. Změníš ji v infoboxu rodu (Zemské desky) nebo v panelu města na mapě tlačítky − a +, či v pultu › Nástroje.</p>`
+      ? `<p class="rsmall">Družina zatím u žádného rodu ani města nemá pověst. Změníš ji v infoboxu rodu (Zemské desky) nebo v panelu města na mapě tlačítky − a +, či v pultu › Nástroje.</p>`
       : "";
   return `${nadpis ? `<h3 class="uvh2">Pověst družiny</h3>` : ""}<ul class="povlist">${L.map(id => {
     const f = byId[id],

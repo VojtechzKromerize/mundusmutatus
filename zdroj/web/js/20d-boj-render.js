@@ -260,7 +260,7 @@ function bojAktivni() {
           .join("") ||
         (bojVybranaKarta(s)
           ? ""
-          : `<p class="bdetnic">${bi("tah")} V záložce Nepřátelé nebo Družina klikni na účastníka – jeho karta se ukáže tady. Sama se sem přepne karta toho, kdo je na tahu.</p>`)
+          : `<p class="bdetnic">${bi("tah")} V záložce ${s.scena ? "NPC" : "Nepřátelé"} nebo Družina klikni na účastníka – jeho karta se ukáže tady.${s.scena ? "" : " Sama se sem přepne karta toho, kdo je na tahu."}</p>`)
       : "",
     detl: gm ? [...nepr, ...spoj].filter(otv).map(n => [n.id, bojKarta(s, n, gm)]) : [],
     tabs: bojTaby(s, gm, P0),

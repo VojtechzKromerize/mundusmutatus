@@ -1633,7 +1633,7 @@ h3 .pmore{margin:0 0 0 10px;vertical-align:middle}
 .phgenp dt{color:var(--muted);font-variant:small-caps}
 .phgenp dd{margin:0}
 .phgenb{display:flex;gap:6px}
-@media (max-width:640px){.phbtn{left:10px;bottom:10px;font-size:1rem;padding:6px 12px}.phpanel{left:8px;bottom:54px;width:calc(100vw - 16px)}}
+@media (max-width:640px){.phbtn{left:10px;bottom:10px;font-size:1rem;padding:6px 12px;min-height:44px}body:has(.phbtn) .view:not([hidden]){padding-bottom:64px}.phpanel{left:8px;bottom:54px;width:calc(100vw - 16px)}}
 @media print{.phbtn,.phpanel{display:none!important}}
 /* Boj: stavy nepřátel a uložené skupiny */
 .bskup{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:8px}
@@ -1724,6 +1724,8 @@ html.gmv .wrap{margin-bottom:56px}
 #vyview .vyhead{margin-bottom:0}#vyview .vyhead .arttitle{font-size:2rem;margin:0}#vyview .bojlead{font-size:.95rem}
 #vyview .vytabs{margin:2px 0 8px}
 #vyview .vygrid{grid-template-columns:minmax(0,1.35fr) minmax(300px,1fr);gap:14px}
+/* audit 2026-11-01: na telefonu jeden sloupec – pravidlo výše má vyšší specificitu než obecné .vygrid v @media */
+@media (max-width:900px){#vyview .vygrid{grid-template-columns:minmax(0,1fr)}}
 #vyview .vycard{padding:8px 10px 10px}#vyview .vycard .uvh2{font-size:1.05rem;margin:0 0 4px}
 #vyview .vypanely{margin-top:12px;gap:10px;display:block}
 #vyview .vykv{display:grid;grid-template-columns:max-content 1fr;gap:1px 10px;margin:0 0 4px}#vyview .vykv dt,#vyview .vykv dd{margin:0}
@@ -3476,7 +3478,8 @@ html.mmcela .wrap{background:var(--kbt-bg,#1f0c10)}
 html.mmcela .papir{display:none}
 html.mmcela .hraja .bdm{min-height:100vh;min-height:100dvh}
 /* záložky karty se na telefonu vejdou všechny (iPhone kreslil „Poznámky“ oříznuté) */
-@media (max-width:480px){.bdmtabs button .bdmzik{height:30px}.bdmsr{gap:18px}.bdmtabs button{flex:1 1 0;min-width:0;padding:7px 1px 6px;font-size:.58rem}.bdmtabs button span{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}
+/* 2026-11-01 (audit): písmo se už nezmenšuje na 9 px a názvy se neořezávají – lišta se posouvá do strany, pravý okraj slábne jako náznak */
+@media (max-width:480px){.bdmtabs button .bdmzik{height:30px}.bdmsr{gap:18px}.bdmtabs{scroll-snap-type:x proximity;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 22px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 22px),transparent)}.bdmtabs button{flex:0 0 auto;min-width:56px;padding:7px 5px 6px;font-size:.7rem;scroll-snap-align:start;white-space:nowrap}}
 /* tlačítko přidání zdatnosti: stačí Enter, křížek by se tlačil ven z rámečku */
 .bdmzf .bdmzx{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 /* šuplík pravidel v boji na telefonu: dole u palce, ne přes půl obrazovky nad tlačítky karty */
@@ -4209,3 +4212,11 @@ html.mmpc:not(.mmjenhra) .bdmweb{display:grid;font-size:1.2rem}
 .fospoil.on{background:var(--land);color:inherit;user-select:auto}
 .foooct{color:var(--muted);font-family:var(--f-label);font-size:.92em}
 @media (max-width:700px){.fotbb{min-width:40px;height:40px}.fotb-nahled{margin-left:0}}
+
+/* ===== audit 2026-11-01: základní vzhled polí a výběrů (dřív šedé pole prohlížeče, v tmavém režimu šedá na tmavé) ===== */
+/* :where() má nulovou specificitu – každé dosavadní pravidlo pro konkrétní formulář vyhrává */
+:where(input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=file]):not([type=color]):not([type=image]):not([type=submit]):not([type=button]),select,textarea){font:inherit;color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:3px;padding:4px 7px;max-width:100%;box-sizing:border-box}
+:where(.bdm,.bdmlist) :where(input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=file]),select,textarea){color:var(--kb-tx);background:var(--kb-pan2);border-color:var(--kb-bd)}
+/* formuláře v řádku (kvlh, kucf) se na telefonu zalomí a nic nevyčnívá z rámu */
+.kvlh label,.kucf label{max-width:100%;flex-wrap:wrap}
+.kvlh select,.kvlh input:not([type=checkbox]):not([type=radio]),.kucf select{max-width:100%;min-width:0}

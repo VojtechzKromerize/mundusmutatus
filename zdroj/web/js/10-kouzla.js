@@ -374,7 +374,7 @@ function renderKouzla(b) {
       else if (t.closest("[data-kzzrus]")) {
         const id = decodeURIComponent(location.hash.split("/")[1] || ""),
           x = KZBY[id];
-        det.innerHTML = x ? kzKarta(x) : `<p class="kzprazdne">Vyber kouzlo vlevo.</p>`;
+        det.innerHTML = x ? kzKarta(x) : `<p class="kzprazdne">Vyber kouzlo ze seznamu.</p>`;
       }
     });
     box.addEventListener("submit", e => {
@@ -389,7 +389,7 @@ function renderKouzla(b) {
       kzFiltr();
       const d = box.querySelector(".kzdet"),
         x = b && KZBY[b];
-      d.innerHTML = x ? kzKarta(x) : `<p class="kzprazdne">Vyber kouzlo vlevo.</p>`;
+      d.innerHTML = x ? kzKarta(x) : `<p class="kzprazdne">Vyber kouzlo ze seznamu.</p>`;
       pojZnac(d);
       if (x && matchMedia("(max-width:760px)").matches) d.scrollIntoView({block: "start"});
     })

@@ -1677,7 +1677,7 @@ function bdmUtoky(s, h, K, gm, X) {
    vyčerpaná, modrá = reakce volná. Kouzla zůstávají v Kouzlech, u bonusové akce a reakce jsou jen jmenovaná. */
 const BDMAF = [
   ["A", "Akce"],
-  ["BA", "Bonusová"],
+  ["BA", "Bonus"],
   ["R", "Reakce"],
   ["omez", "Omezené"],
 ];
