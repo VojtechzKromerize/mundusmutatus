@@ -246,6 +246,13 @@ Hlavní orientační body:
 - Nové chování doplň do příslušného `prohlizec_*.py`. Vzhled kontroluj jako vypravěč i hráč, desktop i mobil,
   světlý i tmavý režim.
 
+## UI/UX skills
+
+Vkus, přístupnost, zakázané vzory, hlas textů a ikony webu jsou v `.ux-profile.md` (styl kodexu – ozdoby nejsou chyba).
+Před prací na rozhraní nebo textech přečti `.ux-profile.md` a pak příslušný doménový skill (page-patterns, viewports, forms, surfaces,
+loaders, empty-states, verbs, motion). Novou stránku začni pojmenováním vzoru (page-patterns). Rozvržení musí projít `viewports` při 375
+a 1280 px. Před dokončením práce na UI spusť `ux-audit`.
+
 ## Konvence
 
 - **Jazyk:** celé rozhraní česky; pojmy a názvy kategorií pro hráče česky, hráči neumí latinu.
